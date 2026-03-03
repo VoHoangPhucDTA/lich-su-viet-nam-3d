@@ -1,114 +1,122 @@
-# parse_sgk_to_structure.py
 import re
 import json
 import os
 import sys
 
-def parse_content(text: str) -> dict:
+def parse_content(full_text: str) -> dict:
     # ==================== CLEAN TEXT ====================
-    text = re.sub(r'#### Page \d+', '', text, flags=re.IGNORECASE)
-    text = re.sub(r'Hình \d+\.\d+\..*?\(.*?\)', '', text, flags=re.DOTALL)
-    text = re.sub(r'\(Image:.*?\)', '', text, flags=re.DOTALL)
-    text = re.sub(r'Sơ đồ \d+\.\d+\..*?', '', text, flags=re.DOTALL)
-    text = re.sub(r'Bảng \d+\.\d+\..*?(?=\n\n|\Z)', '', text, flags=re.DOTALL | re.MULTILINE)
-    text = text.strip()
+    full_text = re.sub(r'#### Page \d+', '', full_text, flags=re.IGNORECASE)
+    full_text = re.sub(r'Hình \d+\.\d+\..*?\(.*?\)', '', full_text, flags=re.DOTALL)
+    full_text = re.sub(r'\(Image:.*?\)', '', full_text, flags=re.DOTALL)
+    full_text = re.sub(r'Sơ đồ \d+\.\d+\..*?', '', full_text, flags=re.DOTALL)
+    full_text = re.sub(r'Bảng \d+\.\d+\..*?(?=\n\n|\Z)', '', full_text, flags=re.DOTALL | re.MULTILINE)
+    full_text = full_text.strip()
 
-    # ==================== STRUCTURE ====================
-    result = {
-        "class": "Lop10", # thay đổi tên class theo file sgk
-        "topics": [
-            {
-                "topic_number": 1,
-                "topic_title": "LỊCH SỬ VÀ SỬ HỌC",
-                "lessons": [
-                    {
-                        "lesson_number": 1,
-                        "lesson_title": "HIỆN THỰC LỊCH SỬ VÀ NHẬN THỨC LỊCH SỬ",
-                        "header": "",
-                        "sections": []
-                    }
-                ]
-            }
-        ]
-    }
+    result = {"class": "Lop10", "topics": []}
 
-    lesson = result["topics"][0]["lessons"][0]
+    # ==================== TẤT CẢ CHỦ ĐỀ ====================
+    # Dùng split để chia nhỏ theo CHUDE nhằm tránh lặp dữ liệu
+    topic_blocks = re.split(r'\n(?=CHUDE\d+)', full_text, flags=re.IGNORECASE)
 
-    # Header: phần trước LEVEL1 đầu tiên
-    header_match = re.search(r'^(.*?)(?=LEVEL1)', text, re.DOTALL)
-    lesson["header"] = header_match.group(1).strip() if header_match else ""
+    for block in topic_blocks:
+        if not block.strip(): continue
+        
+        # Lấy header của Chủ đề
+        topic_header_match = re.match(r'CHUDE(\d+)\s*\nChủ đề \d+:\s*(.*)', block, re.IGNORECASE)
+        if not topic_header_match: continue
+        
+        topic_num = int(topic_header_match.group(1))
+        topic_title = topic_header_match.group(2).split('\n')[0].strip()
+        
+        topic = {"topic_number": topic_num, "topic_title": topic_title, "lessons": []}
 
-    # ==================== PARSE LEVELS (ĐÃ SỬA) ====================
-    level_pattern = r'(LEVEL\d)\s*(.*?)(?=(?:LEVEL\d|\Z))'   # ← ĐÃ SỬA: thêm ?: để non-capturing
-    matches = re.findall(level_pattern, text, re.DOTALL)
+        # ==================== TẤT CẢ BÀI ====================
+        # Chia nhỏ tiếp theo BAI
+        lesson_blocks = re.split(r'\n(?=BAI\d+)', block, flags=re.IGNORECASE)
+        
+        for l_block in lesson_blocks:
+            if not l_block.strip() or 'BAI' not in l_block.upper(): continue
+            
+            lesson_match = re.match(r'BAI(\d+)\s*\n#+ \s*Bài \d+\s*(.*)', l_block, re.IGNORECASE)
+            if not lesson_match: continue
+            
+            lesson_num = int(lesson_match.group(1))
+            lesson_title = lesson_match.group(2).split('\n')[0].strip()
+            
+            # Tách Header và Levels
+            # Header là phần từ sau tên Bài đến trước LEVEL1 đầu tiên
+            parts = re.split(r'\n(?=LEVEL\d)', l_block, flags=re.IGNORECASE)
+            header_raw = parts[0]
+            header_content = re.sub(r'BAI\d+\s*\n#+ \s*Bài \d+.*?\n', '', header_raw, count=1, flags=re.DOTALL).strip()
 
-    sections = []
-    current_level1 = None
-    current_level2 = None
-
-    for level, content in matches:          # ← Bây giờ chỉ còn 2 giá trị
-        content = content.strip()
-        if not content:
-            continue
-
-        # Tách title và body
-        title_match = re.match(r'(\d+(?:\.\d+)?\.?\s*.*?)\n(.*)', content, re.DOTALL)
-        title = title_match.group(1).strip() if title_match else ""
-        body = title_match.group(2).strip() if title_match else content
-
-        if level == 'LEVEL1':
-            current_level1 = {
-                "level": "1",
-                "title": title or "1. Lịch sử, hiện thực lịch sử và nhận thức lịch sử",
-                "content": body,
-                "subsections": []
-            }
-            sections.append(current_level1)
+            sections = []
+            current_level1 = None
             current_level2 = None
 
-        elif level == 'LEVEL2':
-            if current_level1:
-                current_level2 = {
-                    "level": "2",
-                    "title": title or "2. Đối tượng, chức năng, nhiệm vụ và nguyên tắc cơ bản của Sử học",
-                    "content": body,
-                    "sub_subsections": []
-                }
-                current_level1["subsections"].append(current_level2)
+            # Duyệt qua các phần LEVEL đã split
+            for i in range(1, len(parts)):
+                item = parts[i].strip()
+                if not item: continue
+                
+                # Tách Tag (LEVEL1) và Nội dung còn lại
+                item_split = item.split('\n', 1)
+                tag = item_split[0].strip().upper() # LEVEL1, LEVEL2...
+                content_block = item_split[1].strip() if len(item_split) > 1 else ""
+                
+                # Tách Tiêu đề (dòng đầu của content_block) và Nội dung thực sự
+                content_lines = content_block.split('\n', 1)
+                title = content_lines[0].replace('##', '').strip()
+                body = content_lines[1].strip() if len(content_lines) > 1 else ""
 
-        elif level == 'LEVEL3':
-            sub = {
-                "level": title.split()[0] if title and title[0].isdigit() else "2.1",
-                "title": title,
-                "content": body
-            }
-            if current_level2:
-                current_level2["sub_subsections"].append(sub)
-            elif current_level1:
-                if "sub_subsections" not in current_level1:
-                    current_level1["sub_subsections"] = []
-                current_level1["sub_subsections"].append(sub)
+                if tag == 'LEVEL1':
+                    current_level1 = {
+                        "level": "1",
+                        "title": title,
+                        "content": body,
+                        "subsections": []
+                    }
+                    sections.append(current_level1)
+                    current_level2 = None
+                
+                elif tag == 'LEVEL2':
+                    if current_level1 is not None:
+                        current_level2 = {
+                            "level": "2",
+                            "title": title,
+                            "content": body,
+                            "sub_subsections": []
+                        }
+                        current_level1["subsections"].append(current_level2)
+                
+                elif tag == 'LEVEL3':
+                    sub = {
+                        "level": title.split()[0] if title and title[0].isdigit() else "3",
+                        "title": title,
+                        "content": body
+                    }
+                    if current_level2:
+                        current_level2["sub_subsections"].append(sub)
+                    elif current_level1:
+                        if "sub_subsections" not in current_level1:
+                            current_level1["sub_subsections"] = []
+                        current_level1["sub_subsections"].append(sub)
 
-    lesson["sections"] = sections
+            topic["lessons"].append({
+                "lesson_number": lesson_num,
+                "lesson_title": lesson_title,
+                "header": header_content,
+                "sections": sections
+            })
 
-    # Thêm phần câu hỏi cuối (1., 2., 3.)
-    trailing_match = re.search(r'(1\..*?3\..*?)$', text, re.DOTALL)
-    if trailing_match and sections:
-        sections[-1]["content"] = (sections[-1].get("content", "") + "\n\n" + trailing_match.group(1).strip()).strip()
+        result["topics"].append(topic)
 
     return result
 
-
-# ===================== MAIN =====================
 if __name__ == "__main__":
-    if len(sys.argv) > 1:
-        input_file = sys.argv[1]
-    else:
-        input_file = "../data/txt/sgk11.txt"   # ← Đổi tên file TXT của bạn nếu khác
-
+    # Giữ nguyên phần main của bạn
+    input_file = sys.argv[1] if len(sys.argv) > 1 else "../data/txt/sgk12.txt"
     if not os.path.exists(input_file):
         print(f"❌ Không tìm thấy file: {input_file}")
-        print("   Cách dùng: python parse_sgk_to_structure.py ten_file.txt")
         sys.exit(1)
 
     with open(input_file, "r", encoding="utf-8") as f:
@@ -125,4 +133,3 @@ if __name__ == "__main__":
 
     print(f"✅ Parse thành công!")
     print(f"   File JSON đã lưu tại: {output_file}")
-    print(f"   Đường dẫn đầy đủ: {os.path.abspath(output_file)}")
