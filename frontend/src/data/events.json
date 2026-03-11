@@ -1,0 +1,67 @@
+[
+  {
+    "id": "event_multi",
+    "parent_id": null,
+    "name": "Chiến đấu bảo vệ thủ đô Hà Nội",
+    "start_time": "1946-12-19T20:00:00Z",
+    "end_time": "1947-02-18T00:00:00Z",
+    "description": "Mở đầu toàn quốc kháng chiến, giam chân địch trong thành phố...",
+    "event_type": "Quân sự",
+    "geo_type": "multi_region",
+    "coordinates": {
+      "lat": 21.028511,
+      "lng": 105.804817
+    },
+    "region_ids": {
+      "main": [
+        "HàNội"
+      ],
+      "sub": [
+        "HòaBình"
+      ]
+    }
+  },
+  {
+    "id": "event_single",
+    "parent_id": null,
+    "name": "Chiến thắng Điện Biên Phủ",
+    "start_time": "1954-03-13T00:00:00Z",
+    "end_time": "1954-05-07T00:00:00Z",
+    "description": "Kết thúc kháng chiến chống Pháp",
+    "event_type": "Quân sự",
+    "geo_type": "single_point",
+    "coordinates": {
+      "lat": 21.391745,
+      "lng": 103.015339
+    },
+    "region_ids": {
+      "main": [
+        "Điện Biên"
+      ]
+    }
+  },
+  {
+    "id": "event_nationwide",
+    "parent_id": null,
+    "name": "Cách mạng Tháng Tám",
+    "start_time": "1945-08-14T00:00:00Z",
+    "end_time": "1945-08-30T00:00:00Z",
+    "description": "Giành chính quyền trên cả nước",
+    "event_type": "Chính trị",
+    "geo_type": "nationwide",
+    "coordinates": {
+      "lat": 16.0,
+      "lng": 108.0
+    }
+  },
+  {
+    "id": "event_no_location",
+    "parent_id": null,
+    "name": "Đại hội đại biểu toàn quốc lần thứ III",
+    "start_time": "1960-09-05T00:00:00Z",
+    "end_time": "1960-09-10T00:00:00Z",
+    "description": "Đề ra đường lối cách mạng mới",
+    "event_type": "Chính trị",
+    "geo_type": "no_location"
+  }
+]
