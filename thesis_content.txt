@@ -1,0 +1,238 @@
+
+	ĐỀ CƯƠNG CHI TIẾT KHOÁ LUẬN TỐT NGHIỆP
+Tên đề tài:
+Xây dựng Ứng dụng Web hỗ trợ học sinh trung học phổ thông học Lịch sử Việt Nam. 
+Sinh viên thực hiện: 
+Sinh viên 1: 
+- MSSV: 22130118 
+- Tên: Huỳnh Đăng Khanh 
+- Lớp: DH22DTA 
+- Khoa: Công nghệ thông tin 
+- Khóa: 22 
+- Số điện thoại: 0962915532
+
+Sinh viên 2: 
+- MSSV: 22130222 
+- Tên: Võ Hoàng Phúc 
+- Lớp: DH22DTA 
+- Khoa: Công nghệ thông tin 
+- Khóa: 22 
+- Số điện thoại: 0334202227
+Giảng viên hướng dẫn: ThS. Nguyễn Đức Công Song
+Lý do chọn đề tài:
+Hiện nay, việc học Lịch sử Việt Nam ở bậc THPT vẫn chủ yếu thiên về ghi nhớ thụ động, khiến học sinh khó hình dung rõ nét bối cảnh không gian và dòng chảy thời gian của các sự kiện lịch sử. Các ứng dụng học tập phổ biến thường chỉ cung cấp nội dung tĩnh, thiếu yếu tố tương tác trực quan, dẫn đến hiệu quả tiếp thu bị hạn chế đáng kể. 
+Tuy nhiên, sự bùng nổ của công nghệ Web 3D như CesiumJS kết hợp Trí tuệ Nhân tạo (RAG) đang mở ra cơ hội đột phá, cho phép trực quan hóa 3D sống động và tự động sinh câu hỏi ôn tập dựa trên ngữ liệu thực tế. Bên cạnh đó, nhu cầu ôn luyện qua các bài tập, đề thi lịch sử các lớp 10, 11, 12 và thi tốt nghiệp THPT rất cao, đòi hỏi ứng dụng học tập tích hợp thêm các tính năng này để hỗ trợ học sinh chủ động kiểm tra, đánh giá. 
+Sự kết hợp hài hòa các yếu tố này hứa hẹn sẽ nâng tầm trải nghiệm học tập, khơi dậy hứng thú mãnh liệt và củng cố khả năng ghi nhớ lâu dài cho học sinh.
+Mục tiêu của đề tài:
+Mục tiêu tổng quát: 
+Xây dựng ứng dụng Web học Lịch sử Việt Nam tích hợp công nghệ bản đồ 3D và Trí tuệ Nhân tạo nhằm nâng cao hiệu quả học tập, tăng khả năng ghi nhớ và khơi dậy hứng thú của học sinh THPT đối với môn Lịch sử.
+Mục tiêu cụ thể:
+Nghiên cứu và ứng dụng thư viện CesiumJS trong việc xây dựng bản đồ 3D tương tác, cho phép học sinh quan sát trực quan địa hình, vị trí địa lý và diễn biến không gian – thời gian của các sự kiện lịch sử Việt Nam. Tính năng này giúp người học hiểu sâu hơn về bối cảnh chiến lược, đường hành quân và phạm vi ảnh hưởng của từng sự kiện.
+Nghiên cứu và triển khai mô hình RAG (Retrieval-Augmented Generation) nhằm tự động sinh câu hỏi trắc nghiệm chất lượng cao dựa trên nguồn tài liệu chuẩn gồm SGK Lịch sử THPT và Wikipedia tiếng Việt. Hệ thống có khả năng phân tích nội dung, truy xuất tri thức liên quan và tạo ra câu hỏi có độ chính xác và đa dạng cao, phục vụ mục tiêu đánh giá khả năng ghi nhớ, tư duy phản biện và hiểu sâu nội dung lịch sử của học sinh.
+Xây dựng hoàn chỉnh Ứng dụng Web học Lịch sử với các chức năng cốt lõi: bản đồ 3D trực quan, thanh thời gian tương tác (interactive timeline), trình bày sự kiện đa phương tiện (hình ảnh, âm thanh, popup chi tiết), giúp tái hiện sinh động tiến trình lịch sử.
+Phát triển module ôn tập và luyện thi, bao gồm hệ thống bài tập – đề thi thử cho các lớp 10, 11, 12 và đề thi tốt nghiệp THPT, cho phép học sinh làm bài, kiểm tra kết quả và tự đánh giá năng lực theo từng giai đoạn học tập.
+Tích hợp Trí tuệ Nhân tạo (AI Service) với hai mô-đun chính:
+AI Question Generator: ứng dụng mô hình ngôn ngữ và cơ chế RAG để tự động tạo bộ câu hỏi trắc nghiệm, phân loại theo độ khó và chủ đề, giúp học sinh ôn luyện hiệu quả, cá nhân hóa nội dung học tập theo năng lực.
+Text-to-Speech (TTS): sử dụng công nghệ chuyển văn bản thành giọng nói tiếng Việt tự nhiên, hỗ trợ học sinh nghe lại nội dung bài học, tóm tắt sự kiện, hoặc câu hỏi trắc nghiệm, tăng khả năng ghi nhớ và tiếp cận linh hoạt, đặc biệt hữu ích cho người học bằng thính giác hoặc học sinh khiếm thị.
+Hệ thống được triển khai và vận hành ổn định trên cơ sở dữ liệu tích hợp từ SGK Lịch sử THPT, Wikipedia tiếng Việt và kho đề thi lịch sử chính thức qua các năm, đảm bảo độ tin cậy, độ bao phủ và tính thực tiễn trong quá trình học và ôn tập.
+Nội dung và phạm vi nghiên cứu: 
+6.1. Nội dung nghiên cứu
+Tìm hiểu và ứng dụng CesiumJS để hiển thị bản đồ Trái Đất 3D, tái hiện địa danh, địa hình và diễn biến không gian – thời gian của các sự kiện lịch sử Việt Nam. Xây dựng timeline tương tác, cho phép học sinh theo dõi tiến trình các giai đoạn lịch sử, kết hợp popup, hình ảnh và video minh họa
+Áp dụng mô hình RAG (Retrieval-Augmented Generation) kết hợp với cơ sở dữ liệu vector (FAISS/Chroma) để: Tự động sinh câu hỏi trắc nghiệm theo từng chương, từng giai đoạn lịch sử Việt Nam (lớp 10, 11, 12). Phân loại câu hỏi theo mức độ nhận biết – thông hiểu – vận dụng – vận dụng cao, bám sát ma trận đề thi tốt nghiệp THPT. Cho phép tạo đề luyện thi ngẫu nhiên hoặc đề tổng hợp theo năm học để học sinh tự đánh giá năng lực. Xây dựng AI Service riêng sử dụng FastAPI và LangChain, cung cấp API sinh câu hỏi, sinh đáp án, và gợi ý lời giải thích ngắn gọn.
+Nghiên cứu công nghệ chuyển văn bản thành giọng nói (Text-to-Speech – TTS): Tích hợp API FPT.AI TTS để đọc thuyết minh các sự kiện lịch sử bằng giọng chuẩn tiếng Việt tự nhiên, giúp học sinh học qua kênh nghe – nhìn hiệu quả hơn. Cho phép chọn giọng đọc (nam/nữ) và tốc độ đọc phù hợp với từng đối tượng học sinh.
+Xây dựng hệ thống quản lý học tập (Learning Module): Quản lý tiến độ học tập, điểm số quiz, lịch sử làm bài của học sinh. Cho phép học sinh lưu lại bài đã làm, xem lại câu sai và gợi ý lời giải. Hỗ trợ chế độ ôn tập nhanh theo chủ đề hoặc giai đoạn lịch sử cụ thể (VD: Kháng chiến chống Pháp, Cách mạng tháng Tám,...).
+6.1.1. Cách tái hiện địa danh, địa hình và diễn biến không gian – thời gian
+a) Phân loại sự kiện theo loại sự kiện (event_type):
+Các sự kiện lịch sử được phân loại theo 4 nhóm chính (event_type) dựa trên nguồn tham khảo từ Britannica[10] và tài liệu chuyên đề Lịch sử THPT[11]:
+Quân sự: bao gồm các trận đánh, chiến dịch, chiến tranh, khởi nghĩa vũ trang.
+Chính trị: bao gồm ngoại giao, hiệp định, hội nghị, cách mạng, khởi nghĩa.
+Kinh tế: bao gồm cải cách kinh tế, chính sách kinh tế, công nghiệp hóa.
+Văn hóa - Xã hội: bao gồm tư tưởng, giáo dục, văn học, nghệ thuật, phong trào xã hội.
+Cách xác định event_type:
+Sự kiện cấp cao nhất (cấp 0): mapping TỰ ĐỘNG từ event_subtype (thuộc tính instance_of trên Wikidata). Ví dụ: battle, military campaign, military operation → Quân sự; revolution, uprising, treaty, conference → Chính trị; economic reform, land reform → Kinh tế; cultural movement, literary movement → Văn hóa - Xã hội.
+Sự kiện cấp con: KẾ THỪA event_type từ sự kiện cha.
+b) Phân loại theo nhóm phụ (event_subtype):
+event_subtype được lấy từ thuộc tính instance_of trên Wikidata.
+Đây là thuộc tính TÙY CHỌN: có thể có hoặc không.
+Nếu có: hiển thị dạng tag trong popup để cung cấp thông tin chi tiết hơn.
+Nếu không có: bỏ qua, không hiển thị.
+c) Cấu trúc sự kiện phân cấp:
+Các sự kiện lịch sử được tổ chức theo cấu trúc phân cấp cha - con, tương tự cấu trúc thư mục trong Windows Explorer:
+Sự kiện cha: sự kiện lớn, bao quát, chứa nhiều sự kiện con bên trong.
+Sự kiện con: sự kiện nhỏ hơn, cụ thể hơn, thuộc về sự kiện cha.
+Cho phép nhiều cấp phân cấp (cha → con → cháu...).
+Mỗi sự kiện con kế thừa event_type từ cha nhưng có thể có geo_type và event_subtype riêng.
+d) Phân loại theo đặc điểm địa lý (geo_type):
+Mỗi sự kiện được phân loại theo đặc điểm địa lý để xác định cách hiển thị trên bản đồ:
+multi_region: sự kiện liên quan đến nhiều vùng địa lý, có vùng chính và vùng phụ. Hiển thị bằng marker và tô màu polygon các vùng liên quan (vùng chính màu đậm, vùng phụ màu nhạt).
+single_point: sự kiện diễn ra tại một điểm cụ thể. Hiển thị marker tại vị trí và polygon khu vực (nếu có).
+nationwide: sự kiện toàn quốc, không gắn địa điểm cụ thể. Hiển thị marker đại diện, popup ghi "Phạm vi: Toàn quốc".
+no_location: sự kiện không có địa điểm (ví dụ: kế hoạch, chính sách). Không có marker trên bản đồ, chỉ hiển thị trong danh sách sidebar và popup của sự kiện cha.
+e) Cách tái hiện địa danh:
+Việc tái hiện địa danh lịch sử được thực hiện dựa trên cấu trúc phân cấp và geo_type:
+Dữ liệu polygon ranh giới tỉnh/thành được lấy từ GADM (Global Administrative Areas).
+Mỗi sự kiện có địa điểm (geo_type ≠ no_location) đều có marker riêng trên bản đồ.
+Với multi_region: vùng chính tô màu đậm, vùng phụ tô màu nhạt.
+Với single_point: hiển thị marker và polygon khu vực (nếu có).
+Với nationwide: hiển thị marker đại diện tại vị trí trung tâm.
+Với no_location: không có marker, sự kiện chỉ hiển thị trong danh sách.
+f) Cách tái hiện địa hình:
+Địa hình 3D được hiển thị bằng dữ liệu Cesium World Terrain kết hợp với ảnh nền từ Bing Maps hoặc OpenStreetMap. Người dùng có thể xem chi tiết địa hình 3D (núi, sông suối, đồng bằng, độ cao) thông qua nút "Xem địa hình" trong popup. Nút này chỉ có với sự kiện có geo_type là multi_region hoặc single_point.
+g) Cách tái hiện diễn biến không gian – thời gian:
+Việc tái hiện diễn biến không gian – thời gian được thực hiện thông qua sự kết hợp giữa bản đồ 3D, thanh timeline, sidebar (navigation pane) và popup. Luồng tương tác như sau:
+Bước 1 - Kéo timeline:
+Người dùng kéo thanh timeline đến mốc thời gian cụ thể.
+Bản đồ hiển thị các marker sự kiện cấp cao nhất (cấp 0) có địa điểm.
+Sidebar cập nhật danh sách sự kiện theo dạng cây thư mục (có thể expand/collapse), hiển thị tất cả sự kiện kể cả no_location.
+Bước 2 - Click vào sự kiện cấp 0 (có sự kiện con):
+Bản đồ: ẨN tất cả markers cấp 0 khác, HIỆN markers và polygon của các sự kiện con có địa điểm.
+Popup bên phải hiển thị: tên sự kiện, thời gian, event_type, event_subtype (nếu có) dạng tag, mô tả ngắn, danh sách sự kiện con.
+Sidebar tự động expand sự kiện đang chọn.
+Bước 3A - Click vào sự kiện con có địa điểm và KHÔNG có sự kiện cháu:
+Bản đồ: ẨN markers sự kiện con khác, ZOOM vào gần marker sự kiện đang chọn, HIỆN polygon của sự kiện này.
+Popup hiển thị: thông tin sự kiện, nút [Xem chi tiết], nút [Xem địa hình] (nếu geo_type phù hợp), nút [Quay lại cha].
+Bước 3B - Click vào sự kiện con có địa điểm và CÓ sự kiện cháu:
+Bản đồ: ẨN markers sự kiện con khác (cùng cấp), HIỆN markers và polygon của các sự kiện cháu có địa điểm.
+Popup hiển thị: thông tin sự kiện con, danh sách sự kiện cháu, nút [Xem chi tiết], nút [Quay lại cha].
+Tiếp tục "drill down" nếu click vào sự kiện cháu.
+Bước 3C - Click vào sự kiện con không có địa điểm (no_location):
+Bản đồ: Camera KHÔNG di chuyển, giữ nguyên trạng thái hiển thị hiện tại.
+Popup hiển thị: thông tin sự kiện, ghi chú "Sự kiện này không gắn với địa điểm cụ thể", nút [Xem chi tiết], nút [Quay lại cha]. Không có nút [Xem địa hình].
+Bước 4 - Quay lại:
+Cách 1: Nhấn nút [Quay lại] hoặc [Quay lại cha] trong popup.
+Cách 2: Click vào vùng trống trên bản đồ.
+Cách 3: Click vào sự kiện khác trong sidebar.
+6.2. Phạm vi nghiên cứu
+Nguồn dữ liệu:
+Nội dung sự kiện lịch sử: Sách giáo khoa Lịch sử bộ Cánh Diều lớp 10, 11, 12 (Bộ GD&ĐT).
+Thông tin bổ sung: Wikidata API, Wikipedia tiếng Việt.
+Ranh giới hành chính: GADM (Global Administrative Areas) – dữ liệu polygon các tỉnh/thành Việt Nam.
+Địa hình 3D: Cesium World Terrain (Cesium Ion).
+Ảnh nền bản đồ: Bing Maps, OpenStreetMap.
+Hình ảnh minh họa: Wikipedia Commons, Bảo tàng Lịch sử Việt Nam.
+Dataset câu hỏi lịch sử: Huggingface/vnhist
+Cấu trúc đề thi: Bộ GD&ĐT (các năm).
+Giới hạn: 
+Phần trực quan hóa bản đồ 3D chủ yếu chỉ tập trung vào sự kiện và nhân vật lịch sử Việt Nam, không mở rộng sang lịch sử thế giới. Ưu tiên các sự kiện có yếu tố địa lý rõ ràng để hiển thị 3D. Phạm vi tự động sinh câu hỏi được giới hạn trong nội dung SGK THPT và các nguồn dữ liệu tiếng Việt đáng tin cậy, không bao gồm tài liệu tiếng Anh hay dữ liệu học thuật nâng cao.
+Sơ đồ kiến trúc hệ thống
+
+Cơ sở khoa học và thực tiễn: 
+Cơ sở khoa học
+CesiumJS là thư viện mã nguồn mở dựa trên WebGL/WebGPU, cho phép xây dựng và trực quan hóa dữ liệu không gian địa lý 3D trên nền web. Thư viện này hỗ trợ hiển thị bản đồ Trái Đất, địa hình, và các mô hình 3D giúp mô phỏng diễn biến lịch sử theo không gian và thời gian một cách trực quan.
+Retrieval-Augmented Generation (RAG) là kiến trúc trí tuệ nhân tạo kết hợp giữa truy xuất tri thức (Retrieval) và mô hình ngôn ngữ lớn (LLM) nhằm tạo sinh nội dung dựa trên các nguồn dữ liệu thật. Phương pháp này giúp mô hình sinh ra các câu hỏi trắc nghiệm hoặc tóm tắt nội dung có độ chính xác cao, phù hợp với tài liệu lịch sử Việt Nam (SGK, Wikipedia).
+Text-to-Speech (TTS) là công nghệ chuyển đổi văn bản thành giọng nói dựa trên mô hình học sâu (Deep Neural Networks), giúp tái tạo giọng đọc tự nhiên theo ngôn ngữ và ngữ điệu người Việt. Việc tích hợp TTS trong ứng dụng học Lịch sử giúp tăng tính sinh động và hỗ trợ học sinh tiếp thu thông tin qua kênh nghe – nhìn hiệu quả hơn.
+Cơ sở thực tiễn
+Việc dạy và học môn Lịch sử Việt Nam ở trường phổ thông hiện nay vẫn chủ yếu dựa trên hình thức ghi nhớ kiến thức tĩnh, thiếu các yếu tố tương tác, trực quan và trải nghiệm không gian – thời gian. Điều này khiến học sinh dễ rơi vào tình trạng học vẹt, khó hình dung bối cảnh và mối liên hệ giữa các sự kiện lịch sử.
+Với xu thế chuyển đổi số trong giáo dục, việc ứng dụng công nghệ 3D, trí tuệ nhân tạo (AI) và dữ liệu mở đang trở nên cấp thiết nhằm giúp học sinh học tập chủ động, tư duy đa chiều và tiếp thu kiến thức một cách trực quan hơn.
+Việc kết hợp thư viện CesiumJS (mô phỏng bản đồ 3D tương tác) với mô hình RAG (sinh câu hỏi trắc nghiệm thông minh) và Text-to-Speech (TTS) (chuyển văn bản thành giọng nói tự nhiên) giúp học sinh “thấy được – nghe được – hiểu được” dòng chảy lịch sử một cách sinh động, từ đó tăng khả năng ghi nhớ, hứng thú và hiệu quả học tập.
+Thời gian thực hiện: học kỳ 2 năm học 2025-2026.
+Sản phẩm của đề tài:
+Sản phẩm cuối cùng của đề tài là một ứng dụng Web hỗ trợ học sinh trung học phổ thông học lịch sử Việt Nam sử dụng bản đồ 3D tương tác, tích hợp timeline, TTS và AI (RAG) để hỗ trợ học sinh THPT học tập và ôn luyện. Hệ thống bao gồm các chức năng chính và sản phẩm sau:
+Bản đồ 3D và Timeline tương tác
+Mô tả chức năng:
+Hiển thị bản đồ Việt Nam dạng 3D với địa hình thực tế sử dụng Cesium World Terrain.
+Thanh timeline cho phép chọn mốc thời gian, tự động hiển thị các marker sự kiện cấp cao nhất tương ứng.
+Hỗ trợ xoay, nghiêng, phóng to/thu nhỏ bản đồ.
+Cách sử dụng:
+Kéo thanh timeline đến mốc thời gian mong muốn.
+Các marker sự kiện cấp cao nhất (có địa điểm) xuất hiện trên bản đồ.
+Danh sách sự kiện trên sidebar tự động cập nhật theo dạng cây thư mục.
+Sử dụng chuột để xoay, nghiêng, phóng to/thu nhỏ bản đồ 3D.
+Tương tác với sự kiện lịch sử theo cấu trúc phân cấp
+Mô tả chức năng:
+Sự kiện được tổ chức theo cấu trúc phân cấp dạng cây.
+Khi click vào sự kiện có sự kiện con: ẩn markers cùng cấp khác, hiển thị markers và polygon của các sự kiện con có địa điểm, popup hiển thị thông tin cha và danh sách con.
+Khi click vào sự kiện không có sự kiện con: zoom vào gần, hiển thị polygon, popup hiển thị thông tin chi tiết.
+Khi click vào sự kiện không có địa điểm (no_location): camera không di chuyển, popup hiển thị thông tin với ghi chú đặc biệt.
+Popup hiển thị: tên sự kiện, thời gian, event_type, event_subtype (nếu có) dạng tag, mô tả ngắn.
+Cách sử dụng:
+Từ bản đồ: click vào marker để xem thông tin sự kiện và các sự kiện con.
+Từ sidebar: click vào tên sự kiện trong danh sách, có thể expand/collapse để xem sự kiện con.
+Click vào sự kiện trong sidebar để drill down xuống cấp con.
+Xem địa hình 3D chi tiết
+Mô tả chức năng:
+Cho phép khám phá địa hình 3D chi tiết (núi, sông, độ cao) của vùng liên quan đến sự kiện.
+Chỉ có với sự kiện có geo_type là multi_region hoặc single_point.
+Sự kiện có geo_type là nationwide hoặc no_location không có chức năng này.
+Cách sử dụng:
+Nhấn nút [Xem địa hình] trong popup.
+Camera tự động zoom vào vùng/điểm tương ứng với sự kiện.
+Với sự kiện có nhiều vùng chính: click vào từng vùng tô màu để xem chi tiết địa hình vùng đó.
+Nhấn [Quay lại] để trở về góc nhìn trước đó.
+Sidebar danh sách sự kiện và bộ lọc
+Mô tả chức năng:
+Hiển thị danh sách sự kiện theo dạng cây thư mục (Navigation Pane).
+Sự kiện cha có thể expand/collapse để hiển thị/ẩn danh sách sự kiện con.
+Hiển thị tất cả sự kiện kể cả sự kiện không có địa điểm (no_location).
+Bộ lọc theo: thời gian, event_type (Quân sự/Chính trị/Kinh tế/Văn hóa - Xã hội), event_subtype (nếu có).
+Cách sử dụng:
+Click vào icon expand/collapse để mở rộng hoặc thu gọn danh sách sự kiện con.
+Sử dụng bộ lọc để thu hẹp danh sách theo tiêu chí.
+Nhập từ khóa vào thanh tìm kiếm để tìm nhanh sự kiện.
+Click vào sự kiện trong danh sách để xem trên bản đồ (nếu có địa điểm) và hiển thị popup.
+Trang chi tiết sự kiện và Text-to-Speech (TTS)
+Mô tả chức năng:
+Hiển thị đầy đủ thông tin: tên, thời gian, địa điểm, mô tả chi tiết, nhân vật liên quan, ý nghĩa lịch sử, hình ảnh, video.
+Hiển thị danh sách sự kiện con (nếu là sự kiện cha).
+Tích hợp TTS chuyển nội dung thành giọng nói tiếng Việt.
+Cách sử dụng:
+Nhấn [Xem chi tiết] trong popup để chuyển đến trang chi tiết.
+Nhấn nút [Nghe] để hệ thống đọc nội dung.
+Click vào sự kiện con trong danh sách để xem chi tiết sự kiện con.
+Làm bài trắc nghiệm với AI (RAG)
+Mô tả chức năng:
+Hệ thống RAG tự động sinh câu hỏi trắc nghiệm từ nội dung sự kiện.
+Câu hỏi trắc nghiệm 4 đáp án (A/B/C/D).
+Chấm điểm tự động, hiển thị đáp án đúng và giải thích.
+Cách sử dụng:
+Chọn chủ đề hoặc giai đoạn lịch sử.
+Nhấn [Tạo câu hỏi] → làm bài → nhấn [Nộp bài].
+Xem kết quả, đáp án và giải thích.
+Tạo và làm đề thi THPT
+Mô tả chức năng:
+Tạo đề thi với tùy chọn: số câu, độ khó, giai đoạn, thời gian làm bài.
+Giao diện làm bài với sidebar theo dõi tiến độ, đồng hồ đếm ngược.
+Chấm điểm và xuất kết quả PDF/Excel.
+Cách sử dụng:
+Chọn cấu hình đề thi → nhấn [Tạo đề] → làm bài → nộp bài → xem điểm.
+Quản lý tài khoản cá nhân
+Mô tả chức năng:
+Đăng ký, đăng nhập với JWT; hỗ trợ OAuth (Google/Facebook).
+Hồ sơ cá nhân: lịch sử học tập, điểm số.
+Dashboard thống kê: biểu đồ tiến độ, phân tích điểm mạnh/yếu, gợi ý ôn tập.
+Cách sử dụng:
+Đăng ký/đăng nhập → truy cập "Hồ sơ cá nhân" → xem thống kê và gợi ý.
+Sản phẩm kỹ thuật và tài liệu
+Mã nguồn: Frontend (React.js + CesiumJS), Backend (Spring Boot), AI Service (FastAPI + LangChain).
+Cơ sở dữ liệu: MySQL + Vector Database.
+Tài liệu: Báo cáo Khóa luận Tốt nghiệp, hướng dẫn sử dụng và triển khai hệ thống, slide thuyết trình, video demo sản phẩm
+Bộ dữ liệu sự kiện lịch sử Việt Nam đã được thu thập, xử lý và chuẩn hóa cấu trúc phục vụ cho việc hiển thị trên bản đồ 3D và sinh câu hỏi trắc nghiệm.
+Dữ liệu địa lý ranh giới tỉnh/thành Việt Nam đã được tích hợp cho CesiumJS.
+Ngân hàng câu hỏi trắc nghiệm và đề thi mẫu THPT.
+  Tài liệu tham khảo: 
+[1] CesiumJS Documentation Learning Center – Cesium 
+[2] LangChain (RAG) Documentation LangChain overview - Docs by LangChain
+[3] Bộ GD&ĐT. SGK Lịch sử 10/11/12. NXB Giáo dục Việt Nam, 2025.
+[4] FPT.AI. Text-to-Speech API Documentation FPT TTS  - Docs
+[5] Lewis, P., et al. "Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks". Proceedings of NeurIPS 2020. [2005.11401] Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks
+[6] React Documentation. "Getting Started with React". https://react.dev/
+[7] Spring Boot Documentation. "Building REST APIs with Spring Boot". https://spring.io/guides
+[8] FastAPI Documentation. "Building APIs with Python". https://fastapi.tiangolo.com/
+[9] Chroma Vector Database Documentation. https://docs.trychroma.com/
+[10] Encyclopaedia Britannica. "History of science – Historiography".
+https://www.britannica.com/topic/historiography/History-of-science
+[11] Trường THPT Thanh Đa. "Nội dung học chuyên đề Lịch sử – Lớp 10".
+https://www.thptthanhda.edu.vn/download/thongbao/2023/2023071209534593_noi_dung_hoc-chuyen_de-lich_su_-lop_10.pdf
+
+
+
+=== TABLE 1 ===
+TRƯỜNG ĐẠI HỌC NÔNG LÂM TP.HCM
+KHOA CÔNG NGHỆ THÔNG TIN | CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM
+Độc lập - Tự do - Hạnh phúc
+ | TP. Hồ Chí Minh, ngày 17 tháng 12 năm 2025
+
+=== TABLE 2 ===
+Giảng viên hướng dẫn
+(Ký và ghi rõ họ tên) | Sinh viên thực hiện
+(Ký và ghi rõ họ tên)
