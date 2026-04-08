@@ -1,0 +1,143 @@
+{
+  "id": "bach-dang-938",
+  "slug": "tran-bach-dang-938",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Trận Bạch Đằng năm 938",
+    "short": "Bạch Đằng 938",
+    "alternatives": ["Chiến thắng Bạch Đằng 938"]
+  },
+  "classification": {
+    "eventType": "military",
+    "eventSubtype": "battle",
+    "tags": ["Ngô Quyền", "Bạch Đằng", "Nam Hán", "938"]
+  },
+  "coverage": {
+    "grades": [10]
+  },
+  "chronology": {
+    "start": {
+      "year": 938,
+      "month": null,
+      "day": null
+    },
+    "end": {
+      "year": 938,
+      "month": null,
+      "day": null
+    },
+    "datePrecision": "year",
+    "displayDate": "Năm 938",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "point",
+      "marker": {
+        "lat": 20.95,
+        "lng": 106.82,
+        "label": "Sông Bạch Đằng"
+      },
+      "markers": [
+        {
+          "lat": 20.95,
+          "lng": 106.82,
+          "label": "Bạch Đằng"
+        }
+      ],
+      "provinceNames": ["Quảng Ninh", "Hải Phòng"],
+      "gadmRefs": ["VNM.18_1", "VNM.20_1"],
+      "historicalLocations": ["Sông Bạch Đằng"]
+    },
+    "focusGeometry": {
+      "mode": "marker",
+      "center": {
+        "lat": 20.95,
+        "lng": 106.82
+      },
+      "zoom": 8,
+      "provinceNames": ["Quảng Ninh", "Hải Phòng"],
+      "gadmRefs": ["VNM.18_1", "VNM.20_1"]
+    }
+  },
+  "summary": {
+    "homepageTitle": "Chiến thắng Bạch Đằng",
+    "homepageSummary": "Ngô Quyền đánh bại quân Nam Hán trên sông Bạch Đằng, mở đầu thời kỳ độc lập tự chủ lâu dài.",
+    "cardSummary": "Bước ngoặt kết thúc ách đô hộ phương Bắc."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Năm 938, Ngô Quyền chủ động bố trí trận địa cọc trên sông Bạch Đằng và đánh tan quân Nam Hán.",
+    "detailedNarrative": "Ngô Quyền nắm thời cơ thủy triều, nhử quân địch vào bãi cọc, sau đó phản công quyết định.",
+    "significance": "Chiến thắng khẳng định nền tự chủ của dân tộc, mở ra thời kỳ phát triển độc lập lâu dài.",
+    "keyFacts": [
+      "Diễn ra năm 938",
+      "Chỉ huy: Ngô Quyền",
+      "Địa điểm chính: sông Bạch Đằng"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 10,
+        "book": "Lịch sử 10 - Cánh Diều",
+        "theme": "Việt Nam thời kỳ đầu độc lập",
+        "lesson": "Bài 14",
+        "pageStart": 40,
+        "pageEnd": 41,
+        "excerpt": "Ngô Quyền đánh bại quân Nam Hán trên sông Bạch Đằng năm 938."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "Trận Bạch Đằng (938)",
+      "url": "https://vi.wikipedia.org/wiki/Tr%E1%BA%ADn_B%E1%BA%A1ch_%C4%90%E1%BA%B1ng_(938)",
+      "summary": "Bài viết tổng quan về bối cảnh và diễn biến trận đánh.",
+      "content": "Nguồn mở để đối chiếu thông tin bổ sung."
+    },
+    "wikidata": {
+      "id": "Q123456",
+      "url": "https://www.wikidata.org/wiki/Q123456"
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "https://example.com/images/bach-dang-938.jpg",
+    "items": [
+      {
+        "id": "img-bach-dang-main",
+        "type": "image",
+        "category": "illustration",
+        "role": "hero",
+        "url": "https://example.com/images/bach-dang-main.jpg",
+        "caption": "Minh họa trận Bạch Đằng năm 938",
+        "alt": "Tranh mô tả trận Bạch Đằng",
+        "source": "Kho tư liệu mở",
+        "license": "CC BY-SA",
+        "credit": "Tác giả A",
+        "isPrimary": true
+      }
+    ]
+  },
+  "hierarchy": {
+    "rootId": "ngo-quyen-gianh-tu-chu",
+    "parentId": null,
+    "childIds": [],
+    "level": 1,
+    "orderInParent": 1
+  },
+  "associations": {
+    "relatedEventIds": ["duong-dinh-nghe-931"],
+    "relatedFigureIds": ["ngo-quyen"],
+    "predecessorEventIds": ["khoi-nghia-duong-dinh-nghe"],
+    "successorEventIds": ["ngo-quyen-xung-vuong"]
+  },
+  "display": {
+    "showOnHomepage": true,
+    "showOnTimeline": true,
+    "featured": true
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": ["wikipedia", "wikidata"]
+  }
+}
