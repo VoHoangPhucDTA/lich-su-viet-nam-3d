@@ -5,6 +5,7 @@ import {
   EVENT_TYPE_LABELS,
   EVENT_TYPE_COLORS,
 } from '../types/event';
+import { useNavigate } from 'react-router-dom';
 
 interface SidebarProps {
   events: HistoricalEvent[];
@@ -82,13 +83,12 @@ export default function Sidebar({
 
   return (
     <div
-      className="glass animate-slide-in-left"
+      className="glass-map animate-slide-in-left"
       style={{
         width: '320px',
         height: '100%',
         display: 'flex',
         flexDirection: 'column',
-        borderRight: '1px solid rgba(71, 85, 105, 0.4)',
         zIndex: 10,
       }}
     >
@@ -96,7 +96,7 @@ export default function Sidebar({
       <div
         style={{
           padding: '20px 16px 12px',
-          borderBottom: '1px solid rgba(71, 85, 105, 0.3)',
+          borderBottom: '1px solid var(--border)',
         }}
       >
         <div
@@ -111,10 +111,9 @@ export default function Sidebar({
           <h2
             style={{
               fontSize: '16px',
-              fontWeight: 700,
-              background: 'linear-gradient(135deg, #f1f5f9, #94a3b8)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
+              fontWeight: 800,
+              color: 'var(--text-primary)',
+              letterSpacing: '-0.01em',
             }}
           >
             Sự kiện Lịch sử
@@ -130,7 +129,7 @@ export default function Sidebar({
               top: '50%',
               transform: 'translateY(-50%)',
               fontSize: '14px',
-              color: 'var(--color-text-dim)',
+              color: 'var(--text-muted)',
             }}
           >
             🔍
@@ -142,21 +141,23 @@ export default function Sidebar({
             onChange={(e) => setSearchQuery(e.target.value)}
             style={{
               width: '100%',
-              padding: '8px 12px 8px 34px',
-              borderRadius: '8px',
-              border: '1px solid var(--color-surface-3)',
-              background: 'var(--color-surface)',
-              color: 'var(--color-text)',
+              padding: '10px 12px 10px 36px',
+              borderRadius: '10px',
+              border: '1px solid var(--input-border)',
+              background: 'var(--input-bg)',
+              color: 'var(--input-text)',
               fontSize: '13px',
               outline: 'none',
-              transition: 'border-color 0.15s',
+              transition: 'all 0.2s',
             }}
-            onFocus={(e) =>
-              (e.currentTarget.style.borderColor = 'var(--color-primary)')
-            }
-            onBlur={(e) =>
-              (e.currentTarget.style.borderColor = 'var(--color-surface-3)')
-            }
+            onFocus={(e) => {
+              e.currentTarget.style.borderColor = 'var(--accent)';
+              e.currentTarget.style.background = 'var(--input-bg)';
+            }}
+            onBlur={(e) => {
+              e.currentTarget.style.borderColor = 'var(--input-border)';
+              e.currentTarget.style.background = 'var(--input-bg)';
+            }}
           />
         </div>
 
@@ -177,20 +178,21 @@ export default function Sidebar({
                 border: `1px solid ${
                   activeFilter === type
                     ? EVENT_TYPE_COLORS[type]
-                    : 'var(--color-surface-3)'
+                    : 'var(--border)'
                 }`,
                 background:
                   activeFilter === type
-                    ? `${EVENT_TYPE_COLORS[type]}20`
-                    : 'transparent',
+                    ? `${EVENT_TYPE_COLORS[type]}25`
+                    : 'var(--bg-card)',
                 color:
                   activeFilter === type
                     ? EVENT_TYPE_COLORS[type]
-                    : 'var(--color-text-dim)',
+                    : 'var(--text-muted)',
                 fontSize: '11px',
                 fontWeight: 600,
                 cursor: 'pointer',
                 transition: 'all 0.15s',
+                boxShadow: activeFilter === type ? '0 2px 8px rgba(0,0,0,0.1)' : 'none',
               }}
             >
               <span style={{ fontSize: '12px' }}>
@@ -241,15 +243,15 @@ export default function Sidebar({
       <div
         style={{
           padding: '10px 16px',
-          borderTop: '1px solid rgba(71, 85, 105, 0.3)',
+          borderTop: '1px solid var(--border)',
           fontSize: '11px',
-          color: 'var(--color-text-dim)',
+          color: 'var(--text-muted)',
           display: 'flex',
           justifyContent: 'space-between',
         }}
       >
         <span>{filteredEvents.length} sự kiện</span>
-        <span>MVP v1.0</span>
+        <span style={{ fontWeight: 600, opacity: 0.8 }}>MVP v1.0</span>
       </div>
     </div>
   );
@@ -278,6 +280,7 @@ function EventTreeNode({
   const isExpanded = expandedIds.has(event.id);
   const isSelected = selectedEvent?.id === event.id;
   const hasChildren = event.children && event.children.length > 0;
+  const navigate = useNavigate();
 
   const geoIcon =
     event.geoType === 'no_location'
@@ -300,20 +303,22 @@ function EventTreeNode({
           paddingLeft: `${16 + depth * 20}px`,
           cursor: 'pointer',
           background: isSelected
-            ? 'rgba(99, 102, 241, 0.15)'
+            ? 'color-mix(in srgb, var(--accent) 16%, transparent)'
             : 'transparent',
           borderLeft: isSelected
-            ? '3px solid var(--color-primary)'
-            : '3px solid transparent',
-          transition: 'all 0.15s',
-          fontSize: '13px',
+            ? '4px solid var(--accent)'
+            : '4px solid transparent',
+          transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
+          fontSize: '13.5px',
         }}
         onMouseOver={(e) => {
           if (!isSelected)
-            e.currentTarget.style.background = 'rgba(71, 85, 105, 0.2)';
+            e.currentTarget.style.background = 'var(--accent-soft)';
+          e.currentTarget.style.opacity = '0.9';
         }}
         onMouseOut={(e) => {
           if (!isSelected) e.currentTarget.style.background = 'transparent';
+          e.currentTarget.style.opacity = '1';
         }}
       >
         {/* Expand toggle */}
@@ -326,20 +331,28 @@ function EventTreeNode({
             style={{
               background: 'none',
               border: 'none',
-              color: 'var(--color-text-dim)',
+              color: 'var(--text-muted)',
               cursor: 'pointer',
-              fontSize: '10px',
-              width: '16px',
-              height: '16px',
+              fontSize: '11px',
+              width: '18px',
+              height: '18px',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               flexShrink: 0,
-              transition: 'transform 0.2s',
-              transform: isExpanded ? 'rotate(90deg)' : 'rotate(0deg)',
+              transition: 'transform 0.2s, color 0.2s',
             }}
           >
-            ▶
+            <span 
+              style={{ 
+                fontSize: '10px', 
+                transition: 'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                transform: isExpanded ? 'rotate(90deg)' : 'rotate(0deg)',
+                display: 'inline-block'
+              }}
+            >
+              ▶
+            </span>
           </button>
         ) : (
           <span style={{ width: '16px', flexShrink: 0 }} />
@@ -352,8 +365,8 @@ function EventTreeNode({
         <span
           style={{
             flex: 1,
-            fontWeight: isSelected ? 600 : 400,
-            color: isSelected ? 'var(--color-text)' : 'var(--color-text-dim)',
+            fontWeight: isSelected ? 700 : 400,
+            color: isSelected ? 'var(--accent)' : 'var(--text-primary)',
             lineHeight: '1.4',
             overflow: 'hidden',
             textOverflow: 'ellipsis',
@@ -363,15 +376,43 @@ function EventTreeNode({
           {event.name}
         </span>
 
+        {/* View detail button */}
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            const detailKey = event.slug || event.id;
+            navigate(`/events/${detailKey}`);
+          }}
+          title="Xem chi tiết"
+          style={{
+            background: 'none',
+            border: 'none',
+            cursor: 'pointer',
+            padding: '2px',
+            fontSize: '12px',
+            opacity: isSelected ? 1 : 0.4,
+            transition: 'opacity 0.15s',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+          onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')}
+          onMouseLeave={(e) => (e.currentTarget.style.opacity = isSelected ? '1' : '0.4')}
+        >
+          📄
+        </button>
+
         {/* Year badge */}
         <span
           style={{
             fontSize: '10px',
-            color: 'var(--color-text-dim)',
-            background: 'var(--color-surface)',
-            padding: '1px 6px',
+            color: 'var(--text-muted)',
+            background: 'var(--bg-card)',
+            padding: '2px 6px',
             borderRadius: '4px',
+            border: '1px solid var(--border)',
             flexShrink: 0,
+            fontWeight: 500,
           }}
         >
           {event.startYear}
@@ -382,7 +423,7 @@ function EventTreeNode({
       {hasChildren && isExpanded && (
         <div
           style={{
-            borderLeft: `1px dashed var(--color-surface-3)`,
+            borderLeft: `1px dashed var(--border)`,
             marginLeft: `${28 + depth * 20}px`,
           }}
         >

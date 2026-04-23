@@ -1,135 +1,282 @@
+#!/usr/bin/env python3
+"""
+parse_sgk_to_structure.py
+Parses Vietnamese history textbook raw text files (sgk10/11/12.txt) into structured JSON.
+
+Supports two text formats:
+  Format A (sgk10): CHỦ ĐỀ N TITLE  /  Bài N TITLE   (no ## prefix, no colon)
+  Format B (sgk11/12): Chủ đề N: TITLE  /  ## Bài N TITLE
+
+Boundary markers in text: CHUDE{N}, BAI{N}, LEVEL1/2/3
+"""
+
 import re
 import json
-import os
 import sys
+from pathlib import Path
 
-def parse_content(full_text: str) -> dict:
-    # ==================== CLEAN TEXT ====================
-    full_text = re.sub(r'#### Page \d+', '', full_text, flags=re.IGNORECASE)
-    full_text = re.sub(r'Hình \d+\.\d+\..*?\(.*?\)', '', full_text, flags=re.DOTALL)
-    full_text = re.sub(r'\(Image:.*?\)', '', full_text, flags=re.DOTALL)
-    full_text = re.sub(r'Sơ đồ \d+\.\d+\..*?', '', full_text, flags=re.DOTALL)
-    full_text = re.sub(r'Bảng \d+\.\d+\..*?(?=\n\n|\Z)', '', full_text, flags=re.DOTALL | re.MULTILINE)
-    full_text = full_text.strip()
 
-    result = {"class": "Lop10", "topics": []}
+# ─── Regex patterns (handle both Format A and B) ──────────────────────────────
 
-    # ==================== TẤT CẢ CHỦ ĐỀ ====================
-    # Dùng split để chia nhỏ theo CHUDE nhằm tránh lặp dữ liệu
-    topic_blocks = re.split(r'\n(?=CHUDE\d+)', full_text, flags=re.IGNORECASE)
+# CHUDE marker line
+RE_CHUDE_MARKER = re.compile(r'^CHUDE(\d+)\s*$')
 
-    for block in topic_blocks:
-        if not block.strip(): continue
-        
-        # Lấy header của Chủ đề
-        topic_header_match = re.match(r'CHUDE(\d+)\s*\nChủ đề \d+:\s*(.*)', block, re.IGNORECASE)
-        if not topic_header_match: continue
-        
-        topic_num = int(topic_header_match.group(1))
-        topic_title = topic_header_match.group(2).split('\n')[0].strip()
-        
-        topic = {"topic_number": topic_num, "topic_title": topic_title, "lessons": []}
+# Topic title
+RE_TOPIC_TITLE = re.compile(
+    r'^(?:CH[ÚU]\s*Đ[ÊE]\s*(\d+)[:\s]+(.+)'   # Format A: uppercase variant
+    r'|Ch[ủu]\s*đ[ềe]\s*(\d+)\s*:\s*(.+))',    # Format B: mixed-case with colon
+    re.IGNORECASE | re.UNICODE
+)
 
-        # ==================== TẤT CẢ BÀI ====================
-        # Chia nhỏ tiếp theo BAI
-        lesson_blocks = re.split(r'\n(?=BAI\d+)', block, flags=re.IGNORECASE)
-        
-        for l_block in lesson_blocks:
-            if not l_block.strip() or 'BAI' not in l_block.upper(): continue
+# BAI marker line
+RE_BAI_MARKER = re.compile(r'^BAI(\d+)\s*$')
+
+# Lesson title
+RE_LESSON_TITLE = re.compile(
+    r'^(?:##\s*)?B[àa]i\s+(\d+)\s+(.+)',
+    re.IGNORECASE | re.UNICODE
+)
+
+# Section level markers (Capture only the number: 1, 2, or 3)
+RE_LEVEL = re.compile(r'^LEVEL([123])\s*$')
+
+# Section header after LEVEL marker
+RE_SECTION_HEADER = re.compile(
+    r'^(?:#{1,3}\s*)?([IVXivx]+\.|[A-Z]\.|[a-z]\)|[\d]+\.)\s+(.+)',
+    re.UNICODE
+)
+
+
+# ─── Helpers ──────────────────────────────────────────────────────────────────
+
+def clean(text: str) -> str:
+    """Strip markdown hash prefixes and extra whitespace."""
+    return re.sub(r'^#+\s*', '', text).strip()
+
+
+def detect_class(filename: str) -> str:
+    name = Path(filename).stem.lower()
+    if '10' in name:
+        return 'Lop10'
+    if '11' in name:
+        return 'Lop11'
+    if '12' in name:
+        return 'Lop12'
+    return 'Unknown'
+
+
+# ─── Parser ───────────────────────────────────────────────────────────────────
+
+def parse_file(filepath: str) -> dict:
+    class_name = detect_class(filepath)
+    result = {'class': class_name, 'topics': []}
+
+    with open(filepath, 'r', encoding='utf-8') as f:
+        lines = f.readlines()
+
+    # State machine
+    current_topic = None
+    current_lesson = None
+    current_section = None
+    content_buffer = []
+
+    def flush_content():
+        """Phân bổ nội dung trong buffer vào header của bài học hoặc content của section."""
+        nonlocal content_buffer
+        if not content_buffer:
+            return
             
-            lesson_match = re.match(r'BAI(\d+)\s*\n#+ \s*Bài \d+\s*(.*)', l_block, re.IGNORECASE)
-            if not lesson_match: continue
+        text = '\n'.join(line for line in content_buffer if line.strip()).strip()
+        if not text:
+            content_buffer = []
+            return
+
+        # Nếu đang ở trong một section (đã gặp LEVEL), ghi vào content của section
+        if current_section is not None:
+            current_section['content'] = (
+                current_section.get('content', '') + '\n\n' + text
+            ).strip()
+        # Nếu chưa có section nào nhưng đang ở trong bài (trước LEVEL đầu tiên), ghi vào header
+        elif current_lesson is not None:
+            current_lesson['header'] = (
+                current_lesson.get('header', '') + '\n\n' + text
+            ).strip()
             
-            lesson_num = int(lesson_match.group(1))
-            lesson_title = lesson_match.group(2).split('\n')[0].strip()
+        content_buffer = []
+
+    def save_section():
+        """Lưu section hiện tại vào bài học."""
+        flush_content()
+        if current_section is not None and current_lesson is not None:
+            current_lesson['sections'].append(current_section)
+
+    def save_lesson():
+        """Lưu bài học hiện tại vào chủ đề."""
+        save_section()
+        if current_lesson is not None and current_topic is not None:
+            current_topic['lessons'].append(current_lesson)
+
+    def save_topic():
+        """Lưu chủ đề hiện tại vào danh sách kết quả."""
+        save_lesson()
+        if current_topic is not None:
+            result['topics'].append(current_topic)
+
+    i = 0
+    n = len(lines)
+
+    while i < n:
+        raw = lines[i].rstrip('\n')
+        line = raw.strip()
+        i += 1
+
+        # ── CHUDE marker ──────────────────────────────────────────────────────
+        m_chude = RE_CHUDE_MARKER.match(line)
+        if m_chude:
+            topic_num = int(m_chude.group(1))
+            title_line = ''
             
-            # Tách Header và Levels
-            # Header là phần từ sau tên Bài đến trước LEVEL1 đầu tiên
-            parts = re.split(r'\n(?=LEVEL\d)', l_block, flags=re.IGNORECASE)
-            header_raw = parts[0]
-            header_content = re.sub(r'BAI\d+\s*\n#+ \s*Bài \d+.*?\n', '', header_raw, count=1, flags=re.DOTALL).strip()
+            # Peek ahead for the topic title line
+            j = i
+            while j < n and not lines[j].strip():
+                j += 1
+            if j < n:
+                candidate = lines[j].strip()
+                m = RE_TOPIC_TITLE.match(candidate)
+                if m:
+                    if m.group(2):        # Format A
+                        title_line = clean(m.group(2))
+                    elif m.group(4):      # Format B
+                        title_line = clean(m.group(4))
+                    i = j + 1
 
-            sections = []
-            current_level1 = None
-            current_level2 = None
+            save_topic()
 
-            # Duyệt qua các phần LEVEL đã split
-            for i in range(1, len(parts)):
-                item = parts[i].strip()
-                if not item: continue
-                
-                # Tách Tag (LEVEL1) và Nội dung còn lại
-                item_split = item.split('\n', 1)
-                tag = item_split[0].strip().upper() # LEVEL1, LEVEL2...
-                content_block = item_split[1].strip() if len(item_split) > 1 else ""
-                
-                # Tách Tiêu đề (dòng đầu của content_block) và Nội dung thực sự
-                content_lines = content_block.split('\n', 1)
-                title = content_lines[0].replace('##', '').strip()
-                body = content_lines[1].strip() if len(content_lines) > 1 else ""
+            current_topic = {
+                'topic_number': topic_num,
+                'topic_title': title_line,
+                'lessons': []
+            }
+            current_lesson = None
+            current_section = None
+            content_buffer = []
+            continue
 
-                if tag == 'LEVEL1':
-                    current_level1 = {
-                        "level": "1",
-                        "title": title,
-                        "content": body,
-                        "subsections": []
-                    }
-                    sections.append(current_level1)
-                    current_level2 = None
-                
-                elif tag == 'LEVEL2':
-                    if current_level1 is not None:
-                        current_level2 = {
-                            "level": "2",
-                            "title": title,
-                            "content": body,
-                            "sub_subsections": []
-                        }
-                        current_level1["subsections"].append(current_level2)
-                
-                elif tag == 'LEVEL3':
-                    sub = {
-                        "level": title.split()[0] if title and title[0].isdigit() else "3",
-                        "title": title,
-                        "content": body
-                    }
-                    if current_level2:
-                        current_level2["sub_subsections"].append(sub)
-                    elif current_level1:
-                        if "sub_subsections" not in current_level1:
-                            current_level1["sub_subsections"] = []
-                        current_level1["sub_subsections"].append(sub)
+        # ── BAI marker ────────────────────────────────────────────────────────
+        m_bai = RE_BAI_MARKER.match(line)
+        if m_bai:
+            lesson_num = int(m_bai.group(1))
+            title_line = ''
+            
+            # Peek ahead for lesson title
+            j = i
+            while j < n and not lines[j].strip():
+                j += 1
+            if j < n:
+                candidate = lines[j].strip()
+                m = RE_LESSON_TITLE.match(candidate)
+                if m:
+                    title_line = clean(candidate)
+                    i = j + 1
 
-            topic["lessons"].append({
-                "lesson_number": lesson_num,
-                "lesson_title": lesson_title,
-                "header": header_content,
-                "sections": sections
-            })
+            save_lesson()
 
-        result["topics"].append(topic)
+            current_lesson = {
+                'lesson_number': lesson_num,
+                'lesson_title': title_line,
+                'header': '',
+                'sections': []
+            }
+            current_section = None
+            content_buffer = []
+            continue
+
+        # ── LEVEL marker ──────────────────────────────────────────────────────
+        m_level = RE_LEVEL.match(line)
+        if m_level:
+            level_num = m_level.group(1)  # Sẽ là '1', '2' hoặc '3'
+
+            save_section()
+
+            # Peek for section title
+            j = i
+            while j < n and not lines[j].strip():
+                j += 1
+            
+            title_line = ''
+            if j < n:
+                candidate = lines[j].strip()
+                mh = RE_SECTION_HEADER.match(candidate)
+                if mh:
+                    title_line = clean(candidate)
+                    i = j + 1
+                else:
+                    # Nếu dòng tiếp theo không khớp format header, vẫn lấy nó làm tiêu đề tạm
+                    title_line = clean(candidate)
+                    i = j + 1
+
+            current_section = {
+                'level': level_num,
+                'title': title_line,
+                'content': ''
+            }
+            content_buffer = []
+            continue
+
+        # ── Regular content line ───────────────────────────────────────────────
+        if current_lesson is not None:
+            # Lưu lại cả những dòng trống để giữ form đoạn văn khi \n\n
+            if raw == '':
+                content_buffer.append('')
+            else:
+                content_buffer.append(line)
+
+    # ── End of file: flush everything ─────────────────────────────────────────
+    save_topic()
 
     return result
 
-if __name__ == "__main__":
-    # Giữ nguyên phần main của bạn
-    input_file = sys.argv[1] if len(sys.argv) > 1 else "../data/txt/sgk12.txt"
-    if not os.path.exists(input_file):
-        print(f"❌ Không tìm thấy file: {input_file}")
+
+# ─── Main ─────────────────────────────────────────────────────────────────────
+
+def main():
+    if len(sys.argv) < 2:
+        print("Usage: python scripts/parse_sgk_to_structure.py data/sgk/txt/sgk10.txt ...")
         sys.exit(1)
 
-    with open(input_file, "r", encoding="utf-8") as f:
-        content = f.read()
+    # Tự động tính toán đường dẫn để trỏ tới data/processed/
+    script_dir = Path(__file__).resolve().parent
+    project_root = script_dir.parent
+    processed_dir = project_root / 'data' / 'processed'
+    
+    # Tạo thư mục processed nếu chưa tồn tại
+    processed_dir.mkdir(parents=True, exist_ok=True)
 
-    parsed_json = parse_content(content)
+    for filepath in sys.argv[1:]:
+        p = Path(filepath)
+        if not p.exists():
+            print(f"[WARN] File not found: {filepath}")
+            continue
 
-    output_dir = "../data/processed"
-    os.makedirs(output_dir, exist_ok=True)
-    output_file = os.path.join(output_dir, "structure_sgk.json")
+        print(f"Parsing {filepath} ...")
+        data = parse_file(filepath)
 
-    with open(output_file, "w", encoding="utf-8") as f:
-        json.dump(parsed_json, f, indent=2, ensure_ascii=False)
+        # Trỏ output vào đúng thư mục processed
+        out_path = processed_dir / f"structure_{p.stem}.json"
+        
+        with open(out_path, 'w', encoding='utf-8') as f:
+            json.dump(data, f, ensure_ascii=False, indent=2)
 
-    print(f"✅ Parse thành công!")
-    print(f"   File JSON đã lưu tại: {output_file}")
+        # Summary
+        num_topics = len(data['topics'])
+        num_lessons = sum(len(t['lessons']) for t in data['topics'])
+        print(f"  → LƯU TẠI: {out_path}  |  {num_topics} chủ đề  |  {num_lessons} bài")
+        for t in data['topics']:
+            lessons_str = ', '.join(f"Bài {l['lesson_number']}" for l in t['lessons'])
+            print(f"     [{t['topic_title'][:50]}] → {lessons_str}")
+
+    print("\nDone.")
+
+
+if __name__ == '__main__':
+    main()

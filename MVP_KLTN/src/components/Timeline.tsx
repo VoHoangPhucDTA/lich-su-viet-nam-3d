@@ -27,12 +27,13 @@ export default function Timeline({ currentYear, onYearChange }: TimelineProps) {
 
   return (
     <div
-      className="glass"
+      className="glass-map"
       style={{
         padding: '16px 24px',
         position: 'relative',
         zIndex: 50,
         transform: 'translateZ(0)',
+        boxShadow: '0 20px 40px -24px rgba(15, 23, 42, 0.55)',
       }}
     >
       {/* Year display */}
@@ -48,10 +49,10 @@ export default function Timeline({ currentYear, onYearChange }: TimelineProps) {
           <span
             style={{
               fontSize: '11px',
-              fontWeight: 600,
-              letterSpacing: '0.1em',
+              fontWeight: 700,
+              letterSpacing: '0.12em',
               textTransform: 'uppercase',
-              color: 'var(--color-text-dim)',
+              color: 'var(--text-muted)',
             }}
           >
             Dòng thời gian
@@ -60,14 +61,15 @@ export default function Timeline({ currentYear, onYearChange }: TimelineProps) {
             style={{
               width: '1px',
               height: '16px',
-              background: 'var(--color-surface-3)',
+              background: 'var(--border)',
+              opacity: 0.5,
             }}
           />
           <span
             style={{
               fontSize: '24px',
               fontWeight: 800,
-              background: 'linear-gradient(135deg, #818cf8, #6366f1)',
+              background: 'linear-gradient(135deg, color-mix(in srgb, var(--accent) 65%, white), var(--accent))',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
             }}
@@ -86,22 +88,25 @@ export default function Timeline({ currentYear, onYearChange }: TimelineProps) {
               onYearChange(Math.max(TIMELINE_MIN_YEAR, currentYear - 1))
             }
             style={{
-              padding: '4px 12px',
-              borderRadius: '6px',
-              background: 'var(--color-surface-3)',
-              border: 'none',
-              color: 'var(--color-text)',
+              padding: '6px 14px',
+              borderRadius: '8px',
+              background: 'var(--bg-card)',
+              border: '1px solid var(--border)',
+              color: 'var(--text-primary)',
               cursor: 'pointer',
               fontSize: '14px',
               fontWeight: 600,
               transition: 'all 0.15s',
+              boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
             }}
-            onMouseEnter={(e) =>
-              (e.currentTarget.style.background = 'var(--color-primary)')
-            }
-            onMouseLeave={(e) =>
-              (e.currentTarget.style.background = 'var(--color-surface-3)')
-            }
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = 'var(--accent-soft)';
+              e.currentTarget.style.borderColor = 'var(--accent)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = 'var(--bg-card)';
+              e.currentTarget.style.borderColor = 'var(--border)';
+            }}
           >
             ◀
           </button>
@@ -110,22 +115,25 @@ export default function Timeline({ currentYear, onYearChange }: TimelineProps) {
               onYearChange(Math.min(TIMELINE_MAX_YEAR, currentYear + 1))
             }
             style={{
-              padding: '4px 12px',
-              borderRadius: '6px',
-              background: 'var(--color-surface-3)',
-              border: 'none',
-              color: 'var(--color-text)',
+              padding: '6px 14px',
+              borderRadius: '8px',
+              background: 'var(--bg-card)',
+              border: '1px solid var(--border)',
+              color: 'var(--text-primary)',
               cursor: 'pointer',
               fontSize: '14px',
               fontWeight: 600,
               transition: 'all 0.15s',
+              boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
             }}
-            onMouseEnter={(e) =>
-              (e.currentTarget.style.background = 'var(--color-primary)')
-            }
-            onMouseLeave={(e) =>
-              (e.currentTarget.style.background = 'var(--color-surface-3)')
-            }
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = 'var(--accent-soft)';
+              e.currentTarget.style.borderColor = 'var(--accent)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = 'var(--bg-card)';
+              e.currentTarget.style.borderColor = 'var(--border)';
+            }}
           >
             ▶
           </button>
@@ -141,10 +149,11 @@ export default function Timeline({ currentYear, onYearChange }: TimelineProps) {
             top: '50%',
             left: 0,
             right: 0,
-            height: '4px',
-            background: 'var(--color-surface-3)',
-            borderRadius: '2px',
+            height: '6px',
+            background: 'var(--border)',
+            borderRadius: '3px',
             transform: 'translateY(-50%)',
+            opacity: 0.8,
           }}
         />
         {/* Active track */}
@@ -154,11 +163,12 @@ export default function Timeline({ currentYear, onYearChange }: TimelineProps) {
             top: '50%',
             left: 0,
             width: `${percentage}%`,
-            height: '4px',
-            background: 'linear-gradient(90deg, #6366f1, #818cf8)',
-            borderRadius: '2px',
+            height: '6px',
+            background: 'linear-gradient(90deg, var(--accent), color-mix(in srgb, var(--accent) 72%, white))',
+            borderRadius: '3px',
             transform: 'translateY(-50%)',
-            transition: 'width 0.15s',
+            transition: 'width 0.15s cubic-bezier(0.4, 0, 0.2, 1)',
+            boxShadow: '0 0 12px var(--accent-soft)',
           }}
         />
         <input
@@ -197,8 +207,8 @@ export default function Timeline({ currentYear, onYearChange }: TimelineProps) {
               border: 'none',
               color:
                 currentYear === year
-                  ? 'var(--color-primary-light)'
-                  : 'var(--color-text-dim)',
+                  ? 'var(--accent)'
+                  : 'var(--text-muted)',
               fontSize: '11px',
               fontWeight: currentYear === year ? 700 : 400,
               cursor: 'pointer',
@@ -208,13 +218,13 @@ export default function Timeline({ currentYear, onYearChange }: TimelineProps) {
               position: 'relative',
             }}
             onMouseEnter={(e) =>
-              (e.currentTarget.style.color = 'var(--color-primary-light)')
+              (e.currentTarget.style.color = 'var(--accent)')
             }
             onMouseLeave={(e) =>
               (e.currentTarget.style.color =
                 currentYear === year
-                  ? 'var(--color-primary-light)'
-                  : 'var(--color-text-dim)')
+                  ? 'var(--accent)'
+                  : 'var(--text-muted)')
             }
           >
             {currentYear === year && (
@@ -227,7 +237,7 @@ export default function Timeline({ currentYear, onYearChange }: TimelineProps) {
                   width: '4px',
                   height: '4px',
                   borderRadius: '50%',
-                  background: 'var(--color-primary-light)',
+                  background: 'var(--accent)',
                 }}
               />
             )}
@@ -242,25 +252,26 @@ export default function Timeline({ currentYear, onYearChange }: TimelineProps) {
           appearance: none;
           width: 18px;
           height: 18px;
+          background: var(--bg-card);
+          border: 3px solid var(--accent);
           border-radius: 50%;
-          background: linear-gradient(135deg, #818cf8, #6366f1);
-          border: 2px solid white;
-          box-shadow: 0 0 10px rgba(99, 102, 241, 0.5);
           cursor: pointer;
-          transition: transform 0.15s, box-shadow 0.15s;
+          box-shadow: 0 0 0 4px var(--accent-soft), 0 6px 12px rgba(15, 23, 42, 0.28);
+          transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
         }
         .timeline-slider::-webkit-slider-thumb:hover {
-          transform: scale(1.2);
-          box-shadow: 0 0 20px rgba(99, 102, 241, 0.7);
+          transform: scale(1.15);
+          box-shadow: 0 0 0 6px var(--accent-soft), 0 6px 10px rgba(15, 23, 42, 0.2);
         }
         .timeline-slider::-moz-range-thumb {
           width: 18px;
           height: 18px;
+          background: var(--bg-card);
+          border: 3px solid var(--accent);
           border-radius: 50%;
-          background: linear-gradient(135deg, #818cf8, #6366f1);
-          border: 2px solid white;
-          box-shadow: 0 0 10px rgba(99, 102, 241, 0.5);
           cursor: pointer;
+          box-shadow: 0 0 0 4px var(--accent-soft), 0 6px 12px rgba(15, 23, 42, 0.28);
+          transition: all 0.2s;
         }
       `}</style>
     </div>

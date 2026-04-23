@@ -1,5 +1,6 @@
 export interface HistoricalEvent {
   id: string;
+  slug?: string;
   name: string;
   description: string;
   startYear: number;

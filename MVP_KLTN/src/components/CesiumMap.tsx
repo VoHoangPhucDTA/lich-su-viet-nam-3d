@@ -1,4 +1,4 @@
-import { useEffect, useRef, useCallback } from 'react';
+import { useEffect, useRef, useCallback, useState } from 'react';
 import {
   Viewer,
   Entity,
@@ -13,10 +13,22 @@ import {
   Cartesian2,
   GeoJsonDataSource,
   ColorMaterialProperty,
+  EllipsoidTerrainProvider,
 } from 'cesium';
 import 'cesium/Build/Cesium/Widgets/widgets.css';
 import { VIETNAM_CENTER, getMarkerColor } from '../lib/cesium';
 import type { HistoricalEvent } from '../types/event';
+
+// ─── SAFE MODE ────────────────────────────────────────────────────────────────
+// Set to false when globe is confirmed stable to re-enable markers + polygon.
+const CESIUM_SAFE_MODE = false;
+
+// ─── Module-level guard ────────────────────────────────────────────────────────
+// A React useRef resets on every mount (including StrictMode double-mount).
+// A module-level variable persists across StrictMode mount/unmount/re-mount cycles,
+// preventing two Viewers from being created on the same container.
+let viewerInstance: Viewer | null = null;
+let viewerContainerEl: HTMLDivElement | null = null;
 
 interface CesiumMapProps {
   events: HistoricalEvent[];
@@ -36,155 +48,230 @@ export default function CesiumMap({
   const entitiesMapRef = useRef<Map<string, Entity>>(new Map());
   const handlerRef = useRef<ScreenSpaceEventHandler | null>(null);
   const dataSourceRef = useRef<GeoJsonDataSource | null>(null);
+  const [mapError, setMapError] = useState<string | null>(null);
 
-  // Initialize Cesium Viewer
+  // Stable ref to callback — avoids re-running init effect when callback changes
+  const onSelectEventRef = useRef(onSelectEvent);
+  onSelectEventRef.current = onSelectEvent;
+
+  // ─── Initialize Cesium Viewer (once, synchronous path) ─────────────────────
   useEffect(() => {
-    if (!containerRef.current || viewerRef.current) return;
+    const container = containerRef.current;
+    if (!container) return;
 
-    const viewer = new Viewer(containerRef.current, {
-      animation: false,
-      timeline: false,
-      fullscreenButton: false,
-      geocoder: false,
-      homeButton: true,
-      sceneModePicker: false,
-      baseLayerPicker: false,
-      navigationHelpButton: false,
-      infoBox: false,
-      shadows: false,
-      shouldAnimate: false,
-    });
+    // Guard: if we already have a live viewer attached to THIS container, skip.
+    if (viewerInstance && !viewerInstance.isDestroyed() && viewerContainerEl === container) {
+      viewerRef.current = viewerInstance;
+      return;
+    }
 
-    // Fly to Vietnam on load
-    viewer.camera.flyTo({
-      destination: VIETNAM_CENTER,
-      duration: 0,
-    });
+    // Guard: destroy stale viewer from a previous container (HMR / navigate away)
+    if (viewerInstance && !viewerInstance.isDestroyed()) {
+      viewerInstance.destroy();
+      viewerInstance = null;
+      viewerContainerEl = null;
+    }
 
-    // Enable terrain
-    viewer.scene.globe.enableLighting = false;
-    viewer.scene.globe.depthTestAgainstTerrain = false;
+    // Safety: verify container has real dimensions before init
+    // Use rAF so the DOM has been painted and layout is final.
+    let rafId: number;
+    rafId = requestAnimationFrame(() => {
+      if (!container || !containerRef.current) return;
 
-    // Load Vietnam province boundaries
-    GeoJsonDataSource.load('/geojson/vietnam-provinces.json', {
-      stroke: Color.WHITE.withAlpha(0.2),
-      fill: Color.TRANSPARENT,
-      strokeWidth: 1,
-    }).then((dataSource) => {
-      viewer.dataSources.add(dataSource);
-      dataSourceRef.current = dataSource;
-    });
+      const w = container.clientWidth;
+      const h = container.clientHeight;
+      console.log(`[CesiumMap] container size: ${w}x${h}`);
 
-    viewerRef.current = viewer;
+      if (w === 0 || h === 0) {
+        console.error('[CesiumMap] Container has zero size — cannot init Viewer. Check layout.');
+        setMapError('Không thể tải bản đồ: container có kích thước 0.');
+        return;
+      }
 
-    // Click handler
-    const handler = new ScreenSpaceEventHandler(viewer.scene.canvas);
-    handler.setInputAction(
-      (movement: { position: Cartesian2 }) => {
-        const picked = viewer.scene.pick(movement.position);
-        if (defined(picked) && picked.id && picked.id.eventData) {
-          onSelectEvent(picked.id.eventData as HistoricalEvent);
-        } else {
-          onSelectEvent(null);
+      try {
+        // ── Synchronous Viewer creation (no async = no StrictMode race) ──
+        const viewer = new Viewer(container, {
+          // SAFE MODE: always use EllipsoidTerrainProvider (no network, no token needed)
+          terrainProvider: new EllipsoidTerrainProvider(),
+          animation: false,
+          timeline: false,
+          fullscreenButton: false,
+          geocoder: false,
+          homeButton: false,
+          sceneModePicker: false,
+          baseLayerPicker: false,
+          navigationHelpButton: false,
+          infoBox: false,
+          selectionIndicator: false,
+          shadows: false,
+          shouldAnimate: false,
+        });
+
+        // ── Suppress Cesium's built-in error overlay (replaces [object Object] alert) ──
+        viewer.scene.renderError.addEventListener((_scene: unknown, error: unknown) => {
+          const msg =
+            error instanceof Error
+              ? `${error.message}\n${error.stack ?? ''}`
+              : typeof error === 'object'
+              ? JSON.stringify(error)
+              : String(error);
+          console.error('[CesiumMap] renderError:', msg);
+          // Show a soft UI error once — do NOT call viewer.destroy() here
+          setMapError('Lỗi render Cesium. Xem console để biết chi tiết.');
+        });
+
+        // ── Initial camera (instant, no animation during init) ──
+        viewer.camera.setView({ destination: VIETNAM_CENTER });
+
+        // ── Globe settings ──
+        viewer.scene.globe.enableLighting = false;
+        viewer.scene.globe.depthTestAgainstTerrain = false;
+
+        // ── Click handler ──
+        const handler = new ScreenSpaceEventHandler(viewer.scene.canvas);
+        if (!CESIUM_SAFE_MODE) {
+          handler.setInputAction(
+            (movement: { position: Cartesian2 }) => {
+              const v = viewerRef.current;
+              if (!v || v.isDestroyed()) return;
+              try {
+                const picked = v.scene.pick(movement.position);
+                if (defined(picked) && picked.id && (picked.id as any).eventData) {
+                  onSelectEventRef.current((picked.id as any).eventData as HistoricalEvent);
+                } else {
+                  onSelectEventRef.current(null);
+                }
+              } catch (e) {
+                console.warn('[CesiumMap] Pick error:', e);
+              }
+            },
+            ScreenSpaceEventType.LEFT_CLICK
+          );
         }
-      },
-      ScreenSpaceEventType.LEFT_CLICK
-    );
-    handlerRef.current = handler;
+
+        handlerRef.current = handler;
+        viewerRef.current = viewer;
+        viewerInstance = viewer;
+        viewerContainerEl = container;
+
+        // ── Load GeoJSON (non-blocking, optional) ──
+        if (!CESIUM_SAFE_MODE) {
+          GeoJsonDataSource.load('/geojson/vietnam-provinces.json', {
+            stroke: Color.WHITE.withAlpha(0.2),
+            fill: Color.TRANSPARENT,
+            strokeWidth: 1,
+          })
+            .then((dataSource) => {
+              if (viewer && !viewer.isDestroyed()) {
+                viewer.dataSources.add(dataSource);
+                dataSourceRef.current = dataSource;
+              }
+            })
+            .catch((e) => {
+              console.warn('[CesiumMap] GeoJSON load failed (non-fatal):', e);
+            });
+        }
+
+        console.log('[CesiumMap] Viewer initialized successfully.');
+      } catch (err) {
+        console.error('[CesiumMap] Failed to create Viewer:', err);
+        setMapError(
+          'Không thể khởi tạo bản đồ 3D. Vui lòng kiểm tra Cesium token hoặc kết nối mạng.'
+        );
+      }
+    });
 
     return () => {
-      handler.destroy();
-      viewer.destroy();
+      cancelAnimationFrame(rafId);
+      // On unmount: clean up handler but KEEP the viewer alive on the module-level variable.
+      // This prevents StrictMode from destroying and re-creating the viewer on the 2nd mount.
+      // The viewer will only be truly destroyed when the container element changes.
+      if (handlerRef.current && !handlerRef.current.isDestroyed()) {
+        handlerRef.current.destroy();
+        handlerRef.current = null;
+      }
+      // Do NOT destroy viewerInstance here — that causes the StrictMode double-init crash.
       viewerRef.current = null;
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Update the onSelectEvent callback in the handler
-  const onSelectEventRef = useRef(onSelectEvent);
-  onSelectEventRef.current = onSelectEvent;
-
-  useEffect(() => {
-    if (!handlerRef.current || handlerRef.current.isDestroyed()) return;
-    handlerRef.current.removeInputAction(ScreenSpaceEventType.LEFT_CLICK);
-    handlerRef.current.setInputAction(
-      (movement: { position: Cartesian2 }) => {
-        const viewer = viewerRef.current;
-        if (!viewer) return;
-        const picked = viewer.scene.pick(movement.position);
-        if (defined(picked) && picked.id && picked.id.eventData) {
-          onSelectEventRef.current(picked.id.eventData as HistoricalEvent);
-        } else {
-          onSelectEventRef.current(null);
-        }
-      },
-      ScreenSpaceEventType.LEFT_CLICK
-    );
-  }, [onSelectEvent]);
-
-  // Render markers for current events
+  // ─── Render markers ──────────────────────────────────────────────────────────
   const renderMarkers = useCallback(
     (eventsToRender: HistoricalEvent[]) => {
-      const viewer = viewerRef.current;
-      if (!viewer) return;
+      if (CESIUM_SAFE_MODE) return; // skip in safe mode
 
-      // Clear existing entities
+      const viewer = viewerRef.current;
+      if (!viewer || viewer.isDestroyed()) return;
+
       viewer.entities.removeAll();
       entitiesMapRef.current.clear();
 
       eventsToRender.forEach((event) => {
+        // Guard: skip no-location events
         if (!event.coordinates || event.geoType === 'no_location') return;
+
+        // Guard: coordinates must be finite numbers
+        const { lat, lng } = event.coordinates;
+        if (!Number.isFinite(lat) || !Number.isFinite(lng)) {
+          console.warn(
+            `[CesiumMap] Skipping "${event.id}" — invalid coords:`,
+            event.coordinates
+          );
+          return;
+        }
 
         const color = getMarkerColor(event.eventType);
         const isHighlighted = highlightedEventId === event.id;
         const pixelSize = isHighlighted ? 18 : 14;
 
-        const entity = viewer.entities.add({
-          name: event.name,
-          position: Cartesian3.fromDegrees(
-            event.coordinates.lng,
-            event.coordinates.lat
-          ),
-          point: {
-            pixelSize: pixelSize,
-            color: color,
-            outlineColor: Color.WHITE,
-            outlineWidth: 2,
-            heightReference: HeightReference.CLAMP_TO_GROUND,
-            disableDepthTestDistance: Number.POSITIVE_INFINITY,
-          },
-          label: {
-            text: event.name,
-            font: '13px Inter, sans-serif',
-            fillColor: Color.WHITE,
-            outlineColor: Color.BLACK,
-            outlineWidth: 3,
-            style: 2, // FILL_AND_OUTLINE
-            verticalOrigin: VerticalOrigin.BOTTOM,
-            pixelOffset: new Cartesian3(0, -22, 0) as any,
-            heightReference: HeightReference.CLAMP_TO_GROUND,
-            disableDepthTestDistance: Number.POSITIVE_INFINITY,
-            showBackground: true,
-            backgroundColor: Color.fromCssColorString('rgba(15, 23, 42, 0.8)'),
-            backgroundPadding: new Cartesian3(8, 5, 0) as any,
-          },
-        });
+        try {
+          const entity = viewer.entities.add({
+            name: event.name,
+            position: Cartesian3.fromDegrees(lng, lat),
+            point: {
+              pixelSize,
+              color,
+              outlineColor: Color.WHITE,
+              outlineWidth: 2,
+              heightReference: HeightReference.CLAMP_TO_GROUND,
+              disableDepthTestDistance: Number.POSITIVE_INFINITY,
+            },
+            label: {
+              text: event.name,
+              font: '13px Inter, sans-serif',
+              fillColor: Color.WHITE,
+              outlineColor: Color.BLACK,
+              outlineWidth: 3,
+              style: 2, // FILL_AND_OUTLINE
+              verticalOrigin: VerticalOrigin.BOTTOM,
+              pixelOffset: new Cartesian3(0, -22, 0) as any,
+              heightReference: HeightReference.CLAMP_TO_GROUND,
+              disableDepthTestDistance: Number.POSITIVE_INFINITY,
+              showBackground: true,
+              backgroundColor: Color.fromCssColorString('rgba(15, 23, 42, 0.8)'),
+              backgroundPadding: new Cartesian3(8, 5, 0) as any,
+            },
+          });
 
-        // Store event data on entity for click detection
-        (entity as any).eventData = event;
-        entitiesMapRef.current.set(event.id, entity);
+          (entity as any).eventData = event;
+          entitiesMapRef.current.set(event.id, entity);
+        } catch (e) {
+          console.warn(`[CesiumMap] Failed to add entity for "${event.id}":`, e);
+        }
       });
     },
     [highlightedEventId]
   );
 
-  // Update markers when events change
   useEffect(() => {
     renderMarkers(events);
   }, [events, renderMarkers]);
 
-  // Update polygon highlights when selected event changes
+  // ─── Update polygon highlights ───────────────────────────────────────────────
   useEffect(() => {
+    if (CESIUM_SAFE_MODE) return;
+
     const dataSource = dataSourceRef.current;
     if (!dataSource) return;
 
@@ -196,9 +283,8 @@ export default function CesiumMap({
     const secondarySet = new Set(
       (selectedEvent?.secondaryRegions || []).map(normalizeString)
     );
-    
-    // Determine target color based on event type if selected, else default
-    let baseColor = Color.fromCssColorString('#6366f1'); // Default primary
+
+    let baseColor = Color.fromCssColorString('#6366f1');
     if (selectedEvent) {
       baseColor = getMarkerColor(selectedEvent.eventType);
     }
@@ -211,10 +297,8 @@ export default function CesiumMap({
     for (let i = 0; i < entities.length; i++) {
       const entity = entities[i];
       if (!entity.polygon) continue;
-
       const name = entity.properties?.NAME_1?.getValue() || '';
       const normalizedName = normalizeString(name);
-
       if (primarySet.has(normalizedName)) {
         entity.polygon.material = primaryMaterial;
         entity.polygon.outlineColor = baseColor.withAlpha(0.8) as any;
@@ -228,33 +312,64 @@ export default function CesiumMap({
     }
   }, [selectedEvent]);
 
-  // Fly to selected event
+  // ─── Fly to selected event ───────────────────────────────────────────────────
   useEffect(() => {
+    if (CESIUM_SAFE_MODE) return;
+
     const viewer = viewerRef.current;
-    if (!viewer || !selectedEvent) return;
+    if (!viewer || viewer.isDestroyed() || !selectedEvent) return;
 
     if (selectedEvent.coordinates && selectedEvent.geoType !== 'no_location') {
-      const hasChildren =
-        selectedEvent.children && selectedEvent.children.length > 0;
+      const { lat, lng } = selectedEvent.coordinates;
+      if (!Number.isFinite(lat) || !Number.isFinite(lng)) return;
+
+      const hasChildren = selectedEvent.children && selectedEvent.children.length > 0;
       const altitude = hasChildren ? 800000 : 200000;
 
-      viewer.camera.flyTo({
-        destination: Cartesian3.fromDegrees(
-          selectedEvent.coordinates.lng,
-          selectedEvent.coordinates.lat,
-          altitude
-        ),
-        orientation: {
-          heading: CesiumMath.toRadians(0),
-          pitch: CesiumMath.toRadians(-90),
-          roll: 0,
-        },
-        duration: 1.5,
-      });
+      try {
+        viewer.camera.flyTo({
+          destination: Cartesian3.fromDegrees(lng, lat, altitude),
+          orientation: {
+            heading: CesiumMath.toRadians(0),
+            pitch: CesiumMath.toRadians(-90),
+            roll: 0,
+          },
+          duration: 1.5,
+        });
+      } catch (e) {
+        console.warn('[CesiumMap] flyTo error:', e);
+      }
     }
   }, [selectedEvent]);
 
   return (
-    <div ref={containerRef} className="w-full h-full" id="cesium-container" />
+    <div style={{ width: '100%', height: '100%', position: 'relative' }}>
+      <div
+        ref={containerRef}
+        id="cesium-container"
+        style={{ width: '100%', height: '100%' }}
+      />
+      {/* Soft error fallback — replaced the [object Object] alert */}
+      {mapError && (
+        <div
+          style={{
+            position: 'absolute',
+            bottom: 16,
+            left: '50%',
+            transform: 'translateX(-50%)',
+            background: 'rgba(239, 68, 68, 0.15)',
+            border: '1px solid rgba(239, 68, 68, 0.4)',
+            borderRadius: 8,
+            padding: '8px 16px',
+            fontSize: 12,
+            color: '#fca5a5',
+            zIndex: 10,
+            pointerEvents: 'none',
+          }}
+        >
+          ⚠️ {mapError}
+        </div>
+      )}
+    </div>
   );
 }

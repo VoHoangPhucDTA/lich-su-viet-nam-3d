@@ -4,12 +4,13 @@ import Timeline from '../components/Timeline';
 import Sidebar from '../components/Sidebar';
 import EventPopup from '../components/EventPopup';
 import {
-  HISTORICAL_EVENTS,
   getEventsByYear,
   findEventById,
   TIMELINE_MIN_YEAR,
 } from '../data/events';
+import { useEffect } from 'react';
 import type { HistoricalEvent } from '../types/event';
+import { useHeader } from '../components/layout/HeaderContext';
 
 export default function MapPage() {
   const [currentYear, setCurrentYear] = useState(TIMELINE_MIN_YEAR);
@@ -20,6 +21,8 @@ export default function MapPage() {
     null
   );
   const [navigationStack, setNavigationStack] = useState<HistoricalEvent[]>([]);
+  
+  const { setCenterContent } = useHeader();
 
   // Events visible on the map based on the current context
   const visibleMapEvents = useMemo(() => {
@@ -126,144 +129,67 @@ export default function MapPage() {
     setNavigationStack([]);
   }, []);
 
-  return (
-    <div
-      style={{
-        width: '100vw',
-        height: '100vh',
-        display: 'flex',
-        flexDirection: 'column',
-        overflow: 'hidden',
-        background: 'var(--color-surface)',
-      }}
-    >
-      {/* Top bar */}
-      <div
-        className="glass"
-        style={{
-          padding: '10px 20px',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          borderBottom: '1px solid rgba(71, 85, 105, 0.3)',
-          zIndex: 20,
-        }}
-      >
-        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-          <span style={{ fontSize: '24px' }}>🏛️</span>
-          <div>
-            <h1
-              style={{
-                fontSize: '16px',
-                fontWeight: 700,
-                background:
-                  'linear-gradient(135deg, #818cf8, #6366f1, #a78bfa)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                letterSpacing: '-0.01em',
-              }}
-            >
-              Lịch Sử Việt Nam 3D
-            </h1>
-            <p
-              style={{
-                fontSize: '11px',
-                color: 'var(--color-text-dim)',
-                marginTop: '1px',
-              }}
-            >
-              Khám phá lịch sử qua bản đồ tương tác
-            </p>
-          </div>
-        </div>
-
-        {/* Navigation breadcrumb */}
-        {selectedEvent && (
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '6px',
-              fontSize: '12px',
-            }}
-          >
-            <button
-              onClick={() => {
-                setSelectedEvent(null);
-                setNavigationStack([]);
-              }}
-              style={{
-                background: 'none',
-                border: 'none',
-                color: 'var(--color-primary-light)',
-                cursor: 'pointer',
-                fontSize: '12px',
-              }}
-            >
-              Tổng quan
-            </button>
-            {navigationStack.map((navEvent) => (
-              <span key={navEvent.id} style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                <span style={{ color: 'var(--color-text-dim)' }}>›</span>
-                <button
-                  onClick={() => {
-                    const idx = navigationStack.indexOf(navEvent);
-                    setNavigationStack((prev) => prev.slice(0, idx));
-                    setSelectedEvent(navEvent);
-                  }}
-                  style={{
-                    background: 'none',
-                    border: 'none',
-                    color: 'var(--color-primary-light)',
-                    cursor: 'pointer',
-                    fontSize: '12px',
-                    maxWidth: '120px',
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis',
-                    whiteSpace: 'nowrap',
-                  }}
-                >
-                  {navEvent.name}
-                </button>
-              </span>
-            ))}
-            <span style={{ color: 'var(--color-text-dim)' }}>›</span>
-            <span
-              style={{
-                color: 'var(--color-text)',
-                fontWeight: 600,
-                maxWidth: '160px',
-                overflow: 'hidden',
-                textOverflow: 'ellipsis',
-                whiteSpace: 'nowrap',
-              }}
-            >
-              {selectedEvent.name}
-            </span>
-          </div>
-        )}
-
+  useEffect(() => {
+    if (selectedEvent) {
+      setCenterContent(
         <div
+          className="glass-map"
           style={{
             display: 'flex',
             alignItems: 'center',
-            gap: '4px',
-            fontSize: '12px',
-            color: 'var(--color-text-dim)',
+            gap: '8px',
+            padding: '6px 14px',
+            borderRadius: '999px',
+            border: '1px solid var(--border)',
+            fontSize: '13px',
           }}
         >
-          <span
-            style={{
-              width: '8px',
-              height: '8px',
-              borderRadius: '50%',
-              background: '#10b981',
+          <button
+            onClick={() => {
+              setSelectedEvent(null);
+              setNavigationStack([]);
             }}
-          />
-          MVP Demo
+            style={{ background: 'none', border: 'none', color: 'var(--accent)', cursor: 'pointer', fontSize: '12px', fontWeight: 500 }}
+          >
+            Tổng quan
+          </button>
+          {navigationStack.map((navEvent) => (
+            <span key={navEvent.id} style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+              <span style={{ color: 'var(--text-muted)' }}>›</span>
+              <button
+                onClick={() => {
+                  const idx = navigationStack.indexOf(navEvent);
+                  setNavigationStack((prev) => prev.slice(0, idx));
+                  setSelectedEvent(navEvent);
+                }}
+                style={{ background: 'none', border: 'none', color: 'var(--accent)', cursor: 'pointer', fontSize: '12px', fontWeight: 500, maxWidth: '120px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}
+              >
+                {navEvent.name}
+              </button>
+            </span>
+          ))}
+          <span style={{ color: 'var(--text-muted)' }}>›</span>
+          <span style={{ color: 'var(--text-primary)', fontWeight: 600, maxWidth: '160px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+            {selectedEvent.name}
+          </span>
         </div>
-      </div>
+      );
+    } else {
+      setCenterContent(null);
+    }
+  }, [selectedEvent, navigationStack, setCenterContent]);
 
+  return (
+    <div
+      style={{
+        width: '100%',
+        height: '100%', 
+        display: 'flex',
+        flexDirection: 'column',
+        overflow: 'hidden',
+        background: 'var(--bg-app)',
+      }}
+    >
       {/* Main content */}
       <div style={{ flex: 1, display: 'flex', overflow: 'hidden' }}>
         {/* Sidebar */}
@@ -295,26 +221,26 @@ export default function MapPage() {
             {/* Map overlay info */}
             {!selectedEvent && (
               <div
-                className="animate-fade-in"
+                className="glass-map animate-fade-in"
                 style={{
                   position: 'absolute',
                   top: '16px',
                   left: '16px',
-                  padding: '10px 16px',
-                  borderRadius: '10px',
-                  background: 'rgba(15, 23, 42, 0.85)',
-                  backdropFilter: 'blur(8px)',
-                  border: '1px solid rgba(71, 85, 105, 0.3)',
-                  fontSize: '12px',
-                  color: 'var(--color-text-dim)',
+                  padding: '10px 18px',
+                  borderRadius: '12px',
+                  fontSize: '13px',
+                  fontWeight: 500,
+                  color: 'var(--text-primary)',
                   display: 'flex',
                   alignItems: 'center',
-                  gap: '8px',
+                  gap: '10px',
                 }}
               >
-                <span style={{ fontSize: '16px' }}>💡</span>
-                Kéo timeline để chọn mốc thời gian, click marker để xem chi
-                tiết sự kiện
+                <span style={{ fontSize: '18px' }}>💡</span>
+                <span>
+                  Kéo timeline để chọn mốc thời gian, click marker để xem chi
+                  tiết sự kiện
+                </span>
               </div>
             )}
           </div>
