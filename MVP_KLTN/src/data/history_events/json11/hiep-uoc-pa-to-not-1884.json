@@ -1,0 +1,104 @@
+{
+  "id": "hiep-uoc-pa-to-not-1884",
+  "slug": "hiep-uoc-pa-to-not-1884",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Hiệp ước Pa-tơ-nốt (1884)",
+    "short": "Hiệp ước Pa-tơ-nốt"
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "treaty",
+    "tags": [
+      "Hiệp ước Pa-tơ-nốt (1884)",
+      "Năm 1884",
+      "Đánh dấu việc Pháp hoàn thành xâm lược Việt Nam."
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1884
+    },
+    "datePrecision": "year",
+    "displayDate": "Năm 1884",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "no_location",
+      "marker": {
+        "label": "Hiệp ước Pa-tơ-nốt"
+      }
+    },
+    "focusGeometry": {
+      "mode": "auto"
+    }
+  },
+  "summary": {
+    "homepageTitle": "Hiệp ước Pa-tơ-nốt (1884)",
+    "homepageSummary": "Hiệp ước Pa-tơ-nốt (1884). Đánh dấu việc Pháp hoàn thành xâm lược Việt Nam.",
+    "cardSummary": "Đánh dấu việc Pháp hoàn thành xâm lược Việt Nam."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Hiệp ước Pa-tơ-nốt (1884). Đánh dấu việc Pháp hoàn thành xâm lược Việt Nam.",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 5: Quá trình xâm lược và cai trị của chủ nghĩa thực dân ở Đông Nam Á. Đánh dấu việc Pháp hoàn thành xâm lược Việt Nam.",
+    "significance": "Là mốc quan trọng về tổ chức nhà nước, cải cách hoặc chủ quyền được SGK 11 nhấn mạnh.",
+    "keyFacts": [
+      "Hiệp ước Pa-tơ-nốt (1884)",
+      "Năm 1884",
+      "Đánh dấu việc Pháp hoàn thành xâm lược Việt Nam."
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 11,
+      "book": "Lịch sử 11 - Cánh Diều",
+      "lesson": "Bài 5: Quá trình xâm lược và cai trị của chủ nghĩa thực dân ở Đông Nam Á",
+      "pageStart": 34,
+      "pageEnd": 34,
+      "excerpt": "Đánh dấu việc Pháp hoàn thành xâm lược Việt Nam."
+    }
+  ],
+  "hierarchy": {
+    "rootId": "vm-chien-tranh-bao-ve-to-quoc",
+    "parentId": "khang-chien-chong-phap-1858-1884",
+    "level": 2,
+    "orderInParent": 3
+  },
+  "associations": {
+    "relatedEventIds": [
+      "phap-xam-luoc-vn-1858",
+      "khang-chien-chong-phap-1858-1884",
+      "phap-chiem-nam-bo-1862-1867"
+    ],
+    "predecessorEventIds": [
+      "phap-chiem-nam-bo-1862-1867"
+    ]
+  },
+  "display": {
+    "showOnHomepage": false,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "Đánh dấu việc Pháp hoàn thành xâm lược Việt Nam. || [SGK11:hiep-uoc-pa-to-not-1884] Đánh dấu việc Pháp hoàn thành xâm lược Việt Nam.",
+  "merge": {
+    "sourceGrades": "11",
+    "sourceIds": "hiep-uoc-pa-to-not-1884",
+    "mergedCount": 1,
+    "sourceFiles": "SGK11_event_master_flattened_v2(1).xlsx",
+    "textbookRefsAll": "SGK11: Bài 5: Quá trình xâm lược và cai trị của chủ nghĩa thực dân ở Đông Nam Á tr.34 [hiep-uoc-pa-to-not-1884]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

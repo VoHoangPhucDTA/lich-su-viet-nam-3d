@@ -1,3 +1,15 @@
+import type { LucideIcon } from 'lucide-react';
+import {
+  Swords,
+  Landmark,
+  Coins,
+  BookOpenText,
+  MapPinned,
+  MapPin,
+  Map as MapIcon,
+  ClipboardList,
+} from 'lucide-react';
+
 export interface HistoricalEvent {
   id: string;
   slug?: string;
@@ -27,18 +39,25 @@ export const EVENT_TYPE_LABELS: Record<EventType, string> = {
   cultural: 'Văn hóa - Xã hội',
 };
 
-export const EVENT_TYPE_ICONS: Record<EventType, string> = {
-  military: '⚔️',
-  political: '🏛️',
-  economic: '💰',
-  cultural: '📚',
+/**
+ * Tất cả icon đồng bộ dùng từ thư viện `lucide-react` để có style nhất quán
+ * (stroke, line-cap, kích thước). Component sử dụng:
+ *
+ *   const Icon = EVENT_TYPE_ICONS[eventType];
+ *   <Icon size={16} />
+ */
+export const EVENT_TYPE_ICONS: Record<EventType, LucideIcon> = {
+  military: Swords,
+  political: Landmark,
+  economic: Coins,
+  cultural: BookOpenText,
 };
 
 export const EVENT_TYPE_COLORS: Record<EventType, string> = {
-  military: '#ef4444',
-  political: '#3b82f6',
-  economic: '#f59e0b',
-  cultural: '#10b981',
+  military: '#9f1d2d',
+  political: '#2f5d8a',
+  economic: '#c29b4b',
+  cultural: '#2f7a57',
 };
 
 export const GEO_TYPE_LABELS: Record<GeoType, string> = {
@@ -46,4 +65,12 @@ export const GEO_TYPE_LABELS: Record<GeoType, string> = {
   single_point: 'Một điểm',
   nationwide: 'Toàn quốc',
   no_location: 'Không có địa điểm',
+};
+
+/** Lucide icon tương ứng với mỗi loại phạm vi địa lý của sự kiện. */
+export const GEO_TYPE_ICONS: Record<GeoType, LucideIcon> = {
+  multi_region: MapPinned,
+  single_point: MapPin,
+  nationwide: MapIcon,
+  no_location: ClipboardList,
 };

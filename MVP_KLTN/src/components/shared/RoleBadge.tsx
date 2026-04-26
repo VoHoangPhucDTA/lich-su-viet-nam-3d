@@ -3,8 +3,8 @@
 import type { AdminUserRole } from '../../data/mockAdminData';
 
 const config: Record<string, { label: string; color: string; bg: string }> = {
-  student: { label: 'Học sinh', color: '#818cf8', bg: 'rgba(99,102,241,0.12)' },
-  admin:   { label: 'Admin',    color: '#fb923c', bg: 'rgba(249,115,22,0.12)' },
+  student: { label: 'Học sinh', color: '#4f6f95', bg: 'rgba(30,58,95,0.14)' },
+  admin:   { label: 'Admin',    color: '#c29b4b', bg: 'rgba(194,155,75,0.16)' },
 };
 
 export default function RoleBadge({ role }: { role: AdminUserRole }) {

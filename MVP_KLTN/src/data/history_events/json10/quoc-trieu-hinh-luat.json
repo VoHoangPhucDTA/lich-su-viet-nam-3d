@@ -1,0 +1,118 @@
+{
+  "id": "quoc-trieu-hinh-luat",
+  "slug": "quoc-trieu-hinh-luat",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Ban hành Quốc triều hình luật",
+    "short": "Quốc triều hình luật",
+    "alternatives": [
+      "Quốc triều hình luật (Luật Hồng Đức) – hoàn chỉnh",
+      "quoc-trieu-hinh-luat-hong-duc"
+    ]
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "law_code",
+    "tags": [
+      "Quốc triều hình luật",
+      1483,
+      "Lê sơ",
+      "Quốc triều hình luật (Luật Hồng Đức) – hoàn chỉnh",
+      "Thời Lê Thánh Tông",
+      "Trùng SGK10",
+      "trùng_sgk10"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      10,
+      11
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1483
+    },
+    "datePrecision": "year",
+    "displayDate": "Năm 1483",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "no_location"
+    },
+    "focusGeometry": {
+      "mode": "auto"
+    }
+  },
+  "summary": {
+    "homepageTitle": "Ban hành Quốc triều hình luật",
+    "homepageSummary": "Quốc triều hình luật là bộ luật tiêu biểu thời Lê sơ, phản ánh trình độ lập pháp cao của Đại Việt.",
+    "cardSummary": "Quốc triều hình luật ban hành năm 1483."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Quốc triều hình luật (Luật Hồng Đức) – hoàn chỉnh. Trùng SGK10; SGK11 bổ sung các điểm mới về phụ nữ, tố tụng, quản lí xã hội.",
+    "detailedNarrative": "SGK đưa Quốc triều hình luật vào nhóm thành tựu chính trị tiêu biểu của văn minh Đại Việt. Bộ luật quy định khá toàn diện nhiều mặt của đời sống xã hội và thể hiện sự phát triển cao của nhà nước thời Lê sơ.",
+    "significance": "Là minh chứng cho sự hoàn thiện của thể chế nhà nước và trình độ pháp luật phong kiến Việt Nam.",
+    "keyFacts": [
+      "Năm 1483",
+      "Thuộc thời Lê sơ",
+      "Còn gọi là Luật Hồng Đức",
+      "Quốc triều hình luật (Luật Hồng Đức) – hoàn chỉnh",
+      "Thời Lê Thánh Tông",
+      "Trùng SGK10"
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 10,
+      "book": "Lịch sử 10 - Cánh Diều",
+      "theme": "Chủ đề 6: Một số nền văn minh trên đất nước Việt Nam trước năm 1858",
+      "lesson": "Bài 15: Những thành tựu tiêu biểu của văn minh Đại Việt",
+      "pageStart": 101,
+      "pageEnd": 101,
+      "excerpt": "Năm 1483, triều Lê ban hành Quốc triều hình luật."
+    }
+  ],
+  "hierarchy": {
+    "rootId": "vm-dai-viet",
+    "parentId": "vm-dai-viet",
+    "level": 1,
+    "orderInParent": 13
+  },
+  "associations": {
+    "relatedEventIds": [
+      "cai-cach-ltt-to-chuc-chinh-quyen",
+      "cai-cach-le-thanh-tong",
+      "cai-cach-ltt-kinh-te-van-hoa"
+    ],
+    "predecessorEventIds": [
+      "cai-cach-ltt-to-chuc-chinh-quyen"
+    ],
+    "successorEventIds": [
+      "cai-cach-ltt-kinh-te-van-hoa"
+    ]
+  },
+  "display": {
+    "showOnHomepage": true,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "[SGK11:quoc-trieu-hinh-luat-hong-duc] Trùng SGK10; SGK11 bổ sung các điểm mới về phụ nữ, tố tụng, quản lí xã hội. | Trùng SGK10: quoc-trieu-hinh-luat",
+  "merge": {
+    "sourceGrades": "10 | 11",
+    "sourceIds": "quoc-trieu-hinh-luat | quoc-trieu-hinh-luat-hong-duc",
+    "mergedCount": 2,
+    "sourceFiles": "SGK10_event_master_flattened_v2(1).xlsx | SGK11_event_master_flattened_v2(1).xlsx",
+    "textbookRefsAll": "SGK10: Bài 15: Những thành tựu tiêu biểu của văn minh Đại Việt tr.101 [quoc-trieu-hinh-luat] || SGK11: Bài 10: Cuộc cải cách của Lê Thánh Tông (thế kỉ XV) tr.71 [quoc-trieu-hinh-luat-hong-duc]",
+    "notes": "Merged 2 source rows into canonical id 'quoc-trieu-hinh-luat'."
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

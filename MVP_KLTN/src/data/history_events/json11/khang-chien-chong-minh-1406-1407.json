@@ -1,0 +1,141 @@
+{
+  "id": "khang-chien-chong-minh-1406-1407",
+  "slug": "khang-chien-chong-minh-1406-1407",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Kháng chiến chống quân Minh (1406–1407)",
+    "short": "Chống Minh"
+  },
+  "classification": {
+    "eventType": "military",
+    "eventSubtype": "battle_failed",
+    "tags": [
+      "Kháng chiến chống quân Minh (1406–1407)",
+      "1406–1407",
+      "Hà Nội",
+      "Thanh Hóa",
+      "Hà Tĩnh",
+      "Nhà Hồ thất bại; thành Đa Bang",
+      "Tây Đô; chiêu bài 'Phù Trần diệt Hồ'."
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1406
+    },
+    "end": {
+      "year": 1407
+    },
+    "datePrecision": "period",
+    "displayDate": "1406–1407",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "multi_point",
+      "marker": {
+        "label": "Hà Nội"
+      },
+      "provinceNames": [
+        "Hà Nội",
+        "Thanh Hóa",
+        "Hà Tĩnh"
+      ],
+      "historicalLocations": [
+        "Hà Nội",
+        "Thanh Hóa",
+        "Hà Tĩnh"
+      ]
+    },
+    "focusGeometry": {
+      "mode": "bounds",
+      "provinceNames": [
+        "Hà Nội",
+        "Thanh Hóa",
+        "Hà Tĩnh"
+      ]
+    }
+  },
+  "summary": {
+    "homepageTitle": "Kháng chiến chống quân Minh (1406–1407)",
+    "homepageSummary": "Kháng chiến chống quân Minh (1406–1407). Nhà Hồ thất bại; thành Đa Bang, Tây Đô; chiêu bài 'Phù Trần diệt Hồ'.",
+    "cardSummary": "Nhà Hồ thất bại; thành Đa Bang, Tây Đô; chiêu bài 'Phù Trần diệt Hồ'."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Kháng chiến chống quân Minh (1406–1407). Nhà Hồ thất bại; thành Đa Bang, Tây Đô; chiêu bài 'Phù Trần diệt Hồ'.",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 7: Chiến tranh bảo vệ Tổ quốc trong lịch sử Việt Nam. Nhà Hồ thất bại; thành Đa Bang, Tây Đô; chiêu bài 'Phù Trần diệt Hồ'.",
+    "significance": "Là mốc quan trọng trong tiến trình quân sự và bảo vệ/chinh phục độc lập, chủ quyền của Việt Nam theo SGK 11.",
+    "keyFacts": [
+      "Kháng chiến chống quân Minh (1406–1407)",
+      "1406–1407",
+      "Hà Nội",
+      "Thanh Hóa",
+      "Hà Tĩnh",
+      "Nhà Hồ thất bại; thành Đa Bang",
+      "Tây Đô; chiêu bài 'Phù Trần diệt Hồ'."
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 11,
+      "book": "Lịch sử 11 - Cánh Diều",
+      "lesson": "Bài 7: Chiến tranh bảo vệ Tổ quốc trong lịch sử Việt Nam",
+      "pageStart": 52,
+      "pageEnd": 52,
+      "excerpt": "Nhà Hồ thất bại; thành Đa Bang, Tây Đô; chiêu bài 'Phù Trần diệt Hồ'."
+    }
+  ],
+  "hierarchy": {
+    "rootId": "vm-chien-tranh-bao-ve-to-quoc",
+    "parentId": "vm-chien-tranh-bao-ve-to-quoc",
+    "level": 1,
+    "orderInParent": 9
+  },
+  "associations": {
+    "relatedEventIds": [
+      "khang-chien-chong-tong-1075-1077",
+      "vi-tri-dia-chien-luoc-vn",
+      "bach-dang-938-ngo-quyen-xung-vuong",
+      "vm-chien-tranh-bao-ve-to-quoc",
+      "khang-chien-chong-phap-1858-1884",
+      "ba-lan-chong-mong-nguyen",
+      "khang-chien-chong-tong-981",
+      "khang-chien-chong-trieu-tk2-tcn",
+      "khang-chien-chong-thanh-1789",
+      "khang-chien-chong-xiem-1785"
+    ],
+    "predecessorEventIds": [
+      "khang-chien-chong-trieu-tk2-tcn"
+    ],
+    "successorEventIds": [
+      "khang-chien-chong-phap-1858-1884"
+    ]
+  },
+  "display": {
+    "showOnHomepage": false,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "Nhà Hồ thất bại; thành Đa Bang, Tây Đô; chiêu bài 'Phù Trần diệt Hồ'. || [SGK11:khang-chien-chong-minh-1406-1407] Nhà Hồ thất bại; thành Đa Bang, Tây Đô; chiêu bài 'Phù Trần diệt Hồ'.",
+  "merge": {
+    "sourceGrades": "11",
+    "sourceIds": "khang-chien-chong-minh-1406-1407",
+    "mergedCount": 1,
+    "sourceFiles": "SGK11_event_master_flattened_v2(1).xlsx",
+    "textbookRefsAll": "SGK11: Bài 7: Chiến tranh bảo vệ Tổ quốc trong lịch sử Việt Nam tr.52 [khang-chien-chong-minh-1406-1407]"
+  },
+  "validation": {
+    "status": "CHECK",
+    "issues": "multi_point thiếu markers/marker đại diện"
+  }
+}

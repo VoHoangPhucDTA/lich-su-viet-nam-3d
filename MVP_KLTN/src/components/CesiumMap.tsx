@@ -1,4 +1,5 @@
 import { useEffect, useRef, useCallback, useState } from 'react';
+import { AlertTriangle } from 'lucide-react';
 import {
   Viewer,
   Entity,
@@ -284,7 +285,7 @@ export default function CesiumMap({
       (selectedEvent?.secondaryRegions || []).map(normalizeString)
     );
 
-    let baseColor = Color.fromCssColorString('#6366f1');
+    let baseColor = Color.fromCssColorString('#4f6f95');
     if (selectedEvent) {
       baseColor = getMarkerColor(selectedEvent.eventType);
     }
@@ -319,12 +320,23 @@ export default function CesiumMap({
     const viewer = viewerRef.current;
     if (!viewer || viewer.isDestroyed() || !selectedEvent) return;
 
+    const hasChildren =
+      !!selectedEvent.children && selectedEvent.children.length > 0;
+
+    // Có coordinates (kể cả centroid fallback) → flyTo trực tiếp
     if (selectedEvent.coordinates && selectedEvent.geoType !== 'no_location') {
       const { lat, lng } = selectedEvent.coordinates;
       if (!Number.isFinite(lat) || !Number.isFinite(lng)) return;
 
-      const hasChildren = selectedEvent.children && selectedEvent.children.length > 0;
-      const altitude = hasChildren ? 800000 : 200000;
+      // Altitude theo geoType:
+      //  - single_point + có children     → 800km (xem cụm sự kiện con)
+      //  - single_point (marker chính xác) → 200km (zoom gần)
+      //  - multi_region (fallback centroid hoặc nhiều vùng) → 500km
+      //  - nationwide                      → 1500km (toàn quốc)
+      let altitude = 200000;
+      if (hasChildren) altitude = 800000;
+      else if (selectedEvent.geoType === 'multi_region') altitude = 500000;
+      else if (selectedEvent.geoType === 'nationwide') altitude = 1500000;
 
       try {
         viewer.camera.flyTo({
@@ -339,6 +351,23 @@ export default function CesiumMap({
       } catch (e) {
         console.warn('[CesiumMap] flyTo error:', e);
       }
+      return;
+    }
+
+    // Không có vị trí cụ thể (no_location hoặc thiếu coordinates) → bay về toàn
+    // cảnh Việt Nam để user thấy phản hồi visual khi chọn event
+    try {
+      viewer.camera.flyTo({
+        destination: VIETNAM_CENTER,
+        orientation: {
+          heading: CesiumMath.toRadians(0),
+          pitch: CesiumMath.toRadians(-90),
+          roll: 0,
+        },
+        duration: 1.5,
+      });
+    } catch (e) {
+      console.warn('[CesiumMap] flyTo (default view) error:', e);
     }
   }, [selectedEvent]);
 
@@ -352,22 +381,15 @@ export default function CesiumMap({
       {/* Soft error fallback — replaced the [object Object] alert */}
       {mapError && (
         <div
+          className="absolute left-1/2 bottom-4 -translate-x-1/2 flex items-center gap-2 rounded-lg border px-4 py-2 text-xs pointer-events-none z-10"
           style={{
-            position: 'absolute',
-            bottom: 16,
-            left: '50%',
-            transform: 'translateX(-50%)',
             background: 'rgba(239, 68, 68, 0.15)',
-            border: '1px solid rgba(239, 68, 68, 0.4)',
-            borderRadius: 8,
-            padding: '8px 16px',
-            fontSize: 12,
-            color: '#fca5a5',
-            zIndex: 10,
-            pointerEvents: 'none',
+            borderColor: 'rgba(239, 68, 68, 0.4)',
+            color: '#e8b0b7',
           }}
         >
-          ⚠️ {mapError}
+          <AlertTriangle size={14} strokeWidth={2.2} />
+          {mapError}
         </div>
       )}
     </div>

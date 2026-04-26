@@ -1,0 +1,119 @@
+{
+  "id": "dien-bien-phu-tren-khong-1972",
+  "slug": "dien-bien-phu-tren-khong-1972",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Trận \"Điện Biên Phủ trên không\" (12-1972)",
+    "short": "Trận \"Điện Biên Phủ trên không\""
+  },
+  "classification": {
+    "eventType": "military",
+    "eventSubtype": "battle",
+    "tags": [
+      "Trận \"Điện Biên Phủ trên không\" (12-1972)",
+      1972,
+      "Hà Nội"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1972
+    },
+    "end": {
+      "year": 1972
+    },
+    "datePrecision": "year",
+    "displayDate": "1972",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "point",
+      "marker": {
+        "lat": 21.0285,
+        "lng": 105.8542,
+        "label": "Hà Nội"
+      },
+      "provinceNames": [
+        "Hà Nội"
+      ],
+      "historicalLocations": [
+        "Hà Nội"
+      ]
+    },
+    "focusGeometry": {
+      "mode": "marker",
+      "center": {
+        "lat": 21.0285,
+        "lng": 105.8542
+      },
+      "zoom": 9
+    }
+  },
+  "summary": {
+    "homepageTitle": "Trận \"Điện Biên Phủ trên không\" (12-1972)",
+    "homepageSummary": "Trận \"Điện Biên Phủ trên không\" (12-1972). —",
+    "cardSummary": "—"
+  },
+  "textbookContent": {
+    "canonicalSummary": "Trận \"Điện Biên Phủ trên không\" (12-1972).",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 8: Kháng chiến chống Mỹ, cứu nước (1954–1975), trang 49–50. Nội dung trong file Excel được chuẩn hóa để nhập hệ thống; khi triển khai chính thức, nhóm nên bổ sung tường thuật chi tiết bám SGK và tư liệu gốc.",
+    "significance": "Là mốc quan trọng trong tiến trình đấu tranh quân sự, bảo vệ hoặc giải phóng đất nước của Việt Nam theo SGK 12.",
+    "keyFacts": [
+      "Trận \"Điện Biên Phủ trên không\" (12-1972)",
+      1972,
+      "Hà Nội"
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 12,
+      "book": "Lịch sử 12 - Cánh Diều",
+      "theme": "Chủ đề 3: Cách mạng tháng Tám và kháng chiến bảo vệ độc lập dân tộc",
+      "lesson": "Bài 8: Kháng chiến chống Mỹ, cứu nước (1954–1975)",
+      "pageStart": 49,
+      "pageEnd": 50,
+      "excerpt": "Trận \"Điện Biên Phủ trên không\" (12-1972)"
+    }
+  ],
+  "hierarchy": {
+    "rootId": "khang-chien-chong-my-collection",
+    "parentId": "viet-nam-hoa-chien-tranh-1969-1973",
+    "level": 2,
+    "orderInParent": 4
+  },
+  "associations": {
+    "predecessorEventIds": [
+      "my-pha-hoai-mien-bac-lan-2-1972"
+    ],
+    "successorEventIds": [
+      "hiep-dinh-paris-1973"
+    ]
+  },
+  "display": {
+    "showOnHomepage": true,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "— || [SGK12:dien-bien-phu-tren-khong-1972] —",
+  "merge": {
+    "sourceGrades": "12",
+    "sourceIds": "dien-bien-phu-tren-khong-1972",
+    "mergedCount": 1,
+    "sourceFiles": "SGK12_event_master_flattened(1).xlsx",
+    "textbookRefsAll": "SGK12: Bài 8: Kháng chiến chống Mỹ, cứu nước (1954–1975) tr.49-50 [dien-bien-phu-tren-khong-1972]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

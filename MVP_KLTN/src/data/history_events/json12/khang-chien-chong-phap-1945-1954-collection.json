@@ -1,0 +1,105 @@
+{
+  "id": "khang-chien-chong-phap-1945-1954-collection",
+  "slug": "khang-chien-chong-phap-1945-1954-collection",
+  "entityType": "event",
+  "eventLevel": "collection",
+  "titles": {
+    "primary": "Kháng chiến chống thực dân Pháp (1945–1954)",
+    "short": "Kháng chiến chống thực dân Pháp"
+  },
+  "classification": {
+    "eventType": "military",
+    "eventSubtype": "collection_overview",
+    "tags": [
+      "Kháng chiến chống thực dân Pháp (1945–1954)",
+      "1945–1954",
+      "collection"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1945
+    },
+    "end": {
+      "year": 1954
+    },
+    "datePrecision": "period",
+    "displayDate": "1945–1954",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "nationwide"
+    },
+    "focusGeometry": {
+      "mode": "auto"
+    }
+  },
+  "summary": {
+    "homepageTitle": "Kháng chiến chống thực dân Pháp (1945–1954)",
+    "homepageSummary": "Kháng chiến chống thực dân Pháp (1945–1954). Collection cha cho Bài 7",
+    "cardSummary": "Collection cha cho Bài 7"
+  },
+  "textbookContent": {
+    "canonicalSummary": "Kháng chiến chống thực dân Pháp (1945–1954).",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 7: Kháng chiến chống thực dân Pháp (1945–1954), trang 37–42. Nội dung trong file Excel được chuẩn hóa để nhập hệ thống; khi triển khai chính thức, nhóm nên bổ sung tường thuật chi tiết bám SGK và tư liệu gốc.",
+    "significance": "Là mốc quan trọng trong tiến trình đấu tranh quân sự, bảo vệ hoặc giải phóng đất nước của Việt Nam theo SGK 12.",
+    "keyFacts": [
+      "Kháng chiến chống thực dân Pháp (1945–1954)",
+      "1945–1954"
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 12,
+      "book": "Lịch sử 12 - Cánh Diều",
+      "theme": "Chủ đề 3: Cách mạng tháng Tám và kháng chiến bảo vệ độc lập dân tộc",
+      "lesson": "Bài 7: Kháng chiến chống thực dân Pháp (1945–1954)",
+      "pageStart": 37,
+      "pageEnd": 42,
+      "excerpt": "Collection cha cho Bài 7"
+    }
+  ],
+  "hierarchy": {
+    "rootId": "khang-chien-chong-phap-1945-1954-collection",
+    "childIds": [
+      "phap-xam-luoc-nam-bo-23-9-1945",
+      "khang-chien-nam-bo-1945",
+      "toan-quoc-khang-chien-19-12-1946",
+      "khang-chien-chong-phap-1946-1950",
+      "khang-chien-chong-phap-1951-1953",
+      "ke-hoach-nava-1953",
+      "tien-cong-dong-xuan-1953-1954",
+      "chien-dich-dien-bien-phu-1954",
+      "hiep-dinh-gio-ne-vo-1954",
+      "nguyen-nhan-y-nghia-chong-phap"
+    ],
+    "level": 0,
+    "orderInParent": 2
+  },
+  "display": {
+    "showOnHomepage": true,
+    "showOnTimeline": true,
+    "featured": true
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "Collection cha cho Bài 7 || [SGK12:khang-chien-chong-phap-1945-1954-collection] Collection cha cho Bài 7",
+  "merge": {
+    "sourceGrades": "12",
+    "sourceIds": "khang-chien-chong-phap-1945-1954-collection",
+    "mergedCount": 1,
+    "sourceFiles": "SGK12_event_master_flattened(1).xlsx",
+    "textbookRefsAll": "SGK12: Bài 7: Kháng chiến chống thực dân Pháp (1945–1954) tr.37-42 [khang-chien-chong-phap-1945-1954-collection]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

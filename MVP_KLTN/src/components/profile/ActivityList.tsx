@@ -1,9 +1,9 @@
 import type { LearningActivity } from '../../data/mockLearningStats';
 
 const typeConfig = {
-  view_event: { icon: '👁️', label: 'Xem sự kiện', color: '#6366f1', bg: 'rgba(99,102,241,0.12)' },
-  quiz:       { icon: '📝', label: 'Trắc nghiệm', color: '#10b981', bg: 'rgba(16,185,129,0.12)' },
-  exam:       { icon: '📋', label: 'Đề thi',      color: '#f59e0b', bg: 'rgba(245,158,11,0.12)' },
+  view_event: { icon: '👁️', label: 'Xem sự kiện', color: '#4f6f95', bg: 'rgba(30,58,95,0.14)' },
+  quiz:       { icon: '📝', label: 'Trắc nghiệm', color: '#2f7a57', bg: 'rgba(47,122,87,0.14)' },
+  exam:       { icon: '📋', label: 'Đề thi',      color: '#c29b4b', bg: 'rgba(194,155,75,0.15)' },
 };
 
 function formatDate(iso: string): string {
@@ -16,7 +16,7 @@ function formatTime(iso: string): string {
 }
 
 function ScoreBadge({ score }: { score: number }) {
-  const color = score >= 8 ? '#10b981' : score >= 6.5 ? '#f59e0b' : '#ef4444';
+  const color = score >= 8 ? '#2f7a57' : score >= 6.5 ? '#c29b4b' : '#9f1d2d';
   return (
     <span
       style={{

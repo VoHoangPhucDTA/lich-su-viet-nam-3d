@@ -1,0 +1,111 @@
+{
+  "id": "dung-bia-tien-si",
+  "slug": "dung-bia-tien-si",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Lệ dựng bia Tiến sĩ ở Văn Miếu",
+    "short": "Bia Tiến sĩ"
+  },
+  "classification": {
+    "eventType": "cultural",
+    "eventSubtype": "memorial_stele",
+    "tags": [
+      "bia Tiến sĩ",
+      1484,
+      "Văn Miếu"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      10
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1484
+    },
+    "datePrecision": "year",
+    "displayDate": "Năm 1484",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "point",
+      "marker": {
+        "lat": 21.028,
+        "lng": 105.835,
+        "label": "Văn Miếu"
+      },
+      "provinceNames": [
+        "Hà Nội"
+      ],
+      "historicalLocations": [
+        "Văn Miếu",
+        "bia Tiến sĩ"
+      ]
+    },
+    "focusGeometry": {
+      "mode": "marker",
+      "center": {
+        "lat": 21.028,
+        "lng": 105.835
+      },
+      "zoom": 12,
+      "provinceNames": [
+        "Hà Nội"
+      ]
+    }
+  },
+  "summary": {
+    "homepageTitle": "Lệ dựng bia Tiến sĩ ở Văn Miếu",
+    "homepageSummary": "Lệ dựng bia Tiến sĩ là biểu tượng tôn vinh hiền tài và truyền thống hiếu học của dân tộc.",
+    "cardSummary": "Dựng bia Tiến sĩ từ năm 1484."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Năm 1484, triều Lê sơ cho dựng bia Tiến sĩ ở Văn Miếu để ghi danh những người đỗ đạt cao.",
+    "detailedNarrative": "Trong SGK, bia Tiến sĩ là một thành tựu tiêu biểu của giáo dục Đại Việt. Hệ thống bia không chỉ có giá trị lịch sử mà còn thể hiện chính sách trọng dụng nhân tài của nhà nước phong kiến.",
+    "significance": "Là biểu tượng bền vững của truyền thống hiếu học và tôn vinh trí thức ở Việt Nam.",
+    "keyFacts": [
+      "Năm 1484",
+      "Dựng tại Văn Miếu",
+      "Ghi danh những người đỗ đạt cao"
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 10,
+      "book": "Lịch sử 10 - Cánh Diều",
+      "theme": "Chủ đề 6: Một số nền văn minh trên đất nước Việt Nam trước năm 1858",
+      "lesson": "Bài 15: Những thành tựu tiêu biểu của văn minh Đại Việt",
+      "pageStart": 104,
+      "pageEnd": 104,
+      "excerpt": "Năm 1484, triều Lê cho dựng bia Tiến sĩ ở Văn Miếu."
+    }
+  ],
+  "hierarchy": {
+    "rootId": "vm-dai-viet",
+    "parentId": "vm-dai-viet",
+    "level": 1,
+    "orderInParent": 27
+  },
+  "display": {
+    "showOnHomepage": true,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "merge": {
+    "sourceGrades": "10",
+    "sourceIds": "dung-bia-tien-si",
+    "mergedCount": 1,
+    "sourceFiles": "SGK10_event_master_flattened_v2(1).xlsx",
+    "textbookRefsAll": "SGK10: Bài 15: Những thành tựu tiêu biểu của văn minh Đại Việt tr.104 [dung-bia-tien-si]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

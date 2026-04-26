@@ -1,0 +1,95 @@
+{
+  "id": "giai-phong-phnom-penh-7-1-1979",
+  "slug": "giai-phong-phnom-penh-7-1-1979",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Giải phóng Phnôm Pênh, lật đổ Khơ-me Đỏ (7-1-1979)",
+    "short": "Giải phóng Phnôm Pênh, lật đổ Kh"
+  },
+  "classification": {
+    "eventType": "military",
+    "eventSubtype": "milestone",
+    "tags": [
+      "Giải phóng Phnôm Pênh",
+      "lật đổ Khơ-me Đỏ (7-1-1979)",
+      1979
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1979
+    },
+    "end": {
+      "year": 1979
+    },
+    "datePrecision": "year",
+    "displayDate": "1979",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "no_location"
+    },
+    "focusGeometry": {
+      "mode": "auto"
+    }
+  },
+  "summary": {
+    "homepageTitle": "Giải phóng Phnôm Pênh, lật đổ Khơ-me Đỏ (7-1-1979)",
+    "homepageSummary": "Giải phóng Phnôm Pênh, lật đổ Khơ-me Đỏ (7-1-1979). —",
+    "cardSummary": "—"
+  },
+  "textbookContent": {
+    "canonicalSummary": "Giải phóng Phnôm Pênh, lật đổ Khơ-me Đỏ (7-1-1979).",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 9: Bảo vệ Tổ quốc sau năm 1975 và bài học lịch sử, trang 55. Nội dung trong file Excel được chuẩn hóa để nhập hệ thống; khi triển khai chính thức, nhóm nên bổ sung tường thuật chi tiết bám SGK và tư liệu gốc.",
+    "significance": "Là mốc quan trọng trong tiến trình đấu tranh quân sự, bảo vệ hoặc giải phóng đất nước của Việt Nam theo SGK 12.",
+    "keyFacts": [
+      "Giải phóng Phnôm Pênh",
+      "lật đổ Khơ-me Đỏ (7-1-1979)",
+      1979
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 12,
+      "book": "Lịch sử 12 - Cánh Diều",
+      "theme": "Chủ đề 3: Bảo vệ Tổ quốc sau năm 1975",
+      "lesson": "Bài 9: Bảo vệ Tổ quốc sau năm 1975 và bài học lịch sử",
+      "pageStart": 55,
+      "pageEnd": 55,
+      "excerpt": "Giải phóng Phnôm Pênh, lật đổ Khơ-me Đỏ (7-1-1979)"
+    }
+  ],
+  "hierarchy": {
+    "rootId": "bao-ve-to-quoc-sau-1975-collection",
+    "parentId": "chien-tranh-bien-gioi-tay-nam",
+    "level": 2,
+    "orderInParent": 1
+  },
+  "display": {
+    "showOnHomepage": true,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "— || [SGK12:giai-phong-phnom-penh-7-1-1979] —",
+  "merge": {
+    "sourceGrades": "12",
+    "sourceIds": "giai-phong-phnom-penh-7-1-1979",
+    "mergedCount": 1,
+    "sourceFiles": "SGK12_event_master_flattened(1).xlsx",
+    "textbookRefsAll": "SGK12: Bài 9: Bảo vệ Tổ quốc sau năm 1975 và bài học lịch sử tr.55 [giai-phong-phnom-penh-7-1-1979]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

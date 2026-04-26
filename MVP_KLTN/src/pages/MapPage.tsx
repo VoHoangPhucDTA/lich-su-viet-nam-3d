@@ -1,4 +1,5 @@
 import { useState, useCallback, useMemo } from 'react';
+import { ChevronRight, Lightbulb } from 'lucide-react';
 import CesiumMap from '../components/CesiumMap';
 import Timeline from '../components/Timeline';
 import Sidebar from '../components/Sidebar';
@@ -155,7 +156,7 @@ export default function MapPage() {
           </button>
           {navigationStack.map((navEvent) => (
             <span key={navEvent.id} style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-              <span style={{ color: 'var(--text-muted)' }}>›</span>
+              <ChevronRight size={14} strokeWidth={2.2} style={{ color: 'var(--text-muted)' }} />
               <button
                 onClick={() => {
                   const idx = navigationStack.indexOf(navEvent);
@@ -168,7 +169,7 @@ export default function MapPage() {
               </button>
             </span>
           ))}
-          <span style={{ color: 'var(--text-muted)' }}>›</span>
+          <ChevronRight size={14} strokeWidth={2.2} style={{ color: 'var(--text-muted)' }} />
           <span style={{ color: 'var(--text-primary)', fontWeight: 600, maxWidth: '160px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
             {selectedEvent.name}
           </span>
@@ -201,16 +202,9 @@ export default function MapPage() {
         />
 
         {/* Map area */}
-        <div
-          style={{
-            flex: 1,
-            position: 'relative',
-            display: 'flex',
-            flexDirection: 'column',
-          }}
-        >
-          {/* Cesium Map */}
-          <div style={{ flex: 1, position: 'relative' }}>
+        <div className="relative flex flex-col flex-1 min-w-0 min-h-0 overflow-hidden">
+          {/* Cesium Map (flex-1 + min-h-0 để không đẩy Timeline ra khỏi viewport) */}
+          <div className="relative flex-1 min-h-0">
             <CesiumMap
               events={visibleMapEvents}
               selectedEvent={selectedEvent}
@@ -221,22 +215,14 @@ export default function MapPage() {
             {/* Map overlay info */}
             {!selectedEvent && (
               <div
-                className="glass-map animate-fade-in"
-                style={{
-                  position: 'absolute',
-                  top: '16px',
-                  left: '16px',
-                  padding: '10px 18px',
-                  borderRadius: '12px',
-                  fontSize: '13px',
-                  fontWeight: 500,
-                  color: 'var(--text-primary)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '10px',
-                }}
+                className="glass-map animate-fade-in absolute top-4 left-4 flex items-center gap-2.5 rounded-xl px-4 py-2.5 text-sm font-medium"
+                style={{ color: 'var(--text-primary)' }}
               >
-                <span style={{ fontSize: '18px' }}>💡</span>
+                <Lightbulb
+                  size={18}
+                  strokeWidth={2.2}
+                  style={{ color: 'var(--accent)' }}
+                />
                 <span>
                   Kéo timeline để chọn mốc thời gian, click marker để xem chi
                   tiết sự kiện
@@ -245,7 +231,7 @@ export default function MapPage() {
             )}
           </div>
 
-          {/* Timeline */}
+          {/* Timeline — flex-shrink-0 đảm bảo không bị squeeze khi map shrink */}
           <Timeline currentYear={currentYear} onYearChange={handleYearChange} />
         </div>
 

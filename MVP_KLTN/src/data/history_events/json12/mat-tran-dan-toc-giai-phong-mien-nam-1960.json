@@ -1,0 +1,139 @@
+{
+  "id": "mat-tran-dan-toc-giai-phong-mien-nam-1960",
+  "slug": "mat-tran-dan-toc-giai-phong-mien-nam-1960",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Thành lập Mặt trận Dân tộc Giải phóng miền Nam Việt Nam (20-12-1960)",
+    "short": "Thành lập Mặt trận Dân tộc Giải",
+    "alternatives": [
+      "Thành lập Mặt trận Dân tộc Giải phóng miền Nam Việt Nam"
+    ]
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "organization_founding",
+    "tags": [
+      "Thành lập Mặt trận Dân tộc Giải phóng miền Nam Việt Nam (20-12-1960)",
+      "20-12-1960",
+      "Tây Ninh",
+      "trùng_sgk",
+      "Mặt trận Dân tộc Giải phóng miền Nam Việt Nam",
+      "20/12/1960"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      10,
+      12
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1960,
+      "month": 12,
+      "day": 20
+    },
+    "end": {
+      "year": 1960,
+      "month": 12,
+      "day": 20
+    },
+    "datePrecision": "day",
+    "displayDate": "20-12-1960",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "point",
+      "marker": {
+        "lat": 11.3352,
+        "lng": 106.1099,
+        "label": "Tây Ninh"
+      },
+      "provinceNames": [
+        "Tây Ninh"
+      ],
+      "historicalLocations": [
+        "Tây Ninh"
+      ]
+    },
+    "focusGeometry": {
+      "mode": "marker",
+      "center": {
+        "lat": 11.3352,
+        "lng": 106.1099
+      },
+      "zoom": 9,
+      "provinceNames": [
+        "Tây Ninh"
+      ]
+    }
+  },
+  "summary": {
+    "homepageTitle": "Thành lập Mặt trận Dân tộc Giải phóng miền Nam Việt Nam (20-12-1960)",
+    "homepageSummary": "Thành lập Mặt trận Dân tộc Giải phóng miền Nam Việt Nam (20-12-1960). Trùng SGK10; SGK12 nhắc lại trong bối cảnh chống Chiến tranh đặc biệt | Trùng SGK10, nên merge textbookRefs",
+    "cardSummary": "Trùng SGK10; SGK12 nhắc lại trong bối cảnh chống Chiến tranh đặc biệt | Trùng SGK10, nên merge textbookRefs"
+  },
+  "textbookContent": {
+    "canonicalSummary": "Ngày 20/12/1960, tại Tây Ninh, Mặt trận Dân tộc Giải phóng miền Nam Việt Nam được thành lập.",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 8: Kháng chiến chống Mỹ, cứu nước (1954–1975), trang 46. Nội dung trong file Excel được chuẩn hóa để nhập hệ thống; khi triển khai chính thức, nhóm nên bổ sung tường thuật chi tiết bám SGK và tư liệu gốc.",
+    "significance": "Là mốc quan trọng trong tiến trình cách mạng, xây dựng nhà nước, đối ngoại hoặc tổ chức lực lượng theo SGK 12.",
+    "keyFacts": [
+      "Thành lập Mặt trận Dân tộc Giải phóng miền Nam Việt Nam (20-12-1960)",
+      "20-12-1960",
+      "Tây Ninh",
+      "Ngày 20/12/1960",
+      "Thành lập tại Tây Ninh",
+      "Là ví dụ tiêu biểu về đại đoàn kết dân tộc"
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 12,
+      "book": "Lịch sử 12 - Cánh Diều",
+      "theme": "Chủ đề 3: Cách mạng tháng Tám và kháng chiến bảo vệ độc lập dân tộc",
+      "lesson": "Bài 8: Kháng chiến chống Mỹ, cứu nước (1954–1975)",
+      "pageStart": 46,
+      "pageEnd": 46,
+      "excerpt": "Trùng SGK10; SGK12 nhắc lại trong bối cảnh chống Chiến tranh đặc biệt | Trùng SGK10, nên merge textbookRefs"
+    }
+  ],
+  "hierarchy": {
+    "rootId": "khang-chien-chong-my-collection",
+    "parentId": "giai-doan-1954-1960",
+    "level": 2,
+    "orderInParent": 4
+  },
+  "associations": {
+    "relatedEventIds": [
+      "hoi-nghi-dien-hong",
+      "mat-tran-viet-minh",
+      "tong-tuyen-cu-1976"
+    ],
+    "predecessorEventIds": [
+      "dai-hoi-iii-dang-lao-dong-1960"
+    ]
+  },
+  "display": {
+    "showOnHomepage": true,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "Trùng SGK10; SGK12 nhắc lại trong bối cảnh chống Chiến tranh đặc biệt | Trùng SGK10, nên merge textbookRefs || [SGK12:mat-tran-dan-toc-giai-phong-mien-nam-1960] Trùng SGK10; SGK12 nhắc lại trong bối cảnh chống Chiến tranh đặc biệt | Trùng SGK10, nên merge textbookRefs",
+  "merge": {
+    "sourceGrades": "10 | 12",
+    "sourceIds": "mat-tran-dan-toc-giai-phong-mien-nam-1960",
+    "mergedCount": 2,
+    "sourceFiles": "SGK10_event_master_flattened_v2(1).xlsx | SGK12_event_master_flattened(1).xlsx",
+    "textbookRefsAll": "SGK10: Bài 17: Khối đại đoàn kết dân tộc trong lịch sử Việt Nam tr.124-125 [mat-tran-dan-toc-giai-phong-mien-nam-1960] || SGK12: Bài 8: Kháng chiến chống Mỹ, cứu nước (1954–1975) tr.46 [mat-tran-dan-toc-giai-phong-mien-nam-1960]",
+    "notes": "Merged 2 source rows into canonical id 'mat-tran-dan-toc-giai-phong-mien-nam-1960'."
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

@@ -1,0 +1,101 @@
+{
+  "id": "my-pha-hoai-mien-bac-lan-1",
+  "slug": "my-pha-hoai-mien-bac-lan-1",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Mỹ chiến tranh phá hoại miền Bắc lần 1 (1965–1968)",
+    "short": "Mỹ chiến tranh phá hoại miền Bắc"
+  },
+  "classification": {
+    "eventType": "military",
+    "eventSubtype": "war_phase",
+    "tags": [
+      "Mỹ chiến tranh phá hoại miền Bắc lần 1 (1965–1968)",
+      "1965–1968"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1965
+    },
+    "end": {
+      "year": 1968
+    },
+    "datePrecision": "period",
+    "displayDate": "1965–1968",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "nationwide"
+    },
+    "focusGeometry": {
+      "mode": "auto"
+    }
+  },
+  "summary": {
+    "homepageTitle": "Mỹ chiến tranh phá hoại miền Bắc lần 1 (1965–1968)",
+    "homepageSummary": "Mỹ chiến tranh phá hoại miền Bắc lần 1 (1965–1968). —",
+    "cardSummary": "—"
+  },
+  "textbookContent": {
+    "canonicalSummary": "Mỹ chiến tranh phá hoại miền Bắc lần 1 (1965–1968).",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 8: Kháng chiến chống Mỹ, cứu nước (1954–1975), trang 47–48. Nội dung trong file Excel được chuẩn hóa để nhập hệ thống; khi triển khai chính thức, nhóm nên bổ sung tường thuật chi tiết bám SGK và tư liệu gốc.",
+    "significance": "Là mốc quan trọng trong tiến trình đấu tranh quân sự, bảo vệ hoặc giải phóng đất nước của Việt Nam theo SGK 12.",
+    "keyFacts": [
+      "Mỹ chiến tranh phá hoại miền Bắc lần 1 (1965–1968)",
+      "1965–1968"
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 12,
+      "book": "Lịch sử 12 - Cánh Diều",
+      "theme": "Chủ đề 3: Cách mạng tháng Tám và kháng chiến bảo vệ độc lập dân tộc",
+      "lesson": "Bài 8: Kháng chiến chống Mỹ, cứu nước (1954–1975)",
+      "pageStart": 47,
+      "pageEnd": 48,
+      "excerpt": "Mỹ chiến tranh phá hoại miền Bắc lần 1 (1965–1968)"
+    }
+  ],
+  "hierarchy": {
+    "rootId": "khang-chien-chong-my-collection",
+    "parentId": "chien-tranh-cuc-bo-1965-1968",
+    "level": 2,
+    "orderInParent": 2
+  },
+  "associations": {
+    "predecessorEventIds": [
+      "su-kien-vinh-bac-bo-1964"
+    ],
+    "successorEventIds": [
+      "chien-thang-nui-thanh-1965"
+    ]
+  },
+  "display": {
+    "showOnHomepage": true,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "— || [SGK12:my-pha-hoai-mien-bac-lan-1] —",
+  "merge": {
+    "sourceGrades": "12",
+    "sourceIds": "my-pha-hoai-mien-bac-lan-1",
+    "mergedCount": 1,
+    "sourceFiles": "SGK12_event_master_flattened(1).xlsx",
+    "textbookRefsAll": "SGK12: Bài 8: Kháng chiến chống Mỹ, cứu nước (1954–1975) tr.47-48 [my-pha-hoai-mien-bac-lan-1]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

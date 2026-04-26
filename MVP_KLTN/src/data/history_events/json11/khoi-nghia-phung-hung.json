@@ -1,0 +1,124 @@
+{
+  "id": "khoi-nghia-phung-hung",
+  "slug": "khoi-nghia-phung-hung",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Khởi nghĩa Phùng Hưng (cuối thế kỉ VIII)",
+    "short": "Phùng Hưng"
+  },
+  "classification": {
+    "eventType": "military",
+    "eventSubtype": "uprising",
+    "tags": [
+      "Khởi nghĩa Phùng Hưng (cuối thế kỉ VIII)",
+      "Khoảng 766–791",
+      "Hà Nội",
+      "Khởi nghĩa từ Đường Lâm",
+      "đánh chiếm Tống Bình."
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 766
+    },
+    "end": {
+      "year": 791
+    },
+    "datePrecision": "approximate",
+    "displayDate": "Khoảng 766–791",
+    "isApproximate": true
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "point",
+      "marker": {
+        "label": "Hà Nội"
+      },
+      "provinceNames": [
+        "Hà Nội"
+      ],
+      "historicalLocations": [
+        "Hà Nội"
+      ]
+    },
+    "focusGeometry": {
+      "mode": "marker"
+    }
+  },
+  "summary": {
+    "homepageTitle": "Khởi nghĩa Phùng Hưng (cuối thế kỉ VIII)",
+    "homepageSummary": "Khởi nghĩa Phùng Hưng (cuối thế kỉ VIII). Khởi nghĩa từ Đường Lâm, đánh chiếm Tống Bình.",
+    "cardSummary": "Khởi nghĩa từ Đường Lâm, đánh chiếm Tống Bình."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Khởi nghĩa Phùng Hưng (cuối thế kỉ VIII). Khởi nghĩa từ Đường Lâm, đánh chiếm Tống Bình.",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 8: Khởi nghĩa và chiến tranh giải phóng trong lịch sử Việt Nam. Khởi nghĩa từ Đường Lâm, đánh chiếm Tống Bình.",
+    "significance": "Là mốc quan trọng trong tiến trình quân sự và bảo vệ/chinh phục độc lập, chủ quyền của Việt Nam theo SGK 11.",
+    "keyFacts": [
+      "Khởi nghĩa Phùng Hưng (cuối thế kỉ VIII)",
+      "Khoảng 766–791",
+      "Hà Nội",
+      "Khởi nghĩa từ Đường Lâm",
+      "đánh chiếm Tống Bình."
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 11,
+      "book": "Lịch sử 11 - Cánh Diều",
+      "lesson": "Bài 8: Khởi nghĩa và chiến tranh giải phóng trong lịch sử Việt Nam",
+      "pageStart": 58,
+      "pageEnd": 58,
+      "excerpt": "Khởi nghĩa từ Đường Lâm, đánh chiếm Tống Bình."
+    }
+  ],
+  "hierarchy": {
+    "rootId": "vm-khoi-nghia-va-giai-phong",
+    "parentId": "vm-khoi-nghia-va-giai-phong",
+    "level": 1,
+    "orderInParent": 4
+  },
+  "associations": {
+    "relatedEventIds": [
+      "khoi-nghia-ly-bi",
+      "khoi-nghia-lam-son-1418-1427",
+      "khoi-nghia-hai-ba-trung",
+      "vm-khoi-nghia-va-giai-phong",
+      "phong-trao-tay-son",
+      "khoi-nghia-ba-trieu"
+    ],
+    "predecessorEventIds": [
+      "khoi-nghia-ly-bi"
+    ],
+    "successorEventIds": [
+      "khoi-nghia-lam-son-1418-1427"
+    ]
+  },
+  "display": {
+    "showOnHomepage": false,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "Khởi nghĩa từ Đường Lâm, đánh chiếm Tống Bình. || [SGK11:khoi-nghia-phung-hung] Khởi nghĩa từ Đường Lâm, đánh chiếm Tống Bình.",
+  "merge": {
+    "sourceGrades": "11",
+    "sourceIds": "khoi-nghia-phung-hung",
+    "mergedCount": 1,
+    "sourceFiles": "SGK11_event_master_flattened_v2(1).xlsx",
+    "textbookRefsAll": "SGK11: Bài 8: Khởi nghĩa và chiến tranh giải phóng trong lịch sử Việt Nam tr.58 [khoi-nghia-phung-hung]"
+  },
+  "validation": {
+    "status": "CHECK",
+    "issues": "geoType cần marker nhưng thiếu lat/lng"
+  }
+}

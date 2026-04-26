@@ -1,3 +1,15 @@
+import {
+  ArrowLeft,
+  ArrowRight,
+  Clock,
+  CornerDownLeft,
+  FileText,
+  Info,
+  Map as MapIcon,
+  MapPin,
+  Mountain,
+  X,
+} from 'lucide-react';
 import type { HistoricalEvent } from '../types/event';
 import {
   EVENT_TYPE_ICONS,
@@ -23,7 +35,11 @@ export default function EventPopup({
   parentEvent,
 }: EventPopupProps) {
   const typeColor = EVENT_TYPE_COLORS[event.eventType];
+  const TypeIcon = EVENT_TYPE_ICONS[event.eventType];
   const navigate = useNavigate();
+
+  const formatYear = (year: number) =>
+    year < 0 ? `${Math.abs(year)} TCN` : `${year}`;
 
   return (
     <div
@@ -52,21 +68,11 @@ export default function EventPopup({
           {parentEvent && (
             <button
               onClick={onNavigateToParent}
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '6px',
-                background: 'none',
-                border: 'none',
-                color: 'var(--accent)',
-                fontSize: '12px',
-                fontWeight: 600,
-                cursor: 'pointer',
-                marginBottom: '8px',
-                padding: 0,
-              }}
+              className="flex items-center gap-1.5 bg-transparent border-0 text-xs font-semibold cursor-pointer mb-2 p-0"
+              style={{ color: 'var(--accent)' }}
             >
-              ← Quay lại: {parentEvent.name}
+              <ArrowLeft size={13} strokeWidth={2.4} />
+              Quay lại: {parentEvent.name}
             </button>
           )}
 
@@ -84,63 +90,48 @@ export default function EventPopup({
           </h2>
 
           {/* Tags */}
-          <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
-            <span className={`badge badge-${event.eventType}`}>
-              {EVENT_TYPE_ICONS[event.eventType]}{' '}
+          <div className="flex gap-1.5 flex-wrap">
+            <span
+              className={`badge badge-${event.eventType} inline-flex items-center gap-1`}
+            >
+              <TypeIcon size={12} strokeWidth={2.4} />
               {EVENT_TYPE_LABELS[event.eventType]}
             </span>
             {event.eventSubtype && (
               <span
+                className="inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-medium border"
                 style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  padding: '2px 10px',
-                  borderRadius: '9999px',
-                  fontSize: '11px',
-                  fontWeight: 500,
                   background: 'rgba(148, 163, 184, 0.15)',
                   color: 'var(--color-text-dim)',
-                  border: '1px solid rgba(148, 163, 184, 0.2)',
+                  borderColor: 'rgba(148, 163, 184, 0.2)',
                 }}
               >
                 {event.eventSubtype}
               </span>
             )}
             <span
+              className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-semibold border"
               style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                padding: '3px 10px',
-                borderRadius: '9999px',
-                fontSize: '11px',
-                fontWeight: 600,
                 background: 'var(--bg-card)',
                 color: 'var(--text-muted)',
-                border: '1px solid var(--border)',
+                borderColor: 'var(--border)',
                 boxShadow: '0 1px 2px rgba(0,0,0,0.05)',
               }}
             >
-              📍 {GEO_TYPE_LABELS[event.geoType]}
+              <MapPin size={11} strokeWidth={2.4} />
+              {GEO_TYPE_LABELS[event.geoType]}
             </span>
           </div>
         </div>
 
         <button
           onClick={onClose}
+          aria-label="Đóng"
+          className="flex items-center justify-center w-9 h-9 rounded-[10px] cursor-pointer flex-shrink-0 border transition-all duration-200"
           style={{
             background: 'var(--bg-app)',
-            border: '1px solid var(--border)',
+            borderColor: 'var(--border)',
             color: 'var(--text-muted)',
-            cursor: 'pointer',
-            width: '36px',
-            height: '36px',
-            borderRadius: '10px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            fontSize: '14px',
-            flexShrink: 0,
-            transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
             boxShadow: 'var(--shadow-sm)',
           }}
           onMouseEnter={(e) => {
@@ -156,7 +147,7 @@ export default function EventPopup({
             e.currentTarget.style.transform = 'rotate(0deg)';
           }}
         >
-          ✕
+          <X size={16} strokeWidth={2.4} />
         </button>
       </div>
 
@@ -170,35 +161,29 @@ export default function EventPopup({
       >
         {/* Time info */}
         <div
+          className="flex items-center gap-3 px-4 py-3 rounded-xl border mb-3.5"
           style={{
-            padding: '12px 16px',
             background: 'var(--bg-card)',
-            borderRadius: '12px',
-            border: '1px solid var(--border)',
+            borderColor: 'var(--border)',
             boxShadow: 'var(--shadow)',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '12px',
-            marginBottom: '14px',
           }}
         >
-          <span style={{ fontSize: '18px' }}>🕐</span>
+          <Clock
+            size={20}
+            strokeWidth={2.2}
+            style={{ color: 'var(--accent)' }}
+          />
           <div>
             <div
-              style={{
-              fontSize: '11px',
-              color: 'var(--text-muted)',
-              textTransform: 'uppercase',
-              letterSpacing: '0.08em',
-              fontWeight: 700,
-            }}
-          >
-            Thời gian
-          </div>
-            <div style={{ fontSize: '15px', fontWeight: 600 }}>
-              {event.startYear}
+              className="text-[11px] uppercase tracking-[0.08em] font-bold"
+              style={{ color: 'var(--text-muted)' }}
+            >
+              Thời gian
+            </div>
+            <div className="text-[15px] font-semibold">
+              {formatYear(event.startYear)}
               {event.endYear && event.endYear !== event.startYear
-                ? ` – ${event.endYear}`
+                ? ` – ${formatYear(event.endYear)}`
                 : ''}
             </div>
           </div>
@@ -207,40 +192,28 @@ export default function EventPopup({
         {/* Location info */}
         {event.geoType === 'no_location' && (
           <div
+            className="flex items-center gap-2 px-3.5 py-3 rounded-xl border text-xs mb-3.5"
             style={{
-              padding: '12px 14px',
-              marginBottom: '14px',
               background: 'var(--bg-card)',
-              borderRadius: '12px',
-              border: '1px solid rgba(245, 158, 11, 0.3)',
-              fontSize: '12px',
+              borderColor: 'rgba(194, 155, 75, 0.3)',
               color: 'var(--text-primary)',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '8px',
             }}
           >
-            <span>ℹ️</span>
+            <Info size={14} strokeWidth={2.2} style={{ color: '#c29b4b' }} />
             Sự kiện này không gắn với địa điểm cụ thể trên bản đồ.
           </div>
         )}
 
         {event.geoType === 'nationwide' && (
           <div
+            className="flex items-center gap-2 px-3.5 py-3 rounded-xl border text-xs mb-3.5"
             style={{
-              padding: '12px 14px',
-              marginBottom: '14px',
               background: 'var(--bg-card)',
-              borderRadius: '12px',
-              border: '1px solid rgba(59, 130, 246, 0.3)',
-              fontSize: '12px',
+              borderColor: 'rgba(59, 130, 246, 0.3)',
               color: 'var(--text-primary)',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '8px',
             }}
           >
-            <span>🗺️</span>
+            <MapIcon size={14} strokeWidth={2.2} style={{ color: '#3b82f6' }} />
             Phạm vi: Toàn quốc
           </div>
         )}
@@ -350,19 +323,11 @@ export default function EventPopup({
                 <button
                   key={child.id}
                   onClick={() => onNavigateToChild(child)}
+                  className="flex items-center gap-3 w-full text-left px-3.5 py-3 rounded-xl border cursor-pointer transition-all duration-200"
                   style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '12px',
-                    padding: '12px 14px',
-                    borderRadius: '12px',
-                    border: '1px solid var(--border)',
                     background: 'var(--bg-card)',
+                    borderColor: 'var(--border)',
                     color: 'var(--text-primary)',
-                    cursor: 'pointer',
-                    textAlign: 'left',
-                    transition: 'all 0.2s',
-                    width: '100%',
                     boxShadow: '0 1px 4px rgba(0,0,0,0.05)',
                   }}
                   onMouseEnter={(e) => {
@@ -377,45 +342,26 @@ export default function EventPopup({
                   }}
                 >
                   <span
-                    style={{
-                      width: '8px',
-                      height: '8px',
-                      borderRadius: '50%',
-                      background: typeColor,
-                      flexShrink: 0,
-                    }}
+                    className="w-2 h-2 rounded-full flex-shrink-0"
+                    style={{ background: typeColor }}
                   />
-                  <div style={{ flex: 1, minWidth: 0 }}>
-                    <div
-                      style={{
-                        fontSize: '13px',
-                        fontWeight: 500,
-                        overflow: 'hidden',
-                        textOverflow: 'ellipsis',
-                        whiteSpace: 'nowrap',
-                      }}
-                    >
+                  <div className="flex-1 min-w-0">
+                    <div className="text-[13px] font-medium truncate">
                       {child.name}
                     </div>
-                      <div
-                        style={{
-                          fontSize: '11px',
-                          color: 'var(--text-muted)',
-                          marginTop: '2px',
-                        }}
-                      >
-                      {child.startYear} · {GEO_TYPE_LABELS[child.geoType]}
+                    <div
+                      className="text-[11px] mt-0.5"
+                      style={{ color: 'var(--text-muted)' }}
+                    >
+                      {formatYear(child.startYear)} · {GEO_TYPE_LABELS[child.geoType]}
                     </div>
                   </div>
-                  <span
-                    style={{
-                      color: 'var(--text-muted)',
-                      fontSize: '14px',
-                      opacity: 0.5,
-                    }}
-                  >
-                    →
-                  </span>
+                  <ArrowRight
+                    size={14}
+                    strokeWidth={2.2}
+                    className="opacity-50"
+                    style={{ color: 'var(--text-muted)' }}
+                  />
                 </button>
               ))}
             </div>
@@ -435,21 +381,11 @@ export default function EventPopup({
         {(event.geoType === 'multi_region' ||
           event.geoType === 'single_point') && (
           <button
+            className="flex-1 inline-flex items-center justify-center gap-2 px-3 py-3 rounded-[10px] text-[13px] font-bold cursor-pointer transition-all duration-200 border"
             style={{
-              flex: 1,
-              padding: '12px',
-              borderRadius: '10px',
-              border: '1px solid var(--accent)',
+              borderColor: 'var(--accent)',
               background: 'var(--accent-soft)',
               color: 'var(--accent)',
-              fontSize: '13px',
-              fontWeight: 700,
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              gap: '8px',
-              transition: 'all 0.2s',
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.background = 'var(--bg-card)';
@@ -460,7 +396,8 @@ export default function EventPopup({
               e.currentTarget.style.transform = 'none';
             }}
           >
-            🏔️ Xem địa hình
+            <Mountain size={14} strokeWidth={2.4} />
+            Xem địa hình
           </button>
         )}
         <button
@@ -468,22 +405,11 @@ export default function EventPopup({
             const detailKey = event.slug || event.id;
             navigate(`/events/${detailKey}`);
           }}
+          className="flex-1 inline-flex items-center justify-center gap-2 px-3 py-3 rounded-[10px] text-[13px] font-bold cursor-pointer transition-all duration-200 border-0"
           style={{
-            flex: 1,
-            padding: '12px',
-            borderRadius: '10px',
-            border: 'none',
             background: 'var(--accent)',
             color: '#fff',
-            fontSize: '13px',
-            fontWeight: 700,
-            cursor: 'pointer',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            gap: '8px',
-            transition: 'all 0.2s',
-            boxShadow: '0 4px 12px rgba(99, 102, 241, 0.3)',
+            boxShadow: '0 4px 12px rgba(30, 58, 95, 0.3)',
           }}
           onMouseEnter={(e) => {
             e.currentTarget.style.filter = 'brightness(1.1)';
@@ -494,26 +420,17 @@ export default function EventPopup({
             e.currentTarget.style.transform = 'none';
           }}
         >
-          📄 Xem chi tiết
+          <FileText size={14} strokeWidth={2.4} />
+          Xem chi tiết
         </button>
         {parentEvent && (
           <button
             onClick={onNavigateToParent}
+            className="flex-1 inline-flex items-center justify-center gap-2 px-3 py-3 rounded-[10px] text-[13px] font-bold cursor-pointer transition-all duration-200 border"
             style={{
-              flex: 1,
-              padding: '12px',
-              borderRadius: '10px',
-              border: '1px solid var(--border)',
+              borderColor: 'var(--border)',
               background: 'var(--bg-card)',
               color: 'var(--text-primary)',
-              fontSize: '13px',
-              fontWeight: 700,
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              gap: '8px',
-              transition: 'all 0.2s',
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.background = 'var(--bg-app)';
@@ -524,7 +441,8 @@ export default function EventPopup({
               e.currentTarget.style.transform = 'none';
             }}
           >
-            ↩ Quay lại cha
+            <CornerDownLeft size={14} strokeWidth={2.4} />
+            Quay lại cha
           </button>
         )}
       </div>

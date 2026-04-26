@@ -1,0 +1,107 @@
+{
+  "id": "giai-phong-mien-nam-30-4-1975",
+  "slug": "giai-phong-mien-nam-30-4-1975",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Giải phóng miền Nam, thống nhất đất nước (30-4-1975)",
+    "short": "Giải phóng miền Nam, thống nhất",
+    "alternatives": [
+      "Đại thắng mùa Xuân 1975",
+      "30-4-1975"
+    ]
+  },
+  "classification": {
+    "eventType": "military",
+    "eventSubtype": "milestone",
+    "tags": [
+      "Giải phóng miền Nam",
+      "thống nhất đất nước (30-4-1975)",
+      1975
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1975
+    },
+    "end": {
+      "year": 1975
+    },
+    "datePrecision": "year",
+    "displayDate": "1975",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "nationwide"
+    },
+    "focusGeometry": {
+      "mode": "auto"
+    }
+  },
+  "summary": {
+    "homepageTitle": "Giải phóng miền Nam, thống nhất đất nước (30-4-1975)",
+    "homepageSummary": "Giải phóng miền Nam, thống nhất đất nước (30-4-1975). —",
+    "cardSummary": "—"
+  },
+  "textbookContent": {
+    "canonicalSummary": "Giải phóng miền Nam, thống nhất đất nước (30-4-1975).",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 8: Kháng chiến chống Mỹ, cứu nước (1954–1975), trang 51. Nội dung trong file Excel được chuẩn hóa để nhập hệ thống; khi triển khai chính thức, nhóm nên bổ sung tường thuật chi tiết bám SGK và tư liệu gốc.",
+    "significance": "Là mốc quan trọng trong tiến trình đấu tranh quân sự, bảo vệ hoặc giải phóng đất nước của Việt Nam theo SGK 12.",
+    "keyFacts": [
+      "Giải phóng miền Nam",
+      "thống nhất đất nước (30-4-1975)",
+      1975
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 12,
+      "book": "Lịch sử 12 - Cánh Diều",
+      "theme": "Chủ đề 3: Cách mạng tháng Tám và kháng chiến bảo vệ độc lập dân tộc",
+      "lesson": "Bài 8: Kháng chiến chống Mỹ, cứu nước (1954–1975)",
+      "pageStart": 51,
+      "pageEnd": 51,
+      "excerpt": "Giải phóng miền Nam, thống nhất đất nước (30-4-1975)"
+    }
+  ],
+  "hierarchy": {
+    "rootId": "khang-chien-chong-my-collection",
+    "parentId": "khang-chien-chong-my-collection",
+    "level": 1,
+    "orderInParent": 10
+  },
+  "associations": {
+    "predecessorEventIds": [
+      "chien-dich-ho-chi-minh-1975"
+    ],
+    "successorEventIds": [
+      "nguyen-nhan-y-nghia-chong-my"
+    ]
+  },
+  "display": {
+    "showOnHomepage": true,
+    "showOnTimeline": true,
+    "featured": true
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "— || [SGK12:giai-phong-mien-nam-30-4-1975] —",
+  "merge": {
+    "sourceGrades": "12",
+    "sourceIds": "giai-phong-mien-nam-30-4-1975",
+    "mergedCount": 1,
+    "sourceFiles": "SGK12_event_master_flattened(1).xlsx",
+    "textbookRefsAll": "SGK12: Bài 8: Kháng chiến chống Mỹ, cứu nước (1954–1975) tr.51 [giai-phong-mien-nam-30-4-1975]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

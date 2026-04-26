@@ -1,111 +1,48 @@
 import type { MockEventDetail } from '../data/mockEventDetails';
-import { mockEventsData } from '../data/mockEventDetails';
-import { findEventById } from '../data/events';
+import {
+  findRawEventByIdOrSlug,
+  getRawEventById,
+} from '../data/eventRegistry';
+import { rawToEventDetail } from '../data/eventAdapter';
 
+/** Một số id/slug rút gọn được dùng trong code/UI cũ → trỏ về id mới trong JSON. */
 const ALIAS_MAP: Record<string, string> = {
-  "dien-bien-phu-1954": "chien-dich-dien-bien-phu-1954",
-  "khang-chien-chong-phap": "khang-chien-chong-phap-1945-1954",
-  "hoi-nghi-yalta": "hoi-nghi-ianta-1945"
+  // Giữ alias cho code cũ – nếu trùng thì đã match trực tiếp ở registry
 };
 
-export const getEventDetailBySlug = async (slugOrId: string): Promise<MockEventDetail | null> => {
-  await new Promise(resolve => setTimeout(resolve, 300));
-  
-  // Resolve alias
-  const resolvedKey = ALIAS_MAP[slugOrId] || slugOrId;
+/** Mô phỏng độ trễ mạng nhỏ để hiển thị skeleton/loader đẹp hơn. */
+const FAKE_LATENCY_MS = 80;
+const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
-  // Search in mock
-  const foundInMock = Object.values(mockEventsData).find(event =>
-    event.slug === resolvedKey || event.id === resolvedKey
-  );
+export const getEventDetailBySlug = async (
+  slugOrId: string
+): Promise<MockEventDetail | null> => {
+  await sleep(FAKE_LATENCY_MS);
 
-  if (foundInMock) {
-    return foundInMock;
-  }
-
-  // Fallback builder
-  const fallbackRaw = findEventById(resolvedKey);
-  if (fallbackRaw) {
-    // Generate fallback MockEventDetail shape
-    const fallbackEvent: MockEventDetail = {
-      id: fallbackRaw.id,
-      slug: fallbackRaw.id,
-      entityType: 'event',
-      eventLevel: fallbackRaw.children?.length ? 'collection' : 'atomic',
-      titles: {
-        primary: fallbackRaw.name
-      },
-      classification: {
-        eventType: fallbackRaw.eventType,
-        eventSubtype: fallbackRaw.eventSubtype
-      },
-      coverage: {
-        grades: []
-      },
-      chronology: {
-        start: String(fallbackRaw.startYear),
-        end: fallbackRaw.endYear ? String(fallbackRaw.endYear) : undefined,
-        datePrecision: 'year',
-        displayDate: fallbackRaw.endYear && fallbackRaw.endYear !== fallbackRaw.startYear 
-          ? `${fallbackRaw.startYear} - ${fallbackRaw.endYear}` 
-          : `${fallbackRaw.startYear}`
-      },
-      summary: {
-        homepageTitle: fallbackRaw.name,
-        homepageSummary: fallbackRaw.description,
-        cardSummary: fallbackRaw.description
-      },
-      textbookContent: {
-        canonicalSummary: fallbackRaw.details || fallbackRaw.description,
-        detailedNarrative: "Nội dung chi tiết đang được bổ sung cho sự kiện này.",
-      },
-      display: {
-        showOnHomepage: true,
-        showOnTimeline: true,
-        featured: false
-      },
-      sourcePolicy: {
-        canonicalSource: "Dữ liệu bản đồ"
-      }
-    };
-    
-    // Add map data if available
-    if (fallbackRaw.geoType !== 'no_location') {
-      fallbackEvent.mapData = {
-        displayGeometry: {
-          geoType: fallbackRaw.geoType,
-          marker: fallbackRaw.coordinates ? {
-            coordinates: [fallbackRaw.coordinates.lng, fallbackRaw.coordinates.lat]
-          } : undefined,
-          provinceNames: fallbackRaw.primaryRegions,
-        }
-      };
-    }
-    
-    if (fallbackRaw.children) {
-      fallbackEvent.hierarchy = {
-        childIds: fallbackRaw.children.map(c => c.id)
-      };
-    }
-
-    return fallbackEvent;
-  }
-
-  return null;
+  const resolvedKey = ALIAS_MAP[slugOrId] ?? slugOrId;
+  const raw = findRawEventByIdOrSlug(resolvedKey);
+  if (!raw) return null;
+  return rawToEventDetail(raw);
 };
 
-export const getChildrenEvents = async (childIds: string[]): Promise<MockEventDetail[]> => {
-  await new Promise(resolve => setTimeout(resolve, 200));
-  
+export const getChildrenEvents = async (
+  childIds: string[]
+): Promise<MockEventDetail[]> => {
+  await sleep(FAKE_LATENCY_MS);
+
   return childIds
-    .map(id => Object.values(mockEventsData).find(e => e.id === id))
-    .filter((e): e is MockEventDetail => e !== undefined);
+    .map((id) => getRawEventById(id) ?? findRawEventByIdOrSlug(id))
+    .filter((r): r is NonNullable<typeof r> => !!r)
+    .map(rawToEventDetail);
 };
 
-export const getRelatedEvents = async (ids: string[]): Promise<MockEventDetail[]> => {
-  await new Promise(resolve => setTimeout(resolve, 200));
-  
+export const getRelatedEvents = async (
+  ids: string[]
+): Promise<MockEventDetail[]> => {
+  await sleep(FAKE_LATENCY_MS);
+
   return ids
-    .map(id => Object.values(mockEventsData).find(e => e.id === id))
-    .filter((e): e is MockEventDetail => e !== undefined);
+    .map((id) => getRawEventById(id) ?? findRawEventByIdOrSlug(id))
+    .filter((r): r is NonNullable<typeof r> => !!r)
+    .map(rawToEventDetail);
 };

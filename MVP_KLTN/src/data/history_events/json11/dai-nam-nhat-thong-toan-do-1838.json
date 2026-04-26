@@ -1,0 +1,99 @@
+{
+  "id": "dai-nam-nhat-thong-toan-do-1838",
+  "slug": "dai-nam-nhat-thong-toan-do-1838",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Đại Nam nhất thống toàn đồ ghi Hoàng Sa – Vạn Lí Trường Sa (khoảng 1838)",
+    "short": "Đại Nam nhất thống toàn đồ ghi Hoàng Sa –"
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "documented_sovereignty",
+    "tags": [
+      "Đại Nam nhất thống toàn đồ ghi Hoàng Sa – Vạn Lí Trường Sa (khoảng 1838)",
+      "Khoảng năm 1838",
+      "Tư liệu bản đồ quan trọng thể hiện Hoàng Sa và Vạn Lí Trường Sa thuộc lãnh thổ Việt Nam."
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1838
+    },
+    "datePrecision": "approximate",
+    "displayDate": "Khoảng năm 1838",
+    "isApproximate": true
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "no_location",
+      "marker": {
+        "label": "Đại Nam nhất thống toàn đồ ghi Hoàng Sa –"
+      }
+    },
+    "focusGeometry": {
+      "mode": "auto"
+    }
+  },
+  "summary": {
+    "homepageTitle": "Đại Nam nhất thống toàn đồ ghi Hoàng Sa – Vạn Lí Trường Sa (khoảng 1838)",
+    "homepageSummary": "Đại Nam nhất thống toàn đồ ghi Hoàng Sa – Vạn Lí Trường Sa (khoảng 1838). Tư liệu bản đồ quan trọng thể hiện Hoàng Sa và Vạn Lí Trường Sa thuộc lãnh thổ Việt Nam.",
+    "cardSummary": "Tư liệu bản đồ quan trọng thể hiện Hoàng Sa và Vạn Lí Trường Sa thuộc lãnh thổ Việt Nam."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Đại Nam nhất thống toàn đồ ghi Hoàng Sa – Vạn Lí Trường Sa (khoảng 1838). Tư liệu bản đồ quan trọng thể hiện Hoàng Sa và Vạn Lí Trường Sa thuộc lãnh thổ Việt Nam.",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 13: Lịch sử bảo vệ chủ quyền, các quyền và lợi ích hợp pháp của Việt Nam ở Biển Đông. Tư liệu bản đồ quan trọng thể hiện Hoàng Sa và Vạn Lí Trường Sa thuộc lãnh thổ Việt Nam.",
+    "significance": "Là mốc quan trọng về tổ chức nhà nước, cải cách hoặc chủ quyền được SGK 11 nhấn mạnh.",
+    "keyFacts": [
+      "Đại Nam nhất thống toàn đồ ghi Hoàng Sa – Vạn Lí Trường Sa (khoảng 1838)",
+      "Khoảng năm 1838",
+      "Tư liệu bản đồ quan trọng thể hiện Hoàng Sa và Vạn Lí Trường Sa thuộc lãnh thổ Việt Nam."
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 11,
+      "book": "Lịch sử 11 - Cánh Diều",
+      "lesson": "Bài 13: Lịch sử bảo vệ chủ quyền, các quyền và lợi ích hợp pháp của Việt Nam ở Biển Đông",
+      "pageStart": 88,
+      "pageEnd": 88,
+      "excerpt": "Tư liệu bản đồ quan trọng thể hiện Hoàng Sa và Vạn Lí Trường Sa thuộc lãnh thổ Việt Nam."
+    }
+  ],
+  "hierarchy": {
+    "rootId": "vm-chu-quyen-bien-dong",
+    "parentId": "quan-ly-hoang-sa-truong-sa-nguyen",
+    "level": 2,
+    "orderInParent": 1
+  },
+  "associations": {
+    "relatedEventIds": [
+      "quan-ly-hoang-sa-truong-sa-nguyen"
+    ]
+  },
+  "display": {
+    "showOnHomepage": false,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "Tư liệu bản đồ quan trọng thể hiện Hoàng Sa và Vạn Lí Trường Sa thuộc lãnh thổ Việt Nam. || [SGK11:dai-nam-nhat-thong-toan-do-1838] Tư liệu bản đồ quan trọng thể hiện Hoàng Sa và Vạn Lí Trường Sa thuộc lãnh thổ Việt Nam.",
+  "merge": {
+    "sourceGrades": "11",
+    "sourceIds": "dai-nam-nhat-thong-toan-do-1838",
+    "mergedCount": 1,
+    "sourceFiles": "SGK11_event_master_flattened_v2(1).xlsx",
+    "textbookRefsAll": "SGK11: Bài 13: Lịch sử bảo vệ chủ quyền, các quyền và lợi ích hợp pháp của Việt Nam ở Biển Đông tr.88 [dai-nam-nhat-thong-toan-do-1838]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

@@ -27,11 +27,11 @@ export default function ExamConfigPreview({ mode, questionCount, customCount, ti
             </div>
             <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid rgba(71,85,105,0.3)', paddingBottom: '0.5rem' }}>
                 <span style={{ color: 'var(--text-muted)' }}>Số câu</span>
-                <span style={{ fontWeight: 600, color: '#818cf8' }}>{questionCount === -1 ? customCount || 0 : questionCount} câu</span>
+                <span style={{ fontWeight: 600, color: '#4f6f95' }}>{questionCount === -1 ? customCount || 0 : questionCount} câu</span>
             </div>
             <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid rgba(71,85,105,0.3)', paddingBottom: '0.5rem' }}>
                 <span style={{ color: 'var(--text-muted)' }}>Thời gian</span>
-                <span style={{ fontWeight: 600, color: '#fca5a5' }}>{timeLimitMinutes === -1 ? customTime || 0 : timeLimitMinutes} phút</span>
+                <span style={{ fontWeight: 600, color: '#e8b0b7' }}>{timeLimitMinutes === -1 ? customTime || 0 : timeLimitMinutes} phút</span>
             </div>
             <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid rgba(71,85,105,0.3)', paddingBottom: '0.5rem' }}>
                 <span style={{ color: 'var(--text-muted)' }}>Độ khó</span>
@@ -46,7 +46,7 @@ export default function ExamConfigPreview({ mode, questionCount, customCount, ti
         <button
           onClick={onConfirm}
           disabled={loading}
-          style={{ width: '100%', padding: '1rem', marginTop: '2rem', background: 'linear-gradient(135deg, #10b981, #059669)', color: '#fff', border: 'none', borderRadius: '0.75rem', fontWeight: 800, fontSize: '1rem', cursor: loading ? 'not-allowed' : 'pointer', opacity: loading ? 0.7 : 1, boxShadow: '0 4px 6px -1px rgba(16,185,129,0.3)' }}
+          style={{ width: '100%', padding: '1rem', marginTop: '2rem', background: 'linear-gradient(135deg, #2f7a57, #266247)', color: '#fff', border: 'none', borderRadius: '0.75rem', fontWeight: 800, fontSize: '1rem', cursor: loading ? 'not-allowed' : 'pointer', opacity: loading ? 0.7 : 1, boxShadow: '0 4px 6px -1px rgba(47,122,87,0.3)' }}
         >
             {loading ? 'Đang tạo...' : 'Xác nhận Tạo Đề'}
         </button>

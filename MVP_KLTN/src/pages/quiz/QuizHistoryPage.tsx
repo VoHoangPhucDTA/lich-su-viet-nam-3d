@@ -53,7 +53,7 @@ export default function QuizHistoryPage() {
   if (loading) {
     return (
       <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--bg-app)', color: 'var(--accent)', flexDirection: 'column', gap: '1rem' }}>
-        <div style={{ width: '2rem', height: '2rem', border: '3px solid rgba(129,140,248,0.3)', borderTopColor: '#818cf8', borderRadius: '50%', animation: 'spin 1s linear infinite' }} />
+        <div style={{ width: '2rem', height: '2rem', border: '3px solid rgba(79,111,149,0.3)', borderTopColor: '#4f6f95', borderRadius: '50%', animation: 'spin 1s linear infinite' }} />
         <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
       </div>
     );
@@ -157,7 +157,7 @@ export default function QuizHistoryPage() {
 
                   <Link
                     to={`/quiz/result/${item.sessionId}`}
-                    style={{ padding: '0.625rem 1.25rem', borderRadius: '0.5rem', background: 'linear-gradient(135deg, #6366f1, #4f46e5)', color: '#fff', textDecoration: 'none', fontWeight: 600, fontSize: '0.9rem', whiteSpace: 'nowrap', transition: 'opacity 0.2s' }}
+                    style={{ padding: '0.625rem 1.25rem', borderRadius: '0.5rem', background: 'linear-gradient(135deg, #4f6f95, #2a4b72)', color: '#fff', textDecoration: 'none', fontWeight: 600, fontSize: '0.9rem', whiteSpace: 'nowrap', transition: 'opacity 0.2s' }}
                     onMouseEnter={e => e.currentTarget.style.opacity = '0.9'}
                     onMouseLeave={e => e.currentTarget.style.opacity = '1'}
                   >

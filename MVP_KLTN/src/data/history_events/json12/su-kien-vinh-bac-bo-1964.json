@@ -1,0 +1,102 @@
+{
+  "id": "su-kien-vinh-bac-bo-1964",
+  "slug": "su-kien-vinh-bac-bo-1964",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Sự kiện Vịnh Bắc Bộ (5-8-1964)",
+    "short": "Sự kiện Vịnh Bắc Bộ"
+  },
+  "classification": {
+    "eventType": "military",
+    "eventSubtype": "milestone",
+    "tags": [
+      "Sự kiện Vịnh Bắc Bộ (5-8-1964)",
+      "5-8-1964"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1964,
+      "month": 8,
+      "day": 5
+    },
+    "end": {
+      "year": 1964,
+      "month": 8,
+      "day": 5
+    },
+    "datePrecision": "day",
+    "displayDate": "5-8-1964",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "no_location"
+    },
+    "focusGeometry": {
+      "mode": "auto"
+    }
+  },
+  "summary": {
+    "homepageTitle": "Sự kiện Vịnh Bắc Bộ (5-8-1964)",
+    "homepageSummary": "Sự kiện Vịnh Bắc Bộ (5-8-1964). Cái cớ để Mỹ leo thang chiến tranh phá hoại miền Bắc",
+    "cardSummary": "Cái cớ để Mỹ leo thang chiến tranh phá hoại miền Bắc"
+  },
+  "textbookContent": {
+    "canonicalSummary": "Sự kiện Vịnh Bắc Bộ (5-8-1964).",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 8: Kháng chiến chống Mỹ, cứu nước (1954–1975), trang 47. Nội dung trong file Excel được chuẩn hóa để nhập hệ thống; khi triển khai chính thức, nhóm nên bổ sung tường thuật chi tiết bám SGK và tư liệu gốc.",
+    "significance": "Là mốc quan trọng trong tiến trình đấu tranh quân sự, bảo vệ hoặc giải phóng đất nước của Việt Nam theo SGK 12.",
+    "keyFacts": [
+      "Sự kiện Vịnh Bắc Bộ (5-8-1964)",
+      "5-8-1964"
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 12,
+      "book": "Lịch sử 12 - Cánh Diều",
+      "theme": "Chủ đề 3: Cách mạng tháng Tám và kháng chiến bảo vệ độc lập dân tộc",
+      "lesson": "Bài 8: Kháng chiến chống Mỹ, cứu nước (1954–1975)",
+      "pageStart": 47,
+      "pageEnd": 47,
+      "excerpt": "Cái cớ để Mỹ leo thang chiến tranh phá hoại miền Bắc"
+    }
+  ],
+  "hierarchy": {
+    "rootId": "khang-chien-chong-my-collection",
+    "parentId": "chien-tranh-cuc-bo-1965-1968",
+    "level": 2,
+    "orderInParent": 1
+  },
+  "associations": {
+    "successorEventIds": [
+      "my-pha-hoai-mien-bac-lan-1"
+    ]
+  },
+  "display": {
+    "showOnHomepage": true,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "Cái cớ để Mỹ leo thang chiến tranh phá hoại miền Bắc || [SGK12:su-kien-vinh-bac-bo-1964] Cái cớ để Mỹ leo thang chiến tranh phá hoại miền Bắc",
+  "merge": {
+    "sourceGrades": "12",
+    "sourceIds": "su-kien-vinh-bac-bo-1964",
+    "mergedCount": 1,
+    "sourceFiles": "SGK12_event_master_flattened(1).xlsx",
+    "textbookRefsAll": "SGK12: Bài 8: Kháng chiến chống Mỹ, cứu nước (1954–1975) tr.47 [su-kien-vinh-bac-bo-1964]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

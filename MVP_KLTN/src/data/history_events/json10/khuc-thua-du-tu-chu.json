@@ -1,0 +1,110 @@
+{
+  "id": "khuc-thua-du-tu-chu",
+  "slug": "khuc-thua-du-tu-chu",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Khúc Thừa Dụ dựng quyền tự chủ",
+    "short": "Khúc Thừa Dụ 905"
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "autonomy_establishment",
+    "tags": [
+      "Khúc Thừa Dụ",
+      "tự chủ",
+      "Đại La"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      10
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 905
+    },
+    "datePrecision": "year",
+    "displayDate": "Năm 905",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "point",
+      "marker": {
+        "lat": 21.0285,
+        "lng": 105.8542,
+        "label": "Đại La"
+      },
+      "provinceNames": [
+        "Hà Nội"
+      ],
+      "historicalLocations": [
+        "Đại La"
+      ]
+    },
+    "focusGeometry": {
+      "mode": "marker",
+      "center": {
+        "lat": 21.0285,
+        "lng": 105.8542
+      },
+      "zoom": 10,
+      "provinceNames": [
+        "Hà Nội"
+      ]
+    }
+  },
+  "summary": {
+    "homepageTitle": "Khúc Thừa Dụ dựng quyền tự chủ",
+    "homepageSummary": "Năm 905, Khúc Thừa Dụ dựng quyền tự chủ bước đầu, mở đầu thời kì giành lại quyền làm chủ của người Việt.",
+    "cardSummary": "Khúc Thừa Dụ dựng quyền tự chủ năm 905."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Khúc Thừa Dụ là người mở đầu quá trình giành quyền tự chủ của dân tộc Việt vào đầu thế kỉ X.",
+    "detailedNarrative": "Theo SGK, năm 905 Khúc Thừa Dụ dựng quyền tự chủ bước đầu. Đây là mốc mở đầu cho quá trình chấm dứt sự lệ thuộc kéo dài và tạo tiền đề cho việc xác lập nền độc lập tự chủ về sau.",
+    "significance": "Là điểm khởi đầu quan trọng cho sự hình thành nhà nước độc lập của người Việt ở thế kỉ X.",
+    "keyFacts": [
+      "Năm 905",
+      "Mở đầu thời kì tự chủ",
+      "Liên quan đến trung tâm Đại La"
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 10,
+      "book": "Lịch sử 10 - Cánh Diều",
+      "theme": "Chủ đề 6: Một số nền văn minh trên đất nước Việt Nam trước năm 1858",
+      "lesson": "Bài 14: Cơ sở hình thành văn minh Đại Việt",
+      "pageStart": 97,
+      "pageEnd": 97,
+      "excerpt": "Năm 905, Khúc Thừa Dụ dựng quyền tự chủ bước đầu."
+    }
+  ],
+  "hierarchy": {
+    "rootId": "vm-dai-viet",
+    "parentId": "vm-dai-viet",
+    "level": 1,
+    "orderInParent": 1
+  },
+  "display": {
+    "showOnHomepage": true,
+    "showOnTimeline": true,
+    "featured": true
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "merge": {
+    "sourceGrades": "10",
+    "sourceIds": "khuc-thua-du-tu-chu",
+    "mergedCount": 1,
+    "sourceFiles": "SGK10_event_master_flattened_v2(1).xlsx",
+    "textbookRefsAll": "SGK10: Bài 14: Cơ sở hình thành văn minh Đại Việt tr.97 [khuc-thua-du-tu-chu]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

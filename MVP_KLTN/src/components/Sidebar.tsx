@@ -1,4 +1,13 @@
 import { useState, useMemo } from 'react';
+import {
+  Search,
+  ScrollText,
+  ChevronRight,
+  ExternalLink,
+  MapPin,
+  Map as MapIcon,
+  ClipboardList,
+} from 'lucide-react';
 import type { HistoricalEvent, EventType } from '../types/event';
 import {
   EVENT_TYPE_ICONS,
@@ -99,108 +108,78 @@ export default function Sidebar({
           borderBottom: '1px solid var(--border)',
         }}
       >
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '10px',
-            marginBottom: '14px',
-          }}
-        >
-          <span style={{ fontSize: '22px' }}>📜</span>
+        <div className="flex items-center gap-2.5 mb-3.5">
+          <ScrollText
+            size={22}
+            strokeWidth={2}
+            style={{ color: 'var(--accent)' }}
+          />
           <h2
-            style={{
-              fontSize: '16px',
-              fontWeight: 800,
-              color: 'var(--text-primary)',
-              letterSpacing: '-0.01em',
-            }}
+            className="text-base font-extrabold tracking-tight"
+            style={{ color: 'var(--text-primary)' }}
           >
             Sự kiện Lịch sử
           </h2>
         </div>
 
         {/* Search */}
-        <div style={{ position: 'relative', marginBottom: '12px' }}>
-          <span
-            style={{
-              position: 'absolute',
-              left: '10px',
-              top: '50%',
-              transform: 'translateY(-50%)',
-              fontSize: '14px',
-              color: 'var(--text-muted)',
-            }}
-          >
-            🔍
-          </span>
+        <div className="relative mb-3">
+          <Search
+            size={15}
+            strokeWidth={2.2}
+            className="absolute left-2.5 top-1/2 -translate-y-1/2"
+            style={{ color: 'var(--text-muted)' }}
+          />
           <input
             type="text"
             placeholder="Tìm kiếm sự kiện..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
+            className="w-full pl-9 pr-3 py-2.5 rounded-[10px] border text-[13px] outline-none transition-all duration-200"
             style={{
-              width: '100%',
-              padding: '10px 12px 10px 36px',
-              borderRadius: '10px',
-              border: '1px solid var(--input-border)',
+              borderColor: 'var(--input-border)',
               background: 'var(--input-bg)',
               color: 'var(--input-text)',
-              fontSize: '13px',
-              outline: 'none',
-              transition: 'all 0.2s',
             }}
             onFocus={(e) => {
               e.currentTarget.style.borderColor = 'var(--accent)';
-              e.currentTarget.style.background = 'var(--input-bg)';
             }}
             onBlur={(e) => {
               e.currentTarget.style.borderColor = 'var(--input-border)';
-              e.currentTarget.style.background = 'var(--input-bg)';
             }}
           />
         </div>
 
         {/* Filter buttons */}
-        <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
-          {EVENT_TYPE_FILTERS.map((type) => (
-            <button
-              key={type}
-              onClick={() =>
-                setActiveFilter(activeFilter === type ? null : type)
-              }
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '4px',
-                padding: '4px 10px',
-                borderRadius: '9999px',
-                border: `1px solid ${
-                  activeFilter === type
+        <div className="flex gap-1.5 flex-wrap">
+          {EVENT_TYPE_FILTERS.map((type) => {
+            const Icon = EVENT_TYPE_ICONS[type];
+            const isActive = activeFilter === type;
+            return (
+              <button
+                key={type}
+                onClick={() =>
+                  setActiveFilter(isActive ? null : type)
+                }
+                className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-semibold cursor-pointer transition-all duration-150 border"
+                style={{
+                  borderColor: isActive
                     ? EVENT_TYPE_COLORS[type]
-                    : 'var(--border)'
-                }`,
-                background:
-                  activeFilter === type
+                    : 'var(--border)',
+                  background: isActive
                     ? `${EVENT_TYPE_COLORS[type]}25`
                     : 'var(--bg-card)',
-                color:
-                  activeFilter === type
+                  color: isActive
                     ? EVENT_TYPE_COLORS[type]
                     : 'var(--text-muted)',
-                fontSize: '11px',
-                fontWeight: 600,
-                cursor: 'pointer',
-                transition: 'all 0.15s',
-                boxShadow: activeFilter === type ? '0 2px 8px rgba(0,0,0,0.1)' : 'none',
-              }}
-            >
-              <span style={{ fontSize: '12px' }}>
-                {EVENT_TYPE_ICONS[type]}
-              </span>
-              {EVENT_TYPE_LABELS[type]}
-            </button>
-          ))}
+                  boxShadow: isActive ? '0 2px 8px rgba(0,0,0,0.1)' : 'none',
+                }}
+              >
+                <Icon size={12} strokeWidth={2.2} />
+                {EVENT_TYPE_LABELS[type]}
+              </button>
+            );
+          })}
         </div>
       </div>
 
@@ -282,12 +261,17 @@ function EventTreeNode({
   const hasChildren = event.children && event.children.length > 0;
   const navigate = useNavigate();
 
-  const geoIcon =
+  const GeoIcon =
     event.geoType === 'no_location'
-      ? '📋'
+      ? ClipboardList
       : event.geoType === 'nationwide'
-      ? '🗺️'
-      : '📍';
+      ? MapIcon
+      : MapPin;
+
+  const geoIconColor =
+    event.geoType === 'no_location'
+      ? 'var(--text-muted)'
+      : EVENT_TYPE_COLORS[event.eventType];
 
   return (
     <div>
@@ -328,38 +312,30 @@ function EventTreeNode({
               e.stopPropagation();
               onToggleExpand(event.id);
             }}
-            style={{
-              background: 'none',
-              border: 'none',
-              color: 'var(--text-muted)',
-              cursor: 'pointer',
-              fontSize: '11px',
-              width: '18px',
-              height: '18px',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              flexShrink: 0,
-              transition: 'transform 0.2s, color 0.2s',
-            }}
+            aria-label={isExpanded ? 'Thu gọn' : 'Mở rộng'}
+            className="bg-transparent border-0 cursor-pointer w-[18px] h-[18px] flex items-center justify-center flex-shrink-0"
+            style={{ color: 'var(--text-muted)' }}
           >
-            <span 
-              style={{ 
-                fontSize: '10px', 
-                transition: 'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+            <ChevronRight
+              size={14}
+              strokeWidth={2.4}
+              className="transition-transform duration-300"
+              style={{
                 transform: isExpanded ? 'rotate(90deg)' : 'rotate(0deg)',
-                display: 'inline-block'
               }}
-            >
-              ▶
-            </span>
+            />
           </button>
         ) : (
-          <span style={{ width: '16px', flexShrink: 0 }} />
+          <span className="w-4 flex-shrink-0" />
         )}
 
         {/* Geo icon */}
-        <span style={{ fontSize: '13px', flexShrink: 0 }}>{geoIcon}</span>
+        <GeoIcon
+          size={13}
+          strokeWidth={2.2}
+          className="flex-shrink-0"
+          style={{ color: geoIconColor }}
+        />
 
         {/* Event name */}
         <span
@@ -384,38 +360,30 @@ function EventTreeNode({
             navigate(`/events/${detailKey}`);
           }}
           title="Xem chi tiết"
+          aria-label="Xem chi tiết"
+          className="bg-transparent border-0 cursor-pointer p-0.5 flex items-center justify-center transition-opacity duration-150"
           style={{
-            background: 'none',
-            border: 'none',
-            cursor: 'pointer',
-            padding: '2px',
-            fontSize: '12px',
-            opacity: isSelected ? 1 : 0.4,
-            transition: 'opacity 0.15s',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
+            color: 'var(--text-muted)',
+            opacity: isSelected ? 1 : 0.45,
           }}
           onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')}
-          onMouseLeave={(e) => (e.currentTarget.style.opacity = isSelected ? '1' : '0.4')}
+          onMouseLeave={(e) => (e.currentTarget.style.opacity = isSelected ? '1' : '0.45')}
         >
-          📄
+          <ExternalLink size={13} strokeWidth={2.2} />
         </button>
 
         {/* Year badge */}
         <span
+          className="text-[10px] px-1.5 py-0.5 rounded border flex-shrink-0 font-medium"
           style={{
-            fontSize: '10px',
             color: 'var(--text-muted)',
             background: 'var(--bg-card)',
-            padding: '2px 6px',
-            borderRadius: '4px',
-            border: '1px solid var(--border)',
-            flexShrink: 0,
-            fontWeight: 500,
+            borderColor: 'var(--border)',
           }}
         >
-          {event.startYear}
+          {event.startYear < 0
+            ? `${Math.abs(event.startYear)} TCN`
+            : event.startYear}
         </span>
       </div>
 

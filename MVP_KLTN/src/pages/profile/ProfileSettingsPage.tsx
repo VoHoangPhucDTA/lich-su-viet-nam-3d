@@ -380,7 +380,7 @@ export default function ProfileSettingsPage() {
                 display: 'flex',
                 alignItems: 'center',
                 gap: '0.5rem',
-                boxShadow: saving ? 'none' : '0 4px 14px rgba(99,102,241,0.3)',
+                boxShadow: saving ? 'none' : '0 4px 14px rgba(30,58,95,0.3)',
                 transition: 'all 0.15s ease',
                 fontFamily: 'inherit',
               }}
@@ -574,7 +574,7 @@ export default function ProfileSettingsPage() {
               cursor: 'pointer',
               fontFamily: 'inherit',
               whiteSpace: 'nowrap',
-              boxShadow: '0 4px 12px rgba(239, 68, 68, 0.3)',
+              boxShadow: '0 4px 12px rgba(159, 29, 45, 0.3)',
               transition: 'opacity 0.2s',
             }}
             onMouseEnter={e => (e.currentTarget.style.opacity = '0.9')}

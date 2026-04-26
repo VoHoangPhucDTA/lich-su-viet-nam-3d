@@ -53,8 +53,8 @@ export default function ExamAnalysisPanel({ result, session }: ExamAnalysisPanel
       <div style={{ display: 'grid', gridTemplateColumns: 'minmax(250px, 1fr) minmax(250px, 1fr)', gap: '2rem' }}>
          
          {/* Weaknesses */}
-         <div style={{ background: '#0f172a', padding: '1.5rem', borderRadius: '0.75rem', border: '1px solid rgba(239, 68, 68, 0.2)' }}>
-            <h3 style={{ color: '#ef4444', marginTop: 0, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+         <div style={{ background: '#0f172a', padding: '1.5rem', borderRadius: '0.75rem', border: '1px solid rgba(159, 29, 45, 0.2)' }}>
+            <h3 style={{ color: '#9f1d2d', marginTop: 0, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
                 <line x1="12" y1="9" x2="12" y2="13"/>
@@ -68,10 +68,10 @@ export default function ExamAnalysisPanel({ result, session }: ExamAnalysisPanel
                     <li key={wt.topic}>
                        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.25rem' }}>
                           <span style={{ color: '#e2e8f0', fontSize: '0.875rem' }}>{wt.topic}</span>
-                          <span style={{ color: '#ef4444', fontSize: '0.875rem', fontWeight: 600 }}>{wt.accuracy.toFixed(0)}%</span>
+                          <span style={{ color: '#9f1d2d', fontSize: '0.875rem', fontWeight: 600 }}>{wt.accuracy.toFixed(0)}%</span>
                        </div>
                        <div style={{ width: '100%', background: '#1e293b', height: '0.5rem', borderRadius: '1rem', overflow: 'hidden' }}>
-                          <div style={{ height: '100%', background: '#ef4444', width: `${wt.accuracy}%` }} />
+                          <div style={{ height: '100%', background: '#9f1d2d', width: `${wt.accuracy}%` }} />
                        </div>
                        <div style={{ fontSize: '0.75rem', color: '#94a3b8', marginTop: '0.25rem' }}>
                           Sai/bỏ trống {wt.wrong + wt.blank} trên {wt.total} câu

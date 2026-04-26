@@ -1,9 +1,9 @@
 import type { ScoreRecord } from '../../data/mockLearningStats';
 
 const difficultyConfig = {
-  easy:   { label: 'Dễ',     color: '#10b981' },
-  medium: { label: 'Trung bình', color: '#f59e0b' },
-  hard:   { label: 'Khó',    color: '#ef4444' },
+  easy:   { label: 'Dễ',     color: '#2f7a57' },
+  medium: { label: 'Trung bình', color: '#c29b4b' },
+  hard:   { label: 'Khó',    color: '#9f1d2d' },
 };
 const categoryConfig = {
   military:  { label: 'Quân sự',       icon: '⚔️' },
@@ -17,7 +17,7 @@ function formatDate(iso: string): string {
 }
 
 function ScoreCircle({ score }: { score: number }) {
-  const color = score >= 8 ? '#10b981' : score >= 6.5 ? '#f59e0b' : '#ef4444';
+  const color = score >= 8 ? '#2f7a57' : score >= 6.5 ? '#c29b4b' : '#9f1d2d';
   const pct = (score / 10) * 360;
   return (
     <div style={{ textAlign: 'center' }}>
@@ -106,9 +106,9 @@ export default function ScoreTable({ scores }: { scores: ScoreRecord[] }) {
                     fontWeight: 700,
                     padding: '1px 6px',
                     borderRadius: '4px',
-                    background: s.type === 'exam' ? 'rgba(245,158,11,0.12)' : 'var(--accent-soft)',
+                    background: s.type === 'exam' ? 'rgba(194,155,75,0.15)' : 'var(--accent-soft)',
                     color: s.type === 'exam' ? 'var(--warning)' : 'var(--accent)',
-                    border: `1px solid ${s.type === 'exam' ? 'rgba(245,158,11,0.2)' : 'var(--accent)'}`,
+                    border: `1px solid ${s.type === 'exam' ? 'rgba(194,155,75,0.24)' : 'var(--accent)'}`,
                     textTransform: 'uppercase',
                     letterSpacing: '0.04em',
                   }}

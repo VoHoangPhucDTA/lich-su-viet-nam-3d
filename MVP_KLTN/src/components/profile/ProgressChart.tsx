@@ -69,7 +69,7 @@ export function WeeklyScoreChart({ data }: { data: WeeklyScorePoint[] }) {
           <Bar
             key={d.week}
             pct={(d.score / max) * 100}
-            color="#6366f1"
+            color="#4f6f95"
             label={d.week}
             valueLabel={d.score.toFixed(1)}
             height={128}
@@ -145,13 +145,13 @@ export function CategoryChart({ data }: { data: CategoryScore[] }) {
 
 // ─── Grade progress bars ──────────────────────────────────────────────────────
 export function GradeProgressChart({ data }: { data: ProgressByGrade[] }) {
-  const gradeColors: Record<number, string> = { 10: '#06b6d4', 11: '#8b5cf6', 12: '#ec4899' };
+  const gradeColors: Record<number, string> = { 10: '#2f7a57', 11: '#4f6f95', 12: '#c29b4b' };
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
       {data.map(g => {
         const pct = Math.round((g.eventsViewed / g.eventsTotal) * 100);
-        const color = gradeColors[g.grade] ?? '#6366f1';
+        const color = gradeColors[g.grade] ?? '#4f6f95';
         return (
           <div key={g.grade}>
             <div

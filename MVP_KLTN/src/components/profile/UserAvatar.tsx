@@ -20,12 +20,12 @@ function getInitials(name: string): string {
 
 function getColor(name: string): string {
   const colors = [
-    'linear-gradient(135deg, #6366f1, #4f46e5)',
-    'linear-gradient(135deg, #8b5cf6, #7c3aed)',
-    'linear-gradient(135deg, #06b6d4, #0891b2)',
-    'linear-gradient(135deg, #10b981, #059669)',
-    'linear-gradient(135deg, #f59e0b, #d97706)',
-    'linear-gradient(135deg, #ef4444, #dc2626)',
+    'linear-gradient(135deg, #4f6f95, #2a4b72)',
+    'linear-gradient(135deg, #2a4b72, #4f6f95)',
+    'linear-gradient(135deg, #4f6f95, #c29b4b)',
+    'linear-gradient(135deg, #2f7a57, #266247)',
+    'linear-gradient(135deg, #c29b4b, #9c7333)',
+    'linear-gradient(135deg, #9f1d2d, #7d1a28)',
   ];
   let hash = 0;
   for (let i = 0; i < name.length; i++) hash = name.charCodeAt(i) + ((hash << 5) - hash);
@@ -46,7 +46,7 @@ export default function UserAvatar({ fullName, avatarUrl, size = 'md', className
           height: s.wh,
           borderRadius: '50%',
           objectFit: 'cover',
-          border: '2px solid rgba(99,102,241,0.4)',
+          border: '2px solid rgba(30,58,95,0.4)',
         }}
       />
     );
@@ -67,7 +67,7 @@ export default function UserAvatar({ fullName, avatarUrl, size = 'md', className
         fontSize: s.font,
         fontWeight: 700,
         letterSpacing: '0.02em',
-        border: '2px solid rgba(99,102,241,0.3)',
+        border: '2px solid rgba(30,58,95,0.3)',
         flexShrink: 0,
         userSelect: 'none',
       }}

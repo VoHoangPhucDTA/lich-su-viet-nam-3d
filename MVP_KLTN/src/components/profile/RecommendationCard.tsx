@@ -1,9 +1,9 @@
 import type { RecommendationItem } from '../../data/mockLearningStats';
 
 const typeConfig = {
-  review:    { label: 'Ôn tập',     color: '#f59e0b', bg: 'rgba(245,158,11,0.12)',  border: 'rgba(245,158,11,0.25)' },
-  new:       { label: 'Mới',        color: '#10b981', bg: 'rgba(16,185,129,0.12)',   border: 'rgba(16,185,129,0.25)' },
-  challenge: { label: 'Thử thách',  color: '#8b5cf6', bg: 'rgba(139,92,246,0.12)',  border: 'rgba(139,92,246,0.25)' },
+  review:    { label: 'Ôn tập',     color: '#c29b4b', bg: 'rgba(194,155,75,0.15)',  border: 'rgba(194,155,75,0.24)' },
+  new:       { label: 'Mới',        color: '#2f7a57', bg: 'rgba(47,122,87,0.14)',   border: 'rgba(47,122,87,0.24)' },
+  challenge: { label: 'Thử thách',  color: '#4f6f95', bg: 'rgba(30,58,95,0.14)',    border: 'rgba(30,58,95,0.24)' },
 };
 
 export default function RecommendationCard({ item }: { item: RecommendationItem }) {

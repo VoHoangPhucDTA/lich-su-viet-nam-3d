@@ -1,0 +1,120 @@
+{
+  "id": "doc-bien-dong-2002",
+  "slug": "doc-bien-dong-2002",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Tuyên bố DOC về ứng xử của các bên ở Biển Đông (2002)",
+    "short": "Tuyên bố DOC về ứng xử của các bên ở Biển"
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "regional_declaration",
+    "tags": [
+      "Tuyên bố DOC về ứng xử của các bên ở Biển Đông (2002)",
+      "Năm 2002",
+      "Việt Nam cùng ASEAN và Trung Quốc ký Tuyên bố DOC nhằm duy trì hòa bình",
+      "ổn định ở Biển Đông."
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 2002
+    },
+    "datePrecision": "year",
+    "displayDate": "Năm 2002",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "no_location",
+      "marker": {
+        "label": "Tuyên bố DOC về ứng xử của các bên ở Biển"
+      }
+    },
+    "focusGeometry": {
+      "mode": "auto"
+    }
+  },
+  "summary": {
+    "homepageTitle": "Tuyên bố DOC về ứng xử của các bên ở Biển Đông (2002)",
+    "homepageSummary": "Tuyên bố DOC về ứng xử của các bên ở Biển Đông (2002). Việt Nam cùng ASEAN và Trung Quốc ký Tuyên bố DOC nhằm duy trì hòa bình, ổn định ở Biển Đông.",
+    "cardSummary": "Việt Nam cùng ASEAN và Trung Quốc ký Tuyên bố DOC nhằm duy trì hòa bình, ổn định ở Biển Đông."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Tuyên bố DOC về ứng xử của các bên ở Biển Đông (2002). Việt Nam cùng ASEAN và Trung Quốc ký Tuyên bố DOC nhằm duy trì hòa bình, ổn định ở Biển Đông.",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 13: Lịch sử bảo vệ chủ quyền, các quyền và lợi ích hợp pháp của Việt Nam ở Biển Đông. Việt Nam cùng ASEAN và Trung Quốc ký Tuyên bố DOC nhằm duy trì hòa bình, ổn định ở Biển Đông.",
+    "significance": "Là mốc quan trọng về tổ chức nhà nước, cải cách hoặc chủ quyền được SGK 11 nhấn mạnh.",
+    "keyFacts": [
+      "Tuyên bố DOC về ứng xử của các bên ở Biển Đông (2002)",
+      "Năm 2002",
+      "Việt Nam cùng ASEAN và Trung Quốc ký Tuyên bố DOC nhằm duy trì hòa bình",
+      "ổn định ở Biển Đông."
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 11,
+      "book": "Lịch sử 11 - Cánh Diều",
+      "lesson": "Bài 13: Lịch sử bảo vệ chủ quyền, các quyền và lợi ích hợp pháp của Việt Nam ở Biển Đông",
+      "pageStart": 90,
+      "pageEnd": 91,
+      "excerpt": "Việt Nam cùng ASEAN và Trung Quốc ký Tuyên bố DOC nhằm duy trì hòa bình, ổn định ở Biển Đông."
+    }
+  ],
+  "hierarchy": {
+    "rootId": "vm-chu-quyen-bien-dong",
+    "parentId": "vm-chu-quyen-bien-dong",
+    "level": 1,
+    "orderInParent": 13
+  },
+  "associations": {
+    "relatedEventIds": [
+      "doi-bac-hai-the-ky-18",
+      "vm-chu-quyen-bien-dong",
+      "quan-ly-hoang-sa-truong-sa-nguyen",
+      "hiep-dinh-elysee-1949-chuyen-giao-hoang-sa-truong-sa",
+      "vnch-tiep-quan-hoang-sa-truong-sa-1954",
+      "thanh-lap-huyen-dao-1982",
+      "luat-bien-viet-nam-2012",
+      "giai-phong-truong-sa-1975",
+      "doi-hoang-sa-the-ky-17",
+      "sach-trang-hoang-sa-truong-sa-1979-1988",
+      "viet-nam-tham-gia-unclos-1982",
+      "hiep-dinh-vinh-bac-bo-2000",
+      "su-kien-gac-ma-1988",
+      "trung-quoc-chiem-hoang-sa-1974"
+    ],
+    "predecessorEventIds": [
+      "viet-nam-tham-gia-unclos-1982"
+    ],
+    "successorEventIds": [
+      "hiep-dinh-vinh-bac-bo-2000"
+    ]
+  },
+  "display": {
+    "showOnHomepage": false,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "Việt Nam cùng ASEAN và Trung Quốc ký Tuyên bố DOC nhằm duy trì hòa bình, ổn định ở Biển Đông. || [SGK11:doc-bien-dong-2002] Việt Nam cùng ASEAN và Trung Quốc ký Tuyên bố DOC nhằm duy trì hòa bình, ổn định ở Biển Đông.",
+  "merge": {
+    "sourceGrades": "11",
+    "sourceIds": "doc-bien-dong-2002",
+    "mergedCount": 1,
+    "sourceFiles": "SGK11_event_master_flattened_v2(1).xlsx",
+    "textbookRefsAll": "SGK11: Bài 13: Lịch sử bảo vệ chủ quyền, các quyền và lợi ích hợp pháp của Việt Nam ở Biển Đông tr.90-91 [doc-bien-dong-2002]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

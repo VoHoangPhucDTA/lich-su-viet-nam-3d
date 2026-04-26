@@ -160,7 +160,7 @@ export default function ResetPasswordPage() {
               textDecoration: 'none',
               fontWeight: 600,
               fontSize: '0.9375rem',
-              boxShadow: '0 4px 15px rgba(99,102,241,0.25)',
+              boxShadow: '0 4px 15px rgba(30,58,95,0.25)',
               transition: 'all 0.2s',
             }}
             onMouseEnter={(e) => (e.currentTarget.style.filter = 'brightness(1.1)')}
@@ -232,7 +232,7 @@ export default function ResetPasswordPage() {
               alignItems: 'center',
               justifyContent: 'center',
               gap: '0.5rem',
-              boxShadow: loading ? 'none' : '0 4px 15px rgba(99,102,241,0.2)',
+              boxShadow: loading ? 'none' : '0 4px 15px rgba(30,58,95,0.2)',
               fontFamily: 'inherit',
               transition: 'all 0.2s',
               marginTop: '0.25rem',

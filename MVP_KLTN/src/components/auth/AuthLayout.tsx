@@ -20,7 +20,7 @@ function BackgroundOrbs() {
           width: '500px',
           height: '500px',
           borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(99,102,241,0.18) 0%, transparent 70%)',
+          background: 'radial-gradient(circle, rgba(30,58,95,0.18) 0%, transparent 70%)',
           filter: 'blur(40px)',
         }}
       />
@@ -33,7 +33,7 @@ function BackgroundOrbs() {
           width: '600px',
           height: '600px',
           borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(245,158,11,0.12) 0%, transparent 70%)',
+          background: 'radial-gradient(circle, rgba(194,155,75,0.15) 0%, transparent 70%)',
           filter: 'blur(60px)',
         }}
       />
@@ -46,7 +46,7 @@ function BackgroundOrbs() {
           width: '400px',
           height: '400px',
           borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(59,130,246,0.08) 0%, transparent 70%)',
+          background: 'radial-gradient(circle, rgba(30,58,95,0.1) 0%, transparent 70%)',
           filter: 'blur(50px)',
         }}
       />
@@ -107,8 +107,8 @@ export default function AuthLayout({ children }: AuthLayoutProps) {
       style={{
         minHeight: '100vh',
         background: isDark 
-          ? 'linear-gradient(135deg, #0f172a 0%, #1a1f35 50%, #0f172a 100%)'
-          : 'linear-gradient(135deg, #f8fafc 0%, #f1f5f9 50%, #f8fafc 100%)',
+          ? 'linear-gradient(135deg, #0b1220 0%, #14243d 50%, #0b1220 100%)'
+          : 'linear-gradient(135deg, #f4ebdd 0%, #efe2cf 50%, #f4ebdd 100%)',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -146,12 +146,12 @@ export default function AuthLayout({ children }: AuthLayoutProps) {
                   width: '2.75rem',
                   height: '2.75rem',
                   borderRadius: '0.75rem',
-                  background: 'linear-gradient(135deg, #6366f1, #4f46e5)',
+                  background: 'linear-gradient(135deg, #4f6f95, #2a4b72)',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
                   fontSize: '1.375rem',
-                  boxShadow: '0 0 20px rgba(99,102,241,0.4)',
+                  boxShadow: '0 0 20px rgba(30,58,95,0.4)',
                 }}
               >
                 🗺️

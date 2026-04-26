@@ -1,0 +1,93 @@
+{
+  "id": "cach-mang-phap-1789",
+  "slug": "cach-mang-phap-1789",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Cách mạng tư sản Pháp",
+    "short": "Cách mạng tư sản Pháp"
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "bourgeois_revolution",
+    "tags": [
+      "Cách mạng tư sản Pháp",
+      1789,
+      "Tuyên ngôn Nhân quyền và Dân quyền là văn kiện tiêu biểu được Hồ Chí Minh trích dẫn."
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1789
+    },
+    "datePrecision": "year",
+    "displayDate": "1789",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "no_location",
+      "marker": {
+        "label": "Cách mạng tư sản Pháp"
+      }
+    },
+    "focusGeometry": {
+      "mode": "auto"
+    }
+  },
+  "summary": {
+    "homepageTitle": "Cách mạng tư sản Pháp",
+    "homepageSummary": "Cách mạng tư sản Pháp. Tuyên ngôn Nhân quyền và Dân quyền là văn kiện tiêu biểu được Hồ Chí Minh trích dẫn.",
+    "cardSummary": "Tuyên ngôn Nhân quyền và Dân quyền là văn kiện tiêu biểu được Hồ Chí Minh trích dẫn."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Cách mạng tư sản Pháp. Tuyên ngôn Nhân quyền và Dân quyền là văn kiện tiêu biểu được Hồ Chí Minh trích dẫn.",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 1: Một số vấn đề chung về cách mạng tư sản. Tuyên ngôn Nhân quyền và Dân quyền là văn kiện tiêu biểu được Hồ Chí Minh trích dẫn.",
+    "significance": "Là mốc quan trọng về tổ chức nhà nước, cải cách hoặc chủ quyền được SGK 11 nhấn mạnh.",
+    "keyFacts": [
+      "Cách mạng tư sản Pháp",
+      1789,
+      "Tuyên ngôn Nhân quyền và Dân quyền là văn kiện tiêu biểu được Hồ Chí Minh trích dẫn."
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 11,
+      "book": "Lịch sử 11 - Cánh Diều",
+      "lesson": "Bài 1: Một số vấn đề chung về cách mạng tư sản",
+      "pageStart": 6,
+      "pageEnd": 14,
+      "excerpt": "Tuyên ngôn Nhân quyền và Dân quyền là văn kiện tiêu biểu được Hồ Chí Minh trích dẫn."
+    }
+  ],
+  "hierarchy": {
+    "rootId": "cach-mang-phap-1789",
+    "level": 0,
+    "orderInParent": 15
+  },
+  "display": {
+    "showOnHomepage": false,
+    "showOnTimeline": false,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "Tuyên ngôn Nhân quyền và Dân quyền là văn kiện tiêu biểu được Hồ Chí Minh trích dẫn. || [SGK11:cach-mang-phap-1789] Tuyên ngôn Nhân quyền và Dân quyền là văn kiện tiêu biểu được Hồ Chí Minh trích dẫn.",
+  "merge": {
+    "sourceGrades": "11",
+    "sourceIds": "cach-mang-phap-1789",
+    "mergedCount": 1,
+    "sourceFiles": "SGK11_event_master_flattened_v2(1).xlsx",
+    "textbookRefsAll": "SGK11: Bài 1: Một số vấn đề chung về cách mạng tư sản tr.6-14 [cach-mang-phap-1789]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

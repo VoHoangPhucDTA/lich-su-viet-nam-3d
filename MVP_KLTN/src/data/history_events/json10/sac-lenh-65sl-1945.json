@@ -1,0 +1,93 @@
+{
+  "id": "sac-lenh-65sl-1945",
+  "slug": "sac-lenh-65sl-1945",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Chủ tịch Hồ Chí Minh ký Sắc lệnh số 65/SL",
+    "short": "Sắc lệnh 65/SL"
+  },
+  "classification": {
+    "eventType": "cultural",
+    "eventSubtype": "heritage_policy",
+    "tags": [
+      "Sắc lệnh 65/SL",
+      "Hồ Chí Minh",
+      "bảo tồn cổ tích"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      10
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1945,
+      "month": 11,
+      "day": 23
+    },
+    "datePrecision": "day",
+    "displayDate": "23/11/1945",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "nationwide"
+    },
+    "focusGeometry": {
+      "mode": "auto"
+    }
+  },
+  "summary": {
+    "homepageTitle": "Chủ tịch Hồ Chí Minh ký Sắc lệnh số 65/SL",
+    "homepageSummary": "Sắc lệnh số 65/SL là một mốc sớm trong chính sách bảo tồn di sản văn hóa của Nhà nước Việt Nam mới.",
+    "cardSummary": "Sắc lệnh 65/SL ngày 23/11/1945."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Ngày 23/11/1945, Chủ tịch Hồ Chí Minh ký Sắc lệnh số 65/SL về việc bảo tồn cổ tích trên toàn cõi Việt Nam.",
+    "detailedNarrative": "SGK Bài 4 nêu sắc lệnh này như một minh chứng cho vai trò của Sử học trong bảo tồn di sản văn hóa. Đây là sự kiện chính sách quan trọng, phù hợp cho timeline và nhóm sự kiện bảo tồn di sản ở phạm vi toàn quốc.",
+    "significance": "Thể hiện sự quan tâm rất sớm của Nhà nước Việt Nam đối với việc bảo tồn di sản văn hóa dân tộc.",
+    "keyFacts": [
+      "Ngày 23/11/1945",
+      "Do Chủ tịch Hồ Chí Minh ký",
+      "Về việc bảo tồn cổ tích trên toàn cõi Việt Nam"
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 10,
+      "book": "Lịch sử 10 - Cánh Diều",
+      "theme": "Chủ đề 2: Vai trò của Sử học",
+      "lesson": "Bài 4: Sử học với một số lĩnh vực, ngành nghề hiện đại",
+      "pageStart": 28,
+      "pageEnd": 29,
+      "excerpt": "Ngày 23/11/1945, Chủ tịch Hồ Chí Minh ký Sắc lệnh số 65/SL về bảo tồn cổ tích."
+    }
+  ],
+  "hierarchy": {
+    "rootId": "vm-dai-viet",
+    "parentId": "vm-dai-viet",
+    "level": 1,
+    "orderInParent": 36
+  },
+  "display": {
+    "showOnHomepage": false,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "merge": {
+    "sourceGrades": "10",
+    "sourceIds": "sac-lenh-65sl-1945",
+    "mergedCount": 1,
+    "sourceFiles": "SGK10_event_master_flattened_v2(1).xlsx",
+    "textbookRefsAll": "SGK10: Bài 4: Sử học với một số lĩnh vực, ngành nghề hiện đại tr.28-29 [sac-lenh-65sl-1945]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

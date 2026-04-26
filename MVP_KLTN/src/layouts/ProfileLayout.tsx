@@ -342,7 +342,7 @@ export default function ProfileLayout({ children }: { children: ReactNode }) {
             style={{
               fontSize: '0.9rem',
               fontWeight: 700,
-              background: 'linear-gradient(135deg, #818cf8, #6366f1)',
+              background: 'linear-gradient(135deg, #4f6f95, #2a4b72)',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
             }}

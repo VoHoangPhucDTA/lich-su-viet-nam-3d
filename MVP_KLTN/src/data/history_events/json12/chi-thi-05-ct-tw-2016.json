@@ -1,0 +1,102 @@
+{
+  "id": "chi-thi-05-ct-tw-2016",
+  "slug": "chi-thi-05-ct-tw-2016",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Ban hành Chỉ thị 05-CT/TW về đẩy mạnh học tập và làm theo tư tưởng, đạo đức, phong cách Hồ Chí Minh (2016)",
+    "short": "Ban hành Chỉ thị 05-CT/TW về đẩy"
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "resolution",
+    "tags": [
+      "Ban hành Chỉ thị 05-CT/TW về đẩy mạnh học tập và làm theo tư tưởng",
+      "đạo đức",
+      "phong cách Hồ Chí Minh (2016)",
+      2016
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 2016
+    },
+    "end": {
+      "year": 2016
+    },
+    "datePrecision": "year",
+    "displayDate": "2016",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "no_location"
+    },
+    "focusGeometry": {
+      "mode": "auto"
+    }
+  },
+  "summary": {
+    "homepageTitle": "Ban hành Chỉ thị 05-CT/TW về đẩy mạnh học tập và làm theo tư tưởng, đạo đức, phong cách Hồ Chí Minh (2016)",
+    "homepageSummary": "Ban hành Chỉ thị 05-CT/TW về đẩy mạnh học tập và làm theo tư tưởng, đạo đức, phong cách Hồ Chí Minh (2016). Event hiện đại, featured = FALSE",
+    "cardSummary": "Event hiện đại, featured = FALSE"
+  },
+  "textbookContent": {
+    "canonicalSummary": "Ban hành Chỉ thị 05-CT/TW về đẩy mạnh học tập và làm theo tư tưởng, đạo đức, phong cách Hồ Chí Minh (2016).",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 16: Những dấu ấn Hồ Chí Minh trong thời đại ngày nay, trang 104. Nội dung trong file Excel được chuẩn hóa để nhập hệ thống; khi triển khai chính thức, nhóm nên bổ sung tường thuật chi tiết bám SGK và tư liệu gốc.",
+    "significance": "Là mốc quan trọng trong tiến trình cách mạng, xây dựng nhà nước, đối ngoại hoặc tổ chức lực lượng theo SGK 12.",
+    "keyFacts": [
+      "Ban hành Chỉ thị 05-CT/TW về đẩy mạnh học tập và làm theo tư tưởng",
+      "đạo đức",
+      "phong cách Hồ Chí Minh (2016)",
+      2016
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 12,
+      "book": "Lịch sử 12 - Cánh Diều",
+      "theme": "Chủ đề 6: Chủ tịch Hồ Chí Minh",
+      "lesson": "Bài 16: Những dấu ấn Hồ Chí Minh trong thời đại ngày nay",
+      "pageStart": 104,
+      "pageEnd": 104,
+      "excerpt": "Event hiện đại, featured = FALSE"
+    }
+  ],
+  "hierarchy": {
+    "rootId": "ho-chi-minh-cuoc-doi-su-nghiep-collection",
+    "parentId": "ho-chi-minh-cuoc-doi-su-nghiep-collection",
+    "level": 1,
+    "orderInParent": 11
+  },
+  "associations": {
+    "predecessorEventIds": [
+      "unesco-vinh-danh-hcm-1987"
+    ]
+  },
+  "display": {
+    "showOnHomepage": false,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "Event hiện đại, featured = FALSE || [SGK12:chi-thi-05-ct-tw-2016] Event hiện đại, featured = FALSE",
+  "merge": {
+    "sourceGrades": "12",
+    "sourceIds": "chi-thi-05-ct-tw-2016",
+    "mergedCount": 1,
+    "sourceFiles": "SGK12_event_master_flattened(1).xlsx",
+    "textbookRefsAll": "SGK12: Bài 16: Những dấu ấn Hồ Chí Minh trong thời đại ngày nay tr.104 [chi-thi-05-ct-tw-2016]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

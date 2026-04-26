@@ -1,0 +1,92 @@
+{
+  "id": "nato-1949",
+  "slug": "nato-1949",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Thành lập NATO (1949)",
+    "short": "Thành lập NATO"
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "organization_founding",
+    "tags": [
+      "Thành lập NATO (1949)",
+      1949
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1949
+    },
+    "end": {
+      "year": 1949
+    },
+    "datePrecision": "year",
+    "displayDate": "1949",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "no_location"
+    },
+    "focusGeometry": {
+      "mode": "auto"
+    }
+  },
+  "summary": {
+    "homepageTitle": "Thành lập NATO (1949)",
+    "homepageSummary": "Thành lập NATO (1949). —",
+    "cardSummary": "—"
+  },
+  "textbookContent": {
+    "canonicalSummary": "Thành lập NATO (1949).",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 2: Trật tự thế giới trong Chiến tranh lạnh, trang 13. Nội dung trong file Excel được chuẩn hóa để nhập hệ thống; khi triển khai chính thức, nhóm nên bổ sung tường thuật chi tiết bám SGK và tư liệu gốc.",
+    "significance": "Là mốc quan trọng trong tiến trình cách mạng, xây dựng nhà nước, đối ngoại hoặc tổ chức lực lượng theo SGK 12.",
+    "keyFacts": [
+      "Thành lập NATO (1949)",
+      1949
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 12,
+      "book": "Lịch sử 12 - Cánh Diều",
+      "theme": "Chủ đề 1: Thế giới trong và sau Chiến tranh lạnh",
+      "lesson": "Bài 2: Trật tự thế giới trong Chiến tranh lạnh",
+      "pageStart": 13,
+      "pageEnd": 13,
+      "excerpt": "Thành lập NATO (1949)"
+    }
+  ],
+  "hierarchy": {
+    "rootId": "nato-1949",
+    "level": 0,
+    "orderInParent": 16
+  },
+  "display": {
+    "showOnHomepage": false,
+    "showOnTimeline": false,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "— || [SGK12:nato-1949] —",
+  "merge": {
+    "sourceGrades": "12",
+    "sourceIds": "nato-1949",
+    "mergedCount": 1,
+    "sourceFiles": "SGK12_event_master_flattened(1).xlsx",
+    "textbookRefsAll": "SGK12: Bài 2: Trật tự thế giới trong Chiến tranh lạnh tr.13 [nato-1949]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

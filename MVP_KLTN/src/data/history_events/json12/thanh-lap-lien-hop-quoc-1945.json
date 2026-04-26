@@ -1,0 +1,95 @@
+{
+  "id": "thanh-lap-lien-hop-quoc-1945",
+  "slug": "thanh-lap-lien-hop-quoc-1945",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Thành lập Liên hợp quốc (24-10-1945)",
+    "short": "Thành lập Liên hợp quốc",
+    "alternatives": [
+      "Liên hợp quốc 1945"
+    ]
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "organization_founding",
+    "tags": [
+      "Thành lập Liên hợp quốc (24-10-1945)",
+      1945
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1945
+    },
+    "end": {
+      "year": 1945
+    },
+    "datePrecision": "year",
+    "displayDate": "1945",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "no_location"
+    },
+    "focusGeometry": {
+      "mode": "auto"
+    }
+  },
+  "summary": {
+    "homepageTitle": "Thành lập Liên hợp quốc (24-10-1945)",
+    "homepageSummary": "Thành lập Liên hợp quốc (24-10-1945). —",
+    "cardSummary": "—"
+  },
+  "textbookContent": {
+    "canonicalSummary": "Thành lập Liên hợp quốc (24-10-1945).",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 1: Liên hợp quốc, trang 6–7. Nội dung trong file Excel được chuẩn hóa để nhập hệ thống; khi triển khai chính thức, nhóm nên bổ sung tường thuật chi tiết bám SGK và tư liệu gốc.",
+    "significance": "Là mốc quan trọng trong tiến trình cách mạng, xây dựng nhà nước, đối ngoại hoặc tổ chức lực lượng theo SGK 12.",
+    "keyFacts": [
+      "Thành lập Liên hợp quốc (24-10-1945)",
+      1945
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 12,
+      "book": "Lịch sử 12 - Cánh Diều",
+      "theme": "Chủ đề 1: Thế giới trong và sau Chiến tranh lạnh",
+      "lesson": "Bài 1: Liên hợp quốc",
+      "pageStart": 6,
+      "pageEnd": 7,
+      "excerpt": "Thành lập Liên hợp quốc (24-10-1945)"
+    }
+  ],
+  "hierarchy": {
+    "rootId": "thanh-lap-lien-hop-quoc-1945",
+    "level": 0,
+    "orderInParent": 12
+  },
+  "display": {
+    "showOnHomepage": false,
+    "showOnTimeline": false,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "— || [SGK12:thanh-lap-lien-hop-quoc-1945] —",
+  "merge": {
+    "sourceGrades": "12",
+    "sourceIds": "thanh-lap-lien-hop-quoc-1945",
+    "mergedCount": 1,
+    "sourceFiles": "SGK12_event_master_flattened(1).xlsx",
+    "textbookRefsAll": "SGK12: Bài 1: Liên hợp quốc tr.6-7 [thanh-lap-lien-hop-quoc-1945]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

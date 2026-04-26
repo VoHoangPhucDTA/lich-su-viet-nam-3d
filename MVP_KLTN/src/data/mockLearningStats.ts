@@ -347,10 +347,10 @@ export const mockWeeklyScores: WeeklyScorePoint[] = [
 // ─── Category Scores ─────────────────────────────────────────────────────────
 
 export const mockCategoryScores: CategoryScore[] = [
-  { category: 'military',  label: 'Quân sự',       correctRate: 82, color: '#ef4444', icon: '⚔️' },
-  { category: 'political', label: 'Chính trị',     correctRate: 68, color: '#3b82f6', icon: '🏛️' },
-  { category: 'economic',  label: 'Kinh tế',       correctRate: 55, color: '#f59e0b', icon: '💰' },
-  { category: 'cultural',  label: 'Văn hoá – XH',  correctRate: 75, color: '#10b981', icon: '🎭' },
+  { category: 'military',  label: 'Quân sự',       correctRate: 82, color: '#9f1d2d', icon: '⚔️' },
+  { category: 'political', label: 'Chính trị',     correctRate: 68, color: '#2f5d8a', icon: '🏛️' },
+  { category: 'economic',  label: 'Kinh tế',       correctRate: 55, color: '#c29b4b', icon: '💰' },
+  { category: 'cultural',  label: 'Văn hoá – XH',  correctRate: 75, color: '#2f7a57', icon: '🎭' },
 ];
 
 // ─── Progress by Grade ────────────────────────────────────────────────────────

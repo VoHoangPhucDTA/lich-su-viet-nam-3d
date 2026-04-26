@@ -155,7 +155,7 @@ export default function QuizResultPage() {
     if (loading) {
         return (
             <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--bg-app)', color: 'var(--accent)', flexDirection: 'column', gap: '1rem' }}>
-                <div style={{ width: '2rem', height: '2rem', border: '3px solid rgba(129,140,248,0.3)', borderTopColor: '#818cf8', borderRadius: '50%', animation: 'spin 1s linear infinite' }} />
+                <div style={{ width: '2rem', height: '2rem', border: '3px solid rgba(79,111,149,0.3)', borderTopColor: '#4f6f95', borderRadius: '50%', animation: 'spin 1s linear infinite' }} />
                 <span>Đang tạo báo cáo kết quả...</span>
                 <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
             </div>
@@ -243,10 +243,10 @@ export default function QuizResultPage() {
 
                 {/* ── Stats Grid ── */}
                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem' }}>
-                    <StatBox label="Số câu đúng" value={result.correctCount} color="#10b981" />
-                    <StatBox label="Số câu sai" value={result.incorrectCount} color="#ef4444" />
+                    <StatBox label="Số câu đúng" value={result.correctCount} color="#2f7a57" />
+                    <StatBox label="Số câu sai" value={result.incorrectCount} color="#9f1d2d" />
                     <StatBox label="Bỏ trống" value={result.skippedCount} color="#94a3b8" />
-                    <StatBox label="Thời gian" value={formatTime(result.totalTimeMs)} color="#6366f1" />
+                    <StatBox label="Thời gian" value={formatTime(result.totalTimeMs)} color="#4f6f95" />
                 </div>
 
                 {/* ── Recommendations ── */}

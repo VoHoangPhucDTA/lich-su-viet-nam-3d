@@ -1,0 +1,111 @@
+{
+  "id": "gom-bat-trang",
+  "slug": "gom-bat-trang",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Làng gốm Bát Tràng",
+    "short": "Bát Tràng"
+  },
+  "classification": {
+    "eventType": "economic",
+    "eventSubtype": "craft_village",
+    "tags": [
+      "Bát Tràng",
+      "gốm",
+      "thủ công"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      10
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1300
+    },
+    "datePrecision": "period",
+    "displayDate": "Từ thế kỉ XIV",
+    "isApproximate": true
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "point",
+      "marker": {
+        "lat": 20.995,
+        "lng": 105.913,
+        "label": "Bát Tràng"
+      },
+      "provinceNames": [
+        "Hà Nội"
+      ],
+      "historicalLocations": [
+        "Bát Tràng"
+      ]
+    },
+    "focusGeometry": {
+      "mode": "marker",
+      "center": {
+        "lat": 20.995,
+        "lng": 105.913
+      },
+      "zoom": 11,
+      "provinceNames": [
+        "Hà Nội"
+      ]
+    }
+  },
+  "summary": {
+    "homepageTitle": "Làng gốm Bát Tràng",
+    "homepageSummary": "Bát Tràng là làng nghề gốm nổi tiếng, phản ánh sự phát triển thủ công nghiệp của Đại Việt.",
+    "cardSummary": "Làng gốm Bát Tràng nổi tiếng của Đại Việt."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Bát Tràng là một trung tâm gốm sứ tiêu biểu của Đại Việt, gắn với sự phát triển của thủ công nghiệp truyền thống.",
+    "detailedNarrative": "SGK nêu Bát Tràng trong nhóm thành tựu kinh tế – thủ công nghiệp. Việc đưa Bát Tràng vào dữ liệu sự kiện giúp học sinh thấy rõ hơn không gian của làng nghề và vai trò của thủ công nghiệp trong nền kinh tế Đại Việt.",
+    "significance": "Thể hiện trình độ phát triển của thủ công nghiệp truyền thống và khả năng tạo dựng thương hiệu văn hóa – kinh tế.",
+    "keyFacts": [
+      "Làng nghề gốm nổi tiếng",
+      "Nằm ở Hà Nội ngày nay",
+      "Phản ánh sự phát triển thủ công nghiệp"
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 10,
+      "book": "Lịch sử 10 - Cánh Diều",
+      "theme": "Chủ đề 6: Một số nền văn minh trên đất nước Việt Nam trước năm 1858",
+      "lesson": "Bài 15: Những thành tựu tiêu biểu của văn minh Đại Việt",
+      "pageStart": 103,
+      "pageEnd": 103,
+      "excerpt": "Bát Tràng là một làng nghề gốm tiêu biểu của Đại Việt."
+    }
+  ],
+  "hierarchy": {
+    "rootId": "vm-dai-viet",
+    "parentId": "vm-dai-viet",
+    "level": 1,
+    "orderInParent": 17
+  },
+  "display": {
+    "showOnHomepage": true,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "Tọa độ Bát Tràng gần đúng; có thể tinh chỉnh thêm ở bước chuẩn hóa tọa độ bản đồ sau. || [SGK10:gom-bat-trang] Tọa độ Bát Tràng gần đúng; có thể tinh chỉnh thêm ở bước chuẩn hóa tọa độ bản đồ sau.",
+  "merge": {
+    "sourceGrades": "10",
+    "sourceIds": "gom-bat-trang",
+    "mergedCount": 1,
+    "sourceFiles": "SGK10_event_master_flattened_v2(1).xlsx",
+    "textbookRefsAll": "SGK10: Bài 15: Những thành tựu tiêu biểu của văn minh Đại Việt tr.103 [gom-bat-trang]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

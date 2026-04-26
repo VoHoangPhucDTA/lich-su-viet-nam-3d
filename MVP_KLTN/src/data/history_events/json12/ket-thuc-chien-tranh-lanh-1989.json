@@ -1,0 +1,92 @@
+{
+  "id": "ket-thuc-chien-tranh-lanh-1989",
+  "slug": "ket-thuc-chien-tranh-lanh-1989",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Kết thúc Chiến tranh lạnh (12-1989)",
+    "short": "Kết thúc Chiến tranh lạnh"
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "war",
+    "tags": [
+      "Kết thúc Chiến tranh lạnh (12-1989)",
+      1989
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1989
+    },
+    "end": {
+      "year": 1989
+    },
+    "datePrecision": "year",
+    "displayDate": "1989",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "no_location"
+    },
+    "focusGeometry": {
+      "mode": "auto"
+    }
+  },
+  "summary": {
+    "homepageTitle": "Kết thúc Chiến tranh lạnh (12-1989)",
+    "homepageSummary": "Kết thúc Chiến tranh lạnh (12-1989). —",
+    "cardSummary": "—"
+  },
+  "textbookContent": {
+    "canonicalSummary": "Kết thúc Chiến tranh lạnh (12-1989).",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 2: Trật tự thế giới trong Chiến tranh lạnh, trang 15. Nội dung trong file Excel được chuẩn hóa để nhập hệ thống; khi triển khai chính thức, nhóm nên bổ sung tường thuật chi tiết bám SGK và tư liệu gốc.",
+    "significance": "Là mốc quan trọng trong tiến trình cách mạng, xây dựng nhà nước, đối ngoại hoặc tổ chức lực lượng theo SGK 12.",
+    "keyFacts": [
+      "Kết thúc Chiến tranh lạnh (12-1989)",
+      1989
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 12,
+      "book": "Lịch sử 12 - Cánh Diều",
+      "theme": "Chủ đề 1: Thế giới trong và sau Chiến tranh lạnh",
+      "lesson": "Bài 2: Trật tự thế giới trong Chiến tranh lạnh",
+      "pageStart": 15,
+      "pageEnd": 15,
+      "excerpt": "Kết thúc Chiến tranh lạnh (12-1989)"
+    }
+  ],
+  "hierarchy": {
+    "rootId": "ket-thuc-chien-tranh-lanh-1989",
+    "level": 0,
+    "orderInParent": 18
+  },
+  "display": {
+    "showOnHomepage": false,
+    "showOnTimeline": false,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "— || [SGK12:ket-thuc-chien-tranh-lanh-1989] —",
+  "merge": {
+    "sourceGrades": "12",
+    "sourceIds": "ket-thuc-chien-tranh-lanh-1989",
+    "mergedCount": 1,
+    "sourceFiles": "SGK12_event_master_flattened(1).xlsx",
+    "textbookRefsAll": "SGK12: Bài 2: Trật tự thế giới trong Chiến tranh lạnh tr.15 [ket-thuc-chien-tranh-lanh-1989]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

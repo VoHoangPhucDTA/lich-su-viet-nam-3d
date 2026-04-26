@@ -1,0 +1,93 @@
+{
+  "id": "lien-xo-sup-do-1991",
+  "slug": "lien-xo-sup-do-1991",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Liên Xô sụp đổ (1991)",
+    "short": "Liên Xô sụp đổ"
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "state_dissolution",
+    "tags": [
+      "Liên Xô sụp đổ (1991)",
+      1991,
+      "Giữ làm bối cảnh thế giới hiện đại."
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1991
+    },
+    "datePrecision": "year",
+    "displayDate": "1991",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "no_location",
+      "marker": {
+        "label": "Liên Xô sụp đổ"
+      }
+    },
+    "focusGeometry": {
+      "mode": "auto"
+    }
+  },
+  "summary": {
+    "homepageTitle": "Liên Xô sụp đổ (1991)",
+    "homepageSummary": "Liên Xô sụp đổ (1991). Giữ làm bối cảnh thế giới hiện đại.",
+    "cardSummary": "Giữ làm bối cảnh thế giới hiện đại."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Liên Xô sụp đổ (1991). Giữ làm bối cảnh thế giới hiện đại.",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 4: Chủ nghĩa xã hội từ năm 1917 đến nay. Giữ làm bối cảnh thế giới hiện đại.",
+    "significance": "Là mốc quan trọng về tổ chức nhà nước, cải cách hoặc chủ quyền được SGK 11 nhấn mạnh.",
+    "keyFacts": [
+      "Liên Xô sụp đổ (1991)",
+      1991,
+      "Giữ làm bối cảnh thế giới hiện đại."
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 11,
+      "book": "Lịch sử 11 - Cánh Diều",
+      "lesson": "Bài 4: Chủ nghĩa xã hội từ năm 1917 đến nay",
+      "pageStart": 27,
+      "pageEnd": 28,
+      "excerpt": "Giữ làm bối cảnh thế giới hiện đại."
+    }
+  ],
+  "hierarchy": {
+    "rootId": "lien-xo-sup-do-1991",
+    "level": 0,
+    "orderInParent": 18
+  },
+  "display": {
+    "showOnHomepage": false,
+    "showOnTimeline": false,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "Giữ làm bối cảnh thế giới hiện đại. || [SGK11:lien-xo-sup-do-1991] Giữ làm bối cảnh thế giới hiện đại.",
+  "merge": {
+    "sourceGrades": "11",
+    "sourceIds": "lien-xo-sup-do-1991",
+    "mergedCount": 1,
+    "sourceFiles": "SGK11_event_master_flattened_v2(1).xlsx",
+    "textbookRefsAll": "SGK11: Bài 4: Chủ nghĩa xã hội từ năm 1917 đến nay tr.27-28 [lien-xo-sup-do-1991]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

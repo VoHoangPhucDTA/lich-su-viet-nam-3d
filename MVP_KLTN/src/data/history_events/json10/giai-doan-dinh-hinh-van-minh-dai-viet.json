@@ -1,0 +1,94 @@
+{
+  "id": "giai-doan-dinh-hinh-van-minh-dai-viet",
+  "slug": "giai-doan-dinh-hinh-van-minh-dai-viet",
+  "entityType": "event",
+  "eventLevel": "collection",
+  "titles": {
+    "primary": "Giai đoạn định hình văn minh Đại Việt",
+    "short": "Định hình Đại Việt"
+  },
+  "classification": {
+    "eventType": "cultural",
+    "eventSubtype": "historical_phase",
+    "tags": [
+      "Đại Việt",
+      "thế kỉ X",
+      "định hình"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      10
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 905
+    },
+    "end": {
+      "year": 1009
+    },
+    "datePrecision": "period",
+    "displayDate": "Thế kỉ X",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "nationwide"
+    },
+    "focusGeometry": {
+      "mode": "auto"
+    }
+  },
+  "summary": {
+    "homepageTitle": "Giai đoạn định hình văn minh Đại Việt",
+    "homepageSummary": "Từ thế kỉ X, quốc gia độc lập tự chủ dần được xác lập, tạo cơ sở cho văn minh Đại Việt.",
+    "cardSummary": "Giai đoạn định hình của văn minh Đại Việt."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Giai đoạn thế kỉ X là thời kì định hình những cơ sở ban đầu của văn minh Đại Việt sau khi giành độc lập tự chủ.",
+    "detailedNarrative": "Theo SGK, sau các mốc Khúc Thừa Dụ và Ngô Quyền, quốc gia Việt Nam bước vào thời kì xác lập nền độc lập tự chủ. Đây là tiền đề để bộ máy nhà nước, kinh đô và các thiết chế xã hội dần hình thành rõ nét.",
+    "significance": "Là giai đoạn đặt nền móng cho quá trình phát triển lâu dài của văn minh Đại Việt.",
+    "keyFacts": [
+      "Thế kỉ X",
+      "Gắn với quá trình xác lập độc lập tự chủ",
+      "Là giai đoạn nền móng của Đại Việt"
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 10,
+      "book": "Lịch sử 10 - Cánh Diều",
+      "theme": "Chủ đề 6: Một số nền văn minh trên đất nước Việt Nam trước năm 1858",
+      "lesson": "Bài 14: Cơ sở hình thành văn minh Đại Việt",
+      "pageStart": 97,
+      "pageEnd": 98,
+      "excerpt": "Giai đoạn thế kỉ X là quá trình định hình văn minh Đại Việt."
+    }
+  ],
+  "hierarchy": {
+    "rootId": "vm-dai-viet",
+    "parentId": "vm-dai-viet",
+    "level": 1,
+    "orderInParent": 6
+  },
+  "display": {
+    "showOnHomepage": true,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "merge": {
+    "sourceGrades": "10",
+    "sourceIds": "giai-doan-dinh-hinh-van-minh-dai-viet",
+    "mergedCount": 1,
+    "sourceFiles": "SGK10_event_master_flattened_v2(1).xlsx",
+    "textbookRefsAll": "SGK10: Bài 14: Cơ sở hình thành văn minh Đại Việt tr.97-98 [giai-doan-dinh-hinh-van-minh-dai-viet]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

@@ -1,0 +1,113 @@
+{
+  "id": "hoi-an-cang-thi",
+  "slug": "hoi-an-cang-thi",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Cảng thị Hội An",
+    "short": "Hội An"
+  },
+  "classification": {
+    "eventType": "economic",
+    "eventSubtype": "port_town",
+    "tags": [
+      "Hội An",
+      "Quảng Nam",
+      "thương cảng"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      10
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1500
+    },
+    "end": {
+      "year": 1800
+    },
+    "datePrecision": "period",
+    "displayDate": "Thế kỉ XVI – XVIII",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "point",
+      "marker": {
+        "lat": 15.88,
+        "lng": 108.338,
+        "label": "Hội An"
+      },
+      "provinceNames": [
+        "Quảng Nam"
+      ],
+      "historicalLocations": [
+        "Hội An"
+      ]
+    },
+    "focusGeometry": {
+      "mode": "marker",
+      "center": {
+        "lat": 15.88,
+        "lng": 108.338
+      },
+      "zoom": 11,
+      "provinceNames": [
+        "Quảng Nam"
+      ]
+    }
+  },
+  "summary": {
+    "homepageTitle": "Cảng thị Hội An",
+    "homepageSummary": "Hội An là cảng thị quốc tế nổi tiếng, cho thấy sức sống của kinh tế biển và giao lưu văn hóa ở Đại Việt.",
+    "cardSummary": "Hội An là cảng thị quốc tế nổi tiếng."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Hội An là một trung tâm thương mại quốc tế nổi bật của Đại Việt trong thời trung đại.",
+    "detailedNarrative": "SGK xếp Hội An vào nhóm thành tựu kinh tế tiêu biểu của văn minh Đại Việt. Đây là địa điểm thể hiện rõ khả năng giao thương, tiếp xúc quốc tế và vai trò của miền Trung trong mạng lưới hàng hải khu vực.",
+    "significance": "Khẳng định Đại Việt có sự tham gia tích cực vào các tuyến thương mại quốc tế thời trung đại.",
+    "keyFacts": [
+      "Nằm ở Quảng Nam",
+      "Là cảng thị quốc tế",
+      "Phát triển mạnh ở thế kỉ XVI – XVIII"
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 10,
+      "book": "Lịch sử 10 - Cánh Diều",
+      "theme": "Chủ đề 6: Một số nền văn minh trên đất nước Việt Nam trước năm 1858",
+      "lesson": "Bài 15: Những thành tựu tiêu biểu của văn minh Đại Việt",
+      "pageStart": 103,
+      "pageEnd": 103,
+      "excerpt": "Hội An là một cảng thị quốc tế nổi tiếng của Đại Việt."
+    }
+  ],
+  "hierarchy": {
+    "rootId": "vm-dai-viet",
+    "parentId": "vm-dai-viet",
+    "level": 1,
+    "orderInParent": 21
+  },
+  "display": {
+    "showOnHomepage": true,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "merge": {
+    "sourceGrades": "10",
+    "sourceIds": "hoi-an-cang-thi",
+    "mergedCount": 1,
+    "sourceFiles": "SGK10_event_master_flattened_v2(1).xlsx",
+    "textbookRefsAll": "SGK10: Bài 15: Những thành tựu tiêu biểu của văn minh Đại Việt tr.103 [hoi-an-cang-thi]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

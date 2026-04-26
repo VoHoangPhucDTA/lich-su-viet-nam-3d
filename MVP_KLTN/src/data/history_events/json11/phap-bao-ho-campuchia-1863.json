@@ -1,0 +1,100 @@
+{
+  "id": "phap-bao-ho-campuchia-1863",
+  "slug": "phap-bao-ho-campuchia-1863",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Pháp buộc Cam-pu-chia chấp nhận bảo hộ (1863)",
+    "short": "Cam-pu-chia 1863"
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "protectorate_treaty",
+    "tags": [
+      "Pháp buộc Cam-pu-chia chấp nhận bảo hộ (1863)",
+      "Năm 1863",
+      "RAG only"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1863
+    },
+    "datePrecision": "year",
+    "displayDate": "Năm 1863",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "no_location",
+      "marker": {
+        "label": "Cam-pu-chia"
+      }
+    },
+    "focusGeometry": {
+      "mode": "auto"
+    }
+  },
+  "summary": {
+    "homepageTitle": "Pháp buộc Cam-pu-chia chấp nhận bảo hộ (1863)",
+    "homepageSummary": "Pháp buộc Cam-pu-chia chấp nhận bảo hộ (1863). Sự kiện bối cảnh trong quá trình Pháp mở rộng ách bảo hộ ở Đông Dương.",
+    "cardSummary": "Sự kiện bối cảnh trong quá trình Pháp mở rộng ách bảo hộ ở Đông Dương."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Pháp buộc Cam-pu-chia chấp nhận bảo hộ (1863). Sự kiện bối cảnh trong quá trình Pháp mở rộng ách bảo hộ ở Đông Dương.",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 5: Quá trình xâm lược và cai trị của chủ nghĩa thực dân ở Đông Nam Á. Sự kiện bối cảnh trong quá trình Pháp mở rộng ách bảo hộ ở Đông Dương.",
+    "significance": "Giúp hoàn thiện bức tranh Đông Dương thuộc Pháp trong SGK 11.",
+    "keyFacts": [
+      "Pháp buộc Cam-pu-chia chấp nhận bảo hộ (1863)",
+      "Năm 1863",
+      "Bối cảnh Đông Dương; giữ để phục vụ RAG",
+      "không hiển thị bản đồ chính của Lịch sử Việt Nam."
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 11,
+      "book": "Lịch sử 11 - Cánh Diều",
+      "lesson": "Bài 5: Quá trình xâm lược và cai trị của chủ nghĩa thực dân ở Đông Nam Á",
+      "pageStart": 34,
+      "pageEnd": 34,
+      "excerpt": "Sự kiện bối cảnh trong quá trình Pháp mở rộng ách bảo hộ ở Đông Dương."
+    }
+  ],
+  "hierarchy": {
+    "rootId": "phap-bao-ho-campuchia-1863",
+    "level": 0,
+    "orderInParent": 8
+  },
+  "associations": {
+    "relatedEventIds": [
+      "lien-bang-dong-duong",
+      "phap-bao-ho-lao-1893"
+    ]
+  },
+  "display": {
+    "showOnHomepage": false,
+    "showOnTimeline": false,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "Bối cảnh Đông Dương; giữ để phục vụ RAG, không hiển thị bản đồ chính của Lịch sử Việt Nam. || [SGK11:phap-bao-ho-campuchia-1863] Bối cảnh Đông Dương; giữ để phục vụ RAG, không hiển thị bản đồ chính của Lịch sử Việt Nam.",
+  "merge": {
+    "sourceGrades": "11",
+    "sourceIds": "phap-bao-ho-campuchia-1863",
+    "mergedCount": 1,
+    "sourceFiles": "SGK11_event_master_flattened_v2(1).xlsx",
+    "textbookRefsAll": "SGK11: Bài 5: Quá trình xâm lược và cai trị của chủ nghĩa thực dân ở Đông Nam Á tr.34 [phap-bao-ho-campuchia-1863]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

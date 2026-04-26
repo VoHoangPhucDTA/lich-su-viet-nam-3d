@@ -1,0 +1,114 @@
+{
+  "id": "nuoc-au-lac-ra-doi",
+  "slug": "nuoc-au-lac-ra-doi",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Nước Âu Lạc ra đời",
+    "short": "Âu Lạc"
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "state_formation",
+    "tags": [
+      "Âu Lạc",
+      "An Dương Vương",
+      "Âu Việt",
+      "Lạc Việt"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      10
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": -208
+    },
+    "datePrecision": "approximate",
+    "displayDate": "Khoảng năm 208 TCN",
+    "isApproximate": true
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "polygon",
+      "marker": {
+        "lat": 21.113,
+        "lng": 105.87,
+        "label": "Âu Lạc"
+      },
+      "provinceNames": [
+        "Hà Nội",
+        "Phú Thọ"
+      ],
+      "historicalLocations": [
+        "Âu Lạc",
+        "Cổ Loa"
+      ]
+    },
+    "focusGeometry": {
+      "mode": "bounds",
+      "center": {
+        "lat": 21.113,
+        "lng": 105.87
+      },
+      "zoom": 8,
+      "provinceNames": [
+        "Hà Nội",
+        "Phú Thọ"
+      ]
+    }
+  },
+  "summary": {
+    "homepageTitle": "Nước Âu Lạc ra đời",
+    "homepageSummary": "An Dương Vương thống nhất Âu Việt và Lạc Việt, lập nên nước Âu Lạc.",
+    "cardSummary": "Nước Âu Lạc ra đời dưới thời An Dương Vương."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Sau khi thống nhất các nhóm cư dân Âu Việt và Lạc Việt, An Dương Vương lập ra nước Âu Lạc.",
+    "detailedNarrative": "Theo SGK, sự ra đời của Âu Lạc thể hiện bước phát triển mới của nhà nước sơ khai trên đất Việt cổ. Nhà nước mới có tổ chức và tiềm lực quân sự cao hơn, gắn với việc xây dựng kinh đô Cổ Loa.",
+    "significance": "Đánh dấu sự phát triển tiếp theo của nhà nước Việt cổ sau thời Văn Lang.",
+    "keyFacts": [
+      "Khoảng năm 208 TCN",
+      "An Dương Vương đứng đầu",
+      "Hợp nhất Âu Việt và Lạc Việt"
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 10,
+      "book": "Lịch sử 10 - Cánh Diều",
+      "theme": "Chủ đề 6: Một số nền văn minh trên đất nước Việt Nam trước năm 1858",
+      "lesson": "Bài 12: Văn minh Văn Lang – Âu Lạc",
+      "pageStart": 87,
+      "pageEnd": 88,
+      "excerpt": "An Dương Vương hợp nhất Âu Việt và Lạc Việt, lập nên nước Âu Lạc."
+    }
+  ],
+  "hierarchy": {
+    "rootId": "vm-van-lang-au-lac",
+    "parentId": "vm-van-lang-au-lac",
+    "level": 1,
+    "orderInParent": 4
+  },
+  "display": {
+    "showOnHomepage": true,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "merge": {
+    "sourceGrades": "10",
+    "sourceIds": "nuoc-au-lac-ra-doi",
+    "mergedCount": 1,
+    "sourceFiles": "SGK10_event_master_flattened_v2(1).xlsx",
+    "textbookRefsAll": "SGK10: Bài 12: Văn minh Văn Lang – Âu Lạc tr.87-88 [nuoc-au-lac-ra-doi]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

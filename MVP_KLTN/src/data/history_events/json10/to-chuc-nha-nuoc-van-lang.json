@@ -1,0 +1,93 @@
+{
+  "id": "to-chuc-nha-nuoc-van-lang",
+  "slug": "to-chuc-nha-nuoc-van-lang",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Tổ chức nhà nước Văn Lang",
+    "short": "Tổ chức Văn Lang"
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "institutional_structure",
+    "tags": [
+      "15 bộ",
+      "lạc tướng",
+      "bồ chính",
+      "Văn Lang"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      10
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": -700
+    },
+    "datePrecision": "period",
+    "displayDate": "Thời Văn Lang",
+    "isApproximate": true
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "no_location"
+    },
+    "focusGeometry": {
+      "mode": "auto"
+    }
+  },
+  "summary": {
+    "homepageTitle": "Tổ chức nhà nước Văn Lang",
+    "homepageSummary": "Bộ máy nhà nước Văn Lang được tổ chức theo các cấp từ vua Hùng, lạc hầu, lạc tướng đến bồ chính.",
+    "cardSummary": "Bộ máy cai quản sơ khai của nước Văn Lang."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Nhà nước Văn Lang có tổ chức còn sơ khai, gồm vua Hùng đứng đầu, dưới có lạc hầu, lạc tướng và hệ thống quản lí các bộ.",
+    "detailedNarrative": "SGK mô tả nước Văn Lang được chia thành các bộ, có lạc tướng cai quản, dưới nữa là bồ chính ở cơ sở. Tổ chức này phản ánh bước phát triển ban đầu của quyền lực nhà nước trên toàn lãnh thổ Văn Lang.",
+    "significance": "Cho thấy cư dân Việt cổ đã hình thành cơ cấu chính trị tương đối ổn định, tạo nền tảng cho việc quản lí cộng đồng rộng lớn.",
+    "keyFacts": [
+      "Vua Hùng đứng đầu",
+      "Có 15 bộ",
+      "Lạc tướng cai quản các bộ",
+      "Bồ chính quản lí cơ sở"
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 10,
+      "book": "Lịch sử 10 - Cánh Diều",
+      "theme": "Chủ đề 6: Một số nền văn minh trên đất nước Việt Nam trước năm 1858",
+      "lesson": "Bài 12: Văn minh Văn Lang – Âu Lạc",
+      "pageStart": 87,
+      "pageEnd": 87,
+      "excerpt": "Nhà nước Văn Lang có vua đứng đầu, dưới là lạc hầu, lạc tướng và bồ chính."
+    }
+  ],
+  "hierarchy": {
+    "rootId": "vm-van-lang-au-lac",
+    "parentId": "vm-van-lang-au-lac",
+    "level": 1,
+    "orderInParent": 3
+  },
+  "display": {
+    "showOnHomepage": true,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "merge": {
+    "sourceGrades": "10",
+    "sourceIds": "to-chuc-nha-nuoc-van-lang",
+    "mergedCount": 1,
+    "sourceFiles": "SGK10_event_master_flattened_v2(1).xlsx",
+    "textbookRefsAll": "SGK10: Bài 12: Văn minh Văn Lang – Âu Lạc tr.87 [to-chuc-nha-nuoc-van-lang]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

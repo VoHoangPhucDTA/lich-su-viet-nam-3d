@@ -1,0 +1,102 @@
+{
+  "id": "khang-chien-chong-phap-1951-1953",
+  "slug": "khang-chien-chong-phap-1951-1953",
+  "entityType": "event",
+  "eventLevel": "collection",
+  "titles": {
+    "primary": "Bước phát triển mới (1951–1953)",
+    "short": "Bước phát triển mới"
+  },
+  "classification": {
+    "eventType": "military",
+    "eventSubtype": "milestone",
+    "tags": [
+      "Bước phát triển mới (1951–1953)",
+      "1951–1953",
+      "collection"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1951
+    },
+    "end": {
+      "year": 1953
+    },
+    "datePrecision": "period",
+    "displayDate": "1951–1953",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "nationwide"
+    },
+    "focusGeometry": {
+      "mode": "auto"
+    }
+  },
+  "summary": {
+    "homepageTitle": "Bước phát triển mới (1951–1953)",
+    "homepageSummary": "Bước phát triển mới (1951–1953). —",
+    "cardSummary": "—"
+  },
+  "textbookContent": {
+    "canonicalSummary": "Bước phát triển mới (1951–1953).",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 7: Kháng chiến chống thực dân Pháp (1945–1954), trang 39. Nội dung trong file Excel được chuẩn hóa để nhập hệ thống; khi triển khai chính thức, nhóm nên bổ sung tường thuật chi tiết bám SGK và tư liệu gốc.",
+    "significance": "Là mốc quan trọng trong tiến trình đấu tranh quân sự, bảo vệ hoặc giải phóng đất nước của Việt Nam theo SGK 12.",
+    "keyFacts": [
+      "Bước phát triển mới (1951–1953)",
+      "1951–1953"
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 12,
+      "book": "Lịch sử 12 - Cánh Diều",
+      "theme": "Chủ đề 3: Cách mạng tháng Tám và kháng chiến bảo vệ độc lập dân tộc",
+      "lesson": "Bài 7: Kháng chiến chống thực dân Pháp (1945–1954)",
+      "pageStart": 39,
+      "pageEnd": 39,
+      "excerpt": "Bước phát triển mới (1951–1953)"
+    }
+  ],
+  "hierarchy": {
+    "rootId": "khang-chien-chong-phap-1945-1954-collection",
+    "parentId": "khang-chien-chong-phap-1945-1954-collection",
+    "level": 1,
+    "orderInParent": 5
+  },
+  "associations": {
+    "predecessorEventIds": [
+      "khang-chien-chong-phap-1946-1950"
+    ],
+    "successorEventIds": [
+      "ke-hoach-nava-1953"
+    ]
+  },
+  "display": {
+    "showOnHomepage": true,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "— || [SGK12:khang-chien-chong-phap-1951-1953] —",
+  "merge": {
+    "sourceGrades": "12",
+    "sourceIds": "khang-chien-chong-phap-1951-1953",
+    "mergedCount": 1,
+    "sourceFiles": "SGK12_event_master_flattened(1).xlsx",
+    "textbookRefsAll": "SGK12: Bài 7: Kháng chiến chống thực dân Pháp (1945–1954) tr.39 [khang-chien-chong-phap-1951-1953]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

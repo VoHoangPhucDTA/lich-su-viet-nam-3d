@@ -23,8 +23,8 @@ function Spinner() {
         style={{
           width: '2.5rem',
           height: '2.5rem',
-          border: '3px solid rgba(99,102,241,0.2)',
-          borderTopColor: '#6366f1',
+          border: '3px solid rgba(30,58,95,0.2)',
+          borderTopColor: '#4f6f95',
           borderRadius: '50%',
           animation: 'rg-spin 0.7s linear infinite',
         }}
@@ -61,8 +61,8 @@ function ForbiddenPage() {
             width: '6rem',
             height: '6rem',
             borderRadius: '50%',
-            background: 'rgba(239,68,68,0.1)',
-            border: '2px solid rgba(239,68,68,0.25)',
+            background: 'rgba(159,29,45,0.12)',
+            border: '2px solid rgba(159,29,45,0.24)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -79,7 +79,7 @@ function ForbiddenPage() {
             fontSize: '0.75rem',
             fontWeight: 700,
             letterSpacing: '0.15em',
-            color: '#ef4444',
+            color: '#9f1d2d',
             marginBottom: '0.5rem',
             textTransform: 'uppercase',
           }}
@@ -110,7 +110,7 @@ function ForbiddenPage() {
           }}
         >
           Bạn không có quyền truy cập trang quản trị này.
-          Trang chỉ dành cho tài khoản <strong style={{ color: '#fb923c' }}>Admin</strong>.
+          Trang chỉ dành cho tài khoản <strong style={{ color: '#c29b4b' }}>Admin</strong>.
           Nếu bạn cho rằng đây là nhầm lẫn, hãy liên hệ quản trị viên.
         </p>
 
@@ -124,12 +124,12 @@ function ForbiddenPage() {
               gap: '0.5rem',
               padding: '0.65rem 1.375rem',
               borderRadius: '0.625rem',
-              background: 'linear-gradient(135deg, #6366f1, #4f46e5)',
+              background: 'linear-gradient(135deg, #4f6f95, #2a4b72)',
               color: '#fff',
               fontWeight: 600,
               fontSize: '0.875rem',
               textDecoration: 'none',
-              boxShadow: '0 4px 14px rgba(99,102,241,0.35)',
+              boxShadow: '0 4px 14px rgba(30,58,95,0.35)',
               transition: 'opacity 0.15s',
             }}
             onMouseEnter={e => ((e.currentTarget as HTMLAnchorElement).style.opacity = '0.88')}

@@ -69,9 +69,9 @@ function AdminSidebar({ onClose }: { onClose?: () => void }) {
               borderRadius: '9999px',
               fontSize: '0.62rem',
               fontWeight: 800,
-              background: 'rgba(249,115,22,0.12)',
-              color: '#f97316',
-              border: '1px solid rgba(249,115,22,0.25)',
+              background: 'rgba(194,155,75,0.16)',
+              color: '#9c7333',
+              border: '1px solid rgba(194,155,75,0.28)',
               letterSpacing: '0.06em',
               textTransform: 'uppercase' as const,
             }}
@@ -96,9 +96,9 @@ function AdminSidebar({ onClose }: { onClose?: () => void }) {
               borderRadius: '0.625rem',
               fontSize: '0.855rem',
               fontWeight: isActive ? 700 : 500,
-              color: isActive ? '#f97316' : 'var(--text-muted)',
-              background: isActive ? 'rgba(249,115,22,0.1)' : 'transparent',
-              border: isActive ? '1px solid rgba(249,115,22,0.2)' : '1px solid transparent',
+              color: isActive ? '#9c7333' : 'var(--text-muted)',
+              background: isActive ? 'rgba(194,155,75,0.14)' : 'transparent',
+              border: isActive ? '1px solid rgba(194,155,75,0.22)' : '1px solid transparent',
               textDecoration: 'none',
               transition: 'all 0.15s',
             })}
@@ -111,7 +111,7 @@ function AdminSidebar({ onClose }: { onClose?: () => void }) {
             }}
             onMouseLeave={e => {
               const el = e.currentTarget as HTMLAnchorElement;
-              if (el.style.background !== 'rgba(249,115,22,0.1)') {
+              if (el.style.background !== 'rgba(194,155,75,0.14)') {
                 el.style.background = 'transparent';
                 el.style.color = 'var(--text-muted)';
               }
@@ -240,9 +240,9 @@ function AdminTopBarUser() {
           borderRadius: '9999px',
           fontSize: '0.65rem',
           fontWeight: 800,
-          background: 'rgba(249,115,22,0.12)',
-          color: '#f97316',
-          border: '1px solid rgba(249,115,22,0.25)',
+          background: 'rgba(194,155,75,0.16)',
+          color: '#9c7333',
+          border: '1px solid rgba(194,155,75,0.28)',
           letterSpacing: '0.06em',
           textTransform: 'uppercase',
         }}
@@ -375,7 +375,7 @@ export default function AdminLayout({ children, title }: { children: ReactNode; 
           <span
             style={{
               fontSize: '0.9rem', fontWeight: 800,
-              background: 'linear-gradient(135deg, #fb923c, #f97316)',
+              background: 'linear-gradient(135deg, #c29b4b, #9c7333)',
               WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent',
             }}
           >

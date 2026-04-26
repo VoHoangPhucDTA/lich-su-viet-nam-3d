@@ -1,0 +1,119 @@
+{
+  "id": "thanh-lap-vn-tuyen-truyen-giai-phong-quan",
+  "slug": "thanh-lap-vn-tuyen-truyen-giai-phong-quan",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Thành lập Đội VN Tuyên truyền Giải phóng quân (22-12-1944)",
+    "short": "Thành lập Đội VN Tuyên truyền Gi"
+  },
+  "classification": {
+    "eventType": "military",
+    "eventSubtype": "milestone",
+    "tags": [
+      "Thành lập Đội VN Tuyên truyền Giải phóng quân (22-12-1944)",
+      1944,
+      "Cao Bằng"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1944
+    },
+    "end": {
+      "year": 1944
+    },
+    "datePrecision": "year",
+    "displayDate": "1944",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "point",
+      "marker": {
+        "lat": 22.6666,
+        "lng": 106.2639,
+        "label": "Cao Bằng"
+      },
+      "provinceNames": [
+        "Cao Bằng"
+      ],
+      "historicalLocations": [
+        "Cao Bằng"
+      ]
+    },
+    "focusGeometry": {
+      "mode": "marker",
+      "center": {
+        "lat": 22.6666,
+        "lng": 106.2639
+      },
+      "zoom": 9
+    }
+  },
+  "summary": {
+    "homepageTitle": "Thành lập Đội VN Tuyên truyền Giải phóng quân (22-12-1944)",
+    "homepageSummary": "Thành lập Đội VN Tuyên truyền Giải phóng quân (22-12-1944). —",
+    "cardSummary": "—"
+  },
+  "textbookContent": {
+    "canonicalSummary": "Thành lập Đội VN Tuyên truyền Giải phóng quân (22-12-1944).",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 14–16: Hồ Chí Minh – cuộc đời, sự nghiệp, dấu ấn, trang 97. Nội dung trong file Excel được chuẩn hóa để nhập hệ thống; khi triển khai chính thức, nhóm nên bổ sung tường thuật chi tiết bám SGK và tư liệu gốc.",
+    "significance": "Là mốc quan trọng trong tiến trình đấu tranh quân sự, bảo vệ hoặc giải phóng đất nước của Việt Nam theo SGK 12.",
+    "keyFacts": [
+      "Thành lập Đội VN Tuyên truyền Giải phóng quân (22-12-1944)",
+      1944,
+      "Cao Bằng"
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 12,
+      "book": "Lịch sử 12 - Cánh Diều",
+      "theme": "Chủ đề 6: Chủ tịch Hồ Chí Minh",
+      "lesson": "Bài 14–16: Hồ Chí Minh – cuộc đời, sự nghiệp, dấu ấn",
+      "pageStart": 97,
+      "pageEnd": 97,
+      "excerpt": "Thành lập Đội VN Tuyên truyền Giải phóng quân (22-12-1944)"
+    }
+  ],
+  "hierarchy": {
+    "rootId": "ho-chi-minh-cuoc-doi-su-nghiep-collection",
+    "parentId": "ho-chi-minh-cuoc-doi-su-nghiep-collection",
+    "level": 1,
+    "orderInParent": 7
+  },
+  "associations": {
+    "predecessorEventIds": [
+      "mat-tran-viet-minh"
+    ],
+    "successorEventIds": [
+      "hiep-dinh-so-bo-6-3-1946"
+    ]
+  },
+  "display": {
+    "showOnHomepage": true,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "— || [SGK12:thanh-lap-vn-tuyen-truyen-giai-phong-quan] —",
+  "merge": {
+    "sourceGrades": "12",
+    "sourceIds": "thanh-lap-vn-tuyen-truyen-giai-phong-quan",
+    "mergedCount": 1,
+    "sourceFiles": "SGK12_event_master_flattened(1).xlsx",
+    "textbookRefsAll": "SGK12: Bài 14–16: Hồ Chí Minh – cuộc đời, sự nghiệp, dấu ấn tr.97 [thanh-lap-vn-tuyen-truyen-giai-phong-quan]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

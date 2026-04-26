@@ -5,21 +5,21 @@ interface AuthFormMessageProps {
 
 const styles = {
   error: {
-    background: 'rgba(239,68,68,0.1)',
-    border: '1px solid rgba(239,68,68,0.35)',
-    color: '#fca5a5',
+    background: 'rgba(159,29,45,0.12)',
+    border: '1px solid rgba(159,29,45,0.35)',
+    color: '#e8b0b7',
     icon: '⚠️',
   },
   success: {
-    background: 'rgba(16,185,129,0.1)',
-    border: '1px solid rgba(16,185,129,0.35)',
-    color: '#6ee7b7',
+    background: 'rgba(47,122,87,0.12)',
+    border: '1px solid rgba(47,122,87,0.35)',
+    color: '#8fc3ad',
     icon: '✅',
   },
   info: {
-    background: 'rgba(59,130,246,0.1)',
-    border: '1px solid rgba(59,130,246,0.35)',
-    color: '#93c5fd',
+    background: 'rgba(30,58,95,0.12)',
+    border: '1px solid rgba(30,58,95,0.35)',
+    color: '#9bb6d1',
     icon: 'ℹ️',
   },
 };

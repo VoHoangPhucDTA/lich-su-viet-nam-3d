@@ -70,10 +70,10 @@ export default function ScoresPage() {
           marginBottom: '1.25rem',
         }}
       >
-        <SummaryBadge label="Điểm trung bình" value={avg} color="#6366f1" />
-        <SummaryBadge label="Tỉ lệ đúng"     value={`${pct}%`} color="#10b981" />
-        <SummaryBadge label="Điểm cao nhất"  value={best} color="#f59e0b" />
-        <SummaryBadge label="Số bài đã làm"  value={mockScores.length} color="#8b5cf6" />
+        <SummaryBadge label="Điểm trung bình" value={avg} color="#4f6f95" />
+        <SummaryBadge label="Tỉ lệ đúng"     value={`${pct}%`} color="#2f7a57" />
+        <SummaryBadge label="Điểm cao nhất"  value={best} color="#c29b4b" />
+        <SummaryBadge label="Số bài đã làm"  value={mockScores.length} color="#4f6f95" />
       </div>
 
       {/* Charts */}

@@ -1,5 +1,15 @@
 import { useState, useRef, useEffect } from 'react';
 import { Link, NavLink, useNavigate, useLocation } from 'react-router-dom';
+import {
+  Brain,
+  ChevronDown,
+  Landmark,
+  LogIn,
+  Map as MapIcon,
+  Menu,
+  ShieldCheck,
+  User,
+} from 'lucide-react';
 import { useAuth } from '../../auth/AuthContext';
 import { useHeader } from './HeaderContext';
 import ThemeToggle from '../theme/ThemeToggle';
@@ -52,9 +62,13 @@ export default function AppHeader() {
       
       {/* 1. Left: Branding */}
       <div style={{ display: 'flex', alignItems: 'center', gap: '12px', minWidth: 'max-content' }}>
-        <span style={{ fontSize: '24px' }}>🏛️</span>
+        <Landmark
+          size={24}
+          strokeWidth={2}
+          style={{ color: 'var(--accent)' }}
+        />
         <div className="hidden sm:block">
-          <h1 style={{ fontSize: '16px', fontWeight: 700, background: 'linear-gradient(135deg, #818cf8, #6366f1, #a78bfa)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', letterSpacing: '-0.01em', margin: 0 }}>
+          <h1 style={{ fontSize: '16px', fontWeight: 700, background: 'linear-gradient(135deg, #6b8fb6, #4f6f95, #c29b4b)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', letterSpacing: '-0.01em', margin: 0 }}>
             Lịch Sử Việt Nam 3D
           </h1>
           <p style={{ fontSize: '11px', color: 'var(--text-muted)', margin: 0, marginTop: '2px' }}>
@@ -78,7 +92,8 @@ export default function AppHeader() {
              className={({ isActive }) => `${basePillClasses} ${isActive ? activeVariant : inactiveVariant}`}
              end
           >
-             🗺️ Quay lại bản đồ
+             <MapIcon size={15} strokeWidth={2.2} />
+             Quay lại bản đồ
           </NavLink>
         )}
 
@@ -88,7 +103,9 @@ export default function AppHeader() {
                 onClick={() => setExamDropdownOpen(!examDropdownOpen)}
                 className={`${basePillClasses} ${inactiveVariant}`}
             >
-                🧠 Ôn luyện <span style={{ fontSize: '0.7em', marginLeft: '2px' }}>▼</span>
+                <Brain size={15} strokeWidth={2.2} />
+                Ôn luyện
+                <ChevronDown size={13} strokeWidth={2.4} />
             </button>
             {examDropdownOpen && (
                 <div style={{ position: 'absolute', top: 'calc(100% + 5px)', right: 0, background: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: '12px', padding: '0.5rem', width: '220px', boxShadow: 'var(--shadow)', display: 'flex', flexDirection: 'column', gap: '2px' }}>
@@ -119,7 +136,8 @@ export default function AppHeader() {
                      border: '1px solid var(--accent)'
                    }}
                >
-                   👤 {currentUser?.fullName || "Hồ sơ"}
+                   <User size={15} strokeWidth={2.2} />
+                   {currentUser?.fullName || 'Hồ sơ'}
                </button>
             ) : (
                <button 
@@ -139,7 +157,8 @@ export default function AppHeader() {
                     (e.currentTarget as HTMLButtonElement).style.transform = 'none';
                   }}
                >
-                  👋 Đăng nhập
+                  <LogIn size={15} strokeWidth={2.2} />
+                  Đăng nhập
                </button>
             )}
 
@@ -158,7 +177,15 @@ export default function AppHeader() {
                    {currentUser?.role === 'admin' && (
                        <>
                           <div style={{ height: '1px', background: 'var(--border)', margin: '0.25rem 0' }} />
-                          <Link to="/admin/dashboard" onClick={() => setProfileDropdownOpen(false)} style={{ padding: '0.5rem', color: 'var(--warning)', textDecoration: 'none', borderRadius: '6px', fontSize: '0.85rem' }} className="hover:bg-surface">🛡️ Trang quản trị</Link>
+                          <Link
+                            to="/admin/dashboard"
+                            onClick={() => setProfileDropdownOpen(false)}
+                            className="hover:bg-surface flex items-center gap-2"
+                            style={{ padding: '0.5rem', color: 'var(--warning)', textDecoration: 'none', borderRadius: '6px', fontSize: '0.85rem' }}
+                          >
+                            <ShieldCheck size={15} strokeWidth={2.2} />
+                            Trang quản trị
+                          </Link>
                        </>
                    )}
                    
@@ -193,16 +220,26 @@ export default function AppHeader() {
          </div>
          <button 
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            style={{ background: 'transparent', border: 'none', color: 'var(--text-primary)', fontSize: '1.5rem', cursor: 'pointer', padding: '0.25rem' }}
+            aria-label="Mở menu"
+            className="flex items-center justify-center cursor-pointer p-1"
+            style={{ background: 'transparent', border: 'none', color: 'var(--text-primary)' }}
          >
-            ☰
+            <Menu size={22} strokeWidth={2.2} />
          </button>
       </div>
 
       {/* Mobile Menu Drawer */}
       {mobileMenuOpen && (
          <div style={{ position: 'absolute', top: '100%', left: 0, right: 0, background: 'var(--bg-surface)', borderBottom: '1px solid var(--border)', padding: '1rem', display: 'flex', flexDirection: 'column', gap: '0.5rem', boxShadow: 'var(--shadow)' }}>
-            <Link to="/" onClick={() => setMobileMenuOpen(false)} style={{ padding: '0.75rem', background: 'var(--bg-app)', borderRadius: '8px', color: 'var(--text-primary)', textDecoration: 'none' }} className="hover:bg-surface">🗺️ Bản đồ</Link>
+            <Link
+              to="/"
+              onClick={() => setMobileMenuOpen(false)}
+              className="hover:bg-surface flex items-center gap-2"
+              style={{ padding: '0.75rem', background: 'var(--bg-app)', borderRadius: '8px', color: 'var(--text-primary)', textDecoration: 'none' }}
+            >
+              <MapIcon size={16} strokeWidth={2.2} />
+              Bản đồ
+            </Link>
             
             <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginTop: '0.5rem' }}>ÔN LUYỆN</div>
             <Link to="/quiz" onClick={() => setMobileMenuOpen(false)} style={{ padding: '0.75rem', background: 'var(--bg-app)', borderRadius: '8px', color: 'var(--text-primary)', textDecoration: 'none' }} className="hover:bg-surface">Trắc nghiệm AI</Link>
@@ -213,7 +250,15 @@ export default function AppHeader() {
                <>
                  <Link to="/profile/dashboard" onClick={() => setMobileMenuOpen(false)} style={{ padding: '0.75rem', background: 'var(--bg-app)', borderRadius: '8px', color: 'var(--text-primary)', textDecoration: 'none' }} className="hover:bg-surface">Dashboard cá nhân</Link>
                  {currentUser?.role === 'admin' && (
-                    <Link to="/admin/dashboard" onClick={() => setMobileMenuOpen(false)} style={{ padding: '0.75rem', background: 'var(--accent-soft)', borderRadius: '8px', color: 'var(--warning)', textDecoration: 'none' }}>Trang quản trị</Link>
+                    <Link
+                      to="/admin/dashboard"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="flex items-center gap-2"
+                      style={{ padding: '0.75rem', background: 'var(--accent-soft)', borderRadius: '8px', color: 'var(--warning)', textDecoration: 'none' }}
+                    >
+                      <ShieldCheck size={16} strokeWidth={2.2} />
+                      Trang quản trị
+                    </Link>
                  )}
                  <button onClick={() => { logout(); setMobileMenuOpen(false); navigate('/'); }} style={{ padding: '0.75rem', background: 'transparent', border: '1px solid var(--danger)', borderRadius: '8px', color: 'var(--danger)', textAlign: 'center', marginTop: '0.5rem' }}>Đăng xuất</button>
                </>

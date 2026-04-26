@@ -11,7 +11,7 @@ export default function ExamSourceBadge({ title, location }: ExamSourceBadgeProp
       gap: '0.25rem',
       padding: '0.25rem 0.5rem',
       background: 'rgba(99, 102, 241, 0.1)',
-      color: '#818cf8',
+      color: '#4f6f95',
       borderRadius: '0.25rem',
       fontSize: '0.75rem',
       fontWeight: 500,

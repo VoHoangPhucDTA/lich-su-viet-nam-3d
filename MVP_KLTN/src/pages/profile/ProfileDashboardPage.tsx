@@ -79,8 +79,8 @@ export default function ProfileDashboardPage() {
       <div
         style={{
           background: isDark 
-            ? 'linear-gradient(135deg, rgba(99,102,241,0.18) 0%, rgba(139,92,246,0.12) 100%)'
-            : 'linear-gradient(135deg, rgba(99,102,241,0.08) 0%, rgba(139,92,246,0.05) 100%)',
+            ? 'linear-gradient(135deg, rgba(30,58,95,0.18) 0%, rgba(194,155,75,0.14) 100%)'
+            : 'linear-gradient(135deg, rgba(30,58,95,0.1) 0%, rgba(194,155,75,0.08) 100%)',
           border: '1px solid var(--accent-light)',
           borderRadius: '1.25rem',
           padding: '1.5rem 1.75rem',
@@ -129,11 +129,11 @@ export default function ProfileDashboardPage() {
           marginBottom: '1.75rem',
         }}
       >
-        <StatsCard icon="👁️" label="Sự kiện đã xem"    value={mockStats.eventsViewed}     color="#6366f1" sub="sự kiện lịch sử" />
-        <StatsCard icon="📝" label="Bài trắc nghiệm"   value={mockStats.quizzesCompleted}  color="#10b981" sub="đã hoàn thành" />
-        <StatsCard icon="⭐" label="Điểm trung bình"   value={mockStats.averageScore}      color="#f59e0b" sub="trên thang 10" />
-        <StatsCard icon="🔥" label="Chuỗi học"         value={`${mockStats.streakDays} ngày`} color="#ef4444" sub="đang duy trì" />
-        <StatsCard icon="⏱️" label="Học tuần này"     value={`${mockStats.weeklyMinutes} phút`} color="#8b5cf6" sub={`tổng ${mockStats.totalMinutes} phút`} />
+        <StatsCard icon="👁️" label="Sự kiện đã xem"    value={mockStats.eventsViewed}     color="#4f6f95" sub="sự kiện lịch sử" />
+        <StatsCard icon="📝" label="Bài trắc nghiệm"   value={mockStats.quizzesCompleted}  color="#2f7a57" sub="đã hoàn thành" />
+        <StatsCard icon="⭐" label="Điểm trung bình"   value={mockStats.averageScore}      color="#c29b4b" sub="trên thang 10" />
+        <StatsCard icon="🔥" label="Chuỗi học"         value={`${mockStats.streakDays} ngày`} color="#9f1d2d" sub="đang duy trì" />
+        <StatsCard icon="⏱️" label="Học tuần này"     value={`${mockStats.weeklyMinutes} phút`} color="#4f6f95" sub={`tổng ${mockStats.totalMinutes} phút`} />
       </div>
 
       {/* ── Charts row ── */}
@@ -209,8 +209,8 @@ export default function ProfileDashboardPage() {
                 style={{
                   padding: '0.375rem 0.875rem',
                   borderRadius: '9999px',
-                  background: 'rgba(239,68,68,0.1)',
-                  border: '1px solid rgba(239,68,68,0.2)',
+                  background: 'rgba(159,29,45,0.12)',
+                  border: '1px solid rgba(159,29,45,0.2)',
                   color: '#f87171',
                   fontSize: '0.8rem',
                   fontWeight: 600,
@@ -267,7 +267,7 @@ export default function ProfileDashboardPage() {
                     style={{
                       height: '100%',
                       width: `${ev.progress}%`,
-                      background: ev.progress === 100 ? 'var(--success)' : 'linear-gradient(90deg, #6366f1, #818cf8)',
+                      background: ev.progress === 100 ? 'var(--success)' : 'linear-gradient(90deg, #4f6f95, #6b8fb6)',
                       borderRadius: '9999px',
                     }}
                   />
@@ -277,7 +277,7 @@ export default function ProfileDashboardPage() {
                 style={{
                   padding: '0.35rem 0.75rem',
                   borderRadius: '0.5rem',
-                  background: ev.progress === 100 ? 'rgba(16,185,129,0.12)' : 'var(--accent-soft)',
+                  background: ev.progress === 100 ? 'rgba(47,122,87,0.14)' : 'var(--accent-soft)',
                   color: ev.progress === 100 ? 'var(--success)' : 'var(--accent)',
                   border: `1px solid ${ev.progress === 100 ? 'var(--success)' : 'var(--accent)'}`,
                   opacity: 0.8,

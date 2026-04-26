@@ -67,7 +67,7 @@ export default function ExamHomePage() {
                    <ExamStat label="Đề đã làm" value="12" color="var(--accent)" />
                    <ExamStat label="Điểm trung bình" value="7.5" color="var(--success)" />
                    <ExamStat label="Điểm cao nhất" value="9.2" color="var(--warning)" />
-                   <ExamStat label="Thời gian ôn" value="14h" color="#ec4899" />
+                   <ExamStat label="Thời gian ôn" value="14h" color="#4f6f95" />
                    <div style={{ background: 'var(--bg-card)', border: `1px solid var(--border)`, borderLeft: `4px solid var(--danger)`, borderRadius: '1rem', padding: '1.25rem', flex: '2 1 200px', display: 'flex', flexDirection: 'column', justifyContent: 'center', boxShadow: 'var(--shadow)' }}>
                        <div style={{ fontSize: '0.85rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.5rem', fontWeight: 600 }}>Chủ đề yếu cần ôn</div>
                        <div style={{ color: 'var(--danger)', fontWeight: 700, fontSize: '1rem' }}>Phong kiến phương Đông, Kháng chiến chống Pháp</div>

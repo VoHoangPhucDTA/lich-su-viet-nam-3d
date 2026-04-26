@@ -101,7 +101,7 @@ export default function ForgotPasswordPage() {
               display: 'block',
               width: '100%',
               padding: '0.8125rem',
-              background: 'linear-gradient(135deg, #6366f1, #4f46e5)',
+              background: 'linear-gradient(135deg, #4f6f95, #2a4b72)',
               border: 'none',
               borderRadius: '0.625rem',
               color: '#fff',
@@ -109,7 +109,7 @@ export default function ForgotPasswordPage() {
               fontWeight: 600,
               textDecoration: 'none',
               textAlign: 'center',
-              boxShadow: '0 4px 15px rgba(99,102,241,0.35)',
+              boxShadow: '0 4px 15px rgba(30,58,95,0.35)',
               transition: 'opacity 0.2s',
             }}
             onMouseEnter={(e) => ((e.currentTarget as HTMLAnchorElement).style.opacity = '0.9')}
@@ -144,7 +144,7 @@ export default function ForgotPasswordPage() {
               padding: '0.8125rem',
               background: loading
                 ? 'var(--accent-soft)'
-                : 'linear-gradient(135deg, #6366f1, #4f46e5)',
+                : 'linear-gradient(135deg, #4f6f95, #2a4b72)',
               border: 'none',
               borderRadius: '0.625rem',
               color: '#fff',
@@ -155,7 +155,7 @@ export default function ForgotPasswordPage() {
               alignItems: 'center',
               justifyContent: 'center',
               gap: '0.5rem',
-              boxShadow: loading ? 'none' : '0 4px 15px rgba(99,102,241,0.35)',
+              boxShadow: loading ? 'none' : '0 4px 15px rgba(30,58,95,0.35)',
               fontFamily: 'inherit',
               transition: 'opacity 0.2s',
             }}

@@ -1,0 +1,118 @@
+{
+  "id": "doi-do-thang-long",
+  "slug": "doi-do-thang-long",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Lý Công Uẩn dời đô về Thăng Long",
+    "short": "Dời đô Thăng Long"
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "capital_relocation",
+    "tags": [
+      "Lý Công Uẩn",
+      "Thăng Long",
+      1010
+    ]
+  },
+  "coverage": {
+    "grades": [
+      10
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1010
+    },
+    "datePrecision": "year",
+    "displayDate": "Năm 1010",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "point",
+      "marker": {
+        "lat": 21.0285,
+        "lng": 105.8542,
+        "label": "Thăng Long"
+      },
+      "provinceNames": [
+        "Hà Nội"
+      ],
+      "historicalLocations": [
+        "Thăng Long"
+      ]
+    },
+    "focusGeometry": {
+      "mode": "marker",
+      "center": {
+        "lat": 21.0285,
+        "lng": 105.8542
+      },
+      "zoom": 10,
+      "provinceNames": [
+        "Hà Nội"
+      ]
+    }
+  },
+  "summary": {
+    "homepageTitle": "Lý Công Uẩn dời đô về Thăng Long",
+    "homepageSummary": "Việc dời đô từ Hoa Lư ra Thăng Long phản ánh tầm nhìn chiến lược trong xây dựng quốc gia Đại Việt.",
+    "cardSummary": "Lý Công Uẩn dời đô ra Thăng Long năm 1010."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Năm 1010, Lý Công Uẩn dời đô ra Thăng Long, mở ra thời kì phát triển mới của quốc gia Đại Việt.",
+    "detailedNarrative": "SGK nhấn mạnh quyết định dời đô là một bước ngoặt lớn về chính trị và không gian lịch sử. Thăng Long với vị trí trung tâm, thuận lợi cho giao thông và phòng thủ, trở thành kinh đô lâu dài của nhiều triều đại Việt Nam.",
+    "significance": "Khẳng định tầm nhìn chiến lược của triều Lý và vai trò trung tâm của Thăng Long trong lịch sử dân tộc.",
+    "keyFacts": [
+      "Năm 1010",
+      "Do Lý Công Uẩn thực hiện",
+      "Thăng Long trở thành kinh đô lâu dài"
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 10,
+      "book": "Lịch sử 10 - Cánh Diều",
+      "theme": "Chủ đề 6: Một số nền văn minh trên đất nước Việt Nam trước năm 1858",
+      "lesson": "Bài 14: Cơ sở hình thành văn minh Đại Việt",
+      "pageStart": 98,
+      "pageEnd": 98,
+      "excerpt": "Năm 1010, Lý Công Uẩn dời đô từ Hoa Lư ra Thăng Long."
+    }
+  ],
+  "hierarchy": {
+    "rootId": "vm-dai-viet",
+    "parentId": "vm-dai-viet",
+    "level": 1,
+    "orderInParent": 4
+  },
+  "associations": {
+    "relatedFigureIds": [
+      "ly-cong-uan"
+    ],
+    "predecessorEventIds": [
+      "nha-ly-thanh-lap"
+    ]
+  },
+  "display": {
+    "showOnHomepage": true,
+    "showOnTimeline": true,
+    "featured": true
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "merge": {
+    "sourceGrades": "10",
+    "sourceIds": "doi-do-thang-long",
+    "mergedCount": 1,
+    "sourceFiles": "SGK10_event_master_flattened_v2(1).xlsx",
+    "textbookRefsAll": "SGK10: Bài 14: Cơ sở hình thành văn minh Đại Việt tr.98 [doi-do-thang-long]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

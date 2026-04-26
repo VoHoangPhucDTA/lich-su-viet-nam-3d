@@ -28,7 +28,7 @@ function SubmitButton({ loading, label }: { loading: boolean; label: string }) {
         justifyContent: 'center',
         gap: '0.5rem',
         transition: 'all 0.2s',
-        boxShadow: loading ? 'none' : '0 4px 15px rgba(99,102,241,0.2)',
+        boxShadow: loading ? 'none' : '0 4px 15px rgba(30,58,95,0.2)',
         fontFamily: 'inherit',
         letterSpacing: '0.01em',
       }}

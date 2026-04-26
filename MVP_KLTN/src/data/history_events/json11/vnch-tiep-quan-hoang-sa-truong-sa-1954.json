@@ -1,0 +1,137 @@
+{
+  "id": "vnch-tiep-quan-hoang-sa-truong-sa-1954",
+  "slug": "vnch-tiep-quan-hoang-sa-truong-sa-1954",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Chính quyền Việt Nam Cộng hòa tiếp quản Hoàng Sa – Trường Sa sau 1954",
+    "short": "Chính quyền Việt Nam Cộng hòa tiếp quản Ho"
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "sovereignty_management",
+    "tags": [
+      "Chính quyền Việt Nam Cộng hòa tiếp quản Hoàng Sa – Trường Sa sau 1954",
+      "Sau năm 1954",
+      "Đà Nẵng",
+      "Khánh Hòa",
+      "Sau Hiệp định Giơ-ne-vơ",
+      "chính quyền Việt Nam Cộng hòa tiếp tục quản lý Hoàng Sa và Trường Sa."
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1954
+    },
+    "datePrecision": "year",
+    "displayDate": "Sau năm 1954",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "multi_point",
+      "marker": {
+        "label": "Đà Nẵng"
+      },
+      "provinceNames": [
+        "Đà Nẵng",
+        "Khánh Hòa"
+      ],
+      "historicalLocations": [
+        "Đà Nẵng",
+        "Khánh Hòa"
+      ]
+    },
+    "focusGeometry": {
+      "mode": "bounds",
+      "provinceNames": [
+        "Đà Nẵng",
+        "Khánh Hòa"
+      ]
+    }
+  },
+  "summary": {
+    "homepageTitle": "Chính quyền Việt Nam Cộng hòa tiếp quản Hoàng Sa – Trường Sa sau 1954",
+    "homepageSummary": "Chính quyền Việt Nam Cộng hòa tiếp quản Hoàng Sa – Trường Sa sau 1954. Sau Hiệp định Giơ-ne-vơ, chính quyền Việt Nam Cộng hòa tiếp tục quản lý Hoàng Sa và Trường Sa.",
+    "cardSummary": "Sau Hiệp định Giơ-ne-vơ, chính quyền Việt Nam Cộng hòa tiếp tục quản lý Hoàng Sa và Trường Sa."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Chính quyền Việt Nam Cộng hòa tiếp quản Hoàng Sa – Trường Sa sau 1954. Sau Hiệp định Giơ-ne-vơ, chính quyền Việt Nam Cộng hòa tiếp tục quản lý Hoàng Sa và Trường Sa.",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 13: Lịch sử bảo vệ chủ quyền, các quyền và lợi ích hợp pháp của Việt Nam ở Biển Đông. Sau Hiệp định Giơ-ne-vơ, chính quyền Việt Nam Cộng hòa tiếp tục quản lý Hoàng Sa và Trường Sa.",
+    "significance": "Là mốc quan trọng về tổ chức nhà nước, cải cách hoặc chủ quyền được SGK 11 nhấn mạnh.",
+    "keyFacts": [
+      "Chính quyền Việt Nam Cộng hòa tiếp quản Hoàng Sa – Trường Sa sau 1954",
+      "Sau năm 1954",
+      "Đà Nẵng",
+      "Khánh Hòa",
+      "Sau Hiệp định Giơ-ne-vơ",
+      "chính quyền Việt Nam Cộng hòa tiếp tục quản lý Hoàng Sa và Trường Sa."
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 11,
+      "book": "Lịch sử 11 - Cánh Diều",
+      "lesson": "Bài 13: Lịch sử bảo vệ chủ quyền, các quyền và lợi ích hợp pháp của Việt Nam ở Biển Đông",
+      "pageStart": 89,
+      "pageEnd": 90,
+      "excerpt": "Sau Hiệp định Giơ-ne-vơ, chính quyền Việt Nam Cộng hòa tiếp tục quản lý Hoàng Sa và Trường Sa."
+    }
+  ],
+  "hierarchy": {
+    "rootId": "vm-chu-quyen-bien-dong",
+    "parentId": "vm-chu-quyen-bien-dong",
+    "level": 1,
+    "orderInParent": 10
+  },
+  "associations": {
+    "relatedEventIds": [
+      "doi-bac-hai-the-ky-18",
+      "vm-chu-quyen-bien-dong",
+      "quan-ly-hoang-sa-truong-sa-nguyen",
+      "hiep-dinh-elysee-1949-chuyen-giao-hoang-sa-truong-sa",
+      "doc-bien-dong-2002",
+      "thanh-lap-huyen-dao-1982",
+      "luat-bien-viet-nam-2012",
+      "giai-phong-truong-sa-1975",
+      "doi-hoang-sa-the-ky-17",
+      "sach-trang-hoang-sa-truong-sa-1979-1988",
+      "viet-nam-tham-gia-unclos-1982",
+      "hiep-dinh-vinh-bac-bo-2000",
+      "su-kien-gac-ma-1988",
+      "trung-quoc-chiem-hoang-sa-1974"
+    ],
+    "predecessorEventIds": [
+      "hiep-dinh-elysee-1949-chuyen-giao-hoang-sa-truong-sa"
+    ],
+    "successorEventIds": [
+      "sach-trang-hoang-sa-truong-sa-1979-1988"
+    ]
+  },
+  "display": {
+    "showOnHomepage": false,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "Sau Hiệp định Giơ-ne-vơ, chính quyền Việt Nam Cộng hòa tiếp tục quản lý Hoàng Sa và Trường Sa. || [SGK11:vnch-tiep-quan-hoang-sa-truong-sa-1954] Sau Hiệp định Giơ-ne-vơ, chính quyền Việt Nam Cộng hòa tiếp tục quản lý Hoàng Sa và Trường Sa.",
+  "merge": {
+    "sourceGrades": "11",
+    "sourceIds": "vnch-tiep-quan-hoang-sa-truong-sa-1954",
+    "mergedCount": 1,
+    "sourceFiles": "SGK11_event_master_flattened_v2(1).xlsx",
+    "textbookRefsAll": "SGK11: Bài 13: Lịch sử bảo vệ chủ quyền, các quyền và lợi ích hợp pháp của Việt Nam ở Biển Đông tr.89-90 [vnch-tiep-quan-hoang-sa-truong-sa-1954]"
+  },
+  "validation": {
+    "status": "CHECK",
+    "issues": "multi_point thiếu markers/marker đại diện"
+  }
+}

@@ -40,7 +40,7 @@ export default function ExamSubmitDialog({ unansweredCount, isOpen, onConfirm, o
                 )}
                 <button 
                   onClick={onConfirm} 
-                  style={{ flex: 1, padding: '0.75rem', background: '#10b981', border: 'none', borderRadius: '0.5rem', color: '#fff', cursor: 'pointer', fontWeight: 600, boxShadow: '0 4px 6px -1px rgba(16,185,129,0.3)' }}
+                  style={{ flex: 1, padding: '0.75rem', background: '#2f7a57', border: 'none', borderRadius: '0.5rem', color: '#fff', cursor: 'pointer', fontWeight: 600, boxShadow: '0 4px 6px -1px rgba(47,122,87,0.3)' }}
                 >
                     {isTimeUp ? 'Đồng ý nộp bài' : 'Xác nhận nộp'}
                 </button>

@@ -10,7 +10,7 @@ interface AdminStatsCardProps {
 }
 
 export default function AdminStatsCard({
-  icon, label, value, sub, color = '#6366f1', badge,
+  icon, label, value, sub, color = '#4f6f95', badge,
 }: AdminStatsCardProps) {
   return (
     <div

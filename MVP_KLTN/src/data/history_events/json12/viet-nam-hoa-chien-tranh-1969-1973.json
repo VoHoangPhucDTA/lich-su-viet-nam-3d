@@ -1,0 +1,109 @@
+{
+  "id": "viet-nam-hoa-chien-tranh-1969-1973",
+  "slug": "viet-nam-hoa-chien-tranh-1969-1973",
+  "entityType": "event",
+  "eventLevel": "collection",
+  "titles": {
+    "primary": "Chống \"Việt Nam hoá chiến tranh\" (1969–1973)",
+    "short": "Chống \"Việt Nam hoá chiến tranh\""
+  },
+  "classification": {
+    "eventType": "military",
+    "eventSubtype": "war",
+    "tags": [
+      "Chống \"Việt Nam hoá chiến tranh\" (1969–1973)",
+      "1969–1973",
+      "collection"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1969
+    },
+    "end": {
+      "year": 1973
+    },
+    "datePrecision": "period",
+    "displayDate": "1969–1973",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "nationwide"
+    },
+    "focusGeometry": {
+      "mode": "auto"
+    }
+  },
+  "summary": {
+    "homepageTitle": "Chống \"Việt Nam hoá chiến tranh\" (1969–1973)",
+    "homepageSummary": "Chống \"Việt Nam hoá chiến tranh\" (1969–1973). —",
+    "cardSummary": "—"
+  },
+  "textbookContent": {
+    "canonicalSummary": "Chống \"Việt Nam hoá chiến tranh\" (1969–1973).",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 8: Kháng chiến chống Mỹ, cứu nước (1954–1975), trang 48–49. Nội dung trong file Excel được chuẩn hóa để nhập hệ thống; khi triển khai chính thức, nhóm nên bổ sung tường thuật chi tiết bám SGK và tư liệu gốc.",
+    "significance": "Là mốc quan trọng trong tiến trình đấu tranh quân sự, bảo vệ hoặc giải phóng đất nước của Việt Nam theo SGK 12.",
+    "keyFacts": [
+      "Chống \"Việt Nam hoá chiến tranh\" (1969–1973)",
+      "1969–1973"
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 12,
+      "book": "Lịch sử 12 - Cánh Diều",
+      "theme": "Chủ đề 3: Cách mạng tháng Tám và kháng chiến bảo vệ độc lập dân tộc",
+      "lesson": "Bài 8: Kháng chiến chống Mỹ, cứu nước (1954–1975)",
+      "pageStart": 48,
+      "pageEnd": 49,
+      "excerpt": "Chống \"Việt Nam hoá chiến tranh\" (1969–1973)"
+    }
+  ],
+  "hierarchy": {
+    "rootId": "khang-chien-chong-my-collection",
+    "parentId": "khang-chien-chong-my-collection",
+    "childIds": [
+      "chinh-phu-cach-mang-lam-thoi-1969",
+      "tien-cong-chien-luoc-1972",
+      "my-pha-hoai-mien-bac-lan-2-1972",
+      "dien-bien-phu-tren-khong-1972",
+      "hiep-dinh-paris-1973"
+    ],
+    "level": 1,
+    "orderInParent": 5
+  },
+  "associations": {
+    "predecessorEventIds": [
+      "chien-tranh-cuc-bo-1965-1968"
+    ],
+    "successorEventIds": [
+      "chien-thang-phuoc-long-1975"
+    ]
+  },
+  "display": {
+    "showOnHomepage": true,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "— || [SGK12:viet-nam-hoa-chien-tranh-1969-1973] —",
+  "merge": {
+    "sourceGrades": "12",
+    "sourceIds": "viet-nam-hoa-chien-tranh-1969-1973",
+    "mergedCount": 1,
+    "sourceFiles": "SGK12_event_master_flattened(1).xlsx",
+    "textbookRefsAll": "SGK12: Bài 8: Kháng chiến chống Mỹ, cứu nước (1954–1975) tr.48-49 [viet-nam-hoa-chien-tranh-1969-1973]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

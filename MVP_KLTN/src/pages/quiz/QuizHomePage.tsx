@@ -325,10 +325,10 @@ export default function QuizHomePage() {
             animationFillMode: 'both'
           }}
         >
-          <StatCard label="Câu đã làm" value={totalQuestions > 0 ? totalQuestions : 124} icon="✍️" color="#6366f1" />
-          <StatCard label="Điểm trung bình" value={avgScore > 0 ? avgScore : 8.5} icon="⭐" color="#f59e0b" />
-          <StatCard label="Chủ đề cần ôn" value="Kháng chiến chống Pháp" icon="🎯" color="#ef4444" />
-          <StatCard label="Chuỗi ngày học" value="7 ngày" icon="🔥" color="#10b981" />
+          <StatCard label="Câu đã làm" value={totalQuestions > 0 ? totalQuestions : 124} icon="✍️" color="#4f6f95" />
+          <StatCard label="Điểm trung bình" value={avgScore > 0 ? avgScore : 8.5} icon="⭐" color="#c29b4b" />
+          <StatCard label="Chủ đề cần ôn" value="Kháng chiến chống Pháp" icon="🎯" color="#9f1d2d" />
+          <StatCard label="Chuỗi ngày học" value="7 ngày" icon="🔥" color="#2f7a57" />
         </div>
 
         {/* ── Functional Cards ── */}

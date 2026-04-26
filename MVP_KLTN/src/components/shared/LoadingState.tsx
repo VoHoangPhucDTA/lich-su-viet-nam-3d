@@ -17,8 +17,8 @@ export default function LoadingState({ label = 'Đang tải...' }: { label?: str
         style={{
           width: '2rem',
           height: '2rem',
-          border: '3px solid rgba(99,102,241,0.2)',
-          borderTopColor: '#6366f1',
+          border: '3px solid rgba(30,58,95,0.2)',
+          borderTopColor: '#4f6f95',
           borderRadius: '50%',
           animation: 'admin-spin 0.7s linear infinite',
         }}

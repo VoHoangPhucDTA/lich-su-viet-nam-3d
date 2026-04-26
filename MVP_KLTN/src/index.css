@@ -4,65 +4,65 @@
 
 /* Base CSS Custom Properties for Theming */
 :root { /* Default is Dark */
-  --bg-app: #0f172a;
-  --bg-surface: #1e293b;
-  --bg-card: #1e293b;
-  --text-primary: #f1f5f9;
-  --text-secondary: #cbd5e1;
-  --text-muted: #94a3b8;
-  --border: rgba(148, 163, 184, 0.15);
-  --accent: #6366f1;
-  --accent-soft: rgba(99, 102, 241, 0.15);
-  --success: #10b981;
-  --success-soft: rgba(16, 185, 129, 0.12);
-  --warning: #f59e0b;
-  --warning-soft: rgba(245, 158, 11, 0.12);
-  --danger: #ef4444;
-  --danger-soft: rgba(239, 68, 68, 0.12);
-  --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -2px rgba(0, 0, 0, 0.2);
+  --bg-app: #0b1220;
+  --bg-surface: #14243d;
+  --bg-card: #1a2f4d;
+  --text-primary: #e7ecf3;
+  --text-secondary: #c4ceda;
+  --text-muted: #90a1b6;
+  --border: rgba(194, 155, 75, 0.22);
+  --accent: #4f6f95;
+  --accent-soft: rgba(79, 111, 149, 0.24);
+  --success: #2f7a57;
+  --success-soft: rgba(47, 122, 87, 0.14);
+  --warning: #c29b4b;
+  --warning-soft: rgba(194, 155, 75, 0.16);
+  --danger: #9f1d2d;
+  --danger-soft: rgba(159, 29, 45, 0.14);
+  --shadow: 0 16px 28px -12px rgba(4, 10, 20, 0.72), 0 8px 16px -8px rgba(4, 10, 20, 0.45);
 
   /* Auth Input Tokens - Dark Mode */
-  --input-bg: #0f172a;
-  --input-border: rgba(148, 163, 184, 0.25);
-  --input-text: #f1f5f9;
-  --input-placeholder: #64748b;
-  --input-icon: #64748b;
+  --input-bg: #0b1220;
+  --input-border: rgba(144, 161, 182, 0.3);
+  --input-text: #e7ecf3;
+  --input-placeholder: #6f8299;
+  --input-icon: #6f8299;
   --input-focus: var(--accent);
 
   /* Admin Theme Tokens */
-  --admin-accent: #f97316;
-  --admin-accent-soft: rgba(249, 115, 22, 0.15);
+  --admin-accent: #c29b4b;
+  --admin-accent-soft: rgba(194, 155, 75, 0.16);
 }
 
 [data-theme="light"] {
-  --bg-app: #f8fafc;
-  --bg-surface: #f1f5f9;
-  --bg-card: #ffffff;
-  --text-primary: #0f172a;
-  --text-secondary: #334155;
-  --text-muted: #64748b;
-  --border: #e2e8f0;
-  --accent: #4f46e5;
-  --accent-soft: rgba(79, 70, 229, 0.1);
-  --success: #059669;
-  --success-soft: rgba(5, 150, 105, 0.1);
-  --warning: #d97706;
-  --warning-soft: rgba(217, 119, 6, 0.1);
-  --danger: #dc2626;
-  --danger-soft: rgba(220, 38, 38, 0.1);
-  --shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.08), 0 8px 10px -6px rgba(15, 23, 42, 0.05);
+  --bg-app: #f4ebdd;
+  --bg-surface: #efe2cf;
+  --bg-card: #fff9ef;
+  --text-primary: #1f2937;
+  --text-secondary: #334960;
+  --text-muted: #5f7288;
+  --border: #dbc8a9;
+  --accent: #2a4b72;
+  --accent-soft: rgba(42, 75, 114, 0.1);
+  --success: #2f7a57;
+  --success-soft: rgba(47, 122, 87, 0.12);
+  --warning: #9c7333;
+  --warning-soft: rgba(156, 115, 51, 0.12);
+  --danger: #8f1c2a;
+  --danger-soft: rgba(143, 28, 42, 0.1);
+  --shadow: 0 18px 34px -14px rgba(53, 42, 26, 0.2), 0 8px 14px -10px rgba(53, 42, 26, 0.12);
 
   /* Auth Input Tokens - Light Mode */
   --input-bg: #ffffff;
-  --input-border: #cbd5e1;
-  --input-text: #0f172a;
-  --input-placeholder: #94a3b8;
-  --input-icon: #94a3b8;
+  --input-border: #c8b89f;
+  --input-text: #1f2937;
+  --input-placeholder: #8f7e66;
+  --input-icon: #8f7e66;
   --input-focus: var(--accent);
 
   /* Admin Theme Tokens */
-  --admin-accent: #ea580c;
-  --admin-accent-soft: rgba(234, 88, 12, 0.1);
+  --admin-accent: #9c7333;
+  --admin-accent-soft: rgba(156, 115, 51, 0.12);
 }
 
 /* Utility Classes for Theme System */
@@ -80,46 +80,57 @@
 @theme {
   --font-sans: 'Inter', sans-serif;
   --color-primary: var(--accent);
-  --color-primary-light: #818cf8;
-  --color-primary-dark: #4f46e5;
+  --color-primary-light: #4f6f95;
+  --color-primary-dark: #14243d;
   --color-surface: var(--bg-app);
   --color-surface-2: var(--bg-surface);
   --color-surface-3: var(--bg-card);
   --color-border: var(--border);
   --color-text: var(--text-primary);
   --color-text-dim: var(--text-muted);
-  --color-military: #ef4444;
-  --color-political: #3b82f6;
-  --color-economic: #f59e0b;
-  --color-cultural: #10b981;
-  --color-accent-glow: rgba(99, 102, 241, 0.3);
+  --color-military: #9f1d2d;
+  --color-political: #4f6f95;
+  --color-economic: #c29b4b;
+  --color-cultural: #2f7a57;
+  --color-accent-glow: rgba(79, 111, 149, 0.3);
   --shadow-theme: var(--shadow);
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+/*
+ * QUAN TRỌNG: Phải wrap reset trong @layer base.
+ * Trong Tailwind v4, các utility (p-4, m-2, ...) nằm trong @layer utilities.
+ * Nếu reset `* { padding: 0 }` để ngoài layer, nó sẽ đè TẤT CẢ utilities
+ * vì style không layer có priority cao nhất trong cascade layers.
+ */
+@layer base {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
 
-html {
-  width: 100%;
-  height: 100%;
-}
+  html {
+    width: 100%;
+    height: 100%;
+  }
 
-body {
-  width: 100%;
-  height: 100%;
-  font-family: var(--font-sans);
-  background: var(--color-surface);
-  color: var(--color-text);
-  overflow-x: hidden;
-  overflow-y: auto;
-}
+  body {
+    width: 100%;
+    height: 100%;
+    font-family: var(--font-sans);
+    background:
+      radial-gradient(circle at 12% -5%, rgba(194, 155, 75, 0.1), transparent 36%),
+      radial-gradient(circle at 88% 10%, rgba(79, 111, 149, 0.26), transparent 32%),
+      var(--color-surface);
+    color: var(--color-text);
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
 
-#root {
-  width: 100%;
-  height: 100%;
+  #root {
+    width: 100%;
+    height: 100%;
+  }
 }
 
 /* Scrollbar styling */
@@ -245,45 +256,45 @@ body {
 .glass {
   background: var(--bg-app);
   opacity: 0.95;
-  backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
   border: 1px solid var(--border);
 }
 
 [data-theme="dark"] .glass {
-  background: rgba(15, 23, 42, 0.85);
-  border: 1px solid rgba(71, 85, 105, 0.4);
+  background: rgba(11, 18, 32, 0.84);
+  border: 1px solid rgba(194, 155, 75, 0.22);
 }
 
 /* Specific glass effect for Map Overlay - more premium transparency */
 .glass-map {
-  backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
   transition: background 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
               border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
               box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 [data-theme="light"] .glass-map {
-  background: rgba(255, 255, 255, 0.85);
-  border: 1px solid rgba(148, 163, 184, 0.35);
-  box-shadow: 0 20px 40px -18px rgba(15, 23, 42, 0.3), 
-              0 10px 16px -10px rgba(15, 23, 42, 0.2);
+  background: rgba(255, 249, 239, 0.86);
+  border: 1px solid rgba(156, 115, 51, 0.24);
+  box-shadow: 0 20px 40px -18px rgba(66, 48, 26, 0.26), 
+              0 10px 16px -10px rgba(66, 48, 26, 0.18);
 }
 
 [data-theme="dark"] .glass-map {
-  background: rgba(15, 23, 42, 0.82);
-  border: 1px solid rgba(71, 85, 105, 0.4);
+  background: rgba(11, 18, 32, 0.84);
+  border: 1px solid rgba(194, 155, 75, 0.24);
   box-shadow: 0 20px 50px -10px rgba(0, 0, 0, 0.6);
 }
 
 /* Map Label style - stays dark for contrast on satellite imagery */
 .map-label-glass {
-  background: rgba(15, 23, 42, 0.7);
-  backdrop-filter: blur(8px);
+  background: rgba(11, 18, 32, 0.72);
   -webkit-backdrop-filter: blur(8px);
-  border: 1px solid rgba(148, 163, 184, 0.2);
-  color: #f8fafc;
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(194, 155, 75, 0.22);
+  color: #e7ecf3;
   padding: 4px 10px;
   border-radius: 6px;
   font-size: 13px;
@@ -329,51 +340,51 @@ input:-webkit-autofill:active {
 }
 
 .badge-military {
-  background: rgba(239, 68, 68, 0.1);
-  color: #fca5a5;
-  border-color: rgba(239, 68, 68, 0.3);
+  background: rgba(159, 29, 45, 0.16);
+  color: #f2c3c9;
+  border-color: rgba(159, 29, 45, 0.3);
 }
 
 [data-theme="light"] .badge-military {
-  background: rgba(239, 68, 68, 0.08);
-  color: #b91c1c;
-  border-color: rgba(185, 28, 28, 0.2);
+  background: rgba(159, 29, 45, 0.08);
+  color: #7d1a28;
+  border-color: rgba(159, 29, 45, 0.2);
 }
 
 .badge-political {
-  background: rgba(59, 130, 246, 0.1);
-  color: #93c5fd;
-  border-color: rgba(59, 130, 246, 0.3);
+  background: rgba(30, 58, 95, 0.16);
+  color: #a9bfd8;
+  border-color: rgba(30, 58, 95, 0.32);
 }
 
 [data-theme="light"] .badge-political {
-  background: rgba(59, 130, 246, 0.08);
-  color: #1d4ed8;
-  border-color: rgba(29, 78, 216, 0.2);
+  background: rgba(30, 58, 95, 0.08);
+  color: #244b72;
+  border-color: rgba(30, 58, 95, 0.2);
 }
 
 .badge-economic {
-  background: rgba(245, 158, 11, 0.1);
-  color: #fcd34d;
-  border-color: rgba(245, 158, 11, 0.3);
+  background: rgba(194, 155, 75, 0.18);
+  color: #f0dcab;
+  border-color: rgba(194, 155, 75, 0.34);
 }
 
 [data-theme="light"] .badge-economic {
-  background: rgba(245, 158, 11, 0.08);
-  color: #b45309;
-  border-color: rgba(180, 83, 9, 0.2);
+  background: rgba(194, 155, 75, 0.12);
+  color: #7e5a27;
+  border-color: rgba(194, 155, 75, 0.24);
 }
 
 .badge-cultural {
-  background: rgba(16, 185, 129, 0.1);
-  color: #6ee7b7;
-  border-color: rgba(16, 185, 129, 0.3);
+  background: rgba(47, 122, 87, 0.15);
+  color: #b2dac7;
+  border-color: rgba(47, 122, 87, 0.28);
 }
 
 [data-theme="light"] .badge-cultural {
-  background: rgba(16, 185, 129, 0.08);
-  color: #047857;
-  border-color: rgba(4, 120, 87, 0.2);
+  background: rgba(47, 122, 87, 0.1);
+  color: #1f5a43;
+  border-color: rgba(47, 122, 87, 0.2);
 }
 
 /* Custom scrollbar for glass components */

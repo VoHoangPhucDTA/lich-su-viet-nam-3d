@@ -1,22 +1,55 @@
+import SectionHeader from './SectionHeader';
+
 interface EventKeyFactsProps {
   keyFacts?: string[];
+  index?: string;
 }
 
-export default function EventKeyFacts({ keyFacts }: EventKeyFactsProps) {
+/**
+ * "Dữ kiện chính cần nhớ" – grid card có số thứ tự lớn cổ điển.
+ */
+export default function EventKeyFacts({ keyFacts, index = '04' }: EventKeyFactsProps) {
   if (!keyFacts || keyFacts.length === 0) return null;
 
   return (
-    <section id="du-kien-chinh" className="scroll-mt-24 w-full max-w-4xl mt-8">
-      <h2 className="text-2xl font-bold text-primary mb-4 border-b border-default pb-2">Dữ kiện chính cần nhớ</h2>
+    <section id="du-kien-chinh" className="scroll-mt-28 w-full">
+      <SectionHeader
+        index={index}
+        title="Dữ kiện chính cần nhớ"
+        subtitle="Các điểm cốt lõi học sinh cần nắm vững khi ôn thi."
+      />
+
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {keyFacts.map((fact, index) => (
-          <div key={index} className="flex items-start gap-3 bg-card border border-default rounded-xl p-4 shadow-theme">
-            <div className="flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold mt-0.5 border" style={{ background: 'color-mix(in srgb, var(--success) 20%, transparent)', color: 'var(--success)', borderColor: 'color-mix(in srgb, var(--success) 40%, transparent)' }}>
-              ✓
+        {keyFacts.map((fact, idx) => (
+          <div
+            key={idx}
+            className="p-6 md:p-8 lg:p-10 rounded-2xl flex items-start gap-4 transition"
+            style={{
+              background: 'var(--bg-card)',
+              border: '1px solid var(--border)',
+              boxShadow: 'var(--shadow)',
+            }}
+            onMouseEnter={(e) =>
+              ((e.currentTarget as HTMLDivElement).style.borderColor =
+                'color-mix(in srgb, var(--admin-accent) 50%, var(--border))')
+            }
+            onMouseLeave={(e) =>
+              ((e.currentTarget as HTMLDivElement).style.borderColor =
+                'var(--border)')
+            }
+          >
+            <div
+              className="flex-shrink-0 font-mono font-extrabold text-3xl leading-none mt-1 tracking-[-0.02em]"
+              style={{ color: 'var(--admin-accent)', opacity: 0.85 }}
+            >
+              {String(idx + 1).padStart(2, '0')}
             </div>
-            <div className="text-[14px] text-secondary leading-snug">
+            <p
+              className="text-[15px] leading-relaxed"
+              style={{ color: 'var(--text-primary)' }}
+            >
               {fact}
-            </div>
+            </p>
           </div>
         ))}
       </div>

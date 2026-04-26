@@ -43,8 +43,8 @@ export default function ExamTimer({ initialSeconds, onTimeUp, onTick }: ExamTime
   const isWarning = seconds <= 300 && seconds > 0; // Less than 5 mins (300 sec)
   const isCritical = seconds <= 60 && seconds > 0; // Less than 1 min (60 sec)
 
-  const color = isCritical ? '#ef4444' : isWarning ? '#f59e0b' : '#10b981';
-  const bg = isCritical ? 'rgba(239,68,68,0.1)' : isWarning ? 'rgba(245,158,11,0.1)' : 'rgba(16,185,129,0.1)';
+  const color = isCritical ? '#9f1d2d' : isWarning ? '#c29b4b' : '#2f7a57';
+  const bg = isCritical ? 'rgba(159,29,45,0.12)' : isWarning ? 'rgba(194,155,75,0.15)' : 'rgba(47,122,87,0.12)';
 
   return (
     <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', padding: '0.4rem 0.8rem', background: bg, border: `1px solid ${color}40`, borderRadius: '0.5rem', color: color, fontWeight: 700, fontSize: '0.95rem' }}>

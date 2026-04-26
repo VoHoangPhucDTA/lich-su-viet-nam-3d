@@ -1,0 +1,106 @@
+{
+  "id": "khang-chien-chong-phap-1946-1950",
+  "slug": "khang-chien-chong-phap-1946-1950",
+  "entityType": "event",
+  "eventLevel": "collection",
+  "titles": {
+    "primary": "Những năm đầu kháng chiến toàn quốc (1946–1950)",
+    "short": "Những năm đầu kháng chiến toàn q"
+  },
+  "classification": {
+    "eventType": "military",
+    "eventSubtype": "milestone",
+    "tags": [
+      "Những năm đầu kháng chiến toàn quốc (1946–1950)",
+      "1946–1950",
+      "collection"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1946
+    },
+    "end": {
+      "year": 1950
+    },
+    "datePrecision": "period",
+    "displayDate": "1946–1950",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "nationwide"
+    },
+    "focusGeometry": {
+      "mode": "auto"
+    }
+  },
+  "summary": {
+    "homepageTitle": "Những năm đầu kháng chiến toàn quốc (1946–1950)",
+    "homepageSummary": "Những năm đầu kháng chiến toàn quốc (1946–1950). —",
+    "cardSummary": "—"
+  },
+  "textbookContent": {
+    "canonicalSummary": "Những năm đầu kháng chiến toàn quốc (1946–1950).",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 7: Kháng chiến chống thực dân Pháp (1945–1954), trang 37–38. Nội dung trong file Excel được chuẩn hóa để nhập hệ thống; khi triển khai chính thức, nhóm nên bổ sung tường thuật chi tiết bám SGK và tư liệu gốc.",
+    "significance": "Là mốc quan trọng trong tiến trình đấu tranh quân sự, bảo vệ hoặc giải phóng đất nước của Việt Nam theo SGK 12.",
+    "keyFacts": [
+      "Những năm đầu kháng chiến toàn quốc (1946–1950)",
+      "1946–1950"
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 12,
+      "book": "Lịch sử 12 - Cánh Diều",
+      "theme": "Chủ đề 3: Cách mạng tháng Tám và kháng chiến bảo vệ độc lập dân tộc",
+      "lesson": "Bài 7: Kháng chiến chống thực dân Pháp (1945–1954)",
+      "pageStart": 37,
+      "pageEnd": 38,
+      "excerpt": "Những năm đầu kháng chiến toàn quốc (1946–1950)"
+    }
+  ],
+  "hierarchy": {
+    "rootId": "khang-chien-chong-phap-1945-1954-collection",
+    "parentId": "khang-chien-chong-phap-1945-1954-collection",
+    "childIds": [
+      "chien-dich-viet-bac-thu-dong-1947",
+      "chien-dich-bien-gioi-thu-dong-1950"
+    ],
+    "level": 1,
+    "orderInParent": 4
+  },
+  "associations": {
+    "predecessorEventIds": [
+      "toan-quoc-khang-chien-19-12-1946"
+    ],
+    "successorEventIds": [
+      "khang-chien-chong-phap-1951-1953"
+    ]
+  },
+  "display": {
+    "showOnHomepage": true,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "— || [SGK12:khang-chien-chong-phap-1946-1950] —",
+  "merge": {
+    "sourceGrades": "12",
+    "sourceIds": "khang-chien-chong-phap-1946-1950",
+    "mergedCount": 1,
+    "sourceFiles": "SGK12_event_master_flattened(1).xlsx",
+    "textbookRefsAll": "SGK12: Bài 7: Kháng chiến chống thực dân Pháp (1945–1954) tr.37-38 [khang-chien-chong-phap-1946-1950]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

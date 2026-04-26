@@ -1,0 +1,104 @@
+{
+  "id": "hiep-uoc-hac-mang-1883",
+  "slug": "hiep-uoc-hac-mang-1883",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Hiệp ước Hác-măng (1883)",
+    "short": "Hác-măng 1883"
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "treaty",
+    "tags": [
+      "Hiệp ước Hác-măng (1883)",
+      "Năm 1883"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1883
+    },
+    "datePrecision": "year",
+    "displayDate": "Năm 1883",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "no_location",
+      "marker": {
+        "label": "Hiệp ước Hác-măng"
+      }
+    },
+    "focusGeometry": {
+      "mode": "auto"
+    }
+  },
+  "summary": {
+    "homepageTitle": "Hiệp ước Hác-măng (1883)",
+    "homepageSummary": "Hiệp ước Hác-măng (1883). Một mốc chính trị quan trọng trong quá trình thực dân Pháp hoàn tất xâm lược Việt Nam.",
+    "cardSummary": "Một mốc chính trị quan trọng trong quá trình thực dân Pháp hoàn tất xâm lược Việt Nam."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Hiệp ước Hác-măng (1883). Một mốc chính trị quan trọng trong quá trình thực dân Pháp hoàn tất xâm lược Việt Nam.",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 6: Hành trình đi đến độc lập dân tộc ở Đông Nam Á. Một mốc chính trị quan trọng trong quá trình thực dân Pháp hoàn tất xâm lược Việt Nam.",
+    "significance": "Là bước đánh dấu sự áp đặt sâu hơn của thực dân Pháp trước Hiệp ước Pa-tơ-nốt 1884.",
+    "keyFacts": [
+      "Hiệp ước Hác-măng (1883)",
+      "Năm 1883"
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 11,
+      "book": "Lịch sử 11 - Cánh Diều",
+      "lesson": "Bài 6: Hành trình đi đến độc lập dân tộc ở Đông Nam Á",
+      "pageStart": 38,
+      "pageEnd": 38,
+      "excerpt": "Một mốc chính trị quan trọng trong quá trình thực dân Pháp hoàn tất xâm lược Việt Nam."
+    }
+  ],
+  "hierarchy": {
+    "rootId": "vm-chien-tranh-bao-ve-to-quoc",
+    "parentId": "khang-chien-chong-phap-1858-1884",
+    "level": 2,
+    "orderInParent": 3
+  },
+  "associations": {
+    "relatedEventIds": [
+      "khang-chien-chong-phap-1858-1884",
+      "hiep-uoc-pa-to-not-1884"
+    ],
+    "predecessorEventIds": [
+      "phap-chiem-nam-bo-1862-1867"
+    ],
+    "successorEventIds": [
+      "hiep-uoc-pa-to-not-1884"
+    ]
+  },
+  "display": {
+    "showOnHomepage": false,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "Triều Nguyễn phải ký Hiệp ước Hác-măng 1883 trong quá trình thực dân Pháp hoàn tất xâm lược Việt Nam. || [SGK11:hiep-uoc-hac-mang-1883] Triều Nguyễn phải ký Hiệp ước Hác-măng 1883 trong quá trình thực dân Pháp hoàn tất xâm lược Việt Nam.",
+  "merge": {
+    "sourceGrades": "11",
+    "sourceIds": "hiep-uoc-hac-mang-1883",
+    "mergedCount": 1,
+    "sourceFiles": "SGK11_event_master_flattened_v2(1).xlsx",
+    "textbookRefsAll": "SGK11: Bài 6: Hành trình đi đến độc lập dân tộc ở Đông Nam Á tr.38 [hiep-uoc-hac-mang-1883]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}
