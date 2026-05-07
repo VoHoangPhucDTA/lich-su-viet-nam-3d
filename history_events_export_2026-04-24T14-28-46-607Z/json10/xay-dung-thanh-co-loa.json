@@ -1,0 +1,120 @@
+{
+  "id": "xay-dung-thanh-co-loa",
+  "slug": "xay-dung-thanh-co-loa",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Xây dựng thành Cổ Loa",
+    "short": "Cổ Loa"
+  },
+  "classification": {
+    "eventType": "military",
+    "eventSubtype": "capital_fortification",
+    "tags": [
+      "Cổ Loa",
+      "An Dương Vương",
+      "kinh đô",
+      "thành lũy"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      10
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": -208
+    },
+    "end": {
+      "year": -179
+    },
+    "datePrecision": "approximate",
+    "displayDate": "Khoảng thế kỉ III – II TCN",
+    "isApproximate": true
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "point",
+      "marker": {
+        "lat": 21.113,
+        "lng": 105.871,
+        "label": "Cổ Loa"
+      },
+      "provinceNames": [
+        "Hà Nội"
+      ],
+      "historicalLocations": [
+        "Cổ Loa",
+        "Đông Anh"
+      ]
+    },
+    "focusGeometry": {
+      "mode": "marker",
+      "center": {
+        "lat": 21.113,
+        "lng": 105.871
+      },
+      "zoom": 11,
+      "provinceNames": [
+        "Hà Nội"
+      ]
+    }
+  },
+  "summary": {
+    "homepageTitle": "Xây dựng thành Cổ Loa",
+    "homepageSummary": "Cổ Loa là kinh đô và căn cứ quân sự tiêu biểu của nước Âu Lạc.",
+    "cardSummary": "Kinh đô Cổ Loa được xây dựng thời Âu Lạc."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Thành Cổ Loa được xây dựng làm kinh đô của nước Âu Lạc, đồng thời là công trình quân sự lớn của cư dân Việt cổ.",
+    "detailedNarrative": "SGK giới thiệu Cổ Loa như một biểu tượng nổi bật của trình độ xây dựng và tổ chức quân sự thời Âu Lạc. Thành có quy mô lớn, cấu trúc vòng xoáy đặc trưng và gắn với vai trò chính trị, quân sự của nhà nước Âu Lạc.",
+    "significance": "Cổ Loa thể hiện trình độ tổ chức, xây dựng và tư duy quân sự của cư dân Việt cổ.",
+    "keyFacts": [
+      "Là kinh đô nước Âu Lạc",
+      "Đồng thời là căn cứ quân sự lớn",
+      "Gắn với An Dương Vương"
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 10,
+      "book": "Lịch sử 10 - Cánh Diều",
+      "theme": "Chủ đề 6: Một số nền văn minh trên đất nước Việt Nam trước năm 1858",
+      "lesson": "Bài 12: Văn minh Văn Lang – Âu Lạc",
+      "pageStart": 88,
+      "pageEnd": 88,
+      "excerpt": "Thành Cổ Loa là kinh đô của nước Âu Lạc và là công trình quân sự lớn."
+    }
+  ],
+  "hierarchy": {
+    "rootId": "vm-van-lang-au-lac",
+    "parentId": "vm-van-lang-au-lac",
+    "level": 1,
+    "orderInParent": 5
+  },
+  "associations": {
+    "relatedFigureIds": [
+      "an-duong-vuong"
+    ]
+  },
+  "display": {
+    "showOnHomepage": true,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "merge": {
+    "sourceGrades": "10",
+    "sourceIds": "xay-dung-thanh-co-loa",
+    "mergedCount": 1,
+    "sourceFiles": "SGK10_event_master_flattened_v2(1).xlsx",
+    "textbookRefsAll": "SGK10: Bài 12: Văn minh Văn Lang – Âu Lạc tr.88 [xay-dung-thanh-co-loa]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

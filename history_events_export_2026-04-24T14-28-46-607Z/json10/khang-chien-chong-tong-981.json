@@ -1,0 +1,151 @@
+{
+  "id": "khang-chien-chong-tong-981",
+  "slug": "khang-chien-chong-tong-981",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Kháng chiến chống quân Tống (981)",
+    "short": "Chống Tống",
+    "alternatives": [
+      "Trận Bạch Đằng năm 981",
+      "bach-dang-981"
+    ]
+  },
+  "classification": {
+    "eventType": "military",
+    "eventSubtype": "battle",
+    "tags": [
+      "Kháng chiến chống quân Tống (981)",
+      "Năm 981",
+      "Lạng Sơn",
+      "Quảng Ninh",
+      "Hải Phòng",
+      "Trùng SGK10",
+      "trùng_sgk10",
+      "Bạch Đằng",
+      981,
+      "Lê Hoàn",
+      "mentioned_in_grade10"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      10,
+      11
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 981
+    },
+    "datePrecision": "year",
+    "displayDate": "Năm 981",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "multi_point",
+      "marker": {
+        "label": "Lạng Sơn"
+      },
+      "provinceNames": [
+        "Lạng Sơn",
+        "Quảng Ninh",
+        "Hải Phòng"
+      ],
+      "historicalLocations": [
+        "Lạng Sơn",
+        "Quảng Ninh",
+        "Hải Phòng",
+        "Sông Bạch Đằng"
+      ]
+    },
+    "focusGeometry": {
+      "mode": "bounds",
+      "provinceNames": [
+        "Lạng Sơn",
+        "Quảng Ninh",
+        "Hải Phòng"
+      ]
+    }
+  },
+  "summary": {
+    "homepageTitle": "Kháng chiến chống quân Tống (981)",
+    "homepageSummary": "Kháng chiến chống quân Tống (981). Trùng SGK10; SGK11 có chi tiết đầy đủ về Lê Hoàn và diễn biến chiến đấu.",
+    "cardSummary": "Trùng SGK10; SGK11 có chi tiết đầy đủ về Lê Hoàn và diễn biến chiến đấu."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Trận Bạch Đằng năm 981 là một thắng lợi quân sự quan trọng trong lịch sử chống ngoại xâm của dân tộc Việt Nam.",
+    "detailedNarrative": "SGK 10 chỉ nhắc ngắn trận Bạch Đằng năm 981 trong phần ví dụ về mối liên hệ giữa Sử học với các ngành khoa học khác. Vì vậy, sự kiện nên được gắn nhãn 'mentioned_in_grade10' và sẽ có thể bổ sung chi tiết hơn bằng nguồn SGK lớp trên hoặc nguồn ngoài.",
+    "significance": "Là mốc quan trọng trong tiến trình quân sự và bảo vệ/chinh phục độc lập, chủ quyền của Việt Nam theo SGK 11.",
+    "keyFacts": [
+      "Kháng chiến chống quân Tống (981)",
+      "Năm 981",
+      "Lạng Sơn",
+      "Quảng Ninh",
+      "Hải Phòng",
+      "Trùng SGK10",
+      "Gắn với sông Bạch Đằng",
+      "Chỉ được đề cập ngắn trong SGK 10"
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 11,
+      "book": "Lịch sử 11 - Cánh Diều",
+      "lesson": "Bài 7: Chiến tranh bảo vệ Tổ quốc trong lịch sử Việt Nam",
+      "pageStart": 46,
+      "pageEnd": 46,
+      "excerpt": "Trùng SGK10; SGK11 có chi tiết đầy đủ về Lê Hoàn và diễn biến chiến đấu."
+    }
+  ],
+  "hierarchy": {
+    "rootId": "vm-chien-tranh-bao-ve-to-quoc",
+    "parentId": "vm-chien-tranh-bao-ve-to-quoc",
+    "level": 1,
+    "orderInParent": 3
+  },
+  "associations": {
+    "relatedEventIds": [
+      "khang-chien-chong-tong-1075-1077",
+      "vi-tri-dia-chien-luoc-vn",
+      "khang-chien-chong-minh-1406-1407",
+      "bach-dang-938-ngo-quyen-xung-vuong",
+      "vm-chien-tranh-bao-ve-to-quoc",
+      "khang-chien-chong-phap-1858-1884",
+      "ba-lan-chong-mong-nguyen",
+      "khang-chien-chong-trieu-tk2-tcn",
+      "khang-chien-chong-thanh-1789",
+      "khang-chien-chong-xiem-1785",
+      "chong-nguyen-1287-1288"
+    ],
+    "predecessorEventIds": [
+      "bach-dang-938-ngo-quyen-xung-vuong"
+    ],
+    "successorEventIds": [
+      "khang-chien-chong-tong-1075-1077"
+    ]
+  },
+  "display": {
+    "showOnHomepage": false,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "Trùng SGK10; SGK11 có chi tiết đầy đủ về Lê Hoàn và diễn biến chiến đấu. | Trùng SGK10: bach-dang-981 || [SGK10:bach-dang-981] Chỉ được đề cập ngắn trong SGK 10; nên bổ sung chi tiết từ SGK lớp 11/12 hoặc nguồn uy tín khác. || [SGK11:khang-chien-chong-tong-981] Trùng SGK10; SGK11 có chi tiết đầy đủ về Lê Hoàn và diễn biến chiến đấu. | Trùng SGK10: bach-dang-981",
+  "merge": {
+    "sourceGrades": "10 | 11",
+    "sourceIds": "bach-dang-981 | khang-chien-chong-tong-981",
+    "mergedCount": 2,
+    "sourceFiles": "SGK10_event_master_flattened_v2(1).xlsx | SGK11_event_master_flattened_v2(1).xlsx",
+    "textbookRefsAll": "SGK10: Bài 3: Sử học với các lĩnh vực, ngành nghề hiện đại tr.20-25 [bach-dang-981] || SGK11: Bài 7: Chiến tranh bảo vệ Tổ quốc trong lịch sử Việt Nam tr.46 [khang-chien-chong-tong-981]",
+    "notes": "Merged 2 source rows into canonical id 'khang-chien-chong-tong-981'."
+  },
+  "validation": {
+    "status": "CHECK",
+    "issues": "multi_point thiếu markers/marker đại diện"
+  }
+}

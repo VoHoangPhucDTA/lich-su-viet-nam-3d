@@ -1,0 +1,114 @@
+{
+  "id": "pho-hien-hung-yen",
+  "slug": "pho-hien-hung-yen",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Đô thị Phố Hiến",
+    "short": "Phố Hiến"
+  },
+  "classification": {
+    "eventType": "economic",
+    "eventSubtype": "urban_trade_center",
+    "tags": [
+      "Phố Hiến",
+      "Hưng Yên",
+      "đô thị",
+      "thương mại"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      10
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1500
+    },
+    "end": {
+      "year": 1700
+    },
+    "datePrecision": "period",
+    "displayDate": "Thế kỉ XVI – XVII",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "point",
+      "marker": {
+        "lat": 20.646,
+        "lng": 106.053,
+        "label": "Phố Hiến"
+      },
+      "provinceNames": [
+        "Hưng Yên"
+      ],
+      "historicalLocations": [
+        "Phố Hiến"
+      ]
+    },
+    "focusGeometry": {
+      "mode": "marker",
+      "center": {
+        "lat": 20.646,
+        "lng": 106.053
+      },
+      "zoom": 11,
+      "provinceNames": [
+        "Hưng Yên"
+      ]
+    }
+  },
+  "summary": {
+    "homepageTitle": "Đô thị Phố Hiến",
+    "homepageSummary": "Phố Hiến là đô thị – thương cảng nổi tiếng của Đại Việt thời trung đại.",
+    "cardSummary": "Phố Hiến phát triển mạnh ở thế kỉ XVI – XVII."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Phố Hiến là một đô thị thương mại tiêu biểu, phản ánh sự phát triển của kinh tế hàng hóa và giao thương quốc tế ở Đại Việt.",
+    "detailedNarrative": "Trong SGK, Phố Hiến được nêu cùng Hội An như những đô thị – thương cảng nổi bật. Việc đưa Phố Hiến vào dữ liệu giúp hệ thống thể hiện rõ không gian thương mại trên sông Hồng và vùng châu thổ Bắc Bộ.",
+    "significance": "Làm rõ vai trò của đô thị và giao thương trong lịch sử kinh tế Đại Việt.",
+    "keyFacts": [
+      "Nằm ở Hưng Yên",
+      "Phát triển mạnh ở thế kỉ XVI – XVII",
+      "Là trung tâm giao thương nổi tiếng"
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 10,
+      "book": "Lịch sử 10 - Cánh Diều",
+      "theme": "Chủ đề 6: Một số nền văn minh trên đất nước Việt Nam trước năm 1858",
+      "lesson": "Bài 15: Những thành tựu tiêu biểu của văn minh Đại Việt",
+      "pageStart": 103,
+      "pageEnd": 103,
+      "excerpt": "Phố Hiến là một đô thị thương mại quan trọng của Đại Việt."
+    }
+  ],
+  "hierarchy": {
+    "rootId": "vm-dai-viet",
+    "parentId": "vm-dai-viet",
+    "level": 1,
+    "orderInParent": 20
+  },
+  "display": {
+    "showOnHomepage": true,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "merge": {
+    "sourceGrades": "10",
+    "sourceIds": "pho-hien-hung-yen",
+    "mergedCount": 1,
+    "sourceFiles": "SGK10_event_master_flattened_v2(1).xlsx",
+    "textbookRefsAll": "SGK10: Bài 15: Những thành tựu tiêu biểu của văn minh Đại Việt tr.103 [pho-hien-hung-yen]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

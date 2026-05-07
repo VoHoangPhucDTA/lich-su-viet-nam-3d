@@ -1,0 +1,120 @@
+{
+  "id": "hiep-dinh-elysee-1949-chuyen-giao-hoang-sa-truong-sa",
+  "slug": "hiep-dinh-elysee-1949-chuyen-giao-hoang-sa-truong-sa",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Hiệp định Ê-ly-dê và việc chuyển giao Hoàng Sa – Trường Sa (1949)",
+    "short": "Hiệp định Ê-ly-dê và việc chuyển giao Hoàn"
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "sovereignty_transfer",
+    "tags": [
+      "Hiệp định Ê-ly-dê và việc chuyển giao Hoàng Sa – Trường Sa (1949)",
+      "8-3-1949",
+      "Pháp chuyển giao quyền quản lý Hoàng Sa",
+      "Trường Sa cho Quốc gia Việt Nam."
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1949
+    },
+    "datePrecision": "day",
+    "displayDate": "8-3-1949",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "no_location",
+      "marker": {
+        "label": "Hiệp định Ê-ly-dê và việc chuyển giao Hoàn"
+      }
+    },
+    "focusGeometry": {
+      "mode": "auto"
+    }
+  },
+  "summary": {
+    "homepageTitle": "Hiệp định Ê-ly-dê và việc chuyển giao Hoàng Sa – Trường Sa (1949)",
+    "homepageSummary": "Hiệp định Ê-ly-dê và việc chuyển giao Hoàng Sa – Trường Sa (1949). Pháp chuyển giao quyền quản lý Hoàng Sa, Trường Sa cho Quốc gia Việt Nam.",
+    "cardSummary": "Pháp chuyển giao quyền quản lý Hoàng Sa, Trường Sa cho Quốc gia Việt Nam."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Hiệp định Ê-ly-dê và việc chuyển giao Hoàng Sa – Trường Sa (1949). Pháp chuyển giao quyền quản lý Hoàng Sa, Trường Sa cho Quốc gia Việt Nam.",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 13: Lịch sử bảo vệ chủ quyền, các quyền và lợi ích hợp pháp của Việt Nam ở Biển Đông. Pháp chuyển giao quyền quản lý Hoàng Sa, Trường Sa cho Quốc gia Việt Nam.",
+    "significance": "Là mốc quan trọng về tổ chức nhà nước, cải cách hoặc chủ quyền được SGK 11 nhấn mạnh.",
+    "keyFacts": [
+      "Hiệp định Ê-ly-dê và việc chuyển giao Hoàng Sa – Trường Sa (1949)",
+      "8-3-1949",
+      "Pháp chuyển giao quyền quản lý Hoàng Sa",
+      "Trường Sa cho Quốc gia Việt Nam."
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 11,
+      "book": "Lịch sử 11 - Cánh Diều",
+      "lesson": "Bài 13: Lịch sử bảo vệ chủ quyền, các quyền và lợi ích hợp pháp của Việt Nam ở Biển Đông",
+      "pageStart": 89,
+      "pageEnd": 90,
+      "excerpt": "Pháp chuyển giao quyền quản lý Hoàng Sa, Trường Sa cho Quốc gia Việt Nam."
+    }
+  ],
+  "hierarchy": {
+    "rootId": "vm-chu-quyen-bien-dong",
+    "parentId": "vm-chu-quyen-bien-dong",
+    "level": 1,
+    "orderInParent": 9
+  },
+  "associations": {
+    "relatedEventIds": [
+      "doi-bac-hai-the-ky-18",
+      "vm-chu-quyen-bien-dong",
+      "quan-ly-hoang-sa-truong-sa-nguyen",
+      "vnch-tiep-quan-hoang-sa-truong-sa-1954",
+      "doc-bien-dong-2002",
+      "thanh-lap-huyen-dao-1982",
+      "luat-bien-viet-nam-2012",
+      "giai-phong-truong-sa-1975",
+      "doi-hoang-sa-the-ky-17",
+      "sach-trang-hoang-sa-truong-sa-1979-1988",
+      "viet-nam-tham-gia-unclos-1982",
+      "hiep-dinh-vinh-bac-bo-2000",
+      "su-kien-gac-ma-1988",
+      "trung-quoc-chiem-hoang-sa-1974"
+    ],
+    "predecessorEventIds": [
+      "luat-bien-viet-nam-2012"
+    ],
+    "successorEventIds": [
+      "vnch-tiep-quan-hoang-sa-truong-sa-1954"
+    ]
+  },
+  "display": {
+    "showOnHomepage": false,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "Pháp chuyển giao quyền quản lý Hoàng Sa, Trường Sa cho Quốc gia Việt Nam. || [SGK11:hiep-dinh-elysee-1949-chuyen-giao-hoang-sa-truong-sa] Pháp chuyển giao quyền quản lý Hoàng Sa, Trường Sa cho Quốc gia Việt Nam.",
+  "merge": {
+    "sourceGrades": "11",
+    "sourceIds": "hiep-dinh-elysee-1949-chuyen-giao-hoang-sa-truong-sa",
+    "mergedCount": 1,
+    "sourceFiles": "SGK11_event_master_flattened_v2(1).xlsx",
+    "textbookRefsAll": "SGK11: Bài 13: Lịch sử bảo vệ chủ quyền, các quyền và lợi ích hợp pháp của Việt Nam ở Biển Đông tr.89-90 [hiep-dinh-elysee-1949-chuyen-giao-hoang-sa-truong-sa]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

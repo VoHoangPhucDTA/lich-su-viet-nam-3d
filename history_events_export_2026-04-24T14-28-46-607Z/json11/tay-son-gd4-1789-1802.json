@@ -1,0 +1,120 @@
+{
+  "id": "tay-son-gd4-1789-1802",
+  "slug": "tay-son-gd4-1789-1802",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Giai đoạn 1789–1802: Suy vong",
+    "short": "Giai đoạn 1789–1802: Suy vong"
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "dynasty_decline",
+    "tags": [
+      "Giai đoạn 1789–1802: Suy vong",
+      "1789–1802",
+      "Thừa Thiên Huế",
+      "Quang Trung mất năm 1792; triều Tây Sơn suy yếu và thất bại trước Nguyễn Ánh."
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1789
+    },
+    "end": {
+      "year": 1802
+    },
+    "datePrecision": "period",
+    "displayDate": "1789–1802",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "multi_point",
+      "marker": {
+        "label": "Thừa Thiên Huế"
+      },
+      "provinceNames": [
+        "Thừa Thiên Huế"
+      ],
+      "historicalLocations": [
+        "Thừa Thiên Huế"
+      ]
+    },
+    "focusGeometry": {
+      "mode": "bounds",
+      "provinceNames": [
+        "Thừa Thiên Huế"
+      ]
+    }
+  },
+  "summary": {
+    "homepageTitle": "Giai đoạn 1789–1802: Suy vong",
+    "homepageSummary": "Giai đoạn 1789–1802: Suy vong. Quang Trung mất năm 1792; triều Tây Sơn suy yếu và thất bại trước Nguyễn Ánh.",
+    "cardSummary": "Quang Trung mất năm 1792; triều Tây Sơn suy yếu và thất bại trước Nguyễn Ánh."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Giai đoạn 1789–1802: Suy vong. Quang Trung mất năm 1792; triều Tây Sơn suy yếu và thất bại trước Nguyễn Ánh.",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 8: Khởi nghĩa và chiến tranh giải phóng trong lịch sử Việt Nam. Quang Trung mất năm 1792; triều Tây Sơn suy yếu và thất bại trước Nguyễn Ánh.",
+    "significance": "Là mốc quan trọng về tổ chức nhà nước, cải cách hoặc chủ quyền được SGK 11 nhấn mạnh.",
+    "keyFacts": [
+      "Giai đoạn 1789–1802: Suy vong",
+      "1789–1802",
+      "Thừa Thiên Huế",
+      "Quang Trung mất năm 1792; triều Tây Sơn suy yếu và thất bại trước Nguyễn Ánh."
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 11,
+      "book": "Lịch sử 11 - Cánh Diều",
+      "lesson": "Bài 8: Khởi nghĩa và chiến tranh giải phóng trong lịch sử Việt Nam",
+      "pageStart": 62,
+      "pageEnd": 62,
+      "excerpt": "Quang Trung mất năm 1792; triều Tây Sơn suy yếu và thất bại trước Nguyễn Ánh."
+    }
+  ],
+  "hierarchy": {
+    "rootId": "vm-khoi-nghia-va-giai-phong",
+    "parentId": "phong-trao-tay-son",
+    "level": 2,
+    "orderInParent": 4
+  },
+  "associations": {
+    "relatedEventIds": [
+      "tay-son-gd2-rach-gam-1785",
+      "phong-trao-tay-son",
+      "tay-son-gd1-1771-1777",
+      "tay-son-gd3-1786-1789"
+    ],
+    "predecessorEventIds": [
+      "tay-son-gd3-1786-1789"
+    ]
+  },
+  "display": {
+    "showOnHomepage": false,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "Quang Trung mất năm 1792; triều Tây Sơn suy yếu và thất bại trước Nguyễn Ánh. || [SGK11:tay-son-gd4-1789-1802] Quang Trung mất năm 1792; triều Tây Sơn suy yếu và thất bại trước Nguyễn Ánh.",
+  "merge": {
+    "sourceGrades": "11",
+    "sourceIds": "tay-son-gd4-1789-1802",
+    "mergedCount": 1,
+    "sourceFiles": "SGK11_event_master_flattened_v2(1).xlsx",
+    "textbookRefsAll": "SGK11: Bài 8: Khởi nghĩa và chiến tranh giải phóng trong lịch sử Việt Nam tr.62 [tay-son-gd4-1789-1802]"
+  },
+  "validation": {
+    "status": "CHECK",
+    "issues": "multi_point thiếu markers/marker đại diện"
+  }
+}

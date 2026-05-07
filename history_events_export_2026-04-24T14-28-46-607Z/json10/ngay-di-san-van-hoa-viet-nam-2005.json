@@ -1,0 +1,93 @@
+{
+  "id": "ngay-di-san-van-hoa-viet-nam-2005",
+  "slug": "ngay-di-san-van-hoa-viet-nam-2005",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Quyết định lấy ngày 23/11 là Ngày Di sản Văn hóa Việt Nam",
+    "short": "Ngày Di sản VH Việt Nam"
+  },
+  "classification": {
+    "eventType": "cultural",
+    "eventSubtype": "heritage_policy",
+    "tags": [
+      "Ngày Di sản Văn hóa Việt Nam",
+      2005,
+      "bảo tồn di sản"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      10
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 2005,
+      "month": 11,
+      "day": 24
+    },
+    "datePrecision": "day",
+    "displayDate": "24/11/2005",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "nationwide"
+    },
+    "focusGeometry": {
+      "mode": "auto"
+    }
+  },
+  "summary": {
+    "homepageTitle": "Quyết định lấy ngày 23/11 là Ngày Di sản Văn hóa Việt Nam",
+    "homepageSummary": "Quyết định năm 2005 lấy ngày 23/11 hằng năm là Ngày Di sản Văn hóa Việt Nam.",
+    "cardSummary": "Ngày Di sản Văn hóa Việt Nam từ năm 2005."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Ngày 24/11/2005, Thủ tướng Chính phủ quyết định lấy ngày 23/11 hằng năm là Ngày Di sản Văn hóa Việt Nam.",
+    "detailedNarrative": "Trong SGK, sự kiện này được nêu cùng với Sắc lệnh 65/SL như một dấu mốc hiện đại trong công tác bảo tồn và phát huy di sản văn hóa. Đây là sự kiện toàn quốc, phù hợp với timeline và nhóm dữ liệu chính sách văn hóa.",
+    "significance": "Khẳng định tầm quan trọng của di sản văn hóa trong đời sống hiện đại và trong giáo dục lịch sử.",
+    "keyFacts": [
+      "Ngày 24/11/2005",
+      "Lấy ngày 23/11 hằng năm làm Ngày Di sản Văn hóa Việt Nam",
+      "Là quyết định ở phạm vi toàn quốc"
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 10,
+      "book": "Lịch sử 10 - Cánh Diều",
+      "theme": "Chủ đề 2: Vai trò của Sử học",
+      "lesson": "Bài 4: Sử học với một số lĩnh vực, ngành nghề hiện đại",
+      "pageStart": 28,
+      "pageEnd": 29,
+      "excerpt": "Ngày 24/11/2005, có quyết định lấy ngày 23/11 hằng năm là Ngày Di sản Văn hóa Việt Nam."
+    }
+  ],
+  "hierarchy": {
+    "rootId": "vm-dai-viet",
+    "parentId": "vm-dai-viet",
+    "level": 1,
+    "orderInParent": 37
+  },
+  "display": {
+    "showOnHomepage": false,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "merge": {
+    "sourceGrades": "10",
+    "sourceIds": "ngay-di-san-van-hoa-viet-nam-2005",
+    "mergedCount": 1,
+    "sourceFiles": "SGK10_event_master_flattened_v2(1).xlsx",
+    "textbookRefsAll": "SGK10: Bài 4: Sử học với một số lĩnh vực, ngành nghề hiện đại tr.28-29 [ngay-di-san-van-hoa-viet-nam-2005]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

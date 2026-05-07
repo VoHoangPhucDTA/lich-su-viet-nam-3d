@@ -1,0 +1,113 @@
+{
+  "id": "di-tich-tra-kieu",
+  "slug": "di-tich-tra-kieu",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Di tích Trà Kiệu",
+    "short": "Trà Kiệu"
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "capital_site",
+    "tags": [
+      "Trà Kiệu",
+      "kinh đô",
+      "Chăm-pa"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      10
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 200
+    },
+    "end": {
+      "year": 1000
+    },
+    "datePrecision": "period",
+    "displayDate": "Thời Chăm-pa",
+    "isApproximate": true
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "point",
+      "marker": {
+        "lat": 15.807,
+        "lng": 108.177,
+        "label": "Trà Kiệu"
+      },
+      "provinceNames": [
+        "Quảng Nam"
+      ],
+      "historicalLocations": [
+        "Trà Kiệu"
+      ]
+    },
+    "focusGeometry": {
+      "mode": "marker",
+      "center": {
+        "lat": 15.807,
+        "lng": 108.177
+      },
+      "zoom": 11,
+      "provinceNames": [
+        "Quảng Nam"
+      ]
+    }
+  },
+  "summary": {
+    "homepageTitle": "Di tích Trà Kiệu",
+    "homepageSummary": "Trà Kiệu là một di tích quan trọng gắn với trung tâm chính trị của Chăm-pa.",
+    "cardSummary": "Di tích Trà Kiệu gắn với kinh đô Chăm-pa."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Trà Kiệu là một địa điểm quan trọng trong lịch sử Chăm-pa, thường được xem là một trung tâm chính trị sớm của vương quốc này.",
+    "detailedNarrative": "Trong tài liệu SGK và hình minh họa, Trà Kiệu được nhắc như một di tích quan trọng của Chăm-pa. Việc gắn sự kiện với Trà Kiệu giúp hệ thống có điểm địa lý cụ thể để trực quan hóa trên bản đồ 3D.",
+    "significance": "Giúp người học nhận diện một trung tâm chính trị – văn hóa cụ thể của Chăm-pa trên không gian Việt Nam hiện nay.",
+    "keyFacts": [
+      "Nằm ở Quảng Nam",
+      "Gắn với kinh đô sớm của Chăm-pa",
+      "Phù hợp hiển thị điểm trên bản đồ"
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 10,
+      "book": "Lịch sử 10 - Cánh Diều",
+      "theme": "Chủ đề 6: Một số nền văn minh trên đất nước Việt Nam trước năm 1858",
+      "lesson": "Bài 13: Văn minh Chăm-pa, Văn minh Phù Nam",
+      "pageStart": 89,
+      "pageEnd": 91,
+      "excerpt": "Trà Kiệu là một địa điểm quan trọng trong không gian văn minh Chăm-pa."
+    }
+  ],
+  "hierarchy": {
+    "rootId": "vm-cham-pa",
+    "parentId": "vm-cham-pa",
+    "level": 1,
+    "orderInParent": 5
+  },
+  "display": {
+    "showOnHomepage": true,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "merge": {
+    "sourceGrades": "10",
+    "sourceIds": "di-tich-tra-kieu",
+    "mergedCount": 1,
+    "sourceFiles": "SGK10_event_master_flattened_v2(1).xlsx",
+    "textbookRefsAll": "SGK10: Bài 13: Văn minh Chăm-pa, Văn minh Phù Nam tr.89-91 [di-tich-tra-kieu]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

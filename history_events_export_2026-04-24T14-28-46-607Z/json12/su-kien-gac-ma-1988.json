@@ -1,0 +1,142 @@
+{
+  "id": "su-kien-gac-ma-1988",
+  "slug": "su-kien-gac-ma-1988",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Sự kiện Gạc Ma (14-3-1988)",
+    "short": "Sự kiện Gạc Ma",
+    "alternatives": [
+      "Sự kiện Gạc Ma (14-3-1988) — chi tiết SGK12",
+      "su-kien-gac-ma-1988-sgk12"
+    ]
+  },
+  "classification": {
+    "eventType": "military",
+    "eventSubtype": "territorial_defense",
+    "tags": [
+      "Sự kiện Gạc Ma (14-3-1988)",
+      "14-3-1988",
+      "Khánh Hòa",
+      "Tàu chiến Trung Quốc tấn công; 64 chiến sĩ Việt Nam hi sinh.",
+      "Sự kiện Gạc Ma (14-3-1988) — chi tiết SGK12",
+      1988,
+      "trùng_sgk"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11,
+      12
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1988
+    },
+    "datePrecision": "day",
+    "displayDate": "14-3-1988",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "point",
+      "marker": {
+        "label": "Khánh Hòa"
+      },
+      "provinceNames": [
+        "Khánh Hòa"
+      ],
+      "historicalLocations": [
+        "Khánh Hòa",
+        "Gạc Ma",
+        "Trường Sa"
+      ]
+    },
+    "focusGeometry": {
+      "mode": "marker"
+    }
+  },
+  "summary": {
+    "homepageTitle": "Sự kiện Gạc Ma (14-3-1988)",
+    "homepageSummary": "Sự kiện Gạc Ma (14-3-1988). Tàu chiến Trung Quốc tấn công; 64 chiến sĩ Việt Nam hi sinh.",
+    "cardSummary": "Tàu chiến Trung Quốc tấn công; 64 chiến sĩ Việt Nam hi sinh."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Sự kiện Gạc Ma (14-3-1988). Tàu chiến Trung Quốc tấn công; 64 chiến sĩ Việt Nam hi sinh.",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 9: Bảo vệ Tổ quốc sau năm 1975 và bài học lịch sử, trang 57–58. Nội dung trong file Excel được chuẩn hóa để nhập hệ thống; khi triển khai chính thức, nhóm nên bổ sung tường thuật chi tiết bám SGK và tư liệu gốc.",
+    "significance": "Là mốc quan trọng trong tiến trình đấu tranh quân sự, bảo vệ hoặc giải phóng đất nước của Việt Nam theo SGK 12.",
+    "keyFacts": [
+      "Sự kiện Gạc Ma (14-3-1988)",
+      "14-3-1988",
+      "Khánh Hòa",
+      "Tàu chiến Trung Quốc tấn công; 64 chiến sĩ Việt Nam hi sinh.",
+      "Sự kiện Gạc Ma (14-3-1988) — chi tiết SGK12",
+      1988,
+      "Gạc Ma",
+      "Trường Sa"
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 11,
+      "book": "Lịch sử 11 - Cánh Diều",
+      "lesson": "Bài 13: Lịch sử bảo vệ chủ quyền, các quyền và lợi ích hợp pháp của Việt Nam ở Biển Đông",
+      "pageStart": 89,
+      "pageEnd": 89,
+      "excerpt": "Tàu chiến Trung Quốc tấn công; 64 chiến sĩ Việt Nam hi sinh."
+    }
+  ],
+  "hierarchy": {
+    "rootId": "vm-chu-quyen-bien-dong",
+    "parentId": "vm-chu-quyen-bien-dong",
+    "level": 1,
+    "orderInParent": 6
+  },
+  "associations": {
+    "relatedEventIds": [
+      "doi-bac-hai-the-ky-18",
+      "vm-chu-quyen-bien-dong",
+      "quan-ly-hoang-sa-truong-sa-nguyen",
+      "hiep-dinh-elysee-1949-chuyen-giao-hoang-sa-truong-sa",
+      "vnch-tiep-quan-hoang-sa-truong-sa-1954",
+      "thanh-lap-huyen-dao-1982",
+      "luat-bien-viet-nam-2012",
+      "doc-bien-dong-2002",
+      "giai-phong-truong-sa-1975",
+      "doi-hoang-sa-the-ky-17",
+      "sach-trang-hoang-sa-truong-sa-1979-1988",
+      "viet-nam-tham-gia-unclos-1982",
+      "hiep-dinh-vinh-bac-bo-2000",
+      "trung-quoc-chiem-hoang-sa-1974"
+    ],
+    "predecessorEventIds": [
+      "giai-phong-truong-sa-1975"
+    ],
+    "successorEventIds": [
+      "thanh-lap-huyen-dao-1982"
+    ]
+  },
+  "display": {
+    "showOnHomepage": false,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "Tàu chiến Trung Quốc tấn công; 64 chiến sĩ Việt Nam hi sinh. || [SGK11:su-kien-gac-ma-1988] Tàu chiến Trung Quốc tấn công; 64 chiến sĩ Việt Nam hi sinh. || [SGK12:su-kien-gac-ma-1988-sgk12] su-kien-gac-ma-1988 (SGK11) | Trùng: su-kien-gac-ma-1988 (SGK11)",
+  "merge": {
+    "sourceGrades": "11 | 12",
+    "sourceIds": "su-kien-gac-ma-1988 | su-kien-gac-ma-1988-sgk12",
+    "mergedCount": 2,
+    "sourceFiles": "SGK11_event_master_flattened_v2(1).xlsx | SGK12_event_master_flattened(1).xlsx",
+    "textbookRefsAll": "SGK11: Bài 13: Lịch sử bảo vệ chủ quyền, các quyền và lợi ích hợp pháp của Việt Nam ở Biển Đông tr.89 [su-kien-gac-ma-1988] || SGK12: Bài 9: Bảo vệ Tổ quốc sau năm 1975 và bài học lịch sử tr.57-58 [su-kien-gac-ma-1988-sgk12]",
+    "notes": "Merged 2 source rows into canonical id 'su-kien-gac-ma-1988'."
+  },
+  "validation": {
+    "status": "CHECK",
+    "issues": "geoType cần marker nhưng thiếu lat/lng"
+  }
+}

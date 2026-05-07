@@ -1,0 +1,119 @@
+{
+  "id": "hcm-qua-doi-2-9-1969",
+  "slug": "hcm-qua-doi-2-9-1969",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Chủ tịch Hồ Chí Minh từ trần (2-9-1969)",
+    "short": "Chủ tịch Hồ Chí Minh từ trần"
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "milestone",
+    "tags": [
+      "Chủ tịch Hồ Chí Minh từ trần (2-9-1969)",
+      1969,
+      "Hà Nội"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1969
+    },
+    "end": {
+      "year": 1969
+    },
+    "datePrecision": "year",
+    "displayDate": "1969",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "point",
+      "marker": {
+        "lat": 21.0285,
+        "lng": 105.8542,
+        "label": "Hà Nội"
+      },
+      "provinceNames": [
+        "Hà Nội"
+      ],
+      "historicalLocations": [
+        "Hà Nội"
+      ]
+    },
+    "focusGeometry": {
+      "mode": "marker",
+      "center": {
+        "lat": 21.0285,
+        "lng": 105.8542
+      },
+      "zoom": 9
+    }
+  },
+  "summary": {
+    "homepageTitle": "Chủ tịch Hồ Chí Minh từ trần (2-9-1969)",
+    "homepageSummary": "Chủ tịch Hồ Chí Minh từ trần (2-9-1969). —",
+    "cardSummary": "—"
+  },
+  "textbookContent": {
+    "canonicalSummary": "Chủ tịch Hồ Chí Minh từ trần (2-9-1969).",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 14–16: Hồ Chí Minh – cuộc đời, sự nghiệp, dấu ấn, trang 89. Nội dung trong file Excel được chuẩn hóa để nhập hệ thống; khi triển khai chính thức, nhóm nên bổ sung tường thuật chi tiết bám SGK và tư liệu gốc.",
+    "significance": "Là mốc quan trọng trong tiến trình cách mạng, xây dựng nhà nước, đối ngoại hoặc tổ chức lực lượng theo SGK 12.",
+    "keyFacts": [
+      "Chủ tịch Hồ Chí Minh từ trần (2-9-1969)",
+      1969,
+      "Hà Nội"
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 12,
+      "book": "Lịch sử 12 - Cánh Diều",
+      "theme": "Chủ đề 6: Chủ tịch Hồ Chí Minh",
+      "lesson": "Bài 14–16: Hồ Chí Minh – cuộc đời, sự nghiệp, dấu ấn",
+      "pageStart": 89,
+      "pageEnd": 89,
+      "excerpt": "Chủ tịch Hồ Chí Minh từ trần (2-9-1969)"
+    }
+  ],
+  "hierarchy": {
+    "rootId": "ho-chi-minh-cuoc-doi-su-nghiep-collection",
+    "parentId": "ho-chi-minh-cuoc-doi-su-nghiep-collection",
+    "level": 1,
+    "orderInParent": 9
+  },
+  "associations": {
+    "predecessorEventIds": [
+      "hiep-dinh-so-bo-6-3-1946"
+    ],
+    "successorEventIds": [
+      "unesco-vinh-danh-hcm-1987"
+    ]
+  },
+  "display": {
+    "showOnHomepage": true,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "— || [SGK12:hcm-qua-doi-2-9-1969] —",
+  "merge": {
+    "sourceGrades": "12",
+    "sourceIds": "hcm-qua-doi-2-9-1969",
+    "mergedCount": 1,
+    "sourceFiles": "SGK12_event_master_flattened(1).xlsx",
+    "textbookRefsAll": "SGK12: Bài 14–16: Hồ Chí Minh – cuộc đời, sự nghiệp, dấu ấn tr.89 [hcm-qua-doi-2-9-1969]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

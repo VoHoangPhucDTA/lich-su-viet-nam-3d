@@ -1,0 +1,122 @@
+{
+  "id": "cai-cach-hql-chinh-tri",
+  "slug": "cai-cach-hql-chinh-tri",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Cải cách chính trị–quân sự của Hồ Quý Ly",
+    "short": "Cải cách chính trị–quân sự của Hồ Quý Ly"
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "administrative_reform",
+    "tags": [
+      "Cải cách chính trị–quân sự của Hồ Quý Ly",
+      "1397–1405",
+      "Thanh Hóa",
+      "Đổi đơn vị hành chính",
+      "xây thành Tây Đô",
+      "cải tổ quân đội."
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1397
+    },
+    "end": {
+      "year": 1405
+    },
+    "datePrecision": "period",
+    "displayDate": "1397–1405",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "point",
+      "marker": {
+        "label": "Thanh Hóa"
+      },
+      "provinceNames": [
+        "Thanh Hóa"
+      ],
+      "historicalLocations": [
+        "Thanh Hóa"
+      ]
+    },
+    "focusGeometry": {
+      "mode": "marker"
+    }
+  },
+  "summary": {
+    "homepageTitle": "Cải cách chính trị–quân sự của Hồ Quý Ly",
+    "homepageSummary": "Cải cách chính trị–quân sự của Hồ Quý Ly. Đổi đơn vị hành chính, xây thành Tây Đô, cải tổ quân đội.",
+    "cardSummary": "Đổi đơn vị hành chính, xây thành Tây Đô, cải tổ quân đội."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Cải cách chính trị–quân sự của Hồ Quý Ly. Đổi đơn vị hành chính, xây thành Tây Đô, cải tổ quân đội.",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 9: Cuộc cải cách của Hồ Quý Ly và triều Hồ. Đổi đơn vị hành chính, xây thành Tây Đô, cải tổ quân đội.",
+    "significance": "Là mốc quan trọng về tổ chức nhà nước, cải cách hoặc chủ quyền được SGK 11 nhấn mạnh.",
+    "keyFacts": [
+      "Cải cách chính trị–quân sự của Hồ Quý Ly",
+      "1397–1405",
+      "Thanh Hóa",
+      "Đổi đơn vị hành chính",
+      "xây thành Tây Đô",
+      "cải tổ quân đội."
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 11,
+      "book": "Lịch sử 11 - Cánh Diều",
+      "lesson": "Bài 9: Cuộc cải cách của Hồ Quý Ly và triều Hồ",
+      "pageStart": 65,
+      "pageEnd": 66,
+      "excerpt": "Đổi đơn vị hành chính, xây thành Tây Đô, cải tổ quân đội."
+    }
+  ],
+  "hierarchy": {
+    "rootId": "cai-cach-ho-quy-ly",
+    "parentId": "cai-cach-ho-quy-ly",
+    "level": 1,
+    "orderInParent": 1
+  },
+  "associations": {
+    "relatedEventIds": [
+      "phat-hanh-tien-giay-1396",
+      "thanh-nha-ho",
+      "cai-cach-hql-kinh-te-xa-hoi",
+      "cai-cach-ho-quy-ly",
+      "cai-cach-hql-van-hoa"
+    ],
+    "successorEventIds": [
+      "cai-cach-hql-kinh-te-xa-hoi"
+    ]
+  },
+  "display": {
+    "showOnHomepage": false,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "Đổi đơn vị hành chính, xây thành Tây Đô, cải tổ quân đội. || [SGK11:cai-cach-hql-chinh-tri] Đổi đơn vị hành chính, xây thành Tây Đô, cải tổ quân đội.",
+  "merge": {
+    "sourceGrades": "11",
+    "sourceIds": "cai-cach-hql-chinh-tri",
+    "mergedCount": 1,
+    "sourceFiles": "SGK11_event_master_flattened_v2(1).xlsx",
+    "textbookRefsAll": "SGK11: Bài 9: Cuộc cải cách của Hồ Quý Ly và triều Hồ tr.65-66 [cai-cach-hql-chinh-tri]"
+  },
+  "validation": {
+    "status": "CHECK",
+    "issues": "geoType cần marker nhưng thiếu lat/lng"
+  }
+}

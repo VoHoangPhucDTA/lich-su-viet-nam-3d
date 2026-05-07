@@ -1,0 +1,100 @@
+{
+  "id": "doi-ngoai-viet-nam-1900-nay-collection",
+  "slug": "doi-ngoai-viet-nam-1900-nay-collection",
+  "entityType": "event",
+  "eventLevel": "collection",
+  "titles": {
+    "primary": "Hoạt động đối ngoại của Việt Nam thời cận - hiện đại",
+    "short": "Hoạt động đối ngoại của Việt Nam"
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "collection_overview",
+    "tags": [
+      "Hoạt động đối ngoại của Việt Nam thời cận - hiện đại",
+      "1905–nay",
+      "collection"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1905
+    },
+    "datePrecision": "period",
+    "displayDate": "1905–nay",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "no_location"
+    },
+    "focusGeometry": {
+      "mode": "auto"
+    }
+  },
+  "summary": {
+    "homepageTitle": "Hoạt động đối ngoại của Việt Nam thời cận - hiện đại",
+    "homepageSummary": "Hoạt động đối ngoại của Việt Nam thời cận - hiện đại. Collection cha cho Bài 12–13",
+    "cardSummary": "Collection cha cho Bài 12–13"
+  },
+  "textbookContent": {
+    "canonicalSummary": "Hoạt động đối ngoại của Việt Nam thời cận - hiện đại.",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 12–13: Hoạt động đối ngoại của Việt Nam, trang 75–84. Nội dung trong file Excel được chuẩn hóa để nhập hệ thống; khi triển khai chính thức, nhóm nên bổ sung tường thuật chi tiết bám SGK và tư liệu gốc.",
+    "significance": "Là mốc quan trọng trong tiến trình cách mạng, xây dựng nhà nước, đối ngoại hoặc tổ chức lực lượng theo SGK 12.",
+    "keyFacts": [
+      "Hoạt động đối ngoại của Việt Nam thời cận - hiện đại",
+      "1905–nay"
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 12,
+      "book": "Lịch sử 12 - Cánh Diều",
+      "theme": "Chủ đề 5: Lịch sử đối ngoại của Việt Nam thời cận - hiện đại",
+      "lesson": "Bài 12–13: Hoạt động đối ngoại của Việt Nam",
+      "pageStart": 75,
+      "pageEnd": 84,
+      "excerpt": "Collection cha cho Bài 12–13"
+    }
+  ],
+  "hierarchy": {
+    "rootId": "doi-ngoai-viet-nam-1900-nay-collection",
+    "childIds": [
+      "doi-ngoai-dau-tk20-1945",
+      "doi-ngoai-khang-chien-phap",
+      "doi-ngoai-khang-chien-my",
+      "doi-ngoai-1975-1985",
+      "binh-thuong-hoa-vn-tq-1991",
+      "binh-thuong-hoa-vn-my-1995",
+      "vn-gia-nhap-asean-1995",
+      "vn-gia-nhap-wto-2007"
+    ],
+    "level": 0,
+    "orderInParent": 6
+  },
+  "display": {
+    "showOnHomepage": true,
+    "showOnTimeline": true,
+    "featured": true
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "Collection cha cho Bài 12–13 || [SGK12:doi-ngoai-viet-nam-1900-nay-collection] Collection cha cho Bài 12–13",
+  "merge": {
+    "sourceGrades": "12",
+    "sourceIds": "doi-ngoai-viet-nam-1900-nay-collection",
+    "mergedCount": 1,
+    "sourceFiles": "SGK12_event_master_flattened(1).xlsx",
+    "textbookRefsAll": "SGK12: Bài 12–13: Hoạt động đối ngoại của Việt Nam tr.75-84 [doi-ngoai-viet-nam-1900-nay-collection]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

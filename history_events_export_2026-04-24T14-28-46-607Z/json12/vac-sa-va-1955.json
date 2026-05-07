@@ -1,0 +1,92 @@
+{
+  "id": "vac-sa-va-1955",
+  "slug": "vac-sa-va-1955",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Thành lập Tổ chức Hiệp ước Vác-sa-va (1955)",
+    "short": "Thành lập Tổ chức Hiệp ước Vác-s"
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "organization_founding",
+    "tags": [
+      "Thành lập Tổ chức Hiệp ước Vác-sa-va (1955)",
+      1955
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1955
+    },
+    "end": {
+      "year": 1955
+    },
+    "datePrecision": "year",
+    "displayDate": "1955",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "no_location"
+    },
+    "focusGeometry": {
+      "mode": "auto"
+    }
+  },
+  "summary": {
+    "homepageTitle": "Thành lập Tổ chức Hiệp ước Vác-sa-va (1955)",
+    "homepageSummary": "Thành lập Tổ chức Hiệp ước Vác-sa-va (1955). —",
+    "cardSummary": "—"
+  },
+  "textbookContent": {
+    "canonicalSummary": "Thành lập Tổ chức Hiệp ước Vác-sa-va (1955).",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 2: Trật tự thế giới trong Chiến tranh lạnh, trang 13. Nội dung trong file Excel được chuẩn hóa để nhập hệ thống; khi triển khai chính thức, nhóm nên bổ sung tường thuật chi tiết bám SGK và tư liệu gốc.",
+    "significance": "Là mốc quan trọng trong tiến trình cách mạng, xây dựng nhà nước, đối ngoại hoặc tổ chức lực lượng theo SGK 12.",
+    "keyFacts": [
+      "Thành lập Tổ chức Hiệp ước Vác-sa-va (1955)",
+      1955
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 12,
+      "book": "Lịch sử 12 - Cánh Diều",
+      "theme": "Chủ đề 1: Thế giới trong và sau Chiến tranh lạnh",
+      "lesson": "Bài 2: Trật tự thế giới trong Chiến tranh lạnh",
+      "pageStart": 13,
+      "pageEnd": 13,
+      "excerpt": "Thành lập Tổ chức Hiệp ước Vác-sa-va (1955)"
+    }
+  ],
+  "hierarchy": {
+    "rootId": "vac-sa-va-1955",
+    "level": 0,
+    "orderInParent": 17
+  },
+  "display": {
+    "showOnHomepage": false,
+    "showOnTimeline": false,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "— || [SGK12:vac-sa-va-1955] —",
+  "merge": {
+    "sourceGrades": "12",
+    "sourceIds": "vac-sa-va-1955",
+    "mergedCount": 1,
+    "sourceFiles": "SGK12_event_master_flattened(1).xlsx",
+    "textbookRefsAll": "SGK12: Bài 2: Trật tự thế giới trong Chiến tranh lạnh tr.13 [vac-sa-va-1955]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

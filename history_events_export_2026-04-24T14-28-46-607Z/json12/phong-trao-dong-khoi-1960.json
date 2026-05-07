@@ -1,0 +1,114 @@
+{
+  "id": "phong-trao-dong-khoi-1960",
+  "slug": "phong-trao-dong-khoi-1960",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Phong trào Đồng Khởi miền Nam (1959–1960)",
+    "short": "Phong trào Đồng Khởi miền Nam"
+  },
+  "classification": {
+    "eventType": "military",
+    "eventSubtype": "uprising",
+    "tags": [
+      "Phong trào Đồng Khởi miền Nam (1959–1960)",
+      1960,
+      "Bến Tre"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1960
+    },
+    "end": {
+      "year": 1960
+    },
+    "datePrecision": "year",
+    "displayDate": "1960",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "polygon",
+      "provinceNames": [
+        "Bến Tre"
+      ],
+      "historicalLocations": [
+        "Nam Bộ",
+        "Bến Tre"
+      ]
+    },
+    "focusGeometry": {
+      "mode": "polygon",
+      "provinceNames": [
+        "Bến Tre"
+      ]
+    }
+  },
+  "summary": {
+    "homepageTitle": "Phong trào Đồng Khởi miền Nam (1959–1960)",
+    "homepageSummary": "Phong trào Đồng Khởi miền Nam (1959–1960). —",
+    "cardSummary": "—"
+  },
+  "textbookContent": {
+    "canonicalSummary": "Phong trào Đồng Khởi miền Nam (1959–1960).",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 8: Kháng chiến chống Mỹ, cứu nước (1954–1975), trang 45. Nội dung trong file Excel được chuẩn hóa để nhập hệ thống; khi triển khai chính thức, nhóm nên bổ sung tường thuật chi tiết bám SGK và tư liệu gốc.",
+    "significance": "Là mốc quan trọng trong tiến trình đấu tranh quân sự, bảo vệ hoặc giải phóng đất nước của Việt Nam theo SGK 12.",
+    "keyFacts": [
+      "Phong trào Đồng Khởi miền Nam (1959–1960)",
+      1960,
+      "Nam Bộ",
+      "Bến Tre"
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 12,
+      "book": "Lịch sử 12 - Cánh Diều",
+      "theme": "Chủ đề 3: Cách mạng tháng Tám và kháng chiến bảo vệ độc lập dân tộc",
+      "lesson": "Bài 8: Kháng chiến chống Mỹ, cứu nước (1954–1975)",
+      "pageStart": 45,
+      "pageEnd": 45,
+      "excerpt": "Phong trào Đồng Khởi miền Nam (1959–1960)"
+    }
+  ],
+  "hierarchy": {
+    "rootId": "khang-chien-chong-my-collection",
+    "parentId": "giai-doan-1954-1960",
+    "level": 2,
+    "orderInParent": 2
+  },
+  "associations": {
+    "predecessorEventIds": [
+      "nghi-quyet-15-tw-dang-1959"
+    ],
+    "successorEventIds": [
+      "dai-hoi-iii-dang-lao-dong-1960"
+    ]
+  },
+  "display": {
+    "showOnHomepage": true,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "— || [SGK12:phong-trao-dong-khoi-1960] —",
+  "merge": {
+    "sourceGrades": "12",
+    "sourceIds": "phong-trao-dong-khoi-1960",
+    "mergedCount": 1,
+    "sourceFiles": "SGK12_event_master_flattened(1).xlsx",
+    "textbookRefsAll": "SGK12: Bài 8: Kháng chiến chống Mỹ, cứu nước (1954–1975) tr.45 [phong-trao-dong-khoi-1960]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

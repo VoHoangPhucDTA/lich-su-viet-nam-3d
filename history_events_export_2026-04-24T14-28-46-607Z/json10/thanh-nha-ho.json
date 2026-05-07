@@ -1,0 +1,143 @@
+{
+  "id": "thanh-nha-ho",
+  "slug": "thanh-nha-ho",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Xây dựng thành nhà Hồ",
+    "short": "Thành nhà Hồ",
+    "alternatives": [
+      "Xây dựng thành Tây Đô (1397)",
+      "xay-dung-thanh-tay-do-1397"
+    ]
+  },
+  "classification": {
+    "eventType": "cultural",
+    "eventSubtype": "architecture",
+    "tags": [
+      "thành nhà Hồ",
+      1397,
+      "Thanh Hóa",
+      "UNESCO",
+      "Xây dựng thành Tây Đô (1397)",
+      "Năm 1397",
+      "Xây dựng thành Tây Đô",
+      "dời đô vào Thanh Hóa",
+      "gắn với cải cách chính trị – quân sự của Hồ Quý Ly."
+    ]
+  },
+  "coverage": {
+    "grades": [
+      10,
+      11
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1397
+    },
+    "datePrecision": "year",
+    "displayDate": "Năm 1397",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "point",
+      "marker": {
+        "lat": 20.078,
+        "lng": 105.605,
+        "label": "Thành nhà Hồ"
+      },
+      "provinceNames": [
+        "Thanh Hóa"
+      ],
+      "historicalLocations": [
+        "Tây Giai",
+        "Thành nhà Hồ",
+        "Thanh Hóa"
+      ]
+    },
+    "focusGeometry": {
+      "mode": "marker",
+      "center": {
+        "lat": 20.078,
+        "lng": 105.605
+      },
+      "zoom": 11,
+      "provinceNames": [
+        "Thanh Hóa"
+      ]
+    }
+  },
+  "summary": {
+    "homepageTitle": "Xây dựng thành nhà Hồ",
+    "homepageSummary": "Thành nhà Hồ là công trình kiến trúc đá quy mô lớn, tiêu biểu của Đại Việt cuối thế kỉ XIV.",
+    "cardSummary": "Thành nhà Hồ xây dựng năm 1397."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Xây dựng thành Tây Đô (1397). Xây dựng thành Tây Đô, dời đô vào Thanh Hóa, gắn với cải cách chính trị – quân sự của Hồ Quý Ly.",
+    "detailedNarrative": "SGK nêu thành nhà Hồ trong nhóm thành tựu kiến trúc nghệ thuật của văn minh Đại Việt. Công trình có giá trị lớn về kĩ thuật xây dựng, quy mô và khả năng tổ chức của nhà nước thời Hồ.",
+    "significance": "Là minh chứng tiêu biểu cho trình độ kiến trúc, tổ chức lao động và tư duy quân sự của Đại Việt.",
+    "keyFacts": [
+      "Nằm ở Thanh Hóa",
+      "Là công trình kiến trúc đá lớn",
+      "Năm 1397 theo nguồn bổ sung",
+      "Xây dựng thành Tây Đô (1397)",
+      "Năm 1397",
+      "Thanh Hóa",
+      "Xây dựng thành Tây Đô",
+      "dời đô vào Thanh Hóa",
+      "gắn với cải cách chính trị – quân sự của Hồ Quý Ly."
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 10,
+      "book": "Lịch sử 10 - Cánh Diều",
+      "theme": "Chủ đề 6: Một số nền văn minh trên đất nước Việt Nam trước năm 1858",
+      "lesson": "Bài 15: Những thành tựu tiêu biểu của văn minh Đại Việt",
+      "pageStart": 108,
+      "pageEnd": 108,
+      "excerpt": "Thành nhà Hồ là công trình kiến trúc tiêu biểu của văn minh Đại Việt."
+    }
+  ],
+  "hierarchy": {
+    "rootId": "vm-dai-viet",
+    "parentId": "vm-dai-viet",
+    "level": 1,
+    "orderInParent": 34
+  },
+  "associations": {
+    "relatedEventIds": [
+      "phat-hanh-tien-giay-1396",
+      "cai-cach-hql-chinh-tri",
+      "cai-cach-hql-kinh-te-xa-hoi",
+      "cai-cach-ho-quy-ly",
+      "cai-cach-hql-van-hoa"
+    ],
+    "predecessorEventIds": [
+      "phat-hanh-tien-giay-1396"
+    ]
+  },
+  "display": {
+    "showOnHomepage": true,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "[SGK11:xay-dung-thanh-tay-do-1397] Xây dựng thành Tây Đô, dời đô vào Thanh Hóa, gắn với cải cách chính trị – quân sự của Hồ Quý Ly.",
+  "merge": {
+    "sourceGrades": "10 | 11",
+    "sourceIds": "thanh-nha-ho | xay-dung-thanh-tay-do-1397",
+    "mergedCount": 2,
+    "sourceFiles": "SGK10_event_master_flattened_v2(1).xlsx | SGK11_event_master_flattened_v2(1).xlsx",
+    "textbookRefsAll": "SGK10: Bài 15: Những thành tựu tiêu biểu của văn minh Đại Việt tr.108 [thanh-nha-ho] || SGK11: Bài 9: Cuộc cải cách của Hồ Quý Ly và triều Hồ tr.65 [xay-dung-thanh-tay-do-1397]",
+    "notes": "Merged 2 source rows into canonical id 'thanh-nha-ho'."
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

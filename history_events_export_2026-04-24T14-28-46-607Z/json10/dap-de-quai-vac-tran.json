@@ -1,0 +1,93 @@
+{
+  "id": "dap-de-quai-vac-tran",
+  "slug": "dap-de-quai-vac-tran",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Đắp đê Quai Vạc thời Trần",
+    "short": "Đê Quai Vạc"
+  },
+  "classification": {
+    "eventType": "economic",
+    "eventSubtype": "dyke_construction",
+    "tags": [
+      "đê Quai Vạc",
+      1248,
+      "thời Trần",
+      "nông nghiệp"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      10
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1248
+    },
+    "datePrecision": "year",
+    "displayDate": "Năm 1248",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "nationwide"
+    },
+    "focusGeometry": {
+      "mode": "auto"
+    }
+  },
+  "summary": {
+    "homepageTitle": "Đắp đê Quai Vạc thời Trần",
+    "homepageSummary": "Việc đắp đê Quai Vạc phản ánh nỗ lực trị thủy, bảo vệ sản xuất nông nghiệp của nhà nước Đại Việt.",
+    "cardSummary": "Đắp đê Quai Vạc năm 1248."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Năm 1248, triều Trần cho đắp đê Quai Vạc, góp phần ngăn lũ, bảo vệ sản xuất nông nghiệp.",
+    "detailedNarrative": "Trong SGK, sự kiện đắp đê Quai Vạc được xem là thành tựu kinh tế tiêu biểu của Đại Việt thời Trần. Nó phản ánh sự quan tâm của nhà nước đối với thủy lợi và việc bảo vệ sản xuất trên các vùng đồng bằng.",
+    "significance": "Cho thấy kinh nghiệm quản lí nước và vai trò của nhà nước trong phát triển nông nghiệp.",
+    "keyFacts": [
+      "Năm 1248",
+      "Thuộc thời Trần",
+      "Liên quan đến trị thủy",
+      "bảo vệ nông nghiệp"
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 10,
+      "book": "Lịch sử 10 - Cánh Diều",
+      "theme": "Chủ đề 6: Một số nền văn minh trên đất nước Việt Nam trước năm 1858",
+      "lesson": "Bài 15: Những thành tựu tiêu biểu của văn minh Đại Việt",
+      "pageStart": 102,
+      "pageEnd": 102,
+      "excerpt": "Năm 1248, triều Trần cho đắp đê Quai Vạc."
+    }
+  ],
+  "hierarchy": {
+    "rootId": "vm-dai-viet",
+    "parentId": "vm-dai-viet",
+    "level": 1,
+    "orderInParent": 16
+  },
+  "display": {
+    "showOnHomepage": true,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "merge": {
+    "sourceGrades": "10",
+    "sourceIds": "dap-de-quai-vac-tran",
+    "mergedCount": 1,
+    "sourceFiles": "SGK10_event_master_flattened_v2(1).xlsx",
+    "textbookRefsAll": "SGK10: Bài 15: Những thành tựu tiêu biểu của văn minh Đại Việt tr.102 [dap-de-quai-vac-tran]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

@@ -1,0 +1,102 @@
+{
+  "id": "gian-khoan-hd981-2014",
+  "slug": "gian-khoan-hd981-2014",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Sự kiện giàn khoan Hải Dương-981 (2014)",
+    "short": "Sự kiện giàn khoan Hải Dương-981"
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "milestone",
+    "tags": [
+      "Sự kiện giàn khoan Hải Dương-981 (2014)",
+      2014
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 2014
+    },
+    "end": {
+      "year": 2014
+    },
+    "datePrecision": "year",
+    "displayDate": "2014",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "no_location",
+      "historicalLocations": [
+        "Biển Đông"
+      ]
+    },
+    "focusGeometry": {
+      "mode": "auto"
+    }
+  },
+  "summary": {
+    "homepageTitle": "Sự kiện giàn khoan Hải Dương-981 (2014)",
+    "homepageSummary": "Sự kiện giàn khoan Hải Dương-981 (2014). —",
+    "cardSummary": "—"
+  },
+  "textbookContent": {
+    "canonicalSummary": "Sự kiện giàn khoan Hải Dương-981 (2014).",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 9: Bảo vệ Tổ quốc sau năm 1975 và bài học lịch sử, trang 58. Nội dung trong file Excel được chuẩn hóa để nhập hệ thống; khi triển khai chính thức, nhóm nên bổ sung tường thuật chi tiết bám SGK và tư liệu gốc.",
+    "significance": "Là mốc quan trọng trong tiến trình cách mạng, xây dựng nhà nước, đối ngoại hoặc tổ chức lực lượng theo SGK 12.",
+    "keyFacts": [
+      "Sự kiện giàn khoan Hải Dương-981 (2014)",
+      2014,
+      "Biển Đông"
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 12,
+      "book": "Lịch sử 12 - Cánh Diều",
+      "theme": "Chủ đề 3: Bảo vệ Tổ quốc sau năm 1975",
+      "lesson": "Bài 9: Bảo vệ Tổ quốc sau năm 1975 và bài học lịch sử",
+      "pageStart": 58,
+      "pageEnd": 58,
+      "excerpt": "Sự kiện giàn khoan Hải Dương-981 (2014)"
+    }
+  ],
+  "hierarchy": {
+    "rootId": "bao-ve-to-quoc-sau-1975-collection",
+    "parentId": "bao-ve-chu-quyen-bien-dong-sau-1975",
+    "level": 2,
+    "orderInParent": 3
+  },
+  "associations": {
+    "predecessorEventIds": [
+      "trung-quoc-thanh-lap-tam-sa-2012"
+    ]
+  },
+  "display": {
+    "showOnHomepage": false,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "— || [SGK12:gian-khoan-hd981-2014] —",
+  "merge": {
+    "sourceGrades": "12",
+    "sourceIds": "gian-khoan-hd981-2014",
+    "mergedCount": 1,
+    "sourceFiles": "SGK12_event_master_flattened(1).xlsx",
+    "textbookRefsAll": "SGK12: Bài 9: Bảo vệ Tổ quốc sau năm 1975 và bài học lịch sử tr.58 [gian-khoan-hd981-2014]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

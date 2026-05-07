@@ -1,0 +1,144 @@
+{
+  "id": "tuyen-ngon-doc-lap-1945",
+  "slug": "tuyen-ngon-doc-lap-1945",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Chủ tịch Hồ Chí Minh đọc Tuyên ngôn Độc lập",
+    "short": "Tuyên ngôn Độc lập",
+    "alternatives": [
+      "Tuyên ngôn Độc lập 2/9/1945",
+      "Chủ tịch Hồ Chí Minh đọc bản Tuyên ngôn Độc lập",
+      "Tuyên ngôn Độc lập 2-9-1945",
+      "Khai sinh nước Việt Nam Dân chủ Cộng hòa",
+      "Chủ tịch Hồ Chí Minh đọc Tuyên ngôn Độc lập (2-9-1945)",
+      "tuyen-ngon-doc-lap-2-9-1945"
+    ]
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "declaration",
+    "tags": [
+      "Hồ Chí Minh",
+      "2/9/1945",
+      "Ba Đình",
+      "mentioned_in_grade10",
+      "Chủ tịch Hồ Chí Minh đọc Tuyên ngôn Độc lập (2-9-1945)",
+      1945,
+      "Hà Nội",
+      "trùng_sgk"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      10,
+      12
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1945,
+      "month": 9,
+      "day": 2
+    },
+    "datePrecision": "day",
+    "displayDate": "2/9/1945",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "point",
+      "marker": {
+        "lat": 21.0369,
+        "lng": 105.8347,
+        "label": "Quảng trường Ba Đình"
+      },
+      "provinceNames": [
+        "Hà Nội"
+      ],
+      "historicalLocations": [
+        "Ba Đình",
+        "Hà Nội"
+      ]
+    },
+    "focusGeometry": {
+      "mode": "marker",
+      "center": {
+        "lat": 21.0369,
+        "lng": 105.8347
+      },
+      "zoom": 12,
+      "provinceNames": [
+        "Hà Nội"
+      ]
+    }
+  },
+  "summary": {
+    "homepageTitle": "Chủ tịch Hồ Chí Minh đọc Tuyên ngôn Độc lập",
+    "homepageSummary": "Chủ tịch Hồ Chí Minh đọc Tuyên ngôn Độc lập tại Ba Đình, khai sinh nước Việt Nam Dân chủ Cộng hòa.",
+    "cardSummary": "Tuyên ngôn Độc lập ngày 2/9/1945."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Ngày 2/9/1945, tại Quảng trường Ba Đình, Chủ tịch Hồ Chí Minh đọc Tuyên ngôn Độc lập, khai sinh nước Việt Nam Dân chủ Cộng hòa.",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 6: Cách mạng tháng Tám năm 1945, trang 31–32, 97. Nội dung trong file Excel được chuẩn hóa để nhập hệ thống; khi triển khai chính thức, nhóm nên bổ sung tường thuật chi tiết bám SGK và tư liệu gốc.",
+    "significance": "Là mốc quan trọng trong tiến trình cách mạng, xây dựng nhà nước, đối ngoại hoặc tổ chức lực lượng theo SGK 12.",
+    "keyFacts": [
+      "Ngày 2/9/1945",
+      "Diễn ra tại Quảng trường Ba Đình",
+      "Hà Nội",
+      "Khai sinh nước Việt Nam Dân chủ Cộng hòa",
+      "Chỉ được đề cập ngắn trong SGK 10",
+      "Chủ tịch Hồ Chí Minh đọc Tuyên ngôn Độc lập (2-9-1945)",
+      1945,
+      "Hà Nội"
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 10,
+      "book": "Lịch sử 10 - Cánh Diều",
+      "theme": "Chủ đề 1: Lịch sử và Sử học",
+      "lesson": "Bài 1: Hiện thực lịch sử và nhận thức lịch sử",
+      "pageStart": 6,
+      "pageEnd": 6,
+      "excerpt": "Ngày 2-9-1945, tại Quảng trường Ba Đình, Hà Nội, Chủ tịch Hồ Chí Minh đọc bản Tuyên ngôn Độc lập."
+    }
+  ],
+  "hierarchy": {
+    "rootId": "tuyen-ngon-doc-lap-1945",
+    "level": 0,
+    "orderInParent": 0
+  },
+  "associations": {
+    "relatedEventIds": [
+      "cach-mang-thang-tam-1945"
+    ],
+    "predecessorEventIds": [
+      "bao-dai-thoai-vi-30-8-1945"
+    ],
+    "successorEventIds": [
+      "nguyen-nhan-y-nghia-cm-thang-tam"
+    ]
+  },
+  "display": {
+    "showOnHomepage": false,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "Chỉ được đề cập ngắn trong SGK 10; nên bổ sung chi tiết từ SGK lớp 11/12 hoặc nguồn uy tín khác. || [SGK10:tuyen-ngon-doc-lap-1945] Chỉ được đề cập ngắn trong SGK 10; nên bổ sung chi tiết từ SGK lớp 11/12 hoặc nguồn uy tín khác. || [SGK12:tuyen-ngon-doc-lap-2-9-1945] tuyen-ngon-doc-lap-1945 (SGK10) | Xuất hiện lại trong phần Hồ Chí Minh trang 97 | Trùng: tuyen-ngon-doc-lap-1945 (SGK10)",
+  "merge": {
+    "sourceGrades": "10 | 12",
+    "sourceIds": "tuyen-ngon-doc-lap-1945 | tuyen-ngon-doc-lap-2-9-1945",
+    "mergedCount": 2,
+    "sourceFiles": "SGK10_event_master_flattened_v2(1).xlsx | SGK12_event_master_flattened(1).xlsx",
+    "textbookRefsAll": "SGK10: Bài 1: Hiện thực lịch sử và nhận thức lịch sử tr.6 [tuyen-ngon-doc-lap-1945] || SGK12: Bài 6: Cách mạng tháng Tám năm 1945 tr.31-97 [tuyen-ngon-doc-lap-2-9-1945]",
+    "notes": "Merged 2 source rows into canonical id 'tuyen-ngon-doc-lap-1945'."
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

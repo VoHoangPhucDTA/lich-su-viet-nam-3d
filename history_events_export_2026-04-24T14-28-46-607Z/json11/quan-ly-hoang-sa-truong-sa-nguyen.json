@@ -1,0 +1,144 @@
+{
+  "id": "quan-ly-hoang-sa-truong-sa-nguyen",
+  "slug": "quan-ly-hoang-sa-truong-sa-nguyen",
+  "entityType": "event",
+  "eventLevel": "collection",
+  "titles": {
+    "primary": "Nhà Nguyễn quản lý Hoàng Sa–Trường Sa",
+    "short": "Nhà Nguyễn quản lý Hoàng Sa–Trường Sa"
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "sovereignty_management",
+    "tags": [
+      "Nhà Nguyễn quản lý Hoàng Sa–Trường Sa",
+      "1803–1858",
+      "Đà Nẵng",
+      "Khánh Hòa",
+      "Tái lập đội Hoàng Sa năm 1803; Minh Mạng cắm bia",
+      "đo đạc và vẽ bản đồ."
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1803
+    },
+    "end": {
+      "year": 1858
+    },
+    "datePrecision": "period",
+    "displayDate": "1803–1858",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "multi_point",
+      "marker": {
+        "label": "Đà Nẵng"
+      },
+      "provinceNames": [
+        "Đà Nẵng",
+        "Khánh Hòa"
+      ],
+      "historicalLocations": [
+        "Đà Nẵng",
+        "Khánh Hòa"
+      ]
+    },
+    "focusGeometry": {
+      "mode": "bounds",
+      "provinceNames": [
+        "Đà Nẵng",
+        "Khánh Hòa"
+      ]
+    }
+  },
+  "summary": {
+    "homepageTitle": "Nhà Nguyễn quản lý Hoàng Sa–Trường Sa",
+    "homepageSummary": "Nhà Nguyễn quản lý Hoàng Sa–Trường Sa. Tái lập đội Hoàng Sa năm 1803; Minh Mạng cắm bia, đo đạc và vẽ bản đồ.",
+    "cardSummary": "Tái lập đội Hoàng Sa năm 1803; Minh Mạng cắm bia, đo đạc và vẽ bản đồ."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Nhà Nguyễn quản lý Hoàng Sa–Trường Sa. Tái lập đội Hoàng Sa năm 1803; Minh Mạng cắm bia, đo đạc và vẽ bản đồ.",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 13: Lịch sử bảo vệ chủ quyền, các quyền và lợi ích hợp pháp của Việt Nam ở Biển Đông. Tái lập đội Hoàng Sa năm 1803; Minh Mạng cắm bia, đo đạc và vẽ bản đồ.",
+    "significance": "Là mốc quan trọng về tổ chức nhà nước, cải cách hoặc chủ quyền được SGK 11 nhấn mạnh.",
+    "keyFacts": [
+      "Nhà Nguyễn quản lý Hoàng Sa–Trường Sa",
+      "1803–1858",
+      "Đà Nẵng",
+      "Khánh Hòa",
+      "Tái lập đội Hoàng Sa năm 1803; Minh Mạng cắm bia",
+      "đo đạc và vẽ bản đồ."
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 11,
+      "book": "Lịch sử 11 - Cánh Diều",
+      "lesson": "Bài 13: Lịch sử bảo vệ chủ quyền, các quyền và lợi ích hợp pháp của Việt Nam ở Biển Đông",
+      "pageStart": 88,
+      "pageEnd": 88,
+      "excerpt": "Tái lập đội Hoàng Sa năm 1803; Minh Mạng cắm bia, đo đạc và vẽ bản đồ."
+    }
+  ],
+  "hierarchy": {
+    "rootId": "vm-chu-quyen-bien-dong",
+    "parentId": "vm-chu-quyen-bien-dong",
+    "childIds": [
+      "dai-nam-nhat-thong-toan-do-1838"
+    ],
+    "level": 1,
+    "orderInParent": 3
+  },
+  "associations": {
+    "relatedEventIds": [
+      "doi-bac-hai-the-ky-18",
+      "vm-chu-quyen-bien-dong",
+      "hiep-dinh-elysee-1949-chuyen-giao-hoang-sa-truong-sa",
+      "vnch-tiep-quan-hoang-sa-truong-sa-1954",
+      "doc-bien-dong-2002",
+      "thanh-lap-huyen-dao-1982",
+      "luat-bien-viet-nam-2012",
+      "giai-phong-truong-sa-1975",
+      "doi-hoang-sa-the-ky-17",
+      "dai-nam-nhat-thong-toan-do-1838",
+      "sach-trang-hoang-sa-truong-sa-1979-1988",
+      "viet-nam-tham-gia-unclos-1982",
+      "hiep-dinh-vinh-bac-bo-2000",
+      "su-kien-gac-ma-1988",
+      "trung-quoc-chiem-hoang-sa-1974"
+    ],
+    "predecessorEventIds": [
+      "doi-bac-hai-the-ky-18"
+    ],
+    "successorEventIds": [
+      "trung-quoc-chiem-hoang-sa-1974"
+    ]
+  },
+  "display": {
+    "showOnHomepage": false,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "Tái lập đội Hoàng Sa năm 1803; Minh Mạng cắm bia, đo đạc và vẽ bản đồ. || [SGK11:quan-ly-hoang-sa-truong-sa-nguyen] Tái lập đội Hoàng Sa năm 1803; Minh Mạng cắm bia, đo đạc và vẽ bản đồ.",
+  "merge": {
+    "sourceGrades": "11",
+    "sourceIds": "quan-ly-hoang-sa-truong-sa-nguyen",
+    "mergedCount": 1,
+    "sourceFiles": "SGK11_event_master_flattened_v2(1).xlsx",
+    "textbookRefsAll": "SGK11: Bài 13: Lịch sử bảo vệ chủ quyền, các quyền và lợi ích hợp pháp của Việt Nam ở Biển Đông tr.88 [quan-ly-hoang-sa-truong-sa-nguyen]"
+  },
+  "validation": {
+    "status": "CHECK",
+    "issues": "multi_point thiếu markers/marker đại diện"
+  }
+}

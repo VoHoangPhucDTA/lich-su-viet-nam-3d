@@ -1,0 +1,100 @@
+{
+  "id": "nghi-quyet-15-tw-dang-1959",
+  "slug": "nghi-quyet-15-tw-dang-1959",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Nghị quyết 15 Ban Chấp hành Trung ương Đảng (1-1959)",
+    "short": "Nghị quyết 15 Ban Chấp hành Trun"
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "resolution",
+    "tags": [
+      "Nghị quyết 15 Ban Chấp hành Trung ương Đảng (1-1959)",
+      "1-1959"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1959,
+      "month": 1
+    },
+    "end": {
+      "year": 1959,
+      "month": 1
+    },
+    "datePrecision": "month",
+    "displayDate": "1-1959",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "no_location"
+    },
+    "focusGeometry": {
+      "mode": "auto"
+    }
+  },
+  "summary": {
+    "homepageTitle": "Nghị quyết 15 Ban Chấp hành Trung ương Đảng (1-1959)",
+    "homepageSummary": "Nghị quyết 15 Ban Chấp hành Trung ương Đảng (1-1959). Bổ sung theo SGK 12; mốc chuyển hướng chiến lược ở miền Nam",
+    "cardSummary": "Bổ sung theo SGK 12; mốc chuyển hướng chiến lược ở miền Nam"
+  },
+  "textbookContent": {
+    "canonicalSummary": "Nghị quyết 15 Ban Chấp hành Trung ương Đảng (1-1959).",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 8: Kháng chiến chống Mỹ, cứu nước (1954–1975), trang 45. Nội dung trong file Excel được chuẩn hóa để nhập hệ thống; khi triển khai chính thức, nhóm nên bổ sung tường thuật chi tiết bám SGK và tư liệu gốc.",
+    "significance": "Là mốc quan trọng trong tiến trình cách mạng, xây dựng nhà nước, đối ngoại hoặc tổ chức lực lượng theo SGK 12.",
+    "keyFacts": [
+      "Nghị quyết 15 Ban Chấp hành Trung ương Đảng (1-1959)",
+      "1-1959"
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 12,
+      "book": "Lịch sử 12 - Cánh Diều",
+      "theme": "Chủ đề 3: Cách mạng tháng Tám và kháng chiến bảo vệ độc lập dân tộc",
+      "lesson": "Bài 8: Kháng chiến chống Mỹ, cứu nước (1954–1975)",
+      "pageStart": 45,
+      "pageEnd": 45,
+      "excerpt": "Bổ sung theo SGK 12; mốc chuyển hướng chiến lược ở miền Nam"
+    }
+  ],
+  "hierarchy": {
+    "rootId": "khang-chien-chong-my-collection",
+    "parentId": "giai-doan-1954-1960",
+    "level": 2,
+    "orderInParent": 1
+  },
+  "associations": {
+    "successorEventIds": [
+      "phong-trao-dong-khoi-1960"
+    ]
+  },
+  "display": {
+    "showOnHomepage": true,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "Bổ sung theo SGK 12; mốc chuyển hướng chiến lược ở miền Nam || [SGK12:nghi-quyet-15-tw-dang-1959] Bổ sung theo SGK 12; mốc chuyển hướng chiến lược ở miền Nam",
+  "merge": {
+    "sourceGrades": "12",
+    "sourceIds": "nghi-quyet-15-tw-dang-1959",
+    "mergedCount": 1,
+    "sourceFiles": "SGK12_event_master_flattened(1).xlsx",
+    "textbookRefsAll": "SGK12: Bài 8: Kháng chiến chống Mỹ, cứu nước (1954–1975) tr.45 [nghi-quyet-15-tw-dang-1959]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

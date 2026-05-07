@@ -1,0 +1,112 @@
+{
+  "id": "nuoc-van-xuan-thanh-lap-544",
+  "slug": "nuoc-van-xuan-thanh-lap-544",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Nước Vạn Xuân thành lập (544)",
+    "short": "Nước Vạn Xuân thành lập"
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "state_formation",
+    "tags": [
+      "Nước Vạn Xuân thành lập (544)",
+      "Năm 544",
+      "Hà Nội",
+      "Lý Bí xưng Nam Đế",
+      "đặt quốc hiệu Vạn Xuân",
+      "đóng đô ở Long Biên."
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 544
+    },
+    "datePrecision": "year",
+    "displayDate": "Năm 544",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "point",
+      "marker": {
+        "label": "Hà Nội"
+      },
+      "provinceNames": [
+        "Hà Nội"
+      ],
+      "historicalLocations": [
+        "Hà Nội"
+      ]
+    },
+    "focusGeometry": {
+      "mode": "marker"
+    }
+  },
+  "summary": {
+    "homepageTitle": "Nước Vạn Xuân thành lập (544)",
+    "homepageSummary": "Nước Vạn Xuân thành lập (544). Lý Bí xưng Nam Đế, đặt quốc hiệu Vạn Xuân, đóng đô ở Long Biên.",
+    "cardSummary": "Lý Bí xưng Nam Đế, đặt quốc hiệu Vạn Xuân, đóng đô ở Long Biên."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Nước Vạn Xuân thành lập (544). Lý Bí xưng Nam Đế, đặt quốc hiệu Vạn Xuân, đóng đô ở Long Biên.",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 8: Khởi nghĩa và chiến tranh giải phóng trong lịch sử Việt Nam. Lý Bí xưng Nam Đế, đặt quốc hiệu Vạn Xuân, đóng đô ở Long Biên.",
+    "significance": "Là mốc quan trọng về tổ chức nhà nước, cải cách hoặc chủ quyền được SGK 11 nhấn mạnh.",
+    "keyFacts": [
+      "Nước Vạn Xuân thành lập (544)",
+      "Năm 544",
+      "Hà Nội",
+      "Lý Bí xưng Nam Đế",
+      "đặt quốc hiệu Vạn Xuân",
+      "đóng đô ở Long Biên."
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 11,
+      "book": "Lịch sử 11 - Cánh Diều",
+      "lesson": "Bài 8: Khởi nghĩa và chiến tranh giải phóng trong lịch sử Việt Nam",
+      "pageStart": 57,
+      "pageEnd": 58,
+      "excerpt": "Lý Bí xưng Nam Đế, đặt quốc hiệu Vạn Xuân, đóng đô ở Long Biên."
+    }
+  ],
+  "hierarchy": {
+    "rootId": "vm-khoi-nghia-va-giai-phong",
+    "parentId": "khoi-nghia-ly-bi",
+    "level": 2,
+    "orderInParent": 1
+  },
+  "associations": {
+    "relatedEventIds": [
+      "khoi-nghia-ly-bi"
+    ]
+  },
+  "display": {
+    "showOnHomepage": false,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "Lý Bí xưng Nam Đế, đặt quốc hiệu Vạn Xuân, đóng đô ở Long Biên. || [SGK11:nuoc-van-xuan-thanh-lap-544] Lý Bí xưng Nam Đế, đặt quốc hiệu Vạn Xuân, đóng đô ở Long Biên.",
+  "merge": {
+    "sourceGrades": "11",
+    "sourceIds": "nuoc-van-xuan-thanh-lap-544",
+    "mergedCount": 1,
+    "sourceFiles": "SGK11_event_master_flattened_v2(1).xlsx",
+    "textbookRefsAll": "SGK11: Bài 8: Khởi nghĩa và chiến tranh giải phóng trong lịch sử Việt Nam tr.57-58 [nuoc-van-xuan-thanh-lap-544]"
+  },
+  "validation": {
+    "status": "CHECK",
+    "issues": "geoType cần marker nhưng thiếu lat/lng"
+  }
+}

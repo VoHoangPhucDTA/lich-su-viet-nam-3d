@@ -1,0 +1,110 @@
+{
+  "id": "cai-cach-mm-dia-phuong",
+  "slug": "cai-cach-mm-dia-phuong",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Cải cách bộ máy chính quyền địa phương – Minh Mạng",
+    "short": "Cải cách bộ máy chính quyền địa phương – M"
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "administrative_reform",
+    "tags": [
+      "Cải cách bộ máy chính quyền địa phương – Minh Mạng",
+      "1831–1832",
+      "Xóa Bắc Thành và Gia Định Thành",
+      "lập 30 tỉnh và phủ Thừa Thiên",
+      "áp dụng phép Hồi tị."
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1831
+    },
+    "end": {
+      "year": 1832
+    },
+    "datePrecision": "period",
+    "displayDate": "1831–1832",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "nationwide",
+      "marker": {
+        "label": "Cải cách bộ máy chính quyền địa phương – M"
+      }
+    },
+    "focusGeometry": {
+      "mode": "auto"
+    }
+  },
+  "summary": {
+    "homepageTitle": "Cải cách bộ máy chính quyền địa phương – Minh Mạng",
+    "homepageSummary": "Cải cách bộ máy chính quyền địa phương – Minh Mạng. Xóa Bắc Thành và Gia Định Thành, lập 30 tỉnh và phủ Thừa Thiên, áp dụng phép Hồi tị.",
+    "cardSummary": "Xóa Bắc Thành và Gia Định Thành, lập 30 tỉnh và phủ Thừa Thiên, áp dụng phép Hồi tị."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Cải cách bộ máy chính quyền địa phương – Minh Mạng. Xóa Bắc Thành và Gia Định Thành, lập 30 tỉnh và phủ Thừa Thiên, áp dụng phép Hồi tị.",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 11: Cuộc cải cách của Minh Mạng (nửa đầu thế kỉ XIX). Xóa Bắc Thành và Gia Định Thành, lập 30 tỉnh và phủ Thừa Thiên, áp dụng phép Hồi tị.",
+    "significance": "Là mốc quan trọng về tổ chức nhà nước, cải cách hoặc chủ quyền được SGK 11 nhấn mạnh.",
+    "keyFacts": [
+      "Cải cách bộ máy chính quyền địa phương – Minh Mạng",
+      "1831–1832",
+      "Xóa Bắc Thành và Gia Định Thành",
+      "lập 30 tỉnh và phủ Thừa Thiên",
+      "áp dụng phép Hồi tị."
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 11,
+      "book": "Lịch sử 11 - Cánh Diều",
+      "lesson": "Bài 11: Cuộc cải cách của Minh Mạng (nửa đầu thế kỉ XIX)",
+      "pageStart": 76,
+      "pageEnd": 77,
+      "excerpt": "Xóa Bắc Thành và Gia Định Thành, lập 30 tỉnh và phủ Thừa Thiên, áp dụng phép Hồi tị."
+    }
+  ],
+  "hierarchy": {
+    "rootId": "cai-cach-minh-mang",
+    "parentId": "cai-cach-minh-mang",
+    "level": 1,
+    "orderInParent": 2
+  },
+  "associations": {
+    "relatedEventIds": [
+      "cai-cach-minh-mang",
+      "cai-cach-mm-trung-uong"
+    ],
+    "predecessorEventIds": [
+      "cai-cach-mm-trung-uong"
+    ]
+  },
+  "display": {
+    "showOnHomepage": false,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "Xóa Bắc Thành và Gia Định Thành, lập 30 tỉnh và phủ Thừa Thiên, áp dụng phép Hồi tị. || [SGK11:cai-cach-mm-dia-phuong] Xóa Bắc Thành và Gia Định Thành, lập 30 tỉnh và phủ Thừa Thiên, áp dụng phép Hồi tị.",
+  "merge": {
+    "sourceGrades": "11",
+    "sourceIds": "cai-cach-mm-dia-phuong",
+    "mergedCount": 1,
+    "sourceFiles": "SGK11_event_master_flattened_v2(1).xlsx",
+    "textbookRefsAll": "SGK11: Bài 11: Cuộc cải cách của Minh Mạng (nửa đầu thế kỉ XIX) tr.76-77 [cai-cach-mm-dia-phuong]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

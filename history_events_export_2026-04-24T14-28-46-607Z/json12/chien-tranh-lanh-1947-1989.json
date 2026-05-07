@@ -1,0 +1,92 @@
+{
+  "id": "chien-tranh-lanh-1947-1989",
+  "slug": "chien-tranh-lanh-1947-1989",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Chiến tranh lạnh (1947–1989)",
+    "short": "Chiến tranh lạnh"
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "war",
+    "tags": [
+      "Chiến tranh lạnh (1947–1989)",
+      "1947–1989"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1947
+    },
+    "end": {
+      "year": 1989
+    },
+    "datePrecision": "period",
+    "displayDate": "1947–1989",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "no_location"
+    },
+    "focusGeometry": {
+      "mode": "auto"
+    }
+  },
+  "summary": {
+    "homepageTitle": "Chiến tranh lạnh (1947–1989)",
+    "homepageSummary": "Chiến tranh lạnh (1947–1989). —",
+    "cardSummary": "—"
+  },
+  "textbookContent": {
+    "canonicalSummary": "Chiến tranh lạnh (1947–1989).",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 2: Trật tự thế giới trong Chiến tranh lạnh, trang 13. Nội dung trong file Excel được chuẩn hóa để nhập hệ thống; khi triển khai chính thức, nhóm nên bổ sung tường thuật chi tiết bám SGK và tư liệu gốc.",
+    "significance": "Là mốc quan trọng trong tiến trình cách mạng, xây dựng nhà nước, đối ngoại hoặc tổ chức lực lượng theo SGK 12.",
+    "keyFacts": [
+      "Chiến tranh lạnh (1947–1989)",
+      "1947–1989"
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 12,
+      "book": "Lịch sử 12 - Cánh Diều",
+      "theme": "Chủ đề 1: Thế giới trong và sau Chiến tranh lạnh",
+      "lesson": "Bài 2: Trật tự thế giới trong Chiến tranh lạnh",
+      "pageStart": 13,
+      "pageEnd": 13,
+      "excerpt": "Chiến tranh lạnh (1947–1989)"
+    }
+  ],
+  "hierarchy": {
+    "rootId": "chien-tranh-lanh-1947-1989",
+    "level": 0,
+    "orderInParent": 15
+  },
+  "display": {
+    "showOnHomepage": false,
+    "showOnTimeline": false,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "— || [SGK12:chien-tranh-lanh-1947-1989] —",
+  "merge": {
+    "sourceGrades": "12",
+    "sourceIds": "chien-tranh-lanh-1947-1989",
+    "mergedCount": 1,
+    "sourceFiles": "SGK12_event_master_flattened(1).xlsx",
+    "textbookRefsAll": "SGK12: Bài 2: Trật tự thế giới trong Chiến tranh lạnh tr.13 [chien-tranh-lanh-1947-1989]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

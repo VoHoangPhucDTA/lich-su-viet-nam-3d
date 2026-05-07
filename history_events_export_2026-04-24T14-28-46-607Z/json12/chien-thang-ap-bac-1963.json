@@ -1,0 +1,119 @@
+{
+  "id": "chien-thang-ap-bac-1963",
+  "slug": "chien-thang-ap-bac-1963",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Chiến thắng Ấp Bắc (1963)",
+    "short": "Chiến thắng Ấp Bắc"
+  },
+  "classification": {
+    "eventType": "military",
+    "eventSubtype": "battle",
+    "tags": [
+      "Chiến thắng Ấp Bắc (1963)",
+      1963,
+      "Tiền Giang"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1963
+    },
+    "end": {
+      "year": 1963
+    },
+    "datePrecision": "year",
+    "displayDate": "1963",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "point",
+      "marker": {
+        "lat": 10.359,
+        "lng": 106.359,
+        "label": "Tiền Giang"
+      },
+      "provinceNames": [
+        "Tiền Giang"
+      ],
+      "historicalLocations": [
+        "Tiền Giang"
+      ]
+    },
+    "focusGeometry": {
+      "mode": "marker",
+      "center": {
+        "lat": 10.359,
+        "lng": 106.359
+      },
+      "zoom": 9
+    }
+  },
+  "summary": {
+    "homepageTitle": "Chiến thắng Ấp Bắc (1963)",
+    "homepageSummary": "Chiến thắng Ấp Bắc (1963). —",
+    "cardSummary": "—"
+  },
+  "textbookContent": {
+    "canonicalSummary": "Chiến thắng Ấp Bắc (1963).",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 8: Kháng chiến chống Mỹ, cứu nước (1954–1975), trang 46. Nội dung trong file Excel được chuẩn hóa để nhập hệ thống; khi triển khai chính thức, nhóm nên bổ sung tường thuật chi tiết bám SGK và tư liệu gốc.",
+    "significance": "Là mốc quan trọng trong tiến trình đấu tranh quân sự, bảo vệ hoặc giải phóng đất nước của Việt Nam theo SGK 12.",
+    "keyFacts": [
+      "Chiến thắng Ấp Bắc (1963)",
+      1963,
+      "Tiền Giang"
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 12,
+      "book": "Lịch sử 12 - Cánh Diều",
+      "theme": "Chủ đề 3: Cách mạng tháng Tám và kháng chiến bảo vệ độc lập dân tộc",
+      "lesson": "Bài 8: Kháng chiến chống Mỹ, cứu nước (1954–1975)",
+      "pageStart": 46,
+      "pageEnd": 46,
+      "excerpt": "Chiến thắng Ấp Bắc (1963)"
+    }
+  ],
+  "hierarchy": {
+    "rootId": "khang-chien-chong-my-collection",
+    "parentId": "khang-chien-chong-my-collection",
+    "level": 1,
+    "orderInParent": 3
+  },
+  "associations": {
+    "predecessorEventIds": [
+      "chien-tranh-dac-biet-1961-1965"
+    ],
+    "successorEventIds": [
+      "chien-tranh-cuc-bo-1965-1968"
+    ]
+  },
+  "display": {
+    "showOnHomepage": true,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "— || [SGK12:chien-thang-ap-bac-1963] —",
+  "merge": {
+    "sourceGrades": "12",
+    "sourceIds": "chien-thang-ap-bac-1963",
+    "mergedCount": 1,
+    "sourceFiles": "SGK12_event_master_flattened(1).xlsx",
+    "textbookRefsAll": "SGK12: Bài 8: Kháng chiến chống Mỹ, cứu nước (1954–1975) tr.46 [chien-thang-ap-bac-1963]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

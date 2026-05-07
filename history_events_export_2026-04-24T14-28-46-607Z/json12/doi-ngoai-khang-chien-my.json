@@ -1,0 +1,102 @@
+{
+  "id": "doi-ngoai-khang-chien-my",
+  "slug": "doi-ngoai-khang-chien-my",
+  "entityType": "event",
+  "eventLevel": "collection",
+  "titles": {
+    "primary": "Hoạt động đối ngoại trong kháng chiến chống Mỹ (1954–1975)",
+    "short": "Hoạt động đối ngoại trong kháng"
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "milestone",
+    "tags": [
+      "Hoạt động đối ngoại trong kháng chiến chống Mỹ (1954–1975)",
+      "1954–1975",
+      "collection"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1954
+    },
+    "end": {
+      "year": 1975
+    },
+    "datePrecision": "period",
+    "displayDate": "1954–1975",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "no_location"
+    },
+    "focusGeometry": {
+      "mode": "auto"
+    }
+  },
+  "summary": {
+    "homepageTitle": "Hoạt động đối ngoại trong kháng chiến chống Mỹ (1954–1975)",
+    "homepageSummary": "Hoạt động đối ngoại trong kháng chiến chống Mỹ (1954–1975). —",
+    "cardSummary": "—"
+  },
+  "textbookContent": {
+    "canonicalSummary": "Hoạt động đối ngoại trong kháng chiến chống Mỹ (1954–1975).",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 12: Hoạt động đối ngoại của Việt Nam từ đầu thế kỉ XX đến năm 1975, trang 79–80. Nội dung trong file Excel được chuẩn hóa để nhập hệ thống; khi triển khai chính thức, nhóm nên bổ sung tường thuật chi tiết bám SGK và tư liệu gốc.",
+    "significance": "Là mốc quan trọng trong tiến trình cách mạng, xây dựng nhà nước, đối ngoại hoặc tổ chức lực lượng theo SGK 12.",
+    "keyFacts": [
+      "Hoạt động đối ngoại trong kháng chiến chống Mỹ (1954–1975)",
+      "1954–1975"
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 12,
+      "book": "Lịch sử 12 - Cánh Diều",
+      "theme": "Chủ đề 5: Lịch sử đối ngoại của Việt Nam thời cận - hiện đại",
+      "lesson": "Bài 12: Hoạt động đối ngoại của Việt Nam từ đầu thế kỉ XX đến năm 1975",
+      "pageStart": 79,
+      "pageEnd": 80,
+      "excerpt": "Hoạt động đối ngoại trong kháng chiến chống Mỹ (1954–1975)"
+    }
+  ],
+  "hierarchy": {
+    "rootId": "doi-ngoai-viet-nam-1900-nay-collection",
+    "parentId": "doi-ngoai-viet-nam-1900-nay-collection",
+    "level": 1,
+    "orderInParent": 3
+  },
+  "associations": {
+    "predecessorEventIds": [
+      "doi-ngoai-khang-chien-phap"
+    ],
+    "successorEventIds": [
+      "doi-ngoai-1975-1985"
+    ]
+  },
+  "display": {
+    "showOnHomepage": true,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "— || [SGK12:doi-ngoai-khang-chien-my] —",
+  "merge": {
+    "sourceGrades": "12",
+    "sourceIds": "doi-ngoai-khang-chien-my",
+    "mergedCount": 1,
+    "sourceFiles": "SGK12_event_master_flattened(1).xlsx",
+    "textbookRefsAll": "SGK12: Bài 12: Hoạt động đối ngoại của Việt Nam từ đầu thế kỉ XX đến năm 1975 tr.79-80 [doi-ngoai-khang-chien-my]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

@@ -1,0 +1,125 @@
+{
+  "id": "cai-cach-ltt-to-chuc-chinh-quyen",
+  "slug": "cai-cach-ltt-to-chuc-chinh-quyen",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Tổ chức bộ máy chính quyền thời Lê Thánh Tông",
+    "short": "Tổ chức bộ máy chính quyền thời Lê Thánh T",
+    "alternatives": [
+      "Tổ chức bộ máy nhà nước thời Lê Thánh Tông",
+      "to-chuc-nha-nuoc-le-thanh-tong"
+    ]
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "administrative_reform",
+    "tags": [
+      "Tổ chức bộ máy chính quyền thời Lê Thánh Tông",
+      "1466–1471",
+      "Lục bộ",
+      "Lục khoa",
+      "13 đạo thừa tuyên",
+      "tam ty.",
+      "Lê Thánh Tông",
+      "Lê sơ",
+      "cải cách hành chính"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      10,
+      11
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1466
+    },
+    "end": {
+      "year": 1471
+    },
+    "datePrecision": "period",
+    "displayDate": "1466–1471",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "nationwide",
+      "marker": {
+        "label": "Tổ chức bộ máy chính quyền thời Lê Thánh T"
+      }
+    },
+    "focusGeometry": {
+      "mode": "auto"
+    }
+  },
+  "summary": {
+    "homepageTitle": "Tổ chức bộ máy chính quyền thời Lê Thánh Tông",
+    "homepageSummary": "Tổ chức bộ máy chính quyền thời Lê Thánh Tông. Lục bộ, Lục khoa, 13 đạo thừa tuyên, tam ty.",
+    "cardSummary": "Lục bộ, Lục khoa, 13 đạo thừa tuyên, tam ty."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Thời Lê sơ, nhất là dưới triều vua Lê Thánh Tông, tổ chức nhà nước được củng cố và hoàn thiện.",
+    "detailedNarrative": "SGK nêu rõ dưới triều vua Lê Thánh Tông, bộ máy nhà nước được tổ chức chặt chẽ, quyền lực trung ương được tăng cường. Đây là một biểu hiện tiêu biểu cho trình độ phát triển chính trị của văn minh Đại Việt.",
+    "significance": "Là mốc quan trọng về tổ chức nhà nước, cải cách hoặc chủ quyền được SGK 11 nhấn mạnh.",
+    "keyFacts": [
+      "Tổ chức bộ máy chính quyền thời Lê Thánh Tông",
+      "1466–1471",
+      "Lục bộ",
+      "Lục khoa",
+      "13 đạo thừa tuyên",
+      "tam ty.",
+      "Thời Lê sơ",
+      "Gắn với vua Lê Thánh Tông",
+      "Bộ máy nhà nước được củng cố và hoàn thiện"
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 11,
+      "book": "Lịch sử 11 - Cánh Diều",
+      "lesson": "Bài 10: Cuộc cải cách của Lê Thánh Tông (thế kỉ XV)",
+      "pageStart": 70,
+      "pageEnd": 71,
+      "excerpt": "Lục bộ, Lục khoa, 13 đạo thừa tuyên, tam ty."
+    }
+  ],
+  "hierarchy": {
+    "rootId": "cai-cach-le-thanh-tong",
+    "parentId": "cai-cach-le-thanh-tong",
+    "level": 1,
+    "orderInParent": 1
+  },
+  "associations": {
+    "relatedEventIds": [
+      "quoc-trieu-hinh-luat",
+      "cai-cach-le-thanh-tong",
+      "cai-cach-ltt-kinh-te-van-hoa"
+    ],
+    "successorEventIds": [
+      "quoc-trieu-hinh-luat"
+    ]
+  },
+  "display": {
+    "showOnHomepage": false,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "Lục bộ, Lục khoa, 13 đạo thừa tuyên, tam ty. || [SGK11:cai-cach-ltt-to-chuc-chinh-quyen] Lục bộ, Lục khoa, 13 đạo thừa tuyên, tam ty.",
+  "merge": {
+    "sourceGrades": "10 | 11",
+    "sourceIds": "to-chuc-nha-nuoc-le-thanh-tong | cai-cach-ltt-to-chuc-chinh-quyen",
+    "mergedCount": 2,
+    "sourceFiles": "SGK10_event_master_flattened_v2(1).xlsx | SGK11_event_master_flattened_v2(1).xlsx",
+    "textbookRefsAll": "SGK10: Bài 15: Những thành tựu tiêu biểu của văn minh Đại Việt tr.100-101 [to-chuc-nha-nuoc-le-thanh-tong] || SGK11: Bài 10: Cuộc cải cách của Lê Thánh Tông (thế kỉ XV) tr.70-71 [cai-cach-ltt-to-chuc-chinh-quyen]",
+    "notes": "Merged 2 source rows into canonical id 'cai-cach-ltt-to-chuc-chinh-quyen'."
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

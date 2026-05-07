@@ -1,0 +1,93 @@
+{
+  "id": "dat-danh-hieu-tam-khoi",
+  "slug": "dat-danh-hieu-tam-khoi",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Đặt danh hiệu Tam khôi",
+    "short": "Tam khôi"
+  },
+  "classification": {
+    "eventType": "cultural",
+    "eventSubtype": "examination_title",
+    "tags": [
+      "Tam khôi",
+      1247,
+      "khoa cử"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      10
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1247
+    },
+    "datePrecision": "year",
+    "displayDate": "Năm 1247",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "no_location"
+    },
+    "focusGeometry": {
+      "mode": "auto"
+    }
+  },
+  "summary": {
+    "homepageTitle": "Đặt danh hiệu Tam khôi",
+    "homepageSummary": "Danh hiệu Tam khôi phản ánh sự hoàn thiện của chế độ khoa cử Đại Việt.",
+    "cardSummary": "Đặt danh hiệu Tam khôi năm 1247."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Năm 1247, triều đình đặt danh hiệu Tam khôi trong khoa cử, gồm Trạng nguyên, Bảng nhãn, Thám hoa.",
+    "detailedNarrative": "SGK xếp đây là một trong những mốc quan trọng của giáo dục Đại Việt. Việc đặt danh hiệu Tam khôi cho thấy chế độ khoa cử đã phát triển và được chuẩn hóa hơn.",
+    "significance": "Khẳng định vị trí của khoa bảng trong đời sống chính trị – văn hóa Đại Việt.",
+    "keyFacts": [
+      "Năm 1247",
+      "Gồm Trạng nguyên",
+      "Bảng nhãn",
+      "Thám hoa",
+      "Thể hiện sự phát triển của khoa cử"
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 10,
+      "book": "Lịch sử 10 - Cánh Diều",
+      "theme": "Chủ đề 6: Một số nền văn minh trên đất nước Việt Nam trước năm 1858",
+      "lesson": "Bài 15: Những thành tựu tiêu biểu của văn minh Đại Việt",
+      "pageStart": 104,
+      "pageEnd": 104,
+      "excerpt": "Năm 1247, triều đình đặt danh hiệu Tam khôi."
+    }
+  ],
+  "hierarchy": {
+    "rootId": "vm-dai-viet",
+    "parentId": "vm-dai-viet",
+    "level": 1,
+    "orderInParent": 26
+  },
+  "display": {
+    "showOnHomepage": true,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "merge": {
+    "sourceGrades": "10",
+    "sourceIds": "dat-danh-hieu-tam-khoi",
+    "mergedCount": 1,
+    "sourceFiles": "SGK10_event_master_flattened_v2(1).xlsx",
+    "textbookRefsAll": "SGK10: Bài 15: Những thành tựu tiêu biểu của văn minh Đại Việt tr.104 [dat-danh-hieu-tam-khoi]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}
