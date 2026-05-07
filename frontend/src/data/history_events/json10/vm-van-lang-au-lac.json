@@ -1,0 +1,124 @@
+{
+  "id": "vm-van-lang-au-lac",
+  "slug": "vm-van-lang-au-lac",
+  "entityType": "event",
+  "eventLevel": "collection",
+  "titles": {
+    "primary": "Văn minh Văn Lang – Âu Lạc",
+    "short": "Văn Lang – Âu Lạc"
+  },
+  "classification": {
+    "eventType": "cultural",
+    "eventSubtype": "civilization",
+    "tags": [
+      "Văn Lang",
+      "Âu Lạc",
+      "Đông Sơn",
+      "sông Hồng",
+      "sông Mã",
+      "sông Cả"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      10
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": -700
+    },
+    "end": {
+      "year": -179
+    },
+    "datePrecision": "approximate",
+    "displayDate": "Khoảng thế kỉ VII TCN – 179 TCN",
+    "isApproximate": true
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "multi_polygon",
+      "provinceNames": [
+        "Phú Thọ",
+        "Hà Nội",
+        "Thanh Hóa",
+        "Nghệ An"
+      ],
+      "historicalLocations": [
+        "Lưu vực sông Hồng",
+        "Lưu vực sông Mã",
+        "Lưu vực sông Cả"
+      ]
+    },
+    "focusGeometry": {
+      "mode": "bounds",
+      "zoom": 7,
+      "provinceNames": [
+        "Phú Thọ",
+        "Hà Nội",
+        "Thanh Hóa",
+        "Nghệ An"
+      ]
+    }
+  },
+  "summary": {
+    "homepageTitle": "Văn minh Văn Lang – Âu Lạc",
+    "homepageSummary": "Nền văn minh sớm của cư dân Việt cổ, hình thành trên các lưu vực sông lớn ở Bắc Bộ và Bắc Trung Bộ.",
+    "cardSummary": "Nền văn minh Việt cổ gắn với Văn Lang – Âu Lạc."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Văn minh Văn Lang – Âu Lạc là một trong những nền văn minh sớm trên đất nước Việt Nam, hình thành chủ yếu ở lưu vực sông Hồng, sông Mã và sông Cả.",
+    "detailedNarrative": "Theo SGK, văn minh Văn Lang – Âu Lạc ra đời trong điều kiện cư dân nông nghiệp lúa nước cư trú lâu đời trên các đồng bằng và trung du Bắc Bộ, Bắc Trung Bộ. Nền văn minh này gắn với sự phát triển của văn hóa Đông Sơn, sự ra đời của nước Văn Lang rồi Âu Lạc, để lại nhiều thành tựu về tổ chức xã hội, quân sự, tín ngưỡng và đời sống vật chất.",
+    "significance": "Đây là nền tảng hình thành bản sắc văn hóa Việt cổ và là cơ sở sớm cho quá trình phát triển lịch sử dân tộc Việt Nam.",
+    "keyFacts": [
+      "Hình thành chủ yếu trên lưu vực sông Hồng",
+      "sông Mã",
+      "sông Cả",
+      "Gắn với văn hóa Đông Sơn",
+      "Liên quan trực tiếp đến nước Văn Lang và Âu Lạc"
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 10,
+      "book": "Lịch sử 10 - Cánh Diều",
+      "theme": "Chủ đề 6: Một số nền văn minh trên đất nước Việt Nam trước năm 1858",
+      "lesson": "Bài 12: Văn minh Văn Lang – Âu Lạc",
+      "pageStart": 84,
+      "pageEnd": 88,
+      "excerpt": "Văn minh Văn Lang – Âu Lạc hình thành chủ yếu trên phạm vi lưu vực sông Hồng, sông Mã, sông Cả."
+    }
+  ],
+  "hierarchy": {
+    "rootId": "vm-van-lang-au-lac",
+    "childIds": [
+      "van-hoa-dong-son",
+      "nuoc-van-lang-ra-doi",
+      "to-chuc-nha-nuoc-van-lang",
+      "nuoc-au-lac-ra-doi",
+      "xay-dung-thanh-co-loa",
+      "tin-nguong-tho-hung-vuong"
+    ],
+    "level": 0,
+    "orderInParent": 0
+  },
+  "display": {
+    "showOnHomepage": true,
+    "showOnTimeline": true,
+    "featured": true
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "merge": {
+    "sourceGrades": "10",
+    "sourceIds": "vm-van-lang-au-lac",
+    "mergedCount": 1,
+    "sourceFiles": "SGK10_event_master_flattened_v2(1).xlsx",
+    "textbookRefsAll": "SGK10: Bài 12: Văn minh Văn Lang – Âu Lạc tr.84-88 [vm-van-lang-au-lac]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

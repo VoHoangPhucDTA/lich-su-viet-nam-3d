@@ -1,0 +1,118 @@
+{
+  "id": "ho-quy-ly-len-ngoi-1400",
+  "slug": "ho-quy-ly-len-ngoi-1400",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Hồ Quý Ly lên ngôi lập triều Hồ (1400)",
+    "short": "Lập triều Hồ"
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "dynastic_change",
+    "tags": [
+      "Hồ Quý Ly lên ngôi lập triều Hồ (1400)",
+      "Năm 1400",
+      "Thanh Hóa",
+      "Mốc chuyển triều đại quan trọng",
+      "đánh dấu Hồ Quý Ly lập triều Hồ năm 1400."
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1400
+    },
+    "datePrecision": "year",
+    "displayDate": "Năm 1400",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "point",
+      "marker": {
+        "label": "Tây Đô"
+      },
+      "provinceNames": [
+        "Thanh Hóa"
+      ],
+      "historicalLocations": [
+        "Tây Đô",
+        "Thanh Hóa"
+      ]
+    },
+    "focusGeometry": {
+      "mode": "marker"
+    }
+  },
+  "summary": {
+    "homepageTitle": "Hồ Quý Ly lên ngôi lập triều Hồ (1400)",
+    "homepageSummary": "Hồ Quý Ly lên ngôi lập triều Hồ (1400). Đánh dấu bước chuyển từ cải cách sang thiết lập vương triều Hồ.",
+    "cardSummary": "Đánh dấu bước chuyển từ cải cách sang thiết lập vương triều Hồ."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Hồ Quý Ly lên ngôi lập triều Hồ (1400). Đánh dấu bước chuyển từ cải cách sang thiết lập vương triều Hồ.",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 9: Cuộc cải cách của Hồ Quý Ly và triều Hồ. Đánh dấu bước chuyển từ cải cách sang thiết lập vương triều Hồ.",
+    "significance": "Là mốc then chốt để hiểu phạm vi và hệ quả chính trị của cuộc cải cách Hồ Quý Ly.",
+    "keyFacts": [
+      "Hồ Quý Ly lên ngôi lập triều Hồ (1400)",
+      "Năm 1400",
+      "Thanh Hóa",
+      "Mốc chuyển triều đại quan trọng",
+      "đánh dấu Hồ Quý Ly lập triều Hồ năm 1400."
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 11,
+      "book": "Lịch sử 11 - Cánh Diều",
+      "lesson": "Bài 9: Cuộc cải cách của Hồ Quý Ly và triều Hồ",
+      "pageStart": 65,
+      "pageEnd": 65,
+      "excerpt": "Đánh dấu bước chuyển từ cải cách sang thiết lập vương triều Hồ."
+    }
+  ],
+  "hierarchy": {
+    "rootId": "cai-cach-ho-quy-ly",
+    "parentId": "cai-cach-ho-quy-ly",
+    "level": 1,
+    "orderInParent": 6
+  },
+  "associations": {
+    "relatedEventIds": [
+      "cai-cach-ho-quy-ly",
+      "thanh-nha-ho"
+    ],
+    "predecessorEventIds": [
+      "thanh-nha-ho"
+    ],
+    "successorEventIds": [
+      "khang-chien-chong-minh-1406-1407"
+    ]
+  },
+  "display": {
+    "showOnHomepage": false,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "Mốc chuyển triều đại quan trọng, đánh dấu Hồ Quý Ly lập triều Hồ năm 1400. || [SGK11:ho-quy-ly-len-ngoi-1400] Mốc chuyển triều đại quan trọng, đánh dấu Hồ Quý Ly lập triều Hồ năm 1400.",
+  "merge": {
+    "sourceGrades": "11",
+    "sourceIds": "ho-quy-ly-len-ngoi-1400",
+    "mergedCount": 1,
+    "sourceFiles": "SGK11_event_master_flattened_v2(1).xlsx",
+    "textbookRefsAll": "SGK11: Bài 9: Cuộc cải cách của Hồ Quý Ly và triều Hồ tr.65 [ho-quy-ly-len-ngoi-1400]"
+  },
+  "validation": {
+    "status": "CHECK",
+    "issues": "geoType cần marker nhưng thiếu lat/lng"
+  }
+}

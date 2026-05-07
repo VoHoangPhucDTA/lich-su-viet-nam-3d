@@ -1,0 +1,118 @@
+{
+  "id": "vm-cham-pa",
+  "slug": "vm-cham-pa",
+  "entityType": "event",
+  "eventLevel": "collection",
+  "titles": {
+    "primary": "Văn minh Chăm-pa",
+    "short": "Chăm-pa"
+  },
+  "classification": {
+    "eventType": "cultural",
+    "eventSubtype": "civilization",
+    "tags": [
+      "Chăm-pa",
+      "miền Trung",
+      "Thu Bồn",
+      "Sa Huỳnh"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      10
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 200
+    },
+    "end": {
+      "year": 1500
+    },
+    "datePrecision": "period",
+    "displayDate": "Khoảng thế kỉ II – XV",
+    "isApproximate": true
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "polygon",
+      "provinceNames": [
+        "Quảng Nam",
+        "Quảng Ngãi",
+        "Bình Định",
+        "Ninh Thuận"
+      ],
+      "historicalLocations": [
+        "Duyên hải miền Trung",
+        "Lưu vực sông Thu Bồn"
+      ]
+    },
+    "focusGeometry": {
+      "mode": "bounds",
+      "zoom": 7,
+      "provinceNames": [
+        "Quảng Nam",
+        "Quảng Ngãi",
+        "Bình Định",
+        "Ninh Thuận"
+      ]
+    }
+  },
+  "summary": {
+    "homepageTitle": "Văn minh Chăm-pa",
+    "homepageSummary": "Nền văn minh phát triển ở vùng duyên hải và một phần cao nguyên miền Trung Việt Nam.",
+    "cardSummary": "Nền văn minh tiêu biểu ở miền Trung Việt Nam."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Văn minh Chăm-pa hình thành và phát triển trên vùng duyên hải và một phần cao nguyên miền Trung Việt Nam.",
+    "detailedNarrative": "SGK cho biết văn minh Chăm-pa hình thành trên cơ sở điều kiện tự nhiên ven biển, các dòng sông nhỏ đổ ra biển và truyền thống của văn hóa Sa Huỳnh. Trong tiến trình phát triển, Chăm-pa để lại nhiều thành tựu về tổ chức nhà nước, chữ viết, kiến trúc, tín ngưỡng và thương mại biển.",
+    "significance": "Là một thành tố quan trọng trong lịch sử văn minh trên đất nước Việt Nam trước năm 1858.",
+    "keyFacts": [
+      "Phát triển ở miền Trung Việt Nam",
+      "Gắn với văn hóa Sa Huỳnh",
+      "Có nhiều thành tựu về kiến trúc và chữ viết"
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 10,
+      "book": "Lịch sử 10 - Cánh Diều",
+      "theme": "Chủ đề 6: Một số nền văn minh trên đất nước Việt Nam trước năm 1858",
+      "lesson": "Bài 13: Văn minh Chăm-pa, Văn minh Phù Nam",
+      "pageStart": 89,
+      "pageEnd": 91,
+      "excerpt": "Văn minh Chăm-pa hình thành trên vùng duyên hải và một phần cao nguyên miền Trung Việt Nam."
+    }
+  ],
+  "hierarchy": {
+    "rootId": "vm-cham-pa",
+    "childIds": [
+      "van-hoa-sa-huynh",
+      "nha-nuoc-cham-pa-ra-doi",
+      "kien-truc-thap-cham",
+      "chu-viet-cham-co",
+      "di-tich-tra-kieu"
+    ],
+    "level": 0,
+    "orderInParent": 0
+  },
+  "display": {
+    "showOnHomepage": true,
+    "showOnTimeline": true,
+    "featured": true
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "merge": {
+    "sourceGrades": "10",
+    "sourceIds": "vm-cham-pa",
+    "mergedCount": 1,
+    "sourceFiles": "SGK10_event_master_flattened_v2(1).xlsx",
+    "textbookRefsAll": "SGK10: Bài 13: Văn minh Chăm-pa, Văn minh Phù Nam tr.89-91 [vm-cham-pa]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

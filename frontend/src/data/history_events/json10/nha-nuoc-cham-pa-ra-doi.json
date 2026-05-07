@@ -1,0 +1,106 @@
+{
+  "id": "nha-nuoc-cham-pa-ra-doi",
+  "slug": "nha-nuoc-cham-pa-ra-doi",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Nhà nước Chăm-pa ra đời",
+    "short": "Nhà nước Chăm-pa"
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "state_formation",
+    "tags": [
+      "Chăm-pa",
+      "Lâm Ấp",
+      "miền Trung"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      10
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 200
+    },
+    "datePrecision": "approximate",
+    "displayDate": "Khoảng thế kỉ II",
+    "isApproximate": true
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "polygon",
+      "provinceNames": [
+        "Quảng Nam",
+        "Quảng Trị",
+        "Quảng Ngãi"
+      ],
+      "historicalLocations": [
+        "Lâm Ấp",
+        "Chăm-pa"
+      ]
+    },
+    "focusGeometry": {
+      "mode": "bounds",
+      "zoom": 8,
+      "provinceNames": [
+        "Quảng Nam",
+        "Quảng Trị",
+        "Quảng Ngãi"
+      ]
+    }
+  },
+  "summary": {
+    "homepageTitle": "Nhà nước Chăm-pa ra đời",
+    "homepageSummary": "Nhà nước Chăm-pa hình thành sớm ở miền Trung Việt Nam.",
+    "cardSummary": "Nhà nước Chăm-pa ra đời khoảng thế kỉ II."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Nhà nước Chăm-pa ra đời khoảng thế kỉ II trên cơ sở phát triển của cư dân bản địa miền Trung.",
+    "detailedNarrative": "Theo SGK, Chăm-pa xuất hiện như một nhà nước sớm ở miền Trung Việt Nam. Sự ra đời của nhà nước này gắn với điều kiện tự nhiên ven biển, sự phát triển kinh tế và nhu cầu tổ chức xã hội của cộng đồng cư dân bản địa.",
+    "significance": "Đánh dấu bước trưởng thành về tổ chức chính trị của cư dân Chăm cổ.",
+    "keyFacts": [
+      "Ra đời khoảng thế kỉ II",
+      "Hình thành ở miền Trung Việt Nam",
+      "Là một nhà nước sớm trên đất Việt Nam"
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 10,
+      "book": "Lịch sử 10 - Cánh Diều",
+      "theme": "Chủ đề 6: Một số nền văn minh trên đất nước Việt Nam trước năm 1858",
+      "lesson": "Bài 13: Văn minh Chăm-pa, Văn minh Phù Nam",
+      "pageStart": 90,
+      "pageEnd": 91,
+      "excerpt": "Nhà nước Chăm-pa ra đời khoảng thế kỉ II."
+    }
+  ],
+  "hierarchy": {
+    "rootId": "vm-cham-pa",
+    "parentId": "vm-cham-pa",
+    "level": 1,
+    "orderInParent": 2
+  },
+  "display": {
+    "showOnHomepage": true,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "merge": {
+    "sourceGrades": "10",
+    "sourceIds": "nha-nuoc-cham-pa-ra-doi",
+    "mergedCount": 1,
+    "sourceFiles": "SGK10_event_master_flattened_v2(1).xlsx",
+    "textbookRefsAll": "SGK10: Bài 13: Văn minh Chăm-pa, Văn minh Phù Nam tr.90-91 [nha-nuoc-cham-pa-ra-doi]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

@@ -1,0 +1,93 @@
+{
+  "id": "lien-xo-thanh-lap-1922",
+  "slug": "lien-xo-thanh-lap-1922",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Thành lập Liên Xô (1922)",
+    "short": "Thành lập Liên Xô"
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "state_formation",
+    "tags": [
+      "Thành lập Liên Xô (1922)",
+      "12-1922",
+      "Sự hình thành nhà nước xã hội chủ nghĩa đầu tiên trên thế giới."
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1922
+    },
+    "datePrecision": "month",
+    "displayDate": "12-1922",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "no_location",
+      "marker": {
+        "label": "Thành lập Liên Xô"
+      }
+    },
+    "focusGeometry": {
+      "mode": "auto"
+    }
+  },
+  "summary": {
+    "homepageTitle": "Thành lập Liên Xô (1922)",
+    "homepageSummary": "Thành lập Liên Xô (1922). Sự hình thành nhà nước xã hội chủ nghĩa đầu tiên trên thế giới.",
+    "cardSummary": "Sự hình thành nhà nước xã hội chủ nghĩa đầu tiên trên thế giới."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Thành lập Liên Xô (1922). Sự hình thành nhà nước xã hội chủ nghĩa đầu tiên trên thế giới.",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 3: Sự ra đời của chủ nghĩa xã hội khoa học và Cách mạng tháng Mười Nga. Sự hình thành nhà nước xã hội chủ nghĩa đầu tiên trên thế giới.",
+    "significance": "Là mốc quan trọng về tổ chức nhà nước, cải cách hoặc chủ quyền được SGK 11 nhấn mạnh.",
+    "keyFacts": [
+      "Thành lập Liên Xô (1922)",
+      "12-1922",
+      "Sự hình thành nhà nước xã hội chủ nghĩa đầu tiên trên thế giới."
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 11,
+      "book": "Lịch sử 11 - Cánh Diều",
+      "lesson": "Bài 3: Sự ra đời của chủ nghĩa xã hội khoa học và Cách mạng tháng Mười Nga",
+      "pageStart": 23,
+      "pageEnd": 24,
+      "excerpt": "Sự hình thành nhà nước xã hội chủ nghĩa đầu tiên trên thế giới."
+    }
+  ],
+  "hierarchy": {
+    "rootId": "lien-xo-thanh-lap-1922",
+    "level": 0,
+    "orderInParent": 17
+  },
+  "display": {
+    "showOnHomepage": false,
+    "showOnTimeline": false,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "Sự hình thành nhà nước xã hội chủ nghĩa đầu tiên trên thế giới. || [SGK11:lien-xo-thanh-lap-1922] Sự hình thành nhà nước xã hội chủ nghĩa đầu tiên trên thế giới.",
+  "merge": {
+    "sourceGrades": "11",
+    "sourceIds": "lien-xo-thanh-lap-1922",
+    "mergedCount": 1,
+    "sourceFiles": "SGK11_event_master_flattened_v2(1).xlsx",
+    "textbookRefsAll": "SGK11: Bài 3: Sự ra đời của chủ nghĩa xã hội khoa học và Cách mạng tháng Mười Nga tr.23-24 [lien-xo-thanh-lap-1922]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

@@ -1,0 +1,121 @@
+{
+  "id": "tay-son-gd2-rach-gam-1785",
+  "slug": "tay-son-gd2-rach-gam-1785",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Giai đoạn 1777–1785: Đánh tan quân Xiêm (Rạch Gầm–Xoài Mút)",
+    "short": "Giai đoạn 1777–1785: Đánh tan quân Xiêm"
+  },
+  "classification": {
+    "eventType": "military",
+    "eventSubtype": "battle",
+    "tags": [
+      "Giai đoạn 1777–1785: Đánh tan quân Xiêm (Rạch Gầm–Xoài Mút)",
+      "1777–1785",
+      "Tiền Giang",
+      "Liên kết với kháng chiến chống Xiêm năm 1785."
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1777
+    },
+    "end": {
+      "year": 1785
+    },
+    "datePrecision": "period",
+    "displayDate": "1777–1785",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "point",
+      "marker": {
+        "label": "Tiền Giang"
+      },
+      "provinceNames": [
+        "Tiền Giang"
+      ],
+      "historicalLocations": [
+        "Tiền Giang"
+      ]
+    },
+    "focusGeometry": {
+      "mode": "marker"
+    }
+  },
+  "summary": {
+    "homepageTitle": "Giai đoạn 1777–1785: Đánh tan quân Xiêm (Rạch Gầm–Xoài Mút)",
+    "homepageSummary": "Giai đoạn 1777–1785: Đánh tan quân Xiêm (Rạch Gầm–Xoài Mút). Liên kết với kháng chiến chống Xiêm năm 1785.",
+    "cardSummary": "Liên kết với kháng chiến chống Xiêm năm 1785."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Giai đoạn 1777–1785: Đánh tan quân Xiêm (Rạch Gầm–Xoài Mút). Liên kết với kháng chiến chống Xiêm năm 1785.",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 8: Khởi nghĩa và chiến tranh giải phóng trong lịch sử Việt Nam. Liên kết với kháng chiến chống Xiêm năm 1785.",
+    "significance": "Là mốc quan trọng trong tiến trình quân sự và bảo vệ/chinh phục độc lập, chủ quyền của Việt Nam theo SGK 11.",
+    "keyFacts": [
+      "Giai đoạn 1777–1785: Đánh tan quân Xiêm (Rạch Gầm–Xoài Mút)",
+      "1777–1785",
+      "Tiền Giang",
+      "Liên kết với kháng chiến chống Xiêm năm 1785."
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 11,
+      "book": "Lịch sử 11 - Cánh Diều",
+      "lesson": "Bài 8: Khởi nghĩa và chiến tranh giải phóng trong lịch sử Việt Nam",
+      "pageStart": 62,
+      "pageEnd": 62,
+      "excerpt": "Liên kết với kháng chiến chống Xiêm năm 1785."
+    }
+  ],
+  "hierarchy": {
+    "rootId": "vm-khoi-nghia-va-giai-phong",
+    "parentId": "phong-trao-tay-son",
+    "level": 2,
+    "orderInParent": 2
+  },
+  "associations": {
+    "relatedEventIds": [
+      "tay-son-gd4-1789-1802",
+      "tay-son-gd1-1771-1777",
+      "tay-son-gd3-1786-1789",
+      "phong-trao-tay-son",
+      "khang-chien-chong-xiem-1785"
+    ],
+    "predecessorEventIds": [
+      "tay-son-gd1-1771-1777"
+    ],
+    "successorEventIds": [
+      "tay-son-gd3-1786-1789"
+    ]
+  },
+  "display": {
+    "showOnHomepage": false,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "Liên kết với kháng chiến chống Xiêm năm 1785. || [SGK11:tay-son-gd2-rach-gam-1785] Liên kết với kháng chiến chống Xiêm năm 1785.",
+  "merge": {
+    "sourceGrades": "11",
+    "sourceIds": "tay-son-gd2-rach-gam-1785",
+    "mergedCount": 1,
+    "sourceFiles": "SGK11_event_master_flattened_v2(1).xlsx",
+    "textbookRefsAll": "SGK11: Bài 8: Khởi nghĩa và chiến tranh giải phóng trong lịch sử Việt Nam tr.62 [tay-son-gd2-rach-gam-1785]"
+  },
+  "validation": {
+    "status": "CHECK",
+    "issues": "geoType cần marker nhưng thiếu lat/lng"
+  }
+}

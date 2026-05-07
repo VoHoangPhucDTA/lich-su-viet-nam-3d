@@ -1,0 +1,99 @@
+{
+  "id": "tong-tuyen-cu-1976",
+  "slug": "tong-tuyen-cu-1976",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Tổng tuyển cử thống nhất đất nước",
+    "short": "Tổng tuyển cử 1976"
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "election",
+    "tags": [
+      "Tổng tuyển cử",
+      "25/4/1976",
+      "thống nhất đất nước"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      10
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1976,
+      "month": 4,
+      "day": 25
+    },
+    "datePrecision": "day",
+    "displayDate": "25/4/1976",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "nationwide"
+    },
+    "focusGeometry": {
+      "mode": "auto"
+    }
+  },
+  "summary": {
+    "homepageTitle": "Tổng tuyển cử thống nhất đất nước",
+    "homepageSummary": "Cuộc Tổng tuyển cử năm 1976 là dấu mốc quan trọng của quá trình thống nhất đất nước về mặt nhà nước.",
+    "cardSummary": "Tổng tuyển cử toàn quốc ngày 25/4/1976."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Ngày 25/4/1976, cả nước tiến hành Tổng tuyển cử bầu Quốc hội chung, đánh dấu bước tiến quan trọng trong việc thống nhất đất nước.",
+    "detailedNarrative": "Theo SGK Bài 17, cuộc Tổng tuyển cử sau năm 1975 là ví dụ tiêu biểu cho sức mạnh đoàn kết của các dân tộc trong cả nước. Với phạm vi toàn quốc, đây là sự kiện rất phù hợp cho timeline và dữ liệu không gian dạng nationwide.",
+    "significance": "Thể hiện kết quả của quá trình đấu tranh thống nhất và ý chí đoàn kết của toàn dân tộc.",
+    "keyFacts": [
+      "Ngày 25/4/1976",
+      "Diễn ra trên phạm vi cả nước",
+      "Gắn với quá trình thống nhất đất nước"
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 10,
+      "book": "Lịch sử 10 - Cánh Diều",
+      "theme": "Chủ đề 7: Cộng đồng các dân tộc Việt Nam",
+      "lesson": "Bài 17: Khối đại đoàn kết dân tộc trong lịch sử Việt Nam",
+      "pageStart": 125,
+      "pageEnd": 125,
+      "excerpt": "Ngày 25/4/1976, cả nước tiến hành Tổng tuyển cử bầu Quốc hội chung."
+    }
+  ],
+  "hierarchy": {
+    "rootId": "tong-tuyen-cu-1976",
+    "level": 0,
+    "orderInParent": 0
+  },
+  "associations": {
+    "relatedEventIds": [
+      "hoi-nghi-dien-hong",
+      "mat-tran-viet-minh",
+      "mat-tran-dan-toc-giai-phong-mien-nam-1960"
+    ]
+  },
+  "display": {
+    "showOnHomepage": false,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "merge": {
+    "sourceGrades": "10",
+    "sourceIds": "tong-tuyen-cu-1976",
+    "mergedCount": 1,
+    "sourceFiles": "SGK10_event_master_flattened_v2(1).xlsx",
+    "textbookRefsAll": "SGK10: Bài 17: Khối đại đoàn kết dân tộc trong lịch sử Việt Nam tr.125 [tong-tuyen-cu-1976]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

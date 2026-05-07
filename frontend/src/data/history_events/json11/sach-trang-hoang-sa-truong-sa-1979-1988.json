@@ -1,0 +1,121 @@
+{
+  "id": "sach-trang-hoang-sa-truong-sa-1979-1988",
+  "slug": "sach-trang-hoang-sa-truong-sa-1979-1988",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Việt Nam công bố Sách Trắng về Hoàng Sa – Trường Sa (1979–1988)",
+    "short": "Việt Nam công bố Sách Trắng về Hoàng Sa –"
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "diplomatic_document",
+    "tags": [
+      "Việt Nam công bố Sách Trắng về Hoàng Sa – Trường Sa (1979–1988)",
+      "1979–1988",
+      "Các Sách Trắng được công bố để khẳng định chủ quyền và bác bỏ yêu sách trái phép."
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1979
+    },
+    "end": {
+      "year": 1988
+    },
+    "datePrecision": "period",
+    "displayDate": "1979–1988",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "no_location",
+      "marker": {
+        "label": "Việt Nam công bố Sách Trắng về Hoàng Sa –"
+      }
+    },
+    "focusGeometry": {
+      "mode": "auto"
+    }
+  },
+  "summary": {
+    "homepageTitle": "Việt Nam công bố Sách Trắng về Hoàng Sa – Trường Sa (1979–1988)",
+    "homepageSummary": "Việt Nam công bố Sách Trắng về Hoàng Sa – Trường Sa (1979–1988). Các Sách Trắng được công bố để khẳng định chủ quyền và bác bỏ yêu sách trái phép.",
+    "cardSummary": "Các Sách Trắng được công bố để khẳng định chủ quyền và bác bỏ yêu sách trái phép."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Việt Nam công bố Sách Trắng về Hoàng Sa – Trường Sa (1979–1988). Các Sách Trắng được công bố để khẳng định chủ quyền và bác bỏ yêu sách trái phép.",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 13: Lịch sử bảo vệ chủ quyền, các quyền và lợi ích hợp pháp của Việt Nam ở Biển Đông. Các Sách Trắng được công bố để khẳng định chủ quyền và bác bỏ yêu sách trái phép.",
+    "significance": "Là mốc quan trọng về tổ chức nhà nước, cải cách hoặc chủ quyền được SGK 11 nhấn mạnh.",
+    "keyFacts": [
+      "Việt Nam công bố Sách Trắng về Hoàng Sa – Trường Sa (1979–1988)",
+      "1979–1988",
+      "Các Sách Trắng được công bố để khẳng định chủ quyền và bác bỏ yêu sách trái phép."
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 11,
+      "book": "Lịch sử 11 - Cánh Diều",
+      "lesson": "Bài 13: Lịch sử bảo vệ chủ quyền, các quyền và lợi ích hợp pháp của Việt Nam ở Biển Đông",
+      "pageStart": 90,
+      "pageEnd": 90,
+      "excerpt": "Các Sách Trắng được công bố để khẳng định chủ quyền và bác bỏ yêu sách trái phép."
+    }
+  ],
+  "hierarchy": {
+    "rootId": "vm-chu-quyen-bien-dong",
+    "parentId": "vm-chu-quyen-bien-dong",
+    "level": 1,
+    "orderInParent": 11
+  },
+  "associations": {
+    "relatedEventIds": [
+      "doi-bac-hai-the-ky-18",
+      "vm-chu-quyen-bien-dong",
+      "quan-ly-hoang-sa-truong-sa-nguyen",
+      "hiep-dinh-elysee-1949-chuyen-giao-hoang-sa-truong-sa",
+      "vnch-tiep-quan-hoang-sa-truong-sa-1954",
+      "thanh-lap-huyen-dao-1982",
+      "luat-bien-viet-nam-2012",
+      "doc-bien-dong-2002",
+      "giai-phong-truong-sa-1975",
+      "doi-hoang-sa-the-ky-17",
+      "viet-nam-tham-gia-unclos-1982",
+      "hiep-dinh-vinh-bac-bo-2000",
+      "su-kien-gac-ma-1988",
+      "trung-quoc-chiem-hoang-sa-1974"
+    ],
+    "predecessorEventIds": [
+      "vnch-tiep-quan-hoang-sa-truong-sa-1954"
+    ],
+    "successorEventIds": [
+      "viet-nam-tham-gia-unclos-1982"
+    ]
+  },
+  "display": {
+    "showOnHomepage": false,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "Các Sách Trắng được công bố để khẳng định chủ quyền và bác bỏ yêu sách trái phép. || [SGK11:sach-trang-hoang-sa-truong-sa-1979-1988] Các Sách Trắng được công bố để khẳng định chủ quyền và bác bỏ yêu sách trái phép.",
+  "merge": {
+    "sourceGrades": "11",
+    "sourceIds": "sach-trang-hoang-sa-truong-sa-1979-1988",
+    "mergedCount": 1,
+    "sourceFiles": "SGK11_event_master_flattened_v2(1).xlsx",
+    "textbookRefsAll": "SGK11: Bài 13: Lịch sử bảo vệ chủ quyền, các quyền và lợi ích hợp pháp của Việt Nam ở Biển Đông tr.90 [sach-trang-hoang-sa-truong-sa-1979-1988]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

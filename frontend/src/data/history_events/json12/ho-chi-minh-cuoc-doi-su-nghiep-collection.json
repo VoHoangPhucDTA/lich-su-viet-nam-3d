@@ -1,0 +1,107 @@
+{
+  "id": "ho-chi-minh-cuoc-doi-su-nghiep-collection",
+  "slug": "ho-chi-minh-cuoc-doi-su-nghiep-collection",
+  "entityType": "event",
+  "eventLevel": "collection",
+  "titles": {
+    "primary": "Hồ Chí Minh – cuộc đời, sự nghiệp và dấu ấn lịch sử",
+    "short": "Hồ Chí Minh – cuộc đời, sự nghiệ"
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "collection_overview",
+    "tags": [
+      "Hồ Chí Minh – cuộc đời",
+      "sự nghiệp và dấu ấn lịch sử",
+      "1911–2016",
+      "collection"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1911
+    },
+    "end": {
+      "year": 2016
+    },
+    "datePrecision": "period",
+    "displayDate": "1911–2016",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "no_location"
+    },
+    "focusGeometry": {
+      "mode": "auto"
+    }
+  },
+  "summary": {
+    "homepageTitle": "Hồ Chí Minh – cuộc đời, sự nghiệp và dấu ấn lịch sử",
+    "homepageSummary": "Hồ Chí Minh – cuộc đời, sự nghiệp và dấu ấn lịch sử. Collection cha cho Bài 14–16",
+    "cardSummary": "Collection cha cho Bài 14–16"
+  },
+  "textbookContent": {
+    "canonicalSummary": "Hồ Chí Minh – cuộc đời, sự nghiệp và dấu ấn lịch sử.",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 14–16: Hồ Chí Minh – cuộc đời, sự nghiệp, dấu ấn, trang 88–104. Nội dung trong file Excel được chuẩn hóa để nhập hệ thống; khi triển khai chính thức, nhóm nên bổ sung tường thuật chi tiết bám SGK và tư liệu gốc.",
+    "significance": "Là mốc quan trọng trong tiến trình cách mạng, xây dựng nhà nước, đối ngoại hoặc tổ chức lực lượng theo SGK 12.",
+    "keyFacts": [
+      "Hồ Chí Minh – cuộc đời",
+      "sự nghiệp và dấu ấn lịch sử",
+      "1911–2016"
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 12,
+      "book": "Lịch sử 12 - Cánh Diều",
+      "theme": "Chủ đề 6: Chủ tịch Hồ Chí Minh",
+      "lesson": "Bài 14–16: Hồ Chí Minh – cuộc đời, sự nghiệp, dấu ấn",
+      "pageStart": 88,
+      "pageEnd": 104,
+      "excerpt": "Collection cha cho Bài 14–16"
+    }
+  ],
+  "hierarchy": {
+    "rootId": "ho-chi-minh-cuoc-doi-su-nghiep-collection",
+    "childIds": [
+      "hcm-ra-di-tim-duong-1911",
+      "hcm-tim-ra-con-duong-1920",
+      "hcm-sang-lap-dcs-phap-1920",
+      "thanh-lap-hoi-vn-cach-mang-thanh-nien-1925",
+      "thanh-lap-dang-csvn-1930",
+      "thanh-lap-vn-tuyen-truyen-giai-phong-quan",
+      "hiep-dinh-so-bo-6-3-1946",
+      "hcm-qua-doi-2-9-1969",
+      "unesco-vinh-danh-hcm-1987",
+      "chi-thi-05-ct-tw-2016"
+    ],
+    "level": 0,
+    "orderInParent": 7
+  },
+  "display": {
+    "showOnHomepage": true,
+    "showOnTimeline": true,
+    "featured": true
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "Collection cha cho Bài 14–16 || [SGK12:ho-chi-minh-cuoc-doi-su-nghiep-collection] Collection cha cho Bài 14–16",
+  "merge": {
+    "sourceGrades": "12",
+    "sourceIds": "ho-chi-minh-cuoc-doi-su-nghiep-collection",
+    "mergedCount": 1,
+    "sourceFiles": "SGK12_event_master_flattened(1).xlsx",
+    "textbookRefsAll": "SGK12: Bài 14–16: Hồ Chí Minh – cuộc đời, sự nghiệp, dấu ấn tr.88-104 [ho-chi-minh-cuoc-doi-su-nghiep-collection]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

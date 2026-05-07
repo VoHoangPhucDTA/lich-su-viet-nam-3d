@@ -1,0 +1,96 @@
+{
+  "id": "tuyen-bo-hoa-binh-tu-do-trung-lap-1971",
+  "slug": "tuyen-bo-hoa-binh-tu-do-trung-lap-1971",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Tuyên bố ĐNA hoà bình, tự do, trung lập (1971)",
+    "short": "Tuyên bố ĐNA hoà bình, tự do, tr"
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "milestone",
+    "tags": [
+      "Tuyên bố ĐNA hoà bình",
+      "tự do",
+      "trung lập (1971)",
+      1971
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1971
+    },
+    "end": {
+      "year": 1971
+    },
+    "datePrecision": "year",
+    "displayDate": "1971",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "no_location"
+    },
+    "focusGeometry": {
+      "mode": "auto"
+    }
+  },
+  "summary": {
+    "homepageTitle": "Tuyên bố ĐNA hoà bình, tự do, trung lập (1971)",
+    "homepageSummary": "Tuyên bố ĐNA hoà bình, tự do, trung lập (1971). —",
+    "cardSummary": "—"
+  },
+  "textbookContent": {
+    "canonicalSummary": "Tuyên bố ĐNA hoà bình, tự do, trung lập (1971).",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 4: Sự ra đời và phát triển của ASEAN, trang 22. Nội dung trong file Excel được chuẩn hóa để nhập hệ thống; khi triển khai chính thức, nhóm nên bổ sung tường thuật chi tiết bám SGK và tư liệu gốc.",
+    "significance": "Là mốc quan trọng trong tiến trình cách mạng, xây dựng nhà nước, đối ngoại hoặc tổ chức lực lượng theo SGK 12.",
+    "keyFacts": [
+      "Tuyên bố ĐNA hoà bình",
+      "tự do",
+      "trung lập (1971)",
+      1971
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 12,
+      "book": "Lịch sử 12 - Cánh Diều",
+      "theme": "Chủ đề 2: ASEAN – những chặng đường lịch sử",
+      "lesson": "Bài 4: Sự ra đời và phát triển của ASEAN",
+      "pageStart": 22,
+      "pageEnd": 22,
+      "excerpt": "Tuyên bố ĐNA hoà bình, tự do, trung lập (1971)"
+    }
+  ],
+  "hierarchy": {
+    "rootId": "tuyen-bo-hoa-binh-tu-do-trung-lap-1971",
+    "level": 0,
+    "orderInParent": 9
+  },
+  "display": {
+    "showOnHomepage": false,
+    "showOnTimeline": false,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "— || [SGK12:tuyen-bo-hoa-binh-tu-do-trung-lap-1971] —",
+  "merge": {
+    "sourceGrades": "12",
+    "sourceIds": "tuyen-bo-hoa-binh-tu-do-trung-lap-1971",
+    "mergedCount": 1,
+    "sourceFiles": "SGK12_event_master_flattened(1).xlsx",
+    "textbookRefsAll": "SGK12: Bài 4: Sự ra đời và phát triển của ASEAN tr.22 [tuyen-bo-hoa-binh-tu-do-trung-lap-1971]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

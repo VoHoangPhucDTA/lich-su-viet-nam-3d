@@ -1,0 +1,109 @@
+{
+  "id": "le-tich-dien-ly-thai-tong",
+  "slug": "le-tich-dien-ly-thai-tong",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Lễ Tịch điền thời Lý Thái Tông",
+    "short": "Lễ Tịch điền"
+  },
+  "classification": {
+    "eventType": "economic",
+    "eventSubtype": "agricultural_rite",
+    "tags": [
+      "Tịch điền",
+      "Lý Thái Tông",
+      "nông nghiệp",
+      "nghi lễ"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      10
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1038
+    },
+    "datePrecision": "year",
+    "displayDate": "Năm 1038",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "point",
+      "marker": {
+        "label": "Bố Hải Khẩu"
+      },
+      "provinceNames": [
+        "Thái Bình"
+      ],
+      "historicalLocations": [
+        "Bố Hải Khẩu",
+        "cửa Bố Hải"
+      ]
+    },
+    "focusGeometry": {
+      "mode": "auto",
+      "provinceNames": [
+        "Thái Bình"
+      ]
+    }
+  },
+  "summary": {
+    "homepageTitle": "Lễ Tịch điền thời Lý Thái Tông",
+    "homepageSummary": "Lễ Tịch điền thể hiện sự coi trọng nông nghiệp của nhà nước Đại Việt thời Lý.",
+    "cardSummary": "Lễ Tịch điền khuyến khích nông nghiệp."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Lễ Tịch điền do nhà vua trực tiếp cày ruộng là biểu hiện tiêu biểu cho chính sách khuyến nông của nhà nước Đại Việt.",
+    "detailedNarrative": "SGK đặt lễ Tịch điền trong mục kinh tế, nhấn mạnh việc vua tham gia cày ruộng để khuyến khích sản xuất nông nghiệp. Đây vừa là hoạt động kinh tế, vừa mang ý nghĩa chính trị – biểu tượng của nhà nước gắn bó với nông dân.",
+    "significance": "Phản ánh vai trò trung tâm của nông nghiệp trong đời sống kinh tế Đại Việt và chính sách khuyến nông của triều đình.",
+    "keyFacts": [
+      "Năm 1038",
+      "Liên quan đến Lý Thái Tông",
+      "Thể hiện chính sách coi trọng nông nghiệp",
+      "Tags nên có: nghi lễ",
+      "chính trị"
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 10,
+      "book": "Lịch sử 10 - Cánh Diều",
+      "theme": "Chủ đề 6: Một số nền văn minh trên đất nước Việt Nam trước năm 1858",
+      "lesson": "Bài 15: Những thành tựu tiêu biểu của văn minh Đại Việt",
+      "pageStart": 102,
+      "pageEnd": 102,
+      "excerpt": "Lễ Tịch điền cho thấy nhà nước Đại Việt rất coi trọng nông nghiệp."
+    }
+  ],
+  "hierarchy": {
+    "rootId": "vm-dai-viet",
+    "parentId": "vm-dai-viet",
+    "level": 1,
+    "orderInParent": 15
+  },
+  "display": {
+    "showOnHomepage": true,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "SGK ghi vua ngự ra cửa Bố Hải cày ruộng Tịch điền; tọa độ hiện đại cần kiểm chứng thêm từ nguồn địa danh lịch sử, nên tạm để trống. || [SGK10:le-tich-dien-ly-thai-tong] SGK ghi vua ngự ra cửa Bố Hải cày ruộng Tịch điền; tọa độ hiện đại cần kiểm chứng thêm từ nguồn địa danh lịch sử, nên tạm để trống.",
+  "merge": {
+    "sourceGrades": "10",
+    "sourceIds": "le-tich-dien-ly-thai-tong",
+    "mergedCount": 1,
+    "sourceFiles": "SGK10_event_master_flattened_v2(1).xlsx",
+    "textbookRefsAll": "SGK10: Bài 15: Những thành tựu tiêu biểu của văn minh Đại Việt tr.102 [le-tich-dien-ly-thai-tong]"
+  },
+  "validation": {
+    "status": "CHECK",
+    "issues": "geoType cần marker nhưng thiếu lat/lng"
+  }
+}

@@ -1,0 +1,123 @@
+{
+  "id": "khoi-nghia-hue-23-8-1945",
+  "slug": "khoi-nghia-hue-23-8-1945",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Khởi nghĩa giành chính quyền ở Huế (23-8-1945)",
+    "short": "Khởi nghĩa giành chính quyền ở H"
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "uprising",
+    "tags": [
+      "Khởi nghĩa giành chính quyền ở Huế (23-8-1945)",
+      "23-8-1945",
+      "Huế"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1945,
+      "month": 8,
+      "day": 23
+    },
+    "end": {
+      "year": 1945,
+      "month": 8,
+      "day": 23
+    },
+    "datePrecision": "day",
+    "displayDate": "23-8-1945",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "point",
+      "marker": {
+        "lat": 16.4637,
+        "lng": 107.5909,
+        "label": "Huế"
+      },
+      "provinceNames": [
+        "Huế"
+      ],
+      "historicalLocations": [
+        "Huế"
+      ]
+    },
+    "focusGeometry": {
+      "mode": "marker",
+      "center": {
+        "lat": 16.4637,
+        "lng": 107.5909
+      },
+      "zoom": 9
+    }
+  },
+  "summary": {
+    "homepageTitle": "Khởi nghĩa giành chính quyền ở Huế (23-8-1945)",
+    "homepageSummary": "Khởi nghĩa giành chính quyền ở Huế (23-8-1945). Bổ sung theo SGK 12; một trong ba trung tâm tổng khởi nghĩa",
+    "cardSummary": "Bổ sung theo SGK 12; một trong ba trung tâm tổng khởi nghĩa"
+  },
+  "textbookContent": {
+    "canonicalSummary": "Khởi nghĩa giành chính quyền ở Huế (23-8-1945).",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 6: Cách mạng tháng Tám năm 1945, trang 33. Nội dung trong file Excel được chuẩn hóa để nhập hệ thống; khi triển khai chính thức, nhóm nên bổ sung tường thuật chi tiết bám SGK và tư liệu gốc.",
+    "significance": "Là mốc quan trọng trong tiến trình cách mạng, xây dựng nhà nước, đối ngoại hoặc tổ chức lực lượng theo SGK 12.",
+    "keyFacts": [
+      "Khởi nghĩa giành chính quyền ở Huế (23-8-1945)",
+      "23-8-1945",
+      "Huế"
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 12,
+      "book": "Lịch sử 12 - Cánh Diều",
+      "theme": "Chủ đề 3: Cách mạng tháng Tám và kháng chiến bảo vệ độc lập dân tộc",
+      "lesson": "Bài 6: Cách mạng tháng Tám năm 1945",
+      "pageStart": 33,
+      "pageEnd": 33,
+      "excerpt": "Bổ sung theo SGK 12; một trong ba trung tâm tổng khởi nghĩa"
+    }
+  ],
+  "hierarchy": {
+    "rootId": "cach-mang-thang-tam-1945",
+    "parentId": "cach-mang-thang-tam-1945",
+    "level": 1,
+    "orderInParent": 5
+  },
+  "associations": {
+    "predecessorEventIds": [
+      "khoi-nghia-ha-noi-19-8-1945"
+    ],
+    "successorEventIds": [
+      "khoi-nghia-sai-gon-25-8-1945"
+    ]
+  },
+  "display": {
+    "showOnHomepage": true,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "Bổ sung theo SGK 12; một trong ba trung tâm tổng khởi nghĩa || [SGK12:khoi-nghia-hue-23-8-1945] Bổ sung theo SGK 12; một trong ba trung tâm tổng khởi nghĩa",
+  "merge": {
+    "sourceGrades": "12",
+    "sourceIds": "khoi-nghia-hue-23-8-1945",
+    "mergedCount": 1,
+    "sourceFiles": "SGK12_event_master_flattened(1).xlsx",
+    "textbookRefsAll": "SGK12: Bài 6: Cách mạng tháng Tám năm 1945 tr.33 [khoi-nghia-hue-23-8-1945]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

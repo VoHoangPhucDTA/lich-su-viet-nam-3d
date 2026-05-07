@@ -1,0 +1,92 @@
+{
+  "id": "hien-chuong-asean-2007",
+  "slug": "hien-chuong-asean-2007",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Hiến chương ASEAN (2007)",
+    "short": "Hiến chương ASEAN"
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "organization_founding",
+    "tags": [
+      "Hiến chương ASEAN (2007)",
+      2007
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 2007
+    },
+    "end": {
+      "year": 2007
+    },
+    "datePrecision": "year",
+    "displayDate": "2007",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "no_location"
+    },
+    "focusGeometry": {
+      "mode": "auto"
+    }
+  },
+  "summary": {
+    "homepageTitle": "Hiến chương ASEAN (2007)",
+    "homepageSummary": "Hiến chương ASEAN (2007). —",
+    "cardSummary": "—"
+  },
+  "textbookContent": {
+    "canonicalSummary": "Hiến chương ASEAN (2007).",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 5: Cộng đồng ASEAN, trang 25. Nội dung trong file Excel được chuẩn hóa để nhập hệ thống; khi triển khai chính thức, nhóm nên bổ sung tường thuật chi tiết bám SGK và tư liệu gốc.",
+    "significance": "Là mốc quan trọng trong tiến trình cách mạng, xây dựng nhà nước, đối ngoại hoặc tổ chức lực lượng theo SGK 12.",
+    "keyFacts": [
+      "Hiến chương ASEAN (2007)",
+      2007
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 12,
+      "book": "Lịch sử 12 - Cánh Diều",
+      "theme": "Chủ đề 2: ASEAN – những chặng đường lịch sử",
+      "lesson": "Bài 5: Cộng đồng ASEAN",
+      "pageStart": 25,
+      "pageEnd": 25,
+      "excerpt": "Hiến chương ASEAN (2007)"
+    }
+  ],
+  "hierarchy": {
+    "rootId": "hien-chuong-asean-2007",
+    "level": 0,
+    "orderInParent": 10
+  },
+  "display": {
+    "showOnHomepage": false,
+    "showOnTimeline": false,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "— || [SGK12:hien-chuong-asean-2007] —",
+  "merge": {
+    "sourceGrades": "12",
+    "sourceIds": "hien-chuong-asean-2007",
+    "mergedCount": 1,
+    "sourceFiles": "SGK12_event_master_flattened(1).xlsx",
+    "textbookRefsAll": "SGK12: Bài 5: Cộng đồng ASEAN tr.25 [hien-chuong-asean-2007]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

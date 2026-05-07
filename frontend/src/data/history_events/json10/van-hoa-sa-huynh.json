@@ -1,0 +1,107 @@
+{
+  "id": "van-hoa-sa-huynh",
+  "slug": "van-hoa-sa-huynh",
+  "entityType": "event",
+  "eventLevel": "collection",
+  "titles": {
+    "primary": "Văn hóa Sa Huỳnh",
+    "short": "Sa Huỳnh"
+  },
+  "classification": {
+    "eventType": "cultural",
+    "eventSubtype": "archaeological_culture",
+    "tags": [
+      "Sa Huỳnh",
+      "Chăm-pa",
+      "Thu Bồn"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      10
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": -2000
+    },
+    "end": {
+      "year": -1500
+    },
+    "datePrecision": "approximate",
+    "displayDate": "Khoảng 4000 – 3500 năm trước",
+    "isApproximate": true
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "polygon",
+      "provinceNames": [
+        "Quảng Ngãi",
+        "Quảng Nam"
+      ],
+      "historicalLocations": [
+        "Sa Huỳnh",
+        "Lưu vực sông Thu Bồn"
+      ]
+    },
+    "focusGeometry": {
+      "mode": "bounds",
+      "zoom": 8,
+      "provinceNames": [
+        "Quảng Ngãi",
+        "Quảng Nam"
+      ]
+    }
+  },
+  "summary": {
+    "homepageTitle": "Văn hóa Sa Huỳnh",
+    "homepageSummary": "Nền văn hóa tiền thân quan trọng của văn minh Chăm-pa.",
+    "cardSummary": "Nền văn hóa nền tảng của Chăm-pa."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Văn hóa Sa Huỳnh là một nền văn hóa khảo cổ quan trọng ở miền Trung, được xem là nền tảng cho sự hình thành văn minh Chăm-pa.",
+    "detailedNarrative": "SGK nhấn mạnh văn hóa Sa Huỳnh với di vật phong phú, phân bố rộng ở miền Trung, đặc biệt là vùng Quảng Nam – Quảng Ngãi. Văn hóa này phản ánh truyền thống cư trú, sản xuất và giao lưu của cộng đồng cư dân bản địa trước khi nhà nước Chăm-pa ra đời.",
+    "significance": "Cho thấy sự kế thừa và phát triển liên tục của cư dân miền Trung từ thời tiền – sơ sử đến thời Chăm-pa.",
+    "keyFacts": [
+      "Phân bố chủ yếu ở miền Trung",
+      "Là cơ sở của văn minh Chăm-pa",
+      "Có niên đại khoảng 4000–3500 năm trước"
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 10,
+      "book": "Lịch sử 10 - Cánh Diều",
+      "theme": "Chủ đề 6: Một số nền văn minh trên đất nước Việt Nam trước năm 1858",
+      "lesson": "Bài 13: Văn minh Chăm-pa, Văn minh Phù Nam",
+      "pageStart": 90,
+      "pageEnd": 90,
+      "excerpt": "Văn hóa Sa Huỳnh là cơ sở hình thành văn minh Chăm-pa."
+    }
+  ],
+  "hierarchy": {
+    "rootId": "vm-cham-pa",
+    "parentId": "vm-cham-pa",
+    "level": 1,
+    "orderInParent": 1
+  },
+  "display": {
+    "showOnHomepage": true,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "merge": {
+    "sourceGrades": "10",
+    "sourceIds": "van-hoa-sa-huynh",
+    "mergedCount": 1,
+    "sourceFiles": "SGK10_event_master_flattened_v2(1).xlsx",
+    "textbookRefsAll": "SGK10: Bài 13: Văn minh Chăm-pa, Văn minh Phù Nam tr.90 [van-hoa-sa-huynh]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

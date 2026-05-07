@@ -1,0 +1,98 @@
+{
+  "id": "khang-chien-chong-phap-dong-duong",
+  "slug": "khang-chien-chong-phap-dong-duong",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Kháng chiến chống Pháp trên bán đảo Đông Dương",
+    "short": "Kháng chiến chống Pháp trên bán đảo Đông D"
+  },
+  "classification": {
+    "eventType": "military",
+    "eventSubtype": "anti_colonial_war",
+    "tags": [
+      "Kháng chiến chống Pháp trên bán đảo Đông Dương",
+      "1858–1954",
+      "RAG only"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1858
+    },
+    "end": {
+      "year": 1954
+    },
+    "datePrecision": "period",
+    "displayDate": "1858–1954",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "no_location",
+      "marker": {
+        "label": "Kháng chiến chống Pháp trên bán đảo Đông D"
+      }
+    },
+    "focusGeometry": {
+      "mode": "auto"
+    }
+  },
+  "summary": {
+    "homepageTitle": "Kháng chiến chống Pháp trên bán đảo Đông Dương",
+    "homepageSummary": "Kháng chiến chống Pháp trên bán đảo Đông Dương. Bối cảnh chung của Việt Nam, Lào, Campuchia; giữ để phục vụ RAG.",
+    "cardSummary": "Bối cảnh chung của Việt Nam, Lào, Campuchia; giữ để phục vụ RAG."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Kháng chiến chống Pháp trên bán đảo Đông Dương. Bối cảnh chung của Việt Nam, Lào, Campuchia; giữ để phục vụ RAG.",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 6: Hành trình đi đến độc lập dân tộc ở Đông Nam Á. Bối cảnh chung của Việt Nam, Lào, Campuchia; giữ để phục vụ RAG.",
+    "significance": "Là mốc quan trọng trong tiến trình quân sự và bảo vệ/chinh phục độc lập, chủ quyền của Việt Nam theo SGK 11.",
+    "keyFacts": [
+      "Kháng chiến chống Pháp trên bán đảo Đông Dương",
+      "1858–1954",
+      "Bối cảnh chung của Việt Nam",
+      "Lào",
+      "Campuchia; giữ để phục vụ RAG."
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 11,
+      "book": "Lịch sử 11 - Cánh Diều",
+      "lesson": "Bài 6: Hành trình đi đến độc lập dân tộc ở Đông Nam Á",
+      "pageStart": 38,
+      "pageEnd": 39,
+      "excerpt": "Bối cảnh chung của Việt Nam, Lào, Campuchia; giữ để phục vụ RAG."
+    }
+  ],
+  "hierarchy": {
+    "rootId": "khang-chien-chong-phap-dong-duong",
+    "level": 0,
+    "orderInParent": 12
+  },
+  "display": {
+    "showOnHomepage": false,
+    "showOnTimeline": false,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "Bối cảnh chung của Việt Nam, Lào, Campuchia; giữ để phục vụ RAG. || [SGK11:khang-chien-chong-phap-dong-duong] Bối cảnh chung của Việt Nam, Lào, Campuchia; giữ để phục vụ RAG.",
+  "merge": {
+    "sourceGrades": "11",
+    "sourceIds": "khang-chien-chong-phap-dong-duong",
+    "mergedCount": 1,
+    "sourceFiles": "SGK11_event_master_flattened_v2(1).xlsx",
+    "textbookRefsAll": "SGK11: Bài 6: Hành trình đi đến độc lập dân tộc ở Đông Nam Á tr.38-39 [khang-chien-chong-phap-dong-duong]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

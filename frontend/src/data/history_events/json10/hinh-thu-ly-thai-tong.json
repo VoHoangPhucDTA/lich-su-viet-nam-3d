@@ -1,0 +1,91 @@
+{
+  "id": "hinh-thu-ly-thai-tong",
+  "slug": "hinh-thu-ly-thai-tong",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Ban hành bộ Hình thư",
+    "short": "Hình thư 1042"
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "law_code",
+    "tags": [
+      "Hình thư",
+      1042,
+      "Lý Thái Tông"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      10
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1042
+    },
+    "datePrecision": "year",
+    "displayDate": "Năm 1042",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "no_location"
+    },
+    "focusGeometry": {
+      "mode": "auto"
+    }
+  },
+  "summary": {
+    "homepageTitle": "Ban hành bộ Hình thư",
+    "homepageSummary": "Hình thư là bộ luật thành văn sớm tiêu biểu của nhà nước Đại Việt thời Lý.",
+    "cardSummary": "Bộ Hình thư được ban hành năm 1042."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Năm 1042, triều Lý ban hành Hình thư, thể hiện sự phát triển của pháp luật nhà nước Đại Việt.",
+    "detailedNarrative": "Trong SGK, Hình thư được nhắc đến như cột mốc quan trọng của thành tựu chính trị – pháp luật Đại Việt. Việc ban hành bộ luật cho thấy nhà nước đã quan tâm đến quản lí xã hội bằng pháp luật thành văn.",
+    "significance": "Đánh dấu bước trưởng thành của nhà nước Đại Việt trong xây dựng thể chế pháp lí.",
+    "keyFacts": [
+      "Năm 1042",
+      "Bộ luật thành văn tiêu biểu thời Lý",
+      "Phản ánh sự phát triển pháp luật"
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 10,
+      "book": "Lịch sử 10 - Cánh Diều",
+      "theme": "Chủ đề 6: Một số nền văn minh trên đất nước Việt Nam trước năm 1858",
+      "lesson": "Bài 15: Những thành tựu tiêu biểu của văn minh Đại Việt",
+      "pageStart": 101,
+      "pageEnd": 101,
+      "excerpt": "Năm 1042, triều Lý ban hành bộ Hình thư."
+    }
+  ],
+  "hierarchy": {
+    "rootId": "vm-dai-viet",
+    "parentId": "vm-dai-viet",
+    "level": 1,
+    "orderInParent": 12
+  },
+  "display": {
+    "showOnHomepage": true,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "merge": {
+    "sourceGrades": "10",
+    "sourceIds": "hinh-thu-ly-thai-tong",
+    "mergedCount": 1,
+    "sourceFiles": "SGK10_event_master_flattened_v2(1).xlsx",
+    "textbookRefsAll": "SGK10: Bài 15: Những thành tựu tiêu biểu của văn minh Đại Việt tr.101 [hinh-thu-ly-thai-tong]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

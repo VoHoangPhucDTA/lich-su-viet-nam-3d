@@ -1,0 +1,119 @@
+{
+  "id": "cach-mang-thang-tam-1945",
+  "slug": "cach-mang-thang-tam-1945",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Cách mạng tháng Tám năm 1945",
+    "short": "Cách mạng tháng Tám",
+    "alternatives": [
+      "Tổng khởi nghĩa tháng Tám năm 1945",
+      "tong-khoi-nghia-thang-tam-1945"
+    ]
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "revolution",
+    "tags": [
+      "Cách mạng tháng Tám",
+      1945,
+      "đại đoàn kết",
+      "mentioned_in_grade10",
+      "Tổng khởi nghĩa tháng Tám năm 1945",
+      "trùng_sgk",
+      "collection"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      10,
+      12
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1945,
+      "month": 8
+    },
+    "datePrecision": "month",
+    "displayDate": "Tháng 8/1945",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "nationwide"
+    },
+    "focusGeometry": {
+      "mode": "auto"
+    }
+  },
+  "summary": {
+    "homepageTitle": "Cách mạng tháng Tám năm 1945",
+    "homepageSummary": "Cách mạng tháng Tám là thắng lợi tiêu biểu của sức mạnh đại đoàn kết dân tộc trong lịch sử hiện đại Việt Nam.",
+    "cardSummary": "Cách mạng tháng Tám năm 1945."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Cách mạng tháng Tám năm 1945 là cuộc cách mạng giải phóng dân tộc thắng lợi, mở ra kỉ nguyên độc lập cho dân tộc Việt Nam.",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 6: Cách mạng tháng Tám năm 1945, trang 31–35. Nội dung trong file Excel được chuẩn hóa để nhập hệ thống; khi triển khai chính thức, nhóm nên bổ sung tường thuật chi tiết bám SGK và tư liệu gốc.",
+    "significance": "Là mốc quan trọng trong tiến trình cách mạng, xây dựng nhà nước, đối ngoại hoặc tổ chức lực lượng theo SGK 12.",
+    "keyFacts": [
+      "Tháng 8/1945",
+      "Là thắng lợi lớn của đại đoàn kết dân tộc",
+      "Chỉ được đề cập ngắn trong SGK 10",
+      "Tổng khởi nghĩa tháng Tám năm 1945",
+      1945
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 10,
+      "book": "Lịch sử 10 - Cánh Diều",
+      "theme": "Chủ đề 7: Cộng đồng các dân tộc Việt Nam",
+      "lesson": "Bài 17: Khối đại đoàn kết dân tộc trong lịch sử Việt Nam",
+      "pageStart": 123,
+      "pageEnd": 125,
+      "excerpt": "Cách mạng tháng Tám được nêu như ví dụ về sức mạnh đại đoàn kết trong lịch sử Việt Nam."
+    }
+  ],
+  "hierarchy": {
+    "rootId": "cach-mang-thang-tam-1945",
+    "childIds": [
+      "uy-ban-khoi-nghia-13-8-1945",
+      "hoi-nghi-tan-trao-8-1945",
+      "dai-hoi-quoc-dan-tan-trao",
+      "khoi-nghia-ha-noi-19-8-1945",
+      "khoi-nghia-hue-23-8-1945",
+      "khoi-nghia-sai-gon-25-8-1945",
+      "bao-dai-thoai-vi-30-8-1945",
+      "nguyen-nhan-y-nghia-cm-thang-tam"
+    ],
+    "level": 0,
+    "orderInParent": 0
+  },
+  "associations": {
+    "relatedEventIds": [
+      "tuyen-ngon-doc-lap-1945"
+    ]
+  },
+  "display": {
+    "showOnHomepage": false,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "Chỉ được đề cập ngắn trong SGK 10; nên bổ sung chi tiết từ SGK lớp 11/12 hoặc nguồn uy tín khác. || [SGK10:cach-mang-thang-tam-1945] Chỉ được đề cập ngắn trong SGK 10; nên bổ sung chi tiết từ SGK lớp 11/12 hoặc nguồn uy tín khác. || [SGK12:tong-khoi-nghia-thang-tam-1945] cach-mang-thang-tam-1945 (SGK10) | Trùng: cach-mang-thang-tam-1945 (SGK10)",
+  "merge": {
+    "sourceGrades": "10 | 12",
+    "sourceIds": "cach-mang-thang-tam-1945 | tong-khoi-nghia-thang-tam-1945",
+    "mergedCount": 2,
+    "sourceFiles": "SGK10_event_master_flattened_v2(1).xlsx | SGK12_event_master_flattened(1).xlsx",
+    "textbookRefsAll": "SGK10: Bài 17: Khối đại đoàn kết dân tộc trong lịch sử Việt Nam tr.123-125 [cach-mang-thang-tam-1945] || SGK12: Bài 6: Cách mạng tháng Tám năm 1945 tr.31-35 [tong-khoi-nghia-thang-tam-1945]",
+    "notes": "Merged 2 source rows into canonical id 'cach-mang-thang-tam-1945'."
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

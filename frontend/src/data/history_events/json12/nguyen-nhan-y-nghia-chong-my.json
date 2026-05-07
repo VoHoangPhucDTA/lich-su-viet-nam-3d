@@ -1,0 +1,92 @@
+{
+  "id": "nguyen-nhan-y-nghia-chong-my",
+  "slug": "nguyen-nhan-y-nghia-chong-my",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Nguyên nhân thắng lợi, ý nghĩa kháng chiến chống Mỹ",
+    "short": "Nguyên nhân thắng lợi, ý nghĩa k"
+  },
+  "classification": {
+    "eventType": "military",
+    "eventSubtype": "analysis_topic",
+    "tags": [
+      "Nguyên nhân thắng lợi",
+      "ý nghĩa kháng chiến chống Mỹ",
+      "concept"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ]
+  },
+  "chronology": {
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "no_location"
+    },
+    "focusGeometry": {
+      "mode": "auto"
+    }
+  },
+  "summary": {
+    "homepageTitle": "Nguyên nhân thắng lợi, ý nghĩa kháng chiến chống Mỹ",
+    "homepageSummary": "Nguyên nhân thắng lợi, ý nghĩa kháng chiến chống Mỹ. — (concept)",
+    "cardSummary": "— (concept)"
+  },
+  "textbookContent": {
+    "canonicalSummary": "Nguyên nhân thắng lợi, ý nghĩa kháng chiến chống Mỹ.",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 8: Kháng chiến chống Mỹ, cứu nước (1954–1975), trang 52–53. Nội dung trong file Excel được chuẩn hóa để nhập hệ thống; khi triển khai chính thức, nhóm nên bổ sung tường thuật chi tiết bám SGK và tư liệu gốc.",
+    "significance": "Là mốc quan trọng trong tiến trình đấu tranh quân sự, bảo vệ hoặc giải phóng đất nước của Việt Nam theo SGK 12.",
+    "keyFacts": [
+      "Nguyên nhân thắng lợi",
+      "ý nghĩa kháng chiến chống Mỹ",
+      "—"
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 12,
+      "book": "Lịch sử 12 - Cánh Diều",
+      "theme": "Chủ đề 3: Cách mạng tháng Tám và kháng chiến bảo vệ độc lập dân tộc",
+      "lesson": "Bài 8: Kháng chiến chống Mỹ, cứu nước (1954–1975)",
+      "pageStart": 52,
+      "pageEnd": 53,
+      "excerpt": "— (concept)"
+    }
+  ],
+  "hierarchy": {
+    "rootId": "khang-chien-chong-my-collection",
+    "parentId": "khang-chien-chong-my-collection",
+    "level": 1,
+    "orderInParent": 11
+  },
+  "associations": {
+    "predecessorEventIds": [
+      "giai-phong-mien-nam-30-4-1975"
+    ]
+  },
+  "display": {
+    "showOnHomepage": false,
+    "showOnTimeline": false,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "— (concept) || [SGK12:nguyen-nhan-y-nghia-chong-my] — (concept)",
+  "merge": {
+    "sourceGrades": "12",
+    "sourceIds": "nguyen-nhan-y-nghia-chong-my",
+    "mergedCount": 1,
+    "sourceFiles": "SGK12_event_master_flattened(1).xlsx",
+    "textbookRefsAll": "SGK12: Bài 8: Kháng chiến chống Mỹ, cứu nước (1954–1975) tr.52-53 [nguyen-nhan-y-nghia-chong-my]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

@@ -1,0 +1,101 @@
+{
+  "id": "vi-tri-dia-chien-luoc-vn",
+  "slug": "vi-tri-dia-chien-luoc-vn",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Vị trí địa chiến lược của Việt Nam",
+    "short": "Vị trí địa chiến lược của Việt Nam"
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "geopolitical_analysis",
+    "tags": [
+      "Vị trí địa chiến lược của Việt Nam",
+      "Tính khái niệm"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ]
+  },
+  "chronology": {
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "nationwide",
+      "marker": {
+        "label": "Vị trí địa chiến lược của Việt Nam"
+      }
+    },
+    "focusGeometry": {
+      "mode": "auto"
+    }
+  },
+  "summary": {
+    "homepageTitle": "Vị trí địa chiến lược của Việt Nam",
+    "homepageSummary": "Vị trí địa chiến lược của Việt Nam. Không phải sự kiện theo thời gian; mang tính khái niệm.",
+    "cardSummary": "Không phải sự kiện theo thời gian; mang tính khái niệm."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Vị trí địa chiến lược của Việt Nam. Không phải sự kiện theo thời gian; mang tính khái niệm.",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 7: Chiến tranh bảo vệ Tổ quốc trong lịch sử Việt Nam. Không phải sự kiện theo thời gian; mang tính khái niệm.",
+    "significance": "Là mốc quan trọng về tổ chức nhà nước, cải cách hoặc chủ quyền được SGK 11 nhấn mạnh.",
+    "keyFacts": [
+      "Vị trí địa chiến lược của Việt Nam",
+      "Khái niệm"
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 11,
+      "book": "Lịch sử 11 - Cánh Diều",
+      "lesson": "Bài 7: Chiến tranh bảo vệ Tổ quốc trong lịch sử Việt Nam",
+      "pageStart": 44,
+      "pageEnd": 44,
+      "excerpt": "Không phải sự kiện theo thời gian; mang tính khái niệm."
+    }
+  ],
+  "hierarchy": {
+    "rootId": "vm-chien-tranh-bao-ve-to-quoc",
+    "parentId": "vm-chien-tranh-bao-ve-to-quoc",
+    "level": 1,
+    "orderInParent": 1
+  },
+  "associations": {
+    "relatedEventIds": [
+      "khang-chien-chong-tong-1075-1077",
+      "khang-chien-chong-minh-1406-1407",
+      "bach-dang-938-ngo-quyen-xung-vuong",
+      "vm-chien-tranh-bao-ve-to-quoc",
+      "khang-chien-chong-phap-1858-1884",
+      "ba-lan-chong-mong-nguyen",
+      "khang-chien-chong-tong-981",
+      "khang-chien-chong-trieu-tk2-tcn",
+      "khang-chien-chong-thanh-1789",
+      "khang-chien-chong-xiem-1785"
+    ]
+  },
+  "display": {
+    "showOnHomepage": false,
+    "showOnTimeline": false,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "Không phải sự kiện theo thời gian; mang tính khái niệm. || [SGK11:vi-tri-dia-chien-luoc-vn] Không phải sự kiện theo thời gian; mang tính khái niệm.",
+  "merge": {
+    "sourceGrades": "11",
+    "sourceIds": "vi-tri-dia-chien-luoc-vn",
+    "mergedCount": 1,
+    "sourceFiles": "SGK11_event_master_flattened_v2(1).xlsx",
+    "textbookRefsAll": "SGK11: Bài 7: Chiến tranh bảo vệ Tổ quốc trong lịch sử Việt Nam tr.44 [vi-tri-dia-chien-luoc-vn]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

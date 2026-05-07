@@ -1,0 +1,109 @@
+{
+  "id": "chien-tranh-cuc-bo-1965-1968",
+  "slug": "chien-tranh-cuc-bo-1965-1968",
+  "entityType": "event",
+  "eventLevel": "collection",
+  "titles": {
+    "primary": "Chống chiến lược \"Chiến tranh cục bộ\" (1965–1968)",
+    "short": "Chống chiến lược \"Chiến tranh cụ"
+  },
+  "classification": {
+    "eventType": "military",
+    "eventSubtype": "war",
+    "tags": [
+      "Chống chiến lược \"Chiến tranh cục bộ\" (1965–1968)",
+      "1965–1968",
+      "collection"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1965
+    },
+    "end": {
+      "year": 1968
+    },
+    "datePrecision": "period",
+    "displayDate": "1965–1968",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "nationwide"
+    },
+    "focusGeometry": {
+      "mode": "auto"
+    }
+  },
+  "summary": {
+    "homepageTitle": "Chống chiến lược \"Chiến tranh cục bộ\" (1965–1968)",
+    "homepageSummary": "Chống chiến lược \"Chiến tranh cục bộ\" (1965–1968). —",
+    "cardSummary": "—"
+  },
+  "textbookContent": {
+    "canonicalSummary": "Chống chiến lược \"Chiến tranh cục bộ\" (1965–1968).",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 8: Kháng chiến chống Mỹ, cứu nước (1954–1975), trang 47. Nội dung trong file Excel được chuẩn hóa để nhập hệ thống; khi triển khai chính thức, nhóm nên bổ sung tường thuật chi tiết bám SGK và tư liệu gốc.",
+    "significance": "Là mốc quan trọng trong tiến trình đấu tranh quân sự, bảo vệ hoặc giải phóng đất nước của Việt Nam theo SGK 12.",
+    "keyFacts": [
+      "Chống chiến lược \"Chiến tranh cục bộ\" (1965–1968)",
+      "1965–1968"
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 12,
+      "book": "Lịch sử 12 - Cánh Diều",
+      "theme": "Chủ đề 3: Cách mạng tháng Tám và kháng chiến bảo vệ độc lập dân tộc",
+      "lesson": "Bài 8: Kháng chiến chống Mỹ, cứu nước (1954–1975)",
+      "pageStart": 47,
+      "pageEnd": 47,
+      "excerpt": "Chống chiến lược \"Chiến tranh cục bộ\" (1965–1968)"
+    }
+  ],
+  "hierarchy": {
+    "rootId": "khang-chien-chong-my-collection",
+    "parentId": "khang-chien-chong-my-collection",
+    "childIds": [
+      "su-kien-vinh-bac-bo-1964",
+      "my-pha-hoai-mien-bac-lan-1",
+      "chien-thang-nui-thanh-1965",
+      "chien-thang-van-tuong-1965",
+      "tong-tien-cong-mau-than-1968"
+    ],
+    "level": 1,
+    "orderInParent": 4
+  },
+  "associations": {
+    "predecessorEventIds": [
+      "chien-thang-ap-bac-1963"
+    ],
+    "successorEventIds": [
+      "viet-nam-hoa-chien-tranh-1969-1973"
+    ]
+  },
+  "display": {
+    "showOnHomepage": true,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "— || [SGK12:chien-tranh-cuc-bo-1965-1968] —",
+  "merge": {
+    "sourceGrades": "12",
+    "sourceIds": "chien-tranh-cuc-bo-1965-1968",
+    "mergedCount": 1,
+    "sourceFiles": "SGK12_event_master_flattened(1).xlsx",
+    "textbookRefsAll": "SGK12: Bài 8: Kháng chiến chống Mỹ, cứu nước (1954–1975) tr.47 [chien-tranh-cuc-bo-1965-1968]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

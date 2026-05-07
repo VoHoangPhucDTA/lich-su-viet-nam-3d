@@ -1,0 +1,94 @@
+{
+  "id": "giai-doan-dinh-tre-dau-tk18-giua-tk19",
+  "slug": "giai-doan-dinh-tre-dau-tk18-giua-tk19",
+  "entityType": "event",
+  "eventLevel": "collection",
+  "titles": {
+    "primary": "Giai đoạn đình trệ đầu thế kỉ XVIII – giữa thế kỉ XIX",
+    "short": "Đình trệ Đại Việt"
+  },
+  "classification": {
+    "eventType": "cultural",
+    "eventSubtype": "historical_phase",
+    "tags": [
+      "đình trệ",
+      "thế kỉ XVIII",
+      "thế kỉ XIX"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      10
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1700
+    },
+    "end": {
+      "year": 1858
+    },
+    "datePrecision": "period",
+    "displayDate": "Đầu thế kỉ XVIII – giữa thế kỉ XIX",
+    "isApproximate": true
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "nationwide"
+    },
+    "focusGeometry": {
+      "mode": "auto"
+    }
+  },
+  "summary": {
+    "homepageTitle": "Giai đoạn đình trệ đầu thế kỉ XVIII – giữa thế kỉ XIX",
+    "homepageSummary": "Văn minh Đại Việt có dấu hiệu đình trệ trong bối cảnh khủng hoảng và biến động ở thời cận đại.",
+    "cardSummary": "Giai đoạn đình trệ của văn minh Đại Việt."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Từ đầu thế kỉ XVIII đến giữa thế kỉ XIX, văn minh Đại Việt có nhiều biểu hiện đình trệ so với giai đoạn trước.",
+    "detailedNarrative": "SGK nhìn nhận đây là giai đoạn chuyển biến khó khăn của quốc gia Đại Việt. Dù vẫn còn những thành tựu nhất định, nhiều mặt của đời sống kinh tế, chính trị và xã hội bộc lộ sự trì trệ trong bối cảnh lịch sử mới.",
+    "significance": "Giúp người học nhận diện tính liên tục nhưng cũng thấy rõ giới hạn lịch sử của mô hình phong kiến truyền thống.",
+    "keyFacts": [
+      "Đầu thế kỉ XVIII – giữa thế kỉ XIX",
+      "Có biểu hiện đình trệ",
+      "Là giai đoạn chuyển tiếp quan trọng"
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 10,
+      "book": "Lịch sử 10 - Cánh Diều",
+      "theme": "Chủ đề 6: Một số nền văn minh trên đất nước Việt Nam trước năm 1858",
+      "lesson": "Bài 14: Cơ sở hình thành văn minh Đại Việt",
+      "pageStart": 99,
+      "pageEnd": 100,
+      "excerpt": "Từ đầu thế kỉ XVIII đến giữa thế kỉ XIX, văn minh Đại Việt có nhiều biểu hiện đình trệ."
+    }
+  ],
+  "hierarchy": {
+    "rootId": "vm-dai-viet",
+    "parentId": "vm-dai-viet",
+    "level": 1,
+    "orderInParent": 9
+  },
+  "display": {
+    "showOnHomepage": true,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "merge": {
+    "sourceGrades": "10",
+    "sourceIds": "giai-doan-dinh-tre-dau-tk18-giua-tk19",
+    "mergedCount": 1,
+    "sourceFiles": "SGK10_event_master_flattened_v2(1).xlsx",
+    "textbookRefsAll": "SGK10: Bài 14: Cơ sở hình thành văn minh Đại Việt tr.99-100 [giai-doan-dinh-tre-dau-tk18-giua-tk19]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

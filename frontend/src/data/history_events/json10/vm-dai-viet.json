@@ -1,0 +1,140 @@
+{
+  "id": "vm-dai-viet",
+  "slug": "vm-dai-viet",
+  "entityType": "event",
+  "eventLevel": "collection",
+  "titles": {
+    "primary": "Văn minh Đại Việt",
+    "short": "Đại Việt"
+  },
+  "classification": {
+    "eventType": "cultural",
+    "eventSubtype": "civilization",
+    "tags": [
+      "Đại Việt",
+      "Thăng Long",
+      "quốc gia phong kiến"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      10
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 905
+    },
+    "end": {
+      "year": 1858
+    },
+    "datePrecision": "period",
+    "displayDate": "Thế kỉ X – giữa thế kỉ XIX",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "nationwide",
+      "historicalLocations": [
+        "Đại Việt",
+        "Thăng Long"
+      ]
+    },
+    "focusGeometry": {
+      "mode": "auto",
+      "zoom": 6
+    }
+  },
+  "summary": {
+    "homepageTitle": "Văn minh Đại Việt",
+    "homepageSummary": "Nền văn minh phát triển trong thời kì độc lập tự chủ của quốc gia Đại Việt từ thế kỉ X đến giữa thế kỉ XIX.",
+    "cardSummary": "Nền văn minh tiêu biểu của Việt Nam thời phong kiến độc lập."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Văn minh Đại Việt hình thành và phát triển trong tiến trình độc lập tự chủ của dân tộc từ thế kỉ X đến giữa thế kỉ XIX.",
+    "detailedNarrative": "SGK khái quát văn minh Đại Việt gắn với quá trình giành và giữ độc lập, xây dựng nhà nước quân chủ, phát triển kinh tế, giáo dục, luật pháp, văn học, tôn giáo và đô thị. Trung tâm nổi bật của nền văn minh này là Thăng Long cùng nhiều vùng kinh tế – văn hóa quan trọng trên cả nước.",
+    "significance": "Là cốt lõi của lịch sử văn hóa Việt Nam thời phong kiến và là nền tảng quan trọng của bản sắc dân tộc.",
+    "keyFacts": [
+      "Tồn tại gần 1000 năm",
+      "Gắn với quốc gia Đại Việt độc lập tự chủ",
+      "Có nhiều thành tựu về luật pháp",
+      "giáo dục",
+      "kinh tế",
+      "văn hóa"
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 10,
+      "book": "Lịch sử 10 - Cánh Diều",
+      "theme": "Chủ đề 6: Một số nền văn minh trên đất nước Việt Nam trước năm 1858",
+      "lesson": "Bài 14: Cơ sở hình thành văn minh Đại Việt; Bài 15: Những thành tựu tiêu biểu của văn minh Đại Việt",
+      "pageStart": 95,
+      "pageEnd": 108,
+      "excerpt": "Văn minh Đại Việt hình thành trong quá trình giành độc lập và phát triển quốc gia phong kiến Việt Nam."
+    }
+  ],
+  "hierarchy": {
+    "rootId": "vm-dai-viet",
+    "childIds": [
+      "khuc-thua-du-tu-chu",
+      "bach-dang-938-ngo-quyen-xung-vuong",
+      "nha-ly-thanh-lap",
+      "doi-do-thang-long",
+      "doi-quoc-hieu-dai-viet",
+      "giai-doan-dinh-hinh-van-minh-dai-viet",
+      "giai-doan-phat-trien-ly-tran-ho",
+      "giai-doan-le-so-mac-le-trung-hung",
+      "giai-doan-dinh-tre-dau-tk18-giua-tk19",
+      "hoang-thanh-thang-long",
+      "hinh-thu-ly-thai-tong",
+      "quoc-trieu-hinh-luat",
+      "hoang-viet-luat-le",
+      "le-tich-dien-ly-thai-tong",
+      "dap-de-quai-vac-tran",
+      "gom-bat-trang",
+      "gom-chu-dau",
+      "thuong-cang-van-don",
+      "pho-hien-hung-yen",
+      "hoi-an-cang-thi",
+      "thang-long-36-pho-phuong",
+      "dung-van-mieu",
+      "khoa-thi-dau-tien",
+      "mo-quoc-tu-giam",
+      "dat-danh-hieu-tam-khoi",
+      "dung-bia-tien-si",
+      "phat-giao-quoc-giao-ly-tran",
+      "xay-dung-chua-mot-cot",
+      "chu-nom-ra-doi",
+      "chu-quoc-ngu-hinh-thanh",
+      "dai-viet-su-ky-le-van-huu",
+      "binh-ngo-dai-cao-1428",
+      "thanh-nha-ho",
+      "dan-ca-quan-ho-unesco-2009",
+      "sac-lenh-65sl-1945",
+      "ngay-di-san-van-hoa-viet-nam-2005"
+    ],
+    "level": 0,
+    "orderInParent": 0
+  },
+  "display": {
+    "showOnHomepage": true,
+    "showOnTimeline": true,
+    "featured": true
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "geoType = nationwide; provinceNames được để trống để tránh frontend hiểu nhầm là chỉ tô một số tỉnh tham chiếu. || [SGK10:vm-dai-viet] geoType = nationwide; provinceNames được để trống để tránh frontend hiểu nhầm là chỉ tô một số tỉnh tham chiếu.",
+  "merge": {
+    "sourceGrades": "10",
+    "sourceIds": "vm-dai-viet",
+    "mergedCount": 1,
+    "sourceFiles": "SGK10_event_master_flattened_v2(1).xlsx",
+    "textbookRefsAll": "SGK10: Bài 14: Cơ sở hình thành văn minh Đại Việt; Bài 15: Những thành tựu tiêu biểu của văn minh Đại Việt tr.95-108 [vm-dai-viet]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

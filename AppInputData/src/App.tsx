@@ -17,6 +17,8 @@ import {
   Tag,
   Typography,
   message,
+  Modal,
+  Table,
 } from 'antd'
 import {
   ArrowDownOutlined,
@@ -32,6 +34,9 @@ import {
   PlusOutlined,
   SearchOutlined,
   UploadOutlined,
+  FileExcelOutlined,
+  CheckCircleOutlined,
+  ExclamationCircleOutlined,
 } from '@ant-design/icons'
 import { Controller, useFieldArray, useForm, useWatch } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -49,6 +54,7 @@ import {
   slugifyVietnamese,
   toFieldId,
 } from './utils/formUtils'
+import { processExcelFile, type ExcelImportResult } from './utils/excelUtils'
 
 const { Header, Sider, Content } = Layout
 const { Title, Text } = Typography
@@ -56,7 +62,106 @@ const { Title, Text } = Typography
 const DRAFT_KEY = 'history-event-editor-draft-v1'
 
 const eventTypeOptions = ['military', 'political', 'diplomatic', 'economic', 'cultural']
-const eventSubtypeOptions = ['battle', 'campaign', 'conference', 'treaty', 'uprising', 'reform']
+const eventSubtypeOptions = [
+  'abdication',
+  'administrative_establishment',
+  'administrative_reform',
+  'agricultural_rite',
+  'analysis_topic',
+  'anti_colonial_war',
+  'archaeological_culture',
+  'architecture',
+  'autonomy_establishment',
+  'battle',
+  'battle_and_state_foundation',
+  'battle_failed',
+  'bourgeois_revolution',
+  'campaign',
+  'campaign_phase',
+  'capital_fortification',
+  'capital_relocation',
+  'capital_site',
+  'civilization',
+  'collection_overview',
+  'colonial_administration',
+  'colonial_conquest',
+  'colonial_invasion',
+  'comprehensive_reform',
+  'conference',
+  'congress',
+  'craft_village',
+  'cultural_reform',
+  'decisive_battle',
+  'declaration',
+  'diplomatic_agreement',
+  'diplomatic_document',
+  'documented_sovereignty',
+  'dyke_construction',
+  'dynastic_change',
+  'dynasty_decline',
+  'dynasty_foundation',
+  'economic_cultural_reform',
+  'economic_social_reform',
+  'education_institution',
+  'election',
+  'examination',
+  'examination_title',
+  'geopolitical_analysis',
+  'heritage_policy',
+  'heritage_site',
+  'historical_document',
+  'historical_phase',
+  'historiography',
+  'independence_declaration',
+  'independence_war',
+  'institutional_structure',
+  'intangible_heritage',
+  'international_law',
+  'law_code',
+  'legislation',
+  'liberation',
+  'liberation_movement',
+  'liberation_war',
+  'maritime_agreement',
+  'membership',
+  'memorial_stele',
+  'milestone',
+  'modernization_reform',
+  'monetary_reform',
+  'organization_founding',
+  'port_town',
+  'protectorate_treaty',
+  'recognition',
+  'reform',
+  'regional_declaration',
+  'religious_flourishing',
+  'renaming_state',
+  'resolution',
+  'revolution',
+  'script',
+  'socialist_revolution',
+  'sovereignty_establishment',
+  'sovereignty_management',
+  'sovereignty_overview',
+  'sovereignty_transfer',
+  'state_dissolution',
+  'state_formation',
+  'territorial_conflict',
+  'territorial_defense',
+  'territorial_expansion',
+  'treaty',
+  'unesco_recognition',
+  'uprising',
+  'uprising_phase',
+  'uprising_state',
+  'urban_commerce',
+  'urban_trade_center',
+  'war',
+  'war_failed',
+  'war_phase',
+  'war_series'
+]
+
 const datePrecisionOptions = ['day', 'month', 'year', 'period', 'approximate']
 const geoTypeOptions = ['point', 'multi_point', 'polygon', 'multi_polygon', 'nationwide', 'no_location', 'mixed']
 const focusModeOptions = ['auto', 'marker', 'polygon', 'bounds', 'center']
@@ -165,6 +270,9 @@ function App() {
   const fileInputRef = useRef<HTMLInputElement | null>(null)
   const templateRef = useRef<unknown>(defaultEventTemplate)
   const lastScrollYRef = useRef(0)
+  const excelInputRef = useRef<HTMLInputElement | null>(null)
+  const [excelImportResult, setExcelImportResult] = useState<ExcelImportResult | null>(null)
+  const [showExcelModal, setShowExcelModal] = useState(false)
 
   const {
     control,
@@ -340,6 +448,67 @@ function App() {
     }
   }
 
+  const onImportExcel = async (event: ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0]
+    if (!file) return
+
+    try {
+      api.loading({ content: 'Đang xử lý Excel (sheet Master_Events)...', key: 'excel-import' })
+      const result = await processExcelFile(file)
+      setExcelImportResult(result)
+      setShowExcelModal(true)
+      api.success({ content: `Đã nạp ${result.validEvents.length} sự kiện từ Excel.`, key: 'excel-import' })
+    } catch (error) {
+      api.error({ content: `Lỗi import Excel: ${(error as Error).message}`, key: 'excel-import' })
+    }
+
+    if (excelInputRef.current) excelInputRef.current.value = ''
+  }
+
+  const exportExcelToJsonZip = async () => {
+    if (!excelImportResult || excelImportResult.validEvents.length === 0) return
+
+    try {
+      const JSZip = (await import('jszip')).default
+      const zip = new JSZip()
+      
+      const counts = { 10: 0, 11: 0, 12: 0 }
+      const outputFolders = {
+        10: zip.folder('json10'),
+        11: zip.folder('json11'),
+        12: zip.folder('json12')
+      }
+      
+      excelImportResult.validEvents.forEach(event => {
+        const content = JSON.stringify(event, null, 2)
+        const fileName = `${event.id}.json`
+        const grades = event.coverage?.grades || []
+        
+        // Export to each folder corresponding to grades
+        grades.forEach((grade: number) => {
+          if (grade === 10 || grade === 11 || grade === 12) {
+            outputFolders[grade]?.file(fileName, content)
+            counts[grade as keyof typeof counts]++
+          }
+        })
+      })
+
+      const blob = await zip.generateAsync({ type: 'blob' })
+      const url = URL.createObjectURL(blob)
+      const link = document.createElement('a')
+      link.href = url
+      link.download = `history_events_export_${new Date().toISOString().replace(/[:.]/g, '-')}.zip`
+      document.body.appendChild(link)
+      link.click()
+      document.body.removeChild(link)
+      URL.revokeObjectURL(url)
+
+      api.success(`Xuất ZIP thành công! Đã tạo ${excelImportResult.validEvents.length} file JSON chia vào các thư mục json10, json11, json12.`)
+    } catch (error) {
+      api.error(`Lỗi xuất ZIP: ${(error as Error).message}`)
+    }
+  }
+
   const validateBeforeExport = async (): Promise<boolean> => {
     const isValid = await trigger()
     if (isValid) {
@@ -409,7 +578,15 @@ function App() {
             aria-label="Chọn file JSON để import"
             onChange={onImportJson}
           />
-          <Button size="small" icon={<UploadOutlined />} onClick={() => fileInputRef.current?.click()}>Import</Button>
+          <input
+            ref={excelInputRef}
+            type="file"
+            accept=".xlsx, .xls"
+            className="hidden-file-input"
+            onChange={onImportExcel}
+          />
+          <Button size="small" icon={<FileExcelOutlined />} onClick={() => excelInputRef.current?.click()}>Import Excel</Button>
+          <Button size="small" icon={<UploadOutlined />} onClick={() => fileInputRef.current?.click()}>Import JSON</Button>
           <Button size="small" icon={<CopyOutlined />} onClick={() => void copyJson()}>Copy</Button>
           <Button type="primary" size="small" icon={<DownloadOutlined />} onClick={() => void exportJson()}>Download</Button>
           <Button size="small" danger onClick={resetForm}>Reset</Button>
@@ -512,6 +689,89 @@ function App() {
             </Space>
           </Card>
         </Sider>}
+        
+        <Modal
+          title="Kết quả Import Excel (Sheet: Master_Events)"
+          open={showExcelModal}
+          onCancel={() => setShowExcelModal(false)}
+          width={900}
+          footer={[
+            <Button key="close" onClick={() => setShowExcelModal(false)}>Đóng</Button>,
+            <Button 
+              key="export" 
+              type="primary" 
+              icon={<DownloadOutlined />} 
+              onClick={exportExcelToJsonZip}
+              disabled={!excelImportResult || excelImportResult.validEvents.length === 0}
+            >
+              Export JSON (ZIP folders)
+            </Button>
+          ]}
+        >
+          {excelImportResult && (
+            <Space direction="vertical" style={{ width: '100%' }} size="large">
+              <div style={{ display: 'flex', gap: '20px' }}>
+                <Card size="small" style={{ flex: 1 }}>
+                  <Space>
+                    <CheckCircleOutlined style={{ color: '#52c41a', fontSize: '24px' }} />
+                    <div>
+                      <div style={{ fontSize: '12px', color: '#8c8c8c' }}>Hợp lệ</div>
+                      <div style={{ fontSize: '20px', fontWeight: 'bold' }}>{excelImportResult.validEvents.length} rows</div>
+                    </div>
+                  </Space>
+                </Card>
+                <Card size="small" style={{ flex: 1 }}>
+                  <Space>
+                    <ExclamationCircleOutlined style={{ color: '#ff4d4f', fontSize: '24px' }} />
+                    <div>
+                      <div style={{ fontSize: '12px', color: '#8c8c8c' }}>Bị bỏ qua / Lỗi</div>
+                      <div style={{ fontSize: '20px', fontWeight: 'bold' }}>{excelImportResult.skippedRows.length} rows</div>
+                    </div>
+                  </Space>
+                </Card>
+              </div>
+
+              {excelImportResult.skippedRows.length > 0 && (
+                <Collapse ghost>
+                  <Collapse.Panel header={`Chi tiết lỗi (${excelImportResult.skippedRows.length} dòng)`} key="errors">
+                    <Table 
+                      size="small" 
+                      dataSource={excelImportResult.skippedRows} 
+                      pagination={{ pageSize: 5 }}
+                      columns={[
+                        { title: 'Dòng', dataIndex: 'row', key: 'row', width: 80 },
+                        { title: 'ID', dataIndex: 'id', key: 'id', width: 200 },
+                        { title: 'Lý do', dataIndex: 'reason', key: 'reason' },
+                      ]}
+                    />
+                  </Collapse.Panel>
+                </Collapse>
+              )}
+
+              <div>
+                <Text strong>Xem trước JSON mẫu (Dòng đầu tiên):</Text>
+                <pre style={{ 
+                  background: '#f5f5f5', 
+                  padding: '10px', 
+                  borderRadius: '4px', 
+                  maxHeight: '200px', 
+                  overflow: 'auto',
+                  marginTop: '8px',
+                  fontSize: '12px'
+                }}>
+                  {JSON.stringify(excelImportResult.validEvents[0], null, 2)}
+                </pre>
+              </div>
+
+              <Alert 
+                type="info" 
+                showIcon 
+                message="Quy trình xuất" 
+                description="Khi nhấn Export, app sẽ tạo 1 file ZIP chứa 3 thư mục json10, json11, json12. Các sự kiện sẽ được phân loại vào đúng thư mục dựa trên trường coverage.grades."
+              />
+            </Space>
+          )}
+        </Modal>
 
         <Content className="main-content">
           <Layout className="editor-layout" style={{ marginRight: showPreviewPanel ? 520 : 0 }}>

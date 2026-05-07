@@ -1,0 +1,102 @@
+{
+  "id": "doi-ngoai-dau-tk20-1945",
+  "slug": "doi-ngoai-dau-tk20-1945",
+  "entityType": "event",
+  "eventLevel": "collection",
+  "titles": {
+    "primary": "Hoạt động đối ngoại VN đầu TK XX–1945",
+    "short": "Hoạt động đối ngoại VN đầu TK XX"
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "milestone",
+    "tags": [
+      "Hoạt động đối ngoại VN đầu TK XX–1945",
+      "1905–1945",
+      "collection"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1905
+    },
+    "end": {
+      "year": 1945
+    },
+    "datePrecision": "period",
+    "displayDate": "1905–1945",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "no_location"
+    },
+    "focusGeometry": {
+      "mode": "auto"
+    }
+  },
+  "summary": {
+    "homepageTitle": "Hoạt động đối ngoại VN đầu TK XX–1945",
+    "homepageSummary": "Hoạt động đối ngoại VN đầu TK XX–1945. —",
+    "cardSummary": "—"
+  },
+  "textbookContent": {
+    "canonicalSummary": "Hoạt động đối ngoại VN đầu TK XX–1945.",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 12: Hoạt động đối ngoại của Việt Nam từ đầu thế kỉ XX đến năm 1975, trang 75–78. Nội dung trong file Excel được chuẩn hóa để nhập hệ thống; khi triển khai chính thức, nhóm nên bổ sung tường thuật chi tiết bám SGK và tư liệu gốc.",
+    "significance": "Là mốc quan trọng trong tiến trình cách mạng, xây dựng nhà nước, đối ngoại hoặc tổ chức lực lượng theo SGK 12.",
+    "keyFacts": [
+      "Hoạt động đối ngoại VN đầu TK XX–1945",
+      "1905–1945"
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 12,
+      "book": "Lịch sử 12 - Cánh Diều",
+      "theme": "Chủ đề 5: Lịch sử đối ngoại của Việt Nam thời cận - hiện đại",
+      "lesson": "Bài 12: Hoạt động đối ngoại của Việt Nam từ đầu thế kỉ XX đến năm 1975",
+      "pageStart": 75,
+      "pageEnd": 78,
+      "excerpt": "Hoạt động đối ngoại VN đầu TK XX–1945"
+    }
+  ],
+  "hierarchy": {
+    "rootId": "doi-ngoai-viet-nam-1900-nay-collection",
+    "parentId": "doi-ngoai-viet-nam-1900-nay-collection",
+    "childIds": [
+      "nguyen-ai-quoc-gui-yeu-sach-1919"
+    ],
+    "level": 1,
+    "orderInParent": 1
+  },
+  "associations": {
+    "successorEventIds": [
+      "doi-ngoai-khang-chien-phap"
+    ]
+  },
+  "display": {
+    "showOnHomepage": true,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "— || [SGK12:doi-ngoai-dau-tk20-1945] —",
+  "merge": {
+    "sourceGrades": "12",
+    "sourceIds": "doi-ngoai-dau-tk20-1945",
+    "mergedCount": 1,
+    "sourceFiles": "SGK12_event_master_flattened(1).xlsx",
+    "textbookRefsAll": "SGK12: Bài 12: Hoạt động đối ngoại của Việt Nam từ đầu thế kỉ XX đến năm 1975 tr.75-78 [doi-ngoai-dau-tk20-1945]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

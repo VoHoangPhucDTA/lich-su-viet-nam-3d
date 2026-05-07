@@ -1,0 +1,114 @@
+{
+  "id": "tran-tot-dong-chuc-dong-1426",
+  "slug": "tran-tot-dong-chuc-dong-1426",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Trận Tốt Động – Chúc Động (1426)",
+    "short": "Trận Tốt Động – Chúc Động"
+  },
+  "classification": {
+    "eventType": "military",
+    "eventSubtype": "battle",
+    "tags": [
+      "Trận Tốt Động – Chúc Động (1426)",
+      "Năm 1426",
+      "Hà Nội",
+      "Trận quyết định ở giai đoạn cuối khởi nghĩa Lam Sơn",
+      "tiêu diệt lực lượng lớn của quân Minh."
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1426
+    },
+    "datePrecision": "year",
+    "displayDate": "Năm 1426",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "point",
+      "marker": {
+        "label": "Hà Nội"
+      },
+      "provinceNames": [
+        "Hà Nội"
+      ],
+      "historicalLocations": [
+        "Hà Nội"
+      ]
+    },
+    "focusGeometry": {
+      "mode": "marker"
+    }
+  },
+  "summary": {
+    "homepageTitle": "Trận Tốt Động – Chúc Động (1426)",
+    "homepageSummary": "Trận Tốt Động – Chúc Động (1426). Trận quyết định ở giai đoạn cuối khởi nghĩa Lam Sơn, tiêu diệt lực lượng lớn của quân Minh.",
+    "cardSummary": "Trận quyết định ở giai đoạn cuối khởi nghĩa Lam Sơn, tiêu diệt lực lượng lớn của quân Minh."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Trận Tốt Động – Chúc Động (1426). Trận quyết định ở giai đoạn cuối khởi nghĩa Lam Sơn, tiêu diệt lực lượng lớn của quân Minh.",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 8: Khởi nghĩa và chiến tranh giải phóng trong lịch sử Việt Nam. Trận quyết định ở giai đoạn cuối khởi nghĩa Lam Sơn, tiêu diệt lực lượng lớn của quân Minh.",
+    "significance": "Là mốc quan trọng trong tiến trình quân sự và bảo vệ/chinh phục độc lập, chủ quyền của Việt Nam theo SGK 11.",
+    "keyFacts": [
+      "Trận Tốt Động – Chúc Động (1426)",
+      "Năm 1426",
+      "Hà Nội",
+      "Trận quyết định ở giai đoạn cuối khởi nghĩa Lam Sơn",
+      "tiêu diệt lực lượng lớn của quân Minh."
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 11,
+      "book": "Lịch sử 11 - Cánh Diều",
+      "lesson": "Bài 8: Khởi nghĩa và chiến tranh giải phóng trong lịch sử Việt Nam",
+      "pageStart": 60,
+      "pageEnd": 60,
+      "excerpt": "Trận quyết định ở giai đoạn cuối khởi nghĩa Lam Sơn, tiêu diệt lực lượng lớn của quân Minh."
+    }
+  ],
+  "hierarchy": {
+    "rootId": "vm-khoi-nghia-va-giai-phong",
+    "parentId": "lam-son-gd3-1426-1427",
+    "level": 3,
+    "orderInParent": 1
+  },
+  "associations": {
+    "relatedEventIds": [
+      "tran-chi-lang-xuong-giang-1427",
+      "lam-son-gd3-1426-1427"
+    ],
+    "successorEventIds": [
+      "tran-chi-lang-xuong-giang-1427"
+    ]
+  },
+  "display": {
+    "showOnHomepage": false,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "Trận quyết định ở giai đoạn cuối khởi nghĩa Lam Sơn, tiêu diệt lực lượng lớn của quân Minh. || [SGK11:tran-tot-dong-chuc-dong-1426] Trận quyết định ở giai đoạn cuối khởi nghĩa Lam Sơn, tiêu diệt lực lượng lớn của quân Minh.",
+  "merge": {
+    "sourceGrades": "11",
+    "sourceIds": "tran-tot-dong-chuc-dong-1426",
+    "mergedCount": 1,
+    "sourceFiles": "SGK11_event_master_flattened_v2(1).xlsx",
+    "textbookRefsAll": "SGK11: Bài 8: Khởi nghĩa và chiến tranh giải phóng trong lịch sử Việt Nam tr.60 [tran-tot-dong-chuc-dong-1426]"
+  },
+  "validation": {
+    "status": "CHECK",
+    "issues": "geoType cần marker nhưng thiếu lat/lng"
+  }
+}

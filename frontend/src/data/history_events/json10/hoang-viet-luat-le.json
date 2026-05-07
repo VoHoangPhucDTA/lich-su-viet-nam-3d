@@ -1,0 +1,91 @@
+{
+  "id": "hoang-viet-luat-le",
+  "slug": "hoang-viet-luat-le",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Ban hành Hoàng Việt luật lệ",
+    "short": "Hoàng Việt luật lệ"
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "law_code",
+    "tags": [
+      "Hoàng Việt luật lệ",
+      1815,
+      "triều Nguyễn"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      10
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1815
+    },
+    "datePrecision": "year",
+    "displayDate": "Năm 1815",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "no_location"
+    },
+    "focusGeometry": {
+      "mode": "auto"
+    }
+  },
+  "summary": {
+    "homepageTitle": "Ban hành Hoàng Việt luật lệ",
+    "homepageSummary": "Hoàng Việt luật lệ là bộ luật thành văn tiêu biểu thời Nguyễn.",
+    "cardSummary": "Hoàng Việt luật lệ ban hành năm 1815."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Triều Nguyễn ban hành Hoàng Việt luật lệ vào năm 1815, phản ánh hệ thống pháp luật của nhà nước đầu thế kỉ XIX.",
+    "detailedNarrative": "Trong SGK, Hoàng Việt luật lệ được xem là thành tựu luật pháp tiêu biểu của triều Nguyễn. Việc ban hành bộ luật này cho thấy sự tiếp nối truyền thống quản lí nhà nước bằng pháp luật của Đại Việt trong giai đoạn cuối.",
+    "significance": "Khẳng định tính liên tục của truyền thống luật pháp trong lịch sử nhà nước phong kiến Việt Nam.",
+    "keyFacts": [
+      "Năm 1815",
+      "Bộ luật tiêu biểu của triều Nguyễn",
+      "Phản ánh cơ chế quản lí xã hội bằng pháp luật"
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 10,
+      "book": "Lịch sử 10 - Cánh Diều",
+      "theme": "Chủ đề 6: Một số nền văn minh trên đất nước Việt Nam trước năm 1858",
+      "lesson": "Bài 15: Những thành tựu tiêu biểu của văn minh Đại Việt",
+      "pageStart": 101,
+      "pageEnd": 101,
+      "excerpt": "Năm 1815, triều Nguyễn ban hành Hoàng Việt luật lệ."
+    }
+  ],
+  "hierarchy": {
+    "rootId": "vm-dai-viet",
+    "parentId": "vm-dai-viet",
+    "level": 1,
+    "orderInParent": 14
+  },
+  "display": {
+    "showOnHomepage": true,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "merge": {
+    "sourceGrades": "10",
+    "sourceIds": "hoang-viet-luat-le",
+    "mergedCount": 1,
+    "sourceFiles": "SGK10_event_master_flattened_v2(1).xlsx",
+    "textbookRefsAll": "SGK10: Bài 15: Những thành tựu tiêu biểu của văn minh Đại Việt tr.101 [hoang-viet-luat-le]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

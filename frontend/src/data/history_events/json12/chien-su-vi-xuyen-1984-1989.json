@@ -1,0 +1,111 @@
+{
+  "id": "chien-su-vi-xuyen-1984-1989",
+  "slug": "chien-su-vi-xuyen-1984-1989",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Chiến sự Vị Xuyên (1984–1989)",
+    "short": "Chiến sự Vị Xuyên"
+  },
+  "classification": {
+    "eventType": "military",
+    "eventSubtype": "battle",
+    "tags": [
+      "Chiến sự Vị Xuyên (1984–1989)",
+      "1984–1989",
+      "Hà Giang"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1984
+    },
+    "end": {
+      "year": 1989
+    },
+    "datePrecision": "period",
+    "displayDate": "1984–1989",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "point",
+      "marker": {
+        "lat": 22.823,
+        "lng": 104.983,
+        "label": "Hà Giang"
+      },
+      "provinceNames": [
+        "Hà Giang"
+      ],
+      "historicalLocations": [
+        "Hà Giang"
+      ]
+    },
+    "focusGeometry": {
+      "mode": "marker",
+      "center": {
+        "lat": 22.823,
+        "lng": 104.983
+      },
+      "zoom": 9
+    }
+  },
+  "summary": {
+    "homepageTitle": "Chiến sự Vị Xuyên (1984–1989)",
+    "homepageSummary": "Chiến sự Vị Xuyên (1984–1989). —",
+    "cardSummary": "—"
+  },
+  "textbookContent": {
+    "canonicalSummary": "Chiến sự Vị Xuyên (1984–1989).",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 9: Bảo vệ Tổ quốc sau năm 1975 và bài học lịch sử, trang 56–57. Nội dung trong file Excel được chuẩn hóa để nhập hệ thống; khi triển khai chính thức, nhóm nên bổ sung tường thuật chi tiết bám SGK và tư liệu gốc.",
+    "significance": "Là mốc quan trọng trong tiến trình đấu tranh quân sự, bảo vệ hoặc giải phóng đất nước của Việt Nam theo SGK 12.",
+    "keyFacts": [
+      "Chiến sự Vị Xuyên (1984–1989)",
+      "1984–1989",
+      "Hà Giang"
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 12,
+      "book": "Lịch sử 12 - Cánh Diều",
+      "theme": "Chủ đề 3: Bảo vệ Tổ quốc sau năm 1975",
+      "lesson": "Bài 9: Bảo vệ Tổ quốc sau năm 1975 và bài học lịch sử",
+      "pageStart": 56,
+      "pageEnd": 57,
+      "excerpt": "Chiến sự Vị Xuyên (1984–1989)"
+    }
+  ],
+  "hierarchy": {
+    "rootId": "bao-ve-to-quoc-sau-1975-collection",
+    "parentId": "chien-tranh-bien-gioi-phia-bac-1979",
+    "level": 2,
+    "orderInParent": 1
+  },
+  "display": {
+    "showOnHomepage": true,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "— || [SGK12:chien-su-vi-xuyen-1984-1989] —",
+  "merge": {
+    "sourceGrades": "12",
+    "sourceIds": "chien-su-vi-xuyen-1984-1989",
+    "mergedCount": 1,
+    "sourceFiles": "SGK12_event_master_flattened(1).xlsx",
+    "textbookRefsAll": "SGK12: Bài 9: Bảo vệ Tổ quốc sau năm 1975 và bài học lịch sử tr.56-57 [chien-su-vi-xuyen-1984-1989]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

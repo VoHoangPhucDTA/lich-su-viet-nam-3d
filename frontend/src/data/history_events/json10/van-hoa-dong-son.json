@@ -1,0 +1,112 @@
+{
+  "id": "van-hoa-dong-son",
+  "slug": "van-hoa-dong-son",
+  "entityType": "event",
+  "eventLevel": "collection",
+  "titles": {
+    "primary": "Văn hóa Đông Sơn",
+    "short": "Đông Sơn"
+  },
+  "classification": {
+    "eventType": "cultural",
+    "eventSubtype": "archaeological_culture",
+    "tags": [
+      "Đông Sơn",
+      "trống đồng",
+      "luyện kim",
+      "Việt cổ"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      10
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": -700
+    },
+    "end": {
+      "year": 100
+    },
+    "datePrecision": "approximate",
+    "displayDate": "Khoảng thế kỉ VII TCN – thế kỉ I/II",
+    "isApproximate": true
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "polygon",
+      "provinceNames": [
+        "Thanh Hóa",
+        "Phú Thọ",
+        "Hà Nội"
+      ],
+      "historicalLocations": [
+        "Đông Sơn",
+        "Bắc Bộ",
+        "Bắc Trung Bộ"
+      ]
+    },
+    "focusGeometry": {
+      "mode": "bounds",
+      "zoom": 8,
+      "provinceNames": [
+        "Thanh Hóa",
+        "Phú Thọ",
+        "Hà Nội"
+      ]
+    }
+  },
+  "summary": {
+    "homepageTitle": "Văn hóa Đông Sơn",
+    "homepageSummary": "Nền văn hóa khảo cổ tiêu biểu, tạo nền tảng vật chất và tinh thần cho văn minh Văn Lang – Âu Lạc.",
+    "cardSummary": "Nền văn hóa tiêu biểu của cư dân Việt cổ."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Văn hóa Đông Sơn là nền văn hóa khảo cổ phát triển rực rỡ, gắn với cư dân Việt cổ và là cơ sở trực tiếp của văn minh Văn Lang – Âu Lạc.",
+    "detailedNarrative": "Trong SGK, văn hóa Đông Sơn được xem là nền tảng vật chất nổi bật của cư dân Việt cổ với trình độ luyện kim cao, đặc biệt là kỹ thuật đúc đồng. Nhiều hiện vật như trống đồng, vũ khí, công cụ sản xuất phản ánh đời sống kinh tế, xã hội và tín ngưỡng phát triển.",
+    "significance": "Văn hóa Đông Sơn chứng tỏ trình độ phát triển cao của cư dân bản địa và là dấu mốc quan trọng trong tiến trình hình thành văn minh Việt cổ.",
+    "keyFacts": [
+      "Là nền tảng của văn minh Văn Lang – Âu Lạc",
+      "Nổi bật với kỹ thuật đúc đồng",
+      "Phản ánh đời sống nông nghiệp",
+      "quân sự và tín ngưỡng"
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 10,
+      "book": "Lịch sử 10 - Cánh Diều",
+      "theme": "Chủ đề 6: Một số nền văn minh trên đất nước Việt Nam trước năm 1858",
+      "lesson": "Bài 12: Văn minh Văn Lang – Âu Lạc",
+      "pageStart": 84,
+      "pageEnd": 85,
+      "excerpt": "Văn hóa Đông Sơn là nền tảng trực tiếp của văn minh Văn Lang – Âu Lạc."
+    }
+  ],
+  "hierarchy": {
+    "rootId": "vm-van-lang-au-lac",
+    "parentId": "vm-van-lang-au-lac",
+    "level": 1,
+    "orderInParent": 1
+  },
+  "display": {
+    "showOnHomepage": true,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "merge": {
+    "sourceGrades": "10",
+    "sourceIds": "van-hoa-dong-son",
+    "mergedCount": 1,
+    "sourceFiles": "SGK10_event_master_flattened_v2(1).xlsx",
+    "textbookRefsAll": "SGK10: Bài 12: Văn minh Văn Lang – Âu Lạc tr.84-85 [van-hoa-dong-son]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

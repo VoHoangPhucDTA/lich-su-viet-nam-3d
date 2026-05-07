@@ -1,0 +1,134 @@
+{
+  "id": "lam-son-gd2-1424-1426",
+  "slug": "lam-son-gd2-1424-1426",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Giai đoạn 1424–1426 (Lam Sơn)",
+    "short": "Giai đoạn 1424–1426"
+  },
+  "classification": {
+    "eventType": "military",
+    "eventSubtype": "campaign_phase",
+    "tags": [
+      "Giai đoạn 1424–1426 (Lam Sơn)",
+      "1424–1426",
+      "Nghệ An",
+      "Thanh Hóa",
+      "Thừa Thiên Huế",
+      "Mở rộng căn cứ vào Nghệ An theo kế của Nguyễn Chích",
+      "tiến vào Tân Bình – Thuận Hóa."
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1424
+    },
+    "end": {
+      "year": 1426
+    },
+    "datePrecision": "period",
+    "displayDate": "1424–1426",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "multi_point",
+      "marker": {
+        "label": "Nghệ An"
+      },
+      "provinceNames": [
+        "Nghệ An",
+        "Thanh Hóa",
+        "Thừa Thiên Huế"
+      ],
+      "historicalLocations": [
+        "Nghệ An",
+        "Thanh Hóa",
+        "Thừa Thiên Huế"
+      ]
+    },
+    "focusGeometry": {
+      "mode": "bounds",
+      "provinceNames": [
+        "Nghệ An",
+        "Thanh Hóa",
+        "Thừa Thiên Huế"
+      ]
+    }
+  },
+  "summary": {
+    "homepageTitle": "Giai đoạn 1424–1426 (Lam Sơn)",
+    "homepageSummary": "Giai đoạn 1424–1426 (Lam Sơn). Mở rộng căn cứ vào Nghệ An theo kế của Nguyễn Chích, tiến vào Tân Bình – Thuận Hóa.",
+    "cardSummary": "Mở rộng căn cứ vào Nghệ An theo kế của Nguyễn Chích, tiến vào Tân Bình – Thuận Hóa."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Giai đoạn 1424–1426 (Lam Sơn). Mở rộng căn cứ vào Nghệ An theo kế của Nguyễn Chích, tiến vào Tân Bình – Thuận Hóa.",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 8: Khởi nghĩa và chiến tranh giải phóng trong lịch sử Việt Nam. Mở rộng căn cứ vào Nghệ An theo kế của Nguyễn Chích, tiến vào Tân Bình – Thuận Hóa.",
+    "significance": "Là mốc quan trọng trong tiến trình quân sự và bảo vệ/chinh phục độc lập, chủ quyền của Việt Nam theo SGK 11.",
+    "keyFacts": [
+      "Giai đoạn 1424–1426 (Lam Sơn)",
+      "1424–1426",
+      "Nghệ An",
+      "Thanh Hóa",
+      "Thừa Thiên Huế",
+      "Mở rộng căn cứ vào Nghệ An theo kế của Nguyễn Chích",
+      "tiến vào Tân Bình – Thuận Hóa."
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 11,
+      "book": "Lịch sử 11 - Cánh Diều",
+      "lesson": "Bài 8: Khởi nghĩa và chiến tranh giải phóng trong lịch sử Việt Nam",
+      "pageStart": 59,
+      "pageEnd": 59,
+      "excerpt": "Mở rộng căn cứ vào Nghệ An theo kế của Nguyễn Chích, tiến vào Tân Bình – Thuận Hóa."
+    }
+  ],
+  "hierarchy": {
+    "rootId": "vm-khoi-nghia-va-giai-phong",
+    "parentId": "khoi-nghia-lam-son-1418-1427",
+    "level": 2,
+    "orderInParent": 2
+  },
+  "associations": {
+    "relatedEventIds": [
+      "khoi-nghia-lam-son-1418-1427",
+      "lam-son-gd3-1426-1427",
+      "lam-son-gd1-1418-1423"
+    ],
+    "predecessorEventIds": [
+      "lam-son-gd1-1418-1423"
+    ],
+    "successorEventIds": [
+      "lam-son-gd3-1426-1427"
+    ]
+  },
+  "display": {
+    "showOnHomepage": false,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "Mở rộng căn cứ vào Nghệ An theo kế của Nguyễn Chích, tiến vào Tân Bình – Thuận Hóa. || [SGK11:lam-son-gd2-1424-1426] Mở rộng căn cứ vào Nghệ An theo kế của Nguyễn Chích, tiến vào Tân Bình – Thuận Hóa.",
+  "merge": {
+    "sourceGrades": "11",
+    "sourceIds": "lam-son-gd2-1424-1426",
+    "mergedCount": 1,
+    "sourceFiles": "SGK11_event_master_flattened_v2(1).xlsx",
+    "textbookRefsAll": "SGK11: Bài 8: Khởi nghĩa và chiến tranh giải phóng trong lịch sử Việt Nam tr.59 [lam-son-gd2-1424-1426]"
+  },
+  "validation": {
+    "status": "CHECK",
+    "issues": "multi_point thiếu markers/marker đại diện"
+  }
+}

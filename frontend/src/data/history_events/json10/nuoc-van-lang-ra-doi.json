@@ -1,0 +1,111 @@
+{
+  "id": "nuoc-van-lang-ra-doi",
+  "slug": "nuoc-van-lang-ra-doi",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Nước Văn Lang ra đời",
+    "short": "Văn Lang"
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "state_formation",
+    "tags": [
+      "Văn Lang",
+      "Hùng Vương",
+      "Phong Châu"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      10
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": -700
+    },
+    "datePrecision": "approximate",
+    "displayDate": "Khoảng thế kỉ VII TCN",
+    "isApproximate": true
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "polygon",
+      "marker": {
+        "lat": 21.4,
+        "lng": 105.23,
+        "label": "Phong Châu"
+      },
+      "provinceNames": [
+        "Phú Thọ"
+      ],
+      "historicalLocations": [
+        "Phong Châu",
+        "Văn Lang"
+      ]
+    },
+    "focusGeometry": {
+      "mode": "bounds",
+      "center": {
+        "lat": 21.4,
+        "lng": 105.23
+      },
+      "zoom": 8,
+      "provinceNames": [
+        "Phú Thọ"
+      ]
+    }
+  },
+  "summary": {
+    "homepageTitle": "Nước Văn Lang ra đời",
+    "homepageSummary": "Nhà nước đầu tiên của người Việt cổ ra đời, do các vua Hùng đứng đầu.",
+    "cardSummary": "Nhà nước Văn Lang ra đời khoảng thế kỉ VII TCN."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Nước Văn Lang là nhà nước đầu tiên của cư dân Việt cổ, ra đời khoảng thế kỉ VII TCN với trung tâm ở Phong Châu.",
+    "detailedNarrative": "SGK cho biết trong bối cảnh cư dân nông nghiệp phát triển và nhu cầu liên kết cộng đồng tăng cao, nhà nước Văn Lang ra đời. Vua Hùng đứng đầu nhà nước, tổ chức cộng đồng theo các bộ, phản ánh bước phát triển quan trọng về chính trị.",
+    "significance": "Sự ra đời của nước Văn Lang đánh dấu bước chuyển từ xã hội nguyên thủy sang nhà nước sơ khai của người Việt cổ.",
+    "keyFacts": [
+      "Ra đời khoảng thế kỉ VII TCN",
+      "Vua Hùng đứng đầu",
+      "Kinh đô đặt ở Phong Châu"
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 10,
+      "book": "Lịch sử 10 - Cánh Diều",
+      "theme": "Chủ đề 6: Một số nền văn minh trên đất nước Việt Nam trước năm 1858",
+      "lesson": "Bài 12: Văn minh Văn Lang – Âu Lạc",
+      "pageStart": 87,
+      "pageEnd": 87,
+      "excerpt": "Nước Văn Lang ra đời khoảng thế kỉ VII TCN, do các vua Hùng đứng đầu."
+    }
+  ],
+  "hierarchy": {
+    "rootId": "vm-van-lang-au-lac",
+    "parentId": "vm-van-lang-au-lac",
+    "level": 1,
+    "orderInParent": 2
+  },
+  "display": {
+    "showOnHomepage": true,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "merge": {
+    "sourceGrades": "10",
+    "sourceIds": "nuoc-van-lang-ra-doi",
+    "mergedCount": 1,
+    "sourceFiles": "SGK10_event_master_flattened_v2(1).xlsx",
+    "textbookRefsAll": "SGK10: Bài 12: Văn minh Văn Lang – Âu Lạc tr.87 [nuoc-van-lang-ra-doi]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

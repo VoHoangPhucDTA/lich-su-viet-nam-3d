@@ -1,0 +1,92 @@
+{
+  "id": "trat-tu-hai-cuc-ianta",
+  "slug": "trat-tu-hai-cuc-ianta",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Trật tự thế giới hai cực I-an-ta (1945–1991)",
+    "short": "Trật tự thế giới hai cực I-an-ta"
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "conference",
+    "tags": [
+      "Trật tự thế giới hai cực I-an-ta (1945–1991)",
+      "1945–1991"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1945
+    },
+    "end": {
+      "year": 1991
+    },
+    "datePrecision": "period",
+    "displayDate": "1945–1991",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "no_location"
+    },
+    "focusGeometry": {
+      "mode": "auto"
+    }
+  },
+  "summary": {
+    "homepageTitle": "Trật tự thế giới hai cực I-an-ta (1945–1991)",
+    "homepageSummary": "Trật tự thế giới hai cực I-an-ta (1945–1991). —",
+    "cardSummary": "—"
+  },
+  "textbookContent": {
+    "canonicalSummary": "Trật tự thế giới hai cực I-an-ta (1945–1991).",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 2: Trật tự thế giới trong Chiến tranh lạnh, trang 11–15. Nội dung trong file Excel được chuẩn hóa để nhập hệ thống; khi triển khai chính thức, nhóm nên bổ sung tường thuật chi tiết bám SGK và tư liệu gốc.",
+    "significance": "Là mốc quan trọng trong tiến trình cách mạng, xây dựng nhà nước, đối ngoại hoặc tổ chức lực lượng theo SGK 12.",
+    "keyFacts": [
+      "Trật tự thế giới hai cực I-an-ta (1945–1991)",
+      "1945–1991"
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 12,
+      "book": "Lịch sử 12 - Cánh Diều",
+      "theme": "Chủ đề 1: Thế giới trong và sau Chiến tranh lạnh",
+      "lesson": "Bài 2: Trật tự thế giới trong Chiến tranh lạnh",
+      "pageStart": 11,
+      "pageEnd": 15,
+      "excerpt": "Trật tự thế giới hai cực I-an-ta (1945–1991)"
+    }
+  ],
+  "hierarchy": {
+    "rootId": "trat-tu-hai-cuc-ianta",
+    "level": 0,
+    "orderInParent": 14
+  },
+  "display": {
+    "showOnHomepage": false,
+    "showOnTimeline": false,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "— || [SGK12:trat-tu-hai-cuc-ianta] —",
+  "merge": {
+    "sourceGrades": "12",
+    "sourceIds": "trat-tu-hai-cuc-ianta",
+    "mergedCount": 1,
+    "sourceFiles": "SGK12_event_master_flattened(1).xlsx",
+    "textbookRefsAll": "SGK12: Bài 2: Trật tự thế giới trong Chiến tranh lạnh tr.11-15 [trat-tu-hai-cuc-ianta]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

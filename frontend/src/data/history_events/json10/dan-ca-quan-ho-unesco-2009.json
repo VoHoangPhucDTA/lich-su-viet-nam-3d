@@ -1,0 +1,114 @@
+{
+  "id": "dan-ca-quan-ho-unesco-2009",
+  "slug": "dan-ca-quan-ho-unesco-2009",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Dân ca Quan họ được UNESCO ghi danh",
+    "short": "Quan họ 2009"
+  },
+  "classification": {
+    "eventType": "cultural",
+    "eventSubtype": "unesco_recognition",
+    "tags": [
+      "Quan họ",
+      "UNESCO",
+      "Bắc Ninh",
+      "Kinh Bắc"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      10
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 2009
+    },
+    "datePrecision": "year",
+    "displayDate": "Năm 2009",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "polygon",
+      "marker": {
+        "lat": 21.121,
+        "lng": 106.051,
+        "label": "Bắc Ninh"
+      },
+      "provinceNames": [
+        "Bắc Ninh",
+        "Bắc Giang"
+      ],
+      "historicalLocations": [
+        "Kinh Bắc",
+        "Bắc Ninh"
+      ]
+    },
+    "focusGeometry": {
+      "mode": "bounds",
+      "center": {
+        "lat": 21.121,
+        "lng": 106.051
+      },
+      "zoom": 9,
+      "provinceNames": [
+        "Bắc Ninh",
+        "Bắc Giang"
+      ]
+    }
+  },
+  "summary": {
+    "homepageTitle": "Dân ca Quan họ được UNESCO ghi danh",
+    "homepageSummary": "Dân ca Quan họ được UNESCO ghi danh là Di sản văn hóa phi vật thể đại diện của nhân loại.",
+    "cardSummary": "Quan họ được UNESCO ghi danh năm 2009."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Năm 2009, Dân ca Quan họ được UNESCO ghi danh, khẳng định giá trị nổi bật của di sản văn hóa dân gian Việt Nam.",
+    "detailedNarrative": "SGK Bài 4 nêu Quan họ như một ví dụ cho vai trò của Sử học trong bảo tồn và phát huy di sản văn hóa. Sự kiện này phù hợp để đưa vào hệ thống vì có thời gian rõ, không gian văn hóa rõ và dễ trực quan hóa.",
+    "significance": "Cho thấy giá trị quốc tế của di sản văn hóa Việt Nam và vai trò của bảo tồn di sản trong đời sống hiện đại.",
+    "keyFacts": [
+      "UNESCO ghi danh năm 2009",
+      "Gắn với vùng Kinh Bắc",
+      "Là di sản văn hóa phi vật thể"
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 10,
+      "book": "Lịch sử 10 - Cánh Diều",
+      "theme": "Chủ đề 2: Vai trò của Sử học",
+      "lesson": "Bài 4: Sử học với một số lĩnh vực, ngành nghề hiện đại",
+      "pageStart": 28,
+      "pageEnd": 29,
+      "excerpt": "Dân ca Quan họ được UNESCO ghi danh năm 2009."
+    }
+  ],
+  "hierarchy": {
+    "rootId": "vm-dai-viet",
+    "parentId": "vm-dai-viet",
+    "level": 1,
+    "orderInParent": 35
+  },
+  "display": {
+    "showOnHomepage": true,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "merge": {
+    "sourceGrades": "10",
+    "sourceIds": "dan-ca-quan-ho-unesco-2009",
+    "mergedCount": 1,
+    "sourceFiles": "SGK10_event_master_flattened_v2(1).xlsx",
+    "textbookRefsAll": "SGK10: Bài 4: Sử học với một số lĩnh vực, ngành nghề hiện đại tr.28-29 [dan-ca-quan-ho-unesco-2009]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

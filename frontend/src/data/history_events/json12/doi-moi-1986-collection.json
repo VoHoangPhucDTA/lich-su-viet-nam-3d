@@ -1,0 +1,115 @@
+{
+  "id": "doi-moi-1986-collection",
+  "slug": "doi-moi-1986-collection",
+  "entityType": "event",
+  "eventLevel": "collection",
+  "titles": {
+    "primary": "Công cuộc Đổi mới",
+    "short": "Công cuộc Đổi mới",
+    "alternatives": [
+      "Công cuộc Đổi mới ở Việt Nam (từ 1986)",
+      "vn-doi-moi-1986"
+    ]
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "collection_overview",
+    "tags": [
+      "Công cuộc Đổi mới",
+      "1986–nay",
+      "trùng_sgk",
+      "collection",
+      "Công cuộc Đổi mới ở Việt Nam (từ 1986)",
+      "Từ năm 1986",
+      "Giữ dạng nhắc ngắn trong SGK11; nội dung đầy đủ nên bổ sung ở SGK12."
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11,
+      12
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1986
+    },
+    "datePrecision": "period",
+    "displayDate": "1986–nay",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "nationwide"
+    },
+    "focusGeometry": {
+      "mode": "auto"
+    }
+  },
+  "summary": {
+    "homepageTitle": "Công cuộc Đổi mới",
+    "homepageSummary": "Công cuộc Đổi mới. vn-doi-moi-1986 (SGK11) | Trùng: vn-doi-moi-1986 (SGK11)",
+    "cardSummary": "vn-doi-moi-1986 (SGK11) | Trùng: vn-doi-moi-1986 (SGK11)"
+  },
+  "textbookContent": {
+    "canonicalSummary": "Công cuộc Đổi mới ở Việt Nam (từ 1986). Giữ dạng nhắc ngắn trong SGK11; nội dung đầy đủ nên bổ sung ở SGK12.",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 10: Công cuộc Đổi mới ở Việt Nam từ năm 1986 đến nay, trang 62–66. Nội dung trong file Excel được chuẩn hóa để nhập hệ thống; khi triển khai chính thức, nhóm nên bổ sung tường thuật chi tiết bám SGK và tư liệu gốc.",
+    "significance": "Là mốc quan trọng trong tiến trình cách mạng, xây dựng nhà nước, đối ngoại hoặc tổ chức lực lượng theo SGK 12.",
+    "keyFacts": [
+      "Công cuộc Đổi mới",
+      "1986–nay",
+      "Công cuộc Đổi mới ở Việt Nam (từ 1986)",
+      "Từ năm 1986",
+      "Giữ dạng nhắc ngắn trong SGK11; nội dung đầy đủ nên bổ sung ở SGK12."
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 12,
+      "book": "Lịch sử 12 - Cánh Diều",
+      "theme": "Chủ đề 4: Công cuộc Đổi mới ở Việt Nam từ năm 1986 đến nay",
+      "lesson": "Bài 10: Công cuộc Đổi mới ở Việt Nam từ năm 1986 đến nay",
+      "pageStart": 62,
+      "pageEnd": 66,
+      "excerpt": "vn-doi-moi-1986 (SGK11) | Trùng: vn-doi-moi-1986 (SGK11)"
+    }
+  ],
+  "hierarchy": {
+    "rootId": "doi-moi-1986-collection",
+    "childIds": [
+      "dai-hoi-vi-1986",
+      "doi-moi-gd1-1986-1995",
+      "doi-moi-gd2-1996-2006",
+      "doi-moi-gd3-2006-nay",
+      "thanh-tuu-doi-moi"
+    ],
+    "level": 0,
+    "orderInParent": 5
+  },
+  "associations": {
+    "relatedEventIds": [
+      "trung-quoc-cai-cach-mo-cua-1978"
+    ]
+  },
+  "display": {
+    "showOnHomepage": true,
+    "showOnTimeline": true,
+    "featured": true
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "vn-doi-moi-1986 (SGK11) | Trùng: vn-doi-moi-1986 (SGK11) || [SGK11:vn-doi-moi-1986] Giữ dạng nhắc ngắn trong SGK11; nội dung đầy đủ nên bổ sung ở SGK12. || [SGK12:doi-moi-1986-collection] vn-doi-moi-1986 (SGK11) | Trùng: vn-doi-moi-1986 (SGK11)",
+  "merge": {
+    "sourceGrades": "11 | 12",
+    "sourceIds": "vn-doi-moi-1986 | doi-moi-1986-collection",
+    "mergedCount": 2,
+    "sourceFiles": "SGK11_event_master_flattened_v2(1).xlsx | SGK12_event_master_flattened(1).xlsx",
+    "textbookRefsAll": "SGK11: Bài 6: Hành trình đi đến độc lập dân tộc ở Đông Nam Á tr.42 [vn-doi-moi-1986] || SGK12: Bài 10: Công cuộc Đổi mới ở Việt Nam từ năm 1986 đến nay tr.62-66 [doi-moi-1986-collection]",
+    "notes": "Merged 2 source rows into canonical id 'doi-moi-1986-collection'."
+  },
+  "validation": {
+    "status": "OK"
+  }
+}
