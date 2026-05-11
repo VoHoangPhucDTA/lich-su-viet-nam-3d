@@ -2,6 +2,7 @@ import { useEffect, useState, useMemo } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import type { MockEventDetail } from '../data/mockEventDetails';
 import { getEventDetailBySlug } from '../services/eventDetailService';
+import { recordEventView } from '../services/eventApi';
 
 import EventHero from '../components/event-detail/EventHero';
 import EventTTSPlayer from '../components/event-detail/EventTTSPlayer';
@@ -28,6 +29,7 @@ export default function EventDetailPage() {
         const data = await getEventDetailBySlug(slug);
         if (data) {
           setEventData(data);
+          void recordEventView(data.id, { source: 'detail', progressPercent: 100 });
           setError(false);
           // Body là phần tử scroll thực sự (xem index.css), nên gọi cả 3
           // để cover mọi trường hợp browser/CSS.

@@ -10,6 +10,9 @@ import {
 interface TimelineProps {
   currentYear: number;
   onYearChange: (year: number) => void;
+  selectedGrade?: number | null;
+  onGradeChange?: (grade: number | null) => void;
+  eventYears?: number[];
 }
 
 /**
@@ -31,8 +34,15 @@ function formatYearShort(year: number): string {
   return `${year}`;
 }
 
-export default function Timeline({ currentYear, onYearChange }: TimelineProps) {
+export default function Timeline({
+  currentYear,
+  onYearChange,
+  selectedGrade = null,
+  onGradeChange,
+  eventYears,
+}: TimelineProps) {
   const range = TIMELINE_MAX_YEAR - TIMELINE_MIN_YEAR;
+  const availableYears = eventYears && eventYears.length > 0 ? eventYears : EVENT_YEARS_SORTED;
 
   const percentage = useMemo(() => {
     if (range <= 0) return 0;
@@ -52,14 +62,16 @@ export default function Timeline({ currentYear, onYearChange }: TimelineProps) {
   };
 
   /** Năm event gần nhất theo direction — `null` = đã hết. */
-  const prevEventYear = useMemo(
-    () => getNearestEventYear(currentYear, 'prev'),
-    [currentYear]
-  );
-  const nextEventYear = useMemo(
-    () => getNearestEventYear(currentYear, 'next'),
-    [currentYear]
-  );
+  const prevEventYear = useMemo(() => {
+    const previous = availableYears.filter((year) => year < currentYear);
+    if (previous.length > 0) return previous[previous.length - 1];
+    return eventYears ? null : getNearestEventYear(currentYear, 'prev');
+  }, [availableYears, currentYear, eventYears]);
+  const nextEventYear = useMemo(() => {
+    const next = availableYears.find((year) => year > currentYear);
+    if (next != null) return next;
+    return eventYears ? null : getNearestEventYear(currentYear, 'next');
+  }, [availableYears, currentYear, eventYears]);
 
   return (
     <div
@@ -100,11 +112,35 @@ export default function Timeline({ currentYear, onYearChange }: TimelineProps) {
             className="text-[11px] font-medium opacity-70"
             style={{ color: 'var(--text-muted)' }}
           >
-            {EVENT_YEARS_SORTED.length} mốc sự kiện
+            {availableYears.length} mốc sự kiện
           </span>
         </div>
 
-        <div className="flex gap-2">
+        <div className="flex gap-2 items-center">
+          {onGradeChange && (
+            <div
+              className="flex gap-1 rounded-lg border p-1"
+              style={{ borderColor: 'var(--border)', background: 'var(--bg-card)' }}
+            >
+              {[null, 10, 11, 12].map((grade) => {
+                const isActive = selectedGrade === grade;
+                return (
+                  <button
+                    key={grade ?? 'all'}
+                    type="button"
+                    onClick={() => onGradeChange(grade)}
+                    className="rounded-md px-2.5 py-1 text-[11px] font-semibold transition"
+                    style={{
+                      background: isActive ? 'var(--accent)' : 'transparent',
+                      color: isActive ? '#fff' : 'var(--text-secondary)',
+                    }}
+                  >
+                    {grade == null ? 'Tất cả' : `Lớp ${grade}`}
+                  </button>
+                );
+              })}
+            </div>
+          )}
           <button
             type="button"
             disabled={prevEventYear == null}

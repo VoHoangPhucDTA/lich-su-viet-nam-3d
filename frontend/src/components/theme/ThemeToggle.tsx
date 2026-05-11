@@ -23,7 +23,7 @@ export default function ThemeToggle() {
         )}
       </span>
 
-      <span className="hidden sm:inline transition-colors duration-300">
+      <span className="hidden sm:inline transition-colors duration-300 text-left" style={{ minWidth: '85px' }}>
         {isDark ? 'Chế độ sáng' : 'Chế độ tối'}
       </span>
     </button>

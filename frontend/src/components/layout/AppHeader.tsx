@@ -204,20 +204,13 @@ export default function AppHeader() {
         {/* Theme Toggle */}
         <ThemeToggle />
 
-        {/* Badge */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '4px', fontSize: '11px', color: 'var(--success)', padding: '4px 10px', background: 'var(--success-soft)', border: '1px solid var(--success-soft)', borderRadius: '10px', whiteSpace: 'nowrap', fontWeight: 600 }}>
-          <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: 'var(--success)' }} />
-          MVP Demo
-        </div>
+
       </div>
 
       {/* Mobile Nav Trigger */}
       <div className="flex lg:hidden items-center gap-3">
          <ThemeToggle />
-         {/* Badge mobile */}
-         <div style={{ display: 'flex', alignItems: 'center', gap: '4px', fontSize: '10px', color: 'var(--success)', padding: '2px 6px', background: 'var(--success-soft)', borderRadius: '6px', fontWeight: 600 }}>
-           <span style={{ width: '5px', height: '5px', borderRadius: '50%', background: 'var(--success)' }} /> Demo
-         </div>
+
          <button 
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label="Mở menu"

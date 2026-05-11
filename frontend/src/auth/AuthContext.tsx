@@ -1,5 +1,13 @@
 import { createContext, useContext, useState, useEffect, useCallback, type ReactNode } from 'react';
-import type { User, LoginRequest, RegisterRequest, UpdateProfileRequest } from '../types/auth';
+import type {
+  User,
+  LoginRequest,
+  RegisterRequest,
+  RegisterResponse,
+  ResetPasswordRequest,
+  UpdateProfileRequest,
+  VerifyEmailResponse,
+} from '../types/auth';
 import * as authService from '../services/authService';
 
 interface AuthContextType {
@@ -7,12 +15,14 @@ interface AuthContextType {
   isAuthenticated: boolean;
   isLoading: boolean; // true while restoring session from localStorage
   login: (req: LoginRequest) => Promise<void>;
-  register: (req: RegisterRequest) => Promise<void>;
+  register: (req: RegisterRequest) => Promise<RegisterResponse>;
+  resendVerification: (email: string) => Promise<RegisterResponse>;
+  verifyEmail: (token: string) => Promise<VerifyEmailResponse>;
   logout: () => Promise<void>;
   forgotPassword: (email: string) => Promise<{ message: string }>;
-  resetPassword: (newPassword: string) => Promise<{ message: string }>;
-  loginWithGoogle: () => Promise<void>;
-  loginWithFacebook: () => Promise<void>;
+  resetPassword: (req: ResetPasswordRequest) => Promise<{ message: string }>;
+  loginWithGoogle: (idToken: string) => Promise<void>;
+  loginWithFacebook: (accessToken: string) => Promise<void>;
   updateProfile: (updates: UpdateProfileRequest) => Promise<void>;
 }
 
@@ -38,7 +48,20 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const register = useCallback(async (req: RegisterRequest) => {
     const res = await authService.register(req);
-    setCurrentUser(res.user);
+    setCurrentUser(null);
+    return res;
+  }, []);
+
+  const resendVerification = useCallback(async (email: string) => {
+    return authService.resendVerification({ email });
+  }, []);
+
+  const verifyEmail = useCallback(async (token: string) => {
+    const res = await authService.verifyEmail(token);
+    if (res.auth) {
+      setCurrentUser(res.auth.user);
+    }
+    return res;
   }, []);
 
   const logout = useCallback(async () => {
@@ -50,17 +73,17 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     return authService.forgotPassword(email);
   }, []);
 
-  const resetPassword = useCallback(async (newPassword: string) => {
-    return authService.resetPassword(newPassword);
+  const resetPassword = useCallback(async (req: ResetPasswordRequest) => {
+    return authService.resetPassword(req);
   }, []);
 
-  const loginWithGoogle = useCallback(async () => {
-    const res = await authService.loginWithGoogle();
+  const loginWithGoogle = useCallback(async (idToken: string) => {
+    const res = await authService.loginWithGoogle(idToken);
     setCurrentUser(res.user);
   }, []);
 
-  const loginWithFacebook = useCallback(async () => {
-    const res = await authService.loginWithFacebook();
+  const loginWithFacebook = useCallback(async (accessToken: string) => {
+    const res = await authService.loginWithFacebook(accessToken);
     setCurrentUser(res.user);
   }, []);
 
@@ -77,6 +100,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         isLoading,
         login,
         register,
+        resendVerification,
+        verifyEmail,
         logout,
         forgotPassword,
         resetPassword,

@@ -26,6 +26,7 @@ export interface HistoricalEvent {
   secondaryRegions?: string[];
   parentId: string | null;
   childCount?: number;
+  orderInParent?: number;
   children?: HistoricalEvent[];
   images?: string[];
   details?: string;

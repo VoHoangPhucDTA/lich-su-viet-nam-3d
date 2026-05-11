@@ -12,7 +12,7 @@ export const MOCK_USERS: MockUserRecord[] = [
       fullName: 'Nguyễn Văn An',
       email: 'student@demo.com',
       role: 'student',
-      grade: 11,
+      grade: '11',
       school: 'THPT Nguyễn Huệ',
       avatarUrl: '',
       createdAt: '2025-09-01T08:00:00Z',

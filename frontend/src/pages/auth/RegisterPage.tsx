@@ -1,109 +1,162 @@
-import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useEffect, useMemo, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { CheckCircle, Mail, RefreshCw, Send } from 'lucide-react';
 import { useAuth } from '../../auth/AuthContext';
 import AuthLayout from '../../components/auth/AuthLayout';
 import AuthFormMessage from '../../components/auth/AuthFormMessage';
-import PasswordInput from '../../components/auth/PasswordInput';
+import OAuthButtons from '../../components/auth/OAuthButtons';
+import PasswordStrengthMeter from '../../components/auth/PasswordStrengthMeter';
 import TextInput from '../../components/auth/TextInput';
+import PasswordInput from '../../components/auth/PasswordInput';
+import type { RegisterResponse } from '../../types/auth';
 
-function SubmitButton({ loading, label }: { loading: boolean; label: string }) {
+function SubmitButton({ loading, disabled }: { loading: boolean; disabled: boolean }) {
   return (
     <button
       type="submit"
-      disabled={loading}
+      disabled={disabled}
       style={{
         width: '100%',
         padding: '0.8125rem',
-        background: loading
-          ? 'var(--accent-soft)'
-          : 'var(--accent)',
+        background: disabled ? 'var(--accent-soft)' : 'var(--accent)',
         border: 'none',
         borderRadius: '0.625rem',
         color: '#fff',
         fontSize: '0.9375rem',
         fontWeight: 600,
-        cursor: loading ? 'not-allowed' : 'pointer',
+        cursor: disabled ? 'not-allowed' : 'pointer',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
         gap: '0.5rem',
         transition: 'all 0.2s',
-        boxShadow: loading ? 'none' : '0 4px 15px rgba(30,58,95,0.2)',
+        boxShadow: disabled ? 'none' : '0 4px 15px rgba(30,58,95,0.2)',
         fontFamily: 'inherit',
-        letterSpacing: '0.01em',
-      }}
-      onMouseEnter={(e) => { 
-        if (!loading) {
-          (e.currentTarget as HTMLButtonElement).style.filter = 'brightness(1.1)';
-          (e.currentTarget as HTMLButtonElement).style.transform = 'translateY(-1px)';
-        }
-      }}
-      onMouseLeave={(e) => { 
-        (e.currentTarget as HTMLButtonElement).style.filter = 'none';
-        (e.currentTarget as HTMLButtonElement).style.transform = 'none';
       }}
     >
-      {loading && (
-        <span
-          style={{
-            width: '1.125rem',
-            height: '1.125rem',
-            border: '2px solid rgba(255,255,255,0.4)',
-            borderTopColor: '#fff',
-            borderRadius: '50%',
-            display: 'inline-block',
-            animation: 'spin 0.7s linear infinite',
-          }}
-        />
+      {loading ? (
+        <RefreshCw size={18} strokeWidth={2} style={{ animation: 'spin 0.7s linear infinite' }} />
+      ) : (
+        <Send size={18} strokeWidth={2} />
       )}
-      {loading ? 'Đang tạo...' : label}
+      {loading ? 'Đang tạo...' : 'Tạo tài khoản'}
       <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
     </button>
   );
 }
 
-/* ─── RegisterPage ──────────────────────────────────────────────────────── */
-export default function RegisterPage() {
-  const { register } = useAuth();
-  const navigate = useNavigate();
+function isStrongPassword(password: string) {
+  return (
+    password.length >= 8 &&
+    /[A-Z]/.test(password) &&
+    /[a-z]/.test(password) &&
+    /[0-9]/.test(password) &&
+    /[^A-Za-z0-9]/.test(password)
+  );
+}
 
-  const [fullName, setFullName] = useState('');
+function passwordStrengthMessage(password: string) {
+  if (password.length < 8) return 'Mật khẩu cần có ít nhất 8 ký tự.';
+  if (!/[A-Z]/.test(password)) return 'Mật khẩu cần có ít nhất 1 chữ hoa.';
+  if (!/[a-z]/.test(password)) return 'Mật khẩu cần có ít nhất 1 chữ thường.';
+  if (!/[0-9]/.test(password)) return 'Mật khẩu cần có ít nhất 1 chữ số.';
+  if (!/[^A-Za-z0-9]/.test(password)) return 'Mật khẩu cần có ít nhất 1 ký tự đặc biệt.';
+  return '';
+}
+
+function formatCountdown(seconds: number) {
+  const minutes = Math.floor(seconds / 60).toString().padStart(2, '0');
+  const rest = Math.max(0, seconds % 60).toString().padStart(2, '0');
+  return `${minutes}:${rest}`;
+}
+
+function secondsUntil(timestamp: string) {
+  return Math.max(0, Math.ceil((new Date(timestamp).getTime() - Date.now()) / 1000));
+}
+
+export default function RegisterPage() {
+  const { register, resendVerification } = useAuth();
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [grade, setGrade] = useState<number>(11);
-  const [school, setSchool] = useState('');
-  const [agreed, setAgreed] = useState(false);
+  const [showPasswordStrengthError, setShowPasswordStrengthError] = useState(false);
+  // confirmTouched: chỉ true khi user đã thực sự gõ vào ô confirm, hoặc đã submit.
+  // Tránh hiện lỗi đỏ khi user chỉ mới click vào ô confirm mà chưa nhập gì.
+  const [confirmTouched, setConfirmTouched] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const [loading, setLoading] = useState(false);
+  const [resending, setResending] = useState(false);
+  const [pendingVerification, setPendingVerification] = useState<RegisterResponse | null>(null);
+  const [secondsLeft, setSecondsLeft] = useState(0);
+  const [resendCooldown, setResendCooldown] = useState(0);
 
-  const validate = (): string => {
-    if (!fullName.trim()) return 'Vui lòng nhập họ và tên.';
-    if (!email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))
+  const formLocked = loading || pendingVerification !== null;
+
+  useEffect(() => {
+    if (!pendingVerification) return undefined;
+    setSecondsLeft(secondsUntil(pendingVerification.verificationExpiresAt));
+    const timer = window.setInterval(() => {
+      setSecondsLeft(secondsUntil(pendingVerification.verificationExpiresAt));
+      setResendCooldown((value) => Math.max(0, value - 1));
+    }, 1000);
+    return () => window.clearInterval(timer);
+  }, [pendingVerification]);
+
+  const countdownText = useMemo(() => formatCountdown(secondsLeft), [secondsLeft]);
+  const passwordPolicyError = showPasswordStrengthError ? passwordStrengthMessage(password) : '';
+
+  // Lỗi confirm password: chỉ hiện khi:
+  // 1. User đã thực sự gõ vào ô confirm (confirmTouched), VÀ
+  // 2. Password chính đã được nhập (không rỗng), VÀ
+  // 3. Hai giá trị không khớp
+  // Hoặc: user đã submit (confirmTouched được set = true khi submit nếu lỗi)
+  const confirmPasswordError =
+    confirmTouched && password.length > 0 && confirmPassword !== password
+      ? 'Mật khẩu nhập lại không khớp.'
+      : '';
+
+  const validate = () => {
+    if (!email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       return 'Email không hợp lệ.';
-    if (password.length < 6) return 'Mật khẩu phải có ít nhất 6 ký tự.';
-    if (password !== confirmPassword) return 'Mật khẩu nhập lại không khớp.';
-    if (!agreed) return 'Bạn cần đồng ý với điều khoản sử dụng.';
+    }
+    if (!isStrongPassword(password)) {
+      setShowPasswordStrengthError(true);
+      return 'Mật khẩu phải có ít nhất 8 ký tự, chữ hoa, chữ thường, số và ký tự đặc biệt.';
+    }
+    if (password !== confirmPassword) {
+      return 'Mật khẩu nhập lại không khớp.';
+    }
     return '';
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (pendingVerification) return;
+
+    // Khi submit: force-reveal tất cả errors để user thấy vấn đề
+    setShowPasswordStrengthError(true);
+    setConfirmTouched(true);
+
     const validationError = validate();
-    if (validationError) { setError(validationError); return; }
+    if (validationError) {
+      setError(validationError);
+      return;
+    }
+
     setError('');
+    setSuccess('');
     setLoading(true);
     try {
-      await register({
-        fullName: fullName.trim(),
+      const result = await register({
         email: email.trim(),
         password,
-        grade,
-        school: school.trim() || undefined,
       });
-      setSuccess('Đăng ký thành công! Đang chuyển hướng...');
-      setTimeout(() => navigate('/profile/dashboard', { replace: true }), 1200);
+      setPendingVerification(result);
+      setSecondsLeft(secondsUntil(result.verificationExpiresAt));
+      setResendCooldown(60);
+      setSuccess('Đăng ký thành công. Vui lòng kiểm tra email để xác minh tài khoản.');
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : 'Đăng ký thất bại.');
     } finally {
@@ -111,11 +164,25 @@ export default function RegisterPage() {
     }
   };
 
-  const [gradeFocused, setGradeFocused] = useState(false);
+  const handleResend = async () => {
+    if (!pendingVerification || resendCooldown > 0) return;
+    setError('');
+    setResending(true);
+    try {
+      const result = await resendVerification(pendingVerification.email);
+      setPendingVerification(result);
+      setSecondsLeft(secondsUntil(result.verificationExpiresAt));
+      setResendCooldown(60);
+      setSuccess('Đã gửi lại link xác minh. Vui lòng kiểm tra email.');
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : 'Không gửi lại được link xác minh.');
+    } finally {
+      setResending(false);
+    }
+  };
 
   return (
     <AuthLayout>
-      {/* Title */}
       <div style={{ marginBottom: '1.5rem' }}>
         <h1
           style={{
@@ -128,180 +195,70 @@ export default function RegisterPage() {
         >
           Tạo tài khoản
         </h1>
-        <p style={{ fontSize: '0.875rem', color: 'var(--text-muted)' }}>
-          Bắt đầu hành trình khám phá lịch sử Việt Nam
-        </p>
       </div>
 
       {error && <AuthFormMessage type="error" message={error} />}
-      {success && <AuthFormMessage type="success" message={success} />}
+      {success && !pendingVerification && <AuthFormMessage type="success" message={success} />}
 
       <form
         onSubmit={handleSubmit}
         noValidate
-        style={{ display: 'flex', flexDirection: 'column', gap: '0.875rem' }}
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '1rem',
+          opacity: pendingVerification ? 0.55 : 1,
+          pointerEvents: pendingVerification ? 'none' : 'auto',
+        }}
       >
-        <TextInput
-          id="reg-name"
-          value={fullName}
-          onChange={setFullName}
-          placeholder="Nguyễn Văn An"
-          required
-          label="Họ và tên"
-          icon="👤"
-          autoComplete="name"
-        />
-
         <TextInput
           id="reg-email"
           type="email"
           value={email}
           onChange={setEmail}
           placeholder="email@example.com"
-          required
           label="Email"
-          icon="📧"
+          icon={Mail}
           autoComplete="email"
+          required
         />
-
         <PasswordInput
           id="reg-password"
-          value={password}
-          onChange={setPassword}
-          placeholder="Tối thiểu 6 ký tự"
-          required
-          autoComplete="new-password"
           label="Mật khẩu"
-          hint="Ít nhất 6 ký tự"
-        />
-
-        <PasswordInput
-          id="reg-confirm"
-          value={confirmPassword}
-          onChange={setConfirmPassword}
-          placeholder="Nhập lại mật khẩu"
-          required
-          autoComplete="new-password"
-          label="Nhập lại mật khẩu"
-        />
-
-        {/* Grade select */}
-        <div>
-          <label
-            htmlFor="reg-grade"
-            style={{
-              display: 'block',
-              fontSize: '0.875rem',
-              fontWeight: 600,
-              color: 'var(--text-secondary)',
-              marginBottom: '0.375rem',
-            }}
-          >
-            Lớp hiện tại
-          </label>
-          <div style={{ position: 'relative' }}>
-            <span
-              style={{
-                position: 'absolute',
-                left: '0.875rem',
-                top: '50%',
-                transform: 'translateY(-50%)',
-                fontSize: '1rem',
-                pointerEvents: 'none',
-                color: gradeFocused ? 'var(--accent)' : 'var(--text-muted)',
-                transition: 'color 0.2s',
-              }}
-            >
-              🎓
-            </span>
-            <select
-              id="reg-grade"
-              value={grade}
-              onChange={(e) => setGrade(Number(e.target.value))}
-              onFocus={() => setGradeFocused(true)}
-              onBlur={() => setGradeFocused(false)}
-              style={{
-                width: '100%',
-                paddingLeft: '2.75rem',
-                paddingRight: '1rem',
-                paddingTop: '0.75rem',
-                paddingBottom: '0.75rem',
-                background: 'var(--input-bg)',
-                border: gradeFocused
-                  ? '1px solid var(--accent)'
-                  : '1px solid var(--border)',
-                borderRadius: '0.625rem',
-                color: 'var(--text-primary)',
-                fontSize: '0.9375rem',
-                outline: 'none',
-                transition: 'border-color 0.2s, box-shadow 0.2s',
-                boxShadow: gradeFocused ? '0 0 0 3px var(--accent-soft)' : 'none',
-                fontFamily: 'inherit',
-                cursor: 'pointer',
-                appearance: 'none',
-              }}
-            >
-              <option value={10}>Lớp 10</option>
-              <option value={11}>Lớp 11</option>
-              <option value={12}>Lớp 12</option>
-            </select>
-          </div>
-        </div>
-
-        <TextInput
-          id="reg-school"
-          value={school}
-          onChange={setSchool}
-          placeholder="THPT Nguyễn Huệ (tuỳ chọn)"
-          label="Trường học"
-          icon="🏫"
-          autoComplete="organization"
-        />
-
-        {/* Terms checkbox */}
-        <label
-          style={{
-            display: 'flex',
-            alignItems: 'flex-start',
-            gap: '0.625rem',
-            fontSize: '0.8125rem',
-            color: 'var(--text-muted)',
-            cursor: 'pointer',
-            lineHeight: 1.5,
+          value={password}
+          onChange={(value) => {
+            setPassword(value);
+            if (isStrongPassword(value)) {
+              setShowPasswordStrengthError(false);
+            }
           }}
-        >
-          <input
-            type="checkbox"
-            id="terms-agreed"
-            checked={agreed}
-            onChange={(e) => setAgreed(e.target.checked)}
-            style={{
-              accentColor: 'var(--accent)',
-              cursor: 'pointer',
-              width: '1rem',
-              height: '1rem',
-              marginTop: '0.125rem',
-              flexShrink: 0,
-            }}
-          />
-          <span>
-            Tôi đồng ý với{' '}
-            <span
-              style={{ color: 'var(--accent)', fontWeight: 600 }}
-            >
-              Điều khoản sử dụng
-            </span>{' '}
-            và{' '}
-            <span style={{ color: 'var(--accent)', fontWeight: 600 }}>
-              Chính sách bảo mật
-            </span>
-          </span>
-        </label>
-
+          placeholder="Tối thiểu 8 ký tự"
+          autoComplete="new-password"
+          required
+          error={passwordPolicyError}
+          hint={passwordPolicyError ? undefined : 'Có chữ hoa, chữ thường, số và ký tự đặc biệt.'}
+        />
+        <PasswordStrengthMeter password={password} />
+        <PasswordInput
+          id="reg-confirm-password"
+          label="Nhập lại mật khẩu"
+          value={confirmPassword}
+          onChange={(value) => {
+            setConfirmPassword(value);
+            // Chỉ mark touched khi user thực sự gõ ký tự đầu tiên vào ô confirm
+            if (value.length > 0) setConfirmTouched(true);
+          }}
+          placeholder="Nhập lại mật khẩu"
+          autoComplete="new-password"
+          required
+          error={confirmPasswordError}
+        />
         <div style={{ marginTop: '0.25rem' }}>
-          <SubmitButton loading={loading} label="Tạo tài khoản" />
+          <SubmitButton loading={loading} disabled={formLocked} />
         </div>
       </form>
+
+      {!pendingVerification && <OAuthButtons mode="register" onError={setError} />}
 
       <p
         style={{
@@ -312,20 +269,141 @@ export default function RegisterPage() {
         }}
       >
         Đã có tài khoản?{' '}
-        <Link
-          to="/login"
-          style={{
-            color: 'var(--accent)',
-            textDecoration: 'none',
-            fontWeight: 600,
-            transition: 'color 0.2s',
-          }}
-          onMouseEnter={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = 'var(--text-primary)')}
-          onMouseLeave={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = 'var(--accent)')}
-        >
+        <Link to="/login" style={{ color: 'var(--accent)', textDecoration: 'none', fontWeight: 600 }}>
           Đăng nhập
         </Link>
       </p>
+
+      {pendingVerification && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="verify-dialog-title"
+          style={{
+            position: 'fixed',
+            inset: 0,
+            background: 'rgba(2, 6, 23, 0.72)',
+            backdropFilter: 'blur(6px)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '1rem',
+            zIndex: 3000,
+          }}
+        >
+          <div
+            style={{
+              width: 'min(100%, 29rem)',
+              background: 'var(--card-bg)',
+              border: '1px solid var(--border)',
+              borderRadius: '0.75rem',
+              boxShadow: '0 20px 55px rgba(15, 23, 42, 0.25)',
+              padding: '1.25rem',
+              maxHeight: 'calc(100vh - 2rem)',
+              overflowY: 'auto',
+            }}
+          >
+            <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'flex-start', marginBottom: '0.75rem' }}>
+              <span style={{ color: 'var(--accent)', display: 'flex', marginTop: '0.125rem' }}>
+                <CheckCircle size={22} strokeWidth={2} />
+              </span>
+              <div>
+                <h2 id="verify-dialog-title" style={{ margin: 0, fontSize: '1.125rem', color: 'var(--text-primary)' }}>
+                  Kiểm tra email để xác minh
+                </h2>
+                <p style={{ color: 'var(--text-muted)', lineHeight: 1.6, margin: '0.5rem 0 0' }}>
+                  Link xác minh đã được gửi tới <strong>{pendingVerification.email}</strong>.
+                </p>
+              </div>
+            </div>
+
+            <div
+              style={{
+                border: '1px solid var(--border)',
+                borderRadius: '0.625rem',
+                padding: '0.875rem',
+                marginBottom: '1rem',
+                textAlign: 'center',
+              }}
+            >
+              <div style={{ fontSize: '0.8125rem', color: 'var(--text-muted)', marginBottom: '0.25rem' }}>
+                Link hết hạn sau
+              </div>
+              <div
+                style={{
+                  fontSize: '1.75rem',
+                  fontWeight: 700,
+                  color: 'var(--accent)',
+                  fontVariantNumeric: 'tabular-nums',
+                }}
+              >
+                {countdownText}
+              </div>
+            </div>
+
+            {pendingVerification.devVerificationUrl && (
+              <a
+                href={pendingVerification.devVerificationUrl}
+                style={{
+                  display: 'block',
+                  textAlign: 'center',
+                  padding: '0.75rem',
+                  marginBottom: '0.625rem',
+                  background: 'var(--accent-soft)',
+                  color: 'var(--accent)',
+                  border: '1px solid var(--accent)',
+                  borderRadius: '0.625rem',
+                  textDecoration: 'none',
+                  fontWeight: 700,
+                }}
+              >
+                Mở link xác minh local/dev
+              </a>
+            )}
+
+            <p
+              style={{
+                margin: '0 0 0.75rem',
+                color: 'var(--text-muted)',
+                fontSize: '0.875rem',
+                lineHeight: 1.5,
+                textAlign: 'center',
+              }}
+            >
+              Sau khi bấm link trong email, hệ thống sẽ tự đăng nhập và đưa bạn về trang chủ.
+            </p>
+
+            <div style={{ display: 'grid', gap: '0.625rem' }}>
+              <button
+                type="button"
+                disabled={resending || resendCooldown > 0}
+                onClick={handleResend}
+                style={{
+                  padding: '0.75rem',
+                  border: '1px solid var(--border)',
+                  background: 'var(--input-bg)',
+                  color: 'var(--text-primary)',
+                  borderRadius: '0.625rem',
+                  fontWeight: 600,
+                  cursor: resending || resendCooldown > 0 ? 'not-allowed' : 'pointer',
+                  fontFamily: 'inherit',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: '0.5rem',
+                }}
+              >
+                <RefreshCw size={16} strokeWidth={2} />
+                {resending
+                  ? 'Đang gửi lại...'
+                  : resendCooldown > 0
+                    ? `Gửi lại link sau ${resendCooldown}s`
+                    : 'Gửi lại link xác minh'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </AuthLayout>
   );
 }

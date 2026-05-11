@@ -3,6 +3,7 @@ import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 import { viteStaticCopy } from 'vite-plugin-static-copy'
 import path from 'path'
+import basicSsl from '@vitejs/plugin-basic-ssl'
 
 const cesiumSource = 'node_modules/cesium/Build/Cesium'
 
@@ -11,6 +12,7 @@ export default defineConfig({
   plugins: [
     react(),
     tailwindcss(),
+    basicSsl(),
     viteStaticCopy({
       targets: [
         { src: `${cesiumSource}/Workers/**/*`, dest: 'cesium/Workers' },
@@ -20,6 +22,9 @@ export default defineConfig({
       ],
     }),
   ],
+  server: {
+    port: 5173,
+  },
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
@@ -29,3 +34,4 @@ export default defineConfig({
     CESIUM_BASE_URL: JSON.stringify('/cesium'),
   },
 })
+

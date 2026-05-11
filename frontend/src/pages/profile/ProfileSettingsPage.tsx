@@ -206,7 +206,7 @@ export default function ProfileSettingsPage() {
     try {
       await updateProfile({
         fullName: fullName.trim(),
-        grade: grade ? Number(grade) : undefined,
+        grade: grade ? (grade as '10' | '11' | '12' | 'other') : undefined,
         school: school.trim() || undefined,
         avatarUrl: avatarPreview || undefined,
       });

@@ -20,7 +20,7 @@ import {
   getEventsByYear,
 } from '../data/events';
 import type { EventType, GeoType, HistoricalEvent } from '../types/event';
-import { apiGet, toQueryString } from './apiClient';
+import { apiGet, apiPost, toQueryString } from './apiClient';
 
 interface EventListResponse {
   items: EventSummaryDto[];
@@ -81,6 +81,20 @@ interface EventDetailDto extends EventSummaryDto {
   sourceJson?: RawEventJson;
 }
 
+interface TimelineEventDto {
+  id: string;
+  slug?: string;
+  title: string;
+  shortTitle?: string;
+  eventType: EventType;
+  startYear: number;
+  endYear?: number | null;
+  displayDate?: string;
+  parentId?: string | null;
+  level?: number;
+  featured?: boolean;
+}
+
 type DisplayMediaType = 'image' | 'video' | 'document';
 
 function isDisplayMediaType(value: string): value is DisplayMediaType {
@@ -112,8 +126,18 @@ function summaryToHistoricalEvent(dto: EventSummaryDto): HistoricalEvent {
     primaryRegions: toStringArray(dto.provinceNames),
     parentId: dto.parentId ?? null,
     childCount: dto.childCount ?? 0,
+    orderInParent: dto.orderInParent ?? 0,
     details: dto.cardSummary,
   };
+}
+
+export function sortHistoricalEvents(events: HistoricalEvent[]): HistoricalEvent[] {
+  return [...events].sort(
+    (a, b) =>
+      (a.orderInParent ?? 0) - (b.orderInParent ?? 0) ||
+      a.startYear - b.startYear ||
+      a.name.localeCompare(b.name, 'vi')
+  );
 }
 
 function detailToMockEvent(dto: EventDetailDto): MockEventDetail {
@@ -205,11 +229,11 @@ function detailToMockEvent(dto: EventDetailDto): MockEventDetail {
   };
 }
 
-export async function getEventsByYearFromBackend(year: number): Promise<HistoricalEvent[]> {
+export async function getEventsByYearFromBackend(year: number, grade?: number | null): Promise<HistoricalEvent[]> {
   try {
-    const query = toQueryString({ year, limit: 1000 });
+    const query = toQueryString({ year, grade, limit: 1000 });
     const data = await apiGet<EventListResponse>(`/api/events${query}`);
-    return data.items.map(summaryToHistoricalEvent);
+    return sortHistoricalEvents(data.items.map(summaryToHistoricalEvent));
   } catch (error) {
     console.warn('Fallback to static events because backend event list failed.', error);
     return getEventsByYear(year);
@@ -223,7 +247,7 @@ export async function searchEventsFromBackend(queryText: string): Promise<Histor
   try {
     const query = toQueryString({ q: normalized, limit: 1000 });
     const data = await apiGet<EventListResponse>(`/api/events${query}`);
-    return data.items.map(summaryToHistoricalEvent);
+    return sortHistoricalEvents(data.items.map(summaryToHistoricalEvent));
   } catch (error) {
     console.warn('Fallback to static events because backend search failed.', error);
     const q = normalized.toLowerCase();
@@ -238,7 +262,7 @@ export async function searchEventsFromBackend(queryText: string): Promise<Histor
 export async function getChildrenFromBackend(eventId: string): Promise<HistoricalEvent[]> {
   try {
     const data = await apiGet<EventListResponse>(`/api/events/${eventId}/children`);
-    return data.items.map(summaryToHistoricalEvent);
+    return sortHistoricalEvents(data.items.map(summaryToHistoricalEvent));
   } catch (error) {
     console.warn('Fallback to static children because backend children API failed.', error);
     return findEventById(eventId)?.children ?? [];
@@ -266,5 +290,27 @@ export async function getEventDetailFromBackend(slugOrId: string): Promise<MockE
     console.warn('Fallback to static event detail because backend detail API failed.', error);
     const raw = getRawEventById(slugOrId) ?? findRawEventByIdOrSlug(slugOrId);
     return raw ? rawToEventDetail(raw) : null;
+  }
+}
+
+export async function getTimelineYearsFromBackend(grade?: number | null): Promise<number[]> {
+  try {
+    const query = toQueryString({ grade });
+    const data = await apiGet<TimelineEventDto[]>(`/api/timeline${query}`);
+    return Array.from(new Set(data.map((item) => item.startYear))).sort((a, b) => a - b);
+  } catch (error) {
+    console.warn('Fallback to static timeline years because backend timeline failed.', error);
+    return [];
+  }
+}
+
+export async function recordEventView(
+  eventId: string,
+  payload: { durationSeconds?: number; progressPercent?: number; source?: 'map' | 'detail' | 'search' | 'quiz' | 'exam' }
+): Promise<void> {
+  try {
+    await apiPost(`/api/events/${eventId}/view`, payload);
+  } catch (error) {
+    console.warn('Could not record event view.', error);
   }
 }

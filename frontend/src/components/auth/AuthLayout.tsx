@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
 import { Link } from 'react-router-dom';
+import { Map, Swords, Castle, Scroll, Anchor } from 'lucide-react';
 import { useTheme } from '../../theme/ThemeContext';
 
 interface AuthLayoutProps {
@@ -68,11 +69,11 @@ function BackgroundOrbs() {
 function DecorativeIcons() {
   const { isDark } = useTheme();
   const icons = [
-    { emoji: '🗺️', top: '12%', right: '8%', opacity: isDark ? 0.15 : 0.08, size: '2.5rem', delay: '0s' },
-    { emoji: '⚔️', bottom: '20%', left: '5%', opacity: isDark ? 0.12 : 0.06, size: '2rem', delay: '0.5s' },
-    { emoji: '🏰', top: '55%', right: '4%', opacity: isDark ? 0.1 : 0.05, size: '1.8rem', delay: '1s' },
-    { emoji: '📜', top: '30%', left: '3%', opacity: isDark ? 0.12 : 0.06, size: '1.8rem', delay: '1.5s' },
-    { emoji: '🔱', bottom: '10%', right: '12%', opacity: isDark ? 0.1 : 0.05, size: '1.5rem', delay: '0.3s' },
+    { icon: <Map size={40} />, top: '12%', right: '8%', opacity: isDark ? 0.15 : 0.08, delay: '0s' },
+    { icon: <Swords size={32} />, bottom: '20%', left: '5%', opacity: isDark ? 0.12 : 0.06, delay: '0.5s' },
+    { icon: <Castle size={28} />, top: '55%', right: '4%', opacity: isDark ? 0.1 : 0.05, delay: '1s' },
+    { icon: <Scroll size={28} />, top: '30%', left: '3%', opacity: isDark ? 0.12 : 0.06, delay: '1.5s' },
+    { icon: <Anchor size={24} />, bottom: '10%', right: '12%', opacity: isDark ? 0.1 : 0.05, delay: '0.3s' },
   ];
 
   return (
@@ -86,13 +87,13 @@ function DecorativeIcons() {
             bottom: icon.bottom,
             left: icon.left,
             right: icon.right,
-            fontSize: icon.size,
+            color: 'var(--accent)',
             opacity: icon.opacity,
             animation: `float-icon 6s ease-in-out infinite`,
             animationDelay: icon.delay,
           }}
         >
-          {icon.emoji}
+          {icon.icon}
         </span>
       ))}
     </div>
@@ -150,11 +151,11 @@ export default function AuthLayout({ children }: AuthLayoutProps) {
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  fontSize: '1.375rem',
+                  color: '#fff',
                   boxShadow: '0 0 20px rgba(30,58,95,0.4)',
                 }}
               >
-                🗺️
+                <Map size={24} strokeWidth={2} />
               </div>
               <span
                 style={{

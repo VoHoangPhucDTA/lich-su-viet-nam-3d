@@ -1,16 +1,16 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { LogIn, Mail, RefreshCw } from 'lucide-react';
 import { useAuth } from '../../auth/AuthContext';
 import AuthLayout from '../../components/auth/AuthLayout';
 import AuthFormMessage from '../../components/auth/AuthFormMessage';
-import PasswordInput from '../../components/auth/PasswordInput';
 import OAuthButtons from '../../components/auth/OAuthButtons';
-import * as authService from '../../services/authService';
-
 import TextInput from '../../components/auth/TextInput';
+import PasswordInput from '../../components/auth/PasswordInput';
+import * as authService from '../../services/authService';
+import { ApiRequestError } from '../../services/apiClient';
 
-/* ─── Submit button ──────────────────────────────────────────────────────── */
-function SubmitButton({ loading, label }: { loading: boolean; label: string }) {
+function SubmitButton({ loading }: { loading: boolean }) {
   return (
     <button
       type="submit"
@@ -18,9 +18,7 @@ function SubmitButton({ loading, label }: { loading: boolean; label: string }) {
       style={{
         width: '100%',
         padding: '0.8125rem',
-        background: loading
-          ? 'var(--accent-soft)'
-          : 'var(--accent)',
+        background: loading ? 'var(--accent-soft)' : 'var(--accent)',
         border: 'none',
         borderRadius: '0.625rem',
         color: '#fff',
@@ -34,39 +32,19 @@ function SubmitButton({ loading, label }: { loading: boolean; label: string }) {
         transition: 'all 0.2s',
         boxShadow: loading ? 'none' : '0 4px 15px rgba(30,58,95,0.2)',
         fontFamily: 'inherit',
-        letterSpacing: '0.01em',
-      }}
-      onMouseEnter={(e) => {
-        if (!loading) {
-          (e.currentTarget as HTMLButtonElement).style.filter = 'brightness(1.1)';
-          (e.currentTarget as HTMLButtonElement).style.transform = 'translateY(-1px)';
-        }
-      }}
-      onMouseLeave={(e) => {
-        (e.currentTarget as HTMLButtonElement).style.filter = 'none';
-        (e.currentTarget as HTMLButtonElement).style.transform = 'none';
       }}
     >
-      {loading && (
-        <span
-          style={{
-            width: '1.125rem',
-            height: '1.125rem',
-            border: '2px solid rgba(255,255,255,0.4)',
-            borderTopColor: '#fff',
-            borderRadius: '50%',
-            display: 'inline-block',
-            animation: 'spin 0.7s linear infinite',
-          }}
-        />
+      {loading ? (
+        <RefreshCw size={18} strokeWidth={2} style={{ animation: 'spin 0.7s linear infinite' }} />
+      ) : (
+        <LogIn size={18} strokeWidth={2} />
       )}
-      {loading ? 'Đang xử lý...' : label}
+      {loading ? 'Đang xử lý...' : 'Đăng nhập'}
       <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
     </button>
   );
 }
 
-/* ─── LoginPage ─────────────────────────────────────────────────────────── */
 export default function LoginPage() {
   const { login } = useAuth();
   const navigate = useNavigate();
@@ -79,17 +57,23 @@ export default function LoginPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!email.trim()) { setError('Vui lòng nhập email.'); return; }
-    if (!password) { setError('Vui lòng nhập mật khẩu.'); return; }
+    if (!email.trim()) {
+      setError('Vui lòng nhập email.');
+      return;
+    }
+    if (!password) {
+      setError('Vui lòng nhập mật khẩu.');
+      return;
+    }
     setError('');
     setLoading(true);
     try {
       await login({ email: email.trim(), password });
       const stored = authService.loadFromStorage();
       const role = stored?.user?.role ?? 'student';
-      navigate(role === 'admin' ? '/admin/dashboard' : '/profile/dashboard', { replace: true });
+      navigate(role === 'admin' ? '/admin/dashboard' : '/', { replace: true });
     } catch (err: unknown) {
-      setError(err instanceof Error ? err.message : 'Đăng nhập thất bại.');
+      setError(authErrorMessage(err));
     } finally {
       setLoading(false);
     }
@@ -97,7 +81,6 @@ export default function LoginPage() {
 
   return (
     <AuthLayout>
-      {/* Title */}
       <div style={{ marginBottom: '1.75rem' }}>
         <h1
           style={{
@@ -110,9 +93,6 @@ export default function LoginPage() {
         >
           Đăng nhập
         </h1>
-        <p style={{ fontSize: '0.875rem', color: 'var(--text-muted)' }}>
-          Chào mừng trở lại! Tiếp tục hành trình học sử.
-        </p>
       </div>
 
       {error && <AuthFormMessage type="error" message={error} />}
@@ -123,24 +103,23 @@ export default function LoginPage() {
           type="email"
           value={email}
           onChange={setEmail}
-          placeholder="student@demo.com"
-          required
+          placeholder="Email"
           label="Email"
-          icon="📧"
+          icon={Mail}
           autoComplete="email"
+          required
         />
 
         <PasswordInput
           id="login-password"
+          label="Mật khẩu"
           value={password}
           onChange={setPassword}
-          placeholder="Mật khẩu của bạn"
-          required
+          placeholder="Mật khẩu"
           autoComplete="current-password"
-          label="Mật khẩu"
+          required
         />
 
-        {/* Remember + Forgot */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <label
             style={{
@@ -168,55 +147,34 @@ export default function LoginPage() {
               color: 'var(--accent)',
               textDecoration: 'none',
               fontWeight: 600,
-              transition: 'color 0.2s',
             }}
-            onMouseEnter={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = 'var(--text-primary)')}
-            onMouseLeave={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = 'var(--accent)')}
           >
             Quên mật khẩu?
           </Link>
         </div>
 
         <div style={{ marginTop: '0.25rem' }}>
-          <SubmitButton loading={loading} label="Đăng nhập" />
+          <SubmitButton loading={loading} />
         </div>
       </form>
 
-      {/* Hint about demo accounts */}
-      <div
-        style={{
-          marginTop: '0.875rem',
-          padding: '0.625rem 0.875rem',
-          background: 'var(--accent-soft)',
-          border: '1px solid var(--accent)',
-          opacity: 0.8,
-          borderRadius: '0.5rem',
-          fontSize: '0.75rem',
-          color: 'var(--accent)',
-          lineHeight: 1.6,
-        }}
-      >
-        🧪 <strong>Demo:</strong> student@demo.com / 123456 &nbsp;|&nbsp; admin@demo.com / admin123
-      </div>
+      <OAuthButtons mode="login" onError={setError} />
 
-      <OAuthButtons onError={setError} />
-
-      {/* Footer link */}
-      <p style={{ textAlign: 'center', fontSize: '0.875rem', color: 'var(--text-muted)', marginTop: '0.25rem' }}>
+      <p style={{ textAlign: 'center', fontSize: '0.875rem', color: 'var(--text-muted)', marginTop: '1.25rem' }}>
         Chưa có tài khoản?{' '}
-        <Link
-          to="/register"
-          style={{
-            color: 'var(--accent)',
-            textDecoration: 'none',
-            fontWeight: 600,
-            transition: 'color 0.2s',
-          }}
-          onMouseLeave={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = 'var(--accent)')}
-        >
+        <Link to="/register" style={{ color: 'var(--accent)', textDecoration: 'none', fontWeight: 600 }}>
           Đăng ký ngay
         </Link>
       </p>
     </AuthLayout>
   );
+}
+
+function authErrorMessage(error: unknown) {
+  if (error instanceof ApiRequestError) {
+    if (error.code === 'EMAIL_NOT_VERIFIED') return 'Vui lòng xác minh email trước khi đăng nhập.';
+    if (error.code === 'ACCOUNT_LOCKED') return 'Tài khoản đang bị khóa tạm thời do đăng nhập sai quá nhiều lần.';
+    if (error.code === 'INVALID_CREDENTIALS') return 'Email hoặc mật khẩu không đúng.';
+  }
+  return error instanceof Error ? error.message : 'Đăng nhập thất bại.';
 }

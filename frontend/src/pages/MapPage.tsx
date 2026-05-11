@@ -15,7 +15,10 @@ import {
   getChildrenFromBackend,
   getEventsByYearFromBackend,
   getHistoricalEventFromBackend,
+  getTimelineYearsFromBackend,
+  recordEventView,
   searchEventsFromBackend,
+  sortHistoricalEvents,
 } from '../services/eventApi';
 
 function replaceEventInTree(
@@ -61,9 +64,7 @@ function buildSidebarTree(events: HistoricalEvent[]): HistoricalEvent[] {
 
     const existingChildren = parent.children ?? [];
     if (!existingChildren.some((child) => child.id === event.id)) {
-      parent.children = [...existingChildren, event].sort(
-        (a, b) => a.startYear - b.startYear || a.name.localeCompare(b.name)
-      );
+      parent.children = sortHistoricalEvents([...existingChildren, event]);
     }
     childIds.add(event.id);
   }
@@ -90,9 +91,7 @@ function attachCachedChildren(
       });
     }
 
-    const mergedChildren = Array.from(mergedById.values()).sort(
-      (a, b) => a.startYear - b.startYear || a.name.localeCompare(b.name)
-    );
+    const mergedChildren = sortHistoricalEvents(Array.from(mergedById.values()));
 
     return {
       ...event,
@@ -119,6 +118,8 @@ export default function MapPage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [searchLoading, setSearchLoading] = useState(false);
   const [eventsLoading, setEventsLoading] = useState(false);
+  const [selectedGrade, setSelectedGrade] = useState<number | null>(null);
+  const [timelineYears, setTimelineYears] = useState<number[]>([]);
   
   const { setCenterContent } = useHeader();
 
@@ -127,7 +128,7 @@ export default function MapPage() {
 
     async function loadEvents() {
       setEventsLoading(true);
-      const events = await getEventsByYearFromBackend(currentYear);
+      const events = await getEventsByYearFromBackend(currentYear, selectedGrade);
       if (!cancelled) {
         setYearEvents(events);
         setEventsLoading(false);
@@ -138,7 +139,23 @@ export default function MapPage() {
     return () => {
       cancelled = true;
     };
-  }, [currentYear]);
+  }, [currentYear, selectedGrade]);
+
+  useEffect(() => {
+    let cancelled = false;
+
+    async function loadTimelineYears() {
+      const years = await getTimelineYearsFromBackend(selectedGrade);
+      if (!cancelled) {
+        setTimelineYears(years);
+      }
+    }
+
+    loadTimelineYears();
+    return () => {
+      cancelled = true;
+    };
+  }, [selectedGrade]);
 
   useEffect(() => {
     const query = searchQuery.trim();
@@ -214,6 +231,7 @@ export default function MapPage() {
           [event.id]: children,
         }));
       }
+      void recordEventView(event.id, { source: searchQuery.trim() ? 'search' : 'map' });
 
       // If the event has children, drill down
       if (eventWithChildren.children && eventWithChildren.children.length > 0) {
@@ -236,7 +254,7 @@ export default function MapPage() {
         setSelectedEvent(eventWithChildren);
       }
     },
-    [selectedEvent]
+    [selectedEvent, searchQuery]
   );
 
   // Navigate to a child event from popup
@@ -256,6 +274,7 @@ export default function MapPage() {
           [child.id]: children,
         }));
       }
+      void recordEventView(child.id, { source: 'map' });
       setSelectedEvent(children.length > 0 ? { ...nextEvent, children } : nextEvent);
     },
     [selectedEvent]
@@ -303,6 +322,12 @@ export default function MapPage() {
   // Handle year change from timeline
   const handleYearChange = useCallback((year: number) => {
     setCurrentYear(year);
+    setSelectedEvent(null);
+    setNavigationStack([]);
+  }, []);
+
+  const handleGradeChange = useCallback((grade: number | null) => {
+    setSelectedGrade(grade);
     setSelectedEvent(null);
     setNavigationStack([]);
   }, []);
@@ -438,7 +463,13 @@ export default function MapPage() {
           </div>
 
           {/* Timeline — flex-shrink-0 đảm bảo không bị squeeze khi map shrink */}
-          <Timeline currentYear={currentYear} onYearChange={handleYearChange} />
+          <Timeline
+            currentYear={currentYear}
+            onYearChange={handleYearChange}
+            selectedGrade={selectedGrade}
+            onGradeChange={handleGradeChange}
+            eventYears={timelineYears}
+          />
         </div>
 
         {/* Event popup */}

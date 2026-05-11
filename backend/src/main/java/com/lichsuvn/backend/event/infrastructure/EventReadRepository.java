@@ -311,11 +311,11 @@ public class EventReadRepository {
         if (StringUtils.hasText(query)) {
             filters.add("""
                     (
-                        e.title LIKE :query
-                        OR e.short_title LIKE :query
-                        OR e.card_summary LIKE :query
-                        OR e.canonical_summary LIKE :query
-                        OR e.significance LIKE :query
+                        e.title COLLATE utf8mb4_0900_ai_ci LIKE :query COLLATE utf8mb4_0900_ai_ci
+                        OR e.short_title COLLATE utf8mb4_0900_ai_ci LIKE :query COLLATE utf8mb4_0900_ai_ci
+                        OR e.card_summary COLLATE utf8mb4_0900_ai_ci LIKE :query COLLATE utf8mb4_0900_ai_ci
+                        OR e.canonical_summary COLLATE utf8mb4_0900_ai_ci LIKE :query COLLATE utf8mb4_0900_ai_ci
+                        OR e.significance COLLATE utf8mb4_0900_ai_ci LIKE :query COLLATE utf8mb4_0900_ai_ci
                     )
                     """);
             params.addValue("query", "%" + query.trim() + "%");
