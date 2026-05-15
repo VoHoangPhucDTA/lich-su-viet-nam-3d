@@ -53,6 +53,7 @@ public class EventReadService {
 
         int safeLimit = normalizeLimit(limit);
         int safeOffset = normalizeOffset(offset);
+        // 1.1.5: EventReadService.java: Thực hiện truy vấn MySQL để lấy dữ liệu sự kiện lịch sử.
         List<EventSummaryDto> items = eventReadRepository.findEvents(
                 year,
                 grade,
@@ -64,6 +65,7 @@ public class EventReadService {
                 safeLimit,
                 safeOffset
         );
+        // 1.1.7: EventReadService.java: Chuyển đổi thành DTO và trả kết quả cho EventController.java.
         return new EventListResponse(items, items.size());
     }
 

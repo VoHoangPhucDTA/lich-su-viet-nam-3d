@@ -232,7 +232,9 @@ function detailToMockEvent(dto: EventDetailDto): MockEventDetail {
 export async function getEventsByYearFromBackend(year: number, grade?: number | null): Promise<HistoricalEvent[]> {
   try {
     const query = toQueryString({ year, grade, limit: 1000 });
+    // 1.1.3: eventApi.ts: Gọi API GET /api/events?year={year}&grade={grade} đến EventController.java.
     const data = await apiGet<EventListResponse>(`/api/events${query}`);
+    // 1.1.9: eventApi.ts: Trả dữ liệu mảng sự kiện (HistoricalEvent) về cho Component quản lý state chính.
     return sortHistoricalEvents(data.items.map(summaryToHistoricalEvent));
   } catch (error) {
     console.warn('Fallback to static events because backend event list failed.', error);
@@ -261,6 +263,7 @@ export async function searchEventsFromBackend(queryText: string): Promise<Histor
 
 export async function getChildrenFromBackend(eventId: string): Promise<HistoricalEvent[]> {
   try {
+    // 1.1.14: eventApi.ts: Gọi API GET /api/events/{eventId}/children đến Backend để lấy dữ liệu con.
     const data = await apiGet<EventListResponse>(`/api/events/${eventId}/children`);
     return sortHistoricalEvents(data.items.map(summaryToHistoricalEvent));
   } catch (error) {

@@ -73,7 +73,8 @@ public class EventReadRepository {
                 LIMIT :limit OFFSET :offset
                 """;
 
-        return jdbc.query(sql, parts.params, summaryMapper());
+        // 1.1.6: MySQL: Trả về danh sách Event Entity.
+        return jdbc.query(sql, parts.params(), summaryMapper());
     }
 
     public List<TimelineEventDto> findTimeline(Integer from, Integer to, Integer grade, String eventType) {

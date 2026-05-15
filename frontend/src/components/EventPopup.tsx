@@ -42,6 +42,7 @@ export default function EventPopup({
     year < 0 ? `${Math.abs(year)} TCN` : `${year}`;
 
   return (
+    // 1.1.20: EventPopup.tsx: Khởi tạo và trượt ra ở bên phải màn hình, nhận tham số sự kiện để hiển thị các trường: Tên sự kiện, Phân loại...
     <div
       className="glass-map animate-slide-in-right"
       style={{

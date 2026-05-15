@@ -29,6 +29,7 @@ public class EventController {
         this.eventReadService = eventReadService;
     }
 
+    // 1.1.4: EventController.java: Nhận request và gọi hàm findEvents() của EventReadService.java.
     @GetMapping("/events")
     public ApiResponse<EventListResponse> findEvents(
             @RequestParam(required = false) Integer year,
@@ -41,6 +42,7 @@ public class EventController {
             @RequestParam(required = false) Integer limit,
             @RequestParam(required = false) Integer offset
     ) {
+        // 1.1.8: EventController.java: Trả HTTP status 200 kèm danh sách cho eventApi.ts.
         return ApiResponse.ok(eventReadService.findEvents(
                 year,
                 grade,

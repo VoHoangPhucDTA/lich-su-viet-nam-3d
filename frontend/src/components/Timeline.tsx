@@ -128,6 +128,7 @@ export default function Timeline({
                   <button
                     key={grade ?? 'all'}
                     type="button"
+                    // 1.1.1: MapPage.tsx: Người dùng chọn lọc theo Lớp 10/11/12 (Tùy chọn, mặc định lấy toàn bộ).
                     onClick={() => onGradeChange(grade)}
                     className="rounded-md px-2.5 py-1 text-[11px] font-semibold transition"
                     style={{
@@ -267,6 +268,7 @@ export default function Timeline({
           min={TIMELINE_MIN_YEAR}
           max={TIMELINE_MAX_YEAR}
           value={currentYear}
+          // 1.1.2: Timeline.tsx: Kích hoạt sự kiện thay đổi, gọi hàm getEventsByYearFromBackend() trong eventApi.ts.
           onChange={(e) => onYearChange(Number(e.target.value))}
           className="timeline-slider relative z-[2] w-full h-6 bg-transparent appearance-none cursor-pointer"
           aria-label="Chọn mốc thời gian"
