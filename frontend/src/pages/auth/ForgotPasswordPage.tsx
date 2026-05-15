@@ -14,6 +14,7 @@ export default function ForgotPasswordPage() {
   const [error, setError] = useState('');
 
   const handleSubmit = async (e: React.FormEvent) => {
+    // Bước 6C.1.1: ForgotPasswordPage.tsx: Nhập email và nhấn nút Gửi
     e.preventDefault();
     if (!email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       setError('Vui lòng nhập email hợp lệ.');
@@ -22,7 +23,9 @@ export default function ForgotPasswordPage() {
     setError('');
     setLoading(true);
     try {
+      // Bước 6C.1.2: ForgotPasswordPage.tsx: gọi hàm forgotPassword trong authService.ts
       const res = await forgotPassword(email.trim());
+      // Bước 6C.1.11: ForgotPasswordPage.tsx: hiển thị thông báo thành công
       setSuccess(res.message || 'Nếu email tồn tại trong hệ thống, hướng dẫn đặt lại mật khẩu đã được gửi.');
     } catch {
       setError('Không thể gửi hướng dẫn đặt lại mật khẩu. Vui lòng thử lại.');

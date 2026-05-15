@@ -47,14 +47,20 @@ export function getAccessToken(): string | null {
 }
 
 export async function login(req: LoginRequest): Promise<AuthResponse> {
+  // Bước 6B.1.3: authService.ts: gọi POST /api/auth/login đến AuthController.java
+  // Bước 6B.4.5: authService.ts: ném lỗi về cho LoginPage.tsx (nếu API trả lỗi)
   // Real backend path: successful login returns tokens + AuthUserDto in the mock-compatible shape.
   const response = await apiPost<AuthResponse>('/api/auth/login', req);
+  // Bước 6B.1.9: authService.ts: lưu Token và trả dữ liệu cho LoginPage.tsx
   saveToStorage(response);
   return response;
 }
 
 export async function register(req: RegisterRequest): Promise<RegisterResponse> {
+  // Bước 6A.1.3: authService.ts: gọi POST /api/auth/register đến AuthController.java
+  // Bước 6A.2.5: authService.ts: ném lỗi về cho RegisterPage.tsx (nếu API trả lỗi)
   clearStorage();
+  // Bước 6A.1.10: authService.ts: trả dữ liệu cho RegisterPage.tsx
   return apiPost<RegisterResponse>('/api/auth/register', req);
 }
 
@@ -89,6 +95,7 @@ export async function forgotPassword(_email: string): Promise<{ message: string 
 }
 
 export async function resetPassword(req: ResetPasswordRequest): Promise<{ message: string }> {
+  // Bước 6C.1.14: authService.ts: gọi POST /api/auth/reset-password đến AuthController.java
   return apiPost<{ message: string }>('/api/auth/reset-password', req);
 }
 

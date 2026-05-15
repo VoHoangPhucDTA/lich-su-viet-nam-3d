@@ -120,7 +120,7 @@ export default function MapPage() {
   const [eventsLoading, setEventsLoading] = useState(false);
   const [selectedGrade, setSelectedGrade] = useState<number | null>(null);
   const [timelineYears, setTimelineYears] = useState<number[]>([]);
-  
+
   const { setCenterContent } = useHeader();
 
   useEffect(() => {
@@ -404,7 +404,7 @@ export default function MapPage() {
     <div
       style={{
         width: '100%',
-        height: '100%', 
+        height: '100%',
         display: 'flex',
         flexDirection: 'column',
         overflow: 'hidden',

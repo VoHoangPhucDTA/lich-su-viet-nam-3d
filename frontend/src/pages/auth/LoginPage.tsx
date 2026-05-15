@@ -56,6 +56,7 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
+    // Bước 6B.1.1: LoginPage.tsx: Người dùng nhấp vào nút Đăng nhập
     e.preventDefault();
     if (!email.trim()) {
       setError('Vui lòng nhập email.');
@@ -68,11 +69,14 @@ export default function LoginPage() {
     setError('');
     setLoading(true);
     try {
+      // Bước 6B.1.2: LoginPage.tsx: gọi hàm login trong authService.ts
       await login({ email: email.trim(), password });
       const stored = authService.loadFromStorage();
       const role = stored?.user?.role ?? 'student';
+      // Bước 6B.1.10: LoginPage.tsx: chuyển hướng trang chủ
       navigate(role === 'admin' ? '/admin/dashboard' : '/', { replace: true });
     } catch (err: unknown) {
+      // Bước 6B.4.6: LoginPage.tsx: hiển thị thông báo lỗi trên form
       setError(authErrorMessage(err));
     } finally {
       setLoading(false);

@@ -29,6 +29,7 @@ export default function ResetPasswordPage() {
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
+    // Bước 6C.1.12: ResetPasswordPage.tsx: Người dùng nhấp vào link từ email, nhập mật khẩu mới và nhấn nút Đặt lại
     e.preventDefault();
     setError('');
 
@@ -48,7 +49,9 @@ export default function ResetPasswordPage() {
 
     setLoading(true);
     try {
+      // Bước 6C.1.13: ResetPasswordPage.tsx: gọi hàm resetPassword trong authService.ts
       const res = await resetPassword({ token, newPassword: password });
+      // Bước 6C.1.21: ResetPasswordPage.tsx: hiển thị thông báo thành công và chuyển hướng
       setSuccess(res.message || 'Đặt lại mật khẩu thành công. Vui lòng đăng nhập lại.');
       setTimeout(() => navigate('/login', { replace: true }), 2000);
     } catch (err: unknown) {

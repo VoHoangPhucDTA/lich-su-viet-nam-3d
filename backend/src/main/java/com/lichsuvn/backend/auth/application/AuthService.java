@@ -86,10 +86,11 @@ public class AuthService {
         String grade = normalizeGrade(request.grade());
         String email = normalizeEmail(request.email());
         userRepository.findByEmail(email).ifPresent(existing -> {
+            // Bước 6A.2.1: AuthService.java: truy vấn kiểm tra Email tại MySQL
             if ("pending".equals(existing.getStatus())) {
-                throw new ApiException(HttpStatus.CONFLICT, "EMAIL_PENDING_VERIFICATION",
-                        "Email is waiting for verification");
+                throw new ApiException(HttpStatus.CONFLICT, "EMAIL_ALREADY_EXISTS_PENDING", "Email is registered but pending verification.");
             }
+            // Bước 6A.2.3: AuthService.java: ném lỗi ApiException (400) cho AuthController.java
             throw new ApiException(HttpStatus.CONFLICT, "EMAIL_ALREADY_EXISTS", "Email is already registered");
         });
 
@@ -107,11 +108,14 @@ public class AuthService {
         user.setStatus("pending");
         user.setRoles(Set.of(studentRole));
 
+        // Bước 6A.1.5: AuthService.java: truy vấn kiểm tra và lưu User vào MySQL
         UserEntity saved = userRepository.save(user);
         String rawToken = createEmailToken(saved, "email_verification", emailVerificationTtl);
         String link = verificationLink(rawToken);
+        // Bước 6A.1.7: AuthService.java: gửi email kích hoạt qua SMTP
         emailService.sendVerificationEmail(email, link, emailVerificationTtl.toMinutes());
         log.info("Registered pending student email={} userId={}", email, UuidBytes.toString(saved.getId()));
+        // Bước 6A.1.8: AuthService.java: trả kết quả cho AuthController.java
         return toRegisterResponse(saved, link);
     }
 
@@ -163,7 +167,10 @@ public class AuthService {
     @Transactional
     public AuthResponseDto login(LoginRequest request) {
         String email = normalizeEmail(request.email());
+        // Bước 6B.1.5: AuthService.java: truy vấn xác thực thông tin tại MySQL
+        // Bước 6B.4.1: AuthService.java: truy vấn xác thực tại MySQL
         UserEntity user = userRepository.findByEmail(email)
+                // Bước 6B.4.3: AuthService.java: ném lỗi ApiException (401) cho AuthController.java
                 .orElseThrow(() -> invalidCredentials());
 
         Instant now = Instant.now();
@@ -215,32 +222,42 @@ public class AuthService {
 
     @Transactional
     public MessageDto forgotPassword(ForgotPasswordRequest request) {
+        // Bước 6C.1.5: AuthService.java: kiểm tra sự tồn tại của email trong MySQL
         String email = normalizeEmail(request.email());
         userRepository.findByEmail(email).ifPresent(user -> {
+            // Bước 6C.1.6: MySQL: trả về User Entity hợp lệ
+            // Bước 6C.1.7: AuthService.java: tạo token và gửi email reset qua SMTP
             String rawToken = createEmailToken(user, "password_reset", PASSWORD_RESET_TTL);
             emailService.sendPasswordResetEmail(email, frontendBaseUrl + "/reset-password?token=" + rawToken);
         });
+        // Bước 6C.1.8: AuthService.java: trả kết quả thành công cho AuthController.java
         return new MessageDto("Nếu email tồn tại trong hệ thống, hướng dẫn đặt lại mật khẩu đã được gửi.");
     }
 
     @Transactional
     public MessageDto resetPassword(ResetPasswordRequest request) {
+        // Bước 6C.1.16: AuthService.java: xác thực token an toàn và mã hoá mật khẩu mới lưu vào MySQL
         passwordPolicy.validate(request.newPassword());
         AuthEmailTokenEntity token = findUsableToken(request.token(), "password_reset");
         UserEntity user = token.getUser();
         user.setPasswordHash(passwordEncoder.encode(request.newPassword()));
+        // Bước 6C.1.17: MySQL: xác nhận cập nhật thành công và xóa token
         user.setFailedLoginCount(0);
         user.setLockedUntil(null);
         token.setUsedAt(Instant.now());
+        // Bước 6C.1.18: AuthService.java: trả kết quả cho AuthController.java
         return new MessageDto("Đặt lại mật khẩu thành công. Vui lòng đăng nhập lại.");
     }
 
     private AuthResponseDto toAuthResponse(UserEntity user) {
         List<String> roles = roleCodes(user);
+        String userIdStr = UuidBytes.toString(user.getId());
+        // Bước 6B.1.7: AuthService.java: tạo JWT Token và trả về cho AuthController.java
         return new AuthResponseDto(
-                jwtService.createAccessToken(UuidBytes.toString(user.getId()), user.getEmail(), roles),
-                jwtService.createRefreshToken(UuidBytes.toString(user.getId()), user.getEmail(), roles),
-                user.toDto());
+                jwtService.createAccessToken(userIdStr, user.getEmail(), roles),
+                jwtService.createRefreshToken(userIdStr, user.getEmail(), roles),
+                user.toDto()
+        );
     }
 
     private List<String> roleCodes(UserEntity user) {

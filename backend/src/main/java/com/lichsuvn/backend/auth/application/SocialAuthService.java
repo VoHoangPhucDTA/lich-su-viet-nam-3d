@@ -94,6 +94,8 @@ public class SocialAuthService {
      */
     @Transactional
     public AuthResponseDto loginWithGoogle(String idToken) {
+        // Bước 6B.2.6: SocialAuthService.java: Xác thực token với Google (tokeninfo)
+        // Bước 6B.2.7: Google Server: Trả về thông tin User hợp lệ
         GoogleClaims claims = verifyGoogleIdToken(idToken);
         return processOAuthLogin("google", claims.sub(), claims.email(),
                 claims.name(), claims.picture());
@@ -126,9 +128,11 @@ public class SocialAuthService {
         }
 
         // Step 1: Verify the user token via Meta debug_token (strict verification)
+        // Bước 6B.3.6: SocialAuthService.java: Xác thực token với Meta API (debug_token & /me)
         verifyFacebookAccessToken(accessToken);
 
         // Step 2: Fetch profile from Graph API (only if token is valid)
+        // Bước 6B.3.7: Facebook: Trả về thông tin Facebook Profile hợp lệ
         FacebookProfile profile = fetchFacebookProfile(accessToken);
 
         // Case D: No email from Facebook
@@ -361,6 +365,8 @@ public class SocialAuthService {
     private AuthResponseDto processOAuthLogin(
             String provider, String providerId,
             String email, String displayName, String avatarUrl) {
+            
+        // Bước 6B.2.8 / 6B.3.8: SocialAuthService.java: Truy vấn và lưu User vào MySQL
 
         // C3: Already linked — fast path
         Optional<UserSocialProviderEntity> existingLink =
@@ -456,6 +462,7 @@ public class SocialAuthService {
                 .map(r -> r.getCode())
                 .sorted()
                 .toList();
+        // Bước 6B.2.10 / 6B.3.10: SocialAuthService.java: Tạo JWT Token và trả về
         return new AuthResponseDto(
                 jwtService.createAccessToken(UuidBytes.toString(user.getId()), user.getEmail(), roles),
                 jwtService.createRefreshToken(UuidBytes.toString(user.getId()), user.getEmail(), roles),

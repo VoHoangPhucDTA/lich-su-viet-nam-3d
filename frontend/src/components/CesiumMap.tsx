@@ -114,8 +114,8 @@ export default function CesiumMap({
             error instanceof Error
               ? `${error.message}\n${error.stack ?? ''}`
               : typeof error === 'object'
-              ? JSON.stringify(error)
-              : String(error);
+                ? JSON.stringify(error)
+                : String(error);
           console.error('[CesiumMap] renderError:', msg);
           // Show a soft UI error once — do NOT call viewer.destroy() here
           setMapError('Lỗi render Cesium. Xem console để biết chi tiết.');

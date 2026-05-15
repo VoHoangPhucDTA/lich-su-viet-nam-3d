@@ -132,6 +132,7 @@ export default function RegisterPage() {
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
+    // Bước 6A.1.1: RegisterPage.tsx: Người dùng nhấp vào nút Đăng ký
     e.preventDefault();
     if (pendingVerification) return;
 
@@ -149,6 +150,7 @@ export default function RegisterPage() {
     setSuccess('');
     setLoading(true);
     try {
+      // Bước 6A.1.2: RegisterPage.tsx: gọi hàm register trong authService.ts
       const result = await register({
         email: email.trim(),
         password,
@@ -156,8 +158,10 @@ export default function RegisterPage() {
       setPendingVerification(result);
       setSecondsLeft(secondsUntil(result.verificationExpiresAt));
       setResendCooldown(60);
+      // Bước 6A.1.11: RegisterPage.tsx: hiển thị thông báo thành công
       setSuccess('Đăng ký thành công. Vui lòng kiểm tra email để xác minh tài khoản.');
     } catch (err: unknown) {
+      // Bước 6A.2.6: RegisterPage.tsx: hiển thị thông báo lỗi trên form
       setError(err instanceof Error ? err.message : 'Đăng ký thất bại.');
     } finally {
       setLoading(false);

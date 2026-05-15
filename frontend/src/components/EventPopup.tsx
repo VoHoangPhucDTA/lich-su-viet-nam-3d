@@ -223,16 +223,16 @@ export default function EventPopup({
           <div style={{ marginBottom: '16px' }}>
             <div
               style={{
-              fontSize: '11px',
-              fontWeight: 700,
-              color: 'var(--text-muted)',
-              textTransform: 'uppercase',
-              letterSpacing: '0.08em',
-              marginBottom: '10px',
-            }}
-          >
-            Địa điểm
-          </div>
+                fontSize: '11px',
+                fontWeight: 700,
+                color: 'var(--text-muted)',
+                textTransform: 'uppercase',
+                letterSpacing: '0.08em',
+                marginBottom: '10px',
+              }}
+            >
+              Địa điểm
+            </div>
             <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
               {event.primaryRegions.map((region) => (
                 <span
@@ -380,26 +380,26 @@ export default function EventPopup({
       >
         {(event.geoType === 'multi_region' ||
           event.geoType === 'single_point') && (
-          <button
-            className="flex-1 inline-flex items-center justify-center gap-2 px-3 py-3 rounded-[10px] text-[13px] font-bold cursor-pointer transition-all duration-200 border"
-            style={{
-              borderColor: 'var(--accent)',
-              background: 'var(--accent-soft)',
-              color: 'var(--accent)',
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.background = 'var(--bg-card)';
-              e.currentTarget.style.transform = 'translateY(-1px)';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.background = 'var(--accent-soft)';
-              e.currentTarget.style.transform = 'none';
-            }}
-          >
-            <Mountain size={14} strokeWidth={2.4} />
-            Xem địa hình
-          </button>
-        )}
+            <button
+              className="flex-1 inline-flex items-center justify-center gap-2 px-3 py-3 rounded-[10px] text-[13px] font-bold cursor-pointer transition-all duration-200 border"
+              style={{
+                borderColor: 'var(--accent)',
+                background: 'var(--accent-soft)',
+                color: 'var(--accent)',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = 'var(--bg-card)';
+                e.currentTarget.style.transform = 'translateY(-1px)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = 'var(--accent-soft)';
+                e.currentTarget.style.transform = 'none';
+              }}
+            >
+              <Mountain size={14} strokeWidth={2.4} />
+              Xem địa hình
+            </button>
+          )}
         <button
           onClick={() => {
             const detailKey = event.slug || event.id;

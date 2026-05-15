@@ -47,7 +47,10 @@ public class AuthController {
             @Valid @RequestBody RegisterRequest request,
             HttpServletRequest servletRequest
     ) {
+        // Bước 6A.1.4: AuthController.java: gọi AuthService.java (hàm register)
+        // Bước 6A.2.4: AuthController.java: trả lỗi 400 cho authService.ts (xử lý bởi GlobalExceptionHandler nếu lỗi)
         authRateLimiter.check(rateKey(servletRequest, "register", request.email()));
+        // Bước 6A.1.9: AuthController.java: trả HTTP 200 cho authService.ts
         return ApiResponse.ok(authService.register(request));
     }
 
@@ -56,7 +59,10 @@ public class AuthController {
             @Valid @RequestBody LoginRequest request,
             HttpServletRequest servletRequest
     ) {
+        // Bước 6B.1.4: AuthController.java: gọi AuthService.java (hàm login)
+        // Bước 6B.4.4: AuthController.java: trả lỗi 401 cho authService.ts (xử lý bởi GlobalExceptionHandler nếu lỗi)
         authRateLimiter.check(rateKey(servletRequest, "login", request.email()));
+        // Bước 6B.1.8: AuthController.java: trả HTTP 200 kèm Token cho authService.ts
         return ApiResponse.ok(authService.login(request));
     }
 
@@ -112,8 +118,11 @@ public class AuthController {
             @Valid @RequestBody ForgotPasswordRequest request,
             HttpServletRequest servletRequest
     ) {
+        // Bước 6C.1.4: AuthController.java: gọi AuthService.java (hàm requestPasswordReset/forgotPassword)
         authRateLimiter.check(rateKey(servletRequest, "forgot-password", request.email()));
-        return ApiResponse.ok(authService.forgotPassword(request));
+        MessageDto result = authService.forgotPassword(request);
+        // Bước 6C.1.9: AuthController.java: trả HTTP 200 cho authService.ts
+        return ApiResponse.ok(result);
     }
 
     @PostMapping("/resend-verification")
@@ -130,8 +139,11 @@ public class AuthController {
             @Valid @RequestBody ResetPasswordRequest request,
             HttpServletRequest servletRequest
     ) {
+        // Bước 6C.1.15: AuthController.java: gọi AuthService.java (hàm resetPassword)
         authRateLimiter.check(rateKey(servletRequest, "reset-password", ""));
-        return ApiResponse.ok(authService.resetPassword(request));
+        MessageDto result = authService.resetPassword(request);
+        // Bước 6C.1.19: AuthController.java: trả HTTP 200 cho authService.ts
+        return ApiResponse.ok(result);
     }
 
     private String rateKey(HttpServletRequest request, String action, String email) {

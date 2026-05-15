@@ -217,6 +217,8 @@ export default function OAuthButtons({ mode = 'login', onError }: OAuthButtonsPr
 
   // ── Redirect helper ──────────────────────────────────────────────────
   const redirectAfterLogin = useCallback(() => {
+    // Bước 6B.2.13: OAuthButtons.tsx: Chuyển hướng trang chủ
+    // Bước 6B.3.13: OAuthButtons.tsx: Chuyển hướng trang chủ
     const stored = authService.loadFromStorage();
     const role = stored?.user?.role ?? 'student';
     navigate(role === 'admin' ? '/admin/dashboard' : '/', { replace: true });
@@ -225,11 +227,13 @@ export default function OAuthButtons({ mode = 'login', onError }: OAuthButtonsPr
   // ── Google GSI ───────────────────────────────────────────────────────
   const handleGoogleCredential = useCallback(
     async (response: GoogleCredentialResponse) => {
+      // Bước 6B.2.2: Google Server: Trả về credential (id_token)
       if (!response.credential) {
         onError?.('Không nhận được thông tin từ Google. Vui lòng thử lại.');
         return;
       }
       try {
+        // Bước 6B.2.3: OAuthButtons.tsx: gọi loginWithGoogle trong authService.ts
         await loginWithGoogle(response.credential);
         redirectAfterLogin();
       } catch (err: unknown) {
@@ -341,6 +345,7 @@ export default function OAuthButtons({ mode = 'login', onError }: OAuthButtonsPr
     try {
       window.FB.login(
         (response: FacebookLoginStatus) => {
+          // Bước 6B.3.2: Facebook Server: Trả về access_token
           if (response.status !== 'connected' || !response.authResponse?.accessToken) {
             setFbLoading(false);
             return;
@@ -348,6 +353,7 @@ export default function OAuthButtons({ mode = 'login', onError }: OAuthButtonsPr
           // FB.login KHÔNG chấp nhận async callback => dùng IIFE bên trong
           (async () => {
             try {
+              // Bước 6B.3.3: OAuthButtons.tsx: gọi loginWithFacebook trong authService.ts
               await loginWithFacebook(response.authResponse!.accessToken);
               redirectAfterLogin();
             } catch (err: unknown) {
