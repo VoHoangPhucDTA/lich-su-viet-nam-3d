@@ -22,24 +22,23 @@ public class EmailService {
     public EmailService(
             JavaMailSender mailSender,
             @Value("${app.mail.enabled:false}") boolean mailEnabled,
-            @Value("${spring.mail.username:}") String fromAddress
-    ) {
+            @Value("${spring.mail.username:}") String fromAddress) {
         this.mailSender = mailSender;
         this.mailEnabled = mailEnabled;
         this.fromAddress = fromAddress;
     }
 
     public void sendVerificationEmail(String to, String link, long ttlMinutes) {
-        String subject = "Xac minh tai khoan Lich Su Viet Nam 3D";
+        String subject = "Xác minh tài khoản Lịch Sử Việt Nam 3D";
         String body = """
-                Chao ban,
+                Chào bạn,
 
-                Cam on ban da dang ky Lich Su Viet Nam 3D.
-                Vui long mo link ben duoi de xac minh tai khoan trong %d phut:
+                Cảm ơn bạn đã đăng ký Lịch Sử Việt Nam 3D.
+                Vui lòng mở link bên dưới để xác minh tài khoản trong %d phút:
 
                 %s
 
-                Neu ban khong thuc hien yeu cau nay, hay bo qua email nay.
+                Nếu bạn không thực hiện yêu cầu này, vui lòng bỏ qua email này.
                 """.formatted(ttlMinutes, link);
         sendOrLog(to, subject, body, link, true);
     }
@@ -49,15 +48,15 @@ public class EmailService {
     }
 
     public void sendPasswordResetEmail(String to, String link) {
-        String subject = "Dat lai mat khau Lich Su Viet Nam 3D";
+        String subject = "Đặt lại mật khẩu Lịch Sử Việt Nam 3D";
         String body = """
-                Chao ban,
+                Chào bạn,
 
-                Vui long mo link ben duoi de dat lai mat khau:
+                Vui lòng mở link bên dưới để đặt lại mật khẩu:
 
                 %s
 
-                Neu ban khong thuc hien yeu cau nay, hay bo qua email nay.
+                Nếu bạn không thực hiện yêu cầu này, vui lòng bỏ qua email này.
                 """.formatted(link);
         sendOrLog(to, subject, body, link, false);
     }
@@ -68,7 +67,8 @@ public class EmailService {
             return;
         }
         if (!StringUtils.hasText(fromAddress)) {
-            throw new ApiException(HttpStatus.INTERNAL_SERVER_ERROR, "MAIL_NOT_CONFIGURED", "Mail sender is not configured");
+            throw new ApiException(HttpStatus.INTERNAL_SERVER_ERROR, "MAIL_NOT_CONFIGURED",
+                    "Mail sender is not configured");
         }
 
         try {
@@ -81,7 +81,8 @@ public class EmailService {
         } catch (MailException ex) {
             log.error("Failed to send auth email to {}", to, ex);
             if (failHard) {
-                throw new ApiException(HttpStatus.INTERNAL_SERVER_ERROR, "EMAIL_SEND_FAILED", "Could not send verification email");
+                throw new ApiException(HttpStatus.INTERNAL_SERVER_ERROR, "EMAIL_SEND_FAILED",
+                        "Could not send verification email");
             }
         }
     }

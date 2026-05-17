@@ -9,10 +9,12 @@ import com.lichsuvn.backend.auth.api.dto.RegisterResponseDto;
 import com.lichsuvn.backend.auth.api.dto.RegisterRequest;
 import com.lichsuvn.backend.auth.api.dto.ResendVerificationRequest;
 import com.lichsuvn.backend.auth.api.dto.ResetPasswordRequest;
+import com.lichsuvn.backend.auth.api.dto.UpdateProfileRequest;
 import com.lichsuvn.backend.auth.api.dto.VerifyEmailResponseDto;
 import com.lichsuvn.backend.auth.domain.AuthEmailTokenEntity;
 import com.lichsuvn.backend.auth.domain.RoleEntity;
 import com.lichsuvn.backend.auth.domain.UserEntity;
+import com.lichsuvn.backend.auth.domain.UserStatus;
 import com.lichsuvn.backend.auth.infrastructure.AuthEmailTokenRepository;
 import com.lichsuvn.backend.auth.infrastructure.RoleRepository;
 import com.lichsuvn.backend.auth.infrastructure.UserRepository;
@@ -87,7 +89,7 @@ public class AuthService {
         String email = normalizeEmail(request.email());
         userRepository.findByEmail(email).ifPresent(existing -> {
             // Bước 6A.2.1: AuthService.java: truy vấn kiểm tra Email tại MySQL
-            if ("pending".equals(existing.getStatus())) {
+            if (UserStatus.PENDING.matches(existing.getStatus())) {
                 throw new ApiException(HttpStatus.CONFLICT, "EMAIL_ALREADY_EXISTS_PENDING", "Email is registered but pending verification.");
             }
             // Bước 6A.2.3: AuthService.java: ném lỗi ApiException (400) cho AuthController.java
@@ -105,7 +107,7 @@ public class AuthService {
         user.setFullName(defaultFullName(email, request.fullName()));
         user.setGrade(grade);
         user.setSchool(StringUtils.hasText(request.school()) ? request.school().trim() : null);
-        user.setStatus("pending");
+        user.setStatus(UserStatus.PENDING.value());
         user.setRoles(Set.of(studentRole));
 
         // Bước 6A.1.5: AuthService.java: truy vấn kiểm tra và lưu User vào MySQL
@@ -125,10 +127,10 @@ public class AuthService {
         UserEntity user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new ApiException(HttpStatus.BAD_REQUEST, "VERIFICATION_UNAVAILABLE",
                         "Verification email cannot be resent"));
-        if ("active".equals(user.getStatus())) {
+        if (UserStatus.ACTIVE.matches(user.getStatus())) {
             throw new ApiException(HttpStatus.CONFLICT, "EMAIL_ALREADY_VERIFIED", "Email is already verified");
         }
-        if (!"pending".equals(user.getStatus())) {
+        if (!UserStatus.PENDING.matches(user.getStatus())) {
             throw new ApiException(HttpStatus.BAD_REQUEST, "VERIFICATION_UNAVAILABLE",
                     "Verification email cannot be resent");
         }
@@ -149,7 +151,7 @@ public class AuthService {
                         "Invalid or expired token"));
         UserEntity user = token.getUser();
         if (token.getUsedAt() != null) {
-            if ("active".equals(user.getStatus())) {
+            if (UserStatus.ACTIVE.matches(user.getStatus())) {
                 return new VerifyEmailResponseDto("Email đã được xác minh trước đó.", null);
             }
             throw new ApiException(HttpStatus.BAD_REQUEST, "INVALID_AUTH_TOKEN", "Invalid or expired token");
@@ -157,7 +159,7 @@ public class AuthService {
         if (!token.getExpiresAt().isAfter(Instant.now())) {
             throw new ApiException(HttpStatus.BAD_REQUEST, "INVALID_AUTH_TOKEN", "Invalid or expired token");
         }
-        user.setStatus("active");
+        user.setStatus(UserStatus.ACTIVE.value());
         user.setEmailVerifiedAt(Instant.now());
         token.setUsedAt(Instant.now());
         return new VerifyEmailResponseDto("Xác minh email thành công. Bạn đã được đăng nhập tự động.",
@@ -177,7 +179,7 @@ public class AuthService {
         if (user.getLockedUntil() != null && user.getLockedUntil().isAfter(now)) {
             throw new ApiException(HttpStatus.TOO_MANY_REQUESTS, "ACCOUNT_LOCKED", "Account is temporarily locked");
         }
-        if (!"active".equals(user.getStatus())) {
+        if (!UserStatus.ACTIVE.matches(user.getStatus())) {
             throw new ApiException(HttpStatus.FORBIDDEN, "EMAIL_NOT_VERIFIED",
                     "Please verify your email before logging in");
         }
@@ -193,17 +195,50 @@ public class AuthService {
 
     public AuthUserDto me(UserPrincipal principal) {
         return userRepository.findById(principal.idBytes())
-                .filter(user -> "active".equals(user.getStatus()))
+                .filter(user -> UserStatus.ACTIVE.matches(user.getStatus()))
                 .map(UserEntity::toDto)
                 .orElseThrow(
                         () -> new ApiException(HttpStatus.UNAUTHORIZED, "UNAUTHENTICATED", "Authentication required"));
     }
 
     @Transactional
+    public AuthUserDto updateProfile(UserPrincipal principal, UpdateProfileRequest request) {
+        UserEntity user = userRepository.findById(principal.idBytes())
+                .filter(u -> UserStatus.ACTIVE.matches(u.getStatus()))
+                .orElseThrow(() -> new ApiException(HttpStatus.UNAUTHORIZED, "UNAUTHENTICATED",
+                        "Authentication required"));
+
+        if (StringUtils.hasText(request.fullName())) {
+            user.setFullName(request.fullName().trim());
+        }
+        if (request.grade() != null) {
+            user.setGrade(normalizeGrade(request.grade()));
+        }
+        if (request.school() != null) {
+            user.setSchool(StringUtils.hasText(request.school()) ? request.school().trim() : null);
+        }
+        if (request.avatarUrl() != null) {
+            user.setAvatarUrl(StringUtils.hasText(request.avatarUrl()) ? request.avatarUrl().trim() : null);
+        }
+
+        log.info("Profile updated for userId={}", UuidBytes.toString(user.getId()));
+        return user.toDto();
+    }
+
+    @Transactional
     public AuthResponseDto refresh(RefreshRequest request) {
-        JwtClaims claims = jwtService.parseAndValidate(request.refreshToken(), "refresh");
+        return refreshByToken(request.refreshToken());
+    }
+
+    /**
+     * Làm mới Access Token bằng refresh token string (đọc từ HttpOnly Cookie).
+     * AuthController gọi method này sau khi tự đọc cookie — không cần DTO nữa.
+     */
+    @Transactional
+    public AuthResponseDto refreshByToken(String refreshToken) {
+        JwtClaims claims = jwtService.parseAndValidate(refreshToken, "refresh");
         UserEntity user = userRepository.findById(UuidBytes.fromUuid(UUID.fromString(claims.subject())))
-                .filter(item -> "active".equals(item.getStatus()))
+                .filter(item -> UserStatus.ACTIVE.matches(item.getStatus()))
                 .orElseThrow(() -> new ApiException(HttpStatus.UNAUTHORIZED, "INVALID_TOKEN", "Invalid token"));
         return toAuthResponse(user);
     }
@@ -211,7 +246,7 @@ public class AuthService {
     public UserPrincipal principalFromAccessToken(String token) {
         JwtClaims claims = jwtService.parseAndValidate(token, "access");
         UserEntity user = userRepository.findById(UuidBytes.fromUuid(UUID.fromString(claims.subject())))
-                .filter(item -> "active".equals(item.getStatus()))
+                .filter(item -> UserStatus.ACTIVE.matches(item.getStatus()))
                 .orElseThrow(() -> new ApiException(HttpStatus.UNAUTHORIZED, "INVALID_TOKEN", "Invalid token"));
         return new UserPrincipal(
                 UuidBytes.toString(user.getId()),

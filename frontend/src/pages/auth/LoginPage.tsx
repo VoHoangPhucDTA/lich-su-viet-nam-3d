@@ -7,7 +7,6 @@ import AuthFormMessage from '../../components/auth/AuthFormMessage';
 import OAuthButtons from '../../components/auth/OAuthButtons';
 import TextInput from '../../components/auth/TextInput';
 import PasswordInput from '../../components/auth/PasswordInput';
-import * as authService from '../../services/authService';
 import { ApiRequestError } from '../../services/apiClient';
 
 function SubmitButton({ loading }: { loading: boolean }) {
@@ -70,9 +69,9 @@ export default function LoginPage() {
     setLoading(true);
     try {
       // Bước 6B.1.2: LoginPage.tsx: gọi hàm login trong authService.ts
-      await login({ email: email.trim(), password });
-      const stored = authService.loadFromStorage();
-      const role = stored?.user?.role ?? 'student';
+      const result = await login({ email: email.trim(), password });
+      // Sau khi login, lấy role từ kết quả trả về (không cần loadFromStorage nữa)
+      const role = result?.user?.role ?? 'student';
       // Bước 6B.1.10: LoginPage.tsx: chuyển hướng trang chủ
       navigate(role === 'admin' ? '/admin/dashboard' : '/', { replace: true });
     } catch (err: unknown) {

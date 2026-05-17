@@ -4,6 +4,7 @@ import com.lichsuvn.backend.auth.api.dto.AuthResponseDto;
 import com.lichsuvn.backend.auth.domain.RoleEntity;
 import com.lichsuvn.backend.auth.domain.UserEntity;
 import com.lichsuvn.backend.auth.domain.UserSocialProviderEntity;
+import com.lichsuvn.backend.auth.domain.UserStatus;
 import com.lichsuvn.backend.auth.infrastructure.RoleRepository;
 import com.lichsuvn.backend.auth.infrastructure.UserRepository;
 import com.lichsuvn.backend.auth.infrastructure.UserSocialProviderRepository;
@@ -386,8 +387,8 @@ public class SocialAuthService {
             guardAccountStatus(user, provider);
             // Case B: pending user (email not yet verified) → promote to active
             // because social provider already verified their email identity.
-            if ("pending".equals(user.getStatus())) {
-                user.setStatus("active");
+            if (UserStatus.PENDING.matches(user.getStatus())) {
+                user.setStatus(UserStatus.ACTIVE.value());
                 user.setEmailVerifiedAt(java.time.Instant.now());
                 log.info("Social login C2 (pending->active via social): provider={} email={} userId={}",
                         provider, email, UuidBytes.toString(user.getId()));
@@ -416,7 +417,7 @@ public class SocialAuthService {
      * Case B-extended: disabled accounts cannot log in via social.
      */
     private void guardAccountStatus(UserEntity user, String provider) {
-        if ("disabled".equals(user.getStatus())) {
+        if (UserStatus.DISABLED.matches(user.getStatus())) {
             log.warn("Social login rejected — account disabled: provider={} userId={}",
                     provider, UuidBytes.toString(user.getId()));
             throw new ApiException(HttpStatus.FORBIDDEN,
@@ -440,7 +441,7 @@ public class SocialAuthService {
         user.setFullName(resolveDisplayName(email, displayName));
         user.setAvatarUrl(avatarUrl);
         // Social accounts are immediately active — provider already verified the email
-        user.setStatus("active");
+        user.setStatus(UserStatus.ACTIVE.value());
         user.setRoles(Set.of(studentRole));
         return userRepository.save(user);
     }

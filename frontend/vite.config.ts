@@ -24,6 +24,16 @@ export default defineConfig({
   ],
   server: {
     port: 5173,
+    // Proxy /api/* → backend localhost:8080.
+    // Mục đích: làm cho frontend và backend "cùng origin" trong mắt browser khi dev.
+    // Nhờ đó cookie HttpOnly (SameSite=Lax) hoạt động mà không cần HTTPS hay SameSite=None.
+    proxy: {
+      '/api': {
+        target: 'http://localhost:8080',
+        changeOrigin: true,
+        secure: false,
+      },
+    },
   },
   resolve: {
     alias: {

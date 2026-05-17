@@ -2,6 +2,8 @@ package com.lichsuvn.backend.auth.domain;
 
 import com.lichsuvn.backend.auth.api.dto.AuthUserDto;
 import com.lichsuvn.backend.auth.infrastructure.UuidBytes;
+import com.lichsuvn.backend.auth.domain.UserStatus;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -41,7 +43,7 @@ public class UserEntity {
     private String avatarUrl;
 
     @Column(name = "status", nullable = false)
-    private String status = "pending";
+    private String status = UserStatus.PENDING.value();
 
     @Column(name = "email_verified_at")
     private Instant emailVerifiedAt;

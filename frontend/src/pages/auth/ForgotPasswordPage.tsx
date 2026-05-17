@@ -26,7 +26,7 @@ export default function ForgotPasswordPage() {
       // Bước 6C.1.2: ForgotPasswordPage.tsx: gọi hàm forgotPassword trong authService.ts
       const res = await forgotPassword(email.trim());
       // Bước 6C.1.11: ForgotPasswordPage.tsx: hiển thị thông báo thành công
-      setSuccess(res.message || 'Nếu email tồn tại trong hệ thống, hướng dẫn đặt lại mật khẩu đã được gửi.');
+      setSuccess(res.message || 'Hướng dẫn đặt lại mật khẩu đã được gửi về mail của bạn.');
     } catch {
       setError('Không thể gửi hướng dẫn đặt lại mật khẩu. Vui lòng thử lại.');
     } finally {

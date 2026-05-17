@@ -2,7 +2,6 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import type { ReactNode } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../auth/AuthContext';
-import * as authService from '../../services/authService';
 
 // ── Google GSI types ──────────────────────────────────────────────────────────
 
@@ -216,11 +215,10 @@ export default function OAuthButtons({ mode = 'login', onError }: OAuthButtonsPr
   const isFacebookConfigured = Boolean(FACEBOOK_APP_ID);
 
   // ── Redirect helper ──────────────────────────────────────────────────
-  const redirectAfterLogin = useCallback(() => {
+  // Nhận role tự kết quả login thay vì đọc từ localStorage (loadFromStorage đã bị xóa)
+  const redirectAfterLogin = useCallback((role: string = 'student') => {
     // Bước 6B.2.13: OAuthButtons.tsx: Chuyển hướng trang chủ
     // Bước 6B.3.13: OAuthButtons.tsx: Chuyển hướng trang chủ
-    const stored = authService.loadFromStorage();
-    const role = stored?.user?.role ?? 'student';
     navigate(role === 'admin' ? '/admin/dashboard' : '/', { replace: true });
   }, [navigate]);
 
@@ -234,8 +232,9 @@ export default function OAuthButtons({ mode = 'login', onError }: OAuthButtonsPr
       }
       try {
         // Bước 6B.2.3: OAuthButtons.tsx: gọi loginWithGoogle trong authService.ts
-        await loginWithGoogle(response.credential);
-        redirectAfterLogin();
+        const res = await loginWithGoogle(response.credential);
+        // Bước 6B.2.13: Chuyển hướng theo role trả về từ backend
+        redirectAfterLogin(res.user?.role);
       } catch (err: unknown) {
         onError?.(err instanceof Error ? err.message : 'Đăng nhập Google thất bại. Vui lòng thử lại.');
       }
@@ -354,8 +353,9 @@ export default function OAuthButtons({ mode = 'login', onError }: OAuthButtonsPr
           (async () => {
             try {
               // Bước 6B.3.3: OAuthButtons.tsx: gọi loginWithFacebook trong authService.ts
-              await loginWithFacebook(response.authResponse!.accessToken);
-              redirectAfterLogin();
+              const res = await loginWithFacebook(response.authResponse!.accessToken);
+              // Bước 6B.3.13: Chuyển hướng theo role trả về từ backend
+              redirectAfterLogin(res.user?.role);
             } catch (err: unknown) {
               const rawMsg = err instanceof Error ? err.message : '';
               let msg = 'Đăng nhập Facebook thất bại. Vui lòng thử lại.';
