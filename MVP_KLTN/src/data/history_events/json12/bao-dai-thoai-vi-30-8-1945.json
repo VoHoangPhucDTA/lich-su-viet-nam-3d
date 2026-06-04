@@ -1,0 +1,119 @@
+{
+  "id": "bao-dai-thoai-vi-30-8-1945",
+  "slug": "bao-dai-thoai-vi-30-8-1945",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Vua Bảo Đại tuyên bố thoái vị (30-8-1945)",
+    "short": "Vua Bảo Đại tuyên bố thoái vị"
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "abdication",
+    "tags": [
+      "Vua Bảo Đại tuyên bố thoái vị (30-8-1945)",
+      1945,
+      "Huế"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1945
+    },
+    "end": {
+      "year": 1945
+    },
+    "datePrecision": "year",
+    "displayDate": "1945",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "point",
+      "marker": {
+        "lat": 16.4637,
+        "lng": 107.5909,
+        "label": "Huế"
+      },
+      "provinceNames": [
+        "Huế"
+      ],
+      "historicalLocations": [
+        "Huế"
+      ]
+    },
+    "focusGeometry": {
+      "mode": "marker",
+      "center": {
+        "lat": 16.4637,
+        "lng": 107.5909
+      },
+      "zoom": 9
+    }
+  },
+  "summary": {
+    "homepageTitle": "Vua Bảo Đại tuyên bố thoái vị (30-8-1945)",
+    "homepageSummary": "Vua Bảo Đại tuyên bố thoái vị (30-8-1945). —",
+    "cardSummary": "—"
+  },
+  "textbookContent": {
+    "canonicalSummary": "Vua Bảo Đại tuyên bố thoái vị (30-8-1945).",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 6: Cách mạng tháng Tám năm 1945, trang 32. Nội dung trong file Excel được chuẩn hóa để nhập hệ thống; khi triển khai chính thức, nhóm nên bổ sung tường thuật chi tiết bám SGK và tư liệu gốc.",
+    "significance": "Là mốc quan trọng trong tiến trình cách mạng, xây dựng nhà nước, đối ngoại hoặc tổ chức lực lượng theo SGK 12.",
+    "keyFacts": [
+      "Vua Bảo Đại tuyên bố thoái vị (30-8-1945)",
+      1945,
+      "Huế"
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 12,
+      "book": "Lịch sử 12 - Cánh Diều",
+      "theme": "Chủ đề 3: Cách mạng tháng Tám và kháng chiến bảo vệ độc lập dân tộc",
+      "lesson": "Bài 6: Cách mạng tháng Tám năm 1945",
+      "pageStart": 32,
+      "pageEnd": 32,
+      "excerpt": "Vua Bảo Đại tuyên bố thoái vị (30-8-1945)"
+    }
+  ],
+  "hierarchy": {
+    "rootId": "cach-mang-thang-tam-1945",
+    "parentId": "cach-mang-thang-tam-1945",
+    "level": 1,
+    "orderInParent": 7
+  },
+  "associations": {
+    "predecessorEventIds": [
+      "khoi-nghia-sai-gon-25-8-1945"
+    ],
+    "successorEventIds": [
+      "tuyen-ngon-doc-lap-1945"
+    ]
+  },
+  "display": {
+    "showOnHomepage": true,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "— || [SGK12:bao-dai-thoai-vi-30-8-1945] —",
+  "merge": {
+    "sourceGrades": "12",
+    "sourceIds": "bao-dai-thoai-vi-30-8-1945",
+    "mergedCount": 1,
+    "sourceFiles": "SGK12_event_master_flattened(1).xlsx",
+    "textbookRefsAll": "SGK12: Bài 6: Cách mạng tháng Tám năm 1945 tr.32 [bao-dai-thoai-vi-30-8-1945]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

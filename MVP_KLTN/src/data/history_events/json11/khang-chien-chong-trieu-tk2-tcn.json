@@ -1,0 +1,122 @@
+{
+  "id": "khang-chien-chong-trieu-tk2-tcn",
+  "slug": "khang-chien-chong-trieu-tk2-tcn",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Kháng chiến chống quân Triệu (thế kỉ II TCN)",
+    "short": "Chống Triệu"
+  },
+  "classification": {
+    "eventType": "military",
+    "eventSubtype": "battle_failed",
+    "tags": [
+      "Kháng chiến chống quân Triệu (thế kỉ II TCN)",
+      "Khoảng 179 TCN",
+      "Hà Nội",
+      "Không thành công; An Dương Vương mất nước Âu Lạc."
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": -179
+    },
+    "datePrecision": "approximate",
+    "displayDate": "Khoảng 179 TCN",
+    "isApproximate": true
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "polygon",
+      "marker": {
+        "label": "Hà Nội"
+      },
+      "provinceNames": [
+        "Hà Nội"
+      ],
+      "historicalLocations": [
+        "Hà Nội"
+      ]
+    },
+    "focusGeometry": {
+      "mode": "bounds",
+      "provinceNames": [
+        "Hà Nội"
+      ]
+    }
+  },
+  "summary": {
+    "homepageTitle": "Kháng chiến chống quân Triệu (thế kỉ II TCN)",
+    "homepageSummary": "Kháng chiến chống quân Triệu (thế kỉ II TCN). Không thành công; An Dương Vương mất nước Âu Lạc.",
+    "cardSummary": "Không thành công; An Dương Vương mất nước Âu Lạc."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Kháng chiến chống quân Triệu (thế kỉ II TCN). Không thành công; An Dương Vương mất nước Âu Lạc.",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 7: Chiến tranh bảo vệ Tổ quốc trong lịch sử Việt Nam. Không thành công; An Dương Vương mất nước Âu Lạc.",
+    "significance": "Là mốc quan trọng trong tiến trình quân sự và bảo vệ/chinh phục độc lập, chủ quyền của Việt Nam theo SGK 11.",
+    "keyFacts": [
+      "Kháng chiến chống quân Triệu (thế kỉ II TCN)",
+      "Khoảng 179 TCN",
+      "Hà Nội",
+      "Không thành công; An Dương Vương mất nước Âu Lạc."
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 11,
+      "book": "Lịch sử 11 - Cánh Diều",
+      "lesson": "Bài 7: Chiến tranh bảo vệ Tổ quốc trong lịch sử Việt Nam",
+      "pageStart": 51,
+      "pageEnd": 52,
+      "excerpt": "Không thành công; An Dương Vương mất nước Âu Lạc."
+    }
+  ],
+  "hierarchy": {
+    "rootId": "vm-chien-tranh-bao-ve-to-quoc",
+    "parentId": "vm-chien-tranh-bao-ve-to-quoc",
+    "level": 1,
+    "orderInParent": 8
+  },
+  "associations": {
+    "relatedEventIds": [
+      "khang-chien-chong-tong-1075-1077",
+      "vi-tri-dia-chien-luoc-vn",
+      "khang-chien-chong-minh-1406-1407",
+      "bach-dang-938-ngo-quyen-xung-vuong",
+      "vm-chien-tranh-bao-ve-to-quoc",
+      "khang-chien-chong-phap-1858-1884",
+      "ba-lan-chong-mong-nguyen",
+      "khang-chien-chong-tong-981",
+      "khang-chien-chong-thanh-1789",
+      "khang-chien-chong-xiem-1785"
+    ],
+    "successorEventIds": [
+      "bach-dang-938-ngo-quyen-xung-vuong"
+    ]
+  },
+  "display": {
+    "showOnHomepage": false,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "Không thành công; An Dương Vương mất nước Âu Lạc. || [SGK11:khang-chien-chong-trieu-tk2-tcn] Không thành công; An Dương Vương mất nước Âu Lạc.",
+  "merge": {
+    "sourceGrades": "11",
+    "sourceIds": "khang-chien-chong-trieu-tk2-tcn",
+    "mergedCount": 1,
+    "sourceFiles": "SGK11_event_master_flattened_v2(1).xlsx",
+    "textbookRefsAll": "SGK11: Bài 7: Chiến tranh bảo vệ Tổ quốc trong lịch sử Việt Nam tr.51-52 [khang-chien-chong-trieu-tk2-tcn]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

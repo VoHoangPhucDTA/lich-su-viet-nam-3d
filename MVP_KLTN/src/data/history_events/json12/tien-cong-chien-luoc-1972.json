@@ -1,0 +1,102 @@
+{
+  "id": "tien-cong-chien-luoc-1972",
+  "slug": "tien-cong-chien-luoc-1972",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Cuộc Tiến công chiến lược 1972",
+    "short": "Cuộc Tiến công chiến lược 1972"
+  },
+  "classification": {
+    "eventType": "military",
+    "eventSubtype": "milestone",
+    "tags": [
+      "Cuộc Tiến công chiến lược 1972",
+      1972
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1972
+    },
+    "end": {
+      "year": 1972
+    },
+    "datePrecision": "year",
+    "displayDate": "1972",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "multi_point"
+    },
+    "focusGeometry": {
+      "mode": "auto"
+    }
+  },
+  "summary": {
+    "homepageTitle": "Cuộc Tiến công chiến lược 1972",
+    "homepageSummary": "Cuộc Tiến công chiến lược 1972. —",
+    "cardSummary": "—"
+  },
+  "textbookContent": {
+    "canonicalSummary": "Cuộc Tiến công chiến lược 1972.",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 8: Kháng chiến chống Mỹ, cứu nước (1954–1975), trang 49. Nội dung trong file Excel được chuẩn hóa để nhập hệ thống; khi triển khai chính thức, nhóm nên bổ sung tường thuật chi tiết bám SGK và tư liệu gốc.",
+    "significance": "Là mốc quan trọng trong tiến trình đấu tranh quân sự, bảo vệ hoặc giải phóng đất nước của Việt Nam theo SGK 12.",
+    "keyFacts": [
+      "Cuộc Tiến công chiến lược 1972",
+      1972
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 12,
+      "book": "Lịch sử 12 - Cánh Diều",
+      "theme": "Chủ đề 3: Cách mạng tháng Tám và kháng chiến bảo vệ độc lập dân tộc",
+      "lesson": "Bài 8: Kháng chiến chống Mỹ, cứu nước (1954–1975)",
+      "pageStart": 49,
+      "pageEnd": 49,
+      "excerpt": "Cuộc Tiến công chiến lược 1972"
+    }
+  ],
+  "hierarchy": {
+    "rootId": "khang-chien-chong-my-collection",
+    "parentId": "viet-nam-hoa-chien-tranh-1969-1973",
+    "level": 2,
+    "orderInParent": 2
+  },
+  "associations": {
+    "predecessorEventIds": [
+      "chinh-phu-cach-mang-lam-thoi-1969"
+    ],
+    "successorEventIds": [
+      "my-pha-hoai-mien-bac-lan-2-1972"
+    ]
+  },
+  "display": {
+    "showOnHomepage": true,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "— || [SGK12:tien-cong-chien-luoc-1972] —",
+  "merge": {
+    "sourceGrades": "12",
+    "sourceIds": "tien-cong-chien-luoc-1972",
+    "mergedCount": 1,
+    "sourceFiles": "SGK12_event_master_flattened(1).xlsx",
+    "textbookRefsAll": "SGK12: Bài 8: Kháng chiến chống Mỹ, cứu nước (1954–1975) tr.49 [tien-cong-chien-luoc-1972]"
+  },
+  "validation": {
+    "status": "CHECK",
+    "issues": "multi_point thiếu markers/marker đại diện"
+  }
+}

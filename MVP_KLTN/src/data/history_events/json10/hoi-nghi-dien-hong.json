@@ -1,0 +1,118 @@
+{
+  "id": "hoi-nghi-dien-hong",
+  "slug": "hoi-nghi-dien-hong",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Hội nghị Diên Hồng",
+    "short": "Diên Hồng"
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "conference",
+    "tags": [
+      "Diên Hồng",
+      1284,
+      "Thăng Long",
+      "đại đoàn kết"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      10
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1284
+    },
+    "datePrecision": "year",
+    "displayDate": "Năm 1284",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "point",
+      "marker": {
+        "lat": 21.0285,
+        "lng": 105.8542,
+        "label": "Thăng Long"
+      },
+      "provinceNames": [
+        "Hà Nội"
+      ],
+      "historicalLocations": [
+        "Kinh thành Thăng Long",
+        "Diên Hồng"
+      ]
+    },
+    "focusGeometry": {
+      "mode": "marker",
+      "center": {
+        "lat": 21.0285,
+        "lng": 105.8542
+      },
+      "zoom": 10,
+      "provinceNames": [
+        "Hà Nội"
+      ]
+    }
+  },
+  "summary": {
+    "homepageTitle": "Hội nghị Diên Hồng",
+    "homepageSummary": "Hội nghị Diên Hồng là biểu tượng tiêu biểu của tinh thần đoàn kết toàn dân trong sự nghiệp giữ nước.",
+    "cardSummary": "Hội nghị Diên Hồng năm 1284."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Năm 1284, triều đình tổ chức Hội nghị Diên Hồng tại Thăng Long, phát huy ý chí quyết chiến của toàn dân.",
+    "detailedNarrative": "SGK Bài 17 dùng Hội nghị Diên Hồng như một minh chứng nổi bật cho truyền thống đại đoàn kết dân tộc. Đây là sự kiện vừa có giá trị chính trị – tinh thần, vừa có địa điểm rõ để trực quan hóa trên bản đồ.",
+    "significance": "Là biểu tượng của tinh thần đồng lòng và sức mạnh cố kết dân tộc trong lịch sử Việt Nam.",
+    "keyFacts": [
+      "Năm 1284",
+      "Tổ chức tại Thăng Long",
+      "Gắn với tinh thần đại đoàn kết chống ngoại xâm"
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 10,
+      "book": "Lịch sử 10 - Cánh Diều",
+      "theme": "Chủ đề 7: Cộng đồng các dân tộc Việt Nam",
+      "lesson": "Bài 17: Khối đại đoàn kết dân tộc trong lịch sử Việt Nam",
+      "pageStart": 123,
+      "pageEnd": 124,
+      "excerpt": "Hội nghị Diên Hồng là một minh chứng tiêu biểu cho sức mạnh đại đoàn kết dân tộc."
+    }
+  ],
+  "hierarchy": {
+    "rootId": "hoi-nghi-dien-hong",
+    "level": 0,
+    "orderInParent": 0
+  },
+  "associations": {
+    "relatedEventIds": [
+      "mat-tran-viet-minh",
+      "mat-tran-dan-toc-giai-phong-mien-nam-1960",
+      "tong-tuyen-cu-1976"
+    ]
+  },
+  "display": {
+    "showOnHomepage": true,
+    "showOnTimeline": true,
+    "featured": true
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "merge": {
+    "sourceGrades": "10",
+    "sourceIds": "hoi-nghi-dien-hong",
+    "mergedCount": 1,
+    "sourceFiles": "SGK10_event_master_flattened_v2(1).xlsx",
+    "textbookRefsAll": "SGK10: Bài 17: Khối đại đoàn kết dân tộc trong lịch sử Việt Nam tr.123-124 [hoi-nghi-dien-hong]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

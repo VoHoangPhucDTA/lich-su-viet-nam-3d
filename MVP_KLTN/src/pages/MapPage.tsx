@@ -1,15 +1,17 @@
 import { useState, useCallback, useMemo } from 'react';
+import { ChevronRight, Lightbulb } from 'lucide-react';
 import CesiumMap from '../components/CesiumMap';
 import Timeline from '../components/Timeline';
 import Sidebar from '../components/Sidebar';
 import EventPopup from '../components/EventPopup';
 import {
-  HISTORICAL_EVENTS,
   getEventsByYear,
   findEventById,
   TIMELINE_MIN_YEAR,
 } from '../data/events';
+import { useEffect } from 'react';
 import type { HistoricalEvent } from '../types/event';
+import { useHeader } from '../components/layout/HeaderContext';
 
 export default function MapPage() {
   const [currentYear, setCurrentYear] = useState(TIMELINE_MIN_YEAR);
@@ -20,6 +22,8 @@ export default function MapPage() {
     null
   );
   const [navigationStack, setNavigationStack] = useState<HistoricalEvent[]>([]);
+  
+  const { setCenterContent } = useHeader();
 
   // Events visible on the map based on the current context
   const visibleMapEvents = useMemo(() => {
@@ -126,144 +130,67 @@ export default function MapPage() {
     setNavigationStack([]);
   }, []);
 
-  return (
-    <div
-      style={{
-        width: '100vw',
-        height: '100vh',
-        display: 'flex',
-        flexDirection: 'column',
-        overflow: 'hidden',
-        background: 'var(--color-surface)',
-      }}
-    >
-      {/* Top bar */}
-      <div
-        className="glass"
-        style={{
-          padding: '10px 20px',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          borderBottom: '1px solid rgba(71, 85, 105, 0.3)',
-          zIndex: 20,
-        }}
-      >
-        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-          <span style={{ fontSize: '24px' }}>🏛️</span>
-          <div>
-            <h1
-              style={{
-                fontSize: '16px',
-                fontWeight: 700,
-                background:
-                  'linear-gradient(135deg, #818cf8, #6366f1, #a78bfa)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                letterSpacing: '-0.01em',
-              }}
-            >
-              Lịch Sử Việt Nam 3D
-            </h1>
-            <p
-              style={{
-                fontSize: '11px',
-                color: 'var(--color-text-dim)',
-                marginTop: '1px',
-              }}
-            >
-              Khám phá lịch sử qua bản đồ tương tác
-            </p>
-          </div>
-        </div>
-
-        {/* Navigation breadcrumb */}
-        {selectedEvent && (
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '6px',
-              fontSize: '12px',
-            }}
-          >
-            <button
-              onClick={() => {
-                setSelectedEvent(null);
-                setNavigationStack([]);
-              }}
-              style={{
-                background: 'none',
-                border: 'none',
-                color: 'var(--color-primary-light)',
-                cursor: 'pointer',
-                fontSize: '12px',
-              }}
-            >
-              Tổng quan
-            </button>
-            {navigationStack.map((navEvent) => (
-              <span key={navEvent.id} style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                <span style={{ color: 'var(--color-text-dim)' }}>›</span>
-                <button
-                  onClick={() => {
-                    const idx = navigationStack.indexOf(navEvent);
-                    setNavigationStack((prev) => prev.slice(0, idx));
-                    setSelectedEvent(navEvent);
-                  }}
-                  style={{
-                    background: 'none',
-                    border: 'none',
-                    color: 'var(--color-primary-light)',
-                    cursor: 'pointer',
-                    fontSize: '12px',
-                    maxWidth: '120px',
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis',
-                    whiteSpace: 'nowrap',
-                  }}
-                >
-                  {navEvent.name}
-                </button>
-              </span>
-            ))}
-            <span style={{ color: 'var(--color-text-dim)' }}>›</span>
-            <span
-              style={{
-                color: 'var(--color-text)',
-                fontWeight: 600,
-                maxWidth: '160px',
-                overflow: 'hidden',
-                textOverflow: 'ellipsis',
-                whiteSpace: 'nowrap',
-              }}
-            >
-              {selectedEvent.name}
-            </span>
-          </div>
-        )}
-
+  useEffect(() => {
+    if (selectedEvent) {
+      setCenterContent(
         <div
+          className="glass-map"
           style={{
             display: 'flex',
             alignItems: 'center',
-            gap: '4px',
-            fontSize: '12px',
-            color: 'var(--color-text-dim)',
+            gap: '8px',
+            padding: '6px 14px',
+            borderRadius: '999px',
+            border: '1px solid var(--border)',
+            fontSize: '13px',
           }}
         >
-          <span
-            style={{
-              width: '8px',
-              height: '8px',
-              borderRadius: '50%',
-              background: '#10b981',
+          <button
+            onClick={() => {
+              setSelectedEvent(null);
+              setNavigationStack([]);
             }}
-          />
-          MVP Demo
+            style={{ background: 'none', border: 'none', color: 'var(--accent)', cursor: 'pointer', fontSize: '12px', fontWeight: 500 }}
+          >
+            Tổng quan
+          </button>
+          {navigationStack.map((navEvent) => (
+            <span key={navEvent.id} style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+              <ChevronRight size={14} strokeWidth={2.2} style={{ color: 'var(--text-muted)' }} />
+              <button
+                onClick={() => {
+                  const idx = navigationStack.indexOf(navEvent);
+                  setNavigationStack((prev) => prev.slice(0, idx));
+                  setSelectedEvent(navEvent);
+                }}
+                style={{ background: 'none', border: 'none', color: 'var(--accent)', cursor: 'pointer', fontSize: '12px', fontWeight: 500, maxWidth: '120px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}
+              >
+                {navEvent.name}
+              </button>
+            </span>
+          ))}
+          <ChevronRight size={14} strokeWidth={2.2} style={{ color: 'var(--text-muted)' }} />
+          <span style={{ color: 'var(--text-primary)', fontWeight: 600, maxWidth: '160px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+            {selectedEvent.name}
+          </span>
         </div>
-      </div>
+      );
+    } else {
+      setCenterContent(null);
+    }
+  }, [selectedEvent, navigationStack, setCenterContent]);
 
+  return (
+    <div
+      style={{
+        width: '100%',
+        height: '100%', 
+        display: 'flex',
+        flexDirection: 'column',
+        overflow: 'hidden',
+        background: 'var(--bg-app)',
+      }}
+    >
       {/* Main content */}
       <div style={{ flex: 1, display: 'flex', overflow: 'hidden' }}>
         {/* Sidebar */}
@@ -275,16 +202,9 @@ export default function MapPage() {
         />
 
         {/* Map area */}
-        <div
-          style={{
-            flex: 1,
-            position: 'relative',
-            display: 'flex',
-            flexDirection: 'column',
-          }}
-        >
-          {/* Cesium Map */}
-          <div style={{ flex: 1, position: 'relative' }}>
+        <div className="relative flex flex-col flex-1 min-w-0 min-h-0 overflow-hidden">
+          {/* Cesium Map (flex-1 + min-h-0 để không đẩy Timeline ra khỏi viewport) */}
+          <div className="relative flex-1 min-h-0">
             <CesiumMap
               events={visibleMapEvents}
               selectedEvent={selectedEvent}
@@ -295,31 +215,23 @@ export default function MapPage() {
             {/* Map overlay info */}
             {!selectedEvent && (
               <div
-                className="animate-fade-in"
-                style={{
-                  position: 'absolute',
-                  top: '16px',
-                  left: '16px',
-                  padding: '10px 16px',
-                  borderRadius: '10px',
-                  background: 'rgba(15, 23, 42, 0.85)',
-                  backdropFilter: 'blur(8px)',
-                  border: '1px solid rgba(71, 85, 105, 0.3)',
-                  fontSize: '12px',
-                  color: 'var(--color-text-dim)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '8px',
-                }}
+                className="glass-map animate-fade-in absolute top-4 left-4 flex items-center gap-2.5 rounded-xl px-4 py-2.5 text-sm font-medium"
+                style={{ color: 'var(--text-primary)' }}
               >
-                <span style={{ fontSize: '16px' }}>💡</span>
-                Kéo timeline để chọn mốc thời gian, click marker để xem chi
-                tiết sự kiện
+                <Lightbulb
+                  size={18}
+                  strokeWidth={2.2}
+                  style={{ color: 'var(--accent)' }}
+                />
+                <span>
+                  Kéo timeline để chọn mốc thời gian, click marker để xem chi
+                  tiết sự kiện
+                </span>
               </div>
             )}
           </div>
 
-          {/* Timeline */}
+          {/* Timeline — flex-shrink-0 đảm bảo không bị squeeze khi map shrink */}
           <Timeline currentYear={currentYear} onYearChange={handleYearChange} />
         </div>
 

@@ -1,0 +1,116 @@
+{
+  "id": "hcm-ra-di-tim-duong-1911",
+  "slug": "hcm-ra-di-tim-duong-1911",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Nguyễn Tất Thành ra đi tìm đường cứu nước (5-6-1911)",
+    "short": "Nguyễn Tất Thành ra đi tìm đường"
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "milestone",
+    "tags": [
+      "Nguyễn Tất Thành ra đi tìm đường cứu nước (5-6-1911)",
+      1911,
+      "TP.HCM"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1911
+    },
+    "end": {
+      "year": 1911
+    },
+    "datePrecision": "year",
+    "displayDate": "1911",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "point",
+      "marker": {
+        "lat": 10.8231,
+        "lng": 106.6297,
+        "label": "TP.HCM"
+      },
+      "provinceNames": [
+        "TP.HCM"
+      ],
+      "historicalLocations": [
+        "TP.HCM"
+      ]
+    },
+    "focusGeometry": {
+      "mode": "marker",
+      "center": {
+        "lat": 10.8231,
+        "lng": 106.6297
+      },
+      "zoom": 9
+    }
+  },
+  "summary": {
+    "homepageTitle": "Nguyễn Tất Thành ra đi tìm đường cứu nước (5-6-1911)",
+    "homepageSummary": "Nguyễn Tất Thành ra đi tìm đường cứu nước (5-6-1911). —",
+    "cardSummary": "—"
+  },
+  "textbookContent": {
+    "canonicalSummary": "Nguyễn Tất Thành ra đi tìm đường cứu nước (5-6-1911).",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 14–16: Hồ Chí Minh – cuộc đời, sự nghiệp, dấu ấn, trang 88, 92. Nội dung trong file Excel được chuẩn hóa để nhập hệ thống; khi triển khai chính thức, nhóm nên bổ sung tường thuật chi tiết bám SGK và tư liệu gốc.",
+    "significance": "Là mốc quan trọng trong tiến trình cách mạng, xây dựng nhà nước, đối ngoại hoặc tổ chức lực lượng theo SGK 12.",
+    "keyFacts": [
+      "Nguyễn Tất Thành ra đi tìm đường cứu nước (5-6-1911)",
+      1911,
+      "TP.HCM"
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 12,
+      "book": "Lịch sử 12 - Cánh Diều",
+      "theme": "Chủ đề 6: Chủ tịch Hồ Chí Minh",
+      "lesson": "Bài 14–16: Hồ Chí Minh – cuộc đời, sự nghiệp, dấu ấn",
+      "pageStart": 88,
+      "pageEnd": 92,
+      "excerpt": "Nguyễn Tất Thành ra đi tìm đường cứu nước (5-6-1911)"
+    }
+  ],
+  "hierarchy": {
+    "rootId": "ho-chi-minh-cuoc-doi-su-nghiep-collection",
+    "parentId": "ho-chi-minh-cuoc-doi-su-nghiep-collection",
+    "level": 1,
+    "orderInParent": 1
+  },
+  "associations": {
+    "successorEventIds": [
+      "hcm-tim-ra-con-duong-1920"
+    ]
+  },
+  "display": {
+    "showOnHomepage": true,
+    "showOnTimeline": true,
+    "featured": true
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "— || [SGK12:hcm-ra-di-tim-duong-1911] —",
+  "merge": {
+    "sourceGrades": "12",
+    "sourceIds": "hcm-ra-di-tim-duong-1911",
+    "mergedCount": 1,
+    "sourceFiles": "SGK12_event_master_flattened(1).xlsx",
+    "textbookRefsAll": "SGK12: Bài 14–16: Hồ Chí Minh – cuộc đời, sự nghiệp, dấu ấn tr.88-92 [hcm-ra-di-tim-duong-1911]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

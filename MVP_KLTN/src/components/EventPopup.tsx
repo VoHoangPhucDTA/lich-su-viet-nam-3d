@@ -1,3 +1,15 @@
+import {
+  ArrowLeft,
+  ArrowRight,
+  Clock,
+  CornerDownLeft,
+  FileText,
+  Info,
+  Map as MapIcon,
+  MapPin,
+  Mountain,
+  X,
+} from 'lucide-react';
 import type { HistoricalEvent } from '../types/event';
 import {
   EVENT_TYPE_ICONS,
@@ -5,6 +17,7 @@ import {
   EVENT_TYPE_COLORS,
   GEO_TYPE_LABELS,
 } from '../types/event';
+import { useNavigate } from 'react-router-dom';
 
 interface EventPopupProps {
   event: HistoricalEvent;
@@ -22,24 +35,28 @@ export default function EventPopup({
   parentEvent,
 }: EventPopupProps) {
   const typeColor = EVENT_TYPE_COLORS[event.eventType];
+  const TypeIcon = EVENT_TYPE_ICONS[event.eventType];
+  const navigate = useNavigate();
+
+  const formatYear = (year: number) =>
+    year < 0 ? `${Math.abs(year)} TCN` : `${year}`;
 
   return (
     <div
-      className="glass animate-slide-in-right"
+      className="glass-map animate-slide-in-right"
       style={{
-        width: '380px',
+        width: '400px',
         height: '100%',
         display: 'flex',
         flexDirection: 'column',
-        borderLeft: '1px solid rgba(71, 85, 105, 0.4)',
         zIndex: 10,
       }}
     >
       {/* Header */}
       <div
         style={{
-          padding: '16px 20px',
-          borderBottom: '1px solid rgba(71, 85, 105, 0.3)',
+          padding: '20px',
+          borderBottom: '1px solid var(--border)',
           display: 'flex',
           alignItems: 'flex-start',
           justifyContent: 'space-between',
@@ -51,101 +68,86 @@ export default function EventPopup({
           {parentEvent && (
             <button
               onClick={onNavigateToParent}
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '6px',
-                background: 'none',
-                border: 'none',
-                color: 'var(--color-primary-light)',
-                fontSize: '12px',
-                fontWeight: 500,
-                cursor: 'pointer',
-                marginBottom: '8px',
-                padding: 0,
-              }}
+              className="flex items-center gap-1.5 bg-transparent border-0 text-xs font-semibold cursor-pointer mb-2 p-0"
+              style={{ color: 'var(--accent)' }}
             >
-              ← Quay lại: {parentEvent.name}
+              <ArrowLeft size={13} strokeWidth={2.4} />
+              Quay lại: {parentEvent.name}
             </button>
           )}
 
           <h2
             style={{
-              fontSize: '18px',
-              fontWeight: 700,
+              fontSize: '1.25rem',
+              fontWeight: 800,
               lineHeight: 1.3,
-              marginBottom: '8px',
+              marginBottom: '10px',
+              color: 'var(--text-primary)',
+              letterSpacing: '-0.01em',
             }}
           >
             {event.name}
           </h2>
 
           {/* Tags */}
-          <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
-            <span className={`badge badge-${event.eventType}`}>
-              {EVENT_TYPE_ICONS[event.eventType]}{' '}
+          <div className="flex gap-1.5 flex-wrap">
+            <span
+              className={`badge badge-${event.eventType} inline-flex items-center gap-1`}
+            >
+              <TypeIcon size={12} strokeWidth={2.4} />
               {EVENT_TYPE_LABELS[event.eventType]}
             </span>
             {event.eventSubtype && (
               <span
+                className="inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-medium border"
                 style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  padding: '2px 10px',
-                  borderRadius: '9999px',
-                  fontSize: '11px',
-                  fontWeight: 500,
                   background: 'rgba(148, 163, 184, 0.15)',
                   color: 'var(--color-text-dim)',
-                  border: '1px solid rgba(148, 163, 184, 0.2)',
+                  borderColor: 'rgba(148, 163, 184, 0.2)',
                 }}
               >
                 {event.eventSubtype}
               </span>
             )}
             <span
+              className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-semibold border"
               style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                padding: '2px 10px',
-                borderRadius: '9999px',
-                fontSize: '11px',
-                fontWeight: 500,
-                background: 'rgba(148, 163, 184, 0.1)',
-                color: 'var(--color-text-dim)',
-                border: '1px solid rgba(148, 163, 184, 0.15)',
+                background: 'var(--bg-card)',
+                color: 'var(--text-muted)',
+                borderColor: 'var(--border)',
+                boxShadow: '0 1px 2px rgba(0,0,0,0.05)',
               }}
             >
-              📍 {GEO_TYPE_LABELS[event.geoType]}
+              <MapPin size={11} strokeWidth={2.4} />
+              {GEO_TYPE_LABELS[event.geoType]}
             </span>
           </div>
         </div>
 
         <button
           onClick={onClose}
+          aria-label="Đóng"
+          className="flex items-center justify-center w-9 h-9 rounded-[10px] cursor-pointer flex-shrink-0 border transition-all duration-200"
           style={{
-            background: 'var(--color-surface-3)',
-            border: 'none',
-            color: 'var(--color-text)',
-            cursor: 'pointer',
-            width: '28px',
-            height: '28px',
-            borderRadius: '6px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            fontSize: '14px',
-            flexShrink: 0,
-            transition: 'background 0.15s',
+            background: 'var(--bg-app)',
+            borderColor: 'var(--border)',
+            color: 'var(--text-muted)',
+            boxShadow: 'var(--shadow-sm)',
           }}
-          onMouseEnter={(e) =>
-            (e.currentTarget.style.background = 'rgba(239, 68, 68, 0.3)')
-          }
-          onMouseLeave={(e) =>
-            (e.currentTarget.style.background = 'var(--color-surface-3)')
-          }
+          onMouseEnter={(e) => {
+            e.currentTarget.style.background = 'var(--danger)';
+            e.currentTarget.style.color = '#fff';
+            e.currentTarget.style.borderColor = 'var(--danger)';
+            e.currentTarget.style.transform = 'rotate(90deg)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.background = 'var(--bg-app)';
+            e.currentTarget.style.color = 'var(--text-muted)';
+            e.currentTarget.style.borderColor = 'var(--border)';
+            e.currentTarget.style.transform = 'rotate(0deg)';
+          }}
         >
-          ✕
+          <X size={16} strokeWidth={2.4} />
         </button>
       </div>
 
@@ -159,34 +161,29 @@ export default function EventPopup({
       >
         {/* Time info */}
         <div
+          className="flex items-center gap-3 px-4 py-3 rounded-xl border mb-3.5"
           style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '8px',
-            marginBottom: '16px',
-            padding: '10px 14px',
-            background: 'var(--color-surface)',
-            borderRadius: '10px',
-            border: '1px solid var(--color-surface-3)',
+            background: 'var(--bg-card)',
+            borderColor: 'var(--border)',
+            boxShadow: 'var(--shadow)',
           }}
         >
-          <span style={{ fontSize: '18px' }}>🕐</span>
+          <Clock
+            size={20}
+            strokeWidth={2.2}
+            style={{ color: 'var(--accent)' }}
+          />
           <div>
             <div
-              style={{
-                fontSize: '11px',
-                color: 'var(--color-text-dim)',
-                textTransform: 'uppercase',
-                letterSpacing: '0.05em',
-                fontWeight: 600,
-              }}
+              className="text-[11px] uppercase tracking-[0.08em] font-bold"
+              style={{ color: 'var(--text-muted)' }}
             >
               Thời gian
             </div>
-            <div style={{ fontSize: '15px', fontWeight: 600 }}>
-              {event.startYear}
+            <div className="text-[15px] font-semibold">
+              {formatYear(event.startYear)}
               {event.endYear && event.endYear !== event.startYear
-                ? ` – ${event.endYear}`
+                ? ` – ${formatYear(event.endYear)}`
                 : ''}
             </div>
           </div>
@@ -195,40 +192,28 @@ export default function EventPopup({
         {/* Location info */}
         {event.geoType === 'no_location' && (
           <div
+            className="flex items-center gap-2 px-3.5 py-3 rounded-xl border text-xs mb-3.5"
             style={{
-              padding: '10px 14px',
-              marginBottom: '16px',
-              background: 'rgba(245, 158, 11, 0.1)',
-              borderRadius: '10px',
-              border: '1px solid rgba(245, 158, 11, 0.2)',
-              fontSize: '12px',
-              color: '#fcd34d',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '8px',
+              background: 'var(--bg-card)',
+              borderColor: 'rgba(194, 155, 75, 0.3)',
+              color: 'var(--text-primary)',
             }}
           >
-            <span>ℹ️</span>
+            <Info size={14} strokeWidth={2.2} style={{ color: '#c29b4b' }} />
             Sự kiện này không gắn với địa điểm cụ thể trên bản đồ.
           </div>
         )}
 
         {event.geoType === 'nationwide' && (
           <div
+            className="flex items-center gap-2 px-3.5 py-3 rounded-xl border text-xs mb-3.5"
             style={{
-              padding: '10px 14px',
-              marginBottom: '16px',
-              background: 'rgba(59, 130, 246, 0.1)',
-              borderRadius: '10px',
-              border: '1px solid rgba(59, 130, 246, 0.2)',
-              fontSize: '12px',
-              color: '#93c5fd',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '8px',
+              background: 'var(--bg-card)',
+              borderColor: 'rgba(59, 130, 246, 0.3)',
+              color: 'var(--text-primary)',
             }}
           >
-            <span>🗺️</span>
+            <MapIcon size={14} strokeWidth={2.2} style={{ color: '#3b82f6' }} />
             Phạm vi: Toàn quốc
           </div>
         )}
@@ -238,16 +223,16 @@ export default function EventPopup({
           <div style={{ marginBottom: '16px' }}>
             <div
               style={{
-                fontSize: '11px',
-                fontWeight: 600,
-                color: 'var(--color-text-dim)',
-                textTransform: 'uppercase',
-                letterSpacing: '0.05em',
-                marginBottom: '6px',
-              }}
-            >
-              Địa điểm
-            </div>
+              fontSize: '11px',
+              fontWeight: 700,
+              color: 'var(--text-muted)',
+              textTransform: 'uppercase',
+              letterSpacing: '0.08em',
+              marginBottom: '10px',
+            }}
+          >
+            Địa điểm
+          </div>
             <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
               {event.primaryRegions.map((region) => (
                 <span
@@ -273,9 +258,9 @@ export default function EventPopup({
                     borderRadius: '6px',
                     fontSize: '12px',
                     fontWeight: 500,
-                    background: 'var(--color-surface)',
-                    color: 'var(--color-text-dim)',
-                    border: '1px solid var(--color-surface-3)',
+                    background: 'var(--bg-app)',
+                    color: 'var(--text-secondary)',
+                    border: '1px solid var(--border)',
                   }}
                 >
                   {region}
@@ -286,24 +271,32 @@ export default function EventPopup({
         )}
 
         {/* Description */}
-        <div style={{ marginBottom: '20px' }}>
+        <div
+          style={{
+            marginBottom: '20px',
+            padding: '12px 16px',
+            background: 'var(--bg-card)',
+            borderRadius: '12px',
+            border: '1px solid var(--border)',
+          }}
+        >
           <div
             style={{
               fontSize: '11px',
-              fontWeight: 600,
-              color: 'var(--color-text-dim)',
+              fontWeight: 700,
+              color: 'var(--text-muted)',
               textTransform: 'uppercase',
-              letterSpacing: '0.05em',
-              marginBottom: '6px',
+              letterSpacing: '0.08em',
+              marginBottom: '10px',
             }}
           >
             Mô tả
           </div>
           <p
             style={{
-              fontSize: '13px',
+              fontSize: '0.875rem',
               lineHeight: 1.7,
-              color: 'var(--color-text)',
+              color: 'var(--text-primary)',
             }}
           >
             {event.details || event.description}
@@ -316,11 +309,11 @@ export default function EventPopup({
             <div
               style={{
                 fontSize: '11px',
-                fontWeight: 600,
-                color: 'var(--color-text-dim)',
+                fontWeight: 700,
+                color: 'var(--text-muted)',
                 textTransform: 'uppercase',
-                letterSpacing: '0.05em',
-                marginBottom: '8px',
+                letterSpacing: '0.08em',
+                marginBottom: '12px',
               }}
             >
               Sự kiện con ({event.children.length})
@@ -330,68 +323,45 @@ export default function EventPopup({
                 <button
                   key={child.id}
                   onClick={() => onNavigateToChild(child)}
+                  className="flex items-center gap-3 w-full text-left px-3.5 py-3 rounded-xl border cursor-pointer transition-all duration-200"
                   style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '10px',
-                    padding: '10px 14px',
-                    borderRadius: '10px',
-                    border: '1px solid var(--color-surface-3)',
-                    background: 'var(--color-surface)',
-                    color: 'var(--color-text)',
-                    cursor: 'pointer',
-                    textAlign: 'left',
-                    transition: 'all 0.15s',
-                    width: '100%',
+                    background: 'var(--bg-card)',
+                    borderColor: 'var(--border)',
+                    color: 'var(--text-primary)',
+                    boxShadow: '0 1px 4px rgba(0,0,0,0.05)',
                   }}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.background = 'var(--color-surface-2)';
-                    e.currentTarget.style.borderColor = 'var(--color-primary)';
+                    e.currentTarget.style.background = 'var(--bg-app)';
+                    e.currentTarget.style.borderColor = 'var(--accent)';
+                    e.currentTarget.style.transform = 'translateY(-1px)';
                   }}
                   onMouseLeave={(e) => {
-                    e.currentTarget.style.background = 'var(--color-surface)';
-                    e.currentTarget.style.borderColor = 'var(--color-surface-3)';
+                    e.currentTarget.style.background = 'var(--bg-card)';
+                    e.currentTarget.style.borderColor = 'var(--border)';
+                    e.currentTarget.style.transform = 'none';
                   }}
                 >
                   <span
-                    style={{
-                      width: '8px',
-                      height: '8px',
-                      borderRadius: '50%',
-                      background: typeColor,
-                      flexShrink: 0,
-                    }}
+                    className="w-2 h-2 rounded-full flex-shrink-0"
+                    style={{ background: typeColor }}
                   />
-                  <div style={{ flex: 1, minWidth: 0 }}>
-                    <div
-                      style={{
-                        fontSize: '13px',
-                        fontWeight: 500,
-                        overflow: 'hidden',
-                        textOverflow: 'ellipsis',
-                        whiteSpace: 'nowrap',
-                      }}
-                    >
+                  <div className="flex-1 min-w-0">
+                    <div className="text-[13px] font-medium truncate">
                       {child.name}
                     </div>
                     <div
-                      style={{
-                        fontSize: '11px',
-                        color: 'var(--color-text-dim)',
-                        marginTop: '2px',
-                      }}
+                      className="text-[11px] mt-0.5"
+                      style={{ color: 'var(--text-muted)' }}
                     >
-                      {child.startYear} · {GEO_TYPE_LABELS[child.geoType]}
+                      {formatYear(child.startYear)} · {GEO_TYPE_LABELS[child.geoType]}
                     </div>
                   </div>
-                  <span
-                    style={{
-                      color: 'var(--color-text-dim)',
-                      fontSize: '12px',
-                    }}
-                  >
-                    →
-                  </span>
+                  <ArrowRight
+                    size={14}
+                    strokeWidth={2.2}
+                    className="opacity-50"
+                    style={{ color: 'var(--text-muted)' }}
+                  />
                 </button>
               ))}
             </div>
@@ -402,8 +372,8 @@ export default function EventPopup({
       {/* Action buttons */}
       <div
         style={{
-          padding: '12px 20px',
-          borderTop: '1px solid rgba(71, 85, 105, 0.3)',
+          padding: '16px 20px',
+          borderTop: '1px solid var(--border)',
           display: 'flex',
           gap: '8px',
         }}
@@ -411,59 +381,68 @@ export default function EventPopup({
         {(event.geoType === 'multi_region' ||
           event.geoType === 'single_point') && (
           <button
+            className="flex-1 inline-flex items-center justify-center gap-2 px-3 py-3 rounded-[10px] text-[13px] font-bold cursor-pointer transition-all duration-200 border"
             style={{
-              flex: 1,
-              padding: '10px',
-              borderRadius: '8px',
-              border: '1px solid var(--color-primary)',
-              background: 'rgba(99, 102, 241, 0.1)',
-              color: 'var(--color-primary-light)',
-              fontSize: '13px',
-              fontWeight: 600,
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              gap: '6px',
-              transition: 'all 0.15s',
+              borderColor: 'var(--accent)',
+              background: 'var(--accent-soft)',
+              color: 'var(--accent)',
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.background = 'rgba(99, 102, 241, 0.2)';
+              e.currentTarget.style.background = 'var(--bg-card)';
+              e.currentTarget.style.transform = 'translateY(-1px)';
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.background = 'rgba(99, 102, 241, 0.1)';
+              e.currentTarget.style.background = 'var(--accent-soft)';
+              e.currentTarget.style.transform = 'none';
             }}
           >
-            🏔️ Xem địa hình
+            <Mountain size={14} strokeWidth={2.4} />
+            Xem địa hình
           </button>
         )}
+        <button
+          onClick={() => {
+            const detailKey = event.slug || event.id;
+            navigate(`/events/${detailKey}`);
+          }}
+          className="flex-1 inline-flex items-center justify-center gap-2 px-3 py-3 rounded-[10px] text-[13px] font-bold cursor-pointer transition-all duration-200 border-0"
+          style={{
+            background: 'var(--accent)',
+            color: '#fff',
+            boxShadow: '0 4px 12px rgba(30, 58, 95, 0.3)',
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.filter = 'brightness(1.1)';
+            e.currentTarget.style.transform = 'translateY(-1px)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.filter = 'none';
+            e.currentTarget.style.transform = 'none';
+          }}
+        >
+          <FileText size={14} strokeWidth={2.4} />
+          Xem chi tiết
+        </button>
         {parentEvent && (
           <button
             onClick={onNavigateToParent}
+            className="flex-1 inline-flex items-center justify-center gap-2 px-3 py-3 rounded-[10px] text-[13px] font-bold cursor-pointer transition-all duration-200 border"
             style={{
-              flex: 1,
-              padding: '10px',
-              borderRadius: '8px',
-              border: '1px solid var(--color-surface-3)',
-              background: 'var(--color-surface)',
-              color: 'var(--color-text)',
-              fontSize: '13px',
-              fontWeight: 600,
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              gap: '6px',
-              transition: 'all 0.15s',
+              borderColor: 'var(--border)',
+              background: 'var(--bg-card)',
+              color: 'var(--text-primary)',
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.background = 'var(--color-surface-2)';
+              e.currentTarget.style.background = 'var(--bg-app)';
+              e.currentTarget.style.transform = 'translateY(-1px)';
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.background = 'var(--color-surface)';
+              e.currentTarget.style.background = 'var(--bg-card)';
+              e.currentTarget.style.transform = 'none';
             }}
           >
-            ↩ Quay lại cha
+            <CornerDownLeft size={14} strokeWidth={2.4} />
+            Quay lại cha
           </button>
         )}
       </div>

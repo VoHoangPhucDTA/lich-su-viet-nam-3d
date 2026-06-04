@@ -1,0 +1,90 @@
+{
+  "id": "bai-hoc-khang-chien-1945-nay",
+  "slug": "bai-hoc-khang-chien-1945-nay",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Bài học lịch sử kháng chiến bảo vệ Tổ quốc 1945–nay",
+    "short": "Bài học lịch sử kháng chiến bảo"
+  },
+  "classification": {
+    "eventType": "military",
+    "eventSubtype": "analysis_topic",
+    "tags": [
+      "Bài học lịch sử kháng chiến bảo vệ Tổ quốc 1945–nay",
+      "concept"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ]
+  },
+  "chronology": {
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "no_location"
+    },
+    "focusGeometry": {
+      "mode": "auto"
+    }
+  },
+  "summary": {
+    "homepageTitle": "Bài học lịch sử kháng chiến bảo vệ Tổ quốc 1945–nay",
+    "homepageSummary": "Bài học lịch sử kháng chiến bảo vệ Tổ quốc 1945–nay. — (concept)",
+    "cardSummary": "— (concept)"
+  },
+  "textbookContent": {
+    "canonicalSummary": "Bài học lịch sử kháng chiến bảo vệ Tổ quốc 1945–nay.",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 9: Bảo vệ Tổ quốc sau năm 1975 và bài học lịch sử, trang 59–61. Nội dung trong file Excel được chuẩn hóa để nhập hệ thống; khi triển khai chính thức, nhóm nên bổ sung tường thuật chi tiết bám SGK và tư liệu gốc.",
+    "significance": "Là mốc quan trọng trong tiến trình đấu tranh quân sự, bảo vệ hoặc giải phóng đất nước của Việt Nam theo SGK 12.",
+    "keyFacts": [
+      "Bài học lịch sử kháng chiến bảo vệ Tổ quốc 1945–nay",
+      "—"
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 12,
+      "book": "Lịch sử 12 - Cánh Diều",
+      "theme": "Chủ đề 3: Bảo vệ Tổ quốc sau năm 1975",
+      "lesson": "Bài 9: Bảo vệ Tổ quốc sau năm 1975 và bài học lịch sử",
+      "pageStart": 59,
+      "pageEnd": 61,
+      "excerpt": "— (concept)"
+    }
+  ],
+  "hierarchy": {
+    "rootId": "bao-ve-to-quoc-sau-1975-collection",
+    "parentId": "bao-ve-to-quoc-sau-1975-collection",
+    "level": 1,
+    "orderInParent": 4
+  },
+  "associations": {
+    "predecessorEventIds": [
+      "bao-ve-chu-quyen-bien-dong-sau-1975"
+    ]
+  },
+  "display": {
+    "showOnHomepage": false,
+    "showOnTimeline": false,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "— (concept) || [SGK12:bai-hoc-khang-chien-1945-nay] — (concept)",
+  "merge": {
+    "sourceGrades": "12",
+    "sourceIds": "bai-hoc-khang-chien-1945-nay",
+    "mergedCount": 1,
+    "sourceFiles": "SGK12_event_master_flattened(1).xlsx",
+    "textbookRefsAll": "SGK12: Bài 9: Bảo vệ Tổ quốc sau năm 1975 và bài học lịch sử tr.59-61 [bai-hoc-khang-chien-1945-nay]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

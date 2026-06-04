@@ -1,0 +1,122 @@
+{
+  "id": "tran-chi-lang-xuong-giang-1427",
+  "slug": "tran-chi-lang-xuong-giang-1427",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Trận Chi Lăng – Xương Giang (1427)",
+    "short": "Trận Chi Lăng – Xương Giang"
+  },
+  "classification": {
+    "eventType": "military",
+    "eventSubtype": "battle",
+    "tags": [
+      "Trận Chi Lăng – Xương Giang (1427)",
+      "Năm 1427",
+      "Lạng Sơn",
+      "Bắc Giang",
+      "Nghĩa quân Lam Sơn đánh tan viện binh nhà Minh",
+      "buộc Vương Thông xin hòa."
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1427
+    },
+    "datePrecision": "year",
+    "displayDate": "Năm 1427",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "multi_point",
+      "marker": {
+        "label": "Lạng Sơn"
+      },
+      "provinceNames": [
+        "Lạng Sơn",
+        "Bắc Giang"
+      ],
+      "historicalLocations": [
+        "Lạng Sơn",
+        "Bắc Giang"
+      ]
+    },
+    "focusGeometry": {
+      "mode": "bounds",
+      "provinceNames": [
+        "Lạng Sơn",
+        "Bắc Giang"
+      ]
+    }
+  },
+  "summary": {
+    "homepageTitle": "Trận Chi Lăng – Xương Giang (1427)",
+    "homepageSummary": "Trận Chi Lăng – Xương Giang (1427). Nghĩa quân Lam Sơn đánh tan viện binh nhà Minh, buộc Vương Thông xin hòa.",
+    "cardSummary": "Nghĩa quân Lam Sơn đánh tan viện binh nhà Minh, buộc Vương Thông xin hòa."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Trận Chi Lăng – Xương Giang (1427). Nghĩa quân Lam Sơn đánh tan viện binh nhà Minh, buộc Vương Thông xin hòa.",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 8: Khởi nghĩa và chiến tranh giải phóng trong lịch sử Việt Nam. Nghĩa quân Lam Sơn đánh tan viện binh nhà Minh, buộc Vương Thông xin hòa.",
+    "significance": "Là mốc quan trọng trong tiến trình quân sự và bảo vệ/chinh phục độc lập, chủ quyền của Việt Nam theo SGK 11.",
+    "keyFacts": [
+      "Trận Chi Lăng – Xương Giang (1427)",
+      "Năm 1427",
+      "Lạng Sơn",
+      "Bắc Giang",
+      "Nghĩa quân Lam Sơn đánh tan viện binh nhà Minh",
+      "buộc Vương Thông xin hòa."
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 11,
+      "book": "Lịch sử 11 - Cánh Diều",
+      "lesson": "Bài 8: Khởi nghĩa và chiến tranh giải phóng trong lịch sử Việt Nam",
+      "pageStart": 60,
+      "pageEnd": 61,
+      "excerpt": "Nghĩa quân Lam Sơn đánh tan viện binh nhà Minh, buộc Vương Thông xin hòa."
+    }
+  ],
+  "hierarchy": {
+    "rootId": "vm-khoi-nghia-va-giai-phong",
+    "parentId": "lam-son-gd3-1426-1427",
+    "level": 3,
+    "orderInParent": 2
+  },
+  "associations": {
+    "relatedEventIds": [
+      "tran-tot-dong-chuc-dong-1426",
+      "lam-son-gd3-1426-1427"
+    ],
+    "predecessorEventIds": [
+      "tran-tot-dong-chuc-dong-1426"
+    ]
+  },
+  "display": {
+    "showOnHomepage": false,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "Nghĩa quân Lam Sơn đánh tan viện binh nhà Minh, buộc Vương Thông xin hòa. || [SGK11:tran-chi-lang-xuong-giang-1427] Nghĩa quân Lam Sơn đánh tan viện binh nhà Minh, buộc Vương Thông xin hòa.",
+  "merge": {
+    "sourceGrades": "11",
+    "sourceIds": "tran-chi-lang-xuong-giang-1427",
+    "mergedCount": 1,
+    "sourceFiles": "SGK11_event_master_flattened_v2(1).xlsx",
+    "textbookRefsAll": "SGK11: Bài 8: Khởi nghĩa và chiến tranh giải phóng trong lịch sử Việt Nam tr.60-61 [tran-chi-lang-xuong-giang-1427]"
+  },
+  "validation": {
+    "status": "CHECK",
+    "issues": "multi_point thiếu markers/marker đại diện"
+  }
+}

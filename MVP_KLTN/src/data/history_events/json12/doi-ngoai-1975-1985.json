@@ -1,0 +1,105 @@
+{
+  "id": "doi-ngoai-1975-1985",
+  "slug": "doi-ngoai-1975-1985",
+  "entityType": "event",
+  "eventLevel": "collection",
+  "titles": {
+    "primary": "Hoạt động đối ngoại 1975–1985",
+    "short": "Hoạt động đối ngoại 1975–1985"
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "milestone",
+    "tags": [
+      "Hoạt động đối ngoại 1975–1985",
+      "1975–1985",
+      "collection"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1975
+    },
+    "end": {
+      "year": 1985
+    },
+    "datePrecision": "period",
+    "displayDate": "1975–1985",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "no_location"
+    },
+    "focusGeometry": {
+      "mode": "auto"
+    }
+  },
+  "summary": {
+    "homepageTitle": "Hoạt động đối ngoại 1975–1985",
+    "homepageSummary": "Hoạt động đối ngoại 1975–1985. —",
+    "cardSummary": "—"
+  },
+  "textbookContent": {
+    "canonicalSummary": "Hoạt động đối ngoại 1975–1985.",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 13: Hoạt động đối ngoại của Việt Nam từ năm 1975 đến nay, trang 81–83. Nội dung trong file Excel được chuẩn hóa để nhập hệ thống; khi triển khai chính thức, nhóm nên bổ sung tường thuật chi tiết bám SGK và tư liệu gốc.",
+    "significance": "Là mốc quan trọng trong tiến trình cách mạng, xây dựng nhà nước, đối ngoại hoặc tổ chức lực lượng theo SGK 12.",
+    "keyFacts": [
+      "Hoạt động đối ngoại 1975–1985",
+      "1975–1985"
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 12,
+      "book": "Lịch sử 12 - Cánh Diều",
+      "theme": "Chủ đề 5: Lịch sử đối ngoại của Việt Nam thời cận - hiện đại",
+      "lesson": "Bài 13: Hoạt động đối ngoại của Việt Nam từ năm 1975 đến nay",
+      "pageStart": 81,
+      "pageEnd": 83,
+      "excerpt": "Hoạt động đối ngoại 1975–1985"
+    }
+  ],
+  "hierarchy": {
+    "rootId": "doi-ngoai-viet-nam-1900-nay-collection",
+    "parentId": "doi-ngoai-viet-nam-1900-nay-collection",
+    "childIds": [
+      "vn-gia-nhap-lien-hop-quoc-1977"
+    ],
+    "level": 1,
+    "orderInParent": 4
+  },
+  "associations": {
+    "predecessorEventIds": [
+      "doi-ngoai-khang-chien-my"
+    ],
+    "successorEventIds": [
+      "binh-thuong-hoa-vn-tq-1991"
+    ]
+  },
+  "display": {
+    "showOnHomepage": true,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "— || [SGK12:doi-ngoai-1975-1985] —",
+  "merge": {
+    "sourceGrades": "12",
+    "sourceIds": "doi-ngoai-1975-1985",
+    "mergedCount": 1,
+    "sourceFiles": "SGK12_event_master_flattened(1).xlsx",
+    "textbookRefsAll": "SGK12: Bài 13: Hoạt động đối ngoại của Việt Nam từ năm 1975 đến nay tr.81-83 [doi-ngoai-1975-1985]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

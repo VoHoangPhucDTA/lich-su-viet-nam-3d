@@ -1,0 +1,120 @@
+{
+  "id": "dai-hoi-vi-1986",
+  "slug": "dai-hoi-vi-1986",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Đại hội VI Đảng CSVN — mở đầu Đổi mới (1986)",
+    "short": "Đại hội VI Đảng CSVN — mở đầu Đổ",
+    "alternatives": [
+      "Đại hội VI",
+      "Mở đầu công cuộc Đổi mới"
+    ]
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "congress",
+    "tags": [
+      "Đại hội VI Đảng CSVN — mở đầu Đổi mới (1986)",
+      1986,
+      "Hà Nội"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1986
+    },
+    "end": {
+      "year": 1986
+    },
+    "datePrecision": "year",
+    "displayDate": "1986",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "point",
+      "marker": {
+        "lat": 21.0285,
+        "lng": 105.8542,
+        "label": "Hà Nội"
+      },
+      "provinceNames": [
+        "Hà Nội"
+      ],
+      "historicalLocations": [
+        "Hà Nội"
+      ]
+    },
+    "focusGeometry": {
+      "mode": "marker",
+      "center": {
+        "lat": 21.0285,
+        "lng": 105.8542
+      },
+      "zoom": 9
+    }
+  },
+  "summary": {
+    "homepageTitle": "Đại hội VI Đảng CSVN — mở đầu Đổi mới (1986)",
+    "homepageSummary": "Đại hội VI Đảng CSVN — mở đầu Đổi mới (1986). —",
+    "cardSummary": "—"
+  },
+  "textbookContent": {
+    "canonicalSummary": "Đại hội VI Đảng CSVN — mở đầu Đổi mới (1986).",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 10: Công cuộc Đổi mới ở Việt Nam từ năm 1986 đến nay, trang 63. Nội dung trong file Excel được chuẩn hóa để nhập hệ thống; khi triển khai chính thức, nhóm nên bổ sung tường thuật chi tiết bám SGK và tư liệu gốc.",
+    "significance": "Là mốc quan trọng trong tiến trình cách mạng, xây dựng nhà nước, đối ngoại hoặc tổ chức lực lượng theo SGK 12.",
+    "keyFacts": [
+      "Đại hội VI Đảng CSVN — mở đầu Đổi mới (1986)",
+      1986,
+      "Hà Nội"
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 12,
+      "book": "Lịch sử 12 - Cánh Diều",
+      "theme": "Chủ đề 4: Công cuộc Đổi mới ở Việt Nam từ năm 1986 đến nay",
+      "lesson": "Bài 10: Công cuộc Đổi mới ở Việt Nam từ năm 1986 đến nay",
+      "pageStart": 63,
+      "pageEnd": 63,
+      "excerpt": "Đại hội VI Đảng CSVN — mở đầu Đổi mới (1986)"
+    }
+  ],
+  "hierarchy": {
+    "rootId": "doi-moi-1986-collection",
+    "parentId": "doi-moi-1986-collection",
+    "level": 1,
+    "orderInParent": 1
+  },
+  "associations": {
+    "successorEventIds": [
+      "doi-moi-gd1-1986-1995"
+    ]
+  },
+  "display": {
+    "showOnHomepage": true,
+    "showOnTimeline": true,
+    "featured": true
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "— || [SGK12:dai-hoi-vi-1986] —",
+  "merge": {
+    "sourceGrades": "12",
+    "sourceIds": "dai-hoi-vi-1986",
+    "mergedCount": 1,
+    "sourceFiles": "SGK12_event_master_flattened(1).xlsx",
+    "textbookRefsAll": "SGK12: Bài 10: Công cuộc Đổi mới ở Việt Nam từ năm 1986 đến nay tr.63 [dai-hoi-vi-1986]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

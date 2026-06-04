@@ -1,0 +1,120 @@
+{
+  "id": "kien-truc-thap-cham",
+  "slug": "kien-truc-thap-cham",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Kiến trúc tháp Chăm",
+    "short": "Tháp Chăm"
+  },
+  "classification": {
+    "eventType": "cultural",
+    "eventSubtype": "architecture",
+    "tags": [
+      "tháp Chăm",
+      "Mỹ Sơn",
+      "gạch nung",
+      "tôn giáo"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      10
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 700
+    },
+    "end": {
+      "year": 1500
+    },
+    "datePrecision": "period",
+    "displayDate": "Khoảng thế kỉ VII – XV",
+    "isApproximate": true
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "multi_point",
+      "marker": {
+        "lat": 15.771,
+        "lng": 108.123,
+        "label": "Mỹ Sơn"
+      },
+      "provinceNames": [
+        "Quảng Nam",
+        "Bình Định",
+        "Ninh Thuận"
+      ],
+      "historicalLocations": [
+        "Mỹ Sơn",
+        "Po Nagar",
+        "Po Klong Garai"
+      ]
+    },
+    "focusGeometry": {
+      "mode": "bounds",
+      "center": {
+        "lat": 15.771,
+        "lng": 108.123
+      },
+      "zoom": 8,
+      "provinceNames": [
+        "Quảng Nam",
+        "Bình Định",
+        "Ninh Thuận"
+      ]
+    }
+  },
+  "summary": {
+    "homepageTitle": "Kiến trúc tháp Chăm",
+    "homepageSummary": "Hệ thống tháp Chăm là thành tựu kiến trúc – nghệ thuật nổi bật của cư dân Chăm-pa.",
+    "cardSummary": "Tháp Chăm là thành tựu kiến trúc tiêu biểu."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Kiến trúc tháp Chăm là một thành tựu tiêu biểu của văn minh Chăm-pa, gắn với đời sống tín ngưỡng và nghệ thuật điêu khắc.",
+    "detailedNarrative": "SGK giới thiệu các tháp Chăm như những công trình kiến trúc đặc sắc, được xây bằng gạch và trang trí tinh xảo. Hệ thống tháp phản ánh trình độ kỹ thuật, thẩm mỹ và đời sống tôn giáo của cư dân Chăm-pa qua nhiều thế kỉ.",
+    "significance": "Khẳng định vị trí đặc sắc của văn minh Chăm-pa trong lịch sử nghệ thuật và kiến trúc Việt Nam.",
+    "keyFacts": [
+      "Là thành tựu kiến trúc nổi bật",
+      "Gắn với tín ngưỡng – tôn giáo",
+      "Phân bố ở nhiều địa điểm miền Trung"
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 10,
+      "book": "Lịch sử 10 - Cánh Diều",
+      "theme": "Chủ đề 6: Một số nền văn minh trên đất nước Việt Nam trước năm 1858",
+      "lesson": "Bài 13: Văn minh Chăm-pa, Văn minh Phù Nam",
+      "pageStart": 91,
+      "pageEnd": 91,
+      "excerpt": "Kiến trúc tháp Chăm là một thành tựu tiêu biểu của văn minh Chăm-pa."
+    }
+  ],
+  "hierarchy": {
+    "rootId": "vm-cham-pa",
+    "parentId": "vm-cham-pa",
+    "level": 1,
+    "orderInParent": 3
+  },
+  "display": {
+    "showOnHomepage": true,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "merge": {
+    "sourceGrades": "10",
+    "sourceIds": "kien-truc-thap-cham",
+    "mergedCount": 1,
+    "sourceFiles": "SGK10_event_master_flattened_v2(1).xlsx",
+    "textbookRefsAll": "SGK10: Bài 13: Văn minh Chăm-pa, Văn minh Phù Nam tr.91 [kien-truc-thap-cham]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

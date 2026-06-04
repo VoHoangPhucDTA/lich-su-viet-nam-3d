@@ -1,0 +1,93 @@
+{
+  "id": "trung-quoc-cai-cach-mo-cua-1978",
+  "slug": "trung-quoc-cai-cach-mo-cua-1978",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Trung Quốc cải cách mở cửa (từ 1978)",
+    "short": "Trung Quốc cải cách mở cửa"
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "reform",
+    "tags": [
+      "Trung Quốc cải cách mở cửa (từ 1978)",
+      "Từ 1978",
+      "RAG only"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1978
+    },
+    "datePrecision": "year",
+    "displayDate": "Từ 1978",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "no_location",
+      "marker": {
+        "label": "Trung Quốc cải cách mở cửa"
+      }
+    },
+    "focusGeometry": {
+      "mode": "auto"
+    }
+  },
+  "summary": {
+    "homepageTitle": "Trung Quốc cải cách mở cửa (từ 1978)",
+    "homepageSummary": "Trung Quốc cải cách mở cửa (từ 1978). Bài học đối chiếu với Việt Nam; giữ phục vụ RAG.",
+    "cardSummary": "Bài học đối chiếu với Việt Nam; giữ phục vụ RAG."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Trung Quốc cải cách mở cửa (từ 1978). Bài học đối chiếu với Việt Nam; giữ phục vụ RAG.",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 4: Chủ nghĩa xã hội từ năm 1917 đến nay. Bài học đối chiếu với Việt Nam; giữ phục vụ RAG.",
+    "significance": "Là mốc quan trọng về tổ chức nhà nước, cải cách hoặc chủ quyền được SGK 11 nhấn mạnh.",
+    "keyFacts": [
+      "Trung Quốc cải cách mở cửa (từ 1978)",
+      "Từ 1978",
+      "Bài học đối chiếu với Việt Nam; giữ phục vụ RAG."
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 11,
+      "book": "Lịch sử 11 - Cánh Diều",
+      "lesson": "Bài 4: Chủ nghĩa xã hội từ năm 1917 đến nay",
+      "pageStart": 29,
+      "pageEnd": 31,
+      "excerpt": "Bài học đối chiếu với Việt Nam; giữ phục vụ RAG."
+    }
+  ],
+  "hierarchy": {
+    "rootId": "trung-quoc-cai-cach-mo-cua-1978",
+    "level": 0,
+    "orderInParent": 19
+  },
+  "display": {
+    "showOnHomepage": false,
+    "showOnTimeline": false,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "Bài học đối chiếu với Việt Nam; giữ phục vụ RAG. || [SGK11:trung-quoc-cai-cach-mo-cua-1978] Bài học đối chiếu với Việt Nam; giữ phục vụ RAG.",
+  "merge": {
+    "sourceGrades": "11",
+    "sourceIds": "trung-quoc-cai-cach-mo-cua-1978",
+    "mergedCount": 1,
+    "sourceFiles": "SGK11_event_master_flattened_v2(1).xlsx",
+    "textbookRefsAll": "SGK11: Bài 4: Chủ nghĩa xã hội từ năm 1917 đến nay tr.29-31 [trung-quoc-cai-cach-mo-cua-1978]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

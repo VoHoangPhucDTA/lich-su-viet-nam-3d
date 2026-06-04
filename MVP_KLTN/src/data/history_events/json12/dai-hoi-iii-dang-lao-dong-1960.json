@@ -1,0 +1,103 @@
+{
+  "id": "dai-hoi-iii-dang-lao-dong-1960",
+  "slug": "dai-hoi-iii-dang-lao-dong-1960",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Đại hội III Đảng Lao động Việt Nam (9-1960)",
+    "short": "Đại hội III Đảng Lao động Việt N"
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "congress",
+    "tags": [
+      "Đại hội III Đảng Lao động Việt Nam (9-1960)",
+      "9-1960"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1960,
+      "month": 9
+    },
+    "end": {
+      "year": 1960,
+      "month": 9
+    },
+    "datePrecision": "month",
+    "displayDate": "9-1960",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "no_location"
+    },
+    "focusGeometry": {
+      "mode": "auto"
+    }
+  },
+  "summary": {
+    "homepageTitle": "Đại hội III Đảng Lao động Việt Nam (9-1960)",
+    "homepageSummary": "Đại hội III Đảng Lao động Việt Nam (9-1960). Bổ sung theo SGK 12; xác định chiến lược cách mạng hai miền",
+    "cardSummary": "Bổ sung theo SGK 12; xác định chiến lược cách mạng hai miền"
+  },
+  "textbookContent": {
+    "canonicalSummary": "Đại hội III Đảng Lao động Việt Nam (9-1960).",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 8: Kháng chiến chống Mỹ, cứu nước (1954–1975), trang 45. Nội dung trong file Excel được chuẩn hóa để nhập hệ thống; khi triển khai chính thức, nhóm nên bổ sung tường thuật chi tiết bám SGK và tư liệu gốc.",
+    "significance": "Là mốc quan trọng trong tiến trình cách mạng, xây dựng nhà nước, đối ngoại hoặc tổ chức lực lượng theo SGK 12.",
+    "keyFacts": [
+      "Đại hội III Đảng Lao động Việt Nam (9-1960)",
+      "9-1960"
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 12,
+      "book": "Lịch sử 12 - Cánh Diều",
+      "theme": "Chủ đề 3: Cách mạng tháng Tám và kháng chiến bảo vệ độc lập dân tộc",
+      "lesson": "Bài 8: Kháng chiến chống Mỹ, cứu nước (1954–1975)",
+      "pageStart": 45,
+      "pageEnd": 45,
+      "excerpt": "Bổ sung theo SGK 12; xác định chiến lược cách mạng hai miền"
+    }
+  ],
+  "hierarchy": {
+    "rootId": "khang-chien-chong-my-collection",
+    "parentId": "giai-doan-1954-1960",
+    "level": 2,
+    "orderInParent": 3
+  },
+  "associations": {
+    "predecessorEventIds": [
+      "phong-trao-dong-khoi-1960"
+    ],
+    "successorEventIds": [
+      "mat-tran-dan-toc-giai-phong-mien-nam-1960"
+    ]
+  },
+  "display": {
+    "showOnHomepage": true,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "Bổ sung theo SGK 12; xác định chiến lược cách mạng hai miền || [SGK12:dai-hoi-iii-dang-lao-dong-1960] Bổ sung theo SGK 12; xác định chiến lược cách mạng hai miền",
+  "merge": {
+    "sourceGrades": "12",
+    "sourceIds": "dai-hoi-iii-dang-lao-dong-1960",
+    "mergedCount": 1,
+    "sourceFiles": "SGK12_event_master_flattened(1).xlsx",
+    "textbookRefsAll": "SGK12: Bài 8: Kháng chiến chống Mỹ, cứu nước (1954–1975) tr.45 [dai-hoi-iii-dang-lao-dong-1960]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

@@ -1,10 +1,20 @@
 import { useState, useMemo } from 'react';
+import {
+  Search,
+  ScrollText,
+  ChevronRight,
+  ExternalLink,
+  MapPin,
+  Map as MapIcon,
+  ClipboardList,
+} from 'lucide-react';
 import type { HistoricalEvent, EventType } from '../types/event';
 import {
   EVENT_TYPE_ICONS,
   EVENT_TYPE_LABELS,
   EVENT_TYPE_COLORS,
 } from '../types/event';
+import { useNavigate } from 'react-router-dom';
 
 interface SidebarProps {
   events: HistoricalEvent[];
@@ -82,13 +92,12 @@ export default function Sidebar({
 
   return (
     <div
-      className="glass animate-slide-in-left"
+      className="glass-map animate-slide-in-left"
       style={{
         width: '320px',
         height: '100%',
         display: 'flex',
         flexDirection: 'column',
-        borderRight: '1px solid rgba(71, 85, 105, 0.4)',
         zIndex: 10,
       }}
     >
@@ -96,109 +105,81 @@ export default function Sidebar({
       <div
         style={{
           padding: '20px 16px 12px',
-          borderBottom: '1px solid rgba(71, 85, 105, 0.3)',
+          borderBottom: '1px solid var(--border)',
         }}
       >
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '10px',
-            marginBottom: '14px',
-          }}
-        >
-          <span style={{ fontSize: '22px' }}>📜</span>
+        <div className="flex items-center gap-2.5 mb-3.5">
+          <ScrollText
+            size={22}
+            strokeWidth={2}
+            style={{ color: 'var(--accent)' }}
+          />
           <h2
-            style={{
-              fontSize: '16px',
-              fontWeight: 700,
-              background: 'linear-gradient(135deg, #f1f5f9, #94a3b8)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-            }}
+            className="text-base font-extrabold tracking-tight"
+            style={{ color: 'var(--text-primary)' }}
           >
             Sự kiện Lịch sử
           </h2>
         </div>
 
         {/* Search */}
-        <div style={{ position: 'relative', marginBottom: '12px' }}>
-          <span
-            style={{
-              position: 'absolute',
-              left: '10px',
-              top: '50%',
-              transform: 'translateY(-50%)',
-              fontSize: '14px',
-              color: 'var(--color-text-dim)',
-            }}
-          >
-            🔍
-          </span>
+        <div className="relative mb-3">
+          <Search
+            size={15}
+            strokeWidth={2.2}
+            className="absolute left-2.5 top-1/2 -translate-y-1/2"
+            style={{ color: 'var(--text-muted)' }}
+          />
           <input
             type="text"
             placeholder="Tìm kiếm sự kiện..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
+            className="w-full pl-9 pr-3 py-2.5 rounded-[10px] border text-[13px] outline-none transition-all duration-200"
             style={{
-              width: '100%',
-              padding: '8px 12px 8px 34px',
-              borderRadius: '8px',
-              border: '1px solid var(--color-surface-3)',
-              background: 'var(--color-surface)',
-              color: 'var(--color-text)',
-              fontSize: '13px',
-              outline: 'none',
-              transition: 'border-color 0.15s',
+              borderColor: 'var(--input-border)',
+              background: 'var(--input-bg)',
+              color: 'var(--input-text)',
             }}
-            onFocus={(e) =>
-              (e.currentTarget.style.borderColor = 'var(--color-primary)')
-            }
-            onBlur={(e) =>
-              (e.currentTarget.style.borderColor = 'var(--color-surface-3)')
-            }
+            onFocus={(e) => {
+              e.currentTarget.style.borderColor = 'var(--accent)';
+            }}
+            onBlur={(e) => {
+              e.currentTarget.style.borderColor = 'var(--input-border)';
+            }}
           />
         </div>
 
         {/* Filter buttons */}
-        <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
-          {EVENT_TYPE_FILTERS.map((type) => (
-            <button
-              key={type}
-              onClick={() =>
-                setActiveFilter(activeFilter === type ? null : type)
-              }
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '4px',
-                padding: '4px 10px',
-                borderRadius: '9999px',
-                border: `1px solid ${
-                  activeFilter === type
+        <div className="flex gap-1.5 flex-wrap">
+          {EVENT_TYPE_FILTERS.map((type) => {
+            const Icon = EVENT_TYPE_ICONS[type];
+            const isActive = activeFilter === type;
+            return (
+              <button
+                key={type}
+                onClick={() =>
+                  setActiveFilter(isActive ? null : type)
+                }
+                className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-semibold cursor-pointer transition-all duration-150 border"
+                style={{
+                  borderColor: isActive
                     ? EVENT_TYPE_COLORS[type]
-                    : 'var(--color-surface-3)'
-                }`,
-                background:
-                  activeFilter === type
-                    ? `${EVENT_TYPE_COLORS[type]}20`
-                    : 'transparent',
-                color:
-                  activeFilter === type
+                    : 'var(--border)',
+                  background: isActive
+                    ? `${EVENT_TYPE_COLORS[type]}25`
+                    : 'var(--bg-card)',
+                  color: isActive
                     ? EVENT_TYPE_COLORS[type]
-                    : 'var(--color-text-dim)',
-                fontSize: '11px',
-                fontWeight: 600,
-                cursor: 'pointer',
-                transition: 'all 0.15s',
-              }}
-            >
-              <span style={{ fontSize: '12px' }}>
-                {EVENT_TYPE_ICONS[type]}
-              </span>
-              {EVENT_TYPE_LABELS[type]}
-            </button>
-          ))}
+                    : 'var(--text-muted)',
+                  boxShadow: isActive ? '0 2px 8px rgba(0,0,0,0.1)' : 'none',
+                }}
+              >
+                <Icon size={12} strokeWidth={2.2} />
+                {EVENT_TYPE_LABELS[type]}
+              </button>
+            );
+          })}
         </div>
       </div>
 
@@ -241,15 +222,15 @@ export default function Sidebar({
       <div
         style={{
           padding: '10px 16px',
-          borderTop: '1px solid rgba(71, 85, 105, 0.3)',
+          borderTop: '1px solid var(--border)',
           fontSize: '11px',
-          color: 'var(--color-text-dim)',
+          color: 'var(--text-muted)',
           display: 'flex',
           justifyContent: 'space-between',
         }}
       >
         <span>{filteredEvents.length} sự kiện</span>
-        <span>MVP v1.0</span>
+        <span style={{ fontWeight: 600, opacity: 0.8 }}>MVP v1.0</span>
       </div>
     </div>
   );
@@ -278,13 +259,19 @@ function EventTreeNode({
   const isExpanded = expandedIds.has(event.id);
   const isSelected = selectedEvent?.id === event.id;
   const hasChildren = event.children && event.children.length > 0;
+  const navigate = useNavigate();
 
-  const geoIcon =
+  const GeoIcon =
     event.geoType === 'no_location'
-      ? '📋'
+      ? ClipboardList
       : event.geoType === 'nationwide'
-      ? '🗺️'
-      : '📍';
+      ? MapIcon
+      : MapPin;
+
+  const geoIconColor =
+    event.geoType === 'no_location'
+      ? 'var(--text-muted)'
+      : EVENT_TYPE_COLORS[event.eventType];
 
   return (
     <div>
@@ -300,20 +287,22 @@ function EventTreeNode({
           paddingLeft: `${16 + depth * 20}px`,
           cursor: 'pointer',
           background: isSelected
-            ? 'rgba(99, 102, 241, 0.15)'
+            ? 'color-mix(in srgb, var(--accent) 16%, transparent)'
             : 'transparent',
           borderLeft: isSelected
-            ? '3px solid var(--color-primary)'
-            : '3px solid transparent',
-          transition: 'all 0.15s',
-          fontSize: '13px',
+            ? '4px solid var(--accent)'
+            : '4px solid transparent',
+          transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
+          fontSize: '13.5px',
         }}
         onMouseOver={(e) => {
           if (!isSelected)
-            e.currentTarget.style.background = 'rgba(71, 85, 105, 0.2)';
+            e.currentTarget.style.background = 'var(--accent-soft)';
+          e.currentTarget.style.opacity = '0.9';
         }}
         onMouseOut={(e) => {
           if (!isSelected) e.currentTarget.style.background = 'transparent';
+          e.currentTarget.style.opacity = '1';
         }}
       >
         {/* Expand toggle */}
@@ -323,37 +312,37 @@ function EventTreeNode({
               e.stopPropagation();
               onToggleExpand(event.id);
             }}
-            style={{
-              background: 'none',
-              border: 'none',
-              color: 'var(--color-text-dim)',
-              cursor: 'pointer',
-              fontSize: '10px',
-              width: '16px',
-              height: '16px',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              flexShrink: 0,
-              transition: 'transform 0.2s',
-              transform: isExpanded ? 'rotate(90deg)' : 'rotate(0deg)',
-            }}
+            aria-label={isExpanded ? 'Thu gọn' : 'Mở rộng'}
+            className="bg-transparent border-0 cursor-pointer w-[18px] h-[18px] flex items-center justify-center flex-shrink-0"
+            style={{ color: 'var(--text-muted)' }}
           >
-            ▶
+            <ChevronRight
+              size={14}
+              strokeWidth={2.4}
+              className="transition-transform duration-300"
+              style={{
+                transform: isExpanded ? 'rotate(90deg)' : 'rotate(0deg)',
+              }}
+            />
           </button>
         ) : (
-          <span style={{ width: '16px', flexShrink: 0 }} />
+          <span className="w-4 flex-shrink-0" />
         )}
 
         {/* Geo icon */}
-        <span style={{ fontSize: '13px', flexShrink: 0 }}>{geoIcon}</span>
+        <GeoIcon
+          size={13}
+          strokeWidth={2.2}
+          className="flex-shrink-0"
+          style={{ color: geoIconColor }}
+        />
 
         {/* Event name */}
         <span
           style={{
             flex: 1,
-            fontWeight: isSelected ? 600 : 400,
-            color: isSelected ? 'var(--color-text)' : 'var(--color-text-dim)',
+            fontWeight: isSelected ? 700 : 400,
+            color: isSelected ? 'var(--accent)' : 'var(--text-primary)',
             lineHeight: '1.4',
             overflow: 'hidden',
             textOverflow: 'ellipsis',
@@ -363,18 +352,38 @@ function EventTreeNode({
           {event.name}
         </span>
 
+        {/* View detail button */}
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            const detailKey = event.slug || event.id;
+            navigate(`/events/${detailKey}`);
+          }}
+          title="Xem chi tiết"
+          aria-label="Xem chi tiết"
+          className="bg-transparent border-0 cursor-pointer p-0.5 flex items-center justify-center transition-opacity duration-150"
+          style={{
+            color: 'var(--text-muted)',
+            opacity: isSelected ? 1 : 0.45,
+          }}
+          onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')}
+          onMouseLeave={(e) => (e.currentTarget.style.opacity = isSelected ? '1' : '0.45')}
+        >
+          <ExternalLink size={13} strokeWidth={2.2} />
+        </button>
+
         {/* Year badge */}
         <span
+          className="text-[10px] px-1.5 py-0.5 rounded border flex-shrink-0 font-medium"
           style={{
-            fontSize: '10px',
-            color: 'var(--color-text-dim)',
-            background: 'var(--color-surface)',
-            padding: '1px 6px',
-            borderRadius: '4px',
-            flexShrink: 0,
+            color: 'var(--text-muted)',
+            background: 'var(--bg-card)',
+            borderColor: 'var(--border)',
           }}
         >
-          {event.startYear}
+          {event.startYear < 0
+            ? `${Math.abs(event.startYear)} TCN`
+            : event.startYear}
         </span>
       </div>
 
@@ -382,7 +391,7 @@ function EventTreeNode({
       {hasChildren && isExpanded && (
         <div
           style={{
-            borderLeft: `1px dashed var(--color-surface-3)`,
+            borderLeft: `1px dashed var(--border)`,
             marginLeft: `${28 + depth * 20}px`,
           }}
         >

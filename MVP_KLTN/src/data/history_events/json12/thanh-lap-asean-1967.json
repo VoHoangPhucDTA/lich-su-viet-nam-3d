@@ -1,0 +1,95 @@
+{
+  "id": "thanh-lap-asean-1967",
+  "slug": "thanh-lap-asean-1967",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Thành lập ASEAN tại Băng Cốc (8-8-1967)",
+    "short": "Thành lập ASEAN tại Băng Cốc",
+    "alternatives": [
+      "ASEAN 1967"
+    ]
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "organization_founding",
+    "tags": [
+      "Thành lập ASEAN tại Băng Cốc (8-8-1967)",
+      1967
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1967
+    },
+    "end": {
+      "year": 1967
+    },
+    "datePrecision": "year",
+    "displayDate": "1967",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "no_location"
+    },
+    "focusGeometry": {
+      "mode": "auto"
+    }
+  },
+  "summary": {
+    "homepageTitle": "Thành lập ASEAN tại Băng Cốc (8-8-1967)",
+    "homepageSummary": "Thành lập ASEAN tại Băng Cốc (8-8-1967). —",
+    "cardSummary": "—"
+  },
+  "textbookContent": {
+    "canonicalSummary": "Thành lập ASEAN tại Băng Cốc (8-8-1967).",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 4: Sự ra đời và phát triển của ASEAN, trang 21. Nội dung trong file Excel được chuẩn hóa để nhập hệ thống; khi triển khai chính thức, nhóm nên bổ sung tường thuật chi tiết bám SGK và tư liệu gốc.",
+    "significance": "Là mốc quan trọng trong tiến trình cách mạng, xây dựng nhà nước, đối ngoại hoặc tổ chức lực lượng theo SGK 12.",
+    "keyFacts": [
+      "Thành lập ASEAN tại Băng Cốc (8-8-1967)",
+      1967
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 12,
+      "book": "Lịch sử 12 - Cánh Diều",
+      "theme": "Chủ đề 2: ASEAN – những chặng đường lịch sử",
+      "lesson": "Bài 4: Sự ra đời và phát triển của ASEAN",
+      "pageStart": 21,
+      "pageEnd": 21,
+      "excerpt": "Thành lập ASEAN tại Băng Cốc (8-8-1967)"
+    }
+  ],
+  "hierarchy": {
+    "rootId": "thanh-lap-asean-1967",
+    "level": 0,
+    "orderInParent": 8
+  },
+  "display": {
+    "showOnHomepage": false,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "— || [SGK12:thanh-lap-asean-1967] —",
+  "merge": {
+    "sourceGrades": "12",
+    "sourceIds": "thanh-lap-asean-1967",
+    "mergedCount": 1,
+    "sourceFiles": "SGK12_event_master_flattened(1).xlsx",
+    "textbookRefsAll": "SGK12: Bài 4: Sự ra đời và phát triển của ASEAN tr.21 [thanh-lap-asean-1967]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

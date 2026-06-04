@@ -25,13 +25,13 @@ export const getTerrainProvider = () => createWorldTerrainAsync();
 export const getMarkerColor = (eventType: string): Color => {
   switch (eventType) {
     case 'military':
-      return Color.fromCssColorString('#ef4444');
+      return Color.fromCssColorString('#9f1d2d');
     case 'political':
-      return Color.fromCssColorString('#3b82f6');
+      return Color.fromCssColorString('#2f5d8a');
     case 'economic':
-      return Color.fromCssColorString('#f59e0b');
+      return Color.fromCssColorString('#c29b4b');
     case 'cultural':
-      return Color.fromCssColorString('#10b981');
+      return Color.fromCssColorString('#2f7a57');
     default:
       return Color.WHITE;
   }
@@ -40,13 +40,13 @@ export const getMarkerColor = (eventType: string): Color => {
 export const getMarkerGlowColor = (eventType: string): Color => {
   switch (eventType) {
     case 'military':
-      return Color.fromCssColorString('#ef4444').withAlpha(0.3);
+      return Color.fromCssColorString('#9f1d2d').withAlpha(0.3);
     case 'political':
-      return Color.fromCssColorString('#3b82f6').withAlpha(0.3);
+      return Color.fromCssColorString('#2f5d8a').withAlpha(0.3);
     case 'economic':
-      return Color.fromCssColorString('#f59e0b').withAlpha(0.3);
+      return Color.fromCssColorString('#c29b4b').withAlpha(0.3);
     case 'cultural':
-      return Color.fromCssColorString('#10b981').withAlpha(0.3);
+      return Color.fromCssColorString('#2f7a57').withAlpha(0.3);
     default:
       return Color.WHITE.withAlpha(0.3);
   }

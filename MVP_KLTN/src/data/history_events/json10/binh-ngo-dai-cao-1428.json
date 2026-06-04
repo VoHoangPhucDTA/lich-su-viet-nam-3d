@@ -1,0 +1,92 @@
+{
+  "id": "binh-ngo-dai-cao-1428",
+  "slug": "binh-ngo-dai-cao-1428",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Bình Ngô đại cáo",
+    "short": "Bình Ngô đại cáo"
+  },
+  "classification": {
+    "eventType": "cultural",
+    "eventSubtype": "historical_document",
+    "tags": [
+      "Nguyễn Trãi",
+      "Lê Lợi",
+      1428,
+      "Lam Sơn"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      10
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1428
+    },
+    "datePrecision": "year",
+    "displayDate": "Năm 1428",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "no_location"
+    },
+    "focusGeometry": {
+      "mode": "auto"
+    }
+  },
+  "summary": {
+    "homepageTitle": "Bình Ngô đại cáo",
+    "homepageSummary": "Bình Ngô đại cáo là áng văn chính luận nổi tiếng, tuyên cáo thắng lợi của khởi nghĩa Lam Sơn và nền độc lập của Đại Việt.",
+    "cardSummary": "Bình Ngô đại cáo năm 1428."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Năm 1428, Nguyễn Trãi thay lời Lê Lợi viết Bình Ngô đại cáo, tuyên bố thắng lợi của cuộc khởi nghĩa Lam Sơn và khẳng định độc lập dân tộc.",
+    "detailedNarrative": "Trong SGK, Bình Ngô đại cáo được nhắc như một ví dụ tiêu biểu về giá trị của sử học, văn học và tư tưởng chính trị. Văn bản không chỉ có giá trị nghệ thuật mà còn khẳng định mạnh mẽ chủ quyền và truyền thống lịch sử của dân tộc.",
+    "significance": "Là biểu tượng của tinh thần độc lập dân tộc và ý thức tự chủ trong lịch sử Việt Nam.",
+    "keyFacts": [
+      "Năm 1428",
+      "Do Nguyễn Trãi soạn thay lời Lê Lợi",
+      "Tuyên bố thắng lợi của khởi nghĩa Lam Sơn"
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 10,
+      "book": "Lịch sử 10 - Cánh Diều",
+      "theme": "Chủ đề 1: Lịch sử và Sử học",
+      "lesson": "Bài 3: Sử học với các lĩnh vực, ngành nghề hiện đại",
+      "pageStart": 20,
+      "pageEnd": 25,
+      "excerpt": "Bình Ngô đại cáo do Nguyễn Trãi soạn năm 1428, thay lời Lê Lợi tuyên cáo thắng lợi."
+    }
+  ],
+  "hierarchy": {
+    "rootId": "vm-dai-viet",
+    "parentId": "vm-dai-viet",
+    "level": 1,
+    "orderInParent": 33
+  },
+  "display": {
+    "showOnHomepage": false,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "merge": {
+    "sourceGrades": "10",
+    "sourceIds": "binh-ngo-dai-cao-1428",
+    "mergedCount": 1,
+    "sourceFiles": "SGK10_event_master_flattened_v2(1).xlsx",
+    "textbookRefsAll": "SGK10: Bài 3: Sử học với các lĩnh vực, ngành nghề hiện đại tr.20-25 [binh-ngo-dai-cao-1428]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

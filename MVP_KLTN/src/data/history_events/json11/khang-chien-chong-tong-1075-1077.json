@@ -1,0 +1,138 @@
+{
+  "id": "khang-chien-chong-tong-1075-1077",
+  "slug": "khang-chien-chong-tong-1075-1077",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Kháng chiến chống quân Tống (1075–1077)",
+    "short": "Chống Tống"
+  },
+  "classification": {
+    "eventType": "military",
+    "eventSubtype": "battle",
+    "tags": [
+      "Kháng chiến chống quân Tống (1075–1077)",
+      "1075–1077",
+      "Bắc Ninh",
+      "Bắc Giang",
+      "Phòng tuyến sông Như Nguyệt",
+      "Lý Thường Kiệt",
+      "có lược đồ trong SGK."
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1075
+    },
+    "end": {
+      "year": 1077
+    },
+    "datePrecision": "period",
+    "displayDate": "1075–1077",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "multi_point",
+      "marker": {
+        "label": "Bắc Ninh"
+      },
+      "provinceNames": [
+        "Bắc Ninh",
+        "Bắc Giang"
+      ],
+      "historicalLocations": [
+        "Bắc Ninh",
+        "Bắc Giang"
+      ]
+    },
+    "focusGeometry": {
+      "mode": "bounds",
+      "provinceNames": [
+        "Bắc Ninh",
+        "Bắc Giang"
+      ]
+    }
+  },
+  "summary": {
+    "homepageTitle": "Kháng chiến chống quân Tống (1075–1077)",
+    "homepageSummary": "Kháng chiến chống quân Tống (1075–1077). Phòng tuyến sông Như Nguyệt, Lý Thường Kiệt, có lược đồ trong SGK.",
+    "cardSummary": "Phòng tuyến sông Như Nguyệt, Lý Thường Kiệt, có lược đồ trong SGK."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Kháng chiến chống quân Tống (1075–1077). Phòng tuyến sông Như Nguyệt, Lý Thường Kiệt, có lược đồ trong SGK.",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 7: Chiến tranh bảo vệ Tổ quốc trong lịch sử Việt Nam. Phòng tuyến sông Như Nguyệt, Lý Thường Kiệt, có lược đồ trong SGK.",
+    "significance": "Là mốc quan trọng trong tiến trình quân sự và bảo vệ/chinh phục độc lập, chủ quyền của Việt Nam theo SGK 11.",
+    "keyFacts": [
+      "Kháng chiến chống quân Tống (1075–1077)",
+      "1075–1077",
+      "Bắc Ninh",
+      "Bắc Giang",
+      "Phòng tuyến sông Như Nguyệt",
+      "Lý Thường Kiệt",
+      "có lược đồ trong SGK."
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 11,
+      "book": "Lịch sử 11 - Cánh Diều",
+      "lesson": "Bài 7: Chiến tranh bảo vệ Tổ quốc trong lịch sử Việt Nam",
+      "pageStart": 46,
+      "pageEnd": 47,
+      "excerpt": "Phòng tuyến sông Như Nguyệt, Lý Thường Kiệt, có lược đồ trong SGK."
+    }
+  ],
+  "hierarchy": {
+    "rootId": "vm-chien-tranh-bao-ve-to-quoc",
+    "parentId": "vm-chien-tranh-bao-ve-to-quoc",
+    "level": 1,
+    "orderInParent": 4
+  },
+  "associations": {
+    "relatedEventIds": [
+      "khang-chien-chong-minh-1406-1407",
+      "vi-tri-dia-chien-luoc-vn",
+      "bach-dang-938-ngo-quyen-xung-vuong",
+      "vm-chien-tranh-bao-ve-to-quoc",
+      "khang-chien-chong-phap-1858-1884",
+      "ba-lan-chong-mong-nguyen",
+      "khang-chien-chong-tong-981",
+      "khang-chien-chong-trieu-tk2-tcn",
+      "khang-chien-chong-thanh-1789",
+      "khang-chien-chong-xiem-1785"
+    ],
+    "predecessorEventIds": [
+      "khang-chien-chong-tong-981"
+    ],
+    "successorEventIds": [
+      "ba-lan-chong-mong-nguyen"
+    ]
+  },
+  "display": {
+    "showOnHomepage": true,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "Phòng tuyến sông Như Nguyệt, Lý Thường Kiệt, có lược đồ trong SGK. || [SGK11:khang-chien-chong-tong-1075-1077] Phòng tuyến sông Như Nguyệt, Lý Thường Kiệt, có lược đồ trong SGK.",
+  "merge": {
+    "sourceGrades": "11",
+    "sourceIds": "khang-chien-chong-tong-1075-1077",
+    "mergedCount": 1,
+    "sourceFiles": "SGK11_event_master_flattened_v2(1).xlsx",
+    "textbookRefsAll": "SGK11: Bài 7: Chiến tranh bảo vệ Tổ quốc trong lịch sử Việt Nam tr.46-47 [khang-chien-chong-tong-1075-1077]"
+  },
+  "validation": {
+    "status": "CHECK",
+    "issues": "multi_point thiếu markers/marker đại diện"
+  }
+}

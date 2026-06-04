@@ -1,0 +1,131 @@
+{
+  "id": "tay-son-gd3-1786-1789",
+  "slug": "tay-son-gd3-1786-1789",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Giai đoạn 1786–1789: Lật đổ Lê–Trịnh, đánh tan quân Thanh",
+    "short": "Giai đoạn 1786–1789: Lật đổ Lê–Trịnh, đánh"
+  },
+  "classification": {
+    "eventType": "military",
+    "eventSubtype": "campaign_phase",
+    "tags": [
+      "Giai đoạn 1786–1789: Lật đổ Lê–Trịnh",
+      "đánh tan quân Thanh",
+      "1786–1789",
+      "Thừa Thiên Huế",
+      "Hà Nội",
+      "Liên kết với kháng chiến chống Thanh năm 1789."
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1786
+    },
+    "end": {
+      "year": 1789
+    },
+    "datePrecision": "period",
+    "displayDate": "1786–1789",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "multi_point",
+      "marker": {
+        "label": "Thừa Thiên Huế"
+      },
+      "provinceNames": [
+        "Thừa Thiên Huế",
+        "Hà Nội"
+      ],
+      "historicalLocations": [
+        "Thừa Thiên Huế",
+        "Hà Nội"
+      ]
+    },
+    "focusGeometry": {
+      "mode": "bounds",
+      "provinceNames": [
+        "Thừa Thiên Huế",
+        "Hà Nội"
+      ]
+    }
+  },
+  "summary": {
+    "homepageTitle": "Giai đoạn 1786–1789: Lật đổ Lê–Trịnh, đánh tan quân Thanh",
+    "homepageSummary": "Giai đoạn 1786–1789: Lật đổ Lê–Trịnh, đánh tan quân Thanh. Liên kết với kháng chiến chống Thanh năm 1789.",
+    "cardSummary": "Liên kết với kháng chiến chống Thanh năm 1789."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Giai đoạn 1786–1789: Lật đổ Lê–Trịnh, đánh tan quân Thanh. Liên kết với kháng chiến chống Thanh năm 1789.",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 8: Khởi nghĩa và chiến tranh giải phóng trong lịch sử Việt Nam. Liên kết với kháng chiến chống Thanh năm 1789.",
+    "significance": "Là mốc quan trọng trong tiến trình quân sự và bảo vệ/chinh phục độc lập, chủ quyền của Việt Nam theo SGK 11.",
+    "keyFacts": [
+      "Giai đoạn 1786–1789: Lật đổ Lê–Trịnh",
+      "đánh tan quân Thanh",
+      "1786–1789",
+      "Thừa Thiên Huế",
+      "Hà Nội",
+      "Liên kết với kháng chiến chống Thanh năm 1789."
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 11,
+      "book": "Lịch sử 11 - Cánh Diều",
+      "lesson": "Bài 8: Khởi nghĩa và chiến tranh giải phóng trong lịch sử Việt Nam",
+      "pageStart": 62,
+      "pageEnd": 62,
+      "excerpt": "Liên kết với kháng chiến chống Thanh năm 1789."
+    }
+  ],
+  "hierarchy": {
+    "rootId": "vm-khoi-nghia-va-giai-phong",
+    "parentId": "phong-trao-tay-son",
+    "level": 2,
+    "orderInParent": 3
+  },
+  "associations": {
+    "relatedEventIds": [
+      "tay-son-gd2-rach-gam-1785",
+      "tay-son-gd4-1789-1802",
+      "tay-son-gd1-1771-1777",
+      "phong-trao-tay-son",
+      "khang-chien-chong-thanh-1789"
+    ],
+    "predecessorEventIds": [
+      "tay-son-gd2-rach-gam-1785"
+    ],
+    "successorEventIds": [
+      "tay-son-gd4-1789-1802"
+    ]
+  },
+  "display": {
+    "showOnHomepage": false,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "Liên kết với kháng chiến chống Thanh năm 1789. || [SGK11:tay-son-gd3-1786-1789] Liên kết với kháng chiến chống Thanh năm 1789.",
+  "merge": {
+    "sourceGrades": "11",
+    "sourceIds": "tay-son-gd3-1786-1789",
+    "mergedCount": 1,
+    "sourceFiles": "SGK11_event_master_flattened_v2(1).xlsx",
+    "textbookRefsAll": "SGK11: Bài 8: Khởi nghĩa và chiến tranh giải phóng trong lịch sử Việt Nam tr.62 [tay-son-gd3-1786-1789]"
+  },
+  "validation": {
+    "status": "CHECK",
+    "issues": "multi_point thiếu markers/marker đại diện"
+  }
+}

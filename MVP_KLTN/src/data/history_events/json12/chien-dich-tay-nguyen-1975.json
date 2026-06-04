@@ -1,0 +1,124 @@
+{
+  "id": "chien-dich-tay-nguyen-1975",
+  "slug": "chien-dich-tay-nguyen-1975",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Chiến dịch Tây Nguyên (3-1975)",
+    "short": "Chiến dịch Tây Nguyên"
+  },
+  "classification": {
+    "eventType": "military",
+    "eventSubtype": "campaign",
+    "tags": [
+      "Chiến dịch Tây Nguyên (3-1975)",
+      1975,
+      "Kon Tum",
+      "Gia Lai",
+      "Đắk Lắk",
+      "Đắk Nông",
+      "Lâm Đồng"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1975
+    },
+    "end": {
+      "year": 1975
+    },
+    "datePrecision": "year",
+    "displayDate": "1975",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "multi_polygon",
+      "provinceNames": [
+        "Kon Tum",
+        "Gia Lai",
+        "Đắk Lắk",
+        "Đắk Nông",
+        "Lâm Đồng"
+      ],
+      "historicalLocations": [
+        "Tây Nguyên"
+      ]
+    },
+    "focusGeometry": {
+      "mode": "polygon",
+      "provinceNames": [
+        "Kon Tum",
+        "Gia Lai",
+        "Đắk Lắk",
+        "Đắk Nông",
+        "Lâm Đồng"
+      ]
+    }
+  },
+  "summary": {
+    "homepageTitle": "Chiến dịch Tây Nguyên (3-1975)",
+    "homepageSummary": "Chiến dịch Tây Nguyên (3-1975). —",
+    "cardSummary": "—"
+  },
+  "textbookContent": {
+    "canonicalSummary": "Chiến dịch Tây Nguyên (3-1975).",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 8: Kháng chiến chống Mỹ, cứu nước (1954–1975), trang 51. Nội dung trong file Excel được chuẩn hóa để nhập hệ thống; khi triển khai chính thức, nhóm nên bổ sung tường thuật chi tiết bám SGK và tư liệu gốc.",
+    "significance": "Là mốc quan trọng trong tiến trình đấu tranh quân sự, bảo vệ hoặc giải phóng đất nước của Việt Nam theo SGK 12.",
+    "keyFacts": [
+      "Chiến dịch Tây Nguyên (3-1975)",
+      1975,
+      "Tây Nguyên"
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 12,
+      "book": "Lịch sử 12 - Cánh Diều",
+      "theme": "Chủ đề 3: Cách mạng tháng Tám và kháng chiến bảo vệ độc lập dân tộc",
+      "lesson": "Bài 8: Kháng chiến chống Mỹ, cứu nước (1954–1975)",
+      "pageStart": 51,
+      "pageEnd": 51,
+      "excerpt": "Chiến dịch Tây Nguyên (3-1975)"
+    }
+  ],
+  "hierarchy": {
+    "rootId": "khang-chien-chong-my-collection",
+    "parentId": "khang-chien-chong-my-collection",
+    "level": 1,
+    "orderInParent": 7
+  },
+  "associations": {
+    "predecessorEventIds": [
+      "chien-thang-phuoc-long-1975"
+    ],
+    "successorEventIds": [
+      "chien-dich-hue-da-nang-1975"
+    ]
+  },
+  "display": {
+    "showOnHomepage": true,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "— || [SGK12:chien-dich-tay-nguyen-1975] —",
+  "merge": {
+    "sourceGrades": "12",
+    "sourceIds": "chien-dich-tay-nguyen-1975",
+    "mergedCount": 1,
+    "sourceFiles": "SGK12_event_master_flattened(1).xlsx",
+    "textbookRefsAll": "SGK12: Bài 8: Kháng chiến chống Mỹ, cứu nước (1954–1975) tr.51 [chien-dich-tay-nguyen-1975]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

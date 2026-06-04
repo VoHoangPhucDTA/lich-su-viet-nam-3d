@@ -1,0 +1,120 @@
+{
+  "id": "luat-bien-viet-nam-2012",
+  "slug": "luat-bien-viet-nam-2012",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Luật Biển Việt Nam (2012)",
+    "short": "Luật Biển Việt Nam"
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "legislation",
+    "tags": [
+      "Luật Biển Việt Nam (2012)",
+      "21-6-2012",
+      "Quốc hội thông qua Luật Biển Việt Nam",
+      "khẳng định chủ quyền và giải quyết hòa bình."
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 2012
+    },
+    "datePrecision": "day",
+    "displayDate": "21-6-2012",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "nationwide",
+      "marker": {
+        "label": "Luật Biển Việt Nam"
+      }
+    },
+    "focusGeometry": {
+      "mode": "auto"
+    }
+  },
+  "summary": {
+    "homepageTitle": "Luật Biển Việt Nam (2012)",
+    "homepageSummary": "Luật Biển Việt Nam (2012). Quốc hội thông qua Luật Biển Việt Nam, khẳng định chủ quyền và giải quyết hòa bình.",
+    "cardSummary": "Quốc hội thông qua Luật Biển Việt Nam, khẳng định chủ quyền và giải quyết hòa bình."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Luật Biển Việt Nam (2012). Quốc hội thông qua Luật Biển Việt Nam, khẳng định chủ quyền và giải quyết hòa bình.",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 13: Lịch sử bảo vệ chủ quyền, các quyền và lợi ích hợp pháp của Việt Nam ở Biển Đông. Quốc hội thông qua Luật Biển Việt Nam, khẳng định chủ quyền và giải quyết hòa bình.",
+    "significance": "Là mốc quan trọng về tổ chức nhà nước, cải cách hoặc chủ quyền được SGK 11 nhấn mạnh.",
+    "keyFacts": [
+      "Luật Biển Việt Nam (2012)",
+      "21-6-2012",
+      "Quốc hội thông qua Luật Biển Việt Nam",
+      "khẳng định chủ quyền và giải quyết hòa bình."
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 11,
+      "book": "Lịch sử 11 - Cánh Diều",
+      "lesson": "Bài 13: Lịch sử bảo vệ chủ quyền, các quyền và lợi ích hợp pháp của Việt Nam ở Biển Đông",
+      "pageStart": 90,
+      "pageEnd": 91,
+      "excerpt": "Quốc hội thông qua Luật Biển Việt Nam, khẳng định chủ quyền và giải quyết hòa bình."
+    }
+  ],
+  "hierarchy": {
+    "rootId": "vm-chu-quyen-bien-dong",
+    "parentId": "vm-chu-quyen-bien-dong",
+    "level": 1,
+    "orderInParent": 8
+  },
+  "associations": {
+    "relatedEventIds": [
+      "doi-bac-hai-the-ky-18",
+      "vm-chu-quyen-bien-dong",
+      "quan-ly-hoang-sa-truong-sa-nguyen",
+      "hiep-dinh-elysee-1949-chuyen-giao-hoang-sa-truong-sa",
+      "vnch-tiep-quan-hoang-sa-truong-sa-1954",
+      "thanh-lap-huyen-dao-1982",
+      "doc-bien-dong-2002",
+      "giai-phong-truong-sa-1975",
+      "doi-hoang-sa-the-ky-17",
+      "sach-trang-hoang-sa-truong-sa-1979-1988",
+      "viet-nam-tham-gia-unclos-1982",
+      "hiep-dinh-vinh-bac-bo-2000",
+      "su-kien-gac-ma-1988",
+      "trung-quoc-chiem-hoang-sa-1974"
+    ],
+    "predecessorEventIds": [
+      "thanh-lap-huyen-dao-1982"
+    ],
+    "successorEventIds": [
+      "hiep-dinh-elysee-1949-chuyen-giao-hoang-sa-truong-sa"
+    ]
+  },
+  "display": {
+    "showOnHomepage": false,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "Quốc hội thông qua Luật Biển Việt Nam, khẳng định chủ quyền và giải quyết hòa bình. || [SGK11:luat-bien-viet-nam-2012] Quốc hội thông qua Luật Biển Việt Nam, khẳng định chủ quyền và giải quyết hòa bình.",
+  "merge": {
+    "sourceGrades": "11",
+    "sourceIds": "luat-bien-viet-nam-2012",
+    "mergedCount": 1,
+    "sourceFiles": "SGK11_event_master_flattened_v2(1).xlsx",
+    "textbookRefsAll": "SGK11: Bài 13: Lịch sử bảo vệ chủ quyền, các quyền và lợi ích hợp pháp của Việt Nam ở Biển Đông tr.90-91 [luat-bien-viet-nam-2012]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

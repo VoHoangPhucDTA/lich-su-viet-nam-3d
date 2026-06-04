@@ -1,0 +1,113 @@
+{
+  "id": "cai-cach-ltt-kinh-te-van-hoa",
+  "slug": "cai-cach-ltt-kinh-te-van-hoa",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Cải cách kinh tế–văn hóa thời Lê Thánh Tông",
+    "short": "Cải cách kinh tế–văn hóa thời Lê Thánh Tôn"
+  },
+  "classification": {
+    "eventType": "economic",
+    "eventSubtype": "economic_cultural_reform",
+    "tags": [
+      "Cải cách kinh tế–văn hóa thời Lê Thánh Tông",
+      "1477 trở đi",
+      "Quân điền",
+      "lộc điền",
+      "Nho giáo độc tôn",
+      "khoa cử ba kỳ."
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1477
+    },
+    "end": {
+      "year": 1497
+    },
+    "datePrecision": "period",
+    "displayDate": "1477 trở đi",
+    "isApproximate": true
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "nationwide",
+      "marker": {
+        "label": "Cải cách kinh tế–văn hóa thời Lê Thánh Tôn"
+      }
+    },
+    "focusGeometry": {
+      "mode": "auto"
+    }
+  },
+  "summary": {
+    "homepageTitle": "Cải cách kinh tế–văn hóa thời Lê Thánh Tông",
+    "homepageSummary": "Cải cách kinh tế–văn hóa thời Lê Thánh Tông. Quân điền, lộc điền, Nho giáo độc tôn, khoa cử ba kỳ.",
+    "cardSummary": "Quân điền, lộc điền, Nho giáo độc tôn, khoa cử ba kỳ."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Cải cách kinh tế–văn hóa thời Lê Thánh Tông. Quân điền, lộc điền, Nho giáo độc tôn, khoa cử ba kỳ.",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 10: Cuộc cải cách của Lê Thánh Tông (thế kỉ XV). Quân điền, lộc điền, Nho giáo độc tôn, khoa cử ba kỳ.",
+    "significance": "Thể hiện nội dung cải cách hoặc chuyển biến kinh tế quan trọng trong SGK 11.",
+    "keyFacts": [
+      "Cải cách kinh tế–văn hóa thời Lê Thánh Tông",
+      "1477 trở đi",
+      "Quân điền",
+      "lộc điền",
+      "Nho giáo độc tôn",
+      "khoa cử ba kỳ."
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 11,
+      "book": "Lịch sử 11 - Cánh Diều",
+      "lesson": "Bài 10: Cuộc cải cách của Lê Thánh Tông (thế kỉ XV)",
+      "pageStart": 72,
+      "pageEnd": 72,
+      "excerpt": "Quân điền, lộc điền, Nho giáo độc tôn, khoa cử ba kỳ."
+    }
+  ],
+  "hierarchy": {
+    "rootId": "cai-cach-le-thanh-tong",
+    "parentId": "cai-cach-le-thanh-tong",
+    "level": 1,
+    "orderInParent": 3
+  },
+  "associations": {
+    "relatedEventIds": [
+      "cai-cach-ltt-to-chuc-chinh-quyen",
+      "cai-cach-le-thanh-tong",
+      "quoc-trieu-hinh-luat"
+    ],
+    "predecessorEventIds": [
+      "quoc-trieu-hinh-luat"
+    ]
+  },
+  "display": {
+    "showOnHomepage": false,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "Quân điền, lộc điền, Nho giáo độc tôn, khoa cử ba kỳ. || [SGK11:cai-cach-ltt-kinh-te-van-hoa] Quân điền, lộc điền, Nho giáo độc tôn, khoa cử ba kỳ.",
+  "merge": {
+    "sourceGrades": "11",
+    "sourceIds": "cai-cach-ltt-kinh-te-van-hoa",
+    "mergedCount": 1,
+    "sourceFiles": "SGK11_event_master_flattened_v2(1).xlsx",
+    "textbookRefsAll": "SGK11: Bài 10: Cuộc cải cách của Lê Thánh Tông (thế kỉ XV) tr.72 [cai-cach-ltt-kinh-te-van-hoa]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

@@ -1,0 +1,91 @@
+{
+  "id": "khoa-thi-dau-tien",
+  "slug": "khoa-thi-dau-tien",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Mở khoa thi đầu tiên",
+    "short": "Khoa thi đầu tiên"
+  },
+  "classification": {
+    "eventType": "cultural",
+    "eventSubtype": "examination",
+    "tags": [
+      "khoa thi",
+      1075,
+      "giáo dục"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      10
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1075
+    },
+    "datePrecision": "year",
+    "displayDate": "Năm 1075",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "no_location"
+    },
+    "focusGeometry": {
+      "mode": "auto"
+    }
+  },
+  "summary": {
+    "homepageTitle": "Mở khoa thi đầu tiên",
+    "homepageSummary": "Khoa thi đầu tiên đánh dấu bước phát triển của chế độ tuyển chọn nhân tài bằng thi cử ở Đại Việt.",
+    "cardSummary": "Mở khoa thi đầu tiên năm 1075."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Năm 1075, Đại Việt mở khoa thi đầu tiên, đặt nền móng cho chế độ khoa cử Nho học.",
+    "detailedNarrative": "SGK nêu khoa thi đầu tiên như một dấu mốc quan trọng của giáo dục Đại Việt. Việc tuyển chọn nhân tài bằng thi cử cho thấy sự phát triển của nhà nước phong kiến và ảnh hưởng ngày càng tăng của Nho học.",
+    "significance": "Đặt nền tảng cho truyền thống khoa bảng và cơ chế tuyển chọn quan lại bằng tài năng.",
+    "keyFacts": [
+      "Năm 1075",
+      "Là khoa thi đầu tiên",
+      "Mở đầu cho chế độ khoa cử Đại Việt"
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 10,
+      "book": "Lịch sử 10 - Cánh Diều",
+      "theme": "Chủ đề 6: Một số nền văn minh trên đất nước Việt Nam trước năm 1858",
+      "lesson": "Bài 15: Những thành tựu tiêu biểu của văn minh Đại Việt",
+      "pageStart": 104,
+      "pageEnd": 104,
+      "excerpt": "Năm 1075, Đại Việt mở khoa thi đầu tiên."
+    }
+  ],
+  "hierarchy": {
+    "rootId": "vm-dai-viet",
+    "parentId": "vm-dai-viet",
+    "level": 1,
+    "orderInParent": 24
+  },
+  "display": {
+    "showOnHomepage": true,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "merge": {
+    "sourceGrades": "10",
+    "sourceIds": "khoa-thi-dau-tien",
+    "mergedCount": 1,
+    "sourceFiles": "SGK10_event_master_flattened_v2(1).xlsx",
+    "textbookRefsAll": "SGK10: Bài 15: Những thành tựu tiêu biểu của văn minh Đại Việt tr.104 [khoa-thi-dau-tien]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

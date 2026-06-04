@@ -1,0 +1,95 @@
+{
+  "id": "giai-doan-phat-trien-ly-tran-ho",
+  "slug": "giai-doan-phat-trien-ly-tran-ho",
+  "entityType": "event",
+  "eventLevel": "collection",
+  "titles": {
+    "primary": "Giai đoạn phát triển mạnh thời Lý – Trần – Hồ",
+    "short": "Lý – Trần – Hồ"
+  },
+  "classification": {
+    "eventType": "cultural",
+    "eventSubtype": "historical_phase",
+    "tags": [
+      "Lý",
+      "Trần",
+      "Hồ",
+      "phát triển"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      10
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1009
+    },
+    "end": {
+      "year": 1407
+    },
+    "datePrecision": "period",
+    "displayDate": "Thế kỉ XI – đầu XV",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "nationwide"
+    },
+    "focusGeometry": {
+      "mode": "auto"
+    }
+  },
+  "summary": {
+    "homepageTitle": "Giai đoạn phát triển mạnh thời Lý – Trần – Hồ",
+    "homepageSummary": "Đây là giai đoạn văn minh Đại Việt phát triển mạnh mẽ về chính trị, kinh tế, văn hóa và quân sự.",
+    "cardSummary": "Giai đoạn phát triển mạnh thời Lý – Trần – Hồ."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Từ thế kỉ XI đến đầu thế kỉ XV, văn minh Đại Việt phát triển rực rỡ dưới các triều Lý, Trần và Hồ.",
+    "detailedNarrative": "SGK xem thời Lý – Trần – Hồ là giai đoạn mở rộng và củng cố nhà nước, phát triển kinh tế nông nghiệp, thương nghiệp, giáo dục, luật pháp và tôn giáo. Nhiều công trình, đô thị và giá trị văn hóa tiêu biểu xuất hiện trong thời kì này.",
+    "significance": "Đây là thời kì nền tảng của nhiều thành tựu bền vững trong lịch sử văn hóa Việt Nam.",
+    "keyFacts": [
+      "Thế kỉ XI – đầu XV",
+      "Nhiều thành tựu rực rỡ",
+      "Gắn với Thăng Long và các trung tâm lớn"
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 10,
+      "book": "Lịch sử 10 - Cánh Diều",
+      "theme": "Chủ đề 6: Một số nền văn minh trên đất nước Việt Nam trước năm 1858",
+      "lesson": "Bài 14: Cơ sở hình thành văn minh Đại Việt; Bài 15: Những thành tựu tiêu biểu của văn minh Đại Việt",
+      "pageStart": 98,
+      "pageEnd": 108,
+      "excerpt": "Văn minh Đại Việt phát triển mạnh dưới thời Lý – Trần – Hồ."
+    }
+  ],
+  "hierarchy": {
+    "rootId": "vm-dai-viet",
+    "parentId": "vm-dai-viet",
+    "level": 1,
+    "orderInParent": 7
+  },
+  "display": {
+    "showOnHomepage": true,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "merge": {
+    "sourceGrades": "10",
+    "sourceIds": "giai-doan-phat-trien-ly-tran-ho",
+    "mergedCount": 1,
+    "sourceFiles": "SGK10_event_master_flattened_v2(1).xlsx",
+    "textbookRefsAll": "SGK10: Bài 14: Cơ sở hình thành văn minh Đại Việt; Bài 15: Những thành tựu tiêu biểu của văn minh Đại Việt tr.98-108 [giai-doan-phat-trien-ly-tran-ho]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

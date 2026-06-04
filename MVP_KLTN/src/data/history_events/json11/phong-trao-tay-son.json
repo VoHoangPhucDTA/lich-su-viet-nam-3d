@@ -1,0 +1,125 @@
+{
+  "id": "phong-trao-tay-son",
+  "slug": "phong-trao-tay-son",
+  "entityType": "event",
+  "eventLevel": "collection",
+  "titles": {
+    "primary": "Phong trào Tây Sơn (1771–1802)",
+    "short": "Phong trào Tây Sơn"
+  },
+  "classification": {
+    "eventType": "military",
+    "eventSubtype": "liberation_movement",
+    "tags": [
+      "Phong trào Tây Sơn (1771–1802)",
+      "1771–1802",
+      "Bình Định",
+      "Collection về phong trào Tây Sơn của ba anh em Nguyễn Nhạc",
+      "Nguyễn Huệ",
+      "Nguyễn Lữ."
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1771
+    },
+    "end": {
+      "year": 1802
+    },
+    "datePrecision": "period",
+    "displayDate": "1771–1802",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "nationwide",
+      "marker": {
+        "label": "Bình Định"
+      },
+      "provinceNames": [
+        "Bình Định"
+      ]
+    },
+    "focusGeometry": {
+      "mode": "auto"
+    }
+  },
+  "summary": {
+    "homepageTitle": "Phong trào Tây Sơn (1771–1802)",
+    "homepageSummary": "Phong trào Tây Sơn (1771–1802). Collection về phong trào Tây Sơn của ba anh em Nguyễn Nhạc, Nguyễn Huệ, Nguyễn Lữ.",
+    "cardSummary": "Collection về phong trào Tây Sơn của ba anh em Nguyễn Nhạc, Nguyễn Huệ, Nguyễn Lữ."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Phong trào Tây Sơn (1771–1802). Collection về phong trào Tây Sơn của ba anh em Nguyễn Nhạc, Nguyễn Huệ, Nguyễn Lữ.",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 8: Khởi nghĩa và chiến tranh giải phóng trong lịch sử Việt Nam. Collection về phong trào Tây Sơn của ba anh em Nguyễn Nhạc, Nguyễn Huệ, Nguyễn Lữ.",
+    "significance": "Là mốc quan trọng trong tiến trình quân sự và bảo vệ/chinh phục độc lập, chủ quyền của Việt Nam theo SGK 11.",
+    "keyFacts": [
+      "Phong trào Tây Sơn (1771–1802)",
+      "1771–1802",
+      "Bình Định",
+      "Collection về phong trào Tây Sơn của ba anh em Nguyễn Nhạc",
+      "Nguyễn Huệ",
+      "Nguyễn Lữ."
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 11,
+      "book": "Lịch sử 11 - Cánh Diều",
+      "lesson": "Bài 8: Khởi nghĩa và chiến tranh giải phóng trong lịch sử Việt Nam",
+      "pageStart": 61,
+      "pageEnd": 62,
+      "excerpt": "Collection về phong trào Tây Sơn của ba anh em Nguyễn Nhạc, Nguyễn Huệ, Nguyễn Lữ."
+    }
+  ],
+  "hierarchy": {
+    "rootId": "vm-khoi-nghia-va-giai-phong",
+    "parentId": "vm-khoi-nghia-va-giai-phong",
+    "childIds": [
+      "tay-son-gd1-1771-1777",
+      "tay-son-gd2-rach-gam-1785",
+      "tay-son-gd3-1786-1789",
+      "tay-son-gd4-1789-1802"
+    ],
+    "level": 1,
+    "orderInParent": 6
+  },
+  "associations": {
+    "relatedEventIds": [
+      "khoi-nghia-ly-bi",
+      "khoi-nghia-lam-son-1418-1427",
+      "khoi-nghia-hai-ba-trung",
+      "khoi-nghia-phung-hung",
+      "vm-khoi-nghia-va-giai-phong",
+      "khoi-nghia-ba-trieu"
+    ],
+    "predecessorEventIds": [
+      "khoi-nghia-lam-son-1418-1427"
+    ]
+  },
+  "display": {
+    "showOnHomepage": true,
+    "showOnTimeline": true,
+    "featured": true
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "Collection về phong trào Tây Sơn của ba anh em Nguyễn Nhạc, Nguyễn Huệ, Nguyễn Lữ. || [SGK11:phong-trao-tay-son] Collection về phong trào Tây Sơn của ba anh em Nguyễn Nhạc, Nguyễn Huệ, Nguyễn Lữ.",
+  "merge": {
+    "sourceGrades": "11",
+    "sourceIds": "phong-trao-tay-son",
+    "mergedCount": 1,
+    "sourceFiles": "SGK11_event_master_flattened_v2(1).xlsx",
+    "textbookRefsAll": "SGK11: Bài 8: Khởi nghĩa và chiến tranh giải phóng trong lịch sử Việt Nam tr.61-62 [phong-trao-tay-son]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

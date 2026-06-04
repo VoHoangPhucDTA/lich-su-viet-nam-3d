@@ -1,0 +1,91 @@
+{
+  "id": "dai-viet-su-ky-le-van-huu",
+  "slug": "dai-viet-su-ky-le-van-huu",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Biên soạn Đại Việt sử ký",
+    "short": "Đại Việt sử ký"
+  },
+  "classification": {
+    "eventType": "cultural",
+    "eventSubtype": "historiography",
+    "tags": [
+      "Đại Việt sử ký",
+      "Lê Văn Hưu",
+      "sử học"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      10
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1272
+    },
+    "datePrecision": "period",
+    "displayDate": "Thời Trần (năm 1272 theo nguồn bổ sung)",
+    "isApproximate": true
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "no_location"
+    },
+    "focusGeometry": {
+      "mode": "auto"
+    }
+  },
+  "summary": {
+    "homepageTitle": "Biên soạn Đại Việt sử ký",
+    "homepageSummary": "Đại Việt sử ký của Lê Văn Hưu là công trình sử học có ý nghĩa lớn của Đại Việt.",
+    "cardSummary": "Đại Việt sử ký là công trình sử học tiêu biểu."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Đại Việt sử ký của Lê Văn Hưu là công trình sử học quan trọng, phản ánh ý thức lịch sử và tinh thần độc lập dân tộc của Đại Việt.",
+    "detailedNarrative": "SGK nêu Đại Việt sử ký trong bảng thành tựu văn hóa. Dù SGK không ghi cụ thể năm, công trình này được xem là bộ chính sử tiêu biểu đầu tiên của Đại Việt, có giá trị lớn về tư tưởng và sử học.",
+    "significance": "Khẳng định sự phát triển của ý thức lịch sử và sử học dân tộc trong thời trung đại.",
+    "keyFacts": [
+      "Tác giả Lê Văn Hưu",
+      "Thuộc thời Trần",
+      "Là công trình sử học quan trọng của Đại Việt"
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 10,
+      "book": "Lịch sử 10 - Cánh Diều",
+      "theme": "Chủ đề 6: Một số nền văn minh trên đất nước Việt Nam trước năm 1858",
+      "lesson": "Bài 15: Những thành tựu tiêu biểu của văn minh Đại Việt",
+      "pageStart": 107,
+      "pageEnd": 107,
+      "excerpt": "Đại Việt sử ký là một thành tựu tiêu biểu của văn minh Đại Việt."
+    }
+  ],
+  "hierarchy": {
+    "rootId": "vm-dai-viet",
+    "parentId": "vm-dai-viet",
+    "level": 1,
+    "orderInParent": 32
+  },
+  "display": {
+    "showOnHomepage": true,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "merge": {
+    "sourceGrades": "10",
+    "sourceIds": "dai-viet-su-ky-le-van-huu",
+    "mergedCount": 1,
+    "sourceFiles": "SGK10_event_master_flattened_v2(1).xlsx",
+    "textbookRefsAll": "SGK10: Bài 15: Những thành tựu tiêu biểu của văn minh Đại Việt tr.107 [dai-viet-su-ky-le-van-huu]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

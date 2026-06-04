@@ -1,0 +1,127 @@
+{
+  "id": "tay-son-gd1-1771-1777",
+  "slug": "tay-son-gd1-1771-1777",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Giai đoạn 1771–1777: Khởi nghĩa và lật đổ chúa Nguyễn",
+    "short": "Giai đoạn 1771–1777: Khởi nghĩa và lật đổ"
+  },
+  "classification": {
+    "eventType": "military",
+    "eventSubtype": "uprising_phase",
+    "tags": [
+      "Giai đoạn 1771–1777: Khởi nghĩa và lật đổ chúa Nguyễn",
+      "1771–1777",
+      "Bình Định",
+      "TP.HCM",
+      "Khởi nghĩa bùng nổ ở Tây Sơn",
+      "mở rộng vào Nam Bộ và lật đổ chính quyền chúa Nguyễn."
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1771
+    },
+    "end": {
+      "year": 1777
+    },
+    "datePrecision": "period",
+    "displayDate": "1771–1777",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "multi_point",
+      "marker": {
+        "label": "Bình Định"
+      },
+      "provinceNames": [
+        "Bình Định",
+        "TP.HCM"
+      ],
+      "historicalLocations": [
+        "Bình Định",
+        "TP.HCM"
+      ]
+    },
+    "focusGeometry": {
+      "mode": "bounds",
+      "provinceNames": [
+        "Bình Định",
+        "TP.HCM"
+      ]
+    }
+  },
+  "summary": {
+    "homepageTitle": "Giai đoạn 1771–1777: Khởi nghĩa và lật đổ chúa Nguyễn",
+    "homepageSummary": "Giai đoạn 1771–1777: Khởi nghĩa và lật đổ chúa Nguyễn. Khởi nghĩa bùng nổ ở Tây Sơn, mở rộng vào Nam Bộ và lật đổ chính quyền chúa Nguyễn.",
+    "cardSummary": "Khởi nghĩa bùng nổ ở Tây Sơn, mở rộng vào Nam Bộ và lật đổ chính quyền chúa Nguyễn."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Giai đoạn 1771–1777: Khởi nghĩa và lật đổ chúa Nguyễn. Khởi nghĩa bùng nổ ở Tây Sơn, mở rộng vào Nam Bộ và lật đổ chính quyền chúa Nguyễn.",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 8: Khởi nghĩa và chiến tranh giải phóng trong lịch sử Việt Nam. Khởi nghĩa bùng nổ ở Tây Sơn, mở rộng vào Nam Bộ và lật đổ chính quyền chúa Nguyễn.",
+    "significance": "Là mốc quan trọng trong tiến trình quân sự và bảo vệ/chinh phục độc lập, chủ quyền của Việt Nam theo SGK 11.",
+    "keyFacts": [
+      "Giai đoạn 1771–1777: Khởi nghĩa và lật đổ chúa Nguyễn",
+      "1771–1777",
+      "Bình Định",
+      "TP.HCM",
+      "Khởi nghĩa bùng nổ ở Tây Sơn",
+      "mở rộng vào Nam Bộ và lật đổ chính quyền chúa Nguyễn."
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 11,
+      "book": "Lịch sử 11 - Cánh Diều",
+      "lesson": "Bài 8: Khởi nghĩa và chiến tranh giải phóng trong lịch sử Việt Nam",
+      "pageStart": 62,
+      "pageEnd": 62,
+      "excerpt": "Khởi nghĩa bùng nổ ở Tây Sơn, mở rộng vào Nam Bộ và lật đổ chính quyền chúa Nguyễn."
+    }
+  ],
+  "hierarchy": {
+    "rootId": "vm-khoi-nghia-va-giai-phong",
+    "parentId": "phong-trao-tay-son",
+    "level": 2,
+    "orderInParent": 1
+  },
+  "associations": {
+    "relatedEventIds": [
+      "tay-son-gd2-rach-gam-1785",
+      "phong-trao-tay-son",
+      "tay-son-gd3-1786-1789",
+      "tay-son-gd4-1789-1802"
+    ],
+    "successorEventIds": [
+      "tay-son-gd2-rach-gam-1785"
+    ]
+  },
+  "display": {
+    "showOnHomepage": false,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "Khởi nghĩa bùng nổ ở Tây Sơn, mở rộng vào Nam Bộ và lật đổ chính quyền chúa Nguyễn. || [SGK11:tay-son-gd1-1771-1777] Khởi nghĩa bùng nổ ở Tây Sơn, mở rộng vào Nam Bộ và lật đổ chính quyền chúa Nguyễn.",
+  "merge": {
+    "sourceGrades": "11",
+    "sourceIds": "tay-son-gd1-1771-1777",
+    "mergedCount": 1,
+    "sourceFiles": "SGK11_event_master_flattened_v2(1).xlsx",
+    "textbookRefsAll": "SGK11: Bài 8: Khởi nghĩa và chiến tranh giải phóng trong lịch sử Việt Nam tr.62 [tay-son-gd1-1771-1777]"
+  },
+  "validation": {
+    "status": "CHECK",
+    "issues": "multi_point thiếu markers/marker đại diện"
+  }
+}

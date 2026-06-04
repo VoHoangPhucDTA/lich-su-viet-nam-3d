@@ -1,0 +1,119 @@
+{
+  "id": "khoi-nghia-ba-trieu",
+  "slug": "khoi-nghia-ba-trieu",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Khởi nghĩa Bà Triệu (248)",
+    "short": "Bà Triệu"
+  },
+  "classification": {
+    "eventType": "military",
+    "eventSubtype": "uprising",
+    "tags": [
+      "Khởi nghĩa Bà Triệu (248)",
+      "Năm 248",
+      "Thanh Hóa",
+      "Khởi nghĩa ở Cửu Chân do Triệu Thị Trinh lãnh đạo."
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 248
+    },
+    "datePrecision": "year",
+    "displayDate": "Năm 248",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "point",
+      "marker": {
+        "label": "Thanh Hóa"
+      },
+      "provinceNames": [
+        "Thanh Hóa"
+      ],
+      "historicalLocations": [
+        "Thanh Hóa"
+      ]
+    },
+    "focusGeometry": {
+      "mode": "marker"
+    }
+  },
+  "summary": {
+    "homepageTitle": "Khởi nghĩa Bà Triệu (248)",
+    "homepageSummary": "Khởi nghĩa Bà Triệu (248). Khởi nghĩa ở Cửu Chân do Triệu Thị Trinh lãnh đạo.",
+    "cardSummary": "Khởi nghĩa ở Cửu Chân do Triệu Thị Trinh lãnh đạo."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Khởi nghĩa Bà Triệu (248). Khởi nghĩa ở Cửu Chân do Triệu Thị Trinh lãnh đạo.",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 8: Khởi nghĩa và chiến tranh giải phóng trong lịch sử Việt Nam. Khởi nghĩa ở Cửu Chân do Triệu Thị Trinh lãnh đạo.",
+    "significance": "Là mốc quan trọng trong tiến trình quân sự và bảo vệ/chinh phục độc lập, chủ quyền của Việt Nam theo SGK 11.",
+    "keyFacts": [
+      "Khởi nghĩa Bà Triệu (248)",
+      "Năm 248",
+      "Thanh Hóa",
+      "Khởi nghĩa ở Cửu Chân do Triệu Thị Trinh lãnh đạo."
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 11,
+      "book": "Lịch sử 11 - Cánh Diều",
+      "lesson": "Bài 8: Khởi nghĩa và chiến tranh giải phóng trong lịch sử Việt Nam",
+      "pageStart": 56,
+      "pageEnd": 57,
+      "excerpt": "Khởi nghĩa ở Cửu Chân do Triệu Thị Trinh lãnh đạo."
+    }
+  ],
+  "hierarchy": {
+    "rootId": "vm-khoi-nghia-va-giai-phong",
+    "parentId": "vm-khoi-nghia-va-giai-phong",
+    "level": 1,
+    "orderInParent": 2
+  },
+  "associations": {
+    "relatedEventIds": [
+      "khoi-nghia-ly-bi",
+      "khoi-nghia-lam-son-1418-1427",
+      "khoi-nghia-hai-ba-trung",
+      "khoi-nghia-phung-hung",
+      "vm-khoi-nghia-va-giai-phong",
+      "phong-trao-tay-son"
+    ],
+    "predecessorEventIds": [
+      "khoi-nghia-hai-ba-trung"
+    ],
+    "successorEventIds": [
+      "khoi-nghia-ly-bi"
+    ]
+  },
+  "display": {
+    "showOnHomepage": false,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "Khởi nghĩa ở Cửu Chân do Triệu Thị Trinh lãnh đạo. || [SGK11:khoi-nghia-ba-trieu] Khởi nghĩa ở Cửu Chân do Triệu Thị Trinh lãnh đạo.",
+  "merge": {
+    "sourceGrades": "11",
+    "sourceIds": "khoi-nghia-ba-trieu",
+    "mergedCount": 1,
+    "sourceFiles": "SGK11_event_master_flattened_v2(1).xlsx",
+    "textbookRefsAll": "SGK11: Bài 8: Khởi nghĩa và chiến tranh giải phóng trong lịch sử Việt Nam tr.56-57 [khoi-nghia-ba-trieu]"
+  },
+  "validation": {
+    "status": "CHECK",
+    "issues": "geoType cần marker nhưng thiếu lat/lng"
+  }
+}

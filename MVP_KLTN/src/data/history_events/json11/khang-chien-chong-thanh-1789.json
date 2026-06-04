@@ -1,0 +1,128 @@
+{
+  "id": "khang-chien-chong-thanh-1789",
+  "slug": "khang-chien-chong-thanh-1789",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Kháng chiến chống quân Thanh (1789)",
+    "short": "Chống Thanh"
+  },
+  "classification": {
+    "eventType": "military",
+    "eventSubtype": "battle",
+    "tags": [
+      "Kháng chiến chống quân Thanh (1789)",
+      "Năm 1789",
+      "Hà Nội",
+      "Ngọc Hồi – Đống Đa; Quang Trung đại phá quân Thanh."
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1789
+    },
+    "datePrecision": "year",
+    "displayDate": "Năm 1789",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "multi_point",
+      "marker": {
+        "label": "Hà Nội"
+      },
+      "provinceNames": [
+        "Hà Nội"
+      ],
+      "historicalLocations": [
+        "Hà Nội"
+      ]
+    },
+    "focusGeometry": {
+      "mode": "bounds",
+      "provinceNames": [
+        "Hà Nội"
+      ]
+    }
+  },
+  "summary": {
+    "homepageTitle": "Kháng chiến chống quân Thanh (1789)",
+    "homepageSummary": "Kháng chiến chống quân Thanh (1789). Ngọc Hồi – Đống Đa; Quang Trung đại phá quân Thanh.",
+    "cardSummary": "Ngọc Hồi – Đống Đa; Quang Trung đại phá quân Thanh."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Kháng chiến chống quân Thanh (1789). Ngọc Hồi – Đống Đa; Quang Trung đại phá quân Thanh.",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 7: Chiến tranh bảo vệ Tổ quốc trong lịch sử Việt Nam. Ngọc Hồi – Đống Đa; Quang Trung đại phá quân Thanh.",
+    "significance": "Là mốc quan trọng trong tiến trình quân sự và bảo vệ/chinh phục độc lập, chủ quyền của Việt Nam theo SGK 11.",
+    "keyFacts": [
+      "Kháng chiến chống quân Thanh (1789)",
+      "Năm 1789",
+      "Hà Nội",
+      "Ngọc Hồi – Đống Đa; Quang Trung đại phá quân Thanh."
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 11,
+      "book": "Lịch sử 11 - Cánh Diều",
+      "lesson": "Bài 7: Chiến tranh bảo vệ Tổ quốc trong lịch sử Việt Nam",
+      "pageStart": 49,
+      "pageEnd": 50,
+      "excerpt": "Ngọc Hồi – Đống Đa; Quang Trung đại phá quân Thanh."
+    }
+  ],
+  "hierarchy": {
+    "rootId": "vm-chien-tranh-bao-ve-to-quoc",
+    "parentId": "vm-chien-tranh-bao-ve-to-quoc",
+    "level": 1,
+    "orderInParent": 7
+  },
+  "associations": {
+    "relatedEventIds": [
+      "khang-chien-chong-tong-1075-1077",
+      "vi-tri-dia-chien-luoc-vn",
+      "khang-chien-chong-minh-1406-1407",
+      "bach-dang-938-ngo-quyen-xung-vuong",
+      "vm-chien-tranh-bao-ve-to-quoc",
+      "khang-chien-chong-phap-1858-1884",
+      "tay-son-gd3-1786-1789",
+      "ba-lan-chong-mong-nguyen",
+      "khang-chien-chong-tong-981",
+      "khang-chien-chong-trieu-tk2-tcn",
+      "phong-trao-tay-son",
+      "khang-chien-chong-xiem-1785"
+    ],
+    "predecessorEventIds": [
+      "khang-chien-chong-xiem-1785"
+    ],
+    "successorEventIds": [
+      "khang-chien-chong-trieu-tk2-tcn"
+    ]
+  },
+  "display": {
+    "showOnHomepage": true,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "Ngọc Hồi – Đống Đa; Quang Trung đại phá quân Thanh. || [SGK11:khang-chien-chong-thanh-1789] Ngọc Hồi – Đống Đa; Quang Trung đại phá quân Thanh.",
+  "merge": {
+    "sourceGrades": "11",
+    "sourceIds": "khang-chien-chong-thanh-1789",
+    "mergedCount": 1,
+    "sourceFiles": "SGK11_event_master_flattened_v2(1).xlsx",
+    "textbookRefsAll": "SGK11: Bài 7: Chiến tranh bảo vệ Tổ quốc trong lịch sử Việt Nam tr.49-50 [khang-chien-chong-thanh-1789]"
+  },
+  "validation": {
+    "status": "CHECK",
+    "issues": "multi_point thiếu markers/marker đại diện"
+  }
+}

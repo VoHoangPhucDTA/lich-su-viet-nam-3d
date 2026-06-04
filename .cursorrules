@@ -1,0 +1,46 @@
+# CHỈ DẪN NGỮ CẢNH DỰ ÁN KHÓA LUẬN LỊCH SỬ VN
+
+## 1. Kiến trúc & Công nghệ (3-Tier)
+- **Frontend**: React.js, TypeScript, Tailwind CSS, CesiumJS.
+- **Backend**: Spring Boot (Java) - Điều phối nghiệp vụ và API.
+- **AI Service**: FastAPI (Python), LangChain - Xử lý RAG và TTS.
+- **Database**: MySQL (Quan hệ) + ChromaDB (Vector).
+
+## 2. Quy tắc dữ liệu & Hiển thị Bản đồ
+- **Cấu trúc JSON**: Mỗi sự kiện lịch sử tuân thủ cấu trúc 16 khối chuẩn hóa.
+- **geoType**: Phân loại theo `point`, `polygon`, `multi_polygon`, `nationwide`, `no_location`, `mixed` để quyết định cách vẽ entity trên Cesium.
+- **Hierarchy (Phân cấp)**: Hỗ trợ drill-down (cha-con-cháu). Khi click vào sự kiện cha, phải ẩn các marker cùng cấp và hiện các sự kiện con có địa điểm.
+- **Performance**: Chỉ load GeoJSON tỉnh/thành khi cần thiết (Lazy loading) để đảm bảo khởi tạo bản đồ < 5 giây.
+
+## 3. Quy tắc AI Service (RAG & TTS)
+- **Source Policy**: RAG chỉ được phép truy xuất tri thức từ `textbookContent` (Sách giáo khoa) để đảm bảo độ chính xác (Faithfulness Score ≥ 0.8).
+- **Metadata**: Khi indexing vào ChromaDB, phải kèm theo metadata: `event_id`, `grade`, `lesson`.
+- **TTS**: Sử dụng FPT.AI API để đọc nội dung thuyết minh bằng giọng tiếng Việt tự nhiên.
+
+## 4. Tiêu chuẩn Lập trình (Coding Standards)
+- **Ngôn ngữ**: Giao diện và thông báo sử dụng tiếng Việt. Code sử dụng tiếng Anh hoặc tiếng Việt (ưu tiên nhất quán).
+- **TypeScript**: Phải định nghĩa interface/type cho tất cả dữ liệu trả về từ API, đặc biệt là khối `mapData` và `hierarchy` trong thư mục `types/`.
+- **Tách biệt**: Không viết logic AI vào Spring Boot; Spring Boot chỉ đóng vai trò gọi API sang FastAPI.
+
+## 5. Quy tắc UI/UX & Tailwind CSS
+- **TUYỆT ĐỐI KHÔNG** hardcode mã màu HEX hoặc RGB trong các file React component.
+- **BẮT BUỘC** sử dụng các biến màu đã định nghĩa trong `tailwind.config.ts`: `bg-primary`, `text-secondary`, `bg-background-panel`, v.v.
+- Ưu tiên sử dụng component hóa. Các UI element lặp lại phải được tách thành component dùng chung trong thư mục `components/shared/`.
+
+## 6. Sơ đồ Kiến trúc Thư mục (Mental Map)
+Dự án áp dụng kiến trúc tách biệt. Hiện tại tập trung phát triển Frontend trong thư mục `MVP_KLTN/`:
+
+lich-su-viet-nam-3d/
+├── MVP_KLTN/               # Workspace Frontend chính (React, Vite, Cesium)
+│   └── src/
+│       ├── auth/           # Context và Guard xác thực (RoleGuard, ProtectedRoute)
+│       ├── components/     # UI Components (Map, Timeline, Sidebar, Popup, Layouts)
+│       ├── layouts/        # Layout bọc các trang (Admin, Profile)
+│       ├── lib/            # Khởi tạo thư viện bên thứ 3 (cesium.ts)
+│       ├── pages/          # Các trang chính (MapPage, EventDetailPage, Quiz...)
+│       ├── services/       # Nơi gọi API giao tiếp với Backend/AI (axios/fetch)
+│       ├── theme/          # Cấu hình UI Theme chung
+│       └── types/          # Định nghĩa TypeScript Interfaces cho toàn hệ thống
+├── backend/                # Workspace Backend (Spring Boot, Java)
+├── ai-service/             # Workspace AI Service (FastAPI, Python)
+└── data/                   # Chứa dữ liệu SGK, GeoJSON (Chỉ dùng làm nguồn nạp)

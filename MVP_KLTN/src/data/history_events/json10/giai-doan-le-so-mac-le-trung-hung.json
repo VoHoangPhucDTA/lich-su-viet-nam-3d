@@ -1,0 +1,96 @@
+{
+  "id": "giai-doan-le-so-mac-le-trung-hung",
+  "slug": "giai-doan-le-so-mac-le-trung-hung",
+  "entityType": "event",
+  "eventLevel": "collection",
+  "titles": {
+    "primary": "Giai đoạn tiếp tục phát triển thời Lê sơ – Mạc – Lê Trung hưng",
+    "short": "Lê sơ – Mạc – Lê Trung hưng"
+  },
+  "classification": {
+    "eventType": "cultural",
+    "eventSubtype": "historical_phase",
+    "tags": [
+      "Lê sơ",
+      "Mạc",
+      "Lê Trung hưng"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      10
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1428
+    },
+    "end": {
+      "year": 1788
+    },
+    "datePrecision": "period",
+    "displayDate": "Thế kỉ XV – XVII",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "nationwide"
+    },
+    "focusGeometry": {
+      "mode": "auto"
+    }
+  },
+  "summary": {
+    "homepageTitle": "Giai đoạn tiếp tục phát triển thời Lê sơ – Mạc – Lê Trung hưng",
+    "homepageSummary": "Văn minh Đại Việt tiếp tục phát triển với nhiều thành tựu về nhà nước, luật pháp, đô thị, thương mại và giáo dục.",
+    "cardSummary": "Giai đoạn tiếp tục phát triển của Đại Việt."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Sau khi được khôi phục dưới triều Lê sơ, văn minh Đại Việt tiếp tục phát triển qua các thời Mạc và Lê Trung hưng.",
+    "detailedNarrative": "Theo SGK, giai đoạn này nổi bật với việc củng cố bộ máy nhà nước, phát triển luật pháp, giáo dục Nho học, đô thị và thương mại trong nước – quốc tế. Nhiều trung tâm như Thăng Long, Phố Hiến, Hội An phát triển mạnh.",
+    "significance": "Cho thấy sức sống bền bỉ và khả năng thích ứng của văn minh Đại Việt qua nhiều biến động lịch sử.",
+    "keyFacts": [
+      "Thế kỉ XV – XVII",
+      "Phát triển mạnh về luật pháp",
+      "giáo dục",
+      "đô thị",
+      "Nổi bật với Phố Hiến và Hội An"
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 10,
+      "book": "Lịch sử 10 - Cánh Diều",
+      "theme": "Chủ đề 6: Một số nền văn minh trên đất nước Việt Nam trước năm 1858",
+      "lesson": "Bài 15: Những thành tựu tiêu biểu của văn minh Đại Việt",
+      "pageStart": 100,
+      "pageEnd": 108,
+      "excerpt": "Văn minh Đại Việt tiếp tục phát triển dưới thời Lê sơ – Mạc – Lê Trung hưng."
+    }
+  ],
+  "hierarchy": {
+    "rootId": "vm-dai-viet",
+    "parentId": "vm-dai-viet",
+    "level": 1,
+    "orderInParent": 8
+  },
+  "display": {
+    "showOnHomepage": true,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "merge": {
+    "sourceGrades": "10",
+    "sourceIds": "giai-doan-le-so-mac-le-trung-hung",
+    "mergedCount": 1,
+    "sourceFiles": "SGK10_event_master_flattened_v2(1).xlsx",
+    "textbookRefsAll": "SGK10: Bài 15: Những thành tựu tiêu biểu của văn minh Đại Việt tr.100-108 [giai-doan-le-so-mac-le-trung-hung]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

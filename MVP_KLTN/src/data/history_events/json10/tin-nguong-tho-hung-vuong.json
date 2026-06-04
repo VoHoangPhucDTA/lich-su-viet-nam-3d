@@ -1,0 +1,112 @@
+{
+  "id": "tin-nguong-tho-hung-vuong",
+  "slug": "tin-nguong-tho-hung-vuong",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Tín ngưỡng thờ cúng Hùng Vương",
+    "short": "Thờ Hùng Vương"
+  },
+  "classification": {
+    "eventType": "cultural",
+    "eventSubtype": "intangible_heritage",
+    "tags": [
+      "Hùng Vương",
+      "Đền Hùng",
+      "Phú Thọ",
+      "UNESCO"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      10
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 2012
+    },
+    "datePrecision": "period",
+    "displayDate": "Truyền thống lâu đời; UNESCO ghi danh năm 2012",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "point",
+      "marker": {
+        "lat": 21.396,
+        "lng": 105.228,
+        "label": "Đền Hùng"
+      },
+      "provinceNames": [
+        "Phú Thọ"
+      ],
+      "historicalLocations": [
+        "Đền Hùng",
+        "Nghĩa Lĩnh"
+      ]
+    },
+    "focusGeometry": {
+      "mode": "marker",
+      "center": {
+        "lat": 21.396,
+        "lng": 105.228
+      },
+      "zoom": 11,
+      "provinceNames": [
+        "Phú Thọ"
+      ]
+    }
+  },
+  "summary": {
+    "homepageTitle": "Tín ngưỡng thờ cúng Hùng Vương",
+    "homepageSummary": "Tín ngưỡng thờ cúng Hùng Vương là di sản tinh thần gắn với ý thức cội nguồn của dân tộc Việt Nam.",
+    "cardSummary": "Di sản văn hóa gắn với cội nguồn dân tộc Việt."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Tín ngưỡng thờ cúng Hùng Vương phản ánh truyền thống nhớ về tổ tiên và ý thức cộng đồng của người Việt.",
+    "detailedNarrative": "Trong bài học, SGK giới thiệu tín ngưỡng thờ cúng Hùng Vương như một thành tố tinh thần quan trọng của văn minh Văn Lang – Âu Lạc. Tín ngưỡng này được duy trì qua nhiều thế hệ và về sau được UNESCO ghi danh là Di sản văn hóa phi vật thể đại diện của nhân loại.",
+    "significance": "Góp phần củng cố bản sắc dân tộc, tinh thần cố kết cộng đồng và truyền thống uống nước nhớ nguồn.",
+    "keyFacts": [
+      "Gắn với Đền Hùng ở Phú Thọ",
+      "Thể hiện ý thức cội nguồn dân tộc",
+      "UNESCO ghi danh năm 2012"
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 10,
+      "book": "Lịch sử 10 - Cánh Diều",
+      "theme": "Chủ đề 6: Một số nền văn minh trên đất nước Việt Nam trước năm 1858",
+      "lesson": "Bài 12: Văn minh Văn Lang – Âu Lạc",
+      "pageStart": 87,
+      "pageEnd": 88,
+      "excerpt": "Tín ngưỡng thờ cúng Hùng Vương là một giá trị tinh thần tiêu biểu của cư dân Việt cổ."
+    }
+  ],
+  "hierarchy": {
+    "rootId": "vm-van-lang-au-lac",
+    "parentId": "vm-van-lang-au-lac",
+    "level": 1,
+    "orderInParent": 6
+  },
+  "display": {
+    "showOnHomepage": true,
+    "showOnTimeline": true,
+    "featured": true
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "merge": {
+    "sourceGrades": "10",
+    "sourceIds": "tin-nguong-tho-hung-vuong",
+    "mergedCount": 1,
+    "sourceFiles": "SGK10_event_master_flattened_v2(1).xlsx",
+    "textbookRefsAll": "SGK10: Bài 12: Văn minh Văn Lang – Âu Lạc tr.87-88 [tin-nguong-tho-hung-vuong]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}
