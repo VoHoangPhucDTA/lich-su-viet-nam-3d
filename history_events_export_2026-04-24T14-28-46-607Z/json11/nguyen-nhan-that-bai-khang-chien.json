@@ -1,0 +1,94 @@
+{
+  "id": "nguyen-nhan-that-bai-khang-chien",
+  "slug": "nguyen-nhan-that-bai-khang-chien",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Nguyên nhân không thành công của một số cuộc kháng chiến",
+    "short": "Nguyên nhân thất bại"
+  },
+  "classification": {
+    "eventType": "military",
+    "eventSubtype": "analysis_topic",
+    "tags": [
+      "Nguyên nhân không thành công của một số cuộc kháng chiến",
+      "RAG only"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ]
+  },
+  "chronology": {
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "no_location",
+      "marker": {
+        "label": "Nguyên nhân thất bại"
+      }
+    },
+    "focusGeometry": {
+      "mode": "auto"
+    }
+  },
+  "summary": {
+    "homepageTitle": "Nguyên nhân không thành công của một số cuộc kháng chiến",
+    "homepageSummary": "Nguyên nhân không thành công của một số cuộc kháng chiến. Khái quát các nguyên nhân thất bại/không thành công của một số cuộc kháng chiến trong lịch sử Việt Nam.",
+    "cardSummary": "Khái quát các nguyên nhân thất bại/không thành công của một số cuộc kháng chiến trong lịch sử Việt Nam."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Nguyên nhân không thành công của một số cuộc kháng chiến. Khái quát các nguyên nhân thất bại/không thành công của một số cuộc kháng chiến trong lịch sử Việt Nam.",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 7: Chiến tranh bảo vệ Tổ quốc trong lịch sử Việt Nam. Khái quát các nguyên nhân thất bại/không thành công của một số cuộc kháng chiến trong lịch sử Việt Nam.",
+    "significance": "Giúp học sinh so sánh nguyên nhân thắng lợi và thất bại theo SGK 11.",
+    "keyFacts": [
+      "Nguyên nhân không thành công của một số cuộc kháng chiến",
+      "Nội dung khái quát về nguyên nhân không thành công; phục vụ RAG và ôn tập",
+      "không hiển thị timeline."
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 11,
+      "book": "Lịch sử 11 - Cánh Diều",
+      "lesson": "Bài 7: Chiến tranh bảo vệ Tổ quốc trong lịch sử Việt Nam",
+      "pageStart": 50,
+      "pageEnd": 54,
+      "excerpt": "Khái quát các nguyên nhân thất bại/không thành công của một số cuộc kháng chiến trong lịch sử Việt Nam."
+    }
+  ],
+  "hierarchy": {
+    "rootId": "vm-chien-tranh-bao-ve-to-quoc",
+    "parentId": "vm-chien-tranh-bao-ve-to-quoc",
+    "level": 1,
+    "orderInParent": 12
+  },
+  "associations": {
+    "relatedEventIds": [
+      "vm-chien-tranh-bao-ve-to-quoc",
+      "nguyen-nhan-thang-loi-khang-chien"
+    ]
+  },
+  "display": {
+    "showOnHomepage": false,
+    "showOnTimeline": false,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "Nội dung khái quát về nguyên nhân không thành công; phục vụ RAG và ôn tập, không hiển thị timeline. || [SGK11:nguyen-nhan-that-bai-khang-chien] Nội dung khái quát về nguyên nhân không thành công; phục vụ RAG và ôn tập, không hiển thị timeline.",
+  "merge": {
+    "sourceGrades": "11",
+    "sourceIds": "nguyen-nhan-that-bai-khang-chien",
+    "mergedCount": 1,
+    "sourceFiles": "SGK11_event_master_flattened_v2(1).xlsx",
+    "textbookRefsAll": "SGK11: Bài 7: Chiến tranh bảo vệ Tổ quốc trong lịch sử Việt Nam tr.50-54 [nguyen-nhan-that-bai-khang-chien]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

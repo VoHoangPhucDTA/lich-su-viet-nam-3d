@@ -1,0 +1,94 @@
+{
+  "id": "phat-giao-quoc-giao-ly-tran",
+  "slug": "phat-giao-quoc-giao-ly-tran",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Phật giáo thời Lý – Trần",
+    "short": "Phật giáo Lý – Trần"
+  },
+  "classification": {
+    "eventType": "cultural",
+    "eventSubtype": "religious_flourishing",
+    "tags": [
+      "Phật giáo",
+      "Lý",
+      "Trần"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      10
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1009
+    },
+    "end": {
+      "year": 1400
+    },
+    "datePrecision": "period",
+    "displayDate": "Thời Lý – Trần",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "nationwide"
+    },
+    "focusGeometry": {
+      "mode": "auto"
+    }
+  },
+  "summary": {
+    "homepageTitle": "Phật giáo thời Lý – Trần",
+    "homepageSummary": "Phật giáo giữ vị trí quan trọng trong đời sống tinh thần thời Lý – Trần.",
+    "cardSummary": "Phật giáo phát triển mạnh thời Lý – Trần."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Thời Lý – Trần, Phật giáo phát triển mạnh và có vị trí đặc biệt trong đời sống chính trị, văn hóa và tinh thần của xã hội Đại Việt.",
+    "detailedNarrative": "SGK coi Phật giáo là một yếu tố văn hóa – tư tưởng tiêu biểu của Đại Việt thời Lý – Trần. Nhiều chùa tháp, tác phẩm nghệ thuật và hoạt động xã hội gắn chặt với sự phát triển của Phật giáo trong giai đoạn này.",
+    "significance": "Làm nổi bật sự phong phú của đời sống tinh thần và tính đa dạng của văn minh Đại Việt.",
+    "keyFacts": [
+      "Phát triển mạnh thời Lý – Trần",
+      "Có ảnh hưởng lớn trong đời sống xã hội",
+      "Gắn với nhiều công trình chùa tháp"
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 10,
+      "book": "Lịch sử 10 - Cánh Diều",
+      "theme": "Chủ đề 6: Một số nền văn minh trên đất nước Việt Nam trước năm 1858",
+      "lesson": "Bài 15: Những thành tựu tiêu biểu của văn minh Đại Việt",
+      "pageStart": 105,
+      "pageEnd": 106,
+      "excerpt": "Phật giáo giữ vị trí quan trọng trong đời sống tinh thần thời Lý – Trần."
+    }
+  ],
+  "hierarchy": {
+    "rootId": "vm-dai-viet",
+    "parentId": "vm-dai-viet",
+    "level": 1,
+    "orderInParent": 28
+  },
+  "display": {
+    "showOnHomepage": true,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "merge": {
+    "sourceGrades": "10",
+    "sourceIds": "phat-giao-quoc-giao-ly-tran",
+    "mergedCount": 1,
+    "sourceFiles": "SGK10_event_master_flattened_v2(1).xlsx",
+    "textbookRefsAll": "SGK10: Bài 15: Những thành tựu tiêu biểu của văn minh Đại Việt tr.105-106 [phat-giao-quoc-giao-ly-tran]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

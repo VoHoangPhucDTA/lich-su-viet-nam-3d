@@ -1,0 +1,98 @@
+{
+  "id": "tong-tien-cong-mau-than-1968",
+  "slug": "tong-tien-cong-mau-than-1968",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Tổng tiến công và nổi dậy Xuân Mậu Thân (1968)",
+    "short": "Tổng tiến công và nổi dậy Xuân M"
+  },
+  "classification": {
+    "eventType": "military",
+    "eventSubtype": "milestone",
+    "tags": [
+      "Tổng tiến công và nổi dậy Xuân Mậu Thân (1968)",
+      1968
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1968
+    },
+    "end": {
+      "year": 1968
+    },
+    "datePrecision": "year",
+    "displayDate": "1968",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "nationwide"
+    },
+    "focusGeometry": {
+      "mode": "auto"
+    }
+  },
+  "summary": {
+    "homepageTitle": "Tổng tiến công và nổi dậy Xuân Mậu Thân (1968)",
+    "homepageSummary": "Tổng tiến công và nổi dậy Xuân Mậu Thân (1968). —",
+    "cardSummary": "—"
+  },
+  "textbookContent": {
+    "canonicalSummary": "Tổng tiến công và nổi dậy Xuân Mậu Thân (1968).",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 8: Kháng chiến chống Mỹ, cứu nước (1954–1975), trang 47. Nội dung trong file Excel được chuẩn hóa để nhập hệ thống; khi triển khai chính thức, nhóm nên bổ sung tường thuật chi tiết bám SGK và tư liệu gốc.",
+    "significance": "Là mốc quan trọng trong tiến trình đấu tranh quân sự, bảo vệ hoặc giải phóng đất nước của Việt Nam theo SGK 12.",
+    "keyFacts": [
+      "Tổng tiến công và nổi dậy Xuân Mậu Thân (1968)",
+      1968
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 12,
+      "book": "Lịch sử 12 - Cánh Diều",
+      "theme": "Chủ đề 3: Cách mạng tháng Tám và kháng chiến bảo vệ độc lập dân tộc",
+      "lesson": "Bài 8: Kháng chiến chống Mỹ, cứu nước (1954–1975)",
+      "pageStart": 47,
+      "pageEnd": 47,
+      "excerpt": "Tổng tiến công và nổi dậy Xuân Mậu Thân (1968)"
+    }
+  ],
+  "hierarchy": {
+    "rootId": "khang-chien-chong-my-collection",
+    "parentId": "chien-tranh-cuc-bo-1965-1968",
+    "level": 2,
+    "orderInParent": 5
+  },
+  "associations": {
+    "predecessorEventIds": [
+      "chien-thang-van-tuong-1965"
+    ]
+  },
+  "display": {
+    "showOnHomepage": true,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "— || [SGK12:tong-tien-cong-mau-than-1968] —",
+  "merge": {
+    "sourceGrades": "12",
+    "sourceIds": "tong-tien-cong-mau-than-1968",
+    "mergedCount": 1,
+    "sourceFiles": "SGK12_event_master_flattened(1).xlsx",
+    "textbookRefsAll": "SGK12: Bài 8: Kháng chiến chống Mỹ, cứu nước (1954–1975) tr.47 [tong-tien-cong-mau-than-1968]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

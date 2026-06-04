@@ -1,0 +1,142 @@
+{
+  "id": "khang-chien-chong-phap-1858-1884",
+  "slug": "khang-chien-chong-phap-1858-1884",
+  "entityType": "event",
+  "eventLevel": "collection",
+  "titles": {
+    "primary": "Kháng chiến chống thực dân Pháp xâm lược (1858–1884)",
+    "short": "Chống Pháp xâm lược"
+  },
+  "classification": {
+    "eventType": "military",
+    "eventSubtype": "war_failed",
+    "tags": [
+      "Kháng chiến chống thực dân Pháp xâm lược (1858–1884)",
+      "1858–1884",
+      "Đà Nẵng",
+      "TP.HCM",
+      "Nam Định",
+      "Không thành công; kết thúc bằng Hiệp ước Pa-tơ-nốt 1884."
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1858
+    },
+    "end": {
+      "year": 1884
+    },
+    "datePrecision": "period",
+    "displayDate": "1858–1884",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "multi_point",
+      "marker": {
+        "label": "Đà Nẵng"
+      },
+      "provinceNames": [
+        "Đà Nẵng",
+        "TP.HCM",
+        "Nam Định"
+      ],
+      "historicalLocations": [
+        "Đà Nẵng",
+        "TP.HCM",
+        "Nam Định"
+      ]
+    },
+    "focusGeometry": {
+      "mode": "bounds",
+      "provinceNames": [
+        "Đà Nẵng",
+        "TP.HCM",
+        "Nam Định"
+      ]
+    }
+  },
+  "summary": {
+    "homepageTitle": "Kháng chiến chống thực dân Pháp xâm lược (1858–1884)",
+    "homepageSummary": "Kháng chiến chống thực dân Pháp xâm lược (1858–1884). Không thành công; kết thúc bằng Hiệp ước Pa-tơ-nốt 1884.",
+    "cardSummary": "Không thành công; kết thúc bằng Hiệp ước Pa-tơ-nốt 1884."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Kháng chiến chống thực dân Pháp xâm lược (1858–1884). Không thành công; kết thúc bằng Hiệp ước Pa-tơ-nốt 1884.",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 7: Chiến tranh bảo vệ Tổ quốc trong lịch sử Việt Nam. Không thành công; kết thúc bằng Hiệp ước Pa-tơ-nốt 1884.",
+    "significance": "Là mốc quan trọng trong tiến trình quân sự và bảo vệ/chinh phục độc lập, chủ quyền của Việt Nam theo SGK 11.",
+    "keyFacts": [
+      "Kháng chiến chống thực dân Pháp xâm lược (1858–1884)",
+      "1858–1884",
+      "Đà Nẵng",
+      "TP.HCM",
+      "Nam Định",
+      "Không thành công; kết thúc bằng Hiệp ước Pa-tơ-nốt 1884."
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 11,
+      "book": "Lịch sử 11 - Cánh Diều",
+      "lesson": "Bài 7: Chiến tranh bảo vệ Tổ quốc trong lịch sử Việt Nam",
+      "pageStart": 52,
+      "pageEnd": 53,
+      "excerpt": "Không thành công; kết thúc bằng Hiệp ước Pa-tơ-nốt 1884."
+    }
+  ],
+  "hierarchy": {
+    "rootId": "vm-chien-tranh-bao-ve-to-quoc",
+    "parentId": "vm-chien-tranh-bao-ve-to-quoc",
+    "childIds": [
+      "phap-xam-luoc-vn-1858",
+      "phap-chiem-nam-bo-1862-1867",
+      "hiep-uoc-hac-mang-1883",
+      "hiep-uoc-pa-to-not-1884"
+    ],
+    "level": 1,
+    "orderInParent": 10
+  },
+  "associations": {
+    "relatedEventIds": [
+      "khang-chien-chong-tong-1075-1077",
+      "vi-tri-dia-chien-luoc-vn",
+      "khang-chien-chong-minh-1406-1407",
+      "bach-dang-938-ngo-quyen-xung-vuong",
+      "vm-chien-tranh-bao-ve-to-quoc",
+      "ba-lan-chong-mong-nguyen",
+      "khang-chien-chong-tong-981",
+      "khang-chien-chong-trieu-tk2-tcn",
+      "khang-chien-chong-thanh-1789",
+      "khang-chien-chong-xiem-1785"
+    ],
+    "predecessorEventIds": [
+      "khang-chien-chong-minh-1406-1407"
+    ]
+  },
+  "display": {
+    "showOnHomepage": true,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "Không thành công; kết thúc bằng Hiệp ước Pa-tơ-nốt 1884. || [SGK11:khang-chien-chong-phap-1858-1884] Không thành công; kết thúc bằng Hiệp ước Pa-tơ-nốt 1884.",
+  "merge": {
+    "sourceGrades": "11",
+    "sourceIds": "khang-chien-chong-phap-1858-1884",
+    "mergedCount": 1,
+    "sourceFiles": "SGK11_event_master_flattened_v2(1).xlsx",
+    "textbookRefsAll": "SGK11: Bài 7: Chiến tranh bảo vệ Tổ quốc trong lịch sử Việt Nam tr.52-53 [khang-chien-chong-phap-1858-1884]"
+  },
+  "validation": {
+    "status": "CHECK",
+    "issues": "multi_point thiếu markers/marker đại diện"
+  }
+}

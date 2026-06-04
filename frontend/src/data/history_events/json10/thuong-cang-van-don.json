@@ -1,0 +1,110 @@
+{
+  "id": "thuong-cang-van-don",
+  "slug": "thuong-cang-van-don",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Thương cảng Vân Đồn",
+    "short": "Vân Đồn"
+  },
+  "classification": {
+    "eventType": "economic",
+    "eventSubtype": "port_town",
+    "tags": [
+      "Vân Đồn",
+      "thương cảng",
+      "biển"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      10
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1100
+    },
+    "datePrecision": "period",
+    "displayDate": "Thời Lý – Trần – Lê",
+    "isApproximate": true
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "point",
+      "marker": {
+        "lat": 21.04,
+        "lng": 107.42,
+        "label": "Vân Đồn"
+      },
+      "provinceNames": [
+        "Quảng Ninh"
+      ],
+      "historicalLocations": [
+        "Vân Đồn"
+      ]
+    },
+    "focusGeometry": {
+      "mode": "marker",
+      "center": {
+        "lat": 21.04,
+        "lng": 107.42
+      },
+      "zoom": 10,
+      "provinceNames": [
+        "Quảng Ninh"
+      ]
+    }
+  },
+  "summary": {
+    "homepageTitle": "Thương cảng Vân Đồn",
+    "homepageSummary": "Vân Đồn là thương cảng biển nổi tiếng của Đại Việt, phản ánh hoạt động giao thương trong và ngoài nước.",
+    "cardSummary": "Thương cảng Vân Đồn của Đại Việt."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Vân Đồn là một thương cảng quan trọng của Đại Việt, có vai trò trong giao lưu kinh tế đường biển.",
+    "detailedNarrative": "SGK đưa Vân Đồn vào nhóm thành tựu kinh tế, cho thấy quốc gia Đại Việt không chỉ phát triển nông nghiệp mà còn có thương mại biển. Đây là địa điểm rất phù hợp để trực quan hóa trên bản đồ 3D với bối cảnh biển đảo phía Đông Bắc.",
+    "significance": "Làm rõ vai trò của thương mại biển trong nền kinh tế Đại Việt.",
+    "keyFacts": [
+      "Nằm ở Quảng Ninh",
+      "Là thương cảng biển nổi tiếng",
+      "Phản ánh giao lưu thương mại đường biển"
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 10,
+      "book": "Lịch sử 10 - Cánh Diều",
+      "theme": "Chủ đề 6: Một số nền văn minh trên đất nước Việt Nam trước năm 1858",
+      "lesson": "Bài 15: Những thành tựu tiêu biểu của văn minh Đại Việt",
+      "pageStart": 103,
+      "pageEnd": 103,
+      "excerpt": "Vân Đồn là một thương cảng quan trọng của Đại Việt."
+    }
+  ],
+  "hierarchy": {
+    "rootId": "vm-dai-viet",
+    "parentId": "vm-dai-viet",
+    "level": 1,
+    "orderInParent": 19
+  },
+  "display": {
+    "showOnHomepage": true,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "merge": {
+    "sourceGrades": "10",
+    "sourceIds": "thuong-cang-van-don",
+    "mergedCount": 1,
+    "sourceFiles": "SGK10_event_master_flattened_v2(1).xlsx",
+    "textbookRefsAll": "SGK10: Bài 15: Những thành tựu tiêu biểu của văn minh Đại Việt tr.103 [thuong-cang-van-don]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

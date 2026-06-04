@@ -1,0 +1,114 @@
+{
+  "id": "thang-long-36-pho-phuong",
+  "slug": "thang-long-36-pho-phuong",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Kinh đô Thăng Long – 36 phố phường",
+    "short": "36 phố phường"
+  },
+  "classification": {
+    "eventType": "economic",
+    "eventSubtype": "urban_commerce",
+    "tags": [
+      "Thăng Long",
+      "36 phố phường",
+      "đô thị"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      10
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1500
+    },
+    "end": {
+      "year": 1800
+    },
+    "datePrecision": "period",
+    "displayDate": "Thế kỉ XVI – XVIII",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "point",
+      "marker": {
+        "lat": 21.034,
+        "lng": 105.852,
+        "label": "Khu phố cổ Thăng Long"
+      },
+      "provinceNames": [
+        "Hà Nội"
+      ],
+      "historicalLocations": [
+        "Thăng Long",
+        "36 phố phường"
+      ]
+    },
+    "focusGeometry": {
+      "mode": "marker",
+      "center": {
+        "lat": 21.034,
+        "lng": 105.852
+      },
+      "zoom": 12,
+      "provinceNames": [
+        "Hà Nội"
+      ]
+    }
+  },
+  "summary": {
+    "homepageTitle": "Kinh đô Thăng Long – 36 phố phường",
+    "homepageSummary": "Hình ảnh 36 phố phường phản ánh sự phát triển của đô thị và nghề thủ công ở Thăng Long.",
+    "cardSummary": "Thăng Long nổi tiếng với 36 phố phường."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Kinh đô Thăng Long với 36 phố phường là biểu hiện tiêu biểu của sự phát triển đô thị và thương nghiệp Đại Việt.",
+    "detailedNarrative": "SGK dùng hình ảnh Thăng Long – 36 phố phường để cho thấy quy mô và tính chuyên môn hóa của đô thị trung đại. Đây là điểm rất tốt để tạo trải nghiệm bản đồ kết hợp tư liệu lịch sử về không gian đô thị.",
+    "significance": "Cho thấy Thăng Long không chỉ là trung tâm chính trị mà còn là trung tâm kinh tế – thủ công của Đại Việt.",
+    "keyFacts": [
+      "Gắn với kinh đô Thăng Long",
+      "Phản ánh sự phát triển đô thị",
+      "Liên quan đến nghề thủ công và thương mại"
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 10,
+      "book": "Lịch sử 10 - Cánh Diều",
+      "theme": "Chủ đề 6: Một số nền văn minh trên đất nước Việt Nam trước năm 1858",
+      "lesson": "Bài 15: Những thành tựu tiêu biểu của văn minh Đại Việt",
+      "pageStart": 103,
+      "pageEnd": 103,
+      "excerpt": "Kinh đô Thăng Long với 36 phố phường phản ánh sự phát triển của đô thị Đại Việt."
+    }
+  ],
+  "hierarchy": {
+    "rootId": "vm-dai-viet",
+    "parentId": "vm-dai-viet",
+    "level": 1,
+    "orderInParent": 22
+  },
+  "display": {
+    "showOnHomepage": true,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "merge": {
+    "sourceGrades": "10",
+    "sourceIds": "thang-long-36-pho-phuong",
+    "mergedCount": 1,
+    "sourceFiles": "SGK10_event_master_flattened_v2(1).xlsx",
+    "textbookRefsAll": "SGK10: Bài 15: Những thành tựu tiêu biểu của văn minh Đại Việt tr.103 [thang-long-36-pho-phuong]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

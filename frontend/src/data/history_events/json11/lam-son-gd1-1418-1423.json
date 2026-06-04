@@ -1,0 +1,120 @@
+{
+  "id": "lam-son-gd1-1418-1423",
+  "slug": "lam-son-gd1-1418-1423",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Giai đoạn 1418–1423 (Lam Sơn)",
+    "short": "Giai đoạn 1418–1423"
+  },
+  "classification": {
+    "eventType": "military",
+    "eventSubtype": "uprising_phase",
+    "tags": [
+      "Giai đoạn 1418–1423 (Lam Sơn)",
+      "1418–1423",
+      "Thanh Hóa",
+      "Căn cứ Lam Sơn",
+      "núi Chí Linh",
+      "giai đoạn cầm cự và xây dựng lực lượng."
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1418
+    },
+    "end": {
+      "year": 1423
+    },
+    "datePrecision": "period",
+    "displayDate": "1418–1423",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "point",
+      "marker": {
+        "label": "Thanh Hóa"
+      },
+      "provinceNames": [
+        "Thanh Hóa"
+      ],
+      "historicalLocations": [
+        "Thanh Hóa"
+      ]
+    },
+    "focusGeometry": {
+      "mode": "marker"
+    }
+  },
+  "summary": {
+    "homepageTitle": "Giai đoạn 1418–1423 (Lam Sơn)",
+    "homepageSummary": "Giai đoạn 1418–1423 (Lam Sơn). Căn cứ Lam Sơn, núi Chí Linh, giai đoạn cầm cự và xây dựng lực lượng.",
+    "cardSummary": "Căn cứ Lam Sơn, núi Chí Linh, giai đoạn cầm cự và xây dựng lực lượng."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Giai đoạn 1418–1423 (Lam Sơn). Căn cứ Lam Sơn, núi Chí Linh, giai đoạn cầm cự và xây dựng lực lượng.",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 8: Khởi nghĩa và chiến tranh giải phóng trong lịch sử Việt Nam. Căn cứ Lam Sơn, núi Chí Linh, giai đoạn cầm cự và xây dựng lực lượng.",
+    "significance": "Là mốc quan trọng trong tiến trình quân sự và bảo vệ/chinh phục độc lập, chủ quyền của Việt Nam theo SGK 11.",
+    "keyFacts": [
+      "Giai đoạn 1418–1423 (Lam Sơn)",
+      "1418–1423",
+      "Thanh Hóa",
+      "Căn cứ Lam Sơn",
+      "núi Chí Linh",
+      "giai đoạn cầm cự và xây dựng lực lượng."
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 11,
+      "book": "Lịch sử 11 - Cánh Diều",
+      "lesson": "Bài 8: Khởi nghĩa và chiến tranh giải phóng trong lịch sử Việt Nam",
+      "pageStart": 59,
+      "pageEnd": 59,
+      "excerpt": "Căn cứ Lam Sơn, núi Chí Linh, giai đoạn cầm cự và xây dựng lực lượng."
+    }
+  ],
+  "hierarchy": {
+    "rootId": "vm-khoi-nghia-va-giai-phong",
+    "parentId": "khoi-nghia-lam-son-1418-1427",
+    "level": 2,
+    "orderInParent": 1
+  },
+  "associations": {
+    "relatedEventIds": [
+      "khoi-nghia-lam-son-1418-1427",
+      "lam-son-gd2-1424-1426",
+      "lam-son-gd3-1426-1427"
+    ],
+    "successorEventIds": [
+      "lam-son-gd2-1424-1426"
+    ]
+  },
+  "display": {
+    "showOnHomepage": false,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "Căn cứ Lam Sơn, núi Chí Linh, giai đoạn cầm cự và xây dựng lực lượng. || [SGK11:lam-son-gd1-1418-1423] Căn cứ Lam Sơn, núi Chí Linh, giai đoạn cầm cự và xây dựng lực lượng.",
+  "merge": {
+    "sourceGrades": "11",
+    "sourceIds": "lam-son-gd1-1418-1423",
+    "mergedCount": 1,
+    "sourceFiles": "SGK11_event_master_flattened_v2(1).xlsx",
+    "textbookRefsAll": "SGK11: Bài 8: Khởi nghĩa và chiến tranh giải phóng trong lịch sử Việt Nam tr.59 [lam-son-gd1-1418-1423]"
+  },
+  "validation": {
+    "status": "CHECK",
+    "issues": "geoType cần marker nhưng thiếu lat/lng"
+  }
+}

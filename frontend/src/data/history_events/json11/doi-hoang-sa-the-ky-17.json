@@ -1,0 +1,124 @@
+{
+  "id": "doi-hoang-sa-the-ky-17",
+  "slug": "doi-hoang-sa-the-ky-17",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Chúa Nguyễn lập Đội Hoàng Sa (thế kỉ XVII)",
+    "short": "Chúa Nguyễn lập Đội Hoàng Sa"
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "sovereignty_establishment",
+    "tags": [
+      "Chúa Nguyễn lập Đội Hoàng Sa (thế kỉ XVII)",
+      "Thế kỉ XVII",
+      "Quảng Ngãi",
+      "Đội Hoàng Sa khai thác sản vật và thực thi chủ quyền; gắn với Lý Sơn."
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1630
+    },
+    "datePrecision": "approximate",
+    "displayDate": "Thế kỉ XVII",
+    "isApproximate": true
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "point",
+      "marker": {
+        "label": "Quảng Ngãi"
+      },
+      "provinceNames": [
+        "Quảng Ngãi"
+      ],
+      "historicalLocations": [
+        "Quảng Ngãi"
+      ]
+    },
+    "focusGeometry": {
+      "mode": "marker"
+    }
+  },
+  "summary": {
+    "homepageTitle": "Chúa Nguyễn lập Đội Hoàng Sa (thế kỉ XVII)",
+    "homepageSummary": "Chúa Nguyễn lập Đội Hoàng Sa (thế kỉ XVII). Đội Hoàng Sa khai thác sản vật và thực thi chủ quyền; gắn với Lý Sơn.",
+    "cardSummary": "Đội Hoàng Sa khai thác sản vật và thực thi chủ quyền; gắn với Lý Sơn."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Chúa Nguyễn lập Đội Hoàng Sa (thế kỉ XVII). Đội Hoàng Sa khai thác sản vật và thực thi chủ quyền; gắn với Lý Sơn.",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 13: Lịch sử bảo vệ chủ quyền, các quyền và lợi ích hợp pháp của Việt Nam ở Biển Đông. Đội Hoàng Sa khai thác sản vật và thực thi chủ quyền; gắn với Lý Sơn.",
+    "significance": "Là mốc quan trọng về tổ chức nhà nước, cải cách hoặc chủ quyền được SGK 11 nhấn mạnh.",
+    "keyFacts": [
+      "Chúa Nguyễn lập Đội Hoàng Sa (thế kỉ XVII)",
+      "Thế kỉ XVII",
+      "Quảng Ngãi",
+      "Đội Hoàng Sa khai thác sản vật và thực thi chủ quyền; gắn với Lý Sơn."
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 11,
+      "book": "Lịch sử 11 - Cánh Diều",
+      "lesson": "Bài 13: Lịch sử bảo vệ chủ quyền, các quyền và lợi ích hợp pháp của Việt Nam ở Biển Đông",
+      "pageStart": 87,
+      "pageEnd": 88,
+      "excerpt": "Đội Hoàng Sa khai thác sản vật và thực thi chủ quyền; gắn với Lý Sơn."
+    }
+  ],
+  "hierarchy": {
+    "rootId": "vm-chu-quyen-bien-dong",
+    "parentId": "vm-chu-quyen-bien-dong",
+    "level": 1,
+    "orderInParent": 1
+  },
+  "associations": {
+    "relatedEventIds": [
+      "doi-bac-hai-the-ky-18",
+      "vm-chu-quyen-bien-dong",
+      "quan-ly-hoang-sa-truong-sa-nguyen",
+      "hiep-dinh-elysee-1949-chuyen-giao-hoang-sa-truong-sa",
+      "vnch-tiep-quan-hoang-sa-truong-sa-1954",
+      "thanh-lap-huyen-dao-1982",
+      "luat-bien-viet-nam-2012",
+      "doc-bien-dong-2002",
+      "giai-phong-truong-sa-1975",
+      "sach-trang-hoang-sa-truong-sa-1979-1988",
+      "viet-nam-tham-gia-unclos-1982",
+      "hiep-dinh-vinh-bac-bo-2000",
+      "su-kien-gac-ma-1988",
+      "trung-quoc-chiem-hoang-sa-1974"
+    ],
+    "successorEventIds": [
+      "doi-bac-hai-the-ky-18"
+    ]
+  },
+  "display": {
+    "showOnHomepage": false,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "Đội Hoàng Sa khai thác sản vật và thực thi chủ quyền; gắn với Lý Sơn. || [SGK11:doi-hoang-sa-the-ky-17] Đội Hoàng Sa khai thác sản vật và thực thi chủ quyền; gắn với Lý Sơn.",
+  "merge": {
+    "sourceGrades": "11",
+    "sourceIds": "doi-hoang-sa-the-ky-17",
+    "mergedCount": 1,
+    "sourceFiles": "SGK11_event_master_flattened_v2(1).xlsx",
+    "textbookRefsAll": "SGK11: Bài 13: Lịch sử bảo vệ chủ quyền, các quyền và lợi ích hợp pháp của Việt Nam ở Biển Đông tr.87-88 [doi-hoang-sa-the-ky-17]"
+  },
+  "validation": {
+    "status": "CHECK",
+    "issues": "geoType cần marker nhưng thiếu lat/lng"
+  }
+}

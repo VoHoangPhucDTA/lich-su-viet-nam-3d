@@ -1,0 +1,119 @@
+{
+  "id": "toan-quoc-khang-chien-19-12-1946",
+  "slug": "toan-quoc-khang-chien-19-12-1946",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Lời kêu gọi Toàn quốc kháng chiến (19-12-1946)",
+    "short": "Lời kêu gọi Toàn quốc kháng chiế"
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "milestone",
+    "tags": [
+      "Lời kêu gọi Toàn quốc kháng chiến (19-12-1946)",
+      1946,
+      "Hà Nội"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1946
+    },
+    "end": {
+      "year": 1946
+    },
+    "datePrecision": "year",
+    "displayDate": "1946",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "point",
+      "marker": {
+        "lat": 21.0285,
+        "lng": 105.8542,
+        "label": "Hà Nội"
+      },
+      "provinceNames": [
+        "Hà Nội"
+      ],
+      "historicalLocations": [
+        "Hà Nội"
+      ]
+    },
+    "focusGeometry": {
+      "mode": "marker",
+      "center": {
+        "lat": 21.0285,
+        "lng": 105.8542
+      },
+      "zoom": 9
+    }
+  },
+  "summary": {
+    "homepageTitle": "Lời kêu gọi Toàn quốc kháng chiến (19-12-1946)",
+    "homepageSummary": "Lời kêu gọi Toàn quốc kháng chiến (19-12-1946). — | Xuất hiện lại trong phần Hồ Chí Minh trang 98",
+    "cardSummary": "— | Xuất hiện lại trong phần Hồ Chí Minh trang 98"
+  },
+  "textbookContent": {
+    "canonicalSummary": "Lời kêu gọi Toàn quốc kháng chiến (19-12-1946).",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 7: Kháng chiến chống thực dân Pháp (1945–1954), trang 37–38, 98. Nội dung trong file Excel được chuẩn hóa để nhập hệ thống; khi triển khai chính thức, nhóm nên bổ sung tường thuật chi tiết bám SGK và tư liệu gốc.",
+    "significance": "Là mốc quan trọng trong tiến trình cách mạng, xây dựng nhà nước, đối ngoại hoặc tổ chức lực lượng theo SGK 12.",
+    "keyFacts": [
+      "Lời kêu gọi Toàn quốc kháng chiến (19-12-1946)",
+      1946,
+      "Hà Nội"
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 12,
+      "book": "Lịch sử 12 - Cánh Diều",
+      "theme": "Chủ đề 3: Cách mạng tháng Tám và kháng chiến bảo vệ độc lập dân tộc",
+      "lesson": "Bài 7: Kháng chiến chống thực dân Pháp (1945–1954)",
+      "pageStart": 37,
+      "pageEnd": 98,
+      "excerpt": "— | Xuất hiện lại trong phần Hồ Chí Minh trang 98"
+    }
+  ],
+  "hierarchy": {
+    "rootId": "khang-chien-chong-phap-1945-1954-collection",
+    "parentId": "khang-chien-chong-phap-1945-1954-collection",
+    "level": 1,
+    "orderInParent": 3
+  },
+  "associations": {
+    "predecessorEventIds": [
+      "khang-chien-nam-bo-1945"
+    ],
+    "successorEventIds": [
+      "khang-chien-chong-phap-1946-1950"
+    ]
+  },
+  "display": {
+    "showOnHomepage": true,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "— | Xuất hiện lại trong phần Hồ Chí Minh trang 98 || [SGK12:toan-quoc-khang-chien-19-12-1946] — | Xuất hiện lại trong phần Hồ Chí Minh trang 98",
+  "merge": {
+    "sourceGrades": "12",
+    "sourceIds": "toan-quoc-khang-chien-19-12-1946",
+    "mergedCount": 1,
+    "sourceFiles": "SGK12_event_master_flattened(1).xlsx",
+    "textbookRefsAll": "SGK12: Bài 7: Kháng chiến chống thực dân Pháp (1945–1954) tr.37-98 [toan-quoc-khang-chien-19-12-1946]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

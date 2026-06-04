@@ -1,0 +1,139 @@
+{
+  "id": "lam-son-gd3-1426-1427",
+  "slug": "lam-son-gd3-1426-1427",
+  "entityType": "event",
+  "eventLevel": "collection",
+  "titles": {
+    "primary": "Giai đoạn 1426–1427 (Lam Sơn): Tốt Động–Chúc Động, Chi Lăng–Xương Giang",
+    "short": "Giai đoạn 1426–1427 (Lam Sơn): Tốt Động–Ch"
+  },
+  "classification": {
+    "eventType": "military",
+    "eventSubtype": "decisive_battle",
+    "tags": [
+      "Giai đoạn 1426–1427 (Lam Sơn): Tốt Động–Chúc Động",
+      "Chi Lăng–Xương Giang",
+      "1426–1427",
+      "Hà Nội",
+      "Lạng Sơn",
+      "Bắc Giang",
+      "Giai đoạn quyết định",
+      "nghĩa quân thắng lớn ở Tốt Động – Chúc Động và Chi Lăng – Xương Giang."
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1426
+    },
+    "end": {
+      "year": 1427
+    },
+    "datePrecision": "period",
+    "displayDate": "1426–1427",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "multi_point",
+      "marker": {
+        "label": "Hà Nội"
+      },
+      "provinceNames": [
+        "Hà Nội",
+        "Lạng Sơn",
+        "Bắc Giang"
+      ],
+      "historicalLocations": [
+        "Hà Nội",
+        "Lạng Sơn",
+        "Bắc Giang"
+      ]
+    },
+    "focusGeometry": {
+      "mode": "bounds",
+      "provinceNames": [
+        "Hà Nội",
+        "Lạng Sơn",
+        "Bắc Giang"
+      ]
+    }
+  },
+  "summary": {
+    "homepageTitle": "Giai đoạn 1426–1427 (Lam Sơn): Tốt Động–Chúc Động, Chi Lăng–Xương Giang",
+    "homepageSummary": "Giai đoạn 1426–1427 (Lam Sơn): Tốt Động–Chúc Động, Chi Lăng–Xương Giang. Giai đoạn quyết định, nghĩa quân thắng lớn ở Tốt Động – Chúc Động và Chi Lăng – Xương Giang.",
+    "cardSummary": "Giai đoạn quyết định, nghĩa quân thắng lớn ở Tốt Động – Chúc Động và Chi Lăng – Xương Giang."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Giai đoạn 1426–1427 (Lam Sơn): Tốt Động–Chúc Động, Chi Lăng–Xương Giang. Giai đoạn quyết định, nghĩa quân thắng lớn ở Tốt Động – Chúc Động và Chi Lăng – Xương Giang.",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 8: Khởi nghĩa và chiến tranh giải phóng trong lịch sử Việt Nam. Giai đoạn quyết định, nghĩa quân thắng lớn ở Tốt Động – Chúc Động và Chi Lăng – Xương Giang.",
+    "significance": "Là mốc quan trọng trong tiến trình quân sự và bảo vệ/chinh phục độc lập, chủ quyền của Việt Nam theo SGK 11.",
+    "keyFacts": [
+      "Giai đoạn 1426–1427 (Lam Sơn): Tốt Động–Chúc Động",
+      "Chi Lăng–Xương Giang",
+      "1426–1427",
+      "Hà Nội",
+      "Lạng Sơn",
+      "Bắc Giang",
+      "Giai đoạn quyết định",
+      "nghĩa quân thắng lớn ở Tốt Động – Chúc Động và Chi Lăng – Xương Giang."
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 11,
+      "book": "Lịch sử 11 - Cánh Diều",
+      "lesson": "Bài 8: Khởi nghĩa và chiến tranh giải phóng trong lịch sử Việt Nam",
+      "pageStart": 59,
+      "pageEnd": 61,
+      "excerpt": "Giai đoạn quyết định, nghĩa quân thắng lớn ở Tốt Động – Chúc Động và Chi Lăng – Xương Giang."
+    }
+  ],
+  "hierarchy": {
+    "rootId": "vm-khoi-nghia-va-giai-phong",
+    "parentId": "khoi-nghia-lam-son-1418-1427",
+    "childIds": [
+      "tran-tot-dong-chuc-dong-1426",
+      "tran-chi-lang-xuong-giang-1427"
+    ],
+    "level": 2,
+    "orderInParent": 3
+  },
+  "associations": {
+    "relatedEventIds": [
+      "tran-tot-dong-chuc-dong-1426",
+      "tran-chi-lang-xuong-giang-1427",
+      "khoi-nghia-lam-son-1418-1427",
+      "lam-son-gd2-1424-1426",
+      "lam-son-gd1-1418-1423"
+    ],
+    "predecessorEventIds": [
+      "lam-son-gd2-1424-1426"
+    ]
+  },
+  "display": {
+    "showOnHomepage": false,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "Giai đoạn quyết định, nghĩa quân thắng lớn ở Tốt Động – Chúc Động và Chi Lăng – Xương Giang. || [SGK11:lam-son-gd3-1426-1427] Giai đoạn quyết định, nghĩa quân thắng lớn ở Tốt Động – Chúc Động và Chi Lăng – Xương Giang.",
+  "merge": {
+    "sourceGrades": "11",
+    "sourceIds": "lam-son-gd3-1426-1427",
+    "mergedCount": 1,
+    "sourceFiles": "SGK11_event_master_flattened_v2(1).xlsx",
+    "textbookRefsAll": "SGK11: Bài 8: Khởi nghĩa và chiến tranh giải phóng trong lịch sử Việt Nam tr.59-61 [lam-son-gd3-1426-1427]"
+  },
+  "validation": {
+    "status": "CHECK",
+    "issues": "multi_point thiếu markers/marker đại diện"
+  }
+}

@@ -1,0 +1,93 @@
+{
+  "id": "nguyen-ai-quoc-gui-yeu-sach-1919",
+  "slug": "nguyen-ai-quoc-gui-yeu-sach-1919",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Nguyễn Ái Quốc gửi Bản Yêu sách của nhân dân An Nam (1919)",
+    "short": "Nguyễn Ái Quốc gửi Bản Yêu sách"
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "milestone",
+    "tags": [
+      "Nguyễn Ái Quốc gửi Bản Yêu sách của nhân dân An Nam (1919)",
+      1919
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1919
+    },
+    "end": {
+      "year": 1919
+    },
+    "datePrecision": "year",
+    "displayDate": "1919",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "no_location"
+    },
+    "focusGeometry": {
+      "mode": "auto"
+    }
+  },
+  "summary": {
+    "homepageTitle": "Nguyễn Ái Quốc gửi Bản Yêu sách của nhân dân An Nam (1919)",
+    "homepageSummary": "Nguyễn Ái Quốc gửi Bản Yêu sách của nhân dân An Nam (1919). Mốc đối ngoại quan trọng đầu tiên của Nguyễn Ái Quốc",
+    "cardSummary": "Mốc đối ngoại quan trọng đầu tiên của Nguyễn Ái Quốc"
+  },
+  "textbookContent": {
+    "canonicalSummary": "Nguyễn Ái Quốc gửi Bản Yêu sách của nhân dân An Nam (1919).",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 12: Hoạt động đối ngoại của Việt Nam từ đầu thế kỉ XX đến năm 1975, trang 75. Nội dung trong file Excel được chuẩn hóa để nhập hệ thống; khi triển khai chính thức, nhóm nên bổ sung tường thuật chi tiết bám SGK và tư liệu gốc.",
+    "significance": "Là mốc quan trọng trong tiến trình cách mạng, xây dựng nhà nước, đối ngoại hoặc tổ chức lực lượng theo SGK 12.",
+    "keyFacts": [
+      "Nguyễn Ái Quốc gửi Bản Yêu sách của nhân dân An Nam (1919)",
+      1919
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 12,
+      "book": "Lịch sử 12 - Cánh Diều",
+      "theme": "Chủ đề 5: Lịch sử đối ngoại của Việt Nam thời cận - hiện đại",
+      "lesson": "Bài 12: Hoạt động đối ngoại của Việt Nam từ đầu thế kỉ XX đến năm 1975",
+      "pageStart": 75,
+      "pageEnd": 75,
+      "excerpt": "Mốc đối ngoại quan trọng đầu tiên của Nguyễn Ái Quốc"
+    }
+  ],
+  "hierarchy": {
+    "rootId": "doi-ngoai-viet-nam-1900-nay-collection",
+    "parentId": "doi-ngoai-dau-tk20-1945",
+    "level": 2,
+    "orderInParent": 1
+  },
+  "display": {
+    "showOnHomepage": true,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "Mốc đối ngoại quan trọng đầu tiên của Nguyễn Ái Quốc || [SGK12:nguyen-ai-quoc-gui-yeu-sach-1919] Mốc đối ngoại quan trọng đầu tiên của Nguyễn Ái Quốc",
+  "merge": {
+    "sourceGrades": "12",
+    "sourceIds": "nguyen-ai-quoc-gui-yeu-sach-1919",
+    "mergedCount": 1,
+    "sourceFiles": "SGK12_event_master_flattened(1).xlsx",
+    "textbookRefsAll": "SGK12: Bài 12: Hoạt động đối ngoại của Việt Nam từ đầu thế kỉ XX đến năm 1975 tr.75 [nguyen-ai-quoc-gui-yeu-sach-1919]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

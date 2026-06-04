@@ -1,0 +1,117 @@
+{
+  "id": "chien-dich-cq88-1988",
+  "slug": "chien-dich-cq88-1988",
+  "entityType": "event",
+  "eventLevel": "collection",
+  "titles": {
+    "primary": "Chiến dịch CQ-88 bảo vệ chủ quyền ở Trường Sa (1988)",
+    "short": "Chiến dịch CQ-88 bảo vệ chủ quyề"
+  },
+  "classification": {
+    "eventType": "military",
+    "eventSubtype": "campaign",
+    "tags": [
+      "Chiến dịch CQ-88 bảo vệ chủ quyền ở Trường Sa (1988)",
+      1988,
+      "Khánh Hòa",
+      "collection"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1988
+    },
+    "end": {
+      "year": 1988
+    },
+    "datePrecision": "year",
+    "displayDate": "1988",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "multi_point",
+      "provinceNames": [
+        "Khánh Hòa"
+      ],
+      "historicalLocations": [
+        "Trường Sa",
+        "Gạc Ma",
+        "Cô Lin",
+        "Len Đao"
+      ]
+    },
+    "focusGeometry": {
+      "mode": "auto",
+      "provinceNames": [
+        "Khánh Hòa"
+      ]
+    }
+  },
+  "summary": {
+    "homepageTitle": "Chiến dịch CQ-88 bảo vệ chủ quyền ở Trường Sa (1988)",
+    "homepageSummary": "Chiến dịch CQ-88 bảo vệ chủ quyền ở Trường Sa (1988). Collection cha; Gạc Ma là sự kiện con, merge với SGK11",
+    "cardSummary": "Collection cha; Gạc Ma là sự kiện con, merge với SGK11"
+  },
+  "textbookContent": {
+    "canonicalSummary": "Chiến dịch CQ-88 bảo vệ chủ quyền ở Trường Sa (1988).",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 9: Bảo vệ Tổ quốc sau năm 1975 và bài học lịch sử, trang 57–58. Nội dung trong file Excel được chuẩn hóa để nhập hệ thống; khi triển khai chính thức, nhóm nên bổ sung tường thuật chi tiết bám SGK và tư liệu gốc.",
+    "significance": "Là mốc quan trọng trong tiến trình đấu tranh quân sự, bảo vệ hoặc giải phóng đất nước của Việt Nam theo SGK 12.",
+    "keyFacts": [
+      "Chiến dịch CQ-88 bảo vệ chủ quyền ở Trường Sa (1988)",
+      1988,
+      "Trường Sa",
+      "Gạc Ma",
+      "Cô Lin",
+      "Len Đao"
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 12,
+      "book": "Lịch sử 12 - Cánh Diều",
+      "theme": "Chủ đề 3: Bảo vệ Tổ quốc sau năm 1975",
+      "lesson": "Bài 9: Bảo vệ Tổ quốc sau năm 1975 và bài học lịch sử",
+      "pageStart": 57,
+      "pageEnd": 58,
+      "excerpt": "Collection cha; Gạc Ma là sự kiện con, merge với SGK11"
+    }
+  ],
+  "hierarchy": {
+    "rootId": "bao-ve-to-quoc-sau-1975-collection",
+    "parentId": "bao-ve-chu-quyen-bien-dong-sau-1975",
+    "level": 2,
+    "orderInParent": 1
+  },
+  "associations": {
+    "successorEventIds": [
+      "trung-quoc-thanh-lap-tam-sa-2012"
+    ]
+  },
+  "display": {
+    "showOnHomepage": true,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "Collection cha; Gạc Ma là sự kiện con, merge với SGK11 || [SGK12:chien-dich-cq88-1988] Collection cha; Gạc Ma là sự kiện con, merge với SGK11",
+  "merge": {
+    "sourceGrades": "12",
+    "sourceIds": "chien-dich-cq88-1988",
+    "mergedCount": 1,
+    "sourceFiles": "SGK12_event_master_flattened(1).xlsx",
+    "textbookRefsAll": "SGK12: Bài 9: Bảo vệ Tổ quốc sau năm 1975 và bài học lịch sử tr.57-58 [chien-dich-cq88-1988]"
+  },
+  "validation": {
+    "status": "CHECK",
+    "issues": "multi_point thiếu markers/marker đại diện"
+  }
+}

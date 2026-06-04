@@ -1,0 +1,89 @@
+{
+  "id": "xu-the-da-cuc-sau-1991",
+  "slug": "xu-the-da-cuc-sau-1991",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Xu thế đa cực sau Chiến tranh lạnh",
+    "short": "Xu thế đa cực sau Chiến tranh lạ"
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "war",
+    "tags": [
+      "Xu thế đa cực sau Chiến tranh lạnh",
+      "1991–nay"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1991
+    },
+    "datePrecision": "period",
+    "displayDate": "1991–nay",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "no_location"
+    },
+    "focusGeometry": {
+      "mode": "auto"
+    }
+  },
+  "summary": {
+    "homepageTitle": "Xu thế đa cực sau Chiến tranh lạnh",
+    "homepageSummary": "Xu thế đa cực sau Chiến tranh lạnh. —",
+    "cardSummary": "—"
+  },
+  "textbookContent": {
+    "canonicalSummary": "Xu thế đa cực sau Chiến tranh lạnh.",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 3: Trật tự thế giới sau Chiến tranh lạnh, trang 16–19. Nội dung trong file Excel được chuẩn hóa để nhập hệ thống; khi triển khai chính thức, nhóm nên bổ sung tường thuật chi tiết bám SGK và tư liệu gốc.",
+    "significance": "Là mốc quan trọng trong tiến trình cách mạng, xây dựng nhà nước, đối ngoại hoặc tổ chức lực lượng theo SGK 12.",
+    "keyFacts": [
+      "Xu thế đa cực sau Chiến tranh lạnh",
+      "1991–nay"
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 12,
+      "book": "Lịch sử 12 - Cánh Diều",
+      "theme": "Chủ đề 1: Thế giới trong và sau Chiến tranh lạnh",
+      "lesson": "Bài 3: Trật tự thế giới sau Chiến tranh lạnh",
+      "pageStart": 16,
+      "pageEnd": 19,
+      "excerpt": "Xu thế đa cực sau Chiến tranh lạnh"
+    }
+  ],
+  "hierarchy": {
+    "rootId": "xu-the-da-cuc-sau-1991",
+    "level": 0,
+    "orderInParent": 19
+  },
+  "display": {
+    "showOnHomepage": false,
+    "showOnTimeline": false,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "— || [SGK12:xu-the-da-cuc-sau-1991] —",
+  "merge": {
+    "sourceGrades": "12",
+    "sourceIds": "xu-the-da-cuc-sau-1991",
+    "mergedCount": 1,
+    "sourceFiles": "SGK12_event_master_flattened(1).xlsx",
+    "textbookRefsAll": "SGK12: Bài 3: Trật tự thế giới sau Chiến tranh lạnh tr.16-19 [xu-the-da-cuc-sau-1991]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

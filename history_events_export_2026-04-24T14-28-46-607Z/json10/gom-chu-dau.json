@@ -1,0 +1,114 @@
+{
+  "id": "gom-chu-dau",
+  "slug": "gom-chu-dau",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Gốm Chu Đậu",
+    "short": "Chu Đậu"
+  },
+  "classification": {
+    "eventType": "economic",
+    "eventSubtype": "craft_village",
+    "tags": [
+      "Chu Đậu",
+      "gốm",
+      "Hải Dương"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      10
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1400
+    },
+    "end": {
+      "year": 1700
+    },
+    "datePrecision": "period",
+    "displayDate": "Thế kỉ XV – XVII",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "point",
+      "marker": {
+        "lat": 20.921,
+        "lng": 106.396,
+        "label": "Chu Đậu"
+      },
+      "provinceNames": [
+        "Hải Dương"
+      ],
+      "historicalLocations": [
+        "Chu Đậu"
+      ]
+    },
+    "focusGeometry": {
+      "mode": "marker",
+      "center": {
+        "lat": 20.921,
+        "lng": 106.396
+      },
+      "zoom": 11,
+      "provinceNames": [
+        "Hải Dương"
+      ]
+    }
+  },
+  "summary": {
+    "homepageTitle": "Gốm Chu Đậu",
+    "homepageSummary": "Gốm Chu Đậu là sản phẩm thủ công nổi bật, góp phần thể hiện trình độ nghề gốm của Đại Việt.",
+    "cardSummary": "Gốm Chu Đậu phát triển mạnh thời Lê – Mạc."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Chu Đậu là trung tâm gốm tiêu biểu ở vùng Hải Dương, phản ánh sự phát triển của nghề gốm Đại Việt.",
+    "detailedNarrative": "SGK giới thiệu gốm Chu Đậu như một thành tựu tiêu biểu của thủ công nghiệp Đại Việt. Sản phẩm gốm nơi đây phong phú, tinh xảo và có mặt trong mạng lưới trao đổi rộng lớn.",
+    "significance": "Khẳng định tay nghề, tính sáng tạo và khả năng thương mại của thủ công nghiệp Đại Việt.",
+    "keyFacts": [
+      "Nằm ở Hải Dương",
+      "Phát triển mạnh trong thời kì trung đại",
+      "Là thành tựu thủ công nổi bật"
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 10,
+      "book": "Lịch sử 10 - Cánh Diều",
+      "theme": "Chủ đề 6: Một số nền văn minh trên đất nước Việt Nam trước năm 1858",
+      "lesson": "Bài 15: Những thành tựu tiêu biểu của văn minh Đại Việt",
+      "pageStart": 103,
+      "pageEnd": 103,
+      "excerpt": "Gốm Chu Đậu là một sản phẩm thủ công tiêu biểu của Đại Việt."
+    }
+  ],
+  "hierarchy": {
+    "rootId": "vm-dai-viet",
+    "parentId": "vm-dai-viet",
+    "level": 1,
+    "orderInParent": 18
+  },
+  "display": {
+    "showOnHomepage": true,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "Tọa độ hiện tại cần kiểm chứng lại bằng bản đồ trước khi dùng chính thức; địa danh chắc chắn là thôn Chu Đậu, xã Thái Tân, Nam Sách, Hải Dương. || [SGK10:gom-chu-dau] Tọa độ hiện tại cần kiểm chứng lại bằng bản đồ trước khi dùng chính thức; địa danh chắc chắn là thôn Chu Đậu, xã Thái Tân, Nam Sách, Hải Dương.",
+  "merge": {
+    "sourceGrades": "10",
+    "sourceIds": "gom-chu-dau",
+    "mergedCount": 1,
+    "sourceFiles": "SGK10_event_master_flattened_v2(1).xlsx",
+    "textbookRefsAll": "SGK10: Bài 15: Những thành tựu tiêu biểu của văn minh Đại Việt tr.103 [gom-chu-dau]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

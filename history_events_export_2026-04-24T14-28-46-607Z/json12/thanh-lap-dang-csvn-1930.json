@@ -1,0 +1,101 @@
+{
+  "id": "thanh-lap-dang-csvn-1930",
+  "slug": "thanh-lap-dang-csvn-1930",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Thành lập Đảng Cộng sản Việt Nam (đầu năm 1930)",
+    "short": "Thành lập Đảng Cộng sản Việt Nam"
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "organization_founding",
+    "tags": [
+      "Thành lập Đảng Cộng sản Việt Nam (đầu năm 1930)",
+      1930
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1930
+    },
+    "end": {
+      "year": 1930
+    },
+    "datePrecision": "year",
+    "displayDate": "1930",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "no_location"
+    },
+    "focusGeometry": {
+      "mode": "auto"
+    }
+  },
+  "summary": {
+    "homepageTitle": "Thành lập Đảng Cộng sản Việt Nam (đầu năm 1930)",
+    "homepageSummary": "Thành lập Đảng Cộng sản Việt Nam (đầu năm 1930). —",
+    "cardSummary": "—"
+  },
+  "textbookContent": {
+    "canonicalSummary": "Thành lập Đảng Cộng sản Việt Nam (đầu năm 1930).",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 14–16: Hồ Chí Minh – cuộc đời, sự nghiệp, dấu ấn, trang 94–95. Nội dung trong file Excel được chuẩn hóa để nhập hệ thống; khi triển khai chính thức, nhóm nên bổ sung tường thuật chi tiết bám SGK và tư liệu gốc.",
+    "significance": "Là mốc quan trọng trong tiến trình cách mạng, xây dựng nhà nước, đối ngoại hoặc tổ chức lực lượng theo SGK 12.",
+    "keyFacts": [
+      "Thành lập Đảng Cộng sản Việt Nam (đầu năm 1930)",
+      1930
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 12,
+      "book": "Lịch sử 12 - Cánh Diều",
+      "theme": "Chủ đề 6: Chủ tịch Hồ Chí Minh",
+      "lesson": "Bài 14–16: Hồ Chí Minh – cuộc đời, sự nghiệp, dấu ấn",
+      "pageStart": 94,
+      "pageEnd": 95,
+      "excerpt": "Thành lập Đảng Cộng sản Việt Nam (đầu năm 1930)"
+    }
+  ],
+  "hierarchy": {
+    "rootId": "ho-chi-minh-cuoc-doi-su-nghiep-collection",
+    "parentId": "ho-chi-minh-cuoc-doi-su-nghiep-collection",
+    "level": 1,
+    "orderInParent": 5
+  },
+  "associations": {
+    "predecessorEventIds": [
+      "thanh-lap-hoi-vn-cach-mang-thanh-nien-1925"
+    ],
+    "successorEventIds": [
+      "mat-tran-viet-minh"
+    ]
+  },
+  "display": {
+    "showOnHomepage": true,
+    "showOnTimeline": true,
+    "featured": true
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "— || [SGK12:thanh-lap-dang-csvn-1930] —",
+  "merge": {
+    "sourceGrades": "12",
+    "sourceIds": "thanh-lap-dang-csvn-1930",
+    "mergedCount": 1,
+    "sourceFiles": "SGK12_event_master_flattened(1).xlsx",
+    "textbookRefsAll": "SGK12: Bài 14–16: Hồ Chí Minh – cuộc đời, sự nghiệp, dấu ấn tr.94-95 [thanh-lap-dang-csvn-1930]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

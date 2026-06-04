@@ -1,0 +1,102 @@
+{
+  "id": "doi-moi-gd1-1986-1995",
+  "slug": "doi-moi-gd1-1986-1995",
+  "entityType": "event",
+  "eventLevel": "collection",
+  "titles": {
+    "primary": "Khởi đầu Đổi mới (1986–1995)",
+    "short": "Khởi đầu Đổi mới"
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "reform",
+    "tags": [
+      "Khởi đầu Đổi mới (1986–1995)",
+      "1986–1995",
+      "collection"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1986
+    },
+    "end": {
+      "year": 1995
+    },
+    "datePrecision": "period",
+    "displayDate": "1986–1995",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "nationwide"
+    },
+    "focusGeometry": {
+      "mode": "auto"
+    }
+  },
+  "summary": {
+    "homepageTitle": "Khởi đầu Đổi mới (1986–1995)",
+    "homepageSummary": "Khởi đầu Đổi mới (1986–1995). —",
+    "cardSummary": "—"
+  },
+  "textbookContent": {
+    "canonicalSummary": "Khởi đầu Đổi mới (1986–1995).",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 10: Công cuộc Đổi mới ở Việt Nam từ năm 1986 đến nay, trang 62–63. Nội dung trong file Excel được chuẩn hóa để nhập hệ thống; khi triển khai chính thức, nhóm nên bổ sung tường thuật chi tiết bám SGK và tư liệu gốc.",
+    "significance": "Là mốc quan trọng trong tiến trình cách mạng, xây dựng nhà nước, đối ngoại hoặc tổ chức lực lượng theo SGK 12.",
+    "keyFacts": [
+      "Khởi đầu Đổi mới (1986–1995)",
+      "1986–1995"
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 12,
+      "book": "Lịch sử 12 - Cánh Diều",
+      "theme": "Chủ đề 4: Công cuộc Đổi mới ở Việt Nam từ năm 1986 đến nay",
+      "lesson": "Bài 10: Công cuộc Đổi mới ở Việt Nam từ năm 1986 đến nay",
+      "pageStart": 62,
+      "pageEnd": 63,
+      "excerpt": "Khởi đầu Đổi mới (1986–1995)"
+    }
+  ],
+  "hierarchy": {
+    "rootId": "doi-moi-1986-collection",
+    "parentId": "doi-moi-1986-collection",
+    "level": 1,
+    "orderInParent": 2
+  },
+  "associations": {
+    "predecessorEventIds": [
+      "dai-hoi-vi-1986"
+    ],
+    "successorEventIds": [
+      "doi-moi-gd2-1996-2006"
+    ]
+  },
+  "display": {
+    "showOnHomepage": true,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "— || [SGK12:doi-moi-gd1-1986-1995] —",
+  "merge": {
+    "sourceGrades": "12",
+    "sourceIds": "doi-moi-gd1-1986-1995",
+    "mergedCount": 1,
+    "sourceFiles": "SGK12_event_master_flattened(1).xlsx",
+    "textbookRefsAll": "SGK12: Bài 10: Công cuộc Đổi mới ở Việt Nam từ năm 1986 đến nay tr.62-63 [doi-moi-gd1-1986-1995]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

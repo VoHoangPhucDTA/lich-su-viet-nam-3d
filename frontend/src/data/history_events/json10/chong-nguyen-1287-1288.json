@@ -1,0 +1,152 @@
+{
+  "id": "chong-nguyen-1287-1288",
+  "slug": "chong-nguyen-1287-1288",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Kháng chiến chống quân Nguyên (1287–1288)",
+    "short": "Chống Nguyên",
+    "alternatives": [
+      "Trận Bạch Đằng năm 1288",
+      "bach-dang-1288"
+    ]
+  },
+  "classification": {
+    "eventType": "military",
+    "eventSubtype": "battle",
+    "tags": [
+      "Kháng chiến chống quân Nguyên (1287–1288)",
+      "1287–1288",
+      "Quảng Ninh",
+      "Hải Phòng",
+      "Hải Dương",
+      "Trùng SGK10",
+      "trùng_sgk10",
+      "Bạch Đằng",
+      1288,
+      "Trần Hưng Đạo",
+      "mentioned_in_grade10"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      10,
+      11
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1287
+    },
+    "end": {
+      "year": 1288
+    },
+    "datePrecision": "period",
+    "displayDate": "1287–1288",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "multi_point",
+      "marker": {
+        "lat": 20.95,
+        "lng": 106.82,
+        "label": "Sông Bạch Đằng"
+      },
+      "provinceNames": [
+        "Quảng Ninh",
+        "Hải Phòng",
+        "Hải Dương"
+      ],
+      "historicalLocations": [
+        "Quảng Ninh",
+        "Hải Phòng",
+        "Hải Dương",
+        "Sông Bạch Đằng"
+      ]
+    },
+    "focusGeometry": {
+      "mode": "bounds",
+      "center": {
+        "lat": 20.95,
+        "lng": 106.82
+      },
+      "zoom": 8,
+      "provinceNames": [
+        "Quảng Ninh",
+        "Hải Phòng",
+        "Hải Dương"
+      ]
+    }
+  },
+  "summary": {
+    "homepageTitle": "Kháng chiến chống quân Nguyên (1287–1288)",
+    "homepageSummary": "Kháng chiến chống quân Nguyên (1287–1288). Trùng SGK10; SGK11 bổ sung sơ đồ diễn biến và chiến thắng Bạch Đằng 1288.",
+    "cardSummary": "Trùng SGK10; SGK11 bổ sung sơ đồ diễn biến và chiến thắng Bạch Đằng 1288."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Kháng chiến chống quân Nguyên (1287–1288). Trùng SGK10; SGK11 bổ sung sơ đồ diễn biến và chiến thắng Bạch Đằng 1288.",
+    "detailedNarrative": "Trong SGK 10, trận Bạch Đằng năm 1288 chỉ được nhắc ngắn cùng các trận Bạch Đằng khác như một ví dụ lịch sử. Dữ liệu có thể giữ để kết nối nội dung SGK 10 với các bài học cụ thể hơn ở lớp trên.",
+    "significance": "Là mốc quan trọng trong tiến trình quân sự và bảo vệ/chinh phục độc lập, chủ quyền của Việt Nam theo SGK 11.",
+    "keyFacts": [
+      "Kháng chiến chống quân Nguyên (1287–1288)",
+      "1287–1288",
+      "Quảng Ninh",
+      "Hải Phòng",
+      "Hải Dương",
+      "Trùng SGK10",
+      "Năm 1288",
+      "Gắn với sông Bạch Đằng",
+      "Chỉ được đề cập ngắn trong SGK 10"
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 11,
+      "book": "Lịch sử 11 - Cánh Diều",
+      "lesson": "Bài 7: Chiến tranh bảo vệ Tổ quốc trong lịch sử Việt Nam",
+      "pageStart": 48,
+      "pageEnd": 48,
+      "excerpt": "Trùng SGK10; SGK11 bổ sung sơ đồ diễn biến và chiến thắng Bạch Đằng 1288."
+    }
+  ],
+  "hierarchy": {
+    "rootId": "vm-chien-tranh-bao-ve-to-quoc",
+    "parentId": "ba-lan-chong-mong-nguyen",
+    "level": 2,
+    "orderInParent": 3
+  },
+  "associations": {
+    "relatedEventIds": [
+      "chong-nguyen-1285",
+      "chong-mong-co-1258",
+      "ba-lan-chong-mong-nguyen",
+      "bach-dang-938-ngo-quyen-xung-vuong",
+      "khang-chien-chong-tong-981"
+    ],
+    "predecessorEventIds": [
+      "chong-nguyen-1285"
+    ]
+  },
+  "display": {
+    "showOnHomepage": false,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "Trùng SGK10; SGK11 bổ sung sơ đồ diễn biến và chiến thắng Bạch Đằng 1288. | Trùng SGK10: bach-dang-1288 || [SGK10:bach-dang-1288] Chỉ được đề cập ngắn trong SGK 10; nên bổ sung chi tiết từ SGK lớp 11/12 hoặc nguồn uy tín khác. || [SGK11:chong-nguyen-1287-1288] Trùng SGK10; SGK11 bổ sung sơ đồ diễn biến và chiến thắng Bạch Đằng 1288. | Trùng SGK10: bach-dang-1288",
+  "merge": {
+    "sourceGrades": "10 | 11",
+    "sourceIds": "bach-dang-1288 | chong-nguyen-1287-1288",
+    "mergedCount": 2,
+    "sourceFiles": "SGK10_event_master_flattened_v2(1).xlsx | SGK11_event_master_flattened_v2(1).xlsx",
+    "textbookRefsAll": "SGK10: Bài 3: Sử học với các lĩnh vực, ngành nghề hiện đại tr.20-25 [bach-dang-1288] || SGK11: Bài 7: Chiến tranh bảo vệ Tổ quốc trong lịch sử Việt Nam tr.48 [chong-nguyen-1287-1288]",
+    "notes": "Merged 2 source rows into canonical id 'chong-nguyen-1287-1288'."
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

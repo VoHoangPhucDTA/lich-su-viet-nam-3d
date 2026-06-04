@@ -1,0 +1,113 @@
+{
+  "id": "nha-ly-thanh-lap",
+  "slug": "nha-ly-thanh-lap",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Nhà Lý thành lập",
+    "short": "Nhà Lý"
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "dynasty_foundation",
+    "tags": [
+      "Nhà Lý",
+      1009,
+      "Lý Công Uẩn"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      10
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1009
+    },
+    "datePrecision": "year",
+    "displayDate": "Năm 1009",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "point",
+      "marker": {
+        "lat": 21.0285,
+        "lng": 105.8542,
+        "label": "Hoa Lư/Thăng Long"
+      },
+      "provinceNames": [
+        "Ninh Bình",
+        "Hà Nội"
+      ],
+      "historicalLocations": [
+        "Hoa Lư",
+        "Thăng Long"
+      ]
+    },
+    "focusGeometry": {
+      "mode": "bounds",
+      "center": {
+        "lat": 21.0285,
+        "lng": 105.8542
+      },
+      "zoom": 8,
+      "provinceNames": [
+        "Ninh Bình",
+        "Hà Nội"
+      ]
+    }
+  },
+  "summary": {
+    "homepageTitle": "Nhà Lý thành lập",
+    "homepageSummary": "Sự thành lập nhà Lý mở ra giai đoạn phát triển mạnh của quốc gia Đại Việt.",
+    "cardSummary": "Nhà Lý thành lập năm 1009."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Năm 1009, nhà Lý được thành lập, đánh dấu một bước phát triển mới của nhà nước phong kiến Việt Nam.",
+    "detailedNarrative": "Theo SGK, sự ra đời của nhà Lý gắn với quá trình củng cố quốc gia độc lập, tăng cường quyền lực trung ương và chuẩn bị cho việc dời đô ra Thăng Long. Đây là triều đại có vai trò quan trọng trong việc mở đầu giai đoạn phát triển rực rỡ của văn minh Đại Việt.",
+    "significance": "Tạo tiền đề cho những cải cách lớn về chính trị, kinh đô, giáo dục và văn hóa ở thời Lý.",
+    "keyFacts": [
+      "Năm 1009",
+      "Là triều đại mở đầu giai đoạn phát triển mạnh của Đại Việt",
+      "Liên quan đến Lý Công Uẩn"
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 10,
+      "book": "Lịch sử 10 - Cánh Diều",
+      "theme": "Chủ đề 6: Một số nền văn minh trên đất nước Việt Nam trước năm 1858",
+      "lesson": "Bài 14: Cơ sở hình thành văn minh Đại Việt",
+      "pageStart": 97,
+      "pageEnd": 98,
+      "excerpt": "Năm 1009, nhà Lý được thành lập."
+    }
+  ],
+  "hierarchy": {
+    "rootId": "vm-dai-viet",
+    "parentId": "vm-dai-viet",
+    "level": 1,
+    "orderInParent": 3
+  },
+  "display": {
+    "showOnHomepage": true,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "merge": {
+    "sourceGrades": "10",
+    "sourceIds": "nha-ly-thanh-lap",
+    "mergedCount": 1,
+    "sourceFiles": "SGK10_event_master_flattened_v2(1).xlsx",
+    "textbookRefsAll": "SGK10: Bài 14: Cơ sở hình thành văn minh Đại Việt tr.97-98 [nha-ly-thanh-lap]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

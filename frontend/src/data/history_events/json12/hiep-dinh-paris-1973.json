@@ -1,0 +1,98 @@
+{
+  "id": "hiep-dinh-paris-1973",
+  "slug": "hiep-dinh-paris-1973",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Hiệp định Pa-ri (27-1-1973)",
+    "short": "Hiệp định Pa-ri"
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "diplomatic_agreement",
+    "tags": [
+      "Hiệp định Pa-ri (27-1-1973)",
+      1973
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1973
+    },
+    "end": {
+      "year": 1973
+    },
+    "datePrecision": "year",
+    "displayDate": "1973",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "no_location"
+    },
+    "focusGeometry": {
+      "mode": "auto"
+    }
+  },
+  "summary": {
+    "homepageTitle": "Hiệp định Pa-ri (27-1-1973)",
+    "homepageSummary": "Hiệp định Pa-ri (27-1-1973). —",
+    "cardSummary": "—"
+  },
+  "textbookContent": {
+    "canonicalSummary": "Hiệp định Pa-ri (27-1-1973).",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 8: Kháng chiến chống Mỹ, cứu nước (1954–1975), trang 49–50. Nội dung trong file Excel được chuẩn hóa để nhập hệ thống; khi triển khai chính thức, nhóm nên bổ sung tường thuật chi tiết bám SGK và tư liệu gốc.",
+    "significance": "Là mốc quan trọng trong tiến trình cách mạng, xây dựng nhà nước, đối ngoại hoặc tổ chức lực lượng theo SGK 12.",
+    "keyFacts": [
+      "Hiệp định Pa-ri (27-1-1973)",
+      1973
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 12,
+      "book": "Lịch sử 12 - Cánh Diều",
+      "theme": "Chủ đề 3: Cách mạng tháng Tám và kháng chiến bảo vệ độc lập dân tộc",
+      "lesson": "Bài 8: Kháng chiến chống Mỹ, cứu nước (1954–1975)",
+      "pageStart": 49,
+      "pageEnd": 50,
+      "excerpt": "Hiệp định Pa-ri (27-1-1973)"
+    }
+  ],
+  "hierarchy": {
+    "rootId": "khang-chien-chong-my-collection",
+    "parentId": "viet-nam-hoa-chien-tranh-1969-1973",
+    "level": 2,
+    "orderInParent": 5
+  },
+  "associations": {
+    "predecessorEventIds": [
+      "dien-bien-phu-tren-khong-1972"
+    ]
+  },
+  "display": {
+    "showOnHomepage": true,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "— || [SGK12:hiep-dinh-paris-1973] —",
+  "merge": {
+    "sourceGrades": "12",
+    "sourceIds": "hiep-dinh-paris-1973",
+    "mergedCount": 1,
+    "sourceFiles": "SGK12_event_master_flattened(1).xlsx",
+    "textbookRefsAll": "SGK12: Bài 8: Kháng chiến chống Mỹ, cứu nước (1954–1975) tr.49-50 [hiep-dinh-paris-1973]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

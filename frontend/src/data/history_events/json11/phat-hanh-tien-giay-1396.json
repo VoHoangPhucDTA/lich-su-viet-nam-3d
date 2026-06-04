@@ -1,0 +1,109 @@
+{
+  "id": "phat-hanh-tien-giay-1396",
+  "slug": "phat-hanh-tien-giay-1396",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Phát hành tiền giấy Thông bảo hội sao (1396)",
+    "short": "Phát hành tiền giấy Thông bảo hội sao"
+  },
+  "classification": {
+    "eventType": "economic",
+    "eventSubtype": "monetary_reform",
+    "tags": [
+      "Phát hành tiền giấy Thông bảo hội sao (1396)",
+      "Năm 1396",
+      "Một biện pháp kinh tế quan trọng trong cải cách Hồ Quý Ly."
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1396
+    },
+    "datePrecision": "year",
+    "displayDate": "Năm 1396",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "no_location",
+      "marker": {
+        "label": "Phát hành tiền giấy Thông bảo hội sao"
+      }
+    },
+    "focusGeometry": {
+      "mode": "auto"
+    }
+  },
+  "summary": {
+    "homepageTitle": "Phát hành tiền giấy Thông bảo hội sao (1396)",
+    "homepageSummary": "Phát hành tiền giấy Thông bảo hội sao (1396). Một biện pháp kinh tế quan trọng trong cải cách Hồ Quý Ly.",
+    "cardSummary": "Một biện pháp kinh tế quan trọng trong cải cách Hồ Quý Ly."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Phát hành tiền giấy Thông bảo hội sao (1396). Một biện pháp kinh tế quan trọng trong cải cách Hồ Quý Ly.",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 9: Cuộc cải cách của Hồ Quý Ly và triều Hồ. Một biện pháp kinh tế quan trọng trong cải cách Hồ Quý Ly.",
+    "significance": "Thể hiện nội dung cải cách hoặc chuyển biến kinh tế quan trọng trong SGK 11.",
+    "keyFacts": [
+      "Phát hành tiền giấy Thông bảo hội sao (1396)",
+      "Năm 1396",
+      "Một biện pháp kinh tế quan trọng trong cải cách Hồ Quý Ly."
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 11,
+      "book": "Lịch sử 11 - Cánh Diều",
+      "lesson": "Bài 9: Cuộc cải cách của Hồ Quý Ly và triều Hồ",
+      "pageStart": 64,
+      "pageEnd": 66,
+      "excerpt": "Một biện pháp kinh tế quan trọng trong cải cách Hồ Quý Ly."
+    }
+  ],
+  "hierarchy": {
+    "rootId": "cai-cach-ho-quy-ly",
+    "parentId": "cai-cach-ho-quy-ly",
+    "level": 1,
+    "orderInParent": 4
+  },
+  "associations": {
+    "relatedEventIds": [
+      "cai-cach-hql-chinh-tri",
+      "thanh-nha-ho",
+      "cai-cach-hql-kinh-te-xa-hoi",
+      "cai-cach-ho-quy-ly",
+      "cai-cach-hql-van-hoa"
+    ],
+    "predecessorEventIds": [
+      "cai-cach-hql-van-hoa"
+    ],
+    "successorEventIds": [
+      "thanh-nha-ho"
+    ]
+  },
+  "display": {
+    "showOnHomepage": false,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "Một biện pháp kinh tế quan trọng trong cải cách Hồ Quý Ly. || [SGK11:phat-hanh-tien-giay-1396] Một biện pháp kinh tế quan trọng trong cải cách Hồ Quý Ly.",
+  "merge": {
+    "sourceGrades": "11",
+    "sourceIds": "phat-hanh-tien-giay-1396",
+    "mergedCount": 1,
+    "sourceFiles": "SGK11_event_master_flattened_v2(1).xlsx",
+    "textbookRefsAll": "SGK11: Bài 9: Cuộc cải cách của Hồ Quý Ly và triều Hồ tr.64-66 [phat-hanh-tien-giay-1396]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

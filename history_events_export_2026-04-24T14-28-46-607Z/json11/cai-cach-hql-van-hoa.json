@@ -1,0 +1,118 @@
+{
+  "id": "cai-cach-hql-van-hoa",
+  "slug": "cai-cach-hql-van-hoa",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Cải cách văn hóa của Hồ Quý Ly",
+    "short": "Cải cách văn hóa của Hồ Quý Ly"
+  },
+  "classification": {
+    "eventType": "cultural",
+    "eventSubtype": "cultural_reform",
+    "tags": [
+      "Cải cách văn hóa của Hồ Quý Ly",
+      "1390s–1400s",
+      "Đề cao Nho giáo",
+      "hạn chế Phật giáo",
+      "khuyến khích chữ Nôm",
+      "cải cách khoa cử."
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1392
+    },
+    "end": {
+      "year": 1407
+    },
+    "datePrecision": "period",
+    "displayDate": "1390s–1400s",
+    "isApproximate": true
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "no_location",
+      "marker": {
+        "label": "Cải cách văn hóa của Hồ Quý Ly"
+      }
+    },
+    "focusGeometry": {
+      "mode": "auto"
+    }
+  },
+  "summary": {
+    "homepageTitle": "Cải cách văn hóa của Hồ Quý Ly",
+    "homepageSummary": "Cải cách văn hóa của Hồ Quý Ly. Đề cao Nho giáo, hạn chế Phật giáo, khuyến khích chữ Nôm, cải cách khoa cử.",
+    "cardSummary": "Đề cao Nho giáo, hạn chế Phật giáo, khuyến khích chữ Nôm, cải cách khoa cử."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Cải cách văn hóa của Hồ Quý Ly. Đề cao Nho giáo, hạn chế Phật giáo, khuyến khích chữ Nôm, cải cách khoa cử.",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 9: Cuộc cải cách của Hồ Quý Ly và triều Hồ. Đề cao Nho giáo, hạn chế Phật giáo, khuyến khích chữ Nôm, cải cách khoa cử.",
+    "significance": "Phản ánh biến đổi văn hóa, giáo dục hoặc tư liệu lịch sử quan trọng trong SGK 11.",
+    "keyFacts": [
+      "Cải cách văn hóa của Hồ Quý Ly",
+      "1390s–1400s",
+      "Đề cao Nho giáo",
+      "hạn chế Phật giáo",
+      "khuyến khích chữ Nôm",
+      "cải cách khoa cử."
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 11,
+      "book": "Lịch sử 11 - Cánh Diều",
+      "lesson": "Bài 9: Cuộc cải cách của Hồ Quý Ly và triều Hồ",
+      "pageStart": 67,
+      "pageEnd": 67,
+      "excerpt": "Đề cao Nho giáo, hạn chế Phật giáo, khuyến khích chữ Nôm, cải cách khoa cử."
+    }
+  ],
+  "hierarchy": {
+    "rootId": "cai-cach-ho-quy-ly",
+    "parentId": "cai-cach-ho-quy-ly",
+    "level": 1,
+    "orderInParent": 3
+  },
+  "associations": {
+    "relatedEventIds": [
+      "phat-hanh-tien-giay-1396",
+      "cai-cach-hql-chinh-tri",
+      "thanh-nha-ho",
+      "cai-cach-hql-kinh-te-xa-hoi",
+      "cai-cach-ho-quy-ly"
+    ],
+    "predecessorEventIds": [
+      "cai-cach-hql-kinh-te-xa-hoi"
+    ],
+    "successorEventIds": [
+      "phat-hanh-tien-giay-1396"
+    ]
+  },
+  "display": {
+    "showOnHomepage": false,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "Đề cao Nho giáo, hạn chế Phật giáo, khuyến khích chữ Nôm, cải cách khoa cử. || [SGK11:cai-cach-hql-van-hoa] Đề cao Nho giáo, hạn chế Phật giáo, khuyến khích chữ Nôm, cải cách khoa cử.",
+  "merge": {
+    "sourceGrades": "11",
+    "sourceIds": "cai-cach-hql-van-hoa",
+    "mergedCount": 1,
+    "sourceFiles": "SGK11_event_master_flattened_v2(1).xlsx",
+    "textbookRefsAll": "SGK11: Bài 9: Cuộc cải cách của Hồ Quý Ly và triều Hồ tr.67 [cai-cach-hql-van-hoa]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

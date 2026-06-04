@@ -1,0 +1,100 @@
+{
+  "id": "phap-bao-ho-lao-1893",
+  "slug": "phap-bao-ho-lao-1893",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Pháp buộc Xiêm nhượng Lào (1893)",
+    "short": "Lào 1893"
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "protectorate_treaty",
+    "tags": [
+      "Pháp buộc Xiêm nhượng Lào (1893)",
+      "Năm 1893",
+      "RAG only"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1893
+    },
+    "datePrecision": "year",
+    "displayDate": "Năm 1893",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "no_location",
+      "marker": {
+        "label": "Lào"
+      }
+    },
+    "focusGeometry": {
+      "mode": "auto"
+    }
+  },
+  "summary": {
+    "homepageTitle": "Pháp buộc Xiêm nhượng Lào (1893)",
+    "homepageSummary": "Pháp buộc Xiêm nhượng Lào (1893). Sự kiện bối cảnh trong quá trình Pháp hoàn tất quyền kiểm soát Lào.",
+    "cardSummary": "Sự kiện bối cảnh trong quá trình Pháp hoàn tất quyền kiểm soát Lào."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Pháp buộc Xiêm nhượng Lào (1893). Sự kiện bối cảnh trong quá trình Pháp hoàn tất quyền kiểm soát Lào.",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 5: Quá trình xâm lược và cai trị của chủ nghĩa thực dân ở Đông Nam Á. Sự kiện bối cảnh trong quá trình Pháp hoàn tất quyền kiểm soát Lào.",
+    "significance": "Giúp hoàn thiện bức tranh Đông Dương thuộc Pháp trong SGK 11.",
+    "keyFacts": [
+      "Pháp buộc Xiêm nhượng Lào (1893)",
+      "Năm 1893",
+      "Bối cảnh Đông Dương; giữ để phục vụ RAG",
+      "không hiển thị bản đồ chính của Lịch sử Việt Nam."
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 11,
+      "book": "Lịch sử 11 - Cánh Diều",
+      "lesson": "Bài 5: Quá trình xâm lược và cai trị của chủ nghĩa thực dân ở Đông Nam Á",
+      "pageStart": 34,
+      "pageEnd": 34,
+      "excerpt": "Sự kiện bối cảnh trong quá trình Pháp hoàn tất quyền kiểm soát Lào."
+    }
+  ],
+  "hierarchy": {
+    "rootId": "phap-bao-ho-lao-1893",
+    "level": 0,
+    "orderInParent": 9
+  },
+  "associations": {
+    "relatedEventIds": [
+      "lien-bang-dong-duong",
+      "phap-bao-ho-campuchia-1863"
+    ]
+  },
+  "display": {
+    "showOnHomepage": false,
+    "showOnTimeline": false,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "Bối cảnh Đông Dương; giữ để phục vụ RAG, không hiển thị bản đồ chính của Lịch sử Việt Nam. || [SGK11:phap-bao-ho-lao-1893] Bối cảnh Đông Dương; giữ để phục vụ RAG, không hiển thị bản đồ chính của Lịch sử Việt Nam.",
+  "merge": {
+    "sourceGrades": "11",
+    "sourceIds": "phap-bao-ho-lao-1893",
+    "mergedCount": 1,
+    "sourceFiles": "SGK11_event_master_flattened_v2(1).xlsx",
+    "textbookRefsAll": "SGK11: Bài 5: Quá trình xâm lược và cai trị của chủ nghĩa thực dân ở Đông Nam Á tr.34 [phap-bao-ho-lao-1893]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

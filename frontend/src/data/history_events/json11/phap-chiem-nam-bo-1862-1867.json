@@ -1,0 +1,126 @@
+{
+  "id": "phap-chiem-nam-bo-1862-1867",
+  "slug": "phap-chiem-nam-bo-1862-1867",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Pháp chiếm Nam Bộ (1862–1867)",
+    "short": "Pháp chiếm Nam Bộ"
+  },
+  "classification": {
+    "eventType": "military",
+    "eventSubtype": "colonial_conquest",
+    "tags": [
+      "Pháp chiếm Nam Bộ (1862–1867)",
+      "1862–1867",
+      "TP.HCM",
+      "Nam Bộ",
+      "Ba tỉnh miền Đông bị nhượng năm 1862; đến 1867 toàn bộ Nam Bộ rơi vào tay Pháp."
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1862
+    },
+    "end": {
+      "year": 1867
+    },
+    "datePrecision": "period",
+    "displayDate": "1862–1867",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "polygon",
+      "marker": {
+        "label": "TP.HCM"
+      },
+      "provinceNames": [
+        "TP.HCM",
+        "Nam Bộ"
+      ],
+      "historicalLocations": [
+        "TP.HCM",
+        "Nam Bộ"
+      ]
+    },
+    "focusGeometry": {
+      "mode": "bounds",
+      "provinceNames": [
+        "TP.HCM",
+        "Nam Bộ"
+      ]
+    }
+  },
+  "summary": {
+    "homepageTitle": "Pháp chiếm Nam Bộ (1862–1867)",
+    "homepageSummary": "Pháp chiếm Nam Bộ (1862–1867). Ba tỉnh miền Đông bị nhượng năm 1862; đến 1867 toàn bộ Nam Bộ rơi vào tay Pháp.",
+    "cardSummary": "Ba tỉnh miền Đông bị nhượng năm 1862; đến 1867 toàn bộ Nam Bộ rơi vào tay Pháp."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Pháp chiếm Nam Bộ (1862–1867). Ba tỉnh miền Đông bị nhượng năm 1862; đến 1867 toàn bộ Nam Bộ rơi vào tay Pháp.",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 5: Quá trình xâm lược và cai trị của chủ nghĩa thực dân ở Đông Nam Á. Ba tỉnh miền Đông bị nhượng năm 1862; đến 1867 toàn bộ Nam Bộ rơi vào tay Pháp.",
+    "significance": "Là mốc quan trọng trong tiến trình quân sự và bảo vệ/chinh phục độc lập, chủ quyền của Việt Nam theo SGK 11.",
+    "keyFacts": [
+      "Pháp chiếm Nam Bộ (1862–1867)",
+      "1862–1867",
+      "TP.HCM",
+      "Nam Bộ",
+      "Ba tỉnh miền Đông bị nhượng năm 1862; đến 1867 toàn bộ Nam Bộ rơi vào tay Pháp."
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 11,
+      "book": "Lịch sử 11 - Cánh Diều",
+      "lesson": "Bài 5: Quá trình xâm lược và cai trị của chủ nghĩa thực dân ở Đông Nam Á",
+      "pageStart": 34,
+      "pageEnd": 34,
+      "excerpt": "Ba tỉnh miền Đông bị nhượng năm 1862; đến 1867 toàn bộ Nam Bộ rơi vào tay Pháp."
+    }
+  ],
+  "hierarchy": {
+    "rootId": "vm-chien-tranh-bao-ve-to-quoc",
+    "parentId": "khang-chien-chong-phap-1858-1884",
+    "level": 2,
+    "orderInParent": 2
+  },
+  "associations": {
+    "relatedEventIds": [
+      "phap-xam-luoc-vn-1858",
+      "khang-chien-chong-phap-1858-1884",
+      "hiep-uoc-pa-to-not-1884"
+    ],
+    "predecessorEventIds": [
+      "phap-xam-luoc-vn-1858"
+    ],
+    "successorEventIds": [
+      "hiep-uoc-pa-to-not-1884"
+    ]
+  },
+  "display": {
+    "showOnHomepage": false,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "Ba tỉnh miền Đông bị nhượng năm 1862; đến 1867 toàn bộ Nam Bộ rơi vào tay Pháp. || [SGK11:phap-chiem-nam-bo-1862-1867] Ba tỉnh miền Đông bị nhượng năm 1862; đến 1867 toàn bộ Nam Bộ rơi vào tay Pháp.",
+  "merge": {
+    "sourceGrades": "11",
+    "sourceIds": "phap-chiem-nam-bo-1862-1867",
+    "mergedCount": 1,
+    "sourceFiles": "SGK11_event_master_flattened_v2(1).xlsx",
+    "textbookRefsAll": "SGK11: Bài 5: Quá trình xâm lược và cai trị của chủ nghĩa thực dân ở Đông Nam Á tr.34 [phap-chiem-nam-bo-1862-1867]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

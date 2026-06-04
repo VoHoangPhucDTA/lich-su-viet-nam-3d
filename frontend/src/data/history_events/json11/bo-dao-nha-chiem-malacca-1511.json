@@ -1,0 +1,93 @@
+{
+  "id": "bo-dao-nha-chiem-malacca-1511",
+  "slug": "bo-dao-nha-chiem-malacca-1511",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Bồ Đào Nha chiếm Ma-lắc-ca (1511)",
+    "short": "Bồ Đào Nha chiếm Ma-lắc-ca"
+  },
+  "classification": {
+    "eventType": "military",
+    "eventSubtype": "colonial_invasion",
+    "tags": [
+      "Bồ Đào Nha chiếm Ma-lắc-ca (1511)",
+      "Năm 1511",
+      "Mở đầu quá trình xâm lược Đông Nam Á của phương Tây; chỉ giữ làm bối cảnh."
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1511
+    },
+    "datePrecision": "year",
+    "displayDate": "Năm 1511",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "no_location",
+      "marker": {
+        "label": "Bồ Đào Nha chiếm Ma-lắc-ca"
+      }
+    },
+    "focusGeometry": {
+      "mode": "auto"
+    }
+  },
+  "summary": {
+    "homepageTitle": "Bồ Đào Nha chiếm Ma-lắc-ca (1511)",
+    "homepageSummary": "Bồ Đào Nha chiếm Ma-lắc-ca (1511). Mở đầu quá trình xâm lược Đông Nam Á của phương Tây; chỉ giữ làm bối cảnh.",
+    "cardSummary": "Mở đầu quá trình xâm lược Đông Nam Á của phương Tây; chỉ giữ làm bối cảnh."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Bồ Đào Nha chiếm Ma-lắc-ca (1511). Mở đầu quá trình xâm lược Đông Nam Á của phương Tây; chỉ giữ làm bối cảnh.",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 5: Quá trình xâm lược và cai trị của chủ nghĩa thực dân ở Đông Nam Á. Mở đầu quá trình xâm lược Đông Nam Á của phương Tây; chỉ giữ làm bối cảnh.",
+    "significance": "Là mốc quan trọng trong tiến trình quân sự và bảo vệ/chinh phục độc lập, chủ quyền của Việt Nam theo SGK 11.",
+    "keyFacts": [
+      "Bồ Đào Nha chiếm Ma-lắc-ca (1511)",
+      "Năm 1511",
+      "Mở đầu quá trình xâm lược Đông Nam Á của phương Tây; chỉ giữ làm bối cảnh."
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 11,
+      "book": "Lịch sử 11 - Cánh Diều",
+      "lesson": "Bài 5: Quá trình xâm lược và cai trị của chủ nghĩa thực dân ở Đông Nam Á",
+      "pageStart": 32,
+      "pageEnd": 32,
+      "excerpt": "Mở đầu quá trình xâm lược Đông Nam Á của phương Tây; chỉ giữ làm bối cảnh."
+    }
+  ],
+  "hierarchy": {
+    "rootId": "bo-dao-nha-chiem-malacca-1511",
+    "level": 0,
+    "orderInParent": 9
+  },
+  "display": {
+    "showOnHomepage": false,
+    "showOnTimeline": false,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "Mở đầu quá trình xâm lược Đông Nam Á của phương Tây; chỉ giữ làm bối cảnh. || [SGK11:bo-dao-nha-chiem-malacca-1511] Mở đầu quá trình xâm lược Đông Nam Á của phương Tây; chỉ giữ làm bối cảnh.",
+  "merge": {
+    "sourceGrades": "11",
+    "sourceIds": "bo-dao-nha-chiem-malacca-1511",
+    "mergedCount": 1,
+    "sourceFiles": "SGK11_event_master_flattened_v2(1).xlsx",
+    "textbookRefsAll": "SGK11: Bài 5: Quá trình xâm lược và cai trị của chủ nghĩa thực dân ở Đông Nam Á tr.32 [bo-dao-nha-chiem-malacca-1511]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

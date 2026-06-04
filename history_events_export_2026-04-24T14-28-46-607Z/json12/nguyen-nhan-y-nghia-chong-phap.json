@@ -1,0 +1,92 @@
+{
+  "id": "nguyen-nhan-y-nghia-chong-phap",
+  "slug": "nguyen-nhan-y-nghia-chong-phap",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Nguyên nhân thắng lợi, ý nghĩa kháng chiến chống Pháp",
+    "short": "Nguyên nhân thắng lợi, ý nghĩa k"
+  },
+  "classification": {
+    "eventType": "military",
+    "eventSubtype": "analysis_topic",
+    "tags": [
+      "Nguyên nhân thắng lợi",
+      "ý nghĩa kháng chiến chống Pháp",
+      "concept"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ]
+  },
+  "chronology": {
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "no_location"
+    },
+    "focusGeometry": {
+      "mode": "auto"
+    }
+  },
+  "summary": {
+    "homepageTitle": "Nguyên nhân thắng lợi, ý nghĩa kháng chiến chống Pháp",
+    "homepageSummary": "Nguyên nhân thắng lợi, ý nghĩa kháng chiến chống Pháp. — (concept)",
+    "cardSummary": "— (concept)"
+  },
+  "textbookContent": {
+    "canonicalSummary": "Nguyên nhân thắng lợi, ý nghĩa kháng chiến chống Pháp.",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 7: Kháng chiến chống thực dân Pháp (1945–1954), trang 41–42. Nội dung trong file Excel được chuẩn hóa để nhập hệ thống; khi triển khai chính thức, nhóm nên bổ sung tường thuật chi tiết bám SGK và tư liệu gốc.",
+    "significance": "Là mốc quan trọng trong tiến trình đấu tranh quân sự, bảo vệ hoặc giải phóng đất nước của Việt Nam theo SGK 12.",
+    "keyFacts": [
+      "Nguyên nhân thắng lợi",
+      "ý nghĩa kháng chiến chống Pháp",
+      "—"
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 12,
+      "book": "Lịch sử 12 - Cánh Diều",
+      "theme": "Chủ đề 3: Cách mạng tháng Tám và kháng chiến bảo vệ độc lập dân tộc",
+      "lesson": "Bài 7: Kháng chiến chống thực dân Pháp (1945–1954)",
+      "pageStart": 41,
+      "pageEnd": 42,
+      "excerpt": "— (concept)"
+    }
+  ],
+  "hierarchy": {
+    "rootId": "khang-chien-chong-phap-1945-1954-collection",
+    "parentId": "khang-chien-chong-phap-1945-1954-collection",
+    "level": 1,
+    "orderInParent": 10
+  },
+  "associations": {
+    "predecessorEventIds": [
+      "hiep-dinh-gio-ne-vo-1954"
+    ]
+  },
+  "display": {
+    "showOnHomepage": false,
+    "showOnTimeline": false,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "— (concept) || [SGK12:nguyen-nhan-y-nghia-chong-phap] — (concept)",
+  "merge": {
+    "sourceGrades": "12",
+    "sourceIds": "nguyen-nhan-y-nghia-chong-phap",
+    "mergedCount": 1,
+    "sourceFiles": "SGK12_event_master_flattened(1).xlsx",
+    "textbookRefsAll": "SGK12: Bài 7: Kháng chiến chống thực dân Pháp (1945–1954) tr.41-42 [nguyen-nhan-y-nghia-chong-phap]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

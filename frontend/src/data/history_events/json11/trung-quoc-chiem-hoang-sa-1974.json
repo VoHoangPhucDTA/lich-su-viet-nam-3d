@@ -1,0 +1,127 @@
+{
+  "id": "trung-quoc-chiem-hoang-sa-1974",
+  "slug": "trung-quoc-chiem-hoang-sa-1974",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Trung Quốc đánh chiếm quần đảo Hoàng Sa (1974)",
+    "short": "Trung Quốc đánh chiếm quần đảo Hoàng Sa"
+  },
+  "classification": {
+    "eventType": "military",
+    "eventSubtype": "territorial_conflict",
+    "tags": [
+      "Trung Quốc đánh chiếm quần đảo Hoàng Sa (1974)",
+      "Tháng 1-1974",
+      "Đà Nẵng",
+      "Trung Quốc sử dụng vũ lực chiếm đóng trái phép quần đảo Hoàng Sa."
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1974
+    },
+    "datePrecision": "month",
+    "displayDate": "Tháng 1-1974",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "point",
+      "marker": {
+        "label": "Đà Nẵng"
+      },
+      "provinceNames": [
+        "Đà Nẵng"
+      ],
+      "historicalLocations": [
+        "Đà Nẵng"
+      ]
+    },
+    "focusGeometry": {
+      "mode": "marker"
+    }
+  },
+  "summary": {
+    "homepageTitle": "Trung Quốc đánh chiếm quần đảo Hoàng Sa (1974)",
+    "homepageSummary": "Trung Quốc đánh chiếm quần đảo Hoàng Sa (1974). Trung Quốc sử dụng vũ lực chiếm đóng trái phép quần đảo Hoàng Sa.",
+    "cardSummary": "Trung Quốc sử dụng vũ lực chiếm đóng trái phép quần đảo Hoàng Sa."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Trung Quốc đánh chiếm quần đảo Hoàng Sa (1974). Trung Quốc sử dụng vũ lực chiếm đóng trái phép quần đảo Hoàng Sa.",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 13: Lịch sử bảo vệ chủ quyền, các quyền và lợi ích hợp pháp của Việt Nam ở Biển Đông. Trung Quốc sử dụng vũ lực chiếm đóng trái phép quần đảo Hoàng Sa.",
+    "significance": "Là mốc quan trọng trong tiến trình quân sự và bảo vệ/chinh phục độc lập, chủ quyền của Việt Nam theo SGK 11.",
+    "keyFacts": [
+      "Trung Quốc đánh chiếm quần đảo Hoàng Sa (1974)",
+      "Tháng 1-1974",
+      "Đà Nẵng",
+      "Trung Quốc sử dụng vũ lực chiếm đóng trái phép quần đảo Hoàng Sa."
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 11,
+      "book": "Lịch sử 11 - Cánh Diều",
+      "lesson": "Bài 13: Lịch sử bảo vệ chủ quyền, các quyền và lợi ích hợp pháp của Việt Nam ở Biển Đông",
+      "pageStart": 89,
+      "pageEnd": 89,
+      "excerpt": "Trung Quốc sử dụng vũ lực chiếm đóng trái phép quần đảo Hoàng Sa."
+    }
+  ],
+  "hierarchy": {
+    "rootId": "vm-chu-quyen-bien-dong",
+    "parentId": "vm-chu-quyen-bien-dong",
+    "level": 1,
+    "orderInParent": 4
+  },
+  "associations": {
+    "relatedEventIds": [
+      "doi-bac-hai-the-ky-18",
+      "vm-chu-quyen-bien-dong",
+      "quan-ly-hoang-sa-truong-sa-nguyen",
+      "hiep-dinh-elysee-1949-chuyen-giao-hoang-sa-truong-sa",
+      "vnch-tiep-quan-hoang-sa-truong-sa-1954",
+      "thanh-lap-huyen-dao-1982",
+      "luat-bien-viet-nam-2012",
+      "doc-bien-dong-2002",
+      "giai-phong-truong-sa-1975",
+      "doi-hoang-sa-the-ky-17",
+      "sach-trang-hoang-sa-truong-sa-1979-1988",
+      "viet-nam-tham-gia-unclos-1982",
+      "hiep-dinh-vinh-bac-bo-2000",
+      "su-kien-gac-ma-1988"
+    ],
+    "predecessorEventIds": [
+      "quan-ly-hoang-sa-truong-sa-nguyen"
+    ],
+    "successorEventIds": [
+      "giai-phong-truong-sa-1975"
+    ]
+  },
+  "display": {
+    "showOnHomepage": false,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "Trung Quốc sử dụng vũ lực chiếm đóng trái phép quần đảo Hoàng Sa. || [SGK11:trung-quoc-chiem-hoang-sa-1974] Trung Quốc sử dụng vũ lực chiếm đóng trái phép quần đảo Hoàng Sa.",
+  "merge": {
+    "sourceGrades": "11",
+    "sourceIds": "trung-quoc-chiem-hoang-sa-1974",
+    "mergedCount": 1,
+    "sourceFiles": "SGK11_event_master_flattened_v2(1).xlsx",
+    "textbookRefsAll": "SGK11: Bài 13: Lịch sử bảo vệ chủ quyền, các quyền và lợi ích hợp pháp của Việt Nam ở Biển Đông tr.89 [trung-quoc-chiem-hoang-sa-1974]"
+  },
+  "validation": {
+    "status": "CHECK",
+    "issues": "geoType cần marker nhưng thiếu lat/lng"
+  }
+}

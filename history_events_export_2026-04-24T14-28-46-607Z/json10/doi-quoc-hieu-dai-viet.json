@@ -1,0 +1,91 @@
+{
+  "id": "doi-quoc-hieu-dai-viet",
+  "slug": "doi-quoc-hieu-dai-viet",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Đổi quốc hiệu thành Đại Việt",
+    "short": "Đại Việt 1054"
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "renaming_state",
+    "tags": [
+      "Đại Việt",
+      1054,
+      "Lý Thánh Tông"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      10
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1054
+    },
+    "datePrecision": "year",
+    "displayDate": "Năm 1054",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "no_location"
+    },
+    "focusGeometry": {
+      "mode": "auto"
+    }
+  },
+  "summary": {
+    "homepageTitle": "Đổi quốc hiệu thành Đại Việt",
+    "homepageSummary": "Việc đổi quốc hiệu thành Đại Việt thể hiện sự trưởng thành và tự tin của quốc gia độc lập.",
+    "cardSummary": "Đổi quốc hiệu thành Đại Việt năm 1054."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Năm 1054, quốc hiệu được đổi thành Đại Việt, đánh dấu bước khẳng định vị thế quốc gia phong kiến độc lập.",
+    "detailedNarrative": "SGK đưa mốc 1054 như một cột mốc chính trị tiêu biểu trong quá trình phát triển của quốc gia Đại Việt. Từ đây, tên gọi Đại Việt gắn bó lâu dài với lịch sử dân tộc qua nhiều triều đại.",
+    "significance": "Khẳng định ý thức quốc gia, bản sắc và vị thế độc lập của nhà nước Việt Nam thời phong kiến.",
+    "keyFacts": [
+      "Năm 1054",
+      "Quốc hiệu đổi thành Đại Việt",
+      "Gắn với triều Lý"
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 10,
+      "book": "Lịch sử 10 - Cánh Diều",
+      "theme": "Chủ đề 6: Một số nền văn minh trên đất nước Việt Nam trước năm 1858",
+      "lesson": "Bài 14: Cơ sở hình thành văn minh Đại Việt",
+      "pageStart": 98,
+      "pageEnd": 98,
+      "excerpt": "Năm 1054, quốc hiệu đổi thành Đại Việt."
+    }
+  ],
+  "hierarchy": {
+    "rootId": "vm-dai-viet",
+    "parentId": "vm-dai-viet",
+    "level": 1,
+    "orderInParent": 5
+  },
+  "display": {
+    "showOnHomepage": true,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "merge": {
+    "sourceGrades": "10",
+    "sourceIds": "doi-quoc-hieu-dai-viet",
+    "mergedCount": 1,
+    "sourceFiles": "SGK10_event_master_flattened_v2(1).xlsx",
+    "textbookRefsAll": "SGK10: Bài 14: Cơ sở hình thành văn minh Đại Việt tr.98 [doi-quoc-hieu-dai-viet]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

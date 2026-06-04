@@ -1,0 +1,101 @@
+{
+  "id": "doi-moi-gd3-2006-nay",
+  "slug": "doi-moi-gd3-2006-nay",
+  "entityType": "event",
+  "eventLevel": "collection",
+  "titles": {
+    "primary": "Tiếp tục đẩy mạnh CNH-HĐH, hội nhập sâu rộng (2006–nay)",
+    "short": "Tiếp tục đẩy mạnh CNH-HĐH, hội n"
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "milestone",
+    "tags": [
+      "Tiếp tục đẩy mạnh CNH-HĐH",
+      "hội nhập sâu rộng (2006–nay)",
+      "2006–nay",
+      "collection"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 2006
+    },
+    "datePrecision": "period",
+    "displayDate": "2006–nay",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "nationwide"
+    },
+    "focusGeometry": {
+      "mode": "auto"
+    }
+  },
+  "summary": {
+    "homepageTitle": "Tiếp tục đẩy mạnh CNH-HĐH, hội nhập sâu rộng (2006–nay)",
+    "homepageSummary": "Tiếp tục đẩy mạnh CNH-HĐH, hội nhập sâu rộng (2006–nay). —",
+    "cardSummary": "—"
+  },
+  "textbookContent": {
+    "canonicalSummary": "Tiếp tục đẩy mạnh CNH-HĐH, hội nhập sâu rộng (2006–nay).",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 10: Công cuộc Đổi mới ở Việt Nam từ năm 1986 đến nay, trang 65–66. Nội dung trong file Excel được chuẩn hóa để nhập hệ thống; khi triển khai chính thức, nhóm nên bổ sung tường thuật chi tiết bám SGK và tư liệu gốc.",
+    "significance": "Là mốc quan trọng trong tiến trình cách mạng, xây dựng nhà nước, đối ngoại hoặc tổ chức lực lượng theo SGK 12.",
+    "keyFacts": [
+      "Tiếp tục đẩy mạnh CNH-HĐH",
+      "hội nhập sâu rộng (2006–nay)",
+      "2006–nay"
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 12,
+      "book": "Lịch sử 12 - Cánh Diều",
+      "theme": "Chủ đề 4: Công cuộc Đổi mới ở Việt Nam từ năm 1986 đến nay",
+      "lesson": "Bài 10: Công cuộc Đổi mới ở Việt Nam từ năm 1986 đến nay",
+      "pageStart": 65,
+      "pageEnd": 66,
+      "excerpt": "Tiếp tục đẩy mạnh CNH-HĐH, hội nhập sâu rộng (2006–nay)"
+    }
+  ],
+  "hierarchy": {
+    "rootId": "doi-moi-1986-collection",
+    "parentId": "doi-moi-1986-collection",
+    "level": 1,
+    "orderInParent": 4
+  },
+  "associations": {
+    "predecessorEventIds": [
+      "doi-moi-gd2-1996-2006"
+    ],
+    "successorEventIds": [
+      "thanh-tuu-doi-moi"
+    ]
+  },
+  "display": {
+    "showOnHomepage": true,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "— || [SGK12:doi-moi-gd3-2006-nay] —",
+  "merge": {
+    "sourceGrades": "12",
+    "sourceIds": "doi-moi-gd3-2006-nay",
+    "mergedCount": 1,
+    "sourceFiles": "SGK12_event_master_flattened(1).xlsx",
+    "textbookRefsAll": "SGK12: Bài 10: Công cuộc Đổi mới ở Việt Nam từ năm 1986 đến nay tr.65-66 [doi-moi-gd3-2006-nay]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

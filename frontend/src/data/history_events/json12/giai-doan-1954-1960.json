@@ -1,0 +1,107 @@
+{
+  "id": "giai-doan-1954-1960",
+  "slug": "giai-doan-1954-1960",
+  "entityType": "event",
+  "eventLevel": "collection",
+  "titles": {
+    "primary": "Giai đoạn 1954–1960: khôi phục miền Bắc, đấu tranh miền Nam",
+    "short": "Giai đoạn 1954–1960"
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "milestone",
+    "tags": [
+      "Giai đoạn 1954–1960: khôi phục miền Bắc",
+      "đấu tranh miền Nam",
+      "1954–1960",
+      "collection"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1954
+    },
+    "end": {
+      "year": 1960
+    },
+    "datePrecision": "period",
+    "displayDate": "1954–1960",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "nationwide"
+    },
+    "focusGeometry": {
+      "mode": "auto"
+    }
+  },
+  "summary": {
+    "homepageTitle": "Giai đoạn 1954–1960: khôi phục miền Bắc, đấu tranh miền Nam",
+    "homepageSummary": "Giai đoạn 1954–1960: khôi phục miền Bắc, đấu tranh miền Nam. —",
+    "cardSummary": "—"
+  },
+  "textbookContent": {
+    "canonicalSummary": "Giai đoạn 1954–1960: khôi phục miền Bắc, đấu tranh miền Nam.",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 8: Kháng chiến chống Mỹ, cứu nước (1954–1975), trang 44–45. Nội dung trong file Excel được chuẩn hóa để nhập hệ thống; khi triển khai chính thức, nhóm nên bổ sung tường thuật chi tiết bám SGK và tư liệu gốc.",
+    "significance": "Là mốc quan trọng trong tiến trình cách mạng, xây dựng nhà nước, đối ngoại hoặc tổ chức lực lượng theo SGK 12.",
+    "keyFacts": [
+      "Giai đoạn 1954–1960: khôi phục miền Bắc",
+      "đấu tranh miền Nam",
+      "1954–1960"
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 12,
+      "book": "Lịch sử 12 - Cánh Diều",
+      "theme": "Chủ đề 3: Cách mạng tháng Tám và kháng chiến bảo vệ độc lập dân tộc",
+      "lesson": "Bài 8: Kháng chiến chống Mỹ, cứu nước (1954–1975)",
+      "pageStart": 44,
+      "pageEnd": 45,
+      "excerpt": "Giai đoạn 1954–1960: khôi phục miền Bắc, đấu tranh miền Nam"
+    }
+  ],
+  "hierarchy": {
+    "rootId": "khang-chien-chong-my-collection",
+    "parentId": "khang-chien-chong-my-collection",
+    "childIds": [
+      "nghi-quyet-15-tw-dang-1959",
+      "phong-trao-dong-khoi-1960",
+      "dai-hoi-iii-dang-lao-dong-1960",
+      "mat-tran-dan-toc-giai-phong-mien-nam-1960"
+    ],
+    "level": 1,
+    "orderInParent": 1
+  },
+  "associations": {
+    "successorEventIds": [
+      "chien-tranh-dac-biet-1961-1965"
+    ]
+  },
+  "display": {
+    "showOnHomepage": true,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "— || [SGK12:giai-doan-1954-1960] —",
+  "merge": {
+    "sourceGrades": "12",
+    "sourceIds": "giai-doan-1954-1960",
+    "mergedCount": 1,
+    "sourceFiles": "SGK12_event_master_flattened(1).xlsx",
+    "textbookRefsAll": "SGK12: Bài 8: Kháng chiến chống Mỹ, cứu nước (1954–1975) tr.44-45 [giai-doan-1954-1960]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

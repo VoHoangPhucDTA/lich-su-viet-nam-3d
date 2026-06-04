@@ -1,0 +1,118 @@
+{
+  "id": "viet-nam-tham-gia-unclos-1982",
+  "slug": "viet-nam-tham-gia-unclos-1982",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Việt Nam tham gia Công ước Liên hợp quốc về Luật Biển 1982",
+    "short": "Việt Nam tham gia Công ước Liên hợp quốc v"
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "international_law",
+    "tags": [
+      "Việt Nam tham gia Công ước Liên hợp quốc về Luật Biển 1982",
+      "Năm 1982",
+      "Việt Nam tham gia khuôn khổ pháp lý quốc tế quan trọng về biển."
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1982
+    },
+    "datePrecision": "year",
+    "displayDate": "Năm 1982",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "no_location",
+      "marker": {
+        "label": "Việt Nam tham gia Công ước Liên hợp quốc v"
+      }
+    },
+    "focusGeometry": {
+      "mode": "auto"
+    }
+  },
+  "summary": {
+    "homepageTitle": "Việt Nam tham gia Công ước Liên hợp quốc về Luật Biển 1982",
+    "homepageSummary": "Việt Nam tham gia Công ước Liên hợp quốc về Luật Biển 1982. Việt Nam tham gia khuôn khổ pháp lý quốc tế quan trọng về biển.",
+    "cardSummary": "Việt Nam tham gia khuôn khổ pháp lý quốc tế quan trọng về biển."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Việt Nam tham gia Công ước Liên hợp quốc về Luật Biển 1982. Việt Nam tham gia khuôn khổ pháp lý quốc tế quan trọng về biển.",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 13: Lịch sử bảo vệ chủ quyền, các quyền và lợi ích hợp pháp của Việt Nam ở Biển Đông. Việt Nam tham gia khuôn khổ pháp lý quốc tế quan trọng về biển.",
+    "significance": "Là mốc quan trọng về tổ chức nhà nước, cải cách hoặc chủ quyền được SGK 11 nhấn mạnh.",
+    "keyFacts": [
+      "Việt Nam tham gia Công ước Liên hợp quốc về Luật Biển 1982",
+      "Năm 1982",
+      "Việt Nam tham gia khuôn khổ pháp lý quốc tế quan trọng về biển."
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 11,
+      "book": "Lịch sử 11 - Cánh Diều",
+      "lesson": "Bài 13: Lịch sử bảo vệ chủ quyền, các quyền và lợi ích hợp pháp của Việt Nam ở Biển Đông",
+      "pageStart": 90,
+      "pageEnd": 91,
+      "excerpt": "Việt Nam tham gia khuôn khổ pháp lý quốc tế quan trọng về biển."
+    }
+  ],
+  "hierarchy": {
+    "rootId": "vm-chu-quyen-bien-dong",
+    "parentId": "vm-chu-quyen-bien-dong",
+    "level": 1,
+    "orderInParent": 12
+  },
+  "associations": {
+    "relatedEventIds": [
+      "doi-bac-hai-the-ky-18",
+      "vm-chu-quyen-bien-dong",
+      "quan-ly-hoang-sa-truong-sa-nguyen",
+      "hiep-dinh-elysee-1949-chuyen-giao-hoang-sa-truong-sa",
+      "vnch-tiep-quan-hoang-sa-truong-sa-1954",
+      "thanh-lap-huyen-dao-1982",
+      "luat-bien-viet-nam-2012",
+      "doc-bien-dong-2002",
+      "giai-phong-truong-sa-1975",
+      "doi-hoang-sa-the-ky-17",
+      "sach-trang-hoang-sa-truong-sa-1979-1988",
+      "hiep-dinh-vinh-bac-bo-2000",
+      "su-kien-gac-ma-1988",
+      "trung-quoc-chiem-hoang-sa-1974"
+    ],
+    "predecessorEventIds": [
+      "sach-trang-hoang-sa-truong-sa-1979-1988"
+    ],
+    "successorEventIds": [
+      "doc-bien-dong-2002"
+    ]
+  },
+  "display": {
+    "showOnHomepage": false,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "Việt Nam tham gia khuôn khổ pháp lý quốc tế quan trọng về biển. || [SGK11:viet-nam-tham-gia-unclos-1982] Việt Nam tham gia khuôn khổ pháp lý quốc tế quan trọng về biển.",
+  "merge": {
+    "sourceGrades": "11",
+    "sourceIds": "viet-nam-tham-gia-unclos-1982",
+    "mergedCount": 1,
+    "sourceFiles": "SGK11_event_master_flattened_v2(1).xlsx",
+    "textbookRefsAll": "SGK11: Bài 13: Lịch sử bảo vệ chủ quyền, các quyền và lợi ích hợp pháp của Việt Nam ở Biển Đông tr.90-91 [viet-nam-tham-gia-unclos-1982]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

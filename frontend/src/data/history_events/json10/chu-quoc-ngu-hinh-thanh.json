@@ -1,0 +1,90 @@
+{
+  "id": "chu-quoc-ngu-hinh-thanh",
+  "slug": "chu-quoc-ngu-hinh-thanh",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Chữ Quốc ngữ hình thành",
+    "short": "Chữ Quốc ngữ"
+  },
+  "classification": {
+    "eventType": "cultural",
+    "eventSubtype": "script",
+    "tags": [
+      "chữ Quốc ngữ",
+      "thế kỉ XVII"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      10
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1600
+    },
+    "datePrecision": "period",
+    "displayDate": "Thế kỉ XVII",
+    "isApproximate": true
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "no_location"
+    },
+    "focusGeometry": {
+      "mode": "auto"
+    }
+  },
+  "summary": {
+    "homepageTitle": "Chữ Quốc ngữ hình thành",
+    "homepageSummary": "Chữ Quốc ngữ hình thành trong bối cảnh giao lưu văn hóa thời cận đại sớm.",
+    "cardSummary": "Chữ Quốc ngữ hình thành từ thế kỉ XVII."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Từ thế kỉ XVII, chữ Quốc ngữ dần hình thành, mở đầu cho một phương thức ghi âm tiếng Việt mới.",
+    "detailedNarrative": "SGK đưa chữ Quốc ngữ vào nhóm thành tựu văn hóa Đại Việt. Dù phát triển mạnh ở giai đoạn sau, sự xuất hiện của chữ Quốc ngữ từ thế kỉ XVII phản ánh quá trình giao lưu văn hóa và chuyển biến ngôn ngữ ở Việt Nam.",
+    "significance": "Là bước chuyển quan trọng trong lịch sử chữ viết và đời sống văn hóa Việt Nam.",
+    "keyFacts": [
+      "Hình thành từ thế kỉ XVII",
+      "Là phương thức ghi âm tiếng Việt mới",
+      "Gắn với quá trình giao lưu văn hóa"
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 10,
+      "book": "Lịch sử 10 - Cánh Diều",
+      "theme": "Chủ đề 6: Một số nền văn minh trên đất nước Việt Nam trước năm 1858",
+      "lesson": "Bài 15: Những thành tựu tiêu biểu của văn minh Đại Việt",
+      "pageStart": 107,
+      "pageEnd": 107,
+      "excerpt": "Chữ Quốc ngữ được hình thành từ thế kỉ XVII."
+    }
+  ],
+  "hierarchy": {
+    "rootId": "vm-dai-viet",
+    "parentId": "vm-dai-viet",
+    "level": 1,
+    "orderInParent": 31
+  },
+  "display": {
+    "showOnHomepage": true,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "merge": {
+    "sourceGrades": "10",
+    "sourceIds": "chu-quoc-ngu-hinh-thanh",
+    "mergedCount": 1,
+    "sourceFiles": "SGK10_event_master_flattened_v2(1).xlsx",
+    "textbookRefsAll": "SGK10: Bài 15: Những thành tựu tiêu biểu của văn minh Đại Việt tr.107 [chu-quoc-ngu-hinh-thanh]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

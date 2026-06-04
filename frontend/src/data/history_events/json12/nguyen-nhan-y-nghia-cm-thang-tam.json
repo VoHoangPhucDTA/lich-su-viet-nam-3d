@@ -1,0 +1,94 @@
+{
+  "id": "nguyen-nhan-y-nghia-cm-thang-tam",
+  "slug": "nguyen-nhan-y-nghia-cm-thang-tam",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Nguyên nhân thắng lợi, ý nghĩa, bài học CM tháng Tám",
+    "short": "Nguyên nhân thắng lợi, ý nghĩa,"
+  },
+  "classification": {
+    "eventType": "military",
+    "eventSubtype": "analysis_topic",
+    "tags": [
+      "Nguyên nhân thắng lợi",
+      "ý nghĩa",
+      "bài học CM tháng Tám",
+      "concept"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ]
+  },
+  "chronology": {
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "no_location"
+    },
+    "focusGeometry": {
+      "mode": "auto"
+    }
+  },
+  "summary": {
+    "homepageTitle": "Nguyên nhân thắng lợi, ý nghĩa, bài học CM tháng Tám",
+    "homepageSummary": "Nguyên nhân thắng lợi, ý nghĩa, bài học CM tháng Tám. — (concept/RAG)",
+    "cardSummary": "— (concept/RAG)"
+  },
+  "textbookContent": {
+    "canonicalSummary": "Nguyên nhân thắng lợi, ý nghĩa, bài học CM tháng Tám.",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 6: Cách mạng tháng Tám năm 1945, trang 33–35. Nội dung trong file Excel được chuẩn hóa để nhập hệ thống; khi triển khai chính thức, nhóm nên bổ sung tường thuật chi tiết bám SGK và tư liệu gốc.",
+    "significance": "Là mốc quan trọng trong tiến trình đấu tranh quân sự, bảo vệ hoặc giải phóng đất nước của Việt Nam theo SGK 12.",
+    "keyFacts": [
+      "Nguyên nhân thắng lợi",
+      "ý nghĩa",
+      "bài học CM tháng Tám",
+      "—"
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 12,
+      "book": "Lịch sử 12 - Cánh Diều",
+      "theme": "Chủ đề 3: Cách mạng tháng Tám và kháng chiến bảo vệ độc lập dân tộc",
+      "lesson": "Bài 6: Cách mạng tháng Tám năm 1945",
+      "pageStart": 33,
+      "pageEnd": 35,
+      "excerpt": "— (concept/RAG)"
+    }
+  ],
+  "hierarchy": {
+    "rootId": "cach-mang-thang-tam-1945",
+    "parentId": "cach-mang-thang-tam-1945",
+    "level": 1,
+    "orderInParent": 9
+  },
+  "associations": {
+    "predecessorEventIds": [
+      "tuyen-ngon-doc-lap-1945"
+    ]
+  },
+  "display": {
+    "showOnHomepage": false,
+    "showOnTimeline": false,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "— (concept/RAG) || [SGK12:nguyen-nhan-y-nghia-cm-thang-tam] — (concept/RAG)",
+  "merge": {
+    "sourceGrades": "12",
+    "sourceIds": "nguyen-nhan-y-nghia-cm-thang-tam",
+    "mergedCount": 1,
+    "sourceFiles": "SGK12_event_master_flattened(1).xlsx",
+    "textbookRefsAll": "SGK12: Bài 6: Cách mạng tháng Tám năm 1945 tr.33-35 [nguyen-nhan-y-nghia-cm-thang-tam]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

@@ -1,0 +1,104 @@
+{
+  "id": "doi-moi-gd2-1996-2006",
+  "slug": "doi-moi-gd2-1996-2006",
+  "entityType": "event",
+  "eventLevel": "collection",
+  "titles": {
+    "primary": "Đẩy mạnh CNH-HĐH, hội nhập (1996–2006)",
+    "short": "Đẩy mạnh CNH-HĐH, hội nhập"
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "milestone",
+    "tags": [
+      "Đẩy mạnh CNH-HĐH",
+      "hội nhập (1996–2006)",
+      "1996–2006",
+      "collection"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1996
+    },
+    "end": {
+      "year": 2006
+    },
+    "datePrecision": "period",
+    "displayDate": "1996–2006",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "nationwide"
+    },
+    "focusGeometry": {
+      "mode": "auto"
+    }
+  },
+  "summary": {
+    "homepageTitle": "Đẩy mạnh CNH-HĐH, hội nhập (1996–2006)",
+    "homepageSummary": "Đẩy mạnh CNH-HĐH, hội nhập (1996–2006). —",
+    "cardSummary": "—"
+  },
+  "textbookContent": {
+    "canonicalSummary": "Đẩy mạnh CNH-HĐH, hội nhập (1996–2006).",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 10: Công cuộc Đổi mới ở Việt Nam từ năm 1986 đến nay, trang 64–65. Nội dung trong file Excel được chuẩn hóa để nhập hệ thống; khi triển khai chính thức, nhóm nên bổ sung tường thuật chi tiết bám SGK và tư liệu gốc.",
+    "significance": "Là mốc quan trọng trong tiến trình cách mạng, xây dựng nhà nước, đối ngoại hoặc tổ chức lực lượng theo SGK 12.",
+    "keyFacts": [
+      "Đẩy mạnh CNH-HĐH",
+      "hội nhập (1996–2006)",
+      "1996–2006"
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 12,
+      "book": "Lịch sử 12 - Cánh Diều",
+      "theme": "Chủ đề 4: Công cuộc Đổi mới ở Việt Nam từ năm 1986 đến nay",
+      "lesson": "Bài 10: Công cuộc Đổi mới ở Việt Nam từ năm 1986 đến nay",
+      "pageStart": 64,
+      "pageEnd": 65,
+      "excerpt": "Đẩy mạnh CNH-HĐH, hội nhập (1996–2006)"
+    }
+  ],
+  "hierarchy": {
+    "rootId": "doi-moi-1986-collection",
+    "parentId": "doi-moi-1986-collection",
+    "level": 1,
+    "orderInParent": 3
+  },
+  "associations": {
+    "predecessorEventIds": [
+      "doi-moi-gd1-1986-1995"
+    ],
+    "successorEventIds": [
+      "doi-moi-gd3-2006-nay"
+    ]
+  },
+  "display": {
+    "showOnHomepage": true,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "— || [SGK12:doi-moi-gd2-1996-2006] —",
+  "merge": {
+    "sourceGrades": "12",
+    "sourceIds": "doi-moi-gd2-1996-2006",
+    "mergedCount": 1,
+    "sourceFiles": "SGK12_event_master_flattened(1).xlsx",
+    "textbookRefsAll": "SGK12: Bài 10: Công cuộc Đổi mới ở Việt Nam từ năm 1986 đến nay tr.64-65 [doi-moi-gd2-1996-2006]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

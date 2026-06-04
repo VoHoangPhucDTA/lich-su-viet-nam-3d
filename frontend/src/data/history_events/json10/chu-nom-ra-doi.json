@@ -1,0 +1,90 @@
+{
+  "id": "chu-nom-ra-doi",
+  "slug": "chu-nom-ra-doi",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Chữ Nôm ra đời và phát triển",
+    "short": "Chữ Nôm"
+  },
+  "classification": {
+    "eventType": "cultural",
+    "eventSubtype": "script",
+    "tags": [
+      "chữ Nôm",
+      "văn học"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      10
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1200
+    },
+    "datePrecision": "approximate",
+    "displayDate": "Khoảng từ thế kỉ XIII",
+    "isApproximate": true
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "no_location"
+    },
+    "focusGeometry": {
+      "mode": "auto"
+    }
+  },
+  "summary": {
+    "homepageTitle": "Chữ Nôm ra đời và phát triển",
+    "homepageSummary": "Chữ Nôm ra đời là bước phát triển quan trọng của văn hóa viết bằng tiếng Việt.",
+    "cardSummary": "Chữ Nôm phát triển từ khoảng thế kỉ XIII."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Chữ Nôm ra đời và phát triển, góp phần quan trọng vào sự hình thành nền văn học viết bằng tiếng Việt.",
+    "detailedNarrative": "SGK nêu chữ Nôm như một thành tựu văn hóa tiêu biểu của Đại Việt. Chữ Nôm cho phép người Việt ghi chép tiếng nói dân tộc bằng hệ thống chữ viết riêng, mở đường cho nhiều tác phẩm văn học có giá trị.",
+    "significance": "Khẳng định bản sắc ngôn ngữ – văn hóa dân tộc trong lịch sử trung đại Việt Nam.",
+    "keyFacts": [
+      "Xuất hiện khoảng thế kỉ XIII",
+      "Dùng để ghi âm tiếng Việt",
+      "Gắn với sự phát triển văn học dân tộc"
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 10,
+      "book": "Lịch sử 10 - Cánh Diều",
+      "theme": "Chủ đề 6: Một số nền văn minh trên đất nước Việt Nam trước năm 1858",
+      "lesson": "Bài 15: Những thành tựu tiêu biểu của văn minh Đại Việt",
+      "pageStart": 106,
+      "pageEnd": 107,
+      "excerpt": "Chữ Nôm ra đời và phát triển là thành tựu tiêu biểu của văn hóa Đại Việt."
+    }
+  ],
+  "hierarchy": {
+    "rootId": "vm-dai-viet",
+    "parentId": "vm-dai-viet",
+    "level": 1,
+    "orderInParent": 30
+  },
+  "display": {
+    "showOnHomepage": true,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "merge": {
+    "sourceGrades": "10",
+    "sourceIds": "chu-nom-ra-doi",
+    "mergedCount": 1,
+    "sourceFiles": "SGK10_event_master_flattened_v2(1).xlsx",
+    "textbookRefsAll": "SGK10: Bài 15: Những thành tựu tiêu biểu của văn minh Đại Việt tr.106-107 [chu-nom-ra-doi]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

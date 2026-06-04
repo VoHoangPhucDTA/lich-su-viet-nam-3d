@@ -1,0 +1,101 @@
+{
+  "id": "hcm-tim-ra-con-duong-1920",
+  "slug": "hcm-tim-ra-con-duong-1920",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "NAQ tìm ra con đường cứu nước (7-1920)",
+    "short": "NAQ tìm ra con đường cứu nước"
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "milestone",
+    "tags": [
+      "NAQ tìm ra con đường cứu nước (7-1920)",
+      1920
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1920
+    },
+    "end": {
+      "year": 1920
+    },
+    "datePrecision": "year",
+    "displayDate": "1920",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "no_location"
+    },
+    "focusGeometry": {
+      "mode": "auto"
+    }
+  },
+  "summary": {
+    "homepageTitle": "NAQ tìm ra con đường cứu nước (7-1920)",
+    "homepageSummary": "NAQ tìm ra con đường cứu nước (7-1920). —",
+    "cardSummary": "—"
+  },
+  "textbookContent": {
+    "canonicalSummary": "NAQ tìm ra con đường cứu nước (7-1920).",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 14–16: Hồ Chí Minh – cuộc đời, sự nghiệp, dấu ấn, trang 92. Nội dung trong file Excel được chuẩn hóa để nhập hệ thống; khi triển khai chính thức, nhóm nên bổ sung tường thuật chi tiết bám SGK và tư liệu gốc.",
+    "significance": "Là mốc quan trọng trong tiến trình cách mạng, xây dựng nhà nước, đối ngoại hoặc tổ chức lực lượng theo SGK 12.",
+    "keyFacts": [
+      "NAQ tìm ra con đường cứu nước (7-1920)",
+      1920
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 12,
+      "book": "Lịch sử 12 - Cánh Diều",
+      "theme": "Chủ đề 6: Chủ tịch Hồ Chí Minh",
+      "lesson": "Bài 14–16: Hồ Chí Minh – cuộc đời, sự nghiệp, dấu ấn",
+      "pageStart": 92,
+      "pageEnd": 92,
+      "excerpt": "NAQ tìm ra con đường cứu nước (7-1920)"
+    }
+  ],
+  "hierarchy": {
+    "rootId": "ho-chi-minh-cuoc-doi-su-nghiep-collection",
+    "parentId": "ho-chi-minh-cuoc-doi-su-nghiep-collection",
+    "level": 1,
+    "orderInParent": 2
+  },
+  "associations": {
+    "predecessorEventIds": [
+      "hcm-ra-di-tim-duong-1911"
+    ],
+    "successorEventIds": [
+      "hcm-sang-lap-dcs-phap-1920"
+    ]
+  },
+  "display": {
+    "showOnHomepage": true,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "— || [SGK12:hcm-tim-ra-con-duong-1920] —",
+  "merge": {
+    "sourceGrades": "12",
+    "sourceIds": "hcm-tim-ra-con-duong-1920",
+    "mergedCount": 1,
+    "sourceFiles": "SGK12_event_master_flattened(1).xlsx",
+    "textbookRefsAll": "SGK12: Bài 14–16: Hồ Chí Minh – cuộc đời, sự nghiệp, dấu ấn tr.92 [hcm-tim-ra-con-duong-1920]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

@@ -1,0 +1,102 @@
+{
+  "id": "lien-bang-dong-duong",
+  "slug": "lien-bang-dong-duong",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Thành lập Liên bang Đông Dương",
+    "short": "Thành lập Liên bang Đông Dương"
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "colonial_administration",
+    "tags": [
+      "Thành lập Liên bang Đông Dương",
+      1887,
+      "Hà Nội",
+      "Liên bang Đông Dương được thành lập dưới quyền Toàn quyền Đông Dương đặt ở Hà Nội."
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1887
+    },
+    "datePrecision": "year",
+    "displayDate": "1887",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "point",
+      "marker": {
+        "label": "Hà Nội"
+      },
+      "provinceNames": [
+        "Hà Nội"
+      ],
+      "historicalLocations": [
+        "Hà Nội"
+      ]
+    },
+    "focusGeometry": {
+      "mode": "marker"
+    }
+  },
+  "summary": {
+    "homepageTitle": "Thành lập Liên bang Đông Dương",
+    "homepageSummary": "Thành lập Liên bang Đông Dương. Liên bang Đông Dương được thành lập dưới quyền Toàn quyền Đông Dương đặt ở Hà Nội.",
+    "cardSummary": "Liên bang Đông Dương được thành lập dưới quyền Toàn quyền Đông Dương đặt ở Hà Nội."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Thành lập Liên bang Đông Dương. Liên bang Đông Dương được thành lập dưới quyền Toàn quyền Đông Dương đặt ở Hà Nội.",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 5: Quá trình xâm lược và cai trị của chủ nghĩa thực dân ở Đông Nam Á. Liên bang Đông Dương được thành lập dưới quyền Toàn quyền Đông Dương đặt ở Hà Nội.",
+    "significance": "Là mốc quan trọng về tổ chức nhà nước, cải cách hoặc chủ quyền được SGK 11 nhấn mạnh.",
+    "keyFacts": [
+      "Thành lập Liên bang Đông Dương",
+      1887,
+      "Hà Nội",
+      "Liên bang Đông Dương được thành lập dưới quyền Toàn quyền Đông Dương đặt ở Hà Nội."
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 11,
+      "book": "Lịch sử 11 - Cánh Diều",
+      "lesson": "Bài 5: Quá trình xâm lược và cai trị của chủ nghĩa thực dân ở Đông Nam Á",
+      "pageStart": 34,
+      "pageEnd": 34,
+      "excerpt": "Liên bang Đông Dương được thành lập dưới quyền Toàn quyền Đông Dương đặt ở Hà Nội."
+    }
+  ],
+  "hierarchy": {
+    "rootId": "lien-bang-dong-duong",
+    "level": 0,
+    "orderInParent": 7
+  },
+  "display": {
+    "showOnHomepage": false,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "Liên bang Đông Dương được thành lập dưới quyền Toàn quyền Đông Dương đặt ở Hà Nội. || [SGK11:lien-bang-dong-duong] Liên bang Đông Dương được thành lập dưới quyền Toàn quyền Đông Dương đặt ở Hà Nội.",
+  "merge": {
+    "sourceGrades": "11",
+    "sourceIds": "lien-bang-dong-duong",
+    "mergedCount": 1,
+    "sourceFiles": "SGK11_event_master_flattened_v2(1).xlsx",
+    "textbookRefsAll": "SGK11: Bài 5: Quá trình xâm lược và cai trị của chủ nghĩa thực dân ở Đông Nam Á tr.34 [lien-bang-dong-duong]"
+  },
+  "validation": {
+    "status": "CHECK",
+    "issues": "geoType cần marker nhưng thiếu lat/lng"
+  }
+}

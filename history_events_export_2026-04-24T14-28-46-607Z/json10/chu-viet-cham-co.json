@@ -1,0 +1,91 @@
+{
+  "id": "chu-viet-cham-co",
+  "slug": "chu-viet-cham-co",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Chữ Chăm cổ",
+    "short": "Chữ Chăm"
+  },
+  "classification": {
+    "eventType": "cultural",
+    "eventSubtype": "script",
+    "tags": [
+      "chữ Chăm",
+      "Sanskrit",
+      "bia ký"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      10
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 300
+    },
+    "datePrecision": "approximate",
+    "displayDate": "Khoảng đầu thế kỉ IV",
+    "isApproximate": true
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "no_location"
+    },
+    "focusGeometry": {
+      "mode": "auto"
+    }
+  },
+  "summary": {
+    "homepageTitle": "Chữ Chăm cổ",
+    "homepageSummary": "Chữ Chăm cổ là một thành tựu quan trọng phản ánh trình độ văn hóa của cư dân Chăm-pa.",
+    "cardSummary": "Chữ Chăm cổ xuất hiện từ đầu thế kỉ IV."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Người Chăm sớm sáng tạo và sử dụng chữ viết, góp phần lưu giữ văn bản, bia ký và truyền thống văn hóa của mình.",
+    "detailedNarrative": "Theo SGK, chữ Chăm cổ xuất hiện dưới ảnh hưởng của chữ Ấn Độ và được sử dụng trong đời sống văn hóa, tôn giáo, hành chính. Nhiều văn bia và tài liệu chữ Chăm còn lại đến nay phản ánh sự phát triển của văn minh Chăm-pa.",
+    "significance": "Là dấu hiệu quan trọng cho thấy trình độ phát triển cao của văn hóa Chăm-pa.",
+    "keyFacts": [
+      "Xuất hiện khoảng đầu thế kỉ IV",
+      "Chịu ảnh hưởng từ chữ Ấn Độ",
+      "Được dùng trong bia ký và văn bản"
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 10,
+      "book": "Lịch sử 10 - Cánh Diều",
+      "theme": "Chủ đề 6: Một số nền văn minh trên đất nước Việt Nam trước năm 1858",
+      "lesson": "Bài 13: Văn minh Chăm-pa, Văn minh Phù Nam",
+      "pageStart": 91,
+      "pageEnd": 91,
+      "excerpt": "Chữ Chăm cổ là một thành tựu tiêu biểu của văn minh Chăm-pa."
+    }
+  ],
+  "hierarchy": {
+    "rootId": "vm-cham-pa",
+    "parentId": "vm-cham-pa",
+    "level": 1,
+    "orderInParent": 4
+  },
+  "display": {
+    "showOnHomepage": true,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "merge": {
+    "sourceGrades": "10",
+    "sourceIds": "chu-viet-cham-co",
+    "mergedCount": 1,
+    "sourceFiles": "SGK10_event_master_flattened_v2(1).xlsx",
+    "textbookRefsAll": "SGK10: Bài 13: Văn minh Chăm-pa, Văn minh Phù Nam tr.91 [chu-viet-cham-co]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

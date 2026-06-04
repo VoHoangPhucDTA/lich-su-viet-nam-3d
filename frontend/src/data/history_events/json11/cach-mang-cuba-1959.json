@@ -1,0 +1,93 @@
+{
+  "id": "cach-mang-cuba-1959",
+  "slug": "cach-mang-cuba-1959",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Cách mạng Cu-ba (1959)",
+    "short": "Cách mạng Cu-ba"
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "socialist_revolution",
+    "tags": [
+      "Cách mạng Cu-ba (1959)",
+      "1-1-1959",
+      "Cách mạng xã hội chủ nghĩa ở Tây bán cầu; Phi-đen Ca-xtơ-rô."
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1959
+    },
+    "datePrecision": "day",
+    "displayDate": "1-1-1959",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "no_location",
+      "marker": {
+        "label": "Cách mạng Cu-ba"
+      }
+    },
+    "focusGeometry": {
+      "mode": "auto"
+    }
+  },
+  "summary": {
+    "homepageTitle": "Cách mạng Cu-ba (1959)",
+    "homepageSummary": "Cách mạng Cu-ba (1959). Cách mạng xã hội chủ nghĩa ở Tây bán cầu; Phi-đen Ca-xtơ-rô.",
+    "cardSummary": "Cách mạng xã hội chủ nghĩa ở Tây bán cầu; Phi-đen Ca-xtơ-rô."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Cách mạng Cu-ba (1959). Cách mạng xã hội chủ nghĩa ở Tây bán cầu; Phi-đen Ca-xtơ-rô.",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 4: Chủ nghĩa xã hội từ năm 1917 đến nay. Cách mạng xã hội chủ nghĩa ở Tây bán cầu; Phi-đen Ca-xtơ-rô.",
+    "significance": "Là mốc quan trọng về tổ chức nhà nước, cải cách hoặc chủ quyền được SGK 11 nhấn mạnh.",
+    "keyFacts": [
+      "Cách mạng Cu-ba (1959)",
+      "1-1-1959",
+      "Cách mạng xã hội chủ nghĩa ở Tây bán cầu; Phi-đen Ca-xtơ-rô."
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 11,
+      "book": "Lịch sử 11 - Cánh Diều",
+      "lesson": "Bài 4: Chủ nghĩa xã hội từ năm 1917 đến nay",
+      "pageStart": 25,
+      "pageEnd": 25,
+      "excerpt": "Cách mạng xã hội chủ nghĩa ở Tây bán cầu; Phi-đen Ca-xtơ-rô."
+    }
+  ],
+  "hierarchy": {
+    "rootId": "cach-mang-cuba-1959",
+    "level": 0,
+    "orderInParent": 20
+  },
+  "display": {
+    "showOnHomepage": false,
+    "showOnTimeline": false,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "Cách mạng xã hội chủ nghĩa ở Tây bán cầu; Phi-đen Ca-xtơ-rô. || [SGK11:cach-mang-cuba-1959] Cách mạng xã hội chủ nghĩa ở Tây bán cầu; Phi-đen Ca-xtơ-rô.",
+  "merge": {
+    "sourceGrades": "11",
+    "sourceIds": "cach-mang-cuba-1959",
+    "mergedCount": 1,
+    "sourceFiles": "SGK11_event_master_flattened_v2(1).xlsx",
+    "textbookRefsAll": "SGK11: Bài 4: Chủ nghĩa xã hội từ năm 1917 đến nay tr.25 [cach-mang-cuba-1959]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

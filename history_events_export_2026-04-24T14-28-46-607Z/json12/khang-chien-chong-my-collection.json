@@ -1,0 +1,108 @@
+{
+  "id": "khang-chien-chong-my-collection",
+  "slug": "khang-chien-chong-my-collection",
+  "entityType": "event",
+  "eventLevel": "collection",
+  "titles": {
+    "primary": "Kháng chiến chống Mỹ, cứu nước",
+    "short": "Kháng chiến chống Mỹ, cứu nước"
+  },
+  "classification": {
+    "eventType": "military",
+    "eventSubtype": "collection_overview",
+    "tags": [
+      "Kháng chiến chống Mỹ",
+      "cứu nước",
+      "1954–1975",
+      "collection"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1954
+    },
+    "end": {
+      "year": 1975
+    },
+    "datePrecision": "period",
+    "displayDate": "1954–1975",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "nationwide"
+    },
+    "focusGeometry": {
+      "mode": "auto"
+    }
+  },
+  "summary": {
+    "homepageTitle": "Kháng chiến chống Mỹ, cứu nước",
+    "homepageSummary": "Kháng chiến chống Mỹ, cứu nước. —",
+    "cardSummary": "—"
+  },
+  "textbookContent": {
+    "canonicalSummary": "Kháng chiến chống Mỹ, cứu nước.",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 8: Kháng chiến chống Mỹ, cứu nước (1954–1975), trang 43–53. Nội dung trong file Excel được chuẩn hóa để nhập hệ thống; khi triển khai chính thức, nhóm nên bổ sung tường thuật chi tiết bám SGK và tư liệu gốc.",
+    "significance": "Là mốc quan trọng trong tiến trình đấu tranh quân sự, bảo vệ hoặc giải phóng đất nước của Việt Nam theo SGK 12.",
+    "keyFacts": [
+      "Kháng chiến chống Mỹ",
+      "cứu nước",
+      "1954–1975"
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 12,
+      "book": "Lịch sử 12 - Cánh Diều",
+      "theme": "Chủ đề 3: Cách mạng tháng Tám và kháng chiến bảo vệ độc lập dân tộc",
+      "lesson": "Bài 8: Kháng chiến chống Mỹ, cứu nước (1954–1975)",
+      "pageStart": 43,
+      "pageEnd": 53,
+      "excerpt": "Kháng chiến chống Mỹ, cứu nước"
+    }
+  ],
+  "hierarchy": {
+    "rootId": "khang-chien-chong-my-collection",
+    "childIds": [
+      "giai-doan-1954-1960",
+      "chien-tranh-dac-biet-1961-1965",
+      "chien-thang-ap-bac-1963",
+      "chien-tranh-cuc-bo-1965-1968",
+      "viet-nam-hoa-chien-tranh-1969-1973",
+      "chien-thang-phuoc-long-1975",
+      "chien-dich-tay-nguyen-1975",
+      "chien-dich-hue-da-nang-1975",
+      "chien-dich-ho-chi-minh-1975",
+      "giai-phong-mien-nam-30-4-1975",
+      "nguyen-nhan-y-nghia-chong-my"
+    ],
+    "level": 0,
+    "orderInParent": 3
+  },
+  "display": {
+    "showOnHomepage": true,
+    "showOnTimeline": true,
+    "featured": true
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "— || [SGK12:khang-chien-chong-my-collection] —",
+  "merge": {
+    "sourceGrades": "12",
+    "sourceIds": "khang-chien-chong-my-collection",
+    "mergedCount": 1,
+    "sourceFiles": "SGK12_event_master_flattened(1).xlsx",
+    "textbookRefsAll": "SGK12: Bài 8: Kháng chiến chống Mỹ, cứu nước (1954–1975) tr.43-53 [khang-chien-chong-my-collection]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

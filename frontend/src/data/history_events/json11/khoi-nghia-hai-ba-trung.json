@@ -1,0 +1,131 @@
+{
+  "id": "khoi-nghia-hai-ba-trung",
+  "slug": "khoi-nghia-hai-ba-trung",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Khởi nghĩa Hai Bà Trưng (40–43)",
+    "short": "Hai Bà Trưng"
+  },
+  "classification": {
+    "eventType": "military",
+    "eventSubtype": "uprising",
+    "tags": [
+      "Khởi nghĩa Hai Bà Trưng (40–43)",
+      "40–43",
+      "Hà Nội",
+      "Vĩnh Phúc",
+      "Mê Linh",
+      "Cổ Loa",
+      "giành quyền ở 65 thành."
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 40
+    },
+    "end": {
+      "year": 43
+    },
+    "datePrecision": "period",
+    "displayDate": "40–43",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "multi_point",
+      "marker": {
+        "label": "Hà Nội"
+      },
+      "provinceNames": [
+        "Hà Nội",
+        "Vĩnh Phúc"
+      ],
+      "historicalLocations": [
+        "Hà Nội",
+        "Vĩnh Phúc"
+      ]
+    },
+    "focusGeometry": {
+      "mode": "bounds",
+      "provinceNames": [
+        "Hà Nội",
+        "Vĩnh Phúc"
+      ]
+    }
+  },
+  "summary": {
+    "homepageTitle": "Khởi nghĩa Hai Bà Trưng (40–43)",
+    "homepageSummary": "Khởi nghĩa Hai Bà Trưng (40–43). Mê Linh, Cổ Loa, giành quyền ở 65 thành.",
+    "cardSummary": "Mê Linh, Cổ Loa, giành quyền ở 65 thành."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Khởi nghĩa Hai Bà Trưng (40–43). Mê Linh, Cổ Loa, giành quyền ở 65 thành.",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 8: Khởi nghĩa và chiến tranh giải phóng trong lịch sử Việt Nam. Mê Linh, Cổ Loa, giành quyền ở 65 thành.",
+    "significance": "Là mốc quan trọng trong tiến trình quân sự và bảo vệ/chinh phục độc lập, chủ quyền của Việt Nam theo SGK 11.",
+    "keyFacts": [
+      "Khởi nghĩa Hai Bà Trưng (40–43)",
+      "40–43",
+      "Hà Nội",
+      "Vĩnh Phúc",
+      "Mê Linh",
+      "Cổ Loa",
+      "giành quyền ở 65 thành."
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 11,
+      "book": "Lịch sử 11 - Cánh Diều",
+      "lesson": "Bài 8: Khởi nghĩa và chiến tranh giải phóng trong lịch sử Việt Nam",
+      "pageStart": 55,
+      "pageEnd": 56,
+      "excerpt": "Mê Linh, Cổ Loa, giành quyền ở 65 thành."
+    }
+  ],
+  "hierarchy": {
+    "rootId": "vm-khoi-nghia-va-giai-phong",
+    "parentId": "vm-khoi-nghia-va-giai-phong",
+    "level": 1,
+    "orderInParent": 1
+  },
+  "associations": {
+    "relatedEventIds": [
+      "khoi-nghia-ly-bi",
+      "khoi-nghia-lam-son-1418-1427",
+      "khoi-nghia-phung-hung",
+      "vm-khoi-nghia-va-giai-phong",
+      "phong-trao-tay-son",
+      "khoi-nghia-ba-trieu"
+    ],
+    "successorEventIds": [
+      "khoi-nghia-ba-trieu"
+    ]
+  },
+  "display": {
+    "showOnHomepage": true,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "Mê Linh, Cổ Loa, giành quyền ở 65 thành. || [SGK11:khoi-nghia-hai-ba-trung] Mê Linh, Cổ Loa, giành quyền ở 65 thành.",
+  "merge": {
+    "sourceGrades": "11",
+    "sourceIds": "khoi-nghia-hai-ba-trung",
+    "mergedCount": 1,
+    "sourceFiles": "SGK11_event_master_flattened_v2(1).xlsx",
+    "textbookRefsAll": "SGK11: Bài 8: Khởi nghĩa và chiến tranh giải phóng trong lịch sử Việt Nam tr.55-56 [khoi-nghia-hai-ba-trung]"
+  },
+  "validation": {
+    "status": "CHECK",
+    "issues": "multi_point thiếu markers/marker đại diện"
+  }
+}

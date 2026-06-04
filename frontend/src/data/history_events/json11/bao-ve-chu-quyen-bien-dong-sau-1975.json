@@ -1,0 +1,128 @@
+{
+  "id": "bao-ve-chu-quyen-bien-dong-sau-1975",
+  "slug": "bao-ve-chu-quyen-bien-dong-sau-1975",
+  "entityType": "event",
+  "eventLevel": "collection",
+  "titles": {
+    "primary": "Bảo vệ chủ quyền Biển Đông sau 1975 (tổng quan)",
+    "short": "Bảo vệ chủ quyền Biển Đông sau 1"
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "collection_overview",
+    "tags": [
+      "Bảo vệ chủ quyền Biển Đông sau 1975 (tổng quan)",
+      "1975–nay",
+      "Đà Nẵng",
+      "Quảng Ngãi",
+      "Khánh Hòa",
+      "trùng_sgk",
+      "collection"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11,
+      12
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1975
+    },
+    "datePrecision": "period",
+    "displayDate": "1975–nay",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "mixed",
+      "provinceNames": [
+        "Đà Nẵng",
+        "Quảng Ngãi",
+        "Khánh Hòa"
+      ],
+      "historicalLocations": [
+        "Biển Đông",
+        "Hoàng Sa",
+        "Trường Sa"
+      ]
+    },
+    "focusGeometry": {
+      "mode": "auto",
+      "provinceNames": [
+        "Đà Nẵng",
+        "Quảng Ngãi",
+        "Khánh Hòa"
+      ]
+    }
+  },
+  "summary": {
+    "homepageTitle": "Bảo vệ chủ quyền Biển Đông sau 1975 (tổng quan)",
+    "homepageSummary": "Bảo vệ chủ quyền Biển Đông sau 1975 (tổng quan). Liên kết vm-chu-quyen-bien-dong (SGK11) | Trùng: Liên kết vm-chu-quyen-bien-dong (SGK11)",
+    "cardSummary": "Liên kết vm-chu-quyen-bien-dong (SGK11) | Trùng: Liên kết vm-chu-quyen-bien-dong (SGK11)"
+  },
+  "textbookContent": {
+    "canonicalSummary": "Bảo vệ chủ quyền Biển Đông sau 1975 (tổng quan).",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 9: Bảo vệ Tổ quốc sau năm 1975 và bài học lịch sử, trang 57–58. Nội dung trong file Excel được chuẩn hóa để nhập hệ thống; khi triển khai chính thức, nhóm nên bổ sung tường thuật chi tiết bám SGK và tư liệu gốc.",
+    "significance": "Là mốc quan trọng trong tiến trình cách mạng, xây dựng nhà nước, đối ngoại hoặc tổ chức lực lượng theo SGK 12.",
+    "keyFacts": [
+      "Bảo vệ chủ quyền Biển Đông sau 1975 (tổng quan)",
+      "1975–nay",
+      "Biển Đông",
+      "Hoàng Sa",
+      "Trường Sa"
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 12,
+      "book": "Lịch sử 12 - Cánh Diều",
+      "theme": "Chủ đề 3: Bảo vệ Tổ quốc sau năm 1975",
+      "lesson": "Bài 9: Bảo vệ Tổ quốc sau năm 1975 và bài học lịch sử",
+      "pageStart": 57,
+      "pageEnd": 58,
+      "excerpt": "Liên kết vm-chu-quyen-bien-dong (SGK11) | Trùng: Liên kết vm-chu-quyen-bien-dong (SGK11)"
+    }
+  ],
+  "hierarchy": {
+    "rootId": "bao-ve-to-quoc-sau-1975-collection",
+    "parentId": "bao-ve-to-quoc-sau-1975-collection",
+    "childIds": [
+      "chien-dich-cq88-1988",
+      "trung-quoc-thanh-lap-tam-sa-2012",
+      "gian-khoan-hd981-2014"
+    ],
+    "level": 1,
+    "orderInParent": 3
+  },
+  "associations": {
+    "predecessorEventIds": [
+      "chien-tranh-bien-gioi-phia-bac-1979"
+    ],
+    "successorEventIds": [
+      "bai-hoc-khang-chien-1945-nay"
+    ]
+  },
+  "display": {
+    "showOnHomepage": true,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "Liên kết vm-chu-quyen-bien-dong (SGK11) | Trùng: Liên kết vm-chu-quyen-bien-dong (SGK11) || [SGK12:bao-ve-chu-quyen-bien-dong-sau-1975] Liên kết vm-chu-quyen-bien-dong (SGK11) | Trùng: Liên kết vm-chu-quyen-bien-dong (SGK11)",
+  "merge": {
+    "sourceGrades": "11 | 12",
+    "sourceIds": "bao-ve-chu-quyen-bien-dong-sau-1975",
+    "mergedCount": 1,
+    "sourceFiles": "SGK12_event_master_flattened(1).xlsx",
+    "textbookRefsAll": "SGK12: Bài 9: Bảo vệ Tổ quốc sau năm 1975 và bài học lịch sử tr.57-58 [bao-ve-chu-quyen-bien-dong-sau-1975]"
+  },
+  "validation": {
+    "status": "CHECK",
+    "issues": "geoType cần marker nhưng thiếu lat/lng"
+  }
+}

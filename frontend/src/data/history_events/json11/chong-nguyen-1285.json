@@ -1,0 +1,133 @@
+{
+  "id": "chong-nguyen-1285",
+  "slug": "chong-nguyen-1285",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Kháng chiến chống quân Nguyên (1285)",
+    "short": "Chống Nguyên"
+  },
+  "classification": {
+    "eventType": "military",
+    "eventSubtype": "battle",
+    "tags": [
+      "Kháng chiến chống quân Nguyên (1285)",
+      "Năm 1285",
+      "Hà Nội",
+      "Hưng Yên",
+      "Hải Dương",
+      "Tây Kết",
+      "Hàm Tử",
+      "Chương Dương; đánh bại 50 vạn quân Thoát Hoan."
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1285
+    },
+    "datePrecision": "year",
+    "displayDate": "Năm 1285",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "multi_point",
+      "marker": {
+        "label": "Hà Nội"
+      },
+      "provinceNames": [
+        "Hà Nội",
+        "Hưng Yên",
+        "Hải Dương"
+      ],
+      "historicalLocations": [
+        "Hà Nội",
+        "Hưng Yên",
+        "Hải Dương"
+      ]
+    },
+    "focusGeometry": {
+      "mode": "bounds",
+      "provinceNames": [
+        "Hà Nội",
+        "Hưng Yên",
+        "Hải Dương"
+      ]
+    }
+  },
+  "summary": {
+    "homepageTitle": "Kháng chiến chống quân Nguyên (1285)",
+    "homepageSummary": "Kháng chiến chống quân Nguyên (1285). Tây Kết, Hàm Tử, Chương Dương; đánh bại 50 vạn quân Thoát Hoan.",
+    "cardSummary": "Tây Kết, Hàm Tử, Chương Dương; đánh bại 50 vạn quân Thoát Hoan."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Kháng chiến chống quân Nguyên (1285). Tây Kết, Hàm Tử, Chương Dương; đánh bại 50 vạn quân Thoát Hoan.",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 7: Chiến tranh bảo vệ Tổ quốc trong lịch sử Việt Nam. Tây Kết, Hàm Tử, Chương Dương; đánh bại 50 vạn quân Thoát Hoan.",
+    "significance": "Là mốc quan trọng trong tiến trình quân sự và bảo vệ/chinh phục độc lập, chủ quyền của Việt Nam theo SGK 11.",
+    "keyFacts": [
+      "Kháng chiến chống quân Nguyên (1285)",
+      "Năm 1285",
+      "Hà Nội",
+      "Hưng Yên",
+      "Hải Dương",
+      "Tây Kết",
+      "Hàm Tử",
+      "Chương Dương; đánh bại 50 vạn quân Thoát Hoan."
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 11,
+      "book": "Lịch sử 11 - Cánh Diều",
+      "lesson": "Bài 7: Chiến tranh bảo vệ Tổ quốc trong lịch sử Việt Nam",
+      "pageStart": 48,
+      "pageEnd": 48,
+      "excerpt": "Tây Kết, Hàm Tử, Chương Dương; đánh bại 50 vạn quân Thoát Hoan."
+    }
+  ],
+  "hierarchy": {
+    "rootId": "vm-chien-tranh-bao-ve-to-quoc",
+    "parentId": "ba-lan-chong-mong-nguyen",
+    "level": 2,
+    "orderInParent": 2
+  },
+  "associations": {
+    "relatedEventIds": [
+      "chong-mong-co-1258",
+      "chong-nguyen-1287-1288",
+      "ba-lan-chong-mong-nguyen"
+    ],
+    "predecessorEventIds": [
+      "chong-mong-co-1258"
+    ],
+    "successorEventIds": [
+      "chong-nguyen-1287-1288"
+    ]
+  },
+  "display": {
+    "showOnHomepage": false,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "Tây Kết, Hàm Tử, Chương Dương; đánh bại 50 vạn quân Thoát Hoan. || [SGK11:chong-nguyen-1285] Tây Kết, Hàm Tử, Chương Dương; đánh bại 50 vạn quân Thoát Hoan.",
+  "merge": {
+    "sourceGrades": "11",
+    "sourceIds": "chong-nguyen-1285",
+    "mergedCount": 1,
+    "sourceFiles": "SGK11_event_master_flattened_v2(1).xlsx",
+    "textbookRefsAll": "SGK11: Bài 7: Chiến tranh bảo vệ Tổ quốc trong lịch sử Việt Nam tr.48 [chong-nguyen-1285]"
+  },
+  "validation": {
+    "status": "CHECK",
+    "issues": "multi_point thiếu markers/marker đại diện"
+  }
+}

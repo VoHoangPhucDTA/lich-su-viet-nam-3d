@@ -1,0 +1,109 @@
+{
+  "id": "trung-quoc-thanh-lap-tam-sa-2012",
+  "slug": "trung-quoc-thanh-lap-tam-sa-2012",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Trung Quốc thành lập cái gọi là “thành phố Tam Sa” (2012)",
+    "short": "Trung Quốc thành lập cái gọi là"
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "milestone",
+    "tags": [
+      "Trung Quốc thành lập cái gọi là “thành phố Tam Sa” (2012)",
+      2012
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 2012
+    },
+    "end": {
+      "year": 2012
+    },
+    "datePrecision": "year",
+    "displayDate": "2012",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "no_location",
+      "historicalLocations": [
+        "Biển Đông",
+        "Hoàng Sa",
+        "Trường Sa"
+      ]
+    },
+    "focusGeometry": {
+      "mode": "auto"
+    }
+  },
+  "summary": {
+    "homepageTitle": "Trung Quốc thành lập cái gọi là “thành phố Tam Sa” (2012)",
+    "homepageSummary": "Trung Quốc thành lập cái gọi là “thành phố Tam Sa” (2012). Hành động đơn phương xâm phạm chủ quyền Việt Nam ở Biển Đông",
+    "cardSummary": "Hành động đơn phương xâm phạm chủ quyền Việt Nam ở Biển Đông"
+  },
+  "textbookContent": {
+    "canonicalSummary": "Trung Quốc thành lập cái gọi là “thành phố Tam Sa” (2012).",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 9: Bảo vệ Tổ quốc sau năm 1975 và bài học lịch sử, trang 58. Nội dung trong file Excel được chuẩn hóa để nhập hệ thống; khi triển khai chính thức, nhóm nên bổ sung tường thuật chi tiết bám SGK và tư liệu gốc.",
+    "significance": "Là mốc quan trọng trong tiến trình cách mạng, xây dựng nhà nước, đối ngoại hoặc tổ chức lực lượng theo SGK 12.",
+    "keyFacts": [
+      "Trung Quốc thành lập cái gọi là “thành phố Tam Sa” (2012)",
+      2012,
+      "Biển Đông",
+      "Hoàng Sa",
+      "Trường Sa"
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 12,
+      "book": "Lịch sử 12 - Cánh Diều",
+      "theme": "Chủ đề 3: Bảo vệ Tổ quốc sau năm 1975",
+      "lesson": "Bài 9: Bảo vệ Tổ quốc sau năm 1975 và bài học lịch sử",
+      "pageStart": 58,
+      "pageEnd": 58,
+      "excerpt": "Hành động đơn phương xâm phạm chủ quyền Việt Nam ở Biển Đông"
+    }
+  ],
+  "hierarchy": {
+    "rootId": "bao-ve-to-quoc-sau-1975-collection",
+    "parentId": "bao-ve-chu-quyen-bien-dong-sau-1975",
+    "level": 2,
+    "orderInParent": 2
+  },
+  "associations": {
+    "predecessorEventIds": [
+      "chien-dich-cq88-1988"
+    ],
+    "successorEventIds": [
+      "gian-khoan-hd981-2014"
+    ]
+  },
+  "display": {
+    "showOnHomepage": false,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "Hành động đơn phương xâm phạm chủ quyền Việt Nam ở Biển Đông || [SGK12:trung-quoc-thanh-lap-tam-sa-2012] Hành động đơn phương xâm phạm chủ quyền Việt Nam ở Biển Đông",
+  "merge": {
+    "sourceGrades": "12",
+    "sourceIds": "trung-quoc-thanh-lap-tam-sa-2012",
+    "mergedCount": 1,
+    "sourceFiles": "SGK12_event_master_flattened(1).xlsx",
+    "textbookRefsAll": "SGK12: Bài 9: Bảo vệ Tổ quốc sau năm 1975 và bài học lịch sử tr.58 [trung-quoc-thanh-lap-tam-sa-2012]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

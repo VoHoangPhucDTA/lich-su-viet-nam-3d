@@ -1,0 +1,101 @@
+{
+  "id": "hiep-dinh-so-bo-6-3-1946",
+  "slug": "hiep-dinh-so-bo-6-3-1946",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Hiệp định Sơ bộ Việt–Pháp (6-3-1946)",
+    "short": "Hiệp định Sơ bộ Việt–Pháp"
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "diplomatic_agreement",
+    "tags": [
+      "Hiệp định Sơ bộ Việt–Pháp (6-3-1946)",
+      1946
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1946
+    },
+    "end": {
+      "year": 1946
+    },
+    "datePrecision": "year",
+    "displayDate": "1946",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "no_location"
+    },
+    "focusGeometry": {
+      "mode": "auto"
+    }
+  },
+  "summary": {
+    "homepageTitle": "Hiệp định Sơ bộ Việt–Pháp (6-3-1946)",
+    "homepageSummary": "Hiệp định Sơ bộ Việt–Pháp (6-3-1946). —",
+    "cardSummary": "—"
+  },
+  "textbookContent": {
+    "canonicalSummary": "Hiệp định Sơ bộ Việt–Pháp (6-3-1946).",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 14–16: Hồ Chí Minh – cuộc đời, sự nghiệp, dấu ấn, trang 98. Nội dung trong file Excel được chuẩn hóa để nhập hệ thống; khi triển khai chính thức, nhóm nên bổ sung tường thuật chi tiết bám SGK và tư liệu gốc.",
+    "significance": "Là mốc quan trọng trong tiến trình cách mạng, xây dựng nhà nước, đối ngoại hoặc tổ chức lực lượng theo SGK 12.",
+    "keyFacts": [
+      "Hiệp định Sơ bộ Việt–Pháp (6-3-1946)",
+      1946
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 12,
+      "book": "Lịch sử 12 - Cánh Diều",
+      "theme": "Chủ đề 6: Chủ tịch Hồ Chí Minh",
+      "lesson": "Bài 14–16: Hồ Chí Minh – cuộc đời, sự nghiệp, dấu ấn",
+      "pageStart": 98,
+      "pageEnd": 98,
+      "excerpt": "Hiệp định Sơ bộ Việt–Pháp (6-3-1946)"
+    }
+  ],
+  "hierarchy": {
+    "rootId": "ho-chi-minh-cuoc-doi-su-nghiep-collection",
+    "parentId": "ho-chi-minh-cuoc-doi-su-nghiep-collection",
+    "level": 1,
+    "orderInParent": 8
+  },
+  "associations": {
+    "predecessorEventIds": [
+      "thanh-lap-vn-tuyen-truyen-giai-phong-quan"
+    ],
+    "successorEventIds": [
+      "hcm-qua-doi-2-9-1969"
+    ]
+  },
+  "display": {
+    "showOnHomepage": true,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "— || [SGK12:hiep-dinh-so-bo-6-3-1946] —",
+  "merge": {
+    "sourceGrades": "12",
+    "sourceIds": "hiep-dinh-so-bo-6-3-1946",
+    "mergedCount": 1,
+    "sourceFiles": "SGK12_event_master_flattened(1).xlsx",
+    "textbookRefsAll": "SGK12: Bài 14–16: Hồ Chí Minh – cuộc đời, sự nghiệp, dấu ấn tr.98 [hiep-dinh-so-bo-6-3-1946]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

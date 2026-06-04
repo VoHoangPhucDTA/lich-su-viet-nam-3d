@@ -1,0 +1,96 @@
+{
+  "id": "cmts-anh-1642-1689",
+  "slug": "cmts-anh-1642-1689",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Cách mạng tư sản Anh",
+    "short": "Cách mạng tư sản Anh"
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "bourgeois_revolution",
+    "tags": [
+      "Cách mạng tư sản Anh",
+      "1642–1689",
+      "Bối cảnh thế giới; showOnTimeline=FALSE."
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1642
+    },
+    "end": {
+      "year": 1689
+    },
+    "datePrecision": "period",
+    "displayDate": "1642–1689",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "no_location",
+      "marker": {
+        "label": "Cách mạng tư sản Anh"
+      }
+    },
+    "focusGeometry": {
+      "mode": "auto"
+    }
+  },
+  "summary": {
+    "homepageTitle": "Cách mạng tư sản Anh",
+    "homepageSummary": "Cách mạng tư sản Anh. Bối cảnh thế giới; showOnTimeline=FALSE.",
+    "cardSummary": "Bối cảnh thế giới; showOnTimeline=FALSE."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Cách mạng tư sản Anh. Bối cảnh thế giới; showOnTimeline=FALSE.",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 1: Một số vấn đề chung về cách mạng tư sản. Bối cảnh thế giới; showOnTimeline=FALSE.",
+    "significance": "Là mốc quan trọng về tổ chức nhà nước, cải cách hoặc chủ quyền được SGK 11 nhấn mạnh.",
+    "keyFacts": [
+      "Cách mạng tư sản Anh",
+      "1642–1689",
+      "Bối cảnh thế giới; showOnTimeline=FALSE."
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 11,
+      "book": "Lịch sử 11 - Cánh Diều",
+      "lesson": "Bài 1: Một số vấn đề chung về cách mạng tư sản",
+      "pageStart": 6,
+      "pageEnd": 14,
+      "excerpt": "Bối cảnh thế giới; showOnTimeline=FALSE."
+    }
+  ],
+  "hierarchy": {
+    "rootId": "cmts-anh-1642-1689",
+    "level": 0,
+    "orderInParent": 13
+  },
+  "display": {
+    "showOnHomepage": false,
+    "showOnTimeline": false,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "Bối cảnh thế giới; showOnTimeline=FALSE. || [SGK11:cmts-anh-1642-1689] Bối cảnh thế giới; showOnTimeline=FALSE.",
+  "merge": {
+    "sourceGrades": "11",
+    "sourceIds": "cmts-anh-1642-1689",
+    "mergedCount": 1,
+    "sourceFiles": "SGK11_event_master_flattened_v2(1).xlsx",
+    "textbookRefsAll": "SGK11: Bài 1: Một số vấn đề chung về cách mạng tư sản tr.6-14 [cmts-anh-1642-1689]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

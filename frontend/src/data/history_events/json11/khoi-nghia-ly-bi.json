@@ -1,0 +1,131 @@
+{
+  "id": "khoi-nghia-ly-bi",
+  "slug": "khoi-nghia-ly-bi",
+  "entityType": "event",
+  "eventLevel": "collection",
+  "titles": {
+    "primary": "Khởi nghĩa Lý Bí (542–602)",
+    "short": "Lý Bí"
+  },
+  "classification": {
+    "eventType": "military",
+    "eventSubtype": "uprising_state",
+    "tags": [
+      "Khởi nghĩa Lý Bí (542–602)",
+      "542–602",
+      "Hà Nội",
+      "Lý Bí lãnh đạo khởi nghĩa",
+      "lập nước Vạn Xuân và đóng đô ở Long Biên."
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 542
+    },
+    "end": {
+      "year": 602
+    },
+    "datePrecision": "period",
+    "displayDate": "542–602",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "multi_point",
+      "marker": {
+        "label": "Hà Nội"
+      },
+      "provinceNames": [
+        "Hà Nội"
+      ],
+      "historicalLocations": [
+        "Hà Nội"
+      ]
+    },
+    "focusGeometry": {
+      "mode": "bounds",
+      "provinceNames": [
+        "Hà Nội"
+      ]
+    }
+  },
+  "summary": {
+    "homepageTitle": "Khởi nghĩa Lý Bí (542–602)",
+    "homepageSummary": "Khởi nghĩa Lý Bí (542–602). Lý Bí lãnh đạo khởi nghĩa, lập nước Vạn Xuân và đóng đô ở Long Biên.",
+    "cardSummary": "Lý Bí lãnh đạo khởi nghĩa, lập nước Vạn Xuân và đóng đô ở Long Biên."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Khởi nghĩa Lý Bí (542–602). Lý Bí lãnh đạo khởi nghĩa, lập nước Vạn Xuân và đóng đô ở Long Biên.",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 8: Khởi nghĩa và chiến tranh giải phóng trong lịch sử Việt Nam. Lý Bí lãnh đạo khởi nghĩa, lập nước Vạn Xuân và đóng đô ở Long Biên.",
+    "significance": "Là mốc quan trọng trong tiến trình quân sự và bảo vệ/chinh phục độc lập, chủ quyền của Việt Nam theo SGK 11.",
+    "keyFacts": [
+      "Khởi nghĩa Lý Bí (542–602)",
+      "542–602",
+      "Hà Nội",
+      "Lý Bí lãnh đạo khởi nghĩa",
+      "lập nước Vạn Xuân và đóng đô ở Long Biên."
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 11,
+      "book": "Lịch sử 11 - Cánh Diều",
+      "lesson": "Bài 8: Khởi nghĩa và chiến tranh giải phóng trong lịch sử Việt Nam",
+      "pageStart": 57,
+      "pageEnd": 58,
+      "excerpt": "Lý Bí lãnh đạo khởi nghĩa, lập nước Vạn Xuân và đóng đô ở Long Biên."
+    }
+  ],
+  "hierarchy": {
+    "rootId": "vm-khoi-nghia-va-giai-phong",
+    "parentId": "vm-khoi-nghia-va-giai-phong",
+    "childIds": [
+      "nuoc-van-xuan-thanh-lap-544"
+    ],
+    "level": 1,
+    "orderInParent": 3
+  },
+  "associations": {
+    "relatedEventIds": [
+      "nuoc-van-xuan-thanh-lap-544",
+      "khoi-nghia-lam-son-1418-1427",
+      "khoi-nghia-hai-ba-trung",
+      "khoi-nghia-phung-hung",
+      "vm-khoi-nghia-va-giai-phong",
+      "phong-trao-tay-son",
+      "khoi-nghia-ba-trieu"
+    ],
+    "predecessorEventIds": [
+      "khoi-nghia-ba-trieu"
+    ],
+    "successorEventIds": [
+      "khoi-nghia-phung-hung"
+    ]
+  },
+  "display": {
+    "showOnHomepage": false,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "Lý Bí lãnh đạo khởi nghĩa, lập nước Vạn Xuân và đóng đô ở Long Biên. || [SGK11:khoi-nghia-ly-bi] Lý Bí lãnh đạo khởi nghĩa, lập nước Vạn Xuân và đóng đô ở Long Biên.",
+  "merge": {
+    "sourceGrades": "11",
+    "sourceIds": "khoi-nghia-ly-bi",
+    "mergedCount": 1,
+    "sourceFiles": "SGK11_event_master_flattened_v2(1).xlsx",
+    "textbookRefsAll": "SGK11: Bài 8: Khởi nghĩa và chiến tranh giải phóng trong lịch sử Việt Nam tr.57-58 [khoi-nghia-ly-bi]"
+  },
+  "validation": {
+    "status": "CHECK",
+    "issues": "multi_point thiếu markers/marker đại diện"
+  }
+}

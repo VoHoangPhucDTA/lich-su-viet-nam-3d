@@ -1,0 +1,111 @@
+{
+  "id": "mo-quoc-tu-giam",
+  "slug": "mo-quoc-tu-giam",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Mở Quốc Tử Giám",
+    "short": "Quốc Tử Giám"
+  },
+  "classification": {
+    "eventType": "cultural",
+    "eventSubtype": "education_institution",
+    "tags": [
+      "Quốc Tử Giám",
+      1076,
+      "Thăng Long"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      10
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1076
+    },
+    "datePrecision": "year",
+    "displayDate": "Năm 1076",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "point",
+      "marker": {
+        "lat": 21.0283,
+        "lng": 105.8357,
+        "label": "Quốc Tử Giám"
+      },
+      "provinceNames": [
+        "Hà Nội"
+      ],
+      "historicalLocations": [
+        "Thăng Long",
+        "Quốc Tử Giám"
+      ]
+    },
+    "focusGeometry": {
+      "mode": "marker",
+      "center": {
+        "lat": 21.0283,
+        "lng": 105.8357
+      },
+      "zoom": 12,
+      "provinceNames": [
+        "Hà Nội"
+      ]
+    }
+  },
+  "summary": {
+    "homepageTitle": "Mở Quốc Tử Giám",
+    "homepageSummary": "Quốc Tử Giám là trường học cao cấp đầu tiên của Đại Việt.",
+    "cardSummary": "Quốc Tử Giám được mở năm 1076."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Năm 1076, triều Lý mở Quốc Tử Giám ở Thăng Long, đánh dấu bước phát triển quan trọng của giáo dục chính thống.",
+    "detailedNarrative": "Theo SGK, Quốc Tử Giám được xây dựng sau Văn Miếu và trở thành trung tâm đào tạo nhân tài của triều đình. Đây là biểu tượng nổi bật của truyền thống hiếu học và giáo dục Nho học ở Việt Nam.",
+    "significance": "Khẳng định sự coi trọng giáo dục và đào tạo nhân tài của quốc gia Đại Việt.",
+    "keyFacts": [
+      "Năm 1076",
+      "Là trường học cao cấp đầu tiên",
+      "Đặt tại Thăng Long"
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 10,
+      "book": "Lịch sử 10 - Cánh Diều",
+      "theme": "Chủ đề 6: Một số nền văn minh trên đất nước Việt Nam trước năm 1858",
+      "lesson": "Bài 15: Những thành tựu tiêu biểu của văn minh Đại Việt",
+      "pageStart": 104,
+      "pageEnd": 104,
+      "excerpt": "Năm 1076, triều Lý mở Quốc Tử Giám."
+    }
+  ],
+  "hierarchy": {
+    "rootId": "vm-dai-viet",
+    "parentId": "vm-dai-viet",
+    "level": 1,
+    "orderInParent": 25
+  },
+  "display": {
+    "showOnHomepage": true,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "merge": {
+    "sourceGrades": "10",
+    "sourceIds": "mo-quoc-tu-giam",
+    "mergedCount": 1,
+    "sourceFiles": "SGK10_event_master_flattened_v2(1).xlsx",
+    "textbookRefsAll": "SGK10: Bài 15: Những thành tựu tiêu biểu của văn minh Đại Việt tr.104 [mo-quoc-tu-giam]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

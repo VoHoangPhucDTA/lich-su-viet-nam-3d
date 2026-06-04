@@ -1,0 +1,125 @@
+{
+  "id": "mat-tran-viet-minh",
+  "slug": "mat-tran-viet-minh",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Thành lập Mặt trận Việt Minh",
+    "short": "Việt Minh",
+    "alternatives": [
+      "Thành lập Mặt trận Việt Minh (19-5-1941)",
+      "thanh-lap-mat-tran-viet-minh-1941"
+    ]
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "organization_founding",
+    "tags": [
+      "Việt Minh",
+      "19/5/1941",
+      "đại đoàn kết",
+      "Thành lập Mặt trận Việt Minh (19-5-1941)",
+      1941,
+      "Cao Bằng",
+      "trùng_sgk"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      10,
+      12
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1941,
+      "month": 5,
+      "day": 19
+    },
+    "datePrecision": "day",
+    "displayDate": "19/5/1941",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "no_location",
+      "provinceNames": [
+        "Cao Bằng"
+      ],
+      "historicalLocations": [
+        "Cao Bằng"
+      ]
+    },
+    "focusGeometry": {
+      "mode": "auto"
+    }
+  },
+  "summary": {
+    "homepageTitle": "Thành lập Mặt trận Việt Minh",
+    "homepageSummary": "Mặt trận Việt Minh được thành lập nhằm tập hợp lực lượng yêu nước, phát huy khối đại đoàn kết dân tộc.",
+    "cardSummary": "Việt Minh thành lập ngày 19/5/1941."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Ngày 19/5/1941, Mặt trận Việt Minh được thành lập để đoàn kết các lực lượng yêu nước trong cuộc đấu tranh giải phóng dân tộc.",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 14–16: Hồ Chí Minh – cuộc đời, sự nghiệp, dấu ấn, trang 96. Nội dung trong file Excel được chuẩn hóa để nhập hệ thống; khi triển khai chính thức, nhóm nên bổ sung tường thuật chi tiết bám SGK và tư liệu gốc.",
+    "significance": "Là mốc quan trọng trong tiến trình cách mạng, xây dựng nhà nước, đối ngoại hoặc tổ chức lực lượng theo SGK 12.",
+    "keyFacts": [
+      "Ngày 19/5/1941",
+      "Mặt trận đoàn kết các lực lượng yêu nước",
+      "Là ví dụ tiêu biểu về đại đoàn kết dân tộc",
+      "Thành lập Mặt trận Việt Minh (19-5-1941)",
+      1941,
+      "Cao Bằng"
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 10,
+      "book": "Lịch sử 10 - Cánh Diều",
+      "theme": "Chủ đề 7: Cộng đồng các dân tộc Việt Nam",
+      "lesson": "Bài 17: Khối đại đoàn kết dân tộc trong lịch sử Việt Nam",
+      "pageStart": 124,
+      "pageEnd": 124,
+      "excerpt": "Ngày 19/5/1941, Mặt trận Việt Minh được thành lập."
+    }
+  ],
+  "hierarchy": {
+    "rootId": "mat-tran-viet-minh",
+    "level": 0,
+    "orderInParent": 0
+  },
+  "associations": {
+    "relatedEventIds": [
+      "hoi-nghi-dien-hong",
+      "mat-tran-dan-toc-giai-phong-mien-nam-1960",
+      "tong-tuyen-cu-1976"
+    ],
+    "predecessorEventIds": [
+      "thanh-lap-dang-csvn-1930"
+    ],
+    "successorEventIds": [
+      "thanh-lap-vn-tuyen-truyen-giai-phong-quan"
+    ]
+  },
+  "display": {
+    "showOnHomepage": false,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "[SGK12:thanh-lap-mat-tran-viet-minh-1941] mat-tran-viet-minh (SGK10) | Trùng: mat-tran-viet-minh (SGK10)",
+  "merge": {
+    "sourceGrades": "10 | 12",
+    "sourceIds": "mat-tran-viet-minh | thanh-lap-mat-tran-viet-minh-1941",
+    "mergedCount": 2,
+    "sourceFiles": "SGK10_event_master_flattened_v2(1).xlsx | SGK12_event_master_flattened(1).xlsx",
+    "textbookRefsAll": "SGK10: Bài 17: Khối đại đoàn kết dân tộc trong lịch sử Việt Nam tr.124 [mat-tran-viet-minh] || SGK12: Bài 14–16: Hồ Chí Minh – cuộc đời, sự nghiệp, dấu ấn tr.96 [thanh-lap-mat-tran-viet-minh-1941]",
+    "notes": "Merged 2 source rows into canonical id 'mat-tran-viet-minh'."
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

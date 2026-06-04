@@ -1,0 +1,109 @@
+{
+  "id": "pham-su-man-mo-rong-phu-nam",
+  "slug": "pham-su-man-mo-rong-phu-nam",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Phạm Sư Man mở rộng Phù Nam",
+    "short": "Phạm Sư Man"
+  },
+  "classification": {
+    "eventType": "military",
+    "eventSubtype": "territorial_expansion",
+    "tags": [
+      "Phạm Sư Man",
+      "Phù Nam",
+      "mở rộng lãnh thổ"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      10
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 200
+    },
+    "datePrecision": "period",
+    "displayDate": "Đầu thế kỉ III",
+    "isApproximate": true
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "multi_polygon",
+      "provinceNames": [
+        "An Giang",
+        "Kiên Giang",
+        "Đồng Tháp",
+        "Long An"
+      ],
+      "historicalLocations": [
+        "Phù Nam",
+        "Nam Bộ",
+        "vùng ảnh hưởng biển"
+      ]
+    },
+    "focusGeometry": {
+      "mode": "bounds",
+      "zoom": 7,
+      "provinceNames": [
+        "An Giang",
+        "Kiên Giang",
+        "Đồng Tháp",
+        "Long An"
+      ]
+    }
+  },
+  "summary": {
+    "homepageTitle": "Phạm Sư Man mở rộng Phù Nam",
+    "homepageSummary": "Dưới thời Phạm Sư Man, Phù Nam mở rộng ảnh hưởng và trở thành một quốc gia lớn trong khu vực.",
+    "cardSummary": "Phù Nam mở rộng mạnh dưới thời Phạm Sư Man."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Đầu thế kỉ III, Phạm Sư Man có vai trò quan trọng trong việc mở rộng cương vực và tăng cường sức mạnh của Phù Nam.",
+    "detailedNarrative": "SGK ghi nhận Phạm Sư Man là nhân vật có ảnh hưởng trong quá trình phát triển của Phù Nam. Dưới thời ông, Phù Nam mở rộng thế lực, thể hiện vai trò nổi bật của một nhà nước hướng biển trong khu vực Đông Nam Á cổ đại.",
+    "significance": "Cho thấy khả năng tổ chức, mở rộng ảnh hưởng và giao lưu khu vực của Phù Nam.",
+    "keyFacts": [
+      "Đầu thế kỉ III",
+      "Gắn với Phạm Sư Man",
+      "Thể hiện giai đoạn Phù Nam phát triển mạnh"
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 10,
+      "book": "Lịch sử 10 - Cánh Diều",
+      "theme": "Chủ đề 6: Một số nền văn minh trên đất nước Việt Nam trước năm 1858",
+      "lesson": "Bài 13: Văn minh Chăm-pa, Văn minh Phù Nam",
+      "pageStart": 93,
+      "pageEnd": 93,
+      "excerpt": "Đầu thế kỉ III, Phạm Sư Man góp phần mở rộng cương vực của Phù Nam."
+    }
+  ],
+  "hierarchy": {
+    "rootId": "vm-phu-nam",
+    "parentId": "vm-phu-nam",
+    "level": 1,
+    "orderInParent": 3
+  },
+  "display": {
+    "showOnHomepage": true,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "merge": {
+    "sourceGrades": "10",
+    "sourceIds": "pham-su-man-mo-rong-phu-nam",
+    "mergedCount": 1,
+    "sourceFiles": "SGK10_event_master_flattened_v2(1).xlsx",
+    "textbookRefsAll": "SGK10: Bài 13: Văn minh Chăm-pa, Văn minh Phù Nam tr.93 [pham-su-man-mo-rong-phu-nam]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

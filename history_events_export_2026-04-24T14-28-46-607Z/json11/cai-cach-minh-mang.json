@@ -1,0 +1,100 @@
+{
+  "id": "cai-cach-minh-mang",
+  "slug": "cai-cach-minh-mang",
+  "entityType": "event",
+  "eventLevel": "collection",
+  "titles": {
+    "primary": "Cuộc cải cách của Minh Mạng (nửa đầu thế kỉ XIX)",
+    "short": "Cải cách Minh Mạng"
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "comprehensive_reform",
+    "tags": [
+      "Cuộc cải cách của Minh Mạng (nửa đầu thế kỉ XIX)",
+      "1820–1841",
+      "Collection về cải cách thời Minh Mạng."
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1820
+    },
+    "end": {
+      "year": 1841
+    },
+    "datePrecision": "period",
+    "displayDate": "1820–1841",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "nationwide",
+      "marker": {
+        "label": "Cải cách Minh Mạng"
+      }
+    },
+    "focusGeometry": {
+      "mode": "auto"
+    }
+  },
+  "summary": {
+    "homepageTitle": "Cuộc cải cách của Minh Mạng (nửa đầu thế kỉ XIX)",
+    "homepageSummary": "Cuộc cải cách của Minh Mạng (nửa đầu thế kỉ XIX). Collection về cải cách thời Minh Mạng.",
+    "cardSummary": "Collection về cải cách thời Minh Mạng."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Cuộc cải cách của Minh Mạng (nửa đầu thế kỉ XIX). Collection về cải cách thời Minh Mạng.",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 11: Cuộc cải cách của Minh Mạng (nửa đầu thế kỉ XIX). Collection về cải cách thời Minh Mạng.",
+    "significance": "Là mốc quan trọng về tổ chức nhà nước, cải cách hoặc chủ quyền được SGK 11 nhấn mạnh.",
+    "keyFacts": [
+      "Cuộc cải cách của Minh Mạng (nửa đầu thế kỉ XIX)",
+      "1820–1841",
+      "Collection về cải cách thời Minh Mạng."
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 11,
+      "book": "Lịch sử 11 - Cánh Diều",
+      "lesson": "Bài 11: Cuộc cải cách của Minh Mạng (nửa đầu thế kỉ XIX)",
+      "pageStart": 74,
+      "pageEnd": 78,
+      "excerpt": "Collection về cải cách thời Minh Mạng."
+    }
+  ],
+  "hierarchy": {
+    "rootId": "cai-cach-minh-mang",
+    "childIds": [
+      "cai-cach-mm-trung-uong",
+      "cai-cach-mm-dia-phuong"
+    ],
+    "level": 0,
+    "orderInParent": 5
+  },
+  "display": {
+    "showOnHomepage": true,
+    "showOnTimeline": true,
+    "featured": true
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "Collection về cải cách thời Minh Mạng. || [SGK11:cai-cach-minh-mang] Collection về cải cách thời Minh Mạng.",
+  "merge": {
+    "sourceGrades": "11",
+    "sourceIds": "cai-cach-minh-mang",
+    "mergedCount": 1,
+    "sourceFiles": "SGK11_event_master_flattened_v2(1).xlsx",
+    "textbookRefsAll": "SGK11: Bài 11: Cuộc cải cách của Minh Mạng (nửa đầu thế kỉ XIX) tr.74-78 [cai-cach-minh-mang]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

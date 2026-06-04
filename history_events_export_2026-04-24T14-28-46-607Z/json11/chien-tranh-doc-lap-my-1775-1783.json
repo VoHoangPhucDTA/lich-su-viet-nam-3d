@@ -1,0 +1,96 @@
+{
+  "id": "chien-tranh-doc-lap-my-1775-1783",
+  "slug": "chien-tranh-doc-lap-my-1775-1783",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Chiến tranh giành độc lập 13 thuộc địa Anh ở Bắc Mỹ",
+    "short": "Chiến tranh giành độc lập 13 thuộc địa Anh"
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "independence_war",
+    "tags": [
+      "Chiến tranh giành độc lập 13 thuộc địa Anh ở Bắc Mỹ",
+      "1775–1783",
+      "Tuyên ngôn Độc lập Mỹ 4-7-1776 được Hồ Chí Minh trích dẫn trong Tuyên ngôn Việt Nam."
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1775
+    },
+    "end": {
+      "year": 1783
+    },
+    "datePrecision": "period",
+    "displayDate": "1775–1783",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "no_location",
+      "marker": {
+        "label": "Chiến tranh giành độc lập 13 thuộc địa Anh"
+      }
+    },
+    "focusGeometry": {
+      "mode": "auto"
+    }
+  },
+  "summary": {
+    "homepageTitle": "Chiến tranh giành độc lập 13 thuộc địa Anh ở Bắc Mỹ",
+    "homepageSummary": "Chiến tranh giành độc lập 13 thuộc địa Anh ở Bắc Mỹ. Tuyên ngôn Độc lập Mỹ 4-7-1776 được Hồ Chí Minh trích dẫn trong Tuyên ngôn Việt Nam.",
+    "cardSummary": "Tuyên ngôn Độc lập Mỹ 4-7-1776 được Hồ Chí Minh trích dẫn trong Tuyên ngôn Việt Nam."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Chiến tranh giành độc lập 13 thuộc địa Anh ở Bắc Mỹ. Tuyên ngôn Độc lập Mỹ 4-7-1776 được Hồ Chí Minh trích dẫn trong Tuyên ngôn Việt Nam.",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 1: Một số vấn đề chung về cách mạng tư sản. Tuyên ngôn Độc lập Mỹ 4-7-1776 được Hồ Chí Minh trích dẫn trong Tuyên ngôn Việt Nam.",
+    "significance": "Là mốc quan trọng về tổ chức nhà nước, cải cách hoặc chủ quyền được SGK 11 nhấn mạnh.",
+    "keyFacts": [
+      "Chiến tranh giành độc lập 13 thuộc địa Anh ở Bắc Mỹ",
+      "1775–1783",
+      "Tuyên ngôn Độc lập Mỹ 4-7-1776 được Hồ Chí Minh trích dẫn trong Tuyên ngôn Việt Nam."
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 11,
+      "book": "Lịch sử 11 - Cánh Diều",
+      "lesson": "Bài 1: Một số vấn đề chung về cách mạng tư sản",
+      "pageStart": 6,
+      "pageEnd": 14,
+      "excerpt": "Tuyên ngôn Độc lập Mỹ 4-7-1776 được Hồ Chí Minh trích dẫn trong Tuyên ngôn Việt Nam."
+    }
+  ],
+  "hierarchy": {
+    "rootId": "chien-tranh-doc-lap-my-1775-1783",
+    "level": 0,
+    "orderInParent": 14
+  },
+  "display": {
+    "showOnHomepage": false,
+    "showOnTimeline": false,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "Tuyên ngôn Độc lập Mỹ 4-7-1776 được Hồ Chí Minh trích dẫn trong Tuyên ngôn Việt Nam. || [SGK11:chien-tranh-doc-lap-my-1775-1783] Tuyên ngôn Độc lập Mỹ 4-7-1776 được Hồ Chí Minh trích dẫn trong Tuyên ngôn Việt Nam.",
+  "merge": {
+    "sourceGrades": "11",
+    "sourceIds": "chien-tranh-doc-lap-my-1775-1783",
+    "mergedCount": 1,
+    "sourceFiles": "SGK11_event_master_flattened_v2(1).xlsx",
+    "textbookRefsAll": "SGK11: Bài 1: Một số vấn đề chung về cách mạng tư sản tr.6-14 [chien-tranh-doc-lap-my-1775-1783]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

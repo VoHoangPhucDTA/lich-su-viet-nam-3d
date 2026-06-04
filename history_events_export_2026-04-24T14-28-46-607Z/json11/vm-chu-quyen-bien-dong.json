@@ -1,0 +1,139 @@
+{
+  "id": "vm-chu-quyen-bien-dong",
+  "slug": "vm-chu-quyen-bien-dong",
+  "entityType": "event",
+  "eventLevel": "collection",
+  "titles": {
+    "primary": "Lịch sử bảo vệ chủ quyền Việt Nam ở Biển Đông",
+    "short": "Chủ quyền Biển Đông"
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "sovereignty_overview",
+    "tags": [
+      "Lịch sử bảo vệ chủ quyền Việt Nam ở Biển Đông",
+      "Từ thế kỉ XVII đến nay",
+      "Quảng Ngãi",
+      "Đà Nẵng",
+      "Khánh Hòa",
+      "Bà Rịa–Vũng Tàu",
+      "Kiên Giang",
+      "Root collection cho Chủ đề 6 về Biển Đông và chủ quyền biển đảo."
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1600
+    },
+    "datePrecision": "period",
+    "displayDate": "Từ thế kỉ XVII đến nay",
+    "isApproximate": true
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "mixed",
+      "marker": {
+        "label": "Biển Đông"
+      },
+      "provinceNames": [
+        "Quảng Ngãi",
+        "Đà Nẵng",
+        "Khánh Hòa",
+        "Bà Rịa–Vũng Tàu",
+        "Kiên Giang"
+      ],
+      "historicalLocations": [
+        "Biển Đông",
+        "Hoàng Sa",
+        "Trường Sa"
+      ]
+    },
+    "focusGeometry": {
+      "mode": "bounds",
+      "provinceNames": [
+        "Quảng Ngãi",
+        "Đà Nẵng",
+        "Khánh Hòa",
+        "Bà Rịa–Vũng Tàu",
+        "Kiên Giang"
+      ]
+    }
+  },
+  "summary": {
+    "homepageTitle": "Lịch sử bảo vệ chủ quyền Việt Nam ở Biển Đông",
+    "homepageSummary": "Lịch sử bảo vệ chủ quyền Việt Nam ở Biển Đông. Root collection cho Chủ đề 6 về Biển Đông và chủ quyền biển đảo.",
+    "cardSummary": "Root collection cho Chủ đề 6 về Biển Đông và chủ quyền biển đảo."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Lịch sử bảo vệ chủ quyền Việt Nam ở Biển Đông. Root collection cho Chủ đề 6 về Biển Đông và chủ quyền biển đảo.",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 12: Vị trí và tầm quan trọng của Biển Đông; Bài 13: Lịch sử bảo vệ chủ quyền, các quyền và lợi ích hợp pháp của Việt Nam ở Biển Đông. Root collection cho Chủ đề 6 về Biển Đông và chủ quyền biển đảo.",
+    "significance": "Là mốc quan trọng về tổ chức nhà nước, cải cách hoặc chủ quyền được SGK 11 nhấn mạnh.",
+    "keyFacts": [
+      "Lịch sử bảo vệ chủ quyền Việt Nam ở Biển Đông",
+      "Từ thế kỉ XVII đến nay",
+      "Quảng Ngãi",
+      "Đà Nẵng",
+      "Khánh Hòa",
+      "Bà Rịa–Vũng Tàu",
+      "Kiên Giang",
+      "Root collection cho Chủ đề 6 về Biển Đông và chủ quyền biển đảo."
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 11,
+      "book": "Lịch sử 11 - Cánh Diều",
+      "lesson": "Bài 12: Vị trí và tầm quan trọng của Biển Đông; Bài 13: Lịch sử bảo vệ chủ quyền, các quyền và lợi ích hợp pháp của Việt Nam ở Biển Đông",
+      "pageStart": 79,
+      "pageEnd": 91,
+      "excerpt": "Root collection cho Chủ đề 6 về Biển Đông và chủ quyền biển đảo."
+    }
+  ],
+  "hierarchy": {
+    "rootId": "vm-chu-quyen-bien-dong",
+    "childIds": [
+      "doi-hoang-sa-the-ky-17",
+      "doi-bac-hai-the-ky-18",
+      "quan-ly-hoang-sa-truong-sa-nguyen",
+      "trung-quoc-chiem-hoang-sa-1974",
+      "giai-phong-truong-sa-1975",
+      "su-kien-gac-ma-1988",
+      "thanh-lap-huyen-dao-1982",
+      "luat-bien-viet-nam-2012",
+      "hiep-dinh-elysee-1949-chuyen-giao-hoang-sa-truong-sa",
+      "vnch-tiep-quan-hoang-sa-truong-sa-1954",
+      "sach-trang-hoang-sa-truong-sa-1979-1988",
+      "viet-nam-tham-gia-unclos-1982",
+      "doc-bien-dong-2002",
+      "hiep-dinh-vinh-bac-bo-2000"
+    ],
+    "level": 0,
+    "orderInParent": 6
+  },
+  "display": {
+    "showOnHomepage": true,
+    "showOnTimeline": true,
+    "featured": true
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "Root collection cho Chủ đề 6 về Biển Đông và chủ quyền biển đảo. || [SGK11:vm-chu-quyen-bien-dong] Root collection cho Chủ đề 6 về Biển Đông và chủ quyền biển đảo.",
+  "merge": {
+    "sourceGrades": "11",
+    "sourceIds": "vm-chu-quyen-bien-dong",
+    "mergedCount": 1,
+    "sourceFiles": "SGK11_event_master_flattened_v2(1).xlsx",
+    "textbookRefsAll": "SGK11: Bài 12: Vị trí và tầm quan trọng của Biển Đông; Bài 13: Lịch sử bảo vệ chủ quyền, các quyền và lợi ích hợp pháp của Việt Nam ở Biển Đông tr.79-91 [vm-chu-quyen-bien-dong]"
+  },
+  "validation": {
+    "status": "CHECK",
+    "issues": "geoType cần marker nhưng thiếu lat/lng"
+  }
+}

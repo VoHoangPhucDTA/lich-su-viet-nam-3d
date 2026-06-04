@@ -1,0 +1,120 @@
+{
+  "id": "uy-ban-khoi-nghia-13-8-1945",
+  "slug": "uy-ban-khoi-nghia-13-8-1945",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Thành lập Ủy ban Khởi nghĩa toàn quốc, Quân lệnh số 1 (13-8-1945)",
+    "short": "Thành lập Ủy ban Khởi nghĩa toàn"
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "uprising",
+    "tags": [
+      "Thành lập Ủy ban Khởi nghĩa toàn quốc",
+      "Quân lệnh số 1 (13-8-1945)",
+      1945,
+      "Tuyên Quang"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1945
+    },
+    "end": {
+      "year": 1945
+    },
+    "datePrecision": "year",
+    "displayDate": "1945",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "point",
+      "marker": {
+        "lat": 21.638,
+        "lng": 105.414,
+        "label": "Tân Trào"
+      },
+      "provinceNames": [
+        "Tuyên Quang"
+      ],
+      "historicalLocations": [
+        "Tân Trào",
+        "Tuyên Quang"
+      ]
+    },
+    "focusGeometry": {
+      "mode": "marker",
+      "center": {
+        "lat": 21.638,
+        "lng": 105.414
+      },
+      "zoom": 9
+    }
+  },
+  "summary": {
+    "homepageTitle": "Thành lập Ủy ban Khởi nghĩa toàn quốc, Quân lệnh số 1 (13-8-1945)",
+    "homepageSummary": "Thành lập Ủy ban Khởi nghĩa toàn quốc, Quân lệnh số 1 (13-8-1945). —",
+    "cardSummary": "—"
+  },
+  "textbookContent": {
+    "canonicalSummary": "Thành lập Ủy ban Khởi nghĩa toàn quốc, Quân lệnh số 1 (13-8-1945).",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 6: Cách mạng tháng Tám năm 1945, trang 32. Nội dung trong file Excel được chuẩn hóa để nhập hệ thống; khi triển khai chính thức, nhóm nên bổ sung tường thuật chi tiết bám SGK và tư liệu gốc.",
+    "significance": "Là mốc quan trọng trong tiến trình cách mạng, xây dựng nhà nước, đối ngoại hoặc tổ chức lực lượng theo SGK 12.",
+    "keyFacts": [
+      "Thành lập Ủy ban Khởi nghĩa toàn quốc",
+      "Quân lệnh số 1 (13-8-1945)",
+      1945,
+      "Tân Trào",
+      "Tuyên Quang"
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 12,
+      "book": "Lịch sử 12 - Cánh Diều",
+      "theme": "Chủ đề 3: Cách mạng tháng Tám và kháng chiến bảo vệ độc lập dân tộc",
+      "lesson": "Bài 6: Cách mạng tháng Tám năm 1945",
+      "pageStart": 32,
+      "pageEnd": 32,
+      "excerpt": "Thành lập Ủy ban Khởi nghĩa toàn quốc, Quân lệnh số 1 (13-8-1945)"
+    }
+  ],
+  "hierarchy": {
+    "rootId": "cach-mang-thang-tam-1945",
+    "parentId": "cach-mang-thang-tam-1945",
+    "level": 1,
+    "orderInParent": 1
+  },
+  "associations": {
+    "successorEventIds": [
+      "hoi-nghi-tan-trao-8-1945"
+    ]
+  },
+  "display": {
+    "showOnHomepage": true,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "— || [SGK12:uy-ban-khoi-nghia-13-8-1945] —",
+  "merge": {
+    "sourceGrades": "12",
+    "sourceIds": "uy-ban-khoi-nghia-13-8-1945",
+    "mergedCount": 1,
+    "sourceFiles": "SGK12_event_master_flattened(1).xlsx",
+    "textbookRefsAll": "SGK12: Bài 6: Cách mạng tháng Tám năm 1945 tr.32 [uy-ban-khoi-nghia-13-8-1945]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

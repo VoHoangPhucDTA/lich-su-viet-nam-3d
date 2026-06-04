@@ -1,0 +1,107 @@
+{
+  "id": "cai-cach-le-thanh-tong",
+  "slug": "cai-cach-le-thanh-tong",
+  "entityType": "event",
+  "eventLevel": "collection",
+  "titles": {
+    "primary": "Cuộc cải cách của Lê Thánh Tông (thế kỉ XV)",
+    "short": "Cải cách Lê Thánh Tông"
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "comprehensive_reform",
+    "tags": [
+      "Cuộc cải cách của Lê Thánh Tông (thế kỉ XV)",
+      "1460–1497",
+      "Trùng SGK10",
+      "trùng_sgk10"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      10,
+      11
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1460
+    },
+    "end": {
+      "year": 1497
+    },
+    "datePrecision": "period",
+    "displayDate": "1460–1497",
+    "isApproximate": true
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "nationwide",
+      "marker": {
+        "label": "Cải cách Lê Thánh Tông"
+      }
+    },
+    "focusGeometry": {
+      "mode": "auto"
+    }
+  },
+  "summary": {
+    "homepageTitle": "Cuộc cải cách của Lê Thánh Tông (thế kỉ XV)",
+    "homepageSummary": "Cuộc cải cách của Lê Thánh Tông (thế kỉ XV). Trùng SGK10; SGK11 mở rộng từ tổ chức nhà nước sang toàn bộ cải cách.",
+    "cardSummary": "Trùng SGK10; SGK11 mở rộng từ tổ chức nhà nước sang toàn bộ cải cách."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Cuộc cải cách của Lê Thánh Tông (thế kỉ XV). Trùng SGK10; SGK11 mở rộng từ tổ chức nhà nước sang toàn bộ cải cách.",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 10: Cuộc cải cách của Lê Thánh Tông (thế kỉ XV). Trùng SGK10; SGK11 mở rộng từ tổ chức nhà nước sang toàn bộ cải cách.",
+    "significance": "Là mốc quan trọng về tổ chức nhà nước, cải cách hoặc chủ quyền được SGK 11 nhấn mạnh.",
+    "keyFacts": [
+      "Cuộc cải cách của Lê Thánh Tông (thế kỉ XV)",
+      "1460–1497",
+      "Trùng SGK10"
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 11,
+      "book": "Lịch sử 11 - Cánh Diều",
+      "lesson": "Bài 10: Cuộc cải cách của Lê Thánh Tông (thế kỉ XV)",
+      "pageStart": 69,
+      "pageEnd": 73,
+      "excerpt": "Trùng SGK10; SGK11 mở rộng từ tổ chức nhà nước sang toàn bộ cải cách."
+    }
+  ],
+  "hierarchy": {
+    "rootId": "cai-cach-le-thanh-tong",
+    "childIds": [
+      "cai-cach-ltt-to-chuc-chinh-quyen",
+      "cai-cach-ltt-kinh-te-van-hoa"
+    ],
+    "level": 0,
+    "orderInParent": 4
+  },
+  "associations": {
+    "relatedEventIds": [
+      "cai-cach-ltt-to-chuc-chinh-quyen"
+    ]
+  },
+  "display": {
+    "showOnHomepage": true,
+    "showOnTimeline": true,
+    "featured": true
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "Trùng SGK10; SGK11 mở rộng từ tổ chức nhà nước sang toàn bộ cải cách. | Trùng SGK10: to-chuc-nha-nuoc-le-thanh-tong || [SGK11:cai-cach-le-thanh-tong] Trùng SGK10; SGK11 mở rộng từ tổ chức nhà nước sang toàn bộ cải cách. | Trùng SGK10: to-chuc-nha-nuoc-le-thanh-tong",
+  "merge": {
+    "sourceGrades": "10 | 11",
+    "sourceIds": "cai-cach-le-thanh-tong",
+    "mergedCount": 1,
+    "sourceFiles": "SGK11_event_master_flattened_v2(1).xlsx",
+    "textbookRefsAll": "SGK11: Bài 10: Cuộc cải cách của Lê Thánh Tông (thế kỉ XV) tr.69-73 [cai-cach-le-thanh-tong]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

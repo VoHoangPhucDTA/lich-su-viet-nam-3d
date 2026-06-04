@@ -1,0 +1,101 @@
+{
+  "id": "unesco-vinh-danh-hcm-1987",
+  "slug": "unesco-vinh-danh-hcm-1987",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "UNESCO vinh danh HCM — Anh hùng giải phóng dân tộc (1987)",
+    "short": "UNESCO vinh danh HCM — Anh hùng"
+  },
+  "classification": {
+    "eventType": "cultural",
+    "eventSubtype": "recognition",
+    "tags": [
+      "UNESCO vinh danh HCM — Anh hùng giải phóng dân tộc (1987)",
+      1987
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1987
+    },
+    "end": {
+      "year": 1987
+    },
+    "datePrecision": "year",
+    "displayDate": "1987",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "no_location"
+    },
+    "focusGeometry": {
+      "mode": "auto"
+    }
+  },
+  "summary": {
+    "homepageTitle": "UNESCO vinh danh HCM — Anh hùng giải phóng dân tộc (1987)",
+    "homepageSummary": "UNESCO vinh danh HCM — Anh hùng giải phóng dân tộc (1987). —",
+    "cardSummary": "—"
+  },
+  "textbookContent": {
+    "canonicalSummary": "UNESCO vinh danh HCM — Anh hùng giải phóng dân tộc (1987).",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 14–16: Hồ Chí Minh – cuộc đời, sự nghiệp, dấu ấn, trang 101. Nội dung trong file Excel được chuẩn hóa để nhập hệ thống; khi triển khai chính thức, nhóm nên bổ sung tường thuật chi tiết bám SGK và tư liệu gốc.",
+    "significance": "Là mốc có ý nghĩa về tư tưởng, văn hoá hoặc giá trị biểu tượng trong tiến trình lịch sử Việt Nam theo SGK 12.",
+    "keyFacts": [
+      "UNESCO vinh danh HCM — Anh hùng giải phóng dân tộc (1987)",
+      1987
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 12,
+      "book": "Lịch sử 12 - Cánh Diều",
+      "theme": "Chủ đề 6: Chủ tịch Hồ Chí Minh",
+      "lesson": "Bài 14–16: Hồ Chí Minh – cuộc đời, sự nghiệp, dấu ấn",
+      "pageStart": 101,
+      "pageEnd": 101,
+      "excerpt": "UNESCO vinh danh HCM — Anh hùng giải phóng dân tộc (1987)"
+    }
+  ],
+  "hierarchy": {
+    "rootId": "ho-chi-minh-cuoc-doi-su-nghiep-collection",
+    "parentId": "ho-chi-minh-cuoc-doi-su-nghiep-collection",
+    "level": 1,
+    "orderInParent": 10
+  },
+  "associations": {
+    "predecessorEventIds": [
+      "hcm-qua-doi-2-9-1969"
+    ],
+    "successorEventIds": [
+      "chi-thi-05-ct-tw-2016"
+    ]
+  },
+  "display": {
+    "showOnHomepage": true,
+    "showOnTimeline": true,
+    "featured": true
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "— || [SGK12:unesco-vinh-danh-hcm-1987] —",
+  "merge": {
+    "sourceGrades": "12",
+    "sourceIds": "unesco-vinh-danh-hcm-1987",
+    "mergedCount": 1,
+    "sourceFiles": "SGK12_event_master_flattened(1).xlsx",
+    "textbookRefsAll": "SGK12: Bài 14–16: Hồ Chí Minh – cuộc đời, sự nghiệp, dấu ấn tr.101 [unesco-vinh-danh-hcm-1987]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

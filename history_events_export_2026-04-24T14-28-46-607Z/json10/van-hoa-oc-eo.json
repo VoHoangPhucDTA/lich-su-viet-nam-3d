@@ -1,0 +1,104 @@
+{
+  "id": "van-hoa-oc-eo",
+  "slug": "van-hoa-oc-eo",
+  "entityType": "event",
+  "eventLevel": "collection",
+  "titles": {
+    "primary": "Văn hóa Óc Eo",
+    "short": "Óc Eo"
+  },
+  "classification": {
+    "eventType": "cultural",
+    "eventSubtype": "archaeological_culture",
+    "tags": [
+      "Óc Eo",
+      "khảo cổ",
+      "Phù Nam"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      10
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 100
+    },
+    "end": {
+      "year": 700
+    },
+    "datePrecision": "period",
+    "displayDate": "Khoảng thế kỉ I – VII",
+    "isApproximate": true
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "polygon",
+      "provinceNames": [
+        "An Giang"
+      ],
+      "historicalLocations": [
+        "Óc Eo"
+      ]
+    },
+    "focusGeometry": {
+      "mode": "bounds",
+      "zoom": 9,
+      "provinceNames": [
+        "An Giang"
+      ]
+    }
+  },
+  "summary": {
+    "homepageTitle": "Văn hóa Óc Eo",
+    "homepageSummary": "Văn hóa Óc Eo là dấu tích khảo cổ nổi bật gắn với Phù Nam.",
+    "cardSummary": "Văn hóa khảo cổ tiêu biểu của Phù Nam."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Văn hóa Óc Eo phản ánh trình độ phát triển kinh tế, thủ công và giao lưu của cư dân Phù Nam.",
+    "detailedNarrative": "Trong SGK, văn hóa Óc Eo được nhắc đến như nguồn tư liệu quan trọng để nghiên cứu Phù Nam. Các di vật khảo cổ cho thấy sự phát triển của thương mại, thủ công nghiệp và mối liên hệ rộng mở của cư dân Phù Nam với các khu vực khác.",
+    "significance": "Là bằng chứng khảo cổ quan trọng giúp nhận thức rõ hơn về sự tồn tại và phát triển của văn minh Phù Nam.",
+    "keyFacts": [
+      "Gắn với Phù Nam",
+      "Phản ánh giao lưu thương mại mạnh",
+      "Là nguồn sử liệu khảo cổ quan trọng"
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 10,
+      "book": "Lịch sử 10 - Cánh Diều",
+      "theme": "Chủ đề 6: Một số nền văn minh trên đất nước Việt Nam trước năm 1858",
+      "lesson": "Bài 13: Văn minh Chăm-pa, Văn minh Phù Nam",
+      "pageStart": 93,
+      "pageEnd": 94,
+      "excerpt": "Văn hóa Óc Eo là một cơ sở tư liệu quan trọng để nghiên cứu Phù Nam."
+    }
+  ],
+  "hierarchy": {
+    "rootId": "vm-phu-nam",
+    "parentId": "vm-phu-nam",
+    "level": 1,
+    "orderInParent": 1
+  },
+  "display": {
+    "showOnHomepage": true,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "merge": {
+    "sourceGrades": "10",
+    "sourceIds": "van-hoa-oc-eo",
+    "mergedCount": 1,
+    "sourceFiles": "SGK10_event_master_flattened_v2(1).xlsx",
+    "textbookRefsAll": "SGK10: Bài 13: Văn minh Chăm-pa, Văn minh Phù Nam tr.93-94 [van-hoa-oc-eo]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

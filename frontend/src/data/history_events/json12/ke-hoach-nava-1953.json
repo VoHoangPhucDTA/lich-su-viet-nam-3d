@@ -1,0 +1,101 @@
+{
+  "id": "ke-hoach-nava-1953",
+  "slug": "ke-hoach-nava-1953",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Pháp đề ra kế hoạch Na-va (7-1953)",
+    "short": "Pháp đề ra kế hoạch Na-va"
+  },
+  "classification": {
+    "eventType": "military",
+    "eventSubtype": "milestone",
+    "tags": [
+      "Pháp đề ra kế hoạch Na-va (7-1953)",
+      1953
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1953
+    },
+    "end": {
+      "year": 1953
+    },
+    "datePrecision": "year",
+    "displayDate": "1953",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "no_location"
+    },
+    "focusGeometry": {
+      "mode": "auto"
+    }
+  },
+  "summary": {
+    "homepageTitle": "Pháp đề ra kế hoạch Na-va (7-1953)",
+    "homepageSummary": "Pháp đề ra kế hoạch Na-va (7-1953). —",
+    "cardSummary": "—"
+  },
+  "textbookContent": {
+    "canonicalSummary": "Pháp đề ra kế hoạch Na-va (7-1953).",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 7: Kháng chiến chống thực dân Pháp (1945–1954), trang 40. Nội dung trong file Excel được chuẩn hóa để nhập hệ thống; khi triển khai chính thức, nhóm nên bổ sung tường thuật chi tiết bám SGK và tư liệu gốc.",
+    "significance": "Là mốc quan trọng trong tiến trình đấu tranh quân sự, bảo vệ hoặc giải phóng đất nước của Việt Nam theo SGK 12.",
+    "keyFacts": [
+      "Pháp đề ra kế hoạch Na-va (7-1953)",
+      1953
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 12,
+      "book": "Lịch sử 12 - Cánh Diều",
+      "theme": "Chủ đề 3: Cách mạng tháng Tám và kháng chiến bảo vệ độc lập dân tộc",
+      "lesson": "Bài 7: Kháng chiến chống thực dân Pháp (1945–1954)",
+      "pageStart": 40,
+      "pageEnd": 40,
+      "excerpt": "Pháp đề ra kế hoạch Na-va (7-1953)"
+    }
+  ],
+  "hierarchy": {
+    "rootId": "khang-chien-chong-phap-1945-1954-collection",
+    "parentId": "khang-chien-chong-phap-1945-1954-collection",
+    "level": 1,
+    "orderInParent": 6
+  },
+  "associations": {
+    "predecessorEventIds": [
+      "khang-chien-chong-phap-1951-1953"
+    ],
+    "successorEventIds": [
+      "tien-cong-dong-xuan-1953-1954"
+    ]
+  },
+  "display": {
+    "showOnHomepage": true,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "— || [SGK12:ke-hoach-nava-1953] —",
+  "merge": {
+    "sourceGrades": "12",
+    "sourceIds": "ke-hoach-nava-1953",
+    "mergedCount": 1,
+    "sourceFiles": "SGK12_event_master_flattened(1).xlsx",
+    "textbookRefsAll": "SGK12: Bài 7: Kháng chiến chống thực dân Pháp (1945–1954) tr.40 [ke-hoach-nava-1953]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

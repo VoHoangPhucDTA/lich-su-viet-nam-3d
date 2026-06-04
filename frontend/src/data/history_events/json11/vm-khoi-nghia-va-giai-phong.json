@@ -1,0 +1,105 @@
+{
+  "id": "vm-khoi-nghia-va-giai-phong",
+  "slug": "vm-khoi-nghia-va-giai-phong",
+  "entityType": "event",
+  "eventLevel": "collection",
+  "titles": {
+    "primary": "Khởi nghĩa và chiến tranh giải phóng trong lịch sử Việt Nam",
+    "short": "Khởi nghĩa & giải phóng"
+  },
+  "classification": {
+    "eventType": "military",
+    "eventSubtype": "collection_overview",
+    "tags": [
+      "Khởi nghĩa và chiến tranh giải phóng trong lịch sử Việt Nam",
+      "Từ thế kỉ I đến đầu thế kỉ XIX",
+      "Root collection Bài 8."
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 40
+    },
+    "end": {
+      "year": 1802
+    },
+    "datePrecision": "period",
+    "displayDate": "Từ thế kỉ I đến đầu thế kỉ XIX",
+    "isApproximate": true
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "nationwide",
+      "marker": {
+        "label": "Khởi nghĩa & giải phóng"
+      }
+    },
+    "focusGeometry": {
+      "mode": "auto"
+    }
+  },
+  "summary": {
+    "homepageTitle": "Khởi nghĩa và chiến tranh giải phóng trong lịch sử Việt Nam",
+    "homepageSummary": "Khởi nghĩa và chiến tranh giải phóng trong lịch sử Việt Nam. Root collection Bài 8.",
+    "cardSummary": "Root collection Bài 8."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Khởi nghĩa và chiến tranh giải phóng trong lịch sử Việt Nam. Root collection Bài 8.",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 8: Khởi nghĩa và chiến tranh giải phóng trong lịch sử Việt Nam. Root collection Bài 8.",
+    "significance": "Là mốc quan trọng trong tiến trình quân sự và bảo vệ/chinh phục độc lập, chủ quyền của Việt Nam theo SGK 11.",
+    "keyFacts": [
+      "Khởi nghĩa và chiến tranh giải phóng trong lịch sử Việt Nam",
+      "Từ thế kỉ I đến đầu thế kỉ XIX",
+      "Root collection Bài 8."
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 11,
+      "book": "Lịch sử 11 - Cánh Diều",
+      "lesson": "Bài 8: Khởi nghĩa và chiến tranh giải phóng trong lịch sử Việt Nam",
+      "pageStart": 55,
+      "pageEnd": 63,
+      "excerpt": "Root collection Bài 8."
+    }
+  ],
+  "hierarchy": {
+    "rootId": "vm-khoi-nghia-va-giai-phong",
+    "childIds": [
+      "khoi-nghia-hai-ba-trung",
+      "khoi-nghia-ba-trieu",
+      "khoi-nghia-ly-bi",
+      "khoi-nghia-phung-hung",
+      "khoi-nghia-lam-son-1418-1427",
+      "phong-trao-tay-son",
+      "bai-hoc-khoi-nghia-giai-phong"
+    ],
+    "level": 0,
+    "orderInParent": 2
+  },
+  "display": {
+    "showOnHomepage": true,
+    "showOnTimeline": true,
+    "featured": true
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "Root collection Bài 8. || [SGK11:vm-khoi-nghia-va-giai-phong] Root collection Bài 8.",
+  "merge": {
+    "sourceGrades": "11",
+    "sourceIds": "vm-khoi-nghia-va-giai-phong",
+    "mergedCount": 1,
+    "sourceFiles": "SGK11_event_master_flattened_v2(1).xlsx",
+    "textbookRefsAll": "SGK11: Bài 8: Khởi nghĩa và chiến tranh giải phóng trong lịch sử Việt Nam tr.55-63 [vm-khoi-nghia-va-giai-phong]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

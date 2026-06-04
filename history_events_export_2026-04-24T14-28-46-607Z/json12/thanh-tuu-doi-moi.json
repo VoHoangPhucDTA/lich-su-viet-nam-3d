@@ -1,0 +1,90 @@
+{
+  "id": "thanh-tuu-doi-moi",
+  "slug": "thanh-tuu-doi-moi",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Thành tựu cơ bản và bài học Đổi mới",
+    "short": "Thành tựu cơ bản và bài học Đổi"
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "analysis_topic",
+    "tags": [
+      "Thành tựu cơ bản và bài học Đổi mới",
+      "concept"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ]
+  },
+  "chronology": {
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "no_location"
+    },
+    "focusGeometry": {
+      "mode": "auto"
+    }
+  },
+  "summary": {
+    "homepageTitle": "Thành tựu cơ bản và bài học Đổi mới",
+    "homepageSummary": "Thành tựu cơ bản và bài học Đổi mới. — (concept)",
+    "cardSummary": "— (concept)"
+  },
+  "textbookContent": {
+    "canonicalSummary": "Thành tựu cơ bản và bài học Đổi mới.",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 11: Thành tựu cơ bản và bài học của công cuộc Đổi mới ở Việt Nam từ năm 1986 đến nay, trang 67–74. Nội dung trong file Excel được chuẩn hóa để nhập hệ thống; khi triển khai chính thức, nhóm nên bổ sung tường thuật chi tiết bám SGK và tư liệu gốc.",
+    "significance": "Là mốc quan trọng trong tiến trình cách mạng, xây dựng nhà nước, đối ngoại hoặc tổ chức lực lượng theo SGK 12.",
+    "keyFacts": [
+      "Thành tựu cơ bản và bài học Đổi mới",
+      "—"
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 12,
+      "book": "Lịch sử 12 - Cánh Diều",
+      "theme": "Chủ đề 4: Công cuộc Đổi mới ở Việt Nam từ năm 1986 đến nay",
+      "lesson": "Bài 11: Thành tựu cơ bản và bài học của công cuộc Đổi mới ở Việt Nam từ năm 1986 đến nay",
+      "pageStart": 67,
+      "pageEnd": 74,
+      "excerpt": "— (concept)"
+    }
+  ],
+  "hierarchy": {
+    "rootId": "doi-moi-1986-collection",
+    "parentId": "doi-moi-1986-collection",
+    "level": 1,
+    "orderInParent": 5
+  },
+  "associations": {
+    "predecessorEventIds": [
+      "doi-moi-gd3-2006-nay"
+    ]
+  },
+  "display": {
+    "showOnHomepage": false,
+    "showOnTimeline": false,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "— (concept) || [SGK12:thanh-tuu-doi-moi] — (concept)",
+  "merge": {
+    "sourceGrades": "12",
+    "sourceIds": "thanh-tuu-doi-moi",
+    "mergedCount": 1,
+    "sourceFiles": "SGK12_event_master_flattened(1).xlsx",
+    "textbookRefsAll": "SGK12: Bài 11: Thành tựu cơ bản và bài học của công cuộc Đổi mới ở Việt Nam từ năm 1986 đến nay tr.67-74 [thanh-tuu-doi-moi]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

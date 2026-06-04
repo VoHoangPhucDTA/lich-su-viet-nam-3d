@@ -1,0 +1,105 @@
+{
+  "id": "nha-nuoc-phu-nam-ra-doi",
+  "slug": "nha-nuoc-phu-nam-ra-doi",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Nhà nước Phù Nam ra đời",
+    "short": "Nhà nước Phù Nam"
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "state_formation",
+    "tags": [
+      "Phù Nam",
+      "Nam Bộ"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      10
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 100
+    },
+    "datePrecision": "approximate",
+    "displayDate": "Khoảng thế kỉ I",
+    "isApproximate": true
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "polygon",
+      "provinceNames": [
+        "An Giang",
+        "Kiên Giang",
+        "Long An"
+      ],
+      "historicalLocations": [
+        "Phù Nam",
+        "Nam Bộ"
+      ]
+    },
+    "focusGeometry": {
+      "mode": "bounds",
+      "zoom": 8,
+      "provinceNames": [
+        "An Giang",
+        "Kiên Giang",
+        "Long An"
+      ]
+    }
+  },
+  "summary": {
+    "homepageTitle": "Nhà nước Phù Nam ra đời",
+    "homepageSummary": "Nhà nước Phù Nam ra đời sớm ở vùng Nam Bộ Việt Nam.",
+    "cardSummary": "Nhà nước Phù Nam hình thành khoảng thế kỉ I."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Phù Nam là một nhà nước hình thành sớm ở vùng Nam Bộ, phát triển trên nền tảng điều kiện tự nhiên và giao lưu thương mại thuận lợi.",
+    "detailedNarrative": "SGK cho biết Phù Nam là tập hợp nhiều tiểu quốc, dần hình thành nhà nước ở khu vực châu thổ sông Cửu Long từ khoảng thế kỉ I. Quá trình này gắn với sự phát triển sản xuất, giao thương và vai trò của các tuyến đường biển.",
+    "significance": "Đánh dấu bước phát triển về tổ chức chính trị của cư dân Nam Bộ thời cổ.",
+    "keyFacts": [
+      "Ra đời khoảng thế kỉ I",
+      "Hình thành ở Nam Bộ",
+      "Gắn với điều kiện giao thương biển"
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 10,
+      "book": "Lịch sử 10 - Cánh Diều",
+      "theme": "Chủ đề 6: Một số nền văn minh trên đất nước Việt Nam trước năm 1858",
+      "lesson": "Bài 13: Văn minh Chăm-pa, Văn minh Phù Nam",
+      "pageStart": 92,
+      "pageEnd": 93,
+      "excerpt": "Nhà nước Phù Nam ra đời khoảng thế kỉ I."
+    }
+  ],
+  "hierarchy": {
+    "rootId": "vm-phu-nam",
+    "parentId": "vm-phu-nam",
+    "level": 1,
+    "orderInParent": 2
+  },
+  "display": {
+    "showOnHomepage": true,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "merge": {
+    "sourceGrades": "10",
+    "sourceIds": "nha-nuoc-phu-nam-ra-doi",
+    "mergedCount": 1,
+    "sourceFiles": "SGK10_event_master_flattened_v2(1).xlsx",
+    "textbookRefsAll": "SGK10: Bài 13: Văn minh Chăm-pa, Văn minh Phù Nam tr.92-93 [nha-nuoc-phu-nam-ra-doi]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

@@ -1,0 +1,137 @@
+{
+  "id": "thanh-lap-huyen-dao-1982",
+  "slug": "thanh-lap-huyen-dao-1982",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Thành lập huyện đảo Hoàng Sa và Trường Sa (1982)",
+    "short": "Thành lập huyện đảo Hoàng Sa và Trường Sa"
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "administrative_establishment",
+    "tags": [
+      "Thành lập huyện đảo Hoàng Sa và Trường Sa (1982)",
+      "Năm 1982",
+      "Đà Nẵng",
+      "Khánh Hòa",
+      "Hoàng Sa trực thuộc Đà Nẵng",
+      "Trường Sa trực thuộc Khánh Hòa."
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1982
+    },
+    "datePrecision": "year",
+    "displayDate": "Năm 1982",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "multi_point",
+      "marker": {
+        "label": "Đà Nẵng"
+      },
+      "provinceNames": [
+        "Đà Nẵng",
+        "Khánh Hòa"
+      ],
+      "historicalLocations": [
+        "Đà Nẵng",
+        "Khánh Hòa"
+      ]
+    },
+    "focusGeometry": {
+      "mode": "bounds",
+      "provinceNames": [
+        "Đà Nẵng",
+        "Khánh Hòa"
+      ]
+    }
+  },
+  "summary": {
+    "homepageTitle": "Thành lập huyện đảo Hoàng Sa và Trường Sa (1982)",
+    "homepageSummary": "Thành lập huyện đảo Hoàng Sa và Trường Sa (1982). Hoàng Sa trực thuộc Đà Nẵng, Trường Sa trực thuộc Khánh Hòa.",
+    "cardSummary": "Hoàng Sa trực thuộc Đà Nẵng, Trường Sa trực thuộc Khánh Hòa."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Thành lập huyện đảo Hoàng Sa và Trường Sa (1982). Hoàng Sa trực thuộc Đà Nẵng, Trường Sa trực thuộc Khánh Hòa.",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 13: Lịch sử bảo vệ chủ quyền, các quyền và lợi ích hợp pháp của Việt Nam ở Biển Đông. Hoàng Sa trực thuộc Đà Nẵng, Trường Sa trực thuộc Khánh Hòa.",
+    "significance": "Là mốc quan trọng về tổ chức nhà nước, cải cách hoặc chủ quyền được SGK 11 nhấn mạnh.",
+    "keyFacts": [
+      "Thành lập huyện đảo Hoàng Sa và Trường Sa (1982)",
+      "Năm 1982",
+      "Đà Nẵng",
+      "Khánh Hòa",
+      "Hoàng Sa trực thuộc Đà Nẵng",
+      "Trường Sa trực thuộc Khánh Hòa."
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 11,
+      "book": "Lịch sử 11 - Cánh Diều",
+      "lesson": "Bài 13: Lịch sử bảo vệ chủ quyền, các quyền và lợi ích hợp pháp của Việt Nam ở Biển Đông",
+      "pageStart": 89,
+      "pageEnd": 89,
+      "excerpt": "Hoàng Sa trực thuộc Đà Nẵng, Trường Sa trực thuộc Khánh Hòa."
+    }
+  ],
+  "hierarchy": {
+    "rootId": "vm-chu-quyen-bien-dong",
+    "parentId": "vm-chu-quyen-bien-dong",
+    "level": 1,
+    "orderInParent": 7
+  },
+  "associations": {
+    "relatedEventIds": [
+      "doi-bac-hai-the-ky-18",
+      "vm-chu-quyen-bien-dong",
+      "quan-ly-hoang-sa-truong-sa-nguyen",
+      "hiep-dinh-elysee-1949-chuyen-giao-hoang-sa-truong-sa",
+      "vnch-tiep-quan-hoang-sa-truong-sa-1954",
+      "luat-bien-viet-nam-2012",
+      "doc-bien-dong-2002",
+      "giai-phong-truong-sa-1975",
+      "doi-hoang-sa-the-ky-17",
+      "sach-trang-hoang-sa-truong-sa-1979-1988",
+      "viet-nam-tham-gia-unclos-1982",
+      "hiep-dinh-vinh-bac-bo-2000",
+      "su-kien-gac-ma-1988",
+      "trung-quoc-chiem-hoang-sa-1974"
+    ],
+    "predecessorEventIds": [
+      "su-kien-gac-ma-1988"
+    ],
+    "successorEventIds": [
+      "luat-bien-viet-nam-2012"
+    ]
+  },
+  "display": {
+    "showOnHomepage": false,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "Hoàng Sa trực thuộc Đà Nẵng, Trường Sa trực thuộc Khánh Hòa. || [SGK11:thanh-lap-huyen-dao-1982] Hoàng Sa trực thuộc Đà Nẵng, Trường Sa trực thuộc Khánh Hòa.",
+  "merge": {
+    "sourceGrades": "11",
+    "sourceIds": "thanh-lap-huyen-dao-1982",
+    "mergedCount": 1,
+    "sourceFiles": "SGK11_event_master_flattened_v2(1).xlsx",
+    "textbookRefsAll": "SGK11: Bài 13: Lịch sử bảo vệ chủ quyền, các quyền và lợi ích hợp pháp của Việt Nam ở Biển Đông tr.89 [thanh-lap-huyen-dao-1982]"
+  },
+  "validation": {
+    "status": "CHECK",
+    "issues": "multi_point thiếu markers/marker đại diện"
+  }
+}

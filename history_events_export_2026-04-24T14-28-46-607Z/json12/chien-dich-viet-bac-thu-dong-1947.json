@@ -1,0 +1,99 @@
+{
+  "id": "chien-dich-viet-bac-thu-dong-1947",
+  "slug": "chien-dich-viet-bac-thu-dong-1947",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Chiến dịch Việt Bắc thu – đông (1947)",
+    "short": "Chiến dịch Việt Bắc thu – đông"
+  },
+  "classification": {
+    "eventType": "military",
+    "eventSubtype": "campaign",
+    "tags": [
+      "Chiến dịch Việt Bắc thu – đông (1947)",
+      1947
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1947
+    },
+    "end": {
+      "year": 1947
+    },
+    "datePrecision": "year",
+    "displayDate": "1947",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "multi_point"
+    },
+    "focusGeometry": {
+      "mode": "auto"
+    }
+  },
+  "summary": {
+    "homepageTitle": "Chiến dịch Việt Bắc thu – đông (1947)",
+    "homepageSummary": "Chiến dịch Việt Bắc thu – đông (1947). Bổ sung theo SGK 12; chiến dịch lớn đầu kháng chiến",
+    "cardSummary": "Bổ sung theo SGK 12; chiến dịch lớn đầu kháng chiến"
+  },
+  "textbookContent": {
+    "canonicalSummary": "Chiến dịch Việt Bắc thu – đông (1947).",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 7: Kháng chiến chống thực dân Pháp (1945–1954), trang 38. Nội dung trong file Excel được chuẩn hóa để nhập hệ thống; khi triển khai chính thức, nhóm nên bổ sung tường thuật chi tiết bám SGK và tư liệu gốc.",
+    "significance": "Là mốc quan trọng trong tiến trình đấu tranh quân sự, bảo vệ hoặc giải phóng đất nước của Việt Nam theo SGK 12.",
+    "keyFacts": [
+      "Chiến dịch Việt Bắc thu – đông (1947)",
+      1947
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 12,
+      "book": "Lịch sử 12 - Cánh Diều",
+      "theme": "Chủ đề 3: Cách mạng tháng Tám và kháng chiến bảo vệ độc lập dân tộc",
+      "lesson": "Bài 7: Kháng chiến chống thực dân Pháp (1945–1954)",
+      "pageStart": 38,
+      "pageEnd": 38,
+      "excerpt": "Bổ sung theo SGK 12; chiến dịch lớn đầu kháng chiến"
+    }
+  ],
+  "hierarchy": {
+    "rootId": "khang-chien-chong-phap-1945-1954-collection",
+    "parentId": "khang-chien-chong-phap-1946-1950",
+    "level": 2,
+    "orderInParent": 1
+  },
+  "associations": {
+    "successorEventIds": [
+      "chien-dich-bien-gioi-thu-dong-1950"
+    ]
+  },
+  "display": {
+    "showOnHomepage": true,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "Bổ sung theo SGK 12; chiến dịch lớn đầu kháng chiến || [SGK12:chien-dich-viet-bac-thu-dong-1947] Bổ sung theo SGK 12; chiến dịch lớn đầu kháng chiến",
+  "merge": {
+    "sourceGrades": "12",
+    "sourceIds": "chien-dich-viet-bac-thu-dong-1947",
+    "mergedCount": 1,
+    "sourceFiles": "SGK12_event_master_flattened(1).xlsx",
+    "textbookRefsAll": "SGK12: Bài 7: Kháng chiến chống thực dân Pháp (1945–1954) tr.38 [chien-dich-viet-bac-thu-dong-1947]"
+  },
+  "validation": {
+    "status": "CHECK",
+    "issues": "multi_point thiếu markers/marker đại diện"
+  }
+}

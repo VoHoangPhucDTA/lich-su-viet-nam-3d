@@ -1,0 +1,122 @@
+{
+  "id": "ba-lan-chong-mong-nguyen",
+  "slug": "ba-lan-chong-mong-nguyen",
+  "entityType": "event",
+  "eventLevel": "collection",
+  "titles": {
+    "primary": "Ba lần kháng chiến chống quân Mông–Nguyên (1258–1288)",
+    "short": "Ba lần kháng chiến chống quân Mông–Nguyên"
+  },
+  "classification": {
+    "eventType": "military",
+    "eventSubtype": "war_series",
+    "tags": [
+      "Ba lần kháng chiến chống quân Mông–Nguyên (1258–1288)",
+      "1258–1288",
+      "Collection cha cho ba lần kháng chiến thời Trần."
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1258
+    },
+    "end": {
+      "year": 1288
+    },
+    "datePrecision": "period",
+    "displayDate": "1258–1288",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "nationwide",
+      "marker": {
+        "label": "Ba lần kháng chiến chống quân Mông–Nguyên"
+      }
+    },
+    "focusGeometry": {
+      "mode": "auto"
+    }
+  },
+  "summary": {
+    "homepageTitle": "Ba lần kháng chiến chống quân Mông–Nguyên (1258–1288)",
+    "homepageSummary": "Ba lần kháng chiến chống quân Mông–Nguyên (1258–1288). Collection cha cho ba lần kháng chiến thời Trần.",
+    "cardSummary": "Collection cha cho ba lần kháng chiến thời Trần."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Ba lần kháng chiến chống quân Mông–Nguyên (1258–1288). Collection cha cho ba lần kháng chiến thời Trần.",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 7: Chiến tranh bảo vệ Tổ quốc trong lịch sử Việt Nam. Collection cha cho ba lần kháng chiến thời Trần.",
+    "significance": "Là mốc quan trọng trong tiến trình quân sự và bảo vệ/chinh phục độc lập, chủ quyền của Việt Nam theo SGK 11.",
+    "keyFacts": [
+      "Ba lần kháng chiến chống quân Mông–Nguyên (1258–1288)",
+      "1258–1288",
+      "Collection cha cho ba lần kháng chiến thời Trần."
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 11,
+      "book": "Lịch sử 11 - Cánh Diều",
+      "lesson": "Bài 7: Chiến tranh bảo vệ Tổ quốc trong lịch sử Việt Nam",
+      "pageStart": 47,
+      "pageEnd": 48,
+      "excerpt": "Collection cha cho ba lần kháng chiến thời Trần."
+    }
+  ],
+  "hierarchy": {
+    "rootId": "vm-chien-tranh-bao-ve-to-quoc",
+    "parentId": "vm-chien-tranh-bao-ve-to-quoc",
+    "childIds": [
+      "chong-mong-co-1258",
+      "chong-nguyen-1285",
+      "chong-nguyen-1287-1288"
+    ],
+    "level": 1,
+    "orderInParent": 5
+  },
+  "associations": {
+    "relatedEventIds": [
+      "khang-chien-chong-tong-1075-1077",
+      "vi-tri-dia-chien-luoc-vn",
+      "khang-chien-chong-minh-1406-1407",
+      "bach-dang-938-ngo-quyen-xung-vuong",
+      "vm-chien-tranh-bao-ve-to-quoc",
+      "khang-chien-chong-phap-1858-1884",
+      "khang-chien-chong-tong-981",
+      "khang-chien-chong-trieu-tk2-tcn",
+      "khang-chien-chong-thanh-1789",
+      "khang-chien-chong-xiem-1785"
+    ],
+    "predecessorEventIds": [
+      "khang-chien-chong-tong-1075-1077"
+    ],
+    "successorEventIds": [
+      "khang-chien-chong-xiem-1785"
+    ]
+  },
+  "display": {
+    "showOnHomepage": true,
+    "showOnTimeline": true,
+    "featured": true
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "Collection cha cho ba lần kháng chiến thời Trần. || [SGK11:ba-lan-chong-mong-nguyen] Collection cha cho ba lần kháng chiến thời Trần.",
+  "merge": {
+    "sourceGrades": "11",
+    "sourceIds": "ba-lan-chong-mong-nguyen",
+    "mergedCount": 1,
+    "sourceFiles": "SGK11_event_master_flattened_v2(1).xlsx",
+    "textbookRefsAll": "SGK11: Bài 7: Chiến tranh bảo vệ Tổ quốc trong lịch sử Việt Nam tr.47-48 [ba-lan-chong-mong-nguyen]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

@@ -1,0 +1,92 @@
+{
+  "id": "cong-dong-asean-2015",
+  "slug": "cong-dong-asean-2015",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Cộng đồng ASEAN chính thức có hiệu lực (31-12-2015)",
+    "short": "Cộng đồng ASEAN chính thức có hi"
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "organization_founding",
+    "tags": [
+      "Cộng đồng ASEAN chính thức có hiệu lực (31-12-2015)",
+      2015
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 2015
+    },
+    "end": {
+      "year": 2015
+    },
+    "datePrecision": "year",
+    "displayDate": "2015",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "no_location"
+    },
+    "focusGeometry": {
+      "mode": "auto"
+    }
+  },
+  "summary": {
+    "homepageTitle": "Cộng đồng ASEAN chính thức có hiệu lực (31-12-2015)",
+    "homepageSummary": "Cộng đồng ASEAN chính thức có hiệu lực (31-12-2015). —",
+    "cardSummary": "—"
+  },
+  "textbookContent": {
+    "canonicalSummary": "Cộng đồng ASEAN chính thức có hiệu lực (31-12-2015).",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 5: Cộng đồng ASEAN, trang 26. Nội dung trong file Excel được chuẩn hóa để nhập hệ thống; khi triển khai chính thức, nhóm nên bổ sung tường thuật chi tiết bám SGK và tư liệu gốc.",
+    "significance": "Là mốc quan trọng trong tiến trình cách mạng, xây dựng nhà nước, đối ngoại hoặc tổ chức lực lượng theo SGK 12.",
+    "keyFacts": [
+      "Cộng đồng ASEAN chính thức có hiệu lực (31-12-2015)",
+      2015
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 12,
+      "book": "Lịch sử 12 - Cánh Diều",
+      "theme": "Chủ đề 2: ASEAN – những chặng đường lịch sử",
+      "lesson": "Bài 5: Cộng đồng ASEAN",
+      "pageStart": 26,
+      "pageEnd": 26,
+      "excerpt": "Cộng đồng ASEAN chính thức có hiệu lực (31-12-2015)"
+    }
+  ],
+  "hierarchy": {
+    "rootId": "cong-dong-asean-2015",
+    "level": 0,
+    "orderInParent": 11
+  },
+  "display": {
+    "showOnHomepage": false,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "— || [SGK12:cong-dong-asean-2015] —",
+  "merge": {
+    "sourceGrades": "12",
+    "sourceIds": "cong-dong-asean-2015",
+    "mergedCount": 1,
+    "sourceFiles": "SGK12_event_master_flattened(1).xlsx",
+    "textbookRefsAll": "SGK12: Bài 5: Cộng đồng ASEAN tr.26 [cong-dong-asean-2015]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

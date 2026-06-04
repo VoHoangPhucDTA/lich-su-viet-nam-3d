@@ -1,0 +1,121 @@
+{
+  "id": "cai-cach-mm-trung-uong",
+  "slug": "cai-cach-mm-trung-uong",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Cải cách bộ máy chính quyền trung ương – Minh Mạng",
+    "short": "Cải cách bộ máy chính quyền trung ương – M"
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "administrative_reform",
+    "tags": [
+      "Cải cách bộ máy chính quyền trung ương – Minh Mạng",
+      "1829–1834",
+      "Thừa Thiên Huế",
+      "Nội các 1829",
+      "Đô sát viện 1832",
+      "Cơ mật viện 1834",
+      "Tam pháp ty."
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1829
+    },
+    "end": {
+      "year": 1834
+    },
+    "datePrecision": "period",
+    "displayDate": "1829–1834",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "point",
+      "marker": {
+        "label": "Thừa Thiên Huế"
+      },
+      "provinceNames": [
+        "Thừa Thiên Huế"
+      ],
+      "historicalLocations": [
+        "Thừa Thiên Huế"
+      ]
+    },
+    "focusGeometry": {
+      "mode": "marker"
+    }
+  },
+  "summary": {
+    "homepageTitle": "Cải cách bộ máy chính quyền trung ương – Minh Mạng",
+    "homepageSummary": "Cải cách bộ máy chính quyền trung ương – Minh Mạng. Nội các 1829, Đô sát viện 1832, Cơ mật viện 1834, Tam pháp ty.",
+    "cardSummary": "Nội các 1829, Đô sát viện 1832, Cơ mật viện 1834, Tam pháp ty."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Cải cách bộ máy chính quyền trung ương – Minh Mạng. Nội các 1829, Đô sát viện 1832, Cơ mật viện 1834, Tam pháp ty.",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 11: Cuộc cải cách của Minh Mạng (nửa đầu thế kỉ XIX). Nội các 1829, Đô sát viện 1832, Cơ mật viện 1834, Tam pháp ty.",
+    "significance": "Là mốc quan trọng về tổ chức nhà nước, cải cách hoặc chủ quyền được SGK 11 nhấn mạnh.",
+    "keyFacts": [
+      "Cải cách bộ máy chính quyền trung ương – Minh Mạng",
+      "1829–1834",
+      "Thừa Thiên Huế",
+      "Nội các 1829",
+      "Đô sát viện 1832",
+      "Cơ mật viện 1834",
+      "Tam pháp ty."
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 11,
+      "book": "Lịch sử 11 - Cánh Diều",
+      "lesson": "Bài 11: Cuộc cải cách của Minh Mạng (nửa đầu thế kỉ XIX)",
+      "pageStart": 75,
+      "pageEnd": 76,
+      "excerpt": "Nội các 1829, Đô sát viện 1832, Cơ mật viện 1834, Tam pháp ty."
+    }
+  ],
+  "hierarchy": {
+    "rootId": "cai-cach-minh-mang",
+    "parentId": "cai-cach-minh-mang",
+    "level": 1,
+    "orderInParent": 1
+  },
+  "associations": {
+    "relatedEventIds": [
+      "cai-cach-minh-mang",
+      "cai-cach-mm-dia-phuong"
+    ],
+    "successorEventIds": [
+      "cai-cach-mm-dia-phuong"
+    ]
+  },
+  "display": {
+    "showOnHomepage": false,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "Nội các 1829, Đô sát viện 1832, Cơ mật viện 1834, Tam pháp ty. || [SGK11:cai-cach-mm-trung-uong] Nội các 1829, Đô sát viện 1832, Cơ mật viện 1834, Tam pháp ty.",
+  "merge": {
+    "sourceGrades": "11",
+    "sourceIds": "cai-cach-mm-trung-uong",
+    "mergedCount": 1,
+    "sourceFiles": "SGK11_event_master_flattened_v2(1).xlsx",
+    "textbookRefsAll": "SGK11: Bài 11: Cuộc cải cách của Minh Mạng (nửa đầu thế kỉ XIX) tr.75-76 [cai-cach-mm-trung-uong]"
+  },
+  "validation": {
+    "status": "CHECK",
+    "issues": "geoType cần marker nhưng thiếu lat/lng"
+  }
+}

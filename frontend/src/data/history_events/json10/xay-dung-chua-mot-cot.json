@@ -1,0 +1,112 @@
+{
+  "id": "xay-dung-chua-mot-cot",
+  "slug": "xay-dung-chua-mot-cot",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Xây dựng chùa Một Cột",
+    "short": "Chùa Một Cột"
+  },
+  "classification": {
+    "eventType": "cultural",
+    "eventSubtype": "architecture",
+    "tags": [
+      "chùa Một Cột",
+      1049,
+      "Thăng Long"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      10
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1049
+    },
+    "datePrecision": "year",
+    "displayDate": "Năm 1049",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "point",
+      "marker": {
+        "lat": 21.0356,
+        "lng": 105.8338,
+        "label": "Chùa Một Cột"
+      },
+      "provinceNames": [
+        "Hà Nội"
+      ],
+      "historicalLocations": [
+        "Thăng Long",
+        "Diên Hựu",
+        "Chùa Một Cột"
+      ]
+    },
+    "focusGeometry": {
+      "mode": "marker",
+      "center": {
+        "lat": 21.0356,
+        "lng": 105.8338
+      },
+      "zoom": 12,
+      "provinceNames": [
+        "Hà Nội"
+      ]
+    }
+  },
+  "summary": {
+    "homepageTitle": "Xây dựng chùa Một Cột",
+    "homepageSummary": "Chùa Một Cột là công trình kiến trúc tiêu biểu gắn với Phật giáo thời Lý.",
+    "cardSummary": "Chùa Một Cột được xây dựng năm 1049."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Chùa Một Cột là một công trình kiến trúc độc đáo của Đại Việt thời Lý, gắn với đời sống Phật giáo.",
+    "detailedNarrative": "SGK nêu chùa Một Cột như một thành tựu tiêu biểu của nghệ thuật kiến trúc Đại Việt. Công trình này vừa mang ý nghĩa tôn giáo, vừa thể hiện óc sáng tạo trong kiến trúc truyền thống Việt Nam.",
+    "significance": "Là biểu tượng nổi bật của nghệ thuật kiến trúc và đời sống Phật giáo thời Lý.",
+    "keyFacts": [
+      "Năm 1049",
+      "Nằm ở Hà Nội",
+      "Công trình kiến trúc độc đáo thời Lý"
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 10,
+      "book": "Lịch sử 10 - Cánh Diều",
+      "theme": "Chủ đề 6: Một số nền văn minh trên đất nước Việt Nam trước năm 1858",
+      "lesson": "Bài 15: Những thành tựu tiêu biểu của văn minh Đại Việt",
+      "pageStart": 106,
+      "pageEnd": 106,
+      "excerpt": "Chùa Một Cột là công trình kiến trúc tiêu biểu của Đại Việt thời Lý."
+    }
+  ],
+  "hierarchy": {
+    "rootId": "vm-dai-viet",
+    "parentId": "vm-dai-viet",
+    "level": 1,
+    "orderInParent": 29
+  },
+  "display": {
+    "showOnHomepage": true,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "merge": {
+    "sourceGrades": "10",
+    "sourceIds": "xay-dung-chua-mot-cot",
+    "mergedCount": 1,
+    "sourceFiles": "SGK10_event_master_flattened_v2(1).xlsx",
+    "textbookRefsAll": "SGK10: Bài 15: Những thành tựu tiêu biểu của văn minh Đại Việt tr.106 [xay-dung-chua-mot-cot]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}

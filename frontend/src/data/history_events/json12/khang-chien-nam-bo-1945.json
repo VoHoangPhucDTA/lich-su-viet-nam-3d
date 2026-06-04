@@ -1,0 +1,105 @@
+{
+  "id": "khang-chien-nam-bo-1945",
+  "slug": "khang-chien-nam-bo-1945",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Kháng chiến chống Pháp ở Nam Bộ (1945)",
+    "short": "Kháng chiến chống Pháp ở Nam Bộ"
+  },
+  "classification": {
+    "eventType": "military",
+    "eventSubtype": "milestone",
+    "tags": [
+      "Kháng chiến chống Pháp ở Nam Bộ (1945)",
+      1945
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1945
+    },
+    "end": {
+      "year": 1945
+    },
+    "datePrecision": "year",
+    "displayDate": "1945",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "polygon",
+      "historicalLocations": [
+        "Nam Bộ"
+      ]
+    },
+    "focusGeometry": {
+      "mode": "polygon"
+    }
+  },
+  "summary": {
+    "homepageTitle": "Kháng chiến chống Pháp ở Nam Bộ (1945)",
+    "homepageSummary": "Kháng chiến chống Pháp ở Nam Bộ (1945). —",
+    "cardSummary": "—"
+  },
+  "textbookContent": {
+    "canonicalSummary": "Kháng chiến chống Pháp ở Nam Bộ (1945).",
+    "detailedNarrative": "Sự kiện/chủ đề này thuộc Bài 7: Kháng chiến chống thực dân Pháp (1945–1954), trang 37. Nội dung trong file Excel được chuẩn hóa để nhập hệ thống; khi triển khai chính thức, nhóm nên bổ sung tường thuật chi tiết bám SGK và tư liệu gốc.",
+    "significance": "Là mốc quan trọng trong tiến trình đấu tranh quân sự, bảo vệ hoặc giải phóng đất nước của Việt Nam theo SGK 12.",
+    "keyFacts": [
+      "Kháng chiến chống Pháp ở Nam Bộ (1945)",
+      1945,
+      "Nam Bộ"
+    ]
+  },
+  "textbookRefs": [
+    {
+      "grade": 12,
+      "book": "Lịch sử 12 - Cánh Diều",
+      "theme": "Chủ đề 3: Cách mạng tháng Tám và kháng chiến bảo vệ độc lập dân tộc",
+      "lesson": "Bài 7: Kháng chiến chống thực dân Pháp (1945–1954)",
+      "pageStart": 37,
+      "pageEnd": 37,
+      "excerpt": "Kháng chiến chống Pháp ở Nam Bộ (1945)"
+    }
+  ],
+  "hierarchy": {
+    "rootId": "khang-chien-chong-phap-1945-1954-collection",
+    "parentId": "khang-chien-chong-phap-1945-1954-collection",
+    "level": 1,
+    "orderInParent": 2
+  },
+  "associations": {
+    "predecessorEventIds": [
+      "phap-xam-luoc-nam-bo-23-9-1945"
+    ],
+    "successorEventIds": [
+      "toan-quoc-khang-chien-19-12-1946"
+    ]
+  },
+  "display": {
+    "showOnHomepage": true,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": "wikipedia | wikidata"
+  },
+  "notes": "— || [SGK12:khang-chien-nam-bo-1945] —",
+  "merge": {
+    "sourceGrades": "12",
+    "sourceIds": "khang-chien-nam-bo-1945",
+    "mergedCount": 1,
+    "sourceFiles": "SGK12_event_master_flattened(1).xlsx",
+    "textbookRefsAll": "SGK12: Bài 7: Kháng chiến chống thực dân Pháp (1945–1954) tr.37 [khang-chien-nam-bo-1945]"
+  },
+  "validation": {
+    "status": "OK"
+  }
+}
