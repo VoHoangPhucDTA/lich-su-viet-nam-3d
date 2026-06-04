@@ -1,0 +1,133 @@
+{
+  "id": "",
+  "slug": "",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "",
+    "short": "",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "",
+    "eventSubtype": "",
+    "tags": []
+  },
+  "coverage": {
+    "grades": []
+  },
+  "chronology": {
+    "start": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "end": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "datePrecision": "",
+    "displayDate": "",
+    "isApproximate": false
+  },
+  "mapData": {
+    "displayGeometry": {
+      "geoType": "",
+      "marker": {
+        "lat": null,
+        "lng": null,
+        "label": ""
+      },
+      "markers": [],
+      "provinceNames": [],
+      "gadmRefs": [],
+      "historicalLocations": []
+    },
+    "focusGeometry": {
+      "mode": "auto",
+      "center": {
+        "lat": null,
+        "lng": null
+      },
+      "zoom": null,
+      "provinceNames": [],
+      "gadmRefs": []
+    }
+  },
+  "summary": {
+    "homepageTitle": "",
+    "homepageSummary": "",
+    "cardSummary": ""
+  },
+  "textbookContent": {
+    "canonicalSummary": "",
+    "detailedNarrative": "",
+    "significance": "",
+    "keyFacts": [],
+    "textbookRefs": [
+      {
+        "grade": null,
+        "book": "",
+        "theme": "",
+        "lesson": "",
+        "pageStart": null,
+        "pageEnd": null,
+        "excerpt": ""
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": [
+      {
+        "id": "",
+        "type": "image",
+        "category": "",
+        "role": "",
+        "url": "",
+        "caption": "",
+        "alt": "",
+        "source": "",
+        "license": "",
+        "credit": "",
+        "isPrimary": false
+      }
+    ]
+  },
+  "hierarchy": {
+    "rootId": "",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 0
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnHomepage": true,
+    "showOnTimeline": true,
+    "featured": false
+  },
+  "sourcePolicy": {
+    "canonicalSource": "textbook",
+    "supplementalSources": ["wikipedia", "wikidata"]
+  }
+}
