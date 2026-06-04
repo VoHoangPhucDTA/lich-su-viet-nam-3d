@@ -114,8 +114,8 @@ export default function CesiumMap({
             error instanceof Error
               ? `${error.message}\n${error.stack ?? ''}`
               : typeof error === 'object'
-              ? JSON.stringify(error)
-              : String(error);
+                ? JSON.stringify(error)
+                : String(error);
           console.error('[CesiumMap] renderError:', msg);
           // Show a soft UI error once — do NOT call viewer.destroy() here
           setMapError('Lỗi render Cesium. Xem console để biết chi tiết.');
@@ -319,6 +319,7 @@ export default function CesiumMap({
 
   // ─── Fly to selected event ───────────────────────────────────────────────────
   useEffect(() => {
+    // 1.1.19: CesiumMap.tsx: Lắng nghe selectedEvent thay đổi, sử dụng thư viện CesiumJS để hiển thị vùng đánh dấu (polygon, điểm) và tự động bay camera (flyTo) đến tọa độ vùng ảnh hưởng của sự kiện.
     if (CESIUM_SAFE_MODE) return;
 
     const viewer = viewerRef.current;

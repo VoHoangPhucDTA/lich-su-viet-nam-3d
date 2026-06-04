@@ -166,6 +166,7 @@ export default function Sidebar({
             return (
               <button
                 key={type}
+                // 1.1.11: Sidebar.tsx: Người dùng nhấp chọn các nút filter (Tùy chọn) để lọc hiển thị trên Client.
                 onClick={() =>
                   setActiveFilter(isActive ? null : type)
                 }
@@ -211,6 +212,7 @@ export default function Sidebar({
             {loading ? 'Đang tìm kiếm từ backend...' : 'Không tìm thấy sự kiện nào'}
           </div>
         ) : (
+          // 1.1.10: Sidebar.tsx: Nhận dữ liệu mới và hiển thị danh sách sự kiện ở bảng điều khiển bên trái.
           filteredEvents.map((event) => (
             <EventTreeNode
               key={event.id}
@@ -285,6 +287,7 @@ function EventTreeNode({
   return (
     <div>
       <div
+        // 1.1.17: Sidebar.tsx: Người dùng nhấp trực tiếp vào tiêu đề sự kiện (cha hoặc con) để xem.
         onClick={() => onSelectEvent(event)}
         onMouseEnter={() => onHoverEvent(event.id)}
         onMouseLeave={() => onHoverEvent(null)}
@@ -319,6 +322,7 @@ function EventTreeNode({
           <button
             onClick={(e) => {
               e.stopPropagation();
+              // 1.1.12: Sidebar.tsx: Người dùng nhấp vào một sự kiện cha có sự kiện con để mở rộng (expand).
               onToggleExpand(event.id);
               if (!isExpanded && !hasLoadedChildren && (event.childCount ?? 0) > 0) {
                 onSelectEvent(event);
@@ -407,6 +411,7 @@ function EventTreeNode({
             marginLeft: `${28 + depth * 20}px`,
           }}
         >
+          {/* 1.1.16: Sidebar.tsx: Render bổ sung danh sách sự kiện con nằm lồng dưới sự kiện cha (kiểu Tree Node). */}
           {event.children!.map((child) => (
             <EventTreeNode
               key={child.id}

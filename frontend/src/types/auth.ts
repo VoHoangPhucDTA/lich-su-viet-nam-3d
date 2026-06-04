@@ -5,10 +5,10 @@ export interface User {
   fullName: string;
   email: string;
   role: UserRole;
-  grade?: number; // 10, 11, 12
+  grade?: '10' | '11' | '12' | 'other';
   school?: string;
   avatarUrl?: string;
-  createdAt: string;
+  createdAt?: string;
 }
 
 export interface AuthResponse {
@@ -17,17 +17,36 @@ export interface AuthResponse {
   user: User;
 }
 
+export interface VerifyEmailResponse {
+  message: string;
+  auth?: AuthResponse | null;
+}
+
+export interface RegisterResponse {
+  user: User;
+  email: string;
+  status: 'pending' | 'active';
+  verificationExpiresAt: string;
+  verificationTtlSeconds: number;
+  message: string;
+  devVerificationUrl?: string | null;
+}
+
 export interface LoginRequest {
   email: string;
   password: string;
 }
 
 export interface RegisterRequest {
-  fullName: string;
   email: string;
   password: string;
-  grade?: number;
+  fullName?: string;
+  grade?: '10' | '11' | '12' | 'other';
   school?: string;
+}
+
+export interface ResendVerificationRequest {
+  email: string;
 }
 
 export interface ResetPasswordRequest {
@@ -37,7 +56,7 @@ export interface ResetPasswordRequest {
 
 export interface UpdateProfileRequest {
   fullName?: string;
-  grade?: number;
+  grade?: '10' | '11' | '12' | 'other';
   school?: string;
   avatarUrl?: string;
 }

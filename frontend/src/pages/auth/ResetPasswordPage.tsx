@@ -1,62 +1,26 @@
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
+import { ArrowLeft, CheckCircle2, CircleAlert, RefreshCw, ShieldCheck } from 'lucide-react';
 import { useAuth } from '../../auth/AuthContext';
 import AuthLayout from '../../components/auth/AuthLayout';
 import AuthFormMessage from '../../components/auth/AuthFormMessage';
 import PasswordInput from '../../components/auth/PasswordInput';
+import PasswordStrengthMeter from '../../components/auth/PasswordStrengthMeter';
 
-/* Password strength indicator */
-function PasswordStrength({ password }: { password: string }) {
-  if (!password) return null;
-
-  let strength = 0;
-  if (password.length >= 6) strength++;
-  if (password.length >= 10) strength++;
-  if (/[A-Z]/.test(password)) strength++;
-  if (/[0-9]/.test(password)) strength++;
-  if (/[^A-Za-z0-9]/.test(password)) strength++;
-
-  const levels = [
-    { label: 'Rất yếu', color: 'var(--danger)', width: '20%' },
-    { label: 'Yếu', color: 'var(--warning)', width: '40%' },
-    { label: 'Trung bình', color: 'var(--warning)', width: '60%' },
-    { label: 'Mạnh', color: 'var(--success)', width: '80%' },
-    { label: 'Rất mạnh', color: 'var(--success)', width: '100%' },
-  ];
-
-  const idx = Math.max(0, Math.min(strength - 1, 4));
-  const level = levels[idx];
-
+function isStrongPassword(password: string) {
   return (
-    <div style={{ marginTop: '0.375rem' }}>
-      <div
-        style={{
-          height: '3px',
-          background: 'var(--border)',
-          borderRadius: '2px',
-          overflow: 'hidden',
-        }}
-      >
-        <div
-          style={{
-            height: '100%',
-            width: level.width,
-            background: level.color,
-            borderRadius: '2px',
-            transition: 'width 0.3s ease, background 0.3s ease',
-          }}
-        />
-      </div>
-      <p style={{ fontSize: '0.6875rem', color: level.color, marginTop: '0.25rem', fontWeight: 600 }}>
-        {level.label}
-      </p>
-    </div>
+    password.length >= 8 &&
+    /[A-Z]/.test(password) &&
+    /[a-z]/.test(password) &&
+    /[0-9]/.test(password) &&
+    /[^A-Za-z0-9]/.test(password)
   );
 }
 
 export default function ResetPasswordPage() {
   const { resetPassword } = useAuth();
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
 
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -65,11 +29,17 @@ export default function ResetPasswordPage() {
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
+    // Bước 6C.1.12: ResetPasswordPage.tsx: Người dùng nhấp vào link từ email, nhập mật khẩu mới và nhấn nút Đặt lại
     e.preventDefault();
     setError('');
 
-    if (password.length < 6) {
-      setError('Mật khẩu phải có ít nhất 6 ký tự.');
+    const token = searchParams.get('token') ?? '';
+    if (!token) {
+      setError('Liên kết đặt lại mật khẩu không hợp lệ.');
+      return;
+    }
+    if (!isStrongPassword(password)) {
+      setError('Mật khẩu phải có ít nhất 8 ký tự, chữ hoa, chữ thường, số và ký tự đặc biệt.');
       return;
     }
     if (password !== confirmPassword) {
@@ -79,11 +49,13 @@ export default function ResetPasswordPage() {
 
     setLoading(true);
     try {
-      const res = await resetPassword(password);
-      setSuccess(res.message);
+      // Bước 6C.1.13: ResetPasswordPage.tsx: gọi hàm resetPassword trong authService.ts
+      const res = await resetPassword({ token, newPassword: password });
+      // Bước 6C.1.21: ResetPasswordPage.tsx: hiển thị thông báo thành công và chuyển hướng
+      setSuccess(res.message || 'Đặt lại mật khẩu thành công. Vui lòng đăng nhập lại.');
       setTimeout(() => navigate('/login', { replace: true }), 2000);
     } catch (err: unknown) {
-      setError(err instanceof Error ? err.message : 'Có lỗi xảy ra.');
+      setError(err instanceof Error ? err.message : 'Không thể đặt lại mật khẩu. Vui lòng thử lại.');
     } finally {
       setLoading(false);
     }
@@ -91,7 +63,6 @@ export default function ResetPasswordPage() {
 
   return (
     <AuthLayout>
-      {/* Icon + Title */}
       <div style={{ textAlign: 'center', marginBottom: '1.75rem' }}>
         <div
           style={{
@@ -103,25 +74,17 @@ export default function ResetPasswordPage() {
             borderRadius: '1rem',
             background: 'var(--accent-soft)',
             border: '1px solid var(--accent)',
-            fontSize: '2rem',
+            color: 'var(--accent)',
             marginBottom: '1rem',
           }}
         >
-          🔒
+          <ShieldCheck size={32} strokeWidth={2} />
         </div>
-        <h1
-          style={{
-            fontSize: '1.5rem',
-            fontWeight: 700,
-            color: 'var(--text-primary)',
-            marginBottom: '0.375rem',
-            letterSpacing: '-0.01em',
-          }}
-        >
+        <h1 style={{ fontSize: '1.5rem', fontWeight: 700, color: 'var(--text-primary)', marginBottom: '0.375rem', letterSpacing: '-0.01em' }}>
           Đặt lại mật khẩu
         </h1>
-        <p style={{ fontSize: '0.875rem', color: 'var(--text-muted)' }}>
-          Tạo mật khẩu mới an toàn cho tài khoản của bạn
+        <p style={{ fontSize: '0.875rem', color: 'var(--text-muted)', lineHeight: 1.6 }}>
+          Tạo mật khẩu mới an toàn cho tài khoản của bạn.
         </p>
       </div>
 
@@ -129,21 +92,21 @@ export default function ResetPasswordPage() {
       {success && <AuthFormMessage type="success" message={success} />}
 
       {success ? (
-        /* Success state */
         <div className="animate-fade-in" style={{ textAlign: 'center' }}>
           <div
             style={{
               padding: '1.5rem',
-              background: 'var(--success)',
-              opacity: 0.1,
-              border: '1px solid var(--success)',
+              background: 'rgba(47,122,87,0.12)',
+              border: '1px solid rgba(47,122,87,0.35)',
               borderRadius: '0.875rem',
               marginBottom: '1.5rem',
             }}
           >
-            <div style={{ fontSize: '3rem', marginBottom: '0.75rem' }}>✅</div>
+            <div style={{ color: 'var(--accent)', display: 'flex', justifyContent: 'center', marginBottom: '0.75rem' }}>
+              <CheckCircle2 size={38} strokeWidth={2} />
+            </div>
             <p style={{ fontSize: '0.875rem', color: 'var(--success)', fontWeight: 600 }}>
-              Mật khẩu đã được đặt lại thành công!
+              Mật khẩu đã được đặt lại thành công.
             </p>
             <p style={{ fontSize: '0.8125rem', color: 'var(--text-muted)', marginTop: '0.375rem' }}>
               Đang chuyển về trang đăng nhập...
@@ -152,7 +115,9 @@ export default function ResetPasswordPage() {
           <Link
             to="/login"
             style={{
-              display: 'inline-block',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '0.5rem',
               padding: '0.75rem 2rem',
               background: 'var(--accent)',
               borderRadius: '0.625rem',
@@ -161,20 +126,14 @@ export default function ResetPasswordPage() {
               fontWeight: 600,
               fontSize: '0.9375rem',
               boxShadow: '0 4px 15px rgba(30,58,95,0.25)',
-              transition: 'all 0.2s',
             }}
-            onMouseEnter={(e) => (e.currentTarget.style.filter = 'brightness(1.1)')}
-            onMouseLeave={(e) => (e.currentTarget.style.filter = 'none')}
           >
+            <ArrowLeft size={18} strokeWidth={2} />
             Đăng nhập ngay
           </Link>
         </div>
       ) : (
-        <form
-          onSubmit={handleSubmit}
-          noValidate
-          style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}
-        >
+        <form onSubmit={handleSubmit} noValidate style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
           <div>
             <PasswordInput
               id="reset-password"
@@ -184,9 +143,9 @@ export default function ResetPasswordPage() {
               required
               autoComplete="new-password"
               label="Mật khẩu mới"
-              hint="Ít nhất 6 ký tự"
+              hint="Có chữ hoa, chữ thường, số và ký tự đặc biệt"
             />
-            <PasswordStrength password={password} />
+            <PasswordStrengthMeter password={password} />
           </div>
 
           <PasswordInput
@@ -199,17 +158,20 @@ export default function ResetPasswordPage() {
             label="Nhập lại mật khẩu"
           />
 
-          {/* Match indicator */}
           {confirmPassword && (
             <p
               style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.375rem',
                 fontSize: '0.75rem',
                 fontWeight: 600,
                 color: confirmPassword === password ? 'var(--success)' : 'var(--danger)',
                 marginTop: '-0.5rem',
               }}
             >
-              {confirmPassword === password ? '✓ Mật khẩu khớp' : '✗ Mật khẩu chưa khớp'}
+              {confirmPassword === password ? <CheckCircle2 size={15} strokeWidth={2} /> : <CircleAlert size={15} strokeWidth={2} />}
+              {confirmPassword === password ? 'Mật khẩu khớp' : 'Mật khẩu chưa khớp'}
             </p>
           )}
 
@@ -219,9 +181,7 @@ export default function ResetPasswordPage() {
             style={{
               width: '100%',
               padding: '0.8125rem',
-              background: loading
-                ? 'var(--accent-soft)'
-                : 'var(--accent)',
+              background: loading ? 'var(--accent-soft)' : 'var(--accent)',
               border: 'none',
               borderRadius: '0.625rem',
               color: '#fff',
@@ -234,33 +194,10 @@ export default function ResetPasswordPage() {
               gap: '0.5rem',
               boxShadow: loading ? 'none' : '0 4px 15px rgba(30,58,95,0.2)',
               fontFamily: 'inherit',
-              transition: 'all 0.2s',
               marginTop: '0.25rem',
             }}
-            onMouseEnter={(e) => {
-              if (!loading) {
-                (e.currentTarget as HTMLButtonElement).style.filter = 'brightness(1.1)';
-                (e.currentTarget as HTMLButtonElement).style.transform = 'translateY(-1px)';
-              }
-            }}
-            onMouseLeave={(e) => {
-              (e.currentTarget as HTMLButtonElement).style.filter = 'none';
-              (e.currentTarget as HTMLButtonElement).style.transform = 'none';
-            }}
           >
-            {loading && (
-              <span
-                style={{
-                  width: '1.125rem',
-                  height: '1.125rem',
-                  border: '2px solid rgba(255,255,255,0.4)',
-                  borderTopColor: '#fff',
-                  borderRadius: '50%',
-                  display: 'inline-block',
-                  animation: 'spin 0.7s linear infinite',
-                }}
-              />
-            )}
+            {loading && <RefreshCw size={18} strokeWidth={2} style={{ animation: 'spin 0.7s linear infinite' }} />}
             {loading ? 'Đang đặt lại...' : 'Đặt lại mật khẩu'}
             <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
           </button>
@@ -272,15 +209,13 @@ export default function ResetPasswordPage() {
                 fontSize: '0.875rem',
                 color: 'var(--text-muted)',
                 textDecoration: 'none',
-                transition: 'color 0.2s',
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: '0.375rem',
               }}
-              onMouseEnter={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = 'var(--accent)')}
-              onMouseLeave={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = 'var(--text-muted)')}
             >
-              ← Quay lại đăng nhập
+              <ArrowLeft size={16} strokeWidth={2} />
+              Quay lại đăng nhập
             </Link>
           </div>
         </form>

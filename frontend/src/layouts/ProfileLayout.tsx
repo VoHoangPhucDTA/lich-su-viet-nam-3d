@@ -61,7 +61,7 @@ function Sidebar({ onClose }: { onClose?: () => void }) {
           </div>
           {currentUser?.grade && (
             <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }}>
-              Lớp {currentUser.grade} · {currentUser.school ?? ''}
+              {currentUser.grade === 'other' ? 'Khác' : `Lớp ${currentUser.grade}`} · {currentUser.school ?? ''}
             </div>
           )}
         </div>

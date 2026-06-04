@@ -1,3 +1,5 @@
+import { CheckCircle2, CircleAlert, Info } from 'lucide-react';
+
 interface AuthFormMessageProps {
   type: 'error' | 'success' | 'info';
   message: string;
@@ -8,19 +10,19 @@ const styles = {
     background: 'rgba(159,29,45,0.12)',
     border: '1px solid rgba(159,29,45,0.35)',
     color: '#e8b0b7',
-    icon: '⚠️',
+    Icon: CircleAlert,
   },
   success: {
     background: 'rgba(47,122,87,0.12)',
     border: '1px solid rgba(47,122,87,0.35)',
     color: '#8fc3ad',
-    icon: '✅',
+    Icon: CheckCircle2,
   },
   info: {
     background: 'rgba(30,58,95,0.12)',
     border: '1px solid rgba(30,58,95,0.35)',
     color: '#9bb6d1',
-    icon: 'ℹ️',
+    Icon: Info,
   },
 };
 
@@ -28,6 +30,7 @@ export default function AuthFormMessage({ type, message }: AuthFormMessageProps)
   if (!message) return null;
 
   const s = styles[type];
+  const Icon = s.Icon;
 
   return (
     <div
@@ -46,7 +49,9 @@ export default function AuthFormMessage({ type, message }: AuthFormMessageProps)
         marginBottom: '1.25rem',
       }}
     >
-      <span style={{ fontSize: '1rem', flexShrink: 0, marginTop: '0.0625rem' }}>{s.icon}</span>
+      <span style={{ flexShrink: 0, marginTop: '0.0625rem', display: 'flex' }}>
+        <Icon size={18} strokeWidth={2} />
+      </span>
       <span>{message}</span>
     </div>
   );

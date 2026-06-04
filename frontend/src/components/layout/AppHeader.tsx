@@ -190,8 +190,12 @@ export default function AppHeader() {
                    )}
                    
                    <div style={{ height: '1px', background: 'var(--border)', margin: '0.25rem 0' }} />
+                   {/* Bước 6D.1.1: AppHeader.tsx: Người dùng nhấp nút "Đăng xuất" (desktop dropdown) */}
                    <button 
-                      onClick={() => { logout(); setProfileDropdownOpen(false); navigate('/'); }}
+                      onClick={async () => {
+                        // Bước 6D.1.2: AppHeader.tsx: await logout() — bắt buộc await để navigate chạy sau khi state clear
+                        await logout(); setProfileDropdownOpen(false); navigate('/');
+                      }}
                       style={{ padding: '0.5rem', color: 'var(--danger)', textAlign: 'left', background: 'none', border: 'none', borderRadius: '6px', fontSize: '0.85rem', cursor: 'pointer' }}
                       className="hover:bg-surface"
                    >
@@ -204,20 +208,13 @@ export default function AppHeader() {
         {/* Theme Toggle */}
         <ThemeToggle />
 
-        {/* Badge */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '4px', fontSize: '11px', color: 'var(--success)', padding: '4px 10px', background: 'var(--success-soft)', border: '1px solid var(--success-soft)', borderRadius: '10px', whiteSpace: 'nowrap', fontWeight: 600 }}>
-          <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: 'var(--success)' }} />
-          MVP Demo
-        </div>
+
       </div>
 
       {/* Mobile Nav Trigger */}
       <div className="flex lg:hidden items-center gap-3">
          <ThemeToggle />
-         {/* Badge mobile */}
-         <div style={{ display: 'flex', alignItems: 'center', gap: '4px', fontSize: '10px', color: 'var(--success)', padding: '2px 6px', background: 'var(--success-soft)', borderRadius: '6px', fontWeight: 600 }}>
-           <span style={{ width: '5px', height: '5px', borderRadius: '50%', background: 'var(--success)' }} /> Demo
-         </div>
+
          <button 
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label="Mở menu"
@@ -260,7 +257,14 @@ export default function AppHeader() {
                       Trang quản trị
                     </Link>
                  )}
-                 <button onClick={() => { logout(); setMobileMenuOpen(false); navigate('/'); }} style={{ padding: '0.75rem', background: 'transparent', border: '1px solid var(--danger)', borderRadius: '8px', color: 'var(--danger)', textAlign: 'center', marginTop: '0.5rem' }}>Đăng xuất</button>
+                 {/* Bước 6D.1.1: AppHeader.tsx: Người dùng nhấp nút "Đăng xuất" (mobile menu) */}
+                 <button
+                   onClick={async () => {
+                     // Bước 6D.1.2: AppHeader.tsx: await logout() — bắt buộc await để navigate chạy sau khi state clear
+                     await logout(); setMobileMenuOpen(false); navigate('/');
+                   }}
+                   style={{ padding: '0.75rem', background: 'transparent', border: '1px solid var(--danger)', borderRadius: '8px', color: 'var(--danger)', textAlign: 'center', marginTop: '0.5rem' }}
+                 >Đăng xuất</button>
                </>
             ) : (
                <Link to="/login" onClick={() => setMobileMenuOpen(false)} style={{ padding: '0.75rem', background: 'var(--accent)', borderRadius: '8px', color: '#fff', textDecoration: 'none', textAlign: 'center' }}>Đăng nhập</Link>
