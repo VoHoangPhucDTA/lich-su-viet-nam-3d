@@ -1,0 +1,1174 @@
+{
+  "examId": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-lien-truong-da-nang-1",
+  "title": "Đề thi Lịch sử – thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-su-lien-truong-Da-Nang-1",
+  "year": 2025,
+  "source": "",
+  "sourceDetail": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-su-lien-truong-Da-Nang-1",
+  "examCode": "",
+  "format": "thpt_2025",
+  "timeLimitMinutes": 50,
+  "totalScore": 10.0,
+  "parsedAt": "2026-05-20T05:09:48.297919+00:00",
+  "sections": [
+    {
+      "sectionId": "phan-1",
+      "sectionType": "mcq",
+      "title": "Phần I – Trắc nghiệm nhiều lựa chọn",
+      "totalQuestions": 24,
+      "maxScore": 6.0,
+      "scorePerQuestion": 0.25,
+      "questions": [
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-lien-truong-da-nang-1-q01",
+          "orderInExam": 1,
+          "questionType": "mcq",
+          "questionText": "Văn bản chính thức đầu tiên đề xuất ý tưởng xây dựng một cộng đồng ASEAN là",
+          "options": [
+            {
+              "id": "A",
+              "text": "Hiệp ước Bali II (2003)."
+            },
+            {
+              "id": "B",
+              "text": "Tuyên bố Băng Cốc (1976)."
+            },
+            {
+              "id": "C",
+              "text": "Tầm nhìn ASEAN 2020 (1997)."
+            },
+            {
+              "id": "D",
+              "text": "Hiến chương (2007)."
+            }
+          ],
+          "correctOptionId": "C",
+          "explanation": "",
+          "difficulty": "medium",
+          "topic": "ASEAN",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-su-lien-truong-Da-Nang-1",
+              "location": "Câu 1"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-lien-truong-da-nang-1-q02",
+          "orderInExam": 2,
+          "questionType": "mcq",
+          "questionText": "Công cuộc Đổi mới ở Việt Nam từ năm 1986 đến nay đạt được nhiều thành tựu đã thể hiện điều nào sau đây?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Công cuộc đổi mới đất nước là phù hợp với quy luật phát triển của lịch sử."
+            },
+            {
+              "id": "B",
+              "text": "Việt Nam là quốc gia xã hội chủ nghĩa duy nhất đã cải cách thành công."
+            },
+            {
+              "id": "C",
+              "text": "Đổi mới là xóa bỏ mọi cái cũ với áp dụng cái mới vào đời sống nhân dân."
+            },
+            {
+              "id": "D",
+              "text": "Chủ nghĩa xã hội không phải là con đường duy nhất để phát triển đất nước."
+            }
+          ],
+          "correctOptionId": "A",
+          "explanation": "",
+          "difficulty": "medium",
+          "topic": "Công cuộc Đổi mới ở Việt Nam",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-su-lien-truong-Da-Nang-1",
+              "location": "Câu 2"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-lien-truong-da-nang-1-q03",
+          "orderInExam": 3,
+          "questionType": "mcq",
+          "questionText": "Nội dung nào sau đây không phản ánh đúng về cuộc chiến tranh bảo vệ biên giới phía Bắc năm 1979?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Nhân dân sáu tỉnh biên giới phía Bắc đứng lên chiến đấu bảo vệ lãnh thổ."
+            },
+            {
+              "id": "B",
+              "text": "Dư luận trong nước phản đối mạnh mẽ hành động xâm lược của Trung Quốc."
+            },
+            {
+              "id": "C",
+              "text": "Toàn bộ lực lượng quân đội chính qui được huy động lên vùng biên giới."
+            },
+            {
+              "id": "D",
+              "text": "Nhiều trận chiến đấu đã diễn ra quyết liệt ở Cao Bằng, Lạng Sơn, Lào Cai."
+            }
+          ],
+          "correctOptionId": "C",
+          "explanation": "",
+          "difficulty": "medium",
+          "topic": "Chiến tranh bảo vệ biên giới phía Bắc 1979",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-su-lien-truong-Da-Nang-1",
+              "location": "Câu 3"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-lien-truong-da-nang-1-q04",
+          "orderInExam": 4,
+          "questionType": "mcq",
+          "questionText": "Một trong những thắng lợi mang ý nghĩa then chốt, có tính quyết định của nhân dân Việt Nam trong Cách mạng tháng Tám năm 1945 là ở",
+          "options": [
+            {
+              "id": "A",
+              "text": "Phước Long."
+            },
+            {
+              "id": "B",
+              "text": "Sài Gòn."
+            },
+            {
+              "id": "C",
+              "text": "Đà Nẵng."
+            },
+            {
+              "id": "D",
+              "text": "Điện Biên Phủ."
+            }
+          ],
+          "correctOptionId": "B",
+          "explanation": "",
+          "difficulty": "medium",
+          "topic": "Cách mạng tháng Tám 1945",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-su-lien-truong-Da-Nang-1",
+              "location": "Câu 4"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-lien-truong-da-nang-1-q05",
+          "orderInExam": 5,
+          "questionType": "mcq",
+          "questionText": "Bước sang thế kỉ XXI, quốc gia nào sau đây gia nhập tổ chức ASEAN?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Đông Timor."
+            },
+            {
+              "id": "B",
+              "text": "Myanma."
+            },
+            {
+              "id": "C",
+              "text": "Cam-pu-chia"
+            },
+            {
+              "id": "D",
+              "text": "Lào."
+            }
+          ],
+          "correctOptionId": "A",
+          "explanation": "",
+          "difficulty": "medium",
+          "topic": "ASEAN",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-su-lien-truong-Da-Nang-1",
+              "location": "Câu 5"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-lien-truong-da-nang-1-q06",
+          "orderInExam": 6,
+          "questionType": "mcq",
+          "questionText": "Hiệp hội các quốc gia Đông Nam Á (ASEAN) được thành lập trong bối cảnh",
+          "options": [
+            {
+              "id": "A",
+              "text": "xu thế toàn cầu hóa xuất hiện, ngày càng có ảnh hưởng mạnh mẽ."
+            },
+            {
+              "id": "B",
+              "text": "nhiều quốc gia Đông Nam Á đã vươn lên thành con rồng kinh tế."
+            },
+            {
+              "id": "C",
+              "text": "các nước trong khu vực đã hoàn thành công nghiệp hóa đất nước."
+            },
+            {
+              "id": "D",
+              "text": "các nước có độc lập dân tộc nhưng gặp khó khăn trong phát triển."
+            }
+          ],
+          "correctOptionId": "D",
+          "explanation": "",
+          "difficulty": "medium",
+          "topic": "ASEAN",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-su-lien-truong-Da-Nang-1",
+              "location": "Câu 6"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-lien-truong-da-nang-1-q07",
+          "orderInExam": 7,
+          "questionType": "mcq",
+          "questionText": "Thực tiễn công cuộc Đổi mới đất nước ở Việt Nam từ năm 1986 đến năm 2000 để lại bài học nào sau đây?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Thực hiện nhất quán tư tưởng giải phóng nhân dân, lấy dân làm gốc."
+            },
+            {
+              "id": "B",
+              "text": "Xác định đổi mới tư duy là nhân tố mở đường cho sự phát triển đất nước."
+            },
+            {
+              "id": "C",
+              "text": "Lấy đổi mới chính trị làm nền tảng để đổi mới văn hóa và xã hội."
+            },
+            {
+              "id": "D",
+              "text": "Đa dạng hơn nữa quan hệ đối ngoại với các hệ thống xã hội khác nhau."
+            }
+          ],
+          "correctOptionId": "B",
+          "explanation": "",
+          "difficulty": "medium",
+          "topic": "Công cuộc Đổi mới ở Việt Nam",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-su-lien-truong-Da-Nang-1",
+              "location": "Câu 7"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-lien-truong-da-nang-1-q08",
+          "orderInExam": 8,
+          "questionType": "mcq",
+          "questionText": "Nội dung nào dưới đây phản ánh đúng các giai đoạn phát triển của cuộc kháng chiến chống thực dân Pháp ở Việt Nam từ 1945 - 1954?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Phòng ngự, cầm cự, tiến công."
+            },
+            {
+              "id": "B",
+              "text": "Phòng ngự, tiến công, cầm cự."
+            },
+            {
+              "id": "C",
+              "text": "Tiến công, cầm cự, phòng ngự."
+            },
+            {
+              "id": "D",
+              "text": "Cầm cự, phòng ngự, tiến công."
+            }
+          ],
+          "correctOptionId": "A",
+          "explanation": "",
+          "difficulty": "medium",
+          "topic": "Kháng chiến chống Pháp 1945-1954",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-su-lien-truong-Da-Nang-1",
+              "location": "Câu 8"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-lien-truong-da-nang-1-q09",
+          "orderInExam": 9,
+          "questionType": "mcq",
+          "questionText": "Nội dung nào sau đây không phải thách thức đối với Cộng đồng ASEAN?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Trình độ phát triển kinh tế giữa các nước ngày một thu hẹp."
+            },
+            {
+              "id": "B",
+              "text": "Nguy cơ chia rẽ của ASEAN về những vấn đề khu vực và quốc tế."
+            },
+            {
+              "id": "C",
+              "text": "Thay đổi cấu trúc địa chính trị khu vực Châu Á – Thái Bình Dương."
+            },
+            {
+              "id": "D",
+              "text": "Cạnh tranh chiến lược giữa các nước lớn đe dọa an ninh khu vực."
+            }
+          ],
+          "correctOptionId": "A",
+          "explanation": "",
+          "difficulty": "medium",
+          "topic": "ASEAN",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-su-lien-truong-Da-Nang-1",
+              "location": "Câu 9"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-lien-truong-da-nang-1-q10",
+          "orderInExam": 10,
+          "questionType": "mcq",
+          "questionText": "Trong bối cảnh của Chiến tranh lạnh, cuộc kháng chiến chống Mĩ cứu nước (1945 - 1975) của nhân dân Việt Nam thắng lợi đã",
+          "options": [
+            {
+              "id": "A",
+              "text": "đẩy nhanh tiến trình hòa hoãn giữa các nước lớn trong quan hệ quốc tế."
+            },
+            {
+              "id": "B",
+              "text": "có ảnh hưởng sâu sắc đến phong trào giải phóng dân tộc trên thế giới."
+            },
+            {
+              "id": "C",
+              "text": "trở thành biểu tượng về tấm gương chống ảnh hưởng của hai phe."
+            },
+            {
+              "id": "D",
+              "text": "góp phần củng cố thế đối đầu kịch liệt trong trật tự thế giới hai cực I-an-ta."
+            }
+          ],
+          "correctOptionId": "B",
+          "explanation": "",
+          "difficulty": "medium",
+          "topic": "Chiến tranh lạnh, Kháng chiến chống Mỹ cứu nước",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-su-lien-truong-Da-Nang-1",
+              "location": "Câu 10"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-lien-truong-da-nang-1-q11",
+          "orderInExam": 11,
+          "questionType": "mcq",
+          "questionText": "Nguyên nhân nào sau đây không phải là lí do để Đại hội lần II của Đảng Cộng sản Đông Dương (2/1951) đã quyết định đưa Đảng Lao động Việt Nam ra hoạt động công khai ở Việt Nam ?",
+          "options": [
+            {
+              "id": "A",
+              "text": "quyết định thành lập khối đoàn kết chiến đấu của nhân dân Đông Dương."
+            },
+            {
+              "id": "B",
+              "text": "Tình hình trong và ngoài nước thuận lợi cho phép hoạt động công khai."
+            },
+            {
+              "id": "C",
+              "text": "Khẳng định sứ mệnh của các tổ chức chính trị cầm quyền trong kháng chiến."
+            },
+            {
+              "id": "D",
+              "text": "Chủ trương hoàn thành cải cách ruộng đất vùng tự do ngay trong kháng chiến."
+            }
+          ],
+          "correctOptionId": "D",
+          "explanation": "",
+          "difficulty": "medium",
+          "topic": "Kháng chiến chống Pháp 1945-1954, Đảng Cộng sản Việt Nam",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-su-lien-truong-Da-Nang-1",
+              "location": "Câu 11"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-lien-truong-da-nang-1-q12",
+          "orderInExam": 12,
+          "questionType": "mcq",
+          "questionText": "Quyết định “Đông Nam Á thuộc phạm vi ảnh hưởng truyền thống của các nước phương Tây” được thông qua trong hội nghị quốc tế nào sau đây?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Pốt-xdam (Đức)."
+            },
+            {
+              "id": "B",
+              "text": "Xan Phran-xi-xcô (Mỹ)."
+            },
+            {
+              "id": "C",
+              "text": "Tê-hê-ran (I-ran)."
+            },
+            {
+              "id": "D",
+              "text": "I-an-ta (Liên Xô)."
+            }
+          ],
+          "correctOptionId": "D",
+          "explanation": "",
+          "difficulty": "medium",
+          "topic": "Chiến tranh thế giới thứ hai, Trật tự thế giới sau Chiến tranh thế giới thứ hai",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-su-lien-truong-Da-Nang-1",
+              "location": "Câu 12"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-lien-truong-da-nang-1-q13",
+          "orderInExam": 13,
+          "questionType": "mcq",
+          "questionText": "Đường lối đổi mới của Đảng cộng sản Việt Nam đề ra trong giai đoạn 1986-1995 không bao gồm nội dung cơ bản nào sau đây?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Mở rộng quan hệ với tất cả các nước, không phân biệt thể chế chính trị- xã hội."
+            },
+            {
+              "id": "B",
+              "text": "Xây dựng cơ chế quản lí kinh tế thị trường, mở rộng quan hệ hợp tác đối ngoại."
+            },
+            {
+              "id": "C",
+              "text": "Tiếp tục đẩy mạnh công nghiệp hóa, hiện đại hóa, hội nhập quốc tế sâu rộng."
+            },
+            {
+              "id": "D",
+              "text": "Xây dựng nhà nước pháp quyền Việt Nam và nền dân chủ xã hội chủ nghĩa."
+            }
+          ],
+          "correctOptionId": "C",
+          "explanation": "",
+          "difficulty": "medium",
+          "topic": "Đổi mới ở Việt Nam, Lịch sử Việt Nam sau 1975",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-su-lien-truong-Da-Nang-1",
+              "location": "Câu 13"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-lien-truong-da-nang-1-q14",
+          "orderInExam": 14,
+          "questionType": "mcq",
+          "questionText": "Nội dung nào sau đây không phải là biểu hiện của xu thế đa cực sau khi Chiến tranh lạnh kết thúc?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Sự suy giảm sức mạnh kinh tế tương đối với Mỹ."
+            },
+            {
+              "id": "B",
+              "text": "Sự đối đầu các nước khác nhau về chế độ chính trị."
+            },
+            {
+              "id": "C",
+              "text": "Vai trò của các tổ chức kinh tế, tài chính quốc tế, khu vực."
+            },
+            {
+              "id": "D",
+              "text": "Sự tương quan so sánh lực lượng giữa các cường quốc."
+            }
+          ],
+          "correctOptionId": "B",
+          "explanation": "",
+          "difficulty": "medium",
+          "topic": "Trật tự thế giới sau Chiến tranh lạnh, Quan hệ quốc tế",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-su-lien-truong-Da-Nang-1",
+              "location": "Câu 14"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-lien-truong-da-nang-1-q15",
+          "orderInExam": 15,
+          "questionType": "mcq",
+          "questionText": "Sau khi Chiến tranh lạnh chấm dứt, tổ chức nào sau đây đã nỗ lực vươn lên trở thành một cực trong trật tự thế giới đa cực?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Hội đồng tương trợ kinh tế."
+            },
+            {
+              "id": "B",
+              "text": "Diễn đàn hợp tác Á - Âu."
+            },
+            {
+              "id": "C",
+              "text": "Tổ chức Hiệp ước Bắc Đại Tây Dương."
+            },
+            {
+              "id": "D",
+              "text": "Liên minh châu Âu."
+            }
+          ],
+          "correctOptionId": "D",
+          "explanation": "",
+          "difficulty": "medium",
+          "topic": "Trật tự thế giới sau Chiến tranh lạnh, Các tổ chức quốc tế",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-su-lien-truong-Da-Nang-1",
+              "location": "Câu 15"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-lien-truong-da-nang-1-q16",
+          "orderInExam": 16,
+          "questionType": "mcq",
+          "questionText": "Những tác động từ cục diện hai cực, hai phe tới cuộc kháng chiến chống Pháp của nhân dân Việt Nam (1945-1954) được thể hiện qua nhiều phương diện, ngoại trừ việc",
+          "options": [
+            {
+              "id": "A",
+              "text": "Từ năm 1950, Mĩ can thiệp sâu và ngày càng có dính líu trực tiếp vào cuộc chiến tranh."
+            },
+            {
+              "id": "B",
+              "text": "Việt Nam được Liên Xô giúp đỡ, tham gia vào Hội đồng tương trợ kinh tế (SEV)."
+            },
+            {
+              "id": "C",
+              "text": "Nhân dân Việt Nam nhận được sự ủng hộ của Liên Xô và các nước xã hội chủ nghĩa."
+            },
+            {
+              "id": "D",
+              "text": "Việt Nam tạm thời bị chia cắt thành hai miền Nam – Bắc theo vĩ tuyến 17."
+            }
+          ],
+          "correctOptionId": "B",
+          "explanation": "",
+          "difficulty": "medium",
+          "topic": "Kháng chiến chống Pháp 1945-1954, Chiến tranh lạnh",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-su-lien-truong-Da-Nang-1",
+              "location": "Câu 16"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-lien-truong-da-nang-1-q17",
+          "orderInExam": 17,
+          "questionType": "mcq",
+          "questionText": "Một trong những nội dung trọng tâm của đường lối đổi mới về kinh tế ở Việt Nam (từ năm 1986) là",
+          "options": [
+            {
+              "id": "A",
+              "text": "xóa bỏ kinh tế hợp tác xã, chuyển sang kinh tế mới."
+            },
+            {
+              "id": "B",
+              "text": "mở rộng, nâng cao hiệu quả của kinh tế đối ngoại."
+            },
+            {
+              "id": "C",
+              "text": "coi đổi mới văn hóa là nền tảng cho đổi mới kinh tế."
+            },
+            {
+              "id": "D",
+              "text": "chú trọng việc xây dựng mô hình kinh tế bao cấp."
+            }
+          ],
+          "correctOptionId": "B",
+          "explanation": "",
+          "difficulty": "medium",
+          "topic": "Đổi mới ở Việt Nam, Kinh tế Việt Nam",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-su-lien-truong-Da-Nang-1",
+              "location": "Câu 17"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-lien-truong-da-nang-1-q18",
+          "orderInExam": 18,
+          "questionType": "mcq",
+          "questionText": "Trong giai đoạn 9/1945 - 3/1946, Chính phủ Việt Nam Dân chủ Cộng hòa đã không sử dụng biện pháp nào sau đây với để đối phó với Trung Hoa Dân Quốc?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Đấu tranh chính trị."
+            },
+            {
+              "id": "B",
+              "text": "Hoà hoãn và thân thiện."
+            },
+            {
+              "id": "C",
+              "text": "Vận động ngoại giao."
+            },
+            {
+              "id": "D",
+              "text": "Đối đầu quân sự."
+            }
+          ],
+          "correctOptionId": "D",
+          "explanation": "",
+          "difficulty": "medium",
+          "topic": "Việt Nam sau Cách mạng tháng Tám 1945, Quan hệ đối ngoại Việt Nam",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-su-lien-truong-Da-Nang-1",
+              "location": "Câu 18"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-lien-truong-da-nang-1-q19",
+          "orderInExam": 19,
+          "questionType": "mcq",
+          "questionText": "Cuộc kháng chiến chống thực dân Pháp (1945 – 1954) của nhân dân Việt Nam diễn ra trong bối cảnh lịch sử nào sau đây?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Nhân dân Việt Nam gắn bó, quyết tâm bảo vệ chế độ mới."
+            },
+            {
+              "id": "B",
+              "text": "Xu thế toàn cầu hóa xuất hiện, chi phối quan hệ quốc tế."
+            },
+            {
+              "id": "C",
+              "text": "Cục diện hai cực, hai phe đối đầu với nhau đã chấm dứt."
+            },
+            {
+              "id": "D",
+              "text": "Miền Nam hoàn toàn giải phóng, tiến lên chủ nghĩa xã hội."
+            }
+          ],
+          "correctOptionId": "A",
+          "explanation": "",
+          "difficulty": "medium",
+          "topic": "Kháng chiến chống Pháp 1945-1954, Bối cảnh lịch sử",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-su-lien-truong-Da-Nang-1",
+              "location": "Câu 19"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-lien-truong-da-nang-1-q20",
+          "orderInExam": 20,
+          "questionType": "mcq",
+          "questionText": "Một trong những vùng lãnh thổ của Việt Nam đã bị quân đội Pôn Pốt Khơ-me Đỏ xâm phạm trong thời gian từ năm 1975 đến năm 1979 là",
+          "options": [
+            {
+              "id": "A",
+              "text": "Kon Tum."
+            },
+            {
+              "id": "B",
+              "text": "Vũng Tàu."
+            },
+            {
+              "id": "C",
+              "text": "Tây Ninh."
+            },
+            {
+              "id": "D",
+              "text": "Đắc Lắc."
+            }
+          ],
+          "correctOptionId": "C",
+          "explanation": "",
+          "difficulty": "medium",
+          "topic": "Chiến tranh biên giới Tây Nam",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-su-lien-truong-Da-Nang-1",
+              "location": "Câu 20"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-lien-truong-da-nang-1-q21",
+          "orderInExam": 21,
+          "questionType": "mcq",
+          "questionText": "Ngoài nhiệm vụ đấu tranh giành độc lập dân tộc, Cách mạng tháng Tám năm 1945 ở Việt Nam còn phải thực hiện nhiệm vụ",
+          "options": [
+            {
+              "id": "A",
+              "text": "lập tức tiến hành cải cách ruộng đất trên cả nước."
+            },
+            {
+              "id": "B",
+              "text": "lật đổ tay sai, xây dựng chế độ dân chủ cộng hoà."
+            },
+            {
+              "id": "C",
+              "text": "đánh bại quân Đồng minh để bảo vệ nền độc lập."
+            },
+            {
+              "id": "D",
+              "text": "xây dựng xã hội chủ nghĩa ngay khi giành chính quyền."
+            }
+          ],
+          "correctOptionId": "B",
+          "explanation": "",
+          "difficulty": "medium",
+          "topic": "Cách mạng tháng Tám 1945",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-su-lien-truong-Da-Nang-1",
+              "location": "Câu 21"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-lien-truong-da-nang-1-q22",
+          "orderInExam": 22,
+          "questionType": "mcq",
+          "questionText": "Thắng lợi của “Mùa xuân vẻ vang” đã để lại bài học kinh nghiệm nào sau đây cho công cuộc xây dựng và bảo vệ Tổ quốc hiện nay?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Tập trung chủ yếu xây dựng quốc phòng hùng mạnh bảo vệ Tổ quốc."
+            },
+            {
+              "id": "B",
+              "text": "Quan hệ chiến lược toàn diện với các cường quốc để bảo vệ Tổ quốc."
+            },
+            {
+              "id": "C",
+              "text": "Phát huy khát vọng dân tộc và sức mạnh của sự đoàn kết toàn dân."
+            },
+            {
+              "id": "D",
+              "text": "Phát huy sức mạnh tổng hợp toàn dân tộc, vũ trang đóng vai trò quyết định."
+            }
+          ],
+          "correctOptionId": "C",
+          "explanation": "",
+          "difficulty": "medium",
+          "topic": "Đại thắng mùa Xuân 1975",
+          "cognitiveLevel": "application",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-su-lien-truong-Da-Nang-1",
+              "location": "Câu 22"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-lien-truong-da-nang-1-q23",
+          "orderInExam": 23,
+          "questionType": "mcq",
+          "questionText": "“Mùa xuân vẻ vang” trong đoạn tư liệu trên đề cập sự kiện nào sau đây của cách mạng Việt Nam?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Cuộc tiến công chiến lược Đông -Xuân (năm 1953-1954)."
+            },
+            {
+              "id": "B",
+              "text": "Tổng tiến công và nổi dậy Mậu Thân năm (năm 1968)."
+            },
+            {
+              "id": "C",
+              "text": "Chiến dịch Điện Biên Phủ (năm 1954)."
+            },
+            {
+              "id": "D",
+              "text": "Tổng tiến công và nổi dậy mùa Xuân (năm 1975)."
+            }
+          ],
+          "correctOptionId": "D",
+          "explanation": "",
+          "difficulty": "medium",
+          "topic": "Đại thắng mùa Xuân 1975",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-su-lien-truong-Da-Nang-1",
+              "location": "Câu 23"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-lien-truong-da-nang-1-q24",
+          "orderInExam": 24,
+          "questionType": "mcq",
+          "questionText": "Lí do nào sau đây là đúng nhất khi nói về sự kiện “Mùa xuân vẻ vang” trong đoạn tư liệu trên là bước ngoặt lịch sử vô cùng quan trọng trên con đường tiến lên của cách mạng Việt Nam ?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Chấm dứt ách thống trị của đế quốc xâm lược và tay sai, cách mạng Việt Nam giành thắng lợi triệt để ở miền Nam."
+            },
+            {
+              "id": "B",
+              "text": "Mở ra bước phát triển cách mạng Việt Nam từ hoàn thành nhiệm vụ giải phóng dân tộc để tiến đi lên chủ nghĩa xã hội."
+            },
+            {
+              "id": "C",
+              "text": "Chấm dứt ách thống trị của đế quốc xâm lược, hoàn thành cuộc cách mạng dân chủ nhân dân ở Việt Nam."
+            },
+            {
+              "id": "D",
+              "text": "Hoàn thành nhiệm vụ giải phóng hoàn toàn miền Nam, thống nhất đất nước về mặt Nhà nước sau 21 năm chiến tranh."
+            }
+          ],
+          "correctOptionId": "B",
+          "explanation": "",
+          "difficulty": "medium",
+          "topic": "Đại thắng mùa Xuân 1975",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-su-lien-truong-Da-Nang-1",
+              "location": "Câu 24"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "sectionId": "phan-2",
+      "sectionType": "true_false",
+      "title": "Phần II – Trắc nghiệm Đúng/Sai",
+      "totalQuestions": 4,
+      "maxScore": 4.0,
+      "scoringRule": "ladder",
+      "questions": [
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-lien-truong-da-nang-1-q25",
+          "orderInExam": 25,
+          "questionType": "true_false",
+          "questionText": "Cho đoạn tư liệu sau đây: “Trải qua chín năm trường kì kháng chiến, chiến tranh nhân dân của ta đã từng bước phát triển và giành được thắng lợi qua các chiến dịch: Việt Bắc năm 1947, Biên giới năm 1950, Hòa Bình năm 1951-1952, Tây Bắc - Thượng Lào năm 1952-1953 và với những đòn tiêu diệt chiến dịch đó, đã bắt đầu có ý nghĩa về chất, chuyển biến từ từ về chất. Chỉ đến khi ta tiêu diệt chiến lược ở chiến dịch Điện Biên Phủ thì lúc đó mới có ý nghĩa thực sự chuyển biến về chất”. (Vũ Dương Huân , Hiệp định Giơnevơ 50 năm nhìn lại. NXB chính trị quốc gia, Hà Nội, 2008, trang1).",
+          "statements": [
+            {
+              "id": "a",
+              "text": "Chiến thắng Biên giới năm 1950 đã giáng một đòn quyết định vào chiến lược “đánh nhanh thắng nhanh” của thực dân Pháp, buộc chúng phải chuyển sang đánh lâu dài.",
+              "isTrue": false
+            },
+            {
+              "id": "b",
+              "text": "Cuộc kháng chiến đô thị phía Bắc (cuối 1946- đầu 1947) và Chiến dịch Việt Bắc 1947 đều thể hiện thế chủ động, linh hoạt của ta trong việc thực hiện chiến lược kháng chiến lâu dài và tự lực cánh sinh.",
+              "isTrue": true
+            },
+            {
+              "id": "c",
+              "text": "Chiến dịch Điện Biên Phủ (1954) và Trận Điện Biên Phủ trên không (1972) đều có sự giống nhau về đòn quyết định, loại hình tác chiến và phương châm nghệ thuật quân sự.",
+              "isTrue": false
+            },
+            {
+              "id": "d",
+              "text": "Quá trình “chuyển biến về chất” trong cuộc kháng chiến chống thực dân Pháp (1945 – 1954) đã thể hiện sự lãnh đạo đúng đắn của Đảng để từng bước đi đến thắng lợi cuối cùng.",
+              "isTrue": true
+            }
+          ],
+          "explanation": "",
+          "difficulty": "hard",
+          "topic": "Kháng chiến chống Pháp 1945-1954",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-su-lien-truong-Da-Nang-1",
+              "location": "Câu 1"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-lien-truong-da-nang-1-q26",
+          "orderInExam": 26,
+          "questionType": "true_false",
+          "questionText": "Cho đoạn tư liệu sau đây: “Cách mạng tháng Tám năm 1945 ở nước ta giành được thắng lợi trong thời đại cách mạng vô sản. Nó phản ánh tính chất thời đại, mang lại những nhận thức mới mẻ và triệt để trong quan niệm cũng như giải pháp để giải quyết vấn đề độc lập dân tộc. Từ thắng lợi đó, nhận thức của chúng ta đã vượt qua những mâu thuẫn và hạn chế trong việc giải quyết vấn đề độc lập dân tộc theo lập trường phong kiến và tư sản”. (Ban chỉ đạo Tổng kết chiến tranh thuộc Bộ Chính trị, Chiến tranh cách mạng Việt Nam 1945 – 1975 thắng lợi và bài học, NXB Chính trị quốc gia, Hà Nội, 2000, trang 68).",
+          "statements": [
+            {
+              "id": "a",
+              "text": "Cách mạng tháng Tám năm 1945 ở Việt Nam đặt dưới sự lãnh đạo thống nhất của một chính đảng vô sản cầm quyền, có sự kết hợp đấu tranh vũ trang với chính trị.",
+              "isTrue": false
+            },
+            {
+              "id": "b",
+              "text": "Cách mạng tháng Tám năm 1945 thắng lợi có ý nghĩa thực tiễn góp phần bổ sung lý luận của chủ nghĩa Mác – Lê nin về cách mạng giải phóng dân tộc ở các nước thuộc địa, phụ thuộc.",
+              "isTrue": true
+            },
+            {
+              "id": "c",
+              "text": "Theo đoạn tư liệu trên, Cách mạng tháng Tám năm 1945 ở Việt Nam thắng lợi đã làm thay đổi tính chất thời đại, mang lại những nhận thức và quan điểm mới về vấn đề độc lập dân tộc.",
+              "isTrue": false
+            },
+            {
+              "id": "d",
+              "text": "Thực tiễn Cách mạng tháng Tám năm 1945 ở Việt Nam diễn ra trên quy mô toàn quốc, đáp ứng được nguyện vọng số một của giai cấp công nhân và nông dân mà trước đó phong trào yêu nước theo lập trường tư sản chưa làm được.",
+              "isTrue": true
+            }
+          ],
+          "explanation": "",
+          "difficulty": "hard",
+          "topic": "Cách mạng tháng Tám 1945",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-su-lien-truong-Da-Nang-1",
+              "location": "Câu 2"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-lien-truong-da-nang-1-q27",
+          "orderInExam": 27,
+          "questionType": "true_false",
+          "questionText": "Cho đoạn tư liệu sau đây: “Giữ vững định hướng xã hội chủ nghĩa trong quá trình đổi mới, kết hợp sự kiên định về nguyên tắc và chiến lược cách mạng với sự linh hoạt trong sách lược, nhạy cảm nắm bắt cái mới. Chúng ta phê phán những khuyết điểm, sai lầm trong quá trình xây dựng chủ nghĩa xã hội, nhưng không quan niệm những lệch lạc đó là khuyết tật của bản thân chế độ, coi khuyết tật là tất cả mà phủ định thành tựu, từ đó dao động về mục tiêu và con đường đi lên chủ nghĩa xã hội”. (Lê Mậu Hãn (chủ biên), Đại cương lịch sử Việt Nam, Tập III, NXB Giáo dục Việt Nam, 2019, trang 316).",
+          "statements": [
+            {
+              "id": "a",
+              "text": "Đoạn tư liệu trên đã thể hiện quan điểm phê phán khuyết điểm là để củng cố niềm tin và tìm ra phương pháp đúng đắn hơn, chứ không phải để phủ định con đường đã chọn.",
+              "isTrue": true
+            },
+            {
+              "id": "b",
+              "text": "Điểm tương đồng của các cuộc cải cách và công cuộc Đổi mới trong lịch sử Việt Nam từ thế kỉ X đến nay là đều xuất phát từ yêu cầu khách quan, do người đứng đầu nhà nước tiến hành và được nhân dân ủng hộ.",
+              "isTrue": false
+            },
+            {
+              "id": "c",
+              "text": "Đoạn tư liệu trên đã thể hiện Đổi mới là sự thay đổi cho tiến bộ hơn, phù hợp hơn với sự phát triển chung của xã hội nên cần phải thay thế cái cũ bằng cái mới, mang tính thời đại.",
+              "isTrue": false
+            },
+            {
+              "id": "d",
+              "text": "Từ sự thất bại của cải tổ ở Liên Xô 1985, cải cách Trung quốc 1978 và thực tiễn đất nước ta hiện nay, Việt Nam tiếp tục kiên định nguyên tắc \"Đổi mới nhưng không đổi màu\".",
+              "isTrue": false
+            }
+          ],
+          "explanation": "",
+          "difficulty": "hard",
+          "topic": "Công cuộc Đổi mới Việt Nam",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-su-lien-truong-Da-Nang-1",
+              "location": "Câu 3"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-lien-truong-da-nang-1-q28",
+          "orderInExam": 28,
+          "questionType": "true_false",
+          "questionText": "Cho đoạn tư liệu sau: “Cộng đồng Kinh tế ASEAN (AEC) là các nền kinh tế \"cộng\" chứ không phải là thực thể kinh tế đơn nhất (đã được nhất thể hóa như Liên minh kinh tế - tiền tệ châu Âu). Phương thức hợp tác của AEC vẫn là phương thức liên chính phủ và ra quyết định theo nguyên tắc đồng thuận. Điều này hoàn toàn khác so với \"phương thức cộng đồng\" của Cộng đồng kinh tế châu Âu, theo đó tất cả các vấn đề thuộc phạm vi của Cộng đồng đều được các quốc gia thành viên chuyển giao chủ quyền cho Cộng đồng kinh tế châu Âu”. (Trường Đại học Luật Hà Nội. (2020). Giáo trình pháp luật Cộng đồng ASEAN.- Nhà xuất bản Công an nhân dân, trang 182).",
+          "statements": [
+            {
+              "id": "a",
+              "text": "Phương thức ra quyết định trong Cộng đồng Kinh tế ASEAN là phương thức liên chính phủ và nguyên tắc đồng thuận do đa số các nước thành viên quyết định.",
+              "isTrue": false
+            },
+            {
+              "id": "b",
+              "text": "Việc không chuyển giao chủ quyền trong Cộng đồng Kinh tế ASEAN cho thấy phải tôn trọng quyền bất khả xâm phạm của mỗi quốc gia trong quá trình liên kết khu vực.",
+              "isTrue": true
+            },
+            {
+              "id": "c",
+              "text": "Từ ASEAN đến AEC là quá trình chuyển đổi từ trọng tâm an ninh - chính trị sang trọng tâm kinh tế.",
+              "isTrue": false
+            },
+            {
+              "id": "d",
+              "text": "Mục tiêu hội nhập là một trong những nguyên nhân dẫn đến Cộng đồng Kinh tế ASEAN không trở thành một thực thể kinh tế đơn nhất như EU.",
+              "isTrue": true
+            }
+          ],
+          "explanation": "",
+          "difficulty": "hard",
+          "topic": "Các nước Đông Nam Á",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-su-lien-truong-Da-Nang-1",
+              "location": "Câu 4"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "warnings": [
+    "Câu 1 (MCQ): thiếu lời giải (không crash)",
+    "Câu 2 (MCQ): thiếu lời giải (không crash)",
+    "Câu 3 (MCQ): thiếu lời giải (không crash)",
+    "Câu 4 (MCQ): thiếu lời giải (không crash)",
+    "Câu 5 (MCQ): thiếu lời giải (không crash)",
+    "Câu 6 (MCQ): thiếu lời giải (không crash)",
+    "Câu 7 (MCQ): thiếu lời giải (không crash)",
+    "Câu 8 (MCQ): thiếu lời giải (không crash)",
+    "Câu 9 (MCQ): thiếu lời giải (không crash)",
+    "Câu 10 (MCQ): thiếu lời giải (không crash)",
+    "Câu 11 (MCQ): thiếu lời giải (không crash)",
+    "Câu 12 (MCQ): thiếu lời giải (không crash)",
+    "Câu 13 (MCQ): thiếu lời giải (không crash)",
+    "Câu 14 (MCQ): thiếu lời giải (không crash)",
+    "Câu 15 (MCQ): thiếu lời giải (không crash)",
+    "Câu 16 (MCQ): thiếu lời giải (không crash)",
+    "Câu 17 (MCQ): thiếu lời giải (không crash)",
+    "Câu 18 (MCQ): thiếu lời giải (không crash)",
+    "Câu 19 (MCQ): thiếu lời giải (không crash)",
+    "Câu 20 (MCQ): thiếu lời giải (không crash)",
+    "Câu 21 (MCQ): thiếu lời giải (không crash)",
+    "Câu 22 (MCQ): thiếu lời giải (không crash)",
+    "Câu 23 (MCQ): thiếu lời giải (không crash)",
+    "Câu 24 (MCQ): thiếu lời giải (không crash)",
+    "Câu 25 (Đ/S): thiếu lời giải (không crash)",
+    "Câu 26 (Đ/S): thiếu lời giải (không crash)",
+    "Câu 27 (Đ/S): thiếu lời giải (không crash)",
+    "Câu 28 (Đ/S): thiếu lời giải (không crash)"
+  ],
+  "verification": {
+    "structural": {
+      "layer": "L1_structural",
+      "passed": 8,
+      "total": 8,
+      "all_passed": true,
+      "checks": [
+        {
+          "name": "MCQ count = 24",
+          "passed": true,
+          "actual": 24
+        },
+        {
+          "name": "T/F count = 4",
+          "passed": true,
+          "actual": 4
+        },
+        {
+          "name": "No duplicate question IDs",
+          "passed": true,
+          "duplicates": []
+        },
+        {
+          "name": "T/F orderInExam >= 25",
+          "passed": true,
+          "violations": []
+        },
+        {
+          "name": "T/F orderInExam = {25,26,27,28}",
+          "passed": true,
+          "actual": [
+            25,
+            26,
+            27,
+            28
+          ],
+          "expected": [
+            25,
+            26,
+            27,
+            28
+          ]
+        },
+        {
+          "name": "MCQ orderInExam = {1..24}",
+          "passed": true,
+          "actual_first_last": [
+            [
+              1,
+              2,
+              3
+            ],
+            [
+              22,
+              23,
+              24
+            ]
+          ],
+          "expected": "1..24"
+        },
+        {
+          "name": "All MCQ have valid correctOptionId",
+          "passed": true,
+          "missing_in_questions": []
+        },
+        {
+          "name": "All T/F have 4 statements with isTrue bool",
+          "passed": true,
+          "issues": []
+        }
+      ]
+    },
+    "cross_source": {
+      "layer": "L2_cross_source",
+      "n_conflicts": 0,
+      "n_mcq_conflicts": 0,
+      "n_tf_conflicts": 0,
+      "shifting_pattern_detected": false,
+      "shifting_warning": null,
+      "conflicts": [],
+      "all_passed": true
+    },
+    "content_integrity": {
+      "layer": "L3_content",
+      "n_suspicious": 0,
+      "suspicious": [],
+      "note": "LOW severity — cần review thủ công nếu nhiều case"
+    },
+    "verified_at": "2026-05-20T05:09:48.298917+00:00"
+  }
+}

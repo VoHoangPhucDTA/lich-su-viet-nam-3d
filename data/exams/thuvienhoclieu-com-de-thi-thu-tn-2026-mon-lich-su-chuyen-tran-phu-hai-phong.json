@@ -1,0 +1,1145 @@
+{
+  "examId": "thuvienhoclieu-com-de-thi-thu-tn-2026-mon-lich-su-chuyen-tran-phu-hai-phong",
+  "title": "Đề thi Lịch sử – thuvienhoclieu.com-De-thi-thu-TN-2026-mon-Lich-su-chuyen-Tran-Phu-Hai-Phong",
+  "year": 2025,
+  "source": "",
+  "sourceDetail": "thuvienhoclieu.com-De-thi-thu-TN-2026-mon-Lich-su-chuyen-Tran-Phu-Hai-Phong",
+  "examCode": "",
+  "format": "thpt_2025",
+  "timeLimitMinutes": 50,
+  "totalScore": 10.0,
+  "parsedAt": "2026-05-20T09:08:55.763845+00:00",
+  "sections": [
+    {
+      "sectionId": "phan-1",
+      "sectionType": "mcq",
+      "title": "Phần I – Trắc nghiệm nhiều lựa chọn",
+      "totalQuestions": 24,
+      "maxScore": 6.0,
+      "scorePerQuestion": 0.25,
+      "questions": [
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-2026-mon-lich-su-chuyen-tran-phu-hai-phong-q01",
+          "orderInExam": 1,
+          "questionType": "mcq",
+          "questionText": "Nội dung nào sau đây là điểm tương đồng giữa hai văn kiện Tầm nhìn Cộng đồng ASEAN 2025 và Tầm nhìn Cộng đồng ASEAN sau năm 2025?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Đề xuất các ý tưởng và lộ trình để thành lập Cộng đồng ASEAN."
+            },
+            {
+              "id": "B",
+              "text": "Được thông qua sau khi Cộng đồng ASEAN đã đi vào hoạt động."
+            },
+            {
+              "id": "C",
+              "text": "Xây dựng, hoàn thiện cơ sở pháp lý về vấn đề tranh chấp Biển Đông."
+            },
+            {
+              "id": "D",
+              "text": "Khẳng định về sự hợp tác giữa các nước thành viên trên cả ba trụ cột."
+            }
+          ],
+          "correctOptionId": "D",
+          "explanation": "Câu 1 (TH):\nPhương pháp:\n• Xem lại nội dung Cộng đồng ASEAN.\n• Xác định văn kiện Tầm nhìn Cộng đồng ASEAN 2025 và sau năm 2025.\n• Xác định điểm tương đồng giữa hai văn kiện.\nCách giải:\nTầm nhìn Cộng đồng ASEAN 2025 và Tầm nhìn Cộng đồng ASEAN sau năm 2025 đều nhất quán khẳng định mục tiêu tăng cường hợp tác, gắn kết giữa các quốc gia thành viên ASEAN trên ba trụ cột: Cộng đồng Chính trị - An ninh (APSC), Cộng đồng Kinh tế (AEC), Cộng đồng Văn hóa - Xã hội (ASCC).\nĐáp án: D",
+          "difficulty": "medium",
+          "topic": "Cộng đồng ASEAN",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-2026-mon-Lich-su-chuyen-Tran-Phu-Hai-Phong",
+              "location": "Câu 1"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-2026-mon-lich-su-chuyen-tran-phu-hai-phong-q02",
+          "orderInExam": 2,
+          "questionType": "mcq",
+          "questionText": "Nhận định nào sau đây là không đúng về vai trò của chiến tranh bảo vệ Tổ quốc trong lịch sử dân tộc Việt Nam?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Là điều kiện tiên quyết, cơ bản để bảo vệ vững chắc biên cương Tổ quốc."
+            },
+            {
+              "id": "B",
+              "text": "Chiến tranh bảo vệ Tổ quốc của dân tộc ta là cuộc chiến tranh chính nghĩa."
+            },
+            {
+              "id": "C",
+              "text": "Tạo cho dân tộc bản lĩnh kiên cường, một sức sống bền bỉ, mãnh liệt."
+            },
+            {
+              "id": "D",
+              "text": "Chủ trương thiết lập quan hệ hòa hiếu với các quốc gia cùng khu vực."
+            }
+          ],
+          "correctOptionId": "D",
+          "explanation": "Câu 2 (TH):\nPhương pháp:\n• Xem lại nội dung Chiến tranh bảo vệ Tổ quốc và chiến tranh giải phóng dân tộc.\n• Xác định vai trò của chiến tranh bảo vệ Tổ quốc trong lịch sử dân tộc Việt Nam.\nCách giải:\nA, B, C loại, ba phương án phản ánh đúng về vai trò của chiến tranh bảo vệ Tổ quốc trong lịch sử dân tộc Việt Nam.\n=> Chủ trương thiết lập quan hệ hòa hiếu với các quốc gia cùng khu vực phản ánh không đúng về vai trò của chiến tranh bảo vệ Tổ quốc trong lịch sử dân tộc Việt Nam.\nĐáp án: D",
+          "difficulty": "medium",
+          "topic": "Lịch sử quân sự Việt Nam",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-2026-mon-Lich-su-chuyen-Tran-Phu-Hai-Phong",
+              "location": "Câu 2"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-2026-mon-lich-su-chuyen-tran-phu-hai-phong-q03",
+          "orderInExam": 3,
+          "questionType": "mcq",
+          "questionText": "Nội dung nào sau đây phản ánh đúng một trong những quan điểm chủ đạo của Việt Nam trong việc bảo vệ Tổ quốc từ sau tháng 4-1975?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Kết hợp chặt chẽ hai nhiệm vụ chiến lược: giải phóng và bảo vệ."
+            },
+            {
+              "id": "B",
+              "text": "Kiên định mục tiêu độc lập dân tộc gắn liền với chủ nghĩa xã hội."
+            },
+            {
+              "id": "C",
+              "text": "Coi ngoại lực là nhân tố quyết định mọi thắng lợi và thành công."
+            },
+            {
+              "id": "D",
+              "text": "Chỉ chú trọng phát triển sức mạnh của đất nước về văn hóa - xã hội."
+            }
+          ],
+          "correctOptionId": "B",
+          "explanation": "Câu 3 (TH):\nPhương pháp:\n• Xem lại nội dung Cuộc đấu tranh bảo vệ Tổ quốc từ sau tháng 4-1975.\n• Xác định quan điểm chủ đạo của Việt Nam trong việc bảo vệ Tổ quốc.\nCách giải:\nA loại, sau tháng 4/1975, giải phóng dân tộc không phải là nhiệm vụ chiến lược của Việt Nam.\nC loại, ngoại lực không phải là nhân tố quyết định mọi thắng lợi.\nD loại, bảo vệ và xây dựng Tổ quốc là nhiệm vụ tổng hợp trên mọi lĩnh vực.\n=> Kiên định mục tiêu độc lập dân tộc gắn liền với chủ nghĩa xã hội phản ánh đúng một trong những quan điểm chủ đạo của Việt Nam trong việc bảo vệ Tổ quốc từ sau tháng 4-1975.\nĐáp án: B",
+          "difficulty": "medium",
+          "topic": "Việt Nam sau 1975",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-2026-mon-Lich-su-chuyen-Tran-Phu-Hai-Phong",
+              "location": "Câu 3"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-2026-mon-lich-su-chuyen-tran-phu-hai-phong-q04",
+          "orderInExam": 4,
+          "questionType": "mcq",
+          "questionText": "Trong cuộc kháng chiến chống Pháp (1945-1954) của nhân dân Việt Nam, chiến dịch Biên giới và chiến dịch Điện Biên Phủ có điểm giống nhau nào sau đây?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Phản ánh sự nỗ lực không ngừng của quân dân Việt Nam."
+            },
+            {
+              "id": "B",
+              "text": "Là chiến dịch phản công lớn của quân dân Việt Nam."
+            },
+            {
+              "id": "C",
+              "text": "Đánh vào cơ quan đầu não, điểm mạnh của đối phương."
+            },
+            {
+              "id": "D",
+              "text": "Có sự phối hợp chiến đấu giữa ba nước Đông Dương."
+            }
+          ],
+          "correctOptionId": "A",
+          "explanation": "Câu 4 (TH):\nPhương pháp:\n• Xem lại nội dung Cuộc kháng chiến chống thực dân Pháp.\n• Xác định điểm giống nhau giữa chiến dịch Biên giới và chiến dịch Điện Biên Phủ.\nCách giải:\nTrong cuộc kháng chiến chống Pháp (1945-1954) của nhân dân Việt Nam, chiến dịch Biên giới và chiến dịch Điện Biên Phú có điểm giống nhau là phản án sự nỗ lực không ngừng nghỉ của quân dân Việt Nam. Cả hai chiến dịch đều thể hiện sự trưởng thành từng bước của quân đội và sự huy động sức mạnh toàn dân. Cả hai chiến dịch cho thấy ý chí quyết tâm, tinh thần tự lực tự cường và nỗ lực liên tục của quân dân Việt Nam trong suốt cuộc kháng chiến.\nĐáp án: A",
+          "difficulty": "medium",
+          "topic": "Kháng chiến chống Pháp 1945-1954",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-2026-mon-Lich-su-chuyen-Tran-Phu-Hai-Phong",
+              "location": "Câu 4"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-2026-mon-lich-su-chuyen-tran-phu-hai-phong-q05",
+          "orderInExam": 5,
+          "questionType": "mcq",
+          "questionText": "Nội dung nào sau đây là một trong những thách thức về chính trị của Cộng đồng ASEAN sau năm 2015?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Sự đa dạng của các nước thành viên về chế độ chính trị."
+            },
+            {
+              "id": "B",
+              "text": "Sự tương đồng trong một số lĩnh vực sản xuất hàng hóa."
+            },
+            {
+              "id": "C",
+              "text": "Ách thông trị của chủ nghĩa thực dân cũ."
+            },
+            {
+              "id": "D",
+              "text": "Vị trí địa chiến lược của Đông Nam Á."
+            }
+          ],
+          "correctOptionId": "A",
+          "explanation": "Câu 5 (TH):\nPhương pháp:\n• Xem lại nội dung Cộng đồng ASEAN.\n• Xác định thách thức về chính trị của Cộng đồng ASEAN.\nCách giải:\nSự đa dạng của các nước thành viên về chế độ chính trị là một trong những thách thức về chính trị của Cộng đồng ASEAN sau năm 2015.\nĐáp án: A",
+          "difficulty": "medium",
+          "topic": "Cộng đồng ASEAN",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-2026-mon-Lich-su-chuyen-Tran-Phu-Hai-Phong",
+              "location": "Câu 5"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-2026-mon-lich-su-chuyen-tran-phu-hai-phong-q06",
+          "orderInExam": 6,
+          "questionType": "mcq",
+          "questionText": "Từ thân phận thuộc địa-phụ thuộc, ngày nay cả Ấn Độ và Trung Quốc đều trở thành các trung tâm quyền lực lớn trong trật tự thế giới theo xu thế đa cực là do",
+          "options": [
+            {
+              "id": "A",
+              "text": "sức mạnh quốc gia tổng hợp của mỗi nước không ngừng được gia tăng."
+            },
+            {
+              "id": "B",
+              "text": "mối quan hệ giữa hai nước luôn tốt đẹp và hỗ trợ nhau cùng phát triển."
+            },
+            {
+              "id": "C",
+              "text": "hai nước này đều có mối quan hệ hợp tác tốt với cả hai nước Nga, Mỹ."
+            },
+            {
+              "id": "D",
+              "text": "hai nước này đều có lãnh thổ rộng lớn và có dân số đông nhất thế giới."
+            }
+          ],
+          "correctOptionId": "A",
+          "explanation": "Câu 6 (TH):\nPhương pháp:\n• Xem lại nội dung Trật tự thế giới sau Chiến tranh Lạnh.\n• Xác định lý do Ấn Độ và Trung Quốc đều trở thành các trung tâm quyền lực lớn.\nCách giải:\nTừ thân phận thuộc địa -phụ thuộc, ngày nay cả Ấn Độ và Trung Quốc đều trở thành các trung tâm quyền lực lớn trong trật tự thế giới theo xu thế đa cực là do hai nước đều tập trung xây dựng sức mạnh quốc gia tổng\nhợp trên tất cả các phương diện từ kinh tế đến khoa học – công nghệ. Từ đó vai trò, vị thế quốc tế ngày càng được nâng cao.\nĐáp án: A",
+          "difficulty": "medium",
+          "topic": "Lịch sử thế giới hiện đại",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-2026-mon-Lich-su-chuyen-Tran-Phu-Hai-Phong",
+              "location": "Câu 6"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-2026-mon-lich-su-chuyen-tran-phu-hai-phong-q07",
+          "orderInExam": 7,
+          "questionType": "mcq",
+          "questionText": "Nội dung nào sau đây là bài học xuyên suốt trong cuộc chiến tranh giải phóng dân tộc và bảo vệ Tổ quốc (1945-1975) được vận dụng trong công cuộc Đổi mới ở Việt Nam hiện nay?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Duy trì sự lãnh đạo sáng suốt của các đoàn thể chính trị - xã hội."
+            },
+            {
+              "id": "B",
+              "text": "Chỉ dựa vào sức mạnh to lớn của lực lượng vũ trang cách mạng."
+            },
+            {
+              "id": "C",
+              "text": "Phát huy nội lực quốc gia, tranh thủ tận dụng những xu thế mới."
+            },
+            {
+              "id": "D",
+              "text": "Kiên định con đường chủ nghĩa xã hội, bỏ qua các bước quá độ."
+            }
+          ],
+          "correctOptionId": "C",
+          "explanation": "Câu 7 (VD):\nPhương pháp:\n• Xem lại nội dung Công cuộc Đổi mới ở Việt Nam.\n• Xác định bài học xuyên suốt vận dụng trong công cuộc Đổi mới ở Việt Nam hiện nay.\nCách giải:\nBài học xuyên suốt trong cuộc chiến tranh giải phóng dân tộc và bảo vệ Tố quốc (1945-1975) được vận dụng trong công cuộc Đổi mới ở Việt Nam hiện nay là phát huy nội lực quốc gia, tranh thủ tận dụng những xu thế mới. Trên thực tế lịch sử đã chứng minh, tất cả những thắng lợi của Việt Nam trước hết bắt nguồn từ sức mạnh bên trong của toàn dân tộc dưới sự lãnh đạo đúng đắn Đảng, đồng thời, ta cũng tranh thủ sự ủng hộ của các yếu tố khách quan thuận lợi.\nĐáp án: C",
+          "difficulty": "medium",
+          "topic": "Việt Nam 1945-1975",
+          "cognitiveLevel": "application",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-2026-mon-Lich-su-chuyen-Tran-Phu-Hai-Phong",
+              "location": "Câu 7"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-2026-mon-lich-su-chuyen-tran-phu-hai-phong-q08",
+          "orderInExam": 8,
+          "questionType": "mcq",
+          "questionText": "Nội dung nào sau đây thể hiện nét đặc trưng cơ bản của Cách mạng tháng Tám năm 1945 ở Việt Nam?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Hoạt động nổi dậy của quần chúng là chủ yếu, làm tan rã chính quyền địch."
+            },
+            {
+              "id": "B",
+              "text": "Hoạt động của lực lượng vũ trang là chính nhằm tiến công trực diện kẻ thù."
+            },
+            {
+              "id": "C",
+              "text": "Hoạt động của quần chúng có sự hỗ trợ của lực lượng vũ trang ba thứ quân."
+            },
+            {
+              "id": "D",
+              "text": "Đấu tranh chính trị của quần chúng để giành quyền sở hữu ruộng đất công."
+            }
+          ],
+          "correctOptionId": "A",
+          "explanation": "Câu 8 (TH):\nPhương pháp:\n• Xem lại nội dung Cách mạng tháng Tám năm 1945.\n• Xác định nét đặc trưng cơ bản của Cách mạng tháng Tám năm 1945.\nCách giải:\nB loại, trong Cách mạng tháng Tám (1945), lực lượng vũ trang có vai trò chính là xung kích, tiến công ở một số nơi nhằm gây thanh thế cho cách mạng.\nC loại, trong Cách mạng tháng Tám (1945) chưa có lực lượng vũ trang ba thứ quân.\nD loại, nhiệm vụ hàng đầu trong Cách mạng tháng Tám (1945) là giải phóng dân tộc.\n=> Hoạt động nổi dậy của quần chúng là chủ yếu, làm tan rã chính quyền địch thể hiện nét đặc trưng cơ bản của Cách mạng tháng Tám năm 1945 ở Việt Nam.\nĐáp án: A",
+          "difficulty": "medium",
+          "topic": "Cách mạng tháng Tám 1945",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-2026-mon-Lich-su-chuyen-Tran-Phu-Hai-Phong",
+              "location": "Câu 8"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-2026-mon-lich-su-chuyen-tran-phu-hai-phong-q09",
+          "orderInExam": 9,
+          "questionType": "mcq",
+          "questionText": "Cuộc chiến tranh phá hoại miền Bắc lần thứ hai (1972) là một bộ phận của chiến lược chiến tranh xâm lược thực dân mới do Mỹ thực hiện ở miền Nam Việt Nam vì một trong những lí do nào sau đây?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Thể hiện được hình thái chiến tranh xâm lược thực dân kiểu mới của Mỹ."
+            },
+            {
+              "id": "B",
+              "text": "Đây là bước phát triển của chiến lược toàn cầu thực hiện ở Việt Nam."
+            },
+            {
+              "id": "C",
+              "text": "Để cứu vãn sự sụp đổ của chiến lược “Chiến tranh cục bộ” ở miền Nam."
+            },
+            {
+              "id": "D",
+              "text": "Đây là thủ đoạn nhằm đạt được mục tiêu quân sự chung và cao nhất."
+            }
+          ],
+          "correctOptionId": "D",
+          "explanation": "Câu 9 (TH):\nPhương pháp:\n• Xem lại nội dung Cuộc kháng chiến chống Mỹ, cứu nước.\n• Xác định cuộc chiến tranh phá hoại miền Bắc lần thứ hai là một bộ phận của chiến lược.\nCách giải:\nCuộc chiến tranh phá hoại miền Bắc lần thứ hai (1972) là một trong những thủ đoạn của Mỹ trong chiến lược “Việt Nam hoá chiến tranh”. Mục tiêu của Mỹ là nhằm phá hoại hậu phương lớn của cách mạng, chặn nguồn\nchi viện từ miền Bắc vào miền Nam và từ quốc tế vào miền Bắc, gây sức ép quân sự - tâm lí, giành ưu thế trên chiến trường và trên bàn đàm phán của Hội nghị Pa-ri.\n=> Cuộc chiến tranh phá hoại miền Bắc lần thứ hai (1972) là một bộ phận của chiến lược chiến tranh xâm lược thực dân mới do Mỹ thực hiện ở miền Nam Việt Nam vì đây là thủ đoạn nhằm đạt được mục tiêu quân sự chung vào cao nhất.\nĐáp án: D",
+          "difficulty": "medium",
+          "topic": "Kháng chiến chống Mỹ 1954-1975",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-2026-mon-Lich-su-chuyen-Tran-Phu-Hai-Phong",
+              "location": "Câu 9"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-2026-mon-lich-su-chuyen-tran-phu-hai-phong-q10",
+          "orderInExam": 10,
+          "questionType": "mcq",
+          "questionText": "Lực lượng đóng vai trò nòng cốt trong chiến lược “Chiến tranh đặc biệt” của Mỹ ở miền Nam Việt Nam (1961-1965) là",
+          "options": [
+            {
+              "id": "A",
+              "text": "quân viễn chinh Mỹ."
+            },
+            {
+              "id": "B",
+              "text": "quân đội Sài Gòn."
+            },
+            {
+              "id": "C",
+              "text": "quân đồng minh Mỹ."
+            },
+            {
+              "id": "D",
+              "text": "quân đội Anh."
+            }
+          ],
+          "correctOptionId": "B",
+          "explanation": "Câu 10 (NB):\nPhương pháp:\n• Xem lại nội dung Cuộc kháng chiến chống Mỹ, cứu nước (1954 – 1975).\n• Xác định lực lượng đóng vai trò nòng cốt trong chiến lược “Chiến tranh đặc biệt”.\nCách giải:\nLực lượng đóng vai trò nòng cốt trong chiến lược “Chiến tranh đặc biệt” của Mỹ ở miền Nam Việt Nam (1961-1965) là quân đội Sài Gòn.\nĐáp án: B",
+          "difficulty": "medium",
+          "topic": "Chiến tranh Việt Nam (1954-1975)",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-2026-mon-Lich-su-chuyen-Tran-Phu-Hai-Phong",
+              "location": "Câu 10"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-2026-mon-lich-su-chuyen-tran-phu-hai-phong-q11",
+          "orderInExam": 11,
+          "questionType": "mcq",
+          "questionText": "Những chiến dịch lớn trong cuộc kháng chiến chống thực dân Pháp của nhân dân Việt Nam từ năm 1947 đến năm 1954 lần lượt là",
+          "options": [
+            {
+              "id": "A",
+              "text": "Khe Sanh, Hạ Lào, An Lão."
+            },
+            {
+              "id": "B",
+              "text": "Tây Nam, Đường 9, Bình Giã."
+            },
+            {
+              "id": "C",
+              "text": "Việt Bắc, Biên giới, Điện Biên Phủ."
+            },
+            {
+              "id": "D",
+              "text": "Tây Nguyên, Huế-Đà Nẵng, Hồ Chí Minh."
+            }
+          ],
+          "correctOptionId": "C",
+          "explanation": "Câu 11 (NB):\nPhương pháp:\n• Xem lại nội dung Cuộc kháng chiến chống thực dân Pháp xâm lược (1945 - 1954).\n• Xác định những chiến dịch lớn trong cuộc kháng chiến từ năm 1947 đến năm 1954.\nCách giải:\nNhững chiến dịch lớn trong cuộc kháng chiến chống thực dân Pháp của nhân dân Việt Nam từ năm 1947 đến năm 1954 lần lượt là Việt Bắc, Biên giới, Điện Biên Phủ.\nĐáp án: C",
+          "difficulty": "medium",
+          "topic": "Kháng chiến chống Pháp (1945-1954)",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-2026-mon-Lich-su-chuyen-Tran-Phu-Hai-Phong",
+              "location": "Câu 11"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-2026-mon-lich-su-chuyen-tran-phu-hai-phong-q12",
+          "orderInExam": 12,
+          "questionType": "mcq",
+          "questionText": "Nền độc lập của Đại Cồ Việt được giữ vững do thắng lợi của cuộc kháng chiến nào sau đây?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Kháng chiến chống Tống lần thứ nhất (981)."
+            },
+            {
+              "id": "B",
+              "text": "Kháng chiến chống quân Mông-Nguyên lần 2 (1285)."
+            },
+            {
+              "id": "C",
+              "text": "Kháng chiến chống Tống lần thứ hai (1075-1077)."
+            },
+            {
+              "id": "D",
+              "text": "Kháng chiến chống quân Mông-Nguyên lần 1 (1258)."
+            }
+          ],
+          "correctOptionId": "A",
+          "explanation": "Câu 12 (NB):\nPhương pháp:\n• Xem lại nội dung Một số cuộc kháng chiến thắng lợi tiêu biểu.\n• Xác định cuộc kháng chiến thắng lợi đã giữ vững nền độc lập của Đại Cồ Việt.\nCách giải:\nNền độc lập của Đại Cồ Việt được giữ vững do thắng lợi của cuộc kháng chiến chống Tống lần thứ nhất (981).\nĐáp án: A",
+          "difficulty": "medium",
+          "topic": "Việt Nam thời phong kiến độc lập (Đại Cồ Việt)",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-2026-mon-Lich-su-chuyen-Tran-Phu-Hai-Phong",
+              "location": "Câu 12"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-2026-mon-lich-su-chuyen-tran-phu-hai-phong-q13",
+          "orderInExam": 13,
+          "questionType": "mcq",
+          "questionText": "Sự ra đời của Cộng hòa xã hội chủ nghĩa Xô viết có ý nghĩa nào sau đây?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Đánh dấu sự mở rộng không gian địa lý của Chủ nghĩa xã hội từ châu Âu sang châu Á."
+            },
+            {
+              "id": "B",
+              "text": "Mở ra thời kỳ “phi thực dân hóa” trên phạm vi toàn thế giới."
+            },
+            {
+              "id": "C",
+              "text": "Chấm dứt sự thống trị của giai cấp tư sản và địa chủ đối với nhân dân Nga."
+            },
+            {
+              "id": "D",
+              "text": "Làm thất bại ý đồ và hành động chia rẽ của các thế lực thù địch trong và ngoài nước."
+            }
+          ],
+          "correctOptionId": "D",
+          "explanation": "Câu 13 (NB):\nPhương pháp:\n• Xem lại nội dung Quá trình hình thành Liên bang Cộng hoà xã hội chủ nghĩa Xô viết.\n• Xác định ý nghĩa sự ra đời của Cộng hoà xã hội chủ nghĩa Xô viết.\nCách giải:\nSự ra đời của Cộng hòa xã hội chủ nghĩa Xô viết có ý nghĩa làm thất bại ý đồ và hành động chia rẽ của các thế lực thù địch trong và ngoài nước.\nĐáp án: D",
+          "difficulty": "medium",
+          "topic": "Lịch sử Liên Xô (Cách mạng tháng Mười Nga và thành lập Liên Xô)",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-2026-mon-Lich-su-chuyen-Tran-Phu-Hai-Phong",
+              "location": "Câu 13"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-2026-mon-lich-su-chuyen-tran-phu-hai-phong-q14",
+          "orderInExam": 14,
+          "questionType": "mcq",
+          "questionText": "Một trong những ý nghĩa của Cách mạng tháng Tám năm 1945 là",
+          "options": [
+            {
+              "id": "A",
+              "text": "chính thức mở đầu kỉ nguyên cả nước đi lên chủ nghĩa xã hội."
+            },
+            {
+              "id": "B",
+              "text": "mở đầu kỉ nguyên độc lập, tự do cho nhân dân Việt Nam."
+            },
+            {
+              "id": "C",
+              "text": "đưa Đảng Lao động Việt Nam thành đảng cầm quyền."
+            },
+            {
+              "id": "D",
+              "text": "tiêu diệt chủ nghĩa thực dân mới trên thế giới."
+            }
+          ],
+          "correctOptionId": "B",
+          "explanation": "Câu 14 (NB):\nPhương pháp:\n• Xem lại nội dung Cách mạng tháng Tám năm 1945.\n• Xác định ý nghĩa của Cách mạng tháng Tám năm 1945.\nCách giải:\nMột trong những ý nghĩa của Cách mạng tháng Tám năm 1945 là mở đầu kỉ nguyên độc lập, tự do cho nhân dân Việt Nam.\nĐáp án: B",
+          "difficulty": "medium",
+          "topic": "Cách mạng tháng Tám 1945",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-2026-mon-Lich-su-chuyen-Tran-Phu-Hai-Phong",
+              "location": "Câu 14"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-2026-mon-lich-su-chuyen-tran-phu-hai-phong-q15",
+          "orderInExam": 15,
+          "questionType": "mcq",
+          "questionText": "Tổ chức Liên hợp quốc năm 1945 ra đời là biểu hiện của",
+          "options": [
+            {
+              "id": "A",
+              "text": "sự liên kết giữa các quốc gia mới nổi trong trật tự thế giới đa cực, đa trung tâm."
+            },
+            {
+              "id": "B",
+              "text": "nhu cầu hợp tác đa phương giữa các quốc gia nhằm thoát khỏi ảnh hưởng của Mỹ."
+            },
+            {
+              "id": "C",
+              "text": "sự thay thế cho tổ chức quốc tế không đáp ứng được nguyện vọng của nhiều quốc gia."
+            },
+            {
+              "id": "D",
+              "text": "việc can thiệp vào công việc nội bộ của bất kỳ quốc gia nào trên thế giới."
+            }
+          ],
+          "correctOptionId": "C",
+          "explanation": "Câu 15 (TH):\nPhương pháp:\n• Xem lại nội dung Liên hợp quốc.\n• Xác định biểu hiện của tổ chức Liên hợp quốc năm 1945.\nCách giải:\nTổ chức Liên hợp quốc năm 1945 ra đời là biểu hiện của sự thay thế cho tổ chức quốc tế không đáp ứng được nguyện vọng của nhiều quốc gia.\nSau Chiến tranh thế giới thứ nhất, Hội Quốc liên được thành lập với mục đích giữ gìn hoà bình, an ninh thế giới. Tuy nhiên Hội Quốc liên không thực hiện được vai trò và đã bị tan rã.\nĐáp án: C",
+          "difficulty": "medium",
+          "topic": "Lịch sử thế giới hiện đại (Liên hợp quốc)",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-2026-mon-Lich-su-chuyen-Tran-Phu-Hai-Phong",
+              "location": "Câu 15"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-2026-mon-lich-su-chuyen-tran-phu-hai-phong-q16",
+          "orderInExam": 16,
+          "questionType": "mcq",
+          "questionText": "Ngày 30-8-1945, việc tổ chức lễ thoái vị cho vua Bảo Đại của chính quyền cách mạng chứng tỏ",
+          "options": [
+            {
+              "id": "A",
+              "text": "những tàn dư của chế độ phong kiến đã bị xóa bỏ."
+            },
+            {
+              "id": "B",
+              "text": "giai đoạn mới của chế độ phong kiến đã được mở ra."
+            },
+            {
+              "id": "C",
+              "text": "tư tưởng nhân văn của Đảng Cộng sản Đông Dương."
+            },
+            {
+              "id": "D",
+              "text": "các nhiệm vụ của cách mạng đã thực hiện triệt để."
+            }
+          ],
+          "correctOptionId": "C",
+          "explanation": "Câu 16 (TH):\nPhương pháp:\n• Xem lại nội dung Cách mạng tháng Tám năm 1945.\n• Xác định ý nghĩa của việc tổ chức lễ thoái vị cho vua Bảo Đại.\nCách giải:\nViệc chính quyền cách mạng tổ chức lễ thoái vị cho vua Bảo Đại ngày 30-8-1945 được tiến hành hòa bình, trật tự, có nghi lễ, thể hiện cách ứng xử nhân văn, khoan dung, tôn trọng con người của Đảng và Chính phủ cách mạng, đồng thời tạo điều kiện thuận lợi để củng cố khối đoàn kết dân tộc trong những ngày đầu xây dựng chính quyền mới.\nĐáp án: C",
+          "difficulty": "medium",
+          "topic": "Cách mạng tháng Tám 1945 và thành lập nước Việt Nam Dân chủ Cộng hòa",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-2026-mon-Lich-su-chuyen-Tran-Phu-Hai-Phong",
+              "location": "Câu 16"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-2026-mon-lich-su-chuyen-tran-phu-hai-phong-q17",
+          "orderInExam": 17,
+          "questionType": "mcq",
+          "questionText": "Khởi nghĩa giành chính quyền ở Hà Nội thắng lợi (19-8-1945) đã",
+          "options": [
+            {
+              "id": "A",
+              "text": "cổ vũ, động viên nhân dân các địa phương đứng lên đấu tranh."
+            },
+            {
+              "id": "B",
+              "text": "làm sụp đổ chính quyền thực dân phong kiến ở các tỉnh Bắc Kỳ."
+            },
+            {
+              "id": "C",
+              "text": "chứng tỏ cuộc Tổng khởi nghĩa trong cả nước đạt đến đỉnh cao."
+            },
+            {
+              "id": "D",
+              "text": "giải phóng thủ đô, tạo điều kiện để Việt Nam tuyên bố độc lập."
+            }
+          ],
+          "correctOptionId": "A",
+          "explanation": "Câu 17 (TH):\nPhương pháp:\n• Xem lại nội dung Cách mạng tháng Tám năm 1945.\n• Xác định khởi nghĩa giành chính quyền ở Hà Nội.\nCách giải:\nKhởi nghĩa giành chính quyền ở Hà Nội thắng lợi (19-8-1945) đã cổ vũ, động viên nhân dân các địa phương đứng lên đấu tranh. Trong Cách mạng tháng Tám (1945), chiến thắng ở đô thị có vai trò cổ vũ, động viên, tạo tác động lan toả đồng thời quyết định đến thắng lợi của cách mạng.\nĐáp án: A",
+          "difficulty": "medium",
+          "topic": "Cách mạng tháng Tám 1945",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-2026-mon-Lich-su-chuyen-Tran-Phu-Hai-Phong",
+              "location": "Câu 17"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-2026-mon-lich-su-chuyen-tran-phu-hai-phong-q18",
+          "orderInExam": 18,
+          "questionType": "mcq",
+          "questionText": "Thắng lợi của cuộc Tiến công chiến lược Đông - Xuân 1953 - 1954 đã",
+          "options": [
+            {
+              "id": "A",
+              "text": "giáng đòn quyết định vào ý chí xâm lược của thực dân Pháp."
+            },
+            {
+              "id": "B",
+              "text": "tạo điều kiện thuận lợi cho cuộc đàm phán tại Hội nghị Pa-ri."
+            },
+            {
+              "id": "C",
+              "text": "bước đầu làm phá sản kế hoạch Na-va của quân Pháp."
+            },
+            {
+              "id": "D",
+              "text": "khiến toàn bộ quân Pháp ở Đông Dương phải đầu hàng."
+            }
+          ],
+          "correctOptionId": "C",
+          "explanation": "Câu 18 (TH):\nPhương pháp:\n• Xem lại nội dung Cuộc kháng chiến chống thực dân Pháp.\n• Xác định kết quả thắng lợi của cuộc Tiến công chiến lược Đông - Xuân 1953-1954.\nCách giải:\nThắng lợi của cuộc Tiến công chiến lược Đông - Xuân 1953 - 1954 đã bước đầu làm phá sản kế hoạch Na-va của Pháp.\nĐáp án: C",
+          "difficulty": "medium",
+          "topic": "Kháng chiến chống Pháp (1945-1954)",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-2026-mon-Lich-su-chuyen-Tran-Phu-Hai-Phong",
+              "location": "Câu 18"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-2026-mon-lich-su-chuyen-tran-phu-hai-phong-q19",
+          "orderInExam": 19,
+          "questionType": "mcq",
+          "questionText": "Sự kiện nào sau đây đánh dấu hoàn thành quá trình thành lập Nhà nước Liên bang Cộng hòa xã hội chủ nghĩa Xô viết?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Hiến pháp đầu tiên của Liên Xô được thông qua (năm 1924)."
+            },
+            {
+              "id": "B",
+              "text": "Cách mạng tháng Hai ở Nga (năm 1917)."
+            },
+            {
+              "id": "C",
+              "text": "Đại hội lần thứ nhất các Xô viết toàn Liên bang (năm 1922)."
+            },
+            {
+              "id": "D",
+              "text": "Cách mạng tháng Mười ở Nga (năm 1917)."
+            }
+          ],
+          "correctOptionId": "A",
+          "explanation": "Câu 19 (NB):\nPhương pháp:\n• Xem lại nội dung Quá trình hình thành Liên bang Cộng hoà xã hội chủ nghĩa Xô viết.\n• Xác định sự kiện đánh dấu hoàn thành quá trình thành lập Nhà nước Liên bang Cộng hoà.\nCách giải:\nHiến pháp đầu tiên của Liên Xô được thông qua (năm 1924) đánh dấu hoàn thành quá trình thành lập Nhà nước Liên bang Cộng hòa xã hội chủ nghĩa Xô viết.\nĐáp án: A",
+          "difficulty": "medium",
+          "topic": "Lịch sử Liên Xô (Thành lập Liên Xô)",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-2026-mon-Lich-su-chuyen-Tran-Phu-Hai-Phong",
+              "location": "Câu 19"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-2026-mon-lich-su-chuyen-tran-phu-hai-phong-q20",
+          "orderInExam": 20,
+          "questionType": "mcq",
+          "questionText": "Chiến dịch Điện Biên Phủ năm 1954 của quân dân Việt Nam có điểm khác biệt nào sau đây so với các cuộc tiến công trước đó trong Đông - Xuân 1953-1954?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Có sự kết hợp hoạt động quân sự trên mặt trận chính và vùng sau lưng địch."
+            },
+            {
+              "id": "B",
+              "text": "Có mục tiêu làm thất bại những nỗ lực quân sự của Pháp và can thiệp Mỹ."
+            },
+            {
+              "id": "C",
+              "text": "Tập trung cao nhất lực lượng, giành thắng lợi quyết định trong chiến tranh."
+            },
+            {
+              "id": "D",
+              "text": "Diễn ra trong bối cảnh lực lượng vũ trang ba thứ quân đã được hình thành."
+            }
+          ],
+          "correctOptionId": "C",
+          "explanation": "Câu 20 (TH):\nPhương pháp:\n• Xem lại nội dung Cuộc kháng chiến chống thực dân Pháp.\n• Xác định điểm khác biệt giữa chiến dịch Điện Biên Phủ và các cuộc tiến công trước đó.\nCách giải:\nChiến dịch Điện Biên Phủ năm 1954 của quân dân Việt Nam có điểm khác biệt so với các cuộc tiến công trước đó trong Đông - Xuân 1953-1954 là chiến dịch Điện Biên Phủ 1954 là chiến dịch ta tập trung cao nhất lực lượng, giành thắng lợi quyết định trong chiến tranh.\nĐáp án: C",
+          "difficulty": "medium",
+          "topic": "Kháng chiến chống Pháp 1945-1954",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-2026-mon-Lich-su-chuyen-Tran-Phu-Hai-Phong",
+              "location": "Câu 20"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-2026-mon-lich-su-chuyen-tran-phu-hai-phong-q21",
+          "orderInExam": 21,
+          "questionType": "mcq",
+          "questionText": "Trong thời kỳ 1954 - 1975, thắng lợi nào của quân dân miền Nam Việt Nam buộc Mĩ phải tuyên bố “phi Mĩ hóa” chiến tranh xâm lược?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Trận “Điện Biên Phủ trên không” (1972)."
+            },
+            {
+              "id": "B",
+              "text": "Cuộc Tiến công chiến lược (1972)."
+            },
+            {
+              "id": "C",
+              "text": "Cuộc Tổng tiến công và nổi dậy mùa Xuân (1975)."
+            },
+            {
+              "id": "D",
+              "text": "Cuộc Tổng tiến công và nổi dậy Mậu Thân (1968)."
+            }
+          ],
+          "correctOptionId": "D",
+          "explanation": "Câu 21 (NB):\nPhương pháp:\n• Xem lại nội dung Cuộc kháng chiến chống Mỹ, cứu nước (1954 - 1975).\n• Xác định thắng lợi của quân dân miền Nam buộc Mỹ phải tuyên bố “phi Mỹ hoá”.\nCách giải:\nTrong thời kỳ 1954 - 1975, thắng lợi cuộc Tổng tiến công và nổi dậy Mậu Thân (1968) của quân dân miền Nam Việt Nam buộc Mĩ phải tuyên bố “phi Mĩ hóa” chiến tranh xâm lược.\nĐáp án: D",
+          "difficulty": "medium",
+          "topic": "Kháng chiến chống Mỹ 1954-1975",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-2026-mon-Lich-su-chuyen-Tran-Phu-Hai-Phong",
+              "location": "Câu 21"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-2026-mon-lich-su-chuyen-tran-phu-hai-phong-q22",
+          "orderInExam": 22,
+          "questionType": "mcq",
+          "questionText": "Trong những năm 1976 - 1986, nhân dân Việt Nam thực hiện một trong những nhiệm vụ nào?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Kháng chiến chống Pháp."
+            },
+            {
+              "id": "B",
+              "text": "Đấu tranh bảo vệ Tổ quốc."
+            },
+            {
+              "id": "C",
+              "text": "Đấu tranh giành chính quyền."
+            },
+            {
+              "id": "D",
+              "text": "Kháng chiến chống Mỹ, cứu nước."
+            }
+          ],
+          "correctOptionId": "B",
+          "explanation": "Câu 22 (NB):\nPhương pháp:\n• Xem lại nội dung Cuộc kháng chiến chống Mỹ, cứu nước (1954 - 1975).\n• Xác định nhiệm vụ của nhân dân Việt Nam trong những năm 1976 - 1986.\nCách giải:\nTrong những năm 1976 - 1986, nhân dân Việt Nam thực hiện một trong những nhiệm vụ là đấu tranh bảo vệ Tổ quốc.\nĐáp án: B",
+          "difficulty": "medium",
+          "topic": "Việt Nam sau 1975",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-2026-mon-Lich-su-chuyen-Tran-Phu-Hai-Phong",
+              "location": "Câu 22"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-2026-mon-lich-su-chuyen-tran-phu-hai-phong-q23",
+          "orderInExam": 23,
+          "questionType": "mcq",
+          "questionText": "Nhận định nào sau đây không đúng về Trật tự thế giới hai cực I-an-ta?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Phương thức quan hệ quốc tế lấy đối đầu chính trị-quân sự là chủ yếu."
+            },
+            {
+              "id": "B",
+              "text": "Trạng thái địa-chính trị toàn cầu với nhiều trung tâm quyền lực chi phối."
+            },
+            {
+              "id": "C",
+              "text": "Đặc trưng nổi bật là thế giới có sự phân tuyến triệt để thành hai cực, hai phe đối lập nhau."
+            },
+            {
+              "id": "D",
+              "text": "Đặc trưng nổi bật là sự đơn phương chi phối thế giới của các nước tư bản thắng trận."
+            }
+          ],
+          "correctOptionId": "D",
+          "explanation": "Câu 23 (TH):\nPhương pháp:\n• Xem lại nội dung Trật tự thế giới trong Chiến tranh Lạnh.\n• Xác định nhận định không đúng về Trật tự thế giới hai cực I-an-ta.\nCách giải:\nĐặc trưng nổi bật là sự đơn phương chi phối thế giới của các nước tư bản thắng trận phản ánh không đúng về Trật tự thế giới hai cực I-an-ta. Trật tự hai cực I-an-ta với đặc trưng là sự phân chia hai phe, hai cực đối lập nhau do hai siêu cường Liên Xô và Mỹ đứng đầu mỗi phe.\nĐáp án: D",
+          "difficulty": "medium",
+          "topic": "Quan hệ quốc tế sau Chiến tranh thế giới thứ hai",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-2026-mon-Lich-su-chuyen-Tran-Phu-Hai-Phong",
+              "location": "Câu 23"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-2026-mon-lich-su-chuyen-tran-phu-hai-phong-q24",
+          "orderInExam": 24,
+          "questionType": "mcq",
+          "questionText": "Mục đích thành lập của tổ chức ASEAN là thúc đẩy hòa bình và ổn định khu vực thông qua việc",
+          "options": [
+            {
+              "id": "A",
+              "text": "tôn trọng công lý và nguyên tắc luật pháp trong quan hệ giữa các quốc gia thành viên."
+            },
+            {
+              "id": "B",
+              "text": "giúp đỡ lẫn nhau về mặt kinh tế, quân sự, khoa học - kĩ thuật giữa các nước thành viên."
+            },
+            {
+              "id": "C",
+              "text": "ra sức mở rộng quan hệ với các cường quốc thuộc các trung tâm quyền lực của thế giới."
+            },
+            {
+              "id": "D",
+              "text": "đề cao công tác nghiên cứu khoa học - kĩ thuật ở các nước thuộc khu vực Đông Nam Á."
+            }
+          ],
+          "correctOptionId": "A",
+          "explanation": "Câu 24 (NB):\nPhương pháp:\n• Xem lại nội dung Quá trình hình thành và mục đích thành lập tổ chức ASEAN.\n• Xác định mục đích thành lập của tổ chức ASEAN.\nCách giải:\nMục đích thành lập của tổ chức ASEAN là thúc đẩy hòa bình và ổn định khu vực thông qua việc tôn trọng công lý và nguyên tắc luật pháp trong quan hệ giữa các quốc gia thành viên.\nĐáp án: A",
+          "difficulty": "medium",
+          "topic": "Các nước Đông Nam Á",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-2026-mon-Lich-su-chuyen-Tran-Phu-Hai-Phong",
+              "location": "Câu 24"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "sectionId": "phan-2",
+      "sectionType": "true_false",
+      "title": "Phần II – Trắc nghiệm Đúng/Sai",
+      "totalQuestions": 4,
+      "maxScore": 4.0,
+      "scoringRule": "ladder",
+      "questions": [
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-2026-mon-lich-su-chuyen-tran-phu-hai-phong-q25",
+          "orderInExam": 25,
+          "questionType": "true_false",
+          "questionText": "Đọc đoạn tư liệu sau đây: “Trên thế giới, trong những năm tới tình hình sẽ còn nhiều diễn biến phức tạp, nhưng hòa bình, độc lập dân tộc, dân chủ, hợp tác và phát triển vẫn là xu thế lớn. Quá trình toàn cầu hóa và hội nhập quốc tế tiếp tục được đẩy mạnh. Hợp tác, cạnh tranh, đấu tranh và sự tùy thuộc lẫn nhau giữa các nước, nhất là giữa các nước lớn ngày càng tăng... Tình hình chính trị - an ninh thế giới thay đổi nhanh chóng, diễn biến phức tạp, khó lường... Cục diện thế giới theo xu hướng đa cực, đa trung tâm diễn ra nhanh hơn”. (Đảng Cộng sản Việt Nam, Văn kiện Đại hội đại biểu toàn quốc lần thứ XII, NXB Chính trị Quốc gia, 2016, tr.16)",
+          "statements": [
+            {
+              "id": "a",
+              "text": "Chủ nghĩa dân tộc cực đoan, chủ nghĩa cường quyền áp đặt, chủ nghĩa thực dụng là xu hướng phát triển chính trong quan hệ quốc tế.",
+              "isTrue": false
+            },
+            {
+              "id": "b",
+              "text": "Các nước lớn điều chỉnh chiến lược, vừa hợp tác, thỏa hiệp, vừa cạnh tranh, đấu tranh, kiềm chế lẫn nhau, tác động mạnh đến cục diện thế giới và khu vực.",
+              "isTrue": true
+            },
+            {
+              "id": "c",
+              "text": "Các nước đang phát triển, nhất là những nước vừa và nhỏ đang đứng trước nhiều cơ hội và khó khăn, thách thức lớn trên con đường phát triển.",
+              "isTrue": true
+            },
+            {
+              "id": "d",
+              "text": "Sau Chiến tranh lạnh, cục diện thế giới đã được xác lập theo khuôn khổ của trật tự đa cực và đa trung tâm.",
+              "isTrue": false
+            }
+          ],
+          "explanation": "a) Câu 1 (VD):\nPhương pháp:\n• Xem lại nội dung đoạn tư liệu.\n• Xác định, phân tích tính đúng/sai ở mỗi ý.\nCách giải:\na) Sai, hòa bình, độc lập dân tộc, dân chủ, hợp tác và phát triển vẫn là là xu hướng phát triển chính trong quan hệ quốc tế.\nb) Đúng, các nước lớn điều chỉnh chiến lược, vừa hợp tác, thỏa hiệp, vừa cạnh tranh, đấu tranh, kiềm chế lẫn nhau, tác động mạnh đến cục diện thế giới và khu vực.\nc) Đúng, các nước đang phát triển, nhất là những nước vừa và nhỏ đang đứng trước nhiều cơ hội và khó khăn, thách thức lớn trên con đường phát triển.\nd) Sai, sau Chiến tranh lạnh, cục diện thế giới đang được xác lập theo khuôn khổ của trật tự đa cực và đa trung tâm.\nĐáp án: S, Đ, Đ, S",
+          "difficulty": "hard",
+          "topic": "Quan hệ quốc tế hiện đại",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-2026-mon-Lich-su-chuyen-Tran-Phu-Hai-Phong",
+              "location": "Câu 1"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-2026-mon-lich-su-chuyen-tran-phu-hai-phong-q26",
+          "orderInExam": 26,
+          "questionType": "true_false",
+          "questionText": "Đọc đoạn tư liệu sau đây: “Do sự can thiệp của đế quốc Mỹ vào miền Nam, nước ta bị tạm thời chia làm hai miền: miền Bắc đã được giải phóng và độc lập hoàn toàn, còn miền Nam vẫn là một thuộc địa (kiểu mới) của để quốc Mỹ. Nhưng nước Việt Nam là một, dân tộc Việt Nam là một. Nhân dân Việt Nam chẳng những phải củng cố và phát huy thắng lợi đã giành được, phải củng cố miền Bắc đã được độc lập, mà còn phải giải phóng miền Nam, thực hiện thống nhất nước nhà trên cơ sở độc lập và dân chủ bằng con đường hòa bình”. (Đảng Cộng sản Việt Nam, Văn Kiện Đảng toàn tập, Tập 20, NXB Chính trị Quốc gia, Hà Nội, 2000, tr. 59)",
+          "statements": [
+            {
+              "id": "a",
+              "text": "Khát vọng thống nhất non sông của nhân dân Việt Nam được thể hiện qua tinh thần “nước Việt Nam là một, dân tộc Việt Nam là một”.",
+              "isTrue": true
+            },
+            {
+              "id": "b",
+              "text": "Thực tiễn thời kỳ 1954 - 1975 cho thấy bạo lực cách mạng là con đường duy nhất để nhân dân miền Nam cứu nước và cứu mình khỏi sự thống trị của để quốc và tay sai.",
+              "isTrue": true
+            },
+            {
+              "id": "c",
+              "text": "Trong giai đoạn 1954-1959, cách mạng miền Nam đã chuyển từ đấu tranh chính trị là chủ yếu sang đấu tranh chính trị kết hợp vũ trang trực diện với kẻ thù.",
+              "isTrue": false
+            },
+            {
+              "id": "d",
+              "text": "Trong những năm 1954 - 1975, do đế quốc Mỹ là kẻ thù chính và gián tiếp, nên nhân dân Việt Nam vừa kháng chiến chống Mỹ, cứu nước vừa phải đấu tranh nhằm đánh đổ chính quyền tay sai.",
+              "isTrue": false
+            }
+          ],
+          "explanation": "a) Câu 2 (VD):\nPhương pháp:\n• Xem lại nội dung đoạn tư liệu.\n• Xác định, phân tích tính đúng/sai ở mỗi ý.\nCách giải:\na) Đúng, khát vọng thống nhất non sông của nhân dân Việt Nam được thể hiện qua tinh thần “nước Việt Nam là một, dân tộc Việt Nam là một”.\nb) Đúng, thực tiễn thời kỳ 1954 - 1975 cho thấy bạo lực cách mạng là con đường duy nhất để nhân dân miền Nam cứu nước và cứu mình khỏi sự thống trị của để quốc và tay sai.\nc) Sai, trong giai đoạn 1954 - 1959, cách mạng miền Nam đã chuyển từ đấu tranh vũ trang chống Pháp sang đấu tranh chính trị đòi thi hành Hiệp định Giơ-ne-vơ.",
+          "difficulty": "hard",
+          "topic": "Kháng chiến chống Mỹ 1954-1975",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-2026-mon-Lich-su-chuyen-Tran-Phu-Hai-Phong",
+              "location": "Câu 2"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-2026-mon-lich-su-chuyen-tran-phu-hai-phong-q27",
+          "orderInExam": 27,
+          "questionType": "true_false",
+          "questionText": "Đọc đoạn tư liệu sau đây: “Kháng chiến chống thực dân Pháp là cuộc chiến tranh nhân dân đầu tiên do Đảng phát động và lãnh đạo, vừa mang tính chất giải phóng dân tộc, vừa mang tính chất bảo vệ tổ quốc, chống lại cuộc chiến tranh xâm lược của một đế quốc có tiềm lực kinh tế và quân sự lớn mạnh, lại có sự giúp sức tích cực của đế quốc Mỹ”. (Viện lịch sử Đảng, Lịch sử Đảng Cộng sản Việt Nam, Tập 1, Quyển 2, NXB Chính trị quốc gia sự thật, 2018, tr.484)",
+          "statements": [
+            {
+              "id": "a",
+              "text": "Cuộc kháng chiến chống thực dân Pháp ở Việt Nam (1945 - 1954) là một cuộc chiến tranh có chiến tuyến rõ ràng, kết hợp giữa đánh tiêu diệt và đánh tiêu hao.",
+              "isTrue": false
+            },
+            {
+              "id": "b",
+              "text": "Cuộc kháng chiến chống thực dân Pháp của nhân dân Việt Nam (1945 - 1954) diễn ra trong bối cảnh cục diện hai cực hai phe đã được thiết lập, Chiến tranh lạnh bao trùm toàn thế giới.",
+              "isTrue": false
+            },
+            {
+              "id": "c",
+              "text": "Cuộc kháng chiến chống thực dân Pháp của nhân dân Việt Nam (1945 - 1954) vừa mang tính chất giải phóng dân tộc, vừa mang tính chất bảo vệ Tổ quốc.",
+              "isTrue": true
+            },
+            {
+              "id": "d",
+              "text": "Thắng lợi của Việt Nam trong cuộc kháng chiến chống thực dân Pháp (năm 1954) đã hoàn thành nhiệm vụ chiến lược của cuộc cách mạng tư sản dân quyền.",
+              "isTrue": false
+            }
+          ],
+          "explanation": "a) Câu 3 (VD):\nPhương pháp:\n• Xem lại nội dung đoạn tư liệu.\n• Xác định, phân tích tính đúng/sai ở mỗi ý.\nCách giải:\na) Sai, cuộc kháng chiến chống thực dân Pháp ở Việt Nam (1945 - 1954) không có chiến tuyến rõ ràng mà bao gồm vùng tự do và vùng bị tạm chiếm.\nb) Sai, cuộc kháng chiến chống thực dân Pháp của nhân dân Việt Nam (1945 - 1954) diễn ra trong bối cảnh cục diện hai cực hai phe đang được thiết lập.\nc) Đúng, cuộc kháng chiến chống thực dân Pháp của nhân dân Việt Nam (1945 - 1954) vừa mang tính chất giải phóng dân tộc, vừa mang tính chất bảo vệ Tổ quốc.\nd) Sai, thắng lợi của Việt Nam trong cuộc kháng chiến chống thực dân Pháp (năm 1954) chưa hoàn thành nhiệm vụ chiến lược của cách mạng tư sản dân quyền trên phạm vi cả nước.\nĐáp án: S, S, Đ, S",
+          "difficulty": "hard",
+          "topic": "Kháng chiến chống Pháp 1945-1954",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-2026-mon-Lich-su-chuyen-Tran-Phu-Hai-Phong",
+              "location": "Câu 3"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-2026-mon-lich-su-chuyen-tran-phu-hai-phong-q28",
+          "orderInExam": 28,
+          "questionType": "true_false",
+          "questionText": "Đọc đoạn tư liệu sau đây: “Về ý nghĩa dân tộc và quốc tế của Cách mạng tháng Tám, Chủ tịch Hồ Chí Minh khẳng định: “Chẳng những giai cấp lao động và nhân dân Việt Nam ta có thể tự hào, mà giai cấp lao động và những dân tộc bị áp bức nơi khác cũng có thể tự hào rằng: lần này là lần đầu tiên trong lịch sử cách mạng của các dân tộc thuộc địa và nửa thuộc địa, một đảng mới 15 tuổi đã lãnh đạo cách mạng thành công, đã nắm chính quyền toàn quốc”. (Báo cáo chính trị tại Đại hội đại biểu toàn quốc lần thứ II của Đảng, trích trong Hồ Chí Minh toàn tập, Tập 6, NXB Chính trị Quốc gia, Hà Nội, 2001, tr.25)",
+          "statements": [
+            {
+              "id": "a",
+              "text": "Thắng lợi của cuộc Cách mạng tháng Tám ở Việt Nam năm 1945 đã xây dựng nên chính quyền do Đảng Cộng sản lãnh đạo đầu tiên trên thế giới.",
+              "isTrue": false
+            },
+            {
+              "id": "b",
+              "text": "Cách mạng tháng Tám năm 1945 ở Việt Nam đã thực hiện nhiệm vụ của cuộc cách mạng dân chủ nhân dân.",
+              "isTrue": true
+            },
+            {
+              "id": "c",
+              "text": "Ngay từ khi ra đời, Đảng Cộng sản Việt Nam đã nắm quyền lãnh đạo chính quyền để đưa cách mạng đi đến thắng lợi cuối cùng, vô cùng vẻ vang.",
+              "isTrue": false
+            },
+            {
+              "id": "d",
+              "text": "Thắng lợi của Cách mạng tháng Tám năm 1945 ở Việt Nam đã mở ra thời kỳ tan rã hệ thống thuộc địa của chủ nghĩa thực dân mới trên thế giới.",
+              "isTrue": false
+            }
+          ],
+          "explanation": "a) Câu 4 (VD):\nPhương pháp:\n• Xem lại nội dung đoạn tư liệu.\n• Xác định, phân tích tính đúng/sai ở mỗi ý.\nCách giải:\na) Sai, chính quyền đầu tiên do Đảng Cộng sản lãnh đạo trên thế giới là Chính quyền Xô viết được thành lập tại Nga sau Cách mạng tháng Mười Nga (1917).\nb) Đúng, cách mạng tháng Tám năm 1945 ở Việt Nam đã thực hiện nhiệm vụ của cuộc cách mạng dân chủ nhân dân.\nc) Sai, sau khi Cách mạng tháng Tám thành công, Đảng Cộng sản Việt Nam mới nắm quyền lãnh đạo chính quyền.\nd) Sai, thắng lợi của Cách mạng tháng Tám năm 1945 ở Việt Nam không mở ra thời kỳ tan rã hệ thống thuộc địa của chủ nghĩa thực dân mới trên thế giới.\nĐáp án: S, Đ, S, S",
+          "difficulty": "hard",
+          "topic": "Cách mạng tháng Tám 1945",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-2026-mon-Lich-su-chuyen-Tran-Phu-Hai-Phong",
+              "location": "Câu 4"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "warnings": null,
+  "verification": {
+    "structural": {
+      "layer": "L1_structural",
+      "passed": 8,
+      "total": 8,
+      "all_passed": true,
+      "checks": [
+        {
+          "name": "MCQ count = 24",
+          "passed": true,
+          "actual": 24
+        },
+        {
+          "name": "T/F count = 4",
+          "passed": true,
+          "actual": 4
+        },
+        {
+          "name": "No duplicate question IDs",
+          "passed": true,
+          "duplicates": []
+        },
+        {
+          "name": "T/F orderInExam >= 25",
+          "passed": true,
+          "violations": []
+        },
+        {
+          "name": "T/F orderInExam = {25,26,27,28}",
+          "passed": true,
+          "actual": [
+            25,
+            26,
+            27,
+            28
+          ],
+          "expected": [
+            25,
+            26,
+            27,
+            28
+          ]
+        },
+        {
+          "name": "MCQ orderInExam = {1..24}",
+          "passed": true,
+          "actual_first_last": [
+            [
+              1,
+              2,
+              3
+            ],
+            [
+              22,
+              23,
+              24
+            ]
+          ],
+          "expected": "1..24"
+        },
+        {
+          "name": "All MCQ have valid correctOptionId",
+          "passed": true,
+          "missing_in_questions": []
+        },
+        {
+          "name": "All T/F have 4 statements with isTrue bool",
+          "passed": true,
+          "issues": []
+        }
+      ]
+    },
+    "cross_source": {
+      "layer": "L2_cross_source",
+      "n_conflicts": 0,
+      "n_mcq_conflicts": 0,
+      "n_tf_conflicts": 0,
+      "shifting_pattern_detected": false,
+      "shifting_warning": null,
+      "conflicts": [],
+      "all_passed": true
+    },
+    "content_integrity": {
+      "layer": "L3_content",
+      "n_suspicious": 0,
+      "suspicious": [],
+      "note": "LOW severity — cần review thủ công nếu nhiều case"
+    },
+    "verified_at": "2026-05-20T09:08:55.767461+00:00"
+  }
+}

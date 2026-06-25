@@ -1,0 +1,1182 @@
+{
+  "examId": "thuvienhoclieu-com-de-thi-thu-tot-nghiep-nam-2026-lich-su-so-gd-ca-mau-lan-1",
+  "title": "Đề thi Lịch sử – thuvienhoclieu.com-De-thi-thu-Tot-Nghiep-nam-2026-Lich-su-So-GD-Ca-Mau-Lan-1",
+  "year": 2025,
+  "source": "",
+  "sourceDetail": "thuvienhoclieu.com-De-thi-thu-Tot-Nghiep-nam-2026-Lich-su-So-GD-Ca-Mau-Lan-1",
+  "examCode": "",
+  "format": "thpt_2025",
+  "timeLimitMinutes": 50,
+  "totalScore": 10.0,
+  "parsedAt": "2026-05-17T10:25:23.177517+00:00",
+  "sections": [
+    {
+      "sectionId": "phan-1",
+      "sectionType": "mcq",
+      "title": "Phần I – Trắc nghiệm nhiều lựa chọn",
+      "totalQuestions": 24,
+      "maxScore": 6.0,
+      "scorePerQuestion": 0.25,
+      "questions": [
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tot-nghiep-nam-2026-lich-su-so-gd-ca-mau-lan-1-q01",
+          "orderInExam": 1,
+          "questionType": "mcq",
+          "questionText": "Trong giai đoạn 1945 - 1946, biện pháp đối ngoại nào sau đây được Chính phủ nước Việt Nam Dân chủ Cộng hòa thực hiện để đối phó với quân Trung Hoa Dân quốc?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Hòa hoãn và nhân nhượng một số quyền lợi kinh tế."
+            },
+            {
+              "id": "B",
+              "text": "Kiên quyết dùng bạo lực vũ trang để trục xuất quân đội."
+            },
+            {
+              "id": "C",
+              "text": "Ký kết bản Tạm ước Việt - Pháp (14 - 9 - 1946)."
+            },
+            {
+              "id": "D",
+              "text": "Ký kết bản Hiệp định Sơ bộ (6 - 3 - 1946)."
+            }
+          ],
+          "correctOptionId": "A",
+          "explanation": "Câu 1. Chọn A.\nĐể đối phó với quân Trung Hoa Dân quốc sau Cách mạng tháng Tám, Chính phủ Việt Nam Dân chủ Cộng hòa chủ trương hòa hoãn, nhân nhượng một số quyền lợi kinh tế, chính trị để tránh cùng lúc phải đối đầu nhiều kẻ thù. Vì vậy chọn A.\nDễ nhầm với Hiệp định Sơ bộ 6 - 3 - 1946, nhưng đây là sách lược hòa với Pháp để buộc quân Trung Hoa Dân quốc rút về nước, không phải biện pháp nhân nhượng trực tiếp với quân Trung Hoa Dân quốc.",
+          "difficulty": "medium",
+          "topic": "Việt Nam sau Cách mạng tháng Tám 1945",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-Tot-Nghiep-nam-2026-Lich-su-So-GD-Ca-Mau-Lan-1",
+              "location": "Câu 1"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tot-nghiep-nam-2026-lich-su-so-gd-ca-mau-lan-1-q02",
+          "orderInExam": 2,
+          "questionType": "mcq",
+          "questionText": "Năm 1995, Việt Nam trở thành thành viên chính thức của tổ chức nào sau đây?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Hiệp hội các quốc gia Đông Nam Á (ASEAN)."
+            },
+            {
+              "id": "B",
+              "text": "Thương mại Thế giới (WTO)."
+            },
+            {
+              "id": "C",
+              "text": "Liên hợp quốc (UN)."
+            },
+            {
+              "id": "D",
+              "text": "Hội đồng tương trợ kinh tế (SEV)."
+            }
+          ],
+          "correctOptionId": "A",
+          "explanation": "Câu 2. Chọn A.\nNăm 1995, Việt Nam chính thức gia nhập ASEAN, trở thành thành viên thứ 7 của tổ chức này.",
+          "difficulty": "medium",
+          "topic": "Việt Nam hội nhập quốc tế",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-Tot-Nghiep-nam-2026-Lich-su-So-GD-Ca-Mau-Lan-1",
+              "location": "Câu 2"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tot-nghiep-nam-2026-lich-su-so-gd-ca-mau-lan-1-q03",
+          "orderInExam": 3,
+          "questionType": "mcq",
+          "questionText": "Tại Hội nghị lần thứ 8 Ban Chấp hành Trung ương Đảng Cộng sản Đông Dương (5 - 1941), Nguyễn Ái Quốc đã chủ trương thành lập mặt trận",
+          "options": [
+            {
+              "id": "A",
+              "text": "Thống nhất dân chủ Đông Dương."
+            },
+            {
+              "id": "B",
+              "text": "Việt Nam Độc lập Đồng minh."
+            },
+            {
+              "id": "C",
+              "text": "Liên hiệp quốc dân Việt Nam."
+            },
+            {
+              "id": "D",
+              "text": "Thống nhất nhân dân phản đế."
+            }
+          ],
+          "correctOptionId": "B",
+          "explanation": "Câu 3. Chọn B.\nTại Hội nghị Trung ương 8 tháng 5 - 1941, Nguyễn Ái Quốc chủ trương thành lập Mặt trận Việt Nam Độc lập Đồng minh, gọi tắt là Việt Minh.",
+          "difficulty": "medium",
+          "topic": "Phong trào giải phóng dân tộc 1939-1945",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-Tot-Nghiep-nam-2026-Lich-su-So-GD-Ca-Mau-Lan-1",
+              "location": "Câu 3"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tot-nghiep-nam-2026-lich-su-so-gd-ca-mau-lan-1-q04",
+          "orderInExam": 4,
+          "questionType": "mcq",
+          "questionText": "Sau Chiến tranh thế giới thứ hai, quốc gia nào sau đây ở châu Á lựa chọn đi theo con đường xã hội chủ nghĩa?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Ấn Độ."
+            },
+            {
+              "id": "B",
+              "text": "Hàn Quốc."
+            },
+            {
+              "id": "C",
+              "text": "Nhật Bản."
+            },
+            {
+              "id": "D",
+              "text": "Trung Quốc."
+            }
+          ],
+          "correctOptionId": "D",
+          "explanation": "Câu 4. Chọn D.\nSau Chiến tranh thế giới thứ hai, Trung Quốc đi theo con đường xã hội chủ nghĩa sau thắng lợi của cách mạng Trung Quốc năm 1949.",
+          "difficulty": "medium",
+          "topic": "Các nước châu Á sau Chiến tranh thế giới thứ hai",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-Tot-Nghiep-nam-2026-Lich-su-So-GD-Ca-Mau-Lan-1",
+              "location": "Câu 4"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tot-nghiep-nam-2026-lich-su-so-gd-ca-mau-lan-1-q05",
+          "orderInExam": 5,
+          "questionType": "mcq",
+          "questionText": "Nội dung nào sau đây phản ánh đúng một trong những xu thế phát triển chính của thế giới sau khi Chiến tranh lạnh kết thúc (1991)?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Duy trì các liên minh quân sự đối đầu."
+            },
+            {
+              "id": "B",
+              "text": "Thiết lập trật tự thế giới đơn cực."
+            },
+            {
+              "id": "C",
+              "text": "Phát triển kinh tế làm trọng điểm."
+            },
+            {
+              "id": "D",
+              "text": "Lấy đối đầu quân sự làm nền tảng."
+            }
+          ],
+          "correctOptionId": "C",
+          "explanation": "Câu 5. Chọn C.\nSau Chiến tranh lạnh, một xu thế lớn của thế giới là các quốc gia lấy phát triển kinh tế làm trọng điểm, tăng cường hợp tác, hội nhập.",
+          "difficulty": "medium",
+          "topic": "Quan hệ quốc tế sau Chiến tranh lạnh",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-Tot-Nghiep-nam-2026-Lich-su-So-GD-Ca-Mau-Lan-1",
+              "location": "Câu 5"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tot-nghiep-nam-2026-lich-su-so-gd-ca-mau-lan-1-q06",
+          "orderInExam": 6,
+          "questionType": "mcq",
+          "questionText": "Sau khi Chiến tranh lạnh kết thúc (1991), quốc gia nào sau đây đã gia nhập Hiệp hội các quốc gia Đông Nam Á (ASEAN)?",
+          "options": [
+            {
+              "id": "A",
+              "text": "In-đô-nê-xi-a."
+            },
+            {
+              "id": "B",
+              "text": "Mi-an-ma."
+            },
+            {
+              "id": "C",
+              "text": "Phi-líp-pin."
+            },
+            {
+              "id": "D",
+              "text": "Bru-nây."
+            }
+          ],
+          "correctOptionId": "B",
+          "explanation": "Câu 6. Chọn B.\nMi-an-ma gia nhập ASEAN năm 1997, tức là sau khi Chiến tranh lạnh kết thúc. In-đô-nê-xi-a và Phi-líp-pin là thành viên sáng lập năm 1967, Bru-nây gia nhập năm 1984.",
+          "difficulty": "medium",
+          "topic": "ASEAN",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-Tot-Nghiep-nam-2026-Lich-su-So-GD-Ca-Mau-Lan-1",
+              "location": "Câu 6"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tot-nghiep-nam-2026-lich-su-so-gd-ca-mau-lan-1-q07",
+          "orderInExam": 7,
+          "questionType": "mcq",
+          "questionText": "Sự kiện nào sau đây đánh dấu bước tiến mới đầu tiên của Hiệp hội các quốc gia Đông Nam Á (ASEAN) trong việc xác định các nguyên tắc cơ bản trong quan hệ giữa các nước thành viên?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Thông qua Hiến chương ASEAN (2007)."
+            },
+            {
+              "id": "B",
+              "text": "Thành lập Cộng đồng ASEAN (2015)."
+            },
+            {
+              "id": "C",
+              "text": "Ký kết Tuyên bố Băng Cốc (1967)."
+            },
+            {
+              "id": "D",
+              "text": "Ký kết Hiệp ước Thân thiện và Hợp tác (1976)."
+            }
+          ],
+          "correctOptionId": "D",
+          "explanation": "Câu 7. Chọn D.\nHiệp ước Thân thiện và Hợp tác ở Đông Nam Á, còn gọi là Hiệp ước Bali năm 1976, xác định các nguyên tắc cơ bản trong quan hệ giữa các nước ASEAN.",
+          "difficulty": "medium",
+          "topic": "ASEAN",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-Tot-Nghiep-nam-2026-Lich-su-So-GD-Ca-Mau-Lan-1",
+              "location": "Câu 7"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tot-nghiep-nam-2026-lich-su-so-gd-ca-mau-lan-1-q08",
+          "orderInExam": 8,
+          "questionType": "mcq",
+          "questionText": "Thắng lợi của Việt Nam trên bàn đàm phán tại Hội nghị Giơ-ne-vơ năm 1954 về chấm dứt chiến tranh, lập lại hòa bình ở Đông Dương có vai trò quốc tế nào sau đây?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Chấm dứt hoàn toàn sự can thiệp của các cường quốc vào Đông Nam Á."
+            },
+            {
+              "id": "B",
+              "text": "Làm thất bại hoàn toàn chiến lược toàn cầu của đế quốc Mỹ."
+            },
+            {
+              "id": "C",
+              "text": "Mở đầu cho quá trình sụp đổ của trật tự thế giới hai cực I-an-ta."
+            },
+            {
+              "id": "D",
+              "text": "Cổ vũ mạnh mẽ phong trào giải phóng dân tộc của các nước thuộc địa."
+            }
+          ],
+          "correctOptionId": "D",
+          "explanation": "Câu 8. Chọn D.\nThắng lợi tại Hội nghị Giơ-ne-vơ năm 1954 góp phần cổ vũ mạnh mẽ phong trào giải phóng dân tộc trên thế giới, nhất là ở các nước thuộc địa.",
+          "difficulty": "medium",
+          "topic": "Kháng chiến chống Pháp 1945-1954",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-Tot-Nghiep-nam-2026-Lich-su-So-GD-Ca-Mau-Lan-1",
+              "location": "Câu 8"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tot-nghiep-nam-2026-lich-su-so-gd-ca-mau-lan-1-q09",
+          "orderInExam": 9,
+          "questionType": "mcq",
+          "questionText": "Việc thành lập Cộng đồng ASEAN (năm 2015) đã chứng tỏ tổ chức ASEAN có bước phát triển mới nào sau đây?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Hoàn thành việc kết nạp tất cả các quốc gia ở Đông Nam Á."
+            },
+            {
+              "id": "B",
+              "text": "Chuyển sang giai đoạn hợp tác chặt chẽ và liên kết sâu rộng."
+            },
+            {
+              "id": "C",
+              "text": "Xóa bỏ hoàn toàn sự khác biệt về văn hóa giữa các dân tộc."
+            },
+            {
+              "id": "D",
+              "text": "Trở thành một liên minh quân sự lớn nhất trong khu vực."
+            }
+          ],
+          "correctOptionId": "B",
+          "explanation": "Câu 9. Chọn B.\nViệc thành lập Cộng đồng ASEAN năm 2015 cho thấy ASEAN chuyển sang giai đoạn hợp tác chặt chẽ hơn, liên kết sâu rộng hơn trên ba trụ cột: chính trị - an ninh, kinh tế, văn hóa - xã hội.",
+          "difficulty": "medium",
+          "topic": "ASEAN",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-Tot-Nghiep-nam-2026-Lich-su-So-GD-Ca-Mau-Lan-1",
+              "location": "Câu 9"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tot-nghiep-nam-2026-lich-su-so-gd-ca-mau-lan-1-q10",
+          "orderInExam": 10,
+          "questionType": "mcq",
+          "questionText": "Nội dung nào sau đây là bài học kinh nghiệm từ các cuộc cải cách trong lịch sử dân tộc đã được kế thừa và phát huy hiệu quả trong công cuộc Đổi mới ở Việt Nam (từ năm 1986)?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Kiên trì sự lãnh đạo tuyệt đối và duy nhất của Đảng Cộng sản."
+            },
+            {
+              "id": "B",
+              "text": "Luôn chú trọng chăm lo và đặt lợi ích của nhân dân lên hàng đầu."
+            },
+            {
+              "id": "C",
+              "text": "Luôn tôn trọng và thực hiện theo các quy luật chủ quan của Nhà nước."
+            },
+            {
+              "id": "D",
+              "text": "Chủ yếu tận dụng và dựa vào các cơ hội đến từ bối cảnh bên ngoài."
+            }
+          ],
+          "correctOptionId": "B",
+          "explanation": "Câu 10. Chọn B.\nMột bài học lớn từ các cuộc cải cách trong lịch sử dân tộc được kế thừa trong công cuộc Đổi mới là luôn chú trọng chăm lo và đặt lợi ích của nhân dân lên hàng đầu.",
+          "difficulty": "medium",
+          "topic": "Công cuộc Đổi mới ở Việt Nam",
+          "cognitiveLevel": "application",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-Tot-Nghiep-nam-2026-Lich-su-So-GD-Ca-Mau-Lan-1",
+              "location": "Câu 10"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tot-nghiep-nam-2026-lich-su-so-gd-ca-mau-lan-1-q11",
+          "orderInExam": 11,
+          "questionType": "mcq",
+          "questionText": "Những quyết định của Hội nghị I-an-ta (2 - 1945) đã có tác động nào sau đây đối với tình hình thế giới?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Trở thành khuôn khổ của trật tự thế giới mới."
+            },
+            {
+              "id": "B",
+              "text": "Thúc đẩy xu thế liên kết kinh tế khu vực."
+            },
+            {
+              "id": "C",
+              "text": "Khởi đầu cuộc cách mạng khoa học - kĩ thuật."
+            },
+            {
+              "id": "D",
+              "text": "Chấm dứt hoàn toàn mọi xung đột sắc tộc."
+            }
+          ],
+          "correctOptionId": "A",
+          "explanation": "Câu 11. Chọn A.\nNhững quyết định của Hội nghị I-an-ta đã trở thành khuôn khổ của trật tự thế giới mới sau Chiến tranh thế giới thứ hai, thường gọi là trật tự hai cực I-an-ta.",
+          "difficulty": "medium",
+          "topic": "Trật tự thế giới sau Chiến tranh thế giới thứ hai",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-Tot-Nghiep-nam-2026-Lich-su-So-GD-Ca-Mau-Lan-1",
+              "location": "Câu 11"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tot-nghiep-nam-2026-lich-su-so-gd-ca-mau-lan-1-q12",
+          "orderInExam": 12,
+          "questionType": "mcq",
+          "questionText": "Cuộc kháng chiến chống quân xâm lược Tống thời Lý (thế kỉ XI) gắn liền với chủ trương độc đáo nào sau đây?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Tiên phát chế nhân."
+            },
+            {
+              "id": "B",
+              "text": "Đánh nhanh thắng nhanh."
+            },
+            {
+              "id": "C",
+              "text": "Vây thành diệt viện."
+            },
+            {
+              "id": "D",
+              "text": "Vườn không nhà trống."
+            }
+          ],
+          "correctOptionId": "A",
+          "explanation": "Câu 12. Chọn A.\nCuộc kháng chiến chống Tống thời Lý gắn với chủ trương “tiên phát chế nhân”, tức là chủ động tiến công trước để tự vệ, tiêu biểu là cuộc tiến công sang đất Tống của Lý Thường Kiệt.",
+          "difficulty": "medium",
+          "topic": "Kháng chiến chống Tống thời Lý",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-Tot-Nghiep-nam-2026-Lich-su-So-GD-Ca-Mau-Lan-1",
+              "location": "Câu 12"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tot-nghiep-nam-2026-lich-su-so-gd-ca-mau-lan-1-q13",
+          "orderInExam": 13,
+          "questionType": "mcq",
+          "questionText": "Nội dung nào sau đây phản ánh đúng tính kế thừa bài học lịch sử dân tộc trong chính sách đối ngoại “Ngoại giao cây tre” của Việt Nam hiện nay?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Kiên trì về nguyên tắc nhưng mềm dẻo về phương thức thực hiện."
+            },
+            {
+              "id": "B",
+              "text": "Ưu tiên thực hiện các cam kết quốc tế hơn là lợi ích dân tộc, quốc gia."
+            },
+            {
+              "id": "C",
+              "text": "Luôn dựa vào sự bảo trợ của một cường quốc để giữ vững vị thế."
+            },
+            {
+              "id": "D",
+              "text": "Sẵn sàng thỏa hiệp về chủ quyền lãnh thổ để đổi lấy lợi ích kinh tế."
+            }
+          ],
+          "correctOptionId": "A",
+          "explanation": "Câu 13. Chọn A.\n“Ngoại giao cây tre” thể hiện sự kiên định về nguyên tắc, nhất là độc lập, chủ quyền, lợi ích quốc gia - dân tộc, nhưng mềm dẻo, linh hoạt về phương thức thực hiện.",
+          "difficulty": "medium",
+          "topic": "Chính sách đối ngoại Việt Nam hiện nay",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-Tot-Nghiep-nam-2026-Lich-su-So-GD-Ca-Mau-Lan-1",
+              "location": "Câu 13"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tot-nghiep-nam-2026-lich-su-so-gd-ca-mau-lan-1-q14",
+          "orderInExam": 14,
+          "questionType": "mcq",
+          "questionText": "Hội nghị toàn quốc của Đảng Cộng sản Đông Dương họp tại Tân Trào (Tuyên Quang, từ ngày 14 đến ngày 15 - 8 - 1945) đã thông qua nội dung nào sau đây?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Quyết định thành lập Mặt trận Việt Minh."
+            },
+            {
+              "id": "B",
+              "text": "Thành lập Chính phủ lâm thời của nước Việt Nam."
+            },
+            {
+              "id": "C",
+              "text": "Kế hoạch lãnh đạo toàn dân Tổng khởi nghĩa."
+            },
+            {
+              "id": "D",
+              "text": "Thành lập ngay Ủy ban khởi nghĩa toàn quốc."
+            }
+          ],
+          "correctOptionId": "C",
+          "explanation": "Câu 14. Chọn C.\nHội nghị toàn quốc của Đảng tại Tân Trào tháng 8 - 1945 đã thông qua kế hoạch lãnh đạo toàn dân Tổng khởi nghĩa.",
+          "difficulty": "medium",
+          "topic": "Cách mạng tháng Tám 1945",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-Tot-Nghiep-nam-2026-Lich-su-So-GD-Ca-Mau-Lan-1",
+              "location": "Câu 14"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tot-nghiep-nam-2026-lich-su-so-gd-ca-mau-lan-1-q15",
+          "orderInExam": 15,
+          "questionType": "mcq",
+          "questionText": "Về tính chất cuộc khởi nghĩa Lam Sơn (thế kỉ XV) có điểm khác biệt nào sau đây so với các cuộc kháng chiến thời Trần (thế kỉ XIII)?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Là cuộc chiến tranh giải phóng dân tộc nhằm giành lại độc lập."
+            },
+            {
+              "id": "B",
+              "text": "Là cuộc đấu tranh tự vệ của nông dân chống triều đình phong kiến."
+            },
+            {
+              "id": "C",
+              "text": "Là cuộc kháng chiến bảo vệ Tổ quốc khi đang có chủ quyền."
+            },
+            {
+              "id": "D",
+              "text": "Là cuộc cách mạng dân chủ tư sản lật đổ ách cai trị ngoại bang."
+            }
+          ],
+          "correctOptionId": "A",
+          "explanation": "Câu 15. Chọn A.\nKhởi nghĩa Lam Sơn là cuộc chiến tranh giải phóng dân tộc nhằm đánh đuổi ách đô hộ nhà Minh, giành lại độc lập. Còn các cuộc kháng chiến thời Trần là chiến tranh bảo vệ Tổ quốc khi Đại Việt đang có chủ quyền.",
+          "difficulty": "medium",
+          "topic": "Khởi nghĩa Lam Sơn và Kháng chiến chống Mông-Nguyên",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-Tot-Nghiep-nam-2026-Lich-su-So-GD-Ca-Mau-Lan-1",
+              "location": "Câu 15"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tot-nghiep-nam-2026-lich-su-so-gd-ca-mau-lan-1-q16",
+          "orderInExam": 16,
+          "questionType": "mcq",
+          "questionText": "Theo nguyên tắc hoạt động của tổ chức Liên hợp quốc đề ra năm 1945, quốc gia nào sau đây giữ vai trò thường trực Hội đồng Bảo an?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Thái Lan."
+            },
+            {
+              "id": "B",
+              "text": "Ba Lan."
+            },
+            {
+              "id": "C",
+              "text": "Nhật Bản."
+            },
+            {
+              "id": "D",
+              "text": "Anh."
+            }
+          ],
+          "correctOptionId": "D",
+          "explanation": "Câu 16. Chọn D.\nTheo nguyên tắc hoạt động của Liên hợp quốc, Anh là một trong năm nước Ủy viên thường trực Hội đồng Bảo an, cùng với Mỹ, Liên Xô/Nga, Pháp, Trung Quốc.",
+          "difficulty": "medium",
+          "topic": "Tổ chức Liên hợp quốc",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-Tot-Nghiep-nam-2026-Lich-su-So-GD-Ca-Mau-Lan-1",
+              "location": "Câu 16"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tot-nghiep-nam-2026-lich-su-so-gd-ca-mau-lan-1-q17",
+          "orderInExam": 17,
+          "questionType": "mcq",
+          "questionText": "Cuộc Tổng tiến công và nổi dậy Xuân Mậu Thân 1968 và cuộc Tiến công chiến lược năm 1972 có điểm tương đồng nào sau đây?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Tiêu diệt hoàn toàn lực lượng quân đội Sài Gòn và quân đồng minh của Mỹ."
+            },
+            {
+              "id": "B",
+              "text": "Đánh dấu bước ngoặt cuộc kháng chiến chuyển sang giai đoạn Tổng khởi nghĩa."
+            },
+            {
+              "id": "C",
+              "text": "Buộc Mỹ phải thừa nhận thất bại của loại hình chiến tranh xâm lược kiểu mới."
+            },
+            {
+              "id": "D",
+              "text": "Làm phá sản hoàn toàn chiến lược “Việt Nam hóa chiến tranh” của Mỹ."
+            }
+          ],
+          "correctOptionId": "C",
+          "explanation": "Câu 17. Chọn C.\nTổng tiến công và nổi dậy Xuân Mậu Thân 1968 làm phá sản chiến lược “Chiến tranh cục bộ”; cuộc Tiến công chiến lược năm 1972 làm phá sản cơ bản chiến lược “Việt Nam hóa chiến tranh”. Cả hai đều buộc Mỹ thừa nhận thất bại của các loại hình chiến tranh xâm lược kiểu mới.",
+          "difficulty": "medium",
+          "topic": "Kháng chiến chống Mỹ cứu nước 1954-1975",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-Tot-Nghiep-nam-2026-Lich-su-So-GD-Ca-Mau-Lan-1",
+              "location": "Câu 17"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tot-nghiep-nam-2026-lich-su-so-gd-ca-mau-lan-1-q18",
+          "orderInExam": 18,
+          "questionType": "mcq",
+          "questionText": "Đối với đất nước Xô viết, việc thành lập Liên bang Cộng hòa xã hội chủ nghĩa Xô viết (1922) có ý nghĩa nào sau đây?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Chấm dứt tình trạng nội chiến và can thiệp vũ trang của nước ngoài."
+            },
+            {
+              "id": "B",
+              "text": "Tạo ra sức mạnh tổng hợp để xây dựng và bảo vệ đất nước."
+            },
+            {
+              "id": "C",
+              "text": "Giúp Liên Xô hoàn thành mục tiêu xây dựng chủ nghĩa xã hội."
+            },
+            {
+              "id": "D",
+              "text": "Đánh dấu sự sụp đổ hoàn toàn của chế độ phong kiến Nga hoàng."
+            }
+          ],
+          "correctOptionId": "B",
+          "explanation": "Câu 18. Chọn B.\nViệc thành lập Liên bang Cộng hòa xã hội chủ nghĩa Xô viết năm 1922 tạo nên sức mạnh tổng hợp để xây dựng và bảo vệ đất nước Xô viết.",
+          "difficulty": "medium",
+          "topic": "Lịch sử Liên Xô",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-Tot-Nghiep-nam-2026-Lich-su-So-GD-Ca-Mau-Lan-1",
+              "location": "Câu 18"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tot-nghiep-nam-2026-lich-su-so-gd-ca-mau-lan-1-q19",
+          "orderInExam": 19,
+          "questionType": "mcq",
+          "questionText": "Các hoạt động cứu nước của Nguyễn Ái Quốc trong những năm 1925, 1929 có ý nghĩa nào sau đây đối với cách mạng Việt Nam?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Chuẩn bị điều kiện về cán bộ, tổ chức cho sự ra đời của Đảng."
+            },
+            {
+              "id": "B",
+              "text": "Tìm ra con đường cứu nước đúng đắn cho dân tộc Việt Nam."
+            },
+            {
+              "id": "C",
+              "text": "Soạn thảo Cương lĩnh chính trị cho sự nghiệp giải phóng dân tộc."
+            },
+            {
+              "id": "D",
+              "text": "Thống nhất các tổ chức Cộng sản thành Đảng Cộng sản Việt Nam."
+            }
+          ],
+          "correctOptionId": "A",
+          "explanation": "Câu 19. Chọn A.\nCác hoạt động của Nguyễn Ái Quốc trong những năm 1925, 1929 như thành lập Hội Việt Nam Cách mạng Thanh niên, đào tạo cán bộ, thúc đẩy sự ra đời các tổ chức cộng sản đã chuẩn bị điều kiện về cán bộ, tổ chức cho sự ra đời của Đảng.",
+          "difficulty": "medium",
+          "topic": "Phong trào dân tộc dân chủ 1919-1930",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-Tot-Nghiep-nam-2026-Lich-su-So-GD-Ca-Mau-Lan-1",
+              "location": "Câu 19"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tot-nghiep-nam-2026-lich-su-so-gd-ca-mau-lan-1-q20",
+          "orderInExam": 20,
+          "questionType": "mcq",
+          "questionText": "Trong quá trình hội nhập quốc tế, Việt Nam đã hai lần được bầu làm Ủy viên không thường trực của",
+          "options": [
+            {
+              "id": "A",
+              "text": "tổ chức Thương mại Thế giới (WTO)."
+            },
+            {
+              "id": "B",
+              "text": "Ngân hàng Thế giới (WB)."
+            },
+            {
+              "id": "C",
+              "text": "Hội đồng Bảo an Liên hợp quốc."
+            },
+            {
+              "id": "D",
+              "text": "Quỹ Tiền tệ Quốc tế (IMF)."
+            }
+          ],
+          "correctOptionId": "C",
+          "explanation": "Câu 20. Chọn C.\nViệt Nam đã hai lần được bầu làm Ủy viên không thường trực Hội đồng Bảo an Liên hợp quốc.",
+          "difficulty": "medium",
+          "topic": "Quan hệ quốc tế của Việt Nam",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-Tot-Nghiep-nam-2026-Lich-su-So-GD-Ca-Mau-Lan-1",
+              "location": "Câu 20"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tot-nghiep-nam-2026-lich-su-so-gd-ca-mau-lan-1-q21",
+          "orderInExam": 21,
+          "questionType": "mcq",
+          "questionText": "Theo đoạn tư liệu, từ năm 1961 đến năm 1968 đế quốc Mỹ lần lượt triển khai hai chiến lược chiến tranh nào sau đây?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Chiến lược “Chiến tranh đặc biệt” và “Chiến tranh cục bộ”."
+            },
+            {
+              "id": "B",
+              "text": "Chiến lược “Việt Nam hoá chiến tranh” và “Đông Dương hoá chiến tranh”."
+            },
+            {
+              "id": "C",
+              "text": "Chiến lược “Chiến tranh đặc biệt” và “Việt Nam hoá chiến tranh”."
+            },
+            {
+              "id": "D",
+              "text": "Chiến lược “Chiến tranh đơn phương” và “Việt Nam hoá chiến tranh”."
+            }
+          ],
+          "correctOptionId": "A",
+          "explanation": "Câu 21. Chọn A.\nTừ năm 1961 đến năm 1968, Mỹ lần lượt triển khai chiến lược “Chiến tranh đặc biệt” và “Chiến tranh cục bộ” ở miền Nam Việt Nam.",
+          "difficulty": "medium",
+          "topic": "Kháng chiến chống Mỹ (1954-1975)",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-Tot-Nghiep-nam-2026-Lich-su-So-GD-Ca-Mau-Lan-1",
+              "location": "Câu 21"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tot-nghiep-nam-2026-lich-su-so-gd-ca-mau-lan-1-q22",
+          "orderInExam": 22,
+          "questionType": "mcq",
+          "questionText": "Nhận định nào sau đây là đúng về nghệ thuật chỉ đạo chiến tranh của Đảng Lao động Việt Nam trong giai đoạn 1961 - 1968?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Lấy đấu tranh chính trị làm nền tảng để từng bước làm phá sản chiến lược toàn cầu của Mỹ."
+            },
+            {
+              "id": "B",
+              "text": "Xây dựng lực lượng vũ trang hiện đại làm nhân tố quyết định thắng lợi trên chiến trường."
+            },
+            {
+              "id": "C",
+              "text": "Kết hợp giữa tiến công quân sự với đàm phán ngoại giao để kết thúc nhanh chóng chiến tranh."
+            },
+            {
+              "id": "D",
+              "text": "Phát huy sức mạnh tổng hợp để đối phó hiệu quả với các bước leo thang quân sự của Mỹ."
+            }
+          ],
+          "correctOptionId": "D",
+          "explanation": "Câu 22. Chọn D.\nĐoạn tư liệu nhấn mạnh việc Đảng phát huy đường lối chiến tranh nhân dân, đẩy mạnh tiến công, đương đầu và đánh thắng các bước leo thang chiến tranh của Mỹ. Vì vậy nhận định đúng là phát huy sức mạnh tổng hợp để đối phó hiệu quả với các bước leo thang quân sự của Mỹ.",
+          "difficulty": "medium",
+          "topic": "Kháng chiến chống Mỹ (1954-1975)",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-Tot-Nghiep-nam-2026-Lich-su-So-GD-Ca-Mau-Lan-1",
+              "location": "Câu 22"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tot-nghiep-nam-2026-lich-su-so-gd-ca-mau-lan-1-q23",
+          "orderInExam": 23,
+          "questionType": "mcq",
+          "questionText": "Trong giai đoạn 1961 - 1968, thắng lợi quân sự nào sau đây của quân dân Việt Nam đã làm lung lay ý chí xâm lược của Mỹ, buộc Mỹ phải tuyên bố “phi Mỹ hoá” chiến tranh xâm lược và chấm dứt không điều kiện chiến tranh phá hoại miền Bắc?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Chiến thắng Núi Thành và Vạn Tường."
+            },
+            {
+              "id": "B",
+              "text": "Thắng lợi của chiến dịch Đường 9 - Khe Sanh."
+            },
+            {
+              "id": "C",
+              "text": "Chiến thắng Ấp Bắc và Bình Giã."
+            },
+            {
+              "id": "D",
+              "text": "Tổng tiến công và nổi dậy Xuân Mậu Thân."
+            }
+          ],
+          "correctOptionId": "D",
+          "explanation": "Câu 23. Chọn D.\nTổng tiến công và nổi dậy Xuân Mậu Thân 1968 làm lung lay ý chí xâm lược của Mỹ, buộc Mỹ tuyên bố “phi Mỹ hóa” chiến tranh, chấm dứt không điều kiện chiến tranh phá hoại miền Bắc và chấp nhận đàm phán ở Pa-ri.",
+          "difficulty": "medium",
+          "topic": "Kháng chiến chống Mỹ (1954-1975)",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-Tot-Nghiep-nam-2026-Lich-su-So-GD-Ca-Mau-Lan-1",
+              "location": "Câu 23"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tot-nghiep-nam-2026-lich-su-so-gd-ca-mau-lan-1-q24",
+          "orderInExam": 24,
+          "questionType": "mcq",
+          "questionText": "Năm 1921, Nguyễn Ái Quốc cùng một số người yêu nước của Angiêri, Ma rốc, Tuynidi... lập ra Hội Liên hiệp thuộc địa ở Pa-ri. Ngày 9 - 7 - 1925, Người cùng một số nhà yêu nước Triều Tiên, In-đô-nê-xi-a,... lập ra Hội Liên hiệp các dân tộc bị áp bức ở Á Đông. Những hoạt động này của Nguyễn Ái Quốc nhằm mục đích chủ yếu nào sau đây?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Tìm kiếm nguồn viện trợ quân sự trực tiếp cho cách mạng Việt Nam."
+            },
+            {
+              "id": "B",
+              "text": "Thiết lập quan hệ ngoại giao chính thức với các nước tư bản phương Tây."
+            },
+            {
+              "id": "C",
+              "text": "Xây dựng khối đoàn kết giữa cách mạng Việt Nam với các dân tộc bị áp bức."
+            },
+            {
+              "id": "D",
+              "text": "Hình thành một mặt trận quân sự chung để tiêu diệt chủ nghĩa đế quốc."
+            }
+          ],
+          "correctOptionId": "C",
+          "explanation": "Câu 24. Chọn C.\nViệc Nguyễn Ái Quốc tham gia lập Hội Liên hiệp thuộc địa và Hội Liên hiệp các dân tộc bị áp bức ở Á Đông nhằm xây dựng khối đoàn kết giữa cách mạng Việt Nam với các dân tộc bị áp bức trên thế giới.",
+          "difficulty": "medium",
+          "topic": "Phong trào dân tộc dân chủ 1919-1930",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-Tot-Nghiep-nam-2026-Lich-su-So-GD-Ca-Mau-Lan-1",
+              "location": "Câu 24"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "sectionId": "phan-2",
+      "sectionType": "true_false",
+      "title": "Phần II – Trắc nghiệm Đúng/Sai",
+      "totalQuestions": 4,
+      "maxScore": 4.0,
+      "scoringRule": "ladder",
+      "questions": [
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tot-nghiep-nam-2026-lich-su-so-gd-ca-mau-lan-1-q25",
+          "orderInExam": 25,
+          "questionType": "true_false",
+          "questionText": "Cho đoạn tư liệu sau đây: “Tình hình quốc tế và trong nước trên đây đòi hỏi Đảng phải đổi mới toàn diện các lĩnh vực từ kinh tế, chính trị đến tư tưởng, văn hoá, xã hội, khắc phục tư duy cũ, cách làm cũ. Vì vậy, “Đối với đất nước ta, đổi mới là yêu cầu bức thiết của sự nghiệp cách mạng, là vấn đề có ý nghĩa sống còn”. Đại hội Đảng toàn quốc lần thứ VI năm 1986 đã cắm một cột mốc quan trọng của sự đổi mới về tư duy và về chủ trương, chính sách xây dựng CNXH ở Việt Nam”. (Nguyễn Ngọc Mão (Chủ biên), Lịch sử Việt Nam từ năm 1986 đến năm 2000, tập 15, NXB Khoa học xã hội, 2017, tr.35)",
+          "statements": [
+            {
+              "id": "a",
+              "text": "Những biến động tiêu cực từ hệ thống xã hội chủ nghĩa thế giới là một trong những nhân tố khách quan thúc đẩy Đảng Cộng sản Việt Nam phải thay đổi tư duy quản lý.",
+              "isTrue": true
+            },
+            {
+              "id": "b",
+              "text": "Theo đoạn tư liệu trên, đổi mới được xác định là một cuộc chuyển đổi mang tính sống còn để đưa sự nghiệp cách mạng vượt qua những thách thức lịch sử.",
+              "isTrue": true
+            },
+            {
+              "id": "c",
+              "text": "Thực tiễn công cuộc đổi mới toàn diện từ năm 1986 đến nay đã giúp Việt Nam nhanh chóng khắc phục triệt để tình trạng khủng hoảng về hệ thống chính trị.",
+              "isTrue": false
+            },
+            {
+              "id": "d",
+              "text": "Một trong những đặc điểm nổi bật của đổi mới ở Việt Nam là sự kết hợp nhuần nhuyễn giữa việc thay đổi phương thức phát triển với việc kiên định mục tiêu chiến lược.",
+              "isTrue": true
+            }
+          ],
+          "explanation": "a) PHẦN II.\nCâu 1\na) Đúng.\nĐoạn tư liệu nêu rõ tình hình quốc tế và trong nước đòi hỏi Đảng phải đổi mới toàn diện. Những biến động tiêu cực của hệ thống xã hội chủ nghĩa thế giới là một trong những nhân tố khách quan thúc đẩy Việt Nam đổi mới tư duy quản lý.\nb) Đúng.\nTư liệu khẳng định đổi mới là “yêu cầu bức thiết” và là vấn đề có “ý nghĩa sống còn”, nên nhận định này phù hợp.\nc) Sai.\nCông cuộc Đổi mới giúp Việt Nam từng bước thoát khỏi khủng hoảng kinh tế - xã hội, nhưng không thể nói là “nhanh chóng khắc phục triệt để” tình trạng khủng hoảng về hệ thống chính trị.\nd) Đúng.\nĐổi mới ở Việt Nam là đổi mới phương thức, cơ chế, chính sách phát triển nhưng vẫn kiên định mục tiêu độc lập dân tộc và chủ nghĩa xã hội.",
+          "difficulty": "hard",
+          "topic": "Công cuộc đổi mới ở Việt Nam (1986 đến nay)",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-Tot-Nghiep-nam-2026-Lich-su-So-GD-Ca-Mau-Lan-1",
+              "location": "Câu 1"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tot-nghiep-nam-2026-lich-su-so-gd-ca-mau-lan-1-q26",
+          "orderInExam": 26,
+          "questionType": "true_false",
+          "questionText": "Cho đoạn tư liệu sau đây: “Theo bản Hiệp định Sơ bộ Việt - Pháp, thì sau khi đã ký kết, hai Chính phủ lập tức quyết định những phương sách cần thiết để đình chỉ ngay cuộc xung đột, để giữ nguyên quân đội hai bên tại vị trí hiện thời. Thế mà các đại biểu Pháp đã không tôn trọng chữ ký, đã không thành thực làm theo những điều quy định... Chẳng những thế, họ lại còn phái quân Pháp đánh úp những chiến sĩ Việt Nam ở Nam Bộ và miền Nam Trung Bộ... ...Hỡi các chiến sĩ Việt Nam! Chúng ta đã thành thực ký kết với quân Pháp để tạm đình chiến. Trong khi đó, Chính phủ ta và Chính phủ Pháp sẽ mở những cuộc đàm phán để ký một bản hiệp ước chính thức công nhận chủ quyền của nước Việt Nam. Chúng ta tuy tạm gác súng để nghỉ ngơi, nhưng lúc nào chúng ta cũng sẵn sàng và quyết tâm chiến đấu cho giang sơn Tổ quốc, nếu người Pháp định lừa bịp ta, không thành thực ký kết với ta theo nguyên tắc bình đẳng”. (Hồ Chí Minh, Toàn tập, tập 4, NXB Chính trị quốc gia Sự thật, Hà Nội, 2011, tr.232-233)",
+          "statements": [
+            {
+              "id": "a",
+              "text": "Những hành động quân sự của thực dân Pháp tại Nam Bộ sau ngày 6 - 3 - 1946 là biểu hiện của việc dùng thương lượng ngoại giao làm bình phong để che đậy dã tâm xâm lược trở lại Việt Nam.",
+              "isTrue": true
+            },
+            {
+              "id": "b",
+              "text": "Bài học xuyên suốt được rút ra là phải kết hợp chặt chẽ giữa thiện chí hòa bình trên bàn đàm phán với tư thế sẵn sàng chiến đấu để bảo vệ độc lập dân tộc.",
+              "isTrue": true
+            },
+            {
+              "id": "c",
+              "text": "Đoạn tư liệu cho thấy Hiệp định Sơ bộ (6 - 3 - 1946) là văn bản pháp lý quốc tế đầu tiên nhằm tạm thời đình chỉ các cuộc xung đột vũ trang trên phạm vi cả nước.",
+              "isTrue": false
+            },
+            {
+              "id": "d",
+              "text": "Việc kí kết Hiệp định Sơ bộ là minh chứng cho sự nhượng bộ hoàn toàn của Việt Nam về mặt chủ quyền để đổi lấy thời gian hòa bình ngắn ngủi.",
+              "isTrue": false
+            }
+          ],
+          "explanation": "a) Câu 2\na) Đúng.\nSau Hiệp định Sơ bộ, Pháp vẫn đánh úp các chiến sĩ Việt Nam ở Nam Bộ và Nam Trung Bộ. Điều đó cho thấy Pháp dùng đàm phán làm bình phong để che đậy âm mưu xâm lược trở lại.\nb) Đúng.\nBài học rút ra là phải có thiện chí hòa bình, tận dụng đàm phán, nhưng đồng thời luôn giữ tư thế sẵn sàng chiến đấu bảo vệ độc lập dân tộc.\nc) Sai.\nHiệp định Sơ bộ 6 - 3 - 1946 chủ yếu nhằm tạm thời hòa hoãn, tránh xung đột và tạo điều kiện để tiếp tục đàm phán. Không nên hiểu đây là văn bản pháp lý quốc tế đầu tiên đình chỉ xung đột vũ trang trên phạm vi cả nước.\nd) Sai.\nViệc ký Hiệp định Sơ bộ là sách lược mềm dẻo của ta, không phải sự nhượng bộ hoàn toàn về chủ quyền. Ta tạm thời hòa hoãn để tránh đối đầu nhiều kẻ thù cùng lúc và tranh thủ thời gian chuẩn bị lực lượng.",
+          "difficulty": "hard",
+          "topic": "Kháng chiến chống Pháp (1945-1954)",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-Tot-Nghiep-nam-2026-Lich-su-So-GD-Ca-Mau-Lan-1",
+              "location": "Câu 2"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tot-nghiep-nam-2026-lich-su-so-gd-ca-mau-lan-1-q27",
+          "orderInExam": 27,
+          "questionType": "true_false",
+          "questionText": "Cho bảng thông tin sau đây: Thời gian | Nội dung Năm 1967 | Tổ chức Hiệp hội các quốc gia Đông Nam Á (ASEAN) được thành lập tại Băng Cốc (Thái Lan). Năm 1976 | Hiệp ước Thân thiện và Hợp tác ở Đông Nam Á (Hiệp ước Bali) được ký kết. Năm 1984 | Bru-nây chính thức gia nhập ASEAN. Năm 1995 | Việt Nam chính thức trở thành thành viên thứ 7 của ASEAN. Năm 1997 | Lào và Mi-an-ma gia nhập ASEAN. Năm 1999 | Cam-pu-chia chính thức gia nhập và trở thành thành viên thứ 10 của ASEAN. Năm 2007 | Hiến chương ASEAN được thông qua. Năm 2015 | Cộng đồng ASEAN (AC) chính thức được thành lập trên 3 trụ cột (Cộng đồng chính trị - An ninh ASEAN, Cộng đồng Kinh tế ASEAN, Cộng đồng Văn hóa-Xã hội ASEAN).",
+          "statements": [
+            {
+              "id": "a",
+              "text": "Cộng đồng ASEAN chính thức thành lập (2015) đồng nghĩa với việc các quốc gia thành viên đã hoàn thành nhất thể hóa hoàn toàn về chính trị và quân sự.",
+              "isTrue": false
+            },
+            {
+              "id": "b",
+              "text": "Theo bảng thông tin trên, tính đến năm 1999, với việc gia nhập của Cam-pu-chia đã hoàn tất quá trình kết nạp các quốc gia độc lập ở Đông Nam Á vào tổ chức ASEAN.",
+              "isTrue": true
+            },
+            {
+              "id": "c",
+              "text": "Sự tham gia của Việt Nam vào ASEAN năm 1995 là minh chứng cho việc xóa bỏ ranh giới giữa các nhóm nước có chế độ chính trị khác nhau trong khu vực.",
+              "isTrue": true
+            },
+            {
+              "id": "d",
+              "text": "Việc ký kết Hiệp ước Bali (1976) đã đặt cơ sở nền tảng pháp lí cho sự ra đời của Cộng đồng ASEAN.",
+              "isTrue": false
+            }
+          ],
+          "explanation": "a) Câu 3\na) Sai.\nCộng đồng ASEAN thành lập năm 2015 không có nghĩa các nước thành viên nhất thể hóa hoàn toàn về chính trị và quân sự. ASEAN vẫn là tổ chức hợp tác khu vực, tôn trọng độc lập, chủ quyền của từng quốc gia.\nb) Đúng.\nNăm 1999, Cam-pu-chia gia nhập ASEAN, tổ chức này có đủ 10 nước Đông Nam Á lúc bấy giờ, hoàn tất quá trình mở rộng ASEAN.\nc) Đúng.\nViệt Nam gia nhập ASEAN năm 1995 thể hiện xu thế hòa bình, hợp tác, vượt qua đối đầu ý thức hệ và khác biệt chế độ chính trị trong khu vực.\nd) Sai.\nHiệp ước Bali năm 1976 xác lập các nguyên tắc cơ bản trong quan hệ giữa các nước ASEAN, nhưng cơ sở pháp lý trực tiếp cho Cộng đồng ASEAN là quá trình phát triển sau đó, đặc biệt là Hiến chương ASEAN năm 2007.",
+          "difficulty": "hard",
+          "topic": "Các nước Đông Nam Á",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-Tot-Nghiep-nam-2026-Lich-su-So-GD-Ca-Mau-Lan-1",
+              "location": "Câu 3"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tot-nghiep-nam-2026-lich-su-so-gd-ca-mau-lan-1-q28",
+          "orderInExam": 28,
+          "questionType": "true_false",
+          "questionText": "Cho đoạn tư liệu sau đây: “Sau khi tìm ra con đường đúng đắn để giải phóng dân tộc, lãnh tụ Nguyễn Ái Quốc đã tập trung mọi nỗ lực truyền bá chủ nghĩa Mác - Lênin trong phong trào công nhân và phong trào yêu nước Việt Nam, chuẩn bị những tiền đề về chính trị, tư tưởng và tổ chức cho sự ra đời của một đảng cách mạng tiên phong của giai cấp công nhân Việt Nam. Khi điều kiện thành lập Đảng đã chín muồi, từ ngày đầu năm 1930, tại Hương Cảng (Trung Quốc), Người chủ trì Hội nghị thành lập Đảng Cộng sản Việt Nam. Hội nghị đã thảo luận và thông qua Chính cương vắn tắt của Đảng, Sách lược vắn tắt của Đảng, những văn kiện hợp thành Cương lĩnh chính trị đầu tiên của Đảng”. (Học viện Chính trị quốc gia Hồ Chí Minh, Tư tưởng Hồ Chí Minh về xây dựng đất nước phồn vinh, hạnh phúc, NXB Chính trị Quốc gia Sự thật, 2022, tr. 390)",
+          "statements": [
+            {
+              "id": "a",
+              "text": "Đoạn tư liệu trên đề cập đến vai trò của Nguyễn Ái Quốc trong việc chuẩn bị các điều kiện cho sự ra đời của Đảng Cộng sản Việt Nam.",
+              "isTrue": true
+            },
+            {
+              "id": "b",
+              "text": "Sự ra đời của Đảng Cộng sản Việt Nam đã chính thức hoàn thành cuộc vận động giải phóng dân tộc theo khuynh hướng cách mạng vô sản.",
+              "isTrue": false
+            },
+            {
+              "id": "c",
+              "text": "Cương lĩnh chính trị đầu tiên là sản phẩm kết hợp nhuần nhuyễn giữa lý luận cách mạng thế giới với đặc điểm cụ thể của xã hội Việt Nam.",
+              "isTrue": true
+            },
+            {
+              "id": "d",
+              "text": "Việc chuẩn bị về tư tưởng và tổ chức của Nguyễn Ái Quốc là nhân tố duy nhất quyết định sự thành công của Hội nghị thành lập Đảng.",
+              "isTrue": false
+            }
+          ],
+          "explanation": "a) Câu 4\na) Đúng.\nĐoạn tư liệu nói rõ Nguyễn Ái Quốc đã chuẩn bị các tiền đề về chính trị, tư tưởng và tổ chức cho sự ra đời của Đảng Cộng sản Việt Nam.\nb) Sai.\nSự ra đời của Đảng đánh dấu sự chấm dứt khủng hoảng về đường lối cứu nước và giai cấp lãnh đạo, nhưng chưa phải là hoàn thành cuộc vận động giải phóng dân tộc. Nhiệm vụ giải phóng dân tộc còn tiếp tục trong các giai đoạn sau.\nc) Đúng.\nCương lĩnh chính trị đầu tiên của Đảng là sự kết hợp giữa chủ nghĩa Mác - Lênin, lý luận cách mạng thế giới với thực tiễn cụ thể của xã hội Việt Nam.\nd) Sai.\nVai trò chuẩn bị của Nguyễn Ái Quốc là nhân tố quyết định rất quan trọng, nhưng không thể nói là “nhân tố duy nhất”. Sự ra đời của Đảng còn gắn với phong trào công nhân, phong trào yêu nước và sự phát triển của các tổ chức cộng sản.",
+          "difficulty": "hard",
+          "topic": "Phong trào dân tộc dân chủ 1919-1930",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-Tot-Nghiep-nam-2026-Lich-su-So-GD-Ca-Mau-Lan-1",
+              "location": "Câu 4"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "warnings": null,
+  "verification": {
+    "structural": {
+      "layer": "L1_structural",
+      "passed": 8,
+      "total": 8,
+      "all_passed": true,
+      "checks": [
+        {
+          "name": "MCQ count = 24",
+          "passed": true,
+          "actual": 24
+        },
+        {
+          "name": "T/F count = 4",
+          "passed": true,
+          "actual": 4
+        },
+        {
+          "name": "No duplicate question IDs",
+          "passed": true,
+          "duplicates": []
+        },
+        {
+          "name": "T/F orderInExam >= 25",
+          "passed": true,
+          "violations": []
+        },
+        {
+          "name": "T/F orderInExam = {25,26,27,28}",
+          "passed": true,
+          "actual": [
+            25,
+            26,
+            27,
+            28
+          ],
+          "expected": [
+            25,
+            26,
+            27,
+            28
+          ]
+        },
+        {
+          "name": "MCQ orderInExam = {1..24}",
+          "passed": true,
+          "actual_first_last": [
+            [
+              1,
+              2,
+              3
+            ],
+            [
+              22,
+              23,
+              24
+            ]
+          ],
+          "expected": "1..24"
+        },
+        {
+          "name": "All MCQ have valid correctOptionId",
+          "passed": true,
+          "missing_in_questions": []
+        },
+        {
+          "name": "All T/F have 4 statements with isTrue bool",
+          "passed": true,
+          "issues": []
+        }
+      ]
+    },
+    "cross_source": {
+      "layer": "L2_cross_source",
+      "n_conflicts": 0,
+      "n_mcq_conflicts": 0,
+      "n_tf_conflicts": 0,
+      "shifting_pattern_detected": false,
+      "shifting_warning": null,
+      "conflicts": [],
+      "all_passed": true
+    },
+    "content_integrity": {
+      "layer": "L3_content",
+      "n_suspicious": 2,
+      "suspicious": [
+        {
+          "question_id": "thuvienhoclieu-com-de-thi-thu-tot-nghiep-nam-2026-lich-su-so-gd-ca-mau-lan-1-q10",
+          "orderInExam": 10,
+          "issue": "no_year_or_proper_noun_overlap",
+          "years_in_q": [
+            "1986"
+          ],
+          "years_in_expl": [],
+          "proper_in_q_sample": [
+            "Nam",
+            "Việt"
+          ],
+          "proper_in_expl_sample": [
+            "Câu"
+          ],
+          "severity": "LOW"
+        },
+        {
+          "question_id": "thuvienhoclieu-com-de-thi-thu-tot-nghiep-nam-2026-lich-su-so-gd-ca-mau-lan-1-q22",
+          "orderInExam": 22,
+          "issue": "no_year_or_proper_noun_overlap",
+          "years_in_q": [
+            "1961",
+            "1968"
+          ],
+          "years_in_expl": [],
+          "proper_in_q_sample": [
+            "Lao",
+            "Nam",
+            "Việt"
+          ],
+          "proper_in_expl_sample": [
+            "Câu"
+          ],
+          "severity": "LOW"
+        }
+      ],
+      "note": "LOW severity — cần review thủ công nếu nhiều case"
+    },
+    "verified_at": "2026-05-17T10:25:23.183312+00:00"
+  }
+}
