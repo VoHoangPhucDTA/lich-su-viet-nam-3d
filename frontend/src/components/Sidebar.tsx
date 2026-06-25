@@ -1,20 +1,14 @@
 import { useEffect, useState, useMemo } from 'react';
 import {
   Search,
-  ScrollText,
   ChevronRight,
-  ExternalLink,
-  MapPin,
-  Map as MapIcon,
-  ClipboardList,
 } from 'lucide-react';
 import type { HistoricalEvent, EventType } from '../types/event';
 import {
-  EVENT_TYPE_ICONS,
   EVENT_TYPE_LABELS,
   EVENT_TYPE_COLORS,
 } from '../types/event';
-import { useNavigate } from 'react-router-dom';
+
 
 interface SidebarProps {
   events: HistoricalEvent[];
@@ -116,12 +110,7 @@ export default function Sidebar({
           borderBottom: '1px solid var(--border)',
         }}
       >
-        <div className="flex items-center gap-2.5 mb-3.5">
-          <ScrollText
-            size={22}
-            strokeWidth={2}
-            style={{ color: 'var(--accent)' }}
-          />
+        <div className="flex items-center mb-3.5">
           <h2
             className="text-base font-extrabold tracking-tight"
             style={{ color: 'var(--text-primary)' }}
@@ -161,7 +150,6 @@ export default function Sidebar({
         {/* Filter buttons */}
         <div className="flex gap-1.5 flex-wrap">
           {EVENT_TYPE_FILTERS.map((type) => {
-            const Icon = EVENT_TYPE_ICONS[type];
             const isActive = activeFilter === type;
             return (
               <button
@@ -184,7 +172,6 @@ export default function Sidebar({
                   boxShadow: isActive ? '0 2px 8px rgba(0,0,0,0.1)' : 'none',
                 }}
               >
-                <Icon size={12} strokeWidth={2.2} />
                 {EVENT_TYPE_LABELS[type]}
               </button>
             );
@@ -240,7 +227,6 @@ export default function Sidebar({
         }}
       >
         <span>{filteredEvents.length} sự kiện</span>
-        <span style={{ fontWeight: 600, opacity: 0.8 }}>MVP v1.0</span>
       </div>
     </div>
   );
@@ -270,19 +256,6 @@ function EventTreeNode({
   const isSelected = selectedEvent?.id === event.id;
   const hasLoadedChildren = !!event.children?.length;
   const hasChildren = hasLoadedChildren || (event.childCount ?? 0) > 0;
-  const navigate = useNavigate();
-
-  const GeoIcon =
-    event.geoType === 'no_location'
-      ? ClipboardList
-      : event.geoType === 'nationwide'
-      ? MapIcon
-      : MapPin;
-
-  const geoIconColor =
-    event.geoType === 'no_location'
-      ? 'var(--text-muted)'
-      : EVENT_TYPE_COLORS[event.eventType];
 
   return (
     <div>
@@ -296,7 +269,7 @@ function EventTreeNode({
           alignItems: 'center',
           gap: '6px',
           padding: '8px 12px',
-          paddingLeft: `${16 + depth * 20}px`,
+          paddingLeft: `${12 + depth * 12}px`,
           cursor: 'pointer',
           background: isSelected
             ? 'color-mix(in srgb, var(--accent) 16%, transparent)'
@@ -345,48 +318,21 @@ function EventTreeNode({
           <span className="w-4 flex-shrink-0" />
         )}
 
-        {/* Geo icon */}
-        <GeoIcon
-          size={13}
-          strokeWidth={2.2}
-          className="flex-shrink-0"
-          style={{ color: geoIconColor }}
-        />
-
         {/* Event name */}
         <span
+          title={event.name}
           style={{
             flex: 1,
+            minWidth: 0,
             fontWeight: isSelected ? 700 : 400,
             color: isSelected ? 'var(--accent)' : 'var(--text-primary)',
             lineHeight: '1.4',
-            overflow: 'hidden',
-            textOverflow: 'ellipsis',
-            whiteSpace: 'nowrap',
+            wordBreak: 'break-word',
+            overflowWrap: 'break-word',
           }}
         >
           {event.name}
         </span>
-
-        {/* View detail button */}
-        <button
-          onClick={(e) => {
-            e.stopPropagation();
-            const detailKey = event.slug || event.id;
-            navigate(`/events/${detailKey}`);
-          }}
-          title="Xem chi tiết"
-          aria-label="Xem chi tiết"
-          className="bg-transparent border-0 cursor-pointer p-0.5 flex items-center justify-center transition-opacity duration-150"
-          style={{
-            color: 'var(--text-muted)',
-            opacity: isSelected ? 1 : 0.45,
-          }}
-          onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')}
-          onMouseLeave={(e) => (e.currentTarget.style.opacity = isSelected ? '1' : '0.45')}
-        >
-          <ExternalLink size={13} strokeWidth={2.2} />
-        </button>
 
         {/* Year badge */}
         <span
@@ -408,7 +354,7 @@ function EventTreeNode({
         <div
           style={{
             borderLeft: `1px dashed var(--border)`,
-            marginLeft: `${28 + depth * 20}px`,
+            marginLeft: `${20 + depth * 12}px`,
           }}
         >
           {/* 1.1.16: Sidebar.tsx: Render bổ sung danh sách sự kiện con nằm lồng dưới sự kiện cha (kiểu Tree Node). */}

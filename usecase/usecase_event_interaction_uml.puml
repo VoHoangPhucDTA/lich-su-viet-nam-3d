@@ -1,0 +1,94 @@
+@startuml usecase_event_interaction
+skinparam maxMessageSize 150
+actor "Người dùng" as U
+participant "MapPage.tsx" as MP
+participant "Timeline.tsx" as TL
+participant "Sidebar.tsx" as SB
+participant "CesiumMap.tsx" as CM
+participant "EventPopup.tsx" as EP
+participant "eventApi.ts" as API
+participant "EventController.java" as CTR
+participant "EventReadService.java" as SRV
+database "MySQL" as DB
+
+group Normal Flow 1.1: Tương tác với sự kiện lịch sử trên bản đồ
+    opt Chọn lọc theo Lớp (Optional)
+        U -> TL : 1.1.1: MapPage.tsx:\nNgười dùng chọn lọc theo Lớp 10/11/12
+    end
+    
+    U -> TL : Người dùng kéo thanh thời gian (hoặc nhấn Sự kiện trước/sau, đổi Lớp)
+    activate TL
+    TL -> API : 1.1.2: Timeline.tsx:\nKích hoạt sự kiện thay đổi, gọi hàm getEventsByYearFromBackend()
+    deactivate TL
+    activate API
+    API -> CTR : 1.1.3: eventApi.ts:\nGọi API GET /api/events?year={...}&grade={...}
+    activate CTR
+    CTR -> SRV : 1.1.4: EventController.java:\nNhận request và gọi hàm findEvents()
+    activate SRV
+    SRV -> DB : 1.1.5: EventReadService.java:\nThực hiện truy vấn lấy dữ liệu sự kiện lịch sử
+    activate DB
+    DB --> SRV : 1.1.6: MySQL:\nTrả về danh sách Event Entity
+    deactivate DB
+    SRV --> CTR : 1.1.7: EventReadService.java:\nChuyển đổi thành DTO và trả kết quả
+    deactivate SRV
+    CTR --> API : 1.1.8: EventController.java:\nTrả HTTP status 200 kèm danh sách
+    deactivate CTR
+    API --> MP : 1.1.9: eventApi.ts:\nTrả dữ liệu mảng sự kiện (HistoricalEvent)
+    deactivate API
+    activate MP
+    MP -> SB : 1.1.10: Sidebar.tsx:\nNhận dữ liệu mới và hiển thị danh sách sự kiện ở bảng điều khiển bên trái
+    deactivate MP
+    activate SB
+    
+    opt Lọc hiển thị trên Client (Optional)
+        U -> SB : 1.1.11: Sidebar.tsx:\nNgười dùng nhấp chọn các nút filter để lọc danh sách sự kiện
+    end
+    
+    opt Mở rộng sự kiện cha (Optional)
+        U -> SB : 1.1.12: Sidebar.tsx:\nNgười dùng nhấp vào một sự kiện cha có sự kiện con để mở rộng (expand)
+        SB -> API : 1.1.13: eventApi.ts:\nGọi hàm getChildrenFromBackend(eventId)
+        activate API
+        API -> CTR : 1.1.14: eventApi.ts:\nGọi API GET /api/events/{eventId}/children
+        activate CTR
+        CTR -> SRV : Gọi findChildren()
+        activate SRV
+        SRV -> DB : Query sự kiện con
+        activate DB
+        DB --> SRV : Kết quả sự kiện con
+        deactivate DB
+        SRV --> CTR : DTO
+        deactivate SRV
+        CTR --> API : Trả 200 OK
+        deactivate CTR
+        API --> SB : 1.1.16: Sidebar.tsx:\nRender bổ sung danh sách sự kiện con nằm lồng dưới sự kiện cha (kiểu Tree Node)
+        deactivate API
+    end
+    
+    U -> SB : 1.1.17: Sidebar.tsx:\nNgười dùng nhấp trực tiếp vào tiêu đề sự kiện (cha hoặc con) để xem
+    SB -> MP : 1.1.18: Component chính:\nThiết lập trạng thái selectedEvent
+    deactivate SB
+    activate MP
+    MP -> CM : 1.1.19: CesiumMap.tsx:\nLắng nghe selectedEvent thay đổi, hiển thị vùng đánh dấu và bay camera (flyTo)
+    activate CM
+    deactivate CM
+    MP -> EP : 1.1.20: EventPopup.tsx:\nKhởi tạo và trượt ra ở bên phải màn hình, hiển thị thông tin
+    deactivate MP
+    activate EP
+    deactivate EP
+end
+
+group Alternative Flow 1.2: Sự kiện toàn quốc hoặc không có tọa độ
+    U -> SB : Người dùng nhấp trực tiếp vào sự kiện không có tọa độ cụ thể
+    activate SB
+    SB -> MP : Thiết lập selectedEvent
+    deactivate SB
+    activate MP
+    MP -> CM : 1.2.1: CesiumMap.tsx:\nBỏ qua bước hiệu ứng bay camera đến một điểm cụ thể, giữ nguyên góc nhìn
+    activate CM
+    deactivate CM
+    MP -> EP : 1.2.2: EventPopup.tsx:\nHiển thị thêm thông báo bằng dòng chữ "Phạm vi: Toàn quốc" với màu đánh dấu riêng
+    deactivate MP
+    activate EP
+    deactivate EP
+end
+@enduml

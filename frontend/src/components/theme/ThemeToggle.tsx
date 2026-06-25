@@ -1,4 +1,3 @@
-import { Moon, Sun } from 'lucide-react';
 import { useTheme } from '../../theme/ThemeContext';
 
 export default function ThemeToggle() {
@@ -15,14 +14,6 @@ export default function ThemeToggle() {
       `}
       aria-label={isDark ? 'Chuyển sang chế độ sáng' : 'Chuyển sang chế độ tối'}
     >
-      <span className="relative flex w-5 h-5 items-center justify-center overflow-hidden">
-        {isDark ? (
-          <Sun size={20} strokeWidth={2.4} className="animate-fade-in" />
-        ) : (
-          <Moon size={20} strokeWidth={2.4} className="animate-fade-in" />
-        )}
-      </span>
-
       <span className="hidden sm:inline transition-colors duration-300 text-left" style={{ minWidth: '85px' }}>
         {isDark ? 'Chế độ sáng' : 'Chế độ tối'}
       </span>

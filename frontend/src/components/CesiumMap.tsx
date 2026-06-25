@@ -4,7 +4,9 @@ import {
   Viewer,
   Entity,
   Cartesian3,
+  Cartographic,
   Color,
+  Rectangle,
   ScreenSpaceEventHandler,
   ScreenSpaceEventType,
   defined,
@@ -317,6 +319,39 @@ export default function CesiumMap({
     }
   }, [selectedEvent]);
 
+  // ─── Helper: compute bounding rectangle for a multi-region event ────────────
+  const computeRegionBounds = useCallback(
+    (provinceNames: string[]): Rectangle | null => {
+      const dataSource = dataSourceRef.current;
+      if (!dataSource) return null;
+
+      const normalizeString = (str: string) => str.replace(/\s+/g, '').toLowerCase();
+      const nameSet = new Set(provinceNames.map(normalizeString));
+
+      const allCartographics: Cartographic[] = [];
+
+      const entities = dataSource.entities.values;
+      for (let i = 0; i < entities.length; i++) {
+        const entity = entities[i];
+        if (!entity.polygon) continue;
+        const name = entity.properties?.NAME_1?.getValue() || '';
+        if (!nameSet.has(normalizeString(name))) continue;
+
+        const hierarchy = entity.polygon.hierarchy?.getValue();
+        if (!hierarchy?.positions) continue;
+
+        for (let j = 0; j < hierarchy.positions.length; j++) {
+          allCartographics.push(Cartographic.fromCartesian(hierarchy.positions[j]));
+        }
+      }
+
+      if (allCartographics.length === 0) return null;
+
+      return Rectangle.fromCartographicArray(allCartographics);
+    },
+    []
+  );
+
   // ─── Fly to selected event ───────────────────────────────────────────────────
   useEffect(() => {
     // 1.1.19: CesiumMap.tsx: Lắng nghe selectedEvent thay đổi, sử dụng thư viện CesiumJS để hiển thị vùng đánh dấu (polygon, điểm) và tự động bay camera (flyTo) đến tọa độ vùng ảnh hưởng của sự kiện.
@@ -328,6 +363,31 @@ export default function CesiumMap({
     const hasChildren =
       !!selectedEvent.children && selectedEvent.children.length > 0;
 
+    // multi_region: compute bounding box from GeoJSON province polygons
+    if (
+      selectedEvent.geoType === 'multi_region' &&
+      selectedEvent.primaryRegions &&
+      selectedEvent.primaryRegions.length > 1
+    ) {
+      const bounds = computeRegionBounds(selectedEvent.primaryRegions);
+      if (bounds) {
+        try {
+          viewer.camera.flyTo({
+            destination: bounds,
+            orientation: {
+              heading: CesiumMath.toRadians(0),
+              pitch: CesiumMath.toRadians(-90),
+              roll: 0,
+            },
+            duration: 1.5,
+          });
+        } catch (e) {
+          console.warn('[CesiumMap] flyTo (region bounds) error:', e);
+        }
+        return;
+      }
+    }
+
     // Có coordinates (kể cả centroid fallback) → flyTo trực tiếp
     if (selectedEvent.coordinates && selectedEvent.geoType !== 'no_location') {
       const { lat, lng } = selectedEvent.coordinates;
@@ -336,7 +396,7 @@ export default function CesiumMap({
       // Altitude theo geoType:
       //  - single_point + có children     → 800km (xem cụm sự kiện con)
       //  - single_point (marker chính xác) → 200km (zoom gần)
-      //  - multi_region (fallback centroid hoặc nhiều vùng) → 500km
+      //  - multi_region (fallback)         → 500km
       //  - nationwide                      → 1500km (toàn quốc)
       let altitude = 200000;
       if (hasChildren) altitude = 800000;
@@ -374,7 +434,7 @@ export default function CesiumMap({
     } catch (e) {
       console.warn('[CesiumMap] flyTo (default view) error:', e);
     }
-  }, [selectedEvent]);
+  }, [selectedEvent, computeRegionBounds]);
 
   return (
     <div style={{ width: '100%', height: '100%', position: 'relative' }}>

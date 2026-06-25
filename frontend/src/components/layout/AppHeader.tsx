@@ -1,14 +1,11 @@
 import { useState, useRef, useEffect } from 'react';
 import { Link, NavLink, useNavigate, useLocation } from 'react-router-dom';
 import {
-  Brain,
   ChevronDown,
   Landmark,
-  LogIn,
-  Map as MapIcon,
   Menu,
   ShieldCheck,
-  User,
+  Map as MapIcon,
 } from 'lucide-react';
 import { useAuth } from '../../auth/AuthContext';
 import { useHeader } from './HeaderContext';
@@ -92,7 +89,6 @@ export default function AppHeader() {
              className={({ isActive }) => `${basePillClasses} ${isActive ? activeVariant : inactiveVariant}`}
              end
           >
-             <MapIcon size={15} strokeWidth={2.2} />
              Quay lại bản đồ
           </NavLink>
         )}
@@ -103,7 +99,6 @@ export default function AppHeader() {
                 onClick={() => setExamDropdownOpen(!examDropdownOpen)}
                 className={`${basePillClasses} ${inactiveVariant}`}
             >
-                <Brain size={15} strokeWidth={2.2} />
                 Ôn luyện
                 <ChevronDown size={13} strokeWidth={2.4} />
             </button>
@@ -136,7 +131,6 @@ export default function AppHeader() {
                      border: '1px solid var(--accent)'
                    }}
                >
-                   <User size={15} strokeWidth={2.2} />
                    {currentUser?.fullName || 'Hồ sơ'}
                </button>
             ) : (
@@ -157,7 +151,6 @@ export default function AppHeader() {
                     (e.currentTarget as HTMLButtonElement).style.transform = 'none';
                   }}
                >
-                  <LogIn size={15} strokeWidth={2.2} />
                   Đăng nhập
                </button>
             )}

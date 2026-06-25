@@ -1,18 +1,9 @@
 import {
   ArrowLeft,
-  ArrowRight,
-  Clock,
-  CornerDownLeft,
-  FileText,
-  Info,
-  Map as MapIcon,
-  MapPin,
-  Mountain,
   X,
 } from 'lucide-react';
 import type { HistoricalEvent } from '../types/event';
 import {
-  EVENT_TYPE_ICONS,
   EVENT_TYPE_LABELS,
   EVENT_TYPE_COLORS,
   GEO_TYPE_LABELS,
@@ -35,7 +26,6 @@ export default function EventPopup({
   parentEvent,
 }: EventPopupProps) {
   const typeColor = EVENT_TYPE_COLORS[event.eventType];
-  const TypeIcon = EVENT_TYPE_ICONS[event.eventType];
   const navigate = useNavigate();
 
   const formatYear = (year: number) =>
@@ -93,9 +83,8 @@ export default function EventPopup({
           {/* Tags */}
           <div className="flex gap-1.5 flex-wrap">
             <span
-              className={`badge badge-${event.eventType} inline-flex items-center gap-1`}
+              className={`badge badge-${event.eventType}`}
             >
-              <TypeIcon size={12} strokeWidth={2.4} />
               {EVENT_TYPE_LABELS[event.eventType]}
             </span>
             {event.eventSubtype && (
@@ -111,7 +100,7 @@ export default function EventPopup({
               </span>
             )}
             <span
-              className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-semibold border"
+              className="inline-flex px-2.5 py-0.5 rounded-full text-[11px] font-semibold border"
               style={{
                 background: 'var(--bg-card)',
                 color: 'var(--text-muted)',
@@ -119,7 +108,6 @@ export default function EventPopup({
                 boxShadow: '0 1px 2px rgba(0,0,0,0.05)',
               }}
             >
-              <MapPin size={11} strokeWidth={2.4} />
               {GEO_TYPE_LABELS[event.geoType]}
             </span>
           </div>
@@ -169,11 +157,6 @@ export default function EventPopup({
             boxShadow: 'var(--shadow)',
           }}
         >
-          <Clock
-            size={20}
-            strokeWidth={2.2}
-            style={{ color: 'var(--accent)' }}
-          />
           <div>
             <div
               className="text-[11px] uppercase tracking-[0.08em] font-bold"
@@ -193,28 +176,26 @@ export default function EventPopup({
         {/* Location info */}
         {event.geoType === 'no_location' && (
           <div
-            className="flex items-center gap-2 px-3.5 py-3 rounded-xl border text-xs mb-3.5"
+            className="px-3.5 py-3 rounded-xl border text-xs mb-3.5"
             style={{
               background: 'var(--bg-card)',
               borderColor: 'rgba(194, 155, 75, 0.3)',
               color: 'var(--text-primary)',
             }}
           >
-            <Info size={14} strokeWidth={2.2} style={{ color: '#c29b4b' }} />
             Sự kiện này không gắn với địa điểm cụ thể trên bản đồ.
           </div>
         )}
 
         {event.geoType === 'nationwide' && (
           <div
-            className="flex items-center gap-2 px-3.5 py-3 rounded-xl border text-xs mb-3.5"
+            className="px-3.5 py-3 rounded-xl border text-xs mb-3.5"
             style={{
               background: 'var(--bg-card)',
               borderColor: 'rgba(59, 130, 246, 0.3)',
               color: 'var(--text-primary)',
             }}
           >
-            <MapIcon size={14} strokeWidth={2.2} style={{ color: '#3b82f6' }} />
             Phạm vi: Toàn quốc
           </div>
         )}
@@ -357,12 +338,7 @@ export default function EventPopup({
                       {formatYear(child.startYear)} · {GEO_TYPE_LABELS[child.geoType]}
                     </div>
                   </div>
-                  <ArrowRight
-                    size={14}
-                    strokeWidth={2.2}
-                    className="opacity-50"
-                    style={{ color: 'var(--text-muted)' }}
-                  />
+
                 </button>
               ))}
             </div>
@@ -379,34 +355,12 @@ export default function EventPopup({
           gap: '8px',
         }}
       >
-        {(event.geoType === 'multi_region' ||
-          event.geoType === 'single_point') && (
-            <button
-              className="flex-1 inline-flex items-center justify-center gap-2 px-3 py-3 rounded-[10px] text-[13px] font-bold cursor-pointer transition-all duration-200 border"
-              style={{
-                borderColor: 'var(--accent)',
-                background: 'var(--accent-soft)',
-                color: 'var(--accent)',
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.background = 'var(--bg-card)';
-                e.currentTarget.style.transform = 'translateY(-1px)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.background = 'var(--accent-soft)';
-                e.currentTarget.style.transform = 'none';
-              }}
-            >
-              <Mountain size={14} strokeWidth={2.4} />
-              Xem địa hình
-            </button>
-          )}
-        <button
+          <button
           onClick={() => {
             const detailKey = event.slug || event.id;
             navigate(`/events/${detailKey}`);
           }}
-          className="flex-1 inline-flex items-center justify-center gap-2 px-3 py-3 rounded-[10px] text-[13px] font-bold cursor-pointer transition-all duration-200 border-0"
+          className="flex-1 px-3 py-3 rounded-[10px] text-[13px] font-bold cursor-pointer transition-all duration-200 border-0"
           style={{
             background: 'var(--accent)',
             color: '#fff',
@@ -421,13 +375,12 @@ export default function EventPopup({
             e.currentTarget.style.transform = 'none';
           }}
         >
-          <FileText size={14} strokeWidth={2.4} />
           Xem chi tiết
         </button>
         {parentEvent && (
           <button
             onClick={onNavigateToParent}
-            className="flex-1 inline-flex items-center justify-center gap-2 px-3 py-3 rounded-[10px] text-[13px] font-bold cursor-pointer transition-all duration-200 border"
+            className="flex-1 px-3 py-3 rounded-[10px] text-[13px] font-bold cursor-pointer transition-all duration-200 border"
             style={{
               borderColor: 'var(--border)',
               background: 'var(--bg-card)',
@@ -442,7 +395,6 @@ export default function EventPopup({
               e.currentTarget.style.transform = 'none';
             }}
           >
-            <CornerDownLeft size={14} strokeWidth={2.4} />
             Quay lại cha
           </button>
         )}
