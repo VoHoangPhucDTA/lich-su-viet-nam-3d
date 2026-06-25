@@ -1,0 +1,58 @@
+@startuml usecase_auth_6a
+skinparam maxMessageSize 150
+actor "Người dùng" as U
+participant "RegisterPage.tsx" as UI
+participant "authService.ts" as SRV_TS
+participant "AuthController.java" as CTR
+participant "AuthService.java" as SRV
+database "MySQL" as DB
+participant "Hệ thống Email" as SMTP
+
+group Normal Flow: Đăng ký thành công (6A.1)
+    U -> UI : 6A.1.1: RegisterPage.tsx:\nNgười dùng nhập thông tin và nhấp vào nút Đăng ký.
+    activate UI
+    UI -> SRV_TS : 6A.1.2: RegisterPage.tsx:\ngọi hàm register trong authService.ts.
+    deactivate UI
+    activate SRV_TS
+    SRV_TS -> CTR : 6A.1.3: authService.ts:\ngọi API POST /api/auth/register đến AuthController.java.
+    activate CTR
+    CTR -> SRV : 6A.1.4: AuthController.java:\ngọi AuthService.java (hàm register).
+    activate SRV
+    SRV -> DB : 6A.1.5: AuthService.java:\ntruy vấn kiểm tra và lưu User vào MySQL\n(avatarUrl = Cloudinary default avatar).
+    activate DB
+    DB --> SRV : 6A.1.6: MySQL:\ntrả về User Entity cho AuthService.java.
+    deactivate DB
+    SRV -> SMTP : 6A.1.7: AuthService.java:\ngửi email kích hoạt qua dịch vụ SMTP.
+    activate SMTP
+    SMTP --> SRV : (Email sent)
+    deactivate SMTP
+    SRV --> CTR : 6A.1.8: AuthService.java:\ntrả kết quả thông tin User cho AuthController.java.
+    deactivate SRV
+    CTR --> SRV_TS : 6A.1.9: AuthController.java:\ntrả HTTP status 200 cho authService.ts.
+    deactivate CTR
+    SRV_TS --> UI : 6A.1.10: authService.ts:\ntrả dữ liệu kết quả về cho RegisterPage.tsx.
+    deactivate SRV_TS
+    activate UI
+    UI -> UI : 6A.1.11: RegisterPage.tsx:\nhiển thị thông báo "Đăng ký thành công. Vui lòng kiểm tra email...".
+    deactivate UI
+end
+
+group Alternative Flow: Email đã tồn tại (6A.2)
+    activate SRV
+    SRV -> DB : 6A.2.1: AuthService.java:\ntruy vấn kiểm tra Email tại MySQL.
+    activate DB
+    DB --> SRV : 6A.2.2: MySQL:\ntrả về trạng thái email đã tồn tại cho AuthService.java.
+    deactivate DB
+    SRV --> CTR : 6A.2.3: AuthService.java:\nném lỗi ApiException (mã 400 hoặc 409) cho AuthController.java.
+    deactivate SRV
+    activate CTR
+    CTR --> SRV_TS : 6A.2.4: AuthController.java:\ntrả lỗi về cho authService.ts.
+    deactivate CTR
+    activate SRV_TS
+    SRV_TS --> UI : 6A.2.5: authService.ts:\nném lỗi về cho giao diện RegisterPage.tsx.
+    deactivate SRV_TS
+    activate UI
+    UI -> UI : 6A.2.6: RegisterPage.tsx:\nhiển thị thông báo lỗi "Email đã được đăng ký" ngay trên form.
+    deactivate UI
+end
+@enduml

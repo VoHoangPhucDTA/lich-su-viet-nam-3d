@@ -391,3 +391,40 @@ input:-webkit-autofill:active {
 .glass-map::-webkit-scrollbar-thumb {
   background: rgba(148, 163, 184, 0.4);
 }
+
+/* Auth form message variants — theme-aware via CSS variables */
+.auth-msg-error {
+  background: var(--danger-soft);
+  border: 1px solid rgba(159, 29, 45, 0.35);
+  color: var(--danger);
+}
+
+[data-theme="light"] .auth-msg-error {
+  background: var(--danger-soft);
+  border: 1px solid rgba(143, 28, 42, 0.35);
+  color: #7d1a28;
+}
+
+.auth-msg-success {
+  background: var(--success-soft);
+  border: 1px solid rgba(47, 122, 87, 0.35);
+  color: var(--success);
+}
+
+[data-theme="light"] .auth-msg-success {
+  background: var(--success-soft);
+  border: 1px solid rgba(47, 122, 87, 0.4);
+  color: #1f5a43;
+}
+
+.auth-msg-info {
+  background: var(--accent-soft);
+  border: 1px solid rgba(30, 58, 95, 0.35);
+  color: var(--accent);
+}
+
+[data-theme="light"] .auth-msg-info {
+  background: var(--accent-soft);
+  border: 1px solid rgba(42, 75, 114, 0.35);
+  color: #1a3a5c;
+}

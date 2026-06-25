@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Đặc tả Usecase Auth</title>
+  <style>
+    body {
+      font-family: 'Times New Roman', Times, serif;
+      font-size: 13pt;
+      line-height: 1.5;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 15px;
+    }
+
+    th,
+    td {
+      border: 1px solid black;
+      padding: 6px 10px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #f2f2f2;
+      font-weight: bold;
+    }
+
+    h3 {
+      font-size: 14pt;
+      margin-top: 20px;
+      font-weight: bold;
+    }
+
+    p {
+      margin: 5px 0;
+    }
+
+    .bold {
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+
+  <p style="text-align: center; font-weight: bold; font-size: 16pt;">CHƯƠNG 3. ĐẶC TẢ USECASE AUTH</p>
+
+  <!-- Usecase 6A -->
+  <h3>1. Use Case Specification: Đăng ký tài khoản (UC-6A)</h3>
+  <table>
+    <tr>
+      <th style="width:25%">Use Case Name</th>
+      <th style="width:25%">Use Case ID</th>
+      <th style="width:25%">Date Created</th>
+      <th style="width:25%">Created By</th>
+    </tr>
+    <tr>
+      <td>Đăng ký tài khoản</td>
+      <td>UC-6A</td>
+      <td>15/05/2026</td>
+      <td>Võ Hoàng Phúc</td>
+    </tr>
+    <tr>
+      <th colspan="2">Primary Actors</th>
+      <th colspan="2">Secondary Actors</th>
+    </tr>
+    <tr>
+      <td colspan="2">Người dùng (Độc giả/Học sinh)</td>
+      <td colspan="2">Hệ thống Email (SMTP Server)</td>
+    </tr>
+  </table>
+
+  <p><span class="bold">3.1. Brief Description</span><br>
+    Usecase này mô tả quá trình người dùng đăng ký một tài khoản mới trên hệ thống. Người dùng nhập thông tin email và
+    mật khẩu tại trang Đăng ký. Hệ thống sẽ kiểm tra tính hợp lệ, lưu trữ thông tin tài khoản (trạng thái chờ xác thực)
+    vào cơ sở dữ liệu MySQL và tự động gửi một email chứa liên kết kích hoạt đến email của người dùng.</p>
+
+  <p><span class="bold">3.2. Pre-conditions</span><br>
+    1. Hệ thống đang hoạt động bình thường với kết nối ổn định đến MySQL.<br>
+    2. Dịch vụ gửi Email (SMTP) được cấu hình đúng và đang sẵn sàng.</p>
+
+  <p><span class="bold">3.3. Trigger</span><br>
+    Người dùng điền đầy đủ thông tin vào form trên trang Đăng ký (RegisterPage.tsx) và nhấp vào nút "Đăng ký".</p>
+
+  <p><span class="bold">3.4. Post-conditions</span><br>
+    1. Thông tin người dùng được lưu vào bảng users trong MySQL với trạng thái pending.<br>
+    2. Một email chứa mã token kích hoạt được gửi đến hòm thư của người dùng.</p>
+
+  <p><span class="bold">3.5. Normal Flow: Đăng ký thành công (6A.1)</span><br>
+    6A.1.1: RegisterPage.tsx: Người dùng nhập thông tin và nhấp vào nút Đăng ký.<br>
+    6A.1.2: RegisterPage.tsx: gọi hàm register trong authService.ts.<br>
+    6A.1.3: authService.ts: gọi API POST /api/auth/register đến AuthController.java.<br>
+    6A.1.4: AuthController.java: gọi AuthService.java (hàm register).<br>
+    6A.1.5: AuthService.java: truy vấn kiểm tra và lưu User vào MySQL.<br>
+    6A.1.6: MySQL: trả về User Entity cho AuthService.java.<br>
+    6A.1.7: AuthService.java: gửi email kích hoạt qua dịch vụ SMTP.<br>
+    6A.1.8: AuthService.java: trả kết quả thông tin User cho AuthController.java.<br>
+    6A.1.9: AuthController.java: trả HTTP status 200 cho authService.ts.<br>
+    6A.1.10: authService.ts: trả dữ liệu kết quả về cho RegisterPage.tsx.<br>
+    6A.1.11: RegisterPage.tsx: hiển thị thông báo "Đăng ký thành công. Vui lòng kiểm tra email...".</p>
+
+  <p><span class="bold">3.6. Alternative Flows (Luồng Phụ)</span><br>
+    <span class="bold">3.6.1. Email đã tồn tại (6A.2)</span><br>
+    Tại bước 6A.1.5, hệ thống phát hiện email đã được sử dụng.<br>
+    6A.2.1: AuthService.java: truy vấn kiểm tra Email tại MySQL.<br>
+    6A.2.2: MySQL: trả về trạng thái email đã tồn tại cho AuthService.java.<br>
+    6A.2.3: AuthService.java: ném lỗi ApiException (mã 400 hoặc 409) cho AuthController.java.<br>
+    6A.2.4: AuthController.java: trả lỗi về cho authService.ts.<br>
+    6A.2.5: authService.ts: ném lỗi về cho giao diện RegisterPage.tsx.<br>
+    6A.2.6: RegisterPage.tsx: hiển thị thông báo lỗi "Email đã được đăng ký" ngay trên form.
+  </p>
+
+  <p><span class="bold">3.7. Exceptions</span><br>
+    - Dịch vụ SMTP thất bại không thể gửi email.<br>
+    - Mất kết nối đến cơ sở dữ liệu MySQL.</p>
+
+  <p><span class="bold">3.8. Includes</span><br>
+    - Giao diện đăng ký (RegisterPage.tsx).<br>
+    - API xử lý đăng ký của Spring Boot (AuthController, AuthService).<br>
+    - Cơ sở dữ liệu MySQL (bảng users, roles).</p>
+
+  <p><span class="bold">3.9. Assumptions</span><br>
+    - Thiết bị người dùng có kết nối mạng internet.<br>
+    - Người dùng nhập đúng định dạng email cá nhân của mình.</p>
+
+  <p><span class="bold">3.10. Giải thích cơ chế truy vấn CSDL (Database Query)</span><br>
+    Auth module sử dụng <b>Spring Data JPA</b> (JpaRepository) — không viết SQL thuần. Hibernate tự sinh câu truy vấn từ tên method và Entity mapping. Khi xử lý UC-6A, hệ thống thực hiện tuần tự các truy vấn sau:</p>
+
+  <p><b>1. Kiểm tra email đã tồn tại (<code>UserRepository.findByEmail</code>)</b><br>
+    - <b>Tương đương SQL:</b><br>
+    <code>SELECT * FROM users WHERE email = ? LIMIT 1</code><br>
+    - <b>Giải thích:</b> Spring Data tự sinh query từ method name <code>findByEmail(String email)</code> trong
+    <code>UserRepository</code>. Kết quả <code>Optional&lt;UserEntity&gt;</code> — nếu có giá trị thì email đã tồn tại,
+    ném <code>ApiException 409 CONFLICT</code>. Nếu trạng thái là <code>pending</code>, ném lỗi khác biệt
+    (<code>EMAIL_ALREADY_EXISTS_PENDING</code>).</p>
+
+  <p><b>2. Lấy Role mặc định cho User mới (<code>RoleRepository.findByCode</code>)</b><br>
+    - <b>Tương đương SQL:</b><br>
+    <code>SELECT * FROM roles WHERE code = 'student' LIMIT 1</code><br>
+    - <b>Giải thích:</b> Mỗi User đăng ký mới được gán Role <code>student</code> mặc định. Nếu seed dữ liệu bảng
+    <code>roles</code> chưa có bản ghi này, hệ thống ném <code>500 ROLE_SEED_MISSING</code>.</p>
+
+  <p><b>3. Lưu User mới vào DB (<code>UserRepository.save</code>)</b><br>
+    - <b>Tương đương SQL:</b><br>
+    <code>INSERT INTO users (id, email, password_hash, full_name, grade, school, status, ...) VALUES (?, ?, ?, ?, ?, ?, 'pending', ...)</code><br>
+    <code>INSERT INTO user_roles (user_id, role_id) VALUES (?, ?)</code><br>
+    - <b>Giải thích:</b> <code>UserEntity</code> map bảng <code>users</code>. Quan hệ ManyToMany với bảng
+    <code>roles</code> qua join table <code>user_roles</code> được Hibernate xử lý tự động khi <code>save()</code>.
+    Trường <code>id</code> là <code>BINARY(16)</code> — UUID được chuyển thành byte array bằng
+    <code>UuidBytes.fromUuid(UUID.randomUUID())</code>. User được tạo với <code>status = 'pending'</code> — chưa kích
+    hoạt.</p>
+
+  <p><b>4. Lưu Token kích hoạt Email (<code>AuthEmailTokenRepository.save</code>)</b><br>
+    - <b>Tương đương SQL:</b><br>
+    <code>INSERT INTO auth_email_tokens (user_id, token_hash, token_type, expires_at) VALUES (?, ?, 'email_verification', ?)</code><br>
+    - <b>Giải thích:</b> Raw token được hash bằng SHA-256 trước khi lưu (không lưu plain text). <code>expires_at</code>
+    được tính từ thời điểm hiện tại cộng thêm TTL cấu hình (mặc định 10 phút). Link xác minh gửi đến email chứa raw
+    token — backend sẽ hash lại và so sánh.</p>
+
+
+  <hr style="margin: 30px 0; border: 1px dashed #ccc;">
+
+
+  <!-- Usecase 6B -->
+  <h3>2. Use Case Specification: Đăng nhập (UC-6B)</h3>
+  <table>
+    <tr>
+      <th style="width:25%">Use Case Name</th>
+      <th style="width:25%">Use Case ID</th>
+      <th style="width:25%">Date Created</th>
+      <th style="width:25%">Created By</th>
+    </tr>
+    <tr>
+      <td>Đăng nhập</td>
+      <td>UC-6B</td>
+      <td>15/05/2026</td>
+      <td>Võ Hoàng Phúc</td>
+    </tr>
+    <tr>
+      <th colspan="2">Primary Actors</th>
+      <th colspan="2">Secondary Actors</th>
+    </tr>
+    <tr>
+      <td colspan="2">Người dùng (Độc giả/Admin)</td>
+      <td colspan="2">Google / Facebook Auth Servers</td>
+    </tr>
+  </table>
+
+  <p><span class="bold">3.1. Brief Description</span><br>
+    Usecase này mô tả quá trình người dùng truy cập vào hệ thống. Người dùng có thể đăng nhập bằng tài khoản (Email/Mật
+    khẩu) đã đăng ký hoặc đăng nhập thông qua bên thứ 3 (Google/Facebook). Hệ thống sẽ xác thực, cấp JWT Token lưu trong
+    <strong>HttpOnly Cookie</strong> để duy trì phiên đăng nhập an toàn (miễn dịch với XSS), và định tuyến người dùng
+    vào trang chủ hoặc trang quản trị tuỳ theo phân quyền.
+  </p>
+
+  <p><span class="bold">3.2. Pre-conditions</span><br>
+    1. Tài khoản của người dùng đã được đăng ký và kích hoạt thành công (nếu dùng Email).<br>
+    2. Kết nối đến MySQL và API xác thực của Google/Meta hoạt động bình thường.</p>
+
+  <p><span class="bold">3.3. Trigger</span><br>
+    Người dùng điền Email/Mật khẩu và nhấp nút "Đăng nhập", hoặc nhấp vào nút "Đăng nhập bằng Google/Facebook" trên màn
+    hình LoginPage.tsx.</p>
+
+  <p><span class="bold">3.4. Post-conditions</span><br>
+    1. Hệ thống sinh ra JWT Token (Access Token và Refresh Token) hợp lệ.<br>
+    2. Access Token và Refresh Token được trình duyệt lưu tự động dưới dạng <strong>HttpOnly Cookie</strong> (JavaScript
+    không thể đọc được — miễn dịch với XSS).<br>
+    3. Thông tin hiển thị của người dùng (tên, avatar, role) được lưu vào localStorage để UI phản hồi tức thì.<br>
+    4. Người dùng được chuyển hướng đến trang tương ứng với Role của mình (Student → trang chủ, Admin →
+    /admin/dashboard).</p>
+
+  <p><span class="bold">3.5. Normal Flow: Đăng nhập bằng Email thành công (6B.1)</span><br>
+    6B.1.1: LoginPage.tsx: Người dùng nhập Email, Mật khẩu và nhấp nút Đăng nhập.<br>
+    6B.1.2: LoginPage.tsx: gọi hàm login trong AuthContext.tsx (login trả về AuthResponse).<br>
+    6B.1.3: authService.ts: gọi POST /api/auth/login đến AuthController.java.<br>
+    6B.1.4: AuthController.java: gọi AuthService.java (hàm login).<br>
+    6B.1.5: AuthService.java: truy vấn kiểm tra thông tin và đối chiếu mật khẩu tại MySQL.<br>
+    6B.1.6: MySQL: trả về kết quả hợp lệ cho AuthService.java.<br>
+    6B.1.7: AuthService.java: tạo JWT Token và trả về cho AuthController.java.<br>
+    6B.1.8: AuthController.java: đặt Access Token và Refresh Token vào <strong>HttpOnly Cookie</strong> trong HTTP
+    Response, trả HTTP 200 kèm User info cho authService.ts.<br>
+    6B.1.9: authService.ts: lưu thông tin User (tên, avatar, role) vào localStorage để UI phản hồi tức thì. Token được
+    trình duyệt lưu tự động qua Cookie. Trả AuthResponse (có chứa role) về cho LoginPage.tsx.<br>
+    6B.1.10: LoginPage.tsx: đọc role từ AuthResponse trả về, chuyển hướng người dùng đến trang chủ hoặc
+    /admin/dashboard.</p>
+
+  <p><span class="bold">3.6. Alternative Flows (Luồng Phụ)</span><br>
+    <span class="bold">3.6.1. Đăng nhập bằng Google (6B.2)</span><br>
+    6B.2.1: OAuthButtons.tsx: Nhấp nút Đăng nhập bằng Google.<br>
+    6B.2.2: Google Server: Trả về credential (id_token) cho giao diện.<br>
+    6B.2.3: OAuthButtons.tsx: gọi hàm loginWithGoogle trong AuthContext.tsx.<br>
+    6B.2.4: authService.ts: gọi POST /api/auth/oauth/google đến AuthController.java.<br>
+    6B.2.5: AuthController.java: gọi SocialAuthService.java.<br>
+    6B.2.6: SocialAuthService.java: Gọi API xác thực token ngược lại với Server Google.<br>
+    6B.2.7: Google Server: Trả về thông tin User hợp lệ (Email, Tên, Avatar).<br>
+    6B.2.8: SocialAuthService.java: Upload avatar từ Google URL lên Cloudinary để lưu trữ vĩnh viễn.<br>
+    6B.2.9: SocialAuthService.java: Truy vấn và lưu User vào MySQL (avatarUrl là Cloudinary URL).<br>
+    6B.2.10: MySQL: Trả về User Entity.<br>    6B.2.11: SocialAuthService.java: Tạo JWT Token và trả về.<br>
+    6B.2.12: AuthController.java: đặt Access Token và Refresh Token vào <strong>HttpOnly Cookie</strong> trong HTTP
+    Response, trả HTTP 200 kèm User info.<br>
+    6B.2.13: authService.ts: lưu thông tin User vào localStorage. Trả AuthResponse (có chứa role) về cho
+    OAuthButtons.tsx.<br>
+    6B.2.14: OAuthButtons.tsx: đọc role từ AuthResponse trả về, chuyển hướng về trang chủ hoặc /admin/dashboard.</p>
+
+  <p><span class="bold">3.6.2. Đăng nhập bằng Facebook (6B.3)</span><br>
+    6B.3.1: OAuthButtons.tsx: Nhấp nút Đăng nhập bằng Facebook.<br>
+    6B.3.2: Facebook SDK: Gọi FB.login() -> Facebook Server trả về access_token cho giao diện.<br>
+    6B.3.3: OAuthButtons.tsx: gọi hàm loginWithFacebook trong AuthContext.tsx.<br>
+    6B.3.4: authService.ts: gọi POST /api/auth/oauth/facebook đến AuthController.java.<br>
+    6B.3.5: AuthController.java: gọi SocialAuthService.java.<br>
+    6B.3.6: SocialAuthService.java: Gọi Meta debug_token API (app_id|app_secret) để xác thực token: kiểm tra is_valid=true, app_id khớp, token chưa hết hạn.<br>
+    6B.3.7: Facebook Server: Xác nhận token hợp lệ.<br>
+    6B.3.8: SocialAuthService.java: Gọi Graph API /me với fields=id,name,email,picture.width(200).height(200) để lấy Profile.<br>
+    6B.3.9: Facebook Server: Trả về thông tin User hợp lệ (Email, Tên, Avatar).<br>
+    6B.3.10: SocialAuthService.java: Upload avatar từ Facebook lên Cloudinary (nếu có).<br>
+    6B.3.11: SocialAuthService.java: Truy vấn và lưu User vào MySQL (avatarUrl là Cloudinary URL).<br>
+    6B.3.12: MySQL: Trả về User Entity.<br>
+    6B.3.13: SocialAuthService.java: Tạo JWT Token và trả về.<br>
+    6B.3.14: AuthController.java: đặt Access Token và Refresh Token vào HttpOnly Cookie, trả HTTP 200 kèm User info.<br>
+    6B.3.15: authService.ts: lưu thông tin User vào localStorage. Trả AuthResponse (có chứa role).<br>
+    6B.3.16: OAuthButtons.tsx: đọc role, chuyển hướng về trang chủ hoặc /admin/dashboard.</p>
+
+  <p><span class="bold">3.6.3. Sai thông tin xác thực (6B.4)</span><br>
+    Tại bước 6B.1.5, mật khẩu hoặc email không đúng.<br>
+    6B.4.1: AuthService.java: truy vấn xác thực tại MySQL.<br>
+    6B.4.2: MySQL: trả về trạng thái không hợp lệ.<br>
+    6B.4.3: AuthService.java: ném lỗi ApiException (mã 401 Unauthorized).<br>
+    6B.4.4: AuthController.java: trả lỗi 401 cho authService.ts.<br>
+    6B.4.5: authService.ts: ném lỗi về cho LoginPage.tsx.<br>
+    6B.4.6: LoginPage.tsx: hiển thị thông báo "Tài khoản hoặc mật khẩu không chính xác".</p>
+
+  <p><span class="bold">3.7. Exceptions</span><br>
+    - Hệ thống giới hạn rate-limit (authRateLimiter) khi người dùng spam đăng nhập quá nhiều lần.<br>
+    - Google/Facebook token không hợp lệ/hết hạn → INVALID_SOCIAL_TOKEN.<br>
+    - Facebook không trả về email → SOCIAL_EMAIL_REQUIRED.<br>
+    - Tài khoản bị khóa tạm thời (15 phút) sau 5 lần đăng nhập sai liên tiếp (account lockout).<br>
+    - Tài khoản bị vô hiệu hóa → ACCOUNT_DISABLED (403 Forbidden).<br>
+    - Tài khoản chưa xác minh email → EMAIL_NOT_VERIFIED (403 Forbidden).</p>
+
+  <p><span class="bold">3.8. Includes</span><br>
+    - LoginPage.tsx (Form đăng nhập Email), OAuthButtons.tsx (Google &amp; Facebook SDK).<br>
+    - AuthController.java (AuthService / SocialAuthService).<br>
+    - Cơ sở dữ liệu MySQL (bảng users, user_social_providers, roles).<br>
+    - Google Identity Services SDK / Facebook JavaScript SDK (phía client).<br>
+    - Google tokeninfo API / Meta debug_token + Graph API (phía server).<br>
+    - Cloudinary (lưu trữ avatar vĩnh viễn).</p>
+
+  <p><span class="bold">3.9. Assumptions</span><br>
+    - Thiết bị người dùng hỗ trợ JavaScript (cho OAuth SDK).<br>
+    - Người dùng có tài khoản Google/Facebook hoặc email hợp lệ.<br>
+    - Google Client ID và Facebook App ID được cấu hình trong biến môi trường.<br>
+    - Trình duyệt hỗ trợ HttpOnly Cookie và không chặn third-party cookie (SameSite).</p>
+
+  <p><span class="bold">3.10. Giải thích cơ chế truy vấn CSDL (Database Query)</span><br>
+      Auth module sử dụng <b>Spring Data JPA</b> cho các truy vấn. Khi thực hiện luồng đăng nhập (UC-6B), hệ thống thực hiện các query sau:
+      <br><b>1. Kiểm tra email/username</b> – <code>UserRepository.findByEmail</code> → <code>SELECT * FROM users WHERE email = ? LIMIT 1</code>.
+      <br><b>2. Kiểm tra mật khẩu</b> – Hibernate tự sinh câu truy vấn dựa trên <code>password_hash</code> và so sánh trong Java.
+      <br><b>3. Lấy Role</b> – <code>RoleRepository.findByCode</code> → <code>SELECT * FROM roles WHERE code = ? LIMIT 1</code>.
+      <br><b>4. Tạo JWT Token</b> – <code>JwtService.createAccessToken / createRefreshToken</code> — JWT được ký với secret key, không lưu trong DB.
+      Token được đặt vào HttpOnly Cookie trong HTTP Response (access_token path=/, refresh_token path=/api/auth/refresh).
+      Tất cả các query này được Hibernate quản lý, sử dụng các Entity mapping đã định nghĩa trong <code>UserEntity</code>, <code>RoleEntity</code> và <code>AuthTokenEntity</code>.
+    </p>
+
+
+  <!-- Usecase 6C -->
+  <h3>3. Use Case Specification: Quên mật khẩu (UC-6C)</h3>
+  <table>
+    <tr>
+      <th style="width:25%">Use Case Name</th>
+      <th style="width:25%">Use Case ID</th>
+      <th style="width:25%">Date Created</th>
+      <th style="width:25%">Created By</th>
+    </tr>
+    <tr>
+      <td>Quên mật khẩu</td>
+      <td>UC-6C</td>
+      <td>15/05/2026</td>
+      <td>Võ Hoàng Phúc</td>
+    </tr>
+    <tr>
+      <th colspan="2">Primary Actors</th>
+      <th colspan="2">Secondary Actors</th>
+    </tr>
+    <tr>
+      <td colspan="2">Người dùng</td>
+      <td colspan="2">Hệ thống Email (SMTP Server)</td>
+    </tr>
+  </table>
+
+  <p><span class="bold">3.1. Brief Description</span><br>
+    Usecase này hỗ trợ người dùng đã quên mật khẩu lấy lại quyền truy cập. Người dùng cung cấp email tài khoản, hệ thống
+    sẽ gửi một liên kết bảo mật chứa token xác thực. Khi nhấp vào liên kết, người dùng có thể nhập mật khẩu mới để thay
+    thế mật khẩu cũ.</p>
+
+  <p><span class="bold">3.2. Pre-conditions</span><br>
+    1. Người dùng đã từng đăng ký tài khoản trong hệ thống.<br>
+    2. Hệ thống Email (SMTP) hoạt động ổn định.</p>
+
+  <p><span class="bold">3.3. Trigger</span><br>
+    Người dùng điền email vào trang ForgotPasswordPage.tsx và nhấn "Gửi", sau đó nhấp vào link trong email để tới trang
+    ResetPasswordPage.tsx nhập mật khẩu mới.</p>
+
+  <p><span class="bold">3.4. Post-conditions</span><br>
+    1. Chuỗi Hash mật khẩu của người dùng được cập nhật mới hoàn toàn trong bảng users của MySQL.<br>
+    2. Token reset mật khẩu cũ bị vô hiệu hoá/xoá bỏ để ngăn tái sử dụng.</p>
+
+  <p><span class="bold">3.5. Normal Flow: Yêu cầu đặt lại và Cập nhật mật khẩu (6C.1)</span><br>
+    6C.1.1: ForgotPasswordPage.tsx: Nhập email và nhấn nút Gửi.<br>
+    6C.1.2: ForgotPasswordPage.tsx: gọi hàm forgotPassword trong authService.ts.<br>
+    6C.1.3: authService.ts: gọi POST /api/auth/forgot-password đến AuthController.java.<br>
+    6C.1.4: AuthController.java: gọi AuthService.java (hàm requestPasswordReset).<br>
+    6C.1.5: AuthService.java: kiểm tra sự tồn tại của email trong MySQL.<br>
+    6C.1.6: MySQL: trả về User Entity hợp lệ.<br>
+    6C.1.7: AuthService.java: tạo token và gửi email reset qua SMTP.<br>
+    6C.1.8: AuthService.java: trả kết quả thành công cho AuthController.java.<br>
+    6C.1.9: AuthController.java: trả HTTP 200 cho authService.ts.<br>
+    6C.1.10: authService.ts: trả dữ liệu cho ForgotPasswordPage.tsx.<br>
+    6C.1.11: ForgotPasswordPage.tsx: hiển thị thông báo "Vui lòng kiểm tra hộp thư của bạn" kèm email người dùng.<br>
+    6C.1.12: ResetPasswordPage.tsx: Người dùng nhấp vào link từ email, nhập mật khẩu mới và nhấn nút Đặt lại.<br>
+    6C.1.13: ResetPasswordPage.tsx: gọi hàm resetPassword trong authService.ts.<br>
+    6C.1.14: authService.ts: gọi POST /api/auth/reset-password đến AuthController.java.<br>
+    6C.1.15: AuthController.java: gọi AuthService.java (hàm resetPassword).<br>
+    6C.1.16: AuthService.java: xác thực token an toàn và mã hoá mật khẩu mới lưu vào MySQL.<br>
+    6C.1.17: MySQL: xác nhận cập nhật thành công và đánh dấu token đã dùng (used_at).<br>
+    6C.1.18: AuthService.java: trả kết quả cho AuthController.java.<br>
+    6C.1.19: AuthController.java: trả HTTP 200 cho authService.ts.<br>
+    6C.1.20: authService.ts: trả dữ liệu thành công cho ResetPasswordPage.tsx.<br>
+    6C.1.21: ResetPasswordPage.tsx: hiển thị thông báo thành công và chuyển hướng người dùng về trang Đăng nhập.</p>
+
+  <p><span class="bold">3.6. Alternative Flows</span><br>
+    - Nếu Email không tồn tại, hệ thống vẫn trả về HTTP 200 thành công để chống hacker dò quét (Anti-enumeration). Frontend hiển thị "Vui lòng kiểm tra hộp thư của bạn" trong mọi trường hợp.</p>
+
+  <p><span class="bold">3.7. Exceptions</span><br>
+    - Token xác thực ở Giai đoạn 2 đã hết hạn hoặc không hợp lệ, hệ thống báo lỗi từ chối cập nhật mật khẩu. Mật khẩu
+    mới không tuân thủ chính sách bảo mật (quá ngắn, thiếu ký tự).</p>
+
+  <p><span class="bold">3.8. Includes</span><br>
+    - ForgotPasswordPage.tsx, ResetPasswordPage.tsx.<br>
+    - AuthController, AuthService (AuthService.java).<br>
+    - AuthEmailTokenRepository (bảng auth_email_tokens).<br>
+    - Hệ thống Email (SMTP).</p>
+
+  <p><span class="bold">3.9. Assumptions</span><br>
+    - Người dùng có quyền truy cập vào email đã đăng ký.<br>
+    - Hệ thống Email (SMTP) được cấu hình đúng.</p>
+
+  <p><span class="bold">3.10. Giải thích cơ chế truy vấn CSDL (Database Query)</span><br>
+      Đối với luồng quên mật khẩu (UC-6C) hệ thống thực hiện các query sau:
+      <br><b>1. Kiểm tra tồn tại email</b> – <code>UserRepository.findByEmail</code> → <code>SELECT * FROM users WHERE email = ? LIMIT 1</code>.
+      <br><b>2. Tạo và lưu token reset</b> – <code>AuthEmailTokenRepository.save</code> → <code>INSERT INTO auth_email_tokens (user_id, token_hash, token_type, expires_at) VALUES (?, ?, 'password_reset', ?)</code>
+      (Token type là 'password_reset' — khác với 'email_verification' dùng cho đăng ký).
+      <br><b>3. Khi người dùng gửi mật khẩu mới, xác thực token</b> – <code>AuthEmailTokenRepository.findByTokenHashAndTokenType</code> → <code>SELECT * FROM auth_email_tokens WHERE token_hash = ? AND token_type = 'password_reset' LIMIT 1</code>.
+      Hết hạn được kiểm tra ở Java layer: <code>token.getExpiresAt().isAfter(Instant.now())</code>.
+      <br><b>4. Cập nhật mật khẩu</b> – <code>UserRepository.save</code> (Hibernate generates <code>UPDATE users SET password_hash = ? WHERE id = ?</code>).
+      <br><b>5. Vô hiệu hoá token đã dùng</b> – <code>AuthEmailTokenRepository.save (setUsedAt)</code> → <code>UPDATE auth_email_tokens SET used_at = NOW() WHERE id = ?</code>
+      (Token không bị xóa khỏi DB — chỉ đánh dấu used_at để ngăn tái sử dụng).
+      Các câu truy vấn này đều được Hibernate sinh tự động dựa trên Entity và Repository đã định nghĩa.
+    </p>
+
+  <hr style="margin: 30px 0; border: 1px dashed #ccc;">
+
+
+  <!-- Usecase 6D -->
+  <h3>4. Use Case Specification: Đăng xuất (UC-6D)</h3>
+  <table>
+    <tr>
+      <th style="width:25%">Use Case Name</th>
+      <th style="width:25%">Use Case ID</th>
+      <th style="width:25%">Date Created</th>
+      <th style="width:25%">Created By</th>
+    </tr>
+    <tr>
+      <td>Đăng xuất</td>
+      <td>UC-6D</td>
+      <td>17/05/2026</td>
+      <td>Võ Hoàng Phúc</td>
+    </tr>
+    <tr>
+      <th colspan="2">Primary Actors</th>
+      <th colspan="2">Secondary Actors</th>
+    </tr>
+    <tr>
+      <td colspan="2">Người dùng đã đăng nhập</td>
+      <td colspan="2">Không có</td>
+    </tr>
+  </table>
+
+  <p><span class="bold">3.1. Brief Description</span><br>
+    Usecase này mô tả quá trình người dùng kết thúc phiên làm việc. Hệ thống xóa HttpOnly Cookie chứa JWT phía server,
+    xóa thông tin hiển thị trong localStorage phía client và reset React state ngay lập tức — không cần reload trang.
+    Thiết kế defensive đảm bảo logout luôn thành công kể cả khi API backend không phản hồi.</p>
+
+  <p><span class="bold">3.2. Pre-conditions</span><br>
+    1. Người dùng đang trong trạng thái đã đăng nhập (isAuthenticated = true).<br>
+    2. HttpOnly Cookie access_token và refresh_token đang tồn tại trong trình duyệt.</p>
+
+  <p><span class="bold">3.3. Trigger</span><br>
+    Người dùng nhấp vào nút "Đăng xuất" trên AppHeader.tsx (desktop dropdown hoặc mobile menu).</p>
+
+  <p><span class="bold">3.4. Post-conditions</span><br>
+    1. HttpOnly Cookie access_token và refresh_token bị xóa khỏi trình duyệt (maxAge=0).<br>
+    2. Thông tin User được xóa khỏi localStorage.<br>
+    3. React state currentUser = null — isAuthenticated = false ngay lập tức.<br>
+    4. Người dùng được chuyển hướng về trang chủ (/) mà không cần reload trang.<br>
+    5. ProtectedRoute tự động redirect về /login nếu người dùng cố truy cập trang yêu cầu xác thực.</p>
+
+  <p><span class="bold">3.5. Normal Flow: Đăng xuất thành công (6D.1)</span><br>
+    6D.1.1: AppHeader.tsx: Người dùng nhấp nút "Đăng xuất" (desktop dropdown hoặc mobile menu).<br>
+    6D.1.2: AppHeader.tsx: gọi <code>await logout()</code> từ AuthContext.tsx — bắt buộc await để navigate chạy sau khi
+    state đã clear.<br>
+    6D.1.3: AuthContext.tsx: gọi authService.logout() trong khối try — nếu lỗi API, finally vẫn chạy.<br>
+    6D.1.4: authService.ts: gọi POST /api/auth/logout đến AuthController.java.<br>
+    6D.1.5: AuthController.java: gọi clearAuthCookies() — đặt maxAge=0 trên access_token (path=/) và refresh_token
+    (path=/api/auth/refresh).<br>
+    6D.1.6: AuthController.java: trả HTTP 200 kèm message "Đăng xuất thành công."<br>
+    6D.1.7: authService.ts: gọi clearStoredUser() — xóa auth_user khỏi localStorage (chạy trong finally, luôn thực
+    thi).<br>
+    6D.1.8: AuthContext.tsx: gọi setCurrentUser(null) — reset React state (chạy trong finally, luôn thực thi).<br>
+    6D.1.9: AppHeader.tsx: gọi navigate('/') — chuyển hướng về trang chủ.<br>
+    6D.1.10: Giao diện cập nhật tức thì: header hiển thị nút Đăng nhập, ProtectedRoute redirect nếu cần.</p>
+
+  <p><span class="bold">3.6. Alternative Flows (Luồng Phụ)</span><br>
+    <span class="bold">3.6.1. API Backend không phản hồi (6D.2)</span><br>
+    Tại bước 6D.1.4, API lỗi (network down, backend restart...).<br>
+    6D.2.1: authService.ts: catch block bắt lỗi API — bỏ qua, không throw lên caller.<br>
+    6D.2.2: authService.ts: finally block vẫn chạy — xóa localStorage.<br>
+    6D.2.3: AuthContext.tsx: finally block vẫn chạy — setCurrentUser(null).<br>
+    6D.2.4: Người dùng được logout thành công phía client. Cookie HttpOnly sẽ tự hết hạn theo maxAge trên server.<br>
+    <em>Kết quả: Giao diện không bao giờ bị đơ (hang) dù API có lỗi.</em>
+  </p>
+
+  <p><span class="bold">3.7. Exceptions</span><br>
+    - Không có exception nghiêm trọng: thiết kế defensive đảm bảo logout luôn hoàn thành phía client.<br>
+    - Trường hợp duy nhất chưa xử lý: Cookie HttpOnly phía server không bị xóa nếu backend hoàn toàn down — cookie sẽ tự
+    hết hạn sau 1 giờ (maxAge access_token).</p>
+
+  <p><span class="bold">3.8. Includes</span><br>
+    - AppHeader.tsx (nút Đăng xuất desktop và mobile).<br>
+    - AuthContext.tsx (hàm logout với try/finally).<br>
+    - authService.ts (gọi API và xóa localStorage với try/catch/finally).<br>
+    - AuthController.java (endpoint POST /api/auth/logout, hàm clearAuthCookies).</p>
+
+</body>
+
+</html>
