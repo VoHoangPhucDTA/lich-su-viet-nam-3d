@@ -66,22 +66,24 @@ export default function ForgotPasswordPage() {
       {success ? (
         <div className="animate-fade-in">
           <div
+            className="auth-msg-success"
             style={{
-              textAlign: 'center',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              gap: '0.5rem',
               padding: '1.5rem',
-              background: 'rgba(47,122,87,0.12)',
-              border: '1px solid rgba(47,122,87,0.35)',
               borderRadius: '0.875rem',
               marginBottom: '1.5rem',
             }}
           >
-            <div style={{ color: 'var(--accent)', display: 'flex', justifyContent: 'center', marginBottom: '0.75rem' }}>
+            <div style={{ display: 'flex', justifyContent: 'center' }}>
               <Inbox size={36} strokeWidth={2} />
             </div>
-            <p style={{ fontSize: '0.9375rem', color: 'var(--text-primary)', lineHeight: 1.6, fontWeight: 500 }}>
+            <p style={{ fontSize: '0.9375rem', lineHeight: 1.6, fontWeight: 500, margin: 0 }}>
               {success}
             </p>
-            <p style={{ fontSize: '0.875rem', color: 'var(--accent)', fontWeight: 600, marginTop: '0.5rem' }}>
+            <p style={{ fontSize: '0.875rem', fontWeight: 600, margin: 0 }}>
               {email}
             </p>
           </div>

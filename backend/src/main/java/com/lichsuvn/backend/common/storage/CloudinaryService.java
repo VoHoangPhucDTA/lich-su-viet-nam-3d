@@ -67,16 +67,13 @@ public class CloudinaryService {
     }
 
     /**
-     * Get the default avatar URL — either a Cloudinary-hosted default or a placeholder.
+     * Get the default avatar URL — either a configured Cloudinary-hosted default, or empty string.
+     * Returns empty string (not a broken 404 URL) when no default is configured,
+     * allowing callers to decide fallback behavior.
      */
     public String getDefaultAvatarUrl() {
         if (defaultAvatarUrl != null && !defaultAvatarUrl.isBlank()) {
             return defaultAvatarUrl;
-        }
-        // Fallback to a Cloudinary-generated default if nothing configured
-        if (cloudinaryConfigured) {
-            // Generate a simple default avatar via Cloudinary placeholder
-            return cloudinary.url().secure(true).generate(DEFAULT_AVATAR_PUBLIC_ID);
         }
         return "";
     }

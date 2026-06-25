@@ -129,7 +129,11 @@ public class AuthController {
     }
 
     @GetMapping("/verify-email")
-    public ApiResponse<VerifyEmailResponseDto> verifyEmail(@RequestParam String token) {
+    public ApiResponse<VerifyEmailResponseDto> verifyEmail(
+            @RequestParam String token,
+            HttpServletRequest servletRequest
+    ) {
+        authRateLimiter.check(rateKey(servletRequest, "verify-email", ""));
         return ApiResponse.ok(authService.verifyEmail(token));
     }
 
