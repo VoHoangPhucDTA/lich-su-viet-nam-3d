@@ -41,11 +41,18 @@ import ExamCreatePage from './pages/exams/ExamCreatePage';
 import ExamSessionPage from './pages/exams/ExamSessionPage';
 import ExamResultPage from './pages/exams/ExamResultPage';
 import ExamHistoryPage from './pages/exams/ExamHistoryPage';
+// Exams V2 – real THPT exam pipeline
+import ExamBrowsePage from './pages/exams/ExamBrowsePage';
+import ExamV2SessionPage from './pages/exams/ExamV2SessionPage';
+import ExamV2ResultPage from './pages/exams/ExamV2ResultPage';
+import ExamV2HistoryPage from './pages/exams/ExamV2HistoryPage';
+import ExamOnChuDePage from './pages/exams/ExamOnChuDePage';
+import ExamTopicPracticePage from './pages/exams/ExamTopicPracticePage';
 
 function AppContent() {
   const location = useLocation();
   // Do not show global header on specific interactive session pages that have their own full-screen custom headers
-  const hideHeaderRoutes = ['/quiz/session', '/exams/session'];
+  const hideHeaderRoutes = ['/quiz/session', '/exams/session', '/exams/de'];
   const shouldHideHeader = hideHeaderRoutes.some(path => location.pathname.startsWith(path));
 
   return (
@@ -76,6 +83,13 @@ function AppContent() {
           <Route path="/exams/session/:examId" element={<ExamSessionPage />} />
           <Route path="/exams/result/:examId" element={<ExamResultPage />} />
           <Route path="/exams/history" element={<ExamHistoryPage />} />
+          {/* V2 – real THPT exam data pipeline */}
+          <Route path="/exams/browse" element={<ExamBrowsePage />} />
+          <Route path="/exams/de/:examId" element={<ExamV2SessionPage />} />
+          <Route path="/exams/ket-qua/:sessionId" element={<ExamV2ResultPage />} />
+          <Route path="/exams/lich-su-v2" element={<ExamV2HistoryPage />} />
+          <Route path="/exams/on-chu-de" element={<ExamOnChuDePage />} />
+          <Route path="/exams/on-chu-de/:topicSlug" element={<ExamTopicPracticePage />} />
 
           {/* === Profile routes (protected, any authenticated user) === */}
           <Route path="/profile" element={<Navigate to="/profile/dashboard" replace />} />
