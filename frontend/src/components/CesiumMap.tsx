@@ -15,8 +15,11 @@ import {
   Math as CesiumMath,
   Cartesian2,
   GeoJsonDataSource,
+  CustomDataSource,
   ColorMaterialProperty,
   EllipsoidTerrainProvider,
+  DistanceDisplayCondition,
+  LabelStyle,
 } from 'cesium';
 import 'cesium/Build/Cesium/Widgets/widgets.css';
 import { VIETNAM_CENTER, getMarkerColor } from '../lib/cesium';
@@ -51,6 +54,7 @@ export default function CesiumMap({
   const entitiesMapRef = useRef<Map<string, Entity>>(new Map());
   const handlerRef = useRef<ScreenSpaceEventHandler | null>(null);
   const dataSourceRef = useRef<GeoJsonDataSource | null>(null);
+  const markerDataSourceRef = useRef<CustomDataSource | null>(null);
   const [mapError, setMapError] = useState<string | null>(null);
 
   // Stable ref to callback — avoids re-running init effect when callback changes
@@ -140,10 +144,14 @@ export default function CesiumMap({
               try {
                 const picked = v.scene.pick(movement.position);
                 if (defined(picked) && picked.id && (picked.id as any).eventData) {
+                  // Clicked an individual event marker
                   onSelectEventRef.current((picked.id as any).eventData as HistoricalEvent);
-                } else {
+                } else if (!defined(picked) || !picked.id) {
+                  // Clicked empty space — deselect
                   onSelectEventRef.current(null);
                 }
+                // If clicked a cluster (picked.id exists but no eventData), do nothing —
+                // user needs to zoom in to see individual markers
               } catch (e) {
                 console.warn('[CesiumMap] Pick error:', e);
               }
@@ -160,14 +168,17 @@ export default function CesiumMap({
         // ── Load GeoJSON (non-blocking, optional) ──
         if (!CESIUM_SAFE_MODE) {
           GeoJsonDataSource.load('/geojson/vietnam-provinces.json', {
-            stroke: Color.WHITE.withAlpha(0.2),
+            stroke: Color.fromCssColorString('#8b7355').withAlpha(0.45),
             fill: Color.TRANSPARENT,
-            strokeWidth: 1,
+            strokeWidth: 2,
           })
             .then((dataSource) => {
               if (viewer && !viewer.isDestroyed()) {
                 viewer.dataSources.add(dataSource);
                 dataSourceRef.current = dataSource;
+                // Re-apply polygon highlights now that GeoJSON is loaded.
+                // selectedEvent might have been set before GeoJSON finished loading.
+                applyPolygonHighlights(selectedEventRef.current);
               }
             })
             .catch((e) => {
@@ -195,6 +206,11 @@ export default function CesiumMap({
       }
       // Do NOT destroy viewerInstance here — that causes the StrictMode double-init crash.
       viewerRef.current = null;
+      // Clean up marker datasource on unmount
+      if (markerDataSourceRef.current && viewerInstance && !viewerInstance.isDestroyed()) {
+        viewerInstance.dataSources.remove(markerDataSourceRef.current, true);
+        markerDataSourceRef.current = null;
+      }
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -207,7 +223,31 @@ export default function CesiumMap({
       const viewer = viewerRef.current;
       if (!viewer || viewer.isDestroyed()) return;
 
-      viewer.entities.removeAll();
+      // Remove old datasource if exists
+      if (markerDataSourceRef.current) {
+        viewer.dataSources.remove(markerDataSourceRef.current, true);
+      }
+
+      const ds = new CustomDataSource('eventMarkers');
+      ds.clustering.enabled = true;
+      ds.clustering.pixelRange = 55;
+      ds.clustering.minimumClusterSize = 2;
+
+      // Cluster styling: show count badge instead of default pin
+      ds.clustering.clusterEvent.addEventListener((_clusteredEntities, cluster) => {
+        if (!defined(cluster.label) || !defined(cluster.billboard)) return;
+        cluster.label.show = true;
+        cluster.label.fillColor = Color.WHITE;
+        cluster.label.font = 'bold 12px Inter, sans-serif';
+        cluster.label.style = LabelStyle.FILL_AND_OUTLINE;
+        cluster.label.outlineColor = Color.fromCssColorString('#C49A45');
+        cluster.label.backgroundColor = Color.fromCssColorString('rgba(18, 16, 14, 0.85)');
+        cluster.label.outlineWidth = 2;
+        cluster.label.verticalOrigin = VerticalOrigin.CENTER;
+        cluster.label.horizontalOrigin = 0 as any; // HorizontalOrigin.CENTER
+        cluster.billboard.show = false;
+      });
+
       entitiesMapRef.current.clear();
 
       eventsToRender.forEach((event) => {
@@ -229,7 +269,7 @@ export default function CesiumMap({
         const pixelSize = isHighlighted ? 18 : 14;
 
         try {
-          const entity = viewer.entities.add({
+          const entity = ds.entities.add({
             name: event.name,
             position: Cartesian3.fromDegrees(lng, lat),
             point: {
@@ -242,18 +282,18 @@ export default function CesiumMap({
             },
             label: {
               text: event.name,
-              font: '13px Inter, sans-serif',
+              font: 'bold 14px Inter, sans-serif',
               fillColor: Color.WHITE,
-              outlineColor: Color.BLACK,
+              outlineColor: Color.fromCssColorString('#8b1e1e'),
               outlineWidth: 3,
-              style: 2, // FILL_AND_OUTLINE
+              style: LabelStyle.FILL_AND_OUTLINE,
               verticalOrigin: VerticalOrigin.BOTTOM,
               pixelOffset: new Cartesian3(0, -22, 0) as any,
               heightReference: HeightReference.CLAMP_TO_GROUND,
-              disableDepthTestDistance: Number.POSITIVE_INFINITY,
+              distanceDisplayCondition: new DistanceDisplayCondition(0, 2000000),
               showBackground: true,
-              backgroundColor: Color.fromCssColorString('rgba(15, 23, 42, 0.8)'),
-              backgroundPadding: new Cartesian3(8, 5, 0) as any,
+              backgroundColor: Color.fromCssColorString('rgba(28, 25, 23, 0.9)'),
+              backgroundPadding: new Cartesian3(10, 6, 0) as any,
             },
           });
 
@@ -263,6 +303,9 @@ export default function CesiumMap({
           console.warn(`[CesiumMap] Failed to add entity for "${event.id}":`, e);
         }
       });
+
+      viewer.dataSources.add(ds);
+      markerDataSourceRef.current = ds;
     },
     [highlightedEventId]
   );
@@ -271,53 +314,75 @@ export default function CesiumMap({
     renderMarkers(events);
   }, [events, renderMarkers]);
 
+  // ─── Selected event ref (for reapply when GeoJSON loads async) ─────────────
+  const selectedEventRef = useRef(selectedEvent);
+  selectedEventRef.current = selectedEvent;
+
   // ─── Update polygon highlights ───────────────────────────────────────────────
+  // Only highlight provinces for multi_region events. single_point events show
+  // only the marker; nationwide/no_location show no province highlights.
+  // Empty deps [] is intentional: all captured values are stable imports/refs.
+  const applyPolygonHighlights = useCallback(
+    (event: HistoricalEvent | null) => {
+      const dataSource = dataSourceRef.current;
+      if (!dataSource) return;
+
+      const normalizeString = (str: string) => str.replace(/\s+/g, '').toLowerCase();
+      const safeStringArray = (value: unknown): string[] =>
+        Array.isArray(value)
+          ? value.filter((item): item is string => typeof item === 'string')
+          : [];
+
+      // Only highlight provinces for multi_region events
+      const shouldHighlight =
+        event &&
+        event.geoType === 'multi_region' &&
+        event.primaryRegions &&
+        event.primaryRegions.length > 0;
+
+      const primarySet = shouldHighlight
+        ? new Set(safeStringArray(event!.primaryRegions).map(normalizeString))
+        : new Set<string>();
+      const secondarySet = shouldHighlight
+        ? new Set(safeStringArray(event!.secondaryRegions).map(normalizeString))
+        : new Set<string>();
+
+      const baseColor =
+        event && shouldHighlight
+          ? getMarkerColor(event.eventType)
+          : Color.fromCssColorString('#4f6f95');
+
+      const primaryMaterial = new ColorMaterialProperty(baseColor.withAlpha(0.5));
+      const secondaryMaterial = new ColorMaterialProperty(baseColor.withAlpha(0.22));
+      const defaultMaterial = new ColorMaterialProperty(Color.TRANSPARENT);
+
+      const entities = dataSource.entities.values;
+      for (let i = 0; i < entities.length; i++) {
+        const entity = entities[i];
+        if (!entity.polygon) continue;
+        const name = entity.properties?.NAME_1?.getValue() || '';
+        const normalizedName = normalizeString(name);
+        if (primarySet.has(normalizedName)) {
+          entity.polygon.material = primaryMaterial;
+          entity.polygon.outlineColor = baseColor.withAlpha(0.95) as any;
+          entity.polygon.outlineWidth = 2 as any;
+        } else if (secondarySet.has(normalizedName)) {
+          entity.polygon.material = secondaryMaterial;
+          entity.polygon.outlineColor = baseColor.withAlpha(0.65) as any;
+          entity.polygon.outlineWidth = 1.5 as any;
+        } else {
+          entity.polygon.material = defaultMaterial;
+          entity.polygon.outlineColor = Color.fromCssColorString('#8b7355').withAlpha(0.45) as any;
+        }
+      }
+    },
+    []
+  );
+
   useEffect(() => {
     if (CESIUM_SAFE_MODE) return;
-
-    const dataSource = dataSourceRef.current;
-    if (!dataSource) return;
-
-    const normalizeString = (str: string) => str.replace(/\s+/g, '').toLowerCase();
-    const safeStringArray = (value: unknown): string[] =>
-      Array.isArray(value)
-        ? value.filter((item): item is string => typeof item === 'string')
-        : [];
-
-    const primarySet = new Set(
-      safeStringArray(selectedEvent?.primaryRegions).map(normalizeString)
-    );
-    const secondarySet = new Set(
-      safeStringArray(selectedEvent?.secondaryRegions).map(normalizeString)
-    );
-
-    let baseColor = Color.fromCssColorString('#4f6f95');
-    if (selectedEvent) {
-      baseColor = getMarkerColor(selectedEvent.eventType);
-    }
-
-    const primaryMaterial = new ColorMaterialProperty(baseColor.withAlpha(0.35));
-    const secondaryMaterial = new ColorMaterialProperty(baseColor.withAlpha(0.15));
-    const defaultMaterial = new ColorMaterialProperty(Color.TRANSPARENT);
-
-    const entities = dataSource.entities.values;
-    for (let i = 0; i < entities.length; i++) {
-      const entity = entities[i];
-      if (!entity.polygon) continue;
-      const name = entity.properties?.NAME_1?.getValue() || '';
-      const normalizedName = normalizeString(name);
-      if (primarySet.has(normalizedName)) {
-        entity.polygon.material = primaryMaterial;
-        entity.polygon.outlineColor = baseColor.withAlpha(0.8) as any;
-      } else if (secondarySet.has(normalizedName)) {
-        entity.polygon.material = secondaryMaterial;
-        entity.polygon.outlineColor = baseColor.withAlpha(0.5) as any;
-      } else {
-        entity.polygon.material = defaultMaterial;
-        entity.polygon.outlineColor = Color.WHITE.withAlpha(0.2) as any;
-      }
-    }
-  }, [selectedEvent]);
+    applyPolygonHighlights(selectedEvent);
+  }, [selectedEvent, applyPolygonHighlights]);
 
   // ─── Helper: compute bounding rectangle for a multi-region event ────────────
   const computeRegionBounds = useCallback(
@@ -395,10 +460,10 @@ export default function CesiumMap({
 
       // Altitude theo geoType:
       //  - single_point + có children     → 800km (xem cụm sự kiện con)
-      //  - single_point (marker chính xác) → 200km (zoom gần)
+      //  - single_point (marker chính xác) → 30km  (zoom sát, thấy rõ marker)
       //  - multi_region (fallback)         → 500km
       //  - nationwide                      → 1500km (toàn quốc)
-      let altitude = 200000;
+      let altitude = 30000;
       if (hasChildren) altitude = 800000;
       else if (selectedEvent.geoType === 'multi_region') altitude = 500000;
       else if (selectedEvent.geoType === 'nationwide') altitude = 1500000;

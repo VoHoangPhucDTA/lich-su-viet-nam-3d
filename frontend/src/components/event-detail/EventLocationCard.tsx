@@ -105,7 +105,7 @@ export default function EventLocationCard({ event, index = '05' }: EventLocation
           </div>
 
           <button
-            onClick={() => navigate('/')}
+            onClick={() => navigate('/map')}
             className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl font-semibold transition shrink-0 hover:brightness-110"
             style={{
               background: 'var(--accent)',

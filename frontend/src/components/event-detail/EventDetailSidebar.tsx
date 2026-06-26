@@ -85,15 +85,15 @@ export default function EventDetailSidebar({
 
   return (
     <aside className="hidden lg:flex w-full min-w-0 flex-col gap-4 sticky top-24 h-fit">
-      {/* Reading progress */}
-      <div className="p-5 lg:p-6 rounded-2xl" style={cardStyle}>
+      {/* Reading progress — museum guide plaque */}
+      <div className="p-5 lg:p-6 rounded-2xl" style={{...cardStyle, background: 'linear-gradient(135deg, var(--accent-soft), transparent 60%), var(--bg-card)'}}>
         <div className="flex items-center justify-between mb-3.5">
           <span className={eyebrowClass} style={{ color: 'var(--text-muted)' }}>
             Tiến độ đọc
           </span>
           <span
-            className="font-mono text-xs font-bold"
-            style={{ color: 'var(--admin-accent)' }}
+            className="mono-label text-xs"
+            style={{ color: 'var(--accent)', fontWeight: 700 }}
           >
             {Math.round(readPct)}%
           </span>
@@ -173,7 +173,7 @@ export default function EventDetailSidebar({
 
         {showMapAction && (
           <button
-            onClick={() => navigate('/')}
+            onClick={() => navigate('/map')}
             className="inline-flex items-center justify-center gap-2 w-full px-4 py-3 rounded-[10px] text-sm font-semibold transition hover:brightness-110"
             style={{ background: 'var(--accent)', color: '#fff' }}
           >

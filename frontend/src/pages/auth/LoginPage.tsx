@@ -17,10 +17,10 @@ function SubmitButton({ loading }: { loading: boolean }) {
       style={{
         width: '100%',
         padding: '0.8125rem',
-        background: loading ? 'var(--accent-soft)' : 'var(--accent)',
+        background: loading ? '#fef2f2' : '#8b1e1e',
         border: 'none',
-        borderRadius: '0.625rem',
-        color: '#fff',
+        borderRadius: '0.75rem',
+        color: loading ? '#8b1e1e' : '#ffffff',
         fontSize: '0.9375rem',
         fontWeight: 600,
         cursor: loading ? 'not-allowed' : 'pointer',
@@ -29,8 +29,18 @@ function SubmitButton({ loading }: { loading: boolean }) {
         justifyContent: 'center',
         gap: '0.5rem',
         transition: 'all 0.2s',
-        boxShadow: loading ? 'none' : '0 4px 15px rgba(30,58,95,0.2)',
+        boxShadow: loading ? 'none' : '0 2px 12px rgba(139,30,30,0.2)',
         fontFamily: 'inherit',
+      }}
+      onMouseEnter={(e) => {
+        if (!loading) {
+          (e.currentTarget as HTMLButtonElement).style.background = '#6b1616';
+        }
+      }}
+      onMouseLeave={(e) => {
+        if (!loading) {
+          (e.currentTarget as HTMLButtonElement).style.background = '#8b1e1e';
+        }
       }}
     >
       {loading ? (
@@ -55,7 +65,6 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
-    // Bước 6B.1.1: LoginPage.tsx: Người dùng nhấp vào nút Đăng nhập
     e.preventDefault();
     if (!email.trim()) {
       setError('Vui lòng nhập email.');
@@ -68,14 +77,10 @@ export default function LoginPage() {
     setError('');
     setLoading(true);
     try {
-      // Bước 6B.1.2: LoginPage.tsx: gọi hàm login trong authService.ts
       const result = await login({ email: email.trim(), password });
-      // Sau khi login, lấy role từ kết quả trả về (không cần loadFromStorage nữa)
       const role = result?.user?.role ?? 'student';
-      // Bước 6B.1.10: LoginPage.tsx: chuyển hướng trang chủ
-      navigate(role === 'admin' ? '/admin/dashboard' : '/', { replace: true });
+      navigate(role === 'admin' ? '/admin/dashboard' : '/home', { replace: true });
     } catch (err: unknown) {
-      // Bước 6B.4.6: LoginPage.tsx: hiển thị thông báo lỗi trên form
       setError(authErrorMessage(err));
     } finally {
       setLoading(false);
@@ -84,18 +89,17 @@ export default function LoginPage() {
 
   return (
     <AuthLayout>
+      {/* Heading */}
       <div style={{ marginBottom: '1.75rem' }}>
         <h1
-          style={{
-            fontSize: '1.5rem',
-            fontWeight: 700,
-            color: 'var(--text-primary)',
-            marginBottom: '0.375rem',
-            letterSpacing: '-0.01em',
-          }}
+          className="font-serif text-2xl font-bold text-stone-900"
+          style={{ marginBottom: '0.25rem', letterSpacing: '-0.01em' }}
         >
           Đăng nhập
         </h1>
+        <p className="text-sm text-stone-500">
+          Chào mừng trở lại với Bảo tàng số Lịch sử Việt Nam
+        </p>
       </div>
 
       {error && <AuthFormMessage type="error" message={error} />}
@@ -130,7 +134,7 @@ export default function LoginPage() {
               alignItems: 'center',
               gap: '0.5rem',
               fontSize: '0.875rem',
-              color: 'var(--text-secondary)',
+              color: '#57534e',
               cursor: 'pointer',
             }}
           >
@@ -139,18 +143,14 @@ export default function LoginPage() {
               id="remember-me"
               checked={remember}
               onChange={(e) => setRemember(e.target.checked)}
-              style={{ accentColor: 'var(--accent)', cursor: 'pointer', width: '1rem', height: '1rem' }}
+              style={{ accentColor: '#8b1e1e', cursor: 'pointer', width: '1rem', height: '1rem' }}
             />
             Ghi nhớ đăng nhập
           </label>
           <Link
             to="/forgot-password"
-            style={{
-              fontSize: '0.875rem',
-              color: 'var(--accent)',
-              textDecoration: 'none',
-              fontWeight: 600,
-            }}
+            className="text-sm font-semibold hover:underline transition-colors"
+            style={{ color: '#8b1e1e', textDecoration: 'none' }}
           >
             Quên mật khẩu?
           </Link>
@@ -163,9 +163,9 @@ export default function LoginPage() {
 
       <OAuthButtons mode="login" onError={setError} />
 
-      <p style={{ textAlign: 'center', fontSize: '0.875rem', color: 'var(--text-muted)', marginTop: '1.25rem' }}>
+      <p className="text-center text-sm text-stone-500 mt-5">
         Chưa có tài khoản?{' '}
-        <Link to="/register" style={{ color: 'var(--accent)', textDecoration: 'none', fontWeight: 600 }}>
+        <Link to="/register" className="font-semibold hover:underline transition-colors" style={{ color: '#8b1e1e', textDecoration: 'none' }}>
           Đăng ký ngay
         </Link>
       </p>

@@ -307,6 +307,83 @@ export async function getTimelineYearsFromBackend(grade?: number | null): Promis
   }
 }
 
+export async function getHomepageEvents(): Promise<HistoricalEvent[]> {
+  try {
+    // Single broad query — no year filter, higher limit, dedupe client-side
+    const query = toQueryString({ limit: 30 });
+    const data = await apiGet<EventListResponse>(`/api/events${query}`);
+
+    // Deduplicate by id, pick up to 6
+    const seen = new Set<string>();
+    const events: HistoricalEvent[] = [];
+    for (const dto of data.items) {
+      if (seen.has(dto.id)) continue;
+      seen.add(dto.id);
+      events.push(summaryToHistoricalEvent(dto));
+      if (events.length >= 6) break;
+    }
+
+    return sortHistoricalEvents(events);
+  } catch (error) {
+    console.warn('Could not load homepage events from backend.', error);
+    return [];
+  }
+}
+
+export interface BrowseEventsParams {
+  q?: string;
+  eventType?: string;
+  year?: number;
+  grade?: number;
+  limit?: number;
+  offset?: number;
+  sortBy?: 'year' | 'name';
+  sortDir?: 'asc' | 'desc';
+}
+
+export interface BrowseEventsResult {
+  events: HistoricalEvent[];
+  total: number;
+  hasMore: boolean;
+}
+
+export async function getBrowseEvents(params: BrowseEventsParams): Promise<BrowseEventsResult> {
+  try {
+    const query = toQueryString({
+      q: params.q || undefined,
+      eventType: params.eventType || undefined,
+      year: params.year || undefined,
+      grade: params.grade || undefined,
+      limit: params.limit ?? 24,
+      offset: params.offset ?? 0,
+    });
+    const data = await apiGet<EventListResponse>(`/api/events${query}`);
+    const events = data.items.map(summaryToHistoricalEvent);
+
+    if (params.sortBy === 'name') {
+      events.sort((a, b) =>
+        (params.sortDir === 'desc' ? -1 : 1) * a.name.localeCompare(b.name, 'vi')
+      );
+    } else {
+      sortHistoricalEvents(events);
+      if (params.sortDir === 'desc') events.reverse();
+    }
+
+    // data.count is the response-item count (after LIMIT/OFFSET), NOT the
+    // total matching rows in the database. Use response length to infer hasMore.
+    const responseSize = events.length;
+    const limit = params.limit ?? 24;
+    return {
+      events,
+      total: data.count,
+      hasMore: responseSize >= limit,
+    };
+  } catch (error) {
+    console.warn('Could not browse events from backend.', error);
+    return { events: [], total: 0, hasMore: false };
+  }
+}
+
 export async function recordEventView(
   eventId: string,
   payload: { durationSeconds?: number; progressPercent?: number; source?: 'map' | 'detail' | 'search' | 'quiz' | 'exam' }

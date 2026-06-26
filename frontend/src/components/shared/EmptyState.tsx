@@ -1,13 +1,13 @@
-// ─── Shared: EmptyState ──────────────────────────────────────────────────────
+import { Landmark } from 'lucide-react';
 
 interface EmptyStateProps {
-  icon?: string;
+  icon?: React.ReactNode;
   title?: string;
   description?: string;
 }
 
 export default function EmptyState({
-  icon = '📭',
+  icon,
   title = 'Không có dữ liệu',
   description = 'Không tìm thấy kết quả phù hợp với bộ lọc hiện tại.',
 }: EmptyStateProps) {
@@ -18,15 +18,39 @@ export default function EmptyState({
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        padding: '3.5rem 1rem',
-        color: '#64748b',
+        padding: '4rem 1.5rem',
         textAlign: 'center',
-        gap: '0.5rem',
+        gap: '12px',
       }}
     >
-      <span style={{ fontSize: '2.5rem', marginBottom: '0.25rem' }}>{icon}</span>
-      <p style={{ fontSize: '0.9rem', fontWeight: 600, color: '#94a3b8' }}>{title}</p>
-      <p style={{ fontSize: '0.78rem', maxWidth: '22rem', lineHeight: 1.5 }}>{description}</p>
+      <div
+        style={{
+          width: '56px',
+          height: '56px',
+          borderRadius: '16px',
+          background: 'var(--accent-soft)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          color: 'var(--accent)',
+          marginBottom: '4px',
+        }}
+      >
+        {icon || <Landmark size={26} strokeWidth={1.6} />}
+      </div>
+      <p style={{ fontSize: '15px', fontWeight: 600, color: 'var(--text-primary)' }}>
+        {title}
+      </p>
+      <p
+        style={{
+          fontSize: '13px',
+          maxWidth: '26rem',
+          lineHeight: 1.6,
+          color: 'var(--text-muted)',
+        }}
+      >
+        {description}
+      </p>
     </div>
   );
 }

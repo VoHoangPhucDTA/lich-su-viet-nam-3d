@@ -1,6 +1,7 @@
 import {
   ArrowLeft,
   X,
+  Mountain,
 } from 'lucide-react';
 import type { HistoricalEvent } from '../types/event';
 import {
@@ -41,13 +42,16 @@ export default function EventPopup({
         display: 'flex',
         flexDirection: 'column',
         zIndex: 10,
+        background: '#ffffff',
+        borderLeft: '1px solid #e7e5e4',
+        boxShadow: '-8px 0 24px -12px rgba(0,0,0,0.08)',
       }}
     >
       {/* Header */}
       <div
         style={{
           padding: '20px',
-          borderBottom: '1px solid var(--border)',
+          borderBottom: '1px solid #e7e5e4',
           display: 'flex',
           alignItems: 'flex-start',
           justifyContent: 'space-between',
@@ -60,7 +64,7 @@ export default function EventPopup({
             <button
               onClick={onNavigateToParent}
               className="flex items-center gap-1.5 bg-transparent border-0 text-xs font-semibold cursor-pointer mb-2 p-0"
-              style={{ color: 'var(--accent)' }}
+              style={{ color: '#8b1e1e' }}
             >
               <ArrowLeft size={13} strokeWidth={2.4} />
               Quay lại: {parentEvent.name}
@@ -68,13 +72,13 @@ export default function EventPopup({
           )}
 
           <h2
+            className="serif-heading"
             style={{
               fontSize: '1.25rem',
               fontWeight: 800,
               lineHeight: 1.3,
               marginBottom: '10px',
               color: 'var(--text-primary)',
-              letterSpacing: '-0.01em',
             }}
           >
             {event.name}
@@ -91,9 +95,9 @@ export default function EventPopup({
               <span
                 className="inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-medium border"
                 style={{
-                  background: 'rgba(148, 163, 184, 0.15)',
-                  color: 'var(--color-text-dim)',
-                  borderColor: 'rgba(148, 163, 184, 0.2)',
+                  background: 'rgba(120, 113, 108, 0.12)',
+                  color: '#57534e',
+                  borderColor: 'rgba(120, 113, 108, 0.2)',
                 }}
               >
                 {event.eventSubtype}
@@ -102,9 +106,9 @@ export default function EventPopup({
             <span
               className="inline-flex px-2.5 py-0.5 rounded-full text-[11px] font-semibold border"
               style={{
-                background: 'var(--bg-card)',
-                color: 'var(--text-muted)',
-                borderColor: 'var(--border)',
+                background: '#ffffff',
+                color: '#78716c',
+                borderColor: '#e7e5e4',
                 boxShadow: '0 1px 2px rgba(0,0,0,0.05)',
               }}
             >
@@ -118,21 +122,21 @@ export default function EventPopup({
           aria-label="Đóng"
           className="flex items-center justify-center w-9 h-9 rounded-[10px] cursor-pointer flex-shrink-0 border transition-all duration-200"
           style={{
-            background: 'var(--bg-app)',
-            borderColor: 'var(--border)',
-            color: 'var(--text-muted)',
-            boxShadow: 'var(--shadow-sm)',
+            background: '#ffffff',
+            borderColor: '#e7e5e4',
+            color: '#78716c',
+            boxShadow: '0 2px 8px rgba(0,0,0,0.06)',
           }}
           onMouseEnter={(e) => {
-            e.currentTarget.style.background = 'var(--danger)';
-            e.currentTarget.style.color = '#fff';
-            e.currentTarget.style.borderColor = 'var(--danger)';
+            e.currentTarget.style.background = '#8b1e1e';
+            e.currentTarget.style.color = '#ffffff';
+            e.currentTarget.style.borderColor = '#8b1e1e';
             e.currentTarget.style.transform = 'rotate(90deg)';
           }}
           onMouseLeave={(e) => {
-            e.currentTarget.style.background = 'var(--bg-app)';
-            e.currentTarget.style.color = 'var(--text-muted)';
-            e.currentTarget.style.borderColor = 'var(--border)';
+            e.currentTarget.style.background = '#ffffff';
+            e.currentTarget.style.color = '#78716c';
+            e.currentTarget.style.borderColor = '#e7e5e4';
             e.currentTarget.style.transform = 'rotate(0deg)';
           }}
         >
@@ -152,16 +156,14 @@ export default function EventPopup({
         <div
           className="flex items-center gap-3 px-4 py-3 rounded-xl border mb-3.5"
           style={{
-            background: 'var(--bg-card)',
-            borderColor: 'var(--border)',
-            boxShadow: 'var(--shadow)',
+            background: '#ffffff',
+            borderColor: '#e7e5e4',
+            boxShadow: '0 2px 8px rgba(0,0,0,0.06)',
           }}
         >
           <div>
             <div
-              className="text-[11px] uppercase tracking-[0.08em] font-bold"
-              style={{ color: 'var(--text-muted)' }}
-            >
+              className="text-[11px] uppercase tracking-[0.08em] font-bold"              style={{ color: '#78716c' }}>
               Thời gian
             </div>
             <div className="text-[15px] font-semibold">
@@ -240,9 +242,9 @@ export default function EventPopup({
                     borderRadius: '6px',
                     fontSize: '12px',
                     fontWeight: 500,
-                    background: 'var(--bg-app)',
-                    color: 'var(--text-secondary)',
-                    border: '1px solid var(--border)',
+                    background: '#fafaf9',
+                    color: '#57534e',
+                    border: '1px solid #e7e5e4',
                   }}
                 >
                   {region}
@@ -257,9 +259,9 @@ export default function EventPopup({
           style={{
             marginBottom: '20px',
             padding: '12px 16px',
-            background: 'var(--bg-card)',
+            background: '#ffffff',
             borderRadius: '12px',
-            border: '1px solid var(--border)',
+            border: '1px solid #e7e5e4',
           }}
         >
           <div
@@ -307,19 +309,19 @@ export default function EventPopup({
                   onClick={() => onNavigateToChild(child)}
                   className="flex items-center gap-3 w-full text-left px-3.5 py-3 rounded-xl border cursor-pointer transition-all duration-200"
                   style={{
-                    background: 'var(--bg-card)',
-                    borderColor: 'var(--border)',
-                    color: 'var(--text-primary)',
+              background: '#ffffff',
+              borderColor: '#e7e5e4',
+              color: '#1c1917',
                     boxShadow: '0 1px 4px rgba(0,0,0,0.05)',
                   }}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.background = 'var(--bg-app)';
-                    e.currentTarget.style.borderColor = 'var(--accent)';
+                    e.currentTarget.style.background = '#fafaf9';
+                    e.currentTarget.style.borderColor = '#8b1e1e';
                     e.currentTarget.style.transform = 'translateY(-1px)';
                   }}
                   onMouseLeave={(e) => {
-                    e.currentTarget.style.background = 'var(--bg-card)';
-                    e.currentTarget.style.borderColor = 'var(--border)';
+                    e.currentTarget.style.background = '#ffffff';
+                    e.currentTarget.style.borderColor = '#e7e5e4';
                     e.currentTarget.style.transform = 'none';
                   }}
                 >
@@ -350,21 +352,23 @@ export default function EventPopup({
       <div
         style={{
           padding: '16px 20px',
-          borderTop: '1px solid var(--border)',
+          borderTop: '1px solid #e7e5e4',
           display: 'flex',
           gap: '8px',
+          flexWrap: 'wrap',
         }}
       >
-          <button
+        <button
           onClick={() => {
             const detailKey = event.slug || event.id;
             navigate(`/events/${detailKey}`);
           }}
           className="flex-1 px-3 py-3 rounded-[10px] text-[13px] font-bold cursor-pointer transition-all duration-200 border-0"
           style={{
-            background: 'var(--accent)',
-            color: '#fff',
-            boxShadow: '0 4px 12px rgba(30, 58, 95, 0.3)',
+            minWidth: '120px',
+            background: '#8b1e1e',
+            color: '#ffffff',
+            boxShadow: '0 2px 8px rgba(139,30,30,0.2)',
           }}
           onMouseEnter={(e) => {
             e.currentTarget.style.filter = 'brightness(1.1)';
@@ -377,17 +381,34 @@ export default function EventPopup({
         >
           Xem chi tiết
         </button>
+
+        {/* Terrain View placeholder — chuẩn bị cho tính năng 3D Địa hình tương lai */}
+        <button
+          disabled
+          title="Tính năng Xem Địa hình 3D đang được phát triển"
+          className="flex items-center justify-center gap-1.5 px-3 py-3 rounded-[10px] text-[13px] font-semibold transition-all duration-200 border opacity-50 cursor-not-allowed"
+          style={{
+            borderColor: '#e7e5e4',
+            background: '#ffffff',
+            color: '#78716c',
+          }}
+          tabIndex={-1}
+        >
+          <Mountain size={15} strokeWidth={2.2} />
+          3D Địa hình
+        </button>
+
         {parentEvent && (
           <button
             onClick={onNavigateToParent}
             className="flex-1 px-3 py-3 rounded-[10px] text-[13px] font-bold cursor-pointer transition-all duration-200 border"
             style={{
-              borderColor: 'var(--border)',
-              background: 'var(--bg-card)',
-              color: 'var(--text-primary)',
+              minWidth: '120px',
+              borderColor: '#e7e5e4',
+              background: '#ffffff',
+              color: '#1c1917',
             }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.background = 'var(--bg-app)';
+            onMouseEnter={(e) => {                e.currentTarget.style.background = '#fafaf9';
               e.currentTarget.style.transform = 'translateY(-1px)';
             }}
             onMouseLeave={(e) => {
@@ -398,6 +419,7 @@ export default function EventPopup({
             Quay lại cha
           </button>
         )}
+
       </div>
     </div>
   );
