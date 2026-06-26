@@ -17,6 +17,10 @@ export default defineConfig({
         { src: `${cesiumSource}/ThirdParty/**/*`, dest: 'cesium/ThirdParty' },
         { src: `${cesiumSource}/Assets/**/*`, dest: 'cesium/Assets' },
         { src: `${cesiumSource}/Widgets/**/*`, dest: 'cesium/Widgets' },
+        // Copy 38 đề thi JSON từ data/exams/ ở root sang dist/data/exams/
+        // Source-of-truth: data/exams/ ở root project (NGOÀI MVP_KLTN/).
+        // Manifest + topic-index sinh bởi scripts/build-*.mjs vào public/data/exams/.
+        { src: path.resolve(__dirname, '../data/exams/*.json').replace(/\\/g, '/'), dest: 'data/exams' },
       ],
     }),
   ],
