@@ -9,13 +9,11 @@ function Bar({
   color,
   label,
   valueLabel,
-  height = 120,
 }: {
   pct: number;
   color: string;
   label: string;
   valueLabel: string;
-  height?: number;
 }) {
   return (
     <div
@@ -23,24 +21,26 @@ function Bar({
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        gap: '0.4rem',
+        gap: '0.375rem',
         flex: 1,
         minWidth: 0,
+        height: '100%',
       }}
     >
-      <span style={{ fontSize: '0.7rem', color: 'var(--text-primary)', fontWeight: 700 }}>{valueLabel}</span>
+      <span style={{ fontSize: '0.7rem', color: '#1c1917', fontWeight: 700, lineHeight: 1 }}>{valueLabel}</span>
+      {/* Chart-track fills the remaining vertical space */}
       <div
         style={{
+          flex: 1,
           width: '100%',
-          height: `${height}px`,
-          background: 'var(--bg-app)',
-          border: '1px solid var(--border)',
+          minHeight: 0,
+          background: '#f5f5f4',
+          border: '1px solid #e7e5e4',
           borderRadius: '0.375rem',
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'flex-end',
           overflow: 'hidden',
-          position: 'relative',
         }}
       >
         <div
@@ -50,11 +50,10 @@ function Bar({
             background: `linear-gradient(180deg, ${color} 0%, ${color}aa 100%)`,
             borderRadius: '0.375rem 0.375rem 0 0',
             transition: 'height 0.6s cubic-bezier(0.34,1.56,0.64,1)',
-            boxShadow: `0 -2px 8px ${color}44`,
           }}
         />
       </div>
-      <span style={{ fontSize: '0.68rem', color: 'var(--text-muted)', textAlign: 'center', lineHeight: 1.2 }}>{label}</span>
+      <span style={{ fontSize: '0.65rem', color: '#78716c', textAlign: 'center', lineHeight: 1.1 }}>{label}</span>
     </div>
   );
 }
@@ -64,15 +63,14 @@ export function WeeklyScoreChart({ data }: { data: WeeklyScorePoint[] }) {
   const max = 10;
   return (
     <div>
-      <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'flex-end', height: '9rem' }}>
+      <div style={{ display: 'flex', gap: '0.5rem', height: '10rem', alignItems: 'stretch' }}>
         {data.map(d => (
           <Bar
             key={d.week}
             pct={(d.score / max) * 100}
-            color="#4f6f95"
+            color="#8b1e1e"
             label={d.week}
             valueLabel={d.score.toFixed(1)}
-            height={128}
           />
         ))}
       </div>
@@ -81,11 +79,10 @@ export function WeeklyScoreChart({ data }: { data: WeeklyScorePoint[] }) {
         style={{
           display: 'flex',
           justifyContent: 'space-between',
-          marginTop: '0.25rem',
+          marginTop: '0.5rem',
           fontSize: '0.6rem',
-          color: 'var(--text-muted)',
+          color: '#78716c',
           padding: '0 0.125rem',
-          opacity: 0.8,
         }}
       >
         <span>0</span>
@@ -99,7 +96,7 @@ export function WeeklyScoreChart({ data }: { data: WeeklyScorePoint[] }) {
 // ─── Category horizontal bars ─────────────────────────────────────────────────
 export function CategoryChart({ data }: { data: CategoryScore[] }) {
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.875rem' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
       {data.map(c => (
         <div key={c.category}>
           <div
@@ -110,8 +107,8 @@ export function CategoryChart({ data }: { data: CategoryScore[] }) {
               marginBottom: '0.3rem',
             }}
           >
-            <span style={{ fontSize: '0.8rem', color: 'var(--text-primary)', fontWeight: 600 }}>
-              {c.icon} {c.label}
+            <span style={{ fontSize: '0.8rem', color: '#1c1917', fontWeight: 600, lineHeight: 1.4 }}>
+              {c.label}
             </span>
             <span style={{ fontSize: '0.8rem', fontWeight: 700, color: c.color }}>
               {c.correctRate}%
@@ -120,8 +117,8 @@ export function CategoryChart({ data }: { data: CategoryScore[] }) {
           <div
             style={{
               height: '0.5rem',
-              background: 'var(--bg-app)',
-              border: '1px solid var(--border)',
+              background: '#f5f5f4',
+              border: '1px solid #e7e5e4',
               borderRadius: '9999px',
               overflow: 'hidden',
             }}
@@ -145,13 +142,13 @@ export function CategoryChart({ data }: { data: CategoryScore[] }) {
 
 // ─── Grade progress bars ──────────────────────────────────────────────────────
 export function GradeProgressChart({ data }: { data: ProgressByGrade[] }) {
-  const gradeColors: Record<number, string> = { 10: '#2f7a57', 11: '#4f6f95', 12: '#c29b4b' };
+  const gradeColors: Record<number, string> = { 10: '#3D8361', 11: '#8b1e1e', 12: '#c5a059' };
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
       {data.map(g => {
         const pct = Math.round((g.eventsViewed / g.eventsTotal) * 100);
-        const color = gradeColors[g.grade] ?? '#4f6f95';
+        const color = gradeColors[g.grade] ?? '#8b1e1e';
         return (
           <div key={g.grade}>
             <div
@@ -159,14 +156,14 @@ export function GradeProgressChart({ data }: { data: ProgressByGrade[] }) {
                 display: 'flex',
                 justifyContent: 'space-between',
                 alignItems: 'center',
-                marginBottom: '0.3rem',
+                marginBottom: '0.375rem',
               }}
             >
-              <span style={{ fontSize: '0.8rem', color: 'var(--text-primary)', fontWeight: 700 }}>
+              <span style={{ fontSize: '0.8rem', color: '#1c1917', fontWeight: 700 }}>
                 Lớp {g.grade}
               </span>
               <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
-                <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>
+                <span style={{ fontSize: '0.7rem', color: '#78716c' }}>
                   {g.eventsViewed}/{g.eventsTotal} sự kiện
                 </span>
                 <span style={{ fontSize: '0.75rem', fontWeight: 800, color }}>
@@ -177,8 +174,8 @@ export function GradeProgressChart({ data }: { data: ProgressByGrade[] }) {
             <div
               style={{
                 height: '0.6rem',
-                background: 'var(--bg-app)',
-                border: '1px solid var(--border)',
+                background: '#f5f5f4',
+                border: '1px solid #e7e5e4',
                 borderRadius: '9999px',
                 overflow: 'hidden',
               }}
@@ -194,7 +191,7 @@ export function GradeProgressChart({ data }: { data: ProgressByGrade[] }) {
                 }}
               />
             </div>
-            <div style={{ fontSize: '0.68rem', color: 'var(--text-muted)', marginTop: '0.2rem', opacity: 0.9 }}>
+            <div style={{ fontSize: '0.68rem', color: '#78716c', marginTop: '0.25rem', opacity: 0.9 }}>
               Điểm TB: {g.averageScore.toFixed(1)}
             </div>
           </div>

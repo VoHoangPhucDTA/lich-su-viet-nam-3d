@@ -3,8 +3,25 @@ import ProfileLayout from '../../layouts/ProfileLayout';
 import { useAuth } from '../../auth/AuthContext';
 import UserAvatar from '../../components/profile/UserAvatar';
 import { useNavigate } from 'react-router-dom';
+import { uploadAvatarImage } from '../../services/cloudinaryService';
+import { isStrongPassword, passwordStrengthMessage } from '../../utils/passwordUtils';
+import PasswordInput from '../../components/auth/PasswordInput';
+import PasswordStrengthMeter from '../../components/auth/PasswordStrengthMeter';
+import {
+  User,
+  Lock,
+  Shield,
+  AlertTriangle,
+  Save,
+  Camera,
+  LogOut,
+  CheckCircle,
+  XCircle,
+  LogIn,
+  Upload,
+} from 'lucide-react';
 
-/* ─── Shared input ───────────────────────────────────────────────────────────── */
+/* ─── Shared input ──────────────────────────────────────────────────────────── */
 function FormField({
   id,
   label,
@@ -13,6 +30,7 @@ function FormField({
   onChange,
   placeholder,
   disabled,
+  helperText,
 }: {
   id: string;
   label: string;
@@ -21,14 +39,13 @@ function FormField({
   onChange?: (v: string) => void;
   placeholder?: string;
   disabled?: boolean;
+  helperText?: string;
 }) {
   const [focused, setFocused] = useState(false);
+
   return (
     <div>
-      <label
-        htmlFor={id}
-        style={{ display: 'block', fontSize: '0.825rem', fontWeight: 600, color: 'var(--text-muted)', marginBottom: '0.5rem' }}
-      >
+      <label htmlFor={id} className="block text-xs font-mono font-bold uppercase tracking-wider text-stone-400 mb-1.5">
         {label}
       </label>
       <input
@@ -40,26 +57,23 @@ function FormField({
         disabled={disabled}
         onFocus={() => setFocused(true)}
         onBlur={() => setFocused(false)}
+        className="w-full px-4 py-2.5 rounded-xl text-sm outline-none transition-all duration-200"
         style={{
-          width: '100%',
-          padding: '0.75rem 1rem',
-          background: disabled ? 'var(--bg-app)' : 'var(--bg-card)',
-          border: focused ? '2px solid var(--accent)' : '1px solid var(--border)',
-          borderRadius: '0.75rem',
-          color: disabled ? 'var(--text-muted)' : 'var(--text-primary)',
-          fontSize: '0.875rem',
-          outline: 'none',
-          boxShadow: focused ? 'var(--shadow)' : 'none',
-          transition: 'all 0.15s cubic-bezier(0.4, 0, 0.2, 1)',
+          background: disabled ? '#f5f5f4' : '#fff',
+          border: focused ? '2px solid #8b1e1e' : '1px solid #e7e5e4',
+          color: disabled ? '#a8a29e' : '#1c1917',
           fontFamily: 'inherit',
           cursor: disabled ? 'not-allowed' : 'text',
-          opacity: disabled ? 0.7 : 1,
         }}
       />
+      {helperText && (
+        <p className="text-xs text-stone-400 mt-1">{helperText}</p>
+      )}
     </div>
   );
 }
 
+/* ─── Select field ──────────────────────────────────────────────────────────── */
 function SelectField({
   id,
   label,
@@ -73,37 +87,29 @@ function SelectField({
   onChange: (v: string) => void;
   options: { value: string; label: string }[];
 }) {
+  const [focused, setFocused] = useState(false);
+
   return (
     <div>
-      <label
-        htmlFor={id}
-        style={{ display: 'block', fontSize: '0.825rem', fontWeight: 600, color: 'var(--text-muted)', marginBottom: '0.5rem' }}
-      >
+      <label htmlFor={id} className="block text-xs font-mono font-bold uppercase tracking-wider text-stone-400 mb-1.5">
         {label}
       </label>
-      <div style={{ position: 'relative' }}>
+      <div className="relative" onFocus={() => setFocused(true)} onBlur={() => setFocused(false)}>
         <select
           id={id}
           value={value}
           onChange={e => onChange(e.target.value)}
+          className="w-full px-4 py-2.5 rounded-xl text-sm outline-none appearance-none cursor-pointer transition-all duration-200"
           style={{
-            width: '100%',
-            padding: '0.75rem 1rem',
-            background: 'var(--bg-card)',
-            border: '1px solid var(--border)',
-            borderRadius: '0.75rem',
-            color: 'var(--text-primary)',
-            fontSize: '0.875rem',
-            outline: 'none',
+            background: '#fff',
+            border: focused ? '2px solid #8b1e1e' : '1px solid #e7e5e4',
+            color: '#1c1917',
             fontFamily: 'inherit',
-            cursor: 'pointer',
-            appearance: 'none',
-            transition: 'all 0.15s cubic-bezier(0.4, 0, 0.2, 1)',
           }}
         >
           {options.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
         </select>
-        <div style={{ position: 'absolute', right: '1rem', top: '50%', transform: 'translateY(-50%)', pointerEvents: 'none', color: 'var(--text-muted)', fontSize: '0.6rem' }}>
+        <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-stone-400 text-xs">
           ▼
         </div>
       </div>
@@ -111,62 +117,43 @@ function SelectField({
   );
 }
 
-/* ─── Card wrapper ───────────────────────────────────────────────────────────── */
-function Card({ children, style }: { children: React.ReactNode; style?: React.CSSProperties }) {
+/* ─── Card wrapper ──────────────────────────────────────────────────────────── */
+function Card({ children, className = '' }: { children: React.ReactNode; className?: string }) {
   return (
-    <div
-      style={{
-        background: 'var(--bg-card)',
-        border: '1px solid var(--border)',
-        borderRadius: '1.25rem',
-        padding: '1.75rem',
-        marginBottom: '1.5rem',
-        boxShadow: 'var(--shadow)',
-        ...style,
-      }}
-    >
+    <div className={`rounded-2xl bg-white border border-stone-200/60 p-6 sm:p-7 ${className}`}>
       {children}
     </div>
   );
 }
 
+/* ─── Card title ────────────────────────────────────────────────────────────── */
 function CardTitle({ children }: { children: React.ReactNode }) {
   return (
-    <h2 style={{ fontSize: '1.1rem', fontWeight: 800, color: 'var(--text-primary)', marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+    <h2 className="font-serif text-xl font-bold text-stone-900 mb-6 flex items-center gap-3">
       {children}
     </h2>
   );
 }
 
-/* ─── Toast ──────────────────────────────────────────────────────────────────── */
+/* ─── Toast ─────────────────────────────────────────────────────────────────── */
 function Toast({ message, type }: { message: string; type: 'success' | 'error' }) {
   return (
-    <div
+    <div className="fixed bottom-6 right-6 z-[9999] flex items-center gap-3 px-5 py-3 rounded-xl text-sm font-bold shadow-lg animate-fade-in"
       style={{
-        position: 'fixed',
-        bottom: '2rem',
-        right: '2rem',
-        padding: '1rem 1.5rem',
-        borderRadius: '1rem',
-        background: type === 'success' ? 'var(--success)' : 'var(--danger)',
+        background: type === 'success' ? '#3D8361' : '#8b1e1e',
         color: '#fff',
-        fontSize: '0.875rem',
-        fontWeight: 700,
-        zIndex: 9999,
-        animation: 'fade-in 0.3s ease-out',
-        boxShadow: '0 8px 32px rgba(0,0,0,0.3)',
-        display: 'flex',
-        alignItems: 'center',
-        gap: '0.75rem',
-      }}
-    >
-      <span style={{ fontSize: '1.2rem' }}>{type === 'success' ? '✅' : '❌'}</span>
+      }}>
+      {type === 'success' ? (
+        <CheckCircle size={18} strokeWidth={2} />
+      ) : (
+        <XCircle size={18} strokeWidth={2} />
+      )}
       {message}
     </div>
   );
 }
 
-/* ─── ProfileSettingsPage ────────────────────────────────────────────────────── */
+/* ─── Main Page ─────────────────────────────────────────────────────────────── */
 export default function ProfileSettingsPage() {
   const { currentUser, updateProfile, logout } = useAuth();
   const navigate = useNavigate();
@@ -174,8 +161,8 @@ export default function ProfileSettingsPage() {
   const [fullName, setFullName] = useState(currentUser?.fullName ?? '');
   const [grade, setGrade] = useState(String(currentUser?.grade ?? ''));
   const [school, setSchool] = useState(currentUser?.school ?? '');
-  const [goal, setGoal] = useState('Đạt điểm cao trong kỳ thi THPT Quốc gia');
   const [avatarPreview, setAvatarPreview] = useState(currentUser?.avatarUrl ?? '');
+  const [avatarUploading, setAvatarUploading] = useState(false);
   const [saving, setSaving] = useState(false);
   const [toast, setToast] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
 
@@ -184,6 +171,7 @@ export default function ProfileSettingsPage() {
   const [newPw, setNewPw] = useState('');
   const [confirmPw, setConfirmPw] = useState('');
   const [pwSaving, setPwSaving] = useState(false);
+  const [pwError, setPwError] = useState('');
 
   const fileRef = useRef<HTMLInputElement>(null);
 
@@ -192,13 +180,45 @@ export default function ProfileSettingsPage() {
     setTimeout(() => setToast(null), 3000);
   }
 
-  const handleAvatarChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  /* ── Avatar: Cloudinary upload ──────────────────────────────────────────── */
+  const handleAvatarChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
-    const url = URL.createObjectURL(file);
-    setAvatarPreview(url);
+
+    // Client-side image validation
+    if (!file.type.startsWith('image/')) {
+      showToast('Chỉ chấp nhận file ảnh.', 'error');
+      return;
+    }
+    if (file.size > 5 * 1024 * 1024) {
+      showToast('Ảnh không được lớn hơn 5MB.', 'error');
+      return;
+    }
+
+    setAvatarUploading(true);
+    const cloudinaryUrl = await uploadAvatarImage(file);
+    setAvatarUploading(false);
+
+    if (cloudinaryUrl) {
+      setAvatarPreview(cloudinaryUrl);
+      // Auto-save avatar immediately — step 5-8 in expected flow
+      try {
+        await updateProfile({ avatarUrl: cloudinaryUrl });
+        showToast('Cập nhật ảnh đại diện thành công!');
+      } catch {
+        showToast('Tải ảnh lên Cloudinary thành công, nhưng lưu hồ sơ thất bại. Hãy thử lưu lại.', 'error');
+      }
+    } else {
+      // Fallback: show local preview anyway so user sees their selection
+      setAvatarPreview(URL.createObjectURL(file));
+      showToast('Không thể tải lên Cloudinary. Ảnh sẽ chỉ hiển thị tạm thời.', 'error');
+    }
+
+    // Reset file input so re-selecting the same file triggers change again
+    if (fileRef.current) fileRef.current.value = '';
   };
 
+  /* ── Save profile ───────────────────────────────────────────────────────── */
   const handleSaveProfile = async (ev: React.FormEvent) => {
     ev.preventDefault();
     if (!fullName.trim()) { showToast('Họ tên không được để trống.', 'error'); return; }
@@ -218,11 +238,22 @@ export default function ProfileSettingsPage() {
     }
   };
 
+  /* ── Change password ────────────────────────────────────────────────────── */
   const handleChangePassword = async (ev: React.FormEvent) => {
     ev.preventDefault();
-    if (newPw.length < 6) { showToast('Mật khẩu mới phải có ít nhất 6 ký tự.', 'error'); return; }
-    if (newPw !== confirmPw) { showToast('Mật khẩu xác nhận không khớp.', 'error'); return; }
+    setPwError('');
+
+    if (!isStrongPassword(newPw)) {
+      setPwError(passwordStrengthMessage(newPw));
+      return;
+    }
+    if (newPw !== confirmPw) {
+      setPwError('Mật khẩu nhập lại không khớp.');
+      return;
+    }
+
     setPwSaving(true);
+    // Bước 6C.1.13: (future) gọi API change-password thực
     await new Promise(r => setTimeout(r, 600));
     showToast('Đổi mật khẩu thành công! (mock)');
     setOldPw(''); setNewPw(''); setConfirmPw('');
@@ -247,348 +278,235 @@ export default function ProfileSettingsPage() {
     <ProfileLayout>
       {toast && <Toast message={toast.message} type={toast.type} />}
 
-      {/* Header */}
-      <div style={{ marginBottom: '2rem' }}>
-        <h1 style={{ fontSize: '1.75rem', fontWeight: 900, color: 'var(--text-primary)', marginBottom: '0.5rem', letterSpacing: '-0.02em' }}>
-          ⚙️ Cài đặt tài khoản
-        </h1>
-        <p style={{ fontSize: '0.95rem', color: 'var(--text-muted)', margin: 0, opacity: 0.8 }}>
-          Cập nhật thông tin cá nhân và tuỳ chọn bảo mật.
-        </p>
+      <div className="space-y-8 lg:space-y-10 animate-fade-in">
+        {/* Page Header */}
+        <div className="space-y-2">
+          <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-red-900">Cài đặt</span>
+          <h1 className="font-serif text-2xl sm:text-3xl font-black text-stone-900 leading-tight tracking-tight">
+            Cài đặt tài khoản
+          </h1>
+          <p className="text-sm text-stone-500">
+            Cập nhật thông tin cá nhân và tuỳ chọn bảo mật.
+          </p>
+          <div className="h-px w-10 bg-amber-400 rounded-full" />
+        </div>
+
+        {/* ── Profile Info ── */}
+        <Card>
+          <CardTitle>
+            <User size={18} strokeWidth={1.5} className="text-red-900" />
+            Thông tin cá nhân
+          </CardTitle>
+
+          {/* Avatar */}
+          <div className="flex items-center gap-5 mb-7 pb-7 border-b border-stone-100">
+            <div className="relative">
+              <UserAvatar fullName={fullName || 'Học sinh'} avatarUrl={avatarPreview} size="xl" />
+              <button
+                type="button"
+                onClick={() => fileRef.current?.click()}
+                disabled={avatarUploading}
+                className="absolute -bottom-1 -right-1 w-8 h-8 rounded-full bg-white border-2 border-stone-200 flex items-center justify-center shadow-sm cursor-pointer transition-transform hover:scale-110 disabled:cursor-not-allowed disabled:opacity-50"
+              >
+                {avatarUploading ? (
+                  <span className="w-3.5 h-3.5 border-2 border-stone-400 border-t-red-900 rounded-full animate-spin" />
+                ) : (
+                  <Camera size={14} strokeWidth={1.8} className="text-stone-500" />
+                )}
+              </button>
+              <input ref={fileRef} type="file" accept="image/*" onChange={handleAvatarChange} className="hidden" />
+            </div>
+            <div>
+              <p className="font-serif text-lg font-bold text-stone-900">{fullName || 'Học sinh'}</p>
+              <p className="text-sm text-stone-400">{currentUser?.email}</p>
+              <button
+                type="button"
+                onClick={() => fileRef.current?.click()}
+                disabled={avatarUploading}
+                className="mt-2 text-xs font-mono font-bold uppercase tracking-wider text-red-900 bg-red-50 px-3 py-1.5 rounded-lg border border-red-200/60 hover:bg-red-100 transition-colors disabled:opacity-50 inline-flex items-center gap-1.5"
+              >
+                {avatarUploading ? (
+                  <><span className="w-3 h-3 border-2 border-red-900/30 border-t-red-900 rounded-full animate-spin" /> Đang tải</>
+                ) : (
+                  <><Upload size={12} strokeWidth={2} /> Đổi ảnh</>
+                )}
+              </button>
+            </div>
+          </div>
+
+          {/* Form */}
+          <form onSubmit={handleSaveProfile} className="flex flex-col gap-5">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              <FormField id="fullName" label="Họ và tên" value={fullName} onChange={setFullName} placeholder="Nguyễn Văn A" />
+              <FormField id="email" label="Email" value={currentUser?.email ?? ''} disabled helperText="Email không thể thay đổi" />
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              <SelectField
+                id="grade"
+                label="Lớp"
+                value={grade}
+                onChange={setGrade}
+                options={[
+                  { value: '', label: 'Chưa chọn' },
+                  { value: '10', label: 'Lớp 10' },
+                  { value: '11', label: 'Lớp 11' },
+                  { value: '12', label: 'Lớp 12' },
+                ]}
+              />
+              <FormField id="school" label="Trường học" value={school} onChange={setSchool} placeholder="THPT Nguyễn Huệ" />
+            </div>
+
+            <div className="flex justify-end pt-2">
+              <button
+                type="submit"
+                disabled={saving}
+                className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl text-sm font-mono font-bold uppercase tracking-wider transition-all duration-200 bg-red-900 text-amber-50 hover:bg-red-950 disabled:opacity-50"
+                style={{ fontFamily: 'inherit' }}
+              >
+                {saving ? (
+                  <>
+                    <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                    Đang lưu
+                  </>
+                ) : (
+                  <>
+                    <Save size={15} strokeWidth={2} />
+                    Lưu hồ sơ
+                  </>
+                )}
+              </button>
+            </div>
+          </form>
+        </Card>
+
+        {/* ── Change Password ── */}
+        <Card>
+          <CardTitle>
+            <Lock size={18} strokeWidth={1.5} className="text-red-900" />
+            Đổi mật khẩu
+          </CardTitle>
+          <form onSubmit={handleChangePassword} className="flex flex-col gap-5">
+            <PasswordInput
+              id="oldPw"
+              label="Mật khẩu hiện tại"
+              value={oldPw}
+              onChange={setOldPw}
+              placeholder="••••••••"
+              autoComplete="current-password"
+            />
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              <div>
+                <PasswordInput
+                  id="newPw"
+                  label="Mật khẩu mới"
+                  value={newPw}
+                  onChange={setNewPw}
+                  placeholder="Tối thiểu 8 ký tự"
+                  autoComplete="new-password"
+                  hint="Có chữ hoa, chữ thường, số và ký tự đặc biệt"
+                />
+                <PasswordStrengthMeter password={newPw} />
+              </div>
+              <PasswordInput
+                id="confirmPw"
+                label="Xác nhận mật khẩu mới"
+                value={confirmPw}
+                onChange={setConfirmPw}
+                placeholder="Nhập lại mật khẩu"
+                autoComplete="new-password"
+                error={confirmPw.length > 0 && newPw !== confirmPw ? 'Mật khẩu chưa khớp.' : undefined}
+              />
+            </div>
+
+            {pwError && (
+              <p className="text-xs text-red-600 font-medium -mt-3">{pwError}</p>
+            )}
+
+            <div className="flex justify-end pt-2">
+              <button
+                type="submit"
+                disabled={pwSaving}
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-mono font-bold uppercase tracking-wider transition-all duration-200 bg-white border border-stone-200/60 text-stone-700 hover:bg-stone-50 hover:border-red-200/60 disabled:opacity-50"
+                style={{ fontFamily: 'inherit' }}
+              >
+                {pwSaving ? 'Đang xử lý...' : (
+                  <>
+                    <Lock size={15} strokeWidth={2} />
+                    Cập nhật mật khẩu
+                  </>
+                )}
+              </button>
+            </div>
+          </form>
+        </Card>
+
+        {/* ── Security Sections ── */}
+        <Card>
+          <CardTitle>
+            <Shield size={18} strokeWidth={1.5} className="text-red-900" />
+            Bảo mật & Phiên làm việc
+          </CardTitle>
+          <div className="flex flex-col gap-3">
+            <div className="flex items-center justify-between gap-4 p-4 rounded-xl bg-stone-50 border border-stone-200/60">
+              <div className="flex-1">
+                <p className="text-sm font-bold text-stone-900">Đăng xuất mọi thiết bị</p>
+                <p className="text-xs text-stone-400 mt-0.5">Kết thúc tất cả phiên đăng nhập khác.</p>
+              </div>
+              <button
+                onClick={handleLogoutAll}
+                className="shrink-0 px-4 py-2 rounded-lg text-xs font-mono font-bold uppercase tracking-wider transition-all bg-amber-50 text-amber-700 border border-amber-200/60 hover:bg-amber-100"
+              >
+                <span className="flex items-center gap-1.5">
+                  <LogOut size={13} strokeWidth={2} />
+                  Đăng xuất
+                </span>
+              </button>
+            </div>
+
+            <div className="flex items-center justify-between gap-4 p-4 rounded-xl bg-stone-50 border border-stone-200/60">
+              <div className="flex-1">
+                <p className="text-sm font-bold text-stone-900">Đăng xuất phiên hiện tại</p>
+                <p className="text-xs text-stone-400 mt-0.5">Rời khỏi ứng dụng trên trình duyệt này.</p>
+              </div>
+              <button
+                onClick={handleLogout}
+                className="shrink-0 px-4 py-2 rounded-lg text-xs font-mono font-bold uppercase tracking-wider transition-all bg-white border border-stone-200/60 text-stone-600 hover:bg-stone-50"
+              >
+                <span className="flex items-center gap-1.5">
+                  <LogIn size={13} strokeWidth={2} />
+                  Thoát
+                </span>
+              </button>
+            </div>
+          </div>
+        </Card>
+
+        {/* ── Danger Zone ── */}
+        <Card className="border-red-200/60 bg-red-50/30">
+          <CardTitle>
+            <AlertTriangle size={18} strokeWidth={1.5} className="text-red-900" />
+            Vùng nguy hiểm
+          </CardTitle>
+          <div className="flex items-center justify-between gap-4 p-4 rounded-xl bg-white border border-red-200/60">
+            <div className="flex-1">
+              <p className="text-sm font-bold text-red-900">Xóa tài khoản vĩnh viễn</p>
+              <p className="text-xs text-stone-500 mt-0.5">
+                Hành động này <strong>không thể hoàn tác</strong>. Toàn bộ dữ liệu sẽ bị xóa vĩnh viễn.
+              </p>
+            </div>
+            <button
+              onClick={handleDeleteAccount}
+              className="shrink-0 px-4 py-2 rounded-lg text-xs font-mono font-bold uppercase tracking-wider transition-all bg-red-900 text-amber-50 hover:bg-red-950 shadow-sm"
+            >
+              <span className="flex items-center gap-1.5">
+                <AlertTriangle size={13} strokeWidth={2} />
+                Xóa tài khoản
+              </span>
+            </button>
+          </div>
+        </Card>
       </div>
-
-      {/* ── Profile Info ── */}
-      <Card>
-        <CardTitle>👤 Thông tin cá nhân</CardTitle>
-
-        {/* Avatar */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem', marginBottom: '2rem' }}>
-          <div style={{ position: 'relative' }}>
-            <UserAvatar
-              fullName={fullName || 'Học sinh'}
-              avatarUrl={avatarPreview}
-              size="xl"
-            />
-            <button
-              type="button"
-              onClick={() => fileRef.current?.click()}
-              style={{
-                position: 'absolute',
-                bottom: '4px',
-                right: '4px',
-                width: '2rem',
-                height: '2rem',
-                borderRadius: '50%',
-                background: 'var(--accent)',
-                border: '3px solid var(--bg-card)',
-                cursor: 'pointer',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                fontSize: '0.85rem',
-                boxShadow: 'var(--shadow)',
-                transition: 'transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1)',
-              }}
-              onMouseEnter={e => (e.currentTarget.style.transform = 'scale(1.1) rotate(15deg)')}
-              onMouseLeave={e => (e.currentTarget.style.transform = 'scale(1) rotate(0deg)')}
-            >
-              ✏️
-            </button>
-            <input
-              ref={fileRef}
-              type="file"
-              accept="image/*"
-              onChange={handleAvatarChange}
-              style={{ display: 'none' }}
-            />
-          </div>
-          <div>
-            <p style={{ fontSize: '1.1rem', fontWeight: 800, color: 'var(--text-primary)', marginBottom: '0.2rem' }}>
-              {fullName || 'Học sinh'}
-            </p>
-            <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', fontWeight: 500 }}>
-              {currentUser?.email}
-            </p>
-            <button
-              type="button"
-              onClick={() => fileRef.current?.click()}
-              style={{
-                marginTop: '0.75rem',
-                fontSize: '0.8rem',
-                color: 'var(--accent)',
-                background: 'var(--accent-soft)',
-                padding: '0.375rem 0.875rem',
-                borderRadius: '0.5rem',
-                border: '1px solid var(--accent)',
-                cursor: 'pointer',
-                fontFamily: 'inherit',
-                fontWeight: 700,
-                transition: 'all 0.15s ease',
-              }}
-              onMouseEnter={e => (e.currentTarget.style.opacity = '0.8')}
-              onMouseLeave={e => (e.currentTarget.style.opacity = '1')}
-            >
-              Đổi ảnh đại diện
-            </button>
-          </div>
-        </div>
-
-        {/* Form */}
-        <form onSubmit={handleSaveProfile} style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(15rem, 1fr))', gap: '1.25rem' }}>
-            <FormField id="fullName" label="Họ và tên" value={fullName} onChange={setFullName} placeholder="Nguyễn Văn A" />
-            <FormField id="email" label="Email" value={currentUser?.email ?? ''} disabled />
-          </div>
-
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(15rem, 1fr))', gap: '1.25rem' }}>
-            <SelectField
-              id="grade"
-              label="Lớp"
-              value={grade}
-              onChange={setGrade}
-              options={[
-                { value: '', label: 'Chưa chọn' },
-                { value: '10', label: 'Lớp 10' },
-                { value: '11', label: 'Lớp 11' },
-                { value: '12', label: 'Lớp 12' },
-              ]}
-            />
-            <FormField id="school" label="Trường học" value={school} onChange={setSchool} placeholder="THPT Nguyễn Huệ" />
-          </div>
-
-          <FormField
-            id="goal"
-            label="Mục tiêu học tập"
-            value={goal}
-            onChange={setGoal}
-            placeholder="Đạt điểm cao trong kỳ thi..."
-          />
-
-          <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '0.5rem' }}>
-            <button
-              type="submit"
-              disabled={saving}
-              style={{
-                padding: '0.75rem 2rem',
-                borderRadius: '0.75rem',
-                background: saving ? 'var(--accent-light)' : 'var(--accent)',
-                color: '#fff',
-                border: 'none',
-                fontSize: '0.9rem',
-                fontWeight: 700,
-                cursor: saving ? 'not-allowed' : 'pointer',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '0.5rem',
-                boxShadow: saving ? 'none' : '0 4px 14px rgba(30,58,95,0.3)',
-                transition: 'all 0.15s ease',
-                fontFamily: 'inherit',
-              }}
-              onMouseEnter={e => { if(!saving) e.currentTarget.style.transform = 'translateY(-1px)'; }}
-              onMouseLeave={e => { if(!saving) e.currentTarget.style.transform = 'translateY(0)'; }}
-            >
-              {saving ? (
-                <>
-                  <span
-                    style={{
-                      width: '1rem',
-                      height: '1rem',
-                      border: '2px solid rgba(255,255,255,0.3)',
-                      borderTopColor: '#fff',
-                      borderRadius: '50%',
-                      display: 'inline-block',
-                      animation: 'spin 0.8s linear infinite',
-                    }}
-                  />
-                  Đang lưu...
-                </>
-              ) : '💾 Lưu hồ sơ'}
-            </button>
-          </div>
-        </form>
-      </Card>
-
-      {/* ── Change password ── */}
-      <Card>
-        <CardTitle>🔒 Đổi mật khẩu</CardTitle>
-        <form onSubmit={handleChangePassword} style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
-          <FormField id="oldPw" label="Mật khẩu hiện tại" type="password" value={oldPw} onChange={setOldPw} placeholder="••••••••" />
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(15rem, 1fr))', gap: '1.25rem' }}>
-            <FormField id="newPw" label="Mật khẩu mới" type="password" value={newPw} onChange={setNewPw} placeholder="Ít nhất 6 ký tự" />
-            <FormField id="confirmPw" label="Xác nhận mật khẩu mới" type="password" value={confirmPw} onChange={setConfirmPw} placeholder="Nhập lại mật khẩu mới" />
-          </div>
-          <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '0.5rem' }}>
-            <button
-              type="submit"
-              disabled={pwSaving}
-              style={{
-                padding: '0.75rem 1.5rem',
-                borderRadius: '0.75rem',
-                background: 'var(--accent-soft)',
-                color: 'var(--accent)',
-                border: '1px solid var(--accent)',
-                fontSize: '0.9rem',
-                fontWeight: 700,
-                cursor: pwSaving ? 'not-allowed' : 'pointer',
-                fontFamily: 'inherit',
-                transition: 'all 0.15s ease',
-              }}
-              onMouseEnter={e => { if(!pwSaving) e.currentTarget.style.background = 'var(--accent)'; e.currentTarget.style.color = '#fff'; }}
-              onMouseLeave={e => { if(!pwSaving) e.currentTarget.style.background = 'var(--accent-soft)'; e.currentTarget.style.color = 'var(--accent)'; }}
-            >
-              {pwSaving ? 'Đang xử lý...' : '🔑 Cập nhật mật khẩu'}
-            </button>
-          </div>
-        </form>
-      </Card>
-
-      {/* ── Security ── */}
-      <Card>
-        <CardTitle>🛡️ Bảo mật & Phiên làm việc</CardTitle>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-          {/* Logout all */}
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              flexWrap: 'wrap',
-              gap: '1rem',
-              padding: '1.25rem',
-              background: 'var(--bg-app)',
-              borderRadius: '1rem',
-              border: '1px solid var(--border)',
-            }}
-          >
-            <div>
-              <p style={{ fontSize: '0.95rem', fontWeight: 700, color: 'var(--text-primary)', marginBottom: '0.3rem' }}>
-                Đăng xuất mọi thiết bị
-              </p>
-              <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', lineHeight: 1.5 }}>
-                Kết thúc tất cả phiên đăng nhập khác để bảo vệ tài khoản của bạn.
-              </p>
-            </div>
-            <button
-              onClick={handleLogoutAll}
-              style={{
-                padding: '0.6rem 1.25rem',
-                borderRadius: '0.75rem',
-                background: 'var(--warning-soft)',
-                color: 'var(--warning)',
-                border: '1px solid var(--warning)',
-                fontSize: '0.85rem',
-                fontWeight: 800,
-                cursor: 'pointer',
-                fontFamily: 'inherit',
-                whiteSpace: 'nowrap',
-                transition: 'opacity 0.2s',
-              }}
-              onMouseEnter={e => (e.currentTarget.style.opacity = '0.8')}
-              onMouseLeave={e => (e.currentTarget.style.opacity = '1')}
-            >
-              🚪 Đăng xuất tất cả
-            </button>
-          </div>
-
-          {/* Logout current session */}
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              flexWrap: 'wrap',
-              gap: '1rem',
-              padding: '1.25rem',
-              background: 'var(--bg-app)',
-              borderRadius: '1rem',
-              border: '1px solid var(--border)',
-            }}
-          >
-            <div>
-              <p style={{ fontSize: '0.95rem', fontWeight: 700, color: 'var(--text-primary)', marginBottom: '0.3rem' }}>
-                Đăng xuất phiên hiện tại
-              </p>
-              <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', lineHeight: 1.5 }}>
-                Rời khỏi ứng dụng trên trình duyệt này.
-              </p>
-            </div>
-            <button
-              onClick={handleLogout}
-              style={{
-                padding: '0.6rem 1.25rem',
-                borderRadius: '0.75rem',
-                background: 'var(--bg-card)',
-                color: 'var(--text-primary)',
-                border: '1px solid var(--border)',
-                fontSize: '0.85rem',
-                fontWeight: 800,
-                cursor: 'pointer',
-                fontFamily: 'inherit',
-                whiteSpace: 'nowrap',
-                transition: 'all 0.2s',
-              }}
-              onMouseEnter={e => (e.currentTarget.style.borderColor = 'var(--accent)')}
-              onMouseLeave={e => (e.currentTarget.style.borderColor = 'var(--border)')}
-            >
-              👋 Đăng xuất
-            </button>
-          </div>
-        </div>
-      </Card>
-
-      {/* ── Danger zone ── */}
-      <Card
-        style={{
-          border: '1px solid var(--danger)',
-          background: 'rgba(239, 68, 68, 0.05)',
-        }}
-      >
-        <CardTitle>⚠️ Vùng nguy hiểm</CardTitle>
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            flexWrap: 'wrap',
-            gap: '1rem',
-          }}
-        >
-          <div style={{ flex: 1, minWidth: '15rem' }}>
-            <p style={{ fontSize: '0.95rem', fontWeight: 800, color: 'var(--danger)', marginBottom: '0.3rem' }}>
-              Xóa tài khoản vĩnh viễn
-            </p>
-            <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', lineHeight: 1.5 }}>
-              Hành động này <strong>không thể hoàn tác</strong>. Toàn bộ dữ liệu, điểm số và lịch sử học tập của bạn sẽ bị xóa vĩnh viễn.
-            </p>
-          </div>
-          <button
-            onClick={handleDeleteAccount}
-            style={{
-              padding: '0.65rem 1.5rem',
-              borderRadius: '0.75rem',
-              background: 'var(--danger)',
-              color: '#fff',
-              border: 'none',
-              fontSize: '0.875rem',
-              fontWeight: 800,
-              cursor: 'pointer',
-              fontFamily: 'inherit',
-              whiteSpace: 'nowrap',
-              boxShadow: '0 4px 12px rgba(159, 29, 45, 0.3)',
-              transition: 'opacity 0.2s',
-            }}
-            onMouseEnter={e => (e.currentTarget.style.opacity = '0.9')}
-            onMouseLeave={e => (e.currentTarget.style.opacity = '1')}
-          >
-            🗑️ Xóa tài khoản
-          </button>
-        </div>
-      </Card>
-
-      <style>{`
-        @keyframes spin { to { transform: rotate(360deg); } }
-        @keyframes fade-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-      `}</style>
     </ProfileLayout>
   );
 }

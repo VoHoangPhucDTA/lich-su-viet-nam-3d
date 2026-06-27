@@ -1,47 +1,52 @@
 import ProfileLayout from '../../layouts/ProfileLayout';
 import ScoreTable from '../../components/profile/ScoreTable';
-import { WeeklyScoreChart, CategoryChart } from '../../components/profile/ProgressChart';
-import { mockScores, mockWeeklyScores, mockCategoryScores } from '../../data/mockLearningStats';
+import {
+  WeeklyScoreChart,
+  CategoryChart,
+} from '../../components/profile/ProgressChart';
+import {
+  mockScores,
+  mockWeeklyScores,
+  mockCategoryScores,
+} from '../../data/mockLearningStats';
+import {
+  Star,
+  Target,
+  TrendingUp,
+  BarChart3,
+} from 'lucide-react';
 
-function Card({ title, children }: { title: string; children: React.ReactNode }) {
+/* ─── Summary KPI ───────────────────────────────────────────────────────────── */
+function SummaryKPI({
+  icon,
+  label,
+  value,
+  color,
+}: {
+  icon: React.ReactNode;
+  label: string;
+  value: string;
+  color: string;
+}) {
   return (
-    <div
-      style={{
-        background: 'var(--bg-card)',
-        border: '1px solid var(--border)',
-        borderRadius: '1rem',
-        padding: '1.25rem',
-        marginBottom: '1.25rem',
-      }}
-    >
-      <h2 style={{ fontSize: '0.95rem', fontWeight: 700, color: 'var(--text-primary)', marginBottom: '1rem' }}>{title}</h2>
-      {children}
+    <div className="relative overflow-hidden rounded-2xl bg-white border border-stone-200/60 p-4 sm:p-5 transition-all duration-200 hover:shadow-sm">
+      <div className="absolute top-0 left-0 right-0 h-0.5 rounded-t-2xl"
+        style={{ background: `linear-gradient(to right, ${color}, transparent)` }} />
+      <div className="flex items-center gap-2.5 mb-2">
+        <div className="w-8 h-8 rounded-lg flex items-center justify-center"
+          style={{ background: `${color}10`, color }}>
+          {icon}
+        </div>
+        <span className="text-[9px] font-mono font-bold uppercase tracking-wider text-stone-400">{label}</span>
+      </div>
+      <div className="font-serif text-2xl font-black leading-none tracking-tight" style={{ color }}>
+        {value}
+      </div>
     </div>
   );
 }
 
-function SummaryBadge({ label, value, color }: { label: string; value: string | number; color: string }) {
-  return (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        padding: '0.875rem 1.25rem',
-        background: `${color}12`,
-        border: `1px solid ${color}25`,
-        borderRadius: '0.75rem',
-        gap: '0.25rem',
-        flex: 1,
-        minWidth: '7rem',
-      }}
-    >
-      <div style={{ fontSize: '1.4rem', fontWeight: 800, color }}>{value}</div>
-      <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)', textAlign: 'center', fontWeight: 600 }}>{label}</div>
-    </div>
-  );
-}
-
+/* ─── Main Page ──────────────────────────────────────────────────────────────── */
 export default function ScoresPage() {
   const avg = (mockScores.reduce((s, r) => s + r.score, 0) / mockScores.length).toFixed(1);
   const totalCorrect = mockScores.reduce((s, r) => s + r.correct, 0);
@@ -51,61 +56,56 @@ export default function ScoresPage() {
 
   return (
     <ProfileLayout>
-      {/* Header */}
-      <div style={{ marginBottom: '1.5rem' }}>
-        <h1 style={{ fontSize: '1.4rem', fontWeight: 800, color: 'var(--text-primary)', marginBottom: '0.25rem' }}>
-          🏆 Điểm số
-        </h1>
-        <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', margin: 0 }}>
-          Tổng hợp kết quả {mockScores.length} bài trắc nghiệm và đề thi đã hoàn thành.
-        </p>
-      </div>
+      <div className="space-y-8 lg:space-y-10 animate-fade-in">
+        {/* Page header */}
+        <div className="space-y-2">
+          <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-red-900">Kết quả học tập</span>
+          <h1 className="font-serif text-2xl sm:text-3xl font-black text-stone-900 leading-tight tracking-tight">
+            Điểm số
+          </h1>
+          <p className="text-sm text-stone-500">
+            Tổng hợp {mockScores.length} bài trắc nghiệm và đề thi đã hoàn thành.
+          </p>
+          <div className="h-px w-10 bg-amber-400 rounded-full" />
+        </div>
 
-      {/* Summary row */}
-      <div
-        style={{
-          display: 'flex',
-          gap: '0.75rem',
-          flexWrap: 'wrap',
-          marginBottom: '1.25rem',
-        }}
-      >
-        <SummaryBadge label="Điểm trung bình" value={avg} color="#4f6f95" />
-        <SummaryBadge label="Tỉ lệ đúng"     value={`${pct}%`} color="#2f7a57" />
-        <SummaryBadge label="Điểm cao nhất"  value={best} color="#c29b4b" />
-        <SummaryBadge label="Số bài đã làm"  value={mockScores.length} color="#4f6f95" />
-      </div>
+        {/* KPI Grid */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+          <SummaryKPI icon={<Star size={16} strokeWidth={1.5} />} label="Điểm TB" value={avg} color="#8b1e1e" />
+          <SummaryKPI icon={<Target size={16} strokeWidth={1.5} />} label="Tỉ lệ đúng" value={`${pct}%`} color="#3D8361" />
+          <SummaryKPI icon={<TrendingUp size={16} strokeWidth={1.5} />} label="Cao nhất" value={best} color="#c5a059" />
+          <SummaryKPI icon={<BarChart3 size={16} strokeWidth={1.5} />} label="Đã làm" value={String(mockScores.length)} color="#78716c" />
+        </div>
 
-      {/* Charts */}
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(15rem, 1fr))',
-          gap: '1rem',
-          marginBottom: '1.25rem',
-        }}
-      >
-        <Card title="📈 Điểm trung bình theo tuần">
-          <WeeklyScoreChart data={mockWeeklyScores} />
-        </Card>
-        <Card title="🎯 Tỉ lệ đúng theo chủ đề">
-          <CategoryChart data={mockCategoryScores} />
-        </Card>
-      </div>
+        {/* Charts */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="rounded-2xl bg-white border border-stone-200/60 p-5 relative">
+            <span className="absolute top-3 right-3 text-[9px] font-mono text-stone-300 font-bold">01</span>
+            <div className="space-y-1 mb-4">
+              <span className="font-mono text-[9px] font-bold uppercase tracking-wider text-red-900">Thống kê</span>
+              <h3 className="font-serif text-lg font-bold text-stone-900">Điểm theo tuần</h3>
+            </div>
+            <WeeklyScoreChart data={mockWeeklyScores} />
+          </div>
+          <div className="rounded-2xl bg-white border border-stone-200/60 p-5 relative">
+            <span className="absolute top-3 right-3 text-[9px] font-mono text-stone-300 font-bold">02</span>
+            <div className="space-y-1 mb-4">
+              <span className="font-mono text-[9px] font-bold uppercase tracking-wider text-red-900">Phân tích</span>
+              <h3 className="font-serif text-lg font-bold text-stone-900">Tỉ lệ đúng theo chủ đề</h3>
+            </div>
+            <CategoryChart data={mockCategoryScores} />
+          </div>
+        </div>
 
-      {/* Score table container */}
-      <div
-        style={{
-          background: 'var(--bg-card)',
-          border: '1px solid var(--border)',
-          borderRadius: '1rem',
-          padding: '1.25rem',
-        }}
-      >
-        <h2 style={{ fontSize: '0.95rem', fontWeight: 700, color: 'var(--text-primary)', marginBottom: '1rem' }}>
-          📋 Tất cả bài đã làm
-        </h2>
-        <ScoreTable scores={mockScores} />
+        {/* All scores */}
+        <div className="rounded-2xl bg-white border border-stone-200/60 p-5 relative">
+          <span className="absolute top-3 right-3 text-[9px] font-mono text-stone-300 font-bold">03</span>
+          <div className="space-y-1 mb-4">
+            <span className="font-mono text-[9px] font-bold uppercase tracking-wider text-red-900">Chi tiết</span>
+            <h3 className="font-serif text-lg font-bold text-stone-900">Tất cả bài đã làm</h3>
+          </div>
+          <ScoreTable scores={mockScores} />
+        </div>
       </div>
     </ProfileLayout>
   );
