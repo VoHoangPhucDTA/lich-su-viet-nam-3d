@@ -9,10 +9,8 @@ interface EventTextbookContentProps {
 }
 
 /**
- * Hiển thị 3 mục bám SGK:
- *   - Tổng quan (homepageSummary + canonicalSummary)
- *   - Nội dung chi tiết (detailedNarrative)
- *   - Ý nghĩa lịch sử (significance) – callout vàng đồng
+ * Textbook content redesigned with CoiNguonPage design language.
+ * Red-900 accent blockquotes, serif typography, white cards, subtle shadow.
  */
 export default function EventTextbookContent({
   event,
@@ -22,8 +20,7 @@ export default function EventTextbookContent({
 }: EventTextbookContentProps) {
   const { summary, textbookContent } = event;
 
-  const cardClass =
-    'p-6 md:p-8 lg:p-10 rounded-2xl text-[15.5px] leading-loose';
+  const cardClass = 'p-6 md:p-8 lg:p-10 rounded-2xl text-[15.5px] leading-loose';
   const cardStyle: React.CSSProperties = {
     background: 'var(--bg-card)',
     border: '1px solid var(--border)',
@@ -39,19 +36,27 @@ export default function EventTextbookContent({
 
         {summary.homepageSummary && (
           <blockquote
-            className="relative italic text-lg md:text-xl leading-[1.7] mb-6 py-4 pl-7 md:pl-8 pr-6 border-l-[3px]"
+            className="relative italic font-serif text-lg md:text-xl leading-[1.7] mb-6 py-4 pl-7 md:pl-8 pr-6 border-l-[3px]"
             style={{
               color: 'var(--text-primary)',
-              borderLeftColor: 'var(--admin-accent)',
+              borderLeftColor: 'var(--accent)',
+              background: 'linear-gradient(to right, var(--accent-soft), transparent)',
             }}
           >
+            <span
+              aria-hidden
+              className="absolute -top-1 left-2 font-serif text-4xl leading-none select-none"
+              style={{ color: 'var(--accent)', opacity: 0.25 }}
+            >
+              &ldquo;
+            </span>
             {summary.homepageSummary}
           </blockquote>
         )}
 
-        <div className={cardClass} style={cardStyle}>
+        <article className={cardClass} style={cardStyle}>
           {textbookContent.canonicalSummary}
-        </div>
+        </article>
       </section>
 
       {/* === Nội dung chi tiết === */}
@@ -62,10 +67,7 @@ export default function EventTextbookContent({
             title="Nội dung theo sách giáo khoa"
             subtitle="Bám sát chương trình Lịch sử THPT, là nguồn chuẩn cho RAG."
           />
-          <article
-            className={`${cardClass} whitespace-pre-wrap`}
-            style={cardStyle}
-          >
+          <article className={`${cardClass} whitespace-pre-wrap`} style={cardStyle}>
             {textbookContent.detailedNarrative}
           </article>
         </section>
@@ -78,26 +80,20 @@ export default function EventTextbookContent({
           <div
             className={`${cardClass} relative overflow-hidden`}
             style={{
-              background:
-                'linear-gradient(135deg, var(--admin-accent-soft), transparent 70%), var(--bg-card)',
-              border:
-                '1px solid color-mix(in srgb, var(--admin-accent) 40%, transparent)',
+              background: 'linear-gradient(135deg, var(--accent-soft), transparent 70%), var(--bg-card)',
+              border: '1px solid color-mix(in srgb, var(--accent) 40%, transparent)',
               boxShadow: 'var(--shadow)',
             }}
           >
-            {/* Decorative quote mark */}
             <span
               aria-hidden
               className="absolute -top-2 left-4 select-none pointer-events-none font-serif leading-none text-[7rem]"
-              style={{
-                color: 'var(--admin-accent)',
-                opacity: 0.18,
-              }}
+              style={{ color: 'var(--accent)', opacity: 0.12 }}
             >
-              "
+              &ldquo;
             </span>
             <p
-              className="relative whitespace-pre-wrap text-[15.5px] leading-loose"
+              className="relative whitespace-pre-wrap text-[15.5px] leading-loose font-medium"
               style={{ color: 'var(--text-primary)' }}
             >
               {textbookContent.significance}

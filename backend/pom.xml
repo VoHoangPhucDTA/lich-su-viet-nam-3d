@@ -29,6 +29,10 @@
 	<properties>
 		<java.version>21</java.version>
 	</properties>
+
+	<!-- Viettel AI TTS is called via HTTP (no additional SDK dependency needed).
+	     java.net.http.HttpClient is used (built into Java 11+). -->
+
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -100,6 +104,9 @@
 			<groupId>org.flywaydb</groupId>
 			<artifactId>flyway-mysql</artifactId>
 		</dependency>
+		<!-- Viettel AI TTS uses built-in java.net.http.HttpClient (Java 11+).
+		     No additional SDK dependency required. -->
+
 	</dependencies>
 
 	<build>

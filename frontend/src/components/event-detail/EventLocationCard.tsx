@@ -8,7 +8,8 @@ interface EventLocationCardProps {
 }
 
 /**
- * Khối "Địa điểm" – hiển thị tỉnh/địa danh + CTA bay tới bản đồ 3D.
+ * Location card redesigned with CoiNguonPage design language.
+ * Red-900 CTA button, stone-white card, amber-50 geo badge.
  */
 export default function EventLocationCard({ event, index = '05' }: EventLocationCardProps) {
   const navigate = useNavigate();
@@ -26,27 +27,15 @@ export default function EventLocationCard({ event, index = '05' }: EventLocation
           className="p-6 md:p-8 rounded-2xl flex items-center gap-3"
           style={{
             background: 'var(--warning-soft)',
-            border:
-              '1px solid color-mix(in srgb, var(--warning) 40%, transparent)',
+            border: '1px solid color-mix(in srgb, var(--warning) 40%, transparent)',
             color: 'var(--text-primary)',
           }}
         >
-          <svg
-            width="22"
-            height="22"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.6"
-            className="flex-shrink-0"
-            style={{ color: 'var(--warning)' }}
-          >
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" className="flex-shrink-0" style={{ color: 'var(--warning)' }}>
             <circle cx="12" cy="12" r="10" />
             <path d="M12 8v4M12 16h.01" />
           </svg>
-          <span className="text-sm">
-            Sự kiện này không gắn với một địa điểm cụ thể trên bản đồ.
-          </span>
+          <span className="text-sm">Sự kiện này không gắn với một địa điểm cụ thể trên bản đồ.</span>
         </div>
       </section>
     );
@@ -65,7 +54,7 @@ export default function EventLocationCard({ event, index = '05' }: EventLocation
       />
 
       <div
-        className="p-6 md:p-8 lg:p-10 rounded-2xl overflow-hidden"
+        className="p-6 md:p-8 rounded-2xl overflow-hidden"
         style={{
           background: 'var(--bg-card)',
           border: '1px solid var(--border)',
@@ -76,12 +65,11 @@ export default function EventLocationCard({ event, index = '05' }: EventLocation
           <div className="min-w-0 flex flex-col gap-4">
             <div className="flex items-center gap-2">
               <span
-                className="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-[0.14em]"
+                className="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-[0.14em] font-mono"
                 style={{
                   background: 'var(--accent-soft)',
                   color: 'var(--accent)',
-                  border:
-                    '1px solid color-mix(in srgb, var(--accent) 40%, transparent)',
+                  border: '1px solid color-mix(in srgb, var(--accent) 40%, transparent)',
                 }}
               >
                 {isNationwide ? 'Toàn quốc' : geoTypeLabel(geometry.geoType)}
@@ -89,28 +77,28 @@ export default function EventLocationCard({ event, index = '05' }: EventLocation
             </div>
 
             {provinces.length > 0 && (
-              <LocationRow
-                label="Tỉnh / Thành phố hiện đại"
-                items={provinces}
-              />
+              <LocationRow label="Tỉnh / Thành phố hiện đại" items={provinces} />
             )}
-
             {historical.length > 0 && (
-              <LocationRow
-                label="Địa danh lịch sử"
-                items={historical}
-                italic
-              />
+              <LocationRow label="Địa danh lịch sử" items={historical} italic />
             )}
           </div>
 
           <button
             onClick={() => navigate('/')}
-            className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl font-semibold transition shrink-0 hover:brightness-110"
+            className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl font-semibold transition-all duration-200 shrink-0 font-mono text-xs tracking-wider uppercase"
             style={{
               background: 'var(--accent)',
               color: '#fff',
-              boxShadow: '0 8px 18px -10px rgba(0,0,0,0.35)',
+              boxShadow: 'var(--shadow-glow)',
+            }}
+            onMouseEnter={(e) => {
+              (e.currentTarget as HTMLButtonElement).style.filter = 'brightness(1.1)';
+              (e.currentTarget as HTMLButtonElement).style.transform = 'translateY(-1px)';
+            }}
+            onMouseLeave={(e) => {
+              (e.currentTarget as HTMLButtonElement).style.filter = 'none';
+              (e.currentTarget as HTMLButtonElement).style.transform = 'none';
             }}
           >
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -125,21 +113,10 @@ export default function EventLocationCard({ event, index = '05' }: EventLocation
   );
 }
 
-function LocationRow({
-  label,
-  items,
-  italic,
-}: {
-  label: string;
-  items: string[];
-  italic?: boolean;
-}) {
+function LocationRow({ label, items, italic }: { label: string; items: string[]; italic?: boolean }) {
   return (
     <div>
-      <div
-        className="text-[10px] font-bold uppercase tracking-[0.16em] mb-2"
-        style={{ color: 'var(--text-muted)' }}
-      >
+      <div className="text-[10px] font-bold uppercase tracking-[0.16em] mb-2 font-mono" style={{ color: 'var(--text-muted)' }}>
         {label}
       </div>
       <div className="flex flex-wrap gap-2">
@@ -163,21 +140,12 @@ function LocationRow({
 
 function geoTypeLabel(t?: string) {
   switch (t) {
-    case 'single_point':
-    case 'point':
-      return 'Một điểm';
-    case 'multi_point':
-      return 'Nhiều điểm';
-    case 'multi_region':
-    case 'multi_polygon':
-      return 'Nhiều vùng';
-    case 'polygon':
-      return 'Một vùng';
-    case 'nationwide':
-      return 'Toàn quốc';
-    case 'mixed':
-      return 'Hỗn hợp';
-    default:
-      return 'Khu vực cụ thể';
+    case 'single_point': case 'point': return 'Một điểm';
+    case 'multi_point': return 'Nhiều điểm';
+    case 'multi_region': case 'multi_polygon': return 'Nhiều vùng';
+    case 'polygon': return 'Một vùng';
+    case 'nationwide': return 'Toàn quốc';
+    case 'mixed': return 'Hỗn hợp';
+    default: return 'Khu vực cụ thể';
   }
 }

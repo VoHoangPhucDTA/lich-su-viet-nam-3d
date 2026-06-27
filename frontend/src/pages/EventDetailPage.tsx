@@ -1,8 +1,10 @@
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useState, useMemo, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import type { MockEventDetail } from '../data/mockEventDetails';
 import { getEventDetailBySlug } from '../services/eventDetailService';
 import { recordEventView } from '../services/eventApi';
+import { useReadingProgress } from '../hooks/useReadingProgress';
+import type { SectionInfo } from '../hooks/useReadingProgress';
 
 import EventHero from '../components/event-detail/EventHero';
 import EventTTSPlayer from '../components/event-detail/EventTTSPlayer';
@@ -13,6 +15,7 @@ import EventChildrenList from '../components/event-detail/EventChildrenList';
 import EventMediaGallery from '../components/event-detail/EventMediaGallery';
 import EventSources from '../components/event-detail/EventSources';
 import EventDetailSidebar from '../components/event-detail/EventDetailSidebar';
+import { ErrorBoundary } from '../components/shared/ErrorBoundary';
 
 export default function EventDetailPage() {
   const { slug } = useParams<{ slug: string }>();
@@ -31,8 +34,6 @@ export default function EventDetailPage() {
           setEventData(data);
           void recordEventView(data.id, { source: 'detail', progressPercent: 100 });
           setError(false);
-          // Body là phần tử scroll thực sự (xem index.css), nên gọi cả 3
-          // để cover mọi trường hợp browser/CSS.
           document.body.scrollTo(0, 0);
           document.documentElement.scrollTo(0, 0);
           window.scrollTo(0, 0);
@@ -72,7 +73,6 @@ export default function EventDetailPage() {
     let n = 0;
     const next = () => String(++n).padStart(2, '0');
 
-    // 01 Tổng quan (always present)
     links.push({ id: 'tong-quan', label: 'Tổng quan' });
     indices.textbookOverview = next();
 
@@ -133,25 +133,66 @@ export default function EventDetailPage() {
     };
   }, [eventData]);
 
+  // ═══════════════════════════════════════════════════
+  // ALL hooks MUST be called BEFORE any early return!
+  // React Rules of Hooks — every render must call
+  // the same hooks in the same order.
+  // ═══════════════════════════════════════════════════
+
+  // Build section info for reading progress (empty when no data)
+  const sectionInfos: SectionInfo[] = useMemo(() => {
+    if (!eventData) return [];
+    const infos: SectionInfo[] = [
+      { id: 'hero', label: 'Tổng quan', weight: 5 },
+      { id: 'tong-quan', label: 'Tóm tắt', weight: 15 },
+    ];
+    if (eventData.textbookContent.detailedNarrative) {
+      infos.push({ id: 'noi-dung-sgk', label: 'Nội dung SGK', weight: 30 });
+    }
+    if (eventData.textbookContent.significance) {
+      infos.push({ id: 'y-nghia', label: 'Ý nghĩa lịch sử', weight: 15 });
+    }
+    if (eventData.textbookContent.keyFacts?.length) {
+      infos.push({ id: 'du-kien-chinh', label: 'Dữ kiện chính', weight: 10 });
+    }
+    const geoType = eventData.mapData?.displayGeometry?.geoType;
+    if (geoType && geoType !== 'no_location') {
+      infos.push({ id: 'dia-diem', label: 'Địa điểm', weight: 10 });
+    }
+    if (eventData.hierarchy?.childIds?.length) {
+      infos.push({ id: 'su-kien-con', label: 'Sự kiện liên quan', weight: 5 });
+    }
+    // media section ALWAYS renders in the DOM (EventMediaGallery shows
+    // either the gallery or an empty-state section with id="media").
+    infos.push({ id: 'media', label: 'Tư liệu', weight: 5 });
+    if (eventData.textbookContent.textbookRefs?.length) {
+      infos.push({ id: 'nguon-sgk', label: 'Nguồn SGK', weight: 3 });
+    }
+    // nguon-mo-rong renders in the DOM when:
+    // - BOTH textbookRefs AND externalContent are empty → early return with id="nguon-mo-rong"
+    // - OR externalContent exists → inside wrapper div
+    // It is ONLY absent when hasTextbookRefs && !hasExternal.
+    if (!eventData.textbookContent.textbookRefs?.length || eventData.externalContent) {
+      infos.push({ id: 'nguon-mo-rong', label: 'Nguồn mở rộng', weight: 2 });
+    }
+    return infos;
+  }, [eventData]);
+
+  const { readingProgress, activeSection } = useReadingProgress(sectionInfos);
+
+  // Track narration state for cross-component sync
+  const [narrationState, setNarrationState] = useState({ isPlaying: false, progress: 0 });
+
+  const handleNarrationStateChange = useCallback(
+    (state: { isPlaying: boolean; progress: number }) => {
+      setNarrationState(state);
+    },
+    []
+  );
+
   /* ─── Loading ─── */
   if (loading) {
-    return (
-      <div
-        className="flex flex-col items-center justify-center min-h-screen gap-4"
-        style={{ background: 'var(--bg-app)', color: 'var(--text-primary)' }}
-      >
-        <div
-          className="w-10 h-10 rounded-full animate-spin"
-          style={{
-            border: '3px solid var(--border)',
-            borderTopColor: 'var(--accent)',
-          }}
-        />
-        <div className="text-sm font-medium" style={{ color: 'var(--text-muted)' }}>
-          Đang tải dữ liệu sự kiện…
-        </div>
-      </div>
-    );
+    return <LoadingState />;
   }
 
   /* ─── Error ─── */
@@ -167,30 +208,21 @@ export default function EventDetailPage() {
 
   return (
     <div
-      className="min-h-screen w-full font-sans"
-      style={{
-        background: 'var(--bg-app)',
-        color: 'var(--text-primary)',
-      }}
+      className="min-h-screen w-full"
+      style={{ background: 'var(--bg-app)', color: 'var(--text-primary)' }}
     >
-      {/* Sticky breadcrumb */}
+      {/* Sticky breadcrumb – CoiNguonPage style */}
       <div
-        className="sticky top-0 z-40 glass-map"
+        className="sticky top-0 z-40 bg-white/85 backdrop-blur-md"
         style={{ borderBottom: '1px solid var(--border)' }}
       >
         <div className="mx-auto w-full max-w-[1440px] px-6 md:px-10 lg:px-16 xl:px-20 py-3 flex items-center gap-3 text-sm">
           <button
             onClick={() => navigate('/')}
-            className="inline-flex items-center gap-1.5 font-medium transition"
+            className="inline-flex items-center gap-1.5 font-medium transition-all duration-200 font-mono text-xs uppercase tracking-wider"
             style={{ color: 'var(--text-secondary)' }}
-            onMouseEnter={(e) =>
-              ((e.currentTarget as HTMLButtonElement).style.color =
-                'var(--accent)')
-            }
-            onMouseLeave={(e) =>
-              ((e.currentTarget as HTMLButtonElement).style.color =
-                'var(--text-secondary)')
-            }
+            onMouseEnter={(e) => ((e.currentTarget as HTMLButtonElement).style.color = 'var(--accent)')}
+            onMouseLeave={(e) => ((e.currentTarget as HTMLButtonElement).style.color = 'var(--text-secondary)')}
           >
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <path d="M19 12H5M12 19l-7-7 7-7" />
@@ -199,7 +231,7 @@ export default function EventDetailPage() {
           </button>
           <span style={{ color: 'var(--text-muted)' }}>/</span>
           <span
-            className="font-semibold truncate max-w-[60vw]"
+            className="font-semibold truncate max-w-[60vw] font-serif"
             style={{ color: 'var(--accent)' }}
           >
             {eventData.titles.primary}
@@ -210,33 +242,21 @@ export default function EventDetailPage() {
       {/* Main */}
       <div className="mx-auto w-full max-w-[1440px] px-6 md:px-10 lg:px-16 xl:px-20 py-8 lg:py-10">
         <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_240px] items-start gap-10 lg:gap-12">
-          {/* Content column – grid sẽ tự cấp phát không gian còn lại sau sidebar */}
           <main className="min-w-0 flex flex-col gap-10">
             <EventHero event={eventData} showMapAction={showMapAction} />
-
-            <EventTTSPlayer event={eventData} />
-
+            <ErrorBoundary>
+              <EventTTSPlayer event={eventData} onNarrationStateChange={handleNarrationStateChange} />
+            </ErrorBoundary>
             <EventTextbookContent
               event={eventData}
               overviewIndex={sectionIndices.textbookOverview || '01'}
               narrativeIndex={sectionIndices.textbookNarrative || '02'}
               significanceIndex={sectionIndices.textbookSignificance || '03'}
             />
-
-            <EventKeyFacts
-              keyFacts={eventData.textbookContent.keyFacts}
-              index={sectionIndices.keyFacts || '04'}
-            />
-
+            <EventKeyFacts keyFacts={eventData.textbookContent.keyFacts} index={sectionIndices.keyFacts || '04'} />
             <EventLocationCard event={eventData} index={sectionIndices.location || '05'} />
-
-            <EventChildrenList
-              childIds={eventData.hierarchy?.childIds}
-              index={sectionIndices.children || '06'}
-            />
-
+            <EventChildrenList childIds={eventData.hierarchy?.childIds} index={sectionIndices.children || '06'} />
             <EventMediaGallery media={eventData.media} index={sectionIndices.media || '07'} />
-
             <EventSources
               textbookRefs={eventData.textbookContent.textbookRefs}
               externalContent={eventData.externalContent}
@@ -244,41 +264,57 @@ export default function EventDetailPage() {
               externalIndex={sectionIndices.sourcesExternal || '09'}
             />
           </main>
-
-          {/* TOC sidebar (desktop) */}
-          <EventDetailSidebar navLinks={navLinks} showMapAction={showMapAction} />
+          <EventDetailSidebar
+            navLinks={navLinks}
+            showMapAction={showMapAction}
+            readingProgress={readingProgress}
+            activeSection={activeSection}
+            listeningProgress={narrationState.isPlaying ? narrationState.progress : -1}
+          />
         </div>
       </div>
     </div>
   );
 }
 
+/* ─── Loading State ──────────────────────────────────────────────────────── */
+
+function LoadingState() {
+  return (
+    <div
+      className="flex flex-col items-center justify-center min-h-screen gap-6"
+      style={{ background: 'var(--bg-app)', color: 'var(--text-primary)' }}
+    >
+      <div className="relative">
+        <div
+          className="w-14 h-14 rounded-full animate-spin"
+          style={{ border: '3px solid var(--border)', borderTopColor: 'var(--accent)' }}
+        />
+        <div className="absolute inset-0 flex items-center justify-center">
+          <span className="font-serif text-lg font-bold" style={{ color: 'var(--accent)' }}>S</span>
+        </div>
+      </div>
+      <div className="text-center">
+        <p className="font-serif text-lg font-semibold" style={{ color: 'var(--text-primary)' }}>
+          Đang tra cứu thư tịch...
+        </p>
+        <p className="text-sm mt-1" style={{ color: 'var(--text-muted)' }}>
+          Khai thác dữ liệu sự kiện lịch sử
+        </p>
+      </div>
+      <div className="h-[2px] w-12 mx-auto rounded-full" style={{ background: 'var(--accent)' }} />
+    </div>
+  );
+}
+
 /* ─── Not-found state ───────────────────────────────────────────────────── */
 
-function NotFoundEventState({
-  slug,
-  onGoHome,
-}: {
-  slug?: string;
-  onGoHome: () => void;
-}) {
+function NotFoundEventState({ slug, onGoHome }: { slug?: string; onGoHome: () => void }) {
   const suggestions = [
-    {
-      slug: 'bach-dang-938-ngo-quyen-xung-vuong',
-      label: 'Chiến thắng Bạch Đằng 938',
-    },
-    {
-      slug: 'chien-dich-dien-bien-phu-1954',
-      label: 'Chiến dịch Điện Biên Phủ 1954',
-    },
-    {
-      slug: 'cach-mang-thang-tam-1945',
-      label: 'Cách mạng tháng Tám 1945',
-    },
-    {
-      slug: 'tuyen-ngon-doc-lap-1945',
-      label: 'Tuyên ngôn Độc lập 2/9/1945',
-    },
+    { slug: 'bach-dang-938-ngo-quyen-xung-vuong', label: 'Chiến thắng Bạch Đằng 938' },
+    { slug: 'chien-dich-dien-bien-phu-1954', label: 'Chiến dịch Điện Biên Phủ 1954' },
+    { slug: 'cach-mang-thang-tam-1945', label: 'Cách mạng tháng Tám 1945' },
+    { slug: 'tuyen-ngon-doc-lap-1945', label: 'Tuyên ngôn Độc lập 2/9/1945' },
   ];
   return (
     <div
@@ -286,39 +322,25 @@ function NotFoundEventState({
       style={{ background: 'var(--bg-app)', color: 'var(--text-primary)' }}
     >
       <div
-        className="w-16 h-16 rounded-2xl flex items-center justify-center"
-        style={{
-          background: 'var(--admin-accent-soft)',
-          color: 'var(--admin-accent)',
-        }}
+        className="w-20 h-20 rounded-2xl flex items-center justify-center"
+        style={{ background: 'var(--accent-soft)', color: 'var(--accent)' }}
       >
-        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6">
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6">
           <path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2zM22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z" />
         </svg>
       </div>
-      <h2 className="text-2xl font-bold">Không tìm thấy thông tin sự kiện</h2>
-      <p
-        className="max-w-lg text-sm leading-relaxed"
-        style={{ color: 'var(--text-muted)' }}
-      >
-        Sự kiện{' '}
-        <strong style={{ color: 'var(--text-primary)' }}>"{slug}"</strong> bạn
-        đang tìm chưa được cập nhật dữ liệu chi tiết. Bạn có thể tham khảo các
-        sự kiện đã có sẵn dưới đây.
+      <h2 className="font-serif text-3xl font-bold">Không tìm thấy thông tin sự kiện</h2>
+      <p className="max-w-lg text-sm leading-relaxed" style={{ color: 'var(--text-muted)' }}>
+        Sự kiện <strong style={{ color: 'var(--text-primary)' }}>"{slug}"</strong> bạn đang tìm chưa được cập nhật dữ liệu chi tiết. Bạn có thể tham khảo các sự kiện đã có sẵn dưới đây.
       </p>
+
+      <div className="h-[2px] w-12 mx-auto rounded-full mb-2" style={{ background: 'var(--accent)' }} />
 
       <div
         className="rounded-2xl p-5 max-w-lg w-full text-left"
-        style={{
-          background: 'var(--bg-card)',
-          border: '1px solid var(--border)',
-          boxShadow: 'var(--shadow)',
-        }}
+        style={{ background: 'var(--bg-card)', border: '1px solid var(--border)', boxShadow: 'var(--shadow)' }}
       >
-        <div
-          className="text-[10px] font-bold uppercase tracking-[0.16em] mb-3"
-          style={{ color: 'var(--text-muted)' }}
-        >
+        <div className="text-[10px] font-bold uppercase tracking-[0.16em] mb-3 font-mono" style={{ color: 'var(--accent)' }}>
           Sự kiện tiêu biểu có sẵn
         </div>
         <div className="flex flex-col gap-1">
@@ -326,19 +348,17 @@ function NotFoundEventState({
             <a
               key={s.slug}
               href={`/events/${s.slug}`}
-              className="px-3 py-2 rounded-lg text-sm font-medium transition"
+              className="px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200"
               style={{ color: 'var(--text-secondary)' }}
               onMouseEnter={(e) => {
-                (e.currentTarget as HTMLAnchorElement).style.background =
-                  'var(--accent-soft)';
-                (e.currentTarget as HTMLAnchorElement).style.color =
-                  'var(--accent)';
+                (e.currentTarget as HTMLAnchorElement).style.background = 'var(--accent-soft)';
+                (e.currentTarget as HTMLAnchorElement).style.color = 'var(--accent)';
+                (e.currentTarget as HTMLAnchorElement).style.paddingLeft = '16px';
               }}
               onMouseLeave={(e) => {
-                (e.currentTarget as HTMLAnchorElement).style.background =
-                  'transparent';
-                (e.currentTarget as HTMLAnchorElement).style.color =
-                  'var(--text-secondary)';
+                (e.currentTarget as HTMLAnchorElement).style.background = 'transparent';
+                (e.currentTarget as HTMLAnchorElement).style.color = 'var(--text-secondary)';
+                (e.currentTarget as HTMLAnchorElement).style.paddingLeft = '12px';
               }}
             >
               → {s.label}
@@ -349,8 +369,16 @@ function NotFoundEventState({
 
       <button
         onClick={onGoHome}
-        className="px-6 py-2.5 rounded-xl font-semibold"
-        style={{ background: 'var(--accent)', color: '#fff' }}
+        className="px-6 py-2.5 rounded-xl font-semibold transition-all duration-200 font-mono text-xs tracking-wider uppercase"
+        style={{ background: 'var(--accent)', color: '#fff', boxShadow: 'var(--shadow-glow)' }}
+        onMouseEnter={(e) => {
+          (e.currentTarget as HTMLButtonElement).style.filter = 'brightness(1.1)';
+          (e.currentTarget as HTMLButtonElement).style.transform = 'translateY(-1px)';
+        }}
+        onMouseLeave={(e) => {
+          (e.currentTarget as HTMLButtonElement).style.filter = 'none';
+          (e.currentTarget as HTMLButtonElement).style.transform = 'none';
+        }}
       >
         Quay lại bản đồ
       </button>

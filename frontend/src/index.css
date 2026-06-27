@@ -1,99 +1,65 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap');
 @import 'tailwindcss';
 
+/* ═══════════════════════════════════════════════════════════════════════════
+   DESIGN SYSTEM — Lịch Sử Việt Nam 3D
+   Source of truth: CoiNguonPage (lsvn3d reference project)
+   Palette: stone white · amber gold · red-900 deep crimson
+   ═══════════════════════════════════════════════════════════════════════════ */
 
-/* Base CSS Custom Properties for Theming */
-:root { /* Default is Dark */
-  --bg-app: #0b1220;
-  --bg-surface: #14243d;
-  --bg-card: #1a2f4d;
-  --text-primary: #e7ecf3;
-  --text-secondary: #c4ceda;
-  --text-muted: #90a1b6;
-  --border: rgba(194, 155, 75, 0.22);
-  --accent: #4f6f95;
-  --accent-soft: rgba(79, 111, 149, 0.24);
-  --success: #2f7a57;
-  --success-soft: rgba(47, 122, 87, 0.14);
-  --warning: #c29b4b;
-  --warning-soft: rgba(194, 155, 75, 0.16);
-  --danger: #9f1d2d;
-  --danger-soft: rgba(159, 29, 45, 0.14);
-  --shadow: 0 16px 28px -12px rgba(4, 10, 20, 0.72), 0 8px 16px -8px rgba(4, 10, 20, 0.45);
+:root {
+  --color-brand-red: #8b1e1e;
+  --color-brand-gold: #c5a059;
 
-  /* Auth Input Tokens - Dark Mode */
-  --input-bg: #0b1220;
-  --input-border: rgba(144, 161, 182, 0.3);
-  --input-text: #e7ecf3;
-  --input-placeholder: #6f8299;
-  --input-icon: #6f8299;
-  --input-focus: var(--accent);
-
-  /* Admin Theme Tokens */
-  --admin-accent: #c29b4b;
-  --admin-accent-soft: rgba(194, 155, 75, 0.16);
+  /* Light theme (default) — matching CoiNguonPage exactly */
+  --bg-app: #fafaf9;
+  --bg-surface: #f5f5f4;
+  --bg-card: #ffffff;
+  --text-primary: #1c1917;
+  --text-secondary: #57534e;
+  --text-muted: #78716c;
+  --border: #e7e5e4;
+  --border-strong: #d6d3d1;
+  --accent: #8b1e1e;
+  --accent-soft: #fef2f2;
+  --accent-glow: rgba(139, 30, 30, 0.15);
+  --admin-accent: #c5a059;
+  --admin-accent-soft: rgba(197, 160, 89, 0.1);
+  --success: #3D8361;
+  --success-soft: rgba(61, 131, 97, 0.1);
+  --warning: #c5a059;
+  --warning-soft: rgba(197, 160, 89, 0.1);
+  --danger: #8b1e1e;
+  --danger-soft: #fef2f2;
+  --shadow: 0 8px 24px -12px rgba(0,0,0,0.1);
+  --shadow-sm: 0 2px 8px rgba(0,0,0,0.06);
+  --shadow-glow: 0 0 16px rgba(139,30,30,0.15);
+  --input-bg: #fafaf9;
+  --input-border: #d6d3d1;
+  --input-text: #1c1917;
+  --input-placeholder: #a8a29e;
+  --input-icon: #a8a29e;
+  --input-focus: #8b1e1e;
+  --ease-museum: cubic-bezier(0.16, 1, 0.3, 1);
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-serif: 'Cormorant Garamond', ui-serif, Georgia, serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
 }
-
-[data-theme="light"] {
-  --bg-app: #f4ebdd;
-  --bg-surface: #efe2cf;
-  --bg-card: #fff9ef;
-  --text-primary: #1f2937;
-  --text-secondary: #334960;
-  --text-muted: #5f7288;
-  --border: #dbc8a9;
-  --accent: #2a4b72;
-  --accent-soft: rgba(42, 75, 114, 0.1);
-  --success: #2f7a57;
-  --success-soft: rgba(47, 122, 87, 0.12);
-  --warning: #9c7333;
-  --warning-soft: rgba(156, 115, 51, 0.12);
-  --danger: #8f1c2a;
-  --danger-soft: rgba(143, 28, 42, 0.1);
-  --shadow: 0 18px 34px -14px rgba(53, 42, 26, 0.2), 0 8px 14px -10px rgba(53, 42, 26, 0.12);
-
-  /* Auth Input Tokens - Light Mode */
-  --input-bg: #ffffff;
-  --input-border: #c8b89f;
-  --input-text: #1f2937;
-  --input-placeholder: #8f7e66;
-  --input-icon: #8f7e66;
-  --input-focus: var(--accent);
-
-  /* Admin Theme Tokens */
-  --admin-accent: #9c7333;
-  --admin-accent-soft: rgba(156, 115, 51, 0.12);
-}
-
-/* Utility Classes for Theme System */
-.bg-app { background-color: var(--bg-app); }
-.bg-surface { background-color: var(--bg-surface); }
-.bg-card { background-color: var(--bg-card); }
-.text-primary { color: var(--text-primary); }
-.text-secondary { color: var(--text-secondary); }
-.text-muted { color: var(--text-muted); }
-.border-default { border-color: var(--border); }
-.accent-primary { color: var(--accent); }
-
-/* Cesium widget styles are imported in CesiumMap.tsx */
 
 @theme {
-  --font-sans: 'Inter', sans-serif;
-  --color-primary: var(--accent);
-  --color-primary-light: #4f6f95;
-  --color-primary-dark: #14243d;
-  --color-surface: var(--bg-app);
-  --color-surface-2: var(--bg-surface);
-  --color-surface-3: var(--bg-card);
-  --color-border: var(--border);
-  --color-text: var(--text-primary);
-  --color-text-dim: var(--text-muted);
-  --color-military: #9f1d2d;
-  --color-political: #4f6f95;
-  --color-economic: #c29b4b;
-  --color-cultural: #2f7a57;
-  --color-accent-glow: rgba(79, 111, 149, 0.3);
-  --shadow-theme: var(--shadow);
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-serif: 'Cormorant Garamond', ui-serif, Georgia, serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+  --color-surface: #fafaf9;
+  --color-surface-2: #f5f5f4;
+  --color-surface-3: #ffffff;
+  --color-border: #e7e5e4;
+  --color-text: #1c1917;
+  --color-text-dim: #78716c;
+  --color-military: #991b1b;
+  --color-political: #1e3a5f;
+  --color-economic: #8a6b2b;
+  --color-cultural: #1a4a3a;
 }
 
 /*
@@ -225,6 +191,11 @@
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% center; }
+  100% { background-position: -200% center; }
 }
 
 @keyframes pulse-glow {

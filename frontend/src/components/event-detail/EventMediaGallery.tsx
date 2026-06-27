@@ -14,7 +14,8 @@ interface MediaItem {
 }
 
 /**
- * Gallery dạng "primary lớn + thumb dọc" + lightbox đơn giản.
+ * Media gallery redesigned with CoiNguonPage design language.
+ * Red-900 active border, white cards, subtle shadow.
  */
 export default function EventMediaGallery({ media, index = '07' }: EventMediaGalleryProps) {
   const items: MediaItem[] = [];
@@ -33,7 +34,7 @@ export default function EventMediaGallery({ media, index = '07' }: EventMediaGal
       <section id="media" className="scroll-mt-28 w-full">
         <SectionHeader index={index} title="Tư liệu hình ảnh & video" />
         <div
-          className="rounded-2xl p-10 flex flex-col items-center justify-center gap-3 border-dashed"
+          className="rounded-2xl p-10 flex flex-col items-center justify-center gap-3"
           style={{
             background: 'var(--bg-card)',
             border: '1px dashed var(--border)',
@@ -62,7 +63,6 @@ export default function EventMediaGallery({ media, index = '07' }: EventMediaGal
       />
 
       <div className="grid grid-cols-1 md:grid-cols-[1fr_120px] gap-4">
-        {/* Main viewer */}
         <button
           onClick={() => setLightbox(true)}
           className="relative aspect-[16/10] rounded-2xl overflow-hidden cursor-zoom-in"
@@ -73,10 +73,7 @@ export default function EventMediaGallery({ media, index = '07' }: EventMediaGal
           }}
         >
           {active.type === 'video' ? (
-            <div
-              className="w-full h-full flex flex-col items-center justify-center gap-3"
-              style={{ color: 'var(--text-muted)' }}
-            >
+            <div className="w-full h-full flex flex-col items-center justify-center gap-3" style={{ color: 'var(--text-muted)' }}>
               <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4">
                 <polygon points="5,3 19,12 5,21" />
               </svg>
@@ -86,24 +83,19 @@ export default function EventMediaGallery({ media, index = '07' }: EventMediaGal
             <img
               src={active.url}
               alt={active.caption || 'Tư liệu sự kiện'}
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
             />
           )}
           {active.caption && (
             <div
-              className="absolute bottom-0 left-0 right-0 p-4 text-sm"
-              style={{
-                background:
-                  'linear-gradient(to top, rgba(0,0,0,0.78), transparent)',
-                color: '#fff',
-              }}
+              className="absolute bottom-0 left-0 right-0 p-4 text-sm font-medium"
+              style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.78), transparent)', color: '#fff' }}
             >
               {active.caption}
             </div>
           )}
         </button>
 
-        {/* Thumbnails */}
         <div className="flex md:flex-col gap-2 overflow-x-auto md:overflow-y-auto md:max-h-[420px] pb-2 md:pb-0 md:pr-1">
           {items.map((it, idx) => {
             const isActive = idx === activeIdx;
@@ -111,18 +103,18 @@ export default function EventMediaGallery({ media, index = '07' }: EventMediaGal
               <button
                 key={idx}
                 onClick={() => setActiveIdx(idx)}
-                className="relative aspect-square w-24 md:w-full flex-shrink-0 rounded-lg overflow-hidden transition"
+                className="relative aspect-square w-24 md:w-full flex-shrink-0 rounded-lg overflow-hidden transition-all duration-200"
                 style={{
                   background: 'var(--bg-surface)',
-                  border: `2px solid ${isActive ? 'var(--admin-accent)' : 'var(--border)'}`,
+                  border: `2px solid ${isActive ? 'var(--accent)' : 'var(--border)'}`,
                   opacity: isActive ? 1 : 0.7,
+                  transform: isActive ? 'scale(1.02)' : 'none',
                 }}
+                onMouseEnter={(e) => { if (!isActive) (e.currentTarget as HTMLButtonElement).style.opacity = '0.9'; }}
+                onMouseLeave={(e) => { if (!isActive) (e.currentTarget as HTMLButtonElement).style.opacity = '0.7'; }}
               >
                 {it.type === 'video' ? (
-                  <div
-                    className="w-full h-full flex items-center justify-center"
-                    style={{ color: 'var(--text-muted)' }}
-                  >
+                  <div className="w-full h-full flex items-center justify-center" style={{ color: 'var(--text-muted)' }}>
                     <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
                       <polygon points="5,3 19,12 5,21" />
                     </svg>
@@ -136,12 +128,11 @@ export default function EventMediaGallery({ media, index = '07' }: EventMediaGal
         </div>
       </div>
 
-      {/* Lightbox */}
       {lightbox && active.type !== 'video' && (
         <div
           onClick={() => setLightbox(false)}
           className="fixed inset-0 z-[200] flex items-center justify-center p-6 cursor-zoom-out"
-          style={{ background: 'rgba(4, 10, 20, 0.92)', backdropFilter: 'blur(6px)' }}
+          style={{ background: 'rgba(0,0,0,0.92)', backdropFilter: 'blur(6px)' }}
         >
           <img
             src={active.url}
@@ -152,7 +143,7 @@ export default function EventMediaGallery({ media, index = '07' }: EventMediaGal
           {active.caption && (
             <div
               className="absolute bottom-6 left-1/2 -translate-x-1/2 px-4 py-2 rounded-full text-sm"
-              style={{ background: 'rgba(11,18,32,0.7)', color: '#fff' }}
+              style={{ background: 'rgba(0,0,0,0.7)', color: '#fff' }}
             >
               {active.caption}
             </div>

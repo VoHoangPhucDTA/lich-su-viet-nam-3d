@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Đặc tả Usecase Xem chi tiết sự kiện</title>
+<style>
+    body { font-family: 'Times New Roman', Times, serif; font-size: 13pt; line-height: 1.5; }
+    table { width: 100%; border-collapse: collapse; margin-bottom: 15px; }
+    th, td { border: 1px solid black; padding: 6px 10px; text-align: left; }
+    th { background-color: #f2f2f2; font-weight: bold; }
+    h3 { font-size: 14pt; margin-top: 20px; font-weight: bold; }
+    p { margin: 5px 0; }
+    .bold { font-weight: bold; }
+</style>
+</head>
+<body>
+
+<p style="text-align: center; font-weight: bold; font-size: 16pt;">CHƯƠNG 3. ĐẶC TẢ USECASE XEM CHI TIẾT SỰ KIỆN</p>
+
+<!-- Usecase 02 -->
+<h3>1. Use Case Specification: Xem chi tiết sự kiện lịch sử (UC-02)</h3>
+<table>
+  <tr>
+    <th style="width:25%">Use Case Name</th>
+    <th style="width:25%">Use Case ID</th>
+    <th style="width:25%">Date Created</th>
+    <th style="width:25%">Created By</th>
+  </tr>
+  <tr>
+    <td>Xem chi tiết sự kiện lịch sử</td>
+    <td>UC-02</td>
+    <td>16/05/2026</td>
+    <td>Võ Hoàng Phúc</td>
+  </tr>
+  <tr>
+    <th colspan="2">Primary Actors</th>
+    <th colspan="2">Secondary Actors</th>
+  </tr>
+  <tr>
+    <td colspan="2">Người dùng (Độc giả/Học sinh)</td>
+    <td colspan="2">Backend TTS Service (Viettel AI), MySQL Database</td>
+  </tr>
+</table>
+
+<p><span class="bold">3.1. Brief Description</span><br>
+Usecase này cho phép người dùng xem thông tin chi tiết về một sự kiện lịch sử đã chọn, bao gồm: hero section với thông tin cơ bản, tóm tắt nội dung SGK (canonical summary), diễn biến chi tiết (detailed narrative), ý nghĩa lịch sử, dữ kiện chính (key facts), bản đồ địa điểm, sự kiện liên quan (hierarchy), thư viện hình ảnh, nguồn tham khảo SGK, và tích hợp AI Narration (Text-to-Speech qua Viettel AI) với audio player đầy đủ điều khiển. Trang hỗ trợ Reading Progress (theo dõi tiến độ đọc qua IntersectionObserver) và Listening Progress (theo dõi tiến độ phát audio).</p>
+
+<p><span class="bold">3.2. Pre-conditions</span><br>
+1. Người dùng đã chọn một sự kiện trên Bản đồ tương tác hoặc Trang chủ và nhấn nút "Xem chi tiết".<br>
+2. Hệ thống đang hoạt động bình thường với kết nối đến MySQL và Backend API.<br>
+3. Dữ liệu sự kiện đã được parse từ file JSON (history_events) và có sẵn trong event registry.</p>
+
+<p><span class="bold">3.3. Trigger</span><br>
+Người dùng nhấn nút "Xem chi tiết" trên EventPopup, EventCard, hoặc truy cập trực tiếp URL /events/{slug}.</p>
+
+<p><span class="bold">3.4. Post-conditions</span><br>
+1. Hệ thống render trang chi tiết sự kiện với đầy đủ thông tin (hero, nội dung, dữ kiện, bản đồ, media, nguồn tham khảo).<br>
+2. Sidebar TOC hiển thị mục lục các section với đánh số (01–09).<br>
+3. Reading Progress được cập nhật khi người dùng scroll qua các section.<br>
+4. AI Narration có thể được kích hoạt để đọc nội dung sự kiện bằng giọng Viettel AI.<br>
+5. Audio Player hiển thị timeline, seek bar, và thời gian phát.</p>
+
+<p><span class="bold">3.5. Normal Flow: Xem chi tiết sự kiện (UC-02)</span><br>
+3.5.1: Người dùng click "Xem chi tiết" trên EventPopup hoặc truy cập /events/{slug}.<br>
+3.5.2: EventDetailPage.tsx gọi getEventDetailBySlug(slug) từ eventDetailService.ts.<br>
+3.5.3: eventDetailService.ts kiểm tra Backend API trước, fallback sang JSON static (eventRegistry → eventAdapter).<br>
+3.5.4: EventDetailPage.tsx nhận dữ liệu MockEventDetail và render các section:<br>
+&nbsp;&nbsp;&nbsp;- 01: Tổng quan (EventHero + EventTextbookContent.canonicalSummary)<br>
+&nbsp;&nbsp;&nbsp;- 02: Nội dung SGK (EventTextbookContent.detailedNarrative) — nếu có<br>
+&nbsp;&nbsp;&nbsp;- 03: Ý nghĩa lịch sử (EventTextbookContent.significance) — nếu có<br>
+&nbsp;&nbsp;&nbsp;- 04: Dữ kiện chính (EventKeyFacts) — nếu có<br>
+&nbsp;&nbsp;&nbsp;- 05: Địa điểm (EventLocationCard) — nếu có dữ liệu map<br>
+&nbsp;&nbsp;&nbsp;- 06: Sự kiện liên quan (EventChildrenList) — nếu có childIds<br>
+&nbsp;&nbsp;&nbsp;- 07: Tư liệu & media (EventMediaGallery) — nếu có media<br>
+&nbsp;&nbsp;&nbsp;- 08: Nguồn SGK (EventSources) — nếu có textbookRefs<br>
+&nbsp;&nbsp;&nbsp;- 09: Nguồn mở rộng (EventSources) — nếu có externalContent<br>
+3.5.5: Sidebar (EventDetailSidebar) hiển thị TOC + Reading Progress + Quick Actions.<br>
+3.5.6: Reading Progress tự động cập nhật dựa trên IntersectionObserver theo dõi từng section.<br>
+3.5.7: Listening Progress được đồng bộ từ TTS Player qua callback onNarrationStateChange.</p>
+
+<p><span class="bold">3.6. Alternative Flows</span><br>
+<span class="bold">3.6.1. AI Narration — Text-to-Speech qua Viettel AI (UC-02-A1)</span><br>
+3.6.1.1: EventTTSPlayer: Người dùng nhấn nút "Nghe tường thuật".<br>
+3.6.1.2: EventTTSPlayer: Gọi unlockAudio() để khởi tạo AudioContext và HTMLAudioElement.<br>
+3.6.1.3: EventTTSPlayer: Gọi startGeneration() → generateTts() POST /api/tts/generate.<br>
+3.6.1.4: Backend NarrationController: Nhận request, tạo TTS job (TtsJobManager.createJob()).<br>
+3.6.1.5: Backend TtsJobManager: Chạy async processJob() — chunkText() + generateSingleChunk() → ViettelTextToSpeechProvider.synthesize().<br>
+3.6.1.6: Frontend poll GET /api/tts/status/{jobId} mỗi 3 giây.<br>
+3.6.1.7: Khi job hoàn thành, frontend nhận playlist audio URLs.<br>
+3.6.1.8: Auto-play: status → 'ready' → 'playing', currentIndex → 0, playChunk() được gọi.<br>
+3.6.1.9: HTMLAudioElement phát audio, ontimeupdate cập nhật currentTime và progress.<br>
+3.6.1.10: Khi chunk kết thúc, onended chuyển sang chunk tiếp theo hoặc set status 'completed'.<br>
+3.6.1.11: Listening Progress được đồng bộ lên EventDetailSidebar.<br><br>
+<span class="bold">Các điều khiển Audio Player:</span><br>
+&nbsp;&nbsp;&nbsp;- Pause: Tạm dừng phát, giữ nguyên vị trí.<br>
+&nbsp;&nbsp;&nbsp;- Resume: Tiếp tục phát từ vị trí đã dừng.<br>
+&nbsp;&nbsp;&nbsp;- Stop: Dừng hoàn toàn, reset về trạng thái idle.<br>
+&nbsp;&nbsp;&nbsp;- Replay: Phát lại từ đầu.<br>
+&nbsp;&nbsp;&nbsp;- Seek: Kéo thanh timeline để nhảy đến vị trí bất kỳ.<br>
+&nbsp;&nbsp;&nbsp;- Speed: Điều chỉnh tốc độ phát (0.75x, 1x, 1.25x, 1.5x).<br>
+&nbsp;&nbsp;&nbsp;- Volume: Điều chỉnh âm lượng (0–100%).<br>
+&nbsp;&nbsp;&nbsp;- Voice: Chọn giọng đọc (5 giọng Viettel AI — Bắc, Trung, Nam).<br>
+&nbsp;&nbsp;&nbsp;- Chunk navigation: Chuyển giữa các đoạn audio (nếu có nhiều chunk).</p>
+
+<p><span class="bold">3.6.2. Reading Progress (UC-02-A2)</span><br>
+3.6.2.1: useReadingProgress hook khởi tạo IntersectionObserver cho mỗi section.<br>
+3.6.2.2: Khi người dùng scroll, observer phát hiện section nào đang visible.<br>
+3.6.2.3: Progress = tổng trọng số các section đã xem / tổng trọng số tất cả section.<br>
+3.6.2.4: Khi người dùng scroll đến cuối trang (trong vòng 50px), tất cả section được đánh dấu "đã xem" → progress = 100%.<br>
+3.6.2.5: EventDetailSidebar hiển thị % reading progress + active section highlight.</p>
+
+<p><span class="bold">3.7. Exceptions</span><br>
+- Nếu sự kiện không tồn tại: render NotFoundEventState với danh sách sự kiện gợi ý.<br>
+- Nếu API TTS (Viettel AI) bị lỗi: EventTTSPlayer chuyển sang state 'error', hiển thị nút "Thử lại". ErrorBoundary bao bọc player để các section khác không bị ảnh hưởng.<br>
+- Nếu token Viettel AI chưa được cấu hình: backend trả về INTERNAL_SERVER_ERROR → frontend hiển thị thông báo lỗi.<br>
+- Nếu không tìm thấy section element trong DOM: IntersectionObserver bỏ qua, không gây crash.<br>
+- Nếu audio không thể phát (browser policy): play() promise reject → set status 'paused' + hướng dẫn người dùng nhấn "Tiếp tục".</p>
+
+<p><span class="bold">3.8. Includes</span><br>
+- Frontend: EventDetailPage.tsx, EventHero, EventTTSPlayer, EventTextbookContent, EventKeyFacts, EventLocationCard, EventChildrenList, EventMediaGallery, EventSources, EventDetailSidebar, ErrorBoundary, useReadingProgress hook.<br>
+- Services: eventDetailService.ts, ttsService.ts, apiClient.ts.<br>
+- Backend: NarrationController.java, NarrationService.java, TtsJobManager.java, ViettelTextToSpeechProvider.java.<br>
+- Data: eventRegistry.ts, eventAdapter.ts (JSON → MockEventDetail conversion).</p>
+
+<p><span class="bold">3.9. Assumptions</span><br>
+- Thiết bị người dùng có kết nối mạng internet để tải dữ liệu và audio.<br>
+- Trình duyệt hỗ trợ HTML5 Audio và IntersectionObserver.<br>
+- Backend TTS service có API key Viettel AI được cấu hình hợp lệ.<br>
+- File JSON dữ liệu sự kiện đã được parse và available trong event registry.</p>
+
+</body>
+</html>

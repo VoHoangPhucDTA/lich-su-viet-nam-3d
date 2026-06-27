@@ -1,0 +1,158 @@
+@startuml usecase_event_detail
+skinparam maxMessageSize 150
+actor "Người dùng" as U
+participant "EventDetailPage.tsx" as EDP
+participant "useReadingProgress\n(IntersectionObserver)" as RPH
+participant "EventDetailSidebar.tsx" as SID
+participant "EventTTSPlayer.tsx" as TTS
+participant "eventDetailService.ts\n/ eventApi.ts" as API
+participant "ttsService.ts" as TAPI
+participant "EventController.java" as CTR
+participant "NarrationController.java" as NC
+participant "NarrationService.java\n+ TtsJobManager" as SRV
+participant "ViettelAI\nTTS API" as VAI
+database "MySQL" as DB
+participant "eventRegistry.ts\n+ eventAdapter.ts" as REG
+participant "ErrorBoundary.tsx" as ERR
+
+group Normal Flow: Xem chi tiết sự kiện
+    U -> EDP : Click "Xem chi tiết" hoặc truy cập /events/{slug}
+    activate EDP
+    EDP -> API : getEventDetailBySlug(slug)
+    activate API
+    API -> CTR : GET /api/events/{slug}/detail (nếu backend online)
+    activate CTR
+    CTR -> DB : Truy vấn chi tiết sự kiện
+    deactivate CTR
+    API -> REG : Fallback: JSON static history_events
+    activate REG
+    REG --> API : RawEventJson
+    deactivate REG
+    API --> EDP : MockEventDetail
+    deactivate API
+
+    EDP -> EDP : Build navLinks + sectionIndices\n(useMemo)
+    EDP -> RPH : useReadingProgress(sectionInfos)
+    activate RPH
+    RPH -> RPH : IntersectionObserver:\nquan sát từng section
+    deactivate RPH
+
+    EDP -> EDP : Render sections (01–09):
+    note right
+      01 Tổng quan
+      02 Nội dung SGK
+      03 Ý nghĩa lịch sử
+      04 Dữ kiện chính
+      05 Địa điểm
+      06 Sự kiện liên quan
+      07 Tư liệu & media
+      08 Nguồn SGK
+      09 Nguồn mở rộng
+    end note
+
+    SID -> EDP : Nhận navLinks + readingProgress + activeSection
+    deactivate EDP
+end
+
+group Alternative Flow A1: AI Narration (Viettel AI TTS)
+    U -> TTS : 1. Nhấn "Nghe tường thuật"
+    activate TTS
+    TTS -> TTS : unlockAudio() → AudioContext + HTMLAudioElement
+    TTS -> TTS : startGeneration() → setStatus('generating')
+    TTS -> TAPI : generateTts({eventId, text, voice, speed})
+    activate TAPI
+    TAPI -> NC : POST /api/tts/generate
+    activate NC
+    NC -> SRV : createJob() → UUID jobId
+    activate SRV
+    NC --> TAPI : { jobId, status: "processing" }
+    deactivate NC
+
+    TAPI --> TTS : { jobId, status: "processing" }
+    deactivate TAPI
+
+    loop Poll every 3s (max 120s)
+        TTS -> TAPI : pollTtsStatus(jobId)
+        activate TAPI
+        TAPI -> NC : GET /api/tts/status/{jobId}
+        activate NC
+        NC -> SRV : getJob(jobId)
+
+        alt job.status == "COMPLETED"
+            SRV -> SRV : Audio files cached on disk
+            NC --> TAPI : { status: "done", playlist: [...] }
+            deactivate NC
+            TAPI --> TTS : Playlist with audio URLs
+            deactivate TAPI
+        else job.status == "FAILED"
+            NC --> TAPI : { status: "failed", errorMessage }
+            deactivate NC
+            TAPI --> TTS : Error
+            deactivate TAPI
+            TTS -> TTS : setStatus('error')
+        else job.status == "PROCESSING" / "PENDING"
+            NC --> TAPI : { status: "processing" }
+            deactivate NC
+            TAPI --> TTS : { status: "processing" }
+            deactivate TAPI
+        end
+    end
+
+    alt Generation successful
+        TTS -> TTS : setPlaylist(items), setStatus('ready')
+        TTS -> TTS : auto-play: setStatus('playing'), setCurrentIndex(0)
+        TTS -> TTS : playChunk(url) → audio.src = url, audio.play()
+        TTS -> TTS : onloadedmetadata → setDuration()
+        TTS -> TTS : ontimeupdate → setCurrentTime(), setProgress()
+        TTS -> EDP : onNarrationStateChange({ isPlaying, progress })
+        activate EDP
+        EDP -> SID : Cập nhật listeningProgress
+        deactivate EDP
+
+        group Next chunk (nếu có nhiều chunks)
+            TTS -> TTS : onended → currentIndex++
+            TTS -> TTS : playChunk(nextUrl)
+        end
+
+        group User controls
+            U -> TTS : Pause → audio.pause(), status='paused'
+            U -> TTS : Resume → audio.play(), status='playing'
+            U -> TTS : Stop → resetState(), status='idle'
+            U -> TTS : Replay → resetState(), startGeneration()
+            U -> TTS : Seek → seekTo(fraction)
+            U -> TTS : Speed change → audio.playbackRate = speed
+        end
+
+        TTS -> TTS : onended (last chunk) → setStatus('completed'), progress=100%
+    else Generation failed
+        TTS -> TTS : setStatus('error'), setErrorMessage()
+        TTS -[#red]> ERR : Error propagation
+        activate ERR
+        ERR -> ERR : Render fallback UI
+        note right
+          Các section khác vẫn
+          hoạt động bình thường
+        end note
+        deactivate ERR
+    end
+    deactivate TTS
+end
+
+group Alternative Flow A2: Reading Progress
+    U -> RPH : Scroll qua các section
+    activate RPH
+    RPH -> RPH : IntersectionObserver\nphát hiện section visible
+    RPH -> RPH : Tính weighted progress\n(viewedWeight / totalWeight * 100)
+    RPH -> EDP : readingProgress (0–100%)
+    RPH -> EDP : activeSection ID
+    deactivate RPH
+    EDP -> SID : Cập nhật readPct + activeId
+    activate SID
+    deactivate SID
+
+    alt User scrolls to bottom (within 50px)
+        RPH -> RPH : Scroll fallback:\nmark ALL sections as viewed
+        RPH -> RPH : readingProgress = 100%
+    end
+end
+@enduml
