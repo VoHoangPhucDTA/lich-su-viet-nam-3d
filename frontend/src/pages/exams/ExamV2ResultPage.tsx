@@ -73,6 +73,14 @@ function getAnsweredCount(result: ExamResultV2): number {
   }).length;
 }
 
+function needsRetry(result: ExamResultV2): boolean {
+  return result.questions.some((q) => {
+    if (q.questionType === 'mcq') return !q.isCorrect || q.mcq?.selected == null;
+    if (!q.tf?.selected) return true;
+    return !q.isCorrect || Object.values(q.tf.selected).some((value) => value == null);
+  });
+}
+
 function Chip({ children, tone = 'default' }: { children: ReactNode; tone?: 'default' | 'success' | 'danger' | 'warning' }) {
   const colors = {
     default: ['var(--bg-surface)', 'var(--border)', 'var(--text-muted)'],
@@ -566,6 +574,32 @@ export default function ExamV2ResultPage() {
               Chưa thể hiển thị review chi tiết vì không tải được dữ liệu đề. Điểm tổng và breakdown phía trên vẫn là dữ liệu đã lưu khi nộp bài.
             </div>
           )}
+        </section>
+
+        <section style={{ background: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: '1rem', padding: '1.25rem', display: 'grid', gap: '0.9rem' }}>
+          <h2 style={{ margin: 0, fontSize: '1.05rem', fontWeight: 900, color: 'var(--text-primary)' }}>Tiếp tục luyện tập</h2>
+          {needsRetry(result) ? (
+            <p style={{ margin: 0, color: 'var(--text-muted)', lineHeight: 1.6 }}>
+              Ôn lại các câu sai hoặc bỏ trống trong bài này để củng cố ngay phần còn thiếu.
+            </p>
+          ) : (
+            <p style={{ margin: 0, color: 'var(--success)', lineHeight: 1.6, fontWeight: 700 }}>
+              Bạn đã làm đúng toàn bộ câu hỏi trong bài này.
+            </p>
+          )}
+          <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
+            {needsRetry(result) && (
+              <Link to={`/exams/on-lai/${result.sessionId}`} style={{ padding: '0.75rem 1.5rem', background: 'var(--accent)', color: '#fff', borderRadius: '0.875rem', textDecoration: 'none', fontWeight: 800, fontSize: '0.9rem' }}>
+                Ôn lại câu sai
+              </Link>
+            )}
+            <Link to="/exams/browse" style={{ padding: '0.75rem 1.5rem', background: 'var(--bg-surface)', color: 'var(--text-primary)', border: '1px solid var(--border)', borderRadius: '0.875rem', textDecoration: 'none', fontWeight: 700, fontSize: '0.9rem' }}>
+              Làm đề khác
+            </Link>
+            <Link to="/exams/lich-su" style={{ padding: '0.75rem 1.5rem', background: 'var(--bg-surface)', color: 'var(--text-primary)', border: '1px solid var(--border)', borderRadius: '0.875rem', textDecoration: 'none', fontWeight: 700, fontSize: '0.9rem' }}>
+              Về lịch sử luyện thi
+            </Link>
+          </div>
         </section>
 
         <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>

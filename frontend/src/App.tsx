@@ -49,6 +49,7 @@ import ExamBrowsePage from './pages/exams/ExamBrowsePage';
 import ExamV2SessionPage from './pages/exams/ExamV2SessionPage';
 import ExamV2ResultPage from './pages/exams/ExamV2ResultPage';
 import ExamV2HistoryPage from './pages/exams/ExamV2HistoryPage';
+import ExamRetryWrongPage from './pages/exams/ExamRetryWrongPage';
 
 function AppContent() {
   const location = useLocation();
@@ -91,6 +92,7 @@ function AppContent() {
           <Route path="/exams/browse" element={<ExamBrowsePage />} />
           <Route path="/exams/de/:examId" element={<ExamV2SessionPage />} />
           <Route path="/exams/ket-qua/:sessionId" element={<ExamV2ResultPage />} />
+          <Route path="/exams/on-lai/:sessionId" element={<ExamRetryWrongPage />} />
           <Route path="/exams/lich-su" element={<ExamV2HistoryPage />} />
           <Route path="/exams/lich-su-v2" element={<ExamV2HistoryPage />} />
 
