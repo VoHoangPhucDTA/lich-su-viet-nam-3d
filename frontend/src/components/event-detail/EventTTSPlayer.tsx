@@ -44,7 +44,7 @@ export default function EventTTSPlayer({ event, onNarrationStateChange }: EventT
   const [progress, setProgress] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
-  const [chunkLabel, setChunkLabel] = useState('');
+  const [_chunkLabel, setChunkLabel] = useState('');
   const [speed, setSpeed] = useState<number>(1);
   const [volume, setVolume] = useState(1);
   const [errorMessage, setErrorMessage] = useState('');
