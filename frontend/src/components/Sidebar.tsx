@@ -1,20 +1,15 @@
 import { useEffect, useState, useMemo } from 'react';
 import {
   Search,
-  ScrollText,
   ChevronRight,
-  ExternalLink,
-  MapPin,
-  Map as MapIcon,
-  ClipboardList,
+  Clock,
 } from 'lucide-react';
 import type { HistoricalEvent, EventType } from '../types/event';
 import {
-  EVENT_TYPE_ICONS,
   EVENT_TYPE_LABELS,
   EVENT_TYPE_COLORS,
 } from '../types/event';
-import { useNavigate } from 'react-router-dom';
+
 
 interface SidebarProps {
   events: HistoricalEvent[];
@@ -24,6 +19,7 @@ interface SidebarProps {
   searchQuery: string;
   onSearchQueryChange: (query: string) => void;
   loading?: boolean;
+  currentYear?: number;
 }
 
 const EVENT_TYPE_FILTERS: EventType[] = [
@@ -41,6 +37,7 @@ export default function Sidebar({
   searchQuery,
   onSearchQueryChange,
   loading = false,
+  currentYear,
 }: SidebarProps) {
   const [expandedIds, setExpandedIds] = useState<Set<string>>(new Set());
   const [activeFilter, setActiveFilter] = useState<EventType | null>(null);
@@ -100,104 +97,138 @@ export default function Sidebar({
 
   return (
     <div
-      className="glass-map animate-slide-in-left"
+      className="animate-slide-in-left"
       style={{
         width: '320px',
         height: '100%',
         display: 'flex',
         flexDirection: 'column',
         zIndex: 10,
+        background: '#ffffff',
+        borderRight: '1px solid #e7e5e4',
       }}
     >
       {/* Header */}
       <div
         style={{
-          padding: '20px 16px 12px',
-          borderBottom: '1px solid var(--border)',
+          padding: '18px 14px 10px',
+          borderBottom: '1px solid #e7e5e4',
         }}
       >
-        <div className="flex items-center gap-2.5 mb-3.5">
-          <ScrollText
-            size={22}
-            strokeWidth={2}
-            style={{ color: 'var(--accent)' }}
-          />
-          <h2
-            className="text-base font-extrabold tracking-tight"
-            style={{ color: 'var(--text-primary)' }}
-          >
-            Sự kiện Lịch sử
-          </h2>
-        </div>
+        <h2
+          className="serif-heading"
+          style={{
+            fontSize: '16px',
+            fontWeight: 700,
+            color: '#1c1917',
+            marginBottom: '10px',
+          }}
+        >
+          Sự kiện Lịch sử
+        </h2>
 
         {/* Search */}
-        <div className="relative mb-3">
+        <div className="relative mb-2.5">
           <Search
             size={15}
             strokeWidth={2.2}
             className="absolute left-2.5 top-1/2 -translate-y-1/2"
-            style={{ color: 'var(--text-muted)' }}
+            style={{ color: '#78716c' }}
           />
           <input
             type="text"
             placeholder="Tìm kiếm sự kiện..."
             value={searchQuery}
             onChange={(e) => onSearchQueryChange(e.target.value)}
-            className="w-full pl-9 pr-3 py-2.5 rounded-[10px] border text-[13px] outline-none transition-all duration-200"
+            className="w-full pl-9 pr-3 py-2 rounded-[10px] border text-[13px] outline-none transition-all duration-200"
             style={{
-              borderColor: 'var(--input-border)',
-              background: 'var(--input-bg)',
-              color: 'var(--input-text)',
+              borderColor: '#d6d3d1',
+              background: '#fafaf9',
+              color: '#1c1917',
             }}
             onFocus={(e) => {
-              e.currentTarget.style.borderColor = 'var(--accent)';
+              e.currentTarget.style.borderColor = '#8b1e1e';
             }}
             onBlur={(e) => {
-              e.currentTarget.style.borderColor = 'var(--input-border)';
+              e.currentTarget.style.borderColor = '#d6d3d1';
             }}
           />
         </div>
 
-        {/* Filter buttons */}
+        {/* Filter section */}
+        <div
+          style={{
+            fontSize: '10px',
+            fontWeight: 700,
+            color: '#78716c',
+            textTransform: 'uppercase',
+            letterSpacing: '0.08em',
+            marginBottom: '6px',
+          }}
+        >
+          Lọc theo
+        </div>
+
+        {/* Filter buttons — Option D: colored dot accent + neutral idle */}
         <div className="flex gap-1.5 flex-wrap">
           {EVENT_TYPE_FILTERS.map((type) => {
-            const Icon = EVENT_TYPE_ICONS[type];
             const isActive = activeFilter === type;
+            const color = EVENT_TYPE_COLORS[type];
             return (
               <button
                 key={type}
-                // 1.1.11: Sidebar.tsx: Người dùng nhấp chọn các nút filter (Tùy chọn) để lọc hiển thị trên Client.
                 onClick={() =>
                   setActiveFilter(isActive ? null : type)
                 }
-                className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-semibold cursor-pointer transition-all duration-150 border"
+                aria-pressed={isActive}
+                className="inline-flex items-center gap-1.5 px-2 py-1 rounded-full text-[11px] font-semibold cursor-pointer transition-all duration-150 border"
                 style={{
-                  borderColor: isActive
-                    ? EVENT_TYPE_COLORS[type]
-                    : 'var(--border)',
                   background: isActive
-                    ? `${EVENT_TYPE_COLORS[type]}25`
-                    : 'var(--bg-card)',
-                  color: isActive
-                    ? EVENT_TYPE_COLORS[type]
-                    : 'var(--text-muted)',
-                  boxShadow: isActive ? '0 2px 8px rgba(0,0,0,0.1)' : 'none',
+                    ? `${color}22`
+                    : '#ffffff',
+                  color: isActive ? color : '#78716c',
+                  borderColor: isActive ? `${color}50` : '#e7e5e4',
                 }}
               >
-                <Icon size={12} strokeWidth={2.2} />
+                {/* Colored dot accent — Option D */}
+                <span
+                  style={{
+                    width: '6px',
+                    height: '6px',
+                    borderRadius: '50%',
+                    background: color,
+                    opacity: isActive ? 1 : 0.65,
+                    flexShrink: 0,
+                  }}
+                />
                 {EVENT_TYPE_LABELS[type]}
               </button>
             );
           })}
+          {activeFilter && (
+            <button
+              type="button"
+              onClick={() => setActiveFilter(null)}
+              className="inline-flex items-center px-2 py-1 rounded-full text-[11px] font-medium cursor-pointer transition-all duration-150 border-0"
+              style={{
+                background: 'transparent',
+                color: '#78716c',
+              }}
+            >
+              Xoá lọc
+            </button>
+          )}
         </div>
       </div>
 
       {/* Event Tree */}
       <div
+        role="list"
+        aria-label="Danh sách sự kiện lịch sử"
         style={{
           flex: 1,
           overflowY: 'auto',
-          padding: '8px 0',
+          padding: '6px 0',
         }}
       >
         {filteredEvents.length === 0 ? (
@@ -205,7 +236,7 @@ export default function Sidebar({
             style={{
               padding: '40px 20px',
               textAlign: 'center',
-              color: 'var(--color-text-dim)',
+              color: '#78716c',
               fontSize: '13px',
             }}
           >
@@ -223,6 +254,7 @@ export default function Sidebar({
               onToggleExpand={toggleExpand}
               onSelectEvent={onSelectEvent}
               onHoverEvent={onHoverEvent}
+              currentYear={currentYear}
             />
           ))
         )}
@@ -231,16 +263,29 @@ export default function Sidebar({
       {/* Footer stats */}
       <div
         style={{
-          padding: '10px 16px',
-          borderTop: '1px solid var(--border)',
+          padding: '8px 14px',
+          borderTop: '1px solid #e7e5e4',
           fontSize: '11px',
-          color: 'var(--text-muted)',
+          color: '#78716c',
           display: 'flex',
           justifyContent: 'space-between',
+          alignItems: 'center',
         }}
       >
-        <span>{filteredEvents.length} sự kiện</span>
-        <span style={{ fontWeight: 600, opacity: 0.8 }}>MVP v1.0</span>
+        <span>
+          {activeFilter ? (
+            <>
+              {filteredEvents.length} / {events.length} sự kiện
+            </>
+          ) : (
+            <>{filteredEvents.length} sự kiện</>
+          )}
+        </span>
+        {activeFilter && (
+          <span style={{ color: EVENT_TYPE_COLORS[activeFilter], fontWeight: 600 }}>
+            {EVENT_TYPE_LABELS[activeFilter]}
+          </span>
+        )}
       </div>
     </div>
   );
@@ -255,6 +300,7 @@ interface EventTreeNodeProps {
   onToggleExpand: (id: string) => void;
   onSelectEvent: (event: HistoricalEvent) => void;
   onHoverEvent: (eventId: string | null) => void;
+  currentYear?: number;
 }
 
 function EventTreeNode({
@@ -265,24 +311,16 @@ function EventTreeNode({
   onToggleExpand,
   onSelectEvent,
   onHoverEvent,
+  currentYear,
 }: EventTreeNodeProps) {
   const isExpanded = expandedIds.has(event.id);
   const isSelected = selectedEvent?.id === event.id;
   const hasLoadedChildren = !!event.children?.length;
   const hasChildren = hasLoadedChildren || (event.childCount ?? 0) > 0;
-  const navigate = useNavigate();
-
-  const GeoIcon =
-    event.geoType === 'no_location'
-      ? ClipboardList
-      : event.geoType === 'nationwide'
-      ? MapIcon
-      : MapPin;
-
-  const geoIconColor =
-    event.geoType === 'no_location'
-      ? 'var(--text-muted)'
-      : EVENT_TYPE_COLORS[event.eventType];
+  // 1.1.21: Sidebar.tsx: Nếu sự kiện có startYear > currentYear (tương lai so với mốc thời gian hiện tại),
+  // hiển thị với opacity giảm và ký hiệu đặc biệt để phân biệt về mặt thời gian.
+  const isFutureEvent =
+    currentYear != null && event.startYear > currentYear;
 
   return (
     <div>
@@ -296,25 +334,29 @@ function EventTreeNode({
           alignItems: 'center',
           gap: '6px',
           padding: '8px 12px',
-          paddingLeft: `${16 + depth * 20}px`,
+          paddingLeft: `${12 + depth * 12}px`,
           cursor: 'pointer',
           background: isSelected
-            ? 'color-mix(in srgb, var(--accent) 16%, transparent)'
+            ? '#fef2f2'
             : 'transparent',
           borderLeft: isSelected
-            ? '4px solid var(--accent)'
+            ? '4px solid #8b1e1e'
             : '4px solid transparent',
           transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
           fontSize: '13.5px',
+          opacity: isFutureEvent && !isSelected ? 0.5 : 1,
         }}
         onMouseOver={(e) => {
-          if (!isSelected)
-            e.currentTarget.style.background = 'var(--accent-soft)';
-          e.currentTarget.style.opacity = '0.9';
+          if (!isSelected) {
+            e.currentTarget.style.background = '#fef2f2';
+            e.currentTarget.style.opacity = '0.9';
+          }
         }}
         onMouseOut={(e) => {
-          if (!isSelected) e.currentTarget.style.background = 'transparent';
-          e.currentTarget.style.opacity = '1';
+          if (!isSelected) {
+            e.currentTarget.style.background = 'transparent';
+            e.currentTarget.style.opacity = isFutureEvent ? '0.5' : '1';
+          }
         }}
       >
         {/* Expand toggle */}
@@ -330,7 +372,7 @@ function EventTreeNode({
             }}
             aria-label={isExpanded ? 'Thu gọn' : 'Mở rộng'}
             className="bg-transparent border-0 cursor-pointer w-[18px] h-[18px] flex items-center justify-center flex-shrink-0"
-            style={{ color: 'var(--text-muted)' }}
+            style={{ color: '#78716c' }}
           >
             <ChevronRight
               size={14}
@@ -345,58 +387,42 @@ function EventTreeNode({
           <span className="w-4 flex-shrink-0" />
         )}
 
-        {/* Geo icon */}
-        <GeoIcon
-          size={13}
-          strokeWidth={2.2}
-          className="flex-shrink-0"
-          style={{ color: geoIconColor }}
-        />
-
         {/* Event name */}
         <span
+          title={event.name}
           style={{
             flex: 1,
+            minWidth: 0,
             fontWeight: isSelected ? 700 : 400,
-            color: isSelected ? 'var(--accent)' : 'var(--text-primary)',
+            color: isSelected ? '#8b1e1e' : '#1c1917',
             lineHeight: '1.4',
-            overflow: 'hidden',
-            textOverflow: 'ellipsis',
-            whiteSpace: 'nowrap',
+            wordBreak: 'break-word',
+            overflowWrap: 'break-word',
           }}
         >
           {event.name}
         </span>
 
-        {/* View detail button */}
-        <button
-          onClick={(e) => {
-            e.stopPropagation();
-            const detailKey = event.slug || event.id;
-            navigate(`/events/${detailKey}`);
-          }}
-          title="Xem chi tiết"
-          aria-label="Xem chi tiết"
-          className="bg-transparent border-0 cursor-pointer p-0.5 flex items-center justify-center transition-opacity duration-150"
-          style={{
-            color: 'var(--text-muted)',
-            opacity: isSelected ? 1 : 0.45,
-          }}
-          onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')}
-          onMouseLeave={(e) => (e.currentTarget.style.opacity = isSelected ? '1' : '0.45')}
-        >
-          <ExternalLink size={13} strokeWidth={2.2} />
-        </button>
-
         {/* Year badge */}
         <span
-          className="text-[10px] px-1.5 py-0.5 rounded border flex-shrink-0 font-medium"
+          className="text-[10px] px-1.5 py-0.5 rounded border flex-shrink-0 font-medium inline-flex items-center gap-0.5"
           style={{
-            color: 'var(--text-muted)',
-            background: 'var(--bg-card)',
-            borderColor: 'var(--border)',
+            color: '#78716c',
+            background: isFutureEvent && !isSelected ? 'transparent' : '#ffffff',
+            borderColor: '#e7e5e4',
+            borderStyle: isFutureEvent && !isSelected ? 'dashed' : 'solid',
+            opacity: isFutureEvent && !isSelected ? 0.7 : 1,
           }}
         >
+          {isFutureEvent && !isSelected && (
+            <span title="Sự kiện chưa diễn ra tại mốc thời gian hiện tại">
+              <Clock
+                size={9}
+                strokeWidth={2.5}
+                style={{ color: '#78716c', flexShrink: 0 }}
+              />
+            </span>
+          )}
           {event.startYear < 0
             ? `${Math.abs(event.startYear)} TCN`
             : event.startYear}
@@ -407,8 +433,8 @@ function EventTreeNode({
       {hasLoadedChildren && isExpanded && (
         <div
           style={{
-            borderLeft: `1px dashed var(--border)`,
-            marginLeft: `${28 + depth * 20}px`,
+            borderLeft: `1px dashed #d6d3d1`,
+            marginLeft: `${20 + depth * 12}px`,
           }}
         >
           {/* 1.1.16: Sidebar.tsx: Render bổ sung danh sách sự kiện con nằm lồng dưới sự kiện cha (kiểu Tree Node). */}
@@ -422,6 +448,7 @@ function EventTreeNode({
               onToggleExpand={onToggleExpand}
               onSelectEvent={onSelectEvent}
               onHoverEvent={onHoverEvent}
+              currentYear={currentYear}
             />
           ))}
         </div>

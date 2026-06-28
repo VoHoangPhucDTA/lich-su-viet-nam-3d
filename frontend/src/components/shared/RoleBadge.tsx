@@ -1,10 +1,8 @@
-// ─── Shared: RoleBadge ───────────────────────────────────────────────────────
-
 import type { AdminUserRole } from '../../data/mockAdminData';
 
 const config: Record<string, { label: string; color: string; bg: string }> = {
-  student: { label: 'Học sinh', color: '#4f6f95', bg: 'rgba(30,58,95,0.14)' },
-  admin:   { label: 'Admin',    color: '#c29b4b', bg: 'rgba(194,155,75,0.16)' },
+  student: { label: 'Học sinh', color: 'var(--accent)', bg: 'var(--accent-soft)' },
+  admin:   { label: 'Admin',    color: 'var(--admin-accent)', bg: 'var(--admin-accent-soft)' },
 };
 
 export default function RoleBadge({ role }: { role: AdminUserRole }) {
@@ -14,14 +12,14 @@ export default function RoleBadge({ role }: { role: AdminUserRole }) {
       style={{
         display: 'inline-flex',
         alignItems: 'center',
-        padding: '2px 8px',
+        padding: '3px 10px',
         borderRadius: '9999px',
-        fontSize: '0.72rem',
+        fontSize: '0.7rem',
         fontWeight: 700,
         background: c.bg,
         color: c.color,
-        border: `1px solid ${c.color}28`,
-        letterSpacing: '0.03em',
+        border: '1px solid color-mix(in srgb, ' + c.color + ' 16%, transparent)',
+        letterSpacing: '0.04em',
         textTransform: 'uppercase',
         whiteSpace: 'nowrap',
       }}

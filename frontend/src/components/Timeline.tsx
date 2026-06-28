@@ -1,10 +1,9 @@
-import { useMemo } from 'react';
-import { Clock, SkipBack, SkipForward } from 'lucide-react';
+import { useMemo, useState } from 'react';
+import { Clock, Plus, X } from 'lucide-react';
 import {
   EVENT_YEARS_SORTED,
   TIMELINE_MAX_YEAR,
   TIMELINE_MIN_YEAR,
-  getNearestEventYear,
 } from '../data/events';
 
 interface TimelineProps {
@@ -43,17 +42,12 @@ export default function Timeline({
 }: TimelineProps) {
   const range = TIMELINE_MAX_YEAR - TIMELINE_MIN_YEAR;
   const availableYears = eventYears && eventYears.length > 0 ? eventYears : EVENT_YEARS_SORTED;
+  const [expandedClusters, setExpandedClusters] = useState<Set<number>>(new Set());
 
   const percentage = useMemo(() => {
     if (range <= 0) return 0;
     return ((currentYear - TIMELINE_MIN_YEAR) / range) * 100;
   }, [currentYear, range]);
-
-  const keyYears = useMemo(() => {
-    return HISTORICAL_KEY_YEARS.filter(
-      (y) => y >= TIMELINE_MIN_YEAR && y <= TIMELINE_MAX_YEAR
-    );
-  }, []);
 
   /** Vị trí % trên track của 1 năm (0–100). */
   const yearToPercent = (year: number): number => {
@@ -61,26 +55,66 @@ export default function Timeline({
     return ((year - TIMELINE_MIN_YEAR) / range) * 100;
   };
 
-  /** Năm event gần nhất theo direction — `null` = đã hết. */
-  const prevEventYear = useMemo(() => {
-    const previous = availableYears.filter((year) => year < currentYear);
-    if (previous.length > 0) return previous[previous.length - 1];
-    return eventYears ? null : getNearestEventYear(currentYear, 'prev');
-  }, [availableYears, currentYear, eventYears]);
-  const nextEventYear = useMemo(() => {
-    const next = availableYears.find((year) => year > currentYear);
-    if (next != null) return next;
-    return eventYears ? null : getNearestEventYear(currentYear, 'next');
-  }, [availableYears, currentYear, eventYears]);
+  const keyYears = useMemo(() => {
+    return HISTORICAL_KEY_YEARS.filter(
+      (y) => y >= TIMELINE_MIN_YEAR && y <= TIMELINE_MAX_YEAR
+    );
+  }, []);
+
+  /**
+   * Nhóm các key-year chip gần nhau thành cluster.
+   * Cluster với 1 năm = chip đơn lẻ. Cluster nhiều năm = chip gộp, click để mở rộng.
+   */
+  const keyYearClusters = useMemo(() => {
+    const threshold = 4.5;
+    const clusters: { years: number[]; label: string }[] = [];
+    let current: number[] = [];
+
+    for (let i = 0; i < keyYears.length; i++) {
+      if (current.length === 0) {
+        current.push(keyYears[i]);
+      } else {
+        const lastPos = yearToPercent(current[current.length - 1]);
+        const thisPos = yearToPercent(keyYears[i]);
+        if (Math.abs(thisPos - lastPos) < threshold) {
+          current.push(keyYears[i]);
+        } else {
+          clusters.push({
+            years: [...current],
+            label:
+              current.length === 1
+                ? formatYearShort(current[0])
+                : `${formatYearShort(current[0])}–${formatYearShort(current[current.length - 1])}`,
+          });
+          current = [keyYears[i]];
+        }
+      }
+    }
+    if (current.length > 0) {
+      clusters.push({
+        years: [...current],
+        label:
+          current.length === 1
+            ? formatYearShort(current[0])
+            : `${formatYearShort(current[0])}–${formatYearShort(current[current.length - 1])}`,
+      });
+    }
+
+    return clusters;
+  }, [keyYears]);
+
+
 
   return (
     <div
-      className="glass-map relative flex-shrink-0"
+      className="relative flex-shrink-0 border-t border-stone-200/60 bg-white"
       style={{
         padding: '14px 24px 14px',
         zIndex: 50,
         transform: 'translateZ(0)',
-        boxShadow: '0 -10px 30px -16px rgba(15, 23, 42, 0.45)',
+        background: '#ffffff',
+        borderTop: '1px solid #e7e5e4',
+        boxShadow: '0 -4px 16px -8px rgba(0,0,0,0.08)',
         minHeight: '116px',
       }}
     >
@@ -98,119 +132,50 @@ export default function Timeline({
             style={{ background: 'var(--border)' }}
           />
           <span
-            className="text-2xl font-extrabold leading-none"
+            className="text-[1.75rem] font-extrabold leading-none"
             style={{
+              fontFamily: 'var(--font-serif)',
               background:
-                'linear-gradient(135deg, color-mix(in srgb, var(--accent) 65%, white), var(--accent))',
+                'linear-gradient(135deg,              var(--admin-accent), var(--accent))',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
+              filter: 'none',
             }}
           >
             {formatYear(currentYear)}
           </span>
           <span
             className="text-[11px] font-medium opacity-70"
-            style={{ color: 'var(--text-muted)' }}
+            style={{ color: '#78716c' }}
           >
             {availableYears.length} mốc sự kiện
           </span>
         </div>
 
-        <div className="flex gap-2 items-center">
-          {onGradeChange && (
-            <div
-              className="flex gap-1 rounded-lg border p-1"
-              style={{ borderColor: 'var(--border)', background: 'var(--bg-card)' }}
-            >
-              {[null, 10, 11, 12].map((grade) => {
-                const isActive = selectedGrade === grade;
-                return (
-                  <button
-                    key={grade ?? 'all'}
-                    type="button"
-                    // 1.1.1: MapPage.tsx: Người dùng chọn lọc theo Lớp 10/11/12 (Tùy chọn, mặc định lấy toàn bộ).
-                    onClick={() => onGradeChange(grade)}
-                    className="rounded-md px-2.5 py-1 text-[11px] font-semibold transition"
-                    style={{
-                      background: isActive ? 'var(--accent)' : 'transparent',
-                      color: isActive ? '#fff' : 'var(--text-secondary)',
-                    }}
-                  >
-                    {grade == null ? 'Tất cả' : `Lớp ${grade}`}
-                  </button>
-                );
-              })}
-            </div>
-          )}
-          <button
-            type="button"
-            disabled={prevEventYear == null}
-            aria-label={
-              prevEventYear != null
-                ? `Quay về sự kiện gần nhất: ${formatYear(prevEventYear)}`
-                : 'Không có sự kiện trước'
-            }
-            title={
-              prevEventYear != null
-                ? `← Sự kiện trước: ${formatYear(prevEventYear)}`
-                : 'Không có sự kiện trước'
-            }
-            onClick={() => prevEventYear != null && onYearChange(prevEventYear)}
-            className="inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-semibold transition-all duration-150 cursor-pointer border disabled:opacity-40 disabled:cursor-not-allowed"
-            style={{
-              background: 'var(--bg-card)',
-              borderColor: 'var(--border)',
-              color: 'var(--text-primary)',
-              boxShadow: '0 2px 4px rgba(0,0,0,0.08)',
-            }}
-            onMouseEnter={(e) => {
-              if (e.currentTarget.disabled) return;
-              e.currentTarget.style.background = 'var(--accent-soft)';
-              e.currentTarget.style.borderColor = 'var(--accent)';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.background = 'var(--bg-card)';
-              e.currentTarget.style.borderColor = 'var(--border)';
-            }}
+        {onGradeChange && (
+          <div
+            className="flex gap-1 rounded-lg border p-1"
+            style={{ borderColor: '#e7e5e4', background: '#ffffff' }}
           >
-            <SkipBack size={14} strokeWidth={2.4} />
-            Sự kiện trước
-          </button>
-          <button
-            type="button"
-            disabled={nextEventYear == null}
-            aria-label={
-              nextEventYear != null
-                ? `Sự kiện kế tiếp: ${formatYear(nextEventYear)}`
-                : 'Không có sự kiện kế tiếp'
-            }
-            title={
-              nextEventYear != null
-                ? `Sự kiện sau: ${formatYear(nextEventYear)} →`
-                : 'Không có sự kiện kế tiếp'
-            }
-            onClick={() => nextEventYear != null && onYearChange(nextEventYear)}
-            className="inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-semibold transition-all duration-150 cursor-pointer border disabled:opacity-40 disabled:cursor-not-allowed"
-            style={{
-              background: 'var(--bg-card)',
-              borderColor: 'var(--border)',
-              color: 'var(--text-primary)',
-              boxShadow: '0 2px 4px rgba(0,0,0,0.08)',
-            }}
-            onMouseEnter={(e) => {
-              if (e.currentTarget.disabled) return;
-              e.currentTarget.style.background = 'var(--accent-soft)';
-              e.currentTarget.style.borderColor = 'var(--accent)';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.background = 'var(--bg-card)';
-              e.currentTarget.style.borderColor = 'var(--border)';
-            }}
-          >
-            Sự kiện sau
-            <SkipForward size={14} strokeWidth={2.4} />
-          </button>
-        </div>
+            {[null, 10, 11, 12].map((grade) => {
+              const isActive = selectedGrade === grade;
+              return (
+                <button
+                  key={grade ?? 'all'}
+                  type="button"
+                  onClick={() => onGradeChange(grade)}
+                  className="rounded-md px-2.5 py-1 text-[11px] font-semibold transition"
+                  style={{
+                  background: isActive ? '#8b1e1e' : 'transparent',
+                  color: isActive ? '#ffffff' : '#57534e',
+                  }}
+                >
+                  {grade == null ? 'Tất cả' : `Lớp ${grade}`}
+                </button>
+              );
+            })}
+          </div>
+        )}
       </div>
 
       {/* Slider track + tick marks */}
@@ -221,7 +186,7 @@ export default function Timeline({
           style={{
             top: '50%',
             transform: 'translateY(-50%)',
-            background: 'var(--border)',
+            background: '#e7e5e4',
           }}
         />
         {/* Filled progress */}
@@ -230,11 +195,10 @@ export default function Timeline({
           style={{
             top: '50%',
             width: `${percentage}%`,
-            transform: 'translateY(-50%)',
-            background:
-              'linear-gradient(90deg, var(--accent), color-mix(in srgb, var(--accent) 72%, white))',
+            transform: 'translateY(-50%)',              background:
+              'linear-gradient(90deg, #8b1e1e, #c5a059)',
             transition: 'width 0.15s cubic-bezier(0.4, 0, 0.2, 1)',
-            boxShadow: '0 0 12px var(--accent-soft)',
+            boxShadow: 'none',
           }}
         />
 
@@ -253,9 +217,9 @@ export default function Timeline({
                 width: '3px',
                 height: isActive ? '14px' : '10px',
                 transform: 'translateY(-50%)',
-                background: isActive ? 'var(--accent)' : 'var(--text-muted)',
+                background: isActive ? '#8b1e1e' : '#78716c',
                 opacity: isActive ? 1 : 0.55,
-                boxShadow: isActive ? '0 0 8px var(--accent)' : 'none',
+                boxShadow: isActive ? '0 0 8px #8b1e1e' : 'none',
                 zIndex: 1,
                 transition: 'all 0.15s ease',
               }}
@@ -275,39 +239,116 @@ export default function Timeline({
         />
       </div>
 
-      {/* Key year markers (clickable chip dạng pill) */}
-      <div className="relative h-7">
-        {keyYears.map((year) => {
-          const left = yearToPercent(year);
-          const isActive = currentYear === year;
-          return (
-            <button
-              key={year}
-              type="button"
-              onClick={() => onYearChange(year)}
-              title={`Đi tới mốc ${formatYearShort(year)}`}
-              aria-label={`Đi tới mốc ${formatYearShort(year)}`}
-              className="key-year-chip absolute -translate-x-1/2 inline-flex items-center gap-1 cursor-pointer rounded-full border px-2 py-0.5 text-[10.5px] font-semibold leading-none transition-all duration-150"
-              style={{
-                left: `${left}%`,
-                top: 0,
-                background: isActive ? 'var(--accent)' : 'var(--bg-card)',
-                borderColor: isActive ? 'var(--accent)' : 'var(--border)',
-                color: isActive ? '#fff' : 'var(--text-secondary)',
-                boxShadow: isActive
-                  ? '0 4px 10px -2px var(--accent-soft), 0 0 0 3px var(--accent-soft)'
-                  : '0 1px 2px rgba(0,0,0,0.04)',
-              }}
-            >
-              <span
-                className="inline-block w-1 h-1 rounded-full"
-                style={{
-                  background: isActive ? '#fff' : 'var(--accent)',
-                  opacity: isActive ? 1 : 0.6,
+      {/* Key year markers — cluster grouping */}
+      <div className="relative" style={{ minHeight: `${Math.max(28, Math.max(...keyYearClusters.map((c, i) => expandedClusters.has(i) ? c.years.length * 26 + 22 : 26)))}px` }}>
+        {keyYearClusters.map((cluster, clusterIdx) => {
+          const isExpanded = expandedClusters.has(clusterIdx);
+          const hasMultiple = cluster.years.length > 1;
+
+          if (hasMultiple && !isExpanded) {
+            // Collapsed cluster chip — positioned at midpoint of first/last year
+            const firstPos = yearToPercent(cluster.years[0]);
+            const lastPos = yearToPercent(cluster.years[cluster.years.length - 1]);
+            const left = (firstPos + lastPos) / 2;
+            const anyActive = cluster.years.includes(currentYear);
+            return (
+              <button
+                key={`cluster-${clusterIdx}`}
+                type="button"
+                onClick={() => {
+                  setExpandedClusters((prev) => {
+                    const next = new Set(prev);
+                    next.add(clusterIdx);
+                    return next;
+                  });
                 }}
-              />
-              {formatYearShort(year)}
-            </button>
+                title={`${cluster.years.length} mốc: ${cluster.label} — nhấn để mở rộng`}
+                aria-label={`Cụm ${cluster.years.length} mốc thời gian: ${cluster.label}. Nhấn để mở rộng.`}
+                className="key-year-chip cluster-chip absolute -translate-x-1/2 inline-flex items-center gap-1 cursor-pointer rounded-full border px-2 py-0.5 text-[10.5px] font-semibold leading-none transition-colors duration-150"
+                style={{
+                  left: `${left}%`,
+                  top: 0,
+                  background: anyActive ? '#fef2f2' : '#ffffff',
+                  borderColor: anyActive ? '#8b1e1e' : '#e7e5e4',
+                  color: anyActive ? '#8b1e1e' : '#57534e',
+                  borderStyle: 'dashed',
+                  boxShadow: anyActive
+                    ? '0 4px 10px -2px rgba(139,30,30,0.2)'
+                    : '0 1px 2px rgba(0,0,0,0.04)',
+                  zIndex: anyActive ? 2 : 1,
+                }}
+              >
+                <Plus size={9} strokeWidth={2.8} style={{ opacity: 0.6 }} />
+                {cluster.label}
+              </button>
+            );
+          }
+
+          // Expanded cluster → render individual staggered chips + collapse button
+          return (
+            <div key={`expanded-${clusterIdx}`}>
+              {cluster.years.map((year, yearIdx) => {
+                const left = yearToPercent(year);
+                const isActive = currentYear === year;
+                const topOffset = yearIdx * 26;
+                return (
+                  <button
+                    key={year}
+                    type="button"
+                    onClick={() => onYearChange(year)}
+                    title={`Đi tới mốc ${formatYearShort(year)}`}
+                    aria-label={`Đi tới mốc ${formatYearShort(year)}`}
+                    className="key-year-chip absolute -translate-x-1/2 inline-flex items-center gap-1 cursor-pointer rounded-full border px-2 py-0.5 text-[10.5px] font-semibold leading-none transition-colors duration-150"
+                    style={{
+                      left: `${left}%`,
+                      top: `${topOffset}px`,
+                      background: isActive ? '#8b1e1e' : '#ffffff',
+                      borderColor: isActive ? '#8b1e1e' : '#e7e5e4',
+                      color: isActive ? '#ffffff' : '#57534e',
+                      boxShadow: isActive
+                        ? '0 4px 10px -2px rgba(139,30,30,0.2), 0 0 0 3px rgba(139,30,30,0.1)'
+                        : '0 1px 2px rgba(0,0,0,0.04)',
+                      zIndex: isActive ? 2 : 1,
+                    }}
+                  >
+                    <span
+                      className="inline-block w-1 h-1 rounded-full"
+                      style={{
+                        background: isActive ? '#ffffff' : '#8b1e1e',
+                        opacity: isActive ? 1 : 0.6,
+                      }}
+                    />
+                    {formatYearShort(year)}
+                  </button>
+                );
+              })}
+              {/* Collapse button — visible on the expanded cluster */}
+              <button
+                type="button"
+                onClick={() => {
+                  setExpandedClusters((prev) => {
+                    const next = new Set(prev);
+                    next.delete(clusterIdx);
+                    return next;
+                  });
+                }}
+                title="Thu gọn cụm"
+                aria-label="Thu gọn cụm mốc thời gian"
+                className="absolute inline-flex items-center justify-center cursor-pointer rounded-full transition-colors duration-150"
+                style={{
+                  left: `${(yearToPercent(cluster.years[0]) + yearToPercent(cluster.years[cluster.years.length - 1])) / 2}%`,
+                  transform: 'translateX(-50%)',
+                  top: `${cluster.years.length * 26}px`,
+                  width: '18px',
+                  height: '18px',
+                  background: '#ffffff',
+                  color: '#78716c',
+                  border: '1px solid #e7e5e4',
+                }}
+              >
+                <X size={10} strokeWidth={2.8} />
+              </button>
+            </div>
           );
         })}
       </div>
@@ -327,7 +368,7 @@ export default function Timeline({
         }
         .timeline-slider::-webkit-slider-thumb:hover {
           transform: scale(1.15);
-          box-shadow: 0 0 0 6px var(--accent-soft), 0 6px 10px rgba(15, 23, 42, 0.2);
+          box-shadow: 0 0 0 6px rgba(139,30,30,0.15), 0 6px 10px rgba(0,0,0,0.1);
         }
         .timeline-slider::-moz-range-thumb {
           width: 18px;
@@ -340,10 +381,9 @@ export default function Timeline({
           transition: all 0.2s;
         }
         .key-year-chip:hover {
-          transform: translateX(-50%) translateY(-2px);
-          border-color: var(--accent) !important;
-          color: var(--accent) !important;
-          box-shadow: 0 6px 14px -4px var(--accent-soft), 0 0 0 2px var(--accent-soft) !important;
+          border-color: #8b1e1e !important;
+          color: #8b1e1e !important;
+          box-shadow: 0 6px 14px -4px rgba(139,30,30,0.2), 0 0 0 2px rgba(139,30,30,0.15) !important;
         }
       `}</style>
     </div>

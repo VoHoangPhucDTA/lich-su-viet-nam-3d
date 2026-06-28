@@ -205,7 +205,7 @@ interface OAuthButtonsProps {
   onError?: (msg: string) => void;
 }
 
-export default function OAuthButtons({ mode = 'login', onError }: OAuthButtonsProps) {
+export default function OAuthButtons({ mode: _mode = 'login', onError }: OAuthButtonsProps) {
   const { loginWithGoogle, loginWithFacebook } = useAuth();
   const navigate = useNavigate();
 

@@ -14,7 +14,6 @@ export default function ForgotPasswordPage() {
   const [error, setError] = useState('');
 
   const handleSubmit = async (e: React.FormEvent) => {
-    // Bước 6C.1.1: ForgotPasswordPage.tsx: Nhập email và nhấn nút Gửi
     e.preventDefault();
     if (!email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       setError('Vui lòng nhập email hợp lệ.');
@@ -23,10 +22,8 @@ export default function ForgotPasswordPage() {
     setError('');
     setLoading(true);
     try {
-      // Bước 6C.1.2: ForgotPasswordPage.tsx: gọi hàm forgotPassword trong authService.ts
-      await forgotPassword(email.trim());
-      // Bước 6C.1.11: ForgotPasswordPage.tsx: hiển thị thông báo thành công
-      setSuccess('Vui lòng kiểm tra hộp thư của bạn');
+      const res = await forgotPassword(email.trim());
+      setSuccess(res.message || 'Hướng dẫn đặt lại mật khẩu đã được gửi về mail của bạn.');
     } catch {
       setError('Không thể gửi hướng dẫn đặt lại mật khẩu. Vui lòng thử lại.');
     } finally {
@@ -36,6 +33,7 @@ export default function ForgotPasswordPage() {
 
   return (
     <AuthLayout>
+      {/* Heading — trust & calm museum style */}
       <div style={{ textAlign: 'center', marginBottom: '1.75rem' }}>
         <div
           style={{
@@ -45,18 +43,21 @@ export default function ForgotPasswordPage() {
             width: '4rem',
             height: '4rem',
             borderRadius: '1rem',
-            background: 'var(--accent-soft)',
-            border: '1px solid var(--accent)',
-            color: 'var(--accent)',
+            background: '#fef2f2',
+            border: '1px solid rgba(139,30,30,0.15)',
+            color: '#8b1e1e',
             marginBottom: '1rem',
           }}
         >
-          <KeyRound size={30} strokeWidth={2} />
+          <KeyRound size={30} strokeWidth={1.8} />
         </div>
-        <h1 style={{ fontSize: '1.5rem', fontWeight: 700, color: 'var(--text-primary)', marginBottom: '0.375rem', letterSpacing: '-0.01em' }}>
+        <h1
+          className="font-serif text-2xl font-bold text-stone-900"
+          style={{ marginBottom: '0.5rem', letterSpacing: '-0.01em' }}
+        >
           Quên mật khẩu
         </h1>
-        <p style={{ fontSize: '0.875rem', color: 'var(--text-muted)', maxWidth: '22rem', margin: '0 auto', lineHeight: 1.6 }}>
+        <p className="text-sm text-stone-500 max-w-xs mx-auto leading-relaxed">
           Nhập email đã đăng ký để nhận hướng dẫn đặt lại mật khẩu.
         </p>
       </div>
@@ -65,26 +66,25 @@ export default function ForgotPasswordPage() {
 
       {success ? (
         <div className="animate-fade-in">
+          <AuthFormMessage type="success" message={success} />
+
           <div
-            className="auth-msg-success"
             style={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              gap: '0.5rem',
+              textAlign: 'center',
               padding: '1.5rem',
+              background: '#fef2f2',
+              border: '1px solid rgba(139,30,30,0.15)',
               borderRadius: '0.875rem',
               marginBottom: '1.5rem',
             }}
           >
-            <div style={{ display: 'flex', justifyContent: 'center' }}>
-              <Inbox size={36} strokeWidth={2} />
+            <div style={{ color: '#8b1e1e', display: 'flex', justifyContent: 'center', marginBottom: '0.75rem' }}>
+              <Inbox size={36} strokeWidth={1.8} />
             </div>
-            <p style={{ fontSize: '0.9375rem', lineHeight: 1.6, fontWeight: 500, margin: 0 }}>
-              {success}
-            </p>
-            <p style={{ fontSize: '0.875rem', fontWeight: 600, margin: 0 }}>
-              {email}
+            <p className="text-sm text-stone-700 leading-relaxed">
+              Vui lòng kiểm tra hộp thư của bạn
+              <br />
+              <span className="font-semibold" style={{ color: '#8b1e1e' }}>{email}</span>
             </p>
           </div>
 
@@ -97,14 +97,14 @@ export default function ForgotPasswordPage() {
               gap: '0.5rem',
               width: '100%',
               padding: '0.8125rem',
-              background: 'var(--accent)',
-              borderRadius: '0.625rem',
-              color: '#fff',
+              background: '#8b1e1e',
+              borderRadius: '0.75rem',
+              color: '#ffffff',
               fontSize: '0.9375rem',
               fontWeight: 600,
               textDecoration: 'none',
               textAlign: 'center',
-              boxShadow: '0 4px 15px rgba(30,58,95,0.25)',
+              boxShadow: '0 2px 12px rgba(139,30,30,0.2)',
             }}
           >
             <ArrowLeft size={18} strokeWidth={2} />
@@ -131,10 +131,10 @@ export default function ForgotPasswordPage() {
             style={{
               width: '100%',
               padding: '0.8125rem',
-              background: loading ? 'var(--accent-soft)' : 'var(--accent)',
+              background: loading ? '#fef2f2' : '#8b1e1e',
               border: 'none',
-              borderRadius: '0.625rem',
-              color: '#fff',
+              borderRadius: '0.75rem',
+              color: loading ? '#8b1e1e' : '#ffffff',
               fontSize: '0.9375rem',
               fontWeight: 600,
               cursor: loading ? 'not-allowed' : 'pointer',
@@ -142,8 +142,18 @@ export default function ForgotPasswordPage() {
               alignItems: 'center',
               justifyContent: 'center',
               gap: '0.5rem',
-              boxShadow: loading ? 'none' : '0 4px 15px rgba(30,58,95,0.2)',
+              boxShadow: loading ? 'none' : '0 2px 12px rgba(139,30,30,0.2)',
               fontFamily: 'inherit',
+            }}
+            onMouseEnter={(e) => {
+              if (!loading) {
+                (e.currentTarget as HTMLButtonElement).style.background = '#6b1616';
+              }
+            }}
+            onMouseLeave={(e) => {
+              if (!loading) {
+                (e.currentTarget as HTMLButtonElement).style.background = '#8b1e1e';
+              }
             }}
           >
             {loading ? <RefreshCw size={18} strokeWidth={2} style={{ animation: 'spin 0.7s linear infinite' }} /> : <Send size={18} strokeWidth={2} />}
@@ -154,14 +164,10 @@ export default function ForgotPasswordPage() {
           <div style={{ textAlign: 'center' }}>
             <Link
               to="/login"
-              style={{
-                fontSize: '0.875rem',
-                color: 'var(--text-muted)',
-                textDecoration: 'none',
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '0.375rem',
-              }}
+              className="inline-flex items-center gap-1.5 text-sm transition-colors"
+              style={{ color: '#78716c', textDecoration: 'none' }}
+              onMouseEnter={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = '#8b1e1e')}
+              onMouseLeave={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = '#78716c')}
             >
               <ArrowLeft size={16} strokeWidth={2} />
               Quay lại đăng nhập
