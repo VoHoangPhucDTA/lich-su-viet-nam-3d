@@ -7,6 +7,7 @@ import { Link, useParams } from 'react-router-dom';
 import { loadExam } from '@/lib/exam/examLoader';
 import { rateScore, scoreToPercent } from '@/lib/exam/scoring';
 import { readResultFromLS } from '@/lib/exam/useSessionV2';
+import { analyzeWeaknesses, type WeaknessAnalysis, type WeaknessBucket } from '@/lib/exam/weaknessAnalysis';
 import {
   flattenExamQuestions,
   isMCQQuestion,
@@ -212,6 +213,119 @@ function TFBreakdown({ result }: { result: ExamResultV2 }) {
             <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>→ {ladderPoints[i]}đ</div>
           </div>
         ))}
+      </div>
+    </section>
+  );
+}
+
+function AccuracyBar({ bucket }: { bucket: WeaknessBucket }) {
+  const issueCount = bucket.wrong + bucket.blank;
+  return (
+    <div style={{ display: 'grid', gap: '0.35rem' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', gap: '0.75rem', alignItems: 'baseline' }}>
+        <strong style={{ color: 'var(--text-primary)', fontSize: '0.9rem' }}>{bucket.label}</strong>
+        <span style={{ color: 'var(--text-muted)', fontSize: '0.78rem', whiteSpace: 'nowrap' }}>
+          {issueCount}/{bucket.total} cần xem lại · {bucket.accuracy}%
+        </span>
+      </div>
+      <div style={{ height: '0.45rem', borderRadius: '999px', background: 'var(--bg-surface)', overflow: 'hidden', border: '1px solid var(--border)' }}>
+        <div style={{ height: '100%', width: `${bucket.accuracy}%`, borderRadius: '999px', background: bucket.accuracy >= 80 ? 'var(--success)' : bucket.accuracy >= 50 ? 'var(--warning)' : 'var(--danger)' }} />
+      </div>
+    </div>
+  );
+}
+
+function MiniBreakdown({ title, buckets }: { title: string; buckets: WeaknessBucket[] }) {
+  return (
+    <div style={{ background: 'var(--bg-surface)', border: '1px solid var(--border)', borderRadius: '0.85rem', padding: '1rem', display: 'grid', gap: '0.75rem' }}>
+      <h3 style={{ margin: 0, color: 'var(--text-primary)', fontSize: '0.92rem', fontWeight: 900 }}>{title}</h3>
+      {buckets.length > 0 ? (
+        buckets.map((bucket) => <AccuracyBar key={bucket.key} bucket={bucket} />)
+      ) : (
+        <p style={{ margin: 0, color: 'var(--text-muted)', fontSize: '0.85rem' }}>Chưa đủ dữ liệu.</p>
+      )}
+    </div>
+  );
+}
+
+function WeaknessAnalysisSection({ analysis, result }: { analysis: WeaknessAnalysis; result: ExamResultV2 }) {
+  const topTopics = analysis.byTopic.slice(0, 3);
+  const retryAvailable = needsRetry(result);
+
+  return (
+    <section style={{ background: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: '1rem', padding: '1.25rem', display: 'grid', gap: '1rem' }}>
+      <header style={{ display: 'flex', alignItems: 'baseline', gap: '0.75rem', flexWrap: 'wrap' }}>
+        <h2 style={{ margin: 0, fontSize: '1.15rem', fontWeight: 900, color: 'var(--text-primary)' }}>Phân tích điểm yếu</h2>
+        <span style={{ flex: 1, minWidth: '2rem', height: '1px', background: 'var(--border)' }} />
+        <span style={{ color: 'var(--text-muted)', fontSize: '0.8rem' }}>
+          {analysis.analyzedQuestions}/{analysis.totalQuestions} câu có dữ liệu
+        </span>
+      </header>
+
+      {analysis.hasWeakness ? (
+        <div style={{ display: 'grid', gap: '0.55rem', background: 'var(--bg-surface)', border: '1px solid var(--border)', borderRadius: '0.85rem', padding: '1rem' }}>
+          <p style={{ margin: 0, color: 'var(--text-secondary)', lineHeight: 1.6 }}>
+            Bạn cần chú ý nhiều nhất ở:{' '}
+            <strong style={{ color: 'var(--danger)' }}>{analysis.weakestTopic?.label ?? 'chưa xác định'}</strong>.
+          </p>
+          <p style={{ margin: 0, color: 'var(--text-secondary)', lineHeight: 1.6 }}>
+            Dạng câu cần luyện thêm:{' '}
+            <strong style={{ color: 'var(--warning)' }}>{analysis.weakestQuestionType?.label ?? 'chưa xác định'}</strong>.
+          </p>
+          {analysis.missingQuestions > 0 && (
+            <p style={{ margin: 0, color: 'var(--text-muted)', fontSize: '0.85rem' }}>
+              Có {analysis.missingQuestions} câu trong kết quả không tìm thấy metadata đề, nên không đưa vào phân tích.
+            </p>
+          )}
+        </div>
+      ) : (
+        <div style={{ background: 'rgba(47,122,87,0.1)', border: '1px solid rgba(47,122,87,0.28)', borderRadius: '0.85rem', padding: '1rem', color: 'var(--text-secondary)', lineHeight: 1.6 }}>
+          <strong style={{ color: 'var(--success)' }}>Bạn làm rất tốt bài này.</strong> Hãy thử làm thêm đề khác để duy trì phong độ.
+        </div>
+      )}
+
+      <div style={{ display: 'grid', gap: '0.8rem' }}>
+        <h3 style={{ margin: 0, color: 'var(--text-primary)', fontSize: '1rem', fontWeight: 900 }}>Top chủ đề yếu</h3>
+        {topTopics.length > 0 ? (
+          topTopics.map((bucket) => (
+            <div key={bucket.key} style={{ border: '1px solid var(--border)', borderRadius: '0.85rem', padding: '0.9rem 1rem', background: 'var(--bg-surface)' }}>
+              <AccuracyBar bucket={bucket} />
+            </div>
+          ))
+        ) : (
+          <p style={{ margin: 0, color: 'var(--text-muted)' }}>Chưa có dữ liệu chủ đề để phân tích.</p>
+        )}
+      </div>
+
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(15rem, 1fr))', gap: '1rem' }}>
+        <MiniBreakdown title="Theo dạng câu" buckets={analysis.byQuestionType} />
+        <MiniBreakdown title="Theo mức nhận thức" buckets={analysis.byCognitiveLevel} />
+        <MiniBreakdown title="Theo độ khó" buckets={analysis.byDifficulty} />
+      </div>
+
+      <div style={{ display: 'grid', gap: '0.75rem' }}>
+        <h3 style={{ margin: 0, color: 'var(--text-primary)', fontSize: '1rem', fontWeight: 900 }}>Gợi ý học tiếp</h3>
+        <div style={{ display: 'grid', gap: '0.55rem' }}>
+          {analysis.suggestions.map((suggestion) => (
+            <div key={`${suggestion.title}-${suggestion.detail}`} style={{ border: '1px solid var(--border)', borderRadius: '0.75rem', padding: '0.85rem 0.95rem', background: 'var(--bg-surface)' }}>
+              <strong style={{ color: 'var(--text-primary)' }}>{suggestion.title}</strong>
+              <p style={{ margin: '0.25rem 0 0', color: 'var(--text-muted)', lineHeight: 1.55, fontSize: '0.88rem' }}>{suggestion.detail}</p>
+            </div>
+          ))}
+        </div>
+        <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
+          {retryAvailable && (
+            <Link to={`/exams/on-lai/${result.sessionId}`} style={{ padding: '0.7rem 1.1rem', background: 'var(--accent)', color: '#fff', borderRadius: '0.75rem', textDecoration: 'none', fontWeight: 800, fontSize: '0.88rem' }}>
+              Ôn lại câu sai
+            </Link>
+          )}
+          <Link to="/exams/browse" style={{ padding: '0.7rem 1.1rem', background: 'var(--bg-surface)', color: 'var(--text-primary)', border: '1px solid var(--border)', borderRadius: '0.75rem', textDecoration: 'none', fontWeight: 800, fontSize: '0.88rem' }}>
+            Làm đề khác
+          </Link>
+          <Link to="/exams/lich-su" style={{ padding: '0.7rem 1.1rem', background: 'var(--bg-surface)', color: 'var(--text-primary)', border: '1px solid var(--border)', borderRadius: '0.75rem', textDecoration: 'none', fontWeight: 800, fontSize: '0.88rem' }}>
+            Về lịch sử luyện thi
+          </Link>
+        </div>
       </div>
     </section>
   );
@@ -517,6 +631,11 @@ export default function ExamV2ResultPage() {
     return new Map(flattenExamQuestions(exam).map((question) => [question.id, question]));
   }, [exam]);
 
+  const weaknessAnalysis = useMemo(() => {
+    if (!result || !exam) return null;
+    return analyzeWeaknesses(result, exam);
+  }, [result, exam]);
+
   if (loading) return <LoadingState />;
 
   if (!result) {
@@ -552,6 +671,8 @@ export default function ExamV2ResultPage() {
           <MCQBreakdown result={result} />
           <TFBreakdown result={result} />
         </div>
+
+        {weaknessAnalysis && <WeaknessAnalysisSection analysis={weaknessAnalysis} result={result} />}
 
         <section style={{ display: 'grid', gap: '1rem' }}>
           <header style={{ display: 'flex', alignItems: 'baseline', gap: '0.75rem' }}>
