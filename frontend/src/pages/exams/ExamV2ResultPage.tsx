@@ -427,7 +427,7 @@ function EmptyState({ title, message }: { title: string; message: string }) {
           <Link to="/exams/browse" style={{ padding: '0.75rem 1.25rem', background: 'var(--accent)', color: '#fff', borderRadius: '0.75rem', textDecoration: 'none', fontWeight: 700 }}>
             Xem danh sách đề
           </Link>
-          <Link to="/exams/lich-su-v2" style={{ padding: '0.75rem 1.25rem', background: 'var(--bg-surface)', color: 'var(--text-primary)', border: '1px solid var(--border)', borderRadius: '0.75rem', textDecoration: 'none', fontWeight: 700 }}>
+          <Link to="/exams/lich-su" style={{ padding: '0.75rem 1.25rem', background: 'var(--bg-surface)', color: 'var(--text-primary)', border: '1px solid var(--border)', borderRadius: '0.75rem', textDecoration: 'none', fontWeight: 700 }}>
             Xem lịch sử
           </Link>
         </div>
@@ -522,7 +522,7 @@ export default function ExamV2ResultPage() {
           <Link to="/exams/browse" style={{ color: 'var(--text-muted)', textDecoration: 'none', fontSize: '0.875rem' }}>
             ← Danh sách đề
           </Link>
-          <Link to="/exams/lich-su-v2" style={{ color: 'var(--text-muted)', textDecoration: 'none', fontSize: '0.875rem' }}>
+          <Link to="/exams/lich-su" style={{ color: 'var(--text-muted)', textDecoration: 'none', fontSize: '0.875rem' }}>
             Lịch sử làm bài
           </Link>
         </div>

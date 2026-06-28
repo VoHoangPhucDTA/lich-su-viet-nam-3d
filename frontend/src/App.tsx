@@ -91,6 +91,7 @@ function AppContent() {
           <Route path="/exams/browse" element={<ExamBrowsePage />} />
           <Route path="/exams/de/:examId" element={<ExamV2SessionPage />} />
           <Route path="/exams/ket-qua/:sessionId" element={<ExamV2ResultPage />} />
+          <Route path="/exams/lich-su" element={<ExamV2HistoryPage />} />
           <Route path="/exams/lich-su-v2" element={<ExamV2HistoryPage />} />
 
           {/* === Profile routes === */}

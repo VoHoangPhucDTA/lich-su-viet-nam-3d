@@ -1,12 +1,14 @@
 /**
- * ExamV2HistoryPage – Lịch sử các lần làm bài V2.
- * Route: /exams/lich-su-v2
+ * Exam history page.
+ * Official route: /exams/lich-su
+ * Temporary alias: /exams/lich-su-v2
  */
-import { useState, useEffect } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { getAllV2Results, clearAllV2Results } from '@/lib/exam/v2History';
+import { loadManifest } from '@/lib/exam/manifestLoader';
 import { rateScore } from '@/lib/exam/scoring';
-import type { ExamResultV2 } from '@/types/exam';
+import { clearAllV2Results, getAllV2Results } from '@/lib/exam/v2History';
+import type { ExamManifestEntry, ExamResultV2 } from '@/types/exam';
 
 const RATING_LABEL: Record<string, string> = {
   gioi: 'Giỏi',
@@ -23,7 +25,8 @@ const RATING_COLOR: Record<string, string> = {
 };
 
 function formatDate(ms: number): string {
-  return new Date(ms).toLocaleDateString('vi-VN', {
+  if (!Number.isFinite(ms) || ms <= 0) return 'Chưa rõ thời gian';
+  return new Date(ms).toLocaleString('vi-VN', {
     day: '2-digit',
     month: '2-digit',
     year: 'numeric',
@@ -33,201 +36,248 @@ function formatDate(ms: number): string {
 }
 
 function formatDuration(secs: number): string {
+  if (!Number.isFinite(secs) || secs <= 0) return 'Chưa rõ';
   const m = Math.floor(secs / 60);
   const s = secs % 60;
-  return `${m}p${s.toString().padStart(2, '0')}s`;
+  return `${m}p ${s.toString().padStart(2, '0')}s`;
 }
 
-function ResultRow({ r }: { r: ExamResultV2 }) {
-  const rating = rateScore(r.totalScore);
+function shortExamId(examId?: string): string {
+  if (!examId) return 'Đề thi không xác định';
+  if (examId.length <= 72) return examId;
+  return `${examId.slice(0, 69)}...`;
+}
+
+function buildMetaMap(manifest: ExamManifestEntry[]): Map<string, ExamManifestEntry> {
+  return new Map(manifest.map((entry) => [entry.examId, entry]));
+}
+
+function SummaryStat({ label, value, color }: { label: string; value: string; color: string }) {
+  return (
+    <div
+      style={{
+        background: 'var(--bg-card)',
+        border: '1px solid var(--border)',
+        borderRadius: '0.875rem',
+        padding: '1rem 1.25rem',
+        minWidth: '8rem',
+      }}
+    >
+      <div style={{ fontSize: '1.55rem', fontWeight: 900, color, lineHeight: 1 }}>{value}</div>
+      <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginTop: '0.3rem' }}>{label}</div>
+    </div>
+  );
+}
+
+function HistoryRow({ result, meta }: { result: ExamResultV2; meta?: ExamManifestEntry }) {
+  const rating = rateScore(result.totalScore);
   const color = RATING_COLOR[rating];
+  const title = meta?.title ?? shortExamId(result.examId);
+  const subtitle = meta
+    ? [meta.sourceDetail, meta.year].filter(Boolean).join(' · ')
+    : result.examId
+    ? 'Không tìm thấy metadata trong manifest'
+    : 'Không có mã đề trong kết quả';
 
   return (
-    <Link
-      to={`/exams/ket-qua/${r.sessionId}`}
-      style={{ textDecoration: 'none' }}
+    <article
+      style={{
+        display: 'grid',
+        gridTemplateColumns: 'minmax(0, 1fr) auto',
+        gap: '1rem',
+        alignItems: 'center',
+        padding: '1rem 1.15rem',
+        background: 'var(--bg-card)',
+        border: '1px solid var(--border)',
+        borderRadius: '0.9rem',
+      }}
     >
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: '1fr auto auto auto auto',
-          gap: '1rem',
-          alignItems: 'center',
-          padding: '0.875rem 1.25rem',
-          background: 'var(--bg-surface)',
-          border: '1px solid var(--border)',
-          borderRadius: '0.75rem',
-          transition: 'border-color 0.15s',
-          cursor: 'pointer',
-        }}
-        onMouseEnter={(e) =>
-          (e.currentTarget.style.borderColor = 'var(--accent)')
-        }
-        onMouseLeave={(e) =>
-          (e.currentTarget.style.borderColor = 'var(--border)')
-        }
-      >
-        {/* Date + examId */}
-        <div>
-          <div
+      <div style={{ minWidth: 0 }}>
+        <h2 style={{ margin: '0 0 0.35rem', fontSize: '1rem', fontWeight: 800, color: 'var(--text-primary)', lineHeight: 1.45 }}>
+          {title}
+        </h2>
+        <div style={{ color: 'var(--text-muted)', fontSize: '0.78rem', lineHeight: 1.5 }}>
+          {subtitle}
+        </div>
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', marginTop: '0.75rem' }}>
+          <InfoPill label="Ngày làm" value={formatDate(result.submittedAt)} />
+          <InfoPill label="Thời gian" value={formatDuration(result.durationSeconds)} />
+          <InfoPill label="Số câu" value={`${result.totalQuestions ?? result.questions.length} câu`} />
+        </div>
+      </div>
+
+      <div style={{ display: 'grid', gap: '0.75rem', justifyItems: 'end' }}>
+        <div style={{ display: 'flex', gap: '0.65rem', alignItems: 'center', flexWrap: 'wrap', justifyContent: 'flex-end' }}>
+          <ScoreBlock label="Tổng" value={result.totalScore.toFixed(2)} color={color} />
+          <ScoreBlock label="MCQ" value={result.mcqScore.toFixed(2)} color="var(--accent)" />
+          <ScoreBlock label="Đúng/Sai" value={result.tfScore.toFixed(2)} color="var(--admin-accent)" />
+        </div>
+        <div style={{ display: 'flex', gap: '0.6rem', alignItems: 'center', flexWrap: 'wrap', justifyContent: 'flex-end' }}>
+          <span
             style={{
-              fontSize: '0.875rem',
-              fontWeight: 600,
-              color: 'var(--text-primary)',
-              marginBottom: '0.2rem',
+              padding: '0.25rem 0.65rem',
+              borderRadius: '999px',
+              fontSize: '0.75rem',
+              fontWeight: 800,
+              background: `color-mix(in srgb, ${color} 14%, transparent)`,
+              color,
+              border: `1px solid ${color}`,
             }}
           >
-            {r.examId ?? 'Ôn chủ đề'}
-          </div>
-          <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
-            {formatDate(r.submittedAt)}
-          </div>
-        </div>
-
-        {/* Score */}
-        <div style={{ textAlign: 'right' }}>
-          <div
-            style={{ fontSize: '1.3rem', fontWeight: 800, color, lineHeight: 1 }}
+            {RATING_LABEL[rating]}
+          </span>
+          <Link
+            to={`/exams/ket-qua/${result.sessionId}`}
+            style={{
+              padding: '0.65rem 0.95rem',
+              background: 'var(--accent)',
+              color: '#fff',
+              borderRadius: '0.75rem',
+              textDecoration: 'none',
+              fontWeight: 800,
+              fontSize: '0.85rem',
+              whiteSpace: 'nowrap',
+            }}
           >
-            {r.totalScore.toFixed(2)}
-          </div>
-          <div style={{ fontSize: '0.65rem', color: 'var(--text-muted)' }}>
-            / 10
-          </div>
+            Xem lại bài làm
+          </Link>
         </div>
-
-        {/* Rating badge */}
-        <span
-          style={{
-            padding: '0.2rem 0.65rem',
-            borderRadius: '9999px',
-            fontSize: '0.75rem',
-            fontWeight: 700,
-            background: `color-mix(in srgb, ${color} 15%, transparent)`,
-            color,
-            border: `1px solid ${color}`,
-          }}
-        >
-          {RATING_LABEL[rating]}
-        </span>
-
-        {/* Duration */}
-        <div
-          style={{
-            fontSize: '0.8rem',
-            color: 'var(--text-muted)',
-            whiteSpace: 'nowrap',
-          }}
-        >
-          {formatDuration(r.durationSeconds)}
-        </div>
-
-        {/* Arrow */}
-        <div style={{ color: 'var(--text-muted)', fontSize: '1rem' }}>›</div>
       </div>
-    </Link>
+    </article>
+  );
+}
+
+function InfoPill({ label, value }: { label: string; value: string }) {
+  return (
+    <span
+      style={{
+        display: 'inline-flex',
+        gap: '0.35rem',
+        alignItems: 'baseline',
+        padding: '0.25rem 0.55rem',
+        borderRadius: '999px',
+        background: 'var(--bg-surface)',
+        border: '1px solid var(--border)',
+        fontSize: '0.75rem',
+        color: 'var(--text-muted)',
+      }}
+    >
+      {label}: <strong style={{ color: 'var(--text-secondary)' }}>{value}</strong>
+    </span>
+  );
+}
+
+function ScoreBlock({ label, value, color }: { label: string; value: string; color: string }) {
+  return (
+    <div style={{ textAlign: 'right', minWidth: '4.25rem' }}>
+      <div style={{ fontSize: '1.25rem', fontWeight: 900, color, lineHeight: 1 }}>{value}</div>
+      <div style={{ fontSize: '0.68rem', color: 'var(--text-muted)', marginTop: '0.2rem' }}>{label}</div>
+    </div>
   );
 }
 
 export default function ExamV2HistoryPage() {
   const [results, setResults] = useState<ExamResultV2[]>([]);
+  const [metaById, setMetaById] = useState<Map<string, ExamManifestEntry>>(new Map());
   const [loading, setLoading] = useState(true);
+  const [manifestWarning, setManifestWarning] = useState<string | null>(null);
 
-  function load() {
-    setResults(getAllV2Results());
-    setLoading(false);
+  const stats = useMemo(() => {
+    if (results.length === 0) return null;
+    const total = results.reduce((sum, result) => sum + result.totalScore, 0);
+    const max = Math.max(...results.map((result) => result.totalScore));
+    return {
+      count: results.length,
+      avg: total / results.length,
+      max,
+    };
+  }, [results]);
+
+  async function load() {
+    setLoading(true);
+    setManifestWarning(null);
+    const storedResults = getAllV2Results();
+    setResults(storedResults);
+
+    try {
+      const manifest = await loadManifest();
+      setMetaById(buildMetaMap(manifest));
+    } catch (err) {
+      const message = err instanceof Error ? err.message : 'Không rõ nguyên nhân.';
+      setMetaById(new Map());
+      setManifestWarning(`Không tải được danh mục đề. Lịch sử vẫn hiển thị bằng dữ liệu đã lưu. ${message}`);
+    } finally {
+      setLoading(false);
+    }
   }
 
   useEffect(() => {
-    load();
+    void load();
   }, []);
 
   function handleClear() {
     if (!confirm('Xóa toàn bộ lịch sử làm bài? Hành động này không thể hoàn tác.')) return;
     clearAllV2Results();
-    load();
+    void load();
   }
 
   return (
-    <div
-      style={{
-        minHeight: '100vh',
-        background: 'var(--bg-app)',
-        color: 'var(--text-primary)',
-        padding: '2.5rem 1.5rem',
-      }}
-    >
-      <div style={{ maxWidth: '52rem', margin: '0 auto' }}>
-        {/* Header */}
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '1rem',
-            marginBottom: '2rem',
-            flexWrap: 'wrap',
-          }}
-        >
-          <Link
-            to="/exams"
-            style={{
-              color: 'var(--text-muted)',
-              textDecoration: 'none',
-              fontSize: '0.875rem',
-            }}
-          >
-            ← Luyện thi
-          </Link>
-          <h1
-            style={{ margin: 0, fontSize: '1.5rem', fontWeight: 800, flex: 1 }}
-          >
-            Lịch sử làm bài
-          </h1>
+    <div style={{ minHeight: '100vh', background: 'var(--bg-app)', color: 'var(--text-primary)', padding: '2.5rem 1.5rem' }}>
+      <div style={{ maxWidth: '64rem', margin: '0 auto', display: 'grid', gap: '1.5rem' }}>
+        <header style={{ display: 'flex', alignItems: 'flex-start', gap: '1rem', flexWrap: 'wrap' }}>
+          <div style={{ flex: 1, minWidth: '16rem' }}>
+            <Link to="/exams/browse" style={{ color: 'var(--text-muted)', textDecoration: 'none', fontSize: '0.875rem' }}>
+              ← Danh sách đề
+            </Link>
+            <h1 style={{ margin: '0.75rem 0 0.35rem', fontSize: '1.7rem', fontWeight: 900 }}>Lịch sử luyện thi</h1>
+            <p style={{ margin: 0, color: 'var(--text-muted)', lineHeight: 1.6 }}>
+              Theo dõi các bài thi thử bạn đã hoàn thành.
+            </p>
+          </div>
           {results.length > 0 && (
             <button
               type="button"
               onClick={handleClear}
               style={{
-                padding: '0.4rem 0.9rem',
+                padding: '0.55rem 0.9rem',
                 background: 'transparent',
                 border: '1px solid var(--danger)',
-                borderRadius: '0.5rem',
+                borderRadius: '0.65rem',
                 color: 'var(--danger)',
                 fontSize: '0.8rem',
-                fontWeight: 600,
+                fontWeight: 800,
                 cursor: 'pointer',
               }}
             >
               Xóa tất cả
             </button>
           )}
-        </div>
+        </header>
 
-        {loading && (
-          <div
-            style={{ textAlign: 'center', padding: '4rem', color: 'var(--text-muted)' }}
-          >
-            Đang tải...
+        {manifestWarning && (
+          <div style={{ background: 'rgba(194,155,75,0.1)', border: '1px solid rgba(194,155,75,0.35)', borderRadius: '0.9rem', padding: '0.9rem 1rem', color: 'var(--text-secondary)', lineHeight: 1.6 }}>
+            <strong style={{ color: 'var(--warning)' }}>Lưu ý: </strong>
+            {manifestWarning}
           </div>
         )}
+
+        {loading && <div style={{ textAlign: 'center', padding: '4rem', color: 'var(--text-muted)' }}>Đang tải...</div>}
 
         {!loading && results.length === 0 && (
           <div
             style={{
               textAlign: 'center',
-              padding: '4rem',
+              padding: '3.5rem 1.5rem',
               background: 'var(--bg-card)',
-              borderRadius: '1.25rem',
+              borderRadius: '1.1rem',
               border: '1px solid var(--border)',
             }}
           >
-            <div
-              style={{ fontSize: '3rem', marginBottom: '1rem', opacity: 0.5 }}
-            >
-              📋
-            </div>
+            <h2 style={{ margin: '0 0 0.75rem', fontSize: '1.25rem', color: 'var(--text-primary)' }}>
+              Bạn chưa có bài làm nào
+            </h2>
             <p style={{ color: 'var(--text-muted)', margin: '0 0 1.5rem' }}>
-              Bạn chưa hoàn thành đề thi nào.
+              Chọn một đề thi thử để bắt đầu lưu lại kết quả luyện thi.
             </p>
             <Link
               to="/exams/browse"
@@ -237,75 +287,25 @@ export default function ExamV2HistoryPage() {
                 color: '#fff',
                 borderRadius: '0.75rem',
                 textDecoration: 'none',
-                fontWeight: 600,
+                fontWeight: 800,
               }}
             >
-              Bắt đầu làm đề
+              Làm đề ngay
             </Link>
           </div>
         )}
 
-        {!loading && results.length > 0 && (
+        {!loading && stats && (
           <>
-            {/* Summary stats */}
-            <div
-              style={{
-                display: 'flex',
-                gap: '1rem',
-                marginBottom: '1.5rem',
-                flexWrap: 'wrap',
-              }}
-            >
-              {[
-                ['Đề đã làm', `${results.length}`, 'var(--accent)'],
-                [
-                  'Điểm TB',
-                  `${(results.reduce((a, r) => a + r.totalScore, 0) / results.length).toFixed(1)}`,
-                  'var(--success)',
-                ],
-                [
-                  'Điểm cao nhất',
-                  `${Math.max(...results.map((r) => r.totalScore)).toFixed(1)}`,
-                  'var(--admin-accent)',
-                ],
-              ].map(([label, value, color]) => (
-                <div
-                  key={label}
-                  style={{
-                    background: 'var(--bg-card)',
-                    border: '1px solid var(--border)',
-                    borderRadius: '0.875rem',
-                    padding: '1rem 1.25rem',
-                    minWidth: '7rem',
-                  }}
-                >
-                  <div
-                    style={{
-                      fontSize: '1.5rem',
-                      fontWeight: 800,
-                      color,
-                      lineHeight: 1,
-                    }}
-                  >
-                    {value}
-                  </div>
-                  <div
-                    style={{
-                      fontSize: '0.72rem',
-                      color: 'var(--text-muted)',
-                      marginTop: '0.25rem',
-                    }}
-                  >
-                    {label}
-                  </div>
-                </div>
-              ))}
+            <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
+              <SummaryStat label="Bài đã làm" value={`${stats.count}`} color="var(--accent)" />
+              <SummaryStat label="Điểm cao nhất" value={stats.max.toFixed(1)} color="var(--admin-accent)" />
+              <SummaryStat label="Điểm trung bình" value={stats.avg.toFixed(1)} color="var(--success)" />
             </div>
 
-            {/* Result list */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-              {results.map((r) => (
-                <ResultRow key={r.sessionId} r={r} />
+            <div style={{ display: 'grid', gap: '0.8rem' }}>
+              {results.map((result) => (
+                <HistoryRow key={result.sessionId} result={result} meta={result.examId ? metaById.get(result.examId) : undefined} />
               ))}
             </div>
           </>
