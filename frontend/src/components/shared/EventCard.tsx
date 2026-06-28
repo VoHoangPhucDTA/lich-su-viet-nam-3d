@@ -24,7 +24,7 @@ export default function EventCard({ event, imageHeight = 'h-40', compact = false
   const fallbackGradient = getEventTitleFallback(event.eventType);
 
   const handleClick = () => {
-    navigate(`/events/${detailKey}`);
+    navigate(`/events/${detailKey}`, { state: { from: window.location.pathname } });
   };
 
   const showImage = titleImage && !imgError;

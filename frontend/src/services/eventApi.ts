@@ -443,3 +443,18 @@ export async function recordEventView(
     console.warn('Could not record event view.', error);
   }
 }
+
+export interface EventProgressResponse {
+  eventId: string;
+  progressPercent: number;
+  viewedAt: string;
+}
+
+export async function getEventProgress(eventId: string): Promise<EventProgressResponse | null> {
+  try {
+    return await apiGet<EventProgressResponse>(`/api/events/${eventId}/progress`);
+  } catch (error) {
+    console.warn('Could not fetch event progress.', error);
+    return null;
+  }
+}

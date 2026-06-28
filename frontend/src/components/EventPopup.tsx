@@ -361,7 +361,7 @@ export default function EventPopup({
         <button
           onClick={() => {
             const detailKey = event.slug || event.id;
-            navigate(`/events/${detailKey}`);
+            navigate(`/events/${detailKey}`, { state: { from: window.location.pathname } });
           }}
           className="flex-1 px-3 py-3 rounded-[10px] text-[13px] font-bold cursor-pointer transition-all duration-200 border-0"
           style={{

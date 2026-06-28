@@ -118,7 +118,7 @@ function AnswerReviewCard({ result, index }: { result: QuizQuestionResult; index
                 )}
                 {q.eventId && (
                     <div style={{ marginTop: '1rem' }}>
-                        <Link to={`/events/${q.eventId}`} style={{ display: 'inline-block', fontSize: '0.85rem', color: 'var(--accent)', textDecoration: 'none', padding: '0.4rem 0.75rem', background: 'var(--accent-soft)', borderRadius: '0.5rem', border: '1px solid color-mix(in srgb, var(--accent) 30%, transparent)' }}>
+                        <Link to={`/events/${q.eventId}`} state={{ from: '/quiz' }} style={{ display: 'inline-block', fontSize: '0.85rem', color: 'var(--accent)', textDecoration: 'none', padding: '0.4rem 0.75rem', background: 'var(--accent-soft)', borderRadius: '0.5rem', border: '1px solid color-mix(in srgb, var(--accent) 30%, transparent)' }}>
                             🔗 Xem sự kiện liên quan: {q.eventTitle || q.eventId}
                         </Link>
                     </div>

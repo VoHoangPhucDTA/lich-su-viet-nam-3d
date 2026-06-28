@@ -44,7 +44,7 @@ export default function EventTTSPlayer({ event, onNarrationStateChange }: EventT
   const [progress, setProgress] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
-  const [_chunkLabel, setChunkLabel] = useState('');
+  const [, setChunkLabel] = useState('');
   const [speed, setSpeed] = useState<number>(1);
   const [volume, setVolume] = useState(1);
   const [errorMessage, setErrorMessage] = useState('');
@@ -67,11 +67,16 @@ export default function EventTTSPlayer({ event, onNarrationStateChange }: EventT
   const currentIndexRef = useRef(currentIndex);
   const progressRef = useRef(progress);
   const isSeekingRef = useRef(false);
+  /** Pending seek time to apply after playChunk loads new audio (cross-chunk seek). */
+  const seekTargetRef = useRef<number | null>(null);
+  /** Stable ref for duration so seekTo never captures a stale closure. */
+  const durationRef = useRef<number>(0);
 
   // Keep refs in sync
   playlistRef.current = playlist;
   currentIndexRef.current = currentIndex;
   progressRef.current = progress;
+  durationRef.current = duration;
 
   // Notify parent of narration state changes
   useEffect(() => {
@@ -123,7 +128,7 @@ export default function EventTTSPlayer({ event, onNarrationStateChange }: EventT
   const unlockAudio = useCallback(() => {
     try {
       if (!audioCtxRef.current) {
-        audioCtxRef.current = new (window.AudioContext || (window as any).webkitAudioContext)();
+        audioCtxRef.current = new (window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext)();
       }
       if (audioCtxRef.current.state === 'suspended') {
         audioCtxRef.current.resume();
@@ -174,15 +179,15 @@ export default function EventTTSPlayer({ event, onNarrationStateChange }: EventT
   /**
    * Seek to a position in the global timeline (fraction 0–1).
    *
-   * Note: If chunks haven't loaded metadata yet (chunkDurationsRef has undefined entries),
-   * seeking beyond the first chunk's known duration may navigate to the wrong chunk.
-   * This is self-correcting once onloadedmetadata fires for all chunks.
+   * Uses refs exclusively (durationRef, currentIndexRef, playlistRef,
+   * chunkDurationsRef) so the callback never captures stale state values.
+   * Stable identity — never recreated during playback.
    */
   const seekTo = useCallback((fraction: number) => {
-    if (!audioRef.current || playlist.length === 0 || fraction < 0 || fraction > 1) return;
+    const pl = playlistRef.current;
+    if (!audioRef.current || pl.length === 0 || fraction < 0 || fraction > 1) return;
 
-    // Use seekFraction-derived position instead of (progress-based) for consistency
-    const totalGlobalDuration = duration || 1;
+    const totalGlobalDuration = durationRef.current || 1;
     const targetGlobalTime = fraction * totalGlobalDuration;
 
     let accumulatedTime = 0;
@@ -202,17 +207,23 @@ export default function EventTTSPlayer({ event, onNarrationStateChange }: EventT
       }
     }
 
-    if (targetChunk !== currentIndex) {
+    // Store target time in ref so playChunk can apply it after loading the chunk
+    const chunkTargetTime = targetGlobalTime - accumulatedTime;
+    seekTargetRef.current = Math.max(0, chunkTargetTime);
+
+    const idx = currentIndexRef.current;
+    if (targetChunk !== idx) {
       cumulativeTimeBeforeRef.current = accumulatedTime;
       setCurrentIndex(targetChunk);
-    }
-
-    // Seek within current chunk
-    const chunkTargetTime = targetGlobalTime - accumulatedTime;
-    if (targetChunk === currentIndex && audioRef.current) {
+    } else if (audioRef.current) {
+      // Same chunk — seek directly
       audioRef.current.currentTime = Math.max(0, Math.min(chunkTargetTime, audioRef.current.duration || 0));
+      seekTargetRef.current = null;
     }
-  }, [duration, playlist.length, currentIndex]);
+  }, []);
+
+  /** Stores the most recent seek fraction during drag, applied only on release. */
+  const pendingSeekFractionRef = useRef(0);
 
   const handleSeekStart = useCallback(() => {
     isSeekingRef.current = true;
@@ -220,12 +231,20 @@ export default function EventTTSPlayer({ event, onNarrationStateChange }: EventT
 
   const handleSeekEnd = useCallback(() => {
     isSeekingRef.current = false;
-  }, []);
+    // Apply the final seek position on release (not on every onChange),
+    // avoiding rapid chunk switches during drag that cause audio reloads.
+    seekTo(pendingSeekFractionRef.current);
+  }, [seekTo]);
 
   const handleSeekChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     const fraction = Number(e.target.value) / 1000;
-    seekTo(fraction);
-  }, [seekTo]);
+    pendingSeekFractionRef.current = fraction;
+    // Update currentTime state directly for visual feedback during drag.
+    // Do NOT touch audio.currentTime — setting a global time on a
+    // chunk-local element would clamp to the chunk boundary and cause
+    // inaccurate visual feedback. The real seek happens in handleSeekEnd.
+    setCurrentTime(fraction * (durationRef.current || 0));
+  }, []);
 
   // ── Audio setup for a single chunk ─────────────────────────────────────
   const playChunk = useCallback((url: string) => {
@@ -238,12 +257,39 @@ export default function EventTTSPlayer({ event, onNarrationStateChange }: EventT
     audio.playbackRate = speed;
     audio.volume = volume;
 
+    const startPlayback = () => {
+      const p = audio.play();
+      if (p) {
+        p.catch((err) => {
+          if (err.name === 'NotAllowedError') {
+            setStatus('paused');
+            setErrorMessage('Nhấn "Tiếp tục" để bắt đầu phát tường thuật.');
+          } else {
+            setStatus('error');
+            setErrorMessage('Không thể phát âm thanh. Vui lòng thử lại.');
+          }
+        });
+      }
+    };
+
     audio.onloadedmetadata = () => {
       const idx = currentIndexRef.current;
       chunkDurationsRef.current[idx] = audio.duration;
       const knownDurations = chunkDurationsRef.current.filter((d): d is number => d !== undefined && d > 0);
       const totalKnown = knownDurations.reduce((sum, d) => sum + d, 0);
       if (totalKnown > 0) setDuration(totalKnown);
+
+      // Apply pending cross-chunk seek if any — MUST happen before play()
+      // to avoid a brief "play from position 0" that sounds like repeating.
+      const hasPendingSeek = seekTargetRef.current !== null && audio.duration > 0;
+      if (hasPendingSeek) {
+        audio.currentTime = Math.min(seekTargetRef.current!, audio.duration);
+        seekTargetRef.current = null;
+      }
+
+      // For cross-chunk seeks, start playback only AFTER seek is applied.
+      // For normal chunk transitions, the seek isn't pending, so play immediately.
+      startPlayback();
     };
 
     audio.ontimeupdate = () => {
@@ -283,23 +329,9 @@ export default function EventTTSPlayer({ event, onNarrationStateChange }: EventT
     };
 
     setChunkLabel(`Phần ${currentIndexRef.current + 1}/${playlistRef.current.length}`);
-
-    // Attempt playback
-    const playPromise = audio.play();
-    if (playPromise) {
-      playPromise.catch((err) => {
-        // Browser autoplay policy: if .play() is rejected, user needs to click again
-        // Instead of looping, we set status to 'paused' so user can manually resume
-        if (err.name === 'NotAllowedError') {
-          setStatus('paused');
-          setErrorMessage('Nhấn "Tiếp tục" để bắt đầu phát tường thuật.');
-        } else {
-          setStatus('error');
-          setErrorMessage('Không thể phát âm thanh. Vui lòng thử lại.');
-        }
-      });
-    }
-  }, [speed, volume, seekTo]);
+    // NOTE: audio.play() is now called inside onloadedmetadata (via startPlayback)
+    // to ensure the seek target is applied before playback starts for cross-chunk seeks.
+  }, [speed, volume]);
 
   // ── Derived state ──────────────────────────────────────────────────────
   const isPlaying = status === 'playing';

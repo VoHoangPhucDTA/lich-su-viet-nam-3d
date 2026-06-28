@@ -1,28 +1,51 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 interface EventDetailSidebarProps {
   navLinks: { id: string; label: string }[];
+  /** Map from navLink id to its display index (e.g. '01', '02') for consistent numbering with page content. */
+  linkIndices?: Record<string, string>;
   showMapAction?: boolean;
+  /** Reading progress (0–100) from IntersectionObserver-based tracking. */
+  readingProgress?: number;
+  /** Currently active section id from the reading progress tracker. */
+  activeSection?: string;
 }
 
 /**
  * Sidebar TOC – sticky desktop, có scroll-spy active link và reading progress.
+ *
+ * Uses IntersectionObserver-based reading progress from the parent (more reliable
+ * than raw scroll position) when provided via props. Falls back to legacy
+ * scroll-based calculation for backward compatibility.
  */
 export default function EventDetailSidebar({
   navLinks,
+  linkIndices,
   showMapAction,
+  readingProgress: externalReadPct,
+  activeSection: externalActiveId,
 }: EventDetailSidebarProps) {
   const navigate = useNavigate();
   const [activeId, setActiveId] = useState<string>(navLinks[0]?.id ?? '');
   const [readPct, setReadPct] = useState(0);
+  /** Tracks the last section id the user manually clicked (overrides external active during scroll). */
+  const [clickedId, setClickedId] = useState<string | null>(null);
+  const clickedTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  /* Scroll-spy + reading progress
-   * Lưu ý: trong app này, `body` mới là phần tử scroll thực sự
-   * (do index.css set `body { height: 100%; overflow-y: auto }` để
-   * Cesium viewer chiếm full viewport). Vì vậy phải lắng nghe scroll
-   * trên `document.body` chứ không phải `window`. */
+  // Use external reading progress from useReadingProgress hook when provided
+  const displayReadPct = externalReadPct !== undefined ? externalReadPct : readPct;
+  // After user clicks a TOC link, show the clicked item immediately.
+  // The timeout clears the override so the hook's value takes over again.
+  const displayActiveId =
+    clickedId ??
+    (externalActiveId !== undefined ? externalActiveId : activeId);
+
+  /* Legacy scroll-based reading progress (fallback if no external props) */
   useEffect(() => {
+    // If external reading progress is provided, skip the legacy scroll listener
+    if (externalReadPct !== undefined) return;
+
     const getScrollState = () => {
       const body = document.body;
       const docEl = document.documentElement;
@@ -37,6 +60,8 @@ export default function EventDetailSidebar({
       const total = scrollHeight - clientHeight;
       const pct = total > 0 ? Math.min(100, Math.max(0, (scrollTop / total) * 100)) : 0;
       setReadPct(pct);
+
+      if (externalActiveId !== undefined) return; // external handles active section
 
       const offsets = navLinks
         .map((l) => {
@@ -59,13 +84,18 @@ export default function EventDetailSidebar({
       window.removeEventListener('scroll', onScroll);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [navLinks]);
+  }, [navLinks, externalReadPct, externalActiveId]);
 
   const scrollTo = (id: string) => {
     const el = document.getElementById(id);
     if (!el) return;
     el.scrollIntoView({ behavior: 'smooth', block: 'start' });
     setActiveId(id);
+    // Immediately show the clicked item in the TOC, overriding external activeSection
+    if (clickedTimeoutRef.current) clearTimeout(clickedTimeoutRef.current);
+    setClickedId(id);
+    // Clear the override after IntersectionObserver has time to update
+    clickedTimeoutRef.current = setTimeout(() => setClickedId(null), 500);
   };
 
   const scrollToTop = () => {
@@ -94,8 +124,7 @@ export default function EventDetailSidebar({
           <span
             className="mono-label text-xs"
             style={{ color: 'var(--accent)', fontWeight: 700 }}
-          >
-            {Math.round(readPct)}%
+          >              {Math.round(displayReadPct)}%
           </span>
         </div>
         <div
@@ -105,7 +134,7 @@ export default function EventDetailSidebar({
           <div
             className="h-full rounded-full transition-[width] duration-200 ease-linear"
             style={{
-              width: `${readPct}%`,
+              width: `${displayReadPct}%`,
               background:
                 'linear-gradient(to right, var(--accent), var(--admin-accent))',
             }}
@@ -123,7 +152,10 @@ export default function EventDetailSidebar({
         </h3>
         <div className="flex flex-col gap-0.5">
           {navLinks.map((link, i) => {
-            const isActive = activeId === link.id;
+            const isActive = displayActiveId === link.id;
+            // Use provided linkIndices for consistent numbering with page content,
+            // falling back to array index for backward compatibility
+            const displayNum = linkIndices?.[link.id] ?? String(i + 1).padStart(2, '0');
             return (
               <button
                 key={link.id}
@@ -150,7 +182,7 @@ export default function EventDetailSidebar({
                       : 'var(--text-muted)',
                   }}
                 >
-                  {String(i + 1).padStart(2, '0')}
+                  {displayNum}
                 </span>
                 {link.label}
               </button>

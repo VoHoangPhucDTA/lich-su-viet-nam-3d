@@ -7,6 +7,7 @@ import org.springframework.data.repository.query.Param;
 
 import java.time.Instant;
 import java.util.List;
+import java.util.Optional;
 
 public interface EventViewLogRepository extends JpaRepository<EventViewLogEntity, Long> {
     @Query(value = """
@@ -32,6 +33,19 @@ public interface EventViewLogRepository extends JpaRepository<EventViewLogEntity
             """, nativeQuery = true)
     List<RecentEventViewProjection> findRecentEvents(@Param("userId") byte[] userId);
 
+    @Query(value = """
+            SELECT progress_percent, viewed_at
+            FROM event_view_logs
+            WHERE user_id = :userId
+              AND event_id = :eventId
+            ORDER BY viewed_at DESC
+            LIMIT 1
+            """, nativeQuery = true)
+    Optional<LatestEventProgressProjection> findLatestProgress(
+            @Param("userId") byte[] userId,
+            @Param("eventId") String eventId
+    );
+
     interface RecentEventViewProjection {
         String getEventId();
 
@@ -40,6 +54,12 @@ public interface EventViewLogRepository extends JpaRepository<EventViewLogEntity
         String getTitle();
 
         String getDisplayDate();
+
+        Instant getViewedAt();
+    }
+
+    interface LatestEventProgressProjection {
+        Byte getProgressPercent();
 
         Instant getViewedAt();
     }

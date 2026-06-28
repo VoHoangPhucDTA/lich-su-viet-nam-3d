@@ -96,6 +96,10 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.GET, "/api/events", "/api/timeline").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/events/**").permitAll()
+                        // Reading-progress endpoints must allow anonymous callers so the frontend
+                        // can record and restore progress before login. The service layer no-ops
+                        // persistence for anonymous users and returns empty stats.
+                        .requestMatchers(HttpMethod.POST, "/api/events/*/view").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/auth/register", "/api/auth/login", "/api/auth/refresh").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/auth/verify-email").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/auth/forgot-password", "/api/auth/reset-password").permitAll()
