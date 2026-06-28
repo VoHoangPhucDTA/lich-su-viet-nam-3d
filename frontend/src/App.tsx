@@ -45,10 +45,14 @@ import ExamCreatePage from './pages/exams/ExamCreatePage';
 import ExamSessionPage from './pages/exams/ExamSessionPage';
 import ExamResultPage from './pages/exams/ExamResultPage';
 import ExamHistoryPage from './pages/exams/ExamHistoryPage';
+import ExamBrowsePage from './pages/exams/ExamBrowsePage';
+import ExamV2SessionPage from './pages/exams/ExamV2SessionPage';
+import ExamV2ResultPage from './pages/exams/ExamV2ResultPage';
+import ExamV2HistoryPage from './pages/exams/ExamV2HistoryPage';
 
 function AppContent() {
   const location = useLocation();
-  const hideHeaderRoutes = ['/quiz/session', '/exams/session'];
+  const hideHeaderRoutes = ['/quiz/session', '/exams/session', '/exams/de'];
   const shouldHideHeader = hideHeaderRoutes.some(path => location.pathname.startsWith(path));
 
   return (
@@ -84,6 +88,10 @@ function AppContent() {
           <Route path="/exams/session/:examId" element={<ExamSessionPage />} />
           <Route path="/exams/result/:examId" element={<ExamResultPage />} />
           <Route path="/exams/history" element={<ExamHistoryPage />} />
+          <Route path="/exams/browse" element={<ExamBrowsePage />} />
+          <Route path="/exams/de/:examId" element={<ExamV2SessionPage />} />
+          <Route path="/exams/ket-qua/:sessionId" element={<ExamV2ResultPage />} />
+          <Route path="/exams/lich-su-v2" element={<ExamV2HistoryPage />} />
 
           {/* === Profile routes === */}
           <Route path="/profile" element={<Navigate to="/profile/dashboard" replace />} />

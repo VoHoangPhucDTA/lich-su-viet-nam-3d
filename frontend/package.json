@@ -7,6 +7,11 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
+    "build:exams-manifest": "node scripts/build-exams-manifest.mjs",
+    "build:topic-index": "node scripts/build-topic-index.mjs",
+    "build:data": "npm run build:exams-manifest && npm run build:topic-index",
+    "predev": "npm run build:data",
+    "prebuild": "npm run build:data",
     "preview": "vite preview"
   },
   "dependencies": {
