@@ -86,6 +86,8 @@ export interface RawEventJson {
     detailedNarrative?: string;
     significance?: string;
     keyFacts?: Array<string | number>;
+    /** Some JSON files store textbookRefs inside textbookContent instead of at top-level */
+    textbookRefs?: RawTextbookRef[];
   };
 
   /** Lưu ý: trong JSON thật, `textbookRefs` ở TOP-LEVEL chứ không lồng trong textbookContent */
@@ -116,6 +118,31 @@ export interface RawEventJson {
     canonicalSource?: string;
     /** JSON thật dùng dạng "wikipedia | wikidata" (string), không phải mảng */
     supplementalSources?: string;
+  };
+
+  /** External sources (Wikipedia, Wikidata, Other) – copied to MockEventDetail.externalContent */
+  externalContent?: {
+    wikipedia?: { title: string; url: string; summary?: string; content?: string };
+    wikidata?: { id?: string; url: string };
+    otherSources?: { name: string; url: string }[];
+  };
+
+  /** Media attachments (images, video) – copied to MockEventDetail.media */
+  media?: {
+    thumbnail?: string;
+    items?: Array<{
+      id: string;
+      type: string;
+      url: string;
+      caption?: string;
+      alt?: string;
+      category?: string;
+      role?: string;
+      source?: string;
+      license?: string;
+      credit?: string;
+      isPrimary?: boolean;
+    }>;
   };
 
   notes?: string;
