@@ -1,115 +1,64 @@
 import type { ReactNode } from 'react';
 import { Link } from 'react-router-dom';
-import { Map, Swords, Castle, Scroll, Anchor } from 'lucide-react';
-import { useTheme } from '../../theme/ThemeContext';
+import { Compass } from 'lucide-react';
 
 interface AuthLayoutProps {
   children: ReactNode;
 }
 
-/* Decorative floating orbs for background ambiance */
+/* Warm stone-amber background orbs — subtle museum ambiance */
 function BackgroundOrbs() {
-  const { isDark } = useTheme();
   return (
-    <div className="pointer-events-none fixed inset-0 overflow-hidden" aria-hidden="true" style={{ opacity: isDark ? 1 : 0.6 }}>
-      {/* Top-left indigo orb */}
+    <div className="pointer-events-none fixed inset-0 overflow-hidden" aria-hidden="true" style={{ opacity: 0.55 }}>
+      {/* Top-left red-900 glow */}
       <div
         style={{
           position: 'absolute',
-          top: '-10%',
-          left: '-10%',
-          width: '500px',
-          height: '500px',
+          top: '-8%',
+          left: '-8%',
+          width: '520px',
+          height: '520px',
           borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(30,58,95,0.18) 0%, transparent 70%)',
-          filter: 'blur(40px)',
+          background: 'radial-gradient(circle, rgba(139,30,30,0.14) 0%, transparent 70%)',
+          filter: 'blur(48px)',
         }}
       />
-      {/* Bottom-right gold orb */}
+      {/* Bottom-right gold glow */}
       <div
         style={{
           position: 'absolute',
-          bottom: '-15%',
-          right: '-10%',
-          width: '600px',
-          height: '600px',
+          bottom: '-12%',
+          right: '-8%',
+          width: '480px',
+          height: '480px',
           borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(194,155,75,0.15) 0%, transparent 70%)',
-          filter: 'blur(60px)',
+          background: 'radial-gradient(circle, rgba(197,160,89,0.12) 0%, transparent 70%)',
+          filter: 'blur(56px)',
         }}
       />
-      {/* Center subtle blue */}
+      {/* Center-subtle stone warmth */}
       <div
         style={{
           position: 'absolute',
-          top: '40%',
-          left: '30%',
-          width: '400px',
-          height: '400px',
+          top: '35%',
+          left: '25%',
+          width: '360px',
+          height: '360px',
           borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(30,58,95,0.1) 0%, transparent 70%)',
-          filter: 'blur(50px)',
+          background: 'radial-gradient(circle, rgba(120,113,108,0.06) 0%, transparent 70%)',
+          filter: 'blur(44px)',
         }}
       />
-      {/* Grid pattern overlay */}
-      <div
-        style={{
-          position: 'absolute',
-          inset: 0,
-          backgroundImage:
-            'linear-gradient(rgba(71,85,105,0.07) 1px, transparent 1px), linear-gradient(90deg, rgba(71,85,105,0.07) 1px, transparent 1px)',
-          backgroundSize: '60px 60px',
-        }}
-      />
-    </div>
-  );
-}
-
-/* Small history/map decorative icons */
-function DecorativeIcons() {
-  const { isDark } = useTheme();
-  const icons = [
-    { icon: <Map size={40} />, top: '12%', right: '8%', opacity: isDark ? 0.15 : 0.08, delay: '0s' },
-    { icon: <Swords size={32} />, bottom: '20%', left: '5%', opacity: isDark ? 0.12 : 0.06, delay: '0.5s' },
-    { icon: <Castle size={28} />, top: '55%', right: '4%', opacity: isDark ? 0.1 : 0.05, delay: '1s' },
-    { icon: <Scroll size={28} />, top: '30%', left: '3%', opacity: isDark ? 0.12 : 0.06, delay: '1.5s' },
-    { icon: <Anchor size={24} />, bottom: '10%', right: '12%', opacity: isDark ? 0.1 : 0.05, delay: '0.3s' },
-  ];
-
-  return (
-    <div className="pointer-events-none fixed inset-0 overflow-hidden" aria-hidden="true">
-      {icons.map((icon, i) => (
-        <span
-          key={i}
-          style={{
-            position: 'absolute',
-            top: icon.top,
-            bottom: icon.bottom,
-            left: icon.left,
-            right: icon.right,
-            color: 'var(--accent)',
-            opacity: icon.opacity,
-            animation: `float-icon 6s ease-in-out infinite`,
-            animationDelay: icon.delay,
-          }}
-        >
-          {icon.icon}
-        </span>
-      ))}
     </div>
   );
 }
 
 export default function AuthLayout({ children }: AuthLayoutProps) {
-  const { isDark } = useTheme();
-  
   return (
     <div
       style={{
         minHeight: '100vh',
-        background: isDark 
-          ? 'linear-gradient(135deg, #0b1220 0%, #14243d 50%, #0b1220 100%)'
-          : 'linear-gradient(135deg, #f4ebdd 0%, #efe2cf 50%, #f4ebdd 100%)',
+        background: 'linear-gradient(145deg, #fafaf9 0%, #f5f5f4 45%, #fafaf9 100%)',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -118,7 +67,6 @@ export default function AuthLayout({ children }: AuthLayoutProps) {
       }}
     >
       <BackgroundOrbs />
-      <DecorativeIcons />
 
       {/* Main card */}
       <div
@@ -130,98 +78,85 @@ export default function AuthLayout({ children }: AuthLayoutProps) {
           maxWidth: '460px',
         }}
       >
-        {/* Branding header */}
+        {/* Branding header — museum style */}
         <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
-          <Link to="/" style={{ display: 'inline-block', textDecoration: 'none' }}>
+          <Link to="/home" style={{ display: 'inline-block', textDecoration: 'none' }}>
             <div
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 gap: '0.625rem',
-                marginBottom: '0.75rem',
+                marginBottom: '0.625rem',
               }}
             >
+              {/* Compass motif — matching lsvn3d Navbar */}
               <div
                 style={{
-                  width: '2.75rem',
-                  height: '2.75rem',
-                  borderRadius: '0.75rem',
-                  background: 'linear-gradient(135deg, #4f6f95, #2a4b72)',
+                  position: 'relative',
+                  width: '3rem',
+                  height: '3rem',
+                  borderRadius: '0.875rem',
+                  background: 'linear-gradient(135deg, #8b1e1e, #581c1c)',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  color: '#fff',
-                  boxShadow: '0 0 20px rgba(30,58,95,0.4)',
+                  color: '#f5d68a',
+                  boxShadow: '0 4px 16px rgba(139,30,30,0.25)',
+                  border: '1px solid rgba(197,160,89,0.3)',
                 }}
               >
-                <Map size={24} strokeWidth={2} />
+                <div
+                  className="absolute inset-0 rounded-full border border-amber-400/20 animate-spin-slow"
+                  style={{ margin: '2px' }}
+                />
+                <Compass className="h-5 w-5 relative z-10" strokeWidth={1.5} />
               </div>
               <span
-                style={{
-                  fontSize: '1.125rem',
-                  fontWeight: 700,
-                  color: 'var(--text-primary)',
-                  letterSpacing: '-0.01em',
-                }}
+                className="font-serif text-xl font-bold text-stone-900 tracking-tight"
+                style={{ letterSpacing: '-0.01em' }}
               >
-                Lịch sử Việt Nam 3D
+                Lịch Sử Việt Nam
               </span>
             </div>
           </Link>
           <p
-            style={{
-              fontSize: '0.8125rem',
-              color: 'var(--text-muted)',
-              lineHeight: 1.5,
-            }}
+            className="font-mono text-[10px] tracking-[0.15em] uppercase font-semibold"
+            style={{ color: '#78716c' }}
           >
-            Học lịch sử trực quan bằng bản đồ 3D, timeline và AI
+            Bảo tàng số học đường THPT
           </p>
         </div>
 
         {/* Form card */}
         <div
           style={{
-            background: 'var(--bg-card)',
-            backdropFilter: 'blur(20px)',
-            WebkitBackdropFilter: 'blur(20px)',
-            border: '1px solid var(--border)',
+            background: '#ffffff',
+            border: '1px solid #e7e5e4',
             borderRadius: '1.25rem',
             padding: '2.25rem',
-            boxShadow: 'var(--shadow)',
+            boxShadow: '0 8px 32px -12px rgba(0,0,0,0.08)',
           }}
         >
           {children}
         </div>
 
-        {/* Back to map */}
+        {/* Back link */}
         <div style={{ textAlign: 'center', marginTop: '1.5rem' }}>
           <Link
-            to="/"
+            to="/home"
+            className="inline-flex items-center gap-1.5 text-xs font-medium transition-colors duration-200"
             style={{
-              fontSize: '0.8125rem',
-              color: 'var(--text-muted)',
+              color: '#78716c',
               textDecoration: 'none',
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '0.375rem',
-              transition: 'color 0.2s',
             }}
-            onMouseEnter={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = 'var(--accent)')}
-            onMouseLeave={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = 'var(--text-muted)')}
+            onMouseEnter={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = '#8b1e1e')}
+            onMouseLeave={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = '#78716c')}
           >
-            ← Quay lại Bản đồ
+            ← Quay lại trang chủ
           </Link>
         </div>
       </div>
-
-      <style>{`
-        @keyframes float-icon {
-          0%, 100% { transform: translateY(0px) rotate(0deg); }
-          50% { transform: translateY(-12px) rotate(5deg); }
-        }
-      `}</style>
     </div>
   );
 }

@@ -4,6 +4,18 @@ import com.lichsuvn.backend.common.exception.ApiException;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
+/**
+ * Chính sách bảo mật mật khẩu áp dụng khi đăng ký và đặt lại mật khẩu.
+ *
+ * Yêu cầu:
+ * - Tối thiểu 8 ký tự
+ * - Ít nhất 1 chữ hoa (A-Z)
+ * - Ít nhất 1 chữ thường (a-z)
+ * - Ít nhất 1 chữ số (0-9)
+ * - Ít nhất 1 ký tự đặc biệt (không phải chữ/số)
+ *
+ * Nếu mật khẩu không đạt yêu cầu, ném {@link ApiException} mã WEAK_PASSWORD.
+ */
 @Component
 public class PasswordPolicy {
     public void validate(String password) {

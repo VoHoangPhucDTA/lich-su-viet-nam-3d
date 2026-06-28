@@ -1,0 +1,1190 @@
+{
+  "examId": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-so-gd-thanh-hoa-lan-1",
+  "title": "Đề thi Lịch sử – thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-Su-So-GD-Thanh-Hoa-LAN-1",
+  "year": 2025,
+  "source": "",
+  "sourceDetail": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-Su-So-GD-Thanh-Hoa-LAN-1",
+  "examCode": "",
+  "format": "thpt_2025",
+  "timeLimitMinutes": 50,
+  "totalScore": 10.0,
+  "parsedAt": "2026-05-17T10:47:59.845872+00:00",
+  "sections": [
+    {
+      "sectionId": "phan-1",
+      "sectionType": "mcq",
+      "title": "Phần I – Trắc nghiệm nhiều lựa chọn",
+      "totalQuestions": 24,
+      "maxScore": 6.0,
+      "scorePerQuestion": 0.25,
+      "questions": [
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-so-gd-thanh-hoa-lan-1-q01",
+          "orderInExam": 1,
+          "questionType": "mcq",
+          "questionText": "Nhà Lý thực hiện kế sách \"Tiên phát chế nhân\" trong cuộc kháng chiến chống quân xâm lược nào sau đây?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Quân Xiêm."
+            },
+            {
+              "id": "B",
+              "text": "Quân Thanh."
+            },
+            {
+              "id": "C",
+              "text": "Quân Tống."
+            },
+            {
+              "id": "D",
+              "text": "Quân Anh."
+            }
+          ],
+          "correctOptionId": "C",
+          "explanation": "Câu 1. Đáp án C. Quân Tống\nNhà Lý thực hiện kế sách “Tiên phát chế nhân” trong cuộc kháng chiến chống quân Tống thời Lý Thường Kiệt.\n“Tiên phát chế nhân” nghĩa là ra tay trước để chế ngự đối phương, nên quân ta chủ động đánh vào Ung Châu, Khâm Châu, Liêm Châu trước khi quân Tống kéo sang.\n• A sai vì chống Xiêm gắn với thời Tây Sơn.\n• B sai vì chống Thanh gắn với Quang Trung.\n• D sai vì không đúng bối cảnh lịch sử này.",
+          "difficulty": "medium",
+          "topic": "Kháng chiến chống Tống thời Lý",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-Su-So-GD-Thanh-Hoa-LAN-1",
+              "location": "Câu 1"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-so-gd-thanh-hoa-lan-1-q02",
+          "orderInExam": 2,
+          "questionType": "mcq",
+          "questionText": "Hiệp hội các quốc gia Đông Nam Á (ASEAN) được thành lập với mục đích nào sau đây?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Phát triển kinh tế, tài chính, thương mại."
+            },
+            {
+              "id": "B",
+              "text": "Thúc đẩy hòa bình ổn định của khu vực."
+            },
+            {
+              "id": "C",
+              "text": "Thúc đẩy hợp tác toàn diện, nhất thể hóa."
+            },
+            {
+              "id": "D",
+              "text": "Xây dựng thị trường chung hùng mạnh."
+            }
+          ],
+          "correctOptionId": "B",
+          "explanation": "Câu 2. Đáp án B. Thúc đẩy hòa bình ổn định của khu vực\nASEAN thành lập năm 1967 với mục tiêu cơ bản ban đầu là thúc đẩy hòa bình, ổn định và hợp tác khu vực Đông Nam Á.\n• A chưa đủ, vì ASEAN không chỉ hướng tới kinh tế.\n• C sai vì “nhất thể hóa” là mức độ liên kết cao như EU, không phải mục tiêu ban đầu của ASEAN.\n• D sai vì “thị trường chung hùng mạnh” không phải mục tiêu thành lập ban đầu.",
+          "difficulty": "medium",
+          "topic": "ASEAN",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-Su-So-GD-Thanh-Hoa-LAN-1",
+              "location": "Câu 2"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-so-gd-thanh-hoa-lan-1-q03",
+          "orderInExam": 3,
+          "questionType": "mcq",
+          "questionText": "Quốc gia nào sau đây được kết nạp là thành viên của tổ chức ASEAN trong thời kì chiến tranh lạnh?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Brunây."
+            },
+            {
+              "id": "B",
+              "text": "Việt Nam."
+            },
+            {
+              "id": "C",
+              "text": "Campuchia."
+            },
+            {
+              "id": "D",
+              "text": "Lào."
+            }
+          ],
+          "correctOptionId": "A",
+          "explanation": "Câu 3. Đáp án A. Brunây\nTrong thời kì Chiến tranh lạnh, nước được kết nạp vào ASEAN là Brunây năm 1984.\nViệt Nam gia nhập năm 1995, Lào và Campuchia gia nhập sau Chiến tranh lạnh.\n• B sai: Việt Nam vào ASEAN năm 1995.\n• C sai: Campuchia vào năm 1999.\n• D sai: Lào vào năm 1997.",
+          "difficulty": "medium",
+          "topic": "ASEAN và Chiến tranh lạnh",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-Su-So-GD-Thanh-Hoa-LAN-1",
+              "location": "Câu 3"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-so-gd-thanh-hoa-lan-1-q04",
+          "orderInExam": 4,
+          "questionType": "mcq",
+          "questionText": "Nội dung nào sau đây phản ánh vị thế chính trị của Việt Nam trong xu thế đa cực hiện nay?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Là đối tác chiến lược toàn diện với 5 nước trong Hội đồng Bảo an."
+            },
+            {
+              "id": "B",
+              "text": "Là thành viên thường trực của Hội đồng Bảo an Liên hợp quốc hai nhiệm kỳ."
+            },
+            {
+              "id": "C",
+              "text": "Trực tiếp giải trừ quân bị và giải quyết xung đột ở nhiều khu vực trên thế giới."
+            },
+            {
+              "id": "D",
+              "text": "Tận dụng được nhiều cơ hội tham gia hệ thống thương mại quốc tế."
+            }
+          ],
+          "correctOptionId": "A",
+          "explanation": "Câu 4. Đáp án A. Là đối tác chiến lược toàn diện với 5 nước trong Hội đồng Bảo an\nĐiều này phản ánh vị thế chính trị, ngoại giao rất cao của Việt Nam trong bối cảnh thế giới hiện nay.\n• B sai vì Việt Nam không phải thành viên thường trực Hội đồng Bảo an, chỉ là ủy viên không thường trực.\n• C sai vì Việt Nam không trực tiếp giải trừ quân bị ở nhiều khu vực trên thế giới.\n• D phản ánh nhiều hơn về kinh tế, không trực tiếp là vị thế chính trị.",
+          "difficulty": "medium",
+          "topic": "Vị thế Việt Nam trong quan hệ quốc tế hiện nay",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-Su-So-GD-Thanh-Hoa-LAN-1",
+              "location": "Câu 4"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-so-gd-thanh-hoa-lan-1-q05",
+          "orderInExam": 5,
+          "questionType": "mcq",
+          "questionText": "Cuộc khởi nghĩa vũ trang tiêu biểu của nhân dân Việt Nam trong thời kì Bắc thuộc là",
+          "options": [
+            {
+              "id": "A",
+              "text": "Tây Sơn."
+            },
+            {
+              "id": "B",
+              "text": "Phùng Hưng."
+            },
+            {
+              "id": "C",
+              "text": "Lam Sơn."
+            },
+            {
+              "id": "D",
+              "text": "Trương Định."
+            }
+          ],
+          "correctOptionId": "B",
+          "explanation": "Câu 5. Đáp án B. Phùng Hưng\nTrong thời kì Bắc thuộc, các cuộc khởi nghĩa tiêu biểu gồm Hai Bà Trưng, Bà Triệu, Lý Bí, Mai Thúc Loan, Phùng Hưng... Trong các phương án, Phùng Hưng là đúng.\n• A Tây Sơn: thế kỉ XVIII.\n• C Lam Sơn: đầu thế kỉ XV.\n• D Trương Định: chống Pháp thế kỉ XIX.",
+          "difficulty": "medium",
+          "topic": "Khởi nghĩa thời Bắc thuộc",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-Su-So-GD-Thanh-Hoa-LAN-1",
+              "location": "Câu 5"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-so-gd-thanh-hoa-lan-1-q06",
+          "orderInExam": 6,
+          "questionType": "mcq",
+          "questionText": "Cộng đồng ASEAN được thành lập (2015) dựa trên một trong những trụ cột nào sau đây?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Cộng đồng Kinh tế ASEAN."
+            },
+            {
+              "id": "B",
+              "text": "Cộng đồng Khoa học ASEAN."
+            },
+            {
+              "id": "C",
+              "text": "Cộng đồng Tư tưởng ASEAN."
+            },
+            {
+              "id": "D",
+              "text": "Cộng đồng Quân sự ASEAN."
+            }
+          ],
+          "correctOptionId": "A",
+          "explanation": "Câu 6. Đáp án A. Cộng đồng Kinh tế ASEAN\nCộng đồng ASEAN hình thành năm 2015 dựa trên 3 trụ cột:\n• Cộng đồng Chính trị - An ninh ASEAN\n• Cộng đồng Kinh tế ASEAN\n• Cộng đồng Văn hóa - Xã hội ASEAN\nTrong các đáp án, chỉ có Cộng đồng Kinh tế ASEAN là đúng.",
+          "difficulty": "medium",
+          "topic": "Cộng đồng ASEAN",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-Su-So-GD-Thanh-Hoa-LAN-1",
+              "location": "Câu 6"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-so-gd-thanh-hoa-lan-1-q07",
+          "orderInExam": 7,
+          "questionType": "mcq",
+          "questionText": "Theo quyết định của Hội nghị Ianta (2–1945), nước nào sau đây cần trở thành một quốc gia thống nhất và dân chủ?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Nhật Bản."
+            },
+            {
+              "id": "B",
+              "text": "Ấn Độ."
+            },
+            {
+              "id": "C",
+              "text": "Trung Quốc."
+            },
+            {
+              "id": "D",
+              "text": "Mông Cổ."
+            }
+          ],
+          "correctOptionId": "C",
+          "explanation": "Câu 7. Đáp án C. Trung Quốc\nTheo quyết định của Hội nghị Ianta, cần duy trì một nước Trung Quốc thống nhất và dân chủ.\n• A Nhật Bản: bị chiếm đóng, cải cách dân chủ, nhưng không phải nội dung như trên.\n• B Ấn Độ: không phải quyết định chính của Ianta.\n• D Mông Cổ: không đúng.",
+          "difficulty": "medium",
+          "topic": "Hội nghị Ianta",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-Su-So-GD-Thanh-Hoa-LAN-1",
+              "location": "Câu 7"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-so-gd-thanh-hoa-lan-1-q08",
+          "orderInExam": 8,
+          "questionType": "mcq",
+          "questionText": "Một trong những thỏa thuận của Mỹ – Anh – Liên Xô trong Hội nghị Ianta (2/1945) là",
+          "options": [
+            {
+              "id": "A",
+              "text": "Đức trở thành quốc gia thống nhất, dân chủ."
+            },
+            {
+              "id": "B",
+              "text": "thủ tiêu chủ nghĩa phân biệt về chủng tộc."
+            },
+            {
+              "id": "C",
+              "text": "tiêu diệt tận gốc chủ nghĩa phát xít Đức."
+            },
+            {
+              "id": "D",
+              "text": "chấm dứt tình trạng nội chiến Trung Quốc."
+            }
+          ],
+          "correctOptionId": "C",
+          "explanation": "Câu 8. Đáp án C. tiêu diệt tận gốc chủ nghĩa phát xít Đức\nMột trong những thỏa thuận quan trọng của Hội nghị Ianta là tiêu diệt tận gốc chủ nghĩa phát xít Đức và chủ nghĩa quân phiệt Nhật.\n• A sai vì Đức không trở thành ngay một quốc gia thống nhất dân chủ.\n• B sai vì đây không phải nội dung của Ianta.\n• D sai vì nội chiến Trung Quốc không phải nội dung chính được thỏa thuận như vậy.",
+          "difficulty": "medium",
+          "topic": "Hội nghị Ianta",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-Su-So-GD-Thanh-Hoa-LAN-1",
+              "location": "Câu 8"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-so-gd-thanh-hoa-lan-1-q09",
+          "orderInExam": 9,
+          "questionType": "mcq",
+          "questionText": "Đoạn tư liệu trên phản ánh thắng lợi nào sau đây của nhân dân Việt Nam trong thế kỷ XX?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Thắng lợi của kháng chiến chống thực dân Pháp năm 1954."
+            },
+            {
+              "id": "B",
+              "text": "Thắng lợi của Cách mạng tháng Tám năm 1945."
+            },
+            {
+              "id": "C",
+              "text": "Thắng của cuộc đấu tranh bảo vệ Tổ quốc sau năm 1975."
+            },
+            {
+              "id": "D",
+              "text": "Thắng lợi của kháng chiến chống Mỹ, cứu nước năm 1975."
+            }
+          ],
+          "correctOptionId": "B",
+          "explanation": "Câu 9. Đáp án B. Thắng lợi của Cách mạng tháng Tám năm 1945\nĐoạn tư liệu nói rõ:\n• phá tan xiềng xích nô lệ thực dân\n• đập đổ chế độ phong kiến\n• lập nên nước Việt Nam Dân chủ Cộng hòa\nĐó chính là thắng lợi của Cách mạng tháng Tám 1945.\n• A sai: năm 1954 chỉ mới kết thúc kháng chiến chống Pháp ở miền Bắc.\n• C sai: sau 1975 là bảo vệ Tổ quốc, không đúng tư liệu.\n• D sai: năm 1975 không phải sự kiện lật đổ phong kiến và lập ra VNDCCH.",
+          "difficulty": "medium",
+          "topic": "Lịch sử Việt Nam thế kỷ XX",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-Su-So-GD-Thanh-Hoa-LAN-1",
+              "location": "Câu 9"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-so-gd-thanh-hoa-lan-1-q10",
+          "orderInExam": 10,
+          "questionType": "mcq",
+          "questionText": "Cách mạng tháng Tám năm 1945 ở Việt Nam là cuộc cách mạng giải phóng dân tộc điển hình vì một trong lí do nào sau đây?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Xóa bỏ hoàn toàn xiềng xích nô lệ thực dân đế quốc."
+            },
+            {
+              "id": "B",
+              "text": "Lật đổ chế độ phong kiến, lập nên một chế độ mới."
+            },
+            {
+              "id": "C",
+              "text": "Lập nên nhà nước công - nông, do nhân dân làm chủ."
+            },
+            {
+              "id": "D",
+              "text": "Giải quyết được mục tiêu chủ yếu của cách mạng Việt Nam."
+            }
+          ],
+          "correctOptionId": "D",
+          "explanation": "Câu 10. Đáp án D. Giải quyết được mục tiêu chủ yếu của cách mạng Việt Nam\nCách mạng tháng Tám 1945 là cuộc cách mạng giải phóng dân tộc điển hình vì nó giải quyết được nhiệm vụ hàng đầu của cách mạng Việt Nam lúc đó là độc lập dân tộc.\n• A nói xóa bỏ xiềng xích thực dân đế quốc là đúng một phần, nhưng chưa khái quát bằng D.\n• B và C không phải lí do tiêu biểu nhất để khẳng định tính chất “giải phóng dân tộc điển hình”.",
+          "difficulty": "medium",
+          "topic": "Cách mạng tháng Tám 1945",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-Su-So-GD-Thanh-Hoa-LAN-1",
+              "location": "Câu 10"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-so-gd-thanh-hoa-lan-1-q11",
+          "orderInExam": 11,
+          "questionType": "mcq",
+          "questionText": "Nội dung nào sau đây là nguyên nhân khách quan dẫn tới thắng lợi của Cách mạng tháng Tám năm 1945 ở Việt Nam?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Sự liên minh, đoàn kết chiến đấu của nhân dân ba nước Đông Dương."
+            },
+            {
+              "id": "B",
+              "text": "Sự lãnh đạo sáng suốt, sáng tạo của Đảng Cộng sản Đông Dương."
+            },
+            {
+              "id": "C",
+              "text": "Sự ủng hộ, giúp đỡ to lớn về vật chất và tinh thần của phe xã hội chủ nghĩa."
+            },
+            {
+              "id": "D",
+              "text": "Thắng lợi của phe Đồng minh trong cuộc chiến chống chủ nghĩa phát xít."
+            }
+          ],
+          "correctOptionId": "D",
+          "explanation": "Câu 11. Đáp án D. Thắng lợi của phe Đồng minh trong cuộc chiến chống chủ nghĩa phát xít\nĐây là nguyên nhân khách quan dẫn đến thắng lợi của Cách mạng tháng Tám: phát xít Nhật đầu hàng, tạo thời cơ ngàn năm có một.\n• A không phải nguyên nhân khách quan quyết định trực tiếp.\n• B là nguyên nhân chủ quan.\n• C sai vì năm 1945 chưa có sự giúp đỡ to lớn của phe xã hội chủ nghĩa như về sau.",
+          "difficulty": "medium",
+          "topic": "Cách mạng tháng Tám 1945",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-Su-So-GD-Thanh-Hoa-LAN-1",
+              "location": "Câu 11"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-so-gd-thanh-hoa-lan-1-q12",
+          "orderInExam": 12,
+          "questionType": "mcq",
+          "questionText": "Nội dung nào sau đây phản ánh điểm mới trong hoạt động đối ngoại của Việt Nam trong những thập kỉ đầu của thế kỉ XXI?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Thúc đẩy quan hệ với các nước Đông Nam Á."
+            },
+            {
+              "id": "B",
+              "text": "Hợp tác toàn diện với các nước xã hội chủ nghĩa."
+            },
+            {
+              "id": "C",
+              "text": "Hợp tác bảo vệ môi trường và hỗ trợ nhân đạo."
+            },
+            {
+              "id": "D",
+              "text": "Thiết lập quan hệ với các tổ chức quốc tế và các nước."
+            }
+          ],
+          "correctOptionId": "C",
+          "explanation": "Câu 12. Đáp án C. Hợp tác bảo vệ môi trường và hỗ trợ nhân đạo\nĐây là điểm mới nổi bật trong hoạt động đối ngoại của Việt Nam đầu thế kỉ XXI: mở rộng hợp tác trên nhiều lĩnh vực toàn cầu như môi trường, nhân đạo, gìn giữ hòa bình...\n• A có từ trước.\n• B không còn phù hợp vì Việt Nam không chỉ hợp tác với các nước XHCN.\n• D là đặc điểm đã có từ trước thời kì đổi mới và sau đó.",
+          "difficulty": "medium",
+          "topic": "Chính sách đối ngoại Việt Nam (thế kỷ XXI)",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-Su-So-GD-Thanh-Hoa-LAN-1",
+              "location": "Câu 12"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-so-gd-thanh-hoa-lan-1-q13",
+          "orderInExam": 13,
+          "questionType": "mcq",
+          "questionText": "Phong trào Đồng khởi (1959 – 1960) và cuộc chiến đấu chống chiến lược “Chiến tranh đặc biệt” (1961 – 1965) của quân dân Việt Nam đều",
+          "options": [
+            {
+              "id": "A",
+              "text": "phát huy vai trò quyết định của lực lượng vũ trang trong chiến tranh cách mạng."
+            },
+            {
+              "id": "B",
+              "text": "kết hợp khởi nghĩa từng phần với chiến tranh giải phóng của lực lượng vũ trang."
+            },
+            {
+              "id": "C",
+              "text": "góp phần thúc đẩy tính chất thuộc địa của xã hội miền Nam giai đoạn 1954 – 1975."
+            },
+            {
+              "id": "D",
+              "text": "do Mặt trận dân tộc giải phóng miền Nam Việt Nam tổ chức quần chúng đấu tranh."
+            }
+          ],
+          "correctOptionId": "B",
+          "explanation": "Câu 13. Đáp án B. kết hợp khởi nghĩa từng phần với chiến tranh giải phóng của lực lượng vũ trang\nPhong trào Đồng khởi và cuộc chiến đấu chống “Chiến tranh đặc biệt” đều thể hiện sự kết hợp giữa đấu tranh chính trị với đấu tranh vũ trang, giữa nổi dậy của quần chúng và chiến tranh cách mạng.\n• A sai vì không phải chỉ lực lượng vũ trang đóng vai trò quyết định.\n• C sai vì thực chất làm suy yếu chế độ thực dân mới, không phải thúc đẩy tính chất thuộc địa.\n• D sai vì Mặt trận Dân tộc giải phóng miền Nam thành lập năm 1960, không bao trùm toàn bộ Đồng khởi 1959-1960 theo cách nêu ở đây.",
+          "difficulty": "medium",
+          "topic": "Kháng chiến chống Mỹ (1954-1975)",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-Su-So-GD-Thanh-Hoa-LAN-1",
+              "location": "Câu 13"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-so-gd-thanh-hoa-lan-1-q14",
+          "orderInExam": 14,
+          "questionType": "mcq",
+          "questionText": "Mục tiêu chủ yếu của công cuộc cải cách, mở cửa Trung Quốc (1978) là",
+          "options": [
+            {
+              "id": "A",
+              "text": "đưa Trung Quốc thành quốc gia giàu mạnh, dân chủ, văn minh."
+            },
+            {
+              "id": "B",
+              "text": "phát triển kinh tế xã hội chủ nghĩa do Nhà nước nắm độc quyền."
+            },
+            {
+              "id": "C",
+              "text": "hoàn thành triệt để cuộc cách mạng dân tộc dân chủ nhân dân."
+            },
+            {
+              "id": "D",
+              "text": "mở rộng quan hệ hợp tác toàn diện với các nước tư bản phát triển."
+            }
+          ],
+          "correctOptionId": "A",
+          "explanation": "Câu 14. Đáp án A. đưa Trung Quốc thành quốc gia giàu mạnh, dân chủ, văn minh\nMục tiêu của công cuộc cải cách mở cửa ở Trung Quốc từ năm 1978 là xây dựng Trung Quốc thành nước xã hội chủ nghĩa hiện đại, giàu mạnh, dân chủ, văn minh.\n• B sai vì không phải do Nhà nước nắm độc quyền toàn bộ.\n• C sai vì cách mạng dân tộc dân chủ đã hoàn thành từ trước.\n• D chỉ là một biện pháp, không phải mục tiêu chủ yếu.",
+          "difficulty": "medium",
+          "topic": "Cải cách, mở cửa Trung Quốc",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-Su-So-GD-Thanh-Hoa-LAN-1",
+              "location": "Câu 14"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-so-gd-thanh-hoa-lan-1-q15",
+          "orderInExam": 15,
+          "questionType": "mcq",
+          "questionText": "Đầu thế kỉ XX, hoạt động đối ngoại của Phan Bội Châu có mục đích nào sau đây?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Cải cách đất nước."
+            },
+            {
+              "id": "B",
+              "text": "Giải phóng dân tộc."
+            },
+            {
+              "id": "C",
+              "text": "Chấn hưng giáo dục."
+            },
+            {
+              "id": "D",
+              "text": "Phát triển văn hóa."
+            }
+          ],
+          "correctOptionId": "B",
+          "explanation": "Câu 15. Đáp án B. Giải phóng dân tộc\nHoạt động đối ngoại của Phan Bội Châu đầu thế kỉ XX như Đông Du, cầu viện Nhật Bản... đều hướng tới mục tiêu cao nhất là giải phóng dân tộc khỏi ách thống trị của thực dân Pháp.\n• A, C, D đều không phải mục tiêu cốt lõi.",
+          "difficulty": "medium",
+          "topic": "Phong trào yêu nước đầu thế kỷ XX",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-Su-So-GD-Thanh-Hoa-LAN-1",
+              "location": "Câu 15"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-so-gd-thanh-hoa-lan-1-q16",
+          "orderInExam": 16,
+          "questionType": "mcq",
+          "questionText": "Nhận xét nào sau đây là đúng về đường lối đổi mới đất nước của Đảng Cộng sản Việt Nam (từ tháng 12 - 1986 đến nay)?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Thay đổi mục tiêu chủ nghĩa xã hội để bắt kịp xu thế phát triển thời đại."
+            },
+            {
+              "id": "B",
+              "text": "Có những bước đi phù hợp để thực hiện mục tiêu của chủ nghĩa xã hội."
+            },
+            {
+              "id": "C",
+              "text": "Đổi mới kinh tế gắn liền với đổi mới chính trị nhưng trọng tâm là chính trị."
+            },
+            {
+              "id": "D",
+              "text": "Đổi mới toàn diện và đồng bộ, trong đó trọng tâm là chính trị - an ninh."
+            }
+          ],
+          "correctOptionId": "B",
+          "explanation": "Câu 16. Đáp án B. Có những bước đi phù hợp để thực hiện mục tiêu của chủ nghĩa xã hội\nĐường lối đổi mới từ 12-1986 đến nay là không thay đổi mục tiêu đi lên chủ nghĩa xã hội, nhưng đổi mới cách làm, bước đi, biện pháp cho phù hợp.\n• A sai vì không thay đổi mục tiêu XHCN.\n• C sai vì trọng tâm là đổi mới kinh tế, không phải chính trị.\n• D sai vì trọng tâm không phải chính trị - an ninh.",
+          "difficulty": "medium",
+          "topic": "Đường lối đổi mới Việt Nam (từ 1986)",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-Su-So-GD-Thanh-Hoa-LAN-1",
+              "location": "Câu 16"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-so-gd-thanh-hoa-lan-1-q17",
+          "orderInExam": 17,
+          "questionType": "mcq",
+          "questionText": "Ngay sau khi Chiến tranh thế giới thứ hai kết thúc, thực dân xâm lược nào đã đến xâm lược Việt Nam?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Pháp."
+            },
+            {
+              "id": "B",
+              "text": "Đức."
+            },
+            {
+              "id": "C",
+              "text": "Mỹ."
+            },
+            {
+              "id": "D",
+              "text": "Nhật Bản."
+            }
+          ],
+          "correctOptionId": "A",
+          "explanation": "Câu 17. Đáp án A. Pháp\nNgay sau Chiến tranh thế giới thứ hai, thực dân Pháp quay trở lại xâm lược Việt Nam.\n• B Đức đã bại trận.\n• C Mĩ chưa trực tiếp xâm lược ngay thời điểm đó.\n• D Nhật đã đầu hàng.",
+          "difficulty": "medium",
+          "topic": "Việt Nam sau Chiến tranh thế giới thứ hai",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-Su-So-GD-Thanh-Hoa-LAN-1",
+              "location": "Câu 17"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-so-gd-thanh-hoa-lan-1-q18",
+          "orderInExam": 18,
+          "questionType": "mcq",
+          "questionText": "Về xã hội, công cuộc Đổi mới đất nước ở Việt Nam (từ năm 1986) đạt được thành tựu nào sau đây?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Nền dân chủ xã hội chủ nghĩa được phát huy."
+            },
+            {
+              "id": "B",
+              "text": "Tỉ lệ hộ nghèo trên cả nước giảm mạnh."
+            },
+            {
+              "id": "C",
+              "text": "Tổ chức bộ máy nhà nước tinh gọn, hiệu quả."
+            },
+            {
+              "id": "D",
+              "text": "Kim ngạch xuất nhập khẩu tăng nhanh chóng."
+            }
+          ],
+          "correctOptionId": "B",
+          "explanation": "Câu 18. Đáp án B. Tỉ lệ hộ nghèo trên cả nước giảm mạnh\nĐây là thành tựu nổi bật về xã hội của công cuộc đổi mới.\n• A đúng về mặt xu hướng nhưng không tiêu biểu và trực tiếp bằng B.\n• C thuộc lĩnh vực tổ chức nhà nước.\n• D là thành tựu kinh tế.",
+          "difficulty": "medium",
+          "topic": "Thành tựu Đổi mới Việt Nam (từ 1986)",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-Su-So-GD-Thanh-Hoa-LAN-1",
+              "location": "Câu 18"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-so-gd-thanh-hoa-lan-1-q19",
+          "orderInExam": 19,
+          "questionType": "mcq",
+          "questionText": "Nội dung nào sau đây không phải thành tựu về kinh tế của công cuộc Đổi mới ở Việt Nam từ năm 1986 đến nay?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Trở thành quốc gia công nghiệp hiện đại."
+            },
+            {
+              "id": "B",
+              "text": "Vượt qua khủng hoảng kinh tế - xã hội."
+            },
+            {
+              "id": "C",
+              "text": "Tăng trưởng kinh tế ở mức khá cao."
+            },
+            {
+              "id": "D",
+              "text": "Kinh tế đối ngoại phát triển nhanh."
+            }
+          ],
+          "correctOptionId": "A",
+          "explanation": "Câu 19. Đáp án A. Trở thành quốc gia công nghiệp hiện đại\nTừ 1986 đến nay, Việt Nam đạt nhiều thành tựu kinh tế, nhưng chưa trở thành quốc gia công nghiệp hiện đại. Vì vậy đây là phương án không phải thành tựu.\n• B đúng là thành tựu.\n• C đúng.\n• D đúng.",
+          "difficulty": "medium",
+          "topic": "Công cuộc Đổi mới ở Việt Nam (1986 đến nay)",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-Su-So-GD-Thanh-Hoa-LAN-1",
+              "location": "Câu 19"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-so-gd-thanh-hoa-lan-1-q20",
+          "orderInExam": 20,
+          "questionType": "mcq",
+          "questionText": "Hoạt động đối ngoại của Đảng Cộng sản Đông Dương trong những năm 1930 - 1945 nhằm mục đích nào sau đây?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Trở thành thành viên chính thức của tổ chức Liên hợp quốc."
+            },
+            {
+              "id": "B",
+              "text": "Bảo vệ chính quyền cách mạng và tranh thủ sự ủng hộ quốc tế."
+            },
+            {
+              "id": "C",
+              "text": "Góp phần bảo vệ hòa bình, tiến tới giành độc lập dân tộc."
+            },
+            {
+              "id": "D",
+              "text": "Thiết lập mối quan hệ với tất cả các nước trên thế giới."
+            }
+          ],
+          "correctOptionId": "C",
+          "explanation": "Câu 20. Đáp án C. Góp phần bảo vệ hòa bình, tiến tới giành độc lập dân tộc\nHoạt động đối ngoại của Đảng Cộng sản Đông Dương giai đoạn 1930-1945 nhằm tranh thủ sự đồng tình quốc tế, góp phần cho mục tiêu giành độc lập dân tộc, đồng thời gắn với hòa bình và tiến bộ.\n• A sai vì Liên hợp quốc ra đời năm 1945, không phải mục tiêu lúc đó.\n• B là mục tiêu phù hợp hơn với giai đoạn sau Cách mạng tháng Tám.\n• D quá tuyệt đối, không đúng thực tế lịch sử.",
+          "difficulty": "medium",
+          "topic": "Phong trào dân tộc dân chủ 1930-1945",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-Su-So-GD-Thanh-Hoa-LAN-1",
+              "location": "Câu 20"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-so-gd-thanh-hoa-lan-1-q21",
+          "orderInExam": 21,
+          "questionType": "mcq",
+          "questionText": "Nội dung nào sau đây không phản ánh đúng nguyên nhân thắng lợi của các cuộc kháng chiến chống ngoại xâm trong lịch sử Việt Nam (từ thế kỉ X đến thế kỉ XIX)?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Sử dụng vũ khí hiện đại với lực lượng quân đội hùng mạnh."
+            },
+            {
+              "id": "B",
+              "text": "Sự đoàn kết giữa các tầng lớp nhân dân, các dân tộc."
+            },
+            {
+              "id": "C",
+              "text": "Có lực lượng lãnh đạo tài giỏi, sáng tạo, mưu lược."
+            },
+            {
+              "id": "D",
+              "text": "Tinh thần yêu nước, ý chí bất khuất của người Việt."
+            }
+          ],
+          "correctOptionId": "A",
+          "explanation": "Câu 21. Đáp án A. Sử dụng vũ khí hiện đại với lực lượng quân đội hùng mạnh\nĐây là nội dung không phản ánh đúng nguyên nhân thắng lợi của các cuộc kháng chiến chống ngoại xâm từ thế kỉ X đến XIX.\nThực tế, dân tộc Việt Nam thường không có ưu thế về vũ khí hiện đại, mà thắng nhờ:\n• lòng yêu nước\n• đoàn kết dân tộc\n• lãnh đạo tài giỏi\n• chiến lược, chiến thuật sáng tạo\nDo đó B, C, D đều đúng là nguyên nhân thắng lợi.",
+          "difficulty": "medium",
+          "topic": "Lịch sử Việt Nam thời phong kiến (thế kỷ X - XIX)",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-Su-So-GD-Thanh-Hoa-LAN-1",
+              "location": "Câu 21"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-so-gd-thanh-hoa-lan-1-q22",
+          "orderInExam": 22,
+          "questionType": "mcq",
+          "questionText": "“Hỡi đồng bào toàn quốc. Chúng ta muốn hòa bình, chúng ta phải nhân nhượng. Nhưng chúng ta càng nhân nhượng, thực dân Pháp càng lấn tới, vì chúng quyết tâm cướp nước ta lần nữa!” là nội dung mở đầu của",
+          "options": [
+            {
+              "id": "A",
+              "text": "Báo cáo Bàn về cách mạng Việt Nam (1951)."
+            },
+            {
+              "id": "B",
+              "text": "Báo cáo chính trị tại Đại hội lần thứ II của Đảng (1951)."
+            },
+            {
+              "id": "C",
+              "text": "Lời kêu gọi toàn quốc kháng chiến (1946)."
+            },
+            {
+              "id": "D",
+              "text": "Tuyên ngôn Độc lập của nước Việt Nam Dân chủ Cộng hòa (1945)."
+            }
+          ],
+          "correctOptionId": "C",
+          "explanation": "Câu 22. Đáp án C. Lời kêu gọi toàn quốc kháng chiến (1946)\nCâu nói:\n“Chúng ta muốn hòa bình, chúng ta phải nhân nhượng. Nhưng chúng ta càng nhân nhượng, thực dân Pháp càng lấn tới...”\nlà mở đầu trong Lời kêu gọi Toàn quốc kháng chiến của Chủ tịch Hồ Chí Minh ngày 19-12-1946.",
+          "difficulty": "medium",
+          "topic": "Kháng chiến chống Pháp 1945-1954",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-Su-So-GD-Thanh-Hoa-LAN-1",
+              "location": "Câu 22"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-so-gd-thanh-hoa-lan-1-q23",
+          "orderInExam": 23,
+          "questionType": "mcq",
+          "questionText": "Để bảo vệ chủ quyền trên biển hiện nay, Chính phủ Việt Nam có chủ trương nào sau đây?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Sửa lại Công ước quốc tế về Luật biển."
+            },
+            {
+              "id": "B",
+              "text": "Tranh thủ ủng hộ của quốc tế."
+            },
+            {
+              "id": "C",
+              "text": "Đưa toàn bộ ngư dân ra các đảo."
+            },
+            {
+              "id": "D",
+              "text": "Liên minh với các nước Đông Dương."
+            }
+          ],
+          "correctOptionId": "B",
+          "explanation": "Câu 23. Đáp án B. Tranh thủ ủng hộ của quốc tế\nChủ trương của Việt Nam hiện nay trong bảo vệ chủ quyền biển đảo là kiên trì giải quyết bằng biện pháp hòa bình, dựa trên luật pháp quốc tế, đồng thời tranh thủ sự ủng hộ của quốc tế.\n• A sai vì Việt Nam không thể “sửa lại” Công ước Luật biển.\n• C phi thực tế.\n• D sai vì không có chủ trương liên minh kiểu đó.",
+          "difficulty": "medium",
+          "topic": "Việt Nam hội nhập quốc tế và bảo vệ chủ quyền",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-Su-So-GD-Thanh-Hoa-LAN-1",
+              "location": "Câu 23"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-so-gd-thanh-hoa-lan-1-q24",
+          "orderInExam": 24,
+          "questionType": "mcq",
+          "questionText": "Hoạt động quân sự nào dưới đây diễn ra trong cuộc kháng chiến chống Mĩ, cứu nước (1954–1975) của nhân dân Việt Nam?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Mở cuộc Tiến công chiến lược vào Quảng Trị."
+            },
+            {
+              "id": "B",
+              "text": "Tiến hành công cuộc Đổi mới đất nước."
+            },
+            {
+              "id": "C",
+              "text": "Phục kích tiêu diệt địch ở trận Đèo Bông Lau."
+            },
+            {
+              "id": "D",
+              "text": "Tham dự Hội nghị cấp cao ba nước Đông Dương."
+            }
+          ],
+          "correctOptionId": "A",
+          "explanation": "Câu 24. Đáp án A. Mở cuộc Tiến công chiến lược vào Quảng Trị\nĐây là hoạt động quân sự diễn ra trong kháng chiến chống Mĩ cứu nước, cụ thể là cuộc Tiến công chiến lược năm 1972.\n• B thuộc thời kì sau 1986.\n• C thuộc kháng chiến chống Pháp.\n• D là hoạt động ngoại giao, không phải quân sự.",
+          "difficulty": "medium",
+          "topic": "Kháng chiến chống Mỹ 1954-1975",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-Su-So-GD-Thanh-Hoa-LAN-1",
+              "location": "Câu 24"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "sectionId": "phan-2",
+      "sectionType": "true_false",
+      "title": "Phần II – Trắc nghiệm Đúng/Sai",
+      "totalQuestions": 4,
+      "maxScore": 4.0,
+      "scoringRule": "ladder",
+      "questions": [
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-so-gd-thanh-hoa-lan-1-q25",
+          "orderInExam": 25,
+          "questionType": "true_false",
+          "questionText": "Cho tư liệu sau: “Từ đêm 30, rạng sáng ngày 31-1-1968, quân dân ta đồng loạt tiến công và nổi dậy trên toàn miền Nam Việt Nam. Cuộc Tổng tiến công và nổi dậy vào dịp Tết Mậu Thân 1968 đã tác động mạnh đến nước Mĩ: Ngày 31-3-1968, Tổng thống Mĩ L. Giôn-xơn phải tuyên bố: 1- Đơn phương ngừng đánh phá miền Bắc từ vĩ tuyến 20 trở ra; 2- Không ra tranh cử Tổng thống Mĩ nhiệm kì hai; 3- Nhận đàm phán với ta tại Hội nghị Pari.” (Ban chỉ đạo Tổng kết chiến tranh trực thuộc Bộ Chính trị, Chiến tranh cách mạng Việt Nam 1945–1975: Thắng lợi và bài học, NXB Chính trị quốc gia, Hà Nội, 2000, tr.159–160)",
+          "statements": [
+            {
+              "id": "a",
+              "text": "Cuộc Tổng tiến công và nổi dậy Xuân Mậu Thân 1968 diễn ra khi nhân dân miền Nam Việt Nam đang đấu tranh chống chiến lược “Chiến tranh đặc biệt” của Mĩ.",
+              "isTrue": false
+            },
+            {
+              "id": "b",
+              "text": "Là đòn đánh bất ngờ, cuộc tiến công và nổi dậy đồng loạt của quân dân miền Nam Việt Nam từ đêm 30, rạng sáng ngày 31-1-1968 đã đập tan ý chí xâm lược của Mĩ.",
+              "isTrue": false
+            },
+            {
+              "id": "c",
+              "text": "Cuộc Tổng tiến công và nổi dậy Xuân Mậu Thân 1968 mở ra khả năng kết thúc cuộc kháng chiến chống Mĩ cứu nước bằng một giải pháp ngoại giao.",
+              "isTrue": true
+            },
+            {
+              "id": "d",
+              "text": "Với cuộc Tổng tiến công và nổi dậy Xuân Mậu Thân 1968 của quân dân miền Nam Việt Nam đã góp phần bảo vệ công cuộc xây dựng chủ nghĩa xã hội ở miền Bắc.",
+              "isTrue": true
+            }
+          ],
+          "explanation": "a) Sai\nMậu Thân 1968 diễn ra khi Mĩ đang thực hiện chiến lược “Chiến tranh cục bộ”, không phải “Chiến tranh đặc biệt”.\nb) Sai\nCuộc tiến công làm lung lay ý chí xâm lược của Mĩ, buộc Mĩ xuống thang chiến tranh và đàm phán, nhưng nói “đập tan ý chí xâm lược của Mĩ” là quá tuyệt đối.\nc) Đúng\nSau Mậu Thân 1968, Mĩ buộc phải chấp nhận đàm phán ở Pari, nên đã mở ra khả năng kết thúc chiến tranh bằng giải pháp ngoại giao.\nd) Đúng\nCuộc tiến công ở miền Nam đã phân tán lực lượng Mĩ, làm giảm sức ép với miền Bắc, nên góp phần bảo vệ công cuộc xây dựng CNXH ở miền Bắc.",
+          "difficulty": "hard",
+          "topic": "Kháng chiến chống Mỹ 1954-1975",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-Su-So-GD-Thanh-Hoa-LAN-1",
+              "location": "Câu 1"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-so-gd-thanh-hoa-lan-1-q26",
+          "orderInExam": 26,
+          "questionType": "true_false",
+          "questionText": "Cho đoạn tư liệu sau: “Trước năm 1945, nước Việt Nam hầu như không có tên trên bản đồ thế giới. Đến năm 1950, qua năm năm kháng chiến anh dũng, nước ta đã được các nước xã hội chủ nghĩa công nhận, có quan hệ với nhiều phong trào nhân dân tiến bộ trên thế giới và có đại diện ở một số nước. Nhờ thắng lợi của cuộc kháng chiến chính nghĩa của mình và đường lối đối ngoại của Đảng, ngày nay Việt Nam đã thiết lập quan hệ ngoại giao chính thức với nhiều nước ở châu Á, châu Âu, châu Phi, châu Mỹ và châu Đại Dương, trong đó có tất cả các nước lớn. Việt Nam đã trở thành thành viên chính thức của Liên hợp quốc và là thành viên của nhiều tổ chức kinh tế, xã hội khu vực và quốc tế khác.” (Ban Chỉ đạo tổng kết chiến tranh trực thuộc Bộ Chính trị, Chiến tranh cách mạng Việt Nam 1945–1975: Thắng lợi và bài học, Nxb Chính trị Quốc gia, Hà Nội, 2000, tr.423.)",
+          "statements": [
+            {
+              "id": "a",
+              "text": "Việc có quan hệ ngoại giao bình đẳng với hầu hết các nước trên thế giới hiện nay đã phản ánh quan hệ đối ngoại của Việt Nam ngày càng rộng mở, hiệu quả.",
+              "isTrue": true
+            },
+            {
+              "id": "b",
+              "text": "Đoạn tư liệu phản ánh sự phát triển vượt bậc của ngoại giao Việt Nam sau Cách mạng tháng Tám đến nay.",
+              "isTrue": true
+            },
+            {
+              "id": "c",
+              "text": "Trước năm 1945, nước Việt Nam Dân chủ Cộng hòa không có tên trên bản đồ thế giới chủ yếu do vị thế đất nước chưa được khẳng định.",
+              "isTrue": false
+            },
+            {
+              "id": "d",
+              "text": "Năm 1977, Việt Nam là thành viên chính thức của Liên hợp quốc đã đánh dấu bước khởi đầu quan trọng cho sự hội nhập đa phương.",
+              "isTrue": true
+            }
+          ],
+          "explanation": "a) Đúng\nViệc Việt Nam hiện nay có quan hệ ngoại giao với hầu hết các nước cho thấy đối ngoại ngày càng rộng mở, hiệu quả.\nb) Đúng\nTư liệu phản ánh quá trình phát triển mạnh mẽ của nền ngoại giao Việt Nam từ sau Cách mạng tháng Tám đến nay.\nc) Sai\nTrước 1945 chưa có nước Việt Nam Dân chủ Cộng hòa. Nói “trước năm 1945, nước Việt Nam Dân chủ Cộng hòa không có tên trên bản đồ thế giới...” là sai ngay về mặt thời gian và tên gọi nhà nước.\nd) Đúng\nNăm 1977 Việt Nam gia nhập Liên hợp quốc, đây là một bước ngoặt quan trọng trong hội nhập đa phương.",
+          "difficulty": "hard",
+          "topic": "Ngoại giao Việt Nam (1945 đến nay)",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-Su-So-GD-Thanh-Hoa-LAN-1",
+              "location": "Câu 2"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-so-gd-thanh-hoa-lan-1-q27",
+          "orderInExam": 27,
+          "questionType": "true_false",
+          "questionText": "Cho đoạn tư liệu sau: “Nội dung cơ bản của công nghiệp hóa, hiện đại hóa trong những năm còn lại của thập kỷ 90 là: đặc biệt coi trọng công nghiệp hóa, hiện đại hóa nông nghiệp và nông thôn; phát triển toàn diện nông, lâm, ngư nghiệp gắn với công nghiệp chế biến nông, lâm, thủy sản; phát triển công nghiệp sản xuất hàng tiêu dùng và hàng xuất khẩu. Nâng cấp, cải tạo, mở rộng và xây dựng mới có trọng điểm kết cấu hạ tầng kinh tế, trước hết ở những khâu ách tắc và yếu kém nhất đang cản trở phát triển”. (Đảng Cộng sản Việt Nam, Văn kiện Đại hội đại biểu toàn quốc lần thứ VIII, Nxb Chính trị Quốc gia Hà Nội, 1996, tr.80)",
+          "statements": [
+            {
+              "id": "a",
+              "text": "Để tăng khả năng cạnh tranh của Việt Nam trên thị trường quốc tế, Đảng Cộng sản Việt Nam chú trọng phát triển công nghiệp sản xuất hàng tiêu dùng và hàng nhập khẩu.",
+              "isTrue": false
+            },
+            {
+              "id": "b",
+              "text": "Từ năm 1996 đến năm 2000, Đảng Cộng sản Việt Nam chủ trương lấy phát triển công nghiệp nặng làm mặt trận hàng đầu.",
+              "isTrue": false
+            },
+            {
+              "id": "c",
+              "text": "Việc chú trọng nâng cấp, cải tạo, mở rộng và xây dựng mới có trọng điểm kết cấu kinh tế cuối thập niên 90 đã đưa Việt Nam trở thành nước công nghiệp, hiện đại.",
+              "isTrue": false
+            },
+            {
+              "id": "d",
+              "text": "Đảng Cộng sản Việt Nam đã đặc biệt coi trọng công nghiệp hóa, hiện đại hóa nông nghiệp và nông thôn vì phù hợp với điều kiện và nhu cầu phát triển kinh tế ở Việt Nam.",
+              "isTrue": true
+            }
+          ],
+          "explanation": "a) Sai\nTư liệu nói phát triển công nghiệp sản xuất hàng tiêu dùng và hàng xuất khẩu, không phải hàng nhập khẩu.\nb) Sai\nTừ 1996 đến 2000, Đảng không chủ trương lấy công nghiệp nặng làm mặt trận hàng đầu như trước đây.\nc) Sai\nViệc nâng cấp hạ tầng có tác dụng lớn nhưng chưa thể đưa Việt Nam trở thành nước công nghiệp, hiện đại ngay cuối thập niên 90.\nd) Đúng\nViệc đặc biệt coi trọng công nghiệp hóa, hiện đại hóa nông nghiệp và nông thôn là phù hợp với thực tế Việt Nam, vì nước ta đi lên từ một nền nông nghiệp là chủ yếu.",
+          "difficulty": "hard",
+          "topic": "Công cuộc Đổi mới ở Việt Nam (1986 đến nay)",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-Su-So-GD-Thanh-Hoa-LAN-1",
+              "location": "Câu 3"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-so-gd-thanh-hoa-lan-1-q28",
+          "orderInExam": 28,
+          "questionType": "true_false",
+          "questionText": "Trong thời kì hậu Chiến tranh lạnh, thế giới đang chứng kiến sự thay đổi về địa vị chiến lược của các cường quốc, sự sắp xếp lại vị trí và vai trò của mỗi chủ thể quốc tế, kéo theo những biến chuyển lớn trong cục diện quan hệ quốc tế. Các quốc gia, các tổ chức và lực lượng chính trị quốc tế thực hiện điều chỉnh chiến lược đối nội, đối ngoại và phương thức hành động cho phù hợp với yêu cầu nhiệm vụ mới bên trong và đặc điểm của thế giới. Trên phạm vi thế giới, những cuộc chiến tranh cục bộ, xung đột, tranh chấp vẫn còn, nhưng xu thế chung của thế giới là hòa bình và hợp tác phát triển. (Hoàng Hải Hà, Nguyễn Thị Mỹ Hạnh (2024), Giáo trình Lịch sử Ngoại giao Việt Nam, Nxb Đại học Sư phạm, trang 278)",
+          "statements": [
+            {
+              "id": "a",
+              "text": "Các cường quốc điều chỉnh chiến lược phát triển trong thời kì hậu Chiến tranh lạnh đã đưa đến những chuyển biến lớn trong cục diện quan hệ quốc tế.",
+              "isTrue": true
+            },
+            {
+              "id": "b",
+              "text": "Theo đoạn tư liệu trên, xu thế chung của thế giới sau Chiến tranh lạnh là đối thoại và thỏa hiệp.",
+              "isTrue": false
+            },
+            {
+              "id": "c",
+              "text": "Để tránh bị các tổ chức quốc tế kiểm soát, các nước đang phát triển đã mở rộng và tăng cường liên kết, hợp tác với các nước phát triển trong thời kì hậu Chiến tranh lạnh.",
+              "isTrue": false
+            },
+            {
+              "id": "d",
+              "text": "Việc các quốc gia đổi mới tư duy đối ngoại trong bối cảnh hậu Chiến tranh lạnh chứng tỏ các nước đều muốn từ bỏ quan hệ quốc tế truyền thống, đề cao việc thích ứng với tình hình mới.",
+              "isTrue": false
+            }
+          ],
+          "explanation": "a) Đúng\nCác cường quốc điều chỉnh chiến lược đã làm thay đổi mạnh cục diện quan hệ quốc tế. Điều này đúng với tư liệu.\nb) Sai\nTư liệu nêu xu thế chung là hòa bình và hợp tác phát triển, không phải “đối thoại và thỏa hiệp”.\nc) Sai\nTư liệu không nói các nước đang phát triển hợp tác để tránh bị tổ chức quốc tế kiểm soát. Đây là suy diễn không có trong nội dung.\nd) Sai\nĐổi mới tư duy đối ngoại không có nghĩa là từ bỏ hoàn toàn quan hệ quốc tế truyền thống. Đây là nhận định cực đoan.",
+          "difficulty": "hard",
+          "topic": "Quan hệ quốc tế sau Chiến tranh lạnh",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-Su-So-GD-Thanh-Hoa-LAN-1",
+              "location": "Câu 4"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "warnings": null,
+  "verification": {
+    "structural": {
+      "layer": "L1_structural",
+      "passed": 8,
+      "total": 8,
+      "all_passed": true,
+      "checks": [
+        {
+          "name": "MCQ count = 24",
+          "passed": true,
+          "actual": 24
+        },
+        {
+          "name": "T/F count = 4",
+          "passed": true,
+          "actual": 4
+        },
+        {
+          "name": "No duplicate question IDs",
+          "passed": true,
+          "duplicates": []
+        },
+        {
+          "name": "T/F orderInExam >= 25",
+          "passed": true,
+          "violations": []
+        },
+        {
+          "name": "T/F orderInExam = {25,26,27,28}",
+          "passed": true,
+          "actual": [
+            25,
+            26,
+            27,
+            28
+          ],
+          "expected": [
+            25,
+            26,
+            27,
+            28
+          ]
+        },
+        {
+          "name": "MCQ orderInExam = {1..24}",
+          "passed": true,
+          "actual_first_last": [
+            [
+              1,
+              2,
+              3
+            ],
+            [
+              22,
+              23,
+              24
+            ]
+          ],
+          "expected": "1..24"
+        },
+        {
+          "name": "All MCQ have valid correctOptionId",
+          "passed": true,
+          "missing_in_questions": []
+        },
+        {
+          "name": "All T/F have 4 statements with isTrue bool",
+          "passed": true,
+          "issues": []
+        }
+      ]
+    },
+    "cross_source": {
+      "layer": "L2_cross_source",
+      "n_conflicts": 0,
+      "n_mcq_conflicts": 0,
+      "n_tf_conflicts": 0,
+      "shifting_pattern_detected": false,
+      "shifting_warning": null,
+      "conflicts": [],
+      "all_passed": true
+    },
+    "content_integrity": {
+      "layer": "L3_content",
+      "n_suspicious": 2,
+      "suspicious": [
+        {
+          "question_id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-so-gd-thanh-hoa-lan-1-q18",
+          "orderInExam": 18,
+          "issue": "no_year_or_proper_noun_overlap",
+          "years_in_q": [
+            "1986"
+          ],
+          "years_in_expl": [],
+          "proper_in_q_sample": [
+            "Nam",
+            "Việt"
+          ],
+          "proper_in_expl_sample": [
+            "Câu",
+            "Đáp",
+            "Đây"
+          ],
+          "severity": "LOW"
+        },
+        {
+          "question_id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-so-gd-thanh-hoa-lan-1-q24",
+          "orderInExam": 24,
+          "issue": "no_year_or_proper_noun_overlap",
+          "years_in_q": [
+            "1954",
+            "1975"
+          ],
+          "years_in_expl": [
+            "1972",
+            "1986"
+          ],
+          "proper_in_q_sample": [
+            "Nam",
+            "Việt"
+          ],
+          "proper_in_expl_sample": [
+            "Câu",
+            "Pháp",
+            "Tiến",
+            "Đáp",
+            "Đây"
+          ],
+          "severity": "LOW"
+        }
+      ],
+      "note": "LOW severity — cần review thủ công nếu nhiều case"
+    },
+    "verified_at": "2026-05-17T10:47:59.858394+00:00"
+  }
+}

@@ -1,11 +1,11 @@
-import { createContext, useContext, useEffect, useState } from 'react';
+import { createContext, useContext, useEffect } from 'react';
 import type { ReactNode } from 'react';
 
-type Theme = 'dark' | 'light';
+type Theme = 'light';
 
 interface ThemeContextType {
   theme: Theme;
-  setTheme: (theme: Theme) => void;
+  setTheme: (_theme: Theme) => void;
   toggleTheme: () => void;
   isDark: boolean;
   isLight: boolean;
@@ -14,47 +14,21 @@ interface ThemeContextType {
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
-  const [theme, setThemeState] = useState<Theme>(() => {
-    // Check localStorage
-    const savedTheme = localStorage.getItem('mvp_kltn_theme');
-    if (savedTheme === 'dark' || savedTheme === 'light') {
-      return savedTheme;
-    }
-    // Default to dark
-    return 'dark';
-  });
-
   useEffect(() => {
-    const root = document.documentElement;
-    // Apply data attribute for CSS variable contextual targeting
-    root.setAttribute('data-theme', theme);
-    
-    // Also apply a class for potential tailwind dark: variant usage
-    root.classList.remove('light', 'dark');
-    root.classList.add(theme);
+    document.documentElement.setAttribute('data-theme', 'light');
+    document.documentElement.classList.add('light');
+  }, []);
 
-    // Save choice
-    localStorage.setItem('mvp_kltn_theme', theme);
-  }, [theme]);
-
-  const setTheme = (newTheme: Theme) => {
-    setThemeState(newTheme);
-  };
-
-  const toggleTheme = () => {
-    setThemeState((prev) => (prev === 'dark' ? 'light' : 'dark'));
+  const value: ThemeContextType = {
+    theme: 'light',
+    setTheme: () => {},
+    toggleTheme: () => {},
+    isDark: false,
+    isLight: true,
   };
 
   return (
-    <ThemeContext.Provider
-      value={{
-        theme,
-        setTheme,
-        toggleTheme,
-        isDark: theme === 'dark',
-        isLight: theme === 'light',
-      }}
-    >
+    <ThemeContext.Provider value={value}>
       {children}
     </ThemeContext.Provider>
   );

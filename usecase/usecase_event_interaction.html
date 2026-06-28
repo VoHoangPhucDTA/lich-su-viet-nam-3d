@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Đặc tả Usecase UC-01</title>
+<style>
+    body { font-family: 'Times New Roman', Times, serif; font-size: 13pt; line-height: 1.5; }
+    table { width: 100%; border-collapse: collapse; margin-bottom: 15px; }
+    th, td { border: 1px solid black; padding: 6px 10px; text-align: left; }
+    th { background-color: #f2f2f2; font-weight: bold; }
+    h3 { font-size: 14pt; margin-top: 20px; font-weight: bold; }
+    p { margin: 5px 0; }
+    .bold { font-weight: bold; }
+</style>
+</head>
+<body>
+
+<p style="text-align: center; font-weight: bold; font-size: 16pt;">ĐẶC TẢ USECASE</p>
+
+<!-- Usecase 1 -->
+<h3>1. Use Case Specification: Tương tác với sự kiện lịch sử (UC-01)</h3>
+<table>
+  <tr>
+    <th style="width:25%">Use Case Name</th>
+    <th style="width:25%">Use Case ID</th>
+    <th style="width:25%">Date Created</th>
+    <th style="width:25%">Created By</th>
+  </tr>
+  <tr>
+    <td>Tương tác với sự kiện lịch sử</td>
+    <td>UC-01</td>
+    <td>15/05/2026</td>
+    <td>Võ Hoàng Phúc</td>
+  </tr>
+  <tr>
+    <th colspan="2">Primary Actors</th>
+    <th colspan="2">Secondary Actors</th>
+  </tr>
+  <tr>
+    <td colspan="2">Người dùng (Độc giả/Học sinh)</td>
+    <td colspan="2">Hệ thống Bản đồ (CesiumJS)</td>
+  </tr>
+</table>
+
+<p><span class="bold">3.1. Brief Description</span><br>
+Usecase này mô tả quá trình người dùng truy cập trang chủ và tương tác với các sự kiện lịch sử Việt Nam trên bản đồ 3D. Người dùng sử dụng thanh thời gian (Timeline) để chọn mốc năm và duyệt sự kiện. Các mốc thời gian gần nhau được gộp thành cụm (cluster) để xử lý các năm gần nhau. Người dùng lọc sự kiện qua sidebar bên trái (theo thể loại Quân sự, Chính trị, Kinh tế, Văn hóa - Xã hội) với giao diện chấm màu phân loại và nút "Xoá lọc". Người dùng chọn sự kiện trên sidebar — đây là phương thức tương tác chính — để làm sáng vùng ảnh hưởng của sự kiện trên bản đồ, có thể thu gọn/mở rộng các sự kiện con và xem thông tin chi tiết ở EventPopup bên phải. Bản đồ hỗ trợ gộp marker (clustering) khi có nhiều sự kiện gần nhau. Lần đầu truy cập, người dùng được hiển thị hướng dẫn 3 bước (onboarding) tập trung vào tương tác qua sidebar.</p>
+
+<p><span class="bold">3.2. Pre-conditions</span><br>
+1. Trình duyệt của người dùng hỗ trợ WebGL và load thành công thư viện bản đồ CesiumJS.<br>
+2. Hệ thống Backend và MySQL hoạt động bình thường để cung cấp dữ liệu danh sách sự kiện lịch sử.</p>
+
+<p><span class="bold">3.3. Trigger</span><br>
+Người dùng truy cập vào trang Bản đồ, thực hiện kéo thanh thời gian, chọn các bộ lọc phân loại, hoặc nhấp trực tiếp vào tên một sự kiện trên bảng danh sách sự kiện (Sidebar) bên trái. Sidebar là giao diện tương tác chính để chọn và khám phá sự kiện.</p>
+
+<p><span class="bold">3.4. Post-conditions</span><br>
+1. Bản đồ di chuyển camera đến khu vực tọa độ địa lý tương ứng với sự kiện được chọn. Đối với single_point: chỉ hiển thị marker (không tô polygon tỉnh), zoom gần (30km). Đối với multi_region: tô màu các tỉnh liên quan và tính bounding box. Các marker gần nhau được gộp tự động (clustering) khi zoom out.<br>
+2. Các sự kiện con (nếu có) được nạp và có thể mở rộng trên giao diện danh sách bên trái. Sự kiện tương lai (startYear > currentYear) được phân biệt bằng opacity giảm và biểu tượng đồng hồ.<br>
+3. Sidebar phụ (EventPopup) xuất hiện ở bên phải hiển thị tên, thời gian, địa điểm và mô tả cơ bản của sự kiện, kèm nút "Xem chi tiết", "Quay lại cha" khi có sự kiện cha, và nút "3D Địa hình" (đang phát triển). Không còn nút "Trước"/"Sau" điều hướng anh em.</p>
+
+<p><span class="bold">3.5. Normal Flow: Tra cứu và tương tác sự kiện (1.1)</span><br>
+[Tùy chọn] 1.1.0: MapPage.tsx: Người dùng lần đầu truy cập — hiển thị hướng dẫn 3 bước (onboarding card): (1) Chọn mốc thời gian trên thanh Timeline, (2) Duyệt danh sách sự kiện ở sidebar bên trái (tìm kiếm, lọc, duyệt), (3) Chọn sự kiện từ sidebar để xem chi tiết trên bản đồ. Người dùng có thể đóng hướng dẫn.<br>
+1.1.1: Timeline.tsx: Kích hoạt sự kiện thay đổi (khi người dùng kéo thanh thời gian hoặc đổi Lớp), gọi hàm getEventsByYearFromBackend(). Các mốc thời gian gần nhau được gộp thành cụm (cluster) với giao diện chip gạch đứt; người dùng nhấn để mở rộng và nhấn nút X để thu gọn. Bộ lọc lớp học (Lớp 10/11/12) được đặt trong khu vực Timeline.<br>
+1.1.2: eventApi.ts: Gọi API GET /api/events?year={...}&grade={...} đến EventController.java.<br>
+1.1.3: EventController.java: Nhận request và gọi hàm findEvents() của EventReadService.java.<br>
+1.1.4: EventReadService.java: Thực hiện truy vấn lấy dữ liệu sự kiện lịch sử.<br>
+1.1.5: MySQL: Trả về danh sách Event Entity.<br>
+1.1.6: EventReadService.java: Chuyển đổi thành DTO và trả kết quả.<br>
+1.1.7: EventController.java: Trả HTTP status 200 kèm danh sách.<br>
+1.1.8: eventApi.ts: Trả dữ liệu mảng sự kiện (HistoricalEvent).<br>
+1.1.9: Sidebar.tsx: Nhận dữ liệu mới và hiển thị danh sách sự kiện ở bảng điều khiển bên trái, kèm thống kê số lượng (X / Y sự kiện khi đang lọc).<br>
+[Tùy chọn] 1.1.10: Sidebar.tsx: Người dùng nhấp chọn các nút filter (có chấm màu phân loại) để lọc danh sách sự kiện; nhấn "Xoá lọc" để trở về trạng thái không lọc.<br>
+[Tùy chọn] 1.1.11: Sidebar.tsx: Người dùng nhấp vào một sự kiện cha có sự kiện con để mở rộng (expand).<br>
+[Tùy chọn] 1.1.12: eventApi.ts: Gọi hàm getChildrenFromBackend(eventId).<br>
+[Tùy chọn] 1.1.13: eventApi.ts: Gọi API GET /api/events/{eventId}/children đến Backend để lấy dữ liệu con.<br>
+[Tùy chọn] 1.1.14: EventController -> EventReadService -> MySQL: Query sự kiện con và trả về kết quả DTO.<br>
+[Tùy chọn] 1.1.15: Sidebar.tsx: Render bổ sung danh sách sự kiện con nằm lồng dưới sự kiện cha (kiểu Tree Node).<br>
+1.1.16: Sidebar.tsx: Người dùng nhấp trực tiếp vào tiêu đề sự kiện (cha hoặc con) để xem. Đây là phương thức tương tác chính.<br>
+1.1.17: Component chính (MapPage.tsx): Thiết lập trạng thái selectedEvent.<br>
+1.1.18: CesiumMap.tsx: Lắng nghe selectedEvent thay đổi, hiển thị vùng đánh dấu và bay camera (flyTo). Marker trên bản đồ được tổ chức theo CustomDataSource với tính năng gộp tự động (EntityCluster). Đối với sự kiện single_point: chỉ hiển thị marker, không tô màu polygon tỉnh. Đối với multi_region: tô màu các tỉnh trong primaryRegions và secondaryRegions. Đối với nationwide/no_location: không tô màu tỉnh nào. Camera flyTo cho single_point zoom gần (30km) để thấy rõ marker; multi_region tính bounding box từ GeoJSON; nationwide zoom toàn cảnh (1500km). Nhãn marker được tối ưu (bold 14px, outline đỏ) để dễ đọc trên bản đồ.<br>
+1.1.19: EventPopup.tsx: Khởi tạo và trượt ra ở bên phải màn hình, hiển thị thông tin sự kiện, nút "Xem chi tiết", nút "3D Địa hình" (đang phát triển), nút "Quay lại cha" khi có sự kiện cha.<br>
+1.1.20: Sidebar.tsx: Khi hiển thị cây sự kiện, các sự kiện con có startYear lớn hơn currentYear (sự kiện tương lai so với mốc thời gian hiện tại) được hiển thị với opacity giảm (0.5), đường viền đứt (dashed) trên badge năm, và biểu tượng đồng hồ (Clock icon) để phân biệt về mặt thời gian. Các sự kiện tương lai vẫn có thể được chọn và xem bình thường.</p>
+
+<p><span class="bold">3.6. Alternative Flows (Luồng Phụ)</span><br>
+<span class="bold">3.6.1. Sự kiện toàn quốc hoặc không có tọa độ (1.2)</span><br>
+Tại bước 1.1.18, nếu sự kiện được chọn có tham số geoType là "no_location" hoặc "nationwide":<br>
+1.2.1: CesiumMap.tsx: Hệ thống bỏ qua bước hiệu ứng bay camera đến một điểm cụ thể, giữ nguyên góc nhìn toàn cảnh bản đồ.<br>
+1.2.2: EventPopup.tsx: Hiển thị thêm thông báo bằng dòng chữ "Sự kiện này không gắn với địa điểm cụ thể trên bản đồ" hoặc "Phạm vi: Toàn quốc" với màu đánh dấu riêng.<br>
+<br>
+<span class="bold">3.6.2. Sự kiện single_point — không tô màu polygon (1.3)</span><br>
+Tại bước 1.1.18, nếu sự kiện được chọn có geoType là "single_point":<br>
+1.3.1: CesiumMap.tsx: Hệ thống chỉ hiển thị marker tại tọa độ chính xác của sự kiện, không tô màu bất kỳ polygon tỉnh nào (kể cả khi sự kiện có primaryRegions từ fallback centroid).<br>
+1.3.2: CesiumMap.tsx: Camera flyTo với altitude 30km (thay vì 200km) để zoom gần hơn, giúp người dùng thấy rõ marker và khu vực xung quanh.<br>
+<br>
+<span class="bold">3.6.3. GeoJSON tải bất đồng bộ — áp dụng lại highlight (1.4)</span><br>
+Tại bước 1.1.18, GeoJSON province polygons được tải bất đồng bộ sau khi Viewer khởi tạo:<br>
+1.4.1: Nếu selectedEvent đã được thiết lập trước khi GeoJSON tải xong, CesiumMap.tsx sẽ tự động áp dụng lại polygon highlights ngay khi GeoJSON hoàn tất, đảm bảo không có trạng thái highlight bị bỏ lỡ.<br>
+<br>
+<span class="bold">3.6.4. Hiển thị sự kiện tương lai trong Sidebar (1.5)</span><br>
+Tại bước 1.1.9, khi cây sự kiện chứa các sự kiện con có startYear lớn hơn currentYear:<br>
+1.5.1: Sidebar.tsx: Các sự kiện tương lai được hiển thị với opacity 0.5, badge năm có viền đứt (dashed) và biểu tượng đồng hồ (Clock icon). Người dùng vẫn có thể chọn và xem chi tiết các sự kiện này bình thường.</p>
+
+<p><span class="bold">3.7. Exceptions</span><br>
+- Nếu mạng chập chờn hoặc Backend lỗi (500/503), hàm gọi API trong eventApi.ts sẽ tự động nhảy vào catch (fallback) để trả về dữ liệu sự kiện giả lập (static mock events) từ phía Frontend, đảm bảo trải nghiệm tương tác không bị gián đoạn hoàn toàn.</p>
+
+<p><span class="bold">3.8. Includes</span><br>
+- Frontend Components: Timeline.tsx, Sidebar.tsx, CesiumMap.tsx, EventPopup.tsx.<br>
+- Frontend Service: eventApi.ts.<br>
+- Backend: EventController.java, EventReadService.java.<br>
+- Database: CSDL MySQL chứa dữ liệu sự kiện.</p>
+
+<p><span class="bold">3.9. Assumptions</span><br>
+- Thiết bị của người dùng đủ cấu hình để chạy bản đồ 3D.<br>
+- Dữ liệu sự kiện cung cấp sẵn các trường geoType (loại địa lý), eventType (loại sự kiện) chính xác trong cơ sở dữ liệu.</p>
+
+<p><span class="bold">3.10. Trang chủ (Cội Nguồn) và các trang bổ trợ</span><br>
+Ngoài trang Bản đồ tương tác, hệ thống còn cung cấp các trang sau:<br>
+- <b>Trang Cội Nguồn (/home):</b> Trang chủ với hero section, bento grid công cụ học tập, trích dẫn Hồ Chí Minh, sự kiện lịch sử tiêu biểu (backend-driven), và danh sách các thời kỳ lịch sử. Nút "Tất cả sự kiện" dẫn đến /browse. Nút "Tất cả thời kỳ" dẫn đến /periods. Thẻ từng thời kỳ riêng lẻ cũng dẫn đến /periods. Khi rời trang Bản đồ, breadcrumb được xóa để tránh rò rỉ trạng thái sang trang chủ.<br>
+- <b>Thư viện Sử liệu (/browse):</b> Trang hiển thị toàn bộ sự kiện lịch sử với tìm kiếm, lọc, sắp xếp, và phân trang (Load More). Có nút "← Cội Nguồn" ở đầu trang — sử dụng `window.history.length` để phát hiện truy cập trực tiếp (fallback về /home) hoặc `navigate(-1)` khi có lịch sử duyệt web.<br>
+- <b>Thời kỳ Lịch sử (/periods):</b> Trang hiển thị 5 thời kỳ lịch sử chính. Ở chế độ danh sách: có nút "← Cội Nguồn" (context-aware back). Nhấp vào một thời kỳ hiển thị danh sách sự kiện thuộc thời kỳ đó, kèm nút "← Quay lại" — sử dụng `navigate(-1)` khi có lịch sử duyệt web (về đúng trang trước đó, có thể là Homepage hoặc danh sách thời kỳ), fallback về danh sách thời kỳ khi truy cập trực tiếp.</p>
+
+<p><span class="bold">3.11. Giải thích cơ chế truy vấn CSDL (Database Query)</span><br>
+Nhằm tối ưu hóa hiệu năng cho các thao tác đọc (read-heavy) trên bản đồ và thanh thời gian, hệ thống <b>không sử dụng JPA Entity</b> mặc định mà dùng <b>NamedParameterJdbcTemplate</b> để thực thi SQL thuần (Native SQL). Dưới đây là các truy vấn cốt lõi và lý do sử dụng:</p>
+
+<p><b>1. Truy vấn danh sách sự kiện theo năm và bộ lọc (API: <code>GET /api/events</code>)</b><br>
+- <b>Cấu trúc Query:</b> 
+<br><code>SELECT e.id, e.title, e.start_year, e.end_year, e.lat, e.lng, e.geo_type, ... </code><br>
+<code>(SELECT COUNT(*) FROM historical_events c WHERE c.parent_id = e.id AND c.status = 'published') AS child_count</code><br>
+<code>FROM historical_events e WHERE e.status = 'published' AND e.start_year <= :year AND e.effective_end_year >= :year</code><br>
+  <br>+ Truy vấn sử dụng <b>Projection (DTO)</b>: Chỉ lấy các trường cơ bản hiển thị trên Sidebar và Map, loại bỏ hẳn các trường Text kích thước lớn (như <code>raw_json</code>, <code>detailed_narrative</code>) để tiết kiệm băng thông và RAM.
+  <br>+ Việc dùng <b>Inline Subquery</b> để tính <code>child_count</code> giúp Client biết trước sự kiện nào có sự kiện con để hiển thị nút mở rộng (expand icon) mà không cần truy vấn thêm bảng khác.
+  <br>+ Nếu có lọc theo lớp (Grade), dùng mệnh đề <code>EXISTS (SELECT 1 FROM event_grades WHERE event_id = e.id AND grade = :grade)</code> để lọc cực nhanh thay vì JOIN làm phình to dữ liệu.
+  <br>+ <b>Tối ưu chỉ mục (Index Optimization):</b> Để tránh việc quét toàn bộ bảng (Table Scan), hệ thống sử dụng chỉ mục <code>idx_events_search_year</code> trên tổ hợp các trường <code>(status, start_year, effective_end_year)</code>. Điều này cho phép MySQL thực hiện quét chỉ mục dạng phạm vi (Index Range Scan) cực nhanh dựa trên năm được chọn, thay vì dùng chỉ mục timeline <code>idx_events_timeline</code> vốn bị ngắt quãng do thiếu trường <code>show_on_timeline</code> trong bộ lọc.</p>
+
+<p><b>2. Truy vấn Lazy-load các sự kiện con (API: <code>GET /api/events/{eventId}/children</code>)</b><br>
+- <b>Cấu trúc Query:</b> 
+<br><code>SELECT e.id, ... (SELECT COUNT(*) ...) AS child_count FROM historical_events e WHERE e.status = 'published' AND e.parent_id = :eventId</code><br>
+- <b>Giải thích:</b> Truy vấn này áp dụng cơ chế <b>Lazy-loading</b> cho cấu trúc cây. Thay vì query đệ quy (Recursive CTE) load toàn bộ cây lịch sử làm nghẽn máy chủ, hệ thống chỉ query sự kiện con 1 tầng ứng với <code>parent_id</code> khi người dùng chủ động nhấn mở rộng sự kiện cha trên Sidebar.</p>
+
+<p><b>3. Truy vấn các mốc năm trên thanh Timeline (API: <code>GET /api/timeline</code>)</b><br>
+- <b>Cấu trúc Query:</b> 
+<br><code>SELECT e.start_year FROM historical_events e WHERE e.status = 'published' AND e.show_on_timeline = TRUE</code><br>
+- <b>Giải thích:</b> Đây là một query cực kỳ nhẹ, chỉ nhắm vào những sự kiện được gắn cờ <code>show_on_timeline</code> để lấy danh sách các năm, giúp UI vẽ các điểm mốc (markers) lên thanh trượt Timeline.</p>
+
+</body>
+</html>

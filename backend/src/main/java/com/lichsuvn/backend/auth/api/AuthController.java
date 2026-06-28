@@ -44,7 +44,7 @@ public class AuthController {
     /**
      * APP_COOKIE_SECURE=true trên Production (Render, mọi traffic qua HTTPS).
      * APP_COOKIE_SECURE=false trên localhost vì backend chạy http://localhost:8080.
-     * (Frontend chạy HTTPS qua Vite proxy, cookie được gửi qua proxy — không cần Secure flag)
+     * (Frontend chạy HTTP trên localhost, Vite proxy route /api/* → backend, cùng origin — không cần Secure flag)
      */
     @Value("${app.cookie.secure:false}")
     private boolean cookieSecure;
@@ -105,13 +105,15 @@ public class AuthController {
     ) {
         authRateLimiter.check(rateKey(servletRequest, "oauth-google", ""));
         AuthResponseDto result = socialAuthService.loginWithGoogle(request.token());
-        // Bước 6B.2.11: AuthController.java: set HttpOnly Cookie và trả HTTP 200 kèm User info
+        // Bước 6B.2.12: AuthController.java: set HttpOnly Cookie và trả HTTP 200 kèm User info
         setAuthCookies(servletResponse, result);
         return ApiResponse.ok(result);
     }
 
     /**
-     * Facebook OAuth — P2 social login.
+     * Facebook OAuth — social login via Meta/Facebook.
+     * Backend independently verifies the access_token via debug_token endpoint
+     * before fetching the user profile via Graph API /me.
      */
     @PostMapping("/oauth/facebook")
     public ApiResponse<AuthResponseDto> facebookOAuth(
@@ -121,13 +123,17 @@ public class AuthController {
     ) {
         authRateLimiter.check(rateKey(servletRequest, "oauth-facebook", ""));
         AuthResponseDto result = socialAuthService.loginWithFacebook(request.token());
-        // Bước 6B.3.11: AuthController.java: set HttpOnly Cookie và trả HTTP 200 kèm User info
+        // Bước 6B.3.14: AuthController.java: set HttpOnly Cookie và trả HTTP 200 kèm User info
         setAuthCookies(servletResponse, result);
         return ApiResponse.ok(result);
     }
 
     @GetMapping("/verify-email")
-    public ApiResponse<VerifyEmailResponseDto> verifyEmail(@RequestParam String token) {
+    public ApiResponse<VerifyEmailResponseDto> verifyEmail(
+            @RequestParam String token,
+            HttpServletRequest servletRequest
+    ) {
+        authRateLimiter.check(rateKey(servletRequest, "verify-email", ""));
         return ApiResponse.ok(authService.verifyEmail(token));
     }
 

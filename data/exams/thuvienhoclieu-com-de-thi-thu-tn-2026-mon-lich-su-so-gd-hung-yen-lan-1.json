@@ -1,0 +1,1145 @@
+{
+  "examId": "thuvienhoclieu-com-de-thi-thu-tn-2026-mon-lich-su-so-gd-hung-yen-lan-1",
+  "title": "Đề thi Lịch sử – thuvienhoclieu.com-De-thi-thu-TN-2026-mon-Lich-su-So-GD-Hung-Yen-Lan-1",
+  "year": 2025,
+  "source": "",
+  "sourceDetail": "thuvienhoclieu.com-De-thi-thu-TN-2026-mon-Lich-su-So-GD-Hung-Yen-Lan-1",
+  "examCode": "",
+  "format": "thpt_2025",
+  "timeLimitMinutes": 50,
+  "totalScore": 10.0,
+  "parsedAt": "2026-05-20T09:13:46.019658+00:00",
+  "sections": [
+    {
+      "sectionId": "phan-1",
+      "sectionType": "mcq",
+      "title": "Phần I – Trắc nghiệm nhiều lựa chọn",
+      "totalQuestions": 24,
+      "maxScore": 6.0,
+      "scorePerQuestion": 0.25,
+      "questions": [
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-2026-mon-lich-su-so-gd-hung-yen-lan-1-q01",
+          "orderInExam": 1,
+          "questionType": "mcq",
+          "questionText": "Nội dung nào sau đây không phản ánh vai trò bảo đảm quyền hóa, xã hội của tổ chức Liên hợp quốc?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Tạo môi trường thuận lợi phát triển kinh tế, thương mại quốc tế."
+            },
+            {
+              "id": "B",
+              "text": "Xây dựng các quỹ tài trợ quốc tế để phát triển văn hóa, xã hội."
+            },
+            {
+              "id": "C",
+              "text": "Soạn thảo và thông qua Tuyên ngôn Quốc tế Nhân quyền (1948)."
+            },
+            {
+              "id": "D",
+              "text": "Đề ra Mục tiêu phát triển thiên niên kỉ nhằm xóa bỏ đói nghèo."
+            }
+          ],
+          "correctOptionId": "A",
+          "explanation": "Câu 1 (TH):\nPhương pháp:\n• Xem lại nội dung Liên hợp quốc.\n• Xác định vai trò của Liên hợp quốc.\nCách giải:\nVai trò bảo đảm quyền văn hóa - xã hội của Liên hợp quốc thể hiện ở việc:\n• Thúc đẩy quyền con người (Tuyên ngôn Quốc tế Nhân quyền 1948).\n• Hỗ trợ phát triển văn hóa - xã hội qua các quỹ, chương trình.\n• Đề ra Mục tiêu Phát triển Thiên niên kỉ nhằm xóa đói giảm nghèo.\n=> Tạo môi trường thuận lợi phát triển kinh tế, thương mại quốc tế thuộc lĩnh vực kinh tế - thương mại, không trực tiếp phản ánh vai trò bảo đảm quyền văn hóa - xã hội.\nĐáp án: A",
+          "difficulty": "medium",
+          "topic": "Liên hợp quốc",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-2026-mon-Lich-su-So-GD-Hung-Yen-Lan-1",
+              "location": "Câu 1"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-2026-mon-lich-su-so-gd-hung-yen-lan-1-q02",
+          "orderInExam": 2,
+          "questionType": "mcq",
+          "questionText": "Sau Chiến tranh lạnh, quốc gia châu Á nào sau đây là một trong những trung tâm quyền lực đang vươn lên khẳng định sức mạnh về kinh tế, quân sự và chính trị đối với quốc tế?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Cam-pu-chia"
+            },
+            {
+              "id": "B",
+              "text": "Ma-lai-xi-a."
+            },
+            {
+              "id": "C",
+              "text": "Mi-an-ma."
+            },
+            {
+              "id": "D",
+              "text": "Ấn Độ."
+            }
+          ],
+          "correctOptionId": "D",
+          "explanation": "Câu 2 (NB):\nPhương pháp:\n• Xem lại nội dung Trật tự thế giới sau Chiến tranh Lạnh.\n• Xác định trung tâm quyền lực đang vươn lên khẳng định sức mạnh đối với quốc tế.\nCách giải:\nSau Chiến tranh lạnh, Ấn Độ là một trong những trung tâm quyền lực đang vươn lên khẳng định sức mạnh về kinh tế, quân sự và chính trị đối với quốc tế.\nĐáp án: D",
+          "difficulty": "medium",
+          "topic": "Thế giới sau Chiến tranh lạnh",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-2026-mon-Lich-su-So-GD-Hung-Yen-Lan-1",
+              "location": "Câu 2"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-2026-mon-lich-su-so-gd-hung-yen-lan-1-q03",
+          "orderInExam": 3,
+          "questionType": "mcq",
+          "questionText": "Nội dung nào sau đây phản ánh đúng ý nghĩa sự ra đời của nước Việt Nam Dân chủ Cộng hòa (1945)?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Làm thất bại hoàn toàn âm mưu phá hoại cách mạng của đế quốc."
+            },
+            {
+              "id": "B",
+              "text": "Mở đầu thời kì đổi mới toàn diện đi lên chủ nghĩa xã hội ở nước ta."
+            },
+            {
+              "id": "C",
+              "text": "Mở đầu thời kì xây dựng và phát triển kinh tế hàng hóa ở nước ta."
+            },
+            {
+              "id": "D",
+              "text": "Là nhân tố nền tảng và động lực bảo đảm vững chắc nền độc lập."
+            }
+          ],
+          "correctOptionId": "D",
+          "explanation": "Câu 3 (TH):\nPhương pháp:\n• Xem lại nội dung Cách mạng tháng Tám năm 1945.\n• Xác định ý nghĩa sự ra đời của nước Việt Nam Dân chủ Cộng hoà (1945).\nCách giải:\nSự ra đời của Việt Nam Dân chủ Cộng hòa (1945) đã:\n• Xác lập nhà nước độc lập, có chủ quyền, hợp pháp - hợp hiến.\n• Trở thành nhân tố nền tảng và động lực để bảo vệ, củng cố và phát triển nền độc lập dân tộc lâu dài.\nĐáp án: D",
+          "difficulty": "medium",
+          "topic": "Cách mạng tháng Tám 1945 và sự ra đời của nước Việt Nam Dân chủ Cộng hòa",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-2026-mon-Lich-su-So-GD-Hung-Yen-Lan-1",
+              "location": "Câu 3"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-2026-mon-lich-su-so-gd-hung-yen-lan-1-q04",
+          "orderInExam": 4,
+          "questionType": "mcq",
+          "questionText": "Nội dung nào sau đây phản ánh đúng tác động của Hội nghị I-an-ta (2/1945) đến tình hình thế giới?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Thống nhất xóa bỏ vũ khí hạt nhân bảo đảm hòa bình thế giới."
+            },
+            {
+              "id": "B",
+              "text": "Thúc đẩy Chiến tranh thế giới thứ hai nhanh kết thúc."
+            },
+            {
+              "id": "C",
+              "text": "Quyết định sự ra đời của các tổ chức liên kết kinh tế toàn cầu."
+            },
+            {
+              "id": "D",
+              "text": "Thành lập Hội Quốc liên để duy trì hoà bình thế giới."
+            }
+          ],
+          "correctOptionId": "B",
+          "explanation": "Câu 4 (TH):\nPhương pháp:\n• Xem lại nội dung Trật tự thế giới trong Chiến tranh Lạnh.\n• Xác định tác động của Hội nghị I-an-ta đến tình hình thế giới.\nCách giải:\nHội nghị I-an-ta (2/1945) diễn ra khi Chiến tranh thế giới thứ hai sắp kết thúc, đã thống nhất phối hợp hành động giữa các cường quốc (Liên Xô - Mĩ - Anh) để tiêu diệt hoàn toàn chủ nghĩa phát xít, qua đó thúc đẩy chiến tranh nhanh chóng kết thúc.\nĐáp án: B",
+          "difficulty": "medium",
+          "topic": "Trật tự thế giới sau Chiến tranh thế giới thứ hai",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-2026-mon-Lich-su-So-GD-Hung-Yen-Lan-1",
+              "location": "Câu 4"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-2026-mon-lich-su-so-gd-hung-yen-lan-1-q05",
+          "orderInExam": 5,
+          "questionType": "mcq",
+          "questionText": "Sự kiện Việt Nam gia nhập Liên hợp quốc vào năm 1977 có ý nghĩa quan trọng nào sau đây?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Thiết lập các liên minh quân sự với các cường quốc trên thế giới."
+            },
+            {
+              "id": "B",
+              "text": "Mở đầu công cuộc đổi mới toàn diện và sâu rộng của đất nước."
+            },
+            {
+              "id": "C",
+              "text": "Khẳng định vị thế và vai trò của Việt Nam trong cộng đồng quốc tế."
+            },
+            {
+              "id": "D",
+              "text": "Đánh dấu sự kết thúc hoàn toàn thời kì chiến tranh ở Việt Nam."
+            }
+          ],
+          "correctOptionId": "C",
+          "explanation": "Câu 5 (NB):\nPhương pháp:\n• Xem lại nội dung Liên hợp quốc.\n• Xác định ý nghĩa sự kiện Việt Nam gia nhập Liên hợp quốc vào năm 1977.\nCách giải:\nViệt Nam gia nhập Liên hợp quốc (1977) có ý nghĩa:\n• Khẳng định vị thế, vai trò và tư cách pháp lí quốc tế của Việt Nam.\n• Tạo điều kiện mở rộng quan hệ đối ngoại, hợp tác quốc tế trên nhiều lĩnh vực.\nĐáp án: C",
+          "difficulty": "medium",
+          "topic": "Việt Nam hội nhập quốc tế sau 1975",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-2026-mon-Lich-su-So-GD-Hung-Yen-Lan-1",
+              "location": "Câu 5"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-2026-mon-lich-su-so-gd-hung-yen-lan-1-q06",
+          "orderInExam": 6,
+          "questionType": "mcq",
+          "questionText": "Nội dung nào sau đây không phải là ý nghĩa của Cách mạng tháng Tám 1945 ở Việt Nam?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Buộc Pháp công nhận độc lập, chủ quyền, thống nhất và toàn vẹn lãnh thổ của Việt Nam."
+            },
+            {
+              "id": "B",
+              "text": "Phá tan xiềng xích nô lệ của Pháp - Nhật và phong kiến, đem lại độc lập tự do cho dân tộc."
+            },
+            {
+              "id": "C",
+              "text": "Góp phần đánh bại phát xít, cổ vũ mạnh mẽ phong trào giải phóng dân tộc trên thế giới."
+            },
+            {
+              "id": "D",
+              "text": "Mở ra kỉ nguyên mới trong lịch sử dân tộc: giải phóng dân tộc gắn liền với giải phóng xã hội."
+            }
+          ],
+          "correctOptionId": "A",
+          "explanation": "Câu 6 (TH):\nPhương pháp:\n• Xem lại nội dung Cách mạng tháng Tám năm 1945.\n• Xác định ý nghĩa của Cách mạng tháng Tám 1945 ở Việt Nam.\nCách giải:\nBuộc Pháp công nhận độc lập, chủ quyền, thống nhất và toàn vẹn lãnh thổ của Việt Nam không phải là ý nghĩa của Cách mạng tháng Tám 1945 vì việc Pháp công nhận độc lập, chủ quyền, thống nhất và toàn vẹn lãnh thổ của Việt Nam là kết quả của đấu tranh ngoại giao sau này (Hiệp định Sơ bộ 6/3/1946, Hiệp định Giơ-ne-vơ 1954…), không phải trực tiếp từ thắng lợi của Cách mạng tháng Tám.\nĐáp án: A",
+          "difficulty": "medium",
+          "topic": "Cách mạng tháng Tám 1945",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-2026-mon-Lich-su-So-GD-Hung-Yen-Lan-1",
+              "location": "Câu 6"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-2026-mon-lich-su-so-gd-hung-yen-lan-1-q07",
+          "orderInExam": 7,
+          "questionType": "mcq",
+          "questionText": "Đối với Việt Nam, trật tự thế giới sau Chiến tranh lạnh mở ra cơ hội chủ yếu nào?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Khai thác hiệu quả xung đột quân sự để bảo vệ Tổ quốc."
+            },
+            {
+              "id": "B",
+              "text": "Tăng cường chạy đua vũ khí, phương tiện chiến tranh."
+            },
+            {
+              "id": "C",
+              "text": "Hội nhập quốc tế, thu hút đầu tư, phát triển kinh tế."
+            },
+            {
+              "id": "D",
+              "text": "Tham gia các khối quân sự đối lập trên thế giới."
+            }
+          ],
+          "correctOptionId": "C",
+          "explanation": "Câu 7 (TH):\nPhương pháp:\n• Xem lại nội dung Trật tự thế giới sau Chiến tranh Lạnh.\n• Xác định cơ hội mở ra sau trật tự thế giới sau Chiến tranh Lạnh.\nCách giải:\nSau khi Chiến tranh lạnh kết thúc, trật tự thế giới chuyển sang xu thế hòa bình, ổn định và hợp tác phát triển. Đối với Việt Nam, cơ hội chủ yếu là:\n• Mở rộng hội nhập quốc tế,\n• Thu hút đầu tư, khoa học - công nghệ,\n• Tập trung phát triển kinh tế - xã hội.\nĐáp án: C",
+          "difficulty": "medium",
+          "topic": "Việt Nam trong bối cảnh thế giới sau Chiến tranh lạnh",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-2026-mon-Lich-su-So-GD-Hung-Yen-Lan-1",
+              "location": "Câu 7"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-2026-mon-lich-su-so-gd-hung-yen-lan-1-q08",
+          "orderInExam": 8,
+          "questionType": "mcq",
+          "questionText": "Văn kiện Tầm nhìn ASEAN 2020 được thông qua đã đáp ứng được nguyện vọng của các quốc gia thành viên về một khu vực Đông Nam Á",
+          "options": [
+            {
+              "id": "A",
+              "text": "không có sự chênh lệch về trình độ phát triển."
+            },
+            {
+              "id": "B",
+              "text": "gắn kết, hữu nghị, ổn định và hợp tác."
+            },
+            {
+              "id": "C",
+              "text": "nhất thể hóa, không có cạnh tranh."
+            },
+            {
+              "id": "D",
+              "text": "không chịu ảnh hưởng của các cường quốc."
+            }
+          ],
+          "correctOptionId": "B",
+          "explanation": "Câu 8 (NB):\nPhương pháp:\nXem lại nội dung Cộng đồng ASEAN.\nCách giải:\nVăn kiện Tầm nhìn ASEAN 2020 được thông qua đã đáp ứng được nguyện vọng của các quốc gia thành viên về một khu vực Đông Nam Á gắn kết, hữu nghị, ổn định và hợp tác.\nĐáp án: B",
+          "difficulty": "medium",
+          "topic": "ASEAN và sự phát triển",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-2026-mon-Lich-su-So-GD-Hung-Yen-Lan-1",
+              "location": "Câu 8"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-2026-mon-lich-su-so-gd-hung-yen-lan-1-q09",
+          "orderInExam": 9,
+          "questionType": "mcq",
+          "questionText": "Nội dung nào sau đây không phản ánh đúng ý nghĩa sự thành lập Cộng đồng ASEAN?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Đánh dấu sự hoàn thiện về thể chế, chính sách hợp tác của ASEAN."
+            },
+            {
+              "id": "B",
+              "text": "Đáp ứng nguyện vọng phát triển của các quốc gia thành viên."
+            },
+            {
+              "id": "C",
+              "text": "Đưa sự hợp tác toàn diện giữa các nước lên một nấc thang mới."
+            },
+            {
+              "id": "D",
+              "text": "Góp phần định hướng cho sự phát triển của ASEAN trong tương lai."
+            }
+          ],
+          "correctOptionId": "A",
+          "explanation": "Câu 9 (TH):\nPhương pháp:\n• Xem lại nội dung Cộng đồng ASEAN.\n• Xác định ý nghĩa sự thành lập Cộng đồng ASEAN.\nCách giải:\nĐánh dấu sự hoàn thiện về thể chế, chính sách hợp tác của ASEAN không phản ánh đúng ý nghĩa sự thành lập Cộng đồng ASEAN.\nĐáp án: A",
+          "difficulty": "medium",
+          "topic": "Cộng đồng ASEAN",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-2026-mon-Lich-su-So-GD-Hung-Yen-Lan-1",
+              "location": "Câu 9"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-2026-mon-lich-su-so-gd-hung-yen-lan-1-q10",
+          "orderInExam": 10,
+          "questionType": "mcq",
+          "questionText": "Ngày 13/8/1945, khi nhận được tin Nhật Bản sắp đầu hàng Đồng minh, Trung ương Đảng và Tổng bộ Việt Minh đã thành lập",
+          "options": [
+            {
+              "id": "A",
+              "text": "Ủy ban Dân tộc giải phóng Việt Nam."
+            },
+            {
+              "id": "B",
+              "text": "Ủy ban Khởi nghĩa toàn quốc."
+            },
+            {
+              "id": "C",
+              "text": "Ủy ban Quân sự cách mạng Bắc Kì."
+            },
+            {
+              "id": "D",
+              "text": "Ủy ban lâm thời Khu giải phóng."
+            }
+          ],
+          "correctOptionId": "B",
+          "explanation": "Câu 10 (NB):\nPhương pháp:\nXem lại nội dung Cách mạng tháng Tám năm 1945.\nCách giải:\nNgày 13/8/1945, khi nhận được tin Nhật Bản sắp đầu hàng Đồng minh, Trung ương Đảng và Tổng bộ Việt Minh đã thành lập Ủy ban Khởi nghĩa toàn quốc.\nĐáp án: B",
+          "difficulty": "medium",
+          "topic": "Cách mạng tháng Tám 1945",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-2026-mon-Lich-su-So-GD-Hung-Yen-Lan-1",
+              "location": "Câu 10"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-2026-mon-lich-su-so-gd-hung-yen-lan-1-q11",
+          "orderInExam": 11,
+          "questionType": "mcq",
+          "questionText": "Mục tiêu “xây dựng một cộng đồng thịnh vượng và hòa bình ở Đông Nam Á” được đề ra năm 1967 trong văn kiện nào sau đây của tổ chức ASEAN?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Tuyên bố Băng Cốc."
+            },
+            {
+              "id": "B",
+              "text": "Hiến chương ASEAN."
+            },
+            {
+              "id": "C",
+              "text": "Tầm nhìn ASEAN 2020."
+            },
+            {
+              "id": "D",
+              "text": "Hiệp ước Ba-li."
+            }
+          ],
+          "correctOptionId": "A",
+          "explanation": "Câu 11 (NB):\nPhương pháp:\nXem lại nội dung Quá trình hình thành và mục đích thành lập tổ chức ASEAN.\nCách giải:\nMục tiêu “xây dựng một cộng đồng thịnh vượng và hòa bình ở Đông Nam Á” được đề ra năm 1967 trong Tuyên bố Băng Cốc.\nĐáp án: A",
+          "difficulty": "medium",
+          "topic": "ASEAN và các nước Đông Nam Á",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-2026-mon-Lich-su-So-GD-Hung-Yen-Lan-1",
+              "location": "Câu 11"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-2026-mon-lich-su-so-gd-hung-yen-lan-1-q12",
+          "orderInExam": 12,
+          "questionType": "mcq",
+          "questionText": "Đặc trưng lớn nhất của quan hệ quốc tế từ sau năm 1991 đến nay là gì?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Xu thế toàn cầu hóa xuất hiện và lan rộng."
+            },
+            {
+              "id": "B",
+              "text": "Thế giới phân chia thành hai phe, hai cực."
+            },
+            {
+              "id": "C",
+              "text": "Sự vươn lên của các trung tâm kinh tế."
+            },
+            {
+              "id": "D",
+              "text": "Liên Xô và Mỹ trở thành hai siêu cường."
+            }
+          ],
+          "correctOptionId": "C",
+          "explanation": "Câu 12 (TH):\nPhương pháp:\n• Xem lại nội dung Các xu thế phát triển chính của thế giới sau Chiến tranh Lạnh.\n• Xác định đặc trưng lớn nhất của quan hệ quốc tế từ sau năm 1991 đến nay.\nCách giải:\nĐặc trưng lớn nhất của quan hệ quốc tế từ sau năm 1991 đến nay là sự vươn lên của các trung tâm kinh tế.\nĐáp án: C",
+          "difficulty": "medium",
+          "topic": "Quan hệ quốc tế sau Chiến tranh lạnh",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-2026-mon-Lich-su-So-GD-Hung-Yen-Lan-1",
+              "location": "Câu 12"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-2026-mon-lich-su-so-gd-hung-yen-lan-1-q13",
+          "orderInExam": 13,
+          "questionType": "mcq",
+          "questionText": "Năm 2007, để xây dựng ASEAN trở thành một cộng đồng vững mạnh, các nước thành viên đã",
+          "options": [
+            {
+              "id": "A",
+              "text": "thông qua Hiến chương ASEAN."
+            },
+            {
+              "id": "B",
+              "text": "thành lập diễn đàn khu vực ASEAN."
+            },
+            {
+              "id": "C",
+              "text": "thành lập cộng đồng ASEAN."
+            },
+            {
+              "id": "D",
+              "text": "ký Hiệp ước Thân thiện và Hợp tác."
+            }
+          ],
+          "correctOptionId": "A",
+          "explanation": "Câu 13 (NB):\nPhương pháp:\nXem lại nội dung Cộng đồng ASEAN.\nCách giải:\nNăm 2007, để xây dựng ASEAN trở thành một cộng đồng vững mạnh, các nước thành viên đã thông qua Hiến chương ASEAN.\nĐáp án: A",
+          "difficulty": "medium",
+          "topic": "ASEAN và các nước Đông Nam Á",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-2026-mon-Lich-su-So-GD-Hung-Yen-Lan-1",
+              "location": "Câu 13"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-2026-mon-lich-su-so-gd-hung-yen-lan-1-q14",
+          "orderInExam": 14,
+          "questionType": "mcq",
+          "questionText": "Nội dung nào sau đây là một trong những nguyên nhân sụp đổ của Trật tự thế giới hai cực I-an-ta?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Sự tan rã của chế độ xã hội chủ nghĩa ở Đông Âu và Liên Xô."
+            },
+            {
+              "id": "B",
+              "text": "Mĩ và Liên Xô giải thể tất cả các tổ chức quân sự trên toàn cầu."
+            },
+            {
+              "id": "C",
+              "text": "Tác động trực tiếp của xu thế cải cách, đổi mới trên thế giới."
+            },
+            {
+              "id": "D",
+              "text": "Các nước đế quốc đã hoàn thành mục tiêu xâm lược thuộc địa."
+            }
+          ],
+          "correctOptionId": "A",
+          "explanation": "Câu 14 (NB):\nPhương pháp:\n• Xem lại nội dung Trật tự thế giới trong Chiến tranh Lạnh.\n• Xác định nguyên nhân sụp đổ của Trật tự thế giới hai cực I-an-ta.\nCách giải:\nMột trong những nguyên nhân sụp đổ của Trật tự thế giới hai cực I-an-ta là sự tan rã của chế độ xã hội chủ nghĩa ở Đông Âu và Liên Xô.\nĐáp án: A",
+          "difficulty": "medium",
+          "topic": "Trật tự thế giới sau Chiến tranh thế giới thứ hai",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-2026-mon-Lich-su-So-GD-Hung-Yen-Lan-1",
+              "location": "Câu 14"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-2026-mon-lich-su-so-gd-hung-yen-lan-1-q15",
+          "orderInExam": 15,
+          "questionType": "mcq",
+          "questionText": "Ý nào sau đây không phản ánh vai trò của Liên hợp quốc?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Soạn thảo nhiều văn bản, tạo khuôn khổ pháp lý cho việc ngăn chặn phổ biến vũ khí hủy diệt."
+            },
+            {
+              "id": "B",
+              "text": "Góp phần ngăn chặn không để xảy ra một cuộc chiến tranh thế giới mới kể từ năm 1945 đến nay."
+            },
+            {
+              "id": "C",
+              "text": "Thúc đẩy quá trình phi thực dân hóa, thủ tiêu hệ thống thuộc địa của chủ nghĩa thực dân."
+            },
+            {
+              "id": "D",
+              "text": "Mở ra chiều hướng và điều kiện thuận lợi để giải quyết hòa bình, mọi cuộc tranh chấp, xung đột."
+            }
+          ],
+          "correctOptionId": "D",
+          "explanation": "Câu 15 (TH):\nPhương pháp:\n• Xem lại nội dung Liên hợp quốc.\n• Xác định vai trò của Liên hợp quốc.\nCách giải:\nMở ra chiều hướng và điều kiện thuận lợi để giải quyết hòa bình, mọi cuộc tranh chấp, xung đột không phản ánh vai trò của Liên hợp quốc.\nĐáp án: D",
+          "difficulty": "medium",
+          "topic": "Liên hợp quốc",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-2026-mon-Lich-su-So-GD-Hung-Yen-Lan-1",
+              "location": "Câu 15"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-2026-mon-lich-su-so-gd-hung-yen-lan-1-q16",
+          "orderInExam": 16,
+          "questionType": "mcq",
+          "questionText": "Năm 1967, quốc gia nào sau đây tham gia sáng lập Hiệp hội các quốc gia Đông Nam Á (ASEAN)?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Malaixia."
+            },
+            {
+              "id": "B",
+              "text": "Mianma."
+            },
+            {
+              "id": "C",
+              "text": "Brunây."
+            },
+            {
+              "id": "D",
+              "text": "Campuchia."
+            }
+          ],
+          "correctOptionId": "A",
+          "explanation": "Câu 16 (NB):\nPhương pháp:\nXem lại nội dung Quá trình hình thành và mục đích thành lập tổ chức ASEAN.\nCách giải:\nNăm 1967, Malaixia tham gia sáng lập Hiệp hội các quốc gia Đông Nam Á (ASEAN).\nĐáp án: A",
+          "difficulty": "medium",
+          "topic": "ASEAN và các nước Đông Nam Á",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-2026-mon-Lich-su-So-GD-Hung-Yen-Lan-1",
+              "location": "Câu 16"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-2026-mon-lich-su-so-gd-hung-yen-lan-1-q17",
+          "orderInExam": 17,
+          "questionType": "mcq",
+          "questionText": "Một trong những biểu hiện của xu thế đa cực đầu thế kỉ XXI là",
+          "options": [
+            {
+              "id": "A",
+              "text": "vai trò ngày càng tăng của các trung tâm quyền lực."
+            },
+            {
+              "id": "B",
+              "text": "bước đầu hình thành các liên minh kinh tế khu vực."
+            },
+            {
+              "id": "C",
+              "text": "thị trường thế giới được hoàn toàn thống nhất."
+            },
+            {
+              "id": "D",
+              "text": "Mỹ khống chế và chi phối tất cả tình hình thế giới."
+            }
+          ],
+          "correctOptionId": "A",
+          "explanation": "Câu 17 (NB):\nPhương pháp:\n• Xem lại nội dung Trật tự thế giới sau Chiến tranh Lạnh.\n• Xác định biểu hiện của xu thế đa cực đầu thế kỉ XXI.\nCách giải:\nXu thế đa cực đầu thế kỉ XXI thể hiện ở việc nhiều trung tâm quyền lực (kinh tế, chính trị) cùng tồn tại và gia tăng vai trò, thay vì chỉ một siêu cường chi phối thế giới.\nĐáp án: A",
+          "difficulty": "medium",
+          "topic": "Quan hệ quốc tế sau Chiến tranh lạnh",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-2026-mon-Lich-su-So-GD-Hung-Yen-Lan-1",
+              "location": "Câu 17"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-2026-mon-lich-su-so-gd-hung-yen-lan-1-q18",
+          "orderInExam": 18,
+          "questionType": "mcq",
+          "questionText": "Năm 1997, văn kiện nào sau đây của tổ chức ASEAN đã được thông qua?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Tầm nhìn ASEAN 2020."
+            },
+            {
+              "id": "B",
+              "text": "Tuyên bố về khu vực hòa bình, tự do và trung lập."
+            },
+            {
+              "id": "C",
+              "text": "Hiệp ước Thân thiện và Hợp tác ở Đông Nam Á."
+            },
+            {
+              "id": "D",
+              "text": "Tuyên bố Cua-la Lăm-po."
+            }
+          ],
+          "correctOptionId": "A",
+          "explanation": "Câu 18 (NB):\nPhương pháp:\n• Xem lại nội dung Cộng đồng ASEAN.\n• Xác định văn kiện của tổ chức ASEAN đã được thông qua.\nCách giải:\nNăm 1997, văn kiện Tầm nhìn ASEAN 2020 của tổ chức ASEAN đã được thông qua.\nĐáp án: A",
+          "difficulty": "medium",
+          "topic": "ASEAN và các nước Đông Nam Á",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-2026-mon-Lich-su-So-GD-Hung-Yen-Lan-1",
+              "location": "Câu 18"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-2026-mon-lich-su-so-gd-hung-yen-lan-1-q19",
+          "orderInExam": 19,
+          "questionType": "mcq",
+          "questionText": "Văn kiện nào được xem là cơ sở đảm bảo mục tiêu và nguyên tắc hoạt động của Liên hợp quốc?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Hiến chương Liên hợp quốc (1945)."
+            },
+            {
+              "id": "B",
+              "text": "Tuyên bố Băng Cốc (1976)."
+            },
+            {
+              "id": "C",
+              "text": "Chương trình nghị sự 2030 (2015)."
+            },
+            {
+              "id": "D",
+              "text": "Tuyên ngôn quốc tế Nhân quyền (1948)."
+            }
+          ],
+          "correctOptionId": "A",
+          "explanation": "Câu 19 (NB):\nPhương pháp:\n• Xem lại nội dung Liên hợp quốc.\n• Xác định văn kiện là cơ sở đảm bảo mục tiêu và nguyên tắc hoạt động Liên hợp quốc.\nCách giải:\nHiến chương Liên hợp quốc (1945) được xem là cơ sở đảm bảo mục tiêu và nguyên tắc hoạt động của Liên hợp quốc.\nĐáp án: A",
+          "difficulty": "medium",
+          "topic": "Liên hợp quốc",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-2026-mon-Lich-su-So-GD-Hung-Yen-Lan-1",
+              "location": "Câu 19"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-2026-mon-lich-su-so-gd-hung-yen-lan-1-q20",
+          "orderInExam": 20,
+          "questionType": "mcq",
+          "questionText": "Nội dung nào sau đây là nguyên nhân khách quan, dẫn đến thắng lợi của Cách mạng tháng Tám năm 1945 ở Việt Nam?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Sự linh hoạt của các cấp bộ Đảng trong chỉ đạo khởi nghĩa."
+            },
+            {
+              "id": "B",
+              "text": "Thắng lợi của Đồng minh trong cuộc chiến chống phát xít."
+            },
+            {
+              "id": "C",
+              "text": "Truyền thống yêu nước, đấu tranh bất khuất của dân tộc."
+            },
+            {
+              "id": "D",
+              "text": "Sự lãnh đạo sáng suốt của Đảng Cộng sản Đông Dương."
+            }
+          ],
+          "correctOptionId": "B",
+          "explanation": "Câu 20 (TH):\nPhương pháp:\n• Xem lại nội dung Cách mạng tháng Tám năm 1945.\n• Xác định nguyên nhân khách quan, dẫn đến thắng lợi của Cách mạng tháng Tám.\nCách giải:\nNguyên nhân khách quan, dẫn đến thắng lợi của Cách mạng tháng Tám năm 1945 ở Việt Nam là Thắng lợi của Đồng minh trong cuộc chiến chống phát xít.\nĐáp án: B",
+          "difficulty": "medium",
+          "topic": "Cách mạng tháng Tám 1945",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-2026-mon-Lich-su-So-GD-Hung-Yen-Lan-1",
+              "location": "Câu 20"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-2026-mon-lich-su-so-gd-hung-yen-lan-1-q21",
+          "orderInExam": 21,
+          "questionType": "mcq",
+          "questionText": "Cách mạng tháng Tám năm 1945 ở Việt Nam đã góp phần vào chiến thắng chống phát xít trên thế giới vì",
+          "options": [
+            {
+              "id": "A",
+              "text": "lật đổ chế độ phong kiến và nền thống trị của Nhật."
+            },
+            {
+              "id": "B",
+              "text": "lật đổ được nền thống trị của phát xít Nhật ở Việt Nam."
+            },
+            {
+              "id": "C",
+              "text": "đã lật đổ chế độ phong kiến và nền thống trị của Pháp, Nhật."
+            },
+            {
+              "id": "D",
+              "text": "đã giành chính quyền ở Hà Nội và Sài Gòn sớm nhất."
+            }
+          ],
+          "correctOptionId": "B",
+          "explanation": "Câu 21 (TH):\nPhương pháp:\n• Xem lại nội dung Cách mạng tháng Tám năm 1945.\n• Lý giải Cách mạng tháng Tám đã góp phần vào chiến thắng chống phát xít.\nCách giải:\nCách mạng tháng Tám năm 1945 ở Việt Nam đã góp phần vào chiến thắng chống phát xít trên thế giới vì lật đổ được nền thống trị của phát xít Nhật ở Việt Nam.\nĐáp án: B",
+          "difficulty": "medium",
+          "topic": "Cách mạng tháng Tám 1945",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-2026-mon-Lich-su-So-GD-Hung-Yen-Lan-1",
+              "location": "Câu 21"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-2026-mon-lich-su-so-gd-hung-yen-lan-1-q22",
+          "orderInExam": 22,
+          "questionType": "mcq",
+          "questionText": "Theo quyết định của Hội nghị I-an-ta, quốc gia nào được giữ nguyên hiện trạng?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Nhật Bản."
+            },
+            {
+              "id": "B",
+              "text": "Trung Quốc."
+            },
+            {
+              "id": "C",
+              "text": "Việt Nam."
+            },
+            {
+              "id": "D",
+              "text": "Mông Cổ."
+            }
+          ],
+          "correctOptionId": "D",
+          "explanation": "Câu 22 (NB):\nPhương pháp:\n• Xem lại nội dung Trật tự thế giới trong Chiến tranh Lạnh.\n• Xác định quốc gia được giữ nguyên hiện trạng theo quyết định của Hội nghị I-an-ta.\nCách giải:\nTheo quyết định của Hội nghị I-an-ta, Mông Cổ được giữ nguyên hiện trạng.\nĐáp án: D",
+          "difficulty": "medium",
+          "topic": "Trật tự thế giới sau Chiến tranh thế giới thứ hai",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-2026-mon-Lich-su-So-GD-Hung-Yen-Lan-1",
+              "location": "Câu 22"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-2026-mon-lich-su-so-gd-hung-yen-lan-1-q23",
+          "orderInExam": 23,
+          "questionType": "mcq",
+          "questionText": "Điều kiện tiên quyết đưa đến sự thành lập tổ chức ASEAN năm 1967 là các thành viên quốc gia",
+          "options": [
+            {
+              "id": "A",
+              "text": "đều chịu ảnh hưởng của các cường quốc."
+            },
+            {
+              "id": "B",
+              "text": "có sự tương đồng về ngôn ngữ và văn hóa."
+            },
+            {
+              "id": "C",
+              "text": "đều có nền kinh tế phát triển."
+            },
+            {
+              "id": "D",
+              "text": "đều đã giành được độc lập."
+            }
+          ],
+          "correctOptionId": "D",
+          "explanation": "Câu 23 (NB):\nPhương pháp:\n• Xem lại nội dung Quá trình hình thành và mục đích thành lập tổ chức ASEAN.\n• Xác định điều kiện tiên quyết đưa đến sự thành lập tổ chức ASEAN năm 1967.\nCách giải:\nĐiều kiện tiên quyết đưa đến sự thành lập tổ chức ASEAN năm 1967 là các thành viên quốc gia đều đã giành được độc lập.\nĐáp án: D",
+          "difficulty": "medium",
+          "topic": "Các nước Đông Nam Á, ASEAN",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-2026-mon-Lich-su-So-GD-Hung-Yen-Lan-1",
+              "location": "Câu 23"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-2026-mon-lich-su-so-gd-hung-yen-lan-1-q24",
+          "orderInExam": 24,
+          "questionType": "mcq",
+          "questionText": "Quá trình hình thành Liên hợp quốc gắn liền với vai trò quan trọng của những quốc gia chủ chốt nào?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Pháp, Liên Xô, Anh."
+            },
+            {
+              "id": "B",
+              "text": "Liên Xô, Mỹ, Pháp."
+            },
+            {
+              "id": "C",
+              "text": "Mỹ, Anh, Pháp."
+            },
+            {
+              "id": "D",
+              "text": "Liên Xô, Mỹ, Anh."
+            }
+          ],
+          "correctOptionId": "D",
+          "explanation": "Câu 24 (NB):\nPhương pháp:\nXem lại nội dung Liên hợp quốc.\nCách giải:\nQuá trình hình thành Liên hợp quốc gắn liền với vai trò quan trọng của Liên Xô, Mỹ, Anh.\nĐáp án: D",
+          "difficulty": "medium",
+          "topic": "Liên hợp quốc",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-2026-mon-Lich-su-So-GD-Hung-Yen-Lan-1",
+              "location": "Câu 24"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "sectionId": "phan-2",
+      "sectionType": "true_false",
+      "title": "Phần II – Trắc nghiệm Đúng/Sai",
+      "totalQuestions": 4,
+      "maxScore": 4.0,
+      "scoringRule": "ladder",
+      "questions": [
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-2026-mon-lich-su-so-gd-hung-yen-lan-1-q25",
+          "orderInExam": 25,
+          "questionType": "true_false",
+          "questionText": "Cho đoạn tư liệu sau đây: “Bảo Đại đọc xong [Chiếu thoái vị] thì trên kì đài cờ vàng của nhà vua từ từ hạ xuống và là cờ nền đỏ thắm tươi long lanh năm cánh sao vàng được kéo lên giữa những tiếng vỗ tay, những tiếng hoan hô như sấm,. Rồi ông Trần Huy Liệu đọc bản tuyên bố của Đoàn đại biểu Chính phủ, nêu rõ thắng lợi của Cách mạng tháng Tám là kết quả của mấy chục năm đầu tranh xanh dũng, kiên cường, bền bỉ của nhân dân cả nước, tuyên bố chấm dứt vĩnh viễn chế độ quân chủ,. ”. (Phạm Khắc Hòe, Từ triều đình Huế đến chiến khu Việt Bắc, Nxb Thuận Hóa, Huế, 1987, tr.86).",
+          "statements": [
+            {
+              "id": "a",
+              "text": "Đoạn tư liệu thể hiện thắng lợi của nhân dân ta trên các lĩnh vực chính trị, kinh tế, văn hóa trong Cách mạng tháng Tám năm 1945.",
+              "isTrue": false
+            },
+            {
+              "id": "b",
+              "text": "Cách mạng tháng Tám năm 1945 đã chấm dứt vĩnh viễn chế độ quân chủ và tàn dư của chế độ phong kiến Việt Nam.",
+              "isTrue": false
+            },
+            {
+              "id": "c",
+              "text": "Chấm dứt vĩnh viễn chế độ phong kiến là nhiệm vụ dân chủ của Cách mạng tháng Tám năm 1945.",
+              "isTrue": true
+            },
+            {
+              "id": "d",
+              "text": "Cách mạng tháng Tám năm 1945 thắng lợi là do sự lãnh đạo của Đảng Cộng sản Đông Dương, đứng đầu là Chủ tịch Hồ Chí Minh, sự tham gia cách mạng của giai cấp công nhân, nông dân, địa chủ phong kiến.",
+              "isTrue": false
+            }
+          ],
+          "explanation": "a) Câu 1 (TH):\nPhương pháp:\n• Xem lại nội dung đoạn tư liệu.\n• Xác định, phân tích tính đúng/sai ở mỗi ý.\nCách giải:\na) Sai, tư liệu chủ yếu phản ánh thắng lợi về chính trị của Cách mạng tháng Tám (lật đổ chế độ quân chủ, xác lập chính quyền mới) không đề cập đến thắng lợi trên lĩnh vực kinh tế, văn hóa.\nb) Sai, Cách mạng tháng Tám năm 1945 chỉ chấm dứt chế độ quân chủ phong kiến, không xóa bỏ hoàn toàn tàn dư của chế độ phong kiến Việt Nam. Vua Bảo Đại thoái vị chấm dứt chế độ quân chủ. Tuy nhiên, quan hệ phong kiến, tư tưởng phong kiến và một số tàn dư xã hội phong kiến vẫn chưa bị xóa bỏ triệt để, mà phải tiếp tục giải quyết qua các cuộc cải cách sau này (đặc biệt là Cải cách ruộng đất).\nc) Đúng, trong tính chất của Cách mạng tháng Tám (cách mạng dân tộc dân chủ nhân dân), xóa bỏ chế độ phong kiến, thực hiện nhiệm vụ dân chủ là một nội dung quan trọng.\nd) Sai, Cách mạng tháng Tám thắng lợi do sự lãnh đạo của Đảng Cộng sản Đông Dương, đứng đầu là Hồ Chí Minh, với liên minh công - nông làm nòng cốt, cùng các tầng lớp nhân dân yêu nước => Địa chủ phong kiến không phải lực lượng tham gia cách mạng theo nghĩa nòng cốt như nhận định nêu.\nĐáp án: S, S, Đ, S",
+          "difficulty": "hard",
+          "topic": "Cách mạng tháng Tám 1945",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-2026-mon-Lich-su-So-GD-Hung-Yen-Lan-1",
+              "location": "Câu 1"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-2026-mon-lich-su-so-gd-hung-yen-lan-1-q26",
+          "orderInExam": 26,
+          "questionType": "true_false",
+          "questionText": "Cho đoạn tư liệu sau đây: “Hội nghị cấp cao ASEAN lần thứ IX năm 2003 tại Bali (Indonesia) đã quyết định nâng tầm Hiệp hội thành Cộng đồng ASEAN với 3 trụ cột gồm Cộng đồng an ninh, Cộng đồng kinh tế, Cộng đồng xã hội và văn hóa. [ ] Mục tiêu tổng quát của cộng đồng ASEAN là xây dựng Hiệp hội thành một tổ chức hợp tác liên chính phủ liên kết sâu rộng hơn và ràng buộc hơn trên cơ sở pháp lý là Hiến chương ASEAN; nhưng không phải là một tổ chức siêu quốc gia (như Liên minh châu Âu - EU) và không khép kín mà vẫn mở rộng hợp tác với bên ngoài”. (Vũ Dương Ninh, Nguyễn Văn Kim (Chủ biên), Một số chuyên đề lịch sử thế giới - tập III, Nxb Đại học Quốc gia Hà Nội, 2015, tr.415)",
+          "statements": [
+            {
+              "id": "a",
+              "text": "Mục tiêu tổng quát của Cộng đồng ASEAN là tiến tới xây dựng theo mô hình tổ chức siêu quốc gia giống như Liên minh châu Âu - EU.",
+              "isTrue": false
+            },
+            {
+              "id": "b",
+              "text": "Cộng đồng ASEAN hướng tới liên kết sâu rộng và ràng buộc hơn về pháp lý, nhưng vẫn giữ bản chất là tổ chức hợp tác liên chính phủ.",
+              "isTrue": true
+            },
+            {
+              "id": "c",
+              "text": "Cộng đồng ASEAN được xây dựng trên cơ sở ba trụ cột là cộng đồng an ninh, cộng đồng kinh tế và cộng đồng xã hội - văn hóa.",
+              "isTrue": true
+            },
+            {
+              "id": "d",
+              "text": "Mô hình Cộng đồng ASEAN phản ánh xu thế liên kết khu vực linh hoạt, vừa tăng cường hợp tác nội khối vừa mở rộng quan hệ với các đối tác bên ngoài.",
+              "isTrue": true
+            }
+          ],
+          "explanation": "a) Câu 2 (VD):\nPhương pháp:\n• Xem lại nội dung đoạn tư liệu.\n• Xác định, phân tích tính đúng/sai ở mỗi ý.\nCách giải:\na) Sai, tư liệu khẳng định rõ Cộng đồng ASEAN “không phải là một tổ chức siêu quốc gia (như Liên minh châu Âu - EU)”. Vì vậy, nhận định cho rằng ASEAN tiến tới mô hình siêu quốc gia như EU là trái với nội dung tư liệu.\nb) Đúng, tư liệu nêu rõ Cộng đồng ASEAN: Liên kết sâu rộng hơn, ràng buộc hơn về pháp lý (dựa trên Hiến chương ASEAN) nhưng vẫn là tổ chức hợp tác liên chính phủ. Nhận định phản ánh đúng bản chất của ASEAN.\nc) Đúng, tư liệu chỉ rõ Cộng đồng ASEAN được xây dựng trên ba trụ cột: Cộng đồng an ninh, Cộng đồng kinh tế, Cộng đồng xã hội - văn hóa.\nd) Đúng, tư liệu nhấn mạnh Cộng đồng ASEAN: Không khép kín; mở rộng hợp tác với bên ngoài; đồng thời tăng cường liên kết nội khối => Phản ánh đúng xu thế liên kết khu vực linh hoạt trong bối cảnh toàn cầu hóa. Đáp án: S, Đ, Đ, Đ",
+          "difficulty": "hard",
+          "topic": "Các nước Đông Nam Á, ASEAN",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-2026-mon-Lich-su-So-GD-Hung-Yen-Lan-1",
+              "location": "Câu 2"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-2026-mon-lich-su-so-gd-hung-yen-lan-1-q27",
+          "orderInExam": 27,
+          "questionType": "true_false",
+          "questionText": "Cho đoạn tư liệu sau đây: “Liên hợp quốc được thành lập vào lúc chiến tranh thế giới thứ hai chuẩn bị kết thúc và ngay sau đó là sự bắt đầu cuộc chiến tranh lạnh giữa hai khối Đông - Tây. Những mâu thuẫn gay gắt giữa hai cường quốc Xô - Mĩ trong chiến tranh lạnh đã ảnh hưởng sâu sắc đến những hoạt động của tổ chức quốc tế lớn nhất thế giới này. Bước vào thập niên 60 của thế kỉ XX, thắng lợi của phong trào giải phóng dân tộc, hàng loạt nước mới giành độc lập và trở thành thành viên của Liên hợp quốc”. (Trần Thị Vinh (Chủ biên), Lê Văn Anh, Lịch sử thế giới hiện đại, Quyển 2, Nxb Đại học sư phạm, 2011, tr.84)",
+          "statements": [
+            {
+              "id": "a",
+              "text": "Quá trình phi thực dân hóa là nguyên nhân chủ yếu làm số lượng thành viên Liên hợp quốc tăng nhanh, đặc biệt từ nửa sau thế kỉ XX.",
+              "isTrue": true
+            },
+            {
+              "id": "b",
+              "text": "Những mâu thuẫn gay gắt giữa hai cường quốc Xô - Mĩ trong Chiến tranh lạnh đã ảnh hưởng sâu sắc đến hoạt động của Liên hợp quốc.",
+              "isTrue": true
+            },
+            {
+              "id": "c",
+              "text": "Đoạn tư liệu cho biết Liên hợp quốc được thành lập khi cuộc Chiến tranh thế giới thứ hai chuẩn bị kết thúc.",
+              "isTrue": true
+            },
+            {
+              "id": "d",
+              "text": "Trong thập niên 60 của thế kỉ XX, Liên hợp quốc mở rộng thành viên chủ yếu do sự xuất hiện của xu thế hòa hoãn Đông - Tây.",
+              "isTrue": false
+            }
+          ],
+          "explanation": "a) Câu 3 (TH):\nPhương pháp:\n• Xem lại nội dung đoạn tư liệu.\n• Xác định, phân tích tính đúng/sai ở mỗi ý.\nCách giải:\na) Đúng, tư liệu cho biết từ thập niên 60 của thế kỉ XX, nhiều nước giành độc lập và trở thành thành viên Liên hợp quốc phản ánh quá trình phi thực dân hóa là nguyên nhân chủ yếu làm số lượng thành viên tăng nhanh, nhất là nửa sau thế kỉ XX.\nb) Đúng, tư liệu nêu trực tiếp: mâu thuẫn Xô - Mĩ trong Chiến tranh lạnh ảnh hưởng sâu sắc đến hoạt động của Liên hợp quốc.\nc) Đúng, tư liệu khẳng định Liên hợp quốc được thành lập “vào lúc Chiến tranh thế giới thứ hai chuẩn bị kết thúc” đúng với hoàn cảnh ra đời của tổ chức này (1945).\nd) Sai, trong thập niên 60, việc Liên hợp quốc mở rộng thành viên chủ yếu do phong trào giải phóng dân tộc, không phải do xu thế hòa hoãn Đông - Tây (xu thế này chỉ rõ nét từ đầu thập niên 70).\nĐáp án: Đ, Đ, Đ, S",
+          "difficulty": "hard",
+          "topic": "Liên hợp quốc, Chiến tranh lạnh, Phong trào giải phóng dân tộc",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-2026-mon-Lich-su-So-GD-Hung-Yen-Lan-1",
+              "location": "Câu 3"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-2026-mon-lich-su-so-gd-hung-yen-lan-1-q28",
+          "orderInExam": 28,
+          "questionType": "true_false",
+          "questionText": "Cho đoạn tư liệu sau đây: “Pháp chạy, Nhật hàng, vua Bảo Đại thoái vị. Dân ta đã đánh đổ các xiềng xích thực dân gần một trăm năm nay để gây dựng nên nước Việt Nam độc lập. Dân ta lại đánh đổ chế độ quân chủ mấy mươi thế kỷ mà lập nên chế độ dân chủ cộng hòa”. (Trích: Tuyên ngôn độc lập của Chủ tịch Hồ Chí Minh)",
+          "statements": [
+            {
+              "id": "a",
+              "text": "Đoạn trích đã thể hiện sự thắng lợi của Cách mạng tháng Tám năm 1945 trên lĩnh vực chính trị.",
+              "isTrue": true
+            },
+            {
+              "id": "b",
+              "text": "Cách mạng tháng Tám năm 1945 đã góp phần tiêu diệt chủ nghĩa phát xít trong Chiến tranh thế giới thứ hai.",
+              "isTrue": true
+            },
+            {
+              "id": "c",
+              "text": "Tính dân chủ của Cách mạng tháng Tám năm 1945 được thể hiện qua việc thực dân Pháp bị lật đổ và vua Bảo Đại tuyên bố thoái vị.",
+              "isTrue": false
+            },
+            {
+              "id": "d",
+              "text": "Những thắng lợi trên chứng tỏ Cách mạng tháng Tám năm 1945 là một cuộc đấu tranh bảo vệ Tổ quốc điển hình.",
+              "isTrue": false
+            }
+          ],
+          "explanation": "a) Câu 4 (VD):\nPhương pháp:\n• Xem lại nội dung đoạn tư liệu.\n• Xác định, phân tích tính đúng/sai ở mỗi ý.\nCách giải:\na) Đúng, đoạn trích khẳng định: Lật đổ chế độ thực dân Pháp, Chấm dứt chế độ quân chủ, Thành lập nhà nước Việt Nam Dân chủ Cộng hòa. Đây là những thắng lợi to lớn về chính trị của Cách mạng tháng Tám năm 1945.\nb) Đúng, trong bối cảnh Chiến tranh thế giới thứ hai, Cách mạng tháng Tám diễn ra khi phát xít Nhật đầu hàng, góp phần: Làm tan rã bộ máy thống trị của phát xít Nhật ở Việt Nam; Góp phần tiêu diệt chủ nghĩa phát xít trên phạm vi thế giới.\nc) Sai, việc thực dân Pháp bị lật đổ thể hiện tính giải phóng dân tộc, việc vua Bảo Đại thoái vị thể hiện tính dân chủ (xóa bỏ chế độ phong kiến). Nhận định gộp cả hai để khẳng định “tính dân chủ” là chưa chính xác.\nd) Sai, Cách mạng tháng Tám là: Cuộc cách mạng giải phóng dân tộc, đồng thời là cách mạng dân tộc dân chủ nhân dân không phải là cuộc đấu tranh bảo vệ Tổ quốc (kháng chiến).\nĐáp án: Đ, Đ, S, S",
+          "difficulty": "hard",
+          "topic": "Cách mạng tháng Tám 1945, Tuyên ngôn độc lập",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-2026-mon-Lich-su-So-GD-Hung-Yen-Lan-1",
+              "location": "Câu 4"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "warnings": null,
+  "verification": {
+    "structural": {
+      "layer": "L1_structural",
+      "passed": 8,
+      "total": 8,
+      "all_passed": true,
+      "checks": [
+        {
+          "name": "MCQ count = 24",
+          "passed": true,
+          "actual": 24
+        },
+        {
+          "name": "T/F count = 4",
+          "passed": true,
+          "actual": 4
+        },
+        {
+          "name": "No duplicate question IDs",
+          "passed": true,
+          "duplicates": []
+        },
+        {
+          "name": "T/F orderInExam >= 25",
+          "passed": true,
+          "violations": []
+        },
+        {
+          "name": "T/F orderInExam = {25,26,27,28}",
+          "passed": true,
+          "actual": [
+            25,
+            26,
+            27,
+            28
+          ],
+          "expected": [
+            25,
+            26,
+            27,
+            28
+          ]
+        },
+        {
+          "name": "MCQ orderInExam = {1..24}",
+          "passed": true,
+          "actual_first_last": [
+            [
+              1,
+              2,
+              3
+            ],
+            [
+              22,
+              23,
+              24
+            ]
+          ],
+          "expected": "1..24"
+        },
+        {
+          "name": "All MCQ have valid correctOptionId",
+          "passed": true,
+          "missing_in_questions": []
+        },
+        {
+          "name": "All T/F have 4 statements with isTrue bool",
+          "passed": true,
+          "issues": []
+        }
+      ]
+    },
+    "cross_source": {
+      "layer": "L2_cross_source",
+      "n_conflicts": 0,
+      "n_mcq_conflicts": 0,
+      "n_tf_conflicts": 0,
+      "shifting_pattern_detected": false,
+      "shifting_warning": null,
+      "conflicts": [],
+      "all_passed": true
+    },
+    "content_integrity": {
+      "layer": "L3_content",
+      "n_suspicious": 0,
+      "suspicious": [],
+      "note": "LOW severity — cần review thủ công nếu nhiều case"
+    },
+    "verified_at": "2026-05-20T09:13:46.023680+00:00"
+  }
+}

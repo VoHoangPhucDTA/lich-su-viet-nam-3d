@@ -38,95 +38,111 @@
   </tr>
   <tr>
     <td colspan="2">Người dùng (Độc giả/Học sinh)</td>
-    <td colspan="2">Backend TTS Service (Viettel AI), MySQL Database</td>
+    <td colspan="2">Hệ thống Cloudinary, External API (FPT.AI / ElevenLabs)</td>
   </tr>
 </table>
 
 <p><span class="bold">3.1. Brief Description</span><br>
-Usecase này cho phép người dùng xem thông tin chi tiết về một sự kiện lịch sử đã chọn, bao gồm: hero section với thông tin cơ bản, tóm tắt nội dung SGK (canonical summary), diễn biến chi tiết (detailed narrative), ý nghĩa lịch sử, dữ kiện chính (key facts), bản đồ địa điểm, sự kiện liên quan (hierarchy), thư viện hình ảnh, nguồn tham khảo SGK, và tích hợp AI Narration (Text-to-Speech qua Viettel AI) với audio player đầy đủ điều khiển. Trang hỗ trợ Reading Progress (theo dõi tiến độ đọc qua IntersectionObserver) và Listening Progress (theo dõi tiến độ phát audio).</p>
+Usecase này cho phép người dùng xem thông tin chi tiết về một sự kiện lịch sử đã chọn, bao gồm diễn biến, ý nghĩa, dữ kiện chính, tư liệu hình ảnh, video (được phân chia thành các Tab) và hỗ trợ tính năng Text-to-Speech (Nghe đọc văn bản).</p>
 
 <p><span class="bold">3.2. Pre-conditions</span><br>
-1. Người dùng đã chọn một sự kiện trên Bản đồ tương tác hoặc Trang chủ và nhấn nút "Xem chi tiết".<br>
-2. Hệ thống đang hoạt động bình thường với kết nối đến MySQL và Backend API.<br>
-3. Dữ liệu sự kiện đã được parse từ file JSON (history_events) và có sẵn trong event registry.</p>
+1. Người dùng đã chọn một sự kiện trên Timeline và Popup (EventPopup.tsx) ở bên phải màn hình đã được mở ra.<br>
+2. Hệ thống đang hoạt động bình thường với kết nối ổn định đến MySQL và Cloudinary.</p>
 
 <p><span class="bold">3.3. Trigger</span><br>
-Người dùng nhấn nút "Xem chi tiết" trên EventPopup, EventCard, hoặc truy cập trực tiếp URL /events/{slug}.</p>
+Người dùng nhấn nút "Xem chi tiết" trên Popup (EventPopup.tsx).</p>
 
 <p><span class="bold">3.4. Post-conditions</span><br>
-1. Hệ thống render trang chi tiết sự kiện với đầy đủ thông tin (hero, nội dung, dữ kiện, bản đồ, media, nguồn tham khảo).<br>
-2. Sidebar TOC hiển thị mục lục các section với đánh số (01–09).<br>
-3. Reading Progress được cập nhật khi người dùng scroll qua các section.<br>
-4. AI Narration có thể được kích hoạt để đọc nội dung sự kiện bằng giọng Viettel AI.<br>
-5. Audio Player hiển thị timeline, seek bar, và thời gian phát.</p>
+1. Hệ thống chuyển hướng người dùng sang một trang mới (EventDetailPage).<br>
+2. Hiển thị đầy đủ thông tin chi tiết, hình ảnh, video của sự kiện đó.<br>
+3. Có thể phát âm thanh mô tả sự kiện (tính năng Text-to-Speech).</p>
 
-<p><span class="bold">3.5. Normal Flow: Xem chi tiết sự kiện (UC-02)</span><br>
-3.5.1: Người dùng click "Xem chi tiết" trên EventPopup hoặc truy cập /events/{slug}.<br>
-3.5.2: EventDetailPage.tsx gọi getEventDetailBySlug(slug) từ eventDetailService.ts.<br>
-3.5.3: eventDetailService.ts kiểm tra Backend API trước, fallback sang JSON static (eventRegistry → eventAdapter).<br>
-3.5.4: EventDetailPage.tsx nhận dữ liệu MockEventDetail và render các section:<br>
-&nbsp;&nbsp;&nbsp;- 01: Tổng quan (EventHero + EventTextbookContent.canonicalSummary)<br>
-&nbsp;&nbsp;&nbsp;- 02: Nội dung SGK (EventTextbookContent.detailedNarrative) — nếu có<br>
-&nbsp;&nbsp;&nbsp;- 03: Ý nghĩa lịch sử (EventTextbookContent.significance) — nếu có<br>
-&nbsp;&nbsp;&nbsp;- 04: Dữ kiện chính (EventKeyFacts) — nếu có<br>
-&nbsp;&nbsp;&nbsp;- 05: Địa điểm (EventLocationCard) — nếu có dữ liệu map<br>
-&nbsp;&nbsp;&nbsp;- 06: Sự kiện liên quan (EventChildrenList) — nếu có childIds<br>
-&nbsp;&nbsp;&nbsp;- 07: Tư liệu & media (EventMediaGallery) — nếu có media<br>
-&nbsp;&nbsp;&nbsp;- 08: Nguồn SGK (EventSources) — nếu có textbookRefs<br>
-&nbsp;&nbsp;&nbsp;- 09: Nguồn mở rộng (EventSources) — nếu có externalContent<br>
-3.5.5: Sidebar (EventDetailSidebar) hiển thị TOC + Reading Progress + Quick Actions.<br>
-3.5.6: Reading Progress tự động cập nhật dựa trên IntersectionObserver theo dõi từng section.<br>
-3.5.7: Listening Progress được đồng bộ từ TTS Player qua callback onNarrationStateChange.</p>
+<p><span class="bold">3.5. Normal Flow: Xem chi tiết sự kiện và Media (2.1)</span><br>
+2.1.1: EventPopup.tsx: Người dùng nhấn nút "Xem chi tiết".<br>
+2.1.2: EventPopup.tsx: Gọi lệnh Navigate chuyển hướng sang trang EventDetailPage.tsx.<br>
+2.1.3: EventDetailPage.tsx: Gọi API GET /api/events/{eventId}/detail đến EventController.java.<br>
+2.1.4: EventController.java: Gọi EventReadService.java (hàm getEventDetail).<br>
+2.1.5: EventReadService.java: Truy vấn chi tiết sự kiện, danh sách URL ảnh và URL video tại MySQL.<br>
+2.1.6: MySQL: Trả về Event Entity và các relation (Media) cho EventReadService.java.<br>
+2.1.7: EventReadService.java: Chuyển đổi thành DTO và trả về cho EventController.java.<br>
+2.1.8: EventController.java: Trả HTTP status 200 kèm DTO cho EventDetailPage.tsx.<br>
+2.1.9: EventDetailPage.tsx: Nhận dữ liệu chi tiết sự kiện.<br>
+2.1.10: EventDetailPage.tsx: Fetch ảnh trực tiếp từ URL Cloudinary.<br>
+2.1.11: Cloudinary: Trả về file ảnh tối ưu hóa.<br>
+2.1.12: EventDetailPage.tsx: Tự động Render các Section (Tổng quan, Nội dung SGK, Dữ kiện chính, Địa điểm, Sự kiện liên quan, Tư liệu Media, Nguồn tham khảo). Tại Section Tư liệu Media, hiển thị 2 Tab (Hình ảnh / Video).</p>
 
-<p><span class="bold">3.6. Alternative Flows</span><br>
-<span class="bold">3.6.1. AI Narration — Text-to-Speech qua Viettel AI (UC-02-A1)</span><br>
-3.6.1.1: EventTTSPlayer: Người dùng nhấn nút "Nghe tường thuật".<br>
-3.6.1.2: EventTTSPlayer: Gọi unlockAudio() để khởi tạo AudioContext và HTMLAudioElement.<br>
-3.6.1.3: EventTTSPlayer: Gọi startGeneration() → generateTts() POST /api/tts/generate.<br>
-3.6.1.4: Backend NarrationController: Nhận request, tạo TTS job (TtsJobManager.createJob()).<br>
-3.6.1.5: Backend TtsJobManager: Chạy async processJob() — chunkText() + generateSingleChunk() → ViettelTextToSpeechProvider.synthesize().<br>
-3.6.1.6: Frontend poll GET /api/tts/status/{jobId} mỗi 3 giây.<br>
-3.6.1.7: Khi job hoàn thành, frontend nhận playlist audio URLs.<br>
-3.6.1.8: Auto-play: status → 'ready' → 'playing', currentIndex → 0, playChunk() được gọi.<br>
-3.6.1.9: HTMLAudioElement phát audio, ontimeupdate cập nhật currentTime và progress.<br>
-3.6.1.10: Khi chunk kết thúc, onended chuyển sang chunk tiếp theo hoặc set status 'completed'.<br>
-3.6.1.11: Listening Progress được đồng bộ lên EventDetailSidebar.<br><br>
-<span class="bold">Các điều khiển Audio Player:</span><br>
-&nbsp;&nbsp;&nbsp;- Pause: Tạm dừng phát, giữ nguyên vị trí.<br>
-&nbsp;&nbsp;&nbsp;- Resume: Tiếp tục phát từ vị trí đã dừng.<br>
-&nbsp;&nbsp;&nbsp;- Stop: Dừng hoàn toàn, reset về trạng thái idle.<br>
-&nbsp;&nbsp;&nbsp;- Replay: Phát lại từ đầu.<br>
-&nbsp;&nbsp;&nbsp;- Seek: Kéo thanh timeline để nhảy đến vị trí bất kỳ.<br>
-&nbsp;&nbsp;&nbsp;- Speed: Điều chỉnh tốc độ phát (0.75x, 1x, 1.25x, 1.5x).<br>
-&nbsp;&nbsp;&nbsp;- Volume: Điều chỉnh âm lượng (0–100%).<br>
-&nbsp;&nbsp;&nbsp;- Voice: Chọn giọng đọc (5 giọng Viettel AI — Bắc, Trung, Nam).<br>
-&nbsp;&nbsp;&nbsp;- Chunk navigation: Chuyển giữa các đoạn audio (nếu có nhiều chunk).</p>
-
-<p><span class="bold">3.6.2. Reading Progress (UC-02-A2)</span><br>
-3.6.2.1: useReadingProgress hook khởi tạo IntersectionObserver cho mỗi section.<br>
-3.6.2.2: Khi người dùng scroll, observer phát hiện section nào đang visible.<br>
-3.6.2.3: Progress = tổng trọng số các section đã xem / tổng trọng số tất cả section.<br>
-3.6.2.4: Khi người dùng scroll đến cuối trang (trong vòng 50px), tất cả section được đánh dấu "đã xem" → progress = 100%.<br>
-3.6.2.5: EventDetailSidebar hiển thị % reading progress + active section highlight.</p>
+<p><span class="bold">3.6. Alternative Flows (Luồng Phụ)</span><br>
+<span class="bold">3.6.1. Nghe đọc văn bản - Text-to-Speech (2.2)</span><br>
+2.2.1: EventDetailPage.tsx: Người dùng nhấn nút "Nghe đọc".<br>
+2.2.2: EventDetailPage.tsx: Gọi API GET /api/events/{eventId}/audio đến EventController.java.<br>
+2.2.3: EventController.java: Gọi EventReadService.java.<br>
+2.2.4: EventReadService.java: Kiểm tra cache file Audio trong Database.<br>
+(Trường hợp chưa có Cache trong DB)<br>
+2.2.5: EventReadService.java: Gửi Text nội dung sự kiện lên API của bên thứ 3 (FPT.AI / ElevenLabs).<br>
+2.2.6: External API: Trả về file âm thanh (MP3/WAV).<br>
+2.2.7: EventReadService.java: Upload file âm thanh lên hệ thống Cloudinary.<br>
+2.2.8: Cloudinary: Trả về URL của Audio.<br>
+2.2.9: EventReadService.java: Lưu URL của Audio vào Database để dùng cho các lần sau (Cache).<br>
+(Tiếp tục luồng chung)<br>
+2.2.10: EventReadService.java: Trả về URL Audio cho EventController.java.<br>
+2.2.11: EventController.java: Trả HTTP status 200 kèm URL cho EventDetailPage.tsx.<br>
+2.2.12: EventDetailPage.tsx: Truyền URL vào trình phát Audio Player.<br>
+2.2.13: EventDetailPage.tsx: Trình phát Audio tự động phát âm thanh.</p>
 
 <p><span class="bold">3.7. Exceptions</span><br>
-- Nếu sự kiện không tồn tại: render NotFoundEventState với danh sách sự kiện gợi ý.<br>
-- Nếu API TTS (Viettel AI) bị lỗi: EventTTSPlayer chuyển sang state 'error', hiển thị nút "Thử lại". ErrorBoundary bao bọc player để các section khác không bị ảnh hưởng.<br>
-- Nếu token Viettel AI chưa được cấu hình: backend trả về INTERNAL_SERVER_ERROR → frontend hiển thị thông báo lỗi.<br>
-- Nếu không tìm thấy section element trong DOM: IntersectionObserver bỏ qua, không gây crash.<br>
-- Nếu audio không thể phát (browser policy): play() promise reject → set status 'paused' + hướng dẫn người dùng nhấn "Tiếp tục".</p>
+- Nếu sự kiện không tồn tại hoặc xảy ra lỗi mạng khi lấy dữ liệu, EventDetailPage.tsx sẽ hiển thị trạng thái lỗi (NotFoundEventState) kèm theo danh sách các sự kiện gợi ý khác.<br>
+- Nếu dịch vụ TTS (FPT.AI/ElevenLabs) bị lỗi, tính năng "Nghe đọc" sẽ không khả dụng nhưng không ảnh hưởng đến việc xem các nội dung khác của bài viết.</p>
 
 <p><span class="bold">3.8. Includes</span><br>
-- Frontend: EventDetailPage.tsx, EventHero, EventTTSPlayer, EventTextbookContent, EventKeyFacts, EventLocationCard, EventChildrenList, EventMediaGallery, EventSources, EventDetailSidebar, ErrorBoundary, useReadingProgress hook.<br>
-- Services: eventDetailService.ts, ttsService.ts, apiClient.ts.<br>
-- Backend: NarrationController.java, NarrationService.java, TtsJobManager.java, ViettelTextToSpeechProvider.java.<br>
-- Data: eventRegistry.ts, eventAdapter.ts (JSON → MockEventDetail conversion).</p>
+- Giao diện EventDetailPage.tsx, EventPopup.tsx.<br>
+- API Spring Boot (EventController, EventReadService).<br>
+- Dịch vụ lưu trữ Cloudinary.<br>
+- External TTS API.</p>
 
 <p><span class="bold">3.9. Assumptions</span><br>
-- Thiết bị người dùng có kết nối mạng internet để tải dữ liệu và audio.<br>
-- Trình duyệt hỗ trợ HTML5 Audio và IntersectionObserver.<br>
-- Backend TTS service có API key Viettel AI được cấu hình hợp lệ.<br>
-- File JSON dữ liệu sự kiện đã được parse và available trong event registry.</p>
+- Thiết bị người dùng có kết nối mạng internet đủ mạnh để tải hình ảnh và video.<br>
+- Trình duyệt hỗ trợ phát âm thanh HTML5 Audio.</p>
+
+<p><span class="bold">3.10. Giải thích cơ chế truy vấn CSDL (Database Query)</span><br>
+Nhằm tối ưu hóa hiệu năng, hệ thống <b>không sử dụng JPA Entity</b> mặc định mà dùng <b>NamedParameterJdbcTemplate</b> để thực thi SQL thuần (Native SQL). Khi tải trang chi tiết sự kiện, <code>EventReadRepository</code> thực hiện tuần tự <b>5 truy vấn độc lập</b> (1 truy vấn chính + 4 truy vấn con) sau đây:</p>
+
+<p><b>1. Truy vấn chính – Lấy chi tiết sự kiện (API: <code>GET /api/events/{idOrSlug}/detail</code>)</b><br>
+- <b>Cấu trúc Query:</b>
+<br><code>SELECT e.id, e.slug, e.title, e.short_title, e.event_level, e.event_type, e.event_subtype,</code><br>
+<code>e.start_year, e.end_year, e.effective_end_year, e.display_date, e.date_precision,</code><br>
+<code>e.geo_type, e.lat, e.lng, e.province_names, e.historical_locations,</code><br>
+<code>e.parent_id, e.root_id, e.level, e.order_in_parent, e.card_summary, e.canonical_summary,</code><br>
+<code>e.detailed_narrative, e.significance, e.show_on_homepage, e.show_on_timeline, e.featured, e.status, e.raw_json</code><br>
+<code>FROM historical_events e</code><br>
+<code>WHERE e.status = 'published' AND (e.id = :idOrSlug OR e.slug = :idOrSlug)</code><br>
+<code>LIMIT 1</code>
+<br>- <b>Giải thích:</b> Khác với truy vấn danh sách (UC-01) chỉ lấy các trường nhỏ để tối ưu băng thông, truy vấn này lấy <b>toàn bộ</b> các trường bao gồm cả <code>detailed_narrative</code> (nội dung SGK dài), <code>significance</code> (ý nghĩa lịch sử) và <code>raw_json</code> (dữ liệu nguồn gốc). Điều kiện <code>OR e.slug = :idOrSlug</code> cho phép Client truy cập theo URL thân thiện (ví dụ: <code>/events/chien-dich-dien-bien-phu-1954</code>).</p>
+
+<p><b>2. Truy vấn con – Lấy danh sách lớp học (Grades)</b><br>
+- <b>Cấu trúc Query:</b>
+<br><code>SELECT grade FROM event_grades WHERE event_id = :eventId ORDER BY grade</code>
+<br>- <b>Giải thích:</b> Query riêng biệt để lấy mảng lớp học (10, 11, 12) gắn với sự kiện. Kết quả được dùng để hiển thị nhãn lớp và lọc nguồn SGK tương ứng trong phần <b>Nguồn SGK</b>.</p>
+
+<p><b>3. Truy vấn con – Lấy danh sách tham chiếu SGK (Textbook Refs)</b><br>
+- <b>Cấu trúc Query:</b>
+<br><code>SELECT id, grade, book, theme, lesson, page_start, page_end, excerpt, source_key</code><br>
+<code>FROM event_textbook_refs WHERE event_id = :eventId ORDER BY grade ASC, page_start ASC, id ASC</code>
+<br>- <b>Giải thích:</b> Lấy các tham chiếu sách giáo khoa cụ thể (tên sách, chủ đề, bài học, số trang, trích dẫn) để hiển thị trong Section <b>Nguồn sách giáo khoa</b>.</p>
+
+<p><b>4. Truy vấn con – Lấy tư liệu hình ảnh và video (Media)</b><br>
+- <b>Cấu trúc Query:</b>
+<br><code>SELECT id, media_type, url, caption, alt_text, source_name, license, storage_type, is_thumbnail, sort_order</code><br>
+<code>FROM event_media WHERE event_id = :eventId AND status = 'active'</code><br>
+<code>ORDER BY is_thumbnail DESC, sort_order ASC, id ASC</code>
+<br>- <b>Giải thích:</b> Lấy danh sách tư liệu đa phương tiện. Thứ tự sắp xếp <code>is_thumbnail DESC</code> đảm bảo ảnh thumbnail luôn được trả về đầu tiên. Trường <code>media_type</code> phân biệt giữa <code>image</code>, <code>video</code>, <code>audio</code>, <code>document</code> để Frontend chia vào đúng Tab (Hình ảnh / Video). Trường <code>storage_type</code> phân biệt giữa URL Cloudinary và URL YouTube nhúng iframe.</p>
+
+<p><b>5. Truy vấn con – Lấy các sự kiện liên quan (Relations)</b><br>
+- <b>Cấu trúc Query:</b>
+<br><code>SELECT r.relation_type, e.id, e.slug, e.title, ..., (SELECT COUNT(*) ...) AS child_count</code><br>
+<code>FROM event_relations r JOIN historical_events e ON e.id = r.target_event_id</code><br>
+<code>WHERE r.source_event_id = :eventId AND e.status = 'published'</code><br>
+<code>ORDER BY r.relation_type ASC, r.sort_order ASC, e.start_year ASC</code>
+<br>- <b>Giải thích:</b> Lấy các sự kiện có quan hệ (cause – nguyên nhân, result – kết quả, related – liên quan) để hiển thị trong Section <b>Sự kiện liên quan</b>. Trường <code>relation_type</code> giúp Frontend nhóm và gán nhãn cho từng mối quan hệ.</p>
 
 </body>
 </html>

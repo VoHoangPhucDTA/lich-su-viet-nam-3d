@@ -3,15 +3,16 @@
 
 /* ═══════════════════════════════════════════════════════════════════════════
    DESIGN SYSTEM — Lịch Sử Việt Nam 3D
-   Source of truth: CoiNguonPage (lsvn3d reference project)
+   Source of truth: lsvn3d reference project
    Palette: stone white · amber gold · red-900 deep crimson
    ═══════════════════════════════════════════════════════════════════════════ */
 
 :root {
   --color-brand-red: #8b1e1e;
   --color-brand-gold: #c5a059;
+  --animate-spin-slow: spin 20s linear infinite;
 
-  /* Light theme (default) — matching CoiNguonPage exactly */
+  /* Backward-compat CSS variables — mapped to lsvn3d stone/amber/red-900 palette */
   --bg-app: #fafaf9;
   --bg-surface: #f5f5f4;
   --bg-card: #ffffff;
@@ -41,33 +42,26 @@
   --input-icon: #a8a29e;
   --input-focus: #8b1e1e;
   --ease-museum: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1.0);
   --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
   --font-serif: 'Cormorant Garamond', ui-serif, Georgia, serif;
   --font-mono: 'JetBrains Mono', ui-monospace, monospace;
-}
-
-@theme {
-  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
-  --font-serif: 'Cormorant Garamond', ui-serif, Georgia, serif;
-  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+  --color-text-dim: #78716c;
+  --color-text: #1c1917;
   --color-surface: #fafaf9;
   --color-surface-2: #f5f5f4;
   --color-surface-3: #ffffff;
   --color-border: #e7e5e4;
-  --color-text: #1c1917;
-  --color-text-dim: #78716c;
-  --color-military: #991b1b;
-  --color-political: #1e3a5f;
-  --color-economic: #8a6b2b;
-  --color-cultural: #1a4a3a;
 }
 
-/*
- * QUAN TRỌNG: Phải wrap reset trong @layer base.
- * Trong Tailwind v4, các utility (p-4, m-2, ...) nằm trong @layer utilities.
- * Nếu reset `* { padding: 0 }` để ngoài layer, nó sẽ đè TẤT CẢ utilities
- * vì style không layer có priority cao nhất trong cascade layers.
- */
+/* ─── Tailwind theme extension ──────────────────────────────────────────── */
+@theme {
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-serif: 'Cormorant Garamond', ui-serif, Georgia, serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+}
+
+/* ─── Base layer ────────────────────────────────────────────────────────── */
 @layer base {
   * {
     margin: 0;
@@ -78,17 +72,16 @@
   html {
     width: 100%;
     height: 100%;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   body {
     width: 100%;
     height: 100%;
     font-family: var(--font-sans);
-    background:
-      radial-gradient(circle at 12% -5%, rgba(194, 155, 75, 0.1), transparent 36%),
-      radial-gradient(circle at 88% 10%, rgba(79, 111, 149, 0.26), transparent 32%),
-      var(--color-surface);
-    color: var(--color-text);
+    background-color: #fafaf9;
+    color: #1c1917;
     overflow-x: hidden;
     overflow-y: auto;
   }
@@ -97,32 +90,42 @@
     width: 100%;
     height: 100%;
   }
+
+  ::selection {
+    background: rgba(139, 30, 30, 0.16);
+    color: #1c1917;
+  }
 }
 
-/* Scrollbar styling */
+/* ─── Scrollbar ─────────────────────────────────────────────────────────── */
 ::-webkit-scrollbar {
   width: 6px;
+  height: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--color-surface);
+  background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--color-surface-3);
-  border-radius: 3px;
+  background: rgba(140, 140, 140, 0.2);
+  border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--color-border);
+  background: rgba(140, 140, 140, 0.4);
 }
 
-/* Cesium overrides */
+/* ─── Cesium overrides ──────────────────────────────────────────────────── */
 .cesium-viewer {
   font-family: var(--font-sans) !important;
 }
 
-.cesium-viewer-bottom {
+.cesium-viewer-bottom,
+.cesium-viewer-geocoderContainer,
+.cesium-viewer-animationContainer,
+.cesium-viewer-timelineContainer,
+.cesium-viewer-fullscreenContainer {
   display: none !important;
 }
 
@@ -132,233 +135,127 @@
 }
 
 .cesium-button {
-  background: var(--color-surface-2) !important;
-  border: 1px solid var(--color-surface-3) !important;
-  border-radius: 8px !important;
-  color: var(--color-text) !important;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3) !important;
+  background: rgba(255, 255, 255, 0.85) !important;
+  border: 1px solid rgba(120, 113, 108, 0.25) !important;
+  border-radius: 10px !important;
+  color: #1c1917 !important;
+  backdrop-filter: blur(8px) !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
+  transition: all 0.2s !important;
 }
 
 .cesium-button:hover {
-  background: var(--color-surface-3) !important;
+  background: rgba(255, 255, 255, 0.95) !important;
+  border-color: rgba(139, 30, 30, 0.3) !important;
 }
 
-.cesium-viewer-geocoderContainer {
-  display: none !important;
+/* ─── Animations ────────────────────────────────────────────────────────── */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
-.cesium-viewer-animationContainer {
-  display: none !important;
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
-.cesium-viewer-timelineContainer {
-  display: none !important;
+@keyframes slideInRight {
+  from { transform: translateX(110%); opacity: 0; }
+  to   { transform: translateX(0);    opacity: 1; }
 }
 
-.cesium-viewer-fullscreenContainer {
-  display: none !important;
+@keyframes slideInLeft {
+  from { transform: translateX(-110%); opacity: 0; }
+  to   { transform: translateX(0);     opacity: 1; }
 }
 
-/* Animations */
-@keyframes slide-in-right {
-  from {
-    transform: translateX(100%);
-    opacity: 0;
-  }
-  to {
-    transform: translateX(0);
-    opacity: 1;
-  }
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 0 8px rgba(139, 30, 30, 0.15); }
+  50%      { box-shadow: 0 0 20px rgba(139, 30, 30, 0.25); }
 }
 
-@keyframes slide-in-left {
-  from {
-    transform: translateX(-100%);
-    opacity: 0;
-  }
-  to {
-    transform: translateX(0);
-    opacity: 1;
-  }
+@keyframes spin {
+  to { transform: rotate(360deg); }
 }
 
-@keyframes fade-in {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.animate-fade-in { animation: fadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+.animate-fade-in-up { animation: fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+.animate-slide-in-right { animation: slideInRight 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
+.animate-slide-in-left { animation: slideInLeft 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
+.animate-pulse-glow { animation: pulseGlow 2s ease-in-out infinite; }
+.animate-spin-slow { animation: spin 20s linear infinite; }
+
+/* Tailwind v4 `animate-pulse` may not ship by default — define manually */
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
-@keyframes shimmer {
-  0% { background-position: 200% center; }
-  100% { background-position: -200% center; }
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
 }
 
-@keyframes pulse-glow {
-  0%, 100% {
-    box-shadow: 0 0 8px var(--color-accent-glow);
-  }
-  50% {
-    box-shadow: 0 0 20px var(--color-accent-glow), 0 0 40px var(--color-accent-glow);
-  }
+/* ─── Utility classes ───────────────────────────────────────────────────── */
+.serif-heading {
+  font-family: 'Cormorant Garamond', ui-serif, Georgia, serif;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
 }
 
-.animate-slide-in-right {
-  animation: slide-in-right 0.3s ease-out;
+.mono-label {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  letter-spacing: 0.04em;
 }
 
-.animate-slide-in-left {
-  animation: slide-in-left 0.3s ease-out;
-}
-
-.animate-fade-in {
-  animation: fade-in 0.3s ease-out;
-}
-
-.animate-pulse-glow {
-  animation: pulse-glow 2s ease-in-out infinite;
-}
-
-/* Glass morphism effect - adaptive to theme */
-.glass {
-  background: var(--bg-app);
-  opacity: 0.95;
-  -webkit-backdrop-filter: blur(12px);
-  backdrop-filter: blur(12px);
-  border: 1px solid var(--border);
-}
-
-[data-theme="dark"] .glass {
-  background: rgba(11, 18, 32, 0.84);
-  border: 1px solid rgba(194, 155, 75, 0.22);
-}
-
-/* Specific glass effect for Map Overlay - more premium transparency */
 .glass-map {
-  -webkit-backdrop-filter: blur(12px);
   backdrop-filter: blur(12px);
-  transition: background 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
-              border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
-              box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  -webkit-backdrop-filter: blur(12px);
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid #e7e5e4;
 }
 
-[data-theme="light"] .glass-map {
-  background: rgba(255, 249, 239, 0.86);
-  border: 1px solid rgba(156, 115, 51, 0.24);
-  box-shadow: 0 20px 40px -18px rgba(66, 48, 26, 0.26), 
-              0 10px 16px -10px rgba(66, 48, 26, 0.18);
+.accent-hover-glow {
+  transition: box-shadow 0.2s, border-color 0.2s;
+}
+.accent-hover-glow:hover {
+  box-shadow: 0 0 12px rgba(139, 30, 30, 0.12);
+  border-color: rgba(139, 30, 30, 0.25);
 }
 
-[data-theme="dark"] .glass-map {
-  background: rgba(11, 18, 32, 0.84);
-  border: 1px solid rgba(194, 155, 75, 0.24);
-  box-shadow: 0 20px 50px -10px rgba(0, 0, 0, 0.6);
+/* Auth form message variants — theme-aware via CSS variables */
+.auth-msg-error {
+  background: var(--danger-soft);
+  border: 1px solid rgba(159, 29, 45, 0.35);
+  color: var(--danger);
 }
 
-/* Map Label style - stays dark for contrast on satellite imagery */
-.map-label-glass {
-  background: rgba(11, 18, 32, 0.72);
-  -webkit-backdrop-filter: blur(8px);
-  backdrop-filter: blur(8px);
-  border: 1px solid rgba(194, 155, 75, 0.22);
-  color: #e7ecf3;
-  padding: 4px 10px;
-  border-radius: 6px;
-  font-size: 13px;
-  font-weight: 600;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
-}
-
-/* Shared auth input appearance */
-.themed-input {
-  background-color: var(--input-bg);
-  color: var(--input-text);
-  caret-color: var(--input-text);
-}
-
-.themed-input::placeholder {
-  color: var(--input-placeholder);
-  opacity: 1;
-}
-
-/* Fix browser autofill background colors in dark mode */
-input:-webkit-autofill,
-input:-webkit-autofill:hover, 
-input:-webkit-autofill:focus, 
-input:-webkit-autofill:active {
-  -webkit-box-shadow: 0 0 0 30px var(--input-bg) inset !important;
-  -webkit-text-fill-color: var(--input-text) !important;
-  transition: background-color 5000s ease-in-out 0s;
-}
-
-/* Event type badges - Theme-aware contrast */
-.badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  padding: 2px 10px;
-  border-radius: 9999px;
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.025em;
-  border-width: 1px;
-  border-style: solid;
-  transition: all 0.2s;
-}
-
-.badge-military {
-  background: rgba(159, 29, 45, 0.16);
-  color: #f2c3c9;
-  border-color: rgba(159, 29, 45, 0.3);
-}
-
-[data-theme="light"] .badge-military {
-  background: rgba(159, 29, 45, 0.08);
+[data-theme="light"] .auth-msg-error {
+  background: var(--danger-soft);
+  border: 1px solid rgba(143, 28, 42, 0.35);
   color: #7d1a28;
-  border-color: rgba(159, 29, 45, 0.2);
 }
 
-.badge-political {
-  background: rgba(30, 58, 95, 0.16);
-  color: #a9bfd8;
-  border-color: rgba(30, 58, 95, 0.32);
+.auth-msg-success {
+  background: var(--success-soft);
+  border: 1px solid rgba(47, 122, 87, 0.35);
+  color: var(--success);
 }
 
-[data-theme="light"] .badge-political {
-  background: rgba(30, 58, 95, 0.08);
-  color: #244b72;
-  border-color: rgba(30, 58, 95, 0.2);
-}
-
-.badge-economic {
-  background: rgba(194, 155, 75, 0.18);
-  color: #f0dcab;
-  border-color: rgba(194, 155, 75, 0.34);
-}
-
-[data-theme="light"] .badge-economic {
-  background: rgba(194, 155, 75, 0.12);
-  color: #7e5a27;
-  border-color: rgba(194, 155, 75, 0.24);
-}
-
-.badge-cultural {
-  background: rgba(47, 122, 87, 0.15);
-  color: #b2dac7;
-  border-color: rgba(47, 122, 87, 0.28);
-}
-
-[data-theme="light"] .badge-cultural {
-  background: rgba(47, 122, 87, 0.1);
+[data-theme="light"] .auth-msg-success {
+  background: var(--success-soft);
+  border: 1px solid rgba(47, 122, 87, 0.4);
   color: #1f5a43;
-  border-color: rgba(47, 122, 87, 0.2);
 }
 
-/* Custom scrollbar for glass components */
-.glass-map::-webkit-scrollbar-thumb {
-  background: rgba(148, 163, 184, 0.4);
+.auth-msg-info {
+  background: var(--accent-soft);
+  border: 1px solid rgba(30, 58, 95, 0.35);
+  color: var(--accent);
+}
+
+[data-theme="light"] .auth-msg-info {
+  background: var(--accent-soft);
+  border: 1px solid rgba(42, 75, 114, 0.35);
+  color: #1a3a5c;
 }

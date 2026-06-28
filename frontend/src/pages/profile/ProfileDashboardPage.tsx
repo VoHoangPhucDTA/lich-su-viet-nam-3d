@@ -12,7 +12,7 @@ import {
   mockRecentEvents,
 } from '../../data/mockLearningStats';
 import { Link } from 'react-router-dom';
-import { useTheme } from '../../theme/ThemeContext';
+
 
 /* ─── Section header ─────────────────────────────────────────────────────────── */
 function SectionHeader({ title, action }: { title: string; action?: { label: string; to: string } }) {
@@ -69,7 +69,6 @@ const weaknesses = mockCategoryScores.filter(c => c.correctRate < 70);
 
 export default function ProfileDashboardPage() {
   const { currentUser } = useAuth();
-  const { isDark } = useTheme();
   const name = currentUser?.fullName ?? 'Học sinh';
   const firstName = name.split(' ').pop() ?? name;
 
@@ -78,9 +77,7 @@ export default function ProfileDashboardPage() {
       {/* ── Welcome card ── */}
       <div
         style={{
-          background: isDark 
-            ? 'linear-gradient(135deg, rgba(30,58,95,0.18) 0%, rgba(194,155,75,0.14) 100%)'
-            : 'linear-gradient(135deg, rgba(30,58,95,0.1) 0%, rgba(194,155,75,0.08) 100%)',
+          background: 'linear-gradient(135deg, rgba(139,30,30,0.06) 0%, rgba(197,160,89,0.06) 100%)',
           border: '1px solid var(--accent-light)',
           borderRadius: '1.25rem',
           padding: '1.5rem 1.75rem',

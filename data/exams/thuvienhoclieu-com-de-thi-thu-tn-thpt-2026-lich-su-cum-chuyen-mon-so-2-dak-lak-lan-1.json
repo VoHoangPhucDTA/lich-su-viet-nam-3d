@@ -1,0 +1,1177 @@
+{
+  "examId": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-cum-chuyen-mon-so-2-dak-lak-lan-1",
+  "title": "Đề thi Lịch sử – thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-Su-Cum-Chuyen-mon-So-2-Dak-lak-LAN-1",
+  "year": 2025,
+  "source": "",
+  "sourceDetail": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-Su-Cum-Chuyen-mon-So-2-Dak-lak-LAN-1",
+  "examCode": "",
+  "format": "thpt_2025",
+  "timeLimitMinutes": 50,
+  "totalScore": 10.0,
+  "parsedAt": "2026-05-20T09:19:57.024200+00:00",
+  "sections": [
+    {
+      "sectionId": "phan-1",
+      "sectionType": "mcq",
+      "title": "Phần I – Trắc nghiệm nhiều lựa chọn",
+      "totalQuestions": 24,
+      "maxScore": 6.0,
+      "scorePerQuestion": 0.25,
+      "questions": [
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-cum-chuyen-mon-so-2-dak-lak-lan-1-q01",
+          "orderInExam": 1,
+          "questionType": "mcq",
+          "questionText": "Trong những năm 1949 - 1990, quốc gia nào sau đây đi lên xây dựng chủ nghĩa xã hội?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Cộng hòa Dân chủ Đức."
+            },
+            {
+              "id": "B",
+              "text": "Đại Hàn Dân quốc."
+            },
+            {
+              "id": "C",
+              "text": "Thụy Sĩ."
+            },
+            {
+              "id": "D",
+              "text": "Đan Mạch."
+            }
+          ],
+          "correctOptionId": "A",
+          "explanation": "Giải thích:\nSau Chiến tranh thế giới thứ hai, ở Đông Âu đã hình thành hệ thống các nước xã hội chủ nghĩa. Cộng hòa Dân chủ Đức là một trong những nước đó.\nĐại Hàn Dân quốc là Hàn Quốc, đi theo con đường tư bản chủ nghĩa.\nThụy Sĩ và Đan Mạch cũng là các nước tư bản chủ nghĩa.",
+          "difficulty": "medium",
+          "topic": "Chiến tranh lạnh và thế giới sau Chiến tranh lạnh",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-Su-Cum-Chuyen-mon-So-2-Dak-lak-LAN-1",
+              "location": "Câu 1"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-cum-chuyen-mon-so-2-dak-lak-lan-1-q02",
+          "orderInExam": 2,
+          "questionType": "mcq",
+          "questionText": "Trong những năm đầu thế kỉ XX, Phan Châu Trinh có hoạt động đối ngoại chủ yếu ở quốc gia nào sau đây?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Pháp."
+            },
+            {
+              "id": "B",
+              "text": "Bỉ."
+            },
+            {
+              "id": "C",
+              "text": "Lào."
+            },
+            {
+              "id": "D",
+              "text": "Mỹ."
+            }
+          ],
+          "correctOptionId": "A",
+          "explanation": "Giải thích:\nPhan Châu Trinh chủ trương cải cách, khai dân trí, chấn dân khí, hậu dân sinh. Ông từng sang Pháp để hoạt động, tố cáo chế độ thực dân, tranh thủ dư luận tiến bộ Pháp ủng hộ Việt Nam.\nCác phương án còn lại không phải địa bàn hoạt động đối ngoại chủ yếu của ông.",
+          "difficulty": "medium",
+          "topic": "Phong trào yêu nước đầu thế kỷ XX",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-Su-Cum-Chuyen-mon-So-2-Dak-lak-LAN-1",
+              "location": "Câu 2"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-cum-chuyen-mon-so-2-dak-lak-lan-1-q03",
+          "orderInExam": 3,
+          "questionType": "mcq",
+          "questionText": "Một trong những trụ cột của Cộng đồng ASEAN là",
+          "options": [
+            {
+              "id": "A",
+              "text": "Giáo dục."
+            },
+            {
+              "id": "B",
+              "text": "Quân sự."
+            },
+            {
+              "id": "C",
+              "text": "Thể thao."
+            },
+            {
+              "id": "D",
+              "text": "Kinh tế."
+            }
+          ],
+          "correctOptionId": "D",
+          "explanation": "Giải thích:\nCộng đồng ASEAN được xây dựng trên 3 trụ cột:\nCộng đồng Chính trị - An ninh ASEAN,\nCộng đồng Kinh tế ASEAN,\nCộng đồng Văn hóa - Xã hội ASEAN.\nVì vậy Kinh tế là một trong ba trụ cột.\nGiáo dục, quân sự, thể thao không phải tên gọi chính thức của trụ cột ASEAN.",
+          "difficulty": "medium",
+          "topic": "Các nước Đông Nam Á",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-Su-Cum-Chuyen-mon-So-2-Dak-lak-LAN-1",
+              "location": "Câu 3"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-cum-chuyen-mon-so-2-dak-lak-lan-1-q04",
+          "orderInExam": 4,
+          "questionType": "mcq",
+          "questionText": "Trong giai đoạn 1986 - 1996, Việt Nam có chủ trương",
+          "options": [
+            {
+              "id": "A",
+              "text": "phát triển nền kinh tế bao cấp."
+            },
+            {
+              "id": "B",
+              "text": "đóng cửa với các nước."
+            },
+            {
+              "id": "C",
+              "text": "đẩy mạnh xây dựng căn cứ kháng chiến."
+            },
+            {
+              "id": "D",
+              "text": "phát triển nền kinh tế hàng hóa."
+            }
+          ],
+          "correctOptionId": "D",
+          "explanation": "Giải thích:\nSau Đại hội VI (1986), Việt Nam thực hiện công cuộc Đổi mới, chuyển từ cơ chế tập trung quan liêu bao cấp sang phát triển nền kinh tế hàng hóa nhiều thành phần vận hành theo cơ chế thị trường có sự quản lí của Nhà nước.\nA sai vì Việt Nam xóa bỏ dần cơ chế bao cấp.\nB sai vì Việt Nam thực hiện chính sách mở cửa.\nC không phù hợp bối cảnh hòa bình, xây dựng đất nước.",
+          "difficulty": "medium",
+          "topic": "Việt Nam đổi mới 1986-nay",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-Su-Cum-Chuyen-mon-So-2-Dak-lak-LAN-1",
+              "location": "Câu 4"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-cum-chuyen-mon-so-2-dak-lak-lan-1-q05",
+          "orderInExam": 5,
+          "questionType": "mcq",
+          "questionText": "Nhận định nào sau đây là đúng về quan hệ quốc tế sau Chiến tranh lạnh?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Có sự thống nhất giữa các quốc gia trong việc cùng xây dựng chế độ chính trị chung."
+            },
+            {
+              "id": "B",
+              "text": "Lợi ích quốc gia được đặt lên hàng đầu và chi phối quan hệ song phương, đa phương."
+            },
+            {
+              "id": "C",
+              "text": "Xu thế đối thoại và hợp tác phát triển dần, ít sự xuất hiện của xu thế toàn cầu hóa."
+            },
+            {
+              "id": "D",
+              "text": "Tình trạng đối đầu, mâu thuẫn giữa các quốc gia được thay thế bằng xu thế hòa hoãn."
+            }
+          ],
+          "correctOptionId": "B",
+          "explanation": "Giải thích:\nSau Chiến tranh lạnh, xu thế chung là hòa bình, ổn định, hợp tác và phát triển, nhưng đồng thời các quốc gia ngày càng coi lợi ích quốc gia, dân tộc là nhân tố hàng đầu chi phối chính sách đối nội, đối ngoại.\nA sai vì các nước không cùng xây dựng một chế độ chính trị chung.\nC sai vì giai đoạn này toàn cầu hóa phát triển mạnh, không phải “ít xuất hiện”.\nD sai vì vẫn còn nhiều xung đột, mâu thuẫn, chiến tranh cục bộ.",
+          "difficulty": "medium",
+          "topic": "Quan hệ quốc tế sau Chiến tranh lạnh",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-Su-Cum-Chuyen-mon-So-2-Dak-lak-LAN-1",
+              "location": "Câu 5"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-cum-chuyen-mon-so-2-dak-lak-lan-1-q06",
+          "orderInExam": 6,
+          "questionType": "mcq",
+          "questionText": "Việc Hiệp hội các quốc gia Đông Nam Á kết nạp Việt Nam (1995) có ý nghĩa nào sau đây?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Đánh dấu sự mở rộng ASEAN ra toàn khu vực."
+            },
+            {
+              "id": "B",
+              "text": "Chứng tỏ chủ nghĩa xã hội trở thành xu thế chung."
+            },
+            {
+              "id": "C",
+              "text": "Thúc đẩy sự phát triển của xu thế hợp tác ở khu vực."
+            },
+            {
+              "id": "D",
+              "text": "Đưa ASEAN thành tổ chức liên kết lớn nhất thế giới."
+            }
+          ],
+          "correctOptionId": "C",
+          "explanation": "Giải thích:\nViệt Nam gia nhập ASEAN năm 1995 góp phần:\ntăng cường đoàn kết khu vực,\nthúc đẩy xu thế đối thoại, hợp tác, phát triển ở Đông Nam Á.\nA chưa chính xác, vì đến khi các nước Đông Dương khác gia nhập thì ASEAN mới tiến gần hoàn tất mở rộng toàn khu vực.\nB sai vì ASEAN không phải tổ chức xã hội chủ nghĩa.\nD sai vì ASEAN không phải tổ chức liên kết lớn nhất thế giới.",
+          "difficulty": "medium",
+          "topic": "Các nước Đông Nam Á",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-Su-Cum-Chuyen-mon-So-2-Dak-lak-LAN-1",
+              "location": "Câu 6"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-cum-chuyen-mon-so-2-dak-lak-lan-1-q07",
+          "orderInExam": 7,
+          "questionType": "mcq",
+          "questionText": "Nội dung nào sau đây là thành tựu cơ bản của công cuộc Đổi mới ở Việt Nam trong những năm 1996 - 2006?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Xây dựng thành công nhà nước quân chủ."
+            },
+            {
+              "id": "B",
+              "text": "Mặt trận Việt Minh được mở rộng."
+            },
+            {
+              "id": "C",
+              "text": "Đời sống nhân dân được cải thiện."
+            },
+            {
+              "id": "D",
+              "text": "Là thành viên của Liên hợp quốc."
+            }
+          ],
+          "correctOptionId": "C",
+          "explanation": "Giải thích:\nTrong thời kì Đổi mới, một thành tựu cơ bản là:\nkinh tế tăng trưởng,\nđời sống vật chất và tinh thần của nhân dân được cải thiện rõ rệt.\nA sai hoàn toàn.\nB thuộc thời kì cách mạng giải phóng dân tộc trước 1945.\nD không thuộc giai đoạn 1996 - 2006 vì Việt Nam gia nhập Liên hợp quốc từ năm 1977.",
+          "difficulty": "medium",
+          "topic": "Việt Nam đổi mới 1986-nay",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-Su-Cum-Chuyen-mon-So-2-Dak-lak-LAN-1",
+              "location": "Câu 7"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-cum-chuyen-mon-so-2-dak-lak-lan-1-q08",
+          "orderInExam": 8,
+          "questionType": "mcq",
+          "questionText": "Thế kỉ XIII, Trần Hưng Đạo chỉ huy quân dân Đại Việt giành thắng lợi lớn trong kháng chiến chống quân xâm lược nào sau đây?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Quân Thanh."
+            },
+            {
+              "id": "B",
+              "text": "Quân Nguyên."
+            },
+            {
+              "id": "C",
+              "text": "Quân Anh."
+            },
+            {
+              "id": "D",
+              "text": "Quân Minh."
+            }
+          ],
+          "correctOptionId": "B",
+          "explanation": "Giải thích:\nTrần Hưng Đạo là vị chỉ huy kiệt xuất trong cuộc kháng chiến chống quân Nguyên - Mông ở thế kỉ XIII, đặc biệt với chiến thắng Bạch Đằng năm 1288.\nQuân Thanh: gắn với Quang Trung năm 1789.\nQuân Minh: gắn với khởi nghĩa Lam Sơn.\nQuân Anh không phù hợp.",
+          "difficulty": "medium",
+          "topic": "Đại Việt thời Trần",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-Su-Cum-Chuyen-mon-So-2-Dak-lak-LAN-1",
+              "location": "Câu 8"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-cum-chuyen-mon-so-2-dak-lak-lan-1-q09",
+          "orderInExam": 9,
+          "questionType": "mcq",
+          "questionText": "Cách mạng tháng Tám (1945), cuộc kháng chiến chống thực dân Pháp (1945 - 1954) và cuộc kháng chiến chống Mỹ, cứu nước (1954 - 1975) ở Việt Nam không có điểm khác biệt nào sau đây?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Có sự kết hợp giữa tiến công của lực lượng vũ trang và sự nổi dậy của quần chúng."
+            },
+            {
+              "id": "B",
+              "text": "Phát triển từ khởi nghĩa ở các địa phương tiến lên giành thắng lợi trên toàn quốc."
+            },
+            {
+              "id": "C",
+              "text": "Chịu tác động sâu sắc của Trật tự thế giới hai cực Ianta và cục diện Chiến tranh lạnh."
+            },
+            {
+              "id": "D",
+              "text": "Sử dụng lực lượng chính trị để phát huy sức mạnh của lực lượng vũ trang cách mạng."
+            }
+          ],
+          "correctOptionId": "A",
+          "explanation": "Giải thích:\nCâu hỏi hỏi về điểm không có khác biệt, tức là điểm giống nhau.\nĐiểm giống nhau rõ nhất của ba giai đoạn là đều có sự kết hợp đấu tranh chính trị với đấu tranh vũ trang, kết hợp tiến công quân sự với nổi dậy của quần chúng.\nB không đúng cho cả ba giai đoạn; đặc biệt kháng chiến chống Pháp và chống Mỹ không đơn thuần phát triển từ khởi nghĩa địa phương như Cách mạng tháng Tám.\nC không đúng cho cả ba, vì Cách mạng tháng Tám diễn ra trước khi trật tự hai cực Ianta định hình đầy đủ.\nD không khái quát chuẩn bằng A.",
+          "difficulty": "medium",
+          "topic": "Lịch sử Việt Nam 1945-1975",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-Su-Cum-Chuyen-mon-So-2-Dak-lak-LAN-1",
+              "location": "Câu 9"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-cum-chuyen-mon-so-2-dak-lak-lan-1-q10",
+          "orderInExam": 10,
+          "questionType": "mcq",
+          "questionText": "Nội dung nào sau đây là nguyên nhân chủ quan dẫn đến sự sụp đổ của chế độ xã hội chủ nghĩa ở Liên Xô (1991)?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Bị chủ nghĩa đế quốc bao vây và tấn công."
+            },
+            {
+              "id": "B",
+              "text": "Chậm thay đổi trước biến động của thế giới."
+            },
+            {
+              "id": "C",
+              "text": "Không có Đảng nắm quyền lãnh đạo."
+            },
+            {
+              "id": "D",
+              "text": "Chưa có nhiều mối quan hệ với bên ngoài."
+            }
+          ],
+          "correctOptionId": "B",
+          "explanation": "Giải thích:\nMột nguyên nhân chủ quan quan trọng là mô hình CNXH ở Liên Xô chậm được sửa đổi, cải tổ không phù hợp, không bắt kịp biến động thế giới, dẫn đến khủng hoảng sâu sắc.\nA là yếu tố bên ngoài, không phải nguyên nhân chủ quan.\nC sai vì Liên Xô có Đảng Cộng sản lãnh đạo.\nD không phải nguyên nhân cơ bản.",
+          "difficulty": "medium",
+          "topic": "Liên Xô và các nước Đông Âu sau Chiến tranh thế giới thứ hai",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-Su-Cum-Chuyen-mon-So-2-Dak-lak-LAN-1",
+              "location": "Câu 10"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-cum-chuyen-mon-so-2-dak-lak-lan-1-q11",
+          "orderInExam": 11,
+          "questionType": "mcq",
+          "questionText": "Cuộc chiến đấu trong các đô thị phía Bắc vĩ tuyến 16 của quân dân Việt Nam cuối năm 1946 - đầu năm 1947 diễn ra tiêu biểu ở",
+          "options": [
+            {
+              "id": "A",
+              "text": "Sài Gòn."
+            },
+            {
+              "id": "B",
+              "text": "Hà Nội."
+            },
+            {
+              "id": "C",
+              "text": "Phước Long."
+            },
+            {
+              "id": "D",
+              "text": "Đà Nẵng."
+            }
+          ],
+          "correctOptionId": "B",
+          "explanation": "Giải thích:\nSau khi toàn quốc kháng chiến bùng nổ ngày 19/12/1946, cuộc chiến đấu tiêu biểu nhất ở đô thị phía Bắc vĩ tuyến 16 là 60 ngày đêm chiến đấu ở Hà Nội.\nSài Gòn ở phía Nam vĩ tuyến 16.\nPhước Long thuộc giai đoạn sau.\nĐà Nẵng không phải điểm tiêu biểu nhất trong yêu cầu của câu hỏi.",
+          "difficulty": "medium",
+          "topic": "Kháng chiến chống Pháp 1945-1954",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-Su-Cum-Chuyen-mon-So-2-Dak-lak-LAN-1",
+              "location": "Câu 11"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-cum-chuyen-mon-so-2-dak-lak-lan-1-q12",
+          "orderInExam": 12,
+          "questionType": "mcq",
+          "questionText": "Luận điểm nào sau đây phản ánh đúng về chủ trương xuyên suốt của Đảng trong quá trình đấu tranh giành và bảo vệ độc lập dân tộc (1945 - 1975)?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Tập trung lực lượng tiến công vào các hướng quan trọng mà địch yếu để giành thắng lợi."
+            },
+            {
+              "id": "B",
+              "text": "Tạm gác vấn đề đấu tranh giai cấp để tập trung thực hiện mục tiêu của toàn dân tộc."
+            },
+            {
+              "id": "C",
+              "text": "Kiên định mục tiêu giải phóng dân tộc gắn liền với giải phóng nhân dân lao động."
+            },
+            {
+              "id": "D",
+              "text": "Kết hợp giữa chiến tranh giải phóng với nhiệm vụ xây dựng chế độ xã hội mới."
+            }
+          ],
+          "correctOptionId": "C",
+          "explanation": "Giải thích:\nChủ trương xuyên suốt của Đảng là độc lập dân tộc gắn liền với chủ nghĩa xã hội, giải phóng dân tộc gắn với giải phóng giai cấp, giải phóng con người.\nA là một cách đánh trong quân sự, không phải chủ trương xuyên suốt toàn bộ tiến trình.\nB chỉ đúng trong một số thời điểm.\nD chỉ phản ánh một mặt trong một số giai đoạn.",
+          "difficulty": "medium",
+          "topic": "Đường lối cách mạng Việt Nam 1945-1975",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-Su-Cum-Chuyen-mon-So-2-Dak-lak-LAN-1",
+              "location": "Câu 12"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-cum-chuyen-mon-so-2-dak-lak-lan-1-q13",
+          "orderInExam": 13,
+          "questionType": "mcq",
+          "questionText": "Nội dung nào sau đây là nguyên nhân khách quan dẫn đến thắng lợi của cuộc kháng chiến chống thực dân Pháp (1945 - 1954) của quân dân Việt Nam?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Sự ủng hộ của các nước xã hội chủ nghĩa."
+            },
+            {
+              "id": "B",
+              "text": "Đảng có sự chuẩn bị chu đáo về đường lối."
+            },
+            {
+              "id": "C",
+              "text": "Tinh thần đoàn kết, yêu nước của nhân dân."
+            },
+            {
+              "id": "D",
+              "text": "Hệ thống chính quyền nhân dân được xây dựng."
+            }
+          ],
+          "correctOptionId": "A",
+          "explanation": "Giải thích:\nNguyên nhân khách quan là sự ủng hộ, giúp đỡ của các lực lượng tiến bộ trên thế giới, đặc biệt là các nước xã hội chủ nghĩa.\nB, C, D đều là nguyên nhân chủ quan trong nước.",
+          "difficulty": "medium",
+          "topic": "Kháng chiến chống Pháp 1945-1954",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-Su-Cum-Chuyen-mon-So-2-Dak-lak-LAN-1",
+              "location": "Câu 13"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-cum-chuyen-mon-so-2-dak-lak-lan-1-q14",
+          "orderInExam": 14,
+          "questionType": "mcq",
+          "questionText": "Cuộc kháng chiến chống quân Nam Hán thắng lợi (938) gắn liền với vai trò lãnh đạo của",
+          "options": [
+            {
+              "id": "A",
+              "text": "Lê Hoàn."
+            },
+            {
+              "id": "B",
+              "text": "Quang Trung."
+            },
+            {
+              "id": "C",
+              "text": "Lý Bí."
+            },
+            {
+              "id": "D",
+              "text": "Ngô Quyền."
+            }
+          ],
+          "correctOptionId": "D",
+          "explanation": "Giải thích:\nNăm 938, Ngô Quyền lãnh đạo quân dân ta đánh thắng quân Nam Hán trên sông Bạch Đằng, mở ra thời kì độc lập lâu dài của dân tộc.",
+          "difficulty": "medium",
+          "topic": "Việt Nam thời Bắc thuộc và buổi đầu độc lập",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-Su-Cum-Chuyen-mon-So-2-Dak-lak-LAN-1",
+              "location": "Câu 14"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-cum-chuyen-mon-so-2-dak-lak-lan-1-q15",
+          "orderInExam": 15,
+          "questionType": "mcq",
+          "questionText": "Năm 1950, quân dân Việt Nam giành thắng lợi trong chiến dịch",
+          "options": [
+            {
+              "id": "A",
+              "text": "Hồ Chí Minh."
+            },
+            {
+              "id": "B",
+              "text": "Biên giới."
+            },
+            {
+              "id": "C",
+              "text": "Việt Bắc."
+            },
+            {
+              "id": "D",
+              "text": "Tây Nguyên."
+            }
+          ],
+          "correctOptionId": "B",
+          "explanation": "Giải thích:\nNăm 1950, ta mở Chiến dịch Biên giới, phá thế bao vây, khai thông biên giới Việt - Trung, giành quyền chủ động trên chiến trường Bắc Bộ.\nChiến dịch Việt Bắc: 1947.\nTây Nguyên: 1975.\nHồ Chí Minh: 1975.",
+          "difficulty": "medium",
+          "topic": "Kháng chiến chống Pháp 1945-1954",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-Su-Cum-Chuyen-mon-So-2-Dak-lak-LAN-1",
+              "location": "Câu 15"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-cum-chuyen-mon-so-2-dak-lak-lan-1-q16",
+          "orderInExam": 16,
+          "questionType": "mcq",
+          "questionText": "Sự kiện nào sau đây thể hiện sự thay đổi trong quan hệ quốc tế vào những năm 70 của thế kỉ XX?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Mỹ và Liên Xô kí kết nhiều văn kiện hợp tác."
+            },
+            {
+              "id": "B",
+              "text": "Tổ chức Hiệp ước Bắc Đại Tây Dương thành lập."
+            },
+            {
+              "id": "C",
+              "text": "Cộng đồng ASEAN tuyên bố thành lập."
+            },
+            {
+              "id": "D",
+              "text": "Hội đồng tương trợ kinh tế ra đời."
+            }
+          ],
+          "correctOptionId": "A",
+          "explanation": "Giải thích:\nNhững năm 70, quan hệ quốc tế có chuyển biến theo xu thế hòa hoãn Đông - Tây. Biểu hiện rõ là Mỹ và Liên Xô kí nhiều văn kiện hợp tác, hạn chế vũ khí chiến lược.\nNATO thành lập năm 1949.\nASEAN thành lập năm 1967.\nHội đồng tương trợ kinh tế ra đời năm 1949.",
+          "difficulty": "medium",
+          "topic": "Quan hệ quốc tế sau Chiến tranh thế giới thứ hai",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-Su-Cum-Chuyen-mon-So-2-Dak-lak-LAN-1",
+              "location": "Câu 16"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-cum-chuyen-mon-so-2-dak-lak-lan-1-q17",
+          "orderInExam": 17,
+          "questionType": "mcq",
+          "questionText": "Nội dung nào sau đây là bài học xuyên suốt của công cuộc Đổi mới đất nước ở Việt Nam (từ năm 1986 đến nay)?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Sáng tạo trong việc thực hiện cuộc cách mạng dân tộc và cách mạng dân chủ."
+            },
+            {
+              "id": "B",
+              "text": "Giải quyết hài hòa mối quan hệ giữa giai cấp thống trị và bị trị trong xã hội."
+            },
+            {
+              "id": "C",
+              "text": "Chủ động, linh hoạt thích ứng trước những biến động của khu vực và thế giới."
+            },
+            {
+              "id": "D",
+              "text": "Lấy tiến bộ và công bằng xã hội làm nền tảng cơ sở cho sự tăng trưởng kinh tế."
+            }
+          ],
+          "correctOptionId": "C",
+          "explanation": "Giải thích:\nMột bài học xuyên suốt của Đổi mới là phải chủ động, linh hoạt, sáng tạo, thích ứng với bối cảnh trong nước và quốc tế đang biến đổi nhanh chóng.\nA thuộc thời kì cách mạng dân tộc dân chủ.\nB không phù hợp với cách diễn đạt của lịch sử Việt Nam hiện đại.\nD đảo ngược quan hệ; thường là tăng trưởng kinh tế gắn với tiến bộ và công bằng xã hội.",
+          "difficulty": "medium",
+          "topic": "Việt Nam đổi mới và hội nhập",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-Su-Cum-Chuyen-mon-So-2-Dak-lak-LAN-1",
+              "location": "Câu 17"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-cum-chuyen-mon-so-2-dak-lak-lan-1-q18",
+          "orderInExam": 18,
+          "questionType": "mcq",
+          "questionText": "Trong việc thực thi chủ quyền trên Biển Đông, Chính phủ nước Cộng hòa xã hội chủ nghĩa Việt Nam đã",
+          "options": [
+            {
+              "id": "A",
+              "text": "nhận được viện trợ lớn của Trung Quốc."
+            },
+            {
+              "id": "B",
+              "text": "tăng cường chống chương trình bình định."
+            },
+            {
+              "id": "C",
+              "text": "phát động phong trào đồng khởi."
+            },
+            {
+              "id": "D",
+              "text": "xây dựng nhiều bia chủ quyền."
+            }
+          ],
+          "correctOptionId": "D",
+          "explanation": "Giải thích:\nMột biểu hiện thực thi chủ quyền của Việt Nam trên Biển Đông là xây dựng, củng cố hệ thống mốc, bia chủ quyền, tăng cường quản lí hành chính, lực lượng chấp pháp, cơ sở vật chất trên các đảo.\nCác phương án A, B, C không phản ánh đúng nội dung này.",
+          "difficulty": "medium",
+          "topic": "Biển Đông và chủ quyền Việt Nam",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-Su-Cum-Chuyen-mon-So-2-Dak-lak-LAN-1",
+              "location": "Câu 18"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-cum-chuyen-mon-so-2-dak-lak-lan-1-q19",
+          "orderInExam": 19,
+          "questionType": "mcq",
+          "questionText": "Một trong những quyết định của Hội nghị I-an-ta (2 - 1945) là Mĩ được đóng quân ở",
+          "options": [
+            {
+              "id": "A",
+              "text": "Thái Lan."
+            },
+            {
+              "id": "B",
+              "text": "Mông Cổ."
+            },
+            {
+              "id": "C",
+              "text": "Nhật Bản."
+            },
+            {
+              "id": "D",
+              "text": "Ấn Độ."
+            }
+          ],
+          "correctOptionId": "C",
+          "explanation": "Giải thích:\nTheo thỏa thuận sau Chiến tranh thế giới thứ hai, Nhật Bản thuộc phạm vi chiếm đóng của Mĩ.\nMông Cổ không thuộc phạm vi này.\nThái Lan và Ấn Độ không phải nội dung tiêu biểu của quyết định Ianta.",
+          "difficulty": "medium",
+          "topic": "Chiến tranh thế giới thứ hai và trật tự thế giới mới",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-Su-Cum-Chuyen-mon-So-2-Dak-lak-LAN-1",
+              "location": "Câu 19"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-cum-chuyen-mon-so-2-dak-lak-lan-1-q20",
+          "orderInExam": 20,
+          "questionType": "mcq",
+          "questionText": "Năm 1967, quốc gia nào sau đây tham gia sáng lập Hiệp hội các quốc gia Đông Nam Á?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Nam Phi."
+            },
+            {
+              "id": "B",
+              "text": "Cuba."
+            },
+            {
+              "id": "C",
+              "text": "Triều Tiên."
+            },
+            {
+              "id": "D",
+              "text": "Thái Lan."
+            }
+          ],
+          "correctOptionId": "D",
+          "explanation": "Giải thích:\nASEAN thành lập năm 1967 với 5 nước sáng lập:\nIndonesia,\nMalaysia,\nPhilippines,\nSingapore,\nThái Lan.",
+          "difficulty": "medium",
+          "topic": "Hiệp hội các quốc gia Đông Nam Á (ASEAN)",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-Su-Cum-Chuyen-mon-So-2-Dak-lak-LAN-1",
+              "location": "Câu 20"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-cum-chuyen-mon-so-2-dak-lak-lan-1-q21",
+          "orderInExam": 21,
+          "questionType": "mcq",
+          "questionText": "Đối với Việt Nam, thắng lợi của cuộc chiến đấu bảo vệ biên giới Tây Nam vào nửa sau những năm 70 của thế kỉ XX có ý nghĩa lịch sử nào sau đây?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Bồi dưỡng, phát huy truyền thống yêu nước của dân tộc."
+            },
+            {
+              "id": "B",
+              "text": "Giải phóng hoàn toàn miền Nam, thống nhất đất nước."
+            },
+            {
+              "id": "C",
+              "text": "Hoàn thành cách mạng dân tộc dân chủ nhân dân."
+            },
+            {
+              "id": "D",
+              "text": "Chứng tỏ đường lối khởi nghĩa của Đảng là đúng."
+            }
+          ],
+          "correctOptionId": "A",
+          "explanation": "Giải thích:\nThắng lợi trong chiến đấu bảo vệ biên giới Tây Nam có ý nghĩa:\nbảo vệ độc lập, chủ quyền, toàn vẹn lãnh thổ,\nthể hiện và bồi dưỡng truyền thống yêu nước, tinh thần bảo vệ Tổ quốc.\nCác phương án B, C, D gắn với những thời kì, nội dung khác.",
+          "difficulty": "medium",
+          "topic": "Việt Nam sau 1975",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-Su-Cum-Chuyen-mon-So-2-Dak-lak-LAN-1",
+              "location": "Câu 21"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-cum-chuyen-mon-so-2-dak-lak-lan-1-q22",
+          "orderInExam": 22,
+          "questionType": "mcq",
+          "questionText": "Nhận xét nào sau đây phản ánh đúng vai trò của Hồ Chí Minh trong năm 1945 gắn liền với nội dung văn kiện trên?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Hình thành luận thuyết chính danh quốc gia dựa trên quyền dân tộc tự quyết và thực tiễn đấu tranh."
+            },
+            {
+              "id": "B",
+              "text": "Ưu tiên sử dụng khuôn khổ pháp lí quốc tế nhằm tìm kiếm một giải pháp bảo hộ tạm thời."
+            },
+            {
+              "id": "C",
+              "text": "Chủ trương chuyển tiếp sang mô hình quân chủ lập hiến nhằm ổn định tình hình chính trị - xã hội."
+            },
+            {
+              "id": "D",
+              "text": "Định hướng cách mạng theo chiến lược ngoại giao dân tộc gắn với xây dựng kinh tế."
+            }
+          ],
+          "correctOptionId": "A",
+          "explanation": "Giải thích:\nTrong Tuyên ngôn Độc lập, Hồ Chí Minh:\nkhẳng định quyền dân tộc tự quyết,\nnêu rõ cơ sở thực tiễn: dân ta đã đánh đổ phát xít Nhật, lật đổ chế độ phong kiến, giành chính quyền,\ntuyên bố sự ra đời hợp pháp, chính đáng của nước Việt Nam độc lập.\nVì vậy A là nhận xét chính xác nhất.\nB sai vì không phải tìm giải pháp bảo hộ tạm thời.\nC sai vì Việt Nam đã xóa bỏ chế độ quân chủ.\nD không phản ánh đúng trọng tâm văn kiện.",
+          "difficulty": "medium",
+          "topic": "Cách mạng tháng Tám 1945",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-Su-Cum-Chuyen-mon-So-2-Dak-lak-LAN-1",
+              "location": "Câu 22"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-cum-chuyen-mon-so-2-dak-lak-lan-1-q23",
+          "orderInExam": 23,
+          "questionType": "mcq",
+          "questionText": "Theo đoạn tư liệu trên, Hồ Chí Minh đã công bố Việt Nam theo thể chế chính trị nào sau đây?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Xã hội chủ nghĩa."
+            },
+            {
+              "id": "B",
+              "text": "Tư bản chủ nghĩa."
+            },
+            {
+              "id": "C",
+              "text": "Dân chủ Cộng hòa."
+            },
+            {
+              "id": "D",
+              "text": "Phong kiến chuyên chế."
+            }
+          ],
+          "correctOptionId": "C",
+          "explanation": "Giải thích:\nTrong Tuyên ngôn Độc lập, Hồ Chí Minh tuyên bố thành lập nước Việt Nam Dân chủ Cộng hòa.\nDo đó thể chế được công bố là Dân chủ Cộng hòa.",
+          "difficulty": "medium",
+          "topic": "Cách mạng tháng Tám 1945",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-Su-Cum-Chuyen-mon-So-2-Dak-lak-LAN-1",
+              "location": "Câu 23"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-cum-chuyen-mon-so-2-dak-lak-lan-1-q24",
+          "orderInExam": 24,
+          "questionType": "mcq",
+          "questionText": "“Pháp chạy, Nhật hàng, vua Bảo Đại thoái vị” được Hồ Chí Minh nhắc đến trong đoạn tư liệu phản ánh thực tế năm 1945,",
+          "options": [
+            {
+              "id": "A",
+              "text": "tình hình quốc tế chưa tác động trực tiếp đến Việt Nam."
+            },
+            {
+              "id": "B",
+              "text": "Việt Nam đã giành được độc lập, tự do."
+            },
+            {
+              "id": "C",
+              "text": "Việt Nam đi theo chế độ tư bản chủ nghĩa."
+            },
+            {
+              "id": "D",
+              "text": "chính quyền Bảo Đại tiếp tục nắm quyền ở Việt Nam."
+            }
+          ],
+          "correctOptionId": "B",
+          "explanation": "Giải thích:\nCâu nói đó phản ánh rõ:\nphát xít Nhật đầu hàng Đồng minh,\nthực dân Pháp mất quyền thống trị,\nvua Bảo Đại thoái vị,\ncách mạng Việt Nam thắng lợi.\nVì vậy thực tế nổi bật là Việt Nam đã giành được độc lập, tự do.\nA sai vì tình hình quốc tế tác động rất mạnh đến Việt Nam.\nC sai hoàn toàn.\nD sai vì Bảo Đại đã thoái vị.",
+          "difficulty": "medium",
+          "topic": "Cách mạng tháng Tám 1945",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-Su-Cum-Chuyen-mon-So-2-Dak-lak-LAN-1",
+              "location": "Câu 24"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "sectionId": "phan-2",
+      "sectionType": "true_false",
+      "title": "Phần II – Trắc nghiệm Đúng/Sai",
+      "totalQuestions": 4,
+      "maxScore": 4.0,
+      "scoringRule": "ladder",
+      "questions": [
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-cum-chuyen-mon-so-2-dak-lak-lan-1-q25",
+          "orderInExam": 25,
+          "questionType": "true_false",
+          "questionText": "Cho thông tin, tư liệu sau: “Những hành động của thực dân Pháp định chiếm lấy nước chúng tôi thực rõ rệt, không thể chối cãi được. Dân tộc Việt Nam nay bị đặt trước hai con đường: Một là khoanh tay, cúi đầu trở lại nô lệ; hai là đấu tranh đến cùng để giành lại tự do và độc lập. Không! Dân tộc Việt Nam không để cho người ta trở lại thống trị nữa. Không! Dân tộc Việt Nam không bao giờ muốn trở lại nô lệ nữa. Dân tộc Việt Nam thà chết chứ không chịu mất độc lập và tự do.” (Đảng Cộng sản Việt Nam, Văn kiện Đảng toàn tập, Tập 4, NXB Chính trị quốc gia - Sự thật, Hà Nội, 2011, Tr. 536).",
+          "statements": [
+            {
+              "id": "a",
+              "text": "Hành động xâm lược của thực dân Pháp đặt Việt Nam đứng trước sự lựa chọn duy nhất để bảo vệ độc lập dân tộc là cầm vũ khí đứng lên kháng chiến.",
+              "isTrue": true
+            },
+            {
+              "id": "b",
+              "text": "Đoạn tư liệu cho thấy thực dân Pháp quyết tâm xâm lược trở lại Việt Nam sau Chiến tranh thế giới thứ hai.",
+              "isTrue": true
+            },
+            {
+              "id": "c",
+              "text": "Với ý chí quyết tâm bảo vệ độc lập, Việt Nam đã từ chối con đường đấu tranh hòa bình với Pháp sau khi Cách mạng tháng Tám thành công.",
+              "isTrue": false
+            },
+            {
+              "id": "d",
+              "text": "Do có sự đối lập về quan điểm trong vấn đề chủ quyền của Việt Nam nên Pháp và Việt Nam không thể tổ chức các hoạt động đối ngoại song phương.",
+              "isTrue": false
+            }
+          ],
+          "explanation": "a) Giải thích:\nTư liệu nêu rất rõ: hoặc chịu quay lại làm nô lệ, hoặc đấu tranh đến cùng để giành tự do, độc lập. Khi khả năng hòa hoãn không còn, con đường tất yếu là kháng chiến vũ trang.\nb) Giải thích:\nNgay câu đầu của tư liệu đã khẳng định hành động của thực dân Pháp muốn chiếm nước ta là rõ rệt, không thể chối cãi.\nc) Giải thích:\nSau Cách mạng tháng Tám, Việt Nam không từ chối ngay con đường hòa bình. Ta đã nhiều lần nhân nhượng, đàm phán với Pháp để tránh chiến tranh, như Hiệp định Sơ bộ 6/3/1946, Tạm ước 14/9/1946. Chỉ khi Pháp bội ước, chiến tranh là không tránh khỏi thì ta mới phát động toàn quốc kháng chiến.\nd) Giải thích:\nViệt Nam và Pháp vẫn từng tiến hành đàm phán, kí kết văn kiện ngoại giao song phương trong năm 1946. Vì vậy nói “không thể tổ chức” là không đúng.",
+          "difficulty": "hard",
+          "topic": "Kháng chiến chống Pháp 1945-1954",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-Su-Cum-Chuyen-mon-So-2-Dak-lak-LAN-1",
+              "location": "Câu 1"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-cum-chuyen-mon-so-2-dak-lak-lan-1-q26",
+          "orderInExam": 26,
+          "questionType": "true_false",
+          "questionText": "Cho thông tin, tư liệu sau: Trong Điện gửi Xtalin ngày 21 tháng 10 năm 1945, Chủ tịch Hồ Chí Minh viết: “Nhân dân Việt Nam mong muốn hợp tác với Liên hợp quốc vì sự nghiệp hòa bình lâu dài trên toàn thế giới, và vì họ đã phải khổ cực bởi sự thống trị của người Nhật và người Pháp vào năm 1941, nên họ hết sức cương quyết không để cho người Pháp trở lại Đông Dương. Nếu như xảy ra việc quân đội Pháp kéo vào từ Trung Quốc, nơi mà họ đã lẫn trốn trong thời kì Nhật chiếm đóng Đông Dương, hoặc từ những nơi khác, để đặt chân vào địa phận nào đấy của Đông Dương, hoặc vào bất kỳ lãnh thổ nào của Việt Nam, thì nhân dân Việt Nam cương quyết đấu tranh chống lại chúng trong bất cứ hoàn cảnh nào.” (Đảng Cộng sản Việt Nam, Văn kiện Đảng toàn tập, Tập 4, NXB Chính trị quốc gia - Sự thật, Hà Nội, 2011, Tr. 79).",
+          "statements": [
+            {
+              "id": "a",
+              "text": "Mục đích cao nhất của hoạt động đối ngoại của Việt Nam sau khi giành được độc lập là bảo vệ độc lập và hòa bình của Tổ quốc.",
+              "isTrue": true
+            },
+            {
+              "id": "b",
+              "text": "Tư liệu phản ánh về hoạt động đối ngoại của nước Việt Nam Dân chủ Cộng hòa sau Cách mạng tháng Tám năm 1945.",
+              "isTrue": true
+            },
+            {
+              "id": "c",
+              "text": "Đường lối đối ngoại của Chính phủ Việt Nam vừa thể hiện thiện chí hòa bình, vừa thể hiện thái độ kiên quyết chống xâm lăng giành độc lập dân tộc và chính quyền về tay nhân dân.",
+              "isTrue": true
+            },
+            {
+              "id": "d",
+              "text": "Hoạt động đối ngoại của Việt Nam trong những năm 1945 - 1946 là bộ phận tạo nên đường lối kháng chiến chống đế quốc, làm nên thắng lợi của nhân dân Việt Nam.",
+              "isTrue": false
+            }
+          ],
+          "explanation": "a) Giải thích:\nSau năm 1945, nhiệm vụ hàng đầu của Nhà nước Việt Nam Dân chủ Cộng hòa là giữ vững chính quyền, bảo vệ nền độc lập non trẻ, tranh thủ hòa bình để xây dựng đất nước.\nb) Giải thích:\nĐiện gửi Xtalin ngày 21/10/1945 là hoạt động đối ngoại của chính quyền cách mạng sau khi nước Việt Nam Dân chủ Cộng hòa ra đời.\nc) Giải thích:\nTư liệu cho thấy hai mặt:\nmong muốn hợp tác, hòa bình lâu dài,\nkiên quyết chống việc Pháp quay trở lại xâm lược.\nd) Giải thích:\nGiai đoạn 1945 - 1946, hoạt động đối ngoại chủ yếu nhằm tránh cùng lúc phải đối phó với nhiều kẻ thù, kéo dài hòa bình, củng cố lực lượng. Chưa thể khái quát ngay là “bộ phận tạo nên đường lối kháng chiến chống đế quốc” theo cách diễn đạt này.",
+          "difficulty": "hard",
+          "topic": "Việt Nam 1945-1946",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-Su-Cum-Chuyen-mon-So-2-Dak-lak-LAN-1",
+              "location": "Câu 2"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-cum-chuyen-mon-so-2-dak-lak-lan-1-q27",
+          "orderInExam": 27,
+          "questionType": "true_false",
+          "questionText": "Cho tư liệu sau: “So với Hội Quốc Liên, Liên hợp quốc chúng tôi đầy đủ hơn tính chất toàn cầu (thành phần gồm hầu hết các quốc gia độc lập trên mọi châu lục) và đặc biệt là tính toàn diện của chương trình nghị sự không bó hẹp vào vấn đề duy trì hòa bình, an ninh, mà bao gồm cả việc thúc đẩy hợp tác và phát triển kinh tế - xã hội của cộng đồng các dân tộc; bản thân hệ thống Liên hợp quốc bao gồm hàng loạt cơ quan, chương trình, quỹ, tổ chức chuyên môn tập trung vào mọi lĩnh vực của đời sống các quốc gia và quan hệ quốc tế ngoài lĩnh vực chính trị - quốc phòng, từ tiền tệ đến nông nghiệp, văn hóa, khoa học - kỹ thuật...” (https://tapchicongsan.org.vn/web/guest/hoat-dong-cua-lanh-dao-dang-nha-nuoc/-/2018/7754/thong-tin-co-ban-ve-lien-hop-quoc.aspx)",
+          "statements": [
+            {
+              "id": "a",
+              "text": "Hoạt động của Liên hợp quốc mang tính chất toàn diện, trong đó ưu tiên trước hết là việc kí kết các hiệp định hòa bình.",
+              "isTrue": false
+            },
+            {
+              "id": "b",
+              "text": "Liên hợp quốc là tổ chức quốc tế có tính chất toàn cầu.",
+              "isTrue": true
+            },
+            {
+              "id": "c",
+              "text": "Liên hợp quốc là tổ chức đa phương toàn cầu đầu tiên có nhiều cố gắng trong việc chi phối và điều tiết các mối quan hệ giữa các quốc gia độc lập có chủ quyền trên nguyên tắc tôn trọng chủ quyền bình đẳng của các quốc gia.",
+              "isTrue": true
+            },
+            {
+              "id": "d",
+              "text": "Một trong những đặc điểm ưu việt của Liên hợp quốc là tổ chức này phản ánh đúng sự cân bằng và cân đối quyền lực giữa các cường quốc thắng trận.",
+              "isTrue": false
+            }
+          ],
+          "explanation": "a) Giải thích:\nLiên hợp quốc hoạt động toàn diện, nhưng chức năng trọng yếu là duy trì hòa bình và an ninh thế giới, không phải “ưu tiên trước hết là việc kí kết các hiệp định hòa bình”.\nb) Giải thích:\nTư liệu khẳng định thành phần của Liên hợp quốc gồm hầu hết các quốc gia độc lập trên mọi châu lục, nên đây là tổ chức quốc tế mang tính toàn cầu.\nc) Giải thích:\nNhận định này phù hợp với vai trò lịch sử của Liên hợp quốc trong việc điều phối quan hệ quốc tế, trên cơ sở các nguyên tắc cơ bản như bình đẳng chủ quyền giữa các quốc gia.\nd) Giải thích:\nLiên hợp quốc có vai trò lớn, nhưng không thể nói tổ chức này “phản ánh đúng sự cân bằng và cân đối quyền lực” một cách tuyệt đối. Cơ chế hoạt động, nhất là quyền phủ quyết ở Hội đồng Bảo an, cho thấy nó vẫn chịu ảnh hưởng mạnh của tương quan quyền lực giữa các cường quốc.",
+          "difficulty": "hard",
+          "topic": "Tổ chức Liên hợp quốc",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-Su-Cum-Chuyen-mon-So-2-Dak-lak-LAN-1",
+              "location": "Câu 3"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-cum-chuyen-mon-so-2-dak-lak-lan-1-q28",
+          "orderInExam": 28,
+          "questionType": "true_false",
+          "questionText": "Cho đoạn tư liệu sau: “Kết hợp sức mạnh dân tộc với sức mạnh thời đại, vì sự nghiệp dân tộc và nghĩa vụ quốc tế. Đấu tranh giữ vững hòa bình ở Đông Dương, góp phần giữ gìn hòa bình ở Đông Nam Á, ở châu Á - Thái Bình Dương và trên thế giới, chống chính sách chạy đua vũ trang và gây nguy cơ chiến tranh hạt nhân, tranh thủ điều kiện quốc tế thuận lợi cho sự nghiệp xây dựng chủ nghĩa xã hội và bảo vệ Tổ quốc. Phát triển và củng cố quan hệ đặc biệt giữa ba nước Việt Nam, Lào và Campuchia; đoàn kết và tôn trọng độc lập, chủ quyền của mỗi nước, hợp tác toàn diện, giúp đỡ lẫn nhau xây dựng và bảo vệ Tổ quốc”. (Đảng Cộng sản Việt Nam, Văn kiện Đảng toàn tập, Tập 47, NXB Chính trị quốc gia, Hà Nội, 2006, Tr. 908).",
+          "statements": [
+            {
+              "id": "a",
+              "text": "Bài học xuyên suốt của Việt Nam trong thời kì chiến tranh cách mạng và đổi mới là coi đoàn kết với các dân tộc ở Đông Dương là tiền đề để gây dựng quan hệ với các cường quốc.",
+              "isTrue": false
+            },
+            {
+              "id": "b",
+              "text": "Kết hợp sức mạnh dân tộc với sức mạnh thời đại là chủ trương của Việt Nam trong thời kì chiến tranh cũng như thời kì hòa bình.",
+              "isTrue": true
+            },
+            {
+              "id": "c",
+              "text": "Một trong những điểm sáng tạo của Đảng Cộng sản Việt Nam trong thời kì đổi mới đất nước là nhận thức được sự nguy hiểm của chính sách chạy đua vũ trang đối với hòa bình thế giới.",
+              "isTrue": false
+            },
+            {
+              "id": "d",
+              "text": "Tư liệu phản ánh về đường lối đối ngoại của nước Cộng hòa xã hội chủ nghĩa Việt Nam.",
+              "isTrue": true
+            }
+          ],
+          "explanation": "a) Giải thích:\nTư liệu không nói đoàn kết Đông Dương là “tiền đề để gây dựng quan hệ với các cường quốc”. Nội dung chính là đoàn kết khu vực, kết hợp sức mạnh dân tộc với sức mạnh thời đại để bảo vệ hòa bình và Tổ quốc.\nb) Giải thích:\nĐây là quan điểm lớn, xuyên suốt của cách mạng Việt Nam, đúng trong cả thời chiến lẫn thời bình.\nc) Giải thích:\nNhận thức về nguy cơ chiến tranh, chạy đua vũ trang không phải chỉ đến thời Đổi mới mới có, nên nói đây là “điểm sáng tạo” riêng của thời kì Đổi mới là chưa chuẩn.\nd) Giải thích:\nNội dung tư liệu phù hợp với đường lối đối ngoại của Việt Nam trong thời kì sau thống nhất đất nước, nhất là giai đoạn xây dựng và bảo vệ Tổ quốc trong bối cảnh quốc tế mới.",
+          "difficulty": "hard",
+          "topic": "Đường lối đối ngoại Việt Nam",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-Su-Cum-Chuyen-mon-So-2-Dak-lak-LAN-1",
+              "location": "Câu 4"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "warnings": null,
+  "verification": {
+    "structural": {
+      "layer": "L1_structural",
+      "passed": 8,
+      "total": 8,
+      "all_passed": true,
+      "checks": [
+        {
+          "name": "MCQ count = 24",
+          "passed": true,
+          "actual": 24
+        },
+        {
+          "name": "T/F count = 4",
+          "passed": true,
+          "actual": 4
+        },
+        {
+          "name": "No duplicate question IDs",
+          "passed": true,
+          "duplicates": []
+        },
+        {
+          "name": "T/F orderInExam >= 25",
+          "passed": true,
+          "violations": []
+        },
+        {
+          "name": "T/F orderInExam = {25,26,27,28}",
+          "passed": true,
+          "actual": [
+            25,
+            26,
+            27,
+            28
+          ],
+          "expected": [
+            25,
+            26,
+            27,
+            28
+          ]
+        },
+        {
+          "name": "MCQ orderInExam = {1..24}",
+          "passed": true,
+          "actual_first_last": [
+            [
+              1,
+              2,
+              3
+            ],
+            [
+              22,
+              23,
+              24
+            ]
+          ],
+          "expected": "1..24"
+        },
+        {
+          "name": "All MCQ have valid correctOptionId",
+          "passed": true,
+          "missing_in_questions": []
+        },
+        {
+          "name": "All T/F have 4 statements with isTrue bool",
+          "passed": true,
+          "issues": []
+        }
+      ]
+    },
+    "cross_source": {
+      "layer": "L2_cross_source",
+      "n_conflicts": 1,
+      "n_mcq_conflicts": 0,
+      "n_tf_conflicts": 1,
+      "shifting_pattern_detected": false,
+      "shifting_warning": null,
+      "conflicts": [
+        {
+          "question_id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-cum-chuyen-mon-so-2-dak-lak-lan-1-q28",
+          "orderInExam": 28,
+          "statement": "b",
+          "type": "true_false",
+          "isTrue_in_json": true,
+          "isTrue_in_explanation": false,
+          "matched_in_expl_at_question": 4,
+          "severity": "HIGH",
+          "hint": "⚠ Có thể shifting error giữa các câu T/F!"
+        }
+      ],
+      "all_passed": false
+    },
+    "content_integrity": {
+      "layer": "L3_content",
+      "n_suspicious": 1,
+      "suspicious": [
+        {
+          "question_id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-cum-chuyen-mon-so-2-dak-lak-lan-1-q13",
+          "orderInExam": 13,
+          "issue": "no_year_or_proper_noun_overlap",
+          "years_in_q": [
+            "1945",
+            "1954"
+          ],
+          "years_in_expl": [],
+          "proper_in_q_sample": [
+            "Nam",
+            "Pháp",
+            "Việt"
+          ],
+          "proper_in_expl_sample": [
+            "Nguyên"
+          ],
+          "severity": "LOW"
+        }
+      ],
+      "note": "LOW severity — cần review thủ công nếu nhiều case"
+    },
+    "verified_at": "2026-05-20T09:19:57.028744+00:00"
+  }
+}
