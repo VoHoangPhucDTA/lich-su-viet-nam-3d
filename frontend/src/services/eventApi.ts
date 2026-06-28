@@ -18,6 +18,7 @@ import { rawToEventDetail, rawToHistoricalEvent } from '../data/eventAdapter';
 import {
   findEventById,
   getEventsByYear,
+  HISTORICAL_EVENTS,
 } from '../data/events';
 import type { EventType, GeoType, HistoricalEvent } from '../types/event';
 import { apiGet, apiPost, toQueryString } from './apiClient';
@@ -325,8 +326,9 @@ export async function getHomepageEvents(): Promise<HistoricalEvent[]> {
 
     return sortHistoricalEvents(events);
   } catch (error) {
-    console.warn('Could not load homepage events from backend.', error);
-    return [];
+    console.warn('Could not load homepage events from backend. Falling back to static data.', error);
+    // Fallback: use static JSON data loaded via import.meta.glob — return up to 6 root events sorted chronologically
+    return sortHistoricalEvents([...HISTORICAL_EVENTS]).slice(0, 6);
   }
 }
 
@@ -379,8 +381,55 @@ export async function getBrowseEvents(params: BrowseEventsParams): Promise<Brows
       hasMore: responseSize >= limit,
     };
   } catch (error) {
-    console.warn('Could not browse events from backend.', error);
-    return { events: [], total: 0, hasMore: false };
+    console.warn('Could not browse events from backend. Falling back to static data.', error);
+
+    // Fallback: filter, sort, and paginate static data
+    let filtered = [...HISTORICAL_EVENTS];
+
+    // Text search
+    if (params.q) {
+      const q = params.q.toLowerCase();
+      filtered = filtered.filter(
+        (e) =>
+          e.name.toLowerCase().includes(q) ||
+          e.description.toLowerCase().includes(q)
+      );
+    }
+
+    // Filter by event type
+    if (params.eventType) {
+      filtered = filtered.filter((e) => e.eventType === params.eventType);
+    }
+
+    // Filter by year
+    if (params.year != null) {
+      const year = params.year;
+      filtered = filtered.filter((e) => {
+        const endYear = e.endYear ?? e.startYear;
+        return e.startYear <= year && endYear >= year;
+      });
+    }
+
+    // Sort
+    if (params.sortBy === 'name') {
+      filtered.sort((a, b) =>
+        (params.sortDir === 'desc' ? -1 : 1) * a.name.localeCompare(b.name, 'vi')
+      );
+    } else {
+      sortHistoricalEvents(filtered);
+      if (params.sortDir === 'desc') filtered.reverse();
+    }
+
+    const total = filtered.length;
+    const limit = params.limit ?? 24;
+    const offset = params.offset ?? 0;
+    const paginated = filtered.slice(offset, offset + limit);
+
+    return {
+      events: paginated,
+      total,
+      hasMore: offset + limit < total,
+    };
   }
 }
 
