@@ -1,0 +1,135 @@
+{
+  "id": "ho-chi-minh-sang-trung-quoc-1942",
+  "slug": "ho-chi-minh-sang-trung-quoc-1942",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Nguyễn Ái Quốc lấy tên là Hồ Chí Minh, sang Trung Quốc",
+    "short": "Hồ Chí Minh sang Trung Quốc",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "name-change",
+    "region": "world",
+    "tags": [
+      "Hồ Chí Minh",
+      "liên minh quốc tế",
+      "Trung Quốc"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 12,
+        "lessonId": "12966",
+        "lessonTitle": "BÀI 15: KHÁI QUÁT CUỘC ĐỜI VÀ SỰ NGHIỆP CỦA HỒ CHÍ MINH"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1942,
+      "month": 8,
+      "day": null
+    },
+    "end": null,
+    "datePrecision": "month",
+    "displayDate": "Tháng 8 – 1942",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "no_location",
+    "historicalLocations": [
+      "Trung Quốc"
+    ],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "auto",
+      "center": null,
+      "zoom": null
+    }
+  },
+  "summary": {
+    "homepageTitle": "Hồ Chí Minh sang Trung Quốc",
+    "homepageSummary": "Tháng 8 – 1942, Nguyễn Ái Quốc lấy tên là Hồ Chí Minh, sang Trung Quốc tìm sự liên minh quốc tế.",
+    "cardSummary": "Tháng 8 – 1942, Nguyễn Ái Quốc lấy tên Hồ Chí Minh và sang Trung Quốc."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Tháng 8 – 1942, Nguyễn Ái Quốc lấy tên là Hồ Chí Minh, sang Trung Quốc tìm sự liên minh quốc tế.",
+    "detailedNarrative": "Tháng 8 – 1942, Nguyễn Ái Quốc lấy tên là Hồ Chí Minh, sang Trung Quốc tìm sự liên minh quốc tế.",
+    "significance": null,
+    "keyFacts": [
+      "Lấy tên Hồ Chí Minh",
+      "Tìm sự liên minh quốc tế"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 12,
+        "book": "KNTT",
+        "lessonId": "12966",
+        "lessonTitle": "BÀI 15: KHÁI QUÁT CUỘC ĐỜI VÀ SỰ NGHIỆP CỦA HỒ CHÍ MINH",
+        "chapter": "Chu de 5",
+        "lesson": "Bai 15",
+        "pageRange": {
+          "start": 88,
+          "end": 93
+        },
+        "url": "https://sgkvn.com/lop-12-15/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-5-lich-su-doi-ngoai-cua-viet-nam-thoi-can-hien-dai-3541/bai-15-khai-quat-cuoc-doi-va-su-nghiep-cua-ho-chi-minh-12966.html",
+        "excerpt": "Tháng 8 – 1942, Nguyễn Ái Quốc lấy tên là Hồ Chí Minh, sang Trung Quốc tìm sự liên minh quốc tế."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "ho-chi-minh-sang-trung-quoc-1942",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 141
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": false,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

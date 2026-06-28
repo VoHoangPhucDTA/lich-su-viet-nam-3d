@@ -1,0 +1,135 @@
+{
+  "id": "viet-nam-binh-thuong-hoa-quan-he-trung-quoc",
+  "slug": "viet-nam-binh-thuong-hoa-quan-he-trung-quoc",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Việt Nam bình thường hoá quan hệ với Trung Quốc",
+    "short": "VN bình thường hóa QH TQ",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "diplomatic",
+    "eventSubtype": "normalization",
+    "region": "vietnam",
+    "tags": [
+      "bình thường hóa",
+      "quan hệ ngoại giao",
+      "Trung Quốc"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 12,
+        "lessonId": "12965",
+        "lessonTitle": "BÀI 14: HOẠT ĐỘNG ĐỐI NGOẠI CỦA VIỆT NAM TỪ NĂM 1975 ĐẾN NAY"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1991,
+      "month": null,
+      "day": null
+    },
+    "end": null,
+    "datePrecision": "year",
+    "displayDate": "Năm 1991",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "no_location",
+    "historicalLocations": [
+      "Trung Quốc"
+    ],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "auto",
+      "center": null,
+      "zoom": null
+    }
+  },
+  "summary": {
+    "homepageTitle": "Việt Nam bình thường hóa quan hệ với Trung Quốc (1991)",
+    "homepageSummary": "Sau Hiệp định Pa-ri về Cam-pu-chia, Việt Nam bình thường hoá quan hệ với Trung Quốc vào năm 1991.",
+    "cardSummary": "Việt Nam bình thường hoá quan hệ với Trung Quốc vào năm 1991."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Sau khi Hiệp định Pa-ri về Cam-pu-chia được kí kết (10 1991), Việt Nam đã bình thường hoá quan hệ với Trung Quốc (1991).",
+    "detailedNarrative": null,
+    "significance": "Phá thế bao vây cấm vận, đưa đất nước ra khỏi khủng hoảng.",
+    "keyFacts": [
+      "Bình thường hoá quan hệ",
+      "Năm 1991"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 12,
+        "book": "KNTT",
+        "lessonId": "12965",
+        "lessonTitle": "BÀI 14: HOẠT ĐỘNG ĐỐI NGOẠI CỦA VIỆT NAM TỪ NĂM 1975 ĐẾN NAY",
+        "chapter": "Chu de 4",
+        "lesson": "Bai 14",
+        "pageRange": {
+          "start": 81,
+          "end": 86
+        },
+        "url": "https://sgkvn.com/lop-12-15/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-4-cong-cuoc-doi-moi-o-viet-nam-tu-nam-1986-den-nay-3540/bai-14-hoat-dong-doi-ngoai-cua-viet-nam-tu-nam-1975-den-nay-12965.html",
+        "excerpt": "Sau khi Hiệp định Pa-ri về Cam-pu-chia được kí kết (10 1991), Việt Nam đã bình thường hoá quan hệ với Trung Quốc (1991)."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "viet-nam-binh-thuong-hoa-quan-he-trung-quoc",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 272
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": false,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

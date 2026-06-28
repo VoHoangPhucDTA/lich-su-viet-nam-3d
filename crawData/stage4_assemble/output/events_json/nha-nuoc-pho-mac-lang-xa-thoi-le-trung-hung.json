@@ -1,0 +1,137 @@
+{
+  "id": "nha-nuoc-pho-mac-lang-xa-thoi-le-trung-hung",
+  "slug": "nha-nuoc-pho-mac-lang-xa-thoi-le-trung-hung",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Nhà nước \"phó mặc\" làng xã cho cường hào, quan viên thời Lê trung hưng",
+    "short": "Làng xã thời Lê trung hưng",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "administration",
+    "region": "vietnam",
+    "tags": [
+      "nhà Lê trung hưng",
+      "cường hào",
+      "quản lí làng xã"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 11,
+        "lessonId": "12373",
+        "lessonTitle": "BÀI 9  KHÁI QUÁT VỀ LÀNG XÃ VIỆT NAM TRO"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "end": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "datePrecision": "period",
+    "displayDate": "Thời Lê trung hưng",
+    "isApproximate": true
+  },
+  "mapData": {
+    "geoType": "no_location",
+    "historicalLocations": [],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "auto",
+      "center": null,
+      "zoom": null
+    }
+  },
+  "summary": {
+    "homepageTitle": "Nhà nước phó mặc làng xã thời Lê trung hưng",
+    "homepageSummary": "Thời Lê trung hưng, nhà nước có xu hướng \"phó mặc\" làng xã cho bộ máy cường hào, quan viên quản lí.",
+    "cardSummary": "Thời Lê trung hưng, nhà nước phó mặc làng xã cho cường hào, quan viên."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Thời Lê trung hưng: Nhà nước có xu hướng \"phó mặc\" làng xã cho bộ máy cường hào, quan viên.",
+    "detailedNarrative": "Nhà nước có xu hướng \"phó mặc\" làng xã cho bộ máy cường hào, quan viên.",
+    "significance": null,
+    "keyFacts": [
+      "Giao quyền cho cường hào, quan viên",
+      "Nhà nước phó mặc làng xã"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 11,
+        "book": "KNTT",
+        "lessonId": "12373",
+        "lessonTitle": "BÀI 9  KHÁI QUÁT VỀ LÀNG XÃ VIỆT NAM TRO",
+        "chapter": "Chu de 5",
+        "lesson": "Bai 9",
+        "pageRange": {
+          "start": 71,
+          "end": 76
+        },
+        "url": "https://sgkvn.com/lop-11-14/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-5-lang-xa-viet-nam-trong-lich-su-3348/bai-9-khai-quat-ve-lang-xa-viet-nam-trong-lich-su-12373.html",
+        "excerpt": "Thời Lê trung hưng: Nhà nước có xu hướng \"phó mặc\" làng xã cho bộ máy cường hào, quan viên."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "nha-nuoc-pho-mac-lang-xa-thoi-le-trung-hung",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 356
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": false,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

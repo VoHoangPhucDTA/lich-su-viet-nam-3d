@@ -1,0 +1,158 @@
+{
+  "id": "cai-to-hanh-chinh-dia-phuong-12-thua-tuyen",
+  "slug": "cai-to-hanh-chinh-dia-phuong-12-thua-tuyen",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Cải tổ hành chính địa phương (chia 12 thừa tuyên)",
+    "short": "Chia 12 thừa tuyên",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "administrative_reform",
+    "region": "vietnam",
+    "tags": [
+      "Lê Thánh Tông",
+      "thừa tuyên",
+      "Lê sơ",
+      "hành chính"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 11,
+        "lessonId": "12390",
+        "lessonTitle": "BÀI 13  CUỘC CẢI CÁCH CỦA LÊ THÁNH TÔNG"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1466,
+      "month": null,
+      "day": null
+    },
+    "end": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "datePrecision": "year",
+    "displayDate": "Năm 1466",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "mixed",
+    "historicalLocations": [],
+    "provinceNames": [
+      "Hà Nội"
+    ],
+    "gadmRefs": [
+      "VNM.27_1"
+    ],
+    "marker": {
+      "name": "Trung Đô",
+      "lat": 21.0285,
+      "lng": 105.8542,
+      "confidence": "high"
+    },
+    "markers": [
+      {
+        "name": "Trung Đô",
+        "lat": 21.0285,
+        "lng": 105.8542,
+        "confidence": "high"
+      }
+    ],
+    "focusGeometry": {
+      "mode": "bounds",
+      "center": {
+        "lat": 21.012151,
+        "lng": 105.794732
+      },
+      "zoom": 7
+    }
+  },
+  "summary": {
+    "homepageTitle": "Lê Thánh Tông chia 12 thừa tuyên",
+    "homepageSummary": "Năm 1466, vua Lê Thánh Tông xoá bỏ 5 đạo, chia đất nước thành 12 thừa tuyên và một phủ Trung Đô, cải tổ mạnh mẽ hành chính địa phương.",
+    "cardSummary": "Năm 1466, Lê Thánh Tông chia Đại Việt thành 12 thừa tuyên và phủ Trung Đô."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Ở địa phương, năm 1466, vua Lê Thánh Tông xoá bỏ 5 đạo, chia đất nước thành 12 thừa tuyên và một phủ Trung Đô.",
+    "detailedNarrative": null,
+    "significance": "Củng cố quyền lực trung ương đối với địa phương, loại trừ nguy cơ cát cứ.",
+    "keyFacts": [
+      "Diễn ra năm 1466",
+      "Xoá bỏ 5 đạo",
+      "Chia thành 12 thừa tuyên và 1 phủ Trung Đô"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 11,
+        "book": "KNTT",
+        "lessonId": "12390",
+        "lessonTitle": "BÀI 13  CUỘC CẢI CÁCH CỦA LÊ THÁNH TÔNG",
+        "chapter": "Chu de 6",
+        "lesson": "Bai 13",
+        "pageRange": {
+          "start": 93,
+          "end": 96
+        },
+        "url": "https://sgkvn.com/lop-11-14/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-6-mot-so-cuoc-cai-cach-lon-trong-lich-su-viet-nam-truoc-nam-1858-3353/bai-13-cuoc-cai-cach-cua-le-thanh-tong-the-ki-xv-12390.html",
+        "excerpt": "Ở địa phương, năm 1466, vua Lê Thánh Tông xoá bỏ 5 đạo, chia đất nước thành 12 thừa tuyên và một phủ Trung Đô."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "cai-to-hanh-chinh-dia-phuong-12-thua-tuyen",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 45
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": true,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

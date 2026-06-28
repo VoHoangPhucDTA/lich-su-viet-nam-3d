@@ -1,0 +1,146 @@
+{
+  "id": "vndcch-thiet-lap-quan-he-ngoai-giao-voi-lao-campuchia-va-ung-ho-phong-trao-giai-phong-dan-toc",
+  "slug": "vndcch-thiet-lap-quan-he-ngoai-giao-voi-lao-campuchia-va-ung-ho-phong-trao-giai-phong-dan-toc",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Việt Nam Dân chủ Cộng hoà thiết lập quan hệ ngoại giao với Lào, Campuchia và ủng hộ phong trào giải phóng dân tộc",
+    "short": "Việt Nam Dân chủ Cộng hoà thiết lập quan hệ ngoại giao với Lào, Campuchia và ủng hộ phong trào giải phóng dân tộc",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "diplomatic",
+    "eventSubtype": "establishment",
+    "region": "world",
+    "tags": [
+      "giải phóng dân tộc",
+      "Lào",
+      "Campuchia",
+      "chủ nghĩa thực dân"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 12,
+        "lessonId": "12964",
+        "lessonTitle": "BÀI 13: HOẠT ĐỘNG ĐỐI NGOẠI CỦA VIỆT NAM TRONG KHÁNG CHIẾN CHỐNG PHÁP (1945 – 1954) VÀ KHÁNG CHIẾN CHỐNG MỸ (1954 - 1975)"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "end": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "datePrecision": "period",
+    "displayDate": "Trong kháng chiến chống Mỹ (1954-1975)",
+    "isApproximate": true
+  },
+  "mapData": {
+    "geoType": "no_location",
+    "historicalLocations": [
+      "Á",
+      "Phi",
+      "Cam-pu-chia",
+      "Lào",
+      "Mỹ La-tinh"
+    ],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "auto",
+      "center": null,
+      "zoom": null
+    }
+  },
+  "summary": {
+    "homepageTitle": "VNDCCH thiết lập quan hệ với Lào, Campuchia và ủng hộ phong trào giải phóng dân tộc",
+    "homepageSummary": "Việt Nam Dân chủ Cộng hoà thiết lập quan hệ ngoại giao với Lào, Campuchia; ủng hộ cuộc đấu tranh chống chủ nghĩa thực dân của nhân dân các nước Á, Phi Mỹ La-tinh.",
+    "cardSummary": "VNDCCH thiết lập quan hệ với Lào, Campuchia và ủng hộ phong trào chống chủ nghĩa thực dân ở Á, Phi, Mỹ La-tinh."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Việt Nam Dân chủ Cộng hoà thiết lập quan hệ ngoại giao với Lào, xây dựng quan hệ láng giềng hữu nghị với Cam-pu-chia; ủng hộ cuộc đấu tranh chống chủ nghĩa thực dân của nhân dân các nước Á, Phi Mỹ La-tinh,... phát triển mối quan hệ liên minh chiến đấu chống các lực lượng yêu nước, kháng chiến của Lào, Cam-pu-chia.",
+    "detailedNarrative": "Việt Nam Dân chủ Cộng hoà thiết lập quan hệ ngoại giao với Lào, xây dựng quan hệ láng giềng hữu nghị với Cam-pu-chia; ủng hộ cuộc đấu tranh chống chủ nghĩa thực dân của nhân dân các nước Á, Phi Mỹ La-tinh,... phát triển mối quan hệ liên minh chiến đấu chống các lực lượng yêu nước, kháng chiến của Lào, Cam-pu-chia.",
+    "significance": null,
+    "keyFacts": [
+      "Ủng hộ đấu tranh chống chủ nghĩa thực dân của các nước Á, Phi, Mỹ La-tinh",
+      "Phát triển liên minh chiến đấu với Lào, Campuchia",
+      "Thiết lập quan hệ ngoại giao với Lào",
+      "Xây dựng quan hệ hữu nghị với Campuchia"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 12,
+        "book": "KNTT",
+        "lessonId": "12964",
+        "lessonTitle": "BÀI 13: HOẠT ĐỘNG ĐỐI NGOẠI CỦA VIỆT NAM TRONG KHÁNG CHIẾN CHỐNG PHÁP (1945 – 1954) VÀ KHÁNG CHIẾN CHỐNG MỸ (1954 - 1975)",
+        "chapter": "Chu de 4",
+        "lesson": "Bai 13",
+        "pageRange": {
+          "start": 77,
+          "end": 81
+        },
+        "url": "https://sgkvn.com/lop-12-15/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-4-cong-cuoc-doi-moi-o-viet-nam-tu-nam-1986-den-nay-3540/bai-13-hoat-dong-doi-ngoai-cua-viet-nam-trong-khang-chien-chong-phap-1945-1954-va-khang-chien-chong-my-1954-1975-12964.html",
+        "excerpt": "Việt Nam Dân chủ Cộng hoà thiết lập quan hệ ngoại giao với Lào, xây dựng quan hệ láng giềng hữu nghị với Cam-pu-chia; ủng hộ cuộc đấu tranh chống chủ nghĩa thực dân của nhân dân các nước Á, Phi Mỹ La-tinh,... phát triển mối quan hệ liên minh chiến đấu chống các lực lượng yêu nước, kháng chiến của Lào, Cam-pu-chia."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "vndcch-thiet-lap-quan-he-ngoai-giao-voi-lao-campuchia-va-ung-ho-phong-trao-giai-phong-dan-toc",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 396
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": false,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

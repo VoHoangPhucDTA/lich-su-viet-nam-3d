@@ -1,0 +1,283 @@
+{
+  "id": "cuoc-cai-cach-cua-minh-mang",
+  "slug": "cuoc-cai-cach-cua-minh-mang",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Cuộc cải cách của Minh Mạng",
+    "short": "Cải cách Minh Mạng",
+    "alternatives": [
+      "Cải cách của Minh Mạng"
+    ]
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "reform",
+    "region": "vietnam",
+    "tags": [
+      "Nhà Nguyễn",
+      "triều Nguyễn",
+      "trung ương tập quyền",
+      "Thế kỉ XIX",
+      "Minh Mạng",
+      "cải cách hành chính"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      10,
+      11
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 10,
+        "lessonId": "12160",
+        "lessonTitle": "Bài 12: Văn Minh Đại Việt"
+      },
+      {
+        "grade": 11,
+        "lessonId": "12387",
+        "lessonTitle": "BÀI 12  KHÁI LƯỢC VỀ CẢI CÁCH  CUỘC CẢI"
+      },
+      {
+        "grade": 11,
+        "lessonId": "12393",
+        "lessonTitle": "BÀI 14  CUỘC CẢI CÁCH CỦA MINH MẠNG  NỬA"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1820,
+      "month": null,
+      "day": null
+    },
+    "end": {
+      "year": 1840,
+      "month": null,
+      "day": null
+    },
+    "datePrecision": "year",
+    "displayDate": "1820 - 1840",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "mixed",
+    "historicalLocations": [],
+    "provinceNames": [
+      "Bình Thuận",
+      "Quảng Nam",
+      "Quảng Trị",
+      "Hồ Chí Minh",
+      "Hà Nội",
+      "Thừa Thiên Huế",
+      "Bình Định",
+      "Đắk Nông",
+      "Quảng Bình"
+    ],
+    "gadmRefs": [
+      "VNM.11_1",
+      "VNM.47_1",
+      "VNM.50_1",
+      "VNM.25_1",
+      "VNM.27_1",
+      "VNM.54_1",
+      "VNM.8_1",
+      "VNM.16_1",
+      "VNM.46_1"
+    ],
+    "marker": {
+      "name": "Bình Thuận",
+      "lat": 10.9333,
+      "lng": 108.0,
+      "confidence": "high"
+    },
+    "markers": [
+      {
+        "name": "Bình Thuận",
+        "lat": 10.9333,
+        "lng": 108.0,
+        "confidence": "high"
+      },
+      {
+        "name": "Quảng Nam",
+        "lat": 15.5,
+        "lng": 108.0,
+        "confidence": "high"
+      },
+      {
+        "name": "Quảng Trị",
+        "lat": 16.7,
+        "lng": 107.0,
+        "confidence": "high"
+      },
+      {
+        "name": "Gia Định Thành",
+        "lat": 10.7758,
+        "lng": 106.6996,
+        "confidence": "high"
+      },
+      {
+        "name": "Bắc Thành",
+        "lat": 21.0285,
+        "lng": 105.8542,
+        "confidence": "high"
+      },
+      {
+        "name": "Thừa Thiên",
+        "lat": 16.4637,
+        "lng": 107.5909,
+        "confidence": "high"
+      },
+      {
+        "name": "Bình Định",
+        "lat": 14.0,
+        "lng": 108.9,
+        "confidence": "high"
+      },
+      {
+        "name": "Quảng Đức",
+        "lat": 12.0,
+        "lng": 107.7,
+        "confidence": "medium"
+      },
+      {
+        "name": "Quảng Bình",
+        "lat": 17.5,
+        "lng": 106.3,
+        "confidence": "high"
+      },
+      {
+        "name": "Phụng Thiên",
+        "lat": 21.0285,
+        "lng": 105.8542,
+        "confidence": "high"
+      },
+      {
+        "name": "Nam Kì",
+        "lat": 10.7,
+        "lng": 106.0,
+        "confidence": "medium"
+      }
+    ],
+    "focusGeometry": {
+      "mode": "bounds",
+      "center": {
+        "lat": 15.092254,
+        "lng": 107.195068
+      },
+      "zoom": 7
+    }
+  },
+  "summary": {
+    "homepageTitle": "Cải cách Minh Mạng (1820-1840)",
+    "homepageSummary": "Vua Minh Mạng đã thực hiện nhiều biện pháp cải cách trên các lĩnh vực chính trị, kinh tế, văn hoá, xã hội nhằm tăng cường tính thống nhất và tiềm lực của đất nước.",
+    "cardSummary": "Cuộc cải cách của Minh Mạng (1820-1840) nhằm tăng cường thống nhất và tiềm lực quốc gia."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Trong thời gian trị vì của mình, vua Minh Mạng đã thực hiện nhiều biện pháp cải cách nhằm tăng cường tính thống nhất và tiềm lực của đất nước. Các cải cách tập trung vào bộ máy hành chính (trung ương và địa phương) và thí điểm chia lại ruộng đất.",
+    "detailedNarrative": "Trong thời gian trị vì, vua Minh Mạng đã thi hành nhiều chính sách và biện pháp cải cách trên các lĩnh vực chính trị, kinh tế, văn hoá, xã hội. Ở cấp trung ương, Minh Mạng từng bước cải tổ các cơ quan trực tiếp giúp việc cho nhà vua như đổi Thị thư viện thành Văn thư phòng (1820), lập Nội các (1829), lập Cơ mật viện (1834), hoàn thiện Lục bộ. Cấp địa phương là trọng tâm của cuộc cải cách hành chính, vua Minh Mạng chia nước thành 30 tỉnh và một phủ, đứng đầu tỉnh là Tổng đốc hoặc Tuần phủ. Các cải cách cụ thể bao gồm đổi dinh Quảng Đức thành phủ Thừa Thiên (1822), đổi các doanh Quảng Bình, Quảng Trị, Quảng Nam thành trấn (1827), xoá bỏ Bắc Thành (1831) và Gia Định Thành (1832) để chia thành các tỉnh. Đối với vùng dân tộc thiểu số, nhà vua đổi các động, sách thành xã và áp dụng chế độ lưu quan. Về kinh tế, Minh Mạng tiến hành thí điểm cải cách ruộng đất ở Bình Định và Nam Kì từ 1837 đến 1840, nhưng kết quả đạt được rất hạn chế.",
+    "significance": "Kết quả cuộc cải cách của vua Minh Mạng là xây dựng chế độ quân chủ trung ương tập quyền cao độ. Vua nắm trong tay quyền lập pháp, hành pháp, tư pháp và cả quyền thống lĩnh quân đội. Hệ thống đơn vị hành chính thống nhất trong cả nước. Cơ cấu bộ máy nhà nước gọn nhẹ, tổ chức chặt chẽ, vận hành thống nhất từ trung ương đến địa phương. Chức năng, nhiệm vụ của các cơ quan được phân định cụ thể. Cuộc cải cách đã tạo thuận lợi cho việc quản lí nhà nước từ trung ương đến địa phương, hoạt động của bộ máy nhà nước có hiệu quả hơn trước.",
+    "keyFacts": [
+      "Hệ thống đơn vị hành chính thống nhất trong cả nước",
+      "Thí điểm cải cách ruộng đất ở Bình Định và Nam Kì (1837-1840)",
+      "Tập trung vào quản lí hành chính",
+      "Cải cách hành chính địa phương (chia thành 30 tỉnh và 1 phủ, xoá bỏ Bắc Thành, Gia Định Thành)",
+      "Cải tổ bộ máy hành chính trung ương (Văn thư phòng, Nội các, Cơ mật viện, Lục bộ)",
+      "Xây dựng chế độ quân chủ trung ương tập quyền cao độ",
+      "Diễn ra trong thời gian Minh Mạng trị vì (1820-1840)",
+      "Diễn ra vào thế kỉ XIX",
+      "Do Minh Mạng tiến hành"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 10,
+        "book": "KNTT",
+        "lessonId": "12160",
+        "lessonTitle": "Bài 12: Văn Minh Đại Việt",
+        "chapter": "Chu de 6",
+        "lesson": "Bai 12",
+        "pageRange": {
+          "start": 108,
+          "end": 122
+        },
+        "url": "https://sgkvn.com/lop-10-13/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-6-mot-so-nen-van-minh-tren-dat-nuoc-viet-nam-truoc-nam-1858-3276/bai-12-van-minh-dai-viet-12160.html",
+        "excerpt": "Trong thời gian trị vì của mình, vua Minh Mạng đã thực hiện nhiều biện pháp cải cách nhằm tăng cường tính thống nhất và tiềm lực của đất nước. Các cải cách tập trung vào bộ máy hành chính (trung ương và địa phương) và thí điểm chia lại ruộng đất."
+      },
+      {
+        "grade": 11,
+        "book": "KNTT",
+        "lessonId": "12387",
+        "lessonTitle": "BÀI 12  KHÁI LƯỢC VỀ CẢI CÁCH  CUỘC CẢI",
+        "chapter": "Chu de 6",
+        "lesson": "Bai 12",
+        "pageRange": {
+          "start": 87,
+          "end": 91
+        },
+        "url": "https://sgkvn.com/lop-11-14/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-6-mot-so-cuoc-cai-cach-lon-trong-lich-su-viet-nam-truoc-nam-1858-3353/bai-12-khai-luoc-ve-cai-cach-cuoc-cai-cach-cua-ho-quy-ly-va-trieu-ho-dau-the-ki-xv-12387.html",
+        "excerpt": "Trong thời gian trị vì của mình, vua Minh Mạng đã thực hiện nhiều biện pháp cải cách nhằm tăng cường tính thống nhất và tiềm lực của đất nước. Các cải cách tập trung vào bộ máy hành chính (trung ương và địa phương) và thí điểm chia lại ruộng đất."
+      },
+      {
+        "grade": 11,
+        "book": "KNTT",
+        "lessonId": "12393",
+        "lessonTitle": "BÀI 14  CUỘC CẢI CÁCH CỦA MINH MẠNG  NỬA",
+        "chapter": "Chu de 6",
+        "lesson": "Bai 14",
+        "pageRange": {
+          "start": null,
+          "end": null
+        },
+        "url": "https://sgkvn.com/lop-11-14/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-6-mot-so-cuoc-cai-cach-lon-trong-lich-su-viet-nam-truoc-nam-1858-3353/bai-14-cuoc-cai-cach-cua-minh-mang-nua-dau-the-ki-xix-12393.html",
+        "excerpt": "Trong thời gian trị vì của mình, vua Minh Mạng đã thực hiện nhiều biện pháp cải cách nhằm tăng cường tính thống nhất và tiềm lực của đất nước. Các cải cách tập trung vào bộ máy hành chính (trung ương và địa phương) và thí điểm chia lại ruộng đất."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "cuoc-cai-cach-cua-minh-mang",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 63
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": true,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

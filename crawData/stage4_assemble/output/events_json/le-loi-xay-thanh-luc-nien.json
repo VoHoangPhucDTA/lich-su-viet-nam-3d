@@ -1,0 +1,155 @@
+{
+  "id": "le-loi-xay-thanh-luc-nien",
+  "slug": "le-loi-xay-thanh-luc-nien",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Lê Lợi xây thành Lục Niên",
+    "short": "Lê Lợi xây thành Lục Niên",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "construction",
+    "region": "vietnam",
+    "tags": [
+      "thành Lục Niên",
+      "Lê Lợi",
+      "Nam Đàn"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 12,
+        "lessonId": "12966",
+        "lessonTitle": "BÀI 15: KHÁI QUÁT CUỘC ĐỜI VÀ SỰ NGHIỆP CỦA HỒ CHÍ MINH"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "end": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "datePrecision": "period",
+    "displayDate": "thế kỉ XV",
+    "isApproximate": true
+  },
+  "mapData": {
+    "geoType": "mixed",
+    "historicalLocations": [],
+    "provinceNames": [
+      "Nghệ An"
+    ],
+    "gadmRefs": [
+      "VNM.41_1"
+    ],
+    "marker": {
+      "name": "Nam Đàn (Nghệ An)",
+      "lat": 18.68,
+      "lng": 105.55,
+      "confidence": "high"
+    },
+    "markers": [
+      {
+        "name": "Nam Đàn (Nghệ An)",
+        "lat": 18.68,
+        "lng": 105.55,
+        "confidence": "high"
+      }
+    ],
+    "focusGeometry": {
+      "mode": "bounds",
+      "center": {
+        "lat": 18.979874,
+        "lng": 105.252764
+      },
+      "zoom": 7
+    }
+  },
+  "summary": {
+    "homepageTitle": "Lê Lợi xây thành Lục Niên",
+    "homepageSummary": "Lê Lợi xây thành Lục Niên ở Nam Đàn (Nghệ An) vào thế kỉ XV.",
+    "cardSummary": "Lê Lợi xây thành Lục Niên ở Nam Đàn (Nghệ An) thế kỉ XV."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Vùng đất Nam Đàn (Nghệ An) là nơi lưu nhiều dấu tích lịch sử liên quan đến Lê Lợi xây thành Lục Niên (thế kỉ XV).",
+    "detailedNarrative": "Vùng đất Nam Đàn (Nghệ An) là nơi lưu nhiều dấu tích lịch sử liên quan đến Lê Lợi xây thành Lục Niên (thế kỉ XV).",
+    "significance": null,
+    "keyFacts": [
+      "Diễn ra ở Nam Đàn (Nghệ An)"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 12,
+        "book": "KNTT",
+        "lessonId": "12966",
+        "lessonTitle": "BÀI 15: KHÁI QUÁT CUỘC ĐỜI VÀ SỰ NGHIỆP CỦA HỒ CHÍ MINH",
+        "chapter": "Chu de 5",
+        "lesson": "Bai 15",
+        "pageRange": {
+          "start": 88,
+          "end": 93
+        },
+        "url": "https://sgkvn.com/lop-12-15/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-5-lich-su-doi-ngoai-cua-viet-nam-thoi-can-hien-dai-3541/bai-15-khai-quat-cuoc-doi-va-su-nghiep-cua-ho-chi-minh-12966.html",
+        "excerpt": "Vùng đất Nam Đàn (Nghệ An) là nơi lưu nhiều dấu tích lịch sử liên quan đến Lê Lợi xây thành Lục Niên (thế kỉ XV)."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "le-loi-xay-thanh-luc-nien",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 340
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": true,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

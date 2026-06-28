@@ -1,0 +1,138 @@
+{
+  "id": "tuyen-duong-chi-vien-chien-luoc-tren-bien-mang-ten-chu-tich-ho-chi-minh",
+  "slug": "tuyen-duong-chi-vien-chien-luoc-tren-bien-mang-ten-chu-tich-ho-chi-minh",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Tuyến đường chi viện chiến lược trên biển mang tên Chủ tịch Hồ Chí Minh",
+    "short": "Đường Hồ Chí Minh trên biển",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "military",
+    "eventSubtype": "campaign",
+    "region": "vietnam",
+    "tags": [
+      "Đường Hồ Chí Minh",
+      "Kháng chiến chống Mỹ",
+      "chi viện"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 12,
+        "lessonId": "12968",
+        "lessonTitle": "BÀI 17: DẤU ẤN HỒ CHÍ MINH TRONG LÒNG NHÂN DÂN THẾ GIỚI VÀ VIỆT NAM"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "end": null,
+    "datePrecision": "period",
+    "displayDate": "Trong cuộc kháng chiến chống Mỹ, cứu nước",
+    "isApproximate": true
+  },
+  "mapData": {
+    "geoType": "no_location",
+    "historicalLocations": [
+      "miền Bắc",
+      "miền Nam"
+    ],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "auto",
+      "center": null,
+      "zoom": null
+    }
+  },
+  "summary": {
+    "homepageTitle": "Đường Hồ Chí Minh trên biển",
+    "homepageSummary": "Tuyến đường huyền thoại vận chuyển vũ khí và lực lượng từ miền Bắc vào miền Nam trong kháng chiến chống Mỹ, góp phần vào Đại thắng Xuân 1975.",
+    "cardSummary": "Đường Hồ Chí Minh trên biển là tuyến chi viện chiến lược trong kháng chiến chống Mỹ."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Trong cuộc kháng chiến chống Mỹ, cứu nước, tuyến đường chỉ viện chiến lược trên biển mang tên Chủ tịch Hồ Chí Minh là con đường huyền thoại, biểu tượng cho khát vọng độc lập, tự do và thống nhất Tổ quốc. Tuyến đường này đã kết nối hậu phương lớn miền Bắc với tiến tuyến lớn miền Nam, vận chuyển kịp thời, hiệu quả vũ khí và lực lượng, góp phần quan trọng vào Đại thắng Xuân năm 1975.",
+    "detailedNarrative": null,
+    "significance": "Là biểu tượng cho khát vọng độc lập, tự do và thống nhất Tổ quốc; góp phần quan trọng vào Đại thắng Xuân năm 1975.",
+    "keyFacts": [
+      "Diễn ra trong kháng chiến chống Mỹ, cứu nước",
+      "Kết nối hậu phương miền Bắc với tiền tuyến miền Nam",
+      "Góp phần vào Đại thắng Xuân năm 1975",
+      "Vận chuyển vũ khí và lực lượng"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 12,
+        "book": "KNTT",
+        "lessonId": "12968",
+        "lessonTitle": "BÀI 17: DẤU ẤN HỒ CHÍ MINH TRONG LÒNG NHÂN DÂN THẾ GIỚI VÀ VIỆT NAM",
+        "chapter": "Chu de 5",
+        "lesson": "Bai 17",
+        "pageRange": {
+          "start": 105,
+          "end": 111
+        },
+        "url": "https://sgkvn.com/lop-12-15/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-5-lich-su-doi-ngoai-cua-viet-nam-thoi-can-hien-dai-3541/bai-17-dau-an-ho-chi-minh-trong-long-nhan-dan-the-gioi-va-viet-nam-12968.html",
+        "excerpt": "Trong cuộc kháng chiến chống Mỹ, cứu nước, tuyến đường chỉ viện chiến lược trên biển mang tên Chủ tịch Hồ Chí Minh là con đường huyền thoại, biểu tượng cho khát vọng độc lập, tự do và thống nhất Tổ quốc. Tuyến đường này đã kết nối hậu phương lớn miền Bắc với tiến tuyến lớn miền Nam, vận chuyển kịp thời, hiệu quả vũ khí và lực lượng, góp phần quan trọng vào Đại thắng Xuân năm 1975."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "tuyen-duong-chi-vien-chien-luoc-tren-bien-mang-ten-chu-tich-ho-chi-minh",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 376
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": false,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

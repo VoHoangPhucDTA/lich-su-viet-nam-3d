@@ -1,0 +1,137 @@
+{
+  "id": "dai-loan-chiem-bai-can-ran-san-ho-ban-than",
+  "slug": "dai-loan-chiem-bai-can-ran-san-ho-ban-than",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Đài Loan chiếm bãi cạn rạn san hô Bàn Than",
+    "short": "Đài Loan chiếm Bàn Than (1995)",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "military",
+    "eventSubtype": "occupation",
+    "region": "world",
+    "tags": [
+      "Trường Sa",
+      "Đài Loan",
+      "chủ quyền",
+      "Bàn Than"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 11,
+        "lessonId": "12395",
+        "lessonTitle": "BÀI 16  VIỆT NAM VÀ BIỂN ĐÔNG"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1995,
+      "month": null,
+      "day": null
+    },
+    "end": null,
+    "datePrecision": "year",
+    "displayDate": "Năm 1995",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "no_location",
+    "historicalLocations": [
+      "bãi cạn rạn san hô Bàn Than"
+    ],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "auto",
+      "center": null,
+      "zoom": null
+    }
+  },
+  "summary": {
+    "homepageTitle": "Đài Loan chiếm bãi Bàn Than (1995)",
+    "homepageSummary": "Năm 1995, Đài Loan chiếm bãi cạn rạn san hô Bàn Than.",
+    "cardSummary": "Năm 1995, Đài Loan chiếm bãi cạn rạn san hô Bàn Than."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Đài Loan - Năm 1995, chiếm bãi cạn rạn san hô Bàn Than.",
+    "detailedNarrative": "Đài Loan - Năm 1995, chiếm bãi cạn rạn san hô Bàn Than.",
+    "significance": "Một hành động trong bối cảnh tranh chấp chủ quyền ở Biển Đông.",
+    "keyFacts": [
+      "Diễn ra năm 1995",
+      "Đối tượng: bãi cạn rạn san hô Bàn Than",
+      "Chủ thể: Đài Loan"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 11,
+        "book": "KNTT",
+        "lessonId": "12395",
+        "lessonTitle": "BÀI 16  VIỆT NAM VÀ BIỂN ĐÔNG",
+        "chapter": "Chu de 7",
+        "lesson": "Bai 16",
+        "pageRange": {
+          "start": 107,
+          "end": 111
+        },
+        "url": "https://sgkvn.com/lop-11-14/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-7-lich-su-chu-quyen-cua-viet-nam-o-bien-dong-3354/bai-16-viet-nam-va-bien-dong-12395.html",
+        "excerpt": "Đài Loan - Năm 1995, chiếm bãi cạn rạn san hô Bàn Than."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "dai-loan-chiem-bai-can-ran-san-ho-ban-than",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 274
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": false,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

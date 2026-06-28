@@ -1,0 +1,142 @@
+{
+  "id": "cai-to-he-thong-quan-doi-le-thanh-tong",
+  "slug": "cai-to-he-thong-quan-doi-le-thanh-tong",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Cải tổ hệ thống quân đội dưới thời Lê Thánh Tông",
+    "short": "Cải tổ quân đội Lê Thánh Tông",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "military",
+    "eventSubtype": "reform",
+    "region": "vietnam",
+    "tags": [
+      "Lê Thánh Tông",
+      "quốc phòng",
+      "quân đội",
+      "Lê sơ"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 11,
+        "lessonId": "12390",
+        "lessonTitle": "BÀI 13  CUỘC CẢI CÁCH CỦA LÊ THÁNH TÔNG"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1466,
+      "month": null,
+      "day": null
+    },
+    "end": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "datePrecision": "year",
+    "displayDate": "Năm 1466",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "no_location",
+    "historicalLocations": [
+      "kinh thành"
+    ],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "auto",
+      "center": null,
+      "zoom": null
+    }
+  },
+  "summary": {
+    "homepageTitle": "Cải tổ quân đội Lê Thánh Tông",
+    "homepageSummary": "Năm 1466, vua Lê Thánh Tông tiến hành cải tổ hệ thống quân đội, chia thành cấm binh và ngoại binh, tăng cường rèn luyện và kiểm tra võ nghệ.",
+    "cardSummary": "Lê Thánh Tông cải tổ quân đội năm 1466, chia cấm binh và ngoại binh."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Năm 1466, vua Lê Thánh Tông tiến hành cải tổ hệ thống quân đội. Quân đội được chia làm hai loại: quân thường trực bảo vệ kinh thành gọi là cấm binh hay thân binh và quân các đạo, gọi là ngoại binh. Ở mỗi đạo chia binh làm 5 phủ do đô đốc phủ đứng đầu; mỗi phủ gồm 6 vệ; mỗi vệ có 5 hoặc 6 sở. Nhà nước cũng rất chú ý đến rèn luyện quân đội như duyệt tập binh sĩ hằng năm, quy định cứ 3 năm tổ chức một kì thì khảo võ nghệ của quân sĩ và định lệ thưởng phạt,...",
+    "detailedNarrative": null,
+    "significance": "Nâng cao sức mạnh quốc phòng, củng cố khả năng bảo vệ đất nước.",
+    "keyFacts": [
+      "Diễn ra năm 1466",
+      "Chia thành cấm binh và ngoại binh",
+      "Chú trọng rèn luyện, khảo võ nghệ",
+      "Tổ chức theo đạo, phủ, vệ, sở"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 11,
+        "book": "KNTT",
+        "lessonId": "12390",
+        "lessonTitle": "BÀI 13  CUỘC CẢI CÁCH CỦA LÊ THÁNH TÔNG",
+        "chapter": "Chu de 6",
+        "lesson": "Bai 13",
+        "pageRange": {
+          "start": 93,
+          "end": 96
+        },
+        "url": "https://sgkvn.com/lop-11-14/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-6-mot-so-cuoc-cai-cach-lon-trong-lich-su-viet-nam-truoc-nam-1858-3353/bai-13-cuoc-cai-cach-cua-le-thanh-tong-the-ki-xv-12390.html",
+        "excerpt": "Năm 1466, vua Lê Thánh Tông tiến hành cải tổ hệ thống quân đội. Quân đội được chia làm hai loại: quân thường trực bảo vệ kinh thành gọi là cấm binh hay thân binh và quân các đạo, gọi là ngoại binh. Ở mỗi đạo chia binh làm 5 phủ do đô đốc phủ đứng đầu; mỗi phủ gồm 6 vệ; mỗi vệ có 5 hoặc 6 sở. Nhà nước cũng rất chú ý đến rèn luyện quân đội như duyệt tập binh sĩ hằng năm, quy định cứ 3 năm tổ chức một kì thì khảo võ nghệ của quân sĩ và định lệ thưởng phạt,..."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "cai-to-he-thong-quan-doi-le-thanh-tong",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 46
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": false,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

@@ -1,0 +1,133 @@
+{
+  "id": "hoi-nghi-lan-thu-15-ban-chap-hanh-trung-uong-dang-lao-dong-viet-nam",
+  "slug": "hoi-nghi-lan-thu-15-ban-chap-hanh-trung-uong-dang-lao-dong-viet-nam",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Chủ tịch Hồ Chí Minh chủ trì Hội nghị lần thứ 15 Ban Chấp hành Trung ương Đảng Lao động Việt Nam",
+    "short": "Hội nghị Trung ương 15 (1-1959)",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "conference",
+    "region": "vietnam",
+    "tags": [
+      "Hồ Chí Minh",
+      "cách mạng miền Nam",
+      "Đảng Lao động Việt Nam"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 12,
+        "lessonId": "12967",
+        "lessonTitle": "BÀI 16: HỒ CHÍ MINH - ANH HÙNG GIẢI PHÓNG DÂN TỘC"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1959,
+      "month": 1,
+      "day": null
+    },
+    "end": null,
+    "datePrecision": "month",
+    "displayDate": "Tháng 1 – 1959",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "no_location",
+    "historicalLocations": [],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "auto",
+      "center": null,
+      "zoom": null
+    }
+  },
+  "summary": {
+    "homepageTitle": "Hội nghị Trung ương 15 (1-1959)",
+    "homepageSummary": "Tháng 1-1959, Chủ tịch Hồ Chí Minh chủ trì Hội nghị lần thứ 15 Ban Chấp hành Trung ương Đảng Lao động Việt Nam, xác định phương hướng cơ bản cho cách mạng miền Nam.",
+    "cardSummary": "Hồ Chí Minh chủ trì Hội nghị Trung ương 15 (1-1959), xác định phương hướng cách mạng miền Nam."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Tháng 1 – 1959, giữa lúc cách mạng miền Nam gặp nhiều khó khăn, Chủ tịch Hồ Chí Minh chủ trì Hội nghị lần thứ 15 Ban Chấp hành Trung ương Đảng Lao động Việt Nam, xác định phương hướng cơ bản cho cách mạng miền Nam.",
+    "detailedNarrative": null,
+    "significance": "Xác định phương hướng cơ bản cho cách mạng miền Nam.",
+    "keyFacts": [
+      "Chủ trì bởi Chủ tịch Hồ Chí Minh",
+      "Xác định phương hướng cơ bản cho cách mạng miền Nam"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 12,
+        "book": "KNTT",
+        "lessonId": "12967",
+        "lessonTitle": "BÀI 16: HỒ CHÍ MINH - ANH HÙNG GIẢI PHÓNG DÂN TỘC",
+        "chapter": "Chu de 5",
+        "lesson": "Bai 16",
+        "pageRange": {
+          "start": 94,
+          "end": 104
+        },
+        "url": "https://sgkvn.com/lop-12-15/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-5-lich-su-doi-ngoai-cua-viet-nam-thoi-can-hien-dai-3541/bai-16-ho-chi-minh-anh-hung-giai-phong-dan-toc-12967.html",
+        "excerpt": "Tháng 1 – 1959, giữa lúc cách mạng miền Nam gặp nhiều khó khăn, Chủ tịch Hồ Chí Minh chủ trì Hội nghị lần thứ 15 Ban Chấp hành Trung ương Đảng Lao động Việt Nam, xác định phương hướng cơ bản cho cách mạng miền Nam."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "hoi-nghi-lan-thu-15-ban-chap-hanh-trung-uong-dang-lao-dong-viet-nam",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 216
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": false,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

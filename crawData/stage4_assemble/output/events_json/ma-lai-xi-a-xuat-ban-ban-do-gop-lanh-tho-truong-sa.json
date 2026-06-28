@@ -1,0 +1,138 @@
+{
+  "id": "ma-lai-xi-a-xuat-ban-ban-do-gop-lanh-tho-truong-sa",
+  "slug": "ma-lai-xi-a-xuat-ban-ban-do-gop-lanh-tho-truong-sa",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Ma-lai-xi-a xuất bản bản đồ gộp vào lãnh thổ Ma-lai-xi-a phía nam quần đảo Trường Sa, đảo An Bang và Thuyền Chài",
+    "short": "Ma-lai-xi-a xuất bản bản đồ Trường Sa",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "publication",
+    "region": "world",
+    "tags": [
+      "Trường Sa",
+      "Ma-lai-xi-a",
+      "chủ quyền"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 11,
+        "lessonId": "12395",
+        "lessonTitle": "BÀI 16  VIỆT NAM VÀ BIỂN ĐÔNG"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1979,
+      "month": 12,
+      "day": null
+    },
+    "end": null,
+    "datePrecision": "month",
+    "displayDate": "Tháng 12 năm 1979",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "no_location",
+    "historicalLocations": [
+      "quần đảo Trường Sa",
+      "Thuyền Chài",
+      "đảo An Bang"
+    ],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "auto",
+      "center": null,
+      "zoom": null
+    }
+  },
+  "summary": {
+    "homepageTitle": "Ma-lai-xi-a xuất bản bản đồ Trường Sa (12/1979)",
+    "homepageSummary": "Tháng 12 năm 1979, Ma-lai-xi-a xuất bản bản đồ gộp vào lãnh thổ Ma-lai-xi-a phía nam quần đảo Trường Sa, đảo An Bang và Thuyền Chài.",
+    "cardSummary": "Tháng 12/1979, Ma-lai-xi-a xuất bản bản đồ tuyên bố chủ quyền một phần Trường Sa."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Ma-lai-xi-a - Tháng 12 –1979, xuất bản bản đó gộp vào lãnh thổ Ma-lai-xi-a phía nam quần đảo Trường Sa, đảo An Bang và Thuyền Chài.",
+    "detailedNarrative": "Ma-lai-xi-a - Tháng 12 –1979, xuất bản bản đó gộp vào lãnh thổ Ma-lai-xi-a phía nam quần đảo Trường Sa, đảo An Bang và Thuyền Chài.",
+    "significance": "Một hành động trong bối cảnh tranh chấp chủ quyền ở Biển Đông.",
+    "keyFacts": [
+      "Nội dung: gộp một phần Trường Sa, đảo An Bang và Thuyền Chài vào lãnh thổ",
+      "Chủ thể: Ma-lai-xi-a",
+      "Xuất bản tháng 12 năm 1979"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 11,
+        "book": "KNTT",
+        "lessonId": "12395",
+        "lessonTitle": "BÀI 16  VIỆT NAM VÀ BIỂN ĐÔNG",
+        "chapter": "Chu de 7",
+        "lesson": "Bai 16",
+        "pageRange": {
+          "start": 107,
+          "end": 111
+        },
+        "url": "https://sgkvn.com/lop-11-14/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-7-lich-su-chu-quyen-cua-viet-nam-o-bien-dong-3354/bai-16-viet-nam-va-bien-dong-12395.html",
+        "excerpt": "Ma-lai-xi-a - Tháng 12 –1979, xuất bản bản đó gộp vào lãnh thổ Ma-lai-xi-a phía nam quần đảo Trường Sa, đảo An Bang và Thuyền Chài."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "ma-lai-xi-a-xuat-ban-ban-do-gop-lanh-tho-truong-sa",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 255
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": false,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

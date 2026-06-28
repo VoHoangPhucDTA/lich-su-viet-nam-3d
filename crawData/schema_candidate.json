@@ -1,0 +1,208 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "EventCandidateExtraction",
+  "description": "Schema cho output của LLM ở Giai đoạn 2. LLM trả về danh sách sự kiện ứng viên trích từ MỘT khối nội dung SGK (đã chunk theo heading). KHÔNG sinh mapData, hierarchy, externalContent, id, slug.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["events"],
+  "properties": {
+    "events": {
+      "type": "array",
+      "description": "Danh sách sự kiện lịch sử nhận diện được trong khối văn bản. Nếu khối không chứa sự kiện cụ thể (chỉ là lý thuyết, khái niệm, mở đầu...) thì trả về mảng rỗng [].",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "titles",
+          "classification",
+          "chronology",
+          "summary",
+          "textbookContent",
+          "textbookRef",
+          "rawPlaceMentions",
+          "confidence"
+        ],
+        "properties": {
+          "titles": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["primary", "short", "alternatives"],
+            "properties": {
+              "primary": {
+                "type": "string",
+                "description": "Tên chính thức của sự kiện theo cách gọi trong SGK. VD: 'Trận Bạch Đằng năm 938'."
+              },
+              "short": {
+                "type": ["string", "null"],
+                "description": "Tên ngắn cho card/marker. VD: 'Bạch Đằng 938'. Null nếu không nghĩ ra tên ngắn phù hợp."
+              },
+              "alternatives": {
+                "type": "array",
+                "description": "Các tên gọi khác xuất hiện trong văn bản. Mảng rỗng nếu không có.",
+                "items": { "type": "string" }
+              }
+            }
+          },
+          "classification": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["eventType", "eventSubtype", "tags"],
+            "properties": {
+              "eventType": {
+                "type": "string",
+                "enum": ["military", "political", "diplomatic", "economic", "cultural"],
+                "description": "Loại lớn của sự kiện. Chọn 1 trong 5 giá trị."
+              },
+              "eventSubtype": {
+                "type": ["string", "null"],
+                "description": "Loại cụ thể: battle, campaign, conference, treaty, uprising, reform... Null nếu không xác định được."
+              },
+              "tags": {
+                "type": "array",
+                "description": "Từ khóa: tên nhân vật, năm, địa danh, chủ đề. Lấy từ văn bản.",
+                "items": { "type": "string" }
+              }
+            }
+          },
+          "chronology": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["start", "end", "datePrecision", "displayDate", "isApproximate"],
+            "properties": {
+              "start": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["year", "month", "day"],
+                "properties": {
+                  "year": {
+                    "type": ["integer", "null"],
+                    "description": "Năm bắt đầu. CHỈ điền khi văn bản nêu RÕ con số năm. Không rõ -> null. Năm trước Công nguyên dùng số âm."
+                  },
+                  "month": {
+                    "type": ["integer", "null"],
+                    "minimum": 1,
+                    "maximum": 12,
+                    "description": "Tháng bắt đầu. CHỈ điền khi văn bản nêu RÕ tháng. Không rõ -> null. TUYỆT ĐỐI không suy luận."
+                  },
+                  "day": {
+                    "type": ["integer", "null"],
+                    "minimum": 1,
+                    "maximum": 31,
+                    "description": "Ngày bắt đầu. CHỈ điền khi văn bản nêu RÕ ngày. Không rõ -> null. TUYỆT ĐỐI không suy luận."
+                  }
+                }
+              },
+              "end": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["year", "month", "day"],
+                "properties": {
+                  "year": {
+                    "type": ["integer", "null"],
+                    "description": "Năm kết thúc. Sự kiện chỉ có 1 mốc -> để cả 3 trường end = null."
+                  },
+                  "month": {
+                    "type": ["integer", "null"],
+                    "minimum": 1,
+                    "maximum": 12,
+                    "description": "Tháng kết thúc. CHỈ điền khi văn bản nêu RÕ. Không rõ -> null."
+                  },
+                  "day": {
+                    "type": ["integer", "null"],
+                    "minimum": 1,
+                    "maximum": 31,
+                    "description": "Ngày kết thúc. CHỈ điền khi văn bản nêu RÕ. Không rõ -> null."
+                  }
+                }
+              },
+              "datePrecision": {
+                "type": "string",
+                "enum": ["day", "month", "year", "period", "approximate"],
+                "description": "Độ chính xác thời gian. 'day'=biết rõ ngày; 'month'=chỉ tới tháng; 'year'=chỉ tới năm; 'period'=khoảng/giai đoạn (vd 'những năm 30 thế kỉ XX'); 'approximate'=mốc mơ hồ cổ đại (vd 'cuối thế kỉ XIX'). Giá trị này PHẢI nhất quán với mức null của year/month/day."
+              },
+              "displayDate": {
+                "type": "string",
+                "description": "Chuỗi thời gian hiển thị, GIỮ NGUYÊN cách diễn đạt trong SGK. VD: 'Năm 938', 'Cuối thế kỉ XIX', '13/3/1954 - 7/5/1954'. KHÔNG quy mốc mơ hồ thành con số."
+              },
+              "isApproximate": {
+                "type": "boolean",
+                "description": "true nếu mốc thời gian là xấp xỉ/mơ hồ (datePrecision là 'period' hoặc 'approximate'), ngược lại false."
+              }
+            }
+          },
+          "summary": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["homepageTitle", "homepageSummary", "cardSummary"],
+            "properties": {
+              "homepageTitle": {
+                "type": ["string", "null"],
+                "description": "Tiêu đề hấp dẫn cho trang chủ, <= 60 ký tự. Bám nội dung SGK."
+              },
+              "homepageSummary": {
+                "type": ["string", "null"],
+                "description": "Mô tả ngắn 1-2 câu, <= 160 ký tự."
+              },
+              "cardSummary": {
+                "type": ["string", "null"],
+                "description": "1 câu cô đọng, <= 100 ký tự, cho card/popup."
+              }
+            }
+          },
+          "textbookContent": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["canonicalSummary", "detailedNarrative", "significance", "keyFacts"],
+            "properties": {
+              "canonicalSummary": {
+                "type": "string",
+                "description": "Tóm tắt chuẩn theo SGK, 2-4 câu, chỉ dùng thông tin trong văn bản."
+              },
+              "detailedNarrative": {
+                "type": ["string", "null"],
+                "description": "Mô tả chi tiết diễn biến, bám SGK. Null nếu văn bản quá ngắn không đủ chi tiết."
+              },
+              "significance": {
+                "type": ["string", "null"],
+                "description": "Ý nghĩa lịch sử theo SGK. Null nếu văn bản không nêu."
+              },
+              "keyFacts": {
+                "type": "array",
+                "description": "Các dữ kiện chính cần nhớ, mỗi mục là một câu ngắn. Lấy trực tiếp từ văn bản.",
+                "items": { "type": "string" }
+              }
+            }
+          },
+          "textbookRef": {
+            "type": "object",
+            "additionalProperties": false,
+            "description": "Nguồn SGK của sự kiện này (lấy từ metadata bài đang xử lý + số trang trong văn bản).",
+            "required": ["grade", "book", "chapter", "lesson", "pageStart", "pageEnd", "excerpt"],
+            "properties": {
+              "grade": { "type": ["integer", "null"], "description": "Lớp (10/11/12), lấy từ metadata bài." },
+              "book": { "type": ["string", "null"], "description": "Tên sách, lấy từ metadata bài." },
+              "chapter": { "type": ["string", "null"], "description": "Chủ đề/chương, lấy từ metadata bài." },
+              "lesson": { "type": ["string", "null"], "description": "Bài, lấy từ metadata bài." },
+              "pageStart": { "type": ["integer", "null"], "description": "Trang bắt đầu, lấy từ marker '(Trang N)' gần đoạn nói về sự kiện. Null nếu không xác định." },
+              "pageEnd": { "type": ["integer", "null"], "description": "Trang kết thúc. Null nếu không xác định." },
+              "excerpt": {
+                "type": "string",
+                "description": "Trích nguyên văn 1-2 câu QUAN TRỌNG NHẤT trong văn bản về sự kiện này (copy y nguyên, không diễn giải). Dùng để truy nguồn và hậu kiểm."
+              }
+            }
+          },
+          "rawPlaceMentions": {
+            "type": "array",
+            "description": "Danh sách CÁC ĐỊA DANH được nhắc tới trong văn bản liên quan sự kiện này (cả địa danh lịch sử lẫn hiện đại), copy y nguyên cách viết trong SGK. VD: ['Sông Bạch Đằng', 'châu Hoan']. Mảng rỗng nếu không có. KHÔNG tự thêm tọa độ.",
+            "items": { "type": "string" }
+          },
+          "confidence": {
+            "type": "string",
+            "enum": ["high", "medium", "low"],
+            "description": "Mức độ chắc chắn rằng đây là một sự kiện lịch sử riêng biệt và thông tin trích xuất đúng. 'low' cho trường hợp mơ hồ cần người review."
+          }
+        }
+      }
+    }
+  }
+}

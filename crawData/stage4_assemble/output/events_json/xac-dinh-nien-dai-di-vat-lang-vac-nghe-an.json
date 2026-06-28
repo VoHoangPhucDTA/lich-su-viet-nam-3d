@@ -1,0 +1,153 @@
+{
+  "id": "xac-dinh-nien-dai-di-vat-lang-vac-nghe-an",
+  "slug": "xac-dinh-nien-dai-di-vat-lang-vac-nghe-an",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Xác định niên đại di vật văn hoá Đông Sơn tại Làng Vạc (Nghệ An)",
+    "short": "Niên đại Làng Vạc (Nghệ An)",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "cultural",
+    "eventSubtype": "archaeological-dating",
+    "region": "vietnam",
+    "tags": [
+      "niên đại",
+      "Văn hoá Đông Sơn",
+      "khảo cổ học"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      10
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 10,
+        "lessonId": "12128",
+        "lessonTitle": "Bài 3: Sử Học Với Các Lĩnh Vực Khoa Học"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "end": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "datePrecision": "period",
+    "displayDate": "Khoảng thế kỷ I TCN",
+    "isApproximate": true
+  },
+  "mapData": {
+    "geoType": "nationwide",
+    "historicalLocations": [
+      "Việt Nam"
+    ],
+    "provinceNames": [
+      "Nghệ An"
+    ],
+    "gadmRefs": [
+      "VNM.41_1"
+    ],
+    "marker": {
+      "name": "Làng Vạc",
+      "lat": 19.35,
+      "lng": 105.45,
+      "confidence": "high"
+    },
+    "markers": [],
+    "focusGeometry": {
+      "mode": "bounds",
+      "center": {
+        "lat": 16.0,
+        "lng": 106.0
+      },
+      "zoom": 5
+    }
+  },
+  "summary": {
+    "homepageTitle": "Niên đại di vật Làng Vạc (Nghệ An) thế kỉ I TCN",
+    "homepageSummary": "Các nhà khảo cổ học xác định niên đại di vật tại Làng Vạc (Nghệ An) thuộc văn hoá Đông Sơn là khoảng thế kỉ I TCN bằng đồng vị phóng xạ 14C.",
+    "cardSummary": "Di vật văn hoá Đông Sơn tại Làng Vạc được xác định niên đại khoảng thế kỉ I TCN."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Khi nghiên cứu về nền văn hoá Đông Sơn ở Việt Nam, các nhà khảo cổ học đã xác định niên đại của các mẫu di vật khai quật được tại di chỉ Làng Vạc (Nghệ An) là khoảng thế kỷ I TCN bằng đồng vị phóng xạ 14C.",
+    "detailedNarrative": "Niên đại C (năm) là 1990 ± 85, tương ứng khoảng thế kỷ I TCN.",
+    "significance": "Góp phần xác định niên đại của nền văn hoá Đông Sơn.",
+    "keyFacts": [
+      "Niên đại dương lịch: Khoảng thế kỷ I TCN",
+      "Phương pháp: đồng vị phóng xạ 14C",
+      "Niên đại C: 1990 ± 85",
+      "Địa điểm: Làng Vạc (Nghệ An)"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 10,
+        "book": "KNTT",
+        "lessonId": "12128",
+        "lessonTitle": "Bài 3: Sử Học Với Các Lĩnh Vực Khoa Học",
+        "chapter": "Chu de 2",
+        "lesson": "Bai 3",
+        "pageRange": {
+          "start": 19,
+          "end": 25
+        },
+        "url": "https://sgkvn.com/lop-10-13/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-2-vai-tro-cua-su-hoc-3269/bai-3-su-hoc-voi-cac-linh-vuc-khoa-hoc-12128.html",
+        "excerpt": "Khi nghiên cứu về nền văn hoá Đông Sơn ở Việt Nam, các nhà khảo cổ học đã xác định niên đại của các mẫu di vật khai quật được tại di chỉ Làng Vạc (Nghệ An) là khoảng thế kỷ I TCN bằng đồng vị phóng xạ 14C."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "xac-dinh-nien-dai-di-vat-lang-vac-nghe-an",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 403
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": true,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

@@ -1,0 +1,134 @@
+{
+  "id": "lap-noi-cac-thay-the-van-thu-phong",
+  "slug": "lap-noi-cac-thay-the-van-thu-phong",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Lập Nội các thay thế Văn thư phòng",
+    "short": "Lập Nội các thay thế Văn thư phòng",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "administrative_reform",
+    "region": "vietnam",
+    "tags": [
+      "Minh Mạng",
+      "cơ quan hành chính trung ương",
+      "Nội các"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 11,
+        "lessonId": "12393",
+        "lessonTitle": "BÀI 14  CUỘC CẢI CÁCH CỦA MINH MẠNG  NỬA"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1829,
+      "month": null,
+      "day": null
+    },
+    "end": null,
+    "datePrecision": "year",
+    "displayDate": "Năm 1829",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "no_location",
+    "historicalLocations": [],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "auto",
+      "center": null,
+      "zoom": null
+    }
+  },
+  "summary": {
+    "homepageTitle": "Lập Nội các (1829)",
+    "homepageSummary": "Năm 1829, vua Minh Mạng lập Nội các thay thế Văn thư phòng, hoạt động như một cơ quan hành chính trung ương.",
+    "cardSummary": "Năm 1829, Nội các được lập, thay thế Văn thư phòng."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Năm 1829, vua Minh Mạng lập Nội các thay thế cho Văn thư phòng với chức năng như một cơ quan hành chính trung ương, chuyển và tiếp nhận công văn từ triều đình đến các địa phương và ngược lại, khởi thảo các chế cáo, lưu giữ công văn.",
+    "detailedNarrative": "Năm 1829, lập Nội các thay thế cho Văn thư phòng với chức năng như một cơ quan hành chính trung ương, chuyển và tiếp nhận công văn từ triều đình đến các địa phương và ngược lại, khởi thảo các chế cáo, lưu giữ công văn.",
+    "significance": "Tăng cường hiệu quả quản lý hành chính ở cấp trung ương.",
+    "keyFacts": [
+      "Thay thế Văn thư phòng",
+      "Chức năng cơ quan hành chính trung ương",
+      "Thành lập năm 1829"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 11,
+        "book": "KNTT",
+        "lessonId": "12393",
+        "lessonTitle": "BÀI 14  CUỘC CẢI CÁCH CỦA MINH MẠNG  NỬA",
+        "chapter": "Chu de 6",
+        "lesson": "Bai 14",
+        "pageRange": {
+          "start": null,
+          "end": null
+        },
+        "url": "https://sgkvn.com/lop-11-14/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-6-mot-so-cuoc-cai-cach-lon-trong-lich-su-viet-nam-truoc-nam-1858-3353/bai-14-cuoc-cai-cach-cua-minh-mang-nua-dau-the-ki-xix-12393.html",
+        "excerpt": "Năm 1829, vua Minh Mạng lập Nội các thay thế cho Văn thư phòng với chức năng như một cơ quan hành chính trung ương, chuyển và tiếp nhận công văn từ triều đình đến các địa phương và ngược lại, khởi thảo các chế cáo, lưu giữ công văn."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "lap-noi-cac-thay-the-van-thu-phong",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 69
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": false,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

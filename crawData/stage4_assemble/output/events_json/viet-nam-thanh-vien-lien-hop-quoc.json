@@ -1,0 +1,133 @@
+{
+  "id": "viet-nam-thanh-vien-lien-hop-quoc",
+  "slug": "viet-nam-thanh-vien-lien-hop-quoc",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Việt Nam trở thành thành viên chính thức của Liên hợp quốc",
+    "short": "Việt Nam gia nhập LHQ",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "diplomatic",
+    "eventSubtype": "accession",
+    "region": "vietnam",
+    "tags": [
+      "hội nhập quốc tế",
+      "ngoại giao",
+      "Liên hợp quốc"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 12,
+        "lessonId": "12965",
+        "lessonTitle": "BÀI 14: HOẠT ĐỘNG ĐỐI NGOẠI CỦA VIỆT NAM TỪ NĂM 1975 ĐẾN NAY"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1977,
+      "month": 9,
+      "day": 20
+    },
+    "end": null,
+    "datePrecision": "day",
+    "displayDate": "Ngày 20-9-1977",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "no_location",
+    "historicalLocations": [],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "auto",
+      "center": null,
+      "zoom": null
+    }
+  },
+  "summary": {
+    "homepageTitle": "Việt Nam gia nhập Liên hợp quốc",
+    "homepageSummary": "Việt Nam chính thức trở thành thành viên của Liên hợp quốc, mở ra giai đoạn mới cho hoạt động đối ngoại.",
+    "cardSummary": "Ngày 20-9-1977, Việt Nam trở thành thành viên chính thức của Liên hợp quốc."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Ngày 20-9-1977, Việt Nam trở thành thành viên chính thức của Liên hợp quốc.",
+    "detailedNarrative": "Sự kiện này là một hoạt động đối ngoại quan trọng, tạo điều kiện thuận lợi cho những hoạt động đối ngoại của Việt Nam trong giai đoạn mới.",
+    "significance": "Tạo điều kiện thuận lợi cho những hoạt động đối ngoại của Việt Nam trong giai đoạn mới.",
+    "keyFacts": [
+      "Ngày 20-9-1977",
+      "Là thành viên chính thức của Liên hợp quốc"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 12,
+        "book": "KNTT",
+        "lessonId": "12965",
+        "lessonTitle": "BÀI 14: HOẠT ĐỘNG ĐỐI NGOẠI CỦA VIỆT NAM TỪ NĂM 1975 ĐẾN NAY",
+        "chapter": "Chu de 4",
+        "lesson": "Bai 14",
+        "pageRange": {
+          "start": 81,
+          "end": 86
+        },
+        "url": "https://sgkvn.com/lop-12-15/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-4-cong-cuoc-doi-moi-o-viet-nam-tu-nam-1986-den-nay-3540/bai-14-hoat-dong-doi-ngoai-cua-viet-nam-tu-nam-1975-den-nay-12965.html",
+        "excerpt": "Ngày 20-9-1977, Việt Nam trở thành thành viên chính thức của Liên hợp quốc."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "viet-nam-thanh-vien-lien-hop-quoc",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 251
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": false,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

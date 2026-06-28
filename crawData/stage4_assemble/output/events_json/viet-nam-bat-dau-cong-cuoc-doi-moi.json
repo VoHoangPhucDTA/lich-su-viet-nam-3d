@@ -1,0 +1,139 @@
+{
+  "id": "viet-nam-bat-dau-cong-cuoc-doi-moi",
+  "slug": "viet-nam-bat-dau-cong-cuoc-doi-moi",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Việt Nam bắt đầu công cuộc Đổi mới",
+    "short": "Công cuộc Đổi mới ở Việt Nam",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "economic",
+    "eventSubtype": "reform",
+    "region": "vietnam",
+    "tags": [
+      "kinh tế thị trường",
+      "Việt Nam",
+      "Đổi mới"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 12,
+        "lessonId": "12949",
+        "lessonTitle": "BÀI 3: TRẬT TỰ THẾ GIỚI SAU CHIẾN TRANH LẠNH"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1986,
+      "month": null,
+      "day": null
+    },
+    "end": null,
+    "datePrecision": "year",
+    "displayDate": "Năm 1986",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "nationwide",
+    "historicalLocations": [
+      "Việt Nam"
+    ],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "bounds",
+      "center": {
+        "lat": 16.0,
+        "lng": 106.0
+      },
+      "zoom": 5
+    }
+  },
+  "summary": {
+    "homepageTitle": "Việt Nam bắt đầu công cuộc Đổi mới",
+    "homepageSummary": "Từ năm 1986, Việt Nam bắt đầu công cuộc Đổi mới, xây dựng nền kinh tế thị trường định hướng xã hội chủ nghĩa.",
+    "cardSummary": "Việt Nam bắt đầu công cuộc Đổi mới từ năm 1986."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Từ năm 1986, Việt Nam bắt đầu công cuộc Đổi mới, xây dựng nền kinh tế thị trường định hướng xã hội chủ nghĩa, được xếp trong nhóm những nền kinh tế có tốc độ tăng trường cao nhất thế giới, đồng thời gắn kết phát triển kinh tế với tiến bộ và công bằng xã hội.",
+    "detailedNarrative": "Từ năm 1986, Việt Nam bắt đầu công cuộc Đổi mới, xây dựng nền kinh tế thị trường định hướng xã hội chủ nghĩa, được xếp trong nhóm những nền kinh tế có tốc độ tăng trường cao nhất thế giới, đồng thời gắn kết phát triển kinh tế với tiến bộ và công bằng xã hội.",
+    "significance": "Được xếp trong nhóm những nền kinh tế có tốc độ tăng trưởng cao nhất thế giới, đồng thời gắn kết phát triển kinh tế với tiến bộ và công bằng xã hội.",
+    "keyFacts": [
+      "Bắt đầu từ năm 1986",
+      "Gắn kết phát triển kinh tế với tiến bộ và công bằng xã hội",
+      "Xây dựng nền kinh tế thị trường định hướng xã hội chủ nghĩa"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 12,
+        "book": "KNTT",
+        "lessonId": "12949",
+        "lessonTitle": "BÀI 3: TRẬT TỰ THẾ GIỚI SAU CHIẾN TRANH LẠNH",
+        "chapter": "Chu de 1",
+        "lesson": "Bai 3",
+        "pageRange": {
+          "start": 18,
+          "end": 20
+        },
+        "url": "https://sgkvn.com/lop-12-15/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-1-the-gioi-trong-va-sau-chien-tranh-lanh-3537/bai-3-trat-tu-the-gioi-sau-chien-tranh-lanh-12949.html",
+        "excerpt": "Từ năm 1986, Việt Nam bắt đầu công cuộc Đổi mới, xây dựng nền kinh tế thị trường định hướng xã hội chủ nghĩa, được xếp trong nhóm những nền kinh tế có tốc độ tăng trường cao nhất thế giới, đồng thời gắn kết phát triển kinh tế với tiến bộ và công bằng xã hội."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "viet-nam-bat-dau-cong-cuoc-doi-moi",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 265
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": true,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

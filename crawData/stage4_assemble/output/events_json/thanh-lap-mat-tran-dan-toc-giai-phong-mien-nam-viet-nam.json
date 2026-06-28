@@ -1,0 +1,147 @@
+{
+  "id": "thanh-lap-mat-tran-dan-toc-giai-phong-mien-nam-viet-nam",
+  "slug": "thanh-lap-mat-tran-dan-toc-giai-phong-mien-nam-viet-nam",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Thành lập Mặt trận Dân tộc giải phóng miền Nam Việt Nam",
+    "short": "Mặt trận Dân tộc giải phóng miền Nam",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "organization_founding",
+    "region": "vietnam",
+    "tags": [
+      "miền Nam",
+      "Đồng khởi",
+      "Mặt trận"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 12,
+        "lessonId": "12956",
+        "lessonTitle": "BÀI 8: CUỘC KHÁNG CHIẾN CHỐNG MỸ, CỨU NƯỚC (1954-1975)"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1960,
+      "month": 12,
+      "day": 20
+    },
+    "end": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "datePrecision": "day",
+    "displayDate": "20 – 12 – 1960",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "point",
+    "historicalLocations": [],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": {
+      "name": "miền Nam Việt Nam",
+      "lat": 10.7626,
+      "lng": 106.6601,
+      "confidence": "low"
+    },
+    "markers": [],
+    "focusGeometry": {
+      "mode": "marker",
+      "center": {
+        "name": "miền Nam Việt Nam",
+        "lat": 10.7626,
+        "lng": 106.6601,
+        "confidence": "low"
+      },
+      "zoom": 12
+    }
+  },
+  "summary": {
+    "homepageTitle": "Thành lập Mặt trận Dân tộc giải phóng miền Nam (1960)",
+    "homepageSummary": "Thắng lợi của phong trào Đồng khởi đã đưa đến việc thành lập Mặt trận Dân tộc giải phóng miền Nam Việt Nam vào ngày 20 – 12 – 1960.",
+    "cardSummary": "Mặt trận Dân tộc giải phóng miền Nam Việt Nam được thành lập ngày 20-12-1960 sau phong trào Đồng khởi."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Thắng lợi của phong trào Đồng khởi đã giáng đòn nặng nề vào chính sách thực dân mới của Mỹ, làm lung lay chính quyền Ngô Đình Diệm. Thắng lợi này đồng thời đánh dấu bước phát triển nhảy vọt của cách mạng miền Nam, chuyển từ thế giữ gìn lực lượng sang thế tiến công, mở ra vùng giải phóng rộng lớn, đưa đến việc thành lập Mặt trận Dân tộc giải phóng miền Nam Việt Nam (20 – 12 – 1960), thúc đẩy lực lượng vũ trang cách mạng phát triển.",
+    "detailedNarrative": null,
+    "significance": "Thúc đẩy lực lượng vũ trang cách mạng phát triển.",
+    "keyFacts": [
+      "Thành lập ngày 20-12-1960",
+      "Là kết quả của phong trào Đồng khởi"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 12,
+        "book": "KNTT",
+        "lessonId": "12956",
+        "lessonTitle": "BÀI 8: CUỘC KHÁNG CHIẾN CHỐNG MỸ, CỨU NƯỚC (1954-1975)",
+        "chapter": "Chu de 3",
+        "lesson": "Bai 8",
+        "pageRange": {
+          "start": 45,
+          "end": 53
+        },
+        "url": "https://sgkvn.com/lop-12-15/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-3-cach-mang-thang-tam-nam-1945-chien-tranh-giai-phong-dan-toc-va-chien-tranh-bao-ve-to-quoc-trong-lich-su-viet-nam-tu-thang-8-nam-1945-den-nay-3539/bai-8-cuoc-khang-chien-chong-my-cuu-nuoc-1954-1975-12956.html",
+        "excerpt": "Thắng lợi của phong trào Đồng khởi đã giáng đòn nặng nề vào chính sách thực dân mới của Mỹ, làm lung lay chính quyền Ngô Đình Diệm. Thắng lợi này đồng thời đánh dấu bước phát triển nhảy vọt của cách mạng miền Nam, chuyển từ thế giữ gìn lực lượng sang thế tiến công, mở ra vùng giải phóng rộng lớn, đưa đến việc thành lập Mặt trận Dân tộc giải phóng miền Nam Việt Nam (20 – 12 – 1960), thúc đẩy lực lượng vũ trang cách mạng phát triển."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "thanh-lap-mat-tran-dan-toc-giai-phong-mien-nam-viet-nam",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 221
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": true,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

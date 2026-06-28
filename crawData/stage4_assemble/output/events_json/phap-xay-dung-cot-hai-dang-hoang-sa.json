@@ -1,0 +1,144 @@
+{
+  "id": "phap-xay-dung-cot-hai-dang-hoang-sa",
+  "slug": "phap-xay-dung-cot-hai-dang-hoang-sa",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Pháp xây dựng cột hải đăng trên quần đảo Hoàng Sa",
+    "short": "Hải đăng Hoàng Sa (Pháp)",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "construction",
+    "region": "vietnam",
+    "tags": [
+      "chủ quyền",
+      "Pháp",
+      "Hoàng Sa"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 11,
+        "lessonId": "12395",
+        "lessonTitle": "BÀI 16  VIỆT NAM VÀ BIỂN ĐÔNG"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1937,
+      "month": null,
+      "day": null
+    },
+    "end": null,
+    "datePrecision": "year",
+    "displayDate": "Năm 1937",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "point",
+    "historicalLocations": [],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": {
+      "name": "quần đảo Hoàng Sa",
+      "lat": 16.6833,
+      "lng": 112.3333,
+      "confidence": "high"
+    },
+    "markers": [],
+    "focusGeometry": {
+      "mode": "marker",
+      "center": {
+        "name": "quần đảo Hoàng Sa",
+        "lat": 16.6833,
+        "lng": 112.3333,
+        "confidence": "high"
+      },
+      "zoom": 12
+    }
+  },
+  "summary": {
+    "homepageTitle": "Pháp xây hải đăng Hoàng Sa (1937)",
+    "homepageSummary": "Năm 1937, chính quyền thực dân Pháp tiến hành xây dựng cột hải đăng trên quần đảo Hoàng Sa để khẳng định chủ quyền.",
+    "cardSummary": "Pháp xây dựng cột hải đăng trên quần đảo Hoàng Sa năm 1937, một hành động thực thi chủ quyền."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Từ những năm 30 của thế kỉ XX, người Pháp đã tiến hành xây dựng cột mốc chủ quyền, đèn biển, trạm khí tượng, trạm vô tuyến điện và thực hiện nhiều khảo sát khoa học,... Cột hải đăng trên quần đảo Hoàng Sa được xây dựng năm 1937.",
+    "detailedNarrative": "Từ những năm 30 của thế kỉ XX, người Pháp đã tiến hành xây dựng cột mốc chủ quyền, đèn biển, trạm khí tượng, trạm vô tuyến điện và thực hiện nhiều khảo sát khoa học,... Cột hải đăng trên quần đảo Hoàng Sa được xây dựng năm 1937.",
+    "significance": "Là một trong những hoạt động thực thi chủ quyền của Pháp (đại diện ngoại giao của triều Nguyễn) đối với quần đảo Hoàng Sa.",
+    "keyFacts": [
+      "Địa điểm: quần đảo Hoàng Sa",
+      "Do chính quyền thực dân Pháp thực hiện",
+      "Xây dựng năm 1937"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 11,
+        "book": "KNTT",
+        "lessonId": "12395",
+        "lessonTitle": "BÀI 16  VIỆT NAM VÀ BIỂN ĐÔNG",
+        "chapter": "Chu de 7",
+        "lesson": "Bai 16",
+        "pageRange": {
+          "start": 107,
+          "end": 111
+        },
+        "url": "https://sgkvn.com/lop-11-14/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-7-lich-su-chu-quyen-cua-viet-nam-o-bien-dong-3354/bai-16-viet-nam-va-bien-dong-12395.html",
+        "excerpt": "Từ những năm 30 của thế kỉ XX, người Pháp đã tiến hành xây dựng cột mốc chủ quyền, đèn biển, trạm khí tượng, trạm vô tuyến điện và thực hiện nhiều khảo sát khoa học,... Cột hải đăng trên quần đảo Hoàng Sa được xây dựng năm 1937."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "phap-xay-dung-cot-hai-dang-hoang-sa",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 132
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": true,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

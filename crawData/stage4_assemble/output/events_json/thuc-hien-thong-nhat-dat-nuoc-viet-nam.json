@@ -1,0 +1,143 @@
+{
+  "id": "thuc-hien-thong-nhat-dat-nuoc-viet-nam",
+  "slug": "thuc-hien-thong-nhat-dat-nuoc-viet-nam",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Thực hiện thống nhất đất nước Việt Nam",
+    "short": "Thống nhất đất nước Việt Nam",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "unification",
+    "region": "vietnam",
+    "tags": [
+      "chủ nghĩa xã hội",
+      "Việt Nam",
+      "thống nhất"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 11,
+        "lessonId": "12338",
+        "lessonTitle": "BÀI 4  SỰ PHÁT TRIỂN CỦA CHỦ NGHĨA XÃ HỘ"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "end": {
+      "year": 1976,
+      "month": null,
+      "day": null
+    },
+    "datePrecision": "year",
+    "displayDate": "năm 1976",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "nationwide",
+    "historicalLocations": [
+      "Việt Nam"
+    ],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "bounds",
+      "center": {
+        "lat": 16.0,
+        "lng": 106.0
+      },
+      "zoom": 5
+    }
+  },
+  "summary": {
+    "homepageTitle": "Thống nhất đất nước Việt Nam (1976)",
+    "homepageSummary": "Sau khi giải phóng miền Nam (1975), Việt Nam thực hiện thống nhất đất nước vào năm 1976, cả nước cùng tiến lên xây dựng chủ nghĩa xã hội.",
+    "cardSummary": "Việt Nam thống nhất đất nước năm 1976, cả nước cùng xây dựng chủ nghĩa xã hội."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Sau khi hoàn toàn giải phóng miền Nam (tháng 4-1975) và thực hiện thống nhất đất nước (năm 1976), cả nước Việt Nam tiến lên xây dựng chủ nghĩa xã hội.",
+    "detailedNarrative": "Sau khi hoàn toàn giải phóng miền Nam (tháng 4-1975) và thực hiện thống nhất đất nước (năm 1976), cả nước Việt Nam tiến lên xây dựng chủ nghĩa xã hội.",
+    "significance": "Hoàn thành mục tiêu thống nhất đất nước và mở ra giai đoạn cả nước cùng xây dựng chủ nghĩa xã hội.",
+    "keyFacts": [
+      "Sau giải phóng miền Nam",
+      "Cả nước tiến lên xây dựng chủ nghĩa xã hội",
+      "Diễn ra năm 1976"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 11,
+        "book": "KNTT",
+        "lessonId": "12338",
+        "lessonTitle": "BÀI 4  SỰ PHÁT TRIỂN CỦA CHỦ NGHĨA XÃ HỘ",
+        "chapter": "Chu de 2",
+        "lesson": "Bai 4",
+        "pageRange": {
+          "start": 30,
+          "end": 37
+        },
+        "url": "https://sgkvn.com/lop-11-14/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-2-su-hinh-thanh-va-phat-trien-cua-chu-nghia-xa-hoi-3330/bai-4-su-phat-trien-cua-chu-nghia-xa-hoi-tu-sau-chien-tranh-the-gioi-thu-hai-den-nay-12338.html",
+        "excerpt": "Sau khi hoàn toàn giải phóng miền Nam (tháng 4-1975) và thực hiện thống nhất đất nước (năm 1976), cả nước Việt Nam tiến lên xây dựng chủ nghĩa xã hội."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "thuc-hien-thong-nhat-dat-nuoc-viet-nam",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 372
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": true,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

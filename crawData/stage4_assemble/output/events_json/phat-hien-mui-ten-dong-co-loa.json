@@ -1,0 +1,153 @@
+{
+  "id": "phat-hien-mui-ten-dong-co-loa",
+  "slug": "phat-hien-mui-ten-dong-co-loa",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Phát hiện mũi tên đồng ở Cổ Loa",
+    "short": "Mũi tên đồng Cổ Loa",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "cultural",
+    "eventSubtype": "discovery",
+    "region": "vietnam",
+    "tags": [
+      "hiện vật",
+      "khảo cổ",
+      "Cổ Loa"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      10
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 10,
+        "lessonId": "12122",
+        "lessonTitle": "Bài 1: Hiện Thực Lịch Sử Và Nhận Thức Lịch Sử"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1959,
+      "month": null,
+      "day": null
+    },
+    "end": null,
+    "datePrecision": "year",
+    "displayDate": "Năm 1959",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "mixed",
+    "historicalLocations": [],
+    "provinceNames": [
+      "Hà Nội"
+    ],
+    "gadmRefs": [
+      "VNM.27_1"
+    ],
+    "marker": {
+      "name": "Cổ Loa",
+      "lat": 21.1139,
+      "lng": 105.8783,
+      "confidence": "high"
+    },
+    "markers": [
+      {
+        "name": "Cổ Loa",
+        "lat": 21.1139,
+        "lng": 105.8783,
+        "confidence": "high"
+      }
+    ],
+    "focusGeometry": {
+      "mode": "bounds",
+      "center": {
+        "lat": 21.054851,
+        "lng": 105.806781
+      },
+      "zoom": 7
+    }
+  },
+  "summary": {
+    "homepageTitle": "Phát hiện mũi tên đồng ở Cổ Loa (1959)",
+    "homepageSummary": "Năm 1959, mũi tên đồng được tìm thấy ở Cổ Loa, là một hiện vật lịch sử của nước Âu Lạc.",
+    "cardSummary": "Mũi tên đồng được tìm thấy ở Cổ Loa vào năm 1959."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Mũi tên đồng được tìm thấy ở Cổ Loa vào năm 1959, là một trong những hiện vật lịch sử của nước Âu Lạc.",
+    "detailedNarrative": "Hình ảnh mũi tên đồng tìm thấy ở Cổ Loa vào năm 1959 được dùng làm ví dụ về hiện vật lịch sử của nước Âu Lạc.",
+    "significance": "Là một hiện vật lịch sử quan trọng, cung cấp thông tin về nước Âu Lạc.",
+    "keyFacts": [
+      "Tìm thấy ở Cổ Loa",
+      "Là hiện vật lịch sử của nước Âu Lạc",
+      "Năm 1959"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 10,
+        "book": "KNTT",
+        "lessonId": "12122",
+        "lessonTitle": "Bài 1: Hiện Thực Lịch Sử Và Nhận Thức Lịch Sử",
+        "chapter": "Chu de 1",
+        "lesson": "Bai 1",
+        "pageRange": {
+          "start": 6,
+          "end": 14
+        },
+        "url": "https://sgkvn.com/lop-10-13/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-1-lich-su-va-su-hoc-3266/bai-1-hien-thuc-lich-su-va-nhan-thuc-lich-su-12122.html",
+        "excerpt": "Mũi tên đồng được tìm thấy ở Cổ Loa vào năm 1959, là một trong những hiện vật lịch sử của nước Âu Lạc."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "phat-hien-mui-ten-dong-co-loa",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 217
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": true,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

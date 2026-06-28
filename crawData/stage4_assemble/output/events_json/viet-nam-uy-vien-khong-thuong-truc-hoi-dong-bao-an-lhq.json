@@ -1,0 +1,138 @@
+{
+  "id": "viet-nam-uy-vien-khong-thuong-truc-hoi-dong-bao-an-lhq",
+  "slug": "viet-nam-uy-vien-khong-thuong-truc-hoi-dong-bao-an-lhq",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Việt Nam được bầu vào vị trí Uỷ viên không thường trực Hội đồng Bảo an Liên hợp quốc",
+    "short": "VN Uỷ viên HĐBA LHQ",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "diplomatic",
+    "eventSubtype": "election",
+    "region": "vietnam",
+    "tags": [
+      "vị thế quốc tế",
+      "Hội đồng Bảo an",
+      "Liên hợp quốc"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 12,
+        "lessonId": "12965",
+        "lessonTitle": "BÀI 14: HOẠT ĐỘNG ĐỐI NGOẠI CỦA VIỆT NAM TỪ NĂM 1975 ĐẾN NAY"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "end": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "datePrecision": "period",
+    "displayDate": "Nhiệm kì 2008 – 2009 và 2020 - 2021",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "no_location",
+    "historicalLocations": [],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "auto",
+      "center": null,
+      "zoom": null
+    }
+  },
+  "summary": {
+    "homepageTitle": "VN Uỷ viên HĐBA LHQ (2008-2009, 2020-2021)",
+    "homepageSummary": "Việt Nam hai lần được bầu với số phiếu cao vào vị trí Uỷ viên không thường trực Hội đồng Bảo an Liên hợp quốc.",
+    "cardSummary": "Việt Nam hai lần được bầu làm Uỷ viên không thường trực Hội đồng Bảo an Liên hợp quốc."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Việt Nam hai lần được bầu với số phiếu cao vào vị trí Uỷ viên không thường trực Hội đồng Bảo an Liên hợp quốc nhiệm kì 2008 – 2009 và 2020 - 2021.",
+    "detailedNarrative": null,
+    "significance": "Nâng cao vị thế, uy tín của đất nước trong khu vực cũng như trên thế giới.",
+    "keyFacts": [
+      "Nhiệm kì 2020 - 2021",
+      "Hai lần được bầu",
+      "Nhiệm kì 2008 – 2009"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 12,
+        "book": "KNTT",
+        "lessonId": "12965",
+        "lessonTitle": "BÀI 14: HOẠT ĐỘNG ĐỐI NGOẠI CỦA VIỆT NAM TỪ NĂM 1975 ĐẾN NAY",
+        "chapter": "Chu de 4",
+        "lesson": "Bai 14",
+        "pageRange": {
+          "start": 81,
+          "end": 86
+        },
+        "url": "https://sgkvn.com/lop-12-15/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-4-cong-cuoc-doi-moi-o-viet-nam-tu-nam-1986-den-nay-3540/bai-14-hoat-dong-doi-ngoai-cua-viet-nam-tu-nam-1975-den-nay-12965.html",
+        "excerpt": "Việt Nam hai lần được bầu với số phiếu cao vào vị trí Uỷ viên không thường trực Hội đồng Bảo an Liên hợp quốc nhiệm kì 2008 – 2009 và 2020 - 2021."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "viet-nam-uy-vien-khong-thuong-truc-hoi-dong-bao-an-lhq",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 392
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": false,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

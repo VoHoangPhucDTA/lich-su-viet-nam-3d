@@ -1,0 +1,146 @@
+{
+  "id": "chien-tranh-xam-luoc-viet-nam-cua-thuc-dan-phap",
+  "slug": "chien-tranh-xam-luoc-viet-nam-cua-thuc-dan-phap",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Chiến tranh xâm lược Việt Nam của thực dân Pháp",
+    "short": "Chiến tranh Pháp - Việt",
+    "alternatives": [
+      "Chiến tranh Đông Dương lần thứ nhất"
+    ]
+  },
+  "classification": {
+    "eventType": "military",
+    "eventSubtype": "war",
+    "region": "vietnam",
+    "tags": [
+      "Việt Nam",
+      "thực dân Pháp",
+      "chiến tranh cục bộ"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 12,
+        "lessonId": "12948",
+        "lessonTitle": "BÀI 2: TRẬT TỰ THẾ GIỚI TRONG CHIẾN TRANH LẠNH"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1945,
+      "month": null,
+      "day": null
+    },
+    "end": {
+      "year": 1954,
+      "month": null,
+      "day": null
+    },
+    "datePrecision": "year",
+    "displayDate": "1945 - 1954",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "nationwide",
+    "historicalLocations": [
+      "Việt Nam"
+    ],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "bounds",
+      "center": {
+        "lat": 16.0,
+        "lng": 106.0
+      },
+      "zoom": 5
+    }
+  },
+  "summary": {
+    "homepageTitle": "Chiến tranh Pháp - Việt (1945-1954)",
+    "homepageSummary": "Cuộc chiến tranh xâm lược Việt Nam của thực dân Pháp từ 1945 đến 1954, là một cuộc chiến tranh cục bộ tiêu biểu trong Chiến tranh Lạnh.",
+    "cardSummary": "Chiến tranh Pháp - Việt (1945-1954) là cuộc chiến cục bộ tiêu biểu trong Chiến tranh Lạnh."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Chiến tranh xâm lược Việt Nam của thực dân Pháp (1945 - 1954) là một trong những cuộc chiến tranh cục bộ tiêu biểu.",
+    "detailedNarrative": null,
+    "significance": "Phản ánh sự đối đầu giữa hai cực Xô - Mỹ trong Chiến tranh Lạnh, với sự hỗ trợ của các nước lớn.",
+    "keyFacts": [
+      "Diễn ra từ 1945 đến 1954",
+      "Có sự hỗ trợ của hai nước đứng đầu hai cực",
+      "Ở Việt Nam",
+      "Là cuộc chiến tranh cục bộ tiêu biểu"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 12,
+        "book": "KNTT",
+        "lessonId": "12948",
+        "lessonTitle": "BÀI 2: TRẬT TỰ THẾ GIỚI TRONG CHIẾN TRANH LẠNH",
+        "chapter": "Chu de 1",
+        "lesson": "Bai 2",
+        "pageRange": {
+          "start": 13,
+          "end": 17
+        },
+        "url": "https://sgkvn.com/lop-12-15/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-1-the-gioi-trong-va-sau-chien-tranh-lanh-3537/bai-2-trat-tu-the-gioi-trong-chien-tranh-lanh-12948.html",
+        "excerpt": "Chiến tranh xâm lược Việt Nam của thực dân Pháp (1945 - 1954) là một trong những cuộc chiến tranh cục bộ tiêu biểu."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "chien-tranh-xam-luoc-viet-nam-cua-thuc-dan-phap",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 167
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": true,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

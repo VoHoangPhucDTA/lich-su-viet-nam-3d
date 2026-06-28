@@ -1,0 +1,145 @@
+{
+  "id": "viet-nam-ho-tro-nhan-dao-covid-19",
+  "slug": "viet-nam-ho-tro-nhan-dao-covid-19",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Việt Nam giúp đỡ thiết bị, vật tư y tế cho các quốc gia bị ảnh hưởng bởi đại dịch COVID-19",
+    "short": "VN hỗ trợ y tế COVID-19",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "diplomatic",
+    "eventSubtype": "humanitarian-aid",
+    "region": "vietnam",
+    "tags": [
+      "hỗ trợ nhân đạo",
+      "y tế",
+      "COVID-19"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 12,
+        "lessonId": "12965",
+        "lessonTitle": "BÀI 14: HOẠT ĐỘNG ĐỐI NGOẠI CỦA VIỆT NAM TỪ NĂM 1975 ĐẾN NAY"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "end": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "datePrecision": "period",
+    "displayDate": "Trong thời kì đại dịch COVID-19 (khoảng 2020-2022)",
+    "isApproximate": true
+  },
+  "mapData": {
+    "geoType": "no_location",
+    "historicalLocations": [
+      "Nê-pan",
+      "In-đô-nê-xi-a",
+      "Cu-ba",
+      "Cam-pu-chia",
+      "Xi-ri",
+      "Thổ Nhĩ Kỳ",
+      "I-rắc"
+    ],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "auto",
+      "center": null,
+      "zoom": null
+    }
+  },
+  "summary": {
+    "homepageTitle": "VN hỗ trợ y tế các nước trong COVID-19",
+    "homepageSummary": "Việt Nam tích cực giúp đỡ thiết bị, vật tư y tế cho một số quốc gia bị ảnh hưởng nặng nề bởi đại dịch COVID-19.",
+    "cardSummary": "Việt Nam giúp đỡ vật tư y tế cho các quốc gia bị ảnh hưởng bởi đại dịch COVID-19."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Việt Nam tích cực giúp đỡ thiết bị, vật tư y tế cho một số quốc gia bị ảnh hưởng nặng nề bởi đại dịch COVID-19.",
+    "detailedNarrative": null,
+    "significance": "Nhằm hội nhập sâu rộng với khu vực và thế giới, nâng cao vị thế đất nước, Việt Nam cam kết tham gia giải quyết các vấn đề toàn cầu, thúc đẩy gắn kết cộng đồng.",
+    "keyFacts": [
+      "Cho các quốc gia bị ảnh hưởng nặng nề bởi đại dịch COVID-19",
+      "Giúp đỡ thiết bị, vật tư y tế"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 12,
+        "book": "KNTT",
+        "lessonId": "12965",
+        "lessonTitle": "BÀI 14: HOẠT ĐỘNG ĐỐI NGOẠI CỦA VIỆT NAM TỪ NĂM 1975 ĐẾN NAY",
+        "chapter": "Chu de 4",
+        "lesson": "Bai 14",
+        "pageRange": {
+          "start": 81,
+          "end": 86
+        },
+        "url": "https://sgkvn.com/lop-12-15/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-4-cong-cuoc-doi-moi-o-viet-nam-tu-nam-1986-den-nay-3540/bai-14-hoat-dong-doi-ngoai-cua-viet-nam-tu-nam-1975-den-nay-12965.html",
+        "excerpt": "Việt Nam tích cực giúp đỡ thiết bị, vật tư y tế cho một số quốc gia bị ảnh hưởng nặng nề bởi đại dịch COVID-19."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "viet-nam-ho-tro-nhan-dao-covid-19",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 381
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": false,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

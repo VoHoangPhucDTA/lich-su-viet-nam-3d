@@ -1,0 +1,140 @@
+{
+  "id": "philippin-chiem-dong-9-dao-truong-sa",
+  "slug": "philippin-chiem-dong-9-dao-truong-sa",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Phi-líp-pin chiếm đóng 9 đảo thuộc quần đảo Trường Sa",
+    "short": "Phi-líp-pin chiếm 9 đảo Trường Sa",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "military",
+    "eventSubtype": "occupation",
+    "region": "world",
+    "tags": [
+      "Trường Sa",
+      "Phi-líp-pin",
+      "chủ quyền"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 11,
+        "lessonId": "12395",
+        "lessonTitle": "BÀI 16  VIỆT NAM VÀ BIỂN ĐÔNG"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1971,
+      "month": null,
+      "day": null
+    },
+    "end": {
+      "year": 1980,
+      "month": null,
+      "day": null
+    },
+    "datePrecision": "year",
+    "displayDate": "Từ năm 1971 đến năm 1980",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "no_location",
+    "historicalLocations": [
+      "quần đảo Trường Sa"
+    ],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "auto",
+      "center": null,
+      "zoom": null
+    }
+  },
+  "summary": {
+    "homepageTitle": "Phi-líp-pin chiếm 9 đảo Trường Sa (1971-1980)",
+    "homepageSummary": "Từ năm 1971 đến năm 1980, Phi-líp-pin chiếm đóng 9 đảo thuộc quần đảo Trường Sa.",
+    "cardSummary": "Phi-líp-pin chiếm đóng 9 đảo thuộc quần đảo Trường Sa từ 1971 đến 1980."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Phi-líp-pin - Từ năm 1971 đến năm 1980, chiếm đóng 9 đảo thuộc quần đảo Trường Sa.",
+    "detailedNarrative": "Phi-líp-pin - Từ năm 1971 đến năm 1980, chiếm đóng 9 đảo thuộc quần đảo Trường Sa.",
+    "significance": "Một hành động trong bối cảnh tranh chấp chủ quyền ở Biển Đông.",
+    "keyFacts": [
+      "Chủ thể: Phi-líp-pin",
+      "Diễn ra từ 1971 đến 1980",
+      "Đối tượng: 9 đảo thuộc quần đảo Trường Sa"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 11,
+        "book": "KNTT",
+        "lessonId": "12395",
+        "lessonTitle": "BÀI 16  VIỆT NAM VÀ BIỂN ĐÔNG",
+        "chapter": "Chu de 7",
+        "lesson": "Bai 16",
+        "pageRange": {
+          "start": 107,
+          "end": 111
+        },
+        "url": "https://sgkvn.com/lop-11-14/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-7-lich-su-chu-quyen-cua-viet-nam-o-bien-dong-3354/bai-16-viet-nam-va-bien-dong-12395.html",
+        "excerpt": "Phi-líp-pin - Từ năm 1971 đến năm 1980, chiếm đóng 9 đảo thuộc quần đảo Trường Sa."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "philippin-chiem-dong-9-dao-truong-sa",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 234
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": false,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

@@ -1,0 +1,160 @@
+{
+  "id": "ly-thai-to-doi-do-thang-long",
+  "slug": "ly-thai-to-doi-do-thang-long",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Lý Thái Tổ dời đô ra Thăng Long",
+    "short": "Lý Thái Tổ dời đô ra Thăng Long",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "relocation",
+    "region": "vietnam",
+    "tags": [
+      "dời đô",
+      "Thăng Long",
+      "Lý Thái Tổ"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      10
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 10,
+        "lessonId": "12160",
+        "lessonTitle": "Bài 12: Văn Minh Đại Việt"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1010,
+      "month": null,
+      "day": null
+    },
+    "end": null,
+    "datePrecision": "year",
+    "displayDate": "Năm 1010",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "mixed",
+    "historicalLocations": [],
+    "provinceNames": [
+      "Hà Nội"
+    ],
+    "gadmRefs": [
+      "VNM.27_1"
+    ],
+    "marker": {
+      "name": "Hà Nội",
+      "lat": 21.0285,
+      "lng": 105.8542,
+      "confidence": "high"
+    },
+    "markers": [
+      {
+        "name": "Hà Nội",
+        "lat": 21.0285,
+        "lng": 105.8542,
+        "confidence": "high"
+      },
+      {
+        "name": "Thăng Long",
+        "lat": 21.0285,
+        "lng": 105.8542,
+        "confidence": "high"
+      }
+    ],
+    "focusGeometry": {
+      "mode": "bounds",
+      "center": {
+        "lat": 21.0176,
+        "lng": 105.814554
+      },
+      "zoom": 7
+    }
+  },
+  "summary": {
+    "homepageTitle": "Lý Thái Tổ dời đô Thăng Long (1010)",
+    "homepageSummary": "Năm 1010, Lý Thái Tổ dời đô ra Thăng Long, mở ra thời kì phát triển rực rỡ của văn minh Đại Việt.",
+    "cardSummary": "Lý Thái Tổ dời đô Thăng Long năm 1010, mở đầu thời kì rực rỡ của Đại Việt."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Năm 1010, Lý Thái Tổ dời đô ra Thăng Long (Hà Nội), mở ra thời kì phát triển rực rỡ của văn minh Đại Việt.",
+    "detailedNarrative": null,
+    "significance": "Mở ra thời kì phát triển rực rỡ của văn minh Đại Việt.",
+    "keyFacts": [
+      "Đến Thăng Long (Hà Nội)",
+      "Mở đầu thời kì phát triển rực rỡ của văn minh Đại Việt",
+      "Lý Thái Tổ dời đô",
+      "Diễn ra năm 1010"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 10,
+        "book": "KNTT",
+        "lessonId": "12160",
+        "lessonTitle": "Bài 12: Văn Minh Đại Việt",
+        "chapter": "Chu de 6",
+        "lesson": "Bai 12",
+        "pageRange": {
+          "start": 108,
+          "end": 122
+        },
+        "url": "https://sgkvn.com/lop-10-13/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-6-mot-so-nen-van-minh-tren-dat-nuoc-viet-nam-truoc-nam-1858-3276/bai-12-van-minh-dai-viet-12160.html",
+        "excerpt": "Năm 1010, Lý Thái Tổ dời đô ra Thăng Long (Hà Nội), mở ra thời kì phát triển rực rỡ của văn minh Đại Việt."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "ly-thai-to-doi-do-thang-long",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 12
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": true,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

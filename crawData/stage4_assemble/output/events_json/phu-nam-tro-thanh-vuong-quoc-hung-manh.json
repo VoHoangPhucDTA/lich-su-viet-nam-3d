@@ -1,0 +1,144 @@
+{
+  "id": "phu-nam-tro-thanh-vuong-quoc-hung-manh",
+  "slug": "phu-nam-tro-thanh-vuong-quoc-hung-manh",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Phù Nam trở thành vương quốc hùng mạnh",
+    "short": "Phù Nam trở thành vương quốc hùng mạnh",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "state_development",
+    "region": "vietnam",
+    "tags": [
+      "Vương quốc",
+      "Đông Nam Á",
+      "Phù Nam"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      10
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 10,
+        "lessonId": "12148",
+        "lessonTitle": "Bài 11: Một Số Nền Văn Minh Cổ Trên Đất Nước Việt Nam"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "end": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "datePrecision": "period",
+    "displayDate": "Từ thế kỉ III đến thế kỉ V",
+    "isApproximate": true
+  },
+  "mapData": {
+    "geoType": "no_location",
+    "historicalLocations": [
+      "Đốn Tốn",
+      "Xích Thổ",
+      "Đông Nam Á",
+      "Chân Lạp"
+    ],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "auto",
+      "center": null,
+      "zoom": null
+    }
+  },
+  "summary": {
+    "homepageTitle": "Phù Nam hùng mạnh",
+    "homepageSummary": "Từ thế kỉ III đến thế kỉ V, tổ chức nhà nước Phù Nam ngày càng được hoàn thiện và vươn lên trở thành vương quốc hùng mạnh, có ảnh hưởng rộng ra nhiều vùng đất ở khu vực Đông Nam Á.",
+    "cardSummary": "Phù Nam trở thành vương quốc hùng mạnh từ thế kỉ III đến thế kỉ V."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Trong khoảng hơn hai thế kỉ đầu sau khi thành lập, tổ chức nhà nước Phù Nam còn đơn giản. Từ thế kỉ III đến thế kỉ V, tổ chức nhà nước ngày càng được hoàn thiện. Phù Nam vươn lên trở thành vương quốc hùng mạnh, có ảnh hưởng rộng ra nhiều vùng đất ở khu vực Đông Nam Á.",
+    "detailedNarrative": "Sau giai đoạn thành lập đơn giản, từ thế kỉ III đến thế kỉ V, tổ chức nhà nước Phù Nam được hoàn thiện, giúp vương quốc này trở nên hùng mạnh và mở rộng ảnh hưởng khắp Đông Nam Á, khiến các quốc gia như Đốn Tốn, Xích Thổ, Chân Lạp phải thần phục.",
+    "significance": "Phù Nam trở thành một trung tâm buôn bán thương mại quan trọng bậc nhất và có ảnh hưởng lớn trong khu vực Đông Nam Á.",
+    "keyFacts": [
+      "Diễn ra từ thế kỉ III đến thế kỉ V",
+      "Có ảnh hưởng rộng ra nhiều vùng đất ở Đông Nam Á",
+      "Trở thành vương quốc hùng mạnh",
+      "Tổ chức nhà nước được hoàn thiện"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 10,
+        "book": "KNTT",
+        "lessonId": "12148",
+        "lessonTitle": "Bài 11: Một Số Nền Văn Minh Cổ Trên Đất Nước Việt Nam",
+        "chapter": "Chu de 6",
+        "lesson": "Bai 11",
+        "pageRange": {
+          "start": 93,
+          "end": 107
+        },
+        "url": "https://sgkvn.com/lop-10-13/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-6-mot-so-nen-van-minh-tren-dat-nuoc-viet-nam-truoc-nam-1858-3276/bai-11-mot-so-nen-van-minh-co-tren-dat-nuoc-viet-nam-12148.html",
+        "excerpt": "Trong khoảng hơn hai thế kỉ đầu sau khi thành lập, tổ chức nhà nước Phù Nam còn đơn giản. Từ thế kỉ III đến thế kỉ V, tổ chức nhà nước ngày càng được hoàn thiện. Phù Nam vươn lên trở thành vương quốc hùng mạnh, có ảnh hưởng rộng ra nhiều vùng đất ở khu vực Đông Nam Á."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "phu-nam-tro-thanh-vuong-quoc-hung-manh",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 362
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": false,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

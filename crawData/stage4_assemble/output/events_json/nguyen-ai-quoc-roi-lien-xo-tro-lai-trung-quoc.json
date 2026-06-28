@@ -1,0 +1,135 @@
+{
+  "id": "nguyen-ai-quoc-roi-lien-xo-tro-lai-trung-quoc",
+  "slug": "nguyen-ai-quoc-roi-lien-xo-tro-lai-trung-quoc",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Nguyễn Ái Quốc rời Liên Xô trở lại Trung Quốc",
+    "short": "Nguyễn Ái Quốc rời Liên Xô trở lại Trung Quốc",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "relocation",
+    "region": "world",
+    "tags": [
+      "Liên Xô",
+      "Nguyễn Ái Quốc",
+      "Trung Quốc"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 12,
+        "lessonId": "12966",
+        "lessonTitle": "BÀI 15: KHÁI QUÁT CUỘC ĐỜI VÀ SỰ NGHIỆP CỦA HỒ CHÍ MINH"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1938,
+      "month": null,
+      "day": null
+    },
+    "end": null,
+    "datePrecision": "year",
+    "displayDate": "Năm 1938",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "no_location",
+    "historicalLocations": [
+      "Liên Xô",
+      "Trung Quốc"
+    ],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "auto",
+      "center": null,
+      "zoom": null
+    }
+  },
+  "summary": {
+    "homepageTitle": "Nguyễn Ái Quốc trở lại Trung Quốc",
+    "homepageSummary": "Năm 1938, Nguyễn Ái Quốc rời Liên Xô trở lại Trung Quốc và hoạt động cách mạng ở đây.",
+    "cardSummary": "Năm 1938, Nguyễn Ái Quốc rời Liên Xô trở lại Trung Quốc hoạt động cách mạng."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Năm 1938, Nguyễn Ái Quốc rời Liên Xô trở lại Trung Quốc và hoạt động cách mạng ở đây.",
+    "detailedNarrative": "Năm 1938, Nguyễn Ái Quốc rời Liên Xô trở lại Trung Quốc và hoạt động cách mạng ở đây.",
+    "significance": null,
+    "keyFacts": [
+      "Hoạt động cách mạng ở Trung Quốc"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 12,
+        "book": "KNTT",
+        "lessonId": "12966",
+        "lessonTitle": "BÀI 15: KHÁI QUÁT CUỘC ĐỜI VÀ SỰ NGHIỆP CỦA HỒ CHÍ MINH",
+        "chapter": "Chu de 5",
+        "lesson": "Bai 15",
+        "pageRange": {
+          "start": 88,
+          "end": 93
+        },
+        "url": "https://sgkvn.com/lop-12-15/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-5-lich-su-doi-ngoai-cua-viet-nam-thoi-can-hien-dai-3541/bai-15-khai-quat-cuoc-doi-va-su-nghiep-cua-ho-chi-minh-12966.html",
+        "excerpt": "Năm 1938, Nguyễn Ái Quốc rời Liên Xô trở lại Trung Quốc và hoạt động cách mạng ở đây."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "nguyen-ai-quoc-roi-lien-xo-tro-lai-trung-quoc",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 133
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": false,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

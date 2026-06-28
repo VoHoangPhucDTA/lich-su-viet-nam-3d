@@ -1,0 +1,36 @@
+{
+  "phase2Approved": true,
+  "reviewOnlyKeywords": [
+    "phat hien",
+    "xac dinh nien dai",
+    "viet bai",
+    "viet sach",
+    "viet hich",
+    "viet tac pham",
+    "xuat ban",
+    "sinh",
+    "qua doi",
+    "di hoc",
+    "hich tuong si",
+    "tac pham",
+    "tem",
+    "covid",
+    "robot sophia"
+  ],
+  "supportingSubtypes": [
+    "artifact",
+    "archaeological-dating",
+    "discovery",
+    "publication",
+    "performance",
+    "festival",
+    "commemoration"
+  ],
+  "overviewParentIds": [
+    "cach-mang-thang-tam-nam-1945",
+    "khang-chien-chong-thuc-dan-phap-1945-1954",
+    "khang-chien-chong-my-cuu-nuoc",
+    "tong-tien-cong-va-noi-day-xuan-1975",
+    "cong-cuoc-doi-moi-o-viet-nam"
+  ]
+}

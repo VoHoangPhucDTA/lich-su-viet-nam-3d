@@ -1,0 +1,178 @@
+{
+  "id": "chien-dich-viet-bac-thu-dong-1947",
+  "slug": "chien-dich-viet-bac-thu-dong-1947",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Chiến dịch Việt Bắc thu – đông năm 1947",
+    "short": "Chiến dịch Việt Bắc 1947",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "military",
+    "eventSubtype": "campaign",
+    "region": "vietnam",
+    "tags": [
+      "Kháng chiến",
+      "Việt Bắc",
+      "Phản công"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 12,
+        "lessonId": "12955",
+        "lessonTitle": "BÀI 7: CUỘC KHÁNG CHIẾN CHỐNG THỰC DÂN PHÁP (1945-1954)"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1947,
+      "month": 10,
+      "day": null
+    },
+    "end": {
+      "year": 1947,
+      "month": 12,
+      "day": null
+    },
+    "datePrecision": "month",
+    "displayDate": "Từ tháng 10 đến tháng 12 – 1947",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "mixed",
+    "historicalLocations": [],
+    "provinceNames": [
+      "Phú Thọ",
+      "Bắc Kạn"
+    ],
+    "gadmRefs": [
+      "VNM.44_1",
+      "VNM.4_1"
+    ],
+    "marker": {
+      "name": "Đoan Hùng",
+      "lat": 21.57,
+      "lng": 105.18,
+      "confidence": "high"
+    },
+    "markers": [
+      {
+        "name": "Đoan Hùng",
+        "lat": 21.57,
+        "lng": 105.18,
+        "confidence": "high"
+      },
+      {
+        "name": "Chợ Đồn",
+        "lat": 22.2,
+        "lng": 105.6,
+        "confidence": "high"
+      },
+      {
+        "name": "Việt Bắc",
+        "lat": 22.0,
+        "lng": 105.5,
+        "confidence": "medium"
+      },
+      {
+        "name": "Chợ Rã",
+        "lat": 22.4,
+        "lng": 105.7,
+        "confidence": "high"
+      }
+    ],
+    "focusGeometry": {
+      "mode": "bounds",
+      "center": {
+        "lat": 21.963198,
+        "lng": 105.481809
+      },
+      "zoom": 7
+    }
+  },
+  "summary": {
+    "homepageTitle": "Chiến dịch Việt Bắc thu – đông 1947",
+    "homepageSummary": "Chiến dịch phản công lớn đầu tiên của quân đội Việt Nam, làm thất bại hoàn toàn chiến lược “đánh nhanh, thắng nhanh” của Pháp.",
+    "cardSummary": "Chiến dịch Việt Bắc thu – đông 1947 làm thất bại chiến lược “đánh nhanh, thắng nhanh” của Pháp, bảo vệ cơ quan đầu não kháng chiến."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Chiến dịch Việt Bắc thu – đông năm 1947 diễn ra từ tháng 10 đến tháng 12 – 1947 khi thực dân Pháp mở cuộc tấn công lên Việt Bắc. Quân đội Việt Nam chủ động bao vây, tiến công đẩy lùi quân Pháp khỏi một số vị trí quan trọng như Chợ Đồn, Chợ Rã, Đoan Hùng. Sau hai tháng, đại bộ phận quân Pháp phải rút chạy khỏi Việt Bắc; cơ quan đầu não của cuộc kháng chiến được bảo vệ an toàn; bộ đội ta thu được nhiều vũ khí và ngày càng trưởng thành.",
+    "detailedNarrative": "Thực dân Pháp mở cuộc tấn công lên Việt Bắc từ tháng 10 đến tháng 12 – 1947. Quân đội Việt Nam đã chủ động bao vây, tiến công và đẩy lùi quân Pháp khỏi các vị trí quan trọng như Chợ Đồn, Chợ Rã, Đoan Hùng. Sau hai tháng chiến đấu, đại bộ phận quân Pháp buộc phải rút chạy khỏi Việt Bắc. Chiến dịch đã bảo vệ an toàn cơ quan đầu não của cuộc kháng chiến, giúp bộ đội ta thu được nhiều vũ khí và ngày càng trưởng thành.",
+    "significance": "Đây là chiến dịch phản công lớn đầu tiên, đã làm thất bại hoàn toàn chiến lược “đánh nhanh, thắng nhanh” của thực dân Pháp.",
+    "keyFacts": [
+      "Bảo vệ an toàn cơ quan đầu não kháng chiến",
+      "Làm thất bại chiến lược “đánh nhanh, thắng nhanh” của Pháp",
+      "Pháp tấn công Việt Bắc, ta phản công",
+      "Diễn ra từ tháng 10 đến tháng 12-1947"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 12,
+        "book": "KNTT",
+        "lessonId": "12955",
+        "lessonTitle": "BÀI 7: CUỘC KHÁNG CHIẾN CHỐNG THỰC DÂN PHÁP (1945-1954)",
+        "chapter": "Chu de 3",
+        "lesson": "Bai 7",
+        "pageRange": {
+          "start": 37,
+          "end": 44
+        },
+        "url": "https://sgkvn.com/lop-12-15/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-3-cach-mang-thang-tam-nam-1945-chien-tranh-giai-phong-dan-toc-va-chien-tranh-bao-ve-to-quoc-trong-lich-su-viet-nam-tu-thang-8-nam-1945-den-nay-3539/bai-7-cuoc-khang-chien-chong-thuc-dan-phap-1945-1954-12955.html",
+        "excerpt": "Chiến dịch Việt Bắc thu – đông năm 1947 diễn ra từ tháng 10 đến tháng 12 – 1947 khi thực dân Pháp mở cuộc tấn công lên Việt Bắc. Quân đội Việt Nam chủ động bao vây, tiến công đẩy lùi quân Pháp khỏi một số vị trí quan trọng như Chợ Đồn, Chợ Rã, Đoan Hùng. Sau hai tháng, đại bộ phận quân Pháp phải rút chạy khỏi Việt Bắc; cơ quan đầu não của cuộc kháng chiến được bảo vệ an toàn; bộ đội ta thu được nhiều vũ khí và ngày càng trưởng thành."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "chien-dich-viet-bac-thu-dong-1947",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 188
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": true,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

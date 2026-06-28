@@ -1,0 +1,138 @@
+{
+  "id": "trung-quoc-tu-choi-boi-thuong-vu-tau-dam-hoang-sa",
+  "slug": "trung-quoc-tu-choi-boi-thuong-vu-tau-dam-hoang-sa",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Trung Quốc từ chối bồi thường vụ tàu đắm ở Hoàng Sa",
+    "short": "Trung Quốc từ chối bồi thường vụ tàu đắm ở Hoàng Sa",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "diplomatic",
+    "eventSubtype": "dispute",
+    "region": "world",
+    "tags": [
+      "chủ quyền",
+      "Hoàng Sa",
+      "Trung Quốc"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 11,
+        "lessonId": "12395",
+        "lessonTitle": "BÀI 16  VIỆT NAM VÀ BIỂN ĐÔNG"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1898,
+      "month": null,
+      "day": null
+    },
+    "end": null,
+    "datePrecision": "year",
+    "displayDate": "Năm 1898",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "no_location",
+    "historicalLocations": [
+      "quần đảo Hoàng Sa",
+      "bãi đá Bắc",
+      "Hải Nam"
+    ],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "auto",
+      "center": null,
+      "zoom": null
+    }
+  },
+  "summary": {
+    "homepageTitle": "Trung Quốc từ chối bồi thường vụ tàu đắm ở Hoàng Sa (1898)",
+    "homepageSummary": "Năm 1898, Trung Quốc từ chối bồi thường vụ tàu đắm ở Hoàng Sa, nêu lí do quần đảo này không thuộc chủ quyền Trung Quốc.",
+    "cardSummary": "Trung Quốc từ chối bồi thường vụ tàu đắm ở Hoàng Sa năm 1898, khẳng định Hoàng Sa không thuộc chủ quyền của họ."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Năm 1898, khi Công ti Bảo hiểm Anh đòi Trung Quốc phải bồi thường việc người dân Hải Nam \"hôi của\" tàu Bê-lô-na của Đức bị đắm vào năm 1894 ở ngoài khơi bãi đá Bắc và tàu U-nô-phi Ma-ru của Nhật Bản đắm năm 1896 cũng ở quần đảo Hoàng Sa. Trung Quốc đã nêu lí do quần đảo Hoàng Sa không thuộc chủ quyền Trung Quốc để dứt khoát từ chối bồi thường.",
+    "detailedNarrative": "Năm 1898, khi Công ti Bảo hiểm Anh đòi Trung Quốc phải bồi thường việc người dân Hải Nam \"hôi của\" tàu Bê-lô-na của Đức bị đắm vào năm 1894 ở ngoài khơi bãi đá Bắc và tàu U-nô-phi Ma-ru của Nhật Bản đắm năm 1896 cũng ở quần đảo Hoàng Sa. Trung Quốc đã nêu lí do quần đảo Hoàng Sa không thuộc chủ quyền Trung Quốc để dứt khoát từ chối bồi thường.",
+    "significance": "Cho thấy Trung Quốc đã từng không tuyên bố chủ quyền đối với quần đảo Hoàng Sa.",
+    "keyFacts": [
+      "Diễn ra năm 1898",
+      "Liên quan đến việc bồi thường tàu đắm của Anh, Đức, Nhật",
+      "Trung Quốc từ chối bồi thường với lí do Hoàng Sa không thuộc chủ quyền Trung Quốc"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 11,
+        "book": "KNTT",
+        "lessonId": "12395",
+        "lessonTitle": "BÀI 16  VIỆT NAM VÀ BIỂN ĐÔNG",
+        "chapter": "Chu de 7",
+        "lesson": "Bai 16",
+        "pageRange": {
+          "start": 107,
+          "end": 111
+        },
+        "url": "https://sgkvn.com/lop-11-14/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-7-lich-su-chu-quyen-cua-viet-nam-o-bien-dong-3354/bai-16-viet-nam-va-bien-dong-12395.html",
+        "excerpt": "Năm 1898, khi Công ti Bảo hiểm Anh đòi Trung Quốc phải bồi thường việc người dân Hải Nam \"hôi của\" tàu Bê-lô-na của Đức bị đắm vào năm 1894 ở ngoài khơi bãi đá Bắc và tàu U-nô-phi Ma-ru của Nhật Bản đắm năm 1896 cũng ở quần đảo Hoàng Sa. Trung Quốc đã nêu lí do quần đảo Hoàng Sa không thuộc chủ quyền Trung Quốc để dứt khoát từ chối bồi thường."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "trung-quoc-tu-choi-boi-thuong-vu-tau-dam-hoang-sa",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 90
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": false,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

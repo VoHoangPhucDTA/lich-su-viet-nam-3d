@@ -1,0 +1,182 @@
+{
+  "id": "cuoc-tien-cong-chien-luoc-nam-1972",
+  "slug": "cuoc-tien-cong-chien-luoc-nam-1972",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Cuộc Tiến công chiến lược năm 1972",
+    "short": "Tiến công chiến lược 1972",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "military",
+    "eventSubtype": "campaign",
+    "region": "vietnam",
+    "tags": [
+      "Việt Nam hoá chiến tranh",
+      "Quảng Trị",
+      "miền Nam"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 12,
+        "lessonId": "12956",
+        "lessonTitle": "BÀI 8: CUỘC KHÁNG CHIẾN CHỐNG MỸ, CỨU NƯỚC (1954-1975)"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1972,
+      "month": 3,
+      "day": null
+    },
+    "end": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "datePrecision": "month",
+    "displayDate": "Từ tháng 3 – 1972",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "mixed",
+    "historicalLocations": [
+      "miền Nam"
+    ],
+    "provinceNames": [
+      "Quảng Trị",
+      "Hồ Chí Minh",
+      "Bình Phước",
+      "Tây Ninh",
+      "Bình Dương",
+      "Đồng Nai",
+      "Bà Rịa - Vũng Tàu",
+      "Kon Tum",
+      "Gia Lai",
+      "Đắk Lắk",
+      "Đắk Nông",
+      "Lâm Đồng"
+    ],
+    "gadmRefs": [
+      "VNM.50_1",
+      "VNM.25_1",
+      "VNM.10_1",
+      "VNM.53_1",
+      "VNM.9_1",
+      "VNM.17_1",
+      "VNM.7_1",
+      "VNM.34_1",
+      "VNM.21_1",
+      "VNM.15_1",
+      "VNM.16_1",
+      "VNM.37_1"
+    ],
+    "marker": {
+      "name": "Quảng Trị",
+      "lat": 16.7,
+      "lng": 107.0,
+      "confidence": "high"
+    },
+    "markers": [
+      {
+        "name": "Quảng Trị",
+        "lat": 16.7,
+        "lng": 107.0,
+        "confidence": "high"
+      }
+    ],
+    "focusGeometry": {
+      "mode": "bounds",
+      "center": {
+        "lat": 12.728343,
+        "lng": 107.315758
+      },
+      "zoom": 7
+    }
+  },
+  "summary": {
+    "homepageTitle": "Tiến công chiến lược 1972, buộc Mỹ thừa nhận thất bại",
+    "homepageSummary": "Quân đội Việt Nam mở cuộc Tiến công chiến lược vào Quảng Trị rồi phát triển rộng khắp chiến trường miền Nam, chọc thủng ba phòng tuyến của địch, buộc Mỹ phải thừa nhận thất bại của chiến lược “Việt Nam hoá chiến tranh\".",
+    "cardSummary": "Cuộc Tiến công chiến lược năm 1972 buộc Mỹ thừa nhận thất bại của 'Việt Nam hoá chiến tranh'."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Từ tháng 3 – 1972, quân đội Việt Nam mở cuộc Tiến công chiến lược vào Quảng Trị rồi phát triển rộng khắp chiến trường miền Nam, chọc thủng ba phòng tuyến của địch ở Quảng Trị, Tây Nguyên và Đông Nam Bộ. Cuộc Tiến công chiến lược năm 1972 đã buộc Mỹ phải thừa nhận thất bại của chiến lược “Việt Nam hoá chiến tranh\".",
+    "detailedNarrative": null,
+    "significance": "Buộc Mỹ phải thừa nhận thất bại của chiến lược “Việt Nam hoá chiến tranh\".",
+    "keyFacts": [
+      "Buộc Mỹ thừa nhận thất bại của 'Việt Nam hoá chiến tranh'",
+      "Chọc thủng ba phòng tuyến của địch",
+      "Bắt đầu từ tháng 3-1972",
+      "Mở cuộc tiến công vào Quảng Trị, Tây Nguyên, Đông Nam Bộ"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 12,
+        "book": "KNTT",
+        "lessonId": "12956",
+        "lessonTitle": "BÀI 8: CUỘC KHÁNG CHIẾN CHỐNG MỸ, CỨU NƯỚC (1954-1975)",
+        "chapter": "Chu de 3",
+        "lesson": "Bai 8",
+        "pageRange": {
+          "start": 45,
+          "end": 53
+        },
+        "url": "https://sgkvn.com/lop-12-15/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-3-cach-mang-thang-tam-nam-1945-chien-tranh-giai-phong-dan-toc-va-chien-tranh-bao-ve-to-quoc-trong-lich-su-viet-nam-tu-thang-8-nam-1945-den-nay-3539/bai-8-cuoc-khang-chien-chong-my-cuu-nuoc-1954-1975-12956.html",
+        "excerpt": "Từ tháng 3 – 1972, quân đội Việt Nam mở cuộc Tiến công chiến lược vào Quảng Trị rồi phát triển rộng khắp chiến trường miền Nam, chọc thủng ba phòng tuyến của địch ở Quảng Trị, Tây Nguyên và Đông Nam Bộ. Cuộc Tiến công chiến lược năm 1972 đã buộc Mỹ phải thừa nhận thất bại của chiến lược “Việt Nam hoá chiến tranh\"."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "cuoc-tien-cong-chien-luoc-nam-1972",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 235
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": true,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

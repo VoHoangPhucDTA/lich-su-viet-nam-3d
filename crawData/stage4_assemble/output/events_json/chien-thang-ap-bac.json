@@ -1,0 +1,159 @@
+{
+  "id": "chien-thang-ap-bac",
+  "slug": "chien-thang-ap-bac",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Chiến thắng Ấp Bắc",
+    "short": "Ấp Bắc",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "military",
+    "eventSubtype": "battle",
+    "region": "vietnam",
+    "tags": [
+      "Mỹ Tho",
+      "Chiến tranh đặc biệt",
+      "trực thăng vận"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 12,
+        "lessonId": "12956",
+        "lessonTitle": "BÀI 8: CUỘC KHÁNG CHIẾN CHỐNG MỸ, CỨU NƯỚC (1954-1975)"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1963,
+      "month": 1,
+      "day": null
+    },
+    "end": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "datePrecision": "month",
+    "displayDate": "Tháng 1 – 1963",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "mixed",
+    "historicalLocations": [
+      "miền Nam"
+    ],
+    "provinceNames": [
+      "Tiền Giang"
+    ],
+    "gadmRefs": [
+      "VNM.58_1"
+    ],
+    "marker": {
+      "name": "Ấp Bắc (Mỹ Tho)",
+      "lat": 10.43,
+      "lng": 106.15,
+      "confidence": "high"
+    },
+    "markers": [
+      {
+        "name": "Ấp Bắc (Mỹ Tho)",
+        "lat": 10.43,
+        "lng": 106.15,
+        "confidence": "high"
+      }
+    ],
+    "focusGeometry": {
+      "mode": "bounds",
+      "center": {
+        "lat": 10.411514,
+        "lng": 106.29237
+      },
+      "zoom": 7
+    }
+  },
+  "summary": {
+    "homepageTitle": "Chiến thắng Ấp Bắc (1-1963)",
+    "homepageSummary": "Chiến thắng Ấp Bắc (Mỹ Tho, tháng 1-1963) mở ra khả năng đánh bại chiến thuật “trực thăng vận, thiết xa vận” của Mỹ.",
+    "cardSummary": "Chiến thắng Ấp Bắc (1-1963) chứng minh khả năng đánh bại 'Chiến tranh đặc biệt' của Mỹ."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Trên mặt trận quân sự, chiến thắng Ấp Bắc (Mỹ Tho, tháng 1 1963) đã mở ra khả năng đánh bại chiến thuật “trực thăng vận, thiết xa vận, chứng minh khả năng quân dân Việt Nam có thể đánh bại chiến lược “Chiến tranh đặc biệt” của Mỹ.",
+    "detailedNarrative": "Sau chiến thắng Ấp Bắc, một phong trào “Thi đua Ấp Bắc, giết giặc lập công” dấy lên khắp miền Nam.",
+    "significance": "Mở ra khả năng đánh bại chiến thuật “trực thăng vận, thiết xa vận” và chứng minh khả năng đánh bại chiến lược “Chiến tranh đặc biệt” của Mỹ.",
+    "keyFacts": [
+      "Chứng minh khả năng đánh bại chiến lược 'Chiến tranh đặc biệt'",
+      "Mở ra khả năng đánh bại chiến thuật 'trực thăng vận, thiết xa vận'",
+      "Diễn ra tại Ấp Bắc (Mỹ Tho) tháng 1-1963"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 12,
+        "book": "KNTT",
+        "lessonId": "12956",
+        "lessonTitle": "BÀI 8: CUỘC KHÁNG CHIẾN CHỐNG MỸ, CỨU NƯỚC (1954-1975)",
+        "chapter": "Chu de 3",
+        "lesson": "Bai 8",
+        "pageRange": {
+          "start": 45,
+          "end": 53
+        },
+        "url": "https://sgkvn.com/lop-12-15/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-3-cach-mang-thang-tam-nam-1945-chien-tranh-giai-phong-dan-toc-va-chien-tranh-bao-ve-to-quoc-trong-lich-su-viet-nam-tu-thang-8-nam-1945-den-nay-3539/bai-8-cuoc-khang-chien-chong-my-cuu-nuoc-1954-1975-12956.html",
+        "excerpt": "Trên mặt trận quân sự, chiến thắng Ấp Bắc (Mỹ Tho, tháng 1 1963) đã mở ra khả năng đánh bại chiến thuật “trực thăng vận, thiết xa vận, chứng minh khả năng quân dân Việt Nam có thể đánh bại chiến lược “Chiến tranh đặc biệt” của Mỹ."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "chien-thang-ap-bac",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 224
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": true,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

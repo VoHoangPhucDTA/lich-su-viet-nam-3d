@@ -1,0 +1,140 @@
+{
+  "id": "viet-nam-dam-phan-ranh-gioi-tren-bien",
+  "slug": "viet-nam-dam-phan-ranh-gioi-tren-bien",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Việt Nam đàm phán về ranh giới trên biển với Ma-lai-xi-a, In-đô-nê-xi-a, Phi-líp-pin và Thái Lan",
+    "short": "VN đàm phán ranh giới biển",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "diplomatic",
+    "eventSubtype": "negotiation",
+    "region": "vietnam",
+    "tags": [
+      "đàm phán",
+      "biển đảo",
+      "chủ quyền",
+      "Đông Nam Á"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 12,
+        "lessonId": "12965",
+        "lessonTitle": "BÀI 14: HOẠT ĐỘNG ĐỐI NGOẠI CỦA VIỆT NAM TỪ NĂM 1975 ĐẾN NAY"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "end": null,
+    "datePrecision": "period",
+    "displayDate": "Trong thời kì Đổi mới",
+    "isApproximate": true
+  },
+  "mapData": {
+    "geoType": "no_location",
+    "historicalLocations": [
+      "In-đô-nê-xi-a",
+      "Ma-lai-xi-a",
+      "Phi-líp-pin",
+      "Thái Lan"
+    ],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "auto",
+      "center": null,
+      "zoom": null
+    }
+  },
+  "summary": {
+    "homepageTitle": "VN đàm phán ranh giới biển với các nước",
+    "homepageSummary": "Việt Nam đàm phán về ranh giới trên biển với Ma-lai-xi-a, In-đô-nê-xi-a, Phi-líp-pin và Thái Lan, giải quyết bất đồng bằng hòa bình.",
+    "cardSummary": "Việt Nam đàm phán ranh giới trên biển với Ma-lai-xi-a, In-đô-nê-xi-a, Phi-líp-pin và Thái Lan."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Việt Nam đã đàm phán về ranh giới trên biển với Ma-lai-xi-a, In-đô-nê-xi-a, Phi-líp-pin và và Thái Lan, giải quyết các bất đồng bằng con đường đàm phán, thương lượng.",
+    "detailedNarrative": "Để đảm bảo hoà bình, ổn định, bảo vệ lãnh thổ, lãnh hải, biển đảo của Tổ quốc, Việt Nam tham gia đàm phán và kí kết các thoả thuận, các hiệp định về phân định biên giới trên bộ, trên biển.",
+    "significance": "Bảo vệ vững chắc chủ quyền lãnh thổ, lãnh hải, biển đảo của Tổ quốc.",
+    "keyFacts": [
+      "Đàm phán về ranh giới trên biển",
+      "Giải quyết bất đồng bằng đàm phán, thương lượng",
+      "Với Ma-lai-xi-a, In-đô-nê-xi-a, Phi-líp-pin và Thái Lan"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 12,
+        "book": "KNTT",
+        "lessonId": "12965",
+        "lessonTitle": "BÀI 14: HOẠT ĐỘNG ĐỐI NGOẠI CỦA VIỆT NAM TỪ NĂM 1975 ĐẾN NAY",
+        "chapter": "Chu de 4",
+        "lesson": "Bai 14",
+        "pageRange": {
+          "start": 81,
+          "end": 86
+        },
+        "url": "https://sgkvn.com/lop-12-15/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-4-cong-cuoc-doi-moi-o-viet-nam-tu-nam-1986-den-nay-3540/bai-14-hoat-dong-doi-ngoai-cua-viet-nam-tu-nam-1975-den-nay-12965.html",
+        "excerpt": "Việt Nam đã đàm phán về ranh giới trên biển với Ma-lai-xi-a, In-đô-nê-xi-a, Phi-líp-pin và và Thái Lan, giải quyết các bất đồng bằng con đường đàm phán, thương lượng."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "viet-nam-dam-phan-ranh-gioi-tren-bien",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 380
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": false,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

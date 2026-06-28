@@ -1,0 +1,134 @@
+{
+  "id": "ban-hanh-chinh-sach-han-dien",
+  "slug": "ban-hanh-chinh-sach-han-dien",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Ban hành chính sách hạn điền",
+    "short": "Chính sách hạn điền",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "economic",
+    "eventSubtype": "land_reform",
+    "region": "vietnam",
+    "tags": [
+      "Hồ Quý Ly",
+      "Hạn điền",
+      "Cải cách ruộng đất"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 11,
+        "lessonId": "12387",
+        "lessonTitle": "BÀI 12  KHÁI LƯỢC VỀ CẢI CÁCH  CUỘC CẢI"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1397,
+      "month": null,
+      "day": null
+    },
+    "end": null,
+    "datePrecision": "year",
+    "displayDate": "Năm 1397",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "no_location",
+    "historicalLocations": [],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "auto",
+      "center": null,
+      "zoom": null
+    }
+  },
+  "summary": {
+    "homepageTitle": "Chính sách hạn điền",
+    "homepageSummary": "Năm 1397, nhà Hồ thực hiện chính sách hạn điền, quy định thứ dân chỉ được sở hữu tối đa 10 mẫu ruộng nhằm hạn chế quyền lực quý tộc Trần.",
+    "cardSummary": "Nhà Hồ ban hành chính sách hạn điền năm 1397, giới hạn 10 mẫu ruộng cho thứ dân."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Nhằm hạn chế quyền lực của quý tộc Trần, nhà Hồ thực hiện chính sách hạn điển. “Các đại vương và trưởng công chúa thì ruộng không hạn chế, cho đến thứ dân thì ruộng chỉ 10 mẫu thôi.\"",
+    "detailedNarrative": null,
+    "significance": null,
+    "keyFacts": [
+      "Thứ dân chỉ được 10 mẫu ruộng",
+      "Hạn chế quyền lực quý tộc Trần",
+      "Năm 1397"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 11,
+        "book": "KNTT",
+        "lessonId": "12387",
+        "lessonTitle": "BÀI 12  KHÁI LƯỢC VỀ CẢI CÁCH  CUỘC CẢI",
+        "chapter": "Chu de 6",
+        "lesson": "Bai 12",
+        "pageRange": {
+          "start": 87,
+          "end": 91
+        },
+        "url": "https://sgkvn.com/lop-11-14/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-6-mot-so-cuoc-cai-cach-lon-trong-lich-su-viet-nam-truoc-nam-1858-3353/bai-12-khai-luoc-ve-cai-cach-cuoc-cai-cach-cua-ho-quy-ly-va-trieu-ho-dau-the-ki-xv-12387.html",
+        "excerpt": "Nhằm hạn chế quyền lực của quý tộc Trần, nhà Hồ thực hiện chính sách hạn điển. “Các đại vương và trưởng công chúa thì ruộng không hạn chế, cho đến thứ dân thì ruộng chỉ 10 mẫu thôi.\""
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "ban-hanh-chinh-sach-han-dien",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 29
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": false,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

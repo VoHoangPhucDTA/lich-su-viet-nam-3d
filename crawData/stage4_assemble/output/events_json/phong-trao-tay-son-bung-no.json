@@ -1,0 +1,136 @@
+{
+  "id": "phong-trao-tay-son-bung-no",
+  "slug": "phong-trao-tay-son-bung-no",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Phong trào Tây Sơn bùng nổ",
+    "short": "Phong trào Tây Sơn bùng nổ",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "uprising",
+    "region": "vietnam",
+    "tags": [
+      "thống nhất đất nước",
+      "Tây Sơn",
+      "khởi nghĩa"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      10
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 10,
+        "lessonId": "12160",
+        "lessonTitle": "Bài 12: Văn Minh Đại Việt"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "end": null,
+    "datePrecision": "period",
+    "displayDate": "Cuối thế kỉ XVIII",
+    "isApproximate": true
+  },
+  "mapData": {
+    "geoType": "no_location",
+    "historicalLocations": [],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "auto",
+      "center": null,
+      "zoom": null
+    }
+  },
+  "summary": {
+    "homepageTitle": "Phong trào Tây Sơn bùng nổ (cuối TK XVIII)",
+    "homepageSummary": "Cuối thế kỉ XVIII, phong trào Tây Sơn bùng nổ, lật đổ các chính quyền phong kiến, đánh tan ngoại xâm, thống nhất đất nước.",
+    "cardSummary": "Phong trào Tây Sơn bùng nổ cuối thế kỉ XVIII, lật đổ phong kiến và đánh tan ngoại xâm."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Cuối thế kỉ XVIII, phong trào Tây Sơn bùng nổ và lan rộng, lật đổ các chính quyển phong kiến trong nước, đánh tan quân xâm lược Xiêm và Mãn Thanh, xoá bỏ tình trạng chia cắt đất nước, thành lập vương triều, tạo nền tảng cho sự thống nhất quốc gia.",
+    "detailedNarrative": null,
+    "significance": "Lật đổ các chính quyền phong kiến, đánh tan quân xâm lược, xoá bỏ tình trạng chia cắt đất nước, tạo nền tảng cho sự thống nhất quốc gia.",
+    "keyFacts": [
+      "Thành lập vương triều Tây Sơn",
+      "Xoá bỏ chia cắt đất nước",
+      "Lật đổ chính quyền phong kiến",
+      "Bùng nổ cuối thế kỉ XVIII",
+      "Đánh tan quân Xiêm và Mãn Thanh"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 10,
+        "book": "KNTT",
+        "lessonId": "12160",
+        "lessonTitle": "Bài 12: Văn Minh Đại Việt",
+        "chapter": "Chu de 6",
+        "lesson": "Bai 12",
+        "pageRange": {
+          "start": 108,
+          "end": 122
+        },
+        "url": "https://sgkvn.com/lop-10-13/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-6-mot-so-nen-van-minh-tren-dat-nuoc-viet-nam-truoc-nam-1858-3276/bai-12-van-minh-dai-viet-12160.html",
+        "excerpt": "Cuối thế kỉ XVIII, phong trào Tây Sơn bùng nổ và lan rộng, lật đổ các chính quyển phong kiến trong nước, đánh tan quân xâm lược Xiêm và Mãn Thanh, xoá bỏ tình trạng chia cắt đất nước, thành lập vương triều, tạo nền tảng cho sự thống nhất quốc gia."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "phong-trao-tay-son-bung-no",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 361
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": false,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

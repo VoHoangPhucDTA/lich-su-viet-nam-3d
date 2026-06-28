@@ -1,0 +1,148 @@
+{
+  "id": "giai-doan-khoi-dau-cong-cuoc-doi-moi-1986-1995",
+  "slug": "giai-doan-khoi-dau-cong-cuoc-doi-moi-1986-1995",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Giai đoạn khởi đầu công cuộc Đổi mới",
+    "short": "Đổi mới giai đoạn 1986-1995",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "reform",
+    "region": "vietnam",
+    "tags": [
+      "hội nhập quốc tế",
+      "kinh tế thị trường",
+      "Đổi mới"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 12,
+        "lessonId": "12958",
+        "lessonTitle": "BÀI 10: KHÁI QUÁT VỀ CÔNG CUỘC ĐỔI MỚI TỪ NĂM 1986 ĐẾN NAY"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "end": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "datePrecision": "period",
+    "displayDate": "1986-1995",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "nationwide",
+    "historicalLocations": [
+      "Việt Nam"
+    ],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "bounds",
+      "center": {
+        "lat": 16.0,
+        "lng": 106.0
+      },
+      "zoom": 5
+    }
+  },
+  "summary": {
+    "homepageTitle": "Giai đoạn khởi đầu Đổi mới (1986-1995)",
+    "homepageSummary": "Tập trung đổi mới kinh tế, xóa bỏ cơ chế bao cấp, hình thành cơ chế thị trường, ổn định kinh tế.",
+    "cardSummary": "Giai đoạn khởi đầu Đổi mới (1986-1995) tập trung đổi mới kinh tế và ổn định xã hội."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Giai đoạn khởi đầu công cuộc Đổi mới ở Việt Nam diễn ra từ năm 1986 đến năm 1995.",
+    "detailedNarrative": "Công cuộc Đổi mới ở Việt Nam được tiến hành xuất phát từ yêu cầu sống còn của sự nghiệp xây dựng chủ nghĩa xã hội, phát triển đất nước, đảm bảo đời sống nhân dân, đồng thời cũng phù hợp với xu thế chung của thời đại. Đường lối đổi mới toàn diện và đồng bộ đất nước được đề ra tại Đại hội đại biểu toàn quốc lần thứ VI (1986), tiếp tục được bổ sung tại Đại hội đại biểu toàn quốc lần thứ VII (1991) của Đảng. Trọng tâm là đổi mới về kinh tế: kiên quyết xoá bỏ cơ chế quản lí kinh tế tập trung quan liêu, bao cấp, hình thành cơ chế thị trường có sự quản lí của Nhà nước; phát triển kinh tế hàng hoá xã hội chủ nghĩa; xây dựng và tổ chức thực hiện Ba chương trình kinh tế lớn (Lương thực - Thực phẩm, Hàng tiêu dùng và Hàng xuất khẩu); đẩy lùi và kiểm soát lạm phát, ổn định và nâng cao hiệu quả của nền kinh tế – xã hội, phấn đấu bắt đầu có tích luỹ nội bộ từ nền kinh tế, từng bước đưa Việt Nam ra khỏi tình trạng khủng hoảng. Đổi mới toàn diện và đồng bộ: đổi mới kinh tế gắn liền với đổi mới chính trị, văn hoá - xã hội, chú trọng nhân tố con người; xác định khoa học và công nghệ, giáo dục và đào tạo là quốc sách hàng đầu; đổi mới chính trị phải được tiến hành tích cực và vững chắc, đổi mới nội dung và phương thức hoạt động của các tổ chức trong hệ thống chính trị theo hướng vừa phát huy quyền làm chủ của người dân, vừa phát huy quyền lực của cơ quan Nhà nước. Chủ trương kết hợp sức mạnh dân tộc và sức mạnh thời đại, tham gia phân công lao động quốc tế; thực hiện đa phương hoá, đa dạng hoá quan hệ đối ngoại “Việt Nam muốn làm bạn với tất cả các nước trong cộng đồng thế giới, phấn đấu vì hoà bình, độc lập và phát triển\".",
+    "significance": "Tạo cơ sở để đất nước bước vào giai đoạn tiếp theo của sự nghiệp đổi mới toàn diện hơn.",
+    "keyFacts": [
+      "Hình thành cơ chế thị trường có sự quản lý của Nhà nước",
+      "Thực hiện Ba chương trình kinh tế lớn",
+      "Đa phương hóa, đa dạng hóa quan hệ đối ngoại",
+      "Đổi mới kinh tế gắn liền với đổi mới chính trị, văn hóa - xã hội",
+      "Trọng tâm là đổi mới kinh tế",
+      "Khoa học, công nghệ, giáo dục, đào tạo là quốc sách hàng đầu",
+      "Xóa bỏ cơ chế tập trung quan liêu, bao cấp",
+      "Diễn ra từ 1986-1995"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 12,
+        "book": "KNTT",
+        "lessonId": "12958",
+        "lessonTitle": "BÀI 10: KHÁI QUÁT VỀ CÔNG CUỘC ĐỔI MỚI TỪ NĂM 1986 ĐẾN NAY",
+        "chapter": "Chu de 4",
+        "lesson": "Bai 10",
+        "pageRange": {
+          "start": 61,
+          "end": 64
+        },
+        "url": "https://sgkvn.com/lop-12-15/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-4-cong-cuoc-doi-moi-o-viet-nam-tu-nam-1986-den-nay-3540/bai-10-khai-quat-ve-cong-cuoc-doi-moi-tu-nam-1986-den-nay-12958.html",
+        "excerpt": "Giai đoạn khởi đầu công cuộc Đổi mới ở Việt Nam diễn ra từ năm 1986 đến năm 1995."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "giai-doan-khoi-dau-cong-cuoc-doi-moi-1986-1995",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 323
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": true,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

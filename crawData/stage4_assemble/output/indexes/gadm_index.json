@@ -1,0 +1,1524 @@
+{
+  "provinces": {
+    "AnGiang": {
+      "provinceName": "An Giang",
+      "gadmName": "AnGiang",
+      "gadmRef": "VNM.1_1",
+      "center": {
+        "lat": 10.585309,
+        "lng": 105.268603
+      },
+      "properties": {
+        "GID_1": "VNM.1_1",
+        "GID_0": "VNM",
+        "COUNTRY": "Vietnam",
+        "NAME_1": "AnGiang",
+        "VARNAME_1": "AnGiang",
+        "NL_NAME_1": "NA",
+        "TYPE_1": "Tỉnh",
+        "ENGTYPE_1": "Province",
+        "CC_1": "NA",
+        "HASC_1": "VN.AG",
+        "ISO_1": "VN-44"
+      }
+    },
+    "BàRịa-VũngTàu": {
+      "provinceName": "Bà Rịa - Vũng Tàu",
+      "gadmName": "BàRịa-VũngTàu",
+      "gadmRef": "VNM.7_1",
+      "center": {
+        "lat": 10.614292,
+        "lng": 107.28321
+      },
+      "properties": {
+        "GID_1": "VNM.7_1",
+        "GID_0": "VNM",
+        "COUNTRY": "Vietnam",
+        "NAME_1": "BàRịa-VũngTàu",
+        "VARNAME_1": "BaRia-VungTau",
+        "NL_NAME_1": "NA",
+        "TYPE_1": "Tỉnh",
+        "ENGTYPE_1": "Province",
+        "CC_1": "NA",
+        "HASC_1": "VN.BV",
+        "ISO_1": "NA"
+      }
+    },
+    "BắcGiang": {
+      "provinceName": "Bắc Giang",
+      "gadmName": "BắcGiang",
+      "gadmRef": "VNM.3_1",
+      "center": {
+        "lat": 21.379381,
+        "lng": 106.428532
+      },
+      "properties": {
+        "GID_1": "VNM.3_1",
+        "GID_0": "VNM",
+        "COUNTRY": "Vietnam",
+        "NAME_1": "BắcGiang",
+        "VARNAME_1": "BacGiang",
+        "NL_NAME_1": "NA",
+        "TYPE_1": "Tỉnh",
+        "ENGTYPE_1": "Province",
+        "CC_1": "NA",
+        "HASC_1": "VN.BG",
+        "ISO_1": "NA"
+      }
+    },
+    "BắcKạn": {
+      "provinceName": "Bắc Kạn",
+      "gadmName": "BắcKạn",
+      "gadmRef": "VNM.4_1",
+      "center": {
+        "lat": 22.269034,
+        "lng": 105.811376
+      },
+      "properties": {
+        "GID_1": "VNM.4_1",
+        "GID_0": "VNM",
+        "COUNTRY": "Vietnam",
+        "NAME_1": "BắcKạn",
+        "VARNAME_1": "BacKan",
+        "NL_NAME_1": "NA",
+        "TYPE_1": "Tỉnh",
+        "ENGTYPE_1": "Province",
+        "CC_1": "NA",
+        "HASC_1": "VN.BK",
+        "ISO_1": "NA"
+      }
+    },
+    "BạcLiêu": {
+      "provinceName": "Bạc Liêu",
+      "gadmName": "BạcLiêu",
+      "gadmRef": "VNM.2_1",
+      "center": {
+        "lat": 9.382626,
+        "lng": 105.514836
+      },
+      "properties": {
+        "GID_1": "VNM.2_1",
+        "GID_0": "VNM",
+        "COUNTRY": "Vietnam",
+        "NAME_1": "BạcLiêu",
+        "VARNAME_1": "BacLieu",
+        "NL_NAME_1": "NA",
+        "TYPE_1": "Tỉnh",
+        "ENGTYPE_1": "Province",
+        "CC_1": "NA",
+        "HASC_1": "VN.BL",
+        "ISO_1": "NA"
+      }
+    },
+    "BắcNinh": {
+      "provinceName": "Bắc Ninh",
+      "gadmName": "BắcNinh",
+      "gadmRef": "VNM.5_1",
+      "center": {
+        "lat": 21.103513,
+        "lng": 106.061345
+      },
+      "properties": {
+        "GID_1": "VNM.5_1",
+        "GID_0": "VNM",
+        "COUNTRY": "Vietnam",
+        "NAME_1": "BắcNinh",
+        "VARNAME_1": "BacNinh",
+        "NL_NAME_1": "NA",
+        "TYPE_1": "Tỉnh",
+        "ENGTYPE_1": "Province",
+        "CC_1": "NA",
+        "HASC_1": "VN.BN",
+        "ISO_1": "NA"
+      }
+    },
+    "BếnTre": {
+      "provinceName": "Bến Tre",
+      "gadmName": "BếnTre",
+      "gadmRef": "VNM.6_1",
+      "center": {
+        "lat": 10.122594,
+        "lng": 106.445473
+      },
+      "properties": {
+        "GID_1": "VNM.6_1",
+        "GID_0": "VNM",
+        "COUNTRY": "Vietnam",
+        "NAME_1": "BếnTre",
+        "VARNAME_1": "BenTre",
+        "NL_NAME_1": "NA",
+        "TYPE_1": "Tỉnh",
+        "ENGTYPE_1": "Province",
+        "CC_1": "NA",
+        "HASC_1": "VN.BR",
+        "ISO_1": "NA"
+      }
+    },
+    "BìnhĐịnh": {
+      "provinceName": "Bình Định",
+      "gadmName": "BìnhĐịnh",
+      "gadmRef": "VNM.8_1",
+      "center": {
+        "lat": 14.043803,
+        "lng": 109.062698
+      },
+      "properties": {
+        "GID_1": "VNM.8_1",
+        "GID_0": "VNM",
+        "COUNTRY": "Vietnam",
+        "NAME_1": "BìnhĐịnh",
+        "VARNAME_1": "BinhDinh",
+        "NL_NAME_1": "NA",
+        "TYPE_1": "Tỉnh",
+        "ENGTYPE_1": "Province",
+        "CC_1": "NA",
+        "HASC_1": "VN.BD",
+        "ISO_1": "NA"
+      }
+    },
+    "BìnhDương": {
+      "provinceName": "Bình Dương",
+      "gadmName": "BìnhDương",
+      "gadmRef": "VNM.9_1",
+      "center": {
+        "lat": 11.190422,
+        "lng": 106.703194
+      },
+      "properties": {
+        "GID_1": "VNM.9_1",
+        "GID_0": "VNM",
+        "COUNTRY": "Vietnam",
+        "NAME_1": "BìnhDương",
+        "VARNAME_1": "BinhDuong",
+        "NL_NAME_1": "NA",
+        "TYPE_1": "Tỉnh",
+        "ENGTYPE_1": "Province",
+        "CC_1": "NA",
+        "HASC_1": "VN.BI",
+        "ISO_1": "NA"
+      }
+    },
+    "BìnhPhước": {
+      "provinceName": "Bình Phước",
+      "gadmName": "BìnhPhước",
+      "gadmRef": "VNM.10_1",
+      "center": {
+        "lat": 11.724356,
+        "lng": 106.90332
+      },
+      "properties": {
+        "GID_1": "VNM.10_1",
+        "GID_0": "VNM",
+        "COUNTRY": "Vietnam",
+        "NAME_1": "BìnhPhước",
+        "VARNAME_1": "BinhPhuoc",
+        "NL_NAME_1": "NA",
+        "TYPE_1": "Tỉnh",
+        "ENGTYPE_1": "Province",
+        "CC_1": "NA",
+        "HASC_1": "VN.BP",
+        "ISO_1": "NA"
+      }
+    },
+    "BìnhThuận": {
+      "provinceName": "Bình Thuận",
+      "gadmName": "BìnhThuận",
+      "gadmRef": "VNM.11_1",
+      "center": {
+        "lat": 11.062742,
+        "lng": 108.082349
+      },
+      "properties": {
+        "GID_1": "VNM.11_1",
+        "GID_0": "VNM",
+        "COUNTRY": "Vietnam",
+        "NAME_1": "BìnhThuận",
+        "VARNAME_1": "BinhThuan",
+        "NL_NAME_1": "NA",
+        "TYPE_1": "Tỉnh",
+        "ENGTYPE_1": "Province",
+        "CC_1": "NA",
+        "HASC_1": "VN.BU",
+        "ISO_1": "NA"
+      }
+    },
+    "CàMau": {
+      "provinceName": "Cà Mau",
+      "gadmName": "CàMau",
+      "gadmRef": "VNM.13_1",
+      "center": {
+        "lat": 8.89229,
+        "lng": 105.014083
+      },
+      "properties": {
+        "GID_1": "VNM.13_1",
+        "GID_0": "VNM",
+        "COUNTRY": "Vietnam",
+        "NAME_1": "CàMau",
+        "VARNAME_1": "CaMau",
+        "NL_NAME_1": "NA",
+        "TYPE_1": "Tỉnh",
+        "ENGTYPE_1": "Province",
+        "CC_1": "NA",
+        "HASC_1": "VN.CM",
+        "ISO_1": "NA"
+      }
+    },
+    "CầnThơ": {
+      "provinceName": "Cần Thơ",
+      "gadmName": "CầnThơ",
+      "gadmRef": "VNM.12_1",
+      "center": {
+        "lat": 10.073255,
+        "lng": 105.57983
+      },
+      "properties": {
+        "GID_1": "VNM.12_1",
+        "GID_0": "VNM",
+        "COUNTRY": "Vietnam",
+        "NAME_1": "CầnThơ",
+        "VARNAME_1": "CanTho",
+        "NL_NAME_1": "NA",
+        "TYPE_1": "Thànhphố",
+        "ENGTYPE_1": "City",
+        "CC_1": "NA",
+        "HASC_1": "VN.CN",
+        "ISO_1": "NA"
+      }
+    },
+    "CaoBằng": {
+      "provinceName": "Cao Bằng",
+      "gadmName": "CaoBằng",
+      "gadmRef": "VNM.14_1",
+      "center": {
+        "lat": 22.758877,
+        "lng": 106.109461
+      },
+      "properties": {
+        "GID_1": "VNM.14_1",
+        "GID_0": "VNM",
+        "COUNTRY": "Vietnam",
+        "NAME_1": "CaoBằng",
+        "VARNAME_1": "CaoBang",
+        "NL_NAME_1": "NA",
+        "TYPE_1": "Tỉnh",
+        "ENGTYPE_1": "Province",
+        "CC_1": "NA",
+        "HASC_1": "VN.CB",
+        "ISO_1": "NA"
+      }
+    },
+    "ĐàNẵng": {
+      "provinceName": "Đà Nẵng",
+      "gadmName": "ĐàNẵng",
+      "gadmRef": "VNM.19_1",
+      "center": {
+        "lat": 16.083155,
+        "lng": 108.123722
+      },
+      "properties": {
+        "GID_1": "VNM.19_1",
+        "GID_0": "VNM",
+        "COUNTRY": "Vietnam",
+        "NAME_1": "ĐàNẵng",
+        "VARNAME_1": "DaNang",
+        "NL_NAME_1": "NA",
+        "TYPE_1": "Thànhphố",
+        "ENGTYPE_1": "City",
+        "CC_1": "NA",
+        "HASC_1": "VN.DA",
+        "ISO_1": "NA"
+      }
+    },
+    "ĐắkLắk": {
+      "provinceName": "Đắk Lắk",
+      "gadmName": "ĐắkLắk",
+      "gadmRef": "VNM.15_1",
+      "center": {
+        "lat": 12.741645,
+        "lng": 108.273915
+      },
+      "properties": {
+        "GID_1": "VNM.15_1",
+        "GID_0": "VNM",
+        "COUNTRY": "Vietnam",
+        "NAME_1": "ĐắkLắk",
+        "VARNAME_1": "DakLak",
+        "NL_NAME_1": "NA",
+        "TYPE_1": "Tỉnh",
+        "ENGTYPE_1": "Province",
+        "CC_1": "NA",
+        "HASC_1": "VN.DC",
+        "ISO_1": "NA"
+      }
+    },
+    "ĐắkNông": {
+      "provinceName": "Đắk Nông",
+      "gadmName": "ĐắkNông",
+      "gadmRef": "VNM.16_1",
+      "center": {
+        "lat": 12.198834,
+        "lng": 107.726555
+      },
+      "properties": {
+        "GID_1": "VNM.16_1",
+        "GID_0": "VNM",
+        "COUNTRY": "Vietnam",
+        "NAME_1": "ĐắkNông",
+        "VARNAME_1": "DakNong",
+        "NL_NAME_1": "NA",
+        "TYPE_1": "Tỉnh",
+        "ENGTYPE_1": "Province",
+        "CC_1": "NA",
+        "HASC_1": "VN.DO",
+        "ISO_1": "NA"
+      }
+    },
+    "ĐiệnBiên": {
+      "provinceName": "Điện Biên",
+      "gadmName": "ĐiệnBiên",
+      "gadmRef": "VNM.20_1",
+      "center": {
+        "lat": 21.778187,
+        "lng": 102.895734
+      },
+      "properties": {
+        "GID_1": "VNM.20_1",
+        "GID_0": "VNM",
+        "COUNTRY": "Vietnam",
+        "NAME_1": "ĐiệnBiên",
+        "VARNAME_1": "DienBien",
+        "NL_NAME_1": "NA",
+        "TYPE_1": "Tỉnh",
+        "ENGTYPE_1": "Province",
+        "CC_1": "NA",
+        "HASC_1": "VN.DB",
+        "ISO_1": "NA"
+      }
+    },
+    "ĐồngNai": {
+      "provinceName": "Đồng Nai",
+      "gadmName": "ĐồngNai",
+      "gadmRef": "VNM.17_1",
+      "center": {
+        "lat": 11.103344,
+        "lng": 107.177209
+      },
+      "properties": {
+        "GID_1": "VNM.17_1",
+        "GID_0": "VNM",
+        "COUNTRY": "Vietnam",
+        "NAME_1": "ĐồngNai",
+        "VARNAME_1": "DongNai",
+        "NL_NAME_1": "NA",
+        "TYPE_1": "Tỉnh",
+        "ENGTYPE_1": "Province",
+        "CC_1": "NA",
+        "HASC_1": "VN.DN",
+        "ISO_1": "NA"
+      }
+    },
+    "ĐồngTháp": {
+      "provinceName": "Đồng Tháp",
+      "gadmName": "ĐồngTháp",
+      "gadmRef": "VNM.18_1",
+      "center": {
+        "lat": 10.572071,
+        "lng": 105.542247
+      },
+      "properties": {
+        "GID_1": "VNM.18_1",
+        "GID_0": "VNM",
+        "COUNTRY": "Vietnam",
+        "NAME_1": "ĐồngTháp",
+        "VARNAME_1": "DongThap",
+        "NL_NAME_1": "NA",
+        "TYPE_1": "Tỉnh",
+        "ENGTYPE_1": "Province",
+        "CC_1": "NA",
+        "HASC_1": "VN.DT",
+        "ISO_1": "NA"
+      }
+    },
+    "GiaLai": {
+      "provinceName": "Gia Lai",
+      "gadmName": "GiaLai",
+      "gadmRef": "VNM.21_1",
+      "center": {
+        "lat": 13.776382,
+        "lng": 108.3138
+      },
+      "properties": {
+        "GID_1": "VNM.21_1",
+        "GID_0": "VNM",
+        "COUNTRY": "Vietnam",
+        "NAME_1": "GiaLai",
+        "VARNAME_1": "GiaLai",
+        "NL_NAME_1": "NA",
+        "TYPE_1": "Tỉnh",
+        "ENGTYPE_1": "Province",
+        "CC_1": "NA",
+        "HASC_1": "VN.GL",
+        "ISO_1": "VN-30"
+      }
+    },
+    "HàGiang": {
+      "provinceName": "Hà Giang",
+      "gadmName": "HàGiang",
+      "gadmRef": "VNM.26_1",
+      "center": {
+        "lat": 22.760531,
+        "lng": 104.9833
+      },
+      "properties": {
+        "GID_1": "VNM.26_1",
+        "GID_0": "VNM",
+        "COUNTRY": "Vietnam",
+        "NAME_1": "HàGiang",
+        "VARNAME_1": "HaGiang",
+        "NL_NAME_1": "NA",
+        "TYPE_1": "Tỉnh",
+        "ENGTYPE_1": "Province",
+        "CC_1": "NA",
+        "HASC_1": "VN.HG",
+        "ISO_1": "NA"
+      }
+    },
+    "HàNam": {
+      "provinceName": "Hà Nam",
+      "gadmName": "HàNam",
+      "gadmRef": "VNM.28_1",
+      "center": {
+        "lat": 20.521142,
+        "lng": 105.975674
+      },
+      "properties": {
+        "GID_1": "VNM.28_1",
+        "GID_0": "VNM",
+        "COUNTRY": "Vietnam",
+        "NAME_1": "HàNam",
+        "VARNAME_1": "HaNam",
+        "NL_NAME_1": "NA",
+        "TYPE_1": "Tỉnh",
+        "ENGTYPE_1": "Province",
+        "CC_1": "NA",
+        "HASC_1": "VN.HM",
+        "ISO_1": "NA"
+      }
+    },
+    "HàNội": {
+      "provinceName": "Hà Nội",
+      "gadmName": "HàNội",
+      "gadmRef": "VNM.27_1",
+      "center": {
+        "lat": 20.995801,
+        "lng": 105.735263
+      },
+      "properties": {
+        "GID_1": "VNM.27_1",
+        "GID_0": "VNM",
+        "COUNTRY": "Vietnam",
+        "NAME_1": "HàNội",
+        "VARNAME_1": "HaNoi",
+        "NL_NAME_1": "NA",
+        "TYPE_1": "Thànhphố",
+        "ENGTYPE_1": "City",
+        "CC_1": "NA",
+        "HASC_1": "VN.HI",
+        "ISO_1": "NA"
+      }
+    },
+    "HàTĩnh": {
+      "provinceName": "Hà Tĩnh",
+      "gadmName": "HàTĩnh",
+      "gadmRef": "VNM.29_1",
+      "center": {
+        "lat": 18.288633,
+        "lng": 105.737608
+      },
+      "properties": {
+        "GID_1": "VNM.29_1",
+        "GID_0": "VNM",
+        "COUNTRY": "Vietnam",
+        "NAME_1": "HàTĩnh",
+        "VARNAME_1": "HaTinh",
+        "NL_NAME_1": "NA",
+        "TYPE_1": "Tỉnh",
+        "ENGTYPE_1": "Province",
+        "CC_1": "NA",
+        "HASC_1": "VN.HT",
+        "ISO_1": "NA"
+      }
+    },
+    "HảiDương": {
+      "provinceName": "Hải Dương",
+      "gadmName": "HảiDương",
+      "gadmRef": "VNM.22_1",
+      "center": {
+        "lat": 20.947713,
+        "lng": 106.376858
+      },
+      "properties": {
+        "GID_1": "VNM.22_1",
+        "GID_0": "VNM",
+        "COUNTRY": "Vietnam",
+        "NAME_1": "HảiDương",
+        "VARNAME_1": "HaiDuong",
+        "NL_NAME_1": "NA",
+        "TYPE_1": "Tỉnh",
+        "ENGTYPE_1": "Province",
+        "CC_1": "NA",
+        "HASC_1": "VN.HD",
+        "ISO_1": "NA"
+      }
+    },
+    "HảiPhòng": {
+      "provinceName": "Hải Phòng",
+      "gadmName": "HảiPhòng",
+      "gadmRef": "VNM.23_1",
+      "center": {
+        "lat": 20.769983,
+        "lng": 106.988147
+      },
+      "properties": {
+        "GID_1": "VNM.23_1",
+        "GID_0": "VNM",
+        "COUNTRY": "Vietnam",
+        "NAME_1": "HảiPhòng",
+        "VARNAME_1": "HaiPhong",
+        "NL_NAME_1": "NA",
+        "TYPE_1": "Thànhphố",
+        "ENGTYPE_1": "City",
+        "CC_1": "NA",
+        "HASC_1": "VN.HP",
+        "ISO_1": "NA"
+      }
+    },
+    "HậuGiang": {
+      "provinceName": "Hậu Giang",
+      "gadmName": "HậuGiang",
+      "gadmRef": "VNM.24_1",
+      "center": {
+        "lat": 9.754878,
+        "lng": 105.562237
+      },
+      "properties": {
+        "GID_1": "VNM.24_1",
+        "GID_0": "VNM",
+        "COUNTRY": "Vietnam",
+        "NAME_1": "HậuGiang",
+        "VARNAME_1": "HauGiang",
+        "NL_NAME_1": "NA",
+        "TYPE_1": "Tỉnh",
+        "ENGTYPE_1": "Province",
+        "CC_1": "NA",
+        "HASC_1": "VN.HU",
+        "ISO_1": "NA"
+      }
+    },
+    "HồChíMinh": {
+      "provinceName": "Hồ Chí Minh",
+      "gadmName": "HồChíMinh",
+      "gadmRef": "VNM.25_1",
+      "center": {
+        "lat": 10.780438,
+        "lng": 106.700954
+      },
+      "properties": {
+        "GID_1": "VNM.25_1",
+        "GID_0": "VNM",
+        "COUNTRY": "Vietnam",
+        "NAME_1": "HồChíMinh",
+        "VARNAME_1": "HoChiMinh",
+        "NL_NAME_1": "NA",
+        "TYPE_1": "Thànhphố",
+        "ENGTYPE_1": "City",
+        "CC_1": "NA",
+        "HASC_1": "VN.HC",
+        "ISO_1": "NA"
+      }
+    },
+    "HoàBình": {
+      "provinceName": "Hoà Bình",
+      "gadmName": "HoàBình",
+      "gadmRef": "VNM.30_1",
+      "center": {
+        "lat": 20.714039,
+        "lng": 105.369175
+      },
+      "properties": {
+        "GID_1": "VNM.30_1",
+        "GID_0": "VNM",
+        "COUNTRY": "Vietnam",
+        "NAME_1": "HoàBình",
+        "VARNAME_1": "HoaBinh",
+        "NL_NAME_1": "NA",
+        "TYPE_1": "Tỉnh",
+        "ENGTYPE_1": "Province",
+        "CC_1": "NA",
+        "HASC_1": "VN.HO",
+        "ISO_1": "NA"
+      }
+    },
+    "HưngYên": {
+      "provinceName": "Hưng Yên",
+      "gadmName": "HưngYên",
+      "gadmRef": "VNM.31_1",
+      "center": {
+        "lat": 20.844645,
+        "lng": 106.076352
+      },
+      "properties": {
+        "GID_1": "VNM.31_1",
+        "GID_0": "VNM",
+        "COUNTRY": "Vietnam",
+        "NAME_1": "HưngYên",
+        "VARNAME_1": "HungYen",
+        "NL_NAME_1": "NA",
+        "TYPE_1": "Tỉnh",
+        "ENGTYPE_1": "Province",
+        "CC_1": "NA",
+        "HASC_1": "VN.HY",
+        "ISO_1": "NA"
+      }
+    },
+    "KhánhHòa": {
+      "provinceName": "Khánh Hòa",
+      "gadmName": "KhánhHòa",
+      "gadmRef": "VNM.32_1",
+      "center": {
+        "lat": 12.385744,
+        "lng": 109.211952
+      },
+      "properties": {
+        "GID_1": "VNM.32_1",
+        "GID_0": "VNM",
+        "COUNTRY": "Vietnam",
+        "NAME_1": "KhánhHòa",
+        "VARNAME_1": "KhanhHoa",
+        "NL_NAME_1": "NA",
+        "TYPE_1": "Tỉnh",
+        "ENGTYPE_1": "Province",
+        "CC_1": "NA",
+        "HASC_1": "VN.KH",
+        "ISO_1": "NA"
+      }
+    },
+    "KiênGiang": {
+      "provinceName": "Kiên Giang",
+      "gadmName": "KiênGiang",
+      "gadmRef": "VNM.33_1",
+      "center": {
+        "lat": 10.013385,
+        "lng": 104.465955
+      },
+      "properties": {
+        "GID_1": "VNM.33_1",
+        "GID_0": "VNM",
+        "COUNTRY": "Vietnam",
+        "NAME_1": "KiênGiang",
+        "VARNAME_1": "KienGiang",
+        "NL_NAME_1": "NA",
+        "TYPE_1": "Tỉnh",
+        "ENGTYPE_1": "Province",
+        "CC_1": "NA",
+        "HASC_1": "VN.KG",
+        "ISO_1": "NA"
+      }
+    },
+    "KonTum": {
+      "provinceName": "Kon Tum",
+      "gadmName": "KonTum",
+      "gadmRef": "VNM.34_1",
+      "center": {
+        "lat": 14.700055,
+        "lng": 107.834798
+      },
+      "properties": {
+        "GID_1": "VNM.34_1",
+        "GID_0": "VNM",
+        "COUNTRY": "Vietnam",
+        "NAME_1": "KonTum",
+        "VARNAME_1": "KonTum",
+        "NL_NAME_1": "NA",
+        "TYPE_1": "Tỉnh",
+        "ENGTYPE_1": "Province",
+        "CC_1": "NA",
+        "HASC_1": "VN.KT",
+        "ISO_1": "VN-28"
+      }
+    },
+    "LaiChâu": {
+      "provinceName": "Lai Châu",
+      "gadmName": "LaiChâu",
+      "gadmRef": "VNM.36_1",
+      "center": {
+        "lat": 22.310353,
+        "lng": 103.156121
+      },
+      "properties": {
+        "GID_1": "VNM.36_1",
+        "GID_0": "VNM",
+        "COUNTRY": "Vietnam",
+        "NAME_1": "LaiChâu",
+        "VARNAME_1": "LaiChau",
+        "NL_NAME_1": "NA",
+        "TYPE_1": "Tỉnh",
+        "ENGTYPE_1": "Province",
+        "CC_1": "NA",
+        "HASC_1": "VN.LI",
+        "ISO_1": "NA"
+      }
+    },
+    "LâmĐồng": {
+      "provinceName": "Lâm Đồng",
+      "gadmName": "LâmĐồng",
+      "gadmRef": "VNM.37_1",
+      "center": {
+        "lat": 11.849261,
+        "lng": 108.074911
+      },
+      "properties": {
+        "GID_1": "VNM.37_1",
+        "GID_0": "VNM",
+        "COUNTRY": "Vietnam",
+        "NAME_1": "LâmĐồng",
+        "VARNAME_1": "LamDong",
+        "NL_NAME_1": "NA",
+        "TYPE_1": "Tỉnh",
+        "ENGTYPE_1": "Province",
+        "CC_1": "NA",
+        "HASC_1": "VN.LD",
+        "ISO_1": "NA"
+      }
+    },
+    "LạngSơn": {
+      "provinceName": "Lạng Sơn",
+      "gadmName": "LạngSơn",
+      "gadmRef": "VNM.35_1",
+      "center": {
+        "lat": 21.840486,
+        "lng": 106.668191
+      },
+      "properties": {
+        "GID_1": "VNM.35_1",
+        "GID_0": "VNM",
+        "COUNTRY": "Vietnam",
+        "NAME_1": "LạngSơn",
+        "VARNAME_1": "LangSon",
+        "NL_NAME_1": "NA",
+        "TYPE_1": "Tỉnh",
+        "ENGTYPE_1": "Province",
+        "CC_1": "NA",
+        "HASC_1": "VN.LS",
+        "ISO_1": "NA"
+      }
+    },
+    "LàoCai": {
+      "provinceName": "Lào Cai",
+      "gadmName": "LàoCai",
+      "gadmRef": "VNM.38_1",
+      "center": {
+        "lat": 22.399478,
+        "lng": 104.114509
+      },
+      "properties": {
+        "GID_1": "VNM.38_1",
+        "GID_0": "VNM",
+        "COUNTRY": "Vietnam",
+        "NAME_1": "LàoCai",
+        "VARNAME_1": "LaoCai",
+        "NL_NAME_1": "NA",
+        "TYPE_1": "Tỉnh",
+        "ENGTYPE_1": "Province",
+        "CC_1": "NA",
+        "HASC_1": "VN.LO",
+        "ISO_1": "NA"
+      }
+    },
+    "LongAn": {
+      "provinceName": "Long An",
+      "gadmName": "LongAn",
+      "gadmRef": "VNM.39_1",
+      "center": {
+        "lat": 10.662141,
+        "lng": 106.385499
+      },
+      "properties": {
+        "GID_1": "VNM.39_1",
+        "GID_0": "VNM",
+        "COUNTRY": "Vietnam",
+        "NAME_1": "LongAn",
+        "VARNAME_1": "LongAn",
+        "NL_NAME_1": "NA",
+        "TYPE_1": "Tỉnh",
+        "ENGTYPE_1": "Province",
+        "CC_1": "NA",
+        "HASC_1": "VN.LA",
+        "ISO_1": "VN-41"
+      }
+    },
+    "NamĐịnh": {
+      "provinceName": "Nam Định",
+      "gadmName": "NamĐịnh",
+      "gadmRef": "VNM.40_1",
+      "center": {
+        "lat": 20.308026,
+        "lng": 106.168595
+      },
+      "properties": {
+        "GID_1": "VNM.40_1",
+        "GID_0": "VNM",
+        "COUNTRY": "Vietnam",
+        "NAME_1": "NamĐịnh",
+        "VARNAME_1": "NamDinh",
+        "NL_NAME_1": "NA",
+        "TYPE_1": "Tỉnh",
+        "ENGTYPE_1": "Province",
+        "CC_1": "NA",
+        "HASC_1": "VN.ND",
+        "ISO_1": "NA"
+      }
+    },
+    "NghệAn": {
+      "provinceName": "Nghệ An",
+      "gadmName": "NghệAn",
+      "gadmRef": "VNM.41_1",
+      "center": {
+        "lat": 19.279747,
+        "lng": 104.955529
+      },
+      "properties": {
+        "GID_1": "VNM.41_1",
+        "GID_0": "VNM",
+        "COUNTRY": "Vietnam",
+        "NAME_1": "NghệAn",
+        "VARNAME_1": "NgheAn",
+        "NL_NAME_1": "NA",
+        "TYPE_1": "Tỉnh",
+        "ENGTYPE_1": "Province",
+        "CC_1": "NA",
+        "HASC_1": "VN.NA",
+        "ISO_1": "NA"
+      }
+    },
+    "NinhBình": {
+      "provinceName": "Ninh Bình",
+      "gadmName": "NinhBình",
+      "gadmRef": "VNM.42_1",
+      "center": {
+        "lat": 20.263304,
+        "lng": 105.845339
+      },
+      "properties": {
+        "GID_1": "VNM.42_1",
+        "GID_0": "VNM",
+        "COUNTRY": "Vietnam",
+        "NAME_1": "NinhBình",
+        "VARNAME_1": "NinhBinh",
+        "NL_NAME_1": "NA",
+        "TYPE_1": "Tỉnh",
+        "ENGTYPE_1": "Province",
+        "CC_1": "NA",
+        "HASC_1": "VN.NB",
+        "ISO_1": "NA"
+      }
+    },
+    "NinhThuận": {
+      "provinceName": "Ninh Thuận",
+      "gadmName": "NinhThuận",
+      "gadmRef": "VNM.43_1",
+      "center": {
+        "lat": 11.73018,
+        "lng": 108.921024
+      },
+      "properties": {
+        "GID_1": "VNM.43_1",
+        "GID_0": "VNM",
+        "COUNTRY": "Vietnam",
+        "NAME_1": "NinhThuận",
+        "VARNAME_1": "NinhThuan",
+        "NL_NAME_1": "NA",
+        "TYPE_1": "Tỉnh",
+        "ENGTYPE_1": "Province",
+        "CC_1": "NA",
+        "HASC_1": "VN.NT",
+        "ISO_1": "NA"
+      }
+    },
+    "PhúThọ": {
+      "provinceName": "Phú Thọ",
+      "gadmName": "PhúThọ",
+      "gadmRef": "VNM.44_1",
+      "center": {
+        "lat": 21.340152,
+        "lng": 105.099476
+      },
+      "properties": {
+        "GID_1": "VNM.44_1",
+        "GID_0": "VNM",
+        "COUNTRY": "Vietnam",
+        "NAME_1": "PhúThọ",
+        "VARNAME_1": "PhuTho",
+        "NL_NAME_1": "NA",
+        "TYPE_1": "Tỉnh",
+        "ENGTYPE_1": "Province",
+        "CC_1": "NA",
+        "HASC_1": "VN.PT",
+        "ISO_1": "NA"
+      }
+    },
+    "PhúYên": {
+      "provinceName": "Phú Yên",
+      "gadmName": "PhúYên",
+      "gadmRef": "VNM.45_1",
+      "center": {
+        "lat": 13.263565,
+        "lng": 109.145478
+      },
+      "properties": {
+        "GID_1": "VNM.45_1",
+        "GID_0": "VNM",
+        "COUNTRY": "Vietnam",
+        "NAME_1": "PhúYên",
+        "VARNAME_1": "PhuYen",
+        "NL_NAME_1": "NA",
+        "TYPE_1": "Tỉnh",
+        "ENGTYPE_1": "Province",
+        "CC_1": "NA",
+        "HASC_1": "VN.PY",
+        "ISO_1": "NA"
+      }
+    },
+    "QuảngBình": {
+      "provinceName": "Quảng Bình",
+      "gadmName": "QuảngBình",
+      "gadmRef": "VNM.46_1",
+      "center": {
+        "lat": 17.561122,
+        "lng": 106.282659
+      },
+      "properties": {
+        "GID_1": "VNM.46_1",
+        "GID_0": "VNM",
+        "COUNTRY": "Vietnam",
+        "NAME_1": "QuảngBình",
+        "VARNAME_1": "QuangBinh",
+        "NL_NAME_1": "NA",
+        "TYPE_1": "Tỉnh",
+        "ENGTYPE_1": "Province",
+        "CC_1": "NA",
+        "HASC_1": "VN.QB",
+        "ISO_1": "NA"
+      }
+    },
+    "QuảngNam": {
+      "provinceName": "Quảng Nam",
+      "gadmName": "QuảngNam",
+      "gadmRef": "VNM.47_1",
+      "center": {
+        "lat": 15.590959,
+        "lng": 107.970142
+      },
+      "properties": {
+        "GID_1": "VNM.47_1",
+        "GID_0": "VNM",
+        "COUNTRY": "Vietnam",
+        "NAME_1": "QuảngNam",
+        "VARNAME_1": "QuangNam",
+        "NL_NAME_1": "NA",
+        "TYPE_1": "Tỉnh",
+        "ENGTYPE_1": "Province",
+        "CC_1": "NA",
+        "HASC_1": "VN.QM",
+        "ISO_1": "NA"
+      }
+    },
+    "QuảngNgãi": {
+      "provinceName": "Quảng Ngãi",
+      "gadmName": "QuảngNgãi",
+      "gadmRef": "VNM.48_1",
+      "center": {
+        "lat": 15.005963,
+        "lng": 108.682389
+      },
+      "properties": {
+        "GID_1": "VNM.48_1",
+        "GID_0": "VNM",
+        "COUNTRY": "Vietnam",
+        "NAME_1": "QuảngNgãi",
+        "VARNAME_1": "QuangNgai",
+        "NL_NAME_1": "NA",
+        "TYPE_1": "Tỉnh",
+        "ENGTYPE_1": "Province",
+        "CC_1": "NA",
+        "HASC_1": "VN.QG",
+        "ISO_1": "NA"
+      }
+    },
+    "QuảngNinh": {
+      "provinceName": "Quảng Ninh",
+      "gadmName": "QuảngNinh",
+      "gadmRef": "VNM.49_1",
+      "center": {
+        "lat": 21.099861,
+        "lng": 107.476659
+      },
+      "properties": {
+        "GID_1": "VNM.49_1",
+        "GID_0": "VNM",
+        "COUNTRY": "Vietnam",
+        "NAME_1": "QuảngNinh",
+        "VARNAME_1": "QuangNinh",
+        "NL_NAME_1": "NA",
+        "TYPE_1": "Tỉnh",
+        "ENGTYPE_1": "Province",
+        "CC_1": "NA",
+        "HASC_1": "VN.QN",
+        "ISO_1": "NA"
+      }
+    },
+    "QuảngTrị": {
+      "provinceName": "Quảng Trị",
+      "gadmName": "QuảngTrị",
+      "gadmRef": "VNM.50_1",
+      "center": {
+        "lat": 16.691909,
+        "lng": 106.940152
+      },
+      "properties": {
+        "GID_1": "VNM.50_1",
+        "GID_0": "VNM",
+        "COUNTRY": "Vietnam",
+        "NAME_1": "QuảngTrị",
+        "VARNAME_1": "QuangTri",
+        "NL_NAME_1": "NA",
+        "TYPE_1": "Tỉnh",
+        "ENGTYPE_1": "Province",
+        "CC_1": "NA",
+        "HASC_1": "VN.QT",
+        "ISO_1": "NA"
+      }
+    },
+    "SócTrăng": {
+      "provinceName": "Sóc Trăng",
+      "gadmName": "SócTrăng",
+      "gadmRef": "VNM.51_1",
+      "center": {
+        "lat": 9.503134,
+        "lng": 105.823222
+      },
+      "properties": {
+        "GID_1": "VNM.51_1",
+        "GID_0": "VNM",
+        "COUNTRY": "Vietnam",
+        "NAME_1": "SócTrăng",
+        "VARNAME_1": "SocTrang",
+        "NL_NAME_1": "NA",
+        "TYPE_1": "Tỉnh",
+        "ENGTYPE_1": "Province",
+        "CC_1": "NA",
+        "HASC_1": "VN.ST",
+        "ISO_1": "NA"
+      }
+    },
+    "SơnLa": {
+      "provinceName": "Sơn La",
+      "gadmName": "SơnLa",
+      "gadmRef": "VNM.52_1",
+      "center": {
+        "lat": 21.182993,
+        "lng": 104.014956
+      },
+      "properties": {
+        "GID_1": "VNM.52_1",
+        "GID_0": "VNM",
+        "COUNTRY": "Vietnam",
+        "NAME_1": "SơnLa",
+        "VARNAME_1": "SonLa",
+        "NL_NAME_1": "NA",
+        "TYPE_1": "Tỉnh",
+        "ENGTYPE_1": "Province",
+        "CC_1": "NA",
+        "HASC_1": "VN.SL",
+        "ISO_1": "NA"
+      }
+    },
+    "TâyNinh": {
+      "provinceName": "Tây Ninh",
+      "gadmName": "TâyNinh",
+      "gadmRef": "VNM.53_1",
+      "center": {
+        "lat": 11.397522,
+        "lng": 106.172839
+      },
+      "properties": {
+        "GID_1": "VNM.53_1",
+        "GID_0": "VNM",
+        "COUNTRY": "Vietnam",
+        "NAME_1": "TâyNinh",
+        "VARNAME_1": "TayNinh",
+        "NL_NAME_1": "NA",
+        "TYPE_1": "Tỉnh",
+        "ENGTYPE_1": "Province",
+        "CC_1": "NA",
+        "HASC_1": "VN.TN",
+        "ISO_1": "NA"
+      }
+    },
+    "TháiBình": {
+      "provinceName": "Thái Bình",
+      "gadmName": "TháiBình",
+      "gadmRef": "VNM.55_1",
+      "center": {
+        "lat": 20.544368,
+        "lng": 106.394991
+      },
+      "properties": {
+        "GID_1": "VNM.55_1",
+        "GID_0": "VNM",
+        "COUNTRY": "Vietnam",
+        "NAME_1": "TháiBình",
+        "VARNAME_1": "ThaiBinh",
+        "NL_NAME_1": "NA",
+        "TYPE_1": "Tỉnh",
+        "ENGTYPE_1": "Province",
+        "CC_1": "NA",
+        "HASC_1": "VN.TB",
+        "ISO_1": "NA"
+      }
+    },
+    "TháiNguyên": {
+      "provinceName": "Thái Nguyên",
+      "gadmName": "TháiNguyên",
+      "gadmRef": "VNM.56_1",
+      "center": {
+        "lat": 21.690076,
+        "lng": 105.860481
+      },
+      "properties": {
+        "GID_1": "VNM.56_1",
+        "GID_0": "VNM",
+        "COUNTRY": "Vietnam",
+        "NAME_1": "TháiNguyên",
+        "VARNAME_1": "ThaiNguyen",
+        "NL_NAME_1": "NA",
+        "TYPE_1": "Tỉnh",
+        "ENGTYPE_1": "Province",
+        "CC_1": "NA",
+        "HASC_1": "VN.TY",
+        "ISO_1": "NA"
+      }
+    },
+    "ThanhHóa": {
+      "provinceName": "Thanh Hóa",
+      "gadmName": "ThanhHóa",
+      "gadmRef": "VNM.57_1",
+      "center": {
+        "lat": 19.977176,
+        "lng": 105.261912
+      },
+      "properties": {
+        "GID_1": "VNM.57_1",
+        "GID_0": "VNM",
+        "COUNTRY": "Vietnam",
+        "NAME_1": "ThanhHóa",
+        "VARNAME_1": "ThanhHoa",
+        "NL_NAME_1": "NA",
+        "TYPE_1": "Tỉnh",
+        "ENGTYPE_1": "Province",
+        "CC_1": "NA",
+        "HASC_1": "VN.TH",
+        "ISO_1": "NA"
+      }
+    },
+    "ThừaThiênHuế": {
+      "provinceName": "Thừa Thiên Huế",
+      "gadmName": "ThừaThiênHuế",
+      "gadmRef": "VNM.54_1",
+      "center": {
+        "lat": 16.289679,
+        "lng": 107.501696
+      },
+      "properties": {
+        "GID_1": "VNM.54_1",
+        "GID_0": "VNM",
+        "COUNTRY": "Vietnam",
+        "NAME_1": "ThừaThiênHuế",
+        "VARNAME_1": "ThuaThienHue",
+        "NL_NAME_1": "NA",
+        "TYPE_1": "Tỉnh",
+        "ENGTYPE_1": "Province",
+        "CC_1": "NA",
+        "HASC_1": "VN.TT",
+        "ISO_1": "NA"
+      }
+    },
+    "TiềnGiang": {
+      "provinceName": "Tiền Giang",
+      "gadmName": "TiềnGiang",
+      "gadmRef": "VNM.58_1",
+      "center": {
+        "lat": 10.393029,
+        "lng": 106.434739
+      },
+      "properties": {
+        "GID_1": "VNM.58_1",
+        "GID_0": "VNM",
+        "COUNTRY": "Vietnam",
+        "NAME_1": "TiềnGiang",
+        "VARNAME_1": "TienGiang",
+        "NL_NAME_1": "NA",
+        "TYPE_1": "Tỉnh",
+        "ENGTYPE_1": "Province",
+        "CC_1": "NA",
+        "HASC_1": "VN.TG",
+        "ISO_1": "NA"
+      }
+    },
+    "TràVinh": {
+      "provinceName": "Trà Vinh",
+      "gadmName": "TràVinh",
+      "gadmRef": "VNM.59_1",
+      "center": {
+        "lat": 9.841215,
+        "lng": 106.262723
+      },
+      "properties": {
+        "GID_1": "VNM.59_1",
+        "GID_0": "VNM",
+        "COUNTRY": "Vietnam",
+        "NAME_1": "TràVinh",
+        "VARNAME_1": "TraVinh",
+        "NL_NAME_1": "NA",
+        "TYPE_1": "Tỉnh",
+        "ENGTYPE_1": "Province",
+        "CC_1": "NA",
+        "HASC_1": "VN.TV",
+        "ISO_1": "NA"
+      }
+    },
+    "TuyênQuang": {
+      "provinceName": "Tuyên Quang",
+      "gadmName": "TuyênQuang",
+      "gadmRef": "VNM.60_1",
+      "center": {
+        "lat": 22.11892,
+        "lng": 105.253592
+      },
+      "properties": {
+        "GID_1": "VNM.60_1",
+        "GID_0": "VNM",
+        "COUNTRY": "Vietnam",
+        "NAME_1": "TuyênQuang",
+        "VARNAME_1": "TuyenQuang",
+        "NL_NAME_1": "NA",
+        "TYPE_1": "Tỉnh",
+        "ENGTYPE_1": "Province",
+        "CC_1": "NA",
+        "HASC_1": "VN.TQ",
+        "ISO_1": "NA"
+      }
+    },
+    "VĩnhLong": {
+      "provinceName": "Vĩnh Long",
+      "gadmName": "VĩnhLong",
+      "gadmRef": "VNM.61_1",
+      "center": {
+        "lat": 10.098171,
+        "lng": 106.007912
+      },
+      "properties": {
+        "GID_1": "VNM.61_1",
+        "GID_0": "VNM",
+        "COUNTRY": "Vietnam",
+        "NAME_1": "VĩnhLong",
+        "VARNAME_1": "VinhLong",
+        "NL_NAME_1": "NA",
+        "TYPE_1": "Tỉnh",
+        "ENGTYPE_1": "Province",
+        "CC_1": "NA",
+        "HASC_1": "VN.VL",
+        "ISO_1": "NA"
+      }
+    },
+    "VĩnhPhúc": {
+      "provinceName": "Vĩnh Phúc",
+      "gadmName": "VĩnhPhúc",
+      "gadmRef": "VNM.62_1",
+      "center": {
+        "lat": 21.352119,
+        "lng": 105.597338
+      },
+      "properties": {
+        "GID_1": "VNM.62_1",
+        "GID_0": "VNM",
+        "COUNTRY": "Vietnam",
+        "NAME_1": "VĩnhPhúc",
+        "VARNAME_1": "VinhPhuc",
+        "NL_NAME_1": "NA",
+        "TYPE_1": "Tỉnh",
+        "ENGTYPE_1": "Province",
+        "CC_1": "NA",
+        "HASC_1": "VN.VC",
+        "ISO_1": "NA"
+      }
+    },
+    "YênBái": {
+      "provinceName": "Yên Bái",
+      "gadmName": "YênBái",
+      "gadmRef": "VNM.63_1",
+      "center": {
+        "lat": 21.810947,
+        "lng": 104.570446
+      },
+      "properties": {
+        "GID_1": "VNM.63_1",
+        "GID_0": "VNM",
+        "COUNTRY": "Vietnam",
+        "NAME_1": "YênBái",
+        "VARNAME_1": "YenBai",
+        "NL_NAME_1": "NA",
+        "TYPE_1": "Tỉnh",
+        "ENGTYPE_1": "Province",
+        "CC_1": "NA",
+        "HASC_1": "VN.YB",
+        "ISO_1": "NA"
+      }
+    }
+  },
+  "lookup": {
+    "angiang": "AnGiang",
+    "baria vungtau": "BàRịa-VũngTàu",
+    "bacgiang": "BắcGiang",
+    "backan": "BắcKạn",
+    "baclieu": "BạcLiêu",
+    "bacninh": "BắcNinh",
+    "bentre": "BếnTre",
+    "binhdinh": "BìnhĐịnh",
+    "binhduong": "BìnhDương",
+    "binhphuoc": "BìnhPhước",
+    "binhthuan": "BìnhThuận",
+    "camau": "CàMau",
+    "cantho": "CầnThơ",
+    "caobang": "CaoBằng",
+    "danang": "ĐàNẵng",
+    "daklak": "ĐắkLắk",
+    "daknong": "ĐắkNông",
+    "dienbien": "ĐiệnBiên",
+    "dongnai": "ĐồngNai",
+    "dongthap": "ĐồngTháp",
+    "gialai": "GiaLai",
+    "hagiang": "HàGiang",
+    "hanam": "HàNam",
+    "hanoi": "HàNội",
+    "hatinh": "HàTĩnh",
+    "haiduong": "HảiDương",
+    "haiphong": "HảiPhòng",
+    "haugiang": "HậuGiang",
+    "hochiminh": "HồChíMinh",
+    "hoabinh": "HoàBình",
+    "hungyen": "HưngYên",
+    "khanhhoa": "KhánhHòa",
+    "kiengiang": "KiênGiang",
+    "kontum": "KonTum",
+    "laichau": "LaiChâu",
+    "lamdong": "LâmĐồng",
+    "langson": "LạngSơn",
+    "laocai": "LàoCai",
+    "longan": "LongAn",
+    "namdinh": "NamĐịnh",
+    "nghean": "NghệAn",
+    "ninhbinh": "NinhBình",
+    "ninhthuan": "NinhThuận",
+    "phutho": "PhúThọ",
+    "phuyen": "PhúYên",
+    "quangbinh": "QuảngBình",
+    "quangnam": "QuảngNam",
+    "quangngai": "QuảngNgãi",
+    "quangninh": "QuảngNinh",
+    "quangtri": "QuảngTrị",
+    "soctrang": "SócTrăng",
+    "sonla": "SơnLa",
+    "tayninh": "TâyNinh",
+    "thaibinh": "TháiBình",
+    "thainguyen": "TháiNguyên",
+    "thanhhoa": "ThanhHóa",
+    "thuathienhue": "ThừaThiênHuế",
+    "tiengiang": "TiềnGiang",
+    "travinh": "TràVinh",
+    "tuyenquang": "TuyênQuang",
+    "vinhlong": "VĩnhLong",
+    "vinhphuc": "VĩnhPhúc",
+    "yenbai": "YênBái",
+    "ha noi": "HàNội",
+    "ha noi thu do": "HàNội",
+    "thu do ha noi": "HàNội",
+    "ho chi minh": "HồChíMinh",
+    "sai gon": "HồChíMinh",
+    "da nang": "ĐàNẵng",
+    "hai phong": "HảiPhòng",
+    "can tho": "CầnThơ",
+    "ba ria vung tau": "BàRịa-VũngTàu",
+    "thua thien hue": "ThừaThiênHuế",
+    "hue": "ThừaThiênHuế",
+    "dak lak": "ĐắkLắk",
+    "dac lac": "ĐắkLắk",
+    "dak nong": "ĐắkNông",
+    "dac nong": "ĐắkNông",
+    "khanh hoa": "KhánhHòa",
+    "thanh hoa": "ThanhHóa",
+    "hoa binh": "HoàBình",
+    "bac can": "BắcKạn",
+    "bac kan": "BắcKạn",
+    "bac lieu": "BạcLiêu",
+    "bac giang": "BắcGiang",
+    "bac ninh": "BắcNinh",
+    "ben tre": "BếnTre",
+    "binh dinh": "BìnhĐịnh",
+    "binh duong": "BìnhDương",
+    "binh phuoc": "BìnhPhước",
+    "binh thuan": "BìnhThuận",
+    "ca mau": "CàMau",
+    "cao bang": "CaoBằng",
+    "dien bien": "ĐiệnBiên",
+    "dong nai": "ĐồngNai",
+    "dong thap": "ĐồngTháp",
+    "gia lai": "GiaLai",
+    "ha giang": "HàGiang",
+    "ha nam": "HàNam",
+    "ha": "HàTĩnh",
+    "hai duong": "HảiDương",
+    "hau giang": "HậuGiang",
+    "hung yen": "HưngYên",
+    "kien giang": "KiênGiang",
+    "kon tum": "KonTum",
+    "lai chau": "LaiChâu",
+    "lam dong": "LâmĐồng",
+    "lang son": "LạngSơn",
+    "lao cai": "LàoCai",
+    "long an": "LongAn",
+    "nam dinh": "NamĐịnh",
+    "nghe an": "NghệAn",
+    "ninh binh": "NinhBình",
+    "ninh thuan": "NinhThuận",
+    "phu tho": "PhúThọ",
+    "phu yen": "PhúYên",
+    "quang binh": "QuảngBình",
+    "quang nam": "QuảngNam",
+    "quang ngai": "QuảngNgãi",
+    "quang ninh": "QuảngNinh",
+    "quang tri": "QuảngTrị",
+    "soc trang": "SócTrăng",
+    "son la": "SơnLa",
+    "tay ninh": "TâyNinh",
+    "thai binh": "TháiBình",
+    "thai nguyen": "TháiNguyên",
+    "tien giang": "TiềnGiang",
+    "tra vinh": "TràVinh",
+    "tuyen quang": "TuyênQuang",
+    "vinh long": "VĩnhLong",
+    "vinh phuc": "VĩnhPhúc",
+    "yen bai": "YênBái"
+  }
+}

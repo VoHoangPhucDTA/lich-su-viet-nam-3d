@@ -1,0 +1,133 @@
+{
+  "id": "viet-nam-the-hien-thien-chi-hoa-binh-sau-12-1946",
+  "slug": "viet-nam-the-hien-thien-chi-hoa-binh-sau-12-1946",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Việt Nam thể hiện thiện chí hoà bình sau khi kháng chiến bùng nổ",
+    "short": "Việt Nam thể hiện thiện chí hoà bình sau khi kháng chiến bùng nổ",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "diplomatic",
+    "eventSubtype": "negotiation",
+    "region": "vietnam",
+    "tags": [
+      "chống chiến tranh",
+      "thiện chí hoà bình",
+      "thương lượng"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 12,
+        "lessonId": "12964",
+        "lessonTitle": "BÀI 13: HOẠT ĐỘNG ĐỐI NGOẠI CỦA VIỆT NAM TRONG KHÁNG CHIẾN CHỐNG PHÁP (1945 – 1954) VÀ KHÁNG CHIẾN CHỐNG MỸ (1954 - 1975)"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1946,
+      "month": 12,
+      "day": null
+    },
+    "end": null,
+    "datePrecision": "month",
+    "displayDate": "Từ tháng 12 năm 1946",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "no_location",
+    "historicalLocations": [],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "auto",
+      "center": null,
+      "zoom": null
+    }
+  },
+  "summary": {
+    "homepageTitle": "Việt Nam thể hiện thiện chí hoà bình",
+    "homepageSummary": "Sau khi kháng chiến bùng nổ, Việt Nam vẫn thể hiện thiện chí hoà bình, đề nghị Pháp thương lượng và kêu gọi nhân dân Pháp chống chiến tranh.",
+    "cardSummary": "Từ tháng 12-1946, Việt Nam vẫn thể hiện thiện chí hoà bình, đề nghị Pháp thương lượng."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Từ khi cuộc kháng chiến toàn quốc chống thực dân Pháp bùng nổ (12 – 1946), Việt Nam vẫn thể hiện thiện chí hoà bình, để nghị Chính phủ Pháp tiếp tục mở các cuộc thương lượng, kêu gọi nhân dân Pháp chống chiến tranh.",
+    "detailedNarrative": "Từ khi cuộc kháng chiến toàn quốc chống thực dân Pháp bùng nổ (12 – 1946), Việt Nam vẫn thể hiện thiện chí hoà bình, để nghị Chính phủ Pháp tiếp tục mở các cuộc thương lượng, kêu gọi nhân dân Pháp chống chiến tranh.",
+    "significance": null,
+    "keyFacts": [
+      "Kêu gọi nhân dân Pháp chống chiến tranh",
+      "Đề nghị Chính phủ Pháp tiếp tục thương lượng"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 12,
+        "book": "KNTT",
+        "lessonId": "12964",
+        "lessonTitle": "BÀI 13: HOẠT ĐỘNG ĐỐI NGOẠI CỦA VIỆT NAM TRONG KHÁNG CHIẾN CHỐNG PHÁP (1945 – 1954) VÀ KHÁNG CHIẾN CHỐNG MỸ (1954 - 1975)",
+        "chapter": "Chu de 4",
+        "lesson": "Bai 13",
+        "pageRange": {
+          "start": 77,
+          "end": 81
+        },
+        "url": "https://sgkvn.com/lop-12-15/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-4-cong-cuoc-doi-moi-o-viet-nam-tu-nam-1986-den-nay-3540/bai-13-hoat-dong-doi-ngoai-cua-viet-nam-trong-khang-chien-chong-phap-1945-1954-va-khang-chien-chong-my-1954-1975-12964.html",
+        "excerpt": "Từ khi cuộc kháng chiến toàn quốc chống thực dân Pháp bùng nổ (12 – 1946), Việt Nam vẫn thể hiện thiện chí hoà bình, để nghị Chính phủ Pháp tiếp tục mở các cuộc thương lượng, kêu gọi nhân dân Pháp chống chiến tranh."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "viet-nam-the-hien-thien-chi-hoa-binh-sau-12-1946",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 185
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": false,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

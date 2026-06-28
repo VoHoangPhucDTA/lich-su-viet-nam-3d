@@ -1,0 +1,174 @@
+{
+  "id": "thuc-dan-phap-no-sung-tan-cong-da-nang",
+  "slug": "thuc-dan-phap-no-sung-tan-cong-da-nang",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Thực dân Pháp nổ súng tấn công Đà Nẵng",
+    "short": "Pháp-TBN tấn công Đà Nẵng",
+    "alternatives": [
+      "Liên quân Pháp – Tây Ban Nha tấn công Đà Nẵng"
+    ]
+  },
+  "classification": {
+    "eventType": "military",
+    "eventSubtype": "battle",
+    "region": "vietnam",
+    "tags": [
+      "Pháp",
+      "xâm lược",
+      "xâm lược Việt Nam",
+      "Đà Nẵng",
+      "Tây Ban Nha"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 11,
+        "lessonId": "12339",
+        "lessonTitle": "BÀI 5  QUÁ TRÌNH XÂM LƯỢC VÀ CAI TRỊ CỦA"
+      },
+      {
+        "grade": 11,
+        "lessonId": "12340",
+        "lessonTitle": "BÀI 6  HÀNH TRÌNH ĐI ĐẾN ĐỘC LẬP DÂN TỘC"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1858,
+      "month": 9,
+      "day": 1
+    },
+    "end": null,
+    "datePrecision": "day",
+    "displayDate": "Ngày 1-9-1858",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "nationwide",
+    "historicalLocations": [
+      "Việt Nam"
+    ],
+    "provinceNames": [
+      "Đà Nẵng"
+    ],
+    "gadmRefs": [
+      "VNM.19_1"
+    ],
+    "marker": {
+      "name": "Đà Nẵng",
+      "lat": 16.0544,
+      "lng": 108.2022,
+      "confidence": "high"
+    },
+    "markers": [],
+    "focusGeometry": {
+      "mode": "bounds",
+      "center": {
+        "lat": 16.0,
+        "lng": 106.0
+      },
+      "zoom": 5
+    }
+  },
+  "summary": {
+    "homepageTitle": "Pháp tấn công Đà Nẵng",
+    "homepageSummary": "Năm 1858, thực dân Pháp nổ súng tấn công Đà Nẵng, mở đầu cuộc xâm lược Việt Nam.",
+    "cardSummary": "Thực dân Pháp nổ súng tấn công Đà Nẵng năm 1858, mở đầu cuộc xâm lược Việt Nam."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Năm 1858, thực dân Pháp nổ súng tấn công Đà Nẵng, mở đầu cuộc xâm lược Việt Nam và làm thất bại kế hoạch “đánh nhanh, thắng nhanh” của chúng.",
+    "detailedNarrative": "Từ năm 1858, khi thực dân Pháp nổ súng tấn công Đà Nẵng, cuộc chiến đấu chống xâm lược của nhân dân Việt Nam đã làm thất bại kế hoạch “đánh nhanh, thắng nhanh” của chúng.",
+    "significance": null,
+    "keyFacts": [
+      "Chủ thể: Liên quân Pháp – Tây Ban Nha",
+      "Mở đầu cuộc xâm lược Việt Nam của Pháp",
+      "Diễn ra năm 1858",
+      "Làm thất bại kế hoạch 'đánh nhanh, thắng nhanh'",
+      "Thời gian: 1-9-1858",
+      "Đối tượng: Đà Nẵng (Việt Nam)"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 11,
+        "book": "KNTT",
+        "lessonId": "12339",
+        "lessonTitle": "BÀI 5  QUÁ TRÌNH XÂM LƯỢC VÀ CAI TRỊ CỦA",
+        "chapter": "Chu de 3",
+        "lesson": "Bai 5",
+        "pageRange": {
+          "start": 38,
+          "end": 44
+        },
+        "url": "https://sgkvn.com/lop-11-14/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-3-qua-trinh-gianh-doc-lap-dan-toc-cua-cac-quoc-gia-dong-nam-a-3331/bai-5-qua-trinh-xam-luoc-va-cai-tri-cua-chu-nghia-thuc-dan-o-dong-nam-a-cong-cuoc-cai-cach-o-xiem-12339.html",
+        "excerpt": "Năm 1858, thực dân Pháp nổ súng tấn công Đà Nẵng, mở đầu cuộc xâm lược Việt Nam và làm thất bại kế hoạch “đánh nhanh, thắng nhanh” của chúng."
+      },
+      {
+        "grade": 11,
+        "book": "KNTT",
+        "lessonId": "12340",
+        "lessonTitle": "BÀI 6  HÀNH TRÌNH ĐI ĐẾN ĐỘC LẬP DÂN TỘC",
+        "chapter": "Chu de 3",
+        "lesson": "Bai 6",
+        "pageRange": {
+          "start": 45,
+          "end": 53
+        },
+        "url": "https://sgkvn.com/lop-11-14/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-3-qua-trinh-gianh-doc-lap-dan-toc-cua-cac-quoc-gia-dong-nam-a-3331/bai-6-hanh-trinh-di-den-doc-lap-dan-toc-o-dong-nam-a-12340.html",
+        "excerpt": "Năm 1858, thực dân Pháp nổ súng tấn công Đà Nẵng, mở đầu cuộc xâm lược Việt Nam và làm thất bại kế hoạch “đánh nhanh, thắng nhanh” của chúng."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "thuc-dan-phap-no-sung-tan-cong-da-nang",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 77
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": true,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

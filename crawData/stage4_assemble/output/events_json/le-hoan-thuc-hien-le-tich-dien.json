@@ -1,0 +1,162 @@
+{
+  "id": "le-hoan-thuc-hien-le-tich-dien",
+  "slug": "le-hoan-thuc-hien-le-tich-dien",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Vua Lê Hoàn thực hiện nghi lễ Tịch điền",
+    "short": "Vua Lê Hoàn thực hiện nghi lễ Tịch điền",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "cultural",
+    "eventSubtype": "ritual",
+    "region": "vietnam",
+    "tags": [
+      "Tịch điền",
+      "Lê Hoàn",
+      "nông nghiệp"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      10
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 10,
+        "lessonId": "12160",
+        "lessonTitle": "Bài 12: Văn Minh Đại Việt"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 987,
+      "month": null,
+      "day": null
+    },
+    "end": null,
+    "datePrecision": "year",
+    "displayDate": "Năm 987",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "mixed",
+    "historicalLocations": [
+      "Núi Đại"
+    ],
+    "provinceNames": [
+      "Hà Nam"
+    ],
+    "gadmRefs": [
+      "VNM.28_1"
+    ],
+    "marker": {
+      "name": "Hà Nam",
+      "lat": 20.55,
+      "lng": 105.9,
+      "confidence": "high"
+    },
+    "markers": [
+      {
+        "name": "Hà Nam",
+        "lat": 20.55,
+        "lng": 105.9,
+        "confidence": "high"
+      },
+      {
+        "name": "Duy Tiên",
+        "lat": 20.6833,
+        "lng": 105.95,
+        "confidence": "high"
+      }
+    ],
+    "focusGeometry": {
+      "mode": "bounds",
+      "center": {
+        "lat": 20.584814,
+        "lng": 105.941891
+      },
+      "zoom": 7
+    }
+  },
+  "summary": {
+    "homepageTitle": "Lê Hoàn thực hiện lễ Tịch điền (987)",
+    "homepageSummary": "Năm 987, vua Lê Hoàn thực hiện nghi lễ Tịch điền tại Núi Đại, khuyến khích nghề nông phát triển.",
+    "cardSummary": "Vua Lê Hoàn thực hiện lễ Tịch điền năm 987, khuyến khích nông nghiệp."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Nghi lễ Tịch điển sớm nhất theo sử sách ghi chép do vua Lễ Hoàn thực hiện tại Núi Đại (Duy Tiên, Hà Nam) vào năm 987.",
+    "detailedNarrative": null,
+    "significance": "Khuyến khích nghề nông phát triển.",
+    "keyFacts": [
+      "Là nghi lễ Tịch điền sớm nhất được ghi chép",
+      "Vào năm 987",
+      "Vua Lê Hoàn thực hiện",
+      "Diễn ra tại Núi Đại (Duy Tiên, Hà Nam)"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 10,
+        "book": "KNTT",
+        "lessonId": "12160",
+        "lessonTitle": "Bài 12: Văn Minh Đại Việt",
+        "chapter": "Chu de 6",
+        "lesson": "Bai 12",
+        "pageRange": {
+          "start": 108,
+          "end": 122
+        },
+        "url": "https://sgkvn.com/lop-10-13/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-6-mot-so-nen-van-minh-tren-dat-nuoc-viet-nam-truoc-nam-1858-3276/bai-12-van-minh-dai-viet-12160.html",
+        "excerpt": "Nghi lễ Tịch điển sớm nhất theo sử sách ghi chép do vua Lễ Hoàn thực hiện tại Núi Đại (Duy Tiên, Hà Nam) vào năm 987."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "le-hoan-thuc-hien-le-tich-dien",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 11
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": true,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

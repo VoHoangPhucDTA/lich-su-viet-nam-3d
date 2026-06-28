@@ -1,0 +1,136 @@
+{
+  "id": "philippin-tuyen-bo-quyen-khai-thac-lap-nghiep-truong-sa",
+  "slug": "philippin-tuyen-bo-quyen-khai-thac-lap-nghiep-truong-sa",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Phi-líp-pin tuyên bố có quyền khai thác, lập nghiệp tại nhóm đảo Trường Sa",
+    "short": "Phi-líp-pin tuyên bố chủ quyền Trường Sa (1956)",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "declaration",
+    "region": "world",
+    "tags": [
+      "Trường Sa",
+      "Phi-líp-pin",
+      "chủ quyền"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 11,
+        "lessonId": "12395",
+        "lessonTitle": "BÀI 16  VIỆT NAM VÀ BIỂN ĐÔNG"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1956,
+      "month": null,
+      "day": null
+    },
+    "end": null,
+    "datePrecision": "year",
+    "displayDate": "Năm 1956",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "no_location",
+    "historicalLocations": [
+      "nhóm đảo Trường Sa"
+    ],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "auto",
+      "center": null,
+      "zoom": null
+    }
+  },
+  "summary": {
+    "homepageTitle": "Phi-líp-pin tuyên bố quyền ở Trường Sa (1956)",
+    "homepageSummary": "Năm 1956, Phi-líp-pin tuyên bố có quyền khai thác, lập nghiệp tại nhóm đảo Trường Sa.",
+    "cardSummary": "Năm 1956, Phi-líp-pin tuyên bố quyền khai thác, lập nghiệp tại nhóm đảo Trường Sa."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Phi-líp-pin - Năm 1956, tuyên bố có quyền khai thác, lập nghiệp tại nhóm đảo Trường Sa.",
+    "detailedNarrative": "Phi-líp-pin - Năm 1956, tuyên bố có quyền khai thác, lập nghiệp tại nhóm đảo Trường Sa.",
+    "significance": "Một hành động trong bối cảnh tranh chấp chủ quyền ở Biển Đông.",
+    "keyFacts": [
+      "Chủ thể: Phi-líp-pin",
+      "Nội dung: tuyên bố quyền khai thác, lập nghiệp tại nhóm đảo Trường Sa",
+      "Diễn ra năm 1956"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 11,
+        "book": "KNTT",
+        "lessonId": "12395",
+        "lessonTitle": "BÀI 16  VIỆT NAM VÀ BIỂN ĐÔNG",
+        "chapter": "Chu de 7",
+        "lesson": "Bai 16",
+        "pageRange": {
+          "start": 107,
+          "end": 111
+        },
+        "url": "https://sgkvn.com/lop-11-14/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-7-lich-su-chu-quyen-cua-viet-nam-o-bien-dong-3354/bai-16-viet-nam-va-bien-dong-12395.html",
+        "excerpt": "Phi-líp-pin - Năm 1956, tuyên bố có quyền khai thác, lập nghiệp tại nhóm đảo Trường Sa."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "philippin-tuyen-bo-quyen-khai-thac-lap-nghiep-truong-sa",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 213
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": false,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

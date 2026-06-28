@@ -1,0 +1,153 @@
+{
+  "id": "phong-trao-chong-thuc-dan-phap-xam-luoc-o-viet-nam",
+  "slug": "phong-trao-chong-thuc-dan-phap-xam-luoc-o-viet-nam",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Phong trào chống thực dân Pháp xâm lược ở Việt Nam",
+    "short": "Phong trào chống thực dân Pháp xâm lược ở Việt Nam",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "military",
+    "eventSubtype": "resistance",
+    "region": "vietnam",
+    "tags": [
+      "chống Pháp",
+      "Việt Nam",
+      "xâm lược"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 11,
+        "lessonId": "12340",
+        "lessonTitle": "BÀI 6  HÀNH TRÌNH ĐI ĐẾN ĐỘC LẬP DÂN TỘC"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1858,
+      "month": null,
+      "day": null
+    },
+    "end": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "datePrecision": "year",
+    "displayDate": "1858 - khoảng 1884",
+    "isApproximate": true
+  },
+  "mapData": {
+    "geoType": "nationwide",
+    "historicalLocations": [
+      "Việt Nam"
+    ],
+    "provinceNames": [
+      "Đà Nẵng"
+    ],
+    "gadmRefs": [
+      "VNM.19_1"
+    ],
+    "marker": {
+      "name": "Đà Nẵng",
+      "lat": 16.0544,
+      "lng": 108.2022,
+      "confidence": "high"
+    },
+    "markers": [],
+    "focusGeometry": {
+      "mode": "bounds",
+      "center": {
+        "lat": 16.0,
+        "lng": 106.0
+      },
+      "zoom": 5
+    }
+  },
+  "summary": {
+    "homepageTitle": "Kháng chiến chống Pháp ở Việt Nam",
+    "homepageSummary": "Từ năm 1858, nhân dân Việt Nam chiến đấu chống thực dân Pháp xâm lược, làm thất bại kế hoạch 'đánh nhanh, thắng nhanh' của chúng.",
+    "cardSummary": "Phong trào chống Pháp xâm lược ở Việt Nam từ 1858, làm thất bại kế hoạch 'đánh nhanh, thắng nhanh'."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Từ năm 1858, khi thực dân Pháp nổ súng tấn công Đà Nẵng, cuộc chiến đấu chống xâm lược của nhân dân Việt Nam đã làm thất bại kế hoạch “đánh nhanh, thắng nhanh” của chúng. Cuộc chiến đấu lan rộng ra các tỉnh Nam Kì và Bắc Kì, thu hút sự tham gia của đông đảo các tầng lớp nhân dân. Thực dân Pháp phải mất 26 năm mới áp đặt được ách đô hộ trên toàn bộ đất nước Việt Nam.",
+    "detailedNarrative": "Ở Việt Nam, từ năm 1858, khi thực dân Pháp nổ súng tấn công Đà Nẵng, cuộc chiến đấu chống xâm lược của nhân dân Việt Nam đã làm thất bại kế hoạch “đánh nhanh, thắng nhanh” của chúng. Cuộc chiến đấu lan rộng ra các tỉnh Nam Kì và Bắc Kì, thu hút sự tham gia của đông đảo các tầng lớp nhân dân. Thực dân Pháp phải mất 26 năm mới áp đặt được ách đô hộ trên toàn bộ đất nước Việt Nam.",
+    "significance": null,
+    "keyFacts": [
+      "Lan rộng ra các tỉnh Nam Kì và Bắc Kì",
+      "Bắt đầu từ năm 1858 khi Pháp tấn công Đà Nẵng",
+      "Pháp mất 26 năm để áp đặt ách đô hộ",
+      "Làm thất bại kế hoạch 'đánh nhanh, thắng nhanh' của Pháp"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 11,
+        "book": "KNTT",
+        "lessonId": "12340",
+        "lessonTitle": "BÀI 6  HÀNH TRÌNH ĐI ĐẾN ĐỘC LẬP DÂN TỘC",
+        "chapter": "Chu de 3",
+        "lesson": "Bai 6",
+        "pageRange": {
+          "start": 45,
+          "end": 53
+        },
+        "url": "https://sgkvn.com/lop-11-14/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-3-qua-trinh-gianh-doc-lap-dan-toc-cua-cac-quoc-gia-dong-nam-a-3331/bai-6-hanh-trinh-di-den-doc-lap-dan-toc-o-dong-nam-a-12340.html",
+        "excerpt": "Từ năm 1858, khi thực dân Pháp nổ súng tấn công Đà Nẵng, cuộc chiến đấu chống xâm lược của nhân dân Việt Nam đã làm thất bại kế hoạch “đánh nhanh, thắng nhanh” của chúng. Cuộc chiến đấu lan rộng ra các tỉnh Nam Kì và Bắc Kì, thu hút sự tham gia của đông đảo các tầng lớp nhân dân. Thực dân Pháp phải mất 26 năm mới áp đặt được ách đô hộ trên toàn bộ đất nước Việt Nam."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "phong-trao-chong-thuc-dan-phap-xam-luoc-o-viet-nam",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 81
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": true,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

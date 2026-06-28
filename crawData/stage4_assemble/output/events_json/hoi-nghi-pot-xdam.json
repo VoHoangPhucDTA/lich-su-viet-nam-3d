@@ -1,0 +1,143 @@
+{
+  "id": "hoi-nghi-pot-xdam",
+  "slug": "hoi-nghi-pot-xdam",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Hội nghị Pốt-xđam",
+    "short": "Hội nghị Pốt-xđam",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "diplomatic",
+    "eventSubtype": "conference",
+    "region": "world",
+    "tags": [
+      "Đồng minh",
+      "Giải giáp Nhật",
+      "Đông Dương"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 12,
+        "lessonId": "12952",
+        "lessonTitle": "BÀI 6: CÁCH MẠNG THÁNG TÁM NĂM 1945"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1945,
+      "month": 7,
+      "day": 17
+    },
+    "end": {
+      "year": 1945,
+      "month": 8,
+      "day": 2
+    },
+    "datePrecision": "day",
+    "displayDate": "Từ ngày 17-7 – 1945 đến ngày 2 – 8 – 1945",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "no_location",
+    "historicalLocations": [
+      "Trung Hoa Dân quốc",
+      "Anh",
+      "Đông Dương"
+    ],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "auto",
+      "center": null,
+      "zoom": null
+    }
+  },
+  "summary": {
+    "homepageTitle": "Hội nghị Pốt-xđam 1945",
+    "homepageSummary": "Hội nghị Pốt-xđam quyết định việc giải giáp quân Nhật ở Đông Dương sau Chiến tranh thế giới thứ hai.",
+    "cardSummary": "Hội nghị Pốt-xđam (17-7 – 2-8-1945) phân chia trách nhiệm giải giáp quân Nhật ở Đông Dương."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Từ ngày 17-7 – 1945 đến ngày 2 – 8 – 1945, Hội nghị Pốt-xđam quyết định giao việc giải giáp vũ khí của quân phiệt Nhật Bản ở Đông Dương cho quân Trung Hoa Dân quốc ở khu vực phía Bắc vĩ tuyến 16, cho quân Anh ở khu vực phía Nam vĩ tuyến 16.",
+    "detailedNarrative": null,
+    "significance": "Quyết định việc giải giáp quân Nhật ở Đông Dương, ảnh hưởng đến bối cảnh Việt Nam.",
+    "keyFacts": [
+      "Trung Hoa Dân quốc giải giáp phía Bắc vĩ tuyến 16",
+      "Diễn ra từ 17-7 đến 2-8-1945",
+      "Quân Anh giải giáp phía Nam vĩ tuyến 16",
+      "Quyết định giải giáp quân Nhật ở Đông Dương"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 12,
+        "book": "KNTT",
+        "lessonId": "12952",
+        "lessonTitle": "BÀI 6: CÁCH MẠNG THÁNG TÁM NĂM 1945",
+        "chapter": "Chu de 3",
+        "lesson": "Bai 6",
+        "pageRange": {
+          "start": 31,
+          "end": 36
+        },
+        "url": "https://sgkvn.com/lop-12-15/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-3-cach-mang-thang-tam-nam-1945-chien-tranh-giai-phong-dan-toc-va-chien-tranh-bao-ve-to-quoc-trong-lich-su-viet-nam-tu-thang-8-nam-1945-den-nay-3539/bai-6-cach-mang-thang-tam-nam-1945-12952.html",
+        "excerpt": "Từ ngày 17-7 – 1945 đến ngày 2 – 8 – 1945, Hội nghị Pốt-xđam quyết định giao việc giải giáp vũ khí của quân phiệt Nhật Bản ở Đông Dương cho quân Trung Hoa Dân quốc ở khu vực phía Bắc vĩ tuyến 16, cho quân Anh ở khu vực phía Nam vĩ tuyến 16."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "hoi-nghi-pot-xdam",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 148
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": false,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

@@ -1,0 +1,134 @@
+{
+  "id": "lap-co-mat-vien",
+  "slug": "lap-co-mat-vien",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Lập Cơ mật viện",
+    "short": "Lập Cơ mật viện",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "administrative_reform",
+    "region": "vietnam",
+    "tags": [
+      "Minh Mạng",
+      "cơ quan tư vấn",
+      "Cơ mật viện"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 11,
+        "lessonId": "12393",
+        "lessonTitle": "BÀI 14  CUỘC CẢI CÁCH CỦA MINH MẠNG  NỬA"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1834,
+      "month": null,
+      "day": null
+    },
+    "end": null,
+    "datePrecision": "year",
+    "displayDate": "Năm 1834",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "no_location",
+    "historicalLocations": [],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "auto",
+      "center": null,
+      "zoom": null
+    }
+  },
+  "summary": {
+    "homepageTitle": "Lập Cơ mật viện (1834)",
+    "homepageSummary": "Năm 1834, vua Minh Mạng lập Cơ mật viện làm cơ quan tư vấn tối cao cho nhà vua về những vấn đề trọng đại.",
+    "cardSummary": "Năm 1834, Cơ mật viện được lập, tư vấn tối cao cho vua."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Năm 1834, vua Minh Mạng lập Cơ mật viện làm cơ quan tư vấn tối cao cho nhà vua về những vấn đề trọng đại, đứng đầu là 4 quan văn, võ, hàm từ tam phẩm trở lên do đích thân nhà vua lựa chọn.",
+    "detailedNarrative": "Năm 1834, lập Cơ mật viện làm cơ quan tư vấn tối cao cho nhà vua về những vấn đề trọng đại, đứng đầu là 4 quan văn, võ, hàm từ tam phẩm trở lên do đích thân nhà vua lựa chọn.",
+    "significance": "Tăng cường quyền lực và hiệu quả điều hành của nhà vua.",
+    "keyFacts": [
+      "Đứng đầu là 4 quan văn, võ",
+      "Thành lập năm 1834",
+      "Cơ quan tư vấn tối cao cho nhà vua"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 11,
+        "book": "KNTT",
+        "lessonId": "12393",
+        "lessonTitle": "BÀI 14  CUỘC CẢI CÁCH CỦA MINH MẠNG  NỬA",
+        "chapter": "Chu de 6",
+        "lesson": "Bai 14",
+        "pageRange": {
+          "start": null,
+          "end": null
+        },
+        "url": "https://sgkvn.com/lop-11-14/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-6-mot-so-cuoc-cai-cach-lon-trong-lich-su-viet-nam-truoc-nam-1858-3353/bai-14-cuoc-cai-cach-cua-minh-mang-nua-dau-the-ki-xix-12393.html",
+        "excerpt": "Năm 1834, vua Minh Mạng lập Cơ mật viện làm cơ quan tư vấn tối cao cho nhà vua về những vấn đề trọng đại, đứng đầu là 4 quan văn, võ, hàm từ tam phẩm trở lên do đích thân nhà vua lựa chọn."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "lap-co-mat-vien",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 72
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": false,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

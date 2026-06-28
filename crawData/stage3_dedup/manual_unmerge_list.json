@@ -1,0 +1,38 @@
+{
+  "_comment": "Danh sách các nhóm bị gộp SAI do eventType conflict. Mỗi phần tử là 1 nhóm cần TÁCH HOÀN TOÀN thành các sự kiện độc lập.",
+  "_note": "Sửa tay trước khi chạy dedup.py: xóa nhóm không muốn tách, thêm nhóm mới nếu cần.",
+  "groups_to_split": [
+    {
+      "_reason": "military vs political — Phong trào Tây Sơn là sự kiện chính trị, Phong trào Tây Sơn bùng nổ là sự kiện quân sự",
+      "ids": ["phong-trao-tay-son-bung-no", "phong-trao-tay-son"]
+    },
+    {
+      "_reason": "political vs diplomatic — Miến Điện được trao trả độc lập (chính trị) khác với Kí kết Hiệp ước Anh-Miến (ngoại giao)",
+      "ids": ["mien-dien-duoc-trao-tra-doc-lap", "ki-ket-hiep-uoc-anh-mien"]
+    },
+    {
+      "_reason": "political vs diplomatic — Tuyên bố thành lập Cộng đồng ASEAN (chính trị) khác Kí tuyên bố (ngoại giao văn kiện)",
+      "ids": ["tuyen-bo-thanh-lap-cong-dong-asean", "ki-tuyen-bo-cua-la-lam-po-thanh-lap-cong-dong-asean"]
+    },
+    {
+      "_reason": "political vs diplomatic — Thông qua Tầm nhìn ASEAN sau 2025 (chính trị/quyết nghị) khác Thông qua xây dựng tầm nhìn (ngoại giao/hội nghị)",
+      "ids": ["thong-qua-tam-nhin-cong-dong-asean-sau-nam-2025", "thong-qua-viec-xay-dung-tam-nhin-cong-dong-asean-sau-2025"]
+    },
+    {
+      "_reason": "political vs diplomatic — ASEAN thành lập (sự kiện chính trị khu vực) khác Tuyên bố Băng-cốc 1967 (văn kiện ngoại giao)",
+      "ids": ["asean-thanh-lap", "tuyen-bo-bang-coc-1967"]
+    },
+    {
+      "_reason": "political vs diplomatic — Hồ Chí Minh sang Trung Quốc 1942 (hành trình chính trị) khác Hồ Chí Minh đi TQ phối hợp chống Nhật (hoạt động ngoại giao)",
+      "ids": ["ho-chi-minh-sang-trung-quoc-1942", "ho-chi-minh-di-trung-quoc-phoi-hop-chong-nhat"]
+    },
+    {
+      "_reason": "political vs military — Mỹ can thiệp vào Đông Dương (chính trị) khác Chiến tranh bảo vệ độc lập (quân sự)",
+      "ids": ["my-can-thiep-vao-dong-duong", "chien-tranh-bao-ve-doc-lap-dan-toc-va-chu-quyen-quoc-gia-o-dong-duong"]
+    },
+    {
+      "_reason": "political vs diplomatic — Chiến tranh lạnh kết thúc (chính trị) khác Liên Xô và Mỹ tuyên bố chấm dứt (ngoại giao)",
+      "ids": ["lien-xo-va-my-tuyen-bo-cham-dut-chien-tranh-lanh", "chien-tranh-lanh-ket-thuc"]
+    }
+  ]
+}

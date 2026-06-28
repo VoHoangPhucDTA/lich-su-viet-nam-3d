@@ -1,0 +1,3826 @@
+{
+  "locations": {
+    "Hà Nam": {
+      "modern_name": "Tỉnh Hà Nam, Việt Nam",
+      "lat": 20.55,
+      "lng": 105.9,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Hà Nam Ninh": {
+      "modern_name": "Khu vực các tỉnh Hà Nam, Nam Định, Ninh Bình, Việt Nam",
+      "lat": 20.3,
+      "lng": 106.0,
+      "confidence": "medium",
+      "country": "vietnam"
+    },
+    "Hà Nội": {
+      "modern_name": "Thành phố Hà Nội, Việt Nam",
+      "lat": 21.0285,
+      "lng": 105.8542,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Hà Quảng": {
+      "modern_name": "Huyện Hà Quảng, Tỉnh Cao Bằng, Việt Nam",
+      "lat": 22.85,
+      "lng": 106.05,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Hà Tiên": {
+      "modern_name": "Thành phố Hà Tiên, Tỉnh Kiên Giang, Việt Nam",
+      "lat": 10.38,
+      "lng": 104.28,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Hà Tĩnh": {
+      "modern_name": "Tỉnh Hà Tĩnh, Việt Nam",
+      "lat": 18.35,
+      "lng": 105.8,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Hàm Tử": {
+      "modern_name": "Xã Hàm Tử, Huyện Khoái Châu, Tỉnh Hưng Yên, Việt Nam",
+      "lat": 20.85,
+      "lng": 106.05,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Hàn Quốc": {
+      "modern_name": "Đại Hàn Dân Quốc (Hàn Quốc)",
+      "lat": 35.9078,
+      "lng": 127.7669,
+      "confidence": "high",
+      "country": "south korea"
+    },
+    "Hát Môn (Phúc Thọ, Hà Nội)": {
+      "modern_name": "Xã Hát Môn, Huyện Phúc Thọ, Thành phố Hà Nội, Việt Nam",
+      "lat": 21.1,
+      "lng": 105.55,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Hưng Hoá": {
+      "modern_name": "Xã Hưng Hóa, Huyện Tam Nông, Tỉnh Phú Thọ, Việt Nam",
+      "lat": 21.25,
+      "lng": 105.25,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Hưng Yên": {
+      "modern_name": "Tỉnh Hưng Yên, Việt Nam",
+      "lat": 20.85,
+      "lng": 106.05,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Hương Cảng (Trung Quốc)": {
+      "modern_name": "Đặc khu hành chính Hồng Kông, Trung Quốc",
+      "lat": 22.3193,
+      "lng": 114.1694,
+      "confidence": "high",
+      "country": "china"
+    },
+    "Hải Dương": {
+      "modern_name": "Tỉnh Hải Dương, Việt Nam",
+      "lat": 20.95,
+      "lng": 106.35,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Hải Nam": {
+      "modern_name": "Tỉnh Hải Nam, Trung Quốc",
+      "lat": 19.0,
+      "lng": 109.7,
+      "confidence": "high",
+      "country": "china"
+    },
+    "Hải Phòng": {
+      "modern_name": "Thành phố Hải Phòng, Việt Nam",
+      "lat": 20.8667,
+      "lng": 106.6833,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Hồng Công": {
+      "modern_name": "Đặc khu hành chính Hồng Kông, Trung Quốc",
+      "lat": 22.3193,
+      "lng": 114.1694,
+      "confidence": "high",
+      "country": "china"
+    },
+    "Hồng Hải": {
+      "modern_name": "Biển Đỏ",
+      "lat": 20.0,
+      "lng": 38.0,
+      "confidence": "high",
+      "country": null
+    },
+    "Hội nghị Véc-xai": {
+      "modern_name": "Cung điện Versailles, Pháp",
+      "lat": 48.8048,
+      "lng": 2.1204,
+      "confidence": "high",
+      "country": "france"
+    },
+    "Hợp Phố": {
+      "modern_name": "Huyện Hợp Phố, Thành phố Bắc Hải, Khu tự trị dân tộc Choang Quảng Tây, Trung Quốc",
+      "lat": 21.65,
+      "lng": 109.35,
+      "confidence": "high",
+      "country": "china"
+    },
+    "I-an-ta (Liên Xô)": {
+      "modern_name": "Yalta, Crimea",
+      "lat": 44.4949,
+      "lng": 34.1729,
+      "confidence": "high",
+      "country": "ukraine"
+    },
+    "I-rắc": {
+      "modern_name": "Cộng hòa Iraq",
+      "lat": 33.2232,
+      "lng": 43.6793,
+      "confidence": "high",
+      "country": "iraq"
+    },
+    "I-ta-li-a": {
+      "modern_name": "Cộng hòa Ý (Italia)",
+      "lat": 41.8719,
+      "lng": 12.5674,
+      "confidence": "high",
+      "country": "italy"
+    },
+    "I-xra-en": {
+      "modern_name": "Nhà nước Israel",
+      "lat": 31.0461,
+      "lng": 34.8516,
+      "confidence": "high",
+      "country": "israel"
+    },
+    "I-xtan-bun": {
+      "modern_name": "Istanbul, Thổ Nhĩ Kỳ",
+      "lat": 41.0082,
+      "lng": 28.9784,
+      "confidence": "high",
+      "country": "turkey"
+    },
+    "In-đô-nê-xi-a": {
+      "modern_name": "Cộng hòa Indonesia",
+      "lat": -0.7893,
+      "lng": 113.9213,
+      "confidence": "high",
+      "country": "indonesia"
+    },
+    "Khách sạn Ca-tơn": {
+      "modern_name": "Không xác định",
+      "lat": null,
+      "lng": null,
+      "confidence": "none",
+      "country": null
+    },
+    "Khâm Châu": {
+      "modern_name": "Thành phố Khâm Châu, Khu tự trị dân tộc Choang Quảng Tây, Trung Quốc",
+      "lat": 21.96,
+      "lng": 108.62,
+      "confidence": "high",
+      "country": "china"
+    },
+    "Khả Lưu": {
+      "modern_name": "Không xác định",
+      "lat": null,
+      "lng": null,
+      "confidence": "none",
+      "country": null
+    },
+    "Kinh Bắc": {
+      "modern_name": "Khu vực các tỉnh Bắc Ninh và Bắc Giang, Việt Nam",
+      "lat": 21.15,
+      "lng": 106.05,
+      "confidence": "medium",
+      "country": "vietnam"
+    },
+    "La Ha-ba-na": {
+      "modern_name": "La Habana, Cuba",
+      "lat": 23.1136,
+      "lng": -82.3666,
+      "confidence": "high",
+      "country": "cuba"
+    },
+    "La Hay": {
+      "modern_name": "Den Haag (The Hague), Hà Lan",
+      "lat": 52.0705,
+      "lng": 4.3007,
+      "confidence": "high",
+      "country": "netherlands"
+    },
+    "La Mã": {
+      "modern_name": "Roma, Ý",
+      "lat": 41.9028,
+      "lng": 12.4964,
+      "confidence": "high",
+      "country": "italy"
+    },
+    "Lam Kinh (Thanh Hoá)": {
+      "modern_name": "Khu di tích lịch sử Lam Kinh, Huyện Thọ Xuân, Tỉnh Thanh Hóa, Việt Nam",
+      "lat": 19.95,
+      "lng": 105.35,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Lam Sơn (Thanh Hoá)": {
+      "modern_name": "Xã Lam Sơn, Huyện Thọ Xuân, Tỉnh Thanh Hóa, Việt Nam",
+      "lat": 19.95,
+      "lng": 105.35,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Len Đao": {
+      "modern_name": "Đá Len Đao, Trường Sa, Việt Nam",
+      "lat": 9.783,
+      "lng": 114.367,
+      "confidence": "high",
+      "country": "vietnam",
+      "source": "manual"
+    },
+    "Li-va-đi-a": {
+      "modern_name": "Livadia, Crimea",
+      "lat": 44.4683,
+      "lng": 34.1556,
+      "confidence": "high",
+      "country": "ukraine"
+    },
+    "Liêm Châu": {
+      "modern_name": "Thành phố Liên Châu, Tỉnh Quảng Đông, Trung Quốc",
+      "lat": 24.78,
+      "lng": 112.38,
+      "confidence": "high",
+      "country": "china"
+    },
+    "Liên Xô": {
+      "modern_name": "Liên bang Xô viết (cũ) / Liên bang Nga (trung tâm)",
+      "lat": 61.524,
+      "lng": 105.3188,
+      "confidence": "medium",
+      "country": "russia"
+    },
+    "Liên minh châu Âu (EU)": {
+      "modern_name": "Liên minh châu Âu",
+      "lat": 50.1,
+      "lng": 10.0,
+      "confidence": "medium",
+      "country": null
+    },
+    "Luy Lâu (Bắc Ninh)": {
+      "modern_name": "Khu di tích Luy Lâu, Thị xã Thuận Thành, Tỉnh Bắc Ninh, Việt Nam",
+      "lat": 21.05,
+      "lng": 106.08,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Luân Đôn": {
+      "modern_name": "Luân Đôn, Vương quốc Anh",
+      "lat": 51.5074,
+      "lng": -0.1278,
+      "confidence": "high",
+      "country": "united kingdom"
+    },
+    "Làng Sen": {
+      "modern_name": "Làng Sen, Xã Kim Liên, Huyện Nam Đàn, Tỉnh Nghệ An, Việt Nam",
+      "lat": 18.68,
+      "lng": 105.55,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Làng Vạc": {
+      "modern_name": "Di chỉ Làng Vạc, Huyện Nghĩa Đàn, Tỉnh Nghệ An, Việt Nam",
+      "lat": 19.35,
+      "lng": 105.45,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Lào": {
+      "modern_name": "Cộng hòa Dân chủ Nhân dân Lào",
+      "lat": 19.8563,
+      "lng": 102.4955,
+      "confidence": "high",
+      "country": "laos"
+    },
+    "Lũng Nhai": {
+      "modern_name": "Lũng Nhai (nay thuộc xã Ngọc Phụng), Huyện Thường Xuân, Tỉnh Thanh Hóa, Việt Nam",
+      "lat": 19.8,
+      "lng": 105.1,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Lưỡng Hà": {
+      "modern_name": "Lưỡng Hà (khu vực Iraq hiện đại)",
+      "lat": 33.0,
+      "lng": 44.0,
+      "confidence": "medium",
+      "country": "iraq"
+    },
+    "Lạng Sơn": {
+      "modern_name": "Tỉnh Lạng Sơn, Việt Nam",
+      "lat": 21.85,
+      "lng": 106.75,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Lệ Chi Viên": {
+      "modern_name": "Lệ Chi Viên (nay thuộc xã Đại Lai), Huyện Gia Bình, Tỉnh Bắc Ninh, Việt Nam",
+      "lat": 21.08,
+      "lng": 106.15,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Lữ Thuận": {
+      "modern_name": "Quận Lữ Thuận Khẩu, Thành phố Đại Liên, Tỉnh Liêu Ninh, Trung Quốc",
+      "lat": 38.8,
+      "lng": 121.25,
+      "confidence": "high",
+      "country": "china"
+    },
+    "Ma-lai-xi-a": {
+      "modern_name": "Malaysia",
+      "lat": 4.2105,
+      "lng": 101.9758,
+      "confidence": "high",
+      "country": "malaysia"
+    },
+    "Ma-lắc-ca": {
+      "modern_name": "Thành phố Malacca, Malaysia",
+      "lat": 2.196,
+      "lng": 102.2401,
+      "confidence": "high",
+      "country": "malaysia"
+    },
+    "Mem-phít": {
+      "modern_name": "Memphis (di chỉ khảo cổ), Ai Cập",
+      "lat": 29.8467,
+      "lng": 31.2547,
+      "confidence": "high",
+      "country": "egypt"
+    },
+    "Mi-an-ma": {
+      "modern_name": "Cộng hòa Liên bang Myanmar",
+      "lat": 21.9139,
+      "lng": 95.9562,
+      "confidence": "high",
+      "country": "myanmar"
+    },
+    "Miên": {
+      "modern_name": "Campuchia",
+      "lat": 12.5657,
+      "lng": 104.991,
+      "confidence": "high",
+      "country": "cambodia"
+    },
+    "Miến Điện": {
+      "modern_name": "Cộng hòa Liên bang Myanmar",
+      "lat": 21.9139,
+      "lng": 95.9562,
+      "confidence": "high",
+      "country": "myanmar"
+    },
+    "Mã Lai": {
+      "modern_name": "Bán đảo Mã Lai / Malaysia",
+      "lat": 4.2105,
+      "lng": 101.9758,
+      "confidence": "high",
+      "country": "malaysia"
+    },
+    "Mãn Châu": {
+      "modern_name": "Mãn Châu (khu vực Đông Bắc Trung Quốc)",
+      "lat": 45.0,
+      "lng": 125.0,
+      "confidence": "medium",
+      "country": "china"
+    },
+    "Mê Linh": {
+      "modern_name": "Huyện Mê Linh, Thành phố Hà Nội, Việt Nam",
+      "lat": 21.25,
+      "lng": 105.75,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Mê-hi-cô": {
+      "modern_name": "Hợp chúng quốc México",
+      "lat": 23.6345,
+      "lng": -102.5528,
+      "confidence": "high",
+      "country": "mexico"
+    },
+    "Mông Cổ": {
+      "modern_name": "Mông Cổ",
+      "lat": 46.8625,
+      "lng": 103.8467,
+      "confidence": "high",
+      "country": "mongolia"
+    },
+    "Mường Thanh": {
+      "modern_name": "Hầm De Castries, Cánh đồng Mường Thanh, Điện Biên Phủ, Việt Nam",
+      "lat": 21.385,
+      "lng": 103.006,
+      "confidence": "high",
+      "country": "vietnam",
+      "source": "manual"
+    },
+    "Mặt Trăng": {
+      "modern_name": "Mặt Trăng",
+      "lat": null,
+      "lng": null,
+      "confidence": "none",
+      "country": null
+    },
+    "Mỹ La-tinh": {
+      "modern_name": "Châu Mỹ Latinh",
+      "lat": -15.0,
+      "lng": -60.0,
+      "confidence": "low",
+      "country": null
+    },
+    "Mỹ Tho": {
+      "modern_name": "Thành phố Mỹ Tho, Tỉnh Tiền Giang, Việt Nam",
+      "lat": 10.35,
+      "lng": 106.35,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Na-da-rét": {
+      "modern_name": "Nazareth, Israel",
+      "lat": 32.6997,
+      "lng": 35.3038,
+      "confidence": "high",
+      "country": "israel"
+    },
+    "Na-ga-xa-ki": {
+      "modern_name": "Nagasaki, Nhật Bản",
+      "lat": 32.75,
+      "lng": 129.8667,
+      "confidence": "high",
+      "country": "japan"
+    },
+    "Nam": {
+      "modern_name": "Không xác định",
+      "lat": null,
+      "lng": null,
+      "confidence": "none",
+      "country": null
+    },
+    "Nam Bộ": {
+      "modern_name": "Miền Nam Việt Nam",
+      "lat": 10.7,
+      "lng": 106.0,
+      "confidence": "medium",
+      "country": "vietnam"
+    },
+    "Nam Bộ Việt Nam": {
+      "modern_name": "Miền Nam Việt Nam",
+      "lat": 10.7,
+      "lng": 106.0,
+      "confidence": "medium",
+      "country": "vietnam"
+    },
+    "Nam Kì": {
+      "modern_name": "Nam Kỳ (khu vực miền Nam Việt Nam thời Pháp thuộc)",
+      "lat": 10.7,
+      "lng": 106.0,
+      "confidence": "medium",
+      "country": "vietnam"
+    },
+    "Nam Mãn Châu": {
+      "modern_name": "Nam Mãn Châu (khu vực Đông Bắc Trung Quốc)",
+      "lat": 40.0,
+      "lng": 122.0,
+      "confidence": "medium",
+      "country": "china"
+    },
+    "Nam Phi": {
+      "modern_name": "Cộng hòa Nam Phi",
+      "lat": -30.5595,
+      "lng": 22.9375,
+      "confidence": "high",
+      "country": "south africa"
+    },
+    "Nam Xu-đăng": {
+      "modern_name": "Cộng hòa Nam Sudan",
+      "lat": 6.877,
+      "lng": 31.307,
+      "confidence": "high",
+      "country": "south sudan"
+    },
+    "Nam Á": {
+      "modern_name": "Nam Á",
+      "lat": 20.0,
+      "lng": 78.0,
+      "confidence": "low",
+      "country": null
+    },
+    "Nam Đàn (Nghệ An)": {
+      "modern_name": "Huyện Nam Đàn, Tỉnh Nghệ An, Việt Nam",
+      "lat": 18.68,
+      "lng": 105.55,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Nam Định": {
+      "modern_name": "Tỉnh Nam Định, Việt Nam",
+      "lat": 20.35,
+      "lng": 106.2,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Nga": {
+      "modern_name": "Liên bang Nga",
+      "lat": 61.524,
+      "lng": 105.3188,
+      "confidence": "high",
+      "country": "russia"
+    },
+    "Nghệ An": {
+      "modern_name": "Tỉnh Nghệ An, Việt Nam",
+      "lat": 19.0,
+      "lng": 105.0,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Ngoại Cáp-ca-dơ": {
+      "modern_name": "Ngoại Kavkaz (khu vực Armenia, Azerbaijan, Georgia)",
+      "lat": 41.5,
+      "lng": 45.0,
+      "confidence": "medium",
+      "country": null
+    },
+    "Ngọc Hồi": {
+      "modern_name": "Xã Ngọc Hồi, Huyện Thanh Trì, Thành phố Hà Nội, Việt Nam",
+      "lat": 20.93,
+      "lng": 105.85,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Ngọc Hồi - Đống Đa": {
+      "modern_name": "Khu vực Ngọc Hồi (Thanh Trì) và Đống Đa (Hà Nội), Việt Nam",
+      "lat": 20.98,
+      "lng": 105.82,
+      "confidence": "medium",
+      "country": "vietnam"
+    },
+    "Nhà số 248 và 250 đường Văn Minh": {
+      "modern_name": "Không xác định",
+      "lat": null,
+      "lng": null,
+      "confidence": "none",
+      "country": null
+    },
+    "Nhà số 9": {
+      "modern_name": "Không xác định",
+      "lat": null,
+      "lng": null,
+      "confidence": "none",
+      "country": null
+    },
+    "Nhật Bản": {
+      "modern_name": "Nhật Bản",
+      "lat": 36.2048,
+      "lng": 138.2529,
+      "confidence": "high",
+      "country": "japan"
+    },
+    "Nhật Nam": {
+      "modern_name": "Nhật Nam (khu vực miền Trung Việt Nam cổ đại)",
+      "lat": 17.0,
+      "lng": 107.0,
+      "confidence": "low",
+      "country": "vietnam"
+    },
+    "Ninh Bình": {
+      "modern_name": "Tỉnh Ninh Bình, Việt Nam",
+      "lat": 20.25,
+      "lng": 105.95,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Niu Oóc (Mỹ)": {
+      "modern_name": "Thành phố New York, Hoa Kỳ",
+      "lat": 40.7128,
+      "lng": -74.006,
+      "confidence": "high",
+      "country": "united states"
+    },
+    "Nê-pan": {
+      "modern_name": "Cộng hòa Dân chủ Liên bang Nepal",
+      "lat": 28.3949,
+      "lng": 84.124,
+      "confidence": "high",
+      "country": "nepal"
+    },
+    "Nê-đéc-lan": {
+      "modern_name": "Vương quốc Hà Lan",
+      "lat": 52.1326,
+      "lng": 5.2913,
+      "confidence": "high",
+      "country": "nederlands"
+    },
+    "Núi Đại": {
+      "modern_name": "Không xác định",
+      "lat": null,
+      "lng": null,
+      "confidence": "none",
+      "country": null
+    },
+    "O-xtrây-li-a": {
+      "modern_name": "Thịnh vượng chung Úc",
+      "lat": -25.2744,
+      "lng": 133.7751,
+      "confidence": "high",
+      "country": "australia"
+    },
+    "Pa-le-xtin": {
+      "modern_name": "Nhà nước Palestine",
+      "lat": 31.9522,
+      "lng": 35.2332,
+      "confidence": "high",
+      "country": "palestine"
+    },
+    "Pa-ri": {
+      "modern_name": "Paris, Pháp",
+      "lat": 48.8566,
+      "lng": 2.3522,
+      "confidence": "high",
+      "country": "france"
+    },
+    "Phan Rang": {
+      "modern_name": "Thành phố Phan Rang-Tháp Chàm, Tỉnh Ninh Thuận, Việt Nam",
+      "lat": 11.5667,
+      "lng": 108.9833,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Phan Thiết": {
+      "modern_name": "Thành phố Phan Thiết, Tỉnh Bình Thuận, Việt Nam",
+      "lat": 10.9333,
+      "lng": 108.1,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Phan Thiết (Bình Thuận)": {
+      "modern_name": "Thành phố Phan Thiết, Tỉnh Bình Thuận, Việt Nam",
+      "lat": 10.9333,
+      "lng": 108.1,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Phi": {
+      "modern_name": "Châu Phi",
+      "lat": -8.7832,
+      "lng": 34.5085,
+      "confidence": "low",
+      "country": null
+    },
+    "Phi-líp-pin": {
+      "modern_name": "Cộng hòa Philippines",
+      "lat": 12.8797,
+      "lng": 121.774,
+      "confidence": "high",
+      "country": "philippines"
+    },
+    "Phiên An": {
+      "modern_name": "Quận Phiên Ngung, Thành phố Quảng Châu, Tỉnh Quảng Đông, Trung Quốc",
+      "lat": 22.93,
+      "lng": 113.35,
+      "confidence": "high",
+      "country": "china"
+    },
+    "Phnôm Pênh": {
+      "modern_name": "Phnôm Pênh, Campuchia",
+      "lat": 11.5564,
+      "lng": 104.9282,
+      "confidence": "high",
+      "country": "cambodia"
+    },
+    "A-chê": {
+      "modern_name": "Aceh, Indonesia",
+      "lat": 4.6951,
+      "lng": 96.7493,
+      "confidence": "high",
+      "country": "indonesia"
+    },
+    "A-rập Xê-út": {
+      "modern_name": "Saudi Arabia",
+      "lat": 23.8859,
+      "lng": 45.0792,
+      "confidence": "high",
+      "country": "saudi arabia"
+    },
+    "A-ten": {
+      "modern_name": "Athens, Greece",
+      "lat": 37.9838,
+      "lng": 23.7275,
+      "confidence": "high",
+      "country": "greece"
+    },
+    "ASEAN": {
+      "modern_name": "Southeast Asia (region)",
+      "lat": 10.0,
+      "lng": 105.0,
+      "confidence": "low",
+      "country": null
+    },
+    "Ai Cập": {
+      "modern_name": "Egypt",
+      "lat": 26.8206,
+      "lng": 30.8025,
+      "confidence": "high",
+      "country": "egypt"
+    },
+    "An Giang": {
+      "modern_name": "An Giang Province, Vietnam",
+      "lat": 10.3833,
+      "lng": 105.15,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "An Lão (Bình Định)": {
+      "modern_name": "An Lão District, Bình Định, Vietnam",
+      "lat": 14.5,
+      "lng": 108.7,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "An-ba-ni": {
+      "modern_name": "Albania",
+      "lat": 41.1533,
+      "lng": 20.1683,
+      "confidence": "high",
+      "country": "albania"
+    },
+    "Anh": {
+      "modern_name": "United Kingdom",
+      "lat": 55.3781,
+      "lng": -3.436,
+      "confidence": "high",
+      "country": "united kingdom"
+    },
+    "Ba Gia (Quảng Ngãi)": {
+      "modern_name": "Ba Gia, Quảng Ngãi, Vietnam",
+      "lat": 15.1833,
+      "lng": 108.7833,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Ba Lan": {
+      "modern_name": "Poland",
+      "lat": 51.9194,
+      "lng": 19.1451,
+      "confidence": "high",
+      "country": "poland"
+    },
+    "Ba-li": {
+      "modern_name": "Bali, Indonesia",
+      "lat": -8.3405,
+      "lng": 115.092,
+      "confidence": "high",
+      "country": "indonesia"
+    },
+    "Ba-xti": {
+      "modern_name": "Place de la Bastille, Paris, France",
+      "lat": 48.8529,
+      "lng": 2.369,
+      "confidence": "high",
+      "country": "france"
+    },
+    "Biên Hoà": {
+      "modern_name": "Biên Hòa, Đồng Nai, Vietnam",
+      "lat": 10.95,
+      "lng": 106.8167,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Bra-xin": {
+      "modern_name": "Brazil",
+      "lat": -14.235,
+      "lng": -51.9253,
+      "confidence": "high",
+      "country": "brazil"
+    },
+    "Bru-nây": {
+      "modern_name": "Brunei",
+      "lat": 4.5353,
+      "lng": 114.7277,
+      "confidence": "high",
+      "country": "brunei"
+    },
+    "Bun-ga-ri": {
+      "modern_name": "Bulgaria",
+      "lat": 42.7339,
+      "lng": 25.4858,
+      "confidence": "high",
+      "country": "bulgaria"
+    },
+    "Bác Ái (Ninh Thuận)": {
+      "modern_name": "Bác Ái District, Ninh Thuận, Vietnam",
+      "lat": 11.75,
+      "lng": 108.7,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Bác-men": {
+      "modern_name": "Bremen, Germany",
+      "lat": 53.0793,
+      "lng": 8.8017,
+      "confidence": "high",
+      "country": "germany"
+    },
+    "Béc-lin": {
+      "modern_name": "Berlin, Germany",
+      "lat": 52.52,
+      "lng": 13.405,
+      "confidence": "high",
+      "country": "germany"
+    },
+    "Bê-lô-rút-xi-a": {
+      "modern_name": "Belarus",
+      "lat": 53.7098,
+      "lng": 27.9534,
+      "confidence": "high",
+      "country": "belarus"
+    },
+    "Bình Giã (Bà Rịa – Vũng Tàu)": {
+      "modern_name": "Bình Giã, Bà Rịa – Vũng Tàu, Vietnam",
+      "lat": 10.65,
+      "lng": 107.25,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Bình Lệ Nguyên": {
+      "modern_name": "Bình Lệ Nguyên (nay thuộc tỉnh Vĩnh Phúc), Việt Nam",
+      "lat": 21.35,
+      "lng": 105.6,
+      "confidence": "medium",
+      "country": "vietnam",
+      "source": "manual"
+    },
+    "Bình Than": {
+      "modern_name": "Bình Than, Hải Dương, Vietnam",
+      "lat": 21.0833,
+      "lng": 106.4,
+      "confidence": "medium",
+      "country": "vietnam"
+    },
+    "Bình Thuận": {
+      "modern_name": "Bình Thuận Province, Vietnam",
+      "lat": 10.9333,
+      "lng": 108.0,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Bình Định": {
+      "modern_name": "Bình Định Province, Vietnam",
+      "lat": 14.0,
+      "lng": 108.9,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Bô-hô": {
+      "modern_name": "Không xác định",
+      "lat": null,
+      "lng": null,
+      "confidence": "none",
+      "country": null
+    },
+    "Bô-rô-bu-đua": {
+      "modern_name": "Borobudur, Indonesia",
+      "lat": -7.6078,
+      "lng": 110.2039,
+      "confidence": "high",
+      "country": "indonesia"
+    },
+    "Băng Cốc": {
+      "modern_name": "Bangkok, Thailand",
+      "lat": 13.7563,
+      "lng": 100.5018,
+      "confidence": "high",
+      "country": "thailand"
+    },
+    "Bưu điện Bờ Hồ": {
+      "modern_name": "Bưu điện Hà Nội, Việt Nam",
+      "lat": 21.0285,
+      "lng": 105.8522,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Bạch Đằng": {
+      "modern_name": "Sông Bạch Đằng, Việt Nam",
+      "lat": 20.8833,
+      "lng": 106.8,
+      "confidence": "medium",
+      "country": "vietnam"
+    },
+    "Bản Kéo": {
+      "modern_name": "Bản Kéo, Điện Biên Phủ, tỉnh Điện Biên, Việt Nam",
+      "lat": 21.411,
+      "lng": 102.986,
+      "confidence": "high",
+      "country": "vietnam",
+      "source": "manual"
+    },
+    "Bảo tàng quốc gia Anh": {
+      "modern_name": "British Museum, London, UK",
+      "lat": 51.5194,
+      "lng": -0.1269,
+      "confidence": "high",
+      "country": "united kingdom"
+    },
+    "Bắc": {
+      "modern_name": "Không xác định",
+      "lat": null,
+      "lng": null,
+      "confidence": "none",
+      "country": null
+    },
+    "Bắc - Nam": {
+      "modern_name": "Không xác định",
+      "lat": null,
+      "lng": null,
+      "confidence": "none",
+      "country": null
+    },
+    "Bắc Bộ": {
+      "modern_name": "Northern Vietnam (region)",
+      "lat": 21.0,
+      "lng": 105.0,
+      "confidence": "low",
+      "country": "vietnam"
+    },
+    "Bắc Bộ Phủ": {
+      "modern_name": "Bắc Bộ Phủ (Nhà khách Chính phủ), 12 Ngô Quyền, Hà Nội",
+      "lat": 21.0264,
+      "lng": 105.8561,
+      "confidence": "high",
+      "country": "vietnam",
+      "source": "manual"
+    },
+    "Bắc Giang": {
+      "modern_name": "Bắc Giang Province, Vietnam",
+      "lat": 21.2833,
+      "lng": 106.2,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Bắc Hải": {
+      "modern_name": "Beihai, Guangxi, China",
+      "lat": 21.4833,
+      "lng": 109.1,
+      "confidence": "high",
+      "country": "china"
+    },
+    "Bắc Kì": {
+      "modern_name": "Northern Vietnam (region)",
+      "lat": 21.0,
+      "lng": 105.0,
+      "confidence": "low",
+      "country": "vietnam"
+    },
+    "Bắc Mỹ": {
+      "modern_name": "North America (continent)",
+      "lat": 40.0,
+      "lng": -100.0,
+      "confidence": "low",
+      "country": null
+    },
+    "Bắc Ninh": {
+      "modern_name": "Bắc Ninh Province, Vietnam",
+      "lat": 21.1833,
+      "lng": 106.05,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Bắc Thành": {
+      "modern_name": "Hà Nội, Việt Nam",
+      "lat": 21.0285,
+      "lng": 105.8542,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Bắc Trung Bộ Việt Nam": {
+      "modern_name": "North Central Coast, Vietnam (region)",
+      "lat": 18.0,
+      "lng": 105.7,
+      "confidence": "low",
+      "country": "vietnam"
+    },
+    "Bắc Ái (Ninh Thuận)": {
+      "modern_name": "Bác Ái District, Ninh Thuận, Vietnam",
+      "lat": 11.75,
+      "lng": 108.7,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Bắc Đại Tây Dương": {
+      "modern_name": "North Atlantic Ocean",
+      "lat": 40.0,
+      "lng": -40.0,
+      "confidence": "low",
+      "country": null
+    },
+    "Bến Nhà Rồng": {
+      "modern_name": "Bến Nhà Rồng, TP. Hồ Chí Minh, Việt Nam",
+      "lat": 10.7667,
+      "lng": 106.7067,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Bến Tre": {
+      "modern_name": "Bến Tre Province, Vietnam",
+      "lat": 10.2333,
+      "lng": 106.3833,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Bồ Đào Nha": {
+      "modern_name": "Portugal",
+      "lat": 39.3999,
+      "lng": -8.2245,
+      "confidence": "high",
+      "country": "portugal"
+    },
+    "Bồ Ải": {
+      "modern_name": "Bồ Ải, Vĩnh Phúc, Việt Nam",
+      "lat": 21.3,
+      "lng": 105.6,
+      "confidence": "medium",
+      "country": "vietnam"
+    },
+    "Cai-rô": {
+      "modern_name": "Cairo, Egypt",
+      "lat": 30.0444,
+      "lng": 31.2357,
+      "confidence": "high",
+      "country": "egypt"
+    },
+    "Cam-pu-chia": {
+      "modern_name": "Cambodia",
+      "lat": 12.5657,
+      "lng": 104.991,
+      "confidence": "high",
+      "country": "cambodia"
+    },
+    "Cao Bằng": {
+      "modern_name": "Cao Bằng Province, Vietnam",
+      "lat": 22.6667,
+      "lng": 106.25,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Chi Lăng": {
+      "modern_name": "Chi Lăng District, Lạng Sơn, Việt Nam",
+      "lat": 21.6,
+      "lng": 106.5,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Chiêm Hoá (Tuyên Quang)": {
+      "modern_name": "Chiêm Hóa District, Tuyên Quang, Việt Nam",
+      "lat": 22.0,
+      "lng": 105.3,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Chu Đậu": {
+      "modern_name": "Làng Chu Đậu, Hải Dương, Việt Nam",
+      "lat": 20.9833,
+      "lng": 106.3,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Chân Lạp": {
+      "modern_name": "Cambodia (historical Chenla)",
+      "lat": 12.5657,
+      "lng": 104.991,
+      "confidence": "medium",
+      "country": "cambodia"
+    },
+    "Chúc Động": {
+      "modern_name": "Chúc Động, Hà Nội, Việt Nam",
+      "lat": 20.8667,
+      "lng": 105.6833,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Chương Dương": {
+      "modern_name": "Bến Chương Dương, Hà Nội, Việt Nam",
+      "lat": 20.85,
+      "lng": 105.8833,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Chợ Rã": {
+      "modern_name": "Chợ Rã, Bắc Kạn, Việt Nam",
+      "lat": 22.4,
+      "lng": 105.7,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Chợ Đồn": {
+      "modern_name": "Chợ Đồn District, Bắc Kạn, Việt Nam",
+      "lat": 22.2,
+      "lng": 105.6,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Chữ Thập": {
+      "modern_name": "Đá Chữ Thập, Trường Sa, Việt Nam",
+      "lat": 9.55,
+      "lng": 112.89,
+      "confidence": "high",
+      "country": "vietnam",
+      "source": "manual"
+    },
+    "Cu-a-la Lăm-pơ": {
+      "modern_name": "Kuala Lumpur, Malaysia",
+      "lat": 3.139,
+      "lng": 101.6869,
+      "confidence": "high",
+      "country": "malaysia"
+    },
+    "Cu-ba": {
+      "modern_name": "Cuba",
+      "lat": 21.5218,
+      "lng": -77.7812,
+      "confidence": "high",
+      "country": "cuba"
+    },
+    "Cu-rin": {
+      "modern_name": "Kuril Islands, Russia",
+      "lat": 47.5,
+      "lng": 152.5,
+      "confidence": "high",
+      "country": "russia"
+    },
+    "Cung điện Véc-xai (Pháp)": {
+      "modern_name": "Palace of Versailles, France",
+      "lat": 48.8048,
+      "lng": 2.1204,
+      "confidence": "high",
+      "country": "france"
+    },
+    "Các Tiểu vương quốc A-rập Thống nhất": {
+      "modern_name": "United Arab Emirates",
+      "lat": 23.4241,
+      "lng": 53.8478,
+      "confidence": "high",
+      "country": "united arab emirates"
+    },
+    "Cô Lin": {
+      "modern_name": "Đá Cô Lin, Trường Sa, Việt Nam",
+      "lat": 9.767,
+      "lng": 114.234,
+      "confidence": "high",
+      "country": "vietnam",
+      "source": "manual"
+    },
+    "Côn Minh": {
+      "modern_name": "Kunming, Yunnan, China",
+      "lat": 25.0407,
+      "lng": 102.71,
+      "confidence": "high",
+      "country": "china"
+    },
+    "Côn Đảo": {
+      "modern_name": "Côn Đảo Islands, Việt Nam",
+      "lat": 8.6833,
+      "lng": 106.6333,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Cổ Loa": {
+      "modern_name": "Thành Cổ Loa, huyện Đông Anh, Hà Nội, Việt Nam",
+      "lat": 21.1139,
+      "lng": 105.8783,
+      "confidence": "high",
+      "country": "vietnam",
+      "source": "manual"
+    },
+    "Cổ Loa (Hà Nội)": {
+      "modern_name": "Thành Cổ Loa, Hà Nội, Việt Nam",
+      "lat": 21.12,
+      "lng": 105.88,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Cộng hoà Dân chủ Đức": {
+      "modern_name": "Cộng hoà Dân chủ Đức (Đông Đức)",
+      "lat": 52.0,
+      "lng": 13.0,
+      "confidence": "high",
+      "country": "đức",
+      "source": "manual"
+    },
+    "Cộng hoà Liên bang Đức": {
+      "modern_name": "Germany",
+      "lat": 51.1657,
+      "lng": 10.4515,
+      "confidence": "high",
+      "country": "germany"
+    },
+    "Cộng hoà Nhân dân Trung Hoa": {
+      "modern_name": "China",
+      "lat": 35.8617,
+      "lng": 104.1954,
+      "confidence": "high",
+      "country": "china"
+    },
+    "Cộng hoà Séc": {
+      "modern_name": "Czech Republic",
+      "lat": 49.8175,
+      "lng": 15.473,
+      "confidence": "high",
+      "country": "czech republic"
+    },
+    "Cửa Lục": {
+      "modern_name": "Vịnh Cửa Lục, Quảng Ninh, Việt Nam",
+      "lat": 20.95,
+      "lng": 107.05,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Cửu Chân": {
+      "modern_name": "Thanh Hóa (historical Cửu Chân), Việt Nam",
+      "lat": 19.8,
+      "lng": 105.7,
+      "confidence": "medium",
+      "country": "vietnam"
+    },
+    "Cửu Long": {
+      "modern_name": "Đồng bằng sông Cửu Long, Việt Nam",
+      "lat": 10.0,
+      "lng": 105.7,
+      "confidence": "low",
+      "country": "vietnam"
+    },
+    "Dinh Độc Lập": {
+      "modern_name": "Dinh Độc Lập, TP. Hồ Chí Minh, Việt Nam",
+      "lat": 10.7792,
+      "lng": 106.695,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Diễn Châu": {
+      "modern_name": "Diễn Châu District, Nghệ An, Việt Nam",
+      "lat": 19.1,
+      "lng": 105.6,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Duy Tiên": {
+      "modern_name": "Thị xã Duy Tiên, Hà Nam, Việt Nam",
+      "lat": 20.6833,
+      "lng": 105.95,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Gia Định": {
+      "modern_name": "TP. Hồ Chí Minh (historical Gia Định), Việt Nam",
+      "lat": 10.7758,
+      "lng": 106.6996,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Gia Định Thành": {
+      "modern_name": "TP. Hồ Chí Minh (historical Gia Định Thành), Việt Nam",
+      "lat": 10.7758,
+      "lng": 106.6996,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Gia-va": {
+      "modern_name": "Java, Indonesia",
+      "lat": -7.5,
+      "lng": 110.0,
+      "confidence": "high",
+      "country": "indonesia"
+    },
+    "Giao Chỉ": {
+      "modern_name": "Northern Vietnam (historical Giao Chỉ)",
+      "lat": 21.0285,
+      "lng": 105.8542,
+      "confidence": "medium",
+      "country": "vietnam"
+    },
+    "Giao châu": {
+      "modern_name": "Northern Vietnam (historical Giao Châu)",
+      "lat": 21.0285,
+      "lng": 105.8542,
+      "confidence": "medium",
+      "country": "vietnam"
+    },
+    "Giô-hộ": {
+      "modern_name": "Không xác định",
+      "lat": null,
+      "lng": null,
+      "confidence": "none",
+      "country": null
+    },
+    "Giơ-ne-vơ": {
+      "modern_name": "Thành phố Geneva, Thụy Sĩ",
+      "lat": 46.2044,
+      "lng": 6.1432,
+      "confidence": "high",
+      "country": "thụy sĩ",
+      "source": "manual"
+    },
+    "Hi-rô-si-ma": {
+      "modern_name": "Hiroshima, Japan",
+      "lat": 34.3852,
+      "lng": 132.4553,
+      "confidence": "high",
+      "country": "japan"
+    },
+    "Him Lam": {
+      "modern_name": "Đồi Him Lam, Điện Biên Phủ, tỉnh Điện Biên, Việt Nam",
+      "lat": 21.405,
+      "lng": 103.023,
+      "confidence": "high",
+      "country": "vietnam",
+      "source": "manual"
+    },
+    "Hoa Lư": {
+      "modern_name": "Cố đô Hoa Lư, tỉnh Ninh Bình, Việt Nam",
+      "lat": 20.2833,
+      "lng": 105.9,
+      "confidence": "high",
+      "country": "vietnam",
+      "source": "manual"
+    },
+    "Hoan Châu": {
+      "modern_name": "Vinh (historical Hoan Châu), Việt Nam",
+      "lat": 18.67,
+      "lng": 105.68,
+      "confidence": "medium",
+      "country": "vietnam"
+    },
+    "Hoà Bình": {
+      "modern_name": "Hòa Bình Province, Vietnam",
+      "lat": 20.8167,
+      "lng": 105.3333,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Hoàng Hà": {
+      "modern_name": "Yellow River, China",
+      "lat": 34.9042,
+      "lng": 112.9,
+      "confidence": "high",
+      "country": "china"
+    },
+    "Hoàng Sa": {
+      "modern_name": "Quần đảo Hoàng Sa, Việt Nam",
+      "lat": 16.5,
+      "lng": 112.0,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Hung-ga-ri": {
+      "modern_name": "Hungary",
+      "lat": 47.1625,
+      "lng": 19.5033,
+      "confidence": "high",
+      "country": "hungary"
+    },
+    "Huế": {
+      "modern_name": "Huế, Thừa Thiên Huế, Việt Nam",
+      "lat": 16.4637,
+      "lng": 107.5909,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Hy Lạp": {
+      "modern_name": "Greece",
+      "lat": 39.0742,
+      "lng": 21.8243,
+      "confidence": "high",
+      "country": "greece"
+    },
+    "Hà Lan": {
+      "modern_name": "Netherlands",
+      "lat": 52.1326,
+      "lng": 5.2913,
+      "confidence": "high",
+      "country": "netherlands"
+    },
+    "Phong Châu": {
+      "modern_name": "Tỉnh Phú Thọ, Việt Nam",
+      "lat": 21.37,
+      "lng": 105.25,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Phu-xtát": {
+      "modern_name": "Không xác định",
+      "lat": null,
+      "lng": null,
+      "confidence": "none",
+      "country": null
+    },
+    "Pháp": {
+      "modern_name": "Pháp",
+      "lat": 46.603354,
+      "lng": 1.888334,
+      "confidence": "high",
+      "country": "france"
+    },
+    "Phòng tuyến Như Nguyệt": {
+      "modern_name": "Phòng tuyến sông Như Nguyệt (sông Cầu), Bắc Ninh, Việt Nam",
+      "lat": 21.2333,
+      "lng": 105.9667,
+      "confidence": "high",
+      "country": "vietnam",
+      "source": "manual"
+    },
+    "Phú Thọ": {
+      "modern_name": "Tỉnh Phú Thọ, Việt Nam",
+      "lat": 21.37,
+      "lng": 105.25,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Phú Xuân": {
+      "modern_name": "Thành phố Huế, Thừa Thiên Huế, Việt Nam",
+      "lat": 16.4637,
+      "lng": 107.5909,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Phần Lan": {
+      "modern_name": "Phần Lan",
+      "lat": 61.92411,
+      "lng": 25.748151,
+      "confidence": "high",
+      "country": "finland"
+    },
+    "Phụng Thiên": {
+      "modern_name": "Hà Nội, Việt Nam",
+      "lat": 21.0285,
+      "lng": 105.8542,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Phủ Khâm sai": {
+      "modern_name": "Không xác định (là một cơ quan hành chính)",
+      "lat": null,
+      "lng": null,
+      "confidence": "none",
+      "country": null
+    },
+    "Pác Bó": {
+      "modern_name": "Pác Bó, Cao Bằng, Việt Nam",
+      "lat": 22.8833,
+      "lng": 105.7167,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Quy Nhơn": {
+      "modern_name": "Thành phố Quy Nhơn, Bình Định, Việt Nam",
+      "lat": 13.7878,
+      "lng": 109.2206,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Quân cảng Bãi Cháy": {
+      "modern_name": "Bãi Cháy, Hạ Long, Quảng Ninh, Việt Nam",
+      "lat": 20.9583,
+      "lng": 107.0333,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Quảng Bình": {
+      "modern_name": "Tỉnh Quảng Bình, Việt Nam",
+      "lat": 17.5,
+      "lng": 106.3,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Quảng Châu": {
+      "modern_name": "Quảng Châu (Guangzhou), Trung Quốc",
+      "lat": 23.1291,
+      "lng": 113.2644,
+      "confidence": "high",
+      "country": "china"
+    },
+    "Quảng Châu (Trung Quốc)": {
+      "modern_name": "Quảng Châu (Guangzhou), Trung Quốc",
+      "lat": 23.1291,
+      "lng": 113.2644,
+      "confidence": "high",
+      "country": "china"
+    },
+    "Quảng Nam": {
+      "modern_name": "Tỉnh Quảng Nam, Việt Nam",
+      "lat": 15.5,
+      "lng": 108.0,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Quảng Ngãi": {
+      "modern_name": "Tỉnh Quảng Ngãi, Việt Nam",
+      "lat": 15.0,
+      "lng": 108.7,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Quảng Ninh": {
+      "modern_name": "Tỉnh Quảng Ninh, Việt Nam",
+      "lat": 21.0,
+      "lng": 107.3,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Quảng Trị": {
+      "modern_name": "Tỉnh Quảng Trị, Việt Nam",
+      "lat": 16.7,
+      "lng": 107.0,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Quảng Tây": {
+      "modern_name": "Khu tự trị dân tộc Choang Quảng Tây (Guangxi), Trung Quốc",
+      "lat": 23.8,
+      "lng": 108.7,
+      "confidence": "high",
+      "country": "china"
+    },
+    "Quảng Yên": {
+      "modern_name": "Thị xã Quảng Yên, Quảng Ninh, Việt Nam",
+      "lat": 20.9333,
+      "lng": 106.8833,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Quảng trường Ba Đình": {
+      "modern_name": "Quảng trường Ba Đình, Hà Nội, Việt Nam",
+      "lat": 21.0369,
+      "lng": 105.8342,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Quảng trường Ba Đình (Hà Nội)": {
+      "modern_name": "Quảng trường Ba Đình, Hà Nội, Việt Nam",
+      "lat": 21.0369,
+      "lng": 105.8342,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Quảng Đông": {
+      "modern_name": "Tỉnh Quảng Đông (Guangdong), Trung Quốc",
+      "lat": 23.3,
+      "lng": 113.4,
+      "confidence": "high",
+      "country": "china"
+    },
+    "Quảng Đức": {
+      "modern_name": "Tỉnh Đắk Nông, Việt Nam",
+      "lat": 12.0,
+      "lng": 107.7,
+      "confidence": "medium",
+      "country": "vietnam"
+    },
+    "Quốc Tử Giám": {
+      "modern_name": "Văn Miếu - Quốc Tử Giám, Hà Nội, Việt Nam",
+      "lat": 21.0253,
+      "lng": 105.8345,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Ru-ma-ni": {
+      "modern_name": "Romania",
+      "lat": 45.943161,
+      "lng": 24.96676,
+      "confidence": "high",
+      "country": "romania"
+    },
+    "Rạch Gầm – Xoài Mút": {
+      "modern_name": "Sông Tiền, Tiền Giang, Việt Nam",
+      "lat": 10.35,
+      "lng": 105.95,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Sin-ha-pu-ra": {
+      "modern_name": "Singapore",
+      "lat": 1.3521,
+      "lng": 103.8198,
+      "confidence": "high",
+      "country": "singapore"
+    },
+    "Sài Gòn": {
+      "modern_name": "Thành phố Hồ Chí Minh, Việt Nam",
+      "lat": 10.7769,
+      "lng": 106.7009,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Sài Gòn – Chợ Lớn": {
+      "modern_name": "Thành phố Hồ Chí Minh, Việt Nam",
+      "lat": 10.7769,
+      "lng": 106.7009,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Sài Gòn – Gia Định": {
+      "modern_name": "Thành phố Hồ Chí Minh, Việt Nam",
+      "lat": 10.7769,
+      "lng": 106.7009,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Sơn Dương": {
+      "modern_name": "Huyện Sơn Dương, Tuyên Quang, Việt Nam",
+      "lat": 21.65,
+      "lng": 105.35,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Sơn Nam Hạ": {
+      "modern_name": "Khu vực Nam Định, Thái Bình, Hà Nam, Việt Nam",
+      "lat": 20.4,
+      "lng": 106.2,
+      "confidence": "medium",
+      "country": "vietnam"
+    },
+    "Sơn Nam Thượng": {
+      "modern_name": "Khu vực Hà Nam, Hưng Yên, Hà Nội, Việt Nam",
+      "lat": 20.8,
+      "lng": 105.9,
+      "confidence": "medium",
+      "country": "vietnam"
+    },
+    "Sơn Tây": {
+      "modern_name": "Thị xã Sơn Tây, Hà Nội, Việt Nam",
+      "lat": 21.1333,
+      "lng": 105.4833,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Sở Bưu điện": {
+      "modern_name": "Không xác định (là một cơ quan)",
+      "lat": null,
+      "lng": null,
+      "confidence": "none",
+      "country": null
+    },
+    "Sở Cảnh sát": {
+      "modern_name": "Không xác định (là một cơ quan)",
+      "lat": null,
+      "lng": null,
+      "confidence": "none",
+      "country": null
+    },
+    "Sở Cảnh sát Trung ương": {
+      "modern_name": "Không xác định (là một cơ quan)",
+      "lat": null,
+      "lng": null,
+      "confidence": "none",
+      "country": null
+    },
+    "Sở Mật thám": {
+      "modern_name": "Không xác định (là một cơ quan)",
+      "lat": null,
+      "lng": null,
+      "confidence": "none",
+      "country": null
+    },
+    "Ta-lin": {
+      "modern_name": "Tallinn, Estonia",
+      "lat": 59.437,
+      "lng": 24.7536,
+      "confidence": "high",
+      "country": "estonia"
+    },
+    "Ta-ri-ơ": {
+      "modern_name": "Không xác định",
+      "lat": null,
+      "lng": null,
+      "confidence": "none",
+      "country": null
+    },
+    "Thanh Hoá": {
+      "modern_name": "Tỉnh Thanh Hóa, Việt Nam",
+      "lat": 19.8,
+      "lng": 105.7,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Thuyền Chài": {
+      "modern_name": "Không xác định",
+      "lat": null,
+      "lng": null,
+      "confidence": "none",
+      "country": null
+    },
+    "Thuận Hoá": {
+      "modern_name": "Thừa Thiên Huế, Việt Nam",
+      "lat": 16.4637,
+      "lng": 107.5909,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Thuỵ Sĩ": {
+      "modern_name": "Thụy Sĩ",
+      "lat": 46.818188,
+      "lng": 8.227512,
+      "confidence": "high",
+      "country": "switzerland"
+    },
+    "Thành phố Hồ Chí Minh": {
+      "modern_name": "Thành phố Hồ Chí Minh, Việt Nam",
+      "lat": 10.7769,
+      "lng": 106.7009,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Thành phố Sài Gòn": {
+      "modern_name": "Thành phố Hồ Chí Minh, Việt Nam",
+      "lat": 10.7769,
+      "lng": 106.7009,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Thái Bình": {
+      "modern_name": "Tỉnh Thái Bình, Việt Nam",
+      "lat": 20.6,
+      "lng": 106.3,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Thái Lan": {
+      "modern_name": "Thái Lan",
+      "lat": 15.870032,
+      "lng": 100.992541,
+      "confidence": "high",
+      "country": "thailand"
+    },
+    "Thái Nguyên": {
+      "modern_name": "Tỉnh Thái Nguyên, Việt Nam",
+      "lat": 21.58,
+      "lng": 105.85,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Thâm Quyến": {
+      "modern_name": "Thâm Quyến (Shenzhen), Trung Quốc",
+      "lat": 22.5431,
+      "lng": 114.0579,
+      "confidence": "high",
+      "country": "china"
+    },
+    "Thăng Long": {
+      "modern_name": "Hà Nội, Việt Nam",
+      "lat": 21.0285,
+      "lng": 105.8542,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Thăng Long - Đông Đô": {
+      "modern_name": "Hà Nội, Việt Nam",
+      "lat": 21.0285,
+      "lng": 105.8542,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Thượng Lào": {
+      "modern_name": "Bắc Lào",
+      "lat": 19.85,
+      "lng": 102.5,
+      "confidence": "medium",
+      "country": "laos"
+    },
+    "Thổ Nhĩ Kỳ": {
+      "modern_name": "Thổ Nhĩ Kỳ",
+      "lat": 38.963745,
+      "lng": 35.243322,
+      "confidence": "high",
+      "country": "turkey"
+    },
+    "Thừa Thiên": {
+      "modern_name": "Tỉnh Thừa Thiên Huế, Việt Nam",
+      "lat": 16.4637,
+      "lng": 107.5909,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Ti-ri-ơ": {
+      "modern_name": "Không xác định",
+      "lat": null,
+      "lng": null,
+      "confidence": "none",
+      "country": null
+    },
+    "Tiền Giang": {
+      "modern_name": "Tỉnh Tiền Giang, Việt Nam",
+      "lat": 10.4,
+      "lng": 106.2,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Tiệp Khắc": {
+      "modern_name": "Cộng hòa Séc và Slovakia",
+      "lat": 49.8175,
+      "lng": 15.473,
+      "confidence": "high",
+      "country": "czech republic"
+    },
+    "Triều Tiên": {
+      "modern_name": "Bán đảo Triều Tiên (Hàn Quốc và Triều Tiên)",
+      "lat": 38.0,
+      "lng": 127.5,
+      "confidence": "medium",
+      "country": "south korea"
+    },
+    "Trung Hoa": {
+      "modern_name": "Trung Quốc",
+      "lat": 35.8617,
+      "lng": 104.1954,
+      "confidence": "high",
+      "country": "china"
+    },
+    "Trung Hoa Dân quốc": {
+      "modern_name": "Đài Loan",
+      "lat": 23.6978,
+      "lng": 120.9605,
+      "confidence": "high",
+      "country": "taiwan"
+    },
+    "Trung Quốc": {
+      "modern_name": "Trung Quốc",
+      "lat": 35.8617,
+      "lng": 104.1954,
+      "confidence": "high",
+      "country": "china"
+    },
+    "Trung du": {
+      "modern_name": "Khu vực Trung du miền núi phía Bắc, Việt Nam",
+      "lat": 21.5,
+      "lng": 105.0,
+      "confidence": "low",
+      "country": "vietnam"
+    },
+    "Trung Đô": {
+      "modern_name": "Hà Nội, Việt Nam",
+      "lat": 21.0285,
+      "lng": 105.8542,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Trung Đông": {
+      "modern_name": "Trung Đông",
+      "lat": 30.0,
+      "lng": 45.0,
+      "confidence": "low",
+      "country": null
+    },
+    "Trung ương": {
+      "modern_name": "Không xác định (là một cơ quan/khái niệm)",
+      "lat": null,
+      "lng": null,
+      "confidence": "none",
+      "country": null
+    },
+    "Trà Bồng (Quảng Ngãi)": {
+      "modern_name": "Huyện Trà Bồng, Quảng Ngãi, Việt Nam",
+      "lat": 15.25,
+      "lng": 108.45,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Trà Kiệu": {
+      "modern_name": "Trà Kiệu, Duy Xuyên, Quảng Nam, Việt Nam",
+      "lat": 15.8,
+      "lng": 108.2,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Trà Long": {
+      "modern_name": "Không xác định",
+      "lat": null,
+      "lng": null,
+      "confidence": "none",
+      "country": null
+    },
+    "Tràng An": {
+      "modern_name": "Quần thể danh thắng Tràng An, Ninh Bình, Việt Nam",
+      "lat": 20.25,
+      "lng": 105.93,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Trường Giang": {
+      "modern_name": "Sông Trường Giang (Yangtze), Trung Quốc",
+      "lat": 30.78,
+      "lng": 111.0,
+      "confidence": "high",
+      "country": "china"
+    },
+    "Trường Pháp – Việt Quy Nhơn": {
+      "modern_name": "Không xác định (là một cơ sở giáo dục)",
+      "lat": null,
+      "lng": null,
+      "confidence": "none",
+      "country": null
+    },
+    "Trường Quốc học Huế": {
+      "modern_name": "Trường Quốc học Huế, Thừa Thiên Huế, Việt Nam",
+      "lat": 16.4639,
+      "lng": 107.5858,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Trường Tiểu học Pháp – Việt Đông Ba": {
+      "modern_name": "Không xác định (là một cơ sở giáo dục)",
+      "lat": null,
+      "lng": null,
+      "confidence": "none",
+      "country": null
+    },
+    "Tuyên Quang": {
+      "modern_name": "Tỉnh Tuyên Quang, Việt Nam",
+      "lat": 21.8,
+      "lng": 105.2,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Tân Bình": {
+      "modern_name": "Quận Tân Bình, Thành phố Hồ Chí Minh, Việt Nam",
+      "lat": 10.8,
+      "lng": 106.65,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Tân Trào": {
+      "modern_name": "Tân Trào, Sơn Dương, Tuyên Quang, Việt Nam",
+      "lat": 21.75,
+      "lng": 105.35,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Tây Ban Nha": {
+      "modern_name": "Tây Ban Nha",
+      "lat": 40.463667,
+      "lng": -3.74922,
+      "confidence": "high",
+      "country": "spain"
+    },
+    "Tây Béc-lin": {
+      "modern_name": "Berlin, Đức",
+      "lat": 52.52,
+      "lng": 13.405,
+      "confidence": "high",
+      "country": "germany"
+    },
+    "Tây Bắc": {
+      "modern_name": "Vùng Tây Bắc, Việt Nam",
+      "lat": 21.5,
+      "lng": 104.0,
+      "confidence": "low",
+      "country": "vietnam"
+    },
+    "Tây Kết": {
+      "modern_name": "Huyện Khoái Châu, Hưng Yên, Việt Nam",
+      "lat": 20.85,
+      "lng": 106.05,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Tây Nguyên": {
+      "modern_name": "Vùng Tây Nguyên, Việt Nam",
+      "lat": 13.5,
+      "lng": 108.2,
+      "confidence": "low",
+      "country": "vietnam"
+    },
+    "Tây Ninh (Việt Nam)": {
+      "modern_name": "Tỉnh Tây Ninh, Việt Nam",
+      "lat": 11.3,
+      "lng": 106.1,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Tây Sơn thượng đạo (An Khê, Gia Lai)": {
+      "modern_name": "Thị xã An Khê, Gia Lai, Việt Nam",
+      "lat": 13.9667,
+      "lng": 108.65,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Tây Á": {
+      "modern_name": "Tây Á",
+      "lat": 30.0,
+      "lng": 45.0,
+      "confidence": "low",
+      "country": null
+    },
+    "Tây Âu": {
+      "modern_name": "Tây Âu",
+      "lat": 50.0,
+      "lng": 5.0,
+      "confidence": "low",
+      "country": null
+    },
+    "Tây Đô": {
+      "modern_name": "Thành nhà Hồ, Thanh Hóa, Việt Nam",
+      "lat": 20.0519,
+      "lng": 105.6208,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Tây Đức": {
+      "modern_name": "Đức",
+      "lat": 51.1657,
+      "lng": 10.4515,
+      "confidence": "high",
+      "country": "germany"
+    },
+    "Tê-hê-ran (I-ran)": {
+      "modern_name": "Tehran, Iran",
+      "lat": 35.6892,
+      "lng": 51.389,
+      "confidence": "high",
+      "country": "iran"
+    },
+    "Tốt Động": {
+      "modern_name": "Tốt Động, Chương Mỹ, Hà Nội, Việt Nam",
+      "lat": 20.85,
+      "lng": 105.65,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Tổ quốc Việt Nam": {
+      "modern_name": "Việt Nam",
+      "lat": 16.0,
+      "lng": 108.0,
+      "confidence": "low",
+      "country": "vietnam"
+    },
+    "Tổng Bình": {
+      "modern_name": "Không xác định (là một đơn vị hành chính nhỏ)",
+      "lat": null,
+      "lng": null,
+      "confidence": "none",
+      "country": null
+    },
+    "U-crai-na": {
+      "modern_name": "Ukraine",
+      "lat": 48.379433,
+      "lng": 31.16558,
+      "confidence": "high",
+      "country": "ukraine"
+    },
+    "Ung Châu": {
+      "modern_name": "Nam Ninh (Nanning), Quảng Tây, Trung Quốc",
+      "lat": 22.8167,
+      "lng": 108.3667,
+      "confidence": "high",
+      "country": "china"
+    },
+    "Vinh": {
+      "modern_name": "Thành phố Vinh, Nghệ An, Việt Nam",
+      "lat": 18.6767,
+      "lng": 105.6947,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Việt Bắc": {
+      "modern_name": "Vùng Việt Bắc, Việt Nam",
+      "lat": 22.0,
+      "lng": 105.5,
+      "confidence": "medium",
+      "country": "vietnam"
+    },
+    "Việt Khê": {
+      "modern_name": "Việt Khê, Thủy Nguyên, Hải Phòng, Việt Nam",
+      "lat": 20.95,
+      "lng": 106.65,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Việt Nam": {
+      "modern_name": "Việt Nam",
+      "lat": 16.0,
+      "lng": 108.0,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Việt Trì": {
+      "modern_name": "Thành phố Việt Trì, tỉnh Phú Thọ, Việt Nam",
+      "lat": 21.3294,
+      "lng": 105.3889,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Vác-sa-va": {
+      "modern_name": "Warsaw, Ba Lan",
+      "lat": 52.2297,
+      "lng": 21.0122,
+      "confidence": "high",
+      "country": "poland"
+    },
+    "Vân Nam": {
+      "modern_name": "Tỉnh Vân Nam, Trung Quốc",
+      "lat": 24.8799,
+      "lng": 102.8324,
+      "confidence": "high",
+      "country": "china"
+    },
+    "Vân Đồn": {
+      "modern_name": "Huyện Vân Đồn, tỉnh Quảng Ninh, Việt Nam",
+      "lat": 20.9906,
+      "lng": 107.4069,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Văn Lang": {
+      "modern_name": "Khu vực trung tâm đồng bằng sông Hồng, Việt Nam (ước tính)",
+      "lat": 21.3294,
+      "lng": 105.3889,
+      "confidence": "low",
+      "country": "vietnam"
+    },
+    "Văn Miếu": {
+      "modern_name": "Văn Miếu – Quốc Tử Giám, Hà Nội, Việt Nam",
+      "lat": 21.0294,
+      "lng": 105.8356,
+      "confidence": "high",
+      "country": "vietnam",
+      "source": "manual"
+    },
+    "Văn Miếu – Quốc Tử Giám Hà Nội": {
+      "modern_name": "Văn Miếu – Quốc Tử Giám, Hà Nội, Việt Nam",
+      "lat": 21.0285,
+      "lng": 105.8351,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Vĩnh Phúc": {
+      "modern_name": "Tỉnh Vĩnh Phúc, Việt Nam",
+      "lat": 21.3,
+      "lng": 105.6,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Vĩnh Thanh": {
+      "modern_name": "Khu vực Đồng bằng sông Cửu Long, Việt Nam (ước tính)",
+      "lat": 10.0333,
+      "lng": 105.7833,
+      "confidence": "low",
+      "country": "vietnam"
+    },
+    "Vĩnh Thạnh (Bình Định)": {
+      "modern_name": "Huyện Vĩnh Thạnh, tỉnh Bình Định, Việt Nam",
+      "lat": 14.3,
+      "lng": 108.7,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Vương quốc Xiêm": {
+      "modern_name": "Thái Lan (Bangkok)",
+      "lat": 13.7563,
+      "lng": 100.5018,
+      "confidence": "high",
+      "country": "thailand"
+    },
+    "Vạn Tường (Quảng Ngãi)": {
+      "modern_name": "Xã Bình Hải, huyện Bình Sơn, tỉnh Quảng Ngãi, Việt Nam",
+      "lat": 15.2833,
+      "lng": 108.9,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Vịnh Bắc Bộ": {
+      "modern_name": "Vịnh Bắc Bộ (trung tâm)",
+      "lat": 19.5,
+      "lng": 107.5,
+      "confidence": "medium",
+      "country": "vietnam"
+    },
+    "Xa-kha-lin": {
+      "modern_name": "Đảo Sakhalin, Nga",
+      "lat": 50.0,
+      "lng": 142.5,
+      "confidence": "high",
+      "country": "russia"
+    },
+    "Xan Luca đờ Ba-ra-mê-đa": {
+      "modern_name": "Sanlúcar de Barrameda, Tây Ban Nha",
+      "lat": 36.7792,
+      "lng": -6.3536,
+      "confidence": "high",
+      "country": "spain"
+    },
+    "Xan Phran-xi-xcô": {
+      "modern_name": "San Francisco, California, Hoa Kỳ",
+      "lat": 37.7749,
+      "lng": -122.4194,
+      "confidence": "high",
+      "country": "usa"
+    },
+    "Xan Phran-xi-xcô (Mỹ)": {
+      "modern_name": "San Francisco, California, Hoa Kỳ",
+      "lat": 37.7749,
+      "lng": -122.4194,
+      "confidence": "high",
+      "country": "usa"
+    },
+    "Xi-ri": {
+      "modern_name": "Syria (Damascus)",
+      "lat": 33.5138,
+      "lng": 36.2765,
+      "confidence": "high",
+      "country": "syria"
+    },
+    "Xin-ga-po": {
+      "modern_name": "Singapore",
+      "lat": 1.3521,
+      "lng": 103.8198,
+      "confidence": "high",
+      "country": "singapore"
+    },
+    "Xiêm": {
+      "modern_name": "Thái Lan (Bangkok)",
+      "lat": 13.7563,
+      "lng": 100.5018,
+      "confidence": "high",
+      "country": "thailand"
+    },
+    "Xuân Lộc": {
+      "modern_name": "Huyện Xuân Lộc, tỉnh Đồng Nai, Việt Nam",
+      "lat": 10.9,
+      "lng": 107.3,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Xê-bu": {
+      "modern_name": "Thành phố Cebu, Philippines",
+      "lat": 10.3157,
+      "lng": 123.8854,
+      "confidence": "high",
+      "country": "philippines"
+    },
+    "Xích Thổ": {
+      "modern_name": "Bán đảo Mã Lai (ước tính)",
+      "lat": 4.2105,
+      "lng": 101.9758,
+      "confidence": "low",
+      "country": "malaysia"
+    },
+    "Xô viết": {
+      "modern_name": "Liên Xô (Moscow)",
+      "lat": 55.7558,
+      "lng": 37.6173,
+      "confidence": "medium",
+      "country": "russia"
+    },
+    "Xương Giang": {
+      "modern_name": "Thành phố Bắc Giang, tỉnh Bắc Giang, Việt Nam",
+      "lat": 21.275,
+      "lng": 106.19,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Y-an-gun": {
+      "modern_name": "Yangon, Myanmar",
+      "lat": 16.8409,
+      "lng": 96.1735,
+      "confidence": "high",
+      "country": "myanmar"
+    },
+    "Y-ê-men": {
+      "modern_name": "Yemen (Sana'a)",
+      "lat": 15.3694,
+      "lng": 44.191,
+      "confidence": "high",
+      "country": "yemen"
+    },
+    "biên giới Việt – Trung": {
+      "modern_name": "Biên giới Việt Nam – Trung Quốc (điểm ước tính)",
+      "lat": 22.6,
+      "lng": 106.7,
+      "confidence": "low",
+      "country": "vietnam"
+    },
+    "bán đảo Triều Tiên": {
+      "modern_name": "Bán đảo Triều Tiên (trung tâm)",
+      "lat": 38.0,
+      "lng": 127.5,
+      "confidence": "low",
+      "country": "south korea"
+    },
+    "bãi cạn rạn san hô Bàn Than": {
+      "modern_name": "Bãi cạn Bàn Than, Quần đảo Trường Sa (ước tính)",
+      "lat": 8.0,
+      "lng": 114.0,
+      "confidence": "low",
+      "country": "vietnam"
+    },
+    "bãi đá Bắc": {
+      "modern_name": "Bãi Đá Bắc (North Reef), Quần đảo Hoàng Sa",
+      "lat": 16.97,
+      "lng": 112.6,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "cao nguyên Trường Sơn Việt Nam": {
+      "modern_name": "Dãy Trường Sơn, Việt Nam (trung tâm)",
+      "lat": 14.5,
+      "lng": 107.8,
+      "confidence": "low",
+      "country": "vietnam"
+    },
+    "chiến khu Việt Bắc": {
+      "modern_name": "Khu vực Việt Bắc, Việt Nam (trung tâm)",
+      "lat": 22.0,
+      "lng": 105.5,
+      "confidence": "low",
+      "country": "vietnam"
+    },
+    "châu Mỹ": {
+      "modern_name": "Châu Mỹ (trung tâm)",
+      "lat": 20.0,
+      "lng": -95.0,
+      "confidence": "low",
+      "country": null
+    },
+    "châu Phi": {
+      "modern_name": "Châu Phi (trung tâm)",
+      "lat": 0.0,
+      "lng": 20.0,
+      "confidence": "low",
+      "country": null
+    },
+    "châu Á": {
+      "modern_name": "Châu Á (trung tâm)",
+      "lat": 34.0,
+      "lng": 85.0,
+      "confidence": "low",
+      "country": null
+    },
+    "châu Á – Thái Bình Dương": {
+      "modern_name": "Khu vực Châu Á – Thái Bình Dương (trung tâm)",
+      "lat": 10.0,
+      "lng": 140.0,
+      "confidence": "low",
+      "country": null
+    },
+    "châu Âu": {
+      "modern_name": "Châu Âu (trung tâm)",
+      "lat": 48.0,
+      "lng": 15.0,
+      "confidence": "low",
+      "country": null
+    },
+    "các nước A-rập": {
+      "modern_name": "Khu vực các nước Ả Rập (trung tâm)",
+      "lat": 25.0,
+      "lng": 45.0,
+      "confidence": "low",
+      "country": "saudi arabia"
+    },
+    "các nước ASEAN": {
+      "modern_name": "Khu vực các nước ASEAN (trung tâm)",
+      "lat": 10.0,
+      "lng": 105.0,
+      "confidence": "low",
+      "country": "thailand"
+    },
+    "các đô thị": {
+      "modern_name": "Không xác định",
+      "lat": null,
+      "lng": null,
+      "confidence": "none",
+      "country": null
+    },
+    "cõi Bắc": {
+      "modern_name": "Miền Bắc Việt Nam (ước tính)",
+      "lat": 21.0285,
+      "lng": 105.8542,
+      "confidence": "low",
+      "country": "vietnam"
+    },
+    "cù lao Côn Lôn": {
+      "modern_name": "Đảo Côn Sơn, Côn Đảo, tỉnh Bà Rịa - Vũng Tàu, Việt Nam",
+      "lat": 8.6833,
+      "lng": 106.6167,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "dãy Hi-ma-lay-a": {
+      "modern_name": "Dãy Himalaya (trung tâm)",
+      "lat": 27.9881,
+      "lng": 86.925,
+      "confidence": "low",
+      "country": "nepal"
+    },
+    "eo biển Sun-đa": {
+      "modern_name": "Eo biển Sunda, Indonesia",
+      "lat": -5.9,
+      "lng": 105.0,
+      "confidence": "high",
+      "country": "indonesia"
+    },
+    "ga Hàng Cỏ": {
+      "modern_name": "Ga Hà Nội (ga Hàng Cỏ), Hà Nội, Việt Nam",
+      "lat": 21.0245,
+      "lng": 105.8412,
+      "confidence": "high",
+      "country": "vietnam",
+      "source": "manual"
+    },
+    "hang Ma-gu-ra": {
+      "modern_name": "Hang Magura, Bulgaria",
+      "lat": 43.72,
+      "lng": 22.58,
+      "confidence": "high",
+      "country": "bulgaria"
+    },
+    "huyện Hoàng Sa": {
+      "modern_name": "Huyện Hoàng Sa, thành phố Đà Nẵng, Việt Nam (Đảo Phú Lâm)",
+      "lat": 16.6833,
+      "lng": 112.3333,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "huyện Tiền Hải": {
+      "modern_name": "Huyện Tiền Hải, tỉnh Thái Bình, Việt Nam",
+      "lat": 20.3,
+      "lng": 106.4,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "huyện Trường Sa": {
+      "modern_name": "Huyện Trường Sa, tỉnh Khánh Hòa, Việt Nam (Đảo Trường Sa Lớn)",
+      "lat": 8.3833,
+      "lng": 111.9167,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "làng Hoàng Trù": {
+      "modern_name": "Làng Hoàng Trù, xã Kim Liên, huyện Nam Đàn, tỉnh Nghệ An, Việt Nam",
+      "lat": 18.6667,
+      "lng": 105.55,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "làng xã": {
+      "modern_name": "Không xác định",
+      "lat": null,
+      "lng": null,
+      "confidence": "none",
+      "country": null
+    },
+    "miền Bắc Việt Nam": {
+      "modern_name": "Miền Bắc Việt Nam (trung tâm)",
+      "lat": 21.0285,
+      "lng": 105.8542,
+      "confidence": "low",
+      "country": "vietnam"
+    },
+    "miền Bắc Ấn Độ": {
+      "modern_name": "Miền Bắc Ấn Độ (trung tâm)",
+      "lat": 28.6139,
+      "lng": 77.209,
+      "confidence": "low",
+      "country": "india"
+    },
+    "miền Nam Việt Nam": {
+      "modern_name": "Miền Nam Việt Nam (trung tâm)",
+      "lat": 10.7626,
+      "lng": 106.6601,
+      "confidence": "low",
+      "country": "vietnam"
+    },
+    "miền núi": {
+      "modern_name": "Không xác định",
+      "lat": null,
+      "lng": null,
+      "confidence": "none",
+      "country": null
+    },
+    "nhóm An Vĩnh": {
+      "modern_name": "Nhóm đảo An Vĩnh, Quần đảo Hoàng Sa (Đảo Phú Lâm)",
+      "lat": 16.6833,
+      "lng": 112.3333,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "nhóm đảo Trường Sa": {
+      "modern_name": "Quần đảo Trường Sa (Đảo Trường Sa Lớn)",
+      "lat": 8.3833,
+      "lng": 111.9167,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "núi Chí Linh": {
+      "modern_name": "Núi Chí Linh, tỉnh Hải Dương, Việt Nam",
+      "lat": 21.1667,
+      "lng": 106.3333,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "núi Nưa (Triệu Sơn, Thanh Hoá)": {
+      "modern_name": "Núi Nưa, huyện Triệu Sơn, tỉnh Thanh Hóa, Việt Nam",
+      "lat": 19.75,
+      "lng": 105.5,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "nước Tề": {
+      "modern_name": "Tỉnh Sơn Đông, Trung Quốc (Tế Nam)",
+      "lat": 36.668,
+      "lng": 116.9972,
+      "confidence": "low",
+      "country": "china"
+    },
+    "phía Bắc vĩ tuyến 16": {
+      "modern_name": "Khu vực phía Bắc vĩ tuyến 16, Việt Nam (Huế)",
+      "lat": 16.4637,
+      "lng": 107.5909,
+      "confidence": "low",
+      "country": "vietnam"
+    },
+    "phía Nam vĩ tuyến 16": {
+      "modern_name": "Khu vực phía Nam vĩ tuyến 16, Việt Nam (Quy Nhơn)",
+      "lat": 13.7833,
+      "lng": 109.2333,
+      "confidence": "low",
+      "country": "vietnam"
+    },
+    "phía nam Trung Quốc": {
+      "modern_name": "Miền Nam Trung Quốc (Quảng Châu)",
+      "lat": 23.1291,
+      "lng": 113.2644,
+      "confidence": "low",
+      "country": "china"
+    },
+    "phương Bắc": {
+      "modern_name": "Không xác định",
+      "lat": null,
+      "lng": null,
+      "confidence": "none",
+      "country": null
+    },
+    "phương Tây": {
+      "modern_name": "Không xác định",
+      "lat": null,
+      "lng": null,
+      "confidence": "none",
+      "country": null
+    },
+    "phương Đông": {
+      "modern_name": "Không xác định",
+      "lat": null,
+      "lng": null,
+      "confidence": "none",
+      "country": null
+    },
+    "phố Khâm Thiên": {
+      "modern_name": "Phố Khâm Thiên, Hà Nội, Việt Nam",
+      "lat": 21.017,
+      "lng": 105.83,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "phố Uôn": {
+      "modern_name": "Wall Street, New York City, Hoa Kỳ",
+      "lat": 40.706,
+      "lng": -74.009,
+      "confidence": "high",
+      "country": "usa"
+    },
+    "quần đảo Bành Hồ": {
+      "modern_name": "Quần đảo Bành Hồ (Penghu), Đài Loan",
+      "lat": 23.5833,
+      "lng": 119.6,
+      "confidence": "high",
+      "country": "taiwan"
+    },
+    "quần đảo Hoàng Sa": {
+      "modern_name": "Quần đảo Hoàng Sa (Đảo Phú Lâm)",
+      "lat": 16.6833,
+      "lng": 112.3333,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "quần đảo Trường Sa": {
+      "modern_name": "Quần đảo Trường Sa (Đảo Trường Sa Lớn)",
+      "lat": 8.3833,
+      "lng": 111.9167,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "quận Nhật Nam": {
+      "modern_name": "Khu vực miền Trung Việt Nam (ước tính)",
+      "lat": 16.0,
+      "lng": 108.0,
+      "confidence": "low",
+      "country": "vietnam"
+    },
+    "sông Cả": {
+      "modern_name": "Sông Cả (Sông Lam), Việt Nam (trung tâm)",
+      "lat": 18.8,
+      "lng": 105.5,
+      "confidence": "low",
+      "country": "vietnam"
+    },
+    "sông Hằng": {
+      "modern_name": "Sông Hằng, Ấn Độ (trung tâm)",
+      "lat": 25.3176,
+      "lng": 82.9739,
+      "confidence": "low",
+      "country": "india"
+    },
+    "sông Hồng": {
+      "modern_name": "Sông Hồng, Việt Nam (trung tâm)",
+      "lat": 21.0285,
+      "lng": 105.8542,
+      "confidence": "low",
+      "country": "vietnam"
+    },
+    "sông Mã": {
+      "modern_name": "Sông Mã, Việt Nam (trung tâm)",
+      "lat": 19.8,
+      "lng": 105.7,
+      "confidence": "low",
+      "country": "vietnam"
+    },
+    "sông Mê Công": {
+      "modern_name": "Sông Mê Kông (trung tâm hạ lưu)",
+      "lat": 11.55,
+      "lng": 104.9167,
+      "confidence": "low",
+      "country": "cambodia"
+    },
+    "sông Nin": {
+      "modern_name": "Sông Nin (trung tâm hạ lưu)",
+      "lat": 30.0444,
+      "lng": 31.2357,
+      "confidence": "low",
+      "country": "egypt"
+    },
+    "sông Ấn": {
+      "modern_name": "Sông Ấn, Pakistan (trung tâm)",
+      "lat": 27.69,
+      "lng": 68.85,
+      "confidence": "low",
+      "country": "pakistan"
+    },
+    "thành Cổ Loa": {
+      "modern_name": "Thành Cổ Loa, huyện Đông Anh, Hà Nội, Việt Nam",
+      "lat": 21.13,
+      "lng": 105.85,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "thành Tây Đô": {
+      "modern_name": "Thành nhà Hồ, huyện Vĩnh Lộc, tỉnh Thanh Hóa, Việt Nam",
+      "lat": 20.0667,
+      "lng": 105.6167,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "thành phố Li-ông": {
+      "modern_name": "Lyon, Pháp",
+      "lat": 45.764,
+      "lng": 4.8357,
+      "confidence": "high",
+      "country": "france"
+    },
+    "thành phố Đà Nẵng": {
+      "modern_name": "Thành phố Đà Nẵng, Việt Nam",
+      "lat": 16.0544,
+      "lng": 108.2022,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "thành Đa Bang": {
+      "modern_name": "Thành Đa Bang, huyện Ba Vì, Hà Nội, Việt Nam",
+      "lat": 21.1,
+      "lng": 105.4,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "thị trấn Trường Sa": {
+      "modern_name": "Thị trấn Trường Sa, huyện Trường Sa, tỉnh Khánh Hòa, Việt Nam (Đảo Trường Sa Lớn)",
+      "lat": 8.3833,
+      "lng": 111.9167,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "triều Minh": {
+      "modern_name": "Không xác định",
+      "lat": null,
+      "lng": null,
+      "confidence": "none",
+      "country": null
+    },
+    "trường Dục Thanh": {
+      "modern_name": "Trường Dục Thanh, thành phố Phan Thiết, tỉnh Bình Thuận, Việt Nam",
+      "lat": 10.93,
+      "lng": 108.1,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "tỉnh Bà Rịa - Vũng Tàu": {
+      "modern_name": "Tỉnh Bà Rịa - Vũng Tàu, Việt Nam",
+      "lat": 10.4667,
+      "lng": 107.1667,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "tỉnh Khánh Hoà": {
+      "modern_name": "Tỉnh Khánh Hòa, Việt Nam",
+      "lat": 12.25,
+      "lng": 109.1833,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "tỉnh Phước Tuy": {
+      "modern_name": "Tỉnh Bà Rịa - Vũng Tàu, Việt Nam (Bà Rịa)",
+      "lat": 10.4833,
+      "lng": 107.1833,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "tỉnh Quảng Nam": {
+      "modern_name": "Tỉnh Quảng Nam, Việt Nam",
+      "lat": 15.5833,
+      "lng": 108.2833,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "tỉnh Quảng Nam - Đà Nẵng": {
+      "modern_name": "Thành phố Đà Nẵng, Việt Nam",
+      "lat": 16.0544,
+      "lng": 108.2022,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "vùng Xi-lê-di": {
+      "modern_name": "Vùng Silesia, Trung Âu (Wrocław, Ba Lan)",
+      "lat": 51.1079,
+      "lng": 17.0385,
+      "confidence": "low",
+      "country": "poland"
+    },
+    "vùng Đông Bắc": {
+      "modern_name": "Vùng Đông Bắc Việt Nam (Thái Nguyên)",
+      "lat": 21.5833,
+      "lng": 105.85,
+      "confidence": "low",
+      "country": "vietnam"
+    },
+    "vĩ tuyến 38": {
+      "modern_name": "Vĩ tuyến 38 Bắc, Bán đảo Triều Tiên (Khu phi quân sự)",
+      "lat": 38.0,
+      "lng": 127.0,
+      "confidence": "low",
+      "country": "south korea"
+    },
+    "xã An Vĩnh": {
+      "modern_name": "Xã An Vĩnh, huyện Lý Sơn, tỉnh Quảng Ngãi, Việt Nam",
+      "lat": 15.3833,
+      "lng": 109.1,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "xã Kim Liên (Nam Đàn, Nghệ An)": {
+      "modern_name": "Xã Kim Liên, huyện Nam Đàn, tỉnh Nghệ An, Việt Nam",
+      "lat": 18.6667,
+      "lng": 105.55,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "xã Sinh Tồn": {
+      "modern_name": "Đảo Sinh Tồn (Sin Cowe Island), huyện Trường Sa, tỉnh Khánh Hòa, Việt Nam",
+      "lat": 9.8833,
+      "lng": 114.3333,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "xã Song Tử Tây": {
+      "modern_name": "Đảo Song Tử Tây (Southwest Cay), huyện Trường Sa, tỉnh Khánh Hòa, Việt Nam",
+      "lat": 11.4333,
+      "lng": 114.3333,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Á Đông": {
+      "modern_name": "Đông Á",
+      "lat": 35.0,
+      "lng": 120.0,
+      "confidence": "low",
+      "country": null
+    },
+    "Ác-hen-ti-na": {
+      "modern_name": "Argentina",
+      "lat": -34.6037,
+      "lng": -58.3816,
+      "confidence": "high",
+      "country": "argentina"
+    },
+    "Âu Lạc": {
+      "modern_name": "Cổ Loa, Đông Anh, Hà Nội, Việt Nam",
+      "lat": 21.1397,
+      "lng": 105.9286,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Ét-tô-ni-a": {
+      "modern_name": "Estonia",
+      "lat": 59.437,
+      "lng": 24.7536,
+      "confidence": "high",
+      "country": "estonia"
+    },
+    "Ô Chợ Dừa": {
+      "modern_name": "Ô Chợ Dừa, Đống Đa, Hà Nội, Việt Nam",
+      "lat": 21.0167,
+      "lng": 105.825,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Ô-lim-pi-a": {
+      "modern_name": "Olympia, Hy Lạp",
+      "lat": 37.6387,
+      "lng": 21.628,
+      "confidence": "high",
+      "country": "hy lap"
+    },
+    "Đa Bang": {
+      "modern_name": "Thị xã Sơn Tây, Hà Nội, Việt Nam",
+      "lat": 21.1389,
+      "lng": 105.4939,
+      "confidence": "medium",
+      "country": "vietnam"
+    },
+    "Điện Biên Phủ": {
+      "modern_name": "Thành phố Điện Biên Phủ, tỉnh Điện Biên, Việt Nam",
+      "lat": 21.3861,
+      "lng": 103.0167,
+      "confidence": "high",
+      "country": "vietnam",
+      "source": "manual"
+    },
+    "Điện Xmô-nưi": {
+      "modern_name": "Viện Smolny, Saint Petersburg, Nga",
+      "lat": 59.9478,
+      "lng": 30.3922,
+      "confidence": "high",
+      "country": "nga"
+    },
+    "Đoan Hùng": {
+      "modern_name": "Huyện Đoan Hùng, Phú Thọ, Việt Nam",
+      "lat": 21.57,
+      "lng": 105.18,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Đu-bai": {
+      "modern_name": "Dubai, Các Tiểu vương quốc Ả Rập Thống nhất",
+      "lat": 25.2048,
+      "lng": 55.2708,
+      "confidence": "high",
+      "country": "các tiểu vương quốc ả rập thống nhất"
+    },
+    "Đà Nẵng": {
+      "modern_name": "Thành phố Đà Nẵng, Việt Nam",
+      "lat": 16.0544,
+      "lng": 108.2022,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Đàng Ngoài": {
+      "modern_name": "Miền Bắc Việt Nam (ước lượng trung tâm)",
+      "lat": 20.0,
+      "lng": 106.0,
+      "confidence": "low",
+      "country": "vietnam"
+    },
+    "Đàng Trong": {
+      "modern_name": "Miền Nam Việt Nam (ước lượng trung tâm)",
+      "lat": 12.0,
+      "lng": 108.0,
+      "confidence": "low",
+      "country": "vietnam"
+    },
+    "Đông Anh": {
+      "modern_name": "Huyện Đông Anh, Hà Nội, Việt Nam",
+      "lat": 21.13,
+      "lng": 105.88,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Đông Béc-lin": {
+      "modern_name": "Berlin, Đức (phần phía đông)",
+      "lat": 52.52,
+      "lng": 13.405,
+      "confidence": "high",
+      "country": "đức"
+    },
+    "Đông Bắc Phi": {
+      "modern_name": "Đông Bắc Phi (ước lượng trung tâm)",
+      "lat": 15.0,
+      "lng": 30.0,
+      "confidence": "low",
+      "country": null
+    },
+    "Đông Bắc Trung Quốc": {
+      "modern_name": "Đông Bắc Trung Quốc (ước lượng trung tâm)",
+      "lat": 45.0,
+      "lng": 125.0,
+      "confidence": "low",
+      "country": "trung quốc"
+    },
+    "Đông Bắc châu Phi": {
+      "modern_name": "Đông Bắc Phi (ước lượng trung tâm)",
+      "lat": 15.0,
+      "lng": 30.0,
+      "confidence": "low",
+      "country": null
+    },
+    "Đông Bộ Đầu": {
+      "modern_name": "Bến Đông Bộ Đầu (nay thuộc Hà Nội), Việt Nam",
+      "lat": 21.02,
+      "lng": 105.85,
+      "confidence": "medium",
+      "country": "vietnam",
+      "source": "manual"
+    },
+    "Đông Dương": {
+      "modern_name": "Bán đảo Đông Dương (ước lượng trung tâm)",
+      "lat": 15.0,
+      "lng": 105.0,
+      "confidence": "low",
+      "country": null
+    },
+    "Đông Khê": {
+      "modern_name": "Thị trấn Đông Khê, Thạch An, Cao Bằng, Việt Nam",
+      "lat": 22.45,
+      "lng": 106.35,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Đông Nam Bộ": {
+      "modern_name": "Vùng Đông Nam Bộ, Việt Nam (ước lượng trung tâm)",
+      "lat": 10.7,
+      "lng": 107.0,
+      "confidence": "low",
+      "country": "vietnam"
+    },
+    "Đông Nam Á": {
+      "modern_name": "Đông Nam Á (ước lượng trung tâm)",
+      "lat": 10.0,
+      "lng": 110.0,
+      "confidence": "low",
+      "country": null
+    },
+    "Đông Nam Á hải đảo": {
+      "modern_name": "Đông Nam Á hải đảo (ước lượng trung tâm)",
+      "lat": 0.0,
+      "lng": 120.0,
+      "confidence": "low",
+      "country": null
+    },
+    "Đông Nam Á lục địa": {
+      "modern_name": "Đông Nam Á lục địa (ước lượng trung tâm)",
+      "lat": 15.0,
+      "lng": 100.0,
+      "confidence": "low",
+      "country": null
+    },
+    "Đông Quan": {
+      "modern_name": "Hà Nội, Việt Nam",
+      "lat": 21.0285,
+      "lng": 105.8542,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Đông Sơn": {
+      "modern_name": "Huyện Đông Sơn, Thanh Hóa, Việt Nam",
+      "lat": 19.8,
+      "lng": 105.75,
+      "confidence": "medium",
+      "country": "vietnam"
+    },
+    "Đông châu Á": {
+      "modern_name": "Đông Á",
+      "lat": 35.0,
+      "lng": 120.0,
+      "confidence": "low",
+      "country": null
+    },
+    "Đông Á": {
+      "modern_name": "Đông Á",
+      "lat": 35.0,
+      "lng": 120.0,
+      "confidence": "low",
+      "country": null
+    },
+    "Đông Âu": {
+      "modern_name": "Đông Âu (ước lượng trung tâm)",
+      "lat": 50.0,
+      "lng": 30.0,
+      "confidence": "low",
+      "country": null
+    },
+    "Đông Đô": {
+      "modern_name": "Hà Nội, Việt Nam",
+      "lat": 21.0285,
+      "lng": 105.8542,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Đường 14 Phước Long": {
+      "modern_name": "Tỉnh Bình Phước, Việt Nam",
+      "lat": 11.6,
+      "lng": 106.8,
+      "confidence": "medium",
+      "country": "vietnam"
+    },
+    "Đường 9 – Nam Lào": {
+      "modern_name": "Tỉnh Quảng Trị, Việt Nam và Nam Lào (ước lượng trung tâm)",
+      "lat": 16.5,
+      "lng": 106.5,
+      "confidence": "low",
+      "country": null
+    },
+    "Đường Lâm (Sơn Tây, Hà Nội)": {
+      "modern_name": "Làng cổ Đường Lâm, Sơn Tây, Hà Nội, Việt Nam",
+      "lat": 21.149,
+      "lng": 105.449,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Đường số 18": {
+      "modern_name": "Quốc lộ 18, Việt Nam (ước lượng trung tâm)",
+      "lat": 21.0,
+      "lng": 107.0,
+      "confidence": "low",
+      "country": "vietnam"
+    },
+    "Đường số 4": {
+      "modern_name": "Quốc lộ 4, Việt Nam (ước lượng trung tâm)",
+      "lat": 22.0,
+      "lng": 105.0,
+      "confidence": "low",
+      "country": "vietnam"
+    },
+    "Đại La": {
+      "modern_name": "Hà Nội, Việt Nam",
+      "lat": 21.0285,
+      "lng": 105.8542,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Đại Liên": {
+      "modern_name": "Đại Liên, Trung Quốc",
+      "lat": 38.9155,
+      "lng": 121.6147,
+      "confidence": "high",
+      "country": "trung quốc"
+    },
+    "Đại Ngu": {
+      "modern_name": "Việt Nam (ước lượng trung tâm)",
+      "lat": 16.0,
+      "lng": 107.0,
+      "confidence": "low",
+      "country": "vietnam"
+    },
+    "Đại Việt": {
+      "modern_name": "Việt Nam (ước lượng trung tâm)",
+      "lat": 16.0,
+      "lng": 107.0,
+      "confidence": "low",
+      "country": "vietnam"
+    },
+    "Đảng Xã hội Pháp": {
+      "modern_name": "Không xác định",
+      "lat": null,
+      "lng": null,
+      "confidence": "none",
+      "country": null
+    },
+    "Đế quốc La Mã": {
+      "modern_name": "Đế quốc La Mã (ước lượng trung tâm tại Rome)",
+      "lat": 41.9028,
+      "lng": 12.4964,
+      "confidence": "low",
+      "country": "italy"
+    },
+    "Địa Trung Hải": {
+      "modern_name": "Biển Địa Trung Hải (ước lượng trung tâm)",
+      "lat": 35.0,
+      "lng": 18.0,
+      "confidence": "low",
+      "country": null
+    },
+    "Định Tường": {
+      "modern_name": "Thành phố Mỹ Tho, Tiền Giang, Việt Nam",
+      "lat": 10.35,
+      "lng": 106.35,
+      "confidence": "medium",
+      "country": "vietnam"
+    },
+    "Đốn Tốn": {
+      "modern_name": "Không xác định",
+      "lat": null,
+      "lng": null,
+      "confidence": "none",
+      "country": null
+    },
+    "Đống Đa": {
+      "modern_name": "Gò Đống Đa, quận Đống Đa, Hà Nội, Việt Nam",
+      "lat": 21.027,
+      "lng": 105.843,
+      "confidence": "high",
+      "country": "vietnam",
+      "source": "manual"
+    },
+    "Đồ Bàn (Quy Nhơn, Bình Định)": {
+      "modern_name": "Thành phố Quy Nhơn, Bình Định, Việt Nam",
+      "lat": 13.7667,
+      "lng": 109.2333,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Đồi Độc Lập": {
+      "modern_name": "Đồi Độc Lập, Điện Biên Phủ, tỉnh Điện Biên, Việt Nam",
+      "lat": 21.428,
+      "lng": 103.012,
+      "confidence": "high",
+      "country": "vietnam",
+      "source": "manual"
+    },
+    "Đồng Nai Thượng": {
+      "modern_name": "Tỉnh Đồng Nai, Việt Nam (ước lượng trung tâm)",
+      "lat": 10.95,
+      "lng": 107.0,
+      "confidence": "medium",
+      "country": "vietnam"
+    },
+    "Đồng Xoài (Bình Phước)": {
+      "modern_name": "Thành phố Đồng Xoài, Bình Phước, Việt Nam",
+      "lat": 11.5333,
+      "lng": 106.9,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Đức": {
+      "modern_name": "Đức",
+      "lat": 51.1657,
+      "lng": 10.4515,
+      "confidence": "high",
+      "country": "đức"
+    },
+    "điện Diên Hồng": {
+      "modern_name": "Điện Diên Hồng, Hoàng thành Thăng Long, Hà Nội",
+      "lat": 21.0375,
+      "lng": 105.8383,
+      "confidence": "high",
+      "country": "vietnam",
+      "source": "manual"
+    },
+    "đá Vành Khăn": {
+      "modern_name": "Đá Vành Khăn (Mischief Reef), Quần đảo Trường Sa",
+      "lat": 9.9,
+      "lng": 115.5333,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "đảo An Bang": {
+      "modern_name": "Đảo An Bang (Amboyna Cay), Quần đảo Trường Sa",
+      "lat": 7.8833,
+      "lng": 112.9167,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "đảo Ba Bình": {
+      "modern_name": "Đảo Ba Bình (Itu Aba), Quần đảo Trường Sa",
+      "lat": 10.3833,
+      "lng": 114.3667,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "đảo Crét": {
+      "modern_name": "Đảo Crete, Hy Lạp",
+      "lat": 35.2401,
+      "lng": 24.8093,
+      "confidence": "high",
+      "country": "hy lap"
+    },
+    "đảo Gạc Ma": {
+      "modern_name": "Đá Gạc Ma (Johnson South Reef), Quần đảo Trường Sa",
+      "lat": 9.72,
+      "lng": 114.27,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "đảo Mác-tan": {
+      "modern_name": "Đảo Mactan, Philippines",
+      "lat": 10.3,
+      "lng": 124.0,
+      "confidence": "high",
+      "country": "philippines"
+    },
+    "đảo Sinh Tồn": {
+      "modern_name": "Đảo Sinh Tồn (Sin Cowe Island), Quần đảo Trường Sa",
+      "lat": 9.8833,
+      "lng": 114.3333,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "đảo Song Tử Tây": {
+      "modern_name": "Đảo Song Tử Tây (Southwest Cay), Quần đảo Trường Sa",
+      "lat": 11.4333,
+      "lng": 114.3333,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "đảo Trường Sa Lớn": {
+      "modern_name": "Đảo Trường Sa Lớn (Spratly Island), Quần đảo Trường Sa",
+      "lat": 8.6333,
+      "lng": 111.9167,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "đảo Đài Loan": {
+      "modern_name": "Đảo Đài Loan",
+      "lat": 23.6978,
+      "lng": 120.9605,
+      "confidence": "high",
+      "country": "đài loan"
+    },
+    "ải Nam": {
+      "modern_name": "Cửa khẩu Hữu Nghị, Lạng Sơn, Việt Nam",
+      "lat": 22.1333,
+      "lng": 106.7333,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "Ấn Độ": {
+      "modern_name": "Ấn Độ",
+      "lat": 20.5937,
+      "lng": 78.9629,
+      "confidence": "high",
+      "country": "ấn độ"
+    },
+    "Ấp Bắc (Mỹ Tho)": {
+      "modern_name": "Xã Tân Phú, Cai Lậy, Tiền Giang, Việt Nam",
+      "lat": 10.43,
+      "lng": 106.15,
+      "confidence": "high",
+      "country": "vietnam"
+    },
+    "sông Bạch Đằng": {
+      "modern_name": "Sông Bạch Đằng, Quảng Ninh/Hải Phòng, Việt Nam",
+      "lat": 20.9406,
+      "lng": 106.9667,
+      "confidence": "high",
+      "country": "vietnam",
+      "source": "manual"
+    },
+    "ải Chi Lăng": {
+      "modern_name": "Ải Chi Lăng, huyện Chi Lăng, tỉnh Lạng Sơn, Việt Nam",
+      "lat": 21.7625,
+      "lng": 106.5917,
+      "confidence": "high",
+      "country": "vietnam",
+      "source": "manual"
+    },
+    "sông Như Nguyệt": {
+      "modern_name": "Sông Như Nguyệt (Sông Cầu), tỉnh Bắc Ninh, Việt Nam",
+      "lat": 21.2333,
+      "lng": 105.9667,
+      "confidence": "high",
+      "country": "vietnam",
+      "source": "manual"
+    },
+    "Rạch Gầm - Xoài Mút": {
+      "modern_name": "Rạch Gầm - Xoài Mút, huyện Châu Thành, tỉnh Tiền Giang, Việt Nam",
+      "lat": 10.39,
+      "lng": 106.33,
+      "confidence": "high",
+      "country": "vietnam",
+      "source": "manual"
+    },
+    "Tân Trào (Tuyên Quang)": {
+      "modern_name": "Khu căn cứ địa Tân Trào, huyện Sơn Dương, tỉnh Tuyên Quang, Việt Nam",
+      "lat": 21.8333,
+      "lng": 105.35,
+      "confidence": "high",
+      "country": "vietnam",
+      "source": "manual"
+    },
+    "Pác Bó (Cao Bằng)": {
+      "modern_name": "Hang Pác Bó, huyện Hà Quảng, tỉnh Cao Bằng, Việt Nam",
+      "lat": 22.85,
+      "lng": 106.18,
+      "confidence": "high",
+      "country": "vietnam",
+      "source": "manual"
+    },
+    "Lam Sơn (Thanh Hóa)": {
+      "modern_name": "Lam Sơn, huyện Thọ Xuân, tỉnh Thanh Hóa, Việt Nam",
+      "lat": 19.987,
+      "lng": 105.5,
+      "confidence": "high",
+      "country": "vietnam",
+      "source": "manual"
+    },
+    "Vạn Kiếp": {
+      "modern_name": "Vạn Kiếp, huyện Chí Linh, tỉnh Hải Dương, Việt Nam",
+      "lat": 21.1333,
+      "lng": 106.6,
+      "confidence": "high",
+      "country": "vietnam",
+      "source": "manual"
+    },
+    "Đá Chữ Thập": {
+      "modern_name": "Đá Chữ Thập, Trường Sa, Việt Nam",
+      "lat": 9.55,
+      "lng": 112.89,
+      "confidence": "high",
+      "country": "vietnam",
+      "source": "manual"
+    }
+  },
+  "lookup": {
+    "ha nam": "Hà Nam",
+    "ha nam ninh": "Hà Nam Ninh",
+    "ha noi": "Hà Nội",
+    "ha quang": "Hà Quảng",
+    "ha tien": "Hà Tiên",
+    "ha": "Hà Tĩnh",
+    "ham tu": "Hàm Tử",
+    "han quoc": "Hàn Quốc",
+    "hat mon phuc tho ha noi": "Hát Môn (Phúc Thọ, Hà Nội)",
+    "hung hoa": "Hưng Hoá",
+    "hung yen": "Hưng Yên",
+    "huong cang trung quoc": "Hương Cảng (Trung Quốc)",
+    "hai duong": "Hải Dương",
+    "hai nam": "Hải Nam",
+    "hai phong": "Hải Phòng",
+    "hong cong": "Hồng Công",
+    "hong hai": "Hồng Hải",
+    "hoi nghi vec xai": "Hội nghị Véc-xai",
+    "hop pho": "Hợp Phố",
+    "i an ta lien xo": "I-an-ta (Liên Xô)",
+    "i rac": "I-rắc",
+    "i ta li a": "I-ta-li-a",
+    "i xra en": "I-xra-en",
+    "i xtan bun": "I-xtan-bun",
+    "in do ne xi a": "In-đô-nê-xi-a",
+    "khach san ca ton": "Khách sạn Ca-tơn",
+    "kham chau": "Khâm Châu",
+    "kha luu": "Khả Lưu",
+    "kinh bac": "Kinh Bắc",
+    "la ha ba na": "La Ha-ba-na",
+    "la hay": "La Hay",
+    "la ma": "La Mã",
+    "lam kinh thanh hoa": "Lam Kinh (Thanh Hoá)",
+    "lam son thanh hoa": "Lam Sơn (Thanh Hóa)",
+    "len dao": "Len Đao",
+    "li va di a": "Li-va-đi-a",
+    "liem chau": "Liêm Châu",
+    "lien xo": "Liên Xô",
+    "lien minh chau au eu": "Liên minh châu Âu (EU)",
+    "luy lau bac ninh": "Luy Lâu (Bắc Ninh)",
+    "luan don": "Luân Đôn",
+    "lang sen": "Làng Sen",
+    "lang vac": "Làng Vạc",
+    "lao": "Lào",
+    "lung nhai": "Lũng Nhai",
+    "luong ha": "Lưỡng Hà",
+    "lang son": "Lạng Sơn",
+    "le chi vien": "Lệ Chi Viên",
+    "lu thuan": "Lữ Thuận",
+    "ma lai xi a": "Ma-lai-xi-a",
+    "ma lac ca": "Ma-lắc-ca",
+    "mem phit": "Mem-phít",
+    "mi an ma": "Mi-an-ma",
+    "mien": "Miên",
+    "mien dien": "Miến Điện",
+    "ma lai": "Mã Lai",
+    "man chau": "Mãn Châu",
+    "me linh": "Mê Linh",
+    "me hi co": "Mê-hi-cô",
+    "mong co": "Mông Cổ",
+    "muong thanh": "Mường Thanh",
+    "mat trang": "Mặt Trăng",
+    "my la": "Mỹ La-tinh",
+    "my tho": "Mỹ Tho",
+    "na da ret": "Na-da-rét",
+    "na ga ki": "Na-ga-xa-ki",
+    "nam": "Nam",
+    "nam bo": "Nam Bộ",
+    "nam bo viet nam": "Nam Bộ Việt Nam",
+    "nam ki": "Nam Kì",
+    "nam man chau": "Nam Mãn Châu",
+    "nam phi": "Nam Phi",
+    "nam xu dang": "Nam Xu-đăng",
+    "nam a": "Nam Á",
+    "nam dan nghe an": "Nam Đàn (Nghệ An)",
+    "nam dinh": "Nam Định",
+    "nga": "Nga",
+    "nghe an": "Nghệ An",
+    "ngoai cap ca do": "Ngoại Cáp-ca-dơ",
+    "ngoc hoi": "Ngọc Hồi",
+    "ngoc hoi dong da": "Ngọc Hồi - Đống Đa",
+    "nha so 248 va 250 duong van minh": "Nhà số 248 và 250 đường Văn Minh",
+    "nha so 9": "Nhà số 9",
+    "nhat ban": "Nhật Bản",
+    "nhat nam": "quận Nhật Nam",
+    "ninh binh": "Ninh Bình",
+    "niu ooc my": "Niu Oóc (Mỹ)",
+    "ne pan": "Nê-pan",
+    "ne dec lan": "Nê-đéc-lan",
+    "nui dai": "Núi Đại",
+    "o xtray li a": "O-xtrây-li-a",
+    "pa le xtin": "Pa-le-xtin",
+    "pa ri": "Pa-ri",
+    "phan rang": "Phan Rang",
+    "phan thiet": "Phan Thiết",
+    "phan thiet binh thuan": "Phan Thiết (Bình Thuận)",
+    "phi": "Phi",
+    "phi lip pin": "Phi-líp-pin",
+    "phien an": "Phiên An",
+    "phnom penh": "Phnôm Pênh",
+    "a che": "A-chê",
+    "a rap xe ut": "A-rập Xê-út",
+    "a ten": "A-ten",
+    "asean": "ASEAN",
+    "ai cap": "Ai Cập",
+    "an giang": "An Giang",
+    "an lao binh dinh": "An Lão (Bình Định)",
+    "an ba ni": "An-ba-ni",
+    "anh": "Anh",
+    "ba gia quang ngai": "Ba Gia (Quảng Ngãi)",
+    "ba lan": "Ba Lan",
+    "ba li": "Ba-li",
+    "ba xti": "Ba-xti",
+    "bien hoa": "Biên Hoà",
+    "bra xin": "Bra-xin",
+    "bru nay": "Bru-nây",
+    "bun ga ri": "Bun-ga-ri",
+    "bac ai ninh thuan": "Bắc Ái (Ninh Thuận)",
+    "bac men": "Bác-men",
+    "bec lin": "Béc-lin",
+    "be lo rut xi a": "Bê-lô-rút-xi-a",
+    "binh gia ba ria vung tau": "Bình Giã (Bà Rịa – Vũng Tàu)",
+    "binh le nguyen": "Bình Lệ Nguyên",
+    "binh than": "Bình Than",
+    "binh thuan": "Bình Thuận",
+    "binh dinh": "Bình Định",
+    "bo ho": "Bô-hô",
+    "bo ro bu dua": "Bô-rô-bu-đua",
+    "bang coc": "Băng Cốc",
+    "buu dien bo ho": "Bưu điện Bờ Hồ",
+    "bach dang": "Bạch Đằng",
+    "ban keo": "Bản Kéo",
+    "bao tang quoc gia anh": "Bảo tàng quốc gia Anh",
+    "bac": "Bắc",
+    "bac nam": "Bắc - Nam",
+    "bac bo": "Bắc Bộ",
+    "bac bo phu": "Bắc Bộ Phủ",
+    "bac giang": "Bắc Giang",
+    "bac hai": "Bắc Hải",
+    "bac ki": "Bắc Kì",
+    "bac my": "Bắc Mỹ",
+    "bac ninh": "Bắc Ninh",
+    "bac thanh": "Bắc Thành",
+    "bac trung bo viet nam": "Bắc Trung Bộ Việt Nam",
+    "bac dai tay duong": "Bắc Đại Tây Dương",
+    "ben nha rong": "Bến Nhà Rồng",
+    "ben tre": "Bến Tre",
+    "bo dao nha": "Bồ Đào Nha",
+    "bo ai": "Bồ Ải",
+    "cai ro": "Cai-rô",
+    "cam pu chia": "Cam-pu-chia",
+    "cao bang": "Cao Bằng",
+    "chi lang": "Chi Lăng",
+    "chiem hoa tuyen quang": "Chiêm Hoá (Tuyên Quang)",
+    "chu dau": "Chu Đậu",
+    "chan lap": "Chân Lạp",
+    "chuc dong": "Chúc Động",
+    "chuong duong": "Chương Dương",
+    "cho ra": "Chợ Rã",
+    "cho don": "Chợ Đồn",
+    "chu thap": "Chữ Thập",
+    "cu a la lam po": "Cu-a-la Lăm-pơ",
+    "cu ba": "Cu-ba",
+    "cu rin": "Cu-rin",
+    "cung dien vec xai phap": "Cung điện Véc-xai (Pháp)",
+    "cac tieu vuong quoc a rap thong nhat": "Các Tiểu vương quốc A-rập Thống nhất",
+    "co lin": "Cô Lin",
+    "con minh": "Côn Minh",
+    "con dao": "Côn Đảo",
+    "co loa": "Cổ Loa",
+    "co loa ha noi": "Cổ Loa (Hà Nội)",
+    "cong hoa dan chu duc": "Cộng hoà Dân chủ Đức",
+    "cong hoa lien bang duc": "Cộng hoà Liên bang Đức",
+    "cong hoa nhan dan trung hoa": "Cộng hoà Nhân dân Trung Hoa",
+    "cong hoa sec": "Cộng hoà Séc",
+    "cua luc": "Cửa Lục",
+    "cuu chan": "Cửu Chân",
+    "cuu long": "Cửu Long",
+    "dinh doc lap": "Dinh Độc Lập",
+    "dien chau": "Diễn Châu",
+    "duy tien": "Duy Tiên",
+    "gia dinh": "Gia Định",
+    "gia dinh thanh": "Gia Định Thành",
+    "gia va": "Gia-va",
+    "giao chi": "Giao Chỉ",
+    "giao chau": "Giao châu",
+    "gio ho": "Giô-hộ",
+    "gio ne vo": "Giơ-ne-vơ",
+    "hi ro si ma": "Hi-rô-si-ma",
+    "him lam": "Him Lam",
+    "hoa lu": "Hoa Lư",
+    "hoan chau": "Hoan Châu",
+    "hoa binh": "Hoà Bình",
+    "hoang ha": "Hoàng Hà",
+    "hoang sa": "huyện Hoàng Sa",
+    "hung ga ri": "Hung-ga-ri",
+    "hue": "Huế",
+    "hy lap": "Hy Lạp",
+    "ha lan": "Hà Lan",
+    "phong chau": "Phong Châu",
+    "phu xtat": "Phu-xtát",
+    "phap": "Pháp",
+    "phong tuyen nhu nguyet": "Phòng tuyến Như Nguyệt",
+    "phu tho": "Phú Thọ",
+    "phu xuan": "Phú Xuân",
+    "phan lan": "Phần Lan",
+    "phung thien": "Phụng Thiên",
+    "phu kham sai": "Phủ Khâm sai",
+    "pac bo": "Pác Bó",
+    "quy nhon": "Quy Nhơn",
+    "cang bai chay": "Quân cảng Bãi Cháy",
+    "quang binh": "Quảng Bình",
+    "quang chau": "Quảng Châu",
+    "quang chau trung quoc": "Quảng Châu (Trung Quốc)",
+    "quang nam": "tỉnh Quảng Nam",
+    "quang ngai": "Quảng Ngãi",
+    "quang ninh": "Quảng Ninh",
+    "quang tri": "Quảng Trị",
+    "quang tay": "Quảng Tây",
+    "quang yen": "Quảng Yên",
+    "quang truong ba dinh": "Quảng trường Ba Đình",
+    "quang truong ba dinh ha noi": "Quảng trường Ba Đình (Hà Nội)",
+    "quang dong": "Quảng Đông",
+    "quang duc": "Quảng Đức",
+    "quoc tu giam": "Quốc Tử Giám",
+    "ru ma ni": "Ru-ma-ni",
+    "rach gam xoai mut": "Rạch Gầm - Xoài Mút",
+    "sin ha pu ra": "Sin-ha-pu-ra",
+    "sai gon": "Thành phố Sài Gòn",
+    "sai gon cho lon": "Sài Gòn – Chợ Lớn",
+    "sai gon gia dinh": "Sài Gòn – Gia Định",
+    "son duong": "Sơn Dương",
+    "son nam ha": "Sơn Nam Hạ",
+    "son nam thuong": "Sơn Nam Thượng",
+    "son tay": "Sơn Tây",
+    "so buu dien": "Sở Bưu điện",
+    "so canh sat": "Sở Cảnh sát",
+    "so canh sat trung uong": "Sở Cảnh sát Trung ương",
+    "so mat tham": "Sở Mật thám",
+    "ta lin": "Ta-lin",
+    "ta ri o": "Ta-ri-ơ",
+    "thanh hoa": "Thanh Hoá",
+    "thuyen chai": "Thuyền Chài",
+    "thuan hoa": "Thuận Hoá",
+    "thuy si": "Thuỵ Sĩ",
+    "ho chi minh": "Thành phố Hồ Chí Minh",
+    "thai binh": "Thái Bình",
+    "thai lan": "Thái Lan",
+    "thai nguyen": "Thái Nguyên",
+    "tham quyen": "Thâm Quyến",
+    "thang long": "Thăng Long",
+    "thang long dong do": "Thăng Long - Đông Đô",
+    "thuong lao": "Thượng Lào",
+    "tho nhi ky": "Thổ Nhĩ Kỳ",
+    "thua thien": "Thừa Thiên",
+    "ti ri o": "Ti-ri-ơ",
+    "tien giang": "Tiền Giang",
+    "tiep khac": "Tiệp Khắc",
+    "trieu tien": "Triều Tiên",
+    "trung hoa": "Trung Hoa",
+    "trung hoa dan quoc": "Trung Hoa Dân quốc",
+    "trung quoc": "Trung Quốc",
+    "trung du": "Trung du",
+    "trung do": "Trung Đô",
+    "trung dong": "Trung Đông",
+    "trung uong": "Trung ương",
+    "tra bong quang ngai": "Trà Bồng (Quảng Ngãi)",
+    "tra kieu": "Trà Kiệu",
+    "tra long": "Trà Long",
+    "trang an": "Tràng An",
+    "truong giang": "Trường Giang",
+    "truong phap viet quy nhon": "Trường Pháp – Việt Quy Nhơn",
+    "truong quoc hoc hue": "Trường Quốc học Huế",
+    "truong tieu hoc phap viet dong ba": "Trường Tiểu học Pháp – Việt Đông Ba",
+    "tuyen quang": "Tuyên Quang",
+    "tan binh": "Tân Bình",
+    "tan trao": "Tân Trào",
+    "tay ban nha": "Tây Ban Nha",
+    "tay bec lin": "Tây Béc-lin",
+    "tay bac": "Tây Bắc",
+    "tay ket": "Tây Kết",
+    "tay nguyen": "Tây Nguyên",
+    "tay ninh viet nam": "Tây Ninh (Việt Nam)",
+    "tay son thuong dao an khe gia lai": "Tây Sơn thượng đạo (An Khê, Gia Lai)",
+    "tay a": "Tây Á",
+    "tay au": "Tây Âu",
+    "tay do": "Tây Đô",
+    "tay duc": "Tây Đức",
+    "te he ran i ran": "Tê-hê-ran (I-ran)",
+    "tot dong": "Tốt Động",
+    "to quoc viet nam": "Tổ quốc Việt Nam",
+    "tong binh": "Tổng Bình",
+    "u crai na": "U-crai-na",
+    "ung chau": "Ung Châu",
+    "vinh": "Vinh",
+    "viet bac": "Việt Bắc",
+    "viet khe": "Việt Khê",
+    "viet nam": "Việt Nam",
+    "viet tri": "Việt Trì",
+    "vac sa va": "Vác-sa-va",
+    "van nam": "Vân Nam",
+    "van don": "Vân Đồn",
+    "van lang": "Văn Lang",
+    "van mieu": "Văn Miếu",
+    "van mieu quoc tu giam ha noi": "Văn Miếu – Quốc Tử Giám Hà Nội",
+    "vinh phuc": "Vĩnh Phúc",
+    "vinh thanh": "Vĩnh Thanh",
+    "vinh thanh binh dinh": "Vĩnh Thạnh (Bình Định)",
+    "vuong quoc xiem": "Vương quốc Xiêm",
+    "van tuong quang ngai": "Vạn Tường (Quảng Ngãi)",
+    "vinh bac bo": "Vịnh Bắc Bộ",
+    "kha lin": "Xa-kha-lin",
+    "xan luca do ba ra me da": "Xan Luca đờ Ba-ra-mê-đa",
+    "xan phran xi xco": "Xan Phran-xi-xcô",
+    "xan phran xi xco my": "Xan Phran-xi-xcô (Mỹ)",
+    "xi ri": "Xi-ri",
+    "xin ga po": "Xin-ga-po",
+    "xiem": "Xiêm",
+    "xuan loc": "Xuân Lộc",
+    "xe bu": "Xê-bu",
+    "xich tho": "Xích Thổ",
+    "xo viet": "Xô viết",
+    "xuong giang": "Xương Giang",
+    "y an gun": "Y-an-gun",
+    "y e men": "Y-ê-men",
+    "bien gioi viet trung": "biên giới Việt – Trung",
+    "ban dao trieu tien": "bán đảo Triều Tiên",
+    "bai can ran san ho ban than": "bãi cạn rạn san hô Bàn Than",
+    "bai da bac": "bãi đá Bắc",
+    "cao nguyen truong son viet nam": "cao nguyên Trường Sơn Việt Nam",
+    "chien khu viet bac": "chiến khu Việt Bắc",
+    "chau my": "châu Mỹ",
+    "chau phi": "châu Phi",
+    "chau a": "châu Á",
+    "chau a thai binh duong": "châu Á – Thái Bình Dương",
+    "chau au": "châu Âu",
+    "cac nuoc a rap": "các nước A-rập",
+    "cac nuoc asean": "các nước ASEAN",
+    "cac do thi": "các đô thị",
+    "coi bac": "cõi Bắc",
+    "cu lao con lon": "cù lao Côn Lôn",
+    "day hi ma lay a": "dãy Hi-ma-lay-a",
+    "eo bien sun da": "eo biển Sun-đa",
+    "ga hang co": "ga Hàng Cỏ",
+    "hang ma gu ra": "hang Ma-gu-ra",
+    "tien hai": "huyện Tiền Hải",
+    "truong sa": "thị trấn Trường Sa",
+    "lang hoang tru": "làng Hoàng Trù",
+    "lang": "làng xã",
+    "mien bac viet nam": "miền Bắc Việt Nam",
+    "mien bac an do": "miền Bắc Ấn Độ",
+    "mien nam viet nam": "miền Nam Việt Nam",
+    "mien nui": "miền núi",
+    "nhom an vinh": "nhóm An Vĩnh",
+    "nhom dao truong sa": "nhóm đảo Trường Sa",
+    "nui chi linh": "núi Chí Linh",
+    "nui nua trieu son thanh hoa": "núi Nưa (Triệu Sơn, Thanh Hoá)",
+    "nuoc te": "nước Tề",
+    "phia bac vi tuyen 16": "phía Bắc vĩ tuyến 16",
+    "phia nam vi tuyen 16": "phía Nam vĩ tuyến 16",
+    "phia nam trung quoc": "phía nam Trung Quốc",
+    "phuong bac": "phương Bắc",
+    "phuong tay": "phương Tây",
+    "phuong dong": "phương Đông",
+    "pho kham thien": "phố Khâm Thiên",
+    "pho uon": "phố Uôn",
+    "dao banh ho": "quần đảo Bành Hồ",
+    "dao hoang sa": "quần đảo Hoàng Sa",
+    "dao truong sa": "quần đảo Trường Sa",
+    "song ca": "sông Cả",
+    "song hang": "sông Hằng",
+    "song hong": "sông Hồng",
+    "song ma": "sông Mã",
+    "song me cong": "sông Mê Công",
+    "song nin": "sông Nin",
+    "song an": "sông Ấn",
+    "thanh co loa": "thành Cổ Loa",
+    "thanh tay do": "thành Tây Đô",
+    "li ong": "thành phố Li-ông",
+    "da nang": "Đà Nẵng",
+    "thanh da bang": "thành Đa Bang",
+    "trieu minh": "triều Minh",
+    "truong duc thanh": "trường Dục Thanh",
+    "ba ria vung tau": "tỉnh Bà Rịa - Vũng Tàu",
+    "khanh hoa": "tỉnh Khánh Hoà",
+    "phuoc tuy": "tỉnh Phước Tuy",
+    "quang nam da nang": "tỉnh Quảng Nam - Đà Nẵng",
+    "vung xi le di": "vùng Xi-lê-di",
+    "vung dong bac": "vùng Đông Bắc",
+    "vi tuyen 38": "vĩ tuyến 38",
+    "an vinh": "xã An Vĩnh",
+    "kim lien nam dan nghe an": "xã Kim Liên (Nam Đàn, Nghệ An)",
+    "sinh ton": "xã Sinh Tồn",
+    "song tu tay": "xã Song Tử Tây",
+    "a dong": "Á Đông",
+    "ac hen ti na": "Ác-hen-ti-na",
+    "au lac": "Âu Lạc",
+    "et to ni a": "Ét-tô-ni-a",
+    "o cho dua": "Ô Chợ Dừa",
+    "o lim pi a": "Ô-lim-pi-a",
+    "da bang": "Đa Bang",
+    "dien bien phu": "Điện Biên Phủ",
+    "dien xmo nui": "Điện Xmô-nưi",
+    "doan hung": "Đoan Hùng",
+    "du bai": "Đu-bai",
+    "dang ngoai": "Đàng Ngoài",
+    "dang trong": "Đàng Trong",
+    "dong anh": "Đông Anh",
+    "dong bec lin": "Đông Béc-lin",
+    "dong bac phi": "Đông Bắc Phi",
+    "dong bac trung quoc": "Đông Bắc Trung Quốc",
+    "dong bac chau phi": "Đông Bắc châu Phi",
+    "dong bo dau": "Đông Bộ Đầu",
+    "dong duong": "Đông Dương",
+    "dong khe": "Đông Khê",
+    "dong nam bo": "Đông Nam Bộ",
+    "dong nam a": "Đông Nam Á",
+    "dong nam a hai dao": "Đông Nam Á hải đảo",
+    "dong nam a luc dia": "Đông Nam Á lục địa",
+    "dong": "Đông Quan",
+    "dong son": "Đông Sơn",
+    "dong chau a": "Đông châu Á",
+    "dong a": "Đông Á",
+    "dong au": "Đông Âu",
+    "dong do": "Đông Đô",
+    "duong 14 phuoc long": "Đường 14 Phước Long",
+    "duong 9 nam lao": "Đường 9 – Nam Lào",
+    "duong lam son tay ha noi": "Đường Lâm (Sơn Tây, Hà Nội)",
+    "duong so 18": "Đường số 18",
+    "duong so 4": "Đường số 4",
+    "dai la": "Đại La",
+    "dai lien": "Đại Liên",
+    "dai ngu": "Đại Ngu",
+    "dai viet": "Đại Việt",
+    "dang hoi phap": "Đảng Xã hội Pháp",
+    "de quoc la ma": "Đế quốc La Mã",
+    "dia trung hai": "Địa Trung Hải",
+    "dinh tuong": "Định Tường",
+    "don ton": "Đốn Tốn",
+    "dong da": "Đống Đa",
+    "do ban quy nhon binh dinh": "Đồ Bàn (Quy Nhơn, Bình Định)",
+    "doi doc lap": "Đồi Độc Lập",
+    "dong nai thuong": "Đồng Nai Thượng",
+    "dong xoai binh phuoc": "Đồng Xoài (Bình Phước)",
+    "duc": "Đức",
+    "dien dien hong": "điện Diên Hồng",
+    "da vanh khan": "đá Vành Khăn",
+    "dao an bang": "đảo An Bang",
+    "dao ba binh": "đảo Ba Bình",
+    "dao cret": "đảo Crét",
+    "dao gac ma": "đảo Gạc Ma",
+    "dao mac tan": "đảo Mác-tan",
+    "dao sinh ton": "đảo Sinh Tồn",
+    "dao song tu tay": "đảo Song Tử Tây",
+    "dao truong sa lon": "đảo Trường Sa Lớn",
+    "dao dai loan": "đảo Đài Loan",
+    "ai nam": "ải Nam",
+    "an do": "Ấn Độ",
+    "ap bac my tho": "Ấp Bắc (Mỹ Tho)",
+    "song bach dang": "sông Bạch Đằng",
+    "ai chi lang": "ải Chi Lăng",
+    "song nhu nguyet": "sông Như Nguyệt",
+    "tan trao tuyen quang": "Tân Trào (Tuyên Quang)",
+    "pac bo cao bang": "Pác Bó (Cao Bằng)",
+    "van kiep": "Vạn Kiếp",
+    "da chu thap": "Đá Chữ Thập"
+  }
+}

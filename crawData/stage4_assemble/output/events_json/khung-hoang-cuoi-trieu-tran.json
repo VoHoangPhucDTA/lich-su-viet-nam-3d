@@ -1,0 +1,139 @@
+{
+  "id": "khung-hoang-cuoi-trieu-tran",
+  "slug": "khung-hoang-cuoi-trieu-tran",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Khủng hoảng cuối triều Trần",
+    "short": "Khủng hoảng cuối triều Trần",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "crisis",
+    "region": "vietnam",
+    "tags": [
+      "Suy yếu",
+      "Nhà Trần",
+      "Khủng hoảng"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 11,
+        "lessonId": "12387",
+        "lessonTitle": "BÀI 12  KHÁI LƯỢC VỀ CẢI CÁCH  CUỘC CẢI"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "end": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "datePrecision": "period",
+    "displayDate": "Cuối thế kỉ XIV",
+    "isApproximate": true
+  },
+  "mapData": {
+    "geoType": "no_location",
+    "historicalLocations": [],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "auto",
+      "center": null,
+      "zoom": null
+    }
+  },
+  "summary": {
+    "homepageTitle": "Khủng hoảng cuối triều Trần",
+    "homepageSummary": "Cuối thế kỉ XIV, nhà Trần lâm vào cuộc khủng hoảng, ngày càng suy yếu với tầng lớp quý tộc ăn chơi hưởng lạc và nhiều cuộc khởi nghĩa nổ ra.",
+    "cardSummary": "Nhà Trần khủng hoảng cuối thế kỉ XIV, quý tộc ăn chơi, khởi nghĩa nổ ra."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Cuối thế kỉ XIV, nhà Trần lâm vào cuộc khủng hoảng, ngày càng suy yếu. Tầng lớp quý tộc có xu hướng ăn chơi hưởng lạc, đất nước lâm vào khủng hoảng, nhiều cuộc khởi nghĩa của nông dân và nô tì nổ ra.",
+    "detailedNarrative": "Vua Trần Dụ Tông “sai đào hồ lớn ở vườn ngự nơi hậu cung, trong hồ chất đá làm núi,... Bốn mặt khai thông cho nước sông vào. Lại đào hồ khác, bắt dân chở nước mặn chứa vào hồ để nuôi cá, hải sản... Nay xây cất, mai tu đạo, không lúc nào ngớt việc\". Nhà Trần cũng tỏ ra bất lực trước các cuộc tấn công của Chăm-pa và sự đe doạ của nhà Minh.",
+    "significance": null,
+    "keyFacts": [
+      "Quý tộc ăn chơi hưởng lạc",
+      "Nhiều cuộc khởi nghĩa nông dân, nô tì",
+      "Bất lực trước Chăm-pa và nhà Minh",
+      "Nhà Trần suy yếu"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 11,
+        "book": "KNTT",
+        "lessonId": "12387",
+        "lessonTitle": "BÀI 12  KHÁI LƯỢC VỀ CẢI CÁCH  CUỘC CẢI",
+        "chapter": "Chu de 6",
+        "lesson": "Bai 12",
+        "pageRange": {
+          "start": 87,
+          "end": 91
+        },
+        "url": "https://sgkvn.com/lop-11-14/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-6-mot-so-cuoc-cai-cach-lon-trong-lich-su-viet-nam-truoc-nam-1858-3353/bai-12-khai-luoc-ve-cai-cach-cuoc-cai-cach-cua-ho-quy-ly-va-trieu-ho-dau-the-ki-xv-12387.html",
+        "excerpt": "Cuối thế kỉ XIV, nhà Trần lâm vào cuộc khủng hoảng, ngày càng suy yếu. Tầng lớp quý tộc có xu hướng ăn chơi hưởng lạc, đất nước lâm vào khủng hoảng, nhiều cuộc khởi nghĩa của nông dân và nô tì nổ ra."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "khung-hoang-cuoi-trieu-tran",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 336
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": false,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

@@ -1,0 +1,131 @@
+{
+  "id": "nguoi-viet-che-tao-sung-than-co-thuyen-chien",
+  "slug": "nguoi-viet-che-tao-sung-than-co-thuyen-chien",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Người Việt chế tạo được súng thần cơ và đóng thuyền chiến cỡ lớn",
+    "short": "Người Việt chế tạo được súng thần cơ và đóng thuyền chiến cỡ lớn",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "military",
+    "eventSubtype": "technological_development",
+    "region": "vietnam",
+    "tags": [
+      "kĩ thuật quân sự",
+      "súng thần cơ",
+      "thuyền chiến"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      10
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 10,
+        "lessonId": "12160",
+        "lessonTitle": "Bài 12: Văn Minh Đại Việt"
+      }
+    ]
+  },
+  "chronology": {
+    "start": null,
+    "end": null,
+    "datePrecision": "period",
+    "displayDate": "Từ cuối thế kỉ XIV",
+    "isApproximate": true
+  },
+  "mapData": {
+    "geoType": "no_location",
+    "historicalLocations": [],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "auto",
+      "center": null,
+      "zoom": null
+    }
+  },
+  "summary": {
+    "homepageTitle": "Chế tạo súng thần cơ, thuyền chiến (cuối TK XIV)",
+    "homepageSummary": "Từ cuối thế kỉ XIV, người Việt đã chế tạo được súng thần cơ, đóng loại thuyền chiến cỡ lớn.",
+    "cardSummary": "Người Việt chế tạo súng thần cơ và thuyền chiến cỡ lớn từ cuối thế kỉ XIV."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Từ cuối thế kỉ XIV, người Việt đã chế tạo được súng thần cơ, đóng loại thuyền chiến cỡ lớn; thế kỉ XVI – XVII, đúc được các loại đại bác, đóng thuyền chiến trang bị đại bác có vận dụng kĩ thuật của phương Tây.",
+    "detailedNarrative": null,
+    "significance": "Nâng cao sức mạnh quân sự của Đại Việt.",
+    "keyFacts": [
+      "Diễn ra từ cuối thế kỉ XIV",
+      "Chế tạo súng thần cơ",
+      "Thế kỉ XVI – XVII, đúc đại bác và đóng thuyền chiến trang bị đại bác",
+      "Đóng thuyền chiến cỡ lớn"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 10,
+        "book": "KNTT",
+        "lessonId": "12160",
+        "lessonTitle": "Bài 12: Văn Minh Đại Việt",
+        "chapter": "Chu de 6",
+        "lesson": "Bai 12",
+        "pageRange": {
+          "start": 108,
+          "end": 122
+        },
+        "url": "https://sgkvn.com/lop-10-13/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-6-mot-so-nen-van-minh-tren-dat-nuoc-viet-nam-truoc-nam-1858-3276/bai-12-van-minh-dai-viet-12160.html",
+        "excerpt": "Từ cuối thế kỉ XIV, người Việt đã chế tạo được súng thần cơ, đóng loại thuyền chiến cỡ lớn; thế kỉ XVI – XVII, đúc được các loại đại bác, đóng thuyền chiến trang bị đại bác có vận dụng kĩ thuật của phương Tây."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "nguoi-viet-che-tao-sung-than-co-thuyen-chien",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 346
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": false,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

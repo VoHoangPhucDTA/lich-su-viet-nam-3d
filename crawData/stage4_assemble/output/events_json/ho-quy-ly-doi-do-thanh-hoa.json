@@ -1,0 +1,153 @@
+{
+  "id": "ho-quy-ly-doi-do-thanh-hoa",
+  "slug": "ho-quy-ly-doi-do-thanh-hoa",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Hồ Quý Ly dời đô vào Thanh Hoá",
+    "short": "Hồ Quý Ly dời đô",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "administrative_change",
+    "region": "vietnam",
+    "tags": [
+      "Hồ Quý Ly",
+      "Thanh Hoá",
+      "Dời đô"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 11,
+        "lessonId": "12387",
+        "lessonTitle": "BÀI 12  KHÁI LƯỢC VỀ CẢI CÁCH  CUỘC CẢI"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1397,
+      "month": null,
+      "day": null
+    },
+    "end": null,
+    "datePrecision": "year",
+    "displayDate": "Năm 1397",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "mixed",
+    "historicalLocations": [],
+    "provinceNames": [
+      "Thanh Hóa"
+    ],
+    "gadmRefs": [
+      "VNM.57_1"
+    ],
+    "marker": {
+      "name": "Thanh Hoá",
+      "lat": 19.8,
+      "lng": 105.7,
+      "confidence": "high"
+    },
+    "markers": [
+      {
+        "name": "Thanh Hoá",
+        "lat": 19.8,
+        "lng": 105.7,
+        "confidence": "high"
+      }
+    ],
+    "focusGeometry": {
+      "mode": "bounds",
+      "center": {
+        "lat": 19.888588,
+        "lng": 105.480956
+      },
+      "zoom": 7
+    }
+  },
+  "summary": {
+    "homepageTitle": "Hồ Quý Ly dời đô",
+    "homepageSummary": "Năm 1397, Hồ Quý Ly ép vua Trần dời đô vào Thanh Hoá.",
+    "cardSummary": "Hồ Quý Ly ép vua Trần dời đô về Thanh Hoá năm 1397."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Năm 1397, Hồ Quý Ly ép vua Trần dời đô vào Thanh Hoá.",
+    "detailedNarrative": null,
+    "significance": null,
+    "keyFacts": [
+      "Hồ Quý Ly ép vua Trần",
+      "Dời đô về Thanh Hoá",
+      "Năm 1397"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 11,
+        "book": "KNTT",
+        "lessonId": "12387",
+        "lessonTitle": "BÀI 12  KHÁI LƯỢC VỀ CẢI CÁCH  CUỘC CẢI",
+        "chapter": "Chu de 6",
+        "lesson": "Bai 12",
+        "pageRange": {
+          "start": 87,
+          "end": 91
+        },
+        "url": "https://sgkvn.com/lop-11-14/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-6-mot-so-cuoc-cai-cach-lon-trong-lich-su-viet-nam-truoc-nam-1858-3353/bai-12-khai-luoc-ve-cai-cach-cuoc-cai-cach-cua-ho-quy-ly-va-trieu-ho-dau-the-ki-xv-12387.html",
+        "excerpt": "Năm 1397, Hồ Quý Ly ép vua Trần dời đô vào Thanh Hoá."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "ho-quy-ly-doi-do-thanh-hoa",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 30
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": true,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

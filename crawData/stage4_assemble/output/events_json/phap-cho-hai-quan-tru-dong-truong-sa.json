@@ -1,0 +1,145 @@
+{
+  "id": "phap-cho-hai-quan-tru-dong-truong-sa",
+  "slug": "phap-cho-hai-quan-tru-dong-truong-sa",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Pháp cho hải quân trú đóng ở các đảo chính thuộc quần đảo Trường Sa",
+    "short": "Pháp trú đóng Trường Sa",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "military",
+    "eventSubtype": "deployment",
+    "region": "vietnam",
+    "tags": [
+      "Trường Sa",
+      "chủ quyền",
+      "Pháp"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 11,
+        "lessonId": "12395",
+        "lessonTitle": "BÀI 16  VIỆT NAM VÀ BIỂN ĐÔNG"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1946,
+      "month": null,
+      "day": null
+    },
+    "end": null,
+    "datePrecision": "year",
+    "displayDate": "Năm 1946",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "point",
+    "historicalLocations": [],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": {
+      "name": "quần đảo Trường Sa",
+      "lat": 8.3833,
+      "lng": 111.9167,
+      "confidence": "high"
+    },
+    "markers": [],
+    "focusGeometry": {
+      "mode": "marker",
+      "center": {
+        "name": "quần đảo Trường Sa",
+        "lat": 8.3833,
+        "lng": 111.9167,
+        "confidence": "high"
+      },
+      "zoom": 12
+    }
+  },
+  "summary": {
+    "homepageTitle": "Pháp trú đóng hải quân ở Trường Sa (1946)",
+    "homepageSummary": "Năm 1946, chính quyền thực dân Pháp cho hải quân trú đóng ở các đảo chính thuộc quần đảo Trường Sa và yêu cầu quân đội Trung Hoa Dân quốc rút khỏi các đảo đã chiếm đóng trái phép.",
+    "cardSummary": "Năm 1946, Pháp cho hải quân trú đóng ở Trường Sa và yêu cầu Trung Hoa Dân quốc rút quân."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Năm 1946, chính quyền thực dân Pháp cho hải quân trú đóng ở các đảo chính thuộc quần đảo Trường Sa và yêu cầu quân đội Trung Hoa Dân quốc rút khỏi các đảo đã chiếm đóng trái phép.",
+    "detailedNarrative": "Năm 1946, chính quyền thực dân Pháp cho hải quân trú đóng ở các đảo chính thuộc quần đảo Trường Sa và yêu cầu quân đội Trung Hoa Dân quốc rút khỏi các đảo đã chiếm đóng trái phép.",
+    "significance": "Là hành động quân sự của Pháp (đại diện ngoại giao của triều Nguyễn) nhằm bảo vệ và thực thi chủ quyền của Việt Nam đối với quần đảo Trường Sa.",
+    "keyFacts": [
+      "Chính quyền thực dân Pháp triển khai hải quân",
+      "Diễn ra năm 1946",
+      "Địa điểm: các đảo chính thuộc quần đảo Trường Sa",
+      "Yêu cầu Trung Hoa Dân quốc rút quân"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 11,
+        "book": "KNTT",
+        "lessonId": "12395",
+        "lessonTitle": "BÀI 16  VIỆT NAM VÀ BIỂN ĐÔNG",
+        "chapter": "Chu de 7",
+        "lesson": "Bai 16",
+        "pageRange": {
+          "start": 107,
+          "end": 111
+        },
+        "url": "https://sgkvn.com/lop-11-14/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-7-lich-su-chu-quyen-cua-viet-nam-o-bien-dong-3354/bai-16-viet-nam-va-bien-dong-12395.html",
+        "excerpt": "Năm 1946, chính quyền thực dân Pháp cho hải quân trú đóng ở các đảo chính thuộc quần đảo Trường Sa và yêu cầu quân đội Trung Hoa Dân quốc rút khỏi các đảo đã chiếm đóng trái phép."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "phap-cho-hai-quan-tru-dong-truong-sa",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 187
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": true,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

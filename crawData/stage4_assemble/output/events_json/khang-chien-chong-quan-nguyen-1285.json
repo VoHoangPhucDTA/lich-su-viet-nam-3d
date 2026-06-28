@@ -1,0 +1,192 @@
+{
+  "id": "khang-chien-chong-quan-nguyen-1285",
+  "slug": "khang-chien-chong-quan-nguyen-1285",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Kháng chiến chống quân Nguyên (lần 2)",
+    "short": "Kháng chiến chống quân Nguyên (lần 2)",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "military",
+    "eventSubtype": "campaign",
+    "region": "vietnam",
+    "tags": [
+      "quân Nguyên",
+      "Trần Thánh Tông",
+      "Trần Quốc Tuấn",
+      "nhà Trần"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 11,
+        "lessonId": "12370",
+        "lessonTitle": "BÀI 7  CHIẾN TRANH BẢO VỆ TỔ QUỐC TRONG"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1285,
+      "month": null,
+      "day": null
+    },
+    "end": {
+      "year": 1285,
+      "month": null,
+      "day": null
+    },
+    "datePrecision": "year",
+    "displayDate": "Năm 1285",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "mixed",
+    "historicalLocations": [],
+    "provinceNames": [
+      "Hà Nội",
+      "Hưng Yên"
+    ],
+    "gadmRefs": [
+      "VNM.27_1",
+      "VNM.31_1"
+    ],
+    "marker": {
+      "name": "Hà Nội",
+      "lat": 21.0285,
+      "lng": 105.8542,
+      "confidence": "high"
+    },
+    "markers": [
+      {
+        "name": "Hà Nội",
+        "lat": 21.0285,
+        "lng": 105.8542,
+        "confidence": "high"
+      },
+      {
+        "name": "Hàm Tử",
+        "lat": 20.85,
+        "lng": 106.05,
+        "confidence": "high"
+      },
+      {
+        "name": "Chương Dương",
+        "lat": 20.85,
+        "lng": 105.8833,
+        "confidence": "high"
+      },
+      {
+        "name": "Thăng Long",
+        "lat": 21.0285,
+        "lng": 105.8542,
+        "confidence": "high"
+      },
+      {
+        "name": "Tây Kết",
+        "lat": 20.85,
+        "lng": 106.05,
+        "confidence": "high"
+      },
+      {
+        "name": "Hưng Yên",
+        "lat": 20.85,
+        "lng": 106.05,
+        "confidence": "high"
+      }
+    ],
+    "focusGeometry": {
+      "mode": "bounds",
+      "center": {
+        "lat": 20.912181,
+        "lng": 105.944164
+      },
+      "zoom": 7
+    }
+  },
+  "summary": {
+    "homepageTitle": "Kháng chiến chống Nguyên (1285)",
+    "homepageSummary": "Nhà Trần lãnh đạo nhân dân đánh bại quân Nguyên, với các trận thắng lớn tại Tây Kết, Hàm Tử, Chương Dương, Thăng Long.",
+    "cardSummary": "Kháng chiến chống quân Nguyên năm 1285 do Trần Thánh Tông, Trần Quốc Tuấn chỉ huy, thắng lợi tại Tây Kết, Hàm Tử, Chương Dương, Thăng Long."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Cuộc kháng chiến chống quân Nguyên lần thứ hai diễn ra vào năm 1285, dưới sự chỉ huy của Trần Thánh Tông và Trần Quốc Tuấn, với các trận quyết chiến tại Tây Kết, Hàm Tử (Hưng Yên), Chương Dương, Thăng Long (Hà Nội).",
+    "detailedNarrative": "Để chuẩn bị cho cuộc kháng chiến chống Nguyên năm 1285, nhà Trần đã tổ chức Hội nghị Bình Than (1282), triệu tập vương hầu, quý tộc, tướng lĩnh để bàn kế sách đánh giặc. Sau hội nghị, Trần Quốc Tuấn viết Hịch tướng sĩ kêu gọi nhân dân đứng lên cứu nước, cứu mình. Tiếp đó, năm 1285, tại điện Diên Hồng ở kinh thành Thăng Long, khi Thượng hoàng Trần Thánh Tông hỏi về kế sách đánh giặc, các vị bô lão đều đồng thanh hô lớn: \"Đánh!\". Quân Mông – Nguyên hành quân xa, mệt mỏi, lại thiếu lương thực. Hơn nữa, địa hình Đại Việt núi đèo hiểm trở, sông ngòi chằng chịt nên quân giặc không phát huy được sở trường kị binh của chúng. Nhà Trần đã thực hiện kế \"thanh dã\" (vườn không, nhà trống) tại Thăng Long khiến cho quân địch làm tình trạng khó khăn, thiếu lương thực trầm trọng, buộc phải rút lui.",
+    "significance": "Đánh bại quân Nguyên, bảo vệ độc lập dân tộc.",
+    "keyFacts": [
+      "Trận quyết chiến: Tây Kết, Hàm Tử (Hưng Yên), Chương Dương, Thăng Long (Hà Nội)",
+      "Tổ chức Hội nghị Bình Than và Hội nghị Diên Hồng",
+      "Diễn ra năm 1285",
+      "Người chỉ huy: Trần Thánh Tông, Trần Quốc Tuấn",
+      "Trần Quốc Tuấn viết Hịch tướng sĩ"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 11,
+        "book": "KNTT",
+        "lessonId": "12370",
+        "lessonTitle": "BÀI 7  CHIẾN TRANH BẢO VỆ TỔ QUỐC TRONG",
+        "chapter": "Chu de 4",
+        "lesson": "Bai 7",
+        "pageRange": {
+          "start": 54,
+          "end": 61
+        },
+        "url": "https://sgkvn.com/lop-11-14/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-4-chien-tranh-bao-ve-to-quoc-va-chien-tranh-giai-phong-dan-toc-trong-lich-su-viet-nam-truoc-cach-mang-thang-tam-nam-1945-3346/bai-7-chien-tranh-bao-ve-to-quoc-trong-lich-su-viet-nam-12370.html",
+        "excerpt": "Cuộc kháng chiến chống quân Nguyên lần thứ hai diễn ra vào năm 1285, dưới sự chỉ huy của Trần Thánh Tông và Trần Quốc Tuấn, với các trận quyết chiến tại Tây Kết, Hàm Tử (Hưng Yên), Chương Dương, Thăng Long (Hà Nội)."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "khang-chien-chong-quan-nguyen-1285",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 24
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": true,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

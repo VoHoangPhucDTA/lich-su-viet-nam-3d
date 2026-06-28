@@ -1,0 +1,135 @@
+{
+  "id": "minh-mang-len-ngoi-vua",
+  "slug": "minh-mang-len-ngoi-vua",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Minh Mạng lên ngôi vua",
+    "short": "Minh Mạng lên ngôi vua",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "accession",
+    "region": "vietnam",
+    "tags": [
+      "Minh Mạng",
+      "lên ngôi",
+      "triều Nguyễn"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 11,
+        "lessonId": "12393",
+        "lessonTitle": "BÀI 14  CUỘC CẢI CÁCH CỦA MINH MẠNG  NỬA"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1820,
+      "month": null,
+      "day": null
+    },
+    "end": null,
+    "datePrecision": "year",
+    "displayDate": "Năm 1820",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "no_location",
+    "historicalLocations": [],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "auto",
+      "center": null,
+      "zoom": null
+    }
+  },
+  "summary": {
+    "homepageTitle": "Minh Mạng lên ngôi vua",
+    "homepageSummary": "Minh Mạng, con trai thứ tư của vua Gia Long, lên ngôi vua vào năm 1820 và trị vì đến năm 1840.",
+    "cardSummary": "Minh Mạng lên ngôi vua năm 1820, bắt đầu thời kỳ cải cách."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Minh Mạng là con trai thứ tư của vua Gia Long, lên ngôi vua năm 1820, trị vì đến năm 1840. Minh Mạng được đánh giá là một vị vua siêng năng, luôn thức khuya dậy sớm để xem xét công việc và là vị vua có nhiều thành tích nhất của triều Nguyễn.",
+    "detailedNarrative": "Minh Mạng là con trai thứ tư của vua Gia Long, lên ngôi vua năm 1820, trị vì đến năm 1840. Minh Mạng được đánh giá là một vị vua siêng năng, luôn thức khuya dậy sớm để xem xét công việc và là vị vua có nhiều thành tích nhất của triều Nguyễn.",
+    "significance": "Mở đầu thời kỳ thực hiện nhiều biện pháp cải cách nhằm tăng cường tính thống nhất và tiềm lực của đất nước.",
+    "keyFacts": [
+      "Lên ngôi năm 1820",
+      "Vị vua siêng năng và có nhiều thành tích",
+      "Trị vì đến năm 1840",
+      "Con trai thứ tư của Gia Long"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 11,
+        "book": "KNTT",
+        "lessonId": "12393",
+        "lessonTitle": "BÀI 14  CUỘC CẢI CÁCH CỦA MINH MẠNG  NỬA",
+        "chapter": "Chu de 6",
+        "lesson": "Bai 14",
+        "pageRange": {
+          "start": null,
+          "end": null
+        },
+        "url": "https://sgkvn.com/lop-11-14/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-6-mot-so-cuoc-cai-cach-lon-trong-lich-su-viet-nam-truoc-nam-1858-3353/bai-14-cuoc-cai-cach-cua-minh-mang-nua-dau-the-ki-xix-12393.html",
+        "excerpt": "Minh Mạng là con trai thứ tư của vua Gia Long, lên ngôi vua năm 1820, trị vì đến năm 1840. Minh Mạng được đánh giá là một vị vua siêng năng, luôn thức khuya dậy sớm để xem xét công việc và là vị vua có nhiều thành tích nhất của triều Nguyễn."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "minh-mang-len-ngoi-vua",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 65
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": false,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

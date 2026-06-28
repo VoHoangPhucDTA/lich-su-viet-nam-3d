@@ -1,0 +1,159 @@
+{
+  "id": "chien-thang-van-tuong",
+  "slug": "chien-thang-van-tuong",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Chiến thắng Vạn Tường",
+    "short": "Vạn Tường",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "military",
+    "eventSubtype": "battle",
+    "region": "vietnam",
+    "tags": [
+      "Quảng Ngãi",
+      "tìm diệt",
+      "Chiến tranh cục bộ"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 12,
+        "lessonId": "12956",
+        "lessonTitle": "BÀI 8: CUỘC KHÁNG CHIẾN CHỐNG MỸ, CỨU NƯỚC (1954-1975)"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1965,
+      "month": 8,
+      "day": 18
+    },
+    "end": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "datePrecision": "day",
+    "displayDate": "18 – 8 – 1965",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "mixed",
+    "historicalLocations": [
+      "miền Nam"
+    ],
+    "provinceNames": [
+      "Quảng Ngãi"
+    ],
+    "gadmRefs": [
+      "VNM.48_1"
+    ],
+    "marker": {
+      "name": "Vạn Tường (Quảng Ngãi)",
+      "lat": 15.2833,
+      "lng": 108.9,
+      "confidence": "high"
+    },
+    "markers": [
+      {
+        "name": "Vạn Tường (Quảng Ngãi)",
+        "lat": 15.2833,
+        "lng": 108.9,
+        "confidence": "high"
+      }
+    ],
+    "focusGeometry": {
+      "mode": "bounds",
+      "center": {
+        "lat": 15.144631,
+        "lng": 108.791195
+      },
+      "zoom": 7
+    }
+  },
+  "summary": {
+    "homepageTitle": "Chiến thắng Vạn Tường (18-8-1965)",
+    "homepageSummary": "Quân dân miền Nam giành thắng lợi ở Vạn Tường (Quảng Ngãi), mở ra khả năng đánh thắng Mỹ trong chiến lược “Chiến tranh cục bộ” về quân sự.",
+    "cardSummary": "Chiến thắng Vạn Tường (18-8-1965) mở ra khả năng đánh thắng Mỹ trong 'Chiến tranh cục bộ'."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Thực hiện chiến lược “Chiến tranh cục bộ”, quân Mỹ vừa mới vào miền Nam đã cho mở ngay cuộc hành quân “tìm diệt” vào căn cứ của Quân Giải phóng ở Vạn Tường (Quảng Ngãi). Với ý chí “Quyết chiến quyết thắng giặc Mỹ xâm lược, quân dân miền Nam đã anh dũng chiến đấu và giành thắng lợi ở Vạn Tường (18 – 8 – 1965), mở ra khả năng đánh thắng Mỹ trong chiến lược “Chiến tranh cục bộ” về quân sự.",
+    "detailedNarrative": null,
+    "significance": "Mở ra khả năng đánh thắng Mỹ trong chiến lược “Chiến tranh cục bộ” về quân sự.",
+    "keyFacts": [
+      "Mở ra khả năng đánh thắng Mỹ trong 'Chiến tranh cục bộ'",
+      "Diễn ra tại Vạn Tường (Quảng Ngãi) ngày 18-8-1965",
+      "Đánh bại cuộc hành quân 'tìm diệt' của quân Mỹ"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 12,
+        "book": "KNTT",
+        "lessonId": "12956",
+        "lessonTitle": "BÀI 8: CUỘC KHÁNG CHIẾN CHỐNG MỸ, CỨU NƯỚC (1954-1975)",
+        "chapter": "Chu de 3",
+        "lesson": "Bai 8",
+        "pageRange": {
+          "start": 45,
+          "end": 53
+        },
+        "url": "https://sgkvn.com/lop-12-15/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-3-cach-mang-thang-tam-nam-1945-chien-tranh-giai-phong-dan-toc-va-chien-tranh-bao-ve-to-quoc-trong-lich-su-viet-nam-tu-thang-8-nam-1945-den-nay-3539/bai-8-cuoc-khang-chien-chong-my-cuu-nuoc-1954-1975-12956.html",
+        "excerpt": "Thực hiện chiến lược “Chiến tranh cục bộ”, quân Mỹ vừa mới vào miền Nam đã cho mở ngay cuộc hành quân “tìm diệt” vào căn cứ của Quân Giải phóng ở Vạn Tường (Quảng Ngãi). Với ý chí “Quyết chiến quyết thắng giặc Mỹ xâm lược, quân dân miền Nam đã anh dũng chiến đấu và giành thắng lợi ở Vạn Tường (18 – 8 – 1965), mở ra khả năng đánh thắng Mỹ trong chiến lược “Chiến tranh cục bộ” về quân sự."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "chien-thang-van-tuong",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 226
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": true,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

@@ -1,0 +1,139 @@
+{
+  "id": "chinh-quyen-phap-cai-cach-huong-chinh",
+  "slug": "chinh-quyen-phap-cai-cach-huong-chinh",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Chính quyền thực dân Pháp thực hiện cải cách hương chính",
+    "short": "Cải cách hương chính thời Pháp thuộc",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "reform",
+    "region": "vietnam",
+    "tags": [
+      "Pháp thuộc",
+      "quản lí hành chính",
+      "cải lương hương chính"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 11,
+        "lessonId": "12373",
+        "lessonTitle": "BÀI 9  KHÁI QUÁT VỀ LÀNG XÃ VIỆT NAM TRO"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "end": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "datePrecision": "period",
+    "displayDate": "Thời Pháp thuộc",
+    "isApproximate": true
+  },
+  "mapData": {
+    "geoType": "no_location",
+    "historicalLocations": [],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "auto",
+      "center": null,
+      "zoom": null
+    }
+  },
+  "summary": {
+    "homepageTitle": "Cải cách hương chính thời Pháp thuộc",
+    "homepageSummary": "Trong thời Pháp thuộc, chính quyền thực dân Pháp thực hiện nhiều biện pháp cải cách nhằm tăng cường quản lí hành chính (chính sách \"cải lương hương chính\") nhưng không thành công.",
+    "cardSummary": "Chính quyền Pháp thực hiện chính sách \"cải lương hương chính\" nhưng không thành công."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Thời Pháp thuộc: Chính quyền thực dân Pháp thực hiện nhiều biện pháp cải cách nhằm tăng cường quản lí hành chính (như chính sách \"cải lương hương chính\") nhưng không thành công.",
+    "detailedNarrative": "Chính quyền thực dân Pháp thực hiện nhiều biện pháp cải cách nhằm tăng cường quản lí hành chính (như chính sách \"cải lương hương chính\") nhưng không thành công.",
+    "significance": null,
+    "keyFacts": [
+      "Chính sách \"cải lương hương chính\"",
+      "Nhằm tăng cường quản lí hành chính",
+      "Không thành công",
+      "Chính quyền Pháp thực hiện cải cách"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 11,
+        "book": "KNTT",
+        "lessonId": "12373",
+        "lessonTitle": "BÀI 9  KHÁI QUÁT VỀ LÀNG XÃ VIỆT NAM TRO",
+        "chapter": "Chu de 5",
+        "lesson": "Bai 9",
+        "pageRange": {
+          "start": 71,
+          "end": 76
+        },
+        "url": "https://sgkvn.com/lop-11-14/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-5-lang-xa-viet-nam-trong-lich-su-3348/bai-9-khai-quat-ve-lang-xa-viet-nam-trong-lich-su-12373.html",
+        "excerpt": "Thời Pháp thuộc: Chính quyền thực dân Pháp thực hiện nhiều biện pháp cải cách nhằm tăng cường quản lí hành chính (như chính sách \"cải lương hương chính\") nhưng không thành công."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "chinh-quyen-phap-cai-cach-huong-chinh",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 307
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": false,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

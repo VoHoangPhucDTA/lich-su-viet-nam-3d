@@ -1,0 +1,155 @@
+{
+  "id": "tao-ban-do-dai-nam-nhat-thong-toan-do",
+  "slug": "tao-ban-do-dai-nam-nhat-thong-toan-do",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Tạo bản đồ Đại Nam nhất thống toàn đồ",
+    "short": "Tạo bản đồ Đại Nam nhất thống toàn đồ",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "cultural",
+    "eventSubtype": "creation",
+    "region": "vietnam",
+    "tags": [
+      "triều Nguyễn",
+      "chủ quyền",
+      "bản đồ"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 11,
+        "lessonId": "12395",
+        "lessonTitle": "BÀI 16  VIỆT NAM VÀ BIỂN ĐÔNG"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1838,
+      "month": null,
+      "day": null
+    },
+    "end": null,
+    "datePrecision": "year",
+    "displayDate": "Năm 1838",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "multi_point",
+    "historicalLocations": [],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": {
+      "name": "quần đảo Hoàng Sa",
+      "lat": 16.6833,
+      "lng": 112.3333,
+      "confidence": "high"
+    },
+    "markers": [
+      {
+        "name": "quần đảo Hoàng Sa",
+        "lat": 16.6833,
+        "lng": 112.3333,
+        "confidence": "high"
+      },
+      {
+        "name": "quần đảo Trường Sa",
+        "lat": 8.3833,
+        "lng": 111.9167,
+        "confidence": "high"
+      }
+    ],
+    "focusGeometry": {
+      "mode": "bounds",
+      "center": {
+        "lat": 12.5333,
+        "lng": 112.125
+      },
+      "zoom": 8
+    }
+  },
+  "summary": {
+    "homepageTitle": "Bản đồ Đại Nam nhất thống toàn đồ (1838)",
+    "homepageSummary": "Bản đồ Đại Nam nhất thống toàn đồ được tạo ra, thể hiện quần đảo Hoàng Sa, Trường Sa thuộc lãnh thổ Việt Nam.",
+    "cardSummary": "Đại Nam nhất thống toàn đồ (1838) thể hiện chủ quyền Việt Nam đối với Hoàng Sa, Trường Sa."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Các tập bản đồ của các triều đại quân chủ Việt Nam như Đại Nam nhất thống toàn đồ (1838) đã thể hiện quần đảo Hoàng Sa, quần đảo Trường Sa thuộc lãnh thổ Việt Nam.",
+    "detailedNarrative": "Các tập bản đồ của các triều đại quân chủ Việt Nam như Đại Nam nhất thống toàn đồ (1838) đã thể hiện quần đảo Hoàng Sa, quần đảo Trường Sa thuộc lãnh thổ Việt Nam.",
+    "significance": "Là bằng chứng lịch sử khẳng định chủ quyền của Việt Nam đối với quần đảo Hoàng Sa và quần đảo Trường Sa.",
+    "keyFacts": [
+      "Thuộc các tập bản đồ của triều đại quân chủ Việt Nam",
+      "Thể hiện Hoàng Sa, Trường Sa thuộc lãnh thổ Việt Nam",
+      "Tạo ra năm 1838"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 11,
+        "book": "KNTT",
+        "lessonId": "12395",
+        "lessonTitle": "BÀI 16  VIỆT NAM VÀ BIỂN ĐÔNG",
+        "chapter": "Chu de 7",
+        "lesson": "Bai 16",
+        "pageRange": {
+          "start": 107,
+          "end": 111
+        },
+        "url": "https://sgkvn.com/lop-11-14/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-7-lich-su-chu-quyen-cua-viet-nam-o-bien-dong-3354/bai-16-viet-nam-va-bien-dong-12395.html",
+        "excerpt": "Các tập bản đồ của các triều đại quân chủ Việt Nam như Đại Nam nhất thống toàn đồ (1838) đã thể hiện quần đảo Hoàng Sa, quần đảo Trường Sa thuộc lãnh thổ Việt Nam."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "tao-ban-do-dai-nam-nhat-thong-toan-do",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 76
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": true,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

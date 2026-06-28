@@ -1,0 +1,139 @@
+{
+  "id": "unesco-thong-qua-nghi-quyet-ky-niem-ngay-sinh-chu-tich-ho-chi-minh",
+  "slug": "unesco-thong-qua-nghi-quyet-ky-niem-ngay-sinh-chu-tich-ho-chi-minh",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "UNESCO thông qua Nghị quyết về Kỉ niệm ngày sinh Chủ tịch Hồ Chí Minh",
+    "short": "UNESCO thông qua Nghị quyết về Kỉ niệm ngày sinh Chủ tịch Hồ Chí Minh",
+    "alternatives": [
+      "Nghị quyết 24C/18.6.5 về Kỉ niệm ngày sinh của Chủ tịch Hồ Chí Minh"
+    ]
+  },
+  "classification": {
+    "eventType": "diplomatic",
+    "eventSubtype": "resolution",
+    "region": "world",
+    "tags": [
+      "UNESCO",
+      "Hồ Chí Minh",
+      "kỷ niệm"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 12,
+        "lessonId": "12968",
+        "lessonTitle": "BÀI 17: DẤU ẤN HỒ CHÍ MINH TRONG LÒNG NHÂN DÂN THẾ GIỚI VÀ VIỆT NAM"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1987,
+      "month": null,
+      "day": null
+    },
+    "end": null,
+    "datePrecision": "year",
+    "displayDate": "1987",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "no_location",
+    "historicalLocations": [
+      "Pháp",
+      "Pa-ri"
+    ],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "auto",
+      "center": null,
+      "zoom": null
+    }
+  },
+  "summary": {
+    "homepageTitle": "UNESCO thông qua nghị quyết kỷ niệm Hồ Chí Minh",
+    "homepageSummary": "UNESCO thông qua Nghị quyết 24C/18.6.5 tại Pa-ri năm 1987, ghi nhận năm 1990 sẽ đánh dấu 100 năm Kỉ niệm ngày sinh của Chủ tịch Hồ Chí Minh.",
+    "cardSummary": "Năm 1987, UNESCO thông qua nghị quyết kỷ niệm 100 năm ngày sinh Chủ tịch Hồ Chí Minh."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Tổ chức Giáo dục, Khoa học và Văn hoá của Liên hợp quốc (UNESCO) trong khoá họp lần thứ 24 tại Pa-ri (1987) đã thông qua Nghị quyết 24C/18.6.5 về Kỉ niệm ngày sinh của Chủ tịch Hồ Chí Minh. Nghị quyết ghi nhận năm 1990 sẽ đánh dấu 100 năm Kỉ niệm ngày sinh của Chủ tịch Hồ Chí Minh.",
+    "detailedNarrative": "Nghị quyết ghi nhận những đóng góp quan trọng và nhiều mặt của Chủ tịch Hồ Chí Minh trên các lĩnh vực văn hoá, giáo dục, nghệ thuật, là sự kết tinh của truyền thống văn hoá hàng nghìn năm của dân tộc Việt Nam và hiện thân của những khát vọng của các dân tộc mong muốn được khẳng định bản sắc văn hoá của mình.",
+    "significance": "Ghi nhận những đóng góp quan trọng và nhiều mặt của Chủ tịch Hồ Chí Minh trên các lĩnh vực văn hoá, giáo dục, nghệ thuật, là sự kết tinh của truyền thống văn hoá Việt Nam và hiện thân của khát vọng các dân tộc.",
+    "keyFacts": [
+      "Thông qua Nghị quyết 24C/18.6.5",
+      "Ghi nhận năm 1990 là 100 năm Kỉ niệm ngày sinh Chủ tịch Hồ Chí Minh",
+      "Diễn ra tại khoá họp lần thứ 24 của UNESCO tại Pa-ri"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 12,
+        "book": "KNTT",
+        "lessonId": "12968",
+        "lessonTitle": "BÀI 17: DẤU ẤN HỒ CHÍ MINH TRONG LÒNG NHÂN DÂN THẾ GIỚI VÀ VIỆT NAM",
+        "chapter": "Chu de 5",
+        "lesson": "Bai 17",
+        "pageRange": {
+          "start": 105,
+          "end": 111
+        },
+        "url": "https://sgkvn.com/lop-12-15/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-5-lich-su-doi-ngoai-cua-viet-nam-thoi-can-hien-dai-3541/bai-17-dau-an-ho-chi-minh-trong-long-nhan-dan-the-gioi-va-viet-nam-12968.html",
+        "excerpt": "Tổ chức Giáo dục, Khoa học và Văn hoá của Liên hợp quốc (UNESCO) trong khoá họp lần thứ 24 tại Pa-ri (1987) đã thông qua Nghị quyết 24C/18.6.5 về Kỉ niệm ngày sinh của Chủ tịch Hồ Chí Minh. Nghị quyết ghi nhận năm 1990 sẽ đánh dấu 100 năm Kỉ niệm ngày sinh của Chủ tịch Hồ Chí Minh."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "unesco-thong-qua-nghi-quyet-ky-niem-ngay-sinh-chu-tich-ho-chi-minh",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 268
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": false,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

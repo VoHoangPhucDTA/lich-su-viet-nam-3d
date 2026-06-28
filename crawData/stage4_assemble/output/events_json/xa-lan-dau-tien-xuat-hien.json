@@ -1,0 +1,137 @@
+{
+  "id": "xa-lan-dau-tien-xuat-hien",
+  "slug": "xa-lan-dau-tien-xuat-hien",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Xã lần đầu tiên xuất hiện",
+    "short": "Xã xuất hiện",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "administration",
+    "region": "vietnam",
+    "tags": [
+      "đơn vị hành chính",
+      "thế kỉ VII",
+      "xã"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 11,
+        "lessonId": "12373",
+        "lessonTitle": "BÀI 9  KHÁI QUÁT VỀ LÀNG XÃ VIỆT NAM TRO"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "end": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "datePrecision": "period",
+    "displayDate": "Đầu thế kỉ VII",
+    "isApproximate": true
+  },
+  "mapData": {
+    "geoType": "no_location",
+    "historicalLocations": [],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "auto",
+      "center": null,
+      "zoom": null
+    }
+  },
+  "summary": {
+    "homepageTitle": "Xã xuất hiện lần đầu (thế kỉ VII)",
+    "homepageSummary": "Đơn vị hành chính \"xã\" lần đầu tiên xuất hiện vào đầu thế kỉ VII.",
+    "cardSummary": "Đơn vị hành chính \"xã\" lần đầu tiên xuất hiện vào đầu thế kỉ VII."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Xã lần đầu tiên xuất hiện vào đầu thế kỉ VII.",
+    "detailedNarrative": "Xã lần đầu tiên xuất hiện vào đầu thế kỉ VII.",
+    "significance": null,
+    "keyFacts": [
+      "Đầu thế kỉ VII",
+      "Xã xuất hiện lần đầu"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 11,
+        "book": "KNTT",
+        "lessonId": "12373",
+        "lessonTitle": "BÀI 9  KHÁI QUÁT VỀ LÀNG XÃ VIỆT NAM TRO",
+        "chapter": "Chu de 5",
+        "lesson": "Bai 9",
+        "pageRange": {
+          "start": 71,
+          "end": 76
+        },
+        "url": "https://sgkvn.com/lop-11-14/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-5-lang-xa-viet-nam-trong-lich-su-3348/bai-9-khai-quat-ve-lang-xa-viet-nam-trong-lich-su-12373.html",
+        "excerpt": "Xã lần đầu tiên xuất hiện vào đầu thế kỉ VII."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "xa-lan-dau-tien-xuat-hien",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 400
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": false,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

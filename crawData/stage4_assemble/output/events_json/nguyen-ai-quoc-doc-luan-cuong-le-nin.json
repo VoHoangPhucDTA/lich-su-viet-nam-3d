@@ -1,0 +1,136 @@
+{
+  "id": "nguyen-ai-quoc-doc-luan-cuong-le-nin",
+  "slug": "nguyen-ai-quoc-doc-luan-cuong-le-nin",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Nguyễn Ái Quốc đọc Sơ thảo lần thứ nhất những luận cương về vấn đề dân tộc và vấn đề thuộc địa của Lê-nin",
+    "short": "Nguyễn Ái Quốc đọc Luận cương của Lê-nin",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "intellectual-development",
+    "region": "world",
+    "tags": [
+      "Lê-nin",
+      "giải phóng dân tộc",
+      "cách mạng vô sản",
+      "Nguyễn Ái Quốc"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 12,
+        "lessonId": "12967",
+        "lessonTitle": "BÀI 16: HỒ CHÍ MINH - ANH HÙNG GIẢI PHÓNG DÂN TỘC"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1920,
+      "month": 7,
+      "day": null
+    },
+    "end": null,
+    "datePrecision": "month",
+    "displayDate": "Tháng 7 – 1920",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "no_location",
+    "historicalLocations": [],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "auto",
+      "center": null,
+      "zoom": null
+    }
+  },
+  "summary": {
+    "homepageTitle": "Nguyễn Ái Quốc đọc Luận cương của Lê-nin",
+    "homepageSummary": "Nguyễn Ái Quốc đọc Sơ thảo lần thứ nhất những luận cương về vấn đề dân tộc và vấn đề thuộc địa của Lê-nin, khẳng định con đường cách mạng vô sản cho Việt Nam.",
+    "cardSummary": "Tháng 7-1920, Nguyễn Ái Quốc đọc Luận cương của Lê-nin, khẳng định con đường cách mạng vô sản."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Tháng 7 – 1920, Nguyễn Ái Quốc đọc Sơ thảo lần thứ nhất những luận cương về vấn đề dân tộc và vấn đề thuộc địa của Lê-nin đăng trên báo Nhân đạo. Luận cương đã giúp Nguyễn Ái Quốc khẳng định con đường giành độc lập và tự do cho dân tộc Việt Nam là đi theo con đường cách mạng vô sản, gắn giải phóng dân tộc với giải phóng giai cấp, độc lập dân tộc với chủ nghĩa xã hội.",
+    "detailedNarrative": "Luận cương đã giúp Nguyễn Ái Quốc khẳng định con đường giành độc lập và tự do cho dân tộc Việt Nam là đi theo con đường cách mạng vô sản, gắn giải phóng dân tộc với giải phóng giai cấp, độc lập dân tộc với chủ nghĩa xã hội.",
+    "significance": "Khẳng định con đường giành độc lập và tự do cho dân tộc Việt Nam là đi theo con đường cách mạng vô sản, gắn giải phóng dân tộc với giải phóng giai cấp, độc lập dân tộc với chủ nghĩa xã hội.",
+    "keyFacts": [
+      "Gắn giải phóng dân tộc với giải phóng giai cấp, độc lập dân tộc với chủ nghĩa xã hội",
+      "Đăng trên báo Nhân đạo",
+      "Khẳng định con đường cách mạng vô sản",
+      "Đọc Sơ thảo lần thứ nhất những luận cương về vấn đề dân tộc và vấn đề thuộc địa của Lê-nin"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 12,
+        "book": "KNTT",
+        "lessonId": "12967",
+        "lessonTitle": "BÀI 16: HỒ CHÍ MINH - ANH HÙNG GIẢI PHÓNG DÂN TỘC",
+        "chapter": "Chu de 5",
+        "lesson": "Bai 16",
+        "pageRange": {
+          "start": 94,
+          "end": 104
+        },
+        "url": "https://sgkvn.com/lop-12-15/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-5-lich-su-doi-ngoai-cua-viet-nam-thoi-can-hien-dai-3541/bai-16-ho-chi-minh-anh-hung-giai-phong-dan-toc-12967.html",
+        "excerpt": "Tháng 7 – 1920, Nguyễn Ái Quốc đọc Sơ thảo lần thứ nhất những luận cương về vấn đề dân tộc và vấn đề thuộc địa của Lê-nin đăng trên báo Nhân đạo. Luận cương đã giúp Nguyễn Ái Quốc khẳng định con đường giành độc lập và tự do cho dân tộc Việt Nam là đi theo con đường cách mạng vô sản, gắn giải phóng dân tộc với giải phóng giai cấp, độc lập dân tộc với chủ nghĩa xã hội."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "nguyen-ai-quoc-doc-luan-cuong-le-nin",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 110
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": false,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

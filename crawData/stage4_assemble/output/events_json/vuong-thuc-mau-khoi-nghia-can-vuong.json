@@ -1,0 +1,155 @@
+{
+  "id": "vuong-thuc-mau-khoi-nghia-can-vuong",
+  "slug": "vuong-thuc-mau-khoi-nghia-can-vuong",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Vương Thúc Mậu khởi nghĩa hưởng ứng Dụ Cần vương",
+    "short": "Vương Thúc Mậu khởi nghĩa hưởng ứng Dụ Cần vương",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "military",
+    "eventSubtype": "uprising",
+    "region": "vietnam",
+    "tags": [
+      "Vương Thúc Mậu",
+      "khởi nghĩa",
+      "Cần vương"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 12,
+        "lessonId": "12966",
+        "lessonTitle": "BÀI 15: KHÁI QUÁT CUỘC ĐỜI VÀ SỰ NGHIỆP CỦA HỒ CHÍ MINH"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "end": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "datePrecision": "period",
+    "displayDate": "cuối thế kỉ XIX",
+    "isApproximate": true
+  },
+  "mapData": {
+    "geoType": "mixed",
+    "historicalLocations": [],
+    "provinceNames": [
+      "Nghệ An"
+    ],
+    "gadmRefs": [
+      "VNM.41_1"
+    ],
+    "marker": {
+      "name": "Nam Đàn (Nghệ An)",
+      "lat": 18.68,
+      "lng": 105.55,
+      "confidence": "high"
+    },
+    "markers": [
+      {
+        "name": "Nam Đàn (Nghệ An)",
+        "lat": 18.68,
+        "lng": 105.55,
+        "confidence": "high"
+      }
+    ],
+    "focusGeometry": {
+      "mode": "bounds",
+      "center": {
+        "lat": 18.979874,
+        "lng": 105.252764
+      },
+      "zoom": 7
+    }
+  },
+  "summary": {
+    "homepageTitle": "Vương Thúc Mậu khởi nghĩa Cần vương",
+    "homepageSummary": "Vương Thúc Mậu khởi nghĩa hưởng ứng Dụ Cần vương ở Nam Đàn (Nghệ An) vào cuối thế kỉ XIX.",
+    "cardSummary": "Vương Thúc Mậu khởi nghĩa hưởng ứng Dụ Cần vương ở Nam Đàn (Nghệ An) cuối thế kỉ XIX."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Vùng đất Nam Đàn (Nghệ An) là nơi lưu nhiều dấu tích lịch sử liên quan đến Vương Thúc Mậu khởi nghĩa hưởng ứng Dụ Cần vương (cuối thế kỉ XIX).",
+    "detailedNarrative": "Vùng đất Nam Đàn (Nghệ An) là nơi lưu nhiều dấu tích lịch sử liên quan đến Vương Thúc Mậu khởi nghĩa hưởng ứng Dụ Cần vương (cuối thế kỉ XIX).",
+    "significance": null,
+    "keyFacts": [
+      "Diễn ra ở Nam Đàn (Nghệ An)"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 12,
+        "book": "KNTT",
+        "lessonId": "12966",
+        "lessonTitle": "BÀI 15: KHÁI QUÁT CUỘC ĐỜI VÀ SỰ NGHIỆP CỦA HỒ CHÍ MINH",
+        "chapter": "Chu de 5",
+        "lesson": "Bai 15",
+        "pageRange": {
+          "start": 88,
+          "end": 93
+        },
+        "url": "https://sgkvn.com/lop-12-15/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-5-lich-su-doi-ngoai-cua-viet-nam-thoi-can-hien-dai-3541/bai-15-khai-quat-cuoc-doi-va-su-nghiep-cua-ho-chi-minh-12966.html",
+        "excerpt": "Vùng đất Nam Đàn (Nghệ An) là nơi lưu nhiều dấu tích lịch sử liên quan đến Vương Thúc Mậu khởi nghĩa hưởng ứng Dụ Cần vương (cuối thế kỉ XIX)."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "vuong-thuc-mau-khoi-nghia-can-vuong",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 399
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": true,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

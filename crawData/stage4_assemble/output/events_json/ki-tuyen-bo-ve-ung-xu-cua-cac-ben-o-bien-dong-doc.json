@@ -1,0 +1,139 @@
+{
+  "id": "ki-tuyen-bo-ve-ung-xu-cua-cac-ben-o-bien-dong-doc",
+  "slug": "ki-tuyen-bo-ve-ung-xu-cua-cac-ben-o-bien-dong-doc",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Kí Tuyên bố về ứng xử của các bên ở Biển Đông (DOC)",
+    "short": "Kí DOC",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "diplomatic",
+    "eventSubtype": "treaty",
+    "region": "world",
+    "tags": [
+      "hòa bình",
+      "Biển Đông",
+      "Trung Quốc",
+      "ASEAN"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 11,
+        "lessonId": "12395",
+        "lessonTitle": "BÀI 16  VIỆT NAM VÀ BIỂN ĐÔNG"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 2002,
+      "month": 11,
+      "day": 4
+    },
+    "end": null,
+    "datePrecision": "day",
+    "displayDate": "Ngày 4 tháng 11 năm 2002",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "no_location",
+    "historicalLocations": [
+      "Cam-pu-chia",
+      "Phnôm Pênh"
+    ],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "auto",
+      "center": null,
+      "zoom": null
+    }
+  },
+  "summary": {
+    "homepageTitle": "Kí Tuyên bố DOC về Biển Đông (2002)",
+    "homepageSummary": "Ngày 4 tháng 11 năm 2002, các nước ASEAN và Trung Quốc kí Tuyên bố về ứng xử của các bên ở Biển Đông (DOC) tại Phnôm Pênh, Cam-pu-chia.",
+    "cardSummary": "Các nước ASEAN và Trung Quốc kí Tuyên bố DOC về ứng xử ở Biển Đông vào ngày 4/11/2002."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Tuyên bố về Cách ứng xử của các bên ở Biển Đông (DOC) được các nước ASEAN và Trung Quốc kí ngày 4-11-2002 tại Thủ đô Phnôm Pênh, Cam-pu-chia.",
+    "detailedNarrative": "Tuyên bố về Cách ứng xử của các bên ở Biển Đông (DOC) được các nước ASEAN và Trung Quốc kí ngày 4-11-2002 tại Thủ đô Phnôm Pênh, Cam-pu-chia. Điều 4 của DOC nêu rõ: Các bên liên quan chịu trách nhiệm giải quyết các tranh chấp về lãnh thổ và về quyền thực thi luật pháp bằng các phương tiện hoà bình mà không viện đến sự đe doạ hoặc sử dụng vũ lực, thông qua các cuộc tham vấn thân thiện và những cuộc đàm phán bởi các quốc gia có chủ quyền có liên quan trực tiếp, phù hợp với những nguyên tắc được thừa nhận phổ quát của luật pháp quốc tế, kể cả Công ước Liên hợp quốc về Luật Biển năm 1982.",
+    "significance": "Là một văn kiện quan trọng nhằm duy trì hòa bình, ổn định và giải quyết tranh chấp ở Biển Đông bằng biện pháp hòa bình.",
+    "keyFacts": [
+      "Mục tiêu: giải quyết tranh chấp bằng biện pháp hòa bình, không sử dụng vũ lực",
+      "Kí ngày 4 tháng 11 năm 2002",
+      "Địa điểm: Phnôm Pênh, Cam-pu-chia",
+      "Các bên tham gia: các nước ASEAN và Trung Quốc"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 11,
+        "book": "KNTT",
+        "lessonId": "12395",
+        "lessonTitle": "BÀI 16  VIỆT NAM VÀ BIỂN ĐÔNG",
+        "chapter": "Chu de 7",
+        "lesson": "Bai 16",
+        "pageRange": {
+          "start": 107,
+          "end": 111
+        },
+        "url": "https://sgkvn.com/lop-11-14/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-7-lich-su-chu-quyen-cua-viet-nam-o-bien-dong-3354/bai-16-viet-nam-va-bien-dong-12395.html",
+        "excerpt": "Tuyên bố về Cách ứng xử của các bên ở Biển Đông (DOC) được các nước ASEAN và Trung Quốc kí ngày 4-11-2002 tại Thủ đô Phnôm Pênh, Cam-pu-chia."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "ki-tuyen-bo-ve-ung-xu-cua-cac-ben-o-bien-dong-doc",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 281
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": false,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

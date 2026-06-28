@@ -1,0 +1,148 @@
+{
+  "id": "viet-nam-ki-ket-hiep-uoc-bien-gioi-trung-quoc",
+  "slug": "viet-nam-ki-ket-hiep-uoc-bien-gioi-trung-quoc",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Việt Nam kí kết các hiệp ước về biên giới trên đất liền và phân định vịnh Bắc Bộ với Trung Quốc",
+    "short": "VN kí hiệp ước biên giới TQ",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "diplomatic",
+    "eventSubtype": "treaty",
+    "region": "vietnam",
+    "tags": [
+      "Vịnh Bắc Bộ",
+      "chủ quyền",
+      "biên giới",
+      "Trung Quốc"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 12,
+        "lessonId": "12965",
+        "lessonTitle": "BÀI 14: HOẠT ĐỘNG ĐỐI NGOẠI CỦA VIỆT NAM TỪ NĂM 1975 ĐẾN NAY"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "end": null,
+    "datePrecision": "period",
+    "displayDate": "Trong thời kì Đổi mới",
+    "isApproximate": true
+  },
+  "mapData": {
+    "geoType": "point",
+    "historicalLocations": [
+      "Trung Quốc"
+    ],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": {
+      "name": "Vịnh Bắc Bộ",
+      "lat": 19.5,
+      "lng": 107.5,
+      "confidence": "medium"
+    },
+    "markers": [],
+    "focusGeometry": {
+      "mode": "marker",
+      "center": {
+        "name": "Vịnh Bắc Bộ",
+        "lat": 19.5,
+        "lng": 107.5,
+        "confidence": "medium"
+      },
+      "zoom": 12
+    }
+  },
+  "summary": {
+    "homepageTitle": "VN kí hiệp ước biên giới với TQ",
+    "homepageSummary": "Việt Nam kí kết các hiệp ước về biên giới trên đất liền và phân định vịnh Bắc Bộ với Trung Quốc, giải quyết tranh chấp bằng hòa bình.",
+    "cardSummary": "Việt Nam kí hiệp ước biên giới trên đất liền và phân định vịnh Bắc Bộ với Trung Quốc."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Đối với Trung Quốc, Việt Nam kí kết các hiệp ước về biên giới trên đất liền và phân định vịnh Bắc Bộ, giải quyết những tranh chấp thông qua biện pháp hoà bình.",
+    "detailedNarrative": "Để đảm bảo hoà bình, ổn định, bảo vệ lãnh thổ, lãnh hải, biển đảo của Tổ quốc, Việt Nam tham gia đàm phán và kí kết các thoả thuận, các hiệp định về phân định biên giới trên bộ, trên biển.",
+    "significance": "Bảo vệ vững chắc chủ quyền lãnh thổ, lãnh hải, biển đảo của Tổ quốc.",
+    "keyFacts": [
+      "Với Trung Quốc",
+      "Kí kết hiệp ước biên giới trên đất liền",
+      "Kí kết hiệp ước phân định vịnh Bắc Bộ",
+      "Giải quyết tranh chấp bằng biện pháp hoà bình"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 12,
+        "book": "KNTT",
+        "lessonId": "12965",
+        "lessonTitle": "BÀI 14: HOẠT ĐỘNG ĐỐI NGOẠI CỦA VIỆT NAM TỪ NĂM 1975 ĐẾN NAY",
+        "chapter": "Chu de 4",
+        "lesson": "Bai 14",
+        "pageRange": {
+          "start": 81,
+          "end": 86
+        },
+        "url": "https://sgkvn.com/lop-12-15/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-4-cong-cuoc-doi-moi-o-viet-nam-tu-nam-1986-den-nay-3540/bai-14-hoat-dong-doi-ngoai-cua-viet-nam-tu-nam-1975-den-nay-12965.html",
+        "excerpt": "Đối với Trung Quốc, Việt Nam kí kết các hiệp ước về biên giới trên đất liền và phân định vịnh Bắc Bộ, giải quyết những tranh chấp thông qua biện pháp hoà bình."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "viet-nam-ki-ket-hiep-uoc-bien-gioi-trung-quoc",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 384
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": true,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

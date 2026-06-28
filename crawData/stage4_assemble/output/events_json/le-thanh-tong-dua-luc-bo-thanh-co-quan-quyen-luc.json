@@ -1,0 +1,139 @@
+{
+  "id": "le-thanh-tong-dua-luc-bo-thanh-co-quan-quyen-luc",
+  "slug": "le-thanh-tong-dua-luc-bo-thanh-co-quan-quyen-luc",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Lê Thánh Tông đưa Lục bộ thành cơ quan có quyền lực thực sự",
+    "short": "Lê Thánh Tông củng cố Lục bộ",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "administrative_reform",
+    "region": "vietnam",
+    "tags": [
+      "Lê Thánh Tông",
+      "Lê sơ",
+      "Lục bộ",
+      "hành chính"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 11,
+        "lessonId": "12390",
+        "lessonTitle": "BÀI 13  CUỘC CẢI CÁCH CỦA LÊ THÁNH TÔNG"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1465,
+      "month": null,
+      "day": null
+    },
+    "end": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "datePrecision": "year",
+    "displayDate": "Năm 1465",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "no_location",
+    "historicalLocations": [],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "auto",
+      "center": null,
+      "zoom": null
+    }
+  },
+  "summary": {
+    "homepageTitle": "Lê Thánh Tông củng cố Lục bộ",
+    "homepageSummary": "Năm 1465, vua Lê Thánh Tông đưa Lục bộ trở thành cơ quan có quyền lực thực sự, là một phần quan trọng trong cải cách hành chính.",
+    "cardSummary": "Năm 1465, Lê Thánh Tông củng cố Lục bộ, biến chúng thành cơ quan quyền lực."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Năm 1465, vua Lê Thánh Tông mới đưa lục bộ trở thành cơ quan có quyền lực thực sự.",
+    "detailedNarrative": null,
+    "significance": "Là một bước quan trọng trong việc củng cố bộ máy hành chính trung ương tập quyền dưới thời Lê Thánh Tông.",
+    "keyFacts": [
+      "Diễn ra năm 1465",
+      "Lục bộ trở thành cơ quan quyền lực thực sự",
+      "Người thực hiện: Lê Thánh Tông"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 11,
+        "book": "KNTT",
+        "lessonId": "12390",
+        "lessonTitle": "BÀI 13  CUỘC CẢI CÁCH CỦA LÊ THÁNH TÔNG",
+        "chapter": "Chu de 6",
+        "lesson": "Bai 13",
+        "pageRange": {
+          "start": 93,
+          "end": 96
+        },
+        "url": "https://sgkvn.com/lop-11-14/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-6-mot-so-cuoc-cai-cach-lon-trong-lich-su-viet-nam-truoc-nam-1858-3353/bai-13-cuoc-cai-cach-cua-le-thanh-tong-the-ki-xv-12390.html",
+        "excerpt": "Năm 1465, vua Lê Thánh Tông mới đưa lục bộ trở thành cơ quan có quyền lực thực sự."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "le-thanh-tong-dua-luc-bo-thanh-co-quan-quyen-luc",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 44
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": false,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

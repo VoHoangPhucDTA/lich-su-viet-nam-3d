@@ -1,0 +1,154 @@
+{
+  "id": "xay-dung-va-dong-dien-duong-day-500kv-bac-nam-mach-1",
+  "slug": "xay-dung-va-dong-dien-duong-day-500kv-bac-nam-mach-1",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Xây dựng và đóng điện đường dây 500 kV Bắc - Nam (mạch 1)",
+    "short": "Đường dây 500 kV Bắc - Nam",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "economic",
+    "eventSubtype": "infrastructure",
+    "region": "vietnam",
+    "tags": [
+      "công nghiệp",
+      "điện lực",
+      "Đổi mới",
+      "cơ sở hạ tầng"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 12,
+        "lessonId": "12960",
+        "lessonTitle": "BÀI 11: THÀNH TỰU CƠ BẢN VÀ BÀI HỌC CỦA CÔNG CUỘC ĐỔI MỚI Ở VIỆT NAM TỪ NĂM 1986 ĐẾN NAY"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1992,
+      "month": null,
+      "day": null
+    },
+    "end": {
+      "year": 1993,
+      "month": null,
+      "day": null
+    },
+    "datePrecision": "year",
+    "displayDate": "1992 - 1993",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "nationwide",
+    "historicalLocations": [
+      "Việt Nam",
+      "Bắc - Nam"
+    ],
+    "provinceNames": [
+      "Ninh Thuận"
+    ],
+    "gadmRefs": [
+      "VNM.43_1"
+    ],
+    "marker": {
+      "name": "Bác Ái (Ninh Thuận)",
+      "lat": 11.75,
+      "lng": 108.7,
+      "confidence": "high"
+    },
+    "markers": [],
+    "focusGeometry": {
+      "mode": "bounds",
+      "center": {
+        "lat": 16.0,
+        "lng": 106.0
+      },
+      "zoom": 5
+    }
+  },
+  "summary": {
+    "homepageTitle": "Đường dây 500 kV Bắc - Nam (1992-1993)",
+    "homepageSummary": "Đường dây 500 kV Bắc - Nam (mạch 1) khởi công và hoàn thành (1992-1993), tạo trục xương sống cho hệ thống điện Việt Nam.",
+    "cardSummary": "Đường dây 500 kV Bắc - Nam (mạch 1) xây dựng và đóng điện thành công giai đoạn 1992-1993."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Công trình đường dây 500 kV Bắc - Nam (mạch 1) được khởi công thiết kế và xây dựng chỉ trong hai năm (1992 - 1993) từ khi khởi công đến khi đóng điện thành công.",
+    "detailedNarrative": "Công trình có tổng chiều dài 1 487 km, đánh dấu hệ thống điện Việt Nam có trục xương sống 500kV chạy suốt từ Bắc vào Nam lần đầu tiên trong lịch sử.",
+    "significance": "Tạo trục xương sống cho hệ thống điện Việt Nam, góp phần vào sự phát triển kinh tế - xã hội.",
+    "keyFacts": [
+      "Khởi công và hoàn thành 1992-1993",
+      "Trục xương sống hệ thống điện Việt Nam",
+      "Tổng chiều dài 1 487 km"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 12,
+        "book": "KNTT",
+        "lessonId": "12960",
+        "lessonTitle": "BÀI 11: THÀNH TỰU CƠ BẢN VÀ BÀI HỌC CỦA CÔNG CUỘC ĐỔI MỚI Ở VIỆT NAM TỪ NĂM 1986 ĐẾN NAY",
+        "chapter": "Chu de 4",
+        "lesson": "Bai 11",
+        "pageRange": {
+          "start": 65,
+          "end": 71
+        },
+        "url": "https://sgkvn.com/lop-12-15/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-4-cong-cuoc-doi-moi-o-viet-nam-tu-nam-1986-den-nay-3540/bai-11-thanh-tuu-co-ban-va-bai-hoc-cua-cong-cuoc-doi-moi-o-viet-nam-tu-nam-1986-den-nay-12960.html",
+        "excerpt": "Công trình đường dây 500 kV Bắc - Nam (mạch 1) được khởi công thiết kế và xây dựng chỉ trong hai năm (1992 - 1993) từ khi khởi công đến khi đóng điện thành công."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "xay-dung-va-dong-dien-duong-day-500kv-bac-nam-mach-1",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 273
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": true,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

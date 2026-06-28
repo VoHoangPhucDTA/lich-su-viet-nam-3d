@@ -1,0 +1,166 @@
+{
+  "id": "nguyen-hue-dep-yen-coi-bac-duy-chi-bi-hai",
+  "slug": "nguyen-hue-dep-yen-coi-bac-duy-chi-bi-hai",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Dẹp yên cõi Bắc, Nguyễn Huệ được phong, Đánh phá Cao Bằng, Duy Chỉ bị hại",
+    "short": "Nguyễn Huệ dẹp Bắc, Duy Chỉ bị hại",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "military",
+    "eventSubtype": "campaign",
+    "region": "vietnam",
+    "tags": [
+      "Cao Bằng",
+      "Tây Sơn",
+      "Nguyễn Huệ",
+      "thế kỉ XVIII"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      10
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 10,
+        "lessonId": "12128",
+        "lessonTitle": "Bài 3: Sử Học Với Các Lĩnh Vực Khoa Học"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "end": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "datePrecision": "period",
+    "displayDate": "Thế kỉ XVIII",
+    "isApproximate": true
+  },
+  "mapData": {
+    "geoType": "mixed",
+    "historicalLocations": [],
+    "provinceNames": [
+      "Cao Bằng"
+    ],
+    "gadmRefs": [
+      "VNM.14_1"
+    ],
+    "marker": {
+      "name": "Cao Bằng",
+      "lat": 22.6667,
+      "lng": 106.25,
+      "confidence": "high"
+    },
+    "markers": [
+      {
+        "name": "Cao Bằng",
+        "lat": 22.6667,
+        "lng": 106.25,
+        "confidence": "high"
+      },
+      {
+        "name": "cõi Bắc",
+        "lat": 21.0285,
+        "lng": 105.8542,
+        "confidence": "low"
+      }
+    ],
+    "focusGeometry": {
+      "mode": "bounds",
+      "center": {
+        "lat": 22.151359,
+        "lng": 106.07122
+      },
+      "zoom": 7
+    }
+  },
+  "summary": {
+    "homepageTitle": "Nguyễn Huệ dẹp yên cõi Bắc, Duy Chỉ bị hại",
+    "homepageSummary": "Sự kiện Nguyễn Huệ dẹp yên cõi Bắc và được phong, đồng thời đánh phá Cao Bằng khiến Duy Chỉ bị hại, củng cố quyền lực của Tây Sơn.",
+    "cardSummary": "Nguyễn Huệ dẹp yên cõi Bắc, được phong và đánh phá Cao Bằng, Duy Chỉ bị hại thế kỉ XVIII."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Hồi 15 của tác phẩm Hoàng Lê nhất thống chí ghi lại sự kiện dẹp yên cõi Bắc, Nguyễn Huệ được phong; đánh phá Cao Bằng, Duy Chỉ bị hại.",
+    "detailedNarrative": "Dẹp yên cõi Bắc, Nguyễn Huệ được phong. Đánh phá Cao Bằng, Duy Chỉ bị hại.",
+    "significance": "Củng cố quyền lực của Nguyễn Huệ và triều Tây Sơn.",
+    "keyFacts": [
+      "Nguyễn Huệ dẹp yên cõi Bắc",
+      "Nguyễn Huệ được phong",
+      "Ghi trong Hoàng Lê nhất thống chí",
+      "Đánh phá Cao Bằng",
+      "Duy Chỉ bị hại"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 10,
+        "book": "KNTT",
+        "lessonId": "12128",
+        "lessonTitle": "Bài 3: Sử Học Với Các Lĩnh Vực Khoa Học",
+        "chapter": "Chu de 2",
+        "lesson": "Bai 3",
+        "pageRange": {
+          "start": 19,
+          "end": 25
+        },
+        "url": "https://sgkvn.com/lop-10-13/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-2-vai-tro-cua-su-hoc-3269/bai-3-su-hoc-voi-cac-linh-vuc-khoa-hoc-12128.html",
+        "excerpt": "Hồi 15 của tác phẩm Hoàng Lê nhất thống chí ghi lại sự kiện dẹp yên cõi Bắc, Nguyễn Huệ được phong; đánh phá Cao Bằng, Duy Chỉ bị hại."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "nguyen-hue-dep-yen-coi-bac-duy-chi-bi-hai",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 347
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": true,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

@@ -1,0 +1,153 @@
+{
+  "id": "xac-dinh-nien-dai-di-vat-dong-son-thanh-hoa",
+  "slug": "xac-dinh-nien-dai-di-vat-dong-son-thanh-hoa",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Xác định niên đại di vật văn hoá Đông Sơn tại Đông Sơn (Thanh Hoá)",
+    "short": "Niên đại Đông Sơn (Thanh Hoá)",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "cultural",
+    "eventSubtype": "archaeological-dating",
+    "region": "vietnam",
+    "tags": [
+      "niên đại",
+      "Văn hoá Đông Sơn",
+      "khảo cổ học"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      10
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 10,
+        "lessonId": "12128",
+        "lessonTitle": "Bài 3: Sử Học Với Các Lĩnh Vực Khoa Học"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "end": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "datePrecision": "period",
+    "displayDate": "Khoảng thế kỉ IX TCN",
+    "isApproximate": true
+  },
+  "mapData": {
+    "geoType": "nationwide",
+    "historicalLocations": [
+      "Việt Nam"
+    ],
+    "provinceNames": [
+      "Thanh Hóa"
+    ],
+    "gadmRefs": [
+      "VNM.57_1"
+    ],
+    "marker": {
+      "name": "Đông Sơn",
+      "lat": 19.8,
+      "lng": 105.75,
+      "confidence": "medium"
+    },
+    "markers": [],
+    "focusGeometry": {
+      "mode": "bounds",
+      "center": {
+        "lat": 16.0,
+        "lng": 106.0
+      },
+      "zoom": 5
+    }
+  },
+  "summary": {
+    "homepageTitle": "Niên đại di vật Đông Sơn (Thanh Hoá) thế kỉ IX TCN",
+    "homepageSummary": "Các nhà khảo cổ học xác định niên đại di vật tại Đông Sơn (Thanh Hoá) thuộc văn hoá Đông Sơn là khoảng thế kỉ IX TCN bằng đồng vị phóng xạ 14C.",
+    "cardSummary": "Di vật văn hoá Đông Sơn tại Thanh Hoá được xác định niên đại khoảng thế kỉ IX TCN."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Khi nghiên cứu về nền văn hoá Đông Sơn ở Việt Nam, các nhà khảo cổ học đã xác định niên đại của các mẫu di vật khai quật được tại di chỉ Đông Sơn (Thanh Hoá) là khoảng thế kỉ IX TCN bằng đồng vị phóng xạ 14C.",
+    "detailedNarrative": "Niên đại C (năm) là 2820 + 12, tương ứng khoảng thế kỉ IX TCN.",
+    "significance": "Góp phần xác định niên đại của nền văn hoá Đông Sơn.",
+    "keyFacts": [
+      "Niên đại C: 2820 + 12",
+      "Địa điểm: Đông Sơn (Thanh Hoá)",
+      "Niên đại dương lịch: Khoảng thế kỉ IX TCN",
+      "Phương pháp: đồng vị phóng xạ 14C"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 10,
+        "book": "KNTT",
+        "lessonId": "12128",
+        "lessonTitle": "Bài 3: Sử Học Với Các Lĩnh Vực Khoa Học",
+        "chapter": "Chu de 2",
+        "lesson": "Bai 3",
+        "pageRange": {
+          "start": 19,
+          "end": 25
+        },
+        "url": "https://sgkvn.com/lop-10-13/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-2-vai-tro-cua-su-hoc-3269/bai-3-su-hoc-voi-cac-linh-vuc-khoa-hoc-12128.html",
+        "excerpt": "Khi nghiên cứu về nền văn hoá Đông Sơn ở Việt Nam, các nhà khảo cổ học đã xác định niên đại của các mẫu di vật khai quật được tại di chỉ Đông Sơn (Thanh Hoá) là khoảng thế kỉ IX TCN bằng đồng vị phóng xạ 14C."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "xac-dinh-nien-dai-di-vat-dong-son-thanh-hoa",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 402
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": true,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

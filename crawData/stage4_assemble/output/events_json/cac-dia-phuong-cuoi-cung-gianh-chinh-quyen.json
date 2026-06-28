@@ -1,0 +1,161 @@
+{
+  "id": "cac-dia-phuong-cuoi-cung-gianh-chinh-quyen",
+  "slug": "cac-dia-phuong-cuoi-cung-gianh-chinh-quyen",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Đồng Nai Thượng và Hà Tiên là những địa phương cuối cùng giành chính quyền",
+    "short": "Địa phương cuối cùng giành chính quyền",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "uprising",
+    "region": "vietnam",
+    "tags": [
+      "Tổng khởi nghĩa",
+      "Địa phương",
+      "Giành chính quyền"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 12,
+        "lessonId": "12952",
+        "lessonTitle": "BÀI 6: CÁCH MẠNG THÁNG TÁM NĂM 1945"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1945,
+      "month": 8,
+      "day": 28
+    },
+    "end": null,
+    "datePrecision": "day",
+    "displayDate": "Đến ngày 28 - 8",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "mixed",
+    "historicalLocations": [],
+    "provinceNames": [
+      "Đồng Nai",
+      "Hà Tĩnh"
+    ],
+    "gadmRefs": [
+      "VNM.17_1",
+      "VNM.29_1"
+    ],
+    "marker": {
+      "name": "Đồng Nai Thượng",
+      "lat": 10.95,
+      "lng": 107.0,
+      "confidence": "medium"
+    },
+    "markers": [
+      {
+        "name": "Đồng Nai Thượng",
+        "lat": 10.95,
+        "lng": 107.0,
+        "confidence": "medium"
+      },
+      {
+        "name": "Hà Tiên",
+        "lat": 10.38,
+        "lng": 104.28,
+        "confidence": "high"
+      }
+    ],
+    "focusGeometry": {
+      "mode": "bounds",
+      "center": {
+        "lat": 12.680494,
+        "lng": 106.048704
+      },
+      "zoom": 7
+    }
+  },
+  "summary": {
+    "homepageTitle": "Đồng Nai Thượng, Hà Tiên giành chính quyền",
+    "homepageSummary": "Đến ngày 28-8-1945, Đồng Nai Thượng và Hà Tiên là những địa phương cuối cùng giành chính quyền trong Cách mạng tháng Tám.",
+    "cardSummary": "Đồng Nai Thượng và Hà Tiên giành chính quyền cuối cùng (28-8-1945)."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Đến ngày 28 - 8, Đồng Nai Thượng và Hà Tiên là những địa phương cuối cùng giành chính quyền.",
+    "detailedNarrative": null,
+    "significance": "Đánh dấu sự hoàn thành việc giành chính quyền trên cả nước trong Cách mạng tháng Tám.",
+    "keyFacts": [
+      "Đến ngày 28-8-1945",
+      "Là những địa phương cuối cùng giành chính quyền",
+      "Đồng Nai Thượng và Hà Tiên"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 12,
+        "book": "KNTT",
+        "lessonId": "12952",
+        "lessonTitle": "BÀI 6: CÁCH MẠNG THÁNG TÁM NĂM 1945",
+        "chapter": "Chu de 3",
+        "lesson": "Bai 6",
+        "pageRange": {
+          "start": 31,
+          "end": 36
+        },
+        "url": "https://sgkvn.com/lop-12-15/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-3-cach-mang-thang-tam-nam-1945-chien-tranh-giai-phong-dan-toc-va-chien-tranh-bao-ve-to-quoc-trong-lich-su-viet-nam-tu-thang-8-nam-1945-den-nay-3539/bai-6-cach-mang-thang-tam-nam-1945-12952.html",
+        "excerpt": "Đến ngày 28 - 8, Đồng Nai Thượng và Hà Tiên là những địa phương cuối cùng giành chính quyền."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "cac-dia-phuong-cuoi-cung-gianh-chinh-quyen",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 160
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": true,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

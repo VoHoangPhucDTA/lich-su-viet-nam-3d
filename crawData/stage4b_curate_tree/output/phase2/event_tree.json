@@ -1,0 +1,2566 @@
+{
+  "roots": [
+    {
+      "id": "viet-nam-thoi-dung-nuoc",
+      "title": "Việt Nam thời dựng nước",
+      "eventLevel": "collection",
+      "level": 0,
+      "children": [
+        {
+          "id": "su-ra-doi-nha-nuoc-au-lac",
+          "title": "Sự ra đời của Nhà nước Âu Lạc",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "khang-chien-chong-quan-trieu-an-duong-vuong",
+          "title": "Kháng chiến chống quân Triệu của An Dương Vương",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        }
+      ]
+    },
+    {
+      "id": "bac-thuoc-va-dau-tranh-gianh-doc-lap",
+      "title": "Bắc thuộc và đấu tranh giành độc lập",
+      "eventLevel": "collection",
+      "level": 0,
+      "children": [
+        {
+          "id": "khoi-nghia-hai-ba-trung",
+          "title": "Khởi nghĩa Hai Bà Trưng",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "khoi-nghia-khu-lien-lap-nuoc-lam-ap",
+          "title": "Khởi nghĩa Khu Liên lập nước Lâm Ấp",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "khoi-nghia-ba-trieu",
+          "title": "Khởi nghĩa Bà Triệu",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "khoi-nghia-ly-bi-trieu-quang-phuc",
+          "title": "Khởi nghĩa Lý Bí và Triệu Quang Phục",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "khoi-nghia-mai-thuc-loan",
+          "title": "Khởi nghĩa Mai Thúc Loan",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "khoi-nghia-khuc-thua-du",
+          "title": "Khởi nghĩa Khúc Thừa Dụ",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        }
+      ]
+    },
+    {
+      "id": "viet-nam-tu-the-ki-x-den-xv",
+      "title": "Việt Nam từ thế kỉ X đến thế kỉ XV",
+      "eventLevel": "collection",
+      "level": 0,
+      "children": [
+        {
+          "id": "chien-thang-bach-dang-938",
+          "title": "Chiến thắng Bạch Đằng (938)",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "ngo-quyen-xung-vuong-co-loa",
+          "title": "Ngô Quyền xưng vương và đóng đô ở Cổ Loa",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "khang-chien-chong-quan-tong-981",
+          "title": "Kháng chiến chống quân Tống (lần 1)",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "ly-thai-to-doi-do-thang-long",
+          "title": "Lý Thái Tổ dời đô ra Thăng Long",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "ly-thanh-tong-dung-van-mieu",
+          "title": "Vua Lý Thánh Tông cho dựng Văn Miếu thờ Khổng Tử",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "khang-chien-chong-quan-tong-1075-1077",
+          "title": "Kháng chiến chống quân Tống (lần 2)",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "ly-thuong-kiet-tap-kich-kham-chau-liem-chau-ung-chau",
+          "title": "Lý Thường Kiệt chủ động tập kích Khâm Châu, Liêm Châu, Ung Châu",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "ly-nhan-tong-lap-quoc-tu-giam",
+          "title": "Vua Lý Nhân Tông cho lập Quốc Tử Giám",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "ga-cong-chua-thieu-dung-duong-tu-minh-1144",
+          "title": "Gả Công chúa Thiều Dung cho Dương Tự Minh",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "nha-ly-thanh-lap-trang-van-don",
+          "title": "Nhà Lý thành lập trang Vân Đồn",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "khang-chien-chong-quan-mong-co-1258",
+          "title": "Kháng chiến chống quân Mông Cổ (lần 1)",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "hoi-nghi-binh-than",
+          "title": "Hội nghị Bình Than",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "hoi-nghi-dien-hong",
+          "title": "Hội nghị Diên Hồng",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "khang-chien-chong-quan-nguyen-1285",
+          "title": "Kháng chiến chống quân Nguyên (lần 2)",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "khang-chien-chong-quan-nguyen-1287-1288",
+          "title": "Kháng chiến chống quân Nguyên (lần 3)",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "cai-cach-ho-quy-ly-trieu-ho",
+          "title": "Cải cách của Hồ Quý Ly và triều Hồ",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "phat-hanh-tien-giay-thong-bao-hoi-sao",
+          "title": "Phát hành tiền giấy Thông bảo hội sao",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "ban-hanh-chinh-sach-han-dien",
+          "title": "Ban hành chính sách hạn điền",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "ho-quy-ly-doi-do-thanh-hoa",
+          "title": "Hồ Quý Ly dời đô vào Thanh Hoá",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "ho-quy-ly-lap-trieu-ho",
+          "title": "Hồ Quý Ly buộc vua Trần nhường ngôi, lập ra triều Hồ",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "ban-hanh-chinh-sach-han-no",
+          "title": "Ban hành chính sách hạn nô",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "khang-chien-chong-quan-minh-nha-ho",
+          "title": "Kháng chiến chống quân Minh của nhà Hồ",
+          "eventLevel": "collection",
+          "level": 1,
+          "children": [
+            {
+              "id": "nha-minh-xam-luoc-dai-ngu",
+              "title": "Nhà Minh xâm lược Đại Ngu",
+              "eventLevel": "atomic",
+              "level": 2,
+              "children": []
+            }
+          ]
+        },
+        {
+          "id": "nha-minh-thong-tri-huy-diet-van-minh-dai-viet",
+          "title": "Nhà Minh thống trị Đại Việt và chính sách huỷ diệt văn minh",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "hoi-the-lung-nhai",
+          "title": "Hội thề Lũng Nhai",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "khoi-nghia-lam-son",
+          "title": "Khởi nghĩa Lam Sơn",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "hoi-the-dong-quan",
+          "title": "Hội thề Đông Quan",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "nha-le-so-thanh-lap",
+          "title": "Nhà Lê sơ được thành lập",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "cai-cach-le-thanh-tong",
+          "title": "Cuộc cải cách của Lê Thánh Tông",
+          "eventLevel": "collection",
+          "level": 1,
+          "children": [
+            {
+              "id": "le-nghi-dan-dat-luc-bo",
+              "title": "Lê Nghi Dân đặt Lục bộ",
+              "eventLevel": "atomic",
+              "level": 2,
+              "children": []
+            },
+            {
+              "id": "le-thanh-tong-dua-luc-bo-thanh-co-quan-quyen-luc",
+              "title": "Lê Thánh Tông đưa Lục bộ thành cơ quan có quyền lực thực sự",
+              "eventLevel": "atomic",
+              "level": 2,
+              "children": []
+            },
+            {
+              "id": "cai-to-hanh-chinh-dia-phuong-12-thua-tuyen",
+              "title": "Cải tổ hành chính địa phương (chia 12 thừa tuyên)",
+              "eventLevel": "atomic",
+              "level": 2,
+              "children": []
+            },
+            {
+              "id": "cai-to-he-thong-quan-doi-le-thanh-tong",
+              "title": "Cải tổ hệ thống quân đội dưới thời Lê Thánh Tông",
+              "eventLevel": "atomic",
+              "level": 2,
+              "children": []
+            },
+            {
+              "id": "dat-them-thua-tuyen-quang-nam",
+              "title": "Đặt thêm thừa tuyên Quảng Nam",
+              "eventLevel": "atomic",
+              "level": 2,
+              "children": []
+            },
+            {
+              "id": "ban-hanh-chinh-sach-loc-dien-quan-dien",
+              "title": "Ban hành chính sách lộc điền và quân điền",
+              "eventLevel": "atomic",
+              "level": 2,
+              "children": []
+            },
+            {
+              "id": "ban-hanh-quoc-trieu-hinh-luat",
+              "title": "Ban hành bộ Quốc triều hình luật (Luật Hồng Đức)",
+              "eventLevel": "atomic",
+              "level": 2,
+              "children": []
+            },
+            {
+              "id": "le-thanh-tong-dung-bia-tien-si-van-mieu",
+              "title": "Vua Lê Thánh Tông cho dựng bia đá ở Văn Miếu khắc tên Tiến sĩ",
+              "eventLevel": "atomic",
+              "level": 2,
+              "children": []
+            },
+            {
+              "id": "vu-an-le-chi-vien",
+              "title": "Vụ án Lệ Chi Viên",
+              "eventLevel": "atomic",
+              "level": 2,
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "viet-nam-tu-the-ki-xvi-den-xix",
+      "title": "Việt Nam từ thế kỉ XVI đến thế kỉ XIX",
+      "eventLevel": "collection",
+      "level": 0,
+      "children": [
+        {
+          "id": "nha-mac-thanh-lap",
+          "title": "Nhà Mạc thành lập",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "giao-si-phuong-tay-truyen-dao-cong-giao",
+          "title": "Giáo sĩ phương Tây truyền đạo Công giáo ở Nam Định",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "phuc-nghia-hau-gui-thu-nhat-ban",
+          "title": "Phúc Nghĩa hầu gửi thư cho Quốc vương Nhật Bản",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "giang-van-minh-di-su-nha-minh",
+          "title": "Giang Văn Minh đi sứ nhà Minh",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "phong-trao-tay-son",
+          "title": "Phong trào Tây Sơn",
+          "eventLevel": "collection",
+          "level": 1,
+          "children": [
+            {
+              "id": "khang-chien-chong-quan-xiem-1784-1785",
+              "title": "Kháng chiến chống quân Xiêm",
+              "eventLevel": "atomic",
+              "level": 2,
+              "children": []
+            },
+            {
+              "id": "khang-chien-chong-quan-thanh-1789",
+              "title": "Kháng chiến chống quân Thanh",
+              "eventLevel": "atomic",
+              "level": 2,
+              "children": []
+            },
+            {
+              "id": "phong-trao-tay-son-bung-no",
+              "title": "Phong trào Tây Sơn bùng nổ",
+              "eventLevel": "atomic",
+              "level": 2,
+              "children": []
+            }
+          ]
+        },
+        {
+          "id": "bac-thanh-duoc-lap",
+          "title": "Bắc Thành được lập",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "thoi-gia-long-tri-vi",
+          "title": "Thời Gia Long trị vì",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "trieu-nguyen-thanh-lap",
+          "title": "Triều Nguyễn được thành lập",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "gia-dinh-thanh-duoc-lap",
+          "title": "Gia Định Thành được lập",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "cuoc-cai-cach-cua-minh-mang",
+          "title": "Cuộc cải cách của Minh Mạng",
+          "eventLevel": "collection",
+          "level": 1,
+          "children": [
+            {
+              "id": "doi-thi-thu-vien-thanh-van-thu-phong",
+              "title": "Đổi Thị thư viện thành Văn thư phòng",
+              "eventLevel": "atomic",
+              "level": 2,
+              "children": []
+            },
+            {
+              "id": "minh-mang-len-ngoi-vua",
+              "title": "Minh Mạng lên ngôi vua",
+              "eventLevel": "atomic",
+              "level": 2,
+              "children": []
+            },
+            {
+              "id": "doi-dinh-quang-duc-thanh-phu-thua-thien",
+              "title": "Đổi dinh Quảng Đức thành phủ Thừa Thiên",
+              "eventLevel": "atomic",
+              "level": 2,
+              "children": []
+            },
+            {
+              "id": "doi-cac-doanh-quang-binh-quang-tri-quang-nam-thanh-tran",
+              "title": "Đổi các doanh Quảng Bình, Quảng Trị, Quảng Nam thành trấn",
+              "eventLevel": "atomic",
+              "level": 2,
+              "children": []
+            },
+            {
+              "id": "lap-noi-cac-thay-the-van-thu-phong",
+              "title": "Lập Nội các thay thế Văn thư phòng",
+              "eventLevel": "atomic",
+              "level": 2,
+              "children": []
+            },
+            {
+              "id": "xoa-bo-bac-thanh-chia-thanh-18-tinh",
+              "title": "Xoá bỏ Bắc Thành, chia thành 18 tỉnh",
+              "eventLevel": "atomic",
+              "level": 2,
+              "children": []
+            },
+            {
+              "id": "xoa-bo-gia-dinh-thanh-chia-thanh-12-tinh",
+              "title": "Xoá bỏ Gia Định Thành, chia thành 12 tỉnh",
+              "eventLevel": "atomic",
+              "level": 2,
+              "children": []
+            },
+            {
+              "id": "lap-co-mat-vien",
+              "title": "Lập Cơ mật viện",
+              "eventLevel": "atomic",
+              "level": 2,
+              "children": []
+            },
+            {
+              "id": "thi-diem-chia-lai-ruong-dat-minh-mang",
+              "title": "Thí điểm chia lại ruộng đất dưới thời Minh Mạng",
+              "eventLevel": "atomic",
+              "level": 2,
+              "children": []
+            }
+          ]
+        },
+        {
+          "id": "chu-quyen-bien-dao-viet-nam-tu-the-ki-xvi-den-xix",
+          "title": "Chủ quyền biển đảo Việt Nam thế kỉ XVI-XIX",
+          "eventLevel": "collection",
+          "level": 1,
+          "children": [
+            {
+              "id": "do-dac-cam-moc-chu-quyen-hoang-sa-pham-huu-nhat",
+              "title": "Đo đạc, cắm mốc chủ quyền Hoàng Sa của Phạm Hữu Nhật",
+              "eventLevel": "atomic",
+              "level": 2,
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "viet-nam-1858-1918",
+      "title": "Việt Nam từ năm 1858 đến năm 1918",
+      "eventLevel": "collection",
+      "level": 0,
+      "children": [
+        {
+          "id": "thuc-dan-phap-no-sung-tan-cong-da-nang",
+          "title": "Thực dân Pháp nổ súng tấn công Đà Nẵng",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "khang-chien-chong-thuc-dan-phap-trieu-nguyen",
+          "title": "Kháng chiến chống thực dân Pháp của triều Nguyễn",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "phap-tan-cong-da-nang-1858",
+          "title": "Pháp tấn công Đà Nẵng",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "phap-xam-chiem-dong-duong",
+          "title": "Pháp xâm chiếm ba nước Đông Dương",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "phong-trao-chong-thuc-dan-phap-xam-luoc-o-viet-nam",
+          "title": "Phong trào chống thực dân Pháp xâm lược ở Việt Nam",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "khoi-nghia-cua-pu-com-bo",
+          "title": "Khởi nghĩa của Pu-côm-bô",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "phap-chiem-sau-tinh-nam-ki",
+          "title": "Pháp chiếm sáu tỉnh Nam Kì",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "phap-chiem-bac-ki-lan-1",
+          "title": "Pháp đánh chiếm Bắc Kì lần thứ nhất",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "phap-chiem-bac-ki-lan-2",
+          "title": "Pháp đánh chiếm Bắc Kì lần thứ hai",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "hiep-uoc-hac-mang",
+          "title": "Hiệp ước Hác-măng",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "hiep-uoc-pa-to-not",
+          "title": "Hiệp ước Pa-tơ-nốt",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "xay-dung-cau-long-bien",
+          "title": "Xây dựng cầu Long Biên",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "hoat-dong-doi-ngoai-phan-boi-chau",
+          "title": "Hoạt động đối ngoại của Phan Bội Châu",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "phan-boi-chau-sang-nhat-ban-1905",
+          "title": "Phan Bội Châu sang Nhật Bản",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "nguyen-tat-thanh-tham-gia-chong-thue-hue",
+          "title": "Nguyễn Tất Thành tham gia phong trào chống thuế ở Huế",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "thanh-lap-lien-minh-dong-a-1908",
+          "title": "Thành lập Điền – Quế -Việt liên minh và Đông Á đồng minh",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "nguyen-tat-thanh-roi-phan-thiet-vao-sai-gon",
+          "title": "Nguyễn Tất Thành rời Phan Thiết vào Sài Gòn",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "nguyen-tat-thanh-ra-di-tim-duong-cuu-nuoc",
+          "title": "Nguyễn Tất Thành ra đi tìm đường cứu nước",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "hoat-dong-doi-ngoai-nguyen-ai-quoc-1911-1930",
+          "title": "Hoạt động đối ngoại của Nguyễn Ái Quốc",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "hoat-dong-doi-ngoai-phan-chau-trinh",
+          "title": "Hoạt động đối ngoại của Phan Châu Trinh",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "phan-boi-chau-ve-trung-quoc-1911",
+          "title": "Phan Bội Châu về hoạt động ở Trung Quốc",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "phan-chau-trinh-sang-phap-1911",
+          "title": "Phan Châu Trinh sang Pháp",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "thanh-lap-viet-nam-quang-phuc-hoi-1912",
+          "title": "Thành lập Việt Nam Quang phục hội và Chấn Hoa Hưng Á",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "chu-quyen-bien-dao-viet-nam-1858-1918",
+          "title": "Chủ quyền biển đảo Việt Nam 1858-1918",
+          "eventLevel": "collection",
+          "level": 1,
+          "children": [
+            {
+              "id": "trung-quoc-tu-choi-boi-thuong-vu-tau-dam-hoang-sa",
+              "title": "Trung Quốc từ chối bồi thường vụ tàu đắm ở Hoàng Sa",
+              "eventLevel": "atomic",
+              "level": 2,
+              "children": []
+            }
+          ]
+        },
+        {
+          "id": "phong-trao-can-vuong",
+          "title": "Phong trào Cần Vương",
+          "eventLevel": "collection",
+          "level": 1,
+          "children": [
+            {
+              "id": "vuong-thuc-mau-khoi-nghia-can-vuong",
+              "title": "Vương Thúc Mậu khởi nghĩa hưởng ứng Dụ Cần vương",
+              "eventLevel": "atomic",
+              "level": 2,
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "viet-nam-1919-1945",
+      "title": "Việt Nam từ năm 1919 đến năm 1945",
+      "eventLevel": "collection",
+      "level": 0,
+      "children": [
+        {
+          "id": "nguyen-ai-quoc-gui-yeu-sach-vec-xai",
+          "title": "Nguyễn Ái Quốc gửi Yêu sách của nhân dân An Nam đến Hội nghị Véc-xai",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "nguyen-ai-quoc-doc-luan-cuong-le-nin",
+          "title": "Nguyễn Ái Quốc đọc Sơ thảo lần thứ nhất những luận cương về vấn đề dân tộc và vấn đề thuộc địa của Lê-nin",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "nguyen-ai-quoc-gia-nhap-quoc-te-cong-san-va-sang-lap-dang-cong-san-phap",
+          "title": "Nguyễn Ái Quốc bỏ phiếu tán thành gia nhập Quốc tế Cộng sản và sáng lập Đảng Cộng sản Pháp",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "giai-doan-xuat-hien-xu-huong-moi-trong-phong-trao-dau-tranh-o-dong-nam-a",
+          "title": "Giai đoạn Xuất hiện xu hướng mới trong phong trào đấu tranh ở Đông Nam Á",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "nguyen-ai-quoc-hoat-dong-phap-1921-1923",
+          "title": "Nguyễn Ái Quốc hoạt động ở Pháp",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "nguyen-ai-quoc-thanh-lap-hoi-lien-hiep-thuoc-dia-1921",
+          "title": "Nguyễn Ái Quốc tham gia thành lập Hội Liên hiệp thuộc địa",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "nguyen-ai-quoc-thanh-lap-hoi-lien-hiep-thuoc-dia-va-bao-le-paria",
+          "title": "Nguyễn Ái Quốc tham gia thành lập Hội liên hiệp thuộc địa và sáng lập tờ báo Le Paria",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "nguyen-ai-quoc-den-lien-xo-1923",
+          "title": "Nguyễn Ái Quốc đến Liên Xô và tham gia Quốc tế Cộng sản",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "nguyen-ai-quoc-den-quang-chau-1924",
+          "title": "Nguyễn Ái Quốc đến Quảng Châu (Trung Quốc)",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "nguyen-ai-quoc-thanh-lap-hoi-viet-nam-cach-mang-thanh-nien",
+          "title": "Nguyễn Ái Quốc thành lập Hội Việt Nam Cách mạng Thanh niên",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "thanh-lap-hoi-lien-hiep-cac-dan-toc-bi-ap-buc-a-dong-1925",
+          "title": "Nguyễn Ái Quốc tham gia thành lập Hội Liên hiệp các dân tộc bị áp bức ở Á Đông",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "ho-chi-minh-mo-lop-dao-tao-can-bo-tai-quang-chau-trung-quoc",
+          "title": "Hồ Chí Minh mở các lớp đào tạo cán bộ tại Quảng Châu (Trung Quốc)",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "nguyen-ai-quoc-hoat-dong-chau-au-siam-1927-1929",
+          "title": "Nguyễn Ái Quốc hoạt động cách mạng ở Pháp, Bỉ, Đức, Xiêm",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "su-ra-doi-cua-ba-to-chuc-cong-san-viet-nam",
+          "title": "Sự ra đời của ba tổ chức cộng sản ở Việt Nam",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "hoi-nghi-thanh-lap-dang-cong-san-viet-nam",
+          "title": "Nguyễn Ái Quốc triệu tập và chủ trì Hội nghị thành lập Đảng Cộng sản Việt Nam",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "thanh-lap-mat-tran-dan-toc-thong-nhat-viet-nam-1930",
+          "title": "Thành lập Mặt trận Dân tộc Thống nhất Việt Nam (Hội Phản đế Đồng minh)",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "hoat-dong-doi-ngoai-dang-cong-san-dong-duong-1930-1945",
+          "title": "Hoạt động đối ngoại của Đảng Cộng sản Đông Dương",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "nguyen-ai-quoc-hoat-dong-lien-xo-1933",
+          "title": "Nguyễn Ái Quốc hoạt động tại Liên Xô",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "nguyen-ai-quoc-roi-lien-xo-tro-lai-trung-quoc",
+          "title": "Nguyễn Ái Quốc rời Liên Xô trở lại Trung Quốc",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "nguyen-ai-quoc-tro-ve-nuoc",
+          "title": "Nguyễn Ái Quốc trở về nước",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "thanh-lap-mat-tran-viet-nam-doc-lap-dong-minh-viet-minh",
+          "title": "Thành lập Mặt trận Việt Nam Độc lập Đồng minh (Mặt trận Việt Minh)",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "thanh-lap-tieu-doi-du-kich-thoat-li-dau-tien-o-cao-bang",
+          "title": "Thành lập Tiểu đội du kích thoát li đầu tiên ở Cao Bằng",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "ho-chi-minh-di-trung-quoc-phoi-hop-chong-nhat",
+          "title": "Hồ Chí Minh đi Trung Quốc để tìm cách phối hợp hành động với phong trào chống Nhật và các lực lượng Đồng minh",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "ho-chi-minh-sang-trung-quoc-1942",
+          "title": "Nguyễn Ái Quốc lấy tên là Hồ Chí Minh, sang Trung Quốc",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "ho-chi-minh-tro-ve-nuoc-1944",
+          "title": "Hồ Chí Minh trở về nước tiếp tục lãnh đạo cách mạng",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "chi-thi-thanh-lap-doi-viet-nam-tuyen-truyen-giai-phong-quan",
+          "title": "Chỉ thị thành lập Đội Việt Nam Tuyên truyền Giải phóng quân",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "ho-chi-minh-sang-con-minh-tim-su-ung-ho-quoc-te",
+          "title": "Hồ Chí Minh sang Côn Minh (Trung Quốc) tìm kiếm sự ủng hộ quốc tế",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "viet-minh-hop-tac-oss-1945",
+          "title": "Việt Minh hợp tác với Cơ quan Tình báo chiến lược Mỹ (OSS)",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "hoi-nghi-pot-xdam",
+          "title": "Hội nghị Pốt-xđam",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "cach-mang-thang-tam-nam-1945",
+          "title": "Cách mạng tháng Tám năm 1945",
+          "eventLevel": "collection",
+          "level": 1,
+          "children": [
+            {
+              "id": "hoi-nghi-lan-thu-8-ban-chap-hanh-trung-uong-dang-cong-san-dong-duong",
+              "title": "Hội nghị lần thứ 8 Ban Chấp hành Trung ương Đảng Cộng sản Đông Dương",
+              "eventLevel": "atomic",
+              "level": 2,
+              "children": []
+            },
+            {
+              "id": "cao-trao-khang-nhat-cuu-nuoc",
+              "title": "Cao trào kháng Nhật, cứu nước",
+              "eventLevel": "atomic",
+              "level": 2,
+              "children": []
+            },
+            {
+              "id": "uy-ban-khoi-nghia-ban-bo-quan-lenh-so-1",
+              "title": "Trung ương Đảng và Tổng bộ Việt Minh thành lập Uỷ ban Khởi nghĩa toàn quốc, ban bố Quân lệnh số 1",
+              "eventLevel": "atomic",
+              "level": 2,
+              "children": []
+            },
+            {
+              "id": "hoi-nghi-toan-quoc-cua-dang-cong-san-dong-duong-1945",
+              "title": "Hội nghị toàn quốc của Đảng Cộng sản Đông Dương",
+              "eventLevel": "atomic",
+              "level": 2,
+              "children": []
+            },
+            {
+              "id": "hoi-nghi-toan-quoc-cua-dang-tan-trao",
+              "title": "Hội nghị toàn quốc của Đảng họp ở Tân Trào",
+              "eventLevel": "atomic",
+              "level": 2,
+              "children": []
+            },
+            {
+              "id": "nhat-ban-tuyen-bo-dau-hang-dong-minh",
+              "title": "Nhật Bản tuyên bố đầu hàng Đồng minh không điều kiện",
+              "eventLevel": "atomic",
+              "level": 2,
+              "children": []
+            },
+            {
+              "id": "dai-hoi-quoc-dan-tan-trao",
+              "title": "Đại hội Quốc dân được triệu tập tại Tân Trào",
+              "eventLevel": "atomic",
+              "level": 2,
+              "children": []
+            },
+            {
+              "id": "giai-phong-thi-xa-thai-nguyen",
+              "title": "Giải phóng thị xã Thái Nguyên",
+              "eventLevel": "atomic",
+              "level": 2,
+              "children": []
+            },
+            {
+              "id": "cac-tinh-gianh-chinh-quyen-som-nhat",
+              "title": "Nhân dân Bắc Giang, Hải Dương, Hà Tĩnh và Quảng Nam giành được chính quyền",
+              "eventLevel": "atomic",
+              "level": 2,
+              "children": []
+            },
+            {
+              "id": "khoi-nghia-gianh-chinh-quyen-ha-noi",
+              "title": "Khởi nghĩa giành chính quyền tại Hà Nội",
+              "eventLevel": "atomic",
+              "level": 2,
+              "children": []
+            },
+            {
+              "id": "khoi-nghia-gianh-chinh-quyen-hue",
+              "title": "Khởi nghĩa giành chính quyền tại Huế",
+              "eventLevel": "atomic",
+              "level": 2,
+              "children": []
+            },
+            {
+              "id": "khoi-nghia-gianh-chinh-quyen-sai-gon",
+              "title": "Khởi nghĩa giành chính quyền tại Sài Gòn",
+              "eventLevel": "atomic",
+              "level": 2,
+              "children": []
+            },
+            {
+              "id": "cac-dia-phuong-cuoi-cung-gianh-chinh-quyen",
+              "title": "Đồng Nai Thượng và Hà Tiên là những địa phương cuối cùng giành chính quyền",
+              "eventLevel": "atomic",
+              "level": 2,
+              "children": []
+            },
+            {
+              "id": "tong-khoi-nghia-gianh-chinh-quyen",
+              "title": "Tổng khởi nghĩa giành chính quyền thắng lợi",
+              "eventLevel": "atomic",
+              "level": 2,
+              "children": []
+            },
+            {
+              "id": "ho-chi-minh-cong-bo-tuyen-ngon-doc-lap",
+              "title": "Chủ tịch Hồ Chí Minh công bố Tuyên ngôn Độc lập",
+              "eventLevel": "atomic",
+              "level": 2,
+              "children": []
+            }
+          ]
+        },
+        {
+          "id": "giai-doan-hoan-thanh-cuoc-dau-tranh-gianh-doc-lap-dan-toc-o-dong-nam-a",
+          "title": "Giai đoạn Hoàn thành cuộc đấu tranh giành độc lập dân tộc ở Đông Nam Á",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "ho-chi-minh-gui-thu-toi-chu-tich-hoi-dong-lien-hop-quoc",
+          "title": "Chủ tịch Hồ Chí Minh gửi thư tới Chủ tịch Hội đồng Liên hợp quốc và nguyên thủ các nước lớn",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "hoat-dong-doi-ngoai-cua-vndcch-voi-trung-hoa-dan-quoc",
+          "title": "Hoạt động đối ngoại của Việt Nam Dân chủ Cộng hoà với Trung Hoa Dân quốc",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "khang-chien-chong-thuc-dan-phap-o-viet-nam-lao-cam-pu-chia",
+          "title": "Kháng chiến chống thực dân Pháp ở Việt Nam, Lào, Cam-pu-chia",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "lang-xa-viet-nam-bien-doi-sau-1945",
+          "title": "Làng xã Việt Nam trải qua nhiều biến đổi quan trọng từ sau năm 1945",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "viet-nam-de-nghi-lien-hop-quoc-cong-nhan-vndcch",
+          "title": "Việt Nam đề nghị Liên hợp quốc và các nước lớn công nhận Nhà nước Việt Nam Dân chủ Cộng hoà",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "chu-quyen-bien-dao-viet-nam-1919-1945",
+          "title": "Chủ quyền biển đảo Việt Nam 1919-1945",
+          "eventLevel": "collection",
+          "level": 1,
+          "children": [
+            {
+              "id": "phap-xay-dung-cot-hai-dang-hoang-sa",
+              "title": "Pháp xây dựng cột hải đăng trên quần đảo Hoàng Sa",
+              "eventLevel": "atomic",
+              "level": 2,
+              "children": []
+            },
+            {
+              "id": "phap-xay-dung-bia-chu-quyen-hoang-sa",
+              "title": "Pháp xây dựng bia chủ quyền trên quần đảo Hoàng Sa",
+              "eventLevel": "atomic",
+              "level": 2,
+              "children": []
+            },
+            {
+              "id": "phap-gui-cong-ham-phan-doi-nhat-ban-kiem-soat-truong-sa",
+              "title": "Pháp gửi công hàm phản đối Nhật Bản kiểm soát một số đảo thuộc quần đảo Trường Sa",
+              "eventLevel": "atomic",
+              "level": 2,
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "viet-nam-1945-1954",
+      "title": "Việt Nam từ năm 1945 đến năm 1954",
+      "eventLevel": "collection",
+      "level": 0,
+      "children": [
+        {
+          "id": "khang-chien-chong-thuc-dan-phap-1945-1954",
+          "title": "Cuộc kháng chiến chống thực dân Pháp",
+          "eventLevel": "collection",
+          "level": 1,
+          "children": [
+            {
+              "id": "phap-xa-sung-sai-gon-cho-lon-1945",
+              "title": "Quân Pháp xả súng vào đồng bào Sài Gòn – Chợ Lớn",
+              "eventLevel": "atomic",
+              "level": 2,
+              "children": []
+            },
+            {
+              "id": "phap-danh-up-uy-ban-hanh-chinh-nam-bo-1945",
+              "title": "Thực dân Pháp đánh úp trụ sở Uỷ ban hành chính Nam Bộ và cơ quan tự vệ thành phố Sài Gòn",
+              "eventLevel": "atomic",
+              "level": 2,
+              "children": []
+            },
+            {
+              "id": "thanh-lap-uy-ban-khang-chien-nam-bo-1945",
+              "title": "Thành lập Uỷ ban kháng chiến Nam Bộ",
+              "eventLevel": "atomic",
+              "level": 2,
+              "children": []
+            },
+            {
+              "id": "ho-chi-minh-ra-loi-keu-goi-toan-quoc-khang-chien",
+              "title": "Chủ tịch Hồ Chí Minh ra Lời kêu gọi toàn quốc kháng chiến",
+              "eventLevel": "atomic",
+              "level": 2,
+              "children": []
+            },
+            {
+              "id": "chien-dich-viet-bac-thu-dong-1947",
+              "title": "Chiến dịch Việt Bắc thu – đông năm 1947",
+              "eventLevel": "atomic",
+              "level": 2,
+              "children": []
+            },
+            {
+              "id": "chien-dich-bien-gioi-thu-dong-1950",
+              "title": "Chiến dịch Biên giới thu – đông năm 1950",
+              "eventLevel": "atomic",
+              "level": 2,
+              "children": []
+            },
+            {
+              "id": "ke-hoach-na-va-1953",
+              "title": "Kế hoạch Na-va",
+              "eventLevel": "atomic",
+              "level": 2,
+              "children": []
+            },
+            {
+              "id": "chien-dich-dien-bien-phu-1954",
+              "title": "Chiến dịch Điện Biên Phủ",
+              "eventLevel": "atomic",
+              "level": 2,
+              "children": []
+            },
+            {
+              "id": "hoi-nghi-gio-ne-vo-ve-dong-duong",
+              "title": "Hội nghị Giơ-ne-vơ về Đông Dương",
+              "eventLevel": "atomic",
+              "level": 2,
+              "children": []
+            },
+            {
+              "id": "ky-ket-hiep-dinh-go-ne-vo-1954",
+              "title": "Kí kết Hiệp định Giơ-ne-vơ về chấm dứt chiến tranh, lập lại hoà bình ở Đông Dương",
+              "eventLevel": "atomic",
+              "level": 2,
+              "children": []
+            },
+            {
+              "id": "cuoc-tien-cong-chien-luoc-dong-xuan-1953-1954",
+              "title": "Cuộc Tiến công chiến lược Đông - Xuân 1953 - 1954",
+              "eventLevel": "atomic",
+              "level": 2,
+              "children": []
+            }
+          ]
+        },
+        {
+          "id": "ho-chi-minh-gui-loi-keu-goi-quoc-dan-di-bo-phieu",
+          "title": "Chủ tịch Hồ Chí Minh gửi Lời kêu gọi quốc dân đi bỏ phiếu",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "ho-chi-minh-duoc-bau-chu-tich-nuoc-1946",
+          "title": "Hồ Chí Minh được Quốc hội khoá I bầu làm Chủ tịch nước Việt Nam Dân chủ Cộng hoà",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "hiep-uoc-hoa-phap-1946",
+          "title": "Kí Hiệp ước Hoa - Pháp",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "ho-chi-minh-ki-hiep-dinh-so-bo-voi-g-xanh-to-ni",
+          "title": "Chủ tịch Hồ Chí Minh kí Hiệp định Sơ bộ với G. Xanh-tơ-ni",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "ho-chi-minh-sang-phap-van-dong-ngoai-giao-va-ki-tam-uoc",
+          "title": "Chủ tịch Hồ Chí Minh sang Pháp vận động ngoại giao và kí bản Tạm ước",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "ki-tam-uoc-viet-phap",
+          "title": "Kí Tạm ước Việt - Pháp",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "chien-dau-cac-do-thi-phia-bac-vi-tuyen-16-1946-1947",
+          "title": "Cuộc chiến đấu ở các đô thị phía Bắc vĩ tuyến 16",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "khang-chien-toan-quoc-chong-thuc-dan-phap-bung-no",
+          "title": "Kháng chiến toàn quốc chống thực dân Pháp bùng nổ",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "viet-nam-the-hien-thien-chi-hoa-binh-sau-12-1946",
+          "title": "Việt Nam thể hiện thiện chí hoà bình sau khi kháng chiến bùng nổ",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "hien-phap-viet-nam-dan-chu-cong-hoa-1946",
+          "title": "Hiến pháp nước Việt Nam Dân chủ Cộng hoà năm 1946",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "phap-cho-hai-quan-tru-dong-truong-sa",
+          "title": "Pháp cho hải quân trú đóng ở các đảo chính thuộc quần đảo Trường Sa",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "vndcch-thiet-lap-quan-he-ngoai-giao-voi-cac-nuoc-xhcn",
+          "title": "Việt Nam Dân chủ Cộng hoà thiết lập quan hệ ngoại giao với Cộng hoà Nhân dân Trung Hoa, Liên Xô và các nước xã hội chủ nghĩa khác",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "dai-hoi-dai-bieu-lan-thu-ii-cua-dang-lao-dong-viet-nam",
+          "title": "Đại hội đại biểu lần thứ II của Đảng Lao động Việt Nam",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "dai-hoi-dai-bieu-lan-thu-ii-dang-cong-san-dong-duong-1951",
+          "title": "Đại hội đại biểu lần thứ II của Đảng Cộng sản Đông Dương",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "ho-chi-minh-duoc-bau-chu-tich-ban-chap-hanh-trung-uong-dang-1951",
+          "title": "Hồ Chí Minh được bầu làm Chủ tịch Ban Chấp hành Trung ương Đảng",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "mat-tran-lien-viet-ra-doi-1951",
+          "title": "Mặt trận Liên hiệp quốc dân Việt Nam (Mặt trận Liên Việt) ra đời",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "chu-quyen-viet-nam-duoc-tuyen-bo-cong-nhan-hoi-nghi-xan-phran-xi-xo",
+          "title": "Chủ quyền của Việt Nam đối với Hoàng Sa và Trường Sa được tuyên bố và công nhận tại Hội nghị Hoà bình Xan Phran-xi-xcô",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "thanh-lap-lien-minh-nhan-dan-viet-mien-lao",
+          "title": "Thành lập Liên minh nhân dân Việt – Miên - Lào",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "cuoc-van-dong-san-xuat-va-tiet-kiem-1952",
+          "title": "Cuộc vận động sản xuất và tiết kiệm",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "dai-hoi-chien-si-thi-dua-can-bo-guong-mau-toan-quoc-lan-thu-nhat-1952",
+          "title": "Đại hội Chiến sĩ thi đua và Cán bộ gương mẫu toàn quốc lần thứ nhất",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "quoc-hoi-thong-qua-luat-cai-cach-ruong-dat-1953",
+          "title": "Quốc hội thông qua Luật Cải cách ruộng đất và quyết định tiến hành cải cách ruộng đất",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "chien-tranh-bao-ve-doc-lap-dan-toc-va-chu-quyen-quoc-gia-o-dong-duong",
+          "title": "Chiến tranh bảo vệ độc lập dân tộc và chủ quyền quốc gia ở Đông Dương",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        }
+      ]
+    },
+    {
+      "id": "viet-nam-1954-1975",
+      "title": "Việt Nam từ năm 1954 đến năm 1975",
+      "eventLevel": "collection",
+      "level": 0,
+      "children": [
+        {
+          "id": "khang-chien-chong-my-cuu-nuoc",
+          "title": "Cuộc kháng chiến chống Mỹ, cứu nước",
+          "eventLevel": "collection",
+          "level": 1,
+          "children": [
+            {
+              "id": "my-can-thiep-vao-dong-duong",
+              "title": "Mỹ can thiệp vào Đông Dương",
+              "eventLevel": "atomic",
+              "level": 2,
+              "children": []
+            },
+            {
+              "id": "my-thay-chan-phap-dung-chinh-quyen-ngo-dinh-diem",
+              "title": "Mỹ thay chân Pháp, dựng chính quyền Ngô Đình Diệm",
+              "eventLevel": "atomic",
+              "level": 2,
+              "children": []
+            },
+            {
+              "id": "viet-nam-tam-thoi-bi-chia-cat-hai-mien",
+              "title": "Việt Nam tạm thời bị chia cắt làm hai miền",
+              "eventLevel": "atomic",
+              "level": 2,
+              "children": []
+            },
+            {
+              "id": "chien-tranh-pha-hoai-mien-bac-lan-thu-nhat",
+              "title": "Chiến tranh phá hoại miền Bắc lần thứ nhất của Mỹ",
+              "eventLevel": "atomic",
+              "level": 2,
+              "children": []
+            },
+            {
+              "id": "chien-tranh-pha-hoai-mien-bac-lan-thu-hai",
+              "title": "Chiến tranh phá hoại miền Bắc lần thứ hai của Mỹ",
+              "eventLevel": "atomic",
+              "level": 2,
+              "children": []
+            },
+            {
+              "id": "ki-ket-hiep-dinh-pa-ri-ve-cham-dut-chien-tranh-lap-lai-hoa-binh-o-viet-nam",
+              "title": "Kí kết Hiệp định Pa-ri về chấm dứt chiến tranh, lập lại hoà bình ở Việt Nam",
+              "eventLevel": "atomic",
+              "level": 2,
+              "children": []
+            },
+            {
+              "id": "tong-tien-cong-va-noi-day-xuan-1975",
+              "title": "Cuộc Tổng tiến công và nổi dậy Xuân 1975",
+              "eventLevel": "collection",
+              "level": 2,
+              "children": [
+                {
+                  "id": "chien-dich-tay-nguyen-1975",
+                  "title": "Chiến dịch Tây Nguyên",
+                  "eventLevel": "atomic",
+                  "level": 3,
+                  "children": []
+                },
+                {
+                  "id": "giai-phong-hue-va-thua-thien",
+                  "title": "Giải phóng thành phố Huế và toàn tỉnh Thừa Thiên",
+                  "eventLevel": "atomic",
+                  "level": 3,
+                  "children": []
+                },
+                {
+                  "id": "giai-phong-da-nang",
+                  "title": "Giải phóng Đà Nẵng",
+                  "eventLevel": "atomic",
+                  "level": 3,
+                  "children": []
+                },
+                {
+                  "id": "chien-dich-giai-phong-sai-gon-gia-dinh-chien-dich-ho-chi-minh",
+                  "title": "Chiến dịch giải phóng Sài Gòn – Gia Định",
+                  "eventLevel": "atomic",
+                  "level": 3,
+                  "children": []
+                },
+                {
+                  "id": "chien-thang-duong-14-phuoc-long",
+                  "title": "Chiến thắng Đường 14 Phước Long",
+                  "eventLevel": "atomic",
+                  "level": 3,
+                  "children": []
+                }
+              ]
+            },
+            {
+              "id": "giai-doan-khang-chien-chong-my-1954-1960",
+              "title": "Giai đoạn 1954 - 1960 của cuộc kháng chiến chống Mỹ, cứu nước",
+              "eventLevel": "atomic",
+              "level": 2,
+              "children": []
+            },
+            {
+              "id": "giai-doan-khang-chien-chong-my-1961-1965",
+              "title": "Giai đoạn 1961 - 1965 của cuộc kháng chiến chống Mỹ, cứu nước",
+              "eventLevel": "atomic",
+              "level": 2,
+              "children": []
+            },
+            {
+              "id": "giai-doan-khang-chien-chong-my-1965-1968",
+              "title": "Giai đoạn 1965 - 1968 của cuộc kháng chiến chống Mỹ, cứu nước",
+              "eventLevel": "atomic",
+              "level": 2,
+              "children": []
+            },
+            {
+              "id": "giai-doan-khang-chien-chong-my-1969-1973",
+              "title": "Giai đoạn 1969 – 1973 của cuộc kháng chiến chống Mỹ, cứu nước",
+              "eventLevel": "atomic",
+              "level": 2,
+              "children": []
+            },
+            {
+              "id": "giai-doan-khang-chien-chong-my-1973-1975",
+              "title": "Giai đoạn 1973 - 1975 của cuộc kháng chiến chống Mỹ, cứu nước",
+              "eventLevel": "atomic",
+              "level": 2,
+              "children": []
+            },
+            {
+              "id": "vndcch-dau-tranh-doi-thi-hanh-hiep-dinh-gio-ne-vo",
+              "title": "Việt Nam Dân chủ Cộng hoà đấu tranh đòi thi hành Hiệp định Giơ-ne-vơ",
+              "eventLevel": "atomic",
+              "level": 2,
+              "children": []
+            }
+          ]
+        },
+        {
+          "id": "ho-chi-minh-chu-tich-tong-bi-thu-dang-lao-dong-1956",
+          "title": "Chủ tịch Hồ Chí Minh là Chủ tịch Đảng, kiêm Tổng Bí thư Đảng Lao động Việt Nam",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "hoi-nghi-ban-chap-hanh-trung-uong-lan-thu-15-dang-lao-dong-viet-nam",
+          "title": "Hội nghị Ban Chấp hành Trung ương lần thứ 15 của Đảng Lao động Việt Nam",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "dai-hoi-dai-bieu-toan-quoc-lan-thu-iii-cua-dang-lao-dong-viet-nam",
+          "title": "Chủ tịch Hồ Chí Minh chủ trì và chỉ đạo xây dựng Nghị quyết Đại hội đại biểu toàn quốc lần thứ III của Đảng Lao động Việt Nam",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "dai-hoi-dai-bieu-toan-quoc-lan-thu-iii-dang-lao-dong-viet-nam",
+          "title": "Đại hội đại biểu toàn quốc lần thứ III Đảng Lao động Việt Nam",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "ho-chi-minh-tiep-tuc-duoc-bau-chu-tich-dang-lao-dong-1960",
+          "title": "Chủ tịch Hồ Chí Minh tiếp tục được bầu làm Chủ tịch Đảng Lao động Việt Nam",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "thanh-lap-mat-tran-dan-toc-giai-phong-mien-nam-viet-nam",
+          "title": "Thành lập Mặt trận Dân tộc giải phóng miền Nam Việt Nam",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "thanh-lap-quan-giai-phong-mien-nam",
+          "title": "Thành lập Quân Giải phóng miền Nam",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "chu-tich-ho-chi-minh-tham-quan-cang-bai-chay-1961",
+          "title": "Chủ tịch Hồ Chí Minh thăm Quân cảng Bãi Cháy và căn dặn về bảo vệ biển",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "chien-thang-ap-bac",
+          "title": "Chiến thắng Ấp Bắc",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "chien-thang-van-tuong",
+          "title": "Chiến thắng Vạn Tường",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "hoi-nghi-pa-ri-ve-viet-nam",
+          "title": "Hội nghị Pa-ri về Việt Nam",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "tong-tien-cong-va-noi-day-xuan-mau-than-1968",
+          "title": "Cuộc Tổng tiến công và nổi dậy Xuân Mậu Thân 1968",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "thanh-lap-chinh-phu-cach-mang-lam-thoi-cong-hoa-mien-nam-viet-nam",
+          "title": "Thành lập Chính phủ cách mạng lâm thời Cộng hoà miền Nam Việt Nam",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "dap-tan-cuoc-hanh-quan-xam-luoc-vao-cam-pu-chia-1970",
+          "title": "Đập tan cuộc hành quân xâm lược của Mỹ và quân đội Sài Gòn vào Cam-pu-chia",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "hoi-nghi-cap-cao-ba-nuoc-viet-nam-lao-cam-pu-chia",
+          "title": "Hội nghị cấp cao ba nước Việt Nam - Lào - Cam-pu-chia",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "chien-dich-duong-9-nam-lao",
+          "title": "Chiến dịch Đường 9 – Nam Lào",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "cuoc-tien-cong-chien-luoc-nam-1972",
+          "title": "Cuộc Tiến công chiến lược năm 1972",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "hoi-nghi-ban-chap-hanh-trung-uong-dang-lan-thu-21",
+          "title": "Hội nghị Ban Chấp hành Trung ương Đảng lần thứ 21",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "mit-tinh-chao-mung-uy-ban-quan-quan-sai-gon-1975",
+          "title": "Nhân dân Thành phố Sài Gòn mít tinh chào mừng Uỷ ban Quân quản thành phố ra mắt",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "chu-quyen-bien-dao-viet-nam-1954-1975",
+          "title": "Chủ quyền biển đảo Việt Nam 1954-1975",
+          "eventLevel": "collection",
+          "level": 1,
+          "children": [
+            {
+              "id": "quan-li-hanh-chinh-chinh-quyen-sai-gon-hoang-sa-truong-sa",
+              "title": "Quản lí hành chính của chính quyền Sài Gòn đối với quần đảo Hoàng Sa và quần đảo Trường Sa",
+              "eventLevel": "atomic",
+              "level": 2,
+              "children": []
+            },
+            {
+              "id": "dai-loan-chiem-dong-dao-ba-binh-truong-sa",
+              "title": "Đài Loan chiếm đóng đảo Ba Bình thuộc quần đảo Trường Sa",
+              "eventLevel": "atomic",
+              "level": 2,
+              "children": []
+            },
+            {
+              "id": "philippin-tuyen-bo-quyen-khai-thac-lap-nghiep-truong-sa",
+              "title": "Phi-líp-pin tuyên bố có quyền khai thác, lập nghiệp tại nhóm đảo Trường Sa",
+              "eventLevel": "atomic",
+              "level": 2,
+              "children": []
+            },
+            {
+              "id": "viet-nam-danh-chiem-nua-phia-dong-hoang-sa",
+              "title": "Việt Nam (chính quyền Sài Gòn) đánh chiếm nửa phía đông của quần đảo Hoàng Sa (nhóm An Vĩnh)",
+              "eventLevel": "atomic",
+              "level": 2,
+              "children": []
+            },
+            {
+              "id": "philippin-chiem-dong-9-dao-truong-sa",
+              "title": "Phi-líp-pin chiếm đóng 9 đảo thuộc quần đảo Trường Sa",
+              "eventLevel": "atomic",
+              "level": 2,
+              "children": []
+            },
+            {
+              "id": "quan-doi-sai-gon-that-bai-bao-ve-hoang-sa",
+              "title": "Quân đội Sài Gòn thất bại trong chiến đấu bảo vệ quần đảo Hoàng Sa",
+              "eventLevel": "atomic",
+              "level": 2,
+              "children": []
+            },
+            {
+              "id": "trung-quoc-danh-chiem-toan-bo-hoang-sa",
+              "title": "Trung Quốc đánh chiếm toàn bộ quần đảo Hoàng Sa",
+              "eventLevel": "atomic",
+              "level": 2,
+              "children": []
+            },
+            {
+              "id": "quan-giai-phong-mien-nam-viet-nam-tiep-quan-truong-sa",
+              "title": "Quân giải phóng miền Nam Việt Nam tiếp quản các đảo và triển khai lực lượng thực thi chủ quyền đối với quần đảo Trường Sa",
+              "eventLevel": "atomic",
+              "level": 2,
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "viet-nam-1975-den-nay",
+      "title": "Việt Nam từ năm 1975 đến nay",
+      "eventLevel": "collection",
+      "level": 0,
+      "children": [
+        {
+          "id": "quoc-hoi-khoa-vi-doi-ten-sai-gon-thanh-thanh-pho-ho-chi-minh",
+          "title": "Quốc hội khoá VI quyết định đổi tên Sài Gòn thành Thành phố Hồ Chí Minh",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "viet-nam-thanh-vien-lien-hop-quoc",
+          "title": "Việt Nam trở thành thành viên chính thức của Liên hợp quốc",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "viet-nam-gia-nhap-sev",
+          "title": "Việt Nam gia nhập Hội đồng tương trợ kinh tế (SEV)",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "go-ro-bat-co-pham-tuan-bay-vu-tru",
+          "title": "V. Go-rơ-bát cô (Liên Xô) và Phạm Tuân (Việt Nam) cùng bay vào vũ trụ",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "cong-cuoc-doi-moi-o-viet-nam",
+          "title": "Công cuộc Đổi mới ở Việt Nam",
+          "eventLevel": "collection",
+          "level": 1,
+          "children": [
+            {
+              "id": "dai-hoi-dai-bieu-toan-quoc-lan-thu-vi-cua-dang-cong-san-viet-nam",
+              "title": "Đại hội đại biểu toàn quốc lần thứ VI của Đảng Cộng sản Việt Nam",
+              "eventLevel": "atomic",
+              "level": 2,
+              "children": []
+            },
+            {
+              "id": "bai-bo-che-do-tem-phieu-o-viet-nam",
+              "title": "Bãi bỏ chế độ tem phiếu ở Việt Nam",
+              "eventLevel": "atomic",
+              "level": 2,
+              "children": []
+            },
+            {
+              "id": "dai-hoi-dai-bieu-toan-quoc-lan-thu-vii-cua-dang-cong-san-viet-nam",
+              "title": "Đại hội đại biểu toàn quốc lần thứ VII của Đảng Cộng sản Việt Nam",
+              "eventLevel": "atomic",
+              "level": 2,
+              "children": []
+            },
+            {
+              "id": "viet-nam-binh-thuong-hoa-quan-he-trung-quoc",
+              "title": "Việt Nam bình thường hoá quan hệ với Trung Quốc",
+              "eventLevel": "atomic",
+              "level": 2,
+              "children": []
+            },
+            {
+              "id": "xay-dung-va-dong-dien-duong-day-500kv-bac-nam-mach-1",
+              "title": "Xây dựng và đóng điện đường dây 500 kV Bắc - Nam (mạch 1)",
+              "eventLevel": "atomic",
+              "level": 2,
+              "children": []
+            },
+            {
+              "id": "viet-nam-binh-thuong-hoa-quan-he-my",
+              "title": "Việt Nam bình thường hoá quan hệ với Mỹ",
+              "eventLevel": "atomic",
+              "level": 2,
+              "children": []
+            },
+            {
+              "id": "viet-nam-gia-nhap-asean",
+              "title": "Việt Nam gia nhập ASEAN",
+              "eventLevel": "atomic",
+              "level": 2,
+              "children": []
+            },
+            {
+              "id": "dai-hoi-dai-bieu-toan-quoc-lan-thu-viii-cua-dang-cong-san-viet-nam",
+              "title": "Đại hội đại biểu toàn quốc lần thứ VIII của Đảng Cộng sản Việt Nam",
+              "eventLevel": "atomic",
+              "level": 2,
+              "children": []
+            },
+            {
+              "id": "dai-hoi-dai-bieu-toan-quoc-lan-thu-x-cua-dang-cong-san-viet-nam",
+              "title": "Đại hội đại biểu toàn quốc lần thứ X của Đảng Cộng sản Việt Nam",
+              "eventLevel": "atomic",
+              "level": 2,
+              "children": []
+            },
+            {
+              "id": "hien-phap-cong-hoa-xa-hoi-chu-nghia-viet-nam-2013",
+              "title": "Hiến pháp nước Cộng hoà xã hội chủ nghĩa Việt Nam năm 2013",
+              "eventLevel": "atomic",
+              "level": 2,
+              "children": []
+            },
+            {
+              "id": "doan-si-quan-viet-nam-tham-gia-luc-luong-gin-giu-hoa-binh-lien-hop-quoc-tai-nam-xu-dang",
+              "title": "Đoàn sĩ quan Việt Nam tham gia Lực lượng gìn giữ hoà bình Liên hợp quốc tại Nam Xu-đăng",
+              "eventLevel": "atomic",
+              "level": 2,
+              "children": []
+            },
+            {
+              "id": "quan-he-viet-nam-my-doi-tac-chien-luoc-toan-dien",
+              "title": "Quan hệ Việt Nam - Mỹ lên tầm đối tác chiến lược toàn diện",
+              "eventLevel": "atomic",
+              "level": 2,
+              "children": []
+            }
+          ]
+        },
+        {
+          "id": "cam-pu-chia-gia-nhap-asean",
+          "title": "Cam-pu-chia gia nhập ASEAN",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "bo-chinh-tri-ban-hanh-chi-thi-06-ct-tw-ve-cuoc-van-dong-hoc-tap-va-lam-theo-tam-guong-dao-duc-ho-chi-minh",
+          "title": "Bộ Chính trị ban hành Chỉ thị 06-CT/TW về Cuộc vận động “Học tập và làm theo tấm gương đạo đức Hồ Chí Minh”",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "bo-chinh-tri-ban-hanh-chi-thi-05-ct-tw-ve-day-manh-hoc-tap-va-lam-theo-tu-tuong-dao-duc-phong-cach-ho-chi-minh",
+          "title": "Bộ Chính trị ban hành Chỉ thị 05-CT/TW về “đẩy mạnh học tập và làm theo tư tưởng, đạo đức, phong cách Hồ Chí Minh”",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "phe-duyet-chien-luoc-phat-trien-cong-nghiep-van-hoa-viet-nam",
+          "title": "Phê duyệt Chiến lược phát triển các ngành công nghiệp văn hoá đến năm 2020, tầm nhìn đến năm 2030",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "ro-bot-xophia-duoc-cap-quyen-cong-dan",
+          "title": "Rô-bốt Xô-phi-a được Chính phủ A-rập Xê-út cấp quyền Công dân",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "nhan-dan-ung-ho-mien-trung-bao-so-9-2020",
+          "title": "Nhân dân các dân tộc chung tay ủng hộ các tỉnh miền Trung bị thiệt hại sau cơn bão số 9",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "hoi-nghi-cap-cao-asean-37-ha-noi",
+          "title": "Hội nghị Cấp cao ASEAN lần thứ 37 tại Hà Nội",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "cac-chien-dich-tien-cong-quan-doi-viet-nam-1950-1953",
+          "title": "Các chiến dịch tiến công của Quân đội Việt Nam (1950-1953)",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "cac-chien-thang-quan-su-1964-1965",
+          "title": "Các chiến thắng quân sự 1964-1965",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "cai-cach-ruong-dat-mien-bac",
+          "title": "Hoàn thành cải cách ruộng đất, khôi phục kinh tế ở miền Bắc",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "cai-cach-tran-thu-do",
+          "title": "Cải cách của Trần Thủ Độ",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "cai-cach-trinh-cuong-dang-ngoai",
+          "title": "Cải cách của Trịnh Cương ở Đàng Ngoài",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "chien-luoc-vua-danh-vua-dam-va-van-dong-quoc-te-cong-nhan-mat-tran-dan-toc-giai-phong-mien-nam-viet-nam",
+          "title": "Chiến lược \"vừa đánh, vừa đàm\" và vận động quốc tế công nhận Mặt trận Dân tộc giải phóng miền Nam Việt Nam",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "chinh-quyen-phap-cai-cach-huong-chinh",
+          "title": "Chính quyền thực dân Pháp thực hiện cải cách hương chính",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "chu-nom-su-dung-rong-rai",
+          "title": "Chữ Nôm được sử dụng rộng rãi",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "chu-quoc-ngu-xuat-hien",
+          "title": "Chữ Quốc ngữ xuất hiện và dần được hoàn thiện",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "chu-quyen-bien-dao-viet-nam-1975-den-nay",
+          "title": "Chủ quyền biển đảo Việt Nam 1975 đến nay",
+          "eventLevel": "collection",
+          "level": 1,
+          "children": [
+            {
+              "id": "viet-nam-ban-hanh-tuyen-bo-vung-bien-them-luc-dia",
+              "title": "Việt Nam ban hành Tuyên bố về các vùng biển và thềm lục địa Việt Nam",
+              "eventLevel": "atomic",
+              "level": 2,
+              "children": []
+            },
+            {
+              "id": "philippin-ban-hanh-sac-lenh-1596-tuyen-bo-chu-quyen-truong-sa",
+              "title": "Phi-líp-pin ban hành Sắc lệnh 1596 tuyên bố chủ quyền đối với hầu hết các đảo thuộc quần đảo Trường Sa",
+              "eventLevel": "atomic",
+              "level": 2,
+              "children": []
+            },
+            {
+              "id": "thanh-lap-huyen-hoang-sa-va-huyen-truong-sa",
+              "title": "Thành lập huyện Hoàng Sa và huyện Trường Sa",
+              "eventLevel": "atomic",
+              "level": 2,
+              "children": []
+            },
+            {
+              "id": "bru-nay-tuyen-bo-ranh-gioi-them-luc-dia",
+              "title": "Bru-nây tuyên bố về ranh giới thềm lục địa 200 hải lí",
+              "eventLevel": "atomic",
+              "level": 2,
+              "children": []
+            },
+            {
+              "id": "bru-nay-tuyen-bo-vung-dac-quyen-kinh-te",
+              "title": "Bru-nây tuyên bố về vùng đặc quyền kinh tế",
+              "eventLevel": "atomic",
+              "level": 2,
+              "children": []
+            },
+            {
+              "id": "trung-quoc-danh-chiem-dao-gac-ma-len-dao-chu-thap-va-mot-so-dao-khac-truong-sa",
+              "title": "Trung Quốc đánh chiếm đảo Gạc Ma, Len Đao, Chữ Thập và chiếm đóng trái phép một số đảo khác trên quần đảo Trường Sa",
+              "eventLevel": "atomic",
+              "level": 2,
+              "children": []
+            },
+            {
+              "id": "chien-si-hai-quan-nhan-dan-viet-nam-hi-sinh-bao-ve-gac-ma-co-lin-len-dao",
+              "title": "Chiến sĩ hải quân Nhân dân Việt Nam hi sinh anh dũng khi chiến đấu bảo vệ chủ quyền tại các đảo Gạc Ma, Cô Lin, Len Đao",
+              "eventLevel": "atomic",
+              "level": 2,
+              "children": []
+            },
+            {
+              "id": "dai-loan-chiem-bai-can-ran-san-ho-ban-than",
+              "title": "Đài Loan chiếm bãi cạn rạn san hô Bàn Than",
+              "eventLevel": "atomic",
+              "level": 2,
+              "children": []
+            },
+            {
+              "id": "trung-quoc-danh-chiem-da-vanh-khan",
+              "title": "Trung Quốc đánh chiếm đá Vành Khăn",
+              "eventLevel": "atomic",
+              "level": 2,
+              "children": []
+            },
+            {
+              "id": "ki-tuyen-bo-ve-ung-xu-cua-cac-ben-o-bien-dong-doc",
+              "title": "Kí Tuyên bố về ứng xử của các bên ở Biển Đông (DOC)",
+              "eventLevel": "atomic",
+              "level": 2,
+              "children": []
+            },
+            {
+              "id": "viet-nam-thong-qua-luat-bien-viet-nam",
+              "title": "Việt Nam thông qua Luật Biển Việt Nam",
+              "eventLevel": "atomic",
+              "level": 2,
+              "children": []
+            },
+            {
+              "id": "ban-hanh-nghi-quyet-36-nq-tw-ve-chien-luoc-phat-trien-kinh-te-bien",
+              "title": "Ban hành Nghị quyết 36-NQ/TW về Chiến lược phát triển bền vững kinh tế biển Việt Nam đến năm 2030, tầm nhìn đến năm 2045",
+              "eventLevel": "atomic",
+              "level": 2,
+              "children": []
+            },
+            {
+              "id": "thanh-lap-va-hoat-dong-doi-dan-binh-hoang-sa-bac-hai",
+              "title": "Thành lập và hoạt động của các đội dân binh Hoàng Sa và Bắc Hải",
+              "eventLevel": "atomic",
+              "level": 2,
+              "children": []
+            }
+          ]
+        },
+        {
+          "id": "dau-tranh-chong-phong-kien-phuong-bac",
+          "title": "Đấu tranh chống sự thống trị, đồng hoá của các triều đại phong kiến phương Bắc",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "dinh-tien-le-dong-do-hoa-lu",
+          "title": "Triều Đinh và Tiền Lê đóng đô ở Hoa Lư",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "doi-do-ly-cong-uan",
+          "title": "Công cuộc dời đô của Lý Công Uẩn",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "doi-moi-dao-duy-tu-dang-trong",
+          "title": "Sự nghiệp đổi mới của Đào Duy Từ ở Đàng Trong",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "giai-doan-cuoi-chien-tranh-the-gioi-thu-hai",
+          "title": "Giai đoạn cuối của Chiến tranh thế giới thứ hai",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "giai-doan-day-manh-cong-nghiep-hoa-hien-dai-hoa-hoi-nhap-kinh-te-quoc-te-1996-2006",
+          "title": "Giai đoạn đẩy mạnh công nghiệp hoá, hiện đại hoá, hội nhập kinh tế quốc tế",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "giai-doan-khoi-dau-cong-cuoc-doi-moi-1986-1995",
+          "title": "Giai đoạn khởi đầu công cuộc Đổi mới",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "giai-doan-tiep-tuc-day-manh-cong-nghiep-hoa-hien-dai-hoa-hoi-nhap-quoc-te-sau-rong-2006-nay",
+          "title": "Giai đoạn tiếp tục đẩy mạnh công nghiệp hoá, hiện đại hoá, hội nhập quốc tế sâu rộng",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "hinh-thanh-khoi-dai-doan-ket-van-lang-au-lac",
+          "title": "Sự hình thành khối đại đoàn kết dân tộc thời Văn Lang – Âu Lạc",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "hinh-thanh-phat-trien-van-minh-cham-pa",
+          "title": "Hình thành và phát triển văn minh Chăm-pa",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "hinh-thanh-phat-trien-van-minh-phu-nam",
+          "title": "Hình thành và phát triển văn minh Phù Nam",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "hinh-thanh-phat-trien-van-minh-van-lang-au-lac",
+          "title": "Hình thành và phát triển văn minh Văn Lang – Âu Lạc",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "ho-chi-minh-keu-goi-nhuong-com-se-ao-tang-gia-san-xuat",
+          "title": "Chủ tịch Hồ Chí Minh kêu gọi nhân dân cả nước “Nhường cơm sẻ áo” và “Tăng gia sản xuất”",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "ho-chi-minh-ki-sac-lenh-thanh-lap-nha-binh-dan-hoc-vu-va-quy-doc-lap",
+          "title": "Chủ tịch Hồ Chí Minh kí sắc lệnh thành lập Nha Bình dân học vụ và thành lập Quỹ Độc lập, kêu gọi hưởng ứng Tuần lễ vàng",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "ho-khuc-to-chuc-lai-lang-xa-the-ki-x",
+          "title": "Họ Khúc tổ chức lại bộ máy làng xã",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "hoan-toan-giai-phong-mien-nam-viet-nam",
+          "title": "Hoàn toàn giải phóng miền Nam Việt Nam",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "ke-hoach-nha-nuoc-5-nam-lan-thu-nhat-mien-bac",
+          "title": "Kế hoạch Nhà nước 5 năm lần thứ nhất (1961-1965) ở miền Bắc",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "khang-chien-thang-loi",
+          "title": "Kháng chiến thắng lợi",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "khoi-nghia-phung-hung",
+          "title": "Khởi nghĩa Phùng Hưng",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "khung-hoang-cuoi-trieu-tran",
+          "title": "Khủng hoảng cuối triều Trần",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "lang-co-ten-nom-xuat-hien-som-thoi-ly-tran",
+          "title": "Những làng có tên nôm xuất hiện sớm vào thời Lý – Trần",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "lang-xa-hinh-thanh-thoi-van-lang-au-lac",
+          "title": "Làng xã hình thành từ công xã nông thôn thời Văn Lang - Âu Lạc",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "le-loi-xay-thanh-luc-nien",
+          "title": "Lê Lợi xây thành Lục Niên",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "lien-hop-quoc-vien-tro-viet-nam-1977-1986",
+          "title": "Hệ thống phát triển Liên hợp quốc viện trợ không hoàn lại cho Việt Nam",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "lien-xo-vien-tro-cho-viet-nam",
+          "title": "Liên Xô viện trợ cho Việt Nam",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "mai-thuc-loan-khoi-nghia",
+          "title": "Mai Thúc Loan dựng cờ khởi nghĩa",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "mien-bac-viet-nam-giai-phong-xay-dung-cnxh",
+          "title": "Miền Bắc Việt Nam được giải phóng và đi theo con đường xây dựng chủ nghĩa xã hội",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "nguoi-viet-che-tao-sung-than-co-thuyen-chien",
+          "title": "Người Việt chế tạo được súng thần cơ và đóng thuyền chiến cỡ lớn",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "nguyen-hue-dung-chan-chieu-mo-binh-si",
+          "title": "Nguyễn Huệ dừng chân chiêu mộ binh sĩ",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "nha-duong-dat-don-vi-huong-xa-thoi-bac-thuoc",
+          "title": "Nhà Đường đặt đơn vị hương và xã thời Bắc thuộc",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "nha-ly-su-dung-thi-cu-nho-hoc",
+          "title": "Nhà Lý chính thức sử dụng chế độ thi cử Nho học",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "nha-ly-to-chuc-khoa-thi-nho-hoc-dau-tien",
+          "title": "Nhà Lý tổ chức khoa thi Nho học đầu tiên",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "nha-ly-xay-dung-van-mieu",
+          "title": "Nhà Lý xây dựng Văn Miếu",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "nha-nuoc-can-thiep-manh-lang-xa-thoi-le-so",
+          "title": "Nhà nước can thiệp mạnh vào làng xã thời Lê sơ",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "nha-nuoc-can-thiep-manh-lang-xa-thoi-nguyen",
+          "title": "Nhà nước can thiệp mạnh vào làng xã thời Nguyễn",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "nha-nuoc-pho-mac-lang-xa-thoi-le-trung-hung",
+          "title": "Nhà nước \"phó mặc\" làng xã cho cường hào, quan viên thời Lê trung hưng",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "nho-giao-du-nhap-viet-nam",
+          "title": "Nho giáo du nhập vào Việt Nam",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "phap-xam-luoc-viet-nam",
+          "title": "Thực dân Pháp xâm lược và từng bước áp đặt ách cai trị ở Việt Nam",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "phong-trao-dong-du",
+          "title": "Phong trào Đông du",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "phong-trao-dong-khoi",
+          "title": "Phong trào Đồng khởi",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "phu-nam-tro-thanh-vuong-quoc-hung-manh",
+          "title": "Phù Nam trở thành vương quốc hùng mạnh",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "su-ra-doi-nha-nuoc-van-lang",
+          "title": "Sự ra đời của Nhà nước Văn Lang",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "tan-cong-champa-dai-viet-cuoi-tk14",
+          "title": "Các cuộc tấn công của Chăm-pa vào Đại Việt",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "thanh-lap-cac-dang-cong-san-o-viet-nam-ma-lai-xiem-phi-lip-pin",
+          "title": "Thành lập các đảng cộng sản ở Việt Nam, Mã Lai, Xiêm, Phi-líp-pin",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "thanh-lap-lang-xa-huyen-tien-hai-thai-binh",
+          "title": "Thành lập làng xã thuộc huyện Tiền Hải (Thái Bình)",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "thanh-lap-quoc-su-quan-trieu-nguyen",
+          "title": "Thành lập Quốc sử quán triều Nguyễn",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "thoi-tran-dat-chuc-xa-quan",
+          "title": "Thời Trần đặt chức xã quan",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "thuc-hien-thong-nhat-dat-nuoc-viet-nam",
+          "title": "Thực hiện thống nhất đất nước Việt Nam",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "thuong-mai-a-au-phat-trien-tai-dai-viet",
+          "title": "Thương mại Á – Âu phát triển, các công ti nước ngoài đến Đại Việt buôn bán",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "tin-nguong-tho-than-dong-co-cung-dinh",
+          "title": "Tín ngưỡng thờ thần Đồng Cổ được đưa vào cung đình",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "trang-an-duoc-ghi-danh-di-san-the-gioi",
+          "title": "Quần thể danh thắng Tràng An được ghi danh là Di sản văn hoá và thiên nhiên thế giới",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "tuyen-duong-chi-vien-chien-luoc-tren-bien-mang-ten-chu-tich-ho-chi-minh",
+          "title": "Tuyến đường chi viện chiến lược trên biển mang tên Chủ tịch Hồ Chí Minh",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "van-hoa-phung-nguyen",
+          "title": "Văn hoá Phùng Nguyên",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "van-hoa-sa-huynh",
+          "title": "Văn hoá Sa Huỳnh",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "van-hoa-tien-oc-eo",
+          "title": "Văn hoá tiền Óc Eo",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "viet-nam-dam-phan-ranh-gioi-tren-bien",
+          "title": "Việt Nam đàm phán về ranh giới trên biển với Ma-lai-xi-a, In-đô-nê-xi-a, Phi-líp-pin và Thái Lan",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "viet-nam-hoan-tat-muc-tieu-thien-nien-ki",
+          "title": "Việt Nam hoàn tất việc thực hiện các Mục tiêu Thiên niên kỉ (MDGs) của Liên hợp quốc",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "viet-nam-ki-ket-evfta",
+          "title": "Việt Nam kí kết Hiệp định Thương mại tự do Việt Nam - EU (EVFTA)",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "viet-nam-ki-ket-hiep-uoc-bien-gioi-trung-quoc",
+          "title": "Việt Nam kí kết các hiệp ước về biên giới trên đất liền và phân định vịnh Bắc Bộ với Trung Quốc",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "viet-nam-ki-ket-nghi-dinh-thu-ki-o-to",
+          "title": "Việt Nam kí kết Nghị định thư Ki-ô-tô",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "viet-nam-ki-ket-rcep",
+          "title": "Việt Nam kí kết Hiệp định Đối tác kinh tế toàn diện Khu vực (RCEP)",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "viet-nam-lao-cam-pu-chia-chuyen-sang-kinh-te-thi-truong-va-cong-nghiep-hoa",
+          "title": "Việt Nam, Lào, Cam-pu-chia chuyển sang kinh tế thị trường và công nghiệp hóa",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "viet-nam-mo-co-quan-dai-dien-ngoai-giao-va-thong-tin-o-nuoc-ngoai",
+          "title": "Việt Nam mở các cơ quan đại diện ngoại giao và thông tin ở nước ngoài",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "viet-nam-tham-gia-afta",
+          "title": "Việt Nam kí hiệp định tham gia Khu vực Mậu dịch tự do ASEAN (AFTA)",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "viet-nam-thoan-thuan-bien-gioi-lao-cam-pu-chia",
+          "title": "Việt Nam đạt được nhiều thoả thuận trong phát triển đường biên giới hoà bình, hữu nghị với Lào và Cam-pu-chia",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "viet-nam-to-chuc-hoi-nghi-quoc-te-asean-asem-apec",
+          "title": "Việt Nam tổ chức thành công nhiều hội nghị quốc tế quan trọng thuộc ASEAN, ASEM và APEC",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "viet-nam-uy-vien-khong-thuong-truc-hoi-dong-bao-an-lhq",
+          "title": "Việt Nam được bầu vào vị trí Uỷ viên không thường trực Hội đồng Bảo an Liên hợp quốc",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "vndcch-can-bang-quan-he-voi-lien-xo-trung-quoc-va-van-dong-vien-tro",
+          "title": "Việt Nam Dân chủ Cộng hoà cân bằng quan hệ với Liên Xô, Trung Quốc và vận động viện trợ",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "vndcch-gap-go-dang-cong-san-phap-va-cac-to-chuc-quoc-te",
+          "title": "Chính phủ Việt Nam Dân chủ Cộng hoà gặp gỡ đại diện Đảng Cộng sản Pháp và nhiều tổ chức quốc tế",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "vndcch-thiet-lap-quan-he-ngoai-giao-voi-lao-campuchia-va-ung-ho-phong-trao-giai-phong-dan-toc",
+          "title": "Việt Nam Dân chủ Cộng hoà thiết lập quan hệ ngoại giao với Lào, Campuchia và ủng hộ phong trào giải phóng dân tộc",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "xa-lan-dau-tien-xuat-hien",
+          "title": "Xã lần đầu tiên xuất hiện",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        },
+        {
+          "id": "xa-tro-thanh-ten-goi-pho-bien",
+          "title": "Xã chính thức trở thành tên gọi phổ biến",
+          "eventLevel": "atomic",
+          "level": 1,
+          "children": []
+        }
+      ]
+    }
+  ],
+  "rootIds": [
+    "viet-nam-thoi-dung-nuoc",
+    "bac-thuoc-va-dau-tranh-gianh-doc-lap",
+    "viet-nam-tu-the-ki-x-den-xv",
+    "viet-nam-tu-the-ki-xvi-den-xix",
+    "viet-nam-1858-1918",
+    "viet-nam-1919-1945",
+    "viet-nam-1945-1954",
+    "viet-nam-1954-1975",
+    "viet-nam-1975-den-nay"
+  ]
+}

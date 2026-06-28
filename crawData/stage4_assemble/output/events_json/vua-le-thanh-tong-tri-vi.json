@@ -1,0 +1,150 @@
+{
+  "id": "vua-le-thanh-tong-tri-vi",
+  "slug": "vua-le-thanh-tong-tri-vi",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Vua Lê Thánh Tông trị vì",
+    "short": "Lê Thánh Tông trị vì",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "reign",
+    "region": "vietnam",
+    "tags": [
+      "Lê Thánh Tông",
+      "Lê sơ",
+      "Đại Việt",
+      "vua"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 11,
+        "lessonId": "12390",
+        "lessonTitle": "BÀI 13  CUỘC CẢI CÁCH CỦA LÊ THÁNH TÔNG"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1460,
+      "month": null,
+      "day": null
+    },
+    "end": {
+      "year": 1497,
+      "month": null,
+      "day": null
+    },
+    "datePrecision": "year",
+    "displayDate": "1460 - 1497",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "point",
+    "historicalLocations": [],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": {
+      "name": "Đại Việt",
+      "lat": 16.0,
+      "lng": 107.0,
+      "confidence": "low"
+    },
+    "markers": [],
+    "focusGeometry": {
+      "mode": "marker",
+      "center": {
+        "name": "Đại Việt",
+        "lat": 16.0,
+        "lng": 107.0,
+        "confidence": "low"
+      },
+      "zoom": 12
+    }
+  },
+  "summary": {
+    "homepageTitle": "Lê Thánh Tông trị vì Đại Việt",
+    "homepageSummary": "Vua Lê Thánh Tông trị vì Đại Việt từ năm 1460 đến 1497, nổi tiếng với công cuộc cải cách toàn diện.",
+    "cardSummary": "Lê Thánh Tông trị vì Đại Việt (1460-1497), thực hiện nhiều cải cách quan trọng."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Vua Lê Thánh Tông huý là Tư Thành, sinh năm 1442, là con thứ tư của vua Lê Thái Tông và hoàng hậu Ngô Thị Ngọc Dao. Ông là vị vua thứ tư của nhà Lê sơ và trị vì đất nước từ năm 1460 đến năm 1497.",
+    "detailedNarrative": "Lê Thánh Tông lên ngôi năm 1460 trong bối cảnh đất nước sau một thời gian dài chiến tranh, khủng hoảng, bộ máy hành chính nhà nước trở nên yếu kém về nhiều mặt. Ông đã chủ trương tự mình giữ quyền chế tác, hết đạo biến thông, quyết định công cuộc cải cách trong khoảng 30 năm trị vì.",
+    "significance": null,
+    "keyFacts": [
+      "Vua thứ tư nhà Lê sơ",
+      "Trị vì từ 1460-1497",
+      "Sinh năm 1442",
+      "Con thứ tư của Lê Thái Tông"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 11,
+        "book": "KNTT",
+        "lessonId": "12390",
+        "lessonTitle": "BÀI 13  CUỘC CẢI CÁCH CỦA LÊ THÁNH TÔNG",
+        "chapter": "Chu de 6",
+        "lesson": "Bai 13",
+        "pageRange": {
+          "start": 93,
+          "end": 96
+        },
+        "url": "https://sgkvn.com/lop-11-14/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-6-mot-so-cuoc-cai-cach-lon-trong-lich-su-viet-nam-truoc-nam-1858-3353/bai-13-cuoc-cai-cach-cua-le-thanh-tong-the-ki-xv-12390.html",
+        "excerpt": "Vua Lê Thánh Tông huý là Tư Thành, sinh năm 1442, là con thứ tư của vua Lê Thái Tông và hoàng hậu Ngô Thị Ngọc Dao. Ông là vị vua thứ tư của nhà Lê sơ và trị vì đất nước từ năm 1460 đến năm 1497."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "vua-le-thanh-tong-tri-vi",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 43
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": true,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

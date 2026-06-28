@@ -1,0 +1,174 @@
+{
+  "id": "hinh-thanh-phat-trien-van-minh-cham-pa",
+  "slug": "hinh-thanh-phat-trien-van-minh-cham-pa",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Hình thành và phát triển văn minh Chăm-pa",
+    "short": "Hình thành và phát triển văn minh Chăm-pa",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "cultural",
+    "eventSubtype": "civilization_development",
+    "region": "vietnam",
+    "tags": [
+      "Miền Trung",
+      "Chăm-pa",
+      "Văn minh cổ"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      10
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 10,
+        "lessonId": "12148",
+        "lessonTitle": "Bài 11: Một Số Nền Văn Minh Cổ Trên Đất Nước Việt Nam"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "end": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "datePrecision": "period",
+    "displayDate": "Thế kỉ II đến thế kỉ XV",
+    "isApproximate": true
+  },
+  "mapData": {
+    "geoType": "mixed",
+    "historicalLocations": [
+      "miền Trung"
+    ],
+    "provinceNames": [
+      "Bình Thuận",
+      "Quảng Bình"
+    ],
+    "gadmRefs": [
+      "VNM.11_1",
+      "VNM.46_1"
+    ],
+    "marker": {
+      "name": "Bình Thuận",
+      "lat": 10.9333,
+      "lng": 108.0,
+      "confidence": "high"
+    },
+    "markers": [
+      {
+        "name": "Bình Thuận",
+        "lat": 10.9333,
+        "lng": 108.0,
+        "confidence": "high"
+      },
+      {
+        "name": "Quảng Bình",
+        "lat": 17.5,
+        "lng": 106.3,
+        "confidence": "high"
+      },
+      {
+        "name": "cao nguyên Trường Sơn Việt Nam",
+        "lat": 14.5,
+        "lng": 107.8,
+        "confidence": "low"
+      }
+    ],
+    "focusGeometry": {
+      "mode": "bounds",
+      "center": {
+        "lat": 14.311433,
+        "lng": 107.293002
+      },
+      "zoom": 7
+    }
+  },
+  "summary": {
+    "homepageTitle": "Văn minh Chăm-pa",
+    "homepageSummary": "Văn minh Chăm-pa hình thành, tồn tại và phát triển từ thế kỉ II đến thế kỉ XV trên địa bàn miền Trung và một phần cao nguyên Trường Sơn Việt Nam.",
+    "cardSummary": "Văn minh Chăm-pa (thế kỉ II – XV) phát triển ở miền Trung Việt Nam."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Nền văn minh Chăm-pa hình thành, tồn tại và phát triển (từ thế kỉ II đến thế kỉ XV) trên địa bàn các tỉnh miền Trung và một phần cao nguyên Trường Sơn Việt Nam ngày nay.",
+    "detailedNarrative": "Văn minh Chăm-pa hình thành trên cơ sở văn hoá Sa Huỳnh, chịu ảnh hưởng mạnh mẽ của văn minh Ấn Độ thông qua thương nhân, du nhập chữ viết, tôn giáo, tư tưởng, mô hình tổ chức nhà nước và pháp luật.",
+    "significance": "Là một nền văn minh cổ rực rỡ trên lãnh thổ Việt Nam, có nhiều thành tựu về kiến trúc, điêu khắc và chữ viết.",
+    "keyFacts": [
+      "Hình thành từ thế kỉ II, kết thúc thế kỉ XV",
+      "Chịu ảnh hưởng của văn minh Ấn Độ",
+      "Cội nguồn từ văn hoá Sa Huỳnh",
+      "Địa bàn: miền Trung và cao nguyên Trường Sơn Việt Nam"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 10,
+        "book": "KNTT",
+        "lessonId": "12148",
+        "lessonTitle": "Bài 11: Một Số Nền Văn Minh Cổ Trên Đất Nước Việt Nam",
+        "chapter": "Chu de 6",
+        "lesson": "Bai 11",
+        "pageRange": {
+          "start": 93,
+          "end": 107
+        },
+        "url": "https://sgkvn.com/lop-10-13/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-6-mot-so-nen-van-minh-tren-dat-nuoc-viet-nam-truoc-nam-1858-3276/bai-11-mot-so-nen-van-minh-co-tren-dat-nuoc-viet-nam-12148.html",
+        "excerpt": "Nền văn minh Chăm-pa hình thành, tồn tại và phát triển (từ thế kỉ II đến thế kỉ XV) trên địa bàn các tỉnh miền Trung và một phần cao nguyên Trường Sơn Việt Nam ngày nay."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "hinh-thanh-phat-trien-van-minh-cham-pa",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 326
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": true,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

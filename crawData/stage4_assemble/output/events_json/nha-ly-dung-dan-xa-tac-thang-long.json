@@ -1,0 +1,172 @@
+{
+  "id": "nha-ly-dung-dan-xa-tac-thang-long",
+  "slug": "nha-ly-dung-dan-xa-tac-thang-long",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Nhà Lý dựng đàn Xã Tắc ở Thăng Long",
+    "short": "Nhà Lý dựng đàn Xã Tắc ở Thăng Long",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "cultural",
+    "eventSubtype": "construction",
+    "region": "vietnam",
+    "tags": [
+      "Nhà Lý",
+      "Xã Tắc",
+      "nông nghiệp"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      10
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 10,
+        "lessonId": "12160",
+        "lessonTitle": "Bài 12: Văn Minh Đại Việt"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1048,
+      "month": null,
+      "day": null
+    },
+    "end": null,
+    "datePrecision": "year",
+    "displayDate": "Năm 1048",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "mixed",
+    "historicalLocations": [],
+    "provinceNames": [
+      "Hà Nội"
+    ],
+    "gadmRefs": [
+      "VNM.27_1"
+    ],
+    "marker": {
+      "name": "Ô Chợ Dừa",
+      "lat": 21.0167,
+      "lng": 105.825,
+      "confidence": "high"
+    },
+    "markers": [
+      {
+        "name": "Ô Chợ Dừa",
+        "lat": 21.0167,
+        "lng": 105.825,
+        "confidence": "high"
+      },
+      {
+        "name": "Thăng Long",
+        "lat": 21.0285,
+        "lng": 105.8542,
+        "confidence": "high"
+      },
+      {
+        "name": "Hà Nội",
+        "lat": 21.0285,
+        "lng": 105.8542,
+        "confidence": "high"
+      },
+      {
+        "name": "Đống Đa",
+        "lat": 21.027,
+        "lng": 105.843,
+        "confidence": "high"
+      }
+    ],
+    "focusGeometry": {
+      "mode": "bounds",
+      "center": {
+        "lat": 21.0193,
+        "lng": 105.822333
+      },
+      "zoom": 7
+    }
+  },
+  "summary": {
+    "homepageTitle": "Nhà Lý dựng đàn Xã Tắc (1048)",
+    "homepageSummary": "Năm 1048, nhà Lý bắt đầu dựng đàn Xã Tắc ở Thăng Long, thể hiện sự coi trọng sản xuất nông nghiệp.",
+    "cardSummary": "Nhà Lý dựng đàn Xã Tắc ở Thăng Long năm 1048, coi trọng nông nghiệp."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Năm 1048, nhà Lý bắt đầu dựng đàn Xã Tắc ở Thăng Long, đến nay còn di tích tại khu vực nút giao thông Ô Chợ Dừa (Đống Đa, Hà Nội).",
+    "detailedNarrative": null,
+    "significance": "Cho thấy triều đình rất coi trọng sản xuất nông nghiệp.",
+    "keyFacts": [
+      "Diễn ra năm 1048",
+      "Tại Thăng Long (Hà Nội)",
+      "Thể hiện sự coi trọng nông nghiệp",
+      "Nhà Lý bắt đầu dựng đàn Xã Tắc"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 10,
+        "book": "KNTT",
+        "lessonId": "12160",
+        "lessonTitle": "Bài 12: Văn Minh Đại Việt",
+        "chapter": "Chu de 6",
+        "lesson": "Bai 12",
+        "pageRange": {
+          "start": 108,
+          "end": 122
+        },
+        "url": "https://sgkvn.com/lop-10-13/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-6-mot-so-nen-van-minh-tren-dat-nuoc-viet-nam-truoc-nam-1858-3276/bai-12-van-minh-dai-viet-12160.html",
+        "excerpt": "Năm 1048, nhà Lý bắt đầu dựng đàn Xã Tắc ở Thăng Long, đến nay còn di tích tại khu vực nút giao thông Ô Chợ Dừa (Đống Đa, Hà Nội)."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "nha-ly-dung-dan-xa-tac-thang-long",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 13
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": true,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

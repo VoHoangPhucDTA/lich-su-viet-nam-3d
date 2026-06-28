@@ -1,0 +1,185 @@
+{
+  "id": "phong-trao-dong-khoi",
+  "slug": "phong-trao-dong-khoi",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Phong trào Đồng khởi",
+    "short": "Đồng khởi",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "uprising",
+    "region": "vietnam",
+    "tags": [
+      "miền Nam",
+      "Bến Tre",
+      "bạo lực cách mạng"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 12,
+        "lessonId": "12956",
+        "lessonTitle": "BÀI 8: CUỘC KHÁNG CHIẾN CHỐNG MỸ, CỨU NƯỚC (1954-1975)"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "end": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "datePrecision": "period",
+    "displayDate": "1959 – 1960",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "mixed",
+    "historicalLocations": [
+      "miền Nam"
+    ],
+    "provinceNames": [
+      "Ninh Thuận",
+      "Quảng Ngãi",
+      "Bến Tre",
+      "Bình Định"
+    ],
+    "gadmRefs": [
+      "VNM.43_1",
+      "VNM.48_1",
+      "VNM.6_1",
+      "VNM.8_1"
+    ],
+    "marker": {
+      "name": "Bắc Ái (Ninh Thuận)",
+      "lat": 11.75,
+      "lng": 108.7,
+      "confidence": "high"
+    },
+    "markers": [
+      {
+        "name": "Bắc Ái (Ninh Thuận)",
+        "lat": 11.75,
+        "lng": 108.7,
+        "confidence": "high"
+      },
+      {
+        "name": "Trà Bồng (Quảng Ngãi)",
+        "lat": 15.25,
+        "lng": 108.45,
+        "confidence": "high"
+      },
+      {
+        "name": "Bến Tre",
+        "lat": 10.2333,
+        "lng": 106.3833,
+        "confidence": "high"
+      },
+      {
+        "name": "Vĩnh Thạnh (Bình Định)",
+        "lat": 14.3,
+        "lng": 108.7,
+        "confidence": "high"
+      }
+    ],
+    "focusGeometry": {
+      "mode": "bounds",
+      "center": {
+        "lat": 12.80448,
+        "lng": 108.16811
+      },
+      "zoom": 7
+    }
+  },
+  "summary": {
+    "homepageTitle": "Phong trào Đồng khởi (1959-1960)",
+    "homepageSummary": "Phong trào Đồng khởi bắt đầu từ các cuộc nổi dậy ở Vĩnh Thạnh, Bắc Ái, Trà Bồng, rồi lan khắp miền Nam, tiêu biểu là Bến Tre.",
+    "cardSummary": "Phong trào Đồng khởi (1959-1960) bùng nổ ở miền Nam, chuyển cách mạng sang thế tiến công."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Phong trào Đồng khởi bắt đầu từ các cuộc nổi dậy của nhân dân Vĩnh Thạnh (Bình Định), Bắc Ái (Ninh Thuận) tháng 2 – 1959; Trà Bồng (Quảng Ngãi) tháng 8 – 1959, rồi lan khắp miền Nam, tiêu biểu là cuộc Đồng khởi ở Bến Tre tháng 1 – 1960.",
+    "detailedNarrative": null,
+    "significance": "Thắng lợi của phong trào Đồng khởi đã giáng đòn nặng nề vào chính sách thực dân mới của Mỹ, làm lung lay chính quyền Ngô Đình Diệm. Thắng lợi này đồng thời đánh dấu bước phát triển nhảy vọt của cách mạng miền Nam, chuyển từ thế giữ gìn lực lượng sang thế tiến công, mở ra vùng giải phóng rộng lớn, đưa đến việc thành lập Mặt trận Dân tộc giải phóng miền Nam Việt Nam (20 – 12 – 1960), thúc đẩy lực lượng vũ trang cách mạng phát triển.",
+    "keyFacts": [
+      "Giáng đòn nặng nề vào chính sách thực dân mới của Mỹ",
+      "Bắt đầu từ Vĩnh Thạnh, Bắc Ái (2-1959), Trà Bồng (8-1959)",
+      "Dẫn đến thành lập Mặt trận Dân tộc giải phóng miền Nam Việt Nam",
+      "Chuyển cách mạng miền Nam từ thế giữ gìn lực lượng sang thế tiến công",
+      "Tiêu biểu là Đồng khởi ở Bến Tre (1-1960)"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 12,
+        "book": "KNTT",
+        "lessonId": "12956",
+        "lessonTitle": "BÀI 8: CUỘC KHÁNG CHIẾN CHỐNG MỸ, CỨU NƯỚC (1954-1975)",
+        "chapter": "Chu de 3",
+        "lesson": "Bai 8",
+        "pageRange": {
+          "start": 45,
+          "end": 53
+        },
+        "url": "https://sgkvn.com/lop-12-15/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-3-cach-mang-thang-tam-nam-1945-chien-tranh-giai-phong-dan-toc-va-chien-tranh-bao-ve-to-quoc-trong-lich-su-viet-nam-tu-thang-8-nam-1945-den-nay-3539/bai-8-cuoc-khang-chien-chong-my-cuu-nuoc-1954-1975-12956.html",
+        "excerpt": "Phong trào Đồng khởi bắt đầu từ các cuộc nổi dậy của nhân dân Vĩnh Thạnh (Bình Định), Bắc Ái (Ninh Thuận) tháng 2 – 1959; Trà Bồng (Quảng Ngãi) tháng 8 – 1959, rồi lan khắp miền Nam, tiêu biểu là cuộc Đồng khởi ở Bến Tre tháng 1 – 1960."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "phong-trao-dong-khoi",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 360
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": true,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

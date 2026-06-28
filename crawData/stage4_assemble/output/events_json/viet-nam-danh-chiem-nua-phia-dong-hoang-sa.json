@@ -1,0 +1,155 @@
+{
+  "id": "viet-nam-danh-chiem-nua-phia-dong-hoang-sa",
+  "slug": "viet-nam-danh-chiem-nua-phia-dong-hoang-sa",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Việt Nam (chính quyền Sài Gòn) đánh chiếm nửa phía đông của quần đảo Hoàng Sa (nhóm An Vĩnh)",
+    "short": "VN đánh chiếm Hoàng Sa (1956)",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "military",
+    "eventSubtype": "occupation",
+    "region": "vietnam",
+    "tags": [
+      "chủ quyền",
+      "Hoàng Sa",
+      "chính quyền Sài Gòn"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 11,
+        "lessonId": "12395",
+        "lessonTitle": "BÀI 16  VIỆT NAM VÀ BIỂN ĐÔNG"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1956,
+      "month": null,
+      "day": null
+    },
+    "end": null,
+    "datePrecision": "year",
+    "displayDate": "Năm 1956",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "multi_point",
+    "historicalLocations": [],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": {
+      "name": "quần đảo Hoàng Sa",
+      "lat": 16.6833,
+      "lng": 112.3333,
+      "confidence": "high"
+    },
+    "markers": [
+      {
+        "name": "quần đảo Hoàng Sa",
+        "lat": 16.6833,
+        "lng": 112.3333,
+        "confidence": "high"
+      },
+      {
+        "name": "nhóm An Vĩnh",
+        "lat": 16.6833,
+        "lng": 112.3333,
+        "confidence": "high"
+      }
+    ],
+    "focusGeometry": {
+      "mode": "bounds",
+      "center": {
+        "lat": 16.6833,
+        "lng": 112.3333
+      },
+      "zoom": 8
+    }
+  },
+  "summary": {
+    "homepageTitle": "VN đánh chiếm nửa đông Hoàng Sa (1956)",
+    "homepageSummary": "Năm 1956, Việt Nam (chính quyền Sài Gòn) đánh chiếm nửa phía đông của quần đảo Hoàng Sa (nhóm An Vĩnh).",
+    "cardSummary": "Năm 1956, chính quyền Sài Gòn đánh chiếm nửa phía đông quần đảo Hoàng Sa (nhóm An Vĩnh)."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Việt Nam - Năm 1956: đánh chiếm nửa phía đông của quần đảo Hoàng Sa (nhóm An Vĩnh).",
+    "detailedNarrative": "Việt Nam - Năm 1956: đánh chiếm nửa phía đông của quần đảo Hoàng Sa (nhóm An Vĩnh).",
+    "significance": "Một hành động trong bối cảnh tranh chấp chủ quyền ở Biển Đông.",
+    "keyFacts": [
+      "Đối tượng: nửa phía đông của quần đảo Hoàng Sa (nhóm An Vĩnh)",
+      "Diễn ra năm 1956",
+      "Chủ thể: Việt Nam (chính quyền Sài Gòn)"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 11,
+        "book": "KNTT",
+        "lessonId": "12395",
+        "lessonTitle": "BÀI 16  VIỆT NAM VÀ BIỂN ĐÔNG",
+        "chapter": "Chu de 7",
+        "lesson": "Bai 16",
+        "pageRange": {
+          "start": 107,
+          "end": 111
+        },
+        "url": "https://sgkvn.com/lop-11-14/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-7-lich-su-chu-quyen-cua-viet-nam-o-bien-dong-3354/bai-16-viet-nam-va-bien-dong-12395.html",
+        "excerpt": "Việt Nam - Năm 1956: đánh chiếm nửa phía đông của quần đảo Hoàng Sa (nhóm An Vĩnh)."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "viet-nam-danh-chiem-nua-phia-dong-hoang-sa",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 214
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": true,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

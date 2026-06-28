@@ -1,0 +1,158 @@
+{
+  "id": "dat-them-thua-tuyen-quang-nam",
+  "slug": "dat-them-thua-tuyen-quang-nam",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Đặt thêm thừa tuyên Quảng Nam",
+    "short": "Thêm Quảng Nam",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "administrative_reform",
+    "region": "vietnam",
+    "tags": [
+      "Lê Thánh Tông",
+      "Quảng Nam",
+      "Lê sơ",
+      "hành chính"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 11,
+        "lessonId": "12390",
+        "lessonTitle": "BÀI 13  CUỘC CẢI CÁCH CỦA LÊ THÁNH TÔNG"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1471,
+      "month": null,
+      "day": null
+    },
+    "end": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "datePrecision": "year",
+    "displayDate": "Năm 1471",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "mixed",
+    "historicalLocations": [],
+    "provinceNames": [
+      "Quảng Nam"
+    ],
+    "gadmRefs": [
+      "VNM.47_1"
+    ],
+    "marker": {
+      "name": "Quảng Nam",
+      "lat": 15.5,
+      "lng": 108.0,
+      "confidence": "high"
+    },
+    "markers": [
+      {
+        "name": "Quảng Nam",
+        "lat": 15.5,
+        "lng": 108.0,
+        "confidence": "high"
+      }
+    ],
+    "focusGeometry": {
+      "mode": "bounds",
+      "center": {
+        "lat": 15.545479,
+        "lng": 107.985071
+      },
+      "zoom": 7
+    }
+  },
+  "summary": {
+    "homepageTitle": "Đặt thừa tuyên Quảng Nam",
+    "homepageSummary": "Năm 1471, vua Lê Thánh Tông đặt thêm thừa tuyên thứ 13 là Quảng Nam, mở rộng và hoàn thiện hệ thống hành chính địa phương.",
+    "cardSummary": "Năm 1471, Lê Thánh Tông đặt thêm thừa tuyên Quảng Nam."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Năm 1471, đặt thêm thừa tuyên thứ 13 là Quảng Nam.",
+    "detailedNarrative": null,
+    "significance": "Hoàn thiện hệ thống hành chính địa phương, mở rộng sự quản lý của nhà nước.",
+    "keyFacts": [
+      "Địa danh: Quảng Nam",
+      "Diễn ra năm 1471",
+      "Thừa tuyên thứ 13"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 11,
+        "book": "KNTT",
+        "lessonId": "12390",
+        "lessonTitle": "BÀI 13  CUỘC CẢI CÁCH CỦA LÊ THÁNH TÔNG",
+        "chapter": "Chu de 6",
+        "lesson": "Bai 13",
+        "pageRange": {
+          "start": 93,
+          "end": 96
+        },
+        "url": "https://sgkvn.com/lop-11-14/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-6-mot-so-cuoc-cai-cach-lon-trong-lich-su-viet-nam-truoc-nam-1858-3353/bai-13-cuoc-cai-cach-cua-le-thanh-tong-the-ki-xv-12390.html",
+        "excerpt": "Năm 1471, đặt thêm thừa tuyên thứ 13 là Quảng Nam."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "dat-them-thua-tuyen-quang-nam",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 47
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": true,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

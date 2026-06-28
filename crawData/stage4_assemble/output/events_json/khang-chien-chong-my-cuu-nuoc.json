@@ -1,0 +1,171 @@
+{
+  "id": "khang-chien-chong-my-cuu-nuoc",
+  "slug": "khang-chien-chong-my-cuu-nuoc",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Cuộc kháng chiến chống Mỹ, cứu nước",
+    "short": "Kháng chiến chống Mỹ",
+    "alternatives": [
+      "Chủ tịch Hồ Chí Minh cùng với Trung ương Đảng lãnh đạo cuộc kháng chiến chống Mỹ, cứu nước"
+    ]
+  },
+  "classification": {
+    "eventType": "military",
+    "eventSubtype": "war",
+    "region": "vietnam",
+    "tags": [
+      "kháng chiến",
+      "giải phóng dân tộc",
+      "Hồ Chí Minh",
+      "thống nhất đất nước",
+      "chống Mỹ"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 12,
+        "lessonId": "12956",
+        "lessonTitle": "BÀI 8: CUỘC KHÁNG CHIẾN CHỐNG MỸ, CỨU NƯỚC (1954-1975)"
+      },
+      {
+        "grade": 12,
+        "lessonId": "12966",
+        "lessonTitle": "BÀI 15: KHÁI QUÁT CUỘC ĐỜI VÀ SỰ NGHIỆP CỦA HỒ CHÍ MINH"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1954,
+      "month": null,
+      "day": null
+    },
+    "end": {
+      "year": 1975,
+      "month": null,
+      "day": null
+    },
+    "datePrecision": "year",
+    "displayDate": "1954-1975",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "nationwide",
+    "historicalLocations": [
+      "miền Bắc",
+      "Đông Nam Á",
+      "Việt Nam",
+      "miền Nam"
+    ],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "bounds",
+      "center": {
+        "lat": 16.0,
+        "lng": 106.0
+      },
+      "zoom": 5
+    }
+  },
+  "summary": {
+    "homepageTitle": "Kháng chiến chống Mỹ, cứu nước (1954-1975)",
+    "homepageSummary": "Cuộc chiến đấu của nhân dân Việt Nam chống lại đế quốc Mỹ và chính quyền Sài Gòn, nhằm giải phóng miền Nam và thống nhất đất nước.",
+    "cardSummary": "Kháng chiến chống Mỹ, cứu nước (1954-1975) giải phóng miền Nam, thống nhất Việt Nam."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Cuộc kháng chiến chống Mỹ, cứu nước diễn ra từ năm 1954 đến năm 1975, trải qua nhiều giai đoạn với sự tham gia của nhân dân hai miền Nam - Bắc, nhằm hoàn thành cách mạng dân tộc dân chủ nhân dân và thống nhất đất nước.",
+    "detailedNarrative": "Ngay sau Hiệp định Giơ-ne-vơ, Mỹ thay chân Pháp, dựng lên chính quyền tay sai Ngô Đình Diệm ở miền Nam Việt Nam với âm mưu chia cắt Việt Nam. Nhân dân Việt Nam đã tiến hành cuộc kháng chiến kéo dài 21 năm, qua các giai đoạn 1954-1960, 1961-1965, 1965-1968, 1969-1973 và 1973-1975, với sự phối hợp chiến đấu của cả hai miền Nam - Bắc và sự ủng hộ quốc tế.",
+    "significance": "Thắng lợi của cuộc kháng chiến chống Mỹ, cứu nước đã kết thúc 21 năm chiến đấu chống đế quốc Mỹ xâm lược, 30 năm chiến tranh cách mạng; chấm dứt ách thống trị của chủ nghĩa đế quốc trên đất nước Việt Nam. Cuộc kháng chiến đã kết thúc thắng lợi cuộc cách mạng dân tộc dân chủ nhân dân trên phạm vi cả nước; mở ra kỉ nguyên cả nước hoà bình, độc lập, thống nhất, đi lên chủ nghĩa xã hội. Đối với quốc tế, thắng lợi này góp phần làm sụp đổ chủ nghĩa thực dân mới, cổ vũ phong trào giải phóng dân tộc và cuộc đấu tranh vì hoà bình, dân chủ và chủ nghĩa xã hội của nhân dân thế giới.",
+    "keyFacts": [
+      "Lãnh đạo kháng chiến",
+      "Kết thúc 21 năm chống Mỹ, 30 năm chiến tranh cách mạng",
+      "Góp phần làm sụp đổ chủ nghĩa thực dân mới trên thế giới",
+      "Diễn ra từ 1954-1975",
+      "Thống nhất đất nước, mở ra kỉ nguyên độc lập, thống nhất, đi lên chủ nghĩa xã hội"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 12,
+        "book": "KNTT",
+        "lessonId": "12956",
+        "lessonTitle": "BÀI 8: CUỘC KHÁNG CHIẾN CHỐNG MỸ, CỨU NƯỚC (1954-1975)",
+        "chapter": "Chu de 3",
+        "lesson": "Bai 8",
+        "pageRange": {
+          "start": 45,
+          "end": 53
+        },
+        "url": "https://sgkvn.com/lop-12-15/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-3-cach-mang-thang-tam-nam-1945-chien-tranh-giai-phong-dan-toc-va-chien-tranh-bao-ve-to-quoc-trong-lich-su-viet-nam-tu-thang-8-nam-1945-den-nay-3539/bai-8-cuoc-khang-chien-chong-my-cuu-nuoc-1954-1975-12956.html",
+        "excerpt": "Cuộc kháng chiến chống Mỹ, cứu nước diễn ra từ năm 1954 đến năm 1975, trải qua nhiều giai đoạn với sự tham gia của nhân dân hai miền Nam - Bắc, nhằm hoàn thành cách mạng dân tộc dân chủ nhân dân và thống nhất đất nước."
+      },
+      {
+        "grade": 12,
+        "book": "KNTT",
+        "lessonId": "12966",
+        "lessonTitle": "BÀI 15: KHÁI QUÁT CUỘC ĐỜI VÀ SỰ NGHIỆP CỦA HỒ CHÍ MINH",
+        "chapter": "Chu de 5",
+        "lesson": "Bai 15",
+        "pageRange": {
+          "start": 88,
+          "end": 93
+        },
+        "url": "https://sgkvn.com/lop-12-15/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-5-lich-su-doi-ngoai-cua-viet-nam-thoi-can-hien-dai-3541/bai-15-khai-quat-cuoc-doi-va-su-nghiep-cua-ho-chi-minh-12966.html",
+        "excerpt": "Cuộc kháng chiến chống Mỹ, cứu nước diễn ra từ năm 1954 đến năm 1975, trải qua nhiều giai đoạn với sự tham gia của nhân dân hai miền Nam - Bắc, nhằm hoàn thành cách mạng dân tộc dân chủ nhân dân và thống nhất đất nước."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "khang-chien-chong-my-cuu-nuoc",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 206
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": true,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

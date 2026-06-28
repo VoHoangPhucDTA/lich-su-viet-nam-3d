@@ -1,0 +1,158 @@
+{
+  "id": "vu-an-le-chi-vien",
+  "slug": "vu-an-le-chi-vien",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Vụ án Lệ Chi Viên",
+    "short": "Lệ Chi Viên",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "judicial",
+    "region": "vietnam",
+    "tags": [
+      "Lê sơ",
+      "Nguyễn Trãi",
+      "quyền thần",
+      "oan sai"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 11,
+        "lessonId": "12390",
+        "lessonTitle": "BÀI 13  CUỘC CẢI CÁCH CỦA LÊ THÁNH TÔNG"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "end": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "datePrecision": "approximate",
+    "displayDate": "Trước năm 1460",
+    "isApproximate": true
+  },
+  "mapData": {
+    "geoType": "mixed",
+    "historicalLocations": [],
+    "provinceNames": [
+      "Bắc Ninh"
+    ],
+    "gadmRefs": [
+      "VNM.5_1"
+    ],
+    "marker": {
+      "name": "Lệ Chi Viên",
+      "lat": 21.08,
+      "lng": 106.15,
+      "confidence": "high"
+    },
+    "markers": [
+      {
+        "name": "Lệ Chi Viên",
+        "lat": 21.08,
+        "lng": 106.15,
+        "confidence": "high"
+      }
+    ],
+    "focusGeometry": {
+      "mode": "bounds",
+      "center": {
+        "lat": 21.091756,
+        "lng": 106.105672
+      },
+      "zoom": 7
+    }
+  },
+  "summary": {
+    "homepageTitle": "Vụ án oan Lệ Chi Viên",
+    "homepageSummary": "Vụ án oan Lệ Chi Viên dẫn đến tru di tam tộc gia đình Nguyễn Trãi, là một trong những biểu hiện của sự lộng hành của quyền thần trước cải cách Lê Thánh Tông.",
+    "cardSummary": "Vụ án Lệ Chi Viên tru di tam tộc Nguyễn Trãi, thể hiện sự lộng hành của quyền thần."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Sự lộng hành của một số quyền thần đã gây nên vụ án oan 'Lệ Chi Viên' tru di tam tộc gia đình Nguyễn Trãi.",
+    "detailedNarrative": null,
+    "significance": "Là một trong những bối cảnh lịch sử dẫn đến cuộc cải cách của vua Lê Thánh Tông, cho thấy sự yếu kém của bộ máy nhà nước và tình trạng mâu thuẫn nội bộ.",
+    "keyFacts": [
+      "Diễn ra trước 1460",
+      "Gây ra bởi quyền thần",
+      "Tru di tam tộc gia đình Nguyễn Trãi"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 11,
+        "book": "KNTT",
+        "lessonId": "12390",
+        "lessonTitle": "BÀI 13  CUỘC CẢI CÁCH CỦA LÊ THÁNH TÔNG",
+        "chapter": "Chu de 6",
+        "lesson": "Bai 13",
+        "pageRange": {
+          "start": 93,
+          "end": 96
+        },
+        "url": "https://sgkvn.com/lop-11-14/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-6-mot-so-cuoc-cai-cach-lon-trong-lich-su-viet-nam-truoc-nam-1858-3353/bai-13-cuoc-cai-cach-cua-le-thanh-tong-the-ki-xv-12390.html",
+        "excerpt": "Sự lộng hành của một số quyền thần đã gây nên vụ án oan 'Lệ Chi Viên' tru di tam tộc gia đình Nguyễn Trãi."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "vu-an-le-chi-vien",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 397
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": true,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

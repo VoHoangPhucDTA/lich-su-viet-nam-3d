@@ -1,0 +1,131 @@
+{
+  "id": "tin-nguong-tho-than-dong-co-cung-dinh",
+  "slug": "tin-nguong-tho-than-dong-co-cung-dinh",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Tín ngưỡng thờ thần Đồng Cổ được đưa vào cung đình",
+    "short": "Tín ngưỡng thờ thần Đồng Cổ được đưa vào cung đình",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "cultural",
+    "eventSubtype": "ritual",
+    "region": "vietnam",
+    "tags": [
+      "thần Đồng Cổ",
+      "thời Lý",
+      "tín ngưỡng"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      10
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 10,
+        "lessonId": "12160",
+        "lessonTitle": "Bài 12: Văn Minh Đại Việt"
+      }
+    ]
+  },
+  "chronology": {
+    "start": null,
+    "end": null,
+    "datePrecision": "period",
+    "displayDate": "Thời Lý",
+    "isApproximate": true
+  },
+  "mapData": {
+    "geoType": "no_location",
+    "historicalLocations": [],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "auto",
+      "center": null,
+      "zoom": null
+    }
+  },
+  "summary": {
+    "homepageTitle": "Thờ thần Đồng Cổ trong cung đình (thời Lý)",
+    "homepageSummary": "Tín ngưỡng thờ thần Đồng Cổ được đưa vào cung đình từ thời Lý, trở thành nghi lễ giữ đạo trung với vua, quốc gia.",
+    "cardSummary": "Tín ngưỡng thờ thần Đồng Cổ được đưa vào cung đình thời Lý, nhằm giữ đạo trung với vua và quốc gia."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Tín ngưỡng thờ thần Đồng Cổ (thần Trống đồng) được đưa vào cung đình từ thời Lý, được triều đình bảo trợ và phát triển dưới hình thức một nghi lễ nhằm giữ đạo trung với vua, với quốc gia.",
+    "detailedNarrative": null,
+    "significance": "Nhằm giữ đạo trung với vua, với quốc gia.",
+    "keyFacts": [
+      "Được triều đình bảo trợ",
+      "Được đưa vào cung đình từ thời Lý",
+      "Phát triển dưới hình thức nghi lễ giữ đạo trung",
+      "Tín ngưỡng thờ thần Đồng Cổ"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 10,
+        "book": "KNTT",
+        "lessonId": "12160",
+        "lessonTitle": "Bài 12: Văn Minh Đại Việt",
+        "chapter": "Chu de 6",
+        "lesson": "Bai 12",
+        "pageRange": {
+          "start": 108,
+          "end": 122
+        },
+        "url": "https://sgkvn.com/lop-10-13/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-6-mot-so-nen-van-minh-tren-dat-nuoc-viet-nam-truoc-nam-1858-3276/bai-12-van-minh-dai-viet-12160.html",
+        "excerpt": "Tín ngưỡng thờ thần Đồng Cổ (thần Trống đồng) được đưa vào cung đình từ thời Lý, được triều đình bảo trợ và phát triển dưới hình thức một nghi lễ nhằm giữ đạo trung với vua, với quốc gia."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "tin-nguong-tho-than-dong-co-cung-dinh",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 374
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": false,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}
