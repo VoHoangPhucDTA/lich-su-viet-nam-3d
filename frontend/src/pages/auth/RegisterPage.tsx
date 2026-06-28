@@ -286,7 +286,8 @@ export default function RegisterPage() {
           style={{
             position: 'fixed',
             inset: 0,
-            background: 'rgba(2, 6, 23, 0.72)',
+            background: 'var(--bg-app)',
+            opacity: 0.92,
             backdropFilter: 'blur(6px)',
             display: 'flex',
             alignItems: 'center',
@@ -298,10 +299,10 @@ export default function RegisterPage() {
           <div
             style={{
               width: 'min(100%, 29rem)',
-              background: 'var(--card-bg)',
+              background: 'var(--bg-card)',
               border: '1px solid var(--border)',
               borderRadius: '0.75rem',
-              boxShadow: '0 20px 55px rgba(15, 23, 42, 0.25)',
+              boxShadow: 'var(--shadow)',
               padding: '1.25rem',
               maxHeight: 'calc(100vh - 2rem)',
               overflowY: 'auto',

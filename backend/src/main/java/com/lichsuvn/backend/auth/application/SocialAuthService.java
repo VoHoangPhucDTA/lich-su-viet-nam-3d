@@ -11,6 +11,7 @@ import com.lichsuvn.backend.auth.infrastructure.UserSocialProviderRepository;
 import com.lichsuvn.backend.auth.infrastructure.UuidBytes;
 import com.lichsuvn.backend.auth.security.JwtService;
 import com.lichsuvn.backend.common.exception.ApiException;
+import com.lichsuvn.backend.common.storage.CloudinaryService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -61,6 +62,7 @@ public class SocialAuthService {
     private final RoleRepository roleRepository;
     private final UserSocialProviderRepository socialRepository;
     private final JwtService jwtService;
+    private final CloudinaryService cloudinaryService;
     private final String googleClientId;
     private final String facebookAppId;
     private final String facebookAppSecret;
@@ -71,6 +73,7 @@ public class SocialAuthService {
             RoleRepository roleRepository,
             UserSocialProviderRepository socialRepository,
             JwtService jwtService,
+            CloudinaryService cloudinaryService,
             @Value("${app.oauth.google.client-id:}") String googleClientId,
             @Value("${app.oauth.facebook.app-id:}") String facebookAppId,
             @Value("${app.oauth.facebook.app-secret:}") String facebookAppSecret,
@@ -80,6 +83,7 @@ public class SocialAuthService {
         this.roleRepository = roleRepository;
         this.socialRepository = socialRepository;
         this.jwtService = jwtService;
+        this.cloudinaryService = cloudinaryService;
         this.googleClientId = googleClientId;
         this.facebookAppId = facebookAppId;
         this.facebookAppSecret = facebookAppSecret;
@@ -231,7 +235,7 @@ public class SocialAuthService {
     private FacebookProfile fetchFacebookProfile(String userAccessToken) {
         String profileUrl = UriComponentsBuilder
                 .fromUriString("https://graph.facebook.com/" + facebookGraphVersion + "/me")
-                .queryParam("fields", "id,name,email,picture.type(large)")
+                .queryParam("fields", "id,name,email,picture.width(200).height(200)")
                 .queryParam("access_token", userAccessToken)
                 .toUriString();
 
@@ -369,6 +373,14 @@ public class SocialAuthService {
             
         // Bước 6B.2.8 / 6B.3.8: SocialAuthService.java: Truy vấn và lưu User vào MySQL
 
+        // Upload social avatar to Cloudinary for persistence
+        String cloudinaryUrl = null;
+        if (avatarUrl != null && !avatarUrl.isBlank()) {
+            cloudinaryUrl = cloudinaryService.uploadFromUrl(avatarUrl, email);
+        }
+        // Use Cloudinary URL if upload succeeded, otherwise fall back to original
+        String finalAvatarUrl = (cloudinaryUrl != null) ? cloudinaryUrl : avatarUrl;
+
         // C3: Already linked — fast path
         Optional<UserSocialProviderEntity> existingLink =
                 socialRepository.findByProviderAndProviderId(provider, providerId);
@@ -394,10 +406,10 @@ public class SocialAuthService {
                         provider, email, UuidBytes.toString(user.getId()));
             }
             linkProvider(user, provider, providerId, email, displayName, avatarUrl);
-            // Update avatarUrl if the local account has none
+            // Update avatarUrl if the local account has none — use Cloudinary URL
             if ((user.getAvatarUrl() == null || user.getAvatarUrl().isBlank())
-                    && avatarUrl != null && !avatarUrl.isBlank()) {
-                user.setAvatarUrl(avatarUrl);
+                    && finalAvatarUrl != null && !finalAvatarUrl.isBlank()) {
+                user.setAvatarUrl(finalAvatarUrl);
             }
             log.info("Social login C2 (email merge): provider={} email={} userId={}", provider,
                     email, UuidBytes.toString(user.getId()));
@@ -405,7 +417,7 @@ public class SocialAuthService {
         }
 
         // C1: Brand new user — create active account (no password needed)
-        UserEntity newUser = createSocialUser(email, displayName, avatarUrl);
+        UserEntity newUser = createSocialUser(email, displayName, finalAvatarUrl);
         linkProvider(newUser, provider, providerId, email, displayName, avatarUrl);
         log.info("Social login C1 (new user): provider={} email={} userId={}", provider,
                 email, UuidBytes.toString(newUser.getId()));

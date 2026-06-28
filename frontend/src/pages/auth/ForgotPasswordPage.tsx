@@ -24,9 +24,9 @@ export default function ForgotPasswordPage() {
     setLoading(true);
     try {
       // Bước 6C.1.2: ForgotPasswordPage.tsx: gọi hàm forgotPassword trong authService.ts
-      const res = await forgotPassword(email.trim());
+      await forgotPassword(email.trim());
       // Bước 6C.1.11: ForgotPasswordPage.tsx: hiển thị thông báo thành công
-      setSuccess(res.message || 'Hướng dẫn đặt lại mật khẩu đã được gửi về mail của bạn.');
+      setSuccess('Vui lòng kiểm tra hộp thư của bạn');
     } catch {
       setError('Không thể gửi hướng dẫn đặt lại mật khẩu. Vui lòng thử lại.');
     } finally {
@@ -65,25 +65,26 @@ export default function ForgotPasswordPage() {
 
       {success ? (
         <div className="animate-fade-in">
-          <AuthFormMessage type="success" message={success} />
-
           <div
+            className="auth-msg-success"
             style={{
-              textAlign: 'center',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              gap: '0.5rem',
               padding: '1.5rem',
-              background: 'rgba(47,122,87,0.12)',
-              border: '1px solid rgba(47,122,87,0.35)',
               borderRadius: '0.875rem',
               marginBottom: '1.5rem',
             }}
           >
-            <div style={{ color: 'var(--accent)', display: 'flex', justifyContent: 'center', marginBottom: '0.75rem' }}>
+            <div style={{ display: 'flex', justifyContent: 'center' }}>
               <Inbox size={36} strokeWidth={2} />
             </div>
-            <p style={{ fontSize: '0.875rem', color: 'var(--text-primary)', lineHeight: 1.6 }}>
-              Vui lòng kiểm tra hộp thư của bạn
-              <br />
-              <span style={{ color: 'var(--accent)', fontWeight: 600 }}>{email}</span>
+            <p style={{ fontSize: '0.9375rem', lineHeight: 1.6, fontWeight: 500, margin: 0 }}>
+              {success}
+            </p>
+            <p style={{ fontSize: '0.875rem', fontWeight: 600, margin: 0 }}>
+              {email}
             </p>
           </div>
 

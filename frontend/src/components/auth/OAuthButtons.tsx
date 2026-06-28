@@ -10,6 +10,14 @@ interface GoogleCredentialResponse {
   select_by?: string;
 }
 
+interface GoogleMoment {
+  getDismissed: () => boolean;
+  getNotDisplayed: () => boolean;
+  isDisplayed: () => boolean;
+  isNotDisplayed: () => boolean;
+  isSkippedMoment: () => boolean;
+}
+
 interface GoogleAccountsId {
   initialize: (config: {
     client_id: string;
@@ -17,6 +25,7 @@ interface GoogleAccountsId {
     auto_select?: boolean;
     cancel_on_tap_outside?: boolean;
   }) => void;
+  prompt: (momentListener: (moment: GoogleMoment) => void) => void;
   renderButton: (
     parent: HTMLElement,
     options: {
@@ -201,10 +210,9 @@ export default function OAuthButtons({ mode = 'login', onError }: OAuthButtonsPr
   const navigate = useNavigate();
 
   // ── Google state ────────────────────────────────────────────────────
-  const googleButtonRef = useRef<HTMLDivElement | null>(null);
   const gsiInitialized = useRef(false);
-  const gsiRendered = useRef(false);
   const [googleScriptReady, setGoogleScriptReady] = useState(false);
+  const [googleLoading, setGoogleLoading] = useState(false);
 
   // ── Facebook state ──────────────────────────────────────────────────
   const [fbSdkReady, setFbSdkReady] = useState(false);
@@ -225,6 +233,9 @@ export default function OAuthButtons({ mode = 'login', onError }: OAuthButtonsPr
   // ── Google GSI ───────────────────────────────────────────────────────
   const handleGoogleCredential = useCallback(
     async (response: GoogleCredentialResponse) => {
+      // Reset loading state when credential is received
+      setGoogleLoading(false);
+
       // Bước 6B.2.2: Google Server: Trả về credential (id_token)
       if (!response.credential) {
         onError?.('Không nhận được thông tin từ Google. Vui lòng thử lại.');
@@ -242,11 +253,12 @@ export default function OAuthButtons({ mode = 'login', onError }: OAuthButtonsPr
     [loginWithGoogle, redirectAfterLogin, onError]
   );
 
+  // ── Google GSI SDK: init + load script ────────────────────────────────
   useEffect(() => {
     if (!isGoogleConfigured) return;
 
-    const initAndRender = () => {
-      if (!window.google?.accounts?.id || !googleButtonRef.current) return;
+    const initGsi = () => {
+      if (!window.google?.accounts?.id) return;
 
       if (!gsiInitialized.current) {
         window.google.accounts.id.initialize({
@@ -258,30 +270,18 @@ export default function OAuthButtons({ mode = 'login', onError }: OAuthButtonsPr
         gsiInitialized.current = true;
       }
 
-      if (!gsiRendered.current) {
-        googleButtonRef.current.innerHTML = '';
-        window.google.accounts.id.renderButton(googleButtonRef.current, {
-          theme: 'outline',
-          size: 'large',
-          type: 'icon',
-          shape: 'circle',
-          locale: 'vi',
-        });
-        gsiRendered.current = true;
-      }
-
       setGoogleScriptReady(true);
     };
 
     if (window.google?.accounts?.id) {
-      initAndRender();
+      initGsi();
       return;
     }
 
     const existingScript = document.getElementById('google-gsi-script') as HTMLScriptElement | null;
     if (existingScript) {
-      existingScript.addEventListener('load', initAndRender, { once: true });
-      return () => existingScript.removeEventListener('load', initAndRender);
+      existingScript.addEventListener('load', initGsi, { once: true });
+      return () => existingScript.removeEventListener('load', initGsi);
     }
 
     const script = document.createElement('script');
@@ -289,11 +289,41 @@ export default function OAuthButtons({ mode = 'login', onError }: OAuthButtonsPr
     script.src = 'https://accounts.google.com/gsi/client';
     script.async = true;
     script.defer = true;
-    script.onload = initAndRender;
+    script.onload = initGsi;
     script.onerror = () =>
       onError?.('Không tải được Google SDK. Vui lòng kiểm tra mạng hoặc cấu hình Google OAuth.');
     document.head.appendChild(script);
-  }, [isGoogleConfigured, handleGoogleCredential, mode, onError]);
+  }, [isGoogleConfigured, handleGoogleCredential, onError]);
+
+  // ── Custom Google button click ─────────────────────────────────────────
+  const handleGoogleClick = useCallback(() => {
+    if (!window.google?.accounts?.id) {
+      onError?.('Google SDK chưa sẵn sàng. Vui lòng thử lại sau.');
+      return;
+    }
+
+    setGoogleLoading(true);
+
+    try {
+      // Trigger GSI One Tap / sign-in popup via prompt()
+      // The callback (handleGoogleCredential) was set in initialize() above
+      window.google.accounts.id.prompt((notification) => {
+        if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
+          setGoogleLoading(false);
+          // If One Tap is not displayed (e.g. user dismissed it), use the button flow
+          // which re-prompts on next click.
+        }
+        // On dismiss/close, reset loading
+        if (notification.getDismissed() || notification.getNotDisplayed()) {
+          setGoogleLoading(false);
+        }
+      });
+    } catch (err) {
+      setGoogleLoading(false);
+      console.error('[Google Login Error]:', err);
+      onError?.('Lỗi khởi tạo đăng nhập Google. Vui lòng thử lại.');
+    }
+  }, [onError]);
 
   // ── Facebook SDK loader ──────────────────────────────────────────────
   useEffect(() => {
@@ -396,20 +426,17 @@ export default function OAuthButtons({ mode = 'login', onError }: OAuthButtonsPr
 
       {/* Social buttons row */}
       <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem' }}>
-        {/* Google */}
+        {/* Google — custom button with SVG icon (not GSI renderButton for reliability) */}
         {isGoogleConfigured ? (
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              height: '40px',
-              width: '40px',
-              opacity: googleScriptReady ? 1 : 0.72,
-            }}
-          >
-            <div ref={googleButtonRef} style={{ display: 'flex', justifyContent: 'center' }} />
-          </div>
+          <OAuthButton
+            label={`${actionLabel} Google`}
+            icon={<GoogleIcon />}
+            onClick={handleGoogleClick}
+            disabled={!googleScriptReady}
+            loading={googleLoading}
+            disabledReason={!googleScriptReady ? 'Đang tải Google SDK...' : undefined}
+            iconOnly
+          />
         ) : (
           <OAuthButton
             label={`${actionLabel} Google`}

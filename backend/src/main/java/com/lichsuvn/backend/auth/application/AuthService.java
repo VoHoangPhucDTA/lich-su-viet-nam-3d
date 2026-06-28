@@ -24,6 +24,7 @@ import com.lichsuvn.backend.auth.security.JwtService;
 import com.lichsuvn.backend.auth.security.UserPrincipal;
 import com.lichsuvn.backend.common.api.MessageDto;
 import com.lichsuvn.backend.common.exception.ApiException;
+import com.lichsuvn.backend.common.storage.CloudinaryService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -55,6 +56,7 @@ public class AuthService {
     private final AuthTokenService authTokenService;
     private final PasswordPolicy passwordPolicy;
     private final EmailService emailService;
+    private final CloudinaryService cloudinaryService;
     private final String frontendBaseUrl;
     private final Duration emailVerificationTtl;
 
@@ -67,7 +69,8 @@ public class AuthService {
             AuthTokenService authTokenService,
             PasswordPolicy passwordPolicy,
             EmailService emailService,
-            @Value("${app.frontend-base-url:https://localhost:5173}") String frontendBaseUrl,
+            CloudinaryService cloudinaryService,
+            @Value("${app.frontend-base-url:http://localhost:5173}") String frontendBaseUrl,
             @Value("${app.auth.email-verification-minutes:10}") long emailVerificationMinutes) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
@@ -77,6 +80,7 @@ public class AuthService {
         this.authTokenService = authTokenService;
         this.passwordPolicy = passwordPolicy;
         this.emailService = emailService;
+        this.cloudinaryService = cloudinaryService;
         this.frontendBaseUrl = normalizeFrontendBaseUrl(frontendBaseUrl);
         log.info("Auth email links will use frontend base URL={}", this.frontendBaseUrl);
         this.emailVerificationTtl = Duration.ofMinutes(emailVerificationMinutes);
@@ -107,6 +111,11 @@ public class AuthService {
         user.setFullName(defaultFullName(email, request.fullName()));
         user.setGrade(grade);
         user.setSchool(StringUtils.hasText(request.school()) ? request.school().trim() : null);
+        // Assign Cloudinary default avatar for email-registered users
+        String defaultAvatar = cloudinaryService.getDefaultAvatarUrl();
+        if (!defaultAvatar.isBlank()) {
+            user.setAvatarUrl(defaultAvatar);
+        }
         user.setStatus(UserStatus.PENDING.value());
         user.setRoles(Set.of(studentRole));
 
@@ -226,6 +235,12 @@ public class AuthService {
     }
 
     @Transactional
+    /**
+     * @deprecated AuthController đọc refresh_token trực tiếp từ HttpOnly Cookie
+     *             và gọi {@link #refreshByToken(String)}. Phương thức này giữ lại
+     *             để tương thích ngược với các client cũ gửi RefreshRequest body.
+     */
+    @Deprecated
     public AuthResponseDto refresh(RefreshRequest request) {
         return refreshByToken(request.refreshToken());
     }
@@ -233,6 +248,7 @@ public class AuthService {
     /**
      * Làm mới Access Token bằng refresh token string (đọc từ HttpOnly Cookie).
      * AuthController gọi method này sau khi tự đọc cookie — không cần DTO nữa.
+     * Phương thức {@link #refresh(RefreshRequest)} được giữ lại để tương thích ngược.
      */
     @Transactional
     public AuthResponseDto refreshByToken(String refreshToken) {
@@ -340,6 +356,13 @@ public class AuthService {
         return token;
     }
 
+    /**
+     * Xử lý đăng nhập thất bại: tăng bộ đếm failedLoginCount.
+     * Nếu số lần thất bại vượt quá {@value #MAX_FAILED_LOGINS}, khóa tài khoản
+     * trong {@link #ACCOUNT_LOCK_DURATION} (15 phút). Tài khoản bị khóa sẽ
+     * không thể đăng nhập bằng email/password cho đến khi hết thời gian lock,
+     * hoặc cho đến khi đăng nhập thành công (reset counter).
+     */
     private void handleFailedLogin(UserEntity user, Instant now) {
         int nextFailedCount = user.getFailedLoginCount() + 1;
         user.setFailedLoginCount(nextFailedCount);
@@ -370,13 +393,7 @@ public class AuthService {
     private String normalizeFrontendBaseUrl(String value) {
         String normalized = StringUtils.hasText(value)
                 ? value.trim().replaceAll("/+$", "")
-                : "https://localhost:5173";
-        if ("http://localhost:5173".equalsIgnoreCase(normalized)) {
-            return "https://localhost:5173";
-        }
-        if ("http://127.0.0.1:5173".equalsIgnoreCase(normalized)) {
-            return "https://127.0.0.1:5173";
-        }
+                : "http://localhost:5173";
         return normalized;
     }
 

@@ -20,8 +20,8 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     if (savedTheme === 'dark' || savedTheme === 'light') {
       return savedTheme;
     }
-    // Default to dark
-    return 'dark';
+    // Default to light
+    return 'light';
   });
 
   useEffect(() => {

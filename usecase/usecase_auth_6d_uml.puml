@@ -1,0 +1,49 @@
+@startuml usecase_auth_6d
+skinparam maxMessageSize 150
+actor "Người dùng" as U
+participant "AppHeader.tsx" as UI
+participant "AuthContext.tsx" as CTX
+participant "authService.ts" as SRV_TS
+participant "AuthController.java" as CTR
+
+group Normal Flow: Đăng xuất thành công (6D.1)
+    U -> UI : 6D.1.1: AppHeader.tsx:\nNgười dùng nhấp nút "Đăng xuất" (desktop dropdown hoặc mobile menu).
+    activate UI
+    UI -> CTX : 6D.1.2: AppHeader.tsx:\ngọi await logout() từ AuthContext.tsx — bắt buộc await để navigate chạy sau khi state đã clear.
+    deactivate UI
+    activate CTX
+    CTX -> SRV_TS : 6D.1.3: AuthContext.tsx:\ngọi authService.logout() trong khối try — nếu lỗi API, finally vẫn chạy.
+    activate SRV_TS
+    SRV_TS -> CTR : 6D.1.4: authService.ts:\ngọi POST /api/auth/logout đến AuthController.java.
+    activate CTR
+    CTR -> CTR : 6D.1.5: AuthController.java:\ngọi clearAuthCookies() — đặt maxAge=0 trên access_token (path=/) và refresh_token (path=/api/auth/refresh).
+    CTR --> SRV_TS : 6D.1.6: AuthController.java:\ntrả HTTP 200 kèm message "Đăng xuất thành công."
+    deactivate CTR
+    SRV_TS -> SRV_TS : 6D.1.7: authService.ts:\ngọi clearStoredUser() — xóa auth_user khỏi localStorage (chạy trong finally, luôn thực thi).
+    SRV_TS --> CTX : (resolve)
+    deactivate SRV_TS
+    CTX -> CTX : 6D.1.8: AuthContext.tsx:\ngọi setCurrentUser(null) — reset React state (chạy trong finally, luôn thực thi).
+    CTX --> UI : (resolve)
+    deactivate CTX
+    activate UI
+    UI -> UI : 6D.1.9: AppHeader.tsx:\ngọi navigate('/') — chuyển hướng về trang chủ.
+    UI -> UI : 6D.1.10: Giao diện cập nhật tức thì:\nheader hiển thị nút Đăng nhập, ProtectedRoute redirect nếu cần.
+    deactivate UI
+end
+
+group Alternative Flow: API Backend không phản hồi (6D.2)
+    activate SRV_TS
+    SRV_TS -> CTR : (6D.1.4 gọi API logout)
+    activate CTR
+    CTR --> SRV_TS : (Lỗi Timeout / 500)
+    deactivate CTR
+    SRV_TS -> SRV_TS : 6D.2.1: authService.ts:\ncatch block bắt lỗi API — bỏ qua, không throw lên caller.
+    SRV_TS -> SRV_TS : 6D.2.2: authService.ts:\nfinally block vẫn chạy — xóa localStorage.
+    SRV_TS --> CTX : (resolve)
+    deactivate SRV_TS
+    activate CTX
+    CTX -> CTX : 6D.2.3: AuthContext.tsx:\nfinally block vẫn chạy — setCurrentUser(null).
+    CTX -> CTX : 6D.2.4: Người dùng được logout thành công phía client.\nCookie HttpOnly sẽ tự hết hạn theo maxAge trên server.
+    deactivate CTX
+end
+@enduml
