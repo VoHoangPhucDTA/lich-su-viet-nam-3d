@@ -27,11 +27,11 @@ public class SecurityConfig {
 
     /**
      * Danh sách domain frontend được phép gửi request có cookie (credentials).
-     * Dev:  https://localhost:5173
+     * Dev:  http://localhost:5173
      * Prod: https://lichsuvn.netlify.app,https://lichsuvn.vercel.app
      * Đặt biến môi trường APP_ALLOWED_ORIGINS khi deploy lên Render.
      */
-    @Value("${app.allowed-origins:https://localhost:5173}")
+    @Value("${app.allowed-origins:http://localhost:5173}")
     private String allowedOriginsRaw;
 
     @Bean

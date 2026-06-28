@@ -1,0 +1,149 @@
+@startuml usecase_auth_6b
+skinparam maxMessageSize 150
+actor "Người dùng" as U
+participant "LoginPage.tsx\nOAuthButtons.tsx" as UI
+participant "AuthContext.tsx" as CTX
+participant "authService.ts" as SRV_TS
+participant "AuthController.java" as CTR
+participant "AuthService.java\nSocialAuthService.java" as SRV
+database "MySQL" as DB
+participant "Google/Meta" as OAUTH
+participant "Cloudinary" as CLD
+
+group Normal Flow: Đăng nhập bằng Email thành công (6B.1)
+    U -> UI : 6B.1.1: LoginPage.tsx:\nNgười dùng nhập Email, Mật khẩu và nhấp nút Đăng nhập.
+    activate UI
+    UI -> CTX : 6B.1.2: LoginPage.tsx:\ngọi hàm login trong AuthContext.tsx (login trả về AuthResponse).
+    deactivate UI
+    activate CTX
+    CTX -> SRV_TS : (AuthContext gọi hàm login của authService.ts)
+    activate SRV_TS
+    SRV_TS -> CTR : 6B.1.3: authService.ts:\ngọi POST /api/auth/login đến AuthController.java.
+    activate CTR
+    CTR -> SRV : 6B.1.4: AuthController.java:\ngọi AuthService.java (hàm login).
+    activate SRV
+    SRV -> DB : 6B.1.5: AuthService.java:\ntruy vấn kiểm tra thông tin và đối chiếu mật khẩu tại MySQL.
+    activate DB
+    DB --> SRV : 6B.1.6: MySQL:\ntrả về kết quả hợp lệ cho AuthService.java.
+    deactivate DB
+    SRV --> CTR : 6B.1.7: AuthService.java:\ntạo JWT Token và trả về cho AuthController.java.
+    deactivate SRV
+    CTR --> SRV_TS : 6B.1.8: AuthController.java:\nđặt Access Token và Refresh Token vào HttpOnly Cookie trong HTTP Response, trả HTTP 200 kèm User info cho authService.ts.
+    deactivate CTR
+    SRV_TS -> SRV_TS : 6B.1.9: authService.ts:\nlưu thông tin User (tên, avatar, role) vào localStorage để UI phản hồi tức thì. Token được trình duyệt lưu tự động qua Cookie. Trả AuthResponse (có chứa role) về cho LoginPage.tsx.
+    SRV_TS --> CTX : (Trả về AuthResponse)
+    deactivate SRV_TS
+    CTX --> UI : (Trả về AuthResponse)
+    deactivate CTX
+    activate UI
+    UI -> UI : 6B.1.10: LoginPage.tsx:\nđọc role từ AuthResponse trả về, chuyển hướng người dùng đến trang chủ hoặc /admin/dashboard.
+    deactivate UI
+end
+
+group Alternative Flow: Đăng nhập bằng Google (6B.2)
+    U -> UI : 6B.2.1: OAuthButtons.tsx:\nNhấp nút Đăng nhập bằng Google.
+    activate UI
+    UI -> OAUTH : (Yêu cầu xác thực)
+    activate OAUTH
+    OAUTH --> UI : 6B.2.2: Google Server:\nTrả về credential (id_token) cho giao diện.
+    deactivate OAUTH
+    UI -> CTX : 6B.2.3: OAuthButtons.tsx:\ngọi hàm loginWithGoogle trong AuthContext.tsx.
+    deactivate UI
+    activate CTX
+    CTX -> SRV_TS : (gọi authService.ts)
+    activate SRV_TS
+    SRV_TS -> CTR : 6B.2.4: authService.ts:\ngọi POST /api/auth/oauth/google đến AuthController.java.
+    activate CTR
+    CTR -> SRV : 6B.2.5: AuthController.java:\ngọi SocialAuthService.java.
+    activate SRV
+    SRV -> OAUTH : 6B.2.6: SocialAuthService.java:\nGọi API xác thực token ngược lại với Server Google.
+    activate OAUTH
+    OAUTH --> SRV : 6B.2.7: Google Server:\nTrả về thông tin User hợp lệ (Email, Tên, Avatar).
+    deactivate OAUTH
+    SRV -> CLD : 6B.2.8: SocialAuthService.java:\nUpload avatar từ Google URL lên Cloudinary.
+    activate CLD
+    CLD --> SRV : (Cloudinary URL)
+    deactivate CLD
+    SRV -> DB : 6B.2.9: SocialAuthService.java:\nTruy vấn và lưu User vào MySQL (avatarUrl = Cloudinary URL).
+    activate DB
+    DB --> SRV : 6B.2.10: MySQL:\nTrả về User Entity.
+    deactivate DB
+    SRV --> CTR : 6B.2.11: SocialAuthService.java:\nTạo JWT Token và trả về.
+    deactivate SRV
+    CTR --> SRV_TS : 6B.2.12: AuthController.java:\nđặt Access Token và Refresh Token vào HttpOnly Cookie trong HTTP Response, trả HTTP 200 kèm User info.
+    deactivate CTR
+    SRV_TS -> SRV_TS : 6B.2.13: authService.ts:\nlưu thông tin User vào localStorage. Trả AuthResponse (có chứa role) về cho OAuthButtons.tsx.
+    SRV_TS --> CTX : (Trả về AuthResponse)
+    deactivate SRV_TS
+    CTX --> UI : (Trả về AuthResponse)
+    deactivate CTX
+    activate UI
+    UI -> UI : 6B.2.14: OAuthButtons.tsx:\nđọc role từ AuthResponse trả về, chuyển hướng về trang chủ hoặc /admin/dashboard.
+    deactivate UI
+end
+
+group Alternative Flow: Đăng nhập bằng Facebook (6B.3)
+    U -> UI : 6B.3.1: OAuthButtons.tsx:\nNhấp nút Đăng nhập bằng Facebook.
+    activate UI
+    UI -> OAUTH : (FB.login())
+    activate OAUTH
+    OAUTH --> UI : 6B.3.2: Facebook Server:\nTrả về access_token.
+    deactivate OAUTH
+    UI -> CTX : 6B.3.3: OAuthButtons.tsx:\ngọi hàm loginWithFacebook trong AuthContext.tsx.
+    deactivate UI
+    activate CTX
+    CTX -> SRV_TS : (gọi authService.ts)
+    activate SRV_TS
+    SRV_TS -> CTR : 6B.3.4: authService.ts:\ngọi POST /api/auth/oauth/facebook đến AuthController.java.
+    activate CTR
+    CTR -> SRV : 6B.3.5: AuthController.java:\ngọi SocialAuthService.java.
+    activate SRV
+    SRV -> OAUTH : 6B.3.6: SocialAuthService.java:\nGọi Meta debug_token API (app_id|app_secret) để xác thực token.
+    activate OAUTH
+    OAUTH --> SRV : 6B.3.7: Facebook Server:\nXác nhận token hợp lệ (is_valid=true, app_id khớp).
+    deactivate OAUTH
+    SRV -> OAUTH : 6B.3.8: SocialAuthService.java:\nGọi Graph API /me với fields=id,name,email,picture.
+    activate OAUTH
+    OAUTH --> SRV : 6B.3.9: Facebook Server:\nTrả về thông tin User (Email, Tên, Avatar URL).
+    deactivate OAUTH
+    SRV -> CLD : 6B.3.10: SocialAuthService.java:\nUpload avatar từ Facebook URL lên Cloudinary.
+    activate CLD
+    CLD --> SRV : (Cloudinary URL)
+    deactivate CLD
+    SRV -> DB : 6B.3.11: SocialAuthService.java:\nTruy vấn và lưu User vào MySQL (avatarUrl = Cloudinary URL).
+    activate DB
+    DB --> SRV : 6B.3.12: MySQL:\nTrả về User Entity.
+    deactivate DB
+    SRV --> CTR : 6B.3.13: SocialAuthService.java:\nTạo JWT Token và trả về.
+    deactivate SRV
+    CTR --> SRV_TS : 6B.3.14: AuthController.java:\nđặt HttpOnly Cookie, trả HTTP 200 kèm User info.
+    deactivate CTR
+    SRV_TS -> SRV_TS : 6B.3.15: authService.ts:\nlưu User vào localStorage.
+    SRV_TS --> CTX : (Trả về AuthResponse)
+    deactivate SRV_TS
+    CTX --> UI : (Trả về AuthResponse)
+    deactivate CTX
+    activate UI
+    UI -> UI : 6B.3.16: OAuthButtons.tsx:\nđọc role, chuyển hướng về trang chủ hoặc /admin/dashboard.
+    deactivate UI
+end
+
+group Alternative Flow: Sai thông tin xác thực (6B.4)
+    activate SRV
+    SRV -> DB : 6B.4.1: AuthService.java:\ntruy vấn xác thực tại MySQL.
+    activate DB
+    DB --> SRV : 6B.4.2: MySQL:\ntrả về trạng thái không hợp lệ.
+    deactivate DB
+    SRV --> CTR : 6B.4.3: AuthService.java:\nném lỗi ApiException (mã 401 Unauthorized).
+    deactivate SRV
+    activate CTR
+    CTR --> SRV_TS : 6B.4.4: AuthController.java:\ntrả lỗi 401 cho authService.ts.
+    deactivate CTR
+    activate SRV_TS
+    SRV_TS --> UI : 6B.4.5: authService.ts:\nném lỗi về cho LoginPage.tsx.
+    deactivate SRV_TS
+    activate UI
+    UI -> UI : 6B.4.6: LoginPage.tsx:\nhiển thị thông báo "Tài khoản hoặc mật khẩu không chính xác".
+    deactivate UI
+end
+@enduml

@@ -9,6 +9,15 @@ import java.time.Instant;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+/**
+ * Rate limiter đơn giản dùng in-memory (ConcurrentHashMap) cho các endpoint auth.
+ *
+ * Giới hạn {@value #MAX_ATTEMPTS} request trên mỗi key trong cửa sổ {@value #WINDOW}.
+ * Key được tạo từ IP + action + email (nếu có) để ngăn spam đăng nhập/đăng ký.
+ *
+ * Lưu ý: Trạng thái rate-limit không tồn tại khi restart server (in-memory).
+ * Khi triển khai nhiều instance cần chuyển sang Redis-based rate limiter.
+ */
 @Component
 public class AuthRateLimiter {
     private static final int MAX_ATTEMPTS = 20;

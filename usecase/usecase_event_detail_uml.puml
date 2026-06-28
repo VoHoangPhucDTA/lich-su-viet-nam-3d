@@ -1,0 +1,85 @@
+@startuml usecase_event_detail
+skinparam maxMessageSize 150
+actor "Người dùng" as U
+participant "EventPopup.tsx" as EP
+participant "EventDetailPage.tsx" as EDP
+participant "eventApi.ts" as API
+participant "EventController.java" as CTR
+participant "EventReadService.java" as SRV
+database "MySQL" as DB
+participant "Cloudinary" as CLD
+participant "FPT.AI / ElevenLabs" as TTS
+
+group Normal Flow 2.1: Xem chi tiết sự kiện và Media
+    U -> EP : 2.1.1: EventPopup.tsx:\nNgười dùng nhấn nút "Xem chi tiết"
+    activate EP
+    EP -> EDP : 2.1.2: Navigate:\nChuyển hướng sang EventDetailPage.tsx
+    deactivate EP
+    activate EDP
+    EDP -> API : 2.1.3: eventApi.ts:\nGọi hàm getEventDetail(eventId)
+    deactivate EDP
+    activate API
+    API -> CTR : 2.1.4: eventApi.ts:\nGọi API GET /api/events/{eventId}/detail
+    activate CTR
+    CTR -> SRV : 2.1.5: EventController.java:\nNhận request và gọi hàm getEventDetail()
+    activate SRV
+    SRV -> DB : 2.1.6: EventReadService.java:\nTruy vấn chi tiết sự kiện, danh sách URL ảnh và URL video
+    activate DB
+    DB --> SRV : 2.1.7: MySQL:\nTrả về Event Entity và các relation (Media)
+    deactivate DB
+    SRV --> CTR : 2.1.8: EventReadService.java:\nChuyển đổi thành DTO
+    deactivate SRV
+    CTR --> API : 2.1.9: EventController.java:\nTrả HTTP 200 kèm DTO
+    deactivate CTR
+    API --> EDP : 2.1.10: eventApi.ts:\nTrả dữ liệu chi tiết sự kiện
+    deactivate API
+    activate EDP
+    
+    EDP -> CLD : 2.1.11: EventDetailPage.tsx:\nClient fetch ảnh trực tiếp từ URL Cloudinary
+    activate CLD
+    CLD --> EDP : 2.1.12: Cloudinary:\nTrả về file ảnh tối ưu hóa
+    deactivate CLD
+    
+    EDP -> EDP : 2.1.13: EventDetailPage.tsx:\nTự động Render các Section (Tổng quan, Nội dung SGK, Dữ kiện chính,\nĐịa điểm, Sự kiện liên quan, Tư liệu Media, Nguồn tham khảo).\nTại Section Tư liệu Media, hiển thị 2 Tab (Hình ảnh / Video)
+    deactivate EDP
+end
+
+group Alternative Flow 2.2: Nghe đọc văn bản (Text-to-Speech)
+    opt Kích hoạt tính năng đọc (Optional)
+        U -> EDP : 2.2.1: EventDetailPage.tsx:\nNgười dùng nhấn nút "Nghe đọc"
+        activate EDP
+        EDP -> API : 2.2.2: eventApi.ts:\nGọi hàm getEventAudio(eventId)
+        deactivate EDP
+        activate API
+        API -> CTR : 2.2.3: eventApi.ts:\nGọi API GET /api/events/{eventId}/audio
+        activate CTR
+        CTR -> SRV : 2.2.4: EventController.java:\nKiểm tra cache file Audio trong DB
+        activate SRV
+        
+        alt Chưa có file Audio trong Cache
+            SRV -> TTS : 2.2.5: EventReadService.java:\nGửi Text lên API FPT.AI / ElevenLabs
+            activate TTS
+            TTS --> SRV : 2.2.6: External API:\nTrả về file âm thanh (MP3/WAV)
+            deactivate TTS
+            SRV -> CLD : 2.2.7: EventReadService.java:\nUpload file âm thanh lên Cloudinary
+            activate CLD
+            CLD --> SRV : 2.2.8: Cloudinary:\nTrả về Audio URL
+            deactivate CLD
+            SRV -> DB : 2.2.9: EventReadService.java:\nLưu Audio URL vào DB để dùng cho lần sau
+            activate DB
+            deactivate DB
+        end
+        
+        SRV --> CTR : 2.2.10: EventReadService.java:\nTrả về Audio URL
+        deactivate SRV
+        CTR --> API : 2.2.11: EventController.java:\nTrả HTTP 200 kèm URL
+        deactivate CTR
+        API --> EDP : 2.2.12: eventApi.ts:\nTrả URL cho Audio Player
+        deactivate API
+        activate EDP
+        
+        EDP -> EDP : 2.2.13: EventDetailPage.tsx:\nTrình phát Audio tự động phát âm thanh
+        deactivate EDP
+    end
+end
+@enduml
