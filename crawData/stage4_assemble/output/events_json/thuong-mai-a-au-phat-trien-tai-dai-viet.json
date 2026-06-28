@@ -1,0 +1,144 @@
+{
+  "id": "thuong-mai-a-au-phat-trien-tai-dai-viet",
+  "slug": "thuong-mai-a-au-phat-trien-tai-dai-viet",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Thương mại Á – Âu phát triển, các công ti nước ngoài đến Đại Việt buôn bán",
+    "short": "Thương mại Á – Âu phát triển, các công ti nước ngoài đến Đại Việt buôn bán",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "economic",
+    "eventSubtype": "trade",
+    "region": "vietnam",
+    "tags": [
+      "thương nghiệp",
+      "giao thương quốc tế",
+      "Công ti Đông Ấn"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      10
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 10,
+        "lessonId": "12160",
+        "lessonTitle": "Bài 12: Văn Minh Đại Việt"
+      }
+    ]
+  },
+  "chronology": {
+    "start": null,
+    "end": null,
+    "datePrecision": "period",
+    "displayDate": "Từ thế kỉ XVI, đặc biệt trong thế kỉ XVII",
+    "isApproximate": true
+  },
+  "mapData": {
+    "geoType": "point",
+    "historicalLocations": [
+      "Nhật Bản",
+      "Đông Nam Á",
+      "Trung Quốc"
+    ],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": {
+      "name": "Đại Việt",
+      "lat": 16.0,
+      "lng": 107.0,
+      "confidence": "low"
+    },
+    "markers": [],
+    "focusGeometry": {
+      "mode": "marker",
+      "center": {
+        "name": "Đại Việt",
+        "lat": 16.0,
+        "lng": 107.0,
+        "confidence": "low"
+      },
+      "zoom": 12
+    }
+  },
+  "summary": {
+    "homepageTitle": "Thương mại Á – Âu tại Đại Việt (TK XVI-XVII)",
+    "homepageSummary": "Từ thế kỉ XVI, đặc biệt thế kỉ XVII, thương mại Á – Âu phát triển, các công ti nước ngoài đến Đại Việt buôn bán nhộn nhịp.",
+    "cardSummary": "Thương mại Á – Âu phát triển mạnh tại Đại Việt từ thế kỉ XVI-XVII với sự tham gia của các công ti nước ngoài."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Từ thế kỉ XVI, đặc biệt trong thế kỉ XVII, khi thương mại Á – Âu phát triển, các công ti như Công ti Đông Ấn Hà Lan, Công ti Đông Ấn Anh và thương nhân Trung Quốc, Nhật Bản, Đông Nam Á,... đã đến Đại Việt buôn bán nhộn nhịp ở khắp cả nước.",
+    "detailedNarrative": null,
+    "significance": "Thúc đẩy sự phát triển của thương nghiệp Đại Việt và giao lưu văn hóa.",
+    "keyFacts": [
+      "Diễn ra từ thế kỉ XVI, đặc biệt thế kỉ XVII",
+      "Các công ti Đông Ấn Hà Lan, Đông Ấn Anh, thương nhân Trung Quốc, Nhật Bản, Đông Nam Á đến buôn bán",
+      "Thương mại Á – Âu phát triển"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 10,
+        "book": "KNTT",
+        "lessonId": "12160",
+        "lessonTitle": "Bài 12: Văn Minh Đại Việt",
+        "chapter": "Chu de 6",
+        "lesson": "Bai 12",
+        "pageRange": {
+          "start": 108,
+          "end": 122
+        },
+        "url": "https://sgkvn.com/lop-10-13/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-6-mot-so-nen-van-minh-tren-dat-nuoc-viet-nam-truoc-nam-1858-3276/bai-12-van-minh-dai-viet-12160.html",
+        "excerpt": "Từ thế kỉ XVI, đặc biệt trong thế kỉ XVII, khi thương mại Á – Âu phát triển, các công ti như Công ti Đông Ấn Hà Lan, Công ti Đông Ấn Anh và thương nhân Trung Quốc, Nhật Bản, Đông Nam Á,... đã đến Đại Việt buôn bán nhộn nhịp ở khắp cả nước."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "thuong-mai-a-au-phat-trien-tai-dai-viet",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 373
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": true,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

@@ -1,0 +1,138 @@
+{
+  "id": "cam-pu-chia-gia-nhap-asean",
+  "slug": "cam-pu-chia-gia-nhap-asean",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Cam-pu-chia gia nhập ASEAN",
+    "short": "Cam-pu-chia vào ASEAN",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "diplomatic",
+    "eventSubtype": "accession",
+    "region": "world",
+    "tags": [
+      "Cam-pu-chia",
+      "Hà Nội",
+      "Mở rộng ASEAN"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 12,
+        "lessonId": "12950",
+        "lessonTitle": "BÀI 4: SỰ RA ĐỜI VÀ PHÁT TRIỂN CỦA HIỆP HỘI CÁC QUỐC GIA ĐÔNG NAM Á (ASEAN)"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1999,
+      "month": null,
+      "day": null
+    },
+    "end": null,
+    "datePrecision": "year",
+    "displayDate": "Năm 1999",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "no_location",
+    "historicalLocations": [
+      "Cam-pu-chia",
+      "Hà Nội",
+      "Việt Nam"
+    ],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "auto",
+      "center": null,
+      "zoom": null
+    }
+  },
+  "summary": {
+    "homepageTitle": "Cam-pu-chia gia nhập ASEAN",
+    "homepageSummary": "Năm 1999, Cam-pu-chia trở thành thành viên thứ 10 của ASEAN tại Hà Nội, hoàn tất quá trình mở rộng ASEAN 10.",
+    "cardSummary": "Cam-pu-chia gia nhập ASEAN năm 1999 tại Hà Nội, hoàn thành ASEAN 10."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Năm 1999, Cam-pu-chia gia nhập ASEAN, trở thành thành viên thứ 10.",
+    "detailedNarrative": "Năm 1999, Cam-pu-chia gia nhập ASEAN tại Hà Nội (Việt Nam), hoàn tất quá trình mở rộng từ ASEAN 5 đến ASEAN 10.",
+    "significance": "Hoàn tất quá trình thực hiện mục tiêu xây dựng ASEAN trở thành “ngôi nhà chung” của các quốc gia Đông Nam Á.",
+    "keyFacts": [
+      "Là thành viên thứ 10 của ASEAN",
+      "Gia nhập năm 1999",
+      "Lễ kết nạp tại Hà Nội (Việt Nam)"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 12,
+        "book": "KNTT",
+        "lessonId": "12950",
+        "lessonTitle": "BÀI 4: SỰ RA ĐỜI VÀ PHÁT TRIỂN CỦA HIỆP HỘI CÁC QUỐC GIA ĐÔNG NAM Á (ASEAN)",
+        "chapter": "Chu de 2",
+        "lesson": "Bai 4",
+        "pageRange": {
+          "start": 21,
+          "end": 24
+        },
+        "url": "https://sgkvn.com/lop-12-15/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-2-asean-nhung-chang-duong-lich-su-3538/bai-4-su-ra-doi-va-phat-trien-cua-hiep-hoi-cac-quoc-gia-dong-nam-a-asean-12950.html",
+        "excerpt": "Năm 1999, Cam-pu-chia gia nhập ASEAN, trở thành thành viên thứ 10."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "cam-pu-chia-gia-nhap-asean",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 280
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": false,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

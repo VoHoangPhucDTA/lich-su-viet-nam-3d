@@ -1,0 +1,140 @@
+{
+  "id": "viet-nam-hoan-tat-muc-tieu-thien-nien-ki",
+  "slug": "viet-nam-hoan-tat-muc-tieu-thien-nien-ki",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Việt Nam hoàn tất việc thực hiện các Mục tiêu Thiên niên kỉ (MDGs) của Liên hợp quốc",
+    "short": "Việt Nam hoàn tất MDGs",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "diplomatic",
+    "eventSubtype": "achievement",
+    "region": "vietnam",
+    "tags": [
+      "xoá đói giảm nghèo",
+      "giáo dục",
+      "Liên hợp quốc",
+      "phát triển bền vững"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 12,
+        "lessonId": "12960",
+        "lessonTitle": "BÀI 11: THÀNH TỰU CƠ BẢN VÀ BÀI HỌC CỦA CÔNG CUỘC ĐỔI MỚI Ở VIỆT NAM TỪ NĂM 1986 ĐẾN NAY"
+      }
+    ]
+  },
+  "chronology": {
+    "start": null,
+    "end": {
+      "year": 2015,
+      "month": null,
+      "day": null
+    },
+    "datePrecision": "year",
+    "displayDate": "Đến năm 2015",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "nationwide",
+    "historicalLocations": [
+      "Việt Nam"
+    ],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "bounds",
+      "center": {
+        "lat": 16.0,
+        "lng": 106.0
+      },
+      "zoom": 5
+    }
+  },
+  "summary": {
+    "homepageTitle": "Việt Nam hoàn tất MDGs (2015)",
+    "homepageSummary": "Đến năm 2015, Việt Nam hoàn tất Mục tiêu Thiên niên kỉ (MDGs) của Liên hợp quốc, đặc biệt trong xoá đói giảm nghèo và phổ cập giáo dục.",
+    "cardSummary": "Việt Nam hoàn thành các Mục tiêu Thiên niên kỉ (MDGs) của Liên hợp quốc vào năm 2015."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Đến 2015, Việt Nam đã hoàn tất việc thực hiện các Mục tiêu Thiên niên kỉ (MDGs) của Liên hợp quốc như: xoá đói, giảm nghèo, đạt phổ cập giáo dục tiểu học, thúc đẩy bình đẳng giới và đạt nhiều tiến bộ trong chỉ tiêu về y tế.",
+    "detailedNarrative": null,
+    "significance": "Thể hiện sự tiến bộ vượt bậc của Việt Nam trong phát triển xã hội và hội nhập quốc tế.",
+    "keyFacts": [
+      "Thành tựu về xoá đói giảm nghèo, phổ cập giáo dục, bình đẳng giới, y tế",
+      "Thực hiện các Mục tiêu Thiên niên kỉ của Liên hợp quốc",
+      "Hoàn tất đến năm 2015"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 12,
+        "book": "KNTT",
+        "lessonId": "12960",
+        "lessonTitle": "BÀI 11: THÀNH TỰU CƠ BẢN VÀ BÀI HỌC CỦA CÔNG CUỘC ĐỔI MỚI Ở VIỆT NAM TỪ NĂM 1986 ĐẾN NAY",
+        "chapter": "Chu de 4",
+        "lesson": "Bai 11",
+        "pageRange": {
+          "start": 65,
+          "end": 71
+        },
+        "url": "https://sgkvn.com/lop-12-15/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-4-cong-cuoc-doi-moi-o-viet-nam-tu-nam-1986-den-nay-3540/bai-11-thanh-tuu-co-ban-va-bai-hoc-cua-cong-cuoc-doi-moi-o-viet-nam-tu-nam-1986-den-nay-12960.html",
+        "excerpt": "Đến 2015, Việt Nam đã hoàn tất việc thực hiện các Mục tiêu Thiên niên kỉ (MDGs) của Liên hợp quốc như: xoá đói, giảm nghèo, đạt phổ cập giáo dục tiểu học, thúc đẩy bình đẳng giới và đạt nhiều tiến bộ trong chỉ tiêu về y tế."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "viet-nam-hoan-tat-muc-tieu-thien-nien-ki",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 382
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": true,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

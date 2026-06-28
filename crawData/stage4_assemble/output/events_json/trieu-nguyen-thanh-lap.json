@@ -1,0 +1,163 @@
+{
+  "id": "trieu-nguyen-thanh-lap",
+  "slug": "trieu-nguyen-thanh-lap",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Triều Nguyễn được thành lập",
+    "short": "Triều Nguyễn được thành lập",
+    "alternatives": [
+      "Nhà Nguyễn thành lập"
+    ]
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "establishment",
+    "region": "vietnam",
+    "tags": [
+      "Nhà Nguyễn",
+      "triều Nguyễn",
+      "lãnh thổ",
+      "thống nhất quốc gia",
+      "thành lập"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      10,
+      11
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 10,
+        "lessonId": "12160",
+        "lessonTitle": "Bài 12: Văn Minh Đại Việt"
+      },
+      {
+        "grade": 11,
+        "lessonId": "12393",
+        "lessonTitle": "BÀI 14  CUỘC CẢI CÁCH CỦA MINH MẠNG  NỬA"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1802,
+      "month": null,
+      "day": null
+    },
+    "end": null,
+    "datePrecision": "year",
+    "displayDate": "Năm 1802",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "no_location",
+    "historicalLocations": [
+      "Nam",
+      "Bắc"
+    ],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "auto",
+      "center": null,
+      "zoom": null
+    }
+  },
+  "summary": {
+    "homepageTitle": "Triều Nguyễn thành lập",
+    "homepageSummary": "Năm 1802, triều Nguyễn được thành lập, trị vì đất nước với lãnh thổ rộng lớn nhất, kéo dài từ Bắc vào Nam.",
+    "cardSummary": "Triều Nguyễn được thành lập vào năm 1802, với lãnh thổ rộng lớn nhất."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Năm 1802, triều Nguyễn được thành lập, trị vì đất nước với lãnh thổ rộng lớn nhất, kéo dài từ Bắc vào Nam, lại trải qua một thời gian dài chiến tranh, khủng hoảng về nhiều mặt.",
+    "detailedNarrative": "Năm 1802, triều Nguyễn được thành lập, trị vì đất nước với lãnh thổ rộng lớn nhất, kéo dài từ Bắc vào Nam, lại trải qua một thời gian dài chiến tranh, khủng hoảng về nhiều mặt.",
+    "significance": "Xây dựng quốc gia thống nhất.",
+    "keyFacts": [
+      "Diễn ra năm 1802",
+      "Xây dựng quốc gia thống nhất",
+      "Thành lập năm 1802",
+      "Lãnh thổ rộng lớn nhất từ Bắc vào Nam",
+      "Nhà Nguyễn thành lập"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 10,
+        "book": "KNTT",
+        "lessonId": "12160",
+        "lessonTitle": "Bài 12: Văn Minh Đại Việt",
+        "chapter": "Chu de 6",
+        "lesson": "Bai 12",
+        "pageRange": {
+          "start": 108,
+          "end": 122
+        },
+        "url": "https://sgkvn.com/lop-10-13/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-6-mot-so-nen-van-minh-tren-dat-nuoc-viet-nam-truoc-nam-1858-3276/bai-12-van-minh-dai-viet-12160.html",
+        "excerpt": "Năm 1802, triều Nguyễn được thành lập, trị vì đất nước với lãnh thổ rộng lớn nhất, kéo dài từ Bắc vào Nam, lại trải qua một thời gian dài chiến tranh, khủng hoảng về nhiều mặt."
+      },
+      {
+        "grade": 11,
+        "book": "KNTT",
+        "lessonId": "12393",
+        "lessonTitle": "BÀI 14  CUỘC CẢI CÁCH CỦA MINH MẠNG  NỬA",
+        "chapter": "Chu de 6",
+        "lesson": "Bai 14",
+        "pageRange": {
+          "start": null,
+          "end": null
+        },
+        "url": "https://sgkvn.com/lop-11-14/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-6-mot-so-cuoc-cai-cach-lon-trong-lich-su-viet-nam-truoc-nam-1858-3353/bai-14-cuoc-cai-cach-cua-minh-mang-nua-dau-the-ki-xix-12393.html",
+        "excerpt": "Năm 1802, triều Nguyễn được thành lập, trị vì đất nước với lãnh thổ rộng lớn nhất, kéo dài từ Bắc vào Nam, lại trải qua một thời gian dài chiến tranh, khủng hoảng về nhiều mặt."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "trieu-nguyen-thanh-lap",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 61
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": false,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

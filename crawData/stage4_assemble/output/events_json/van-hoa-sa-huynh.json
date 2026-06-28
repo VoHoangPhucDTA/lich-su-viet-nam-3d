@@ -1,0 +1,166 @@
+{
+  "id": "van-hoa-sa-huynh",
+  "slug": "van-hoa-sa-huynh",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Văn hoá Sa Huỳnh",
+    "short": "Văn hoá Sa Huỳnh",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "cultural",
+    "eventSubtype": "archaeological_culture",
+    "region": "vietnam",
+    "tags": [
+      "Kim khí",
+      "Chăm-pa",
+      "Văn hoá cổ"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      10
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 10,
+        "lessonId": "12148",
+        "lessonTitle": "Bài 11: Một Số Nền Văn Minh Cổ Trên Đất Nước Việt Nam"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "end": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "datePrecision": "period",
+    "displayDate": "Khoảng thế kỉ V TCN",
+    "isApproximate": true
+  },
+  "mapData": {
+    "geoType": "mixed",
+    "historicalLocations": [],
+    "provinceNames": [
+      "Quảng Bình",
+      "Bình Thuận"
+    ],
+    "gadmRefs": [
+      "VNM.46_1",
+      "VNM.11_1"
+    ],
+    "marker": {
+      "name": "Quảng Bình",
+      "lat": 17.5,
+      "lng": 106.3,
+      "confidence": "high"
+    },
+    "markers": [
+      {
+        "name": "Quảng Bình",
+        "lat": 17.5,
+        "lng": 106.3,
+        "confidence": "high"
+      },
+      {
+        "name": "Bình Thuận",
+        "lat": 10.9333,
+        "lng": 108.0,
+        "confidence": "high"
+      }
+    ],
+    "focusGeometry": {
+      "mode": "bounds",
+      "center": {
+        "lat": 14.264291,
+        "lng": 107.166252
+      },
+      "zoom": 7
+    }
+  },
+  "summary": {
+    "homepageTitle": "Văn hoá Sa Huỳnh",
+    "homepageSummary": "Văn hoá Sa Huỳnh (khoảng thế kỉ V TCN) là cội nguồn của văn minh Chăm-pa, phân bố từ Quảng Bình đến Bình Thuận.",
+    "cardSummary": "Văn hoá Sa Huỳnh (khoảng thế kỉ V TCN) là cội nguồn văn minh Chăm-pa."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Khoảng thế kỉ V TCN, cư dân văn hoá Sa Huỳnh cư trú ở vùng duyên hải, lưu vực các con sông và sâu trong nội địa. Cơ cấu xã hội Sa Huỳnh là xã hội dạng lãnh địa hay liên minh cụm làng, đứng đầu là thủ lĩnh tối cao. Sự phát triển nội tại của những tổ chức xã hội này là cơ sở quan trọng cho sự hình thành của Nhà nước Chăm-pa sau này.",
+    "detailedNarrative": "Văn hoá Sa Huỳnh thuộc thời đại kim khí, có quá trình phát triển liên tục, phân bố từ Quảng Bình cho đến Bình Thuận. Cư dân Sa Huỳnh đã tiếp xúc với văn minh Ấn Độ từ thời kì này.",
+    "significance": "Là cơ sở quan trọng cho sự hình thành của Nhà nước Chăm-pa.",
+    "keyFacts": [
+      "Khoảng thế kỉ V TCN",
+      "Thuộc thời đại kim khí",
+      "Phân bố từ Quảng Bình đến Bình Thuận",
+      "Cơ cấu xã hội dạng lãnh địa hay liên minh cụm làng"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 10,
+        "book": "KNTT",
+        "lessonId": "12148",
+        "lessonTitle": "Bài 11: Một Số Nền Văn Minh Cổ Trên Đất Nước Việt Nam",
+        "chapter": "Chu de 6",
+        "lesson": "Bai 11",
+        "pageRange": {
+          "start": 93,
+          "end": 107
+        },
+        "url": "https://sgkvn.com/lop-10-13/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-6-mot-so-nen-van-minh-tren-dat-nuoc-viet-nam-truoc-nam-1858-3276/bai-11-mot-so-nen-van-minh-co-tren-dat-nuoc-viet-nam-12148.html",
+        "excerpt": "Khoảng thế kỉ V TCN, cư dân văn hoá Sa Huỳnh cư trú ở vùng duyên hải, lưu vực các con sông và sâu trong nội địa. Cơ cấu xã hội Sa Huỳnh là xã hội dạng lãnh địa hay liên minh cụm làng, đứng đầu là thủ lĩnh tối cao. Sự phát triển nội tại của những tổ chức xã hội này là cơ sở quan trọng cho sự hình thành của Nhà nước Chăm-pa sau này."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "van-hoa-sa-huynh",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 378
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": true,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

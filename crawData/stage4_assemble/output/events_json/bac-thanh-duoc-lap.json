@@ -1,0 +1,241 @@
+{
+  "id": "bac-thanh-duoc-lap",
+  "slug": "bac-thanh-duoc-lap",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Bắc Thành được lập",
+    "short": "Bắc Thành được lập",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "administrative_division",
+    "region": "vietnam",
+    "tags": [
+      "Bắc Thành",
+      "đơn vị hành chính",
+      "triều Nguyễn"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 11,
+        "lessonId": "12393",
+        "lessonTitle": "BÀI 14  CUỘC CẢI CÁCH CỦA MINH MẠNG  NỬA"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1802,
+      "month": null,
+      "day": null
+    },
+    "end": {
+      "year": 1831,
+      "month": null,
+      "day": null
+    },
+    "datePrecision": "year",
+    "displayDate": "1802 - 1831",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "mixed",
+    "historicalLocations": [],
+    "provinceNames": [
+      "Cao Bằng",
+      "Hải Dương",
+      "Hà Nội",
+      "Quảng Ninh",
+      "Phú Thọ",
+      "Lạng Sơn",
+      "Bắc Giang",
+      "Thái Nguyên",
+      "Hà Nam",
+      "Tuyên Quang"
+    ],
+    "gadmRefs": [
+      "VNM.14_1",
+      "VNM.22_1",
+      "VNM.27_1",
+      "VNM.49_1",
+      "VNM.44_1",
+      "VNM.35_1",
+      "VNM.3_1",
+      "VNM.56_1",
+      "VNM.28_1",
+      "VNM.60_1"
+    ],
+    "marker": {
+      "name": "Cao Bằng",
+      "lat": 22.6667,
+      "lng": 106.25,
+      "confidence": "high"
+    },
+    "markers": [
+      {
+        "name": "Cao Bằng",
+        "lat": 22.6667,
+        "lng": 106.25,
+        "confidence": "high"
+      },
+      {
+        "name": "Hải Dương",
+        "lat": 20.95,
+        "lng": 106.35,
+        "confidence": "high"
+      },
+      {
+        "name": "Sơn Tây",
+        "lat": 21.1333,
+        "lng": 105.4833,
+        "confidence": "high"
+      },
+      {
+        "name": "Quảng Yên",
+        "lat": 20.9333,
+        "lng": 106.8833,
+        "confidence": "high"
+      },
+      {
+        "name": "Sơn Nam Thượng",
+        "lat": 20.8,
+        "lng": 105.9,
+        "confidence": "medium"
+      },
+      {
+        "name": "Bắc Thành",
+        "lat": 21.0285,
+        "lng": 105.8542,
+        "confidence": "high"
+      },
+      {
+        "name": "Hưng Hoá",
+        "lat": 21.25,
+        "lng": 105.25,
+        "confidence": "high"
+      },
+      {
+        "name": "Lạng Sơn",
+        "lat": 21.85,
+        "lng": 106.75,
+        "confidence": "high"
+      },
+      {
+        "name": "Kinh Bắc",
+        "lat": 21.15,
+        "lng": 106.05,
+        "confidence": "medium"
+      },
+      {
+        "name": "Thái Nguyên",
+        "lat": 21.58,
+        "lng": 105.85,
+        "confidence": "high"
+      },
+      {
+        "name": "Sơn Nam Hạ",
+        "lat": 20.4,
+        "lng": 106.2,
+        "confidence": "medium"
+      },
+      {
+        "name": "Tuyên Quang",
+        "lat": 21.8,
+        "lng": 105.2,
+        "confidence": "high"
+      }
+    ],
+    "focusGeometry": {
+      "mode": "bounds",
+      "center": {
+        "lat": 21.374282,
+        "lng": 106.045681
+      },
+      "zoom": 7
+    }
+  },
+  "summary": {
+    "homepageTitle": "Bắc Thành được lập (1802-1831)",
+    "homepageSummary": "Bắc Thành là đơn vị hành chính cao hơn trấn, được lập từ năm 1802 đến 1831, cai quản 11 trấn ở phía Bắc.",
+    "cardSummary": "Bắc Thành được lập từ 1802 đến 1831, cai quản 11 trấn."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Bắc Thành là đơn vị hành chính cao hơn trấn. Bắc Thành được lập từ năm 1802 đến 1831, cai quản 11 trấn là Sơn Nam Thượng, Sơn Nam Hạ, Sơn Tây, Kinh Bắc, Hải Dương, Tuyên Quang, Hưng Hoá, Cao Bằng, Lạng Sơn, Thái Nguyên, Quảng Yên.",
+    "detailedNarrative": "Bắc Thành là đơn vị hành chính cao hơn trấn. Bắc Thành được lập từ năm 1802 đến 1831, cai quản 11 trấn là Sơn Nam Thượng, Sơn Nam Hạ, Sơn Tây, Kinh Bắc, Hải Dương, Tuyên Quang, Hưng Hoá, Cao Bằng, Lạng Sơn, Thái Nguyên, Quảng Yên.",
+    "significance": "Là một trong hai khu vực hành chính phân quyền dưới thời Gia Long, sau bị bãi bỏ trong cải cách Minh Mạng.",
+    "keyFacts": [
+      "Cai quản 11 trấn",
+      "Tồn tại từ 1802 đến 1831",
+      "Đơn vị hành chính cao hơn trấn"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 11,
+        "book": "KNTT",
+        "lessonId": "12393",
+        "lessonTitle": "BÀI 14  CUỘC CẢI CÁCH CỦA MINH MẠNG  NỬA",
+        "chapter": "Chu de 6",
+        "lesson": "Bai 14",
+        "pageRange": {
+          "start": null,
+          "end": null
+        },
+        "url": "https://sgkvn.com/lop-11-14/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-6-mot-so-cuoc-cai-cach-lon-trong-lich-su-viet-nam-truoc-nam-1858-3353/bai-14-cuoc-cai-cach-cua-minh-mang-nua-dau-the-ki-xix-12393.html",
+        "excerpt": "Bắc Thành là đơn vị hành chính cao hơn trấn. Bắc Thành được lập từ năm 1802 đến 1831, cai quản 11 trấn là Sơn Nam Thượng, Sơn Nam Hạ, Sơn Tây, Kinh Bắc, Hải Dương, Tuyên Quang, Hưng Hoá, Cao Bằng, Lạng Sơn, Thái Nguyên, Quảng Yên."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "bac-thanh-duoc-lap",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 59
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": true,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

@@ -1,0 +1,148 @@
+{
+  "id": "doi-moi-dao-duy-tu-dang-trong",
+  "slug": "doi-moi-dao-duy-tu-dang-trong",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Sự nghiệp đổi mới của Đào Duy Từ ở Đàng Trong",
+    "short": "Sự nghiệp đổi mới của Đào Duy Từ ở Đàng Trong",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "reform",
+    "region": "vietnam",
+    "tags": [
+      "Thế kỉ XVI",
+      "Đàng Trong",
+      "Đào Duy Từ"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 11,
+        "lessonId": "12387",
+        "lessonTitle": "BÀI 12  KHÁI LƯỢC VỀ CẢI CÁCH  CUỘC CẢI"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "end": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "datePrecision": "period",
+    "displayDate": "Thế kỉ XVI",
+    "isApproximate": true
+  },
+  "mapData": {
+    "geoType": "point",
+    "historicalLocations": [],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": {
+      "name": "Đàng Trong",
+      "lat": 12.0,
+      "lng": 108.0,
+      "confidence": "low"
+    },
+    "markers": [],
+    "focusGeometry": {
+      "mode": "marker",
+      "center": {
+        "name": "Đàng Trong",
+        "lat": 12.0,
+        "lng": 108.0,
+        "confidence": "low"
+      },
+      "zoom": 12
+    }
+  },
+  "summary": {
+    "homepageTitle": "Đổi mới của Đào Duy Từ",
+    "homepageSummary": "Sự nghiệp đổi mới của Đào Duy Từ ở Đàng Trong diễn ra vào thế kỉ XVI.",
+    "cardSummary": "Đào Duy Từ đổi mới ở Đàng Trong vào thế kỉ XVI."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Sự nghiệp đổi mới của Đào Duy Từ ở Đàng Trong diễn ra vào thế kỉ XVI.",
+    "detailedNarrative": null,
+    "significance": null,
+    "keyFacts": [
+      "Tại Đàng Trong",
+      "Do Đào Duy Từ tiến hành",
+      "Diễn ra vào thế kỉ XVI"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 11,
+        "book": "KNTT",
+        "lessonId": "12387",
+        "lessonTitle": "BÀI 12  KHÁI LƯỢC VỀ CẢI CÁCH  CUỘC CẢI",
+        "chapter": "Chu de 6",
+        "lesson": "Bai 12",
+        "pageRange": {
+          "start": 87,
+          "end": 91
+        },
+        "url": "https://sgkvn.com/lop-11-14/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-6-mot-so-cuoc-cai-cach-lon-trong-lich-su-viet-nam-truoc-nam-1858-3353/bai-12-khai-luoc-ve-cai-cach-cuoc-cai-cach-cua-ho-quy-ly-va-trieu-ho-dau-the-ki-xv-12387.html",
+        "excerpt": "Sự nghiệp đổi mới của Đào Duy Từ ở Đàng Trong diễn ra vào thế kỉ XVI."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "doi-moi-dao-duy-tu-dang-trong",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 315
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": true,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

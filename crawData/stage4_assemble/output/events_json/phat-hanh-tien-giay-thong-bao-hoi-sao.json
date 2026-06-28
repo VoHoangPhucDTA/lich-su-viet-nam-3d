@@ -1,0 +1,134 @@
+{
+  "id": "phat-hanh-tien-giay-thong-bao-hoi-sao",
+  "slug": "phat-hanh-tien-giay-thong-bao-hoi-sao",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Phát hành tiền giấy Thông bảo hội sao",
+    "short": "Tiền giấy Thông bảo hội sao",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "economic",
+    "eventSubtype": "monetary_reform",
+    "region": "vietnam",
+    "tags": [
+      "Cải cách kinh tế",
+      "Tiền giấy",
+      "Hồ Quý Ly"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 11,
+        "lessonId": "12387",
+        "lessonTitle": "BÀI 12  KHÁI LƯỢC VỀ CẢI CÁCH  CUỘC CẢI"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1396,
+      "month": null,
+      "day": null
+    },
+    "end": null,
+    "datePrecision": "year",
+    "displayDate": "Năm 1396",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "no_location",
+    "historicalLocations": [],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "auto",
+      "center": null,
+      "zoom": null
+    }
+  },
+  "summary": {
+    "homepageTitle": "Phát hành tiền giấy",
+    "homepageSummary": "Năm 1396, Hồ Quý Ly cho phát hành tiền giấy Thông bảo hội sao, thay thế tiền đồng và quy định nghiêm ngặt.",
+    "cardSummary": "Hồ Quý Ly phát hành tiền giấy Thông bảo hội sao năm 1396."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Hồ Quý Ly cho phát hành tiền giấy Thông bảo hội sao. Vua hạ lệnh cho người đem tiền đến đổi, mỗi quan tiền đồng đổi lấy 1 quan 2 tiền giấy. Ai làm tiền giấy giả thì bị tội chém. Ai giấu tiền đồng, không nộp thì phải tội như làm tiền giấy giả.",
+    "detailedNarrative": null,
+    "significance": null,
+    "keyFacts": [
+      "Thay thế tiền đồng",
+      "Quy định đổi tiền, phạt làm tiền giả và giấu tiền đồng",
+      "Năm 1396"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 11,
+        "book": "KNTT",
+        "lessonId": "12387",
+        "lessonTitle": "BÀI 12  KHÁI LƯỢC VỀ CẢI CÁCH  CUỘC CẢI",
+        "chapter": "Chu de 6",
+        "lesson": "Bai 12",
+        "pageRange": {
+          "start": 87,
+          "end": 91
+        },
+        "url": "https://sgkvn.com/lop-11-14/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-6-mot-so-cuoc-cai-cach-lon-trong-lich-su-viet-nam-truoc-nam-1858-3353/bai-12-khai-luoc-ve-cai-cach-cuoc-cai-cach-cua-ho-quy-ly-va-trieu-ho-dau-the-ki-xv-12387.html",
+        "excerpt": "Hồ Quý Ly cho phát hành tiền giấy Thông bảo hội sao. Vua hạ lệnh cho người đem tiền đến đổi, mỗi quan tiền đồng đổi lấy 1 quan 2 tiền giấy. Ai làm tiền giấy giả thì bị tội chém. Ai giấu tiền đồng, không nộp thì phải tội như làm tiền giấy giả."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "phat-hanh-tien-giay-thong-bao-hoi-sao",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 28
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": false,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

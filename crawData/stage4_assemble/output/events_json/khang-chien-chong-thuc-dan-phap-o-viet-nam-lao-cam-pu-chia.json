@@ -1,0 +1,143 @@
+{
+  "id": "khang-chien-chong-thuc-dan-phap-o-viet-nam-lao-cam-pu-chia",
+  "slug": "khang-chien-chong-thuc-dan-phap-o-viet-nam-lao-cam-pu-chia",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Kháng chiến chống thực dân Pháp ở Việt Nam, Lào, Cam-pu-chia",
+    "short": "Kháng chiến chống Pháp ở Đông Dương",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "military",
+    "eventSubtype": "war",
+    "region": "world",
+    "tags": [
+      "giải phóng dân tộc",
+      "chống Pháp",
+      "Đông Dương"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 11,
+        "lessonId": "12340",
+        "lessonTitle": "BÀI 6  HÀNH TRÌNH ĐI ĐẾN ĐỘC LẬP DÂN TỘC"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1945,
+      "month": null,
+      "day": null
+    },
+    "end": {
+      "year": 1954,
+      "month": null,
+      "day": null
+    },
+    "datePrecision": "year",
+    "displayDate": "1945 – 1954",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "no_location",
+    "historicalLocations": [
+      "Cam-pu-chia",
+      "Lào",
+      "Việt Nam",
+      "Đông Dương"
+    ],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "auto",
+      "center": null,
+      "zoom": null
+    }
+  },
+  "summary": {
+    "homepageTitle": "Kháng chiến Pháp Đông Dương",
+    "homepageSummary": "Việt Nam, Lào, Cam-pu-chia phải trải qua cuộc kháng chiến chống thực dân Pháp (1945-1954) để giành lại độc lập dân tộc.",
+    "cardSummary": "Kháng chiến chống Pháp (1945-1954) ở Việt Nam, Lào, Cam-pu-chia là cuộc chiến quyết liệt."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Mặc dù Việt Nam và Lào tuyên bố độc lập ngay từ năm 1945, nhưng ba nước Đông Dương (Việt Nam, Lào, Cam-pu-chia) lại phải trải qua cuộc kháng chiến chống thực dân Pháp từ 1945 đến 1954. Đây là cuộc chiến đấu quyết liệt nhất trong lịch sử đấu tranh giành độc lập dân tộc ở Đông Nam Á.",
+    "detailedNarrative": "Mặc dù Việt Nam tiến hành thắng lợi Cách mạng tháng Tám (8-1945), Lào tuyên bố độc lập ngay từ tháng 10 – 1945, nhưng ba nước Đông Dương lại phải trải qua cuộc kháng chiến chống thực dân Pháp (1945 – 1954). Cuộc kháng chiến chống thực dân Pháp và đế quốc Mỹ của nhân dân Việt Nam, Lào, Cam-pu-chia là cuộc chiến đấu quyết liệt nhất trong lịch sử đấu tranh giành độc lập dân tộc ở Đông Nam Á.",
+    "significance": "Là cuộc chiến đấu quyết liệt nhất trong lịch sử đấu tranh giành độc lập dân tộc ở Đông Nam Á.",
+    "keyFacts": [
+      "Là cuộc chiến đấu quyết liệt nhất",
+      "Diễn ra từ 1945-1954",
+      "Diễn ra ở Việt Nam, Lào, Cam-pu-chia"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 11,
+        "book": "KNTT",
+        "lessonId": "12340",
+        "lessonTitle": "BÀI 6  HÀNH TRÌNH ĐI ĐẾN ĐỘC LẬP DÂN TỘC",
+        "chapter": "Chu de 3",
+        "lesson": "Bai 6",
+        "pageRange": {
+          "start": 45,
+          "end": 53
+        },
+        "url": "https://sgkvn.com/lop-11-14/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-3-qua-trinh-gianh-doc-lap-dan-toc-cua-cac-quoc-gia-dong-nam-a-3331/bai-6-hanh-trinh-di-den-doc-lap-dan-toc-o-dong-nam-a-12340.html",
+        "excerpt": "Mặc dù Việt Nam và Lào tuyên bố độc lập ngay từ năm 1945, nhưng ba nước Đông Dương (Việt Nam, Lào, Cam-pu-chia) lại phải trải qua cuộc kháng chiến chống thực dân Pháp từ 1945 đến 1954. Đây là cuộc chiến đấu quyết liệt nhất trong lịch sử đấu tranh giành độc lập dân tộc ở Đông Nam Á."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "khang-chien-chong-thuc-dan-phap-o-viet-nam-lao-cam-pu-chia",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 172
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": false,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

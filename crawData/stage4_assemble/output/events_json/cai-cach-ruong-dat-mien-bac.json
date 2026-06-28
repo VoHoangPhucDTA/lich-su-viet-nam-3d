@@ -1,0 +1,141 @@
+{
+  "id": "cai-cach-ruong-dat-mien-bac",
+  "slug": "cai-cach-ruong-dat-mien-bac",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Hoàn thành cải cách ruộng đất, khôi phục kinh tế ở miền Bắc",
+    "short": "Cải cách ruộng đất miền Bắc",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "economic",
+    "eventSubtype": "reform",
+    "region": "vietnam",
+    "tags": [
+      "miền Bắc",
+      "khôi phục kinh tế",
+      "cải cách ruộng đất"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 12,
+        "lessonId": "12956",
+        "lessonTitle": "BÀI 8: CUỘC KHÁNG CHIẾN CHỐNG MỸ, CỨU NƯỚC (1954-1975)"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "end": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "datePrecision": "period",
+    "displayDate": "1954 - 1960",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "no_location",
+    "historicalLocations": [
+      "miền Bắc"
+    ],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "auto",
+      "center": null,
+      "zoom": null
+    }
+  },
+  "summary": {
+    "homepageTitle": "Cải cách ruộng đất và khôi phục kinh tế miền Bắc",
+    "homepageSummary": "Nhân dân miền Bắc hoàn thành cải cách ruộng đất, khôi phục kinh tế, hàn gắn vết thương chiến tranh và cải tạo quan hệ sản xuất.",
+    "cardSummary": "Miền Bắc hoàn thành cải cách ruộng đất, khôi phục kinh tế và cải tạo quan hệ sản xuất (1954-1960)."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Nhân dân miền Bắc hoàn thành cải cách ruộng đất, khôi phục kinh tế, hàn gắn vết thương chiến tranh và cải tạo quan hệ sản xuất, bước đầu phát triển kinh tế – xã hội.",
+    "detailedNarrative": "Thực hiện cải cách ruộng đất, khẩu hiệu “Người cày có ruộng” đã trở thành hiện thực, giai cấp địa chủ phong kiến bị xoá bỏ, giai cấp nông dân được giải phóng và trở thành người làm chủ ở nông thôn. Công cuộc khôi phục kinh tế, hàn gắn vết thương chiến tranh được toàn dân hưởng ứng tích cực và triển khai trong tất cả các ngành, lĩnh vực. Thực hiện nhiệm vụ cải tạo quan hệ sản xuất, bước đầu phát triển kinh tế – xã hội đã làm cho cơ cấu kinh tế - xã hội miền Bắc có sự thay đổi, tạo tiền đề để miền Bắc phát triển trong giai đoạn tiếp theo cũng như thực hiện nghĩa vụ hậu phương đối với miền Nam.",
+    "significance": "Tạo tiền đề để miền Bắc phát triển trong giai đoạn tiếp theo cũng như thực hiện nghĩa vụ hậu phương đối với miền Nam.",
+    "keyFacts": [
+      "Cải tạo quan hệ sản xuất",
+      "Khôi phục kinh tế, hàn gắn vết thương chiến tranh",
+      "Giai cấp địa chủ phong kiến bị xoá bỏ, nông dân làm chủ ở nông thôn",
+      "Hoàn thành cải cách ruộng đất"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 12,
+        "book": "KNTT",
+        "lessonId": "12956",
+        "lessonTitle": "BÀI 8: CUỘC KHÁNG CHIẾN CHỐNG MỸ, CỨU NƯỚC (1954-1975)",
+        "chapter": "Chu de 3",
+        "lesson": "Bai 8",
+        "pageRange": {
+          "start": 45,
+          "end": 53
+        },
+        "url": "https://sgkvn.com/lop-12-15/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-3-cach-mang-thang-tam-nam-1945-chien-tranh-giai-phong-dan-toc-va-chien-tranh-bao-ve-to-quoc-trong-lich-su-viet-nam-tu-thang-8-nam-1945-den-nay-3539/bai-8-cuoc-khang-chien-chong-my-cuu-nuoc-1954-1975-12956.html",
+        "excerpt": "Nhân dân miền Bắc hoàn thành cải cách ruộng đất, khôi phục kinh tế, hàn gắn vết thương chiến tranh và cải tạo quan hệ sản xuất, bước đầu phát triển kinh tế – xã hội."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "cai-cach-ruong-dat-mien-bac",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 302
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": false,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

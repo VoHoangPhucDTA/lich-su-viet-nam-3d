@@ -1,0 +1,134 @@
+{
+  "id": "nha-mac-thanh-lap",
+  "slug": "nha-mac-thanh-lap",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Nhà Mạc thành lập",
+    "short": "Nhà Mạc thành lập",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "establishment",
+    "region": "vietnam",
+    "tags": [
+      "kinh tế công thương nghiệp",
+      "Nhà Mạc",
+      "thành lập"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      10
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 10,
+        "lessonId": "12160",
+        "lessonTitle": "Bài 12: Văn Minh Đại Việt"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1527,
+      "month": null,
+      "day": null
+    },
+    "end": null,
+    "datePrecision": "year",
+    "displayDate": "Năm 1527",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "no_location",
+    "historicalLocations": [],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "auto",
+      "center": null,
+      "zoom": null
+    }
+  },
+  "summary": {
+    "homepageTitle": "Nhà Mạc thành lập (1527)",
+    "homepageSummary": "Năm 1527, nhà Mạc thành lập, khuyến khích phát triển kinh tế công thương nghiệp và văn hoá.",
+    "cardSummary": "Nhà Mạc thành lập năm 1527, khuyến khích kinh tế và văn hoá phát triển."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Năm 1527, nhà Mạc thành lập, khuyến khích phát triển kinh tế công thương nghiệp và văn hoá.",
+    "detailedNarrative": null,
+    "significance": "Khuyến khích phát triển kinh tế công thương nghiệp và văn hoá.",
+    "keyFacts": [
+      "Diễn ra năm 1527",
+      "Khuyến khích phát triển kinh tế công thương nghiệp và văn hoá",
+      "Nhà Mạc thành lập"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 10,
+        "book": "KNTT",
+        "lessonId": "12160",
+        "lessonTitle": "Bài 12: Văn Minh Đại Việt",
+        "chapter": "Chu de 6",
+        "lesson": "Bai 12",
+        "pageRange": {
+          "start": 108,
+          "end": 122
+        },
+        "url": "https://sgkvn.com/lop-10-13/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-6-mot-so-nen-van-minh-tren-dat-nuoc-viet-nam-truoc-nam-1858-3276/bai-12-van-minh-dai-viet-12160.html",
+        "excerpt": "Năm 1527, nhà Mạc thành lập, khuyến khích phát triển kinh tế công thương nghiệp và văn hoá."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "nha-mac-thanh-lap",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 51
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": false,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

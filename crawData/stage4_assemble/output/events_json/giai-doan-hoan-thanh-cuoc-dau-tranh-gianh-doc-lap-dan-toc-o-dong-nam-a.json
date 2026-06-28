@@ -1,0 +1,148 @@
+{
+  "id": "giai-doan-hoan-thanh-cuoc-dau-tranh-gianh-doc-lap-dan-toc-o-dong-nam-a",
+  "slug": "giai-doan-hoan-thanh-cuoc-dau-tranh-gianh-doc-lap-dan-toc-o-dong-nam-a",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Giai đoạn Hoàn thành cuộc đấu tranh giành độc lập dân tộc ở Đông Nam Á",
+    "short": "Giai đoạn Hoàn thành cuộc đấu tranh giành độc lập dân tộc ở Đông Nam Á",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "period",
+    "region": "world",
+    "tags": [
+      "độc lập dân tộc",
+      "sau Chiến tranh thế giới thứ hai",
+      "Đông Nam Á"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 11,
+        "lessonId": "12340",
+        "lessonTitle": "BÀI 6  HÀNH TRÌNH ĐI ĐẾN ĐỘC LẬP DÂN TỘC"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1945,
+      "month": null,
+      "day": null
+    },
+    "end": {
+      "year": 1975,
+      "month": null,
+      "day": null
+    },
+    "datePrecision": "year",
+    "displayDate": "1945-1975",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "no_location",
+    "historicalLocations": [
+      "Miến Điện",
+      "In-đô-nê-xi-a",
+      "Phi-líp-pin",
+      "Việt Nam",
+      "Bru-nây",
+      "Lào",
+      "Đông Nam Á"
+    ],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "auto",
+      "center": null,
+      "zoom": null
+    }
+  },
+  "summary": {
+    "homepageTitle": "Hoàn thành đấu tranh độc lập ĐNA",
+    "homepageSummary": "Giai đoạn 1945-1975, các nước Đông Nam Á lần lượt hoàn thành cuộc đấu tranh giành độc lập dân tộc.",
+    "cardSummary": "Giai đoạn 1945-1975, các nước Đông Nam Á hoàn thành cuộc đấu tranh giành độc lập dân tộc."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Giai đoạn 1945-1975 là thời kì các nước Đông Nam Á hoàn thành cuộc đấu tranh giành độc lập dân tộc. Thắng lợi của lực lượng Đồng minh trong Chiến tranh thế giới thứ hai đã tạo thời cơ thuận lợi. Trong 10 năm đầu (1945-1954), In-đô-nê-xi-a, Việt Nam, Lào tuyên bố độc lập, Phi-líp-pin (1946) và Miến Điện (1947) được trao trả độc lập. Trong hơn 20 năm sau (1954-1975), các nước còn lại lần lượt hoàn thành độc lập (trừ Bru-nây năm 1984).",
+    "detailedNarrative": "Thắng lợi của lực lượng Đồng minh trong Chiến tranh thế giới thứ hai đã tạo thời cơ thuận lợi cho phong trào. Trong 10 năm đầu sau Chiến tranh (1945-1954), làn sóng đấu tranh dâng cao. In-đô-nê-xi-a tuyên bố độc lập, Việt Nam và Lào tiến hành cách mạng giành chính quyền và tuyên bố độc lập trong năm 1945. Một số nước được trao trả độc lập như: Phi-líp-pin (1946) và Miến Điện (1947). Trong hơn 20 năm sau (1954 - 1975), các nước Đông Nam Á đã lần lượt hoàn thành cuộc đấu tranh giành độc lập dân tộc (riêng Bru-nây được trao trả độc lập năm 1984).",
+    "significance": null,
+    "keyFacts": [
+      "Thắng lợi của Đồng minh trong Chiến tranh thế giới thứ hai tạo thời cơ",
+      "Bru-nây được trao trả độc lập năm 1984",
+      "In-đô-nê-xi-a, Việt Nam, Lào tuyên bố độc lập năm 1945",
+      "Các nước Đông Nam Á lần lượt hoàn thành độc lập (1954-1975)",
+      "Phi-líp-pin (1946) và Miến Điện (1947) được trao trả độc lập"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 11,
+        "book": "KNTT",
+        "lessonId": "12340",
+        "lessonTitle": "BÀI 6  HÀNH TRÌNH ĐI ĐẾN ĐỘC LẬP DÂN TỘC",
+        "chapter": "Chu de 3",
+        "lesson": "Bai 6",
+        "pageRange": {
+          "start": 45,
+          "end": 53
+        },
+        "url": "https://sgkvn.com/lop-11-14/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-3-qua-trinh-gianh-doc-lap-dan-toc-cua-cac-quoc-gia-dong-nam-a-3331/bai-6-hanh-trinh-di-den-doc-lap-dan-toc-o-dong-nam-a-12340.html",
+        "excerpt": "Giai đoạn 1945-1975 là thời kì các nước Đông Nam Á hoàn thành cuộc đấu tranh giành độc lập dân tộc. Thắng lợi của lực lượng Đồng minh trong Chiến tranh thế giới thứ hai đã tạo thời cơ thuận lợi. Trong 10 năm đầu (1945-1954), In-đô-nê-xi-a, Việt Nam, Lào tuyên bố độc lập, Phi-líp-pin (1946) và Miến Điện (1947) được trao trả độc lập. Trong hơn 20 năm sau (1954-1975), các nước còn lại lần lượt hoàn thành độc lập (trừ Bru-nây năm 1984)."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "giai-doan-hoan-thanh-cuoc-dau-tranh-gianh-doc-lap-dan-toc-o-dong-nam-a",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 168
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": false,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

@@ -1,0 +1,145 @@
+{
+  "id": "phap-gui-cong-ham-phan-doi-nhat-ban-kiem-soat-truong-sa",
+  "slug": "phap-gui-cong-ham-phan-doi-nhat-ban-kiem-soat-truong-sa",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Pháp gửi công hàm phản đối Nhật Bản kiểm soát một số đảo thuộc quần đảo Trường Sa",
+    "short": "Pháp phản đối Nhật ở Trường Sa",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "diplomatic",
+    "eventSubtype": "protest",
+    "region": "vietnam",
+    "tags": [
+      "Nhật Bản",
+      "Trường Sa",
+      "chủ quyền",
+      "Pháp"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 11,
+        "lessonId": "12395",
+        "lessonTitle": "BÀI 16  VIỆT NAM VÀ BIỂN ĐÔNG"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1939,
+      "month": null,
+      "day": null
+    },
+    "end": null,
+    "datePrecision": "year",
+    "displayDate": "Năm 1939",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "point",
+    "historicalLocations": [],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": {
+      "name": "quần đảo Trường Sa",
+      "lat": 8.3833,
+      "lng": 111.9167,
+      "confidence": "high"
+    },
+    "markers": [],
+    "focusGeometry": {
+      "mode": "marker",
+      "center": {
+        "name": "quần đảo Trường Sa",
+        "lat": 8.3833,
+        "lng": 111.9167,
+        "confidence": "high"
+      },
+      "zoom": 12
+    }
+  },
+  "summary": {
+    "homepageTitle": "Pháp phản đối Nhật kiểm soát Trường Sa (1939)",
+    "homepageSummary": "Năm 1939, chính quyền thực dân Pháp gửi công hàm phản đối việc Nhật Bản kiểm soát một số đảo thuộc quần đảo Trường Sa.",
+    "cardSummary": "Năm 1939, Pháp gửi công hàm phản đối Nhật Bản kiểm soát một số đảo thuộc quần đảo Trường Sa."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Năm 1939, chính quyền thực dân Pháp gửi công hàm phản đối việc Nhật Bản kiểm soát một số đảo thuộc quần đảo Trường Sa.",
+    "detailedNarrative": "Năm 1939, chính quyền thực dân Pháp gửi công hàm phản đối việc Nhật Bản kiểm soát một số đảo thuộc quần đảo Trường Sa.",
+    "significance": "Là hành động ngoại giao của Pháp (đại diện ngoại giao của triều Nguyễn) nhằm bảo vệ chủ quyền của Việt Nam đối với quần đảo Trường Sa.",
+    "keyFacts": [
+      "Phản đối Nhật Bản kiểm soát các đảo thuộc Trường Sa",
+      "Chính quyền thực dân Pháp gửi công hàm",
+      "Diễn ra năm 1939"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 11,
+        "book": "KNTT",
+        "lessonId": "12395",
+        "lessonTitle": "BÀI 16  VIỆT NAM VÀ BIỂN ĐÔNG",
+        "chapter": "Chu de 7",
+        "lesson": "Bai 16",
+        "pageRange": {
+          "start": 107,
+          "end": 111
+        },
+        "url": "https://sgkvn.com/lop-11-14/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-7-lich-su-chu-quyen-cua-viet-nam-o-bien-dong-3354/bai-16-viet-nam-va-bien-dong-12395.html",
+        "excerpt": "Năm 1939, chính quyền thực dân Pháp gửi công hàm phản đối việc Nhật Bản kiểm soát một số đảo thuộc quần đảo Trường Sa."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "phap-gui-cong-ham-phan-doi-nhat-ban-kiem-soat-truong-sa",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 135
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": true,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

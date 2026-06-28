@@ -1,0 +1,133 @@
+{
+  "id": "viet-nam-ban-hanh-tuyen-bo-vung-bien-them-luc-dia",
+  "slug": "viet-nam-ban-hanh-tuyen-bo-vung-bien-them-luc-dia",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Việt Nam ban hành Tuyên bố về các vùng biển và thềm lục địa Việt Nam",
+    "short": "Tuyên bố vùng biển và thềm lục địa VN",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "declaration",
+    "region": "vietnam",
+    "tags": [
+      "luật biển",
+      "Biển Đông",
+      "chủ quyền"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 11,
+        "lessonId": "12395",
+        "lessonTitle": "BÀI 16  VIỆT NAM VÀ BIỂN ĐÔNG"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1977,
+      "month": 5,
+      "day": null
+    },
+    "end": null,
+    "datePrecision": "month",
+    "displayDate": "Tháng 5 năm 1977",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "no_location",
+    "historicalLocations": [],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "auto",
+      "center": null,
+      "zoom": null
+    }
+  },
+  "summary": {
+    "homepageTitle": "VN ban hành Tuyên bố vùng biển và thềm lục địa (5/1977)",
+    "homepageSummary": "Tháng 5 năm 1977, Việt Nam ban hành Tuyên bố về các vùng biển và thềm lục địa Việt Nam, khẳng định chủ quyền và quyền chủ quyền.",
+    "cardSummary": "Tháng 5/1977, Việt Nam ban hành Tuyên bố về các vùng biển và thềm lục địa, khẳng định chủ quyền."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Ban hành văn bản pháp luật khẳng định chủ quyền: Tuyên bố về các vùng biển và thềm lục địa Việt Nam (5 – 1977).",
+    "detailedNarrative": "Ban hành văn bản pháp luật khẳng định chủ quyền: Tuyên bố về các vùng biển và thềm lục địa Việt Nam (5 – 1977).",
+    "significance": "Là văn bản pháp lí quan trọng khẳng định chủ quyền, quyền chủ quyền và quyền tài phán của Việt Nam đối với các vùng biển và thềm lục địa.",
+    "keyFacts": [
+      "Nội dung: khẳng định chủ quyền đối với các vùng biển và thềm lục địa Việt Nam",
+      "Ban hành tháng 5 năm 1977"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 11,
+        "book": "KNTT",
+        "lessonId": "12395",
+        "lessonTitle": "BÀI 16  VIỆT NAM VÀ BIỂN ĐÔNG",
+        "chapter": "Chu de 7",
+        "lesson": "Bai 16",
+        "pageRange": {
+          "start": 107,
+          "end": 111
+        },
+        "url": "https://sgkvn.com/lop-11-14/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-7-lich-su-chu-quyen-cua-viet-nam-o-bien-dong-3354/bai-16-viet-nam-va-bien-dong-12395.html",
+        "excerpt": "Ban hành văn bản pháp luật khẳng định chủ quyền: Tuyên bố về các vùng biển và thềm lục địa Việt Nam (5 – 1977)."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "viet-nam-ban-hanh-tuyen-bo-vung-bien-them-luc-dia",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 250
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": false,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

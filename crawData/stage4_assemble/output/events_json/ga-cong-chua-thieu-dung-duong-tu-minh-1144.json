@@ -1,0 +1,156 @@
+{
+  "id": "ga-cong-chua-thieu-dung-duong-tu-minh-1144",
+  "slug": "ga-cong-chua-thieu-dung-duong-tu-minh-1144",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Gả Công chúa Thiều Dung cho Dương Tự Minh",
+    "short": "Gả Công chúa Thiều Dung cho Dương Tự Minh",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "diplomatic",
+    "eventSubtype": "marriage",
+    "region": "vietnam",
+    "tags": [
+      "chính sách dân tộc",
+      "triều Lý",
+      "Dương Tự Minh"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      10
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 10,
+        "lessonId": "12169",
+        "lessonTitle": "Bài 14: Khối Đại Đoàn Kết Dân Tộc Trong Lịch Sử Việt Nam"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1144,
+      "month": null,
+      "day": null
+    },
+    "end": null,
+    "datePrecision": "year",
+    "displayDate": "Năm 1144",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "mixed",
+    "historicalLocations": [
+      "biên giới"
+    ],
+    "provinceNames": [
+      "Thái Nguyên"
+    ],
+    "gadmRefs": [
+      "VNM.56_1"
+    ],
+    "marker": {
+      "name": "Thái Nguyên",
+      "lat": 21.58,
+      "lng": 105.85,
+      "confidence": "high"
+    },
+    "markers": [
+      {
+        "name": "Thái Nguyên",
+        "lat": 21.58,
+        "lng": 105.85,
+        "confidence": "high"
+      }
+    ],
+    "focusGeometry": {
+      "mode": "bounds",
+      "center": {
+        "lat": 21.635038,
+        "lng": 105.85524
+      },
+      "zoom": 7
+    }
+  },
+  "summary": {
+    "homepageTitle": "Gả Công chúa Thiều Dung (1144)",
+    "homepageSummary": "Năm 1144, triều đình gả Công chúa Thiều Dung cho Dương Tự Minh, thủ lĩnh người Tày ở Thái Nguyên, thể hiện chính sách đoàn kết dân tộc của vương triều phong kiến tự chủ.",
+    "cardSummary": "Năm 1144, triều đình gả Công chúa Thiều Dung cho Dương Tự Minh, thủ lĩnh người Tày."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Giáp Tý [1144], gả Công chúa Thiều Dung cho Dương Tự Minh (một thủ lĩnh người dân tộc Tày ở Thái Nguyên], phong Tự Minh làm Phò mã lang.... Tháng 5, cho Mậu Du Đô làm Thái sư, xa lĩnh việc các khê động dọc biên giới về đường bộ.",
+    "detailedNarrative": "Việc gả công chúa cho thủ lĩnh người dân tộc ở những vùng biên giới là một trong những chính sách, biện pháp cụ thể của các vương triều phong kiến tự chủ nhằm củng cố khối đại đoàn kết dân tộc giữa người Kinh với các dân tộc thiểu số.",
+    "significance": "Thể hiện chính sách quan tâm, xây dựng khối đại đoàn kết dân tộc của các vương triều phong kiến tự chủ.",
+    "keyFacts": [
+      "Diễn ra vào năm 1144 (Giáp Tý)",
+      "Công chúa Thiều Dung được gả cho Dương Tự Minh",
+      "Dương Tự Minh được phong làm Phò mã lang",
+      "Dương Tự Minh là thủ lĩnh người Tày ở Thái Nguyên"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 10,
+        "book": "KNTT",
+        "lessonId": "12169",
+        "lessonTitle": "Bài 14: Khối Đại Đoàn Kết Dân Tộc Trong Lịch Sử Việt Nam",
+        "chapter": "Chu de 7",
+        "lesson": "Bai 14",
+        "pageRange": {
+          "start": 136,
+          "end": 141
+        },
+        "url": "https://sgkvn.com/lop-10-13/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-7-cong-dong-cac-dan-toc-viet-nam-3279/bai-14-khoi-dai-doan-ket-dan-toc-trong-lich-su-viet-nam-12169.html",
+        "excerpt": "Giáp Tý [1144], gả Công chúa Thiều Dung cho Dương Tự Minh (một thủ lĩnh người dân tộc Tày ở Thái Nguyên], phong Tự Minh làm Phò mã lang.... Tháng 5, cho Mậu Du Đô làm Thái sư, xa lĩnh việc các khê động dọc biên giới về đường bộ."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "ga-cong-chua-thieu-dung-duong-tu-minh-1144",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 18
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": true,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

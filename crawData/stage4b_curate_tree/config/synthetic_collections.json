@@ -1,0 +1,79 @@
+[
+  {
+    "id": "chu-quyen-bien-dao-viet-nam-tu-the-ki-xvi-den-xix",
+    "parentId": "viet-nam-tu-the-ki-xvi-den-xix",
+    "_synthetic": true,
+    "title": "Chủ quyền biển đảo Việt Nam từ thế kỉ XVI đến XIX",
+    "shortTitle": "Chủ quyền biển đảo XVI–XIX",
+    "eventType": "political",
+    "tags": [
+      "chủ quyền biển đảo",
+      "Hoàng Sa",
+      "Trường Sa"
+    ]
+  },
+  {
+    "id": "chu-quyen-bien-dao-viet-nam-1858-1918",
+    "parentId": "viet-nam-1858-1918",
+    "_synthetic": true,
+    "title": "Chủ quyền biển đảo Việt Nam giai đoạn 1858–1918",
+    "shortTitle": "Chủ quyền biển đảo 1858–1918",
+    "eventType": "political",
+    "tags": [
+      "chủ quyền biển đảo",
+      "Hoàng Sa",
+      "Trường Sa"
+    ]
+  },
+  {
+    "id": "chu-quyen-bien-dao-viet-nam-1919-1945",
+    "parentId": "viet-nam-1919-1945",
+    "_synthetic": true,
+    "title": "Chủ quyền biển đảo Việt Nam giai đoạn 1919–1945",
+    "shortTitle": "Chủ quyền biển đảo 1919–1945",
+    "eventType": "political",
+    "tags": [
+      "chủ quyền biển đảo",
+      "Hoàng Sa",
+      "Trường Sa"
+    ]
+  },
+  {
+    "id": "chu-quyen-bien-dao-viet-nam-1954-1975",
+    "parentId": "viet-nam-1954-1975",
+    "_synthetic": true,
+    "title": "Chủ quyền biển đảo Việt Nam giai đoạn 1954–1975",
+    "shortTitle": "Chủ quyền biển đảo 1954–1975",
+    "eventType": "political",
+    "tags": [
+      "chủ quyền biển đảo",
+      "Hoàng Sa",
+      "Trường Sa"
+    ]
+  },
+  {
+    "id": "chu-quyen-bien-dao-viet-nam-1975-den-nay",
+    "parentId": "viet-nam-1975-den-nay",
+    "_synthetic": true,
+    "title": "Chủ quyền biển đảo Việt Nam từ năm 1975 đến nay",
+    "shortTitle": "Chủ quyền biển đảo 1975–nay",
+    "eventType": "political",
+    "tags": [
+      "chủ quyền biển đảo",
+      "Hoàng Sa",
+      "Trường Sa"
+    ]
+  },
+  {
+    "id": "phong-trao-can-vuong",
+    "parentId": "viet-nam-1858-1918",
+    "_synthetic": true,
+    "title": "Phong trào Cần Vương",
+    "shortTitle": "Cần Vương",
+    "eventType": "political",
+    "tags": [
+      "Cần Vương",
+      "chống Pháp"
+    ]
+  }
+]

@@ -1,0 +1,133 @@
+{
+  "id": "viet-nam-thong-qua-luat-bien-viet-nam",
+  "slug": "viet-nam-thong-qua-luat-bien-viet-nam",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Việt Nam thông qua Luật Biển Việt Nam",
+    "short": "Luật Biển Việt Nam",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "legislation",
+    "region": "vietnam",
+    "tags": [
+      "luật biển",
+      "Biển Đông",
+      "chủ quyền"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 11,
+        "lessonId": "12395",
+        "lessonTitle": "BÀI 16  VIỆT NAM VÀ BIỂN ĐÔNG"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 2012,
+      "month": null,
+      "day": null
+    },
+    "end": null,
+    "datePrecision": "year",
+    "displayDate": "Năm 2012",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "no_location",
+    "historicalLocations": [],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "auto",
+      "center": null,
+      "zoom": null
+    }
+  },
+  "summary": {
+    "homepageTitle": "Việt Nam thông qua Luật Biển (2012)",
+    "homepageSummary": "Năm 2012, Việt Nam thông qua Luật Biển Việt Nam, cụ thể hóa các quy định về chủ quyền, quyền chủ quyền và quyền tài phán trên biển.",
+    "cardSummary": "Năm 2012, Việt Nam thông qua Luật Biển Việt Nam, khẳng định chủ quyền và quyền trên biển."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Thông qua Luật Biển Việt Nam năm 2012.",
+    "detailedNarrative": "Thông qua Luật Biển Việt Nam năm 2012.",
+    "significance": "Là cơ sở pháp lí quan trọng để Việt Nam bảo vệ chủ quyền, quyền chủ quyền và các lợi ích hợp pháp trên Biển Đông.",
+    "keyFacts": [
+      "Nội dung: quy định về các vùng biển, thềm lục địa và chủ quyền của Việt Nam",
+      "Thông qua năm 2012"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 11,
+        "book": "KNTT",
+        "lessonId": "12395",
+        "lessonTitle": "BÀI 16  VIỆT NAM VÀ BIỂN ĐÔNG",
+        "chapter": "Chu de 7",
+        "lesson": "Bai 16",
+        "pageRange": {
+          "start": 107,
+          "end": 111
+        },
+        "url": "https://sgkvn.com/lop-11-14/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-7-lich-su-chu-quyen-cua-viet-nam-o-bien-dong-3354/bai-16-viet-nam-va-bien-dong-12395.html",
+        "excerpt": "Thông qua Luật Biển Việt Nam năm 2012."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "viet-nam-thong-qua-luat-bien-viet-nam",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 285
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": false,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

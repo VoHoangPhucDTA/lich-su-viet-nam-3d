@@ -1,0 +1,65 @@
+[
+  {
+    "id": "viet-nam-thoi-dung-nuoc",
+    "title": "Việt Nam thời dựng nước",
+    "short": "Thời dựng nước",
+    "startYear": null,
+    "endYear": -112
+  },
+  {
+    "id": "bac-thuoc-va-dau-tranh-gianh-doc-lap",
+    "title": "Bắc thuộc và đấu tranh giành độc lập",
+    "short": "Bắc thuộc",
+    "startYear": -111,
+    "endYear": 937
+  },
+  {
+    "id": "viet-nam-tu-the-ki-x-den-xv",
+    "title": "Việt Nam từ thế kỉ X đến thế kỉ XV",
+    "short": "Việt Nam thế kỉ X-XV",
+    "startYear": 938,
+    "endYear": 1500
+  },
+  {
+    "id": "viet-nam-tu-the-ki-xvi-den-xix",
+    "title": "Việt Nam từ thế kỉ XVI đến thế kỉ XIX",
+    "short": "Việt Nam thế kỉ XVI-XIX",
+    "startYear": 1501,
+    "endYear": 1857
+  },
+  {
+    "id": "viet-nam-1858-1918",
+    "title": "Việt Nam từ năm 1858 đến năm 1918",
+    "short": "Việt Nam 1858-1918",
+    "startYear": 1858,
+    "endYear": 1918
+  },
+  {
+    "id": "viet-nam-1919-1945",
+    "title": "Việt Nam từ năm 1919 đến năm 1945",
+    "short": "Việt Nam 1919-1945",
+    "startYear": 1919,
+    "endYear": 1945
+  },
+  {
+    "id": "viet-nam-1945-1954",
+    "title": "Việt Nam từ năm 1945 đến năm 1954",
+    "short": "Việt Nam 1945-1954",
+    "startYear": 1945,
+    "endYear": 1954
+  },
+  {
+    "id": "viet-nam-1954-1975",
+    "title": "Việt Nam từ năm 1954 đến năm 1975",
+    "short": "Việt Nam 1954-1975",
+    "startYear": 1954,
+    "endYear": 1975
+  },
+  {
+    "id": "viet-nam-1975-den-nay",
+    "title": "Việt Nam từ năm 1975 đến nay",
+    "short": "Việt Nam 1975 đến nay",
+    "startYear": 1975,
+    "endYear": null
+  }
+]

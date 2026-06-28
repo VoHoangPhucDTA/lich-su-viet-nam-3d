@@ -1,0 +1,145 @@
+{
+  "id": "giai-doan-xuat-hien-xu-huong-moi-trong-phong-trao-dau-tranh-o-dong-nam-a",
+  "slug": "giai-doan-xuat-hien-xu-huong-moi-trong-phong-trao-dau-tranh-o-dong-nam-a",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Giai đoạn Xuất hiện xu hướng mới trong phong trào đấu tranh ở Đông Nam Á",
+    "short": "Giai đoạn Xuất hiện xu hướng mới trong phong trào đấu tranh ở Đông Nam Á",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "period",
+    "region": "world",
+    "tags": [
+      "khuynh hướng vô sản",
+      "đảng cộng sản",
+      "Đông Nam Á"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 11,
+        "lessonId": "12340",
+        "lessonTitle": "BÀI 6  HÀNH TRÌNH ĐI ĐẾN ĐỘC LẬP DÂN TỘC"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1920,
+      "month": null,
+      "day": null
+    },
+    "end": {
+      "year": 1945,
+      "month": null,
+      "day": null
+    },
+    "datePrecision": "year",
+    "displayDate": "1920-1945",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "no_location",
+    "historicalLocations": [
+      "In-đô-nê-xi-a",
+      "Mã Lai",
+      "Phi-líp-pin",
+      "Việt Nam",
+      "Đông Nam Á",
+      "Xiêm"
+    ],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "auto",
+      "center": null,
+      "zoom": null
+    }
+  },
+  "summary": {
+    "homepageTitle": "Xu hướng mới đấu tranh ĐNA",
+    "homepageSummary": "Giai đoạn 1920-1945 đánh dấu sự xuất hiện khuynh hướng vô sản và sự thành lập các đảng cộng sản ở Đông Nam Á.",
+    "cardSummary": "Giai đoạn 1920-1945, giai cấp vô sản và các đảng cộng sản xuất hiện trong phong trào đấu tranh ĐNA."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Giai đoạn 1920-1945 đánh dấu sự xuất hiện khuynh hướng mới trong phong trào đấu tranh ở Đông Nam Á. Giai cấp vô sản bắt đầu bước lên vũ đài chính trị, với việc các đảng cộng sản được thành lập ở một số nước như In-đô-nê-xi-a (1920), Việt Nam, Mã Lai, Xiêm và Phi-líp-pin (trong những năm 30 của thế kỉ XX), mở ra khuynh hướng vô sản trong cuộc đấu tranh giành độc lập dân tộc.",
+    "detailedNarrative": "Giai đoạn đánh dấu sự xuất hiện khuynh hướng mới trong phong trào. Giai cấp vô sản bắt đầu bước lên vũ đài chính trị trong khu vực. Các đảng cộng sản được thành lập ở một số nước: In-đô-nê-xi-a (1920), Việt Nam, Mã Lai, Xiêm và Phi-líp-pin (trong những năm 30 của thế kỉ XX), mở ra khuynh hướng vô sản trong cuộc đấu tranh giành độc lập dân tộc.",
+    "significance": null,
+    "keyFacts": [
+      "Giai cấp vô sản bước lên vũ đài chính trị",
+      "Mở ra khuynh hướng vô sản",
+      "Các đảng cộng sản được thành lập (In-đô-nê-xi-a 1920, Việt Nam, Mã Lai, Xiêm, Phi-líp-pin những năm 30)"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 11,
+        "book": "KNTT",
+        "lessonId": "12340",
+        "lessonTitle": "BÀI 6  HÀNH TRÌNH ĐI ĐẾN ĐỘC LẬP DÂN TỘC",
+        "chapter": "Chu de 3",
+        "lesson": "Bai 6",
+        "pageRange": {
+          "start": 45,
+          "end": 53
+        },
+        "url": "https://sgkvn.com/lop-11-14/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-3-qua-trinh-gianh-doc-lap-dan-toc-cua-cac-quoc-gia-dong-nam-a-3331/bai-6-hanh-trinh-di-den-doc-lap-dan-toc-o-dong-nam-a-12340.html",
+        "excerpt": "Giai đoạn 1920-1945 đánh dấu sự xuất hiện khuynh hướng mới trong phong trào đấu tranh ở Đông Nam Á. Giai cấp vô sản bắt đầu bước lên vũ đài chính trị, với việc các đảng cộng sản được thành lập ở một số nước như In-đô-nê-xi-a (1920), Việt Nam, Mã Lai, Xiêm và Phi-líp-pin (trong những năm 30 của thế kỉ XX), mở ra khuynh hướng vô sản trong cuộc đấu tranh giành độc lập dân tộc."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "giai-doan-xuat-hien-xu-huong-moi-trong-phong-trao-dau-tranh-o-dong-nam-a",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 113
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": false,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

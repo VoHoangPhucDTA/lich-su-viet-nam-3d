@@ -1,0 +1,132 @@
+{
+  "id": "ho-chi-minh-duoc-bau-chu-tich-nuoc-1946",
+  "slug": "ho-chi-minh-duoc-bau-chu-tich-nuoc-1946",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Hồ Chí Minh được Quốc hội khoá I bầu làm Chủ tịch nước Việt Nam Dân chủ Cộng hoà",
+    "short": "Hồ Chí Minh làm Chủ tịch nước",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "election",
+    "region": "vietnam",
+    "tags": [
+      "Chủ tịch nước",
+      "Hồ Chí Minh",
+      "Quốc hội khoá I"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 12,
+        "lessonId": "12966",
+        "lessonTitle": "BÀI 15: KHÁI QUÁT CUỘC ĐỜI VÀ SỰ NGHIỆP CỦA HỒ CHÍ MINH"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1946,
+      "month": 1,
+      "day": null
+    },
+    "end": null,
+    "datePrecision": "month",
+    "displayDate": "Tháng 1 – 1946",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "no_location",
+    "historicalLocations": [],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "auto",
+      "center": null,
+      "zoom": null
+    }
+  },
+  "summary": {
+    "homepageTitle": "Hồ Chí Minh làm Chủ tịch nước (1946)",
+    "homepageSummary": "Tháng 1 – 1946, Hồ Chí Minh được Quốc hội khoá I đã bầu làm Chủ tịch nước Việt Nam Dân chủ Cộng hoà.",
+    "cardSummary": "Tháng 1 – 1946, Hồ Chí Minh được Quốc hội khoá I bầu làm Chủ tịch nước."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Tháng 1 – 1946, Hồ Chí Minh được Quốc hội khoá I đã bầu làm Chủ tịch nước Việt Nam Dân chủ Cộng hoà.",
+    "detailedNarrative": "Tháng 1 – 1946, Hồ Chí Minh được Quốc hội khoá I đã bầu làm Chủ tịch nước Việt Nam Dân chủ Cộng hoà.",
+    "significance": null,
+    "keyFacts": [
+      "Được Quốc hội khoá I bầu"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 12,
+        "book": "KNTT",
+        "lessonId": "12966",
+        "lessonTitle": "BÀI 15: KHÁI QUÁT CUỘC ĐỜI VÀ SỰ NGHIỆP CỦA HỒ CHÍ MINH",
+        "chapter": "Chu de 5",
+        "lesson": "Bai 15",
+        "pageRange": {
+          "start": 88,
+          "end": 93
+        },
+        "url": "https://sgkvn.com/lop-12-15/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-5-lich-su-doi-ngoai-cua-viet-nam-thoi-can-hien-dai-3541/bai-15-khai-quat-cuoc-doi-va-su-nghiep-cua-ho-chi-minh-12966.html",
+        "excerpt": "Tháng 1 – 1946, Hồ Chí Minh được Quốc hội khoá I đã bầu làm Chủ tịch nước Việt Nam Dân chủ Cộng hoà."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "ho-chi-minh-duoc-bau-chu-tich-nuoc-1946",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 176
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": false,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

@@ -1,0 +1,164 @@
+{
+  "id": "phap-chiem-sau-tinh-nam-ki",
+  "slug": "phap-chiem-sau-tinh-nam-ki",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Pháp chiếm sáu tỉnh Nam Kì",
+    "short": "Pháp chiếm sáu tỉnh Nam Kì",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "military",
+    "eventSubtype": "occupation",
+    "region": "vietnam",
+    "tags": [
+      "triều Nguyễn",
+      "Pháp",
+      "xâm lược",
+      "Nam Kì"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 11,
+        "lessonId": "12370",
+        "lessonTitle": "BÀI 7  CHIẾN TRANH BẢO VỆ TỔ QUỐC TRONG"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1867,
+      "month": null,
+      "day": null
+    },
+    "end": {
+      "year": 1867,
+      "month": null,
+      "day": null
+    },
+    "datePrecision": "year",
+    "displayDate": "Năm 1867",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "mixed",
+    "historicalLocations": [],
+    "provinceNames": [
+      "Hồ Chí Minh"
+    ],
+    "gadmRefs": [
+      "VNM.25_1"
+    ],
+    "marker": {
+      "name": "Gia Định",
+      "lat": 10.7758,
+      "lng": 106.6996,
+      "confidence": "high"
+    },
+    "markers": [
+      {
+        "name": "Gia Định",
+        "lat": 10.7758,
+        "lng": 106.6996,
+        "confidence": "high"
+      },
+      {
+        "name": "Nam Kì",
+        "lat": 10.7,
+        "lng": 106.0,
+        "confidence": "medium"
+      }
+    ],
+    "focusGeometry": {
+      "mode": "bounds",
+      "center": {
+        "lat": 10.752079,
+        "lng": 106.466851
+      },
+      "zoom": 7
+    }
+  },
+  "summary": {
+    "homepageTitle": "Pháp chiếm sáu tỉnh Nam Kì (1867)",
+    "homepageSummary": "Sau khi tấn công Đà Nẵng, Pháp chuyển quân vào đánh chiếm Gia Định và hoàn tất việc chiếm gọn sáu tỉnh Nam Kì.",
+    "cardSummary": "Năm 1867, Pháp chiếm gọn sáu tỉnh Nam Kì sau khi đánh chiếm Gia Định."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Sau khi tấn công Đà Nẵng, Pháp chuyển quân vào đánh chiếm Gia Định, rồi chiếm gọn sáu tỉnh Nam Kì vào năm 1867.",
+    "detailedNarrative": null,
+    "significance": "Đánh dấu việc Pháp hoàn tất việc chiếm đóng Nam Kì, mở rộng phạm vi xâm lược tại Việt Nam.",
+    "keyFacts": [
+      "Diễn ra năm 1867",
+      "Kết quả: Pháp chiếm đóng hoàn toàn Nam Kì",
+      "Địa điểm: Gia Định, sáu tỉnh Nam Kì"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 11,
+        "book": "KNTT",
+        "lessonId": "12370",
+        "lessonTitle": "BÀI 7  CHIẾN TRANH BẢO VỆ TỔ QUỐC TRONG",
+        "chapter": "Chu de 4",
+        "lesson": "Bai 7",
+        "pageRange": {
+          "start": 54,
+          "end": 61
+        },
+        "url": "https://sgkvn.com/lop-11-14/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-4-chien-tranh-bao-ve-to-quoc-va-chien-tranh-giai-phong-dan-toc-trong-lich-su-viet-nam-truoc-cach-mang-thang-tam-nam-1945-3346/bai-7-chien-tranh-bao-ve-to-quoc-trong-lich-su-viet-nam-12370.html",
+        "excerpt": "Sau khi tấn công Đà Nẵng, Pháp chuyển quân vào đánh chiếm Gia Định, rồi chiếm gọn sáu tỉnh Nam Kì vào năm 1867."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "phap-chiem-sau-tinh-nam-ki",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 83
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": true,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

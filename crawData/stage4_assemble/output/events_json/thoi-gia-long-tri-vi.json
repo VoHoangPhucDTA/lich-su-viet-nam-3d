@@ -1,0 +1,169 @@
+{
+  "id": "thoi-gia-long-tri-vi",
+  "slug": "thoi-gia-long-tri-vi",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Thời Gia Long trị vì",
+    "short": "Thời Gia Long trị vì",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "reign",
+    "region": "vietnam",
+    "tags": [
+      "bộ máy hành chính",
+      "Gia Long",
+      "triều Nguyễn"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 11,
+        "lessonId": "12393",
+        "lessonTitle": "BÀI 14  CUỘC CẢI CÁCH CỦA MINH MẠNG  NỬA"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1802,
+      "month": null,
+      "day": null
+    },
+    "end": {
+      "year": 1820,
+      "month": null,
+      "day": null
+    },
+    "datePrecision": "year",
+    "displayDate": "1802 - 1820",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "mixed",
+    "historicalLocations": [
+      "miền núi",
+      "đồng bằng"
+    ],
+    "provinceNames": [
+      "Hà Nội",
+      "Hồ Chí Minh"
+    ],
+    "gadmRefs": [
+      "VNM.27_1",
+      "VNM.25_1"
+    ],
+    "marker": {
+      "name": "Bắc Thành",
+      "lat": 21.0285,
+      "lng": 105.8542,
+      "confidence": "high"
+    },
+    "markers": [
+      {
+        "name": "Bắc Thành",
+        "lat": 21.0285,
+        "lng": 105.8542,
+        "confidence": "high"
+      },
+      {
+        "name": "Gia Định Thành",
+        "lat": 10.7758,
+        "lng": 106.6996,
+        "confidence": "high"
+      }
+    ],
+    "focusGeometry": {
+      "mode": "bounds",
+      "center": {
+        "lat": 15.895135,
+        "lng": 106.247504
+      },
+      "zoom": 7
+    }
+  },
+  "summary": {
+    "homepageTitle": "Thời Gia Long trị vì",
+    "homepageSummary": "Trong thời gian trị vì (1802-1820), bộ máy hành chính nhà nước yếu kém, tính chất phân quyền còn đậm nét với sự tồn tại của Bắc Thành và Gia Định Thành.",
+    "cardSummary": "Thời Gia Long (1802-1820), bộ máy hành chính yếu kém và tính chất phân quyền đậm nét."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Thời Gia Long (1802 - 1820), bộ máy hành chính nhà nước yếu kém về nhiều mặt. Tính chất phân quyền còn đậm nét với sự tồn tại của hai khu vực hành chính là Bắc Thành và Gia Định Thành. Tổ chức hành chính giữa Bắc Thành và Gia Định Thành, giữa đồng bằng và miền núi còn thiếu thống nhất. Quan lại trong bộ máy chủ yếu do các quan võ nắm giữ.",
+    "detailedNarrative": "Thời Gia Long (1802 - 1820), bộ máy hành chính nhà nước yếu kém về nhiều mặt. Tính chất phân quyền còn đậm nét với sự tồn tại của hai khu vực hành chính là Bắc Thành và Gia Định Thành. Tổ chức hành chính giữa Bắc Thành và Gia Định Thành, giữa đồng bằng và miền núi còn thiếu thống nhất. Quan lại trong bộ máy chủ yếu do các quan võ nắm giữ...",
+    "significance": "Bối cảnh dẫn đến nhu cầu cải cách của vua Minh Mạng.",
+    "keyFacts": [
+      "Tồn tại Bắc Thành và Gia Định Thành",
+      "Tính chất phân quyền đậm nét",
+      "Bộ máy hành chính yếu kém",
+      "Quan lại chủ yếu do quan võ nắm giữ"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 11,
+        "book": "KNTT",
+        "lessonId": "12393",
+        "lessonTitle": "BÀI 14  CUỘC CẢI CÁCH CỦA MINH MẠNG  NỬA",
+        "chapter": "Chu de 6",
+        "lesson": "Bai 14",
+        "pageRange": {
+          "start": null,
+          "end": null
+        },
+        "url": "https://sgkvn.com/lop-11-14/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-6-mot-so-cuoc-cai-cach-lon-trong-lich-su-viet-nam-truoc-nam-1858-3353/bai-14-cuoc-cai-cach-cua-minh-mang-nua-dau-the-ki-xix-12393.html",
+        "excerpt": "Thời Gia Long (1802 - 1820), bộ máy hành chính nhà nước yếu kém về nhiều mặt. Tính chất phân quyền còn đậm nét với sự tồn tại của hai khu vực hành chính là Bắc Thành và Gia Định Thành. Tổ chức hành chính giữa Bắc Thành và Gia Định Thành, giữa đồng bằng và miền núi còn thiếu thống nhất. Quan lại trong bộ máy chủ yếu do các quan võ nắm giữ."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "thoi-gia-long-tri-vi",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 60
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": true,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

@@ -1,0 +1,207 @@
+{
+  "id": "cai-cach-ho-quy-ly-trieu-ho",
+  "slug": "cai-cach-ho-quy-ly-trieu-ho",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Cải cách của Hồ Quý Ly và triều Hồ",
+    "short": "Cải cách Hồ Quý Ly",
+    "alternatives": [
+      "Cải cách của nhà Hồ"
+    ]
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "reform",
+    "region": "vietnam",
+    "tags": [
+      "Kinh tế",
+      "Nhà Hồ",
+      "cải cách",
+      "chính trị",
+      "Xã hội",
+      "Hồ Quý Ly"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      10,
+      11
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 10,
+        "lessonId": "12160",
+        "lessonTitle": "Bài 12: Văn Minh Đại Việt"
+      },
+      {
+        "grade": 11,
+        "lessonId": "12387",
+        "lessonTitle": "BÀI 12  KHÁI LƯỢC VỀ CẢI CÁCH  CUỘC CẢI"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1375,
+      "month": null,
+      "day": null
+    },
+    "end": {
+      "year": 1402,
+      "month": null,
+      "day": null
+    },
+    "datePrecision": "year",
+    "displayDate": "1375 - 1402 (Cuối thế kỉ XIV - đầu thế kỉ XV)",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "mixed",
+    "historicalLocations": [],
+    "provinceNames": [
+      "Hà Nội",
+      "Thanh Hóa"
+    ],
+    "gadmRefs": [
+      "VNM.27_1",
+      "VNM.57_1"
+    ],
+    "marker": {
+      "name": "Đa Bang",
+      "lat": 21.1389,
+      "lng": 105.4939,
+      "confidence": "medium"
+    },
+    "markers": [
+      {
+        "name": "Đa Bang",
+        "lat": 21.1389,
+        "lng": 105.4939,
+        "confidence": "medium"
+      },
+      {
+        "name": "Hà Nội",
+        "lat": 21.0285,
+        "lng": 105.8542,
+        "confidence": "high"
+      },
+      {
+        "name": "Thanh Hoá",
+        "lat": 19.8,
+        "lng": 105.7,
+        "confidence": "high"
+      },
+      {
+        "name": "Tây Đô",
+        "lat": 20.0519,
+        "lng": 105.6208,
+        "confidence": "high"
+      }
+    ],
+    "focusGeometry": {
+      "mode": "bounds",
+      "center": {
+        "lat": 20.498713,
+        "lng": 105.611013
+      },
+      "zoom": 7
+    }
+  },
+  "summary": {
+    "homepageTitle": "Cải cách Hồ Quý Ly và nhà Hồ",
+    "homepageSummary": "Cuộc cải cách của Hồ Quý Ly và nhà Hồ (1375-1402) nhằm củng cố chế độ quân chủ tập quyền và giải quyết các mâu thuẫn kinh tế, xã hội cuối thời Trần.",
+    "cardSummary": "Cải cách của Hồ Quý Ly (1375-1402) trên các lĩnh vực chính trị, kinh tế, xã hội."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Cải cách của Hồ Quý Ly và nhà Hồ diễn ra vào cuối thế kỉ XIV - đầu thế kỉ XV chủ yếu trên các lĩnh vực: chính trị, kinh tế, xã hội, nhằm củng cố chế độ quân chủ tập quyền và giải quyết các mâu thuẫn về kinh tế, xã hội xuất hiện cuối thời Trần.",
+    "detailedNarrative": "- Về chính trị, quân sự: Xoá bỏ chế độ lấy người tôn thất làm chức chỉ huy quân sự cao cấp (1375), đặt lại quy chế về hệ thống quan lại địa phương (1379), cải tổ quy chế quan lại, lập lại kỉ cương. Tăng cường lực lượng quân đội chính quy, xây dựng nhiều thành luỹ như Tây Đô (Thanh Hoá), Đa Bang (Hà Nội), chế tạo súng thần cơ, đóng thuyền chiến. Định quan chế và hình luật (1401). Lập số hộ khẩu (1401), biên hết vào số các nhân khẩu từ 2 tuổi trở lên.\n- Về kinh tế, xã hội: Phát hành tiền giấy Thông bảo hội sao (1396), cải cách chế độ thuế khoá, thống nhất đơn vị đo lường trong cả nước. Ban hành chính sách hạn điền (1397) quy định thứ dân chỉ được sở hữu tối đa 10 mẫu ruộng. Ban hành chính sách hạn nô (1401) quy định số gia nô theo phẩm cấp, nô tì thừa sung vào Nhà nước. Ban hành chính sách thuế mới (1402), thuế đình nam thu theo mức sở hữu ruộng đất, thuế tô ruộng tăng lên 5 thăng/mẫu.\n- Về văn hoá, giáo dục: Định lại cách thi cử (1396), kì thi Thái học sinh đầu tiên (1400) tuyển chọn được nhiều người giỏi. Soạn sách Quốc ngữ thì nghĩa bằng chữ Nôm (1396), khuyến khích sử dụng chữ Nôm. Hạn chế Phật giáo (1396), đề cao Nho giáo.",
+    "significance": "Cải cách có nhiều điểm tiến bộ, góp phần củng cố quyền lực của chính quyền trung ương. Chuyển từ chế độ quý tộc tôn thất thời Trần sang chế độ quân chủ quan liêu theo mô hình Nho giáo. Giảm bớt thế lực tầng lớp quý tộc, hạn chế kinh tế điển trang, thái ấp và chế độ bóc lột nông nô, nô tì của tầng lớp quý tộc Trần, giải phóng sức sản xuất lao động. Thể hiện tư tưởng tiến bộ nhằm xây dựng một nền văn hoá, giáo dục mang bản sắc dân tộc Việt Nam. Tuy nhiên, những cải cách đó vẫn còn chưa triệt để và kết quả trong thực tế còn hạn chế, gây bất bình trong nhân dân và vấp phải phản ứng của quý tộc Phật giáo.",
+    "keyFacts": [
+      "Phát hành tiền giấy, hạn điền, hạn nô, cải cách thi cử",
+      "Diễn ra cuối thế kỉ XIV – đầu thế kỉ XV",
+      "Diễn ra từ 1375 đến 1402 (cuối thế kỉ XIV - đầu thế kỉ XV)",
+      "Góp phần củng cố quyền lực trung ương, nhưng còn hạn chế và gây bất bình",
+      "Là một yêu cầu cải cách của triều đại quân chủ",
+      "Do Hồ Quý Ly thực hiện",
+      "Do Hồ Quý Ly và nhà Hồ tiến hành",
+      "Trên các lĩnh vực chính trị, kinh tế, xã hội, văn hoá, giáo dục"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 10,
+        "book": "KNTT",
+        "lessonId": "12160",
+        "lessonTitle": "Bài 12: Văn Minh Đại Việt",
+        "chapter": "Chu de 6",
+        "lesson": "Bai 12",
+        "pageRange": {
+          "start": 108,
+          "end": 122
+        },
+        "url": "https://sgkvn.com/lop-10-13/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-6-mot-so-nen-van-minh-tren-dat-nuoc-viet-nam-truoc-nam-1858-3276/bai-12-van-minh-dai-viet-12160.html",
+        "excerpt": "Cải cách của Hồ Quý Ly và nhà Hồ diễn ra vào cuối thế kỉ XIV - đầu thế kỉ XV chủ yếu trên các lĩnh vực: chính trị, kinh tế, xã hội, nhằm củng cố chế độ quân chủ tập quyền và giải quyết các mâu thuẫn về kinh tế, xã hội xuất hiện cuối thời Trần."
+      },
+      {
+        "grade": 11,
+        "book": "KNTT",
+        "lessonId": "12387",
+        "lessonTitle": "BÀI 12  KHÁI LƯỢC VỀ CẢI CÁCH  CUỘC CẢI",
+        "chapter": "Chu de 6",
+        "lesson": "Bai 12",
+        "pageRange": {
+          "start": 87,
+          "end": 91
+        },
+        "url": "https://sgkvn.com/lop-11-14/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-6-mot-so-cuoc-cai-cach-lon-trong-lich-su-viet-nam-truoc-nam-1858-3353/bai-12-khai-luoc-ve-cai-cach-cuoc-cai-cach-cua-ho-quy-ly-va-trieu-ho-dau-the-ki-xv-12387.html",
+        "excerpt": "Cải cách của Hồ Quý Ly và nhà Hồ diễn ra vào cuối thế kỉ XIV - đầu thế kỉ XV chủ yếu trên các lĩnh vực: chính trị, kinh tế, xã hội, nhằm củng cố chế độ quân chủ tập quyền và giải quyết các mâu thuẫn về kinh tế, xã hội xuất hiện cuối thời Trần."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "cai-cach-ho-quy-ly-trieu-ho",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 27
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": true,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

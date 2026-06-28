@@ -1,0 +1,137 @@
+{
+  "id": "hoi-nghi-toan-quoc-cua-dang-cong-san-dong-duong-1945",
+  "slug": "hoi-nghi-toan-quoc-cua-dang-cong-san-dong-duong-1945",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Hội nghị toàn quốc của Đảng Cộng sản Đông Dương",
+    "short": "Hội nghị toàn quốc của Đảng (8-1945)",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "conference",
+    "region": "vietnam",
+    "tags": [
+      "Cách mạng tháng Tám",
+      "Đảng Cộng sản Đông Dương",
+      "tổng khởi nghĩa"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 12,
+        "lessonId": "12967",
+        "lessonTitle": "BÀI 16: HỒ CHÍ MINH - ANH HÙNG GIẢI PHÓNG DÂN TỘC"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1945,
+      "month": 8,
+      "day": 14
+    },
+    "end": {
+      "year": 1945,
+      "month": 8,
+      "day": 15
+    },
+    "datePrecision": "day",
+    "displayDate": "Từ ngày 14 đến ngày 15-8-1945",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "no_location",
+    "historicalLocations": [],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "auto",
+      "center": null,
+      "zoom": null
+    }
+  },
+  "summary": {
+    "homepageTitle": "Hội nghị toàn quốc của Đảng Cộng sản Đông Dương (8-1945)",
+    "homepageSummary": "Hồ Chí Minh cùng Trung ương Đảng triệu tập Hội nghị toàn quốc của Đảng Cộng sản Đông Dương, thông qua kế hoạch lãnh đạo toàn dân tổng khởi nghĩa.",
+    "cardSummary": "Hội nghị toàn quốc của Đảng (8-1945) thông qua kế hoạch lãnh đạo toàn dân tổng khởi nghĩa."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Cùng Ban Thường vụ Ban Chấp hành Trung ương Đảng triệu tập Hội nghị toàn quốc của Đảng Cộng sản Đông Dương (từ ngày 14 đến ngày 15-8-1945) thông qua kế hoạch lãnh đạo toàn dân tổng khởi nghĩa.",
+    "detailedNarrative": null,
+    "significance": "Thông qua kế hoạch lãnh đạo toàn dân tổng khởi nghĩa.",
+    "keyFacts": [
+      "Thông qua kế hoạch lãnh đạo toàn dân tổng khởi nghĩa",
+      "Triệu tập bởi Hồ Chí Minh và Ban Thường vụ Trung ương Đảng"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 12,
+        "book": "KNTT",
+        "lessonId": "12967",
+        "lessonTitle": "BÀI 16: HỒ CHÍ MINH - ANH HÙNG GIẢI PHÓNG DÂN TỘC",
+        "chapter": "Chu de 5",
+        "lesson": "Bai 16",
+        "pageRange": {
+          "start": 94,
+          "end": 104
+        },
+        "url": "https://sgkvn.com/lop-12-15/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-5-lich-su-doi-ngoai-cua-viet-nam-thoi-can-hien-dai-3541/bai-16-ho-chi-minh-anh-hung-giai-phong-dan-toc-12967.html",
+        "excerpt": "Cùng Ban Thường vụ Ban Chấp hành Trung ương Đảng triệu tập Hội nghị toàn quốc của Đảng Cộng sản Đông Dương (từ ngày 14 đến ngày 15-8-1945) thông qua kế hoạch lãnh đạo toàn dân tổng khởi nghĩa."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "hoi-nghi-toan-quoc-cua-dang-cong-san-dong-duong-1945",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 151
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": false,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

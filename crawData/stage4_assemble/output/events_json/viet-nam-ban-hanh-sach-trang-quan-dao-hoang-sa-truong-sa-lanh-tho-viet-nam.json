@@ -1,0 +1,155 @@
+{
+  "id": "viet-nam-ban-hanh-sach-trang-quan-dao-hoang-sa-truong-sa-lanh-tho-viet-nam",
+  "slug": "viet-nam-ban-hanh-sach-trang-quan-dao-hoang-sa-truong-sa-lanh-tho-viet-nam",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Việt Nam ban hành Sách Trắng: “Quần đảo Hoàng Sa và quần đảo Trường Sa, lãnh thổ Việt Nam\"",
+    "short": "Sách Trắng Hoàng Sa, Trường Sa (1981)",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "publication",
+    "region": "vietnam",
+    "tags": [
+      "Trường Sa",
+      "Sách Trắng",
+      "chủ quyền",
+      "Hoàng Sa"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 11,
+        "lessonId": "12395",
+        "lessonTitle": "BÀI 16  VIỆT NAM VÀ BIỂN ĐÔNG"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1981,
+      "month": 12,
+      "day": null
+    },
+    "end": null,
+    "datePrecision": "month",
+    "displayDate": "Tháng 12 năm 1981",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "multi_point",
+    "historicalLocations": [],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": {
+      "name": "quần đảo Hoàng Sa",
+      "lat": 16.6833,
+      "lng": 112.3333,
+      "confidence": "high"
+    },
+    "markers": [
+      {
+        "name": "quần đảo Hoàng Sa",
+        "lat": 16.6833,
+        "lng": 112.3333,
+        "confidence": "high"
+      },
+      {
+        "name": "quần đảo Trường Sa",
+        "lat": 8.3833,
+        "lng": 111.9167,
+        "confidence": "high"
+      }
+    ],
+    "focusGeometry": {
+      "mode": "bounds",
+      "center": {
+        "lat": 12.5333,
+        "lng": 112.125
+      },
+      "zoom": 8
+    }
+  },
+  "summary": {
+    "homepageTitle": "VN ban hành Sách Trắng Hoàng Sa, Trường Sa (12/1981)",
+    "homepageSummary": "Tháng 12 năm 1981, Việt Nam ban hành Sách Trắng “Quần đảo Hoàng Sa và quần đảo Trường Sa, lãnh thổ Việt Nam\".",
+    "cardSummary": "Tháng 12/1981, Việt Nam ban hành Sách Trắng khẳng định Hoàng Sa, Trường Sa là lãnh thổ Việt Nam."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Ban hành văn bản pháp luật khẳng định chủ quyền: Sách Trắng: “Quần đảo Hoàng Sa và quần đảo Trường Sa, lãnh thổ Việt Nam\" (12–1981).",
+    "detailedNarrative": "Ban hành văn bản pháp luật khẳng định chủ quyền: Sách Trắng: “Quần đảo Hoàng Sa và quần đảo Trường Sa, lãnh thổ Việt Nam\" (12–1981).",
+    "significance": "Là văn bản pháp lí quan trọng tiếp tục khẳng định chủ quyền của Việt Nam đối với hai quần đảo Hoàng Sa và Trường Sa.",
+    "keyFacts": [
+      "Nội dung: khẳng định quần đảo Hoàng Sa và quần đảo Trường Sa là lãnh thổ Việt Nam",
+      "Ban hành tháng 12 năm 1981"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 11,
+        "book": "KNTT",
+        "lessonId": "12395",
+        "lessonTitle": "BÀI 16  VIỆT NAM VÀ BIỂN ĐÔNG",
+        "chapter": "Chu de 7",
+        "lesson": "Bai 16",
+        "pageRange": {
+          "start": 107,
+          "end": 111
+        },
+        "url": "https://sgkvn.com/lop-11-14/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-7-lich-su-chu-quyen-cua-viet-nam-o-bien-dong-3354/bai-16-viet-nam-va-bien-dong-12395.html",
+        "excerpt": "Ban hành văn bản pháp luật khẳng định chủ quyền: Sách Trắng: “Quần đảo Hoàng Sa và quần đảo Trường Sa, lãnh thổ Việt Nam\" (12–1981)."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "viet-nam-ban-hanh-sach-trang-quan-dao-hoang-sa-truong-sa-lanh-tho-viet-nam",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 257
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": true,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

@@ -1,0 +1,156 @@
+{
+  "id": "tao-ban-do-toan-tap-thien-nam-tu-chi-lo-do-thu",
+  "slug": "tao-ban-do-toan-tap-thien-nam-tu-chi-lo-do-thu",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Tạo bản đồ Toản tập Thiên Nam tứ chí lộ đồ thư",
+    "short": "Tạo bản đồ Toản tập Thiên Nam tứ chí lộ đồ thư",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "cultural",
+    "eventSubtype": "creation",
+    "region": "vietnam",
+    "tags": [
+      "Trường Sa",
+      "chủ quyền",
+      "Hoàng Sa",
+      "bản đồ"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 11,
+        "lessonId": "12395",
+        "lessonTitle": "BÀI 16  VIỆT NAM VÀ BIỂN ĐÔNG"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1686,
+      "month": null,
+      "day": null
+    },
+    "end": null,
+    "datePrecision": "year",
+    "displayDate": "Năm 1686",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "multi_point",
+    "historicalLocations": [],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": {
+      "name": "quần đảo Hoàng Sa",
+      "lat": 16.6833,
+      "lng": 112.3333,
+      "confidence": "high"
+    },
+    "markers": [
+      {
+        "name": "quần đảo Hoàng Sa",
+        "lat": 16.6833,
+        "lng": 112.3333,
+        "confidence": "high"
+      },
+      {
+        "name": "quần đảo Trường Sa",
+        "lat": 8.3833,
+        "lng": 111.9167,
+        "confidence": "high"
+      }
+    ],
+    "focusGeometry": {
+      "mode": "bounds",
+      "center": {
+        "lat": 12.5333,
+        "lng": 112.125
+      },
+      "zoom": 8
+    }
+  },
+  "summary": {
+    "homepageTitle": "Bản đồ Toản tập Thiên Nam tứ chí lộ đồ thư (1686)",
+    "homepageSummary": "Bản đồ Toản tập Thiên Nam tứ chí lộ đồ thư được tạo ra, thể hiện quần đảo Hoàng Sa, Trường Sa thuộc lãnh thổ Việt Nam.",
+    "cardSummary": "Bản đồ Toản tập Thiên Nam tứ chí lộ đồ thư (1686) thể hiện chủ quyền Việt Nam đối với Hoàng Sa, Trường Sa."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Các tập bản đồ của các triều đại quân chủ Việt Nam như Toản tập Thiên Nam tứ chí lộ đồ thư (1686) đã thể hiện quần đảo Hoàng Sa, quần đảo Trường Sa thuộc lãnh thổ Việt Nam.",
+    "detailedNarrative": "Các tập bản đồ của các triều đại quân chủ Việt Nam như Toản tập Thiên Nam tứ chí lộ đồ thư (1686) đã thể hiện quần đảo Hoàng Sa, quần đảo Trường Sa thuộc lãnh thổ Việt Nam.",
+    "significance": "Là bằng chứng lịch sử khẳng định chủ quyền của Việt Nam đối với quần đảo Hoàng Sa và quần đảo Trường Sa.",
+    "keyFacts": [
+      "Tạo ra năm 1686",
+      "Thuộc các tập bản đồ của triều đại quân chủ Việt Nam",
+      "Thể hiện Hoàng Sa, Trường Sa thuộc lãnh thổ Việt Nam"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 11,
+        "book": "KNTT",
+        "lessonId": "12395",
+        "lessonTitle": "BÀI 16  VIỆT NAM VÀ BIỂN ĐÔNG",
+        "chapter": "Chu de 7",
+        "lesson": "Bai 16",
+        "pageRange": {
+          "start": 107,
+          "end": 111
+        },
+        "url": "https://sgkvn.com/lop-11-14/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-7-lich-su-chu-quyen-cua-viet-nam-o-bien-dong-3354/bai-16-viet-nam-va-bien-dong-12395.html",
+        "excerpt": "Các tập bản đồ của các triều đại quân chủ Việt Nam như Toản tập Thiên Nam tứ chí lộ đồ thư (1686) đã thể hiện quần đảo Hoàng Sa, quần đảo Trường Sa thuộc lãnh thổ Việt Nam."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "tao-ban-do-toan-tap-thien-nam-tu-chi-lo-do-thu",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 55
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": true,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

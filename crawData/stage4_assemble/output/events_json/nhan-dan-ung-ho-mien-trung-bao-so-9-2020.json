@@ -1,0 +1,136 @@
+{
+  "id": "nhan-dan-ung-ho-mien-trung-bao-so-9-2020",
+  "slug": "nhan-dan-ung-ho-mien-trung-bao-so-9-2020",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Nhân dân các dân tộc chung tay ủng hộ các tỉnh miền Trung bị thiệt hại sau cơn bão số 9",
+    "short": "Ủng hộ miền Trung bão số 9",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "social",
+    "eventSubtype": "aid",
+    "region": "vietnam",
+    "tags": [
+      "đại đoàn kết",
+      "cứu trợ",
+      "thiên tai"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      10
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 10,
+        "lessonId": "12169",
+        "lessonTitle": "Bài 14: Khối Đại Đoàn Kết Dân Tộc Trong Lịch Sử Việt Nam"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 2020,
+      "month": 10,
+      "day": null
+    },
+    "end": null,
+    "datePrecision": "month",
+    "displayDate": "Tháng 10 – 2020",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "no_location",
+    "historicalLocations": [
+      "miền Trung"
+    ],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "auto",
+      "center": null,
+      "zoom": null
+    }
+  },
+  "summary": {
+    "homepageTitle": "Ủng hộ miền Trung bị bão số 9 (2020)",
+    "homepageSummary": "Tháng 10-2020, nhân dân các dân tộc Việt Nam chung tay ủng hộ các tỉnh miền Trung bị thiệt hại nặng nề sau cơn bão số 9, thể hiện tinh thần đoàn kết.",
+    "cardSummary": "Tháng 10-2020, nhân dân ủng hộ miền Trung bị thiệt hại sau bão số 9."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Nhân dân các dân tộc chung tay ủng hộ các tỉnh miền Trung bị thiệt hại sau cơn bão số 9 (tháng 10 – 2020).",
+    "detailedNarrative": "Đoàn kết giữa các dân tộc, một truyền thống tốt đẹp của dân tộc Việt Nam đã và đang được phát huy cao độ khi có thiên tai, dịch bệnh.",
+    "significance": "Minh chứng cho vai trò và tầm quan trọng của khối đại đoàn kết dân tộc trong cuộc sống hiện nay, đặc biệt khi đối mặt với thiên tai.",
+    "keyFacts": [
+      "Đối tượng ủng hộ là các tỉnh miền Trung bị thiệt hại do bão số 9",
+      "Diễn ra vào tháng 10 – 2020",
+      "Nhân dân các dân tộc chung tay ủng hộ"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 10,
+        "book": "KNTT",
+        "lessonId": "12169",
+        "lessonTitle": "Bài 14: Khối Đại Đoàn Kết Dân Tộc Trong Lịch Sử Việt Nam",
+        "chapter": "Chu de 7",
+        "lesson": "Bai 14",
+        "pageRange": {
+          "start": 136,
+          "end": 141
+        },
+        "url": "https://sgkvn.com/lop-10-13/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-7-cong-dong-cac-dan-toc-viet-nam-3279/bai-14-khoi-dai-doan-ket-dan-toc-trong-lich-su-viet-nam-12169.html",
+        "excerpt": "Nhân dân các dân tộc chung tay ủng hộ các tỉnh miền Trung bị thiệt hại sau cơn bão số 9 (tháng 10 – 2020)."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "nhan-dan-ung-ho-mien-trung-bao-so-9-2020",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 294
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": false,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

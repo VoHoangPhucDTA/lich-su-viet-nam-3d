@@ -1,0 +1,147 @@
+{
+  "id": "cong-cuoc-doi-moi-viet-nam",
+  "slug": "cong-cuoc-doi-moi-viet-nam",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Công cuộc đổi mới ở Việt Nam",
+    "short": "Đổi mới Việt Nam",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "economic",
+    "eventSubtype": "reform",
+    "region": "vietnam",
+    "tags": [
+      "chủ nghĩa xã hội",
+      "kinh tế thị trường",
+      "Việt Nam",
+      "đổi mới"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 11,
+        "lessonId": "12338",
+        "lessonTitle": "BÀI 4  SỰ PHÁT TRIỂN CỦA CHỦ NGHĨA XÃ HỘ"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1986,
+      "month": null,
+      "day": null
+    },
+    "end": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "datePrecision": "year",
+    "displayDate": "Từ năm 1986",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "nationwide",
+    "historicalLocations": [
+      "Việt Nam",
+      "ASEAN"
+    ],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "bounds",
+      "center": {
+        "lat": 16.0,
+        "lng": 106.0
+      },
+      "zoom": 5
+    }
+  },
+  "summary": {
+    "homepageTitle": "Đổi mới Việt Nam (từ 1986)",
+    "homepageSummary": "Công cuộc đổi mới được thực hiện từ năm 1986, chuyển đổi thành công nền kinh tế kế hoạch hoá tập trung sang kinh tế thị trường định hướng xã hội chủ nghĩa, đạt nhiều thành tựu to lớn.",
+    "cardSummary": "Việt Nam thực hiện công cuộc đổi mới từ 1986, chuyển đổi kinh tế và đạt nhiều thành tựu."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Công cuộc đổi mới được thực hiện từ năm 1986 và thu được những thành tựu to lớn bằng việc chuyển đổi thành công nền kinh tế kế hoạch hoá tập trung quan liêu, bao cấp sang nền kinh tế thị trường định hướng xã hội chủ nghĩa. Nền kinh tế phát triển liên tục với tốc độ tương đối cao (trung bình 7% mỗi năm), quy mô GDP mở rộng (đạt 342,7 tỉ USD năm 2020), thu nhập bình quân đầu người tăng khoảng 17 lần.",
+    "detailedNarrative": "Công cuộc đổi mới được thực hiện từ năm 1986 và thu được những thành tựu to lớn bằng việc chuyển đổi thành công nến kinh tế kế hoạch hoá tập trung quan liêu, bao cấp sang nền kinh tế thị trường định hướng xã hội chủ nghĩa. Nhờ thực hiện đường lối đổi mới, nền kinh tế bắt đầu phát triển và phát triển liên tục với tốc độ tương đối cao trong suốt 35 năm qua với mức tăng trưởng trung bình khoảng 7% mỗi năm. Quy mô GDP không ngừng được mở rộng, năm 2020 đạt 342,7 tỉ đô la Mỹ (USD), trở thành nền kinh tế lớn thứ tư trong ASEAN. Thu nhập bình quân đầu người tăng khoảng 17 lần, lên mức 3 512 USD; Việt Nam đã ra khỏi nhóm các nước có thu nhập thấp từ năm 2008.",
+    "significance": "Khẳng định tính tất yếu của con đường xây dựng chủ nghĩa xã hội ở Việt Nam và đạt được những thành tựu to lớn về kinh tế, xã hội.",
+    "keyFacts": [
+      "Bắt đầu từ năm 1986",
+      "Tốc độ tăng trưởng trung bình 7% mỗi năm",
+      "Thu nhập bình quân đầu người tăng 17 lần",
+      "GDP đạt 342,7 tỉ USD năm 2020",
+      "Chuyển đổi sang kinh tế thị trường định hướng xã hội chủ nghĩa"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 11,
+        "book": "KNTT",
+        "lessonId": "12338",
+        "lessonTitle": "BÀI 4  SỰ PHÁT TRIỂN CỦA CHỦ NGHĨA XÃ HỘ",
+        "chapter": "Chu de 2",
+        "lesson": "Bai 4",
+        "pageRange": {
+          "start": 30,
+          "end": 37
+        },
+        "url": "https://sgkvn.com/lop-11-14/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-2-su-hinh-thanh-va-phat-trien-cua-chu-nghia-xa-hoi-3330/bai-4-su-phat-trien-cua-chu-nghia-xa-hoi-tu-sau-chien-tranh-the-gioi-thu-hai-den-nay-12338.html",
+        "excerpt": "Công cuộc đổi mới được thực hiện từ năm 1986 và thu được những thành tựu to lớn bằng việc chuyển đổi thành công nền kinh tế kế hoạch hoá tập trung quan liêu, bao cấp sang nền kinh tế thị trường định hướng xã hội chủ nghĩa. Nền kinh tế phát triển liên tục với tốc độ tương đối cao (trung bình 7% mỗi năm), quy mô GDP mở rộng (đạt 342,7 tỉ USD năm 2020), thu nhập bình quân đầu người tăng khoảng 17 lần."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "cong-cuoc-doi-moi-viet-nam",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 264
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": true,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

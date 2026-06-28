@@ -1,0 +1,149 @@
+{
+  "id": "mien-bac-viet-nam-giai-phong-xay-dung-cnxh",
+  "slug": "mien-bac-viet-nam-giai-phong-xay-dung-cnxh",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Miền Bắc Việt Nam được giải phóng và đi theo con đường xây dựng chủ nghĩa xã hội",
+    "short": "Miền Bắc VN xây dựng CNXH",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "development",
+    "region": "vietnam",
+    "tags": [
+      "giải phóng",
+      "chủ nghĩa xã hội",
+      "miền Bắc Việt Nam"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 11,
+        "lessonId": "12338",
+        "lessonTitle": "BÀI 4  SỰ PHÁT TRIỂN CỦA CHỦ NGHĨA XÃ HỘ"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "end": {
+      "year": 1954,
+      "month": null,
+      "day": null
+    },
+    "datePrecision": "year",
+    "displayDate": "1954",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "point",
+    "historicalLocations": [],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": {
+      "name": "miền Bắc Việt Nam",
+      "lat": 21.0285,
+      "lng": 105.8542,
+      "confidence": "low"
+    },
+    "markers": [],
+    "focusGeometry": {
+      "mode": "marker",
+      "center": {
+        "name": "miền Bắc Việt Nam",
+        "lat": 21.0285,
+        "lng": 105.8542,
+        "confidence": "low"
+      },
+      "zoom": 12
+    }
+  },
+  "summary": {
+    "homepageTitle": "Miền Bắc VN giải phóng, xây dựng CNXH (1954)",
+    "homepageSummary": "Sau thắng lợi của kháng chiến chống Pháp năm 1954, miền Bắc Việt Nam được giải phóng và bắt đầu đi theo con đường xây dựng chủ nghĩa xã hội.",
+    "cardSummary": "Miền Bắc Việt Nam giải phóng năm 1954 và đi theo con đường xây dựng chủ nghĩa xã hội."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Cuộc kháng chiến chống thực dân Pháp thắng lợi năm 1954, miền Bắc Việt Nam được giải phóng và đi theo con đường xây dựng chủ nghĩa xã hội.",
+    "detailedNarrative": "Cuộc kháng chiến chống thực dân Pháp thắng lợi năm 1954, miền Bắc Việt Nam được giải phóng và đi theo con đường xây dựng chủ nghĩa xã hội. Sau khi hoàn toàn giải phóng miền Nam (tháng 4-1975) và thực hiện thống nhất đất nước (năm 1976), cả nước Việt Nam tiến lên xây dựng chủ nghĩa xã hội.",
+    "significance": "Đánh dấu sự khởi đầu của công cuộc xây dựng chủ nghĩa xã hội ở Việt Nam.",
+    "keyFacts": [
+      "Sau thắng lợi kháng chiến chống Pháp",
+      "Miền Bắc được giải phóng",
+      "Đi theo con đường xây dựng chủ nghĩa xã hội",
+      "Diễn ra năm 1954"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 11,
+        "book": "KNTT",
+        "lessonId": "12338",
+        "lessonTitle": "BÀI 4  SỰ PHÁT TRIỂN CỦA CHỦ NGHĨA XÃ HỘ",
+        "chapter": "Chu de 2",
+        "lesson": "Bai 4",
+        "pageRange": {
+          "start": 30,
+          "end": 37
+        },
+        "url": "https://sgkvn.com/lop-11-14/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-2-su-hinh-thanh-va-phat-trien-cua-chu-nghia-xa-hoi-3330/bai-4-su-phat-trien-cua-chu-nghia-xa-hoi-tu-sau-chien-tranh-the-gioi-thu-hai-den-nay-12338.html",
+        "excerpt": "Cuộc kháng chiến chống thực dân Pháp thắng lợi năm 1954, miền Bắc Việt Nam được giải phóng và đi theo con đường xây dựng chủ nghĩa xã hội."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "mien-bac-viet-nam-giai-phong-xay-dung-cnxh",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 345
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": true,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

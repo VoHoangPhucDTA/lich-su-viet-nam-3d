@@ -1,0 +1,202 @@
+{
+  "id": "hoi-nghi-thanh-lap-dang-cong-san-viet-nam",
+  "slug": "hoi-nghi-thanh-lap-dang-cong-san-viet-nam",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Nguyễn Ái Quốc triệu tập và chủ trì Hội nghị thành lập Đảng Cộng sản Việt Nam",
+    "short": "Thành lập ĐCSVN",
+    "alternatives": [
+      "Hội nghị thành lập Đảng Cộng sản Việt Nam",
+      "Nguyễn Ái Quốc chủ trì Hội nghị hợp nhất các tổ chức cộng sản, thành lập Đảng Cộng sản Việt Nam",
+      "Thành lập Đảng Cộng sản Việt Nam"
+    ]
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "conference",
+    "region": "vietnam",
+    "tags": [
+      "giải phóng dân tộc",
+      "Hội nghị hợp nhất",
+      "Cương lĩnh chính trị đầu tiên",
+      "hợp nhất tổ chức cộng sản",
+      "chính trị",
+      "Đảng Cộng sản",
+      "Nguyễn Ái Quốc",
+      "Đảng Cộng sản Việt Nam"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      10,
+      12
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 10,
+        "lessonId": "12169",
+        "lessonTitle": "Bài 14: Khối Đại Đoàn Kết Dân Tộc Trong Lịch Sử Việt Nam"
+      },
+      {
+        "grade": 12,
+        "lessonId": "12966",
+        "lessonTitle": "BÀI 15: KHÁI QUÁT CUỘC ĐỜI VÀ SỰ NGHIỆP CỦA HỒ CHÍ MINH"
+      },
+      {
+        "grade": 12,
+        "lessonId": "12967",
+        "lessonTitle": "BÀI 16: HỒ CHÍ MINH - ANH HÙNG GIẢI PHÓNG DÂN TỘC"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1930,
+      "month": 1,
+      "day": 6
+    },
+    "end": null,
+    "datePrecision": "day",
+    "displayDate": "Ngày 6 – 1 – 1930",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "nationwide",
+    "historicalLocations": [
+      "Đông Dương",
+      "Việt Nam",
+      "Trung Quốc",
+      "Hương Cảng (Trung Quốc)",
+      "Hồng Công"
+    ],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": {
+      "name": "Cửu Long",
+      "lat": 10.0,
+      "lng": 105.7,
+      "confidence": "low"
+    },
+    "markers": [],
+    "focusGeometry": {
+      "mode": "bounds",
+      "center": {
+        "lat": 16.0,
+        "lng": 106.0
+      },
+      "zoom": 5
+    }
+  },
+  "summary": {
+    "homepageTitle": "Hội nghị thành lập Đảng Cộng sản Việt Nam",
+    "homepageSummary": "Ngày 6-1-1930, Nguyễn Ái Quốc triệu tập và chủ trì Hội nghị tại Cửu Long (Hồng Công – Trung Quốc) để hợp nhất các tổ chức cộng sản, thành lập Đảng Cộng sản Việt Nam và thông qua Cương lĩnh chính trị đầu tiên.",
+    "cardSummary": "Nguyễn Ái Quốc chủ trì Hội nghị thành lập Đảng Cộng sản Việt Nam (6-1-1930) tại Hồng Công."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Trước nhu cầu cấp bách của phong trào cách mạng, với tư cách là phái viên của Quốc tế Cộng sản, Nguyễn Ái Quốc đã chủ động triệu tập đại biểu các tổ chức cộng sản đến Cửu Long (Hồng Công – Trung Quốc) để tiến hành hợp nhất. Hội nghị bắt đầu diễn ra từ ngày 6 – 1 – 1930. Trong hội nghị này, Nguyễn Ái Quốc nêu ra những điểm lớn cần thảo luận và thống nhất gồm: bỏ mọi xung đột cũ, thống nhất các nhóm cộng sản ở Đông Dương; định tên Đảng là Đảng Cộng sản Việt Nam; thảo luận Chính cương và Điều lệ sơ lược của Đảng; định kế hoạch việc thống nhất trong nước và cử một Ban Chấp hành Trung ương lâm thời. Hội nghị tán thành ý kiến của Nguyễn Ái Quốc, thông qua các văn kiện do Nguyễn Ái Quốc soạn thảo. Trong đó, Chính cương vắn tắt và Sách lược vắn tắt của Đảng đã phản ánh những vấn đề chiến lược và sách lược của Đảng. Hai văn kiện trên được xem là Cương lĩnh chính trị đầu tiên của Đảng Cộng sản Việt Nam.",
+    "detailedNarrative": "Trong hội nghị này, Nguyễn Ái Quốc nêu ra những điểm lớn cần thảo luận và thống nhất gồm: bỏ mọi xung đột cũ, thống nhất các nhóm cộng sản ở Đông Dương; định tên Đảng là Đảng Cộng sản Việt Nam; thảo luận Chính cương và Điều lệ sơ lược của Đảng; định kế hoạch việc thống nhất trong nước và cử một Ban Chấp hành Trung ương lâm thời. Hội nghị tán thành ý kiến của Nguyễn Ái Quốc, thông qua các văn kiện do Nguyễn Ái Quốc soạn thảo. Trong đó, Chính cương vắn tắt và Sách lược vắn tắt của Đảng đã phản ánh những vấn đề chiến lược và sách lược của Đảng.",
+    "significance": "Là nhân tố quan trọng quyết định thắng lợi của sự nghiệp giải phóng dân tộc và xây dựng, phát triển, bảo vệ Tổ quốc.",
+    "keyFacts": [
+      "Triệu tập đại biểu các tổ chức cộng sản",
+      "Thống nhất các nhóm cộng sản ở Đông Dương",
+      "Thành lập vào năm 1930",
+      "Địa điểm: Cửu Long (Hồng Công – Trung Quốc)",
+      "Triệu tập và chủ trì Hội nghị hợp nhất",
+      "Soạn thảo Cương lĩnh chính trị đầu tiên của Đảng",
+      "Thông qua Chính cương vắn tắt và Sách lược vắn tắt (Cương lĩnh chính trị đầu tiên)",
+      "Củng cố và mở rộng khối đại đoàn kết dân tộc",
+      "Định tên Đảng là Đảng Cộng sản Việt Nam"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 10,
+        "book": "KNTT",
+        "lessonId": "12169",
+        "lessonTitle": "Bài 14: Khối Đại Đoàn Kết Dân Tộc Trong Lịch Sử Việt Nam",
+        "chapter": "Chu de 7",
+        "lesson": "Bai 14",
+        "pageRange": {
+          "start": 136,
+          "end": 141
+        },
+        "url": "https://sgkvn.com/lop-10-13/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-7-cong-dong-cac-dan-toc-viet-nam-3279/bai-14-khoi-dai-doan-ket-dan-toc-trong-lich-su-viet-nam-12169.html",
+        "excerpt": "Trước nhu cầu cấp bách của phong trào cách mạng, với tư cách là phái viên của Quốc tế Cộng sản, Nguyễn Ái Quốc đã chủ động triệu tập đại biểu các tổ chức cộng sản đến Cửu Long (Hồng Công – Trung Quốc) để tiến hành hợp nhất. Hội nghị bắt đầu diễn ra từ ngày 6 – 1 – 1930. Trong hội nghị này, Nguyễn Ái Quốc nêu ra những điểm lớn cần thảo luận và thống nhất gồm: bỏ mọi xung đột cũ, thống nhất các nhóm cộng sản ở Đông Dương; định tên Đảng là Đảng Cộng sản Việt Nam; thảo luận Chính cương và Điều lệ sơ lược của Đảng; định kế hoạch việc thống nhất trong nước và cử một Ban Chấp hành Trung ương lâm thời. Hội nghị tán thành ý kiến của Nguyễn Ái Quốc, thông qua các văn kiện do Nguyễn Ái Quốc soạn thảo. Trong đó, Chính cương vắn tắt và Sách lược vắn tắt của Đảng đã phản ánh những vấn đề chiến lược và sách lược của Đảng. Hai văn kiện trên được xem là Cương lĩnh chính trị đầu tiên của Đảng Cộng sản Việt Nam."
+      },
+      {
+        "grade": 12,
+        "book": "KNTT",
+        "lessonId": "12966",
+        "lessonTitle": "BÀI 15: KHÁI QUÁT CUỘC ĐỜI VÀ SỰ NGHIỆP CỦA HỒ CHÍ MINH",
+        "chapter": "Chu de 5",
+        "lesson": "Bai 15",
+        "pageRange": {
+          "start": 88,
+          "end": 93
+        },
+        "url": "https://sgkvn.com/lop-12-15/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-5-lich-su-doi-ngoai-cua-viet-nam-thoi-can-hien-dai-3541/bai-15-khai-quat-cuoc-doi-va-su-nghiep-cua-ho-chi-minh-12966.html",
+        "excerpt": "Trước nhu cầu cấp bách của phong trào cách mạng, với tư cách là phái viên của Quốc tế Cộng sản, Nguyễn Ái Quốc đã chủ động triệu tập đại biểu các tổ chức cộng sản đến Cửu Long (Hồng Công – Trung Quốc) để tiến hành hợp nhất. Hội nghị bắt đầu diễn ra từ ngày 6 – 1 – 1930. Trong hội nghị này, Nguyễn Ái Quốc nêu ra những điểm lớn cần thảo luận và thống nhất gồm: bỏ mọi xung đột cũ, thống nhất các nhóm cộng sản ở Đông Dương; định tên Đảng là Đảng Cộng sản Việt Nam; thảo luận Chính cương và Điều lệ sơ lược của Đảng; định kế hoạch việc thống nhất trong nước và cử một Ban Chấp hành Trung ương lâm thời. Hội nghị tán thành ý kiến của Nguyễn Ái Quốc, thông qua các văn kiện do Nguyễn Ái Quốc soạn thảo. Trong đó, Chính cương vắn tắt và Sách lược vắn tắt của Đảng đã phản ánh những vấn đề chiến lược và sách lược của Đảng. Hai văn kiện trên được xem là Cương lĩnh chính trị đầu tiên của Đảng Cộng sản Việt Nam."
+      },
+      {
+        "grade": 12,
+        "book": "KNTT",
+        "lessonId": "12967",
+        "lessonTitle": "BÀI 16: HỒ CHÍ MINH - ANH HÙNG GIẢI PHÓNG DÂN TỘC",
+        "chapter": "Chu de 5",
+        "lesson": "Bai 16",
+        "pageRange": {
+          "start": 94,
+          "end": 104
+        },
+        "url": "https://sgkvn.com/lop-12-15/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-5-lich-su-doi-ngoai-cua-viet-nam-thoi-can-hien-dai-3541/bai-16-ho-chi-minh-anh-hung-giai-phong-dan-toc-12967.html",
+        "excerpt": "Trước nhu cầu cấp bách của phong trào cách mạng, với tư cách là phái viên của Quốc tế Cộng sản, Nguyễn Ái Quốc đã chủ động triệu tập đại biểu các tổ chức cộng sản đến Cửu Long (Hồng Công – Trung Quốc) để tiến hành hợp nhất. Hội nghị bắt đầu diễn ra từ ngày 6 – 1 – 1930. Trong hội nghị này, Nguyễn Ái Quốc nêu ra những điểm lớn cần thảo luận và thống nhất gồm: bỏ mọi xung đột cũ, thống nhất các nhóm cộng sản ở Đông Dương; định tên Đảng là Đảng Cộng sản Việt Nam; thảo luận Chính cương và Điều lệ sơ lược của Đảng; định kế hoạch việc thống nhất trong nước và cử một Ban Chấp hành Trung ương lâm thời. Hội nghị tán thành ý kiến của Nguyễn Ái Quốc, thông qua các văn kiện do Nguyễn Ái Quốc soạn thảo. Trong đó, Chính cương vắn tắt và Sách lược vắn tắt của Đảng đã phản ánh những vấn đề chiến lược và sách lược của Đảng. Hai văn kiện trên được xem là Cương lĩnh chính trị đầu tiên của Đảng Cộng sản Việt Nam."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "hoi-nghi-thanh-lap-dang-cong-san-viet-nam",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 128
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": true,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

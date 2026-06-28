@@ -1,0 +1,144 @@
+{
+  "id": "chien-tranh-bao-ve-doc-lap-dan-toc-va-chu-quyen-quoc-gia-o-dong-duong",
+  "slug": "chien-tranh-bao-ve-doc-lap-dan-toc-va-chu-quyen-quoc-gia-o-dong-duong",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Chiến tranh bảo vệ độc lập dân tộc và chủ quyền quốc gia ở Đông Dương",
+    "short": "Chiến tranh bảo vệ độc lập dân tộc và chủ quyền quốc gia ở Đông Dương",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "military",
+    "eventSubtype": "war",
+    "region": "world",
+    "tags": [
+      "bảo vệ độc lập",
+      "chống Mỹ",
+      "Đông Dương"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 11,
+        "lessonId": "12340",
+        "lessonTitle": "BÀI 6  HÀNH TRÌNH ĐI ĐẾN ĐỘC LẬP DÂN TỘC"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1954,
+      "month": null,
+      "day": null
+    },
+    "end": {
+      "year": 1975,
+      "month": null,
+      "day": null
+    },
+    "datePrecision": "year",
+    "displayDate": "1954 - 1975",
+    "isApproximate": true
+  },
+  "mapData": {
+    "geoType": "no_location",
+    "historicalLocations": [
+      "Cam-pu-chia",
+      "Lào",
+      "Việt Nam",
+      "Đông Dương"
+    ],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "auto",
+      "center": null,
+      "zoom": null
+    }
+  },
+  "summary": {
+    "homepageTitle": "Chiến tranh bảo vệ độc lập Đông Dương",
+    "homepageSummary": "Sau 1954, nhân dân ba nước Đông Dương tiến hành cuộc chiến tranh bảo vệ độc lập dân tộc và chủ quyền quốc gia chống Mỹ can thiệp.",
+    "cardSummary": "Chiến tranh bảo vệ độc lập dân tộc ở Đông Dương (1954-1975) chống Mỹ can thiệp."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Từ năm 1954, sau khi Mỹ can thiệp vào Đông Dương, nhân dân ba nước Đông Dương (Việt Nam, Lào, Cam-pu-chia) phải tiếp tục tiến hành cuộc chiến tranh bảo vệ nền độc lập dân tộc và chủ quyền quốc gia.",
+    "detailedNarrative": "Từ năm 1954, Mỹ can thiệp vào Đông Dương, nhân dân ba nước Đông Dương phải tiếp tục tiến hành cuộc chiến tranh bảo vệ nền độc lập dân tộc và chủ quyền quốc gia. Cuộc kháng chiến chống thực dân Pháp và đế quốc Mỹ của nhân dân Việt Nam, Lào, Cam-pu-chia là cuộc chiến đấu quyết liệt nhất trong lịch sử đấu tranh giành độc lập dân tộc ở Đông Nam Á.",
+    "significance": "Là cuộc chiến đấu quyết liệt nhất trong lịch sử đấu tranh giành độc lập dân tộc ở Đông Nam Á.",
+    "keyFacts": [
+      "Diễn ra từ 1954",
+      "Là cuộc chiến đấu quyết liệt nhất",
+      "Chống Mỹ can thiệp",
+      "Diễn ra ở Việt Nam, Lào, Cam-pu-chia"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 11,
+        "book": "KNTT",
+        "lessonId": "12340",
+        "lessonTitle": "BÀI 6  HÀNH TRÌNH ĐI ĐẾN ĐỘC LẬP DÂN TỘC",
+        "chapter": "Chu de 3",
+        "lesson": "Bai 6",
+        "pageRange": {
+          "start": 45,
+          "end": 53
+        },
+        "url": "https://sgkvn.com/lop-11-14/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-3-qua-trinh-gianh-doc-lap-dan-toc-cua-cac-quoc-gia-dong-nam-a-3331/bai-6-hanh-trinh-di-den-doc-lap-dan-toc-o-dong-nam-a-12340.html",
+        "excerpt": "Từ năm 1954, sau khi Mỹ can thiệp vào Đông Dương, nhân dân ba nước Đông Dương (Việt Nam, Lào, Cam-pu-chia) phải tiếp tục tiến hành cuộc chiến tranh bảo vệ nền độc lập dân tộc và chủ quyền quốc gia."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "chien-tranh-bao-ve-doc-lap-dan-toc-va-chu-quyen-quoc-gia-o-dong-duong",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 204
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": false,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

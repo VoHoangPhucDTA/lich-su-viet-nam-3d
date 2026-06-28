@@ -1,0 +1,183 @@
+{
+  "id": "chien-dich-dien-bien-phu-1954",
+  "slug": "chien-dich-dien-bien-phu-1954",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Chiến dịch Điện Biên Phủ",
+    "short": "Điện Biên Phủ",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "military",
+    "eventSubtype": "battle",
+    "region": "vietnam",
+    "tags": [
+      "Chiến thắng",
+      "Kháng chiến chống Pháp",
+      "Điện Biên Phủ"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 12,
+        "lessonId": "12955",
+        "lessonTitle": "BÀI 7: CUỘC KHÁNG CHIẾN CHỐNG THỰC DÂN PHÁP (1945-1954)"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1954,
+      "month": 3,
+      "day": 13
+    },
+    "end": {
+      "year": 1954,
+      "month": 5,
+      "day": 7
+    },
+    "datePrecision": "day",
+    "displayDate": "Từ 13 – 3 – 1954 đến 7-5-1954",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "mixed",
+    "historicalLocations": [],
+    "provinceNames": [
+      "Điện Biên"
+    ],
+    "gadmRefs": [
+      "VNM.20_1"
+    ],
+    "marker": {
+      "name": "Him Lam",
+      "lat": 21.405,
+      "lng": 103.023,
+      "confidence": "high"
+    },
+    "markers": [
+      {
+        "name": "Him Lam",
+        "lat": 21.405,
+        "lng": 103.023,
+        "confidence": "high"
+      },
+      {
+        "name": "Đồi Độc Lập",
+        "lat": 21.428,
+        "lng": 103.012,
+        "confidence": "high"
+      },
+      {
+        "name": "Mường Thanh",
+        "lat": 21.385,
+        "lng": 103.006,
+        "confidence": "high"
+      },
+      {
+        "name": "Bản Kéo",
+        "lat": 21.411,
+        "lng": 102.986,
+        "confidence": "high"
+      },
+      {
+        "name": "Điện Biên Phủ",
+        "lat": 21.3861,
+        "lng": 103.0167,
+        "confidence": "high"
+      }
+    ],
+    "focusGeometry": {
+      "mode": "bounds",
+      "center": {
+        "lat": 21.465548,
+        "lng": 102.989906
+      },
+      "zoom": 7
+    }
+  },
+  "summary": {
+    "homepageTitle": "Chiến dịch Điện Biên Phủ",
+    "homepageSummary": "Chiến dịch quân sự quyết định, kéo dài 56 ngày đêm, kết thúc bằng chiến thắng của Việt Nam, buộc Pháp phải kí Hiệp định Giơ-ne-vơ.",
+    "cardSummary": "Chiến dịch Điện Biên Phủ (13-3 đến 7-5-1954) là chiến thắng quyết định, buộc Pháp đầu hàng và kí Hiệp định Giơ-ne-vơ."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Đầu tháng 12 – 1953, Bộ Chính trị Trung ương Đảng thông qua quyết định mở chiến dịch Điện Biên Phủ. Chiến dịch trải qua 56 ngày đêm (từ 13 – 3 – 1954 đến 7-5-1954) với ba đợt. Đợt 1 (13-3 đến 17-3-1954) tấn công Him Lam và đồi Độc Lập, bức hàng Bản Kéo. Đợt 2 (30-3 đến 26-4-1954) tấn công các cứ điểm phía đông phân khu Trung tâm, kiểm soát sân bay Mường Thanh. Đợt 3 (1-5 đến 7-5-1954) đồng loạt tấn công phân khu Trung tâm và phân khu Nam, buộc tướng Đờ Ca-xtơ-ri cùng toàn bộ Bộ Tham mưu của Pháp đầu hàng vào 17 giờ 30 ngày 7 - 5.",
+    "detailedNarrative": "Đầu tháng 12 – 1953, Bộ Chính trị Trung ương Đảng đã thông qua quyết định mở chiến dịch Điện Biên Phủ. Chiến dịch diễn ra trong 56 ngày đêm, từ ngày 13 – 3 – 1954 đến 7-5-1954, được chia thành ba đợt chính. Đợt 1 (13-3 đến 17-3-1954) tập trung tấn công cụm cứ điểm Him Lam và đồi Độc Lập, đồng thời bức hàng cứ điểm Bản Kéo. Đợt 2 (30-3 đến 26-4-1954) chứng kiến quân ta tấn công các cứ điểm phía đông phân khu Trung tâm, kiểm soát sân bay Mường Thanh, hạn chế việc tiếp viện của quân Pháp. Đợt 3 (1-5 đến 7-5-1954) là cuộc tổng tấn công đồng loạt vào phân khu Trung tâm và phân khu Nam. Đến 17 giờ 30 ngày 7 - 5, tướng Đờ Ca-xtơ-ri cùng toàn bộ Bộ Tham mưu của Pháp đã phải đầu hàng.",
+    "significance": "Thắng lợi ở Điện Biên Phủ đã tạo cơ sở cho việc đàm phán và kí kết Hiệp định Giơ-ne-vơ về chấm dứt chiến tranh, lập lại hoà bình ở Đông Dương. Buộc Pháp phải rút quân về nước, Mỹ thất bại trong âm mưu kéo dài chiến tranh, miền Bắc được hoàn toàn giải phóng.",
+    "keyFacts": [
+      "Tướng Đờ Ca-xtơ-ri đầu hàng ngày 7-5-1954",
+      "Chia làm 3 đợt tấn công",
+      "Tấn công các cứ điểm Him Lam, Độc Lập, Bản Kéo, các cứ điểm phía đông, sân bay Mường Thanh",
+      "Diễn ra từ 13-3-1954 đến 7-5-1954 (56 ngày đêm)",
+      "Tạo cơ sở cho Hiệp định Giơ-ne-vơ"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 12,
+        "book": "KNTT",
+        "lessonId": "12955",
+        "lessonTitle": "BÀI 7: CUỘC KHÁNG CHIẾN CHỐNG THỰC DÂN PHÁP (1945-1954)",
+        "chapter": "Chu de 3",
+        "lesson": "Bai 7",
+        "pageRange": {
+          "start": 37,
+          "end": 44
+        },
+        "url": "https://sgkvn.com/lop-12-15/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-3-cach-mang-thang-tam-nam-1945-chien-tranh-giai-phong-dan-toc-va-chien-tranh-bao-ve-to-quoc-trong-lich-su-viet-nam-tu-thang-8-nam-1945-den-nay-3539/bai-7-cuoc-khang-chien-chong-thuc-dan-phap-1945-1954-12955.html",
+        "excerpt": "Đầu tháng 12 – 1953, Bộ Chính trị Trung ương Đảng thông qua quyết định mở chiến dịch Điện Biên Phủ. Chiến dịch trải qua 56 ngày đêm (từ 13 – 3 – 1954 đến 7-5-1954) với ba đợt. Đợt 1 (13-3 đến 17-3-1954) tấn công Him Lam và đồi Độc Lập, bức hàng Bản Kéo. Đợt 2 (30-3 đến 26-4-1954) tấn công các cứ điểm phía đông phân khu Trung tâm, kiểm soát sân bay Mường Thanh. Đợt 3 (1-5 đến 7-5-1954) đồng loạt tấn công phân khu Trung tâm và phân khu Nam, buộc tướng Đờ Ca-xtơ-ri cùng toàn bộ Bộ Tham mưu của Pháp đầu hàng vào 17 giờ 30 ngày 7 - 5."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "chien-dich-dien-bien-phu-1954",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 201
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": true,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

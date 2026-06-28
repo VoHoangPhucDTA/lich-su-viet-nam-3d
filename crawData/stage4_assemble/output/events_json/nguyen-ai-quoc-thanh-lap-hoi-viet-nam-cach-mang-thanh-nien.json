@@ -1,0 +1,158 @@
+{
+  "id": "nguyen-ai-quoc-thanh-lap-hoi-viet-nam-cach-mang-thanh-nien",
+  "slug": "nguyen-ai-quoc-thanh-lap-hoi-viet-nam-cach-mang-thanh-nien",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Nguyễn Ái Quốc thành lập Hội Việt Nam Cách mạng Thanh niên",
+    "short": "Thành lập Hội Việt Nam Cách mạng Thanh niên",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "organization-founding",
+    "region": "world",
+    "tags": [
+      "Quảng Châu",
+      "truyền bá chủ nghĩa Mác-Lê-nin",
+      "Hội Việt Nam Cách mạng Thanh niên",
+      "Nguyễn Ái Quốc"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 12,
+        "lessonId": "12966",
+        "lessonTitle": "BÀI 15: KHÁI QUÁT CUỘC ĐỜI VÀ SỰ NGHIỆP CỦA HỒ CHÍ MINH"
+      },
+      {
+        "grade": 12,
+        "lessonId": "12967",
+        "lessonTitle": "BÀI 16: HỒ CHÍ MINH - ANH HÙNG GIẢI PHÓNG DÂN TỘC"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1925,
+      "month": 6,
+      "day": null
+    },
+    "end": null,
+    "datePrecision": "month",
+    "displayDate": "Tháng 6 – 1925",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "no_location",
+    "historicalLocations": [
+      "Quảng Châu",
+      "Trung Quốc"
+    ],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "auto",
+      "center": null,
+      "zoom": null
+    }
+  },
+  "summary": {
+    "homepageTitle": "Thành lập Hội Việt Nam Cách mạng Thanh niên",
+    "homepageSummary": "Tháng 6-1925, Nguyễn Ái Quốc thành lập Hội Việt Nam Cách mạng Thanh niên tại Quảng Châu (Trung Quốc) nhằm đào tạo cán bộ và truyền bá lí luận cách mạng giải phóng dân tộc.",
+    "cardSummary": "Nguyễn Ái Quốc thành lập Hội Việt Nam Cách mạng Thanh niên (6-1925) tại Quảng Châu."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Tháng 6 – 1925, Nguyễn Ái Quốc thành lập Hội Việt Nam Cách mạng Thanh niên tại Quảng Châu (Trung Quốc) nhằm đào tạo những người yêu nước thành cán bộ truyền bá chủ nghĩa Mác – Lê-nin, lí luận cách mạng giải phóng dân tộc của Nguyễn Ái Quốc vào phong trào yêu nước, phong trào công nhân. Sau khi thành lập, Hội tổ chức các lớp huấn luyện chính trị do Nguyễn Ái Quốc trực tiếp phụ trách.",
+    "detailedNarrative": "Sau khi thành lập, Hội tổ chức các lớp huấn luyện chính trị do Nguyễn Ái Quốc trực tiếp phụ trách. Hoạt động của Hội Việt Nam Cách mạng Thanh niên có ảnh hưởng và thúc đẩy mạnh mẽ sự chuyển biến của phong trào công nhân, phong trào yêu nước Việt Nam, dẫn đến sự ra đời của ba tổ chức cộng sản trong năm 1929.",
+    "significance": "Đào tạo những người yêu nước thành cán bộ truyền bá chủ nghĩa Mác – Lê-nin, lí luận cách mạng giải phóng dân tộc; thúc đẩy mạnh mẽ sự chuyển biến của phong trào công nhân, phong trào yêu nước Việt Nam.",
+    "keyFacts": [
+      "Truyền bá chủ nghĩa Mác – Lê-nin và lí luận cách mạng giải phóng dân tộc",
+      "Thúc đẩy phong trào công nhân và yêu nước Việt Nam",
+      "Thành lập tại Quảng Châu (Trung Quốc)",
+      "Nhằm đào tạo cán bộ"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 12,
+        "book": "KNTT",
+        "lessonId": "12966",
+        "lessonTitle": "BÀI 15: KHÁI QUÁT CUỘC ĐỜI VÀ SỰ NGHIỆP CỦA HỒ CHÍ MINH",
+        "chapter": "Chu de 5",
+        "lesson": "Bai 15",
+        "pageRange": {
+          "start": 88,
+          "end": 93
+        },
+        "url": "https://sgkvn.com/lop-12-15/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-5-lich-su-doi-ngoai-cua-viet-nam-thoi-can-hien-dai-3541/bai-15-khai-quat-cuoc-doi-va-su-nghiep-cua-ho-chi-minh-12966.html",
+        "excerpt": "Tháng 6 – 1925, Nguyễn Ái Quốc thành lập Hội Việt Nam Cách mạng Thanh niên tại Quảng Châu (Trung Quốc) nhằm đào tạo những người yêu nước thành cán bộ truyền bá chủ nghĩa Mác – Lê-nin, lí luận cách mạng giải phóng dân tộc của Nguyễn Ái Quốc vào phong trào yêu nước, phong trào công nhân. Sau khi thành lập, Hội tổ chức các lớp huấn luyện chính trị do Nguyễn Ái Quốc trực tiếp phụ trách."
+      },
+      {
+        "grade": 12,
+        "book": "KNTT",
+        "lessonId": "12967",
+        "lessonTitle": "BÀI 16: HỒ CHÍ MINH - ANH HÙNG GIẢI PHÓNG DÂN TỘC",
+        "chapter": "Chu de 5",
+        "lesson": "Bai 16",
+        "pageRange": {
+          "start": 94,
+          "end": 104
+        },
+        "url": "https://sgkvn.com/lop-12-15/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-5-lich-su-doi-ngoai-cua-viet-nam-thoi-can-hien-dai-3541/bai-16-ho-chi-minh-anh-hung-giai-phong-dan-toc-12967.html",
+        "excerpt": "Tháng 6 – 1925, Nguyễn Ái Quốc thành lập Hội Việt Nam Cách mạng Thanh niên tại Quảng Châu (Trung Quốc) nhằm đào tạo những người yêu nước thành cán bộ truyền bá chủ nghĩa Mác – Lê-nin, lí luận cách mạng giải phóng dân tộc của Nguyễn Ái Quốc vào phong trào yêu nước, phong trào công nhân. Sau khi thành lập, Hội tổ chức các lớp huấn luyện chính trị do Nguyễn Ái Quốc trực tiếp phụ trách."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "nguyen-ai-quoc-thanh-lap-hoi-viet-nam-cach-mang-thanh-nien",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 123
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": false,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

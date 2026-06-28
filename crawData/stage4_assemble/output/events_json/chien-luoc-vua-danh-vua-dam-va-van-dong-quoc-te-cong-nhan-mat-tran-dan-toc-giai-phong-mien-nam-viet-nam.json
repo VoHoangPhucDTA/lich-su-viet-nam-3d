@@ -1,0 +1,150 @@
+{
+  "id": "chien-luoc-vua-danh-vua-dam-va-van-dong-quoc-te-cong-nhan-mat-tran-dan-toc-giai-phong-mien-nam-viet-nam",
+  "slug": "chien-luoc-vua-danh-vua-dam-va-van-dong-quoc-te-cong-nhan-mat-tran-dan-toc-giai-phong-mien-nam-viet-nam",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Chiến lược \"vừa đánh, vừa đàm\" và vận động quốc tế công nhận Mặt trận Dân tộc giải phóng miền Nam Việt Nam",
+    "short": "Chiến lược \"vừa đánh, vừa đàm\" và vận động quốc tế công nhận Mặt trận Dân tộc giải phóng miền Nam Việt Nam",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "diplomatic",
+    "eventSubtype": "negotiation",
+    "region": "vietnam",
+    "tags": [
+      "chấm dứt chiến tranh",
+      "Mặt trận Dân tộc giải phóng",
+      "vừa đánh vừa đàm"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 12,
+        "lessonId": "12964",
+        "lessonTitle": "BÀI 13: HOẠT ĐỘNG ĐỐI NGOẠI CỦA VIỆT NAM TRONG KHÁNG CHIẾN CHỐNG PHÁP (1945 – 1954) VÀ KHÁNG CHIẾN CHỐNG MỸ (1954 - 1975)"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "end": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "datePrecision": "period",
+    "displayDate": "Trong kháng chiến chống Mỹ (1954-1975)",
+    "isApproximate": true
+  },
+  "mapData": {
+    "geoType": "point",
+    "historicalLocations": [],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": {
+      "name": "miền Nam Việt Nam",
+      "lat": 10.7626,
+      "lng": 106.6601,
+      "confidence": "low"
+    },
+    "markers": [],
+    "focusGeometry": {
+      "mode": "marker",
+      "center": {
+        "name": "miền Nam Việt Nam",
+        "lat": 10.7626,
+        "lng": 106.6601,
+        "confidence": "low"
+      },
+      "zoom": 12
+    }
+  },
+  "summary": {
+    "homepageTitle": "Chiến lược \"vừa đánh, vừa đàm\"",
+    "homepageSummary": "Chính phủ Việt Nam Dân chủ Cộng hoà kết hợp “vừa đánh, vừa đàm”, vận động quốc tế ủng hộ và công nhận Mặt trận Dân tộc giải phóng miền Nam Việt Nam.",
+    "cardSummary": "VNDCCH kết hợp \"vừa đánh, vừa đàm\", vận động quốc tế ủng hộ và công nhận Mặt trận Dân tộc giải phóng miền Nam Việt Nam."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Cùng với những thắng lợi quân sự, Chính phủ Việt Nam Dân chủ Cộng hoà chủ động kết hợp “vừa đánh, vừa đàm, cung cấp tư liệu về cuộc chiến tranh phi nghĩa mà Mỹ tiến hành ở miền Nam Việt Nam, tranh thủ sự ủng hộ của nhân dân tiến bộ trên thế giới, đòi Mỹ chấm dứt chiến tranh; đồng thời, tích cực vận động quốc tế công nhận Mặt trận Dân tộc giải phóng miền Nam Việt Nam.",
+    "detailedNarrative": "Cùng với những thắng lợi quân sự, Chính phủ Việt Nam Dân chủ Cộng hoà chủ động kết hợp “vừa đánh, vừa đàm, cung cấp tư liệu về cuộc chiến tranh phi nghĩa mà Mỹ tiến hành ở miền Nam Việt Nam, tranh thủ sự ủng hộ của nhân dân tiến bộ trên thế giới, đòi Mỹ chấm dứt chiến tranh; đồng thời, tích cực vận động quốc tế công nhận Mặt trận Dân tộc giải phóng miền Nam Việt Nam.",
+    "significance": null,
+    "keyFacts": [
+      "Tranh thủ ủng hộ quốc tế",
+      "Cung cấp tư liệu về chiến tranh phi nghĩa của Mỹ",
+      "Đòi Mỹ chấm dứt chiến tranh",
+      "Kết hợp 'vừa đánh, vừa đàm'",
+      "Vận động quốc tế công nhận Mặt trận Dân tộc giải phóng miền Nam Việt Nam"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 12,
+        "book": "KNTT",
+        "lessonId": "12964",
+        "lessonTitle": "BÀI 13: HOẠT ĐỘNG ĐỐI NGOẠI CỦA VIỆT NAM TRONG KHÁNG CHIẾN CHỐNG PHÁP (1945 – 1954) VÀ KHÁNG CHIẾN CHỐNG MỸ (1954 - 1975)",
+        "chapter": "Chu de 4",
+        "lesson": "Bai 13",
+        "pageRange": {
+          "start": 77,
+          "end": 81
+        },
+        "url": "https://sgkvn.com/lop-12-15/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-4-cong-cuoc-doi-moi-o-viet-nam-tu-nam-1986-den-nay-3540/bai-13-hoat-dong-doi-ngoai-cua-viet-nam-trong-khang-chien-chong-phap-1945-1954-va-khang-chien-chong-my-1954-1975-12964.html",
+        "excerpt": "Cùng với những thắng lợi quân sự, Chính phủ Việt Nam Dân chủ Cộng hoà chủ động kết hợp “vừa đánh, vừa đàm, cung cấp tư liệu về cuộc chiến tranh phi nghĩa mà Mỹ tiến hành ở miền Nam Việt Nam, tranh thủ sự ủng hộ của nhân dân tiến bộ trên thế giới, đòi Mỹ chấm dứt chiến tranh; đồng thời, tích cực vận động quốc tế công nhận Mặt trận Dân tộc giải phóng miền Nam Việt Nam."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "chien-luoc-vua-danh-vua-dam-va-van-dong-quoc-te-cong-nhan-mat-tran-dan-toc-giai-phong-mien-nam-viet-nam",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 305
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": true,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

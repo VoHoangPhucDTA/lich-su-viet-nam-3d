@@ -1,0 +1,132 @@
+{
+  "id": "viet-nam-ki-ket-rcep",
+  "slug": "viet-nam-ki-ket-rcep",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Việt Nam kí kết Hiệp định Đối tác kinh tế toàn diện Khu vực (RCEP)",
+    "short": "Việt Nam kí RCEP",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "economic",
+    "eventSubtype": "treaty",
+    "region": "vietnam",
+    "tags": [
+      "RCEP",
+      "hội nhập khu vực",
+      "thương mại"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 12,
+        "lessonId": "12965",
+        "lessonTitle": "BÀI 14: HOẠT ĐỘNG ĐỐI NGOẠI CỦA VIỆT NAM TỪ NĂM 1975 ĐẾN NAY"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "end": null,
+    "datePrecision": "approximate",
+    "displayDate": "Trong thời kì Đổi mới",
+    "isApproximate": true
+  },
+  "mapData": {
+    "geoType": "no_location",
+    "historicalLocations": [],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "auto",
+      "center": null,
+      "zoom": null
+    }
+  },
+  "summary": {
+    "homepageTitle": "Việt Nam kí RCEP",
+    "homepageSummary": "Việt Nam kí kết Hiệp định Đối tác kinh tế toàn diện Khu vực (RCEP), tăng cường liên kết kinh tế khu vực.",
+    "cardSummary": "Việt Nam kí kết Hiệp định Đối tác kinh tế toàn diện Khu vực (RCEP)."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Việt Nam kí kết Hiệp định Đối tác kinh tế toàn diện Khu vực (RCEP).",
+    "detailedNarrative": null,
+    "significance": "Tích cực, chủ động hội nhập khu vực và thế giới.",
+    "keyFacts": [
+      "Hiệp định Đối tác kinh tế toàn diện Khu vực"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 12,
+        "book": "KNTT",
+        "lessonId": "12965",
+        "lessonTitle": "BÀI 14: HOẠT ĐỘNG ĐỐI NGOẠI CỦA VIỆT NAM TỪ NĂM 1975 ĐẾN NAY",
+        "chapter": "Chu de 4",
+        "lesson": "Bai 14",
+        "pageRange": {
+          "start": 81,
+          "end": 86
+        },
+        "url": "https://sgkvn.com/lop-12-15/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-4-cong-cuoc-doi-moi-o-viet-nam-tu-nam-1986-den-nay-3540/bai-14-hoat-dong-doi-ngoai-cua-viet-nam-tu-nam-1975-den-nay-12965.html",
+        "excerpt": "Việt Nam kí kết Hiệp định Đối tác kinh tế toàn diện Khu vực (RCEP)."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "viet-nam-ki-ket-rcep",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 386
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": false,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

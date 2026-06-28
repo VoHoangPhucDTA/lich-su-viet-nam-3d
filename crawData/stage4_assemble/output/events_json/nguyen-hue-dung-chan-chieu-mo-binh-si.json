@@ -1,0 +1,155 @@
+{
+  "id": "nguyen-hue-dung-chan-chieu-mo-binh-si",
+  "slug": "nguyen-hue-dung-chan-chieu-mo-binh-si",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Nguyễn Huệ dừng chân chiêu mộ binh sĩ",
+    "short": "Nguyễn Huệ dừng chân chiêu mộ binh sĩ",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "military",
+    "eventSubtype": "recruitment",
+    "region": "vietnam",
+    "tags": [
+      "Nam Đàn",
+      "chiêu mộ binh sĩ",
+      "Nguyễn Huệ"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 12,
+        "lessonId": "12966",
+        "lessonTitle": "BÀI 15: KHÁI QUÁT CUỘC ĐỜI VÀ SỰ NGHIỆP CỦA HỒ CHÍ MINH"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "end": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "datePrecision": "period",
+    "displayDate": "cuối thế kỉ XVIII",
+    "isApproximate": true
+  },
+  "mapData": {
+    "geoType": "mixed",
+    "historicalLocations": [],
+    "provinceNames": [
+      "Nghệ An"
+    ],
+    "gadmRefs": [
+      "VNM.41_1"
+    ],
+    "marker": {
+      "name": "Nam Đàn (Nghệ An)",
+      "lat": 18.68,
+      "lng": 105.55,
+      "confidence": "high"
+    },
+    "markers": [
+      {
+        "name": "Nam Đàn (Nghệ An)",
+        "lat": 18.68,
+        "lng": 105.55,
+        "confidence": "high"
+      }
+    ],
+    "focusGeometry": {
+      "mode": "bounds",
+      "center": {
+        "lat": 18.979874,
+        "lng": 105.252764
+      },
+      "zoom": 7
+    }
+  },
+  "summary": {
+    "homepageTitle": "Nguyễn Huệ chiêu mộ binh sĩ",
+    "homepageSummary": "Nguyễn Huệ dừng chân chiêu mộ binh sĩ ở Nam Đàn (Nghệ An) vào cuối thế kỉ XVIII.",
+    "cardSummary": "Nguyễn Huệ dừng chân chiêu mộ binh sĩ ở Nam Đàn (Nghệ An) cuối thế kỉ XVIII."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Vùng đất Nam Đàn (Nghệ An) là nơi lưu nhiều dấu tích lịch sử liên quan đến Nguyễn Huệ dừng chân chiêu mộ binh sĩ (cuối thế kỉ XVIII).",
+    "detailedNarrative": "Vùng đất Nam Đàn (Nghệ An) là nơi lưu nhiều dấu tích lịch sử liên quan đến Nguyễn Huệ dừng chân chiêu mộ binh sĩ (cuối thế kỉ XVIII).",
+    "significance": null,
+    "keyFacts": [
+      "Diễn ra ở Nam Đàn (Nghệ An)"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 12,
+        "book": "KNTT",
+        "lessonId": "12966",
+        "lessonTitle": "BÀI 15: KHÁI QUÁT CUỘC ĐỜI VÀ SỰ NGHIỆP CỦA HỒ CHÍ MINH",
+        "chapter": "Chu de 5",
+        "lesson": "Bai 15",
+        "pageRange": {
+          "start": 88,
+          "end": 93
+        },
+        "url": "https://sgkvn.com/lop-12-15/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-5-lich-su-doi-ngoai-cua-viet-nam-thoi-can-hien-dai-3541/bai-15-khai-quat-cuoc-doi-va-su-nghiep-cua-ho-chi-minh-12966.html",
+        "excerpt": "Vùng đất Nam Đàn (Nghệ An) là nơi lưu nhiều dấu tích lịch sử liên quan đến Nguyễn Huệ dừng chân chiêu mộ binh sĩ (cuối thế kỉ XVIII)."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "nguyen-hue-dung-chan-chieu-mo-binh-si",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 348
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": true,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

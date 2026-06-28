@@ -1,0 +1,134 @@
+{
+  "id": "viet-nam-to-chuc-hoi-nghi-quoc-te-asean-asem-apec",
+  "slug": "viet-nam-to-chuc-hoi-nghi-quoc-te-asean-asem-apec",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Việt Nam tổ chức thành công nhiều hội nghị quốc tế quan trọng thuộc ASEAN, ASEM và APEC",
+    "short": "VN tổ chức hội nghị quốc tế",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "diplomatic",
+    "eventSubtype": "conference",
+    "region": "vietnam",
+    "tags": [
+      "APEC",
+      "ASEM",
+      "ASEAN",
+      "hội nghị quốc tế"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 12,
+        "lessonId": "12965",
+        "lessonTitle": "BÀI 14: HOẠT ĐỘNG ĐỐI NGOẠI CỦA VIỆT NAM TỪ NĂM 1975 ĐẾN NAY"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "end": null,
+    "datePrecision": "period",
+    "displayDate": "Trong thời kì Đổi mới (từ 1986 đến nay)",
+    "isApproximate": true
+  },
+  "mapData": {
+    "geoType": "no_location",
+    "historicalLocations": [],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "auto",
+      "center": null,
+      "zoom": null
+    }
+  },
+  "summary": {
+    "homepageTitle": "VN tổ chức nhiều hội nghị quốc tế",
+    "homepageSummary": "Việt Nam đã tổ chức thành công nhiều hội nghị quốc tế quan trọng thuộc ASEAN, ASEM và APEC, khẳng định vai trò trên trường quốc tế.",
+    "cardSummary": "Việt Nam tổ chức thành công nhiều hội nghị quốc tế thuộc ASEAN, ASEM và APEC."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Việt Nam đã tổ chức thành công nhiều hội nghị quốc tế quan trọng thuộc ASEAN, ASEM và APEC.",
+    "detailedNarrative": null,
+    "significance": "Nâng cao vị thế, uy tín của đất nước trong khu vực cũng như trên thế giới.",
+    "keyFacts": [
+      "Thuộc ASEAN, ASEM, APEC",
+      "Tổ chức thành công nhiều hội nghị quốc tế"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 12,
+        "book": "KNTT",
+        "lessonId": "12965",
+        "lessonTitle": "BÀI 14: HOẠT ĐỘNG ĐỐI NGOẠI CỦA VIỆT NAM TỪ NĂM 1975 ĐẾN NAY",
+        "chapter": "Chu de 4",
+        "lesson": "Bai 14",
+        "pageRange": {
+          "start": 81,
+          "end": 86
+        },
+        "url": "https://sgkvn.com/lop-12-15/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-4-cong-cuoc-doi-moi-o-viet-nam-tu-nam-1986-den-nay-3540/bai-14-hoat-dong-doi-ngoai-cua-viet-nam-tu-nam-1975-den-nay-12965.html",
+        "excerpt": "Việt Nam đã tổ chức thành công nhiều hội nghị quốc tế quan trọng thuộc ASEAN, ASEM và APEC."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "viet-nam-to-chuc-hoi-nghi-quoc-te-asean-asem-apec",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 391
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": false,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

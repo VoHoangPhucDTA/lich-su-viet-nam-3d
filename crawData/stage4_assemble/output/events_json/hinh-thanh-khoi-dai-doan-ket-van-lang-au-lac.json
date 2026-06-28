@@ -1,0 +1,153 @@
+{
+  "id": "hinh-thanh-khoi-dai-doan-ket-van-lang-au-lac",
+  "slug": "hinh-thanh-khoi-dai-doan-ket-van-lang-au-lac",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Sự hình thành khối đại đoàn kết dân tộc thời Văn Lang – Âu Lạc",
+    "short": "Sự hình thành khối đại đoàn kết dân tộc thời Văn Lang – Âu Lạc",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "formation",
+    "region": "vietnam",
+    "tags": [
+      "Văn Lang",
+      "đại đoàn kết",
+      "Âu Lạc",
+      "dựng nước"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      10
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 10,
+        "lessonId": "12169",
+        "lessonTitle": "Bài 14: Khối Đại Đoàn Kết Dân Tộc Trong Lịch Sử Việt Nam"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "end": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "datePrecision": "period",
+    "displayDate": "Thời dựng nước Văn Lang – Âu Lạc",
+    "isApproximate": true
+  },
+  "mapData": {
+    "geoType": "nationwide",
+    "historicalLocations": [
+      "Việt Nam"
+    ],
+    "provinceNames": [
+      "Hà Nội"
+    ],
+    "gadmRefs": [
+      "VNM.27_1"
+    ],
+    "marker": {
+      "name": "Văn Lang",
+      "lat": 21.3294,
+      "lng": 105.3889,
+      "confidence": "low"
+    },
+    "markers": [],
+    "focusGeometry": {
+      "mode": "bounds",
+      "center": {
+        "lat": 16.0,
+        "lng": 106.0
+      },
+      "zoom": 5
+    }
+  },
+  "summary": {
+    "homepageTitle": "Đại đoàn kết dân tộc thời Văn Lang – Âu Lạc",
+    "homepageSummary": "Khối đại đoàn kết dân tộc ở Việt Nam hình thành từ rất sớm, từ thời dựng nước Văn Lang – Âu Lạc, dựa trên yêu cầu trị thủy và chống ngoại xâm.",
+    "cardSummary": "Khối đại đoàn kết dân tộc hình thành từ thời Văn Lang – Âu Lạc để trị thủy và chống ngoại xâm."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Từ yêu cầu liên kết để trị thuỷ, làm thuỷ lợi phục vụ sản xuất nông nghiệp và tập hợp lực lượng đấu tranh chống giặc ngoại xâm, khối đoàn kết dân tộc ở Việt Nam đã hình thành từ rất sớm – từ thời dựng nước Văn Lang – Âu Lạc.",
+    "detailedNarrative": "Truyền thuyết Con Rồng cháu Tiên có nội dung giải thích về nguồn gốc, tổ tiên của các dân tộc trên lãnh thổ Việt Nam (cùng chung một cha mẹ, chung một giống nòi), là minh chứng về khối đại đoàn kết dân tộc ngay từ thuở bình minh lịch sử.",
+    "significance": null,
+    "keyFacts": [
+      "Minh chứng qua truyền thuyết Con Rồng cháu Tiên",
+      "Tập hợp lực lượng đấu tranh chống giặc ngoại xâm",
+      "Hình thành từ yêu cầu liên kết trị thủy, làm thủy lợi"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 10,
+        "book": "KNTT",
+        "lessonId": "12169",
+        "lessonTitle": "Bài 14: Khối Đại Đoàn Kết Dân Tộc Trong Lịch Sử Việt Nam",
+        "chapter": "Chu de 7",
+        "lesson": "Bai 14",
+        "pageRange": {
+          "start": 136,
+          "end": 141
+        },
+        "url": "https://sgkvn.com/lop-10-13/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-7-cong-dong-cac-dan-toc-viet-nam-3279/bai-14-khoi-dai-doan-ket-dan-toc-trong-lich-su-viet-nam-12169.html",
+        "excerpt": "Từ yêu cầu liên kết để trị thuỷ, làm thuỷ lợi phục vụ sản xuất nông nghiệp và tập hợp lực lượng đấu tranh chống giặc ngoại xâm, khối đoàn kết dân tộc ở Việt Nam đã hình thành từ rất sớm – từ thời dựng nước Văn Lang – Âu Lạc."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "hinh-thanh-khoi-dai-doan-ket-van-lang-au-lac",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 325
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": true,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

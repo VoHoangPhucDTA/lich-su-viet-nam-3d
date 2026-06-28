@@ -1,0 +1,144 @@
+{
+  "id": "nguyen-ai-quoc-hoat-dong-chau-au-siam-1927-1929",
+  "slug": "nguyen-ai-quoc-hoat-dong-chau-au-siam-1927-1929",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Nguyễn Ái Quốc hoạt động cách mạng ở Pháp, Bỉ, Đức, Xiêm",
+    "short": "Nguyễn Ái Quốc hoạt động cách mạng ở Pháp, Bỉ, Đức, Xiêm",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "activism",
+    "region": "world",
+    "tags": [
+      "Pháp",
+      "hoạt động cách mạng",
+      "Xiêm",
+      "Bỉ",
+      "Đức",
+      "Nguyễn Ái Quốc"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 12,
+        "lessonId": "12966",
+        "lessonTitle": "BÀI 15: KHÁI QUÁT CUỘC ĐỜI VÀ SỰ NGHIỆP CỦA HỒ CHÍ MINH"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1927,
+      "month": null,
+      "day": null
+    },
+    "end": {
+      "year": 1929,
+      "month": null,
+      "day": null
+    },
+    "datePrecision": "year",
+    "displayDate": "Từ giữa năm 1927 đến cuối năm 1929",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "no_location",
+    "historicalLocations": [
+      "Xiêm",
+      "Bỉ",
+      "Pháp",
+      "Đức"
+    ],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "auto",
+      "center": null,
+      "zoom": null
+    }
+  },
+  "summary": {
+    "homepageTitle": "Nguyễn Ái Quốc hoạt động ở châu Âu và Xiêm",
+    "homepageSummary": "Từ giữa năm 1927 đến cuối năm 1929, Nguyễn Ái Quốc hoạt động cách mạng ở Pháp, Bỉ, Đức, Xiêm.",
+    "cardSummary": "Từ 1927-1929, Nguyễn Ái Quốc hoạt động cách mạng ở Pháp, Bỉ, Đức, Xiêm."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Từ giữa năm 1927 đến cuối năm 1929, Nguyễn Ái Quốc hoạt động cách mạng ở Pháp, Bỉ, Đức, Xiêm,...",
+    "detailedNarrative": "Từ giữa năm 1927 đến cuối năm 1929, Nguyễn Ái Quốc hoạt động cách mạng ở Pháp, Bỉ, Đức, Xiêm,...",
+    "significance": null,
+    "keyFacts": [
+      "Hoạt động cách mạng"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 12,
+        "book": "KNTT",
+        "lessonId": "12966",
+        "lessonTitle": "BÀI 15: KHÁI QUÁT CUỘC ĐỜI VÀ SỰ NGHIỆP CỦA HỒ CHÍ MINH",
+        "chapter": "Chu de 5",
+        "lesson": "Bai 15",
+        "pageRange": {
+          "start": 88,
+          "end": 93
+        },
+        "url": "https://sgkvn.com/lop-12-15/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-5-lich-su-doi-ngoai-cua-viet-nam-thoi-can-hien-dai-3541/bai-15-khai-quat-cuoc-doi-va-su-nghiep-cua-ho-chi-minh-12966.html",
+        "excerpt": "Từ giữa năm 1927 đến cuối năm 1929, Nguyễn Ái Quốc hoạt động cách mạng ở Pháp, Bỉ, Đức, Xiêm,..."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "nguyen-ai-quoc-hoat-dong-chau-au-siam-1927-1929",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 126
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": false,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

@@ -1,0 +1,169 @@
+{
+  "id": "su-ra-doi-nha-nuoc-au-lac",
+  "slug": "su-ra-doi-nha-nuoc-au-lac",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Sự ra đời của Nhà nước Âu Lạc",
+    "short": "Nhà nước Âu Lạc",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "state_formation",
+    "region": "vietnam",
+    "tags": [
+      "Nhà nước cổ đại",
+      "Âu Lạc",
+      "An Dương Vương"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      10
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 10,
+        "lessonId": "12148",
+        "lessonTitle": "Bài 11: Một Số Nền Văn Minh Cổ Trên Đất Nước Việt Nam"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": -208,
+      "month": null,
+      "day": null
+    },
+    "end": {
+      "year": -179,
+      "month": null,
+      "day": null
+    },
+    "datePrecision": "year",
+    "displayDate": "208 – 179 TCN",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "mixed",
+    "historicalLocations": [],
+    "provinceNames": [
+      "Hà Nội"
+    ],
+    "gadmRefs": [
+      "VNM.27_1"
+    ],
+    "marker": {
+      "name": "Hà Nội",
+      "lat": 21.0285,
+      "lng": 105.8542,
+      "confidence": "high"
+    },
+    "markers": [
+      {
+        "name": "Hà Nội",
+        "lat": 21.0285,
+        "lng": 105.8542,
+        "confidence": "high"
+      },
+      {
+        "name": "Đông Anh",
+        "lat": 21.13,
+        "lng": 105.88,
+        "confidence": "high"
+      },
+      {
+        "name": "Cổ Loa",
+        "lat": 21.1139,
+        "lng": 105.8783,
+        "confidence": "high"
+      }
+    ],
+    "focusGeometry": {
+      "mode": "bounds",
+      "center": {
+        "lat": 21.06705,
+        "lng": 105.836941
+      },
+      "zoom": 7
+    }
+  },
+  "summary": {
+    "homepageTitle": "Nhà nước Âu Lạc",
+    "homepageSummary": "Nhà nước Âu Lạc tiếp nối Nhà nước Văn Lang, tồn tại từ 208 – 179 TCN, kinh đô ở Cổ Loa.",
+    "cardSummary": "Nhà nước Âu Lạc (208 – 179 TCN) tiếp nối Văn Lang, kinh đô Cổ Loa."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Tiếp nối Nhà nước Văn Lang là Nhà nước Âu Lạc (208 – 179 TCN); kinh đô ở Cổ Loa (Đông Anh, Hà Nội ngày nay); đứng đầu nhà nước là Thục Phán – An Dương Vương; giúp việc cho vua cũng là Lạc hầu; dưới địa phương vẫn do các Lạc tướng cai quản.",
+    "detailedNarrative": "Nhà nước Âu Lạc được thành lập sau Nhà nước Văn Lang, với kinh đô đặt tại Cổ Loa. Đứng đầu nhà nước là Thục Phán – An Dương Vương.",
+    "significance": "Là sự tiếp nối và phát triển của nhà nước cổ đại trên lãnh thổ Việt Nam.",
+    "keyFacts": [
+      "Tồn tại từ 208 – 179 TCN",
+      "Đứng đầu: Thục Phán – An Dương Vương",
+      "Kinh đô: Cổ Loa (Đông Anh, Hà Nội)"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 10,
+        "book": "KNTT",
+        "lessonId": "12148",
+        "lessonTitle": "Bài 11: Một Số Nền Văn Minh Cổ Trên Đất Nước Việt Nam",
+        "chapter": "Chu de 6",
+        "lesson": "Bai 11",
+        "pageRange": {
+          "start": 93,
+          "end": 107
+        },
+        "url": "https://sgkvn.com/lop-10-13/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-6-mot-so-nen-van-minh-tren-dat-nuoc-viet-nam-truoc-nam-1858-3276/bai-11-mot-so-nen-van-minh-co-tren-dat-nuoc-viet-nam-12148.html",
+        "excerpt": "Tiếp nối Nhà nước Văn Lang là Nhà nước Âu Lạc (208 – 179 TCN); kinh đô ở Cổ Loa (Đông Anh, Hà Nội ngày nay); đứng đầu nhà nước là Thục Phán – An Dương Vương; giúp việc cho vua cũng là Lạc hầu; dưới địa phương vẫn do các Lạc tướng cai quản."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "su-ra-doi-nha-nuoc-au-lac",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 0
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": true,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

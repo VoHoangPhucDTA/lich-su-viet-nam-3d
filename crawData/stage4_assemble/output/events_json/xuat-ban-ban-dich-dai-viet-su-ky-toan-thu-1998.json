@@ -1,0 +1,155 @@
+{
+  "id": "xuat-ban-ban-dich-dai-viet-su-ky-toan-thu-1998",
+  "slug": "xuat-ban-ban-dich-dai-viet-su-ky-toan-thu-1998",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Xuất bản bản dịch Đại Việt sử ký toàn thư (1998)",
+    "short": "Xuất bản bản dịch Đại Việt sử ký toàn thư (1998)",
+    "alternatives": [
+      "Đại Việt sử ký toàn thư (bản dịch 1998)"
+    ]
+  },
+  "classification": {
+    "eventType": "cultural",
+    "eventSubtype": "publication",
+    "region": "vietnam",
+    "tags": [
+      "Việt Nam",
+      "sử học",
+      "xuất bản"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      10
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 10,
+        "lessonId": "12126",
+        "lessonTitle": "Bài 2: Tri Thức Lịch Sử Và Cuộc Sống"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1998,
+      "month": null,
+      "day": null
+    },
+    "end": null,
+    "datePrecision": "year",
+    "displayDate": "Năm 1998",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "mixed",
+    "historicalLocations": [],
+    "provinceNames": [
+      "Hà Nội"
+    ],
+    "gadmRefs": [
+      "VNM.27_1"
+    ],
+    "marker": {
+      "name": "Hà Nội",
+      "lat": 21.0285,
+      "lng": 105.8542,
+      "confidence": "high"
+    },
+    "markers": [
+      {
+        "name": "Hà Nội",
+        "lat": 21.0285,
+        "lng": 105.8542,
+        "confidence": "high"
+      }
+    ],
+    "focusGeometry": {
+      "mode": "bounds",
+      "center": {
+        "lat": 21.012151,
+        "lng": 105.794732
+      },
+      "zoom": 7
+    }
+  },
+  "summary": {
+    "homepageTitle": "Xuất bản bản dịch Đại Việt sử ký toàn thư",
+    "homepageSummary": "Bản dịch của bộ sử Đại Việt sử ký toàn thư, tác phẩm của Ngô Sỹ Liên và các sử thần nhà Lê, được xuất bản vào năm 1998.",
+    "cardSummary": "Bản dịch Đại Việt sử ký toàn thư, tác phẩm của Ngô Sỹ Liên, được xuất bản năm 1998."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Bìa sách Đại Việt sử ký toàn thư (bản dịch, xuất bản năm 1998) được nhắc đến trong bài học. Tác phẩm gốc do Ngô Sỹ Liên và các sử thần nhà Lê biên soạn.",
+    "detailedNarrative": "Tác phẩm này được trích dẫn với ý kiến của Ngô Sỹ Liên và các sử thần nhà Lê: “Sử để ghi việc, mà việc hay hoặc dở đều dùng làm gương răn cho đời sau.”",
+    "significance": "Là một nguồn tư liệu lịch sử quan trọng, thể hiện vai trò của lịch sử trong việc giáo dục và răn dạy thế hệ sau.",
+    "keyFacts": [
+      "Được dùng làm gương răn cho đời sau",
+      "Tác phẩm gốc của Ngô Sỹ Liên và các sử thần nhà Lê",
+      "Bản dịch xuất bản năm 1998"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 10,
+        "book": "KNTT",
+        "lessonId": "12126",
+        "lessonTitle": "Bài 2: Tri Thức Lịch Sử Và Cuộc Sống",
+        "chapter": "Chu de 1",
+        "lesson": "Bai 2",
+        "pageRange": {
+          "start": 15,
+          "end": 18
+        },
+        "url": "https://sgkvn.com/lop-10-13/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-1-lich-su-va-su-hoc-3266/bai-2-tri-thuc-lich-su-va-cuoc-song-12126.html",
+        "excerpt": "Bìa sách Đại Việt sử ký toàn thư (bản dịch, xuất bản năm 1998) được nhắc đến trong bài học. Tác phẩm gốc do Ngô Sỹ Liên và các sử thần nhà Lê biên soạn."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "xuat-ban-ban-dich-dai-viet-su-ky-toan-thu-1998",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 279
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": true,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

@@ -1,0 +1,177 @@
+{
+  "id": "cac-tinh-gianh-chinh-quyen-som-nhat",
+  "slug": "cac-tinh-gianh-chinh-quyen-som-nhat",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Nhân dân Bắc Giang, Hải Dương, Hà Tĩnh và Quảng Nam giành được chính quyền",
+    "short": "Các tỉnh giành chính quyền sớm",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "uprising",
+    "region": "vietnam",
+    "tags": [
+      "Tổng khởi nghĩa",
+      "Địa phương",
+      "Giành chính quyền"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 12,
+        "lessonId": "12952",
+        "lessonTitle": "BÀI 6: CÁCH MẠNG THÁNG TÁM NĂM 1945"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1945,
+      "month": 8,
+      "day": 18
+    },
+    "end": null,
+    "datePrecision": "day",
+    "displayDate": "Ngày 18-8-1945",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "mixed",
+    "historicalLocations": [],
+    "provinceNames": [
+      "Bắc Giang",
+      "Hà Tĩnh",
+      "Quảng Nam",
+      "Hải Dương"
+    ],
+    "gadmRefs": [
+      "VNM.3_1",
+      "VNM.29_1",
+      "VNM.47_1",
+      "VNM.22_1"
+    ],
+    "marker": {
+      "name": "Bắc Giang",
+      "lat": 21.2833,
+      "lng": 106.2,
+      "confidence": "high"
+    },
+    "markers": [
+      {
+        "name": "Bắc Giang",
+        "lat": 21.2833,
+        "lng": 106.2,
+        "confidence": "high"
+      },
+      {
+        "name": "Hà Tĩnh",
+        "lat": 18.35,
+        "lng": 105.8,
+        "confidence": "high"
+      },
+      {
+        "name": "Quảng Nam",
+        "lat": 15.5,
+        "lng": 108.0,
+        "confidence": "high"
+      },
+      {
+        "name": "Hải Dương",
+        "lat": 20.95,
+        "lng": 106.35,
+        "confidence": "high"
+      }
+    ],
+    "focusGeometry": {
+      "mode": "bounds",
+      "center": {
+        "lat": 19.036248,
+        "lng": 106.607893
+      },
+      "zoom": 7
+    }
+  },
+  "summary": {
+    "homepageTitle": "Các tỉnh giành chính quyền sớm nhất",
+    "homepageSummary": "Ngày 18-8-1945, Bắc Giang, Hải Dương, Hà Tĩnh và Quảng Nam là những tỉnh giành chính quyền sớm nhất.",
+    "cardSummary": "Bắc Giang, Hải Dương, Hà Tĩnh, Quảng Nam giành chính quyền sớm nhất (18-8-1945)."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Ngày 18-8-1945, nhân dân Bắc Giang, Hải Dương, Hà Tĩnh và Quảng Nam giành được chính quyền ở tỉnh lị sớm nhất trong cả nước.",
+    "detailedNarrative": null,
+    "significance": "Là những địa phương đầu tiên giành chính quyền trong Cách mạng tháng Tám.",
+    "keyFacts": [
+      "Giành chính quyền ở tỉnh lị sớm nhất",
+      "Bắc Giang, Hải Dương, Hà Tĩnh, Quảng Nam",
+      "Ngày 18-8-1945"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 12,
+        "book": "KNTT",
+        "lessonId": "12952",
+        "lessonTitle": "BÀI 6: CÁCH MẠNG THÁNG TÁM NĂM 1945",
+        "chapter": "Chu de 3",
+        "lesson": "Bai 6",
+        "pageRange": {
+          "start": 31,
+          "end": 36
+        },
+        "url": "https://sgkvn.com/lop-12-15/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-3-cach-mang-thang-tam-nam-1945-chien-tranh-giai-phong-dan-toc-va-chien-tranh-bao-ve-to-quoc-trong-lich-su-viet-nam-tu-thang-8-nam-1945-den-nay-3539/bai-6-cach-mang-thang-tam-nam-1945-12952.html",
+        "excerpt": "Ngày 18-8-1945, nhân dân Bắc Giang, Hải Dương, Hà Tĩnh và Quảng Nam giành được chính quyền ở tỉnh lị sớm nhất trong cả nước."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "cac-tinh-gianh-chinh-quyen-som-nhat",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 156
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": true,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

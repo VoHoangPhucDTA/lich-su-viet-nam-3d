@@ -1,0 +1,155 @@
+{
+  "id": "dinh-tien-le-dong-do-hoa-lu",
+  "slug": "dinh-tien-le-dong-do-hoa-lu",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Triều Đinh và Tiền Lê đóng đô ở Hoa Lư",
+    "short": "Triều Đinh và Tiền Lê đóng đô ở Hoa Lư",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "establishment",
+    "region": "vietnam",
+    "tags": [
+      "Tiền Lê",
+      "Đinh",
+      "Hoa Lư"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      10
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 10,
+        "lessonId": "12160",
+        "lessonTitle": "Bài 12: Văn Minh Đại Việt"
+      }
+    ]
+  },
+  "chronology": {
+    "start": null,
+    "end": null,
+    "datePrecision": "period",
+    "displayDate": "Thời Đinh – Tiền Lê",
+    "isApproximate": true
+  },
+  "mapData": {
+    "geoType": "mixed",
+    "historicalLocations": [],
+    "provinceNames": [
+      "Ninh Bình"
+    ],
+    "gadmRefs": [
+      "VNM.42_1"
+    ],
+    "marker": {
+      "name": "Ninh Bình",
+      "lat": 20.25,
+      "lng": 105.95,
+      "confidence": "high"
+    },
+    "markers": [
+      {
+        "name": "Ninh Bình",
+        "lat": 20.25,
+        "lng": 105.95,
+        "confidence": "high"
+      },
+      {
+        "name": "Hoa Lư",
+        "lat": 20.2833,
+        "lng": 105.9,
+        "confidence": "high"
+      }
+    ],
+    "focusGeometry": {
+      "mode": "bounds",
+      "center": {
+        "lat": 20.265535,
+        "lng": 105.898446
+      },
+      "zoom": 7
+    }
+  },
+  "summary": {
+    "homepageTitle": "Đinh – Tiền Lê đóng đô Hoa Lư",
+    "homepageSummary": "Triều Đinh và Tiền Lê đóng đô ở Hoa Lư, kinh tế và văn hoá dân tộc bước đầu phát triển.",
+    "cardSummary": "Triều Đinh và Tiền Lê đóng đô ở Hoa Lư, đặt nền móng cho sự phát triển."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Triều Định và Tiền Lê đóng đô ở Hoa Lư (Ninh Bình); kinh tế và văn hoá dân tộc bước đầu phát triển.",
+    "detailedNarrative": null,
+    "significance": "Kinh tế và văn hoá dân tộc bước đầu phát triển.",
+    "keyFacts": [
+      "Đóng đô ở Hoa Lư (Ninh Bình)",
+      "Kinh tế và văn hoá bước đầu phát triển",
+      "Triều Đinh và Tiền Lê"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 10,
+        "book": "KNTT",
+        "lessonId": "12160",
+        "lessonTitle": "Bài 12: Văn Minh Đại Việt",
+        "chapter": "Chu de 6",
+        "lesson": "Bai 12",
+        "pageRange": {
+          "start": 108,
+          "end": 122
+        },
+        "url": "https://sgkvn.com/lop-10-13/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-6-mot-so-nen-van-minh-tren-dat-nuoc-viet-nam-truoc-nam-1858-3276/bai-12-van-minh-dai-viet-12160.html",
+        "excerpt": "Triều Định và Tiền Lê đóng đô ở Hoa Lư (Ninh Bình); kinh tế và văn hoá dân tộc bước đầu phát triển."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "dinh-tien-le-dong-do-hoa-lu",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 313
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": true,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

@@ -1,0 +1,143 @@
+{
+  "id": "ban-hanh-quoc-trieu-hinh-luat",
+  "slug": "ban-hanh-quoc-trieu-hinh-luat",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Ban hành bộ Quốc triều hình luật (Luật Hồng Đức)",
+    "short": "Ban hành Luật Hồng Đức",
+    "alternatives": [
+      "Luật Hồng Đức"
+    ]
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "legal_reform",
+    "region": "vietnam",
+    "tags": [
+      "Lê Thánh Tông",
+      "Lê sơ",
+      "pháp luật",
+      "Luật Hồng Đức"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 11,
+        "lessonId": "12390",
+        "lessonTitle": "BÀI 13  CUỘC CẢI CÁCH CỦA LÊ THÁNH TÔNG"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1483,
+      "month": null,
+      "day": null
+    },
+    "end": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "datePrecision": "year",
+    "displayDate": "Năm 1483",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "no_location",
+    "historicalLocations": [],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "auto",
+      "center": null,
+      "zoom": null
+    }
+  },
+  "summary": {
+    "homepageTitle": "Ban hành Luật Hồng Đức",
+    "homepageSummary": "Năm 1483, Nhà nước ban hành bộ Quốc triều hình luật (Luật Hồng Đức) gồm 722 điều, quy định về nhiều mặt đời sống, thể hiện sự tiến bộ trong pháp luật Đại Việt.",
+    "cardSummary": "Năm 1483, Luật Hồng Đức được ban hành, quy định nhiều mặt đời sống xã hội."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Năm 1483, Nhà nước ban hành bộ Quốc triều hình luật (Luật Hồng Đức) gồm 722 điều, chia làm 6 quyển, gồm những quy định về hình sự, dân sự, đất đai, hôn nhân, gia đình,... Nhiều truyền thống, phong tục tập quán tốt đẹp của dân tộc cũng được tôn trọng và thể chế hoá thành luật. Trong Luật Hồng Đức có 5 điều luật bảo vệ quyền lợi của người phụ nữ mà trong các bộ luật phương Đông đương thời không có. Người goá vợ, goá chồng, mồ côi, tàn tật không nơi nương tựa thì quan sở tại phải thu nuôi,... Những tội phản quốc, tiết lộ bí mật quốc gia, quan ăn hối lộ đều bị trừng phạt rất nặng.",
+    "detailedNarrative": null,
+    "significance": "Là bộ luật tiến bộ, thể hiện sự quan tâm đến quyền lợi phụ nữ và người yếu thế, góp phần ổn định xã hội và củng cố nhà nước.",
+    "keyFacts": [
+      "Bảo vệ quyền lợi phụ nữ",
+      "Gồm 722 điều, 6 quyển",
+      "Tên gọi khác: Luật Hồng Đức",
+      "Trừng phạt nặng tội phản quốc, tham nhũng",
+      "Ban hành năm 1483"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 11,
+        "book": "KNTT",
+        "lessonId": "12390",
+        "lessonTitle": "BÀI 13  CUỘC CẢI CÁCH CỦA LÊ THÁNH TÔNG",
+        "chapter": "Chu de 6",
+        "lesson": "Bai 13",
+        "pageRange": {
+          "start": 93,
+          "end": 96
+        },
+        "url": "https://sgkvn.com/lop-11-14/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-6-mot-so-cuoc-cai-cach-lon-trong-lich-su-viet-nam-truoc-nam-1858-3353/bai-13-cuoc-cai-cach-cua-le-thanh-tong-the-ki-xv-12390.html",
+        "excerpt": "Năm 1483, Nhà nước ban hành bộ Quốc triều hình luật (Luật Hồng Đức) gồm 722 điều, chia làm 6 quyển, gồm những quy định về hình sự, dân sự, đất đai, hôn nhân, gia đình,... Nhiều truyền thống, phong tục tập quán tốt đẹp của dân tộc cũng được tôn trọng và thể chế hoá thành luật. Trong Luật Hồng Đức có 5 điều luật bảo vệ quyền lợi của người phụ nữ mà trong các bộ luật phương Đông đương thời không có. Người goá vợ, goá chồng, mồ côi, tàn tật không nơi nương tựa thì quan sở tại phải thu nuôi,... Những tội phản quốc, tiết lộ bí mật quốc gia, quan ăn hối lộ đều bị trừng phạt rất nặng."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "ban-hanh-quoc-trieu-hinh-luat",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 49
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": false,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

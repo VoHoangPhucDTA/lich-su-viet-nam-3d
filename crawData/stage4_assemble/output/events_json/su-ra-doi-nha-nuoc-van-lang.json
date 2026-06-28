@@ -1,0 +1,170 @@
+{
+  "id": "su-ra-doi-nha-nuoc-van-lang",
+  "slug": "su-ra-doi-nha-nuoc-van-lang",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Sự ra đời của Nhà nước Văn Lang",
+    "short": "Nhà nước Văn Lang",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "state_formation",
+    "region": "vietnam",
+    "tags": [
+      "Văn Lang",
+      "Nhà nước cổ đại",
+      "Hùng Vương"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      10
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 10,
+        "lessonId": "12148",
+        "lessonTitle": "Bài 11: Một Số Nền Văn Minh Cổ Trên Đất Nước Việt Nam"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "end": {
+      "year": -208,
+      "month": null,
+      "day": null
+    },
+    "datePrecision": "approximate",
+    "displayDate": "Khoảng 2 700 năm trước đến năm 208 TCN",
+    "isApproximate": true
+  },
+  "mapData": {
+    "geoType": "mixed",
+    "historicalLocations": [],
+    "provinceNames": [
+      "Phú Thọ"
+    ],
+    "gadmRefs": [
+      "VNM.44_1"
+    ],
+    "marker": {
+      "name": "Việt Trì",
+      "lat": 21.3294,
+      "lng": 105.3889,
+      "confidence": "high"
+    },
+    "markers": [
+      {
+        "name": "Việt Trì",
+        "lat": 21.3294,
+        "lng": 105.3889,
+        "confidence": "high"
+      },
+      {
+        "name": "Phong Châu",
+        "lat": 21.37,
+        "lng": 105.25,
+        "confidence": "high"
+      },
+      {
+        "name": "Phú Thọ",
+        "lat": 21.37,
+        "lng": 105.25,
+        "confidence": "high"
+      }
+    ],
+    "focusGeometry": {
+      "mode": "bounds",
+      "center": {
+        "lat": 21.352388,
+        "lng": 105.247094
+      },
+      "zoom": 7
+    }
+  },
+  "summary": {
+    "homepageTitle": "Nhà nước Văn Lang",
+    "homepageSummary": "Nhà nước Văn Lang xuất hiện khoảng 2700 năm trước, tồn tại đến năm 208 TCN, kinh đô là Phong Châu.",
+    "cardSummary": "Nhà nước Văn Lang (khoảng 2700 năm trước - 208 TCN) là nhà nước đầu tiên ở Việt Nam."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Nhà nước Văn Lang xuất hiện cách ngày nay khoảng 2 700 năm và tồn tại đến năm 208 TCN; kinh đô là Phong Châu (Việt Trì, Phú Thọ ngày nay). Tổ chức nhà nước Văn Lang còn khá sơ khai.",
+    "detailedNarrative": "Cư dân Việt cổ sống thành từng làng, liên kết với nhau để phát triển kinh tế nông nghiệp và bảo vệ cộng đồng, suy tôn thủ lĩnh chung, hình thành nên nhà nước đầu tiên ở Việt Nam. Đứng đầu là Hùng Vương, giúp việc là Lạc hầu. Ở địa phương có Lạc tướng và Bố chính.",
+    "significance": "Là nhà nước đầu tiên ở Việt Nam, tiền đề cho sự hình thành và phát triển rực rỡ của văn minh Văn Lang – Âu Lạc.",
+    "keyFacts": [
+      "Xuất hiện khoảng 2700 năm trước",
+      "Đứng đầu: Hùng Vương",
+      "Kinh đô: Phong Châu (Việt Trì, Phú Thọ)",
+      "Tồn tại đến năm 208 TCN"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 10,
+        "book": "KNTT",
+        "lessonId": "12148",
+        "lessonTitle": "Bài 11: Một Số Nền Văn Minh Cổ Trên Đất Nước Việt Nam",
+        "chapter": "Chu de 6",
+        "lesson": "Bai 11",
+        "pageRange": {
+          "start": 93,
+          "end": 107
+        },
+        "url": "https://sgkvn.com/lop-10-13/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-6-mot-so-nen-van-minh-tren-dat-nuoc-viet-nam-truoc-nam-1858-3276/bai-11-mot-so-nen-van-minh-co-tren-dat-nuoc-viet-nam-12148.html",
+        "excerpt": "Nhà nước Văn Lang xuất hiện cách ngày nay khoảng 2 700 năm và tồn tại đến năm 208 TCN; kinh đô là Phong Châu (Việt Trì, Phú Thọ ngày nay). Tổ chức nhà nước Văn Lang còn khá sơ khai."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "su-ra-doi-nha-nuoc-van-lang",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 363
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": true,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

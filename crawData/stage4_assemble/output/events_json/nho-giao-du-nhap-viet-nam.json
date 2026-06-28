@@ -1,0 +1,144 @@
+{
+  "id": "nho-giao-du-nhap-viet-nam",
+  "slug": "nho-giao-du-nhap-viet-nam",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Nho giáo du nhập vào Việt Nam",
+    "short": "Nho giáo du nhập vào Việt Nam",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "cultural",
+    "eventSubtype": "religious_spread",
+    "region": "vietnam",
+    "tags": [
+      "Bắc thuộc",
+      "Nho giáo",
+      "văn minh Trung Hoa"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      10
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 10,
+        "lessonId": "12146",
+        "lessonTitle": "Bài 9: Cơ Sở Hình Thành Văn Minh Đông Nam Á Thời Kì Cổ – Trung Đại"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "end": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "datePrecision": "period",
+    "displayDate": "Thời Bắc thuộc",
+    "isApproximate": true
+  },
+  "mapData": {
+    "geoType": "nationwide",
+    "historicalLocations": [
+      "Việt Nam",
+      "Trung Quốc"
+    ],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "bounds",
+      "center": {
+        "lat": 16.0,
+        "lng": 106.0
+      },
+      "zoom": 5
+    }
+  },
+  "summary": {
+    "homepageTitle": "Nho giáo du nhập Việt Nam",
+    "homepageSummary": "Nho giáo từ Trung Quốc du nhập vào Việt Nam từ thời Bắc thuộc, ảnh hưởng sâu sắc đến văn hóa và giáo dục.",
+    "cardSummary": "Nho giáo du nhập vào Việt Nam từ thời Bắc thuộc, là một ảnh hưởng của văn minh Trung Hoa."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Nho giáo (Trung Quốc) du nhập vào Việt Nam từ thời Bắc thuộc.",
+    "detailedNarrative": null,
+    "significance": "Đặt nền móng cho sự phát triển của Nho học và hệ thống giáo dục khoa cử ở Việt Nam.",
+    "keyFacts": [
+      "Ảnh hưởng đến Việt Nam",
+      "Du nhập thời Bắc thuộc",
+      "Nguồn gốc từ Trung Quốc"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 10,
+        "book": "KNTT",
+        "lessonId": "12146",
+        "lessonTitle": "Bài 9: Cơ Sở Hình Thành Văn Minh Đông Nam Á Thời Kì Cổ – Trung Đại",
+        "chapter": "Chu de 5",
+        "lesson": "Bai 9",
+        "pageRange": {
+          "start": 76,
+          "end": 84
+        },
+        "url": "https://sgkvn.com/lop-10-13/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-5-van-minh-dong-nam-a-3275/bai-9-co-so-hinh-thanh-van-minh-dong-nam-a-thoi-ki-co-trung-dai-12146.html",
+        "excerpt": "Nho giáo (Trung Quốc) du nhập vào Việt Nam từ thời Bắc thuộc."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "nho-giao-du-nhap-viet-nam",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 357
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": true,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

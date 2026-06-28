@@ -1,0 +1,163 @@
+{
+  "id": "thanh-lap-mat-tran-viet-nam-doc-lap-dong-minh-viet-minh",
+  "slug": "thanh-lap-mat-tran-viet-nam-doc-lap-dong-minh-viet-minh",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Thành lập Mặt trận Việt Nam Độc lập Đồng minh (Mặt trận Việt Minh)",
+    "short": "Thành lập Việt Minh",
+    "alternatives": [
+      "Thành lập Mặt trận Việt Minh",
+      "Nguyễn Ái Quốc tham gia thành lập Việt Nam Độc lập đồng minh (Việt Minh)",
+      "Mặt trận Việt Minh"
+    ]
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "organization-founding",
+    "region": "vietnam",
+    "tags": [
+      "lực lượng vũ trang",
+      "Việt Minh",
+      "giải phóng dân tộc",
+      "Mặt trận Việt Minh",
+      "đoàn kết",
+      "Nguyễn Ái Quốc"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 12,
+        "lessonId": "12966",
+        "lessonTitle": "BÀI 15: KHÁI QUÁT CUỘC ĐỜI VÀ SỰ NGHIỆP CỦA HỒ CHÍ MINH"
+      },
+      {
+        "grade": 12,
+        "lessonId": "12967",
+        "lessonTitle": "BÀI 16: HỒ CHÍ MINH - ANH HÙNG GIẢI PHÓNG DÂN TỘC"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1941,
+      "month": 5,
+      "day": 19
+    },
+    "end": null,
+    "datePrecision": "day",
+    "displayDate": "19-5-1941",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "no_location",
+    "historicalLocations": [],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "auto",
+      "center": null,
+      "zoom": null
+    }
+  },
+  "summary": {
+    "homepageTitle": "Thành lập Mặt trận Việt Minh (19-5-1941)",
+    "homepageSummary": "Mặt trận Việt Minh được thành lập theo chủ trương của Hội nghị Trung ương 8, nhằm liên hiệp các giới đồng bào yêu nước để mưu cuộc dân tộc giải phóng và sinh tồn.",
+    "cardSummary": "Mặt trận Việt Minh thành lập (19-5-1941) nhằm liên hiệp đồng bào yêu nước giải phóng dân tộc."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Hội nghị chủ trương thành lập Mặt trận Việt Nam Độc lập Đồng minh (gọi tắt là Mặt trận Việt Minh). Tôn chỉ mục đích thành lập của Mặt trận Việt Minh là: “liên hiệp hết thảy các giới đồng bào yêu nước, không phân biệt giàu nghèo, già trẻ, trai gái, không phân biệt tôn giáo, xu hướng chính trị, đặng cùng nhau mưu cuộc dân tộc giải phóng và sinh tồn”. Từ khi Mặt trận Việt Minh ra đời, “toàn bộ phong trào chống phát xít Pháp – Nhật của nhân dân ta mang tên là phong trào Việt Minh, cái tên tiêu biểu cho lòng yêu nước, ý chí quật cường của dân tộc ta.",
+    "detailedNarrative": "Tôn chỉ mục đích thành lập của Mặt trận Việt Minh là: “liên hiệp hết thảy các giới đồng bào yêu nước, không phân biệt giàu nghèo, già trẻ, trai gái, không phân biệt tôn giáo, xu hướng chính trị, đặng cùng nhau mưu cuộc dân tộc giải phóng và sinh tồn”.",
+    "significance": "Liên hiệp hết thảy các giới đồng bào yêu nước, không phân biệt giàu nghèo, già trẻ, trai gái, không phân biệt tôn giáo, xu hướng chính trị, đặng cùng nhau mưu cuộc dân tộc giải phóng và sinh tồn. Toàn bộ phong trào chống phát xít Pháp – Nhật của nhân dân ta mang tên là phong trào Việt Minh.",
+    "keyFacts": [
+      "Tôn chỉ: liên hiệp các giới đồng bào yêu nước",
+      "Tiêu biểu cho lòng yêu nước, ý chí quật cường của dân tộc",
+      "Tổ chức chỉ đạo xây dựng lực lượng vũ trang",
+      "Xây dựng căn cứ địa cách mạng",
+      "Mục đích: mưu cuộc dân tộc giải phóng và sinh tồn",
+      "Thành lập theo chủ trương của Hội nghị Trung ương 8"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 12,
+        "book": "KNTT",
+        "lessonId": "12966",
+        "lessonTitle": "BÀI 15: KHÁI QUÁT CUỘC ĐỜI VÀ SỰ NGHIỆP CỦA HỒ CHÍ MINH",
+        "chapter": "Chu de 5",
+        "lesson": "Bai 15",
+        "pageRange": {
+          "start": 88,
+          "end": 93
+        },
+        "url": "https://sgkvn.com/lop-12-15/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-5-lich-su-doi-ngoai-cua-viet-nam-thoi-can-hien-dai-3541/bai-15-khai-quat-cuoc-doi-va-su-nghiep-cua-ho-chi-minh-12966.html",
+        "excerpt": "Hội nghị chủ trương thành lập Mặt trận Việt Nam Độc lập Đồng minh (gọi tắt là Mặt trận Việt Minh). Tôn chỉ mục đích thành lập của Mặt trận Việt Minh là: “liên hiệp hết thảy các giới đồng bào yêu nước, không phân biệt giàu nghèo, già trẻ, trai gái, không phân biệt tôn giáo, xu hướng chính trị, đặng cùng nhau mưu cuộc dân tộc giải phóng và sinh tồn”. Từ khi Mặt trận Việt Minh ra đời, “toàn bộ phong trào chống phát xít Pháp – Nhật của nhân dân ta mang tên là phong trào Việt Minh, cái tên tiêu biểu cho lòng yêu nước, ý chí quật cường của dân tộc ta."
+      },
+      {
+        "grade": 12,
+        "book": "KNTT",
+        "lessonId": "12967",
+        "lessonTitle": "BÀI 16: HỒ CHÍ MINH - ANH HÙNG GIẢI PHÓNG DÂN TỘC",
+        "chapter": "Chu de 5",
+        "lesson": "Bai 16",
+        "pageRange": {
+          "start": 94,
+          "end": 104
+        },
+        "url": "https://sgkvn.com/lop-12-15/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-5-lich-su-doi-ngoai-cua-viet-nam-thoi-can-hien-dai-3541/bai-16-ho-chi-minh-anh-hung-giai-phong-dan-toc-12967.html",
+        "excerpt": "Hội nghị chủ trương thành lập Mặt trận Việt Nam Độc lập Đồng minh (gọi tắt là Mặt trận Việt Minh). Tôn chỉ mục đích thành lập của Mặt trận Việt Minh là: “liên hiệp hết thảy các giới đồng bào yêu nước, không phân biệt giàu nghèo, già trẻ, trai gái, không phân biệt tôn giáo, xu hướng chính trị, đặng cùng nhau mưu cuộc dân tộc giải phóng và sinh tồn”. Từ khi Mặt trận Việt Minh ra đời, “toàn bộ phong trào chống phát xít Pháp – Nhật của nhân dân ta mang tên là phong trào Việt Minh, cái tên tiêu biểu cho lòng yêu nước, ý chí quật cường của dân tộc ta."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "thanh-lap-mat-tran-viet-nam-doc-lap-dong-minh-viet-minh",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 138
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": false,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

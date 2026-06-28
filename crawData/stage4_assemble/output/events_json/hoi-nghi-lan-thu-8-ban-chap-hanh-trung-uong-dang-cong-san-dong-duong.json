@@ -1,0 +1,200 @@
+{
+  "id": "hoi-nghi-lan-thu-8-ban-chap-hanh-trung-uong-dang-cong-san-dong-duong",
+  "slug": "hoi-nghi-lan-thu-8-ban-chap-hanh-trung-uong-dang-cong-san-dong-duong",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Hội nghị lần thứ 8 Ban Chấp hành Trung ương Đảng Cộng sản Đông Dương",
+    "short": "Hội nghị Trung ương 8 (5-1941)",
+    "alternatives": [
+      "Hội nghị Trung ương 8",
+      "Nguyễn Ái Quốc triệu tập và chủ trì Hội nghị lần thứ 8 Ban Chấp hành Trung ương Đảng Cộng sản Đông Dương"
+    ]
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "conference",
+    "region": "vietnam",
+    "tags": [
+      "Đảng Cộng sản Đông Dương",
+      "giải phóng dân tộc",
+      "Mặt trận Việt Minh",
+      "Hội nghị Trung ương",
+      "Nguyễn Ái Quốc"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 12,
+        "lessonId": "12966",
+        "lessonTitle": "BÀI 15: KHÁI QUÁT CUỘC ĐỜI VÀ SỰ NGHIỆP CỦA HỒ CHÍ MINH"
+      },
+      {
+        "grade": 12,
+        "lessonId": "12967",
+        "lessonTitle": "BÀI 16: HỒ CHÍ MINH - ANH HÙNG GIẢI PHÓNG DÂN TỘC"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1941,
+      "month": 5,
+      "day": 10
+    },
+    "end": {
+      "year": 1941,
+      "month": 5,
+      "day": 19
+    },
+    "datePrecision": "day",
+    "displayDate": "Từ ngày 10 đến ngày 19-5-1941",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "mixed",
+    "historicalLocations": [
+      "Cam-pu-chia",
+      "Lào"
+    ],
+    "provinceNames": [
+      "Cao Bằng"
+    ],
+    "gadmRefs": [
+      "VNM.14_1"
+    ],
+    "marker": {
+      "name": "Cao Bằng",
+      "lat": 22.6667,
+      "lng": 106.25,
+      "confidence": "high"
+    },
+    "markers": [
+      {
+        "name": "Cao Bằng",
+        "lat": 22.6667,
+        "lng": 106.25,
+        "confidence": "high"
+      },
+      {
+        "name": "Pác Bó",
+        "lat": 22.8833,
+        "lng": 105.7167,
+        "confidence": "high"
+      },
+      {
+        "name": "Hà Quảng",
+        "lat": 22.85,
+        "lng": 106.05,
+        "confidence": "high"
+      }
+    ],
+    "focusGeometry": {
+      "mode": "bounds",
+      "center": {
+        "lat": 22.789719,
+        "lng": 106.03154
+      },
+      "zoom": 7
+    }
+  },
+  "summary": {
+    "homepageTitle": "Hội nghị Trung ương 8 (5-1941)",
+    "homepageSummary": "Dưới sự chủ trì của Nguyễn Ái Quốc tại Pác Bó, Hội nghị xác định cách mạng Việt Nam là cuộc cách mạng giải phóng dân tộc, chủ trương thành lập Mặt trận Việt Minh và chuẩn bị khởi nghĩa.",
+    "cardSummary": "Hội nghị Trung ương 8 (5-1941) xác định cách mạng giải phóng dân tộc và thành lập Mặt trận Việt Minh."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Sau một thời gian chuẩn bị, Nguyễn Ái Quốc triệu tập Hội nghị lần thứ 8 Ban Chấp hành Trung ương Đảng Cộng sản Đông Dương tại Pác Bó (Hà Quảng, Cao Bằng) từ ngày 10 đến ngày 19-5-1941. Dưới sự chủ trì của Nguyễn Ái Quốc, Hội nghị xác định cách mạng Việt Nam hiện tại là cuộc cách mạng giải phóng dân tộc. Hội nghị chủ trương thành lập Mặt trận Việt Nam Độc lập Đồng minh (gọi tắt là Mặt trận Việt Minh) và giúp đỡ nhân dân Lào, Cam-pu-chia thành lập mặt trận riêng. Về vấn đề chính quyền, Hội nghị chủ trương thành lập Chính phủ Dân chủ Cộng hoà. Hội nghị nhấn mạnh chuẩn bị khởi nghĩa là nhiệm vụ trung tâm của toàn Đảng, toàn dân và xác định tiến trình cách mạng Việt Nam là đi từ khởi nghĩa từng phần tiến lên tổng khởi nghĩa.",
+    "detailedNarrative": "Dưới sự chủ trì của Nguyễn Ái Quốc, Hội nghị xác định cách mạng Việt Nam hiện tại là cuộc cách mạng giải phóng dân tộc. Hội nghị chủ trương thành lập Mặt trận Việt Nam Độc lập Đồng minh (gọi tắt là Mặt trận Việt Minh) và giúp đỡ nhân dân Lào, Cam-pu-chia thành lập mặt trận riêng. Về vấn đề chính quyền, Hội nghị chủ trương thành lập Chính phủ Dân chủ Cộng hoà. Hội nghị nhấn mạnh chuẩn bị khởi nghĩa là nhiệm vụ trung tâm của toàn Đảng, toàn dân và xác định tiến trình cách mạng Việt Nam là đi từ khởi nghĩa từng phần tiến lên tổng khởi nghĩa.",
+    "significance": "Xác định cách mạng Việt Nam hiện tại là cuộc cách mạng giải phóng dân tộc; chủ trương thành lập Mặt trận Việt Minh; nhấn mạnh chuẩn bị khởi nghĩa là nhiệm vụ trung tâm.",
+    "keyFacts": [
+      "Triệu tập và chủ trì Hội nghị",
+      "Chủ trương thành lập Mặt trận Việt Minh",
+      "Thành lập Việt Nam Độc lập đồng minh (Việt Minh)",
+      "Xác định cách mạng Việt Nam là cách mạng giải phóng dân tộc",
+      "Triệu tập và chủ trì bởi Nguyễn Ái Quốc",
+      "Địa điểm: Pác Bó (Hà Quảng, Cao Bằng)",
+      "Nhấn mạnh chuẩn bị khởi nghĩa là nhiệm vụ trung tâm"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 12,
+        "book": "KNTT",
+        "lessonId": "12966",
+        "lessonTitle": "BÀI 15: KHÁI QUÁT CUỘC ĐỜI VÀ SỰ NGHIỆP CỦA HỒ CHÍ MINH",
+        "chapter": "Chu de 5",
+        "lesson": "Bai 15",
+        "pageRange": {
+          "start": 88,
+          "end": 93
+        },
+        "url": "https://sgkvn.com/lop-12-15/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-5-lich-su-doi-ngoai-cua-viet-nam-thoi-can-hien-dai-3541/bai-15-khai-quat-cuoc-doi-va-su-nghiep-cua-ho-chi-minh-12966.html",
+        "excerpt": "Sau một thời gian chuẩn bị, Nguyễn Ái Quốc triệu tập Hội nghị lần thứ 8 Ban Chấp hành Trung ương Đảng Cộng sản Đông Dương tại Pác Bó (Hà Quảng, Cao Bằng) từ ngày 10 đến ngày 19-5-1941. Dưới sự chủ trì của Nguyễn Ái Quốc, Hội nghị xác định cách mạng Việt Nam hiện tại là cuộc cách mạng giải phóng dân tộc. Hội nghị chủ trương thành lập Mặt trận Việt Nam Độc lập Đồng minh (gọi tắt là Mặt trận Việt Minh) và giúp đỡ nhân dân Lào, Cam-pu-chia thành lập mặt trận riêng. Về vấn đề chính quyền, Hội nghị chủ trương thành lập Chính phủ Dân chủ Cộng hoà. Hội nghị nhấn mạnh chuẩn bị khởi nghĩa là nhiệm vụ trung tâm của toàn Đảng, toàn dân và xác định tiến trình cách mạng Việt Nam là đi từ khởi nghĩa từng phần tiến lên tổng khởi nghĩa."
+      },
+      {
+        "grade": 12,
+        "book": "KNTT",
+        "lessonId": "12967",
+        "lessonTitle": "BÀI 16: HỒ CHÍ MINH - ANH HÙNG GIẢI PHÓNG DÂN TỘC",
+        "chapter": "Chu de 5",
+        "lesson": "Bai 16",
+        "pageRange": {
+          "start": 94,
+          "end": 104
+        },
+        "url": "https://sgkvn.com/lop-12-15/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-5-lich-su-doi-ngoai-cua-viet-nam-thoi-can-hien-dai-3541/bai-16-ho-chi-minh-anh-hung-giai-phong-dan-toc-12967.html",
+        "excerpt": "Sau một thời gian chuẩn bị, Nguyễn Ái Quốc triệu tập Hội nghị lần thứ 8 Ban Chấp hành Trung ương Đảng Cộng sản Đông Dương tại Pác Bó (Hà Quảng, Cao Bằng) từ ngày 10 đến ngày 19-5-1941. Dưới sự chủ trì của Nguyễn Ái Quốc, Hội nghị xác định cách mạng Việt Nam hiện tại là cuộc cách mạng giải phóng dân tộc. Hội nghị chủ trương thành lập Mặt trận Việt Nam Độc lập Đồng minh (gọi tắt là Mặt trận Việt Minh) và giúp đỡ nhân dân Lào, Cam-pu-chia thành lập mặt trận riêng. Về vấn đề chính quyền, Hội nghị chủ trương thành lập Chính phủ Dân chủ Cộng hoà. Hội nghị nhấn mạnh chuẩn bị khởi nghĩa là nhiệm vụ trung tâm của toàn Đảng, toàn dân và xác định tiến trình cách mạng Việt Nam là đi từ khởi nghĩa từng phần tiến lên tổng khởi nghĩa."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "hoi-nghi-lan-thu-8-ban-chap-hanh-trung-uong-dang-cong-san-dong-duong",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 137
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": true,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

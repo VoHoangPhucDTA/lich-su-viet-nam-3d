@@ -1,0 +1,185 @@
+{
+  "id": "thi-diem-chia-lai-ruong-dat-minh-mang",
+  "slug": "thi-diem-chia-lai-ruong-dat-minh-mang",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Thí điểm chia lại ruộng đất dưới thời Minh Mạng",
+    "short": "Thí điểm chia lại ruộng đất dưới thời Minh Mạng",
+    "alternatives": [
+      "Cải cách ruộng đất của Minh Mạng"
+    ]
+  },
+  "classification": {
+    "eventType": "economic",
+    "eventSubtype": "land_reform",
+    "region": "vietnam",
+    "tags": [
+      "ruộng đất",
+      "Minh Mạng",
+      "nông dân",
+      "cải cách kinh tế"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 11,
+        "lessonId": "12393",
+        "lessonTitle": "BÀI 14  CUỘC CẢI CÁCH CỦA MINH MẠNG  NỬA"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1837,
+      "month": null,
+      "day": null
+    },
+    "end": {
+      "year": 1840,
+      "month": null,
+      "day": null
+    },
+    "datePrecision": "year",
+    "displayDate": "1837 - 1840",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "mixed",
+    "historicalLocations": [],
+    "provinceNames": [
+      "Bình Thuận",
+      "Hồ Chí Minh",
+      "Bình Định"
+    ],
+    "gadmRefs": [
+      "VNM.11_1",
+      "VNM.25_1",
+      "VNM.8_1"
+    ],
+    "marker": {
+      "name": "Bình Thuận",
+      "lat": 10.9333,
+      "lng": 108.0,
+      "confidence": "high"
+    },
+    "markers": [
+      {
+        "name": "Bình Thuận",
+        "lat": 10.9333,
+        "lng": 108.0,
+        "confidence": "high"
+      },
+      {
+        "name": "Gia Định",
+        "lat": 10.7758,
+        "lng": 106.6996,
+        "confidence": "high"
+      },
+      {
+        "name": "Bình Định",
+        "lat": 14.0,
+        "lng": 108.9,
+        "confidence": "high"
+      },
+      {
+        "name": "Nam Kì",
+        "lat": 10.7,
+        "lng": 106.0,
+        "confidence": "medium"
+      }
+    ],
+    "focusGeometry": {
+      "mode": "bounds",
+      "center": {
+        "lat": 11.756583,
+        "lng": 107.635086
+      },
+      "zoom": 7
+    }
+  },
+  "summary": {
+    "homepageTitle": "Cải cách ruộng đất Minh Mạng (1837-1840)",
+    "homepageSummary": "Vua Minh Mạng tiến hành thí điểm cải cách ruộng đất ở Bình Định và các tỉnh Nam Kì từ 1837 đến 1840 nhằm giải quyết tình trạng thiếu ruộng đất công, nhưng kết quả hạn chế.",
+    "cardSummary": "Minh Mạng thí điểm cải cách ruộng đất (1837-1840) ở Bình Định và Nam Kì, nhưng kết quả hạn chế."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Trước thực trạng ruộng đất công làng xã bị thu hẹp nghiêm trọng, vua Minh Mạng tiến hành cải cách ruộng đất ở Bình Định và Nam Kì. Năm 1837, chia ruộng tư thành bản, chiều cấp cho các xã dân. Năm 1839, yêu cầu chủ sở hữu bỏ ra 50% ruộng đất tư sung công quỹ. Năm 1840, quyết định trích một nửa hoặc 3-4 phần mười ruộng tư sung công. Tuy nhiên, kết quả đạt được rất hạn chế, chỉ có 6-7% số người tự nguyện đem ruộng tư nhượng làm ruộng công.",
+    "detailedNarrative": "Trước thực trạng ruộng đất công còn lại rất ít, nhất là ở Bình Định và các tỉnh Nam Kì, vua Minh Mạng tiến hành cải cách ruộng đất ở Bình Định và Nam Kì nhưng kết quả đạt được rất hạn chế. Năm 1837, Minh Mạng thi hành biện pháp “ruộng đất các tỉnh Bình Thuận trở vào Nam, từ trước đến giờ chưa được khám xét, còn chưa có hạng ruộng đất công, phép chia ruộng chưa được ban cấp. Nay ruộng đất ở các tỉnh ấy đã khám đạc xong. Vậy đem chia ruộng tư thành bản, chiều cấp cho các xã dân các tỉnh\". Năm 1839, theo chỉ dụ của vua Minh Mạng, tất cả các chủ sở hữu phải bỏ ra 50% ruộng đất tư sung công quỹ để làm ruộng công. Năm 1840, Bố chính Gia Định là Lê Khánh Trinh xin trích 50% ruộng tư sung làm ruộng công. Sau khi cân nhắc, vua Minh Mạng quyết định \"xã thôn nào nhiều ruộng, cày cấy không xuể thì trích lấy một nửa hoặc 3 - 4 phần mười giao cho bản xã sung công chia cho mọi người cùng lợi, chớ bao chiếm nhiều lại bỏ hoang\". Kết quả số người tự nguyện đem ruộng tư nhượng làm ruộng công chỉ có 6 - 7 phần trăm với số ruộng 6-7 nghìn mẫu.",
+    "significance": "Mặc dù kết quả hạn chế, đây là nỗ lực của triều đình nhằm giải quyết vấn đề ruộng đất và ổn định xã hội.",
+    "keyFacts": [
+      "Năm 1839: yêu cầu bỏ 50% ruộng tư sung công",
+      "Năm 1840: trích ruộng tư làm ruộng công",
+      "Diễn ra từ 1837 đến 1840",
+      "Thực hiện ở Bình Định và các tỉnh Nam Kì",
+      "Kết quả đạt được rất hạn chế",
+      "Năm 1837: chia ruộng tư thành bản, cấp cho xã dân"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 11,
+        "book": "KNTT",
+        "lessonId": "12393",
+        "lessonTitle": "BÀI 14  CUỘC CẢI CÁCH CỦA MINH MẠNG  NỬA",
+        "chapter": "Chu de 6",
+        "lesson": "Bai 14",
+        "pageRange": {
+          "start": null,
+          "end": null
+        },
+        "url": "https://sgkvn.com/lop-11-14/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-6-mot-so-cuoc-cai-cach-lon-trong-lich-su-viet-nam-truoc-nam-1858-3353/bai-14-cuoc-cai-cach-cua-minh-mang-nua-dau-the-ki-xix-12393.html",
+        "excerpt": "Trước thực trạng ruộng đất công làng xã bị thu hẹp nghiêm trọng, vua Minh Mạng tiến hành cải cách ruộng đất ở Bình Định và Nam Kì. Năm 1837, chia ruộng tư thành bản, chiều cấp cho các xã dân. Năm 1839, yêu cầu chủ sở hữu bỏ ra 50% ruộng đất tư sung công quỹ. Năm 1840, quyết định trích một nửa hoặc 3-4 phần mười ruộng tư sung công. Tuy nhiên, kết quả đạt được rất hạn chế, chỉ có 6-7% số người tự nguyện đem ruộng tư nhượng làm ruộng công."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "thi-diem-chia-lai-ruong-dat-minh-mang",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 74
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": true,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

@@ -1,0 +1,139 @@
+{
+  "id": "le-nghi-dan-dat-luc-bo",
+  "slug": "le-nghi-dan-dat-luc-bo",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Lê Nghi Dân đặt Lục bộ",
+    "short": "Lê Nghi Dân đặt Lục bộ",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "administrative_reform",
+    "region": "vietnam",
+    "tags": [
+      "Lê sơ",
+      "Lục bộ",
+      "hành chính",
+      "Lê Nghi Dân"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 11,
+        "lessonId": "12390",
+        "lessonTitle": "BÀI 13  CUỘC CẢI CÁCH CỦA LÊ THÁNH TÔNG"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1460,
+      "month": null,
+      "day": null
+    },
+    "end": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "datePrecision": "year",
+    "displayDate": "Năm 1460",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "no_location",
+    "historicalLocations": [],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "auto",
+      "center": null,
+      "zoom": null
+    }
+  },
+  "summary": {
+    "homepageTitle": "Lê Nghi Dân đặt Lục bộ",
+    "homepageSummary": "Năm 1460, Lê Nghi Dân đặt ra Lục bộ, nhưng đến năm 1465, vua Lê Thánh Tông mới đưa Lục bộ trở thành cơ quan có quyền lực thực sự.",
+    "cardSummary": "Lê Nghi Dân đặt Lục bộ năm 1460, sau được Lê Thánh Tông củng cố."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Năm 1460, Lê Nghi Dân đặt lục bộ, nhưng đến năm 1465, vua Lê Thánh Tông mới đưa lục bộ trở thành cơ quan có quyền lực thực sự.",
+    "detailedNarrative": null,
+    "significance": "Là bước đầu trong quá trình hình thành cơ cấu Lục bộ có quyền lực thực sự dưới thời Lê Thánh Tông.",
+    "keyFacts": [
+      "Lục bộ ban đầu chỉ là cơ quan phụ trợ",
+      "Người đặt: Lê Nghi Dân",
+      "Diễn ra năm 1460"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 11,
+        "book": "KNTT",
+        "lessonId": "12390",
+        "lessonTitle": "BÀI 13  CUỘC CẢI CÁCH CỦA LÊ THÁNH TÔNG",
+        "chapter": "Chu de 6",
+        "lesson": "Bai 13",
+        "pageRange": {
+          "start": 93,
+          "end": 96
+        },
+        "url": "https://sgkvn.com/lop-11-14/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-6-mot-so-cuoc-cai-cach-lon-trong-lich-su-viet-nam-truoc-nam-1858-3353/bai-13-cuoc-cai-cach-cua-le-thanh-tong-the-ki-xv-12390.html",
+        "excerpt": "Năm 1460, Lê Nghi Dân đặt lục bộ, nhưng đến năm 1465, vua Lê Thánh Tông mới đưa lục bộ trở thành cơ quan có quyền lực thực sự."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "le-nghi-dan-dat-luc-bo",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 42
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": false,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

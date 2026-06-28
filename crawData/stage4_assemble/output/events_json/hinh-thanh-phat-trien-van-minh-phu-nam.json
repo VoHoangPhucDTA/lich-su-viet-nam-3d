@@ -1,0 +1,152 @@
+{
+  "id": "hinh-thanh-phat-trien-van-minh-phu-nam",
+  "slug": "hinh-thanh-phat-trien-van-minh-phu-nam",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Hình thành và phát triển văn minh Phù Nam",
+    "short": "Hình thành và phát triển văn minh Phù Nam",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "cultural",
+    "eventSubtype": "civilization_development",
+    "region": "vietnam",
+    "tags": [
+      "Phù Nam",
+      "Nam Bộ",
+      "Văn minh cổ"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      10
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 10,
+        "lessonId": "12148",
+        "lessonTitle": "Bài 11: Một Số Nền Văn Minh Cổ Trên Đất Nước Việt Nam"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "end": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "datePrecision": "approximate",
+    "displayDate": "Khoảng đầu Công nguyên",
+    "isApproximate": true
+  },
+  "mapData": {
+    "geoType": "point",
+    "historicalLocations": [
+      "sông Mê Công",
+      "Đông Nam Á"
+    ],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": {
+      "name": "Nam Bộ Việt Nam",
+      "lat": 10.7,
+      "lng": 106.0,
+      "confidence": "medium"
+    },
+    "markers": [],
+    "focusGeometry": {
+      "mode": "marker",
+      "center": {
+        "name": "Nam Bộ Việt Nam",
+        "lat": 10.7,
+        "lng": 106.0,
+        "confidence": "medium"
+      },
+      "zoom": 12
+    }
+  },
+  "summary": {
+    "homepageTitle": "Văn minh Phù Nam",
+    "homepageSummary": "Vương quốc Phù Nam được thành lập khoảng đầu Công nguyên trên cơ sở tập hợp nhiều tộc người, nhiều tiểu quốc ở khu vực Nam Bộ Việt Nam.",
+    "cardSummary": "Văn minh Phù Nam hình thành khoảng đầu Công nguyên ở Nam Bộ Việt Nam."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Vào khoảng đầu Công nguyên, Vương quốc Phù Nam đã được thành lập trên cơ sở tập hợp nhiều tộc người, nhiều tiểu quốc. Đứng đầu nhà nước là vua, có quyền lực cao nhất, cai trị bằng cả vương quyền và thần quyền; giúp việc cho vua là các quan lại trong hệ thống chính quyền với nhiều cấp bậc.",
+    "detailedNarrative": "Văn minh Phù Nam hình thành trên địa bàn Nam Bộ Việt Nam, thuộc vùng hạ lưu sông Mê Công, với cội nguồn từ văn hoá tiền Óc Eo. Vùng đất này là nơi giao thoa của nhiều tộc người và chịu ảnh hưởng mạnh mẽ của văn minh Ấn Độ.",
+    "significance": "Là một vương quốc hùng mạnh, có ảnh hưởng rộng ra nhiều vùng đất ở khu vực Đông Nam Á.",
+    "keyFacts": [
+      "Chịu ảnh hưởng mạnh mẽ của văn minh Ấn Độ",
+      "Thành lập khoảng đầu Công nguyên",
+      "Địa bàn: Nam Bộ Việt Nam, hạ lưu sông Mê Công",
+      "Cội nguồn từ văn hoá tiền Óc Eo"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 10,
+        "book": "KNTT",
+        "lessonId": "12148",
+        "lessonTitle": "Bài 11: Một Số Nền Văn Minh Cổ Trên Đất Nước Việt Nam",
+        "chapter": "Chu de 6",
+        "lesson": "Bai 11",
+        "pageRange": {
+          "start": 93,
+          "end": 107
+        },
+        "url": "https://sgkvn.com/lop-10-13/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-6-mot-so-nen-van-minh-tren-dat-nuoc-viet-nam-truoc-nam-1858-3276/bai-11-mot-so-nen-van-minh-co-tren-dat-nuoc-viet-nam-12148.html",
+        "excerpt": "Vào khoảng đầu Công nguyên, Vương quốc Phù Nam đã được thành lập trên cơ sở tập hợp nhiều tộc người, nhiều tiểu quốc. Đứng đầu nhà nước là vua, có quyền lực cao nhất, cai trị bằng cả vương quyền và thần quyền; giúp việc cho vua là các quan lại trong hệ thống chính quyền với nhiều cấp bậc."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "hinh-thanh-phat-trien-van-minh-phu-nam",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 327
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": true,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

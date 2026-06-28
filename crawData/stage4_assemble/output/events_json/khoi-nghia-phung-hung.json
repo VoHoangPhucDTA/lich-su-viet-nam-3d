@@ -1,0 +1,135 @@
+{
+  "id": "khoi-nghia-phung-hung",
+  "slug": "khoi-nghia-phung-hung",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Khởi nghĩa Phùng Hưng",
+    "short": "Khởi nghĩa Phùng Hưng",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "military",
+    "eventSubtype": "uprising",
+    "region": "vietnam",
+    "tags": [
+      "Phùng Hưng",
+      "Nhà Đường",
+      "Bắc thuộc",
+      "Đường Lâm"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 11,
+        "lessonId": "12372",
+        "lessonTitle": "BÀI 8  MỘT SỐ CUỘC KHỞI NGHĨA VÀ CHIẾN T"
+      }
+    ]
+  },
+  "chronology": {
+    "start": null,
+    "end": null,
+    "datePrecision": "period",
+    "displayDate": "Cuối thế kỉ VIII",
+    "isApproximate": true
+  },
+  "mapData": {
+    "geoType": "no_location",
+    "historicalLocations": [
+      "Đường Lâm (Sơn Tây, Hà Nội)",
+      "Tổng Bình"
+    ],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "auto",
+      "center": null,
+      "zoom": null
+    }
+  },
+  "summary": {
+    "homepageTitle": "Khởi nghĩa Phùng Hưng",
+    "homepageSummary": "Phùng Hưng phát động khởi nghĩa ở Đường Lâm, đánh chiếm phủ thành Tổng Bình và giành quyền tự chủ trong một thời gian ngắn trước khi bị nhà Đường đàn áp.",
+    "cardSummary": "Khởi nghĩa Phùng Hưng (cuối thế kỉ VIII) chống nhà Đường, giành tự chủ ngắn ngủi."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Cuối thế kỉ VIII, Phùng Hưng phát động khởi nghĩa ở Đường Lâm (Sơn Tây, Hà Nội). Nghĩa quân đánh chiếm phủ thành Tổng Bình, giành quyền tự chủ trong một thời gian ngắn. Năm 791, nhà Đường đem quân sang đàn áp và chiếm lại.",
+    "detailedNarrative": "Phùng Hưng phát động khởi nghĩa ở Đường Lâm (Sơn Tây, Hà Nội). Nghĩa quân đánh chiếm phủ thành Tổng Bình, giành quyền tự chủ trong một thời gian ngắn. Năm 791, nhà Đường đem quân sang đàn áp và chiếm lại.",
+    "significance": null,
+    "keyFacts": [
+      "Phùng Hưng phát động khởi nghĩa ở Đường Lâm (Sơn Tây, Hà Nội)",
+      "Năm 791, nhà Đường đem quân sang đàn áp và chiếm lại",
+      "Nghĩa quân đánh chiếm phủ thành Tổng Bình",
+      "Giành quyền tự chủ trong một thời gian ngắn"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 11,
+        "book": "KNTT",
+        "lessonId": "12372",
+        "lessonTitle": "BÀI 8  MỘT SỐ CUỘC KHỞI NGHĨA VÀ CHIẾN T",
+        "chapter": "Chu de 4",
+        "lesson": "Bai 8",
+        "pageRange": {
+          "start": null,
+          "end": null
+        },
+        "url": "https://sgkvn.com/lop-11-14/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-4-chien-tranh-bao-ve-to-quoc-va-chien-tranh-giai-phong-dan-toc-trong-lich-su-viet-nam-truoc-cach-mang-thang-tam-nam-1945-3346/bai-8-mot-so-cuoc-khoi-nghia-va-chien-tranh-giai-phong-trong-lich-su-viet-nam-tu-the-ki-iii-truoc-cong-nguyen-den-cuoi-the-ki-xix-12372.html",
+        "excerpt": "Cuối thế kỉ VIII, Phùng Hưng phát động khởi nghĩa ở Đường Lâm (Sơn Tây, Hà Nội). Nghĩa quân đánh chiếm phủ thành Tổng Bình, giành quyền tự chủ trong một thời gian ngắn. Năm 791, nhà Đường đem quân sang đàn áp và chiếm lại."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "khoi-nghia-phung-hung",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 335
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": false,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

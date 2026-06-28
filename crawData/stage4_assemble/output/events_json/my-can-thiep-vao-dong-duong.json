@@ -1,0 +1,139 @@
+{
+  "id": "my-can-thiep-vao-dong-duong",
+  "slug": "my-can-thiep-vao-dong-duong",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Mỹ can thiệp vào Đông Dương",
+    "short": "Mỹ can thiệp vào Đông Dương",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "intervention",
+    "region": "world",
+    "tags": [
+      "Mỹ",
+      "chiến tranh",
+      "Đông Dương"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 11,
+        "lessonId": "12340",
+        "lessonTitle": "BÀI 6  HÀNH TRÌNH ĐI ĐẾN ĐỘC LẬP DÂN TỘC"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1954,
+      "month": null,
+      "day": null
+    },
+    "end": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "datePrecision": "year",
+    "displayDate": "Từ năm 1954",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "no_location",
+    "historicalLocations": [
+      "Đông Dương"
+    ],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "auto",
+      "center": null,
+      "zoom": null
+    }
+  },
+  "summary": {
+    "homepageTitle": "Mỹ can thiệp Đông Dương",
+    "homepageSummary": "Từ năm 1954, Mỹ can thiệp vào Đông Dương, dẫn đến cuộc chiến tranh bảo vệ độc lập của nhân dân ba nước.",
+    "cardSummary": "Mỹ can thiệp vào Đông Dương từ 1954, dẫn đến chiến tranh bảo vệ độc lập."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Từ năm 1954, Mỹ can thiệp vào Đông Dương, khiến nhân dân ba nước Đông Dương phải tiếp tục tiến hành cuộc chiến tranh bảo vệ nền độc lập dân tộc và chủ quyền quốc gia.",
+    "detailedNarrative": "Từ năm 1954, Mỹ can thiệp vào Đông Dương, nhân dân ba nước Đông Dương phải tiếp tục tiến hành cuộc chiến tranh bảo vệ nền độc lập dân tộc và chủ quyền quốc gia.",
+    "significance": null,
+    "keyFacts": [
+      "Dẫn đến cuộc chiến tranh bảo vệ độc lập dân tộc và chủ quyền quốc gia",
+      "Bắt đầu từ năm 1954"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 11,
+        "book": "KNTT",
+        "lessonId": "12340",
+        "lessonTitle": "BÀI 6  HÀNH TRÌNH ĐI ĐẾN ĐỘC LẬP DÂN TỘC",
+        "chapter": "Chu de 3",
+        "lesson": "Bai 6",
+        "pageRange": {
+          "start": 45,
+          "end": 53
+        },
+        "url": "https://sgkvn.com/lop-11-14/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-3-qua-trinh-gianh-doc-lap-dan-toc-cua-cac-quoc-gia-dong-nam-a-3331/bai-6-hanh-trinh-di-den-doc-lap-dan-toc-o-dong-nam-a-12340.html",
+        "excerpt": "Từ năm 1954, Mỹ can thiệp vào Đông Dương, khiến nhân dân ba nước Đông Dương phải tiếp tục tiến hành cuộc chiến tranh bảo vệ nền độc lập dân tộc và chủ quyền quốc gia."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "my-can-thiep-vao-dong-duong",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 207
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": false,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

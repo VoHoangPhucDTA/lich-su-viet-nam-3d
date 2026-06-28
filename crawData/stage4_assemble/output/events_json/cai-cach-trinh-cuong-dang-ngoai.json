@@ -1,0 +1,148 @@
+{
+  "id": "cai-cach-trinh-cuong-dang-ngoai",
+  "slug": "cai-cach-trinh-cuong-dang-ngoai",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Cải cách của Trịnh Cương ở Đàng Ngoài",
+    "short": "Cải cách của Trịnh Cương ở Đàng Ngoài",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "reform",
+    "region": "vietnam",
+    "tags": [
+      "Đàng Ngoài",
+      "Thế kỉ XVIII",
+      "Trịnh Cương"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 11,
+        "lessonId": "12387",
+        "lessonTitle": "BÀI 12  KHÁI LƯỢC VỀ CẢI CÁCH  CUỘC CẢI"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "end": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "datePrecision": "period",
+    "displayDate": "Thế kỉ XVIII",
+    "isApproximate": true
+  },
+  "mapData": {
+    "geoType": "point",
+    "historicalLocations": [],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": {
+      "name": "Đàng Ngoài",
+      "lat": 20.0,
+      "lng": 106.0,
+      "confidence": "low"
+    },
+    "markers": [],
+    "focusGeometry": {
+      "mode": "marker",
+      "center": {
+        "name": "Đàng Ngoài",
+        "lat": 20.0,
+        "lng": 106.0,
+        "confidence": "low"
+      },
+      "zoom": 12
+    }
+  },
+  "summary": {
+    "homepageTitle": "Cải cách của Trịnh Cương",
+    "homepageSummary": "Các cuộc cải cách của Trịnh Cương ở Đàng Ngoài diễn ra vào thế kỉ XVIII.",
+    "cardSummary": "Trịnh Cương cải cách ở Đàng Ngoài vào thế kỉ XVIII."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Cải cách của Trịnh Cương ở Đàng Ngoài diễn ra vào thế kỉ XVIII.",
+    "detailedNarrative": null,
+    "significance": null,
+    "keyFacts": [
+      "Tại Đàng Ngoài",
+      "Do Trịnh Cương tiến hành",
+      "Diễn ra vào thế kỉ XVIII"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 11,
+        "book": "KNTT",
+        "lessonId": "12387",
+        "lessonTitle": "BÀI 12  KHÁI LƯỢC VỀ CẢI CÁCH  CUỘC CẢI",
+        "chapter": "Chu de 6",
+        "lesson": "Bai 12",
+        "pageRange": {
+          "start": 87,
+          "end": 91
+        },
+        "url": "https://sgkvn.com/lop-11-14/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-6-mot-so-cuoc-cai-cach-lon-trong-lich-su-viet-nam-truoc-nam-1858-3353/bai-12-khai-luoc-ve-cai-cach-cuoc-cai-cach-cua-ho-quy-ly-va-trieu-ho-dau-the-ki-xv-12387.html",
+        "excerpt": "Cải cách của Trịnh Cương ở Đàng Ngoài diễn ra vào thế kỉ XVIII."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "cai-cach-trinh-cuong-dang-ngoai",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 304
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": true,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

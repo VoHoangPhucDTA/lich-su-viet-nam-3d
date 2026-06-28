@@ -1,0 +1,136 @@
+{
+  "id": "quoc-hoi-thong-qua-luat-cai-cach-ruong-dat-1953",
+  "slug": "quoc-hoi-thong-qua-luat-cai-cach-ruong-dat-1953",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Quốc hội thông qua Luật Cải cách ruộng đất và quyết định tiến hành cải cách ruộng đất",
+    "short": "Thông qua Luật Cải cách ruộng đất",
+    "alternatives": [
+      "Cải cách ruộng đất"
+    ]
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "reform",
+    "region": "vietnam",
+    "tags": [
+      "Ruộng đất",
+      "Chính sách",
+      "Cải cách"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 12,
+        "lessonId": "12955",
+        "lessonTitle": "BÀI 7: CUỘC KHÁNG CHIẾN CHỐNG THỰC DÂN PHÁP (1945-1954)"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1953,
+      "month": 12,
+      "day": null
+    },
+    "end": null,
+    "datePrecision": "month",
+    "displayDate": "Tháng 12 – 1953",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "no_location",
+    "historicalLocations": [],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "auto",
+      "center": null,
+      "zoom": null
+    }
+  },
+  "summary": {
+    "homepageTitle": "Thông qua Luật Cải cách ruộng đất",
+    "homepageSummary": "Tháng 12-1953, Quốc hội thông qua Luật Cải cách ruộng đất, tiến hành cải cách ở vùng tự do, củng cố hậu phương kháng chiến.",
+    "cardSummary": "Tháng 12-1953, Quốc hội thông qua Luật Cải cách ruộng đất và quyết định tiến hành cải cách ở vùng tự do."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Tháng 12 – 1953, Quốc hội thông qua Luật Cải cách ruộng đất và quyết định tiến hành cải cách ruộng đất ở vùng tự do.",
+    "detailedNarrative": "Trong giai đoạn 1951-1953, cuộc kháng chiến có những bước phát triển mới trên nhiều lĩnh vực. Một trong những chính sách quan trọng là vào tháng 12 – 1953, Quốc hội đã thông qua Luật Cải cách ruộng đất và quyết định tiến hành cải cách ruộng đất ở vùng tự do. Chính sách này nhằm giải quyết vấn đề ruộng đất cho nông dân, củng cố khối liên minh công nông và tăng cường sức mạnh của hậu phương kháng chiến.",
+    "significance": "Củng cố hậu phương kháng chiến, tăng cường sức mạnh cho cuộc chiến đấu.",
+    "keyFacts": [
+      "Do Quốc hội thông qua",
+      "Thông qua tháng 12-1953",
+      "Tiến hành ở vùng tự do"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 12,
+        "book": "KNTT",
+        "lessonId": "12955",
+        "lessonTitle": "BÀI 7: CUỘC KHÁNG CHIẾN CHỐNG THỰC DÂN PHÁP (1945-1954)",
+        "chapter": "Chu de 3",
+        "lesson": "Bai 7",
+        "pageRange": {
+          "start": 37,
+          "end": 44
+        },
+        "url": "https://sgkvn.com/lop-12-15/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-3-cach-mang-thang-tam-nam-1945-chien-tranh-giai-phong-dan-toc-va-chien-tranh-bao-ve-to-quoc-trong-lich-su-viet-nam-tu-thang-8-nam-1945-den-nay-3539/bai-7-cuoc-khang-chien-chong-thuc-dan-phap-1945-1954-12955.html",
+        "excerpt": "Tháng 12 – 1953, Quốc hội thông qua Luật Cải cách ruộng đất và quyết định tiến hành cải cách ruộng đất ở vùng tự do."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "quoc-hoi-thong-qua-luat-cai-cach-ruong-dat-1953",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 200
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": false,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

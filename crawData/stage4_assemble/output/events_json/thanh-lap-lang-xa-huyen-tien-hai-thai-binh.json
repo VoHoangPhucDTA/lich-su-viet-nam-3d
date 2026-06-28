@@ -1,0 +1,164 @@
+{
+  "id": "thanh-lap-lang-xa-huyen-tien-hai-thai-binh",
+  "slug": "thanh-lap-lang-xa-huyen-tien-hai-thai-binh",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Thành lập làng xã thuộc huyện Tiền Hải (Thái Bình)",
+    "short": "Làng Tiền Hải thành lập",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "formation",
+    "region": "vietnam",
+    "tags": [
+      "Thái Bình",
+      "thế kỉ XIX",
+      "Tiền Hải",
+      "làng xã"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 11,
+        "lessonId": "12373",
+        "lessonTitle": "BÀI 9  KHÁI QUÁT VỀ LÀNG XÃ VIỆT NAM TRO"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "end": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "datePrecision": "period",
+    "displayDate": "Đầu thế kỉ XIX",
+    "isApproximate": true
+  },
+  "mapData": {
+    "geoType": "mixed",
+    "historicalLocations": [],
+    "provinceNames": [
+      "Thái Bình"
+    ],
+    "gadmRefs": [
+      "VNM.55_1"
+    ],
+    "marker": {
+      "name": "Thái Bình",
+      "lat": 20.6,
+      "lng": 106.3,
+      "confidence": "high"
+    },
+    "markers": [
+      {
+        "name": "Thái Bình",
+        "lat": 20.6,
+        "lng": 106.3,
+        "confidence": "high"
+      },
+      {
+        "name": "huyện Tiền Hải",
+        "lat": 20.3,
+        "lng": 106.4,
+        "confidence": "high"
+      }
+    ],
+    "focusGeometry": {
+      "mode": "bounds",
+      "center": {
+        "lat": 20.481456,
+        "lng": 106.364997
+      },
+      "zoom": 7
+    }
+  },
+  "summary": {
+    "homepageTitle": "Làng xã Tiền Hải thành lập đầu thế kỉ XIX",
+    "homepageSummary": "Làng xã thuộc huyện Tiền Hải (Thái Bình) được thành lập vào đầu thế kỉ XIX và không có tên nôm.",
+    "cardSummary": "Làng xã huyện Tiền Hải (Thái Bình) thành lập đầu thế kỉ XIX, không có tên nôm."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Làng xã thuộc huyện Tiền Hải (Thái Bình) được thành lập vào đầu thế kỉ XIX không có tên nôm.",
+    "detailedNarrative": "Làng xã thuộc huyện Tiền Hải (Thái Bình) được thành lập vào đầu thế kỉ XIX không có tên nôm.",
+    "significance": null,
+    "keyFacts": [
+      "Thành lập đầu thế kỉ XIX",
+      "Thuộc huyện Tiền Hải (Thái Bình)",
+      "Không có tên nôm"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 11,
+        "book": "KNTT",
+        "lessonId": "12373",
+        "lessonTitle": "BÀI 9  KHÁI QUÁT VỀ LÀNG XÃ VIỆT NAM TRO",
+        "chapter": "Chu de 5",
+        "lesson": "Bai 9",
+        "pageRange": {
+          "start": 71,
+          "end": 76
+        },
+        "url": "https://sgkvn.com/lop-11-14/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-5-lang-xa-viet-nam-trong-lich-su-3348/bai-9-khai-quat-ve-lang-xa-viet-nam-trong-lich-su-12373.html",
+        "excerpt": "Làng xã thuộc huyện Tiền Hải (Thái Bình) được thành lập vào đầu thế kỉ XIX không có tên nôm."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "thanh-lap-lang-xa-huyen-tien-hai-thai-binh",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 367
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": true,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

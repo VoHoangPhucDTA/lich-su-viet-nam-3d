@@ -1,0 +1,135 @@
+{
+  "id": "ban-hanh-chinh-sach-han-no",
+  "slug": "ban-hanh-chinh-sach-han-no",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Ban hành chính sách hạn nô",
+    "short": "Chính sách hạn nô",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "social",
+    "eventSubtype": "social_reform",
+    "region": "vietnam",
+    "tags": [
+      "Hồ Quý Ly",
+      "Cải cách xã hội",
+      "Hạn nô"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 11,
+        "lessonId": "12387",
+        "lessonTitle": "BÀI 12  KHÁI LƯỢC VỀ CẢI CÁCH  CUỘC CẢI"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1401,
+      "month": null,
+      "day": null
+    },
+    "end": null,
+    "datePrecision": "year",
+    "displayDate": "Năm 1401",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "no_location",
+    "historicalLocations": [],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "auto",
+      "center": null,
+      "zoom": null
+    }
+  },
+  "summary": {
+    "homepageTitle": "Chính sách hạn nô",
+    "homepageSummary": "Năm 1401, nhà Hồ ban hành chính sách hạn nô, quy định số gia nô theo phẩm cấp và sung nô tì thừa vào Nhà nước.",
+    "cardSummary": "Nhà Hồ ban hành chính sách hạn nô năm 1401, quy định số gia nô theo phẩm cấp."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Nhà Hồ thực hiện chính sách hạn nô. “Phép hạn gia nó, chiếu theo phẩm cấp mà có số khác nhau, thừa ra thì sung vào Nhà nước. Mỗi người phải trả 5 quan tiến. Người nào đáng được có gia nô phải xuất trình chúc thư ba đời. Gia nô người ngoại quốc thì không có hạn lệ. Các gia nô đếu thích vào trán để đánh dấu...\"",
+    "detailedNarrative": null,
+    "significance": null,
+    "keyFacts": [
+      "Năm 1401",
+      "Quy định số gia nô theo phẩm cấp",
+      "Nô tì bị thích vào trán",
+      "Nô tì thừa sung vào Nhà nước"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 11,
+        "book": "KNTT",
+        "lessonId": "12387",
+        "lessonTitle": "BÀI 12  KHÁI LƯỢC VỀ CẢI CÁCH  CUỘC CẢI",
+        "chapter": "Chu de 6",
+        "lesson": "Bai 12",
+        "pageRange": {
+          "start": 87,
+          "end": 91
+        },
+        "url": "https://sgkvn.com/lop-11-14/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-6-mot-so-cuoc-cai-cach-lon-trong-lich-su-viet-nam-truoc-nam-1858-3353/bai-12-khai-luoc-ve-cai-cach-cuoc-cai-cach-cua-ho-quy-ly-va-trieu-ho-dau-the-ki-xv-12387.html",
+        "excerpt": "Nhà Hồ thực hiện chính sách hạn nô. “Phép hạn gia nó, chiếu theo phẩm cấp mà có số khác nhau, thừa ra thì sung vào Nhà nước. Mỗi người phải trả 5 quan tiến. Người nào đáng được có gia nô phải xuất trình chúc thư ba đời. Gia nô người ngoại quốc thì không có hạn lệ. Các gia nô đếu thích vào trán để đánh dấu...\""
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "ban-hanh-chinh-sach-han-no",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 33
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": false,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

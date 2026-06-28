@@ -1,0 +1,165 @@
+{
+  "id": "my-thay-chan-phap-dung-chinh-quyen-ngo-dinh-diem",
+  "slug": "my-thay-chan-phap-dung-chinh-quyen-ngo-dinh-diem",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Mỹ thay chân Pháp, dựng chính quyền Ngô Đình Diệm",
+    "short": "Mỹ thay chân Pháp, dựng chính quyền Ngô Đình Diệm",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "regime_change",
+    "region": "vietnam",
+    "tags": [
+      "Mỹ",
+      "Ngô Đình Diệm",
+      "chính quyền Sài Gòn"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 12,
+        "lessonId": "12956",
+        "lessonTitle": "BÀI 8: CUỘC KHÁNG CHIẾN CHỐNG MỸ, CỨU NƯỚC (1954-1975)"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1954,
+      "month": null,
+      "day": null
+    },
+    "end": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "datePrecision": "year",
+    "displayDate": "Sau Hiệp định Giơ-ne-vơ (1954)",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "mixed",
+    "historicalLocations": [
+      "Đông Nam Á"
+    ],
+    "provinceNames": [
+      "Hồ Chí Minh"
+    ],
+    "gadmRefs": [
+      "VNM.25_1"
+    ],
+    "marker": {
+      "name": "miền Nam Việt Nam",
+      "lat": 10.7626,
+      "lng": 106.6601,
+      "confidence": "low"
+    },
+    "markers": [
+      {
+        "name": "miền Nam Việt Nam",
+        "lat": 10.7626,
+        "lng": 106.6601,
+        "confidence": "low"
+      },
+      {
+        "name": "Sài Gòn",
+        "lat": 10.7769,
+        "lng": 106.7009,
+        "confidence": "high"
+      }
+    ],
+    "focusGeometry": {
+      "mode": "bounds",
+      "center": {
+        "lat": 10.773313,
+        "lng": 106.687318
+      },
+      "zoom": 7
+    }
+  },
+  "summary": {
+    "homepageTitle": "Mỹ dựng chính quyền Ngô Đình Diệm",
+    "homepageSummary": "Ngay sau Hiệp định Giơ-ne-vơ, Mỹ thay chân Pháp, dựng lên chính quyền tay sai đứng đầu là Ngô Đình Diệm ở miền Nam Việt Nam.",
+    "cardSummary": "Mỹ thay chân Pháp, dựng chính quyền Ngô Đình Diệm ở miền Nam Việt Nam sau Hiệp định Giơ-ne-vơ."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Ngay sau Hiệp định Giơ-ne-vơ, Mỹ thay chân Pháp, dựng lên chính quyền tay sai đứng đầu là Ngô Đình Diệm (chính quyền Sài Gòn) ở miền Nam Việt Nam.",
+    "detailedNarrative": "Âm mưu của Mỹ là chia cắt Việt Nam, biến miền Nam Việt Nam thành thuộc địa kiểu mới và căn cứ quân sự của Mỹ ở Đông Nam Á, ngăn chặn chủ nghĩa cộng sản và phong trào giải phóng dân tộc đang dâng cao ở khu vực này.",
+    "significance": null,
+    "keyFacts": [
+      "Mỹ thay chân Pháp",
+      "Dựng chính quyền tay sai Ngô Đình Diệm",
+      "Diễn ra ở miền Nam Việt Nam"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 12,
+        "book": "KNTT",
+        "lessonId": "12956",
+        "lessonTitle": "BÀI 8: CUỘC KHÁNG CHIẾN CHỐNG MỸ, CỨU NƯỚC (1954-1975)",
+        "chapter": "Chu de 3",
+        "lesson": "Bai 8",
+        "pageRange": {
+          "start": 45,
+          "end": 53
+        },
+        "url": "https://sgkvn.com/lop-12-15/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-3-cach-mang-thang-tam-nam-1945-chien-tranh-giai-phong-dan-toc-va-chien-tranh-bao-ve-to-quoc-trong-lich-su-viet-nam-tu-thang-8-nam-1945-den-nay-3539/bai-8-cuoc-khang-chien-chong-my-cuu-nuoc-1954-1975-12956.html",
+        "excerpt": "Ngay sau Hiệp định Giơ-ne-vơ, Mỹ thay chân Pháp, dựng lên chính quyền tay sai đứng đầu là Ngô Đình Diệm (chính quyền Sài Gòn) ở miền Nam Việt Nam."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "my-thay-chan-phap-dung-chinh-quyen-ngo-dinh-diem",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 208
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": true,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

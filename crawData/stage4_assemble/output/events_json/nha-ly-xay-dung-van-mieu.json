@@ -1,0 +1,153 @@
+{
+  "id": "nha-ly-xay-dung-van-mieu",
+  "slug": "nha-ly-xay-dung-van-mieu",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Nhà Lý xây dựng Văn Miếu",
+    "short": "Nhà Lý xây dựng Văn Miếu",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "cultural",
+    "eventSubtype": "architecture",
+    "region": "vietnam",
+    "tags": [
+      "Văn Miếu",
+      "Nhà Lý",
+      "Nho giáo",
+      "kiến trúc"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      10
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 10,
+        "lessonId": "12146",
+        "lessonTitle": "Bài 9: Cơ Sở Hình Thành Văn Minh Đông Nam Á Thời Kì Cổ – Trung Đại"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "end": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "datePrecision": "period",
+    "displayDate": "Thời nhà Lý",
+    "isApproximate": true
+  },
+  "mapData": {
+    "geoType": "nationwide",
+    "historicalLocations": [
+      "Việt Nam"
+    ],
+    "provinceNames": [
+      "Hà Nội"
+    ],
+    "gadmRefs": [
+      "VNM.27_1"
+    ],
+    "marker": {
+      "name": "Văn Miếu – Quốc Tử Giám Hà Nội",
+      "lat": 21.0285,
+      "lng": 105.8351,
+      "confidence": "high"
+    },
+    "markers": [],
+    "focusGeometry": {
+      "mode": "bounds",
+      "center": {
+        "lat": 16.0,
+        "lng": 106.0
+      },
+      "zoom": 5
+    }
+  },
+  "summary": {
+    "homepageTitle": "Nhà Lý xây Văn Miếu",
+    "homepageSummary": "Nhà Lý cho xây dựng Văn Miếu để thờ Khổng Tử, thể hiện sự tiếp thu và đề cao Nho giáo ở Việt Nam.",
+    "cardSummary": "Nhà Lý xây dựng Văn Miếu để thờ Khổng Tử, đánh dấu sự phát triển của Nho giáo ở Việt Nam."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Nhà Lý cho xây dựng Văn Miếu để thờ Khổng Tử (người sáng lập Nho giáo).",
+    "detailedNarrative": null,
+    "significance": "Văn Miếu trở thành trung tâm giáo dục Nho học và biểu tượng của nền văn hiến Việt Nam.",
+    "keyFacts": [
+      "Xây dựng bởi nhà Lý",
+      "Biểu tượng Nho giáo ở Việt Nam",
+      "Thờ Khổng Tử"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 10,
+        "book": "KNTT",
+        "lessonId": "12146",
+        "lessonTitle": "Bài 9: Cơ Sở Hình Thành Văn Minh Đông Nam Á Thời Kì Cổ – Trung Đại",
+        "chapter": "Chu de 5",
+        "lesson": "Bai 9",
+        "pageRange": {
+          "start": 76,
+          "end": 84
+        },
+        "url": "https://sgkvn.com/lop-10-13/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-5-van-minh-dong-nam-a-3275/bai-9-co-so-hinh-thanh-van-minh-dong-nam-a-thoi-ki-co-trung-dai-12146.html",
+        "excerpt": "Nhà Lý cho xây dựng Văn Miếu để thờ Khổng Tử (người sáng lập Nho giáo)."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "nha-ly-xay-dung-van-mieu",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 352
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": true,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

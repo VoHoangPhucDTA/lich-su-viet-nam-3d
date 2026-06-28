@@ -1,0 +1,156 @@
+{
+  "id": "hoat-dong-doi-ngoai-nguyen-ai-quoc-1911-1930",
+  "slug": "hoat-dong-doi-ngoai-nguyen-ai-quoc-1911-1930",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Hoạt động đối ngoại của Nguyễn Ái Quốc",
+    "short": "Hoạt động đối ngoại của Nguyễn Ái Quốc",
+    "alternatives": [
+      "Hành trình tìm đường cứu nước của Nguyễn Ái Quốc"
+    ]
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "diplomatic_activity",
+    "region": "world",
+    "tags": [
+      "Quốc tế Cộng sản",
+      "cứu nước",
+      "Nguyễn Ái Quốc",
+      "cách mạng thuộc địa"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 12,
+        "lessonId": "12962",
+        "lessonTitle": "BÀI 12: HOẠT ĐỘNG ĐỐI NGOẠI CỦA VIỆT NAM TRONG ĐẤU TRANH GIÀNH ĐỘC LẬP DÂN TỘC (TỪ ĐẦU THẾ KỈ XX ĐẾN CÁCH MẠNG THÁNG TÁM NĂM 1945)"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1911,
+      "month": null,
+      "day": null
+    },
+    "end": {
+      "year": 1930,
+      "month": null,
+      "day": null
+    },
+    "datePrecision": "year",
+    "displayDate": "1911 - 1930",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "no_location",
+    "historicalLocations": [
+      "Miến Điện",
+      "Pháp",
+      "Ấn Độ",
+      "In-đô-nê-xi-a",
+      "Liên Xô",
+      "Việt Nam",
+      "Trung Quốc",
+      "châu Âu",
+      "Quảng Châu",
+      "Triều Tiên",
+      "Đông Nam Á"
+    ],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "auto",
+      "center": null,
+      "zoom": null
+    }
+  },
+  "summary": {
+    "homepageTitle": "Đối ngoại của Nguyễn Ái Quốc (1911-1930)",
+    "homepageSummary": "Nguyễn Ái Quốc đi qua nhiều quốc gia, thiết lập quan hệ với Quốc tế Cộng sản và các dân tộc bị áp bức, chuẩn bị cho cách mạng Việt Nam.",
+    "cardSummary": "Nguyễn Ái Quốc hoạt động đối ngoại rộng khắp, thiết lập quan hệ với cách mạng thế giới (1911-1930)."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Trong những năm 1911 – 1930, Nguyễn Ái Quốc đã đi qua nhiều quốc gia khác nhau và có những hoạt động đối ngoại nổi bật tại Pháp, Liên Xô và Trung Quốc. Ông gặp gỡ các nhà hoạt động chính trị, tham gia sáng lập Đảng Cộng sản Pháp (1920), thành lập Hội Liên hiệp thuộc địa (1921), tham gia các hội nghị của Quốc tế Cộng sản (1923-1930), liên lạc với lực lượng cách mạng ở Đông Nam Á và Trung Quốc, mở lớp huấn luyện chính trị, và thành lập Hội Liên hiệp các dân tộc bị áp bức ở Á Đông (1925).",
+    "detailedNarrative": "Trong những năm 1911 – 1922, Nguyễn Ái Quốc đã đi qua nhiều quốc gia khác nhau và có những hoạt động đối ngoại nổi bật tại Pháp. Nguyễn Ái Quốc gặp gỡ, tiếp xúc với nhiều nhà hoạt động chính trị, văn hoá của Pháp và nhiều nước châu Âu. Năm 1920, Nguyễn Ái Quốc tham gia sáng lập Đảng Cộng sản Pháp. Năm 1921, Nguyễn Ái Quốc tham gia thành lập Hội Liên hiệp thuộc địa – một hình thức liên minh của các dân tộc bị áp bức. Trên cương vị Trưởng ban Nghiên cứu về Đông Dương thuộc Đảng Cộng sản Pháp, Nguyễn Ái Quốc tích cực xây dựng mối quan hệ gắn bó giữa những người cộng sản với nhân dân lao động Pháp và nhân dân các nước thuộc địa. Trong những năm 1923 – 1930, hoạt động đối ngoại của Nguyễn Ái Quốc diễn ra chủ yếu ở Liên Xô và Trung Quốc. Tháng 6- 1923, Nguyễn Ái Quốc từ Pháp đến Liên Xô, tích cực tham gia các hội nghị, đại hội của Quốc tế Cộng sản. Tại những diễn đàn này, Nguyễn Ái Quốc trình bày quan điểm về vai trò của cách mạng thuộc địa, về lực lượng cách mạng ở thuộc địa, về quan hệ giữa cách mạng ở chính quốc với thuộc địa,... Từ cuối năm 1924, Nguyễn Ái Quốc đến Quảng Châu (Trung Quốc), liên lạc với lực lượng cách mạng ở Đông Nam Á và Trung Quốc, mở các lớp huấn luyện chính trị cho thanh niên yêu nước Việt Nam. Tháng 7 – 1925, Nguyễn Ái Quốc tham gia thành lập Hội Liên hiệp các dân tộc bị áp bức ở Á Đông.",
+    "significance": "Chính thức xác lập mối quan hệ giữa cách mạng Việt Nam với Quốc tế Cộng sản và cách mạng thế giới, nhấn mạnh sự cần thiết phải đoàn kết và tập hợp lực lượng quốc tế.",
+    "keyFacts": [
+      "Thành lập Hội Liên hiệp thuộc địa (1921)",
+      "Đến Liên Xô (1923), tham gia Quốc tế Cộng sản",
+      "Thành lập Hội Liên hiệp các dân tộc bị áp bức ở Á Đông (1925)",
+      "Đến Quảng Châu (1924), huấn luyện chính trị",
+      "Sáng lập Đảng Cộng sản Pháp (1920)",
+      "Đi qua nhiều quốc gia (1911-1922)"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 12,
+        "book": "KNTT",
+        "lessonId": "12962",
+        "lessonTitle": "BÀI 12: HOẠT ĐỘNG ĐỐI NGOẠI CỦA VIỆT NAM TRONG ĐẤU TRANH GIÀNH ĐỘC LẬP DÂN TỘC (TỪ ĐẦU THẾ KỈ XX ĐẾN CÁCH MẠNG THÁNG TÁM NĂM 1945)",
+        "chapter": "Chu de 4",
+        "lesson": "Bai 12",
+        "pageRange": {
+          "start": 73,
+          "end": 76
+        },
+        "url": "https://sgkvn.com/lop-12-15/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-4-cong-cuoc-doi-moi-o-viet-nam-tu-nam-1986-den-nay-3540/bai-12-hoat-dong-doi-ngoai-cua-viet-nam-trong-dau-tranh-gianh-doc-lap-dan-toc-tu-dau-the-ki-xx-den-cach-mang-thang-tam-nam-1945-12962.html",
+        "excerpt": "Trong những năm 1911 – 1930, Nguyễn Ái Quốc đã đi qua nhiều quốc gia khác nhau và có những hoạt động đối ngoại nổi bật tại Pháp, Liên Xô và Trung Quốc. Ông gặp gỡ các nhà hoạt động chính trị, tham gia sáng lập Đảng Cộng sản Pháp (1920), thành lập Hội Liên hiệp thuộc địa (1921), tham gia các hội nghị của Quốc tế Cộng sản (1923-1930), liên lạc với lực lượng cách mạng ở Đông Nam Á và Trung Quốc, mở lớp huấn luyện chính trị, và thành lập Hội Liên hiệp các dân tộc bị áp bức ở Á Đông (1925)."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "hoat-dong-doi-ngoai-nguyen-ai-quoc-1911-1930",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 103
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": false,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

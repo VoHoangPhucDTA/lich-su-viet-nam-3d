@@ -1,0 +1,161 @@
+{
+  "id": "xuat-khau-gom-su-dai-viet",
+  "slug": "xuat-khau-gom-su-dai-viet",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Xuất khẩu gốm sứ Đại Việt ra thị trường thế giới",
+    "short": "Xuất khẩu gốm sứ Đại Việt ra thị trường thế giới",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "economic",
+    "eventSubtype": "trade",
+    "region": "vietnam",
+    "tags": [
+      "thủ công nghiệp",
+      "gốm sứ",
+      "xuất khẩu"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      10
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 10,
+        "lessonId": "12160",
+        "lessonTitle": "Bài 12: Văn Minh Đại Việt"
+      }
+    ]
+  },
+  "chronology": {
+    "start": null,
+    "end": null,
+    "datePrecision": "period",
+    "displayDate": "Từ sớm (thời Trần, Lê, Mạc)",
+    "isApproximate": true
+  },
+  "mapData": {
+    "geoType": "mixed",
+    "historicalLocations": [
+      "Nhật Bản",
+      "châu Âu",
+      "Đông Nam Á",
+      "Nam Á"
+    ],
+    "provinceNames": [
+      "Hải Dương"
+    ],
+    "gadmRefs": [
+      "VNM.22_1"
+    ],
+    "marker": {
+      "name": "Đại Việt",
+      "lat": 16.0,
+      "lng": 107.0,
+      "confidence": "low"
+    },
+    "markers": [
+      {
+        "name": "Đại Việt",
+        "lat": 16.0,
+        "lng": 107.0,
+        "confidence": "low"
+      },
+      {
+        "name": "Chu Đậu",
+        "lat": 20.9833,
+        "lng": 106.3,
+        "confidence": "high"
+      }
+    ],
+    "focusGeometry": {
+      "mode": "bounds",
+      "center": {
+        "lat": 19.310338,
+        "lng": 106.558953
+      },
+      "zoom": 7
+    }
+  },
+  "summary": {
+    "homepageTitle": "Gốm sứ Đại Việt xuất khẩu ra thế giới",
+    "homepageSummary": "Các sản phẩm gốm sứ Đại Việt được xuất khẩu ra thị trường thế giới từ sớm, đặc biệt gốm Chu Đậu thời Trần – Lê – Mạc.",
+    "cardSummary": "Gốm sứ Đại Việt được xuất khẩu ra thị trường thế giới từ thời Trần, Lê, Mạc."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Các sản phẩm gốm sứ Đại Việt được xuất khẩu ra thị trường thế giới từ sớm. Tại Nhật Bản đã phát hiện gốm thời Trần. Tại các nước ở khu vực Đông Nam Á, Nam Á và châu Âu đã phát hiện nhiều gốm Chu Đậu thời Trần – Lê – Mạc. Theo tư liệu của Công ti Đông Ấn Hà Lan (VOC), thời kì 1663–1681, khu vực phía Bắc Đại Việt đã xuất khẩu sang thị trường Đông Nam Á gần hai triệu đồ gốm, chiếm khoảng 30% thị phần của cả khu vực.",
+    "detailedNarrative": null,
+    "significance": "Chứng tỏ trình độ thủ công nghiệp và khả năng giao thương quốc tế của Đại Việt.",
+    "keyFacts": [
+      "Gốm Chu Đậu thời Trần – Lê – Mạc được phát hiện ở Đông Nam Á, Nam Á, châu Âu",
+      "Gốm thời Trần được phát hiện ở Nhật Bản",
+      "Gốm sứ Đại Việt xuất khẩu từ sớm",
+      "Thời kì 1663–1681, xuất khẩu gần hai triệu đồ gốm sang Đông Nam Á"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 10,
+        "book": "KNTT",
+        "lessonId": "12160",
+        "lessonTitle": "Bài 12: Văn Minh Đại Việt",
+        "chapter": "Chu de 6",
+        "lesson": "Bai 12",
+        "pageRange": {
+          "start": 108,
+          "end": 122
+        },
+        "url": "https://sgkvn.com/lop-10-13/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-6-mot-so-nen-van-minh-tren-dat-nuoc-viet-nam-truoc-nam-1858-3276/bai-12-van-minh-dai-viet-12160.html",
+        "excerpt": "Các sản phẩm gốm sứ Đại Việt được xuất khẩu ra thị trường thế giới từ sớm. Tại Nhật Bản đã phát hiện gốm thời Trần. Tại các nước ở khu vực Đông Nam Á, Nam Á và châu Âu đã phát hiện nhiều gốm Chu Đậu thời Trần – Lê – Mạc. Theo tư liệu của Công ti Đông Ấn Hà Lan (VOC), thời kì 1663–1681, khu vực phía Bắc Đại Việt đã xuất khẩu sang thị trường Đông Nam Á gần hai triệu đồ gốm, chiếm khoảng 30% thị phần của cả khu vực."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "xuat-khau-gom-su-dai-viet",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 406
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": true,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

@@ -1,0 +1,152 @@
+{
+  "id": "thanh-lap-tieu-doi-du-kich-thoat-li-dau-tien-o-cao-bang",
+  "slug": "thanh-lap-tieu-doi-du-kich-thoat-li-dau-tien-o-cao-bang",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Thành lập Tiểu đội du kích thoát li đầu tiên ở Cao Bằng",
+    "short": "Thành lập Tiểu đội du kích Cao Bằng",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "military",
+    "eventSubtype": "unit-founding",
+    "region": "vietnam",
+    "tags": [
+      "Cao Bằng",
+      "du kích",
+      "lực lượng vũ trang"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 12,
+        "lessonId": "12967",
+        "lessonTitle": "BÀI 16: HỒ CHÍ MINH - ANH HÙNG GIẢI PHÓNG DÂN TỘC"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1941,
+      "month": 11,
+      "day": null
+    },
+    "end": null,
+    "datePrecision": "month",
+    "displayDate": "Tháng 11 – 1941",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "mixed",
+    "historicalLocations": [],
+    "provinceNames": [
+      "Cao Bằng"
+    ],
+    "gadmRefs": [
+      "VNM.14_1"
+    ],
+    "marker": {
+      "name": "Cao Bằng",
+      "lat": 22.6667,
+      "lng": 106.25,
+      "confidence": "high"
+    },
+    "markers": [
+      {
+        "name": "Cao Bằng",
+        "lat": 22.6667,
+        "lng": 106.25,
+        "confidence": "high"
+      }
+    ],
+    "focusGeometry": {
+      "mode": "bounds",
+      "center": {
+        "lat": 22.712788,
+        "lng": 106.179731
+      },
+      "zoom": 7
+    }
+  },
+  "summary": {
+    "homepageTitle": "Thành lập Tiểu đội du kích thoát li đầu tiên",
+    "homepageSummary": "Tháng 11-1941, Tiểu đội du kích thoát li đầu tiên được thành lập ở Cao Bằng, là một bước chuẩn bị lực lượng vũ trang cho Cách mạng tháng Tám.",
+    "cardSummary": "Tháng 11-1941, thành lập Tiểu đội du kích thoát li đầu tiên ở Cao Bằng."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Thành lập Tiểu đội du kích thoát li đầu tiên ở Cao Bằng (11 – 1941), biên soạn các tài liệu huấn luyện quân sự.",
+    "detailedNarrative": "Biên soạn các tài liệu huấn luyện quân sự.",
+    "significance": "Là một bước chuẩn bị lực lượng vũ trang cho Cách mạng tháng Tám năm 1945.",
+    "keyFacts": [
+      "Biên soạn tài liệu huấn luyện quân sự",
+      "Thành lập ở Cao Bằng"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 12,
+        "book": "KNTT",
+        "lessonId": "12967",
+        "lessonTitle": "BÀI 16: HỒ CHÍ MINH - ANH HÙNG GIẢI PHÓNG DÂN TỘC",
+        "chapter": "Chu de 5",
+        "lesson": "Bai 16",
+        "pageRange": {
+          "start": 94,
+          "end": 104
+        },
+        "url": "https://sgkvn.com/lop-12-15/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-5-lich-su-doi-ngoai-cua-viet-nam-thoi-can-hien-dai-3541/bai-16-ho-chi-minh-anh-hung-giai-phong-dan-toc-12967.html",
+        "excerpt": "Thành lập Tiểu đội du kích thoát li đầu tiên ở Cao Bằng (11 – 1941), biên soạn các tài liệu huấn luyện quân sự."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "thanh-lap-tieu-doi-du-kich-thoat-li-dau-tien-o-cao-bang",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 139
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": true,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

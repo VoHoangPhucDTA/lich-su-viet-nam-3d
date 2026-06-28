@@ -1,0 +1,187 @@
+{
+  "id": "gia-dinh-thanh-duoc-lap",
+  "slug": "gia-dinh-thanh-duoc-lap",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Gia Định Thành được lập",
+    "short": "Gia Định Thành được lập",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "administrative_division",
+    "region": "vietnam",
+    "tags": [
+      "đơn vị hành chính",
+      "triều Nguyễn",
+      "Gia Định Thành"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 11,
+        "lessonId": "12393",
+        "lessonTitle": "BÀI 14  CUỘC CẢI CÁCH CỦA MINH MẠNG  NỬA"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1808,
+      "month": null,
+      "day": null
+    },
+    "end": {
+      "year": 1832,
+      "month": null,
+      "day": null
+    },
+    "datePrecision": "year",
+    "displayDate": "1808 - 1832",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "mixed",
+    "historicalLocations": [
+      "Phiên An"
+    ],
+    "provinceNames": [
+      "Tiền Giang",
+      "Hồ Chí Minh",
+      "Đồng Nai"
+    ],
+    "gadmRefs": [
+      "VNM.58_1",
+      "VNM.25_1",
+      "VNM.17_1"
+    ],
+    "marker": {
+      "name": "Định Tường",
+      "lat": 10.35,
+      "lng": 106.35,
+      "confidence": "medium"
+    },
+    "markers": [
+      {
+        "name": "Định Tường",
+        "lat": 10.35,
+        "lng": 106.35,
+        "confidence": "medium"
+      },
+      {
+        "name": "Gia Định Thành",
+        "lat": 10.7758,
+        "lng": 106.6996,
+        "confidence": "high"
+      },
+      {
+        "name": "An Giang",
+        "lat": 10.3833,
+        "lng": 105.15,
+        "confidence": "high"
+      },
+      {
+        "name": "Vĩnh Thanh",
+        "lat": 10.0333,
+        "lng": 105.7833,
+        "confidence": "low"
+      },
+      {
+        "name": "Biên Hoà",
+        "lat": 10.95,
+        "lng": 106.8167,
+        "confidence": "high"
+      }
+    ],
+    "focusGeometry": {
+      "mode": "bounds",
+      "center": {
+        "lat": 10.596151,
+        "lng": 106.389063
+      },
+      "zoom": 7
+    }
+  },
+  "summary": {
+    "homepageTitle": "Gia Định Thành được lập (1808-1832)",
+    "homepageSummary": "Gia Định Thành là đơn vị hành chính cao hơn trấn, được lập từ năm 1808 đến 1832, cai quản 5 trấn ở phía Nam.",
+    "cardSummary": "Gia Định Thành được lập từ 1808 đến 1832, cai quản 5 trấn."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Gia Định Thành được lập từ năm 1808 đến năm 1832, cai quản 5 trấn là Phiên An, Biên Hoà, Vĩnh Thanh, Định Tường và An Giang.",
+    "detailedNarrative": "Gia Định Thành được lập từ năm 1808 đến năm 1832, cai quản 5 trấn là Phiên An, Biên Hoà, Vĩnh Thanh, Định Tường và An Giang.",
+    "significance": "Là một trong hai khu vực hành chính phân quyền dưới thời Gia Long, sau bị bãi bỏ trong cải cách Minh Mạng.",
+    "keyFacts": [
+      "Đơn vị hành chính cao hơn trấn",
+      "Tồn tại từ 1808 đến 1832",
+      "Cai quản 5 trấn"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 11,
+        "book": "KNTT",
+        "lessonId": "12393",
+        "lessonTitle": "BÀI 14  CUỘC CẢI CÁCH CỦA MINH MẠNG  NỬA",
+        "chapter": "Chu de 6",
+        "lesson": "Bai 14",
+        "pageRange": {
+          "start": null,
+          "end": null
+        },
+        "url": "https://sgkvn.com/lop-11-14/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-6-mot-so-cuoc-cai-cach-lon-trong-lich-su-viet-nam-truoc-nam-1858-3353/bai-14-cuoc-cai-cach-cua-minh-mang-nua-dau-the-ki-xix-12393.html",
+        "excerpt": "Gia Định Thành được lập từ năm 1808 đến năm 1832, cai quản 5 trấn là Phiên An, Biên Hoà, Vĩnh Thanh, Định Tường và An Giang."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "gia-dinh-thanh-duoc-lap",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 62
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": true,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

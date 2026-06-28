@@ -1,0 +1,133 @@
+{
+  "id": "hiep-uoc-hoa-phap-1946",
+  "slug": "hiep-uoc-hoa-phap-1946",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Kí Hiệp ước Hoa - Pháp",
+    "short": "Hiệp ước Hoa - Pháp",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "diplomatic",
+    "eventSubtype": "treaty",
+    "region": "world",
+    "tags": [
+      "Trung Hoa Dân quốc",
+      "Pháp",
+      "Hiệp ước"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 12,
+        "lessonId": "12955",
+        "lessonTitle": "BÀI 7: CUỘC KHÁNG CHIẾN CHỐNG THỰC DÂN PHÁP (1945-1954)"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1946,
+      "month": 2,
+      "day": 28
+    },
+    "end": null,
+    "datePrecision": "day",
+    "displayDate": "28-2-1946",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "no_location",
+    "historicalLocations": [],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "auto",
+      "center": null,
+      "zoom": null
+    }
+  },
+  "summary": {
+    "homepageTitle": "Kí Hiệp ước Hoa - Pháp",
+    "homepageSummary": "Hiệp ước được kí kết giữa Pháp và Trung Hoa Dân quốc, tạo điều kiện cho Pháp đưa quân ra Bắc Việt Nam.",
+    "cardSummary": "Ngày 28-2-1946, Pháp và Trung Hoa Dân quốc kí Hiệp ước Hoa - Pháp."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Ngày 28-2-1946, thực dân Pháp và Chính phủ Trung Hoa Dân quốc kí Hiệp ước Hoa - Pháp.",
+    "detailedNarrative": "Ngày 28-2-1946, thực dân Pháp và Chính phủ Trung Hoa Dân quốc kí Hiệp ước Hoa - Pháp. Hiệp ước này có tác động lớn đến tình hình Việt Nam, đặc biệt là việc Pháp có thể đưa quân ra miền Bắc thay thế quân Trung Hoa Dân quốc.",
+    "significance": null,
+    "keyFacts": [
+      "Giữa Pháp và Trung Hoa Dân quốc",
+      "Kí ngày 28-2-1946"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 12,
+        "book": "KNTT",
+        "lessonId": "12955",
+        "lessonTitle": "BÀI 7: CUỘC KHÁNG CHIẾN CHỐNG THỰC DÂN PHÁP (1945-1954)",
+        "chapter": "Chu de 3",
+        "lesson": "Bai 7",
+        "pageRange": {
+          "start": 37,
+          "end": 44
+        },
+        "url": "https://sgkvn.com/lop-12-15/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-3-cach-mang-thang-tam-nam-1945-chien-tranh-giai-phong-dan-toc-va-chien-tranh-bao-ve-to-quoc-trong-lich-su-viet-nam-tu-thang-8-nam-1945-den-nay-3539/bai-7-cuoc-khang-chien-chong-thuc-dan-phap-1945-1954-12955.html",
+        "excerpt": "Ngày 28-2-1946, thực dân Pháp và Chính phủ Trung Hoa Dân quốc kí Hiệp ước Hoa - Pháp."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "hiep-uoc-hoa-phap-1946",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 177
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": false,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

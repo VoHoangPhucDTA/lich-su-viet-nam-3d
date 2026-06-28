@@ -1,0 +1,26 @@
+--- KIỂM ĐỊNH DEDUP ---
+Tổng số dòng gốc (raw): 728
+Tổng số suggestedId gốc (unique): 714
+Tổng số events sau dedup: 680
+Tổng số ID đã gộp: 728
+[OK] Bảo toàn 100%: 728/728 dòng gốc đã có mặt trong _merged_from.
+[CẢNH BÁO TYPE] Nhóm gộp ['thanh-lap-dang-cong-san-viet-nam-1930', 'nguyen-ai-quoc-thanh-lap-dang-cong-san-viet-nam', 'hoi-nghi-thanh-lap-dang-cong-san-viet-nam'] chứa các eventSubtype khác nhau: {'conference', 'foundation', 'party-founding'}
+[CẢNH BÁO TYPE] Nhóm gộp ['dai-hoi-xo-viet-toan-nga-lan-thu-hai-1917', 'thanh-lap-chinh-quyen-xo-viet-1917'] chứa các eventSubtype khác nhau: {'formation', 'congress'}
+[CẢNH BÁO TYPE] Nhóm gộp ['tuyen-bo-bali-ii', 'thoa-uoc-ba-li-ii'] chứa các eventSubtype khác nhau: {'agreement', 'declaration'}
+[CẢNH BÁO TYPE] Nhóm gộp ['nguyen-ai-quoc-thanh-lap-dang-cong-san-phap', 'nguyen-ai-quoc-gia-nhap-quoc-te-cong-san-va-sang-lap-dang-cong-san-phap'] chứa các eventSubtype khác nhau: {'affiliation', 'party-founding'}
+Tổng số nhóm được gộp (>= 2 events): 36
+Tổng số cảnh báo eventSubtype còn sót: 4
+Tổng số event dual-region: 1
+[OK] Không còn nhóm nào bị gộp lầm khác eventType (severe conflict = 0).
+Tỉ lệ giảm (gộp): 6.59%
+Đã ghi toàn bộ 36 nhóm gộp ra D:\KLTN\lich-su-viet-nam-3d\crawData\stage3_dedup\dedup_review.md để review thủ công.
+
+--- KIỂM ĐỊNH GEOCODE ---
+Tổng số địa danh đã phân giải: 474
+Phân bố độ tin cậy:
+  - high: 327 (68.99%)
+  - medium: 36 (7.59%)
+  - low: 74 (15.61%)
+  - none: 37 (7.81%)
+Đã xuất 20 mẫu ngẫu nhiên ra D:\KLTN\lich-su-viet-nam-3d\crawData\stage3_dedup\geocode_sample.md để đối chiếu.
+[OK] Không còn địa danh biển đảo nào có country=null.

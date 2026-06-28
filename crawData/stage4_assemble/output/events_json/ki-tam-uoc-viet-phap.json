@@ -1,0 +1,134 @@
+{
+  "id": "ki-tam-uoc-viet-phap",
+  "slug": "ki-tam-uoc-viet-phap",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Kí Tạm ước Việt - Pháp",
+    "short": "Tạm ước Việt - Pháp",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "diplomatic",
+    "eventSubtype": "treaty",
+    "region": "vietnam",
+    "tags": [
+      "hoà bình",
+      "Pháp",
+      "Tạm ước"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 12,
+        "lessonId": "12964",
+        "lessonTitle": "BÀI 13: HOẠT ĐỘNG ĐỐI NGOẠI CỦA VIỆT NAM TRONG KHÁNG CHIẾN CHỐNG PHÁP (1945 – 1954) VÀ KHÁNG CHIẾN CHỐNG MỸ (1954 - 1975)"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1946,
+      "month": 9,
+      "day": 14
+    },
+    "end": null,
+    "datePrecision": "day",
+    "displayDate": "14-9-1946",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "no_location",
+    "historicalLocations": [],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "auto",
+      "center": null,
+      "zoom": null
+    }
+  },
+  "summary": {
+    "homepageTitle": "Kí Tạm ước Việt - Pháp",
+    "homepageSummary": "Chủ tịch Hồ Chí Minh kí Tạm ước Việt - Pháp để kéo dài thời gian hoà bình, chuẩn bị kháng chiến.",
+    "cardSummary": "Chủ tịch Hồ Chí Minh kí Tạm ước Việt - Pháp (14-9-1946) nhằm kéo dài hoà bình và chuẩn bị kháng chiến."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Chủ tịch Hồ Chí Minh tiếp tục kí với đại diện Chính phủ Pháp bản Tạm ước Việt - Pháp (14 – 9 – 1946) để kéo dài thời gian hoà bình, chuẩn bị kháng chiến.",
+    "detailedNarrative": "Chủ tịch Hồ Chí Minh tiếp tục kí với đại diện Chính phủ Pháp bản Tạm ước Việt - Pháp (14 – 9 – 1946) để kéo dài thời gian hoà bình, chuẩn bị kháng chiến.",
+    "significance": null,
+    "keyFacts": [
+      "Chủ tịch Hồ Chí Minh kí",
+      "Mục đích: kéo dài thời gian hoà bình, chuẩn bị kháng chiến",
+      "Kí với đại diện Chính phủ Pháp"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 12,
+        "book": "KNTT",
+        "lessonId": "12964",
+        "lessonTitle": "BÀI 13: HOẠT ĐỘNG ĐỐI NGOẠI CỦA VIỆT NAM TRONG KHÁNG CHIẾN CHỐNG PHÁP (1945 – 1954) VÀ KHÁNG CHIẾN CHỐNG MỸ (1954 - 1975)",
+        "chapter": "Chu de 4",
+        "lesson": "Bai 13",
+        "pageRange": {
+          "start": 77,
+          "end": 81
+        },
+        "url": "https://sgkvn.com/lop-12-15/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-4-cong-cuoc-doi-moi-o-viet-nam-tu-nam-1986-den-nay-3540/bai-13-hoat-dong-doi-ngoai-cua-viet-nam-trong-khang-chien-chong-phap-1945-1954-va-khang-chien-chong-my-1954-1975-12964.html",
+        "excerpt": "Chủ tịch Hồ Chí Minh tiếp tục kí với đại diện Chính phủ Pháp bản Tạm ước Việt - Pháp (14 – 9 – 1946) để kéo dài thời gian hoà bình, chuẩn bị kháng chiến."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "ki-tam-uoc-viet-phap",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 180
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": false,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

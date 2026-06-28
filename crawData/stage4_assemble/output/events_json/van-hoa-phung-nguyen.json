@@ -1,0 +1,143 @@
+{
+  "id": "van-hoa-phung-nguyen",
+  "slug": "van-hoa-phung-nguyen",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Văn hoá Phùng Nguyên",
+    "short": "Văn hoá Phùng Nguyên",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "cultural",
+    "eventSubtype": "archaeological_culture",
+    "region": "vietnam",
+    "tags": [
+      "Đồng thau",
+      "Văn Lang – Âu Lạc",
+      "Văn hoá cổ"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      10
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 10,
+        "lessonId": "12148",
+        "lessonTitle": "Bài 11: Một Số Nền Văn Minh Cổ Trên Đất Nước Việt Nam"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "end": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "datePrecision": "approximate",
+    "displayDate": "Khoảng 4000 năm trước",
+    "isApproximate": true
+  },
+  "mapData": {
+    "geoType": "nationwide",
+    "historicalLocations": [
+      "Việt Nam"
+    ],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "bounds",
+      "center": {
+        "lat": 16.0,
+        "lng": 106.0
+      },
+      "zoom": 5
+    }
+  },
+  "summary": {
+    "homepageTitle": "Văn hoá Phùng Nguyên",
+    "homepageSummary": "Văn hoá Phùng Nguyên (khoảng 4000 năm trước) là cội nguồn của văn minh Văn Lang – Âu Lạc.",
+    "cardSummary": "Văn hoá Phùng Nguyên là cội nguồn của văn minh Văn Lang – Âu Lạc, khoảng 4000 năm trước."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Văn hoá Phùng Nguyên (khoảng 4000 năm trước) là cội nguồn của văn minh Văn Lang – Âu Lạc.",
+    "detailedNarrative": "Văn hoá Phùng Nguyên là một nền văn hoá đồng thau tiền Đông Sơn, có dấu tích được khảo cổ học liên tiếp phát hiện ở Việt Nam.",
+    "significance": "Là cội nguồn cho sự phát triển của văn minh Văn Lang – Âu Lạc.",
+    "keyFacts": [
+      "Nền văn hoá đồng thau tiền Đông Sơn",
+      "Cội nguồn của văn minh Văn Lang – Âu Lạc",
+      "Khoảng 4000 năm trước"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 10,
+        "book": "KNTT",
+        "lessonId": "12148",
+        "lessonTitle": "Bài 11: Một Số Nền Văn Minh Cổ Trên Đất Nước Việt Nam",
+        "chapter": "Chu de 6",
+        "lesson": "Bai 11",
+        "pageRange": {
+          "start": 93,
+          "end": 107
+        },
+        "url": "https://sgkvn.com/lop-10-13/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-6-mot-so-nen-van-minh-tren-dat-nuoc-viet-nam-truoc-nam-1858-3276/bai-11-mot-so-nen-van-minh-co-tren-dat-nuoc-viet-nam-12148.html",
+        "excerpt": "Văn hoá Phùng Nguyên (khoảng 4000 năm trước) là cội nguồn của văn minh Văn Lang – Âu Lạc."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "van-hoa-phung-nguyen",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 377
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": true,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

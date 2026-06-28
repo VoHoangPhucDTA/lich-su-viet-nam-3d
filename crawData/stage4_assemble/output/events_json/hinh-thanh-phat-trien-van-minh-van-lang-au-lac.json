@@ -1,0 +1,192 @@
+{
+  "id": "hinh-thanh-phat-trien-van-minh-van-lang-au-lac",
+  "slug": "hinh-thanh-phat-trien-van-minh-van-lang-au-lac",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Hình thành và phát triển văn minh Văn Lang – Âu Lạc",
+    "short": "Hình thành và phát triển văn minh Văn Lang – Âu Lạc",
+    "alternatives": [
+      "Văn minh Việt cổ",
+      "Văn minh sông Hồng",
+      "Văn minh Đông Sơn"
+    ]
+  },
+  "classification": {
+    "eventType": "cultural",
+    "eventSubtype": "civilization_development",
+    "region": "vietnam",
+    "tags": [
+      "Văn Lang",
+      "Sông Hồng",
+      "Âu Lạc",
+      "Văn minh cổ"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      10
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 10,
+        "lessonId": "12148",
+        "lessonTitle": "Bài 11: Một Số Nền Văn Minh Cổ Trên Đất Nước Việt Nam"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "end": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "datePrecision": "period",
+    "displayDate": "Đầu thiên niên kỉ I TCN đến vài thế kỉ đầu Công nguyên",
+    "isApproximate": true
+  },
+  "mapData": {
+    "geoType": "mixed",
+    "historicalLocations": [
+      "sông Mã",
+      "sông Hồng",
+      "sông Cả"
+    ],
+    "provinceNames": [
+      "Hà Nội",
+      "Hải Phòng",
+      "Quảng Ninh",
+      "Bắc Giang",
+      "Bắc Ninh",
+      "Hải Dương",
+      "Hưng Yên",
+      "Thái Bình",
+      "Nam Định",
+      "Ninh Bình",
+      "Hà Nam",
+      "Vĩnh Phúc",
+      "Phú Thọ",
+      "Thái Nguyên"
+    ],
+    "gadmRefs": [
+      "VNM.27_1",
+      "VNM.23_1",
+      "VNM.49_1",
+      "VNM.3_1",
+      "VNM.5_1",
+      "VNM.22_1",
+      "VNM.31_1",
+      "VNM.55_1",
+      "VNM.40_1",
+      "VNM.42_1",
+      "VNM.28_1",
+      "VNM.62_1",
+      "VNM.44_1",
+      "VNM.56_1"
+    ],
+    "marker": {
+      "name": "Bắc Trung Bộ Việt Nam",
+      "lat": 18.0,
+      "lng": 105.7,
+      "confidence": "low"
+    },
+    "markers": [
+      {
+        "name": "Bắc Trung Bộ Việt Nam",
+        "lat": 18.0,
+        "lng": 105.7,
+        "confidence": "low"
+      }
+    ],
+    "focusGeometry": {
+      "mode": "bounds",
+      "center": {
+        "lat": 20.744006,
+        "lng": 106.119003
+      },
+      "zoom": 7
+    }
+  },
+  "summary": {
+    "homepageTitle": "Văn minh Văn Lang – Âu Lạc",
+    "homepageSummary": "Văn minh Văn Lang – Âu Lạc hình thành và phát triển từ đầu thiên niên kỉ I TCN đến vài thế kỉ đầu Công nguyên ở Bắc Bộ và Bắc Trung Bộ Việt Nam.",
+    "cardSummary": "Văn minh Văn Lang – Âu Lạc (văn minh sông Hồng) hình thành từ đầu thiên niên kỉ I TCN."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Văn minh Văn Lang – Âu Lạc (còn gọi là văn minh sông Hồng, văn minh Việt cổ, văn minh Đông Sơn) có nguồn gốc bản địa, chủ nhân là các cộng đồng người Việt cổ, được hình thành và phát triển từ đấu thiên niên kỉ I TCN đến vài thế kỉ đấu Công nguyên ở khu vực Bắc Bộ và Bắc Trung Bộ Việt Nam ngày nay.",
+    "detailedNarrative": "Văn minh Văn Lang – Âu Lạc được hình thành trên lưu vực các dòng sông như sông Hồng, sông Mã, sông Cả,... với đất đai màu mỡ, hệ thống sông ngòi dày đặc, khí hậu nhiệt đới ẩm gió mùa, thuận lợi cho phát triển nông nghiệp trồng lúa nước và nghề luyện kim. Cội nguồn từ văn hoá Phùng Nguyên, phát triển rực rỡ trong thời kì văn hoá Đông Sơn, dẫn tới sự tan rã của xã hội nguyên thuỷ, phân hoá xã hội và sự ra đời của nhà nước.",
+    "significance": "Xác lập lối sống Việt Nam, truyền thống Việt Nam, đặt cơ sở vững chắc cho toàn bộ sự tồn tại và phát triển của quốc gia – dân tộc sau đó.",
+    "keyFacts": [
+      "Cội nguồn từ văn hoá Phùng Nguyên, phát triển rực rỡ trong văn hoá Đông Sơn",
+      "Nguồn gốc bản địa, chủ nhân là người Việt cổ",
+      "Hình thành trên lưu vực sông Hồng, sông Mã, sông Cả"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 10,
+        "book": "KNTT",
+        "lessonId": "12148",
+        "lessonTitle": "Bài 11: Một Số Nền Văn Minh Cổ Trên Đất Nước Việt Nam",
+        "chapter": "Chu de 6",
+        "lesson": "Bai 11",
+        "pageRange": {
+          "start": 93,
+          "end": 107
+        },
+        "url": "https://sgkvn.com/lop-10-13/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-6-mot-so-nen-van-minh-tren-dat-nuoc-viet-nam-truoc-nam-1858-3276/bai-11-mot-so-nen-van-minh-co-tren-dat-nuoc-viet-nam-12148.html",
+        "excerpt": "Văn minh Văn Lang – Âu Lạc (còn gọi là văn minh sông Hồng, văn minh Việt cổ, văn minh Đông Sơn) có nguồn gốc bản địa, chủ nhân là các cộng đồng người Việt cổ, được hình thành và phát triển từ đấu thiên niên kỉ I TCN đến vài thế kỉ đấu Công nguyên ở khu vực Bắc Bộ và Bắc Trung Bộ Việt Nam ngày nay."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "hinh-thanh-phat-trien-van-minh-van-lang-au-lac",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 328
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": true,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

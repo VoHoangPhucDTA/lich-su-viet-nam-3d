@@ -1,0 +1,136 @@
+{
+  "id": "bru-nay-tuyen-bo-ranh-gioi-them-luc-dia",
+  "slug": "bru-nay-tuyen-bo-ranh-gioi-them-luc-dia",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Bru-nây tuyên bố về ranh giới thềm lục địa 200 hải lí",
+    "short": "Bru-nây tuyên bố thềm lục địa (1983)",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "declaration",
+    "region": "world",
+    "tags": [
+      "thềm lục địa",
+      "chủ quyền",
+      "Bru-nây"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 11,
+        "lessonId": "12395",
+        "lessonTitle": "BÀI 16  VIỆT NAM VÀ BIỂN ĐÔNG"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1983,
+      "month": null,
+      "day": null
+    },
+    "end": null,
+    "datePrecision": "year",
+    "displayDate": "Năm 1983",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "no_location",
+    "historicalLocations": [
+      "quần đảo Trường Sa"
+    ],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "auto",
+      "center": null,
+      "zoom": null
+    }
+  },
+  "summary": {
+    "homepageTitle": "Bru-nây tuyên bố thềm lục địa (1983)",
+    "homepageSummary": "Năm 1983, Bru-nây đưa yêu sách chủ quyền lãnh thổ đối với quần đảo Trường Sa trong tuyên bố về ranh giới thềm lục địa 200 hải lí.",
+    "cardSummary": "Năm 1983, Bru-nây tuyên bố về ranh giới thềm lục địa 200 hải lí, đưa yêu sách chủ quyền Trường Sa."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Bru-nây - Chưa chiếm giữ đảo nào nhưng đưa yêu sách chủ quyền lãnh thổ đối với quần đảo Trường Sa trong tuyên bố về ranh giới thềm lục địa 200 hải lí năm 1983 và về vùng đặc quyền kinh tế năm 1984.",
+    "detailedNarrative": "Bru-nây - Chưa chiếm giữ đảo nào nhưng đưa yêu sách chủ quyền lãnh thổ đối với quần đảo Trường Sa trong tuyên bố về ranh giới thềm lục địa 200 hải lí năm 1983 và về vùng đặc quyền kinh tế năm 1984.",
+    "significance": "Một hành động trong bối cảnh tranh chấp chủ quyền ở Biển Đông.",
+    "keyFacts": [
+      "Diễn ra năm 1983",
+      "Nội dung: tuyên bố về ranh giới thềm lục địa 200 hải lí, đưa yêu sách chủ quyền Trường Sa",
+      "Chủ thể: Bru-nây"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 11,
+        "book": "KNTT",
+        "lessonId": "12395",
+        "lessonTitle": "BÀI 16  VIỆT NAM VÀ BIỂN ĐÔNG",
+        "chapter": "Chu de 7",
+        "lesson": "Bai 16",
+        "pageRange": {
+          "start": 107,
+          "end": 111
+        },
+        "url": "https://sgkvn.com/lop-11-14/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-7-lich-su-chu-quyen-cua-viet-nam-o-bien-dong-3354/bai-16-viet-nam-va-bien-dong-12395.html",
+        "excerpt": "Bru-nây - Chưa chiếm giữ đảo nào nhưng đưa yêu sách chủ quyền lãnh thổ đối với quần đảo Trường Sa trong tuyên bố về ranh giới thềm lục địa 200 hải lí năm 1983 và về vùng đặc quyền kinh tế năm 1984."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "bru-nay-tuyen-bo-ranh-gioi-them-luc-dia",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 259
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": false,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

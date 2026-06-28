@@ -1,0 +1,137 @@
+{
+  "id": "viet-nam-thoan-thuan-bien-gioi-lao-cam-pu-chia",
+  "slug": "viet-nam-thoan-thuan-bien-gioi-lao-cam-pu-chia",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Việt Nam đạt được nhiều thoả thuận trong phát triển đường biên giới hoà bình, hữu nghị với Lào và Cam-pu-chia",
+    "short": "VN thoả thuận biên giới Lào-Campuchia",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "diplomatic",
+    "eventSubtype": "agreement",
+    "region": "vietnam",
+    "tags": [
+      "Cam-pu-chia",
+      "Lào",
+      "hữu nghị",
+      "biên giới"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 12,
+        "lessonId": "12965",
+        "lessonTitle": "BÀI 14: HOẠT ĐỘNG ĐỐI NGOẠI CỦA VIỆT NAM TỪ NĂM 1975 ĐẾN NAY"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "end": null,
+    "datePrecision": "period",
+    "displayDate": "Trong thời kì Đổi mới",
+    "isApproximate": true
+  },
+  "mapData": {
+    "geoType": "no_location",
+    "historicalLocations": [
+      "Cam-pu-chia",
+      "Lào"
+    ],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "auto",
+      "center": null,
+      "zoom": null
+    }
+  },
+  "summary": {
+    "homepageTitle": "VN thoả thuận biên giới Lào-Campuchia",
+    "homepageSummary": "Việt Nam đạt được nhiều thoả thuận trong phát triển đường biên giới hoà bình, hữu nghị với Lào và Cam-pu-chia.",
+    "cardSummary": "Việt Nam đạt nhiều thoả thuận biên giới hoà bình, hữu nghị với Lào và Cam-pu-chia."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Với Lào và Cam-pu-chia, Việt Nam đã đạt được nhiều thoả thuận trong phát triển đường biên giới hoà bình, hữu nghị.",
+    "detailedNarrative": "Để đảm bảo hoà bình, ổn định, bảo vệ lãnh thổ, lãnh hải, biển đảo của Tổ quốc, Việt Nam tham gia đàm phán và kí kết các thoả thuận, các hiệp định về phân định biên giới trên bộ, trên biển.",
+    "significance": "Bảo vệ vững chắc chủ quyền lãnh thổ, lãnh hải, biển đảo của Tổ quốc.",
+    "keyFacts": [
+      "Với Lào và Cam-pu-chia",
+      "Phát triển đường biên giới hoà bình, hữu nghị"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 12,
+        "book": "KNTT",
+        "lessonId": "12965",
+        "lessonTitle": "BÀI 14: HOẠT ĐỘNG ĐỐI NGOẠI CỦA VIỆT NAM TỪ NĂM 1975 ĐẾN NAY",
+        "chapter": "Chu de 4",
+        "lesson": "Bai 14",
+        "pageRange": {
+          "start": 81,
+          "end": 86
+        },
+        "url": "https://sgkvn.com/lop-12-15/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-4-cong-cuoc-doi-moi-o-viet-nam-tu-nam-1986-den-nay-3540/bai-14-hoat-dong-doi-ngoai-cua-viet-nam-tu-nam-1975-den-nay-12965.html",
+        "excerpt": "Với Lào và Cam-pu-chia, Việt Nam đã đạt được nhiều thoả thuận trong phát triển đường biên giới hoà bình, hữu nghị."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "viet-nam-thoan-thuan-bien-gioi-lao-cam-pu-chia",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 390
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": false,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

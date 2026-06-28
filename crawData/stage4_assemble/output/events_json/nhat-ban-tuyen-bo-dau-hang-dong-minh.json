@@ -1,0 +1,138 @@
+{
+  "id": "nhat-ban-tuyen-bo-dau-hang-dong-minh",
+  "slug": "nhat-ban-tuyen-bo-dau-hang-dong-minh",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Nhật Bản tuyên bố đầu hàng Đồng minh không điều kiện",
+    "short": "Nhật đầu hàng Đồng minh",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "surrender",
+    "region": "world",
+    "tags": [
+      "Nhật Bản",
+      "Chiến tranh thế giới thứ hai",
+      "Đồng minh"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 12,
+        "lessonId": "12952",
+        "lessonTitle": "BÀI 6: CÁCH MẠNG THÁNG TÁM NĂM 1945"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1945,
+      "month": 8,
+      "day": 15
+    },
+    "end": null,
+    "datePrecision": "day",
+    "displayDate": "Ngày 15 – 8 – 1945",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "no_location",
+    "historicalLocations": [
+      "Nhật Bản",
+      "Đông Dương"
+    ],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "auto",
+      "center": null,
+      "zoom": null
+    }
+  },
+  "summary": {
+    "homepageTitle": "Nhật Bản đầu hàng Đồng minh",
+    "homepageSummary": "Ngày 15-8-1945, Nhật Bản tuyên bố đầu hàng Đồng minh không điều kiện, tạo thời cơ cho Cách mạng tháng Tám.",
+    "cardSummary": "Nhật Bản đầu hàng Đồng minh (15-8-1945), mở ra thời cơ cho Tổng khởi nghĩa ở Việt Nam."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Đến ngày 15 – 8 – 1945, Nhật Bản tuyên bố đầu hàng Đồng minh không điều kiện.",
+    "detailedNarrative": "Ngay sau khi Nhật Bản tuyên bố đầu hàng Đồng minh, quân Nhật ở Đông Dương rệu rã, Chính phủ thân Nhật Trần Trọng Kim hoang mang. Điều kiện khách quan thuận lợi cho cuộc Tổng khởi nghĩa đã đến.",
+    "significance": "Tạo điều kiện khách quan thuận lợi cho cuộc Tổng khởi nghĩa ở Việt Nam.",
+    "keyFacts": [
+      "Đầu hàng Đồng minh không điều kiện",
+      "Chính phủ Trần Trọng Kim hoang mang",
+      "Quân Nhật ở Đông Dương rệu rã",
+      "Ngày 15-8-1945"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 12,
+        "book": "KNTT",
+        "lessonId": "12952",
+        "lessonTitle": "BÀI 6: CÁCH MẠNG THÁNG TÁM NĂM 1945",
+        "chapter": "Chu de 3",
+        "lesson": "Bai 6",
+        "pageRange": {
+          "start": 31,
+          "end": 36
+        },
+        "url": "https://sgkvn.com/lop-12-15/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-3-cach-mang-thang-tam-nam-1945-chien-tranh-giai-phong-dan-toc-va-chien-tranh-bao-ve-to-quoc-trong-lich-su-viet-nam-tu-thang-8-nam-1945-den-nay-3539/bai-6-cach-mang-thang-tam-nam-1945-12952.html",
+        "excerpt": "Đến ngày 15 – 8 – 1945, Nhật Bản tuyên bố đầu hàng Đồng minh không điều kiện."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "nhat-ban-tuyen-bo-dau-hang-dong-minh",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 153
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": false,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

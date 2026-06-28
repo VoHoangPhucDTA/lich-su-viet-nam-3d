@@ -1,0 +1,162 @@
+{
+  "id": "xoa-bo-gia-dinh-thanh-chia-thanh-12-tinh",
+  "slug": "xoa-bo-gia-dinh-thanh-chia-thanh-12-tinh",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Xoá bỏ Gia Định Thành, chia thành 12 tỉnh",
+    "short": "Xoá bỏ Gia Định Thành, chia thành 12 tỉnh",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "administrative_reform",
+    "region": "vietnam",
+    "tags": [
+      "chia tỉnh",
+      "Minh Mạng",
+      "hành chính địa phương",
+      "Gia Định Thành"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 11,
+        "lessonId": "12393",
+        "lessonTitle": "BÀI 14  CUỘC CẢI CÁCH CỦA MINH MẠNG  NỬA"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1832,
+      "month": null,
+      "day": null
+    },
+    "end": null,
+    "datePrecision": "year",
+    "displayDate": "Năm 1832",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "mixed",
+    "historicalLocations": [],
+    "provinceNames": [
+      "Hồ Chí Minh",
+      "Hà Nội"
+    ],
+    "gadmRefs": [
+      "VNM.25_1",
+      "VNM.27_1"
+    ],
+    "marker": {
+      "name": "Gia Định Thành",
+      "lat": 10.7758,
+      "lng": 106.6996,
+      "confidence": "high"
+    },
+    "markers": [
+      {
+        "name": "Gia Định Thành",
+        "lat": 10.7758,
+        "lng": 106.6996,
+        "confidence": "high"
+      },
+      {
+        "name": "Phụng Thiên",
+        "lat": 21.0285,
+        "lng": 105.8542,
+        "confidence": "high"
+      }
+    ],
+    "focusGeometry": {
+      "mode": "bounds",
+      "center": {
+        "lat": 15.895135,
+        "lng": 106.247504
+      },
+      "zoom": 7
+    }
+  },
+  "summary": {
+    "homepageTitle": "Xoá bỏ Gia Định Thành (1832)",
+    "homepageSummary": "Năm 1832, vua Minh Mạng xoá bỏ Gia Định Thành, chia vùng lãnh thổ từ phủ Phụng Thiên vào Nam thành 12 tỉnh, tăng cường quản lý trung ương.",
+    "cardSummary": "Năm 1832, Gia Định Thành bị xoá bỏ, chia thành 12 tỉnh."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Năm 1832, vua Minh Mạng xoá bỏ Gia Định Thành, chia vùng lãnh thổ từ phủ Phụng Thiên vào Nam thành 12 tỉnh.",
+    "detailedNarrative": "Năm 1832, xoá bỏ Gia Định Thành, chia vùng lãnh thổ từ phủ Phụng Thiên vào Nam thành 12 tỉnh.",
+    "significance": "Là một bước quan trọng trong việc thống nhất hành chính và củng cố quyền lực trung ương.",
+    "keyFacts": [
+      "Diễn ra năm 1832",
+      "Xoá bỏ đơn vị hành chính Gia Định Thành",
+      "Chia thành 12 tỉnh"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 11,
+        "book": "KNTT",
+        "lessonId": "12393",
+        "lessonTitle": "BÀI 14  CUỘC CẢI CÁCH CỦA MINH MẠNG  NỬA",
+        "chapter": "Chu de 6",
+        "lesson": "Bai 14",
+        "pageRange": {
+          "start": null,
+          "end": null
+        },
+        "url": "https://sgkvn.com/lop-11-14/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-6-mot-so-cuoc-cai-cach-lon-trong-lich-su-viet-nam-truoc-nam-1858-3353/bai-14-cuoc-cai-cach-cua-minh-mang-nua-dau-the-ki-xix-12393.html",
+        "excerpt": "Năm 1832, vua Minh Mạng xoá bỏ Gia Định Thành, chia vùng lãnh thổ từ phủ Phụng Thiên vào Nam thành 12 tỉnh."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "xoa-bo-gia-dinh-thanh-chia-thanh-12-tinh",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 71
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": true,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

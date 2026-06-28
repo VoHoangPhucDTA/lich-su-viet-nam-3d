@@ -1,0 +1,135 @@
+{
+  "id": "ban-hanh-nghi-quyet-36-nq-tw-ve-chien-luoc-phat-trien-kinh-te-bien",
+  "slug": "ban-hanh-nghi-quyet-36-nq-tw-ve-chien-luoc-phat-trien-kinh-te-bien",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Ban hành Nghị quyết 36-NQ/TW về Chiến lược phát triển bền vững kinh tế biển Việt Nam đến năm 2030, tầm nhìn đến năm 2045",
+    "short": "Nghị quyết 36-NQ/TW về kinh tế biển",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "policy",
+    "region": "vietnam",
+    "tags": [
+      "kinh tế biển",
+      "chủ quyền",
+      "phát triển bền vững"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 11,
+        "lessonId": "12395",
+        "lessonTitle": "BÀI 16  VIỆT NAM VÀ BIỂN ĐÔNG"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 2018,
+      "month": 10,
+      "day": 22
+    },
+    "end": null,
+    "datePrecision": "day",
+    "displayDate": "Ngày 22 tháng 10 năm 2018",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "no_location",
+    "historicalLocations": [],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "auto",
+      "center": null,
+      "zoom": null
+    }
+  },
+  "summary": {
+    "homepageTitle": "Nghị quyết 36-NQ/TW về kinh tế biển (2018)",
+    "homepageSummary": "Ngày 22 tháng 10 năm 2018, Ban Chấp hành Trung ương Đảng Cộng sản Việt Nam ban hành Nghị quyết 36-NQ/TW về Chiến lược phát triển bền vững kinh tế biển Việt Nam.",
+    "cardSummary": "Nghị quyết 36-NQ/TW (2018) của Đảng Cộng sản Việt Nam về chiến lược phát triển bền vững kinh tế biển."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Nghị quyết 36-NQ/TW của Ban Chấp hành Trung ương Đảng Cộng sản Việt Nam ngày 22 – 10 – 2018 về Chiến lược phát triển bền vững kinh tế biển Việt Nam đến năm 2030, tầm nhìn đến năm 2045.",
+    "detailedNarrative": "Nghị quyết 36-NQ/TW của Ban Chấp hành Trung ương Đảng Cộng sản Việt Nam ngày 22 – 10 – 2018 về Chiến lược phát triển bền vững kinh tế biển Việt Nam đến năm 2030, tầm nhìn đến năm 2045. Mục tiêu đến năm 2030, tầm nhìn đến năm 2045: Đưa Việt Nam trở thành quốc gia biển mạnh... Đến năm 2030, phát triển thành công, đột phá về các ngành kinh tế biển theo thứ tự ưu tiên: 1. Du lịch và dịch vụ biển; 2. Kinh tế hàng hải; 3. Khai thác dầu khí và các tài nguyên khoáng sản biển khác; 4. Nuôi trồng và khai thác hải sản; 5. Công nghiệp ven biển; 6. Năng lượng tái tạo và các ngành kinh tế biển mới.",
+    "significance": "Định hướng chiến lược phát triển kinh tế biển gắn với tăng cường quốc phòng, an ninh trên biển của Việt Nam.",
+    "keyFacts": [
+      "Ban hành ngày 22 tháng 10 năm 2018",
+      "Nội dung: Chiến lược phát triển bền vững kinh tế biển Việt Nam đến năm 2030, tầm nhìn đến năm 2045",
+      "Mục tiêu: đưa Việt Nam trở thành quốc gia biển mạnh",
+      "Chủ thể: Ban Chấp hành Trung ương Đảng Cộng sản Việt Nam"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 11,
+        "book": "KNTT",
+        "lessonId": "12395",
+        "lessonTitle": "BÀI 16  VIỆT NAM VÀ BIỂN ĐÔNG",
+        "chapter": "Chu de 7",
+        "lesson": "Bai 16",
+        "pageRange": {
+          "start": 107,
+          "end": 111
+        },
+        "url": "https://sgkvn.com/lop-11-14/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-7-lich-su-chu-quyen-cua-viet-nam-o-bien-dong-3354/bai-16-viet-nam-va-bien-dong-12395.html",
+        "excerpt": "Nghị quyết 36-NQ/TW của Ban Chấp hành Trung ương Đảng Cộng sản Việt Nam ngày 22 – 10 – 2018 về Chiến lược phát triển bền vững kinh tế biển Việt Nam đến năm 2030, tầm nhìn đến năm 2045."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "ban-hanh-nghi-quyet-36-nq-tw-ve-chien-luoc-phat-trien-kinh-te-bien",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 291
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": false,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

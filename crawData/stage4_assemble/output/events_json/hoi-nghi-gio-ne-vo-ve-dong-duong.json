@@ -1,0 +1,141 @@
+{
+  "id": "hoi-nghi-gio-ne-vo-ve-dong-duong",
+  "slug": "hoi-nghi-gio-ne-vo-ve-dong-duong",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Hội nghị Giơ-ne-vơ về Đông Dương",
+    "short": "Hội nghị Giơ-ne-vơ",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "diplomatic",
+    "eventSubtype": "conference",
+    "region": "world",
+    "tags": [
+      "Giơ-ne-vơ",
+      "Hội nghị quốc tế",
+      "Đông Dương"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 12,
+        "lessonId": "12964",
+        "lessonTitle": "BÀI 13: HOẠT ĐỘNG ĐỐI NGOẠI CỦA VIỆT NAM TRONG KHÁNG CHIẾN CHỐNG PHÁP (1945 – 1954) VÀ KHÁNG CHIẾN CHỐNG MỸ (1954 - 1975)"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1954,
+      "month": 5,
+      "day": null
+    },
+    "end": {
+      "year": 1954,
+      "month": 7,
+      "day": 21
+    },
+    "datePrecision": "day",
+    "displayDate": "Tháng 5 – 21-7-1954",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "no_location",
+    "historicalLocations": [
+      "Đông Dương",
+      "Giơ-ne-vơ",
+      "Thuỵ Sĩ"
+    ],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "auto",
+      "center": null,
+      "zoom": null
+    }
+  },
+  "summary": {
+    "homepageTitle": "Hội nghị Giơ-ne-vơ về Đông Dương",
+    "homepageSummary": "Hội nghị quốc tế về Đông Dương được tổ chức ở Giơ-ne-vơ (Thuỵ Sĩ), nơi Chính phủ Việt Nam Dân chủ Cộng hoà đấu tranh bảo vệ các quyền dân tộc cơ bản của ba nước Đông Dương.",
+    "cardSummary": "Hội nghị quốc tế về Đông Dương diễn ra tại Giơ-ne-vơ (Thụy Sĩ) từ tháng 5 đến 21-7-1954."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Tháng 5 1954, Hội nghị quốc tế về Đông Dương được tổ chức ở Giơ-ne-vơ (Thuỵ Sĩ). Chính phủ Việt Nam Dân chủ Cộng hoà đã kiên trì đấu tranh bảo vệ các quyền dân tộc cơ bản của ba nước Đông Dương.",
+    "detailedNarrative": "Tháng 5 1954, Hội nghị quốc tế về Đông Dương được tổ chức ở Giơ-ne-vơ (Thuỵ Sĩ). Chính phủ Việt Nam Dân chủ Cộng hoà đã kiên trì đấu tranh bảo vệ các quyền dân tộc cơ bản của ba nước Đông Dương.",
+    "significance": null,
+    "keyFacts": [
+      "Tổ chức ở Giơ-ne-vơ (Thuỵ Sĩ)",
+      "Chính phủ VNDCCH đấu tranh bảo vệ quyền dân tộc cơ bản của ba nước Đông Dương"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 12,
+        "book": "KNTT",
+        "lessonId": "12964",
+        "lessonTitle": "BÀI 13: HOẠT ĐỘNG ĐỐI NGOẠI CỦA VIỆT NAM TRONG KHÁNG CHIẾN CHỐNG PHÁP (1945 – 1954) VÀ KHÁNG CHIẾN CHỐNG MỸ (1954 - 1975)",
+        "chapter": "Chu de 4",
+        "lesson": "Bai 13",
+        "pageRange": {
+          "start": 77,
+          "end": 81
+        },
+        "url": "https://sgkvn.com/lop-12-15/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-4-cong-cuoc-doi-moi-o-viet-nam-tu-nam-1986-den-nay-3540/bai-13-hoat-dong-doi-ngoai-cua-viet-nam-trong-khang-chien-chong-phap-1945-1954-va-khang-chien-chong-my-1954-1975-12964.html",
+        "excerpt": "Tháng 5 1954, Hội nghị quốc tế về Đông Dương được tổ chức ở Giơ-ne-vơ (Thuỵ Sĩ). Chính phủ Việt Nam Dân chủ Cộng hoà đã kiên trì đấu tranh bảo vệ các quyền dân tộc cơ bản của ba nước Đông Dương."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "hoi-nghi-gio-ne-vo-ve-dong-duong",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 202
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": false,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

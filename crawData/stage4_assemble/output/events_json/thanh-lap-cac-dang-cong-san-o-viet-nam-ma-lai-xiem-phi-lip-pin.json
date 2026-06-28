@@ -1,0 +1,143 @@
+{
+  "id": "thanh-lap-cac-dang-cong-san-o-viet-nam-ma-lai-xiem-phi-lip-pin",
+  "slug": "thanh-lap-cac-dang-cong-san-o-viet-nam-ma-lai-xiem-phi-lip-pin",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Thành lập các đảng cộng sản ở Việt Nam, Mã Lai, Xiêm, Phi-líp-pin",
+    "short": "Thành lập các đảng cộng sản ở Việt Nam, Mã Lai, Xiêm, Phi-líp-pin",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "formation",
+    "region": "world",
+    "tags": [
+      "khuynh hướng vô sản",
+      "Đông Nam Á",
+      "Đảng Cộng sản"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 11,
+        "lessonId": "12340",
+        "lessonTitle": "BÀI 6  HÀNH TRÌNH ĐI ĐẾN ĐỘC LẬP DÂN TỘC"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "end": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "datePrecision": "period",
+    "displayDate": "Trong những năm 30 của thế kỉ XX",
+    "isApproximate": true
+  },
+  "mapData": {
+    "geoType": "no_location",
+    "historicalLocations": [
+      "Mã Lai",
+      "Phi-líp-pin",
+      "Việt Nam",
+      "Xiêm"
+    ],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "auto",
+      "center": null,
+      "zoom": null
+    }
+  },
+  "summary": {
+    "homepageTitle": "Thành lập ĐCS ở ĐNA (1930s)",
+    "homepageSummary": "Các đảng cộng sản được thành lập ở Việt Nam, Mã Lai, Xiêm và Phi-líp-pin trong những năm 30 của thế kỉ XX.",
+    "cardSummary": "Các đảng cộng sản ở Việt Nam, Mã Lai, Xiêm, Phi-líp-pin thành lập trong những năm 30 thế kỉ XX."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Trong những năm 30 của thế kỉ XX, các đảng cộng sản được thành lập ở Việt Nam, Mã Lai, Xiêm và Phi-líp-pin, góp phần mở ra khuynh hướng vô sản trong cuộc đấu tranh giành độc lập dân tộc ở Đông Nam Á.",
+    "detailedNarrative": "Các đảng cộng sản được thành lập ở một số nước: In-đô-nê-xi-a (1920), Việt Nam, Mã Lai, Xiêm và Phi-líp-pin (trong những năm 30 của thế kỉ XX), mở ra khuynh hướng vô sản trong cuộc đấu tranh giành độc lập dân tộc.",
+    "significance": null,
+    "keyFacts": [
+      "Mở ra khuynh hướng vô sản",
+      "Thành lập trong những năm 30 của thế kỉ XX",
+      "Diễn ra ở Việt Nam, Mã Lai, Xiêm, Phi-líp-pin"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 11,
+        "book": "KNTT",
+        "lessonId": "12340",
+        "lessonTitle": "BÀI 6  HÀNH TRÌNH ĐI ĐẾN ĐỘC LẬP DÂN TỘC",
+        "chapter": "Chu de 3",
+        "lesson": "Bai 6",
+        "pageRange": {
+          "start": 45,
+          "end": 53
+        },
+        "url": "https://sgkvn.com/lop-11-14/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-3-qua-trinh-gianh-doc-lap-dan-toc-cua-cac-quoc-gia-dong-nam-a-3331/bai-6-hanh-trinh-di-den-doc-lap-dan-toc-o-dong-nam-a-12340.html",
+        "excerpt": "Trong những năm 30 của thế kỉ XX, các đảng cộng sản được thành lập ở Việt Nam, Mã Lai, Xiêm và Phi-líp-pin, góp phần mở ra khuynh hướng vô sản trong cuộc đấu tranh giành độc lập dân tộc ở Đông Nam Á."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "thanh-lap-cac-dang-cong-san-o-viet-nam-ma-lai-xiem-phi-lip-pin",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 366
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": false,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

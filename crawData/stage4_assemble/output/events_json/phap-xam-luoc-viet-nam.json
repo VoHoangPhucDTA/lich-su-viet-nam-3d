@@ -1,0 +1,142 @@
+{
+  "id": "phap-xam-luoc-viet-nam",
+  "slug": "phap-xam-luoc-viet-nam",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Thực dân Pháp xâm lược và từng bước áp đặt ách cai trị ở Việt Nam",
+    "short": "Pháp xâm lược Việt Nam",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "military",
+    "eventSubtype": "invasion",
+    "region": "vietnam",
+    "tags": [
+      "ách cai trị",
+      "Pháp",
+      "xâm lược"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 12,
+        "lessonId": "12966",
+        "lessonTitle": "BÀI 15: KHÁI QUÁT CUỘC ĐỜI VÀ SỰ NGHIỆP CỦA HỒ CHÍ MINH"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "end": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "datePrecision": "period",
+    "displayDate": "Giữa thế kỉ XIX",
+    "isApproximate": true
+  },
+  "mapData": {
+    "geoType": "nationwide",
+    "historicalLocations": [
+      "Việt Nam"
+    ],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "bounds",
+      "center": {
+        "lat": 16.0,
+        "lng": 106.0
+      },
+      "zoom": 5
+    }
+  },
+  "summary": {
+    "homepageTitle": "Pháp xâm lược Việt Nam",
+    "homepageSummary": "Từ giữa thế kỉ XIX, thực dân Pháp xâm lược và từng bước áp đặt ách cai trị ở Việt Nam.",
+    "cardSummary": "Thực dân Pháp xâm lược và áp đặt ách cai trị ở Việt Nam từ giữa thế kỉ XIX."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Từ giữa thế kỉ XIX, thực dân Pháp xâm lược và từng bước áp đặt ách cai trị ở Việt Nam. Dưới chế độ thực dân, nền độc lập dân tộc và quyền tự do của đại bộ phận nhân dân bị tước đoạt.",
+    "detailedNarrative": "Từ giữa thế kỉ XIX, thực dân Pháp xâm lược và từng bước áp đặt ách cai trị ở Việt Nam. Dưới chế độ thực dân, nền độc lập dân tộc và quyền tự do của đại bộ phận nhân dân bị tước đoạt.",
+    "significance": null,
+    "keyFacts": [
+      "Bắt đầu từ giữa thế kỉ XIX",
+      "Áp đặt ách cai trị"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 12,
+        "book": "KNTT",
+        "lessonId": "12966",
+        "lessonTitle": "BÀI 15: KHÁI QUÁT CUỘC ĐỜI VÀ SỰ NGHIỆP CỦA HỒ CHÍ MINH",
+        "chapter": "Chu de 5",
+        "lesson": "Bai 15",
+        "pageRange": {
+          "start": 88,
+          "end": 93
+        },
+        "url": "https://sgkvn.com/lop-12-15/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-5-lich-su-doi-ngoai-cua-viet-nam-thoi-can-hien-dai-3541/bai-15-khai-quat-cuoc-doi-va-su-nghiep-cua-ho-chi-minh-12966.html",
+        "excerpt": "Từ giữa thế kỉ XIX, thực dân Pháp xâm lược và từng bước áp đặt ách cai trị ở Việt Nam. Dưới chế độ thực dân, nền độc lập dân tộc và quyền tự do của đại bộ phận nhân dân bị tước đoạt."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "phap-xam-luoc-viet-nam",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 358
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": true,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

@@ -1,0 +1,133 @@
+{
+  "id": "doi-thi-thu-vien-thanh-van-thu-phong",
+  "slug": "doi-thi-thu-vien-thanh-van-thu-phong",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Đổi Thị thư viện thành Văn thư phòng",
+    "short": "Đổi Thị thư viện thành Văn thư phòng",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "administrative_reform",
+    "region": "vietnam",
+    "tags": [
+      "cải cách trung ương",
+      "Minh Mạng",
+      "Văn thư phòng"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 11,
+        "lessonId": "12393",
+        "lessonTitle": "BÀI 14  CUỘC CẢI CÁCH CỦA MINH MẠNG  NỬA"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1820,
+      "month": null,
+      "day": null
+    },
+    "end": null,
+    "datePrecision": "year",
+    "displayDate": "Năm 1820",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "no_location",
+    "historicalLocations": [],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "auto",
+      "center": null,
+      "zoom": null
+    }
+  },
+  "summary": {
+    "homepageTitle": "Đổi Thị thư viện thành Văn thư phòng",
+    "homepageSummary": "Năm 1820, vua Minh Mạng đổi Thị thư viện thành Văn thư phòng, một bước cải tổ cơ quan giúp việc nhà vua.",
+    "cardSummary": "Năm 1820, Thị thư viện được đổi thành Văn thư phòng."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Năm 1820, vua Minh Mạng đổi Thị thư viện thành Văn thư phòng như một bước cải tổ các cơ quan trực tiếp giúp việc cho nhà vua.",
+    "detailedNarrative": "Năm 1820, đổi Thị thư viện thành Văn thư phòng.",
+    "significance": "Là một phần của quá trình cải tổ bộ máy hành chính trung ương dưới thời Minh Mạng.",
+    "keyFacts": [
+      "Diễn ra năm 1820",
+      "Cải tổ cơ quan trung ương"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 11,
+        "book": "KNTT",
+        "lessonId": "12393",
+        "lessonTitle": "BÀI 14  CUỘC CẢI CÁCH CỦA MINH MẠNG  NỬA",
+        "chapter": "Chu de 6",
+        "lesson": "Bai 14",
+        "pageRange": {
+          "start": null,
+          "end": null
+        },
+        "url": "https://sgkvn.com/lop-11-14/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-6-mot-so-cuoc-cai-cach-lon-trong-lich-su-viet-nam-truoc-nam-1858-3353/bai-14-cuoc-cai-cach-cua-minh-mang-nua-dau-the-ki-xix-12393.html",
+        "excerpt": "Năm 1820, vua Minh Mạng đổi Thị thư viện thành Văn thư phòng như một bước cải tổ các cơ quan trực tiếp giúp việc cho nhà vua."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "doi-thi-thu-vien-thanh-van-thu-phong",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 64
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": false,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}
