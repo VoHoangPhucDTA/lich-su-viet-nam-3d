@@ -1,0 +1,1174 @@
+{
+  "examId": "thuvienhoclieu-com-de-kscl-thi-tn-thpt-2026-mon-lich-su-cum-truong-bac-ninh-2026-lan-1",
+  "title": "Đề thi Lịch sử – thuvienhoclieu.com-De-KSCL-thi-TN-THPT-2026-mon-LICH-SU-Cum-truong-Bac-Ninh-2026-Lan-1",
+  "year": 2025,
+  "source": "",
+  "sourceDetail": "thuvienhoclieu.com-De-KSCL-thi-TN-THPT-2026-mon-LICH-SU-Cum-truong-Bac-Ninh-2026-Lan-1",
+  "examCode": "",
+  "format": "thpt_2025",
+  "timeLimitMinutes": 50,
+  "totalScore": 10.0,
+  "parsedAt": "2026-05-20T09:04:11.980464+00:00",
+  "sections": [
+    {
+      "sectionId": "phan-1",
+      "sectionType": "mcq",
+      "title": "Phần I – Trắc nghiệm nhiều lựa chọn",
+      "totalQuestions": 24,
+      "maxScore": 6.0,
+      "scorePerQuestion": 0.25,
+      "questions": [
+        {
+          "id": "thuvienhoclieu-com-de-kscl-thi-tn-thpt-2026-mon-lich-su-cum-truong-bac-ninh-2026-lan-1-q01",
+          "orderInExam": 1,
+          "questionType": "mcq",
+          "questionText": "Hiến chương Liên hợp quốc được thông qua tại hội nghị quốc tế nào?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Xan Phran-xix-cô."
+            },
+            {
+              "id": "B",
+              "text": "Tê-hê-ran."
+            },
+            {
+              "id": "C",
+              "text": "Mát-xcơ-va."
+            },
+            {
+              "id": "D",
+              "text": "I-an-ta."
+            }
+          ],
+          "correctOptionId": "A",
+          "explanation": "",
+          "difficulty": "medium",
+          "topic": "Liên hợp quốc",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-KSCL-thi-TN-THPT-2026-mon-LICH-SU-Cum-truong-Bac-Ninh-2026-Lan-1",
+              "location": "Câu 1"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-kscl-thi-tn-thpt-2026-mon-lich-su-cum-truong-bac-ninh-2026-lan-1-q02",
+          "orderInExam": 2,
+          "questionType": "mcq",
+          "questionText": "Tại Việt Nam, ngày 18 tháng 8 năm 1945, địa phương nào sau đây giành được chính quyền ở tỉnh lị?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Đồng Nai Thượng."
+            },
+            {
+              "id": "B",
+              "text": "Bắc Giang."
+            },
+            {
+              "id": "C",
+              "text": "Hà Tiên."
+            },
+            {
+              "id": "D",
+              "text": "Sài Gòn."
+            }
+          ],
+          "correctOptionId": "B",
+          "explanation": "",
+          "difficulty": "medium",
+          "topic": "Cách mạng tháng Tám 1945",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-KSCL-thi-TN-THPT-2026-mon-LICH-SU-Cum-truong-Bac-Ninh-2026-Lan-1",
+              "location": "Câu 2"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-kscl-thi-tn-thpt-2026-mon-lich-su-cum-truong-bac-ninh-2026-lan-1-q03",
+          "orderInExam": 3,
+          "questionType": "mcq",
+          "questionText": "Ý tưởng thành lập Cộng đồng ASEAN được khởi nguồn từ",
+          "options": [
+            {
+              "id": "A",
+              "text": "Tuyên bố Kua-la-lăm-pơ (1999)."
+            },
+            {
+              "id": "B",
+              "text": "Tuyên bố hoà hợp ASEAN (2003)."
+            },
+            {
+              "id": "C",
+              "text": "Tuyên bố thành lập ASEAN (1967)."
+            },
+            {
+              "id": "D",
+              "text": "Tuyên bố Tầm nhìn ASEAN năm 2020 (1997)."
+            }
+          ],
+          "correctOptionId": "C",
+          "explanation": "",
+          "difficulty": "medium",
+          "topic": "ASEAN",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-KSCL-thi-TN-THPT-2026-mon-LICH-SU-Cum-truong-Bac-Ninh-2026-Lan-1",
+              "location": "Câu 3"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-kscl-thi-tn-thpt-2026-mon-lich-su-cum-truong-bac-ninh-2026-lan-1-q04",
+          "orderInExam": 4,
+          "questionType": "mcq",
+          "questionText": "Thắng lợi của các cuộc kháng chiến chống quân Mông và quân Nguyên của quân dân Đại Việt ở thế kỉ XIII gắn liền với vai trò của vương triều",
+          "options": [
+            {
+              "id": "A",
+              "text": "Trần."
+            },
+            {
+              "id": "B",
+              "text": "Lê sơ."
+            },
+            {
+              "id": "C",
+              "text": "Tiền Lê."
+            },
+            {
+              "id": "D",
+              "text": "Lý."
+            }
+          ],
+          "correctOptionId": "A",
+          "explanation": "",
+          "difficulty": "medium",
+          "topic": "Đại Việt thời Trần",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-KSCL-thi-TN-THPT-2026-mon-LICH-SU-Cum-truong-Bac-Ninh-2026-Lan-1",
+              "location": "Câu 4"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-kscl-thi-tn-thpt-2026-mon-lich-su-cum-truong-bac-ninh-2026-lan-1-q05",
+          "orderInExam": 5,
+          "questionType": "mcq",
+          "questionText": "Quốc gia nào sau đây là thành viên sáng lập Hiệp hội các quốc gia Đông Nam Á (ASEAN)?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Hàn Quốc."
+            },
+            {
+              "id": "B",
+              "text": "Pháp."
+            },
+            {
+              "id": "C",
+              "text": "Thái Lan."
+            },
+            {
+              "id": "D",
+              "text": "Đức."
+            }
+          ],
+          "correctOptionId": "C",
+          "explanation": "",
+          "difficulty": "medium",
+          "topic": "ASEAN",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-KSCL-thi-TN-THPT-2026-mon-LICH-SU-Cum-truong-Bac-Ninh-2026-Lan-1",
+              "location": "Câu 5"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-kscl-thi-tn-thpt-2026-mon-lich-su-cum-truong-bac-ninh-2026-lan-1-q06",
+          "orderInExam": 6,
+          "questionType": "mcq",
+          "questionText": "Ở Việt Nam, tổ chức nào sau đây giữ vai trò đoàn kết toàn dân tiến hành tổng khởi nghĩa trong Cách mạng tháng Tám năm 1945?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Đảng Cộng sản Việt Nam."
+            },
+            {
+              "id": "B",
+              "text": "Đảng Lao động Việt Nam."
+            },
+            {
+              "id": "C",
+              "text": "Mặt trận Liên Việt."
+            },
+            {
+              "id": "D",
+              "text": "Mặt trận Việt Minh."
+            }
+          ],
+          "correctOptionId": "D",
+          "explanation": "",
+          "difficulty": "medium",
+          "topic": "Cách mạng tháng Tám 1945",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-KSCL-thi-TN-THPT-2026-mon-LICH-SU-Cum-truong-Bac-Ninh-2026-Lan-1",
+              "location": "Câu 6"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-kscl-thi-tn-thpt-2026-mon-lich-su-cum-truong-bac-ninh-2026-lan-1-q07",
+          "orderInExam": 7,
+          "questionType": "mcq",
+          "questionText": "Ngày 13 tháng 8 năm 1945, nghe tin Chính phủ Nhật sắp đầu hàng Đồng minh, Đảng và Tổng bộ Việt Minh quyết định thành lập",
+          "options": [
+            {
+              "id": "A",
+              "text": "Uỷ ban khởi nghĩa toàn quốc."
+            },
+            {
+              "id": "B",
+              "text": "Chính phủ liên hiệp kháng chiến."
+            },
+            {
+              "id": "C",
+              "text": "Trung ương cục miền Nam."
+            },
+            {
+              "id": "D",
+              "text": "Đảng Cộng sản Việt Nam."
+            }
+          ],
+          "correctOptionId": "A",
+          "explanation": "",
+          "difficulty": "medium",
+          "topic": "Cách mạng tháng Tám 1945",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-KSCL-thi-TN-THPT-2026-mon-LICH-SU-Cum-truong-Bac-Ninh-2026-Lan-1",
+              "location": "Câu 7"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-kscl-thi-tn-thpt-2026-mon-lich-su-cum-truong-bac-ninh-2026-lan-1-q08",
+          "orderInExam": 8,
+          "questionType": "mcq",
+          "questionText": "Nội dung nào sau đây phản ánh đúng giai đoạn xác lập và phát triển của Trật tự thế giới hai cực I-an-ta (từ năm 1945 đến đầu những năm 70 của thế kỉ XX)?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Hiệp định Pa-ri về Việt Nam được kí kết."
+            },
+            {
+              "id": "B",
+              "text": "Hội đồng tương trợ kinh tế giải thể."
+            },
+            {
+              "id": "C",
+              "text": "Vấn đề Cam-pu-chia được giải quyết."
+            },
+            {
+              "id": "D",
+              "text": "Mỹ phát động cuộc Chiến tranh lạnh."
+            }
+          ],
+          "correctOptionId": "D",
+          "explanation": "",
+          "difficulty": "medium",
+          "topic": "Trật tự thế giới hai cực I-an-ta",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-KSCL-thi-TN-THPT-2026-mon-LICH-SU-Cum-truong-Bac-Ninh-2026-Lan-1",
+              "location": "Câu 8"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-kscl-thi-tn-thpt-2026-mon-lich-su-cum-truong-bac-ninh-2026-lan-1-q09",
+          "orderInExam": 9,
+          "questionType": "mcq",
+          "questionText": "Trong giai đoạn 1967 – 1976, Hiệp hội các quốc gia Đông Nam Á (ASEAN) đạt được thành tựu nào sau đây?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Giải quyết vấn đề Campuchia."
+            },
+            {
+              "id": "B",
+              "text": "Thông qua Hiến chương ASEAN."
+            },
+            {
+              "id": "C",
+              "text": "Mở rộng thành viên lên 10 nước."
+            },
+            {
+              "id": "D",
+              "text": "Bước đầu xây dựng tổ chức."
+            }
+          ],
+          "correctOptionId": "D",
+          "explanation": "",
+          "difficulty": "medium",
+          "topic": "ASEAN",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-KSCL-thi-TN-THPT-2026-mon-LICH-SU-Cum-truong-Bac-Ninh-2026-Lan-1",
+              "location": "Câu 9"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-kscl-thi-tn-thpt-2026-mon-lich-su-cum-truong-bac-ninh-2026-lan-1-q10",
+          "orderInExam": 10,
+          "questionType": "mcq",
+          "questionText": "Từ năm 1975, quốc gia nào sau đây định hướng phát triển theo con đường xã hội chủ nghĩa?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Hà Lan."
+            },
+            {
+              "id": "B",
+              "text": "Pháp."
+            },
+            {
+              "id": "C",
+              "text": "Ấn Độ."
+            },
+            {
+              "id": "D",
+              "text": "Lào."
+            }
+          ],
+          "correctOptionId": "D",
+          "explanation": "",
+          "difficulty": "medium",
+          "topic": "Lịch sử thế giới hiện đại",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-KSCL-thi-TN-THPT-2026-mon-LICH-SU-Cum-truong-Bac-Ninh-2026-Lan-1",
+              "location": "Câu 10"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-kscl-thi-tn-thpt-2026-mon-lich-su-cum-truong-bac-ninh-2026-lan-1-q11",
+          "orderInExam": 11,
+          "questionType": "mcq",
+          "questionText": "Nội dung nào sau đây phản ánh đúng về xu thế phát triển chính của thế giới sau Chiến tranh lạnh?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Xu thế chạy đua sức mạnh vũ trang gay gắt."
+            },
+            {
+              "id": "B",
+              "text": "Xu thế đối đầu căng thẳng của hai phe."
+            },
+            {
+              "id": "C",
+              "text": "Xu thế lấy phát triển kinh tế làm trọng tâm."
+            },
+            {
+              "id": "D",
+              "text": "Xu thế toàn cầu hoá bắt đầu xuất hiện."
+            }
+          ],
+          "correctOptionId": "C",
+          "explanation": "",
+          "difficulty": "medium",
+          "topic": "Quan hệ quốc tế sau Chiến tranh lạnh",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-KSCL-thi-TN-THPT-2026-mon-LICH-SU-Cum-truong-Bac-Ninh-2026-Lan-1",
+              "location": "Câu 11"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-kscl-thi-tn-thpt-2026-mon-lich-su-cum-truong-bac-ninh-2026-lan-1-q12",
+          "orderInExam": 12,
+          "questionType": "mcq",
+          "questionText": "Sau Chiến tranh lạnh, tình hình quốc tế còn những dấu hiệu và nguy cơ bất ổn vì một trong những lí do nào?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Liên Hợp Quốc suy yếu và không còn giữ vai trò quốc tế."
+            },
+            {
+              "id": "B",
+              "text": "Các mâu thuẫn cũ chuyển hóa và mâu thuẫn mới nổi lên."
+            },
+            {
+              "id": "C",
+              "text": "Sự phục hồi và phát triển của hệ thống xã hội chủ nghĩa."
+            },
+            {
+              "id": "D",
+              "text": "Cục diện đối đầu giữa hai cực và hai phe vẫn còn tồn tại."
+            }
+          ],
+          "correctOptionId": "B",
+          "explanation": "",
+          "difficulty": "medium",
+          "topic": "Quan hệ quốc tế sau Chiến tranh lạnh",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-KSCL-thi-TN-THPT-2026-mon-LICH-SU-Cum-truong-Bac-Ninh-2026-Lan-1",
+              "location": "Câu 12"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-kscl-thi-tn-thpt-2026-mon-lich-su-cum-truong-bac-ninh-2026-lan-1-q13",
+          "orderInExam": 13,
+          "questionType": "mcq",
+          "questionText": "Chiến tranh lạnh chấm dứt, tương quan lực lượng trên thế giới có sự thay đổi nào sau đây?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Sự cân bằng giữa hai phe bị mất, ưu thế có lợi cho Mỹ."
+            },
+            {
+              "id": "B",
+              "text": "Tương quan lực lượng toàn cầu vẫn cân bằng tuyệt đối."
+            },
+            {
+              "id": "C",
+              "text": "Sức mạnh của Mĩ và phương Tây suy giảm nhanh chóng."
+            },
+            {
+              "id": "D",
+              "text": "Nhiều cường quốc vươn lên vượt qua sức mạnh của Mỹ."
+            }
+          ],
+          "correctOptionId": "A",
+          "explanation": "",
+          "difficulty": "medium",
+          "topic": "Quan hệ quốc tế sau Chiến tranh lạnh",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-KSCL-thi-TN-THPT-2026-mon-LICH-SU-Cum-truong-Bac-Ninh-2026-Lan-1",
+              "location": "Câu 13"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-kscl-thi-tn-thpt-2026-mon-lich-su-cum-truong-bac-ninh-2026-lan-1-q14",
+          "orderInExam": 14,
+          "questionType": "mcq",
+          "questionText": "Sự nổi lên của những mâu thuẫn mới sau Chiến tranh lạnh có ý nghĩa nào sau đây?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Quyết định trật tự hai cực Ianta tái lập."
+            },
+            {
+              "id": "B",
+              "text": "Thúc đẩy hình thành trật tự thế giới mới."
+            },
+            {
+              "id": "C",
+              "text": "Chấm dứt vai trò của các tổ chức quốc tế."
+            },
+            {
+              "id": "D",
+              "text": "Xóa bỏ hoàn toàn ảnh hưởng của Mỹ."
+            }
+          ],
+          "correctOptionId": "B",
+          "explanation": "",
+          "difficulty": "medium",
+          "topic": "Quan hệ quốc tế sau Chiến tranh lạnh",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-KSCL-thi-TN-THPT-2026-mon-LICH-SU-Cum-truong-Bac-Ninh-2026-Lan-1",
+              "location": "Câu 14"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-kscl-thi-tn-thpt-2026-mon-lich-su-cum-truong-bac-ninh-2026-lan-1-q15",
+          "orderInExam": 15,
+          "questionType": "mcq",
+          "questionText": "Nghệ thuật kết thúc chiến tranh của cuộc kháng chiến chống Tống (1075 -1077) và cuộc khởi nghĩa Lam Sơn (1418 -1427) có điểm tương đồng nào sau đây?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Kiên quyết không đàm phán, kiên quyết giành thắng lợi quân sự để kết thúc chiến tranh."
+            },
+            {
+              "id": "B",
+              "text": "Chủ động đàm phán kết thúc chiến tranh khi đã giành thắng lợi quyết định về quân sự."
+            },
+            {
+              "id": "C",
+              "text": "Coi trọng tư tưởng “hoà để tiến”, kết hợp tiến công và đàm phán trong suốt cuộc chiến."
+            },
+            {
+              "id": "D",
+              "text": "Chủ động đàm phán giảm bớt sự thương vong ngay khi cuộc chiến tranh bắt đầu nổ ra."
+            }
+          ],
+          "correctOptionId": "B",
+          "explanation": "",
+          "difficulty": "medium",
+          "topic": "Lịch sử Việt Nam thời phong kiến",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-KSCL-thi-TN-THPT-2026-mon-LICH-SU-Cum-truong-Bac-Ninh-2026-Lan-1",
+              "location": "Câu 15"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-kscl-thi-tn-thpt-2026-mon-lich-su-cum-truong-bac-ninh-2026-lan-1-q16",
+          "orderInExam": 16,
+          "questionType": "mcq",
+          "questionText": "Thời cơ “ngàn năm có một” để nhân dân Việt Nam Tổng khởi nghĩa giành chính quyền năm 1945 kết thúc khi",
+          "options": [
+            {
+              "id": "A",
+              "text": "Nhật cùng thực dân Anh chống phá chính quyền cách mạng."
+            },
+            {
+              "id": "B",
+              "text": "quân Đồng minh vào Đông Dương giải giáp phát xít Nhật."
+            },
+            {
+              "id": "C",
+              "text": "Quân Nhật đảo chính thực dân Pháp trên toàn Đông Dương."
+            },
+            {
+              "id": "D",
+              "text": "thực dân Pháp bắt đầu nổ súng xâm lược trở lại Việt Nam."
+            }
+          ],
+          "correctOptionId": "B",
+          "explanation": "",
+          "difficulty": "medium",
+          "topic": "Cách mạng tháng Tám 1945",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-KSCL-thi-TN-THPT-2026-mon-LICH-SU-Cum-truong-Bac-Ninh-2026-Lan-1",
+              "location": "Câu 16"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-kscl-thi-tn-thpt-2026-mon-lich-su-cum-truong-bac-ninh-2026-lan-1-q17",
+          "orderInExam": 17,
+          "questionType": "mcq",
+          "questionText": "Đối với thế giới, thắng lợi của nhân dân Việt Nam trong cuộc Cách mạng tháng Tám năm 1945 có ý nghĩa nào sau đây?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Góp phần làm đảo lộn và đưa tới thất bại chiến lược toàn cầu của Mỹ."
+            },
+            {
+              "id": "B",
+              "text": "Cổ vũ các dân tộc thuộc địa, phụ thuộc đứng lên đấu tranh giải phóng."
+            },
+            {
+              "id": "C",
+              "text": "Làm tan rã hoàn toàn hệ thống thuộc địa của chủ nghĩa thực dân mới."
+            },
+            {
+              "id": "D",
+              "text": "Xây dựng được vững chắc thành trì của phong trào giải phóng dân tộc."
+            }
+          ],
+          "correctOptionId": "B",
+          "explanation": "",
+          "difficulty": "medium",
+          "topic": "Cách mạng tháng Tám 1945",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-KSCL-thi-TN-THPT-2026-mon-LICH-SU-Cum-truong-Bac-Ninh-2026-Lan-1",
+              "location": "Câu 17"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-kscl-thi-tn-thpt-2026-mon-lich-su-cum-truong-bac-ninh-2026-lan-1-q18",
+          "orderInExam": 18,
+          "questionType": "mcq",
+          "questionText": "Cách mạng tháng Tám năm 1945 ở Việt Nam để lại bài học kinh nghiệm nào sau đây cho sự nghiệp xây dựng và bảo vệ Tổ quốc hiện nay?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Tranh thủ sự ủng hộ, giúp đỡ trực tiếp của các lực lượng dân chủ trên thế giới."
+            },
+            {
+              "id": "B",
+              "text": "Xây dựng lực lượng vũ trang ba thứ quân chính quy, tinh nhuệ và từng bước hiện đại."
+            },
+            {
+              "id": "C",
+              "text": "Kết hợp chặt chẽ giữa sức mạnh của tiền tuyến với sức mạnh của hậu phương."
+            },
+            {
+              "id": "D",
+              "text": "Dự báo chính xác nguy cơ để xây dựng chiến lược bảo vệ đất nước từ sớm, từ xa."
+            }
+          ],
+          "correctOptionId": "D",
+          "explanation": "",
+          "difficulty": "medium",
+          "topic": "Cách mạng tháng Tám 1945",
+          "cognitiveLevel": "application",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-KSCL-thi-TN-THPT-2026-mon-LICH-SU-Cum-truong-Bac-Ninh-2026-Lan-1",
+              "location": "Câu 18"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-kscl-thi-tn-thpt-2026-mon-lich-su-cum-truong-bac-ninh-2026-lan-1-q19",
+          "orderInExam": 19,
+          "questionType": "mcq",
+          "questionText": "Quá trình mở rộng thành viên của Hiệp hội các quốc gia Đông Nam Á (ASEAN) diễn ra lâu dài, nhiều trở ngại chủ yếu do",
+          "options": [
+            {
+              "id": "A",
+              "text": "tác động của cục diện “hai cực”, “hai phe” và Chiến tranh lạnh."
+            },
+            {
+              "id": "B",
+              "text": "mục tiêu của ASEAN không phù hợp nguyện vọng các nước."
+            },
+            {
+              "id": "C",
+              "text": "các nước trong khu vực chưa có những mối liên hệ trong lịch sử."
+            },
+            {
+              "id": "D",
+              "text": "trình độ kinh tế giữa các nước trong khu vực có sự khác biệt lớn."
+            }
+          ],
+          "correctOptionId": "A",
+          "explanation": "",
+          "difficulty": "medium",
+          "topic": "Các nước Đông Nam Á",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-KSCL-thi-TN-THPT-2026-mon-LICH-SU-Cum-truong-Bac-Ninh-2026-Lan-1",
+              "location": "Câu 19"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-kscl-thi-tn-thpt-2026-mon-lich-su-cum-truong-bac-ninh-2026-lan-1-q20",
+          "orderInExam": 20,
+          "questionType": "mcq",
+          "questionText": "Trong cuộc Cách mạng tháng Tám năm 1945, nhân dân Việt Nam đã kế thừa bài học nào sau đây từ lịch sử chống ngoại xâm của dân tộc?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Chuẩn bị chu đáo, phát động chiến tranh toàn dân, toàn diện."
+            },
+            {
+              "id": "B",
+              "text": "Tránh chỗ mạnh, đánh chỗ yếu bằng lực lượng quân sự mạnh."
+            },
+            {
+              "id": "C",
+              "text": "Lựa chọn phương thức đấu tranh phù hợp với thực tiễn lịch sử."
+            },
+            {
+              "id": "D",
+              "text": "Tăng cường khối đoàn kết toàn dân với chính quyền nhà nước."
+            }
+          ],
+          "correctOptionId": "C",
+          "explanation": "",
+          "difficulty": "medium",
+          "topic": "Cách mạng tháng Tám 1945",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-KSCL-thi-TN-THPT-2026-mon-LICH-SU-Cum-truong-Bac-Ninh-2026-Lan-1",
+              "location": "Câu 20"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-kscl-thi-tn-thpt-2026-mon-lich-su-cum-truong-bac-ninh-2026-lan-1-q21",
+          "orderInExam": 21,
+          "questionType": "mcq",
+          "questionText": "Năm 1995, Việt Nam trở thành thành viên thứ 7 của Hiệp hội các quốc gia Đông Nam Á (ASEAN) đã",
+          "options": [
+            {
+              "id": "A",
+              "text": "đánh dấu bước phát triển trong quá trình hòa giải, hoà nhập ở Đông Nam Á."
+            },
+            {
+              "id": "B",
+              "text": "chính thức đưa Việt Nam hội nhập với các trào lưu cách mạng trên thế giới."
+            },
+            {
+              "id": "C",
+              "text": "thúc đẩy quá trình nhất thể hoá chính trị giữa các quốc gia trong khu vực."
+            },
+            {
+              "id": "D",
+              "text": "mở đường cho việc triển khai các kế hoạch xây dựng Cộng đồng ASEAN."
+            }
+          ],
+          "correctOptionId": "A",
+          "explanation": "",
+          "difficulty": "medium",
+          "topic": "ASEAN và Việt Nam",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-KSCL-thi-TN-THPT-2026-mon-LICH-SU-Cum-truong-Bac-Ninh-2026-Lan-1",
+              "location": "Câu 21"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-kscl-thi-tn-thpt-2026-mon-lich-su-cum-truong-bac-ninh-2026-lan-1-q22",
+          "orderInExam": 22,
+          "questionType": "mcq",
+          "questionText": "Nội dung nào sau đây là một trong những nguyên nhân chủ quan dẫn tới thắng lợi của Cách mạng tháng Tám (1945) ở Việt Nam?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Những thắng lợi của khối Đồng minh."
+            },
+            {
+              "id": "B",
+              "text": "Sự đoàn kết chiến đấu của ASEAN."
+            },
+            {
+              "id": "C",
+              "text": "Sự giúp đỡ của Liên Xô, Trung Quốc."
+            },
+            {
+              "id": "D",
+              "text": "Sự chuẩn bị trong 15 năm của Đảng."
+            }
+          ],
+          "correctOptionId": "D",
+          "explanation": "",
+          "difficulty": "medium",
+          "topic": "Cách mạng tháng Tám 1945",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-KSCL-thi-TN-THPT-2026-mon-LICH-SU-Cum-truong-Bac-Ninh-2026-Lan-1",
+              "location": "Câu 22"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-kscl-thi-tn-thpt-2026-mon-lich-su-cum-truong-bac-ninh-2026-lan-1-q23",
+          "orderInExam": 23,
+          "questionType": "mcq",
+          "questionText": "Sự ra đời của Liên bang Cộng hoà xã hội chủ nghĩa Xô viết (1922) có ý nghĩa nào sau đây?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Chứng tỏ khả năng liên minh của các nước khác biệt về thể chế."
+            },
+            {
+              "id": "B",
+              "text": "Đánh dấu hệ thống xã hội chủ nghĩa được xác lập ở châu Âu."
+            },
+            {
+              "id": "C",
+              "text": "Xác lập cục diện hai cực, hai phe trong các quan hệ quốc tế."
+            },
+            {
+              "id": "D",
+              "text": "Cổ vũ mạnh mẽ phong trào giải phóng dân tộc trên thế giới."
+            }
+          ],
+          "correctOptionId": "D",
+          "explanation": "",
+          "difficulty": "medium",
+          "topic": "Liên Xô (1917-1991)",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-KSCL-thi-TN-THPT-2026-mon-LICH-SU-Cum-truong-Bac-Ninh-2026-Lan-1",
+              "location": "Câu 23"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-kscl-thi-tn-thpt-2026-mon-lich-su-cum-truong-bac-ninh-2026-lan-1-q24",
+          "orderInExam": 24,
+          "questionType": "mcq",
+          "questionText": "Trật tự thế giới hai cực I-an-ta suy yếu, sụp đổ xuất phát từ một trong các lí do nào sau đây?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Khát vọng hoà bình là mục tiêu chung của các nhà lãnh đạo Mỹ và Liên Xô."
+            },
+            {
+              "id": "B",
+              "text": "Mỹ và Liên Xô đều không vươn lên chi phối được các mối quan hệ quốc tế."
+            },
+            {
+              "id": "C",
+              "text": "Liên Xô chưa đạt được thế cân bằng sức mạnh quân sự nói chung so với Mỹ."
+            },
+            {
+              "id": "D",
+              "text": "Cuộc chạy đua vũ trang kéo dài làm suy giảm thế mạnh của Mỹ và Liên Xô."
+            }
+          ],
+          "correctOptionId": "D",
+          "explanation": "",
+          "difficulty": "medium",
+          "topic": "Trật tự thế giới sau Chiến tranh thế giới thứ hai",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-KSCL-thi-TN-THPT-2026-mon-LICH-SU-Cum-truong-Bac-Ninh-2026-Lan-1",
+              "location": "Câu 24"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "sectionId": "phan-2",
+      "sectionType": "true_false",
+      "title": "Phần II – Trắc nghiệm Đúng/Sai",
+      "totalQuestions": 4,
+      "maxScore": 4.0,
+      "scoringRule": "ladder",
+      "questions": [
+        {
+          "id": "thuvienhoclieu-com-de-kscl-thi-tn-thpt-2026-mon-lich-su-cum-truong-bac-ninh-2026-lan-1-q25",
+          "orderInExam": 25,
+          "questionType": "true_false",
+          "questionText": "Cho đoạn tư liệu sau: “... Trong bối cảnh cục diện thế giới ngày càng chia rẽ sâu sắc như hiện nay, sự cạnh tranh giữa các cường quốc trở nên quyết liệt hơn. Theo đó, niềm tin giữa các nước lớn ngày càng suy giảm mạnh mẽ. Song, các nước lớn tiếp tục đặt niềm tin vào ASEAN, tin tưởng vào vai trò trung tâm của ASEAN. Điều này sẽ là một cơ hội tốt để ASEAN khẳng định một cách vững chắc và toàn diện hơn vai trò trung tâm của mình… Việc ASEAN cần xác định rõ ràng vai trò trung tâm của khối hiện nay không chỉ có ý nghĩa đối với bản thân khối này, mà còn đối với các đối tác của ASEAN…” (Dương Văn Huy, Viện Nghiên cứu Đông Nam Á, Viện Hàn lâm Khoa học xã hội Việt Nam, tạp chí Cộng Sản)",
+          "statements": [
+            {
+              "id": "a",
+              "text": "Hiện nay, để thúc đẩy sự hội nhập quốc tế sâu rộng và tiếp tục duy trì vai trò trung tâm của ASEAN, các quốc gia thành viên chủ trương liên minh quân sự chặt chẽ với phương Tây.",
+              "isTrue": false
+            },
+            {
+              "id": "b",
+              "text": "Hiện nay, ASEAN tiếp tục đóng vai trò trung tâm, chủ động và là động lực chủ chốt trong quan hệ quốc tế và hợp tác với các đối tác bên ngoài.",
+              "isTrue": true
+            },
+            {
+              "id": "c",
+              "text": "Để đẩy mạnh hợp tác giữa các nước thành viên, ASEAN luôn thực hiện phương châm “Thống nhất trong đa dạng”, vừa phát huy điểm tương đồng vừa loại trừ điểm khác biệt mỗi nước.",
+              "isTrue": false
+            },
+            {
+              "id": "d",
+              "text": "Đoạn tư liệu trên khẳng định trong bối cảnh cạnh tranh giữa các cường quốc trở nên quyết liệt hơn thì các nước lớn tiếp tục đặt niềm tin vào ASEAN, tin tưởng vào vai trò trung tâm của ASEAN.",
+              "isTrue": true
+            }
+          ],
+          "explanation": "",
+          "difficulty": "hard",
+          "topic": "ASEAN",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-KSCL-thi-TN-THPT-2026-mon-LICH-SU-Cum-truong-Bac-Ninh-2026-Lan-1",
+              "location": "Câu 25"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-kscl-thi-tn-thpt-2026-mon-lich-su-cum-truong-bac-ninh-2026-lan-1-q26",
+          "orderInExam": 26,
+          "questionType": "true_false",
+          "questionText": "Cho đoạn tư liệu sau: “Hỡi đồng bào yêu quý! Giờ quyết định cho vận mệnh dân tộc ta [Việt Nam] đã đến. Toàn quốc đồng bào hãy đứng lên đem sức ta mà tự giải phóng cho ta. Nhiều dân tộc bị áp bức trên thế giới đang ganh nhau tiến bước giành quyền độc lập. Chúng ta không thể chậm trễ. Tiến lên! Tiến lên! Dưới lá cờ Việt Minh, đồng bào hãy dũng cảm tiến lên!”. (Hồ Chí Minh toàn tập, tập 3, NXB Chính trị quốc gia, Hà Nội, 2011, tr.596).",
+          "statements": [
+            {
+              "id": "a",
+              "text": "Dưới ngọn cờ đoàn kết của Mặt trận Việt Minh, nhân dân Việt Nam đã kịp thời nổi dậy giành chính quyền.",
+              "isTrue": true
+            },
+            {
+              "id": "b",
+              "text": "Cách mạng tháng Tám năm 1945 thắng lợi đã đưa Việt Nam trở thành lá cờ đầu trong cuộc đấu tranh chống chủ nghĩa thực dân kiểu mới và cuộc đấu tranh vì tiến bộ xã hội.",
+              "isTrue": false
+            },
+            {
+              "id": "c",
+              "text": "Đoạn tư liệu đề cập đến thời cơ cho Tổng khởi nghĩa tháng Tám năm 1945 ở Việt Nam đã xuất hiện.",
+              "isTrue": true
+            },
+            {
+              "id": "d",
+              "text": "Thắng lợi của cuộc Tổng khởi nghĩa tháng Tám năm 1945 đã hoàn thành vấn đề cơ bản của một cuộc cách mạng xã hội, tạo điều kiện để hoàn thành nhiệm vụ dân chủ.",
+              "isTrue": true
+            }
+          ],
+          "explanation": "",
+          "difficulty": "hard",
+          "topic": "Cách mạng tháng Tám 1945",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-KSCL-thi-TN-THPT-2026-mon-LICH-SU-Cum-truong-Bac-Ninh-2026-Lan-1",
+              "location": "Câu 26"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-kscl-thi-tn-thpt-2026-mon-lich-su-cum-truong-bac-ninh-2026-lan-1-q27",
+          "orderInExam": 27,
+          "questionType": "true_false",
+          "questionText": "Cho những thông tin trong bảng sau đây:",
+          "statements": [
+            {
+              "id": "a",
+              "text": "Việc thông qua các hiệp ước cấm vũ khí hủy diệt phản ánh quá trình phi hạt nhân hóa là thách thức lớn, phức tạp, đòi hỏi sự kiên trì và nỗ lực lâu dài của cộng đồng quốc tế.",
+              "isTrue": true
+            },
+            {
+              "id": "b",
+              "text": "Công ước Cấm vũ khí hóa học được thông qua năm 1992 đã nhận được sự ủng hộ của tất cả các quốc gia thành viên Liên hợp quốc, đáp ứng khát vọng hoà bình của nhân loại.",
+              "isTrue": false
+            },
+            {
+              "id": "c",
+              "text": "Tuyên ngôn Nhân quyền của Liên hợp quốc là văn bản pháp lí đầu tiên trên thế giới có đề cập đến quyền con người.",
+              "isTrue": false
+            },
+            {
+              "id": "d",
+              "text": "Bảng thông tin phản ánh về những nỗ lực của Liên hợp quốc trong việc thúc đẩy nền hoà bình, an ninh thế giới.",
+              "isTrue": true
+            }
+          ],
+          "explanation": "",
+          "difficulty": "hard",
+          "topic": "Liên hợp quốc và hòa bình thế giới",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-KSCL-thi-TN-THPT-2026-mon-LICH-SU-Cum-truong-Bac-Ninh-2026-Lan-1",
+              "location": "Câu 27"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-kscl-thi-tn-thpt-2026-mon-lich-su-cum-truong-bac-ninh-2026-lan-1-q28",
+          "orderInExam": 28,
+          "questionType": "true_false",
+          "questionText": "Cho đoạn tư liệu sau đây: “Trong Trật tự thế giới hai cực I-an-ta đã diễn ra một cuộc đối đầu, quyết liệt và kéo dài tới gần bốn thập niên [ từ năm 1945 đến năm 1991] giữa hai cực Xô - Mỹ, làm cho cục gay gắt, diện thế giới luôn luôn phức tạp, căng thẳng. Cuộc đối đầu này đã dẫn tới cuộc đối đầu giữa hai khối Đông - Tây và cuốn hút từng quốc gia, từng khu vực chịu ảnh hưởng sâu sắc của cuộc đối đầu này”. (Nguyễn Anh Thái (chủ biên), Lịch sử thế giới hiện đại, NXB Giáo dục, Hà Nội, 2006, tr.234 - 235)",
+          "statements": [
+            {
+              "id": "a",
+              "text": "Đặc trưng cơ bản của Trật tự thế giới hai cực I-an-ta là tình trạng vừa hợp tác, vừa cạnh tranh giữa các cường quốc, điều đó đã chi phối sâu sắc các quan hệ quốc tế.",
+              "isTrue": false
+            },
+            {
+              "id": "b",
+              "text": "Quá trình hình thành trật tự thế giới mới hiện nay chịu tác động của nhiều nhân tố, trong đó có những yếu tố từ hệ quả của Chiến tranh lạnh.",
+              "isTrue": true
+            },
+            {
+              "id": "c",
+              "text": "Trật tự thế giới hai cực I-an-ta đã đáp ứng được những nguyện vọng cơ bản của nhân dân thế giới, tạo điều kiện thuận lợi để nhiều cường quốc mới nổi vươn lên.",
+              "isTrue": false
+            },
+            {
+              "id": "d",
+              "text": "Đoạn tư liệu phản ánh về quá trình hình thành và phát triển của Trật tự thế giới hai cực I-an-ta và đặc trưng cơ bản của trật tự thế giới này.",
+              "isTrue": false
+            }
+          ],
+          "explanation": "",
+          "difficulty": "hard",
+          "topic": "Trật tự thế giới hai cực I-an-ta và Chiến tranh lạnh",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-KSCL-thi-TN-THPT-2026-mon-LICH-SU-Cum-truong-Bac-Ninh-2026-Lan-1",
+              "location": "Câu 28"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "warnings": [
+    "Câu 1 (MCQ): thiếu lời giải (không crash)",
+    "Câu 2 (MCQ): thiếu lời giải (không crash)",
+    "Câu 3 (MCQ): thiếu lời giải (không crash)",
+    "Câu 4 (MCQ): thiếu lời giải (không crash)",
+    "Câu 5 (MCQ): thiếu lời giải (không crash)",
+    "Câu 6 (MCQ): thiếu lời giải (không crash)",
+    "Câu 7 (MCQ): thiếu lời giải (không crash)",
+    "Câu 8 (MCQ): thiếu lời giải (không crash)",
+    "Câu 9 (MCQ): thiếu lời giải (không crash)",
+    "Câu 10 (MCQ): thiếu lời giải (không crash)",
+    "Câu 11 (MCQ): thiếu lời giải (không crash)",
+    "Câu 12 (MCQ): thiếu lời giải (không crash)",
+    "Câu 13 (MCQ): thiếu lời giải (không crash)",
+    "Câu 14 (MCQ): thiếu lời giải (không crash)",
+    "Câu 15 (MCQ): thiếu lời giải (không crash)",
+    "Câu 16 (MCQ): thiếu lời giải (không crash)",
+    "Câu 17 (MCQ): thiếu lời giải (không crash)",
+    "Câu 18 (MCQ): thiếu lời giải (không crash)",
+    "Câu 19 (MCQ): thiếu lời giải (không crash)",
+    "Câu 20 (MCQ): thiếu lời giải (không crash)",
+    "Câu 21 (MCQ): thiếu lời giải (không crash)",
+    "Câu 22 (MCQ): thiếu lời giải (không crash)",
+    "Câu 23 (MCQ): thiếu lời giải (không crash)",
+    "Câu 24 (MCQ): thiếu lời giải (không crash)",
+    "Câu 25 (Đ/S): thiếu lời giải (không crash)",
+    "Câu 26 (Đ/S): thiếu lời giải (không crash)",
+    "Câu 27 (Đ/S): thiếu lời giải (không crash)",
+    "Câu 28 (Đ/S): thiếu lời giải (không crash)"
+  ],
+  "verification": {
+    "structural": {
+      "layer": "L1_structural",
+      "passed": 8,
+      "total": 8,
+      "all_passed": true,
+      "checks": [
+        {
+          "name": "MCQ count = 24",
+          "passed": true,
+          "actual": 24
+        },
+        {
+          "name": "T/F count = 4",
+          "passed": true,
+          "actual": 4
+        },
+        {
+          "name": "No duplicate question IDs",
+          "passed": true,
+          "duplicates": []
+        },
+        {
+          "name": "T/F orderInExam >= 25",
+          "passed": true,
+          "violations": []
+        },
+        {
+          "name": "T/F orderInExam = {25,26,27,28}",
+          "passed": true,
+          "actual": [
+            25,
+            26,
+            27,
+            28
+          ],
+          "expected": [
+            25,
+            26,
+            27,
+            28
+          ]
+        },
+        {
+          "name": "MCQ orderInExam = {1..24}",
+          "passed": true,
+          "actual_first_last": [
+            [
+              1,
+              2,
+              3
+            ],
+            [
+              22,
+              23,
+              24
+            ]
+          ],
+          "expected": "1..24"
+        },
+        {
+          "name": "All MCQ have valid correctOptionId",
+          "passed": true,
+          "missing_in_questions": []
+        },
+        {
+          "name": "All T/F have 4 statements with isTrue bool",
+          "passed": true,
+          "issues": []
+        }
+      ]
+    },
+    "cross_source": {
+      "layer": "L2_cross_source",
+      "n_conflicts": 0,
+      "n_mcq_conflicts": 0,
+      "n_tf_conflicts": 0,
+      "shifting_pattern_detected": false,
+      "shifting_warning": null,
+      "conflicts": [],
+      "all_passed": true
+    },
+    "content_integrity": {
+      "layer": "L3_content",
+      "n_suspicious": 0,
+      "suspicious": [],
+      "note": "LOW severity — cần review thủ công nếu nhiều case"
+    },
+    "verified_at": "2026-05-20T09:04:11.981461+00:00"
+  }
+}

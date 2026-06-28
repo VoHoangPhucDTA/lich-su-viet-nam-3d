@@ -1,0 +1,1174 @@
+{
+  "examId": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-lien-truong-bac-ninh-lan-1",
+  "title": "Đề thi Lịch sử – thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-su-Lien-Truong-Bac-Ninh-Lan-1",
+  "year": 2025,
+  "source": "",
+  "sourceDetail": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-su-Lien-Truong-Bac-Ninh-Lan-1",
+  "examCode": "",
+  "format": "thpt_2025",
+  "timeLimitMinutes": 50,
+  "totalScore": 10.0,
+  "parsedAt": "2026-05-20T05:07:38.260618+00:00",
+  "sections": [
+    {
+      "sectionId": "phan-1",
+      "sectionType": "mcq",
+      "title": "Phần I – Trắc nghiệm nhiều lựa chọn",
+      "totalQuestions": 24,
+      "maxScore": 6.0,
+      "scorePerQuestion": 0.25,
+      "questions": [
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-lien-truong-bac-ninh-lan-1-q01",
+          "orderInExam": 1,
+          "questionType": "mcq",
+          "questionText": "Quốc gia nào sau đây ở châu Á lựa chọn con đường đi lên chủ nghĩa xã hội?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Nhật Bản."
+            },
+            {
+              "id": "B",
+              "text": "Trung Quốc."
+            },
+            {
+              "id": "C",
+              "text": "Thái Lan."
+            },
+            {
+              "id": "D",
+              "text": "Hàn Quốc."
+            }
+          ],
+          "correctOptionId": "B",
+          "explanation": "",
+          "difficulty": "medium",
+          "topic": "Các nước châu Á",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-su-Lien-Truong-Bac-Ninh-Lan-1",
+              "location": "Câu 1"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-lien-truong-bac-ninh-lan-1-q02",
+          "orderInExam": 2,
+          "questionType": "mcq",
+          "questionText": "Trật tự thế giới đa cực được hình thành sau khi",
+          "options": [
+            {
+              "id": "A",
+              "text": "Chiến tranh lạnh chấm dứt."
+            },
+            {
+              "id": "B",
+              "text": "chiến tranh thế giới thứ hai kết thúc."
+            },
+            {
+              "id": "C",
+              "text": "xu thế hòa hoãn Đông – Tây xuất hiện."
+            },
+            {
+              "id": "D",
+              "text": "Mỹ phát động chiến tranh lạnh."
+            }
+          ],
+          "correctOptionId": "A",
+          "explanation": "",
+          "difficulty": "medium",
+          "topic": "Trật tự thế giới sau Chiến tranh lạnh",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-su-Lien-Truong-Bac-Ninh-Lan-1",
+              "location": "Câu 2"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-lien-truong-bac-ninh-lan-1-q03",
+          "orderInExam": 3,
+          "questionType": "mcq",
+          "questionText": "Mục tiêu “xây dựng một cộng đồng thịnh vượng và hòa bình ở Đông Nam Á” của tổ chức ASEAN (1967) được đề ra trong văn kiện nào sau?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Tuyên bố Băng Cốc."
+            },
+            {
+              "id": "B",
+              "text": "Hiệp ước Ba-li."
+            },
+            {
+              "id": "C",
+              "text": "Tầm nhìn ASEAN 2020."
+            },
+            {
+              "id": "D",
+              "text": "Hiến chương ASEAN."
+            }
+          ],
+          "correctOptionId": "A",
+          "explanation": "",
+          "difficulty": "medium",
+          "topic": "ASEAN",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-su-Lien-Truong-Bac-Ninh-Lan-1",
+              "location": "Câu 3"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-lien-truong-bac-ninh-lan-1-q04",
+          "orderInExam": 4,
+          "questionType": "mcq",
+          "questionText": "Thắng lợi của của cuộc kháng chiến chống quân xâm lược Tống ở thế kỉ XI gắn liền với sự lãnh đạo của vương triều nào?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Nhà Hồ."
+            },
+            {
+              "id": "B",
+              "text": "Nhà Trần."
+            },
+            {
+              "id": "C",
+              "text": "Nhà Tiền Lê."
+            },
+            {
+              "id": "D",
+              "text": "Nhà Lý."
+            }
+          ],
+          "correctOptionId": "D",
+          "explanation": "",
+          "difficulty": "medium",
+          "topic": "Lịch sử Việt Nam thời phong kiến",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-su-Lien-Truong-Bac-Ninh-Lan-1",
+              "location": "Câu 4"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-lien-truong-bac-ninh-lan-1-q05",
+          "orderInExam": 5,
+          "questionType": "mcq",
+          "questionText": "Nội dung nào sau đây không phản ánh đúng mục tiêu của tổ chức Liên hợp quốc?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Trung tâm điều hòa các nỗ lực quốc tế vì mục tiêu chung."
+            },
+            {
+              "id": "B",
+              "text": "Hợp tác quốc tế để giải quyết các vấn đề kinh tế, xã hội."
+            },
+            {
+              "id": "C",
+              "text": "Thúc đẩy quan hệ hữu nghị giữa các dân tộc trên thế giới."
+            },
+            {
+              "id": "D",
+              "text": "Giải quyết các tranh chấp quốc tế bằng biện pháp hòa bình."
+            }
+          ],
+          "correctOptionId": "D",
+          "explanation": "",
+          "difficulty": "medium",
+          "topic": "Liên hợp quốc",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-su-Lien-Truong-Bac-Ninh-Lan-1",
+              "location": "Câu 5"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-lien-truong-bac-ninh-lan-1-q06",
+          "orderInExam": 6,
+          "questionType": "mcq",
+          "questionText": "Hiệp hội các quốc gia Đông Nam Á (ASEAN) được thành lập tại quốc gia nào sau đây?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Xin-ga-po."
+            },
+            {
+              "id": "B",
+              "text": "Ma-lai-xi-a."
+            },
+            {
+              "id": "C",
+              "text": "In-đô-nê-xi-a."
+            },
+            {
+              "id": "D",
+              "text": "Thái Lan."
+            }
+          ],
+          "correctOptionId": "D",
+          "explanation": "",
+          "difficulty": "medium",
+          "topic": "ASEAN",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-su-Lien-Truong-Bac-Ninh-Lan-1",
+              "location": "Câu 6"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-lien-truong-bac-ninh-lan-1-q07",
+          "orderInExam": 7,
+          "questionType": "mcq",
+          "questionText": "Bối cảnh ra đời của Hiệp hội các quốc gia Đông Nam Á (ASEAN)?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Xu thế toàn cầu hoá đang diễn ra mạnh mẽ."
+            },
+            {
+              "id": "B",
+              "text": "Trật tự thế giới đa cực chi phối quan hệ quốc tế."
+            },
+            {
+              "id": "C",
+              "text": "Tất cả các nước thuộc địa đã giành được độc lập."
+            },
+            {
+              "id": "D",
+              "text": "Cục diện chiến tranh lạnh đang bao trùm thế giới."
+            }
+          ],
+          "correctOptionId": "D",
+          "explanation": "",
+          "difficulty": "medium",
+          "topic": "ASEAN",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-su-Lien-Truong-Bac-Ninh-Lan-1",
+              "location": "Câu 7"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-lien-truong-bac-ninh-lan-1-q08",
+          "orderInExam": 8,
+          "questionType": "mcq",
+          "questionText": "Nội dung nào sau đây không phản ánh đúng ý nghĩa sự thành lập Cộng đồng ASEAN?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Góp phần định hướng cho sự phát triển của ASEAN trong tương lai."
+            },
+            {
+              "id": "B",
+              "text": "Chấm dứt hoàn toàn sự chia rẽ trong nội bộ các nước ASEAN."
+            },
+            {
+              "id": "C",
+              "text": "Đưa sự hợp tác toàn diện giữa các nước lên một nấc thang mới."
+            },
+            {
+              "id": "D",
+              "text": "Đáp ứng nguyện vọng phát triển của các quốc gia thành viên."
+            }
+          ],
+          "correctOptionId": "B",
+          "explanation": "",
+          "difficulty": "medium",
+          "topic": "ASEAN",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-su-Lien-Truong-Bac-Ninh-Lan-1",
+              "location": "Câu 8"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-lien-truong-bac-ninh-lan-1-q09",
+          "orderInExam": 9,
+          "questionType": "mcq",
+          "questionText": "Nội dung nào sau đây không phản ánh đúng xu thế phát triển của thế giới sau khi Chiến tranh lạnh chấm dứt?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Trật tự thế giới đơn cực được xác lập trong quan hệ quốc tế."
+            },
+            {
+              "id": "B",
+              "text": "Hòa bình, hợp tác và phát triển là xu thế chủ đạo của thế giới."
+            },
+            {
+              "id": "C",
+              "text": "Xu thế toàn cầu hóa diễn ra ngày càng mạnh mẽ trên nhiều lĩnh vực."
+            },
+            {
+              "id": "D",
+              "text": "Các quốc gia tập trung lấy phát triển kinh tế làm trung tâm."
+            }
+          ],
+          "correctOptionId": "A",
+          "explanation": "",
+          "difficulty": "medium",
+          "topic": "Trật tự thế giới sau Chiến tranh lạnh",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-su-Lien-Truong-Bac-Ninh-Lan-1",
+              "location": "Câu 9"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-lien-truong-bac-ninh-lan-1-q10",
+          "orderInExam": 10,
+          "questionType": "mcq",
+          "questionText": "Ý nào sau đây không phải là nội dung của Cộng đồng Văn hóa – Xã hội ASEAN?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Thu hẹp khoảng cách phát triển, bình đẳng xã hội."
+            },
+            {
+              "id": "B",
+              "text": "Hội nhập đầy đủ, sâu sắc vào nền kinh tế chung của toàn cầu."
+            },
+            {
+              "id": "C",
+              "text": "Đảm bảo môi trường bền vững, tạo dựng bản sắc ASEAN."
+            },
+            {
+              "id": "D",
+              "text": "Phát triển con người, đảm bảo phúc lợi và bảo hiểm xã hội."
+            }
+          ],
+          "correctOptionId": "B",
+          "explanation": "",
+          "difficulty": "medium",
+          "topic": "ASEAN",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-su-Lien-Truong-Bac-Ninh-Lan-1",
+              "location": "Câu 10"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-lien-truong-bac-ninh-lan-1-q11",
+          "orderInExam": 11,
+          "questionType": "mcq",
+          "questionText": "Một trong những quốc gia có vai trò quan trọng trong quá trình thành lập Liên hợp quốc là",
+          "options": [
+            {
+              "id": "A",
+              "text": "Nhật Bản."
+            },
+            {
+              "id": "B",
+              "text": "Liên Xô."
+            },
+            {
+              "id": "C",
+              "text": "Pháp."
+            },
+            {
+              "id": "D",
+              "text": "Thái Lan."
+            }
+          ],
+          "correctOptionId": "B",
+          "explanation": "",
+          "difficulty": "medium",
+          "topic": "Liên hợp quốc",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-su-Lien-Truong-Bac-Ninh-Lan-1",
+              "location": "Câu 11"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-lien-truong-bac-ninh-lan-1-q12",
+          "orderInExam": 12,
+          "questionType": "mcq",
+          "questionText": "Mỹ và Liên Xô tuyên bố kết thúc Chiến tranh lạnh là do",
+          "options": [
+            {
+              "id": "A",
+              "text": "áp lực từ các nước Đồng minh và tác động của phong trào giải phóng dân tộc."
+            },
+            {
+              "id": "B",
+              "text": "sự can thiệp của Liên hợp quốc vào quan hệ song phương hai nước."
+            },
+            {
+              "id": "C",
+              "text": "sự suy giảm thế mạnh của Mỹ và Liên Xô do chạy đua vũ trang kéo dài."
+            },
+            {
+              "id": "D",
+              "text": "sự ra đời và ngày càng lớn mạnh của hệ thống xã hội chủ nghĩa."
+            }
+          ],
+          "correctOptionId": "C",
+          "explanation": "",
+          "difficulty": "medium",
+          "topic": "Chiến tranh lạnh",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-su-Lien-Truong-Bac-Ninh-Lan-1",
+              "location": "Câu 12"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-lien-truong-bac-ninh-lan-1-q13",
+          "orderInExam": 13,
+          "questionType": "mcq",
+          "questionText": "Chiến tranh lạnh chấm dứt cùng sự sụp đổ của Liên Xô và Đông Âu (1991) đã tác động như thế nào đến cục diện thế giới?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Thúc đẩy phong trào cách mạng vô sản chống chủ nghĩa phát xít diễn ra mạnh mẽ."
+            },
+            {
+              "id": "B",
+              "text": "Chứng tỏ chủ nghĩa xã hội mở rộng ảnh hưởng và trở thành hệ thống trên toàn thế giới."
+            },
+            {
+              "id": "C",
+              "text": "Làm sụp đổ trật tự thế giới hai cực, mở đường cho trật tự đa cực hình thành."
+            },
+            {
+              "id": "D",
+              "text": "Tạo điều kiện cho cách mạng công nghệ và xu thế toàn cầu hóa hình thành."
+            }
+          ],
+          "correctOptionId": "C",
+          "explanation": "",
+          "difficulty": "medium",
+          "topic": "Chiến tranh lạnh",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-su-Lien-Truong-Bac-Ninh-Lan-1",
+              "location": "Câu 13"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-lien-truong-bac-ninh-lan-1-q14",
+          "orderInExam": 14,
+          "questionType": "mcq",
+          "questionText": "Sau Chiến tranh lạnh, so sánh các mặt trên bình diện toàn cầu đã cho thấy",
+          "options": [
+            {
+              "id": "A",
+              "text": "sự mất cân bằng theo hướng có lợi cho Mỹ và phương Tây."
+            },
+            {
+              "id": "B",
+              "text": "tất cả mâu thuẫn đều được giải quyết bằng biện pháp hòa bình."
+            },
+            {
+              "id": "C",
+              "text": "Mỹ - Liên Xô đã chuyển từ quan hệ đồng minh sang đối đầu."
+            },
+            {
+              "id": "D",
+              "text": "có sự cân bằng giữa hai hệ thống chính trị - xã hội đối lập."
+            }
+          ],
+          "correctOptionId": "A",
+          "explanation": "",
+          "difficulty": "medium",
+          "topic": "Trật tự thế giới sau Chiến tranh lạnh",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-su-Lien-Truong-Bac-Ninh-Lan-1",
+              "location": "Câu 14"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-lien-truong-bac-ninh-lan-1-q15",
+          "orderInExam": 15,
+          "questionType": "mcq",
+          "questionText": "Những kết quả đạt được trong cuộc chiến đấu chống Pháp của quân dân Việt Nam ở Bắc vĩ tuyến 16 (từ 12-1946 đến 2-1947) đã",
+          "options": [
+            {
+              "id": "A",
+              "text": "tạo tiền đề cho những thắng lợi tiếp theo của cuộc kháng chiến."
+            },
+            {
+              "id": "B",
+              "text": "đưa cuộc kháng chiến bước sang ngay giai đoạn chiến tranh chính quy."
+            },
+            {
+              "id": "C",
+              "text": "bảo vệ được cơ sở vật chất – kỹ thuật các đô thị trên toàn Việt Nam."
+            },
+            {
+              "id": "D",
+              "text": "làm thất bại âm mưu tiến quân ra Bắc để thôn tính Việt Nam của Pháp."
+            }
+          ],
+          "correctOptionId": "A",
+          "explanation": "",
+          "difficulty": "medium",
+          "topic": "Kháng chiến chống Pháp 1945-1954",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-su-Lien-Truong-Bac-Ninh-Lan-1",
+              "location": "Câu 15"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-lien-truong-bac-ninh-lan-1-q16",
+          "orderInExam": 16,
+          "questionType": "mcq",
+          "questionText": "Năm 1945, Việt Nam lật đổ ách thống trị của",
+          "options": [
+            {
+              "id": "A",
+              "text": "phát xít Nhật."
+            },
+            {
+              "id": "B",
+              "text": "đế quốc Mĩ."
+            },
+            {
+              "id": "C",
+              "text": "thực dân Áo."
+            },
+            {
+              "id": "D",
+              "text": "thực dân Bỉ."
+            }
+          ],
+          "correctOptionId": "A",
+          "explanation": "",
+          "difficulty": "medium",
+          "topic": "Cách mạng tháng Tám 1945",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-su-Lien-Truong-Bac-Ninh-Lan-1",
+              "location": "Câu 16"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-lien-truong-bac-ninh-lan-1-q17",
+          "orderInExam": 17,
+          "questionType": "mcq",
+          "questionText": "“Sự ra đời của Nhà nước dân chủ nhân dân ở Việt Nam là bước nhảy vọt to lớn, là cuộc cải biến xã hội vĩ đại” vì lí do nào sau đây?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Đưa Đảng cộng sản Việt Nam trở thành lực lượng duy nhất lãnh đạo cách mạng dân tộc."
+            },
+            {
+              "id": "B",
+              "text": "Chuyển cách mạng Việt Nam từ giai đoạn hoạt động bí mật sang hoạt động công khai."
+            },
+            {
+              "id": "C",
+              "text": "Mở đầu kỉ nguyên: đất nước độc lập, thống nhất, cả nước đi lên chủ nghĩa xã hội."
+            },
+            {
+              "id": "D",
+              "text": "Tính chất xã hội thay đổi, quyền cơ bản của dân tộc và quyền nhân dân được thực thi."
+            }
+          ],
+          "correctOptionId": "D",
+          "explanation": "",
+          "difficulty": "medium",
+          "topic": "Cách mạng tháng Tám 1945",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-su-Lien-Truong-Bac-Ninh-Lan-1",
+              "location": "Câu 17"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-lien-truong-bac-ninh-lan-1-q18",
+          "orderInExam": 18,
+          "questionType": "mcq",
+          "questionText": "Những yếu tố nào sau đây có tác động to lớn đến tình hình Việt Nam trong kháng chiến chống Pháp xâm lược (1945-1954)?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Sự tồn tại của Trật tự thế giới hai cực I-an-ta, Chiến tranh lạnh."
+            },
+            {
+              "id": "B",
+              "text": "Tình trạng chạy đua vũ trang giữa các nước, trật tự đơn cực."
+            },
+            {
+              "id": "C",
+              "text": "Sự thiết lập Trật tự Véc-xai – Oa-sinh-tơn, Chiến tranh lạnh."
+            },
+            {
+              "id": "D",
+              "text": "Sự thiết lập của trật tự thế giới đa cực, sự chi phối của Mỹ."
+            }
+          ],
+          "correctOptionId": "A",
+          "explanation": "",
+          "difficulty": "medium",
+          "topic": "Kháng chiến chống Pháp 1945-1954",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-su-Lien-Truong-Bac-Ninh-Lan-1",
+              "location": "Câu 18"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-lien-truong-bac-ninh-lan-1-q19",
+          "orderInExam": 19,
+          "questionType": "mcq",
+          "questionText": "Nội dung nào sau đây là điểm tương đồng giữa Tổng khởi nghĩa tháng Tám năm 1945 với các cuộc khởi nghĩa ở Việt Nam từ thế kỉ I đến thế kỉ XIX?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Xuất phát từ mâu thuẫn xã hội phát triển gay gắt."
+            },
+            {
+              "id": "B",
+              "text": "Nhằm lật đổ chế độ phong kiến suy yếu, thối nát."
+            },
+            {
+              "id": "C",
+              "text": "Có sự đoàn kết giữa tầng lớp thống trị và bị trị."
+            },
+            {
+              "id": "D",
+              "text": "Tận dụng được thời cơ thuận lợi để tiến công."
+            }
+          ],
+          "correctOptionId": "A",
+          "explanation": "",
+          "difficulty": "medium",
+          "topic": "Cách mạng tháng Tám 1945 và lịch sử dân tộc",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-su-Lien-Truong-Bac-Ninh-Lan-1",
+              "location": "Câu 19"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-lien-truong-bac-ninh-lan-1-q20",
+          "orderInExam": 20,
+          "questionType": "mcq",
+          "questionText": "Cách mạng tháng Tám năm 1945 ở Việt Nam góp phần vào thực hiện nhiệm vụ",
+          "options": [
+            {
+              "id": "A",
+              "text": "đảm bảo quyền sống của con người."
+            },
+            {
+              "id": "B",
+              "text": "xoá bỏ chủ nghĩa thực dân kiểu mới."
+            },
+            {
+              "id": "C",
+              "text": "xây dựng ngay nền kinh tế tri thức."
+            },
+            {
+              "id": "D",
+              "text": "hoàn thành ngay xu thế toàn cầu hoá."
+            }
+          ],
+          "correctOptionId": "A",
+          "explanation": "",
+          "difficulty": "medium",
+          "topic": "Cách mạng tháng Tám 1945",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-su-Lien-Truong-Bac-Ninh-Lan-1",
+              "location": "Câu 20"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-lien-truong-bac-ninh-lan-1-q21",
+          "orderInExam": 21,
+          "questionType": "mcq",
+          "questionText": "Sau khi Chiến tranh thế giới thứ hai kết thúc, quan hệ giữa Mĩ và Liên Xô đã chuyển sang",
+          "options": [
+            {
+              "id": "A",
+              "text": "hướng hoà hoãn."
+            },
+            {
+              "id": "B",
+              "text": "xu thế thoả hiệp."
+            },
+            {
+              "id": "C",
+              "text": "thế đối đầu."
+            },
+            {
+              "id": "D",
+              "text": "đẩy mạnh hợp tác."
+            }
+          ],
+          "correctOptionId": "C",
+          "explanation": "",
+          "difficulty": "medium",
+          "topic": "Quan hệ quốc tế sau Chiến tranh thế giới thứ hai",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-su-Lien-Truong-Bac-Ninh-Lan-1",
+              "location": "Câu 21"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-lien-truong-bac-ninh-lan-1-q22",
+          "orderInExam": 22,
+          "questionType": "mcq",
+          "questionText": "Ngày 23-9-1945, Nhân dân vùng, miền nào sau đây ở Việt Nam trực tiếp tiến hành kháng chiến chống thực dân Pháp?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Nam Bộ."
+            },
+            {
+              "id": "B",
+              "text": "Tây Nguyên."
+            },
+            {
+              "id": "C",
+              "text": "Bắc Bộ."
+            },
+            {
+              "id": "D",
+              "text": "Tây Bắc."
+            }
+          ],
+          "correctOptionId": "A",
+          "explanation": "",
+          "difficulty": "medium",
+          "topic": "Kháng chiến chống Pháp 1945-1954",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-su-Lien-Truong-Bac-Ninh-Lan-1",
+              "location": "Câu 22"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-lien-truong-bac-ninh-lan-1-q23",
+          "orderInExam": 23,
+          "questionType": "mcq",
+          "questionText": "Nội dung nào sau đây là bối cảnh bùng nổ Cách mạng tháng Tám năm 1945 ở Việt Nam?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Pháp tiến hành đảo chính Nhật."
+            },
+            {
+              "id": "B",
+              "text": "Mĩ thất bại trong Chiến tranh lạnh."
+            },
+            {
+              "id": "C",
+              "text": "Chế độ phong kiến được khôi phục."
+            },
+            {
+              "id": "D",
+              "text": "Chiến tranh thế giới thứ hai kết thúc."
+            }
+          ],
+          "correctOptionId": "D",
+          "explanation": "",
+          "difficulty": "medium",
+          "topic": "Cách mạng tháng Tám 1945",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-su-Lien-Truong-Bac-Ninh-Lan-1",
+              "location": "Câu 23"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-lien-truong-bac-ninh-lan-1-q24",
+          "orderInExam": 24,
+          "questionType": "mcq",
+          "questionText": "Cách mạng tháng Tám năm 1945 ở Việt Nam nổ ra và giành thắng lợi nhanh chóng, ít đổ máu là do có",
+          "options": [
+            {
+              "id": "A",
+              "text": "Đảng Lao động và Chủ tịch Hồ Chí minh lãnh đạo."
+            },
+            {
+              "id": "B",
+              "text": "điều kiện khách quan và chủ quan thuận lợi."
+            },
+            {
+              "id": "C",
+              "text": "sự giúp đỡ về vật chất của các nước Đồng minh."
+            },
+            {
+              "id": "D",
+              "text": "sự ủng hộ của các nước xã hội chủ nghĩa."
+            }
+          ],
+          "correctOptionId": "B",
+          "explanation": "",
+          "difficulty": "medium",
+          "topic": "Cách mạng tháng Tám 1945",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-su-Lien-Truong-Bac-Ninh-Lan-1",
+              "location": "Câu 24"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "sectionId": "phan-2",
+      "sectionType": "true_false",
+      "title": "Phần II – Trắc nghiệm Đúng/Sai",
+      "totalQuestions": 4,
+      "maxScore": 4.0,
+      "scoringRule": "ladder",
+      "questions": [
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-lien-truong-bac-ninh-lan-1-q25",
+          "orderInExam": 25,
+          "questionType": "true_false",
+          "questionText": "Cho đoạn tư liệu sau đây: “Trước thắng lợi vĩ đại của Liên Xô đánh tan đạo quân Quan Đông của phát xít Nhật, buộc Nhật phải đầu hàng không điều kiện, Đảng ta đã kịp thời nắm lấy thời cơ có một không hai đó để phát động cao trào tổng khởi nghĩa, dựa vào lực lượng chính trị của đông đảo quần chúng ở thành thị và nông thôn kết hợp với các lực lượng vũ trang cách mạng, đập tan các cơ quan đầu não của địch ở thủ đô và các thành phố, xóa bỏ hoàn toàn hệ thống cai trị của địch ở nông thôn, giành chính quyền trong phạm vi cả nước” (Lê Duẩn, Dưới lá cờ vẻ vang của Đảng, vì độc lập, tự do, vì chủ nghĩa xã hội, tiến lên giành những thắng lợi mới, NXB Sự thật, Hà Nội, 1976, tr.48)",
+          "statements": [
+            {
+              "id": "a",
+              "text": "Thời cơ “có một không hai” nhắc đến trong đoạn tư liệu bắt đầu xuất hiện từ khi Nhật đầu hàng Đồng minh đến khi quân Đồng minh kéo vào Đông Dương theo quy định.",
+              "isTrue": false
+            },
+            {
+              "id": "b",
+              "text": "Tổng khởi nghĩa tháng Tám năm 1945 là điển hình của nghệ thuật phân tích thời cơ, chớp thời cơ và ngăn chặn hoàn toàn nguy cơ cách mạng.",
+              "isTrue": false
+            },
+            {
+              "id": "c",
+              "text": "Cách mạng tháng Tám năm 1945 đã giải quyết được thành công vấn đề cơ bản của một cuộc cách mạng xã hội và mang tầm vóc thời đại.",
+              "isTrue": true
+            },
+            {
+              "id": "d",
+              "text": "Lực lượng trung gian ngả hẳn về phía cách mạng là một trong những biểu hiệu cho thấy thời cơ của Cách mạng tháng Tám (1945) đã chín muồi.",
+              "isTrue": true
+            }
+          ],
+          "explanation": "",
+          "difficulty": "hard",
+          "topic": "Cách mạng tháng Tám 1945",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-su-Lien-Truong-Bac-Ninh-Lan-1",
+              "location": "Câu 1"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-lien-truong-bac-ninh-lan-1-q26",
+          "orderInExam": 26,
+          "questionType": "true_false",
+          "questionText": "Cho bảng thông tin sau đây: Thời gian | Sự kiện 1 – 1 – 1942 | Đại diện 26 nước đã kí bản Tuyên bố Liên hợp quốc, cam kết thành lập một tổ chức quốc tế vì hòa bình và an ninh sau chiến tranh. 28 – 11 đến 1 – 12 – 1943 | Tại hội nghị Tê – hê – ran (I – ran), ba nước Liên Xô, Mỹ, Anh khẳng định quyết tâm thành lập Liên hợp quốc thay cho Hội Quốc liên. 2 – 1945 | Ba nước Liên Xô, Mỹ, Anh họp hội nghị tại I – an – ta ra quyết định về việc thành lập Liên hợp quốc và đồng ý triệu tập hội nghị để thông qua Hiến chương Liên hợp quốc. 25 – 4 – 1945 đến ngày 26 – 6 – 1945 | Hội nghị quốc tế được tổ chức tại Xan Phran – xi – xcô (Mỹ) đã thông qua bản Hiến chương Liên hợp quốc. 24 – 10 – 1945 | Với sự phê chuẩn Hiến chương của các nước thành viên, Liên hợp quốc chính thức được thành lập.",
+          "statements": [
+            {
+              "id": "a",
+              "text": "Tháng 2 năm 1945, Liên Xô, Mĩ, Anh họp hội nghị Ianta quyết định thành lập tổ chức Liên hợp quốc.",
+              "isTrue": true
+            },
+            {
+              "id": "b",
+              "text": "Liên hợp quốc ra đời là một tất yếu khách quan của nhân loại, là thành quả của các dân tộc thuộc phe Đồng minh trong Chiến tranh thế giới thứ hai.",
+              "isTrue": true
+            },
+            {
+              "id": "c",
+              "text": "Liên hợp quốc là tổ chức quốc tế đầu tiên tập hợp các quốc gia có chế độ chính trị khác nhau, cùng hợp tác vì mục tiêu chung của nhân loại.",
+              "isTrue": true
+            },
+            {
+              "id": "d",
+              "text": "Tổ chức Liên hợp quốc chính thức được thành lập khi cuộc chiến tranh thế giới thứ hai bước vào giai đoạn kết thúc.",
+              "isTrue": false
+            }
+          ],
+          "explanation": "",
+          "difficulty": "hard",
+          "topic": "Tổ chức Liên hợp quốc",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-su-Lien-Truong-Bac-Ninh-Lan-1",
+              "location": "Câu 2"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-lien-truong-bac-ninh-lan-1-q27",
+          "orderInExam": 27,
+          "questionType": "true_false",
+          "questionText": "Cho đoạn tư liệu sau đây: “Không những giật tung được xiềng xích của bọn đế quốc phát xít, Cách mạng tháng Tám lại lật nhào được chế độ quân chủ thành lập trên đất nước ta hàng chục thế kỉ, làm cho nước Việt Nam thành một nước cộng hòa dân chủ […]. Cách mạng tháng Tám tỏ rõ tinh thần chống phát xít và yêu chuộng dân chủ và hòa bình của nhân dân Việt Nam[…]. Cách mạng tháng Tám đã chọc thủng được hệ thống thuộc địa của chủ nghĩa đế quốc ở một trong những mắt xích yếu nhất của nó, mở đầu cho quá trình tan rã không thể cứu vãn được của chủ nghĩa thực dân thế giới”. (Trường Chinh, Cách mạng dân tộc dân chủ nhân dân Việt Nam - Tác phẩm chọn lọc, Tập 1, NXB Sự thật, Hà Nội, 1975, tr.388 - 389, 391)",
+          "statements": [
+            {
+              "id": "a",
+              "text": "Đoạn tư liệu trên đề cập đến nguyên nhân thắng lợi của Cách mạng tháng Tám năm 1945 ở Việt Nam.",
+              "isTrue": false
+            },
+            {
+              "id": "b",
+              "text": "Cách mạng tháng Tám năm 1945 ở Việt Nam đã làm tan rã cơ bản hệ thống thuộc địa của chủ nghĩa thực dân trên thế giới.",
+              "isTrue": false
+            },
+            {
+              "id": "c",
+              "text": "Cách mạng tháng Tám năm 1945 ở Việt Nam mang tính chất dân chủ điển hình, góp phần vào giải phóng con người.",
+              "isTrue": false
+            },
+            {
+              "id": "d",
+              "text": "Cách mạng tháng Tám năm 1945 đã chấm dứt vĩnh viễn chế độ quân chủ tồn tại nhiều thế kỉ ở Việt Nam.",
+              "isTrue": true
+            }
+          ],
+          "explanation": "",
+          "difficulty": "hard",
+          "topic": "Cách mạng tháng Tám 1945",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-su-Lien-Truong-Bac-Ninh-Lan-1",
+              "location": "Câu 3"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-lien-truong-bac-ninh-lan-1-q28",
+          "orderInExam": 28,
+          "questionType": "true_false",
+          "questionText": "Cho đoạn tư liệu sau đây: “ASEAN đang trên đà hội nhập mạnh mẽ khi thành lập Cộng đồng chung năm 2015. Trong ba trụ cột của Cộng đồng, thì “cột trụ” Cộng đồng Kinh tế ASEAN (AEC) là nội dung hội nhập quan trọng nhất. AEC ra đời là một bước ngoặt đánh dấu sự hội nhập khu vực một cách toàn diện của các nền kinh tế Đông Nam Á và đặt ra nhiều cơ hội đối với đối với kinh tế các nước ASEAN, trong đó có Việt Nam”. (Hồng Phong, Tìm hiểu về ASEAN, NXB Chính trị Quốc gia Sự thật, Hà Nội, 2018, tr.150)",
+          "statements": [
+            {
+              "id": "a",
+              "text": "Ba trụ cột được thành lập đã tạo thành thế ba chân vững chắc cho Cộng đồng ASEAN phát triển.",
+              "isTrue": true
+            },
+            {
+              "id": "b",
+              "text": "Cộng đồng kinh tế ASEAN ra đời đánh dấu sự hội nhập quốc tế sâu rộng của các nước ở khu vực Đông Nam Á.",
+              "isTrue": false
+            },
+            {
+              "id": "c",
+              "text": "Cộng đồng kinh tế ASEAN (AEC) là nội dung hội nhập quan trọng nhất trong ba trụ cột của Cộng đồng ASEAN.",
+              "isTrue": true
+            },
+            {
+              "id": "d",
+              "text": "Việc gia nhập Cộng đồng kinh tế ASEAN vừa mang lại thời cơ vừa tạo ra thách thức cho Việt Nam.",
+              "isTrue": true
+            }
+          ],
+          "explanation": "",
+          "difficulty": "hard",
+          "topic": "Các nước Đông Nam Á",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-su-Lien-Truong-Bac-Ninh-Lan-1",
+              "location": "Câu 4"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "warnings": [
+    "Câu 1 (MCQ): thiếu lời giải (không crash)",
+    "Câu 2 (MCQ): thiếu lời giải (không crash)",
+    "Câu 3 (MCQ): thiếu lời giải (không crash)",
+    "Câu 4 (MCQ): thiếu lời giải (không crash)",
+    "Câu 5 (MCQ): thiếu lời giải (không crash)",
+    "Câu 6 (MCQ): thiếu lời giải (không crash)",
+    "Câu 7 (MCQ): thiếu lời giải (không crash)",
+    "Câu 8 (MCQ): thiếu lời giải (không crash)",
+    "Câu 9 (MCQ): thiếu lời giải (không crash)",
+    "Câu 10 (MCQ): thiếu lời giải (không crash)",
+    "Câu 11 (MCQ): thiếu lời giải (không crash)",
+    "Câu 12 (MCQ): thiếu lời giải (không crash)",
+    "Câu 13 (MCQ): thiếu lời giải (không crash)",
+    "Câu 14 (MCQ): thiếu lời giải (không crash)",
+    "Câu 15 (MCQ): thiếu lời giải (không crash)",
+    "Câu 16 (MCQ): thiếu lời giải (không crash)",
+    "Câu 17 (MCQ): thiếu lời giải (không crash)",
+    "Câu 18 (MCQ): thiếu lời giải (không crash)",
+    "Câu 19 (MCQ): thiếu lời giải (không crash)",
+    "Câu 20 (MCQ): thiếu lời giải (không crash)",
+    "Câu 21 (MCQ): thiếu lời giải (không crash)",
+    "Câu 22 (MCQ): thiếu lời giải (không crash)",
+    "Câu 23 (MCQ): thiếu lời giải (không crash)",
+    "Câu 24 (MCQ): thiếu lời giải (không crash)",
+    "Câu 25 (Đ/S): thiếu lời giải (không crash)",
+    "Câu 26 (Đ/S): thiếu lời giải (không crash)",
+    "Câu 27 (Đ/S): thiếu lời giải (không crash)",
+    "Câu 28 (Đ/S): thiếu lời giải (không crash)"
+  ],
+  "verification": {
+    "structural": {
+      "layer": "L1_structural",
+      "passed": 8,
+      "total": 8,
+      "all_passed": true,
+      "checks": [
+        {
+          "name": "MCQ count = 24",
+          "passed": true,
+          "actual": 24
+        },
+        {
+          "name": "T/F count = 4",
+          "passed": true,
+          "actual": 4
+        },
+        {
+          "name": "No duplicate question IDs",
+          "passed": true,
+          "duplicates": []
+        },
+        {
+          "name": "T/F orderInExam >= 25",
+          "passed": true,
+          "violations": []
+        },
+        {
+          "name": "T/F orderInExam = {25,26,27,28}",
+          "passed": true,
+          "actual": [
+            25,
+            26,
+            27,
+            28
+          ],
+          "expected": [
+            25,
+            26,
+            27,
+            28
+          ]
+        },
+        {
+          "name": "MCQ orderInExam = {1..24}",
+          "passed": true,
+          "actual_first_last": [
+            [
+              1,
+              2,
+              3
+            ],
+            [
+              22,
+              23,
+              24
+            ]
+          ],
+          "expected": "1..24"
+        },
+        {
+          "name": "All MCQ have valid correctOptionId",
+          "passed": true,
+          "missing_in_questions": []
+        },
+        {
+          "name": "All T/F have 4 statements with isTrue bool",
+          "passed": true,
+          "issues": []
+        }
+      ]
+    },
+    "cross_source": {
+      "layer": "L2_cross_source",
+      "n_conflicts": 0,
+      "n_mcq_conflicts": 0,
+      "n_tf_conflicts": 0,
+      "shifting_pattern_detected": false,
+      "shifting_warning": null,
+      "conflicts": [],
+      "all_passed": true
+    },
+    "content_integrity": {
+      "layer": "L3_content",
+      "n_suspicious": 0,
+      "suspicious": [],
+      "note": "LOW severity — cần review thủ công nếu nhiều case"
+    },
+    "verified_at": "2026-05-20T05:07:38.260618+00:00"
+  }
+}
