@@ -57,7 +57,7 @@ function ExamCard({ entry }: { entry: ExamManifestEntry }) {
           {entry.title}
         </h2>
         <div style={{ fontSize: '0.82rem', color: 'var(--text-muted)', marginBottom: '0.65rem' }}>
-          {entry.mcqCount} MCQ · {entry.tfCount} Đúng/Sai · {entry.timeLimitMinutes} phút · {entry.totalScore} điểm
+          {entry.mcqCount} Trắc nghiệm · {entry.tfCount} Đúng/Sai · {entry.timeLimitMinutes} phút · {entry.totalScore} điểm
         </div>
         <span
           style={{
@@ -189,10 +189,10 @@ export default function ExamBrowsePage() {
         >
           <div>
             <h2 style={{ margin: '0 0 0.3rem', fontSize: '1rem', fontWeight: 900, color: 'var(--text-primary)' }}>
-              Ôn theo chủ đề
+              Muốn ôn theo từng mảng kiến thức?
             </h2>
             <p style={{ margin: 0, color: 'var(--text-muted)', fontSize: '0.86rem', lineHeight: 1.55 }}>
-              Luyện câu hỏi theo từng mảng kiến thức và giai đoạn lịch sử.
+              Luyện câu hỏi theo chủ đề/giai đoạn để củng cố phần còn yếu trước khi làm đề thi thử.
             </p>
           </div>
           <Link
@@ -208,7 +208,7 @@ export default function ExamBrowsePage() {
               whiteSpace: 'nowrap',
             }}
           >
-            Khám phá chủ đề
+            Ôn theo chủ đề
           </Link>
         </section>
 

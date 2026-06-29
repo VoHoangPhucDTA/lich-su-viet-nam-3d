@@ -1,5 +1,6 @@
 import { useEffect, useState, type CSSProperties } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import { formatCognitiveLevelLabel, formatDifficultyLabel, formatQuestionTypeLabel } from '@/lib/exam/displayLabels';
 import { loadExam } from '@/lib/exam/examLoader';
 import { loadTopicIndex } from '@/lib/exam/topicIndexLoader';
 import { findSummaryBySlug } from '@/lib/exam/topicGrouping';
@@ -9,6 +10,7 @@ import {
   isTFQuestion,
   type MCQQuestion,
   type Question,
+  type TopicIndexEntry,
   type TFQuestion,
   type TFStatement,
 } from '@/types/exam';
@@ -151,21 +153,50 @@ const questionTitleStyle: CSSProperties = { margin: '0.75rem 0 0', color: 'var(-
 function QuestionMeta({ question }: { question: Question }) {
   return (
     <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.45rem' }}>
-      <span style={chipStyle()}>{question.questionType === 'mcq' ? 'MCQ' : 'Đúng/Sai'}</span>
+      <span style={chipStyle()}>{formatQuestionTypeLabel(question.questionType)}</span>
       <span style={chipStyle()}>{question.topic}</span>
-      <span style={chipStyle()}>{question.difficulty}</span>
-      <span style={chipStyle()}>{question.cognitiveLevel}</span>
+      <span style={chipStyle()}>{formatDifficultyLabel(question.difficulty)}</span>
+      <span style={chipStyle()}>{formatCognitiveLevelLabel(question.cognitiveLevel)}</span>
     </div>
   );
 }
 
-function stableSample<T>(items: T[], limit = 30): T[] {
-  return items.slice(0, limit);
+function shuffleArray<T>(items: T[]): T[] {
+  const copy = items.slice();
+  for (let i = copy.length - 1; i > 0; i -= 1) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [copy[i], copy[j]] = [copy[j], copy[i]];
+  }
+  return copy;
+}
+
+function samplePracticeRefs(refs: TopicIndexEntry[], limit = 30): TopicIndexEntry[] {
+  const byExam = new Map<string, TopicIndexEntry[]>();
+  for (const ref of shuffleArray(refs)) {
+    const bucket = byExam.get(ref.examId) ?? [];
+    bucket.push(ref);
+    byExam.set(ref.examId, bucket);
+  }
+
+  const exams = shuffleArray(Array.from(byExam.keys()));
+  const picked: TopicIndexEntry[] = [];
+
+  while (picked.length < limit && exams.some((examId) => (byExam.get(examId)?.length ?? 0) > 0)) {
+    for (const examId of exams) {
+      const bucket = byExam.get(examId);
+      const next = bucket?.shift();
+      if (next) picked.push(next);
+      if (picked.length >= limit) break;
+    }
+  }
+
+  return picked;
 }
 
 export default function ExamTopicPracticePage() {
   const { topicSlug } = useParams<{ topicSlug: string }>();
   const [title, setTitle] = useState('');
+  const [practiceLabel, setPracticeLabel] = useState('Ôn theo chủ đề');
   const [questions, setQuestions] = useState<PracticeQuestion[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -192,7 +223,7 @@ export default function ExamTopicPracticePage() {
           setError('Không tìm thấy chủ đề hoặc giai đoạn này.');
           return;
         }
-        const refs = stableSample(summary.refs, 30);
+        const refs = samplePracticeRefs(summary.refs, 30);
         const examIds = Array.from(new Set(refs.map((ref) => ref.examId)));
         const loaded = await Promise.allSettled(examIds.map((examId) => loadExam(examId)));
         const questionMap = new Map<string, PracticeQuestion>();
@@ -208,6 +239,7 @@ export default function ExamTopicPracticePage() {
           .filter((value): value is PracticeQuestion => Boolean(value));
         if (!alive) return;
         setTitle(summary.title);
+        setPracticeLabel(summary.topics.length > 1 ? 'Ôn theo giai đoạn' : 'Ôn theo chủ đề');
         setQuestions(picked);
         if (picked.length === 0) setError('Chủ đề này chưa tải được câu hỏi phù hợp.');
       } catch (err) {
@@ -249,14 +281,20 @@ export default function ExamTopicPracticePage() {
 
   if (finished) {
     const percent = questions.length > 0 ? Math.round((correctCount / questions.length) * 100) : 0;
+    const advice = percent >= 80
+      ? 'Bạn có thể chuyển sang làm đề thi thử để kiểm tra khả năng tổng hợp.'
+      : 'Bạn nên luyện lại chủ đề này và đọc kỹ phần giải thích ở các câu chưa đúng.';
     return (
       <div style={pageStyle}>
         <div style={{ maxWidth: '42rem', margin: '0 auto' }}>
           <div style={{ ...cardStyle, textAlign: 'center', padding: '2rem' }}>
-            <span style={chipStyle('success')}>Ôn theo chủ đề</span>
+            <span style={chipStyle('success')}>{practiceLabel}</span>
             <h1 style={{ margin: '0.8rem 0 0.75rem', fontSize: '1.5rem', fontWeight: 900 }}>Hoàn thành luyện tập</h1>
             <p style={{ margin: '0 0 1.5rem', color: 'var(--text-muted)', lineHeight: 1.6 }}>
               Chủ đề: <strong>{title}</strong>. Bạn đã kiểm tra {checkedCount}/{questions.length} câu, đúng {correctCount} câu ({percent}%).
+            </p>
+            <p style={{ margin: '0 0 1.5rem', color: 'var(--text-secondary)', lineHeight: 1.6, fontWeight: 700 }}>
+              {advice}
             </p>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.75rem', justifyContent: 'center' }}>
               <button type="button" onClick={reset} style={buttonStyle('primary')}>Luyện lại chủ đề này</button>
@@ -274,7 +312,7 @@ export default function ExamTopicPracticePage() {
       <div style={{ maxWidth: '52rem', margin: '0 auto', display: 'grid', gap: '1rem' }}>
         <header style={{ display: 'grid', gap: '0.55rem' }}>
           <Link to="/exams/on-chu-de" style={{ color: 'var(--text-muted)', textDecoration: 'none', fontSize: '0.875rem' }}>← Chọn chủ đề</Link>
-          <h1 style={{ margin: 0, fontSize: '1.65rem', fontWeight: 900 }}>Ôn theo chủ đề</h1>
+          <h1 style={{ margin: 0, fontSize: '1.65rem', fontWeight: 900 }}>{practiceLabel}</h1>
           <p style={{ margin: 0, color: 'var(--text-primary)', fontWeight: 800 }}>{title}</p>
           <p style={{ margin: 0, color: 'var(--text-muted)', lineHeight: 1.55 }}>Không giới hạn thời gian, kiểm tra ngay sau từng câu và đọc giải thích để ghi nhớ.</p>
         </header>

@@ -109,7 +109,7 @@ function HistoryRow({ result, meta }: { result: ExamResultV2; meta?: ExamManifes
       <div style={{ display: 'grid', gap: '0.75rem', justifyItems: 'end' }}>
         <div style={{ display: 'flex', gap: '0.65rem', alignItems: 'center', flexWrap: 'wrap', justifyContent: 'flex-end' }}>
           <ScoreBlock label="Tổng" value={result.totalScore.toFixed(2)} color={color} />
-          <ScoreBlock label="MCQ" value={result.mcqScore.toFixed(2)} color="var(--accent)" />
+          <ScoreBlock label="Trắc nghiệm" value={result.mcqScore.toFixed(2)} color="var(--accent)" />
           <ScoreBlock label="Đúng/Sai" value={result.tfScore.toFixed(2)} color="var(--admin-accent)" />
         </div>
         <div style={{ display: 'flex', gap: '0.6rem', alignItems: 'center', flexWrap: 'wrap', justifyContent: 'flex-end' }}>

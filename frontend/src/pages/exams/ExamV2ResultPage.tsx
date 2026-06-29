@@ -4,16 +4,17 @@
  */
 import { useEffect, useMemo, useState, type ReactNode } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import { formatCognitiveLevelLabel, formatDifficultyLabel } from '@/lib/exam/displayLabels';
 import { loadExam } from '@/lib/exam/examLoader';
 import { rateScore, scoreToPercent } from '@/lib/exam/scoring';
+import { loadTopicIndex } from '@/lib/exam/topicIndexLoader';
+import { findSummaryBySlug, slugifyTopic } from '@/lib/exam/topicGrouping';
 import { readResultFromLS } from '@/lib/exam/useSessionV2';
 import { analyzeWeaknesses, type WeaknessAnalysis, type WeaknessBucket } from '@/lib/exam/weaknessAnalysis';
 import {
   flattenExamQuestions,
   isMCQQuestion,
   isTFQuestion,
-  type CognitiveLevel,
-  type DifficultyLevel,
   type ExamFile,
   type ExamResultV2,
   type MCQOption,
@@ -36,18 +37,6 @@ const RATING_COLOR: Record<string, string> = {
   kha: 'var(--accent)',
   trung_binh: 'var(--warning)',
   yeu: 'var(--danger)',
-};
-
-const DIFFICULTY_LABEL: Record<DifficultyLevel, string> = {
-  easy: 'Dễ',
-  medium: 'Trung bình',
-  hard: 'Khó',
-};
-
-const COGNITIVE_LABEL: Record<CognitiveLevel, string> = {
-  knowledge: 'Nhận biết',
-  comprehension: 'Thông hiểu',
-  application: 'Vận dụng',
 };
 
 const TF_LABEL: Record<'true' | 'false' | 'blank', string> = {
@@ -155,7 +144,7 @@ function ScoreCard({ result }: { result: ExamResultV2 }) {
           borderTop: '1px solid var(--border)',
         }}
       >
-        <Stat label="MCQ" value={`${result.mcqScore.toFixed(2)}đ`} color="var(--accent)" />
+        <Stat label="Trắc nghiệm" value={`${result.mcqScore.toFixed(2)}đ`} color="var(--accent)" />
         <Stat label="Đúng/Sai" value={`${result.tfScore.toFixed(2)}đ`} color="var(--admin-accent)" />
         <Stat label="Thời gian" value={formatDuration(result.durationSeconds)} color="var(--text-muted)" />
         <Stat label="Đã làm" value={`${answered}/${result.totalQuestions}`} color="var(--success)" />
@@ -170,7 +159,7 @@ function MCQBreakdown({ result }: { result: ExamResultV2 }) {
     <section style={{ background: 'var(--bg-card)', borderRadius: '1rem', padding: '1.25rem', border: '1px solid var(--border)' }}>
       <header style={{ display: 'flex', alignItems: 'baseline', gap: '0.75rem', marginBottom: '1.25rem' }}>
         <span style={{ fontFamily: 'monospace', fontSize: '0.8rem', color: 'var(--admin-accent)' }}>01</span>
-        <h2 style={{ margin: 0, fontSize: '1.05rem', fontWeight: 800, color: 'var(--text-primary)' }}>Phần I - Trắc nghiệm MCQ</h2>
+        <h2 style={{ margin: 0, fontSize: '1.05rem', fontWeight: 800, color: 'var(--text-primary)' }}>Phần I - Trắc nghiệm</h2>
         <span style={{ flex: 1, height: '1px', background: 'var(--border)' }} />
         <span style={{ fontWeight: 800, color: 'var(--accent)', fontSize: '1.05rem' }}>{result.mcqScore.toFixed(2)}đ</span>
       </header>
@@ -248,7 +237,7 @@ function MiniBreakdown({ title, buckets }: { title: string; buckets: WeaknessBuc
   );
 }
 
-function WeaknessAnalysisSection({ analysis, result }: { analysis: WeaknessAnalysis; result: ExamResultV2 }) {
+function WeaknessAnalysisSection({ analysis, result, topicPracticeSlug }: { analysis: WeaknessAnalysis; result: ExamResultV2; topicPracticeSlug?: string | null }) {
   const topTopics = analysis.byTopic.slice(0, 3);
   const retryAvailable = needsRetry(result);
 
@@ -314,8 +303,13 @@ function WeaknessAnalysisSection({ analysis, result }: { analysis: WeaknessAnaly
           ))}
         </div>
         <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
+          {topicPracticeSlug && (
+            <Link to={`/exams/on-chu-de/${topicPracticeSlug}`} style={{ padding: '0.7rem 1.1rem', background: 'var(--accent)', color: '#fff', borderRadius: '0.75rem', textDecoration: 'none', fontWeight: 800, fontSize: '0.88rem' }}>
+              Ôn chủ đề này
+            </Link>
+          )}
           {retryAvailable && (
-            <Link to={`/exams/on-lai/${result.sessionId}`} style={{ padding: '0.7rem 1.1rem', background: 'var(--accent)', color: '#fff', borderRadius: '0.75rem', textDecoration: 'none', fontWeight: 800, fontSize: '0.88rem' }}>
+            <Link to={`/exams/on-lai/${result.sessionId}`} style={{ padding: '0.7rem 1.1rem', background: topicPracticeSlug ? 'var(--bg-surface)' : 'var(--accent)', color: topicPracticeSlug ? 'var(--text-primary)' : '#fff', border: topicPracticeSlug ? '1px solid var(--border)' : '1px solid var(--accent)', borderRadius: '0.75rem', textDecoration: 'none', fontWeight: 800, fontSize: '0.88rem' }}>
               Ôn lại câu sai
             </Link>
           )}
@@ -335,8 +329,8 @@ function Metadata({ question }: { question: Question }) {
   return (
     <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem', marginTop: '0.75rem' }}>
       <Chip>{question.topic}</Chip>
-      <Chip>{DIFFICULTY_LABEL[question.difficulty]}</Chip>
-      <Chip>{COGNITIVE_LABEL[question.cognitiveLevel]}</Chip>
+      <Chip>{formatDifficultyLabel(question.difficulty)}</Chip>
+      <Chip>{formatCognitiveLevelLabel(question.cognitiveLevel)}</Chip>
     </div>
   );
 }
@@ -403,7 +397,7 @@ function MCQReviewCard({ question, result, index }: { question: MCQQuestion; res
         </div>
         <div style={{ flex: 1 }}>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', marginBottom: '0.65rem' }}>
-            <Chip>MCQ</Chip>
+            <Chip>Trắc nghiệm</Chip>
             <Chip tone={statusTone}>{statusText}</Chip>
             <Chip>{formatPoints(result.pointsEarned)}</Chip>
           </div>
@@ -571,6 +565,7 @@ export default function ExamV2ResultPage() {
   const { sessionId } = useParams<{ sessionId: string }>();
   const [result, setResult] = useState<ExamResultV2 | null>(null);
   const [exam, setExam] = useState<ExamFile | null>(null);
+  const [weakestTopicSlug, setWeakestTopicSlug] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -636,6 +631,37 @@ export default function ExamV2ResultPage() {
     return analyzeWeaknesses(result, exam);
   }, [result, exam]);
 
+  useEffect(() => {
+    let alive = true;
+
+    async function resolveWeakestTopicSlug() {
+      const weakestTopic = weaknessAnalysis?.weakestTopic;
+      if (!weakestTopic) {
+        setWeakestTopicSlug(null);
+        return;
+      }
+
+      try {
+        const candidateSlug = slugifyTopic(weakestTopic.key);
+        if (!candidateSlug) {
+          if (alive) setWeakestTopicSlug(null);
+          return;
+        }
+        const topicIndex = await loadTopicIndex();
+        const summary = findSummaryBySlug(topicIndex, candidateSlug);
+        if (alive) setWeakestTopicSlug(summary?.slug ?? null);
+      } catch {
+        if (alive) setWeakestTopicSlug(null);
+      }
+    }
+
+    void resolveWeakestTopicSlug();
+
+    return () => {
+      alive = false;
+    };
+  }, [weaknessAnalysis]);
+
   if (loading) return <LoadingState />;
 
   if (!result) {
@@ -672,7 +698,7 @@ export default function ExamV2ResultPage() {
           <TFBreakdown result={result} />
         </div>
 
-        {weaknessAnalysis && <WeaknessAnalysisSection analysis={weaknessAnalysis} result={result} />}
+        {weaknessAnalysis && <WeaknessAnalysisSection analysis={weaknessAnalysis} result={result} topicPracticeSlug={weakestTopicSlug} />}
 
         <section style={{ display: 'grid', gap: '1rem' }}>
           <header style={{ display: 'flex', alignItems: 'baseline', gap: '0.75rem' }}>

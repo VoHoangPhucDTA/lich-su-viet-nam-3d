@@ -126,7 +126,7 @@ function MCQPracticeCard({
   return (
     <div style={cardStyle}>
       <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginBottom: '0.75rem' }}>
-        <span style={chipStyle()}>MCQ</span>
+        <span style={chipStyle()}>Trắc nghiệm</span>
         {checked && <span style={chipStyle(isCorrect ? 'success' : 'danger')}>{isCorrect ? 'Đúng' : 'Chưa đúng'}</span>}
       </div>
       <h2 style={questionTitleStyle}>{question.questionText}</h2>
@@ -316,7 +316,7 @@ export default function ExamPracticePage() {
             <span style={{ color: 'var(--text-muted)' }}>Đã kiểm tra {checkedCount}/{questions.length}</span>
             <span style={{ color: 'var(--text-muted)' }}>Đúng hoàn toàn {correctCount}</span>
             <span style={{ flex: 1 }} />
-            <span style={chipStyle()}>{mcqCount} MCQ · {tfCount} Đúng/Sai</span>
+            <span style={chipStyle()}>{mcqCount} Trắc nghiệm · {tfCount} Đúng/Sai</span>
           </div>
           <div style={{ height: '0.45rem', background: 'var(--bg-surface)', borderRadius: '999px', overflow: 'hidden', marginTop: '0.8rem' }}>
             <div style={{ width: `${((currentIndex + 1) / questions.length) * 100}%`, height: '100%', background: 'var(--accent)', borderRadius: '999px' }} />

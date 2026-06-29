@@ -86,6 +86,12 @@ export default function ExamHomePage() {
                      icon="🎯" 
                      to="/exams/create?preset=mock" 
                    />
+                   <FeatureCard
+                     title="Ôn theo chủ đề"
+                     desc="Luyện câu hỏi theo từng mảng kiến thức và giai đoạn lịch sử, xem giải thích ngay sau từng câu."
+                     icon="CH"
+                     to="/exams/on-chu-de"
+                   />
                    <FeatureCard 
                      title="Tạo đề luyện tập tự do" 
                      desc="Tự chọn chủ đề, lớp, độ khó và thời gian để test kiến thức một cách ngẫu nhiên." 

@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState, type CSSProperties, type ReactNode } from 'react';
 import { Link } from 'react-router-dom';
+import { formatCognitiveLevelLabel } from '@/lib/exam/displayLabels';
 import { loadTopicIndex } from '@/lib/exam/topicIndexLoader';
 import { buildPeriodSummaries, buildTopicSummaries, filterRefs, type TopicSummary } from '@/lib/exam/topicGrouping';
 import type { CognitiveLevel, QuestionType, TopicIndex } from '@/types/exam';
@@ -7,12 +8,6 @@ import type { CognitiveLevel, QuestionType, TopicIndex } from '@/types/exam';
 type ViewMode = 'topic' | 'period';
 type TypeFilter = QuestionType | 'all';
 type LevelFilter = CognitiveLevel | 'all';
-
-const LEVEL_LABEL: Record<CognitiveLevel, string> = {
-  knowledge: 'Nhận biết',
-  comprehension: 'Thông hiểu',
-  application: 'Vận dụng',
-};
 
 function pillStyle(active = false): CSSProperties {
   return {
@@ -27,7 +22,7 @@ function pillStyle(active = false): CSSProperties {
   };
 }
 
-function TopicCard({ summary }: { summary: TopicSummary }) {
+function TopicCard({ summary, mode }: { summary: TopicSummary; mode: ViewMode }) {
   return (
     <article style={{ background: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: '1rem', padding: '1.25rem', display: 'grid', gap: '0.9rem' }}>
       <div>
@@ -41,10 +36,11 @@ function TopicCard({ summary }: { summary: TopicSummary }) {
 
       <div style={{ display: 'flex', gap: '0.45rem', flexWrap: 'wrap' }}>
         <Badge>{summary.total} câu</Badge>
-        <Badge>{summary.mcqCount} MCQ</Badge>
+        {mode === 'period' && <Badge>{summary.topics.length} chủ đề con</Badge>}
+        <Badge>{summary.mcqCount} Trắc nghiệm</Badge>
         <Badge>{summary.tfCount} Đúng/Sai</Badge>
         {summary.cognitiveLevels.map((level) => (
-          <Badge key={level}>{LEVEL_LABEL[level]}</Badge>
+          <Badge key={level}>{formatCognitiveLevelLabel(level)}</Badge>
         ))}
       </div>
 
@@ -166,7 +162,7 @@ export default function ExamTopicListPage() {
         )}
         {!loading && !error && summaries.length > 0 && (
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(18rem, 1fr))', gap: '1rem' }}>
-            {summaries.map((summary) => <TopicCard key={summary.slug} summary={summary} />)}
+            {summaries.map((summary) => <TopicCard key={summary.slug} summary={summary} mode={mode} />)}
           </div>
         )}
       </div>

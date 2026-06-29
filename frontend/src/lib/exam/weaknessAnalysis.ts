@@ -2,14 +2,12 @@ import {
   flattenExamQuestions,
   isMCQQuestion,
   isTFQuestion,
-  type CognitiveLevel,
-  type DifficultyLevel,
   type ExamFile,
   type ExamResultV2,
   type Question,
   type QuestionResult,
-  type QuestionType,
 } from '@/types/exam';
+import { formatCognitiveLevelLabel, formatDifficultyLabel, formatQuestionTypeLabel } from './displayLabels';
 
 export type AnalysisGroupKind = 'topic' | 'questionType' | 'cognitiveLevel' | 'difficulty';
 
@@ -47,23 +45,6 @@ export interface WeaknessAnalysis {
   byDifficulty: WeaknessBucket[];
   suggestions: WeaknessSuggestion[];
 }
-
-const QUESTION_TYPE_LABEL: Record<QuestionType, string> = {
-  mcq: 'MCQ',
-  true_false: 'Đúng/Sai',
-};
-
-const COGNITIVE_LABEL: Record<CognitiveLevel, string> = {
-  knowledge: 'Nhận biết',
-  comprehension: 'Thông hiểu',
-  application: 'Vận dụng',
-};
-
-const DIFFICULTY_LABEL: Record<DifficultyLevel, string> = {
-  easy: 'Dễ',
-  medium: 'Trung bình',
-  hard: 'Khó',
-};
 
 function makeBucket(key: string, label: string): WeaknessBucket {
   return {
@@ -215,13 +196,13 @@ export function analyzeWeaknesses(result: ExamResultV2, exam: ExamFile): Weaknes
     analyzedQuestions += 1;
     const maxPoints = getMaxPoints(question);
     addToBucket(getBucket(byTopic, question.topic, question.topic), questionResult, maxPoints);
-    addToBucket(getBucket(byQuestionType, question.questionType, QUESTION_TYPE_LABEL[question.questionType]), questionResult, maxPoints);
+    addToBucket(getBucket(byQuestionType, question.questionType, formatQuestionTypeLabel(question.questionType)), questionResult, maxPoints);
     addToBucket(
-      getBucket(byCognitiveLevel, question.cognitiveLevel, COGNITIVE_LABEL[question.cognitiveLevel] ?? question.cognitiveLevel),
+      getBucket(byCognitiveLevel, question.cognitiveLevel, formatCognitiveLevelLabel(question.cognitiveLevel)),
       questionResult,
       maxPoints
     );
-    addToBucket(getBucket(byDifficulty, question.difficulty, DIFFICULTY_LABEL[question.difficulty] ?? question.difficulty), questionResult, maxPoints);
+    addToBucket(getBucket(byDifficulty, question.difficulty, formatDifficultyLabel(question.difficulty)), questionResult, maxPoints);
   }
 
   const topicBuckets = finalizeBuckets(byTopic);

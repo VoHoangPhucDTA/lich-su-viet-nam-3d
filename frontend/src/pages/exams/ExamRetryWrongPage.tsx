@@ -135,7 +135,7 @@ function MCQRetryCard({
   return (
     <div style={cardStyle}>
       <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginBottom: '0.75rem' }}>
-        <span style={chipStyle()}>MCQ</span>
+        <span style={chipStyle()}>Trắc nghiệm</span>
         {checked && <span style={chipStyle(isCorrect ? 'success' : 'danger')}>{isCorrect ? 'Đã đúng' : 'Cần xem lại'}</span>}
       </div>
       <h2 style={questionTitleStyle}>{question.questionText}</h2>
