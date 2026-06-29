@@ -2,6 +2,7 @@ package com.lichsuvn.backend.progress.api;
 
 import com.lichsuvn.backend.auth.security.UserPrincipal;
 import com.lichsuvn.backend.common.api.ApiResponse;
+import com.lichsuvn.backend.progress.api.dto.EventProgressResponse;
 import com.lichsuvn.backend.progress.api.dto.EventViewRequest;
 import com.lichsuvn.backend.progress.api.dto.EventViewResponse;
 import com.lichsuvn.backend.progress.api.dto.ProgressDto;
@@ -32,6 +33,15 @@ public class ProgressController {
             @AuthenticationPrincipal UserPrincipal principal
     ) {
         return ApiResponse.ok(progressService.recordEventView(eventId, request, principal));
+    }
+
+    // Get the latest reading progress for a specific event (authenticated user).
+    @GetMapping("/events/{eventId}/progress")
+    public ApiResponse<EventProgressResponse> findEventProgress(
+            @PathVariable String eventId,
+            @AuthenticationPrincipal UserPrincipal principal
+    ) {
+        return ApiResponse.ok(progressService.findEventProgress(eventId, principal));
     }
 
     // Lightweight progress summary for the current authenticated user.

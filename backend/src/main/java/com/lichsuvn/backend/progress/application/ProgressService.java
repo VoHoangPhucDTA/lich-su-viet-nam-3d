@@ -2,6 +2,7 @@ package com.lichsuvn.backend.progress.application;
 
 import com.lichsuvn.backend.auth.security.UserPrincipal;
 import com.lichsuvn.backend.common.exception.ApiException;
+import com.lichsuvn.backend.progress.api.dto.EventProgressResponse;
 import com.lichsuvn.backend.progress.api.dto.EventViewRequest;
 import com.lichsuvn.backend.progress.api.dto.EventViewResponse;
 import com.lichsuvn.backend.progress.api.dto.ProgressDto;
@@ -17,9 +18,12 @@ import org.springframework.util.StringUtils;
 
 import java.time.LocalDate;
 import java.util.Set;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Service
 public class ProgressService {
+    private static final Logger log = LoggerFactory.getLogger(ProgressService.class);
     private static final Set<String> VIEW_SOURCES = Set.of("map", "detail", "search", "quiz", "exam");
 
     private final EventViewLogRepository eventViewLogRepository;
@@ -33,11 +37,33 @@ public class ProgressService {
         this.learningProgressRepository = learningProgressRepository;
     }
 
+    /**
+     * Anonymous callers reach the controller because the security layer permits
+     * POST /api/events/{id}/view (the reading-progress endpoint) plus the
+     * GET /api/events/{id}/progress and GET /api/events paths. Their
+     * {@link UserPrincipal} is either {@code null} or carries an empty
+     * {@code idBytes} array — both shapes indicate "no real user" and must
+     * NOT trigger BINARY(16) writes.
+     */
+    private static boolean isAnonymous(UserPrincipal principal) {
+        return principal == null
+                || principal.idBytes() == null
+                || principal.idBytes().length == 0;
+    }
+
     @Transactional
     public EventViewResponse recordEventView(String eventId, EventViewRequest request, UserPrincipal principal) {
         // P1 scope: log raw view, then maintain only overall + per-event aggregate progress.
         if (eventViewLogRepository.countPublishedEvent(eventId) <= 0) {
             throw new ApiException(HttpStatus.NOT_FOUND, "EVENT_NOT_FOUND", "Historical event not found");
+        }
+
+        // Anonymous callers are accepted at the security layer so the frontend can record
+        // views before login. We return zero aggregate stats and skip persistence to avoid
+        // violating the NOT NULL BINARY(16) user_id column.
+        if (isAnonymous(principal)) {
+            log.debug("Skipped anonymous view for eventId={} source={}", eventId, request.source());
+            return new EventViewResponse(eventId, 0, 0);
         }
 
         String source = normalizeSource(request.source());
@@ -63,6 +89,25 @@ public class ProgressService {
                 eventId,
                 overall == null ? 0 : overall.getEventsViewed(),
                 overall == null ? 0 : overall.getTotalMinutes()
+        );
+    }
+
+    public EventProgressResponse findEventProgress(String eventId, UserPrincipal principal) {
+        // Anonymous callers have no saved progress. Return a clean 0% response so the
+        // frontend's setInitialProgress skip path stays the only branch triggered.
+        if (isAnonymous(principal)) {
+            return new EventProgressResponse(eventId, 0, null);
+        }
+        var projection = eventViewLogRepository
+                .findLatestProgress(principal.idBytes(), eventId)
+                .orElse(null);
+        if (projection == null || projection.getProgressPercent() == null) {
+            return new EventProgressResponse(eventId, 0, null);
+        }
+        return new EventProgressResponse(
+                eventId,
+                projection.getProgressPercent().intValue(),
+                projection.getViewedAt()
         );
     }
 

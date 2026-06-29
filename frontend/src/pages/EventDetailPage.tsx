@@ -1,8 +1,9 @@
-import { useEffect, useState, useMemo } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useEffect, useState, useMemo, useRef } from 'react';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import type { MockEventDetail } from '../data/mockEventDetails';
 import { getEventDetailBySlug } from '../services/eventDetailService';
-import { recordEventView } from '../services/eventApi';
+import { recordEventView, getEventProgress } from '../services/eventApi';
+import { useReadingProgress, type SectionInfo } from '../hooks/useReadingProgress';
 
 import EventHero from '../components/event-detail/EventHero';
 import EventTTSPlayer from '../components/event-detail/EventTTSPlayer';
@@ -17,6 +18,7 @@ import EventDetailSidebar from '../components/event-detail/EventDetailSidebar';
 export default function EventDetailPage() {
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
+  const location = useLocation();
   const [eventData, setEventData] = useState<MockEventDetail | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
@@ -29,8 +31,9 @@ export default function EventDetailPage() {
         const data = await getEventDetailBySlug(slug);
         if (data) {
           setEventData(data);
-          void recordEventView(data.id, { source: 'detail', progressPercent: 100 });
           setError(false);
+          // Don't recordEventView here — we'll record when user actually scrolls
+          // (see debounced progress persistence below)
           // Body là phần tử scroll thực sự (xem index.css), nên gọi cả 3
           // để cover mọi trường hợp browser/CSS.
           document.body.scrollTo(0, 0);
@@ -48,8 +51,149 @@ export default function EventDetailPage() {
     loadEvent();
   }, [slug]);
 
+  /* ─── Reading progress tracking via IntersectionObserver ─── */
+  const sectionsInfo = useMemo<SectionInfo[]>(() => {
+    if (!eventData) return [];
+    const items: SectionInfo[] = [];
+    // Weight assignments: content sections are weighted equally, media/sources lighter
+    items.push({ id: 'tong-quan', label: 'Tổng quan', weight: 1 });
+    if (eventData.textbookContent.detailedNarrative) {
+      items.push({ id: 'noi-dung-sgk', label: 'Nội dung SGK', weight: 2 });
+    }
+    if (eventData.textbookContent.significance) {
+      items.push({ id: 'y-nghia', label: 'Ý nghĩa lịch sử', weight: 1 });
+    }
+    if (eventData.textbookContent.keyFacts?.length) {
+      items.push({ id: 'du-kien-chinh', label: 'Dữ kiện chính', weight: 1 });
+    }
+    const isVN = !eventData.classification.tags?.includes('lịch sử thế giới');
+    const geoType = eventData.mapData?.displayGeometry?.geoType;
+    if (isVN && geoType && geoType !== 'no_location') {
+      items.push({ id: 'dia-diem', label: 'Địa điểm', weight: 1 });
+    } else if (isVN && eventData.mapData?.displayGeometry) {
+      items.push({ id: 'dia-diem', label: 'Địa điểm', weight: 1 });
+    }
+    if (eventData.hierarchy?.childIds?.length) {
+      items.push({ id: 'su-kien-con', label: 'Sự kiện liên quan', weight: 1 });
+    }
+    if (eventData.media?.thumbnail || eventData.media?.items?.length) {
+      items.push({ id: 'media', label: 'Tư liệu & media', weight: 1 });
+    }
+    if (eventData.textbookContent.textbookRefs?.length) {
+      items.push({ id: 'nguon-sgk', label: 'Nguồn SGK', weight: 1 });
+    }
+    if (eventData.externalContent) {
+      items.push({ id: 'nguon-mo-rong', label: 'Nguồn mở rộng', weight: 1 });
+    }
+    return items;
+  }, [eventData]);
+
+  const {
+    readingProgress,
+    activeSection,
+    resetProgress: resetReadingProgress,
+    setInitialProgress,
+  } = useReadingProgress(sectionsInfo);
+
+  /* ─── Reset reading progress on event change ─── */
+  const prevEventIdRef = useRef<string | null>(null);
+  useEffect(() => {
+    if (eventData && eventData.id !== prevEventIdRef.current) {
+      prevEventIdRef.current = eventData.id;
+      resetReadingProgress();
+    }
+  }, [eventData, resetReadingProgress]);
+
+  /* ─── Debounced progress persistence ─── */
+  const prevProgressRef = useRef(0);
+  useEffect(() => {
+    const saveProgress = async () => {
+      if (!eventData) return;
+      // Only save if progress actually changed and we're above a threshold
+      const rounded = Math.round(readingProgress);
+      if (Math.abs(rounded - prevProgressRef.current) >= 5 || rounded === 100) {
+        prevProgressRef.current = rounded;
+        await recordEventView(eventData.id, {
+          source: 'detail',
+          progressPercent: rounded,
+        });
+      }
+    };
+    // Throttle: only save when progress changes by >= 5% or hits 100%
+    if (readingProgress > 0) {
+      const timer = setTimeout(saveProgress, 500);
+      return () => clearTimeout(timer);
+    }
+  }, [readingProgress, eventData]);
+
+  /* ─── Restore reading progress from backend on load ───
+   *
+   * Sets the viewed sections up to the saved progress point without scrolling,
+   * so the IntersectionObserver doesn't mark sections spuriously during an
+   * animated scroll. The user scrolls naturally from where they left off.
+   */
+  // Track which event ID we've restored progress for (so navigating to a
+  // different event triggers a new restore)
+  const restoredEventIdRef = useRef<string | null>(null);
+  useEffect(() => {
+    if (!eventData) return;
+    if (restoredEventIdRef.current === eventData.id) return;
+    restoredEventIdRef.current = eventData.id;
+    
+    getEventProgress(eventData.id).then((savedProgress) => {
+      if (savedProgress && savedProgress.progressPercent > 0) {
+        const totalWeight = sectionsInfo.reduce((sum, s) => sum + s.weight, 0);
+        if (totalWeight === 0) return;
+        
+        // Determine which sections to mark as viewed based on saved progress
+        // (without scrolling, to avoid observer marking sections during animation)
+        const initiallyViewed = new Set<string>();
+        let cumulative = 0;
+        for (const section of sectionsInfo) {
+          initiallyViewed.add(section.id);
+          cumulative += section.weight / totalWeight * 100;
+          if (cumulative >= savedProgress.progressPercent) {
+            break;
+          }
+        }
+        // Set via the hook's exposed function so IntersectionObserver picks up from here
+        setInitialProgress(initiallyViewed);
+      }
+    }).catch(() => {
+      // Silently ignore — no saved progress
+    });
+  }, [eventData, sectionsInfo]);
+
+  /* ─── Save progress before leaving the page ─── */
+  useEffect(() => {
+    if (!eventData) return;
+    // Use the same base URL as apiClient (empty string in dev via Vite proxy)
+    const API_BASE_URL =
+      import.meta.env.VITE_API_BASE_URL?.replace(/\/$/, '') ?? '';
+    const saveBeforeLeave = () => {
+      if (prevProgressRef.current > 0) {
+        // Use fetch with keepalive (like sendBeacon but with credentials)
+        // to ensure auth cookies are sent during page unload
+        fetch(`${API_BASE_URL}/api/events/${eventData.id}/view`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          credentials: 'include',
+          keepalive: true,
+          body: JSON.stringify({
+            source: 'detail',
+            progressPercent: prevProgressRef.current,
+          }),
+        }).catch(() => {
+          // Silently fail — progress was already saved via debounced saves
+        });
+      }
+    };
+    window.addEventListener('beforeunload', saveBeforeLeave);
+    return () => window.removeEventListener('beforeunload', saveBeforeLeave);
+  }, [eventData]);
+
   /* ─── Build TOC links + numbered indices for each section ─── */
-  const { navLinks, sectionIndices } = useMemo(() => {
+  const { navLinks, sectionIndices, linkIndices } = useMemo(() => {
     if (!eventData) {
       return {
         navLinks: [] as { id: string; label: string }[],
@@ -117,8 +261,22 @@ export default function EventDetailPage() {
       indices.sourcesExternal = next();
     }
 
+    // Build a map from link id → display number for consistent sidebar numbering
+    const linkIdxMap: Record<string, string> = {
+      'tong-quan': indices.textbookOverview,
+      'noi-dung-sgk': indices.textbookNarrative,
+      'y-nghia': indices.textbookSignificance,
+      'du-kien-chinh': indices.keyFacts,
+      'dia-diem': indices.location,
+      'su-kien-con': indices.children,
+      'media': indices.media,
+      'nguon-sgk': indices.sourcesTextbook,
+      'nguon-mo-rong': indices.sourcesExternal,
+    };
+
     return {
       navLinks: links,
+      linkIndices: linkIdxMap,
       sectionIndices: indices as typeof indices & {
         textbookOverview: string;
         textbookNarrative: string;
@@ -156,7 +314,11 @@ export default function EventDetailPage() {
 
   /* ─── Error ─── */
   if (error || !eventData) {
-    return <NotFoundEventState slug={slug} onGoHome={() => navigate('/map')} />;
+    return <NotFoundEventState slug={slug} onGoHome={() => {
+      const from = (location.state as { from?: string } | null)?.from;
+      if (from) navigate(from);
+      else navigate('/home');
+    }} />;
   }
 
   const isVietnamEvent = !eventData.classification.tags?.includes('lịch sử thế giới');
@@ -180,7 +342,17 @@ export default function EventDetailPage() {
       >
         <div className="mx-auto w-full max-w-[1440px] px-6 md:px-10 lg:px-16 xl:px-20 py-3 flex items-center gap-3 text-sm">
           <button
-            onClick={() => navigate('/map')}
+            onClick={() => {
+              // Smart back: origin route > history back > /home fallback
+              const from = (location.state as { from?: string } | null)?.from;
+              if (from) {
+                navigate(from);
+              } else if (window.history.length > 1) {
+                navigate(-1);
+              } else {
+                navigate('/home');
+              }
+            }}
             className="inline-flex items-center gap-1.5 font-medium transition"
             style={{ color: 'var(--text-secondary)' }}
             onMouseEnter={(e) =>
@@ -195,7 +367,7 @@ export default function EventDetailPage() {
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <path d="M19 12H5M12 19l-7-7 7-7" />
             </svg>
-            Bản đồ lịch sử
+            Quay lại
           </button>
           <span style={{ color: 'var(--text-muted)' }}>/</span>
           <span
@@ -246,7 +418,13 @@ export default function EventDetailPage() {
           </main>
 
           {/* TOC sidebar (desktop) */}
-          <EventDetailSidebar navLinks={navLinks} showMapAction={showMapAction} />
+          <EventDetailSidebar
+            navLinks={navLinks}
+            linkIndices={linkIndices}
+            showMapAction={showMapAction}
+            readingProgress={readingProgress}
+            activeSection={activeSection}
+          />
         </div>
       </div>
     </div>
@@ -352,7 +530,7 @@ function NotFoundEventState({
         className="px-6 py-2.5 rounded-xl font-semibold"
         style={{ background: 'var(--accent)', color: '#fff' }}
       >
-        Quay lại bản đồ
+        Về trang chủ
       </button>
     </div>
   );

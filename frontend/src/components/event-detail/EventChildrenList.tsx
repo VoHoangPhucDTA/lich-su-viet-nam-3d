@@ -45,7 +45,7 @@ export default function EventChildrenList({ childIds, index = '06' }: EventChild
           return (
             <button
               key={child.id}
-              onClick={() => navigate(`/events/${child.slug}`)}
+              onClick={() => navigate(`/events/${child.slug}`, { state: { from: window.location.pathname } })}
               className="group relative text-left transition-all duration-300 flex flex-col rounded-2xl overflow-hidden"
               style={{
                 background: 'var(--bg-card)',
