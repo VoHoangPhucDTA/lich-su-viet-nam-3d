@@ -30,6 +30,14 @@ import java.util.Set;
 @Component
 @Profile("import-events")
 public class EventJsonImportRunner implements CommandLineRunner {
+    private static final Set<String> GEO_TYPES = Set.of(
+            "mixed",
+            "multi_point",
+            "multi_polygon",
+            "nationwide",
+            "no_location",
+            "point"
+    );
 
     private final NamedParameterJdbcTemplate jdbc;
     private final ObjectMapper objectMapper;
@@ -61,15 +69,17 @@ public class EventJsonImportRunner implements CommandLineRunner {
             upsertEventsWithoutHierarchy(eventsById.values());
             updateHierarchy(eventsById);
             replaceSupportTables(eventsById);
+            int deletedCount = deleteEventsMissingFromImport(eventsById.keySet());
             insertImportRunEvents(importRunId, eventsById.values(), warnings);
 
             String status = warnings.isEmpty() ? "success" : "partial";
             finishImportRun(importRunId, status, lineCount, eventsById.size(), warnings.size(), warnings);
 
             System.out.printf(
-                    "Imported %d JSONL lines into %d unique historical events. Status: %s%n",
+                    "Imported %d JSONL lines into %d unique historical events. Deleted %d stale events. Status: %s%n",
                     lineCount,
                     eventsById.size(),
+                    deletedCount,
                     status
             );
         } catch (Exception ex) {
@@ -254,6 +264,25 @@ public class EventJsonImportRunner implements CommandLineRunner {
         insertTextbookRefs(eventsById.values());
         insertMedia(eventsById.values());
         insertRelations(eventsById);
+    }
+
+    private int deleteEventsMissingFromImport(Set<String> importedIds) {
+        if (importedIds.isEmpty()) {
+            return 0;
+        }
+
+        MapSqlParameterSource params = params().addValue("ids", importedIds);
+        jdbc.update("""
+                UPDATE historical_events
+                SET parent_id = NULL,
+                    root_id = NULL
+                WHERE id NOT IN (:ids)
+                """, params);
+
+        return jdbc.update("""
+                DELETE FROM historical_events
+                WHERE id NOT IN (:ids)
+                """, params);
     }
 
     private void deleteByEventIds(String table, String column, List<String> ids) {
@@ -471,14 +500,11 @@ public class EventJsonImportRunner implements CommandLineRunner {
         }
     }
 
-    private static String normalizeGeoType(String value) {
-        if (value == null) return "no_location";
-        return switch (value) {
-            case "point", "single_point" -> "single_point";
-            case "multi_point", "multi_region", "polygon", "multi_polygon", "mixed" -> "multi_region";
-            case "nationwide" -> "nationwide";
-            default -> "no_location";
-        };
+    private static String requireGeoType(String value) {
+        if (!GEO_TYPES.contains(value)) {
+            throw new IllegalArgumentException("Unsupported geoType: " + value);
+        }
+        return value;
     }
 
     private static String normalizeEventType(String value) {
@@ -630,7 +656,7 @@ public class EventJsonImportRunner implements CommandLineRunner {
             JsonNode mapData = raw.path("mapData");
             JsonNode mapMarker = mapData.path("marker");
             JsonNode focusCenter = mapData.path("focusGeometry").path("center");
-            event.geoType = normalizeGeoType(text(mapData, "geoType"));
+            event.geoType = requireGeoType(text(mapData, "geoType"));
             event.lat = mapMarker.hasNonNull("lat") ? decimalValue(mapMarker.path("lat")) : decimalValue(focusCenter.path("lat"));
             event.lng = mapMarker.hasNonNull("lng") ? decimalValue(mapMarker.path("lng")) : decimalValue(focusCenter.path("lng"));
             addStringArray(event.provinceNames, mapData.path("provinceNames"));

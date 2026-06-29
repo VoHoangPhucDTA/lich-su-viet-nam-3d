@@ -26,7 +26,14 @@ import java.util.Set;
 public class EventReadService {
     private static final Set<Integer> SUPPORTED_GRADES = Set.of(10, 11, 12);
     private static final Set<String> EVENT_TYPES = Set.of("military", "political", "economic", "cultural");
-    private static final Set<String> GEO_TYPES = Set.of("single_point", "multi_region", "nationwide", "no_location");
+    private static final Set<String> GEO_TYPES = Set.of(
+            "mixed",
+            "multi_point",
+            "multi_polygon",
+            "nationwide",
+            "no_location",
+            "point"
+    );
     private static final int DEFAULT_LIMIT = 300;
     private static final int MAX_LIMIT = 1000;
 
