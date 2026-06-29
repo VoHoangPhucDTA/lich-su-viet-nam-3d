@@ -73,6 +73,23 @@ function ExamCard({ entry }: { entry: ExamManifestEntry }) {
         >
           {entry.title}
         </h3>
+        <Link
+          to={`/exams/luyen-tap/${entry.examId}`}
+          style={{
+            display: 'inline-flex',
+            marginBottom: '0.55rem',
+            padding: '0.42rem 0.75rem',
+            background: 'var(--bg-surface)',
+            color: 'var(--text-primary)',
+            border: '1px solid var(--border)',
+            borderRadius: '0.65rem',
+            textDecoration: 'none',
+            fontSize: '0.78rem',
+            fontWeight: 700,
+          }}
+        >
+          Luyện tập tự do
+        </Link>
         <div
           style={{
             fontSize: '0.8rem',
