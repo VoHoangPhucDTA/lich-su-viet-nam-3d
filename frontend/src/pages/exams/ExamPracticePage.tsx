@@ -1,6 +1,7 @@
-import { useEffect, useMemo, useState, type CSSProperties } from 'react';
+import { useCallback, useEffect, useMemo, useState, type CSSProperties } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { loadExam } from '@/lib/exam/examLoader';
+import { useExamKeyboardShortcuts } from '@/lib/exam/useExamKeyboardShortcuts';
 import {
   flattenExamQuestions,
   isMCQQuestion,
@@ -54,6 +55,19 @@ function buttonStyle(tone: 'primary' | 'secondary' | 'danger'): CSSProperties {
     fontWeight: 800,
     fontSize: '0.9rem',
     cursor: 'pointer',
+  };
+}
+
+function tfChoiceButtonStyle(current: boolean | null, value: boolean, checked: boolean, correctValue: boolean): CSSProperties {
+  if (current !== value) return buttonStyle('secondary');
+  if (!checked) return buttonStyle('primary');
+
+  const correct = value === correctValue;
+  return {
+    ...buttonStyle('secondary'),
+    border: `1px solid ${correct ? 'var(--success)' : 'var(--danger)'}`,
+    background: correct ? 'rgba(47,122,87,0.1)' : 'rgba(159,29,45,0.08)',
+    color: correct ? 'var(--success)' : 'var(--danger)',
   };
 }
 
@@ -193,7 +207,7 @@ function TFPracticeCard({
               </div>
               <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginTop: '0.75rem', paddingLeft: '1.8rem' }}>
                 {[true, false].map((value) => (
-                  <button key={`${statement.id}-${value}`} type="button" onClick={() => onSelect(statement.id, value)} style={{ ...buttonStyle(current === value ? 'primary' : 'secondary'), padding: '0.45rem 0.8rem', fontSize: '0.82rem' }}>
+                  <button key={`${statement.id}-${value}`} type="button" onClick={() => onSelect(statement.id, value)} style={{ ...tfChoiceButtonStyle(current, value, checked, statement.isTrue), padding: '0.45rem 0.8rem', fontSize: '0.82rem' }}>
                     {value ? 'Đúng' : 'Sai'}
                   </button>
                 ))}
@@ -266,6 +280,37 @@ export default function ExamPracticePage() {
   const mcqCount = questions.filter(isMCQQuestion).length;
   const tfCount = questions.filter(isTFQuestion).length;
 
+  const goToPreviousQuestion = useCallback(() => {
+    setCurrentIndex((value) => Math.max(value - 1, 0));
+  }, []);
+
+  const goToNextQuestion = useCallback(() => {
+    setCurrentIndex((value) => Math.min(value + 1, Math.max(questions.length - 1, 0)));
+  }, [questions.length]);
+
+  const checkCurrentQuestion = useCallback(() => {
+    if (!currentQuestion || checked[currentQuestion.id]) return;
+
+    if (isMCQQuestion(currentQuestion)) {
+      if (!mcqAnswers[currentQuestion.id]) return;
+      setChecked((prev) => ({ ...prev, [currentQuestion.id]: true }));
+      return;
+    }
+
+    if (isTFQuestion(currentQuestion)) {
+      const answer = tfAnswers[currentQuestion.id] ?? makeBlankTFChoice();
+      if (!Object.values(answer).every((value) => value != null)) return;
+      setChecked((prev) => ({ ...prev, [currentQuestion.id]: true }));
+    }
+  }, [checked, currentQuestion, mcqAnswers, tfAnswers]);
+
+  useExamKeyboardShortcuts({
+    onPrevious: goToPreviousQuestion,
+    onNext: goToNextQuestion,
+    onEnter: checkCurrentQuestion,
+    disabled: loading || Boolean(error) || !exam || !currentQuestion || finished,
+  });
+
   function resetPractice() {
     setCurrentIndex(0);
     setFinished(false);
@@ -308,6 +353,7 @@ export default function ExamPracticePage() {
           </div>
           <p style={{ margin: 0, color: 'var(--text-primary)', fontWeight: 700, lineHeight: 1.55 }}>{exam.title}</p>
           <p style={{ margin: 0, color: 'var(--text-muted)', lineHeight: 1.55 }}>Không giới hạn thời gian, kiểm tra đáp án ngay sau từng câu.</p>
+          <p style={{ margin: 0, color: 'var(--text-muted)', fontSize: '0.82rem', lineHeight: 1.5 }}>Phím tắt: ←/→ chuyển câu, Enter kiểm tra đáp án.</p>
         </header>
 
         <div style={{ ...cardStyle, padding: '1rem 1.25rem' }}>

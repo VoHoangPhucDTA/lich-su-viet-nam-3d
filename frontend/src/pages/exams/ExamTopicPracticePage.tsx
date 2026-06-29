@@ -1,7 +1,8 @@
-import { useEffect, useState, type CSSProperties } from 'react';
+import { useCallback, useEffect, useState, type CSSProperties } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { formatCognitiveLevelLabel, formatDifficultyLabel, formatQuestionTypeLabel } from '@/lib/exam/displayLabels';
 import { loadExam } from '@/lib/exam/examLoader';
+import { useExamKeyboardShortcuts } from '@/lib/exam/useExamKeyboardShortcuts';
 import { loadTopicIndex } from '@/lib/exam/topicIndexLoader';
 import { findSummaryBySlug } from '@/lib/exam/topicGrouping';
 import {
@@ -43,6 +44,19 @@ function buttonStyle(tone: 'primary' | 'secondary' | 'danger'): CSSProperties {
     fontWeight: 800,
     fontSize: '0.9rem',
     cursor: 'pointer',
+  };
+}
+
+function tfChoiceButtonStyle(current: boolean | null, value: boolean, checked: boolean, correctValue: boolean): CSSProperties {
+  if (current !== value) return buttonStyle('secondary');
+  if (!checked) return buttonStyle('primary');
+
+  const correct = value === correctValue;
+  return {
+    ...buttonStyle('secondary'),
+    border: `1px solid ${correct ? 'var(--success)' : 'var(--danger)'}`,
+    background: correct ? 'rgba(47,122,87,0.1)' : 'rgba(159,29,45,0.08)',
+    color: correct ? 'var(--success)' : 'var(--danger)',
   };
 }
 
@@ -129,7 +143,7 @@ function TFCard({ question, selected, checked, onSelect, onCheck }: { question: 
               </div>
               <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginTop: '0.75rem', paddingLeft: '1.8rem' }}>
                 {[true, false].map((value) => (
-                  <button key={`${statement.id}-${value}`} type="button" onClick={() => onSelect(statement.id, value)} style={{ ...buttonStyle(current === value ? 'primary' : 'secondary'), padding: '0.45rem 0.8rem', fontSize: '0.82rem' }}>
+                  <button key={`${statement.id}-${value}`} type="button" onClick={() => onSelect(statement.id, value)} style={{ ...tfChoiceButtonStyle(current, value, checked, statement.isTrue), padding: '0.45rem 0.8rem', fontSize: '0.82rem' }}>
                     {value ? 'Đúng' : 'Sai'}
                   </button>
                 ))}
@@ -268,6 +282,38 @@ export default function ExamTopicPracticePage() {
     return false;
   }).length;
 
+  const goToPreviousQuestion = useCallback(() => {
+    setCurrentIndex((value) => Math.max(value - 1, 0));
+  }, []);
+
+  const goToNextQuestion = useCallback(() => {
+    setCurrentIndex((value) => Math.min(value + 1, Math.max(questions.length - 1, 0)));
+  }, [questions.length]);
+
+  const checkCurrentQuestion = useCallback(() => {
+    const question = current?.question;
+    if (!question || checked[question.id]) return;
+
+    if (isMCQQuestion(question)) {
+      if (!mcqAnswers[question.id]) return;
+      setChecked((prev) => ({ ...prev, [question.id]: true }));
+      return;
+    }
+
+    if (isTFQuestion(question)) {
+      const answer = tfAnswers[question.id] ?? blankTF();
+      if (!Object.values(answer).every((value) => value != null)) return;
+      setChecked((prev) => ({ ...prev, [question.id]: true }));
+    }
+  }, [checked, current, mcqAnswers, tfAnswers]);
+
+  useExamKeyboardShortcuts({
+    onPrevious: goToPreviousQuestion,
+    onNext: goToNextQuestion,
+    onEnter: checkCurrentQuestion,
+    disabled: loading || Boolean(error) || !current || finished,
+  });
+
   function reset() {
     setCurrentIndex(0);
     setFinished(false);
@@ -315,6 +361,7 @@ export default function ExamTopicPracticePage() {
           <h1 style={{ margin: 0, fontSize: '1.65rem', fontWeight: 900 }}>{practiceLabel}</h1>
           <p style={{ margin: 0, color: 'var(--text-primary)', fontWeight: 800 }}>{title}</p>
           <p style={{ margin: 0, color: 'var(--text-muted)', lineHeight: 1.55 }}>Không giới hạn thời gian, kiểm tra ngay sau từng câu và đọc giải thích để ghi nhớ.</p>
+          <p style={{ margin: 0, color: 'var(--text-muted)', fontSize: '0.82rem', lineHeight: 1.5 }}>Phím tắt: ←/→ chuyển câu, Enter kiểm tra đáp án.</p>
         </header>
 
         <div style={{ ...cardStyle, padding: '1rem 1.25rem' }}>

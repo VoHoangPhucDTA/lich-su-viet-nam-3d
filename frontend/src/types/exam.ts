@@ -200,6 +200,50 @@ export interface TopicIndexEntry {
 
 export type TopicIndex = Record<string, TopicIndexEntry[]>;
 
+export type CustomExamMode = 'custom_practice' | 'custom_mock';
+export type CustomExamScopeType = 'all' | 'topic' | 'period';
+
+export interface QuestionRef {
+  examId: string;
+  questionId: string;
+}
+
+export type CustomQuestionSnapshot = Question & {
+  sourceExamId: string;
+  originalQuestionId: string;
+};
+
+export interface CustomExamConfig {
+  questionCount: 10 | 20 | 28;
+  questionType: 'all' | QuestionType;
+  difficulty: 'all' | DifficultyLevel;
+  cognitiveLevel: 'all' | CognitiveLevel;
+  scopeType: CustomExamScopeType;
+  scopeSlug?: string;
+  scopeTitle?: string;
+  durationSeconds?: number | null;
+  mode: CustomExamMode;
+}
+
+export interface CustomPracticeState {
+  answers: Record<string, AnswerEntry>;
+  checked: Record<string, boolean>;
+  currentIndex: number;
+  finished: boolean;
+}
+
+export interface CustomExamSession {
+  sessionId: string;
+  mode: 'custom_practice';
+  title: string;
+  createdAt: string;
+  config: CustomExamConfig;
+  questionRefs: QuestionRef[];
+  sourceExamIds: string[];
+  questionSnapshots: CustomQuestionSnapshot[];
+  practiceState?: CustomPracticeState;
+}
+
 export type ExamSessionMode = 'thi_thu' | 'luyen_tap' | 'on_chu_de';
 
 export interface MCQAnswer {

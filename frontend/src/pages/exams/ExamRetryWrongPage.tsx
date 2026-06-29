@@ -2,9 +2,10 @@
  * Retry wrong or blank questions from a submitted exam result.
  * Route: /exams/on-lai/:sessionId
  */
-import { useEffect, useMemo, useState, type CSSProperties } from 'react';
+import { useCallback, useEffect, useMemo, useState, type CSSProperties } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { loadExam } from '@/lib/exam/examLoader';
+import { useExamKeyboardShortcuts } from '@/lib/exam/useExamKeyboardShortcuts';
 import { readResultFromLS } from '@/lib/exam/useSessionV2';
 import {
   flattenExamQuestions,
@@ -83,6 +84,19 @@ function buttonStyle(tone: 'primary' | 'secondary'): CSSProperties {
     fontWeight: 800,
     fontSize: '0.9rem',
     cursor: 'pointer',
+  };
+}
+
+function tfChoiceButtonStyle(current: boolean | null, value: boolean, checked: boolean, correctValue: boolean): CSSProperties {
+  if (current !== value) return buttonStyle('secondary');
+  if (!checked) return buttonStyle('primary');
+
+  const correct = value === correctValue;
+  return {
+    ...buttonStyle('secondary'),
+    border: `1px solid ${correct ? 'var(--success)' : 'var(--danger)'}`,
+    background: correct ? 'rgba(47,122,87,0.1)' : 'rgba(159,29,45,0.08)',
+    color: correct ? 'var(--success)' : 'var(--danger)',
   };
 }
 
@@ -230,7 +244,7 @@ function TFRetryCard({
                     type="button"
                     onClick={() => onSelect(statement.id, value)}
                     style={{
-                      ...buttonStyle(current === value ? 'primary' : 'secondary'),
+                      ...tfChoiceButtonStyle(current, value, checked, statement.isTrue),
                       padding: '0.45rem 0.8rem',
                       fontSize: '0.82rem',
                     }}
@@ -367,6 +381,37 @@ export default function ExamRetryWrongPage() {
     return false;
   }).length;
 
+  const goToPreviousQuestion = useCallback(() => {
+    setCurrentIndex((value) => Math.max(value - 1, 0));
+  }, []);
+
+  const goToNextQuestion = useCallback(() => {
+    setCurrentIndex((value) => Math.min(value + 1, Math.max(retryResults.length - 1, 0)));
+  }, [retryResults.length]);
+
+  const checkCurrentQuestion = useCallback(() => {
+    if (!currentResult || !currentQuestion || checked[currentResult.questionId]) return;
+
+    if (isMCQQuestion(currentQuestion)) {
+      if (!mcqAnswers[currentResult.questionId]) return;
+      setChecked((prev) => ({ ...prev, [currentResult.questionId]: true }));
+      return;
+    }
+
+    if (isTFQuestion(currentQuestion)) {
+      const answer = tfAnswers[currentResult.questionId] ?? makeBlankTFChoice();
+      if (!Object.values(answer).every((value) => value != null)) return;
+      setChecked((prev) => ({ ...prev, [currentResult.questionId]: true }));
+    }
+  }, [checked, currentQuestion, currentResult, mcqAnswers, tfAnswers]);
+
+  useExamKeyboardShortcuts({
+    onPrevious: goToPreviousQuestion,
+    onNext: goToNextQuestion,
+    onEnter: checkCurrentQuestion,
+    disabled: loading || Boolean(error) || !result || !exam || !currentResult || finished,
+  });
+
   if (loading) return <LoadingState />;
 
   if (error || !result || !exam) {
@@ -415,6 +460,7 @@ export default function ExamRetryWrongPage() {
           </Link>
           <h1 style={{ margin: 0, fontSize: '1.65rem', fontWeight: 900 }}>Ôn lại câu sai</h1>
           <p style={{ margin: 0, color: 'var(--text-muted)', lineHeight: 1.55 }}>{exam.title}</p>
+          <p style={{ margin: 0, color: 'var(--text-muted)', fontSize: '0.82rem', lineHeight: 1.5 }}>Phím tắt: ←/→ chuyển câu, Enter kiểm tra đáp án.</p>
         </header>
 
         <div style={{ ...cardStyle, padding: '1rem 1.25rem' }}>

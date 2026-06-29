@@ -197,6 +197,11 @@ export default function TFQuestionCard({
           const selVal = reviewMode
             ? result?.tf?.selected[id] ?? null
             : selected[id];
+          const selectedTone = !reviewMode
+            ? 'var(--accent)'
+            : selVal === correctMap[id]
+              ? 'var(--success)'
+              : 'var(--danger)';
 
           return (
             <div
@@ -264,7 +269,7 @@ export default function TFQuestionCard({
                   value={true}
                   label="Đúng"
                   active={selVal === true}
-                  color="var(--success)"
+                  color={selectedTone}
                   disabled={reviewMode}
                   onClick={() => handleToggle(id, true)}
                 />
@@ -272,7 +277,7 @@ export default function TFQuestionCard({
                   value={false}
                   label="Sai"
                   active={selVal === false}
-                  color="var(--danger)"
+                  color={selectedTone}
                   disabled={reviewMode}
                   onClick={() => handleToggle(id, false)}
                 />

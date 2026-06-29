@@ -221,6 +221,42 @@ export default function ExamBrowsePage() {
           </Link>
         </section>
 
+        <section
+          style={{
+            marginBottom: '1rem',
+            padding: '0.95rem 1.1rem',
+            background: 'var(--bg-card)',
+            border: '1px solid var(--border)',
+            borderRadius: '1rem',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            gap: '1rem',
+            flexWrap: 'wrap',
+          }}
+        >
+          <p style={{ margin: 0, color: 'var(--text-muted)', fontSize: '0.86rem', lineHeight: 1.55 }}>
+            Muốn tự tạo đề theo chủ đề và độ khó?{' '}
+            <strong style={{ color: 'var(--text-primary)' }}>Tạo đề tùy chọn</strong> để xem trước số câu phù hợp trước khi luyện.
+          </p>
+          <Link
+            to="/exams/tao-de"
+            style={{
+              padding: '0.62rem 0.95rem',
+              background: 'var(--bg-surface)',
+              color: 'var(--accent)',
+              border: '1px solid var(--accent)',
+              borderRadius: '0.75rem',
+              textDecoration: 'none',
+              fontWeight: 800,
+              fontSize: '0.86rem',
+              whiteSpace: 'nowrap',
+            }}
+          >
+            Tạo đề tùy chọn
+          </Link>
+        </section>
+
         {allExams && publishedExams && (
           <div
             style={{

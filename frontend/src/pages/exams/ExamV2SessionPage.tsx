@@ -9,6 +9,7 @@ import { useState, useCallback, useRef } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { useSessionV2 } from '@/lib/exam/useSessionV2';
 import type { QuestionDisplayStatus } from '@/lib/exam/useSessionV2';
+import { useExamKeyboardShortcuts } from '@/lib/exam/useExamKeyboardShortcuts';
 import { isMCQQuestion, isTFQuestion } from '@/types/exam';
 import MCQQuestionCardV2 from '../../components/exams/MCQQuestionCardV2';
 import TFQuestionCard from '../../components/exams/TFQuestionCard';
@@ -204,6 +205,25 @@ export default function ExamV2SessionPage() {
 
   const handleTimerTick = useCallback(() => {}, []);
 
+  const goToPreviousQuestion = useCallback(() => {
+    if (currentIndex > 0) handleNavigate(currentIndex - 1);
+  }, [currentIndex, handleNavigate]);
+
+  const goToNextQuestion = useCallback(() => {
+    if (currentIndex < flatQuestions.length - 1) handleNavigate(currentIndex + 1);
+  }, [currentIndex, flatQuestions.length, handleNavigate]);
+
+  const toggleCurrentFlag = useCallback(() => {
+    if (currentQuestion) handleToggleFlag(currentQuestion.id);
+  }, [currentQuestion, handleToggleFlag]);
+
+  useExamKeyboardShortcuts({
+    onPrevious: goToPreviousQuestion,
+    onNext: goToNextQuestion,
+    onFlag: toggleCurrentFlag,
+    disabled: loading || Boolean(error) || !exam || !currentQuestion || dialogOpen || isSubmitting,
+  });
+
   // ── Loading / Error ──────────────────────────────────────────────────────
   if (loading) {
     return (
@@ -360,6 +380,19 @@ export default function ExamV2SessionPage() {
           {isSubmitting ? 'Đang nộp...' : 'Nộp bài'}
         </button>
       </header>
+
+      <div
+        style={{
+          maxWidth: '80rem',
+          margin: '0 auto',
+          padding: '0.75rem 1.5rem 0',
+          color: 'var(--text-muted)',
+          fontSize: '0.78rem',
+          lineHeight: 1.5,
+        }}
+      >
+        Phím tắt: ←/→ chuyển câu, F đánh dấu xem lại.
+      </div>
 
       {/* ── Main content ──────────────────────────────────────────────────── */}
       <main

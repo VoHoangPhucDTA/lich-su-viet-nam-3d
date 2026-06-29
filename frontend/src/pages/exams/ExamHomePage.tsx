@@ -67,6 +67,12 @@ export default function ExamHomePage() {
                      icon="CH"
                      to="/exams/on-chu-de"
                    />
+                   <FeatureCard
+                     title="Tạo đề tùy chọn"
+                     desc="Tự chọn số câu, chủ đề, độ khó và thời gian để luyện đúng phần bạn cần."
+                     icon="TD"
+                     to="/exams/tao-de"
+                   />
                    <FeatureCard 
                      title="Lịch sử luyện thi"
                      desc="Xem lại các bài đã nộp, điểm số, thời gian làm bài và mở phần ôn lại câu sai."

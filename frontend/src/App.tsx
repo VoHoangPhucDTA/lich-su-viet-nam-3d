@@ -53,6 +53,8 @@ import ExamRetryWrongPage from './pages/exams/ExamRetryWrongPage';
 import ExamPracticePage from './pages/exams/ExamPracticePage';
 import ExamTopicListPage from './pages/exams/ExamTopicListPage';
 import ExamTopicPracticePage from './pages/exams/ExamTopicPracticePage';
+import ExamCustomCreatePage from './pages/exams/ExamCustomCreatePage';
+import ExamCustomSessionPage from './pages/exams/ExamCustomSessionPage';
 
 function AppContent() {
   const location = useLocation();
@@ -93,6 +95,8 @@ function AppContent() {
           <Route path="/exams/result/:examId" element={<ExamResultPage />} />
           <Route path="/exams/history" element={<ExamHistoryPage />} />
           <Route path="/exams/browse" element={<ExamBrowsePage />} />
+          <Route path="/exams/tao-de" element={<ExamCustomCreatePage />} />
+          <Route path="/exams/tuy-chon/:sessionId" element={<ExamCustomSessionPage />} />
           <Route path="/exams/de/:examId" element={<ExamV2SessionPage />} />
           <Route path="/exams/luyen-tap/:examId" element={<ExamPracticePage />} />
           <Route path="/exams/on-chu-de" element={<ExamTopicListPage />} />
