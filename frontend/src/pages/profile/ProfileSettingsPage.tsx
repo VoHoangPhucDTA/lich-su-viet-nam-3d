@@ -2,6 +2,7 @@ import { useState, useRef } from 'react';
 import ProfileLayout from '../../layouts/ProfileLayout';
 import { useAuth } from '../../auth/AuthContext';
 import UserAvatar from '../../components/profile/UserAvatar';
+import DeleteAccountDialog from '../../components/profile/DeleteAccountDialog';
 import { useNavigate } from 'react-router-dom';
 import { uploadAvatarImage } from '../../services/cloudinaryService';
 import { isStrongPassword, passwordStrengthMessage } from '../../utils/passwordUtils';
@@ -14,7 +15,6 @@ import {
   AlertTriangle,
   Save,
   Camera,
-  LogOut,
   CheckCircle,
   XCircle,
   LogIn,
@@ -155,7 +155,7 @@ function Toast({ message, type }: { message: string; type: 'success' | 'error' }
 
 /* ─── Main Page ─────────────────────────────────────────────────────────────── */
 export default function ProfileSettingsPage() {
-  const { currentUser, updateProfile, logout } = useAuth();
+  const { currentUser, updateProfile, changePassword, deleteAccount, logout } = useAuth();
   const navigate = useNavigate();
 
   const [fullName, setFullName] = useState(currentUser?.fullName ?? '');
@@ -172,6 +172,10 @@ export default function ProfileSettingsPage() {
   const [confirmPw, setConfirmPw] = useState('');
   const [pwSaving, setPwSaving] = useState(false);
   const [pwError, setPwError] = useState('');
+
+  // Delete dialog state
+  const [showDeleteDialog, setShowDeleteDialog] = useState(false);
+  const [deleting, setDeleting] = useState(false);
 
   const fileRef = useRef<HTMLInputElement>(null);
 
@@ -243,6 +247,10 @@ export default function ProfileSettingsPage() {
     ev.preventDefault();
     setPwError('');
 
+    if (!oldPw) {
+      setPwError('Vui lòng nhập mật khẩu hiện tại.');
+      return;
+    }
     if (!isStrongPassword(newPw)) {
       setPwError(passwordStrengthMessage(newPw));
       return;
@@ -253,20 +261,37 @@ export default function ProfileSettingsPage() {
     }
 
     setPwSaving(true);
-    // Bước 6C.1.13: (future) gọi API change-password thực
-    await new Promise(r => setTimeout(r, 600));
-    showToast('Đổi mật khẩu thành công! (mock)');
-    setOldPw(''); setNewPw(''); setConfirmPw('');
-    setPwSaving(false);
+    try {
+      await changePassword({ oldPassword: oldPw, newPassword: newPw });
+      showToast('Đổi mật khẩu thành công!');
+      setOldPw(''); setNewPw(''); setConfirmPw('');
+    } catch (e: unknown) {
+      setPwError(e instanceof Error ? e.message : 'Có lỗi xảy ra khi đổi mật khẩu.');
+    } finally {
+      setPwSaving(false);
+    }
   };
 
-  const handleLogoutAll = async () => {
-    await new Promise(r => setTimeout(r, 400));
-    showToast('Đã đăng xuất khỏi tất cả thiết bị. (mock)');
+  const handleOpenDeleteDialog = () => {
+    setShowDeleteDialog(true);
   };
 
-  const handleDeleteAccount = () => {
-    showToast('Chức năng xóa tài khoản chưa được kích hoạt trong phiên bản demo.', 'error');
+  const handleCancelDelete = () => {
+    if (!deleting) setShowDeleteDialog(false);
+  };
+
+  const handleConfirmDelete = async () => {
+    setDeleting(true);
+    try {
+      await deleteAccount();
+      showToast('Tài khoản đã được xóa vĩnh viễn.');
+      setShowDeleteDialog(false);
+      setTimeout(() => navigate('/login'), 1500);
+    } catch (e: unknown) {
+      showToast(e instanceof Error ? e.message : 'Có lỗi xảy ra khi xóa tài khoản.', 'error');
+    } finally {
+      setDeleting(false);
+    }
   };
 
   const handleLogout = async () => {
@@ -441,29 +466,13 @@ export default function ProfileSettingsPage() {
           </form>
         </Card>
 
-        {/* ── Security Sections ── */}
+        {/* ── Current Session ── */}
         <Card>
           <CardTitle>
             <Shield size={18} strokeWidth={1.5} className="text-red-900" />
-            Bảo mật & Phiên làm việc
+            Phiên làm việc
           </CardTitle>
           <div className="flex flex-col gap-3">
-            <div className="flex items-center justify-between gap-4 p-4 rounded-xl bg-stone-50 border border-stone-200/60">
-              <div className="flex-1">
-                <p className="text-sm font-bold text-stone-900">Đăng xuất mọi thiết bị</p>
-                <p className="text-xs text-stone-400 mt-0.5">Kết thúc tất cả phiên đăng nhập khác.</p>
-              </div>
-              <button
-                onClick={handleLogoutAll}
-                className="shrink-0 px-4 py-2 rounded-lg text-xs font-mono font-bold uppercase tracking-wider transition-all bg-amber-50 text-amber-700 border border-amber-200/60 hover:bg-amber-100"
-              >
-                <span className="flex items-center gap-1.5">
-                  <LogOut size={13} strokeWidth={2} />
-                  Đăng xuất
-                </span>
-              </button>
-            </div>
-
             <div className="flex items-center justify-between gap-4 p-4 rounded-xl bg-stone-50 border border-stone-200/60">
               <div className="flex-1">
                 <p className="text-sm font-bold text-stone-900">Đăng xuất phiên hiện tại</p>
@@ -496,7 +505,7 @@ export default function ProfileSettingsPage() {
               </p>
             </div>
             <button
-              onClick={handleDeleteAccount}
+              onClick={handleOpenDeleteDialog}
               className="shrink-0 px-4 py-2 rounded-lg text-xs font-mono font-bold uppercase tracking-wider transition-all bg-red-900 text-amber-50 hover:bg-red-950 shadow-sm"
             >
               <span className="flex items-center gap-1.5">
@@ -506,6 +515,16 @@ export default function ProfileSettingsPage() {
             </button>
           </div>
         </Card>
+
+        {/* ── Delete Account Confirmation Dialog ── */}
+        <DeleteAccountDialog
+          userName={currentUser?.fullName ?? 'Học sinh'}
+          userEmail={currentUser?.email ?? ''}
+          isOpen={showDeleteDialog}
+          isDeleting={deleting}
+          onConfirm={handleConfirmDelete}
+          onCancel={handleCancelDelete}
+        />
       </div>
     </ProfileLayout>
   );

@@ -91,11 +91,11 @@ function WelcomeHero({ firstName }: { firstName: string }) {
 /* ─── Stats Grid ────────────────────────────────────────────────────────────── */
 function StatsGrid() {
   const items = [
-    { icon: <Eye size={16} strokeWidth={1.5} />, label: 'Sự kiện', value: mockStats.eventsViewed, sub: 'đã xem', color: '#8b1e1e' },
-    { icon: <FileText size={16} strokeWidth={1.5} />, label: 'Trắc nghiệm', value: mockStats.quizzesCompleted, sub: 'hoàn thành', color: '#c5a059' },
-    { icon: <Star size={16} strokeWidth={1.5} />, label: 'Điểm TB', value: mockStats.averageScore, sub: '/10', color: '#3D8361' },
-    { icon: <Flame size={16} strokeWidth={1.5} />, label: 'Chuỗi học', value: `${mockStats.streakDays} ngày`, sub: 'đang duy trì', color: '#8b1e1e' },
-    { icon: <Clock size={16} strokeWidth={1.5} />, label: 'Tuần này', value: `${mockStats.weeklyMinutes}p`, sub: `tổng ${mockStats.totalMinutes}p`, color: '#78716c' },
+    { icon: <Eye size={16} strokeWidth={1.5} />, label: 'Sự kiện', value: mockStats.eventsViewed, sub: 'đã xem', color: 'var(--accent)' },
+    { icon: <FileText size={16} strokeWidth={1.5} />, label: 'Trắc nghiệm', value: mockStats.quizzesCompleted, sub: 'hoàn thành', color: 'var(--warning)' },
+    { icon: <Star size={16} strokeWidth={1.5} />, label: 'Điểm TB', value: mockStats.averageScore, sub: '/10', color: 'var(--success)' },
+    { icon: <Flame size={16} strokeWidth={1.5} />, label: 'Chuỗi học', value: `${mockStats.streakDays} ngày`, sub: 'đang duy trì', color: 'var(--accent)' },
+    { icon: <Clock size={16} strokeWidth={1.5} />, label: 'Tuần này', value: `${mockStats.weeklyMinutes}p`, sub: `tổng ${mockStats.totalMinutes}p`, color: 'var(--text-muted)' },
   ];
 
   return (

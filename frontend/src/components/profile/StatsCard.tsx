@@ -13,7 +13,7 @@ export default function StatsCard({
   label,
   value,
   sub,
-  color = '#8b1e1e',
+  color = 'var(--accent)',
 }: StatsCardProps) {
   return (
     <div className="group relative overflow-hidden rounded-2xl bg-white border border-stone-200/60 p-4 transition-all duration-200 hover:shadow-sm hover:-translate-y-0.5">
@@ -21,7 +21,7 @@ export default function StatsCard({
         style={{ background: `linear-gradient(to right, ${color}, transparent)` }} />
       <div className="flex items-center gap-2.5 mb-2.5">
         <div className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0"
-          style={{ background: `${color}10`, color }}>
+          style={{ background: `color-mix(in srgb, ${color} 6%, transparent)`, color }}>
           {icon}
         </div>
         <span className="text-[9px] font-mono font-bold uppercase tracking-wider text-stone-400">{label}</span>

@@ -8,9 +8,9 @@ const typeConfig = {
 };
 
 const recIcon: Record<string, React.ReactNode> = {
-  '💰': <Coins size={20} strokeWidth={1.5} />,
-  '🏛️': <Landmark size={20} strokeWidth={1.5} />,
-  '🏆': <Trophy size={20} strokeWidth={1.5} />,
+  money: <Coins size={20} strokeWidth={1.5} />,
+  government: <Landmark size={20} strokeWidth={1.5} />,
+  trophy: <Trophy size={20} strokeWidth={1.5} />,
 };
 
 export default function RecommendationCard({ item }: { item: RecommendationItem }) {

@@ -54,6 +54,11 @@ export interface ResetPasswordRequest {
   newPassword: string;
 }
 
+export interface ChangePasswordRequest {
+  oldPassword: string;
+  newPassword: string;
+}
+
 export interface UpdateProfileRequest {
   fullName?: string;
   grade?: '10' | '11' | '12' | 'other';

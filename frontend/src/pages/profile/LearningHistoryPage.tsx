@@ -2,7 +2,7 @@ import { useState } from 'react';
 import ProfileLayout from '../../layouts/ProfileLayout';
 import ActivityList from '../../components/profile/ActivityList';
 import { mockHistory, type ActivityType, type GradeLevel } from '../../data/mockLearningStats';
-import { ScrollText, SlidersHorizontal } from 'lucide-react';
+import { SlidersHorizontal } from 'lucide-react';
 
 const TYPE_FILTERS: { value: ActivityType | 'all'; label: string }[] = [
   { value: 'all', label: 'Tất cả' },
@@ -31,25 +31,11 @@ function FilterChip({
   return (
     <button
       onClick={onClick}
-      className="px-3 py-1.5 rounded-full text-xs font-mono font-bold whitespace-nowrap transition-all duration-200"
-      style={{
-        background: active ? '#8b1e1e' : '#f5f5f4',
-        color: active ? '#fff' : '#78716c',
-        border: active ? '1px solid #8b1e1e' : '1px solid #e7e5e4',
-        fontFamily: 'inherit',
-      }}
-      onMouseEnter={e => {
-        if (!active) {
-          (e.currentTarget as HTMLButtonElement).style.background = '#fff';
-          (e.currentTarget as HTMLButtonElement).style.borderColor = '#d6d3d1';
-        }
-      }}
-      onMouseLeave={e => {
-        if (!active) {
-          (e.currentTarget as HTMLButtonElement).style.background = '#f5f5f4';
-          (e.currentTarget as HTMLButtonElement).style.borderColor = '#e7e5e4';
-        }
-      }}
+      className={`px-3 py-1.5 rounded-full text-xs font-mono font-bold whitespace-nowrap transition-all duration-200 ${
+        active
+          ? 'bg-red-900 text-white border border-red-900'
+          : 'bg-stone-100 text-stone-400 border border-stone-200 hover:bg-white hover:border-stone-300'
+      }`}
     >
       {children}
     </button>

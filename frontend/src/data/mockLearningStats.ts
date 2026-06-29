@@ -371,7 +371,7 @@ export const mockRecommendations: RecommendationItem[] = [
     type: 'review',
     topic: 'Triều Nguyễn',
     estimatedMinutes: 20,
-    icon: '💰',
+    icon: 'money',
   },
   {
     id: 'r2',
@@ -380,7 +380,7 @@ export const mockRecommendations: RecommendationItem[] = [
     type: 'review',
     topic: 'Triều Nguyễn',
     estimatedMinutes: 15,
-    icon: '🏛️',
+    icon: 'government',
   },
   {
     id: 'r3',
@@ -389,7 +389,7 @@ export const mockRecommendations: RecommendationItem[] = [
     type: 'challenge',
     topic: 'Ôn thi THPT',
     estimatedMinutes: 50,
-    icon: '🏆',
+    icon: 'trophy',
   },
 ];
 

@@ -1,6 +1,7 @@
 import { createContext, useContext, useState, useEffect, useCallback, type ReactNode } from 'react';
 import type {
   AuthResponse,
+  ChangePasswordRequest,
   User,
   LoginRequest,
   RegisterRequest,
@@ -22,6 +23,8 @@ interface AuthContextType {
   logout: () => Promise<void>;
   forgotPassword: (email: string) => Promise<{ message: string }>;
   resetPassword: (req: ResetPasswordRequest) => Promise<{ message: string }>;
+  changePassword: (req: ChangePasswordRequest) => Promise<{ message: string }>;
+  deleteAccount: () => Promise<{ message: string }>;
   loginWithGoogle: (idToken: string) => Promise<AuthResponse>;
   loginWithFacebook: (accessToken: string) => Promise<AuthResponse>;
   updateProfile: (updates: UpdateProfileRequest) => Promise<void>;
@@ -108,6 +111,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setCurrentUser(updatedUser);
   }, []);
 
+  const changePasswordFn = useCallback(async (req: ChangePasswordRequest) => {
+    return authService.changePassword(req);
+  }, []);
+
+  const deleteAccountFn = useCallback(async () => {
+    const result = await authService.deleteAccount();
+    setCurrentUser(null);
+    return result;
+  }, []);
+
   return (
     <AuthContext.Provider
       value={{
@@ -121,6 +134,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         logout,
         forgotPassword,
         resetPassword,
+        changePassword: changePasswordFn,
+        deleteAccount: deleteAccountFn,
         loginWithGoogle,
         loginWithFacebook,
         updateProfile: updateProfileFn,

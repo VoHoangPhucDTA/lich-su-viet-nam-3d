@@ -1,5 +1,5 @@
-import { useState, useRef, useEffect, type ReactNode } from 'react';
-import { NavLink, useNavigate, Link } from 'react-router-dom';
+import { useState, type ReactNode } from 'react';
+import { NavLink } from 'react-router-dom';
 import { useAuth } from '../auth/AuthContext';
 import UserAvatar from '../components/profile/UserAvatar';
 import {
@@ -12,7 +12,6 @@ import {
   LogOut,
   Menu,
   X,
-  User,
 } from 'lucide-react';
 
 /* ─── Nav items ─────────────────────────────────────────────────────────────── */
@@ -28,7 +27,7 @@ const NAV_ITEMS = [
 
 /* ─── Sidebar ────────────────────────────────────────────────────────────────── */
 function Sidebar({ onClose }: { onClose?: () => void }) {
-  const { currentUser } = useAuth();
+  const { currentUser, logout } = useAuth();
   const name = currentUser?.fullName ?? 'Học sinh';
 
   return (
@@ -93,8 +92,7 @@ function Sidebar({ onClose }: { onClose?: () => void }) {
       {/* Logout */}
       <button
         onClick={async () => {
-          const { logout } = await import('../auth/AuthContext');
-          // Using a simpler approach
+          try { await logout(); } catch { /* ignore */ }
           window.location.href = '/login';
         }}
         className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-stone-400 hover:text-red-900 hover:bg-red-50 transition-all duration-150 cursor-pointer"
