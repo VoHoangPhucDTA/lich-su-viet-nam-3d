@@ -234,17 +234,23 @@ export interface CustomPracticeState {
 
 export interface CustomExamSession {
   sessionId: string;
-  mode: 'custom_practice';
+  mode: CustomExamMode;
   title: string;
   createdAt: string;
+  startedAt?: number;
+  submittedAt?: number;
+  durationSeconds?: number | null;
+  status?: 'in_progress' | 'submitted';
   config: CustomExamConfig;
   questionRefs: QuestionRef[];
   sourceExamIds: string[];
   questionSnapshots: CustomQuestionSnapshot[];
+  markedForReview?: string[];
   practiceState?: CustomPracticeState;
 }
 
 export type ExamSessionMode = 'thi_thu' | 'luyen_tap' | 'on_chu_de';
+export type ExamResultMode = ExamSessionMode | CustomExamMode;
 
 export interface MCQAnswer {
   questionId: string;
@@ -295,7 +301,15 @@ export interface QuestionResult {
 export interface ExamResultV2 {
   sessionId: string;
   examId?: string;
-  mode: ExamSessionMode;
+  mode: ExamResultMode;
+  title?: string;
+  isCustom?: boolean;
+  sourceExamIds?: string[];
+  questionSnapshots?: CustomQuestionSnapshot[];
+  answers?: Record<string, AnswerEntry>;
+  config?: CustomExamConfig;
+  maxScore?: number;
+  score?: number;
   totalScore: number;
   mcqScore: number;
   tfScore: number;

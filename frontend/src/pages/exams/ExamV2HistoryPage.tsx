@@ -76,8 +76,8 @@ function HistoryRow({ result, meta }: { result: ExamResultV2; meta?: ExamManifes
   const subtitle = meta
     ? [meta.sourceDetail, meta.year].filter(Boolean).join(' · ')
     : result.examId
-    ? 'Không tìm thấy metadata trong manifest'
-    : 'Không có mã đề trong kết quả';
+      ? 'Không tìm thấy metadata trong manifest'
+      : 'Không có mã đề trong kết quả';
 
   return (
     <article
