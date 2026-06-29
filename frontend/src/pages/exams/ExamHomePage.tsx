@@ -5,15 +5,6 @@
 import { Link } from 'react-router-dom';
 import ExamHero from '../../components/exams/ExamHero';
 
-function ExamStat({ label, value, color }: { label: string; value: string | number; color: string }) {
-  return (
-    <div style={{ background: 'var(--bg-card)', border: `1px solid var(--border)`, borderTop: `4px solid ${color}`, borderRadius: '1rem', padding: '1.25rem', flex: 1, minWidth: '130px', display: 'flex', flexDirection: 'column', alignItems: 'center', boxShadow: 'var(--shadow)' }}>
-       <div style={{ fontSize: '1.75rem', fontWeight: 800, color: color, marginBottom: '0.25rem' }}>{value}</div>
-       <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em', textAlign: 'center' }}>{label}</div>
-    </div>
-  );
-}
-
 function FeatureCard({ title, desc, icon, to, primary = false }: { title: string; desc: string; icon: string; to: string; primary?: boolean }) {
   return (
     <Link to={to} style={{ 
@@ -60,31 +51,15 @@ export default function ExamHomePage() {
            
            <ExamHero />
 
-           {/* ── Stats Mock Overview ── */}
-           <section style={{ marginBottom: '4rem' }}>
-               <h2 style={{ fontSize: '1.25rem', fontWeight: 700, marginBottom: '1.5rem', color: 'var(--text-primary)' }}>Thống kê cá nhân</h2>
-               <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1.5rem' }}>
-                   <ExamStat label="Đề đã làm" value="12" color="var(--accent)" />
-                   <ExamStat label="Điểm trung bình" value="7.5" color="var(--success)" />
-                   <ExamStat label="Điểm cao nhất" value="9.2" color="var(--warning)" />
-                   <ExamStat label="Thời gian ôn" value="14h" color="#4f6f95" />
-                   <div style={{ background: 'var(--bg-card)', border: `1px solid var(--border)`, borderLeft: `4px solid var(--danger)`, borderRadius: '1rem', padding: '1.25rem', flex: '2 1 200px', display: 'flex', flexDirection: 'column', justifyContent: 'center', boxShadow: 'var(--shadow)' }}>
-                       <div style={{ fontSize: '0.85rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.5rem', fontWeight: 600 }}>Chủ đề yếu cần ôn</div>
-                       <div style={{ color: 'var(--danger)', fontWeight: 700, fontSize: '1rem' }}>Phong kiến phương Đông, Kháng chiến chống Pháp</div>
-                   </div>
-               </div>
-           </section>
-
-           {/* ── Features Grid ── */}
            <section>
-               <h2 style={{ fontSize: '1.25rem', fontWeight: 700, marginBottom: '1.5rem', color: 'var(--text-primary)' }}>Tính năng hỗ trợ</h2>
+               <h2 style={{ fontSize: '1.25rem', fontWeight: 700, marginBottom: '1.5rem', color: 'var(--text-primary)' }}>Bắt đầu luyện thi</h2>
                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '2rem' }}>
                    <FeatureCard 
                      primary={true}
-                     title="Làm đề mô phỏng THPT" 
-                     desc="Thiết lập đề chuẩn 40 câu / 50 phút bám sát cấu trúc của Bộ GDĐT, tổng hợp kiến thức cả 3 khối." 
-                     icon="🎯" 
-                     to="/exams/create?preset=mock" 
+                     title="Ngân hàng đề thi"
+                     desc="Chọn đề thật đã parse từ dữ liệu, vào thi thử 50 phút hoặc luyện tập tự do theo từng đề."
+                     icon="Đề"
+                     to="/exams/browse"
                    />
                    <FeatureCard
                      title="Ôn theo chủ đề"
@@ -93,22 +68,10 @@ export default function ExamHomePage() {
                      to="/exams/on-chu-de"
                    />
                    <FeatureCard 
-                     title="Tạo đề luyện tập tự do" 
-                     desc="Tự chọn chủ đề, lớp, độ khó và thời gian để test kiến thức một cách ngẫu nhiên." 
-                     icon="⚙️" 
-                     to="/exams/create?preset=custom" 
-                   />
-                   <FeatureCard 
-                     title="Xem kết quả và phân tích" 
-                     desc="Giải thích đáp án cặn kẽ và lưu nguồn SGK để tra cứu nhanh, phân tích tỷ lệ làm bản." 
-                     icon="📊" 
-                     to="/exams/history" 
-                   />
-                   <FeatureCard 
-                     title="Ôn tập theo điểm yếu" 
-                     desc="Hệ thống tự nhận diện các câu làm sai nhiều và tự động sinh đề thi lấp lỗ hổng." 
-                     icon="⚕️" 
-                     to="/exams/create?preset=weakness" 
+                     title="Lịch sử luyện thi"
+                     desc="Xem lại các bài đã nộp, điểm số, thời gian làm bài và mở phần ôn lại câu sai."
+                     icon="LS"
+                     to="/exams/lich-su"
                    />
                </div>
            </section>

@@ -115,7 +115,7 @@ export default function AppHeader() {
                 <div className="h-px bg-stone-200/60 my-1" />
                 <DropdownLabel>Đề thi THPT</DropdownLabel>
                 <DropdownLink to="/exams" onClick={() => setExamDropdownOpen(false)}>Luyện đề</DropdownLink>
-                <DropdownLink to="/exams/history" onClick={() => setExamDropdownOpen(false)}>Lịch sử làm đề</DropdownLink>
+                <DropdownLink to="/exams/lich-su" onClick={() => setExamDropdownOpen(false)}>Lịch sử luyện thi</DropdownLink>
               </div>
             )}
           </div>

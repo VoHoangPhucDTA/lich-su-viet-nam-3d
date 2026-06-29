@@ -4,12 +4,16 @@
  */
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { formatExamTitle, getExamDisplayYear, getExamSourceLabel } from '@/lib/exam/examDisplay';
 import { listAllExams, listPublishedExams } from '@/lib/exam/manifestLoader';
 import type { ExamManifestEntry } from '@/types/exam';
 
 function ExamCard({ entry }: { entry: ExamManifestEntry }) {
   const verified =
     entry.structuralPassed && entry.crossSourcePassed && !entry.hasContentSuspicion;
+  const displayTitle = formatExamTitle(entry);
+  const displayYear = getExamDisplayYear(entry);
+  const sourceLabel = getExamSourceLabel(entry);
 
   return (
     <article
@@ -36,7 +40,7 @@ function ExamCard({ entry }: { entry: ExamManifestEntry }) {
         }}
       >
         <div style={{ fontSize: '1.4rem', fontWeight: 800, color: 'var(--accent)', lineHeight: 1 }}>
-          {entry.year}
+          {displayYear || entry.year}
         </div>
         <div style={{ fontSize: '0.6rem', color: 'var(--text-muted)', marginTop: '0.25rem' }}>
           THPT
@@ -52,10 +56,15 @@ function ExamCard({ entry }: { entry: ExamManifestEntry }) {
             color: 'var(--text-primary)',
             lineHeight: 1.45,
           }}
-          title={entry.title}
+          title={displayTitle}
         >
-          {entry.title}
+          {displayTitle}
         </h2>
+        {sourceLabel && (
+          <div style={{ fontSize: '0.76rem', color: 'var(--text-muted)', margin: '-0.2rem 0 0.55rem' }}>
+            Nguồn: {sourceLabel}
+          </div>
+        )}
         <div style={{ fontSize: '0.82rem', color: 'var(--text-muted)', marginBottom: '0.65rem' }}>
           {entry.mcqCount} Trắc nghiệm · {entry.tfCount} Đúng/Sai · {entry.timeLimitMinutes} phút · {entry.totalScore} điểm
         </div>
@@ -73,7 +82,7 @@ function ExamCard({ entry }: { entry: ExamManifestEntry }) {
             border: `1px solid ${verified ? 'var(--success)' : 'var(--warning)'}`,
           }}
         >
-          {verified ? 'Đã xác minh' : 'Có cảnh báo'}
+          {verified ? 'Đề đã kiểm tra' : 'Cần rà soát nội dung'}
         </span>
       </div>
 
@@ -138,13 +147,13 @@ export default function ExamBrowsePage() {
 
   const activeManifest = showAllExams ? allExams : publishedExams;
   const years = activeManifest
-    ? [...new Set(activeManifest.map((entry) => entry.year))].sort((a, b) => b - a)
+    ? [...new Set(activeManifest.map((entry) => getExamDisplayYear(entry) || entry.year))].sort((a, b) => b - a)
     : [];
   const filtered = activeManifest
     ? (filterYear !== null
-        ? activeManifest.filter((entry) => entry.year === filterYear)
+        ? activeManifest.filter((entry) => (getExamDisplayYear(entry) || entry.year) === filterYear)
         : activeManifest
-      ).slice().sort((a, b) => b.year - a.year || a.title.localeCompare(b.title, 'vi'))
+      ).slice().sort((a, b) => (getExamDisplayYear(b) || b.year) - (getExamDisplayYear(a) || a.year) || formatExamTitle(a).localeCompare(formatExamTitle(b), 'vi'))
     : [];
 
   return (
@@ -228,9 +237,9 @@ export default function ExamBrowsePage() {
             }}
           >
             <div style={{ fontSize: '0.82rem', color: 'var(--text-muted)', lineHeight: 1.55 }}>
-              Mặc định hiển thị {publishedExams.length} đề đã xác minh.
+              Mặc định hiển thị {publishedExams.length} đề đã kiểm tra.
               {allExams.length > publishedExams.length
-                ? ` Còn ${allExams.length - publishedExams.length} đề có cảnh báo.`
+                ? ` Còn ${allExams.length - publishedExams.length} đề cần rà soát nội dung.`
                 : ''}
             </div>
             <button
@@ -251,8 +260,25 @@ export default function ExamBrowsePage() {
                 whiteSpace: 'nowrap',
               }}
             >
-              {showAllExams ? 'Chỉ đề đã xác minh' : 'Tất cả đề'}
+              {showAllExams ? 'Chỉ đề đã kiểm tra' : 'Tất cả đề'}
             </button>
+          </div>
+        )}
+
+        {allExams && publishedExams && (
+          <div
+            style={{
+              marginBottom: '1rem',
+              padding: '0.85rem 1rem',
+              background: 'rgba(47,122,87,0.08)',
+              border: '1px solid rgba(47,122,87,0.22)',
+              borderRadius: '0.875rem',
+              color: 'var(--text-secondary)',
+              fontSize: '0.84rem',
+              lineHeight: 1.6,
+            }}
+          >
+            “Đề đã kiểm tra” là đề đã qua kiểm tra cấu trúc và đối chiếu dữ liệu. Các đề “Cần rà soát nội dung” vẫn có thể xem thử nhưng không được ưu tiên khi luyện thi.
           </div>
         )}
 

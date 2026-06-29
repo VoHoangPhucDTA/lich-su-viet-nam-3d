@@ -17,17 +17,17 @@ export default function ExamHero() {
         <h1 style={{ fontSize: '3rem', fontWeight: 800, margin: '0 0 1rem 0', color: 'var(--text-primary)', letterSpacing: '-0.02em' }}>
             Luyện đề thi THPT môn Lịch sử
         </h1>
-        <p style={{ fontSize: '1.1rem', color: 'var(--text-muted)', maxWidth: '600px', margin: '0 auto 2.5rem', lineHeight: 1.6 }}>
-            Tạo đề luyện tập theo lớp, giai đoạn, độ khó và thời gian làm bài. Sẵn sàng cho kỳ thi THPT với kho dữ liệu phong phú.
+        <p style={{ fontSize: '1.1rem', color: 'var(--text-muted)', maxWidth: '640px', margin: '0 auto 2.5rem', lineHeight: 1.6 }}>
+            Luyện đề thi thử, ôn theo chủ đề và theo dõi lịch sử làm bài từ kho đề THPT đã chuẩn hóa cho môn Lịch sử.
             {!currentUser && <span style={{ display: 'block', marginTop: '0.5rem', color: 'var(--warning)', fontSize: '0.9rem' }}>Bạn đang truy cập ở chế độ khách.</span>}
         </p>
         
         <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center' }}>
-            <Link to="/exams/create" style={{ padding: '0.875rem 2rem', background: 'var(--accent)', color: '#fff', borderRadius: '0.75rem', textDecoration: 'none', fontWeight: 700, fontSize: '1rem', boxShadow: '0 10px 15px -3px var(--accent-soft)', transition: 'transform 0.2s' }}>
-                Tạo đề thi ngay
+            <Link to="/exams/browse" style={{ padding: '0.875rem 2rem', background: 'var(--accent)', color: '#fff', borderRadius: '0.75rem', textDecoration: 'none', fontWeight: 700, fontSize: '1rem', boxShadow: '0 10px 15px -3px var(--accent-soft)', transition: 'transform 0.2s' }}>
+                Vào ngân hàng đề
             </Link>
-            <Link to="/exams/history" style={{ padding: '0.875rem 2rem', background: 'var(--bg-surface)', border: '1px solid var(--border)', color: 'var(--text-primary)', borderRadius: '0.75rem', textDecoration: 'none', fontWeight: 600, fontSize: '1rem', transition: 'background 0.2s' }}>
-                Xem lịch sử làm đề
+            <Link to="/exams/lich-su" style={{ padding: '0.875rem 2rem', background: 'var(--bg-surface)', border: '1px solid var(--border)', color: 'var(--text-primary)', borderRadius: '0.75rem', textDecoration: 'none', fontWeight: 600, fontSize: '1rem', transition: 'background 0.2s' }}>
+                Xem lịch sử luyện thi
             </Link>
         </div>
     </section>

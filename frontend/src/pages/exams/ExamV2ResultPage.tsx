@@ -5,6 +5,7 @@
 import { useEffect, useMemo, useState, type ReactNode } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { formatCognitiveLevelLabel, formatDifficultyLabel } from '@/lib/exam/displayLabels';
+import { formatExamTitle } from '@/lib/exam/examDisplay';
 import { loadExam } from '@/lib/exam/examLoader';
 import { rateScore, scoreToPercent } from '@/lib/exam/scoring';
 import { loadTopicIndex } from '@/lib/exam/topicIndexLoader';
@@ -50,9 +51,16 @@ function formatPoints(points: number): string {
 }
 
 function formatDuration(seconds: number): string {
-  const durationMin = Math.floor(seconds / 60);
-  const durationSec = seconds % 60;
-  return `${durationMin}p ${durationSec}s`;
+  const safeSeconds = Math.max(0, Math.floor(Number.isFinite(seconds) ? seconds : 0));
+  const hours = Math.floor(safeSeconds / 3600);
+  const minutes = Math.floor((safeSeconds % 3600) / 60);
+  const restSeconds = safeSeconds % 60;
+  const parts: string[] = [];
+
+  if (hours > 0) parts.push(`${hours} giờ`);
+  if (minutes > 0 || hours > 0) parts.push(`${hours > 0 ? minutes.toString().padStart(2, '0') : minutes} phút`);
+  if (restSeconds > 0 || parts.length === 0) parts.push(`${hours > 0 ? restSeconds.toString().padStart(2, '0') : restSeconds} giây`);
+  return parts.join(' ');
 }
 
 function getAnsweredCount(result: ExamResultV2): number {
@@ -237,9 +245,8 @@ function MiniBreakdown({ title, buckets }: { title: string; buckets: WeaknessBuc
   );
 }
 
-function WeaknessAnalysisSection({ analysis, result, topicPracticeSlug }: { analysis: WeaknessAnalysis; result: ExamResultV2; topicPracticeSlug?: string | null }) {
+function WeaknessAnalysisSection({ analysis }: { analysis: WeaknessAnalysis }) {
   const topTopics = analysis.byTopic.slice(0, 3);
-  const retryAvailable = needsRetry(result);
 
   return (
     <section style={{ background: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: '1rem', padding: '1.25rem', display: 'grid', gap: '1rem' }}>
@@ -301,24 +308,6 @@ function WeaknessAnalysisSection({ analysis, result, topicPracticeSlug }: { anal
               <p style={{ margin: '0.25rem 0 0', color: 'var(--text-muted)', lineHeight: 1.55, fontSize: '0.88rem' }}>{suggestion.detail}</p>
             </div>
           ))}
-        </div>
-        <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
-          {topicPracticeSlug && (
-            <Link to={`/exams/on-chu-de/${topicPracticeSlug}`} style={{ padding: '0.7rem 1.1rem', background: 'var(--accent)', color: '#fff', borderRadius: '0.75rem', textDecoration: 'none', fontWeight: 800, fontSize: '0.88rem' }}>
-              Ôn chủ đề này
-            </Link>
-          )}
-          {retryAvailable && (
-            <Link to={`/exams/on-lai/${result.sessionId}`} style={{ padding: '0.7rem 1.1rem', background: topicPracticeSlug ? 'var(--bg-surface)' : 'var(--accent)', color: topicPracticeSlug ? 'var(--text-primary)' : '#fff', border: topicPracticeSlug ? '1px solid var(--border)' : '1px solid var(--accent)', borderRadius: '0.75rem', textDecoration: 'none', fontWeight: 800, fontSize: '0.88rem' }}>
-              Ôn lại câu sai
-            </Link>
-          )}
-          <Link to="/exams/browse" style={{ padding: '0.7rem 1.1rem', background: 'var(--bg-surface)', color: 'var(--text-primary)', border: '1px solid var(--border)', borderRadius: '0.75rem', textDecoration: 'none', fontWeight: 800, fontSize: '0.88rem' }}>
-            Làm đề khác
-          </Link>
-          <Link to="/exams/lich-su" style={{ padding: '0.7rem 1.1rem', background: 'var(--bg-surface)', color: 'var(--text-primary)', border: '1px solid var(--border)', borderRadius: '0.75rem', textDecoration: 'none', fontWeight: 800, fontSize: '0.88rem' }}>
-            Về lịch sử luyện thi
-          </Link>
         </div>
       </div>
     </section>
@@ -682,7 +671,7 @@ export default function ExamV2ResultPage() {
 
         <div>
           <h1 style={{ margin: 0, fontSize: '1.6rem', fontWeight: 900 }}>Kết quả luyện thi</h1>
-          {exam && <p style={{ margin: '0.45rem 0 0', color: 'var(--text-muted)', lineHeight: 1.5 }}>{exam.title}</p>}
+          {exam && <p style={{ margin: '0.45rem 0 0', color: 'var(--text-muted)', lineHeight: 1.5 }}>{formatExamTitle(exam)}</p>}
         </div>
 
         {error && (
@@ -698,7 +687,38 @@ export default function ExamV2ResultPage() {
           <TFBreakdown result={result} />
         </div>
 
-        {weaknessAnalysis && <WeaknessAnalysisSection analysis={weaknessAnalysis} result={result} topicPracticeSlug={weakestTopicSlug} />}
+        {weaknessAnalysis && <WeaknessAnalysisSection analysis={weaknessAnalysis} />}
+
+        <section style={{ background: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: '1rem', padding: '1.25rem', display: 'grid', gap: '0.9rem' }}>
+          <h2 style={{ margin: 0, fontSize: '1.05rem', fontWeight: 900, color: 'var(--text-primary)' }}>Tiếp tục luyện tập</h2>
+          {needsRetry(result) ? (
+            <p style={{ margin: 0, color: 'var(--text-muted)', lineHeight: 1.6 }}>
+              Ôn lại các câu sai hoặc bỏ trống trong bài này để củng cố ngay phần còn thiếu.
+            </p>
+          ) : (
+            <p style={{ margin: 0, color: 'var(--success)', lineHeight: 1.6, fontWeight: 700 }}>
+              Bạn đã làm đúng toàn bộ câu hỏi trong bài này.
+            </p>
+          )}
+          <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
+            {needsRetry(result) && (
+              <Link to={`/exams/on-lai/${result.sessionId}`} style={{ padding: '0.75rem 1.5rem', background: 'var(--accent)', color: '#fff', borderRadius: '0.875rem', textDecoration: 'none', fontWeight: 800, fontSize: '0.9rem' }}>
+                Ôn lại câu sai
+              </Link>
+            )}
+            {weakestTopicSlug && (
+              <Link to={`/exams/on-chu-de/${weakestTopicSlug}`} style={{ padding: '0.75rem 1.5rem', background: needsRetry(result) ? 'var(--bg-surface)' : 'var(--accent)', color: needsRetry(result) ? 'var(--text-primary)' : '#fff', border: needsRetry(result) ? '1px solid var(--border)' : '1px solid var(--accent)', borderRadius: '0.875rem', textDecoration: 'none', fontWeight: 800, fontSize: '0.9rem' }}>
+                Ôn chủ đề yếu
+              </Link>
+            )}
+            <Link to="/exams/browse" style={{ padding: '0.75rem 1.5rem', background: 'var(--bg-surface)', color: 'var(--text-primary)', border: '1px solid var(--border)', borderRadius: '0.875rem', textDecoration: 'none', fontWeight: 700, fontSize: '0.9rem' }}>
+              Làm đề thi thử khác
+            </Link>
+            <Link to="/exams/lich-su" style={{ padding: '0.75rem 1.5rem', background: 'var(--bg-surface)', color: 'var(--text-primary)', border: '1px solid var(--border)', borderRadius: '0.875rem', textDecoration: 'none', fontWeight: 700, fontSize: '0.9rem' }}>
+              Về lịch sử luyện thi
+            </Link>
+          </div>
+        </section>
 
         <section style={{ display: 'grid', gap: '1rem' }}>
           <header style={{ display: 'flex', alignItems: 'baseline', gap: '0.75rem' }}>
@@ -722,43 +742,6 @@ export default function ExamV2ResultPage() {
             </div>
           )}
         </section>
-
-        <section style={{ background: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: '1rem', padding: '1.25rem', display: 'grid', gap: '0.9rem' }}>
-          <h2 style={{ margin: 0, fontSize: '1.05rem', fontWeight: 900, color: 'var(--text-primary)' }}>Tiếp tục luyện tập</h2>
-          {needsRetry(result) ? (
-            <p style={{ margin: 0, color: 'var(--text-muted)', lineHeight: 1.6 }}>
-              Ôn lại các câu sai hoặc bỏ trống trong bài này để củng cố ngay phần còn thiếu.
-            </p>
-          ) : (
-            <p style={{ margin: 0, color: 'var(--success)', lineHeight: 1.6, fontWeight: 700 }}>
-              Bạn đã làm đúng toàn bộ câu hỏi trong bài này.
-            </p>
-          )}
-          <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
-            {needsRetry(result) && (
-              <Link to={`/exams/on-lai/${result.sessionId}`} style={{ padding: '0.75rem 1.5rem', background: 'var(--accent)', color: '#fff', borderRadius: '0.875rem', textDecoration: 'none', fontWeight: 800, fontSize: '0.9rem' }}>
-                Ôn lại câu sai
-              </Link>
-            )}
-            <Link to="/exams/browse" style={{ padding: '0.75rem 1.5rem', background: 'var(--bg-surface)', color: 'var(--text-primary)', border: '1px solid var(--border)', borderRadius: '0.875rem', textDecoration: 'none', fontWeight: 700, fontSize: '0.9rem' }}>
-              Làm đề khác
-            </Link>
-            <Link to="/exams/lich-su" style={{ padding: '0.75rem 1.5rem', background: 'var(--bg-surface)', color: 'var(--text-primary)', border: '1px solid var(--border)', borderRadius: '0.875rem', textDecoration: 'none', fontWeight: 700, fontSize: '0.9rem' }}>
-              Về lịch sử luyện thi
-            </Link>
-          </div>
-        </section>
-
-        <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
-          {result.examId && (
-            <Link to={`/exams/de/${result.examId}`} style={{ padding: '0.75rem 1.5rem', background: 'var(--accent)', color: '#fff', borderRadius: '0.875rem', textDecoration: 'none', fontWeight: 700, fontSize: '0.9rem' }}>
-              Làm lại đề này
-            </Link>
-          )}
-          <Link to="/exams/browse" style={{ padding: '0.75rem 1.5rem', background: 'var(--bg-surface)', color: 'var(--text-primary)', border: '1px solid var(--border)', borderRadius: '0.875rem', textDecoration: 'none', fontWeight: 700, fontSize: '0.9rem' }}>
-            Chọn đề khác
-          </Link>
-        </div>
       </div>
     </div>
   );
