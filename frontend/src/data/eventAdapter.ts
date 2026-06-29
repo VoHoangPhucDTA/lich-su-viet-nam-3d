@@ -1,7 +1,13 @@
 import type { RawEventJson } from './eventRegistry';
 import { getChildIdsOf, getRawEventById } from './eventRegistry';
 import type { MockEventDetail } from './mockEventDetails';
-import type { EventType, GeoType, HistoricalEvent } from '../types/event';
+import type {
+  EventDisplayGeometry,
+  EventFocusGeometry,
+  EventType,
+  GeoType,
+  HistoricalEvent,
+} from '../types/event';
 import { getCentroidFromProvinceNames } from './vietnamProvinceCentroids';
 
 /* ─── Helpers ───────────────────────────────────────────────────────────── */
@@ -26,6 +32,7 @@ function toGeoType(geoType?: string): GeoType {
 }
 
 type MapMarker = { lat: number; lng: number; label?: string };
+type RawFocusGeometry = NonNullable<NonNullable<RawEventJson['mapData']>['focusGeometry']>;
 
 function toMarker(marker?: { lat: number; lng: number; label?: string; name?: string }): MapMarker | undefined {
   if (!marker || !Number.isFinite(marker.lat) || !Number.isFinite(marker.lng)) return undefined;
@@ -44,6 +51,49 @@ function toMarkers(markers?: Array<{ lat: number; lng: number; label?: string; n
     .map(toMarker)
     .filter((marker): marker is MapMarker => !!marker);
   return items.length > 0 ? items : undefined;
+}
+
+function normalizeDisplayGeometry(
+  rawMapData?: RawEventJson['mapData']
+): EventDisplayGeometry | undefined {
+  if (!rawMapData) return undefined;
+
+  const rawDg = rawMapData.displayGeometry;
+  const source = rawDg ?? (
+    rawMapData.geoType != null
+      ? {
+          geoType: rawMapData.geoType,
+          marker: rawMapData.marker,
+          markers: rawMapData.markers,
+          provinceNames: rawMapData.provinceNames,
+          historicalLocations: rawMapData.historicalLocations,
+        }
+      : undefined
+  );
+  if (!source) return undefined;
+
+  return {
+    geoType: toGeoType(source.geoType),
+    marker: toMarker(source.marker),
+    markers: toMarkers(source.markers),
+    provinceNames: source.provinceNames,
+    historicalLocations: source.historicalLocations,
+  };
+}
+
+function normalizeFocusGeometry(
+  focusGeometry?: RawFocusGeometry
+): EventFocusGeometry | undefined {
+  if (!focusGeometry) return undefined;
+
+  return {
+    mode: focusGeometry.mode,
+    center: focusGeometry.center
+      ? { lat: focusGeometry.center.lat, lng: focusGeometry.center.lng }
+      : undefined,
+    zoom: focusGeometry.zoom,
+    provinceNames: focusGeometry.provinceNames,
+  };
 }
 
 function toEventType(value?: string): EventType {
@@ -192,10 +242,14 @@ export function rawToEventDetail(raw: RawEventJson): MockEventDetail {
           provinceNames: rawDg.provinceNames,
           historicalLocations: rawDg.historicalLocations,
         },
-        focusGeometry: raw.mapData!.focusGeometry?.center
+        focusGeometry: raw.mapData!.focusGeometry
           ? {
-              center: [raw.mapData!.focusGeometry!.center!.lng, raw.mapData!.focusGeometry!.center!.lat],
+              mode: raw.mapData!.focusGeometry!.mode,
+              center: raw.mapData!.focusGeometry!.center
+                ? [raw.mapData!.focusGeometry!.center!.lng, raw.mapData!.focusGeometry!.center!.lat]
+                : undefined,
               zoom: raw.mapData!.focusGeometry!.zoom ?? 8,
+              provinceNames: raw.mapData!.focusGeometry!.provinceNames,
             }
           : undefined,
       }
@@ -214,10 +268,14 @@ export function rawToEventDetail(raw: RawEventJson): MockEventDetail {
             provinceNames: raw.mapData.provinceNames,
             historicalLocations: raw.mapData.historicalLocations,
           },
-          focusGeometry: raw.mapData.focusGeometry?.center
+          focusGeometry: raw.mapData.focusGeometry
             ? {
-                center: [raw.mapData.focusGeometry.center.lng, raw.mapData.focusGeometry.center.lat],
+                mode: raw.mapData.focusGeometry.mode,
+                center: raw.mapData.focusGeometry.center
+                  ? [raw.mapData.focusGeometry.center.lng, raw.mapData.focusGeometry.center.lat]
+                  : undefined,
                 zoom: raw.mapData.focusGeometry.zoom ?? 8,
+                provinceNames: raw.mapData.focusGeometry.provinceNames,
               }
             : undefined,
         }
@@ -274,6 +332,8 @@ export function rawToHistoricalEvent(
   const endYear = raw.chronology?.end?.year;
   const rawGeoType = toGeoType(dg?.geoType ?? raw.mapData?.geoType);
   const markers = toMarkers(dg?.markers ?? (isNewMapFormat ? raw.mapData!.markers : undefined));
+  const displayGeometry = normalizeDisplayGeometry(raw.mapData);
+  const focusGeometry = normalizeFocusGeometry(fg);
 
   // Coordinates: ưu tiên marker → focus center → fallback centroid của tỉnh đầu
   // tiên trong provinceNames. Fallback chỉ áp dụng cho event có gắn địa điểm
@@ -316,6 +376,8 @@ export function rawToHistoricalEvent(
     coordinates,
     markers,
     primaryRegions: dg?.provinceNames ?? (isNewMapFormat ? raw.mapData!.provinceNames : undefined),
+    displayGeometry,
+    focusGeometry,
     parentId: raw.hierarchy?.parentId ?? null,
     details:
       raw.textbookContent?.detailedNarrative ??

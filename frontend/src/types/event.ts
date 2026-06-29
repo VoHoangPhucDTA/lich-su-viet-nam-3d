@@ -10,6 +10,29 @@ import {
   ClipboardList,
 } from 'lucide-react';
 
+export type MapCoordinate = { lat: number; lng: number };
+
+export type EventMapMarker = MapCoordinate & {
+  label?: string;
+};
+
+export type FocusGeometryMode = 'auto' | 'marker' | 'bounds' | (string & {});
+
+export interface EventDisplayGeometry {
+  geoType: GeoType;
+  marker?: EventMapMarker;
+  markers?: EventMapMarker[];
+  provinceNames?: string[];
+  historicalLocations?: string[];
+}
+
+export interface EventFocusGeometry {
+  mode?: FocusGeometryMode;
+  center?: MapCoordinate;
+  zoom?: number;
+  provinceNames?: string[];
+}
+
 export interface HistoricalEvent {
   id: string;
   slug?: string;
@@ -21,10 +44,12 @@ export interface HistoricalEvent {
   eventType: EventType;
   eventSubtype?: string;
   geoType: GeoType;
-  coordinates?: { lat: number; lng: number };
-  markers?: { lat: number; lng: number; label?: string }[];
+  coordinates?: MapCoordinate;
+  markers?: EventMapMarker[];
   primaryRegions?: string[];
   secondaryRegions?: string[];
+  displayGeometry?: EventDisplayGeometry;
+  focusGeometry?: EventFocusGeometry;
   parentId: string | null;
   childCount?: number;
   orderInParent?: number;

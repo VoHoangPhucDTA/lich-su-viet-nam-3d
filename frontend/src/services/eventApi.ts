@@ -112,6 +112,8 @@ function toStringArray(value: unknown): string[] | undefined {
 
 function summaryToHistoricalEvent(dto: EventSummaryDto): HistoricalEvent {
   const hasCoordinates = dto.lat != null && dto.lng != null;
+  const coordinates = hasCoordinates ? { lat: Number(dto.lat), lng: Number(dto.lng) } : undefined;
+  const provinceNames = toStringArray(dto.provinceNames);
   return {
     id: dto.id,
     slug: dto.slug ?? dto.id,
@@ -123,8 +125,13 @@ function summaryToHistoricalEvent(dto: EventSummaryDto): HistoricalEvent {
     eventType: dto.eventType,
     eventSubtype: dto.eventSubtype,
     geoType: dto.geoType,
-    coordinates: hasCoordinates ? { lat: Number(dto.lat), lng: Number(dto.lng) } : undefined,
-    primaryRegions: toStringArray(dto.provinceNames),
+    coordinates,
+    primaryRegions: provinceNames,
+    displayGeometry: {
+      geoType: dto.geoType,
+      marker: coordinates,
+      provinceNames,
+    },
     parentId: dto.parentId ?? null,
     childCount: dto.childCount ?? 0,
     orderInParent: dto.orderInParent ?? 0,

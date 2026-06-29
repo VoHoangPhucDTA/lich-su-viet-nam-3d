@@ -1,4 +1,4 @@
-import type { EventType, GeoType } from '../types/event';
+import type { EventType, FocusGeometryMode, GeoType } from '../types/event';
 
 /**
  * Shape của một event chi tiết được EventDetailPage và các sub-component sử dụng.
@@ -52,8 +52,10 @@ export interface MockEventDetail {
       historicalLocations?: string[];
     };
     focusGeometry?: {
-      center: [number, number];
+      mode?: FocusGeometryMode;
+      center?: [number, number];
       zoom: number;
+      provinceNames?: string[];
     };
   };
 

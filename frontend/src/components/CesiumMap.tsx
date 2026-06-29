@@ -12,7 +12,6 @@ import {
   defined,
   HeightReference,
   VerticalOrigin,
-  Math as CesiumMath,
   Cartesian2,
   GeoJsonDataSource,
   CustomDataSource,
@@ -23,6 +22,7 @@ import {
 } from 'cesium';
 import 'cesium/Build/Cesium/Widgets/widgets.css';
 import { VIETNAM_CENTER, getMarkerColor } from '../lib/cesium';
+import { applyCameraTarget } from '../lib/mapCamera';
 import type { HistoricalEvent } from '../types/event';
 
 // ─── SAFE MODE ────────────────────────────────────────────────────────────────
@@ -495,15 +495,7 @@ export default function CesiumMap({
       const bounds = computeRegionBounds(selectedEvent.primaryRegions);
       if (bounds) {
         try {
-          viewer.camera.flyTo({
-            destination: bounds,
-            orientation: {
-              heading: CesiumMath.toRadians(0),
-              pitch: CesiumMath.toRadians(-90),
-              roll: 0,
-            },
-            duration: 1.5,
-          });
+          applyCameraTarget(viewer, { kind: 'rectangle', rectangle: bounds });
         } catch (e) {
           console.warn('[CesiumMap] flyTo (region bounds) error:', e);
         }
@@ -527,15 +519,7 @@ export default function CesiumMap({
           Math.max(...lats)
         );
         try {
-          viewer.camera.flyTo({
-            destination: bounds,
-            orientation: {
-              heading: CesiumMath.toRadians(0),
-              pitch: CesiumMath.toRadians(-90),
-              roll: 0,
-            },
-            duration: 1.5,
-          });
+          applyCameraTarget(viewer, { kind: 'rectangle', rectangle: bounds });
         } catch (e) {
           console.warn('[CesiumMap] flyTo (marker bounds) error:', e);
         }
@@ -558,15 +542,7 @@ export default function CesiumMap({
       else if (isNationwideGeoType(selectedEvent.geoType)) altitude = 1500000;
 
       try {
-        viewer.camera.flyTo({
-          destination: Cartesian3.fromDegrees(lng, lat, altitude),
-          orientation: {
-            heading: CesiumMath.toRadians(0),
-            pitch: CesiumMath.toRadians(-90),
-            roll: 0,
-          },
-          duration: 1.5,
-        });
+        applyCameraTarget(viewer, { kind: 'point', lng, lat, altitude });
       } catch (e) {
         console.warn('[CesiumMap] flyTo error:', e);
       }
@@ -576,14 +552,11 @@ export default function CesiumMap({
     // Không có vị trí cụ thể (no_location hoặc thiếu coordinates) → bay về toàn
     // cảnh Việt Nam để user thấy phản hồi visual khi chọn event
     try {
-      viewer.camera.flyTo({
-        destination: VIETNAM_CENTER,
-        orientation: {
-          heading: CesiumMath.toRadians(0),
-          pitch: CesiumMath.toRadians(-90),
-          roll: 0,
-        },
-        duration: 1.5,
+      applyCameraTarget(viewer, {
+        kind: 'point',
+        lng: 108.0,
+        lat: 16.0,
+        altitude: 2000000,
       });
     } catch (e) {
       console.warn('[CesiumMap] flyTo (default view) error:', e);
