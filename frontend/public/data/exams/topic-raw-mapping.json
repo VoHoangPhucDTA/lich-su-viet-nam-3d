@@ -1,0 +1,562 @@
+{
+  "Việt Nam thời cổ - trung đại": {
+    "rawCount": 35,
+    "questionCount": 63,
+    "rawTopics": [
+      "Chiến tranh bảo vệ Tổ quốc thời phong kiến",
+      "Chính sách đối ngoại Việt Nam (thế kỷ XXI)",
+      "Kháng chiến chống Minh",
+      "Kháng chiến chống Mông - Nguyên",
+      "Kháng chiến chống Nguyên Mông",
+      "Kháng chiến chống Nguyên Mông thời Trần",
+      "Kháng chiến chống Tống thời Lý",
+      "Kháng chiến chống Tống thời Lý (1075-1077)",
+      "Kháng chiến chống Tống thời Tiền Lê",
+      "Khởi nghĩa Lam Sơn",
+      "Khởi nghĩa Lam Sơn (thế kỷ XV)",
+      "Khởi nghĩa Lam Sơn và Kháng chiến chống Mông-Nguyên",
+      "Khởi nghĩa Lam Sơn và nhà Lê sơ",
+      "Khởi nghĩa thời Bắc thuộc",
+      "Lịch sử Việt Nam thế kỷ XX",
+      "Lịch sử Việt Nam thời phong kiến",
+      "Lịch sử Việt Nam thời phong kiến (Khởi nghĩa Lam Sơn, Kháng chiến chống Tống)",
+      "Lịch sử Việt Nam thời phong kiến (thế kỷ X - XIX)",
+      "Lịch sử Việt Nam thời phong kiến và Kháng chiến chống Pháp 1945-1954",
+      "Lịch sử Việt Nam trung đại",
+      "Lịch sử Việt Nam trước 1945",
+      "Lịch sử Việt Nam từ thế kỷ X đến thế kỷ XVIII",
+      "Lịch sử quân sự Việt Nam trước 1945",
+      "Phong trào Tây Sơn",
+      "Phong trào Tây Sơn và kháng chiến chống Thanh (cuối thế kỷ XVIII)",
+      "Việt Nam thế kỷ XV",
+      "Việt Nam thế kỷ XVIII",
+      "Việt Nam thời Bắc thuộc",
+      "Việt Nam thời Bắc thuộc và buổi đầu độc lập",
+      "Việt Nam thời phong kiến",
+      "Việt Nam thời phong kiến độc lập",
+      "Việt Nam thời phong kiến độc lập (Thế kỷ X - XVIII)",
+      "Việt Nam thời phong kiến độc lập (Đại Cồ Việt)",
+      "Đại Việt thời Trần",
+      "Đại Việt thời Trần và các cuộc kháng chiến chống Mông-Nguyên"
+    ]
+  },
+  "Phong trào yêu nước đầu thế kỷ XX": {
+    "rawCount": 5,
+    "questionCount": 21,
+    "rawTopics": [
+      "Nguyễn Ái Quốc và phong trào yêu nước đầu thế kỷ XX",
+      "Phan Bội Châu",
+      "Phong trào yêu nước đầu thế kỷ XX",
+      "Phong trào yêu nước đầu thế kỷ XX (Phan Châu Trinh)",
+      "Phong trào yêu nước đầu thế kỷ XX, Phan Châu Trinh"
+    ]
+  },
+  "Nguyễn Ái Quốc – Hồ Chí Minh": {
+    "rawCount": 13,
+    "questionCount": 30,
+    "rawTopics": [
+      "Chủ tịch Hồ Chí Minh",
+      "Chủ tịch Hồ Chí Minh; Kháng chiến chống Pháp (1945-1954); Kháng chiến chống Mỹ (1954-1975)",
+      "Hồ Chí Minh",
+      "Hồ Chí Minh và con đường cứu nước",
+      "Kháng chiến chống Pháp (1945-1954), Hồ Chí Minh",
+      "Nguyễn Ái Quốc",
+      "Nguyễn Ái Quốc - Hồ Chí Minh",
+      "Nguyễn Ái Quốc tìm đường cứu nước",
+      "Nguyễn Ái Quốc và con đường cứu nước",
+      "Nguyễn Ái Quốc và phong trào cách mạng Việt Nam",
+      "Nguyễn Ái Quốc và phong trào dân tộc dân chủ 1919-1930",
+      "Nguyễn Ái Quốc và phong trào giải phóng dân tộc (1919-1930)",
+      "Nguyễn Ái Quốc ở Pháp (1919-1923)"
+    ]
+  },
+  "Phong trào dân tộc dân chủ 1919-1930": {
+    "rawCount": 8,
+    "questionCount": 29,
+    "rawTopics": [
+      "Phong trào dân tộc dân chủ 1900-1918",
+      "Phong trào dân tộc dân chủ 1900-1930",
+      "Phong trào dân tộc dân chủ 1900-1945",
+      "Phong trào dân tộc dân chủ 1919-1930",
+      "Phong trào dân tộc dân chủ 1930-1945",
+      "Thành lập Đảng Cộng sản Việt Nam",
+      "Thành lập Đảng Cộng sản Việt Nam (1930)",
+      "Việt Nam 1919-1945"
+    ]
+  },
+  "Đảng Cộng sản Việt Nam": {
+    "rawCount": 5,
+    "questionCount": 7,
+    "rawTopics": [
+      "Kháng chiến chống Pháp (1945-1954), Đảng Cộng sản Việt Nam",
+      "Kháng chiến chống Pháp 1945-1954, Đảng Cộng sản Việt Nam",
+      "Lịch sử Đảng Cộng sản Việt Nam",
+      "Đảng Cộng sản Việt Nam",
+      "Đảng Cộng sản Việt Nam và khối đại đoàn kết dân tộc"
+    ]
+  },
+  "Phong trào giải phóng dân tộc 1939-1945": {
+    "rawCount": 5,
+    "questionCount": 13,
+    "rawTopics": [
+      "Mặt trận Việt Minh, Cách mạng tháng Tám 1945",
+      "Phong trào giải phóng dân tộc 1939-1945",
+      "Việt Nam 1930-1945",
+      "Việt Nam 1939-1945",
+      "Việt Nam trong Chiến tranh thế giới thứ hai (1939-1945)"
+    ]
+  },
+  "Cách mạng tháng Tám 1945": {
+    "rawCount": 19,
+    "questionCount": 111,
+    "rawTopics": [
+      "Cách mạng tháng Tám 1945",
+      "Cách mạng tháng Tám 1945 và Kháng chiến chống Mỹ 1954-1975",
+      "Cách mạng tháng Tám 1945 và Kháng chiến chống Pháp 1945-1954",
+      "Cách mạng tháng Tám 1945 và Kháng chiến chống Pháp, chống Mỹ",
+      "Cách mạng tháng Tám 1945 và Kháng chiến chống Pháp/Mỹ",
+      "Cách mạng tháng Tám 1945 và Kháng chiến chống Pháp/Mỹ (1945-1975)",
+      "Cách mạng tháng Tám 1945 và bài học kinh nghiệm",
+      "Cách mạng tháng Tám 1945 và lịch sử dân tộc",
+      "Cách mạng tháng Tám 1945 và sự ra đời của nước Việt Nam Dân chủ Cộng hòa",
+      "Cách mạng tháng Tám 1945 và thành lập nước Việt Nam Dân chủ Cộng hòa",
+      "Cách mạng tháng Tám 1945 và ý nghĩa lịch sử",
+      "Cách mạng tháng Tám 1945, Bài học lịch sử",
+      "Cách mạng tháng Tám 1945, Tuyên ngôn độc lập",
+      "Cách mạng tháng Tám năm 1945",
+      "Cách mạng tháng Tám và Kháng chiến chống Pháp, chống Mỹ",
+      "Mặt trận Việt Minh, Cách mạng tháng Tám 1945",
+      "Tổng khởi nghĩa tháng Tám 1945",
+      "Việt Nam sau Cách mạng tháng Tám 1945",
+      "Việt Nam sau Cách mạng tháng Tám 1945, Quan hệ đối ngoại Việt Nam"
+    ]
+  },
+  "Việt Nam 1945-1946 (xây dựng & bảo vệ chính quyền)": {
+    "rawCount": 1,
+    "questionCount": 2,
+    "rawTopics": [
+      "Việt Nam 1945-1946"
+    ]
+  },
+  "Kháng chiến chống Pháp 1945-1954": {
+    "rawCount": 22,
+    "questionCount": 108,
+    "rawTopics": [
+      "Chiến dịch Điện Biên Phủ",
+      "Chiến dịch Điện Biên Phủ (1954)",
+      "Chiến dịch Điện Biên Phủ 1954",
+      "Chủ tịch Hồ Chí Minh; Kháng chiến chống Pháp (1945-1954); Kháng chiến chống Mỹ (1954-1975)",
+      "Kháng chiến chống Pháp (1945-1954)",
+      "Kháng chiến chống Pháp (1945-1954) - Quan hệ đối ngoại",
+      "Kháng chiến chống Pháp (1945-1954) và Kháng chiến chống Mỹ (1954-1975)",
+      "Kháng chiến chống Pháp (1945-1954), Hồ Chí Minh",
+      "Kháng chiến chống Pháp (1945-1954), Đảng Cộng sản Việt Nam",
+      "Kháng chiến chống Pháp 1945-1954",
+      "Kháng chiến chống Pháp 1945-1954 và Kháng chiến chống Mỹ 1954-1975",
+      "Kháng chiến chống Pháp 1945-1954, Bối cảnh lịch sử",
+      "Kháng chiến chống Pháp 1945-1954, Chiến tranh lạnh",
+      "Kháng chiến chống Pháp 1945-1954, Kháng chiến chống Mỹ 1954-1975",
+      "Kháng chiến chống Pháp 1945-1954, Ngoại giao Việt Nam",
+      "Kháng chiến chống Pháp 1945-1954, Quan hệ quốc tế",
+      "Kháng chiến chống Pháp 1945-1954, Đảng Cộng sản Việt Nam",
+      "Kháng chiến chống Pháp và chống Mỹ (1945-1975)",
+      "Lịch sử Việt Nam 1945-1954",
+      "Lịch sử Việt Nam 1945-1954 và Lịch sử Việt Nam thời kì Đổi mới",
+      "Việt Nam 1945-1954",
+      "Việt Nam Dân chủ Cộng hòa 1945-1954"
+    ]
+  },
+  "Việt Nam 1954-1975 (xây dựng CNXH miền Bắc)": {
+    "rawCount": 4,
+    "questionCount": 11,
+    "rawTopics": [
+      "Chiến tranh Việt Nam (1954-1975)",
+      "Lịch sử thế giới hiện đại và Lịch sử Việt Nam 1954-1975",
+      "Miền Bắc Việt Nam 1954-1975",
+      "Việt Nam 1954-1975"
+    ]
+  },
+  "Kháng chiến chống Mỹ 1954-1975": {
+    "rawCount": 21,
+    "questionCount": 92,
+    "rawTopics": [
+      "Chiến tranh cục bộ của Mỹ ở Việt Nam",
+      "Chiến tranh lạnh, Kháng chiến chống Mỹ cứu nước",
+      "Chiến tranh nhân dân trong Kháng chiến chống Mỹ 1954-1975",
+      "Chủ tịch Hồ Chí Minh; Kháng chiến chống Pháp (1945-1954); Kháng chiến chống Mỹ (1954-1975)",
+      "Hiệp định Paris 1973",
+      "Hiệp định Paris 1973 và Kháng chiến chống Mỹ 1954-1975",
+      "Hội nghị Geneva 1954 và Hiệp định Paris 1973",
+      "Kháng chiến chống Mỹ (1954-1975)",
+      "Kháng chiến chống Mỹ 1954-1975",
+      "Kháng chiến chống Mỹ 1954-1975 (Thống nhất đất nước)",
+      "Kháng chiến chống Mỹ 1954-1975 (Tổng tiến công Mậu Thân 1968)",
+      "Kháng chiến chống Mỹ cứu nước (1954-1975)",
+      "Kháng chiến chống Mỹ cứu nước (1954-1975), Chiến tranh đặc biệt",
+      "Kháng chiến chống Mỹ cứu nước 1954-1975",
+      "Kháng chiến chống Mỹ, cứu nước (1954-1975)",
+      "Kháng chiến chống Mỹ, cứu nước 1954-1975",
+      "Kháng chiến chống Pháp 1945-1954, Kháng chiến chống Mỹ 1954-1975",
+      "Miền Bắc xã hội chủ nghĩa (1954-1975)",
+      "Phong trào Đồng khởi (1959-1960)",
+      "Việt Nam sau Hiệp định Giơnevơ 1954",
+      "Đại thắng mùa Xuân 1975"
+    ]
+  },
+  "Việt Nam 1975-1986 (thống nhất & khắc phục hậu quả)": {
+    "rawCount": 13,
+    "questionCount": 31,
+    "rawTopics": [
+      "Chiến tranh biên giới Tây Nam",
+      "Chiến tranh biên giới phía Bắc 1979",
+      "Chiến tranh bảo vệ biên giới phía Bắc 1979",
+      "Chính sách đối ngoại Việt Nam sau 1975",
+      "Lịch sử Việt Nam 1975-1986",
+      "Lịch sử Việt Nam sau 1975",
+      "Quan hệ quốc tế sau 1975, Việt Nam sau 1975",
+      "Việt Nam sau 1975",
+      "Việt Nam sau 1975 (thời kỳ xây dựng và bảo vệ Tổ quốc)",
+      "Việt Nam sau 1975; Chiến tranh biên giới Tây Nam",
+      "Việt Nam sau năm 1975",
+      "Việt Nam từ năm 1975 đến nay",
+      "Đổi mới ở Việt Nam, Lịch sử Việt Nam sau 1975"
+    ]
+  },
+  "Công cuộc Đổi mới (1986-nay)": {
+    "rawCount": 46,
+    "questionCount": 113,
+    "rawTopics": [
+      "Chính sách đối ngoại Việt Nam sau Đổi mới",
+      "Chính sách đối ngoại Việt Nam thời kỳ Đổi mới",
+      "Công cuộc Đổi mới",
+      "Công cuộc Đổi mới (1986-nay)",
+      "Công cuộc Đổi mới 1986 đến nay",
+      "Công cuộc Đổi mới Việt Nam",
+      "Công cuộc Đổi mới ở Việt Nam",
+      "Công cuộc Đổi mới ở Việt Nam (1986 đến nay)",
+      "Công cuộc Đổi mới ở Việt Nam (1986-nay)",
+      "Công cuộc Đổi mới ở Việt Nam (từ 1986)",
+      "Công cuộc Đổi mới ở Việt Nam, Chính sách đối ngoại Việt Nam",
+      "Công cuộc đổi mới ở Việt Nam",
+      "Công cuộc đổi mới ở Việt Nam (1986 đến nay)",
+      "Công cuộc đổi mới ở Việt Nam (1986-nay)",
+      "Kinh tế Việt Nam thời kỳ Đổi mới",
+      "Lịch sử Việt Nam thời kì Đổi mới",
+      "Lịch sử Việt Nam từ 1986",
+      "Quan hệ đối ngoại của Việt Nam sau Đổi mới",
+      "Thành tựu Đổi mới Việt Nam (từ 1986)",
+      "Việt Nam 1945-1975 và Đổi mới",
+      "Việt Nam thời kì Đổi mới (từ 1986 đến nay), Kinh tế Việt Nam",
+      "Việt Nam thời kì Đổi mới (từ 1986 đến nay), Quan hệ đối ngoại",
+      "Việt Nam thời kì Đổi mới (từ 1986 đến nay), Đường lối đổi mới",
+      "Việt Nam thời kỳ Đổi mới",
+      "Việt Nam thời kỳ Đổi mới (1986 đến nay)",
+      "Việt Nam thời kỳ Đổi mới (1986-nay)",
+      "Việt Nam từ 1986 đến nay",
+      "Việt Nam từ năm 1986 đến nay",
+      "Việt Nam đổi mới (1986 đến nay)",
+      "Việt Nam đổi mới 1986-nay",
+      "Việt Nam đổi mới và hội nhập",
+      "Việt Nam đổi mới và hội nhập (1986-nay)",
+      "Việt Nam đổi mới và hội nhập quốc tế",
+      "Việt Nam đổi mới và hội nhập quốc tế (từ 1986)",
+      "Đường lối Đổi mới ở Việt Nam",
+      "Đường lối đối ngoại của Việt Nam (thời kỳ Đổi mới)",
+      "Đường lối đổi mới Việt Nam (từ 1986)",
+      "Đường lối đổi mới của Việt Nam",
+      "Đổi mới Việt Nam",
+      "Đổi mới ở Việt Nam",
+      "Đổi mới ở Việt Nam (1986 đến nay)",
+      "Đổi mới ở Việt Nam (1986-nay)",
+      "Đổi mới ở Việt Nam (Kinh tế thị trường định hướng XHCN)",
+      "Đổi mới ở Việt Nam 1986-nay",
+      "Đổi mới ở Việt Nam, Kinh tế Việt Nam",
+      "Đổi mới ở Việt Nam, Lịch sử Việt Nam sau 1975"
+    ]
+  },
+  "Chủ quyền biển đảo Việt Nam": {
+    "rawCount": 3,
+    "questionCount": 6,
+    "rawTopics": [
+      "Biển Đông và chủ quyền Việt Nam",
+      "Bảo vệ chủ quyền biển đảo Việt Nam",
+      "Chủ quyền biển đảo Việt Nam"
+    ]
+  },
+  "Đường lối đối ngoại Việt Nam": {
+    "rawCount": 15,
+    "questionCount": 20,
+    "rawTopics": [
+      "Chính sách đối ngoại Việt Nam",
+      "Chính sách đối ngoại Việt Nam hiện nay",
+      "Công cuộc Đổi mới ở Việt Nam, Chính sách đối ngoại Việt Nam",
+      "Kháng chiến chống Pháp 1945-1954, Ngoại giao Việt Nam",
+      "Ngoại giao Việt Nam (1945 đến nay)",
+      "Ngoại giao Việt Nam 1945-1975",
+      "Quan hệ quốc tế của Việt Nam",
+      "Quan hệ đối ngoại của Việt Nam hiện nay",
+      "Việt Nam (đối ngoại từ 1986)",
+      "Việt Nam sau Cách mạng tháng Tám 1945, Quan hệ đối ngoại Việt Nam",
+      "Vị thế Việt Nam trong quan hệ quốc tế hiện nay",
+      "Đường lối cách mạng Việt Nam",
+      "Đường lối cách mạng Việt Nam 1945-1975",
+      "Đường lối đối ngoại Việt Nam",
+      "Đường lối đối ngoại của Việt Nam"
+    ]
+  },
+  "Mặt trận dân tộc & đại đoàn kết": {
+    "rawCount": 5,
+    "questionCount": 5,
+    "rawTopics": [
+      "Chính sách dân tộc Việt Nam",
+      "Mặt trận dân tộc thống nhất",
+      "Đại đoàn kết dân tộc",
+      "Đại đoàn kết dân tộc trong cách mạng Việt Nam",
+      "Đại đoàn kết dân tộc trong lịch sử Việt Nam"
+    ]
+  },
+  "Lịch sử Việt Nam tổng quát": {
+    "rawCount": 17,
+    "questionCount": 26,
+    "rawTopics": [
+      "Bài học lịch sử của cách mạng Việt Nam",
+      "Khái quát lịch sử Việt Nam 1945-1975",
+      "Lịch sử Việt Nam",
+      "Lịch sử Việt Nam 1930-1975",
+      "Lịch sử Việt Nam 1945-1975",
+      "Lịch sử Việt Nam 1945-1975 (Tổng hợp)",
+      "Lịch sử Việt Nam 1945-2000 và vai trò quốc tế",
+      "Lịch sử Việt Nam hiện đại",
+      "Lịch sử Việt Nam tổng quát",
+      "Lịch sử quân sự Việt Nam",
+      "Quan hệ quốc tế sau Chiến tranh thế giới thứ hai; Lịch sử Việt Nam 1945-1975",
+      "Quan hệ quốc tế và Lịch sử Việt Nam sau Chiến tranh thế giới thứ hai",
+      "Quan hệ quốc tế, Lịch sử Việt Nam 1945-1991",
+      "So sánh các sự kiện lịch sử Việt Nam",
+      "Việt Nam 1945-1975",
+      "Việt Nam hiện đại",
+      "Việt Nam từ 1945 đến nay"
+    ]
+  },
+  "Cách mạng tháng Mười Nga 1917": {
+    "rawCount": 5,
+    "questionCount": 8,
+    "rawTopics": [
+      "Cách mạng tháng Mười Nga",
+      "Cách mạng tháng Mười Nga (1917)",
+      "Cách mạng tháng Mười Nga 1917",
+      "Cách mạng tháng Mười Nga và sự ra đời của nhà nước XHCN đầu tiên",
+      "Lịch sử Liên Xô (Cách mạng tháng Mười Nga và thành lập Liên Xô)"
+    ]
+  },
+  "Chiến tranh thế giới thứ hai": {
+    "rawCount": 25,
+    "questionCount": 65,
+    "rawTopics": [
+      "Chiến tranh thế giới thứ hai",
+      "Chiến tranh thế giới thứ hai (Hội nghị Ianta)",
+      "Chiến tranh thế giới thứ hai và Việt Nam",
+      "Chiến tranh thế giới thứ hai và các tổ chức quốc tế",
+      "Chiến tranh thế giới thứ hai và trật tự thế giới mới",
+      "Chiến tranh thế giới thứ hai và trật tự thế giới sau chiến tranh",
+      "Chiến tranh thế giới thứ hai, Trật tự thế giới sau Chiến tranh thế giới thứ hai",
+      "Chủ nghĩa xã hội sau Chiến tranh thế giới thứ hai",
+      "Các nước châu Á sau Chiến tranh thế giới thứ hai",
+      "Hệ thống xã hội chủ nghĩa sau Chiến tranh thế giới thứ hai",
+      "Liên Xô và các nước Đông Âu sau Chiến tranh thế giới thứ hai",
+      "Liên Xô và Đông Âu sau Chiến tranh thế giới thứ hai",
+      "Lịch sử thế giới sau Chiến tranh thế giới thứ hai",
+      "Phong trào giải phóng dân tộc sau Chiến tranh thế giới thứ hai",
+      "Quan hệ quốc tế sau Chiến tranh thế giới thứ hai",
+      "Quan hệ quốc tế sau Chiến tranh thế giới thứ hai và Chiến tranh lạnh",
+      "Quan hệ quốc tế sau Chiến tranh thế giới thứ hai, Liên hợp quốc",
+      "Quan hệ quốc tế sau Chiến tranh thế giới thứ hai, Lịch sử thế giới hiện đại, Việt Nam hội nhập quốc tế",
+      "Quan hệ quốc tế sau Chiến tranh thế giới thứ hai; Lịch sử Việt Nam 1945-1975",
+      "Quan hệ quốc tế sau Chiến tranh thế giới thứ hai; Lịch sử Đông Nam Á",
+      "Trật tự thế giới mới sau Chiến tranh thế giới thứ hai",
+      "Trật tự thế giới sau Chiến tranh thế giới thứ hai",
+      "Trật tự thế giới sau Chiến tranh thế giới thứ hai (Trật tự hai cực I-an-ta)",
+      "Tổ chức quốc tế sau Chiến tranh thế giới thứ hai",
+      "Việt Nam sau Chiến tranh thế giới thứ hai"
+    ]
+  },
+  "Liên Xô và các nước Đông Âu": {
+    "rawCount": 13,
+    "questionCount": 23,
+    "rawTopics": [
+      "Các nước Đông Âu (1950-1970s)",
+      "Liên Xô",
+      "Liên Xô (1917-1991)",
+      "Liên Xô (1922-1991)",
+      "Liên Xô 1917-1991",
+      "Liên Xô và các nước Đông Âu",
+      "Liên Xô và các nước Đông Âu (1917-1991)",
+      "Liên Xô và Đông Âu",
+      "Liên Xô và Đông Âu (1945-1991)",
+      "Liên Xô và Đông Âu sau Chiến tranh thế giới thứ nhất",
+      "Lịch sử Liên Xô",
+      "Lịch sử Liên Xô (Thành lập Liên Xô)",
+      "Sự hình thành hệ thống xã hội chủ nghĩa"
+    ]
+  },
+  "Mỹ – Tây Âu – Nhật Bản (1945-nay)": {
+    "rawCount": 2,
+    "questionCount": 2,
+    "rawTopics": [
+      "Mục tiêu của ASEAN theo Tuyên bố Băng Cốc",
+      "Phong trào giải phóng dân tộc ở Mỹ La-tinh"
+    ]
+  },
+  "Trung Quốc": {
+    "rawCount": 4,
+    "questionCount": 5,
+    "rawTopics": [
+      "Cải cách, mở cửa Trung Quốc",
+      "Trung Quốc",
+      "Trung Quốc (cải cách mở cửa, khoa học công nghệ)",
+      "Trung Quốc cải cách mở cửa"
+    ]
+  },
+  "Các nước Đông Nam Á": {
+    "rawCount": 10,
+    "questionCount": 68,
+    "rawTopics": [
+      "ASEAN và các nước Đông Nam Á",
+      "Các nước châu Á và Đông Nam Á sau 1945",
+      "Các nước Đông Nam Á",
+      "Các nước Đông Nam Á (ASEAN hiện nay)",
+      "Các nước Đông Nam Á (ASEAN)",
+      "Các nước Đông Nam Á sau Chiến tranh lạnh",
+      "Các nước Đông Nam Á và ASEAN",
+      "Các nước Đông Nam Á, ASEAN",
+      "Hiệp hội các quốc gia Đông Nam Á (ASEAN)",
+      "Quan hệ quốc tế sau Chiến tranh thế giới thứ hai; Lịch sử Đông Nam Á"
+    ]
+  },
+  "Các nước châu Á": {
+    "rawCount": 2,
+    "questionCount": 3,
+    "rawTopics": [
+      "Các nước châu Á",
+      "Các nước châu Á, châu Phi và Mĩ Latinh (1945-2000)"
+    ]
+  },
+  "ASEAN": {
+    "rawCount": 19,
+    "questionCount": 82,
+    "rawTopics": [
+      "ASEAN",
+      "ASEAN và Chiến tranh lạnh",
+      "ASEAN và Cộng đồng ASEAN",
+      "ASEAN và Việt Nam",
+      "ASEAN và bối cảnh thành lập",
+      "ASEAN và các trụ cột cộng đồng",
+      "ASEAN và các tổ chức khu vực",
+      "ASEAN và hội nhập kinh tế",
+      "ASEAN và hội nhập quốc tế của Việt Nam",
+      "ASEAN và quá trình phát triển",
+      "ASEAN và sự phát triển",
+      "ASEAN, Tuyên bố Băng Cốc",
+      "Các nước Đông Nam Á, ASEAN",
+      "Cộng đồng ASEAN",
+      "Cộng đồng ASEAN; An ninh phi truyền thống",
+      "Lịch sử ASEAN",
+      "Lịch sử phát triển của ASEAN",
+      "Quá trình phát triển của ASEAN",
+      "Tổ chức ASEAN"
+    ]
+  },
+  "Liên hợp quốc": {
+    "rawCount": 9,
+    "questionCount": 35,
+    "rawTopics": [
+      "Chiến tranh lạnh và các cuộc xung đột khu vực",
+      "Liên hợp quốc",
+      "Liên hợp quốc và các vấn đề toàn cầu",
+      "Liên hợp quốc và hòa bình thế giới",
+      "Liên hợp quốc, Chiến tranh lạnh, Phong trào giải phóng dân tộc",
+      "Lịch sử thế giới hiện đại (Liên hợp quốc)",
+      "Quan hệ quốc tế sau Chiến tranh thế giới thứ hai, Liên hợp quốc",
+      "Tổ chức Liên hợp quốc",
+      "Tổ chức quốc tế (Liên hợp quốc)"
+    ]
+  },
+  "Trật tự thế giới sau CTTG II": {
+    "rawCount": 10,
+    "questionCount": 19,
+    "rawTopics": [
+      "Chiến tranh lạnh và sự sụp đổ của trật tự hai cực Ianta",
+      "Hội nghị I-an-ta",
+      "Hội nghị Ianta",
+      "Hội nghị Ianta và trật tự thế giới mới",
+      "Trật tự thế giới hai cực I-an-ta",
+      "Trật tự thế giới hai cực I-an-ta và Chiến tranh lạnh",
+      "Trật tự thế giới hai cực Ianta",
+      "Trật tự thế giới hai cực Ianta và Chiến tranh lạnh",
+      "Trật tự thế giới hiện nay",
+      "Trật tự thế giới mới sau Chiến tranh lạnh"
+    ]
+  },
+  "Chiến tranh lạnh": {
+    "rawCount": 14,
+    "questionCount": 66,
+    "rawTopics": [
+      "Chiến tranh lạnh",
+      "Chiến tranh lạnh (1947-1989)",
+      "Chiến tranh lạnh và thế giới sau Chiến tranh lạnh",
+      "Chiến tranh lạnh, Kháng chiến chống Mỹ cứu nước",
+      "Chủ nghĩa xã hội sau Chiến tranh lạnh",
+      "Kháng chiến chống Pháp 1945-1954, Chiến tranh lạnh",
+      "Liên hợp quốc, Chiến tranh lạnh, Phong trào giải phóng dân tộc",
+      "Quan hệ quốc tế sau Chiến tranh lạnh",
+      "Quan hệ quốc tế thời Chiến tranh lạnh",
+      "Thế giới sau Chiến tranh lạnh",
+      "Trật tự thế giới sau Chiến tranh lạnh",
+      "Trật tự thế giới sau Chiến tranh lạnh, Các tổ chức quốc tế",
+      "Trật tự thế giới sau Chiến tranh lạnh, Quan hệ quốc tế",
+      "Việt Nam trong bối cảnh thế giới sau Chiến tranh lạnh"
+    ]
+  },
+  "Quan hệ quốc tế sau Chiến tranh lạnh": {
+    "rawCount": 3,
+    "questionCount": 8,
+    "rawTopics": [
+      "Lịch sử thế giới hiện đại",
+      "Quan hệ quốc tế hiện đại",
+      "Quan hệ quốc tế sau Chiến tranh thế giới thứ hai, Lịch sử thế giới hiện đại, Việt Nam hội nhập quốc tế"
+    ]
+  },
+  "Phong trào giải phóng dân tộc thế giới (Á-Phi-Mỹ Latinh)": {
+    "rawCount": 3,
+    "questionCount": 3,
+    "rawTopics": [
+      "Liên hợp quốc, Chiến tranh lạnh, Phong trào giải phóng dân tộc",
+      "Phong trào giải phóng dân tộc",
+      "Phong trào giải phóng dân tộc 1930-1945"
+    ]
+  },
+  "Toàn cầu hóa & hội nhập": {
+    "rawCount": 7,
+    "questionCount": 12,
+    "rawTopics": [
+      "Quan hệ quốc tế sau Chiến tranh thế giới thứ hai, Lịch sử thế giới hiện đại, Việt Nam hội nhập quốc tế",
+      "Toàn cầu hóa",
+      "Việt Nam hội nhập quốc tế",
+      "Việt Nam hội nhập quốc tế (sau 1991)",
+      "Việt Nam hội nhập quốc tế (thế kỷ XXI)",
+      "Việt Nam hội nhập quốc tế sau 1975",
+      "Việt Nam hội nhập quốc tế và bảo vệ chủ quyền"
+    ]
+  },
+  "Chủ nghĩa xã hội (lý luận & thực tiễn)": {
+    "rawCount": 5,
+    "questionCount": 5,
+    "rawTopics": [
+      "Chủ nghĩa xã hội",
+      "Chủ nghĩa xã hội sau năm 1991",
+      "Chủ nghĩa xã hội trên thế giới (sau 1945)",
+      "Chủ nghĩa xã hội ở Việt Nam",
+      "Lý luận lịch sử"
+    ]
+  }
+}
