@@ -1,0 +1,146 @@
+{
+  "id": "quan-doi-sai-gon-that-bai-bao-ve-hoang-sa",
+  "slug": "quan-doi-sai-gon-that-bai-bao-ve-hoang-sa",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Quân đội Sài Gòn thất bại trong chiến đấu bảo vệ quần đảo Hoàng Sa",
+    "short": "Sài Gòn thất bại ở Hoàng Sa (1974)",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "military",
+    "eventSubtype": "battle",
+    "region": "vietnam",
+    "tags": [
+      "chiến tranh",
+      "Hoàng Sa",
+      "chính quyền Sài Gòn",
+      "Trung Quốc"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 11,
+        "lessonId": "12395",
+        "lessonTitle": "BÀI 16  VIỆT NAM VÀ BIỂN ĐÔNG"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1974,
+      "month": 1,
+      "day": null
+    },
+    "end": null,
+    "datePrecision": "month",
+    "displayDate": "Tháng 1 năm 1974",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "point",
+    "historicalLocations": [],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": {
+      "name": "quần đảo Hoàng Sa",
+      "lat": 16.6833,
+      "lng": 112.3333,
+      "confidence": "high"
+    },
+    "markers": [],
+    "focusGeometry": {
+      "mode": "marker",
+      "center": {
+        "name": "quần đảo Hoàng Sa",
+        "lat": 16.6833,
+        "lng": 112.3333,
+        "confidence": "high"
+      },
+      "zoom": 12
+    }
+  },
+  "summary": {
+    "homepageTitle": "Quân đội Sài Gòn thất bại bảo vệ Hoàng Sa (1/1974)",
+    "homepageSummary": "Tháng 1 năm 1974, quân đội Sài Gòn thất bại trong chiến đấu bảo vệ quần đảo Hoàng Sa trước cuộc tấn công của quân đội Trung Quốc.",
+    "cardSummary": "Tháng 1/1974, quân đội Sài Gòn thất bại khi chiến đấu bảo vệ quần đảo Hoàng Sa trước Trung Quốc."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Tháng 1 – 1974, quân đội Sài Gòn thất bại trong chiến đấu bảo vệ quần đảo Hoàng Sa trước cuộc tấn công của quân đội Trung Quốc.",
+    "detailedNarrative": "Tháng 1 – 1974, quân đội Sài Gòn thất bại trong chiến đấu bảo vệ quần đảo Hoàng Sa trước cuộc tấn công của quân đội Trung Quốc.",
+    "significance": "Dẫn đến việc Trung Quốc chiếm đóng toàn bộ quần đảo Hoàng Sa.",
+    "keyFacts": [
+      "Đối thủ: quân đội Trung Quốc",
+      "Diễn ra tháng 1 năm 1974",
+      "Đối tượng: bảo vệ quần đảo Hoàng Sa",
+      "Chủ thể: quân đội Sài Gòn"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 11,
+        "book": "KNTT",
+        "lessonId": "12395",
+        "lessonTitle": "BÀI 16  VIỆT NAM VÀ BIỂN ĐÔNG",
+        "chapter": "Chu de 7",
+        "lesson": "Bai 16",
+        "pageRange": {
+          "start": 107,
+          "end": 111
+        },
+        "url": "https://sgkvn.com/lop-11-14/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-7-lich-su-chu-quyen-cua-viet-nam-o-bien-dong-3354/bai-16-viet-nam-va-bien-dong-12395.html",
+        "excerpt": "Tháng 1 – 1974, quân đội Sài Gòn thất bại trong chiến đấu bảo vệ quần đảo Hoàng Sa trước cuộc tấn công của quân đội Trung Quốc."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "quan-doi-sai-gon-that-bai-bao-ve-hoang-sa",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 240
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": true,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

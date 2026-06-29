@@ -28,7 +28,7 @@ export default function EventHero({ event, showMapAction }: EventHeroProps) {
 
   return (
     <section
-      className="relative overflow-hidden rounded-3xl"
+      className="relative overflow-hidden rounded-3xl animate-fade-in-up"
       style={{
         background: 'var(--bg-card)',
         border: '1px solid var(--border)',
@@ -39,13 +39,13 @@ export default function EventHero({ event, showMapAction }: EventHeroProps) {
       <div
         className="pointer-events-none absolute inset-0"
         style={{
-          background: `radial-gradient(circle at 0% 0%, ${typeColor}33, transparent 55%),
+          background: `radial-gradient(circle at 0% 0%, ${typeColor}22, transparent 55%),
                        radial-gradient(circle at 100% 100%, var(--admin-accent-soft), transparent 55%)`,
         }}
       />
-      {/* Top color bar */}
+      {/* Imperial gold top bar */}
       <div
-        className="absolute top-0 left-0 right-0 h-1"
+        className="absolute top-0 left-0 right-0 h-[3px]"
         style={{
           background: `linear-gradient(to right, ${typeColor}, var(--admin-accent), transparent)`,
         }}
@@ -122,10 +122,11 @@ export default function EventHero({ event, showMapAction }: EventHeroProps) {
             </span>
           </div>
 
-          {/* Title – auto-scale theo bề rộng cột */}
+          {/* Title – serif display font for museum feel */}
           <h1
             className="font-extrabold leading-[1.05] mb-3"
             style={{
+              fontFamily: 'var(--font-serif)',
               color: 'var(--text-primary)',
               letterSpacing: '-0.02em',
               fontSize: hasThumbnail
@@ -197,7 +198,7 @@ export default function EventHero({ event, showMapAction }: EventHeroProps) {
           {showMapAction && (
             <div className="flex flex-wrap gap-3">
               <button
-                onClick={() => navigate('/')}
+                onClick={() => navigate('/map')}
                 className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold transition"
                 style={{
                   background: 'var(--accent)',
@@ -219,7 +220,7 @@ export default function EventHero({ event, showMapAction }: EventHeroProps) {
                 Xem trên bản đồ 3D
               </button>
               <button
-                onClick={() => navigate('/')}
+                onClick={() => navigate('/map')}
                 className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-medium transition"
                 style={{
                   background: 'var(--bg-surface)',

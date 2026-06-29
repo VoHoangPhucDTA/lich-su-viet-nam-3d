@@ -1,0 +1,180 @@
+{
+  "id": "cach-mang-thang-tam-nam-1945",
+  "slug": "cach-mang-thang-tam-nam-1945",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Cách mạng tháng Tám năm 1945",
+    "short": "CMT8 1945",
+    "alternatives": [
+      "Tổng khởi nghĩa tháng Tám"
+    ]
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "revolution",
+    "region": "vietnam",
+    "tags": [
+      "Tổng khởi nghĩa",
+      "Việt Nam Dân chủ Cộng hoà",
+      "Độc lập",
+      "Giải phóng dân tộc"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 12,
+        "lessonId": "12952",
+        "lessonTitle": "BÀI 6: CÁCH MẠNG THÁNG TÁM NĂM 1945"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1945,
+      "month": 8,
+      "day": 14
+    },
+    "end": {
+      "year": 1945,
+      "month": 9,
+      "day": 2
+    },
+    "datePrecision": "day",
+    "displayDate": "Tháng 8 – 9 năm 1945",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "nationwide",
+    "historicalLocations": [
+      "Phủ Khâm sai",
+      "Sở Cảnh sát Trung ương",
+      "Sở Mật thám",
+      "cả nước",
+      "Sở Cảnh sát",
+      "Sở Bưu điện"
+    ],
+    "provinceNames": [
+      "Bắc Giang",
+      "Đồng Nai",
+      "Hà Tĩnh",
+      "Tuyên Quang",
+      "Hải Dương",
+      "Thừa Thiên Huế",
+      "Quảng Nam",
+      "Hà Nội",
+      "Hồ Chí Minh",
+      "Thái Nguyên"
+    ],
+    "gadmRefs": [
+      "VNM.3_1",
+      "VNM.17_1",
+      "VNM.29_1",
+      "VNM.60_1",
+      "VNM.22_1",
+      "VNM.54_1",
+      "VNM.47_1",
+      "VNM.27_1",
+      "VNM.25_1",
+      "VNM.56_1"
+    ],
+    "marker": {
+      "name": "Bắc Giang",
+      "lat": 21.2833,
+      "lng": 106.2,
+      "confidence": "high"
+    },
+    "markers": [],
+    "focusGeometry": {
+      "mode": "bounds",
+      "center": {
+        "lat": 16.0,
+        "lng": 106.0
+      },
+      "zoom": 5
+    }
+  },
+  "summary": {
+    "homepageTitle": "Cách mạng tháng Tám 1945",
+    "homepageSummary": "Cách mạng tháng Tám năm 1945 là cuộc tổng khởi nghĩa giành chính quyền trên cả nước, dẫn đến sự ra đời của nước Việt Nam Dân chủ Cộng hoà.",
+    "cardSummary": "Cách mạng tháng Tám 1945 lật đổ ách thống trị thực dân, phong kiến, thành lập nước Việt Nam Dân chủ Cộng hoà."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Cách mạng tháng Tám năm 1945 là sự kiện lịch sử vĩ đại, đã lật đổ ách cai trị của thực dân Pháp trong hơn 80 năm, của quân phiệt Nhật Bản gần 5 năm; chấm dứt thời kì quân chủ hơn 1000 năm; lập nên nước Việt Nam Dân chủ Cộng hòa.",
+    "detailedNarrative": "Đến giữa tháng 8 1945, khí thế cách mạng đã sục sôi trong cả nước. Từ ngày 14 – 8, một số cấp bộ Đảng và tổ chức Việt Minh căn cứ vào tình hình cụ thể của địa phương đã phát động nhân dân khởi nghĩa. Chiều ngày 16 – 8 – 1945, một đơn vị Giải phóng quân do Võ Nguyên Giáp chỉ huy, xuất phát từ Tân Trào tiến về giải phóng thị xã Thái Nguyên, mở đường tiến về Hà Nội. Ngày 18-8-1945, nhân dân Bắc Giang, Hải Dương, Hà Tĩnh và Quảng Nam giành được chính quyền ở tỉnh lị sớm nhất trong cả nước. Tại Hà Nội, ngày 19-8-1945, quần chúng cách mạng có sự hỗ trợ của các đội tự vệ chiến đấu lần lượt chiếm Phủ Khâm sai, Sở Cảnh sát Trung ương, Sở Bưu điện,... Đến tối, cuộc khởi nghĩa giành chính quyển thắng lợi. Tại Huế, ngày 23 – 8, hàng vạn nhân dân biểu tình thị uy, chiếm các công sở giành chính quyền về tay nhân dân. Ngày 25 – 8, sau khi chiếm được các cơ quan đầu não của chính quyền cũ như: Sở Mật thám, Sở Cảnh sát,... nhân dân Sài Gòn và các vùng phụ cận đã tham gia cuộc mít tinh lớn do Mặt trận Việt Minh tổ chức, chính quyền cách mạng ra mắt nhân dân. Khởi nghĩa ở Sài Gòn giành thắng lợi. Các địa phương khác trong cả nước từ rừng núi, nông thôn, thành thị nối tiếp nhau khởi nghĩa. Đến ngày 28 - 8, Đồng Nai Thượng và Hà Tiên là những địa phương cuối cùng giành chính quyền. Trong Cách mạng tháng Tám, trước áp lực và hoạt động khôn khéo của lực lượng cách mạng, quân Nhật ở Hà Nội và các địa phương phải án binh bất động, không can thiệp vào tiến trình khởi nghĩa. Nhờ đó, khởi nghĩa diễn ra nhanh chóng và ít đổ máu. Ngày 2-9-1945, Chủ tịch Hồ Chí Minh thay mặt Chính phủ lâm thời đọc Tuyên ngôn Độc lập, tuyên bố với toàn thể nhân dân và thế giới sự ra đời của Nhà nước Việt Nam Dân chủ Cộng hoà.",
+    "significance": "Lật đổ ách cai trị của thực dân Pháp trong hơn 80 năm, của quân phiệt Nhật Bản gần 5 năm; chấm dứt thời kì quân chủ hơn 1000 năm; lập nên nước Việt Nam Dân chủ Cộng hòa. Đảng Cộng sản Đông Dương từ một đảng bí mật trở thành đảng cầm quyền, nhân dân Việt Nam từ thân phận nô lệ trở thành người làm chủ đất nước. Mở ra kỉ nguyên độc lập, tự do và phát triển dưới chế độ dân chủ cộng hoà. Chứng tỏ năng lực lãnh đạo của Đảng Cộng sản, sự sáng tạo và tinh thần yêu nước của nhân dân; chuẩn bị điều kiện cho những thắng lợi tiếp theo. Góp phần vào thắng lợi của các lực lượng hoà bình, dân chủ, tiến bộ trong cuộc đấu tranh chống phát xít, góp phần làm tan rã hệ thống thuộc địa của chủ nghĩa thực dân và cổ vũ tinh thần đấu tranh của nhân dân các dân tộc thuộc địa và phụ thuộc trên thế giới.",
+    "keyFacts": [
+      "Thành lập nước Việt Nam Dân chủ Cộng hoà",
+      "Diễn ra từ giữa tháng 8 đến 2-9-1945",
+      "Giành chính quyền trên cả nước",
+      "Đảng Cộng sản Đông Dương trở thành đảng cầm quyền",
+      "Lật đổ ách Pháp, Nhật, chấm dứt quân chủ"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 12,
+        "book": "KNTT",
+        "lessonId": "12952",
+        "lessonTitle": "BÀI 6: CÁCH MẠNG THÁNG TÁM NĂM 1945",
+        "chapter": "Chu de 3",
+        "lesson": "Bai 6",
+        "pageRange": {
+          "start": 31,
+          "end": 36
+        },
+        "url": "https://sgkvn.com/lop-12-15/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-3-cach-mang-thang-tam-nam-1945-chien-tranh-giai-phong-dan-toc-va-chien-tranh-bao-ve-to-quoc-trong-lich-su-viet-nam-tu-thang-8-nam-1945-den-nay-3539/bai-6-cach-mang-thang-tam-nam-1945-12952.html",
+        "excerpt": "Cách mạng tháng Tám năm 1945 là sự kiện lịch sử vĩ đại, đã lật đổ ách cai trị của thực dân Pháp trong hơn 80 năm, của quân phiệt Nhật Bản gần 5 năm; chấm dứt thời kì quân chủ hơn 1000 năm; lập nên nước Việt Nam Dân chủ Cộng hòa."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "cach-mang-thang-tam-nam-1945",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 150
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": true,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

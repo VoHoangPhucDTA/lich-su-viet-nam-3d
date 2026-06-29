@@ -1,0 +1,151 @@
+{
+  "id": "trang-an-duoc-ghi-danh-di-san-the-gioi",
+  "slug": "trang-an-duoc-ghi-danh-di-san-the-gioi",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Quần thể danh thắng Tràng An được ghi danh là Di sản văn hoá và thiên nhiên thế giới",
+    "short": "Tràng An Di sản thế giới",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "cultural",
+    "eventSubtype": "designation",
+    "region": "vietnam",
+    "tags": [
+      "Di sản thế giới",
+      "Tràng An",
+      "UNESCO"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      10
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 10,
+        "lessonId": "12128",
+        "lessonTitle": "Bài 3: Sử Học Với Các Lĩnh Vực Khoa Học"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "end": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "datePrecision": "approximate",
+    "displayDate": "Không rõ năm cụ thể trong bài",
+    "isApproximate": true
+  },
+  "mapData": {
+    "geoType": "nationwide",
+    "historicalLocations": [
+      "Việt Nam"
+    ],
+    "provinceNames": [
+      "Ninh Bình"
+    ],
+    "gadmRefs": [
+      "VNM.42_1"
+    ],
+    "marker": {
+      "name": "Ninh Bình",
+      "lat": 20.25,
+      "lng": 105.95,
+      "confidence": "high"
+    },
+    "markers": [],
+    "focusGeometry": {
+      "mode": "bounds",
+      "center": {
+        "lat": 16.0,
+        "lng": 106.0
+      },
+      "zoom": 5
+    }
+  },
+  "summary": {
+    "homepageTitle": "Tràng An được UNESCO công nhận Di sản thế giới",
+    "homepageSummary": "Quần thể danh thắng Tràng An (Ninh Bình) được ghi danh là Di sản văn hoá và thiên nhiên thế giới sau quá trình nghiên cứu toàn diện về giá trị lịch sử – văn hoá, địa chất địa mạo, giá trị thẩm mĩ.",
+    "cardSummary": "Tràng An (Ninh Bình) được UNESCO công nhận là Di sản văn hoá và thiên nhiên thế giới."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Quần thể danh thắng Tràng An (Ninh Bình) là Di sản thế giới hỗn hợp đầu tiên của Việt Nam. Để chuẩn bị hồ sơ khoa học thuyết minh về di sản trình UNESCO, nhiệm vụ nghiên cứu toàn diện về giá trị lịch sử – văn hoá, địa chất địa mạo, giá trị thẩm mĩ,... của danh thắng đã được triển khai. Nhờ đó, danh thắng Tràng An đã được ghi danh là Di sản văn hoá và thiên nhiên thế giới.",
+    "detailedNarrative": "Quần thể danh thắng Tràng An (Ninh Bình) là Di sản thế giới hỗn hợp đầu tiên của Việt Nam. Để chuẩn bị hồ sơ khoa học thuyết minh về di sản trình UNESCO, nhiệm vụ nghiên cứu toàn diện về giá trị lịch sử – văn hoá, địa chất địa mạo, giá trị thẩm mĩ,... của danh thắng đã được triển khai.",
+    "significance": "Là Di sản thế giới hỗn hợp đầu tiên của Việt Nam.",
+    "keyFacts": [
+      "Nghiên cứu toàn diện về giá trị lịch sử – văn hoá, địa chất địa mạo, giá trị thẩm mĩ để lập hồ sơ",
+      "Di sản thế giới hỗn hợp đầu tiên của Việt Nam"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 10,
+        "book": "KNTT",
+        "lessonId": "12128",
+        "lessonTitle": "Bài 3: Sử Học Với Các Lĩnh Vực Khoa Học",
+        "chapter": "Chu de 2",
+        "lesson": "Bai 3",
+        "pageRange": {
+          "start": 19,
+          "end": 25
+        },
+        "url": "https://sgkvn.com/lop-10-13/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-2-vai-tro-cua-su-hoc-3269/bai-3-su-hoc-voi-cac-linh-vuc-khoa-hoc-12128.html",
+        "excerpt": "Quần thể danh thắng Tràng An (Ninh Bình) là Di sản thế giới hỗn hợp đầu tiên của Việt Nam. Để chuẩn bị hồ sơ khoa học thuyết minh về di sản trình UNESCO, nhiệm vụ nghiên cứu toàn diện về giá trị lịch sử – văn hoá, địa chất địa mạo, giá trị thẩm mĩ,... của danh thắng đã được triển khai. Nhờ đó, danh thắng Tràng An đã được ghi danh là Di sản văn hoá và thiên nhiên thế giới."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "trang-an-duoc-ghi-danh-di-san-the-gioi",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 375
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": true,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

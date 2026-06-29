@@ -1,0 +1,167 @@
+{
+  "id": "chien-si-hai-quan-nhan-dan-viet-nam-hi-sinh-bao-ve-gac-ma-co-lin-len-dao",
+  "slug": "chien-si-hai-quan-nhan-dan-viet-nam-hi-sinh-bao-ve-gac-ma-co-lin-len-dao",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Chiến sĩ hải quân Nhân dân Việt Nam hi sinh anh dũng khi chiến đấu bảo vệ chủ quyền tại các đảo Gạc Ma, Cô Lin, Len Đao",
+    "short": "Trận chiến Gạc Ma, Cô Lin, Len Đao",
+    "alternatives": [
+      "Hải chiến Trường Sa 1988"
+    ]
+  },
+  "classification": {
+    "eventType": "military",
+    "eventSubtype": "battle",
+    "region": "vietnam",
+    "tags": [
+      "Trường Sa",
+      "Hải quân Nhân dân Việt Nam",
+      "chủ quyền",
+      "Gạc Ma",
+      "hi sinh"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 11,
+        "lessonId": "12395",
+        "lessonTitle": "BÀI 16  VIỆT NAM VÀ BIỂN ĐÔNG"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1988,
+      "month": 3,
+      "day": null
+    },
+    "end": null,
+    "datePrecision": "month",
+    "displayDate": "Tháng 3 năm 1988",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "multi_point",
+    "historicalLocations": [],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": {
+      "name": "đảo Gạc Ma",
+      "lat": 9.72,
+      "lng": 114.27,
+      "confidence": "high"
+    },
+    "markers": [
+      {
+        "name": "đảo Gạc Ma",
+        "lat": 9.72,
+        "lng": 114.27,
+        "confidence": "high"
+      },
+      {
+        "name": "Cô Lin",
+        "lat": 9.767,
+        "lng": 114.234,
+        "confidence": "high"
+      },
+      {
+        "name": "Len Đao",
+        "lat": 9.783,
+        "lng": 114.367,
+        "confidence": "high"
+      }
+    ],
+    "focusGeometry": {
+      "mode": "bounds",
+      "center": {
+        "lat": 9.756667,
+        "lng": 114.290333
+      },
+      "zoom": 8
+    }
+  },
+  "summary": {
+    "homepageTitle": "Chiến sĩ VN hi sinh bảo vệ Gạc Ma (3/1988)",
+    "homepageSummary": "Tháng 3 năm 1988, nhiều chiến sĩ hải quân Nhân dân Việt Nam đã hi sinh anh dũng khi chiến đấu bảo vệ chủ quyền tại các đảo Gạc Ma, Cô Lin, Len Đao trước cuộc tấn công của quân đội Trung Quốc.",
+    "cardSummary": "Tháng 3/1988, chiến sĩ Hải quân VN hi sinh bảo vệ Gạc Ma, Cô Lin, Len Đao trước quân đội Trung Quốc."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Tháng 3 – 1988, nhiều chiến sĩ hải quân Nhân dân Việt Nam đã hi sinh anh dũng khi chiến đấu bảo vệ chủ quyền tại các đảo Gạc Ma, Cô Lin, Len Đao trước cuộc tấn công của quân đội Trung Quốc.",
+    "detailedNarrative": "Tháng 3 – 1988, nhiều chiến sĩ hải quân Nhân dân Việt Nam đã hi sinh anh dũng khi chiến đấu bảo vệ chủ quyền tại các đảo Gạc Ma, Cô Lin, Len Đao trước cuộc tấn công của quân đội Trung Quốc.",
+    "significance": "Là biểu tượng của sự hi sinh anh dũng trong cuộc đấu tranh bảo vệ chủ quyền biển đảo của Việt Nam.",
+    "keyFacts": [
+      "Địa điểm: các đảo Gạc Ma, Cô Lin, Len Đao",
+      "Diễn ra tháng 3 năm 1988",
+      "Kết quả: nhiều chiến sĩ hi sinh",
+      "Đối thủ: quân đội Trung Quốc",
+      "Chủ thể: hải quân Nhân dân Việt Nam"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 11,
+        "book": "KNTT",
+        "lessonId": "12395",
+        "lessonTitle": "BÀI 16  VIỆT NAM VÀ BIỂN ĐÔNG",
+        "chapter": "Chu de 7",
+        "lesson": "Bai 16",
+        "pageRange": {
+          "start": 107,
+          "end": 111
+        },
+        "url": "https://sgkvn.com/lop-11-14/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-7-lich-su-chu-quyen-cua-viet-nam-o-bien-dong-3354/bai-16-viet-nam-va-bien-dong-12395.html",
+        "excerpt": "Tháng 3 – 1988, nhiều chiến sĩ hải quân Nhân dân Việt Nam đã hi sinh anh dũng khi chiến đấu bảo vệ chủ quyền tại các đảo Gạc Ma, Cô Lin, Len Đao trước cuộc tấn công của quân đội Trung Quốc."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "chien-si-hai-quan-nhan-dan-viet-nam-hi-sinh-bao-ve-gac-ma-co-lin-len-dao",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 269
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": true,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

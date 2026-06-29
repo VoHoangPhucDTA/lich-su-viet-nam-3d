@@ -1,0 +1,135 @@
+{
+  "id": "ho-chi-minh-cong-bo-tuyen-ngon-doc-lap",
+  "slug": "ho-chi-minh-cong-bo-tuyen-ngon-doc-lap",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Chủ tịch Hồ Chí Minh công bố Tuyên ngôn Độc lập",
+    "short": "Hồ Chí Minh công bố Tuyên ngôn Độc lập",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "declaration",
+    "region": "vietnam",
+    "tags": [
+      "độc lập",
+      "Hồ Chí Minh",
+      "Việt Nam",
+      "Tuyên ngôn Độc lập"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      10
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 10,
+        "lessonId": "12122",
+        "lessonTitle": "Bài 1: Hiện Thực Lịch Sử Và Nhận Thức Lịch Sử"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1945,
+      "month": 9,
+      "day": 2
+    },
+    "end": null,
+    "datePrecision": "day",
+    "displayDate": "Ngày 2 – 9 – 1945",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "no_location",
+    "historicalLocations": [],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "auto",
+      "center": null,
+      "zoom": null
+    }
+  },
+  "summary": {
+    "homepageTitle": "Hồ Chí Minh công bố Tuyên ngôn Độc lập (1945)",
+    "homepageSummary": "Ngày 2-9-1945, Chủ tịch Hồ Chí Minh soạn thảo và công bố bản Tuyên ngôn Độc lập, khai sinh nước Việt Nam Dân chủ Cộng hòa.",
+    "cardSummary": "Chủ tịch Hồ Chí Minh công bố Tuyên ngôn Độc lập vào ngày 2-9-1945."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Trang đầu bản Tuyên ngôn Độc lập do Chủ tịch Hồ Chí Minh soạn thảo và công bố ngày 2 – 9 – 1945 được dùng làm ví dụ về sử liệu chữ viết.",
+    "detailedNarrative": "Hình ảnh trang đầu bản Tuyên ngôn Độc lập do Chủ tịch Hồ Chí Minh soạn thảo và công bố ngày 2 – 9 – 1945 được trình bày như một ví dụ về sử liệu chữ viết.",
+    "significance": "Là sự kiện lịch sử trọng đại, đánh dấu sự ra đời của nước Việt Nam Dân chủ Cộng hòa.",
+    "keyFacts": [
+      "Ngày 2 – 9 – 1945",
+      "Do Chủ tịch Hồ Chí Minh soạn thảo và công bố",
+      "Là một sử liệu chữ viết quan trọng"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 10,
+        "book": "KNTT",
+        "lessonId": "12122",
+        "lessonTitle": "Bài 1: Hiện Thực Lịch Sử Và Nhận Thức Lịch Sử",
+        "chapter": "Chu de 1",
+        "lesson": "Bai 1",
+        "pageRange": {
+          "start": 6,
+          "end": 14
+        },
+        "url": "https://sgkvn.com/lop-10-13/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-1-lich-su-va-su-hoc-3266/bai-1-hien-thuc-lich-su-va-nhan-thuc-lich-su-12122.html",
+        "excerpt": "Trang đầu bản Tuyên ngôn Độc lập do Chủ tịch Hồ Chí Minh soạn thảo và công bố ngày 2 – 9 – 1945 được dùng làm ví dụ về sử liệu chữ viết."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "ho-chi-minh-cong-bo-tuyen-ngon-doc-lap",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 162
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": false,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

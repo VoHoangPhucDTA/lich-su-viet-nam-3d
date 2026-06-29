@@ -1,0 +1,134 @@
+{
+  "id": "ho-chi-minh-viet-lich-su-nuoc-ta-1942",
+  "slug": "ho-chi-minh-viet-lich-su-nuoc-ta-1942",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Hồ Chí Minh viết Lịch sử nước ta",
+    "short": "Hồ Chí Minh viết Lịch sử nước ta",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "cultural",
+    "eventSubtype": "historical_writing",
+    "region": "vietnam",
+    "tags": [
+      "Hồ Chí Minh",
+      "sử học",
+      "tuyên truyền"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      10
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 10,
+        "lessonId": "12126",
+        "lessonTitle": "Bài 2: Tri Thức Lịch Sử Và Cuộc Sống"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1942,
+      "month": null,
+      "day": null
+    },
+    "end": null,
+    "datePrecision": "year",
+    "displayDate": "Năm 1942",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "no_location",
+    "historicalLocations": [],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "auto",
+      "center": null,
+      "zoom": null
+    }
+  },
+  "summary": {
+    "homepageTitle": "Hồ Chí Minh viết Lịch sử nước ta",
+    "homepageSummary": "Hồ Chí Minh viết tác phẩm 'Lịch sử nước ta' vào năm 1942, nhấn mạnh tầm quan trọng của việc hiểu biết lịch sử dân tộc.",
+    "cardSummary": "Hồ Chí Minh viết 'Lịch sử nước ta' năm 1942, với câu 'Dân ta phải biết sử ta'."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Hồ Chí Minh viết tác phẩm 'Lịch sử nước ta' vào năm 1942.",
+    "detailedNarrative": "Tác phẩm chứa câu nói nổi tiếng: “Dân ta phải biết sử ta, Cho tưởng gốc tích nước nhà Việt Nam”.",
+    "significance": "Nhấn mạnh vai trò cốt lõi của hiểu biết lịch sử trong việc tạo nên ý thức dân tộc và bản sắc văn hoá.",
+    "keyFacts": [
+      "Tác giả Hồ Chí Minh",
+      "Chứa câu nói 'Dân ta phải biết sử ta'",
+      "Năm 1942"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 10,
+        "book": "KNTT",
+        "lessonId": "12126",
+        "lessonTitle": "Bài 2: Tri Thức Lịch Sử Và Cuộc Sống",
+        "chapter": "Chu de 1",
+        "lesson": "Bai 2",
+        "pageRange": {
+          "start": 15,
+          "end": 18
+        },
+        "url": "https://sgkvn.com/lop-10-13/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-1-lich-su-va-su-hoc-3266/bai-2-tri-thuc-lich-su-va-cuoc-song-12126.html",
+        "excerpt": "Hồ Chí Minh viết tác phẩm 'Lịch sử nước ta' vào năm 1942."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "ho-chi-minh-viet-lich-su-nuoc-ta-1942",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 142
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": false,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

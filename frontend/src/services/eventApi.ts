@@ -18,6 +18,7 @@ import { rawToEventDetail, rawToHistoricalEvent } from '../data/eventAdapter';
 import {
   findEventById,
   getEventsByYear,
+  HISTORICAL_EVENTS,
 } from '../data/events';
 import type { EventType, GeoType, HistoricalEvent } from '../types/event';
 import { apiGet, apiPost, toQueryString } from './apiClient';
@@ -304,6 +305,131 @@ export async function getTimelineYearsFromBackend(grade?: number | null): Promis
   } catch (error) {
     console.warn('Fallback to static timeline years because backend timeline failed.', error);
     return [];
+  }
+}
+
+export async function getHomepageEvents(): Promise<HistoricalEvent[]> {
+  try {
+    // Single broad query — no year filter, higher limit, dedupe client-side
+    const query = toQueryString({ limit: 30 });
+    const data = await apiGet<EventListResponse>(`/api/events${query}`);
+
+    // Deduplicate by id, pick up to 6
+    const seen = new Set<string>();
+    const events: HistoricalEvent[] = [];
+    for (const dto of data.items) {
+      if (seen.has(dto.id)) continue;
+      seen.add(dto.id);
+      events.push(summaryToHistoricalEvent(dto));
+      if (events.length >= 6) break;
+    }
+
+    return sortHistoricalEvents(events);
+  } catch (error) {
+    console.warn('Could not load homepage events from backend. Falling back to static data.', error);
+    // Fallback: use static JSON data loaded via import.meta.glob — return up to 6 root events sorted chronologically
+    return sortHistoricalEvents([...HISTORICAL_EVENTS]).slice(0, 6);
+  }
+}
+
+export interface BrowseEventsParams {
+  q?: string;
+  eventType?: string;
+  year?: number;
+  grade?: number;
+  limit?: number;
+  offset?: number;
+  sortBy?: 'year' | 'name';
+  sortDir?: 'asc' | 'desc';
+}
+
+export interface BrowseEventsResult {
+  events: HistoricalEvent[];
+  total: number;
+  hasMore: boolean;
+}
+
+export async function getBrowseEvents(params: BrowseEventsParams): Promise<BrowseEventsResult> {
+  try {
+    const query = toQueryString({
+      q: params.q || undefined,
+      eventType: params.eventType || undefined,
+      year: params.year || undefined,
+      grade: params.grade || undefined,
+      limit: params.limit ?? 24,
+      offset: params.offset ?? 0,
+    });
+    const data = await apiGet<EventListResponse>(`/api/events${query}`);
+    const events = data.items.map(summaryToHistoricalEvent);
+
+    if (params.sortBy === 'name') {
+      events.sort((a, b) =>
+        (params.sortDir === 'desc' ? -1 : 1) * a.name.localeCompare(b.name, 'vi')
+      );
+    } else {
+      sortHistoricalEvents(events);
+      if (params.sortDir === 'desc') events.reverse();
+    }
+
+    // data.count is the response-item count (after LIMIT/OFFSET), NOT the
+    // total matching rows in the database. Use response length to infer hasMore.
+    const responseSize = events.length;
+    const limit = params.limit ?? 24;
+    return {
+      events,
+      total: data.count,
+      hasMore: responseSize >= limit,
+    };
+  } catch (error) {
+    console.warn('Could not browse events from backend. Falling back to static data.', error);
+
+    // Fallback: filter, sort, and paginate static data
+    let filtered = [...HISTORICAL_EVENTS];
+
+    // Text search
+    if (params.q) {
+      const q = params.q.toLowerCase();
+      filtered = filtered.filter(
+        (e) =>
+          e.name.toLowerCase().includes(q) ||
+          e.description.toLowerCase().includes(q)
+      );
+    }
+
+    // Filter by event type
+    if (params.eventType) {
+      filtered = filtered.filter((e) => e.eventType === params.eventType);
+    }
+
+    // Filter by year
+    if (params.year != null) {
+      const year = params.year;
+      filtered = filtered.filter((e) => {
+        const endYear = e.endYear ?? e.startYear;
+        return e.startYear <= year && endYear >= year;
+      });
+    }
+
+    // Sort
+    if (params.sortBy === 'name') {
+      filtered.sort((a, b) =>
+        (params.sortDir === 'desc' ? -1 : 1) * a.name.localeCompare(b.name, 'vi')
+      );
+    } else {
+      sortHistoricalEvents(filtered);
+      if (params.sortDir === 'desc') filtered.reverse();
+    }
+
+    const total = filtered.length;
+    const limit = params.limit ?? 24;
+    const offset = params.offset ?? 0;
+    const paginated = filtered.slice(offset, offset + limit);
+
+    return {
+      events: paginated,
+      total,
+      hasMore: offset + limit < total,
+    };
   }
 }
 

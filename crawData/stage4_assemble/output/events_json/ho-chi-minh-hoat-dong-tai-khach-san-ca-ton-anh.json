@@ -1,0 +1,137 @@
+{
+  "id": "ho-chi-minh-hoat-dong-tai-khach-san-ca-ton-anh",
+  "slug": "ho-chi-minh-hoat-dong-tai-khach-san-ca-ton-anh",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Chủ tịch Hồ Chí Minh hoạt động tại Khách sạn Ca-tơn (Anh)",
+    "short": "Chủ tịch Hồ Chí Minh hoạt động tại Khách sạn Ca-tơn (Anh)",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "activity",
+    "region": "world",
+    "tags": [
+      "Hồ Chí Minh",
+      "Anh",
+      "hoạt động cách mạng"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 12,
+        "lessonId": "12968",
+        "lessonTitle": "BÀI 17: DẤU ẤN HỒ CHÍ MINH TRONG LÒNG NHÂN DÂN THẾ GIỚI VÀ VIỆT NAM"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1913,
+      "month": null,
+      "day": null
+    },
+    "end": null,
+    "datePrecision": "year",
+    "displayDate": "Cuối năm 1913",
+    "isApproximate": true
+  },
+  "mapData": {
+    "geoType": "no_location",
+    "historicalLocations": [
+      "Anh",
+      "Khách sạn Ca-tơn"
+    ],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "auto",
+      "center": null,
+      "zoom": null
+    }
+  },
+  "summary": {
+    "homepageTitle": "Hồ Chí Minh hoạt động tại Khách sạn Ca-tơn (Anh)",
+    "homepageSummary": "Chủ tịch Hồ Chí Minh đã làm việc và hoạt động tại Khách sạn Ca-tơn ở Anh vào cuối năm 1913.",
+    "cardSummary": "Cuối năm 1913, Hồ Chí Minh làm việc và hoạt động tại Khách sạn Ca-tơn (Anh)."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Khách sạn Ca-tơn (Anh) là nơi Chủ tịch Hồ Chí Minh làm việc và hoạt động cuối năm 1913.",
+    "detailedNarrative": null,
+    "significance": null,
+    "keyFacts": [
+      "Thời gian: Cuối năm 1913",
+      "Hoạt động: Làm việc và hoạt động",
+      "Địa điểm: Khách sạn Ca-tơn, Anh"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 12,
+        "book": "KNTT",
+        "lessonId": "12968",
+        "lessonTitle": "BÀI 17: DẤU ẤN HỒ CHÍ MINH TRONG LÒNG NHÂN DÂN THẾ GIỚI VÀ VIỆT NAM",
+        "chapter": "Chu de 5",
+        "lesson": "Bai 17",
+        "pageRange": {
+          "start": 105,
+          "end": 111
+        },
+        "url": "https://sgkvn.com/lop-12-15/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-5-lich-su-doi-ngoai-cua-viet-nam-thoi-can-hien-dai-3541/bai-17-dau-an-ho-chi-minh-trong-long-nhan-dan-the-gioi-va-viet-nam-12968.html",
+        "excerpt": "Khách sạn Ca-tơn (Anh) là nơi Chủ tịch Hồ Chí Minh làm việc và hoạt động cuối năm 1913."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "ho-chi-minh-hoat-dong-tai-khach-san-ca-ton-anh",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 108
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": false,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

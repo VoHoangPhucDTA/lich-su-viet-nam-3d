@@ -1,0 +1,161 @@
+{
+  "id": "ly-nhan-tong-lap-quoc-tu-giam",
+  "slug": "ly-nhan-tong-lap-quoc-tu-giam",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Vua Lý Nhân Tông cho lập Quốc Tử Giám",
+    "short": "Vua Lý Nhân Tông cho lập Quốc Tử Giám",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "cultural",
+    "eventSubtype": "establishment",
+    "region": "vietnam",
+    "tags": [
+      "Quốc Tử Giám",
+      "Lý Nhân Tông",
+      "Nho giáo",
+      "giáo dục"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      10
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 10,
+        "lessonId": "12160",
+        "lessonTitle": "Bài 12: Văn Minh Đại Việt"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1076,
+      "month": null,
+      "day": null
+    },
+    "end": null,
+    "datePrecision": "year",
+    "displayDate": "Năm 1076",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "mixed",
+    "historicalLocations": [],
+    "provinceNames": [
+      "Hà Nội"
+    ],
+    "gadmRefs": [
+      "VNM.27_1"
+    ],
+    "marker": {
+      "name": "Quốc Tử Giám",
+      "lat": 21.0253,
+      "lng": 105.8345,
+      "confidence": "high"
+    },
+    "markers": [
+      {
+        "name": "Quốc Tử Giám",
+        "lat": 21.0253,
+        "lng": 105.8345,
+        "confidence": "high"
+      },
+      {
+        "name": "Hà Nội",
+        "lat": 21.0285,
+        "lng": 105.8542,
+        "confidence": "high"
+      }
+    ],
+    "focusGeometry": {
+      "mode": "bounds",
+      "center": {
+        "lat": 21.016534,
+        "lng": 105.807988
+      },
+      "zoom": 7
+    }
+  },
+  "summary": {
+    "homepageTitle": "Lý Nhân Tông lập Quốc Tử Giám (1076)",
+    "homepageSummary": "Năm 1076, vua Lý Nhân Tông cho lập Quốc Tử Giám làm trường học Nho giáo cao cấp của triều đình.",
+    "cardSummary": "Vua Lý Nhân Tông cho lập Quốc Tử Giám năm 1076, trường Nho giáo cao cấp."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Năm 1076, vua Lý Nhân Tông cho lập Quốc Tử Giám (Hà Nội) làm trường học Nho giáo cao cấp của triều đình.",
+    "detailedNarrative": null,
+    "significance": "Là trường học Nho giáo cao cấp đầu tiên của triều đình, thúc đẩy giáo dục Nho học.",
+    "keyFacts": [
+      "Vua Lý Nhân Tông cho lập Quốc Tử Giám",
+      "Diễn ra năm 1076",
+      "Tại Hà Nội",
+      "Là trường học Nho giáo cao cấp của triều đình"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 10,
+        "book": "KNTT",
+        "lessonId": "12160",
+        "lessonTitle": "Bài 12: Văn Minh Đại Việt",
+        "chapter": "Chu de 6",
+        "lesson": "Bai 12",
+        "pageRange": {
+          "start": 108,
+          "end": 122
+        },
+        "url": "https://sgkvn.com/lop-10-13/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-6-mot-so-nen-van-minh-tren-dat-nuoc-viet-nam-truoc-nam-1858-3276/bai-12-van-minh-dai-viet-12160.html",
+        "excerpt": "Năm 1076, vua Lý Nhân Tông cho lập Quốc Tử Giám (Hà Nội) làm trường học Nho giáo cao cấp của triều đình."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "ly-nhan-tong-lap-quoc-tu-giam",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 17
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": true,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

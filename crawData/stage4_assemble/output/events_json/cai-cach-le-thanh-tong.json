@@ -1,0 +1,208 @@
+{
+  "id": "cai-cach-le-thanh-tong",
+  "slug": "cai-cach-le-thanh-tong",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Cuộc cải cách của Lê Thánh Tông",
+    "short": "Cải cách Lê Thánh Tông",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "reform",
+    "region": "vietnam",
+    "tags": [
+      "Lê Thánh Tông",
+      "Lê sơ",
+      "cải cách",
+      "quân chủ trung ương tập quyền"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      10,
+      11
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 10,
+        "lessonId": "12160",
+        "lessonTitle": "Bài 12: Văn Minh Đại Việt"
+      },
+      {
+        "grade": 11,
+        "lessonId": "12387",
+        "lessonTitle": "BÀI 12  KHÁI LƯỢC VỀ CẢI CÁCH  CUỘC CẢI"
+      },
+      {
+        "grade": 11,
+        "lessonId": "12390",
+        "lessonTitle": "BÀI 13  CUỘC CẢI CÁCH CỦA LÊ THÁNH TÔNG"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "end": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "datePrecision": "period",
+    "displayDate": "Khoảng 30 năm trị vì (1460 - 1497)",
+    "isApproximate": true
+  },
+  "mapData": {
+    "geoType": "mixed",
+    "historicalLocations": [
+      "kinh thành",
+      "Địa phương",
+      "Trung ương"
+    ],
+    "provinceNames": [
+      "Quảng Nam"
+    ],
+    "gadmRefs": [
+      "VNM.47_1"
+    ],
+    "marker": {
+      "name": "Đại Việt",
+      "lat": 16.0,
+      "lng": 107.0,
+      "confidence": "low"
+    },
+    "markers": [
+      {
+        "name": "Đại Việt",
+        "lat": 16.0,
+        "lng": 107.0,
+        "confidence": "low"
+      },
+      {
+        "name": "Quảng Nam",
+        "lat": 15.5,
+        "lng": 108.0,
+        "confidence": "high"
+      }
+    ],
+    "focusGeometry": {
+      "mode": "bounds",
+      "center": {
+        "lat": 15.696986,
+        "lng": 107.656714
+      },
+      "zoom": 7
+    }
+  },
+  "summary": {
+    "homepageTitle": "Cải cách Lê Thánh Tông",
+    "homepageSummary": "Cuộc cải cách toàn diện dưới thời Lê Thánh Tông nhằm củng cố bộ máy nhà nước quân chủ trung ương tập quyền, thúc đẩy phát triển đất nước.",
+    "cardSummary": "Cải cách Lê Thánh Tông (1460-1497) củng cố nhà nước quân chủ, phát triển Đại Việt."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Cuộc cải cách của vua Lê Thánh Tông được tiến hành trong khoảng 30 năm trị vì đất nước, với nhiều chính sách, biện pháp cải cách có tác dụng thúc đẩy sự phát triển mọi mặt của đất nước.",
+    "detailedNarrative": "Bối cảnh lịch sử dẫn đến cuộc cải cách là đất nước sau một thời gian dài chiến tranh, khủng hoảng, bộ máy hành chính nhà nước yếu kém, mâu thuẫn nội bộ, quyền thần lộng hành. Cải cách bao gồm các lĩnh vực hành chính, quan lại, quân đội, quốc phòng, pháp luật, kinh tế, văn hoá, giáo dục.",
+    "significance": "Công cuộc cải cách đã làm cho bộ máy nhà nước trở nên quy củ, chặt chẽ, tập trung cao độ, đề cao quyền hành toàn diện của hoàng đế. Các chính sách ruộng đất góp phần khẳng định quyền sở hữu tối cao của Nhà nước về ruộng đất, tạo nền tảng cho kinh tế nông nghiệp phát triển. Chính sách về giáo dục – khoa cử đã góp phần đào tạo một hệ thống quan lại trí thức có tài, đủ năng lực quản lí đất nước. Cuộc cải cách đã làm chuyển biến toàn bộ các hoạt động của quốc gia, tạo cơ sở cho Vương triều Lê sơ phát triển vững mạnh, đất nước trở nên hưng thịnh.",
+    "keyFacts": [
+      "Nội dung: hành chính, quân đội, pháp luật, kinh tế, văn hoá, giáo dục",
+      "Ý nghĩa: củng cố nhà nước, thúc đẩy phát triển",
+      "Diễn ra trong khoảng 30 năm trị vì",
+      "Bối cảnh: đất nước khủng hoảng, bộ máy yếu kém"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 10,
+        "book": "KNTT",
+        "lessonId": "12160",
+        "lessonTitle": "Bài 12: Văn Minh Đại Việt",
+        "chapter": "Chu de 6",
+        "lesson": "Bai 12",
+        "pageRange": {
+          "start": 108,
+          "end": 122
+        },
+        "url": "https://sgkvn.com/lop-10-13/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-6-mot-so-nen-van-minh-tren-dat-nuoc-viet-nam-truoc-nam-1858-3276/bai-12-van-minh-dai-viet-12160.html",
+        "excerpt": "Cuộc cải cách của vua Lê Thánh Tông được tiến hành trong khoảng 30 năm trị vì đất nước, với nhiều chính sách, biện pháp cải cách có tác dụng thúc đẩy sự phát triển mọi mặt của đất nước."
+      },
+      {
+        "grade": 11,
+        "book": "KNTT",
+        "lessonId": "12387",
+        "lessonTitle": "BÀI 12  KHÁI LƯỢC VỀ CẢI CÁCH  CUỘC CẢI",
+        "chapter": "Chu de 6",
+        "lesson": "Bai 12",
+        "pageRange": {
+          "start": 87,
+          "end": 91
+        },
+        "url": "https://sgkvn.com/lop-11-14/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-6-mot-so-cuoc-cai-cach-lon-trong-lich-su-viet-nam-truoc-nam-1858-3353/bai-12-khai-luoc-ve-cai-cach-cuoc-cai-cach-cua-ho-quy-ly-va-trieu-ho-dau-the-ki-xv-12387.html",
+        "excerpt": "Cuộc cải cách của vua Lê Thánh Tông được tiến hành trong khoảng 30 năm trị vì đất nước, với nhiều chính sách, biện pháp cải cách có tác dụng thúc đẩy sự phát triển mọi mặt của đất nước."
+      },
+      {
+        "grade": 11,
+        "book": "KNTT",
+        "lessonId": "12390",
+        "lessonTitle": "BÀI 13  CUỘC CẢI CÁCH CỦA LÊ THÁNH TÔNG",
+        "chapter": "Chu de 6",
+        "lesson": "Bai 13",
+        "pageRange": {
+          "start": 93,
+          "end": 96
+        },
+        "url": "https://sgkvn.com/lop-11-14/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-6-mot-so-cuoc-cai-cach-lon-trong-lich-su-viet-nam-truoc-nam-1858-3353/bai-13-cuoc-cai-cach-cua-le-thanh-tong-the-ki-xv-12390.html",
+        "excerpt": "Cuộc cải cách của vua Lê Thánh Tông được tiến hành trong khoảng 30 năm trị vì đất nước, với nhiều chính sách, biện pháp cải cách có tác dụng thúc đẩy sự phát triển mọi mặt của đất nước."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "cai-cach-le-thanh-tong",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 301
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": true,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

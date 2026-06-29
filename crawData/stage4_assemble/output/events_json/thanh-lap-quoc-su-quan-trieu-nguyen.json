@@ -1,0 +1,130 @@
+{
+  "id": "thanh-lap-quoc-su-quan-trieu-nguyen",
+  "slug": "thanh-lap-quoc-su-quan-trieu-nguyen",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Thành lập Quốc sử quán triều Nguyễn",
+    "short": "Thành lập Quốc sử quán triều Nguyễn",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "cultural",
+    "eventSubtype": "establishment",
+    "region": "vietnam",
+    "tags": [
+      "triều Nguyễn",
+      "sử học",
+      "Quốc sử quán"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      10
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 10,
+        "lessonId": "12160",
+        "lessonTitle": "Bài 12: Văn Minh Đại Việt"
+      }
+    ]
+  },
+  "chronology": {
+    "start": null,
+    "end": null,
+    "datePrecision": "period",
+    "displayDate": "Thời Nguyễn",
+    "isApproximate": true
+  },
+  "mapData": {
+    "geoType": "no_location",
+    "historicalLocations": [],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "auto",
+      "center": null,
+      "zoom": null
+    }
+  },
+  "summary": {
+    "homepageTitle": "Thành lập Quốc sử quán (thời Nguyễn)",
+    "homepageSummary": "Triều Nguyễn thành lập Quốc sử quản, biên soạn nhiều công trình sử học tiêu biểu.",
+    "cardSummary": "Quốc sử quán được thành lập thời Nguyễn để biên soạn sử học."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Triều Nguyễn thành lập Quốc sử quản, biên soạn nhiều công trình sử học, tiêu biểu như: Đại Nam thực lục, Khâm định Việt sử thông giám cương mục,...",
+    "detailedNarrative": null,
+    "significance": "Tổ chức việc biên soạn sử học một cách quy củ dưới triều Nguyễn.",
+    "keyFacts": [
+      "Triều Nguyễn thành lập Quốc sử quán",
+      "Biên soạn nhiều công trình sử học",
+      "Tiêu biểu: Đại Nam thực lục, Khâm định Việt sử thông giám cương mục"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 10,
+        "book": "KNTT",
+        "lessonId": "12160",
+        "lessonTitle": "Bài 12: Văn Minh Đại Việt",
+        "chapter": "Chu de 6",
+        "lesson": "Bai 12",
+        "pageRange": {
+          "start": 108,
+          "end": 122
+        },
+        "url": "https://sgkvn.com/lop-10-13/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-6-mot-so-nen-van-minh-tren-dat-nuoc-viet-nam-truoc-nam-1858-3276/bai-12-van-minh-dai-viet-12160.html",
+        "excerpt": "Triều Nguyễn thành lập Quốc sử quản, biên soạn nhiều công trình sử học, tiêu biểu như: Đại Nam thực lục, Khâm định Việt sử thông giám cương mục,..."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "thanh-lap-quoc-su-quan-trieu-nguyen",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 368
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": false,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

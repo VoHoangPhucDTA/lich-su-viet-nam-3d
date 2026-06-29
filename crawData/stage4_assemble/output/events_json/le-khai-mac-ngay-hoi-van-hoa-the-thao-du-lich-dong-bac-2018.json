@@ -1,0 +1,154 @@
+{
+  "id": "le-khai-mac-ngay-hoi-van-hoa-the-thao-du-lich-dong-bac-2018",
+  "slug": "le-khai-mac-ngay-hoi-van-hoa-the-thao-du-lich-dong-bac-2018",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Lễ khai mạc Ngày hội văn hoá, Thể thao và Du lịch các dân tộc vùng Đông Bắc lần thứ X",
+    "short": "Ngày hội văn hoá Đông Bắc lần thứ X",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "cultural",
+    "eventSubtype": "festival",
+    "region": "vietnam",
+    "tags": [
+      "du lịch",
+      "thể thao",
+      "văn hóa",
+      "dân tộc thiểu số"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      10
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 10,
+        "lessonId": "12169",
+        "lessonTitle": "Bài 14: Khối Đại Đoàn Kết Dân Tộc Trong Lịch Sử Việt Nam"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 2018,
+      "month": null,
+      "day": null
+    },
+    "end": null,
+    "datePrecision": "year",
+    "displayDate": "Năm 2018",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "mixed",
+    "historicalLocations": [],
+    "provinceNames": [
+      "Thái Nguyên"
+    ],
+    "gadmRefs": [
+      "VNM.56_1"
+    ],
+    "marker": {
+      "name": "vùng Đông Bắc",
+      "lat": 21.5833,
+      "lng": 105.85,
+      "confidence": "low"
+    },
+    "markers": [
+      {
+        "name": "vùng Đông Bắc",
+        "lat": 21.5833,
+        "lng": 105.85,
+        "confidence": "low"
+      }
+    ],
+    "focusGeometry": {
+      "mode": "bounds",
+      "center": {
+        "lat": 21.636688,
+        "lng": 105.85524
+      },
+      "zoom": 7
+    }
+  },
+  "summary": {
+    "homepageTitle": "Ngày hội văn hoá Đông Bắc lần thứ X (2018)",
+    "homepageSummary": "Năm 2018, Lễ khai mạc Ngày hội văn hoá, Thể thao và Du lịch các dân tộc vùng Đông Bắc lần thứ X được tổ chức, nhằm gìn giữ và phát huy bản sắc văn hóa dân tộc.",
+    "cardSummary": "Lễ khai mạc Ngày hội văn hoá, Thể thao và Du lịch các dân tộc vùng Đông Bắc lần thứ X diễn ra năm 2018."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Lễ khai mạc Ngày hội văn hoá, Thể thao và Du lịch các dân tộc vùng Đông Bắc lần thứ X (2018).",
+    "detailedNarrative": null,
+    "significance": "Thể hiện việc xây dựng nền văn hoá Việt Nam tiên tiến, đậm đà bản sắc dân tộc, bao gồm các giá trị và bản sắc văn hoá của 54 dân tộc.",
+    "keyFacts": [
+      "Tổ chức cho các dân tộc vùng Đông Bắc",
+      "Diễn ra vào năm 2018",
+      "Là lần thứ X của Ngày hội"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 10,
+        "book": "KNTT",
+        "lessonId": "12169",
+        "lessonTitle": "Bài 14: Khối Đại Đoàn Kết Dân Tộc Trong Lịch Sử Việt Nam",
+        "chapter": "Chu de 7",
+        "lesson": "Bai 14",
+        "pageRange": {
+          "start": 136,
+          "end": 141
+        },
+        "url": "https://sgkvn.com/lop-10-13/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-7-cong-dong-cac-dan-toc-viet-nam-3279/bai-14-khoi-dai-doan-ket-dan-toc-trong-lich-su-viet-nam-12169.html",
+        "excerpt": "Lễ khai mạc Ngày hội văn hoá, Thể thao và Du lịch các dân tộc vùng Đông Bắc lần thứ X (2018)."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "le-khai-mac-ngay-hoi-van-hoa-the-thao-du-lich-dong-bac-2018",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 292
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": true,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

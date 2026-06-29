@@ -1,0 +1,158 @@
+{
+  "id": "hoat-dong-doi-ngoai-dang-cong-san-dong-duong-1930-1945",
+  "slug": "hoat-dong-doi-ngoai-dang-cong-san-dong-duong-1930-1945",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Hoạt động đối ngoại của Đảng Cộng sản Đông Dương",
+    "short": "Hoạt động đối ngoại của Đảng Cộng sản Đông Dương",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "diplomatic_activity",
+    "region": "world",
+    "tags": [
+      "Quốc tế Cộng sản",
+      "Đảng Cộng sản Đông Dương",
+      "chống phát xít",
+      "Đồng minh"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 12,
+        "lessonId": "12962",
+        "lessonTitle": "BÀI 12: HOẠT ĐỘNG ĐỐI NGOẠI CỦA VIỆT NAM TRONG ĐẤU TRANH GIÀNH ĐỘC LẬP DÂN TỘC (TỪ ĐẦU THẾ KỈ XX ĐẾN CÁCH MẠNG THÁNG TÁM NĂM 1945)"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1930,
+      "month": null,
+      "day": null
+    },
+    "end": {
+      "year": 1945,
+      "month": null,
+      "day": null
+    },
+    "datePrecision": "year",
+    "displayDate": "1930 – 1945",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "no_location",
+    "historicalLocations": [
+      "Miến Điện",
+      "Mỹ",
+      "Tân Trào",
+      "Thái Lan",
+      "Đông Dương",
+      "Mã Lai",
+      "In-đô-nê-xi-a",
+      "Liên Xô",
+      "Phi-líp-pin",
+      "Việt Nam",
+      "Trung Quốc",
+      "Trung Hoa Dân quốc",
+      "Đông Nam Á",
+      "Tuyên Quang"
+    ],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "auto",
+      "center": null,
+      "zoom": null
+    }
+  },
+  "summary": {
+    "homepageTitle": "Đối ngoại của ĐCS Đông Dương (1930-1945)",
+    "homepageSummary": "Đảng Cộng sản Đông Dương phục vụ đấu tranh chống thực dân, phát xít, giành độc lập, góp phần bảo vệ hoà bình, củng cố quan hệ quốc tế.",
+    "cardSummary": "ĐCS Đông Dương hoạt động đối ngoại (1930-1945) chống phát xít, giành độc lập, củng cố quan hệ quốc tế."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Trong những năm 1930 – 1945, hoạt động đối ngoại của Đảng Cộng sản Đông Dương chủ yếu phục vụ cho cuộc đấu tranh chống thực dân, phát xít, tiến tới giành độc lập, tự do, góp phần bảo vệ hoà bình. Đảng ủng hộ Liên Xô, phối hợp với các tổ chức người Pháp, người Hoa giúp đỡ nạn nhân chiến tranh ở Trung Quốc, củng cố quan hệ với Đảng Cộng sản Trung Quốc, liên lạc với phong trào dân tộc chống quân phiệt Nhật Bản ở Đông Nam Á. Thông qua Mặt trận Việt Minh, Đảng đứng về phía lực lượng Đồng minh, tiếp xúc với Trung Hoa Dân quốc và hợp tác với Cơ quan Tình báo chiến lược Mỹ (OSS).",
+    "detailedNarrative": "Là một phân bộ của Quốc tế Cộng sản, Đảng Cộng sản Đông Dương lãnh đạo, tổ chức nhiều hoạt động ủng hộ Liên Xô; phối hợp với các tổ chức của người Pháp, người Hoa ở Đông Dương tiến hành quyên góp giúp đỡ các nạn nhân chiến tranh ở Trung Quốc. Đảng Cộng sản Đông Dương cũng tích cực củng cố quan hệ với Đảng Cộng sản Trung Quốc, thành lập Tiểu ban vận động Hoa Kiểu, giúp đỡ người Hoa tổ chức hội cứu quốc. Nhằm mở rộng quan hệ với lực lượng chống quân phiệt Nhật Bản ở Đông Nam Á, Đảng Cộng sản Đông Dương liên lạc với phong trào dân tộc chống quân phiệt Nhật Bản ở một số nước như: Miến Điện, Mã Lai, Phi-líp-pin, Thái Lan, In-đô-nê-xi-a,... Thông qua Mặt trận Việt Minh, hoạt động đối ngoại của Đảng Cộng sản Đông Dương thể hiện rõ chủ trương đứng về phía lực lượng Đồng minh trong cuộc chiến chống quân phiệt Nhật Bản, đồng thời, tranh thủ sự ủng hộ quốc tế cho cách mạng Việt Nam. Đại diện của Mặt trận Việt Minh tiếp xúc với đại diện của Trung Hoa Dân quốc, bàn về kế hoạch phối hợp chống quân phiệt Nhật Bản, cử đại biểu tham gia Việt Nam Cách mạng Đồng minh hội. Đối với phái bộ Mỹ ở phía nam Trung Quốc, đại diện của Mặt trận Việt Minh chủ động bắt liên lạc để thiết lập quan hệ và hợp tác chống quân phiệt Nhật Bản. Cuối tháng 4 – 1945, sự hợp tác giữa Việt Minh và Cơ quan Tình báo chiến lược Mỹ (OSS) tại châu Á được xác lập.",
+    "significance": "Phục vụ cuộc đấu tranh chống thực dân, phát xít, tiến tới giành độc lập, tự do, góp phần bảo vệ hoà bình; tranh thủ sự ủng hộ quốc tế cho cách mạng Việt Nam.",
+    "keyFacts": [
+      "Giúp đỡ nạn nhân chiến tranh ở Trung Quốc",
+      "Ủng hộ Liên Xô",
+      "Củng cố quan hệ với Đảng Cộng sản Trung Quốc",
+      "Liên lạc với phong trào chống Nhật ở Đông Nam Á",
+      "Hợp tác với Trung Hoa Dân quốc và OSS Mỹ",
+      "Phục vụ đấu tranh chống thực dân, phát xít",
+      "Thông qua Việt Minh, đứng về phía Đồng minh"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 12,
+        "book": "KNTT",
+        "lessonId": "12962",
+        "lessonTitle": "BÀI 12: HOẠT ĐỘNG ĐỐI NGOẠI CỦA VIỆT NAM TRONG ĐẤU TRANH GIÀNH ĐỘC LẬP DÂN TỘC (TỪ ĐẦU THẾ KỈ XX ĐẾN CÁCH MẠNG THÁNG TÁM NĂM 1945)",
+        "chapter": "Chu de 4",
+        "lesson": "Bai 12",
+        "pageRange": {
+          "start": 73,
+          "end": 76
+        },
+        "url": "https://sgkvn.com/lop-12-15/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-4-cong-cuoc-doi-moi-o-viet-nam-tu-nam-1986-den-nay-3540/bai-12-hoat-dong-doi-ngoai-cua-viet-nam-trong-dau-tranh-gianh-doc-lap-dan-toc-tu-dau-the-ki-xx-den-cach-mang-thang-tam-nam-1945-12962.html",
+        "excerpt": "Trong những năm 1930 – 1945, hoạt động đối ngoại của Đảng Cộng sản Đông Dương chủ yếu phục vụ cho cuộc đấu tranh chống thực dân, phát xít, tiến tới giành độc lập, tự do, góp phần bảo vệ hoà bình. Đảng ủng hộ Liên Xô, phối hợp với các tổ chức người Pháp, người Hoa giúp đỡ nạn nhân chiến tranh ở Trung Quốc, củng cố quan hệ với Đảng Cộng sản Trung Quốc, liên lạc với phong trào dân tộc chống quân phiệt Nhật Bản ở Đông Nam Á. Thông qua Mặt trận Việt Minh, Đảng đứng về phía lực lượng Đồng minh, tiếp xúc với Trung Hoa Dân quốc và hợp tác với Cơ quan Tình báo chiến lược Mỹ (OSS)."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "hoat-dong-doi-ngoai-dang-cong-san-dong-duong-1930-1945",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 130
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": false,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

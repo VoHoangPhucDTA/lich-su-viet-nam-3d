@@ -1,0 +1,144 @@
+{
+  "id": "nha-ly-to-chuc-khoa-thi-nho-hoc-dau-tien",
+  "slug": "nha-ly-to-chuc-khoa-thi-nho-hoc-dau-tien",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Nhà Lý tổ chức khoa thi Nho học đầu tiên",
+    "short": "Nhà Lý tổ chức khoa thi Nho học đầu tiên",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "reform",
+    "region": "vietnam",
+    "tags": [
+      "tuyển dụng quan lại",
+      "Nhà Lý",
+      "Nho học",
+      "khoa cử"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      10
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 10,
+        "lessonId": "12146",
+        "lessonTitle": "Bài 9: Cơ Sở Hình Thành Văn Minh Đông Nam Á Thời Kì Cổ – Trung Đại"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "end": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "datePrecision": "period",
+    "displayDate": "Thời nhà Lý",
+    "isApproximate": true
+  },
+  "mapData": {
+    "geoType": "nationwide",
+    "historicalLocations": [
+      "Việt Nam"
+    ],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "bounds",
+      "center": {
+        "lat": 16.0,
+        "lng": 106.0
+      },
+      "zoom": 5
+    }
+  },
+  "summary": {
+    "homepageTitle": "Nhà Lý tổ chức khoa thi Nho học",
+    "homepageSummary": "Nhà Lý tổ chức khoa thi Nho học đầu tiên để tuyển dụng quan lại, thúc đẩy giáo dục Nho giáo ở Việt Nam.",
+    "cardSummary": "Nhà Lý tổ chức khoa thi Nho học đầu tiên nhằm tuyển dụng quan lại, thể hiện ảnh hưởng của Nho giáo."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Nhà Lý cho... tổ chức khoa thi Nho học đầu tiên để tuyển dụng quan lại.",
+    "detailedNarrative": null,
+    "significance": "Đánh dấu sự hình thành và phát triển của hệ thống giáo dục khoa cử Nho học, góp phần đào tạo nhân tài cho đất nước.",
+    "keyFacts": [
+      "Tổ chức bởi nhà Lý",
+      "Mục đích tuyển dụng quan lại",
+      "Khoa thi Nho học đầu tiên"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 10,
+        "book": "KNTT",
+        "lessonId": "12146",
+        "lessonTitle": "Bài 9: Cơ Sở Hình Thành Văn Minh Đông Nam Á Thời Kì Cổ – Trung Đại",
+        "chapter": "Chu de 5",
+        "lesson": "Bai 9",
+        "pageRange": {
+          "start": 76,
+          "end": 84
+        },
+        "url": "https://sgkvn.com/lop-10-13/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-5-van-minh-dong-nam-a-3275/bai-9-co-so-hinh-thanh-van-minh-dong-nam-a-thoi-ki-co-trung-dai-12146.html",
+        "excerpt": "Nhà Lý cho... tổ chức khoa thi Nho học đầu tiên để tuyển dụng quan lại."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "nha-ly-to-chuc-khoa-thi-nho-hoc-dau-tien",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 351
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": true,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

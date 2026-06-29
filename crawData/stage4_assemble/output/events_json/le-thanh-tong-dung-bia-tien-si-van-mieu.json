@@ -1,0 +1,155 @@
+{
+  "id": "le-thanh-tong-dung-bia-tien-si-van-mieu",
+  "slug": "le-thanh-tong-dung-bia-tien-si-van-mieu",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Vua Lê Thánh Tông cho dựng bia đá ở Văn Miếu khắc tên Tiến sĩ",
+    "short": "Vua Lê Thánh Tông cho dựng bia đá ở Văn Miếu khắc tên Tiến sĩ",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "cultural",
+    "eventSubtype": "construction",
+    "region": "vietnam",
+    "tags": [
+      "Lê Thánh Tông",
+      "bia Tiến sĩ",
+      "Văn Miếu",
+      "khoa cử"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      10
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 10,
+        "lessonId": "12160",
+        "lessonTitle": "Bài 12: Văn Minh Đại Việt"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1484,
+      "month": null,
+      "day": null
+    },
+    "end": null,
+    "datePrecision": "year",
+    "displayDate": "Năm 1484",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "mixed",
+    "historicalLocations": [],
+    "provinceNames": [
+      "Hà Nội"
+    ],
+    "gadmRefs": [
+      "VNM.27_1"
+    ],
+    "marker": {
+      "name": "Văn Miếu",
+      "lat": 21.0294,
+      "lng": 105.8356,
+      "confidence": "high"
+    },
+    "markers": [
+      {
+        "name": "Văn Miếu",
+        "lat": 21.0294,
+        "lng": 105.8356,
+        "confidence": "high"
+      }
+    ],
+    "focusGeometry": {
+      "mode": "bounds",
+      "center": {
+        "lat": 21.0126,
+        "lng": 105.785432
+      },
+      "zoom": 7
+    }
+  },
+  "summary": {
+    "homepageTitle": "Lê Thánh Tông dựng bia Tiến sĩ Văn Miếu (1484)",
+    "homepageSummary": "Năm 1484, vua Lê Thánh Tông bắt đầu cho dựng bia đá ở Văn Miếu, khắc tên những người đỗ tiến sĩ.",
+    "cardSummary": "Vua Lê Thánh Tông cho dựng bia Tiến sĩ ở Văn Miếu từ năm 1484."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Năm 1484, vua Lê Thánh Tông bắt đầu cho dựng bia đá ở Văn Miếu, khắc tên những người đỗ tiến sĩ.",
+    "detailedNarrative": null,
+    "significance": "Tôn vinh những người đỗ đạt, khuyến khích học tập và khoa cử.",
+    "keyFacts": [
+      "Tại Văn Miếu",
+      "Bắt đầu từ năm 1484",
+      "Khắc tên những người đỗ tiến sĩ",
+      "Vua Lê Thánh Tông cho dựng bia đá"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 10,
+        "book": "KNTT",
+        "lessonId": "12160",
+        "lessonTitle": "Bài 12: Văn Minh Đại Việt",
+        "chapter": "Chu de 6",
+        "lesson": "Bai 12",
+        "pageRange": {
+          "start": 108,
+          "end": 122
+        },
+        "url": "https://sgkvn.com/lop-10-13/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-6-mot-so-nen-van-minh-tren-dat-nuoc-viet-nam-truoc-nam-1858-3276/bai-12-van-minh-dai-viet-12160.html",
+        "excerpt": "Năm 1484, vua Lê Thánh Tông bắt đầu cho dựng bia đá ở Văn Miếu, khắc tên những người đỗ tiến sĩ."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "le-thanh-tong-dung-bia-tien-si-van-mieu",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 50
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": true,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

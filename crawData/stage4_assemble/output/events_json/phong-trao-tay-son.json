@@ -1,0 +1,273 @@
+{
+  "id": "phong-trao-tay-son",
+  "slug": "phong-trao-tay-son",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Phong trào Tây Sơn",
+    "short": "Phong trào Tây Sơn",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "military",
+    "eventSubtype": "uprising",
+    "region": "vietnam",
+    "tags": [
+      "Nguyễn Nhạc",
+      "Quân Xiêm",
+      "Vua Lê",
+      "Chúa Nguyễn",
+      "Quân Thanh",
+      "Thống nhất đất nước",
+      "Chúa Trịnh",
+      "Nguyễn Huệ",
+      "Nguyễn Lữ"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 11,
+        "lessonId": "12372",
+        "lessonTitle": "BÀI 8  MỘT SỐ CUỘC KHỞI NGHĨA VÀ CHIẾN T"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1771,
+      "month": null,
+      "day": null
+    },
+    "end": {
+      "year": 1789,
+      "month": null,
+      "day": null
+    },
+    "datePrecision": "year",
+    "displayDate": "1771-1789",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "mixed",
+    "historicalLocations": [],
+    "provinceNames": [
+      "Bình Thuận",
+      "Thanh Hóa",
+      "Quảng Ngãi",
+      "Quảng Nam",
+      "Nghệ An",
+      "Hà Nội",
+      "Thừa Thiên Huế",
+      "Bình Định",
+      "Gia Lai",
+      "Đà Nẵng",
+      "Tiền Giang"
+    ],
+    "gadmRefs": [
+      "VNM.11_1",
+      "VNM.57_1",
+      "VNM.48_1",
+      "VNM.47_1",
+      "VNM.41_1",
+      "VNM.27_1",
+      "VNM.54_1",
+      "VNM.8_1",
+      "VNM.21_1",
+      "VNM.19_1",
+      "VNM.58_1"
+    ],
+    "marker": {
+      "name": "Bình Thuận",
+      "lat": 10.9333,
+      "lng": 108.0,
+      "confidence": "high"
+    },
+    "markers": [
+      {
+        "name": "Bình Thuận",
+        "lat": 10.9333,
+        "lng": 108.0,
+        "confidence": "high"
+      },
+      {
+        "name": "Thanh Hoá",
+        "lat": 19.8,
+        "lng": 105.7,
+        "confidence": "high"
+      },
+      {
+        "name": "Quảng Ngãi",
+        "lat": 15.0,
+        "lng": 108.7,
+        "confidence": "high"
+      },
+      {
+        "name": "Quảng Nam",
+        "lat": 15.5,
+        "lng": 108.0,
+        "confidence": "high"
+      },
+      {
+        "name": "Nghệ An",
+        "lat": 19.0,
+        "lng": 105.0,
+        "confidence": "high"
+      },
+      {
+        "name": "Ngọc Hồi - Đống Đa",
+        "lat": 20.98,
+        "lng": 105.82,
+        "confidence": "medium"
+      },
+      {
+        "name": "Phú Xuân",
+        "lat": 16.4637,
+        "lng": 107.5909,
+        "confidence": "high"
+      },
+      {
+        "name": "Đàng Trong",
+        "lat": 12.0,
+        "lng": 108.0,
+        "confidence": "low"
+      },
+      {
+        "name": "Quy Nhơn",
+        "lat": 13.7878,
+        "lng": 109.2206,
+        "confidence": "high"
+      },
+      {
+        "name": "Thăng Long",
+        "lat": 21.0285,
+        "lng": 105.8542,
+        "confidence": "high"
+      },
+      {
+        "name": "Bình Định",
+        "lat": 14.0,
+        "lng": 108.9,
+        "confidence": "high"
+      },
+      {
+        "name": "Đồ Bàn (Quy Nhơn, Bình Định)",
+        "lat": 13.7667,
+        "lng": 109.2333,
+        "confidence": "high"
+      },
+      {
+        "name": "Tây Sơn thượng đạo (An Khê, Gia Lai)",
+        "lat": 13.9667,
+        "lng": 108.65,
+        "confidence": "high"
+      },
+      {
+        "name": "Đà Nẵng",
+        "lat": 16.0544,
+        "lng": 108.2022,
+        "confidence": "high"
+      },
+      {
+        "name": "Rạch Gầm – Xoài Mút",
+        "lat": 10.35,
+        "lng": 105.95,
+        "confidence": "high"
+      }
+    ],
+    "focusGeometry": {
+      "mode": "bounds",
+      "center": {
+        "lat": 15.581905,
+        "lng": 107.420978
+      },
+      "zoom": 7
+    }
+  },
+  "summary": {
+    "homepageTitle": "Phong trào Tây Sơn (1771-1789)",
+    "homepageSummary": "Phong trào Tây Sơn do ba anh em Nguyễn Nhạc, Nguyễn Huệ, Nguyễn Lữ lãnh đạo, lật đổ các chính quyền phong kiến, thống nhất đất nước và đánh tan quân xâm lược Xiêm, Thanh.",
+    "cardSummary": "Phong trào Tây Sơn (1771-1789) lật đổ chúa Nguyễn, Trịnh, Lê; đánh tan Xiêm, Thanh."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Mùa xuân năm 1771, ba anh em Nguyễn Nhạc, Nguyễn Huệ, Nguyễn Lữ dựng cờ khởi nghĩa ở Tây Sơn thượng đạo. Phong trào nhanh chóng phát triển, chiếm được Quy Nhơn (9-1773), kiểm soát vùng đất từ Quảng Nam đến Bình Thuận (giữa 1774), lật đổ chính quyền chúa Nguyễn (1777), Nguyễn Nhạc lên ngôi hoàng đế (1778). Sau đó, đánh tan quân Xiêm (1-1785), giải phóng Đàng Trong (6-1786), lật đổ chính quyền họ Trịnh (7-1786). Tháng 12-1788, Nguyễn Huệ lên ngôi hoàng đế Quang Trung, tiến quân ra Bắc và đại phá quân Thanh (1789).",
+    "detailedNarrative": "Mùa xuân năm 1771, ba anh em Nguyễn Nhạc, Nguyễn Huệ, Nguyễn Lữ dựng cờ khởi nghĩa ở Tây Sơn thượng đạo (An Khê, Gia Lai) chống lại chính quyền họ Nguyễn.\n- Tháng 9 – 1773: Nghĩa quân chiếm được phủ thành Quy Nhơn.\n- Giữa năm 1774: Nghĩa quân kiểm soát được vùng đất rộng lớn từ Quảng Nam đến Bình Thuận.\n- Năm 1777: Lật đổ chính quyền chúa Nguyễn.\n- Năm 1778: Nguyễn Nhạc lên ngôi hoàng đế, đóng đô ở thành Đồ Bàn (Quy Nhơn, Bình Định).\n- Tháng 1-1785: Đánh tan năm vạn quân Xiêm sau chiến thắng Rạch Gầm – Xoài Mút.\n- Tháng 6-1786: Hạ thành Phú Xuân, giải phóng toàn bộ vùng đất Đàng Trong.\n- Tháng 7 - 1786: Lật đổ chính quyền họ Trịnh.\n- Tháng 12-1788: Nguyễn Huệ lên ngôi hoàng đế, lấy niên hiệu là Quang Trung, tiến quân ra Bắc.\n- Năm 1789: Đại phá quân Thanh bằng chiến thắng Ngọc Hồi - Đống Đa.",
+    "significance": "Phong trào Tây Sơn đã lật đổ chính quyền chúa Nguyễn, chúa Trịnh và vua Lê, xoá bỏ ranh giới chia cắt đất nước, đặt nền tảng cho việc khôi phục nền thống nhất quốc gia. Đồng thời, phong trào Tây Sơn đánh tan các cuộc xâm lược của quân Xiêm, quân Thanh, bảo vệ vững chắc nền độc lập dân tộc và chủ quyền lãnh thổ của Tổ quốc.",
+    "keyFacts": [
+      "Năm 1778, Nguyễn Nhạc lên ngôi hoàng đế",
+      "Năm 1789, đại phá quân Thanh bằng chiến thắng Ngọc Hồi - Đống Đa",
+      "Tháng 6-1786, hạ thành Phú Xuân, giải phóng toàn bộ vùng đất Đàng Trong",
+      "Tháng 7 - 1786, lật đổ chính quyền họ Trịnh",
+      "Năm 1777, lật đổ chính quyền chúa Nguyễn",
+      "Mùa xuân 1771, ba anh em Nguyễn Nhạc, Nguyễn Huệ, Nguyễn Lữ dựng cờ khởi nghĩa ở Tây Sơn thượng đạo",
+      "Tháng 9 – 1773, chiếm phủ thành Quy Nhơn",
+      "Tháng 1-1785, đánh tan năm vạn quân Xiêm sau chiến thắng Rạch Gầm – Xoài Mút",
+      "Tháng 12-1788, Nguyễn Huệ lên ngôi hoàng đế Quang Trung, tiến quân ra Bắc"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 11,
+        "book": "KNTT",
+        "lessonId": "12372",
+        "lessonTitle": "BÀI 8  MỘT SỐ CUỘC KHỞI NGHĨA VÀ CHIẾN T",
+        "chapter": "Chu de 4",
+        "lesson": "Bai 8",
+        "pageRange": {
+          "start": null,
+          "end": null
+        },
+        "url": "https://sgkvn.com/lop-11-14/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-4-chien-tranh-bao-ve-to-quoc-va-chien-tranh-giai-phong-dan-toc-trong-lich-su-viet-nam-truoc-cach-mang-thang-tam-nam-1945-3346/bai-8-mot-so-cuoc-khoi-nghia-va-chien-tranh-giai-phong-trong-lich-su-viet-nam-tu-the-ki-iii-truoc-cong-nguyen-den-cuoi-the-ki-xix-12372.html",
+        "excerpt": "Mùa xuân năm 1771, ba anh em Nguyễn Nhạc, Nguyễn Huệ, Nguyễn Lữ dựng cờ khởi nghĩa ở Tây Sơn thượng đạo. Phong trào nhanh chóng phát triển, chiếm được Quy Nhơn (9-1773), kiểm soát vùng đất từ Quảng Nam đến Bình Thuận (giữa 1774), lật đổ chính quyền chúa Nguyễn (1777), Nguyễn Nhạc lên ngôi hoàng đế (1778). Sau đó, đánh tan quân Xiêm (1-1785), giải phóng Đàng Trong (6-1786), lật đổ chính quyền họ Trịnh (7-1786). Tháng 12-1788, Nguyễn Huệ lên ngôi hoàng đế Quang Trung, tiến quân ra Bắc và đại phá quân Thanh (1789)."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "phong-trao-tay-son",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 56
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": true,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

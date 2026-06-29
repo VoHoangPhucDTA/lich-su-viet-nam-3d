@@ -1,0 +1,1145 @@
+{
+  "examId": "thuvienhoclieu-com-de-thi-thu-tot-nghiep-2026-lich-su-thpt-hoang-hoa-lan-1",
+  "title": "Đề thi Lịch sử – thuvienhoclieu.com-De-thi-thu-Tot-Nghiep-2026-Lich-su-THPT-Hoang-Hoa-Lan-1",
+  "year": 2025,
+  "source": "",
+  "sourceDetail": "thuvienhoclieu.com-De-thi-thu-Tot-Nghiep-2026-Lich-su-THPT-Hoang-Hoa-Lan-1",
+  "examCode": "",
+  "format": "thpt_2025",
+  "timeLimitMinutes": 50,
+  "totalScore": 10.0,
+  "parsedAt": "2026-05-17T09:51:50.645275+00:00",
+  "sections": [
+    {
+      "sectionId": "phan-1",
+      "sectionType": "mcq",
+      "title": "Phần I – Trắc nghiệm nhiều lựa chọn",
+      "totalQuestions": 24,
+      "maxScore": 6.0,
+      "scorePerQuestion": 0.25,
+      "questions": [
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tot-nghiep-2026-lich-su-thpt-hoang-hoa-lan-1-q01",
+          "orderInExam": 1,
+          "questionType": "mcq",
+          "questionText": "Theo thỏa thuận của Hội nghị I-an-ta (tháng 2-1945), địa bàn nào sau đây thuộc phạm vi ảnh hưởng của Mỹ?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Tây Âu."
+            },
+            {
+              "id": "B",
+              "text": "Bắc Triều Tiên."
+            },
+            {
+              "id": "C",
+              "text": "Đông Đức."
+            },
+            {
+              "id": "D",
+              "text": "Đông Âu."
+            }
+          ],
+          "correctOptionId": "A",
+          "explanation": "Câu 1. Chọn A. Tây Âu.\nTheo thỏa thuận I-an-ta, châu Âu bị phân chia phạm vi ảnh hưởng. Đông Âu thuộc phạm vi ảnh hưởng của Liên Xô, còn Tây Âu thuộc phạm vi ảnh hưởng của Mĩ và các nước phương Tây. Vì vậy chọn A.",
+          "difficulty": "medium",
+          "topic": "Trật tự thế giới sau Chiến tranh thế giới thứ hai",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-Tot-Nghiep-2026-Lich-su-THPT-Hoang-Hoa-Lan-1",
+              "location": "Câu 1"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tot-nghiep-2026-lich-su-thpt-hoang-hoa-lan-1-q02",
+          "orderInExam": 2,
+          "questionType": "mcq",
+          "questionText": "Nội dung nào sau đây phản ánh đúng về cuộc kháng chiến chống Mỹ, cứu nước của nhân dân Việt Nam (1954 – 1975)?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Đánh địch bằng ba mặt trận, mặt trận ngoại giao đóng vai trò quyết định thắng lợi."
+            },
+            {
+              "id": "B",
+              "text": "Kết hợp giữa chiến tranh du kích với chiến tranh chính quy, du kích chiến là hình thức chủ yếu."
+            },
+            {
+              "id": "C",
+              "text": "Thực hiện nhiệm vụ giải phóng dân tộc và góp phần vào bảo vệ hoà bình thế giới."
+            },
+            {
+              "id": "D",
+              "text": "Đánh địch ở cả ba vùng rừng núi, nông thôn đồng bằng và đô thị, thắng lợi ở rừng núi là quyết định."
+            }
+          ],
+          "correctOptionId": "C",
+          "explanation": "Câu 2. Chọn C.\nCuộc kháng chiến chống Mĩ, cứu nước của nhân dân Việt Nam vừa nhằm giải phóng miền Nam, thống nhất đất nước, vừa góp phần vào phong trào đấu tranh vì hòa bình, độc lập dân tộc trên thế giới.\nA sai vì ngoại giao rất quan trọng nhưng không “đóng vai trò quyết định”.\nB sai vì không thể nói du kích chiến là hình thức chủ yếu trong toàn bộ cuộc kháng chiến.\nD sai vì thắng lợi không phải chỉ quyết định ở rừng núi.\nVì vậy chọn C.",
+          "difficulty": "medium",
+          "topic": "Kháng chiến chống Mỹ cứu nước 1954-1975",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-Tot-Nghiep-2026-Lich-su-THPT-Hoang-Hoa-Lan-1",
+              "location": "Câu 2"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tot-nghiep-2026-lich-su-thpt-hoang-hoa-lan-1-q03",
+          "orderInExam": 3,
+          "questionType": "mcq",
+          "questionText": "Đại hội đại biểu lần thứ II của Đảng Cộng sản Đông Dương (2/1951) có quyết định nào sau đây?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Mở chiến dịch Biên giới thu đông."
+            },
+            {
+              "id": "B",
+              "text": "Đưa Đảng ra hoạt động công khai."
+            },
+            {
+              "id": "C",
+              "text": "Mở chiến dịch Việt Bắc thu đông."
+            },
+            {
+              "id": "D",
+              "text": "Phát động toàn quốc kháng chiến."
+            }
+          ],
+          "correctOptionId": "B",
+          "explanation": "Câu 3. Chọn B. Đưa Đảng ra hoạt động công khai.\nĐại hội đại biểu lần thứ II của Đảng Cộng sản Đông Dương tháng 2/1951 quyết định đưa Đảng ra hoạt động công khai, lấy tên là Đảng Lao động Việt Nam.\nCác phương án còn lại là những sự kiện khác: Chiến dịch Việt Bắc thu đông năm 1947, phát động toàn quốc kháng chiến năm 1946, Chiến dịch Biên giới thu đông năm 1950.\nVì vậy chọn B.",
+          "difficulty": "medium",
+          "topic": "Kháng chiến chống Pháp 1945-1954",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-Tot-Nghiep-2026-Lich-su-THPT-Hoang-Hoa-Lan-1",
+              "location": "Câu 3"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tot-nghiep-2026-lich-su-thpt-hoang-hoa-lan-1-q04",
+          "orderInExam": 4,
+          "questionType": "mcq",
+          "questionText": "Chiến dịch Điện Biên Phủ (1954) của quân dân Việt Nam thắng lợi đã",
+          "options": [
+            {
+              "id": "A",
+              "text": "làm phá sản hoàn toàn kế hoạch Na – va của Pháp."
+            },
+            {
+              "id": "B",
+              "text": "buộc Pháp phải kí Hiệp định Pa – ri về Việt Nam."
+            },
+            {
+              "id": "C",
+              "text": "làm thất bại âm mưu quốc tế hoá chiến tranh của Pháp."
+            },
+            {
+              "id": "D",
+              "text": "buộc Pháp phải chuyển sang đánh lâu dài với ta."
+            }
+          ],
+          "correctOptionId": "A",
+          "explanation": "Câu 4. Chọn A.\nChiến thắng Điện Biên Phủ năm 1954 đã làm phá sản hoàn toàn kế hoạch Na-va của Pháp - Mĩ, buộc Pháp phải kí Hiệp định Giơ-ne-vơ về Đông Dương.\nB sai vì Hiệp định Pa-ri là năm 1973, liên quan đến cuộc kháng chiến chống Mĩ.\nC, D không phản ánh đúng kết quả trực tiếp của chiến dịch Điện Biên Phủ.\nVì vậy chọn A.",
+          "difficulty": "medium",
+          "topic": "Kháng chiến chống Pháp 1945-1954",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-Tot-Nghiep-2026-Lich-su-THPT-Hoang-Hoa-Lan-1",
+              "location": "Câu 4"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tot-nghiep-2026-lich-su-thpt-hoang-hoa-lan-1-q05",
+          "orderInExam": 5,
+          "questionType": "mcq",
+          "questionText": "Tổng khởi nghĩa tháng Tám năm 1945 ở Việt Nam diễn ra nhanh chóng và ít đổ máu vì",
+          "options": [
+            {
+              "id": "A",
+              "text": "hoạt động khôn khéo của lực lượng cách mạng vô hiệu hóa quân Nhật ở nhiều nơi."
+            },
+            {
+              "id": "B",
+              "text": "chính quyền tay sai của Nhật tan rã ở nhiều nơi ngay khi phát xít Nhật đầu hàng."
+            },
+            {
+              "id": "C",
+              "text": "quân Nhật đã suy yếu đến cực độ, không còn tinh thần kháng cự."
+            },
+            {
+              "id": "D",
+              "text": "lực lượng chính trị, vũ trang của ta đã được chuẩn bị đầy đủ, lớn mạnh."
+            }
+          ],
+          "correctOptionId": "B",
+          "explanation": "Câu 5. Chọn B.\nTổng khởi nghĩa tháng Tám diễn ra nhanh chóng và ít đổ máu vì Nhật đầu hàng Đồng minh, chính quyền tay sai Nhật ở nhiều nơi hoang mang, tan rã, tạo thời cơ thuận lợi cho nhân dân nổi dậy giành chính quyền.\nD đúng một phần vì lực lượng cách mạng đã được chuẩn bị, nhưng nguyên nhân trực tiếp làm khởi nghĩa nhanh và ít đổ máu là sự tan rã của chính quyền tay sai Nhật.\nVì vậy chọn B.",
+          "difficulty": "medium",
+          "topic": "Cách mạng tháng Tám 1945",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-Tot-Nghiep-2026-Lich-su-THPT-Hoang-Hoa-Lan-1",
+              "location": "Câu 5"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tot-nghiep-2026-lich-su-thpt-hoang-hoa-lan-1-q06",
+          "orderInExam": 6,
+          "questionType": "mcq",
+          "questionText": "Nội dung nào sau đây là biểu hiện của xu thế đa cực trong quan hệ quốc tế từ đầu thế kỉ XXI đến nay?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Mỹ đã thiết lập được trật tự thế giới “đơn cực” và vai trò lãnh đạo thế giới."
+            },
+            {
+              "id": "B",
+              "text": "Các liên minh quân sự xuất hiện ngày càng nhiều và ra sức chạy đua vũ trang."
+            },
+            {
+              "id": "C",
+              "text": "Liên Xô trở thành cường quốc kinh tế, chính trị, khoa học – kĩ thuật đứng đầu thế giới."
+            },
+            {
+              "id": "D",
+              "text": "Mỹ suy giảm sức mạnh tương đối trong tương quan so sánh với các cường quốc khác."
+            }
+          ],
+          "correctOptionId": "D",
+          "explanation": "Câu 6. Chọn D.\nXu thế đa cực thể hiện ở việc sức mạnh của Mĩ suy giảm tương đối so với các trung tâm, cường quốc khác; nhiều nước, nhiều trung tâm quyền lực cùng vươn lên trong quan hệ quốc tế.\nA sai vì Mĩ không thiết lập được trật tự “đơn cực” bền vững.\nB không phải biểu hiện cơ bản của xu thế đa cực.\nC sai vì Liên Xô đã tan rã năm 1991.\nVì vậy chọn D.",
+          "difficulty": "medium",
+          "topic": "Quan hệ quốc tế sau Chiến tranh lạnh",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-Tot-Nghiep-2026-Lich-su-THPT-Hoang-Hoa-Lan-1",
+              "location": "Câu 6"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tot-nghiep-2026-lich-su-thpt-hoang-hoa-lan-1-q07",
+          "orderInExam": 7,
+          "questionType": "mcq",
+          "questionText": "Một trong những tỉnh giành chính quyền sớm nhất ở tỉnh lị trong Cách mạng tháng Tám năm 1945 ở Việt Nam là",
+          "options": [
+            {
+              "id": "A",
+              "text": "Quảng Ninh."
+            },
+            {
+              "id": "B",
+              "text": "Hưng Yên."
+            },
+            {
+              "id": "C",
+              "text": "Hà Tĩnh."
+            },
+            {
+              "id": "D",
+              "text": "Thanh Hoá."
+            }
+          ],
+          "correctOptionId": "C",
+          "explanation": "Câu 7. Chọn C. Hà Tĩnh.\nTrong Cách mạng tháng Tám năm 1945, Hải Dương, Bắc Giang, Hà Tĩnh, Quảng Nam là những tỉnh giành chính quyền ở tỉnh lị sớm nhất. Trong các phương án đã cho có Hà Tĩnh.\nVì vậy chọn C.",
+          "difficulty": "medium",
+          "topic": "Cách mạng tháng Tám 1945",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-Tot-Nghiep-2026-Lich-su-THPT-Hoang-Hoa-Lan-1",
+              "location": "Câu 7"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tot-nghiep-2026-lich-su-thpt-hoang-hoa-lan-1-q08",
+          "orderInExam": 8,
+          "questionType": "mcq",
+          "questionText": "Sự ra đời của Liên bang Cộng hòa Xã hội chủ nghĩa Xô viết (1922) có ý nghĩa nào sau đây với thế giới?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Tăng cường sức mạnh tổng hợp để Liên Xô xây dựng CNXH."
+            },
+            {
+              "id": "B",
+              "text": "Đánh dấu hệ thống XHCN hình thành đối lập với hệ thống TBCN."
+            },
+            {
+              "id": "C",
+              "text": "Chứng minh học thuyết Mác - Lênin là đúng đắn, khoa học."
+            },
+            {
+              "id": "D",
+              "text": "Làm thất bại ý đồ và hành động chia rẽ của các thế lực thù địch."
+            }
+          ],
+          "correctOptionId": "C",
+          "explanation": "Câu 8. Chọn C.\nSự ra đời của Liên bang Cộng hòa Xã hội chủ nghĩa Xô viết năm 1922 chứng minh sức sống của con đường xã hội chủ nghĩa và học thuyết Mác - Lênin trong thực tiễn.\nA chủ yếu nói về ý nghĩa đối với Liên Xô, không phải ý nghĩa với thế giới.\nB sai vì hệ thống xã hội chủ nghĩa thế giới chỉ hình thành sau Chiến tranh thế giới thứ hai.\nD thiên về ý nghĩa đối nội của Liên Xô.\nVì vậy chọn C.",
+          "difficulty": "medium",
+          "topic": "Liên Xô và các nước Đông Âu",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-Tot-Nghiep-2026-Lich-su-THPT-Hoang-Hoa-Lan-1",
+              "location": "Câu 8"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tot-nghiep-2026-lich-su-thpt-hoang-hoa-lan-1-q09",
+          "orderInExam": 9,
+          "questionType": "mcq",
+          "questionText": "Trong cuộc kháng chiến chống Mỹ ở Việt Nam (1954 – 1975), chiến dịch nào sau đây đã làm tan rã, sụp đổ toàn bộ quân đội và chính quyền Sài Gòn ở cấp trung ương?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Chiến dịch Phước Long."
+            },
+            {
+              "id": "B",
+              "text": "Chiến dịch Tây Nguyên."
+            },
+            {
+              "id": "C",
+              "text": "Chiến dịch Hồ Chí Minh."
+            },
+            {
+              "id": "D",
+              "text": "Chiến dịch Huế - Đà Nẵng."
+            }
+          ],
+          "correctOptionId": "C",
+          "explanation": "Câu 9. Chọn C. Chiến dịch Hồ Chí Minh.\nChiến dịch Hồ Chí Minh năm 1975 đã giải phóng Sài Gòn, làm tan rã hoàn toàn quân đội và chính quyền Sài Gòn ở cấp trung ương, kết thúc thắng lợi cuộc kháng chiến chống Mĩ, cứu nước.\nVì vậy chọn C.",
+          "difficulty": "medium",
+          "topic": "Kháng chiến chống Mỹ cứu nước 1954-1975",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-Tot-Nghiep-2026-Lich-su-THPT-Hoang-Hoa-Lan-1",
+              "location": "Câu 9"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tot-nghiep-2026-lich-su-thpt-hoang-hoa-lan-1-q10",
+          "orderInExam": 10,
+          "questionType": "mcq",
+          "questionText": "Nội dung nào sau đây không phải là ý nghĩa lịch sử Cách mạng tháng Tám năm 1945 ở Việt Nam?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Mở đầu kỉ nguyên độc lập, tự do trong lịch sử dân tộc Việt Nam."
+            },
+            {
+              "id": "B",
+              "text": "Góp phần vào chiến thắng chủ nghĩa phát xít trên thế giới."
+            },
+            {
+              "id": "C",
+              "text": "Buộc Pháp phải công nhận các quyền dân tộc cơ bản của Việt Nam."
+            },
+            {
+              "id": "D",
+              "text": "Mở ra bước ngoặt lớn trong lịch sử dân tộc Việt Nam."
+            }
+          ],
+          "correctOptionId": "C",
+          "explanation": "Câu 10. Chọn C.\nCách mạng tháng Tám năm 1945 mở ra kỉ nguyên độc lập, tự do cho dân tộc Việt Nam, tạo bước ngoặt lớn trong lịch sử dân tộc và góp phần vào thắng lợi chống chủ nghĩa phát xít.\nViệc Pháp phải công nhận các quyền dân tộc cơ bản của Việt Nam là nội dung của Hiệp định Giơ-ne-vơ năm 1954, không phải ý nghĩa trực tiếp của Cách mạng tháng Tám.\nVì vậy chọn C.",
+          "difficulty": "medium",
+          "topic": "Cách mạng tháng Tám 1945",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-Tot-Nghiep-2026-Lich-su-THPT-Hoang-Hoa-Lan-1",
+              "location": "Câu 10"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tot-nghiep-2026-lich-su-thpt-hoang-hoa-lan-1-q11",
+          "orderInExam": 11,
+          "questionType": "mcq",
+          "questionText": "Hiệp hội các quốc gia Đông Nam Á (ASEAN) được thành lập với mục đích nào sau đây?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Thúc đẩy hòa bình và ổn định khu vực."
+            },
+            {
+              "id": "B",
+              "text": "Loại trừ sự cạnh tranh kinh tế giữa các nước thành viên."
+            },
+            {
+              "id": "C",
+              "text": "Tạo lập một thị trường chung và đồng tiền chung."
+            },
+            {
+              "id": "D",
+              "text": "Phát triển quân sự và xây dựng liên minh quân sự."
+            }
+          ],
+          "correctOptionId": "A",
+          "explanation": "Câu 11. Chọn A.\nASEAN được thành lập nhằm thúc đẩy hợp tác, phát triển kinh tế - văn hóa, đồng thời góp phần duy trì hòa bình và ổn định khu vực Đông Nam Á.\nB sai vì ASEAN không nhằm loại trừ cạnh tranh kinh tế.\nC sai vì thị trường chung và đồng tiền chung không phải mục tiêu ban đầu khi thành lập ASEAN.\nD sai vì ASEAN không phải liên minh quân sự.\nVì vậy chọn A.",
+          "difficulty": "medium",
+          "topic": "ASEAN",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-Tot-Nghiep-2026-Lich-su-THPT-Hoang-Hoa-Lan-1",
+              "location": "Câu 11"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tot-nghiep-2026-lich-su-thpt-hoang-hoa-lan-1-q12",
+          "orderInExam": 12,
+          "questionType": "mcq",
+          "questionText": "Cộng đồng ASEAN ra đời phản ánh",
+          "options": [
+            {
+              "id": "A",
+              "text": "chính sách mới của ASEAN khi xu thế hòa hoãn xuất hiện."
+            },
+            {
+              "id": "B",
+              "text": "mức độ liên kết sâu rộng hơn của tổ chức ASEAN."
+            },
+            {
+              "id": "C",
+              "text": "tổ chức ASEAN bắt đầu hợp tác với bên ngoài khu vực."
+            },
+            {
+              "id": "D",
+              "text": "mục tiêu của tổ chức ASEAN đã thực hiện thành công."
+            }
+          ],
+          "correctOptionId": "B",
+          "explanation": "Câu 12. Chọn B.\nCộng đồng ASEAN ra đời phản ánh mức độ liên kết ngày càng sâu rộng hơn giữa các nước thành viên ASEAN trên nhiều lĩnh vực.\nA sai vì không phải do “xu thế hòa hoãn xuất hiện”.\nC sai vì ASEAN đã hợp tác với bên ngoài khu vực từ trước.\nD sai vì không thể nói mọi mục tiêu của ASEAN đã hoàn thành.\nVì vậy chọn B.",
+          "difficulty": "medium",
+          "topic": "ASEAN",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-Tot-Nghiep-2026-Lich-su-THPT-Hoang-Hoa-Lan-1",
+              "location": "Câu 12"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tot-nghiep-2026-lich-su-thpt-hoang-hoa-lan-1-q13",
+          "orderInExam": 13,
+          "questionType": "mcq",
+          "questionText": "Sự xuất hiện của xu thế đa cực có tác động như thế nào đối với các quốc gia mới nổi?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Tạo môi trường quốc tế thuận lợi để các nước vươn lên khẳng định vị thế."
+            },
+            {
+              "id": "B",
+              "text": "Là cơ hội để các nước xóa bỏ vai trò thống trị thế giới của Mỹ."
+            },
+            {
+              "id": "C",
+              "text": "Là yếu tố quyết định vị thế của các nước trong trật tự thế giới mới."
+            },
+            {
+              "id": "D",
+              "text": "Tạo điều kiện để các nước khẳng định vai trò như nhau trong trật tự."
+            }
+          ],
+          "correctOptionId": "A",
+          "explanation": "Câu 13. Chọn A.\nXu thế đa cực tạo ra môi trường quốc tế thuận lợi hơn để các quốc gia mới nổi vươn lên, khẳng định vị thế, không bị phụ thuộc tuyệt đối vào một trung tâm quyền lực duy nhất.\nB sai vì không phải quốc gia mới nổi nào cũng có mục tiêu xóa bỏ vai trò của Mĩ.\nC sai vì xu thế đa cực không phải yếu tố duy nhất quyết định vị thế quốc gia.\nD sai vì các nước không có vai trò như nhau trong trật tự quốc tế.\nVì vậy chọn A.",
+          "difficulty": "medium",
+          "topic": "Trật tự thế giới mới sau Chiến tranh lạnh",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-Tot-Nghiep-2026-Lich-su-THPT-Hoang-Hoa-Lan-1",
+              "location": "Câu 13"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tot-nghiep-2026-lich-su-thpt-hoang-hoa-lan-1-q14",
+          "orderInExam": 14,
+          "questionType": "mcq",
+          "questionText": "Sự kiện nào sau đây tạo ra thời cơ khách quan thuận lợi cho Cách mạng tháng Tám năm 1945 ở Việt Nam diễn ra thắng lợi?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Nhật Bản đầu hàng Đồng minh."
+            },
+            {
+              "id": "B",
+              "text": "Nhật Bản tiến hành đảo chính Pháp."
+            },
+            {
+              "id": "C",
+              "text": "Nhật Bản xâm lược Đông Dương."
+            },
+            {
+              "id": "D",
+              "text": "Chiến tranh Thái Bình Dương bùng nổ."
+            }
+          ],
+          "correctOptionId": "A",
+          "explanation": "Câu 14. Chọn A. Nhật Bản đầu hàng Đồng minh.\nNhật Bản đầu hàng Đồng minh tháng 8/1945 làm cho kẻ thù chính của nhân dân Việt Nam suy sụp, chính quyền tay sai hoang mang, tạo thời cơ khách quan thuận lợi để Tổng khởi nghĩa tháng Tám giành thắng lợi.\nVì vậy chọn A.",
+          "difficulty": "medium",
+          "topic": "Cách mạng tháng Tám 1945",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-Tot-Nghiep-2026-Lich-su-THPT-Hoang-Hoa-Lan-1",
+              "location": "Câu 14"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tot-nghiep-2026-lich-su-thpt-hoang-hoa-lan-1-q15",
+          "orderInExam": 15,
+          "questionType": "mcq",
+          "questionText": "Nội dung nào sau đây là đúng về vai trò của tổ chức Liên hợp quốc?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Chấm dứt việc sản xuất vũ khí hạt nhân ở các quốc gia."
+            },
+            {
+              "id": "B",
+              "text": "Ngăn ngừa không để xảy ra các cuộc xung đột trên thế giới."
+            },
+            {
+              "id": "C",
+              "text": "Tạo môi trường thuận lợi để thúc đẩy hợp tác quốc tế trên nhiều lĩnh vực."
+            },
+            {
+              "id": "D",
+              "text": "Trực tiếp xóa bỏ chủ nghĩa thực dân và phân biệt chủng tộc trên thế giới."
+            }
+          ],
+          "correctOptionId": "C",
+          "explanation": "Câu 15. Chọn C.\nLiên hợp quốc có vai trò quan trọng trong việc duy trì hòa bình, an ninh quốc tế và tạo môi trường thuận lợi để thúc đẩy hợp tác giữa các quốc gia trên nhiều lĩnh vực.\nA sai vì Liên hợp quốc chưa chấm dứt hoàn toàn việc sản xuất vũ khí hạt nhân.\nB sai vì thế giới vẫn xảy ra xung đột.\nD sai vì Liên hợp quốc không trực tiếp xóa bỏ hoàn toàn chủ nghĩa thực dân và phân biệt chủng tộc.\nVì vậy chọn C.",
+          "difficulty": "medium",
+          "topic": "Liên hợp quốc",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-Tot-Nghiep-2026-Lich-su-THPT-Hoang-Hoa-Lan-1",
+              "location": "Câu 15"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tot-nghiep-2026-lich-su-thpt-hoang-hoa-lan-1-q16",
+          "orderInExam": 16,
+          "questionType": "mcq",
+          "questionText": "Một trong những đóng góp của phong trào nông dân Tây Sơn (thế kỷ XVIII) đối với lịch sử Việt Nam là",
+          "options": [
+            {
+              "id": "A",
+              "text": "lật đổ ách thống trị của chính quyền phương Bắc."
+            },
+            {
+              "id": "B",
+              "text": "khôi phục nền độc lập, tự chủ của dân tộc."
+            },
+            {
+              "id": "C",
+              "text": "thiết lập nhà nước mới, dân chủ và tiến bộ."
+            },
+            {
+              "id": "D",
+              "text": "xóa bỏ tình trạng đất nước bị chia cắt."
+            }
+          ],
+          "correctOptionId": "D",
+          "explanation": "Câu 16. Chọn D.\nPhong trào Tây Sơn có đóng góp lớn là lật đổ các tập đoàn phong kiến chia cắt đất nước, bước đầu thống nhất đất nước, xóa bỏ tình trạng Đàng Trong - Đàng Ngoài chia cắt.\nA sai vì “chính quyền phương Bắc” không phải đối tượng bị Tây Sơn lật đổ.\nB chưa chính xác bằng D, vì Tây Sơn không phải phong trào khôi phục độc lập từ tay chính quyền phương Bắc.\nC sai vì nhà nước Tây Sơn chưa phải nhà nước dân chủ theo nghĩa hiện đại.\nVì vậy chọn D.",
+          "difficulty": "medium",
+          "topic": "Phong trào Tây Sơn",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-Tot-Nghiep-2026-Lich-su-THPT-Hoang-Hoa-Lan-1",
+              "location": "Câu 16"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tot-nghiep-2026-lich-su-thpt-hoang-hoa-lan-1-q17",
+          "orderInExam": 17,
+          "questionType": "mcq",
+          "questionText": "Điểm độc đáo của cuộc kháng chiến chống Mỹ so với cuộc kháng chiến chống Pháp của nhân dân Việt Nam là",
+          "options": [
+            {
+              "id": "A",
+              "text": "tiến hành đồng thời hai chiến lược cách mạng khác nhau."
+            },
+            {
+              "id": "B",
+              "text": "diễn ra trận quyết chiến chiến lược để kết thúc chiến tranh."
+            },
+            {
+              "id": "C",
+              "text": "vừa tiến hành kháng chiến vừa thực hiện công cuộc kiến quốc."
+            },
+            {
+              "id": "D",
+              "text": "kết hợp giữa đấu tranh quân sự - chính trị - ngoại giao."
+            }
+          ],
+          "correctOptionId": "A",
+          "explanation": "Câu 17. Chọn A.\nĐiểm độc đáo của cuộc kháng chiến chống Mĩ so với kháng chiến chống Pháp là Việt Nam đồng thời thực hiện hai chiến lược cách mạng khác nhau ở hai miền: miền Bắc tiến hành cách mạng xã hội chủ nghĩa, miền Nam tiến hành cách mạng dân tộc dân chủ nhân dân.\nB, D cũng có trong kháng chiến chống Pháp ở mức độ nhất định.\nC cũng xuất hiện trong kháng chiến chống Pháp.\nVì vậy chọn A.",
+          "difficulty": "medium",
+          "topic": "Kháng chiến chống Mỹ 1954-1975",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-Tot-Nghiep-2026-Lich-su-THPT-Hoang-Hoa-Lan-1",
+              "location": "Câu 17"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tot-nghiep-2026-lich-su-thpt-hoang-hoa-lan-1-q18",
+          "orderInExam": 18,
+          "questionType": "mcq",
+          "questionText": "Cách mạng tháng Mười Nga (1917) bùng nổ trong bối cảnh nào sau đây?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Ở Nga có tình trạng hai chính quyền song song tồn tại."
+            },
+            {
+              "id": "B",
+              "text": "Nước Nga đã rút khỏi chiến tranh thế giới."
+            },
+            {
+              "id": "C",
+              "text": "Chế độ phong kiến Nga hoàng đang khủng hoảng."
+            },
+            {
+              "id": "D",
+              "text": "Giai cấp vô sản đã giành toàn quyền lãnh đạo."
+            }
+          ],
+          "correctOptionId": "A",
+          "explanation": "Câu 18. Chọn A.\nSau Cách mạng tháng Hai năm 1917, ở Nga tồn tại hai chính quyền song song: Chính phủ lâm thời tư sản và các Xô viết đại biểu công nhân, binh lính. Trong bối cảnh đó, Cách mạng tháng Mười Nga bùng nổ để lật đổ Chính phủ lâm thời tư sản.\nVì vậy chọn A.",
+          "difficulty": "medium",
+          "topic": "Cách mạng tháng Mười Nga 1917",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-Tot-Nghiep-2026-Lich-su-THPT-Hoang-Hoa-Lan-1",
+              "location": "Câu 18"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tot-nghiep-2026-lich-su-thpt-hoang-hoa-lan-1-q19",
+          "orderInExam": 19,
+          "questionType": "mcq",
+          "questionText": "Việc mở rộng thành viên của Hiệp hội các quốc gia Đông Nam Á (ASEAN) có ý nghĩa nào sau đây?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Giúp ASEAN trở thành tổ chức đa phương toàn cầu."
+            },
+            {
+              "id": "B",
+              "text": "Góp phần duy trì hoà bình, ổn định của khu vực Đông Nam Á."
+            },
+            {
+              "id": "C",
+              "text": "Làm cho ASEAN trở thành liên kết kinh tế lớn nhất hành tinh."
+            },
+            {
+              "id": "D",
+              "text": "Là cơ sở để đưa tổ chức trở thành một liên minh chính trị - quân sự."
+            }
+          ],
+          "correctOptionId": "B",
+          "explanation": "Câu 19. Chọn B.\nViệc ASEAN mở rộng thành viên giúp tăng cường sự gắn kết giữa các nước Đông Nam Á, góp phần duy trì hòa bình, ổn định và hợp tác trong khu vực.\nA sai vì ASEAN là tổ chức khu vực, không phải tổ chức đa phương toàn cầu.\nC sai vì ASEAN không trở thành liên kết kinh tế lớn nhất hành tinh.\nD sai vì ASEAN không phải liên minh chính trị - quân sự.\nVì vậy chọn B.",
+          "difficulty": "medium",
+          "topic": "ASEAN",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-Tot-Nghiep-2026-Lich-su-THPT-Hoang-Hoa-Lan-1",
+              "location": "Câu 19"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tot-nghiep-2026-lich-su-thpt-hoang-hoa-lan-1-q20",
+          "orderInExam": 20,
+          "questionType": "mcq",
+          "questionText": "Trong cuộc kháng chiến chống thực dân Pháp (1945 – 1954), với thắng lợi nào sau đây quân dân Việt Nam đã khai thông con đường liên lạc với các nước xã hội chủ nghĩa?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Trận phản công ở Vạn Tường."
+            },
+            {
+              "id": "B",
+              "text": "Trận “Điện Biên Phủ trên không”."
+            },
+            {
+              "id": "C",
+              "text": "Chiến dịch Hồ Chí Minh."
+            },
+            {
+              "id": "D",
+              "text": "Chiến dịch Biên giới."
+            }
+          ],
+          "correctOptionId": "D",
+          "explanation": "Câu 20. Chọn D. Chiến dịch Biên giới.\nChiến dịch Biên giới thu đông năm 1950 thắng lợi đã khai thông đường liên lạc giữa Việt Nam với các nước xã hội chủ nghĩa, phá thế bao vây của địch, mở ra bước phát triển mới của cuộc kháng chiến chống Pháp.\nVì vậy chọn D.",
+          "difficulty": "medium",
+          "topic": "Kháng chiến chống Pháp 1945-1954",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-Tot-Nghiep-2026-Lich-su-THPT-Hoang-Hoa-Lan-1",
+              "location": "Câu 20"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tot-nghiep-2026-lich-su-thpt-hoang-hoa-lan-1-q21",
+          "orderInExam": 21,
+          "questionType": "mcq",
+          "questionText": "Chiến tranh bảo vệ Tổ quốc không có vai trò nào sau đây đối với dân tộc Việt Nam?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Có tác động đến tiến trình lịch sử dân tộc và chính sách quản lý đất nước."
+            },
+            {
+              "id": "B",
+              "text": "Bảo vệ thành công nền độc lập trước mọi nguy cơ xâm lược."
+            },
+            {
+              "id": "C",
+              "text": "Ảnh hưởng đến tính chất xã hội và công cuộc xây dựng đất nước."
+            },
+            {
+              "id": "D",
+              "text": "Có tác động quyết định đến sự tồn vong của quốc gia, dân tộc."
+            }
+          ],
+          "correctOptionId": "B",
+          "explanation": "Câu 21. Chọn B.\nChiến tranh bảo vệ Tổ quốc có vai trò bảo vệ độc lập, chủ quyền, thống nhất, toàn vẹn lãnh thổ; tác động lớn đến tiến trình lịch sử, chính sách quản lí đất nước, tính chất xã hội và công cuộc xây dựng đất nước; đồng thời có ý nghĩa quyết định đến sự tồn vong của quốc gia, dân tộc. Tuy nhiên, phương án B nói “bảo vệ thành công nền độc lập trước mọi nguy cơ xâm lược” là cách diễn đạt tuyệt đối hóa, không đúng với yêu cầu “vai trò” của chiến tranh bảo vệ Tổ quốc. Vì vậy chọn B.",
+          "difficulty": "medium",
+          "topic": "Lịch sử Việt Nam hiện đại",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-Tot-Nghiep-2026-Lich-su-THPT-Hoang-Hoa-Lan-1",
+              "location": "Câu 21"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tot-nghiep-2026-lich-su-thpt-hoang-hoa-lan-1-q22",
+          "orderInExam": 22,
+          "questionType": "mcq",
+          "questionText": "Nhận định nào sau đây phản ánh đúng vai trò lãnh đạo của Quân uỷ Trung ương và Bộ Tổng Tư lệnh trong chiến dịch Hồ Chí Minh?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Tạo nên một cuộc hành quân thần tốc, nhanh chóng đánh bại quân đội và chính quyền Sài Gòn tại sào huyệt cuối cùng của chúng."
+            },
+            {
+              "id": "B",
+              "text": "Đưa ra mệnh lệnh lịch sử, góp phần trực tiếp dẫn đến mở màn cuộc tổng tiến công và nổi dậy mùa xuân năm 1975."
+            },
+            {
+              "id": "C",
+              "text": "Chớp thời cơ, chỉ đạo nhanh chóng, chính xác để kết thúc chiến tranh trong thời gian ngắn nhất bằng một giải pháp ngoại giao."
+            },
+            {
+              "id": "D",
+              "text": "Đại tướng Võ Nguyên Giáp đã thay mặt Quân uỷ trực tiếp chỉ huy tại các mặt trận để chỉ đạo các cánh quân tiến vào giải phóng miền Nam."
+            }
+          ],
+          "correctOptionId": "A",
+          "explanation": "Câu 22. Chọn A.\nĐoạn tư liệu cho thấy Quân uỷ Trung ương và Bộ Tổng Tư lệnh đã ra mệnh lệnh thúc giục các cánh quân tiến công thần tốc, táo bạo, tranh thủ từng giờ từng phút để giải phóng miền Nam. Vai trò lãnh đạo thể hiện ở việc tạo nên cuộc hành quân thần tốc, nhanh chóng đánh bại chính quyền Sài Gòn ở sào huyệt cuối cùng.\nB sai vì ngày 7/4/1975 không phải thời điểm mở màn cuộc Tổng tiến công và nổi dậy mùa Xuân 1975.\nC sai vì không phải kết thúc bằng giải pháp ngoại giao.\nD sai vì Đại tướng Võ Nguyên Giáp không trực tiếp chỉ huy tại tất cả các mặt trận.\nVì vậy chọn A.",
+          "difficulty": "medium",
+          "topic": "Kháng chiến chống Mỹ 1954-1975",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-Tot-Nghiep-2026-Lich-su-THPT-Hoang-Hoa-Lan-1",
+              "location": "Câu 22"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tot-nghiep-2026-lich-su-thpt-hoang-hoa-lan-1-q23",
+          "orderInExam": 23,
+          "questionType": "mcq",
+          "questionText": "Mệnh lệnh ngày 7/4/1975 của Đại tướng Võ Nguyên Giáp chủ yếu phản ánh yêu cầu nào trong chỉ đạo chiến dịch giải phóng miền Nam?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Giữ vững thế trận phòng ngự để bảo toàn lực lượng."
+            },
+            {
+              "id": "B",
+              "text": "Thúc đẩy tốc độ tiến công nhằm giành thắng lợi."
+            },
+            {
+              "id": "C",
+              "text": "Tiến công để củng cố và duy trì hậu phương tại chỗ."
+            },
+            {
+              "id": "D",
+              "text": "Chuẩn bị cho một cuộc đàm phán hòa bình lâu dài."
+            }
+          ],
+          "correctOptionId": "B",
+          "explanation": "Câu 23. Chọn B.\nMệnh lệnh “Thần tốc, thần tốc hơn nữa; táo bạo, táo bạo hơn nữa” thể hiện yêu cầu đẩy nhanh tốc độ tiến công, tranh thủ thời cơ để giành thắng lợi nhanh nhất.\nVì vậy chọn B.",
+          "difficulty": "medium",
+          "topic": "Kháng chiến chống Mỹ 1954-1975",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-Tot-Nghiep-2026-Lich-su-THPT-Hoang-Hoa-Lan-1",
+              "location": "Câu 23"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tot-nghiep-2026-lich-su-thpt-hoang-hoa-lan-1-q24",
+          "orderInExam": 24,
+          "questionType": "mcq",
+          "questionText": "Cụm từ “Thần tốc, thần tốc hơn nữa; táo bạo, táo bạo hơn nữa” trong mệnh lệnh 7/4/1975 thể hiện rõ nhất đặc điểm nào của Chiến dịch Hồ Chí Minh?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Tính nhân đạo trong đối xử với đối phương."
+            },
+            {
+              "id": "B",
+              "text": "Tính toàn diện của các hoạt động tác chiến."
+            },
+            {
+              "id": "C",
+              "text": "Tính bất ngờ và chủ động chiến lược."
+            },
+            {
+              "id": "D",
+              "text": "Tính chất lâu dài và bền bỉ của cuộc chiến."
+            }
+          ],
+          "correctOptionId": "C",
+          "explanation": "Câu 24. Chọn C.\nCụm từ “Thần tốc, thần tốc hơn nữa; táo bạo, táo bạo hơn nữa” thể hiện tinh thần chủ động, bất ngờ, quyết đoán trong chỉ đạo chiến lược của Chiến dịch Hồ Chí Minh.\nA, B không phải ý nghĩa chính của cụm từ này.\nD sai vì chiến dịch diễn ra nhanh, quyết liệt, không mang tính lâu dài.\nVì vậy chọn C.",
+          "difficulty": "medium",
+          "topic": "Kháng chiến chống Mỹ 1954-1975",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-Tot-Nghiep-2026-Lich-su-THPT-Hoang-Hoa-Lan-1",
+              "location": "Câu 24"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "sectionId": "phan-2",
+      "sectionType": "true_false",
+      "title": "Phần II – Trắc nghiệm Đúng/Sai",
+      "totalQuestions": 4,
+      "maxScore": 4.0,
+      "scoringRule": "ladder",
+      "questions": [
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tot-nghiep-2026-lich-su-thpt-hoang-hoa-lan-1-q25",
+          "orderInExam": 25,
+          "questionType": "true_false",
+          "questionText": "Cho đoạn tư liệu sau đây: “Đế quốc Mỹ và chính quyền Sài Gòn do Ngô Đình Diệm đứng đầu đã trắng trợn phá bỏ Hiệp định Giơ-ne-vơ, thẳng tay đàn áp, khủng bố, mở các chiến dịch “tố cộng, diệt cộng” bằng cái gọi là sức mạnh của quân lực cộng hòa,... .. Để bảo vệ sinh mạng và quyền lợi cơ bản của mình, nhân dân miền Nam dưới sự lãnh đạo của Đảng không có con đường nào khác là phải đứng lên đánh đổ chế độ độc tài phát xít của Mỹ và tay sai, giải phóng hoàn toàn miền Nam, thực hiện thống nhất nước nhà”. (Lê Mậu Hãn, Sức mạnh dân tộc của cách mạng Việt Nam dưới ánh sáng tư tưởng Hồ Chí Minh, NXB Chính trị quốc gia Sự thật, Hà Nội, 2017, tr.294)",
+          "statements": [
+            {
+              "id": "a",
+              "text": "Từ thực tiễn đất nước và sự phá hoại của Mỹ và chính quyền Ngô Đình Diệm, nếu chỉ sử dụng hình thức đấu tranh hòa bình sẽ không thể thống nhất Tổ quốc.",
+              "isTrue": true
+            },
+            {
+              "id": "b",
+              "text": "Sau Hiệp định Giơ-ne-vơ năm 1954 về Đông Dương, Pháp dựng lên chính quyền tay sai Ngô Đình Diệm để trì hoãn việc thống nhất đất nước ở Việt Nam.",
+              "isTrue": false
+            },
+            {
+              "id": "c",
+              "text": "Đặc điểm lớn nhất và độc đáo nhất của cách mạng Việt Nam giai đoạn 1954 - 1975 là một đảng lãnh đạo thực hiện đồng thời hai nhiệm vụ chiến lược ở hai miền đất nước.",
+              "isTrue": true
+            },
+            {
+              "id": "d",
+              "text": "Cuộc kháng chiến chống Mỹ ở Việt Nam có hình thái vận động đi từ đấu tranh chính trị đến khởi nghĩa vũ trang rồi tiến lên chiến tranh cách mạng.",
+              "isTrue": true
+            }
+          ],
+          "explanation": "a) Đúng.\nSau Hiệp định Giơ-ne-vơ, nhân dân Việt Nam mong muốn thống nhất đất nước bằng con đường hòa bình. Tuy nhiên, Mĩ và chính quyền Ngô Đình Diệm phá hoại hiệp định, khủng bố, đàn áp cách mạng. Vì vậy, nếu chỉ đấu tranh hòa bình thì không thể thống nhất đất nước.\nb) Sai.\nSau năm 1954, không phải Pháp dựng lên chính quyền tay sai Ngô Đình Diệm, mà là Mĩ từng bước thay chân Pháp, dựng và hậu thuẫn chính quyền Ngô Đình Diệm ở miền Nam Việt Nam để chia cắt lâu dài đất nước.\nc) Đúng.\nĐặc điểm lớn nhất, độc đáo nhất của cách mạng Việt Nam giai đoạn 1954 - 1975 là: một Đảng lãnh đạo nhân dân cả nước thực hiện đồng thời hai nhiệm vụ chiến lược ở hai miền. Miền Bắc xây dựng chủ nghĩa xã hội, làm hậu phương lớn; miền Nam tiến hành cách mạng dân tộc dân chủ nhân dân, trực tiếp chống Mĩ và chính quyền Sài Gòn.\nd) Đúng.\nCách mạng miền Nam ban đầu chủ yếu đấu tranh chính trị đòi thi hành Hiệp định Giơ-ne-vơ. Khi Mĩ - Diệm tăng cường khủng bố, phong trào chuyển sang khởi nghĩa vũ trang, tiêu biểu là phong trào Đồng khởi, rồi phát triển thành chiến tranh cách mạng chống Mĩ và chính quyền Sài Gòn.",
+          "difficulty": "hard",
+          "topic": "Kháng chiến chống Mỹ 1954-1975",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-Tot-Nghiep-2026-Lich-su-THPT-Hoang-Hoa-Lan-1",
+              "location": "Câu 1"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tot-nghiep-2026-lich-su-thpt-hoang-hoa-lan-1-q26",
+          "orderInExam": 26,
+          "questionType": "true_false",
+          "questionText": "Cho những thông tin trong bảng sau đây: Thời gian | Nội dung Năm 1945 | Tại I-an-ta (Liên Xô) đã diễn ra hội nghị giữa ba cường quốc: Liên Xô, Mỹ, Anh. Năm 1947 | Mỹ đề ra “Kế hoạch Mác-san” nhằm viện trợ cho các nước Tây Âu. Năm 1949 | Liên Xô và các nước Đông Âu thành lập Hội đồng tương trợ kinh tế (SEV). Năm 1972 | Tổng thống Mỹ R. Ních-xơn có chuyến thăm chính thức đầu tiên tới Liên Xô. Năm 1989 | Liên Xô và Mỹ cùng tuyên bố chấm dứt Chiến tranh lạnh.",
+          "statements": [
+            {
+              "id": "a",
+              "text": "Hội nghị I-an-ta (2 - 1945) được xem là hội nghị khởi đầu cho việc hình thành một trật tự thế giới mới sau khi Chiến tranh thế giới thứ hai kết thúc trên toàn thế giới.",
+              "isTrue": true
+            },
+            {
+              "id": "b",
+              "text": "Tổng thống Mỹ R. Ních-xơn có chuyến thăm chính thức đầu tiên tới Liên Xô đã mở đầu cho sự xói mòn và đi đến sụp đổ của trật tự thế giới hai cực I-an-ta.",
+              "isTrue": false
+            },
+            {
+              "id": "c",
+              "text": "Phát biểu của Tổng thống Mỹ G. Bút-sơ trong cuộc gặp với Tổng Bí thư Đảng Cộng sản Liên Xô M. Goóc-ba-chốp (12-1989) đánh dấu kết thúc hoàn toàn cuộc đối đầu quân sự tại châu Âu.",
+              "isTrue": false
+            },
+            {
+              "id": "d",
+              "text": "Việc Mỹ đưa ra “Kế hoạch Mác-san” còn Liên Xô và các nước Đông Âu thành lập Hội đồng tương trợ kinh tế (SEV) đã tạo ra sự đối đầu về chính trị, quân sự giữa hai hệ thống xã hội đối lập.",
+              "isTrue": false
+            }
+          ],
+          "explanation": "a) Đúng.\nHội nghị I-an-ta tháng 2/1945 đưa ra nhiều quyết định quan trọng về việc phân chia phạm vi ảnh hưởng giữa các cường quốc sau Chiến tranh thế giới thứ hai. Những quyết định đó trở thành khuôn khổ của trật tự thế giới mới, thường gọi là Trật tự hai cực I-an-ta.\nb) Sai.\nChuyến thăm Liên Xô của Tổng thống Mĩ R. Ních-xơn năm 1972 góp phần mở ra xu thế hòa hoãn Đông - Tây, nhưng không phải sự kiện mở đầu cho sự xói mòn và sụp đổ của Trật tự hai cực I-an-ta. Trật tự này sụp đổ chủ yếu gắn với sự tan rã của Liên Xô và hệ thống xã hội chủ nghĩa ở Đông Âu cuối thập niên 80, đầu thập niên 90.\nc) Sai.\nCuộc gặp giữa Tổng thống Mĩ G. Bút-sơ và Tổng Bí thư Đảng Cộng sản Liên Xô M. Goóc-ba-chốp tháng 12/1989 đánh dấu Chiến tranh lạnh chấm dứt. Tuy nhiên, nói “kết thúc hoàn toàn cuộc đối đầu quân sự tại châu Âu” là không chính xác, vì sau đó các vấn đề quân sự, an ninh ở châu Âu vẫn còn tiếp tục diễn biến.\nd) Sai.\n“Kế hoạch Mác-san” của Mĩ và Hội đồng tương trợ kinh tế SEV của Liên Xô - Đông Âu chủ yếu phản ánh sự đối lập về kinh tế giữa hai hệ thống. Sự đối đầu quân sự rõ rệt hơn phải gắn với việc thành lập NATO và Tổ chức Hiệp ước Vác-sa-va. Vì vậy câu này sai do nói thành “đối đầu về chính trị, quân sự”.",
+          "difficulty": "hard",
+          "topic": "Quan hệ quốc tế sau Chiến tranh thế giới thứ hai",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-Tot-Nghiep-2026-Lich-su-THPT-Hoang-Hoa-Lan-1",
+              "location": "Câu 2"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tot-nghiep-2026-lich-su-thpt-hoang-hoa-lan-1-q27",
+          "orderInExam": 27,
+          "questionType": "true_false",
+          "questionText": "Cho đoạn tư liệu sau đây: “Đại tướng Võ Nguyên Giáp đã đánh giá cuộc chiến đấu oanh liệt của quân và dân Thủ đô trong 60 ngày đầu kháng chiến là một điển hình thành công của nghệ thuật đánh giặc trên mặt trận đô thị của nước ta, là một tấm gương sáng về chủ nghĩa anh hùng cách mạng Việt Nam, về sức mạnh chiến tranh của nhân dân Việt Nam. Đây là một bước ngoặt mở đầu rất oanh liệt của cuộc kháng chiến vĩ đại chống thực dân Pháp, góp phần làm rạng rõ thêm truyền thống Đông Đô – Thăng Long – Hà Nội.” (Nguyễn Đình Lễ - Bùi Thị Hà (Chủ biên), Tìm hiểu Lịch sử Việt Nam qua hỏi đáp, NXB Đại học Sư phạm, trang 41)",
+          "statements": [
+            {
+              "id": "a",
+              "text": "Cuộc chiến đấu của quân và dân Thủ đô đã tạo điều kiện thuận lợi cho cả nước đi vào kháng chiến lâu dài, củng cố niềm tin của quân dân cả nước vào thắng lợi của cuộc kháng chiến.",
+              "isTrue": true
+            },
+            {
+              "id": "b",
+              "text": "Theo đoạn tư liệu, cuộc chiến đấu oanh liệt của quân dân Thủ đô 60 ngày đầu kháng chiến là một điển hình thành công của nghệ thuật chiến tranh nhân dân.",
+              "isTrue": true
+            },
+            {
+              "id": "c",
+              "text": "Cuộc chiến đấu của quân và dân Thủ đô cuối năm 1946 đầu năm 1947 đã tạo ra cục diện mới có lợi cho Việt Nam trong cuộc kháng chiến toàn quốc chống thực dân Pháp.",
+              "isTrue": true
+            },
+            {
+              "id": "d",
+              "text": "Cuộc chiến đấu của quân và dân Thủ đô đã làm thất bại âm mưu mở rộng đánh chiếm miền Bắc của thực dân Pháp.",
+              "isTrue": false
+            }
+          ],
+          "explanation": "a) Đúng.\nCuộc chiến đấu của quân và dân Thủ đô đã giam chân địch trong thành phố, tạo điều kiện cho Trung ương Đảng, Chính phủ và lực lượng kháng chiến rút lui an toàn, chuẩn bị cho cuộc kháng chiến lâu dài. Thắng lợi đó cũng củng cố niềm tin của nhân dân cả nước vào cuộc kháng chiến.\nb) Đúng.\nĐoạn tư liệu nêu rõ đây là “một điển hình thành công của nghệ thuật đánh giặc trên mặt trận đô thị”. Nghệ thuật đó nằm trong đường lối chiến tranh nhân dân của Việt Nam, lấy sức mạnh toàn dân để đánh giặc.\nc) Đúng.\nCuộc chiến đấu cuối năm 1946 đầu năm 1947 ở Hà Nội đã tạo tình thế thuận lợi ban đầu cho ta trong cuộc kháng chiến toàn quốc. Ta không tiêu diệt được hoàn toàn quân Pháp, nhưng đã làm chậm bước tiến của chúng, giúp cả nước có thời gian chuyển vào kháng chiến lâu dài.\nd) Sai.\nCuộc chiến đấu của quân và dân Thủ đô chủ yếu làm thất bại âm mưu đánh nhanh, chiếm nhanh cơ quan đầu não kháng chiến của Pháp ở Hà Nội. Còn âm mưu mở rộng đánh chiếm miền Bắc và đánh lên căn cứ Việt Bắc bị thất bại rõ nhất trong Chiến dịch Việt Bắc thu - đông năm 1947.",
+          "difficulty": "hard",
+          "topic": "Kháng chiến chống Pháp 1945-1954",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-Tot-Nghiep-2026-Lich-su-THPT-Hoang-Hoa-Lan-1",
+              "location": "Câu 3"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tot-nghiep-2026-lich-su-thpt-hoang-hoa-lan-1-q28",
+          "orderInExam": 28,
+          "questionType": "true_false",
+          "questionText": "Cho những thông tin trong bảng sau: Thời gian | Nội dung sự kiện 14/8/1945 | Khởi nghĩa thắng lợi ở một số nơi thuộc các tỉnh đồng bằng sông Hồng, Thanh Hoá... 16/8/1945 | Đơn vị giải phóng quân từ Tân Trào tiến về giải phóng thị xã Thái Nguyên. 18/8/1945 | Hải Dương, Bắc Giang, Hà Tĩnh, Quảng Nam giành chính quyền ở tỉnh lị sớm nhất. Từ 19 đến 25/8/1945 | Khởi nghĩa thắng lợi ở Hà Nội, Huế, Sài Gòn 28/8/1945 | Hai tỉnh giành chính quyền muộn nhất là Hà Tiên và Đồng Nai Thượng. 30/8/1945 | Vua Bảo Đại thoái vị. Chế độ phong kiến Việt Nam hoàn toàn sụp đổ. 2/9/1945 | Hồ Chí Minh đã thay mặt Chính phủ lâm thời đọc Tuyên ngôn độc lập khai sinh nước Việt Nam Dân chủ Cộng hoà",
+          "statements": [
+            {
+              "id": "a",
+              "text": "Nhân dân Hà Nội, Huế, Sài Gòn giành chính quyền có tác động lớn đến các địa phương trong cả nước, đánh dấu thắng lợi hoàn toàn của Cách mạng tháng Tám.",
+              "isTrue": false
+            },
+            {
+              "id": "b",
+              "text": "Từ ngày 14/8/1945, khởi nghĩa đã thắng lợi ở một số xã, huyện thuộc đồng bằng sông Hồng.",
+              "isTrue": true
+            },
+            {
+              "id": "c",
+              "text": "Cuộc khởi nghĩa toàn dân với lực lượng vũ trang là chủ lực đã đưa đến thắng lợi nhanh chóng và ít đổ máu của Cách mạng tháng Tám năm 1945 ở Việt Nam.",
+              "isTrue": false
+            },
+            {
+              "id": "d",
+              "text": "Nước Việt Nam Dân chủ Cộng hoà ra đời là kết quả của cuộc nổi dậy trên cả hai địa bàn ở nông thôn và thành thị.",
+              "isTrue": true
+            }
+          ],
+          "explanation": "a) Sai.\nHà Nội, Huế, Sài Gòn giành chính quyền có tác động rất lớn, cổ vũ mạnh mẽ các địa phương trong cả nước. Tuy nhiên, chưa thể nói ngay lúc đó Cách mạng tháng Tám đã thắng lợi hoàn toàn, vì đến ngày 28/8/1945 vẫn còn một số địa phương mới giành được chính quyền.\nb) Đúng.\nTừ ngày 14/8/1945, khởi nghĩa đã thắng lợi ở một số nơi thuộc các tỉnh đồng bằng sông Hồng, Thanh Hóa... Điều này cho thấy phong trào khởi nghĩa đã lan rộng trước khi giành thắng lợi ở các trung tâm lớn.\nc) Sai.\nCách mạng tháng Tám là cuộc khởi nghĩa toàn dân, nhưng lực lượng chủ yếu là lực lượng chính trị của quần chúng nhân dân, còn lực lượng vũ trang giữ vai trò hỗ trợ, xung kích. Vì vậy nói “lực lượng vũ trang là chủ lực” là sai.\nd) Đúng.\nNước Việt Nam Dân chủ Cộng hòa ra đời là kết quả của cuộc Tổng khởi nghĩa giành chính quyền trên cả hai địa bàn: nông thôn và thành thị. Thắng lợi đó chấm dứt ách thống trị của thực dân, phát xít và chế độ phong kiến, mở ra kỉ nguyên độc lập, tự do cho dân tộc.",
+          "difficulty": "hard",
+          "topic": "Cách mạng tháng Tám 1945",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-Tot-Nghiep-2026-Lich-su-THPT-Hoang-Hoa-Lan-1",
+              "location": "Câu 4"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "warnings": null,
+  "verification": {
+    "structural": {
+      "layer": "L1_structural",
+      "passed": 8,
+      "total": 8,
+      "all_passed": true,
+      "checks": [
+        {
+          "name": "MCQ count = 24",
+          "passed": true,
+          "actual": 24
+        },
+        {
+          "name": "T/F count = 4",
+          "passed": true,
+          "actual": 4
+        },
+        {
+          "name": "No duplicate question IDs",
+          "passed": true,
+          "duplicates": []
+        },
+        {
+          "name": "T/F orderInExam >= 25",
+          "passed": true,
+          "violations": []
+        },
+        {
+          "name": "T/F orderInExam = {25,26,27,28}",
+          "passed": true,
+          "actual": [
+            25,
+            26,
+            27,
+            28
+          ],
+          "expected": [
+            25,
+            26,
+            27,
+            28
+          ]
+        },
+        {
+          "name": "MCQ orderInExam = {1..24}",
+          "passed": true,
+          "actual_first_last": [
+            [
+              1,
+              2,
+              3
+            ],
+            [
+              22,
+              23,
+              24
+            ]
+          ],
+          "expected": "1..24"
+        },
+        {
+          "name": "All MCQ have valid correctOptionId",
+          "passed": true,
+          "missing_in_questions": []
+        },
+        {
+          "name": "All T/F have 4 statements with isTrue bool",
+          "passed": true,
+          "issues": []
+        }
+      ]
+    },
+    "cross_source": {
+      "layer": "L2_cross_source",
+      "n_conflicts": 0,
+      "n_mcq_conflicts": 0,
+      "n_tf_conflicts": 0,
+      "shifting_pattern_detected": false,
+      "shifting_warning": null,
+      "conflicts": [],
+      "all_passed": true
+    },
+    "content_integrity": {
+      "layer": "L3_content",
+      "n_suspicious": 0,
+      "suspicious": [],
+      "note": "LOW severity — cần review thủ công nếu nhiều case"
+    },
+    "verified_at": "2026-05-17T09:51:50.648761+00:00"
+  }
+}

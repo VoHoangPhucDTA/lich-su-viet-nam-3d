@@ -1,0 +1,153 @@
+{
+  "id": "chu-tich-ho-chi-minh-tham-quan-cang-bai-chay-1961",
+  "slug": "chu-tich-ho-chi-minh-tham-quan-cang-bai-chay-1961",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Chủ tịch Hồ Chí Minh thăm Quân cảng Bãi Cháy và căn dặn về bảo vệ biển",
+    "short": "Hồ Chí Minh căn dặn về biển",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "visit",
+    "region": "vietnam",
+    "tags": [
+      "Hồ Chí Minh",
+      "Bảo vệ biển",
+      "Hải quân"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 11,
+        "lessonId": "12394",
+        "lessonTitle": "BÀI 15   VỊ TRÍ VÀ TẦM QUAN TRỌNG CỦA BI"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1961,
+      "month": null,
+      "day": null
+    },
+    "end": null,
+    "datePrecision": "year",
+    "displayDate": "Năm 1961",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "mixed",
+    "historicalLocations": [],
+    "provinceNames": [
+      "Hà Tĩnh"
+    ],
+    "gadmRefs": [
+      "VNM.29_1"
+    ],
+    "marker": {
+      "name": "Quân cảng Bãi Cháy",
+      "lat": 20.9583,
+      "lng": 107.0333,
+      "confidence": "high"
+    },
+    "markers": [
+      {
+        "name": "Quân cảng Bãi Cháy",
+        "lat": 20.9583,
+        "lng": 107.0333,
+        "confidence": "high"
+      }
+    ],
+    "focusGeometry": {
+      "mode": "bounds",
+      "center": {
+        "lat": 19.623466,
+        "lng": 106.385454
+      },
+      "zoom": 7
+    }
+  },
+  "summary": {
+    "homepageTitle": "Hồ Chí Minh căn dặn bảo vệ biển tại Bãi Cháy",
+    "homepageSummary": "Năm 1961, Chủ tịch Hồ Chí Minh thăm Quân cảng Bãi Cháy, căn dặn về tầm quan trọng của việc giữ gìn và bảo vệ vùng biển Việt Nam.",
+    "cardSummary": "Chủ tịch Hồ Chí Minh thăm Quân cảng Bãi Cháy (1961) và căn dặn bảo vệ biển."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Trong dịp tới thăm Bộ đội Hải quân tại Quân cảng Bãi Cháy (năm 1961), Chủ tịch Hồ Chí Minh đã căn dặn: “Ngày trước ta chỉ có đêm và rừng. Ngày nay ta có ngày, có trời, có biển. Bờ biển ta dài, tươi đẹp, ta phải biết giữ gìn lấy nó\".",
+    "detailedNarrative": "Chủ tịch Hồ Chí Minh đã thăm Bộ đội Hải quân tại Quân cảng Bãi Cháy vào năm 1961. Tại đây, Người đã có lời căn dặn về tầm quan trọng của việc giữ gìn và bảo vệ vùng biển của nước ta, nhấn mạnh sự thay đổi từ một quốc gia chỉ có rừng núi sang một quốc gia có biển.",
+    "significance": "Lời căn dặn của Chủ tịch Hồ Chí Minh thể hiện tầm nhìn chiến lược về chủ quyền biển đảo và ý thức bảo vệ lãnh thổ quốc gia.",
+    "keyFacts": [
+      "Căn dặn về giữ gìn và bảo vệ biển",
+      "Chủ tịch Hồ Chí Minh thăm Quân cảng Bãi Cháy",
+      "Năm 1961"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 11,
+        "book": "KNTT",
+        "lessonId": "12394",
+        "lessonTitle": "BÀI 15   VỊ TRÍ VÀ TẦM QUAN TRỌNG CỦA BI",
+        "chapter": "Chu de 7",
+        "lesson": "Bai 15",
+        "pageRange": {
+          "start": 101,
+          "end": 106
+        },
+        "url": "https://sgkvn.com/lop-11-14/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-7-lich-su-chu-quyen-cua-viet-nam-o-bien-dong-3354/bai-15-vi-tri-va-tam-quan-trong-cua-bien-dong-12394.html",
+        "excerpt": "Trong dịp tới thăm Bộ đội Hải quân tại Quân cảng Bãi Cháy (năm 1961), Chủ tịch Hồ Chí Minh đã căn dặn: “Ngày trước ta chỉ có đêm và rừng. Ngày nay ta có ngày, có trời, có biển. Bờ biển ta dài, tươi đẹp, ta phải biết giữ gìn lấy nó\"."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "chu-tich-ho-chi-minh-tham-quan-cang-bai-chay-1961",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 223
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": true,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

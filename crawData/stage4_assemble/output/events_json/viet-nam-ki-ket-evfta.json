@@ -1,0 +1,133 @@
+{
+  "id": "viet-nam-ki-ket-evfta",
+  "slug": "viet-nam-ki-ket-evfta",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Việt Nam kí kết Hiệp định Thương mại tự do Việt Nam - EU (EVFTA)",
+    "short": "Việt Nam kí EVFTA",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "economic",
+    "eventSubtype": "treaty",
+    "region": "vietnam",
+    "tags": [
+      "hội nhập kinh tế",
+      "EU",
+      "thương mại tự do"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 12,
+        "lessonId": "12965",
+        "lessonTitle": "BÀI 14: HOẠT ĐỘNG ĐỐI NGOẠI CỦA VIỆT NAM TỪ NĂM 1975 ĐẾN NAY"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "end": null,
+    "datePrecision": "approximate",
+    "displayDate": "Trong thời kì Đổi mới",
+    "isApproximate": true
+  },
+  "mapData": {
+    "geoType": "no_location",
+    "historicalLocations": [],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "auto",
+      "center": null,
+      "zoom": null
+    }
+  },
+  "summary": {
+    "homepageTitle": "Việt Nam kí EVFTA",
+    "homepageSummary": "Việt Nam kí kết Hiệp định Thương mại tự do với Liên minh châu Âu (EVFTA), thúc đẩy quan hệ kinh tế.",
+    "cardSummary": "Việt Nam kí kết Hiệp định Thương mại tự do Việt Nam - EU (EVFTA)."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Việt Nam kí kết Hiệp định Thương mại tự do Việt Nam - EU (EVFTA).",
+    "detailedNarrative": null,
+    "significance": "Tích cực, chủ động hội nhập khu vực và thế giới.",
+    "keyFacts": [
+      "Hiệp định Thương mại tự do",
+      "Với Liên minh châu Âu (EU)"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 12,
+        "book": "KNTT",
+        "lessonId": "12965",
+        "lessonTitle": "BÀI 14: HOẠT ĐỘNG ĐỐI NGOẠI CỦA VIỆT NAM TỪ NĂM 1975 ĐẾN NAY",
+        "chapter": "Chu de 4",
+        "lesson": "Bai 14",
+        "pageRange": {
+          "start": 81,
+          "end": 86
+        },
+        "url": "https://sgkvn.com/lop-12-15/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-4-cong-cuoc-doi-moi-o-viet-nam-tu-nam-1986-den-nay-3540/bai-14-hoat-dong-doi-ngoai-cua-viet-nam-tu-nam-1975-den-nay-12965.html",
+        "excerpt": "Việt Nam kí kết Hiệp định Thương mại tự do Việt Nam - EU (EVFTA)."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "viet-nam-ki-ket-evfta",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 383
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": false,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

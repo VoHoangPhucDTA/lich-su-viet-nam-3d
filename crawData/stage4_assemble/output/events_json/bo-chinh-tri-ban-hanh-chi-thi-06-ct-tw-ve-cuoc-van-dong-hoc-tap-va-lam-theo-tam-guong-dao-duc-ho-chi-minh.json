@@ -1,0 +1,134 @@
+{
+  "id": "bo-chinh-tri-ban-hanh-chi-thi-06-ct-tw-ve-cuoc-van-dong-hoc-tap-va-lam-theo-tam-guong-dao-duc-ho-chi-minh",
+  "slug": "bo-chinh-tri-ban-hanh-chi-thi-06-ct-tw-ve-cuoc-van-dong-hoc-tap-va-lam-theo-tam-guong-dao-duc-ho-chi-minh",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Bộ Chính trị ban hành Chỉ thị 06-CT/TW về Cuộc vận động “Học tập và làm theo tấm gương đạo đức Hồ Chí Minh”",
+    "short": "Chỉ thị 06-CT/TW",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "directive",
+    "region": "vietnam",
+    "tags": [
+      "Hồ Chí Minh",
+      "học tập",
+      "Đảng Cộng sản Việt Nam"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 12,
+        "lessonId": "12968",
+        "lessonTitle": "BÀI 17: DẤU ẤN HỒ CHÍ MINH TRONG LÒNG NHÂN DÂN THẾ GIỚI VÀ VIỆT NAM"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 2006,
+      "month": 11,
+      "day": 7
+    },
+    "end": null,
+    "datePrecision": "day",
+    "displayDate": "Ngày 7-11-2006",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "no_location",
+    "historicalLocations": [],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "auto",
+      "center": null,
+      "zoom": null
+    }
+  },
+  "summary": {
+    "homepageTitle": "Chỉ thị 06-CT/TW về học tập đạo đức Hồ Chí Minh",
+    "homepageSummary": "Ngày 7-11-2006, Bộ Chính trị Đảng Cộng sản Việt Nam khoá X ban hành Chỉ thị 06-CT/TW về tổ chức Cuộc vận động “Học tập và làm theo tấm gương đạo đức Hồ Chí Minh”.",
+    "cardSummary": "Bộ Chính trị ban hành Chỉ thị 06-CT/TW về cuộc vận động học tập đạo đức Hồ Chí Minh (2006)."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Ngày 7-11-2006, Bộ Chính trị Đảng Cộng sản Việt Nam khoá X ban hành Chỉ thị 06-CT/TW về tổ chức Cuộc vận động “Học tập và làm theo tấm gương đạo đức Hồ Chí Minh”.",
+    "detailedNarrative": "Cuộc vận động này đã và đang được lan toả đến các thế hệ cán bộ đảng viên và quần chúng nhân dân.",
+    "significance": "Khởi xướng một cuộc vận động lớn nhằm giáo dục và rèn luyện cán bộ, đảng viên và nhân dân theo tấm gương đạo đức của Chủ tịch Hồ Chí Minh.",
+    "keyFacts": [
+      "Ngày ban hành: 7-11-2006",
+      "Cơ quan ban hành: Bộ Chính trị Đảng Cộng sản Việt Nam khoá X",
+      "Nội dung: Tổ chức Cuộc vận động “Học tập và làm theo tấm gương đạo đức Hồ Chí Minh”"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 12,
+        "book": "KNTT",
+        "lessonId": "12968",
+        "lessonTitle": "BÀI 17: DẤU ẤN HỒ CHÍ MINH TRONG LÒNG NHÂN DÂN THẾ GIỚI VÀ VIỆT NAM",
+        "chapter": "Chu de 5",
+        "lesson": "Bai 17",
+        "pageRange": {
+          "start": 105,
+          "end": 111
+        },
+        "url": "https://sgkvn.com/lop-12-15/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-5-lich-su-doi-ngoai-cua-viet-nam-thoi-can-hien-dai-3541/bai-17-dau-an-ho-chi-minh-trong-long-nhan-dan-the-gioi-va-viet-nam-12968.html",
+        "excerpt": "Ngày 7-11-2006, Bộ Chính trị Đảng Cộng sản Việt Nam khoá X ban hành Chỉ thị 06-CT/TW về tổ chức Cuộc vận động “Học tập và làm theo tấm gương đạo đức Hồ Chí Minh”."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "bo-chinh-tri-ban-hanh-chi-thi-06-ct-tw-ve-cuoc-van-dong-hoc-tap-va-lam-theo-tam-guong-dao-duc-ho-chi-minh",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 283
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": false,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

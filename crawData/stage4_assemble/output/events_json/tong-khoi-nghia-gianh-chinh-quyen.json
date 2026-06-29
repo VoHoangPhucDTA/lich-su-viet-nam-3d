@@ -1,0 +1,242 @@
+{
+  "id": "tong-khoi-nghia-gianh-chinh-quyen",
+  "slug": "tong-khoi-nghia-gianh-chinh-quyen",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Tổng khởi nghĩa giành chính quyền thắng lợi",
+    "short": "CMT8 thành công",
+    "alternatives": [
+      "Cách mạng tháng Tám năm 1945 giành thắng lợi",
+      "Cách mạng tháng Tám và tuyên bố độc lập của Việt Nam",
+      "Cách mạng tháng Tám năm 1945",
+      "Cách mạng tháng Tám thành công",
+      "Cách mạng tháng Tám"
+    ]
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "revolution",
+    "region": "vietnam",
+    "tags": [
+      "độc lập",
+      "đại đoàn kết",
+      "1945",
+      "Tổng khởi nghĩa",
+      "độc lập dân tộc",
+      "Việt Nam",
+      "Cách mạng",
+      "Hồ Chí Minh",
+      "Cách mạng tháng Tám",
+      "giành chính quyền",
+      "Đảng Cộng sản Việt Nam"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      10,
+      11,
+      12
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 10,
+        "lessonId": "12169",
+        "lessonTitle": "Bài 14: Khối Đại Đoàn Kết Dân Tộc Trong Lịch Sử Việt Nam"
+      },
+      {
+        "grade": 11,
+        "lessonId": "12340",
+        "lessonTitle": "BÀI 6  HÀNH TRÌNH ĐI ĐẾN ĐỘC LẬP DÂN TỘC"
+      },
+      {
+        "grade": 11,
+        "lessonId": "12382",
+        "lessonTitle": "BÀI 11  PHONG TỤC  TẬP QUÁN  VÀ MỘT SỐ L"
+      },
+      {
+        "grade": 12,
+        "lessonId": "12966",
+        "lessonTitle": "BÀI 15: KHÁI QUÁT CUỘC ĐỜI VÀ SỰ NGHIỆP CỦA HỒ CHÍ MINH"
+      },
+      {
+        "grade": 12,
+        "lessonId": "12967",
+        "lessonTitle": "BÀI 16: HỒ CHÍ MINH - ANH HÙNG GIẢI PHÓNG DÂN TỘC"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1945,
+      "month": 8,
+      "day": null
+    },
+    "end": {
+      "year": 1945,
+      "month": 8,
+      "day": null
+    },
+    "datePrecision": "month",
+    "displayDate": "Tháng 8 – 1945",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "nationwide",
+    "historicalLocations": [
+      "Việt Nam",
+      "làng xã"
+    ],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "bounds",
+      "center": {
+        "lat": 16.0,
+        "lng": 106.0
+      },
+      "zoom": 5
+    }
+  },
+  "summary": {
+    "homepageTitle": "Tổng khởi nghĩa giành chính quyền",
+    "homepageSummary": "Tháng 8 – 1945, Hồ Chí Minh cùng Trung ương Đảng, Mặt trận Việt Minh lãnh đạo nhân dân Tổng khởi nghĩa giành chính quyền thắng lợi.",
+    "cardSummary": "Tháng 8 – 1945, Hồ Chí Minh lãnh đạo Tổng khởi nghĩa giành chính quyền thắng lợi."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Tháng 8 – 1945, Hồ Chí Minh cùng Trung ương Đảng, Mặt trận Việt Minh lãnh đạo nhân dân Tổng khởi nghĩa giành chính quyền thắng lợi, và được cử làm Chủ tịch của Chính phủ lâm thời nước Việt Nam Dân chủ Cộng hoà.",
+    "detailedNarrative": "Tháng 8 – 1945, Hồ Chí Minh cùng Trung ương Đảng, Mặt trận Việt Minh lãnh đạo nhân dân Tổng khởi nghĩa giành chính quyền thắng lợi, và được cử làm Chủ tịch của Chính phủ lâm thời nước Việt Nam Dân chủ Cộng hoà.",
+    "significance": "Lật đổ ách thống trị của thực dân Pháp và phát xít Nhật, thành lập nước Việt Nam Dân chủ Cộng hoà.",
+    "keyFacts": [
+      "Hồ Chí Minh được cử làm Chủ tịch của Chính phủ lâm thời nước Việt Nam Dân chủ Cộng hoà",
+      "Là mốc thời gian đánh dấu sự thay đổi của tục nộp cheo",
+      "Giành chính quyền và tuyên bố độc lập",
+      "Tận dụng thời cơ sau Chiến tranh thế giới thứ hai",
+      "Diễn ra năm 1945",
+      "Lãnh đạo bởi Hồ Chí Minh và Trung ương Đảng",
+      "Thành công nhờ lực lượng đoàn kết",
+      "Dẫn đến thành lập nước Việt Nam Dân chủ Cộng hoà",
+      "Giành thắng lợi"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 10,
+        "book": "KNTT",
+        "lessonId": "12169",
+        "lessonTitle": "Bài 14: Khối Đại Đoàn Kết Dân Tộc Trong Lịch Sử Việt Nam",
+        "chapter": "Chu de 7",
+        "lesson": "Bai 14",
+        "pageRange": {
+          "start": 136,
+          "end": 141
+        },
+        "url": "https://sgkvn.com/lop-10-13/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-7-cong-dong-cac-dan-toc-viet-nam-3279/bai-14-khoi-dai-doan-ket-dan-toc-trong-lich-su-viet-nam-12169.html",
+        "excerpt": "Tháng 8 – 1945, Hồ Chí Minh cùng Trung ương Đảng, Mặt trận Việt Minh lãnh đạo nhân dân Tổng khởi nghĩa giành chính quyền thắng lợi, và được cử làm Chủ tịch của Chính phủ lâm thời nước Việt Nam Dân chủ Cộng hoà."
+      },
+      {
+        "grade": 11,
+        "book": "KNTT",
+        "lessonId": "12340",
+        "lessonTitle": "BÀI 6  HÀNH TRÌNH ĐI ĐẾN ĐỘC LẬP DÂN TỘC",
+        "chapter": "Chu de 3",
+        "lesson": "Bai 6",
+        "pageRange": {
+          "start": 45,
+          "end": 53
+        },
+        "url": "https://sgkvn.com/lop-11-14/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-3-qua-trinh-gianh-doc-lap-dan-toc-cua-cac-quoc-gia-dong-nam-a-3331/bai-6-hanh-trinh-di-den-doc-lap-dan-toc-o-dong-nam-a-12340.html",
+        "excerpt": "Tháng 8 – 1945, Hồ Chí Minh cùng Trung ương Đảng, Mặt trận Việt Minh lãnh đạo nhân dân Tổng khởi nghĩa giành chính quyền thắng lợi, và được cử làm Chủ tịch của Chính phủ lâm thời nước Việt Nam Dân chủ Cộng hoà."
+      },
+      {
+        "grade": 11,
+        "book": "KNTT",
+        "lessonId": "12382",
+        "lessonTitle": "BÀI 11  PHONG TỤC  TẬP QUÁN  VÀ MỘT SỐ L",
+        "chapter": "Chu de 5",
+        "lesson": "Bai 11",
+        "pageRange": {
+          "start": 82,
+          "end": 86
+        },
+        "url": "https://sgkvn.com/lop-11-14/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-5-lang-xa-viet-nam-trong-lich-su-3348/bai-11-phong-tuc-tap-quan-va-mot-so-le-hoi-lang-xa-co-truyen-12382.html",
+        "excerpt": "Tháng 8 – 1945, Hồ Chí Minh cùng Trung ương Đảng, Mặt trận Việt Minh lãnh đạo nhân dân Tổng khởi nghĩa giành chính quyền thắng lợi, và được cử làm Chủ tịch của Chính phủ lâm thời nước Việt Nam Dân chủ Cộng hoà."
+      },
+      {
+        "grade": 12,
+        "book": "KNTT",
+        "lessonId": "12966",
+        "lessonTitle": "BÀI 15: KHÁI QUÁT CUỘC ĐỜI VÀ SỰ NGHIỆP CỦA HỒ CHÍ MINH",
+        "chapter": "Chu de 5",
+        "lesson": "Bai 15",
+        "pageRange": {
+          "start": 88,
+          "end": 93
+        },
+        "url": "https://sgkvn.com/lop-12-15/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-5-lich-su-doi-ngoai-cua-viet-nam-thoi-can-hien-dai-3541/bai-15-khai-quat-cuoc-doi-va-su-nghiep-cua-ho-chi-minh-12966.html",
+        "excerpt": "Tháng 8 – 1945, Hồ Chí Minh cùng Trung ương Đảng, Mặt trận Việt Minh lãnh đạo nhân dân Tổng khởi nghĩa giành chính quyền thắng lợi, và được cử làm Chủ tịch của Chính phủ lâm thời nước Việt Nam Dân chủ Cộng hoà."
+      },
+      {
+        "grade": 12,
+        "book": "KNTT",
+        "lessonId": "12967",
+        "lessonTitle": "BÀI 16: HỒ CHÍ MINH - ANH HÙNG GIẢI PHÓNG DÂN TỘC",
+        "chapter": "Chu de 5",
+        "lesson": "Bai 16",
+        "pageRange": {
+          "start": 94,
+          "end": 104
+        },
+        "url": "https://sgkvn.com/lop-12-15/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-5-lich-su-doi-ngoai-cua-viet-nam-thoi-can-hien-dai-3541/bai-16-ho-chi-minh-anh-hung-giai-phong-dan-toc-12967.html",
+        "excerpt": "Tháng 8 – 1945, Hồ Chí Minh cùng Trung ương Đảng, Mặt trận Việt Minh lãnh đạo nhân dân Tổng khởi nghĩa giành chính quyền thắng lợi, và được cử làm Chủ tịch của Chính phủ lâm thời nước Việt Nam Dân chủ Cộng hoà."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "tong-khoi-nghia-gianh-chinh-quyen",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 161
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": true,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

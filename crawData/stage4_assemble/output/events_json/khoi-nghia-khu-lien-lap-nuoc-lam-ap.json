@@ -1,0 +1,176 @@
+{
+  "id": "khoi-nghia-khu-lien-lap-nuoc-lam-ap",
+  "slug": "khoi-nghia-khu-lien-lap-nuoc-lam-ap",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Khởi nghĩa Khu Liên lập nước Lâm Ấp",
+    "short": "Lập nước Lâm Ấp",
+    "alternatives": [
+      "Người Chăm ở quận Nhật Nam nổi dậy"
+    ]
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "uprising",
+    "region": "vietnam",
+    "tags": [
+      "Lâm Ấp",
+      "Khởi nghĩa",
+      "Chăm-pa",
+      "Nhà Hán"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      10
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 10,
+        "lessonId": "12148",
+        "lessonTitle": "Bài 11: Một Số Nền Văn Minh Cổ Trên Đất Nước Việt Nam"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 192,
+      "month": null,
+      "day": null
+    },
+    "end": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "datePrecision": "year",
+    "displayDate": "Năm 192",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "mixed",
+    "historicalLocations": [
+      "Sin-ha-pu-ra"
+    ],
+    "provinceNames": [
+      "Quảng Nam"
+    ],
+    "gadmRefs": [
+      "VNM.47_1"
+    ],
+    "marker": {
+      "name": "Trà Kiệu",
+      "lat": 15.8,
+      "lng": 108.2,
+      "confidence": "high"
+    },
+    "markers": [
+      {
+        "name": "Trà Kiệu",
+        "lat": 15.8,
+        "lng": 108.2,
+        "confidence": "high"
+      },
+      {
+        "name": "Quảng Nam",
+        "lat": 15.5,
+        "lng": 108.0,
+        "confidence": "high"
+      },
+      {
+        "name": "quận Nhật Nam",
+        "lat": 16.0,
+        "lng": 108.0,
+        "confidence": "low"
+      }
+    ],
+    "focusGeometry": {
+      "mode": "bounds",
+      "center": {
+        "lat": 15.72274,
+        "lng": 108.042535
+      },
+      "zoom": 7
+    }
+  },
+  "summary": {
+    "homepageTitle": "Lập nước Lâm Ấp (Chăm pa)",
+    "homepageSummary": "Năm 192, Khu Liên lãnh đạo người Chăm ở quận Nhật Nam nổi dậy lật đổ ách thống trị nhà Hán, lập ra nước Lâm Ấp (sau này là Chăm pa).",
+    "cardSummary": "Năm 192, Khu Liên lãnh đạo người Chăm lập nước Lâm Ấp (Chăm pa)."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Trong hai thế kỉ đầu Công nguyên, người Chăm ở quận Nhật Nam liên tục đấu tranh chống lại ách cai trị của nhà Hán. Đến năm 192, dưới sự lãnh đạo của Khu Liên (thủ lĩnh của một bộ lạc ở phía Nam quận Nhật Nam) đã nổi dậy lật đổ ách thống trị của ngoại bang, lập ra nước Lâm Ấp (sau này gọi là Chăm pa), kinh đô là Sin-ha-pu-ra (Trà Kiệu, Quảng Nam).",
+    "detailedNarrative": "Người Chăm ở quận Nhật Nam liên tục đấu tranh chống lại ách cai trị của nhà Hán. Năm 192, Khu Liên lãnh đạo cuộc nổi dậy, lật đổ ách thống trị ngoại bang và thành lập nước Lâm Ấp. Kinh đô được đặt tại Sin-ha-pu-ra (Trà Kiệu, Quảng Nam).",
+    "significance": "Đánh dấu sự ra đời của nhà nước Chăm-pa, một vương quốc độc lập của người Chăm.",
+    "keyFacts": [
+      "Diễn ra năm 192",
+      "Thành lập nước Lâm Ấp (sau này là Chăm pa)",
+      "Lật đổ ách thống trị của nhà Hán",
+      "Lãnh đạo: Khu Liên",
+      "Kinh đô: Sin-ha-pu-ra (Trà Kiệu, Quảng Nam)"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 10,
+        "book": "KNTT",
+        "lessonId": "12148",
+        "lessonTitle": "Bài 11: Một Số Nền Văn Minh Cổ Trên Đất Nước Việt Nam",
+        "chapter": "Chu de 6",
+        "lesson": "Bai 11",
+        "pageRange": {
+          "start": 93,
+          "end": 107
+        },
+        "url": "https://sgkvn.com/lop-10-13/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-6-mot-so-nen-van-minh-tren-dat-nuoc-viet-nam-truoc-nam-1858-3276/bai-11-mot-so-nen-van-minh-co-tren-dat-nuoc-viet-nam-12148.html",
+        "excerpt": "Trong hai thế kỉ đầu Công nguyên, người Chăm ở quận Nhật Nam liên tục đấu tranh chống lại ách cai trị của nhà Hán. Đến năm 192, dưới sự lãnh đạo của Khu Liên (thủ lĩnh của một bộ lạc ở phía Nam quận Nhật Nam) đã nổi dậy lật đổ ách thống trị của ngoại bang, lập ra nước Lâm Ấp (sau này gọi là Chăm pa), kinh đô là Sin-ha-pu-ra (Trà Kiệu, Quảng Nam)."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "khoi-nghia-khu-lien-lap-nuoc-lam-ap",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 3
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": true,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

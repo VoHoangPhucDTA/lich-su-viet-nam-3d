@@ -1,0 +1,136 @@
+{
+  "id": "o-xip-man-den-xtam-gap-nguyen-ai-quoc-va-viet-bai",
+  "slug": "o-xip-man-den-xtam-gap-nguyen-ai-quoc-va-viet-bai",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Ô-xíp Man-den-xtam gặp Nguyễn Ái Quốc và viết bài 'Thăm một chiến sĩ cộng sản quốc tế'",
+    "short": "Ô-xíp Man-den-xtam gặp Nguyễn Ái Quốc và viết bài 'Thăm một chiến sĩ cộng sản quốc tế'",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "cultural",
+    "eventSubtype": "publication",
+    "region": "world",
+    "tags": [
+      "báo chí",
+      "văn hóa",
+      "Nguyễn Ái Quốc"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 12,
+        "lessonId": "12968",
+        "lessonTitle": "BÀI 17: DẤU ẤN HỒ CHÍ MINH TRONG LÒNG NHÂN DÂN THẾ GIỚI VÀ VIỆT NAM"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1923,
+      "month": null,
+      "day": null
+    },
+    "end": null,
+    "datePrecision": "year",
+    "displayDate": "Năm 1923",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "no_location",
+    "historicalLocations": [],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "auto",
+      "center": null,
+      "zoom": null
+    }
+  },
+  "summary": {
+    "homepageTitle": "Ô-xíp Man-den-xtam viết về Nguyễn Ái Quốc",
+    "homepageSummary": "Năm 1923, nhà báo Ô-xíp Man-den-xtam gặp Nguyễn Ái Quốc và viết bài 'Thăm một chiến sĩ cộng sản quốc tế' ca ngợi Người.",
+    "cardSummary": "Năm 1923, Ô-xíp Man-den-xtam viết bài 'Thăm một chiến sĩ cộng sản quốc tế' về Nguyễn Ái Quốc."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Năm 1923, nhà báo Ô-xíp Man-den-xtam gặp Chủ tịch Hồ Chí Minh (lúc đó là Nguyễn Ái Quốc). Ông viết bài Thăm một chiến sĩ cộng sản quốc tế đăng trên tạp chí Ngọn lửa nhỏ, trong đó có nhận xét: “Trong giọng nói trầm ấm của Nguyễn Ái Quốc, chúng ta như nghe thấy ngày mai, như thấy sự yên tĩnh mênh mông của tình hữu ái toàn thế giới... Nguyễn Ái Quốc cũng đang toả ra một cái gì thật lịch thiệp và tế nhị... Từ Nguyễn Ái Quốc đã toả ra một thứ văn hoá, không phải văn hoá Âu châu, mà có lẽ là một nền văn hoá tương lai.\"",
+    "detailedNarrative": null,
+    "significance": "Bài viết thể hiện sự cảm phục và đánh giá cao của một nhà báo quốc tế đối với Nguyễn Ái Quốc, coi Người là hiện thân của một nền văn hóa tương lai.",
+    "keyFacts": [
+      "Nhà báo: Ô-xíp Man-den-xtam",
+      "Đối tượng: Nguyễn Ái Quốc",
+      "Năm: 1923",
+      "Tạp chí: Ngọn lửa nhỏ",
+      "Tên bài viết: Thăm một chiến sĩ cộng sản quốc tế"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 12,
+        "book": "KNTT",
+        "lessonId": "12968",
+        "lessonTitle": "BÀI 17: DẤU ẤN HỒ CHÍ MINH TRONG LÒNG NHÂN DÂN THẾ GIỚI VÀ VIỆT NAM",
+        "chapter": "Chu de 5",
+        "lesson": "Bai 17",
+        "pageRange": {
+          "start": 105,
+          "end": 111
+        },
+        "url": "https://sgkvn.com/lop-12-15/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-5-lich-su-doi-ngoai-cua-viet-nam-thoi-can-hien-dai-3541/bai-17-dau-an-ho-chi-minh-trong-long-nhan-dan-the-gioi-va-viet-nam-12968.html",
+        "excerpt": "Năm 1923, nhà báo Ô-xíp Man-den-xtam gặp Chủ tịch Hồ Chí Minh (lúc đó là Nguyễn Ái Quốc). Ông viết bài Thăm một chiến sĩ cộng sản quốc tế đăng trên tạp chí Ngọn lửa nhỏ, trong đó có nhận xét: “Trong giọng nói trầm ấm của Nguyễn Ái Quốc, chúng ta như nghe thấy ngày mai, như thấy sự yên tĩnh mênh mông của tình hữu ái toàn thế giới... Nguyễn Ái Quốc cũng đang toả ra một cái gì thật lịch thiệp và tế nhị... Từ Nguyễn Ái Quốc đã toả ra một thứ văn hoá, không phải văn hoá Âu châu, mà có lẽ là một nền văn hoá tương lai.\""
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "o-xip-man-den-xtam-gap-nguyen-ai-quoc-va-viet-bai",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 121
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": false,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

@@ -1,0 +1,133 @@
+{
+  "id": "ho-chi-minh-tro-ve-nuoc-1944",
+  "slug": "ho-chi-minh-tro-ve-nuoc-1944",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Hồ Chí Minh trở về nước tiếp tục lãnh đạo cách mạng",
+    "short": "Hồ Chí Minh trở về nước tiếp tục lãnh đạo cách mạng",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "return",
+    "region": "vietnam",
+    "tags": [
+      "Hồ Chí Minh",
+      "trở về nước",
+      "lãnh đạo cách mạng"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 12,
+        "lessonId": "12966",
+        "lessonTitle": "BÀI 15: KHÁI QUÁT CUỘC ĐỜI VÀ SỰ NGHIỆP CỦA HỒ CHÍ MINH"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1944,
+      "month": 9,
+      "day": null
+    },
+    "end": null,
+    "datePrecision": "month",
+    "displayDate": "Tháng 9 – 1944",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "no_location",
+    "historicalLocations": [],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "auto",
+      "center": null,
+      "zoom": null
+    }
+  },
+  "summary": {
+    "homepageTitle": "Hồ Chí Minh trở về nước (1944)",
+    "homepageSummary": "Tháng 9 – 1944, Hồ Chí Minh trở về nước tiếp tục lãnh đạo cách mạng.",
+    "cardSummary": "Tháng 9 – 1944, Hồ Chí Minh trở về nước tiếp tục lãnh đạo cách mạng."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Tháng 9 – 1944, Hồ Chí Minh trở về nước tiếp tục lãnh đạo cách mạng.",
+    "detailedNarrative": "Tháng 9 – 1944, Hồ Chí Minh trở về nước tiếp tục lãnh đạo cách mạng.",
+    "significance": null,
+    "keyFacts": [
+      "Tiếp tục lãnh đạo cách mạng",
+      "Trở về nước"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 12,
+        "book": "KNTT",
+        "lessonId": "12966",
+        "lessonTitle": "BÀI 15: KHÁI QUÁT CUỘC ĐỜI VÀ SỰ NGHIỆP CỦA HỒ CHÍ MINH",
+        "chapter": "Chu de 5",
+        "lesson": "Bai 15",
+        "pageRange": {
+          "start": 88,
+          "end": 93
+        },
+        "url": "https://sgkvn.com/lop-12-15/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-5-lich-su-doi-ngoai-cua-viet-nam-thoi-can-hien-dai-3541/bai-15-khai-quat-cuoc-doi-va-su-nghiep-cua-ho-chi-minh-12966.html",
+        "excerpt": "Tháng 9 – 1944, Hồ Chí Minh trở về nước tiếp tục lãnh đạo cách mạng."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "ho-chi-minh-tro-ve-nuoc-1944",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 143
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": false,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

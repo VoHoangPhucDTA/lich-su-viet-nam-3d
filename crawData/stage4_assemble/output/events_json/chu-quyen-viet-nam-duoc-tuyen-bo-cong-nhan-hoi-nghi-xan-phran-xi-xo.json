@@ -1,0 +1,140 @@
+{
+  "id": "chu-quyen-viet-nam-duoc-tuyen-bo-cong-nhan-hoi-nghi-xan-phran-xi-xo",
+  "slug": "chu-quyen-viet-nam-duoc-tuyen-bo-cong-nhan-hoi-nghi-xan-phran-xi-xo",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Chủ quyền của Việt Nam đối với Hoàng Sa và Trường Sa được tuyên bố và công nhận tại Hội nghị Hoà bình Xan Phran-xi-xcô",
+    "short": "Hội nghị Xan Phran-xi-xcô công nhận chủ quyền VN",
+    "alternatives": [
+      "Hội nghị Hoà bình San Francisco"
+    ]
+  },
+  "classification": {
+    "eventType": "diplomatic",
+    "eventSubtype": "treaty",
+    "region": "world",
+    "tags": [
+      "Trường Sa",
+      "Hội nghị quốc tế",
+      "chủ quyền",
+      "Hoàng Sa"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 11,
+        "lessonId": "12395",
+        "lessonTitle": "BÀI 16  VIỆT NAM VÀ BIỂN ĐÔNG"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1951,
+      "month": 9,
+      "day": null
+    },
+    "end": null,
+    "datePrecision": "month",
+    "displayDate": "Tháng 9 năm 1951",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "no_location",
+    "historicalLocations": [
+      "Xan Phran-xi-xcô"
+    ],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "auto",
+      "center": null,
+      "zoom": null
+    }
+  },
+  "summary": {
+    "homepageTitle": "Hội nghị San Francisco công nhận chủ quyền VN (1951)",
+    "homepageSummary": "Tháng 9 năm 1951, chủ quyền của Việt Nam đối với quần đảo Hoàng Sa và quần đảo Trường Sa được tuyên bố và công nhận tại Hội nghị Hoà bình Xan Phran-xi-xcô.",
+    "cardSummary": "Chủ quyền Việt Nam đối với Hoàng Sa, Trường Sa được tuyên bố và công nhận tại Hội nghị Hoà bình Xan Phran-xi-xcô (9/1951)."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Đến tháng 9 – 1951, chủ quyền của Việt Nam đối với quần đảo Hoàng Sa và quần đảo Trường Sa tiếp tục được tuyên bố và công nhận tại Hội nghị Hoà bình Xan Phran-xi-xcô với sự tham dự của 51 quốc gia thành viên Liên hợp quốc.",
+    "detailedNarrative": "Đến tháng 9 – 1951, chủ quyền của Việt Nam đối với quần đảo Hoàng Sa và quần đảo Trường Sa tiếp tục được tuyên bố và công nhận tại Hội nghị Hoà bình Xan Phran-xi-xcô với sự tham dự của 51 quốc gia thành viên Liên hợp quốc.",
+    "significance": "Là sự công nhận quốc tế về chủ quyền của Việt Nam đối với hai quần đảo Hoàng Sa và Trường Sa.",
+    "keyFacts": [
+      "Tại Hội nghị Hoà bình Xan Phran-xi-xcô",
+      "Chủ quyền Việt Nam đối với Hoàng Sa và Trường Sa được tuyên bố và công nhận",
+      "Diễn ra tháng 9 năm 1951",
+      "Có sự tham dự của 51 quốc gia thành viên Liên hợp quốc"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 11,
+        "book": "KNTT",
+        "lessonId": "12395",
+        "lessonTitle": "BÀI 16  VIỆT NAM VÀ BIỂN ĐÔNG",
+        "chapter": "Chu de 7",
+        "lesson": "Bai 16",
+        "pageRange": {
+          "start": 107,
+          "end": 111
+        },
+        "url": "https://sgkvn.com/lop-11-14/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-7-lich-su-chu-quyen-cua-viet-nam-o-bien-dong-3354/bai-16-viet-nam-va-bien-dong-12395.html",
+        "excerpt": "Đến tháng 9 – 1951, chủ quyền của Việt Nam đối với quần đảo Hoàng Sa và quần đảo Trường Sa tiếp tục được tuyên bố và công nhận tại Hội nghị Hoà bình Xan Phran-xi-xcô với sự tham dự của 51 quốc gia thành viên Liên hợp quốc."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "chu-quyen-viet-nam-duoc-tuyen-bo-cong-nhan-hoi-nghi-xan-phran-xi-xo",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 195
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": false,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

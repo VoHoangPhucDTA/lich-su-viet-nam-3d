@@ -1,0 +1,141 @@
+{
+  "id": "phe-duyet-chien-luoc-phat-trien-cong-nghiep-van-hoa-viet-nam",
+  "slug": "phe-duyet-chien-luoc-phat-trien-cong-nghiep-van-hoa-viet-nam",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Phê duyệt Chiến lược phát triển các ngành công nghiệp văn hoá đến năm 2020, tầm nhìn đến năm 2030",
+    "short": "Phê duyệt Chiến lược CNVH Việt Nam",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "reform",
+    "region": "vietnam",
+    "tags": [
+      "Chính phủ",
+      "Việt Nam",
+      "Công nghiệp văn hoá",
+      "Chiến lược"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      10
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 10,
+        "lessonId": "12137",
+        "lessonTitle": "Bài 4: Sử Học Với Một Số Lĩnh Vực, Nghành Nghề Hiện Đại"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 2016,
+      "month": 9,
+      "day": 8
+    },
+    "end": null,
+    "datePrecision": "day",
+    "displayDate": "Ngày 8 – 9 – 2016",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "nationwide",
+    "historicalLocations": [
+      "Việt Nam"
+    ],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "bounds",
+      "center": {
+        "lat": 16.0,
+        "lng": 106.0
+      },
+      "zoom": 5
+    }
+  },
+  "summary": {
+    "homepageTitle": "Phê duyệt Chiến lược Công nghiệp Văn hoá Việt Nam",
+    "homepageSummary": "Thủ tướng Chính phủ Việt Nam phê duyệt Chiến lược phát triển các ngành công nghiệp văn hoá đến năm 2020, tầm nhìn đến năm 2030.",
+    "cardSummary": "Chiến lược phát triển các ngành công nghiệp văn hoá Việt Nam được phê duyệt ngày 8/9/2016."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Chiến lược phát triển các ngành công nghiệp văn hoá đến năm 2020, tầm nhìn đến năm 2030 do Thủ tướng Chính phủ Việt Nam phê duyệt ngày 8 – 9 – 2016.",
+    "detailedNarrative": "Chiến lược này bao gồm các ngành như quảng cáo; kiến trúc; phần mềm và các trò chơi giải trí; thủ công mĩ nghệ; thiết kế; điện ảnh; xuất bản; thời trang; nghệ thuật biểu diễn; mĩ thuật, nhiếp ảnh và triển lãm; truyền hình và phát thanh; du lịch văn hoá.",
+    "significance": "Đặt nền tảng cho sự phát triển công nghiệp văn hoá Việt Nam.",
+    "keyFacts": [
+      "Ngày 8 tháng 9 năm 2016",
+      "Mục tiêu đến năm 2020, tầm nhìn 2030",
+      "Bao gồm nhiều ngành công nghiệp văn hoá",
+      "Phê duyệt bởi Thủ tướng Chính phủ Việt Nam"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 10,
+        "book": "KNTT",
+        "lessonId": "12137",
+        "lessonTitle": "Bài 4: Sử Học Với Một Số Lĩnh Vực, Nghành Nghề Hiện Đại",
+        "chapter": "Chu de 2",
+        "lesson": "Bai 4",
+        "pageRange": {
+          "start": 26,
+          "end": 32
+        },
+        "url": "https://sgkvn.com/lop-10-13/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-2-vai-tro-cua-su-hoc-3269/bai-4-su-hoc-voi-mot-so-linh-vuc-nghanh-nghe-hien-dai-12137.html",
+        "excerpt": "Chiến lược phát triển các ngành công nghiệp văn hoá đến năm 2020, tầm nhìn đến năm 2030 do Thủ tướng Chính phủ Việt Nam phê duyệt ngày 8 – 9 – 2016."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "phe-duyet-chien-luoc-phat-trien-cong-nghiep-van-hoa-viet-nam",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 289
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": true,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

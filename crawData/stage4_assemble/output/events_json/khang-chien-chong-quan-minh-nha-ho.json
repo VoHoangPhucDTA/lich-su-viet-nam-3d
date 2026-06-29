@@ -1,0 +1,224 @@
+{
+  "id": "khang-chien-chong-quan-minh-nha-ho",
+  "slug": "khang-chien-chong-quan-minh-nha-ho",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Kháng chiến chống quân Minh của nhà Hồ",
+    "short": "Kháng chiến chống quân Minh của nhà Hồ",
+    "alternatives": [
+      "Kháng chiến chống Minh của nhà Hồ"
+    ]
+  },
+  "classification": {
+    "eventType": "military",
+    "eventSubtype": "campaign",
+    "region": "vietnam",
+    "tags": [
+      "thất bại",
+      "Nhà Hồ",
+      "quân Minh",
+      "Đại Ngu",
+      "Đô hộ",
+      "Nhà Minh"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 11,
+        "lessonId": "12370",
+        "lessonTitle": "BÀI 7  CHIẾN TRANH BẢO VỆ TỔ QUỐC TRONG"
+      },
+      {
+        "grade": 11,
+        "lessonId": "12372",
+        "lessonTitle": "BÀI 8  MỘT SỐ CUỘC KHỞI NGHĨA VÀ CHIẾN T"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1406,
+      "month": null,
+      "day": null
+    },
+    "end": {
+      "year": 1407,
+      "month": null,
+      "day": null
+    },
+    "datePrecision": "year",
+    "displayDate": "1406 - 1407",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "mixed",
+    "historicalLocations": [],
+    "provinceNames": [
+      "Thanh Hóa",
+      "Hà Nội"
+    ],
+    "gadmRefs": [
+      "VNM.57_1",
+      "VNM.27_1"
+    ],
+    "marker": {
+      "name": "Thanh Hoá",
+      "lat": 19.8,
+      "lng": 105.7,
+      "confidence": "high"
+    },
+    "markers": [
+      {
+        "name": "Thanh Hoá",
+        "lat": 19.8,
+        "lng": 105.7,
+        "confidence": "high"
+      },
+      {
+        "name": "Hà Nội",
+        "lat": 21.0285,
+        "lng": 105.8542,
+        "confidence": "high"
+      },
+      {
+        "name": "thành Đa Bang",
+        "lat": 21.1,
+        "lng": 105.4,
+        "confidence": "high"
+      },
+      {
+        "name": "Đại Ngu",
+        "lat": 16.0,
+        "lng": 107.0,
+        "confidence": "low"
+      },
+      {
+        "name": "Đông Đô",
+        "lat": 21.0285,
+        "lng": 105.8542,
+        "confidence": "high"
+      },
+      {
+        "name": "Giao Chỉ",
+        "lat": 21.0285,
+        "lng": 105.8542,
+        "confidence": "medium"
+      },
+      {
+        "name": "thành Tây Đô",
+        "lat": 20.0667,
+        "lng": 105.6167,
+        "confidence": "high"
+      }
+    ],
+    "focusGeometry": {
+      "mode": "bounds",
+      "center": {
+        "lat": 20.113909,
+        "lng": 105.808497
+      },
+      "zoom": 7
+    }
+  },
+  "summary": {
+    "homepageTitle": "Kháng chiến chống Minh của nhà Hồ (1406-1407)",
+    "homepageSummary": "Cuộc kháng chiến của nhà Hồ chống quân Minh xâm lược Đại Ngu, kết thúc bằng sự thất bại và sụp đổ của nhà Hồ.",
+    "cardSummary": "Kháng chiến chống quân Minh 1406-1407 của nhà Hồ thất bại do không đoàn kết được nhân dân và phòng ngự bị động."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Cuộc kháng chiến chống quân Minh của nhà Hồ diễn ra từ cuối năm 1406 đến tháng 6 năm 1407. Nhà Minh huy động một lực lượng quân đội lớn do Trương Phụ và Mộc Thạnh chỉ huy sang xâm lược Đại Ngu. Cuối tháng 1 năm 1407, quân Minh chiếm được thành Đa Bang và Đông Đô (Hà Nội). Nhà Hồ phải rút quân về cố thủ ở thành Tây Đô (Thanh Hoá). Đến tháng 6 năm 1407, cuộc kháng chiến của nhà Hồ bị thất bại.",
+    "detailedNarrative": "Năm 1407, cuộc kháng chiến chống Minh của nhà Hồ thất bại, nước Đại Ngu phải chịu ách đô hộ của phong kiến phương Bắc (1407 – 1427). Nhà Minh đặt Đại Ngu thành quận Giao Chỉ, chia thành các phủ, huyện để cai trị. Chúng thực hiện chính sách dùng người Việt để trị người Việt, đặt ra nhiều thứ thuế nặng nề, đồng thời dùng nhiều thủ đoạn nhằm huỷ diệt nền văn hoá của dân tộc ta.",
+    "significance": "Đánh dấu sự sụp đổ của nhà Hồ và khởi đầu thời kỳ Bắc thuộc lần thứ tư.",
+    "keyFacts": [
+      "Diễn ra 1406-1407",
+      "Nhà Minh đặt Đại Ngu thành quận Giao Chỉ",
+      "Năm 1407, cuộc kháng chiến chống Minh của nhà Hồ thất bại",
+      "Địa điểm: Đại Ngu, thành Đa Bang, Đông Đô (Hà Nội), thành Tây Đô (Thanh Hoá)",
+      "Đối thủ: quân Minh (Trương Phụ, Mộc Thạnh)",
+      "Nước Đại Ngu phải chịu ách đô hộ của phong kiến phương Bắc (1407 – 1427)",
+      "Nhà Minh thực hiện chính sách dùng người Việt để trị người Việt, đặt nhiều thứ thuế nặng nề, huỷ diệt nền văn hoá",
+      "Nguyên nhân thất bại: không đoàn kết được nhân dân, phòng ngự bị động"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 11,
+        "book": "KNTT",
+        "lessonId": "12370",
+        "lessonTitle": "BÀI 7  CHIẾN TRANH BẢO VỆ TỔ QUỐC TRONG",
+        "chapter": "Chu de 4",
+        "lesson": "Bai 7",
+        "pageRange": {
+          "start": 54,
+          "end": 61
+        },
+        "url": "https://sgkvn.com/lop-11-14/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-4-chien-tranh-bao-ve-to-quoc-va-chien-tranh-giai-phong-dan-toc-trong-lich-su-viet-nam-truoc-cach-mang-thang-tam-nam-1945-3346/bai-7-chien-tranh-bao-ve-to-quoc-trong-lich-su-viet-nam-12370.html",
+        "excerpt": "Cuộc kháng chiến chống quân Minh của nhà Hồ diễn ra từ cuối năm 1406 đến tháng 6 năm 1407. Nhà Minh huy động một lực lượng quân đội lớn do Trương Phụ và Mộc Thạnh chỉ huy sang xâm lược Đại Ngu. Cuối tháng 1 năm 1407, quân Minh chiếm được thành Đa Bang và Đông Đô (Hà Nội). Nhà Hồ phải rút quân về cố thủ ở thành Tây Đô (Thanh Hoá). Đến tháng 6 năm 1407, cuộc kháng chiến của nhà Hồ bị thất bại."
+      },
+      {
+        "grade": 11,
+        "book": "KNTT",
+        "lessonId": "12372",
+        "lessonTitle": "BÀI 8  MỘT SỐ CUỘC KHỞI NGHĨA VÀ CHIẾN T",
+        "chapter": "Chu de 4",
+        "lesson": "Bai 8",
+        "pageRange": {
+          "start": null,
+          "end": null
+        },
+        "url": "https://sgkvn.com/lop-11-14/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-4-chien-tranh-bao-ve-to-quoc-va-chien-tranh-giai-phong-dan-toc-trong-lich-su-viet-nam-truoc-cach-mang-thang-tam-nam-1945-3346/bai-8-mot-so-cuoc-khoi-nghia-va-chien-tranh-giai-phong-trong-lich-su-viet-nam-tu-the-ki-iii-truoc-cong-nguyen-den-cuoi-the-ki-xix-12372.html",
+        "excerpt": "Cuộc kháng chiến chống quân Minh của nhà Hồ diễn ra từ cuối năm 1406 đến tháng 6 năm 1407. Nhà Minh huy động một lực lượng quân đội lớn do Trương Phụ và Mộc Thạnh chỉ huy sang xâm lược Đại Ngu. Cuối tháng 1 năm 1407, quân Minh chiếm được thành Đa Bang và Đông Đô (Hà Nội). Nhà Hồ phải rút quân về cố thủ ở thành Tây Đô (Thanh Hoá). Đến tháng 6 năm 1407, cuộc kháng chiến của nhà Hồ bị thất bại."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "khang-chien-chong-quan-minh-nha-ho",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 34
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": true,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

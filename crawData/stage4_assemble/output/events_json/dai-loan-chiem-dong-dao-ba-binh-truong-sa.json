@@ -1,0 +1,137 @@
+{
+  "id": "dai-loan-chiem-dong-dao-ba-binh-truong-sa",
+  "slug": "dai-loan-chiem-dong-dao-ba-binh-truong-sa",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Đài Loan chiếm đóng đảo Ba Bình thuộc quần đảo Trường Sa",
+    "short": "Đài Loan chiếm Ba Bình (1956)",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "military",
+    "eventSubtype": "occupation",
+    "region": "world",
+    "tags": [
+      "Trường Sa",
+      "Đài Loan",
+      "chủ quyền"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 11,
+        "lessonId": "12395",
+        "lessonTitle": "BÀI 16  VIỆT NAM VÀ BIỂN ĐÔNG"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1956,
+      "month": null,
+      "day": null
+    },
+    "end": null,
+    "datePrecision": "year",
+    "displayDate": "Năm 1956",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "no_location",
+    "historicalLocations": [
+      "đảo Ba Bình",
+      "quần đảo Trường Sa"
+    ],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "auto",
+      "center": null,
+      "zoom": null
+    }
+  },
+  "summary": {
+    "homepageTitle": "Đài Loan chiếm đảo Ba Bình (1956)",
+    "homepageSummary": "Năm 1956, Đài Loan chiếm đóng đảo Ba Bình thuộc quần đảo Trường Sa.",
+    "cardSummary": "Năm 1956, Đài Loan chiếm đóng đảo Ba Bình thuộc quần đảo Trường Sa."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Đài Loan - Năm 1956, chiếm đóng đảo Ba Bình thuộc quần đảo Trường Sa.",
+    "detailedNarrative": "Đài Loan - Năm 1956, chiếm đóng đảo Ba Bình thuộc quần đảo Trường Sa.",
+    "significance": "Một hành động trong bối cảnh tranh chấp chủ quyền ở Biển Đông.",
+    "keyFacts": [
+      "Đối tượng: đảo Ba Bình thuộc quần đảo Trường Sa",
+      "Diễn ra năm 1956",
+      "Chủ thể: Đài Loan"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 11,
+        "book": "KNTT",
+        "lessonId": "12395",
+        "lessonTitle": "BÀI 16  VIỆT NAM VÀ BIỂN ĐÔNG",
+        "chapter": "Chu de 7",
+        "lesson": "Bai 16",
+        "pageRange": {
+          "start": 107,
+          "end": 111
+        },
+        "url": "https://sgkvn.com/lop-11-14/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-7-lich-su-chu-quyen-cua-viet-nam-o-bien-dong-3354/bai-16-viet-nam-va-bien-dong-12395.html",
+        "excerpt": "Đài Loan - Năm 1956, chiếm đóng đảo Ba Bình thuộc quần đảo Trường Sa."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "dai-loan-chiem-dong-dao-ba-binh-truong-sa",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 212
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": false,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

@@ -1,0 +1,192 @@
+{
+  "id": "khang-chien-chong-quan-xiem-1784-1785",
+  "slug": "khang-chien-chong-quan-xiem-1784-1785",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Kháng chiến chống quân Xiêm",
+    "short": "Kháng chiến chống quân Xiêm",
+    "alternatives": [
+      "Chiến thắng Rạch Gầm – Xoài Mút"
+    ]
+  },
+  "classification": {
+    "eventType": "military",
+    "eventSubtype": "campaign",
+    "region": "vietnam",
+    "tags": [
+      "Quân Xiêm",
+      "Phong trào Tây Sơn",
+      "Đàng Trong",
+      "Tây Sơn",
+      "Nguyễn Huệ",
+      "Rạch Gầm – Xoài Mút"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 11,
+        "lessonId": "12370",
+        "lessonTitle": "BÀI 7  CHIẾN TRANH BẢO VỆ TỔ QUỐC TRONG"
+      },
+      {
+        "grade": 11,
+        "lessonId": "12372",
+        "lessonTitle": "BÀI 8  MỘT SỐ CUỘC KHỞI NGHĨA VÀ CHIẾN T"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1785,
+      "month": 1,
+      "day": null
+    },
+    "end": null,
+    "datePrecision": "month",
+    "displayDate": "Tháng 1-1785",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "mixed",
+    "historicalLocations": [],
+    "provinceNames": [
+      "Tiền Giang"
+    ],
+    "gadmRefs": [
+      "VNM.58_1"
+    ],
+    "marker": {
+      "name": "Mỹ Tho",
+      "lat": 10.35,
+      "lng": 106.35,
+      "confidence": "high"
+    },
+    "markers": [
+      {
+        "name": "Mỹ Tho",
+        "lat": 10.35,
+        "lng": 106.35,
+        "confidence": "high"
+      },
+      {
+        "name": "Tiền Giang",
+        "lat": 10.4,
+        "lng": 106.2,
+        "confidence": "high"
+      },
+      {
+        "name": "Rạch Gầm – Xoài Mút",
+        "lat": 10.35,
+        "lng": 105.95,
+        "confidence": "high"
+      }
+    ],
+    "focusGeometry": {
+      "mode": "bounds",
+      "center": {
+        "lat": 10.373257,
+        "lng": 106.233685
+      },
+      "zoom": 7
+    }
+  },
+  "summary": {
+    "homepageTitle": "Kháng chiến chống Xiêm (1784-1785)",
+    "homepageSummary": "Nguyễn Huệ lãnh đạo quân Tây Sơn đánh tan quân Xiêm xâm lược tại Rạch Gầm – Xoài Mút.",
+    "cardSummary": "Kháng chiến chống quân Xiêm 1784-1785 do Nguyễn Huệ chỉ huy, thắng lợi tại Rạch Gầm – Xoài Mút."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Cuộc kháng chiến chống quân Xiêm diễn ra từ 1784 đến 1785, dưới sự chỉ huy của Nguyễn Huệ, với trận quyết chiến tại Rạch Gầm – Xoài Mút (Tiền Giang).",
+    "detailedNarrative": "Quân Xiêm tham lợi nhỏ chỉ tranh nhau lấy tiền của, không chịu hiệp lực tấn công. Tướng Xiêm không hiểu địa hình, chỉ quen thắng lợi nên liền kéo quân thẳng xuống Mỹ Tho, gặp phục binh của ta chặn đánh, quân Xiêm thua bỏ chạy. Nguyễn Huệ đã lãnh đạo quân Tây Sơn đánh tan quân Xiêm.",
+    "significance": "Bảo vệ chủ quyền lãnh thổ phía Nam của Đại Việt.",
+    "keyFacts": [
+      "Nguyễn Huệ lãnh đạo",
+      "Người chỉ huy: Nguyễn Huệ",
+      "Đánh tan năm vạn quân Xiêm",
+      "Diễn ra 1784-1785",
+      "Diễn ra vào tháng 1-1785",
+      "Trận quyết chiến: Rạch Gầm – Xoài Mút (Tiền Giang)"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 11,
+        "book": "KNTT",
+        "lessonId": "12370",
+        "lessonTitle": "BÀI 7  CHIẾN TRANH BẢO VỆ TỔ QUỐC TRONG",
+        "chapter": "Chu de 4",
+        "lesson": "Bai 7",
+        "pageRange": {
+          "start": 54,
+          "end": 61
+        },
+        "url": "https://sgkvn.com/lop-11-14/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-4-chien-tranh-bao-ve-to-quoc-va-chien-tranh-giai-phong-dan-toc-trong-lich-su-viet-nam-truoc-cach-mang-thang-tam-nam-1945-3346/bai-7-chien-tranh-bao-ve-to-quoc-trong-lich-su-viet-nam-12370.html",
+        "excerpt": "Cuộc kháng chiến chống quân Xiêm diễn ra từ 1784 đến 1785, dưới sự chỉ huy của Nguyễn Huệ, với trận quyết chiến tại Rạch Gầm – Xoài Mút (Tiền Giang)."
+      },
+      {
+        "grade": 11,
+        "book": "KNTT",
+        "lessonId": "12372",
+        "lessonTitle": "BÀI 8  MỘT SỐ CUỘC KHỞI NGHĨA VÀ CHIẾN T",
+        "chapter": "Chu de 4",
+        "lesson": "Bai 8",
+        "pageRange": {
+          "start": null,
+          "end": null
+        },
+        "url": "https://sgkvn.com/lop-11-14/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-4-chien-tranh-bao-ve-to-quoc-va-chien-tranh-giai-phong-dan-toc-trong-lich-su-viet-nam-truoc-cach-mang-thang-tam-nam-1945-3346/bai-8-mot-so-cuoc-khoi-nghia-va-chien-tranh-giai-phong-trong-lich-su-viet-nam-tu-the-ki-iii-truoc-cong-nguyen-den-cuoi-the-ki-xix-12372.html",
+        "excerpt": "Cuộc kháng chiến chống quân Xiêm diễn ra từ 1784 đến 1785, dưới sự chỉ huy của Nguyễn Huệ, với trận quyết chiến tại Rạch Gầm – Xoài Mút (Tiền Giang)."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "khang-chien-chong-quan-xiem-1784-1785",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 57
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": true,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

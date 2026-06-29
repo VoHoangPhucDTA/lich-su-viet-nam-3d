@@ -1,0 +1,158 @@
+{
+  "id": "nguyen-tat-thanh-day-hoc-duc-thanh",
+  "slug": "nguyen-tat-thanh-day-hoc-duc-thanh",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Nguyễn Tất Thành dạy học tại trường Dục Thanh",
+    "short": "Nguyễn Tất Thành dạy học tại trường Dục Thanh",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "cultural",
+    "eventSubtype": "education",
+    "region": "vietnam",
+    "tags": [
+      "dạy học",
+      "Nguyễn Tất Thành",
+      "Dục Thanh"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 12,
+        "lessonId": "12966",
+        "lessonTitle": "BÀI 15: KHÁI QUÁT CUỘC ĐỜI VÀ SỰ NGHIỆP CỦA HỒ CHÍ MINH"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1910,
+      "month": 8,
+      "day": null
+    },
+    "end": null,
+    "datePrecision": "month",
+    "displayDate": "Cuối tháng 8 – 1910",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "mixed",
+    "historicalLocations": [],
+    "provinceNames": [
+      "Bình Thuận"
+    ],
+    "gadmRefs": [
+      "VNM.11_1"
+    ],
+    "marker": {
+      "name": "trường Dục Thanh",
+      "lat": 10.93,
+      "lng": 108.1,
+      "confidence": "high"
+    },
+    "markers": [
+      {
+        "name": "trường Dục Thanh",
+        "lat": 10.93,
+        "lng": 108.1,
+        "confidence": "high"
+      },
+      {
+        "name": "Phan Thiết (Bình Thuận)",
+        "lat": 10.9333,
+        "lng": 108.1,
+        "confidence": "high"
+      }
+    ],
+    "focusGeometry": {
+      "mode": "bounds",
+      "center": {
+        "lat": 10.975347,
+        "lng": 108.094116
+      },
+      "zoom": 7
+    }
+  },
+  "summary": {
+    "homepageTitle": "Nguyễn Tất Thành dạy học Dục Thanh",
+    "homepageSummary": "Cuối tháng 8 – 1910, Nguyễn Tất Thành đến Phan Thiết (Bình Thuận), dạy học tại trường Dục Thanh.",
+    "cardSummary": "Cuối tháng 8 – 1910, Nguyễn Tất Thành dạy học tại trường Dục Thanh ở Phan Thiết."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Cuối tháng 8 – 1910, Nguyễn Tất Thành đến Phan Thiết (Bình Thuận), dạy học tại trường Dục Thanh. Tại đây, Nguyễn Tất Thành truyền thụ cho học sinh lòng yêu nước và những trăn trở về vận mệnh của đất nước.",
+    "detailedNarrative": "Cuối tháng 8 – 1910, Nguyễn Tất Thành đến Phan Thiết (Bình Thuận), dạy học tại trường Dục Thanh. Tại đây, Nguyễn Tất Thành truyền thụ cho học sinh lòng yêu nước và những trăn trở về vận mệnh của đất nước.",
+    "significance": null,
+    "keyFacts": [
+      "Dạy học tại trường Dục Thanh",
+      "Truyền thụ lòng yêu nước"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 12,
+        "book": "KNTT",
+        "lessonId": "12966",
+        "lessonTitle": "BÀI 15: KHÁI QUÁT CUỘC ĐỜI VÀ SỰ NGHIỆP CỦA HỒ CHÍ MINH",
+        "chapter": "Chu de 5",
+        "lesson": "Bai 15",
+        "pageRange": {
+          "start": 88,
+          "end": 93
+        },
+        "url": "https://sgkvn.com/lop-12-15/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-5-lich-su-doi-ngoai-cua-viet-nam-thoi-can-hien-dai-3541/bai-15-khai-quat-cuoc-doi-va-su-nghiep-cua-ho-chi-minh-12966.html",
+        "excerpt": "Cuối tháng 8 – 1910, Nguyễn Tất Thành đến Phan Thiết (Bình Thuận), dạy học tại trường Dục Thanh. Tại đây, Nguyễn Tất Thành truyền thụ cho học sinh lòng yêu nước và những trăn trở về vận mệnh của đất nước."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "nguyen-tat-thanh-day-hoc-duc-thanh",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 100
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": true,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

@@ -1,0 +1,148 @@
+{
+  "id": "hoan-toan-giai-phong-mien-nam-viet-nam",
+  "slug": "hoan-toan-giai-phong-mien-nam-viet-nam",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Hoàn toàn giải phóng miền Nam Việt Nam",
+    "short": "Giải phóng miền Nam",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "military",
+    "eventSubtype": "campaign",
+    "region": "vietnam",
+    "tags": [
+      "giải phóng",
+      "miền Nam Việt Nam",
+      "thống nhất đất nước"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 11,
+        "lessonId": "12338",
+        "lessonTitle": "BÀI 4  SỰ PHÁT TRIỂN CỦA CHỦ NGHĨA XÃ HỘ"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "end": {
+      "year": 1975,
+      "month": 4,
+      "day": null
+    },
+    "datePrecision": "month",
+    "displayDate": "tháng 4-1975",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "point",
+    "historicalLocations": [],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": {
+      "name": "miền Nam Việt Nam",
+      "lat": 10.7626,
+      "lng": 106.6601,
+      "confidence": "low"
+    },
+    "markers": [],
+    "focusGeometry": {
+      "mode": "marker",
+      "center": {
+        "name": "miền Nam Việt Nam",
+        "lat": 10.7626,
+        "lng": 106.6601,
+        "confidence": "low"
+      },
+      "zoom": 12
+    }
+  },
+  "summary": {
+    "homepageTitle": "Giải phóng miền Nam Việt Nam (4/1975)",
+    "homepageSummary": "Tháng 4-1975, miền Nam Việt Nam được hoàn toàn giải phóng, tạo tiền đề cho việc thống nhất đất nước và cả nước cùng tiến lên xây dựng chủ nghĩa xã hội.",
+    "cardSummary": "Miền Nam Việt Nam hoàn toàn giải phóng vào tháng 4-1975."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Sau khi hoàn toàn giải phóng miền Nam (tháng 4-1975) và thực hiện thống nhất đất nước (năm 1976), cả nước Việt Nam tiến lên xây dựng chủ nghĩa xã hội.",
+    "detailedNarrative": "Sau khi hoàn toàn giải phóng miền Nam (tháng 4-1975) và thực hiện thống nhất đất nước (năm 1976), cả nước Việt Nam tiến lên xây dựng chủ nghĩa xã hội.",
+    "significance": "Tạo tiền đề cho việc thống nhất đất nước và cả nước cùng tiến lên xây dựng chủ nghĩa xã hội.",
+    "keyFacts": [
+      "Giải phóng miền Nam Việt Nam",
+      "Dẫn đến thống nhất đất nước",
+      "Diễn ra tháng 4-1975"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 11,
+        "book": "KNTT",
+        "lessonId": "12338",
+        "lessonTitle": "BÀI 4  SỰ PHÁT TRIỂN CỦA CHỦ NGHĨA XÃ HỘ",
+        "chapter": "Chu de 2",
+        "lesson": "Bai 4",
+        "pageRange": {
+          "start": 30,
+          "end": 37
+        },
+        "url": "https://sgkvn.com/lop-11-14/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-2-su-hinh-thanh-va-phat-trien-cua-chu-nghia-xa-hoi-3330/bai-4-su-phat-trien-cua-chu-nghia-xa-hoi-tu-sau-chien-tranh-the-gioi-thu-hai-den-nay-12338.html",
+        "excerpt": "Sau khi hoàn toàn giải phóng miền Nam (tháng 4-1975) và thực hiện thống nhất đất nước (năm 1976), cả nước Việt Nam tiến lên xây dựng chủ nghĩa xã hội."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "hoan-toan-giai-phong-mien-nam-viet-nam",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 332
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": true,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

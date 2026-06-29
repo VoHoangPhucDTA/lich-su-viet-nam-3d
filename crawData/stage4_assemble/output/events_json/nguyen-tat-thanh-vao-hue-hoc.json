@@ -1,0 +1,160 @@
+{
+  "id": "nguyen-tat-thanh-vao-hue-hoc",
+  "slug": "nguyen-tat-thanh-vao-hue-hoc",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Nguyễn Tất Thành theo cha vào Huế học",
+    "short": "Nguyễn Tất Thành theo cha vào Huế học",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "cultural",
+    "eventSubtype": "education",
+    "region": "vietnam",
+    "tags": [
+      "Huế",
+      "Nguyễn Tất Thành",
+      "học tập"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 12,
+        "lessonId": "12966",
+        "lessonTitle": "BÀI 15: KHÁI QUÁT CUỘC ĐỜI VÀ SỰ NGHIỆP CỦA HỒ CHÍ MINH"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1906,
+      "month": null,
+      "day": null
+    },
+    "end": null,
+    "datePrecision": "year",
+    "displayDate": "Năm 1906",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "mixed",
+    "historicalLocations": [
+      "Trường Tiểu học Pháp – Việt Đông Ba"
+    ],
+    "provinceNames": [
+      "Thừa Thiên Huế"
+    ],
+    "gadmRefs": [
+      "VNM.54_1"
+    ],
+    "marker": {
+      "name": "Trường Quốc học Huế",
+      "lat": 16.4639,
+      "lng": 107.5858,
+      "confidence": "high"
+    },
+    "markers": [
+      {
+        "name": "Trường Quốc học Huế",
+        "lat": 16.4639,
+        "lng": 107.5858,
+        "confidence": "high"
+      },
+      {
+        "name": "Huế",
+        "lat": 16.4637,
+        "lng": 107.5909,
+        "confidence": "high"
+      }
+    ],
+    "focusGeometry": {
+      "mode": "bounds",
+      "center": {
+        "lat": 16.40576,
+        "lng": 107.559465
+      },
+      "zoom": 7
+    }
+  },
+  "summary": {
+    "homepageTitle": "Nguyễn Tất Thành học ở Huế",
+    "homepageSummary": "Năm 1906, Nguyễn Tất Thành theo cha vào Huế học tại Trường Tiểu học Pháp – Việt Đông Ba và Trường Quốc học Huế.",
+    "cardSummary": "Năm 1906, Nguyễn Tất Thành theo cha vào Huế học tại Trường Tiểu học Pháp – Việt Đông Ba và Trường Quốc học Huế."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Năm 1906, ông Nguyễn Sinh Sắc vào Huế làm quan, Nguyễn Tất Thành theo cha vào học tại Trường Tiểu học Pháp – Việt Đông Ba và Trường Quốc học Huế.",
+    "detailedNarrative": "Năm 1906, ông Nguyễn Sinh Sắc vào Huế làm quan, Nguyễn Tất Thành theo cha vào học tại Trường Tiểu học Pháp – Việt Đông Ba và Trường Quốc học Huế.",
+    "significance": null,
+    "keyFacts": [
+      "Học tại Trường Tiểu học Pháp – Việt Đông Ba",
+      "Học tại Trường Quốc học Huế"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 12,
+        "book": "KNTT",
+        "lessonId": "12966",
+        "lessonTitle": "BÀI 15: KHÁI QUÁT CUỘC ĐỜI VÀ SỰ NGHIỆP CỦA HỒ CHÍ MINH",
+        "chapter": "Chu de 5",
+        "lesson": "Bai 15",
+        "pageRange": {
+          "start": 88,
+          "end": 93
+        },
+        "url": "https://sgkvn.com/lop-12-15/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-5-lich-su-doi-ngoai-cua-viet-nam-thoi-can-hien-dai-3541/bai-15-khai-quat-cuoc-doi-va-su-nghiep-cua-ho-chi-minh-12966.html",
+        "excerpt": "Năm 1906, ông Nguyễn Sinh Sắc vào Huế làm quan, Nguyễn Tất Thành theo cha vào học tại Trường Tiểu học Pháp – Việt Đông Ba và Trường Quốc học Huế."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "nguyen-tat-thanh-vao-hue-hoc",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 96
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": true,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

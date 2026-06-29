@@ -5,17 +5,17 @@ import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
 /**
- * Request body for POST /api/auth/oauth/google.
- * Frontend sends ONLY the id_token from the Google Identity Services SDK.
+ * Request body for POST /api/auth/oauth/google and /api/auth/oauth/facebook.
+ * Frontend sends ONLY the identity token from the provider SDK.
  * Backend verifies the token independently — no profile fields are accepted from the client.
  */
 public record SocialLoginRequest(
-        /** Currently only "google" is supported in P1. "facebook" will be added in P2. */
+        /** Provider name: "google" for Google OAuth, "facebook" for Facebook OAuth. */
         @NotBlank
         @Pattern(regexp = "^(google|facebook)$", message = "provider must be 'google' or 'facebook'")
         String provider,
 
-        /** id_token (JWT) from Google Identity Services. For Facebook: short-lived access_token. */
+        /** id_token (JWT) from Google Identity Services SDK, or short-lived access_token from Facebook Login JS SDK. */
         @NotBlank
         @Size(max = 4096)
         String token

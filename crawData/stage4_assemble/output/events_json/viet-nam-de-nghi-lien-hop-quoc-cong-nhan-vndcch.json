@@ -1,0 +1,138 @@
+{
+  "id": "viet-nam-de-nghi-lien-hop-quoc-cong-nhan-vndcch",
+  "slug": "viet-nam-de-nghi-lien-hop-quoc-cong-nhan-vndcch",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Việt Nam đề nghị Liên hợp quốc và các nước lớn công nhận Nhà nước Việt Nam Dân chủ Cộng hoà",
+    "short": "Việt Nam đề nghị Liên hợp quốc và các nước lớn công nhận Nhà nước Việt Nam Dân chủ Cộng hoà",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "diplomatic",
+    "eventSubtype": "recognition",
+    "region": "vietnam",
+    "tags": [
+      "đối ngoại",
+      "công nhận",
+      "Liên hợp quốc"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 12,
+        "lessonId": "12964",
+        "lessonTitle": "BÀI 13: HOẠT ĐỘNG ĐỐI NGOẠI CỦA VIỆT NAM TRONG KHÁNG CHIẾN CHỐNG PHÁP (1945 – 1954) VÀ KHÁNG CHIẾN CHỐNG MỸ (1954 - 1975)"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1945,
+      "month": null,
+      "day": null
+    },
+    "end": null,
+    "datePrecision": "year",
+    "displayDate": "Năm 1945",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "nationwide",
+    "historicalLocations": [
+      "Việt Nam"
+    ],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "bounds",
+      "center": {
+        "lat": 16.0,
+        "lng": 106.0
+      },
+      "zoom": 5
+    }
+  },
+  "summary": {
+    "homepageTitle": "Việt Nam đề nghị LHQ công nhận VNDCCH",
+    "homepageSummary": "Chính phủ Việt Nam gửi thư, công hàm đề nghị Đại hội đồng Liên hợp quốc và các nước lớn công nhận Nhà nước Việt Nam Dân chủ Cộng hoà.",
+    "cardSummary": "Năm 1945, Việt Nam đề nghị Liên hợp quốc và các nước lớn công nhận Nhà nước Việt Nam Dân chủ Cộng hoà."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Chính phủ Việt Nam đã gửi thư, công hàm đề nghị Đại hội đồng Liên hợp quốc và các nước lớn công nhận Nhà nước Việt Nam Dân chủ Cộng hoà.",
+    "detailedNarrative": "Chính phủ Việt Nam đã gửi thư, công hàm đề nghị Đại hội đồng Liên hợp quốc và các nước lớn công nhận Nhà nước Việt Nam Dân chủ Cộng hoà.",
+    "significance": null,
+    "keyFacts": [
+      "Đề nghị Đại hội đồng Liên hợp quốc và các nước lớn công nhận VNDCCH",
+      "Chính phủ Việt Nam gửi thư, công hàm"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 12,
+        "book": "KNTT",
+        "lessonId": "12964",
+        "lessonTitle": "BÀI 13: HOẠT ĐỘNG ĐỐI NGOẠI CỦA VIỆT NAM TRONG KHÁNG CHIẾN CHỐNG PHÁP (1945 – 1954) VÀ KHÁNG CHIẾN CHỐNG MỸ (1954 - 1975)",
+        "chapter": "Chu de 4",
+        "lesson": "Bai 13",
+        "pageRange": {
+          "start": 77,
+          "end": 81
+        },
+        "url": "https://sgkvn.com/lop-12-15/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-4-cong-cuoc-doi-moi-o-viet-nam-tu-nam-1986-den-nay-3540/bai-13-hoat-dong-doi-ngoai-cua-viet-nam-trong-khang-chien-chong-phap-1945-1954-va-khang-chien-chong-my-1954-1975-12964.html",
+        "excerpt": "Chính phủ Việt Nam đã gửi thư, công hàm đề nghị Đại hội đồng Liên hợp quốc và các nước lớn công nhận Nhà nước Việt Nam Dân chủ Cộng hoà."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "viet-nam-de-nghi-lien-hop-quoc-cong-nhan-vndcch",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 174
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": true,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

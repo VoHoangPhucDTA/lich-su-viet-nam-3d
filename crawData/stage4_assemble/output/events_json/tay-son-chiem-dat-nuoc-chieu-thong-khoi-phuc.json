@@ -1,0 +1,138 @@
+{
+  "id": "tay-son-chiem-dat-nuoc-chieu-thong-khoi-phuc",
+  "slug": "tay-son-chiem-dat-nuoc-chieu-thong-khoi-phuc",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Tây Sơn chiếm giữ đất nước, Chiêu Thống tính chước khôi phục kinh đô",
+    "short": "Tây Sơn chiếm, Chiêu Thống khôi phục",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "occupation",
+    "region": "vietnam",
+    "tags": [
+      "Lê Chiêu Thống",
+      "Tây Sơn",
+      "thế kỉ XVIII"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      10
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 10,
+        "lessonId": "12128",
+        "lessonTitle": "Bài 3: Sử Học Với Các Lĩnh Vực Khoa Học"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "end": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "datePrecision": "period",
+    "displayDate": "Thế kỉ XVIII",
+    "isApproximate": true
+  },
+  "mapData": {
+    "geoType": "no_location",
+    "historicalLocations": [],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "auto",
+      "center": null,
+      "zoom": null
+    }
+  },
+  "summary": {
+    "homepageTitle": "Tây Sơn chiếm đất nước, Chiêu Thống khôi phục kinh đô",
+    "homepageSummary": "Sự kiện Tây Sơn kéo vào thành chiếm giữ đất nước và Lê Chiêu Thống ba phen tính chước khôi phục kinh đô, phản ánh cuộc đấu tranh giữa Tây Sơn và nhà Lê.",
+    "cardSummary": "Tây Sơn chiếm đất nước, Lê Chiêu Thống tìm cách khôi phục kinh đô thế kỉ XVIII."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Hồi 11 của tác phẩm Hoàng Lê nhất thống chí ghi lại sự kiện Tây Sơn lại kéo vào thành chiếm giữ đất nước; Chiêu Thống ba phen tính chước khôi phục kinh đô.",
+    "detailedNarrative": "Tây Sơn lại kéo vào thành chiếm giữ đất nước. Chiêu Thống ba phen tính chước khôi phục kinh đô.",
+    "significance": "Phản ánh cuộc đấu tranh giành quyền lực giữa Tây Sơn và nhà Lê.",
+    "keyFacts": [
+      "Tây Sơn chiếm giữ đất nước",
+      "Chiêu Thống tính chước khôi phục kinh đô",
+      "Ghi trong Hoàng Lê nhất thống chí"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 10,
+        "book": "KNTT",
+        "lessonId": "12128",
+        "lessonTitle": "Bài 3: Sử Học Với Các Lĩnh Vực Khoa Học",
+        "chapter": "Chu de 2",
+        "lesson": "Bai 3",
+        "pageRange": {
+          "start": 19,
+          "end": 25
+        },
+        "url": "https://sgkvn.com/lop-10-13/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-2-vai-tro-cua-su-hoc-3269/bai-3-su-hoc-voi-cac-linh-vuc-khoa-hoc-12128.html",
+        "excerpt": "Hồi 11 của tác phẩm Hoàng Lê nhất thống chí ghi lại sự kiện Tây Sơn lại kéo vào thành chiếm giữ đất nước; Chiêu Thống ba phen tính chước khôi phục kinh đô."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "tay-son-chiem-dat-nuoc-chieu-thong-khoi-phuc",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 365
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": false,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

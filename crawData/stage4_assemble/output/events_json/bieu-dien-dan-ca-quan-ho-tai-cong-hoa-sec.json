@@ -1,0 +1,137 @@
+{
+  "id": "bieu-dien-dan-ca-quan-ho-tai-cong-hoa-sec",
+  "slug": "bieu-dien-dan-ca-quan-ho-tai-cong-hoa-sec",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Biểu diễn Dân ca Quan họ của người Việt Nam tại Cộng hoà Séc",
+    "short": "Dân ca Quan họ tại Séc",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "cultural",
+    "eventSubtype": "performance",
+    "region": "world",
+    "tags": [
+      "giao lưu quốc tế",
+      "Cộng hòa Séc",
+      "văn hóa",
+      "Dân ca Quan họ"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 12,
+        "lessonId": "12960",
+        "lessonTitle": "BÀI 11: THÀNH TỰU CƠ BẢN VÀ BÀI HỌC CỦA CÔNG CUỘC ĐỔI MỚI Ở VIỆT NAM TỪ NĂM 1986 ĐẾN NAY"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 2019,
+      "month": null,
+      "day": null
+    },
+    "end": null,
+    "datePrecision": "year",
+    "displayDate": "Năm 2019",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "no_location",
+    "historicalLocations": [
+      "Cộng hoà Séc"
+    ],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "auto",
+      "center": null,
+      "zoom": null
+    }
+  },
+  "summary": {
+    "homepageTitle": "Dân ca Quan họ tại Cộng hoà Séc (2019)",
+    "homepageSummary": "Năm 2019, Dân ca Quan họ của người Việt Nam được biểu diễn tại Cộng hoà Séc, thể hiện sự giao lưu văn hóa quốc tế.",
+    "cardSummary": "Dân ca Quan họ biểu diễn tại Cộng hoà Séc năm 2019, quảng bá văn hóa Việt Nam."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Biểu diễn Dân ca Quan họ của người Việt Nam tại Cộng hoà Séc (2019)",
+    "detailedNarrative": null,
+    "significance": "Thể hiện sự giao lưu và quảng bá văn hóa Việt Nam ra thế giới trong thời kì hội nhập quốc tế.",
+    "keyFacts": [
+      "Năm 2019",
+      "Tại Cộng hoà Séc",
+      "Biểu diễn Dân ca Quan họ"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 12,
+        "book": "KNTT",
+        "lessonId": "12960",
+        "lessonTitle": "BÀI 11: THÀNH TỰU CƠ BẢN VÀ BÀI HỌC CỦA CÔNG CUỘC ĐỔI MỚI Ở VIỆT NAM TỪ NĂM 1986 ĐẾN NAY",
+        "chapter": "Chu de 4",
+        "lesson": "Bai 11",
+        "pageRange": {
+          "start": 65,
+          "end": 71
+        },
+        "url": "https://sgkvn.com/lop-12-15/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-4-cong-cuoc-doi-moi-o-viet-nam-tu-nam-1986-den-nay-3540/bai-11-thanh-tuu-co-ban-va-bai-hoc-cua-cong-cuoc-doi-moi-o-viet-nam-tu-nam-1986-den-nay-12960.html",
+        "excerpt": "Biểu diễn Dân ca Quan họ của người Việt Nam tại Cộng hoà Séc (2019)"
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "bieu-dien-dan-ca-quan-ho-tai-cong-hoa-sec",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 293
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": false,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

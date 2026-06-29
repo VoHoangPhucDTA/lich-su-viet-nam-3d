@@ -1,0 +1,134 @@
+{
+  "id": "bo-chinh-tri-ban-hanh-chi-thi-05-ct-tw-ve-day-manh-hoc-tap-va-lam-theo-tu-tuong-dao-duc-phong-cach-ho-chi-minh",
+  "slug": "bo-chinh-tri-ban-hanh-chi-thi-05-ct-tw-ve-day-manh-hoc-tap-va-lam-theo-tu-tuong-dao-duc-phong-cach-ho-chi-minh",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Bộ Chính trị ban hành Chỉ thị 05-CT/TW về “đẩy mạnh học tập và làm theo tư tưởng, đạo đức, phong cách Hồ Chí Minh”",
+    "short": "Chỉ thị 05-CT/TW",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "directive",
+    "region": "vietnam",
+    "tags": [
+      "Hồ Chí Minh",
+      "học tập",
+      "Đảng Cộng sản Việt Nam"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 12,
+        "lessonId": "12968",
+        "lessonTitle": "BÀI 17: DẤU ẤN HỒ CHÍ MINH TRONG LÒNG NHÂN DÂN THẾ GIỚI VÀ VIỆT NAM"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 2016,
+      "month": 5,
+      "day": 15
+    },
+    "end": null,
+    "datePrecision": "day",
+    "displayDate": "Ngày 15 – 5 – 2016",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "no_location",
+    "historicalLocations": [],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "auto",
+      "center": null,
+      "zoom": null
+    }
+  },
+  "summary": {
+    "homepageTitle": "Chỉ thị 05-CT/TW về học tập tư tưởng, đạo đức, phong cách Hồ Chí Minh",
+    "homepageSummary": "Ngày 15-5-2016, Bộ Chính trị ban hành Chỉ thị 05-CT/TW về “đẩy mạnh học tập và làm theo tư tưởng, đạo đức, phong cách Hồ Chí Minh”.",
+    "cardSummary": "Bộ Chính trị ban hành Chỉ thị 05-CT/TW về đẩy mạnh học tập tư tưởng, đạo đức, phong cách Hồ Chí Minh (2016)."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Ngày 15 – 5 – 2016, Bộ Chính trị ban hành Chỉ thị 05-CT/TW về “đẩy mạnh học tập và làm theo tư tưởng, đạo đức, phong cách Hồ Chí Minh. Đến nay, cuộc vận động đã và đang được lan toả đến các thế hệ cán bộ đảng viên và quần chúng nhân dân.",
+    "detailedNarrative": null,
+    "significance": "Tiếp tục đẩy mạnh và nâng cao hiệu quả cuộc vận động học tập và làm theo tư tưởng, đạo đức, phong cách Hồ Chí Minh trong toàn Đảng và toàn dân.",
+    "keyFacts": [
+      "Cơ quan ban hành: Bộ Chính trị",
+      "Ngày ban hành: 15-5-2016",
+      "Nội dung: Đẩy mạnh học tập và làm theo tư tưởng, đạo đức, phong cách Hồ Chí Minh"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 12,
+        "book": "KNTT",
+        "lessonId": "12968",
+        "lessonTitle": "BÀI 17: DẤU ẤN HỒ CHÍ MINH TRONG LÒNG NHÂN DÂN THẾ GIỚI VÀ VIỆT NAM",
+        "chapter": "Chu de 5",
+        "lesson": "Bai 17",
+        "pageRange": {
+          "start": 105,
+          "end": 111
+        },
+        "url": "https://sgkvn.com/lop-12-15/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-5-lich-su-doi-ngoai-cua-viet-nam-thoi-can-hien-dai-3541/bai-17-dau-an-ho-chi-minh-trong-long-nhan-dan-the-gioi-va-viet-nam-12968.html",
+        "excerpt": "Ngày 15 – 5 – 2016, Bộ Chính trị ban hành Chỉ thị 05-CT/TW về “đẩy mạnh học tập và làm theo tư tưởng, đạo đức, phong cách Hồ Chí Minh. Đến nay, cuộc vận động đã và đang được lan toả đến các thế hệ cán bộ đảng viên và quần chúng nhân dân."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "bo-chinh-tri-ban-hanh-chi-thi-05-ct-tw-ve-day-manh-hoc-tap-va-lam-theo-tu-tuong-dao-duc-phong-cach-ho-chi-minh",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 288
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": false,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

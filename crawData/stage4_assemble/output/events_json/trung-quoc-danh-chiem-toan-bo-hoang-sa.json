@@ -1,0 +1,146 @@
+{
+  "id": "trung-quoc-danh-chiem-toan-bo-hoang-sa",
+  "slug": "trung-quoc-danh-chiem-toan-bo-hoang-sa",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Trung Quốc đánh chiếm toàn bộ quần đảo Hoàng Sa",
+    "short": "TQ chiếm Hoàng Sa (1974)",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "military",
+    "eventSubtype": "invasion",
+    "region": "vietnam",
+    "tags": [
+      "chủ quyền",
+      "Hoàng Sa",
+      "chiến tranh",
+      "Trung Quốc"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 11,
+        "lessonId": "12395",
+        "lessonTitle": "BÀI 16  VIỆT NAM VÀ BIỂN ĐÔNG"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1974,
+      "month": 1,
+      "day": null
+    },
+    "end": null,
+    "datePrecision": "month",
+    "displayDate": "Tháng 1 năm 1974",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "point",
+    "historicalLocations": [],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": {
+      "name": "quần đảo Hoàng Sa",
+      "lat": 16.6833,
+      "lng": 112.3333,
+      "confidence": "high"
+    },
+    "markers": [],
+    "focusGeometry": {
+      "mode": "marker",
+      "center": {
+        "name": "quần đảo Hoàng Sa",
+        "lat": 16.6833,
+        "lng": 112.3333,
+        "confidence": "high"
+      },
+      "zoom": 12
+    }
+  },
+  "summary": {
+    "homepageTitle": "Trung Quốc đánh chiếm Hoàng Sa (1/1974)",
+    "homepageSummary": "Tháng 1 năm 1974, quân đội Trung Quốc đánh chiếm toàn bộ quần đảo Hoàng Sa.",
+    "cardSummary": "Tháng 1/1974, Trung Quốc đánh chiếm toàn bộ quần đảo Hoàng Sa."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Trung Quốc - Tháng 1 – 1974: đánh chiếm toàn bộ quần đảo Hoàng Sa. Tháng 1 – 1974, quân đội Sài Gòn thất bại trong chiến đấu bảo vệ quần đảo Hoàng Sa trước cuộc tấn công của quân đội Trung Quốc.",
+    "detailedNarrative": "Trung Quốc - Tháng 1 – 1974: đánh chiếm toàn bộ quần đảo Hoàng Sa. Tháng 1 – 1974, quân đội Sài Gòn thất bại trong chiến đấu bảo vệ quần đảo Hoàng Sa trước cuộc tấn công của quân đội Trung Quốc.",
+    "significance": "Hành động quân sự của Trung Quốc nhằm chiếm đóng quần đảo Hoàng Sa, gây ra tranh chấp chủ quyền.",
+    "keyFacts": [
+      "Đối tượng: toàn bộ quần đảo Hoàng Sa",
+      "Diễn ra tháng 1 năm 1974",
+      "Chủ thể: quân đội Trung Quốc",
+      "Quân đội Sài Gòn thất bại trong chiến đấu bảo vệ"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 11,
+        "book": "KNTT",
+        "lessonId": "12395",
+        "lessonTitle": "BÀI 16  VIỆT NAM VÀ BIỂN ĐÔNG",
+        "chapter": "Chu de 7",
+        "lesson": "Bai 16",
+        "pageRange": {
+          "start": 107,
+          "end": 111
+        },
+        "url": "https://sgkvn.com/lop-11-14/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-7-lich-su-chu-quyen-cua-viet-nam-o-bien-dong-3354/bai-16-viet-nam-va-bien-dong-12395.html",
+        "excerpt": "Trung Quốc - Tháng 1 – 1974: đánh chiếm toàn bộ quần đảo Hoàng Sa. Tháng 1 – 1974, quân đội Sài Gòn thất bại trong chiến đấu bảo vệ quần đảo Hoàng Sa trước cuộc tấn công của quân đội Trung Quốc."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "trung-quoc-danh-chiem-toan-bo-hoang-sa",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 241
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": true,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

@@ -1,0 +1,142 @@
+{
+  "id": "ho-chi-minh-hoat-dong-tai-nha-so-9-pa-ri-phap",
+  "slug": "ho-chi-minh-hoat-dong-tai-nha-so-9-pa-ri-phap",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Chủ tịch Hồ Chí Minh hoạt động tại Nhà số 9, Pa-ri (Pháp)",
+    "short": "Chủ tịch Hồ Chí Minh hoạt động tại Nhà số 9, Pa-ri (Pháp)",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "activity",
+    "region": "world",
+    "tags": [
+      "Hồ Chí Minh",
+      "hoạt động cách mạng",
+      "Pháp"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 12,
+        "lessonId": "12968",
+        "lessonTitle": "BÀI 17: DẤU ẤN HỒ CHÍ MINH TRONG LÒNG NHÂN DÂN THẾ GIỚI VÀ VIỆT NAM"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1921,
+      "month": null,
+      "day": null
+    },
+    "end": {
+      "year": 1923,
+      "month": null,
+      "day": null
+    },
+    "datePrecision": "year",
+    "displayDate": "1921 – 1923",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "no_location",
+    "historicalLocations": [
+      "Nhà số 9",
+      "Pháp",
+      "Pa-ri"
+    ],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "auto",
+      "center": null,
+      "zoom": null
+    }
+  },
+  "summary": {
+    "homepageTitle": "Hồ Chí Minh hoạt động tại Nhà số 9, Pa-ri (Pháp)",
+    "homepageSummary": "Chủ tịch Hồ Chí Minh đã ở và hoạt động cách mạng tại Nhà số 9, Thủ đô Pa-ri, Pháp trong những năm 1921 – 1923.",
+    "cardSummary": "Từ 1921-1923, Hồ Chí Minh ở và hoạt động cách mạng tại Nhà số 9, Pa-ri (Pháp)."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Nhà số 9, Thủ đô Pa-ri (Pháp) là nơi Chủ tịch Hồ Chí Minh ở và hoạt động cách mạng những năm 1921 – 1923.",
+    "detailedNarrative": null,
+    "significance": null,
+    "keyFacts": [
+      "Thời gian: 1921 – 1923",
+      "Hoạt động: Ở và hoạt động cách mạng",
+      "Địa điểm: Nhà số 9, Pa-ri, Pháp"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 12,
+        "book": "KNTT",
+        "lessonId": "12968",
+        "lessonTitle": "BÀI 17: DẤU ẤN HỒ CHÍ MINH TRONG LÒNG NHÂN DÂN THẾ GIỚI VÀ VIỆT NAM",
+        "chapter": "Chu de 5",
+        "lesson": "Bai 17",
+        "pageRange": {
+          "start": 105,
+          "end": 111
+        },
+        "url": "https://sgkvn.com/lop-12-15/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-5-lich-su-doi-ngoai-cua-viet-nam-thoi-can-hien-dai-3541/bai-17-dau-an-ho-chi-minh-trong-long-nhan-dan-the-gioi-va-viet-nam-12968.html",
+        "excerpt": "Nhà số 9, Thủ đô Pa-ri (Pháp) là nơi Chủ tịch Hồ Chí Minh ở và hoạt động cách mạng những năm 1921 – 1923."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "ho-chi-minh-hoat-dong-tai-nha-so-9-pa-ri-phap",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 115
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": false,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

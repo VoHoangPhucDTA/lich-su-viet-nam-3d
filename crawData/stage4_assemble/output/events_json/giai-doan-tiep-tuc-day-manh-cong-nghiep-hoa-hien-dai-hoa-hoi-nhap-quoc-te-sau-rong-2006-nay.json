@@ -1,0 +1,149 @@
+{
+  "id": "giai-doan-tiep-tuc-day-manh-cong-nghiep-hoa-hien-dai-hoa-hoi-nhap-quoc-te-sau-rong-2006-nay",
+  "slug": "giai-doan-tiep-tuc-day-manh-cong-nghiep-hoa-hien-dai-hoa-hoi-nhap-quoc-te-sau-rong-2006-nay",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Giai đoạn tiếp tục đẩy mạnh công nghiệp hoá, hiện đại hoá, hội nhập quốc tế sâu rộng",
+    "short": "Đổi mới giai đoạn 2006-nay",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "reform",
+    "region": "vietnam",
+    "tags": [
+      "Hiện đại hóa",
+      "Kinh tế tri thức",
+      "Hội nhập quốc tế",
+      "Công nghiệp hóa"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 12,
+        "lessonId": "12958",
+        "lessonTitle": "BÀI 10: KHÁI QUÁT VỀ CÔNG CUỘC ĐỔI MỚI TỪ NĂM 1986 ĐẾN NAY"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "end": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "datePrecision": "period",
+    "displayDate": "2006 – nay",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "nationwide",
+    "historicalLocations": [
+      "Việt Nam"
+    ],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "bounds",
+      "center": {
+        "lat": 16.0,
+        "lng": 106.0
+      },
+      "zoom": 5
+    }
+  },
+  "summary": {
+    "homepageTitle": "Đẩy mạnh CNH, HĐH, hội nhập sâu rộng (2006-nay)",
+    "homepageSummary": "Hoàn thiện thể chế kinh tế thị trường, phát triển kinh tế tri thức, hội nhập quốc tế toàn diện và sâu rộng.",
+    "cardSummary": "Giai đoạn 2006-nay tiếp tục đẩy mạnh CNH, HĐH và hội nhập quốc tế sâu rộng."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Giai đoạn tiếp tục đẩy mạnh công nghiệp hoá, hiện đại hoá, hội nhập quốc tế sâu rộng của Việt Nam diễn ra từ năm 2006 đến nay.",
+    "detailedNarrative": "Từ năm 2006 đến nay, Việt Nam thực hiện chủ trương đẩy mạnh công nghiệp hoá hiện đại hoá và hội nhập quốc tế sâu rộng. Về kinh tế: tiếp tục hoàn thiện thể chế kinh tế thị trường định hướng xã hội chủ nghĩa; đẩy mạnh công nghiệp hoá, hiện đại hoá gắn với phát triển kinh tế tri thức; phấn đấu đưa Việt Nam trở thành nước đang phát triển, có nền công nghiệp theo hướng hiện đại. Về chính trị, văn hoá – xã hội, an ninh – quốc phòng: tăng cường xây dựng hệ thống chính trị trong sạch, vững mạnh; thực hiện tiến bộ và công bằng xã hội; phát triển con người toàn diện và xây dựng nền văn hoá Việt Nam tiên tiến, đậm đà bản sắc dân tộc để văn hoá thực sự trở thành sức mạnh nội sinh, động lực phát triển đất nước và bảo vệ Tổ quốc; xây dựng và bảo vệ vững chắc Tổ quốc, giữ vững môi trường hoà bình, ổn định. Về đối ngoại: chuyển từ “hội nhập kinh tế quốc tế\" sang “chủ động, tích cực hội nhập quốc tế toàn diện và sâu rộng, mở rộng phạm vi, lĩnh vực và tính chất của hội nhập; thực hiện chiến lược hội nhập quốc tế toàn diện trên các lĩnh vực kinh tế, chính trị, an ninh quốc phòng, văn hoá xã hội, trong đó hội nhập kinh tế là trọng tâm.",
+    "significance": "Đẩy mạnh toàn diện công cuộc Đổi mới, sớm đưa nước ta ra khỏi tình trạng kém phát triển, hướng tới trở thành nước đang phát triển có nền công nghiệp hiện đại.",
+    "keyFacts": [
+      "Phát triển con người toàn diện và xây dựng văn hóa Việt Nam tiên tiến, đậm đà bản sắc dân tộc",
+      "Hoàn thiện thể chế kinh tế thị trường định hướng XHCN",
+      "Thực hiện tiến bộ và công bằng xã hội",
+      "Diễn ra từ 2006 đến nay",
+      "Đẩy mạnh CNH, HĐH gắn với phát triển kinh tế tri thức",
+      "Chủ động, tích cực hội nhập quốc tế toàn diện và sâu rộng",
+      "Mục tiêu trở thành nước đang phát triển có nền công nghiệp hiện đại",
+      "Tăng cường xây dựng hệ thống chính trị trong sạch, vững mạnh"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 12,
+        "book": "KNTT",
+        "lessonId": "12958",
+        "lessonTitle": "BÀI 10: KHÁI QUÁT VỀ CÔNG CUỘC ĐỔI MỚI TỪ NĂM 1986 ĐẾN NAY",
+        "chapter": "Chu de 4",
+        "lesson": "Bai 10",
+        "pageRange": {
+          "start": 61,
+          "end": 64
+        },
+        "url": "https://sgkvn.com/lop-12-15/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-4-cong-cuoc-doi-moi-o-viet-nam-tu-nam-1986-den-nay-3540/bai-10-khai-quat-ve-cong-cuoc-doi-moi-tu-nam-1986-den-nay-12958.html",
+        "excerpt": "Giai đoạn tiếp tục đẩy mạnh công nghiệp hoá, hiện đại hoá, hội nhập quốc tế sâu rộng của Việt Nam diễn ra từ năm 2006 đến nay."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "giai-doan-tiep-tuc-day-manh-cong-nghiep-hoa-hien-dai-hoa-hoi-nhap-quoc-te-sau-rong-2006-nay",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 324
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": true,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

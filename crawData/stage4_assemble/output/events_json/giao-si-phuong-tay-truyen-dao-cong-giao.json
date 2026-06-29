@@ -1,0 +1,154 @@
+{
+  "id": "giao-si-phuong-tay-truyen-dao-cong-giao",
+  "slug": "giao-si-phuong-tay-truyen-dao-cong-giao",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Giáo sĩ phương Tây truyền đạo Công giáo ở Nam Định",
+    "short": "Giáo sĩ phương Tây truyền đạo Công giáo ở Nam Định",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "cultural",
+    "eventSubtype": "religious_mission",
+    "region": "vietnam",
+    "tags": [
+      "Công giáo",
+      "giáo sĩ phương Tây",
+      "truyền đạo"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      10
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 10,
+        "lessonId": "12160",
+        "lessonTitle": "Bài 12: Văn Minh Đại Việt"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1533,
+      "month": null,
+      "day": null
+    },
+    "end": null,
+    "datePrecision": "year",
+    "displayDate": "Năm 1533",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "mixed",
+    "historicalLocations": [],
+    "provinceNames": [
+      "Nam Định"
+    ],
+    "gadmRefs": [
+      "VNM.40_1"
+    ],
+    "marker": {
+      "name": "Nam Định",
+      "lat": 20.35,
+      "lng": 106.2,
+      "confidence": "high"
+    },
+    "markers": [
+      {
+        "name": "Nam Định",
+        "lat": 20.35,
+        "lng": 106.2,
+        "confidence": "high"
+      }
+    ],
+    "focusGeometry": {
+      "mode": "bounds",
+      "center": {
+        "lat": 20.329013,
+        "lng": 106.184297
+      },
+      "zoom": 7
+    }
+  },
+  "summary": {
+    "homepageTitle": "Giáo sĩ phương Tây truyền Công giáo (1533)",
+    "homepageSummary": "Từ năm 1533, một giáo sĩ phương Tây đã đến vùng ven biển Nam Định truyền đạo Công giáo.",
+    "cardSummary": "Năm 1533, giáo sĩ phương Tây bắt đầu truyền đạo Công giáo ở vùng ven biển Nam Định."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Từ năm 1533, một giáo sĩ người phương Tây đã đến vùng ven biển Nam Định truyền đạo.",
+    "detailedNarrative": null,
+    "significance": "Đánh dấu sự du nhập của Công giáo vào Việt Nam.",
+    "keyFacts": [
+      "Tại vùng ven biển Nam Định",
+      "Truyền đạo Công giáo",
+      "Bắt đầu từ năm 1533",
+      "Giáo sĩ phương Tây truyền đạo"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 10,
+        "book": "KNTT",
+        "lessonId": "12160",
+        "lessonTitle": "Bài 12: Văn Minh Đại Việt",
+        "chapter": "Chu de 6",
+        "lesson": "Bai 12",
+        "pageRange": {
+          "start": 108,
+          "end": 122
+        },
+        "url": "https://sgkvn.com/lop-10-13/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-6-mot-so-nen-van-minh-tren-dat-nuoc-viet-nam-truoc-nam-1858-3276/bai-12-van-minh-dai-viet-12160.html",
+        "excerpt": "Từ năm 1533, một giáo sĩ người phương Tây đã đến vùng ven biển Nam Định truyền đạo."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "giao-si-phuong-tay-truyen-dao-cong-giao",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 52
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": true,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

@@ -1,0 +1,195 @@
+{
+  "id": "giai-doan-khang-chien-chong-my-1961-1965",
+  "slug": "giai-doan-khang-chien-chong-my-1961-1965",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Giai đoạn 1961 - 1965 của cuộc kháng chiến chống Mỹ, cứu nước",
+    "short": "Kháng chiến chống Mỹ 1961-1965",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "military",
+    "eventSubtype": "phase",
+    "region": "vietnam",
+    "tags": [
+      "miền Bắc",
+      "Chiến tranh đặc biệt",
+      "miền Nam"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 12,
+        "lessonId": "12956",
+        "lessonTitle": "BÀI 8: CUỘC KHÁNG CHIẾN CHỐNG MỸ, CỨU NƯỚC (1954-1975)"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "end": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "datePrecision": "period",
+    "displayDate": "1961 - 1965",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "mixed",
+    "historicalLocations": [
+      "miền Bắc",
+      "miền Nam"
+    ],
+    "provinceNames": [
+      "Quảng Ngãi",
+      "Bình Phước",
+      "Tiền Giang",
+      "Bà Rịa - Vũng Tàu",
+      "Bình Định"
+    ],
+    "gadmRefs": [
+      "VNM.48_1",
+      "VNM.10_1",
+      "VNM.58_1",
+      "VNM.7_1",
+      "VNM.8_1"
+    ],
+    "marker": {
+      "name": "Ba Gia (Quảng Ngãi)",
+      "lat": 15.1833,
+      "lng": 108.7833,
+      "confidence": "high"
+    },
+    "markers": [
+      {
+        "name": "Ba Gia (Quảng Ngãi)",
+        "lat": 15.1833,
+        "lng": 108.7833,
+        "confidence": "high"
+      },
+      {
+        "name": "Đồng Xoài (Bình Phước)",
+        "lat": 11.5333,
+        "lng": 106.9,
+        "confidence": "high"
+      },
+      {
+        "name": "Ấp Bắc (Mỹ Tho)",
+        "lat": 10.43,
+        "lng": 106.15,
+        "confidence": "high"
+      },
+      {
+        "name": "Bình Giã (Bà Rịa – Vũng Tàu)",
+        "lat": 10.65,
+        "lng": 107.25,
+        "confidence": "high"
+      },
+      {
+        "name": "An Lão (Bình Định)",
+        "lat": 14.5,
+        "lng": 108.7,
+        "confidence": "high"
+      }
+    ],
+    "focusGeometry": {
+      "mode": "bounds",
+      "center": {
+        "lat": 12.407804,
+        "lng": 107.614966
+      },
+      "zoom": 7
+    }
+  },
+  "summary": {
+    "homepageTitle": "Giai đoạn 1961-1965: Miền Bắc xây dựng, miền Nam chống 'Chiến tranh đặc biệt'",
+    "homepageSummary": "Miền Bắc tiến hành kế hoạch 5 năm lần thứ nhất và chi viện cho miền Nam. Miền Nam đẩy mạnh chiến đấu chống chiến lược “Chiến tranh đặc biệt” của Mỹ.",
+    "cardSummary": "Giai đoạn 1961-1965: Miền Bắc xây dựng XHCN, miền Nam chống 'Chiến tranh đặc biệt' của Mỹ."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Trong giai đoạn 1961-1965, miền Bắc tiến hành kế hoạch Nhà nước 5 năm lần thứ nhất với trọng tâm xây dựng chủ nghĩa xã hội và làm nghĩa vụ hậu phương lớn. Miền Nam đẩy mạnh chiến đấu chống chiến lược “Chiến tranh đặc biệt” (1961-1965) do Mỹ và chính quyền Sài Gòn triển khai, giành nhiều thắng lợi quân sự tiêu biểu.",
+    "detailedNarrative": "Ở miền Bắc: Nhân dân miền Bắc tiến hành kế hoạch Nhà nước 5 năm lần thứ nhất (1961 - 1965) với trọng tâm là xây dựng chủ nghĩa xã hội. Miền Bắc còn làm nghĩa vụ hậu phương lớn chi viện cho tiền tuyến miền Nam. Ở miền Nam: Nhân dân miền Nam đẩy mạnh chiến đấu chống chiến lược “Chiến tranh đặc biệt” (1961 - 1965) do Mỹ và chính quyền Sài Gòn triển khai. Trên mặt trận quân sự, chiến thắng Ấp Bắc (Mỹ Tho, tháng 1 1963) đã mở ra khả năng đánh bại chiến thuật “trực thăng vận, thiết xa vận”. Trong những năm 1964 – 1965, quân ta tiến công và thắng lợi ở Bình Giã, An Lão, Ba Gia, Đồng Xoài, làm phá sản hoàn toàn chiến lược “Chiến tranh đặc biệt” của Mỹ.",
+    "significance": "Các chiến thắng quân sự đã làm phá sản hoàn toàn chiến lược “Chiến tranh đặc biệt” của Mỹ.",
+    "keyFacts": [
+      "Chiến thắng Ấp Bắc (1-1963)",
+      "Thành lập Quân Giải phóng miền Nam (15-2-1961)",
+      "Miền Nam chống chiến lược 'Chiến tranh đặc biệt'",
+      "Miền Bắc chi viện cho miền Nam khoảng 4 vạn cán bộ, chiến sĩ (1961-1963)",
+      "Miền Bắc thực hiện kế hoạch Nhà nước 5 năm lần thứ nhất (1961-1965)",
+      "Các chiến thắng Bình Giã, An Lão, Ba Gia, Đồng Xoài (1964-1965) làm phá sản 'Chiến tranh đặc biệt'"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 12,
+        "book": "KNTT",
+        "lessonId": "12956",
+        "lessonTitle": "BÀI 8: CUỘC KHÁNG CHIẾN CHỐNG MỸ, CỨU NƯỚC (1954-1975)",
+        "chapter": "Chu de 3",
+        "lesson": "Bai 8",
+        "pageRange": {
+          "start": 45,
+          "end": 53
+        },
+        "url": "https://sgkvn.com/lop-12-15/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-3-cach-mang-thang-tam-nam-1945-chien-tranh-giai-phong-dan-toc-va-chien-tranh-bao-ve-to-quoc-trong-lich-su-viet-nam-tu-thang-8-nam-1945-den-nay-3539/bai-8-cuoc-khang-chien-chong-my-cuu-nuoc-1954-1975-12956.html",
+        "excerpt": "Trong giai đoạn 1961-1965, miền Bắc tiến hành kế hoạch Nhà nước 5 năm lần thứ nhất với trọng tâm xây dựng chủ nghĩa xã hội và làm nghĩa vụ hậu phương lớn. Miền Nam đẩy mạnh chiến đấu chống chiến lược “Chiến tranh đặc biệt” (1961-1965) do Mỹ và chính quyền Sài Gòn triển khai, giành nhiều thắng lợi quân sự tiêu biểu."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "giai-doan-khang-chien-chong-my-1961-1965",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 319
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": true,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

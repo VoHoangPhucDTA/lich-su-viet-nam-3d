@@ -1,0 +1,149 @@
+{
+  "id": "quan-giai-phong-mien-nam-viet-nam-tiep-quan-truong-sa",
+  "slug": "quan-giai-phong-mien-nam-viet-nam-tiep-quan-truong-sa",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Quân giải phóng miền Nam Việt Nam tiếp quản các đảo và triển khai lực lượng thực thi chủ quyền đối với quần đảo Trường Sa",
+    "short": "QGPMNVN tiếp quản Trường Sa",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "military",
+    "eventSubtype": "occupation",
+    "region": "vietnam",
+    "tags": [
+      "Trường Sa",
+      "chủ quyền",
+      "Quân giải phóng"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 11,
+        "lessonId": "12395",
+        "lessonTitle": "BÀI 16  VIỆT NAM VÀ BIỂN ĐÔNG"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1975,
+      "month": 4,
+      "day": 13
+    },
+    "end": {
+      "year": 1975,
+      "month": 4,
+      "day": 28
+    },
+    "datePrecision": "day",
+    "displayDate": "Từ ngày 13 đến ngày 28 tháng 4 năm 1975",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "point",
+    "historicalLocations": [],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": {
+      "name": "quần đảo Trường Sa",
+      "lat": 8.3833,
+      "lng": 111.9167,
+      "confidence": "high"
+    },
+    "markers": [],
+    "focusGeometry": {
+      "mode": "marker",
+      "center": {
+        "name": "quần đảo Trường Sa",
+        "lat": 8.3833,
+        "lng": 111.9167,
+        "confidence": "high"
+      },
+      "zoom": 12
+    }
+  },
+  "summary": {
+    "homepageTitle": "QGPMNVN tiếp quản Trường Sa (4/1975)",
+    "homepageSummary": "Từ ngày 13 đến ngày 28 tháng 4 năm 1975, Quân giải phóng miền Nam Việt Nam đã tiếp quản các đảo và triển khai lực lượng thực thi chủ quyền đối với quần đảo Trường Sa.",
+    "cardSummary": "Quân giải phóng miền Nam Việt Nam tiếp quản các đảo Trường Sa và thực thi chủ quyền từ 13-28/4/1975."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Từ ngày 13 đến ngày 28-4-1975, Quân giải phóng miền Nam Việt Nam đã tiếp quản các đảo và triển khai lực lượng thực thi chủ quyền đối với quần đảo Trường Sa.",
+    "detailedNarrative": "Từ ngày 13 đến ngày 28-4-1975, Quân giải phóng miền Nam Việt Nam đã tiếp quản các đảo và triển khai lực lượng thực thi chủ quyền đối với quần đảo Trường Sa.",
+    "significance": "Khẳng định chủ quyền của Việt Nam đối với quần đảo Trường Sa sau khi đất nước thống nhất.",
+    "keyFacts": [
+      "Đối tượng: quần đảo Trường Sa",
+      "Hành động: tiếp quản các đảo và triển khai lực lượng",
+      "Diễn ra từ 13 đến 28 tháng 4 năm 1975",
+      "Chủ thể: Quân giải phóng miền Nam Việt Nam"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 11,
+        "book": "KNTT",
+        "lessonId": "12395",
+        "lessonTitle": "BÀI 16  VIỆT NAM VÀ BIỂN ĐÔNG",
+        "chapter": "Chu de 7",
+        "lesson": "Bai 16",
+        "pageRange": {
+          "start": 107,
+          "end": 111
+        },
+        "url": "https://sgkvn.com/lop-11-14/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-7-lich-su-chu-quyen-cua-viet-nam-o-bien-dong-3354/bai-16-viet-nam-va-bien-dong-12395.html",
+        "excerpt": "Từ ngày 13 đến ngày 28-4-1975, Quân giải phóng miền Nam Việt Nam đã tiếp quản các đảo và triển khai lực lượng thực thi chủ quyền đối với quần đảo Trường Sa."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "quan-giai-phong-mien-nam-viet-nam-tiep-quan-truong-sa",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 246
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": true,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

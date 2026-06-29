@@ -1,0 +1,153 @@
+{
+  "id": "ly-thanh-tong-dung-van-mieu",
+  "slug": "ly-thanh-tong-dung-van-mieu",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Vua Lý Thánh Tông cho dựng Văn Miếu thờ Khổng Tử",
+    "short": "Vua Lý Thánh Tông cho dựng Văn Miếu thờ Khổng Tử",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "cultural",
+    "eventSubtype": "construction",
+    "region": "vietnam",
+    "tags": [
+      "Văn Miếu",
+      "Lý Thánh Tông",
+      "Nho giáo"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      10
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 10,
+        "lessonId": "12160",
+        "lessonTitle": "Bài 12: Văn Minh Đại Việt"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1070,
+      "month": null,
+      "day": null
+    },
+    "end": null,
+    "datePrecision": "year",
+    "displayDate": "Năm 1070",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "mixed",
+    "historicalLocations": [],
+    "provinceNames": [
+      "Hà Nội"
+    ],
+    "gadmRefs": [
+      "VNM.27_1"
+    ],
+    "marker": {
+      "name": "Văn Miếu",
+      "lat": 21.0294,
+      "lng": 105.8356,
+      "confidence": "high"
+    },
+    "markers": [
+      {
+        "name": "Văn Miếu",
+        "lat": 21.0294,
+        "lng": 105.8356,
+        "confidence": "high"
+      }
+    ],
+    "focusGeometry": {
+      "mode": "bounds",
+      "center": {
+        "lat": 21.0126,
+        "lng": 105.785432
+      },
+      "zoom": 7
+    }
+  },
+  "summary": {
+    "homepageTitle": "Lý Thánh Tông dựng Văn Miếu (1070)",
+    "homepageSummary": "Năm 1070, vua Lý Thánh Tông cho dựng Văn Miếu thờ Khổng Tử, đánh dấu sự phát triển của Nho giáo.",
+    "cardSummary": "Vua Lý Thánh Tông cho dựng Văn Miếu thờ Khổng Tử năm 1070."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Năm 1070, vua Lý Thánh Tông cho dựng Văn Miếu thờ Khổng Tử.",
+    "detailedNarrative": null,
+    "significance": "Đánh dấu sự phát triển của Nho giáo trong triều đình.",
+    "keyFacts": [
+      "Vua Lý Thánh Tông cho dựng Văn Miếu",
+      "Thờ Khổng Tử",
+      "Diễn ra năm 1070"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 10,
+        "book": "KNTT",
+        "lessonId": "12160",
+        "lessonTitle": "Bài 12: Văn Minh Đại Việt",
+        "chapter": "Chu de 6",
+        "lesson": "Bai 12",
+        "pageRange": {
+          "start": 108,
+          "end": 122
+        },
+        "url": "https://sgkvn.com/lop-10-13/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-6-mot-so-nen-van-minh-tren-dat-nuoc-viet-nam-truoc-nam-1858-3276/bai-12-van-minh-dai-viet-12160.html",
+        "excerpt": "Năm 1070, vua Lý Thánh Tông cho dựng Văn Miếu thờ Khổng Tử."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "ly-thanh-tong-dung-van-mieu",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 14
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": true,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

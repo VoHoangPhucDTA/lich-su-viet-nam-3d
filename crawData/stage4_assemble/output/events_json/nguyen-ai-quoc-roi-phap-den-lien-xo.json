@@ -1,0 +1,135 @@
+{
+  "id": "nguyen-ai-quoc-roi-phap-den-lien-xo",
+  "slug": "nguyen-ai-quoc-roi-phap-den-lien-xo",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Nguyễn Ái Quốc rời Pháp đến Liên Xô",
+    "short": "Nguyễn Ái Quốc rời Pháp đến Liên Xô",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "relocation",
+    "region": "world",
+    "tags": [
+      "phong trào cộng sản quốc tế",
+      "Liên Xô",
+      "Nguyễn Ái Quốc"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 12,
+        "lessonId": "12966",
+        "lessonTitle": "BÀI 15: KHÁI QUÁT CUỘC ĐỜI VÀ SỰ NGHIỆP CỦA HỒ CHÍ MINH"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1923,
+      "month": 6,
+      "day": null
+    },
+    "end": null,
+    "datePrecision": "month",
+    "displayDate": "Tháng 6 – 1923",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "no_location",
+    "historicalLocations": [
+      "Liên Xô",
+      "Pháp"
+    ],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "auto",
+      "center": null,
+      "zoom": null
+    }
+  },
+  "summary": {
+    "homepageTitle": "Nguyễn Ái Quốc đến Liên Xô",
+    "homepageSummary": "Tháng 6 – 1923, Nguyễn Ái Quốc rời Pháp đến Liên Xô, tích cực hoạt động trong phong trào cộng sản quốc tế.",
+    "cardSummary": "Tháng 6 – 1923, Nguyễn Ái Quốc rời Pháp đến Liên Xô hoạt động cách mạng."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Tháng 6 – 1923, Nguyễn Ái Quốc rời Pháp đến Liên Xô, tích cực hoạt động trong phong trào cộng sản quốc tế,...",
+    "detailedNarrative": "Tháng 6 – 1923, Nguyễn Ái Quốc rời Pháp đến Liên Xô, tích cực hoạt động trong phong trào cộng sản quốc tế,...",
+    "significance": null,
+    "keyFacts": [
+      "Hoạt động trong phong trào cộng sản quốc tế"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 12,
+        "book": "KNTT",
+        "lessonId": "12966",
+        "lessonTitle": "BÀI 15: KHÁI QUÁT CUỘC ĐỜI VÀ SỰ NGHIỆP CỦA HỒ CHÍ MINH",
+        "chapter": "Chu de 5",
+        "lesson": "Bai 15",
+        "pageRange": {
+          "start": 88,
+          "end": 93
+        },
+        "url": "https://sgkvn.com/lop-12-15/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-5-lich-su-doi-ngoai-cua-viet-nam-thoi-can-hien-dai-3541/bai-15-khai-quat-cuoc-doi-va-su-nghiep-cua-ho-chi-minh-12966.html",
+        "excerpt": "Tháng 6 – 1923, Nguyễn Ái Quốc rời Pháp đến Liên Xô, tích cực hoạt động trong phong trào cộng sản quốc tế,..."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "nguyen-ai-quoc-roi-phap-den-lien-xo",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 120
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": false,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

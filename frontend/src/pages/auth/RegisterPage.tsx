@@ -18,10 +18,10 @@ function SubmitButton({ loading, disabled }: { loading: boolean; disabled: boole
       style={{
         width: '100%',
         padding: '0.8125rem',
-        background: disabled ? 'var(--accent-soft)' : 'var(--accent)',
+        background: disabled ? '#fef2f2' : '#8b1e1e',
         border: 'none',
-        borderRadius: '0.625rem',
-        color: '#fff',
+        borderRadius: '0.75rem',
+        color: disabled ? '#8b1e1e' : '#ffffff',
         fontSize: '0.9375rem',
         fontWeight: 600,
         cursor: disabled ? 'not-allowed' : 'pointer',
@@ -30,8 +30,18 @@ function SubmitButton({ loading, disabled }: { loading: boolean; disabled: boole
         justifyContent: 'center',
         gap: '0.5rem',
         transition: 'all 0.2s',
-        boxShadow: disabled ? 'none' : '0 4px 15px rgba(30,58,95,0.2)',
+        boxShadow: disabled ? 'none' : '0 2px 12px rgba(139,30,30,0.2)',
         fontFamily: 'inherit',
+      }}
+      onMouseEnter={(e) => {
+        if (!disabled) {
+          (e.currentTarget as HTMLButtonElement).style.background = '#6b1616';
+        }
+      }}
+      onMouseLeave={(e) => {
+        if (!disabled) {
+          (e.currentTarget as HTMLButtonElement).style.background = '#8b1e1e';
+        }
       }}
     >
       {loading ? (
@@ -81,8 +91,6 @@ export default function RegisterPage() {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [showPasswordStrengthError, setShowPasswordStrengthError] = useState(false);
-  // confirmTouched: chỉ true khi user đã thực sự gõ vào ô confirm, hoặc đã submit.
-  // Tránh hiện lỗi đỏ khi user chỉ mới click vào ô confirm mà chưa nhập gì.
   const [confirmTouched, setConfirmTouched] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
@@ -107,11 +115,6 @@ export default function RegisterPage() {
   const countdownText = useMemo(() => formatCountdown(secondsLeft), [secondsLeft]);
   const passwordPolicyError = showPasswordStrengthError ? passwordStrengthMessage(password) : '';
 
-  // Lỗi confirm password: chỉ hiện khi:
-  // 1. User đã thực sự gõ vào ô confirm (confirmTouched), VÀ
-  // 2. Password chính đã được nhập (không rỗng), VÀ
-  // 3. Hai giá trị không khớp
-  // Hoặc: user đã submit (confirmTouched được set = true khi submit nếu lỗi)
   const confirmPasswordError =
     confirmTouched && password.length > 0 && confirmPassword !== password
       ? 'Mật khẩu nhập lại không khớp.'
@@ -132,11 +135,9 @@ export default function RegisterPage() {
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
-    // Bước 6A.1.1: RegisterPage.tsx: Người dùng nhấp vào nút Đăng ký
     e.preventDefault();
     if (pendingVerification) return;
 
-    // Khi submit: force-reveal tất cả errors để user thấy vấn đề
     setShowPasswordStrengthError(true);
     setConfirmTouched(true);
 
@@ -150,18 +151,12 @@ export default function RegisterPage() {
     setSuccess('');
     setLoading(true);
     try {
-      // Bước 6A.1.2: RegisterPage.tsx: gọi hàm register trong authService.ts
-      const result = await register({
-        email: email.trim(),
-        password,
-      });
+      const result = await register({ email: email.trim(), password });
       setPendingVerification(result);
       setSecondsLeft(secondsUntil(result.verificationExpiresAt));
       setResendCooldown(60);
-      // Bước 6A.1.11: RegisterPage.tsx: hiển thị thông báo thành công
       setSuccess('Đăng ký thành công. Vui lòng kiểm tra email để xác minh tài khoản.');
     } catch (err: unknown) {
-      // Bước 6A.2.6: RegisterPage.tsx: hiển thị thông báo lỗi trên form
       setError(err instanceof Error ? err.message : 'Đăng ký thất bại.');
     } finally {
       setLoading(false);
@@ -187,18 +182,17 @@ export default function RegisterPage() {
 
   return (
     <AuthLayout>
+      {/* Heading */}
       <div style={{ marginBottom: '1.5rem' }}>
         <h1
-          style={{
-            fontSize: '1.5rem',
-            fontWeight: 700,
-            color: 'var(--text-primary)',
-            marginBottom: '0.375rem',
-            letterSpacing: '-0.01em',
-          }}
+          className="font-serif text-2xl font-bold text-stone-900"
+          style={{ marginBottom: '0.25rem', letterSpacing: '-0.01em' }}
         >
           Tạo tài khoản
         </h1>
+        <p className="text-sm text-stone-500">
+          Bắt đầu hành trình khám phá lịch sử Việt Nam
+        </p>
       </div>
 
       {error && <AuthFormMessage type="error" message={error} />}
@@ -249,7 +243,6 @@ export default function RegisterPage() {
           value={confirmPassword}
           onChange={(value) => {
             setConfirmPassword(value);
-            // Chỉ mark touched khi user thực sự gõ ký tự đầu tiên vào ô confirm
             if (value.length > 0) setConfirmTouched(true);
           }}
           placeholder="Nhập lại mật khẩu"
@@ -264,20 +257,14 @@ export default function RegisterPage() {
 
       {!pendingVerification && <OAuthButtons mode="register" onError={setError} />}
 
-      <p
-        style={{
-          textAlign: 'center',
-          fontSize: '0.875rem',
-          color: 'var(--text-muted)',
-          marginTop: '1.25rem',
-        }}
-      >
+      <p className="text-center text-sm text-stone-500 mt-5">
         Đã có tài khoản?{' '}
-        <Link to="/login" style={{ color: 'var(--accent)', textDecoration: 'none', fontWeight: 600 }}>
+        <Link to="/login" className="font-semibold hover:underline transition-colors" style={{ color: '#8b1e1e', textDecoration: 'none' }}>
           Đăng nhập
         </Link>
       </p>
 
+      {/* Verification dialog — museum style */}
       {pendingVerification && (
         <div
           role="dialog"
@@ -286,7 +273,7 @@ export default function RegisterPage() {
           style={{
             position: 'fixed',
             inset: 0,
-            background: 'rgba(2, 6, 23, 0.72)',
+            background: 'rgba(28,25,23,0.72)',
             backdropFilter: 'blur(6px)',
             display: 'flex',
             alignItems: 'center',
@@ -298,48 +285,45 @@ export default function RegisterPage() {
           <div
             style={{
               width: 'min(100%, 29rem)',
-              background: 'var(--card-bg)',
-              border: '1px solid var(--border)',
-              borderRadius: '0.75rem',
-              boxShadow: '0 20px 55px rgba(15, 23, 42, 0.25)',
-              padding: '1.25rem',
+              background: '#ffffff',
+              border: '1px solid #e7e5e4',
+              borderRadius: '1rem',
+              boxShadow: '0 20px 55px rgba(28,25,23,0.25)',
+              padding: '1.5rem',
               maxHeight: 'calc(100vh - 2rem)',
               overflowY: 'auto',
             }}
           >
             <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'flex-start', marginBottom: '0.75rem' }}>
-              <span style={{ color: 'var(--accent)', display: 'flex', marginTop: '0.125rem' }}>
+              <span style={{ color: '#8b1e1e', display: 'flex', marginTop: '0.125rem' }}>
                 <CheckCircle size={22} strokeWidth={2} />
               </span>
               <div>
-                <h2 id="verify-dialog-title" style={{ margin: 0, fontSize: '1.125rem', color: 'var(--text-primary)' }}>
+                <h2 id="verify-dialog-title" className="font-serif text-lg font-bold text-stone-900" style={{ margin: 0 }}>
                   Kiểm tra email để xác minh
                 </h2>
-                <p style={{ color: 'var(--text-muted)', lineHeight: 1.6, margin: '0.5rem 0 0' }}>
-                  Link xác minh đã được gửi tới <strong>{pendingVerification.email}</strong>.
+                <p className="text-sm text-stone-500 mt-2 leading-relaxed">
+                  Link xác minh đã được gửi tới <strong style={{ color: '#1c1917' }}>{pendingVerification.email}</strong>.
                 </p>
               </div>
             </div>
 
             <div
               style={{
-                border: '1px solid var(--border)',
-                borderRadius: '0.625rem',
+                border: '1px solid #e7e5e4',
+                borderRadius: '0.75rem',
                 padding: '0.875rem',
                 marginBottom: '1rem',
                 textAlign: 'center',
+                background: '#fafaf9',
               }}
             >
-              <div style={{ fontSize: '0.8125rem', color: 'var(--text-muted)', marginBottom: '0.25rem' }}>
+              <div className="text-xs text-stone-500 font-mono tracking-wider uppercase mb-1">
                 Link hết hạn sau
               </div>
               <div
-                style={{
-                  fontSize: '1.75rem',
-                  fontWeight: 700,
-                  color: 'var(--accent)',
-                  fontVariantNumeric: 'tabular-nums',
-                }}
+                className="font-mono text-2xl font-bold text-red-900"
+                style={{ fontVariantNumeric: 'tabular-nums' }}
               >
                 {countdownText}
               </div>
@@ -353,27 +337,20 @@ export default function RegisterPage() {
                   textAlign: 'center',
                   padding: '0.75rem',
                   marginBottom: '0.625rem',
-                  background: 'var(--accent-soft)',
-                  color: 'var(--accent)',
-                  border: '1px solid var(--accent)',
-                  borderRadius: '0.625rem',
+                  background: '#fef2f2',
+                  color: '#8b1e1e',
+                  border: '1px solid rgba(139,30,30,0.2)',
+                  borderRadius: '0.75rem',
                   textDecoration: 'none',
                   fontWeight: 700,
+                  fontSize: '0.875rem',
                 }}
               >
                 Mở link xác minh local/dev
               </a>
             )}
 
-            <p
-              style={{
-                margin: '0 0 0.75rem',
-                color: 'var(--text-muted)',
-                fontSize: '0.875rem',
-                lineHeight: 1.5,
-                textAlign: 'center',
-              }}
-            >
+            <p className="text-sm text-stone-500 text-center leading-relaxed mb-3">
               Sau khi bấm link trong email, hệ thống sẽ tự đăng nhập và đưa bạn về trang chủ.
             </p>
 
@@ -384,10 +361,10 @@ export default function RegisterPage() {
                 onClick={handleResend}
                 style={{
                   padding: '0.75rem',
-                  border: '1px solid var(--border)',
-                  background: 'var(--input-bg)',
-                  color: 'var(--text-primary)',
-                  borderRadius: '0.625rem',
+                  border: '1px solid #e7e5e4',
+                  background: '#fafaf9',
+                  color: '#1c1917',
+                  borderRadius: '0.75rem',
                   fontWeight: 600,
                   cursor: resending || resendCooldown > 0 ? 'not-allowed' : 'pointer',
                   fontFamily: 'inherit',
@@ -395,6 +372,7 @@ export default function RegisterPage() {
                   alignItems: 'center',
                   justifyContent: 'center',
                   gap: '0.5rem',
+                  fontSize: '0.875rem',
                 }}
               >
                 <RefreshCw size={16} strokeWidth={2} />

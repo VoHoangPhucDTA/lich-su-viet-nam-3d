@@ -1,0 +1,135 @@
+{
+  "id": "ho-quy-ly-lap-trieu-ho",
+  "slug": "ho-quy-ly-lap-trieu-ho",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Hồ Quý Ly buộc vua Trần nhường ngôi, lập ra triều Hồ",
+    "short": "Hồ Quý Ly lập triều Hồ",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "usurpation",
+    "region": "vietnam",
+    "tags": [
+      "Nhà Hồ",
+      "Hồ Quý Ly",
+      "Nhà Trần",
+      "Nhường ngôi"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 11,
+        "lessonId": "12387",
+        "lessonTitle": "BÀI 12  KHÁI LƯỢC VỀ CẢI CÁCH  CUỘC CẢI"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1400,
+      "month": null,
+      "day": null
+    },
+    "end": null,
+    "datePrecision": "year",
+    "displayDate": "Năm 1400",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "no_location",
+    "historicalLocations": [],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "auto",
+      "center": null,
+      "zoom": null
+    }
+  },
+  "summary": {
+    "homepageTitle": "Hồ Quý Ly lập triều Hồ",
+    "homepageSummary": "Năm 1400, Hồ Quý Ly buộc vua Trần nhường ngôi, chính thức lập ra triều Hồ.",
+    "cardSummary": "Hồ Quý Ly buộc vua Trần nhường ngôi, lập triều Hồ năm 1400."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Năm 1400, ông buộc vua Trấn nhường ngôi, lập ra triều Hồ.",
+    "detailedNarrative": null,
+    "significance": null,
+    "keyFacts": [
+      "Lập triều Hồ",
+      "Hồ Quý Ly",
+      "Năm 1400"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 11,
+        "book": "KNTT",
+        "lessonId": "12387",
+        "lessonTitle": "BÀI 12  KHÁI LƯỢC VỀ CẢI CÁCH  CUỘC CẢI",
+        "chapter": "Chu de 6",
+        "lesson": "Bai 12",
+        "pageRange": {
+          "start": 87,
+          "end": 91
+        },
+        "url": "https://sgkvn.com/lop-11-14/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-6-mot-so-cuoc-cai-cach-lon-trong-lich-su-viet-nam-truoc-nam-1858-3353/bai-12-khai-luoc-ve-cai-cach-cuoc-cai-cach-cua-ho-quy-ly-va-trieu-ho-dau-the-ki-xv-12387.html",
+        "excerpt": "Năm 1400, ông buộc vua Trấn nhường ngôi, lập ra triều Hồ."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "ho-quy-ly-lap-trieu-ho",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 31
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": false,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

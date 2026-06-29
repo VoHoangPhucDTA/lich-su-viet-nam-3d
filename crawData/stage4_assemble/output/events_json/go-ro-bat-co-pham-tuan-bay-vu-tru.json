@@ -1,0 +1,139 @@
+{
+  "id": "go-ro-bat-co-pham-tuan-bay-vu-tru",
+  "slug": "go-ro-bat-co-pham-tuan-bay-vu-tru",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "V. Go-rơ-bát cô (Liên Xô) và Phạm Tuân (Việt Nam) cùng bay vào vũ trụ",
+    "short": "Phạm Tuân bay vào vũ trụ",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "cultural",
+    "eventSubtype": "scientific-collaboration",
+    "region": "world",
+    "tags": [
+      "hợp tác khoa học",
+      "Phạm Tuân",
+      "Liên Xô",
+      "vũ trụ"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 12,
+        "lessonId": "12965",
+        "lessonTitle": "BÀI 14: HOẠT ĐỘNG ĐỐI NGOẠI CỦA VIỆT NAM TỪ NĂM 1975 ĐẾN NAY"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1980,
+      "month": null,
+      "day": null
+    },
+    "end": null,
+    "datePrecision": "year",
+    "displayDate": "1980",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "no_location",
+    "historicalLocations": [
+      "Liên Xô",
+      "Việt Nam"
+    ],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "auto",
+      "center": null,
+      "zoom": null
+    }
+  },
+  "summary": {
+    "homepageTitle": "Phạm Tuân bay vào vũ trụ (1980)",
+    "homepageSummary": "Phi công Phạm Tuân của Việt Nam cùng V. Go-rơ-bát cô của Liên Xô bay vào vũ trụ, đánh dấu hợp tác khoa học kĩ thuật.",
+    "cardSummary": "Năm 1980, Phạm Tuân (Việt Nam) cùng V. Go-rơ-bát cô (Liên Xô) bay vào vũ trụ."
+  },
+  "textbookContent": {
+    "canonicalSummary": "V. Go-rơ-bát cô (Liên Xô) và Phạm Tuân (Việt Nam) cùng bay vào vũ trụ (1980).",
+    "detailedNarrative": null,
+    "significance": null,
+    "keyFacts": [
+      "V. Go-rơ-bát cô (Liên Xô)",
+      "Bay vào vũ trụ",
+      "Năm 1980",
+      "Phạm Tuân (Việt Nam)"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 12,
+        "book": "KNTT",
+        "lessonId": "12965",
+        "lessonTitle": "BÀI 14: HOẠT ĐỘNG ĐỐI NGOẠI CỦA VIỆT NAM TỪ NĂM 1975 ĐẾN NAY",
+        "chapter": "Chu de 4",
+        "lesson": "Bai 14",
+        "pageRange": {
+          "start": 81,
+          "end": 86
+        },
+        "url": "https://sgkvn.com/lop-12-15/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-4-cong-cuoc-doi-moi-o-viet-nam-tu-nam-1986-den-nay-3540/bai-14-hoat-dong-doi-ngoai-cua-viet-nam-tu-nam-1975-den-nay-12965.html",
+        "excerpt": "V. Go-rơ-bát cô (Liên Xô) và Phạm Tuân (Việt Nam) cùng bay vào vũ trụ (1980)."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "go-ro-bat-co-pham-tuan-bay-vu-tru",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 256
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": false,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

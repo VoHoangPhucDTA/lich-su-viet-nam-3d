@@ -1,0 +1,138 @@
+{
+  "id": "dang-tuyen-phi-vuong-the-tu-truat-ngoi",
+  "slug": "dang-tuyen-phi-vuong-the-tu-truat-ngoi",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Đặng Tuyên Phi được yêu dấu, Vương Thế Tử bị truất ngôi",
+    "short": "Đặng Tuyên Phi và Thế Tử",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "court-intrigue",
+    "region": "vietnam",
+    "tags": [
+      "Lê-Trịnh",
+      "cung đình",
+      "thế kỉ XVIII"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      10
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 10,
+        "lessonId": "12128",
+        "lessonTitle": "Bài 3: Sử Học Với Các Lĩnh Vực Khoa Học"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "end": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "datePrecision": "period",
+    "displayDate": "Thế kỉ XVIII",
+    "isApproximate": true
+  },
+  "mapData": {
+    "geoType": "no_location",
+    "historicalLocations": [],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "auto",
+      "center": null,
+      "zoom": null
+    }
+  },
+  "summary": {
+    "homepageTitle": "Đặng Tuyên Phi được yêu, Vương Thế Tử bị truất ngôi",
+    "homepageSummary": "Sự kiện Đặng Tuyên Phi được yêu dấu và Vương Thế Tử bị truất ngôi, phản ánh tình hình cung đình Lê - Trịnh thế kỉ XVIII.",
+    "cardSummary": "Đặng Tuyên Phi được yêu, Vương Thế Tử bị truất ngôi trong cung đình Lê - Trịnh thế kỉ XVIII."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Hồi 1 của tác phẩm Hoàng Lê nhất thống chí ghi lại sự kiện Đặng Tuyên Phi được yêu dấu, đứng đầu hậu cung và Vương Thế Tử bị truất ngôi, ra ở nhà kín.",
+    "detailedNarrative": "Đặng Tuyên Phi được yêu dấu, đứng đầu hậu cung. Vương Thế Tử bị truất ngôi, ra ở nhà kín.",
+    "significance": "Phản ánh tình hình chính trị, cung đình thời Lê - Trịnh.",
+    "keyFacts": [
+      "Vương Thế Tử bị truất ngôi",
+      "Ghi trong Hoàng Lê nhất thống chí",
+      "Đặng Tuyên Phi được yêu dấu"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 10,
+        "book": "KNTT",
+        "lessonId": "12128",
+        "lessonTitle": "Bài 3: Sử Học Với Các Lĩnh Vực Khoa Học",
+        "chapter": "Chu de 2",
+        "lesson": "Bai 3",
+        "pageRange": {
+          "start": 19,
+          "end": 25
+        },
+        "url": "https://sgkvn.com/lop-10-13/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-2-vai-tro-cua-su-hoc-3269/bai-3-su-hoc-voi-cac-linh-vuc-khoa-hoc-12128.html",
+        "excerpt": "Hồi 1 của tác phẩm Hoàng Lê nhất thống chí ghi lại sự kiện Đặng Tuyên Phi được yêu dấu, đứng đầu hậu cung và Vương Thế Tử bị truất ngôi, ra ở nhà kín."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "dang-tuyen-phi-vuong-the-tu-truat-ngoi",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 311
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": false,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

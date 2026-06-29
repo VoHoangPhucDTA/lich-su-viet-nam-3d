@@ -1,0 +1,151 @@
+{
+  "id": "nguyen-tat-thanh-tham-gia-chong-thue-hue",
+  "slug": "nguyen-tat-thanh-tham-gia-chong-thue-hue",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Nguyễn Tất Thành tham gia phong trào chống thuế ở Huế",
+    "short": "Nguyễn Tất Thành tham gia phong trào chống thuế ở Huế",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "uprising",
+    "region": "vietnam",
+    "tags": [
+      "Huế",
+      "Nguyễn Tất Thành",
+      "chống thuế"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 12,
+        "lessonId": "12966",
+        "lessonTitle": "BÀI 15: KHÁI QUÁT CUỘC ĐỜI VÀ SỰ NGHIỆP CỦA HỒ CHÍ MINH"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1908,
+      "month": null,
+      "day": null
+    },
+    "end": null,
+    "datePrecision": "year",
+    "displayDate": "Năm 1908",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "mixed",
+    "historicalLocations": [],
+    "provinceNames": [
+      "Thừa Thiên Huế"
+    ],
+    "gadmRefs": [
+      "VNM.54_1"
+    ],
+    "marker": {
+      "name": "Huế",
+      "lat": 16.4637,
+      "lng": 107.5909,
+      "confidence": "high"
+    },
+    "markers": [
+      {
+        "name": "Huế",
+        "lat": 16.4637,
+        "lng": 107.5909,
+        "confidence": "high"
+      }
+    ],
+    "focusGeometry": {
+      "mode": "bounds",
+      "center": {
+        "lat": 16.376689,
+        "lng": 107.546298
+      },
+      "zoom": 7
+    }
+  },
+  "summary": {
+    "homepageTitle": "Nguyễn Tất Thành chống thuế ở Huế",
+    "homepageSummary": "Năm 1908, Nguyễn Tất Thành tham gia phong trào chống thuế ở Huế.",
+    "cardSummary": "Năm 1908, Nguyễn Tất Thành tham gia phong trào chống thuế ở Huế."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Sớm có tinh thần yêu nước, năm 1908, Nguyễn Tất Thành tham gia phong trào chống thuế ở Huế.",
+    "detailedNarrative": "Sớm có tinh thần yêu nước, năm 1908, Nguyễn Tất Thành tham gia phong trào chống thuế ở Huế.",
+    "significance": null,
+    "keyFacts": [
+      "Tham gia phong trào chống thuế"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 12,
+        "book": "KNTT",
+        "lessonId": "12966",
+        "lessonTitle": "BÀI 15: KHÁI QUÁT CUỘC ĐỜI VÀ SỰ NGHIỆP CỦA HỒ CHÍ MINH",
+        "chapter": "Chu de 5",
+        "lesson": "Bai 15",
+        "pageRange": {
+          "start": 88,
+          "end": 93
+        },
+        "url": "https://sgkvn.com/lop-12-15/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-5-lich-su-doi-ngoai-cua-viet-nam-thoi-can-hien-dai-3541/bai-15-khai-quat-cuoc-doi-va-su-nghiep-cua-ho-chi-minh-12966.html",
+        "excerpt": "Sớm có tinh thần yêu nước, năm 1908, Nguyễn Tất Thành tham gia phong trào chống thuế ở Huế."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "nguyen-tat-thanh-tham-gia-chong-thue-hue",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 97
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": true,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

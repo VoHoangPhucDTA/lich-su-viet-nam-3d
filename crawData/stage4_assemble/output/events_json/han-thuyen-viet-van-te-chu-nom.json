@@ -1,0 +1,137 @@
+{
+  "id": "han-thuyen-viet-van-te-chu-nom",
+  "slug": "han-thuyen-viet-van-te-chu-nom",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Hàn Thuyên viết bài văn tế bằng chữ Nôm để đuổi cá sấu",
+    "short": "Hàn Thuyên viết bài văn tế bằng chữ Nôm để đuổi cá sấu",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "cultural",
+    "eventSubtype": "literary_work",
+    "region": "vietnam",
+    "tags": [
+      "Hàn Thuyên",
+      "chữ Nôm",
+      "văn học"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      10
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 10,
+        "lessonId": "12160",
+        "lessonTitle": "Bài 12: Văn Minh Đại Việt"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1282,
+      "month": null,
+      "day": null
+    },
+    "end": null,
+    "datePrecision": "year",
+    "displayDate": "Năm 1282",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "no_location",
+    "historicalLocations": [
+      "sông Hồng"
+    ],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "auto",
+      "center": null,
+      "zoom": null
+    }
+  },
+  "summary": {
+    "homepageTitle": "Hàn Thuyên viết văn tế chữ Nôm (1282)",
+    "homepageSummary": "Năm 1282, Hàn Thuyên đã viết bài văn tế bằng chữ Nôm để đuổi cá sấu ở sông Hồng.",
+    "cardSummary": "Hàn Thuyên viết văn tế chữ Nôm năm 1282 để đuổi cá sấu ở sông Hồng."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Theo sử cũ, năm 1282, Hàn Thuyên đã viết bài văn tế bằng chữ Nôm để đuổi cá sấu ở sông Hồng.",
+    "detailedNarrative": null,
+    "significance": "Là một trong những tác phẩm chữ Nôm sớm nhất được ghi nhận.",
+    "keyFacts": [
+      "Diễn ra năm 1282",
+      "Hàn Thuyên viết bài văn tế",
+      "Bằng chữ Nôm",
+      "Để đuổi cá sấu ở sông Hồng"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 10,
+        "book": "KNTT",
+        "lessonId": "12160",
+        "lessonTitle": "Bài 12: Văn Minh Đại Việt",
+        "chapter": "Chu de 6",
+        "lesson": "Bai 12",
+        "pageRange": {
+          "start": 108,
+          "end": 122
+        },
+        "url": "https://sgkvn.com/lop-10-13/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-6-mot-so-nen-van-minh-tren-dat-nuoc-viet-nam-truoc-nam-1858-3276/bai-12-van-minh-dai-viet-12160.html",
+        "excerpt": "Theo sử cũ, năm 1282, Hàn Thuyên đã viết bài văn tế bằng chữ Nôm để đuổi cá sấu ở sông Hồng."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "han-thuyen-viet-van-te-chu-nom",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 21
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": false,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

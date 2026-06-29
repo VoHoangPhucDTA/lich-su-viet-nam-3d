@@ -1,0 +1,139 @@
+{
+  "id": "nguyen-ai-quoc-den-lien-xo-1923",
+  "slug": "nguyen-ai-quoc-den-lien-xo-1923",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Nguyễn Ái Quốc đến Liên Xô và tham gia Quốc tế Cộng sản",
+    "short": "Nguyễn Ái Quốc đến Liên Xô và tham gia Quốc tế Cộng sản",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "diplomatic_activity",
+    "region": "world",
+    "tags": [
+      "Quốc tế Cộng sản",
+      "Liên Xô",
+      "cách mạng thuộc địa",
+      "Nguyễn Ái Quốc"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 12,
+        "lessonId": "12962",
+        "lessonTitle": "BÀI 12: HOẠT ĐỘNG ĐỐI NGOẠI CỦA VIỆT NAM TRONG ĐẤU TRANH GIÀNH ĐỘC LẬP DÂN TỘC (TỪ ĐẦU THẾ KỈ XX ĐẾN CÁCH MẠNG THÁNG TÁM NĂM 1945)"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1923,
+      "month": 6,
+      "day": null
+    },
+    "end": null,
+    "datePrecision": "month",
+    "displayDate": "Tháng 6-1923",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "no_location",
+    "historicalLocations": [
+      "Liên Xô",
+      "Pháp"
+    ],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "auto",
+      "center": null,
+      "zoom": null
+    }
+  },
+  "summary": {
+    "homepageTitle": "Nguyễn Ái Quốc đến Liên Xô",
+    "homepageSummary": "Tháng 6-1923, Nguyễn Ái Quốc đến Liên Xô, tích cực tham gia các hội nghị của Quốc tế Cộng sản.",
+    "cardSummary": "Nguyễn Ái Quốc đến Liên Xô (1923), tham gia Quốc tế Cộng sản."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Tháng 6- 1923, Nguyễn Ái Quốc từ Pháp đến Liên Xô, tích cực tham gia các hội nghị, đại hội của Quốc tế Cộng sản. Tại những diễn đàn này, Nguyễn Ái Quốc trình bày quan điểm về vai trò của cách mạng thuộc địa, về lực lượng cách mạng ở thuộc địa, về quan hệ giữa cách mạng ở chính quốc với thuộc địa,...",
+    "detailedNarrative": null,
+    "significance": "Chính thức xác lập mối quan hệ giữa cách mạng Việt Nam với Quốc tế Cộng sản và cách mạng thế giới.",
+    "keyFacts": [
+      "Trình bày quan điểm về cách mạng thuộc địa",
+      "Diễn ra tháng 6-1923",
+      "Tham gia các hội nghị, đại hội của Quốc tế Cộng sản",
+      "Từ Pháp đến Liên Xô"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 12,
+        "book": "KNTT",
+        "lessonId": "12962",
+        "lessonTitle": "BÀI 12: HOẠT ĐỘNG ĐỐI NGOẠI CỦA VIỆT NAM TRONG ĐẤU TRANH GIÀNH ĐỘC LẬP DÂN TỘC (TỪ ĐẦU THẾ KỈ XX ĐẾN CÁCH MẠNG THÁNG TÁM NĂM 1945)",
+        "chapter": "Chu de 4",
+        "lesson": "Bai 12",
+        "pageRange": {
+          "start": 73,
+          "end": 76
+        },
+        "url": "https://sgkvn.com/lop-12-15/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-4-cong-cuoc-doi-moi-o-viet-nam-tu-nam-1986-den-nay-3540/bai-12-hoat-dong-doi-ngoai-cua-viet-nam-trong-dau-tranh-gianh-doc-lap-dan-toc-tu-dau-the-ki-xx-den-cach-mang-thang-tam-nam-1945-12962.html",
+        "excerpt": "Tháng 6- 1923, Nguyễn Ái Quốc từ Pháp đến Liên Xô, tích cực tham gia các hội nghị, đại hội của Quốc tế Cộng sản. Tại những diễn đàn này, Nguyễn Ái Quốc trình bày quan điểm về vai trò của cách mạng thuộc địa, về lực lượng cách mạng ở thuộc địa, về quan hệ giữa cách mạng ở chính quốc với thuộc địa,..."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "nguyen-ai-quoc-den-lien-xo-1923",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 119
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": false,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

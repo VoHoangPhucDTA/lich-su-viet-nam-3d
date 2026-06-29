@@ -1,0 +1,138 @@
+{
+  "id": "vu-van-nham-tran-cong-xan-bien-cuong",
+  "slug": "vu-van-nham-tran-cong-xan-bien-cuong",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Tướng Tây Sơn Vũ Văn Nhậm đem quân ra bờ cõi, Trần Công Xán vâng mệnh bàn việc biên cương",
+    "short": "Vũ Văn Nhậm và biên cương",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "military",
+    "eventSubtype": "campaign",
+    "region": "vietnam",
+    "tags": [
+      "Tây Sơn",
+      "biên cương",
+      "thế kỉ XVIII"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      10
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 10,
+        "lessonId": "12128",
+        "lessonTitle": "Bài 3: Sử Học Với Các Lĩnh Vực Khoa Học"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "end": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "datePrecision": "period",
+    "displayDate": "Thế kỉ XVIII",
+    "isApproximate": true
+  },
+  "mapData": {
+    "geoType": "no_location",
+    "historicalLocations": [],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "auto",
+      "center": null,
+      "zoom": null
+    }
+  },
+  "summary": {
+    "homepageTitle": "Vũ Văn Nhậm đem quân, Trần Công Xán bàn biên cương",
+    "homepageSummary": "Sự kiện tướng Tây Sơn Vũ Văn Nhậm đem quân ra bờ cõi và quan Bình chương Trần Công Xán vâng mệnh bàn việc biên cương, phản ánh tình hình quân sự thế kỉ XVIII.",
+    "cardSummary": "Tướng Tây Sơn Vũ Văn Nhậm đem quân, Trần Công Xán bàn việc biên cương thế kỉ XVIII."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Hồi 9 của tác phẩm Hoàng Lê nhất thống chí ghi lại sự kiện tướng Tây Sơn Vũ Văn Nhậm đem quân lẫn ngoài bờ cõi; quan Bình chương Trần Công Xán vâng mệnh bàn việc biên cương.",
+    "detailedNarrative": "Tướng Tây Sơn Vũ Văn Nhậm đem quân lẫn ngoài bờ cõi. Quan Bình chương Trần Công Xán vâng mệnh bàn việc biên cương.",
+    "significance": "Phản ánh tình hình quân sự và biên giới thời Tây Sơn.",
+    "keyFacts": [
+      "Vũ Văn Nhậm đem quân",
+      "Trần Công Xán bàn việc biên cương",
+      "Ghi trong Hoàng Lê nhất thống chí"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 10,
+        "book": "KNTT",
+        "lessonId": "12128",
+        "lessonTitle": "Bài 3: Sử Học Với Các Lĩnh Vực Khoa Học",
+        "chapter": "Chu de 2",
+        "lesson": "Bai 3",
+        "pageRange": {
+          "start": 19,
+          "end": 25
+        },
+        "url": "https://sgkvn.com/lop-10-13/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-2-vai-tro-cua-su-hoc-3269/bai-3-su-hoc-voi-cac-linh-vuc-khoa-hoc-12128.html",
+        "excerpt": "Hồi 9 của tác phẩm Hoàng Lê nhất thống chí ghi lại sự kiện tướng Tây Sơn Vũ Văn Nhậm đem quân lẫn ngoài bờ cõi; quan Bình chương Trần Công Xán vâng mệnh bàn việc biên cương."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "vu-van-nham-tran-cong-xan-bien-cuong",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 398
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": false,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

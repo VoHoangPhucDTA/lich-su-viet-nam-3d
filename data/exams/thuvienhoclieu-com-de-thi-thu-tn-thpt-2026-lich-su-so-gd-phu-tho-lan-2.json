@@ -1,0 +1,1223 @@
+{
+  "examId": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-so-gd-phu-tho-lan-2",
+  "title": "Đề thi Lịch sử – thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-Su-So-GD-Phu-Tho-lan-2",
+  "year": 2025,
+  "source": "",
+  "sourceDetail": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-Su-So-GD-Phu-Tho-lan-2",
+  "examCode": "",
+  "format": "thpt_2025",
+  "timeLimitMinutes": 50,
+  "totalScore": 10.0,
+  "parsedAt": "2026-05-17T10:44:04.231477+00:00",
+  "sections": [
+    {
+      "sectionId": "phan-1",
+      "sectionType": "mcq",
+      "title": "Phần I – Trắc nghiệm nhiều lựa chọn",
+      "totalQuestions": 24,
+      "maxScore": 6.0,
+      "scorePerQuestion": 0.25,
+      "questions": [
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-so-gd-phu-tho-lan-2-q01",
+          "orderInExam": 1,
+          "questionType": "mcq",
+          "questionText": "Một trong những mục tiêu của Cộng đồng ASEAN là",
+          "options": [
+            {
+              "id": "A",
+              "text": "hoàn thành nhất thể hóa khu vực."
+            },
+            {
+              "id": "B",
+              "text": "hình thành liên minh quân sự."
+            },
+            {
+              "id": "C",
+              "text": "tạo sự cân bằng về chính trị."
+            },
+            {
+              "id": "D",
+              "text": "thúc đẩy sự tiến bộ xã hội."
+            }
+          ],
+          "correctOptionId": "D",
+          "explanation": "Câu 1. Đáp án D\nMục tiêu của Cộng đồng ASEAN là thúc đẩy hòa bình, ổn định, hợp tác và tiến bộ xã hội trong khu vực.\nA, B, C không phản ánh đúng mục tiêu chính thức của ASEAN.",
+          "difficulty": "medium",
+          "topic": "Cộng đồng ASEAN",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-Su-So-GD-Phu-Tho-lan-2",
+              "location": "Câu 1"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-so-gd-phu-tho-lan-2-q02",
+          "orderInExam": 2,
+          "questionType": "mcq",
+          "questionText": "Sau Chiến tranh lạnh, quốc gia nào sau đây là một trong những trung tâm quyền lực đang vươn lên khẳng định vị thế trong quan hệ quốc tế?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Cam-pu-chia."
+            },
+            {
+              "id": "B",
+              "text": "Ma-lai-xi-a."
+            },
+            {
+              "id": "C",
+              "text": "Thái Lan."
+            },
+            {
+              "id": "D",
+              "text": "Nhật Bản."
+            }
+          ],
+          "correctOptionId": "D",
+          "explanation": "Câu 2. Đáp án D\nSau Chiến tranh lạnh, Nhật Bản là một trong những trung tâm kinh tế - tài chính lớn, có vai trò quan trọng trong quan hệ quốc tế.\nCác nước còn lại không phải trung tâm quyền lực lớn của thế giới.",
+          "difficulty": "medium",
+          "topic": "Quan hệ quốc tế sau Chiến tranh lạnh",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-Su-So-GD-Phu-Tho-lan-2",
+              "location": "Câu 2"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-so-gd-phu-tho-lan-2-q03",
+          "orderInExam": 3,
+          "questionType": "mcq",
+          "questionText": "Cuộc khởi nghĩa Hai Bà Trưng (năm 40) chống lại thế lực ngoại xâm nào sau đây?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Nhà Đường."
+            },
+            {
+              "id": "B",
+              "text": "Nhà Minh."
+            },
+            {
+              "id": "C",
+              "text": "Nhà Đông Hán."
+            },
+            {
+              "id": "D",
+              "text": "Nhà Thanh."
+            }
+          ],
+          "correctOptionId": "C",
+          "explanation": "Câu 3. Đáp án C\nKhởi nghĩa Hai Bà Trưng năm 40 chống ách đô hộ của nhà Đông Hán.",
+          "difficulty": "medium",
+          "topic": "Việt Nam thời Bắc thuộc",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-Su-So-GD-Phu-Tho-lan-2",
+              "location": "Câu 3"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-so-gd-phu-tho-lan-2-q04",
+          "orderInExam": 4,
+          "questionType": "mcq",
+          "questionText": "Năm 1975, quân dân Việt Nam giành thắng lợi trong chiến dịch",
+          "options": [
+            {
+              "id": "A",
+              "text": "Việt Bắc."
+            },
+            {
+              "id": "B",
+              "text": "Điện Biên Phủ."
+            },
+            {
+              "id": "C",
+              "text": "Biên giới."
+            },
+            {
+              "id": "D",
+              "text": "Tây Nguyên."
+            }
+          ],
+          "correctOptionId": "D",
+          "explanation": "Câu 4. Đáp án D\nNăm 1975, quân dân Việt Nam giành thắng lợi mở màn trong Chiến dịch Tây Nguyên, tạo bước ngoặt cho cuộc Tổng tiến công và nổi dậy mùa Xuân 1975.",
+          "difficulty": "medium",
+          "topic": "Kháng chiến chống Mỹ 1954-1975",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-Su-So-GD-Phu-Tho-lan-2",
+              "location": "Câu 4"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-so-gd-phu-tho-lan-2-q05",
+          "orderInExam": 5,
+          "questionType": "mcq",
+          "questionText": "Quốc gia nào sau đây là nước đầu tiên trên thế giới chọn con đường xây dựng chủ nghĩa xã hội?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Ai Cập."
+            },
+            {
+              "id": "B",
+              "text": "Liên Xô."
+            },
+            {
+              "id": "C",
+              "text": "Hà Lan."
+            },
+            {
+              "id": "D",
+              "text": "Tiệp Khắc."
+            }
+          ],
+          "correctOptionId": "B",
+          "explanation": "Câu 5. Đáp án B\nNước đầu tiên đi theo con đường xây dựng chủ nghĩa xã hội là Liên Xô sau Cách mạng tháng Mười Nga năm 1917.",
+          "difficulty": "medium",
+          "topic": "Cách mạng tháng Mười Nga",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-Su-So-GD-Phu-Tho-lan-2",
+              "location": "Câu 5"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-so-gd-phu-tho-lan-2-q06",
+          "orderInExam": 6,
+          "questionType": "mcq",
+          "questionText": "Tháng 5-1941, Mặt trận Việt Minh ra đời; Tháng 3-1951, Mặt trận Việt Minh và Hội Liên Việt thống nhất thành Mặt trận Liên Việt; Tháng 12-1960, Mặt trận dân tộc giải phóng miền Nam Việt Nam ra đời. Những sự kiện trên phản ánh thực tiễn nào sau đây về công tác mặt trận ở Việt Nam?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Mở rộng được hình thức tổ chức quần chúng ra quốc tế để thích ứng với yêu cầu đấu tranh từng thời kì."
+            },
+            {
+              "id": "B",
+              "text": "Hình thức tổ chức mặt trận luôn biến đổi linh hoạt phù hợp với nhiệm vụ chiến lược từng giai đoạn."
+            },
+            {
+              "id": "C",
+              "text": "Thiết lập tổ chức đại diện lực lượng yêu nước hướng đến sự hòa bình, trung lập trong cách mạng."
+            },
+            {
+              "id": "D",
+              "text": "Khẳng định vai trò quyết định thắng lợi của khối liên minh công - nông trong các cuộc kháng chiến."
+            }
+          ],
+          "correctOptionId": "B",
+          "explanation": "Câu 6. Đáp án B\nCác tổ chức mặt trận thay đổi qua từng thời kì cho thấy hình thức tổ chức mặt trận rất linh hoạt, phù hợp nhiệm vụ chiến lược từng giai đoạn cách mạng.",
+          "difficulty": "medium",
+          "topic": "Mặt trận dân tộc thống nhất",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-Su-So-GD-Phu-Tho-lan-2",
+              "location": "Câu 6"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-so-gd-phu-tho-lan-2-q07",
+          "orderInExam": 7,
+          "questionType": "mcq",
+          "questionText": "Trong giai đoạn 1999 - 2015, Hiệp hội các quốc gia Đông Nam Á (ASEAN) đã đạt được một trong những thành tựu nào sau đây?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Thông qua bản Hiến chương ASEAN."
+            },
+            {
+              "id": "B",
+              "text": "Kết nạp thêm nhiều nước thành viên."
+            },
+            {
+              "id": "C",
+              "text": "Ban hành đồng tiền chung cho toàn khu vực."
+            },
+            {
+              "id": "D",
+              "text": "Thành lập và bước đầu phát triển cơ cấu."
+            }
+          ],
+          "correctOptionId": "A",
+          "explanation": "Câu 7. Đáp án A\nGiai đoạn 1999 - 2015, ASEAN đạt thành tựu nổi bật là thông qua Hiến chương ASEAN.\nB không chuẩn vì giai đoạn này không còn “kết nạp thêm nhiều nước thành viên” theo nghĩa lớn; C sai hoàn toàn; D không rõ và không tiêu biểu bằng A.",
+          "difficulty": "medium",
+          "topic": "ASEAN",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-Su-So-GD-Phu-Tho-lan-2",
+              "location": "Câu 7"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-so-gd-phu-tho-lan-2-q08",
+          "orderInExam": 8,
+          "questionType": "mcq",
+          "questionText": "Phá thành công thế bao vây, cấm vận của Mỹ là thành tựu đối ngoại của Việt Nam trong giai đoạn",
+          "options": [
+            {
+              "id": "A",
+              "text": "kháng chiến chống đế quốc Mỹ."
+            },
+            {
+              "id": "B",
+              "text": "kháng chiến chống thực dân Pháp."
+            },
+            {
+              "id": "C",
+              "text": "Đổi mới toàn diện đất nước."
+            },
+            {
+              "id": "D",
+              "text": "đấu tranh giành độc lập dân tộc."
+            }
+          ],
+          "correctOptionId": "C",
+          "explanation": "Câu 8. Đáp án C\nPhá thế bao vây, cấm vận của Mỹ là thành tựu đối ngoại trong thời kì Đổi mới toàn diện đất nước.",
+          "difficulty": "medium",
+          "topic": "Đổi mới Việt Nam",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-Su-So-GD-Phu-Tho-lan-2",
+              "location": "Câu 8"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-so-gd-phu-tho-lan-2-q09",
+          "orderInExam": 9,
+          "questionType": "mcq",
+          "questionText": "Ba nước Đông Dương gia nhập Hiệp hội các quốc gia Đông Nam Á (ASEAN) trong bối cảnh nào sau đây?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Trật tự hai cực I-an-ta chính thức xác lập."
+            },
+            {
+              "id": "B",
+              "text": "Mỹ đã thiết lập được trật tự thế giới đơn cực."
+            },
+            {
+              "id": "C",
+              "text": "Xu thế toàn cầu hóa đang diễn ra mạnh mẽ."
+            },
+            {
+              "id": "D",
+              "text": "Chủ nghĩa xã hội trở thành hệ thống thế giới."
+            }
+          ],
+          "correctOptionId": "C",
+          "explanation": "Câu 9. Đáp án C\nBa nước Đông Dương gia nhập ASEAN trong bối cảnh xu thế toàn cầu hóa diễn ra mạnh mẽ, các quốc gia tăng cường liên kết khu vực.",
+          "difficulty": "medium",
+          "topic": "ASEAN",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-Su-So-GD-Phu-Tho-lan-2",
+              "location": "Câu 9"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-so-gd-phu-tho-lan-2-q10",
+          "orderInExam": 10,
+          "questionType": "mcq",
+          "questionText": "Cuộc chiến đấu của quân dân Việt Nam trong các đô thị phía Bắc vĩ tuyến 16 (1946 - 1947) có ý nghĩa nào sau đây?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Buộc Pháp từ bỏ âm mưu chiến lược “đánh nhanh thắng nhanh”."
+            },
+            {
+              "id": "B",
+              "text": "Tạo điều kiện cho cả nước bước vào kháng chiến lâu dài."
+            },
+            {
+              "id": "C",
+              "text": "Kết thúc thời kì quân dân Việt Nam chiến đấu trong vòng vây."
+            },
+            {
+              "id": "D",
+              "text": "Giành được quyền chủ động trên chiến trường chính Bắc Bộ."
+            }
+          ],
+          "correctOptionId": "B",
+          "explanation": "Câu 10. Đáp án B\nCuộc chiến đấu trong các đô thị phía Bắc vĩ tuyến 16 (1946 - 1947) có ý nghĩa chủ yếu là giam chân địch, tạo điều kiện cho cả nước bước vào kháng chiến lâu dài.",
+          "difficulty": "medium",
+          "topic": "Kháng chiến chống Pháp 1945-1954",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-Su-So-GD-Phu-Tho-lan-2",
+              "location": "Câu 10"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-so-gd-phu-tho-lan-2-q11",
+          "orderInExam": 11,
+          "questionType": "mcq",
+          "questionText": "Một trong những nguyên nhân dẫn đến sự sụp đổ của Trật tự thế giới hai cực I-an-ta là",
+          "options": [
+            {
+              "id": "A",
+              "text": "sự xác lập của xu thế đa cực, nhiều trung tâm."
+            },
+            {
+              "id": "B",
+              "text": "Liên Xô và Mỹ đã bị suy giảm về thế mạnh."
+            },
+            {
+              "id": "C",
+              "text": "mâu thuẫn Đông - Tây được giải quyết triệt để."
+            },
+            {
+              "id": "D",
+              "text": "hòa bình, hợp tác đã trở thành xu thế chủ đạo."
+            }
+          ],
+          "correctOptionId": "D",
+          "explanation": "Câu 11. Đáp án B\nMột nguyên nhân quan trọng dẫn đến sự sụp đổ của trật tự hai cực I-an-ta là Liên Xô và Mỹ đều suy giảm thế mạnh.\nA và D thiên về xu thế/kết quả của cục diện mới hơn là nguyên nhân trực tiếp.",
+          "difficulty": "medium",
+          "topic": "Trật tự thế giới sau Chiến tranh lạnh",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-Su-So-GD-Phu-Tho-lan-2",
+              "location": "Câu 11"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-so-gd-phu-tho-lan-2-q12",
+          "orderInExam": 12,
+          "questionType": "mcq",
+          "questionText": "Đầu thế kỷ XX, Phan Châu Trinh có hoạt động đối ngoại tiêu biểu nào sau đây?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Sang Liên Xô nghiên cứu và học tập lí luận chủ nghĩa xã hội khoa học."
+            },
+            {
+              "id": "B",
+              "text": "Gửi thư đề nghị Toàn quyền Đông Dương cải cách chế độ cai trị ở Việt Nam."
+            },
+            {
+              "id": "C",
+              "text": "Hai lần sang Trung Quốc để vận động ngoại giao với lực lượng Đồng minh."
+            },
+            {
+              "id": "D",
+              "text": "Khởi xướng phong trào Đông Du, đưa thanh niên sang học tập ở Nhật Bản."
+            }
+          ],
+          "correctOptionId": "B",
+          "explanation": "Câu 12. Đáp án B\nHoạt động đối ngoại tiêu biểu của Phan Châu Trinh là gửi thư, kiến nghị với chính quyền Pháp đòi cải cách ở Việt Nam.\nD là của Phan Bội Châu.",
+          "difficulty": "medium",
+          "topic": "Phong trào dân tộc dân chủ 1900-1918",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-Su-So-GD-Phu-Tho-lan-2",
+              "location": "Câu 12"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-so-gd-phu-tho-lan-2-q13",
+          "orderInExam": 13,
+          "questionType": "mcq",
+          "questionText": "Nội dung nào sau đây không phải là thành tựu trong công cuộc xây dựng chủ nghĩa xã hội ở Trung Quốc, Việt Nam và Lào từ năm 1991 đến nay?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Trở thành các nước công nghiệp mới."
+            },
+            {
+              "id": "B",
+              "text": "Cải thiện chỉ số phát triển về con người."
+            },
+            {
+              "id": "C",
+              "text": "Từng bước xóa đói, giảm các hộ nghèo."
+            },
+            {
+              "id": "D",
+              "text": "Ổn định về chính trị, kinh tế và xã hội."
+            }
+          ],
+          "correctOptionId": "A",
+          "explanation": "Câu 13. Đáp án A\nTừ năm 1991 đến nay, Trung Quốc, Việt Nam, Lào chưa trở thành các nước công nghiệp mới (NICs), nên A là phương án không phải thành tựu.",
+          "difficulty": "medium",
+          "topic": "Các nước châu Á và Đông Nam Á sau 1945",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-Su-So-GD-Phu-Tho-lan-2",
+              "location": "Câu 13"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-so-gd-phu-tho-lan-2-q14",
+          "orderInExam": 14,
+          "questionType": "mcq",
+          "questionText": "Những hoạt động đối ngoại của Phan Bội Châu, Phan Châu Trinh và Nguyễn Ái Quốc đầu thế kỉ XX đã",
+          "options": [
+            {
+              "id": "A",
+              "text": "buộc chính phủ Pháp nhượng một số quyền lợi ở Đông Dương."
+            },
+            {
+              "id": "B",
+              "text": "tạo tiền đề đầu tiên cho sự ra đời của chính đảng vô sản ở Việt Nam."
+            },
+            {
+              "id": "C",
+              "text": "bước đầu kết nối cách mạng Việt Nam với cách mạng thế giới."
+            },
+            {
+              "id": "D",
+              "text": "thành lập được tổ chức cách mạng chung cho ba nước Đông Dương."
+            }
+          ],
+          "correctOptionId": "C",
+          "explanation": "Câu 14. Đáp án C\nHoạt động đối ngoại của Phan Bội Châu, Phan Châu Trinh, Nguyễn Ái Quốc đầu thế kỉ XX đã bước đầu gắn cách mạng Việt Nam với cách mạng thế giới.",
+          "difficulty": "medium",
+          "topic": "Phong trào dân tộc dân chủ 1900-1930",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-Su-So-GD-Phu-Tho-lan-2",
+              "location": "Câu 14"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-so-gd-phu-tho-lan-2-q15",
+          "orderInExam": 15,
+          "questionType": "mcq",
+          "questionText": "Trong lịch sử Việt Nam, thắng lợi của cuộc khởi nghĩa Lam Sơn (1418 - 1427) có ý nghĩa nào sau đây?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Chấm dứt 20 năm đô hộ của nhà Minh."
+            },
+            {
+              "id": "B",
+              "text": "Mở đầu thời kì độc lập lâu dài cho dân tộc."
+            },
+            {
+              "id": "C",
+              "text": "Lật đổ ách thống trị của thực dân Pháp."
+            },
+            {
+              "id": "D",
+              "text": "Làm thất bại âm mưu của đế quốc Mỹ."
+            }
+          ],
+          "correctOptionId": "B",
+          "explanation": "Câu 15. Đáp án A\nThắng lợi khởi nghĩa Lam Sơn có ý nghĩa trực tiếp là chấm dứt 20 năm đô hộ của nhà Minh.\nB không chuẩn vì thời kì độc lập lâu dài của dân tộc được mở đầu từ chiến thắng Bạch Đằng năm 938.",
+          "difficulty": "medium",
+          "topic": "Khởi nghĩa Lam Sơn",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-Su-So-GD-Phu-Tho-lan-2",
+              "location": "Câu 15"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-so-gd-phu-tho-lan-2-q16",
+          "orderInExam": 16,
+          "questionType": "mcq",
+          "questionText": "Yếu tố khách quan tác động đến việc Đảng Cộng sản Việt Nam đề ra đường lối Đổi mới đất nước (từ tháng 12 năm 1986) là",
+          "options": [
+            {
+              "id": "A",
+              "text": "kinh tế - xã hội Việt Nam lâm vào tình trạng suy thoái."
+            },
+            {
+              "id": "B",
+              "text": "cuộc khủng hoảng toàn diện, trầm trọng ở Liên Xô."
+            },
+            {
+              "id": "C",
+              "text": "nhiều nước Đông Nam Á trở thành “con rồng” kinh tế."
+            },
+            {
+              "id": "D",
+              "text": "sự phát triển nhanh chóng của Cộng đồng ASEAN."
+            }
+          ],
+          "correctOptionId": "B",
+          "explanation": "Câu 16. Đáp án B\nYếu tố khách quan tác động đến đường lối Đổi mới năm 1986 là cuộc khủng hoảng toàn diện, trầm trọng ở Liên Xô và hệ thống xã hội chủ nghĩa.",
+          "difficulty": "medium",
+          "topic": "Việt Nam đổi mới và hội nhập",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-Su-So-GD-Phu-Tho-lan-2",
+              "location": "Câu 16"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-so-gd-phu-tho-lan-2-q17",
+          "orderInExam": 17,
+          "questionType": "mcq",
+          "questionText": "Cách mạng tháng Tám năm 1945 ở Việt Nam diễn ra trong bối cảnh thế giới nào sau đây?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Quần chúng cách mạng đã sẵn sàng đứng lên khởi nghĩa."
+            },
+            {
+              "id": "B",
+              "text": "Các lực lượng trung gian đã ngả hẳn về phía cách mạng."
+            },
+            {
+              "id": "C",
+              "text": "Quân Đồng minh thắng lợi trong Chiến tranh thế giới thứ hai."
+            },
+            {
+              "id": "D",
+              "text": "Đảng Cộng sản Đông Dương có sự chuẩn bị đầy đủ, chu đáo."
+            }
+          ],
+          "correctOptionId": "C",
+          "explanation": "Câu 17. Đáp án C\nCách mạng tháng Tám 1945 diễn ra trong bối cảnh quân Đồng minh thắng lợi trong Chiến tranh thế giới thứ hai, phát xít Nhật đầu hàng.",
+          "difficulty": "medium",
+          "topic": "Cách mạng tháng Tám 1945",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-Su-So-GD-Phu-Tho-lan-2",
+              "location": "Câu 17"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-so-gd-phu-tho-lan-2-q18",
+          "orderInExam": 18,
+          "questionType": "mcq",
+          "questionText": "Sự kiện Việt Nam gia nhập tổ chức Liên hợp quốc (1977) có ý nghĩa nào sau đây?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Đánh dấu Việt Nam bắt đầu thiết lập quan hệ ngoại giao với các nước trên thế giới."
+            },
+            {
+              "id": "B",
+              "text": "Là điều kiện khách quan thuận lợi để Việt Nam đấu tranh giành độc lập hoàn toàn."
+            },
+            {
+              "id": "C",
+              "text": "Tạo cơ sở để Việt Nam hoàn thành thống nhất đất nước về mặt lãnh thổ."
+            },
+            {
+              "id": "D",
+              "text": "Khẳng định vị thế pháp lí, nâng cao uy tín của Việt Nam trên trường quốc tế."
+            }
+          ],
+          "correctOptionId": "D",
+          "explanation": "Câu 18. Đáp án D\nViệt Nam gia nhập Liên hợp quốc năm 1977 đã khẳng định vị thế pháp lí và nâng cao uy tín quốc tế.",
+          "difficulty": "medium",
+          "topic": "Việt Nam sau 1975",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-Su-So-GD-Phu-Tho-lan-2",
+              "location": "Câu 18"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-so-gd-phu-tho-lan-2-q19",
+          "orderInExam": 19,
+          "questionType": "mcq",
+          "questionText": "Cuộc chiến đấu ở biên giới Tây Nam của quân dân Việt Nam (1977 - 1979) nhằm mục đích nào sau đây?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Bảo vệ vững chắc Tổ quốc."
+            },
+            {
+              "id": "B",
+              "text": "Đánh đuổi phát xít Nhật."
+            },
+            {
+              "id": "C",
+              "text": "Giành độc lập dân tộc."
+            },
+            {
+              "id": "D",
+              "text": "Lật đổ chế độ phong kiến."
+            }
+          ],
+          "correctOptionId": "A",
+          "explanation": "Câu 19. Đáp án A\nCuộc chiến đấu ở biên giới Tây Nam (1977 - 1979) nhằm bảo vệ vững chắc Tổ quốc trước hành động xâm lược.",
+          "difficulty": "medium",
+          "topic": "Việt Nam sau 1975",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-Su-So-GD-Phu-Tho-lan-2",
+              "location": "Câu 19"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-so-gd-phu-tho-lan-2-q20",
+          "orderInExam": 20,
+          "questionType": "mcq",
+          "questionText": "Nội dung nào sau đây phản ánh đúng thành tựu về văn hóa của Việt Nam trong công cuộc Đổi mới từ năm 1986 đến nay?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Bình thường hóa quan hệ ngoại giao với Mỹ."
+            },
+            {
+              "id": "B",
+              "text": "Nhiều chỉ số về giáo dục phổ thông được đánh giá cao."
+            },
+            {
+              "id": "C",
+              "text": "Thực hiện thành công công nghiệp hoá đất nước."
+            },
+            {
+              "id": "D",
+              "text": "Trở thành nước phát triển có thu nhập cao."
+            }
+          ],
+          "correctOptionId": "B",
+          "explanation": "Câu 20. Đáp án B\nThành tựu về văn hóa trong thời kì Đổi mới thể hiện ở nhiều chỉ số giáo dục phổ thông được đánh giá cao.\nA là đối ngoại; C là kinh tế; D chưa đúng với thực tế hiện nay.",
+          "difficulty": "medium",
+          "topic": "Công cuộc Đổi mới 1986 đến nay",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-Su-So-GD-Phu-Tho-lan-2",
+              "location": "Câu 20"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-so-gd-phu-tho-lan-2-q21",
+          "orderInExam": 21,
+          "questionType": "mcq",
+          "questionText": "Nội dung nào sau đây phản ánh đúng quan hệ quốc tế trong thời kì Chiến tranh lạnh?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Đối thoại, hợp tác là ưu tiên hàng đầu giữa các quốc gia."
+            },
+            {
+              "id": "B",
+              "text": "Chiến tranh, xung đột vũ trang bao trùm toàn thế giới."
+            },
+            {
+              "id": "C",
+              "text": "Mâu thuẫn về hệ tư tưởng kéo dài, sâu sắc giữa hai phe."
+            },
+            {
+              "id": "D",
+              "text": "Xảy ra xung đột quân sự trực tiếp giữa Mỹ và Liên Xô."
+            }
+          ],
+          "correctOptionId": "C",
+          "explanation": "Câu 21. Đáp án C\nQuan hệ quốc tế thời kì Chiến tranh lạnh nổi bật bởi mâu thuẫn sâu sắc về hệ tư tưởng giữa hai phe.\nKhông có chiến tranh trực tiếp Mỹ - Liên Xô.",
+          "difficulty": "medium",
+          "topic": "Quan hệ quốc tế thời Chiến tranh lạnh",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-Su-So-GD-Phu-Tho-lan-2",
+              "location": "Câu 21"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-so-gd-phu-tho-lan-2-q22",
+          "orderInExam": 22,
+          "questionType": "mcq",
+          "questionText": "Theo đoạn tư liệu trên, Nguyễn Ái Quốc “từ một người yêu nước tiến bộ thành một chiến sĩ xã hội chủ nghĩa” khi đang hoạt động ở quốc gia nào sau đây?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Anh."
+            },
+            {
+              "id": "B",
+              "text": "Mỹ."
+            },
+            {
+              "id": "C",
+              "text": "Nga."
+            },
+            {
+              "id": "D",
+              "text": "Pháp."
+            }
+          ],
+          "correctOptionId": "D",
+          "explanation": "Câu 22. Đáp án D\nTheo tư liệu, Nguyễn Ái Quốc chuyển biến thành chiến sĩ xã hội chủ nghĩa khi hoạt động ở Pháp.",
+          "difficulty": "medium",
+          "topic": "Nguyễn Ái Quốc tìm đường cứu nước",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-Su-So-GD-Phu-Tho-lan-2",
+              "location": "Câu 22"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-so-gd-phu-tho-lan-2-q23",
+          "orderInExam": 23,
+          "questionType": "mcq",
+          "questionText": "Yếu tố nào sau đây đã dẫn đến sự chuyển biến về tư tưởng và hành động trong hoạt động yêu nước của Nguyễn Ái Quốc năm 1920?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Sự giúp đỡ to lớn của các nước xã hội chủ nghĩa."
+            },
+            {
+              "id": "B",
+              "text": "Các nước Đông Nam Á đã giành được độc lập."
+            },
+            {
+              "id": "C",
+              "text": "Nguy cơ chia rẽ của ba tổ chức cộng sản ở Việt Nam."
+            },
+            {
+              "id": "D",
+              "text": "Thực tiễn đấu tranh anh dũng của công nhân Pháp."
+            }
+          ],
+          "correctOptionId": "D",
+          "explanation": "Câu 23. Đáp án D\nTheo đoạn tư liệu, sự chuyển biến về tư tưởng và hành động của Nguyễn Ái Quốc gắn với thực tiễn đấu tranh anh dũng của công nhân Pháp.\nĐây là phương án sát nhất với nội dung nguồn trích.",
+          "difficulty": "medium",
+          "topic": "Nguyễn Ái Quốc tìm đường cứu nước",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-Su-So-GD-Phu-Tho-lan-2",
+              "location": "Câu 23"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-so-gd-phu-tho-lan-2-q24",
+          "orderInExam": 24,
+          "questionType": "mcq",
+          "questionText": "Việc Nguyễn Ái Quốc “tìm thấy chân lý chủ nghĩa Mác - Lênin” đã",
+          "options": [
+            {
+              "id": "A",
+              "text": "chứng tỏ phong trào yêu nước theo khuynh hướng phong kiến không còn phù hợp."
+            },
+            {
+              "id": "B",
+              "text": "cho thấy cách mạng Việt Nam chịu ảnh hưởng của khuynh hướng dân chủ tư sản."
+            },
+            {
+              "id": "C",
+              "text": "bước đầu chuyển phong trào công nhân Việt Nam từ đấu tranh tự phát sang tự giác."
+            },
+            {
+              "id": "D",
+              "text": "góp phần giải quyết yêu cầu số một của thực tiễn cách mạng Việt Nam đầu thế kỉ XX."
+            }
+          ],
+          "correctOptionId": "D",
+          "explanation": "Câu 24. Đáp án D\nViệc Nguyễn Ái Quốc tìm thấy chủ nghĩa Mác - Lênin đã góp phần giải quyết yêu cầu số một của cách mạng Việt Nam đầu thế kỉ XX, đó là tìm ra con đường cứu nước đúng đắn.",
+          "difficulty": "medium",
+          "topic": "Nguyễn Ái Quốc tìm đường cứu nước",
+          "cognitiveLevel": "application",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-Su-So-GD-Phu-Tho-lan-2",
+              "location": "Câu 24"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "sectionId": "phan-2",
+      "sectionType": "true_false",
+      "title": "Phần II – Trắc nghiệm Đúng/Sai",
+      "totalQuestions": 4,
+      "maxScore": 4.0,
+      "scoringRule": "ladder",
+      "questions": [
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-so-gd-phu-tho-lan-2-q25",
+          "orderInExam": 25,
+          "questionType": "true_false",
+          "questionText": "Cho những thông tin trong bảng sau đây: Thời gian | Nội dung Năm 1992 | Các nước ASEAN thành lập Khu vực mậu dịch tự do ASEAN (AFTA). Năm 1995 | Các nước ASEAN kí Hiệp định khung về dịch vụ ASEAN (AFAS). Năm 2009 | Các nước ASEAN kí Hiệp định thương mại hàng hóa ASEAN (ATIGA). Năm 2012 | Các nước ASEAN kí Hiệp định đầu tư toàn diện ASEAN (ACIA). Năm 2015 | Thành lập Cộng đồng ASEAN với 3 trụ cột; Thông qua Tầm nhìn Cộng đồng ASEAN 2025.",
+          "statements": [
+            {
+              "id": "a",
+              "text": "Tầm nhìn Cộng đồng ASEAN 2025 hướng tới một cộng đồng gắn kết về chính trị, hội nhập về kinh tế và có trách nhiệm xã hội, lấy người dân làm trung tâm của các hoạt động hợp tác.",
+              "isTrue": true
+            },
+            {
+              "id": "b",
+              "text": "Sự ra đời của Cộng đồng kinh tế ASEAN đã mở ra tiến trình hội nhập kinh tế ASEAN, hiện thực hóa mục tiêu xây dựng một thị trường chung khu vực và hội nhập kinh tế toàn cầu.",
+              "isTrue": false
+            },
+            {
+              "id": "c",
+              "text": "Bảng thông tin trên đề cập đến các hoạt động của Hiệp hội các quốc gia Đông Nam Á (ASEAN) từ năm 1992 đến năm 2015.",
+              "isTrue": true
+            },
+            {
+              "id": "d",
+              "text": "Sau khi Trật tự thế giới hai cực I-an-ta tan rã, ASEAN chuyển trọng tâm hợp tác từ kinh tế sang chính trị - an ninh, tăng cường hội nhập khu vực và thế giới.",
+              "isTrue": false
+            }
+          ],
+          "explanation": "a) Câu 1\na) Đúng\nTầm nhìn Cộng đồng ASEAN 2025 đúng là hướng tới một cộng đồng gắn kết về chính trị, liên kết kinh tế sâu hơn, có trách nhiệm xã hội và lấy người dân làm trung tâm.\nb) Sai\nTiến trình hội nhập kinh tế ASEAN không phải bắt đầu từ khi Cộng đồng kinh tế ASEAN ra đời năm 2015. Nó đã diễn ra từ trước, như AFTA năm 1992.\nc) Đúng\nBảng nêu các mốc từ 1992 đến 2015, đúng là phản ánh hoạt động của ASEAN trong giai đoạn đó.\nd) Sai\nSau Chiến tranh lạnh, ASEAN không chuyển trọng tâm từ kinh tế sang chính trị - an ninh, mà thực tế đẩy mạnh cả hợp tác kinh tế lẫn mở rộng hợp tác chính trị - an ninh, trong đó kinh tế ngày càng quan trọng.\nKết luận Câu 1: Đ, S, Đ, S",
+          "difficulty": "hard",
+          "topic": "Hiệp hội các quốc gia Đông Nam Á (ASEAN)",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-Su-So-GD-Phu-Tho-lan-2",
+              "location": "Câu 1"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-so-gd-phu-tho-lan-2-q26",
+          "orderInExam": 26,
+          "questionType": "true_false",
+          "questionText": "Đọc đoạn tư liệu sau đây: “Cuối năm 1944, Người (Hồ Chí Minh) sang Côn Minh gặp tướng Chenault, tư lệnh không quân Mĩ ở Trung Quốc, đặt cơ sở phối hợp giữa Việt Minh với các lực lượng Đồng minh để chống Nhật ở Việt Nam. Do nhu cầu nắm bắt tin tức quân Nhật ở Đông Dương, người Mĩ trong cơ quan tình báo chiến lược (OSS- Office of Strategy Services) và Cơ quan thông tin chiến tranh (OWI- Office of War Information) cũng cần liên hệ với phong trào cách mạng Việt Nam”.",
+          "statements": [
+            {
+              "id": "a",
+              "text": "Đoạn tư liệu cung cấp thông tin về hoạt động đối ngoại của Việt Nam chuẩn bị cho công cuộc chống Nhật.",
+              "isTrue": true
+            },
+            {
+              "id": "b",
+              "text": "Thắng lợi của Cách mạng tháng Tám năm 1945 là kết quả tất yếu của việc phát huy tối đa nội lực dân tộc, không có sự can thiệp trực tiếp của các lực lượng bên ngoài vào tiến trình giành chính quyền.",
+              "isTrue": true
+            },
+            {
+              "id": "c",
+              "text": "Hồ Chí Minh là người đầu tiên đặt nền móng cho hoạt động đối ngoại của Việt Nam thời kì cận đại.",
+              "isTrue": false
+            },
+            {
+              "id": "d",
+              "text": "Trong những năm 1930 - 1945, hoạt động đối ngoại của Đảng cộng sản Đông Dương chủ yếu nhằm tiến tới giành độc lập, tự do cho dân tộc và thế giới.",
+              "isTrue": false
+            }
+          ],
+          "explanation": "a) Câu 2\na) Đúng\nĐoạn tư liệu cho thấy hoạt động đối ngoại của Hồ Chí Minh và Việt Minh nhằm phối hợp với Đồng minh chống Nhật, nên nhận định này đúng.\nb) Đúng\nThắng lợi Cách mạng tháng Tám chủ yếu là kết quả của sức mạnh nội lực dân tộc, chớp đúng thời cơ; không có lực lượng nước ngoài trực tiếp giúp ta giành chính quyền.\nc) Sai\nHồ Chí Minh là người đặt nền móng cho ngoại giao Việt Nam thời hiện đại, không phải “thời cận đại”.\nd) Sai\nHoạt động đối ngoại của Đảng giai đoạn 1930 - 1945 chủ yếu phục vụ mục tiêu giành độc lập cho dân tộc, đồng thời gắn với cuộc đấu tranh chống phát xít, chứ không thể nói “giành độc lập, tự do cho dân tộc và thế giới”.\nKết luận Câu 2: Đ, Đ, S, S",
+          "difficulty": "hard",
+          "topic": "Việt Nam trong Chiến tranh thế giới thứ hai (1939-1945)",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-Su-So-GD-Phu-Tho-lan-2",
+              "location": "Câu 2"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-so-gd-phu-tho-lan-2-q27",
+          "orderInExam": 27,
+          "questionType": "true_false",
+          "questionText": "Cho đoạn tư liệu sau đây: “Thắng lợi to lớn của cuộc Tổng tiến công Tết Mậu Thân năm 1968 đã làm nhụt ý chí xâm lược của quân Mỹ và làm đảo lộn thế chiến lược của chúng trên chiến trường. Đêm 31 - 3 - 1968, Tổng thống Mỹ B. Johnson buộc phải đơn phương tuyên bố chấm dứt vai trò chiến đấu trực tiếp của quân đội Mỹ trên chiến trường miền Nam và trao trả trách nhiệm cho quân đội Sài Gòn, ngừng toàn bộ hành động không quân và hải quân chống Việt Nam Dân chủ Cộng hòa, chấm dứt ném bom miền Bắc từ vĩ tuyến 20 trở ra và sẵn sàng cử đại diện đàm phán với phía Việt Nam Dân chủ Cộng hòa”.",
+          "statements": [
+            {
+              "id": "a",
+              "text": "Tổng tiến công và nổi dậy Xuân 1968 làm đảo lộn thế chiến lược của Mỹ trên chiến trường, buộc Mỹ phải tuyên bố “Mỹ hóa” trở lại chiến tranh xâm lược.",
+              "isTrue": false
+            },
+            {
+              "id": "b",
+              "text": "Cuộc Tổng tiến công và nổi dậy Xuân 1968 là minh chứng cho nghệ thuật dùng thực lực quân sự để tạo thế mạnh trên mặt trận ngoại giao của cách mạng Việt Nam.",
+              "isTrue": true
+            },
+            {
+              "id": "c",
+              "text": "Những điều chỉnh của Tổng thống Johnson sau sự kiện Xuân Mậu Thân năm 1968 chứng tỏ Mỹ đã thừa nhận sự thất bại của chiến lược Chiến tranh cục bộ ở miền Nam Việt Nam.",
+              "isTrue": true
+            },
+            {
+              "id": "d",
+              "text": "Sự kiện đêm 31 - 3 - 1968 đánh dấu việc Mỹ bắt đầu xuống thang chiến tranh thông qua việc ngừng ném bom toàn miền Bắc Việt Nam.",
+              "isTrue": false
+            }
+          ],
+          "explanation": "a) Câu 3\na) Sai\nSau Mậu Thân 1968, Mỹ không “Mỹ hóa” trở lại chiến tranh, mà từng bước chuyển sang “Việt Nam hóa chiến tranh”.\nb) Đúng\nTổng tiến công và nổi dậy Xuân 1968 là minh chứng rõ cho nghệ thuật kết hợp quân sự với ngoại giao, dùng thắng lợi trên chiến trường để tạo thế mạnh trên bàn đàm phán.\nc) Đúng\nNhững điều chỉnh của Tổng thống Johnson cho thấy Mỹ đã thừa nhận thất bại của chiến lược Chiến tranh cục bộ ở miền Nam.\nd) Sai\nĐêm 31-3-1968, Mỹ chỉ tuyên bố ngừng ném bom từ vĩ tuyến 20 trở ra, chưa phải ngừng ném bom toàn bộ miền Bắc.\nKết luận Câu 3: S, Đ, Đ, S",
+          "difficulty": "hard",
+          "topic": "Kháng chiến chống Mỹ cứu nước (1954-1975)",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-Su-So-GD-Phu-Tho-lan-2",
+              "location": "Câu 3"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-so-gd-phu-tho-lan-2-q28",
+          "orderInExam": 28,
+          "questionType": "true_false",
+          "questionText": "Cho đoạn tư liệu sau đây: “Cuộc khủng hoảng kinh tế - xã hội ở nước ta diễn ra trong những năm đầu thập kì 80 cũng phần nào trong tình hình như thế. Lúc đó chúng ta đã duy trì trong một thời gian dài tình trạng bao cấp (một việc làm cần thiết trong thời chiến). Bao cấp nặng nề và kéo dài dẫn đến quan liêu trong quản lí, đưa kinh tế - xã hội tiến gần đến bờ vực thẳm. Đại hội lần thứ VI của Đảng là một Đại hội thường kì, nhưng trọng tâm là phải giải quyết cho kì được tình trạng khủng hoảng kinh tế - xã hội”. (Văn Tạo, Mười cuộc cải cách, đổi mới lớn trong lịch sử dân tộc Việt Nam, NXB Đại học sư phạm, Hà Nội, 2006, tr.330)",
+          "statements": [
+            {
+              "id": "a",
+              "text": "Kinh tế Việt Nam đã có sự chuyển đổi từ mô hình quản lí kinh tế theo cơ chế tập trung, bao cấp sang mô hình kinh tế thị trường có sự quản lí của Đảng và Nhà nước.",
+              "isTrue": true
+            },
+            {
+              "id": "b",
+              "text": "Cơ chế quản lí tập trung quan liêu, bao cấp được thực hiện ngay sau khi nước Việt Nam Dân chủ Cộng hòa ra đời.",
+              "isTrue": false
+            },
+            {
+              "id": "c",
+              "text": "Bài học từ công cuộc Đổi mới đất nước từ năm 1986 đến nay là cần gắn nền kinh tế Việt Nam với thị trường thế giới, đặt lợi ích kinh tế lên hàng đầu.",
+              "isTrue": false
+            },
+            {
+              "id": "d",
+              "text": "Đại hội VI của Đảng Cộng sản Việt Nam (1986) có nhiệm vụ trọng tâm là bàn về giải quyết tình trạng đất nước đang lâm vào khủng hoảng kinh tế - xã hội.",
+              "isTrue": true
+            }
+          ],
+          "explanation": "a) Câu 4\na) Đúng\nViệt Nam đã chuyển từ cơ chế quản lí tập trung, quan liêu, bao cấp sang nền kinh tế hàng hóa nhiều thành phần vận hành theo cơ chế thị trường, có sự quản lí của Nhà nước, dưới sự lãnh đạo của Đảng.\nb) Sai\nCơ chế tập trung quan liêu, bao cấp không hình thành ngay sau năm 1945; nó gắn chặt hơn với quá trình xây dựng CNXH ở miền Bắc sau 1954 và trên cả nước sau 1975.\nc) Sai\nBài học Đổi mới không phải là “đặt lợi ích kinh tế lên hàng đầu” một cách tuyệt đối, mà là kết hợp phát triển kinh tế với ổn định chính trị, tiến bộ và công bằng xã hội, bảo vệ lợi ích dân tộc.\nd) Đúng\nĐại hội VI (1986) xác định nhiệm vụ trọng tâm là giải quyết khủng hoảng kinh tế - xã hội, mở ra công cuộc Đổi mới.\nKết luận Câu 4: Đ, S, S, Đ",
+          "difficulty": "hard",
+          "topic": "Công cuộc Đổi mới ở Việt Nam (1986-nay)",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-TN-THPT-2026-Lich-Su-So-GD-Phu-Tho-lan-2",
+              "location": "Câu 4"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "warnings": null,
+  "verification": {
+    "structural": {
+      "layer": "L1_structural",
+      "passed": 8,
+      "total": 8,
+      "all_passed": true,
+      "checks": [
+        {
+          "name": "MCQ count = 24",
+          "passed": true,
+          "actual": 24
+        },
+        {
+          "name": "T/F count = 4",
+          "passed": true,
+          "actual": 4
+        },
+        {
+          "name": "No duplicate question IDs",
+          "passed": true,
+          "duplicates": []
+        },
+        {
+          "name": "T/F orderInExam >= 25",
+          "passed": true,
+          "violations": []
+        },
+        {
+          "name": "T/F orderInExam = {25,26,27,28}",
+          "passed": true,
+          "actual": [
+            25,
+            26,
+            27,
+            28
+          ],
+          "expected": [
+            25,
+            26,
+            27,
+            28
+          ]
+        },
+        {
+          "name": "MCQ orderInExam = {1..24}",
+          "passed": true,
+          "actual_first_last": [
+            [
+              1,
+              2,
+              3
+            ],
+            [
+              22,
+              23,
+              24
+            ]
+          ],
+          "expected": "1..24"
+        },
+        {
+          "name": "All MCQ have valid correctOptionId",
+          "passed": true,
+          "missing_in_questions": []
+        },
+        {
+          "name": "All T/F have 4 statements with isTrue bool",
+          "passed": true,
+          "issues": []
+        }
+      ]
+    },
+    "cross_source": {
+      "layer": "L2_cross_source",
+      "n_conflicts": 3,
+      "n_mcq_conflicts": 0,
+      "n_tf_conflicts": 3,
+      "shifting_pattern_detected": false,
+      "shifting_warning": null,
+      "conflicts": [
+        {
+          "question_id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-so-gd-phu-tho-lan-2-q25",
+          "orderInExam": 25,
+          "statement": "b",
+          "type": "true_false",
+          "isTrue_in_json": true,
+          "isTrue_in_explanation": false,
+          "matched_in_expl_at_question": 1,
+          "severity": "HIGH",
+          "hint": "⚠ Có thể shifting error giữa các câu T/F!"
+        },
+        {
+          "question_id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-so-gd-phu-tho-lan-2-q26",
+          "orderInExam": 26,
+          "statement": "a",
+          "type": "true_false",
+          "isTrue_in_json": false,
+          "isTrue_in_explanation": true,
+          "matched_in_expl_at_question": 2,
+          "severity": "HIGH",
+          "hint": "⚠ Có thể shifting error giữa các câu T/F!"
+        },
+        {
+          "question_id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-so-gd-phu-tho-lan-2-q28",
+          "orderInExam": 28,
+          "statement": "c",
+          "type": "true_false",
+          "isTrue_in_json": true,
+          "isTrue_in_explanation": false,
+          "matched_in_expl_at_question": 4,
+          "severity": "HIGH",
+          "hint": "⚠ Có thể shifting error giữa các câu T/F!"
+        }
+      ],
+      "all_passed": false
+    },
+    "content_integrity": {
+      "layer": "L3_content",
+      "n_suspicious": 2,
+      "suspicious": [
+        {
+          "question_id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-so-gd-phu-tho-lan-2-q06",
+          "orderInExam": 6,
+          "issue": "no_year_or_proper_noun_overlap",
+          "years_in_q": [
+            "1941",
+            "1951",
+            "1960"
+          ],
+          "years_in_expl": [],
+          "proper_in_q_sample": [
+            "Liên",
+            "Minh",
+            "Mặt",
+            "Nam",
+            "Tháng"
+          ],
+          "proper_in_expl_sample": [
+            "Các",
+            "Câu",
+            "Đáp"
+          ],
+          "severity": "LOW"
+        },
+        {
+          "question_id": "thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-so-gd-phu-tho-lan-2-q20",
+          "orderInExam": 20,
+          "issue": "no_year_or_proper_noun_overlap",
+          "years_in_q": [
+            "1986"
+          ],
+          "years_in_expl": [],
+          "proper_in_q_sample": [
+            "Nam",
+            "Việt"
+          ],
+          "proper_in_expl_sample": [
+            "Câu",
+            "Thành",
+            "Đáp"
+          ],
+          "severity": "LOW"
+        }
+      ],
+      "note": "LOW severity — cần review thủ công nếu nhiều case"
+    },
+    "verified_at": "2026-05-17T10:44:04.237814+00:00"
+  }
+}

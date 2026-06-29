@@ -1,0 +1,132 @@
+{
+  "id": "khang-chien-toan-quoc-chong-thuc-dan-phap-bung-no",
+  "slug": "khang-chien-toan-quoc-chong-thuc-dan-phap-bung-no",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Kháng chiến toàn quốc chống thực dân Pháp bùng nổ",
+    "short": "Kháng chiến toàn quốc chống thực dân Pháp bùng nổ",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "military",
+    "eventSubtype": "uprising",
+    "region": "vietnam",
+    "tags": [
+      "kháng chiến",
+      "toàn quốc",
+      "chống Pháp"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 12,
+        "lessonId": "12964",
+        "lessonTitle": "BÀI 13: HOẠT ĐỘNG ĐỐI NGOẠI CỦA VIỆT NAM TRONG KHÁNG CHIẾN CHỐNG PHÁP (1945 – 1954) VÀ KHÁNG CHIẾN CHỐNG MỸ (1954 - 1975)"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1946,
+      "month": 12,
+      "day": null
+    },
+    "end": null,
+    "datePrecision": "month",
+    "displayDate": "Tháng 12 năm 1946",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "no_location",
+    "historicalLocations": [],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "auto",
+      "center": null,
+      "zoom": null
+    }
+  },
+  "summary": {
+    "homepageTitle": "Kháng chiến toàn quốc chống Pháp bùng nổ",
+    "homepageSummary": "Cuộc kháng chiến toàn quốc chống thực dân Pháp bùng nổ vào tháng 12 năm 1946.",
+    "cardSummary": "Kháng chiến toàn quốc chống thực dân Pháp bùng nổ vào tháng 12 năm 1946."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Cuộc kháng chiến toàn quốc chống thực dân Pháp bùng nổ (12 – 1946).",
+    "detailedNarrative": "Từ khi cuộc kháng chiến toàn quốc chống thực dân Pháp bùng nổ (12 – 1946), Việt Nam vẫn thể hiện thiện chí hoà bình, để nghị Chính phủ Pháp tiếp tục mở các cuộc thương lượng, kêu gọi nhân dân Pháp chống chiến tranh.",
+    "significance": null,
+    "keyFacts": [
+      "Bùng nổ vào tháng 12-1946"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 12,
+        "book": "KNTT",
+        "lessonId": "12964",
+        "lessonTitle": "BÀI 13: HOẠT ĐỘNG ĐỐI NGOẠI CỦA VIỆT NAM TRONG KHÁNG CHIẾN CHỐNG PHÁP (1945 – 1954) VÀ KHÁNG CHIẾN CHỐNG MỸ (1954 - 1975)",
+        "chapter": "Chu de 4",
+        "lesson": "Bai 13",
+        "pageRange": {
+          "start": 77,
+          "end": 81
+        },
+        "url": "https://sgkvn.com/lop-12-15/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-4-cong-cuoc-doi-moi-o-viet-nam-tu-nam-1986-den-nay-3540/bai-13-hoat-dong-doi-ngoai-cua-viet-nam-trong-khang-chien-chong-phap-1945-1954-va-khang-chien-chong-my-1954-1975-12964.html",
+        "excerpt": "Cuộc kháng chiến toàn quốc chống thực dân Pháp bùng nổ (12 – 1946)."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "khang-chien-toan-quoc-chong-thuc-dan-phap-bung-no",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 184
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": false,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

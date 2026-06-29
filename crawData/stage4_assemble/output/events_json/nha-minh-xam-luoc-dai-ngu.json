@@ -1,0 +1,145 @@
+{
+  "id": "nha-minh-xam-luoc-dai-ngu",
+  "slug": "nha-minh-xam-luoc-dai-ngu",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Nhà Minh xâm lược Đại Ngu",
+    "short": "Minh xâm lược Đại Ngu",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "military",
+    "eventSubtype": "invasion",
+    "region": "vietnam",
+    "tags": [
+      "Đại Ngu",
+      "Nhà Minh",
+      "Chiến tranh",
+      "Xâm lược"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 11,
+        "lessonId": "12387",
+        "lessonTitle": "BÀI 12  KHÁI LƯỢC VỀ CẢI CÁCH  CUỘC CẢI"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "end": null,
+    "datePrecision": "period",
+    "displayDate": "Giữa lúc công cuộc cải cách của nhà Hồ đang thực hiện (đầu thế kỉ XV)",
+    "isApproximate": true
+  },
+  "mapData": {
+    "geoType": "point",
+    "historicalLocations": [],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": {
+      "name": "Đại Ngu",
+      "lat": 16.0,
+      "lng": 107.0,
+      "confidence": "low"
+    },
+    "markers": [],
+    "focusGeometry": {
+      "mode": "marker",
+      "center": {
+        "name": "Đại Ngu",
+        "lat": 16.0,
+        "lng": 107.0,
+        "confidence": "low"
+      },
+      "zoom": 12
+    }
+  },
+  "summary": {
+    "homepageTitle": "Minh xâm lược Đại Ngu",
+    "homepageSummary": "Giữa lúc công cuộc cải cách của nhà Hồ đang thực hiện, nhà Minh đã tận dụng cơ hội tiến hành xâm lược Đại Ngu.",
+    "cardSummary": "Nhà Minh xâm lược Đại Ngu khi nhà Hồ đang cải cách, góp phần thất bại."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Giữa lúc công cuộc cải cách đang thực hiện, các mâu thuẫn xã hội diễn biến phức tạp, nhà Minh đã tận dụng cơ hội tiến hành xâm lược Đại Ngu.",
+    "detailedNarrative": null,
+    "significance": "Là một nhân tố khách quan khiến cho công cuộc cải cách của Hồ Quý Ly và nhà Hồ thất bại, đồng thời ảnh hưởng đến khả năng thu phục và đoàn kết nhân dân chống giặc ngoại xâm của nhà Hồ.",
+    "keyFacts": [
+      "Là nhân tố khách quan khiến cải cách và kháng chiến nhà Hồ thất bại",
+      "Diễn ra khi cải cách nhà Hồ đang thực hiện",
+      "Nhà Minh tận dụng cơ hội"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 11,
+        "book": "KNTT",
+        "lessonId": "12387",
+        "lessonTitle": "BÀI 12  KHÁI LƯỢC VỀ CẢI CÁCH  CUỘC CẢI",
+        "chapter": "Chu de 6",
+        "lesson": "Bai 12",
+        "pageRange": {
+          "start": 87,
+          "end": 91
+        },
+        "url": "https://sgkvn.com/lop-11-14/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-6-mot-so-cuoc-cai-cach-lon-trong-lich-su-viet-nam-truoc-nam-1858-3353/bai-12-khai-luoc-ve-cai-cach-cuoc-cai-cach-cua-ho-quy-ly-va-trieu-ho-dau-the-ki-xv-12387.html",
+        "excerpt": "Giữa lúc công cuộc cải cách đang thực hiện, các mâu thuẫn xã hội diễn biến phức tạp, nhà Minh đã tận dụng cơ hội tiến hành xâm lược Đại Ngu."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "nha-minh-xam-luoc-dai-ngu",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 353
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": true,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

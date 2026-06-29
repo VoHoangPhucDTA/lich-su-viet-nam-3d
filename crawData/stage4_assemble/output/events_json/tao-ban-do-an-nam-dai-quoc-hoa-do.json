@@ -1,0 +1,137 @@
+{
+  "id": "tao-ban-do-an-nam-dai-quoc-hoa-do",
+  "slug": "tao-ban-do-an-nam-dai-quoc-hoa-do",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Tạo bản đồ An Nam đại quốc hoạ đồ",
+    "short": "Tạo bản đồ An Nam đại quốc hoạ đồ",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "cultural",
+    "eventSubtype": "creation",
+    "region": "world",
+    "tags": [
+      "phương Tây",
+      "chủ quyền",
+      "bản đồ"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 11,
+        "lessonId": "12395",
+        "lessonTitle": "BÀI 16  VIỆT NAM VÀ BIỂN ĐÔNG"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1838,
+      "month": null,
+      "day": null
+    },
+    "end": null,
+    "datePrecision": "year",
+    "displayDate": "Năm 1838",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "no_location",
+    "historicalLocations": [
+      "quần đảo Hoàng Sa",
+      "quần đảo Trường Sa"
+    ],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "auto",
+      "center": null,
+      "zoom": null
+    }
+  },
+  "summary": {
+    "homepageTitle": "Bản đồ An Nam đại quốc hoạ đồ (1838)",
+    "homepageSummary": "Bản đồ An Nam đại quốc hoạ đồ của người phương Tây được tạo ra, thể hiện quần đảo Hoàng Sa, Trường Sa thuộc lãnh thổ Việt Nam.",
+    "cardSummary": "An Nam đại quốc hoạ đồ (1838) của phương Tây thể hiện chủ quyền Việt Nam đối với Hoàng Sa, Trường Sa."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Các tập bản đồ của người phương Tây như An Nam đại quốc hoạ đồ (1838) đã thể hiện quần đảo Hoàng Sa, quần đảo Trường Sa thuộc lãnh thổ Việt Nam.",
+    "detailedNarrative": "Các tập bản đồ của người phương Tây như An Nam đại quốc hoạ đồ (1838) đã thể hiện quần đảo Hoàng Sa, quần đảo Trường Sa thuộc lãnh thổ Việt Nam.",
+    "significance": "Là bằng chứng lịch sử từ nguồn nước ngoài khẳng định chủ quyền của Việt Nam đối với quần đảo Hoàng Sa và quần đảo Trường Sa.",
+    "keyFacts": [
+      "Thể hiện Hoàng Sa, Trường Sa thuộc lãnh thổ Việt Nam",
+      "Tạo ra năm 1838",
+      "Thuộc các tập bản đồ của người phương Tây"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 11,
+        "book": "KNTT",
+        "lessonId": "12395",
+        "lessonTitle": "BÀI 16  VIỆT NAM VÀ BIỂN ĐÔNG",
+        "chapter": "Chu de 7",
+        "lesson": "Bai 16",
+        "pageRange": {
+          "start": 107,
+          "end": 111
+        },
+        "url": "https://sgkvn.com/lop-11-14/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-7-lich-su-chu-quyen-cua-viet-nam-o-bien-dong-3354/bai-16-viet-nam-va-bien-dong-12395.html",
+        "excerpt": "Các tập bản đồ của người phương Tây như An Nam đại quốc hoạ đồ (1838) đã thể hiện quần đảo Hoàng Sa, quần đảo Trường Sa thuộc lãnh thổ Việt Nam."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "tao-ban-do-an-nam-dai-quoc-hoa-do",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 75
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": false,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

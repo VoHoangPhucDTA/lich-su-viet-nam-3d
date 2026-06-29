@@ -1,0 +1,228 @@
+{
+  "_comment": "Tọa độ chính xác điền tay cho các địa danh trọng điểm lịch sử. source: manual = ưu tiên tuyệt đối.",
+  "_instruction": "Điền lat/lng từ Google Maps hoặc tài liệu địa lý chính thức. Để nguyên _comment khi sửa.",
+  "Điện Biên Phủ": {
+    "modern_name": "Thành phố Điện Biên Phủ, tỉnh Điện Biên, Việt Nam",
+    "lat": 21.3861,
+    "lng": 103.0167,
+    "confidence": "high",
+    "country": "vietnam",
+    "source": "manual"
+  },
+  "sông Bạch Đằng": {
+    "modern_name": "Sông Bạch Đằng, Quảng Ninh/Hải Phòng, Việt Nam",
+    "lat": 20.9406,
+    "lng": 106.9667,
+    "confidence": "high",
+    "country": "vietnam",
+    "source": "manual"
+  },
+  "ải Chi Lăng": {
+    "modern_name": "Ải Chi Lăng, huyện Chi Lăng, tỉnh Lạng Sơn, Việt Nam",
+    "lat": 21.7625,
+    "lng": 106.5917,
+    "confidence": "high",
+    "country": "vietnam",
+    "source": "manual"
+  },
+  "Đống Đa": {
+    "modern_name": "Gò Đống Đa, quận Đống Đa, Hà Nội, Việt Nam",
+    "lat": 21.027,
+    "lng": 105.843,
+    "confidence": "high",
+    "country": "vietnam",
+    "source": "manual"
+  },
+  "sông Như Nguyệt": {
+    "modern_name": "Sông Như Nguyệt (Sông Cầu), tỉnh Bắc Ninh, Việt Nam",
+    "lat": 21.2333,
+    "lng": 105.9667,
+    "confidence": "high",
+    "country": "vietnam",
+    "source": "manual"
+  },
+  "Rạch Gầm - Xoài Mút": {
+    "modern_name": "Rạch Gầm - Xoài Mút, huyện Châu Thành, tỉnh Tiền Giang, Việt Nam",
+    "lat": 10.39,
+    "lng": 106.33,
+    "confidence": "high",
+    "country": "vietnam",
+    "source": "manual"
+  },
+  "Him Lam": {
+    "modern_name": "Đồi Him Lam, Điện Biên Phủ, tỉnh Điện Biên, Việt Nam",
+    "lat": 21.405,
+    "lng": 103.023,
+    "confidence": "high",
+    "country": "vietnam",
+    "source": "manual"
+  },
+  "Đồi Độc Lập": {
+    "modern_name": "Đồi Độc Lập, Điện Biên Phủ, tỉnh Điện Biên, Việt Nam",
+    "lat": 21.428,
+    "lng": 103.012,
+    "confidence": "high",
+    "country": "vietnam",
+    "source": "manual"
+  },
+  "Mường Thanh": {
+    "modern_name": "Hầm De Castries, Cánh đồng Mường Thanh, Điện Biên Phủ, Việt Nam",
+    "lat": 21.385,
+    "lng": 103.006,
+    "confidence": "high",
+    "country": "vietnam",
+    "source": "manual"
+  },
+  "Bản Kéo": {
+    "modern_name": "Bản Kéo, Điện Biên Phủ, tỉnh Điện Biên, Việt Nam",
+    "lat": 21.411,
+    "lng": 102.986,
+    "confidence": "high",
+    "country": "vietnam",
+    "source": "manual"
+  },
+  "Tân Trào (Tuyên Quang)": {
+    "modern_name": "Khu căn cứ địa Tân Trào, huyện Sơn Dương, tỉnh Tuyên Quang, Việt Nam",
+    "lat": 21.8333,
+    "lng": 105.35,
+    "confidence": "high",
+    "country": "vietnam",
+    "source": "manual"
+  },
+  "Pác Bó (Cao Bằng)": {
+    "modern_name": "Hang Pác Bó, huyện Hà Quảng, tỉnh Cao Bằng, Việt Nam",
+    "lat": 22.85,
+    "lng": 106.18,
+    "confidence": "high",
+    "country": "vietnam",
+    "source": "manual"
+  },
+  "Lam Sơn (Thanh Hóa)": {
+    "modern_name": "Lam Sơn, huyện Thọ Xuân, tỉnh Thanh Hóa, Việt Nam",
+    "lat": 19.987,
+    "lng": 105.5,
+    "confidence": "high",
+    "country": "vietnam",
+    "source": "manual"
+  },
+  "Cổ Loa": {
+    "modern_name": "Thành Cổ Loa, huyện Đông Anh, Hà Nội, Việt Nam",
+    "lat": 21.1139,
+    "lng": 105.8783,
+    "confidence": "high",
+    "country": "vietnam",
+    "source": "manual"
+  },
+  "Hoa Lư": {
+    "modern_name": "Cố đô Hoa Lư, tỉnh Ninh Bình, Việt Nam",
+    "lat": 20.2833,
+    "lng": 105.9,
+    "confidence": "high",
+    "country": "vietnam",
+    "source": "manual"
+  },
+  "Vạn Kiếp": {
+    "modern_name": "Vạn Kiếp, huyện Chí Linh, tỉnh Hải Dương, Việt Nam",
+    "lat": 21.1333,
+    "lng": 106.6,
+    "confidence": "high",
+    "country": "vietnam",
+    "source": "manual"
+  },
+  "Bình Lệ Nguyên": {
+    "modern_name": "Bình Lệ Nguyên (nay thuộc tỉnh Vĩnh Phúc), Việt Nam",
+    "lat": 21.35,
+    "lng": 105.6,
+    "confidence": "medium",
+    "country": "vietnam",
+    "source": "manual"
+  },
+  "Đông Bộ Đầu": {
+    "modern_name": "Bến Đông Bộ Đầu (nay thuộc Hà Nội), Việt Nam",
+    "lat": 21.02,
+    "lng": 105.85,
+    "confidence": "medium",
+    "country": "vietnam",
+    "source": "manual"
+  },
+  "Giơ-ne-vơ": {
+    "modern_name": "Thành phố Geneva, Thụy Sĩ",
+    "lat": 46.2044,
+    "lng": 6.1432,
+    "confidence": "high",
+    "country": "thụy sĩ",
+    "source": "manual"
+  },
+  "Bắc Bộ Phủ": {
+    "modern_name": "Bắc Bộ Phủ (Nhà khách Chính phủ), 12 Ngô Quyền, Hà Nội",
+    "lat": 21.0264,
+    "lng": 105.8561,
+    "confidence": "high",
+    "country": "vietnam",
+    "source": "manual"
+  },
+  "Văn Miếu": {
+    "modern_name": "Văn Miếu – Quốc Tử Giám, Hà Nội, Việt Nam",
+    "lat": 21.0294,
+    "lng": 105.8356,
+    "confidence": "high",
+    "country": "vietnam",
+    "source": "manual"
+  },
+  "điện Diên Hồng": {
+    "modern_name": "Điện Diên Hồng, Hoàng thành Thăng Long, Hà Nội",
+    "lat": 21.0375,
+    "lng": 105.8383,
+    "confidence": "high",
+    "country": "vietnam",
+    "source": "manual"
+  },
+  "ga Hàng Cỏ": {
+    "modern_name": "Ga Hà Nội (ga Hàng Cỏ), Hà Nội, Việt Nam",
+    "lat": 21.0245,
+    "lng": 105.8412,
+    "confidence": "high",
+    "country": "vietnam",
+    "source": "manual"
+  },
+  "Phòng tuyến Như Nguyệt": {
+    "modern_name": "Phòng tuyến sông Như Nguyệt (sông Cầu), Bắc Ninh, Việt Nam",
+    "lat": 21.2333,
+    "lng": 105.9667,
+    "confidence": "high",
+    "country": "vietnam",
+    "source": "manual"
+  },
+  "Cô Lin": {
+    "modern_name": "Đá Cô Lin, Trường Sa, Việt Nam",
+    "lat": 9.767,
+    "lng": 114.234,
+    "confidence": "high",
+    "country": "vietnam",
+    "source": "manual"
+  },
+  "Len Đao": {
+    "modern_name": "Đá Len Đao, Trường Sa, Việt Nam",
+    "lat": 9.783,
+    "lng": 114.367,
+    "confidence": "high",
+    "country": "vietnam",
+    "source": "manual"
+  },
+  "Chữ Thập": {
+    "modern_name": "Đá Chữ Thập, Trường Sa, Việt Nam",
+    "lat": 9.55,
+    "lng": 112.89,
+    "confidence": "high",
+    "country": "vietnam",
+    "source": "manual"
+  },
+  "Cộng hoà Dân chủ Đức": {
+    "modern_name": "Cộng hoà Dân chủ Đức (Đông Đức)",
+    "lat": 52.0,
+    "lng": 13.0,
+    "confidence": "high",
+    "country": "đức",
+    "source": "manual"
+  }
+}

@@ -1,0 +1,144 @@
+{
+  "id": "khoi-nghia-cua-pu-com-bo",
+  "slug": "khoi-nghia-cua-pu-com-bo",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Khởi nghĩa của Pu-côm-bô",
+    "short": "Khởi nghĩa của Pu-côm-bô",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "military",
+    "eventSubtype": "uprising",
+    "region": "world",
+    "tags": [
+      "chống Pháp",
+      "Cam-pu-chia",
+      "khởi nghĩa",
+      "Việt Nam"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 11,
+        "lessonId": "12340",
+        "lessonTitle": "BÀI 6  HÀNH TRÌNH ĐI ĐẾN ĐỘC LẬP DÂN TỘC"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1866,
+      "month": null,
+      "day": null
+    },
+    "end": {
+      "year": 1867,
+      "month": null,
+      "day": null
+    },
+    "datePrecision": "year",
+    "displayDate": "1866-1867",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "no_location",
+    "historicalLocations": [
+      "Cam-pu-chia",
+      "Tây Ninh (Việt Nam)"
+    ],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "auto",
+      "center": null,
+      "zoom": null
+    }
+  },
+  "summary": {
+    "homepageTitle": "Khởi nghĩa Pu-côm-bô",
+    "homepageSummary": "Khởi nghĩa của Pu-côm-bô (1866-1867) là biểu tượng của liên minh chiến đấu Việt Nam - Cam-pu-chia chống Pháp.",
+    "cardSummary": "Khởi nghĩa Pu-côm-bô (1866-1867) là biểu tượng liên minh chiến đấu Việt Nam - Cam-pu-chia chống Pháp."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Cuộc khởi nghĩa của Pu-côm-bô (1866-1867) có quy mô lớn, gây nhiều tổn thất cho thực dân Pháp. Ông lập căn cứ ở Tây Ninh (Việt Nam) và liên kết với Trương Quyền, trở thành biểu tượng của sự liên minh chiến đấu giữa nhân dân Cam-pu-chia với nhân dân Việt Nam.",
+    "detailedNarrative": "Các cuộc khởi nghĩa của A-cha Xoa (1863-1866), Pu-côm-bô (1866 1867) là những cuộc khởi nghĩa có quy mô lớn, gây nhiều tổn thất cho thực dân Pháp. Pu-côm-bô là nhà sư có uy tín, khi phát động cuộc khởi nghĩa chống Pháp, ông đã lập căn cứ ở Tây Ninh (Việt Nam). Trương Quyền (con của Trương Định) đã liên kết với nghĩa quân của Pu-côm-bỏ trong những trận đánh Pháp. Cuộc khởi nghĩa của Pu-côm-bô là biểu tượng của sử liên minh chiến đấu giữa nhân dân Cam-pu-chia với nhân dân Việt Nam trong cuộc đấu tranh chống thực dân Pháp.",
+    "significance": "Là biểu tượng của sự liên minh chiến đấu giữa nhân dân Cam-pu-chia với nhân dân Việt Nam trong cuộc đấu tranh chống thực dân Pháp.",
+    "keyFacts": [
+      "Biểu tượng liên minh chiến đấu Việt Nam - Cam-pu-chia",
+      "Lập căn cứ ở Tây Ninh (Việt Nam)",
+      "Diễn ra từ 1866-1867",
+      "Lãnh đạo bởi nhà sư Pu-côm-bô",
+      "Trương Quyền liên kết với nghĩa quân"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 11,
+        "book": "KNTT",
+        "lessonId": "12340",
+        "lessonTitle": "BÀI 6  HÀNH TRÌNH ĐI ĐẾN ĐỘC LẬP DÂN TỘC",
+        "chapter": "Chu de 3",
+        "lesson": "Bai 6",
+        "pageRange": {
+          "start": 45,
+          "end": 53
+        },
+        "url": "https://sgkvn.com/lop-11-14/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-3-qua-trinh-gianh-doc-lap-dan-toc-cua-cac-quoc-gia-dong-nam-a-3331/bai-6-hanh-trinh-di-den-doc-lap-dan-toc-o-dong-nam-a-12340.html",
+        "excerpt": "Cuộc khởi nghĩa của Pu-côm-bô (1866-1867) có quy mô lớn, gây nhiều tổn thất cho thực dân Pháp. Ông lập căn cứ ở Tây Ninh (Việt Nam) và liên kết với Trương Quyền, trở thành biểu tượng của sự liên minh chiến đấu giữa nhân dân Cam-pu-chia với nhân dân Việt Nam."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "khoi-nghia-cua-pu-com-bo",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 82
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": false,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

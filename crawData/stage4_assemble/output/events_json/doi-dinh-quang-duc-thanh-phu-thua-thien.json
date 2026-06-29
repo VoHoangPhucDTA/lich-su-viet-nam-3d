@@ -1,0 +1,161 @@
+{
+  "id": "doi-dinh-quang-duc-thanh-phu-thua-thien",
+  "slug": "doi-dinh-quang-duc-thanh-phu-thua-thien",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Đổi dinh Quảng Đức thành phủ Thừa Thiên",
+    "short": "Đổi dinh Quảng Đức thành phủ Thừa Thiên",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "administrative_reform",
+    "region": "vietnam",
+    "tags": [
+      "Minh Mạng",
+      "Thừa Thiên",
+      "Quảng Đức"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 11,
+        "lessonId": "12393",
+        "lessonTitle": "BÀI 14  CUỘC CẢI CÁCH CỦA MINH MẠNG  NỬA"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1822,
+      "month": null,
+      "day": null
+    },
+    "end": null,
+    "datePrecision": "year",
+    "displayDate": "Năm 1822",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "mixed",
+    "historicalLocations": [],
+    "provinceNames": [
+      "Thừa Thiên Huế",
+      "Đắk Nông"
+    ],
+    "gadmRefs": [
+      "VNM.54_1",
+      "VNM.16_1"
+    ],
+    "marker": {
+      "name": "Thừa Thiên",
+      "lat": 16.4637,
+      "lng": 107.5909,
+      "confidence": "high"
+    },
+    "markers": [
+      {
+        "name": "Thừa Thiên",
+        "lat": 16.4637,
+        "lng": 107.5909,
+        "confidence": "high"
+      },
+      {
+        "name": "Quảng Đức",
+        "lat": 12.0,
+        "lng": 107.7,
+        "confidence": "medium"
+      }
+    ],
+    "focusGeometry": {
+      "mode": "bounds",
+      "center": {
+        "lat": 14.238053,
+        "lng": 107.629788
+      },
+      "zoom": 7
+    }
+  },
+  "summary": {
+    "homepageTitle": "Đổi dinh Quảng Đức thành phủ Thừa Thiên",
+    "homepageSummary": "Năm 1822, dinh Quảng Đức được đổi thành phủ Thừa Thiên do Đề đốc kinh thành đứng đầu, là một phần của cải cách hành chính địa phương.",
+    "cardSummary": "Năm 1822, dinh Quảng Đức đổi thành phủ Thừa Thiên."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Năm 1822, dinh Quảng Đức được đổi thành phủ Thừa Thiên do Đề đốc kinh thành đứng đầu.",
+    "detailedNarrative": "Năm 1822, đối dinh Quảng Đức làm phủ Thừa Thiên do Đề đốc kinh thành đứng đầu.",
+    "significance": "Bước đầu thống nhất đơn vị hành chính địa phương.",
+    "keyFacts": [
+      "Đề đốc kinh thành đứng đầu",
+      "Diễn ra năm 1822",
+      "Đổi tên đơn vị hành chính"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 11,
+        "book": "KNTT",
+        "lessonId": "12393",
+        "lessonTitle": "BÀI 14  CUỘC CẢI CÁCH CỦA MINH MẠNG  NỬA",
+        "chapter": "Chu de 6",
+        "lesson": "Bai 14",
+        "pageRange": {
+          "start": null,
+          "end": null
+        },
+        "url": "https://sgkvn.com/lop-11-14/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-6-mot-so-cuoc-cai-cach-lon-trong-lich-su-viet-nam-truoc-nam-1858-3353/bai-14-cuoc-cai-cach-cua-minh-mang-nua-dau-the-ki-xix-12393.html",
+        "excerpt": "Năm 1822, dinh Quảng Đức được đổi thành phủ Thừa Thiên do Đề đốc kinh thành đứng đầu."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "doi-dinh-quang-duc-thanh-phu-thua-thien",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 66
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": true,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

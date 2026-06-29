@@ -1,0 +1,155 @@
+{
+  "id": "viet-nam-ban-hanh-sach-trang-chu-quyen-hoang-sa-truong-sa",
+  "slug": "viet-nam-ban-hanh-sach-trang-chu-quyen-hoang-sa-truong-sa",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Việt Nam ban hành Sách Trắng: \"Chủ quyền của Việt Nam đối với quần đảo Hoàng Sa và quần đảo Trường Sa\"",
+    "short": "Sách Trắng chủ quyền Hoàng Sa, Trường Sa (1979)",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "publication",
+    "region": "vietnam",
+    "tags": [
+      "Trường Sa",
+      "Sách Trắng",
+      "chủ quyền",
+      "Hoàng Sa"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 11,
+        "lessonId": "12395",
+        "lessonTitle": "BÀI 16  VIỆT NAM VÀ BIỂN ĐÔNG"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1979,
+      "month": 9,
+      "day": null
+    },
+    "end": null,
+    "datePrecision": "month",
+    "displayDate": "Tháng 9 năm 1979",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "multi_point",
+    "historicalLocations": [],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": {
+      "name": "quần đảo Hoàng Sa",
+      "lat": 16.6833,
+      "lng": 112.3333,
+      "confidence": "high"
+    },
+    "markers": [
+      {
+        "name": "quần đảo Hoàng Sa",
+        "lat": 16.6833,
+        "lng": 112.3333,
+        "confidence": "high"
+      },
+      {
+        "name": "quần đảo Trường Sa",
+        "lat": 8.3833,
+        "lng": 111.9167,
+        "confidence": "high"
+      }
+    ],
+    "focusGeometry": {
+      "mode": "bounds",
+      "center": {
+        "lat": 12.5333,
+        "lng": 112.125
+      },
+      "zoom": 8
+    }
+  },
+  "summary": {
+    "homepageTitle": "VN ban hành Sách Trắng Hoàng Sa, Trường Sa (9/1979)",
+    "homepageSummary": "Tháng 9 năm 1979, Việt Nam ban hành Sách Trắng \"Chủ quyền của Việt Nam đối với quần đảo Hoàng Sa và quần đảo Trường Sa\".",
+    "cardSummary": "Tháng 9/1979, Việt Nam ban hành Sách Trắng khẳng định chủ quyền đối với Hoàng Sa và Trường Sa."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Ban hành văn bản pháp luật khẳng định chủ quyền: Sách Trắng: \"Chủ quyền của Việt Nam đối với quần đảo Hoàng Sa và quần đảo Trường Sa\" (9 – 1979).",
+    "detailedNarrative": "Ban hành văn bản pháp luật khẳng định chủ quyền: Sách Trắng: \"Chủ quyền của Việt Nam đối với quần đảo Hoàng Sa và quần đảo Trường Sa\" (9 – 1979).",
+    "significance": "Là văn bản pháp lí quan trọng khẳng định chủ quyền của Việt Nam đối với hai quần đảo Hoàng Sa và Trường Sa.",
+    "keyFacts": [
+      "Ban hành tháng 9 năm 1979",
+      "Nội dung: khẳng định chủ quyền của Việt Nam đối với quần đảo Hoàng Sa và quần đảo Trường Sa"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 11,
+        "book": "KNTT",
+        "lessonId": "12395",
+        "lessonTitle": "BÀI 16  VIỆT NAM VÀ BIỂN ĐÔNG",
+        "chapter": "Chu de 7",
+        "lesson": "Bai 16",
+        "pageRange": {
+          "start": 107,
+          "end": 111
+        },
+        "url": "https://sgkvn.com/lop-11-14/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-7-lich-su-chu-quyen-cua-viet-nam-o-bien-dong-3354/bai-16-viet-nam-va-bien-dong-12395.html",
+        "excerpt": "Ban hành văn bản pháp luật khẳng định chủ quyền: Sách Trắng: \"Chủ quyền của Việt Nam đối với quần đảo Hoàng Sa và quần đảo Trường Sa\" (9 – 1979)."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "viet-nam-ban-hanh-sach-trang-chu-quyen-hoang-sa-truong-sa",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 254
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": true,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

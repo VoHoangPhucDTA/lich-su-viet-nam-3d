@@ -1,0 +1,136 @@
+{
+  "id": "le-thai-tong-giao-nguyen-trai-luong-dang-lam-nha-nhac",
+  "slug": "le-thai-tong-giao-nguyen-trai-luong-dang-lam-nha-nhac",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Vua Lê Thái Tông giao Nguyễn Trãi và Lương Đăng làm nhã nhạc cung đình",
+    "short": "Vua Lê Thái Tông giao Nguyễn Trãi và Lương Đăng làm nhã nhạc cung đình",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "cultural",
+    "eventSubtype": "artistic_creation",
+    "region": "vietnam",
+    "tags": [
+      "Lê Thái Tông",
+      "Nguyễn Trãi",
+      "nghệ thuật cung đình",
+      "nhã nhạc"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      10
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 10,
+        "lessonId": "12160",
+        "lessonTitle": "Bài 12: Văn Minh Đại Việt"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1437,
+      "month": null,
+      "day": null
+    },
+    "end": null,
+    "datePrecision": "year",
+    "displayDate": "Năm 1437",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "no_location",
+    "historicalLocations": [],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "auto",
+      "center": null,
+      "zoom": null
+    }
+  },
+  "summary": {
+    "homepageTitle": "Lê Thái Tông giao Nguyễn Trãi làm nhã nhạc (1437)",
+    "homepageSummary": "Năm 1437, vua Lê Thái Tông giao Nguyễn Trãi và Lương Đăng làm nhã nhạc cung đình.",
+    "cardSummary": "Vua Lê Thái Tông giao Nguyễn Trãi và Lương Đăng làm nhã nhạc cung đình năm 1437."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Năm 1437, vua Lê Thái Tông giao Nguyễn Trãi và Lương Đăng làm nhã nhạc cung đình và cấm các loại hình ca múa nhạc cổ truyền như tuồng, chèo,...",
+    "detailedNarrative": null,
+    "significance": "Góp phần định hình nhã nhạc cung đình Đại Việt.",
+    "keyFacts": [
+      "Vua Lê Thái Tông giao nhiệm vụ",
+      "Làm nhã nhạc cung đình",
+      "Diễn ra năm 1437",
+      "Nguyễn Trãi và Lương Đăng thực hiện"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 10,
+        "book": "KNTT",
+        "lessonId": "12160",
+        "lessonTitle": "Bài 12: Văn Minh Đại Việt",
+        "chapter": "Chu de 6",
+        "lesson": "Bai 12",
+        "pageRange": {
+          "start": 108,
+          "end": 122
+        },
+        "url": "https://sgkvn.com/lop-10-13/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-6-mot-so-nen-van-minh-tren-dat-nuoc-viet-nam-truoc-nam-1858-3276/bai-12-van-minh-dai-viet-12160.html",
+        "excerpt": "Năm 1437, vua Lê Thái Tông giao Nguyễn Trãi và Lương Đăng làm nhã nhạc cung đình và cấm các loại hình ca múa nhạc cổ truyền như tuồng, chèo,..."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "le-thai-tong-giao-nguyen-trai-luong-dang-lam-nha-nhac",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 40
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": false,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

@@ -1,0 +1,134 @@
+{
+  "id": "ky-thi-thai-hoc-sinh-nha-ho",
+  "slug": "ky-thi-thai-hoc-sinh-nha-ho",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Kì thi Thái học sinh đầu tiên của nhà Hồ",
+    "short": "Thi Thái học sinh nhà Hồ",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "cultural",
+    "eventSubtype": "educational_reform",
+    "region": "vietnam",
+    "tags": [
+      "Nhà Hồ",
+      "Thi cử",
+      "Tuyển chọn nhân tài"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 11,
+        "lessonId": "12387",
+        "lessonTitle": "BÀI 12  KHÁI LƯỢC VỀ CẢI CÁCH  CUỘC CẢI"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1400,
+      "month": null,
+      "day": null
+    },
+    "end": null,
+    "datePrecision": "year",
+    "displayDate": "Năm 1400",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "no_location",
+    "historicalLocations": [],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "auto",
+      "center": null,
+      "zoom": null
+    }
+  },
+  "summary": {
+    "homepageTitle": "Thi Thái học sinh nhà Hồ",
+    "homepageSummary": "Năm 1400, nhà Hồ tổ chức kì thi Thái học sinh đầu tiên, tuyển chọn được nhiều người giỏi.",
+    "cardSummary": "Kì thi Thái học sinh đầu tiên của nhà Hồ năm 1400 tuyển chọn nhân tài."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Kì thi Thái học sinh đầu tiên (năm 1400) của nhà Hồ tuyển chọn được nhiều người giỏi.",
+    "detailedNarrative": null,
+    "significance": null,
+    "keyFacts": [
+      "Kì thi Thái học sinh",
+      "Tuyển chọn được nhiều người giỏi",
+      "Năm 1400"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 11,
+        "book": "KNTT",
+        "lessonId": "12387",
+        "lessonTitle": "BÀI 12  KHÁI LƯỢC VỀ CẢI CÁCH  CUỘC CẢI",
+        "chapter": "Chu de 6",
+        "lesson": "Bai 12",
+        "pageRange": {
+          "start": 87,
+          "end": 91
+        },
+        "url": "https://sgkvn.com/lop-11-14/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-6-mot-so-cuoc-cai-cach-lon-trong-lich-su-viet-nam-truoc-nam-1858-3353/bai-12-khai-luoc-ve-cai-cach-cuoc-cai-cach-cua-ho-quy-ly-va-trieu-ho-dau-the-ki-xv-12387.html",
+        "excerpt": "Kì thi Thái học sinh đầu tiên (năm 1400) của nhà Hồ tuyển chọn được nhiều người giỏi."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "ky-thi-thai-hoc-sinh-nha-ho",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 32
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": false,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

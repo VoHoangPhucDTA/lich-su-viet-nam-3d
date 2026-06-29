@@ -1,0 +1,130 @@
+{
+  "id": "thanh-lap-quoc-su-vien",
+  "slug": "thanh-lap-quoc-su-vien",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Thành lập Quốc sử viện",
+    "short": "Thành lập Quốc sử viện",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "cultural",
+    "eventSubtype": "establishment",
+    "region": "vietnam",
+    "tags": [
+      "thời Trần",
+      "sử học",
+      "Quốc sử viện"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      10
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 10,
+        "lessonId": "12160",
+        "lessonTitle": "Bài 12: Văn Minh Đại Việt"
+      }
+    ]
+  },
+  "chronology": {
+    "start": null,
+    "end": null,
+    "datePrecision": "period",
+    "displayDate": "Thời Trần",
+    "isApproximate": true
+  },
+  "mapData": {
+    "geoType": "no_location",
+    "historicalLocations": [],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "auto",
+      "center": null,
+      "zoom": null
+    }
+  },
+  "summary": {
+    "homepageTitle": "Thành lập Quốc sử viện (thời Trần)",
+    "homepageSummary": "Thời Trần thành lập Quốc sử viện là cơ quan chuyên viết sử, với tác phẩm nổi tiếng là Đại Việt sử ký (Lê Văn Hưu).",
+    "cardSummary": "Quốc sử viện được thành lập thời Trần, chuyên viết sử."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Thời Trần thành lập Quốc sử viện là cơ quan chuyên viết sử, tác phẩm nổi tiếng là Đại Việt sử ký (Lê Văn Hưu).",
+    "detailedNarrative": null,
+    "significance": "Tổ chức việc biên soạn sử học một cách quy củ.",
+    "keyFacts": [
+      "Là cơ quan chuyên viết sử",
+      "Thành lập Quốc sử viện",
+      "Diễn ra thời Trần"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 10,
+        "book": "KNTT",
+        "lessonId": "12160",
+        "lessonTitle": "Bài 12: Văn Minh Đại Việt",
+        "chapter": "Chu de 6",
+        "lesson": "Bai 12",
+        "pageRange": {
+          "start": 108,
+          "end": 122
+        },
+        "url": "https://sgkvn.com/lop-10-13/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-6-mot-so-nen-van-minh-tren-dat-nuoc-viet-nam-truoc-nam-1858-3276/bai-12-van-minh-dai-viet-12160.html",
+        "excerpt": "Thời Trần thành lập Quốc sử viện là cơ quan chuyên viết sử, tác phẩm nổi tiếng là Đại Việt sử ký (Lê Văn Hưu)."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "thanh-lap-quoc-su-vien",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 369
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": false,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

@@ -1,0 +1,135 @@
+{
+  "id": "unesco-ban-hanh-nghi-quyet-vinh-danh-chu-tich-ho-chi-minh",
+  "slug": "unesco-ban-hanh-nghi-quyet-vinh-danh-chu-tich-ho-chi-minh",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "UNESCO ban hành nghị quyết vinh danh Chủ tịch Hồ Chí Minh",
+    "short": "UNESCO vinh danh Hồ Chí Minh",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "diplomatic",
+    "eventSubtype": "recognition",
+    "region": "world",
+    "tags": [
+      "UNESCO",
+      "Hồ Chí Minh",
+      "Nhà văn hoá kiệt xuất",
+      "Anh hùng giải phóng dân tộc"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 12,
+        "lessonId": "12967",
+        "lessonTitle": "BÀI 16: HỒ CHÍ MINH - ANH HÙNG GIẢI PHÓNG DÂN TỘC"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1987,
+      "month": null,
+      "day": null
+    },
+    "end": null,
+    "datePrecision": "year",
+    "displayDate": "Năm 1987",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "no_location",
+    "historicalLocations": [],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "auto",
+      "center": null,
+      "zoom": null
+    }
+  },
+  "summary": {
+    "homepageTitle": "UNESCO vinh danh Chủ tịch Hồ Chí Minh",
+    "homepageSummary": "Năm 1987, UNESCO ban hành nghị quyết công nhận Chủ tịch Hồ Chí Minh là Anh hùng giải phóng dân tộc và Nhà văn hoá kiệt xuất của Việt Nam.",
+    "cardSummary": "UNESCO ban hành nghị quyết (1987) vinh danh Hồ Chí Minh là Anh hùng giải phóng dân tộc."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Khoá họp lần thứ 24 của Đại hội đồng Tổ chức Giáo dục, Khoa học và Văn hoá của Liên hợp quốc (UNESCO) năm 1987 đã ban hành nghị quyết với nội dung: “Năm 1990 sẽ đánh dấu 100 năm kỉ niệm Ngày sinh của Chủ tịch Hồ Chí Minh, Anh hùng giải phóng dân tộc và Nhà văn hoá kiệt xuất của Việt Nam”. Nghị quyết là sự công nhận của cộng đồng quốc tế đối với những đóng góp to lớn của Chủ tịch Hồ Chí Minh.",
+    "detailedNarrative": "Nghị quyết với nội dung: “Năm 1990 sẽ đánh dấu 100 năm kỉ niệm Ngày sinh của Chủ tịch Hồ Chí Minh, Anh hùng giải phóng dân tộc và Nhà văn hoá kiệt xuất của Việt Nam”.",
+    "significance": "Là sự công nhận của cộng đồng quốc tế đối với những đóng góp to lớn của Chủ tịch Hồ Chí Minh.",
+    "keyFacts": [
+      "Công nhận đóng góp to lớn của Chủ tịch Hồ Chí Minh",
+      "Ban hành tại Khoá họp lần thứ 24 của Đại hội đồng UNESCO",
+      "Nội dung vinh danh Chủ tịch Hồ Chí Minh là Anh hùng giải phóng dân tộc và Nhà văn hoá kiệt xuất"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 12,
+        "book": "KNTT",
+        "lessonId": "12967",
+        "lessonTitle": "BÀI 16: HỒ CHÍ MINH - ANH HÙNG GIẢI PHÓNG DÂN TỘC",
+        "chapter": "Chu de 5",
+        "lesson": "Bai 16",
+        "pageRange": {
+          "start": 94,
+          "end": 104
+        },
+        "url": "https://sgkvn.com/lop-12-15/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-5-lich-su-doi-ngoai-cua-viet-nam-thoi-can-hien-dai-3541/bai-16-ho-chi-minh-anh-hung-giai-phong-dan-toc-12967.html",
+        "excerpt": "Khoá họp lần thứ 24 của Đại hội đồng Tổ chức Giáo dục, Khoa học và Văn hoá của Liên hợp quốc (UNESCO) năm 1987 đã ban hành nghị quyết với nội dung: “Năm 1990 sẽ đánh dấu 100 năm kỉ niệm Ngày sinh của Chủ tịch Hồ Chí Minh, Anh hùng giải phóng dân tộc và Nhà văn hoá kiệt xuất của Việt Nam”. Nghị quyết là sự công nhận của cộng đồng quốc tế đối với những đóng góp to lớn của Chủ tịch Hồ Chí Minh."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "unesco-ban-hanh-nghi-quyet-vinh-danh-chu-tich-ho-chi-minh",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 267
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": false,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

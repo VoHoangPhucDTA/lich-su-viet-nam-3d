@@ -1,0 +1,139 @@
+{
+  "id": "ban-hanh-chinh-sach-loc-dien-quan-dien",
+  "slug": "ban-hanh-chinh-sach-loc-dien-quan-dien",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Ban hành chính sách lộc điền và quân điền",
+    "short": "Chính sách lộc điền, quân điền",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "economic",
+    "eventSubtype": "reform",
+    "region": "vietnam",
+    "tags": [
+      "Lê Thánh Tông",
+      "kinh tế",
+      "ruộng đất",
+      "Lê sơ"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 11,
+        "lessonId": "12390",
+        "lessonTitle": "BÀI 13  CUỘC CẢI CÁCH CỦA LÊ THÁNH TÔNG"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1477,
+      "month": null,
+      "day": null
+    },
+    "end": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "datePrecision": "year",
+    "displayDate": "Năm 1477",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "no_location",
+    "historicalLocations": [],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "auto",
+      "center": null,
+      "zoom": null
+    }
+  },
+  "summary": {
+    "homepageTitle": "Chính sách lộc điền, quân điền",
+    "homepageSummary": "Năm 1477, vua Lê Thánh Tông ban hành chính sách lộc điền và quân điền nhằm quản lý và phân chia ruộng đất công, tạo nền tảng cho kinh tế nông nghiệp phát triển.",
+    "cardSummary": "Năm 1477, Lê Thánh Tông ban hành lộc điền và quân điền để quản lý ruộng đất."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Năm 1477, ban hành chính sách lộc điền và quân điển. Chính sách lộc điền quy định: tổng diện tích cấp cho thân vương là 2 090 mẫu, trong đó 640 mẫu cấp vĩnh viễn. Chính sách quân điền quy định: mọi người từ quan tam phẩm đến cô nhị, quả phụ đều được chia ruộng công; quan tam phẩm được 11 phần, ngũ phẩm được 9,5 phần,... cô nhị, quả phụ được 3 phần; ruộng xã nào chia cho dân xã ấy; xã nào ruộng quá nhiều, người ít thì cho phép lấy bớt ruộng của xã đó chia cho xã bên cạnh ruộng ít, người nhiều; ruộng công làng xã cứ 6 năm chia lại một lần.",
+    "detailedNarrative": null,
+    "significance": "Góp phần khẳng định quyền sở hữu tối cao của Nhà nước về ruộng đất, tạo nền tảng cho kinh tế nông nghiệp phát triển, đảm bảo công bằng xã hội.",
+    "keyFacts": [
+      "Gồm lộc điền (cấp thân vương) và quân điền (chia ruộng công)",
+      "Ban hành năm 1477",
+      "Quân điền chia cho nhiều đối tượng, 6 năm chia lại một lần"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 11,
+        "book": "KNTT",
+        "lessonId": "12390",
+        "lessonTitle": "BÀI 13  CUỘC CẢI CÁCH CỦA LÊ THÁNH TÔNG",
+        "chapter": "Chu de 6",
+        "lesson": "Bai 13",
+        "pageRange": {
+          "start": 93,
+          "end": 96
+        },
+        "url": "https://sgkvn.com/lop-11-14/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-6-mot-so-cuoc-cai-cach-lon-trong-lich-su-viet-nam-truoc-nam-1858-3353/bai-13-cuoc-cai-cach-cua-le-thanh-tong-the-ki-xv-12390.html",
+        "excerpt": "Năm 1477, ban hành chính sách lộc điền và quân điển. Chính sách lộc điền quy định: tổng diện tích cấp cho thân vương là 2 090 mẫu, trong đó 640 mẫu cấp vĩnh viễn. Chính sách quân điền quy định: mọi người từ quan tam phẩm đến cô nhị, quả phụ đều được chia ruộng công; quan tam phẩm được 11 phần, ngũ phẩm được 9,5 phần,... cô nhị, quả phụ được 3 phần; ruộng xã nào chia cho dân xã ấy; xã nào ruộng quá nhiều, người ít thì cho phép lấy bớt ruộng của xã đó chia cho xã bên cạnh ruộng ít, người nhiều; ruộng công làng xã cứ 6 năm chia lại một lần."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "ban-hanh-chinh-sach-loc-dien-quan-dien",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 48
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": false,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

@@ -1,0 +1,83 @@
+[
+  {
+    "primaryId": "ho-chi-minh-ra-loi-keu-goi-toan-quoc-khang-chien",
+    "duplicateIds": [
+      "loi-keu-goi-toan-quoc-khang-chien-1946"
+    ],
+    "phase2Approved": true,
+    "reason": "Cùng sự kiện Lời kêu gọi toàn quốc kháng chiến 19-12-1946."
+  },
+  {
+    "primaryId": "ho-chi-minh-cong-bo-tuyen-ngon-doc-lap",
+    "duplicateIds": [
+      "ho-chi-minh-doc-tuyen-ngon-doc-lap"
+    ],
+    "phase2Approved": true,
+    "reason": "Cùng sự kiện Hồ Chí Minh đọc/công bố Tuyên ngôn Độc lập ngày 2-9-1945."
+  },
+  {
+    "primaryId": "cong-cuoc-doi-moi-o-viet-nam",
+    "duplicateIds": [
+      "cong-cuoc-doi-moi-viet-nam",
+      "viet-nam-bat-dau-cong-cuoc-doi-moi"
+    ],
+    "phase2Approved": true,
+    "reason": "Cùng chủ đề/sự kiện collection Công cuộc Đổi mới ở Việt Nam từ 1986."
+  },
+  {
+    "primaryId": "nguyen-ai-quoc-doc-luan-cuong-le-nin",
+    "duplicateIds": [
+      "nguyen-ai-quoc-doc-so-thao-luan-cuong-le-nin"
+    ],
+    "phase2Approved": true,
+    "reason": "Cùng sự kiện Nguyễn Ái Quốc đọc Luận cương của Lê-nin tháng 7-1920."
+  },
+  {
+    "primaryId": "ki-ket-hiep-dinh-pa-ri-ve-cham-dut-chien-tranh-lap-lai-hoa-binh-o-viet-nam",
+    "duplicateIds": [
+      "ki-hiep-dinh-pa-ri-ve-cham-dut-chien-tranh-lap-lai-hoa-binh-o-viet-nam"
+    ],
+    "phase2Approved": true,
+    "reason": "Cùng sự kiện kí Hiệp định Pa-ri năm 1973."
+  },
+  {
+    "primaryId": "hoi-nghi-ban-chap-hanh-trung-uong-lan-thu-15-dang-lao-dong-viet-nam",
+    "duplicateIds": [
+      "hoi-nghi-lan-thu-15-ban-chap-hanh-trung-uong-dang-lao-dong-viet-nam"
+    ],
+    "phase2Approved": true,
+    "reason": "Cùng Hội nghị Trung ương lần thứ 15 của Đảng Lao động Việt Nam tháng 1-1959."
+  },
+  {
+    "primaryId": "khang-chien-chong-thuc-dan-phap-1945-1954",
+    "duplicateIds": [
+      "chien-tranh-xam-luoc-viet-nam-cua-thuc-dan-phap"
+    ],
+    "phase2Approved": true,
+    "reason": "Hai record cùng mô tả cuộc chiến tranh/kháng chiến chống thực dân Pháp 1945-1954; giữ nhãn Việt Nam-centric làm collection."
+  },
+  {
+    "primaryId": "khang-chien-chong-my-cuu-nuoc",
+    "duplicateIds": [
+      "chien-tranh-xam-luoc-viet-nam-cua-de-quoc-my"
+    ],
+    "phase2Approved": true,
+    "reason": "Hai record cùng mô tả cuộc kháng chiến chống Mỹ/can thiệp Mỹ 1954-1975; giữ nhãn Việt Nam-centric làm collection."
+  },
+  {
+    "primaryId": "nguyen-ai-quoc-den-lien-xo-1923",
+    "duplicateIds": [
+      "nguyen-ai-quoc-roi-phap-den-lien-xo"
+    ],
+    "phase2Approved": true,
+    "reason": "Cùng mốc Nguyễn Ái Quốc rời Pháp/đến Liên Xô tháng 6-1923."
+  },
+  {
+    "primaryId": "nguyen-ai-quoc-gia-nhap-quoc-te-cong-san-va-sang-lap-dang-cong-san-phap",
+    "duplicateIds": [
+      "nguyen-ai-quoc-sang-lap-dang-cong-san-phap-1920"
+    ],
+    "phase2Approved": true,
+    "reason": "Cùng cụm sự kiện tại Đại hội Tua năm 1920; record primary giàu ngữ cảnh hơn."
+  }
+]

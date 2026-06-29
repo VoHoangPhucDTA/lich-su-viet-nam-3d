@@ -1,0 +1,142 @@
+{
+  "id": "hoi-nghi-pa-ri-ve-viet-nam",
+  "slug": "hoi-nghi-pa-ri-ve-viet-nam",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Hội nghị Pa-ri về Việt Nam",
+    "short": "Hội nghị Pa-ri",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "diplomatic",
+    "eventSubtype": "conference",
+    "region": "world",
+    "tags": [
+      "hoà bình",
+      "Hội nghị",
+      "chấm dứt chiến tranh",
+      "Pa-ri"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 12,
+        "lessonId": "12964",
+        "lessonTitle": "BÀI 13: HOẠT ĐỘNG ĐỐI NGOẠI CỦA VIỆT NAM TRONG KHÁNG CHIẾN CHỐNG PHÁP (1945 – 1954) VÀ KHÁNG CHIẾN CHỐNG MỸ (1954 - 1975)"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1968,
+      "month": null,
+      "day": null
+    },
+    "end": {
+      "year": 1973,
+      "month": 1,
+      "day": 27
+    },
+    "datePrecision": "day",
+    "displayDate": "1968 – 27-1-1973",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "no_location",
+    "historicalLocations": [
+      "Việt Nam",
+      "Pa-ri"
+    ],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "auto",
+      "center": null,
+      "zoom": null
+    }
+  },
+  "summary": {
+    "homepageTitle": "Hội nghị Pa-ri về Việt Nam",
+    "homepageSummary": "Hội nghị Pa-ri là nơi đại diện Chính phủ Việt Nam Dân chủ Cộng hoà và Chính phủ Cách mạng lâm thời Cộng hoà miền Nam Việt Nam đưa ra các phương án yêu cầu Mỹ chấm dứt chiến tranh.",
+    "cardSummary": "Hội nghị Pa-ri (1968-1973) là nơi VNDCCH và Chính phủ Cách mạng lâm thời Cộng hoà miền Nam Việt Nam yêu cầu Mỹ chấm dứt chiến tranh."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Trên bàn đàm phán tại Hội nghị Pa-ri, đại diện Chính phủ Việt Nam Dân chủ Cộng hoà và Chính phủ Cách mạng lâm thời Cộng hoà miền Nam Việt Nam lần lượt đưa ra các phương án yêu cầu Mỹ phải chấm dứt chiến tranh, lập lại hoà bình ở Việt Nam.",
+    "detailedNarrative": "Trên bàn đàm phán tại Hội nghị Pa-ri, đại diện Chính phủ Việt Nam Dân chủ Cộng hoà và Chính phủ Cách mạng lâm thời Cộng hoà miền Nam Việt Nam lần lượt đưa ra các phương án yêu cầu Mỹ phải chấm dứt chiến tranh, lập lại hoà bình ở Việt Nam. Trong Hội nghị Pa-ri, phía Mỹ đòi dùng chiếc bàn hình chữ nhật hoặc hình tròn chia đôi thể hiện cuộc đàm phán chỉ có hai bên: một bên là Mỹ và Việt Nam Cộng hoà, một bên là Việt Nam Dân chủ Cộng hoà và Chính phủ Cách mạng lâm thời Cộng hoà miền Nam Việt Nam. Việt Nam Dân chủ Cộng hoà yêu cầu chiếc bàn hình vuông hoặc tròn có phân chia rõ bốn bên, thể hiện bốn bên tham gia đàm phán. Cuối cùng, hai bên đi đến quyết định chọn chiếc bàn tròn lớn.",
+    "significance": null,
+    "keyFacts": [
+      "Mục tiêu: yêu cầu Mỹ chấm dứt chiến tranh, lập lại hoà bình",
+      "Có sự tham gia của VNDCCH và Chính phủ Cách mạng lâm thời Cộng hoà miền Nam Việt Nam",
+      "Diễn ra tại Pa-ri"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 12,
+        "book": "KNTT",
+        "lessonId": "12964",
+        "lessonTitle": "BÀI 13: HOẠT ĐỘNG ĐỐI NGOẠI CỦA VIỆT NAM TRONG KHÁNG CHIẾN CHỐNG PHÁP (1945 – 1954) VÀ KHÁNG CHIẾN CHỐNG MỸ (1954 - 1975)",
+        "chapter": "Chu de 4",
+        "lesson": "Bai 13",
+        "pageRange": {
+          "start": 77,
+          "end": 81
+        },
+        "url": "https://sgkvn.com/lop-12-15/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-4-cong-cuoc-doi-moi-o-viet-nam-tu-nam-1986-den-nay-3540/bai-13-hoat-dong-doi-ngoai-cua-viet-nam-trong-khang-chien-chong-phap-1945-1954-va-khang-chien-chong-my-1954-1975-12964.html",
+        "excerpt": "Trên bàn đàm phán tại Hội nghị Pa-ri, đại diện Chính phủ Việt Nam Dân chủ Cộng hoà và Chính phủ Cách mạng lâm thời Cộng hoà miền Nam Việt Nam lần lượt đưa ra các phương án yêu cầu Mỹ phải chấm dứt chiến tranh, lập lại hoà bình ở Việt Nam."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "hoi-nghi-pa-ri-ve-viet-nam",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 227
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": false,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

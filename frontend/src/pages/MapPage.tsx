@@ -1,5 +1,5 @@
 import { useState, useCallback, useMemo } from 'react';
-import { ChevronRight, Lightbulb } from 'lucide-react';
+import { ChevronRight, Clock, List, MapPin, X, Compass } from 'lucide-react';
 import CesiumMap from '../components/CesiumMap';
 import Timeline from '../components/Timeline';
 import Sidebar from '../components/Sidebar';
@@ -120,6 +120,7 @@ export default function MapPage() {
   const [eventsLoading, setEventsLoading] = useState(false);
   const [selectedGrade, setSelectedGrade] = useState<number | null>(null);
   const [timelineYears, setTimelineYears] = useState<number[]>([]);
+  const [onboardingDismissed, setOnboardingDismissed] = useState(false);
 
   const { setCenterContent } = useHeader();
 
@@ -302,6 +303,7 @@ export default function MapPage() {
     return null;
   }, [selectedEvent, navigationStack]);
 
+  // Lazy-load parent event into navigation stack when entering from URL
   useEffect(() => {
     let cancelled = false;
 
@@ -338,6 +340,13 @@ export default function MapPage() {
     setNavigationStack([]);
   }, []);
 
+  // Clear header breadcrumb when MapPage unmounts so stale state doesn't leak to Homepage etc.
+  useEffect(() => {
+    return () => {
+      setCenterContent(null);
+    };
+  }, [setCenterContent]);
+
   useEffect(() => {
     if (selectedEvent) {
       const compactStack = navigationStack.filter(
@@ -350,15 +359,15 @@ export default function MapPage() {
 
       setCenterContent(
         <div
-          className="glass-map"
+          className="glass-map animate-fade-in"
           style={{
             display: 'flex',
             alignItems: 'center',
-            gap: '8px',
-            padding: '6px 14px',
+            gap: '6px',
+            padding: '5px 12px',
             borderRadius: '999px',
             border: '1px solid var(--border)',
-            fontSize: '13px',
+            fontSize: '12.5px',
             width: '100%',
             maxWidth: '560px',
             minWidth: 0,
@@ -370,27 +379,66 @@ export default function MapPage() {
               setSelectedEvent(null);
               setNavigationStack([]);
             }}
-            style={{ background: 'none', border: 'none', color: 'var(--accent)', cursor: 'pointer', fontSize: '12px', fontWeight: 500 }}
+            className="accent-hover-glow"
+            style={{
+              background: 'none',
+              border: 'none',
+              color: 'var(--accent)',
+              cursor: 'pointer',
+              fontSize: '12px',
+              fontWeight: 600,
+              padding: '2px 8px',
+              borderRadius: '6px',
+              transition: 'all 0.2s var(--ease-museum)',
+            }}
+            onMouseEnter={(e) => {
+              (e.currentTarget as HTMLButtonElement).style.background = 'var(--accent-soft)';
+            }}
+            onMouseLeave={(e) => {
+              (e.currentTarget as HTMLButtonElement).style.background = 'transparent';
+            }}
           >
             Tổng quan
           </button>
           {parentCrumb && [parentCrumb].map((navEvent) => (
             <span key={navEvent.id} style={{ display: 'flex', alignItems: 'center', gap: '6px', minWidth: 0 }}>
-              <ChevronRight size={14} strokeWidth={2.2} style={{ color: 'var(--text-muted)' }} />
+              <ChevronRight size={13} strokeWidth={2} style={{ color: 'var(--text-muted)', flexShrink: 0 }} />
               <button
                 onClick={() => {
                   const idx = navigationStack.indexOf(navEvent);
                   setNavigationStack((prev) => prev.slice(0, idx));
                   setSelectedEvent(navEvent);
                 }}
-                style={{ background: 'none', border: 'none', color: 'var(--accent)', cursor: 'pointer', fontSize: '12px', fontWeight: 500, maxWidth: '180px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', minWidth: 0 }}
+                className="accent-hover-glow"
+                style={{
+                  background: 'none',
+                  border: 'none',
+                  color: '#8b1e1e',
+                  cursor: 'pointer',
+                  fontSize: '12px',
+                  fontWeight: 600,
+                  padding: '2px 8px',
+                  borderRadius: '6px',
+                  maxWidth: '180px',
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                  whiteSpace: 'nowrap',
+                  minWidth: 0,
+                  transition: 'all 0.2s var(--ease-museum)',
+                }}
+                onMouseEnter={(e) => {
+                  (e.currentTarget as HTMLButtonElement).style.background = 'var(--accent-soft)';
+                }}
+                onMouseLeave={(e) => {
+                  (e.currentTarget as HTMLButtonElement).style.background = 'transparent';
+                }}
               >
                 {navEvent.name}
               </button>
             </span>
           ))}
-          <ChevronRight size={14} strokeWidth={2.2} style={{ color: 'var(--text-muted)', flexShrink: 0 }} />
-          <span style={{ color: 'var(--text-primary)', fontWeight: 600, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', minWidth: 0 }}>
+          <ChevronRight size={13} strokeWidth={2} style={{ color: '#78716c', flexShrink: 0 }} />
+          <span className="serif-heading" style={{ fontSize: '13px', color: '#1c1917', fontWeight: 600, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', minWidth: 0 }}>
             {selectedEvent.name}
           </span>
         </div>
@@ -408,7 +456,7 @@ export default function MapPage() {
         display: 'flex',
         flexDirection: 'column',
         overflow: 'hidden',
-        background: 'var(--bg-app)',
+        background: '#fafaf9',
       }}
     >
       {/* Main content */}
@@ -422,6 +470,7 @@ export default function MapPage() {
           searchQuery={searchQuery}
           onSearchQueryChange={setSearchQuery}
           loading={searchLoading}
+          currentYear={currentYear}
         />
 
         {/* Map area */}
@@ -435,21 +484,121 @@ export default function MapPage() {
               highlightedEventId={highlightedEventId}
             />
 
-            {/* Map overlay info */}
-            {!selectedEvent && (
+            {/* Hero Preview — Bento-style floating museum introduction */}
+            {!selectedEvent && !onboardingDismissed && (
               <div
-                className="glass-map animate-fade-in absolute top-4 left-4 flex items-center gap-2.5 rounded-xl px-4 py-2.5 text-sm font-medium"
-                style={{ color: 'var(--text-primary)' }}
+                className="glass-map animate-fade-in-up absolute top-4 left-4 rounded-2xl overflow-hidden"
+                style={{
+                  maxWidth: '380px',
+                  boxShadow: 'var(--shadow)',
+                }}
               >
-                <Lightbulb
-                  size={18}
-                  strokeWidth={2.2}
-                  style={{ color: 'var(--accent)' }}
+                {/* Gold accent top bar */}
+                <div
+                  style={{
+                    height: '3px',
+                    background: 'linear-gradient(to right, var(--accent), var(--admin-accent), transparent)',
+                  }}
                 />
-                <span>
-                  Kéo timeline để chọn mốc thời gian, click marker để xem chi
-                  tiết sự kiện
-                </span>
+                <div style={{ padding: '16px 18px 18px' }}>
+                  {/* Title row */}
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '12px' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                      <div
+                        style={{
+                          width: '32px',
+                          height: '32px',
+                          borderRadius: '10px',
+                          background: 'var(--accent-soft)',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                        }}
+                      >
+                        <Compass size={17} strokeWidth={1.8} style={{ color: 'var(--accent)' }} />
+                      </div>
+                      <h3
+                        className="serif-heading"
+                        style={{ fontSize: '16px', fontWeight: 700, color: 'var(--text-primary)', margin: 0 }}
+                      >
+                        Khám phá Lịch sử Việt Nam
+                      </h3>
+                    </div>
+                    <button
+                      onClick={() => setOnboardingDismissed(true)}
+                      aria-label="Đóng hướng dẫn"
+                      style={{
+                        background: 'var(--bg-surface)',
+                        border: '1px solid var(--border)',
+                        cursor: 'pointer',
+                        color: 'var(--text-muted)',
+                        padding: '4px',
+                        borderRadius: '6px',
+                        display: 'flex',
+                      }}
+                    >
+                      <X size={13} strokeWidth={2.4} />
+                    </button>
+                  </div>
+
+                  {/* Intro text */}
+                  <p
+                    style={{
+                      fontSize: '12.5px',
+                      color: 'var(--text-secondary)',
+                      lineHeight: 1.6,
+                      marginBottom: '14px',
+                    }}
+                  >
+                    Hành trình xuyên suốt hơn 2.000 năm lịch sử dân tộc qua bản đồ 3D tương tác.
+                    Chọn một mốc thời gian để bắt đầu.
+                  </p>
+
+                  {/* Quick start steps */}
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                    {[
+                      { icon: Clock, label: 'Chọn mốc thời gian', desc: 'Kéo thanh Timeline bên dưới để chọn thời kỳ lịch sử bạn muốn khám phá' },
+                      { icon: List, label: 'Duyệt danh sách sự kiện', desc: 'Tìm kiếm, lọc và duyệt qua danh sách sự kiện hiển thị ở bảng điều khiển bên trái' },
+                      { icon: MapPin, label: 'Chọn sự kiện từ sidebar', desc: 'Nhấp vào một sự kiện trong danh sách bên trái để xem chi tiết và khám phá trên bản đồ' },
+                    ].map((step, i) => (
+                      <div
+                        key={i}
+                        className="museum-card"
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '10px',
+                          padding: '10px 12px',
+                          borderRadius: '12px',
+                          cursor: 'default',
+                        }}
+                      >
+                        <div
+                          style={{
+                            width: '28px',
+                            height: '28px',
+                            borderRadius: '8px',
+                            background: 'var(--accent-soft)',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            flexShrink: 0,
+                          }}
+                        >
+                          <step.icon size={13} strokeWidth={2} style={{ color: 'var(--accent)' }} />
+                        </div>
+                        <div style={{ minWidth: 0 }}>
+                          <div className="mono-label" style={{ fontSize: '10px', color: 'var(--text-muted)', marginBottom: '1px' }}>
+                            {String(i + 1).padStart(2, '0')} — {step.label}
+                          </div>
+                          <div style={{ fontSize: '11.5px', color: 'var(--text-primary)', fontWeight: 500 }}>
+                            {step.desc}
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
               </div>
             )}
             {eventsLoading && (

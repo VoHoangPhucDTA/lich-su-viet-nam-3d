@@ -1,0 +1,165 @@
+{
+  "id": "hoi-nghi-dien-hong",
+  "slug": "hoi-nghi-dien-hong",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Hội nghị Diên Hồng",
+    "short": "Hội nghị Diên Hồng",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "conference",
+    "region": "vietnam",
+    "tags": [
+      "quân Nguyên",
+      "kế sách đánh giặc",
+      "bô lão",
+      "nhà Trần"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 11,
+        "lessonId": "12370",
+        "lessonTitle": "BÀI 7  CHIẾN TRANH BẢO VỆ TỔ QUỐC TRONG"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1285,
+      "month": null,
+      "day": null
+    },
+    "end": {
+      "year": 1285,
+      "month": null,
+      "day": null
+    },
+    "datePrecision": "year",
+    "displayDate": "Năm 1285",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "mixed",
+    "historicalLocations": [],
+    "provinceNames": [
+      "Hà Nội"
+    ],
+    "gadmRefs": [
+      "VNM.27_1"
+    ],
+    "marker": {
+      "name": "điện Diên Hồng",
+      "lat": 21.0375,
+      "lng": 105.8383,
+      "confidence": "high"
+    },
+    "markers": [
+      {
+        "name": "điện Diên Hồng",
+        "lat": 21.0375,
+        "lng": 105.8383,
+        "confidence": "high"
+      },
+      {
+        "name": "Thăng Long",
+        "lat": 21.0285,
+        "lng": 105.8542,
+        "confidence": "high"
+      }
+    ],
+    "focusGeometry": {
+      "mode": "bounds",
+      "center": {
+        "lat": 21.0206,
+        "lng": 105.809254
+      },
+      "zoom": 7
+    }
+  },
+  "summary": {
+    "homepageTitle": "Hội nghị Diên Hồng (1285)",
+    "homepageSummary": "Hội nghị do Thượng hoàng Trần Thánh Tông tổ chức tại kinh thành Thăng Long, hỏi kế sách đánh giặc Nguyên, thể hiện ý chí đồng lòng \"Đánh!\".",
+    "cardSummary": "Hội nghị Diên Hồng năm 1285, các bô lão đồng thanh hô \"Đánh!\" khi được hỏi kế sách chống quân Nguyên."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Năm 1285, tại điện Diên Hồng ở kinh thành Thăng Long, khi Thượng hoàng Trần Thánh Tông hỏi về kế sách đánh giặc, các vị bô lão đều đồng thanh hô lớn: \"Đánh!\".",
+    "detailedNarrative": null,
+    "significance": "Thể hiện tinh thần đoàn kết, ý chí quyết tâm chống giặc ngoại xâm của toàn dân tộc, từ triều đình đến nhân dân.",
+    "keyFacts": [
+      "Diễn ra năm 1285",
+      "Địa điểm: điện Diên Hồng, Thăng Long",
+      "Mục đích: hỏi kế sách đánh giặc Nguyên",
+      "Kết quả: bô lão đồng thanh hô \"Đánh!\""
+    ],
+    "textbookRefs": [
+      {
+        "grade": 11,
+        "book": "KNTT",
+        "lessonId": "12370",
+        "lessonTitle": "BÀI 7  CHIẾN TRANH BẢO VỆ TỔ QUỐC TRONG",
+        "chapter": "Chu de 4",
+        "lesson": "Bai 7",
+        "pageRange": {
+          "start": 54,
+          "end": 61
+        },
+        "url": "https://sgkvn.com/lop-11-14/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-4-chien-tranh-bao-ve-to-quoc-va-chien-tranh-giai-phong-dan-toc-trong-lich-su-viet-nam-truoc-cach-mang-thang-tam-nam-1945-3346/bai-7-chien-tranh-bao-ve-to-quoc-trong-lich-su-viet-nam-12370.html",
+        "excerpt": "Năm 1285, tại điện Diên Hồng ở kinh thành Thăng Long, khi Thượng hoàng Trần Thánh Tông hỏi về kế sách đánh giặc, các vị bô lão đều đồng thanh hô lớn: \"Đánh!\"."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "hoi-nghi-dien-hong",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 23
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": true,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

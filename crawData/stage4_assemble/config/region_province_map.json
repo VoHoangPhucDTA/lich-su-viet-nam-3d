@@ -1,0 +1,110 @@
+{
+  "Toàn quốc": [
+    "HàNội",
+    "HồChíMinh",
+    "ĐàNẵng",
+    "HảiPhòng",
+    "CầnThơ"
+  ],
+  "Bắc Bộ": [
+    "HàNội",
+    "HảiPhòng",
+    "QuảngNinh",
+    "BắcGiang",
+    "BắcNinh",
+    "HảiDương",
+    "HưngYên",
+    "TháiBình",
+    "NamĐịnh",
+    "NinhBình",
+    "HàNam",
+    "VĩnhPhúc",
+    "PhúThọ",
+    "TháiNguyên"
+  ],
+  "Bắc Trung Bộ": [
+    "ThanhHóa",
+    "NghệAn",
+    "HàTĩnh",
+    "QuảngBình",
+    "QuảngTrị",
+    "ThừaThiênHuế"
+  ],
+  "Trung Bộ": [
+    "ThanhHóa",
+    "NghệAn",
+    "HàTĩnh",
+    "QuảngBình",
+    "QuảngTrị",
+    "ThừaThiênHuế",
+    "ĐàNẵng",
+    "QuảngNam",
+    "QuảngNgãi",
+    "BìnhĐịnh",
+    "PhúYên",
+    "KhánhHòa",
+    "NinhThuận",
+    "BìnhThuận"
+  ],
+  "Nam Trung Bộ": [
+    "ĐàNẵng",
+    "QuảngNam",
+    "QuảngNgãi",
+    "BìnhĐịnh",
+    "PhúYên",
+    "KhánhHòa",
+    "NinhThuận",
+    "BìnhThuận"
+  ],
+  "Tây Nguyên": [
+    "KonTum",
+    "GiaLai",
+    "ĐắkLắk",
+    "ĐắkNông",
+    "LâmĐồng"
+  ],
+  "Đông Nam Bộ": [
+    "HồChíMinh",
+    "BìnhPhước",
+    "TâyNinh",
+    "BìnhDương",
+    "ĐồngNai",
+    "BàRịa-VũngTàu"
+  ],
+  "Nam Bộ": [
+    "HồChíMinh",
+    "BìnhPhước",
+    "TâyNinh",
+    "BìnhDương",
+    "ĐồngNai",
+    "BàRịa-VũngTàu",
+    "LongAn",
+    "TiềnGiang",
+    "BếnTre",
+    "TràVinh",
+    "VĩnhLong",
+    "ĐồngTháp",
+    "AnGiang",
+    "KiênGiang",
+    "CầnThơ",
+    "HậuGiang",
+    "SócTrăng",
+    "BạcLiêu",
+    "CàMau"
+  ],
+  "Tây Nam Bộ": [
+    "LongAn",
+    "TiềnGiang",
+    "BếnTre",
+    "TràVinh",
+    "VĩnhLong",
+    "ĐồngTháp",
+    "AnGiang",
+    "KiênGiang",
+    "CầnThơ",
+    "HậuGiang",
+    "SócTrăng",
+    "BạcLiêu",
+    "CàMau"
+  ]
+}

@@ -1,0 +1,155 @@
+{
+  "id": "phap-xam-chiem-dong-duong",
+  "slug": "phap-xam-chiem-dong-duong",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Pháp xâm chiếm ba nước Đông Dương",
+    "short": "Pháp chiếm Đông Dương",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "military",
+    "eventSubtype": "campaign",
+    "region": "vietnam",
+    "tags": [
+      "Việt Nam",
+      "Pháp",
+      "xâm lược",
+      "Đông Dương"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 11,
+        "lessonId": "12339",
+        "lessonTitle": "BÀI 5  QUÁ TRÌNH XÂM LƯỢC VÀ CAI TRỊ CỦA"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1858,
+      "month": null,
+      "day": null
+    },
+    "end": {
+      "year": 1893,
+      "month": null,
+      "day": null
+    },
+    "datePrecision": "year",
+    "displayDate": "1858-1893",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "nationwide",
+    "historicalLocations": [
+      "Việt Nam",
+      "Đông Dương"
+    ],
+    "provinceNames": [
+      "Đà Nẵng"
+    ],
+    "gadmRefs": [
+      "VNM.19_1"
+    ],
+    "marker": {
+      "name": "Đà Nẵng",
+      "lat": 16.0544,
+      "lng": 108.2022,
+      "confidence": "high"
+    },
+    "markers": [],
+    "focusGeometry": {
+      "mode": "bounds",
+      "center": {
+        "lat": 16.0,
+        "lng": 106.0
+      },
+      "zoom": 5
+    }
+  },
+  "summary": {
+    "homepageTitle": "Pháp xâm chiếm Đông Dương (1858-1893)",
+    "homepageSummary": "Thực dân Pháp tiến hành chiến tranh xâm lược kéo dài gần nửa thế kỉ (1858-1893) để hoàn thành việc xâm chiếm ba nước Đông Dương.",
+    "cardSummary": "Pháp xâm chiếm ba nước Đông Dương qua cuộc chiến tranh kéo dài từ 1858 đến 1893."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Thực dân Pháp phải trải qua cuộc chiến tranh xâm lược kéo dài gần nửa thế kỉ (1858-1893) mới hoàn thành việc xâm chiếm ba nước Đông Dương.",
+    "detailedNarrative": "Liên quân Pháp – Tây Ban Nha tấn công Đà Nẵng (Việt Nam) ngày 1-9-1858.",
+    "significance": null,
+    "keyFacts": [
+      "Thời gian: 1858-1893",
+      "Chủ thể: Pháp",
+      "Đối tượng: Ba nước Đông Dương",
+      "Liên quân Pháp - Tây Ban Nha tấn công Đà Nẵng 1-9-1858"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 11,
+        "book": "KNTT",
+        "lessonId": "12339",
+        "lessonTitle": "BÀI 5  QUÁ TRÌNH XÂM LƯỢC VÀ CAI TRỊ CỦA",
+        "chapter": "Chu de 3",
+        "lesson": "Bai 5",
+        "pageRange": {
+          "start": 38,
+          "end": 44
+        },
+        "url": "https://sgkvn.com/lop-11-14/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-3-qua-trinh-gianh-doc-lap-dan-toc-cua-cac-quoc-gia-dong-nam-a-3331/bai-5-qua-trinh-xam-luoc-va-cai-tri-cua-chu-nghia-thuc-dan-o-dong-nam-a-cong-cuoc-cai-cach-o-xiem-12339.html",
+        "excerpt": "Thực dân Pháp phải trải qua cuộc chiến tranh xâm lược kéo dài gần nửa thế kỉ (1858-1893) mới hoàn thành việc xâm chiếm ba nước Đông Dương."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "phap-xam-chiem-dong-duong",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 80
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": true,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

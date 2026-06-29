@@ -1,0 +1,159 @@
+{
+  "id": "xay-dung-cau-long-bien",
+  "slug": "xay-dung-cau-long-bien",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Xây dựng cầu Long Biên",
+    "short": "Xây cầu Long Biên",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "economic",
+    "eventSubtype": "construction",
+    "region": "vietnam",
+    "tags": [
+      "Hà Nội",
+      "cầu",
+      "kiến trúc"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      10
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 10,
+        "lessonId": "12122",
+        "lessonTitle": "Bài 1: Hiện Thực Lịch Sử Và Nhận Thức Lịch Sử"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1898,
+      "month": null,
+      "day": null
+    },
+    "end": {
+      "year": 1902,
+      "month": null,
+      "day": null
+    },
+    "datePrecision": "year",
+    "displayDate": "1898 – 1902",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "mixed",
+    "historicalLocations": [
+      "sông Hồng"
+    ],
+    "provinceNames": [
+      "Hà Nội"
+    ],
+    "gadmRefs": [
+      "VNM.27_1"
+    ],
+    "marker": {
+      "name": "Hà Nội",
+      "lat": 21.0285,
+      "lng": 105.8542,
+      "confidence": "high"
+    },
+    "markers": [
+      {
+        "name": "Hà Nội",
+        "lat": 21.0285,
+        "lng": 105.8542,
+        "confidence": "high"
+      }
+    ],
+    "focusGeometry": {
+      "mode": "bounds",
+      "center": {
+        "lat": 21.012151,
+        "lng": 105.794732
+      },
+      "zoom": 7
+    }
+  },
+  "summary": {
+    "homepageTitle": "Xây dựng cầu Long Biên (1898-1902)",
+    "homepageSummary": "Cầu Long Biên bắc qua sông Hồng ở Hà Nội được xây dựng từ năm 1898 đến năm 1902, trở thành một hiện vật lịch sử quan trọng.",
+    "cardSummary": "Cầu Long Biên được xây dựng tại Hà Nội từ năm 1898 đến 1902."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Cầu Long Biên bắc qua sông Hồng ở Hà Nội được xây dựng trong thời gian từ năm 1898 đến năm 1902. Trong suốt hơn một thế kỉ qua, cây cầu này đã “chứng kiến” nhiều sự kiện, quá trình lịch sử quan trọng của Thủ đô và đất nước.",
+    "detailedNarrative": "Cầu Long Biên bắc qua sông Hồng ở Hà Nội được xây dựng trong thời gian từ năm 1898 đến năm 1902. Cây cầu này là một hiện vật lịch sử đã “chứng kiến” nhiều sự kiện, quá trình lịch sử quan trọng của Thủ đô và đất nước.",
+    "significance": "Là một hiện vật lịch sử quan trọng, chứng kiến nhiều sự kiện lịch sử của Thủ đô và đất nước.",
+    "keyFacts": [
+      "Là một hiện vật lịch sử",
+      "Bắc qua sông Hồng ở Hà Nội",
+      "Xây dựng từ 1898 đến 1902"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 10,
+        "book": "KNTT",
+        "lessonId": "12122",
+        "lessonTitle": "Bài 1: Hiện Thực Lịch Sử Và Nhận Thức Lịch Sử",
+        "chapter": "Chu de 1",
+        "lesson": "Bai 1",
+        "pageRange": {
+          "start": 6,
+          "end": 14
+        },
+        "url": "https://sgkvn.com/lop-10-13/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-1-lich-su-va-su-hoc-3266/bai-1-hien-thuc-lich-su-va-nhan-thuc-lich-su-12122.html",
+        "excerpt": "Cầu Long Biên bắc qua sông Hồng ở Hà Nội được xây dựng trong thời gian từ năm 1898 đến năm 1902. Trong suốt hơn một thế kỉ qua, cây cầu này đã “chứng kiến” nhiều sự kiện, quá trình lịch sử quan trọng của Thủ đô và đất nước."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "xay-dung-cau-long-bien",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 91
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": true,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

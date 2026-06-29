@@ -1,0 +1,188 @@
+{
+  "id": "khang-chien-chong-thuc-dan-phap-trieu-nguyen",
+  "slug": "khang-chien-chong-thuc-dan-phap-trieu-nguyen",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Kháng chiến chống thực dân Pháp của triều Nguyễn",
+    "short": "Kháng chiến chống thực dân Pháp của triều Nguyễn",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "military",
+    "eventSubtype": "campaign",
+    "region": "vietnam",
+    "tags": [
+      "thất bại",
+      "triều Nguyễn",
+      "thực dân Pháp",
+      "xâm lược"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 11,
+        "lessonId": "12370",
+        "lessonTitle": "BÀI 7  CHIẾN TRANH BẢO VỆ TỔ QUỐC TRONG"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1858,
+      "month": null,
+      "day": null
+    },
+    "end": {
+      "year": 1884,
+      "month": null,
+      "day": null
+    },
+    "datePrecision": "year",
+    "displayDate": "1858 – 1884",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "mixed",
+    "historicalLocations": [],
+    "provinceNames": [
+      "Hồ Chí Minh",
+      "Thừa Thiên Huế",
+      "Đà Nẵng"
+    ],
+    "gadmRefs": [
+      "VNM.25_1",
+      "VNM.54_1",
+      "VNM.19_1"
+    ],
+    "marker": {
+      "name": "Gia Định",
+      "lat": 10.7758,
+      "lng": 106.6996,
+      "confidence": "high"
+    },
+    "markers": [
+      {
+        "name": "Gia Định",
+        "lat": 10.7758,
+        "lng": 106.6996,
+        "confidence": "high"
+      },
+      {
+        "name": "Huế",
+        "lat": 16.4637,
+        "lng": 107.5909,
+        "confidence": "high"
+      },
+      {
+        "name": "Đà Nẵng",
+        "lat": 16.0544,
+        "lng": 108.2022,
+        "confidence": "high"
+      },
+      {
+        "name": "Bắc Kì",
+        "lat": 21.0,
+        "lng": 105.0,
+        "confidence": "low"
+      },
+      {
+        "name": "Nam Kì",
+        "lat": 10.7,
+        "lng": 106.0,
+        "confidence": "medium"
+      }
+    ],
+    "focusGeometry": {
+      "mode": "bounds",
+      "center": {
+        "lat": 14.768397,
+        "lng": 106.977384
+      },
+      "zoom": 7
+    }
+  },
+  "summary": {
+    "homepageTitle": "Kháng chiến chống Pháp của triều Nguyễn (1858-1884)",
+    "homepageSummary": "Cuộc kháng chiến của triều Nguyễn chống thực dân Pháp xâm lược, kết thúc bằng sự đầu hàng hoàn toàn và xác lập nền bảo hộ của Pháp.",
+    "cardSummary": "Kháng chiến chống Pháp 1858-1884 của triều Nguyễn thất bại do đường lối sai lầm, tư tưởng chủ hòa và không đoàn kết được nhân dân."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Cuộc kháng chiến chống thực dân Pháp của triều Nguyễn diễn ra từ 1858 đến 1884. Năm 1858, thực dân Pháp tấn công Đà Nẵng, mở đầu cuộc xâm lược nước ta. Sau đó, Pháp chuyển quân vào đánh chiếm Gia Định, rồi chiếm gọn sáu tỉnh Nam Kì vào năm 1867. Năm 1873, chúng đem quân đánh chiếm Bắc Kì lần thứ nhất, triều đình nhà Nguyễn tiếp tục lún sâu vào con đường thoả hiệp. Năm 1882, Pháp lại đưa quân đánh chiếm Bắc Kì lần thứ hai, sau đó quyết định đánh thẳng vào Huế. Triều đình nhà Nguyễn lần lượt kí với Pháp bản Hiệp ước Hác-măng (1883) và Hiệp ước Pa-tơ-nốt (1884), đánh dấu sự đầu hàng hoàn toàn của triều đình phong kiến Việt Nam và sự xác lập nền bảo hộ của Pháp trên toàn bộ đất nước ta.",
+    "detailedNarrative": "Triều Nguyễn không có đường lối kháng chiến đúng đắn, tư tưởng thiên về chủ hoà, nên không đoàn kết được nhân dân. Trong khi đó, phong trào kháng chiến của nhân dân tuy diễn ra quyết liệt nhưng lẻ tẻ, tự phát, thiếu sự lãnh đạo thống nhất và đường lối lãnh đạo đúng đắn. Triều Nguyễn lại từ chối cải cách, canh tân để tăng cường sức mạnh đất nước, dẫn đến tương quan lực lượng chênh lệch, đặc biệt là về trang bị vũ khí, cũng là một nguyên nhân quan trọng dẫn đến sự thất bại.",
+    "significance": "Đánh dấu sự chấm dứt nền độc lập của Việt Nam dưới triều Nguyễn và sự khởi đầu của thời kỳ Pháp thuộc.",
+    "keyFacts": [
+      "Kết thúc bằng Hiệp ước Hác-măng (1883) và Hiệp ước Pa-tơ-nốt (1884)",
+      "Nguyên nhân thất bại: đường lối sai lầm, tư tưởng chủ hòa, không đoàn kết được nhân dân, từ chối cải cách",
+      "Đối thủ: Thực dân Pháp",
+      "Địa điểm: Đà Nẵng, Gia Định, Nam Kì, Bắc Kì, Huế",
+      "Diễn ra 1858-1884"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 11,
+        "book": "KNTT",
+        "lessonId": "12370",
+        "lessonTitle": "BÀI 7  CHIẾN TRANH BẢO VỆ TỔ QUỐC TRONG",
+        "chapter": "Chu de 4",
+        "lesson": "Bai 7",
+        "pageRange": {
+          "start": 54,
+          "end": 61
+        },
+        "url": "https://sgkvn.com/lop-11-14/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-4-chien-tranh-bao-ve-to-quoc-va-chien-tranh-giai-phong-dan-toc-trong-lich-su-viet-nam-truoc-cach-mang-thang-tam-nam-1945-3346/bai-7-chien-tranh-bao-ve-to-quoc-trong-lich-su-viet-nam-12370.html",
+        "excerpt": "Cuộc kháng chiến chống thực dân Pháp của triều Nguyễn diễn ra từ 1858 đến 1884. Năm 1858, thực dân Pháp tấn công Đà Nẵng, mở đầu cuộc xâm lược nước ta. Sau đó, Pháp chuyển quân vào đánh chiếm Gia Định, rồi chiếm gọn sáu tỉnh Nam Kì vào năm 1867. Năm 1873, chúng đem quân đánh chiếm Bắc Kì lần thứ nhất, triều đình nhà Nguyễn tiếp tục lún sâu vào con đường thoả hiệp. Năm 1882, Pháp lại đưa quân đánh chiếm Bắc Kì lần thứ hai, sau đó quyết định đánh thẳng vào Huế. Triều đình nhà Nguyễn lần lượt kí với Pháp bản Hiệp ước Hác-măng (1883) và Hiệp ước Pa-tơ-nốt (1884), đánh dấu sự đầu hàng hoàn toàn của triều đình phong kiến Việt Nam và sự xác lập nền bảo hộ của Pháp trên toàn bộ đất nước ta."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "khang-chien-chong-thuc-dan-phap-trieu-nguyen",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 78
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": true,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

@@ -1,0 +1,156 @@
+{
+  "id": "trung-quoc-danh-chiem-da-vanh-khan",
+  "slug": "trung-quoc-danh-chiem-da-vanh-khan",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Trung Quốc đánh chiếm đá Vành Khăn",
+    "short": "TQ chiếm đá Vành Khăn (1995)",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "military",
+    "eventSubtype": "occupation",
+    "region": "vietnam",
+    "tags": [
+      "Trường Sa",
+      "đá Vành Khăn",
+      "chủ quyền",
+      "Trung Quốc"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 11,
+        "lessonId": "12395",
+        "lessonTitle": "BÀI 16  VIỆT NAM VÀ BIỂN ĐÔNG"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1995,
+      "month": null,
+      "day": null
+    },
+    "end": null,
+    "datePrecision": "year",
+    "displayDate": "Năm 1995",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "multi_point",
+    "historicalLocations": [],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": {
+      "name": "quần đảo Trường Sa",
+      "lat": 8.3833,
+      "lng": 111.9167,
+      "confidence": "high"
+    },
+    "markers": [
+      {
+        "name": "quần đảo Trường Sa",
+        "lat": 8.3833,
+        "lng": 111.9167,
+        "confidence": "high"
+      },
+      {
+        "name": "đá Vành Khăn",
+        "lat": 9.9,
+        "lng": 115.5333,
+        "confidence": "high"
+      }
+    ],
+    "focusGeometry": {
+      "mode": "bounds",
+      "center": {
+        "lat": 9.14165,
+        "lng": 113.725
+      },
+      "zoom": 8
+    }
+  },
+  "summary": {
+    "homepageTitle": "Trung Quốc chiếm đá Vành Khăn (1995)",
+    "homepageSummary": "Năm 1995, Trung Quốc đánh chiếm đá Vành Khăn nằm về phía đông nam quần đảo Trường Sa.",
+    "cardSummary": "Năm 1995, Trung Quốc đánh chiếm đá Vành Khăn thuộc quần đảo Trường Sa."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Trung Quốc - Năm 1995: đánh chiếm đá Vành Khăn nằm về phía đông nam quần đảo Trường Sa.",
+    "detailedNarrative": "Trung Quốc - Năm 1995: đánh chiếm đá Vành Khăn nằm về phía đông nam quần đảo Trường Sa.",
+    "significance": "Một hành động trong bối cảnh tranh chấp chủ quyền ở Biển Đông.",
+    "keyFacts": [
+      "Diễn ra năm 1995",
+      "Chủ thể: Trung Quốc",
+      "Đối tượng: đá Vành Khăn nằm về phía đông nam quần đảo Trường Sa"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 11,
+        "book": "KNTT",
+        "lessonId": "12395",
+        "lessonTitle": "BÀI 16  VIỆT NAM VÀ BIỂN ĐÔNG",
+        "chapter": "Chu de 7",
+        "lesson": "Bai 16",
+        "pageRange": {
+          "start": 107,
+          "end": 111
+        },
+        "url": "https://sgkvn.com/lop-11-14/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-7-lich-su-chu-quyen-cua-viet-nam-o-bien-dong-3354/bai-16-viet-nam-va-bien-dong-12395.html",
+        "excerpt": "Trung Quốc - Năm 1995: đánh chiếm đá Vành Khăn nằm về phía đông nam quần đảo Trường Sa."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "trung-quoc-danh-chiem-da-vanh-khan",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 275
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": true,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

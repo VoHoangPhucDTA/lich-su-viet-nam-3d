@@ -1,0 +1,139 @@
+{
+  "id": "ro-bot-xophia-duoc-cap-quyen-cong-dan",
+  "slug": "ro-bot-xophia-duoc-cap-quyen-cong-dan",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Rô-bốt Xô-phi-a được Chính phủ A-rập Xê-út cấp quyền Công dân",
+    "short": "Xô-phi-a được cấp quyền công dân",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "recognition",
+    "region": "world",
+    "tags": [
+      "rô-bốt",
+      "công dân",
+      "trí tuệ nhân tạo",
+      "A-rập Xê-út"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      10
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 10,
+        "lessonId": "12145",
+        "lessonTitle": "Bài 8: Các Cuộc Cách Mạng Công Nghiệp Thời Kì Hiện Đại"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 2017,
+      "month": 10,
+      "day": 25
+    },
+    "end": null,
+    "datePrecision": "day",
+    "displayDate": "25 - 10 - 2017",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "no_location",
+    "historicalLocations": [
+      "A-rập Xê-út",
+      "Việt Nam"
+    ],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "auto",
+      "center": null,
+      "zoom": null
+    }
+  },
+  "summary": {
+    "homepageTitle": "Rô-bốt Xô-phi-a được cấp quyền công dân",
+    "homepageSummary": "Rô-bốt Xô-phi-a được Chính phủ A-rập Xê-út cấp quyền Công dân vào ngày 25 - 10 - 2017, là một tiêu biểu của Cách mạng công nghiệp lần thứ tư.",
+    "cardSummary": "Rô-bốt Xô-phi-a được Chính phủ A-rập Xê-út cấp quyền Công dân vào ngày 25 - 10 - 2017."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Rô-bốt Xô-phi-a, tích hợp trí tuệ nhân tạo, đã được Chính phủ A-rập Xê-út cấp quyền Công dân vào ngày 25 - 10 - 2017.",
+    "detailedNarrative": "Ngoài hình dạng giống con người, rô-bốt Xô-phi-a được tích hợp trí tuệ nhân tạo nên có thể giao tiếp, thể hiện cảm xúc, diễn thuyết và thực hiện nhiều hoạt động khác giống như con người với độ chính xác rất cao. Rô-bốt Xô-phi-a là một trong những tiêu biểu của mạng công nghiệp lần thứ tư đang diễn ra hiện nay.",
+    "significance": null,
+    "keyFacts": [
+      "Tích hợp trí tuệ nhân tạo, có thể giao tiếp và thể hiện cảm xúc",
+      "Là rô-bốt đầu tiên trên thế giới được cấp quyền công dân",
+      "Được Chính phủ A-rập Xê-út cấp quyền Công dân",
+      "Diễn ra vào ngày 25 - 10 - 2017"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 10,
+        "book": "KNTT",
+        "lessonId": "12145",
+        "lessonTitle": "Bài 8: Các Cuộc Cách Mạng Công Nghiệp Thời Kì Hiện Đại",
+        "chapter": "Chu de 4",
+        "lesson": "Bai 8",
+        "pageRange": {
+          "start": 68,
+          "end": 75
+        },
+        "url": "https://sgkvn.com/lop-10-13/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-4-cac-cuoc-cach-mang-cong-nghiep-trong-lich-su-the-gioi-3274/bai-8-cac-cuoc-cach-mang-cong-nghiep-thoi-ki-hien-dai-12145.html",
+        "excerpt": "Rô-bốt Xô-phi-a, tích hợp trí tuệ nhân tạo, đã được Chính phủ A-rập Xê-út cấp quyền Công dân vào ngày 25 - 10 - 2017."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "ro-bot-xophia-duoc-cap-quyen-cong-dan",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 290
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": false,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

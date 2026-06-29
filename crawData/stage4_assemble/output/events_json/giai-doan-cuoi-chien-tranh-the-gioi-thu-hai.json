@@ -1,0 +1,194 @@
+{
+  "id": "giai-doan-cuoi-chien-tranh-the-gioi-thu-hai",
+  "slug": "giai-doan-cuoi-chien-tranh-the-gioi-thu-hai",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Giai đoạn cuối của Chiến tranh thế giới thứ hai",
+    "short": "Cuối CTTG2",
+    "alternatives": [
+      "Chiến tranh thế giới thứ hai",
+      "CTTG II"
+    ]
+  },
+  "classification": {
+    "eventType": "military",
+    "eventSubtype": "war",
+    "region": "world",
+    "tags": [
+      "Đồng minh",
+      "Chiến tranh",
+      "Chiến tranh thế giới",
+      "Phát xít",
+      "phe Đồng minh",
+      "Thế giới"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 12,
+        "lessonId": "12945",
+        "lessonTitle": "BÀI 1: LIÊN HỢP QUỐC"
+      },
+      {
+        "grade": 12,
+        "lessonId": "12948",
+        "lessonTitle": "BÀI 2: TRẬT TỰ THẾ GIỚI TRONG CHIẾN TRANH LẠNH"
+      },
+      {
+        "grade": 12,
+        "lessonId": "12952",
+        "lessonTitle": "BÀI 6: CÁCH MẠNG THÁNG TÁM NĂM 1945"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "end": {
+      "year": 1945,
+      "month": null,
+      "day": null
+    },
+    "datePrecision": "approximate",
+    "displayDate": "Giai đoạn cuối của Chiến tranh thế giới thứ hai (trước 1945)",
+    "isApproximate": true
+  },
+  "mapData": {
+    "geoType": "no_location",
+    "historicalLocations": [
+      "Nhật Bản",
+      "Mỹ",
+      "Đông Dương",
+      "Đông Bắc Trung Quốc",
+      "Trung Hoa Dân quốc",
+      "Anh",
+      "Na-ga-xa-ki",
+      "Xô viết",
+      "Hi-rô-si-ma"
+    ],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "auto",
+      "center": null,
+      "zoom": null
+    }
+  },
+  "summary": {
+    "homepageTitle": "Giai đoạn cuối Chiến tranh thế giới thứ hai",
+    "homepageSummary": "Giai đoạn phe Đồng minh giành được những thắng lợi quan trọng trên các mặt trận, dẫn đến Hội nghị I-an-ta.",
+    "cardSummary": "Phe Đồng minh giành thắng lợi cuối CTTG2, dẫn đến Hội nghị I-an-ta."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Giai đoạn cuối của Chiến tranh thế giới thứ hai, khi phe Đồng minh giành được những thắng lợi quan trọng trên các mặt trận.",
+    "detailedNarrative": "Thắng lợi của lực lượng Đồng minh và Hồng quân Liên Xô trong cuộc chiến tranh chống phát xít, đặc biệt là chiến thắng quân phiệt Nhật Bản, đã tạo ra thời cơ khách quan thuận lợi, củng cố niềm tin cho toàn Đảng, toàn dân vào thắng lợi của sự nghiệp giải phóng dân tộc Việt Nam.",
+    "significance": "Là bối cảnh diễn ra Hội nghị I-an-ta, tạo tiền đề cho việc thiết lập Trật tự thế giới hai cực I-an-ta.",
+    "keyFacts": [
+      "Diễn ra trước Hội nghị I-an-ta",
+      "Phe Đồng minh giành thắng lợi quan trọng",
+      "Bước vào giai đoạn kết thúc",
+      "Thắng lợi của Đồng minh và Hồng quân Liên Xô",
+      "Chiến thắng quân phiệt Nhật Bản"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 12,
+        "book": "KNTT",
+        "lessonId": "12945",
+        "lessonTitle": "BÀI 1: LIÊN HỢP QUỐC",
+        "chapter": "Chu de 1",
+        "lesson": "Bai 1",
+        "pageRange": {
+          "start": 6,
+          "end": 12
+        },
+        "url": "https://sgkvn.com/lop-12-15/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-1-the-gioi-trong-va-sau-chien-tranh-lanh-3537/bai-1-lien-hop-quoc-12945.html",
+        "excerpt": "Giai đoạn cuối của Chiến tranh thế giới thứ hai, khi phe Đồng minh giành được những thắng lợi quan trọng trên các mặt trận."
+      },
+      {
+        "grade": 12,
+        "book": "KNTT",
+        "lessonId": "12948",
+        "lessonTitle": "BÀI 2: TRẬT TỰ THẾ GIỚI TRONG CHIẾN TRANH LẠNH",
+        "chapter": "Chu de 1",
+        "lesson": "Bai 2",
+        "pageRange": {
+          "start": 13,
+          "end": 17
+        },
+        "url": "https://sgkvn.com/lop-12-15/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-1-the-gioi-trong-va-sau-chien-tranh-lanh-3537/bai-2-trat-tu-the-gioi-trong-chien-tranh-lanh-12948.html",
+        "excerpt": "Giai đoạn cuối của Chiến tranh thế giới thứ hai, khi phe Đồng minh giành được những thắng lợi quan trọng trên các mặt trận."
+      },
+      {
+        "grade": 12,
+        "book": "KNTT",
+        "lessonId": "12952",
+        "lessonTitle": "BÀI 6: CÁCH MẠNG THÁNG TÁM NĂM 1945",
+        "chapter": "Chu de 3",
+        "lesson": "Bai 6",
+        "pageRange": {
+          "start": 31,
+          "end": 36
+        },
+        "url": "https://sgkvn.com/lop-12-15/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-3-cach-mang-thang-tam-nam-1945-chien-tranh-giai-phong-dan-toc-va-chien-tranh-bao-ve-to-quoc-trong-lich-su-viet-nam-tu-thang-8-nam-1945-den-nay-3539/bai-6-cach-mang-thang-tam-nam-1945-12952.html",
+        "excerpt": "Giai đoạn cuối của Chiến tranh thế giới thứ hai, khi phe Đồng minh giành được những thắng lợi quan trọng trên các mặt trận."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "giai-doan-cuoi-chien-tranh-the-gioi-thu-hai",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 316
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": false,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

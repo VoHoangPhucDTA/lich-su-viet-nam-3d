@@ -1,0 +1,163 @@
+{
+  "id": "nguyen-ai-quoc-gia-nhap-quoc-te-cong-san-va-sang-lap-dang-cong-san-phap",
+  "slug": "nguyen-ai-quoc-gia-nhap-quoc-te-cong-san-va-sang-lap-dang-cong-san-phap",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Nguyễn Ái Quốc bỏ phiếu tán thành gia nhập Quốc tế Cộng sản và sáng lập Đảng Cộng sản Pháp",
+    "short": "Thành lập Đảng Cộng sản Pháp",
+    "alternatives": [
+      "Nguyễn Ái Quốc gia nhập Quốc tế Cộng sản",
+      "Nguyễn Ái Quốc tham gia thành lập Đảng Cộng sản Pháp"
+    ]
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "affiliation",
+    "region": "world",
+    "tags": [
+      "Quốc tế Cộng sản",
+      "Đảng Cộng sản Pháp",
+      "Nguyễn Ái Quốc",
+      "người cộng sản Việt Nam đầu tiên"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 12,
+        "lessonId": "12966",
+        "lessonTitle": "BÀI 15: KHÁI QUÁT CUỘC ĐỜI VÀ SỰ NGHIỆP CỦA HỒ CHÍ MINH"
+      },
+      {
+        "grade": 12,
+        "lessonId": "12967",
+        "lessonTitle": "BÀI 16: HỒ CHÍ MINH - ANH HÙNG GIẢI PHÓNG DÂN TỘC"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1920,
+      "month": 12,
+      "day": null
+    },
+    "end": null,
+    "datePrecision": "month",
+    "displayDate": "Tháng 12 - 1920",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "no_location",
+    "historicalLocations": [
+      "Pháp",
+      "Đảng Xã hội Pháp"
+    ],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "auto",
+      "center": null,
+      "zoom": null
+    }
+  },
+  "summary": {
+    "homepageTitle": "Nguyễn Ái Quốc gia nhập Quốc tế Cộng sản",
+    "homepageSummary": "Tại Đại hội lần thứ XVIII của Đảng Xã hội Pháp (12-1920), Nguyễn Ái Quốc bỏ phiếu tán thành việc gia nhập Quốc tế Cộng sản, trở thành người cộng sản Việt Nam đầu tiên và một trong những người sáng lập Đảng Cộng sản Pháp.",
+    "cardSummary": "Tháng 12-1920, Nguyễn Ái Quốc gia nhập Quốc tế Cộng sản, trở thành người cộng sản Việt Nam đầu tiên."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Tại Đại hội lần thứ XVIII của Đảng Xã hội Pháp (12 – 1920), Nguyễn Ái Quốc đã bỏ phiếu tán thành việc gia nhập Quốc tế Cộng sản, trở thành người cộng sản Việt Nam đầu tiên và một trong những người sáng lập Đảng Cộng sản Pháp.",
+    "detailedNarrative": "Tháng 12 - 1920, Nguyễn Ái Quốc bỏ phiếu tán thành Quốc tế Cộng sản và tham gia thành lập Đảng Cộng sản Pháp, trở thành người Cộng sản đầu tiên của Việt Nam.",
+    "significance": "Trở thành người cộng sản Việt Nam đầu tiên và một trong những người sáng lập Đảng Cộng sản Pháp.",
+    "keyFacts": [
+      "Bỏ phiếu tán thành gia nhập Quốc tế Cộng sản",
+      "Trở thành người cộng sản Việt Nam đầu tiên",
+      "Là một trong những người sáng lập Đảng Cộng sản Pháp",
+      "Bỏ phiếu tán thành Quốc tế Cộng sản",
+      "Tại Đại hội lần thứ XVIII của Đảng Xã hội Pháp",
+      "Trở thành người Cộng sản đầu tiên của Việt Nam"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 12,
+        "book": "KNTT",
+        "lessonId": "12966",
+        "lessonTitle": "BÀI 15: KHÁI QUÁT CUỘC ĐỜI VÀ SỰ NGHIỆP CỦA HỒ CHÍ MINH",
+        "chapter": "Chu de 5",
+        "lesson": "Bai 15",
+        "pageRange": {
+          "start": 88,
+          "end": 93
+        },
+        "url": "https://sgkvn.com/lop-12-15/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-5-lich-su-doi-ngoai-cua-viet-nam-thoi-can-hien-dai-3541/bai-15-khai-quat-cuoc-doi-va-su-nghiep-cua-ho-chi-minh-12966.html",
+        "excerpt": "Tại Đại hội lần thứ XVIII của Đảng Xã hội Pháp (12 – 1920), Nguyễn Ái Quốc đã bỏ phiếu tán thành việc gia nhập Quốc tế Cộng sản, trở thành người cộng sản Việt Nam đầu tiên và một trong những người sáng lập Đảng Cộng sản Pháp."
+      },
+      {
+        "grade": 12,
+        "book": "KNTT",
+        "lessonId": "12967",
+        "lessonTitle": "BÀI 16: HỒ CHÍ MINH - ANH HÙNG GIẢI PHÓNG DÂN TỘC",
+        "chapter": "Chu de 5",
+        "lesson": "Bai 16",
+        "pageRange": {
+          "start": 94,
+          "end": 104
+        },
+        "url": "https://sgkvn.com/lop-12-15/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-5-lich-su-doi-ngoai-cua-viet-nam-thoi-can-hien-dai-3541/bai-16-ho-chi-minh-anh-hung-giai-phong-dan-toc-12967.html",
+        "excerpt": "Tại Đại hội lần thứ XVIII của Đảng Xã hội Pháp (12 – 1920), Nguyễn Ái Quốc đã bỏ phiếu tán thành việc gia nhập Quốc tế Cộng sản, trở thành người cộng sản Việt Nam đầu tiên và một trong những người sáng lập Đảng Cộng sản Pháp."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "nguyen-ai-quoc-gia-nhap-quoc-te-cong-san-va-sang-lap-dang-cong-san-phap",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 112
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": false,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

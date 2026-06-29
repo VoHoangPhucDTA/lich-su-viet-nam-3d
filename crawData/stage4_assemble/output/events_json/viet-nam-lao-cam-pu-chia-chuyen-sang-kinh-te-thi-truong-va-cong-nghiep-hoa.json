@@ -1,0 +1,144 @@
+{
+  "id": "viet-nam-lao-cam-pu-chia-chuyen-sang-kinh-te-thi-truong-va-cong-nghiep-hoa",
+  "slug": "viet-nam-lao-cam-pu-chia-chuyen-sang-kinh-te-thi-truong-va-cong-nghiep-hoa",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Việt Nam, Lào, Cam-pu-chia chuyển sang kinh tế thị trường và công nghiệp hóa",
+    "short": "Việt Nam, Lào, Cam-pu-chia chuyển sang kinh tế thị trường và công nghiệp hóa",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "economic",
+    "eventSubtype": "reform",
+    "region": "world",
+    "tags": [
+      "Việt Nam",
+      "Cam-pu-chia",
+      "kinh tế thị trường",
+      "Lào",
+      "công nghiệp hóa"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 11,
+        "lessonId": "12340",
+        "lessonTitle": "BÀI 6  HÀNH TRÌNH ĐI ĐẾN ĐỘC LẬP DÂN TỘC"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "end": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "datePrecision": "period",
+    "displayDate": "Từ cuối thập kỉ 80 – 90 của thế kỉ XX",
+    "isApproximate": true
+  },
+  "mapData": {
+    "geoType": "no_location",
+    "historicalLocations": [
+      "Cam-pu-chia",
+      "Lào",
+      "Việt Nam"
+    ],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "auto",
+      "center": null,
+      "zoom": null
+    }
+  },
+  "summary": {
+    "homepageTitle": "Đông Dương chuyển đổi kinh tế",
+    "homepageSummary": "Việt Nam, Lào, Cam-pu-chia chuyển sang nền kinh tế thị trường và tiến hành công nghiệp hóa từ cuối thập kỉ 80 – 90 của thế kỉ XX.",
+    "cardSummary": "Việt Nam, Lào, Cam-pu-chia chuyển sang kinh tế thị trường và công nghiệp hóa từ cuối thập kỉ 80-90 thế kỉ XX."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Các nước Việt Nam, Lào, Cam-pu-chia từng bước chuyển sang nền kinh tế thị trường và tiến hành công nghiệp hóa từ cuối thập kỉ 80 – 90 của thế kỉ XX.",
+    "detailedNarrative": "Các nước Việt Nam, Lào, Cam-pu-chia từng bước chuyển sang nền kinh tế thị trường, tiến hành công nghiệp hoá từ cuối thập kỉ 80 – 90 của thế kỉ XX.",
+    "significance": null,
+    "keyFacts": [
+      "Chuyển sang nền kinh tế thị trường",
+      "Tiến hành công nghiệp hóa",
+      "Thời gian: cuối thập kỉ 80 – 90 của thế kỉ XX"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 11,
+        "book": "KNTT",
+        "lessonId": "12340",
+        "lessonTitle": "BÀI 6  HÀNH TRÌNH ĐI ĐẾN ĐỘC LẬP DÂN TỘC",
+        "chapter": "Chu de 3",
+        "lesson": "Bai 6",
+        "pageRange": {
+          "start": 45,
+          "end": 53
+        },
+        "url": "https://sgkvn.com/lop-11-14/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-3-qua-trinh-gianh-doc-lap-dan-toc-cua-cac-quoc-gia-dong-nam-a-3331/bai-6-hanh-trinh-di-den-doc-lap-dan-toc-o-dong-nam-a-12340.html",
+        "excerpt": "Các nước Việt Nam, Lào, Cam-pu-chia từng bước chuyển sang nền kinh tế thị trường và tiến hành công nghiệp hóa từ cuối thập kỉ 80 – 90 của thế kỉ XX."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "viet-nam-lao-cam-pu-chia-chuyen-sang-kinh-te-thi-truong-va-cong-nghiep-hoa",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 387
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": false,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

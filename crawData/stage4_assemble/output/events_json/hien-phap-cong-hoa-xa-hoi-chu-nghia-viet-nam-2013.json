@@ -1,0 +1,140 @@
+{
+  "id": "hien-phap-cong-hoa-xa-hoi-chu-nghia-viet-nam-2013",
+  "slug": "hien-phap-cong-hoa-xa-hoi-chu-nghia-viet-nam-2013",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Hiến pháp nước Cộng hoà xã hội chủ nghĩa Việt Nam năm 2013",
+    "short": "Hiến pháp 2013",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "legislation",
+    "region": "vietnam",
+    "tags": [
+      "chính sách dân tộc",
+      "Hiến pháp",
+      "luật pháp"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      10
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 10,
+        "lessonId": "12169",
+        "lessonTitle": "Bài 14: Khối Đại Đoàn Kết Dân Tộc Trong Lịch Sử Việt Nam"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 2013,
+      "month": null,
+      "day": null
+    },
+    "end": null,
+    "datePrecision": "year",
+    "displayDate": "Năm 2013",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "nationwide",
+    "historicalLocations": [
+      "Việt Nam"
+    ],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "bounds",
+      "center": {
+        "lat": 16.0,
+        "lng": 106.0
+      },
+      "zoom": 5
+    }
+  },
+  "summary": {
+    "homepageTitle": "Hiến pháp 2013 về chính sách dân tộc",
+    "homepageSummary": "Điều 5 Hiến pháp 2013 khẳng định Việt Nam là quốc gia thống nhất của các dân tộc bình đẳng, đoàn kết, tôn trọng và giúp nhau cùng phát triển, nghiêm cấm kì thị, chia rẽ dân tộc.",
+    "cardSummary": "Hiến pháp 2013 khẳng định các dân tộc bình đẳng, đoàn kết, tôn trọng và giúp nhau cùng phát triển."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Điều 5, Hiến pháp nước Cộng hoà xã hội chủ nghĩa Việt Nam, năm 2013, có đoạn: “Nước Cộng hoà xã hội chủ nghĩa Việt Nam là quốc gia thống nhất của các dân tộc củng sinh sống trên đất nước Việt Nam. Các dân tộc bình đẳng, đoàn kết, tôn trọng và giúp nhau cùng phát triển; nghiêm cấm mọi hành vi kì thị, chia rẽ dân tộc”.",
+    "detailedNarrative": null,
+    "significance": "Tiếp tục khẳng định và phát triển quan điểm nhất quán của Đảng và Nhà nước về chính sách dân tộc trong thời kì hiện đại.",
+    "keyFacts": [
+      "Các dân tộc bình đẳng, đoàn kết, tôn trọng và giúp nhau cùng phát triển",
+      "Ban hành năm 2013",
+      "Khẳng định Việt Nam là quốc gia thống nhất của các dân tộc",
+      "Nghiêm cấm mọi hành vi kì thị, chia rẽ dân tộc"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 10,
+        "book": "KNTT",
+        "lessonId": "12169",
+        "lessonTitle": "Bài 14: Khối Đại Đoàn Kết Dân Tộc Trong Lịch Sử Việt Nam",
+        "chapter": "Chu de 7",
+        "lesson": "Bai 14",
+        "pageRange": {
+          "start": 136,
+          "end": 141
+        },
+        "url": "https://sgkvn.com/lop-10-13/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-7-cong-dong-cac-dan-toc-viet-nam-3279/bai-14-khoi-dai-doan-ket-dan-toc-trong-lich-su-viet-nam-12169.html",
+        "excerpt": "Điều 5, Hiến pháp nước Cộng hoà xã hội chủ nghĩa Việt Nam, năm 2013, có đoạn: “Nước Cộng hoà xã hội chủ nghĩa Việt Nam là quốc gia thống nhất của các dân tộc củng sinh sống trên đất nước Việt Nam. Các dân tộc bình đẳng, đoàn kết, tôn trọng và giúp nhau cùng phát triển; nghiêm cấm mọi hành vi kì thị, chia rẽ dân tộc”."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "hien-phap-cong-hoa-xa-hoi-chu-nghia-viet-nam-2013",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 286
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": true,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

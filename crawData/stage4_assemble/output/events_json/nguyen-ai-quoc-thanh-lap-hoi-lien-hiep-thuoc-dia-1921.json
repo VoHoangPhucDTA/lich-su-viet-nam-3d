@@ -1,0 +1,138 @@
+{
+  "id": "nguyen-ai-quoc-thanh-lap-hoi-lien-hiep-thuoc-dia-1921",
+  "slug": "nguyen-ai-quoc-thanh-lap-hoi-lien-hiep-thuoc-dia-1921",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Nguyễn Ái Quốc tham gia thành lập Hội Liên hiệp thuộc địa",
+    "short": "Nguyễn Ái Quốc tham gia thành lập Hội Liên hiệp thuộc địa",
+    "alternatives": [
+      "Hội Liên hiệp thuộc địa"
+    ]
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "organization_founding",
+    "region": "world",
+    "tags": [
+      "thuộc địa",
+      "liên minh",
+      "Nguyễn Ái Quốc"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 12,
+        "lessonId": "12962",
+        "lessonTitle": "BÀI 12: HOẠT ĐỘNG ĐỐI NGOẠI CỦA VIỆT NAM TRONG ĐẤU TRANH GIÀNH ĐỘC LẬP DÂN TỘC (TỪ ĐẦU THẾ KỈ XX ĐẾN CÁCH MẠNG THÁNG TÁM NĂM 1945)"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1921,
+      "month": null,
+      "day": null
+    },
+    "end": null,
+    "datePrecision": "year",
+    "displayDate": "Năm 1921",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "no_location",
+    "historicalLocations": [
+      "Pháp"
+    ],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "auto",
+      "center": null,
+      "zoom": null
+    }
+  },
+  "summary": {
+    "homepageTitle": "Thành lập Hội Liên hiệp thuộc địa",
+    "homepageSummary": "Năm 1921, Nguyễn Ái Quốc tham gia thành lập Hội Liên hiệp thuộc địa, liên minh các dân tộc bị áp bức.",
+    "cardSummary": "Nguyễn Ái Quốc thành lập Hội Liên hiệp thuộc địa năm 1921."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Năm 1921, Nguyễn Ái Quốc tham gia thành lập Hội Liên hiệp thuộc địa – một hình thức liên minh của các dân tộc bị áp bức.",
+    "detailedNarrative": null,
+    "significance": "Tạo ra một hình thức liên minh của các dân tộc bị áp bức.",
+    "keyFacts": [
+      "Là liên minh của các dân tộc bị áp bức",
+      "Diễn ra năm 1921",
+      "Do Nguyễn Ái Quốc tham gia thành lập"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 12,
+        "book": "KNTT",
+        "lessonId": "12962",
+        "lessonTitle": "BÀI 12: HOẠT ĐỘNG ĐỐI NGOẠI CỦA VIỆT NAM TRONG ĐẤU TRANH GIÀNH ĐỘC LẬP DÂN TỘC (TỪ ĐẦU THẾ KỈ XX ĐẾN CÁCH MẠNG THÁNG TÁM NĂM 1945)",
+        "chapter": "Chu de 4",
+        "lesson": "Bai 12",
+        "pageRange": {
+          "start": 73,
+          "end": 76
+        },
+        "url": "https://sgkvn.com/lop-12-15/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-4-cong-cuoc-doi-moi-o-viet-nam-tu-nam-1986-den-nay-3540/bai-12-hoat-dong-doi-ngoai-cua-viet-nam-trong-dau-tranh-gianh-doc-lap-dan-toc-tu-dau-the-ki-xx-den-cach-mang-thang-tam-nam-1945-12962.html",
+        "excerpt": "Năm 1921, Nguyễn Ái Quốc tham gia thành lập Hội Liên hiệp thuộc địa – một hình thức liên minh của các dân tộc bị áp bức."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "nguyen-ai-quoc-thanh-lap-hoi-lien-hiep-thuoc-dia-1921",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 117
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": false,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

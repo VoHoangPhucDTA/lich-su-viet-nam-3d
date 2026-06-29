@@ -1,0 +1,160 @@
+{
+  "id": "nguyen-tat-thanh-roi-phan-thiet-vao-sai-gon",
+  "slug": "nguyen-tat-thanh-roi-phan-thiet-vao-sai-gon",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Nguyễn Tất Thành rời Phan Thiết vào Sài Gòn",
+    "short": "Nguyễn Tất Thành rời Phan Thiết vào Sài Gòn",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "cultural",
+    "eventSubtype": "relocation",
+    "region": "vietnam",
+    "tags": [
+      "Phan Thiết",
+      "Sài Gòn",
+      "Nguyễn Tất Thành"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 12,
+        "lessonId": "12966",
+        "lessonTitle": "BÀI 15: KHÁI QUÁT CUỘC ĐỜI VÀ SỰ NGHIỆP CỦA HỒ CHÍ MINH"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1911,
+      "month": 2,
+      "day": null
+    },
+    "end": null,
+    "datePrecision": "month",
+    "displayDate": "Tháng 2-1911",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "mixed",
+    "historicalLocations": [],
+    "provinceNames": [
+      "Bình Thuận",
+      "Hồ Chí Minh"
+    ],
+    "gadmRefs": [
+      "VNM.11_1",
+      "VNM.25_1"
+    ],
+    "marker": {
+      "name": "Phan Thiết",
+      "lat": 10.9333,
+      "lng": 108.1,
+      "confidence": "high"
+    },
+    "markers": [
+      {
+        "name": "Phan Thiết",
+        "lat": 10.9333,
+        "lng": 108.1,
+        "confidence": "high"
+      },
+      {
+        "name": "Sài Gòn",
+        "lat": 10.7769,
+        "lng": 106.7009,
+        "confidence": "high"
+      }
+    ],
+    "focusGeometry": {
+      "mode": "bounds",
+      "center": {
+        "lat": 10.888345,
+        "lng": 107.396051
+      },
+      "zoom": 7
+    }
+  },
+  "summary": {
+    "homepageTitle": "Nguyễn Tất Thành rời Phan Thiết",
+    "homepageSummary": "Tháng 2-1911, Nguyễn Tất Thành rời Phan Thiết vào Sài Gòn, mang theo hoài bão ra nước ngoài tìm đường cứu nước.",
+    "cardSummary": "Tháng 2-1911, Nguyễn Tất Thành rời Phan Thiết vào Sài Gòn."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Tháng 2-1911, Nguyễn Tất Thành rời Phan Thiết vào Sài Gòn, mang theo hoài bão ra nước ngoài, xem thế giới làm như thế nào rồi trở về giúp đồng bào.",
+    "detailedNarrative": "Tháng 2-1911, Nguyễn Tất Thành rời Phan Thiết vào Sài Gòn, mang theo hoài bão ra nước ngoài, xem thế giới làm như thế nào rồi trở về giúp đồng bào.",
+    "significance": null,
+    "keyFacts": [
+      "Rời Phan Thiết",
+      "Đến Sài Gòn"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 12,
+        "book": "KNTT",
+        "lessonId": "12966",
+        "lessonTitle": "BÀI 15: KHÁI QUÁT CUỘC ĐỜI VÀ SỰ NGHIỆP CỦA HỒ CHÍ MINH",
+        "chapter": "Chu de 5",
+        "lesson": "Bai 15",
+        "pageRange": {
+          "start": 88,
+          "end": 93
+        },
+        "url": "https://sgkvn.com/lop-12-15/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-5-lich-su-doi-ngoai-cua-viet-nam-thoi-can-hien-dai-3541/bai-15-khai-quat-cuoc-doi-va-su-nghiep-cua-ho-chi-minh-12966.html",
+        "excerpt": "Tháng 2-1911, Nguyễn Tất Thành rời Phan Thiết vào Sài Gòn, mang theo hoài bão ra nước ngoài, xem thế giới làm như thế nào rồi trở về giúp đồng bào."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "nguyen-tat-thanh-roi-phan-thiet-vao-sai-gon",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 101
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": true,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

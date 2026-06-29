@@ -1,0 +1,145 @@
+{
+  "id": "do-dac-cam-moc-chu-quyen-hoang-sa-pham-huu-nhat",
+  "slug": "do-dac-cam-moc-chu-quyen-hoang-sa-pham-huu-nhat",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Đo đạc, cắm mốc chủ quyền Hoàng Sa của Phạm Hữu Nhật",
+    "short": "Phạm Hữu Nhật cắm mốc Hoàng Sa",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "expedition",
+    "region": "vietnam",
+    "tags": [
+      "Phạm Hữu Nhật",
+      "triều Nguyễn",
+      "chủ quyền",
+      "Hoàng Sa"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 11,
+        "lessonId": "12395",
+        "lessonTitle": "BÀI 16  VIỆT NAM VÀ BIỂN ĐÔNG"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1836,
+      "month": 1,
+      "day": 1
+    },
+    "end": null,
+    "datePrecision": "day",
+    "displayDate": "Ngày 1 tháng Giêng năm 1836",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "point",
+    "historicalLocations": [],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": {
+      "name": "Hoàng Sa",
+      "lat": 16.5,
+      "lng": 112.0,
+      "confidence": "high"
+    },
+    "markers": [],
+    "focusGeometry": {
+      "mode": "marker",
+      "center": {
+        "name": "Hoàng Sa",
+        "lat": 16.5,
+        "lng": 112.0,
+        "confidence": "high"
+      },
+      "zoom": 12
+    }
+  },
+  "summary": {
+    "homepageTitle": "Phạm Hữu Nhật cắm mốc chủ quyền Hoàng Sa (1836)",
+    "homepageSummary": "Năm 1836, vua Minh Mạng phái Suất đội thuỷ quân Phạm Hữu Nhật ra Hoàng Sa đo đạc và cắm mốc chủ quyền.",
+    "cardSummary": "Phạm Hữu Nhật được phái ra Hoàng Sa cắm mốc chủ quyền theo lệnh vua Minh Mạng năm 1836."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Năm Bính Thân, niên hiệu Minh Mạng thứ 17 (1836), mùa Xuân tháng Giêng ngày mồng 1, Bộ Công tâu về việc cương giới mặt biển nước ta có xứ Hoàng Sa rất là hiểm yếu. Vua y lời tâu, phái Suất đội thuỷ quân Phạm Hữu Nhật đem binh thuyến đi, chuẩn cho mang theo 10 cái bài gỗ, đến nơi đó dựng dấu ghi... mặt bài khắc những chữ: “Minh Mạng thứ 17, năm Bính Thân, thuỷ quân Chánh đội trưởng suất đội Phạm Hữu Nhật, vâng mệnh đi Hoàng Sa trông nom đo đạc đến đây lưu dấu để ghi nhớ.",
+    "detailedNarrative": "Tư liệu 2 ghi rõ: “Năm Bính Thân, niên hiệu Minh Mạng thứ 17 (1836), mùa Xuân tháng Giêng ngày mồng 1... Bộ Công tâu: Cương giới mặt biển nước ta có xứ Hoàng Sa rất là hiểm yếu. Trước kia đã phái vẽ bản đồ mà hình thế nó xa rộng, mới chỉ được một vài nơi, cũng chưa rõ ràng. Hằng năm nên phái người đi dò xét cho khắp để thuộc đường biển. Vua y lời tâu, phái Suất đội thuỷ quân Phạm Hữu Nhật đem binh thuyến đi, chuẩn cho mang theo 10 cái bài gỗ, đến nơi đó dựng dấu ghi... mặt bài khắc những chữ: “Minh Mạng thứ 17, năm Bính Thân, thuỷ quân Chánh đội trưởng suất đội Phạm Hữu Nhật, vâng mệnh đi Hoàng Sa trông nom đo đạc đến đây lưu dấu để ghi nhớ.",
+    "significance": "Là hoạt động cụ thể, mang tính nhà nước của triều Nguyễn nhằm xác lập và thực thi chủ quyền đối với quần đảo Hoàng Sa.",
+    "keyFacts": [
+      "Nhiệm vụ đo đạc và cắm 10 cột mốc chủ quyền tại Hoàng Sa",
+      "Phạm Hữu Nhật được phái đi",
+      "Diễn ra năm 1836 dưới triều Minh Mạng"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 11,
+        "book": "KNTT",
+        "lessonId": "12395",
+        "lessonTitle": "BÀI 16  VIỆT NAM VÀ BIỂN ĐÔNG",
+        "chapter": "Chu de 7",
+        "lesson": "Bai 16",
+        "pageRange": {
+          "start": 107,
+          "end": 111
+        },
+        "url": "https://sgkvn.com/lop-11-14/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-7-lich-su-chu-quyen-cua-viet-nam-o-bien-dong-3354/bai-16-viet-nam-va-bien-dong-12395.html",
+        "excerpt": "Năm Bính Thân, niên hiệu Minh Mạng thứ 17 (1836), mùa Xuân tháng Giêng ngày mồng 1, Bộ Công tâu về việc cương giới mặt biển nước ta có xứ Hoàng Sa rất là hiểm yếu. Vua y lời tâu, phái Suất đội thuỷ quân Phạm Hữu Nhật đem binh thuyến đi, chuẩn cho mang theo 10 cái bài gỗ, đến nơi đó dựng dấu ghi... mặt bài khắc những chữ: “Minh Mạng thứ 17, năm Bính Thân, thuỷ quân Chánh đội trưởng suất đội Phạm Hữu Nhật, vâng mệnh đi Hoàng Sa trông nom đo đạc đến đây lưu dấu để ghi nhớ."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "do-dac-cam-moc-chu-quyen-hoang-sa-pham-huu-nhat",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 73
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": true,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

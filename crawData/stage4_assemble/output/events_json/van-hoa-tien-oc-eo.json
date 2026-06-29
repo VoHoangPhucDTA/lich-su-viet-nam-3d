@@ -1,0 +1,181 @@
+{
+  "id": "van-hoa-tien-oc-eo",
+  "slug": "van-hoa-tien-oc-eo",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Văn hoá tiền Óc Eo",
+    "short": "Văn hoá tiền Óc Eo",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "cultural",
+    "eventSubtype": "archaeological_culture",
+    "region": "vietnam",
+    "tags": [
+      "Óc Eo",
+      "Văn hoá cổ",
+      "Phù Nam"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      10
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 10,
+        "lessonId": "12148",
+        "lessonTitle": "Bài 11: Một Số Nền Văn Minh Cổ Trên Đất Nước Việt Nam"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "end": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "datePrecision": "period",
+    "displayDate": "Cuối thiên niên kỉ I TCN",
+    "isApproximate": true
+  },
+  "mapData": {
+    "geoType": "multi_polygon",
+    "historicalLocations": [],
+    "provinceNames": [
+      "Hồ Chí Minh",
+      "Bình Phước",
+      "Tây Ninh",
+      "Bình Dương",
+      "Đồng Nai",
+      "Bà Rịa - Vũng Tàu",
+      "Long An",
+      "Tiền Giang",
+      "Bến Tre",
+      "Trà Vinh",
+      "Vĩnh Long",
+      "Đồng Tháp",
+      "An Giang",
+      "Kiên Giang",
+      "Cần Thơ",
+      "Hậu Giang",
+      "Sóc Trăng",
+      "Bạc Liêu",
+      "Cà Mau"
+    ],
+    "gadmRefs": [
+      "VNM.25_1",
+      "VNM.10_1",
+      "VNM.53_1",
+      "VNM.9_1",
+      "VNM.17_1",
+      "VNM.7_1",
+      "VNM.39_1",
+      "VNM.58_1",
+      "VNM.6_1",
+      "VNM.59_1",
+      "VNM.61_1",
+      "VNM.18_1",
+      "VNM.1_1",
+      "VNM.33_1",
+      "VNM.12_1",
+      "VNM.24_1",
+      "VNM.51_1",
+      "VNM.2_1",
+      "VNM.13_1"
+    ],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "bounds",
+      "center": {
+        "lat": 10.352867,
+        "lng": 106.065689
+      },
+      "zoom": 6
+    }
+  },
+  "summary": {
+    "homepageTitle": "Văn hoá tiền Óc Eo",
+    "homepageSummary": "Văn hoá tiền Óc Eo là cội nguồn của văn minh Phù Nam, phát triển ở khu vực Nam Bộ, với sự hình thành các đô thị sơ khai vào cuối thiên niên kỉ I TCN.",
+    "cardSummary": "Văn hoá tiền Óc Eo là cội nguồn văn minh Phù Nam ở Nam Bộ."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Văn minh Phù Nam có cội nguồn từ nền văn hoá lâu đời ở khu vực Nam Bộ – văn hoá tiền Óc Eo. Khoảng cuối thiên niên kỉ I TCN, sản xuất nông nghiệp, thủ công nghiệp và trao đổi hàng hoá ngày càng phát triển; cấu trúc làng nông - chài – thương nghiệp hình thành, chuẩn bị cho sự ra đời của các đô thị sơ khai ở một số vùng đất thuộc Nam Bộ.",
+    "detailedNarrative": "Văn hoá tiền Óc Eo là nền văn hoá lâu đời ở khu vực Nam Bộ. Vào cuối thiên niên kỉ I TCN, sự phát triển của sản xuất và trao đổi hàng hoá đã dẫn đến sự hình thành các đô thị sơ khai, là tiền đề cho sự ra đời của nhà nước Phù Nam.",
+    "significance": "Là tiền đề quan trọng dẫn đến sự thay đổi lớn trong xã hội và sự ra đời của nhà nước Phù Nam.",
+    "keyFacts": [
+      "Cuối thiên niên kỉ I TCN hình thành đô thị sơ khai",
+      "Cội nguồn của văn minh Phù Nam",
+      "Phát triển ở khu vực Nam Bộ"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 10,
+        "book": "KNTT",
+        "lessonId": "12148",
+        "lessonTitle": "Bài 11: Một Số Nền Văn Minh Cổ Trên Đất Nước Việt Nam",
+        "chapter": "Chu de 6",
+        "lesson": "Bai 11",
+        "pageRange": {
+          "start": 93,
+          "end": 107
+        },
+        "url": "https://sgkvn.com/lop-10-13/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-6-mot-so-nen-van-minh-tren-dat-nuoc-viet-nam-truoc-nam-1858-3276/bai-11-mot-so-nen-van-minh-co-tren-dat-nuoc-viet-nam-12148.html",
+        "excerpt": "Văn minh Phù Nam có cội nguồn từ nền văn hoá lâu đời ở khu vực Nam Bộ – văn hoá tiền Óc Eo. Khoảng cuối thiên niên kỉ I TCN, sản xuất nông nghiệp, thủ công nghiệp và trao đổi hàng hoá ngày càng phát triển; cấu trúc làng nông - chài – thương nghiệp hình thành, chuẩn bị cho sự ra đời của các đô thị sơ khai ở một số vùng đất thuộc Nam Bộ."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "van-hoa-tien-oc-eo",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 379
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": true,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

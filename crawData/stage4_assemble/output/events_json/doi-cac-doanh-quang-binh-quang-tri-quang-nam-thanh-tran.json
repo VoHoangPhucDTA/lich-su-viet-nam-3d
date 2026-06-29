@@ -1,0 +1,169 @@
+{
+  "id": "doi-cac-doanh-quang-binh-quang-tri-quang-nam-thanh-tran",
+  "slug": "doi-cac-doanh-quang-binh-quang-tri-quang-nam-thanh-tran",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Đổi các doanh Quảng Bình, Quảng Trị, Quảng Nam thành trấn",
+    "short": "Đổi các doanh Quảng Bình, Quảng Trị, Quảng Nam thành trấn",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "administrative_reform",
+    "region": "vietnam",
+    "tags": [
+      "Minh Mạng",
+      "đơn vị hành chính",
+      "thống nhất"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 11,
+        "lessonId": "12393",
+        "lessonTitle": "BÀI 14  CUỘC CẢI CÁCH CỦA MINH MẠNG  NỬA"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1827,
+      "month": null,
+      "day": null
+    },
+    "end": null,
+    "datePrecision": "year",
+    "displayDate": "Năm 1827",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "mixed",
+    "historicalLocations": [],
+    "provinceNames": [
+      "Quảng Nam",
+      "Quảng Bình",
+      "Quảng Trị"
+    ],
+    "gadmRefs": [
+      "VNM.47_1",
+      "VNM.46_1",
+      "VNM.50_1"
+    ],
+    "marker": {
+      "name": "Quảng Nam",
+      "lat": 15.5,
+      "lng": 108.0,
+      "confidence": "high"
+    },
+    "markers": [
+      {
+        "name": "Quảng Nam",
+        "lat": 15.5,
+        "lng": 108.0,
+        "confidence": "high"
+      },
+      {
+        "name": "Quảng Bình",
+        "lat": 17.5,
+        "lng": 106.3,
+        "confidence": "high"
+      },
+      {
+        "name": "Quảng Trị",
+        "lat": 16.7,
+        "lng": 107.0,
+        "confidence": "high"
+      }
+    ],
+    "focusGeometry": {
+      "mode": "bounds",
+      "center": {
+        "lat": 16.590665,
+        "lng": 107.082159
+      },
+      "zoom": 7
+    }
+  },
+  "summary": {
+    "homepageTitle": "Đổi doanh thành trấn (1827)",
+    "homepageSummary": "Năm 1827, các doanh Quảng Bình, Quảng Trị, Quảng Nam được đổi thành trấn, thống nhất tên gọi các đơn vị hành chính địa phương.",
+    "cardSummary": "Năm 1827, các doanh Quảng Bình, Quảng Trị, Quảng Nam đổi thành trấn."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Năm 1827, vua Minh Mạng đổi các doanh Quảng Bình, Quảng Trị, Quảng Nam thành trấn, thống nhất trên toàn quốc tên gọi các đơn vị hành chính địa phương.",
+    "detailedNarrative": "Năm 1827, đổi các doanh Quảng Bình, Quảng Trị, Quảng Nam thành trấn, thống nhất trên toàn quốc tên gọi các đơn vị hành chính địa phương.",
+    "significance": "Góp phần vào việc thống nhất hệ thống hành chính trên cả nước.",
+    "keyFacts": [
+      "Đổi doanh thành trấn",
+      "Diễn ra năm 1827",
+      "Thống nhất tên gọi đơn vị hành chính địa phương"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 11,
+        "book": "KNTT",
+        "lessonId": "12393",
+        "lessonTitle": "BÀI 14  CUỘC CẢI CÁCH CỦA MINH MẠNG  NỬA",
+        "chapter": "Chu de 6",
+        "lesson": "Bai 14",
+        "pageRange": {
+          "start": null,
+          "end": null
+        },
+        "url": "https://sgkvn.com/lop-11-14/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-6-mot-so-cuoc-cai-cach-lon-trong-lich-su-viet-nam-truoc-nam-1858-3353/bai-14-cuoc-cai-cach-cua-minh-mang-nua-dau-the-ki-xix-12393.html",
+        "excerpt": "Năm 1827, vua Minh Mạng đổi các doanh Quảng Bình, Quảng Trị, Quảng Nam thành trấn, thống nhất trên toàn quốc tên gọi các đơn vị hành chính địa phương."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "doi-cac-doanh-quang-binh-quang-tri-quang-nam-thanh-tran",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 67
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": true,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

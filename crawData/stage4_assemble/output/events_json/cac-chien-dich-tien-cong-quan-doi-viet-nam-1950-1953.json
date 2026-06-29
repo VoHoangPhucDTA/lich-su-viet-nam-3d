@@ -1,0 +1,187 @@
+{
+  "id": "cac-chien-dich-tien-cong-quan-doi-viet-nam-1950-1953",
+  "slug": "cac-chien-dich-tien-cong-quan-doi-viet-nam-1950-1953",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Các chiến dịch tiến công của Quân đội Việt Nam (1950-1953)",
+    "short": "Các chiến dịch tiến công 1950-1953",
+    "alternatives": [
+      "Chiến dịch Hoà Bình",
+      "Chiến dịch Tây Bắc",
+      "Chiến dịch Trần Hưng Đạo",
+      "Chiến dịch Quang Trung",
+      "Chiến dịch Hoàng Hoa Thám",
+      "Chiến dịch Thượng Lào"
+    ]
+  },
+  "classification": {
+    "eventType": "military",
+    "eventSubtype": "campaign",
+    "region": "vietnam",
+    "tags": [
+      "Kháng chiến",
+      "Tiến công",
+      "Chủ động"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 12,
+        "lessonId": "12955",
+        "lessonTitle": "BÀI 7: CUỘC KHÁNG CHIẾN CHỐNG THỰC DÂN PHÁP (1945-1954)"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "end": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "datePrecision": "period",
+    "displayDate": "Từ cuối năm 1950 đến giữa năm 1953",
+    "isApproximate": true
+  },
+  "mapData": {
+    "geoType": "mixed",
+    "historicalLocations": [
+      "Đường số 18",
+      "Thượng Lào"
+    ],
+    "provinceNames": [
+      "Hoà Bình",
+      "Hà Nam"
+    ],
+    "gadmRefs": [
+      "VNM.30_1",
+      "VNM.28_1"
+    ],
+    "marker": {
+      "name": "Trung du",
+      "lat": 21.5,
+      "lng": 105.0,
+      "confidence": "low"
+    },
+    "markers": [
+      {
+        "name": "Trung du",
+        "lat": 21.5,
+        "lng": 105.0,
+        "confidence": "low"
+      },
+      {
+        "name": "Hoà Bình",
+        "lat": 20.8167,
+        "lng": 105.3333,
+        "confidence": "high"
+      },
+      {
+        "name": "Tây Bắc",
+        "lat": 21.5,
+        "lng": 104.0,
+        "confidence": "low"
+      },
+      {
+        "name": "Hà Nam Ninh",
+        "lat": 20.3,
+        "lng": 106.0,
+        "confidence": "medium"
+      }
+    ],
+    "focusGeometry": {
+      "mode": "bounds",
+      "center": {
+        "lat": 20.89198,
+        "lng": 105.279692
+      },
+      "zoom": 7
+    }
+  },
+  "summary": {
+    "homepageTitle": "Các chiến dịch tiến công (1950-1953)",
+    "homepageSummary": "Quân đội Việt Nam liên tiếp mở các chiến dịch tiến công như Trần Hưng Đạo, Hoà Bình, Tây Bắc, Thượng Lào, giữ vững quyền chủ động trên chiến trường.",
+    "cardSummary": "Từ cuối 1950 đến giữa 1953, Quân đội Việt Nam mở nhiều chiến dịch tiến công, giữ vững quyền chủ động trên chiến trường."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Quân đội Việt Nam liên tiếp mở những chiến dịch tiến công, tiếp tục giữ vững quyền chủ động trên chiến trường như: ba chiến dịch là Trần Hưng Đạo (Trung du), Hoàng Hoa Thám (Đường số 18), Quang Trung (Hà Nam Ninh) (từ cuối năm 1950 đến giữa năm 1951); sau đó là chiến dịch Hoà Bình (đông - xuân 1951-1952), chiến dịch Tây Bắc (thu - đông năm 1952), chiến dịch Thượng Lào (xuân – hè năm 1953).",
+    "detailedNarrative": "Trong giai đoạn 1951-1953, Quân đội Việt Nam đã liên tiếp mở nhiều chiến dịch tiến công nhằm giữ vững quyền chủ động trên chiến trường. Các chiến dịch tiêu biểu bao gồm: Trần Hưng Đạo (Trung du), Hoàng Hoa Thám (Đường số 18), Quang Trung (Hà Nam Ninh) diễn ra từ cuối năm 1950 đến giữa năm 1951. Tiếp theo là chiến dịch Hoà Bình (đông - xuân 1951-1952), chiến dịch Tây Bắc (thu - đông năm 1952) và chiến dịch Thượng Lào (xuân – hè năm 1953). Những chiến dịch này đã góp phần làm suy yếu lực lượng địch và củng cố thế chủ động của ta.",
+    "significance": "Tiếp tục giữ vững quyền chủ động trên chiến trường, làm suy yếu lực lượng địch.",
+    "keyFacts": [
+      "Giữ vững quyền chủ động trên chiến trường",
+      "Bao gồm các chiến dịch: Trần Hưng Đạo, Hoàng Hoa Thám, Quang Trung, Hoà Bình, Tây Bắc, Thượng Lào",
+      "Diễn ra từ cuối năm 1950 đến giữa năm 1953"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 12,
+        "book": "KNTT",
+        "lessonId": "12955",
+        "lessonTitle": "BÀI 7: CUỘC KHÁNG CHIẾN CHỐNG THỰC DÂN PHÁP (1945-1954)",
+        "chapter": "Chu de 3",
+        "lesson": "Bai 7",
+        "pageRange": {
+          "start": 37,
+          "end": 44
+        },
+        "url": "https://sgkvn.com/lop-12-15/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-3-cach-mang-thang-tam-nam-1945-chien-tranh-giai-phong-dan-toc-va-chien-tranh-bao-ve-to-quoc-trong-lich-su-viet-nam-tu-thang-8-nam-1945-den-nay-3539/bai-7-cuoc-khang-chien-chong-thuc-dan-phap-1945-1954-12955.html",
+        "excerpt": "Quân đội Việt Nam liên tiếp mở những chiến dịch tiến công, tiếp tục giữ vững quyền chủ động trên chiến trường như: ba chiến dịch là Trần Hưng Đạo (Trung du), Hoàng Hoa Thám (Đường số 18), Quang Trung (Hà Nam Ninh) (từ cuối năm 1950 đến giữa năm 1951); sau đó là chiến dịch Hoà Bình (đông - xuân 1951-1952), chiến dịch Tây Bắc (thu - đông năm 1952), chiến dịch Thượng Lào (xuân – hè năm 1953)."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "cac-chien-dich-tien-cong-quan-doi-viet-nam-1950-1953",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 299
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": true,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

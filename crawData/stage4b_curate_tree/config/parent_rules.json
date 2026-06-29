@@ -1,0 +1,27 @@
+[
+  {
+    "parentId": "cach-mang-thang-tam-nam-1945",
+    "rootId": "viet-nam-1919-1945",
+    "keywordsAny": ["khoi nghia gianh chinh quyen", "tong khoi nghia", "tan trao", "uy ban khoi nghia", "nhat ban tuyen bo dau hang"],
+    "reason": "Nhóm sự kiện trực tiếp thuộc Cách mạng tháng Tám năm 1945."
+  },
+  {
+    "parentId": "khang-chien-chong-thuc-dan-phap-1945-1954",
+    "rootId": "viet-nam-1945-1954",
+    "keywordsAny": ["dien bien phu", "bien gioi thu dong 1950", "viet bac thu dong 1947", "gio ne vo", "na va", "dong xuan 1953 1954", "toan quoc khang chien"],
+    "reason": "Nhóm sự kiện thuộc kháng chiến chống thực dân Pháp 1945-1954."
+  },
+  {
+    "parentId": "tong-tien-cong-va-noi-day-xuan-1975",
+    "rootId": "viet-nam-1954-1975",
+    "keywordsAny": ["tay nguyen 1975", "hue da nang", "chien dich ho chi minh", "phuoc long", "xuan 1975", "giai phong sai gon"],
+    "reason": "Nhóm sự kiện thuộc Tổng tiến công và nổi dậy Xuân 1975."
+  },
+  {
+    "parentId": "cong-cuoc-doi-moi-o-viet-nam",
+    "rootId": "viet-nam-1975-den-nay",
+    "keywordsAny": ["doi moi", "hoi nhap", "afta", "evfta", "rcep", "wto", "lien hop quoc", "binh thuong hoa", "doi tac chien luoc", "kinh te thi truong"],
+    "minYear": 1986,
+    "reason": "Nhóm sự kiện đổi mới và hội nhập sau năm 1986."
+  }
+]

@@ -1,0 +1,138 @@
+{
+  "id": "nha-duong-dat-don-vi-huong-xa-thoi-bac-thuoc",
+  "slug": "nha-duong-dat-don-vi-huong-xa-thoi-bac-thuoc",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Nhà Đường đặt đơn vị hương và xã thời Bắc thuộc",
+    "short": "Hương và xã thời Bắc thuộc",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "administration",
+    "region": "vietnam",
+    "tags": [
+      "nhà Đường",
+      "đơn vị hành chính",
+      "Bắc thuộc"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 11,
+        "lessonId": "12373",
+        "lessonTitle": "BÀI 9  KHÁI QUÁT VỀ LÀNG XÃ VIỆT NAM TRO"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "end": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "datePrecision": "period",
+    "displayDate": "Đến thế kỉ VII",
+    "isApproximate": true
+  },
+  "mapData": {
+    "geoType": "no_location",
+    "historicalLocations": [],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "auto",
+      "center": null,
+      "zoom": null
+    }
+  },
+  "summary": {
+    "homepageTitle": "Nhà Đường đặt hương và xã (thế kỉ VII)",
+    "homepageSummary": "Đến thế kỉ VII, nhà Đường đặt đơn vị hương và xã nhưng chính quyền đô hộ không quản lí được làng xã.",
+    "cardSummary": "Nhà Đường đặt đơn vị hương và xã vào thế kỉ VII nhưng không quản lí được."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Đến thế kỉ VII, nhà Đường đặt đơn vị hương và xã nhưng trên thực tế chính quyền đô hộ không quản lí được làng xã.",
+    "detailedNarrative": "Đến thế kỉ VII, nhà Đường đặt đơn vị hương và xã nhưng trên thực tế chính quyền đô hộ không quản lí được làng xã.",
+    "significance": null,
+    "keyFacts": [
+      "Nhà Đường đặt hương và xã",
+      "Chính quyền đô hộ không quản lí được",
+      "Diễn ra vào thế kỉ VII"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 11,
+        "book": "KNTT",
+        "lessonId": "12373",
+        "lessonTitle": "BÀI 9  KHÁI QUÁT VỀ LÀNG XÃ VIỆT NAM TRO",
+        "chapter": "Chu de 5",
+        "lesson": "Bai 9",
+        "pageRange": {
+          "start": 71,
+          "end": 76
+        },
+        "url": "https://sgkvn.com/lop-11-14/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-5-lang-xa-viet-nam-trong-lich-su-3348/bai-9-khai-quat-ve-lang-xa-viet-nam-trong-lich-su-12373.html",
+        "excerpt": "Đến thế kỉ VII, nhà Đường đặt đơn vị hương và xã nhưng trên thực tế chính quyền đô hộ không quản lí được làng xã."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "nha-duong-dat-don-vi-huong-xa-thoi-bac-thuoc",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 349
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": false,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

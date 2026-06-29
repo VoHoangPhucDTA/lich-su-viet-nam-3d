@@ -1,0 +1,134 @@
+{
+  "id": "su-ra-doi-cua-ba-to-chuc-cong-san-viet-nam",
+  "slug": "su-ra-doi-cua-ba-to-chuc-cong-san-viet-nam",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Sự ra đời của ba tổ chức cộng sản ở Việt Nam",
+    "short": "Ba tổ chức cộng sản ra đời",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "organization-founding",
+    "region": "vietnam",
+    "tags": [
+      "tổ chức cộng sản",
+      "phong trào công nhân",
+      "phong trào yêu nước"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 12,
+        "lessonId": "12967",
+        "lessonTitle": "BÀI 16: HỒ CHÍ MINH - ANH HÙNG GIẢI PHÓNG DÂN TỘC"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1929,
+      "month": null,
+      "day": null
+    },
+    "end": null,
+    "datePrecision": "year",
+    "displayDate": "Năm 1929",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "no_location",
+    "historicalLocations": [],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "auto",
+      "center": null,
+      "zoom": null
+    }
+  },
+  "summary": {
+    "homepageTitle": "Ba tổ chức cộng sản ra đời ở Việt Nam",
+    "homepageSummary": "Năm 1929, hoạt động của Hội Việt Nam Cách mạng Thanh niên thúc đẩy sự chuyển biến của phong trào công nhân, phong trào yêu nước Việt Nam, dẫn đến sự ra đời của ba tổ chức cộng sản.",
+    "cardSummary": "Năm 1929, ba tổ chức cộng sản ra đời, là sự chuẩn bị trực tiếp cho Đảng Cộng sản Việt Nam."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Hoạt động của Hội Việt Nam Cách mạng Thanh niên có ảnh hưởng và thúc đẩy mạnh mẽ sự chuyển biến của phong trào công nhân, phong trào yêu nước Việt Nam, dẫn đến sự ra đời của ba tổ chức cộng sản trong năm 1929. Đó là sự chuẩn bị trực tiếp cho sự ra đời của Đảng Cộng sản Việt Nam.",
+    "detailedNarrative": null,
+    "significance": "Là sự chuẩn bị trực tiếp cho sự ra đời của Đảng Cộng sản Việt Nam.",
+    "keyFacts": [
+      "Là sự chuẩn bị trực tiếp cho sự ra đời của Đảng Cộng sản Việt Nam",
+      "Kết quả của hoạt động Hội Việt Nam Cách mạng Thanh niên",
+      "Thúc đẩy phong trào công nhân và yêu nước"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 12,
+        "book": "KNTT",
+        "lessonId": "12967",
+        "lessonTitle": "BÀI 16: HỒ CHÍ MINH - ANH HÙNG GIẢI PHÓNG DÂN TỘC",
+        "chapter": "Chu de 5",
+        "lesson": "Bai 16",
+        "pageRange": {
+          "start": 94,
+          "end": 104
+        },
+        "url": "https://sgkvn.com/lop-12-15/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-5-lich-su-doi-ngoai-cua-viet-nam-thoi-can-hien-dai-3541/bai-16-ho-chi-minh-anh-hung-giai-phong-dan-toc-12967.html",
+        "excerpt": "Hoạt động của Hội Việt Nam Cách mạng Thanh niên có ảnh hưởng và thúc đẩy mạnh mẽ sự chuyển biến của phong trào công nhân, phong trào yêu nước Việt Nam, dẫn đến sự ra đời của ba tổ chức cộng sản trong năm 1929. Đó là sự chuẩn bị trực tiếp cho sự ra đời của Đảng Cộng sản Việt Nam."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "su-ra-doi-cua-ba-to-chuc-cong-san-viet-nam",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 127
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": false,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

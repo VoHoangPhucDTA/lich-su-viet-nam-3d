@@ -1,0 +1,149 @@
+{
+  "id": "phap-chiem-bac-ki-lan-1",
+  "slug": "phap-chiem-bac-ki-lan-1",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Pháp đánh chiếm Bắc Kì lần thứ nhất",
+    "short": "Pháp đánh chiếm Bắc Kì lần thứ nhất",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "military",
+    "eventSubtype": "invasion",
+    "region": "vietnam",
+    "tags": [
+      "xâm lược",
+      "triều Nguyễn",
+      "Pháp",
+      "Bắc Kì"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 11,
+        "lessonId": "12370",
+        "lessonTitle": "BÀI 7  CHIẾN TRANH BẢO VỆ TỔ QUỐC TRONG"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1873,
+      "month": null,
+      "day": null
+    },
+    "end": {
+      "year": 1873,
+      "month": null,
+      "day": null
+    },
+    "datePrecision": "year",
+    "displayDate": "Năm 1873",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "point",
+    "historicalLocations": [],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": {
+      "name": "Bắc Kì",
+      "lat": 21.0,
+      "lng": 105.0,
+      "confidence": "low"
+    },
+    "markers": [],
+    "focusGeometry": {
+      "mode": "marker",
+      "center": {
+        "name": "Bắc Kì",
+        "lat": 21.0,
+        "lng": 105.0,
+        "confidence": "low"
+      },
+      "zoom": 12
+    }
+  },
+  "summary": {
+    "homepageTitle": "Pháp chiếm Bắc Kì lần 1 (1873)",
+    "homepageSummary": "Năm 1873, Pháp đem quân đánh chiếm Bắc Kì lần thứ nhất, triều đình nhà Nguyễn tiếp tục thoả hiệp.",
+    "cardSummary": "Năm 1873, Pháp đánh chiếm Bắc Kì lần thứ nhất, triều Nguyễn lún sâu vào thoả hiệp."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Năm 1873, thực dân Pháp đem quân đánh chiếm Bắc Kì lần thứ nhất, triều đình nhà Nguyễn tiếp tục lún sâu vào con đường thoả hiệp.",
+    "detailedNarrative": null,
+    "significance": "Mở rộng phạm vi xâm lược của Pháp ra Bắc Kì, đồng thời cho thấy sự yếu kém và thoả hiệp của triều Nguyễn.",
+    "keyFacts": [
+      "Kết quả: Triều Nguyễn thoả hiệp",
+      "Địa điểm: Bắc Kì",
+      "Diễn ra năm 1873"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 11,
+        "book": "KNTT",
+        "lessonId": "12370",
+        "lessonTitle": "BÀI 7  CHIẾN TRANH BẢO VỆ TỔ QUỐC TRONG",
+        "chapter": "Chu de 4",
+        "lesson": "Bai 7",
+        "pageRange": {
+          "start": 54,
+          "end": 61
+        },
+        "url": "https://sgkvn.com/lop-11-14/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-4-chien-tranh-bao-ve-to-quoc-va-chien-tranh-giai-phong-dan-toc-trong-lich-su-viet-nam-truoc-cach-mang-thang-tam-nam-1945-3346/bai-7-chien-tranh-bao-ve-to-quoc-trong-lich-su-viet-nam-12370.html",
+        "excerpt": "Năm 1873, thực dân Pháp đem quân đánh chiếm Bắc Kì lần thứ nhất, triều đình nhà Nguyễn tiếp tục lún sâu vào con đường thoả hiệp."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "phap-chiem-bac-ki-lan-1",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 84
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": true,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

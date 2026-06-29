@@ -1,0 +1,160 @@
+{
+  "id": "xoa-bo-bac-thanh-chia-thanh-18-tinh",
+  "slug": "xoa-bo-bac-thanh-chia-thanh-18-tinh",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Xoá bỏ Bắc Thành, chia thành 18 tỉnh",
+    "short": "Xoá bỏ Bắc Thành, chia thành 18 tỉnh",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "administrative_reform",
+    "region": "vietnam",
+    "tags": [
+      "Bắc Thành",
+      "Minh Mạng",
+      "hành chính địa phương",
+      "chia tỉnh"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 11,
+        "lessonId": "12393",
+        "lessonTitle": "BÀI 14  CUỘC CẢI CÁCH CỦA MINH MẠNG  NỬA"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1831,
+      "month": null,
+      "day": null
+    },
+    "end": null,
+    "datePrecision": "year",
+    "displayDate": "Năm 1831",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "mixed",
+    "historicalLocations": [],
+    "provinceNames": [
+      "Hà Nội"
+    ],
+    "gadmRefs": [
+      "VNM.27_1"
+    ],
+    "marker": {
+      "name": "Bắc Thành",
+      "lat": 21.0285,
+      "lng": 105.8542,
+      "confidence": "high"
+    },
+    "markers": [
+      {
+        "name": "Bắc Thành",
+        "lat": 21.0285,
+        "lng": 105.8542,
+        "confidence": "high"
+      },
+      {
+        "name": "Phụng Thiên",
+        "lat": 21.0285,
+        "lng": 105.8542,
+        "confidence": "high"
+      }
+    ],
+    "focusGeometry": {
+      "mode": "bounds",
+      "center": {
+        "lat": 21.0176,
+        "lng": 105.814554
+      },
+      "zoom": 7
+    }
+  },
+  "summary": {
+    "homepageTitle": "Xoá bỏ Bắc Thành (1831)",
+    "homepageSummary": "Năm 1831, vua Minh Mạng xoá bỏ Bắc Thành, chia vùng lãnh thổ từ phủ Phụng Thiên ra Bắc thành 18 tỉnh, tăng cường quản lý trung ương.",
+    "cardSummary": "Năm 1831, Bắc Thành bị xoá bỏ, chia thành 18 tỉnh."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Năm 1831, vua Minh Mạng xoá bỏ Bắc Thành, chia vùng lãnh thổ từ phủ Phụng Thiên ra Bắc thành 18 tỉnh.",
+    "detailedNarrative": "Năm 1831, xoá bỏ Bắc Thành, chia vùng lãnh thổ từ phủ Phụng Thiên ra Bắc thành 18 tỉnh.",
+    "significance": "Là một bước quan trọng trong việc thống nhất hành chính và củng cố quyền lực trung ương.",
+    "keyFacts": [
+      "Diễn ra năm 1831",
+      "Chia thành 18 tỉnh",
+      "Xoá bỏ đơn vị hành chính Bắc Thành"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 11,
+        "book": "KNTT",
+        "lessonId": "12393",
+        "lessonTitle": "BÀI 14  CUỘC CẢI CÁCH CỦA MINH MẠNG  NỬA",
+        "chapter": "Chu de 6",
+        "lesson": "Bai 14",
+        "pageRange": {
+          "start": null,
+          "end": null
+        },
+        "url": "https://sgkvn.com/lop-11-14/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-6-mot-so-cuoc-cai-cach-lon-trong-lich-su-viet-nam-truoc-nam-1858-3353/bai-14-cuoc-cai-cach-cua-minh-mang-nua-dau-the-ki-xix-12393.html",
+        "excerpt": "Năm 1831, vua Minh Mạng xoá bỏ Bắc Thành, chia vùng lãnh thổ từ phủ Phụng Thiên ra Bắc thành 18 tỉnh."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "xoa-bo-bac-thanh-chia-thanh-18-tinh",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 70
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": true,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

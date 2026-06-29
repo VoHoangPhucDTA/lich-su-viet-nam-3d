@@ -1,0 +1,142 @@
+{
+  "id": "ho-chi-minh-mo-lop-dao-tao-can-bo-tai-quang-chau-trung-quoc",
+  "slug": "ho-chi-minh-mo-lop-dao-tao-can-bo-tai-quang-chau-trung-quoc",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Hồ Chí Minh mở các lớp đào tạo cán bộ tại Quảng Châu (Trung Quốc)",
+    "short": "Hồ Chí Minh mở các lớp đào tạo cán bộ tại Quảng Châu (Trung Quốc)",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "education",
+    "region": "world",
+    "tags": [
+      "Hồ Chí Minh",
+      "cách mạng",
+      "đào tạo cán bộ"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 12,
+        "lessonId": "12968",
+        "lessonTitle": "BÀI 17: DẤU ẤN HỒ CHÍ MINH TRONG LÒNG NHÂN DÂN THẾ GIỚI VÀ VIỆT NAM"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1925,
+      "month": null,
+      "day": null
+    },
+    "end": {
+      "year": 1927,
+      "month": null,
+      "day": null
+    },
+    "datePrecision": "year",
+    "displayDate": "1925 – 1927",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "no_location",
+    "historicalLocations": [
+      "Quảng Châu",
+      "Nhà số 248 và 250 đường Văn Minh",
+      "Trung Quốc"
+    ],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "auto",
+      "center": null,
+      "zoom": null
+    }
+  },
+  "summary": {
+    "homepageTitle": "Hồ Chí Minh đào tạo cán bộ tại Quảng Châu (TQ)",
+    "homepageSummary": "Hồ Chí Minh đã mở các lớp đào tạo cán bộ tại Nhà số 248 và 250 đường Văn Minh, thành phố Quảng Châu, Trung Quốc từ năm 1925 đến 1927.",
+    "cardSummary": "Từ 1925-1927, Hồ Chí Minh mở lớp đào tạo cán bộ tại Quảng Châu (Trung Quốc)."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Nhà số 248 và 250 (trước là nhà số 13 và 13/1) đường Văn Minh, thành phố Quảng Châu (Trung Quốc) là nơi Hồ Chí Minh mở các lớp đào tạo cán bộ (1925 – 1927).",
+    "detailedNarrative": null,
+    "significance": null,
+    "keyFacts": [
+      "Địa điểm: Nhà số 248 và 250 đường Văn Minh, Quảng Châu, Trung Quốc",
+      "Hoạt động: Mở các lớp đào tạo cán bộ",
+      "Thời gian: 1925 – 1927"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 12,
+        "book": "KNTT",
+        "lessonId": "12968",
+        "lessonTitle": "BÀI 17: DẤU ẤN HỒ CHÍ MINH TRONG LÒNG NHÂN DÂN THẾ GIỚI VÀ VIỆT NAM",
+        "chapter": "Chu de 5",
+        "lesson": "Bai 17",
+        "pageRange": {
+          "start": 105,
+          "end": 111
+        },
+        "url": "https://sgkvn.com/lop-12-15/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-5-lich-su-doi-ngoai-cua-viet-nam-thoi-can-hien-dai-3541/bai-17-dau-an-ho-chi-minh-trong-long-nhan-dan-the-gioi-va-viet-nam-12968.html",
+        "excerpt": "Nhà số 248 và 250 (trước là nhà số 13 và 13/1) đường Văn Minh, thành phố Quảng Châu (Trung Quốc) là nơi Hồ Chí Minh mở các lớp đào tạo cán bộ (1925 – 1927)."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "ho-chi-minh-mo-lop-dao-tao-can-bo-tai-quang-chau-trung-quoc",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 125
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": false,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

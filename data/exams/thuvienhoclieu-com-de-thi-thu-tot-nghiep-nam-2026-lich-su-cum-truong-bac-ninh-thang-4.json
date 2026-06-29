@@ -1,0 +1,1166 @@
+{
+  "examId": "thuvienhoclieu-com-de-thi-thu-tot-nghiep-nam-2026-lich-su-cum-truong-bac-ninh-thang-4",
+  "title": "Đề thi Lịch sử – thuvienhoclieu.com-De-thi-thu-Tot-Nghiep-nam-2026-Lich-su-Cum-truong-Bac-Ninh-thang-4",
+  "year": 2025,
+  "source": "",
+  "sourceDetail": "thuvienhoclieu.com-De-thi-thu-Tot-Nghiep-nam-2026-Lich-su-Cum-truong-Bac-Ninh-thang-4",
+  "examCode": "",
+  "format": "thpt_2025",
+  "timeLimitMinutes": 50,
+  "totalScore": 10.0,
+  "parsedAt": "2026-05-17T10:03:23.073479+00:00",
+  "sections": [
+    {
+      "sectionId": "phan-1",
+      "sectionType": "mcq",
+      "title": "Phần I – Trắc nghiệm nhiều lựa chọn",
+      "totalQuestions": 24,
+      "maxScore": 6.0,
+      "scorePerQuestion": 0.25,
+      "questions": [
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tot-nghiep-nam-2026-lich-su-cum-truong-bac-ninh-thang-4-q01",
+          "orderInExam": 1,
+          "questionType": "mcq",
+          "questionText": "Năm 1920, Nguyễn Ái Quốc không có hoạt động yêu nước nào sau đây?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Ủng hộ Quốc tế Cộng sản."
+            },
+            {
+              "id": "B",
+              "text": "Lựa chọn khuynh hướng vô sản cho dân tộc."
+            },
+            {
+              "id": "C",
+              "text": "Tham dự Đại hội của Đảng Xã hội Pháp."
+            },
+            {
+              "id": "D",
+              "text": "Gửi bản Yêu sách tới Hội nghị Véc-xai."
+            }
+          ],
+          "correctOptionId": "D",
+          "explanation": "Câu 1. Năm 1920, Nguyễn Ái Quốc không có hoạt động yêu nước nào sau đây?\nĐáp án: D. Gửi bản Yêu sách tới Hội nghị Véc-xai.\nGiải thích:\nNăm 1919, Nguyễn Ái Quốc gửi bản Yêu sách của nhân dân An Nam tới Hội nghị Véc-xai.\nCòn năm 1920, Người tham dự Đại hội Tua của Đảng Xã hội Pháp, bỏ phiếu tán thành Quốc tế Cộng sản và lựa chọn con đường cách mạng vô sản cho dân tộc Việt Nam.",
+          "difficulty": "medium",
+          "topic": "Nguyễn Ái Quốc và con đường cứu nước",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-Tot-Nghiep-nam-2026-Lich-su-Cum-truong-Bac-Ninh-thang-4",
+              "location": "Câu 1"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tot-nghiep-nam-2026-lich-su-cum-truong-bac-ninh-thang-4-q02",
+          "orderInExam": 2,
+          "questionType": "mcq",
+          "questionText": "Nội dung nào sau đây là thành tựu về chính trị trong công cuộc đổi mới ở Việt Nam từ năm 1986 đến nay?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Kim ngạch xuất nhập khẩu gia tăng nhanh."
+            },
+            {
+              "id": "B",
+              "text": "Nền dân chủ xã hội chủ nghĩa được phát huy."
+            },
+            {
+              "id": "C",
+              "text": "Đạt chuẩn phổ cập giáo dục trung học cơ sở."
+            },
+            {
+              "id": "D",
+              "text": "Tỷ lệ hộ nghèo đa chiều trên cả nước giảm nhanh."
+            }
+          ],
+          "correctOptionId": "B",
+          "explanation": "Câu 2. Thành tựu về chính trị trong công cuộc đổi mới ở Việt Nam từ năm 1986 đến nay là gì?\nĐáp án: B. Nền dân chủ xã hội chủ nghĩa được phát huy.\nGiải thích:\nThành tựu chính trị thể hiện ở việc hệ thống chính trị được củng cố, quyền làm chủ của nhân dân được phát huy, nền dân chủ xã hội chủ nghĩa từng bước được mở rộng.\nCác phương án A, C, D thuộc lĩnh vực kinh tế, giáo dục, xã hội.",
+          "difficulty": "medium",
+          "topic": "Công cuộc đổi mới ở Việt Nam (1986 đến nay)",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-Tot-Nghiep-nam-2026-Lich-su-Cum-truong-Bac-Ninh-thang-4",
+              "location": "Câu 2"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tot-nghiep-nam-2026-lich-su-cum-truong-bac-ninh-thang-4-q03",
+          "orderInExam": 3,
+          "questionType": "mcq",
+          "questionText": "Tổ chức Hiệp hội các quốc gia Đông Nam Á (ASEAN) được thành lập trong bối cảnh lịch sử nào sau đây?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Tất cả các quốc gia trong khu vực đã giành được độc lập."
+            },
+            {
+              "id": "B",
+              "text": "Một số tổ chức quốc tế được thành lập ở khu vực."
+            },
+            {
+              "id": "C",
+              "text": "Xu thế toàn cầu hóa trên thế giới bắt đầu xuất hiện."
+            },
+            {
+              "id": "D",
+              "text": "Nhận thức của nhiều quốc gia về nhu cầu hợp tác."
+            }
+          ],
+          "correctOptionId": "D",
+          "explanation": "Câu 3. ASEAN được thành lập trong bối cảnh lịch sử nào?\nĐáp án: D. Nhận thức của nhiều quốc gia về nhu cầu hợp tác.\nGiải thích:\nSau khi giành độc lập, nhiều nước Đông Nam Á nhận thấy cần hợp tác để cùng phát triển, hạn chế ảnh hưởng từ bên ngoài và giữ ổn định khu vực.\nVì vậy, năm 1967, 5 nước In-đô-nê-xi-a, Ma-lai-xi-a, Phi-líp-pin, Xin-ga-po, Thái Lan thành lập ASEAN.",
+          "difficulty": "medium",
+          "topic": "Các nước Đông Nam Á",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-Tot-Nghiep-nam-2026-Lich-su-Cum-truong-Bac-Ninh-thang-4",
+              "location": "Câu 3"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tot-nghiep-nam-2026-lich-su-cum-truong-bac-ninh-thang-4-q04",
+          "orderInExam": 4,
+          "questionType": "mcq",
+          "questionText": "Năm 2012, Việt Nam đã ban hành văn bản nào để tạo cơ sở bảo vệ vững chắc chủ quyền biển đảo của Tổ quốc?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Luật Biển Việt Nam."
+            },
+            {
+              "id": "B",
+              "text": "Luật hàng hải Việt Nam."
+            },
+            {
+              "id": "C",
+              "text": "Luật Biên giới quốc gia."
+            },
+            {
+              "id": "D",
+              "text": "Hiến pháp Việt Nam mới."
+            }
+          ],
+          "correctOptionId": "A",
+          "explanation": "Câu 4. Năm 2012, Việt Nam ban hành văn bản nào để tạo cơ sở bảo vệ chủ quyền biển đảo?\nĐáp án: A. Luật Biển Việt Nam.\nGiải thích:\nLuật Biển Việt Nam được Quốc hội thông qua năm 2012, tạo cơ sở pháp lí quan trọng để quản lí, bảo vệ chủ quyền, quyền chủ quyền và quyền tài phán của Việt Nam trên biển.",
+          "difficulty": "medium",
+          "topic": "Việt Nam hội nhập quốc tế",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-Tot-Nghiep-nam-2026-Lich-su-Cum-truong-Bac-Ninh-thang-4",
+              "location": "Câu 4"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tot-nghiep-nam-2026-lich-su-cum-truong-bac-ninh-thang-4-q05",
+          "orderInExam": 5,
+          "questionType": "mcq",
+          "questionText": "Một trong những nguyên nhân dẫn đến sự sụp đổ của Trật tự thế giới hai cực I-an-ta là",
+          "options": [
+            {
+              "id": "A",
+              "text": "không gian địa lý của chủ nghĩa xã hội được mở rộng."
+            },
+            {
+              "id": "B",
+              "text": "thế mạnh kinh tế, quân sự của các nước tư bản đều bị suy giảm."
+            },
+            {
+              "id": "C",
+              "text": "những thay đổi trong quan hệ giữa hai cực theo hướng hòa dịu."
+            },
+            {
+              "id": "D",
+              "text": "những xung đột trực tiếp về quân sự giữa Liên Xô và Mỹ gia tăng."
+            }
+          ],
+          "correctOptionId": "C",
+          "explanation": "Câu 5. Một nguyên nhân dẫn đến sự sụp đổ của Trật tự thế giới hai cực I-an-ta là gì?\nĐáp án: C. Những thay đổi trong quan hệ giữa hai cực theo hướng hòa dịu.\nGiải thích:\nTừ những năm 70 của thế kỉ XX, quan hệ Xô - Mỹ chuyển dần từ đối đầu căng thẳng sang hòa hoãn.\nSự hòa dịu này làm giảm dần tính chất đối đầu hai cực, góp phần làm trật tự hai cực I-an-ta suy yếu và sụp đổ.",
+          "difficulty": "medium",
+          "topic": "Trật tự thế giới sau Chiến tranh thế giới thứ hai",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-Tot-Nghiep-nam-2026-Lich-su-Cum-truong-Bac-Ninh-thang-4",
+              "location": "Câu 5"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tot-nghiep-nam-2026-lich-su-cum-truong-bac-ninh-thang-4-q06",
+          "orderInExam": 6,
+          "questionType": "mcq",
+          "questionText": "Năm 1930, Nguyễn Ái Quốc có hoạt động nào sau đây?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Ký hiệp định Sơ bộ với Pháp."
+            },
+            {
+              "id": "B",
+              "text": "Thành lập Đảng Cộng sản Việt Nam."
+            },
+            {
+              "id": "C",
+              "text": "Đọc Tuyên ngôn Độc lập."
+            },
+            {
+              "id": "D",
+              "text": "Ra đi tìm đường cứu nước."
+            }
+          ],
+          "correctOptionId": "B",
+          "explanation": "Câu 6. Năm 1930, Nguyễn Ái Quốc có hoạt động nào?\nĐáp án: B. Thành lập Đảng Cộng sản Việt Nam.\nGiải thích:\nĐầu năm 1930, Nguyễn Ái Quốc chủ trì Hội nghị hợp nhất các tổ chức cộng sản, thành lập Đảng Cộng sản Việt Nam.\nĐây là bước ngoặt vĩ đại của cách mạng Việt Nam.",
+          "difficulty": "medium",
+          "topic": "Nguyễn Ái Quốc và con đường cứu nước",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-Tot-Nghiep-nam-2026-Lich-su-Cum-truong-Bac-Ninh-thang-4",
+              "location": "Câu 6"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tot-nghiep-nam-2026-lich-su-cum-truong-bac-ninh-thang-4-q07",
+          "orderInExam": 7,
+          "questionType": "mcq",
+          "questionText": "Việc Việt Nam gia nhập Tổ chức Thương mại thế giới (WTO, 2007) có ý nghĩa nào sau đây?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Kết thúc giai đoạn Việt Nam bị cấm vận, bao vây."
+            },
+            {
+              "id": "B",
+              "text": "Đặt cơ sở để Việt Nam gia nhập liên minh khu vực."
+            },
+            {
+              "id": "C",
+              "text": "Hiện thực hóa việc hội nhập quốc tế sâu rộng."
+            },
+            {
+              "id": "D",
+              "text": "Mở đầu quá trình hội nhập quốc tế của dân tộc."
+            }
+          ],
+          "correctOptionId": "C",
+          "explanation": "Câu 7. Việt Nam gia nhập WTO năm 2007 có ý nghĩa gì?\nĐáp án: C. Hiện thực hóa việc hội nhập quốc tế sâu rộng.\nGiải thích:\nGia nhập WTO giúp Việt Nam tham gia sâu hơn vào nền kinh tế thế giới, mở rộng thị trường, tăng cường hợp tác kinh tế quốc tế.\nĐây là dấu mốc quan trọng của quá trình hội nhập quốc tế sâu rộng.",
+          "difficulty": "medium",
+          "topic": "Việt Nam hội nhập quốc tế",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-Tot-Nghiep-nam-2026-Lich-su-Cum-truong-Bac-Ninh-thang-4",
+              "location": "Câu 7"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tot-nghiep-nam-2026-lich-su-cum-truong-bac-ninh-thang-4-q08",
+          "orderInExam": 8,
+          "questionType": "mcq",
+          "questionText": "Vào giai đoạn cuối của Chiến tranh thế giới thứ hai, tổ chức nào sau đây được thành lập?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Hiệp hội các quốc gia Đông Nam Á."
+            },
+            {
+              "id": "B",
+              "text": "Tổ chức Hiệp ước Bắc Đại Tây Dương."
+            },
+            {
+              "id": "C",
+              "text": "Liên hợp quốc."
+            },
+            {
+              "id": "D",
+              "text": "Tổ chức Hiệp ước Vác-sa-va."
+            }
+          ],
+          "correctOptionId": "C",
+          "explanation": "Câu 8. Vào giai đoạn cuối Chiến tranh thế giới thứ hai, tổ chức nào được thành lập?\nĐáp án: C. Liên hợp quốc.\nGiải thích:\nLiên hợp quốc được thành lập năm 1945, ngay sau Chiến tranh thế giới thứ hai, nhằm duy trì hòa bình, an ninh thế giới và thúc đẩy hợp tác quốc tế.\nNATO thành lập năm 1949, Vác-sa-va thành lập năm 1955, ASEAN thành lập năm 1967.",
+          "difficulty": "medium",
+          "topic": "Chiến tranh thế giới thứ hai",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-Tot-Nghiep-nam-2026-Lich-su-Cum-truong-Bac-Ninh-thang-4",
+              "location": "Câu 8"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tot-nghiep-nam-2026-lich-su-cum-truong-bac-ninh-thang-4-q09",
+          "orderInExam": 9,
+          "questionType": "mcq",
+          "questionText": "Quá trình phát triển của Hiệp hội các quốc gia Đông Nam Á (ASEAN) từ năm 1967 đến nay cho thấy một trong những nhân tố đưa đến thành công của tổ chức là",
+          "options": [
+            {
+              "id": "A",
+              "text": "xóa bỏ hoàn toàn sự đa dạng để tạo nên tính thống nhất."
+            },
+            {
+              "id": "B",
+              "text": "nhận thức đúng sự thay đổi xu thế phát triển của thế giới."
+            },
+            {
+              "id": "C",
+              "text": "phát huy cao độ sự ảnh hưởng của các cường quốc tại khu vực."
+            },
+            {
+              "id": "D",
+              "text": "quyết tâm và nỗ lực của tất cả các quốc gia thành viên cùng chế độ."
+            }
+          ],
+          "correctOptionId": "B",
+          "explanation": "Câu 9. Một nhân tố đưa đến thành công của ASEAN từ năm 1967 đến nay là gì?\nĐáp án: B. Nhận thức đúng sự thay đổi xu thế phát triển của thế giới.\nGiải thích:\nASEAN thành công vì biết thích ứng với tình hình thế giới, chuyển từ đối đầu sang đối thoại, từ nghi kị sang hợp tác, mở rộng thành viên và tăng cường liên kết khu vực.",
+          "difficulty": "medium",
+          "topic": "Các nước Đông Nam Á",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-Tot-Nghiep-nam-2026-Lich-su-Cum-truong-Bac-Ninh-thang-4",
+              "location": "Câu 9"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tot-nghiep-nam-2026-lich-su-cum-truong-bac-ninh-thang-4-q10",
+          "orderInExam": 10,
+          "questionType": "mcq",
+          "questionText": "Thắng lợi của ba lần kháng chiến chống quân xâm lược Mông - Nguyên ở thế kỉ XIII gắn liền với sự lãnh đạo của vương triều nào?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Nhà Trần."
+            },
+            {
+              "id": "B",
+              "text": "Nhà Hồ."
+            },
+            {
+              "id": "C",
+              "text": "Nhà Lý."
+            },
+            {
+              "id": "D",
+              "text": "Nhà Tiền Lê."
+            }
+          ],
+          "correctOptionId": "A",
+          "explanation": "Câu 10. Ba lần kháng chiến chống quân Mông - Nguyên thế kỉ XIII gắn với vương triều nào?\nĐáp án: A. Nhà Trần.\nGiải thích:\nDưới thời Trần, quân dân Đại Việt ba lần đánh bại quân xâm lược Mông - Nguyên vào các năm 1258, 1285 và 1287 - 1288.",
+          "difficulty": "medium",
+          "topic": "Việt Nam thời phong kiến độc lập (Thế kỷ X - XVIII)",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-Tot-Nghiep-nam-2026-Lich-su-Cum-truong-Bac-Ninh-thang-4",
+              "location": "Câu 10"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tot-nghiep-nam-2026-lich-su-cum-truong-bac-ninh-thang-4-q11",
+          "orderInExam": 11,
+          "questionType": "mcq",
+          "questionText": "Trong giai đoạn 1905-1909, những hoạt động đối ngoại của Phan Bội Châu chủ yếu diễn ra ở",
+          "options": [
+            {
+              "id": "A",
+              "text": "Pháp."
+            },
+            {
+              "id": "B",
+              "text": "Anh."
+            },
+            {
+              "id": "C",
+              "text": "Nhật Bản."
+            },
+            {
+              "id": "D",
+              "text": "Liên Xô."
+            }
+          ],
+          "correctOptionId": "C",
+          "explanation": "Câu 11. Giai đoạn 1905 - 1909, hoạt động đối ngoại của Phan Bội Châu chủ yếu diễn ra ở đâu?\nĐáp án: C. Nhật Bản.\nGiải thích:\nPhan Bội Châu phát động phong trào Đông du, đưa thanh niên Việt Nam sang Nhật Bản học tập, tìm đường cứu nước.\nVì vậy, hoạt động đối ngoại của ông giai đoạn này chủ yếu gắn với Nhật Bản.",
+          "difficulty": "medium",
+          "topic": "Phong trào yêu nước đầu thế kỷ XX",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-Tot-Nghiep-nam-2026-Lich-su-Cum-truong-Bac-Ninh-thang-4",
+              "location": "Câu 11"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tot-nghiep-nam-2026-lich-su-cum-truong-bac-ninh-thang-4-q12",
+          "orderInExam": 12,
+          "questionType": "mcq",
+          "questionText": "Nội dung nào không phản ánh đúng về trật tự thế giới hai cực Ianta?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Phản ánh sự đối đầu căng thẳng giữa Liên Xô và Mỹ."
+            },
+            {
+              "id": "B",
+              "text": "Nhân tố hàng đầu chi phối nền chính trị thế giới."
+            },
+            {
+              "id": "C",
+              "text": "Có biểu hiện xói mòn ngay trong giai đoạn hình thành."
+            },
+            {
+              "id": "D",
+              "text": "Tồn tại gắn liền với hai cuộc chiến tranh thế giới."
+            }
+          ],
+          "correctOptionId": "D",
+          "explanation": "Câu 12. Nội dung nào không phản ánh đúng về trật tự thế giới hai cực I-an-ta?\nĐáp án: D. Tồn tại gắn liền với hai cuộc chiến tranh thế giới.\nGiải thích:\nTrật tự hai cực I-an-ta hình thành sau Chiến tranh thế giới thứ hai, gắn với sự đối đầu giữa Liên Xô và Mỹ trong thời kì Chiến tranh lạnh.\nNó không tồn tại gắn liền với cả hai cuộc chiến tranh thế giới.",
+          "difficulty": "medium",
+          "topic": "Quan hệ quốc tế sau Chiến tranh thế giới thứ hai",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-Tot-Nghiep-nam-2026-Lich-su-Cum-truong-Bac-Ninh-thang-4",
+              "location": "Câu 12"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tot-nghiep-nam-2026-lich-su-cum-truong-bac-ninh-thang-4-q13",
+          "orderInExam": 13,
+          "questionType": "mcq",
+          "questionText": "Cuộc kháng chiến chống quân Thanh (1789) ở Đại Việt không mang đặc điểm nào sau đây?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Là cuộc chiến tranh của toàn dân chống giặc."
+            },
+            {
+              "id": "B",
+              "text": "Diễn ra ngay sau khi Nguyễn Huệ lên ngôi."
+            },
+            {
+              "id": "C",
+              "text": "Thực hiện phương châm thần tốc, chắc thắng."
+            },
+            {
+              "id": "D",
+              "text": "Diễn ra trong thời gian ngắn, mang yếu tố bất ngờ."
+            }
+          ],
+          "correctOptionId": "C",
+          "explanation": "Câu 13. Cuộc kháng chiến chống quân Thanh năm 1789 không mang đặc điểm nào?\nĐáp án: C. Thực hiện phương châm thần tốc, chắc thắng.\nGiải thích:\nCuộc kháng chiến chống quân Thanh nổi bật bởi yếu tố thần tốc, táo bạo, bất ngờ, diễn ra trong thời gian ngắn và ngay sau khi Nguyễn Huệ lên ngôi Hoàng đế.\nCụm “thần tốc, chắc thắng” thường gắn rõ hơn với nghệ thuật chỉ đạo trong cuộc Tổng tiến công và nổi dậy mùa Xuân năm 1975, không phải đặc điểm tiêu biểu của kháng chiến chống Thanh năm 1789.",
+          "difficulty": "medium",
+          "topic": "Việt Nam thời phong kiến độc lập (Thế kỷ X - XVIII)",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-Tot-Nghiep-nam-2026-Lich-su-Cum-truong-Bac-Ninh-thang-4",
+              "location": "Câu 13"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tot-nghiep-nam-2026-lich-su-cum-truong-bac-ninh-thang-4-q14",
+          "orderInExam": 14,
+          "questionType": "mcq",
+          "questionText": "Nội dung nào sau đây phản ánh đúng ý nghĩa của sự kiện bản Hiến pháp đầu tiên của Liên Xô được thông qua năm 1924?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Hoàn thành việc khôi phục kinh tế."
+            },
+            {
+              "id": "B",
+              "text": "Người dân Nga nắm chính quyền."
+            },
+            {
+              "id": "C",
+              "text": "Thắng lợi lớn của giai cấp tư sản."
+            },
+            {
+              "id": "D",
+              "text": "Liên Xô chính thức được thành lập."
+            }
+          ],
+          "correctOptionId": "D",
+          "explanation": "Câu 14. Ý nghĩa của bản Hiến pháp đầu tiên của Liên Xô được thông qua năm 1924 là gì?\nĐáp án: D. Liên Xô chính thức được thành lập.\nGiải thích:\nLiên bang Xô viết được thành lập năm 1922. Đến năm 1924, bản Hiến pháp đầu tiên được thông qua, hoàn thiện cơ sở pháp lí cho nhà nước Liên bang Xô viết.\nVì vậy, phương án D là phù hợp nhất.",
+          "difficulty": "medium",
+          "topic": "Liên Xô và các nước Đông Âu (1917-1991)",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-Tot-Nghiep-nam-2026-Lich-su-Cum-truong-Bac-Ninh-thang-4",
+              "location": "Câu 14"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tot-nghiep-nam-2026-lich-su-cum-truong-bac-ninh-thang-4-q15",
+          "orderInExam": 15,
+          "questionType": "mcq",
+          "questionText": "Chế độ quân chủ Việt Nam sụp đổ gắn liền với sự kiện nào sau đây?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Hà Nội giành được chính quyền (19-8-1945)."
+            },
+            {
+              "id": "B",
+              "text": "Cuộc Tổng khởi nghĩa bùng nổ trên toàn quốc (14-8-1945)."
+            },
+            {
+              "id": "C",
+              "text": "Nước Việt Nam Dân chủ Cộng hòa được ra đời (2-9-1945)."
+            },
+            {
+              "id": "D",
+              "text": "Vua Bảo Đại tuyên bố thoái vị (30-8-1945)."
+            }
+          ],
+          "correctOptionId": "D",
+          "explanation": "Câu 15. Chế độ quân chủ Việt Nam sụp đổ gắn với sự kiện nào?\nĐáp án: D. Vua Bảo Đại tuyên bố thoái vị ngày 30-8-1945.\nGiải thích:\nNgày 30-8-1945, vua Bảo Đại thoái vị, chấm dứt chế độ quân chủ tồn tại lâu đời ở Việt Nam.\nSự kiện này đánh dấu sự sụp đổ hoàn toàn của chế độ phong kiến quân chủ.",
+          "difficulty": "medium",
+          "topic": "Việt Nam 1930-1945",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-Tot-Nghiep-nam-2026-Lich-su-Cum-truong-Bac-Ninh-thang-4",
+              "location": "Câu 15"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tot-nghiep-nam-2026-lich-su-cum-truong-bac-ninh-thang-4-q16",
+          "orderInExam": 16,
+          "questionType": "mcq",
+          "questionText": "Ở Việt Nam, trong giai đoạn đầu của công cuộc Đổi mới đất nước về kinh tế (1986 - 1995), nội dung nào sau đây trở thành “vấn đề trọng tâm”?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Sản xuất lương thực thực phẩm."
+            },
+            {
+              "id": "B",
+              "text": "Sản xuất tem phiếu tiêu dùng."
+            },
+            {
+              "id": "C",
+              "text": "Hiện đại hóa nông thôn."
+            },
+            {
+              "id": "D",
+              "text": "Hội nhập kinh tế quốc tế."
+            }
+          ],
+          "correctOptionId": "A",
+          "explanation": "Câu 16. Giai đoạn đầu của công cuộc Đổi mới về kinh tế, vấn đề trọng tâm là gì?\nĐáp án: A. Sản xuất lương thực thực phẩm.\nGiải thích:\nTrong giai đoạn đầu Đổi mới, Việt Nam tập trung giải quyết những nhu cầu thiết yếu, trong đó sản xuất lương thực, thực phẩm là vấn đề trọng tâm.\nNhờ đó, nước ta từng bước thoát khỏi tình trạng thiếu lương thực.",
+          "difficulty": "medium",
+          "topic": "Việt Nam từ năm 1975 đến nay",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-Tot-Nghiep-nam-2026-Lich-su-Cum-truong-Bac-Ninh-thang-4",
+              "location": "Câu 16"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tot-nghiep-nam-2026-lich-su-cum-truong-bac-ninh-thang-4-q17",
+          "orderInExam": 17,
+          "questionType": "mcq",
+          "questionText": "Từ năm 1920 đến năm 1945, Nguyễn Ái Quốc có vai trò nào sau đây đối với cách mạng Việt Nam?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Chỉ đạo các tổ chức cộng sản thực hiện phong trào “vô sản hóa” cho thanh niên."
+            },
+            {
+              "id": "B",
+              "text": "Xây dựng và bổ sung đường lối chiến lược cho cách mạng giải phóng dân tộc."
+            },
+            {
+              "id": "C",
+              "text": "Thành lập mặt trận dân tộc thống nhất dân tộc trong quá trình thành lập Đảng."
+            },
+            {
+              "id": "D",
+              "text": "Trực tiếp thành lập các tổ chức cộng sản và chuẩn bị cho sự ra đời của Đảng."
+            }
+          ],
+          "correctOptionId": "B",
+          "explanation": "Câu 17. Từ năm 1920 đến năm 1945, Nguyễn Ái Quốc có vai trò nào đối với cách mạng Việt Nam?\nĐáp án: B. Xây dựng và bổ sung đường lối chiến lược cho cách mạng giải phóng dân tộc.\nGiải thích:\nNguyễn Ái Quốc tìm ra con đường cứu nước theo khuynh hướng vô sản, chuẩn bị về tư tưởng, chính trị, tổ chức cho sự ra đời của Đảng.\nTừ năm 1930 đến 1945, Người tiếp tục hoàn thiện đường lối cách mạng giải phóng dân tộc, trực tiếp lãnh đạo cách mạng đi đến thắng lợi.",
+          "difficulty": "medium",
+          "topic": "Việt Nam 1919-1945",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-Tot-Nghiep-nam-2026-Lich-su-Cum-truong-Bac-Ninh-thang-4",
+              "location": "Câu 17"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tot-nghiep-nam-2026-lich-su-cum-truong-bac-ninh-thang-4-q18",
+          "orderInExam": 18,
+          "questionType": "mcq",
+          "questionText": "Cộng đồng ASEAN được thành lập năm 2015 trong bối cảnh nào sau đây?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Kinh tế đóng vai trò trung tâm trong quan hệ quốc tế."
+            },
+            {
+              "id": "B",
+              "text": "Chiến tranh thế giới thứ hai bước vào giai đoạn kết thúc."
+            },
+            {
+              "id": "C",
+              "text": "Trật tự thế giới hai cực I-an-ta bắt đầu được thiết lập."
+            },
+            {
+              "id": "D",
+              "text": "Mỹ can thiệp sâu vào cuộc chiến tranh Đông Dương."
+            }
+          ],
+          "correctOptionId": "A",
+          "explanation": "Câu 18. Cộng đồng ASEAN thành lập năm 2015 trong bối cảnh nào?\nĐáp án: A. Kinh tế đóng vai trò trung tâm trong quan hệ quốc tế.\nGiải thích:\nĐầu thế kỉ XXI, xu thế toàn cầu hóa, liên kết kinh tế khu vực phát triển mạnh.\nViệc thành lập Cộng đồng ASEAN năm 2015 phản ánh nhu cầu tăng cường liên kết, nhất là về kinh tế, chính trị - an ninh và văn hóa - xã hội.",
+          "difficulty": "medium",
+          "topic": "Các nước Đông Nam Á",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-Tot-Nghiep-nam-2026-Lich-su-Cum-truong-Bac-Ninh-thang-4",
+              "location": "Câu 18"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tot-nghiep-nam-2026-lich-su-cum-truong-bac-ninh-thang-4-q19",
+          "orderInExam": 19,
+          "questionType": "mcq",
+          "questionText": "Sau chiến tranh thế giới thứ hai, một số nước châu Á đi theo con đường xây dựng chủ nghĩa xã hội đã",
+          "options": [
+            {
+              "id": "A",
+              "text": "tạo nên móng hình thành hệ thống xã hội chủ nghĩa trên thế giới."
+            },
+            {
+              "id": "B",
+              "text": "khẳng định sự thắng thế hoàn toàn của chủ nghĩa xã hội ở khu vực châu Á."
+            },
+            {
+              "id": "C",
+              "text": "đánh dấu sự mở rộng, tăng cường sức mạnh của chủ nghĩa xã hội."
+            },
+            {
+              "id": "D",
+              "text": "xác lập hoàn chỉnh cục diện hai phe: tư bản chủ nghĩa và xã hội chủ nghĩa."
+            }
+          ],
+          "correctOptionId": "C",
+          "explanation": "Câu 19. Sau Chiến tranh thế giới thứ hai, một số nước châu Á đi theo con đường xã hội chủ nghĩa đã có ý nghĩa gì?\nĐáp án: C. Đánh dấu sự mở rộng, tăng cường sức mạnh của chủ nghĩa xã hội.\nGiải thích:\nSau năm 1945, chủ nghĩa xã hội không chỉ tồn tại ở Liên Xô mà còn mở rộng sang một số nước Đông Âu và châu Á.\nĐiều đó làm cho hệ thống xã hội chủ nghĩa được mở rộng và tăng cường sức mạnh.",
+          "difficulty": "medium",
+          "topic": "Các nước châu Á, châu Phi và Mĩ Latinh (1945-2000)",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-Tot-Nghiep-nam-2026-Lich-su-Cum-truong-Bac-Ninh-thang-4",
+              "location": "Câu 19"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tot-nghiep-nam-2026-lich-su-cum-truong-bac-ninh-thang-4-q20",
+          "orderInExam": 20,
+          "questionType": "mcq",
+          "questionText": "Trong đường lối Đổi mới đề ra từ năm 1986, Đảng Cộng sản Việt Nam chủ trương xây dựng và phát triển nền kinh tế hàng hóa nhiều thành phần nhằm",
+          "options": [
+            {
+              "id": "A",
+              "text": "giải phóng sức sản xuất và phát huy vai trò làm chủ của nhân dân."
+            },
+            {
+              "id": "B",
+              "text": "tạo nền tảng để hoàn thành công cuộc đổi mới, thống nhất đất nước."
+            },
+            {
+              "id": "C",
+              "text": "tạo sự cạnh tranh và tăng cường vai trò chỉ đạo của kinh tế tư nhân."
+            },
+            {
+              "id": "D",
+              "text": "phục vụ cho công cuộc kháng chiến và kiến quốc của dân tộc."
+            }
+          ],
+          "correctOptionId": "A",
+          "explanation": "Câu 20. Đảng chủ trương xây dựng nền kinh tế hàng hóa nhiều thành phần nhằm mục đích gì?\nĐáp án: A. Giải phóng sức sản xuất và phát huy vai trò làm chủ của nhân dân.\nGiải thích:\nNền kinh tế hàng hóa nhiều thành phần tạo điều kiện phát huy mọi nguồn lực xã hội, khắc phục cơ chế bao cấp, thúc đẩy sản xuất phát triển.\nMục tiêu là giải phóng sức sản xuất, nâng cao đời sống nhân dân và phát huy quyền làm chủ của nhân dân.",
+          "difficulty": "medium",
+          "topic": "Đổi mới ở Việt Nam (1986 đến nay)",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-Tot-Nghiep-nam-2026-Lich-su-Cum-truong-Bac-Ninh-thang-4",
+              "location": "Câu 20"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tot-nghiep-nam-2026-lich-su-cum-truong-bac-ninh-thang-4-q21",
+          "orderInExam": 21,
+          "questionType": "mcq",
+          "questionText": "Một trong những hoạt động của Phan Châu Trinh từ năm 1911 đến năm 1925 là",
+          "options": [
+            {
+              "id": "A",
+              "text": "tham gia phong trào Đông du."
+            },
+            {
+              "id": "B",
+              "text": "cầu viện Nhật Bản, Trung Quốc."
+            },
+            {
+              "id": "C",
+              "text": "viết báo, diễn thuyết ở Pháp."
+            },
+            {
+              "id": "D",
+              "text": "sáng lập Hội Chấn Hoa Hưng Á."
+            }
+          ],
+          "correctOptionId": "C",
+          "explanation": "Câu 21. Hoạt động của Phan Châu Trinh từ năm 1911 đến năm 1925 là gì?\nĐáp án: C. Viết báo, diễn thuyết ở Pháp.\nGiải thích:\nSau khi sang Pháp, Phan Châu Trinh tiếp tục hoạt động yêu nước bằng cách viết báo, diễn thuyết, tuyên truyền tư tưởng dân chủ, cải cách.\nPhong trào Đông du và cầu viện Nhật Bản gắn với Phan Bội Châu.",
+          "difficulty": "medium",
+          "topic": "Phong trào yêu nước đầu thế kỷ XX (Phan Châu Trinh)",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-Tot-Nghiep-nam-2026-Lich-su-Cum-truong-Bac-Ninh-thang-4",
+              "location": "Câu 21"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tot-nghiep-nam-2026-lich-su-cum-truong-bac-ninh-thang-4-q22",
+          "orderInExam": 22,
+          "questionType": "mcq",
+          "questionText": "Cuộc Tổng tiến công và nổi dậy Tết Mậu Thân (1968) diễn ra chủ yếu trên địa bàn nào sau đây?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Vùng rừng núi."
+            },
+            {
+              "id": "B",
+              "text": "Chiến khu Việt Bắc."
+            },
+            {
+              "id": "C",
+              "text": "Vùng nông thôn."
+            },
+            {
+              "id": "D",
+              "text": "Các đô thị."
+            }
+          ],
+          "correctOptionId": "D",
+          "explanation": "Câu 22. Tổng tiến công và nổi dậy Tết Mậu Thân năm 1968 diễn ra chủ yếu trên địa bàn nào?\nĐáp án: D. Các đô thị.\nGiải thích:\nCuộc Tổng tiến công và nổi dậy Tết Mậu Thân năm 1968 đánh vào hầu hết các đô thị, trung tâm đầu não của Mỹ và chính quyền Sài Gòn.\nĐây là điểm nổi bật của cuộc tiến công này.",
+          "difficulty": "medium",
+          "topic": "Kháng chiến chống Mỹ 1954-1975 (Tổng tiến công Mậu Thân 1968)",
+          "cognitiveLevel": "knowledge",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-Tot-Nghiep-nam-2026-Lich-su-Cum-truong-Bac-Ninh-thang-4",
+              "location": "Câu 22"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tot-nghiep-nam-2026-lich-su-cum-truong-bac-ninh-thang-4-q23",
+          "orderInExam": 23,
+          "questionType": "mcq",
+          "questionText": "Nhận định nào sau đây là đúng về cuộc Tổng tiến công và nổi dậy Mậu Thân năm 1968 của quân đội và nhân dân Việt Nam?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Tạo ra sự thay đổi lớn về so sánh lực lượng giữa các nước lớn trên thế giới."
+            },
+            {
+              "id": "B",
+              "text": "Là một đợt tổng khởi nghĩa ở các đô thị, có lực lượng vũ trang làm nòng cốt."
+            },
+            {
+              "id": "C",
+              "text": "Là biểu hiện của sự kết hợp khởi nghĩa vũ trang với chiến tranh cách mạng."
+            },
+            {
+              "id": "D",
+              "text": "Căn bản hoàn thành nhiệm vụ “đánh cho Mỹ cút” của cuộc kháng chiến."
+            }
+          ],
+          "correctOptionId": "C",
+          "explanation": "Câu 23. Nhận định đúng về Tổng tiến công và nổi dậy Mậu Thân năm 1968 là gì?\nĐáp án: C. Là biểu hiện của sự kết hợp khởi nghĩa vũ trang với chiến tranh cách mạng.\nGiải thích:\nMậu Thân 1968 là sự kết hợp giữa tiến công quân sự của lực lượng vũ trang với nổi dậy của quần chúng.\nCuộc tiến công này làm lung lay ý chí xâm lược của Mỹ, nhưng chưa hoàn thành nhiệm vụ “đánh cho Mỹ cút”.",
+          "difficulty": "medium",
+          "topic": "Kháng chiến chống Mỹ 1954-1975 (Tổng tiến công Mậu Thân 1968)",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-Tot-Nghiep-nam-2026-Lich-su-Cum-truong-Bac-Ninh-thang-4",
+              "location": "Câu 23"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tot-nghiep-nam-2026-lich-su-cum-truong-bac-ninh-thang-4-q24",
+          "orderInExam": 24,
+          "questionType": "mcq",
+          "questionText": "Cuộc Tổng tiến công và nổi dậy Xuân Mậu Thân (1968) của nhân dân Việt Nam chứng tỏ",
+          "options": [
+            {
+              "id": "A",
+              "text": "sự thất bại của chiến lược toàn cầu khi áp dụng ở một nước thuộc địa."
+            },
+            {
+              "id": "B",
+              "text": "cuộc đấu tranh vì hòa bình, công lý của nhân dân thế giới đã toàn thắng."
+            },
+            {
+              "id": "C",
+              "text": "sức mạnh tổng hợp của toàn dân tộc Việt Nam được tập dượt và biểu dương."
+            },
+            {
+              "id": "D",
+              "text": "cuộc chiến tranh Việt Nam của Mỹ đã đi đến giai đoạn kết thúc hoàn toàn."
+            }
+          ],
+          "correctOptionId": "C",
+          "explanation": "Câu 24. Tổng tiến công và nổi dậy Xuân Mậu Thân năm 1968 chứng tỏ điều gì?\nĐáp án: C. Sức mạnh tổng hợp của toàn dân tộc Việt Nam được tập dượt và biểu dương.\nGiải thích:\nCuộc Tổng tiến công và nổi dậy Mậu Thân thể hiện sức mạnh của quân dân Việt Nam trên cả mặt trận quân sự, chính trị và ngoại giao.\nNó làm rung chuyển nước Mỹ, buộc Mỹ phải xuống thang chiến tranh và chấp nhận đàm phán với ta.",
+          "difficulty": "medium",
+          "topic": "Kháng chiến chống Mỹ 1954-1975 (Tổng tiến công Mậu Thân 1968)",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-Tot-Nghiep-nam-2026-Lich-su-Cum-truong-Bac-Ninh-thang-4",
+              "location": "Câu 24"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "sectionId": "phan-2",
+      "sectionType": "true_false",
+      "title": "Phần II – Trắc nghiệm Đúng/Sai",
+      "totalQuestions": 4,
+      "maxScore": 4.0,
+      "scoringRule": "ladder",
+      "questions": [
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tot-nghiep-nam-2026-lich-su-cum-truong-bac-ninh-thang-4-q25",
+          "orderInExam": 25,
+          "questionType": "true_false",
+          "questionText": "Đọc đoạn tư liệu sau: “Thực hiện nhất quán đường lối đối ngoại độc lập, tự chủ, hòa bình, hợp tác và phát triển; đa phương hóa, đa dạng hóa quan hệ, chủ động và tích cực hội nhập quốc tế, nâng cao vị thế của đất nước; vì lợi ích quốc gia, dân tộc, vì một nước Việt Nam xã hội chủ nghĩa giàu mạnh; là bạn, đối tác tin cậy và thành viên có trách nhiệm trong cộng đồng quốc tế, góp phần vào sự nghiệp hòa bình, độc lập dân tộc, dân chủ và tiến bộ xã hội trên thế giới”. (Đảng Cộng sản Việt Nam, Văn kiện Đại hội đại biểu toàn quốc lần thứ XI, NXB Chính trị quốc gia - Sự thật, Hà Nội, 2011, tr. 83-84)",
+          "statements": [
+            {
+              "id": "a",
+              "text": "Đoạn tư liệu trên thể hiện đường lối đối ngoại độc lập, tự chủ, hòa bình, hợp tác và phát triển; chủ động và tích cực hội nhập quốc tế của Việt Nam từ năm 1975 đến nay.",
+              "isTrue": false
+            },
+            {
+              "id": "b",
+              "text": "Quan điểm đối ngoại của Đảng Cộng sản Việt Nam hiện nay có sự kế thừa và phát huy tư tưởng đoàn kết quốc tế của chủ tịch Hồ Chí Minh.",
+              "isTrue": true
+            },
+            {
+              "id": "c",
+              "text": "Nội dung tư liệu đã phản ánh sự đổi mới tư duy về đối ngoại của Đảng, nhằm “thêm bạn, bớt thù”, kết hợp sức mạnh của dân tộc với sức mạnh của thời đại trong điều kiện mới.",
+              "isTrue": true
+            },
+            {
+              "id": "d",
+              "text": "Phương châm “đa phương hóa, đa dạng hóa quan hệ và tích cực hội nhập quốc tế” thể hiện sự linh hoạt, chủ động trong hoạt động đối ngoại của Đảng, góp phần tăng quan hệ đối tượng, giảm quan hệ đối tác.",
+              "isTrue": false
+            }
+          ],
+          "explanation": "a) Câu 1. Đoạn tư liệu về đường lối đối ngoại của Việt Nam\na) Đoạn tư liệu trên thể hiện đường lối đối ngoại độc lập, tự chủ, hòa bình, hợp tác và phát triển; chủ động và tích cực hội nhập quốc tế của Việt Nam từ năm 1975 đến nay.\nĐáp án: Sai.\nGiải thích:\nĐoạn tư liệu trích từ Văn kiện Đại hội XI năm 2011, phản ánh rõ đường lối đối ngoại thời kì Đổi mới và hiện nay.\nKhông thể nói toàn bộ giai đoạn từ năm 1975 đến nay đều đã thực hiện đầy đủ phương châm “đa phương hóa, đa dạng hóa quan hệ, chủ động và tích cực hội nhập quốc tế”.\nb) Quan điểm đối ngoại của Đảng Cộng sản Việt Nam hiện nay có sự kế thừa và phát huy tư tưởng đoàn kết quốc tế của Chủ tịch Hồ Chí Minh.\nĐáp án: Đúng.\nGiải thích:\nTư tưởng Hồ Chí Minh luôn coi trọng hòa bình, hữu nghị, đoàn kết quốc tế và kết hợp sức mạnh dân tộc với sức mạnh thời đại.\nĐường lối đối ngoại hiện nay của Việt Nam tiếp tục kế thừa tinh thần đó.\nc) Nội dung tư liệu đã phản ánh sự đổi mới tư duy về đối ngoại của Đảng, nhằm “thêm bạn, bớt thù”, kết hợp sức mạnh dân tộc với sức mạnh thời đại trong điều kiện mới.\nĐáp án: Đúng.\nGiải thích:\nTư liệu nhấn mạnh Việt Nam là bạn, đối tác tin cậy, thành viên có trách nhiệm trong cộng đồng quốc tế.\nĐiều này thể hiện tư duy đối ngoại rộng mở, linh hoạt, tranh thủ hợp tác quốc tế để phát triển đất nước.\nd) Phương châm “đa phương hóa, đa dạng hóa quan hệ và tích cực hội nhập quốc tế” thể hiện sự linh hoạt, chủ động trong hoạt động đối ngoại của Đảng, góp phần tăng quan hệ đối tượng, giảm quan hệ đối tác.\nĐáp án: Sai.\nGiải thích:\nĐa phương hóa, đa dạng hóa quan hệ nhằm mở rộng quan hệ hợp tác, tăng đối tác, giảm đối đầu, tạo môi trường hòa bình để phát triển.\nNói “tăng quan hệ đối tượng, giảm quan hệ đối tác” là sai bản chất đường lối đối ngoại của Việt Nam.",
+          "difficulty": "hard",
+          "topic": "Đường lối đối ngoại của Việt Nam (thời kỳ Đổi mới)",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-Tot-Nghiep-nam-2026-Lich-su-Cum-truong-Bac-Ninh-thang-4",
+              "location": "Câu 1"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tot-nghiep-nam-2026-lich-su-cum-truong-bac-ninh-thang-4-q26",
+          "orderInExam": 26,
+          "questionType": "true_false",
+          "questionText": "Cho đoạn tư liệu sau đây: “Nước Việt Nam là một, dân tộc Việt Nam là một!” Lịch sử Việt Nam mấy nghìn năm nay là lịch sử của một nước thống nhất, một đại gia đình dân tộc thống nhất, là lịch sử không ngừng đấu tranh đánh bại mọi thế lực xâm lược và chia cắt. Từ ngày đế quốc Mỹ áp đặt chủ nghĩa thực dân mới ở miền Nam, độc lập và thống nhất trở thành ý chí sắt đá, thành nguyện vọng thiêng liêng của đồng bào và chiến sĩ ta trong cuộc chiến đấu chống Mỹ, cứu nước. Thắng lợi vĩ đại mùa Xuân năm 1975 giành lại độc lập hoàn toàn cho Tổ quốc cũng đương nhiên khôi phục lại sự thống nhất nước nhà”. (Đảng Cộng sản Việt Nam, Văn kiện Đảng toàn tập, tập 37, NXB Chính trị Quốc gia, Hà Nội, 2004, tr.483)",
+          "statements": [
+            {
+              "id": "a",
+              "text": "Thắng lợi vĩ đại mùa Xuân năm 1975 đã kết thúc cuộc chiến tranh mang tính chất bảo vệ tổ quốc nhưng chủ yếu là một cuộc chiến tranh nhằm giải phóng dân tộc.",
+              "isTrue": true
+            },
+            {
+              "id": "b",
+              "text": "“Nước Việt Nam là một, dân tộc Việt Nam là một” đã phản ánh thống nhất đất nước là quy luật tồn tại và phát triển của dân tộc Việt Nam.",
+              "isTrue": true
+            },
+            {
+              "id": "c",
+              "text": "“Từ ngày đế quốc Mỹ áp đặt chủ nghĩa thực dân mới ở miền Nam” chứng tỏ Mỹ từ kẻ thù tiềm tàng đã trở thành kẻ thù trực tiếp của nhân dân Việt Nam.",
+              "isTrue": true
+            },
+            {
+              "id": "d",
+              "text": "Cuộc kháng chiến chống Mỹ, cứu nước (1954-1975) và Cách mạng tháng Tám năm 1945 ở Việt Nam đều là các cuộc chiến tranh giải phóng, góp phần xóa bỏ tình trạng chia cắt đất nước.",
+              "isTrue": false
+            }
+          ],
+          "explanation": "a) Câu 2. Đoạn tư liệu về thống nhất đất nước và thắng lợi mùa Xuân 1975\na) Thắng lợi vĩ đại mùa Xuân năm 1975 đã kết thúc cuộc chiến tranh mang tính chất bảo vệ Tổ quốc nhưng chủ yếu là một cuộc chiến tranh nhằm giải phóng dân tộc.\nĐáp án: Đúng.\nGiải thích:\nCuộc kháng chiến chống Mỹ, cứu nước là cuộc chiến tranh giải phóng dân tộc, giải phóng miền Nam, thống nhất đất nước.\nĐồng thời, đó cũng là cuộc đấu tranh bảo vệ độc lập, chủ quyền và toàn vẹn lãnh thổ của Tổ quốc.\nb) “Nước Việt Nam là một, dân tộc Việt Nam là một” đã phản ánh thống nhất đất nước là quy luật tồn tại và phát triển của dân tộc Việt Nam.\nĐáp án: Đúng.\nGiải thích:\nTư liệu khẳng định lịch sử Việt Nam là lịch sử của một nước thống nhất, một đại gia đình dân tộc thống nhất.\nVì vậy, thống nhất đất nước là nguyện vọng thiêng liêng và là quy luật phát triển của dân tộc Việt Nam.\nc) “Từ ngày đế quốc Mỹ áp đặt chủ nghĩa thực dân mới ở miền Nam” chứng tỏ Mỹ từ kẻ thù tiềm tàng đã trở thành kẻ thù trực tiếp của nhân dân Việt Nam.\nĐáp án: Đúng.\nGiải thích:\nSau Hiệp định Giơnevơ năm 1954, Mỹ can thiệp sâu vào miền Nam, dựng chính quyền tay sai và áp đặt chủ nghĩa thực dân mới.\nTừ đó, Mỹ trở thành kẻ thù trực tiếp của nhân dân Việt Nam trong cuộc đấu tranh giải phóng miền Nam, thống nhất đất nước.\nd) Cuộc kháng chiến chống Mỹ, cứu nước 1954-1975 và Cách mạng tháng Tám năm 1945 ở Việt Nam đều là các cuộc chiến tranh giải phóng, góp phần xóa bỏ tình trạng chia cắt đất nước.\nĐáp án: Sai.\nGiải thích:\nKháng chiến chống Mỹ, cứu nước là cuộc chiến tranh giải phóng dân tộc, giải phóng miền Nam, thống nhất đất nước.\nCách mạng tháng Tám năm 1945 là cuộc cách mạng giải phóng dân tộc, cuộc tổng khởi nghĩa giành chính quyền, không phải là “cuộc chiến tranh giải phóng” và không nhằm xóa bỏ tình trạng chia cắt đất nước như năm 1975.",
+          "difficulty": "hard",
+          "topic": "Kháng chiến chống Mỹ 1954-1975 (Thống nhất đất nước)",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-Tot-Nghiep-nam-2026-Lich-su-Cum-truong-Bac-Ninh-thang-4",
+              "location": "Câu 2"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tot-nghiep-nam-2026-lich-su-cum-truong-bac-ninh-thang-4-q27",
+          "orderInExam": 27,
+          "questionType": "true_false",
+          "questionText": "Cho những thông tin trong bảng sự kiện sau đây: Thời gian | Nội dung sự kiện Những năm 50 của thế kỉ XX | Nhiều quốc gia ở khu vực Đông Nam Á đã giành được độc lập, tự chủ; Cục diện “hai cực”, “hai phe”, thể hiện rõ qua cuộc Chiến tranh lạnh,… Những năm 60 của thế kỉ XX | Ma-lai-xi-a, Thái Lan, Phi-líp-pin, In-đô-nê-xi-a, Xin-ga-po diễn ra nhiều cuộc họp, thỏa thuận về thành lập một tổ chức mang tính liên minh khu vực. 8 - 8 - 1967 | Ma-lai-xi-a, Thái Lan, Phi-líp-pin, In-đô-nê-xi-a, Xin-ga-po kí Tuyên bố Băng Cốc, thành lập Hiệp hội các quốc gia Đông Nam Á (ASEAN). Những năm 90 của thế kỉ XX | Lần lượt các nước gia nhập ASEAN: Việt Nam, Lào, Mi-an-ma và Cam-pu-chia. Tháng 12 - 2015 | Cộng đồng ASEAN chính thức được thành lập dựa trên ba trụ cột: Cộng đồng Chính trị-An ninh, Cộng đồng Kinh tế, Cộng đồng Văn hóa – Xã hội.",
+          "statements": [
+            {
+              "id": "a",
+              "text": "Việt Nam trở thành thành viên chính thức của ASEAN được coi là chìa khóa để tổ chức mở rộng thành viên.",
+              "isTrue": true
+            },
+            {
+              "id": "b",
+              "text": "Mỗi trụ cột trong cộng đồng đảm nhận một vai trò chủ đạo trong mục tiêu chung của Cộng đồng ASEAN “cởi mở, năng động và tự cường” với các nước trong khu vực, khép kín với các nước bên ngoài.",
+              "isTrue": false
+            },
+            {
+              "id": "c",
+              "text": "Sự phát triển từ ASEAN 5 lên ASEAN 10 diễn ra lâu dài và gặp nhiều vấn đề trở ngại do sự xuất hiện của xu thế hòa hoãn Đông – Tây.",
+              "isTrue": false
+            },
+            {
+              "id": "d",
+              "text": "Năm 1967, ASEAN ra đời nhằm tăng cường hợp tác kinh tế, văn hóa – xã hội giữa các nước thành viên.",
+              "isTrue": true
+            }
+          ],
+          "explanation": "a) Câu 3. Bảng sự kiện về ASEAN\na) Việt Nam trở thành thành viên chính thức của ASEAN được coi là chìa khóa để tổ chức mở rộng thành viên.\nĐáp án: Đúng.\nGiải thích:\nViệt Nam gia nhập ASEAN năm 1995 đã mở đường cho quá trình mở rộng ASEAN.\nSau Việt Nam, Lào và Mi-an-ma gia nhập năm 1997, Cam-pu-chia gia nhập năm 1999, hoàn thành ASEAN 10.\nb) Mỗi trụ cột trong cộng đồng đảm nhận một vai trò chủ đạo trong mục tiêu chung của Cộng đồng ASEAN “cởi mở, năng động và tự cường” với các nước trong khu vực, khép kín với các nước bên ngoài.\nĐáp án: Sai.\nGiải thích:\nCộng đồng ASEAN hướng tới một khu vực hòa bình, ổn định, liên kết chặt chẽ và hội nhập với thế giới.\nASEAN không chủ trương “khép kín với các nước bên ngoài”, mà luôn mở rộng quan hệ hợp tác với các đối tác ngoài khu vực.\nc) Sự phát triển từ ASEAN 5 lên ASEAN 10 diễn ra lâu dài và gặp nhiều vấn đề trở ngại do sự xuất hiện của xu thế hòa hoãn Đông - Tây.\nĐáp án: Sai.\nGiải thích:\nXu thế hòa hoãn Đông - Tây và Chiến tranh lạnh kết thúc đã tạo điều kiện thuận lợi cho ASEAN mở rộng thành viên.\nTrở ngại chủ yếu trước đó là sự khác biệt về chế độ chính trị, tình hình khu vực phức tạp và ảnh hưởng của Chiến tranh lạnh.\nd) Năm 1967, ASEAN ra đời nhằm tăng cường hợp tác kinh tế, văn hóa - xã hội giữa các nước thành viên.\nĐáp án: Đúng.\nGiải thích:\nMục tiêu ban đầu của ASEAN là thúc đẩy hợp tác kinh tế, văn hóa, xã hội, giữ gìn hòa bình và ổn định khu vực.\nĐây là nhu cầu chung của các nước Đông Nam Á sau khi giành độc lập.",
+          "difficulty": "hard",
+          "topic": "Các nước Đông Nam Á và ASEAN",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-Tot-Nghiep-nam-2026-Lich-su-Cum-truong-Bac-Ninh-thang-4",
+              "location": "Câu 3"
+            }
+          ]
+        },
+        {
+          "id": "thuvienhoclieu-com-de-thi-thu-tot-nghiep-nam-2026-lich-su-cum-truong-bac-ninh-thang-4-q28",
+          "orderInExam": 28,
+          "questionType": "true_false",
+          "questionText": "Đọc đoạn tư liệu sau: “Theo nhận thức của chúng ta, kinh tế thị trường định hướng xã hội chủ nghĩa là nền kinh tế thị trường hiện đại, hội nhập quốc tế, vận hành đầy đủ, đồng bộ theo các quy luật của kinh tế thị trường, có sự quản lí của Nhà nước pháp quyền xã hội chủ nghĩa, do Đảng Cộng sản Việt Nam lãnh đạo; bảo đảm định hướng xã hội chủ nghĩa, nhằm mục tiêu “dân giàu, nước mạnh, dân chủ, công bằng, văn minh”.” (Nguyễn Phú Trọng, Một số vấn đề lí luận và thực tiễn về chủ nghĩa xã hội và con đường đi lên chủ nghĩa xã hội ở Việt Nam, NXB Chính trị Quốc gia Sự thật, Hà Nội, 2022, tr.25-26)",
+          "statements": [
+            {
+              "id": "a",
+              "text": "Kinh tế thị trường định hướng xã hội chủ nghĩa Việt Nam được hình thành, vận hành trên cơ sở và nguyên tắc của nền kinh tế thị trường hiện đại, phù hợp thực tiễn Việt Nam và xu hướng phát triển thời đại.",
+              "isTrue": true
+            },
+            {
+              "id": "b",
+              "text": "Nền kinh tế thị trường định hướng xã hội chủ nghĩa có sự lãnh đạo của Đảng Cộng sản và sự quản lý của Nhà nước nhằm phục vụ tốt nhất lợi ích của tất cả nhân dân và sự phát triển bền vững của đất nước.",
+              "isTrue": true
+            },
+            {
+              "id": "c",
+              "text": "Xây dựng và phát triển kinh tế thị trường định hướng xã hội chủ nghĩa ở Việt Nam là tất yếu cả về lý luận và thực tiễn.",
+              "isTrue": true
+            },
+            {
+              "id": "d",
+              "text": "Việc xây dựng nền kinh tế thị trường định hướng xã hội chủ nghĩa chứng tỏ công cuộc Đổi mới ở nước ta đã hoàn thành thắng lợi.",
+              "isTrue": false
+            }
+          ],
+          "explanation": "a) Câu 4. Đoạn tư liệu về kinh tế thị trường định hướng xã hội chủ nghĩa\na) Kinh tế thị trường định hướng xã hội chủ nghĩa Việt Nam được hình thành, vận hành trên cơ sở và nguyên tắc của nền kinh tế thị trường hiện đại, phù hợp thực tiễn Việt Nam và xu hướng phát triển thời đại.\nĐáp án: Đúng.\nGiải thích:\nTư liệu nêu rõ nền kinh tế thị trường định hướng xã hội chủ nghĩa là nền kinh tế thị trường hiện đại, hội nhập quốc tế, vận hành theo các quy luật của kinh tế thị trường.\nĐiều đó phù hợp với thực tiễn Việt Nam và xu thế phát triển chung của thế giới.\nb) Nền kinh tế thị trường định hướng xã hội chủ nghĩa có sự lãnh đạo của Đảng Cộng sản và sự quản lý của Nhà nước nhằm phục vụ tốt nhất lợi ích của tất cả nhân dân và sự phát triển bền vững của đất nước.\nĐáp án: Đúng.\nGiải thích:\nTư liệu khẳng định nền kinh tế này có sự quản lí của Nhà nước pháp quyền xã hội chủ nghĩa và do Đảng Cộng sản Việt Nam lãnh đạo.\nMục tiêu cuối cùng là “dân giàu, nước mạnh, dân chủ, công bằng, văn minh”.\nc) Xây dựng và phát triển kinh tế thị trường định hướng xã hội chủ nghĩa ở Việt Nam là tất yếu cả về lý luận và thực tiễn.\nĐáp án: Đúng.\nGiải thích:\nViệt Nam xây dựng kinh tế thị trường định hướng xã hội chủ nghĩa để phát huy ưu thế của kinh tế thị trường, đồng thời bảo đảm mục tiêu xã hội chủ nghĩa.\nĐây là sự lựa chọn phù hợp với điều kiện thực tiễn Việt Nam và yêu cầu phát triển đất nước.\nd) Việc xây dựng nền kinh tế thị trường định hướng xã hội chủ nghĩa chứng tỏ công cuộc Đổi mới ở nước ta đã hoàn thành thắng lợi.\nĐáp án: Sai.\nGiải thích:\nCông cuộc Đổi mới là quá trình lâu dài, tiếp tục được bổ sung, hoàn thiện.\nViệc xây dựng kinh tế thị trường định hướng xã hội chủ nghĩa cho thấy Đổi mới đạt nhiều thành tựu quan trọng, nhưng không có nghĩa là công cuộc Đổi mới đã “hoàn thành thắng lợi” hoàn toàn.",
+          "difficulty": "hard",
+          "topic": "Đổi mới ở Việt Nam (Kinh tế thị trường định hướng XHCN)",
+          "cognitiveLevel": "comprehension",
+          "hasImage": false,
+          "sourceRefs": [
+            {
+              "title": "thuvienhoclieu.com-De-thi-thu-Tot-Nghiep-nam-2026-Lich-su-Cum-truong-Bac-Ninh-thang-4",
+              "location": "Câu 4"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "warnings": null,
+  "verification": {
+    "structural": {
+      "layer": "L1_structural",
+      "passed": 8,
+      "total": 8,
+      "all_passed": true,
+      "checks": [
+        {
+          "name": "MCQ count = 24",
+          "passed": true,
+          "actual": 24
+        },
+        {
+          "name": "T/F count = 4",
+          "passed": true,
+          "actual": 4
+        },
+        {
+          "name": "No duplicate question IDs",
+          "passed": true,
+          "duplicates": []
+        },
+        {
+          "name": "T/F orderInExam >= 25",
+          "passed": true,
+          "violations": []
+        },
+        {
+          "name": "T/F orderInExam = {25,26,27,28}",
+          "passed": true,
+          "actual": [
+            25,
+            26,
+            27,
+            28
+          ],
+          "expected": [
+            25,
+            26,
+            27,
+            28
+          ]
+        },
+        {
+          "name": "MCQ orderInExam = {1..24}",
+          "passed": true,
+          "actual_first_last": [
+            [
+              1,
+              2,
+              3
+            ],
+            [
+              22,
+              23,
+              24
+            ]
+          ],
+          "expected": "1..24"
+        },
+        {
+          "name": "All MCQ have valid correctOptionId",
+          "passed": true,
+          "missing_in_questions": []
+        },
+        {
+          "name": "All T/F have 4 statements with isTrue bool",
+          "passed": true,
+          "issues": []
+        }
+      ]
+    },
+    "cross_source": {
+      "layer": "L2_cross_source",
+      "n_conflicts": 0,
+      "n_mcq_conflicts": 0,
+      "n_tf_conflicts": 0,
+      "shifting_pattern_detected": false,
+      "shifting_warning": null,
+      "conflicts": [],
+      "all_passed": true
+    },
+    "content_integrity": {
+      "layer": "L3_content",
+      "n_suspicious": 1,
+      "suspicious": [
+        {
+          "question_id": "thuvienhoclieu-com-de-thi-thu-tot-nghiep-nam-2026-lich-su-cum-truong-bac-ninh-thang-4-q20",
+          "orderInExam": 20,
+          "issue": "no_year_or_proper_noun_overlap",
+          "years_in_q": [
+            "1986"
+          ],
+          "years_in_expl": [],
+          "proper_in_q_sample": [
+            "Nam",
+            "Trong",
+            "Việt"
+          ],
+          "proper_in_expl_sample": [
+            "Câu",
+            "Nền",
+            "Đáp"
+          ],
+          "severity": "LOW"
+        }
+      ],
+      "note": "LOW severity — cần review thủ công nếu nhiều case"
+    },
+    "verified_at": "2026-05-17T10:03:23.073479+00:00"
+  }
+}

@@ -1,0 +1,139 @@
+{
+  "id": "hoi-nghi-ban-chap-hanh-trung-uong-dang-lan-thu-21",
+  "slug": "hoi-nghi-ban-chap-hanh-trung-uong-dang-lan-thu-21",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Hội nghị Ban Chấp hành Trung ương Đảng lần thứ 21",
+    "short": "Hội nghị Trung ương 21",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "conference",
+    "region": "vietnam",
+    "tags": [
+      "chiến lược tiến công",
+      "bạo lực cách mạng",
+      "Đảng"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 12,
+        "lessonId": "12956",
+        "lessonTitle": "BÀI 8: CUỘC KHÁNG CHIẾN CHỐNG MỸ, CỨU NƯỚC (1954-1975)"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1973,
+      "month": 7,
+      "day": null
+    },
+    "end": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "datePrecision": "month",
+    "displayDate": "Tháng 7 – 1973",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "no_location",
+    "historicalLocations": [],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "auto",
+      "center": null,
+      "zoom": null
+    }
+  },
+  "summary": {
+    "homepageTitle": "Hội nghị Trung ương 21 (7-1973)",
+    "homepageSummary": "Hội nghị Ban Chấp hành Trung ương Đảng lần thứ 21 nhấn mạnh tiếp tục con đường bạo lực cách mạng, nắm vững chiến lược tiến công, đấu tranh trên ba mặt trận.",
+    "cardSummary": "Hội nghị Trung ương 21 (7-1973) nhấn mạnh tiếp tục con đường bạo lực cách mạng và chiến lược tiến công."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Tháng 7 – 1973, Hội nghị Ban Chấp hành Trung ương Đảng lần thứ 21 nhấn mạnh: Trong bất cứ tình hình nào cũng phải tiếp tục con đường bạo lực cách mạng, phải nắm vững chiến lược tiến công, kiên quyết đấu tranh trên ba mặt trận: quân sự, chính trị, ngoại giao.",
+    "detailedNarrative": null,
+    "significance": null,
+    "keyFacts": [
+      "Nắm vững chiến lược tiến công",
+      "Nhấn mạnh tiếp tục con đường bạo lực cách mạng",
+      "Diễn ra tháng 7-1973",
+      "Kiên quyết đấu tranh trên ba mặt trận: quân sự, chính trị, ngoại giao"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 12,
+        "book": "KNTT",
+        "lessonId": "12956",
+        "lessonTitle": "BÀI 8: CUỘC KHÁNG CHIẾN CHỐNG MỸ, CỨU NƯỚC (1954-1975)",
+        "chapter": "Chu de 3",
+        "lesson": "Bai 8",
+        "pageRange": {
+          "start": 45,
+          "end": 53
+        },
+        "url": "https://sgkvn.com/lop-12-15/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-3-cach-mang-thang-tam-nam-1945-chien-tranh-giai-phong-dan-toc-va-chien-tranh-bao-ve-to-quoc-trong-lich-su-viet-nam-tu-thang-8-nam-1945-den-nay-3539/bai-8-cuoc-khang-chien-chong-my-cuu-nuoc-1954-1975-12956.html",
+        "excerpt": "Tháng 7 – 1973, Hội nghị Ban Chấp hành Trung ương Đảng lần thứ 21 nhấn mạnh: Trong bất cứ tình hình nào cũng phải tiếp tục con đường bạo lực cách mạng, phải nắm vững chiến lược tiến công, kiên quyết đấu tranh trên ba mặt trận: quân sự, chính trị, ngoại giao."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "hoi-nghi-ban-chap-hanh-trung-uong-dang-lan-thu-21",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 238
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": false,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

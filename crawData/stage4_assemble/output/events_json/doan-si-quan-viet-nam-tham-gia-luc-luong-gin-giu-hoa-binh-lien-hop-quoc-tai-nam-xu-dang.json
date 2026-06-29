@@ -1,0 +1,138 @@
+{
+  "id": "doan-si-quan-viet-nam-tham-gia-luc-luong-gin-giu-hoa-binh-lien-hop-quoc-tai-nam-xu-dang",
+  "slug": "doan-si-quan-viet-nam-tham-gia-luc-luong-gin-giu-hoa-binh-lien-hop-quoc-tai-nam-xu-dang",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Đoàn sĩ quan Việt Nam tham gia Lực lượng gìn giữ hoà bình Liên hợp quốc tại Nam Xu-đăng",
+    "short": "VN tham gia gìn giữ hòa bình LHQ",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "diplomatic",
+    "eventSubtype": "peacekeeping_mission",
+    "region": "world",
+    "tags": [
+      "Nam Xu-đăng",
+      "Việt Nam",
+      "Gìn giữ hòa bình",
+      "Liên hợp quốc"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 12,
+        "lessonId": "12945",
+        "lessonTitle": "BÀI 1: LIÊN HỢP QUỐC"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 2021,
+      "month": null,
+      "day": null
+    },
+    "end": null,
+    "datePrecision": "year",
+    "displayDate": "Năm 2021",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "no_location",
+    "historicalLocations": [
+      "Nam Xu-đăng"
+    ],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "auto",
+      "center": null,
+      "zoom": null
+    }
+  },
+  "summary": {
+    "homepageTitle": "VN tham gia gìn giữ hòa bình LHQ tại Nam Xu-đăng (2021)",
+    "homepageSummary": "Đoàn sĩ quan Việt Nam tham gia Lực lượng gìn giữ hoà bình Liên hợp quốc trong lễ xuất quân lên đường làm nhiệm vụ tại Nam Xu-đăng năm 2021.",
+    "cardSummary": "Năm 2021, đoàn sĩ quan Việt Nam tham gia Lực lượng gìn giữ hòa bình LHQ tại Nam Xu-đăng."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Đoàn sĩ quan Việt Nam tham gia Lực lượng gìn giữ hoà bình Liên hợp quốc trong lễ xuất quân lên đường làm nhiệm vụ tại Nam Xu-đăng (2021).",
+    "detailedNarrative": null,
+    "significance": "Thể hiện sự đóng góp của Việt Nam vào các hoạt động duy trì hòa bình và an ninh quốc tế của Liên hợp quốc.",
+    "keyFacts": [
+      "Lực lượng gìn giữ hoà bình Liên hợp quốc",
+      "Năm 2021",
+      "Tại Nam Xu-đăng",
+      "Đoàn sĩ quan Việt Nam tham gia"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 12,
+        "book": "KNTT",
+        "lessonId": "12945",
+        "lessonTitle": "BÀI 1: LIÊN HỢP QUỐC",
+        "chapter": "Chu de 1",
+        "lesson": "Bai 1",
+        "pageRange": {
+          "start": 6,
+          "end": 12
+        },
+        "url": "https://sgkvn.com/lop-12-15/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-1-the-gioi-trong-va-sau-chien-tranh-lanh-3537/bai-1-lien-hop-quoc-12945.html",
+        "excerpt": "Đoàn sĩ quan Việt Nam tham gia Lực lượng gìn giữ hoà bình Liên hợp quốc trong lễ xuất quân lên đường làm nhiệm vụ tại Nam Xu-đăng (2021)."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "doan-si-quan-viet-nam-tham-gia-luc-luong-gin-giu-hoa-binh-lien-hop-quoc-tai-nam-xu-dang",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 296
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": false,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

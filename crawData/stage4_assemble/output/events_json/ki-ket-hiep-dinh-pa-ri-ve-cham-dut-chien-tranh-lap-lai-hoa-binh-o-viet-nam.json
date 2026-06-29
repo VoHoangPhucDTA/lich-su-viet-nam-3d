@@ -1,0 +1,136 @@
+{
+  "id": "ki-ket-hiep-dinh-pa-ri-ve-cham-dut-chien-tranh-lap-lai-hoa-binh-o-viet-nam",
+  "slug": "ki-ket-hiep-dinh-pa-ri-ve-cham-dut-chien-tranh-lap-lai-hoa-binh-o-viet-nam",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Kí kết Hiệp định Pa-ri về chấm dứt chiến tranh, lập lại hoà bình ở Việt Nam",
+    "short": "Hiệp định Pa-ri",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "diplomatic",
+    "eventSubtype": "treaty",
+    "region": "world",
+    "tags": [
+      "độc lập",
+      "chấm dứt chiến tranh",
+      "Hiệp định",
+      "Pa-ri"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 12,
+        "lessonId": "12964",
+        "lessonTitle": "BÀI 13: HOẠT ĐỘNG ĐỐI NGOẠI CỦA VIỆT NAM TRONG KHÁNG CHIẾN CHỐNG PHÁP (1945 – 1954) VÀ KHÁNG CHIẾN CHỐNG MỸ (1954 - 1975)"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1973,
+      "month": 1,
+      "day": 27
+    },
+    "end": null,
+    "datePrecision": "day",
+    "displayDate": "27-1-1973",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "no_location",
+    "historicalLocations": [
+      "Việt Nam"
+    ],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "auto",
+      "center": null,
+      "zoom": null
+    }
+  },
+  "summary": {
+    "homepageTitle": "Kí kết Hiệp định Pa-ri",
+    "homepageSummary": "Hiệp định Pa-ri được kí kết ngày 27-1-1973, với điều khoản quan trọng: Mỹ và các nước cam kết tôn trọng độc lập, chủ quyền, thống nhất và toàn vẹn lãnh thổ Việt Nam.",
+    "cardSummary": "Hiệp định Pa-ri kí ngày 27-1-1973, Mỹ cam kết tôn trọng độc lập, chủ quyền, thống nhất và toàn vẹn lãnh thổ Việt Nam."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Ngày 27-1-1973, Hiệp định Pa-ri được kí kết với điều khoản quan trọng: Mỹ và các nước cam kết tôn trọng độc lập, chủ quyền, thống nhất và toàn vẹn lãnh thổ Việt Nam.",
+    "detailedNarrative": "Ngày 27-1-1973, Hiệp định Pa-ri được kí kết với điều khoản quan trọng: Mỹ và các nước cam kết tôn trọng độc lập, chủ quyền, thống nhất và toàn vẹn lãnh thổ Việt Nam.",
+    "significance": "Hiệp định Pa-ri được kí kết với điều khoản quan trọng: Mỹ và các nước cam kết tôn trọng độc lập, chủ quyền, thống nhất và toàn vẹn lãnh thổ Việt Nam.",
+    "keyFacts": [
+      "Kí kết ngày 27-1-1973",
+      "Mỹ và các nước cam kết tôn trọng độc lập, chủ quyền, thống nhất, toàn vẹn lãnh thổ Việt Nam"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 12,
+        "book": "KNTT",
+        "lessonId": "12964",
+        "lessonTitle": "BÀI 13: HOẠT ĐỘNG ĐỐI NGOẠI CỦA VIỆT NAM TRONG KHÁNG CHIẾN CHỐNG PHÁP (1945 – 1954) VÀ KHÁNG CHIẾN CHỐNG MỸ (1954 - 1975)",
+        "chapter": "Chu de 4",
+        "lesson": "Bai 13",
+        "pageRange": {
+          "start": 77,
+          "end": 81
+        },
+        "url": "https://sgkvn.com/lop-12-15/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-4-cong-cuoc-doi-moi-o-viet-nam-tu-nam-1986-den-nay-3540/bai-13-hoat-dong-doi-ngoai-cua-viet-nam-trong-khang-chien-chong-phap-1945-1954-va-khang-chien-chong-my-1954-1975-12964.html",
+        "excerpt": "Ngày 27-1-1973, Hiệp định Pa-ri được kí kết với điều khoản quan trọng: Mỹ và các nước cam kết tôn trọng độc lập, chủ quyền, thống nhất và toàn vẹn lãnh thổ Việt Nam."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "ki-ket-hiep-dinh-pa-ri-ve-cham-dut-chien-tranh-lap-lai-hoa-binh-o-viet-nam",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 237
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": false,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

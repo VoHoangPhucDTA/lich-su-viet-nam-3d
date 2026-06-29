@@ -1,0 +1,207 @@
+{
+  "id": "thanh-lap-huyen-hoang-sa-va-huyen-truong-sa",
+  "slug": "thanh-lap-huyen-hoang-sa-va-huyen-truong-sa",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Thành lập huyện Hoàng Sa và huyện Trường Sa",
+    "short": "Thành lập huyện Hoàng Sa, Trường Sa",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "establishment",
+    "region": "vietnam",
+    "tags": [
+      "Trường Sa",
+      "chủ quyền",
+      "Hoàng Sa",
+      "hành chính"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 11,
+        "lessonId": "12395",
+        "lessonTitle": "BÀI 16  VIỆT NAM VÀ BIỂN ĐÔNG"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1982,
+      "month": null,
+      "day": null
+    },
+    "end": null,
+    "datePrecision": "year",
+    "displayDate": "Năm 1982",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "mixed",
+    "historicalLocations": [
+      "xã Song Tử Tây"
+    ],
+    "provinceNames": [
+      "Đà Nẵng",
+      "Khánh Hòa"
+    ],
+    "gadmRefs": [
+      "VNM.19_1",
+      "VNM.32_1"
+    ],
+    "marker": {
+      "name": "huyện Hoàng Sa",
+      "lat": 16.6833,
+      "lng": 112.3333,
+      "confidence": "high"
+    },
+    "markers": [
+      {
+        "name": "huyện Hoàng Sa",
+        "lat": 16.6833,
+        "lng": 112.3333,
+        "confidence": "high"
+      },
+      {
+        "name": "đảo Trường Sa Lớn",
+        "lat": 8.6333,
+        "lng": 111.9167,
+        "confidence": "high"
+      },
+      {
+        "name": "tỉnh Quảng Nam - Đà Nẵng",
+        "lat": 16.0544,
+        "lng": 108.2022,
+        "confidence": "high"
+      },
+      {
+        "name": "huyện Trường Sa",
+        "lat": 8.3833,
+        "lng": 111.9167,
+        "confidence": "high"
+      },
+      {
+        "name": "thành phố Đà Nẵng",
+        "lat": 16.0544,
+        "lng": 108.2022,
+        "confidence": "high"
+      },
+      {
+        "name": "tỉnh Khánh Hoà",
+        "lat": 12.25,
+        "lng": 109.1833,
+        "confidence": "high"
+      },
+      {
+        "name": "xã Sinh Tồn",
+        "lat": 9.8833,
+        "lng": 114.3333,
+        "confidence": "high"
+      },
+      {
+        "name": "đảo Sinh Tồn",
+        "lat": 9.8833,
+        "lng": 114.3333,
+        "confidence": "high"
+      },
+      {
+        "name": "đảo Song Tử Tây",
+        "lat": 11.4333,
+        "lng": 114.3333,
+        "confidence": "high"
+      }
+    ],
+    "focusGeometry": {
+      "mode": "bounds",
+      "center": {
+        "lat": 12.520682,
+        "lng": 111.099089
+      },
+      "zoom": 7
+    }
+  },
+  "summary": {
+    "homepageTitle": "Thành lập huyện Hoàng Sa, Trường Sa (1982)",
+    "homepageSummary": "Năm 1982, huyện Hoàng Sa thuộc tỉnh Quảng Nam - Đà Nẵng và huyện Trường Sa thuộc tỉnh Khánh Hoà được thành lập.",
+    "cardSummary": "Năm 1982, huyện Hoàng Sa và huyện Trường Sa được thành lập, củng cố quản lí hành chính."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Năm 1982, huyện Hoàng Sa thuộc tỉnh Quảng Nam - Đà Nẵng (từ năm 1997 thuộc thành phố Đà Nẵng) và huyện Trường Sa thuộc tỉnh Khánh Hoà được thành lập. Trong huyện Trường Sa có các đơn vị hành chính nhỏ hơn như: thị trấn Trường Sa (bao gồm đảo Trường Sa Lớn và phụ cận); xã Song Tử Tây (đảo Song Tử Tây và phụ cận); xã Sinh Tồn (đảo Sinh Tồn và phụ cận).",
+    "detailedNarrative": "Năm 1982, huyện Hoàng Sa thuộc tỉnh Quảng Nam - Đà Nẵng (từ năm 1997 thuộc thành phố Đà Nẵng) và huyện Trường Sa thuộc tỉnh Khánh Hoà được thành lập. Trong huyện Trường Sa có các đơn vị hành chính nhỏ hơn như: thị trấn Trường Sa (bao gồm đảo Trường Sa Lớn và phụ cận); xã Song Tử Tây (đảo Song Tử Tây và phụ cận); xã Sinh Tồn (đảo Sinh Tồn và phụ cận).",
+    "significance": "Là bước củng cố quản lí hành chính của Nhà nước Cộng hoà xã hội chủ nghĩa Việt Nam đối với hai quần đảo.",
+    "keyFacts": [
+      "Huyện Hoàng Sa thuộc Quảng Nam - Đà Nẵng (nay Đà Nẵng)",
+      "Trong huyện Trường Sa có các đơn vị hành chính nhỏ hơn",
+      "Thành lập năm 1982",
+      "Huyện Trường Sa thuộc Khánh Hoà"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 11,
+        "book": "KNTT",
+        "lessonId": "12395",
+        "lessonTitle": "BÀI 16  VIỆT NAM VÀ BIỂN ĐÔNG",
+        "chapter": "Chu de 7",
+        "lesson": "Bai 16",
+        "pageRange": {
+          "start": 107,
+          "end": 111
+        },
+        "url": "https://sgkvn.com/lop-11-14/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-7-lich-su-chu-quyen-cua-viet-nam-o-bien-dong-3354/bai-16-viet-nam-va-bien-dong-12395.html",
+        "excerpt": "Năm 1982, huyện Hoàng Sa thuộc tỉnh Quảng Nam - Đà Nẵng (từ năm 1997 thuộc thành phố Đà Nẵng) và huyện Trường Sa thuộc tỉnh Khánh Hoà được thành lập. Trong huyện Trường Sa có các đơn vị hành chính nhỏ hơn như: thị trấn Trường Sa (bao gồm đảo Trường Sa Lớn và phụ cận); xã Song Tử Tây (đảo Song Tử Tây và phụ cận); xã Sinh Tồn (đảo Sinh Tồn và phụ cận)."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "thanh-lap-huyen-hoang-sa-va-huyen-truong-sa",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 258
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": true,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

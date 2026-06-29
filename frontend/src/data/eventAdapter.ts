@@ -92,7 +92,7 @@ export function rawToEventDetail(raw: RawEventJson): MockEventDetail {
       detailedNarrative: raw.textbookContent?.detailedNarrative,
       significance: raw.textbookContent?.significance,
       keyFacts: keyFactsToStrings(raw.textbookContent?.keyFacts),
-      textbookRefs: raw.textbookRefs?.map((r) => ({
+      textbookRefs: (raw.textbookContent?.textbookRefs ?? raw.textbookRefs)?.map((r) => ({
         grade: String(r.grade),
         book: r.book,
         theme: r.theme,
@@ -102,6 +102,34 @@ export function rawToEventDetail(raw: RawEventJson): MockEventDetail {
         excerpt: r.excerpt,
       })),
     },
+    /* media */
+    media: raw.media
+      ? {
+          thumbnail: raw.media.thumbnail || undefined,
+          items: raw.media.items
+            ?.filter((item) => item.url && item.url.trim() !== '')
+            .map((item) => ({
+              id: item.id,
+              type: item.type as 'image' | 'video' | 'document',
+              url: item.url,
+              caption: item.caption,
+            })),
+        }
+      : undefined,
+
+    /* externalContent */
+    externalContent: raw.externalContent
+      ? {
+          wikipedia: raw.externalContent.wikipedia
+            ? { title: raw.externalContent.wikipedia.title, url: raw.externalContent.wikipedia.url }
+            : undefined,
+          wikidata: raw.externalContent.wikidata
+            ? { url: raw.externalContent.wikidata.url }
+            : undefined,
+          otherSources: raw.externalContent.otherSources?.filter((s) => s.url.trim() !== ''),
+        }
+      : undefined,
+
     display: {
       showOnHomepage: raw.display?.showOnHomepage ?? true,
       showOnTimeline: raw.display?.showOnTimeline ?? true,

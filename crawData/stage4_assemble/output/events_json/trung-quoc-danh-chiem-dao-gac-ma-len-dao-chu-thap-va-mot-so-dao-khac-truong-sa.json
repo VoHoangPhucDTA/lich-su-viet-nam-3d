@@ -1,0 +1,172 @@
+{
+  "id": "trung-quoc-danh-chiem-dao-gac-ma-len-dao-chu-thap-va-mot-so-dao-khac-truong-sa",
+  "slug": "trung-quoc-danh-chiem-dao-gac-ma-len-dao-chu-thap-va-mot-so-dao-khac-truong-sa",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Trung Quốc đánh chiếm đảo Gạc Ma, Len Đao, Chữ Thập và chiếm đóng trái phép một số đảo khác trên quần đảo Trường Sa",
+    "short": "TQ chiếm Gạc Ma, Len Đao, Chữ Thập",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "military",
+    "eventSubtype": "invasion",
+    "region": "vietnam",
+    "tags": [
+      "Trường Sa",
+      "chủ quyền",
+      "chiến tranh",
+      "Trung Quốc"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      11
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 11,
+        "lessonId": "12395",
+        "lessonTitle": "BÀI 16  VIỆT NAM VÀ BIỂN ĐÔNG"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1987,
+      "month": null,
+      "day": null
+    },
+    "end": {
+      "year": 1988,
+      "month": 4,
+      "day": null
+    },
+    "datePrecision": "month",
+    "displayDate": "Từ năm 1987 đến tháng 4 năm 1988",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "multi_point",
+    "historicalLocations": [],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": {
+      "name": "đảo Gạc Ma",
+      "lat": 9.72,
+      "lng": 114.27,
+      "confidence": "high"
+    },
+    "markers": [
+      {
+        "name": "đảo Gạc Ma",
+        "lat": 9.72,
+        "lng": 114.27,
+        "confidence": "high"
+      },
+      {
+        "name": "quần đảo Trường Sa",
+        "lat": 8.3833,
+        "lng": 111.9167,
+        "confidence": "high"
+      },
+      {
+        "name": "Chữ Thập",
+        "lat": 9.55,
+        "lng": 112.89,
+        "confidence": "high"
+      },
+      {
+        "name": "Len Đao",
+        "lat": 9.783,
+        "lng": 114.367,
+        "confidence": "high"
+      }
+    ],
+    "focusGeometry": {
+      "mode": "bounds",
+      "center": {
+        "lat": 9.359075,
+        "lng": 113.360925
+      },
+      "zoom": 8
+    }
+  },
+  "summary": {
+    "homepageTitle": "TQ chiếm Gạc Ma, Len Đao, Chữ Thập (1987-1988)",
+    "homepageSummary": "Từ năm 1987 đến tháng 4 năm 1988, Trung Quốc đánh chiếm đảo Gạc Ma, Len Đao, Chữ Thập và chiếm đóng trái phép một số đảo khác trên quần đảo Trường Sa.",
+    "cardSummary": "Trung Quốc đánh chiếm Gạc Ma, Len Đao, Chữ Thập và một số đảo khác ở Trường Sa từ 1987-4/1988."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Trung Quốc - Từ năm 1987 đến tháng 4 – 1988: đánh chiếm đảo Gạc Ma, Len Đao, Chữ Thập và chiếm đóng trái phép một số đảo khác trên quần đảo Trường Sa.",
+    "detailedNarrative": "Trung Quốc - Từ năm 1987 đến tháng 4 – 1988: đánh chiếm đảo Gạc Ma, Len Đao, Chữ Thập và chiếm đóng trái phép một số đảo khác trên quần đảo Trường Sa.",
+    "significance": "Hành động quân sự của Trung Quốc nhằm chiếm đóng các đảo thuộc quần đảo Trường Sa, gây ra tranh chấp chủ quyền.",
+    "keyFacts": [
+      "Đối tượng: đảo Gạc Ma, Len Đao, Chữ Thập và một số đảo khác trên quần đảo Trường Sa",
+      "Chủ thể: Trung Quốc",
+      "Diễn ra từ 1987 đến tháng 4 năm 1988"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 11,
+        "book": "KNTT",
+        "lessonId": "12395",
+        "lessonTitle": "BÀI 16  VIỆT NAM VÀ BIỂN ĐÔNG",
+        "chapter": "Chu de 7",
+        "lesson": "Bai 16",
+        "pageRange": {
+          "start": 107,
+          "end": 111
+        },
+        "url": "https://sgkvn.com/lop-11-14/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-7-lich-su-chu-quyen-cua-viet-nam-o-bien-dong-3354/bai-16-viet-nam-va-bien-dong-12395.html",
+        "excerpt": "Trung Quốc - Từ năm 1987 đến tháng 4 – 1988: đánh chiếm đảo Gạc Ma, Len Đao, Chữ Thập và chiếm đóng trái phép một số đảo khác trên quần đảo Trường Sa."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "trung-quoc-danh-chiem-dao-gac-ma-len-dao-chu-thap-va-mot-so-dao-khac-truong-sa",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 266
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": true,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

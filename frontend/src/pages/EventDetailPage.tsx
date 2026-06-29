@@ -156,7 +156,7 @@ export default function EventDetailPage() {
 
   /* ─── Error ─── */
   if (error || !eventData) {
-    return <NotFoundEventState slug={slug} onGoHome={() => navigate('/')} />;
+    return <NotFoundEventState slug={slug} onGoHome={() => navigate('/map')} />;
   }
 
   const isVietnamEvent = !eventData.classification.tags?.includes('lịch sử thế giới');
@@ -180,7 +180,7 @@ export default function EventDetailPage() {
       >
         <div className="mx-auto w-full max-w-[1440px] px-6 md:px-10 lg:px-16 xl:px-20 py-3 flex items-center gap-3 text-sm">
           <button
-            onClick={() => navigate('/')}
+            onClick={() => navigate('/map')}
             className="inline-flex items-center gap-1.5 font-medium transition"
             style={{ color: 'var(--text-secondary)' }}
             onMouseEnter={(e) =>
@@ -208,10 +208,10 @@ export default function EventDetailPage() {
       </div>
 
       {/* Main */}
-      <div className="mx-auto w-full max-w-[1440px] px-6 md:px-10 lg:px-16 xl:px-20 py-8 lg:py-10">
-        <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_240px] items-start gap-10 lg:gap-12">
-          {/* Content column – grid sẽ tự cấp phát không gian còn lại sau sidebar */}
-          <main className="min-w-0 flex flex-col gap-10">
+      <div className="mx-auto w-full max-w-[1440px] px-6 md:px-10 lg:px-16 xl:px-20 py-8 lg:py-12">
+        <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_240px] items-start gap-12 lg:gap-16">
+          {/* Content column */}
+          <main className="min-w-0 flex flex-col gap-16" style={{ gap: 'clamp(40px, 5vw, 72px)' }}>
             <EventHero event={eventData} showMapAction={showMapAction} />
 
             <EventTTSPlayer event={eventData} />

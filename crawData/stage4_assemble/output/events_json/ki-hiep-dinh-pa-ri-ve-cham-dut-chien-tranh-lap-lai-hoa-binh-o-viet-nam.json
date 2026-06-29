@@ -1,0 +1,141 @@
+{
+  "id": "ki-hiep-dinh-pa-ri-ve-cham-dut-chien-tranh-lap-lai-hoa-binh-o-viet-nam",
+  "slug": "ki-hiep-dinh-pa-ri-ve-cham-dut-chien-tranh-lap-lai-hoa-binh-o-viet-nam",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Kí Hiệp định Pa-ri về chấm dứt chiến tranh, lập lại hoà bình ở Việt Nam",
+    "short": "Hiệp định Pa-ri 1973",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "diplomatic",
+    "eventSubtype": "treaty",
+    "region": "world",
+    "tags": [
+      "chấm dứt chiến tranh",
+      "Pa-ri",
+      "hòa bình"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 12,
+        "lessonId": "12956",
+        "lessonTitle": "BÀI 8: CUỘC KHÁNG CHIẾN CHỐNG MỸ, CỨU NƯỚC (1954-1975)"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1973,
+      "month": null,
+      "day": null
+    },
+    "end": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "datePrecision": "year",
+    "displayDate": "Năm 1973",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "no_location",
+    "historicalLocations": [
+      "Việt Nam",
+      "Pa-ri"
+    ],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "auto",
+      "center": null,
+      "zoom": null
+    }
+  },
+  "summary": {
+    "homepageTitle": "Hiệp định Pa-ri 1973",
+    "homepageSummary": "Hiệp định Pa-ri về chấm dứt chiến tranh, lập lại hoà bình ở Việt Nam được kí kết, buộc Mỹ phải rút hết quân về nước.",
+    "cardSummary": "Hiệp định Pa-ri (1973) được kí kết, buộc Mỹ rút quân về nước, chấm dứt chiến tranh."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Thắng lợi này được coi như một trận “Điện Biên Phủ trên không”, buộc Mỹ phải trở lại bàn hội nghị và kí Hiệp định Pa-ri về chấm dứt chiến tranh, lập lại hoà bình ở Việt Nam (1973).",
+    "detailedNarrative": null,
+    "significance": "Mỹ phải rút hết quân về nước, so sánh lực lượng thay đổi theo hướng có lợi cho cách mạng Việt Nam.",
+    "keyFacts": [
+      "Buộc Mỹ rút hết quân về nước",
+      "Chấm dứt chiến tranh, lập lại hòa bình ở Việt Nam",
+      "Kí kết năm 1973"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 12,
+        "book": "KNTT",
+        "lessonId": "12956",
+        "lessonTitle": "BÀI 8: CUỘC KHÁNG CHIẾN CHỐNG MỸ, CỨU NƯỚC (1954-1975)",
+        "chapter": "Chu de 3",
+        "lesson": "Bai 8",
+        "pageRange": {
+          "start": 45,
+          "end": 53
+        },
+        "url": "https://sgkvn.com/lop-12-15/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-3-cach-mang-thang-tam-nam-1945-chien-tranh-giai-phong-dan-toc-va-chien-tranh-bao-ve-to-quoc-trong-lich-su-viet-nam-tu-thang-8-nam-1945-den-nay-3539/bai-8-cuoc-khang-chien-chong-my-cuu-nuoc-1954-1975-12956.html",
+        "excerpt": "Thắng lợi này được coi như một trận “Điện Biên Phủ trên không”, buộc Mỹ phải trở lại bàn hội nghị và kí Hiệp định Pa-ri về chấm dứt chiến tranh, lập lại hoà bình ở Việt Nam (1973)."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "ki-hiep-dinh-pa-ri-ve-cham-dut-chien-tranh-lap-lai-hoa-binh-o-viet-nam",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 239
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": false,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

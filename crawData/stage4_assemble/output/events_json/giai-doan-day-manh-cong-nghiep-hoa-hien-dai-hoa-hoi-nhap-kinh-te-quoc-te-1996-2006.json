@@ -1,0 +1,149 @@
+{
+  "id": "giai-doan-day-manh-cong-nghiep-hoa-hien-dai-hoa-hoi-nhap-kinh-te-quoc-te-1996-2006",
+  "slug": "giai-doan-day-manh-cong-nghiep-hoa-hien-dai-hoa-hoi-nhap-kinh-te-quoc-te-1996-2006",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Giai đoạn đẩy mạnh công nghiệp hoá, hiện đại hoá, hội nhập kinh tế quốc tế",
+    "short": "Đổi mới giai đoạn 1996-2006",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "political",
+    "eventSubtype": "reform",
+    "region": "vietnam",
+    "tags": [
+      "Hiện đại hóa",
+      "Hội nhập kinh tế quốc tế",
+      "Kinh tế thị trường",
+      "Công nghiệp hóa"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 12,
+        "lessonId": "12958",
+        "lessonTitle": "BÀI 10: KHÁI QUÁT VỀ CÔNG CUỘC ĐỔI MỚI TỪ NĂM 1986 ĐẾN NAY"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "end": {
+      "year": null,
+      "month": null,
+      "day": null
+    },
+    "datePrecision": "period",
+    "displayDate": "1996 – 2006",
+    "isApproximate": false
+  },
+  "mapData": {
+    "geoType": "nationwide",
+    "historicalLocations": [
+      "Việt Nam"
+    ],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "bounds",
+      "center": {
+        "lat": 16.0,
+        "lng": 106.0
+      },
+      "zoom": 5
+    }
+  },
+  "summary": {
+    "homepageTitle": "Đẩy mạnh CNH, HĐH, hội nhập (1996-2006)",
+    "homepageSummary": "Tập trung đẩy mạnh công nghiệp hóa, hiện đại hóa, phát triển kinh tế thị trường định hướng xã hội chủ nghĩa và hội nhập kinh tế quốc tế.",
+    "cardSummary": "Giai đoạn 1996-2006 đẩy mạnh công nghiệp hóa, hiện đại hóa và hội nhập kinh tế quốc tế."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Giai đoạn đẩy mạnh công nghiệp hoá, hiện đại hoá, hội nhập kinh tế quốc tế của Việt Nam diễn ra từ năm 1996 đến năm 2006.",
+    "detailedNarrative": "Đại hội đại biểu toàn quốc lần thứ VIII của Đảng Cộng sản Việt Nam (năm 1996) đã xác định Việt Nam chuyển sang thời kì mới: đẩy mạnh công nghiệp hoá, hiện đại hoá đất nước. Về kinh tế: đẩy mạnh công nghiệp hoá, hiện đại hoá đất nước; tiếp tục phát triển kinh tế thị trường định hướng xã hội chủ nghĩa; tiếp tục tăng cường đầu tư xây dựng nhiều công trình lớn về kết cấu hạ tầng, tăng cường tiềm lực về cơ sở – vật chất, công nghệ cho nền kinh tế; xây dựng nền kinh tế mở, hội nhập với khu vực và thế giới. Về chính trị, văn hoá – xã hội, an ninh – quốc phòng: đẩy mạnh cải cách tổ chức và hoạt động của Nhà nước pháp quyền xã hội chủ nghĩa, phát huy dân chủ, tăng cường pháp chế; nhấn mạnh phát triển giáo dục – đào tạo và khoa học - công nghệ là quốc sách hàng đầu; xây dựng và phát triển nền văn hoá tiên tiến, đậm đà bản sắc dân tộc, coi văn hoá là nền tảng tinh thần của xã hội, vừa là mục tiêu, vừa là động lực thúc đẩy sự phát triển kinh tế – xã hội; mở rộng giải quyết các vấn đề xã hội như tạo thêm việc làm, xoá đói, giảm nghèo...; xây dựng và tăng cường an ninh quốc phòng. Về đối ngoại: đặt trọng tâm chủ trương “hội nhập kinh tế quốc tế và khu vực\" nhằm mục tiêu phục vụ sự nghiệp phát triển của đất nước.",
+    "significance": "Tạo nền tảng cho Việt Nam đẩy mạnh công nghiệp hoá - hiện đại hoá và hội nhập quốc tế sâu rộng trong giai đoạn tiếp theo.",
+    "keyFacts": [
+      "Xây dựng văn hóa tiên tiến, đậm đà bản sắc dân tộc",
+      "Giáo dục, đào tạo và khoa học, công nghệ là quốc sách hàng đầu",
+      "Cải cách Nhà nước pháp quyền XHCN",
+      "Đẩy mạnh công nghiệp hóa, hiện đại hóa",
+      "Xây dựng nền kinh tế mở, hội nhập với khu vực và thế giới",
+      "Diễn ra từ 1996-2006",
+      "Trọng tâm là hội nhập kinh tế quốc tế và khu vực",
+      "Tiếp tục phát triển kinh tế thị trường định hướng xã hội chủ nghĩa"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 12,
+        "book": "KNTT",
+        "lessonId": "12958",
+        "lessonTitle": "BÀI 10: KHÁI QUÁT VỀ CÔNG CUỘC ĐỔI MỚI TỪ NĂM 1986 ĐẾN NAY",
+        "chapter": "Chu de 4",
+        "lesson": "Bai 10",
+        "pageRange": {
+          "start": 61,
+          "end": 64
+        },
+        "url": "https://sgkvn.com/lop-12-15/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-4-cong-cuoc-doi-moi-o-viet-nam-tu-nam-1986-den-nay-3540/bai-10-khai-quat-ve-cong-cuoc-doi-moi-tu-nam-1986-den-nay-12958.html",
+        "excerpt": "Giai đoạn đẩy mạnh công nghiệp hoá, hiện đại hoá, hội nhập kinh tế quốc tế của Việt Nam diễn ra từ năm 1996 đến năm 2006."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "giai-doan-day-manh-cong-nghiep-hoa-hien-dai-hoa-hoi-nhap-kinh-te-quoc-te-1996-2006",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 317
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": true,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}

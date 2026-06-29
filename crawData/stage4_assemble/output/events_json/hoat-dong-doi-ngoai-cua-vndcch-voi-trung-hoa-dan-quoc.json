@@ -1,0 +1,140 @@
+{
+  "id": "hoat-dong-doi-ngoai-cua-vndcch-voi-trung-hoa-dan-quoc",
+  "slug": "hoat-dong-doi-ngoai-cua-vndcch-voi-trung-hoa-dan-quoc",
+  "entityType": "event",
+  "eventLevel": "atomic",
+  "titles": {
+    "primary": "Hoạt động đối ngoại của Việt Nam Dân chủ Cộng hoà với Trung Hoa Dân quốc",
+    "short": "Hoạt động đối ngoại của Việt Nam Dân chủ Cộng hoà với Trung Hoa Dân quốc",
+    "alternatives": []
+  },
+  "classification": {
+    "eventType": "diplomatic",
+    "eventSubtype": "negotiation",
+    "region": "vietnam",
+    "tags": [
+      "Trung Hoa Dân quốc",
+      "đối ngoại",
+      "hoà hoãn"
+    ]
+  },
+  "coverage": {
+    "grades": [
+      12
+    ],
+    "books": [
+      "KNTT"
+    ],
+    "lessons": [
+      {
+        "grade": 12,
+        "lessonId": "12964",
+        "lessonTitle": "BÀI 13: HOẠT ĐỘNG ĐỐI NGOẠI CỦA VIỆT NAM TRONG KHÁNG CHIẾN CHỐNG PHÁP (1945 – 1954) VÀ KHÁNG CHIẾN CHỐNG MỸ (1954 - 1975)"
+      }
+    ]
+  },
+  "chronology": {
+    "start": {
+      "year": 1945,
+      "month": null,
+      "day": null
+    },
+    "end": null,
+    "datePrecision": "year",
+    "displayDate": "Khoảng năm 1945",
+    "isApproximate": true
+  },
+  "mapData": {
+    "geoType": "nationwide",
+    "historicalLocations": [
+      "Việt Nam"
+    ],
+    "provinceNames": [],
+    "gadmRefs": [],
+    "marker": null,
+    "markers": [],
+    "focusGeometry": {
+      "mode": "bounds",
+      "center": {
+        "lat": 16.0,
+        "lng": 106.0
+      },
+      "zoom": 5
+    }
+  },
+  "summary": {
+    "homepageTitle": "Đối ngoại VNDCCH với Trung Hoa Dân quốc",
+    "homepageSummary": "Chính phủ Việt Nam Dân chủ Cộng hoà vừa đấu tranh chính trị, vừa vận động ngoại giao, hoà hoãn với quân Trung Hoa Dân quốc để củng cố chính quyền.",
+    "cardSummary": "Việt Nam Dân chủ Cộng hoà vừa đấu tranh chính trị, vừa vận động ngoại giao với Trung Hoa Dân quốc."
+  },
+  "textbookContent": {
+    "canonicalSummary": "Với Trung Hoa Dân quốc, Chính phủ Việt Nam Dân chủ Cộng hoà chủ động vừa đấu tranh chính trị, vừa vận động ngoại giao; thực hiện các hoạt động hữu nghị, thân thiện với nhân dân Trung Quốc và hoà hoãn với quân Trung Hoa Dân quốc ở Việt Nam để tranh thủ thời gian củng cố chính quyền cách mạng.",
+    "detailedNarrative": "Với Trung Hoa Dân quốc, Chính phủ Việt Nam Dân chủ Cộng hoà chủ động vừa đấu tranh chính trị, vừa vận động ngoại giao; thực hiện các hoạt động hữu nghị, thân thiện với nhân dân Trung Quốc và hoà hoãn với quân Trung Hoa Dân quốc ở Việt Nam để tranh thủ thời gian củng cố chính quyền cách mạng.",
+    "significance": null,
+    "keyFacts": [
+      "Vừa đấu tranh chính trị, vừa vận động ngoại giao",
+      "Thực hiện hữu nghị với nhân dân Trung Quốc",
+      "Hoà hoãn với quân Trung Hoa Dân quốc ở Việt Nam",
+      "Mục đích: tranh thủ thời gian củng cố chính quyền cách mạng"
+    ],
+    "textbookRefs": [
+      {
+        "grade": 12,
+        "book": "KNTT",
+        "lessonId": "12964",
+        "lessonTitle": "BÀI 13: HOẠT ĐỘNG ĐỐI NGOẠI CỦA VIỆT NAM TRONG KHÁNG CHIẾN CHỐNG PHÁP (1945 – 1954) VÀ KHÁNG CHIẾN CHỐNG MỸ (1954 - 1975)",
+        "chapter": "Chu de 4",
+        "lesson": "Bai 13",
+        "pageRange": {
+          "start": 77,
+          "end": 81
+        },
+        "url": "https://sgkvn.com/lop-12-15/ket-noi-tri-thuc-voi-cuoc-song-3/chu-de-4-cong-cuoc-doi-moi-o-viet-nam-tu-nam-1986-den-nay-3540/bai-13-hoat-dong-doi-ngoai-cua-viet-nam-trong-khang-chien-chong-phap-1945-1954-va-khang-chien-chong-my-1954-1975-12964.html",
+        "excerpt": "Với Trung Hoa Dân quốc, Chính phủ Việt Nam Dân chủ Cộng hoà chủ động vừa đấu tranh chính trị, vừa vận động ngoại giao; thực hiện các hoạt động hữu nghị, thân thiện với nhân dân Trung Quốc và hoà hoãn với quân Trung Hoa Dân quốc ở Việt Nam để tranh thủ thời gian củng cố chính quyền cách mạng."
+      }
+    ]
+  },
+  "externalContent": {
+    "wikipedia": {
+      "title": "",
+      "url": "",
+      "summary": "",
+      "content": ""
+    },
+    "wikidata": {
+      "id": "",
+      "url": ""
+    },
+    "otherSources": []
+  },
+  "media": {
+    "thumbnail": "",
+    "items": []
+  },
+  "hierarchy": {
+    "rootId": "hoat-dong-doi-ngoai-cua-vndcch-voi-trung-hoa-dan-quoc",
+    "parentId": null,
+    "childIds": [],
+    "level": 0,
+    "orderInParent": 170
+  },
+  "associations": {
+    "relatedEventIds": [],
+    "relatedFigureIds": [],
+    "predecessorEventIds": [],
+    "successorEventIds": []
+  },
+  "display": {
+    "showOnMap": true,
+    "showOnTimeline": true,
+    "priority": 0
+  },
+  "sourcePolicy": {
+    "primarySource": "textbook",
+    "supplementalSources": [
+      "wikipedia",
+      "wikidata"
+    ],
+    "lastUpdated": ""
+  }
+}
