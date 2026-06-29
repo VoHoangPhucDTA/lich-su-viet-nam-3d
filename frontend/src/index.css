@@ -3,7 +3,7 @@
 
 /* ═══════════════════════════════════════════════════════════════════════════
    DESIGN SYSTEM — Lịch Sử Việt Nam 3D
-   Source of truth: lsvn3d reference project
+   Source of truth: homepage branch + lsvn3d reference project
    Palette: stone white · amber gold · red-900 deep crimson
    ═══════════════════════════════════════════════════════════════════════════ */
 
@@ -12,7 +12,7 @@
   --color-brand-gold: #c5a059;
   --animate-spin-slow: spin 20s linear infinite;
 
-  /* Backward-compat CSS variables — mapped to lsvn3d stone/amber/red-900 palette */
+  /* Theme-aware CSS variables — mapped to lsvn3d stone/amber/red-900 palette */
   --bg-app: #fafaf9;
   --bg-surface: #f5f5f4;
   --bg-card: #ffffff;
@@ -21,10 +21,10 @@
   --text-muted: #78716c;
   --border: #e7e5e4;
   --border-strong: #d6d3d1;
-  --accent: #8b1e1e;
+  --accent: var(--color-brand-red);
   --accent-soft: #fef2f2;
   --accent-glow: rgba(139, 30, 30, 0.15);
-  --admin-accent: #c5a059;
+  --admin-accent: var(--color-brand-gold);
   --admin-accent-soft: rgba(197, 160, 89, 0.1);
   --success: #3D8361;
   --success-soft: rgba(61, 131, 97, 0.1);
@@ -40,7 +40,7 @@
   --input-text: #1c1917;
   --input-placeholder: #a8a29e;
   --input-icon: #a8a29e;
-  --input-focus: #8b1e1e;
+  --input-focus: var(--color-brand-red);
   --ease-museum: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1.0);
   --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
@@ -179,10 +179,10 @@
   to { transform: rotate(360deg); }
 }
 
-.animate-fade-in { animation: fadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-.animate-fade-in-up { animation: fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-.animate-slide-in-right { animation: slideInRight 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
-.animate-slide-in-left { animation: slideInLeft 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
+.animate-fade-in { animation: fadeIn 0.35s var(--ease-museum) forwards; }
+.animate-fade-in-up { animation: fadeInUp 0.5s var(--ease-museum) forwards; }
+.animate-slide-in-right { animation: slideInRight 0.4s var(--ease-museum); }
+.animate-slide-in-left { animation: slideInLeft 0.4s var(--ease-museum); }
 .animate-pulse-glow { animation: pulseGlow 2s ease-in-out infinite; }
 .animate-spin-slow { animation: spin 20s linear infinite; }
 

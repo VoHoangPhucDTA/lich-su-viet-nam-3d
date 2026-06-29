@@ -2,6 +2,7 @@ package com.lichsuvn.backend.auth.application;
 
 import com.lichsuvn.backend.auth.api.dto.AuthResponseDto;
 import com.lichsuvn.backend.auth.api.dto.AuthUserDto;
+import com.lichsuvn.backend.auth.api.dto.ChangePasswordRequest;
 import com.lichsuvn.backend.auth.api.dto.ForgotPasswordRequest;
 import com.lichsuvn.backend.auth.api.dto.LoginRequest;
 import com.lichsuvn.backend.auth.api.dto.RefreshRequest;
@@ -188,6 +189,10 @@ public class AuthService {
         if (user.getLockedUntil() != null && user.getLockedUntil().isAfter(now)) {
             throw new ApiException(HttpStatus.TOO_MANY_REQUESTS, "ACCOUNT_LOCKED", "Account is temporarily locked");
         }
+        if (UserStatus.DELETED.matches(user.getStatus())) {
+            throw new ApiException(HttpStatus.GONE, "ACCOUNT_DELETED",
+                    "Tài khoản này đã bị xoá vĩnh viễn.");
+        }
         if (!UserStatus.ACTIVE.matches(user.getStatus())) {
             throw new ApiException(HttpStatus.FORBIDDEN, "EMAIL_NOT_VERIFIED",
                     "Please verify your email before logging in");
@@ -298,6 +303,39 @@ public class AuthService {
         token.setUsedAt(Instant.now());
         // Bước 6C.1.18: AuthService.java: trả kết quả cho AuthController.java
         return new MessageDto("Đặt lại mật khẩu thành công. Vui lòng đăng nhập lại.");
+    }
+
+    @Transactional
+    public MessageDto deleteAccount(UserPrincipal principal) {
+        UserEntity user = userRepository.findById(principal.idBytes())
+                .filter(u -> UserStatus.ACTIVE.matches(u.getStatus()))
+                .orElseThrow(() -> new ApiException(HttpStatus.UNAUTHORIZED, "UNAUTHENTICATED",
+                        "Authentication required"));
+
+        user.setStatus(UserStatus.DELETED.value());
+        // Xoá avatar trên Cloudinary nếu có
+        if (StringUtils.hasText(user.getAvatarUrl())) {
+            cloudinaryService.deleteAvatar(user.getAvatarUrl());
+        }
+        log.info("Account deleted (soft): userId={}", UuidBytes.toString(user.getId()));
+        return new MessageDto("Tài khoản đã được xoá vĩnh viễn.");
+    }
+
+    @Transactional
+    public MessageDto changePassword(UserPrincipal principal, ChangePasswordRequest request) {
+        UserEntity user = userRepository.findById(principal.idBytes())
+                .filter(u -> UserStatus.ACTIVE.matches(u.getStatus()))
+                .orElseThrow(() -> new ApiException(HttpStatus.UNAUTHORIZED, "UNAUTHENTICATED",
+                        "Authentication required"));
+
+        if (!passwordEncoder.matches(request.oldPassword(), user.getPasswordHash())) {
+            throw new ApiException(HttpStatus.BAD_REQUEST, "INVALID_PASSWORD", "Mật khẩu hiện tại không đúng.");
+        }
+
+        passwordPolicy.validate(request.newPassword());
+        user.setPasswordHash(passwordEncoder.encode(request.newPassword()));
+        log.info("Password changed for userId={}", UuidBytes.toString(user.getId()));
+        return new MessageDto("Đổi mật khẩu thành công.");
     }
 
     private AuthResponseDto toAuthResponse(UserEntity user) {

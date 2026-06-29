@@ -1,96 +1,67 @@
 import type { RecommendationItem } from '../../data/mockLearningStats';
+import { ArrowRight, Clock, BookOpen, Coins, Landmark, Trophy } from 'lucide-react';
 
 const typeConfig = {
-  review:    { label: 'Ôn tập',     color: '#c29b4b', bg: 'rgba(194,155,75,0.15)',  border: 'rgba(194,155,75,0.24)' },
-  new:       { label: 'Mới',        color: '#2f7a57', bg: 'rgba(47,122,87,0.14)',   border: 'rgba(47,122,87,0.24)' },
-  challenge: { label: 'Thử thách',  color: '#4f6f95', bg: 'rgba(30,58,95,0.14)',    border: 'rgba(30,58,95,0.24)' },
+  review: { label: 'Ôn tập', color: '#c5a059' },
+  new: { label: 'Mới', color: '#3D8361' },
+  challenge: { label: 'Thử thách', color: '#8b1e1e' },
+};
+
+const recIcon: Record<string, React.ReactNode> = {
+  money: <Coins size={20} strokeWidth={1.5} />,
+  government: <Landmark size={20} strokeWidth={1.5} />,
+  trophy: <Trophy size={20} strokeWidth={1.5} />,
 };
 
 export default function RecommendationCard({ item }: { item: RecommendationItem }) {
   const cfg = typeConfig[item.type];
+
   return (
-    <div
+    <div className="group relative overflow-hidden rounded-xl transition-all duration-200 hover:shadow-sm hover:-translate-y-0.5"
       style={{
-        background: 'var(--bg-card)',
-        border: `1px solid var(--border)`,
+        background: '#fafaf9',
+        border: '1px solid #e7e5e4',
         borderLeft: `3px solid ${cfg.color}`,
-        borderRadius: '0.875rem',
-        padding: '1.125rem 1.25rem',
+        padding: '1rem 1.25rem',
         display: 'flex',
         gap: '1rem',
         alignItems: 'flex-start',
-        transition: 'transform 0.18s, box-shadow 0.18s',
-      }}
-      onMouseEnter={e => {
-        (e.currentTarget as HTMLDivElement).style.transform = 'translateY(-2px)';
-        (e.currentTarget as HTMLDivElement).style.boxShadow = 'var(--shadow)';
-      }}
-      onMouseLeave={e => {
-        (e.currentTarget as HTMLDivElement).style.transform = '';
-        (e.currentTarget as HTMLDivElement).style.boxShadow = '';
-      }}
-    >
-      <div
-        style={{
-          fontSize: '1.5rem',
-          width: '2.5rem',
-          height: '2.5rem',
-          borderRadius: '0.625rem',
-          background: cfg.bg,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          flexShrink: 0,
-        }}
-      >
-        {item.icon}
+      }}>
+      <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0"
+        style={{ background: `${cfg.color}10`, color: cfg.color, border: `1px solid ${cfg.color}18` }}>
+        {recIcon[item.icon] ?? <BookOpen size={20} strokeWidth={1.5} />}
       </div>
-      <div style={{ flex: 1, minWidth: 0 }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.25rem', flexWrap: 'wrap' }}>
-          <span style={{ fontSize: '0.875rem', fontWeight: 700, color: 'var(--text-primary)' }}>{item.title}</span>
-          <span
-            style={{
-              fontSize: '0.65rem',
-              fontWeight: 700,
-              padding: '1px 7px',
-              borderRadius: '9999px',
-              background: cfg.bg,
-              color: cfg.color,
-              border: `1px solid ${cfg.border}`,
-              letterSpacing: '0.04em',
-              textTransform: 'uppercase',
-            }}
-          >
+      <div className="flex-1 min-w-0">
+        <div className="flex items-center gap-2.5 mb-1 flex-wrap">
+          <h4 className="font-serif text-base font-bold text-stone-900">{item.title}</h4>
+          <span className="font-mono text-[9px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider"
+            style={{ background: `${cfg.color}10`, color: cfg.color, border: `1px solid ${cfg.color}18` }}>
             {cfg.label}
           </span>
         </div>
-        <p style={{ fontSize: '0.775rem', color: 'var(--text-muted)', marginBottom: '0.5rem', lineHeight: 1.5 }}>
-          {item.reason}
-        </p>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', flexWrap: 'wrap' }}>
-          <span style={{ fontSize: '0.72rem', color: 'var(--text-muted)', opacity: 0.8 }}>📚 {item.topic}</span>
-          <span style={{ fontSize: '0.72rem', color: 'var(--text-muted)', opacity: 0.8 }}>⏱ ~{item.estimatedMinutes} phút</span>
+        <p className="text-sm text-stone-500 leading-relaxed mb-2">{item.reason}</p>
+        <div className="flex items-center gap-4 text-xs text-stone-400">
+          <span className="flex items-center gap-1.5">
+            <BookOpen size={12} strokeWidth={1.5} />
+            {item.topic}
+          </span>
+          <span className="flex items-center gap-1.5">
+            <Clock size={12} strokeWidth={1.5} />
+            {item.estimatedMinutes} phút
+          </span>
         </div>
       </div>
-      <button
+      <button className="shrink-0 rounded-lg px-3.5 py-2 text-xs font-mono font-bold uppercase tracking-wider transition-all duration-200 flex items-center gap-1.5"
         style={{
-          padding: '0.4rem 0.875rem',
-          borderRadius: '0.5rem',
-          background: cfg.bg,
+          background: `${cfg.color}10`,
           color: cfg.color,
-          border: `1px solid ${cfg.border}`,
-          fontSize: '0.75rem',
-          fontWeight: 700,
-          cursor: 'pointer',
-          whiteSpace: 'nowrap',
-          flexShrink: 0,
-          transition: 'opacity 0.15s',
+          border: `1px solid ${cfg.color}18`,
           fontFamily: 'inherit',
         }}
-        onMouseEnter={e => (e.currentTarget.style.opacity = '0.7')}
-        onMouseLeave={e => (e.currentTarget.style.opacity = '1')}
-      >
+        onMouseEnter={e => (e.currentTarget.style.opacity = '0.75')}
+        onMouseLeave={e => (e.currentTarget.style.opacity = '1')}>
         Bắt đầu
+        <ArrowRight size={12} strokeWidth={2.5} />
       </button>
     </div>
   );

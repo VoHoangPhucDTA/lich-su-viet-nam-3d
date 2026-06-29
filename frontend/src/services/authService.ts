@@ -1,5 +1,6 @@
 import type {
   AuthResponse,
+  ChangePasswordRequest,
   LoginRequest,
   RegisterRequest,
   RegisterResponse,
@@ -130,4 +131,14 @@ export async function updateProfile(updates: UpdateProfileRequest): Promise<User
   const updatedUser = await apiPost<User>('/api/auth/me/update', updates);
   saveStoredUser(toStoredUser(updatedUser));
   return updatedUser;
+}
+
+export async function changePassword(req: ChangePasswordRequest): Promise<{ message: string }> {
+  return apiPost<{ message: string }>('/api/auth/change-password', req);
+}
+
+export async function deleteAccount(): Promise<{ message: string }> {
+  const result = await apiPost<{ message: string }>('/api/auth/delete-account');
+  clearStoredUser();
+  return result;
 }

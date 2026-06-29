@@ -2,6 +2,7 @@ package com.lichsuvn.backend.auth.api;
 
 import com.lichsuvn.backend.auth.api.dto.AuthResponseDto;
 import com.lichsuvn.backend.auth.api.dto.AuthUserDto;
+import com.lichsuvn.backend.auth.api.dto.ChangePasswordRequest;
 import com.lichsuvn.backend.auth.api.dto.ForgotPasswordRequest;
 import com.lichsuvn.backend.auth.api.dto.LoginRequest;
 import com.lichsuvn.backend.auth.api.dto.RegisterResponseDto;
@@ -218,6 +219,24 @@ public class AuthController {
         authRateLimiter.check(rateKey(servletRequest, "reset-password", ""));
         MessageDto result = authService.resetPassword(request);
         // Bước 6C.1.19: AuthController.java: trả HTTP 200 cho authService.ts
+        return ApiResponse.ok(result);
+    }
+
+    @PostMapping("/change-password")
+    public ApiResponse<MessageDto> changePassword(
+            @AuthenticationPrincipal UserPrincipal principal,
+            @Valid @RequestBody ChangePasswordRequest request
+    ) {
+        return ApiResponse.ok(authService.changePassword(principal, request));
+    }
+
+    @PostMapping("/delete-account")
+    public ApiResponse<MessageDto> deleteAccount(
+            @AuthenticationPrincipal UserPrincipal principal,
+            HttpServletResponse servletResponse
+    ) {
+        MessageDto result = authService.deleteAccount(principal);
+        clearAuthCookies(servletResponse);
         return ApiResponse.ok(result);
     }
 

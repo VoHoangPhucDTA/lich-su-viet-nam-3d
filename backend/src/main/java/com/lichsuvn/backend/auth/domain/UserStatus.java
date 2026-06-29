@@ -15,7 +15,10 @@ public enum UserStatus {
     ACTIVE("active"),
 
     /** Tài khoản bị vô hiệu hoá bởi admin. */
-    DISABLED("disabled");
+    DISABLED("disabled"),
+
+    /** Tài khoản đã bị xoá (soft delete) bởi người dùng. */
+    DELETED("deleted");
 
     private final String value;
 
