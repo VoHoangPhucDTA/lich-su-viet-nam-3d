@@ -11,20 +11,39 @@ import { getCentroidFromProvinceNames } from './vietnamProvinceCentroids';
 function toGeoType(geoType?: string): GeoType {
   switch (geoType) {
     case 'point':
-    case 'single_point':
-      return 'single_point';
     case 'multi_point':
-    case 'multi_region':
     case 'multi_polygon':
-    case 'polygon':
     case 'mixed':
-      return 'multi_region';
+    case 'single_point':
+    case 'multi_region':
+    case 'polygon':
     case 'nationwide':
-      return 'nationwide';
     case 'no_location':
+      return geoType;
     default:
       return 'no_location';
   }
+}
+
+type MapMarker = { lat: number; lng: number; label?: string };
+
+function toMarker(marker?: { lat: number; lng: number; label?: string; name?: string }): MapMarker | undefined {
+  if (!marker || !Number.isFinite(marker.lat) || !Number.isFinite(marker.lng)) return undefined;
+  const result: MapMarker = {
+    lat: marker.lat,
+    lng: marker.lng,
+  };
+  const label = marker.label ?? marker.name;
+  if (label) result.label = label;
+  return result;
+}
+
+function toMarkers(markers?: Array<{ lat: number; lng: number; label?: string; name?: string }>) {
+  if (!Array.isArray(markers)) return undefined;
+  const items = markers
+    .map(toMarker)
+    .filter((marker): marker is MapMarker => !!marker);
+  return items.length > 0 ? items : undefined;
 }
 
 function toEventType(value?: string): EventType {
@@ -166,13 +185,17 @@ export function rawToEventDetail(raw: RawEventJson): MockEventDetail {
           marker: rawDg.marker
             ? { coordinates: [rawDg.marker.lng, rawDg.marker.lat] }
             : undefined,
+          markers: toMarkers(rawDg.markers)?.map((marker) => ({
+            coordinates: [marker.lng, marker.lat],
+            label: marker.label,
+          })),
           provinceNames: rawDg.provinceNames,
           historicalLocations: rawDg.historicalLocations,
         },
-        focusGeometry: raw.mapData.focusGeometry?.center
+        focusGeometry: raw.mapData!.focusGeometry?.center
           ? {
-              center: [raw.mapData.focusGeometry.center.lng, raw.mapData.focusGeometry.center.lat],
-              zoom: raw.mapData.focusGeometry.zoom ?? 8,
+              center: [raw.mapData!.focusGeometry!.center!.lng, raw.mapData!.focusGeometry!.center!.lat],
+              zoom: raw.mapData!.focusGeometry!.zoom ?? 8,
             }
           : undefined,
       }
@@ -184,6 +207,10 @@ export function rawToEventDetail(raw: RawEventJson): MockEventDetail {
             marker: raw.mapData.marker
               ? { coordinates: [raw.mapData.marker.lng, raw.mapData.marker.lat] }
               : undefined,
+            markers: toMarkers(raw.mapData.markers)?.map((marker) => ({
+              coordinates: [marker.lng, marker.lat],
+              label: marker.label,
+            })),
             provinceNames: raw.mapData.provinceNames,
             historicalLocations: raw.mapData.historicalLocations,
           },
@@ -236,6 +263,7 @@ export function rawToHistoricalEvent(
     ? {
         geoType: raw.mapData!.geoType,
         marker: raw.mapData!.marker ?? undefined,
+        markers: raw.mapData!.markers ?? undefined,
         provinceNames: raw.mapData!.provinceNames,
         historicalLocations: raw.mapData!.historicalLocations,
       }
@@ -245,6 +273,7 @@ export function rawToHistoricalEvent(
   const startYear = raw.chronology?.start?.year ?? 0;
   const endYear = raw.chronology?.end?.year;
   const rawGeoType = toGeoType(dg?.geoType ?? raw.mapData?.geoType);
+  const markers = toMarkers(dg?.markers ?? (isNewMapFormat ? raw.mapData!.markers : undefined));
 
   // Coordinates: ưu tiên marker → focus center → fallback centroid của tỉnh đầu
   // tiên trong provinceNames. Fallback chỉ áp dụng cho event có gắn địa điểm
@@ -252,8 +281,11 @@ export function rawToHistoricalEvent(
   let coordinates: { lat: number; lng: number } | undefined;
   let resolvedGeoType: GeoType = rawGeoType;
   const resolvedMarker = dg?.marker ?? (isNewMapFormat ? raw.mapData!.marker : undefined);
-  if (resolvedMarker) {
-    coordinates = { lat: resolvedMarker.lat, lng: resolvedMarker.lng };
+  const marker = toMarker(resolvedMarker);
+  if (marker) {
+    coordinates = { lat: marker.lat, lng: marker.lng };
+  } else if (markers?.length) {
+    coordinates = { lat: markers[0].lat, lng: markers[0].lng };
   } else if (fg?.center) {
     coordinates = { lat: fg.center.lat, lng: fg.center.lng };
   } else if (rawGeoType !== 'no_location') {
@@ -263,7 +295,6 @@ export function rawToHistoricalEvent(
       coordinates = { lat: centroid.lat, lng: centroid.lng };
       // Đánh dấu là multi_region để CesiumMap zoom với altitude cao hơn (vì
       // marker này chỉ là centroid tỉnh, không phải vị trí chính xác)
-      if (rawGeoType === 'single_point') resolvedGeoType = 'multi_region';
     }
   }
 
@@ -283,6 +314,7 @@ export function rawToHistoricalEvent(
     eventSubtype: raw.classification?.eventSubtype,
     geoType: resolvedGeoType,
     coordinates,
+    markers,
     primaryRegions: dg?.provinceNames ?? (isNewMapFormat ? raw.mapData!.provinceNames : undefined),
     parentId: raw.hierarchy?.parentId ?? null,
     details:

@@ -22,6 +22,7 @@ export interface HistoricalEvent {
   eventSubtype?: string;
   geoType: GeoType;
   coordinates?: { lat: number; lng: number };
+  markers?: { lat: number; lng: number; label?: string }[];
   primaryRegions?: string[];
   secondaryRegions?: string[];
   parentId: string | null;
@@ -33,7 +34,16 @@ export interface HistoricalEvent {
 }
 
 export type EventType = 'military' | 'political' | 'economic' | 'cultural';
-export type GeoType = 'multi_region' | 'single_point' | 'nationwide' | 'no_location';
+export type GeoType =
+  | 'point'
+  | 'multi_point'
+  | 'multi_polygon'
+  | 'mixed'
+  | 'nationwide'
+  | 'no_location'
+  | 'single_point'
+  | 'multi_region'
+  | 'polygon';
 
 export const EVENT_TYPE_LABELS: Record<EventType, string> = {
   military: 'Quân sự',
@@ -64,6 +74,11 @@ export const EVENT_TYPE_COLORS: Record<EventType, string> = {
 };
 
 export const GEO_TYPE_LABELS: Record<GeoType, string> = {
+  point: 'Một điểm',
+  multi_point: 'Nhiều điểm',
+  multi_polygon: 'Nhiều vùng',
+  mixed: 'Hỗn hợp',
+  polygon: 'Một vùng',
   multi_region: 'Nhiều vùng',
   single_point: 'Một điểm',
   nationwide: 'Toàn quốc',
@@ -72,6 +87,11 @@ export const GEO_TYPE_LABELS: Record<GeoType, string> = {
 
 /** Lucide icon tương ứng với mỗi loại phạm vi địa lý của sự kiện. */
 export const GEO_TYPE_ICONS: Record<GeoType, LucideIcon> = {
+  point: MapPin,
+  multi_point: MapPinned,
+  multi_polygon: MapPinned,
+  mixed: MapPinned,
+  polygon: MapPinned,
   multi_region: MapPinned,
   single_point: MapPin,
   nationwide: MapIcon,

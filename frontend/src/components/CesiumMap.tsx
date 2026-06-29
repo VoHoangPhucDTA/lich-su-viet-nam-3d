@@ -36,6 +36,19 @@ const CESIUM_SAFE_MODE = false;
 let viewerInstance: Viewer | null = null;
 let viewerContainerEl: HTMLDivElement | null = null;
 
+function isRegionGeoType(geoType: HistoricalEvent['geoType']) {
+  return geoType === 'multi_region' || geoType === 'multi_polygon' || geoType === 'mixed' || geoType === 'polygon';
+}
+
+function isNationwideGeoType(geoType: HistoricalEvent['geoType']) {
+  return geoType === 'nationwide';
+}
+
+function getEventMarkers(event: HistoricalEvent) {
+  if (event.markers?.length) return event.markers;
+  return event.coordinates ? [{ ...event.coordinates, label: event.name }] : [];
+}
+
 interface CesiumMapProps {
   events: HistoricalEvent[];
   selectedEvent: HistoricalEvent | null;
@@ -252,10 +265,12 @@ export default function CesiumMap({
 
       eventsToRender.forEach((event) => {
         // Guard: skip no-location events
-        if (!event.coordinates || event.geoType === 'no_location') return;
+        if (event.geoType === 'no_location') return;
+        const markers = getEventMarkers(event);
+        if (markers.length === 0) return;
 
         // Guard: coordinates must be finite numbers
-        const { lat, lng } = event.coordinates;
+        const { lat, lng } = markers[0];
         if (!Number.isFinite(lat) || !Number.isFinite(lng)) {
           console.warn(
             `[CesiumMap] Skipping "${event.id}" — invalid coords:`,
@@ -270,7 +285,7 @@ export default function CesiumMap({
 
         try {
           const entity = ds.entities.add({
-            name: event.name,
+            name: markers[0].label ?? event.name,
             position: Cartesian3.fromDegrees(lng, lat),
             point: {
               pixelSize,
@@ -281,7 +296,7 @@ export default function CesiumMap({
               disableDepthTestDistance: Number.POSITIVE_INFINITY,
             },
             label: {
-              text: event.name,
+              text: markers[0].label ?? event.name,
               font: 'bold 14px Inter, sans-serif',
               fillColor: Color.WHITE,
               outlineColor: Color.fromCssColorString('#8b1e1e'),
@@ -302,6 +317,49 @@ export default function CesiumMap({
         } catch (e) {
           console.warn(`[CesiumMap] Failed to add entity for "${event.id}":`, e);
         }
+
+        markers.slice(1).forEach((marker, markerIndex) => {
+          const { lat, lng } = marker;
+          if (!Number.isFinite(lat) || !Number.isFinite(lng)) {
+            console.warn(`[CesiumMap] Skipping "${event.id}" marker - invalid coords:`, marker);
+            return;
+          }
+
+          try {
+            const entity = ds.entities.add({
+              name: marker.label ?? event.name,
+              position: Cartesian3.fromDegrees(lng, lat),
+              point: {
+                pixelSize,
+                color,
+                outlineColor: Color.WHITE,
+                outlineWidth: 2,
+                heightReference: HeightReference.CLAMP_TO_GROUND,
+                disableDepthTestDistance: Number.POSITIVE_INFINITY,
+              },
+              label: {
+                text: marker.label ?? event.name,
+                font: 'bold 14px Inter, sans-serif',
+                fillColor: Color.WHITE,
+                outlineColor: Color.fromCssColorString('#8b1e1e'),
+                outlineWidth: 3,
+                style: LabelStyle.FILL_AND_OUTLINE,
+                verticalOrigin: VerticalOrigin.BOTTOM,
+                pixelOffset: new Cartesian3(0, -22, 0) as any,
+                heightReference: HeightReference.CLAMP_TO_GROUND,
+                distanceDisplayCondition: new DistanceDisplayCondition(0, 2000000),
+                showBackground: true,
+                backgroundColor: Color.fromCssColorString('rgba(28, 25, 23, 0.9)'),
+                backgroundPadding: new Cartesian3(10, 6, 0) as any,
+              },
+            });
+
+            (entity as any).eventData = event;
+            entitiesMapRef.current.set(`${event.id}:${markerIndex + 1}`, entity);
+          } catch (e) {
+            console.warn(`[CesiumMap] Failed to add marker for "${event.id}":`, e);
+          }
+        });
       });
 
       viewer.dataSources.add(ds);
@@ -336,7 +394,7 @@ export default function CesiumMap({
       // Only highlight provinces for multi_region events
       const shouldHighlight =
         event &&
-        event.geoType === 'multi_region' &&
+        isRegionGeoType(event.geoType) &&
         event.primaryRegions &&
         event.primaryRegions.length > 0;
 
@@ -430,7 +488,7 @@ export default function CesiumMap({
 
     // multi_region: compute bounding box from GeoJSON province polygons
     if (
-      selectedEvent.geoType === 'multi_region' &&
+      isRegionGeoType(selectedEvent.geoType) &&
       selectedEvent.primaryRegions &&
       selectedEvent.primaryRegions.length > 1
     ) {
@@ -454,6 +512,37 @@ export default function CesiumMap({
     }
 
     // Có coordinates (kể cả centroid fallback) → flyTo trực tiếp
+    const selectedMarkers = getEventMarkers(selectedEvent);
+    if (selectedMarkers.length > 1) {
+      const validMarkers = selectedMarkers.filter(
+        (marker) => Number.isFinite(marker.lat) && Number.isFinite(marker.lng)
+      );
+      if (validMarkers.length > 1) {
+        const lats = validMarkers.map((marker) => marker.lat);
+        const lngs = validMarkers.map((marker) => marker.lng);
+        const bounds = Rectangle.fromDegrees(
+          Math.min(...lngs),
+          Math.min(...lats),
+          Math.max(...lngs),
+          Math.max(...lats)
+        );
+        try {
+          viewer.camera.flyTo({
+            destination: bounds,
+            orientation: {
+              heading: CesiumMath.toRadians(0),
+              pitch: CesiumMath.toRadians(-90),
+              roll: 0,
+            },
+            duration: 1.5,
+          });
+        } catch (e) {
+          console.warn('[CesiumMap] flyTo (marker bounds) error:', e);
+        }
+        return;
+      }
+    }
+
     if (selectedEvent.coordinates && selectedEvent.geoType !== 'no_location') {
       const { lat, lng } = selectedEvent.coordinates;
       if (!Number.isFinite(lat) || !Number.isFinite(lng)) return;
@@ -465,8 +554,8 @@ export default function CesiumMap({
       //  - nationwide                      → 1500km (toàn quốc)
       let altitude = 30000;
       if (hasChildren) altitude = 800000;
-      else if (selectedEvent.geoType === 'multi_region') altitude = 500000;
-      else if (selectedEvent.geoType === 'nationwide') altitude = 1500000;
+      else if (isRegionGeoType(selectedEvent.geoType)) altitude = 500000;
+      else if (isNationwideGeoType(selectedEvent.geoType)) altitude = 1500000;
 
       try {
         viewer.camera.flyTo({

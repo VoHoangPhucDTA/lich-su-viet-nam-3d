@@ -103,6 +103,27 @@ function attachCachedChildren(
   });
 }
 
+function hasMapGeometry(event: HistoricalEvent) {
+  return (
+    event.geoType !== 'no_location' &&
+    (event.coordinates || (event.markers?.length ?? 0) > 0)
+  );
+}
+
+function mergeSelectedMapEvent(
+  events: HistoricalEvent[],
+  selectedEvent: HistoricalEvent | null
+) {
+  if (!selectedEvent || !hasMapGeometry(selectedEvent)) return events;
+  let found = false;
+  const merged = events.map((event) => {
+    if (event.id !== selectedEvent.id) return event;
+    found = true;
+    return { ...event, ...selectedEvent };
+  });
+  return found ? merged : [...merged, selectedEvent];
+}
+
 export default function MapPage() {
   const [currentYear, setCurrentYear] = useState(TIMELINE_MIN_YEAR);
   const [selectedEvent, setSelectedEvent] = useState<HistoricalEvent | null>(
@@ -191,15 +212,13 @@ export default function MapPage() {
       selectedEvent.children.length > 0
     ) {
       return selectedEvent.children.filter(
-        (c) => c.geoType !== 'no_location' && c.coordinates
+        hasMapGeometry
       );
     }
 
     // Otherwise show events filtered by year from backend
     const baseEvents = searchQuery.trim() ? searchResults : yearEvents;
-    return baseEvents.filter(
-      (e) => e.geoType !== 'no_location' && e.coordinates
-    );
+    return mergeSelectedMapEvent(baseEvents.filter(hasMapGeometry), selectedEvent);
   }, [selectedEvent, yearEvents, searchResults, searchQuery]);
 
   // All events visible in sidebar (including no_location)

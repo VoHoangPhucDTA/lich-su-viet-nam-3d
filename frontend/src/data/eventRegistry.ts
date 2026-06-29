@@ -64,9 +64,15 @@ export interface RawEventJson {
     displayGeometry?: {
       geoType?: string;
       marker?: { lat: number; lng: number; label?: string };
+      markers?: Array<{ lat: number; lng: number; label?: string; name?: string }>;
       provinceNames?: string[];
       historicalLocations?: string[];
     };
+    geoType?: string;
+    marker?: { lat: number; lng: number; label?: string; name?: string };
+    markers?: Array<{ lat: number; lng: number; label?: string; name?: string }>;
+    provinceNames?: string[];
+    historicalLocations?: string[];
     focusGeometry?: {
       mode?: string;
       center?: { lat: number; lng: number };
@@ -110,12 +116,14 @@ export interface RawEventJson {
 
   display?: {
     showOnHomepage?: boolean;
+    showOnMap?: boolean;
     showOnTimeline?: boolean;
     featured?: boolean;
   };
 
   sourcePolicy?: {
     canonicalSource?: string;
+    primarySource?: string;
     /** JSON thật dùng dạng "wikipedia | wikidata" (string), không phải mảng */
     supplementalSources?: string;
   };

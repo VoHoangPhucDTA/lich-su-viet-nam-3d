@@ -44,6 +44,10 @@ export interface MockEventDetail {
         /** [lng, lat] để khớp với chuẩn GeoJSON đang dùng ở UI */
         coordinates: [number, number];
       };
+      markers?: {
+        coordinates: [number, number];
+        label?: string;
+      }[];
       provinceNames?: string[];
       historicalLocations?: string[];
     };
