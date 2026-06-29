@@ -78,7 +78,7 @@ function ProgressSidebar({
         border: '1px solid var(--border)',
       }}
     >
-      <div style={sectionLabel}>Phần I – Trắc nghiệm</div>
+      <div style={sectionLabel}>Phần I - Trắc nghiệm</div>
       <div
         style={{
           display: 'grid',
@@ -100,7 +100,7 @@ function ProgressSidebar({
         ))}
       </div>
 
-      <div style={sectionLabel}>Phần II – Đúng / Sai</div>
+      <div style={sectionLabel}>Phần II - Đúng/Sai</div>
       <div style={{ display: 'flex', gap: '0.35rem', marginBottom: '1.25rem' }}>
         {Array.from(
           { length: flatQuestions.length - mcqCount },
@@ -300,7 +300,7 @@ export default function ExamV2SessionPage() {
             flexShrink: 0,
           }}
         >
-          ← Đề thi
+          ← Danh sách đề
         </Link>
 
         <span
@@ -316,6 +316,21 @@ export default function ExamV2SessionPage() {
           title={exam.title}
         >
           {exam.title}
+        </span>
+
+        <span
+          style={{
+            padding: '0.25rem 0.65rem',
+            borderRadius: '999px',
+            background: 'var(--accent-soft)',
+            color: 'var(--accent)',
+            border: '1px solid var(--accent)',
+            fontSize: '0.75rem',
+            fontWeight: 800,
+            whiteSpace: 'nowrap',
+          }}
+        >
+          Thi thử 50 phút
         </span>
 
         <ExamTimer

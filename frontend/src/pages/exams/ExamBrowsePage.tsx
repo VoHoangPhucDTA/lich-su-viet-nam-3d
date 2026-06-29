@@ -1,8 +1,8 @@
 /**
- * ExamBrowsePage – Duyệt danh sách 38 đề thi THPT thật.
+ * Browse real THPT exam JSON files.
  * Route: /exams/browse
  */
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { listAllExams, listPublishedExams } from '@/lib/exam/manifestLoader';
 import type { ExamManifestEntry } from '@/types/exam';
@@ -12,24 +12,19 @@ function ExamCard({ entry }: { entry: ExamManifestEntry }) {
     entry.structuralPassed && entry.crossSourcePassed && !entry.hasContentSuspicion;
 
   return (
-    <div
+    <article
       style={{
         background: 'var(--bg-card)',
         border: '1px solid var(--border)',
-        borderRadius: '1.25rem',
-        padding: '1.5rem',
-        display: 'flex',
+        borderRadius: '1rem',
+        padding: '1.25rem',
+        display: 'grid',
+        gridTemplateColumns: 'auto minmax(0, 1fr) auto',
         gap: '1.25rem',
-        alignItems: 'flex-start',
+        alignItems: 'start',
         boxShadow: 'var(--shadow)',
-        transition: 'transform 0.2s cubic-bezier(0.4,0,0.2,1)',
       }}
-      onMouseEnter={(e) =>
-        (e.currentTarget.style.transform = 'translateY(-2px)')
-      }
-      onMouseLeave={(e) => (e.currentTarget.style.transform = 'translateY(0)')}
     >
-      {/* Year badge */}
       <div
         style={{
           minWidth: '3.5rem',
@@ -40,110 +35,84 @@ function ExamCard({ entry }: { entry: ExamManifestEntry }) {
           border: '1px solid var(--accent)',
         }}
       >
-        <div
-          style={{
-            fontSize: '1.4rem',
-            fontWeight: 800,
-            color: 'var(--accent)',
-            lineHeight: 1,
-          }}
-        >
+        <div style={{ fontSize: '1.4rem', fontWeight: 800, color: 'var(--accent)', lineHeight: 1 }}>
           {entry.year}
         </div>
-        <div
-          style={{ fontSize: '0.6rem', color: 'var(--text-muted)', marginTop: '0.25rem' }}
-        >
+        <div style={{ fontSize: '0.6rem', color: 'var(--text-muted)', marginTop: '0.25rem' }}>
           THPT
         </div>
       </div>
 
-      {/* Main info */}
-      <div style={{ flex: 1, minWidth: 0 }}>
-        <h3
+      <div style={{ minWidth: 0 }}>
+        <h2
           style={{
             margin: '0 0 0.5rem',
-            fontSize: '0.95rem',
-            fontWeight: 700,
+            fontSize: '1rem',
+            fontWeight: 800,
             color: 'var(--text-primary)',
-            overflow: 'hidden',
-            textOverflow: 'ellipsis',
-            whiteSpace: 'nowrap',
+            lineHeight: 1.45,
           }}
           title={entry.title}
         >
           {entry.title}
-        </h3>
-        <Link
-          to={`/exams/luyen-tap/${entry.examId}`}
-          style={{
-            display: 'inline-flex',
-            marginBottom: '0.55rem',
-            padding: '0.42rem 0.75rem',
-            background: 'var(--bg-surface)',
-            color: 'var(--text-primary)',
-            border: '1px solid var(--border)',
-            borderRadius: '0.65rem',
-            textDecoration: 'none',
-            fontSize: '0.78rem',
-            fontWeight: 700,
-          }}
-        >
-          Luyện tập tự do
-        </Link>
-        <div
-          style={{
-            fontSize: '0.8rem',
-            color: 'var(--text-muted)',
-            marginBottom: '0.5rem',
-          }}
-        >
-          {entry.mcqCount} MCQ · {entry.tfCount} T/F ·{' '}
-          {entry.timeLimitMinutes} phút · {entry.totalScore} điểm
+        </h2>
+        <div style={{ fontSize: '0.82rem', color: 'var(--text-muted)', marginBottom: '0.65rem' }}>
+          {entry.mcqCount} MCQ · {entry.tfCount} Đúng/Sai · {entry.timeLimitMinutes} phút · {entry.totalScore} điểm
         </div>
         <span
           style={{
             display: 'inline-flex',
             alignItems: 'center',
             gap: '0.3rem',
-            padding: '0.15rem 0.55rem',
+            padding: '0.18rem 0.6rem',
             borderRadius: '9999px',
             fontSize: '0.72rem',
-            fontWeight: 600,
-            background: verified
-              ? 'rgba(47,122,87,0.12)'
-              : 'rgba(194,155,75,0.14)',
+            fontWeight: 700,
+            background: verified ? 'rgba(47,122,87,0.12)' : 'rgba(194,155,75,0.14)',
             color: verified ? 'var(--success)' : 'var(--warning)',
             border: `1px solid ${verified ? 'var(--success)' : 'var(--warning)'}`,
           }}
         >
-          {verified ? '✓ Đã xác minh' : '⚠ Có cảnh báo'}
+          {verified ? 'Đã xác minh' : 'Có cảnh báo'}
         </span>
       </div>
 
-      {/* CTA */}
-      <Link
-        to={`/exams/de/${entry.examId}`}
-        style={{
-          flexShrink: 0,
-          padding: '0.6rem 1.25rem',
-          background: 'var(--accent)',
-          color: '#fff',
-          borderRadius: '0.75rem',
-          textDecoration: 'none',
-          fontSize: '0.85rem',
-          fontWeight: 600,
-          whiteSpace: 'nowrap',
-          alignSelf: 'center',
-          transition: 'filter 0.15s',
-        }}
-        onMouseEnter={(e) =>
-          (e.currentTarget.style.filter = 'brightness(1.12)')
-        }
-        onMouseLeave={(e) => (e.currentTarget.style.filter = 'none')}
-      >
-        Bắt đầu thi →
-      </Link>
-    </div>
+      <div style={{ display: 'grid', gap: '0.55rem', minWidth: '10rem' }}>
+        <Link
+          to={`/exams/de/${entry.examId}`}
+          style={{
+            padding: '0.62rem 1rem',
+            background: 'var(--accent)',
+            color: '#fff',
+            borderRadius: '0.75rem',
+            textDecoration: 'none',
+            fontSize: '0.85rem',
+            fontWeight: 800,
+            whiteSpace: 'nowrap',
+            textAlign: 'center',
+          }}
+        >
+          Thi thử
+        </Link>
+        <Link
+          to={`/exams/luyen-tap/${entry.examId}`}
+          style={{
+            padding: '0.62rem 1rem',
+            background: 'var(--bg-surface)',
+            color: 'var(--text-primary)',
+            border: '1px solid var(--border)',
+            borderRadius: '0.75rem',
+            textDecoration: 'none',
+            fontSize: '0.85rem',
+            fontWeight: 800,
+            whiteSpace: 'nowrap',
+            textAlign: 'center',
+          }}
+        >
+          Luyện tập tự do
+        </Link>
+      </div>
+    </article>
   );
 }
 
@@ -161,38 +130,27 @@ export default function ExamBrowsePage() {
         setAllExams(all);
         setPublishedExams(published);
       })
-      .catch((e: unknown) =>
-        setError(e instanceof Error ? e.message : 'Lỗi tải danh sách đề')
+      .catch((err: unknown) =>
+        setError(err instanceof Error ? err.message : 'Không tải được danh sách đề thi.')
       )
       .finally(() => setLoading(false));
   }, []);
 
   const activeManifest = showAllExams ? allExams : publishedExams;
-
   const years = activeManifest
-    ? [...new Set(activeManifest.map((e) => e.year))].sort((a, b) => b - a)
+    ? [...new Set(activeManifest.map((entry) => entry.year))].sort((a, b) => b - a)
     : [];
-
   const filtered = activeManifest
     ? (filterYear !== null
-        ? activeManifest.filter((e) => e.year === filterYear)
+        ? activeManifest.filter((entry) => entry.year === filterYear)
         : activeManifest
       ).slice().sort((a, b) => b.year - a.year || a.title.localeCompare(b.title, 'vi'))
     : [];
 
   return (
-    <div
-      style={{
-        minHeight: '100vh',
-        background: 'var(--bg-app)',
-        color: 'var(--text-primary)',
-      }}
-    >
-      <div
-        style={{ maxWidth: '64rem', margin: '0 auto', padding: '2.5rem 1.5rem' }}
-      >
-        {/* Header */}
-        <div style={{ marginBottom: '2rem' }}>
+    <div style={{ minHeight: '100vh', background: 'var(--bg-app)', color: 'var(--text-primary)' }}>
+      <div style={{ maxWidth: '64rem', margin: '0 auto', padding: '2.5rem 1.5rem' }}>
+        <header style={{ marginBottom: '2rem' }}>
           <Link
             to="/exams"
             style={{
@@ -207,23 +165,53 @@ export default function ExamBrowsePage() {
           >
             ← Luyện thi
           </Link>
-          <h1
-            style={{
-              fontSize: '1.75rem',
-              fontWeight: 800,
-              margin: '0 0 0.5rem',
-              color: 'var(--text-primary)',
-            }}
-          >
+          <h1 style={{ fontSize: '1.75rem', fontWeight: 900, margin: '0 0 0.5rem', color: 'var(--text-primary)' }}>
             Ngân hàng đề thi THPT
           </h1>
-          <p style={{ margin: 0, color: 'var(--text-muted)', fontSize: '0.9rem' }}>
-            {activeManifest ? `${activeManifest.length} đề thi` : '—'} · Lịch sử Việt Nam &
-            Thế giới · Cấu trúc chuẩn THPT 2025
+          <p style={{ margin: 0, color: 'var(--text-muted)', fontSize: '0.9rem', lineHeight: 1.6 }}>
+            {activeManifest ? `${activeManifest.length} đề thi` : 'Đang tải'} · Lịch sử Việt Nam và thế giới · Cấu trúc chuẩn THPT 2025
           </p>
-        </div>
+        </header>
 
-        {/* Publish filter toggle */}
+        <section
+          style={{
+            marginBottom: '1rem',
+            padding: '1rem 1.1rem',
+            background: 'var(--bg-card)',
+            border: '1px solid var(--border)',
+            borderRadius: '1rem',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            gap: '1rem',
+            flexWrap: 'wrap',
+          }}
+        >
+          <div>
+            <h2 style={{ margin: '0 0 0.3rem', fontSize: '1rem', fontWeight: 900, color: 'var(--text-primary)' }}>
+              Ôn theo chủ đề
+            </h2>
+            <p style={{ margin: 0, color: 'var(--text-muted)', fontSize: '0.86rem', lineHeight: 1.55 }}>
+              Luyện câu hỏi theo từng mảng kiến thức và giai đoạn lịch sử.
+            </p>
+          </div>
+          <Link
+            to="/exams/on-chu-de"
+            style={{
+              padding: '0.68rem 1rem',
+              background: 'var(--accent)',
+              color: '#fff',
+              borderRadius: '0.75rem',
+              textDecoration: 'none',
+              fontWeight: 800,
+              fontSize: '0.9rem',
+              whiteSpace: 'nowrap',
+            }}
+          >
+            Khám phá chủ đề
+          </Link>
+        </section>
+
         {allExams && publishedExams && (
           <div
             style={{
@@ -239,7 +227,7 @@ export default function ExamBrowsePage() {
               borderRadius: '0.875rem',
             }}
           >
-            <div style={{ fontSize: '0.82rem', color: 'var(--text-muted)' }}>
+            <div style={{ fontSize: '0.82rem', color: 'var(--text-muted)', lineHeight: 1.55 }}>
               Mặc định hiển thị {publishedExams.length} đề đã xác minh.
               {allExams.length > publishedExams.length
                 ? ` Còn ${allExams.length - publishedExams.length} đề có cảnh báo.`
@@ -248,14 +236,14 @@ export default function ExamBrowsePage() {
             <button
               type="button"
               onClick={() => {
-                setShowAllExams((v) => !v);
+                setShowAllExams((value) => !value);
                 setFilterYear(null);
               }}
               style={{
-                padding: '0.4rem 0.85rem',
+                padding: '0.45rem 0.9rem',
                 borderRadius: '9999px',
                 fontSize: '0.8rem',
-                fontWeight: 700,
+                fontWeight: 800,
                 cursor: 'pointer',
                 border: '1.5px solid var(--accent)',
                 background: showAllExams ? 'var(--accent-soft)' : 'var(--bg-surface)',
@@ -268,63 +256,33 @@ export default function ExamBrowsePage() {
           </div>
         )}
 
-        {/* Year filter chips */}
         {years.length > 0 && (
-          <div
-            style={{
-              display: 'flex',
-              gap: '0.5rem',
-              flexWrap: 'wrap',
-              marginBottom: '1.75rem',
-            }}
-          >
-            {[null, ...years].map((y) => (
+          <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginBottom: '1.75rem' }}>
+            {[null, ...years].map((year) => (
               <button
-                key={y ?? 'all'}
-                onClick={() => setFilterYear(y)}
+                key={year ?? 'all'}
+                type="button"
+                onClick={() => setFilterYear(year)}
                 style={{
                   padding: '0.35rem 0.9rem',
                   borderRadius: '9999px',
                   fontSize: '0.825rem',
-                  fontWeight: 600,
+                  fontWeight: 700,
                   cursor: 'pointer',
                   border: '1.5px solid',
-                  borderColor:
-                    filterYear === y ? 'var(--accent)' : 'var(--border)',
-                  background:
-                    filterYear === y ? 'var(--accent-soft)' : 'var(--bg-surface)',
-                  color:
-                    filterYear === y ? 'var(--accent)' : 'var(--text-secondary)',
-                  transition: 'all 0.15s',
+                  borderColor: filterYear === year ? 'var(--accent)' : 'var(--border)',
+                  background: filterYear === year ? 'var(--accent-soft)' : 'var(--bg-surface)',
+                  color: filterYear === year ? 'var(--accent)' : 'var(--text-secondary)',
                 }}
               >
-                {y === null ? 'Tất cả' : y}
+                {year === null ? 'Tất cả' : year}
               </button>
             ))}
           </div>
         )}
 
-        {/* Content */}
         {loading && (
-          <div
-            style={{
-              padding: '5rem',
-              textAlign: 'center',
-              color: 'var(--text-muted)',
-            }}
-          >
-            <div
-              style={{
-                width: '2rem',
-                height: '2rem',
-                border: '3px solid var(--accent-soft)',
-                borderTopColor: 'var(--accent)',
-                borderRadius: '50%',
-                animation: 'spin 1s linear infinite',
-                margin: '0 auto 1rem',
-              }}
-            />
-            <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
+          <div style={{ padding: '5rem', textAlign: 'center', color: 'var(--text-muted)' }}>
             Đang tải danh sách đề thi...
           </div>
         )}
@@ -344,21 +302,13 @@ export default function ExamBrowsePage() {
         )}
 
         {!loading && !error && (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+          <div style={{ display: 'grid', gap: '1rem' }}>
             {filtered.length === 0 ? (
-              <div
-                style={{
-                  padding: '4rem',
-                  textAlign: 'center',
-                  color: 'var(--text-muted)',
-                }}
-              >
-                Không có đề nào
+              <div style={{ padding: '4rem', textAlign: 'center', color: 'var(--text-muted)' }}>
+                Không có đề nào phù hợp.
               </div>
             ) : (
-              filtered.map((entry) => (
-                <ExamCard key={entry.examId} entry={entry} />
-              ))
+              filtered.map((entry) => <ExamCard key={entry.examId} entry={entry} />)
             )}
           </div>
         )}

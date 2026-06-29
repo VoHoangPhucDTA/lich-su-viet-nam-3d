@@ -51,6 +51,8 @@ import ExamV2ResultPage from './pages/exams/ExamV2ResultPage';
 import ExamV2HistoryPage from './pages/exams/ExamV2HistoryPage';
 import ExamRetryWrongPage from './pages/exams/ExamRetryWrongPage';
 import ExamPracticePage from './pages/exams/ExamPracticePage';
+import ExamTopicListPage from './pages/exams/ExamTopicListPage';
+import ExamTopicPracticePage from './pages/exams/ExamTopicPracticePage';
 
 function AppContent() {
   const location = useLocation();
@@ -93,6 +95,8 @@ function AppContent() {
           <Route path="/exams/browse" element={<ExamBrowsePage />} />
           <Route path="/exams/de/:examId" element={<ExamV2SessionPage />} />
           <Route path="/exams/luyen-tap/:examId" element={<ExamPracticePage />} />
+          <Route path="/exams/on-chu-de" element={<ExamTopicListPage />} />
+          <Route path="/exams/on-chu-de/:topicSlug" element={<ExamTopicPracticePage />} />
           <Route path="/exams/ket-qua/:sessionId" element={<ExamV2ResultPage />} />
           <Route path="/exams/on-lai/:sessionId" element={<ExamRetryWrongPage />} />
           <Route path="/exams/lich-su" element={<ExamV2HistoryPage />} />
