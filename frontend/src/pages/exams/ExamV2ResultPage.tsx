@@ -4,14 +4,14 @@
  */
 import { useEffect, useMemo, useState, type ReactNode } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { formatCognitiveLevelLabel, formatDifficultyLabel } from '@/lib/exam/displayLabels';
+import { formatCognitiveLevelLabel, formatDifficultyLabel, formatQuestionTypeLabel } from '@/lib/exam/displayLabels';
 import { formatExamTitle } from '@/lib/exam/examDisplay';
 import { loadExam } from '@/lib/exam/examLoader';
 import { rateScore, scoreToPercent } from '@/lib/exam/scoring';
 import { loadTopicIndex } from '@/lib/exam/topicIndexLoader';
 import { findSummaryBySlug, slugifyTopic } from '@/lib/exam/topicGrouping';
 import { readResultFromLS } from '@/lib/exam/useSessionV2';
-import { analyzeWeaknesses, type WeaknessAnalysis, type WeaknessBucket } from '@/lib/exam/weaknessAnalysis';
+import { analyzeWeaknesses, analyzeWeaknessesFromQuestions, type WeaknessAnalysis, type WeaknessBucket } from '@/lib/exam/weaknessAnalysis';
 import {
   flattenExamQuestions,
   isMCQQuestion,
@@ -134,7 +134,7 @@ function ScoreCard({ result }: { result: ExamResultV2 }) {
       }}
     >
       <div style={{ fontSize: '0.75rem', fontWeight: 800, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: '0.75rem' }}>
-        Tổng điểm
+        {result.isCustom ? 'Điểm quy đổi thang 10' : 'Tổng điểm'}
       </div>
       <div style={{ fontSize: '4rem', fontWeight: 900, color, lineHeight: 1, marginBottom: '0.5rem' }}>
         {result.totalScore.toFixed(2)}
@@ -159,6 +159,32 @@ function ScoreCard({ result }: { result: ExamResultV2 }) {
         <Stat label="Bỏ trống" value={`${blank}`} color="var(--text-muted)" />
       </div>
     </div>
+  );
+}
+
+function formatConfigDuration(seconds: number | null | undefined): string {
+  if (!seconds || seconds <= 0) return 'Không giới hạn';
+  const minutes = Math.round(seconds / 60);
+  return `${minutes} phút`;
+}
+
+function CustomConfigCard({ result }: { result: ExamResultV2 }) {
+  if (!result.isCustom || !result.config) return null;
+  const config = result.config;
+  const scope = config.scopeTitle || (config.scopeType === 'all' ? 'Tất cả chủ đề và giai đoạn' : 'Chưa phân loại');
+
+  return (
+    <section style={{ background: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: '1rem', padding: '1.25rem', display: 'grid', gap: '0.85rem' }}>
+      <h2 style={{ margin: 0, fontSize: '1.05rem', fontWeight: 900, color: 'var(--text-primary)' }}>Cấu hình đề tùy chọn</h2>
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.55rem' }}>
+        <Chip>{config.questionCount} câu</Chip>
+        <Chip>{formatQuestionTypeLabel(config.questionType)}</Chip>
+        <Chip>{formatDifficultyLabel(config.difficulty)}</Chip>
+        <Chip>{formatCognitiveLevelLabel(config.cognitiveLevel)}</Chip>
+        <Chip>{scope}</Chip>
+        <Chip>{formatConfigDuration(config.durationSeconds)}</Chip>
+      </div>
+    </section>
   );
 }
 
@@ -471,7 +497,8 @@ function TFStatementRow({ statement, result }: { statement: TFStatement; result:
 
 function TFReviewCard({ question, result, index }: { question: TFQuestion; result: QuestionResult; index: number }) {
   const correctCount = result.tf?.correctCount ?? 0;
-  const statusTone = correctCount === 4 ? 'success' : result.pointsEarned > 0 ? 'warning' : 'danger';
+  const statementCount = question.statements.length || 4;
+  const statusTone = correctCount === statementCount ? 'success' : result.pointsEarned > 0 ? 'warning' : 'danger';
 
   return (
     <article style={{ background: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: '1rem', padding: '1.25rem' }}>
@@ -482,7 +509,7 @@ function TFReviewCard({ question, result, index }: { question: TFQuestion; resul
         <div style={{ flex: 1 }}>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', marginBottom: '0.65rem' }}>
             <Chip>Đúng/Sai</Chip>
-            <Chip tone={statusTone}>{correctCount}/4 ý đúng</Chip>
+            <Chip tone={statusTone}>{correctCount}/{statementCount} ý đúng</Chip>
             <Chip>{formatPoints(result.pointsEarned)}</Chip>
           </div>
           <h3 style={{ margin: 0, color: 'var(--text-primary)', fontSize: '1rem', lineHeight: 1.55 }}>{question.questionText}</h3>
@@ -531,6 +558,9 @@ function EmptyState({ title, message }: { title: string; message: string }) {
         <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap', justifyContent: 'center' }}>
           <Link to="/exams/browse" style={{ padding: '0.75rem 1.25rem', background: 'var(--accent)', color: '#fff', borderRadius: '0.75rem', textDecoration: 'none', fontWeight: 700 }}>
             Xem danh sách đề
+          </Link>
+          <Link to="/exams/tao-de" style={{ padding: '0.75rem 1.25rem', background: 'var(--bg-surface)', color: 'var(--text-primary)', border: '1px solid var(--border)', borderRadius: '0.75rem', textDecoration: 'none', fontWeight: 700 }}>
+            Tạo đề tùy chọn mới
           </Link>
           <Link to="/exams/lich-su" style={{ padding: '0.75rem 1.25rem', background: 'var(--bg-surface)', color: 'var(--text-primary)', border: '1px solid var(--border)', borderRadius: '0.75rem', textDecoration: 'none', fontWeight: 700 }}>
             Xem lịch sử
@@ -584,6 +614,11 @@ export default function ExamV2ResultPage() {
       if (!alive) return;
       setResult(storedResult);
 
+      if (storedResult.isCustom && storedResult.questionSnapshots?.length) {
+        setLoading(false);
+        return;
+      }
+
       if (!storedResult.examId) {
         setLoading(false);
         setError('Kết quả này được lưu từ phiên bản cũ và thiếu mã đề, nên chưa thể hiển thị review chi tiết.');
@@ -611,12 +646,19 @@ export default function ExamV2ResultPage() {
   }, [sessionId]);
 
   const questionMap = useMemo(() => {
+    if (result?.isCustom && result.questionSnapshots?.length) {
+      return new Map(result.questionSnapshots.map((question) => [question.id, question as Question]));
+    }
     if (!exam) return new Map<string, Question>();
     return new Map(flattenExamQuestions(exam).map((question) => [question.id, question]));
-  }, [exam]);
+  }, [exam, result]);
 
   const weaknessAnalysis = useMemo(() => {
-    if (!result || !exam) return null;
+    if (!result) return null;
+    if (result.isCustom && result.questionSnapshots?.length) {
+      return analyzeWeaknessesFromQuestions(result, result.questionSnapshots);
+    }
+    if (!exam) return null;
     return analyzeWeaknesses(result, exam);
   }, [result, exam]);
 
@@ -671,7 +713,11 @@ export default function ExamV2ResultPage() {
 
         <div>
           <h1 style={{ margin: 0, fontSize: '1.6rem', fontWeight: 900 }}>Kết quả luyện thi</h1>
-          {exam && <p style={{ margin: '0.45rem 0 0', color: 'var(--text-muted)', lineHeight: 1.5 }}>{formatExamTitle(exam)}</p>}
+          {(exam || result.isCustom) && (
+            <p style={{ margin: '0.45rem 0 0', color: 'var(--text-muted)', lineHeight: 1.5 }}>
+              {result.isCustom ? result.title ?? 'Thi thử tùy chọn' : exam ? formatExamTitle(exam) : ''}
+            </p>
+          )}
         </div>
 
         {error && (
@@ -682,6 +728,7 @@ export default function ExamV2ResultPage() {
         )}
 
         <ScoreCard result={result} />
+        <CustomConfigCard result={result} />
         <div style={{ display: 'grid', gap: '1rem', gridTemplateColumns: 'repeat(auto-fit, minmax(18rem, 1fr))' }}>
           <MCQBreakdown result={result} />
           <TFBreakdown result={result} />
@@ -691,7 +738,15 @@ export default function ExamV2ResultPage() {
 
         <section style={{ background: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: '1rem', padding: '1.25rem', display: 'grid', gap: '0.9rem' }}>
           <h2 style={{ margin: 0, fontSize: '1.05rem', fontWeight: 900, color: 'var(--text-primary)' }}>Tiếp tục luyện tập</h2>
-          {needsRetry(result) ? (
+          {result.isCustom && questionMap.size > 0 && needsRetry(result) ? (
+            <p style={{ margin: 0, color: 'var(--text-muted)', lineHeight: 1.6 }}>
+              Ôn lại các câu sai hoặc bỏ trống trong bài tùy chọn này để củng cố ngay phần còn thiếu.
+            </p>
+          ) : result.isCustom ? (
+            <p style={{ margin: 0, color: 'var(--text-muted)', lineHeight: 1.6 }}>
+              Bạn đã làm rất tốt bài tùy chọn này. Có thể xem review chi tiết bên dưới hoặc tạo một đề tùy chọn khác để luyện tiếp.
+            </p>
+          ) : needsRetry(result) ? (
             <p style={{ margin: 0, color: 'var(--text-muted)', lineHeight: 1.6 }}>
               Ôn lại các câu sai hoặc bỏ trống trong bài này để củng cố ngay phần còn thiếu.
             </p>
@@ -701,19 +756,24 @@ export default function ExamV2ResultPage() {
             </p>
           )}
           <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
-            {needsRetry(result) && (
+            {questionMap.size > 0 && needsRetry(result) && (
               <Link to={`/exams/on-lai/${result.sessionId}`} style={{ padding: '0.75rem 1.5rem', background: 'var(--accent)', color: '#fff', borderRadius: '0.875rem', textDecoration: 'none', fontWeight: 800, fontSize: '0.9rem' }}>
                 Ôn lại câu sai
               </Link>
             )}
             {weakestTopicSlug && (
-              <Link to={`/exams/on-chu-de/${weakestTopicSlug}`} style={{ padding: '0.75rem 1.5rem', background: needsRetry(result) ? 'var(--bg-surface)' : 'var(--accent)', color: needsRetry(result) ? 'var(--text-primary)' : '#fff', border: needsRetry(result) ? '1px solid var(--border)' : '1px solid var(--accent)', borderRadius: '0.875rem', textDecoration: 'none', fontWeight: 800, fontSize: '0.9rem' }}>
+              <Link to={`/exams/on-chu-de/${weakestTopicSlug}`} style={{ padding: '0.75rem 1.5rem', background: !result.isCustom && needsRetry(result) ? 'var(--bg-surface)' : 'var(--accent)', color: !result.isCustom && needsRetry(result) ? 'var(--text-primary)' : '#fff', border: !result.isCustom && needsRetry(result) ? '1px solid var(--border)' : '1px solid var(--accent)', borderRadius: '0.875rem', textDecoration: 'none', fontWeight: 800, fontSize: '0.9rem' }}>
                 Ôn chủ đề yếu
               </Link>
             )}
             <Link to="/exams/browse" style={{ padding: '0.75rem 1.5rem', background: 'var(--bg-surface)', color: 'var(--text-primary)', border: '1px solid var(--border)', borderRadius: '0.875rem', textDecoration: 'none', fontWeight: 700, fontSize: '0.9rem' }}>
               Làm đề thi thử khác
             </Link>
+            {result.isCustom && (
+              <Link to="/exams/tao-de" style={{ padding: '0.75rem 1.5rem', background: 'var(--bg-surface)', color: 'var(--text-primary)', border: '1px solid var(--border)', borderRadius: '0.875rem', textDecoration: 'none', fontWeight: 700, fontSize: '0.9rem' }}>
+                Tạo đề tùy chọn mới
+              </Link>
+            )}
             <Link to="/exams/lich-su" style={{ padding: '0.75rem 1.5rem', background: 'var(--bg-surface)', color: 'var(--text-primary)', border: '1px solid var(--border)', borderRadius: '0.875rem', textDecoration: 'none', fontWeight: 700, fontSize: '0.9rem' }}>
               Về lịch sử luyện thi
             </Link>
@@ -727,7 +787,7 @@ export default function ExamV2ResultPage() {
             <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>{result.questions.length} câu</span>
           </header>
 
-          {exam ? (
+          {questionMap.size > 0 ? (
             result.questions.map((questionResult, index) => (
               <ReviewCard
                 key={`${questionResult.questionId}-${index}`}

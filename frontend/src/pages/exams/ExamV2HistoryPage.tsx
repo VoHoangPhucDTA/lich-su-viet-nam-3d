@@ -48,6 +48,16 @@ function shortExamId(examId?: string): string {
   return `${examId.slice(0, 69)}...`;
 }
 
+function formatCustomSubtitle(result: ExamResultV2): string {
+  const config = result.config;
+  const parts = [
+    `${result.totalQuestions ?? result.questions?.length ?? config?.questionCount ?? 0} câu`,
+    config?.durationSeconds ? `${Math.round(config.durationSeconds / 60)} phút` : 'Không giới hạn thời gian',
+    config?.scopeTitle,
+  ].filter(Boolean);
+  return parts.join(' · ') || 'Đề tùy chọn';
+}
+
 function buildMetaMap(manifest: ExamManifestEntry[]): Map<string, ExamManifestEntry> {
   return new Map(manifest.map((entry) => [entry.examId, entry]));
 }
@@ -72,10 +82,12 @@ function SummaryStat({ label, value, color }: { label: string; value: string; co
 function HistoryRow({ result, meta }: { result: ExamResultV2; meta?: ExamManifestEntry }) {
   const rating = rateScore(result.totalScore);
   const color = RATING_COLOR[rating];
-  const title = meta?.title ?? shortExamId(result.examId);
+  const title = result.isCustom ? result.title ?? 'Thi thử tùy chọn' : meta?.title ?? shortExamId(result.examId);
   const subtitle = meta
     ? [meta.sourceDetail, meta.year].filter(Boolean).join(' · ')
-    : result.examId
+    : result.isCustom
+      ? formatCustomSubtitle(result)
+      : result.examId
       ? 'Không tìm thấy metadata trong manifest'
       : 'Không có mã đề trong kết quả';
 

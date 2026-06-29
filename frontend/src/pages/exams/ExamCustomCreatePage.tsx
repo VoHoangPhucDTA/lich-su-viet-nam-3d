@@ -237,10 +237,10 @@ export default function ExamCustomCreatePage() {
         : 'Tất cả chủ đề và giai đoạn';
 
   const hasNotEnoughQuestions = preview.matchedCount < questionCount;
-  const canStartPractice = practiceMode === 'practice' && preview.matchedCount > 0 && !loading && !isStarting;
+  const canStartSession = preview.matchedCount > 0 && !loading && !isStarting;
 
-  async function handleStartPractice() {
-    if (!canStartPractice) return;
+  async function handleStartCustomSession() {
+    if (!canStartSession) return;
 
     setIsStarting(true);
     setStartError(null);
@@ -268,7 +268,7 @@ export default function ExamCustomCreatePage() {
         scopeSlug: scopeMode === 'topic' ? selectedTopicSlug : scopeMode === 'period' ? selectedPeriodSlug : undefined,
         scopeTitle: selectedScopeTitle,
         durationSeconds: timeLimit > 0 ? timeLimit * 60 : null,
-        mode: 'custom_practice',
+        mode: practiceMode === 'mock' ? 'custom_mock' : 'custom_practice',
       };
       const session = createCustomSession({
         config,
@@ -502,23 +502,23 @@ export default function ExamCustomCreatePage() {
 
                   <button
                     type="button"
-                    disabled={!canStartPractice}
-                    onClick={handleStartPractice}
+                    disabled={!canStartSession}
+                    onClick={handleStartCustomSession}
                     style={{
                       padding: '0.78rem 1rem',
                       borderRadius: '0.85rem',
-                      border: canStartPractice ? '1px solid var(--accent)' : '1px solid var(--border)',
-                      background: canStartPractice ? 'var(--accent)' : 'var(--bg-surface)',
-                      color: canStartPractice ? '#fff' : 'var(--text-muted)',
+                      border: canStartSession ? '1px solid var(--accent)' : '1px solid var(--border)',
+                      background: canStartSession ? 'var(--accent)' : 'var(--bg-surface)',
+                      color: canStartSession ? '#fff' : 'var(--text-muted)',
                       fontWeight: 900,
-                      cursor: canStartPractice ? 'pointer' : 'not-allowed',
+                      cursor: canStartSession ? 'pointer' : 'not-allowed',
                     }}
                   >
-                    {isStarting ? 'Đang tạo đề...' : practiceMode === 'practice' ? 'Bắt đầu luyện tập' : 'Bắt đầu làm bài'}
+                    {isStarting ? 'Đang tạo đề...' : practiceMode === 'practice' ? 'Bắt đầu luyện tập' : 'Bắt đầu thi thử'}
                   </button>
                   {practiceMode === 'mock' ? (
                     <p style={{ margin: 0, color: 'var(--text-muted)', fontSize: '0.82rem', lineHeight: 1.5 }}>
-                      Thi thử tùy chọn có timer sẽ được hoàn thiện ở bước tiếp theo.
+                      Phiên thi thử không hiển thị đúng/sai trước khi nộp. Nếu chọn thời gian, hết giờ sẽ tự nộp bài.
                     </p>
                   ) : preview.matchedCount === 0 ? (
                     <p style={{ margin: 0, color: 'var(--text-muted)', fontSize: '0.82rem', lineHeight: 1.5 }}>

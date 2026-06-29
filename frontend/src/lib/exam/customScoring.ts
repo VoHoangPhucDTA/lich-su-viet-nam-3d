@@ -1,7 +1,6 @@
 import {
   isMCQQuestion,
   isTFQuestion,
-  type AnswerEntry,
   type CustomExamSession,
   type ExamResultV2,
   type MCQAnswer,
@@ -11,12 +10,6 @@ import {
 
 function round2(value: number): number {
   return Math.round(value * 100) / 100;
-}
-
-function isBlankAnswer(answer: AnswerEntry | undefined): boolean {
-  if (!answer) return true;
-  if (answer.questionType === 'mcq') return answer.selected == null;
-  return Object.values(answer.selected).every((value) => value == null);
 }
 
 export function scoreCustomMockSession(session: CustomExamSession): ExamResultV2 {
@@ -89,7 +82,6 @@ export function scoreCustomMockSession(session: CustomExamSession): ExamResultV2
   const submittedAt = session.submittedAt ?? Date.now();
   const startedAt = session.startedAt ?? submittedAt;
   const durationSeconds = Math.max(0, Math.floor((submittedAt - startedAt) / 1000));
-  const answeredCount = questions.filter((question) => !isBlankAnswer(answers[question.id])).length;
   const totalScore = round2((achievedUnits / maxUnits) * 10);
 
   return {

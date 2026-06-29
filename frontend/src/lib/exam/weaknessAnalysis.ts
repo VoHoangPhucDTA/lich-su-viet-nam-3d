@@ -87,6 +87,11 @@ function getMaxPoints(question: Question): number {
   return 0;
 }
 
+function getAnalysisMaxPoints(result: ExamResultV2, question: Question): number {
+  if (result.isCustom) return 1;
+  return getMaxPoints(question);
+}
+
 function addToBucket(bucket: WeaknessBucket, result: QuestionResult, maxPoints: number): void {
   const blank = isBlank(result);
   bucket.total += 1;
@@ -177,8 +182,8 @@ function buildSuggestions(analysis: Omit<WeaknessAnalysis, 'suggestions'>): Weak
   return suggestions.slice(0, 5);
 }
 
-export function analyzeWeaknesses(result: ExamResultV2, exam: ExamFile): WeaknessAnalysis {
-  const questions = new Map(flattenExamQuestions(exam).map((question) => [question.id, question]));
+export function analyzeWeaknessesFromQuestions(result: ExamResultV2, questionList: Question[]): WeaknessAnalysis {
+  const questions = new Map(questionList.map((question) => [question.id, question]));
   const byTopic = new Map<string, WeaknessBucket>();
   const byQuestionType = new Map<string, WeaknessBucket>();
   const byCognitiveLevel = new Map<string, WeaknessBucket>();
@@ -194,8 +199,9 @@ export function analyzeWeaknesses(result: ExamResultV2, exam: ExamFile): Weaknes
     }
 
     analyzedQuestions += 1;
-    const maxPoints = getMaxPoints(question);
-    addToBucket(getBucket(byTopic, question.topic, question.topic), questionResult, maxPoints);
+    const maxPoints = getAnalysisMaxPoints(result, question);
+    const topic = question.topic || 'Chưa phân loại';
+    addToBucket(getBucket(byTopic, topic, topic), questionResult, maxPoints);
     addToBucket(getBucket(byQuestionType, question.questionType, formatQuestionTypeLabel(question.questionType)), questionResult, maxPoints);
     addToBucket(
       getBucket(byCognitiveLevel, question.cognitiveLevel, formatCognitiveLevelLabel(question.cognitiveLevel)),
@@ -230,4 +236,8 @@ export function analyzeWeaknesses(result: ExamResultV2, exam: ExamFile): Weaknes
     ...baseAnalysis,
     suggestions: buildSuggestions(baseAnalysis),
   };
+}
+
+export function analyzeWeaknesses(result: ExamResultV2, exam: ExamFile): WeaknessAnalysis {
+  return analyzeWeaknessesFromQuestions(result, flattenExamQuestions(exam));
 }

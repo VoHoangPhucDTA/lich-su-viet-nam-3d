@@ -53,6 +53,9 @@ function EmptyState({ title, message, sessionId }: { title: string; message: str
           <Link to="/exams/lich-su" style={buttonStyle('secondary')}>
             Lịch sử luyện thi
           </Link>
+          <Link to="/exams/tao-de" style={buttonStyle('secondary')}>
+            Tạo đề tùy chọn mới
+          </Link>
           <Link to="/exams/browse" style={buttonStyle('secondary')}>
             Làm đề khác
           </Link>
@@ -212,14 +215,14 @@ function TFRetryCard({
   onSelect: (statementId: TFStatement['id'], value: boolean) => void;
   onCheck: () => void;
 }) {
-  const allAnswered = Object.values(selected).every((value) => value != null);
+  const allAnswered = question.statements.every((statement) => selected[statement.id] != null);
   const correctCount = question.statements.filter((statement) => selected[statement.id] === statement.isTrue).length;
 
   return (
     <div style={cardStyle}>
       <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginBottom: '0.75rem' }}>
         <span style={chipStyle()}>Đúng/Sai</span>
-        {checked && <span style={chipStyle(correctCount === 4 ? 'success' : 'warning')}>{correctCount}/4 ý đúng</span>}
+        {checked && <span style={chipStyle(correctCount === question.statements.length ? 'success' : 'warning')}>{correctCount}/{question.statements.length} ý đúng</span>}
       </div>
       <h2 style={questionTitleStyle}>{question.questionText}</h2>
 
@@ -263,7 +266,7 @@ function TFRetryCard({
         <button type="button" onClick={onCheck} disabled={!allAnswered} style={{ ...buttonStyle('primary'), opacity: allAnswered ? 1 : 0.55 }}>
           Kiểm tra
         </button>
-        {!allAnswered && <span style={{ color: 'var(--text-muted)', fontSize: '0.85rem' }}>Hãy chọn Đúng/Sai cho đủ 4 ý.</span>}
+        {!allAnswered && <span style={{ color: 'var(--text-muted)', fontSize: '0.85rem' }}>Hãy chọn Đúng/Sai cho đủ các ý.</span>}
       </div>
       {checked && <Explanation text={question.explanation} />}
     </div>
@@ -331,6 +334,16 @@ export default function ExamRetryWrongPage() {
       if (!alive) return;
       setResult(storedResult);
 
+      if (storedResult.isCustom) {
+        if (storedResult.questionSnapshots?.length) {
+          setLoading(false);
+          return;
+        }
+        setError('Kết quả tùy chọn này thiếu dữ liệu câu hỏi để ôn lại. Bạn có thể tạo một đề tùy chọn mới hoặc xem lại lịch sử luyện thi.');
+        setLoading(false);
+        return;
+      }
+
       if (!storedResult.examId) {
         setError('Kết quả này thiếu mã đề nên chưa thể tải câu hỏi để ôn lại.');
         setLoading(false);
@@ -358,9 +371,12 @@ export default function ExamRetryWrongPage() {
   }, [sessionId]);
 
   const questionMap = useMemo(() => {
+    if (result?.isCustom && result.questionSnapshots?.length) {
+      return new Map(result.questionSnapshots.map((question) => [question.id, question as Question]));
+    }
     if (!exam) return new Map<string, Question>();
     return new Map(flattenExamQuestions(exam).map((question) => [question.id, question]));
-  }, [exam]);
+  }, [exam, result]);
 
   const retryResults = useMemo(() => {
     return result?.questions.filter(isRetryCandidate) ?? [];
@@ -400,7 +416,7 @@ export default function ExamRetryWrongPage() {
 
     if (isTFQuestion(currentQuestion)) {
       const answer = tfAnswers[currentResult.questionId] ?? makeBlankTFChoice();
-      if (!Object.values(answer).every((value) => value != null)) return;
+      if (!currentQuestion.statements.every((statement) => answer[statement.id] != null)) return;
       setChecked((prev) => ({ ...prev, [currentResult.questionId]: true }));
     }
   }, [checked, currentQuestion, currentResult, mcqAnswers, tfAnswers]);
@@ -409,12 +425,12 @@ export default function ExamRetryWrongPage() {
     onPrevious: goToPreviousQuestion,
     onNext: goToNextQuestion,
     onEnter: checkCurrentQuestion,
-    disabled: loading || Boolean(error) || !result || !exam || !currentResult || finished,
+    disabled: loading || Boolean(error) || !result || !currentResult || finished,
   });
 
   if (loading) return <LoadingState />;
 
-  if (error || !result || !exam) {
+  if (error || !result) {
     return <EmptyState title="Chưa thể mở ôn lại" message={error ?? 'Dữ liệu ôn lại chưa sẵn sàng.'} sessionId={sessionId} />;
   }
 
@@ -459,7 +475,7 @@ export default function ExamRetryWrongPage() {
             ← Quay về kết quả
           </Link>
           <h1 style={{ margin: 0, fontSize: '1.65rem', fontWeight: 900 }}>Ôn lại câu sai</h1>
-          <p style={{ margin: 0, color: 'var(--text-muted)', lineHeight: 1.55 }}>{exam.title}</p>
+          <p style={{ margin: 0, color: 'var(--text-muted)', lineHeight: 1.55 }}>{result.isCustom ? result.title ?? 'Thi thử tùy chọn' : exam?.title ?? 'Đề thi'}</p>
           <p style={{ margin: 0, color: 'var(--text-muted)', fontSize: '0.82rem', lineHeight: 1.5 }}>Phím tắt: ←/→ chuyển câu, Enter kiểm tra đáp án.</p>
         </header>
 
