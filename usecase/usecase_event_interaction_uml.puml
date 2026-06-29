@@ -13,7 +13,7 @@ database "MySQL" as DB
 
 group Normal Flow 1.1: Tương tác với sự kiện lịch sử trên bản đồ
     opt Hiển thị hướng dẫn (Optional)
-        U -> MP : 1.1.0: MapPage.tsx:\nLần đầu truy cập — hiển thị onboarding 3 bước.\n(1) Chọn mốc thời gian trên Timeline\n(2) Duyệt danh sách sự kiện bên trái\n(3) Chọn sự kiện từ sidebar. Người dùng có thể đóng.
+        U -> MP : 1.1.0: OnboardingGuide.tsx (useMapGuide hook):\nLần đầu truy cập — tự động hiển thị onboarding 4 bước dạng collapsible panel.\n(1) Chọn mốc thời gian trên Timeline\n(2) Chọn sự kiện từ sidebar bên trái\n(3) Khám phá vị trí sự kiện trên bản đồ 3D\n(4) Xem thông tin chi tiết ở EventPopup bên phải.\nTrạng thái lưu vào localStorage (lsvn3d_map_guide_seen).\nSau khi đóng, không tự động hiện lại khi đổi timeline/sự kiện/filter/map.\nNút "Hướng dẫn" (la bàn) ở góc trái để mở lại.
     end
     
     U -> TL : Người dùng kéo thanh thời gian (hoặc đổi Lớp)
