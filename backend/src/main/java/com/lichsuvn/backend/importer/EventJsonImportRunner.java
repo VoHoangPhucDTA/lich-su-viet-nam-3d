@@ -10,6 +10,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
@@ -19,15 +20,12 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
-import java.util.stream.Stream;
 
 @Component
 @Profile("import-events")
@@ -39,7 +37,7 @@ public class EventJsonImportRunner implements CommandLineRunner {
 
     public EventJsonImportRunner(
             NamedParameterJdbcTemplate jdbc,
-            @Value("${app.import.events-path:../history_events_export_2026-04-24T14-28-46-607Z}") String eventsPath
+            @Value("${app.import.events-path:../crawData/stage4b_curate_tree/output/phase2/core_events.jsonl}") String eventsPath
     ) {
         this.jdbc = jdbc;
         this.objectMapper = new ObjectMapper();
@@ -49,16 +47,16 @@ public class EventJsonImportRunner implements CommandLineRunner {
     @Override
     @Transactional
     public void run(String... args) throws Exception {
-        if (!Files.isDirectory(eventsPath)) {
-            throw new IllegalArgumentException("Event import path does not exist: " + eventsPath);
+        if (!Files.isRegularFile(eventsPath)) {
+            throw new IllegalArgumentException("Event import path does not exist or is not a file: " + eventsPath);
         }
 
         long importRunId = createImportRun();
         List<String> warnings = new ArrayList<>();
 
         try {
-            List<Path> jsonFiles = listJsonFiles();
-            Map<String, ImportedEvent> eventsById = readAndMergeEvents(jsonFiles, warnings);
+            int lineCount = countLines(eventsPath);
+            Map<String, ImportedEvent> eventsById = readJsonlEvents(eventsPath, warnings);
 
             upsertEventsWithoutHierarchy(eventsById.values());
             updateHierarchy(eventsById);
@@ -66,11 +64,11 @@ public class EventJsonImportRunner implements CommandLineRunner {
             insertImportRunEvents(importRunId, eventsById.values(), warnings);
 
             String status = warnings.isEmpty() ? "success" : "partial";
-            finishImportRun(importRunId, status, jsonFiles.size(), eventsById.size(), warnings.size(), warnings);
+            finishImportRun(importRunId, status, lineCount, eventsById.size(), warnings.size(), warnings);
 
             System.out.printf(
-                    "Imported %d JSON files into %d unique historical events. Status: %s%n",
-                    jsonFiles.size(),
+                    "Imported %d JSONL lines into %d unique historical events. Status: %s%n",
+                    lineCount,
                     eventsById.size(),
                     status
             );
@@ -80,32 +78,42 @@ public class EventJsonImportRunner implements CommandLineRunner {
         }
     }
 
-    private List<Path> listJsonFiles() throws IOException {
-        try (Stream<Path> files = Files.walk(eventsPath)) {
-            return files
-                    .filter(Files::isRegularFile)
-                    .filter(path -> path.getFileName().toString().toLowerCase(Locale.ROOT).endsWith(".json"))
-                    .sorted(Comparator.comparing(Path::toString))
-                    .toList();
+    private int countLines(Path file) throws IOException {
+        int count = 0;
+        try (BufferedReader reader = Files.newBufferedReader(file)) {
+            while (reader.readLine() != null) {
+                count++;
+            }
         }
+        return count;
     }
 
-    private Map<String, ImportedEvent> readAndMergeEvents(List<Path> jsonFiles, List<String> warnings) {
+    private Map<String, ImportedEvent> readJsonlEvents(Path jsonlFile, List<String> warnings) {
         Map<String, ImportedEvent> eventsById = new LinkedHashMap<>();
-        for (Path file : jsonFiles) {
-            try {
-                JsonNode raw = objectMapper.readTree(file.toFile());
-                String id = text(raw, "id");
-                if (isBlank(id)) {
-                    warnings.add("Skipped file without id: " + file);
+        int lineNumber = 0;
+        try (BufferedReader reader = Files.newBufferedReader(jsonlFile)) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                lineNumber++;
+                if (line.isBlank()) {
                     continue;
                 }
+                try {
+                    JsonNode raw = objectMapper.readTree(line);
+                    String id = text(raw, "id");
+                    if (isBlank(id)) {
+                        warnings.add("Skipped JSONL line " + lineNumber + " without id");
+                        continue;
+                    }
 
-                ImportedEvent incoming = ImportedEvent.from(raw, file, objectMapper);
-                eventsById.merge(id, incoming, ImportedEvent::merge);
-            } catch (Exception ex) {
-                warnings.add("Failed to read " + file + ": " + ex.getMessage());
+                    ImportedEvent incoming = ImportedEvent.from(raw, objectMapper);
+                    eventsById.merge(id, incoming, ImportedEvent::merge);
+                } catch (Exception ex) {
+                    warnings.add("Failed to parse JSONL line " + lineNumber + ": " + ex.getMessage());
+                }
             }
+        } catch (IOException ex) {
+            warnings.add("Failed to read JSONL file " + jsonlFile + ": " + ex.getMessage());
         }
         return eventsById;
     }
@@ -598,7 +606,7 @@ public class EventJsonImportRunner implements CommandLineRunner {
             this.id = id;
         }
 
-        private static ImportedEvent from(JsonNode raw, Path file, ObjectMapper objectMapper) throws IOException {
+        private static ImportedEvent from(JsonNode raw, ObjectMapper objectMapper) throws IOException {
             String id = text(raw, "id");
             ImportedEvent event = new ImportedEvent(id);
             event.raw = raw;
@@ -617,14 +625,16 @@ public class EventJsonImportRunner implements CommandLineRunner {
             event.displayDate = text(raw.path("chronology"), "displayDate");
             event.datePrecision = text(raw.path("chronology"), "datePrecision");
 
-            JsonNode displayGeometry = raw.path("mapData").path("displayGeometry");
-            JsonNode marker = displayGeometry.path("marker");
-            JsonNode focusCenter = raw.path("mapData").path("focusGeometry").path("center");
-            event.geoType = normalizeGeoType(text(displayGeometry, "geoType"));
-            event.lat = marker.hasNonNull("lat") ? decimalValue(marker.path("lat")) : decimalValue(focusCenter.path("lat"));
-            event.lng = marker.hasNonNull("lng") ? decimalValue(marker.path("lng")) : decimalValue(focusCenter.path("lng"));
-            addStringArray(event.provinceNames, displayGeometry.path("provinceNames"));
-            addStringArray(event.historicalLocations, displayGeometry.path("historicalLocations"));
+            // New JSONL format: mapData fields are at top level of mapData
+            // (old format nested them under mapData.displayGeometry)
+            JsonNode mapData = raw.path("mapData");
+            JsonNode mapMarker = mapData.path("marker");
+            JsonNode focusCenter = mapData.path("focusGeometry").path("center");
+            event.geoType = normalizeGeoType(text(mapData, "geoType"));
+            event.lat = mapMarker.hasNonNull("lat") ? decimalValue(mapMarker.path("lat")) : decimalValue(focusCenter.path("lat"));
+            event.lng = mapMarker.hasNonNull("lng") ? decimalValue(mapMarker.path("lng")) : decimalValue(focusCenter.path("lng"));
+            addStringArray(event.provinceNames, mapData.path("provinceNames"));
+            addStringArray(event.historicalLocations, mapData.path("historicalLocations"));
 
             JsonNode hierarchy = raw.path("hierarchy");
             event.parentId = text(hierarchy, "parentId");
@@ -636,13 +646,16 @@ public class EventJsonImportRunner implements CommandLineRunner {
             event.canonicalSummary = text(raw.path("textbookContent"), "canonicalSummary");
             event.detailedNarrative = text(raw.path("textbookContent"), "detailedNarrative");
             event.significance = text(raw.path("textbookContent"), "significance");
-            event.showOnHomepage = boolValue(raw.path("display").path("showOnHomepage"), true);
+            // New JSONL format uses showOnMap instead of showOnHomepage
+            event.showOnHomepage = boolValue(raw.path("display").path("showOnMap"), true);
             event.showOnTimeline = boolValue(raw.path("display").path("showOnTimeline"), true);
             event.featured = boolValue(raw.path("display").path("featured"), false);
 
-            addGrades(event.grades, raw.path("coverage").path("grades"), file);
-            if (raw.path("textbookRefs").isArray()) {
-                raw.path("textbookRefs").forEach(event.textbookRefs::add);
+            addGrades(event.grades, raw.path("coverage").path("grades"));
+            // New JSONL format: textbookRefs is nested inside textbookContent
+            JsonNode textbookRefs = raw.path("textbookContent").path("textbookRefs");
+            if (textbookRefs.isArray()) {
+                textbookRefs.forEach(event.textbookRefs::add);
             }
 
             event.rawJsonText = objectMapper.writeValueAsString(raw);
@@ -693,16 +706,12 @@ public class EventJsonImportRunner implements CommandLineRunner {
             }
         }
 
-        private static void addGrades(Set<Integer> target, JsonNode values, Path file) {
+        private static void addGrades(Set<Integer> target, JsonNode values) {
             if (values.isArray()) {
                 for (JsonNode value : values) {
                     Integer grade = intValue(value);
                     if (isValidGrade(grade)) target.add(grade);
                 }
-            }
-            String folder = file.getParent() == null ? "" : file.getParent().getFileName().toString();
-            if (folder.matches("json1[0-2]")) {
-                target.add(Integer.parseInt(folder.substring(4)));
             }
         }
     }

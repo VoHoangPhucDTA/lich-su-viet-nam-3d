@@ -53,6 +53,19 @@ function keyFactsToStrings(facts?: Array<string | number>): string[] | undefined
   return facts.map((f) => String(f));
 }
 
+/** Hỗ trợ cả supplementalSources dạng string (cũ: "a|b|c") và dạng array (mới: ["a","b"]) */
+function normalizeSupplementalSources(src: unknown): string[] | undefined {
+  if (Array.isArray(src)) {
+    const items = src.filter((s): s is string => typeof s === 'string').map((s) => s.trim()).filter(Boolean);
+    return items.length > 0 ? items : undefined;
+  }
+  if (typeof src === 'string') {
+    const items = src.split('|').map((s) => s.trim()).filter(Boolean);
+    return items.length > 0 ? items : undefined;
+  }
+  return undefined;
+}
+
 /* ─── Raw → MockEventDetail (dùng cho EventDetailPage) ──────────────────── */
 
 export function rawToEventDetail(raw: RawEventJson): MockEventDetail {
@@ -131,42 +144,57 @@ export function rawToEventDetail(raw: RawEventJson): MockEventDetail {
       : undefined,
 
     display: {
-      showOnHomepage: raw.display?.showOnHomepage ?? true,
+      showOnHomepage: raw.display?.showOnHomepage ?? raw.display?.showOnMap ?? true,
       showOnTimeline: raw.display?.showOnTimeline ?? true,
       featured: raw.display?.featured ?? false,
     },
     sourcePolicy: {
-      canonicalSource: raw.sourcePolicy?.canonicalSource ?? 'textbook',
+      canonicalSource: raw.sourcePolicy?.canonicalSource ?? raw.sourcePolicy?.primarySource ?? 'textbook',
       supplementalSources: raw.sourcePolicy?.supplementalSources
-        ? raw.sourcePolicy.supplementalSources
-            .split('|')
-            .map((s) => s.trim())
-            .filter(Boolean)
+        ? normalizeSupplementalSources(raw.sourcePolicy.supplementalSources)
         : undefined,
     },
   };
 
-  /* mapData */
-  if (raw.mapData?.displayGeometry) {
-    const dg = raw.mapData.displayGeometry;
-    detail.mapData = {
-      displayGeometry: {
-        geoType: toGeoType(dg.geoType),
-        marker: dg.marker
-          ? { coordinates: [dg.marker.lng, dg.marker.lat] }
+  /* mapData — hỗ trợ cả format cũ (displayGeometry wrapper) và format mới (flat) */
+  const rawDg = raw.mapData?.displayGeometry;
+  detail.mapData = rawDg
+    ? /* ─── Old format: displayGeometry wrapper ─── */
+      {
+        displayGeometry: {
+          geoType: toGeoType(rawDg.geoType),
+          marker: rawDg.marker
+            ? { coordinates: [rawDg.marker.lng, rawDg.marker.lat] }
+            : undefined,
+          provinceNames: rawDg.provinceNames,
+          historicalLocations: rawDg.historicalLocations,
+        },
+        focusGeometry: raw.mapData.focusGeometry?.center
+          ? {
+              center: [raw.mapData.focusGeometry.center.lng, raw.mapData.focusGeometry.center.lat],
+              zoom: raw.mapData.focusGeometry.zoom ?? 8,
+            }
           : undefined,
-        provinceNames: dg.provinceNames,
-        historicalLocations: dg.historicalLocations,
-      },
-    };
-    if (raw.mapData.focusGeometry?.center) {
-      const center = raw.mapData.focusGeometry.center;
-      detail.mapData.focusGeometry = {
-        center: [center.lng, center.lat],
-        zoom: raw.mapData.focusGeometry.zoom ?? 8,
-      };
-    }
-  }
+      }
+    : /* ─── New JSONL format: flat mapData ─── */
+      raw.mapData
+      ? {
+          displayGeometry: {
+            geoType: toGeoType(raw.mapData.geoType),
+            marker: raw.mapData.marker
+              ? { coordinates: [raw.mapData.marker.lng, raw.mapData.marker.lat] }
+              : undefined,
+            provinceNames: raw.mapData.provinceNames,
+            historicalLocations: raw.mapData.historicalLocations,
+          },
+          focusGeometry: raw.mapData.focusGeometry?.center
+            ? {
+                center: [raw.mapData.focusGeometry.center.lng, raw.mapData.focusGeometry.center.lat],
+                zoom: raw.mapData.focusGeometry.zoom ?? 8,
+              }
+            : undefined,
+        }
+      : undefined;
 
   /* hierarchy + computed childIds */
   const childIds = getChildIdsOf(raw.id);
@@ -201,23 +229,36 @@ export function rawToHistoricalEvent(
 ): HistoricalEvent {
   const { withChildren = false } = options;
 
-  const dg = raw.mapData?.displayGeometry;
+  /* Hỗ trợ cả format cũ (displayGeometry wrapper) và format mới (flat) */
+  const rawDg = raw.mapData?.displayGeometry;
+  const isNewMapFormat = raw.mapData && !rawDg && raw.mapData.geoType != null;
+  const dg = rawDg ?? (isNewMapFormat
+    ? {
+        geoType: raw.mapData!.geoType,
+        marker: raw.mapData!.marker ?? undefined,
+        provinceNames: raw.mapData!.provinceNames,
+        historicalLocations: raw.mapData!.historicalLocations,
+      }
+    : undefined
+  );
   const fg = raw.mapData?.focusGeometry;
   const startYear = raw.chronology?.start?.year ?? 0;
   const endYear = raw.chronology?.end?.year;
-  const rawGeoType = toGeoType(dg?.geoType);
+  const rawGeoType = toGeoType(dg?.geoType ?? raw.mapData?.geoType);
 
   // Coordinates: ưu tiên marker → focus center → fallback centroid của tỉnh đầu
   // tiên trong provinceNames. Fallback chỉ áp dụng cho event có gắn địa điểm
   // (≠ no_location), giúp các sự kiện chỉ liệt kê tỉnh vẫn zoom được trên map.
   let coordinates: { lat: number; lng: number } | undefined;
   let resolvedGeoType: GeoType = rawGeoType;
-  if (dg?.marker) {
-    coordinates = { lat: dg.marker.lat, lng: dg.marker.lng };
+  const resolvedMarker = dg?.marker ?? (isNewMapFormat ? raw.mapData!.marker : undefined);
+  if (resolvedMarker) {
+    coordinates = { lat: resolvedMarker.lat, lng: resolvedMarker.lng };
   } else if (fg?.center) {
     coordinates = { lat: fg.center.lat, lng: fg.center.lng };
   } else if (rawGeoType !== 'no_location') {
-    const centroid = getCentroidFromProvinceNames(dg?.provinceNames);
+    const provinceNames = dg?.provinceNames ?? (isNewMapFormat ? raw.mapData!.provinceNames : undefined);
+    const centroid = getCentroidFromProvinceNames(provinceNames);
     if (centroid) {
       coordinates = { lat: centroid.lat, lng: centroid.lng };
       // Đánh dấu là multi_region để CesiumMap zoom với altitude cao hơn (vì
@@ -242,7 +283,7 @@ export function rawToHistoricalEvent(
     eventSubtype: raw.classification?.eventSubtype,
     geoType: resolvedGeoType,
     coordinates,
-    primaryRegions: dg?.provinceNames,
+    primaryRegions: dg?.provinceNames ?? (isNewMapFormat ? raw.mapData!.provinceNames : undefined),
     parentId: raw.hierarchy?.parentId ?? null,
     details:
       raw.textbookContent?.detailedNarrative ??
