@@ -1,5 +1,5 @@
 import { useState, useCallback, useMemo } from 'react';
-import { ChevronRight, Clock, List, MapPin, X, Compass } from 'lucide-react';
+import { ChevronRight } from 'lucide-react';
 import CesiumMap from '../components/CesiumMap';
 import Timeline from '../components/Timeline';
 import Sidebar from '../components/Sidebar';
@@ -11,6 +11,7 @@ import {
 import { useEffect } from 'react';
 import type { HistoricalEvent } from '../types/event';
 import { useHeader } from '../components/layout/HeaderContext';
+import OnboardingGuide, { useMapGuide } from '../components/onboarding/OnboardingGuide';
 import {
   getChildrenFromBackend,
   getEventsByYearFromBackend,
@@ -120,8 +121,7 @@ export default function MapPage() {
   const [eventsLoading, setEventsLoading] = useState(false);
   const [selectedGrade, setSelectedGrade] = useState<number | null>(null);
   const [timelineYears, setTimelineYears] = useState<number[]>([]);
-  const [onboardingDismissed, setOnboardingDismissed] = useState(false);
-
+  const guide = useMapGuide();
   const { setCenterContent } = useHeader();
 
   useEffect(() => {
@@ -484,123 +484,12 @@ export default function MapPage() {
               highlightedEventId={highlightedEventId}
             />
 
-            {/* Hero Preview — Bento-style floating museum introduction */}
-            {!selectedEvent && !onboardingDismissed && (
-              <div
-                className="glass-map animate-fade-in-up absolute top-4 left-4 rounded-2xl overflow-hidden"
-                style={{
-                  maxWidth: '380px',
-                  boxShadow: 'var(--shadow)',
-                }}
-              >
-                {/* Gold accent top bar */}
-                <div
-                  style={{
-                    height: '3px',
-                    background: 'linear-gradient(to right, var(--accent), var(--admin-accent), transparent)',
-                  }}
-                />
-                <div style={{ padding: '16px 18px 18px' }}>
-                  {/* Title row */}
-                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '12px' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                      <div
-                        style={{
-                          width: '32px',
-                          height: '32px',
-                          borderRadius: '10px',
-                          background: 'var(--accent-soft)',
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                        }}
-                      >
-                        <Compass size={17} strokeWidth={1.8} style={{ color: 'var(--accent)' }} />
-                      </div>
-                      <h3
-                        className="serif-heading"
-                        style={{ fontSize: '16px', fontWeight: 700, color: 'var(--text-primary)', margin: 0 }}
-                      >
-                        Khám phá Lịch sử Việt Nam
-                      </h3>
-                    </div>
-                    <button
-                      onClick={() => setOnboardingDismissed(true)}
-                      aria-label="Đóng hướng dẫn"
-                      style={{
-                        background: 'var(--bg-surface)',
-                        border: '1px solid var(--border)',
-                        cursor: 'pointer',
-                        color: 'var(--text-muted)',
-                        padding: '4px',
-                        borderRadius: '6px',
-                        display: 'flex',
-                      }}
-                    >
-                      <X size={13} strokeWidth={2.4} />
-                    </button>
-                  </div>
-
-                  {/* Intro text */}
-                  <p
-                    style={{
-                      fontSize: '12.5px',
-                      color: 'var(--text-secondary)',
-                      lineHeight: 1.6,
-                      marginBottom: '14px',
-                    }}
-                  >
-                    Hành trình xuyên suốt hơn 2.000 năm lịch sử dân tộc qua bản đồ 3D tương tác.
-                    Chọn một mốc thời gian để bắt đầu.
-                  </p>
-
-                  {/* Quick start steps */}
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                    {[
-                      { icon: Clock, label: 'Chọn mốc thời gian', desc: 'Kéo thanh Timeline bên dưới để chọn thời kỳ lịch sử bạn muốn khám phá' },
-                      { icon: List, label: 'Duyệt danh sách sự kiện', desc: 'Tìm kiếm, lọc và duyệt qua danh sách sự kiện hiển thị ở bảng điều khiển bên trái' },
-                      { icon: MapPin, label: 'Chọn sự kiện từ sidebar', desc: 'Nhấp vào một sự kiện trong danh sách bên trái để xem chi tiết và khám phá trên bản đồ' },
-                    ].map((step, i) => (
-                      <div
-                        key={i}
-                        className="museum-card"
-                        style={{
-                          display: 'flex',
-                          alignItems: 'center',
-                          gap: '10px',
-                          padding: '10px 12px',
-                          borderRadius: '12px',
-                          cursor: 'default',
-                        }}
-                      >
-                        <div
-                          style={{
-                            width: '28px',
-                            height: '28px',
-                            borderRadius: '8px',
-                            background: 'var(--accent-soft)',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            flexShrink: 0,
-                          }}
-                        >
-                          <step.icon size={13} strokeWidth={2} style={{ color: 'var(--accent)' }} />
-                        </div>
-                        <div style={{ minWidth: 0 }}>
-                          <div className="mono-label" style={{ fontSize: '10px', color: 'var(--text-muted)', marginBottom: '1px' }}>
-                            {String(i + 1).padStart(2, '0')} — {step.label}
-                          </div>
-                          <div style={{ fontSize: '11.5px', color: 'var(--text-primary)', fontWeight: 500 }}>
-                            {step.desc}
-                          </div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            )}
+            {/* Onboarding Guide — collapsible help panel */}
+            <OnboardingGuide
+              isOpen={guide.isOpen}
+              onDismiss={guide.dismiss}
+              onToggle={guide.toggle}
+            />
             {eventsLoading && (
               <div
                 className="glass-map animate-fade-in absolute top-4 right-4 rounded-xl px-4 py-2.5 text-sm font-medium"
