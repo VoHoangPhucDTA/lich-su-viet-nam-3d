@@ -94,6 +94,7 @@ public class SecurityConfig {
                         .accessDeniedHandler(accessDeniedHandler)
                 )
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers(HttpMethod.GET, "/api/time").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/events", "/api/timeline").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/events/**").permitAll()
                         // Reading-progress endpoints must allow anonymous callers so the frontend
