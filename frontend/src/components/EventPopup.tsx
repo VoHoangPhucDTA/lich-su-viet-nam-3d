@@ -16,6 +16,7 @@ interface EventPopupProps {
   onClose: () => void;
   onNavigateToChild: (child: HistoricalEvent) => void;
   onNavigateToParent: () => void;
+  onViewTerrain: () => void;
   parentEvent: HistoricalEvent | null;
 }
 
@@ -24,10 +25,15 @@ export default function EventPopup({
   onClose,
   onNavigateToChild,
   onNavigateToParent,
+  onViewTerrain,
   parentEvent,
 }: EventPopupProps) {
   const typeColor = EVENT_TYPE_COLORS[event.eventType];
   const navigate = useNavigate();
+  const canViewTerrain =
+    event.geoType !== 'no_location' &&
+    event.geoType !== 'nationwide' &&
+    (!!event.coordinates || !!event.primaryRegions?.length);
 
   const formatYear = (year: number) =>
     year < 0 ? `${Math.abs(year)} TCN` : `${year}`;
@@ -382,21 +388,33 @@ export default function EventPopup({
           Xem chi tiết
         </button>
 
-        {/* Terrain View placeholder — chuẩn bị cho tính năng 3D Địa hình tương lai */}
-        <button
-          disabled
-          title="Tính năng Xem Địa hình 3D đang được phát triển"
-          className="flex items-center justify-center gap-1.5 px-3 py-3 rounded-[10px] text-[13px] font-semibold transition-all duration-200 border opacity-50 cursor-not-allowed"
-          style={{
-            borderColor: '#e7e5e4',
-            background: '#ffffff',
-            color: '#78716c',
-          }}
-          tabIndex={-1}
-        >
-          <Mountain size={15} strokeWidth={2.2} />
-          3D Địa hình
-        </button>
+        {canViewTerrain && (
+          <button
+            onClick={onViewTerrain}
+            title="Xem địa hình 3D của khu vực diễn ra sự kiện"
+            className="flex items-center justify-center gap-1.5 px-3 py-3 rounded-[10px] text-[13px] font-semibold transition-all duration-200 border"
+            style={{
+              borderColor: '#d6d3d1',
+              background: '#ffffff',
+              color: '#1c1917',
+              cursor: 'pointer',
+              boxShadow: '0 1px 4px rgba(0,0,0,0.05)',
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = '#fafaf9';
+              e.currentTarget.style.borderColor = '#8b1e1e';
+              e.currentTarget.style.transform = 'translateY(-1px)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = '#ffffff';
+              e.currentTarget.style.borderColor = '#d6d3d1';
+              e.currentTarget.style.transform = 'none';
+            }}
+          >
+            <Mountain size={15} strokeWidth={2.2} />
+            Xem địa hình 3D
+          </button>
+        )}
 
         {parentEvent && (
           <button

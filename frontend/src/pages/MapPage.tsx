@@ -112,6 +112,10 @@ export default function MapPage() {
   const [highlightedEventId, setHighlightedEventId] = useState<string | null>(
     null
   );
+  const [terrainViewRequest, setTerrainViewRequest] = useState<{
+    eventId: string;
+    nonce: number;
+  } | null>(null);
   const [navigationStack, setNavigationStack] = useState<HistoricalEvent[]>([]);
   const [yearEvents, setYearEvents] = useState<HistoricalEvent[]>([]);
   const [searchResults, setSearchResults] = useState<HistoricalEvent[]>([]);
@@ -340,6 +344,14 @@ export default function MapPage() {
     setNavigationStack([]);
   }, []);
 
+  const handleViewTerrain = useCallback(() => {
+    if (!selectedEvent) return;
+    setTerrainViewRequest({
+      eventId: selectedEvent.id,
+      nonce: Date.now(),
+    });
+  }, [selectedEvent]);
+
   // Clear header breadcrumb when MapPage unmounts so stale state doesn't leak to Homepage etc.
   useEffect(() => {
     return () => {
@@ -482,6 +494,7 @@ export default function MapPage() {
               selectedEvent={selectedEvent}
               onSelectEvent={handleSelectEvent}
               highlightedEventId={highlightedEventId}
+              terrainViewRequest={terrainViewRequest}
             />
 
             {/* Onboarding Guide — collapsible help panel */}
@@ -517,6 +530,7 @@ export default function MapPage() {
             onClose={handleClosePopup}
             onNavigateToChild={handleNavigateToChild}
             onNavigateToParent={handleNavigateToParent}
+            onViewTerrain={handleViewTerrain}
             parentEvent={parentEvent}
           />
         )}

@@ -20,9 +20,18 @@ import {
   EllipsoidTerrainProvider,
   DistanceDisplayCondition,
   LabelStyle,
+  TerrainProvider,
+  ImageryProvider,
+  ImageryLayer,
 } from 'cesium';
 import 'cesium/Build/Cesium/Widgets/widgets.css';
-import { VIETNAM_CENTER, getMarkerColor } from '../lib/cesium';
+import {
+  VIETNAM_CENTER,
+  getMarkerColor,
+  getTerrainImageryProvider,
+  getTerrainProvider,
+  hasCesiumIonToken,
+} from '../lib/cesium';
 import type { HistoricalEvent } from '../types/event';
 
 // ─── SAFE MODE ────────────────────────────────────────────────────────────────
@@ -41,6 +50,7 @@ interface CesiumMapProps {
   selectedEvent: HistoricalEvent | null;
   onSelectEvent: (event: HistoricalEvent | null) => void;
   highlightedEventId: string | null;
+  terrainViewRequest?: { eventId: string; nonce: number } | null;
 }
 
 export default function CesiumMap({
@@ -48,6 +58,7 @@ export default function CesiumMap({
   selectedEvent,
   onSelectEvent,
   highlightedEventId,
+  terrainViewRequest,
 }: CesiumMapProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const viewerRef = useRef<Viewer | null>(null);
@@ -55,6 +66,13 @@ export default function CesiumMap({
   const handlerRef = useRef<ScreenSpaceEventHandler | null>(null);
   const dataSourceRef = useRef<GeoJsonDataSource | null>(null);
   const markerDataSourceRef = useRef<CustomDataSource | null>(null);
+  const worldTerrainProviderRef = useRef<TerrainProvider | null>(null);
+  const worldTerrainLoadingRef = useRef<Promise<TerrainProvider | null> | null>(null);
+  const terrainImageryProviderRef = useRef<ImageryProvider | null>(null);
+  const terrainImageryLoadingRef = useRef<Promise<ImageryProvider | null> | null>(null);
+  const terrainImageryLayerRef = useRef<ImageryLayer | null>(null);
+  const terrainImageryEnabledRef = useRef(false);
+  const terrainModeEventIdRef = useRef<string | null>(null);
   const [mapError, setMapError] = useState<string | null>(null);
 
   // Stable ref to callback — avoids re-running init effect when callback changes
@@ -176,6 +194,7 @@ export default function CesiumMap({
               if (viewer && !viewer.isDestroyed()) {
                 viewer.dataSources.add(dataSource);
                 dataSourceRef.current = dataSource;
+                dataSource.show = !terrainModeEventIdRef.current;
                 // Re-apply polygon highlights now that GeoJSON is loaded.
                 // selectedEvent might have been set before GeoJSON finished loading.
                 applyPolygonHighlights(selectedEventRef.current);
@@ -416,6 +435,203 @@ export default function CesiumMap({
     },
     []
   );
+
+  const enableWorldTerrain = useCallback(async (viewer: Viewer): Promise<boolean> => {
+    if (worldTerrainProviderRef.current) {
+      viewer.terrainProvider = worldTerrainProviderRef.current;
+      viewer.scene.globe.depthTestAgainstTerrain = true;
+      return true;
+    }
+
+    if (!hasCesiumIonToken()) {
+      viewer.terrainProvider = new EllipsoidTerrainProvider();
+      viewer.scene.globe.depthTestAgainstTerrain = false;
+      setMapError('Chưa cấu hình Cesium Ion token nên đang dùng địa hình phẳng.');
+      return false;
+    }
+
+    if (!worldTerrainLoadingRef.current) {
+      worldTerrainLoadingRef.current = getTerrainProvider()
+        .then((provider) => {
+          worldTerrainProviderRef.current = provider;
+          return provider;
+        })
+        .catch((error) => {
+          console.warn('[CesiumMap] World Terrain load failed:', error);
+          worldTerrainLoadingRef.current = null;
+          return null;
+        });
+    }
+
+    const terrainProvider = await worldTerrainLoadingRef.current;
+    if (!terrainProvider || viewer.isDestroyed()) {
+      if (!viewer.isDestroyed()) {
+        viewer.terrainProvider = new EllipsoidTerrainProvider();
+        viewer.scene.globe.depthTestAgainstTerrain = false;
+      }
+      setMapError('Không thể tải địa hình 3D. Đã quay về bản đồ thường.');
+      return false;
+    }
+
+    viewer.terrainProvider = terrainProvider;
+    viewer.scene.globe.depthTestAgainstTerrain = true;
+    setMapError(null);
+    return true;
+  }, []);
+
+  const enableTerrainImagery = useCallback(async (viewer: Viewer): Promise<boolean> => {
+    if (
+      terrainImageryEnabledRef.current &&
+      terrainImageryLayerRef.current &&
+      viewer.imageryLayers.contains(terrainImageryLayerRef.current)
+    ) {
+      terrainImageryLayerRef.current.show = true;
+      return true;
+    }
+
+    if (terrainImageryProviderRef.current) {
+      terrainImageryLayerRef.current = viewer.imageryLayers.addImageryProvider(
+        terrainImageryProviderRef.current
+      );
+      terrainImageryEnabledRef.current = true;
+      return true;
+    }
+
+    if (!hasCesiumIonToken()) return false;
+
+    if (!terrainImageryLoadingRef.current) {
+      terrainImageryLoadingRef.current = getTerrainImageryProvider()
+        .then((provider) => {
+          terrainImageryProviderRef.current = provider;
+          return provider;
+        })
+        .catch((error) => {
+          console.warn('[CesiumMap] Terrain imagery load failed:', error);
+          terrainImageryLoadingRef.current = null;
+          return null;
+        });
+    }
+
+    const imageryProvider = await terrainImageryLoadingRef.current;
+    if (!imageryProvider || viewer.isDestroyed()) return false;
+
+    terrainImageryLayerRef.current = viewer.imageryLayers.addImageryProvider(imageryProvider);
+    terrainImageryEnabledRef.current = true;
+    return true;
+  }, []);
+
+  const emphasizeTerrain = useCallback((viewer: Viewer) => {
+    viewer.scene.verticalExaggeration = 1.8;
+    viewer.scene.verticalExaggerationRelativeHeight = 0;
+    viewer.scene.globe.enableLighting = true;
+  }, []);
+
+  const resetTerrainView = useCallback((viewer: Viewer) => {
+    if (
+      terrainImageryLayerRef.current &&
+      viewer.imageryLayers.contains(terrainImageryLayerRef.current)
+    ) {
+      viewer.imageryLayers.remove(terrainImageryLayerRef.current, false);
+    }
+
+    terrainImageryLayerRef.current = null;
+    terrainImageryEnabledRef.current = false;
+    terrainModeEventIdRef.current = null;
+    viewer.terrainProvider = new EllipsoidTerrainProvider();
+    viewer.scene.verticalExaggeration = 1;
+    viewer.scene.verticalExaggerationRelativeHeight = 0;
+    viewer.scene.globe.enableLighting = false;
+    viewer.scene.globe.depthTestAgainstTerrain = false;
+    if (dataSourceRef.current) {
+      dataSourceRef.current.show = true;
+    }
+  }, []);
+
+  const canViewTerrain = useCallback((event: HistoricalEvent) => {
+    return (
+      event.geoType !== 'no_location' &&
+      event.geoType !== 'nationwide' &&
+      (!!event.coordinates || !!event.primaryRegions?.length)
+    );
+  }, []);
+
+  const flyToTerrainView = useCallback(
+    async (event: HistoricalEvent) => {
+      if (CESIUM_SAFE_MODE || !canViewTerrain(event)) return;
+
+      const viewer = viewerRef.current;
+      if (!viewer || viewer.isDestroyed()) return;
+
+      const terrainEnabled = await enableWorldTerrain(viewer);
+      const imageryEnabled = await enableTerrainImagery(viewer);
+      if (viewer.isDestroyed()) return;
+      if (!terrainEnabled && !imageryEnabled) {
+        terrainModeEventIdRef.current = null;
+        return;
+      }
+
+      terrainModeEventIdRef.current = event.id;
+      emphasizeTerrain(viewer);
+      if (dataSourceRef.current) {
+        dataSourceRef.current.show = false;
+      }
+
+      let lat: number | undefined;
+      let lng: number | undefined;
+
+      if (event.coordinates) {
+        lat = event.coordinates.lat;
+        lng = event.coordinates.lng;
+      } else if (event.primaryRegions?.length) {
+        const bounds = computeRegionBounds(event.primaryRegions);
+        if (bounds) {
+          const center = Rectangle.center(bounds);
+          lat = CesiumMath.toDegrees(center.latitude);
+          lng = CesiumMath.toDegrees(center.longitude);
+        }
+      }
+
+      if (!Number.isFinite(lat) || !Number.isFinite(lng)) {
+        setMapError('Sự kiện này chưa đủ tọa độ để xem địa hình 3D.');
+        return;
+      }
+
+      const hasChildren = !!event.children && event.children.length > 0;
+      let altitude = 12000;
+      if (hasChildren) altitude = 120000;
+      else if (event.geoType === 'multi_region') altitude = 80000;
+
+      try {
+        viewer.camera.flyTo({
+          destination: Cartesian3.fromDegrees(lng!, lat!, altitude),
+          orientation: {
+            heading: CesiumMath.toRadians(0),
+            pitch: CesiumMath.toRadians(-34),
+            roll: 0,
+          },
+          duration: 1.4,
+        });
+      } catch (e) {
+        console.warn('[CesiumMap] flyTo terrain view error:', e);
+        setMapError('Không thể chuyển sang góc nhìn địa hình 3D.');
+      }
+    },
+    [canViewTerrain, computeRegionBounds, emphasizeTerrain, enableTerrainImagery, enableWorldTerrain]
+  );
+
+  useEffect(() => {
+    if (!terrainViewRequest || !selectedEvent) return;
+    if (terrainViewRequest.eventId !== selectedEvent.id) return;
+    void flyToTerrainView(selectedEvent);
+  }, [terrainViewRequest, selectedEvent, flyToTerrainView]);
+
+  useEffect(() => {
+    const viewer = viewerRef.current;
+    if (!viewer || viewer.isDestroyed()) return;
+    if (!terrainModeEventIdRef.current) return;
+    if (selectedEvent?.id === terrainModeEventIdRef.current) return;
+    resetTerrainView(viewer);
+  }, [selectedEvent?.id, resetTerrainView]);
 
   // ─── Fly to selected event ───────────────────────────────────────────────────
   useEffect(() => {
