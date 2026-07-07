@@ -157,7 +157,8 @@ export function rawToEventDetail(raw: RawEventJson): MockEventDetail {
   };
 
   /* mapData — hỗ trợ cả format cũ (displayGeometry wrapper) và format mới (flat) */
-  const rawDg = raw.mapData?.displayGeometry;
+  const mapData = raw.mapData;
+  const rawDg = mapData?.displayGeometry;
   detail.mapData = rawDg
     ? /* ─── Old format: displayGeometry wrapper ─── */
       {
@@ -169,28 +170,28 @@ export function rawToEventDetail(raw: RawEventJson): MockEventDetail {
           provinceNames: rawDg.provinceNames,
           historicalLocations: rawDg.historicalLocations,
         },
-        focusGeometry: raw.mapData.focusGeometry?.center
+        focusGeometry: mapData?.focusGeometry?.center
           ? {
-              center: [raw.mapData.focusGeometry.center.lng, raw.mapData.focusGeometry.center.lat],
-              zoom: raw.mapData.focusGeometry.zoom ?? 8,
+              center: [mapData.focusGeometry.center.lng, mapData.focusGeometry.center.lat],
+              zoom: mapData.focusGeometry.zoom ?? 8,
             }
           : undefined,
       }
     : /* ─── New JSONL format: flat mapData ─── */
-      raw.mapData
+      mapData
       ? {
           displayGeometry: {
-            geoType: toGeoType(raw.mapData.geoType),
-            marker: raw.mapData.marker
-              ? { coordinates: [raw.mapData.marker.lng, raw.mapData.marker.lat] }
+            geoType: toGeoType(mapData.geoType),
+            marker: mapData.marker
+              ? { coordinates: [mapData.marker.lng, mapData.marker.lat] }
               : undefined,
-            provinceNames: raw.mapData.provinceNames,
-            historicalLocations: raw.mapData.historicalLocations,
+            provinceNames: mapData.provinceNames,
+            historicalLocations: mapData.historicalLocations,
           },
-          focusGeometry: raw.mapData.focusGeometry?.center
+          focusGeometry: mapData.focusGeometry?.center
             ? {
-                center: [raw.mapData.focusGeometry.center.lng, raw.mapData.focusGeometry.center.lat],
-                zoom: raw.mapData.focusGeometry.zoom ?? 8,
+                center: [mapData.focusGeometry.center.lng, mapData.focusGeometry.center.lat],
+                zoom: mapData.focusGeometry.zoom ?? 8,
               }
             : undefined,
         }
@@ -230,34 +231,35 @@ export function rawToHistoricalEvent(
   const { withChildren = false } = options;
 
   /* Hỗ trợ cả format cũ (displayGeometry wrapper) và format mới (flat) */
-  const rawDg = raw.mapData?.displayGeometry;
-  const isNewMapFormat = raw.mapData && !rawDg && raw.mapData.geoType != null;
+  const mapData = raw.mapData;
+  const rawDg = mapData?.displayGeometry;
+  const isNewMapFormat = mapData && !rawDg && mapData.geoType != null;
   const dg = rawDg ?? (isNewMapFormat
     ? {
-        geoType: raw.mapData!.geoType,
-        marker: raw.mapData!.marker ?? undefined,
-        provinceNames: raw.mapData!.provinceNames,
-        historicalLocations: raw.mapData!.historicalLocations,
+        geoType: mapData.geoType,
+        marker: mapData.marker ?? undefined,
+        provinceNames: mapData.provinceNames,
+        historicalLocations: mapData.historicalLocations,
       }
     : undefined
   );
-  const fg = raw.mapData?.focusGeometry;
+  const fg = mapData?.focusGeometry;
   const startYear = raw.chronology?.start?.year ?? 0;
   const endYear = raw.chronology?.end?.year;
-  const rawGeoType = toGeoType(dg?.geoType ?? raw.mapData?.geoType);
+  const rawGeoType = toGeoType(dg?.geoType ?? mapData?.geoType);
 
   // Coordinates: ưu tiên marker → focus center → fallback centroid của tỉnh đầu
   // tiên trong provinceNames. Fallback chỉ áp dụng cho event có gắn địa điểm
   // (≠ no_location), giúp các sự kiện chỉ liệt kê tỉnh vẫn zoom được trên map.
   let coordinates: { lat: number; lng: number } | undefined;
   let resolvedGeoType: GeoType = rawGeoType;
-  const resolvedMarker = dg?.marker ?? (isNewMapFormat ? raw.mapData!.marker : undefined);
+  const resolvedMarker = dg?.marker ?? (isNewMapFormat ? mapData.marker : undefined);
   if (resolvedMarker) {
     coordinates = { lat: resolvedMarker.lat, lng: resolvedMarker.lng };
   } else if (fg?.center) {
     coordinates = { lat: fg.center.lat, lng: fg.center.lng };
   } else if (rawGeoType !== 'no_location') {
-    const provinceNames = dg?.provinceNames ?? (isNewMapFormat ? raw.mapData!.provinceNames : undefined);
+    const provinceNames = dg?.provinceNames ?? (isNewMapFormat ? mapData.provinceNames : undefined);
     const centroid = getCentroidFromProvinceNames(provinceNames);
     if (centroid) {
       coordinates = { lat: centroid.lat, lng: centroid.lng };
@@ -283,7 +285,7 @@ export function rawToHistoricalEvent(
     eventSubtype: raw.classification?.eventSubtype,
     geoType: resolvedGeoType,
     coordinates,
-    primaryRegions: dg?.provinceNames ?? (isNewMapFormat ? raw.mapData!.provinceNames : undefined),
+    primaryRegions: dg?.provinceNames ?? (isNewMapFormat ? mapData.provinceNames : undefined),
     parentId: raw.hierarchy?.parentId ?? null,
     details:
       raw.textbookContent?.detailedNarrative ??

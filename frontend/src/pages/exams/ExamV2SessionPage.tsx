@@ -10,6 +10,7 @@ import { useParams, useNavigate, Link } from 'react-router-dom';
 import { useSessionV2 } from '@/lib/exam/useSessionV2';
 import type { QuestionDisplayStatus } from '@/lib/exam/useSessionV2';
 import { useExamKeyboardShortcuts } from '@/lib/exam/useExamKeyboardShortcuts';
+import { syncAttemptBestEffort } from '@/lib/exam/examAttemptSync';
 import { isMCQQuestion, isTFQuestion } from '@/types/exam';
 import MCQQuestionCardV2 from '../../components/exams/MCQQuestionCardV2';
 import TFQuestionCard from '../../components/exams/TFQuestionCard';
@@ -190,6 +191,7 @@ export default function ExamV2SessionPage() {
     const result = handleSubmit();
     setDialogOpen(false);
     if (result) {
+      void syncAttemptBestEffort(result);
       navigate(`/exams/ket-qua/${result.sessionId}`);
       return;
     }

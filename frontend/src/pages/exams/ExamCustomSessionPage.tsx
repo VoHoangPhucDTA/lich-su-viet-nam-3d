@@ -7,6 +7,7 @@ import {
 } from '@/lib/exam/displayLabels';
 import { scoreCustomMockSession } from '@/lib/exam/customScoring';
 import { loadCustomSession, saveCustomPracticeState, saveCustomSession, updateCustomSession } from '@/lib/exam/customSessionStorage';
+import { syncAttemptBestEffort } from '@/lib/exam/examAttemptSync';
 import { useExamKeyboardShortcuts } from '@/lib/exam/useExamKeyboardShortcuts';
 import { readResultFromLS, writeResultToLS } from '@/lib/exam/useSessionV2';
 import {
@@ -436,6 +437,7 @@ export default function ExamCustomSessionPage() {
       setSession(finalSession);
       const result = scoreCustomMockSession(finalSession);
       writeResultToLS(result);
+      void syncAttemptBestEffort(result);
       navigate(`/exams/ket-qua/${result.sessionId}`);
     } catch {
       submitStartedRef.current = false;

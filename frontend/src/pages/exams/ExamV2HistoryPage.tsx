@@ -5,6 +5,8 @@
  */
 import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useAuth } from '@/auth/AuthContext';
+import { fetchBackendAttemptHistory, resultSummaryFromAttempt } from '@/lib/exam/examAttemptSync';
 import { loadManifest } from '@/lib/exam/manifestLoader';
 import { rateScore } from '@/lib/exam/scoring';
 import { clearAllV2Results, getAllV2Results } from '@/lib/exam/v2History';
@@ -82,6 +84,7 @@ function SummaryStat({ label, value, color }: { label: string; value: string; co
 function HistoryRow({ result, meta }: { result: ExamResultV2; meta?: ExamManifestEntry }) {
   const rating = rateScore(result.totalScore);
   const color = RATING_COLOR[rating];
+  const hasSectionScores = result.questions.length > 0 || result.mcqScore > 0 || result.tfScore > 0;
   const title = result.isCustom ? result.title ?? 'Thi thử tùy chọn' : meta?.title ?? shortExamId(result.examId);
   const subtitle = meta
     ? [meta.sourceDetail, meta.year].filter(Boolean).join(' · ')
@@ -121,8 +124,12 @@ function HistoryRow({ result, meta }: { result: ExamResultV2; meta?: ExamManifes
       <div style={{ display: 'grid', gap: '0.75rem', justifyItems: 'end' }}>
         <div style={{ display: 'flex', gap: '0.65rem', alignItems: 'center', flexWrap: 'wrap', justifyContent: 'flex-end' }}>
           <ScoreBlock label="Tổng" value={result.totalScore.toFixed(2)} color={color} />
-          <ScoreBlock label="Trắc nghiệm" value={result.mcqScore.toFixed(2)} color="var(--accent)" />
-          <ScoreBlock label="Đúng/Sai" value={result.tfScore.toFixed(2)} color="var(--admin-accent)" />
+          {hasSectionScores && (
+            <>
+              <ScoreBlock label="Trắc nghiệm" value={result.mcqScore.toFixed(2)} color="var(--accent)" />
+              <ScoreBlock label="Đúng/Sai" value={result.tfScore.toFixed(2)} color="var(--admin-accent)" />
+            </>
+          )}
         </div>
         <div style={{ display: 'flex', gap: '0.6rem', alignItems: 'center', flexWrap: 'wrap', justifyContent: 'flex-end' }}>
           <span
@@ -189,10 +196,13 @@ function ScoreBlock({ label, value, color }: { label: string; value: string; col
 }
 
 export default function ExamV2HistoryPage() {
+  const { isAuthenticated } = useAuth();
   const [results, setResults] = useState<ExamResultV2[]>([]);
   const [metaById, setMetaById] = useState<Map<string, ExamManifestEntry>>(new Map());
   const [loading, setLoading] = useState(true);
   const [manifestWarning, setManifestWarning] = useState<string | null>(null);
+  const [historyNotice, setHistoryNotice] = useState<string | null>(null);
+  const [isBackendHistory, setIsBackendHistory] = useState(false);
 
   const stats = useMemo(() => {
     if (results.length === 0) return null;
@@ -208,8 +218,28 @@ export default function ExamV2HistoryPage() {
   async function load() {
     setLoading(true);
     setManifestWarning(null);
+    setHistoryNotice(null);
+    setIsBackendHistory(false);
     const storedResults = getAllV2Results();
-    setResults(storedResults);
+
+    if (isAuthenticated) {
+      try {
+        const backendHistory = await fetchBackendAttemptHistory(100);
+        if (backendHistory?.items) {
+          setResults(backendHistory.items.map(resultSummaryFromAttempt));
+          setIsBackendHistory(true);
+        } else {
+          setResults(storedResults);
+          setHistoryNotice('Đang hiển thị lịch sử lưu trên thiết bị này.');
+        }
+      } catch {
+        setResults(storedResults);
+        setHistoryNotice('Không thể đồng bộ lịch sử từ máy chủ, đang dùng dữ liệu trên thiết bị.');
+      }
+    } else {
+      setResults(storedResults);
+      setHistoryNotice('Đang hiển thị lịch sử lưu trên thiết bị này.');
+    }
 
     try {
       const manifest = await loadManifest();
@@ -225,7 +255,7 @@ export default function ExamV2HistoryPage() {
 
   useEffect(() => {
     void load();
-  }, []);
+  }, [isAuthenticated]);
 
   function handleClear() {
     if (!confirm('Xóa toàn bộ lịch sử làm bài? Hành động này không thể hoàn tác.')) return;
@@ -246,7 +276,7 @@ export default function ExamV2HistoryPage() {
               Theo dõi các bài thi thử bạn đã hoàn thành.
             </p>
           </div>
-          {results.length > 0 && (
+          {results.length > 0 && !isBackendHistory && (
             <button
               type="button"
               onClick={handleClear}
@@ -270,6 +300,12 @@ export default function ExamV2HistoryPage() {
           <div style={{ background: 'rgba(194,155,75,0.1)', border: '1px solid rgba(194,155,75,0.35)', borderRadius: '0.9rem', padding: '0.9rem 1rem', color: 'var(--text-secondary)', lineHeight: 1.6 }}>
             <strong style={{ color: 'var(--warning)' }}>Lưu ý: </strong>
             {manifestWarning}
+          </div>
+        )}
+
+        {historyNotice && (
+          <div style={{ background: 'rgba(47,122,87,0.08)', border: '1px solid rgba(47,122,87,0.24)', borderRadius: '0.9rem', padding: '0.85rem 1rem', color: 'var(--text-secondary)', lineHeight: 1.6 }}>
+            {historyNotice}
           </div>
         )}
 
