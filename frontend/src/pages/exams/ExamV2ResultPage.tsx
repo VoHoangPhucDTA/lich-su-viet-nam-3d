@@ -5,6 +5,7 @@
 import { useEffect, useMemo, useState, type ReactNode } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { formatCognitiveLevelLabel, formatDifficultyLabel, formatQuestionTypeLabel } from '@/lib/exam/displayLabels';
+import { fetchBackendAttemptDetail, resultFromAttemptDetail } from '@/lib/exam/examAttemptSync';
 import { formatExamTitle } from '@/lib/exam/examDisplay';
 import { loadExam } from '@/lib/exam/examLoader';
 import { rateScore, scoreToPercent } from '@/lib/exam/scoring';
@@ -602,8 +603,17 @@ export default function ExamV2ResultPage() {
       setError(null);
       setExam(null);
 
-      const storedResult = readResultFromLS(sessionId);
-      if (!storedResult) {
+      let currentResult = readResultFromLS(sessionId);
+      if (!currentResult) {
+        try {
+          const backendDetail = await fetchBackendAttemptDetail(sessionId);
+          currentResult = backendDetail ? resultFromAttemptDetail(backendDetail) : null;
+        } catch {
+          currentResult = null;
+        }
+      }
+
+      if (!currentResult) {
         if (!alive) return;
         setResult(null);
         setLoading(false);
@@ -612,21 +622,21 @@ export default function ExamV2ResultPage() {
       }
 
       if (!alive) return;
-      setResult(storedResult);
+      setResult(currentResult);
 
-      if (storedResult.isCustom && storedResult.questionSnapshots?.length) {
+      if (currentResult.isCustom && currentResult.questionSnapshots?.length) {
         setLoading(false);
         return;
       }
 
-      if (!storedResult.examId) {
+      if (!currentResult.examId) {
         setLoading(false);
         setError('Kết quả này được lưu từ phiên bản cũ và thiếu mã đề, nên chưa thể hiển thị review chi tiết.');
         return;
       }
 
       try {
-        const loadedExam = await loadExam(storedResult.examId);
+        const loadedExam = await loadExam(currentResult.examId);
         if (!alive) return;
         setExam(loadedExam);
       } catch (err) {
