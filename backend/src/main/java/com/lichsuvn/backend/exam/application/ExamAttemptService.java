@@ -1,8 +1,5 @@
 package com.lichsuvn.backend.exam.application;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lichsuvn.backend.auth.infrastructure.UuidBytes;
 import com.lichsuvn.backend.auth.security.UserPrincipal;
 import com.lichsuvn.backend.common.exception.ApiException;
@@ -18,6 +15,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
+import tools.jackson.core.JacksonException;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.ObjectMapper;
 
 import java.math.BigDecimal;
 import java.time.Instant;
@@ -118,7 +118,7 @@ public class ExamAttemptService {
         if (request.result() == null || request.result().isNull() || request.result().isMissingNode()) {
             throw new ApiException(HttpStatus.BAD_REQUEST, "INVALID_EXAM_RESULT", "result is required");
         }
-        if (request.result().isContainerNode() && request.result().isEmpty()) {
+        if ((request.result().isObject() || request.result().isArray()) && request.result().isEmpty()) {
             throw new ApiException(HttpStatus.BAD_REQUEST, "INVALID_EXAM_RESULT", "result must not be empty");
         }
         if (request.totalQuestions() == null || request.totalQuestions() <= 0) {
@@ -164,7 +164,7 @@ public class ExamAttemptService {
         }
         try {
             return objectMapper.writeValueAsString(node);
-        } catch (JsonProcessingException ex) {
+        } catch (JacksonException ex) {
             throw new ApiException(HttpStatus.BAD_REQUEST, "INVALID_JSON", "Request contains invalid JSON");
         }
     }
@@ -175,7 +175,7 @@ public class ExamAttemptService {
         }
         try {
             return objectMapper.readTree(raw);
-        } catch (JsonProcessingException ex) {
+        } catch (JacksonException ex) {
             throw new ApiException(HttpStatus.INTERNAL_SERVER_ERROR, "STORED_JSON_INVALID", "Stored attempt JSON is invalid");
         }
     }
