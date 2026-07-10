@@ -24,7 +24,7 @@ function pillStyle(active = false): CSSProperties {
 
 function TopicCard({ summary, mode }: { summary: TopicSummary; mode: ViewMode }) {
   return (
-    <article style={{ background: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: '1rem', padding: '1.25rem', display: 'grid', gap: '0.9rem' }}>
+    <article style={{ background: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: '1rem', padding: '1.25rem', display: 'grid', gap: '0.9rem', minWidth: 0 }}>
       <div>
         <h2 style={{ margin: '0 0 0.45rem', fontSize: '1.05rem', fontWeight: 900, color: 'var(--text-primary)', lineHeight: 1.45 }}>
           {summary.title}
@@ -128,12 +128,12 @@ export default function ExamTopicListPage() {
             <button type="button" onClick={() => setMode('period')} style={pillStyle(mode === 'period')}>Theo giai đoạn</button>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'minmax(14rem, 1fr) auto auto', gap: '0.75rem', alignItems: 'center' }}>
+          <div className="exam-topic-filters" style={{ display: 'grid', gridTemplateColumns: 'minmax(14rem, 1fr) auto auto', gap: '0.75rem', alignItems: 'center' }}>
             <input
               value={search}
               onChange={(event) => setSearch(event.target.value)}
               placeholder="Tìm kiếm chủ đề..."
-              style={{ padding: '0.7rem 0.9rem', borderRadius: '0.75rem', border: '1px solid var(--border)', background: 'var(--bg-surface)', color: 'var(--text-primary)', outline: 'none' }}
+              style={{ padding: '0.7rem 0.9rem', borderRadius: '0.75rem', border: '1px solid var(--border)', background: 'var(--bg-surface)', color: 'var(--text-primary)', outline: 'none', width: '100%', minWidth: 0, boxSizing: 'border-box' }}
             />
             <select value={typeFilter} onChange={(event) => setTypeFilter(event.target.value as TypeFilter)} style={selectStyle}>
               <option value="all">Tất cả dạng câu</option>
@@ -161,10 +161,23 @@ export default function ExamTopicListPage() {
           </div>
         )}
         {!loading && !error && summaries.length > 0 && (
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(18rem, 1fr))', gap: '1rem' }}>
+          <div className="exam-topic-cards" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(18rem, 1fr))', gap: '1rem', minWidth: 0 }}>
             {summaries.map((summary) => <TopicCard key={summary.slug} summary={summary} mode={mode} />)}
           </div>
         )}
+        <style>{`
+          @media (max-width: 640px) {
+            .exam-topic-filters,
+            .exam-topic-cards {
+              grid-template-columns: minmax(0, 1fr) !important;
+            }
+            .exam-topic-filters select {
+              width: 100%;
+              min-width: 0;
+              box-sizing: border-box;
+            }
+          }
+        `}</style>
       </div>
     </div>
   );
@@ -177,6 +190,7 @@ const selectStyle: CSSProperties = {
   background: 'var(--bg-surface)',
   color: 'var(--text-primary)',
   fontWeight: 700,
+  minWidth: 0,
 };
 
 function ErrorBox({ message }: { message: string }) {

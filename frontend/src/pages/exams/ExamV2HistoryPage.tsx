@@ -7,6 +7,8 @@ import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '@/auth/AuthContext';
 import { fetchBackendAttemptHistory, resultSummaryFromAttempt } from '@/lib/exam/examAttemptSync';
+import { formatExamDuration } from '@/lib/exam/durationFormat';
+import { formatExamTitle, getExamDisplayYear, getExamSourceLabel } from '@/lib/exam/examDisplay';
 import { loadManifest } from '@/lib/exam/manifestLoader';
 import { rateScore } from '@/lib/exam/scoring';
 import { clearAllV2Results, getAllV2Results } from '@/lib/exam/v2History';
@@ -35,19 +37,6 @@ function formatDate(ms: number): string {
     hour: '2-digit',
     minute: '2-digit',
   });
-}
-
-function formatDuration(secs: number): string {
-  if (!Number.isFinite(secs) || secs <= 0) return 'Chưa rõ';
-  const m = Math.floor(secs / 60);
-  const s = secs % 60;
-  return `${m}p ${s.toString().padStart(2, '0')}s`;
-}
-
-function shortExamId(examId?: string): string {
-  if (!examId) return 'Đề thi không xác định';
-  if (examId.length <= 72) return examId;
-  return `${examId.slice(0, 69)}...`;
 }
 
 function formatCustomSubtitle(result: ExamResultV2): string {
@@ -85,13 +74,16 @@ function HistoryRow({ result, meta }: { result: ExamResultV2; meta?: ExamManifes
   const rating = rateScore(result.totalScore);
   const color = RATING_COLOR[rating];
   const hasSectionScores = result.questions.length > 0 || result.mcqScore > 0 || result.tfScore > 0;
-  const title = result.isCustom ? result.title ?? 'Thi thử tùy chọn' : meta?.title ?? shortExamId(result.examId);
+  const displaySource = meta ?? { examId: result.examId, title: result.title };
+  const displayYear = getExamDisplayYear(displaySource);
+  const sourceLabel = getExamSourceLabel(displaySource);
+  const title = result.isCustom ? result.title ?? 'Thi thử tùy chọn' : formatExamTitle(displaySource);
   const subtitle = meta
-    ? [meta.sourceDetail, meta.year].filter(Boolean).join(' · ')
+    ? [sourceLabel, displayYear || null].filter(Boolean).join(' · ')
     : result.isCustom
       ? formatCustomSubtitle(result)
       : result.examId
-      ? 'Không tìm thấy metadata trong manifest'
+      ? [sourceLabel, displayYear || null].filter(Boolean).join(' · ') || 'Không tìm thấy metadata trong manifest'
       : 'Không có mã đề trong kết quả';
 
   return (
@@ -116,7 +108,7 @@ function HistoryRow({ result, meta }: { result: ExamResultV2; meta?: ExamManifes
         </div>
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', marginTop: '0.75rem' }}>
           <InfoPill label="Ngày làm" value={formatDate(result.submittedAt)} />
-          <InfoPill label="Thời gian" value={formatDuration(result.durationSeconds)} />
+          <InfoPill label="Thời gian" value={formatExamDuration(result.durationSeconds)} />
           <InfoPill label="Số câu" value={`${result.totalQuestions ?? result.questions.length} câu`} />
         </div>
       </div>

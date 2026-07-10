@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState, type CSSProperties } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
+import ExamSubmitDialog from '@/components/exams/ExamSubmitDialog';
 import {
   formatCognitiveLevelLabel,
   formatDifficultyLabel,
@@ -341,6 +342,8 @@ export default function ExamCustomSessionPage() {
   const [saveError, setSaveError] = useState<string | null>(null);
   const [remainingSeconds, setRemainingSeconds] = useState<number | null>(null);
   const [markedForReview, setMarkedForReview] = useState<string[]>([]);
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const submitStartedRef = useRef(false);
 
   useEffect(() => {
@@ -421,6 +424,7 @@ export default function ExamCustomSessionPage() {
     }
 
     submitStartedRef.current = true;
+    setIsSubmitting(true);
     const finalSession: CustomExamSession = {
       ...session,
       status: 'submitted',
@@ -441,6 +445,7 @@ export default function ExamCustomSessionPage() {
       navigate(`/exams/ket-qua/${result.sessionId}`);
     } catch {
       submitStartedRef.current = false;
+      setIsSubmitting(false);
       setSaveError('Chưa lưu được kết quả thi thử tùy chọn. Hãy thử nộp lại trước khi đóng trang.');
     }
   }, [currentIndex, markedForReview, navigate, practiceState, session]);
@@ -465,7 +470,7 @@ export default function ExamCustomSessionPage() {
     onNext: goToNextQuestion,
     onEnter: isMockMode ? undefined : checkCurrentQuestion,
     onFlag: isMockMode ? toggleCurrentMark : undefined,
-    disabled: Boolean(error) || !session || !practiceState || !currentQuestion || practiceState.finished,
+    disabled: Boolean(error) || !session || !practiceState || !currentQuestion || practiceState.finished || dialogOpen || isSubmitting,
   });
 
   useEffect(() => {
@@ -641,7 +646,14 @@ export default function ExamCustomSessionPage() {
                 {currentIndex < questions.length - 1 && (
                   <button type="button" onClick={goToNextQuestion} style={buttonStyle('secondary')}>Câu tiếp theo</button>
                 )}
-                <button type="button" onClick={submitCustomMock} style={buttonStyle('primary')}>Nộp bài</button>
+                <button
+                  type="button"
+                  disabled={isSubmitting}
+                  onClick={() => setDialogOpen(true)}
+                  style={{ ...buttonStyle('primary'), opacity: isSubmitting ? 0.65 : 1 }}
+                >
+                  {isSubmitting ? 'Đang nộp...' : 'Nộp bài'}
+                </button>
               </>
             ) : (
               <>
@@ -656,6 +668,16 @@ export default function ExamCustomSessionPage() {
           </div>
         </nav>
       </div>
+
+      <ExamSubmitDialog
+        isOpen={dialogOpen}
+        totalQuestions={questions.length}
+        answeredCount={answeredCount}
+        unansweredCount={questions.length - answeredCount}
+        isSubmitting={isSubmitting}
+        onConfirm={submitCustomMock}
+        onCancel={() => setDialogOpen(false)}
+      />
     </div>
   );
 }
