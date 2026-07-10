@@ -4,8 +4,6 @@
  *  - Session mode: chọn Đúng/Sai cho từng mệnh đề
  *  - Review mode: hiển thị kết quả đúng/sai, disable click
  *
- * Bậc thang điểm THPT 2025:
- *  0 ý đúng → 0đ | 1 ý → 0.1đ | 2 ý → 0.25đ | 3 ý → 0.5đ | 4 ý → 1.0đ
  */
 import type { CSSProperties } from 'react';
 import type { TFQuestion, QuestionResult } from '@/types/exam';
@@ -286,23 +284,6 @@ export default function TFQuestionCard({
           );
         })}
       </div>
-
-      {/* Scoring hint (session mode only) */}
-      {!reviewMode && (
-        <div
-          style={{
-            marginTop: '1.25rem',
-            padding: '0.6rem 1rem',
-            background: 'var(--bg-surface)',
-            borderRadius: '0.5rem',
-            fontSize: '0.78rem',
-            color: 'var(--text-muted)',
-          }}
-        >
-          Bậc thang điểm: 0 ý → 0đ &nbsp;|&nbsp; 1 ý → 0.1đ &nbsp;|&nbsp;
-          2 ý → 0.25đ &nbsp;|&nbsp; 3 ý → 0.5đ &nbsp;|&nbsp; 4 ý → 1.0đ
-        </div>
-      )}
 
       {/* Explanation (review mode only) */}
       {reviewMode && question.explanation && (

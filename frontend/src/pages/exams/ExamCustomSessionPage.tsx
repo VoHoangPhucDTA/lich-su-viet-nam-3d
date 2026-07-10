@@ -144,7 +144,7 @@ function MCQCard({
           const border = checked && isAnswer ? 'rgba(47,122,87,0.38)' : checked && isSelected && !isAnswer ? 'rgba(159,29,45,0.32)' : isSelected ? 'var(--accent)' : 'var(--border)';
           const background = checked && isAnswer ? 'rgba(47,122,87,0.1)' : checked && isSelected && !isAnswer ? 'rgba(159,29,45,0.08)' : isSelected ? 'var(--accent-soft)' : 'var(--bg-surface)';
           return (
-            <button key={option.id} type="button" onClick={() => onSelect(option.id)} style={{ border: `1px solid ${border}`, background, color: 'var(--text-primary)', borderRadius: '0.8rem', padding: '0.9rem 1rem', display: 'flex', gap: '0.75rem', alignItems: 'flex-start', textAlign: 'left', cursor: 'pointer' }}>
+            <button key={option.id} type="button" disabled={checked} onClick={() => onSelect(option.id)} style={{ border: `1px solid ${border}`, background, color: 'var(--text-primary)', borderRadius: '0.8rem', padding: '0.9rem 1rem', display: 'flex', gap: '0.75rem', alignItems: 'flex-start', textAlign: 'left', cursor: checked ? 'default' : 'pointer' }}>
               <strong style={{ minWidth: '1.5rem', color: checked && isAnswer ? 'var(--success)' : 'var(--text-muted)' }}>{option.id}.</strong>
               <span style={{ flex: 1, lineHeight: 1.55 }}>{option.text}</span>
               {checked && isAnswer && <span style={chipStyle('success')}>Đáp án đúng</span>}
@@ -199,7 +199,7 @@ function TFCard({
               </div>
               <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginTop: '0.75rem', paddingLeft: '1.8rem' }}>
                 {[true, false].map((value) => (
-                  <button key={`${statement.id}-${value}`} type="button" onClick={() => onSelect(statement.id, value)} style={{ ...tfChoiceButtonStyle(current, value, checked, statement.isTrue), padding: '0.45rem 0.8rem', fontSize: '0.82rem' }}>
+                  <button key={`${statement.id}-${value}`} type="button" disabled={checked} onClick={() => onSelect(statement.id, value)} style={{ ...tfChoiceButtonStyle(current, value, checked, statement.isTrue), padding: '0.45rem 0.8rem', fontSize: '0.82rem' }}>
                     {value ? 'Đúng' : 'Sai'}
                   </button>
                 ))}
@@ -482,12 +482,14 @@ export default function ExamCustomSessionPage() {
 
   function handleMCQSelect(question: MCQQuestion & CustomQuestionSnapshot, selected: MCQChoice) {
     if (!practiceState) return;
+    if (!isMockMode && practiceState.checked[question.id]) return;
     const answer: MCQAnswer = { questionId: question.id, questionType: 'mcq', selected };
     persistState({ ...practiceState, answers: { ...practiceState.answers, [question.id]: answer } });
   }
 
   function handleTFSelect(question: TFQuestion & CustomQuestionSnapshot, statementId: TFStatement['id'], value: boolean) {
     if (!practiceState) return;
+    if (!isMockMode && practiceState.checked[question.id]) return;
     const existing = practiceState.answers[question.id];
     const current = existing?.questionType === 'true_false' ? existing.selected : makeBlankTFChoice();
     const answer: TFAnswer = {
@@ -559,9 +561,6 @@ export default function ExamCustomSessionPage() {
           <p style={{ margin: 0, color: 'var(--text-primary)', fontWeight: 700, lineHeight: 1.55 }}>{session.title}</p>
           <p style={{ margin: 0, color: 'var(--text-muted)', lineHeight: 1.55 }}>
             {questions.length} câu · {mcqCount} Trắc nghiệm · {tfCount} Đúng/Sai · {session.config.scopeTitle ?? 'Tất cả chủ đề'}
-          </p>
-          <p style={{ margin: 0, color: 'var(--text-muted)', fontSize: '0.82rem', lineHeight: 1.5 }}>
-            {isMockMode ? 'Phím tắt: ←/→ chuyển câu, F đánh dấu câu cần xem lại.' : 'Phím tắt: ←/→ chuyển câu, Enter kiểm tra đáp án.'}
           </p>
         </header>
 

@@ -383,19 +383,6 @@ export default function ExamV2SessionPage() {
         </button>
       </header>
 
-      <div
-        style={{
-          maxWidth: '80rem',
-          margin: '0 auto',
-          padding: '0.75rem 1.5rem 0',
-          color: 'var(--text-muted)',
-          fontSize: '0.78rem',
-          lineHeight: 1.5,
-        }}
-      >
-        Phím tắt: ←/→ chuyển câu, F đánh dấu xem lại.
-      </div>
-
       {/* ── Main content ──────────────────────────────────────────────────── */}
       <main
         style={{
@@ -445,6 +432,10 @@ export default function ExamV2SessionPage() {
             onToggleFlag={() => handleToggleFlag(currentQuestion.id)}
             onClearSelection={() => handleClearAnswer(currentQuestion.id)}
             hasSelection={hasSelection}
+            onSubmit={() => {
+              if (!isSubmitting) setDialogOpen(true);
+            }}
+            isSubmitting={isSubmitting}
           />
         </div>
 
