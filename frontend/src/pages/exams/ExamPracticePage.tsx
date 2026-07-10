@@ -151,7 +151,7 @@ function MCQPracticeCard({
           const border = checked && isAnswer ? 'rgba(47,122,87,0.38)' : checked && isSelected && !isAnswer ? 'rgba(159,29,45,0.32)' : isSelected ? 'var(--accent)' : 'var(--border)';
           const background = checked && isAnswer ? 'rgba(47,122,87,0.1)' : checked && isSelected && !isAnswer ? 'rgba(159,29,45,0.08)' : isSelected ? 'var(--accent-soft)' : 'var(--bg-surface)';
           return (
-            <button key={option.id} type="button" onClick={() => onSelect(option.id)} style={{ border: `1px solid ${border}`, background, color: 'var(--text-primary)', borderRadius: '0.8rem', padding: '0.9rem 1rem', display: 'flex', gap: '0.75rem', alignItems: 'flex-start', textAlign: 'left', cursor: 'pointer' }}>
+            <button key={option.id} type="button" disabled={checked} onClick={() => onSelect(option.id)} style={{ border: `1px solid ${border}`, background, color: 'var(--text-primary)', borderRadius: '0.8rem', padding: '0.9rem 1rem', display: 'flex', gap: '0.75rem', alignItems: 'flex-start', textAlign: 'left', cursor: checked ? 'default' : 'pointer' }}>
               <strong style={{ minWidth: '1.5rem', color: checked && isAnswer ? 'var(--success)' : 'var(--text-muted)' }}>{option.id}.</strong>
               <span style={{ flex: 1, lineHeight: 1.55 }}>{option.text}</span>
               {checked && isAnswer && <span style={chipStyle('success')}>Đáp án đúng</span>}
@@ -161,7 +161,7 @@ function MCQPracticeCard({
         })}
       </div>
       <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap', marginTop: '1rem', alignItems: 'center' }}>
-        <button type="button" onClick={onCheck} disabled={!selected} style={{ ...buttonStyle('primary'), opacity: selected ? 1 : 0.55 }}>Kiểm tra</button>
+        <button type="button" onClick={onCheck} disabled={!selected || checked} style={{ ...buttonStyle('primary'), opacity: selected && !checked ? 1 : 0.55 }}>Kiểm tra</button>
         {checked && <span style={chipStyle('success')}>Đáp án đúng: {question.correctOptionId}</span>}
       </div>
       {checked && <Explanation text={question.explanation} />}
@@ -207,7 +207,7 @@ function TFPracticeCard({
               </div>
               <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginTop: '0.75rem', paddingLeft: '1.8rem' }}>
                 {[true, false].map((value) => (
-                  <button key={`${statement.id}-${value}`} type="button" onClick={() => onSelect(statement.id, value)} style={{ ...tfChoiceButtonStyle(current, value, checked, statement.isTrue), padding: '0.45rem 0.8rem', fontSize: '0.82rem' }}>
+                  <button key={`${statement.id}-${value}`} type="button" disabled={checked} onClick={() => onSelect(statement.id, value)} style={{ ...tfChoiceButtonStyle(current, value, checked, statement.isTrue), padding: '0.45rem 0.8rem', fontSize: '0.82rem' }}>
                     {value ? 'Đúng' : 'Sai'}
                   </button>
                 ))}
@@ -218,7 +218,7 @@ function TFPracticeCard({
         })}
       </div>
       <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap', marginTop: '1rem', alignItems: 'center' }}>
-        <button type="button" onClick={onCheck} disabled={!allAnswered} style={{ ...buttonStyle('primary'), opacity: allAnswered ? 1 : 0.55 }}>Kiểm tra</button>
+        <button type="button" onClick={onCheck} disabled={!allAnswered || checked} style={{ ...buttonStyle('primary'), opacity: allAnswered && !checked ? 1 : 0.55 }}>Kiểm tra</button>
         {!allAnswered && <span style={{ color: 'var(--text-muted)', fontSize: '0.85rem' }}>Hãy chọn Đúng/Sai cho đủ 4 ý.</span>}
       </div>
       {checked && <Explanation text={question.explanation} />}
@@ -353,7 +353,6 @@ export default function ExamPracticePage() {
           </div>
           <p style={{ margin: 0, color: 'var(--text-primary)', fontWeight: 700, lineHeight: 1.55 }}>{exam.title}</p>
           <p style={{ margin: 0, color: 'var(--text-muted)', lineHeight: 1.55 }}>Không giới hạn thời gian, kiểm tra đáp án ngay sau từng câu.</p>
-          <p style={{ margin: 0, color: 'var(--text-muted)', fontSize: '0.82rem', lineHeight: 1.5 }}>Phím tắt: ←/→ chuyển câu, Enter kiểm tra đáp án.</p>
         </header>
 
         <div style={{ ...cardStyle, padding: '1rem 1.25rem' }}>
@@ -370,11 +369,15 @@ export default function ExamPracticePage() {
         </div>
 
         {currentQuestion && isMCQQuestion(currentQuestion) && (
-          <MCQPracticeCard question={currentQuestion} selected={mcqAnswers[currentQuestion.id] ?? null} checked={!!checked[currentQuestion.id]} onSelect={(value) => setMcqAnswers((prev) => ({ ...prev, [currentQuestion.id]: value }))} onCheck={() => setChecked((prev) => ({ ...prev, [currentQuestion.id]: true }))} />
+          <MCQPracticeCard question={currentQuestion} selected={mcqAnswers[currentQuestion.id] ?? null} checked={!!checked[currentQuestion.id]} onSelect={(value) => {
+            if (!checked[currentQuestion.id]) setMcqAnswers((prev) => ({ ...prev, [currentQuestion.id]: value }));
+          }} onCheck={() => setChecked((prev) => ({ ...prev, [currentQuestion.id]: true }))} />
         )}
 
         {currentQuestion && isTFQuestion(currentQuestion) && (
-          <TFPracticeCard question={currentQuestion} selected={tfAnswers[currentQuestion.id] ?? makeBlankTFChoice()} checked={!!checked[currentQuestion.id]} onSelect={(statementId, value) => setTfAnswers((prev) => ({ ...prev, [currentQuestion.id]: { ...(prev[currentQuestion.id] ?? makeBlankTFChoice()), [statementId]: value } }))} onCheck={() => setChecked((prev) => ({ ...prev, [currentQuestion.id]: true }))} />
+          <TFPracticeCard question={currentQuestion} selected={tfAnswers[currentQuestion.id] ?? makeBlankTFChoice()} checked={!!checked[currentQuestion.id]} onSelect={(statementId, value) => {
+            if (!checked[currentQuestion.id]) setTfAnswers((prev) => ({ ...prev, [currentQuestion.id]: { ...(prev[currentQuestion.id] ?? makeBlankTFChoice()), [statementId]: value } }));
+          }} onCheck={() => setChecked((prev) => ({ ...prev, [currentQuestion.id]: true }))} />
         )}
 
         <nav style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap', justifyContent: 'space-between' }}>

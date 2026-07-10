@@ -168,6 +168,7 @@ function MCQRetryCard({
             <button
               key={option.id}
               type="button"
+              disabled={checked}
               onClick={() => onSelect(option.id)}
               style={{
                 border: `1px solid ${border}`,
@@ -179,7 +180,7 @@ function MCQRetryCard({
                 gap: '0.75rem',
                 alignItems: 'flex-start',
                 textAlign: 'left',
-                cursor: 'pointer',
+                cursor: checked ? 'default' : 'pointer',
               }}
             >
               <strong style={{ minWidth: '1.5rem', color: checked && isAnswer ? 'var(--success)' : 'var(--text-muted)' }}>{option.id}.</strong>
@@ -192,7 +193,7 @@ function MCQRetryCard({
       </div>
 
       <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap', marginTop: '1rem', alignItems: 'center' }}>
-        <button type="button" onClick={onCheck} disabled={!selected} style={{ ...buttonStyle('primary'), opacity: selected ? 1 : 0.55 }}>
+        <button type="button" onClick={onCheck} disabled={!selected || checked} style={{ ...buttonStyle('primary'), opacity: selected && !checked ? 1 : 0.55 }}>
           Kiểm tra
         </button>
         {checked && <span style={chipStyle('success')}>Đáp án đúng: {question.correctOptionId}</span>}
@@ -245,6 +246,7 @@ function TFRetryCard({
                   <button
                     key={`${statement.id}-${value}`}
                     type="button"
+                    disabled={checked}
                     onClick={() => onSelect(statement.id, value)}
                     style={{
                       ...tfChoiceButtonStyle(current, value, checked, statement.isTrue),
@@ -263,7 +265,7 @@ function TFRetryCard({
       </div>
 
       <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap', marginTop: '1rem', alignItems: 'center' }}>
-        <button type="button" onClick={onCheck} disabled={!allAnswered} style={{ ...buttonStyle('primary'), opacity: allAnswered ? 1 : 0.55 }}>
+        <button type="button" onClick={onCheck} disabled={!allAnswered || checked} style={{ ...buttonStyle('primary'), opacity: allAnswered && !checked ? 1 : 0.55 }}>
           Kiểm tra
         </button>
         {!allAnswered && <span style={{ color: 'var(--text-muted)', fontSize: '0.85rem' }}>Hãy chọn Đúng/Sai cho đủ các ý.</span>}
@@ -476,7 +478,6 @@ export default function ExamRetryWrongPage() {
           </Link>
           <h1 style={{ margin: 0, fontSize: '1.65rem', fontWeight: 900 }}>Ôn lại câu sai</h1>
           <p style={{ margin: 0, color: 'var(--text-muted)', lineHeight: 1.55 }}>{result.isCustom ? result.title ?? 'Thi thử tùy chọn' : exam?.title ?? 'Đề thi'}</p>
-          <p style={{ margin: 0, color: 'var(--text-muted)', fontSize: '0.82rem', lineHeight: 1.5 }}>Phím tắt: ←/→ chuyển câu, Enter kiểm tra đáp án.</p>
         </header>
 
         <div style={{ ...cardStyle, padding: '1rem 1.25rem' }}>
@@ -498,7 +499,9 @@ export default function ExamRetryWrongPage() {
             question={currentQuestion}
             selected={mcqAnswers[currentResult.questionId] ?? null}
             checked={!!checked[currentResult.questionId]}
-            onSelect={(value) => setMcqAnswers((prev) => ({ ...prev, [currentResult.questionId]: value }))}
+            onSelect={(value) => {
+              if (!checked[currentResult.questionId]) setMcqAnswers((prev) => ({ ...prev, [currentResult.questionId]: value }));
+            }}
             onCheck={() => setChecked((prev) => ({ ...prev, [currentResult.questionId]: true }))}
           />
         )}
@@ -509,7 +512,7 @@ export default function ExamRetryWrongPage() {
             selected={tfAnswers[currentResult.questionId] ?? makeBlankTFChoice()}
             checked={!!checked[currentResult.questionId]}
             onSelect={(statementId, value) =>
-              setTfAnswers((prev) => ({
+              !checked[currentResult.questionId] && setTfAnswers((prev) => ({
                 ...prev,
                 [currentResult.questionId]: {
                   ...(prev[currentResult.questionId] ?? makeBlankTFChoice()),
