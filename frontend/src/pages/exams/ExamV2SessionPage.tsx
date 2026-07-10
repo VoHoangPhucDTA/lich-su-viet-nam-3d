@@ -301,6 +301,7 @@ export default function ExamV2SessionPage() {
     >
       {/* ── Sticky header ─────────────────────────────────────────────────── */}
       <header
+        className="exam-session-header"
         style={{
           position: 'sticky',
           top: 0,
@@ -326,6 +327,7 @@ export default function ExamV2SessionPage() {
         </Link>
 
         <span
+          className="exam-session-title"
           style={{
             flex: 1,
             fontSize: '0.9rem',
@@ -340,47 +342,49 @@ export default function ExamV2SessionPage() {
           {exam.title}
         </span>
 
-        <span
-          style={{
-            padding: '0.25rem 0.65rem',
-            borderRadius: '999px',
-            background: 'var(--accent-soft)',
-            color: 'var(--accent)',
-            border: '1px solid var(--accent)',
-            fontSize: '0.75rem',
-            fontWeight: 800,
-            whiteSpace: 'nowrap',
-          }}
-        >
-          Thi thử 50 phút
-        </span>
+        <div className="exam-session-actions" style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+          <span
+            style={{
+              padding: '0.25rem 0.65rem',
+              borderRadius: '999px',
+              background: 'var(--accent-soft)',
+              color: 'var(--accent)',
+              border: '1px solid var(--accent)',
+              fontSize: '0.75rem',
+              fontWeight: 800,
+              whiteSpace: 'nowrap',
+            }}
+          >
+            Thi thử 50 phút
+          </span>
 
-        <ExamTimer
-          initialSeconds={initialRemainingSeconds}
-          onTimeUp={handleTimeUpAndSubmit}
-          onTick={handleTimerTick}
-        />
+          <ExamTimer
+            initialSeconds={initialRemainingSeconds}
+            onTimeUp={handleTimeUpAndSubmit}
+            onTick={handleTimerTick}
+          />
 
-        <button
-          type="button"
-          disabled={isSubmitting}
-          onClick={() => {
-            if (!isSubmitting) setDialogOpen(true);
-          }}
-          style={{
-            padding: '0.5rem 1.25rem',
-            background: isSubmitting ? 'var(--text-muted)' : 'var(--accent)',
-            color: '#fff',
-            border: 'none',
-            borderRadius: '0.75rem',
-            fontWeight: 600,
-            fontSize: '0.875rem',
-            cursor: isSubmitting ? 'not-allowed' : 'pointer',
-            flexShrink: 0,
-          }}
-        >
-          {isSubmitting ? 'Đang nộp...' : 'Nộp bài'}
-        </button>
+          <button
+            type="button"
+            disabled={isSubmitting}
+            onClick={() => {
+              if (!isSubmitting) setDialogOpen(true);
+            }}
+            style={{
+              padding: '0.5rem 1.25rem',
+              background: isSubmitting ? 'var(--text-muted)' : 'var(--accent)',
+              color: '#fff',
+              border: 'none',
+              borderRadius: '0.75rem',
+              fontWeight: 600,
+              fontSize: '0.875rem',
+              cursor: isSubmitting ? 'not-allowed' : 'pointer',
+              flexShrink: 0,
+            }}
+          >
+            {isSubmitting ? 'Đang nộp...' : 'Nộp bài'}
+          </button>
+        </div>
       </header>
 
       {/* ── Main content ──────────────────────────────────────────────────── */}
@@ -453,14 +457,35 @@ export default function ExamV2SessionPage() {
       {/* ── Submit dialog ─────────────────────────────────────────────────── */}
       <ExamSubmitDialog
         isOpen={dialogOpen}
+        totalQuestions={flatQuestions.length}
+        answeredCount={flatQuestions.length - unansweredCount}
         unansweredCount={unansweredCount}
         isTimeUp={isTimeUp}
+        isSubmitting={isSubmitting}
         onConfirm={executeSubmit}
         onCancel={() => setDialogOpen(false)}
       />
 
       <style>{`
         @media (max-width: 768px) {
+          .exam-session-header {
+            display: grid !important;
+            grid-template-columns: minmax(0, 1fr) auto;
+            padding: 0.7rem 1rem !important;
+            gap: 0.65rem !important;
+          }
+          .exam-session-title {
+            grid-column: 1 / -1;
+            grid-row: 2;
+            min-width: 0;
+          }
+          .exam-session-actions {
+            grid-column: 1 / -1;
+            grid-row: 3;
+            justify-content: space-between;
+            gap: 0.5rem !important;
+            min-width: 0;
+          }
           main { flex-direction: column-reverse !important; }
           main > div:last-child { position: static !important; flex: 1 1 100% !important; }
         }

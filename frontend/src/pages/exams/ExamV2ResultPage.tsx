@@ -6,6 +6,7 @@ import { useEffect, useMemo, useState, type ReactNode } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { formatCognitiveLevelLabel, formatDifficultyLabel, formatQuestionTypeLabel } from '@/lib/exam/displayLabels';
 import { fetchBackendAttemptDetail, resultFromAttemptDetail } from '@/lib/exam/examAttemptSync';
+import { formatExamDuration } from '@/lib/exam/durationFormat';
 import { formatExamTitle } from '@/lib/exam/examDisplay';
 import { loadExam } from '@/lib/exam/examLoader';
 import { rateScore, scoreToPercent } from '@/lib/exam/scoring';
@@ -49,19 +50,6 @@ const TF_LABEL: Record<'true' | 'false' | 'blank', string> = {
 
 function formatPoints(points: number): string {
   return points > 0 ? `+${points.toFixed(2)}đ` : '0đ';
-}
-
-function formatDuration(seconds: number): string {
-  const safeSeconds = Math.max(0, Math.floor(Number.isFinite(seconds) ? seconds : 0));
-  const hours = Math.floor(safeSeconds / 3600);
-  const minutes = Math.floor((safeSeconds % 3600) / 60);
-  const restSeconds = safeSeconds % 60;
-  const parts: string[] = [];
-
-  if (hours > 0) parts.push(`${hours} giờ`);
-  if (minutes > 0 || hours > 0) parts.push(`${hours > 0 ? minutes.toString().padStart(2, '0') : minutes} phút`);
-  if (restSeconds > 0 || parts.length === 0) parts.push(`${hours > 0 ? restSeconds.toString().padStart(2, '0') : restSeconds} giây`);
-  return parts.join(' ');
 }
 
 function getAnsweredCount(result: ExamResultV2): number {
@@ -155,7 +143,7 @@ function ScoreCard({ result }: { result: ExamResultV2 }) {
       >
         <Stat label="Trắc nghiệm" value={`${result.mcqScore.toFixed(2)}đ`} color="var(--accent)" />
         <Stat label="Đúng/Sai" value={`${result.tfScore.toFixed(2)}đ`} color="var(--admin-accent)" />
-        <Stat label="Thời gian" value={formatDuration(result.durationSeconds)} color="var(--text-muted)" />
+        <Stat label="Thời gian" value={formatExamDuration(result.durationSeconds)} color="var(--text-muted)" />
         <Stat label="Đã làm" value={`${answered}/${result.totalQuestions}`} color="var(--success)" />
         <Stat label="Bỏ trống" value={`${blank}`} color="var(--text-muted)" />
       </div>
