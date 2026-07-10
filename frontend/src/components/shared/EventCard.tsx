@@ -4,6 +4,7 @@ import { ArrowRight, MapPin } from 'lucide-react';
 import type { HistoricalEvent } from '../../types/event';
 import { EVENT_TYPE_COLORS, EVENT_TYPE_ICONS } from '../../types/event';
 import { getEventTitleImage, getEventTitleFallback } from '../../data/eventTitleImages';
+import { formatChronologyLabel } from '../../utils/chronology';
 
 interface EventCardProps {
   event: HistoricalEvent;
@@ -18,7 +19,7 @@ export default function EventCard({ event, imageHeight = 'h-40', compact = false
   const [imgError, setImgError] = useState(false);
   const Icon = EVENT_TYPE_ICONS[event.eventType];
   const color = EVENT_TYPE_COLORS[event.eventType];
-  const yearLabel = event.startYear < 0 ? `${Math.abs(event.startYear)} TCN` : String(event.startYear);
+  const yearLabel = formatChronologyLabel(event);
   const detailKey = event.slug || event.id;
   const titleImage = getEventTitleImage(detailKey);
   const fallbackGradient = getEventTitleFallback(event.eventType);

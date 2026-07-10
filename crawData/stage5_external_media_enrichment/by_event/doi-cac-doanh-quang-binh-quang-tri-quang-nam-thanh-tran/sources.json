@@ -1,0 +1,9 @@
+{
+  "eventId": "doi-cac-doanh-quang-binh-quang-tri-quang-nam-thanh-tran",
+  "status": "pending_download",
+  "images": [],
+  "expected": [
+    "image_01.<ext>",
+    "image_02.<ext>"
+  ]
+}

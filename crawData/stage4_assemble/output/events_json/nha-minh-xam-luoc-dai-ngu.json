@@ -36,11 +36,15 @@
   },
   "chronology": {
     "start": {
-      "year": null,
+      "year": 1401,
       "month": null,
       "day": null
     },
-    "end": null,
+    "end": {
+      "year": 1433,
+      "month": null,
+      "day": null
+    },
     "datePrecision": "period",
     "displayDate": "Giữa lúc công cuộc cải cách của nhà Hồ đang thực hiện (đầu thế kỉ XV)",
     "isApproximate": true
@@ -121,7 +125,7 @@
     "parentId": null,
     "childIds": [],
     "level": 0,
-    "orderInParent": 353
+    "orderInParent": 46
   },
   "associations": {
     "relatedEventIds": [],

@@ -1,0 +1,59 @@
+{
+  "eventId": "quoc-hoi-khoa-vi-doi-ten-sai-gon-thanh-thanh-pho-ho-chi-minh",
+  "title": "Quốc hội khoá VI quyết định đổi tên Sài Gòn thành Thành phố Hồ Chí Minh",
+  "shortTitle": "Quốc hội khoá VI quyết định đổi tên Sài Gòn thành Thành phố Hồ Chí Minh",
+  "displayDate": "Năm 1976",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1975-den-nay",
+  "parentId": "viet-nam-1975-den-nay",
+  "historicalLocations": [],
+  "provinceNames": [
+    "Hồ Chí Minh"
+  ],
+  "canonicalSummary": "Sau khi đất nước thống nhất, năm 1976, Quốc hội khoá VI đã quyết định đổi tên thành phố Sài Gòn thành Thành phố Hồ Chí Minh. Trong nghị quyết về việc đặt tên, Quốc hội đã nêu rõ: “Xét rằng, nhân dân Thành phố Sài Gòn – Gia Định luôn luôn tỏ lòng kính yêu vô hạn đối với Chủ tịch Hồ Chí Minh và tha thiết với việc thành phố mang tên Người”.",
+  "keyFacts": [
+    "Năm: 1976",
+    "Cơ quan ra quyết định: Quốc hội khoá VI",
+    "Nội dung: Đổi tên Sài Gòn thành Thành phố Hồ Chí Minh"
+  ],
+  "sourceFamily": "post_1975",
+  "preferredVerificationDomains": [
+    "chinhphu.vn",
+    "dangcongsan.vn",
+    "tulieuvankien.dangcongsan.vn",
+    "quochoi.vn",
+    "mofa.gov.vn",
+    "vietnamplus.vn",
+    "nhandan.vn",
+    "un.org",
+    "unphoto.un.org"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Quốc hội khoá VI quyết định đổi tên Sài Gòn thành Thành phố Hồ Chí Minh",
+    "Quốc hội khoá VI quyết định đổi tên Sài Gòn thành Thành phố Hồ Chí Minh Năm 1976",
+    "Quốc hội khoá VI quyết định đổi tên Sài Gòn thành Thành phố Hồ Chí Minh Việt Nam từ năm 1975 đến nay",
+    "Quốc hội khoá VI quyết định đổi tên Sài Gòn thành Thành phố Hồ Chí Minh Năm: 1976 Cơ quan ra quyết định: Quốc hội khoá VI",
+    "Quốc hội khoá VI quyết định đổi tên Sài Gòn thành Thành phố Hồ Chí Minh ảnh tư liệu",
+    "Quốc hội khoá VI quyết định đổi tên Sài Gòn thành Thành phố Hồ Chí Minh lễ ký"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

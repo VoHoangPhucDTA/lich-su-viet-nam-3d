@@ -1,0 +1,179 @@
+{
+  "binaryDownloads": 0,
+  "events": [
+    {
+      "candidateCountBeforeSelection": 0,
+      "eventId": "viet-nam-thoi-dung-nuoc",
+      "providerErrorCount": 4,
+      "selectedCandidateCount": 0,
+      "status": "needs_manual_source_search",
+      "title": "Việt Nam thời dựng nước",
+      "verificationSourceCount": 0
+    },
+    {
+      "candidateCountBeforeSelection": 0,
+      "eventId": "bac-thuoc-va-dau-tranh-gianh-doc-lap",
+      "providerErrorCount": 4,
+      "selectedCandidateCount": 0,
+      "status": "needs_manual_source_search",
+      "title": "Bắc thuộc và đấu tranh giành độc lập",
+      "verificationSourceCount": 0
+    },
+    {
+      "candidateCountBeforeSelection": 0,
+      "eventId": "viet-nam-tu-the-ki-x-den-xv",
+      "providerErrorCount": 5,
+      "selectedCandidateCount": 0,
+      "status": "needs_manual_source_search",
+      "title": "Việt Nam từ thế kỉ X đến thế kỉ XV",
+      "verificationSourceCount": 0
+    },
+    {
+      "candidateCountBeforeSelection": 0,
+      "eventId": "viet-nam-tu-the-ki-xvi-den-xix",
+      "providerErrorCount": 5,
+      "selectedCandidateCount": 0,
+      "status": "needs_manual_source_search",
+      "title": "Việt Nam từ thế kỉ XVI đến thế kỉ XIX",
+      "verificationSourceCount": 0
+    },
+    {
+      "candidateCountBeforeSelection": 0,
+      "eventId": "viet-nam-1858-1918",
+      "providerErrorCount": 3,
+      "selectedCandidateCount": 0,
+      "status": "needs_manual_source_search",
+      "title": "Việt Nam từ năm 1858 đến năm 1918",
+      "verificationSourceCount": 0
+    }
+  ],
+  "eventsWithOneGoodCandidate": 0,
+  "eventsWithTwoGoodCandidates": 0,
+  "eventsWithZeroGoodCandidates": 5,
+  "overrideErrors": [],
+  "pilotEventCount": 5,
+  "providerErrors": [
+    {
+      "error": "<urlopen error timed out>",
+      "provider": "existing_search_provider",
+      "query": "Việt Nam thời dựng nước site:baotanglichsu.vn"
+    },
+    {
+      "api": "enwiki",
+      "error": "HTTP Error 429: Too Many Requests",
+      "page": "Chiến tranh Việt Nam",
+      "provider": "mediawiki_provider"
+    },
+    {
+      "api": "viwiki",
+      "error": "HTTP Error 429: Too Many Requests",
+      "page": "South Vietnam",
+      "provider": "mediawiki_provider"
+    },
+    {
+      "api": "enwiki",
+      "error": "HTTP Error 429: Too Many Requests",
+      "page": "South Vietnam",
+      "provider": "mediawiki_provider"
+    },
+    {
+      "error": "<urlopen error timed out>",
+      "provider": "existing_search_provider",
+      "query": "Bắc thuộc và đấu tranh giành độc lập site:baotanglichsu.vn"
+    },
+    {
+      "api": "viwiki",
+      "error": "HTTP Error 429: Too Many Requests",
+      "provider": "mediawiki_provider",
+      "query": "Bắc thuộc và đấu tranh giành độc lập"
+    },
+    {
+      "api": "enwiki",
+      "error": "HTTP Error 429: Too Many Requests",
+      "provider": "mediawiki_provider",
+      "query": "Bắc thuộc và đấu tranh giành độc lập"
+    },
+    {
+      "error": "HTTP Error 429: Too Many Requests",
+      "provider": "wikimedia_metadata_provider"
+    },
+    {
+      "error": "<urlopen error timed out>",
+      "provider": "existing_search_provider",
+      "query": "Việt Nam từ thế kỉ X đến thế kỉ XV site:baotanglichsu.vn"
+    },
+    {
+      "api": "viwiki",
+      "error": "HTTP Error 429: Too Many Requests",
+      "provider": "mediawiki_provider",
+      "query": "Việt Nam từ thế kỉ X đến thế kỉ XV"
+    },
+    {
+      "api": "enwiki",
+      "error": "HTTP Error 429: Too Many Requests",
+      "provider": "mediawiki_provider",
+      "query": "Việt Nam từ thế kỉ X đến thế kỉ XV"
+    },
+    {
+      "api": "viwiki",
+      "error": "HTTP Error 429: Too Many Requests",
+      "provider": "mediawiki_provider",
+      "query": "Việt Nam từ thế kỉ X đến thế kỉ XV Việt Nam thế kỉ X-XV"
+    },
+    {
+      "api": "enwiki",
+      "error": "HTTP Error 429: Too Many Requests",
+      "provider": "mediawiki_provider",
+      "query": "Việt Nam từ thế kỉ X đến thế kỉ XV Việt Nam thế kỉ X-XV"
+    },
+    {
+      "error": "<urlopen error timed out>",
+      "provider": "existing_search_provider",
+      "query": "Việt Nam từ thế kỉ XVI đến thế kỉ XIX site:baotanglichsu.vn"
+    },
+    {
+      "api": "viwiki",
+      "error": "HTTP Error 429: Too Many Requests",
+      "provider": "mediawiki_provider",
+      "query": "Việt Nam từ thế kỉ XVI đến thế kỉ XIX"
+    },
+    {
+      "api": "enwiki",
+      "error": "HTTP Error 429: Too Many Requests",
+      "provider": "mediawiki_provider",
+      "query": "Việt Nam từ thế kỉ XVI đến thế kỉ XIX"
+    },
+    {
+      "api": "viwiki",
+      "error": "HTTP Error 429: Too Many Requests",
+      "provider": "mediawiki_provider",
+      "query": "Việt Nam từ thế kỉ XVI đến thế kỉ XIX Việt Nam thế kỉ XVI-XIX"
+    },
+    {
+      "api": "enwiki",
+      "error": "HTTP Error 429: Too Many Requests",
+      "provider": "mediawiki_provider",
+      "query": "Việt Nam từ thế kỉ XVI đến thế kỉ XIX Việt Nam thế kỉ XVI-XIX"
+    },
+    {
+      "error": "<urlopen error timed out>",
+      "provider": "existing_search_provider",
+      "query": "Việt Nam từ năm 1858 đến năm 1918 site:baotanglichsu.vn"
+    },
+    {
+      "api": "viwiki",
+      "error": "HTTP Error 429: Too Many Requests",
+      "page": "History of Vietnam",
+      "provider": "mediawiki_provider"
+    },
+    {
+      "api": "enwiki",
+      "error": "HTTP Error 429: Too Many Requests",
+      "page": "History of Vietnam",
+      "provider": "mediawiki_provider"
+    }
+  ],
+  "totalQueueRows": 10,
+  "totalSelectedImageCandidates": 0,
+  "version": 1
+}

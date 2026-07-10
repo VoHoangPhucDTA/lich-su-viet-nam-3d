@@ -9,6 +9,7 @@ import {
   EVENT_TYPE_LABELS,
   EVENT_TYPE_COLORS,
 } from '../types/event';
+import { formatChronologyLabel } from '../utils/chronology';
 
 
 interface SidebarProps {
@@ -320,7 +321,7 @@ function EventTreeNode({
   // 1.1.21: Sidebar.tsx: Nếu sự kiện có startYear > currentYear (tương lai so với mốc thời gian hiện tại),
   // hiển thị với opacity giảm và ký hiệu đặc biệt để phân biệt về mặt thời gian.
   const isFutureEvent =
-    currentYear != null && event.startYear > currentYear;
+    currentYear != null && event.startYear != null && event.startYear > currentYear;
 
   return (
     <div>
@@ -423,9 +424,7 @@ function EventTreeNode({
               />
             </span>
           )}
-          {event.startYear < 0
-            ? `${Math.abs(event.startYear)} TCN`
-            : event.startYear}
+          {formatChronologyLabel(event)}
         </span>
       </div>
 

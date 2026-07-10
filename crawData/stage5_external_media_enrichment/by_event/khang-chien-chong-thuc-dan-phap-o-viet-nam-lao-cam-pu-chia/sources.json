@@ -1,0 +1,9 @@
+{
+  "eventId": "khang-chien-chong-thuc-dan-phap-o-viet-nam-lao-cam-pu-chia",
+  "status": "pending_download",
+  "images": [],
+  "expected": [
+    "image_01.<ext>",
+    "image_02.<ext>"
+  ]
+}

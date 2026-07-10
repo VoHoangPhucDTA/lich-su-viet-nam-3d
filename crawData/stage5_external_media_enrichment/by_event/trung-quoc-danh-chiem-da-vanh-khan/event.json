@@ -1,0 +1,57 @@
+{
+  "eventId": "trung-quoc-danh-chiem-da-vanh-khan",
+  "title": "Trung Quốc đánh chiếm đá Vành Khăn",
+  "shortTitle": "TQ chiếm đá Vành Khăn (1995)",
+  "displayDate": "Năm 1995",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1975-den-nay",
+  "parentId": "chu-quyen-bien-dao-viet-nam-1975-den-nay",
+  "historicalLocations": [],
+  "provinceNames": [],
+  "canonicalSummary": "Trung Quốc - Năm 1995: đánh chiếm đá Vành Khăn nằm về phía đông nam quần đảo Trường Sa.",
+  "keyFacts": [
+    "Diễn ra năm 1995",
+    "Chủ thể: Trung Quốc",
+    "Đối tượng: đá Vành Khăn nằm về phía đông nam quần đảo Trường Sa"
+  ],
+  "sourceFamily": "post_1975",
+  "preferredVerificationDomains": [
+    "chinhphu.vn",
+    "dangcongsan.vn",
+    "tulieuvankien.dangcongsan.vn",
+    "quochoi.vn",
+    "mofa.gov.vn",
+    "vietnamplus.vn",
+    "nhandan.vn",
+    "un.org",
+    "unphoto.un.org"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Trung Quốc đánh chiếm đá Vành Khăn",
+    "Trung Quốc đánh chiếm đá Vành Khăn Năm 1995",
+    "Trung Quốc đánh chiếm đá Vành Khăn Chủ quyền biển đảo Việt Nam 1975 đến nay",
+    "Trung Quốc đánh chiếm đá Vành Khăn Diễn ra năm 1995 Chủ thể: Trung Quốc",
+    "Trung Quốc đánh chiếm đá Vành Khăn ảnh tư liệu",
+    "Trung Quốc đánh chiếm đá Vành Khăn lễ ký"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

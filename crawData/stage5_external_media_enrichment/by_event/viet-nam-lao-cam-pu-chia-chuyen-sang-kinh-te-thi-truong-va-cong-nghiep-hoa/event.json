@@ -1,0 +1,61 @@
+{
+  "eventId": "viet-nam-lao-cam-pu-chia-chuyen-sang-kinh-te-thi-truong-va-cong-nghiep-hoa",
+  "title": "Việt Nam, Lào, Cam-pu-chia chuyển sang kinh tế thị trường và công nghiệp hóa",
+  "shortTitle": "Việt Nam, Lào, Cam-pu-chia chuyển sang kinh tế thị trường và công nghiệp hóa",
+  "displayDate": "Từ cuối thập kỉ 80 – 90 của thế kỉ XX",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1975-den-nay",
+  "parentId": "viet-nam-1975-den-nay",
+  "historicalLocations": [
+    "Cam-pu-chia",
+    "Lào",
+    "Việt Nam"
+  ],
+  "provinceNames": [],
+  "canonicalSummary": "Các nước Việt Nam, Lào, Cam-pu-chia từng bước chuyển sang nền kinh tế thị trường và tiến hành công nghiệp hóa từ cuối thập kỉ 80 – 90 của thế kỉ XX.",
+  "keyFacts": [
+    "Chuyển sang nền kinh tế thị trường",
+    "Tiến hành công nghiệp hóa",
+    "Thời gian: cuối thập kỉ 80 – 90 của thế kỉ XX"
+  ],
+  "sourceFamily": "post_1975",
+  "preferredVerificationDomains": [
+    "chinhphu.vn",
+    "dangcongsan.vn",
+    "tulieuvankien.dangcongsan.vn",
+    "quochoi.vn",
+    "mofa.gov.vn",
+    "vietnamplus.vn",
+    "nhandan.vn",
+    "un.org",
+    "unphoto.un.org"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Việt Nam, Lào, Cam-pu-chia chuyển sang kinh tế thị trường và công nghiệp hóa",
+    "Việt Nam, Lào, Cam-pu-chia chuyển sang kinh tế thị trường và công nghiệp hóa Từ cuối thập kỉ 80 – 90 của thế kỉ XX",
+    "Việt Nam, Lào, Cam-pu-chia chuyển sang kinh tế thị trường và công nghiệp hóa Cam-pu-chia",
+    "Việt Nam, Lào, Cam-pu-chia chuyển sang kinh tế thị trường và công nghiệp hóa Chuyển sang nền kinh tế thị trường Tiến hành công nghiệp hóa",
+    "Việt Nam, Lào, Cam-pu-chia chuyển sang kinh tế thị trường và công nghiệp hóa ảnh tư liệu",
+    "Việt Nam, Lào, Cam-pu-chia chuyển sang kinh tế thị trường và công nghiệp hóa lễ ký"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

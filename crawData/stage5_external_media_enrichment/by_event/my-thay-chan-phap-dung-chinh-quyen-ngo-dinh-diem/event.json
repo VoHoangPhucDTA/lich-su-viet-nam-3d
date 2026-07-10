@@ -1,0 +1,61 @@
+{
+  "eventId": "my-thay-chan-phap-dung-chinh-quyen-ngo-dinh-diem",
+  "title": "Mỹ thay chân Pháp, dựng chính quyền Ngô Đình Diệm",
+  "shortTitle": "Mỹ thay chân Pháp, dựng chính quyền Ngô Đình Diệm",
+  "displayDate": "Sau Hiệp định Giơ-ne-vơ (1954)",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1954-1975",
+  "parentId": "khang-chien-chong-my-cuu-nuoc",
+  "historicalLocations": [
+    "Đông Nam Á"
+  ],
+  "provinceNames": [
+    "Hồ Chí Minh"
+  ],
+  "canonicalSummary": "Ngay sau Hiệp định Giơ-ne-vơ, Mỹ thay chân Pháp, dựng lên chính quyền tay sai đứng đầu là Ngô Đình Diệm (chính quyền Sài Gòn) ở miền Nam Việt Nam.",
+  "keyFacts": [
+    "Mỹ thay chân Pháp",
+    "Dựng chính quyền tay sai Ngô Đình Diệm",
+    "Diễn ra ở miền Nam Việt Nam"
+  ],
+  "sourceFamily": "war_1945_1975",
+  "preferredVerificationDomains": [
+    "btlsqsvn.org.vn",
+    "qdnd.vn",
+    "nhandan.vn",
+    "vietnamplus.vn",
+    "hochiminh.vn",
+    "baotanglichsu.vn",
+    "luutru.gov.vn",
+    "loc.gov",
+    "archives.gov"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Mỹ thay chân Pháp, dựng chính quyền Ngô Đình Diệm",
+    "Mỹ thay chân Pháp, dựng chính quyền Ngô Đình Diệm Sau Hiệp định Giơ-ne-vơ (1954)",
+    "Mỹ thay chân Pháp, dựng chính quyền Ngô Đình Diệm Đông Nam Á",
+    "Mỹ thay chân Pháp, dựng chính quyền Ngô Đình Diệm Mỹ thay chân Pháp Dựng chính quyền tay sai Ngô Đình Diệm",
+    "Mỹ thay chân Pháp, dựng chính quyền Ngô Đình Diệm ảnh tư liệu",
+    "Mỹ thay chân Pháp, dựng chính quyền Ngô Đình Diệm chiến dịch"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

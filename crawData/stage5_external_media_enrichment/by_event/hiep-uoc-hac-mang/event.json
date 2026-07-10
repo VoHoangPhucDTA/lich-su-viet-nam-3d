@@ -1,0 +1,56 @@
+{
+  "eventId": "hiep-uoc-hac-mang",
+  "title": "Hiệp ước Hác-măng",
+  "shortTitle": "Hiệp ước Hác-măng",
+  "displayDate": "Năm 1883",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1858-1918",
+  "parentId": "viet-nam-1858-1918",
+  "historicalLocations": [],
+  "provinceNames": [],
+  "canonicalSummary": "Triều đình nhà Nguyễn kí với Pháp bản Hiệp ước Hác-măng (1883).",
+  "keyFacts": [
+    "Các bên kí kết: Triều Nguyễn và Pháp",
+    "Diễn ra năm 1883",
+    "Nội dung chính: Công nhận sự bảo hộ của Pháp"
+  ],
+  "sourceFamily": "colonial",
+  "preferredVerificationDomains": [
+    "baotanglichsu.vn",
+    "luutru.gov.vn",
+    "hochiminh.vn",
+    "nhandan.vn",
+    "qdnd.vn",
+    "vietnamplus.vn",
+    "gallica.bnf.fr",
+    "loc.gov"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Hiệp ước Hác-măng",
+    "Hiệp ước Hác-măng Năm 1883",
+    "Hiệp ước Hác-măng Việt Nam từ năm 1858 đến năm 1918",
+    "Hiệp ước Hác-măng Các bên kí kết: Triều Nguyễn và Pháp Diễn ra năm 1883",
+    "Hiệp ước Hác-măng ảnh tư liệu",
+    "Hiệp ước Hác-măng chân dung"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

@@ -1,0 +1,59 @@
+{
+  "eventId": "bru-nay-tuyen-bo-vung-dac-quyen-kinh-te",
+  "title": "Bru-nây tuyên bố về vùng đặc quyền kinh tế",
+  "shortTitle": "Bru-nây tuyên bố vùng đặc quyền kinh tế (1984)",
+  "displayDate": "Năm 1984",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1975-den-nay",
+  "parentId": "chu-quyen-bien-dao-viet-nam-1975-den-nay",
+  "historicalLocations": [
+    "quần đảo Trường Sa"
+  ],
+  "provinceNames": [],
+  "canonicalSummary": "Bru-nây - Chưa chiếm giữ đảo nào nhưng đưa yêu sách chủ quyền lãnh thổ đối với quần đảo Trường Sa trong tuyên bố về ranh giới thềm lục địa 200 hải lí năm 1983 và về vùng đặc quyền kinh tế năm 1984.",
+  "keyFacts": [
+    "Chủ thể: Bru-nây",
+    "Diễn ra năm 1984",
+    "Nội dung: tuyên bố về vùng đặc quyền kinh tế, đưa yêu sách chủ quyền Trường Sa"
+  ],
+  "sourceFamily": "post_1975",
+  "preferredVerificationDomains": [
+    "chinhphu.vn",
+    "dangcongsan.vn",
+    "tulieuvankien.dangcongsan.vn",
+    "quochoi.vn",
+    "mofa.gov.vn",
+    "vietnamplus.vn",
+    "nhandan.vn",
+    "un.org",
+    "unphoto.un.org"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Bru-nây tuyên bố về vùng đặc quyền kinh tế",
+    "Bru-nây tuyên bố về vùng đặc quyền kinh tế Năm 1984",
+    "Bru-nây tuyên bố về vùng đặc quyền kinh tế quần đảo Trường Sa",
+    "Bru-nây tuyên bố về vùng đặc quyền kinh tế Chủ thể: Bru-nây Diễn ra năm 1984",
+    "Bru-nây tuyên bố về vùng đặc quyền kinh tế ảnh tư liệu",
+    "Bru-nây tuyên bố về vùng đặc quyền kinh tế lễ ký"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

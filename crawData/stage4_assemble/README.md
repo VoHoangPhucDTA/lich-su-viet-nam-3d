@@ -7,6 +7,8 @@ Stage 4A transform deterministic tu `stage3_review_submission/deduped_events.jso
 - Stage 3 events: 680 dong trong `stage3_dedup/stage3_review_submission/deduped_events.jsonl`.
 - Stage 3 locations: 474 dia danh goc trong `stage3_dedup/stage3_review_submission/locations_dict.json`.
 - Stage 4 location index: 475 dia danh sau khi them alias `Da Chu Thap -> Chu Thap`.
+- Textbook lesson metadata: `stage1_crawl/lich_su_10_kntt.json`,
+  `stage1_crawl/lich_su_11_kntt.json`, `stage1_crawl/lich_su_12_kntt.json`.
 
 ## Current Output
 
@@ -50,6 +52,15 @@ Chi tiet quyet dinh schema nam o `output/schema_canonical_decision.md`.
 - `config/manual_coords_override.json`: override toa do khi location dictionary thieu hoac sai.
 - `config/province_aliases.json`: alias dia danh/tinh sang GADM `NAME_1`.
 - `config/region_province_map.json`: map vung lich su/dia ly sang danh sach tinh GADM.
+- `config/chronology_overrides.json`: optional versioned chronology repair config. Empty config
+  (`{"version": 1, "overrides": []}`) is valid. When populated in later phases, an explicit
+  override replaces the complete `chronology` object after Stage4A merge and before canonical
+  event assembly. Phase D3 only adds the mechanism; it does not approve any repair entries.
+- `config/lesson_title_overrides.json`: reviewed one-time recovery source for 16 grade-12
+  canonical lesson titles whose original upstream full-title source is no longer recoverable.
+  Normal builds read Stage1 textbook sources plus this config, not downstream generated
+  Stage4A/Stage4B artifacts. Missing or empty Stage1 lesson sources fail fast before writing
+  a replacement lesson index.
 
 ## Boundary
 

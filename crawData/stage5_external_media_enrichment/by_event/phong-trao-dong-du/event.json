@@ -1,0 +1,59 @@
+{
+  "eventId": "phong-trao-dong-du",
+  "title": "Phong trào Đông du",
+  "shortTitle": "Phong trào Đông du",
+  "displayDate": "Đầu thế kỉ XX",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1858-1918",
+  "parentId": "viet-nam-1858-1918",
+  "historicalLocations": [
+    "Nhật Bản",
+    "Việt Nam"
+  ],
+  "provinceNames": [],
+  "canonicalSummary": "Phong trào Đông du là một phong trào yêu nước tiêu biểu vào đầu thế kỉ XX với mục đích đưa thanh niên Việt Nam sang Nhật Bản học tập, chuẩn bị lực lượng, chờ thời cơ giành lại độc lập cho nước nhà.",
+  "keyFacts": [
+    "Đưa thanh niên Việt Nam sang Nhật Bản học tập",
+    "Do các nhân sĩ yêu nước khởi xướng",
+    "Diễn ra đầu thế kỉ XX"
+  ],
+  "sourceFamily": "colonial",
+  "preferredVerificationDomains": [
+    "baotanglichsu.vn",
+    "luutru.gov.vn",
+    "hochiminh.vn",
+    "nhandan.vn",
+    "qdnd.vn",
+    "vietnamplus.vn",
+    "gallica.bnf.fr",
+    "loc.gov"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Phong trào Đông du",
+    "Phong trào Đông du Đầu thế kỉ XX",
+    "Phong trào Đông du Nhật Bản",
+    "Phong trào Đông du Đưa thanh niên Việt Nam sang Nhật Bản học tập Do các nhân sĩ yêu nước khởi xướng",
+    "Phong trào Đông du ảnh tư liệu",
+    "Phong trào Đông du chân dung"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

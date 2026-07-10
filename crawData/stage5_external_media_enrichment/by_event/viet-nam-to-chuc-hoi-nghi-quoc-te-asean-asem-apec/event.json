@@ -1,0 +1,55 @@
+{
+  "eventId": "viet-nam-to-chuc-hoi-nghi-quoc-te-asean-asem-apec",
+  "title": "Việt Nam tổ chức thành công nhiều hội nghị quốc tế quan trọng thuộc ASEAN, ASEM và APEC",
+  "shortTitle": "VN tổ chức hội nghị quốc tế",
+  "displayDate": "Trong thời kì Đổi mới (từ 1986 đến nay)",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1975-den-nay",
+  "parentId": "cong-cuoc-doi-moi-o-viet-nam",
+  "historicalLocations": [],
+  "provinceNames": [],
+  "canonicalSummary": "Việt Nam đã tổ chức thành công nhiều hội nghị quốc tế quan trọng thuộc ASEAN, ASEM và APEC.",
+  "keyFacts": [
+    "Thuộc ASEAN, ASEM, APEC",
+    "Tổ chức thành công nhiều hội nghị quốc tế"
+  ],
+  "sourceFamily": "diplomacy",
+  "preferredVerificationDomains": [
+    "mofa.gov.vn",
+    "chinhphu.vn",
+    "vietnamplus.vn",
+    "nhandan.vn",
+    "un.org",
+    "asean.org",
+    "apec.org",
+    "europa.eu"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Việt Nam tổ chức thành công nhiều hội nghị quốc tế quan trọng thuộc ASEAN, ASEM và APEC",
+    "Việt Nam tổ chức thành công nhiều hội nghị quốc tế quan trọng thuộc ASEAN, ASEM và APEC Trong thời kì Đổi mới (từ 1986 đến nay)",
+    "Việt Nam tổ chức thành công nhiều hội nghị quốc tế quan trọng thuộc ASEAN, ASEM và APEC Công cuộc Đổi mới ở Việt Nam",
+    "Việt Nam tổ chức thành công nhiều hội nghị quốc tế quan trọng thuộc ASEAN, ASEM và APEC Thuộc ASEAN, ASEM, APEC Tổ chức thành công nhiều hội nghị quốc tế",
+    "Việt Nam tổ chức thành công nhiều hội nghị quốc tế quan trọng thuộc ASEAN, ASEM và APEC lễ ký",
+    "Việt Nam tổ chức thành công nhiều hội nghị quốc tế quan trọng thuộc ASEAN, ASEM và APEC hội nghị"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

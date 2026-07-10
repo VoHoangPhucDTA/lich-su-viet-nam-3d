@@ -1,0 +1,9 @@
+{
+  "eventId": "giai-doan-khang-chien-chong-my-1954-1960",
+  "status": "pending_download",
+  "images": [],
+  "expected": [
+    "image_01.<ext>",
+    "image_02.<ext>"
+  ]
+}

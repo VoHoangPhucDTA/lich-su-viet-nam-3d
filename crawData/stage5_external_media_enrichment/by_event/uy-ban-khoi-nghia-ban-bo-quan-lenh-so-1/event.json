@@ -1,0 +1,59 @@
+{
+  "eventId": "uy-ban-khoi-nghia-ban-bo-quan-lenh-so-1",
+  "title": "Trung ương Đảng và Tổng bộ Việt Minh thành lập Uỷ ban Khởi nghĩa toàn quốc, ban bố Quân lệnh số 1",
+  "shortTitle": "Ban bố Quân lệnh số 1",
+  "displayDate": "Ngày 13-8-1945",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1919-1945",
+  "parentId": "cach-mang-thang-tam-nam-1945",
+  "historicalLocations": [
+    "cả nước"
+  ],
+  "provinceNames": [],
+  "canonicalSummary": "Ngày 13-8-1945, Trung ương Đảng và Tổng bộ Việt Minh thành lập Uỷ ban Khởi nghĩa toàn quốc, ban bố Quân lệnh số 1, chính thức phát động Tổng khởi nghĩa trong cả nước.",
+  "keyFacts": [
+    "Ban bố Quân lệnh số 1",
+    "Ngày 13-8-1945",
+    "Phát động Tổng khởi nghĩa",
+    "Trung ương Đảng và Tổng bộ Việt Minh thành lập Uỷ ban Khởi nghĩa toàn quốc"
+  ],
+  "sourceFamily": "revolutionary",
+  "preferredVerificationDomains": [
+    "hochiminh.vn",
+    "tulieuvankien.dangcongsan.vn",
+    "dangcongsan.vn",
+    "baotanglichsu.vn",
+    "nhandan.vn",
+    "qdnd.vn",
+    "vietnamplus.vn",
+    "luutru.gov.vn"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Trung ương Đảng và Tổng bộ Việt Minh thành lập Uỷ ban Khởi nghĩa toàn quốc, ban bố Quân lệnh số 1",
+    "Trung ương Đảng và Tổng bộ Việt Minh thành lập Uỷ ban Khởi nghĩa toàn quốc, ban bố Quân lệnh số 1 Ngày 13-8-1945",
+    "Trung ương Đảng và Tổng bộ Việt Minh thành lập Uỷ ban Khởi nghĩa toàn quốc, ban bố Quân lệnh số 1 cả nước",
+    "Trung ương Đảng và Tổng bộ Việt Minh thành lập Uỷ ban Khởi nghĩa toàn quốc, ban bố Quân lệnh số 1 Ban bố Quân lệnh số 1 Ngày 13-8-1945",
+    "Trung ương Đảng và Tổng bộ Việt Minh thành lập Uỷ ban Khởi nghĩa toàn quốc, ban bố Quân lệnh số 1 ảnh tư liệu",
+    "Trung ương Đảng và Tổng bộ Việt Minh thành lập Uỷ ban Khởi nghĩa toàn quốc, ban bố Quân lệnh số 1 chân dung"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

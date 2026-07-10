@@ -1,0 +1,9 @@
+{
+  "eventId": "hoi-nghi-ban-chap-hanh-trung-uong-dang-lan-thu-21",
+  "status": "pending_download",
+  "images": [],
+  "expected": [
+    "image_01.<ext>",
+    "image_02.<ext>"
+  ]
+}

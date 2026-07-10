@@ -1,0 +1,58 @@
+{
+  "eventId": "giai-phong-da-nang",
+  "title": "Giải phóng Đà Nẵng",
+  "shortTitle": "Đà Nẵng 1975",
+  "displayDate": "Chiều 29 – 3 – 1975",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1954-1975",
+  "parentId": "tong-tien-cong-va-noi-day-xuan-1975",
+  "historicalLocations": [],
+  "provinceNames": [
+    "Đà Nẵng"
+  ],
+  "canonicalSummary": "Đà Nẵng rơi vào thế cô lập và đến chiều 29 – 3 cũng được hoàn toàn giải phóng.",
+  "keyFacts": [
+    "Đà Nẵng được hoàn toàn giải phóng",
+    "Diễn ra chiều 29-3-1975"
+  ],
+  "sourceFamily": "war_1945_1975",
+  "preferredVerificationDomains": [
+    "btlsqsvn.org.vn",
+    "qdnd.vn",
+    "nhandan.vn",
+    "vietnamplus.vn",
+    "hochiminh.vn",
+    "baotanglichsu.vn",
+    "luutru.gov.vn",
+    "loc.gov",
+    "archives.gov"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Giải phóng Đà Nẵng",
+    "Giải phóng Đà Nẵng Chiều 29 – 3 – 1975",
+    "Giải phóng Đà Nẵng Cuộc Tổng tiến công và nổi dậy Xuân 1975",
+    "Giải phóng Đà Nẵng Đà Nẵng được hoàn toàn giải phóng Diễn ra chiều 29-3-1975",
+    "Giải phóng Đà Nẵng ảnh tư liệu",
+    "Giải phóng Đà Nẵng chiến dịch"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

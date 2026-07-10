@@ -1,0 +1,9 @@
+{
+  "eventId": "ga-cong-chua-thieu-dung-duong-tu-minh-1144",
+  "status": "pending_download",
+  "images": [],
+  "expected": [
+    "image_01.<ext>",
+    "image_02.<ext>"
+  ]
+}

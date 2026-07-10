@@ -1,0 +1,1022 @@
+{
+  "automaticApprovals": 0,
+  "duplicatePhysicalHashes": {
+    "063dff2750333d6f86f93b7bee62c31c183f94c9c6813ab4a1308ef192e81c16": [
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\ho-chi-minh-gui-loi-keu-goi-quoc-dan-di-bo-phieu\\National_Assembly_of_Vietnam_logo.svg.webp",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\hien-phap-viet-nam-dan-chu-cong-hoa-1946\\National_Assembly_of_Vietnam_logo.svg.webp"
+    ],
+    "0dd79b24455fc4bb6cb38a6fc210672458389d8b4a82a4c8f86ca70ba4b82def": [
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\viet-nam-tu-the-ki-x-den-xv\\Codohoalu2010k5.jpg",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\dinh-tien-le-dong-do-hoa-lu\\Codohoalu2010k5.jpg"
+    ],
+    "0efcff0a58387693839fd5f4fccea79e75518cd5b10b2fe06e945a2bdab8239a": [
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\chi-thi-thanh-lap-doi-viet-nam-tuyen-truyen-giai-phong-quan\\Vo_Nguyen_Giap2.jpg",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\giai-phong-thi-xa-thai-nguyen\\Vo_Nguyen_Giap2.jpg"
+    ],
+    "1088752ab38488572b462617d90061a7ea64f415f4e126db27351c3154e7971a": [
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\cach-mang-thang-tam-nam-1945\\Cách_mạng_tháng_8_b.jpg",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\cac-tinh-gianh-chinh-quyen-som-nhat\\Cách_mạng_tháng_8_b.jpg",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\cac-dia-phuong-cuoi-cung-gianh-chinh-quyen\\Cách_mạng_tháng_8_b (1).jpg",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\tong-khoi-nghia-gianh-chinh-quyen\\Cách_mạng_tháng_8_b.jpg"
+    ],
+    "15bc236a2870c365d04c8e61adcde1ab21eda2fce9fd068e80391ed07ec3253e": [
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\quoc-hoi-thong-qua-luat-cai-cach-ruong-dat-1953\\Ho_Chi_Minh_Vector_(positive).svg.webp",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\ke-hoach-nha-nuoc-5-nam-lan-thu-nhat-mien-bac\\Ho_Chi_Minh_Vector_(positive).svg.webp"
+    ],
+    "18d54d74940f3cbce300b550034606a931e396e20f2060fbf649181d6baf7be3": [
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\cuoc-van-dong-san-xuat-va-tiet-kiem-1952\\Vase_decorated_with_Fisherman_Benefits_legend,_Bat_Trang_ceramic_-_Nguyen_dynasty,_19th_century_AD_-_Vi.jpg",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\ke-hoach-nha-nuoc-5-nam-lan-thu-nhat-mien-bac\\Vase_decorated_with_Fisherman_Benefits_legend,_Bat_Trang_ceramic_-_Nguyen_dynasty,_19th_century_AD_-.jpg"
+    ],
+    "199af608aec4a019e672a3e70c045175d99b8bbf4f513c6f17bc66ff1ae90acb": [
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\thoi-tran-dat-chuc-xa-quan\\Oversimplified_Vietnam_location_map.svg.webp",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\xa-tro-thanh-ten-goi-pho-bien\\Oversimplified_Vietnam_location_map.svg.webp"
+    ],
+    "1bfba1a681aa2a412fa5dc188663e66c8f209edac8184f95eb90b556f0d39da1": [
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\hoat-dong-doi-ngoai-phan-chau-trinh\\Phan_Chau_Trinh.jpg",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\phan-chau-trinh-sang-phap-1911\\Phan_Chau_Trinh.jpg"
+    ],
+    "200a96d41711a157c83d0723813d8e1211cf746787cdb2afe2dd5ed786ba0ffd": [
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\nguyen-ai-quoc-gui-yeu-sach-vec-xai\\Nguyen_Aïn_Nuä'C_(Ho-Chi-Minh),_délégué_indochinois,_Congrès_communiste_de_Marseille,_1921,_Meurisse,_BNF_Ga.jpg",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\nguyen-ai-quoc-doc-luan-cuong-le-nin\\Nguyen_Aïn_Nuä'C_(Ho-Chi-Minh),_délégué_indochinois,_Congrès_communiste_de_Marseille,_1921,_Meurisse,_BNF_Gall.jpg",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\nguyen-ai-quoc-gia-nhap-quoc-te-cong-san-va-sang-lap-dang-cong-san-phap\\Nguyen_Aïn_Nuä'C_(Ho-Chi-Minh),_délégué_indochinois,_Congrès_communiste_de.jpg",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\nguyen-ai-quoc-hoat-dong-phap-1921-1923\\Nguyen_Aïn_Nuä'C_(Ho-Chi-Minh),_délégué_indochinois,_Congrès_communist (1).jpg",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\nguyen-ai-quoc-thanh-lap-hoi-lien-hiep-thuoc-dia-1921\\Nguyen_Aïn_Nuä'C_(Ho-Chi-Minh),_délégué_indochinois,_Congrès_communiste_de_Marseille,_1921,_Meurisse,_BNF_.jpg"
+    ],
+    "286951184bc8375b16ec8a0c217369fd19c7ef16e521026e160922a916560cdf": [
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\phong-trao-dong-du\\Phan_Boi_Chau.jpg",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\hoat-dong-doi-ngoai-phan-boi-chau\\Phan_Boi_Chau (1).jpg",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\phan-boi-chau-sang-nhat-ban-1905\\Phan_Boi_Chau.jpg",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\thanh-lap-lien-minh-dong-a-1908\\Phan_Boi_Chau.jpg",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\phan-boi-chau-ve-trung-quoc-1911\\Phan_Boi_Chau.jpg"
+    ],
+    "2b6acaeef473b4cf4b0b85551dd4957efd158062c94f43d2de92ae70451e1df8": [
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\viet-nam-1975-den-nay\\Khu_trung_tâm_thành_phố_Hồ_Chí_Minh,_nhìn_từ_phía_quận_2.JPG",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\bai-bo-che-do-tem-phieu-o-viet-nam\\Khu_trung_tâm_thành_phố_Hồ_Chí_Minh,_nhìn_từ_phía_quận_2.JPG",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\dai-hoi-dai-bieu-toan-quoc-lan-thu-x-cua-dang-cong-san-viet-nam\\Khu_trung_tâm_thành_phố_Hồ_Chí_Minh,_nhìn_từ_phía_quận_2.JPG",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\viet-nam-lao-cam-pu-chia-chuyen-sang-kinh-te-thi-truong-va-cong-nghiep-hoa\\Khu_trung_tâm_thành_phố_Hồ_Chí_Minh,_nhìn_từ_phía_quận_2.JPG"
+    ],
+    "35305cf622ec5c88d90b9a3475a964bf94dc630e69ce98a19b72228655610d00": [
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\su-ra-doi-cua-ba-to-chuc-cong-san-viet-nam\\Flag_of_the_Communist_Party_of_Vietnam.svg.webp",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\hoi-nghi-thanh-lap-dang-cong-san-viet-nam\\Flag_of_the_Communist_Party_of_Vietnam.svg (1).webp",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\thanh-lap-mat-tran-dan-toc-thong-nhat-viet-nam-1930\\Flag_of_the_Communist_Party_of_Vietnam.svg.webp",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\hoat-dong-doi-ngoai-dang-cong-san-dong-duong-1930-1945\\Flag_of_the_Communist_Party_of_Vietnam.svg (1).webp",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\dai-hoi-dai-bieu-toan-quoc-lan-thu-viii-cua-dang-cong-san-viet-nam\\Flag_of_the_Communist_Party_of_Vietnam.svg.webp",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\dai-hoi-dai-bieu-toan-quoc-lan-thu-x-cua-dang-cong-san-viet-nam\\Flag_of_the_Communist_Party_of_Vietnam.svg.webp"
+    ],
+    "3e26a279d1a2fa7fa69f6e4e75e9c35670705ccbc273cbb04fcba711bab36c5a": [
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\nguyen-ai-quoc-tro-ve-nuoc\\Pác_Bó.jpg",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\hoi-nghi-lan-thu-8-ban-chap-hanh-trung-uong-dang-cong-san-dong-duong\\Pác_Bó (1).jpg",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\thanh-lap-mat-tran-viet-nam-doc-lap-dong-minh-viet-minh\\Pác_Bó.jpg",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\thanh-lap-tieu-doi-du-kich-thoat-li-dau-tien-o-cao-bang\\Pác_Bó (1).jpg"
+    ],
+    "433c9e1e09d6d2961597ab936f2833838ee4e0f7ba68bd4299a4521cecb5238c": [
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\phap-xam-luoc-viet-nam\\Prise_de_Saigon_18_Fevrier_1859_Antoine_Morel-Fatio.jpg",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\khang-chien-chong-thuc-dan-phap-trieu-nguyen\\Prise_de_Saigon_18_Fevrier_1859_Antoine_Morel-Fatio.jpg"
+    ],
+    "45d3574d4c9c9369d38ac243b4ddb4da1f419764ecb0c81df344f3d6732d4add": [
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\chien-thang-bach-dang-938\\Five_Dynasties_Ten_Kingdoms_923_CE.png",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\dau-tranh-chong-phong-kien-phuong-bac\\Five_Dynasties_Ten_Kingdoms_923_CE.png"
+    ],
+    "48f861762c584f755ef179bfa48e32d330cc161c43e19667dfe00123ef4f83af": [
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\nha-minh-xam-luoc-dai-ngu\\Chinese_invasion_of_vietnam_1406-07.jpg",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\khang-chien-chong-quan-minh-nha-ho\\Chinese_invasion_of_vietnam_1406-07 (1).jpg"
+    ],
+    "4b3bee647dd396b68b614fbe9cd2897788f0e6a3deb8d5b57dd6d49258f44ce1": [
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\viet-nam-1975-den-nay\\LocationofVietnam.png",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\viet-nam-thanh-vien-lien-hop-quoc\\LocationofVietnam.png"
+    ],
+    "5181c4ff8eeefe7d872c741e6ff5556ef2db3b1bba633ba1815e5221343a9f45": [
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\chien-thang-duong-14-phuoc-long\\1975_Spring_offensive.svg.webp",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\chien-dich-tay-nguyen-1975\\1975_Spring_offensive.svg.webp",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\giai-phong-hue-va-thua-thien\\1975_Spring_offensive.svg.webp",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\giai-phong-da-nang\\1975_Spring_offensive.svg.webp"
+    ],
+    "55e7e5a6e2370760fc3186008044abfb529b67a9c9913b35deb92edc04b139f8": [
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\giai-doan-khang-chien-chong-my-1954-1960\\Ngo_Dinh_Diem_at_Washington_-_ARC_542189.jpg",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\my-thay-chan-phap-dung-chinh-quyen-ngo-dinh-diem\\Ngo_Dinh_Diem_at_Washington_-_ARC_542189.jpg"
+    ],
+    "57aa5d1405a737301e2b8209cbaa61b9472eee0422c3ade4e137d38b863797fd": [
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\nguyen-hue-dung-chan-chieu-mo-binh-si\\Vietnam_in_late_18th_century_(orthographic_projection).svg.webp",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\phong-trao-tay-son-bung-no\\Vietnam_in_late_18th_century_(orthographic_projection).svg (1).webp"
+    ],
+    "5bfb049b0cc829e8543ea5316d92a65aec3ff0e0d19ed73d8142ffeb3775d356": [
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\chien-tranh-bao-ve-doc-lap-dan-toc-va-chu-quyen-quoc-gia-o-dong-duong\\U.S._Army_UH-1H_Hueys_insert_ARVN_troops_at_Khâm_Đức,_Vietnam,_12_July_1970_(79431435).jpg.webp",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\khang-chien-chong-my-cuu-nuoc\\U.S._Army_UH-1H_Hueys_insert_ARVN_troops_at_Khâm_Đức,_Vietnam,_12_July_1970_(79431435).jpg.webp"
+    ],
+    "63788b13ca653804e4b56b590e09aafcef71132fec7da375641c68d38706927a": [
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\dat-them-thua-tuyen-quang-nam\\Map-of-southeast-asia_1400_CE-es.svg.webp",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\ban-hanh-chinh-sach-loc-dien-quan-dien\\Map-of-southeast-asia_1400_CE-es.svg.webp",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\tan-cong-champa-dai-viet-cuoi-tk14\\Map-of-southeast-asia_1400_CE-es.svg.webp"
+    ],
+    "68d645b9cf2709cea3fd0f7896556727b636cb32a840b96ff4526de28ec1c9c8": [
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\le-loi-xay-thanh-luc-nien\\Map_of_the_Lam_Sơn_uprising_(en).png",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\hoi-the-lung-nhai\\Map_of_the_Lam_Sơn_uprising_(en).png",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\hoi-the-dong-quan\\Map_of_the_Lam_Sơn_uprising_(en) (1).png"
+    ],
+    "69f9ea3ee6027bd867a78d71fa6165935fc7089e40faec5886b6b124afa1a0ca": [
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\khang-chien-chong-quan-tong-1075-1077\\Chien_tranh_tong_viet_en.jpg",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\ly-thuong-kiet-tap-kich-kham-chau-liem-chau-ung-chau\\Chien_tranh_tong_viet_en (1).jpg"
+    ],
+    "72c7d0111c80e59835bdc5a28cedb0ed3017ff98f038b8314d9d97a28afe2fa0": [
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\thuc-hien-thong-nhat-dat-nuoc-viet-nam\\VietNamToanCanhDuDo.jpg",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\viet-nam-gia-nhap-sev\\VietNamToanCanhDuDo.jpg",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\dau-tranh-chong-phong-kien-phuong-bac\\VietNamToanCanhDuDo.jpg",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\nho-giao-du-nhap-viet-nam\\VietNamToanCanhDuDo.jpg"
+    ],
+    "75297dbfbf1bba8492343a539afa45cddf45862e17fe67d3f9817bc7c82ab16b": [
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\ly-nhan-tong-lap-quoc-tu-giam\\Hanoi_Temple_of_Literature_(cropped).jpg",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\nha-ly-su-dung-thi-cu-nho-hoc\\Hanoi_Temple_of_Literature_(cropped).jpg",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\nha-ly-to-chuc-khoa-thi-nho-hoc-dau-tien\\Hanoi_Temple_of_Literature_(cropped).jpg"
+    ],
+    "75c0425d590c6f5e335e414a9b51ac437bf3211c3e5f3e92758086cad6eddf61": [
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\lien-xo-vien-tro-cho-viet-nam\\Russia_Vietnam_Locator.svg.webp",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\vndcch-can-bang-quan-he-voi-lien-xo-trung-quoc-va-van-dong-vien-tro\\Russia_Vietnam_Locator.svg.webp"
+    ],
+    "76432a77a53e7c3fba5c28909b0d6f5d4b62b188839667400e9ad2a59aeaf76f": [
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\ly-nhan-tong-lap-quoc-tu-giam\\Lý_Nhân_Tông.JPG",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\nha-ly-to-chuc-khoa-thi-nho-hoc-dau-tien\\Lý_Nhân_Tông.JPG"
+    ],
+    "77ebff9493f16d64e6be030c508faa9531fb2013aa2947ad993c9df670bce628": [
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\chu-nom-su-dung-rong-rai\\Chữ_Nôm_(Khải_thư).svg.webp",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\lang-co-ten-nom-xuat-hien-som-thoi-ly-tran\\Chữ_Nôm_(Khải_thư).svg.webp"
+    ],
+    "7c370993c68c8d890a66ffdb7e861ceae5b24e50911485cfc69080c92cb1bdbf": [
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\hien-phap-viet-nam-dan-chu-cong-hoa-1946\\2013_Constitution_of_the_S.R._Viet_Nam_(2025_amendment).pdf.jpg",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\hien-phap-cong-hoa-xa-hoi-chu-nghia-viet-nam-2013\\2013_Constitution_of_the_S.R._Viet_Nam_(2025_amendment).pdf.jpg"
+    ],
+    "7e4ed42bbb03ac141af1b3199808f1e48ebfe62ef050077dd11c8ef3f7f0d436": [
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\phap-xam-luoc-viet-nam\\Campagne_du_Tonkin_Debarquement_des_fusiliers_marins_a_Thuan_An.jpg",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\khang-chien-chong-thuc-dan-phap-trieu-nguyen\\Campagne_du_Tonkin_Debarquement_des_fusiliers_marins_a_Thuan_An.jpg",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\phong-trao-chong-thuc-dan-phap-xam-luoc-o-viet-nam\\Campagne_du_Tonkin_Debarquement_des_fusiliers_marins_a_Thuan_An.jpg",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\phap-chiem-sau-tinh-nam-ki\\Campagne_du_Tonkin_Debarquement_des_fusiliers_marins_a_Thuan_An.jpg"
+    ],
+    "87a5fc6f13f0e2fd0a283f66e14e274eb4bc7af30fd5d68e1004cd583e5d4861": [
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\viet-nam-tam-thoi-bi-chia-cat-hai-mien\\1954_Geneva_Conference.jpg",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\vndcch-dau-tranh-doi-thi-hanh-hiep-dinh-gio-ne-vo\\1954_Geneva_Conference.jpg"
+    ],
+    "8bfdbb22ebc74e5300e7cbb925724907229bfb08a90c12fe343eeed0266418c9": [
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\viet-nam-1919-1945\\Bản_Tuyên_ngôn_độc_lập_của_nước_Việt_Nam_Dân_chủ_Cộng_hòa._-_Trung_tâm_Lưu_trữ_quốc_gia_III._Phông_Phủ_Thủ_tướng,_hồ_sơ_586,_tờ.jpg",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\viet-nam-1945-1954\\Bản_Tuyên_ngôn_độc_lập_của_nước_Việt_Nam_Dân_chủ_Cộng_hòa._-_Trung_tâm_Lưu_trữ_quốc_gia_III._Phông_Phủ_Thủ_tướng,_hồ_sơ_586,_tờ.jpg",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\cach-mang-thang-tam-nam-1945\\Bản_Tuyên_ngôn_độc_lập_của_nước_Việt_Nam_Dân_chủ_Cộng_hòa._-_Trung_tâm_Lưu_trữ_quốc_gia_III._Phông_Phủ_Thủ_tướng,_hồ_.jpg"
+    ],
+    "9938583f2533def20a933d36b6484b9bd85f1da4917b18a70bde83f7a6618fc3": [
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\bo-chinh-tri-ban-hanh-chi-thi-06-ct-tw-ve-cuoc-van-dong-hoc-tap-va-lam-theo-tam-guong-dao-duc-ho-chi-minh\\Ho_Chi_Minh_Morality_(cropped).jpg",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\bo-chinh-tri-ban-hanh-chi-thi-05-ct-tw-ve-day-manh-hoc-tap-va-lam-theo-tu-tuong-dao-duc-phong-cach-ho-chi-minh\\Ho_Chi_Minh_Morality_(cropped).jpg"
+    ],
+    "9bc5bf1604b93e0995075e09dbcad67c040115007a4cdf1ebc3b54a5cef45573": [
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\ho-chi-minh-duoc-bau-chu-tich-ban-chap-hanh-trung-uong-dang-1951\\Communist_Party_of_Vietnam_flag_logo.svg.webp",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\ho-chi-minh-chu-tich-tong-bi-thu-dang-lao-dong-1956\\Communist_Party_of_Vietnam_flag_logo.svg.webp",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\hoi-nghi-ban-chap-hanh-trung-uong-lan-thu-15-dang-lao-dong-viet-nam\\Communist_Party_of_Vietnam_flag_logo.svg.webp",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\dai-hoi-dai-bieu-toan-quoc-lan-thu-iii-dang-lao-dong-viet-nam\\Communist_Party_of_Vietnam_flag_logo.svg (1).webp",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\hoi-nghi-ban-chap-hanh-trung-uong-dang-lan-thu-21\\Communist_Party_of_Vietnam_flag_logo.svg.webp",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\dai-hoi-dai-bieu-toan-quoc-lan-thu-viii-cua-dang-cong-san-viet-nam\\Communist_Party_of_Vietnam_flag_logo.svg.webp",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\bo-chinh-tri-ban-hanh-chi-thi-05-ct-tw-ve-day-manh-hoc-tap-va-lam-theo-tu-tuong-dao-duc-phong-cach-ho-chi-minh\\Communist_Party_of_Vietnam_flag_logo.svg.webp"
+    ],
+    "9cda01061f566c8cb5206f64eace35c103e9fc4c44cfdd8e21f1cd733dd4c702": [
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\philippin-tuyen-bo-quyen-khai-thac-lap-nghiep-truong-sa\\Thitu_Island_Filipino_sheltered_port_construction.jpg",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\philippin-ban-hanh-sac-lenh-1596-tuyen-bo-chu-quyen-truong-sa\\Thitu_Island_Filipino_sheltered_port_construction.jpg"
+    ],
+    "a03a15ee2daf662c10a09a2d1fb27c9893d3b08cedb6d3b72c1c39a47c252e60": [
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\viet-nam-1919-1945\\Ho_Chi_Minh_-_1946_Portrait_(cropped).jpg",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\nguyen-tat-thanh-tham-gia-chong-thue-hue\\Ho_Chi_Minh_-_1946_Portrait_(cropped).jpg",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\nguyen-tat-thanh-ra-di-tim-duong-cuu-nuoc\\Ho_Chi_Minh_-_1946_Portrait_(cropped).jpg",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\nguyen-ai-quoc-den-lien-xo-1923\\Ho_Chi_Minh_-_1946_Portrait_(cropped).jpg",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\nguyen-ai-quoc-hoat-dong-chau-au-siam-1927-1929\\Ho_Chi_Minh_-_1946_Portrait_(cropped).jpg",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\ho-chi-minh-keu-goi-nhuong-com-se-ao-tang-gia-san-xuat\\Ho_Chi_Minh_-_1946_Portrait_(cropped).jpg",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\ho-chi-minh-ra-loi-keu-goi-toan-quoc-khang-chien\\Ho_Chi_Minh_-_1946_Portrait_(cropped).jpg",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\cuoc-van-dong-san-xuat-va-tiet-kiem-1952\\Ho_Chi_Minh_-_1946_Portrait_(cropped).jpg",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\dai-hoi-chien-si-thi-dua-can-bo-guong-mau-toan-quoc-lan-thu-nhat-1952\\Ho_Chi_Minh_-_1946_Portrait_(cropped) (1).jpg"
+    ],
+    "a3fdd7e0cab87b4c418920a418d37ca4783e47a93be4b09ca54ce089a490f87b": [
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\bac-thuoc-va-dau-tranh-gianh-doc-lap\\Ba_trieu_cuoi_voi.jpg",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\khoi-nghia-ba-trieu\\Ba_trieu_cuoi_voi.jpg"
+    ],
+    "a52bb779f15df158bd7cb845e56427da9b1888a8a261255aac78fba3e4717516": [
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\vuong-thuc-mau-khoi-nghia-can-vuong\\Vua_Hàm_Nghi_năm_1900.jpg",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\phong-trao-can-vuong\\Vua_Hàm_Nghi_năm_1900.jpg"
+    ],
+    "a7b6a162bb18749d09452e60b5a81c2441f896b7fd57cfdd134e0c2c2f24a58a": [
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\ho-chi-minh-ra-loi-keu-goi-toan-quoc-khang-chien\\Vietnamese_soldier_holding_the_Lunge_Mine_at_Hàng_Đậu_Street_on_December_1946.jpg",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\khang-chien-toan-quoc-chong-thuc-dan-phap-bung-no\\Vietnamese_soldier_holding_the_Lunge_Mine_at_Hàng_Đậu_Street_on_December_1946 (1).jpg"
+    ],
+    "a9b7d38d7167e3fe7a391ce938871fa72644274d24c64f5252e10763b15fe025": [
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\my-can-thiep-vao-dong-duong\\Bruce_Crandall's_UH-1D.jpg",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\chien-thang-van-tuong\\Bruce_Crandall's_UH-1D.jpg"
+    ],
+    "ad1e053a1747bce6fe72a420584b3f13f80adc67483f056b53470a3d35ba4466": [
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\giai-phong-hue-va-thua-thien\\DaNang75.jpg",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\giai-phong-da-nang\\DaNang75 (1).jpg"
+    ],
+    "ae63352169def380becccc0a5160d005ef04b91161b0f1c91abf539739ddf295": [
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\xa-lan-dau-tien-xuat-hien\\Tang_Protectorates.png",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\mai-thuc-loan-khoi-nghia\\Tang_Protectorates.png",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\khoi-nghia-mai-thuc-loan\\Tang_Protectorates.png",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\khoi-nghia-khuc-thua-du\\Tang_Protectorates.png"
+    ],
+    "ae97b27b06a44eb49363f2c834d7406931eeb64fc077e522291dd988a570fce5": [
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\thanh-lap-hoi-lien-hiep-cac-dan-toc-bi-ap-buc-a-dong-1925\\Trotsky_Lunion_Ho_1924.jpg",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\nguyen-ai-quoc-hoat-dong-chau-au-siam-1927-1929\\Trotsky_Lunion_Ho_1924 (1).jpg",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\nguyen-ai-quoc-hoat-dong-lien-xo-1933\\Trotsky_Lunion_Ho_1924.jpg",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\nguyen-ai-quoc-roi-lien-xo-tro-lai-trung-quoc\\Trotsky_Lunion_Ho_1924 (1).jpg"
+    ],
+    "b4e32b736dfcb2de1e354ace296b8c6b961efa775e2823a6a5127d7471a28e90": [
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\bac-thuoc-va-dau-tranh-gianh-doc-lap\\Hai_Bà_Trưng_Temple.JPG",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\khoi-nghia-hai-ba-trung\\Hai_Bà_Trưng_Temple.JPG"
+    ],
+    "b56750e769f7a287ea04191679b831c017832e5305c873bf6446e88257dc19be": [
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\viet-nam-the-hien-thien-chi-hoa-binh-sau-12-1946\\Map_tonkin_autumn_1947.jpg",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\chien-dich-viet-bac-thu-dong-1947\\Map_tonkin_autumn_1947.jpg"
+    ],
+    "b6b0b35c4f2073b59cd078b352bdb3035b202515757956b57b564fbb9bbf54f9": [
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\nguyen-tat-thanh-roi-phan-thiet-vao-sai-gon\\Ho_Chi_Minh_Museum,_Saigon_(1).jpg",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\nguyen-tat-thanh-ra-di-tim-duong-cuu-nuoc\\Ho_Chi_Minh_Museum,_Saigon_(1) (1).jpg"
+    ],
+    "ba2e34f1e066605d598ce54a32ce01b7714e87bf7c909cdd7d4e59525a39d7fb": [
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\phap-xa-sung-sai-gon-cho-lon-1945\\RE-OCCUPATION_OF_FRENCH_INDO-CHINA.jpg",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\phap-danh-up-uy-ban-hanh-chinh-nam-bo-1945\\RE-OCCUPATION_OF_FRENCH_INDO-CHINA.jpg",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\thanh-lap-uy-ban-khang-chien-nam-bo-1945\\RE-OCCUPATION_OF_FRENCH_INDO-CHINA (1).jpg"
+    ],
+    "baa4c4f19449fb9e9d5365ef0e9a1b0c06b790bf23daf9b54cc1b502b04dfa77": [
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\giai-doan-khang-chien-chong-my-1954-1960\\Nha_truyen_thong_Dong_Khoi.JPG",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\hoi-nghi-ban-chap-hanh-trung-uong-lan-thu-15-dang-lao-dong-viet-nam\\Nha_truyen_thong_Dong_Khoi.JPG",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\thanh-lap-mat-tran-dan-toc-giai-phong-mien-nam-viet-nam\\Nha_truyen_thong_Dong_Khoi.JPG"
+    ],
+    "bd95951ef6e6c6f681211ef3553d492cd8d3eca5262865dfffb0d52c2ca9074e": [
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\viet-nam-ban-hanh-tuyen-bo-vung-bien-them-luc-dia\\South_China_Sea_vector.svg.webp",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\bru-nay-tuyen-bo-vung-dac-quyen-kinh-te\\South_China_Sea_vector.svg.webp",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\ki-tuyen-bo-ve-ung-xu-cua-cac-ben-o-bien-dong-doc\\South_China_Sea_vector.svg.webp"
+    ],
+    "bdb8c1e01902a71f9e9a4b7523f85153c336df47a30ec2e8aecda21e30b92ebd": [
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\vuong-thuc-mau-khoi-nghia-can-vuong\\Chieu_Can_Vuong.jpg",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\phong-trao-can-vuong\\Chieu_Can_Vuong.jpg"
+    ],
+    "c44d89b7c5ad085c7938fb68a5078b9d67ae758202ef14b209cb5b22d10fa1b9": [
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\phap-cho-hai-quan-tru-dong-truong-sa\\South_China_Sea_Claims_and_Boundary_Agreements_2012.jpg",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\viet-nam-danh-chiem-nua-phia-dong-hoang-sa\\South_China_Sea_Claims_and_Boundary_Agreements_2012.jpg",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\philippin-ban-hanh-sac-lenh-1596-tuyen-bo-chu-quyen-truong-sa\\South_China_Sea_Claims_and_Boundary_Agreements_2012.jpg",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\ki-tuyen-bo-ve-ung-xu-cua-cac-ben-o-bien-dong-doc\\South_China_Sea_Claims_and_Boundary_Agreements_2012.jpg"
+    ],
+    "c61b54693d5ab1b108391c4eb588912ec0f5a954216249116b3f44407fcdd284": [
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\viet-nam-1945-1954\\First_Indochina_War_COLLAGE.jpg",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\khang-chien-chong-thuc-dan-phap-1945-1954\\First_Indochina_War_COLLAGE.jpg",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\khang-chien-chong-thuc-dan-phap-o-viet-nam-lao-cam-pu-chia\\First_Indochina_War_COLLAGE (1).jpg",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\viet-nam-de-nghi-lien-hop-quoc-cong-nhan-vndcch\\First_Indochina_War_COLLAGE.jpg",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\hiep-uoc-hoa-phap-1946\\First_Indochina_War_COLLAGE.jpg",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\khang-chien-toan-quoc-chong-thuc-dan-phap-bung-no\\First_Indochina_War_COLLAGE.jpg",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\chien-dich-viet-bac-thu-dong-1947\\First_Indochina_War_COLLAGE.jpg",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\cac-chien-dich-tien-cong-quan-doi-viet-nam-1950-1953\\First_Indochina_War_COLLAGE.jpg",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\ke-hoach-na-va-1953\\First_Indochina_War_COLLAGE.jpg",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\cuoc-tien-cong-chien-luoc-dong-xuan-1953-1954\\First_Indochina_War_COLLAGE.jpg",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\khang-chien-thang-loi\\First_Indochina_War_COLLAGE.jpg"
+    ],
+    "c7b33acbacbab581acb1721bcf3f74f44aec1c039ad8fd090377ef8e4c7a2959": [
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\ho-chi-minh-duoc-bau-chu-tich-nuoc-1946\\Emblem_of_Vietnam.svg.webp",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\quoc-hoi-khoa-vi-doi-ten-sai-gon-thanh-thanh-pho-ho-chi-minh\\Emblem_of_Vietnam.svg.webp"
+    ],
+    "c921f6640583247bc7845b16b2097ea9c0990f95d29ac0a9ff22b0a75b648d48": [
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\khang-chien-chong-quan-mong-co-1258\\Yuan_invasions_of_Southeast_Asia.jpg",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\khang-chien-chong-quan-nguyen-1285\\Yuan_invasions_of_Southeast_Asia.jpg"
+    ],
+    "ce2b47535dc49e9dddfe3cf35ab594eb23711d2e1aeda7cf5e96b039d5b8636e": [
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\chu-quyen-bien-dao-viet-nam-1858-1918\\Spratly_Is_since_NalGeoMaps.png",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\chu-quyen-bien-dao-viet-nam-1919-1945\\Spratly_Is_since_NalGeoMaps.png",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\phap-gui-cong-ham-phan-doi-nhat-ban-kiem-soat-truong-sa\\Spratly_Is_since_NalGeoMaps.png",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\phap-cho-hai-quan-tru-dong-truong-sa\\Spratly_Is_since_NalGeoMaps.png",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\chu-quyen-viet-nam-duoc-tuyen-bo-cong-nhan-hoi-nghi-xan-phran-xi-xo\\Spratly_Is_since_NalGeoMaps.png",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\quan-li-hanh-chinh-chinh-quyen-sai-gon-hoang-sa-truong-sa\\Spratly_Is_since_NalGeoMaps.png",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\dai-loan-chiem-dong-dao-ba-binh-truong-sa\\Spratly_Is_since_NalGeoMaps.png",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\philippin-chiem-dong-9-dao-truong-sa\\Spratly_Is_since_NalGeoMaps.png",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\quan-giai-phong-mien-nam-viet-nam-tiep-quan-truong-sa\\Spratly_Is_since_NalGeoMaps.png",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\viet-nam-ban-hanh-tuyen-bo-vung-bien-them-luc-dia\\Spratly_Is_since_NalGeoMaps.png"
+    ],
+    "cef9f21aad2c3ba5e39d4f552a8124bcfbabd8ed6f1e0863b05ef5d4e3b83ffa": [
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\thoi-gia-long-tri-vi\\Emperor_Gia_Long.jpg",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\trieu-nguyen-thanh-lap\\Emperor_Gia_Long (1).jpg"
+    ],
+    "d3388260b74351930faf7a48399ea3c45cf5bd62fd1f69e9e44e534a4f9af69f": [
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\vndcch-thiet-lap-quan-he-ngoai-giao-voi-cac-nuoc-xhcn\\Ministry_of_Foreign_Affairs,_Hanoi,_1928_(2)_(37781035864).jpg",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\viet-nam-binh-thuong-hoa-quan-he-trung-quoc\\Ministry_of_Foreign_Affairs,_Hanoi,_1928_(2)_(37781035864).jpg"
+    ],
+    "de71178f070b067b39abcc07f257157da189856a749cc70b635d101d74a164df": [
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\cai-to-he-thong-quan-doi-le-thanh-tong\\Lê_Thánh_Tông.jpg",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\dat-them-thua-tuyen-quang-nam\\Lê_Thánh_Tông (1).jpg",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\ban-hanh-chinh-sach-loc-dien-quan-dien\\Lê_Thánh_Tông.jpg"
+    ],
+    "e0c08b4e62be45a1c9f9c86011136b68f16f8b06c45af880df94f20fd9b40646": [
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\quan-giai-phong-mien-nam-viet-nam-tiep-quan-truong-sa\\Mapspratly.jpg",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\dai-loan-chiem-bai-can-ran-san-ho-ban-than\\Mapspratly.jpg",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\trung-quoc-danh-chiem-da-vanh-khan\\Mapspratly.jpg"
+    ],
+    "e31d6a28b76e1e52bb3f8430fea0c2233327b9f63cc5481825f49a3e55ebb645": [
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\quan-li-hanh-chinh-chinh-quyen-sai-gon-hoang-sa-truong-sa\\Asia_-_South_China_Sea_-_Mui_Da_Nang_to_Shen-Ch'uan_Chiang_including_Hai-Nan_Tao_and_Par.jpg",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\viet-nam-danh-chiem-nua-phia-dong-hoang-sa\\Asia_-_South_China_Sea_-_Mui_Da_Nang_to_Shen-Ch'uan_Chiang_including_Hai-Nan_Tao_and_Parac.jpg"
+    ],
+    "e34310f6796e92cf2a2f7df5ab269ee50810234081b3e20ed8ec445402e85795": [
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\ke-hoach-na-va-1953\\Victory_in_Battle_of_Dien_Bien_Phu.jpg",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\cuoc-tien-cong-chien-luoc-dong-xuan-1953-1954\\Victory_in_Battle_of_Dien_Bien_Phu.jpg",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\khang-chien-thang-loi\\Victory_in_Battle_of_Dien_Bien_Phu.jpg"
+    ],
+    "e54a4f3d5262565e67defd28bcf6894de882d3a8e35cfdb67a2c46fea992ce9b": [
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\thuc-hien-thong-nhat-dat-nuoc-viet-nam\\Combined_flags_of_Communist_Party_of_Vietnam_and_Vietnam.svg.webp",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\lien-hop-quoc-vien-tro-viet-nam-1977-1986\\Combined_flags_of_Communist_Party_of_Vietnam_and_Vietnam.svg.webp",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\quan-he-viet-nam-my-doi-tac-chien-luoc-toan-dien\\Combined_flags_of_Communist_Party_.webp"
+    ],
+    "e6f33804f6cb763f8023d6747cc7af391fa851c1761de157221c66188640ba21": [
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\le-loi-xay-thanh-luc-nien\\Le_Loi_statue.JPG",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\hoi-the-lung-nhai\\Le_Loi_statue.JPG",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\hoi-the-dong-quan\\Le_Loi_statue.JPG"
+    ],
+    "eb9734cec45e8df77224c37fd7a796df5f4f7759bbb8c8890936a9d55f4d12d3": [
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\bru-nay-tuyen-bo-ranh-gioi-them-luc-dia\\Bx-map_-_2.png",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\bru-nay-tuyen-bo-vung-dac-quyen-kinh-te\\Bx-map_-_2 (1).png"
+    ],
+    "edd3200b9a3556517b4206de3bbd78e95a49c4a46bd6b4b6a55312cefdc352ca": [
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\nguyen-ai-quoc-tro-ve-nuoc\\Ho_Chi_Minh_(third_from_left_standing)_and_the_OSS_in_1945.jpg",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\ho-chi-minh-tro-ve-nuoc-1944\\Ho_Chi_Minh_(third_from_left_standing)_and_the_OSS_in_1945.jpg",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\ho-chi-minh-sang-con-minh-tim-su-ung-ho-quoc-te\\Ho_Chi_Minh_(third_from_left_standing)_and_the_OSS_in_1945.jpg"
+    ],
+    "eec7c2ea0b83b502bc38c264c64c54fd8dd98afcdf97f37639c7cab9e7b08a80": [
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\mai-thuc-loan-khoi-nghia\\Mai_hắc_đế.png",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\khoi-nghia-mai-thuc-loan\\Mai_hắc_đế (1).png"
+    ],
+    "f08e74f3321567cab211c362ce2b406bbf49a11491e0a25a0d4dd1f92d8f6b77": [
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\do-dac-cam-moc-chu-quyen-hoang-sa-pham-huu-nhat\\Partie_de_la_Cochichine_atlas.jpg",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\chu-quyen-bien-dao-viet-nam-1858-1918\\Partie_de_la_Cochichine_atlas.jpg",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\trung-quoc-tu-choi-boi-thuong-vu-tau-dam-hoang-sa\\Partie_de_la_Cochichine_atlas.jpg",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\chu-quyen-bien-dao-viet-nam-1919-1945\\Partie_de_la_Cochichine_atlas.jpg"
+    ],
+    "f5359777e15d84ea14bc38e2c08bac757125758a7a3da768012a7015f917a055": [
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\thanh-lap-mat-tran-dan-toc-thong-nhat-viet-nam-1930\\Emblem_of_People's_Army_of_Vietnam_(1954-1958).svg.webp",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\hoi-nghi-lan-thu-8-ban-chap-hanh-trung-uong-dang-cong-san-dong-duong\\Emblem_of_People's_Army_of_Vietnam_(1954-1958).svg.webp",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\thanh-lap-mat-tran-viet-nam-doc-lap-dong-minh-viet-minh\\Emblem_of_People's_Army_of_Vietnam_(1954-1958).svg (1).webp",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\khang-chien-chong-thuc-dan-phap-1945-1954\\Emblem_of_People's_Army_of_Vietnam_(1954-1958).svg.webp",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\thanh-lap-lien-minh-nhan-dan-viet-mien-lao\\Emblem_of_People's_Army_of_Vietnam_(1954-1958).svg.webp"
+    ],
+    "f90a3c0ddece93f8aced8f2996b78d9b4743d27d2d8f57b45b291c4519155801": [
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\vndcch-thiet-lap-quan-he-ngoai-giao-voi-cac-nuoc-xhcn\\People's_Republic_of_China_Vietnam_Locator.png",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\viet-nam-binh-thuong-hoa-quan-he-trung-quoc\\People's_Republic_of_China_Vietnam_Locator.png",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\vndcch-can-bang-quan-he-voi-lien-xo-trung-quoc-va-van-dong-vien-tro\\People's_Republic_of_China_Vietnam_Locator.png"
+    ],
+    "f93e7f53a23bf802d0b0f73909d40d71117ee07cd9c374561502bcbcec2981ea": [
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\cai-cach-tran-thu-do\\VietNam(1226-1400).png",
+      "F:\\Desktop\\CLASS\\KLTN\\lich-su-viet-nam-3d\\crawData\\stage5_external_media_enrichment\\by_event\\khung-hoang-cuoi-trieu-tran\\VietNam(1226-1400).png"
+    ]
+  },
+  "eventCount": 258,
+  "eventsWithTwoImages": 150,
+  "imageCount": 386,
+  "missing": [
+    {
+      "eventId": "viet-nam-tu-the-ki-xvi-den-xix",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "viet-nam-tu-the-ki-xvi-den-xix",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "khoi-nghia-khu-lien-lap-nuoc-lam-ap",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "khoi-nghia-ly-bi-trieu-quang-phuc",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "xa-lan-dau-tien-xuat-hien",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "khoi-nghia-phung-hung",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "khoi-nghia-khuc-thua-du",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "khang-chien-chong-quan-tong-1075-1077",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "ga-cong-chua-thieu-dung-duong-tu-minh-1144",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "cai-cach-tran-thu-do",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "hoi-nghi-binh-than",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "khung-hoang-cuoi-trieu-tran",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "khang-chien-chong-quan-minh-nha-ho",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "nha-minh-thong-tri-huy-diet-van-minh-dai-viet",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "le-nghi-dan-dat-luc-bo",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "le-nghi-dan-dat-luc-bo",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "cai-to-he-thong-quan-doi-le-thanh-tong",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "doi-moi-dao-duy-tu-dang-trong",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "giao-si-phuong-tay-truyen-dao-cong-giao",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "giang-van-minh-di-su-nha-minh",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "giang-van-minh-di-su-nha-minh",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "cai-cach-trinh-cuong-dang-ngoai",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "thanh-lap-lang-xa-huyen-tien-hai-thai-binh",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "bac-thanh-duoc-lap",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "thoi-gia-long-tri-vi",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "trieu-nguyen-thanh-lap",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "doi-dinh-quang-duc-thanh-phu-thua-thien",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "doi-cac-doanh-quang-binh-quang-tri-quang-nam-thanh-tran",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "do-dac-cam-moc-chu-quyen-hoang-sa-pham-huu-nhat",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "thi-diem-chia-lai-ruong-dat-minh-mang",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "thi-diem-chia-lai-ruong-dat-minh-mang",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "phap-xam-chiem-dong-duong",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "phap-chiem-sau-tinh-nam-ki",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "phap-chiem-bac-ki-lan-2",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "trung-quoc-tu-choi-boi-thuong-vu-tau-dam-hoang-sa",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "phong-trao-dong-du",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "nguyen-tat-thanh-tham-gia-chong-thue-hue",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "thanh-lap-lien-minh-dong-a-1908",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "nguyen-tat-thanh-roi-phan-thiet-vao-sai-gon",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "hoat-dong-doi-ngoai-phan-chau-trinh",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "phan-boi-chau-ve-trung-quoc-1911",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "phan-chau-trinh-sang-phap-1911",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "thanh-lap-viet-nam-quang-phuc-hoi-1912",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "thanh-lap-viet-nam-quang-phuc-hoi-1912",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "nguyen-ai-quoc-doc-luan-cuong-le-nin",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "nguyen-ai-quoc-hoat-dong-phap-1921-1923",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "nguyen-ai-quoc-thanh-lap-hoi-lien-hiep-thuoc-dia-1921",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "nguyen-ai-quoc-thanh-lap-hoi-lien-hiep-thuoc-dia-va-bao-le-paria",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "nguyen-ai-quoc-thanh-lap-hoi-lien-hiep-thuoc-dia-va-bao-le-paria",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "su-ra-doi-cua-ba-to-chuc-cong-san-viet-nam",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "hoi-nghi-thanh-lap-dang-cong-san-viet-nam",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "phap-gui-cong-ham-phan-doi-nhat-ban-kiem-soat-truong-sa",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "thanh-lap-tieu-doi-du-kich-thoat-li-dau-tien-o-cao-bang",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "ho-chi-minh-sang-trung-quoc-1942",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "ho-chi-minh-sang-trung-quoc-1942",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "ho-chi-minh-tro-ve-nuoc-1944",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "ho-chi-minh-sang-con-minh-tim-su-ung-ho-quoc-te",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "viet-minh-hop-tac-oss-1945",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "uy-ban-khoi-nghia-ban-bo-quan-lenh-so-1",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "uy-ban-khoi-nghia-ban-bo-quan-lenh-so-1",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "hoi-nghi-toan-quoc-cua-dang-cong-san-dong-duong-1945",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "hoi-nghi-toan-quoc-cua-dang-cong-san-dong-duong-1945",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "hoi-nghi-toan-quoc-cua-dang-tan-trao",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "hoi-nghi-toan-quoc-cua-dang-tan-trao",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "cac-tinh-gianh-chinh-quyen-som-nhat",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "khoi-nghia-gianh-chinh-quyen-hue",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "khoi-nghia-gianh-chinh-quyen-hue",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "phap-xa-sung-sai-gon-cho-lon-1945",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "thanh-lap-uy-ban-khang-chien-nam-bo-1945",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "ho-chi-minh-gui-thu-toi-chu-tich-hoi-dong-lien-hop-quoc",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "ho-chi-minh-gui-thu-toi-chu-tich-hoi-dong-lien-hop-quoc",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "ho-chi-minh-ki-sac-lenh-thanh-lap-nha-binh-dan-hoc-vu-va-quy-doc-lap",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "khang-chien-chong-thuc-dan-phap-o-viet-nam-lao-cam-pu-chia",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "viet-nam-de-nghi-lien-hop-quoc-cong-nhan-vndcch",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "ho-chi-minh-gui-loi-keu-goi-quoc-dan-di-bo-phieu",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "hiep-uoc-hoa-phap-1946",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "chien-dich-bien-gioi-thu-dong-1950",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "cac-chien-dich-tien-cong-quan-doi-viet-nam-1950-1953",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "ho-chi-minh-duoc-bau-chu-tich-ban-chap-hanh-trung-uong-dang-1951",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "mat-tran-lien-viet-ra-doi-1951",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "dai-hoi-chien-si-thi-dua-can-bo-guong-mau-toan-quoc-lan-thu-nhat-1952",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "cai-cach-ruong-dat-mien-bac",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "cai-cach-ruong-dat-mien-bac",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "chien-tranh-bao-ve-doc-lap-dan-toc-va-chu-quyen-quoc-gia-o-dong-duong",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "mien-bac-viet-nam-giai-phong-xay-dung-cnxh",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "my-can-thiep-vao-dong-duong",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "viet-nam-tam-thoi-bi-chia-cat-hai-mien",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "ho-chi-minh-chu-tich-tong-bi-thu-dang-lao-dong-1956",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "dai-hoi-dai-bieu-toan-quoc-lan-thu-iii-dang-lao-dong-viet-nam",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "cac-chien-thang-quan-su-1964-1965",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "thanh-lap-chinh-phu-cach-mang-lam-thoi-cong-hoa-mien-nam-viet-nam",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "dap-tan-cuoc-hanh-quan-xam-luoc-vao-cam-pu-chia-1970",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "hoi-nghi-cap-cao-ba-nuoc-viet-nam-lao-cam-pu-chia",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "hoi-nghi-ban-chap-hanh-trung-uong-dang-lan-thu-21",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "quan-doi-sai-gon-that-bai-bao-ve-hoang-sa",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "quan-doi-sai-gon-that-bai-bao-ve-hoang-sa",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "trung-quoc-danh-chiem-toan-bo-hoang-sa",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "trung-quoc-danh-chiem-toan-bo-hoang-sa",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "lien-hop-quoc-vien-tro-viet-nam-1977-1986",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "dai-hoi-dai-bieu-toan-quoc-lan-thu-vi-cua-dang-cong-san-viet-nam",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "dai-hoi-dai-bieu-toan-quoc-lan-thu-vi-cua-dang-cong-san-viet-nam",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "dai-hoi-dai-bieu-toan-quoc-lan-thu-vii-cua-dang-cong-san-viet-nam",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "dai-hoi-dai-bieu-toan-quoc-lan-thu-vii-cua-dang-cong-san-viet-nam",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "viet-nam-binh-thuong-hoa-quan-he-my",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "bo-chinh-tri-ban-hanh-chi-thi-06-ct-tw-ve-cuoc-van-dong-hoc-tap-va-lam-theo-tam-guong-dao-duc-ho-chi-minh",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "viet-nam-thong-qua-luat-bien-viet-nam",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "hien-phap-cong-hoa-xa-hoi-chu-nghia-viet-nam-2013",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "quan-he-viet-nam-my-doi-tac-chien-luoc-toan-dien",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "chien-luoc-vua-danh-vua-dam-va-van-dong-quoc-te-cong-nhan-mat-tran-dan-toc-giai-phong-mien-nam-viet-nam",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "chien-luoc-vua-danh-vua-dam-va-van-dong-quoc-te-cong-nhan-mat-tran-dan-toc-giai-phong-mien-nam-viet-nam",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "chinh-quyen-phap-cai-cach-huong-chinh",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "chinh-quyen-phap-cai-cach-huong-chinh",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "chu-quoc-ngu-xuat-hien",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "lang-co-ten-nom-xuat-hien-som-thoi-ly-tran",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "tan-cong-champa-dai-viet-cuoi-tk14",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "thanh-lap-quoc-su-quan-trieu-nguyen",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "thoi-tran-dat-chuc-xa-quan",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "tin-nguong-tho-than-dong-co-cung-dinh",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "tin-nguong-tho-than-dong-co-cung-dinh",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "tuyen-duong-chi-vien-chien-luoc-tren-bien-mang-ten-chu-tich-ho-chi-minh",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "tuyen-duong-chi-vien-chien-luoc-tren-bien-mang-ten-chu-tich-ho-chi-minh",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "van-hoa-phung-nguyen",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "viet-nam-dam-phan-ranh-gioi-tren-bien",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "viet-nam-dam-phan-ranh-gioi-tren-bien",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "viet-nam-ki-ket-nghi-dinh-thu-ki-o-to",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "viet-nam-ki-ket-rcep",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "viet-nam-lao-cam-pu-chia-chuyen-sang-kinh-te-thi-truong-va-cong-nghiep-hoa",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "viet-nam-tham-gia-afta",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "vndcch-dau-tranh-doi-thi-hanh-hiep-dinh-gio-ne-vo",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "vndcch-gap-go-dang-cong-san-phap-va-cac-to-chuc-quoc-te",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    }
+  ],
+  "unexpected": [],
+  "version": 1
+}

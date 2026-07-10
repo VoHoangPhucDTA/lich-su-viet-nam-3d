@@ -21,6 +21,15 @@ import {
   HISTORICAL_EVENTS,
 } from '../data/events';
 import type { EventType, GeoType, HistoricalEvent } from '../types/event';
+import {
+  compareChronologyS1,
+  compareChronologyS1Descending,
+  compareHierarchyChronology,
+  formatChronologyLabel,
+  matchesNumericFilter,
+  normalizeChronology,
+  timelineYearsFromEvents,
+} from '../utils/chronology';
 import { apiGet, apiPost, toQueryString } from './apiClient';
 
 interface EventListResponse {
@@ -36,8 +45,9 @@ interface EventSummaryDto {
   eventLevel: 'collection' | 'atomic';
   eventType: EventType;
   eventSubtype?: string;
-  startYear: number;
-  endYear?: number | null;
+  startYear: number | null;
+  endYear: number | null;
+  effectiveEndYear?: number | null;
   displayDate?: string;
   geoType: GeoType;
   lat?: number | null;
@@ -53,7 +63,7 @@ interface EventSummaryDto {
 }
 
 interface EventDetailDto extends EventSummaryDto {
-  effectiveEndYear: number;
+  effectiveEndYear: number | null;
   datePrecision?: string;
   historicalLocations?: string[];
   canonicalSummary?: string;
@@ -88,8 +98,9 @@ interface TimelineEventDto {
   title: string;
   shortTitle?: string;
   eventType: EventType;
-  startYear: number;
-  endYear?: number | null;
+  startYear: number | null;
+  endYear: number | null;
+  effectiveEndYear?: number | null;
   displayDate?: string;
   parentId?: string | null;
   level?: number;
@@ -112,14 +123,22 @@ function toStringArray(value: unknown): string[] | undefined {
 
 function summaryToHistoricalEvent(dto: EventSummaryDto): HistoricalEvent {
   const hasCoordinates = dto.lat != null && dto.lng != null;
+  const chronology = normalizeChronology({
+    startYear: dto.startYear,
+    endYear: dto.endYear,
+    effectiveEndYear: dto.effectiveEndYear,
+    displayDate: dto.displayDate,
+  });
   return {
     id: dto.id,
     slug: dto.slug ?? dto.id,
     eventLevel: dto.eventLevel,
     name: dto.title,
     description: dto.cardSummary ?? '',
-    startYear: dto.startYear,
-    endYear: dto.endYear != null && dto.endYear !== dto.startYear ? dto.endYear : undefined,
+    startYear: chronology.startYear,
+    endYear: chronology.endYear,
+    effectiveEndYear: chronology.effectiveEndYear,
+    displayDate: chronology.displayDate,
     eventType: dto.eventType,
     eventSubtype: dto.eventSubtype,
     geoType: dto.geoType,
@@ -133,12 +152,15 @@ function summaryToHistoricalEvent(dto: EventSummaryDto): HistoricalEvent {
 }
 
 export function sortHistoricalEvents(events: HistoricalEvent[]): HistoricalEvent[] {
-  return [...events].sort(
-    (a, b) =>
-      (a.orderInParent ?? 0) - (b.orderInParent ?? 0) ||
-      a.startYear - b.startYear ||
-      a.name.localeCompare(b.name, 'vi')
-  );
+  return [...events].sort(compareChronologyS1);
+}
+
+export function sortHistoricalEventsDescending(events: HistoricalEvent[]): HistoricalEvent[] {
+  return [...events].sort(compareChronologyS1Descending);
+}
+
+export function sortHierarchyEvents(events: HistoricalEvent[]): HistoricalEvent[] {
+  return [...events].sort(compareHierarchyChronology);
 }
 
 function detailToMockEvent(dto: EventDetailDto): MockEventDetail {
@@ -163,10 +185,10 @@ function detailToMockEvent(dto: EventDetailDto): MockEventDetail {
       grades: dto.grades.map(String),
     },
     chronology: {
-      start: String(dto.startYear),
+      start: dto.startYear != null ? String(dto.startYear) : '',
       end: dto.endYear != null ? String(dto.endYear) : undefined,
       datePrecision: dto.datePrecision ?? 'year',
-      displayDate: dto.displayDate ?? String(dto.startYear),
+      displayDate: formatChronologyLabel(dto),
     },
     mapData: {
       displayGeometry: {
@@ -266,7 +288,7 @@ export async function getChildrenFromBackend(eventId: string): Promise<Historica
   try {
     // 1.1.14: eventApi.ts: Gọi API GET /api/events/{eventId}/children đến Backend để lấy dữ liệu con.
     const data = await apiGet<EventListResponse>(`/api/events/${eventId}/children`);
-    return sortHistoricalEvents(data.items.map(summaryToHistoricalEvent));
+    return sortHierarchyEvents(data.items.map(summaryToHistoricalEvent));
   } catch (error) {
     console.warn('Fallback to static children because backend children API failed.', error);
     return findEventById(eventId)?.children ?? [];
@@ -301,7 +323,7 @@ export async function getTimelineYearsFromBackend(grade?: number | null): Promis
   try {
     const query = toQueryString({ grade });
     const data = await apiGet<TimelineEventDto[]>(`/api/timeline${query}`);
-    return Array.from(new Set(data.map((item) => item.startYear))).sort((a, b) => a - b);
+    return timelineYearsFromEvents(data);
   } catch (error) {
     console.warn('Fallback to static timeline years because backend timeline failed.', error);
     return [];
@@ -367,8 +389,7 @@ export async function getBrowseEvents(params: BrowseEventsParams): Promise<Brows
         (params.sortDir === 'desc' ? -1 : 1) * a.name.localeCompare(b.name, 'vi')
       );
     } else {
-      sortHistoricalEvents(events);
-      if (params.sortDir === 'desc') events.reverse();
+      events.sort(params.sortDir === 'desc' ? compareChronologyS1Descending : compareChronologyS1);
     }
 
     // data.count is the response-item count (after LIMIT/OFFSET), NOT the
@@ -405,8 +426,7 @@ export async function getBrowseEvents(params: BrowseEventsParams): Promise<Brows
     if (params.year != null) {
       const year = params.year;
       filtered = filtered.filter((e) => {
-        const endYear = e.endYear ?? e.startYear;
-        return e.startYear <= year && endYear >= year;
+        return matchesNumericFilter(e, { year });
       });
     }
 
@@ -416,8 +436,7 @@ export async function getBrowseEvents(params: BrowseEventsParams): Promise<Brows
         (params.sortDir === 'desc' ? -1 : 1) * a.name.localeCompare(b.name, 'vi')
       );
     } else {
-      sortHistoricalEvents(filtered);
-      if (params.sortDir === 'desc') filtered.reverse();
+      filtered.sort(params.sortDir === 'desc' ? compareChronologyS1Descending : compareChronologyS1);
     }
 
     const total = filtered.length;

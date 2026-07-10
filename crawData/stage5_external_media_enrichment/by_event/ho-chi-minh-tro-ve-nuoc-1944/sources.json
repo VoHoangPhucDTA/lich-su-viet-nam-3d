@@ -1,0 +1,9 @@
+{
+  "eventId": "ho-chi-minh-tro-ve-nuoc-1944",
+  "status": "pending_download",
+  "images": [],
+  "expected": [
+    "image_01.<ext>",
+    "image_02.<ext>"
+  ]
+}

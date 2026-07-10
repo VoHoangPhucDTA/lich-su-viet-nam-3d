@@ -1,0 +1,55 @@
+{
+  "eventId": "nha-ly-su-dung-thi-cu-nho-hoc",
+  "title": "Nhà Lý chính thức sử dụng chế độ thi cử Nho học",
+  "shortTitle": "Nhà Lý chính thức sử dụng chế độ thi cử Nho học",
+  "displayDate": "Thời Lý",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-tu-the-ki-x-den-xv",
+  "parentId": "viet-nam-tu-the-ki-x-den-xv",
+  "historicalLocations": [],
+  "provinceNames": [],
+  "canonicalSummary": "Nhà Lý là triều đại đầu tiên chính thức sử dụng chế độ thi cử Nho học để tuyển chọn quan lại.",
+  "keyFacts": [
+    "Chính thức sử dụng chế độ thi cử Nho học",
+    "Để tuyển chọn quan lại",
+    "Nhà Lý là triều đại đầu tiên"
+  ],
+  "sourceFamily": "ancient_medieval",
+  "preferredVerificationDomains": [
+    "baotanglichsu.vn",
+    "disanvanhoa.gov.vn",
+    "bvhttdl.gov.vn",
+    "qdnd.vn",
+    "nhandan.vn",
+    "unesco.org",
+    "whc.unesco.org"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Nhà Lý chính thức sử dụng chế độ thi cử Nho học",
+    "Nhà Lý chính thức sử dụng chế độ thi cử Nho học Thời Lý",
+    "Nhà Lý chính thức sử dụng chế độ thi cử Nho học Việt Nam từ thế kỉ X đến thế kỉ XV",
+    "Nhà Lý chính thức sử dụng chế độ thi cử Nho học Chính thức sử dụng chế độ thi cử Nho học Để tuyển chọn quan lại",
+    "Nhà Lý chính thức sử dụng chế độ thi cử Nho học hiện vật",
+    "Nhà Lý chính thức sử dụng chế độ thi cử Nho học di tích"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

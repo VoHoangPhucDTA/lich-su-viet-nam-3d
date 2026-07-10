@@ -1,0 +1,9 @@
+{
+  "eventId": "xay-dung-va-dong-dien-duong-day-500kv-bac-nam-mach-1",
+  "status": "pending_download",
+  "images": [],
+  "expected": [
+    "image_01.<ext>",
+    "image_02.<ext>"
+  ]
+}

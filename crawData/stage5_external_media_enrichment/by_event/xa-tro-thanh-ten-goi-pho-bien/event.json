@@ -1,0 +1,55 @@
+{
+  "eventId": "xa-tro-thanh-ten-goi-pho-bien",
+  "title": "Xã chính thức trở thành tên gọi phổ biến",
+  "shortTitle": "Xã phổ biến",
+  "displayDate": "Từ thế kỉ X",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-tu-the-ki-x-den-xv",
+  "parentId": "viet-nam-tu-the-ki-x-den-xv",
+  "historicalLocations": [],
+  "provinceNames": [],
+  "canonicalSummary": "Xã chính thức trở thành tên gọi phổ biến từ thế kỉ X, dùng để chỉ đơn vị hành chính cơ sở của nhà nước.",
+  "keyFacts": [
+    "Từ thế kỉ X",
+    "Xã trở thành tên gọi phổ biến",
+    "Chỉ đơn vị hành chính cơ sở"
+  ],
+  "sourceFamily": "ancient_medieval",
+  "preferredVerificationDomains": [
+    "baotanglichsu.vn",
+    "disanvanhoa.gov.vn",
+    "bvhttdl.gov.vn",
+    "qdnd.vn",
+    "nhandan.vn",
+    "unesco.org",
+    "whc.unesco.org"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Xã chính thức trở thành tên gọi phổ biến",
+    "Xã chính thức trở thành tên gọi phổ biến Từ thế kỉ X",
+    "Xã chính thức trở thành tên gọi phổ biến Việt Nam từ thế kỉ X đến thế kỉ XV",
+    "Xã chính thức trở thành tên gọi phổ biến Từ thế kỉ X Xã trở thành tên gọi phổ biến",
+    "Xã chính thức trở thành tên gọi phổ biến hiện vật",
+    "Xã chính thức trở thành tên gọi phổ biến di tích"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

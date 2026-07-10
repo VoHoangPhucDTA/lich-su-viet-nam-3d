@@ -1,0 +1,62 @@
+{
+  "eventId": "viet-minh-hop-tac-oss-1945",
+  "title": "Việt Minh hợp tác với Cơ quan Tình báo chiến lược Mỹ (OSS)",
+  "shortTitle": "Việt Minh hợp tác với Cơ quan Tình báo chiến lược Mỹ (OSS)",
+  "displayDate": "Cuối tháng 4 – 1945",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1919-1945",
+  "parentId": "viet-nam-1919-1945",
+  "historicalLocations": [
+    "châu Á",
+    "Tuyên Quang",
+    "Tân Trào",
+    "Trung Quốc"
+  ],
+  "provinceNames": [],
+  "canonicalSummary": "Đối với phái bộ Mỹ ở phía nam Trung Quốc, đại diện của Mặt trận Việt Minh chủ động bắt liên lạc để thiết lập quan hệ và hợp tác chống quân phiệt Nhật Bản. Cuối tháng 4 – 1945, sự hợp tác giữa Việt Minh và Cơ quan Tình báo chiến lược Mỹ (OSS) tại châu Á được xác lập.",
+  "keyFacts": [
+    "Xác lập tại châu Á",
+    "Giữa Việt Minh và OSS Mỹ",
+    "Mục đích: hợp tác chống quân phiệt Nhật Bản",
+    "Diễn ra cuối tháng 4-1945"
+  ],
+  "sourceFamily": "revolutionary",
+  "preferredVerificationDomains": [
+    "hochiminh.vn",
+    "tulieuvankien.dangcongsan.vn",
+    "dangcongsan.vn",
+    "baotanglichsu.vn",
+    "nhandan.vn",
+    "qdnd.vn",
+    "vietnamplus.vn",
+    "luutru.gov.vn"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Việt Minh hợp tác với Cơ quan Tình báo chiến lược Mỹ (OSS)",
+    "Việt Minh hợp tác với Cơ quan Tình báo chiến lược Mỹ (OSS) Cuối tháng 4 – 1945",
+    "Việt Minh hợp tác với Cơ quan Tình báo chiến lược Mỹ (OSS) châu Á",
+    "Việt Minh hợp tác với Cơ quan Tình báo chiến lược Mỹ (OSS) Xác lập tại châu Á Giữa Việt Minh và OSS Mỹ",
+    "Việt Minh hợp tác với Cơ quan Tình báo chiến lược Mỹ (OSS) ảnh tư liệu",
+    "Việt Minh hợp tác với Cơ quan Tình báo chiến lược Mỹ (OSS) chân dung"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

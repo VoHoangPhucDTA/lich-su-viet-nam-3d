@@ -1,0 +1,9 @@
+{
+  "eventId": "khang-chien-chong-thuc-dan-phap-1945-1954",
+  "status": "pending_download",
+  "images": [],
+  "expected": [
+    "image_01.<ext>",
+    "image_02.<ext>"
+  ]
+}

@@ -1,0 +1,3812 @@
+{
+  "schemaVersion": 1,
+  "readOnly": true,
+  "inputs": {
+    "stage4A": "crawData/stage4_assemble/output/final_events.jsonl",
+    "stage4B": "crawData/stage4b_curate_tree/output/phase2/core_events.jsonl",
+    "stage4BSupporting": "crawData/stage4b_curate_tree/output/phase2/supporting_items.jsonl",
+    "stage5ApprovedMappings": "crawData/stage5_media_enrich/config/approved_event_image_mappings.json",
+    "stage5Candidates": "crawData/stage5_media_enrich/output/image_event_candidates.jsonl"
+  },
+  "stage4A": {
+    "eventCount": 407,
+    "uniqueEventIdCount": 407,
+    "duplicateEventIds": [],
+    "eventIdSetHash": "e915a092dcc325d1023198a727cb55d52ec7bfacc70d418b64b5a3531642242e",
+    "slugCount": 407,
+    "duplicateSlugs": [],
+    "rootEventCount": 407
+  },
+  "stage4B": {
+    "eventCount": 361,
+    "uniqueEventIdCount": 361,
+    "duplicateEventIds": [],
+    "eventIdSetHash": "bea093d4bbc26429e75ea26422c05f838d18599771b57dbab675394de1421a13",
+    "slugCount": 361,
+    "duplicateSlugs": [],
+    "rootEventCount": 9,
+    "coreEventCount": 361,
+    "supportingEventCount": 50
+  },
+  "chronology": {
+    "totalEventCount": 361,
+    "integerStartYearCount": 259,
+    "nullStartYearCount": 102,
+    "integerEndYearCount": 91,
+    "nullEndYearCount": 270,
+    "canonicalYearZeroCount": 0,
+    "canonicalYearZeroEventIds": [],
+    "negativeBceYearRecordCount": 5,
+    "negativeBceYearRecords": [
+      {
+        "eventId": "bac-thuoc-va-dau-tranh-gianh-doc-lap",
+        "years": [
+          -111,
+          937
+        ]
+      },
+      {
+        "eventId": "khang-chien-chong-quan-trieu-an-duong-vuong",
+        "years": [
+          -179,
+          -179
+        ]
+      },
+      {
+        "eventId": "su-ra-doi-nha-nuoc-au-lac",
+        "years": [
+          -208,
+          -179
+        ]
+      },
+      {
+        "eventId": "su-ra-doi-nha-nuoc-van-lang",
+        "years": [
+          -208
+        ]
+      },
+      {
+        "eventId": "viet-nam-thoi-dung-nuoc",
+        "years": [
+          -112
+        ]
+      }
+    ],
+    "previousAuditExpectationComparison": {
+      "expected": {
+        "stage4BTotal": 361,
+        "integerStartYear": 259,
+        "nullStartYear": 102,
+        "yearSignalNull": 41,
+        "noClearYearNull": 61
+      },
+      "matchesExpectedCoreCounts": true
+    },
+    "nullChronologyClassification": {
+      "note": "Reporting-only classification from Phase D0 audit metadata; this does not authorize repair.",
+      "yearSignalNullCount": 41,
+      "noClearCalendarYearNullCount": 61,
+      "yearSignalNull": {
+        "safeDeterministicCandidateCount": 20,
+        "safeDeterministicCandidateEventIds": [
+          "cac-chien-thang-quan-su-1964-1965",
+          "cai-cach-ruong-dat-mien-bac",
+          "chu-quyen-bien-dao-viet-nam-1858-1918",
+          "chu-quyen-bien-dao-viet-nam-1919-1945",
+          "chu-quyen-bien-dao-viet-nam-1954-1975",
+          "cuoc-tien-cong-chien-luoc-dong-xuan-1953-1954",
+          "giai-doan-day-manh-cong-nghiep-hoa-hien-dai-hoa-hoi-nhap-kinh-te-quoc-te-1996-2006",
+          "giai-doan-khang-chien-chong-my-1954-1960",
+          "giai-doan-khang-chien-chong-my-1961-1965",
+          "giai-doan-khang-chien-chong-my-1965-1968",
+          "giai-doan-khang-chien-chong-my-1969-1973",
+          "giai-doan-khang-chien-chong-my-1973-1975",
+          "giai-doan-khoi-dau-cong-cuoc-doi-moi-1986-1995",
+          "hoan-toan-giai-phong-mien-nam-viet-nam",
+          "ke-hoach-nha-nuoc-5-nam-lan-thu-nhat-mien-bac",
+          "lien-xo-vien-tro-cho-viet-nam",
+          "mien-bac-viet-nam-giai-phong-xay-dung-cnxh",
+          "phong-trao-dong-khoi",
+          "thuc-hien-thong-nhat-dat-nuoc-viet-nam",
+          "viet-nam-hoan-tat-muc-tieu-thien-nien-ki"
+        ],
+        "manualReviewCandidateCount": 21,
+        "manualReviewCandidateEventIds": [
+          "cac-chien-dich-tien-cong-quan-doi-viet-nam-1950-1953",
+          "cai-cach-le-thanh-tong",
+          "chien-luoc-vua-danh-vua-dam-va-van-dong-quoc-te-cong-nhan-mat-tran-dan-toc-giai-phong-mien-nam-viet-nam",
+          "chien-thang-duong-14-phuoc-long",
+          "chu-quyen-bien-dao-viet-nam-1975-den-nay",
+          "dau-tranh-chong-phong-kien-phuong-bac",
+          "giai-doan-cuoi-chien-tranh-the-gioi-thu-hai",
+          "giai-doan-tiep-tuc-day-manh-cong-nghiep-hoa-hien-dai-hoa-hoi-nhap-quoc-te-sau-rong-2006-nay",
+          "ho-chi-minh-keu-goi-nhuong-com-se-ao-tang-gia-san-xuat",
+          "ho-chi-minh-ki-sac-lenh-thanh-lap-nha-binh-dan-hoc-vu-va-quy-doc-lap",
+          "lien-hop-quoc-vien-tro-viet-nam-1977-1986",
+          "su-ra-doi-nha-nuoc-van-lang",
+          "viet-nam-mo-co-quan-dai-dien-ngoai-giao-va-thong-tin-o-nuoc-ngoai",
+          "viet-nam-tham-gia-afta",
+          "viet-nam-to-chuc-hoi-nghi-quoc-te-asean-asem-apec",
+          "viet-nam-uy-vien-khong-thuong-truc-hoi-dong-bao-an-lhq",
+          "vndcch-can-bang-quan-he-voi-lien-xo-trung-quoc-va-van-dong-vien-tro",
+          "vndcch-dau-tranh-doi-thi-hanh-hiep-dinh-gio-ne-vo",
+          "vndcch-gap-go-dang-cong-san-phap-va-cac-to-chuc-quoc-te",
+          "vndcch-thiet-lap-quan-he-ngoai-giao-voi-lao-campuchia-va-ung-ho-phong-trao-giai-phong-dan-toc",
+          "vu-an-le-chi-vien"
+        ],
+        "manualReviewByCategory": {
+          "approximate_contextual_range": {
+            "count": 11,
+            "eventIds": [
+              "cac-chien-dich-tien-cong-quan-doi-viet-nam-1950-1953",
+              "cai-cach-le-thanh-tong",
+              "chien-luoc-vua-danh-vua-dam-va-van-dong-quoc-te-cong-nhan-mat-tran-dan-toc-giai-phong-mien-nam-viet-nam",
+              "chien-thang-duong-14-phuoc-long",
+              "ho-chi-minh-keu-goi-nhuong-com-se-ao-tang-gia-san-xuat",
+              "ho-chi-minh-ki-sac-lenh-thanh-lap-nha-binh-dan-hoc-vu-va-quy-doc-lap",
+              "lien-hop-quoc-vien-tro-viet-nam-1977-1986",
+              "viet-nam-mo-co-quan-dai-dien-ngoai-giao-va-thong-tin-o-nuoc-ngoai",
+              "vndcch-can-bang-quan-he-voi-lien-xo-trung-quoc-va-van-dong-vien-tro",
+              "vndcch-dau-tranh-doi-thi-hanh-hiep-dinh-gio-ne-vo",
+              "vndcch-thiet-lap-quan-he-ngoai-giao-voi-lao-campuchia-va-ung-ho-phong-trao-giai-phong-dan-toc"
+            ]
+          },
+          "false_positive_or_ancient_duration": {
+            "count": 2,
+            "eventIds": [
+              "dau-tranh-chong-phong-kien-phuong-bac",
+              "su-ra-doi-nha-nuoc-van-lang"
+            ]
+          },
+          "multiple_separate_ranges": {
+            "count": 1,
+            "eventIds": [
+              "viet-nam-uy-vien-khong-thuong-truc-hoi-dong-bao-an-lhq"
+            ]
+          },
+          "one_sided_before_after": {
+            "count": 4,
+            "eventIds": [
+              "giai-doan-cuoi-chien-tranh-the-gioi-thu-hai",
+              "viet-nam-tham-gia-afta",
+              "vndcch-gap-go-dang-cong-san-phap-va-cac-to-chuc-quoc-te",
+              "vu-an-le-chi-vien"
+            ]
+          },
+          "open_ended": {
+            "count": 3,
+            "eventIds": [
+              "chu-quyen-bien-dao-viet-nam-1975-den-nay",
+              "giai-doan-tiep-tuc-day-manh-cong-nghiep-hoa-hien-dai-hoa-hoi-nhap-quoc-te-sau-rong-2006-nay",
+              "viet-nam-to-chuc-hoi-nghi-quoc-te-asean-asem-apec"
+            ]
+          }
+        }
+      },
+      "noClearCalendarYearNull": {
+        "trulyUnknown": {
+          "count": 1,
+          "eventIds": [
+            "trang-an-duoc-ghi-danh-di-san-the-gioi"
+          ]
+        },
+        "namedHistoricalPeriod": {
+          "count": 14,
+          "eventIds": [
+            "chinh-quyen-phap-cai-cach-huong-chinh",
+            "dinh-tien-le-dong-do-hoa-lu",
+            "lang-co-ten-nom-xuat-hien-som-thoi-ly-tran",
+            "nha-ly-su-dung-thi-cu-nho-hoc",
+            "nha-ly-to-chuc-khoa-thi-nho-hoc-dau-tien",
+            "nha-ly-xay-dung-van-mieu",
+            "nha-nuoc-can-thiep-manh-lang-xa-thoi-le-so",
+            "nha-nuoc-can-thiep-manh-lang-xa-thoi-nguyen",
+            "nha-nuoc-pho-mac-lang-xa-thoi-le-trung-hung",
+            "nho-giao-du-nhap-viet-nam",
+            "phong-trao-can-vuong",
+            "thanh-lap-quoc-su-quan-trieu-nguyen",
+            "thoi-tran-dat-chuc-xa-quan",
+            "tin-nguong-tho-than-dong-co-cung-dinh"
+          ]
+        },
+        "centuryBased": {
+          "count": 29,
+          "eventIds": [
+            "cai-cach-tran-thu-do",
+            "cai-cach-trinh-cuong-dang-ngoai",
+            "chu-nom-su-dung-rong-rai",
+            "chu-quoc-ngu-xuat-hien",
+            "chu-quyen-bien-dao-viet-nam-tu-the-ki-xvi-den-xix",
+            "doi-do-ly-cong-uan",
+            "doi-moi-dao-duy-tu-dang-trong",
+            "hinh-thanh-phat-trien-van-minh-cham-pa",
+            "ho-khuc-to-chuc-lai-lang-xa-the-ki-x",
+            "khoi-nghia-phung-hung",
+            "khung-hoang-cuoi-trieu-tran",
+            "le-loi-xay-thanh-luc-nien",
+            "mai-thuc-loan-khoi-nghia",
+            "nguoi-viet-che-tao-sung-than-co-thuyen-chien",
+            "nguyen-hue-dung-chan-chieu-mo-binh-si",
+            "nha-duong-dat-don-vi-huong-xa-thoi-bac-thuoc",
+            "nha-minh-xam-luoc-dai-ngu",
+            "phap-xam-luoc-viet-nam",
+            "phong-trao-dong-du",
+            "phong-trao-tay-son-bung-no",
+            "phu-nam-tro-thanh-vuong-quoc-hung-manh",
+            "thanh-lap-cac-dang-cong-san-o-viet-nam-ma-lai-xiem-phi-lip-pin",
+            "thanh-lap-lang-xa-huyen-tien-hai-thai-binh",
+            "thanh-lap-va-hoat-dong-doi-dan-binh-hoang-sa-bac-hai",
+            "thuong-mai-a-au-phat-trien-tai-dai-viet",
+            "viet-nam-lao-cam-pu-chia-chuyen-sang-kinh-te-thi-truong-va-cong-nghiep-hoa",
+            "vuong-thuc-mau-khoi-nghia-can-vuong",
+            "xa-lan-dau-tien-xuat-hien",
+            "xa-tro-thanh-ten-goi-pho-bien"
+          ]
+        },
+        "bceOrAncient": {
+          "count": 7,
+          "eventIds": [
+            "hinh-thanh-khoi-dai-doan-ket-van-lang-au-lac",
+            "hinh-thanh-phat-trien-van-minh-phu-nam",
+            "hinh-thanh-phat-trien-van-minh-van-lang-au-lac",
+            "lang-xa-hinh-thanh-thoi-van-lang-au-lac",
+            "van-hoa-sa-huynh",
+            "van-hoa-tien-oc-eo",
+            "viet-nam-thoi-dung-nuoc"
+          ]
+        },
+        "durationExpression": {
+          "count": 2,
+          "eventIds": [
+            "tan-cong-champa-dai-viet-cuoi-tk14",
+            "van-hoa-phung-nguyen"
+          ]
+        },
+        "relativeChronology": {
+          "count": 8,
+          "eventIds": [
+            "khang-chien-thang-loi",
+            "tuyen-duong-chi-vien-chien-luoc-tren-bien-mang-ten-chu-tich-ho-chi-minh",
+            "viet-nam-dam-phan-ranh-gioi-tren-bien",
+            "viet-nam-ki-ket-evfta",
+            "viet-nam-ki-ket-hiep-uoc-bien-gioi-trung-quoc",
+            "viet-nam-ki-ket-nghi-dinh-thu-ki-o-to",
+            "viet-nam-ki-ket-rcep",
+            "viet-nam-thoan-thuan-bien-gioi-lao-cam-pu-chia"
+          ]
+        },
+        "otherUnclassified": {
+          "count": 0,
+          "eventIds": []
+        }
+      },
+      "unclassifiedNullCount": 0,
+      "unclassifiedNullEventIds": [],
+      "classifiedNullEventDetails": [
+        {
+          "eventId": "cac-chien-dich-tien-cong-quan-doi-viet-nam-1950-1953",
+          "group": "year_signal_null",
+          "category": "manual_review:approximate_contextual_range",
+          "displayDate": "Từ cuối năm 1950 đến giữa năm 1953",
+          "datePrecision": "period",
+          "parentId": "viet-nam-1975-den-nay",
+          "rootId": "viet-nam-1975-den-nay"
+        },
+        {
+          "eventId": "cac-chien-thang-quan-su-1964-1965",
+          "group": "year_signal_null",
+          "category": "safe_deterministic_candidate",
+          "displayDate": "1964 – 1965",
+          "datePrecision": "period",
+          "parentId": "viet-nam-1975-den-nay",
+          "rootId": "viet-nam-1975-den-nay"
+        },
+        {
+          "eventId": "cai-cach-le-thanh-tong",
+          "group": "year_signal_null",
+          "category": "manual_review:approximate_contextual_range",
+          "displayDate": "Khoảng 30 năm trị vì (1460 - 1497)",
+          "datePrecision": "period",
+          "parentId": "viet-nam-tu-the-ki-x-den-xv",
+          "rootId": "viet-nam-tu-the-ki-x-den-xv"
+        },
+        {
+          "eventId": "cai-cach-ruong-dat-mien-bac",
+          "group": "year_signal_null",
+          "category": "safe_deterministic_candidate",
+          "displayDate": "1954 - 1960",
+          "datePrecision": "period",
+          "parentId": "viet-nam-1975-den-nay",
+          "rootId": "viet-nam-1975-den-nay"
+        },
+        {
+          "eventId": "cai-cach-tran-thu-do",
+          "group": "no_clear_calendar_year_null",
+          "category": "century_based",
+          "displayDate": "Thế kỉ XIII",
+          "datePrecision": "period",
+          "parentId": "viet-nam-1975-den-nay",
+          "rootId": "viet-nam-1975-den-nay"
+        },
+        {
+          "eventId": "cai-cach-trinh-cuong-dang-ngoai",
+          "group": "no_clear_calendar_year_null",
+          "category": "century_based",
+          "displayDate": "Thế kỉ XVIII",
+          "datePrecision": "period",
+          "parentId": "viet-nam-1975-den-nay",
+          "rootId": "viet-nam-1975-den-nay"
+        },
+        {
+          "eventId": "chien-luoc-vua-danh-vua-dam-va-van-dong-quoc-te-cong-nhan-mat-tran-dan-toc-giai-phong-mien-nam-viet-nam",
+          "group": "year_signal_null",
+          "category": "manual_review:approximate_contextual_range",
+          "displayDate": "Trong kháng chiến chống Mỹ (1954-1975)",
+          "datePrecision": "period",
+          "parentId": "viet-nam-1975-den-nay",
+          "rootId": "viet-nam-1975-den-nay"
+        },
+        {
+          "eventId": "chien-thang-duong-14-phuoc-long",
+          "group": "year_signal_null",
+          "category": "manual_review:approximate_contextual_range",
+          "displayDate": "Cuối năm 1974, đầu năm 1975",
+          "datePrecision": "period",
+          "parentId": "tong-tien-cong-va-noi-day-xuan-1975",
+          "rootId": "viet-nam-1954-1975"
+        },
+        {
+          "eventId": "chinh-quyen-phap-cai-cach-huong-chinh",
+          "group": "no_clear_calendar_year_null",
+          "category": "named_historical_period",
+          "displayDate": "Thời Pháp thuộc",
+          "datePrecision": "period",
+          "parentId": "viet-nam-1975-den-nay",
+          "rootId": "viet-nam-1975-den-nay"
+        },
+        {
+          "eventId": "chu-nom-su-dung-rong-rai",
+          "group": "no_clear_calendar_year_null",
+          "category": "century_based",
+          "displayDate": "Từ thế kỉ XIII",
+          "datePrecision": "period",
+          "parentId": "viet-nam-1975-den-nay",
+          "rootId": "viet-nam-1975-den-nay"
+        },
+        {
+          "eventId": "chu-quoc-ngu-xuat-hien",
+          "group": "no_clear_calendar_year_null",
+          "category": "century_based",
+          "displayDate": "Từ đầu thế kỉ XVI",
+          "datePrecision": "period",
+          "parentId": "viet-nam-1975-den-nay",
+          "rootId": "viet-nam-1975-den-nay"
+        },
+        {
+          "eventId": "chu-quyen-bien-dao-viet-nam-1858-1918",
+          "group": "year_signal_null",
+          "category": "safe_deterministic_candidate",
+          "displayDate": "Chủ quyền biển đảo Việt Nam 1858-1918",
+          "datePrecision": "period",
+          "parentId": "viet-nam-1858-1918",
+          "rootId": "viet-nam-1858-1918"
+        },
+        {
+          "eventId": "chu-quyen-bien-dao-viet-nam-1919-1945",
+          "group": "year_signal_null",
+          "category": "safe_deterministic_candidate",
+          "displayDate": "Chủ quyền biển đảo Việt Nam 1919-1945",
+          "datePrecision": "period",
+          "parentId": "viet-nam-1919-1945",
+          "rootId": "viet-nam-1919-1945"
+        },
+        {
+          "eventId": "chu-quyen-bien-dao-viet-nam-1954-1975",
+          "group": "year_signal_null",
+          "category": "safe_deterministic_candidate",
+          "displayDate": "Chủ quyền biển đảo Việt Nam 1954-1975",
+          "datePrecision": "period",
+          "parentId": "viet-nam-1954-1975",
+          "rootId": "viet-nam-1954-1975"
+        },
+        {
+          "eventId": "chu-quyen-bien-dao-viet-nam-1975-den-nay",
+          "group": "year_signal_null",
+          "category": "manual_review:open_ended",
+          "displayDate": "Chủ quyền biển đảo Việt Nam 1975 đến nay",
+          "datePrecision": "period",
+          "parentId": "viet-nam-1975-den-nay",
+          "rootId": "viet-nam-1975-den-nay"
+        },
+        {
+          "eventId": "chu-quyen-bien-dao-viet-nam-tu-the-ki-xvi-den-xix",
+          "group": "no_clear_calendar_year_null",
+          "category": "century_based",
+          "displayDate": "Chủ quyền biển đảo Việt Nam thế kỉ XVI-XIX",
+          "datePrecision": "period",
+          "parentId": "viet-nam-tu-the-ki-xvi-den-xix",
+          "rootId": "viet-nam-tu-the-ki-xvi-den-xix"
+        },
+        {
+          "eventId": "cuoc-tien-cong-chien-luoc-dong-xuan-1953-1954",
+          "group": "year_signal_null",
+          "category": "safe_deterministic_candidate",
+          "displayDate": "Đông - Xuân 1953 - 1954",
+          "datePrecision": "period",
+          "parentId": "khang-chien-chong-thuc-dan-phap-1945-1954",
+          "rootId": "viet-nam-1945-1954"
+        },
+        {
+          "eventId": "dau-tranh-chong-phong-kien-phuong-bac",
+          "group": "year_signal_null",
+          "category": "manual_review:false_positive_or_ancient_duration",
+          "displayDate": "Hơn 1000 năm Bắc thuộc",
+          "datePrecision": "period",
+          "parentId": "viet-nam-1975-den-nay",
+          "rootId": "viet-nam-1975-den-nay"
+        },
+        {
+          "eventId": "dinh-tien-le-dong-do-hoa-lu",
+          "group": "no_clear_calendar_year_null",
+          "category": "named_historical_period",
+          "displayDate": "Thời Đinh – Tiền Lê",
+          "datePrecision": "period",
+          "parentId": "viet-nam-1975-den-nay",
+          "rootId": "viet-nam-1975-den-nay"
+        },
+        {
+          "eventId": "doi-do-ly-cong-uan",
+          "group": "no_clear_calendar_year_null",
+          "category": "century_based",
+          "displayDate": "Thế kỉ XI",
+          "datePrecision": "period",
+          "parentId": "viet-nam-1975-den-nay",
+          "rootId": "viet-nam-1975-den-nay"
+        },
+        {
+          "eventId": "doi-moi-dao-duy-tu-dang-trong",
+          "group": "no_clear_calendar_year_null",
+          "category": "century_based",
+          "displayDate": "Thế kỉ XVI",
+          "datePrecision": "period",
+          "parentId": "viet-nam-1975-den-nay",
+          "rootId": "viet-nam-1975-den-nay"
+        },
+        {
+          "eventId": "giai-doan-cuoi-chien-tranh-the-gioi-thu-hai",
+          "group": "year_signal_null",
+          "category": "manual_review:one_sided_before_after",
+          "displayDate": "Giai đoạn cuối của Chiến tranh thế giới thứ hai (trước 1945)",
+          "datePrecision": "approximate",
+          "parentId": "viet-nam-1975-den-nay",
+          "rootId": "viet-nam-1975-den-nay"
+        },
+        {
+          "eventId": "giai-doan-day-manh-cong-nghiep-hoa-hien-dai-hoa-hoi-nhap-kinh-te-quoc-te-1996-2006",
+          "group": "year_signal_null",
+          "category": "safe_deterministic_candidate",
+          "displayDate": "1996 – 2006",
+          "datePrecision": "period",
+          "parentId": "viet-nam-1975-den-nay",
+          "rootId": "viet-nam-1975-den-nay"
+        },
+        {
+          "eventId": "giai-doan-khang-chien-chong-my-1954-1960",
+          "group": "year_signal_null",
+          "category": "safe_deterministic_candidate",
+          "displayDate": "1954 - 1960",
+          "datePrecision": "period",
+          "parentId": "khang-chien-chong-my-cuu-nuoc",
+          "rootId": "viet-nam-1954-1975"
+        },
+        {
+          "eventId": "giai-doan-khang-chien-chong-my-1961-1965",
+          "group": "year_signal_null",
+          "category": "safe_deterministic_candidate",
+          "displayDate": "1961 - 1965",
+          "datePrecision": "period",
+          "parentId": "khang-chien-chong-my-cuu-nuoc",
+          "rootId": "viet-nam-1954-1975"
+        },
+        {
+          "eventId": "giai-doan-khang-chien-chong-my-1965-1968",
+          "group": "year_signal_null",
+          "category": "safe_deterministic_candidate",
+          "displayDate": "1965 - 1968",
+          "datePrecision": "period",
+          "parentId": "khang-chien-chong-my-cuu-nuoc",
+          "rootId": "viet-nam-1954-1975"
+        },
+        {
+          "eventId": "giai-doan-khang-chien-chong-my-1969-1973",
+          "group": "year_signal_null",
+          "category": "safe_deterministic_candidate",
+          "displayDate": "1969 – 1973",
+          "datePrecision": "period",
+          "parentId": "khang-chien-chong-my-cuu-nuoc",
+          "rootId": "viet-nam-1954-1975"
+        },
+        {
+          "eventId": "giai-doan-khang-chien-chong-my-1973-1975",
+          "group": "year_signal_null",
+          "category": "safe_deterministic_candidate",
+          "displayDate": "1973 - 1975",
+          "datePrecision": "period",
+          "parentId": "khang-chien-chong-my-cuu-nuoc",
+          "rootId": "viet-nam-1954-1975"
+        },
+        {
+          "eventId": "giai-doan-khoi-dau-cong-cuoc-doi-moi-1986-1995",
+          "group": "year_signal_null",
+          "category": "safe_deterministic_candidate",
+          "displayDate": "1986-1995",
+          "datePrecision": "period",
+          "parentId": "viet-nam-1975-den-nay",
+          "rootId": "viet-nam-1975-den-nay"
+        },
+        {
+          "eventId": "giai-doan-tiep-tuc-day-manh-cong-nghiep-hoa-hien-dai-hoa-hoi-nhap-quoc-te-sau-rong-2006-nay",
+          "group": "year_signal_null",
+          "category": "manual_review:open_ended",
+          "displayDate": "2006 – nay",
+          "datePrecision": "period",
+          "parentId": "viet-nam-1975-den-nay",
+          "rootId": "viet-nam-1975-den-nay"
+        },
+        {
+          "eventId": "hinh-thanh-khoi-dai-doan-ket-van-lang-au-lac",
+          "group": "no_clear_calendar_year_null",
+          "category": "bce_or_ancient",
+          "displayDate": "Thời dựng nước Văn Lang – Âu Lạc",
+          "datePrecision": "period",
+          "parentId": "viet-nam-1975-den-nay",
+          "rootId": "viet-nam-1975-den-nay"
+        },
+        {
+          "eventId": "hinh-thanh-phat-trien-van-minh-cham-pa",
+          "group": "no_clear_calendar_year_null",
+          "category": "century_based",
+          "displayDate": "Thế kỉ II đến thế kỉ XV",
+          "datePrecision": "period",
+          "parentId": "viet-nam-1975-den-nay",
+          "rootId": "viet-nam-1975-den-nay"
+        },
+        {
+          "eventId": "hinh-thanh-phat-trien-van-minh-phu-nam",
+          "group": "no_clear_calendar_year_null",
+          "category": "bce_or_ancient",
+          "displayDate": "Khoảng đầu Công nguyên",
+          "datePrecision": "approximate",
+          "parentId": "viet-nam-1975-den-nay",
+          "rootId": "viet-nam-1975-den-nay"
+        },
+        {
+          "eventId": "hinh-thanh-phat-trien-van-minh-van-lang-au-lac",
+          "group": "no_clear_calendar_year_null",
+          "category": "bce_or_ancient",
+          "displayDate": "Đầu thiên niên kỉ I TCN đến vài thế kỉ đầu Công nguyên",
+          "datePrecision": "period",
+          "parentId": "viet-nam-1975-den-nay",
+          "rootId": "viet-nam-1975-den-nay"
+        },
+        {
+          "eventId": "ho-chi-minh-keu-goi-nhuong-com-se-ao-tang-gia-san-xuat",
+          "group": "year_signal_null",
+          "category": "manual_review:approximate_contextual_range",
+          "displayDate": "Những năm 1945 – 1946",
+          "datePrecision": "period",
+          "parentId": "viet-nam-1975-den-nay",
+          "rootId": "viet-nam-1975-den-nay"
+        },
+        {
+          "eventId": "ho-chi-minh-ki-sac-lenh-thanh-lap-nha-binh-dan-hoc-vu-va-quy-doc-lap",
+          "group": "year_signal_null",
+          "category": "manual_review:approximate_contextual_range",
+          "displayDate": "Những năm 1945 – 1946",
+          "datePrecision": "period",
+          "parentId": "viet-nam-1975-den-nay",
+          "rootId": "viet-nam-1975-den-nay"
+        },
+        {
+          "eventId": "ho-khuc-to-chuc-lai-lang-xa-the-ki-x",
+          "group": "no_clear_calendar_year_null",
+          "category": "century_based",
+          "displayDate": "Thế kỉ X",
+          "datePrecision": "period",
+          "parentId": "viet-nam-1975-den-nay",
+          "rootId": "viet-nam-1975-den-nay"
+        },
+        {
+          "eventId": "hoan-toan-giai-phong-mien-nam-viet-nam",
+          "group": "year_signal_null",
+          "category": "safe_deterministic_candidate",
+          "displayDate": "tháng 4-1975",
+          "datePrecision": "month",
+          "parentId": "viet-nam-1975-den-nay",
+          "rootId": "viet-nam-1975-den-nay"
+        },
+        {
+          "eventId": "ke-hoach-nha-nuoc-5-nam-lan-thu-nhat-mien-bac",
+          "group": "year_signal_null",
+          "category": "safe_deterministic_candidate",
+          "displayDate": "1961 - 1965",
+          "datePrecision": "period",
+          "parentId": "viet-nam-1975-den-nay",
+          "rootId": "viet-nam-1975-den-nay"
+        },
+        {
+          "eventId": "khang-chien-thang-loi",
+          "group": "no_clear_calendar_year_null",
+          "category": "relative_chronology",
+          "displayDate": "Thời kì kháng chiến",
+          "datePrecision": "period",
+          "parentId": "viet-nam-1975-den-nay",
+          "rootId": "viet-nam-1975-den-nay"
+        },
+        {
+          "eventId": "khoi-nghia-phung-hung",
+          "group": "no_clear_calendar_year_null",
+          "category": "century_based",
+          "displayDate": "Cuối thế kỉ VIII",
+          "datePrecision": "period",
+          "parentId": "viet-nam-1975-den-nay",
+          "rootId": "viet-nam-1975-den-nay"
+        },
+        {
+          "eventId": "khung-hoang-cuoi-trieu-tran",
+          "group": "no_clear_calendar_year_null",
+          "category": "century_based",
+          "displayDate": "Cuối thế kỉ XIV",
+          "datePrecision": "period",
+          "parentId": "viet-nam-1975-den-nay",
+          "rootId": "viet-nam-1975-den-nay"
+        },
+        {
+          "eventId": "lang-co-ten-nom-xuat-hien-som-thoi-ly-tran",
+          "group": "no_clear_calendar_year_null",
+          "category": "named_historical_period",
+          "displayDate": "Thời Lý – Trần",
+          "datePrecision": "period",
+          "parentId": "viet-nam-1975-den-nay",
+          "rootId": "viet-nam-1975-den-nay"
+        },
+        {
+          "eventId": "lang-xa-hinh-thanh-thoi-van-lang-au-lac",
+          "group": "no_clear_calendar_year_null",
+          "category": "bce_or_ancient",
+          "displayDate": "Thời Văn Lang - Âu Lạc",
+          "datePrecision": "period",
+          "parentId": "viet-nam-1975-den-nay",
+          "rootId": "viet-nam-1975-den-nay"
+        },
+        {
+          "eventId": "le-loi-xay-thanh-luc-nien",
+          "group": "no_clear_calendar_year_null",
+          "category": "century_based",
+          "displayDate": "thế kỉ XV",
+          "datePrecision": "period",
+          "parentId": "viet-nam-1975-den-nay",
+          "rootId": "viet-nam-1975-den-nay"
+        },
+        {
+          "eventId": "lien-hop-quoc-vien-tro-viet-nam-1977-1986",
+          "group": "year_signal_null",
+          "category": "manual_review:approximate_contextual_range",
+          "displayDate": "Những năm 1977 – 1986",
+          "datePrecision": "period",
+          "parentId": "viet-nam-1975-den-nay",
+          "rootId": "viet-nam-1975-den-nay"
+        },
+        {
+          "eventId": "lien-xo-vien-tro-cho-viet-nam",
+          "group": "year_signal_null",
+          "category": "safe_deterministic_candidate",
+          "displayDate": "1955 - 1975",
+          "datePrecision": "period",
+          "parentId": "viet-nam-1975-den-nay",
+          "rootId": "viet-nam-1975-den-nay"
+        },
+        {
+          "eventId": "mai-thuc-loan-khoi-nghia",
+          "group": "no_clear_calendar_year_null",
+          "category": "century_based",
+          "displayDate": "đầu thế kỉ VIII",
+          "datePrecision": "period",
+          "parentId": "viet-nam-1975-den-nay",
+          "rootId": "viet-nam-1975-den-nay"
+        },
+        {
+          "eventId": "mien-bac-viet-nam-giai-phong-xay-dung-cnxh",
+          "group": "year_signal_null",
+          "category": "safe_deterministic_candidate",
+          "displayDate": "1954",
+          "datePrecision": "year",
+          "parentId": "viet-nam-1975-den-nay",
+          "rootId": "viet-nam-1975-den-nay"
+        },
+        {
+          "eventId": "nguoi-viet-che-tao-sung-than-co-thuyen-chien",
+          "group": "no_clear_calendar_year_null",
+          "category": "century_based",
+          "displayDate": "Từ cuối thế kỉ XIV",
+          "datePrecision": "period",
+          "parentId": "viet-nam-1975-den-nay",
+          "rootId": "viet-nam-1975-den-nay"
+        },
+        {
+          "eventId": "nguyen-hue-dung-chan-chieu-mo-binh-si",
+          "group": "no_clear_calendar_year_null",
+          "category": "century_based",
+          "displayDate": "cuối thế kỉ XVIII",
+          "datePrecision": "period",
+          "parentId": "viet-nam-1975-den-nay",
+          "rootId": "viet-nam-1975-den-nay"
+        },
+        {
+          "eventId": "nha-duong-dat-don-vi-huong-xa-thoi-bac-thuoc",
+          "group": "no_clear_calendar_year_null",
+          "category": "century_based",
+          "displayDate": "Đến thế kỉ VII",
+          "datePrecision": "period",
+          "parentId": "viet-nam-1975-den-nay",
+          "rootId": "viet-nam-1975-den-nay"
+        },
+        {
+          "eventId": "nha-ly-su-dung-thi-cu-nho-hoc",
+          "group": "no_clear_calendar_year_null",
+          "category": "named_historical_period",
+          "displayDate": "Thời Lý",
+          "datePrecision": "period",
+          "parentId": "viet-nam-1975-den-nay",
+          "rootId": "viet-nam-1975-den-nay"
+        },
+        {
+          "eventId": "nha-ly-to-chuc-khoa-thi-nho-hoc-dau-tien",
+          "group": "no_clear_calendar_year_null",
+          "category": "named_historical_period",
+          "displayDate": "Thời nhà Lý",
+          "datePrecision": "period",
+          "parentId": "viet-nam-1975-den-nay",
+          "rootId": "viet-nam-1975-den-nay"
+        },
+        {
+          "eventId": "nha-ly-xay-dung-van-mieu",
+          "group": "no_clear_calendar_year_null",
+          "category": "named_historical_period",
+          "displayDate": "Thời nhà Lý",
+          "datePrecision": "period",
+          "parentId": "viet-nam-1975-den-nay",
+          "rootId": "viet-nam-1975-den-nay"
+        },
+        {
+          "eventId": "nha-minh-xam-luoc-dai-ngu",
+          "group": "no_clear_calendar_year_null",
+          "category": "century_based",
+          "displayDate": "Giữa lúc công cuộc cải cách của nhà Hồ đang thực hiện (đầu thế kỉ XV)",
+          "datePrecision": "period",
+          "parentId": "khang-chien-chong-quan-minh-nha-ho",
+          "rootId": "viet-nam-tu-the-ki-x-den-xv"
+        },
+        {
+          "eventId": "nha-nuoc-can-thiep-manh-lang-xa-thoi-le-so",
+          "group": "no_clear_calendar_year_null",
+          "category": "named_historical_period",
+          "displayDate": "Thời Lê sơ",
+          "datePrecision": "period",
+          "parentId": "viet-nam-1975-den-nay",
+          "rootId": "viet-nam-1975-den-nay"
+        },
+        {
+          "eventId": "nha-nuoc-can-thiep-manh-lang-xa-thoi-nguyen",
+          "group": "no_clear_calendar_year_null",
+          "category": "named_historical_period",
+          "displayDate": "Thời Nguyễn",
+          "datePrecision": "period",
+          "parentId": "viet-nam-1975-den-nay",
+          "rootId": "viet-nam-1975-den-nay"
+        },
+        {
+          "eventId": "nha-nuoc-pho-mac-lang-xa-thoi-le-trung-hung",
+          "group": "no_clear_calendar_year_null",
+          "category": "named_historical_period",
+          "displayDate": "Thời Lê trung hưng",
+          "datePrecision": "period",
+          "parentId": "viet-nam-1975-den-nay",
+          "rootId": "viet-nam-1975-den-nay"
+        },
+        {
+          "eventId": "nho-giao-du-nhap-viet-nam",
+          "group": "no_clear_calendar_year_null",
+          "category": "named_historical_period",
+          "displayDate": "Thời Bắc thuộc",
+          "datePrecision": "period",
+          "parentId": "viet-nam-1975-den-nay",
+          "rootId": "viet-nam-1975-den-nay"
+        },
+        {
+          "eventId": "phap-xam-luoc-viet-nam",
+          "group": "no_clear_calendar_year_null",
+          "category": "century_based",
+          "displayDate": "Giữa thế kỉ XIX",
+          "datePrecision": "period",
+          "parentId": "viet-nam-1975-den-nay",
+          "rootId": "viet-nam-1975-den-nay"
+        },
+        {
+          "eventId": "phong-trao-can-vuong",
+          "group": "no_clear_calendar_year_null",
+          "category": "named_historical_period",
+          "displayDate": "Phong trào Cần Vương",
+          "datePrecision": "period",
+          "parentId": "viet-nam-1858-1918",
+          "rootId": "viet-nam-1858-1918"
+        },
+        {
+          "eventId": "phong-trao-dong-du",
+          "group": "no_clear_calendar_year_null",
+          "category": "century_based",
+          "displayDate": "Đầu thế kỉ XX",
+          "datePrecision": "period",
+          "parentId": "viet-nam-1975-den-nay",
+          "rootId": "viet-nam-1975-den-nay"
+        },
+        {
+          "eventId": "phong-trao-dong-khoi",
+          "group": "year_signal_null",
+          "category": "safe_deterministic_candidate",
+          "displayDate": "1959 – 1960",
+          "datePrecision": "period",
+          "parentId": "viet-nam-1975-den-nay",
+          "rootId": "viet-nam-1975-den-nay"
+        },
+        {
+          "eventId": "phong-trao-tay-son-bung-no",
+          "group": "no_clear_calendar_year_null",
+          "category": "century_based",
+          "displayDate": "Cuối thế kỉ XVIII",
+          "datePrecision": "period",
+          "parentId": "phong-trao-tay-son",
+          "rootId": "viet-nam-tu-the-ki-xvi-den-xix"
+        },
+        {
+          "eventId": "phu-nam-tro-thanh-vuong-quoc-hung-manh",
+          "group": "no_clear_calendar_year_null",
+          "category": "century_based",
+          "displayDate": "Từ thế kỉ III đến thế kỉ V",
+          "datePrecision": "period",
+          "parentId": "viet-nam-1975-den-nay",
+          "rootId": "viet-nam-1975-den-nay"
+        },
+        {
+          "eventId": "su-ra-doi-nha-nuoc-van-lang",
+          "group": "year_signal_null",
+          "category": "manual_review:false_positive_or_ancient_duration",
+          "displayDate": "Khoảng 2 700 năm trước đến năm 208 TCN",
+          "datePrecision": "approximate",
+          "parentId": "viet-nam-1975-den-nay",
+          "rootId": "viet-nam-1975-den-nay"
+        },
+        {
+          "eventId": "tan-cong-champa-dai-viet-cuoi-tk14",
+          "group": "no_clear_calendar_year_null",
+          "category": "duration_expression",
+          "displayDate": "Trong khoảng 30 năm cuối thế kỉ XIV",
+          "datePrecision": "period",
+          "parentId": "viet-nam-1975-den-nay",
+          "rootId": "viet-nam-1975-den-nay"
+        },
+        {
+          "eventId": "thanh-lap-cac-dang-cong-san-o-viet-nam-ma-lai-xiem-phi-lip-pin",
+          "group": "no_clear_calendar_year_null",
+          "category": "century_based",
+          "displayDate": "Trong những năm 30 của thế kỉ XX",
+          "datePrecision": "period",
+          "parentId": "viet-nam-1975-den-nay",
+          "rootId": "viet-nam-1975-den-nay"
+        },
+        {
+          "eventId": "thanh-lap-lang-xa-huyen-tien-hai-thai-binh",
+          "group": "no_clear_calendar_year_null",
+          "category": "century_based",
+          "displayDate": "Đầu thế kỉ XIX",
+          "datePrecision": "period",
+          "parentId": "viet-nam-1975-den-nay",
+          "rootId": "viet-nam-1975-den-nay"
+        },
+        {
+          "eventId": "thanh-lap-quoc-su-quan-trieu-nguyen",
+          "group": "no_clear_calendar_year_null",
+          "category": "named_historical_period",
+          "displayDate": "Thời Nguyễn",
+          "datePrecision": "period",
+          "parentId": "viet-nam-1975-den-nay",
+          "rootId": "viet-nam-1975-den-nay"
+        },
+        {
+          "eventId": "thanh-lap-va-hoat-dong-doi-dan-binh-hoang-sa-bac-hai",
+          "group": "no_clear_calendar_year_null",
+          "category": "century_based",
+          "displayDate": "Thế kỉ XVII đến đầu thế kỉ XIX",
+          "datePrecision": "period",
+          "parentId": "chu-quyen-bien-dao-viet-nam-1975-den-nay",
+          "rootId": "viet-nam-1975-den-nay"
+        },
+        {
+          "eventId": "thoi-tran-dat-chuc-xa-quan",
+          "group": "no_clear_calendar_year_null",
+          "category": "named_historical_period",
+          "displayDate": "Thời Trần",
+          "datePrecision": "period",
+          "parentId": "viet-nam-1975-den-nay",
+          "rootId": "viet-nam-1975-den-nay"
+        },
+        {
+          "eventId": "thuc-hien-thong-nhat-dat-nuoc-viet-nam",
+          "group": "year_signal_null",
+          "category": "safe_deterministic_candidate",
+          "displayDate": "năm 1976",
+          "datePrecision": "year",
+          "parentId": "viet-nam-1975-den-nay",
+          "rootId": "viet-nam-1975-den-nay"
+        },
+        {
+          "eventId": "thuong-mai-a-au-phat-trien-tai-dai-viet",
+          "group": "no_clear_calendar_year_null",
+          "category": "century_based",
+          "displayDate": "Từ thế kỉ XVI, đặc biệt trong thế kỉ XVII",
+          "datePrecision": "period",
+          "parentId": "viet-nam-1975-den-nay",
+          "rootId": "viet-nam-1975-den-nay"
+        },
+        {
+          "eventId": "tin-nguong-tho-than-dong-co-cung-dinh",
+          "group": "no_clear_calendar_year_null",
+          "category": "named_historical_period",
+          "displayDate": "Thời Lý",
+          "datePrecision": "period",
+          "parentId": "viet-nam-1975-den-nay",
+          "rootId": "viet-nam-1975-den-nay"
+        },
+        {
+          "eventId": "trang-an-duoc-ghi-danh-di-san-the-gioi",
+          "group": "no_clear_calendar_year_null",
+          "category": "truly_unknown",
+          "displayDate": "Không rõ năm cụ thể trong bài",
+          "datePrecision": "approximate",
+          "parentId": "viet-nam-1975-den-nay",
+          "rootId": "viet-nam-1975-den-nay"
+        },
+        {
+          "eventId": "tuyen-duong-chi-vien-chien-luoc-tren-bien-mang-ten-chu-tich-ho-chi-minh",
+          "group": "no_clear_calendar_year_null",
+          "category": "relative_chronology",
+          "displayDate": "Trong cuộc kháng chiến chống Mỹ, cứu nước",
+          "datePrecision": "period",
+          "parentId": "viet-nam-1975-den-nay",
+          "rootId": "viet-nam-1975-den-nay"
+        },
+        {
+          "eventId": "van-hoa-phung-nguyen",
+          "group": "no_clear_calendar_year_null",
+          "category": "duration_expression",
+          "displayDate": "Khoảng 4000 năm trước",
+          "datePrecision": "approximate",
+          "parentId": "viet-nam-1975-den-nay",
+          "rootId": "viet-nam-1975-den-nay"
+        },
+        {
+          "eventId": "van-hoa-sa-huynh",
+          "group": "no_clear_calendar_year_null",
+          "category": "bce_or_ancient",
+          "displayDate": "Khoảng thế kỉ V TCN",
+          "datePrecision": "period",
+          "parentId": "viet-nam-1975-den-nay",
+          "rootId": "viet-nam-1975-den-nay"
+        },
+        {
+          "eventId": "van-hoa-tien-oc-eo",
+          "group": "no_clear_calendar_year_null",
+          "category": "bce_or_ancient",
+          "displayDate": "Cuối thiên niên kỉ I TCN",
+          "datePrecision": "period",
+          "parentId": "viet-nam-1975-den-nay",
+          "rootId": "viet-nam-1975-den-nay"
+        },
+        {
+          "eventId": "viet-nam-dam-phan-ranh-gioi-tren-bien",
+          "group": "no_clear_calendar_year_null",
+          "category": "relative_chronology",
+          "displayDate": "Trong thời kì Đổi mới",
+          "datePrecision": "period",
+          "parentId": "viet-nam-1975-den-nay",
+          "rootId": "viet-nam-1975-den-nay"
+        },
+        {
+          "eventId": "viet-nam-hoan-tat-muc-tieu-thien-nien-ki",
+          "group": "year_signal_null",
+          "category": "safe_deterministic_candidate",
+          "displayDate": "Đến năm 2015",
+          "datePrecision": "year",
+          "parentId": "viet-nam-1975-den-nay",
+          "rootId": "viet-nam-1975-den-nay"
+        },
+        {
+          "eventId": "viet-nam-ki-ket-evfta",
+          "group": "no_clear_calendar_year_null",
+          "category": "relative_chronology",
+          "displayDate": "Trong thời kì Đổi mới",
+          "datePrecision": "approximate",
+          "parentId": "viet-nam-1975-den-nay",
+          "rootId": "viet-nam-1975-den-nay"
+        },
+        {
+          "eventId": "viet-nam-ki-ket-hiep-uoc-bien-gioi-trung-quoc",
+          "group": "no_clear_calendar_year_null",
+          "category": "relative_chronology",
+          "displayDate": "Trong thời kì Đổi mới",
+          "datePrecision": "period",
+          "parentId": "viet-nam-1975-den-nay",
+          "rootId": "viet-nam-1975-den-nay"
+        },
+        {
+          "eventId": "viet-nam-ki-ket-nghi-dinh-thu-ki-o-to",
+          "group": "no_clear_calendar_year_null",
+          "category": "relative_chronology",
+          "displayDate": "Trong thời kì Đổi mới",
+          "datePrecision": "approximate",
+          "parentId": "viet-nam-1975-den-nay",
+          "rootId": "viet-nam-1975-den-nay"
+        },
+        {
+          "eventId": "viet-nam-ki-ket-rcep",
+          "group": "no_clear_calendar_year_null",
+          "category": "relative_chronology",
+          "displayDate": "Trong thời kì Đổi mới",
+          "datePrecision": "approximate",
+          "parentId": "viet-nam-1975-den-nay",
+          "rootId": "viet-nam-1975-den-nay"
+        },
+        {
+          "eventId": "viet-nam-lao-cam-pu-chia-chuyen-sang-kinh-te-thi-truong-va-cong-nghiep-hoa",
+          "group": "no_clear_calendar_year_null",
+          "category": "century_based",
+          "displayDate": "Từ cuối thập kỉ 80 – 90 của thế kỉ XX",
+          "datePrecision": "period",
+          "parentId": "viet-nam-1975-den-nay",
+          "rootId": "viet-nam-1975-den-nay"
+        },
+        {
+          "eventId": "viet-nam-mo-co-quan-dai-dien-ngoai-giao-va-thong-tin-o-nuoc-ngoai",
+          "group": "year_signal_null",
+          "category": "manual_review:approximate_contextual_range",
+          "displayDate": "Trong kháng chiến chống Pháp (1945-1954)",
+          "datePrecision": "period",
+          "parentId": "viet-nam-1975-den-nay",
+          "rootId": "viet-nam-1975-den-nay"
+        },
+        {
+          "eventId": "viet-nam-tham-gia-afta",
+          "group": "year_signal_null",
+          "category": "manual_review:one_sided_before_after",
+          "displayDate": "Trong thời kì Đổi mới (sau 1995)",
+          "datePrecision": "approximate",
+          "parentId": "viet-nam-1975-den-nay",
+          "rootId": "viet-nam-1975-den-nay"
+        },
+        {
+          "eventId": "viet-nam-thoan-thuan-bien-gioi-lao-cam-pu-chia",
+          "group": "no_clear_calendar_year_null",
+          "category": "relative_chronology",
+          "displayDate": "Trong thời kì Đổi mới",
+          "datePrecision": "period",
+          "parentId": "viet-nam-1975-den-nay",
+          "rootId": "viet-nam-1975-den-nay"
+        },
+        {
+          "eventId": "viet-nam-thoi-dung-nuoc",
+          "group": "no_clear_calendar_year_null",
+          "category": "bce_or_ancient",
+          "displayDate": "Thời dựng nước",
+          "datePrecision": "period",
+          "parentId": null,
+          "rootId": "viet-nam-thoi-dung-nuoc"
+        },
+        {
+          "eventId": "viet-nam-to-chuc-hoi-nghi-quoc-te-asean-asem-apec",
+          "group": "year_signal_null",
+          "category": "manual_review:open_ended",
+          "displayDate": "Trong thời kì Đổi mới (từ 1986 đến nay)",
+          "datePrecision": "period",
+          "parentId": "viet-nam-1975-den-nay",
+          "rootId": "viet-nam-1975-den-nay"
+        },
+        {
+          "eventId": "viet-nam-uy-vien-khong-thuong-truc-hoi-dong-bao-an-lhq",
+          "group": "year_signal_null",
+          "category": "manual_review:multiple_separate_ranges",
+          "displayDate": "Nhiệm kì 2008 – 2009 và 2020 - 2021",
+          "datePrecision": "period",
+          "parentId": "viet-nam-1975-den-nay",
+          "rootId": "viet-nam-1975-den-nay"
+        },
+        {
+          "eventId": "vndcch-can-bang-quan-he-voi-lien-xo-trung-quoc-va-van-dong-vien-tro",
+          "group": "year_signal_null",
+          "category": "manual_review:approximate_contextual_range",
+          "displayDate": "Trong kháng chiến chống Mỹ (1954-1975)",
+          "datePrecision": "period",
+          "parentId": "viet-nam-1975-den-nay",
+          "rootId": "viet-nam-1975-den-nay"
+        },
+        {
+          "eventId": "vndcch-dau-tranh-doi-thi-hanh-hiep-dinh-gio-ne-vo",
+          "group": "year_signal_null",
+          "category": "manual_review:approximate_contextual_range",
+          "displayDate": "Trong kháng chiến chống Mỹ (1954-1975)",
+          "datePrecision": "period",
+          "parentId": "khang-chien-chong-my-cuu-nuoc",
+          "rootId": "viet-nam-1954-1975"
+        },
+        {
+          "eventId": "vndcch-gap-go-dang-cong-san-phap-va-cac-to-chuc-quoc-te",
+          "group": "year_signal_null",
+          "category": "manual_review:one_sided_before_after",
+          "displayDate": "Sau năm 1950",
+          "datePrecision": "period",
+          "parentId": "viet-nam-1975-den-nay",
+          "rootId": "viet-nam-1975-den-nay"
+        },
+        {
+          "eventId": "vndcch-thiet-lap-quan-he-ngoai-giao-voi-lao-campuchia-va-ung-ho-phong-trao-giai-phong-dan-toc",
+          "group": "year_signal_null",
+          "category": "manual_review:approximate_contextual_range",
+          "displayDate": "Trong kháng chiến chống Mỹ (1954-1975)",
+          "datePrecision": "period",
+          "parentId": "viet-nam-1975-den-nay",
+          "rootId": "viet-nam-1975-den-nay"
+        },
+        {
+          "eventId": "vu-an-le-chi-vien",
+          "group": "year_signal_null",
+          "category": "manual_review:one_sided_before_after",
+          "displayDate": "Trước năm 1460",
+          "datePrecision": "approximate",
+          "parentId": "cai-cach-le-thanh-tong",
+          "rootId": "viet-nam-tu-the-ki-x-den-xv"
+        },
+        {
+          "eventId": "vuong-thuc-mau-khoi-nghia-can-vuong",
+          "group": "no_clear_calendar_year_null",
+          "category": "century_based",
+          "displayDate": "cuối thế kỉ XIX",
+          "datePrecision": "period",
+          "parentId": "phong-trao-can-vuong",
+          "rootId": "viet-nam-1858-1918"
+        },
+        {
+          "eventId": "xa-lan-dau-tien-xuat-hien",
+          "group": "no_clear_calendar_year_null",
+          "category": "century_based",
+          "displayDate": "Đầu thế kỉ VII",
+          "datePrecision": "period",
+          "parentId": "viet-nam-1975-den-nay",
+          "rootId": "viet-nam-1975-den-nay"
+        },
+        {
+          "eventId": "xa-tro-thanh-ten-goi-pho-bien",
+          "group": "no_clear_calendar_year_null",
+          "category": "century_based",
+          "displayDate": "Từ thế kỉ X",
+          "datePrecision": "period",
+          "parentId": "viet-nam-1975-den-nay",
+          "rootId": "viet-nam-1975-den-nay"
+        }
+      ]
+    }
+  },
+  "hierarchy": {
+    "nullStartParentSourceCounts": {
+      "fallback_root_by_year": 81,
+      "force_parent": 20,
+      "none": 1
+    },
+    "nullStartFallbackRootByYearCount": 81,
+    "nullStartFallbackRootByYearEventIds": [
+      "cac-chien-dich-tien-cong-quan-doi-viet-nam-1950-1953",
+      "cac-chien-thang-quan-su-1964-1965",
+      "cai-cach-ruong-dat-mien-bac",
+      "cai-cach-tran-thu-do",
+      "cai-cach-trinh-cuong-dang-ngoai",
+      "chien-luoc-vua-danh-vua-dam-va-van-dong-quoc-te-cong-nhan-mat-tran-dan-toc-giai-phong-mien-nam-viet-nam",
+      "chinh-quyen-phap-cai-cach-huong-chinh",
+      "chu-nom-su-dung-rong-rai",
+      "chu-quoc-ngu-xuat-hien",
+      "dau-tranh-chong-phong-kien-phuong-bac",
+      "dinh-tien-le-dong-do-hoa-lu",
+      "doi-do-ly-cong-uan",
+      "doi-moi-dao-duy-tu-dang-trong",
+      "giai-doan-cuoi-chien-tranh-the-gioi-thu-hai",
+      "giai-doan-day-manh-cong-nghiep-hoa-hien-dai-hoa-hoi-nhap-kinh-te-quoc-te-1996-2006",
+      "giai-doan-khoi-dau-cong-cuoc-doi-moi-1986-1995",
+      "giai-doan-tiep-tuc-day-manh-cong-nghiep-hoa-hien-dai-hoa-hoi-nhap-quoc-te-sau-rong-2006-nay",
+      "hinh-thanh-khoi-dai-doan-ket-van-lang-au-lac",
+      "hinh-thanh-phat-trien-van-minh-cham-pa",
+      "hinh-thanh-phat-trien-van-minh-phu-nam",
+      "hinh-thanh-phat-trien-van-minh-van-lang-au-lac",
+      "ho-chi-minh-keu-goi-nhuong-com-se-ao-tang-gia-san-xuat",
+      "ho-chi-minh-ki-sac-lenh-thanh-lap-nha-binh-dan-hoc-vu-va-quy-doc-lap",
+      "ho-khuc-to-chuc-lai-lang-xa-the-ki-x",
+      "hoan-toan-giai-phong-mien-nam-viet-nam",
+      "ke-hoach-nha-nuoc-5-nam-lan-thu-nhat-mien-bac",
+      "khang-chien-thang-loi",
+      "khoi-nghia-phung-hung",
+      "khung-hoang-cuoi-trieu-tran",
+      "lang-co-ten-nom-xuat-hien-som-thoi-ly-tran",
+      "lang-xa-hinh-thanh-thoi-van-lang-au-lac",
+      "le-loi-xay-thanh-luc-nien",
+      "lien-hop-quoc-vien-tro-viet-nam-1977-1986",
+      "lien-xo-vien-tro-cho-viet-nam",
+      "mai-thuc-loan-khoi-nghia",
+      "mien-bac-viet-nam-giai-phong-xay-dung-cnxh",
+      "nguoi-viet-che-tao-sung-than-co-thuyen-chien",
+      "nguyen-hue-dung-chan-chieu-mo-binh-si",
+      "nha-duong-dat-don-vi-huong-xa-thoi-bac-thuoc",
+      "nha-ly-su-dung-thi-cu-nho-hoc",
+      "nha-ly-to-chuc-khoa-thi-nho-hoc-dau-tien",
+      "nha-ly-xay-dung-van-mieu",
+      "nha-nuoc-can-thiep-manh-lang-xa-thoi-le-so",
+      "nha-nuoc-can-thiep-manh-lang-xa-thoi-nguyen",
+      "nha-nuoc-pho-mac-lang-xa-thoi-le-trung-hung",
+      "nho-giao-du-nhap-viet-nam",
+      "phap-xam-luoc-viet-nam",
+      "phong-trao-dong-du",
+      "phong-trao-dong-khoi",
+      "phu-nam-tro-thanh-vuong-quoc-hung-manh",
+      "su-ra-doi-nha-nuoc-van-lang",
+      "tan-cong-champa-dai-viet-cuoi-tk14",
+      "thanh-lap-cac-dang-cong-san-o-viet-nam-ma-lai-xiem-phi-lip-pin",
+      "thanh-lap-lang-xa-huyen-tien-hai-thai-binh",
+      "thanh-lap-quoc-su-quan-trieu-nguyen",
+      "thoi-tran-dat-chuc-xa-quan",
+      "thuc-hien-thong-nhat-dat-nuoc-viet-nam",
+      "thuong-mai-a-au-phat-trien-tai-dai-viet",
+      "tin-nguong-tho-than-dong-co-cung-dinh",
+      "trang-an-duoc-ghi-danh-di-san-the-gioi",
+      "tuyen-duong-chi-vien-chien-luoc-tren-bien-mang-ten-chu-tich-ho-chi-minh",
+      "van-hoa-phung-nguyen",
+      "van-hoa-sa-huynh",
+      "van-hoa-tien-oc-eo",
+      "viet-nam-dam-phan-ranh-gioi-tren-bien",
+      "viet-nam-hoan-tat-muc-tieu-thien-nien-ki",
+      "viet-nam-ki-ket-evfta",
+      "viet-nam-ki-ket-hiep-uoc-bien-gioi-trung-quoc",
+      "viet-nam-ki-ket-nghi-dinh-thu-ki-o-to",
+      "viet-nam-ki-ket-rcep",
+      "viet-nam-lao-cam-pu-chia-chuyen-sang-kinh-te-thi-truong-va-cong-nghiep-hoa",
+      "viet-nam-mo-co-quan-dai-dien-ngoai-giao-va-thong-tin-o-nuoc-ngoai",
+      "viet-nam-tham-gia-afta",
+      "viet-nam-thoan-thuan-bien-gioi-lao-cam-pu-chia",
+      "viet-nam-to-chuc-hoi-nghi-quoc-te-asean-asem-apec",
+      "viet-nam-uy-vien-khong-thuong-truc-hoi-dong-bao-an-lhq",
+      "vndcch-can-bang-quan-he-voi-lien-xo-trung-quoc-va-van-dong-vien-tro",
+      "vndcch-gap-go-dang-cong-san-phap-va-cac-to-chuc-quoc-te",
+      "vndcch-thiet-lap-quan-he-ngoai-giao-voi-lao-campuchia-va-ung-ho-phong-trao-giai-phong-dan-toc",
+      "xa-lan-dau-tien-xuat-hien",
+      "xa-tro-thanh-ten-goi-pho-bien"
+    ],
+    "nullStartRootedAtPost1975Count": 83,
+    "nullStartRootedAtPost1975EventIds": [
+      "cac-chien-dich-tien-cong-quan-doi-viet-nam-1950-1953",
+      "cac-chien-thang-quan-su-1964-1965",
+      "cai-cach-ruong-dat-mien-bac",
+      "cai-cach-tran-thu-do",
+      "cai-cach-trinh-cuong-dang-ngoai",
+      "chien-luoc-vua-danh-vua-dam-va-van-dong-quoc-te-cong-nhan-mat-tran-dan-toc-giai-phong-mien-nam-viet-nam",
+      "chinh-quyen-phap-cai-cach-huong-chinh",
+      "chu-nom-su-dung-rong-rai",
+      "chu-quoc-ngu-xuat-hien",
+      "chu-quyen-bien-dao-viet-nam-1975-den-nay",
+      "dau-tranh-chong-phong-kien-phuong-bac",
+      "dinh-tien-le-dong-do-hoa-lu",
+      "doi-do-ly-cong-uan",
+      "doi-moi-dao-duy-tu-dang-trong",
+      "giai-doan-cuoi-chien-tranh-the-gioi-thu-hai",
+      "giai-doan-day-manh-cong-nghiep-hoa-hien-dai-hoa-hoi-nhap-kinh-te-quoc-te-1996-2006",
+      "giai-doan-khoi-dau-cong-cuoc-doi-moi-1986-1995",
+      "giai-doan-tiep-tuc-day-manh-cong-nghiep-hoa-hien-dai-hoa-hoi-nhap-quoc-te-sau-rong-2006-nay",
+      "hinh-thanh-khoi-dai-doan-ket-van-lang-au-lac",
+      "hinh-thanh-phat-trien-van-minh-cham-pa",
+      "hinh-thanh-phat-trien-van-minh-phu-nam",
+      "hinh-thanh-phat-trien-van-minh-van-lang-au-lac",
+      "ho-chi-minh-keu-goi-nhuong-com-se-ao-tang-gia-san-xuat",
+      "ho-chi-minh-ki-sac-lenh-thanh-lap-nha-binh-dan-hoc-vu-va-quy-doc-lap",
+      "ho-khuc-to-chuc-lai-lang-xa-the-ki-x",
+      "hoan-toan-giai-phong-mien-nam-viet-nam",
+      "ke-hoach-nha-nuoc-5-nam-lan-thu-nhat-mien-bac",
+      "khang-chien-thang-loi",
+      "khoi-nghia-phung-hung",
+      "khung-hoang-cuoi-trieu-tran",
+      "lang-co-ten-nom-xuat-hien-som-thoi-ly-tran",
+      "lang-xa-hinh-thanh-thoi-van-lang-au-lac",
+      "le-loi-xay-thanh-luc-nien",
+      "lien-hop-quoc-vien-tro-viet-nam-1977-1986",
+      "lien-xo-vien-tro-cho-viet-nam",
+      "mai-thuc-loan-khoi-nghia",
+      "mien-bac-viet-nam-giai-phong-xay-dung-cnxh",
+      "nguoi-viet-che-tao-sung-than-co-thuyen-chien",
+      "nguyen-hue-dung-chan-chieu-mo-binh-si",
+      "nha-duong-dat-don-vi-huong-xa-thoi-bac-thuoc",
+      "nha-ly-su-dung-thi-cu-nho-hoc",
+      "nha-ly-to-chuc-khoa-thi-nho-hoc-dau-tien",
+      "nha-ly-xay-dung-van-mieu",
+      "nha-nuoc-can-thiep-manh-lang-xa-thoi-le-so",
+      "nha-nuoc-can-thiep-manh-lang-xa-thoi-nguyen",
+      "nha-nuoc-pho-mac-lang-xa-thoi-le-trung-hung",
+      "nho-giao-du-nhap-viet-nam",
+      "phap-xam-luoc-viet-nam",
+      "phong-trao-dong-du",
+      "phong-trao-dong-khoi",
+      "phu-nam-tro-thanh-vuong-quoc-hung-manh",
+      "su-ra-doi-nha-nuoc-van-lang",
+      "tan-cong-champa-dai-viet-cuoi-tk14",
+      "thanh-lap-cac-dang-cong-san-o-viet-nam-ma-lai-xiem-phi-lip-pin",
+      "thanh-lap-lang-xa-huyen-tien-hai-thai-binh",
+      "thanh-lap-quoc-su-quan-trieu-nguyen",
+      "thanh-lap-va-hoat-dong-doi-dan-binh-hoang-sa-bac-hai",
+      "thoi-tran-dat-chuc-xa-quan",
+      "thuc-hien-thong-nhat-dat-nuoc-viet-nam",
+      "thuong-mai-a-au-phat-trien-tai-dai-viet",
+      "tin-nguong-tho-than-dong-co-cung-dinh",
+      "trang-an-duoc-ghi-danh-di-san-the-gioi",
+      "tuyen-duong-chi-vien-chien-luoc-tren-bien-mang-ten-chu-tich-ho-chi-minh",
+      "van-hoa-phung-nguyen",
+      "van-hoa-sa-huynh",
+      "van-hoa-tien-oc-eo",
+      "viet-nam-dam-phan-ranh-gioi-tren-bien",
+      "viet-nam-hoan-tat-muc-tieu-thien-nien-ki",
+      "viet-nam-ki-ket-evfta",
+      "viet-nam-ki-ket-hiep-uoc-bien-gioi-trung-quoc",
+      "viet-nam-ki-ket-nghi-dinh-thu-ki-o-to",
+      "viet-nam-ki-ket-rcep",
+      "viet-nam-lao-cam-pu-chia-chuyen-sang-kinh-te-thi-truong-va-cong-nghiep-hoa",
+      "viet-nam-mo-co-quan-dai-dien-ngoai-giao-va-thong-tin-o-nuoc-ngoai",
+      "viet-nam-tham-gia-afta",
+      "viet-nam-thoan-thuan-bien-gioi-lao-cam-pu-chia",
+      "viet-nam-to-chuc-hoi-nghi-quoc-te-asean-asem-apec",
+      "viet-nam-uy-vien-khong-thuong-truc-hoi-dong-bao-an-lhq",
+      "vndcch-can-bang-quan-he-voi-lien-xo-trung-quoc-va-van-dong-vien-tro",
+      "vndcch-gap-go-dang-cong-san-phap-va-cac-to-chuc-quoc-te",
+      "vndcch-thiet-lap-quan-he-ngoai-giao-voi-lao-campuchia-va-ung-ho-phong-trao-giai-phong-dan-toc",
+      "xa-lan-dau-tien-xuat-hien",
+      "xa-tro-thanh-ten-goi-pho-bien"
+    ],
+    "yearSignalPre1975RootedAtPost1975Count": 17,
+    "yearSignalPre1975RootedAtPost1975Records": [
+      {
+        "eventId": "cac-chien-dich-tien-cong-quan-doi-viet-nam-1950-1953",
+        "displayDate": "Từ cuối năm 1950 đến giữa năm 1953",
+        "yearTokens": [
+          1950,
+          1953
+        ],
+        "parentId": "viet-nam-1975-den-nay",
+        "rootId": "viet-nam-1975-den-nay"
+      },
+      {
+        "eventId": "cac-chien-thang-quan-su-1964-1965",
+        "displayDate": "1964 – 1965",
+        "yearTokens": [
+          1964,
+          1965
+        ],
+        "parentId": "viet-nam-1975-den-nay",
+        "rootId": "viet-nam-1975-den-nay"
+      },
+      {
+        "eventId": "cai-cach-ruong-dat-mien-bac",
+        "displayDate": "1954 - 1960",
+        "yearTokens": [
+          1954,
+          1960
+        ],
+        "parentId": "viet-nam-1975-den-nay",
+        "rootId": "viet-nam-1975-den-nay"
+      },
+      {
+        "eventId": "chien-luoc-vua-danh-vua-dam-va-van-dong-quoc-te-cong-nhan-mat-tran-dan-toc-giai-phong-mien-nam-viet-nam",
+        "displayDate": "Trong kháng chiến chống Mỹ (1954-1975)",
+        "yearTokens": [
+          1954,
+          1975
+        ],
+        "parentId": "viet-nam-1975-den-nay",
+        "rootId": "viet-nam-1975-den-nay"
+      },
+      {
+        "eventId": "dau-tranh-chong-phong-kien-phuong-bac",
+        "displayDate": "Hơn 1000 năm Bắc thuộc",
+        "yearTokens": [
+          1000
+        ],
+        "parentId": "viet-nam-1975-den-nay",
+        "rootId": "viet-nam-1975-den-nay"
+      },
+      {
+        "eventId": "giai-doan-cuoi-chien-tranh-the-gioi-thu-hai",
+        "displayDate": "Giai đoạn cuối của Chiến tranh thế giới thứ hai (trước 1945)",
+        "yearTokens": [
+          1945
+        ],
+        "parentId": "viet-nam-1975-den-nay",
+        "rootId": "viet-nam-1975-den-nay"
+      },
+      {
+        "eventId": "ho-chi-minh-keu-goi-nhuong-com-se-ao-tang-gia-san-xuat",
+        "displayDate": "Những năm 1945 – 1946",
+        "yearTokens": [
+          1945,
+          1946
+        ],
+        "parentId": "viet-nam-1975-den-nay",
+        "rootId": "viet-nam-1975-den-nay"
+      },
+      {
+        "eventId": "ho-chi-minh-ki-sac-lenh-thanh-lap-nha-binh-dan-hoc-vu-va-quy-doc-lap",
+        "displayDate": "Những năm 1945 – 1946",
+        "yearTokens": [
+          1945,
+          1946
+        ],
+        "parentId": "viet-nam-1975-den-nay",
+        "rootId": "viet-nam-1975-den-nay"
+      },
+      {
+        "eventId": "ke-hoach-nha-nuoc-5-nam-lan-thu-nhat-mien-bac",
+        "displayDate": "1961 - 1965",
+        "yearTokens": [
+          1961,
+          1965
+        ],
+        "parentId": "viet-nam-1975-den-nay",
+        "rootId": "viet-nam-1975-den-nay"
+      },
+      {
+        "eventId": "lien-xo-vien-tro-cho-viet-nam",
+        "displayDate": "1955 - 1975",
+        "yearTokens": [
+          1955,
+          1975
+        ],
+        "parentId": "viet-nam-1975-den-nay",
+        "rootId": "viet-nam-1975-den-nay"
+      },
+      {
+        "eventId": "mien-bac-viet-nam-giai-phong-xay-dung-cnxh",
+        "displayDate": "1954",
+        "yearTokens": [
+          1954
+        ],
+        "parentId": "viet-nam-1975-den-nay",
+        "rootId": "viet-nam-1975-den-nay"
+      },
+      {
+        "eventId": "phong-trao-dong-khoi",
+        "displayDate": "1959 – 1960",
+        "yearTokens": [
+          1959,
+          1960
+        ],
+        "parentId": "viet-nam-1975-den-nay",
+        "rootId": "viet-nam-1975-den-nay"
+      },
+      {
+        "eventId": "su-ra-doi-nha-nuoc-van-lang",
+        "displayDate": "Khoảng 2 700 năm trước đến năm 208 TCN",
+        "yearTokens": [
+          700,
+          208
+        ],
+        "parentId": "viet-nam-1975-den-nay",
+        "rootId": "viet-nam-1975-den-nay"
+      },
+      {
+        "eventId": "viet-nam-mo-co-quan-dai-dien-ngoai-giao-va-thong-tin-o-nuoc-ngoai",
+        "displayDate": "Trong kháng chiến chống Pháp (1945-1954)",
+        "yearTokens": [
+          1945,
+          1954
+        ],
+        "parentId": "viet-nam-1975-den-nay",
+        "rootId": "viet-nam-1975-den-nay"
+      },
+      {
+        "eventId": "vndcch-can-bang-quan-he-voi-lien-xo-trung-quoc-va-van-dong-vien-tro",
+        "displayDate": "Trong kháng chiến chống Mỹ (1954-1975)",
+        "yearTokens": [
+          1954,
+          1975
+        ],
+        "parentId": "viet-nam-1975-den-nay",
+        "rootId": "viet-nam-1975-den-nay"
+      },
+      {
+        "eventId": "vndcch-gap-go-dang-cong-san-phap-va-cac-to-chuc-quoc-te",
+        "displayDate": "Sau năm 1950",
+        "yearTokens": [
+          1950
+        ],
+        "parentId": "viet-nam-1975-den-nay",
+        "rootId": "viet-nam-1975-den-nay"
+      },
+      {
+        "eventId": "vndcch-thiet-lap-quan-he-ngoai-giao-voi-lao-campuchia-va-ung-ho-phong-trao-giai-phong-dan-toc",
+        "displayDate": "Trong kháng chiến chống Mỹ (1954-1975)",
+        "yearTokens": [
+          1954,
+          1975
+        ],
+        "parentId": "viet-nam-1975-den-nay",
+        "rootId": "viet-nam-1975-den-nay"
+      }
+    ]
+  },
+  "dbZeroRisk": {
+    "simulatedImporterRule": "chronology.start.year == null -> start_year = 0; if end.year is null then effective_end_year = start_year",
+    "startYearZeroRiskCount": 102,
+    "startYearZeroRiskRecords": [
+      {
+        "eventId": "cac-chien-dich-tien-cong-quan-doi-viet-nam-1950-1953",
+        "group": "year_signal_null",
+        "category": "manual_review:approximate_contextual_range"
+      },
+      {
+        "eventId": "cac-chien-thang-quan-su-1964-1965",
+        "group": "year_signal_null",
+        "category": "safe_deterministic_candidate"
+      },
+      {
+        "eventId": "cai-cach-le-thanh-tong",
+        "group": "year_signal_null",
+        "category": "manual_review:approximate_contextual_range"
+      },
+      {
+        "eventId": "cai-cach-ruong-dat-mien-bac",
+        "group": "year_signal_null",
+        "category": "safe_deterministic_candidate"
+      },
+      {
+        "eventId": "cai-cach-tran-thu-do",
+        "group": "no_clear_calendar_year_null",
+        "category": "century_based"
+      },
+      {
+        "eventId": "cai-cach-trinh-cuong-dang-ngoai",
+        "group": "no_clear_calendar_year_null",
+        "category": "century_based"
+      },
+      {
+        "eventId": "chien-luoc-vua-danh-vua-dam-va-van-dong-quoc-te-cong-nhan-mat-tran-dan-toc-giai-phong-mien-nam-viet-nam",
+        "group": "year_signal_null",
+        "category": "manual_review:approximate_contextual_range"
+      },
+      {
+        "eventId": "chien-thang-duong-14-phuoc-long",
+        "group": "year_signal_null",
+        "category": "manual_review:approximate_contextual_range"
+      },
+      {
+        "eventId": "chinh-quyen-phap-cai-cach-huong-chinh",
+        "group": "no_clear_calendar_year_null",
+        "category": "named_historical_period"
+      },
+      {
+        "eventId": "chu-nom-su-dung-rong-rai",
+        "group": "no_clear_calendar_year_null",
+        "category": "century_based"
+      },
+      {
+        "eventId": "chu-quoc-ngu-xuat-hien",
+        "group": "no_clear_calendar_year_null",
+        "category": "century_based"
+      },
+      {
+        "eventId": "chu-quyen-bien-dao-viet-nam-1858-1918",
+        "group": "year_signal_null",
+        "category": "safe_deterministic_candidate"
+      },
+      {
+        "eventId": "chu-quyen-bien-dao-viet-nam-1919-1945",
+        "group": "year_signal_null",
+        "category": "safe_deterministic_candidate"
+      },
+      {
+        "eventId": "chu-quyen-bien-dao-viet-nam-1954-1975",
+        "group": "year_signal_null",
+        "category": "safe_deterministic_candidate"
+      },
+      {
+        "eventId": "chu-quyen-bien-dao-viet-nam-1975-den-nay",
+        "group": "year_signal_null",
+        "category": "manual_review:open_ended"
+      },
+      {
+        "eventId": "chu-quyen-bien-dao-viet-nam-tu-the-ki-xvi-den-xix",
+        "group": "no_clear_calendar_year_null",
+        "category": "century_based"
+      },
+      {
+        "eventId": "cuoc-tien-cong-chien-luoc-dong-xuan-1953-1954",
+        "group": "year_signal_null",
+        "category": "safe_deterministic_candidate"
+      },
+      {
+        "eventId": "dau-tranh-chong-phong-kien-phuong-bac",
+        "group": "year_signal_null",
+        "category": "manual_review:false_positive_or_ancient_duration"
+      },
+      {
+        "eventId": "dinh-tien-le-dong-do-hoa-lu",
+        "group": "no_clear_calendar_year_null",
+        "category": "named_historical_period"
+      },
+      {
+        "eventId": "doi-do-ly-cong-uan",
+        "group": "no_clear_calendar_year_null",
+        "category": "century_based"
+      },
+      {
+        "eventId": "doi-moi-dao-duy-tu-dang-trong",
+        "group": "no_clear_calendar_year_null",
+        "category": "century_based"
+      },
+      {
+        "eventId": "giai-doan-cuoi-chien-tranh-the-gioi-thu-hai",
+        "group": "year_signal_null",
+        "category": "manual_review:one_sided_before_after"
+      },
+      {
+        "eventId": "giai-doan-day-manh-cong-nghiep-hoa-hien-dai-hoa-hoi-nhap-kinh-te-quoc-te-1996-2006",
+        "group": "year_signal_null",
+        "category": "safe_deterministic_candidate"
+      },
+      {
+        "eventId": "giai-doan-khang-chien-chong-my-1954-1960",
+        "group": "year_signal_null",
+        "category": "safe_deterministic_candidate"
+      },
+      {
+        "eventId": "giai-doan-khang-chien-chong-my-1961-1965",
+        "group": "year_signal_null",
+        "category": "safe_deterministic_candidate"
+      },
+      {
+        "eventId": "giai-doan-khang-chien-chong-my-1965-1968",
+        "group": "year_signal_null",
+        "category": "safe_deterministic_candidate"
+      },
+      {
+        "eventId": "giai-doan-khang-chien-chong-my-1969-1973",
+        "group": "year_signal_null",
+        "category": "safe_deterministic_candidate"
+      },
+      {
+        "eventId": "giai-doan-khang-chien-chong-my-1973-1975",
+        "group": "year_signal_null",
+        "category": "safe_deterministic_candidate"
+      },
+      {
+        "eventId": "giai-doan-khoi-dau-cong-cuoc-doi-moi-1986-1995",
+        "group": "year_signal_null",
+        "category": "safe_deterministic_candidate"
+      },
+      {
+        "eventId": "giai-doan-tiep-tuc-day-manh-cong-nghiep-hoa-hien-dai-hoa-hoi-nhap-quoc-te-sau-rong-2006-nay",
+        "group": "year_signal_null",
+        "category": "manual_review:open_ended"
+      },
+      {
+        "eventId": "hinh-thanh-khoi-dai-doan-ket-van-lang-au-lac",
+        "group": "no_clear_calendar_year_null",
+        "category": "bce_or_ancient"
+      },
+      {
+        "eventId": "hinh-thanh-phat-trien-van-minh-cham-pa",
+        "group": "no_clear_calendar_year_null",
+        "category": "century_based"
+      },
+      {
+        "eventId": "hinh-thanh-phat-trien-van-minh-phu-nam",
+        "group": "no_clear_calendar_year_null",
+        "category": "bce_or_ancient"
+      },
+      {
+        "eventId": "hinh-thanh-phat-trien-van-minh-van-lang-au-lac",
+        "group": "no_clear_calendar_year_null",
+        "category": "bce_or_ancient"
+      },
+      {
+        "eventId": "ho-chi-minh-keu-goi-nhuong-com-se-ao-tang-gia-san-xuat",
+        "group": "year_signal_null",
+        "category": "manual_review:approximate_contextual_range"
+      },
+      {
+        "eventId": "ho-chi-minh-ki-sac-lenh-thanh-lap-nha-binh-dan-hoc-vu-va-quy-doc-lap",
+        "group": "year_signal_null",
+        "category": "manual_review:approximate_contextual_range"
+      },
+      {
+        "eventId": "ho-khuc-to-chuc-lai-lang-xa-the-ki-x",
+        "group": "no_clear_calendar_year_null",
+        "category": "century_based"
+      },
+      {
+        "eventId": "hoan-toan-giai-phong-mien-nam-viet-nam",
+        "group": "year_signal_null",
+        "category": "safe_deterministic_candidate"
+      },
+      {
+        "eventId": "ke-hoach-nha-nuoc-5-nam-lan-thu-nhat-mien-bac",
+        "group": "year_signal_null",
+        "category": "safe_deterministic_candidate"
+      },
+      {
+        "eventId": "khang-chien-thang-loi",
+        "group": "no_clear_calendar_year_null",
+        "category": "relative_chronology"
+      },
+      {
+        "eventId": "khoi-nghia-phung-hung",
+        "group": "no_clear_calendar_year_null",
+        "category": "century_based"
+      },
+      {
+        "eventId": "khung-hoang-cuoi-trieu-tran",
+        "group": "no_clear_calendar_year_null",
+        "category": "century_based"
+      },
+      {
+        "eventId": "lang-co-ten-nom-xuat-hien-som-thoi-ly-tran",
+        "group": "no_clear_calendar_year_null",
+        "category": "named_historical_period"
+      },
+      {
+        "eventId": "lang-xa-hinh-thanh-thoi-van-lang-au-lac",
+        "group": "no_clear_calendar_year_null",
+        "category": "bce_or_ancient"
+      },
+      {
+        "eventId": "le-loi-xay-thanh-luc-nien",
+        "group": "no_clear_calendar_year_null",
+        "category": "century_based"
+      },
+      {
+        "eventId": "lien-hop-quoc-vien-tro-viet-nam-1977-1986",
+        "group": "year_signal_null",
+        "category": "manual_review:approximate_contextual_range"
+      },
+      {
+        "eventId": "lien-xo-vien-tro-cho-viet-nam",
+        "group": "year_signal_null",
+        "category": "safe_deterministic_candidate"
+      },
+      {
+        "eventId": "mai-thuc-loan-khoi-nghia",
+        "group": "no_clear_calendar_year_null",
+        "category": "century_based"
+      },
+      {
+        "eventId": "mien-bac-viet-nam-giai-phong-xay-dung-cnxh",
+        "group": "year_signal_null",
+        "category": "safe_deterministic_candidate"
+      },
+      {
+        "eventId": "nguoi-viet-che-tao-sung-than-co-thuyen-chien",
+        "group": "no_clear_calendar_year_null",
+        "category": "century_based"
+      },
+      {
+        "eventId": "nguyen-hue-dung-chan-chieu-mo-binh-si",
+        "group": "no_clear_calendar_year_null",
+        "category": "century_based"
+      },
+      {
+        "eventId": "nha-duong-dat-don-vi-huong-xa-thoi-bac-thuoc",
+        "group": "no_clear_calendar_year_null",
+        "category": "century_based"
+      },
+      {
+        "eventId": "nha-ly-su-dung-thi-cu-nho-hoc",
+        "group": "no_clear_calendar_year_null",
+        "category": "named_historical_period"
+      },
+      {
+        "eventId": "nha-ly-to-chuc-khoa-thi-nho-hoc-dau-tien",
+        "group": "no_clear_calendar_year_null",
+        "category": "named_historical_period"
+      },
+      {
+        "eventId": "nha-ly-xay-dung-van-mieu",
+        "group": "no_clear_calendar_year_null",
+        "category": "named_historical_period"
+      },
+      {
+        "eventId": "nha-minh-xam-luoc-dai-ngu",
+        "group": "no_clear_calendar_year_null",
+        "category": "century_based"
+      },
+      {
+        "eventId": "nha-nuoc-can-thiep-manh-lang-xa-thoi-le-so",
+        "group": "no_clear_calendar_year_null",
+        "category": "named_historical_period"
+      },
+      {
+        "eventId": "nha-nuoc-can-thiep-manh-lang-xa-thoi-nguyen",
+        "group": "no_clear_calendar_year_null",
+        "category": "named_historical_period"
+      },
+      {
+        "eventId": "nha-nuoc-pho-mac-lang-xa-thoi-le-trung-hung",
+        "group": "no_clear_calendar_year_null",
+        "category": "named_historical_period"
+      },
+      {
+        "eventId": "nho-giao-du-nhap-viet-nam",
+        "group": "no_clear_calendar_year_null",
+        "category": "named_historical_period"
+      },
+      {
+        "eventId": "phap-xam-luoc-viet-nam",
+        "group": "no_clear_calendar_year_null",
+        "category": "century_based"
+      },
+      {
+        "eventId": "phong-trao-can-vuong",
+        "group": "no_clear_calendar_year_null",
+        "category": "named_historical_period"
+      },
+      {
+        "eventId": "phong-trao-dong-du",
+        "group": "no_clear_calendar_year_null",
+        "category": "century_based"
+      },
+      {
+        "eventId": "phong-trao-dong-khoi",
+        "group": "year_signal_null",
+        "category": "safe_deterministic_candidate"
+      },
+      {
+        "eventId": "phong-trao-tay-son-bung-no",
+        "group": "no_clear_calendar_year_null",
+        "category": "century_based"
+      },
+      {
+        "eventId": "phu-nam-tro-thanh-vuong-quoc-hung-manh",
+        "group": "no_clear_calendar_year_null",
+        "category": "century_based"
+      },
+      {
+        "eventId": "su-ra-doi-nha-nuoc-van-lang",
+        "group": "year_signal_null",
+        "category": "manual_review:false_positive_or_ancient_duration"
+      },
+      {
+        "eventId": "tan-cong-champa-dai-viet-cuoi-tk14",
+        "group": "no_clear_calendar_year_null",
+        "category": "duration_expression"
+      },
+      {
+        "eventId": "thanh-lap-cac-dang-cong-san-o-viet-nam-ma-lai-xiem-phi-lip-pin",
+        "group": "no_clear_calendar_year_null",
+        "category": "century_based"
+      },
+      {
+        "eventId": "thanh-lap-lang-xa-huyen-tien-hai-thai-binh",
+        "group": "no_clear_calendar_year_null",
+        "category": "century_based"
+      },
+      {
+        "eventId": "thanh-lap-quoc-su-quan-trieu-nguyen",
+        "group": "no_clear_calendar_year_null",
+        "category": "named_historical_period"
+      },
+      {
+        "eventId": "thanh-lap-va-hoat-dong-doi-dan-binh-hoang-sa-bac-hai",
+        "group": "no_clear_calendar_year_null",
+        "category": "century_based"
+      },
+      {
+        "eventId": "thoi-tran-dat-chuc-xa-quan",
+        "group": "no_clear_calendar_year_null",
+        "category": "named_historical_period"
+      },
+      {
+        "eventId": "thuc-hien-thong-nhat-dat-nuoc-viet-nam",
+        "group": "year_signal_null",
+        "category": "safe_deterministic_candidate"
+      },
+      {
+        "eventId": "thuong-mai-a-au-phat-trien-tai-dai-viet",
+        "group": "no_clear_calendar_year_null",
+        "category": "century_based"
+      },
+      {
+        "eventId": "tin-nguong-tho-than-dong-co-cung-dinh",
+        "group": "no_clear_calendar_year_null",
+        "category": "named_historical_period"
+      },
+      {
+        "eventId": "trang-an-duoc-ghi-danh-di-san-the-gioi",
+        "group": "no_clear_calendar_year_null",
+        "category": "truly_unknown"
+      },
+      {
+        "eventId": "tuyen-duong-chi-vien-chien-luoc-tren-bien-mang-ten-chu-tich-ho-chi-minh",
+        "group": "no_clear_calendar_year_null",
+        "category": "relative_chronology"
+      },
+      {
+        "eventId": "van-hoa-phung-nguyen",
+        "group": "no_clear_calendar_year_null",
+        "category": "duration_expression"
+      },
+      {
+        "eventId": "van-hoa-sa-huynh",
+        "group": "no_clear_calendar_year_null",
+        "category": "bce_or_ancient"
+      },
+      {
+        "eventId": "van-hoa-tien-oc-eo",
+        "group": "no_clear_calendar_year_null",
+        "category": "bce_or_ancient"
+      },
+      {
+        "eventId": "viet-nam-dam-phan-ranh-gioi-tren-bien",
+        "group": "no_clear_calendar_year_null",
+        "category": "relative_chronology"
+      },
+      {
+        "eventId": "viet-nam-hoan-tat-muc-tieu-thien-nien-ki",
+        "group": "year_signal_null",
+        "category": "safe_deterministic_candidate"
+      },
+      {
+        "eventId": "viet-nam-ki-ket-evfta",
+        "group": "no_clear_calendar_year_null",
+        "category": "relative_chronology"
+      },
+      {
+        "eventId": "viet-nam-ki-ket-hiep-uoc-bien-gioi-trung-quoc",
+        "group": "no_clear_calendar_year_null",
+        "category": "relative_chronology"
+      },
+      {
+        "eventId": "viet-nam-ki-ket-nghi-dinh-thu-ki-o-to",
+        "group": "no_clear_calendar_year_null",
+        "category": "relative_chronology"
+      },
+      {
+        "eventId": "viet-nam-ki-ket-rcep",
+        "group": "no_clear_calendar_year_null",
+        "category": "relative_chronology"
+      },
+      {
+        "eventId": "viet-nam-lao-cam-pu-chia-chuyen-sang-kinh-te-thi-truong-va-cong-nghiep-hoa",
+        "group": "no_clear_calendar_year_null",
+        "category": "century_based"
+      },
+      {
+        "eventId": "viet-nam-mo-co-quan-dai-dien-ngoai-giao-va-thong-tin-o-nuoc-ngoai",
+        "group": "year_signal_null",
+        "category": "manual_review:approximate_contextual_range"
+      },
+      {
+        "eventId": "viet-nam-tham-gia-afta",
+        "group": "year_signal_null",
+        "category": "manual_review:one_sided_before_after"
+      },
+      {
+        "eventId": "viet-nam-thoan-thuan-bien-gioi-lao-cam-pu-chia",
+        "group": "no_clear_calendar_year_null",
+        "category": "relative_chronology"
+      },
+      {
+        "eventId": "viet-nam-thoi-dung-nuoc",
+        "group": "no_clear_calendar_year_null",
+        "category": "bce_or_ancient"
+      },
+      {
+        "eventId": "viet-nam-to-chuc-hoi-nghi-quoc-te-asean-asem-apec",
+        "group": "year_signal_null",
+        "category": "manual_review:open_ended"
+      },
+      {
+        "eventId": "viet-nam-uy-vien-khong-thuong-truc-hoi-dong-bao-an-lhq",
+        "group": "year_signal_null",
+        "category": "manual_review:multiple_separate_ranges"
+      },
+      {
+        "eventId": "vndcch-can-bang-quan-he-voi-lien-xo-trung-quoc-va-van-dong-vien-tro",
+        "group": "year_signal_null",
+        "category": "manual_review:approximate_contextual_range"
+      },
+      {
+        "eventId": "vndcch-dau-tranh-doi-thi-hanh-hiep-dinh-gio-ne-vo",
+        "group": "year_signal_null",
+        "category": "manual_review:approximate_contextual_range"
+      },
+      {
+        "eventId": "vndcch-gap-go-dang-cong-san-phap-va-cac-to-chuc-quoc-te",
+        "group": "year_signal_null",
+        "category": "manual_review:one_sided_before_after"
+      },
+      {
+        "eventId": "vndcch-thiet-lap-quan-he-ngoai-giao-voi-lao-campuchia-va-ung-ho-phong-trao-giai-phong-dan-toc",
+        "group": "year_signal_null",
+        "category": "manual_review:approximate_contextual_range"
+      },
+      {
+        "eventId": "vu-an-le-chi-vien",
+        "group": "year_signal_null",
+        "category": "manual_review:one_sided_before_after"
+      },
+      {
+        "eventId": "vuong-thuc-mau-khoi-nghia-can-vuong",
+        "group": "no_clear_calendar_year_null",
+        "category": "century_based"
+      },
+      {
+        "eventId": "xa-lan-dau-tien-xuat-hien",
+        "group": "no_clear_calendar_year_null",
+        "category": "century_based"
+      },
+      {
+        "eventId": "xa-tro-thanh-ten-goi-pho-bien",
+        "group": "no_clear_calendar_year_null",
+        "category": "century_based"
+      }
+    ],
+    "effectiveEndYearZeroRiskCount": 95,
+    "effectiveEndYearZeroRiskRecords": [
+      {
+        "eventId": "cac-chien-dich-tien-cong-quan-doi-viet-nam-1950-1953",
+        "group": "year_signal_null",
+        "category": "manual_review:approximate_contextual_range"
+      },
+      {
+        "eventId": "cac-chien-thang-quan-su-1964-1965",
+        "group": "year_signal_null",
+        "category": "safe_deterministic_candidate"
+      },
+      {
+        "eventId": "cai-cach-le-thanh-tong",
+        "group": "year_signal_null",
+        "category": "manual_review:approximate_contextual_range"
+      },
+      {
+        "eventId": "cai-cach-ruong-dat-mien-bac",
+        "group": "year_signal_null",
+        "category": "safe_deterministic_candidate"
+      },
+      {
+        "eventId": "cai-cach-tran-thu-do",
+        "group": "no_clear_calendar_year_null",
+        "category": "century_based"
+      },
+      {
+        "eventId": "cai-cach-trinh-cuong-dang-ngoai",
+        "group": "no_clear_calendar_year_null",
+        "category": "century_based"
+      },
+      {
+        "eventId": "chien-luoc-vua-danh-vua-dam-va-van-dong-quoc-te-cong-nhan-mat-tran-dan-toc-giai-phong-mien-nam-viet-nam",
+        "group": "year_signal_null",
+        "category": "manual_review:approximate_contextual_range"
+      },
+      {
+        "eventId": "chien-thang-duong-14-phuoc-long",
+        "group": "year_signal_null",
+        "category": "manual_review:approximate_contextual_range"
+      },
+      {
+        "eventId": "chinh-quyen-phap-cai-cach-huong-chinh",
+        "group": "no_clear_calendar_year_null",
+        "category": "named_historical_period"
+      },
+      {
+        "eventId": "chu-nom-su-dung-rong-rai",
+        "group": "no_clear_calendar_year_null",
+        "category": "century_based"
+      },
+      {
+        "eventId": "chu-quoc-ngu-xuat-hien",
+        "group": "no_clear_calendar_year_null",
+        "category": "century_based"
+      },
+      {
+        "eventId": "chu-quyen-bien-dao-viet-nam-1858-1918",
+        "group": "year_signal_null",
+        "category": "safe_deterministic_candidate"
+      },
+      {
+        "eventId": "chu-quyen-bien-dao-viet-nam-1919-1945",
+        "group": "year_signal_null",
+        "category": "safe_deterministic_candidate"
+      },
+      {
+        "eventId": "chu-quyen-bien-dao-viet-nam-1954-1975",
+        "group": "year_signal_null",
+        "category": "safe_deterministic_candidate"
+      },
+      {
+        "eventId": "chu-quyen-bien-dao-viet-nam-1975-den-nay",
+        "group": "year_signal_null",
+        "category": "manual_review:open_ended"
+      },
+      {
+        "eventId": "chu-quyen-bien-dao-viet-nam-tu-the-ki-xvi-den-xix",
+        "group": "no_clear_calendar_year_null",
+        "category": "century_based"
+      },
+      {
+        "eventId": "cuoc-tien-cong-chien-luoc-dong-xuan-1953-1954",
+        "group": "year_signal_null",
+        "category": "safe_deterministic_candidate"
+      },
+      {
+        "eventId": "dau-tranh-chong-phong-kien-phuong-bac",
+        "group": "year_signal_null",
+        "category": "manual_review:false_positive_or_ancient_duration"
+      },
+      {
+        "eventId": "dinh-tien-le-dong-do-hoa-lu",
+        "group": "no_clear_calendar_year_null",
+        "category": "named_historical_period"
+      },
+      {
+        "eventId": "doi-do-ly-cong-uan",
+        "group": "no_clear_calendar_year_null",
+        "category": "century_based"
+      },
+      {
+        "eventId": "doi-moi-dao-duy-tu-dang-trong",
+        "group": "no_clear_calendar_year_null",
+        "category": "century_based"
+      },
+      {
+        "eventId": "giai-doan-day-manh-cong-nghiep-hoa-hien-dai-hoa-hoi-nhap-kinh-te-quoc-te-1996-2006",
+        "group": "year_signal_null",
+        "category": "safe_deterministic_candidate"
+      },
+      {
+        "eventId": "giai-doan-khang-chien-chong-my-1954-1960",
+        "group": "year_signal_null",
+        "category": "safe_deterministic_candidate"
+      },
+      {
+        "eventId": "giai-doan-khang-chien-chong-my-1961-1965",
+        "group": "year_signal_null",
+        "category": "safe_deterministic_candidate"
+      },
+      {
+        "eventId": "giai-doan-khang-chien-chong-my-1965-1968",
+        "group": "year_signal_null",
+        "category": "safe_deterministic_candidate"
+      },
+      {
+        "eventId": "giai-doan-khang-chien-chong-my-1969-1973",
+        "group": "year_signal_null",
+        "category": "safe_deterministic_candidate"
+      },
+      {
+        "eventId": "giai-doan-khang-chien-chong-my-1973-1975",
+        "group": "year_signal_null",
+        "category": "safe_deterministic_candidate"
+      },
+      {
+        "eventId": "giai-doan-khoi-dau-cong-cuoc-doi-moi-1986-1995",
+        "group": "year_signal_null",
+        "category": "safe_deterministic_candidate"
+      },
+      {
+        "eventId": "giai-doan-tiep-tuc-day-manh-cong-nghiep-hoa-hien-dai-hoa-hoi-nhap-quoc-te-sau-rong-2006-nay",
+        "group": "year_signal_null",
+        "category": "manual_review:open_ended"
+      },
+      {
+        "eventId": "hinh-thanh-khoi-dai-doan-ket-van-lang-au-lac",
+        "group": "no_clear_calendar_year_null",
+        "category": "bce_or_ancient"
+      },
+      {
+        "eventId": "hinh-thanh-phat-trien-van-minh-cham-pa",
+        "group": "no_clear_calendar_year_null",
+        "category": "century_based"
+      },
+      {
+        "eventId": "hinh-thanh-phat-trien-van-minh-phu-nam",
+        "group": "no_clear_calendar_year_null",
+        "category": "bce_or_ancient"
+      },
+      {
+        "eventId": "hinh-thanh-phat-trien-van-minh-van-lang-au-lac",
+        "group": "no_clear_calendar_year_null",
+        "category": "bce_or_ancient"
+      },
+      {
+        "eventId": "ho-chi-minh-keu-goi-nhuong-com-se-ao-tang-gia-san-xuat",
+        "group": "year_signal_null",
+        "category": "manual_review:approximate_contextual_range"
+      },
+      {
+        "eventId": "ho-chi-minh-ki-sac-lenh-thanh-lap-nha-binh-dan-hoc-vu-va-quy-doc-lap",
+        "group": "year_signal_null",
+        "category": "manual_review:approximate_contextual_range"
+      },
+      {
+        "eventId": "ho-khuc-to-chuc-lai-lang-xa-the-ki-x",
+        "group": "no_clear_calendar_year_null",
+        "category": "century_based"
+      },
+      {
+        "eventId": "ke-hoach-nha-nuoc-5-nam-lan-thu-nhat-mien-bac",
+        "group": "year_signal_null",
+        "category": "safe_deterministic_candidate"
+      },
+      {
+        "eventId": "khang-chien-thang-loi",
+        "group": "no_clear_calendar_year_null",
+        "category": "relative_chronology"
+      },
+      {
+        "eventId": "khoi-nghia-phung-hung",
+        "group": "no_clear_calendar_year_null",
+        "category": "century_based"
+      },
+      {
+        "eventId": "khung-hoang-cuoi-trieu-tran",
+        "group": "no_clear_calendar_year_null",
+        "category": "century_based"
+      },
+      {
+        "eventId": "lang-co-ten-nom-xuat-hien-som-thoi-ly-tran",
+        "group": "no_clear_calendar_year_null",
+        "category": "named_historical_period"
+      },
+      {
+        "eventId": "lang-xa-hinh-thanh-thoi-van-lang-au-lac",
+        "group": "no_clear_calendar_year_null",
+        "category": "bce_or_ancient"
+      },
+      {
+        "eventId": "le-loi-xay-thanh-luc-nien",
+        "group": "no_clear_calendar_year_null",
+        "category": "century_based"
+      },
+      {
+        "eventId": "lien-hop-quoc-vien-tro-viet-nam-1977-1986",
+        "group": "year_signal_null",
+        "category": "manual_review:approximate_contextual_range"
+      },
+      {
+        "eventId": "lien-xo-vien-tro-cho-viet-nam",
+        "group": "year_signal_null",
+        "category": "safe_deterministic_candidate"
+      },
+      {
+        "eventId": "mai-thuc-loan-khoi-nghia",
+        "group": "no_clear_calendar_year_null",
+        "category": "century_based"
+      },
+      {
+        "eventId": "nguoi-viet-che-tao-sung-than-co-thuyen-chien",
+        "group": "no_clear_calendar_year_null",
+        "category": "century_based"
+      },
+      {
+        "eventId": "nguyen-hue-dung-chan-chieu-mo-binh-si",
+        "group": "no_clear_calendar_year_null",
+        "category": "century_based"
+      },
+      {
+        "eventId": "nha-duong-dat-don-vi-huong-xa-thoi-bac-thuoc",
+        "group": "no_clear_calendar_year_null",
+        "category": "century_based"
+      },
+      {
+        "eventId": "nha-ly-su-dung-thi-cu-nho-hoc",
+        "group": "no_clear_calendar_year_null",
+        "category": "named_historical_period"
+      },
+      {
+        "eventId": "nha-ly-to-chuc-khoa-thi-nho-hoc-dau-tien",
+        "group": "no_clear_calendar_year_null",
+        "category": "named_historical_period"
+      },
+      {
+        "eventId": "nha-ly-xay-dung-van-mieu",
+        "group": "no_clear_calendar_year_null",
+        "category": "named_historical_period"
+      },
+      {
+        "eventId": "nha-minh-xam-luoc-dai-ngu",
+        "group": "no_clear_calendar_year_null",
+        "category": "century_based"
+      },
+      {
+        "eventId": "nha-nuoc-can-thiep-manh-lang-xa-thoi-le-so",
+        "group": "no_clear_calendar_year_null",
+        "category": "named_historical_period"
+      },
+      {
+        "eventId": "nha-nuoc-can-thiep-manh-lang-xa-thoi-nguyen",
+        "group": "no_clear_calendar_year_null",
+        "category": "named_historical_period"
+      },
+      {
+        "eventId": "nha-nuoc-pho-mac-lang-xa-thoi-le-trung-hung",
+        "group": "no_clear_calendar_year_null",
+        "category": "named_historical_period"
+      },
+      {
+        "eventId": "nho-giao-du-nhap-viet-nam",
+        "group": "no_clear_calendar_year_null",
+        "category": "named_historical_period"
+      },
+      {
+        "eventId": "phap-xam-luoc-viet-nam",
+        "group": "no_clear_calendar_year_null",
+        "category": "century_based"
+      },
+      {
+        "eventId": "phong-trao-can-vuong",
+        "group": "no_clear_calendar_year_null",
+        "category": "named_historical_period"
+      },
+      {
+        "eventId": "phong-trao-dong-du",
+        "group": "no_clear_calendar_year_null",
+        "category": "century_based"
+      },
+      {
+        "eventId": "phong-trao-dong-khoi",
+        "group": "year_signal_null",
+        "category": "safe_deterministic_candidate"
+      },
+      {
+        "eventId": "phong-trao-tay-son-bung-no",
+        "group": "no_clear_calendar_year_null",
+        "category": "century_based"
+      },
+      {
+        "eventId": "phu-nam-tro-thanh-vuong-quoc-hung-manh",
+        "group": "no_clear_calendar_year_null",
+        "category": "century_based"
+      },
+      {
+        "eventId": "tan-cong-champa-dai-viet-cuoi-tk14",
+        "group": "no_clear_calendar_year_null",
+        "category": "duration_expression"
+      },
+      {
+        "eventId": "thanh-lap-cac-dang-cong-san-o-viet-nam-ma-lai-xiem-phi-lip-pin",
+        "group": "no_clear_calendar_year_null",
+        "category": "century_based"
+      },
+      {
+        "eventId": "thanh-lap-lang-xa-huyen-tien-hai-thai-binh",
+        "group": "no_clear_calendar_year_null",
+        "category": "century_based"
+      },
+      {
+        "eventId": "thanh-lap-quoc-su-quan-trieu-nguyen",
+        "group": "no_clear_calendar_year_null",
+        "category": "named_historical_period"
+      },
+      {
+        "eventId": "thanh-lap-va-hoat-dong-doi-dan-binh-hoang-sa-bac-hai",
+        "group": "no_clear_calendar_year_null",
+        "category": "century_based"
+      },
+      {
+        "eventId": "thoi-tran-dat-chuc-xa-quan",
+        "group": "no_clear_calendar_year_null",
+        "category": "named_historical_period"
+      },
+      {
+        "eventId": "thuong-mai-a-au-phat-trien-tai-dai-viet",
+        "group": "no_clear_calendar_year_null",
+        "category": "century_based"
+      },
+      {
+        "eventId": "tin-nguong-tho-than-dong-co-cung-dinh",
+        "group": "no_clear_calendar_year_null",
+        "category": "named_historical_period"
+      },
+      {
+        "eventId": "trang-an-duoc-ghi-danh-di-san-the-gioi",
+        "group": "no_clear_calendar_year_null",
+        "category": "truly_unknown"
+      },
+      {
+        "eventId": "tuyen-duong-chi-vien-chien-luoc-tren-bien-mang-ten-chu-tich-ho-chi-minh",
+        "group": "no_clear_calendar_year_null",
+        "category": "relative_chronology"
+      },
+      {
+        "eventId": "van-hoa-phung-nguyen",
+        "group": "no_clear_calendar_year_null",
+        "category": "duration_expression"
+      },
+      {
+        "eventId": "van-hoa-sa-huynh",
+        "group": "no_clear_calendar_year_null",
+        "category": "bce_or_ancient"
+      },
+      {
+        "eventId": "van-hoa-tien-oc-eo",
+        "group": "no_clear_calendar_year_null",
+        "category": "bce_or_ancient"
+      },
+      {
+        "eventId": "viet-nam-dam-phan-ranh-gioi-tren-bien",
+        "group": "no_clear_calendar_year_null",
+        "category": "relative_chronology"
+      },
+      {
+        "eventId": "viet-nam-ki-ket-evfta",
+        "group": "no_clear_calendar_year_null",
+        "category": "relative_chronology"
+      },
+      {
+        "eventId": "viet-nam-ki-ket-hiep-uoc-bien-gioi-trung-quoc",
+        "group": "no_clear_calendar_year_null",
+        "category": "relative_chronology"
+      },
+      {
+        "eventId": "viet-nam-ki-ket-nghi-dinh-thu-ki-o-to",
+        "group": "no_clear_calendar_year_null",
+        "category": "relative_chronology"
+      },
+      {
+        "eventId": "viet-nam-ki-ket-rcep",
+        "group": "no_clear_calendar_year_null",
+        "category": "relative_chronology"
+      },
+      {
+        "eventId": "viet-nam-lao-cam-pu-chia-chuyen-sang-kinh-te-thi-truong-va-cong-nghiep-hoa",
+        "group": "no_clear_calendar_year_null",
+        "category": "century_based"
+      },
+      {
+        "eventId": "viet-nam-mo-co-quan-dai-dien-ngoai-giao-va-thong-tin-o-nuoc-ngoai",
+        "group": "year_signal_null",
+        "category": "manual_review:approximate_contextual_range"
+      },
+      {
+        "eventId": "viet-nam-tham-gia-afta",
+        "group": "year_signal_null",
+        "category": "manual_review:one_sided_before_after"
+      },
+      {
+        "eventId": "viet-nam-thoan-thuan-bien-gioi-lao-cam-pu-chia",
+        "group": "no_clear_calendar_year_null",
+        "category": "relative_chronology"
+      },
+      {
+        "eventId": "viet-nam-to-chuc-hoi-nghi-quoc-te-asean-asem-apec",
+        "group": "year_signal_null",
+        "category": "manual_review:open_ended"
+      },
+      {
+        "eventId": "viet-nam-uy-vien-khong-thuong-truc-hoi-dong-bao-an-lhq",
+        "group": "year_signal_null",
+        "category": "manual_review:multiple_separate_ranges"
+      },
+      {
+        "eventId": "vndcch-can-bang-quan-he-voi-lien-xo-trung-quoc-va-van-dong-vien-tro",
+        "group": "year_signal_null",
+        "category": "manual_review:approximate_contextual_range"
+      },
+      {
+        "eventId": "vndcch-dau-tranh-doi-thi-hanh-hiep-dinh-gio-ne-vo",
+        "group": "year_signal_null",
+        "category": "manual_review:approximate_contextual_range"
+      },
+      {
+        "eventId": "vndcch-gap-go-dang-cong-san-phap-va-cac-to-chuc-quoc-te",
+        "group": "year_signal_null",
+        "category": "manual_review:one_sided_before_after"
+      },
+      {
+        "eventId": "vndcch-thiet-lap-quan-he-ngoai-giao-voi-lao-campuchia-va-ung-ho-phong-trao-giai-phong-dan-toc",
+        "group": "year_signal_null",
+        "category": "manual_review:approximate_contextual_range"
+      },
+      {
+        "eventId": "vu-an-le-chi-vien",
+        "group": "year_signal_null",
+        "category": "manual_review:one_sided_before_after"
+      },
+      {
+        "eventId": "vuong-thuc-mau-khoi-nghia-can-vuong",
+        "group": "no_clear_calendar_year_null",
+        "category": "century_based"
+      },
+      {
+        "eventId": "xa-lan-dau-tien-xuat-hien",
+        "group": "no_clear_calendar_year_null",
+        "category": "century_based"
+      },
+      {
+        "eventId": "xa-tro-thanh-ten-goi-pho-bien",
+        "group": "no_clear_calendar_year_null",
+        "category": "century_based"
+      }
+    ]
+  },
+  "textbookReferences": {
+    "eventToLessonIds": {
+      "bac-thanh-duoc-lap": [
+        "12393"
+      ],
+      "bac-thuoc-va-dau-tranh-gianh-doc-lap": [],
+      "bai-bo-che-do-tem-phieu-o-viet-nam": [
+        "12960"
+      ],
+      "ban-hanh-chinh-sach-han-dien": [
+        "12387"
+      ],
+      "ban-hanh-chinh-sach-han-no": [
+        "12387"
+      ],
+      "ban-hanh-chinh-sach-loc-dien-quan-dien": [
+        "12390"
+      ],
+      "ban-hanh-nghi-quyet-36-nq-tw-ve-chien-luoc-phat-trien-kinh-te-bien": [
+        "12395"
+      ],
+      "ban-hanh-quoc-trieu-hinh-luat": [
+        "12390"
+      ],
+      "bo-chinh-tri-ban-hanh-chi-thi-05-ct-tw-ve-day-manh-hoc-tap-va-lam-theo-tu-tuong-dao-duc-phong-cach-ho-chi-minh": [
+        "12968"
+      ],
+      "bo-chinh-tri-ban-hanh-chi-thi-06-ct-tw-ve-cuoc-van-dong-hoc-tap-va-lam-theo-tam-guong-dao-duc-ho-chi-minh": [
+        "12968"
+      ],
+      "bru-nay-tuyen-bo-ranh-gioi-them-luc-dia": [
+        "12395"
+      ],
+      "bru-nay-tuyen-bo-vung-dac-quyen-kinh-te": [
+        "12395"
+      ],
+      "cac-chien-dich-tien-cong-quan-doi-viet-nam-1950-1953": [
+        "12955"
+      ],
+      "cac-chien-thang-quan-su-1964-1965": [
+        "12956"
+      ],
+      "cac-dia-phuong-cuoi-cung-gianh-chinh-quyen": [
+        "12952"
+      ],
+      "cac-tinh-gianh-chinh-quyen-som-nhat": [
+        "12952"
+      ],
+      "cach-mang-thang-tam-nam-1945": [
+        "12952"
+      ],
+      "cai-cach-ho-quy-ly-trieu-ho": [
+        "12160",
+        "12387"
+      ],
+      "cai-cach-le-thanh-tong": [
+        "12160",
+        "12387",
+        "12390"
+      ],
+      "cai-cach-ruong-dat-mien-bac": [
+        "12956"
+      ],
+      "cai-cach-tran-thu-do": [
+        "12387"
+      ],
+      "cai-cach-trinh-cuong-dang-ngoai": [
+        "12387"
+      ],
+      "cai-to-hanh-chinh-dia-phuong-12-thua-tuyen": [
+        "12390"
+      ],
+      "cai-to-he-thong-quan-doi-le-thanh-tong": [
+        "12390"
+      ],
+      "cam-pu-chia-gia-nhap-asean": [
+        "12950"
+      ],
+      "cao-trao-khang-nhat-cuu-nuoc": [
+        "12952"
+      ],
+      "chi-thi-thanh-lap-doi-viet-nam-tuyen-truyen-giai-phong-quan": [
+        "12967"
+      ],
+      "chien-dau-cac-do-thi-phia-bac-vi-tuyen-16-1946-1947": [
+        "12955"
+      ],
+      "chien-dich-bien-gioi-thu-dong-1950": [
+        "12955"
+      ],
+      "chien-dich-dien-bien-phu-1954": [
+        "12955"
+      ],
+      "chien-dich-duong-9-nam-lao": [
+        "12956"
+      ],
+      "chien-dich-giai-phong-sai-gon-gia-dinh-chien-dich-ho-chi-minh": [
+        "12956"
+      ],
+      "chien-dich-tay-nguyen-1975": [
+        "12956"
+      ],
+      "chien-dich-viet-bac-thu-dong-1947": [
+        "12955"
+      ],
+      "chien-luoc-vua-danh-vua-dam-va-van-dong-quoc-te-cong-nhan-mat-tran-dan-toc-giai-phong-mien-nam-viet-nam": [
+        "12964"
+      ],
+      "chien-si-hai-quan-nhan-dan-viet-nam-hi-sinh-bao-ve-gac-ma-co-lin-len-dao": [
+        "12395"
+      ],
+      "chien-thang-ap-bac": [
+        "12956"
+      ],
+      "chien-thang-bach-dang-938": [
+        "12160",
+        "12370",
+        "12372"
+      ],
+      "chien-thang-duong-14-phuoc-long": [
+        "12956"
+      ],
+      "chien-thang-van-tuong": [
+        "12956"
+      ],
+      "chien-tranh-bao-ve-doc-lap-dan-toc-va-chu-quyen-quoc-gia-o-dong-duong": [
+        "12340"
+      ],
+      "chien-tranh-pha-hoai-mien-bac-lan-thu-hai": [
+        "12956"
+      ],
+      "chien-tranh-pha-hoai-mien-bac-lan-thu-nhat": [
+        "12956"
+      ],
+      "chinh-quyen-phap-cai-cach-huong-chinh": [
+        "12373"
+      ],
+      "chu-nom-su-dung-rong-rai": [
+        "12160"
+      ],
+      "chu-quoc-ngu-xuat-hien": [
+        "12160"
+      ],
+      "chu-quyen-bien-dao-viet-nam-1858-1918": [],
+      "chu-quyen-bien-dao-viet-nam-1919-1945": [],
+      "chu-quyen-bien-dao-viet-nam-1954-1975": [],
+      "chu-quyen-bien-dao-viet-nam-1975-den-nay": [],
+      "chu-quyen-bien-dao-viet-nam-tu-the-ki-xvi-den-xix": [],
+      "chu-quyen-viet-nam-duoc-tuyen-bo-cong-nhan-hoi-nghi-xan-phran-xi-xo": [
+        "12395"
+      ],
+      "chu-tich-ho-chi-minh-tham-quan-cang-bai-chay-1961": [
+        "12394"
+      ],
+      "cong-cuoc-doi-moi-o-viet-nam": [
+        "12338",
+        "12949",
+        "12960"
+      ],
+      "cuoc-cai-cach-cua-minh-mang": [
+        "12160",
+        "12387",
+        "12393"
+      ],
+      "cuoc-tien-cong-chien-luoc-dong-xuan-1953-1954": [
+        "12955"
+      ],
+      "cuoc-tien-cong-chien-luoc-nam-1972": [
+        "12956"
+      ],
+      "cuoc-van-dong-san-xuat-va-tiet-kiem-1952": [
+        "12955"
+      ],
+      "dai-hoi-chien-si-thi-dua-can-bo-guong-mau-toan-quoc-lan-thu-nhat-1952": [
+        "12955"
+      ],
+      "dai-hoi-dai-bieu-lan-thu-ii-cua-dang-lao-dong-viet-nam": [
+        "12967"
+      ],
+      "dai-hoi-dai-bieu-lan-thu-ii-dang-cong-san-dong-duong-1951": [
+        "12955"
+      ],
+      "dai-hoi-dai-bieu-toan-quoc-lan-thu-iii-cua-dang-lao-dong-viet-nam": [
+        "12967"
+      ],
+      "dai-hoi-dai-bieu-toan-quoc-lan-thu-iii-dang-lao-dong-viet-nam": [
+        "12956"
+      ],
+      "dai-hoi-dai-bieu-toan-quoc-lan-thu-vi-cua-dang-cong-san-viet-nam": [
+        "12958"
+      ],
+      "dai-hoi-dai-bieu-toan-quoc-lan-thu-vii-cua-dang-cong-san-viet-nam": [
+        "12958"
+      ],
+      "dai-hoi-dai-bieu-toan-quoc-lan-thu-viii-cua-dang-cong-san-viet-nam": [
+        "12958"
+      ],
+      "dai-hoi-dai-bieu-toan-quoc-lan-thu-x-cua-dang-cong-san-viet-nam": [
+        "12958"
+      ],
+      "dai-hoi-quoc-dan-tan-trao": [
+        "12952",
+        "12967"
+      ],
+      "dai-loan-chiem-bai-can-ran-san-ho-ban-than": [
+        "12395"
+      ],
+      "dai-loan-chiem-dong-dao-ba-binh-truong-sa": [
+        "12395"
+      ],
+      "dap-tan-cuoc-hanh-quan-xam-luoc-vao-cam-pu-chia-1970": [
+        "12956"
+      ],
+      "dat-them-thua-tuyen-quang-nam": [
+        "12390"
+      ],
+      "dau-tranh-chong-phong-kien-phuong-bac": [
+        "12169"
+      ],
+      "dinh-tien-le-dong-do-hoa-lu": [
+        "12160"
+      ],
+      "do-dac-cam-moc-chu-quyen-hoang-sa-pham-huu-nhat": [
+        "12395"
+      ],
+      "doan-si-quan-viet-nam-tham-gia-luc-luong-gin-giu-hoa-binh-lien-hop-quoc-tai-nam-xu-dang": [
+        "12945"
+      ],
+      "doi-cac-doanh-quang-binh-quang-tri-quang-nam-thanh-tran": [
+        "12393"
+      ],
+      "doi-dinh-quang-duc-thanh-phu-thua-thien": [
+        "12393"
+      ],
+      "doi-do-ly-cong-uan": [
+        "12387"
+      ],
+      "doi-moi-dao-duy-tu-dang-trong": [
+        "12387"
+      ],
+      "doi-thi-thu-vien-thanh-van-thu-phong": [
+        "12393"
+      ],
+      "ga-cong-chua-thieu-dung-duong-tu-minh-1144": [
+        "12169"
+      ],
+      "gia-dinh-thanh-duoc-lap": [
+        "12393"
+      ],
+      "giai-doan-cuoi-chien-tranh-the-gioi-thu-hai": [
+        "12945",
+        "12948",
+        "12952"
+      ],
+      "giai-doan-day-manh-cong-nghiep-hoa-hien-dai-hoa-hoi-nhap-kinh-te-quoc-te-1996-2006": [
+        "12958"
+      ],
+      "giai-doan-hoan-thanh-cuoc-dau-tranh-gianh-doc-lap-dan-toc-o-dong-nam-a": [
+        "12340"
+      ],
+      "giai-doan-khang-chien-chong-my-1954-1960": [
+        "12956"
+      ],
+      "giai-doan-khang-chien-chong-my-1961-1965": [
+        "12956"
+      ],
+      "giai-doan-khang-chien-chong-my-1965-1968": [
+        "12956"
+      ],
+      "giai-doan-khang-chien-chong-my-1969-1973": [
+        "12956"
+      ],
+      "giai-doan-khang-chien-chong-my-1973-1975": [
+        "12956"
+      ],
+      "giai-doan-khoi-dau-cong-cuoc-doi-moi-1986-1995": [
+        "12958"
+      ],
+      "giai-doan-tiep-tuc-day-manh-cong-nghiep-hoa-hien-dai-hoa-hoi-nhap-quoc-te-sau-rong-2006-nay": [
+        "12958"
+      ],
+      "giai-doan-xuat-hien-xu-huong-moi-trong-phong-trao-dau-tranh-o-dong-nam-a": [
+        "12340"
+      ],
+      "giai-phong-da-nang": [
+        "12956"
+      ],
+      "giai-phong-hue-va-thua-thien": [
+        "12956"
+      ],
+      "giai-phong-thi-xa-thai-nguyen": [
+        "12952"
+      ],
+      "giang-van-minh-di-su-nha-minh": [
+        "12370"
+      ],
+      "giao-si-phuong-tay-truyen-dao-cong-giao": [
+        "12160"
+      ],
+      "go-ro-bat-co-pham-tuan-bay-vu-tru": [
+        "12965"
+      ],
+      "hien-phap-cong-hoa-xa-hoi-chu-nghia-viet-nam-2013": [
+        "12169"
+      ],
+      "hien-phap-viet-nam-dan-chu-cong-hoa-1946": [
+        "12169"
+      ],
+      "hiep-uoc-hac-mang": [
+        "12370"
+      ],
+      "hiep-uoc-hoa-phap-1946": [
+        "12955"
+      ],
+      "hiep-uoc-pa-to-not": [
+        "12370"
+      ],
+      "hinh-thanh-khoi-dai-doan-ket-van-lang-au-lac": [
+        "12169"
+      ],
+      "hinh-thanh-phat-trien-van-minh-cham-pa": [
+        "12148"
+      ],
+      "hinh-thanh-phat-trien-van-minh-phu-nam": [
+        "12148"
+      ],
+      "hinh-thanh-phat-trien-van-minh-van-lang-au-lac": [
+        "12148"
+      ],
+      "ho-chi-minh-chu-tich-tong-bi-thu-dang-lao-dong-1956": [
+        "12966"
+      ],
+      "ho-chi-minh-cong-bo-tuyen-ngon-doc-lap": [
+        "12122",
+        "12952",
+        "12966",
+        "12967"
+      ],
+      "ho-chi-minh-di-trung-quoc-phoi-hop-chong-nhat": [
+        "12967"
+      ],
+      "ho-chi-minh-duoc-bau-chu-tich-ban-chap-hanh-trung-uong-dang-1951": [
+        "12966"
+      ],
+      "ho-chi-minh-duoc-bau-chu-tich-nuoc-1946": [
+        "12966"
+      ],
+      "ho-chi-minh-gui-loi-keu-goi-quoc-dan-di-bo-phieu": [
+        "12967"
+      ],
+      "ho-chi-minh-gui-thu-toi-chu-tich-hoi-dong-lien-hop-quoc": [
+        "12967"
+      ],
+      "ho-chi-minh-keu-goi-nhuong-com-se-ao-tang-gia-san-xuat": [
+        "12967"
+      ],
+      "ho-chi-minh-ki-hiep-dinh-so-bo-voi-g-xanh-to-ni": [
+        "12955",
+        "12964",
+        "12967"
+      ],
+      "ho-chi-minh-ki-sac-lenh-thanh-lap-nha-binh-dan-hoc-vu-va-quy-doc-lap": [
+        "12967"
+      ],
+      "ho-chi-minh-mo-lop-dao-tao-can-bo-tai-quang-chau-trung-quoc": [
+        "12968"
+      ],
+      "ho-chi-minh-ra-loi-keu-goi-toan-quoc-khang-chien": [
+        "12955",
+        "12967"
+      ],
+      "ho-chi-minh-sang-con-minh-tim-su-ung-ho-quoc-te": [
+        "12967"
+      ],
+      "ho-chi-minh-sang-phap-van-dong-ngoai-giao-va-ki-tam-uoc": [
+        "12967"
+      ],
+      "ho-chi-minh-sang-trung-quoc-1942": [
+        "12966"
+      ],
+      "ho-chi-minh-tiep-tuc-duoc-bau-chu-tich-dang-lao-dong-1960": [
+        "12966"
+      ],
+      "ho-chi-minh-tro-ve-nuoc-1944": [
+        "12966"
+      ],
+      "ho-khuc-to-chuc-lai-lang-xa-the-ki-x": [
+        "12373",
+        "12387"
+      ],
+      "ho-quy-ly-doi-do-thanh-hoa": [
+        "12387"
+      ],
+      "ho-quy-ly-lap-trieu-ho": [
+        "12387"
+      ],
+      "hoan-toan-giai-phong-mien-nam-viet-nam": [
+        "12338"
+      ],
+      "hoat-dong-doi-ngoai-cua-vndcch-voi-trung-hoa-dan-quoc": [
+        "12964"
+      ],
+      "hoat-dong-doi-ngoai-dang-cong-san-dong-duong-1930-1945": [
+        "12962"
+      ],
+      "hoat-dong-doi-ngoai-nguyen-ai-quoc-1911-1930": [
+        "12962"
+      ],
+      "hoat-dong-doi-ngoai-phan-boi-chau": [
+        "12962"
+      ],
+      "hoat-dong-doi-ngoai-phan-chau-trinh": [
+        "12962"
+      ],
+      "hoi-nghi-ban-chap-hanh-trung-uong-dang-lan-thu-21": [
+        "12956"
+      ],
+      "hoi-nghi-ban-chap-hanh-trung-uong-lan-thu-15-dang-lao-dong-viet-nam": [
+        "12956",
+        "12967"
+      ],
+      "hoi-nghi-binh-than": [
+        "12370"
+      ],
+      "hoi-nghi-cap-cao-asean-37-ha-noi": [
+        "12951"
+      ],
+      "hoi-nghi-cap-cao-ba-nuoc-viet-nam-lao-cam-pu-chia": [
+        "12956"
+      ],
+      "hoi-nghi-dien-hong": [
+        "12370"
+      ],
+      "hoi-nghi-gio-ne-vo-ve-dong-duong": [
+        "12964"
+      ],
+      "hoi-nghi-lan-thu-8-ban-chap-hanh-trung-uong-dang-cong-san-dong-duong": [
+        "12966",
+        "12967"
+      ],
+      "hoi-nghi-pa-ri-ve-viet-nam": [
+        "12964"
+      ],
+      "hoi-nghi-pot-xdam": [
+        "12952"
+      ],
+      "hoi-nghi-thanh-lap-dang-cong-san-viet-nam": [
+        "12169",
+        "12966",
+        "12967"
+      ],
+      "hoi-nghi-toan-quoc-cua-dang-cong-san-dong-duong-1945": [
+        "12967"
+      ],
+      "hoi-nghi-toan-quoc-cua-dang-tan-trao": [
+        "12952"
+      ],
+      "hoi-the-dong-quan": [
+        "12372"
+      ],
+      "hoi-the-lung-nhai": [
+        "12372"
+      ],
+      "ke-hoach-na-va-1953": [
+        "12955"
+      ],
+      "ke-hoach-nha-nuoc-5-nam-lan-thu-nhat-mien-bac": [
+        "12956"
+      ],
+      "khang-chien-chong-my-cuu-nuoc": [
+        "12948",
+        "12956",
+        "12966"
+      ],
+      "khang-chien-chong-quan-minh-nha-ho": [
+        "12370",
+        "12372"
+      ],
+      "khang-chien-chong-quan-mong-co-1258": [
+        "12370"
+      ],
+      "khang-chien-chong-quan-nguyen-1285": [
+        "12370"
+      ],
+      "khang-chien-chong-quan-nguyen-1287-1288": [
+        "12370"
+      ],
+      "khang-chien-chong-quan-thanh-1789": [
+        "12128",
+        "12370",
+        "12372"
+      ],
+      "khang-chien-chong-quan-tong-1075-1077": [
+        "12370"
+      ],
+      "khang-chien-chong-quan-tong-981": [
+        "12370"
+      ],
+      "khang-chien-chong-quan-trieu-an-duong-vuong": [
+        "12370"
+      ],
+      "khang-chien-chong-quan-xiem-1784-1785": [
+        "12370",
+        "12372"
+      ],
+      "khang-chien-chong-thuc-dan-phap-1945-1954": [
+        "12948",
+        "12955",
+        "12966"
+      ],
+      "khang-chien-chong-thuc-dan-phap-o-viet-nam-lao-cam-pu-chia": [
+        "12340"
+      ],
+      "khang-chien-chong-thuc-dan-phap-trieu-nguyen": [
+        "12370"
+      ],
+      "khang-chien-thang-loi": [
+        "12169"
+      ],
+      "khang-chien-toan-quoc-chong-thuc-dan-phap-bung-no": [
+        "12964"
+      ],
+      "khoi-nghia-ba-trieu": [
+        "12372"
+      ],
+      "khoi-nghia-cua-pu-com-bo": [
+        "12340"
+      ],
+      "khoi-nghia-gianh-chinh-quyen-ha-noi": [
+        "12952"
+      ],
+      "khoi-nghia-gianh-chinh-quyen-hue": [
+        "12952"
+      ],
+      "khoi-nghia-gianh-chinh-quyen-sai-gon": [
+        "12952"
+      ],
+      "khoi-nghia-hai-ba-trung": [
+        "12169",
+        "12372"
+      ],
+      "khoi-nghia-khu-lien-lap-nuoc-lam-ap": [
+        "12148"
+      ],
+      "khoi-nghia-khuc-thua-du": [
+        "12372"
+      ],
+      "khoi-nghia-lam-son": [
+        "12128",
+        "12372"
+      ],
+      "khoi-nghia-ly-bi-trieu-quang-phuc": [
+        "12372"
+      ],
+      "khoi-nghia-mai-thuc-loan": [
+        "12372"
+      ],
+      "khoi-nghia-phung-hung": [
+        "12372"
+      ],
+      "khung-hoang-cuoi-trieu-tran": [
+        "12387"
+      ],
+      "ki-ket-hiep-dinh-pa-ri-ve-cham-dut-chien-tranh-lap-lai-hoa-binh-o-viet-nam": [
+        "12956",
+        "12964"
+      ],
+      "ki-tam-uoc-viet-phap": [
+        "12964"
+      ],
+      "ki-tuyen-bo-ve-ung-xu-cua-cac-ben-o-bien-dong-doc": [
+        "12395"
+      ],
+      "ky-ket-hiep-dinh-go-ne-vo-1954": [
+        "12955",
+        "12964"
+      ],
+      "lang-co-ten-nom-xuat-hien-som-thoi-ly-tran": [
+        "12373"
+      ],
+      "lang-xa-hinh-thanh-thoi-van-lang-au-lac": [
+        "12373"
+      ],
+      "lang-xa-viet-nam-bien-doi-sau-1945": [
+        "12373"
+      ],
+      "lap-co-mat-vien": [
+        "12393"
+      ],
+      "lap-noi-cac-thay-the-van-thu-phong": [
+        "12393"
+      ],
+      "le-loi-xay-thanh-luc-nien": [
+        "12966"
+      ],
+      "le-nghi-dan-dat-luc-bo": [
+        "12390"
+      ],
+      "le-thanh-tong-dua-luc-bo-thanh-co-quan-quyen-luc": [
+        "12390"
+      ],
+      "le-thanh-tong-dung-bia-tien-si-van-mieu": [
+        "12160"
+      ],
+      "lien-hop-quoc-vien-tro-viet-nam-1977-1986": [
+        "12965"
+      ],
+      "lien-xo-vien-tro-cho-viet-nam": [
+        "12956"
+      ],
+      "ly-nhan-tong-lap-quoc-tu-giam": [
+        "12160"
+      ],
+      "ly-thai-to-doi-do-thang-long": [
+        "12160"
+      ],
+      "ly-thanh-tong-dung-van-mieu": [
+        "12160"
+      ],
+      "ly-thuong-kiet-tap-kich-kham-chau-liem-chau-ung-chau": [
+        "12370"
+      ],
+      "mai-thuc-loan-khoi-nghia": [
+        "12966"
+      ],
+      "mat-tran-lien-viet-ra-doi-1951": [
+        "12955"
+      ],
+      "mien-bac-viet-nam-giai-phong-xay-dung-cnxh": [
+        "12338"
+      ],
+      "minh-mang-len-ngoi-vua": [
+        "12393"
+      ],
+      "mit-tinh-chao-mung-uy-ban-quan-quan-sai-gon-1975": [
+        "12169"
+      ],
+      "my-can-thiep-vao-dong-duong": [
+        "12340"
+      ],
+      "my-thay-chan-phap-dung-chinh-quyen-ngo-dinh-diem": [
+        "12956"
+      ],
+      "ngo-quyen-xung-vuong-co-loa": [
+        "12160"
+      ],
+      "nguoi-viet-che-tao-sung-than-co-thuyen-chien": [
+        "12160"
+      ],
+      "nguyen-ai-quoc-den-lien-xo-1923": [
+        "12962",
+        "12966"
+      ],
+      "nguyen-ai-quoc-den-quang-chau-1924": [
+        "12962"
+      ],
+      "nguyen-ai-quoc-doc-luan-cuong-le-nin": [
+        "12966",
+        "12967"
+      ],
+      "nguyen-ai-quoc-gia-nhap-quoc-te-cong-san-va-sang-lap-dang-cong-san-phap": [
+        "12962",
+        "12966",
+        "12967"
+      ],
+      "nguyen-ai-quoc-gui-yeu-sach-vec-xai": [
+        "12966"
+      ],
+      "nguyen-ai-quoc-hoat-dong-chau-au-siam-1927-1929": [
+        "12966"
+      ],
+      "nguyen-ai-quoc-hoat-dong-lien-xo-1933": [
+        "12966"
+      ],
+      "nguyen-ai-quoc-hoat-dong-phap-1921-1923": [
+        "12966"
+      ],
+      "nguyen-ai-quoc-roi-lien-xo-tro-lai-trung-quoc": [
+        "12966"
+      ],
+      "nguyen-ai-quoc-thanh-lap-hoi-lien-hiep-thuoc-dia-1921": [
+        "12962"
+      ],
+      "nguyen-ai-quoc-thanh-lap-hoi-lien-hiep-thuoc-dia-va-bao-le-paria": [
+        "12967"
+      ],
+      "nguyen-ai-quoc-thanh-lap-hoi-viet-nam-cach-mang-thanh-nien": [
+        "12966",
+        "12967"
+      ],
+      "nguyen-ai-quoc-tro-ve-nuoc": [
+        "12966",
+        "12967"
+      ],
+      "nguyen-hue-dung-chan-chieu-mo-binh-si": [
+        "12966"
+      ],
+      "nguyen-tat-thanh-ra-di-tim-duong-cuu-nuoc": [
+        "12966"
+      ],
+      "nguyen-tat-thanh-roi-phan-thiet-vao-sai-gon": [
+        "12966"
+      ],
+      "nguyen-tat-thanh-tham-gia-chong-thue-hue": [
+        "12966"
+      ],
+      "nha-duong-dat-don-vi-huong-xa-thoi-bac-thuoc": [
+        "12373"
+      ],
+      "nha-le-so-thanh-lap": [
+        "12160"
+      ],
+      "nha-ly-su-dung-thi-cu-nho-hoc": [
+        "12160"
+      ],
+      "nha-ly-thanh-lap-trang-van-don": [
+        "12160"
+      ],
+      "nha-ly-to-chuc-khoa-thi-nho-hoc-dau-tien": [
+        "12146"
+      ],
+      "nha-ly-xay-dung-van-mieu": [
+        "12146"
+      ],
+      "nha-mac-thanh-lap": [
+        "12160"
+      ],
+      "nha-minh-thong-tri-huy-diet-van-minh-dai-viet": [
+        "12160"
+      ],
+      "nha-minh-xam-luoc-dai-ngu": [
+        "12387"
+      ],
+      "nha-nuoc-can-thiep-manh-lang-xa-thoi-le-so": [
+        "12373"
+      ],
+      "nha-nuoc-can-thiep-manh-lang-xa-thoi-nguyen": [
+        "12373"
+      ],
+      "nha-nuoc-pho-mac-lang-xa-thoi-le-trung-hung": [
+        "12373"
+      ],
+      "nhan-dan-ung-ho-mien-trung-bao-so-9-2020": [
+        "12169"
+      ],
+      "nhat-ban-tuyen-bo-dau-hang-dong-minh": [
+        "12952"
+      ],
+      "nho-giao-du-nhap-viet-nam": [
+        "12146"
+      ],
+      "phan-boi-chau-sang-nhat-ban-1905": [
+        "12962"
+      ],
+      "phan-boi-chau-ve-trung-quoc-1911": [
+        "12962"
+      ],
+      "phan-chau-trinh-sang-phap-1911": [
+        "12962"
+      ],
+      "phap-chiem-bac-ki-lan-1": [
+        "12370"
+      ],
+      "phap-chiem-bac-ki-lan-2": [
+        "12370"
+      ],
+      "phap-chiem-sau-tinh-nam-ki": [
+        "12370"
+      ],
+      "phap-cho-hai-quan-tru-dong-truong-sa": [
+        "12395"
+      ],
+      "phap-danh-up-uy-ban-hanh-chinh-nam-bo-1945": [
+        "12955"
+      ],
+      "phap-gui-cong-ham-phan-doi-nhat-ban-kiem-soat-truong-sa": [
+        "12395"
+      ],
+      "phap-tan-cong-da-nang-1858": [
+        "12370"
+      ],
+      "phap-xa-sung-sai-gon-cho-lon-1945": [
+        "12955"
+      ],
+      "phap-xam-chiem-dong-duong": [
+        "12339"
+      ],
+      "phap-xam-luoc-viet-nam": [
+        "12966"
+      ],
+      "phap-xay-dung-bia-chu-quyen-hoang-sa": [
+        "12395"
+      ],
+      "phap-xay-dung-cot-hai-dang-hoang-sa": [
+        "12395"
+      ],
+      "phat-hanh-tien-giay-thong-bao-hoi-sao": [
+        "12387"
+      ],
+      "phe-duyet-chien-luoc-phat-trien-cong-nghiep-van-hoa-viet-nam": [
+        "12137"
+      ],
+      "philippin-ban-hanh-sac-lenh-1596-tuyen-bo-chu-quyen-truong-sa": [
+        "12395"
+      ],
+      "philippin-chiem-dong-9-dao-truong-sa": [
+        "12395"
+      ],
+      "philippin-tuyen-bo-quyen-khai-thac-lap-nghiep-truong-sa": [
+        "12395"
+      ],
+      "phong-trao-can-vuong": [],
+      "phong-trao-chong-thuc-dan-phap-xam-luoc-o-viet-nam": [
+        "12340"
+      ],
+      "phong-trao-dong-du": [
+        "12962"
+      ],
+      "phong-trao-dong-khoi": [
+        "12956"
+      ],
+      "phong-trao-tay-son": [
+        "12372"
+      ],
+      "phong-trao-tay-son-bung-no": [
+        "12160"
+      ],
+      "phu-nam-tro-thanh-vuong-quoc-hung-manh": [
+        "12148"
+      ],
+      "phuc-nghia-hau-gui-thu-nhat-ban": [
+        "12160"
+      ],
+      "quan-doi-sai-gon-that-bai-bao-ve-hoang-sa": [
+        "12395"
+      ],
+      "quan-giai-phong-mien-nam-viet-nam-tiep-quan-truong-sa": [
+        "12395"
+      ],
+      "quan-he-viet-nam-my-doi-tac-chien-luoc-toan-dien": [
+        "12965"
+      ],
+      "quan-li-hanh-chinh-chinh-quyen-sai-gon-hoang-sa-truong-sa": [
+        "12395"
+      ],
+      "quoc-hoi-khoa-vi-doi-ten-sai-gon-thanh-thanh-pho-ho-chi-minh": [
+        "12968"
+      ],
+      "quoc-hoi-thong-qua-luat-cai-cach-ruong-dat-1953": [
+        "12955"
+      ],
+      "ro-bot-xophia-duoc-cap-quyen-cong-dan": [
+        "12145"
+      ],
+      "su-ra-doi-cua-ba-to-chuc-cong-san-viet-nam": [
+        "12967"
+      ],
+      "su-ra-doi-nha-nuoc-au-lac": [
+        "12148"
+      ],
+      "su-ra-doi-nha-nuoc-van-lang": [
+        "12148"
+      ],
+      "tan-cong-champa-dai-viet-cuoi-tk14": [
+        "12387"
+      ],
+      "thanh-lap-cac-dang-cong-san-o-viet-nam-ma-lai-xiem-phi-lip-pin": [
+        "12340"
+      ],
+      "thanh-lap-chinh-phu-cach-mang-lam-thoi-cong-hoa-mien-nam-viet-nam": [
+        "12956"
+      ],
+      "thanh-lap-hoi-lien-hiep-cac-dan-toc-bi-ap-buc-a-dong-1925": [
+        "12962"
+      ],
+      "thanh-lap-huyen-hoang-sa-va-huyen-truong-sa": [
+        "12395"
+      ],
+      "thanh-lap-lang-xa-huyen-tien-hai-thai-binh": [
+        "12373"
+      ],
+      "thanh-lap-lien-minh-dong-a-1908": [
+        "12962"
+      ],
+      "thanh-lap-lien-minh-nhan-dan-viet-mien-lao": [
+        "12964"
+      ],
+      "thanh-lap-mat-tran-dan-toc-giai-phong-mien-nam-viet-nam": [
+        "12956"
+      ],
+      "thanh-lap-mat-tran-dan-toc-thong-nhat-viet-nam-1930": [
+        "12169"
+      ],
+      "thanh-lap-mat-tran-viet-nam-doc-lap-dong-minh-viet-minh": [
+        "12966",
+        "12967"
+      ],
+      "thanh-lap-quan-giai-phong-mien-nam": [
+        "12956"
+      ],
+      "thanh-lap-quoc-su-quan-trieu-nguyen": [
+        "12160"
+      ],
+      "thanh-lap-tieu-doi-du-kich-thoat-li-dau-tien-o-cao-bang": [
+        "12967"
+      ],
+      "thanh-lap-uy-ban-khang-chien-nam-bo-1945": [
+        "12955"
+      ],
+      "thanh-lap-va-hoat-dong-doi-dan-binh-hoang-sa-bac-hai": [
+        "12395"
+      ],
+      "thanh-lap-viet-nam-quang-phuc-hoi-1912": [
+        "12962"
+      ],
+      "thi-diem-chia-lai-ruong-dat-minh-mang": [
+        "12393"
+      ],
+      "thoi-gia-long-tri-vi": [
+        "12393"
+      ],
+      "thoi-tran-dat-chuc-xa-quan": [
+        "12373"
+      ],
+      "thuc-dan-phap-no-sung-tan-cong-da-nang": [
+        "12339",
+        "12340"
+      ],
+      "thuc-hien-thong-nhat-dat-nuoc-viet-nam": [
+        "12338"
+      ],
+      "thuong-mai-a-au-phat-trien-tai-dai-viet": [
+        "12160"
+      ],
+      "tin-nguong-tho-than-dong-co-cung-dinh": [
+        "12160"
+      ],
+      "tong-khoi-nghia-gianh-chinh-quyen": [
+        "12169",
+        "12340",
+        "12382",
+        "12966",
+        "12967"
+      ],
+      "tong-tien-cong-va-noi-day-xuan-1975": [
+        "12956"
+      ],
+      "tong-tien-cong-va-noi-day-xuan-mau-than-1968": [
+        "12956"
+      ],
+      "trang-an-duoc-ghi-danh-di-san-the-gioi": [
+        "12128"
+      ],
+      "trieu-nguyen-thanh-lap": [
+        "12160",
+        "12393"
+      ],
+      "trung-quoc-danh-chiem-da-vanh-khan": [
+        "12395"
+      ],
+      "trung-quoc-danh-chiem-dao-gac-ma-len-dao-chu-thap-va-mot-so-dao-khac-truong-sa": [
+        "12395"
+      ],
+      "trung-quoc-danh-chiem-toan-bo-hoang-sa": [
+        "12395"
+      ],
+      "trung-quoc-tu-choi-boi-thuong-vu-tau-dam-hoang-sa": [
+        "12395"
+      ],
+      "tuyen-duong-chi-vien-chien-luoc-tren-bien-mang-ten-chu-tich-ho-chi-minh": [
+        "12968"
+      ],
+      "uy-ban-khoi-nghia-ban-bo-quan-lenh-so-1": [
+        "12952"
+      ],
+      "van-hoa-phung-nguyen": [
+        "12148"
+      ],
+      "van-hoa-sa-huynh": [
+        "12148"
+      ],
+      "van-hoa-tien-oc-eo": [
+        "12148"
+      ],
+      "viet-minh-hop-tac-oss-1945": [
+        "12962"
+      ],
+      "viet-nam-1858-1918": [],
+      "viet-nam-1919-1945": [],
+      "viet-nam-1945-1954": [],
+      "viet-nam-1954-1975": [],
+      "viet-nam-1975-den-nay": [],
+      "viet-nam-ban-hanh-tuyen-bo-vung-bien-them-luc-dia": [
+        "12395"
+      ],
+      "viet-nam-binh-thuong-hoa-quan-he-my": [
+        "12965"
+      ],
+      "viet-nam-binh-thuong-hoa-quan-he-trung-quoc": [
+        "12965"
+      ],
+      "viet-nam-dam-phan-ranh-gioi-tren-bien": [
+        "12965"
+      ],
+      "viet-nam-danh-chiem-nua-phia-dong-hoang-sa": [
+        "12395"
+      ],
+      "viet-nam-de-nghi-lien-hop-quoc-cong-nhan-vndcch": [
+        "12964"
+      ],
+      "viet-nam-gia-nhap-asean": [
+        "12950",
+        "12965"
+      ],
+      "viet-nam-gia-nhap-sev": [
+        "12965"
+      ],
+      "viet-nam-hoan-tat-muc-tieu-thien-nien-ki": [
+        "12960"
+      ],
+      "viet-nam-ki-ket-evfta": [
+        "12965"
+      ],
+      "viet-nam-ki-ket-hiep-uoc-bien-gioi-trung-quoc": [
+        "12965"
+      ],
+      "viet-nam-ki-ket-nghi-dinh-thu-ki-o-to": [
+        "12965"
+      ],
+      "viet-nam-ki-ket-rcep": [
+        "12965"
+      ],
+      "viet-nam-lao-cam-pu-chia-chuyen-sang-kinh-te-thi-truong-va-cong-nghiep-hoa": [
+        "12340"
+      ],
+      "viet-nam-mo-co-quan-dai-dien-ngoai-giao-va-thong-tin-o-nuoc-ngoai": [
+        "12964"
+      ],
+      "viet-nam-tam-thoi-bi-chia-cat-hai-mien": [
+        "12956"
+      ],
+      "viet-nam-tham-gia-afta": [
+        "12965"
+      ],
+      "viet-nam-thanh-vien-lien-hop-quoc": [
+        "12965"
+      ],
+      "viet-nam-the-hien-thien-chi-hoa-binh-sau-12-1946": [
+        "12964"
+      ],
+      "viet-nam-thoan-thuan-bien-gioi-lao-cam-pu-chia": [
+        "12965"
+      ],
+      "viet-nam-thoi-dung-nuoc": [],
+      "viet-nam-thong-qua-luat-bien-viet-nam": [
+        "12395"
+      ],
+      "viet-nam-to-chuc-hoi-nghi-quoc-te-asean-asem-apec": [
+        "12965"
+      ],
+      "viet-nam-tu-the-ki-x-den-xv": [],
+      "viet-nam-tu-the-ki-xvi-den-xix": [],
+      "viet-nam-uy-vien-khong-thuong-truc-hoi-dong-bao-an-lhq": [
+        "12965"
+      ],
+      "vndcch-can-bang-quan-he-voi-lien-xo-trung-quoc-va-van-dong-vien-tro": [
+        "12964"
+      ],
+      "vndcch-dau-tranh-doi-thi-hanh-hiep-dinh-gio-ne-vo": [
+        "12964"
+      ],
+      "vndcch-gap-go-dang-cong-san-phap-va-cac-to-chuc-quoc-te": [
+        "12964"
+      ],
+      "vndcch-thiet-lap-quan-he-ngoai-giao-voi-cac-nuoc-xhcn": [
+        "12964"
+      ],
+      "vndcch-thiet-lap-quan-he-ngoai-giao-voi-lao-campuchia-va-ung-ho-phong-trao-giai-phong-dan-toc": [
+        "12964"
+      ],
+      "vu-an-le-chi-vien": [
+        "12390"
+      ],
+      "vuong-thuc-mau-khoi-nghia-can-vuong": [
+        "12966"
+      ],
+      "xa-lan-dau-tien-xuat-hien": [
+        "12373"
+      ],
+      "xa-tro-thanh-ten-goi-pho-bien": [
+        "12373"
+      ],
+      "xay-dung-cau-long-bien": [
+        "12122"
+      ],
+      "xay-dung-va-dong-dien-duong-day-500kv-bac-nam-mach-1": [
+        "12960"
+      ],
+      "xoa-bo-bac-thanh-chia-thanh-18-tinh": [
+        "12393"
+      ],
+      "xoa-bo-gia-dinh-thanh-chia-thanh-12-tinh": [
+        "12393"
+      ]
+    },
+    "eventCountWithLessonRefs": 346,
+    "uniqueLessonIdCount": 36,
+    "uniqueLessonIds": [
+      "12122",
+      "12128",
+      "12137",
+      "12145",
+      "12146",
+      "12148",
+      "12160",
+      "12169",
+      "12338",
+      "12339",
+      "12340",
+      "12370",
+      "12372",
+      "12373",
+      "12382",
+      "12387",
+      "12390",
+      "12393",
+      "12394",
+      "12395",
+      "12945",
+      "12948",
+      "12949",
+      "12950",
+      "12951",
+      "12952",
+      "12955",
+      "12956",
+      "12958",
+      "12960",
+      "12962",
+      "12964",
+      "12965",
+      "12966",
+      "12967",
+      "12968"
+    ],
+    "duplicateLessonRefsByEvent": {},
+    "hash": "a7dfbfb909011450951cec4849dbe76f5f0c73825b2a20494ee3a679c16e2133"
+  },
+  "stage5Compatibility": {
+    "approvedImageCount": 4,
+    "approvedImageEventRelationshipCount": 4,
+    "targetEventIds": [
+      "dai-hoi-quoc-dan-tan-trao",
+      "ho-chi-minh-cong-bo-tuyen-ngon-doc-lap",
+      "khoi-nghia-gianh-chinh-quyen-ha-noi",
+      "khoi-nghia-gianh-chinh-quyen-sai-gon"
+    ],
+    "targetRecords": [
+      {
+        "sourceImage": "crawData/stage1_crawl/images/grade_12/12952/img_01.png",
+        "sourceLessonId": "12952",
+        "targetEventId": "ho-chi-minh-cong-bo-tuyen-ngon-doc-lap",
+        "targetExistsInStage4B": true,
+        "targetSlug": "ho-chi-minh-cong-bo-tuyen-ngon-doc-lap",
+        "targetLessonIds": [
+          "12122",
+          "12952",
+          "12966",
+          "12967"
+        ],
+        "sourceLessonIdInTargetRefs": true,
+        "candidateRecordExists": true,
+        "candidateLessonIdMatchesApproved": true,
+        "targetAppearsInCandidateEvents": true
+      },
+      {
+        "sourceImage": "crawData/stage1_crawl/images/grade_12/12952/img_02.png",
+        "sourceLessonId": "12952",
+        "targetEventId": "dai-hoi-quoc-dan-tan-trao",
+        "targetExistsInStage4B": true,
+        "targetSlug": "dai-hoi-quoc-dan-tan-trao",
+        "targetLessonIds": [
+          "12952",
+          "12967"
+        ],
+        "sourceLessonIdInTargetRefs": true,
+        "candidateRecordExists": true,
+        "candidateLessonIdMatchesApproved": true,
+        "targetAppearsInCandidateEvents": true
+      },
+      {
+        "sourceImage": "crawData/stage1_crawl/images/grade_12/12952/img_03.png",
+        "sourceLessonId": "12952",
+        "targetEventId": "khoi-nghia-gianh-chinh-quyen-ha-noi",
+        "targetExistsInStage4B": true,
+        "targetSlug": "khoi-nghia-gianh-chinh-quyen-ha-noi",
+        "targetLessonIds": [
+          "12952"
+        ],
+        "sourceLessonIdInTargetRefs": true,
+        "candidateRecordExists": true,
+        "candidateLessonIdMatchesApproved": true,
+        "targetAppearsInCandidateEvents": true
+      },
+      {
+        "sourceImage": "crawData/stage1_crawl/images/grade_12/12952/img_04.png",
+        "sourceLessonId": "12952",
+        "targetEventId": "khoi-nghia-gianh-chinh-quyen-sai-gon",
+        "targetExistsInStage4B": true,
+        "targetSlug": "khoi-nghia-gianh-chinh-quyen-sai-gon",
+        "targetLessonIds": [
+          "12952"
+        ],
+        "sourceLessonIdInTargetRefs": true,
+        "candidateRecordExists": true,
+        "candidateLessonIdMatchesApproved": true,
+        "targetAppearsInCandidateEvents": true
+      }
+    ],
+    "allTargetsExistInStage4B": true,
+    "allSourceLessonIdsMatchTargetRefs": true,
+    "allApprovedTargetsAppearInCurrentCandidates": true,
+    "compatibilityHash": "75cd0dbcd9439c95e2bd90a4f63f3fce616e51bd5570f8598fc646a18f19208d"
+  },
+  "fingerprints": {
+    "stage4BEventIdSetHash": "bea093d4bbc26429e75ea26422c05f838d18599771b57dbab675394de1421a13",
+    "stage4BSlugMappingHash": "85e370d13d2396915556f5bf513d2302be11d5ee1f96fbcd260c6fdfe749bcaf",
+    "textbookReferenceHash": "a7dfbfb909011450951cec4849dbe76f5f0c73825b2a20494ee3a679c16e2133",
+    "stage5ApprovedTargetCompatibilityHash": "75cd0dbcd9439c95e2bd90a4f63f3fce616e51bd5570f8598fc646a18f19208d",
+    "unrelatedContentBaselineHash": "338b73a740cbdff756d88e81608e9c92d2c07d6ae2819026605393891cb4403f",
+    "fingerprintAlgorithm": "sha256(canonical JSON with sorted keys and compact separators)"
+  },
+  "unrelatedContentBaseline": {
+    "includedTopLevelPaths": [
+      "id",
+      "slug",
+      "entityType",
+      "eventLevel",
+      "titles",
+      "classification",
+      "coverage",
+      "summary",
+      "textbookContent",
+      "externalContent",
+      "media",
+      "associations",
+      "display",
+      "sourcePolicy"
+    ],
+    "excludedTopLevelPaths": [
+      "chronology",
+      "hierarchy",
+      "_stage4bParentSource",
+      "_stage4bParentReason"
+    ],
+    "hash": "338b73a740cbdff756d88e81608e9c92d2c07d6ae2819026605393891cb4403f"
+  },
+  "validation": {
+    "fatalErrors": [],
+    "warnings": [],
+    "suspiciousMojibake": {
+      "stage5ApprovedMappingPathCount": 0,
+      "stage5ApprovedMappingPathsSample": []
+    }
+  }
+}

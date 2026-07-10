@@ -1,0 +1,58 @@
+{
+  "eventId": "mien-bac-viet-nam-giai-phong-xay-dung-cnxh",
+  "title": "Miền Bắc Việt Nam được giải phóng và đi theo con đường xây dựng chủ nghĩa xã hội",
+  "shortTitle": "Miền Bắc VN xây dựng CNXH",
+  "displayDate": "1954",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1945-1954",
+  "parentId": "viet-nam-1945-1954",
+  "historicalLocations": [],
+  "provinceNames": [],
+  "canonicalSummary": "Cuộc kháng chiến chống thực dân Pháp thắng lợi năm 1954, miền Bắc Việt Nam được giải phóng và đi theo con đường xây dựng chủ nghĩa xã hội.",
+  "keyFacts": [
+    "Sau thắng lợi kháng chiến chống Pháp",
+    "Miền Bắc được giải phóng",
+    "Đi theo con đường xây dựng chủ nghĩa xã hội",
+    "Diễn ra năm 1954"
+  ],
+  "sourceFamily": "war_1945_1975",
+  "preferredVerificationDomains": [
+    "btlsqsvn.org.vn",
+    "qdnd.vn",
+    "nhandan.vn",
+    "vietnamplus.vn",
+    "hochiminh.vn",
+    "baotanglichsu.vn",
+    "luutru.gov.vn",
+    "loc.gov",
+    "archives.gov"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Miền Bắc Việt Nam được giải phóng và đi theo con đường xây dựng chủ nghĩa xã hội",
+    "Miền Bắc Việt Nam được giải phóng và đi theo con đường xây dựng chủ nghĩa xã hội 1954",
+    "Miền Bắc Việt Nam được giải phóng và đi theo con đường xây dựng chủ nghĩa xã hội Việt Nam từ năm 1945 đến năm 1954",
+    "Miền Bắc Việt Nam được giải phóng và đi theo con đường xây dựng chủ nghĩa xã hội Sau thắng lợi kháng chiến chống Pháp Miền Bắc được giải phóng",
+    "Miền Bắc Việt Nam được giải phóng và đi theo con đường xây dựng chủ nghĩa xã hội ảnh tư liệu",
+    "Miền Bắc Việt Nam được giải phóng và đi theo con đường xây dựng chủ nghĩa xã hội chiến dịch"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

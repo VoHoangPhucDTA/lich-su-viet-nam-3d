@@ -1,0 +1,55 @@
+{
+  "eventId": "ho-chi-minh-duoc-bau-chu-tich-nuoc-1946",
+  "title": "Hồ Chí Minh được Quốc hội khoá I bầu làm Chủ tịch nước Việt Nam Dân chủ Cộng hoà",
+  "shortTitle": "Hồ Chí Minh làm Chủ tịch nước",
+  "displayDate": "Tháng 1 – 1946",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1945-1954",
+  "parentId": "viet-nam-1945-1954",
+  "historicalLocations": [],
+  "provinceNames": [],
+  "canonicalSummary": "Tháng 1 – 1946, Hồ Chí Minh được Quốc hội khoá I đã bầu làm Chủ tịch nước Việt Nam Dân chủ Cộng hoà.",
+  "keyFacts": [
+    "Được Quốc hội khoá I bầu"
+  ],
+  "sourceFamily": "war_1945_1975",
+  "preferredVerificationDomains": [
+    "btlsqsvn.org.vn",
+    "qdnd.vn",
+    "nhandan.vn",
+    "vietnamplus.vn",
+    "hochiminh.vn",
+    "baotanglichsu.vn",
+    "luutru.gov.vn",
+    "loc.gov",
+    "archives.gov"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Hồ Chí Minh được Quốc hội khoá I bầu làm Chủ tịch nước Việt Nam Dân chủ Cộng hoà",
+    "Hồ Chí Minh được Quốc hội khoá I bầu làm Chủ tịch nước Việt Nam Dân chủ Cộng hoà Tháng 1 – 1946",
+    "Hồ Chí Minh được Quốc hội khoá I bầu làm Chủ tịch nước Việt Nam Dân chủ Cộng hoà Việt Nam từ năm 1945 đến năm 1954",
+    "Hồ Chí Minh được Quốc hội khoá I bầu làm Chủ tịch nước Việt Nam Dân chủ Cộng hoà Được Quốc hội khoá I bầu",
+    "Hồ Chí Minh được Quốc hội khoá I bầu làm Chủ tịch nước Việt Nam Dân chủ Cộng hoà ảnh tư liệu",
+    "Hồ Chí Minh được Quốc hội khoá I bầu làm Chủ tịch nước Việt Nam Dân chủ Cộng hoà chiến dịch"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

@@ -1,0 +1,98 @@
+{
+  "binaryDownloads": 0,
+  "blockedEventCount": 14,
+  "candidateSlotCount": 516,
+  "eventCount": 258,
+  "gateCount": 37,
+  "importReady": false,
+  "manualDownloadSlotCount": 488,
+  "packageSummary": {
+    "appliedCorrections": [
+      179,
+      210,
+      226,
+      229,
+      244
+    ],
+    "batches": 14,
+    "blockedDataIssues": [
+      167,
+      207,
+      211,
+      220,
+      237,
+      244,
+      257
+    ],
+    "blockedNeedsDirectSource": [
+      172,
+      181,
+      197,
+      204,
+      205,
+      214,
+      230,
+      254
+    ],
+    "candidateIndependenceReview": [
+      57,
+      70,
+      91,
+      112,
+      118
+    ],
+    "candidates": 516,
+    "compositeScoped": [
+      223,
+      241,
+      246,
+      249,
+      250,
+      252,
+      253,
+      255
+    ],
+    "concreteAssetFiles": 0,
+    "coverageEnd": 257,
+    "coverageStart": 0,
+    "documentSpecific": [
+      215,
+      216,
+      218,
+      219,
+      221
+    ],
+    "duplicateIndices": [],
+    "events": 258,
+    "importReady": false,
+    "lowOrWeakCandidates": 0,
+    "missingIndices": [],
+    "researchQueueReady": true,
+    "schemaVersion": 2,
+    "stabilizationVersion": "2.0",
+    "statusCounts": {
+      "awaiting_manual_document_source": 10,
+      "awaiting_manual_download": 452,
+      "awaiting_manual_download_candidate_independence_review": 10,
+      "awaiting_manual_download_scoped": 16,
+      "blocked_data_issue": 12,
+      "blocked_needs_direct_source": 16
+    },
+    "validationErrors": [],
+    "validationPassed": true,
+    "withinEventExactDuplicateUrls": [],
+    "wrongEventIds": []
+  },
+  "packageValidationReportExcerpt": "STAGE5 STABILIZED V2 VALIDATION REPORT\n============================================================\nevents=258\ncandidates=516\nbatches=14\ngates=37\ncorrections_applied=5\nstage5_manual_external_images_batch001_v2.zip: OK\nstage5_manual_external_images_batch002_v2.zip: OK\nstage5_manual_external_images_batch003_v2.zip: OK\nstage5_manual_external_images_batch004_v2.zip: OK\nstage5_manual_external_images_batch005_v2.zip: OK\nstage5_manual_external_images_batch006_v2.zip: OK\nstage5_manual_external_images_batch007_v2.zip: OK\nstage5_manual_external_images_batch008_v2.zip: OK\nstage5_manual_external_images_batch009_v2.zip: OK\nstage5_manual_external_images_batch010_v2.zip: OK\nstage5_manual_external_images_batch011_v2.zip: OK\nstage5_manual_external_images_batch012_v2.zip: OK\nstage5_manual_external_images_batch013_v2.zip: OK\nstage5_manual_external_images_batch014_v2.zip: OK\n\nstatus_counts={\"awaiting_manual_document_source\": 10, \"awaiting_manual_download\": 452, \"awaiting_manual_download_candidate_independence_review\": 10, \"awaiting_manual_download_scoped\": 16, \"blocked_data_issue\": 12, \"blocked_needs_direct_source\": 16}\nwithin_event_exact_duplicate_urls=0\nlow_or_weak_candidates=0\nvalidation_errors=0\n\nRESULT: PASS — no structural/coverage/schema/sync/CRC validation errors.\n",
+  "sourcePackage": "C:\\Users\\Zupiter\\Downloads\\stage5_manual_external_images_stabilized_v2.zip",
+  "statusCounts": {
+    "awaiting_manual_document_source": 10,
+    "awaiting_manual_download": 452,
+    "awaiting_manual_download_candidate_independence_review": 10,
+    "awaiting_manual_download_scoped": 16,
+    "blocked_data_issue": 12,
+    "blocked_needs_direct_source": 16
+  },
+  "validationErrors": [],
+  "version": 1
+}

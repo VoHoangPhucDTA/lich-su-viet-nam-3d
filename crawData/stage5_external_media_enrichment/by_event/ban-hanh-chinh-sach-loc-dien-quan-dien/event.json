@@ -1,0 +1,55 @@
+{
+  "eventId": "ban-hanh-chinh-sach-loc-dien-quan-dien",
+  "title": "Ban hành chính sách lộc điền và quân điền",
+  "shortTitle": "Chính sách lộc điền, quân điền",
+  "displayDate": "Năm 1477",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-tu-the-ki-x-den-xv",
+  "parentId": "cai-cach-le-thanh-tong",
+  "historicalLocations": [],
+  "provinceNames": [],
+  "canonicalSummary": "Năm 1477, ban hành chính sách lộc điền và quân điển. Chính sách lộc điền quy định: tổng diện tích cấp cho thân vương là 2 090 mẫu, trong đó 640 mẫu cấp vĩnh viễn. Chính sách quân điền quy định: mọi người từ quan tam phẩm đến cô nhị, quả phụ đều được chia ruộng công; quan tam phẩm được 11 phần, ngũ phẩm được 9,5 phần,... cô nhị, quả phụ được 3 phần; ruộng xã nào chia cho dân xã ấy; xã nào ruộng quá nhiều, người ít thì cho phép lấy bớt ruộng của xã đó chia cho xã bên cạnh ruộng ít, người nhiều; ruộng công làng xã cứ 6 năm chia lại một lần.",
+  "keyFacts": [
+    "Gồm lộc điền (cấp thân vương) và quân điền (chia ruộng công)",
+    "Ban hành năm 1477",
+    "Quân điền chia cho nhiều đối tượng, 6 năm chia lại một lần"
+  ],
+  "sourceFamily": "ancient_medieval",
+  "preferredVerificationDomains": [
+    "baotanglichsu.vn",
+    "disanvanhoa.gov.vn",
+    "bvhttdl.gov.vn",
+    "qdnd.vn",
+    "nhandan.vn",
+    "unesco.org",
+    "whc.unesco.org"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Ban hành chính sách lộc điền và quân điền",
+    "Ban hành chính sách lộc điền và quân điền Năm 1477",
+    "Ban hành chính sách lộc điền và quân điền Cuộc cải cách của Lê Thánh Tông",
+    "Ban hành chính sách lộc điền và quân điền Gồm lộc điền (cấp thân vương) và quân điền (chia ruộng công) Ban hành năm 1477",
+    "Ban hành chính sách lộc điền và quân điền hiện vật",
+    "Ban hành chính sách lộc điền và quân điền di tích"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

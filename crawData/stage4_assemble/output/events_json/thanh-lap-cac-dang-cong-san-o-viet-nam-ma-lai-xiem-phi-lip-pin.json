@@ -35,12 +35,12 @@
   },
   "chronology": {
     "start": {
-      "year": null,
+      "year": 1930,
       "month": null,
       "day": null
     },
     "end": {
-      "year": null,
+      "year": 1939,
       "month": null,
       "day": null
     },
@@ -119,7 +119,7 @@
     "parentId": null,
     "childIds": [],
     "level": 0,
-    "orderInParent": 366
+    "orderInParent": 153
   },
   "associations": {
     "relatedEventIds": [],

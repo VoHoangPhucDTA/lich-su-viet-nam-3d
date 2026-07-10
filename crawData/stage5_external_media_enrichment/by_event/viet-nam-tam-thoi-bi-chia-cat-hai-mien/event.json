@@ -1,0 +1,60 @@
+{
+  "eventId": "viet-nam-tam-thoi-bi-chia-cat-hai-mien",
+  "title": "Việt Nam tạm thời bị chia cắt làm hai miền",
+  "shortTitle": "Việt Nam tạm thời bị chia cắt làm hai miền",
+  "displayDate": "Sau Hiệp định Giơ-ne-vơ (1954)",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1954-1975",
+  "parentId": "khang-chien-chong-my-cuu-nuoc",
+  "historicalLocations": [
+    "miền Bắc",
+    "Việt Nam",
+    "miền Nam"
+  ],
+  "provinceNames": [],
+  "canonicalSummary": "Việt Nam tạm thời bị chia cắt làm hai miền: miền Bắc được hoàn toàn giải phóng, tiến lên xây dựng chủ nghĩa xã hội, miền Nam phải tiếp tục cuộc cách mạng dân tộc dân chủ nhân dân, thực hiện hoà bình, thống nhất nước nhà.",
+  "keyFacts": [
+    "Miền Bắc hoàn toàn giải phóng, xây dựng chủ nghĩa xã hội",
+    "Miền Nam tiếp tục cách mạng dân tộc dân chủ nhân dân"
+  ],
+  "sourceFamily": "war_1945_1975",
+  "preferredVerificationDomains": [
+    "btlsqsvn.org.vn",
+    "qdnd.vn",
+    "nhandan.vn",
+    "vietnamplus.vn",
+    "hochiminh.vn",
+    "baotanglichsu.vn",
+    "luutru.gov.vn",
+    "loc.gov",
+    "archives.gov"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Việt Nam tạm thời bị chia cắt làm hai miền",
+    "Việt Nam tạm thời bị chia cắt làm hai miền Sau Hiệp định Giơ-ne-vơ (1954)",
+    "Việt Nam tạm thời bị chia cắt làm hai miền miền Bắc",
+    "Việt Nam tạm thời bị chia cắt làm hai miền Miền Bắc hoàn toàn giải phóng, xây dựng chủ nghĩa xã hội Miền Nam tiếp tục cách mạng dân tộc dân chủ nhân dân",
+    "Việt Nam tạm thời bị chia cắt làm hai miền ảnh tư liệu",
+    "Việt Nam tạm thời bị chia cắt làm hai miền chiến dịch"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

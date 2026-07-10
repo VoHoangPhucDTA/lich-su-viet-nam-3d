@@ -1,0 +1,3282 @@
+{
+  "decisions": {
+    "grade_10:12122:img_01": {
+      "contentHash": "1454195c1f6b82f85b50cea12a06c9ca5bdd628d3d9239cf70fe52f064d3046b",
+      "eventId": "xay-dung-cau-long-bien",
+      "grade": 10,
+      "imageId": "grade_10:12122:img_01",
+      "lessonId": "12122",
+      "note": "existing candidate; same lesson evidence; caption/title/context token match: biên, cầu, hiện, long, lịch; specific event",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12122/img_01.png",
+      "status": "approved"
+    },
+    "grade_10:12122:img_02": {
+      "contentHash": "3633ffbbb5ecb1a697e01c84177f968542ee804a6a1f268998a9430274f89181",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12122:img_02",
+      "lessonId": "12122",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12122/img_02.png",
+      "status": "deferred"
+    },
+    "grade_10:12122:img_03": {
+      "contentHash": "8dd79533d742152dfb2319effef2417abf9afaf14d28573eeafa43d1de9cc9eb",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12122:img_03",
+      "lessonId": "12122",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12122/img_03.png",
+      "status": "deferred"
+    },
+    "grade_10:12122:img_04": {
+      "contentHash": "0478ba0841e9701cbab7cff2e15222dc1a26cf7053ab31d0c8e161b040fd421c",
+      "eventId": "ho-chi-minh-cong-bo-tuyen-ngon-doc-lap",
+      "grade": 10,
+      "imageId": "grade_10:12122:img_04",
+      "lessonId": "12122",
+      "note": "existing candidate; same lesson evidence; caption/title/context token match: 1945, bản, chí, chủ, công; specific event; chronology match",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12122/img_04.png",
+      "status": "approved"
+    },
+    "grade_10:12122:img_05": {
+      "contentHash": "5a5a3eb1ba1032395725adab062e95ccacc3b63b0548bbd8d6198cf2ac816a6a",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12122:img_05",
+      "lessonId": "12122",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12122/img_05.png",
+      "status": "deferred"
+    },
+    "grade_10:12122:img_06": {
+      "contentHash": "76dc1b3ee9e63cb6a02c620e4bcac025d602bd0f2b1e8f6182a381eb85ce2d52",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12122:img_06",
+      "lessonId": "12122",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12122/img_06.png",
+      "status": "deferred"
+    },
+    "grade_10:12122:img_07": {
+      "contentHash": "8835ab1fb745b517e5b0909a7aa5cfd6c20ede1b63ab3fc0da662cdc00513b15",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12122:img_07",
+      "lessonId": "12122",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12122/img_07.png",
+      "status": "deferred"
+    },
+    "grade_10:12122:img_08": {
+      "contentHash": "5ddf8e935a48443a10b4010828fdefabf9b7b921cce4422ddf7ab8e9f2cf250b",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12122:img_08",
+      "lessonId": "12122",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12122/img_08.png",
+      "status": "deferred"
+    },
+    "grade_10:12126:img_01": {
+      "contentHash": "72cb7a9c5d7dea0f22acfd75345a437ea59edf047542f40c09441fff92b8cabe",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12126:img_01",
+      "lessonId": "12126",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12126/img_01.png",
+      "status": "no_suitable_event"
+    },
+    "grade_10:12126:img_02": {
+      "contentHash": "dadbfd8985ed8e8cd312b8db96b2d0774d05dee5ec8b6e2b73c02b38b5c91a4c",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12126:img_02",
+      "lessonId": "12126",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12126/img_02.png",
+      "status": "no_suitable_event"
+    },
+    "grade_10:12126:img_03": {
+      "contentHash": "24b37ccbb6fbda3ac1b02abed4f3e88a5383cb2a667b4d1012af5887d5629e2a",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12126:img_03",
+      "lessonId": "12126",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12126/img_03.png",
+      "status": "deferred"
+    },
+    "grade_10:12126:img_04": {
+      "contentHash": "c247b55e48f94a52392a23c09cc3fc722d5dfca583c563f717b14fd9c7199d0d",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12126:img_04",
+      "lessonId": "12126",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12126/img_04.png",
+      "status": "deferred"
+    },
+    "grade_10:12126:img_05": {
+      "contentHash": "8ade5abc7a6ff03ac215555e0954531dc34149e55093bd93c4d2e28d5d3344b0",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12126:img_05",
+      "lessonId": "12126",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12126/img_05.png",
+      "status": "deferred"
+    },
+    "grade_10:12128:img_01": {
+      "contentHash": "91a9be7b5d22d74a52251663a95e7fa8be7ef9f88387e1a80a6dd5cf7cc678f7",
+      "eventId": "trang-an-duoc-ghi-danh-di-san-the-gioi",
+      "grade": 10,
+      "imageId": "grade_10:12128:img_01",
+      "lessonId": "12128",
+      "note": "existing candidate; same lesson evidence; caption/title/context token match: bình, danh, học, khoa, ninh; specific event",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12128/img_01.png",
+      "status": "approved"
+    },
+    "grade_10:12128:img_02": {
+      "contentHash": "f1d2eb671018dba4066141af1e4224611171c51243757c5ba535c3b30792d540",
+      "eventId": "khoi-nghia-lam-son",
+      "grade": 10,
+      "imageId": "grade_10:12128:img_02",
+      "lessonId": "12128",
+      "note": "existing candidate; same lesson evidence; caption/title/context token match: bình, chống, cuộc, các, cáo; specific event",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12128/img_02.png",
+      "status": "approved"
+    },
+    "grade_10:12128:img_03": {
+      "contentHash": "b1a549a332d6a3130368f8b04ced5f2032dd922a407eabcbe4fd1ffd6f754693",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12128:img_03",
+      "lessonId": "12128",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12128/img_03.png",
+      "status": "deferred"
+    },
+    "grade_10:12128:img_04": {
+      "contentHash": "ffecd2aa0593cc77f72d3f5f18198c9f98a98d55913971e5b69b895806917a51",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12128:img_04",
+      "lessonId": "12128",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12128/img_04.png",
+      "status": "deferred"
+    },
+    "grade_10:12128:img_05": {
+      "contentHash": "fd66056ca3092b0f8f01c0e41f0dece016fc3d5829dcafd71c41235cb7b12af7",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12128:img_05",
+      "lessonId": "12128",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12128/img_05.png",
+      "status": "deferred"
+    },
+    "grade_10:12137:img_01": {
+      "contentHash": "c185616c22708dd1727fb885342deae6ba91d114ea819b88fa4937cc7429e5f6",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12137:img_01",
+      "lessonId": "12137",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12137/img_01.png",
+      "status": "deferred"
+    },
+    "grade_10:12137:img_02": {
+      "contentHash": "2299b9b04368b13ab03720f5d60fc940d4dc912a42a34196c2890c9f479ca124",
+      "eventId": "phe-duyet-chien-luoc-phat-trien-cong-nghiep-van-hoa-viet-nam",
+      "grade": 10,
+      "imageId": "grade_10:12137:img_02",
+      "lessonId": "12137",
+      "note": "existing candidate; same lesson evidence; caption/title/context token match: hoá, hình, văn; specific event",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12137/img_02.png",
+      "status": "approved"
+    },
+    "grade_10:12137:img_03": {
+      "contentHash": "e0ff3cdbe7f5dfa0d779f8c9f9f330965c01d5385063e8aa54dd5639cc0e06ab",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12137:img_03",
+      "lessonId": "12137",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12137/img_03.png",
+      "status": "deferred"
+    },
+    "grade_10:12137:img_04": {
+      "contentHash": "d851c44a25c05877572e519001de74a1cb512ac59841cac37ea1be4067829d4c",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12137:img_04",
+      "lessonId": "12137",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12137/img_04.png",
+      "status": "deferred"
+    },
+    "grade_10:12137:img_05": {
+      "contentHash": "e915f8f511e6e4d585d2e09eb437a38118b729276220bfdd8c4b5049d0a76af1",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12137:img_05",
+      "lessonId": "12137",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12137/img_05.png",
+      "status": "deferred"
+    },
+    "grade_10:12137:img_06": {
+      "contentHash": "227068fedb81353794984989bd7566925cebf64294ca13b9a421b3694855e91a",
+      "eventId": "phe-duyet-chien-luoc-phat-trien-cong-nghiep-van-hoa-viet-nam",
+      "grade": 10,
+      "imageId": "grade_10:12137:img_06",
+      "lessonId": "12137",
+      "note": "existing candidate; same lesson evidence; caption/title/context token match: biểu, diễn, hình; specific event",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12137/img_06.png",
+      "status": "approved"
+    },
+    "grade_10:12137:img_07": {
+      "contentHash": "af2cbe3dca30be879ed9f9b5d564508506fffa367694dbb71669440e62d76823",
+      "eventId": "phe-duyet-chien-luoc-phat-trien-cong-nghiep-van-hoa-viet-nam",
+      "grade": 10,
+      "imageId": "grade_10:12137:img_07",
+      "lessonId": "12137",
+      "note": "existing candidate; same lesson evidence; specific event",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12137/img_07.png",
+      "status": "approved"
+    },
+    "grade_10:12137:img_08": {
+      "contentHash": "06c4a435ff3ed08059e0831d183923311bbe817c2576a7c91c3340a030164b99",
+      "eventId": "phe-duyet-chien-luoc-phat-trien-cong-nghiep-van-hoa-viet-nam",
+      "grade": 10,
+      "imageId": "grade_10:12137:img_08",
+      "lessonId": "12137",
+      "note": "existing candidate; same lesson evidence; specific event",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12137/img_08.png",
+      "status": "approved"
+    },
+    "grade_10:12138:img_01": {
+      "contentHash": "cd7192e7bb69a2dfb9e495392e8e300e30d0c7f5ba2d6d85012b306ccac3c24c",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12138:img_01",
+      "lessonId": "12138",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12138/img_01.png",
+      "status": "deferred"
+    },
+    "grade_10:12138:img_02": {
+      "contentHash": "396f4ed93504f71d40645b45c9d25f09f6278c484db5f081354f168b6f28a943",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12138:img_02",
+      "lessonId": "12138",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12138/img_02.png",
+      "status": "deferred"
+    },
+    "grade_10:12138:img_03": {
+      "contentHash": "bb61f311650fdcac407fa0b021c1727cf84352ca7e05e1926518f493dc2fd3f2",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12138:img_03",
+      "lessonId": "12138",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12138/img_03.png",
+      "status": "deferred"
+    },
+    "grade_10:12138:img_04": {
+      "contentHash": "4d6b38b5b4bb6c3fbbc01926c44af962b52a3b788ce98695c3471d32572bed55",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12138:img_04",
+      "lessonId": "12138",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12138/img_04.png",
+      "status": "no_suitable_event"
+    },
+    "grade_10:12138:img_05": {
+      "contentHash": "9333a16f3f13ccaef887d345c5d1eb655036d5e31a65a711444a164ec21beacf",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12138:img_05",
+      "lessonId": "12138",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12138/img_05.png",
+      "status": "no_suitable_event"
+    },
+    "grade_10:12138:img_06": {
+      "contentHash": "f94719cd2b5958f510504823272464703b56c0a92611d853d9060bab09add4d8",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12138:img_06",
+      "lessonId": "12138",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12138/img_06.png",
+      "status": "no_suitable_event"
+    },
+    "grade_10:12138:img_07": {
+      "contentHash": "0c69a35ef2d7c7e27119d8f3137b1bd98fea70d71f9f697077176f53c8673653",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12138:img_07",
+      "lessonId": "12138",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12138/img_07.png",
+      "status": "no_suitable_event"
+    },
+    "grade_10:12138:img_08": {
+      "contentHash": "35f9fc1d8f6f1ece306249888079868ca58dc8db20604d2f47542140147a9e60",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12138:img_08",
+      "lessonId": "12138",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12138/img_08.png",
+      "status": "no_suitable_event"
+    },
+    "grade_10:12138:img_09": {
+      "contentHash": "660227148869fd769d4f3248fec9f8f78047cbb7039b9d58cb98c53246aa8a43",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12138:img_09",
+      "lessonId": "12138",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12138/img_09.png",
+      "status": "no_suitable_event"
+    },
+    "grade_10:12138:img_10": {
+      "contentHash": "cc6366ba664ab944a1e17a9d82f1b3fa196a1d9aa9486c4012f13011f0fe8297",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12138:img_10",
+      "lessonId": "12138",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12138/img_10.png",
+      "status": "no_suitable_event"
+    },
+    "grade_10:12138:img_11": {
+      "contentHash": "66294d97c898e2776a605455936140828e768ca1c25847b8bd72087d69faa35b",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12138:img_11",
+      "lessonId": "12138",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12138/img_11.png",
+      "status": "no_suitable_event"
+    },
+    "grade_10:12138:img_12": {
+      "contentHash": "62c308d4e1a350e9da9c814d1e20d03a60aafefc6e4aae84103e8a950692477c",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12138:img_12",
+      "lessonId": "12138",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12138/img_12.png",
+      "status": "no_suitable_event"
+    },
+    "grade_10:12141:img_01": {
+      "contentHash": "7ca58f7851eb6db646d160243416f6b465355d99abce234f3b7020f0535312d6",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12141:img_01",
+      "lessonId": "12141",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12141/img_01.png",
+      "status": "no_suitable_event"
+    },
+    "grade_10:12141:img_02": {
+      "contentHash": "89d7f613556d5c1ee4b0c0ae34e6b82a7e38e2f13655531937ef2ba21f966fd7",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12141:img_02",
+      "lessonId": "12141",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12141/img_02.png",
+      "status": "no_suitable_event"
+    },
+    "grade_10:12141:img_03": {
+      "contentHash": "1dd30a22e6f3d3790f571f6e94370f7c6100872dfb0af837ba1cbe9142699850",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12141:img_03",
+      "lessonId": "12141",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12141/img_03.png",
+      "status": "no_suitable_event"
+    },
+    "grade_10:12141:img_04": {
+      "contentHash": "3ae40927ab1809681164c67eb2ed1bf9e4f46b86d405802c446670f04f478ca3",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12141:img_04",
+      "lessonId": "12141",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12141/img_04.png",
+      "status": "no_suitable_event"
+    },
+    "grade_10:12141:img_05": {
+      "contentHash": "f27f74c7d0fe32c812f1a3f8de3bcee5a4b6b62b135ad2f396a09b20547e09fb",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12141:img_05",
+      "lessonId": "12141",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12141/img_05.png",
+      "status": "no_suitable_event"
+    },
+    "grade_10:12141:img_06": {
+      "contentHash": "403d6ba65d5c57c65a8b55e2c8789ed2b7992876d23d35f2705f7549bceab33a",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12141:img_06",
+      "lessonId": "12141",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12141/img_06.png",
+      "status": "no_suitable_event"
+    },
+    "grade_10:12141:img_07": {
+      "contentHash": "037bbc3b69781692e7e50d71bb6d25fd5549464766f19ab7b4f7efd2955ce151",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12141:img_07",
+      "lessonId": "12141",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12141/img_07.png",
+      "status": "no_suitable_event"
+    },
+    "grade_10:12141:img_08": {
+      "contentHash": "8f5cc0ee4a3b5f5bc070d8c2adf6601f2a5d4ab6a60b80a46be2ac8b75de7bbb",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12141:img_08",
+      "lessonId": "12141",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12141/img_08.png",
+      "status": "no_suitable_event"
+    },
+    "grade_10:12141:img_09": {
+      "contentHash": "82a25ad535bcdb363bcbd404755411994fb65b52cac01e2827aebebfd2869845",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12141:img_09",
+      "lessonId": "12141",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12141/img_09.png",
+      "status": "no_suitable_event"
+    },
+    "grade_10:12141:img_10": {
+      "contentHash": "b9a30d21c1754e13a51783a43913636142187b6ee69ab4289ed5b5ec68d75d5a",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12141:img_10",
+      "lessonId": "12141",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12141/img_10.png",
+      "status": "no_suitable_event"
+    },
+    "grade_10:12141:img_11": {
+      "contentHash": "3f74764ecf266c800ce633a712587c023a296aaa3f954c5fb5d46728ba8a1919",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12141:img_11",
+      "lessonId": "12141",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12141/img_11.png",
+      "status": "no_suitable_event"
+    },
+    "grade_10:12143:img_01": {
+      "contentHash": "940cece4b0beff598829822c03e554e6ed57371f4c8afaa27d09073554c38c0b",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12143:img_01",
+      "lessonId": "12143",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12143/img_01.png",
+      "status": "no_suitable_event"
+    },
+    "grade_10:12143:img_02": {
+      "contentHash": "39bf6c43506c0fed6e4ae56f0b57b58758588d459d9640cc4cd1ab7e6204f76e",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12143:img_02",
+      "lessonId": "12143",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12143/img_02.png",
+      "status": "no_suitable_event"
+    },
+    "grade_10:12143:img_03": {
+      "contentHash": "dac8f6e5eeb0c93dc4fb86ff89224a124402c13c5da953d8c749ff2afae4a5ed",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12143:img_03",
+      "lessonId": "12143",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12143/img_03.png",
+      "status": "no_suitable_event"
+    },
+    "grade_10:12143:img_04": {
+      "contentHash": "b9ad8ddef6f53d124d8441614ebb3ac4c7dcbd12959e65ce837b15b2f495a4cd",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12143:img_04",
+      "lessonId": "12143",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12143/img_04.png",
+      "status": "no_suitable_event"
+    },
+    "grade_10:12143:img_05": {
+      "contentHash": "e14179c93319acad6c1a483cd632169f31c82ed86a7c9c3f2781632cc00759a0",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12143:img_05",
+      "lessonId": "12143",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12143/img_05.png",
+      "status": "no_suitable_event"
+    },
+    "grade_10:12143:img_06": {
+      "contentHash": "a80cbbd51a674bb8b07d1c0c090e6873cce2a1f3f05a113b4dc9a7ba3f025a0c",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12143:img_06",
+      "lessonId": "12143",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12143/img_06.png",
+      "status": "no_suitable_event"
+    },
+    "grade_10:12143:img_07": {
+      "contentHash": "fd5bc3536a452166a58e2acb6bf3165c6d359224d36ece11b262cdc58f88e83f",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12143:img_07",
+      "lessonId": "12143",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12143/img_07.png",
+      "status": "no_suitable_event"
+    },
+    "grade_10:12143:img_08": {
+      "contentHash": "5b1a42fbef46248c60db4ee2ef9f8f7f3dab73ba3f4b00bf1bfb44d505fb810e",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12143:img_08",
+      "lessonId": "12143",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12143/img_08.png",
+      "status": "no_suitable_event"
+    },
+    "grade_10:12143:img_09": {
+      "contentHash": "0c1e6467a92a6c9abaf62499fa73b40274f6ada16da70215e5fa57426c75be2b",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12143:img_09",
+      "lessonId": "12143",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12143/img_09.png",
+      "status": "no_suitable_event"
+    },
+    "grade_10:12143:img_10": {
+      "contentHash": "492ebef723eecb8cd7f1ebb03b1ad93dd90b9a0ae2f876fdc6ed7a3e3b56c5a8",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12143:img_10",
+      "lessonId": "12143",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12143/img_10.png",
+      "status": "no_suitable_event"
+    },
+    "grade_10:12143:img_11": {
+      "contentHash": "1b7c3d15f96d4f38cde03acb72905a533001cc047a51fe3742602ed564e1eb2d",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12143:img_11",
+      "lessonId": "12143",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12143/img_11.png",
+      "status": "no_suitable_event"
+    },
+    "grade_10:12143:img_12": {
+      "contentHash": "3323284079e4516abb9caac5ef0869492696dc4cba09abf01789ab318c9addd9",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12143:img_12",
+      "lessonId": "12143",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12143/img_12.png",
+      "status": "no_suitable_event"
+    },
+    "grade_10:12143:img_13": {
+      "contentHash": "41a653330c740309821676d62219a4ddb5ea61cc0c9ce84d64f916b04345c238",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12143:img_13",
+      "lessonId": "12143",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12143/img_13.png",
+      "status": "no_suitable_event"
+    },
+    "grade_10:12143:img_14": {
+      "contentHash": "fc88096c9e15955e6d061051fd72eaa788211c26e8f86e058e268ac9b8355b48",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12143:img_14",
+      "lessonId": "12143",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12143/img_14.png",
+      "status": "no_suitable_event"
+    },
+    "grade_10:12143:img_15": {
+      "contentHash": "ea43d0ff90c93981d3ccef46f2e830b9ffc8984357192e91cb43933be9112bf5",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12143:img_15",
+      "lessonId": "12143",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12143/img_15.png",
+      "status": "no_suitable_event"
+    },
+    "grade_10:12145:img_01": {
+      "contentHash": "358c8ce16143ce42c0fd6ab3d0b0ab4e8eae876ac23ff4014088b4701f7ff76d",
+      "eventId": "ro-bot-xophia-duoc-cap-quyen-cong-dan",
+      "grade": 10,
+      "imageId": "grade_10:12145:img_01",
+      "lessonId": "12145",
+      "note": "existing candidate; same lesson evidence; caption/title/context token match: cách, công, hiện, mạng, nghiệp; specific event",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12145/img_01.png",
+      "status": "approved"
+    },
+    "grade_10:12145:img_02": {
+      "contentHash": "5d36d56b2482ae7f79c103a76d281c032b13c131a4e3c35e504e7fdd3e5db46f",
+      "eventId": "ro-bot-xophia-duoc-cap-quyen-cong-dan",
+      "grade": 10,
+      "imageId": "grade_10:12145:img_02",
+      "lessonId": "12145",
+      "note": "existing candidate; same lesson evidence; caption/title/context token match: cách, công, hiện, hình, mạng; specific event",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12145/img_02.png",
+      "status": "approved"
+    },
+    "grade_10:12145:img_03": {
+      "contentHash": "dc7d1d9b5403786c5da81249a1447218befad34a397f0e89127a5126503a5c1c",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12145:img_03",
+      "lessonId": "12145",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12145/img_03.png",
+      "status": "no_suitable_event"
+    },
+    "grade_10:12145:img_04": {
+      "contentHash": "7856679ce4e1c6850ee9bc08f23a2606cac19e6213ae1896e26d81541451b427",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12145:img_04",
+      "lessonId": "12145",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12145/img_04.png",
+      "status": "no_suitable_event"
+    },
+    "grade_10:12145:img_05": {
+      "contentHash": "c9bd0b0fac2b9528e386edc7826df84ba0c8a74f99fc291d5aa3c9ce51b575f5",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12145:img_05",
+      "lessonId": "12145",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12145/img_05.png",
+      "status": "no_suitable_event"
+    },
+    "grade_10:12145:img_06": {
+      "contentHash": "b3f082a6d1d8834b9a6d00e3945ef974c355f7f22ecafacb1e16da33d5f376d2",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12145:img_06",
+      "lessonId": "12145",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12145/img_06.png",
+      "status": "no_suitable_event"
+    },
+    "grade_10:12145:img_07": {
+      "contentHash": "27371147860d00da903b4720e9d6bb4fb2af8a2fb26d5ec5113f3331d8ae6c1c",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12145:img_07",
+      "lessonId": "12145",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12145/img_07.png",
+      "status": "no_suitable_event"
+    },
+    "grade_10:12145:img_08": {
+      "contentHash": "9fbdad2e42942f0673f6fc396b7ef83d72176f1158c466a57f7fbf120fe0b01a",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12145:img_08",
+      "lessonId": "12145",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12145/img_08.png",
+      "status": "no_suitable_event"
+    },
+    "grade_10:12145:img_09": {
+      "contentHash": "56c690f34b7717a5b4b47c5d5a227b06318f7b2f12a9b17c182893d17e719034",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12145:img_09",
+      "lessonId": "12145",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12145/img_09.png",
+      "status": "no_suitable_event"
+    },
+    "grade_10:12145:img_10": {
+      "contentHash": "410759681364db1e09312f84e1a640687f05a0be954a888506082e19291c908b",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12145:img_10",
+      "lessonId": "12145",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12145/img_10.png",
+      "status": "no_suitable_event"
+    },
+    "grade_10:12145:img_11": {
+      "contentHash": "986bfdf08949397dd97e620c0b26bff0513214d52801d15b41e68afc3e7e46c4",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12145:img_11",
+      "lessonId": "12145",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12145/img_11.png",
+      "status": "no_suitable_event"
+    },
+    "grade_10:12145:img_12": {
+      "contentHash": "098e7327d86f5ef32a0ebd867a81ebb271a5539398adaff8cb5fb381ee41e850",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12145:img_12",
+      "lessonId": "12145",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12145/img_12.png",
+      "status": "no_suitable_event"
+    },
+    "grade_10:12146:img_01": {
+      "contentHash": "abd75eca9d45ffc8cc1568ae787344b1e1e4464d0e8d932ce7aa58e0fefb8f96",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12146:img_01",
+      "lessonId": "12146",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12146/img_01.png",
+      "status": "no_suitable_event"
+    },
+    "grade_10:12146:img_02": {
+      "contentHash": "6041ad467db4933d8939f14f567ffd1c2f2ee762048390b30546141b63eb4680",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12146:img_02",
+      "lessonId": "12146",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12146/img_02.png",
+      "status": "no_suitable_event"
+    },
+    "grade_10:12146:img_03": {
+      "contentHash": "9190527690f5e6f3cb07b632be3ea34e00635b0e75c636e0752ec5cedf8f16b2",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12146:img_03",
+      "lessonId": "12146",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12146/img_03.png",
+      "status": "no_suitable_event"
+    },
+    "grade_10:12146:img_04": {
+      "contentHash": "396fb86fa7bac6ae15b849c27d237849c68700f198d91239518468fc3c7b4b49",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12146:img_04",
+      "lessonId": "12146",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12146/img_04.png",
+      "status": "no_suitable_event"
+    },
+    "grade_10:12146:img_05": {
+      "contentHash": "124ec16510155f564ec7241c5f57dd4f20192c53b4a02d28551df837ec871337",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12146:img_05",
+      "lessonId": "12146",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12146/img_05.png",
+      "status": "no_suitable_event"
+    },
+    "grade_10:12146:img_06": {
+      "contentHash": "85e7221b276827d7ceb70f5eb6bd02e2f7f3f74e36720062fe901ad3d3e71311",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12146:img_06",
+      "lessonId": "12146",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12146/img_06.png",
+      "status": "no_suitable_event"
+    },
+    "grade_10:12146:img_07": {
+      "contentHash": "99d17456708f33d315710caec6bbe9972fa46ab9ae6099e37ec44806f93342d3",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12146:img_07",
+      "lessonId": "12146",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12146/img_07.png",
+      "status": "no_suitable_event"
+    },
+    "grade_10:12146:img_08": {
+      "contentHash": "ae15a8ab8f2f2da2978bcbd11eeb90fe061a6ca46e4a27c9d5b5f804cdbc940b",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12146:img_08",
+      "lessonId": "12146",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12146/img_08.png",
+      "status": "no_suitable_event"
+    },
+    "grade_10:12146:img_09": {
+      "contentHash": "2838e1e481a74de963200927fe6de623b9f5d53168a3360036a7cea8a854112d",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12146:img_09",
+      "lessonId": "12146",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12146/img_09.png",
+      "status": "no_suitable_event"
+    },
+    "grade_10:12146:img_10": {
+      "contentHash": "2d71be30b17c25575728ce16dc42d8b6c752f1790da08b261402b7ba31a1948b",
+      "eventId": "nha-ly-xay-dung-van-mieu",
+      "grade": 10,
+      "imageId": "grade_10:12146:img_10",
+      "lessonId": "12146",
+      "note": "existing candidate; same lesson evidence; caption/title/context token match: miếu, nam, việt, văn; specific event",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12146/img_10.png",
+      "status": "approved"
+    },
+    "grade_10:12146:img_11": {
+      "contentHash": "d8b7c664583be6f0801376517eee564297159531bc52fba9cf612372ad2e4383",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12146:img_11",
+      "lessonId": "12146",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12146/img_11.png",
+      "status": "no_suitable_event"
+    },
+    "grade_10:12146:img_12": {
+      "contentHash": "d223ceb772a35501f60a30e71070184098ec29e9aa00e241cadbe9568dc4dc17",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12146:img_12",
+      "lessonId": "12146",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12146/img_12.png",
+      "status": "no_suitable_event"
+    },
+    "grade_10:12147:img_01": {
+      "contentHash": "34e23485db721d4a6485772900251e45db1a6128dfe6c40f1749ed6f25fc4abf",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12147:img_01",
+      "lessonId": "12147",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12147/img_01.png",
+      "status": "no_suitable_event"
+    },
+    "grade_10:12147:img_02": {
+      "contentHash": "56185131851ca73c44a379106fed180230659ae8902f7bd0390441c9ac3211e9",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12147:img_02",
+      "lessonId": "12147",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12147/img_02.png",
+      "status": "no_suitable_event"
+    },
+    "grade_10:12147:img_03": {
+      "contentHash": "0bbf9f48ef61bb73c0fd4b0bc5af8793daef4fca3c62e6f1b24e5fb243846245",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12147:img_03",
+      "lessonId": "12147",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12147/img_03.png",
+      "status": "no_suitable_event"
+    },
+    "grade_10:12147:img_04": {
+      "contentHash": "3eac57d4840f322f4204b20a291a9ffe01856cadb4a0a6bcd0c303737438ed71",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12147:img_04",
+      "lessonId": "12147",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12147/img_04.png",
+      "status": "no_suitable_event"
+    },
+    "grade_10:12147:img_05": {
+      "contentHash": "0351685ea5985e548e13281055c33e94343623d0eacdcd37d4de4c4a9b726ee2",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12147:img_05",
+      "lessonId": "12147",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12147/img_05.png",
+      "status": "no_suitable_event"
+    },
+    "grade_10:12147:img_06": {
+      "contentHash": "cd5ff250440aa33fdd3dfb03568809ad9b48827fa9626db19285f4eb5a78cbac",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12147:img_06",
+      "lessonId": "12147",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12147/img_06.png",
+      "status": "no_suitable_event"
+    },
+    "grade_10:12147:img_07": {
+      "contentHash": "28ebd2ccfa30a689c3dc97ba41cb533a14c707a9183a378ae5c77e6b10f8b139",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12147:img_07",
+      "lessonId": "12147",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12147/img_07.png",
+      "status": "no_suitable_event"
+    },
+    "grade_10:12147:img_08": {
+      "contentHash": "1c95e897ec1dd5763480e0aea38d9ece6a0b1ef5096cbf36a56a629ea19e999f",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12147:img_08",
+      "lessonId": "12147",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12147/img_08.png",
+      "status": "no_suitable_event"
+    },
+    "grade_10:12147:img_09": {
+      "contentHash": "caa8f783652fbc6f600a9ba02486448dd587c5468e4c58470b11d82860c8cf83",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12147:img_09",
+      "lessonId": "12147",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12147/img_09.png",
+      "status": "no_suitable_event"
+    },
+    "grade_10:12147:img_10": {
+      "contentHash": "baa67ee732a2b34a0cc484617f77eb75df2daa3f1876cd183685993763acac24",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12147:img_10",
+      "lessonId": "12147",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12147/img_10.png",
+      "status": "no_suitable_event"
+    },
+    "grade_10:12147:img_11": {
+      "contentHash": "973a22d6bb2a56d19d390ce9072813a7887b021ddd318a72b1e51cddba3c5296",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12147:img_11",
+      "lessonId": "12147",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12147/img_11.png",
+      "status": "no_suitable_event"
+    },
+    "grade_10:12148:img_01": {
+      "contentHash": "699d67cc37cc1c61c971531f00eb2e91ba6e5fcb6a2b241c02e6fd4cc8ff659b",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12148:img_01",
+      "lessonId": "12148",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12148/img_01.png",
+      "status": "no_suitable_event"
+    },
+    "grade_10:12148:img_02": {
+      "contentHash": "3176d6667867997071eccdb6a61b2d127d6b9e5c8f5f92b6920880385c3d73b3",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12148:img_02",
+      "lessonId": "12148",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12148/img_02.png",
+      "status": "no_suitable_event"
+    },
+    "grade_10:12148:img_03": {
+      "contentHash": "7e362e0784378bed0ea8924da2030fc8d1e7803d758812d2818624f8a04a2dbd",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12148:img_03",
+      "lessonId": "12148",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12148/img_03.png",
+      "status": "no_suitable_event"
+    },
+    "grade_10:12148:img_04": {
+      "contentHash": "11983fd5fc335623ad3fa4ca8bb26bbc73819a9981c1e43fde56c75677c7709e",
+      "eventId": "hinh-thanh-phat-trien-van-minh-van-lang-au-lac",
+      "grade": 10,
+      "imageId": "grade_10:12148:img_04",
+      "lessonId": "12148",
+      "note": "existing candidate; same lesson evidence; caption/title/context token match: hình, hồng, minh, nam, nước; specific event",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12148/img_04.png",
+      "status": "approved"
+    },
+    "grade_10:12148:img_05": {
+      "contentHash": "0c2d1c3765067dd920cb75aae2894b061257f0d67d2cf82dd835572ed913c232",
+      "eventId": "hinh-thanh-phat-trien-van-minh-van-lang-au-lac",
+      "grade": 10,
+      "imageId": "grade_10:12148:img_05",
+      "lessonId": "12148",
+      "note": "existing candidate; same lesson evidence; caption/title/context token match: hình, lang, minh, nam, nhà; specific event",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12148/img_05.png",
+      "status": "approved"
+    },
+    "grade_10:12148:img_06": {
+      "contentHash": "c6362e1e3027ba62d85a2a0967c5f6909f1f5db63d5024418079a39ecebfd6e1",
+      "eventId": "hinh-thanh-phat-trien-van-minh-van-lang-au-lac",
+      "grade": 10,
+      "imageId": "grade_10:12148:img_06",
+      "lessonId": "12148",
+      "note": "existing candidate; same lesson evidence; caption/title/context token match: hình, minh, nam, nước, trên; specific event",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12148/img_06.png",
+      "status": "approved"
+    },
+    "grade_10:12148:img_07": {
+      "contentHash": "b7d6a44510a820205cf74db880182bbb2b71f4ab0e4b632dfe9ad1fb493a893c",
+      "eventId": "hinh-thanh-phat-trien-van-minh-van-lang-au-lac",
+      "grade": 10,
+      "imageId": "grade_10:12148:img_07",
+      "lessonId": "12148",
+      "note": "existing candidate; same lesson evidence; caption/title/context token match: hình, minh, nam, nước, trên; specific event",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12148/img_07.png",
+      "status": "approved"
+    },
+    "grade_10:12148:img_08": {
+      "contentHash": "706cff1e85ba66496c13278195694feff649d9622f525c86dcc33738b6600304",
+      "eventId": "hinh-thanh-phat-trien-van-minh-van-lang-au-lac",
+      "grade": 10,
+      "imageId": "grade_10:12148:img_08",
+      "lessonId": "12148",
+      "note": "existing candidate; same lesson evidence; caption/title/context token match: hình, minh, nam, nước, trên; specific event",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12148/img_08.png",
+      "status": "approved"
+    },
+    "grade_10:12148:img_09": {
+      "contentHash": "ad991d5e9c94738232379ea7f913feef1f97a0e47599065f9b536cb52aa3270e",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12148:img_09",
+      "lessonId": "12148",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12148/img_09.png",
+      "status": "no_suitable_event"
+    },
+    "grade_10:12148:img_10": {
+      "contentHash": "e5f20c125ed4b1822fd7abdea2c74a2d13220300e809aaf952385fee3d4bb8fc",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12148:img_10",
+      "lessonId": "12148",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12148/img_10.png",
+      "status": "no_suitable_event"
+    },
+    "grade_10:12148:img_11": {
+      "contentHash": "1620c00a989a951d3568498c5338f9c76c0b9a5dd4bc98f346c1bbd3b7c3f68f",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12148:img_11",
+      "lessonId": "12148",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12148/img_11.png",
+      "status": "no_suitable_event"
+    },
+    "grade_10:12148:img_12": {
+      "contentHash": "f10fc24949bfb24b6cb81fce98d95b514f3cc0e43f4d7c4c57d0b425a2e48d72",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12148:img_12",
+      "lessonId": "12148",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12148/img_12.png",
+      "status": "no_suitable_event"
+    },
+    "grade_10:12148:img_13": {
+      "contentHash": "3d09aecddb4392fbaca2592cb7770d1cb8a4211d4ab7d2f6caef75ab0aad19dd",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12148:img_13",
+      "lessonId": "12148",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12148/img_13.png",
+      "status": "no_suitable_event"
+    },
+    "grade_10:12148:img_14": {
+      "contentHash": "638a75430df03aea1c55abcf946939060d1868e9c356d62d989eb8b70781e7b4",
+      "eventId": "hinh-thanh-phat-trien-van-minh-cham-pa",
+      "grade": 10,
+      "imageId": "grade_10:12148:img_14",
+      "lessonId": "12148",
+      "note": "existing candidate; same lesson evidence; caption/title/context token match: hình, minh, một, nam, nước; specific event",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12148/img_14.png",
+      "status": "approved"
+    },
+    "grade_10:12148:img_15": {
+      "contentHash": "074588af032aad809ff474e56c5b9153073c8adf800c8f428f5ef9e5ae4d14b8",
+      "eventId": "hinh-thanh-phat-trien-van-minh-cham-pa",
+      "grade": 10,
+      "imageId": "grade_10:12148:img_15",
+      "lessonId": "12148",
+      "note": "existing candidate; same lesson evidence; caption/title/context token match: chăm, chức, giáo, hình, minh; specific event",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12148/img_15.png",
+      "status": "approved"
+    },
+    "grade_10:12148:img_16": {
+      "contentHash": "8efa51bd74fa658ec48a1766f9cc02abd272a55a3d924cd27ea75ead561c0f1d",
+      "eventId": "hinh-thanh-phat-trien-van-minh-cham-pa",
+      "grade": 10,
+      "imageId": "grade_10:12148:img_16",
+      "lessonId": "12148",
+      "note": "existing candidate; same lesson evidence; caption/title/context token match: hình, minh, một, nam, nước; specific event",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12148/img_16.png",
+      "status": "approved"
+    },
+    "grade_10:12148:img_17": {
+      "contentHash": "6a9f185e36c811850ca93d0f52d8e47a1c2844fc148c739dd1af9abf6b2c6ee2",
+      "eventId": "hinh-thanh-phat-trien-van-minh-cham-pa",
+      "grade": 10,
+      "imageId": "grade_10:12148:img_17",
+      "lessonId": "12148",
+      "note": "existing candidate; same lesson evidence; caption/title/context token match: hình, minh, một, nam, nước; specific event",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12148/img_17.png",
+      "status": "approved"
+    },
+    "grade_10:12148:img_18": {
+      "contentHash": "4c070297f41cacd13450d945efd1d77efdf5a454e31fb6c4f2dd1aa0714d7040",
+      "eventId": "hinh-thanh-phat-trien-van-minh-cham-pa",
+      "grade": 10,
+      "imageId": "grade_10:12148:img_18",
+      "lessonId": "12148",
+      "note": "existing candidate; same lesson evidence; caption/title/context token match: hình, minh, một, nam, nước; specific event",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12148/img_18.png",
+      "status": "approved"
+    },
+    "grade_10:12148:img_19": {
+      "contentHash": "cdaf6bfa8a797087e8bb5e27bc50ca22364e91c7477c395446a0354be9701ebf",
+      "eventId": "hinh-thanh-phat-trien-van-minh-cham-pa",
+      "grade": 10,
+      "imageId": "grade_10:12148:img_19",
+      "lessonId": "12148",
+      "note": "existing candidate; same lesson evidence; caption/title/context token match: hình, minh, một, nam, nước; specific event",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12148/img_19.png",
+      "status": "approved"
+    },
+    "grade_10:12148:img_20": {
+      "contentHash": "ab3a8993950ba64183db9c8bbb1f099b7f25abf32e932d78cb8844c068da1f00",
+      "eventId": "van-hoa-tien-oc-eo",
+      "grade": 10,
+      "imageId": "grade_10:12148:img_20",
+      "lessonId": "12148",
+      "note": "existing candidate; same lesson evidence; caption/title/context token match: của, hoá, hình, minh, một; specific event",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12148/img_20.png",
+      "status": "approved"
+    },
+    "grade_10:12148:img_21": {
+      "contentHash": "e180a0ccfa0222965c555cc7755b116d59d121a5e3c484db408374c5459c04b2",
+      "eventId": "van-hoa-tien-oc-eo",
+      "grade": 10,
+      "imageId": "grade_10:12148:img_21",
+      "lessonId": "12148",
+      "note": "existing candidate; same lesson evidence; caption/title/context token match: hình, minh, một, nam, nước; specific event",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12148/img_21.png",
+      "status": "approved"
+    },
+    "grade_10:12148:img_22": {
+      "contentHash": "19ffe052ca7f9eb69f66170be008a9b993d995bbf862f5ef3e6353cca9b45b55",
+      "eventId": "hinh-thanh-phat-trien-van-minh-phu-nam",
+      "grade": 10,
+      "imageId": "grade_10:12148:img_22",
+      "lessonId": "12148",
+      "note": "existing candidate; same lesson evidence; caption/title/context token match: hình, minh, nam, nước, tiền; specific event",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12148/img_22.png",
+      "status": "approved"
+    },
+    "grade_10:12148:img_23": {
+      "contentHash": "cf4d842b1b7f0b573474cbe567bf64a5b48f40ade0325fe0a96fa564ad7ca05f",
+      "eventId": "hinh-thanh-phat-trien-van-minh-phu-nam",
+      "grade": 10,
+      "imageId": "grade_10:12148:img_23",
+      "lessonId": "12148",
+      "note": "existing candidate; same lesson evidence; caption/title/context token match: của, hình, minh, nam, nước; specific event",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12148/img_23.png",
+      "status": "approved"
+    },
+    "grade_10:12148:img_24": {
+      "contentHash": "411f86f8c1f261e0932d33a88383d76b6d27c9041463f420de9998c2ac301ad6",
+      "eventId": "hinh-thanh-phat-trien-van-minh-cham-pa",
+      "grade": 10,
+      "imageId": "grade_10:12148:img_24",
+      "lessonId": "12148",
+      "note": "existing candidate; same lesson evidence; caption/title/context token match: minh, một, nam, nước, nền; specific event",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12148/img_24.png",
+      "status": "approved"
+    },
+    "grade_10:12160:img_01": {
+      "contentHash": "da81929ffb01d605f3bcc74307aba5c6d147cee595dad69e299b8d9249e2fb13",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12160:img_01",
+      "lessonId": "12160",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12160/img_01.png",
+      "status": "no_suitable_event"
+    },
+    "grade_10:12160:img_02": {
+      "contentHash": "f7373ed36a1ff74f3fc1da6abc46b5aad017f1fd5a122de2f69ab459b11c67c1",
+      "eventId": "nha-le-so-thanh-lap",
+      "grade": 10,
+      "imageId": "grade_10:12160:img_02",
+      "lessonId": "12160",
+      "note": "existing candidate; same lesson evidence; caption/title/context token match: nhà, việt, đại; specific event",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12160/img_02.png",
+      "status": "approved"
+    },
+    "grade_10:12160:img_03": {
+      "contentHash": "196f02786434fdb9864dabff3faaa9e7fdce63a0bf7b394d738452f5dadbc307",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12160:img_03",
+      "lessonId": "12160",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12160/img_03.png",
+      "status": "no_suitable_event"
+    },
+    "grade_10:12160:img_04": {
+      "contentHash": "44c87c4d24c7e7ffffc9c9d7fb2f5b7e7b61e2278c8046d20c9f7da88dc8bcb3",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12160:img_04",
+      "lessonId": "12160",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12160/img_04.png",
+      "status": "no_suitable_event"
+    },
+    "grade_10:12160:img_05": {
+      "contentHash": "6cad5299030a7fa2cf8b466e1fa28f8c6b086dcf95081f5a408a2368a4db6fb9",
+      "eventId": "nha-le-so-thanh-lap",
+      "grade": 10,
+      "imageId": "grade_10:12160:img_05",
+      "lessonId": "12160",
+      "note": "existing candidate; same lesson evidence; caption/title/context token match: việt, đại; specific event",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12160/img_05.png",
+      "status": "approved"
+    },
+    "grade_10:12160:img_06": {
+      "contentHash": "8031432b0b78384de028e8dde2fd381db3811f36930febecf52960227c3061cd",
+      "eventId": "nha-le-so-thanh-lap",
+      "grade": 10,
+      "imageId": "grade_10:12160:img_06",
+      "lessonId": "12160",
+      "note": "existing candidate; same lesson evidence; caption/title/context token match: việt, đại; specific event",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12160/img_06.png",
+      "status": "approved"
+    },
+    "grade_10:12160:img_07": {
+      "contentHash": "f2159a90de6204ff48fae9c20f6b0d99aa26f7b8c387782ad34a063f13feb0d0",
+      "eventId": "nha-le-so-thanh-lap",
+      "grade": 10,
+      "imageId": "grade_10:12160:img_07",
+      "lessonId": "12160",
+      "note": "existing candidate; same lesson evidence; caption/title/context token match: việt, đại; specific event",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12160/img_07.png",
+      "status": "approved"
+    },
+    "grade_10:12160:img_08": {
+      "contentHash": "c8d5628687a546af0442a7ceb3461eb2377f90966dede7c30e5d1b6ce8027a93",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12160:img_08",
+      "lessonId": "12160",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12160/img_08.png",
+      "status": "no_suitable_event"
+    },
+    "grade_10:12160:img_09": {
+      "contentHash": "42d9a56bdef7162a2ee50e266ed723f36eb477630a1270c7a0db061ec2025c58",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12160:img_09",
+      "lessonId": "12160",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12160/img_09.png",
+      "status": "no_suitable_event"
+    },
+    "grade_10:12160:img_10": {
+      "contentHash": "b8ad6624a1b018b453a2538f8171fdc9872c59771c863796eca45d489f3183e2",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12160:img_10",
+      "lessonId": "12160",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12160/img_10.png",
+      "status": "no_suitable_event"
+    },
+    "grade_10:12160:img_11": {
+      "contentHash": "c7920c21cc6c35bacf747b5d4f6f16c00b35a6b1f347d3fd2c9d3cc29370d394",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12160:img_11",
+      "lessonId": "12160",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12160/img_11.png",
+      "status": "no_suitable_event"
+    },
+    "grade_10:12160:img_12": {
+      "contentHash": "3045090a16c95d5c840657147289ebc400684e56a45ba2222b9b5433fa185ec5",
+      "eventId": "thuong-mai-a-au-phat-trien-tai-dai-viet",
+      "grade": 10,
+      "imageId": "grade_10:12160:img_12",
+      "lessonId": "12160",
+      "note": "existing candidate; same lesson evidence; caption/title/context token match: buôn, bán, bản, của, nhật; specific event",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12160/img_12.png",
+      "status": "approved"
+    },
+    "grade_10:12160:img_13": {
+      "contentHash": "b5fa71f5c6b4ba4a3afc4f2a9f80ad4e3c73d557d0e82f2bc6313c0601196c48",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12160:img_13",
+      "lessonId": "12160",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12160/img_13.png",
+      "status": "no_suitable_event"
+    },
+    "grade_10:12160:img_14": {
+      "contentHash": "fb996d662cafff13d33822b80644f8956ca04cf940130886f0071136fb9250fc",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12160:img_14",
+      "lessonId": "12160",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12160/img_14.png",
+      "status": "no_suitable_event"
+    },
+    "grade_10:12160:img_15": {
+      "contentHash": "102dcd110156f596bb517c6e152b0e66a1fff4af532ae39d375d726de3272a4e",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12160:img_15",
+      "lessonId": "12160",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12160/img_15.png",
+      "status": "no_suitable_event"
+    },
+    "grade_10:12160:img_16": {
+      "contentHash": "0117a1f6b96fbc5d634434957e1cf137951238de2da897ee5f0693ee5491e623",
+      "eventId": "le-thanh-tong-dung-bia-tien-si-van-mieu",
+      "grade": 10,
+      "imageId": "grade_10:12160:img_16",
+      "lessonId": "12160",
+      "note": "existing candidate; same lesson evidence; caption/title/context token match: bia, miếu, tiến, văn; specific event",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12160/img_16.png",
+      "status": "approved"
+    },
+    "grade_10:12160:img_17": {
+      "contentHash": "17692edf48f16a4014b7d7560cb75a2363886c378f0d41b510c475e558b864bd",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12160:img_17",
+      "lessonId": "12160",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12160/img_17.png",
+      "status": "no_suitable_event"
+    },
+    "grade_10:12160:img_18": {
+      "contentHash": "624b4fc342e80707f0d30937eb60432c4738f5caba3e4bea42ceca22d218763e",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12160:img_18",
+      "lessonId": "12160",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12160/img_18.png",
+      "status": "no_suitable_event"
+    },
+    "grade_10:12160:img_19": {
+      "contentHash": "80a044d1f8272cf63296c30ca685d2fe2a0a23cfb7d50eaa47f80645e8960988",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12160:img_19",
+      "lessonId": "12160",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12160/img_19.png",
+      "status": "deferred"
+    },
+    "grade_10:12162:img_01": {
+      "contentHash": "6f65c0ae4a9ad07e2995ee9592bb60e51dc27bd896b23721baa1a237cd209f5d",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12162:img_01",
+      "lessonId": "12162",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12162/img_01.png",
+      "status": "no_suitable_event"
+    },
+    "grade_10:12162:img_02": {
+      "contentHash": "31c95974a7eef60962d4881931a01e63d077a990167996b7c79ea1761abf0ff4",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12162:img_02",
+      "lessonId": "12162",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12162/img_02.png",
+      "status": "no_suitable_event"
+    },
+    "grade_10:12162:img_03": {
+      "contentHash": "639a109f73dc96f740270b19e660b0d59b65f5a548feacc0cf64d34aea1d211b",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12162:img_03",
+      "lessonId": "12162",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12162/img_03.png",
+      "status": "no_suitable_event"
+    },
+    "grade_10:12162:img_04": {
+      "contentHash": "abcd42510f00f3ef427b2040df66a98faf6928494de8a0f17bd1c46a285c8669",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12162:img_04",
+      "lessonId": "12162",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12162/img_04.png",
+      "status": "no_suitable_event"
+    },
+    "grade_10:12162:img_05": {
+      "contentHash": "acef1ccf320d77ddd3e6e0b8b924dd7c38f57fd6579fdcb7068938c94fe24c8e",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12162:img_05",
+      "lessonId": "12162",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12162/img_05.png",
+      "status": "no_suitable_event"
+    },
+    "grade_10:12162:img_06": {
+      "contentHash": "53b12c58c381df27d278c250ec5fb1d0e3d68a6bb027e9d456ac6d8079fce4a0",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12162:img_06",
+      "lessonId": "12162",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12162/img_06.png",
+      "status": "no_suitable_event"
+    },
+    "grade_10:12162:img_07": {
+      "contentHash": "81f1bb9ea5fd644f0d1eb258d71bc5bac7480b805395abb73075d8a2b47d1650",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12162:img_07",
+      "lessonId": "12162",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12162/img_07.png",
+      "status": "no_suitable_event"
+    },
+    "grade_10:12162:img_08": {
+      "contentHash": "0613f429444441309e01b17a872dafa8330b432e6b1484f49d070d395ca485ab",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12162:img_08",
+      "lessonId": "12162",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12162/img_08.png",
+      "status": "no_suitable_event"
+    },
+    "grade_10:12162:img_09": {
+      "contentHash": "b2fe3ff8ca704774f1402b5d8fadfc5ea002ae130391c284fa53a021f9f4d73e",
+      "eventId": "giai-doan-day-manh-cong-nghiep-hoa-hien-dai-hoa-hoi-nhap-kinh-te-quoc-te-1996-2006",
+      "grade": 10,
+      "imageId": "grade_10:12162:img_09",
+      "lessonId": "12162",
+      "note": "caption/title/context token match: chất, các, cộng, của, dân; specific event",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12162/img_09.png",
+      "status": "approved"
+    },
+    "grade_10:12162:img_10": {
+      "contentHash": "d0b387874ab27352c707343a771f742b310550422482fe9b7a3b5709fae85bc3",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12162:img_10",
+      "lessonId": "12162",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12162/img_10.png",
+      "status": "no_suitable_event"
+    },
+    "grade_10:12162:img_11": {
+      "contentHash": "4f5f4b48c57b00aaa2f8e7dd819f4210ec7117e75a961eb74fb74a2f66a6e63a",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12162:img_11",
+      "lessonId": "12162",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12162/img_11.png",
+      "status": "no_suitable_event"
+    },
+    "grade_10:12162:img_12": {
+      "contentHash": "d441823c4ca873eaced396af52a35dbf796954869bfda23bb7d04b51a2913428",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12162:img_12",
+      "lessonId": "12162",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12162/img_12.png",
+      "status": "no_suitable_event"
+    },
+    "grade_10:12162:img_13": {
+      "contentHash": "9f28b922c702d67887333de7f8639386107334899a1e629098bf545cf07e19a0",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12162:img_13",
+      "lessonId": "12162",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12162/img_13.png",
+      "status": "no_suitable_event"
+    },
+    "grade_10:12162:img_14": {
+      "contentHash": "90e5e10e7eb44b7ea5e28e92fe4121b5e4ef07e5a1ccf9dc30d23ba0f2110897",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12162:img_14",
+      "lessonId": "12162",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12162/img_14.png",
+      "status": "no_suitable_event"
+    },
+    "grade_10:12162:img_15": {
+      "contentHash": "7d861cbc97feb2415af6a3e45d365283aed06c1894219da87311a711c64bc3fa",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12162:img_15",
+      "lessonId": "12162",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12162/img_15.png",
+      "status": "deferred"
+    },
+    "grade_10:12162:img_16": {
+      "contentHash": "3b9c7e749be26d8c185299c31b537798bc070e3a8c471fdc8783a2994f4f6f1b",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12162:img_16",
+      "lessonId": "12162",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12162/img_16.png",
+      "status": "deferred"
+    },
+    "grade_10:12162:img_17": {
+      "contentHash": "fdfba6be99752e64a99d0513d3b3547b99c9eba56164601dedbc68a393baca9e",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12162:img_17",
+      "lessonId": "12162",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12162/img_17.png",
+      "status": "deferred"
+    },
+    "grade_10:12162:img_18": {
+      "contentHash": "843e07ab97913c46eb064f5abbb724703bd03832d7185bba29c4f49e3caf57b7",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12162:img_18",
+      "lessonId": "12162",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12162/img_18.png",
+      "status": "deferred"
+    },
+    "grade_10:12162:img_19": {
+      "contentHash": "216fd3bf5c90ac3fb83502e7a64ee3a3e8b8c8a1a7cc96a25110fdc686437a3f",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12162:img_19",
+      "lessonId": "12162",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12162/img_19.png",
+      "status": "no_suitable_event"
+    },
+    "grade_10:12162:img_20": {
+      "contentHash": "582cf4b1618ffaeef1e21bd5a5ebcbd92fc89dc88df4b8ea221df97a8c04410d",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12162:img_20",
+      "lessonId": "12162",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12162/img_20.png",
+      "status": "no_suitable_event"
+    },
+    "grade_10:12162:img_21": {
+      "contentHash": "a60e978d00c744fd70d6ad3069ecf434880bc23f4c6433524ffe43da10735d47",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12162:img_21",
+      "lessonId": "12162",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12162/img_21.png",
+      "status": "no_suitable_event"
+    },
+    "grade_10:12169:img_01": {
+      "contentHash": "7ab2bf472ef8050a6d1f0f9ab8e79754df84c0d91b70411180d0c2a01bc4572f",
+      "eventId": "mit-tinh-chao-mung-uy-ban-quan-quan-sai-gon-1975",
+      "grade": 10,
+      "imageId": "grade_10:12169:img_01",
+      "lessonId": "12169",
+      "note": "existing candidate; same lesson evidence; caption/title/context token match: 1975, ban, chào, dân, gòn; specific event; chronology match",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12169/img_01.png",
+      "status": "approved"
+    },
+    "grade_10:12169:img_02": {
+      "contentHash": "65c837ecb0d1aaeef29d96d4e2245c848a1efebb1a2e9201c5ca7d404bce4105",
+      "eventId": "nhan-dan-ung-ho-mien-trung-bao-so-9-2020",
+      "grade": 10,
+      "imageId": "grade_10:12169:img_02",
+      "lessonId": "12169",
+      "note": "existing candidate; same lesson evidence; caption/title/context token match: 2020, bão, chung, các, cơn; specific event; chronology match",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12169/img_02.png",
+      "status": "approved"
+    },
+    "grade_10:12169:img_03": {
+      "contentHash": "fa0a6b6d2d3759c6cd7c1663895468962b096a0b8b0419920afb2aeda185f48a",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12169:img_03",
+      "lessonId": "12169",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12169/img_03.png",
+      "status": "deferred"
+    },
+    "grade_10:12169:img_04": {
+      "contentHash": "5f893c48296c98040b1564c6d7d0f69d8b3aa068375e56832c56af22c89bbb37",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12169:img_04",
+      "lessonId": "12169",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12169/img_04.png",
+      "status": "deferred"
+    },
+    "grade_10:12169:img_05": {
+      "contentHash": "f313f136413000885c540a690690aaeb09321381a11726564dea4e1262754197",
+      "eventId": null,
+      "grade": 10,
+      "imageId": "grade_10:12169:img_05",
+      "lessonId": "12169",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12169/img_05.png",
+      "status": "deferred"
+    },
+    "grade_11:12335:img_01": {
+      "contentHash": "d443c6adfc83f790eb2a0606cf9663e8043ff399785932f5ab48cd50af4fe623",
+      "eventId": null,
+      "grade": 11,
+      "imageId": "grade_11:12335:img_01",
+      "lessonId": "12335",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_11/12335/img_01.png",
+      "status": "deferred"
+    },
+    "grade_11:12335:img_02": {
+      "contentHash": "411ce25407afb41941fd8821732b5680c6621c5fd644f8f1c1dc4e61be1c28df",
+      "eventId": null,
+      "grade": 11,
+      "imageId": "grade_11:12335:img_02",
+      "lessonId": "12335",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_11/12335/img_02.png",
+      "status": "deferred"
+    },
+    "grade_11:12335:img_03": {
+      "contentHash": "a81c73ce0153937d79b052a3873e07157f80fdbbf03fcb7ab4f3337b74e73838",
+      "eventId": null,
+      "grade": 11,
+      "imageId": "grade_11:12335:img_03",
+      "lessonId": "12335",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_11/12335/img_03.png",
+      "status": "deferred"
+    },
+    "grade_11:12335:img_04": {
+      "contentHash": "bfb1b830b54308facc2515054297e06c4bd8a8b8699fd942f7e5ba2568f7cdf8",
+      "eventId": null,
+      "grade": 11,
+      "imageId": "grade_11:12335:img_04",
+      "lessonId": "12335",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_11/12335/img_04.png",
+      "status": "deferred"
+    },
+    "grade_11:12336:img_01": {
+      "contentHash": "8c727227c23f518525348acd73984075a12137313504c7e5a13838e03277e85d",
+      "eventId": null,
+      "grade": 11,
+      "imageId": "grade_11:12336:img_01",
+      "lessonId": "12336",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_11/12336/img_01.png",
+      "status": "deferred"
+    },
+    "grade_11:12336:img_02": {
+      "contentHash": "6ec87a535dba7c6c79078cda429092161572932647ba39d8f916609d4e5c94ba",
+      "eventId": null,
+      "grade": 11,
+      "imageId": "grade_11:12336:img_02",
+      "lessonId": "12336",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_11/12336/img_02.png",
+      "status": "deferred"
+    },
+    "grade_11:12336:img_03": {
+      "contentHash": "6e335d4c366f0826eb80203a470c0ba99eeea96212dc936bb3af90d00cb38df7",
+      "eventId": null,
+      "grade": 11,
+      "imageId": "grade_11:12336:img_03",
+      "lessonId": "12336",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_11/12336/img_03.png",
+      "status": "no_suitable_event"
+    },
+    "grade_11:12336:img_04": {
+      "contentHash": "e1df26cd5b45cb3d3f255a43a1bb79b8a88a3e56c051ae5beb139a39baacaf77",
+      "eventId": null,
+      "grade": 11,
+      "imageId": "grade_11:12336:img_04",
+      "lessonId": "12336",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_11/12336/img_04.png",
+      "status": "no_suitable_event"
+    },
+    "grade_11:12336:img_05": {
+      "contentHash": "9a880e3ce1e3acad9b4737869e595111a2f9c004956da937f1b062b06727ecd1",
+      "eventId": null,
+      "grade": 11,
+      "imageId": "grade_11:12336:img_05",
+      "lessonId": "12336",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_11/12336/img_05.png",
+      "status": "no_suitable_event"
+    },
+    "grade_11:12336:img_06": {
+      "contentHash": "106f18e9f1060fac09f99922f74c509b1227c4986342226a78467fae267a7195",
+      "eventId": null,
+      "grade": 11,
+      "imageId": "grade_11:12336:img_06",
+      "lessonId": "12336",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_11/12336/img_06.png",
+      "status": "no_suitable_event"
+    },
+    "grade_11:12336:img_07": {
+      "contentHash": "8c707f04e053f9ba9eae73f156a2cbd42a2de76d1661364027a4c11debda0c1c",
+      "eventId": null,
+      "grade": 11,
+      "imageId": "grade_11:12336:img_07",
+      "lessonId": "12336",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_11/12336/img_07.png",
+      "status": "no_suitable_event"
+    },
+    "grade_11:12336:img_08": {
+      "contentHash": "50b932151b48db87aa9799e231bee4f50b7193c97a9627657ec26bfa5f7bbc85",
+      "eventId": null,
+      "grade": 11,
+      "imageId": "grade_11:12336:img_08",
+      "lessonId": "12336",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_11/12336/img_08.png",
+      "status": "no_suitable_event"
+    },
+    "grade_11:12336:img_09": {
+      "contentHash": "5ff935fe289b205c9cc8e79cf6a56498d200928035955003a2649955a007cef1",
+      "eventId": null,
+      "grade": 11,
+      "imageId": "grade_11:12336:img_09",
+      "lessonId": "12336",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_11/12336/img_09.png",
+      "status": "no_suitable_event"
+    },
+    "grade_11:12336:img_10": {
+      "contentHash": "28ed1278ef6e7d96d455c9139ebf8aa38fe3a7b699ed830eb3e9312e64b482c9",
+      "eventId": null,
+      "grade": 11,
+      "imageId": "grade_11:12336:img_10",
+      "lessonId": "12336",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_11/12336/img_10.png",
+      "status": "no_suitable_event"
+    },
+    "grade_11:12336:img_11": {
+      "contentHash": "8082d3b901ebdb86673b54a47c1e11b6346a618c3eee70b9ca070cb9e7079ea3",
+      "eventId": null,
+      "grade": 11,
+      "imageId": "grade_11:12336:img_11",
+      "lessonId": "12336",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_11/12336/img_11.png",
+      "status": "no_suitable_event"
+    },
+    "grade_11:12336:img_12": {
+      "contentHash": "c20b54504232278be1e8f4a6f2d1bd080a4832c2b8a0732ce1dd8392af73df3d",
+      "eventId": null,
+      "grade": 11,
+      "imageId": "grade_11:12336:img_12",
+      "lessonId": "12336",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_11/12336/img_12.png",
+      "status": "no_suitable_event"
+    },
+    "grade_11:12336:img_13": {
+      "contentHash": "5cfbc62d54dd1ab6c4a70b801d50c9742f505f2ae6ab694ff82db4cdf2ea1829",
+      "eventId": null,
+      "grade": 11,
+      "imageId": "grade_11:12336:img_13",
+      "lessonId": "12336",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_11/12336/img_13.png",
+      "status": "no_suitable_event"
+    },
+    "grade_11:12336:img_14": {
+      "contentHash": "f31ebc49210851daccefc545e88d70d1f080c737205f0e70618e202b38be5793",
+      "eventId": null,
+      "grade": 11,
+      "imageId": "grade_11:12336:img_14",
+      "lessonId": "12336",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_11/12336/img_14.png",
+      "status": "no_suitable_event"
+    },
+    "grade_11:12336:img_15": {
+      "contentHash": "722918c18f7b2a47758f8a955d471a4139813ce9a33ee609b96c472227c77d54",
+      "eventId": null,
+      "grade": 11,
+      "imageId": "grade_11:12336:img_15",
+      "lessonId": "12336",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_11/12336/img_15.png",
+      "status": "no_suitable_event"
+    },
+    "grade_11:12336:img_16": {
+      "contentHash": "873d33ebbd3ee4f6570f5ef44cc1e5f75e7cd173c54c04f2def4f963d1f2c7a5",
+      "eventId": null,
+      "grade": 11,
+      "imageId": "grade_11:12336:img_16",
+      "lessonId": "12336",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_11/12336/img_16.png",
+      "status": "no_suitable_event"
+    },
+    "grade_11:12336:img_17": {
+      "contentHash": "8dff18d5ffa874efdd98cd753923617a3be34cbbed78f700a6270b7bb6b25ccf",
+      "eventId": null,
+      "grade": 11,
+      "imageId": "grade_11:12336:img_17",
+      "lessonId": "12336",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_11/12336/img_17.png",
+      "status": "no_suitable_event"
+    },
+    "grade_11:12336:img_18": {
+      "contentHash": "7a6bc7a5e3f3b9a6f603fcd13ea9d293d7ff59e348f0bbdbba8f6de37bd7457c",
+      "eventId": null,
+      "grade": 11,
+      "imageId": "grade_11:12336:img_18",
+      "lessonId": "12336",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_11/12336/img_18.png",
+      "status": "no_suitable_event"
+    },
+    "grade_11:12336:img_19": {
+      "contentHash": "d52ebab5db067348cb2d3819d199f0c1cc31d7b43e394ddb940c392b2799195d",
+      "eventId": null,
+      "grade": 11,
+      "imageId": "grade_11:12336:img_19",
+      "lessonId": "12336",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_11/12336/img_19.png",
+      "status": "no_suitable_event"
+    },
+    "grade_11:12336:img_20": {
+      "contentHash": "f08b5a53d3d8c72a8112a1b072009c18eea4c33b1b0c40e43e2ce0d5ad9144f7",
+      "eventId": null,
+      "grade": 11,
+      "imageId": "grade_11:12336:img_20",
+      "lessonId": "12336",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_11/12336/img_20.png",
+      "status": "no_suitable_event"
+    },
+    "grade_11:12336:img_21": {
+      "contentHash": "0e5e2b3b277b4a61f72e2eafa6a969f01ad47c7049413176aa3e665d08dc535a",
+      "eventId": null,
+      "grade": 11,
+      "imageId": "grade_11:12336:img_21",
+      "lessonId": "12336",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_11/12336/img_21.png",
+      "status": "no_suitable_event"
+    },
+    "grade_11:12336:img_22": {
+      "contentHash": "23ab82b7946af4c21f5ea3fd9d7ce7a26ee8e4c507f3d32f1c8b7228ea890c3b",
+      "eventId": null,
+      "grade": 11,
+      "imageId": "grade_11:12336:img_22",
+      "lessonId": "12336",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_11/12336/img_22.png",
+      "status": "no_suitable_event"
+    },
+    "grade_11:12336:img_23": {
+      "contentHash": "868ad51113d4d91f800873c23e776e316057ff756eeaf92dca372b140e7c68f9",
+      "eventId": null,
+      "grade": 11,
+      "imageId": "grade_11:12336:img_23",
+      "lessonId": "12336",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_11/12336/img_23.png",
+      "status": "no_suitable_event"
+    },
+    "grade_11:12336:img_24": {
+      "contentHash": "a7277107ffd12e15ba5ef57bfa89eec0a7239846daf48dadd17c688e7bb1ad03",
+      "eventId": null,
+      "grade": 11,
+      "imageId": "grade_11:12336:img_24",
+      "lessonId": "12336",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_11/12336/img_24.png",
+      "status": "no_suitable_event"
+    },
+    "grade_11:12337:img_01": {
+      "contentHash": "ccc0bca9eec9ea1388a2029b9edf725d6565af5e54ef653399eba0bcf372bb36",
+      "eventId": null,
+      "grade": 11,
+      "imageId": "grade_11:12337:img_01",
+      "lessonId": "12337",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_11/12337/img_01.png",
+      "status": "no_suitable_event"
+    },
+    "grade_11:12337:img_02": {
+      "contentHash": "8015fc6ea537b29faf34ae6123eea0f562e57ca362d29d917b1f6ec617d3bdfe",
+      "eventId": null,
+      "grade": 11,
+      "imageId": "grade_11:12337:img_02",
+      "lessonId": "12337",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_11/12337/img_02.png",
+      "status": "no_suitable_event"
+    },
+    "grade_11:12337:img_03": {
+      "contentHash": "36a71220c519fa3d50681ba47854020ceec34ac48c2997b7a5c9589a2cbaeb01",
+      "eventId": null,
+      "grade": 11,
+      "imageId": "grade_11:12337:img_03",
+      "lessonId": "12337",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_11/12337/img_03.png",
+      "status": "no_suitable_event"
+    },
+    "grade_11:12337:img_04": {
+      "contentHash": "a2d860eb6fe0fd80bf52b4cfe0afe77c7462196b2eea4ee9028392285f5a645a",
+      "eventId": null,
+      "grade": 11,
+      "imageId": "grade_11:12337:img_04",
+      "lessonId": "12337",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_11/12337/img_04.png",
+      "status": "no_suitable_event"
+    },
+    "grade_11:12337:img_05": {
+      "contentHash": "1e188d7ddf24676e9d9fddda9ed85f87328eaba16c9262cb9e5961c374d4e72f",
+      "eventId": null,
+      "grade": 11,
+      "imageId": "grade_11:12337:img_05",
+      "lessonId": "12337",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_11/12337/img_05.png",
+      "status": "no_suitable_event"
+    },
+    "grade_11:12337:img_06": {
+      "contentHash": "b0b8ad00601d6c820415df7d3d2ddff9027181bb3b02015834b70880342cffb1",
+      "eventId": null,
+      "grade": 11,
+      "imageId": "grade_11:12337:img_06",
+      "lessonId": "12337",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_11/12337/img_06.png",
+      "status": "no_suitable_event"
+    },
+    "grade_11:12337:img_07": {
+      "contentHash": "cadd4b3895cb1c68791484dd6c135a59d2f1000ff8cc54ba0ce8912862c52d6a",
+      "eventId": null,
+      "grade": 11,
+      "imageId": "grade_11:12337:img_07",
+      "lessonId": "12337",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_11/12337/img_07.png",
+      "status": "no_suitable_event"
+    },
+    "grade_11:12337:img_08": {
+      "contentHash": "6c888a50c23ea3172f05422907cd79586e2b7b7113061af1c6fdcd711c8e19e5",
+      "eventId": null,
+      "grade": 11,
+      "imageId": "grade_11:12337:img_08",
+      "lessonId": "12337",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_11/12337/img_08.png",
+      "status": "no_suitable_event"
+    },
+    "grade_11:12337:img_09": {
+      "contentHash": "a87796bbc0e89ab6c82f986c0d1645ed3ad5d26f4e530b3f8bb13eb839b798cc",
+      "eventId": null,
+      "grade": 11,
+      "imageId": "grade_11:12337:img_09",
+      "lessonId": "12337",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_11/12337/img_09.png",
+      "status": "no_suitable_event"
+    },
+    "grade_11:12337:img_10": {
+      "contentHash": "4663adc77d77786208d3492e898e0c5c68ec1019bdd5a260ad195cc8967c389a",
+      "eventId": null,
+      "grade": 11,
+      "imageId": "grade_11:12337:img_10",
+      "lessonId": "12337",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_11/12337/img_10.png",
+      "status": "no_suitable_event"
+    },
+    "grade_11:12338:img_01": {
+      "contentHash": "366d97151ad999caf67a5c59a4d0e73f1c2a6b02e3d879c7a23eaf79a83e7a8b",
+      "eventId": null,
+      "grade": 11,
+      "imageId": "grade_11:12338:img_01",
+      "lessonId": "12338",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_11/12338/img_01.png",
+      "status": "no_suitable_event"
+    },
+    "grade_11:12338:img_02": {
+      "contentHash": "ebc92f8e180daceb473da4b358951632367ec1d6fe2eab6ce14c3208499ff36c",
+      "eventId": null,
+      "grade": 11,
+      "imageId": "grade_11:12338:img_02",
+      "lessonId": "12338",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_11/12338/img_02.png",
+      "status": "no_suitable_event"
+    },
+    "grade_11:12338:img_03": {
+      "contentHash": "83174c40e6e3c147a709dd05c302201598a1984574e7fe4d5d6484402ae747fc",
+      "eventId": null,
+      "grade": 11,
+      "imageId": "grade_11:12338:img_03",
+      "lessonId": "12338",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_11/12338/img_03.png",
+      "status": "no_suitable_event"
+    },
+    "grade_11:12338:img_04": {
+      "contentHash": "43c59853b23321c8baaf9631c7e5dffadd3e84ea503c8b48d6ab90ef02bbe5d0",
+      "eventId": null,
+      "grade": 11,
+      "imageId": "grade_11:12338:img_04",
+      "lessonId": "12338",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_11/12338/img_04.png",
+      "status": "no_suitable_event"
+    },
+    "grade_11:12338:img_05": {
+      "contentHash": "f71da5f4cdc69e2e4132b4758eeecbba2da5f7207846e057e48f3f2d916cbe86",
+      "eventId": null,
+      "grade": 11,
+      "imageId": "grade_11:12338:img_05",
+      "lessonId": "12338",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_11/12338/img_05.png",
+      "status": "no_suitable_event"
+    },
+    "grade_11:12338:img_06": {
+      "contentHash": "a11edd85e25df2aaf610e82b1c140ea428291c91d4824c733f7fa3c1c99e1478",
+      "eventId": null,
+      "grade": 11,
+      "imageId": "grade_11:12338:img_06",
+      "lessonId": "12338",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_11/12338/img_06.png",
+      "status": "no_suitable_event"
+    },
+    "grade_11:12338:img_07": {
+      "contentHash": "00bed4938ab14536481c7cb0702125030cd9a3b6dc3556921e0059dc23d2a471",
+      "eventId": null,
+      "grade": 11,
+      "imageId": "grade_11:12338:img_07",
+      "lessonId": "12338",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_11/12338/img_07.png",
+      "status": "no_suitable_event"
+    },
+    "grade_11:12338:img_08": {
+      "contentHash": "bc7b376754d16dcce976236c8ae152aa3d46b972934e68c6c57c0eb1059e79b5",
+      "eventId": null,
+      "grade": 11,
+      "imageId": "grade_11:12338:img_08",
+      "lessonId": "12338",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_11/12338/img_08.png",
+      "status": "no_suitable_event"
+    },
+    "grade_11:12338:img_09": {
+      "contentHash": "4f5ccd3397c5def5d53247650a88fb934646ea231b94b7d2eee1bbbaf5bce5d7",
+      "eventId": null,
+      "grade": 11,
+      "imageId": "grade_11:12338:img_09",
+      "lessonId": "12338",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_11/12338/img_09.png",
+      "status": "no_suitable_event"
+    },
+    "grade_11:12339:img_01": {
+      "contentHash": "7d7297c4b8a888f4cdf1733c0181a3f70e0a5a39d41d362c537f33280b0e795c",
+      "eventId": null,
+      "grade": 11,
+      "imageId": "grade_11:12339:img_01",
+      "lessonId": "12339",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_11/12339/img_01.png",
+      "status": "deferred"
+    },
+    "grade_11:12339:img_02": {
+      "contentHash": "04bc6f19992cf2c358c1db6d81267d977bde3c97ec330c8c4cc9fe5720b4849e",
+      "eventId": "phap-xam-chiem-dong-duong",
+      "grade": 11,
+      "imageId": "grade_11:12339:img_02",
+      "lessonId": "12339",
+      "note": "existing candidate; same lesson evidence; caption/title/context token match: lược, nam, nước, thế, xâm; specific event",
+      "sourceImage": "crawData/stage1_crawl/images/grade_11/12339/img_02.png",
+      "status": "approved"
+    },
+    "grade_11:12339:img_03": {
+      "contentHash": "323c85d68eab9bccd72f6c6409ed6ba700f6b8f11913a9e82478ddb606859dcc",
+      "eventId": null,
+      "grade": 11,
+      "imageId": "grade_11:12339:img_03",
+      "lessonId": "12339",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_11/12339/img_03.png",
+      "status": "no_suitable_event"
+    },
+    "grade_11:12339:img_04": {
+      "contentHash": "22f721f2ee72fcf1efea5152a213b87e97905d471f938737bbffaa12e41d358a",
+      "eventId": null,
+      "grade": 11,
+      "imageId": "grade_11:12339:img_04",
+      "lessonId": "12339",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_11/12339/img_04.png",
+      "status": "no_suitable_event"
+    },
+    "grade_11:12339:img_05": {
+      "contentHash": "3d94216033bca13acda62799064462c82a3d8e3264b9c664d7b78b67730a46ce",
+      "eventId": "thuc-dan-phap-no-sung-tan-cong-da-nang",
+      "grade": 11,
+      "imageId": "grade_11:12339:img_05",
+      "lessonId": "12339",
+      "note": "existing candidate; same lesson evidence; caption/title/context token match: 1858, ban, công, của, liên; specific event; chronology match",
+      "sourceImage": "crawData/stage1_crawl/images/grade_11/12339/img_05.png",
+      "status": "approved"
+    },
+    "grade_11:12339:img_06": {
+      "contentHash": "cf406408add7cbe0536e8fb03203b2e63e15592d85d8aaa45b34147f9cf48f75",
+      "eventId": null,
+      "grade": 11,
+      "imageId": "grade_11:12339:img_06",
+      "lessonId": "12339",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_11/12339/img_06.png",
+      "status": "no_suitable_event"
+    },
+    "grade_11:12339:img_07": {
+      "contentHash": "8e45e782a75674326442905a5548239d3af7e4bc0db42b3dc9370351eca08b50",
+      "eventId": "phap-xam-chiem-dong-duong",
+      "grade": 11,
+      "imageId": "grade_11:12339:img_07",
+      "lessonId": "12339",
+      "note": "existing candidate; same lesson evidence; caption/title/context token match: dân, lược, pháp, thực, xâm; specific event",
+      "sourceImage": "crawData/stage1_crawl/images/grade_11/12339/img_07.png",
+      "status": "approved"
+    },
+    "grade_11:12339:img_08": {
+      "contentHash": "19251265339f21957e8fc3d8b734ac1b958fa3f029dd2e73dcecdd00a37438fb",
+      "eventId": null,
+      "grade": 11,
+      "imageId": "grade_11:12339:img_08",
+      "lessonId": "12339",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_11/12339/img_08.png",
+      "status": "deferred"
+    },
+    "grade_11:12339:img_09": {
+      "contentHash": "573145091a558d8030ade68b8d02c2a47c278c5c1cbf56a0d0fbf42cfd13d4af",
+      "eventId": null,
+      "grade": 11,
+      "imageId": "grade_11:12339:img_09",
+      "lessonId": "12339",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_11/12339/img_09.png",
+      "status": "deferred"
+    },
+    "grade_11:12339:img_10": {
+      "contentHash": "8aa3a03cd83a5d6c01d619537fe5dd84a8db131f4841454de9bfc474ae430540",
+      "eventId": null,
+      "grade": 11,
+      "imageId": "grade_11:12339:img_10",
+      "lessonId": "12339",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_11/12339/img_10.png",
+      "status": "no_suitable_event"
+    },
+    "grade_11:12339:img_11": {
+      "contentHash": "9f3faecdbb0291977193380415dd379a94f1a1f142f3241ef32d55d4ffe36c7d",
+      "eventId": null,
+      "grade": 11,
+      "imageId": "grade_11:12339:img_11",
+      "lessonId": "12339",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_11/12339/img_11.png",
+      "status": "no_suitable_event"
+    },
+    "grade_11:12339:img_12": {
+      "contentHash": "762b4938e283007ba0ea7da632b2d271c292a8be256c71e496c703327b3d4f79",
+      "eventId": null,
+      "grade": 11,
+      "imageId": "grade_11:12339:img_12",
+      "lessonId": "12339",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_11/12339/img_12.png",
+      "status": "no_suitable_event"
+    },
+    "grade_11:12339:img_13": {
+      "contentHash": "15585193d906afe5cf3a6f060914d788f5f2c4e03012abc9d43e78518d7e1f36",
+      "eventId": null,
+      "grade": 11,
+      "imageId": "grade_11:12339:img_13",
+      "lessonId": "12339",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_11/12339/img_13.png",
+      "status": "no_suitable_event"
+    },
+    "grade_11:12339:img_14": {
+      "contentHash": "3c2392c31c1ba5ca9820adb0f6c97028f36cbbf331d48efee4e9ba03ce0091bf",
+      "eventId": null,
+      "grade": 11,
+      "imageId": "grade_11:12339:img_14",
+      "lessonId": "12339",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_11/12339/img_14.png",
+      "status": "no_suitable_event"
+    },
+    "grade_11:12339:img_15": {
+      "contentHash": "eb2187974a56bbc58707f550b8b9e9708274986c25c43ac2b9581be468ef3c4f",
+      "eventId": null,
+      "grade": 11,
+      "imageId": "grade_11:12339:img_15",
+      "lessonId": "12339",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_11/12339/img_15.png",
+      "status": "no_suitable_event"
+    },
+    "grade_11:12339:img_16": {
+      "contentHash": "9938ef18e5be4786a86340a53ef2c656bf7ce0792717b922ec374ba2bde7a4fe",
+      "eventId": null,
+      "grade": 11,
+      "imageId": "grade_11:12339:img_16",
+      "lessonId": "12339",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_11/12339/img_16.png",
+      "status": "no_suitable_event"
+    },
+    "grade_11:12340:img_01": {
+      "contentHash": "051c94d361ac0dc65231bc6a324f041846d81c157444038924be7d9c05a78e4d",
+      "eventId": null,
+      "grade": 11,
+      "imageId": "grade_11:12340:img_01",
+      "lessonId": "12340",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_11/12340/img_01.png",
+      "status": "deferred"
+    },
+    "grade_11:12340:img_02": {
+      "contentHash": "4da135e4ff1a6ac093202029b79a9687a344f139d254fa0eda1ef2a0af2c4e72",
+      "eventId": null,
+      "grade": 11,
+      "imageId": "grade_11:12340:img_02",
+      "lessonId": "12340",
+      "note": "",
+      "sourceImage": "crawData/stage1_crawl/images/grade_11/12340/img_02.png",
+      "status": "deferred"
+    }
+  },
+  "history": [
+    {
+      "imageId": "grade_10:12122:img_01",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12122:img_02",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12122:img_03",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12122:img_04",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12122:img_05",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12122:img_06",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12122:img_07",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12122:img_08",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12126:img_01",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12126:img_02",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12126:img_03",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12126:img_04",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12126:img_05",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12128:img_01",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12128:img_02",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12128:img_03",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12128:img_04",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12128:img_05",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12137:img_01",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12137:img_02",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12137:img_03",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12137:img_04",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12137:img_05",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12137:img_06",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12137:img_07",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12137:img_08",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12138:img_01",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12138:img_02",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12138:img_03",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12138:img_04",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12138:img_05",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12138:img_06",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12138:img_07",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12138:img_08",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12138:img_09",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12138:img_10",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12138:img_11",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12138:img_12",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12141:img_01",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12141:img_02",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12141:img_03",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12141:img_04",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12141:img_05",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12141:img_06",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12141:img_07",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12141:img_08",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12141:img_09",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12141:img_10",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12141:img_11",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12143:img_01",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12143:img_02",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12143:img_03",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12143:img_04",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12143:img_05",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12143:img_06",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12143:img_07",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12143:img_08",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12143:img_09",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12143:img_10",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12143:img_11",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12143:img_12",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12143:img_13",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12143:img_14",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12143:img_15",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12145:img_01",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12145:img_02",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12145:img_03",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12145:img_04",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12145:img_05",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12145:img_06",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12145:img_07",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12145:img_08",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12145:img_09",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12145:img_10",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12145:img_11",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12145:img_12",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12146:img_01",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12146:img_02",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12146:img_03",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12146:img_04",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12146:img_05",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12146:img_06",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12146:img_07",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12146:img_08",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12146:img_09",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12146:img_10",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12146:img_11",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12146:img_12",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12147:img_01",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12147:img_02",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12147:img_03",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12147:img_04",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12147:img_05",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12147:img_06",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12147:img_07",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12147:img_08",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12147:img_08",
+      "previous": {
+        "contentHash": "1c95e897ec1dd5763480e0aea38d9ece6a0b1ef5096cbf36a56a629ea19e999f",
+        "eventId": null,
+        "grade": 10,
+        "imageId": "grade_10:12147:img_08",
+        "lessonId": "12147",
+        "note": "",
+        "sourceImage": "crawData/stage1_crawl/images/grade_10/12147/img_08.png",
+        "status": "no_suitable_event"
+      }
+    },
+    {
+      "imageId": "grade_10:12147:img_09",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12147:img_10",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12147:img_11",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12148:img_01",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12148:img_02",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12148:img_03",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12148:img_04",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12148:img_05",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12148:img_06",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12148:img_07",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12148:img_08",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12148:img_09",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12148:img_10",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12148:img_11",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12148:img_12",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12148:img_13",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12148:img_14",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12148:img_15",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12148:img_16",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12148:img_17",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12148:img_18",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12148:img_19",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12148:img_20",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12148:img_21",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12148:img_22",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12148:img_23",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12148:img_24",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12160:img_01",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12160:img_02",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12160:img_03",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12160:img_04",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12160:img_05",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12160:img_06",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12160:img_07",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12160:img_08",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12160:img_09",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12160:img_10",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12160:img_11",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12160:img_12",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12160:img_13",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12160:img_14",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12160:img_15",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12160:img_16",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12160:img_17",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12160:img_18",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12160:img_19",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12162:img_01",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12162:img_02",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12162:img_03",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12162:img_04",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12162:img_05",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12162:img_06",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12162:img_07",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12162:img_08",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12162:img_09",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12162:img_10",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12162:img_11",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12162:img_12",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12162:img_13",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12162:img_14",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12162:img_15",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12162:img_16",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12162:img_17",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12162:img_18",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12162:img_19",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12162:img_20",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12162:img_21",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12169:img_01",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12169:img_02",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12169:img_03",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12169:img_04",
+      "previous": null
+    },
+    {
+      "imageId": "grade_10:12169:img_05",
+      "previous": null
+    },
+    {
+      "imageId": "grade_11:12335:img_01",
+      "previous": null
+    },
+    {
+      "imageId": "grade_11:12335:img_02",
+      "previous": null
+    },
+    {
+      "imageId": "grade_11:12335:img_03",
+      "previous": null
+    },
+    {
+      "imageId": "grade_11:12335:img_04",
+      "previous": null
+    },
+    {
+      "imageId": "grade_11:12336:img_01",
+      "previous": null
+    },
+    {
+      "imageId": "grade_11:12336:img_02",
+      "previous": null
+    },
+    {
+      "imageId": "grade_11:12336:img_03",
+      "previous": null
+    },
+    {
+      "imageId": "grade_11:12336:img_04",
+      "previous": null
+    },
+    {
+      "imageId": "grade_11:12336:img_05",
+      "previous": null
+    },
+    {
+      "imageId": "grade_11:12336:img_06",
+      "previous": null
+    },
+    {
+      "imageId": "grade_11:12336:img_07",
+      "previous": null
+    },
+    {
+      "imageId": "grade_11:12336:img_08",
+      "previous": null
+    },
+    {
+      "imageId": "grade_11:12336:img_09",
+      "previous": null
+    },
+    {
+      "imageId": "grade_11:12336:img_10",
+      "previous": null
+    },
+    {
+      "imageId": "grade_11:12336:img_11",
+      "previous": null
+    },
+    {
+      "imageId": "grade_11:12336:img_12",
+      "previous": null
+    },
+    {
+      "imageId": "grade_11:12336:img_13",
+      "previous": null
+    },
+    {
+      "imageId": "grade_11:12336:img_14",
+      "previous": null
+    },
+    {
+      "imageId": "grade_11:12336:img_15",
+      "previous": null
+    },
+    {
+      "imageId": "grade_11:12336:img_16",
+      "previous": null
+    },
+    {
+      "imageId": "grade_11:12336:img_17",
+      "previous": null
+    },
+    {
+      "imageId": "grade_11:12336:img_18",
+      "previous": null
+    },
+    {
+      "imageId": "grade_11:12336:img_19",
+      "previous": null
+    },
+    {
+      "imageId": "grade_11:12336:img_20",
+      "previous": null
+    },
+    {
+      "imageId": "grade_11:12336:img_21",
+      "previous": null
+    },
+    {
+      "imageId": "grade_11:12336:img_22",
+      "previous": null
+    },
+    {
+      "imageId": "grade_11:12336:img_23",
+      "previous": null
+    },
+    {
+      "imageId": "grade_11:12336:img_24",
+      "previous": null
+    },
+    {
+      "imageId": "grade_11:12337:img_01",
+      "previous": null
+    },
+    {
+      "imageId": "grade_11:12337:img_02",
+      "previous": null
+    },
+    {
+      "imageId": "grade_11:12337:img_03",
+      "previous": null
+    },
+    {
+      "imageId": "grade_11:12337:img_04",
+      "previous": null
+    },
+    {
+      "imageId": "grade_11:12337:img_05",
+      "previous": null
+    },
+    {
+      "imageId": "grade_11:12337:img_06",
+      "previous": null
+    },
+    {
+      "imageId": "grade_11:12337:img_07",
+      "previous": null
+    },
+    {
+      "imageId": "grade_11:12337:img_08",
+      "previous": null
+    },
+    {
+      "imageId": "grade_11:12337:img_09",
+      "previous": null
+    },
+    {
+      "imageId": "grade_11:12337:img_10",
+      "previous": null
+    },
+    {
+      "imageId": "grade_11:12338:img_01",
+      "previous": null
+    },
+    {
+      "imageId": "grade_11:12338:img_02",
+      "previous": null
+    },
+    {
+      "imageId": "grade_11:12338:img_03",
+      "previous": null
+    },
+    {
+      "imageId": "grade_11:12338:img_04",
+      "previous": null
+    },
+    {
+      "imageId": "grade_11:12338:img_05",
+      "previous": null
+    },
+    {
+      "imageId": "grade_11:12338:img_06",
+      "previous": null
+    },
+    {
+      "imageId": "grade_11:12338:img_07",
+      "previous": null
+    },
+    {
+      "imageId": "grade_11:12338:img_08",
+      "previous": null
+    },
+    {
+      "imageId": "grade_11:12338:img_09",
+      "previous": null
+    },
+    {
+      "imageId": "grade_11:12339:img_01",
+      "previous": null
+    },
+    {
+      "imageId": "grade_11:12339:img_02",
+      "previous": null
+    },
+    {
+      "imageId": "grade_11:12339:img_03",
+      "previous": null
+    },
+    {
+      "imageId": "grade_11:12339:img_04",
+      "previous": null
+    },
+    {
+      "imageId": "grade_11:12339:img_05",
+      "previous": null
+    },
+    {
+      "imageId": "grade_11:12339:img_06",
+      "previous": null
+    },
+    {
+      "imageId": "grade_11:12339:img_07",
+      "previous": null
+    },
+    {
+      "imageId": "grade_11:12339:img_08",
+      "previous": null
+    },
+    {
+      "imageId": "grade_11:12339:img_09",
+      "previous": null
+    },
+    {
+      "imageId": "grade_11:12339:img_10",
+      "previous": null
+    },
+    {
+      "imageId": "grade_11:12339:img_11",
+      "previous": null
+    },
+    {
+      "imageId": "grade_11:12339:img_12",
+      "previous": null
+    },
+    {
+      "imageId": "grade_11:12339:img_13",
+      "previous": null
+    },
+    {
+      "imageId": "grade_11:12339:img_14",
+      "previous": null
+    },
+    {
+      "imageId": "grade_11:12339:img_15",
+      "previous": null
+    },
+    {
+      "imageId": "grade_11:12339:img_16",
+      "previous": null
+    },
+    {
+      "imageId": "grade_11:12340:img_01",
+      "previous": null
+    },
+    {
+      "imageId": "grade_11:12340:img_02",
+      "previous": null
+    }
+  ],
+  "version": 1
+}

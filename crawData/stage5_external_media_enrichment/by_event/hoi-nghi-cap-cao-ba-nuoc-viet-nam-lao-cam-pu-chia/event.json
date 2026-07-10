@@ -1,0 +1,62 @@
+{
+  "eventId": "hoi-nghi-cap-cao-ba-nuoc-viet-nam-lao-cam-pu-chia",
+  "title": "Hội nghị cấp cao ba nước Việt Nam - Lào - Cam-pu-chia",
+  "shortTitle": "Hội nghị cấp cao Đông Dương",
+  "displayDate": "Tháng 4 – 1970",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1954-1975",
+  "parentId": "viet-nam-1954-1975",
+  "historicalLocations": [
+    "Cam-pu-chia",
+    "Lào",
+    "Việt Nam",
+    "Đông Dương"
+  ],
+  "provinceNames": [],
+  "canonicalSummary": "Tháng 4 – 1970, Hội nghị cấp cao ba nước Việt Nam - Lào - Cam-pu-chia được tổ chức, biểu thị quyết tâm chống Mỹ.",
+  "keyFacts": [
+    "Gồm Việt Nam, Lào, Cam-pu-chia",
+    "Tổ chức tháng 4-1970",
+    "Biểu thị quyết tâm chống Mỹ"
+  ],
+  "sourceFamily": "war_1945_1975",
+  "preferredVerificationDomains": [
+    "btlsqsvn.org.vn",
+    "qdnd.vn",
+    "nhandan.vn",
+    "vietnamplus.vn",
+    "hochiminh.vn",
+    "baotanglichsu.vn",
+    "luutru.gov.vn",
+    "loc.gov",
+    "archives.gov"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Hội nghị cấp cao ba nước Việt Nam - Lào - Cam-pu-chia",
+    "Hội nghị cấp cao ba nước Việt Nam - Lào - Cam-pu-chia Tháng 4 – 1970",
+    "Hội nghị cấp cao ba nước Việt Nam - Lào - Cam-pu-chia Cam-pu-chia",
+    "Hội nghị cấp cao ba nước Việt Nam - Lào - Cam-pu-chia Gồm Việt Nam, Lào, Cam-pu-chia Tổ chức tháng 4-1970",
+    "Hội nghị cấp cao ba nước Việt Nam - Lào - Cam-pu-chia ảnh tư liệu",
+    "Hội nghị cấp cao ba nước Việt Nam - Lào - Cam-pu-chia chiến dịch"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

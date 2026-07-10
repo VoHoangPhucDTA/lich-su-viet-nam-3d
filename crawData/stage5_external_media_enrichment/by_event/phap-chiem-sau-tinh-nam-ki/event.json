@@ -1,0 +1,58 @@
+{
+  "eventId": "phap-chiem-sau-tinh-nam-ki",
+  "title": "Pháp chiếm sáu tỉnh Nam Kì",
+  "shortTitle": "Pháp chiếm sáu tỉnh Nam Kì",
+  "displayDate": "Năm 1867",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1858-1918",
+  "parentId": "viet-nam-1858-1918",
+  "historicalLocations": [],
+  "provinceNames": [
+    "Hồ Chí Minh"
+  ],
+  "canonicalSummary": "Sau khi tấn công Đà Nẵng, Pháp chuyển quân vào đánh chiếm Gia Định, rồi chiếm gọn sáu tỉnh Nam Kì vào năm 1867.",
+  "keyFacts": [
+    "Diễn ra năm 1867",
+    "Kết quả: Pháp chiếm đóng hoàn toàn Nam Kì",
+    "Địa điểm: Gia Định, sáu tỉnh Nam Kì"
+  ],
+  "sourceFamily": "colonial",
+  "preferredVerificationDomains": [
+    "baotanglichsu.vn",
+    "luutru.gov.vn",
+    "hochiminh.vn",
+    "nhandan.vn",
+    "qdnd.vn",
+    "vietnamplus.vn",
+    "gallica.bnf.fr",
+    "loc.gov"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Pháp chiếm sáu tỉnh Nam Kì",
+    "Pháp chiếm sáu tỉnh Nam Kì Năm 1867",
+    "Pháp chiếm sáu tỉnh Nam Kì Việt Nam từ năm 1858 đến năm 1918",
+    "Pháp chiếm sáu tỉnh Nam Kì Diễn ra năm 1867 Kết quả: Pháp chiếm đóng hoàn toàn Nam Kì",
+    "Pháp chiếm sáu tỉnh Nam Kì ảnh tư liệu",
+    "Pháp chiếm sáu tỉnh Nam Kì chân dung"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

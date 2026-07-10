@@ -1,0 +1,9 @@
+{
+  "eventId": "ho-chi-minh-chu-tich-tong-bi-thu-dang-lao-dong-1956",
+  "status": "pending_download",
+  "images": [],
+  "expected": [
+    "image_01.<ext>",
+    "image_02.<ext>"
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "eventId": "hoat-dong-doi-ngoai-phan-chau-trinh",
+  "status": "pending_download",
+  "images": [],
+  "expected": [
+    "image_01.<ext>",
+    "image_02.<ext>"
+  ]
+}

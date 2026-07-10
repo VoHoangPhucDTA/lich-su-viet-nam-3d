@@ -1,0 +1,9 @@
+{
+  "eventId": "viet-nam-1975-den-nay",
+  "status": "pending_download",
+  "images": [],
+  "expected": [
+    "image_01.<ext>",
+    "image_02.<ext>"
+  ]
+}

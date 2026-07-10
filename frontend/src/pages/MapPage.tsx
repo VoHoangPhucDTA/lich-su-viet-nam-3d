@@ -19,7 +19,7 @@ import {
   getTimelineYearsFromBackend,
   recordEventView,
   searchEventsFromBackend,
-  sortHistoricalEvents,
+  sortHierarchyEvents,
 } from '../services/eventApi';
 
 function replaceEventInTree(
@@ -65,7 +65,7 @@ function buildSidebarTree(events: HistoricalEvent[]): HistoricalEvent[] {
 
     const existingChildren = parent.children ?? [];
     if (!existingChildren.some((child) => child.id === event.id)) {
-      parent.children = sortHistoricalEvents([...existingChildren, event]);
+      parent.children = sortHierarchyEvents([...existingChildren, event]);
     }
     childIds.add(event.id);
   }
@@ -92,7 +92,7 @@ function attachCachedChildren(
       });
     }
 
-    const mergedChildren = sortHistoricalEvents(Array.from(mergedById.values()));
+    const mergedChildren = sortHierarchyEvents(Array.from(mergedById.values()));
 
     return {
       ...event,

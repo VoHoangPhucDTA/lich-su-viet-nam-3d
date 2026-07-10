@@ -1,0 +1,55 @@
+{
+  "eventId": "viet-nam-danh-chiem-nua-phia-dong-hoang-sa",
+  "title": "Việt Nam (chính quyền Sài Gòn) đánh chiếm nửa phía đông của quần đảo Hoàng Sa (nhóm An Vĩnh)",
+  "shortTitle": "VN đánh chiếm Hoàng Sa (1956)",
+  "displayDate": "Năm 1956",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1954-1975",
+  "parentId": "chu-quyen-bien-dao-viet-nam-1954-1975",
+  "historicalLocations": [],
+  "provinceNames": [],
+  "canonicalSummary": "Việt Nam - Năm 1956: đánh chiếm nửa phía đông của quần đảo Hoàng Sa (nhóm An Vĩnh).",
+  "keyFacts": [
+    "Đối tượng: nửa phía đông của quần đảo Hoàng Sa (nhóm An Vĩnh)",
+    "Diễn ra năm 1956",
+    "Chủ thể: Việt Nam (chính quyền Sài Gòn)"
+  ],
+  "sourceFamily": "maritime",
+  "preferredVerificationDomains": [
+    "mofa.gov.vn",
+    "biengioilanhtho.gov.vn",
+    "mod.gov.vn",
+    "qdnd.vn",
+    "chinhphu.vn",
+    "vietnamplus.vn",
+    "luutru.gov.vn"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Việt Nam (chính quyền Sài Gòn) đánh chiếm nửa phía đông của quần đảo Hoàng Sa (nhóm An Vĩnh)",
+    "Việt Nam (chính quyền Sài Gòn) đánh chiếm nửa phía đông của quần đảo Hoàng Sa (nhóm An Vĩnh) Năm 1956",
+    "Việt Nam (chính quyền Sài Gòn) đánh chiếm nửa phía đông của quần đảo Hoàng Sa (nhóm An Vĩnh) Chủ quyền biển đảo Việt Nam 1954-1975",
+    "Việt Nam (chính quyền Sài Gòn) đánh chiếm nửa phía đông của quần đảo Hoàng Sa (nhóm An Vĩnh) Đối tượng: nửa phía đông của quần đảo Hoàng Sa (nhóm An Vĩnh) Diễn ra năm 1956",
+    "Việt Nam (chính quyền Sài Gòn) đánh chiếm nửa phía đông của quần đảo Hoàng Sa (nhóm An Vĩnh) bản đồ",
+    "Việt Nam (chính quyền Sài Gòn) đánh chiếm nửa phía đông của quần đảo Hoàng Sa (nhóm An Vĩnh) hải đồ"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

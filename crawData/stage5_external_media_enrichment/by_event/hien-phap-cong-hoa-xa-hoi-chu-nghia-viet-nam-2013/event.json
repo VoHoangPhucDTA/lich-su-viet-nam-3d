@@ -1,0 +1,60 @@
+{
+  "eventId": "hien-phap-cong-hoa-xa-hoi-chu-nghia-viet-nam-2013",
+  "title": "Hiến pháp nước Cộng hoà xã hội chủ nghĩa Việt Nam năm 2013",
+  "shortTitle": "Hiến pháp 2013",
+  "displayDate": "Năm 2013",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1975-den-nay",
+  "parentId": "cong-cuoc-doi-moi-o-viet-nam",
+  "historicalLocations": [
+    "Việt Nam"
+  ],
+  "provinceNames": [],
+  "canonicalSummary": "Điều 5, Hiến pháp nước Cộng hoà xã hội chủ nghĩa Việt Nam, năm 2013, có đoạn: “Nước Cộng hoà xã hội chủ nghĩa Việt Nam là quốc gia thống nhất của các dân tộc củng sinh sống trên đất nước Việt Nam. Các dân tộc bình đẳng, đoàn kết, tôn trọng và giúp nhau cùng phát triển; nghiêm cấm mọi hành vi kì thị, chia rẽ dân tộc”.",
+  "keyFacts": [
+    "Các dân tộc bình đẳng, đoàn kết, tôn trọng và giúp nhau cùng phát triển",
+    "Ban hành năm 2013",
+    "Khẳng định Việt Nam là quốc gia thống nhất của các dân tộc",
+    "Nghiêm cấm mọi hành vi kì thị, chia rẽ dân tộc"
+  ],
+  "sourceFamily": "post_1975",
+  "preferredVerificationDomains": [
+    "chinhphu.vn",
+    "dangcongsan.vn",
+    "tulieuvankien.dangcongsan.vn",
+    "quochoi.vn",
+    "mofa.gov.vn",
+    "vietnamplus.vn",
+    "nhandan.vn",
+    "un.org",
+    "unphoto.un.org"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Hiến pháp nước Cộng hoà xã hội chủ nghĩa Việt Nam năm 2013",
+    "Hiến pháp nước Cộng hoà xã hội chủ nghĩa Việt Nam năm 2013 Năm 2013",
+    "Hiến pháp nước Cộng hoà xã hội chủ nghĩa Việt Nam năm 2013 Việt Nam",
+    "Hiến pháp nước Cộng hoà xã hội chủ nghĩa Việt Nam năm 2013 Các dân tộc bình đẳng, đoàn kết, tôn trọng và giúp nhau cùng phát triển Ban hành năm 2013",
+    "Hiến pháp nước Cộng hoà xã hội chủ nghĩa Việt Nam năm 2013 ảnh tư liệu",
+    "Hiến pháp nước Cộng hoà xã hội chủ nghĩa Việt Nam năm 2013 lễ ký"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

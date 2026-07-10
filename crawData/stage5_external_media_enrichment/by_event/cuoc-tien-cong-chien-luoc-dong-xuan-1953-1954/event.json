@@ -1,0 +1,57 @@
+{
+  "eventId": "cuoc-tien-cong-chien-luoc-dong-xuan-1953-1954",
+  "title": "Cuộc Tiến công chiến lược Đông - Xuân 1953 - 1954",
+  "shortTitle": "Tiến công Đông - Xuân 1953 - 1954",
+  "displayDate": "Đông - Xuân 1953 - 1954",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1945-1954",
+  "parentId": "khang-chien-chong-thuc-dan-phap-1945-1954",
+  "historicalLocations": [],
+  "provinceNames": [],
+  "canonicalSummary": "Cuộc Tiến công chiến lược Đông - Xuân 1953 - 1954 của quân dân Việt Nam đã làm phá sản bước đầu Kế hoạch Na-va, đồng thời chuẩn bị về vật chất và tinh thần để mở chiến dịch Điện Biên Phủ.",
+  "keyFacts": [
+    "Diễn ra trong Đông - Xuân 1953 - 1954",
+    "Chuẩn bị cho Chiến dịch Điện Biên Phủ",
+    "Làm phá sản bước đầu Kế hoạch Na-va"
+  ],
+  "sourceFamily": "war_1945_1975",
+  "preferredVerificationDomains": [
+    "btlsqsvn.org.vn",
+    "qdnd.vn",
+    "nhandan.vn",
+    "vietnamplus.vn",
+    "hochiminh.vn",
+    "baotanglichsu.vn",
+    "luutru.gov.vn",
+    "loc.gov",
+    "archives.gov"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Cuộc Tiến công chiến lược Đông - Xuân 1953 - 1954",
+    "Cuộc Tiến công chiến lược Đông - Xuân 1953 - 1954 Đông - Xuân 1953 - 1954",
+    "Cuộc Tiến công chiến lược Đông - Xuân 1953 - 1954 Cuộc kháng chiến chống thực dân Pháp",
+    "Cuộc Tiến công chiến lược Đông - Xuân 1953 - 1954 Diễn ra trong Đông - Xuân 1953 - 1954 Chuẩn bị cho Chiến dịch Điện Biên Phủ",
+    "Cuộc Tiến công chiến lược Đông - Xuân 1953 - 1954 ảnh tư liệu",
+    "Cuộc Tiến công chiến lược Đông - Xuân 1953 - 1954 chiến dịch"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

@@ -1,0 +1,57 @@
+{
+  "eventId": "philippin-chiem-dong-9-dao-truong-sa",
+  "title": "Phi-líp-pin chiếm đóng 9 đảo thuộc quần đảo Trường Sa",
+  "shortTitle": "Phi-líp-pin chiếm 9 đảo Trường Sa",
+  "displayDate": "Từ năm 1971 đến năm 1980",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1954-1975",
+  "parentId": "chu-quyen-bien-dao-viet-nam-1954-1975",
+  "historicalLocations": [
+    "quần đảo Trường Sa"
+  ],
+  "provinceNames": [],
+  "canonicalSummary": "Phi-líp-pin - Từ năm 1971 đến năm 1980, chiếm đóng 9 đảo thuộc quần đảo Trường Sa.",
+  "keyFacts": [
+    "Chủ thể: Phi-líp-pin",
+    "Diễn ra từ 1971 đến 1980",
+    "Đối tượng: 9 đảo thuộc quần đảo Trường Sa"
+  ],
+  "sourceFamily": "maritime",
+  "preferredVerificationDomains": [
+    "mofa.gov.vn",
+    "biengioilanhtho.gov.vn",
+    "mod.gov.vn",
+    "qdnd.vn",
+    "chinhphu.vn",
+    "vietnamplus.vn",
+    "luutru.gov.vn"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Phi-líp-pin chiếm đóng 9 đảo thuộc quần đảo Trường Sa",
+    "Phi-líp-pin chiếm đóng 9 đảo thuộc quần đảo Trường Sa Từ năm 1971 đến năm 1980",
+    "Phi-líp-pin chiếm đóng 9 đảo thuộc quần đảo Trường Sa quần đảo Trường Sa",
+    "Phi-líp-pin chiếm đóng 9 đảo thuộc quần đảo Trường Sa Chủ thể: Phi-líp-pin Diễn ra từ 1971 đến 1980",
+    "Phi-líp-pin chiếm đóng 9 đảo thuộc quần đảo Trường Sa bản đồ",
+    "Phi-líp-pin chiếm đóng 9 đảo thuộc quần đảo Trường Sa hải đồ"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

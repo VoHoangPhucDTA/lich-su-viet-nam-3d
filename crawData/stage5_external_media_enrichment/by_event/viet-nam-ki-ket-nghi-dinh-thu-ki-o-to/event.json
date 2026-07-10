@@ -1,0 +1,56 @@
+{
+  "eventId": "viet-nam-ki-ket-nghi-dinh-thu-ki-o-to",
+  "title": "Việt Nam kí kết Nghị định thư Ki-ô-tô",
+  "shortTitle": "Việt Nam kí Nghị định thư Ki-ô-tô",
+  "displayDate": "Trong thời kì Đổi mới",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1975-den-nay",
+  "parentId": "cong-cuoc-doi-moi-o-viet-nam",
+  "historicalLocations": [],
+  "provinceNames": [],
+  "canonicalSummary": "Việt Nam tham gia đàm phán quốc tế về biến đổi khí hậu, kí kết Nghị định thư Ki-ô-tô, cam kết giảm lượng phát thải khí nhà kính.",
+  "keyFacts": [
+    "Cam kết giảm lượng phát thải khí nhà kính",
+    "Tham gia đàm phán quốc tế về biến đổi khí hậu"
+  ],
+  "sourceFamily": "post_1975",
+  "preferredVerificationDomains": [
+    "chinhphu.vn",
+    "dangcongsan.vn",
+    "tulieuvankien.dangcongsan.vn",
+    "quochoi.vn",
+    "mofa.gov.vn",
+    "vietnamplus.vn",
+    "nhandan.vn",
+    "un.org",
+    "unphoto.un.org"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Việt Nam kí kết Nghị định thư Ki-ô-tô",
+    "Việt Nam kí kết Nghị định thư Ki-ô-tô Trong thời kì Đổi mới",
+    "Việt Nam kí kết Nghị định thư Ki-ô-tô Công cuộc Đổi mới ở Việt Nam",
+    "Việt Nam kí kết Nghị định thư Ki-ô-tô Cam kết giảm lượng phát thải khí nhà kính Tham gia đàm phán quốc tế về biến đổi khí hậu",
+    "Việt Nam kí kết Nghị định thư Ki-ô-tô ảnh tư liệu",
+    "Việt Nam kí kết Nghị định thư Ki-ô-tô lễ ký"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

@@ -1,0 +1,58 @@
+{
+  "eventId": "dau-tranh-chong-phong-kien-phuong-bac",
+  "title": "Đấu tranh chống sự thống trị, đồng hoá của các triều đại phong kiến phương Bắc",
+  "shortTitle": "Chống Bắc thuộc",
+  "displayDate": "Hơn 1000 năm Bắc thuộc",
+  "eventLevel": "atomic",
+  "rootId": "bac-thuoc-va-dau-tranh-gianh-doc-lap",
+  "parentId": "bac-thuoc-va-dau-tranh-gianh-doc-lap",
+  "historicalLocations": [
+    "phương Bắc",
+    "Việt Nam"
+  ],
+  "provinceNames": [],
+  "canonicalSummary": "Khối đại đoàn kết dân tộc ở Việt Nam ngày càng được củng cố qua cuộc đấu tranh bền bỉ trong hơn 1 000 năm chống lại sự thống trị, đồng hoá của các triều đại phong kiến phương Bắc, giành lại độc lập dân tộc.",
+  "keyFacts": [
+    "Chống lại sự thống trị và đồng hóa",
+    "Củng cố khối đại đoàn kết dân tộc",
+    "Diễn ra trong hơn 1000 năm"
+  ],
+  "sourceFamily": "ancient_medieval",
+  "preferredVerificationDomains": [
+    "baotanglichsu.vn",
+    "disanvanhoa.gov.vn",
+    "bvhttdl.gov.vn",
+    "qdnd.vn",
+    "nhandan.vn",
+    "unesco.org",
+    "whc.unesco.org"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Đấu tranh chống sự thống trị, đồng hoá của các triều đại phong kiến phương Bắc",
+    "Đấu tranh chống sự thống trị, đồng hoá của các triều đại phong kiến phương Bắc Hơn 1000 năm Bắc thuộc",
+    "Đấu tranh chống sự thống trị, đồng hoá của các triều đại phong kiến phương Bắc phương Bắc",
+    "Đấu tranh chống sự thống trị, đồng hoá của các triều đại phong kiến phương Bắc Chống lại sự thống trị và đồng hóa Củng cố khối đại đoàn kết dân tộc",
+    "Đấu tranh chống sự thống trị, đồng hoá của các triều đại phong kiến phương Bắc hiện vật",
+    "Đấu tranh chống sự thống trị, đồng hoá của các triều đại phong kiến phương Bắc di tích"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

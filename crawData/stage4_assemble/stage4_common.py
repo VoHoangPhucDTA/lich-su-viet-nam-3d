@@ -20,9 +20,9 @@ STAGE2_EVENTS = ROOT / "stage2_extract" / "output" / "event_candidates.jsonl"
 GADM_GEOJSON = ROOT.parent / "MVP_KLTN" / "public" / "geojson" / "vietnam-provinces.json"
 
 GRADE_FILES = {
-    10: ROOT / "lich_su_10_kntt.json",
-    11: ROOT / "lich_su_11_kntt.json",
-    12: ROOT / "lich_su_12_kntt.json",
+    10: ROOT / "stage1_crawl" / "lich_su_10_kntt.json",
+    11: ROOT / "stage1_crawl" / "lich_su_11_kntt.json",
+    12: ROOT / "stage1_crawl" / "lich_su_12_kntt.json",
 }
 
 CANONICAL_TOP_LEVEL = [
@@ -197,6 +197,13 @@ def date_sort_key(event: dict[str, Any]) -> tuple[int, int, int, str]:
     )
 
 
+def _legacy_float_sum(values: list[float]) -> float:
+    total = 0.0
+    for value in values:
+        total += value
+    return total
+
+
 def centroid(points: list[dict[str, Any]]) -> dict[str, float] | None:
     valid = [
         p
@@ -205,9 +212,11 @@ def centroid(points: list[dict[str, Any]]) -> dict[str, float] | None:
     ]
     if not valid:
         return None
+    lats = [float(p["lat"]) for p in valid]
+    lngs = [float(p["lng"]) for p in valid]
     return {
-        "lat": round(sum(float(p["lat"]) for p in valid) / len(valid), 6),
-        "lng": round(sum(float(p["lng"]) for p in valid) / len(valid), 6),
+        "lat": round(_legacy_float_sum(lats) / len(valid), 6),
+        "lng": round(_legacy_float_sum(lngs) / len(valid), 6),
     }
 
 

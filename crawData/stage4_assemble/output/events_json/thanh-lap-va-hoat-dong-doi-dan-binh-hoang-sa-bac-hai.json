@@ -36,11 +36,15 @@
   },
   "chronology": {
     "start": {
-      "year": null,
+      "year": 1601,
       "month": null,
       "day": null
     },
-    "end": null,
+    "end": {
+      "year": 1833,
+      "month": null,
+      "day": null
+    },
     "datePrecision": "period",
     "displayDate": "Thế kỉ XVII đến đầu thế kỉ XIX",
     "isApproximate": true
@@ -161,7 +165,7 @@
     "parentId": null,
     "childIds": [],
     "level": 0,
-    "orderInParent": 370
+    "orderInParent": 68
   },
   "associations": {
     "relatedEventIds": [],

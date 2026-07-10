@@ -1,0 +1,9 @@
+{
+  "eventId": "my-thay-chan-phap-dung-chinh-quyen-ngo-dinh-diem",
+  "status": "pending_download",
+  "images": [],
+  "expected": [
+    "image_01.<ext>",
+    "image_02.<ext>"
+  ]
+}

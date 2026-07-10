@@ -1,0 +1,50 @@
+{
+  "eventId": "viet-nam-thoi-dung-nuoc",
+  "title": "Việt Nam thời dựng nước",
+  "shortTitle": "Thời dựng nước",
+  "displayDate": "Thời dựng nước",
+  "eventLevel": "collection",
+  "rootId": "viet-nam-thoi-dung-nuoc",
+  "parentId": null,
+  "historicalLocations": [
+    "Việt Nam"
+  ],
+  "provinceNames": [],
+  "canonicalSummary": "Nút điều hướng tổng hợp cho Việt Nam thời dựng nước.",
+  "keyFacts": [],
+  "sourceFamily": "broad_period",
+  "preferredVerificationDomains": [
+    "baotanglichsu.vn",
+    "nhandan.vn",
+    "qdnd.vn",
+    "vietnamplus.vn",
+    "luutru.gov.vn"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Việt Nam thời dựng nước",
+    "Việt Nam thời dựng nước Thời dựng nước",
+    "Việt Nam thời dựng nước Việt Nam",
+    "Việt Nam thời dựng nước toàn cảnh lịch sử",
+    "Việt Nam thời dựng nước ảnh tư liệu"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

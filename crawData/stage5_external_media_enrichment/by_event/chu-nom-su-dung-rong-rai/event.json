@@ -1,0 +1,53 @@
+{
+  "eventId": "chu-nom-su-dung-rong-rai",
+  "title": "Chữ Nôm được sử dụng rộng rãi",
+  "shortTitle": "Chữ Nôm được sử dụng rộng rãi",
+  "displayDate": "Từ thế kỉ XIII",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-tu-the-ki-x-den-xv",
+  "parentId": "viet-nam-tu-the-ki-x-den-xv",
+  "historicalLocations": [],
+  "provinceNames": [],
+  "canonicalSummary": "Trên cơ sở chữ Hán, chữ Nôm được người Việt sáng tạo và được sử dụng rộng rãi từ thế kỉ XIII.",
+  "keyFacts": [
+    "Sáng tạo trên cơ sở chữ Hán",
+    "Được người Việt sáng tạo",
+    "Sử dụng rộng rãi từ thế kỉ XIII"
+  ],
+  "sourceFamily": "culture_language",
+  "preferredVerificationDomains": [
+    "baotanglichsu.vn",
+    "bvhttdl.gov.vn",
+    "disanvanhoa.gov.vn",
+    "vnfam.vn",
+    "unesco.org"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Chữ Nôm được sử dụng rộng rãi",
+    "Chữ Nôm được sử dụng rộng rãi Từ thế kỉ XIII",
+    "Chữ Nôm được sử dụng rộng rãi Việt Nam từ thế kỉ X đến thế kỉ XV",
+    "Chữ Nôm được sử dụng rộng rãi Sáng tạo trên cơ sở chữ Hán Được người Việt sáng tạo",
+    "Chữ Nôm được sử dụng rộng rãi hiện vật",
+    "Chữ Nôm được sử dụng rộng rãi di sản"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

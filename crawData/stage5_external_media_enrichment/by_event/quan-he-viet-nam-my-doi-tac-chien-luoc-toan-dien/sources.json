@@ -1,0 +1,9 @@
+{
+  "eventId": "quan-he-viet-nam-my-doi-tac-chien-luoc-toan-dien",
+  "status": "pending_download",
+  "images": [],
+  "expected": [
+    "image_01.<ext>",
+    "image_02.<ext>"
+  ]
+}

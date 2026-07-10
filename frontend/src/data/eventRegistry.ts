@@ -14,9 +14,9 @@ export type RawEventLevel = 'collection' | 'atomic';
 export type RawEventTypeId = 'military' | 'political' | 'economic' | 'cultural';
 
 export interface RawDateField {
-  year?: number;
-  month?: number;
-  day?: number;
+  year?: number | null;
+  month?: number | null;
+  day?: number | null;
 }
 
 export interface RawTextbookRef {
@@ -73,6 +73,10 @@ export interface RawEventJson {
       zoom?: number;
       provinceNames?: string[];
     };
+    geoType?: string;
+    marker?: { lat: number; lng: number; label?: string };
+    provinceNames?: string[];
+    historicalLocations?: string[];
   };
 
   summary?: {
@@ -109,12 +113,14 @@ export interface RawEventJson {
   };
 
   display?: {
+    showOnMap?: boolean;
     showOnHomepage?: boolean;
     showOnTimeline?: boolean;
     featured?: boolean;
   };
 
   sourcePolicy?: {
+    primarySource?: string;
     canonicalSource?: string;
     /** JSON thật dùng dạng "wikipedia | wikidata" (string), không phải mảng */
     supplementalSources?: string;

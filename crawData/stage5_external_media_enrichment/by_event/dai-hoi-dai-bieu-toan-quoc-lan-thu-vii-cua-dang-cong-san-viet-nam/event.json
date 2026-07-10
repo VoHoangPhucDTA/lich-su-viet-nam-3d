@@ -1,0 +1,58 @@
+{
+  "eventId": "dai-hoi-dai-bieu-toan-quoc-lan-thu-vii-cua-dang-cong-san-viet-nam",
+  "title": "Đại hội đại biểu toàn quốc lần thứ VII của Đảng Cộng sản Việt Nam",
+  "shortTitle": "Đại hội VII của Đảng",
+  "displayDate": "1991",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1975-den-nay",
+  "parentId": "cong-cuoc-doi-moi-o-viet-nam",
+  "historicalLocations": [
+    "Việt Nam"
+  ],
+  "provinceNames": [],
+  "canonicalSummary": "Đại hội đại biểu toàn quốc lần thứ VII của Đảng Cộng sản Việt Nam diễn ra vào năm 1991.",
+  "keyFacts": [
+    "Bổ sung đường lối đổi mới",
+    "Diễn ra năm 1991"
+  ],
+  "sourceFamily": "post_1975",
+  "preferredVerificationDomains": [
+    "chinhphu.vn",
+    "dangcongsan.vn",
+    "tulieuvankien.dangcongsan.vn",
+    "quochoi.vn",
+    "mofa.gov.vn",
+    "vietnamplus.vn",
+    "nhandan.vn",
+    "un.org",
+    "unphoto.un.org"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Đại hội đại biểu toàn quốc lần thứ VII của Đảng Cộng sản Việt Nam",
+    "Đại hội đại biểu toàn quốc lần thứ VII của Đảng Cộng sản Việt Nam 1991",
+    "Đại hội đại biểu toàn quốc lần thứ VII của Đảng Cộng sản Việt Nam Việt Nam",
+    "Đại hội đại biểu toàn quốc lần thứ VII của Đảng Cộng sản Việt Nam Bổ sung đường lối đổi mới Diễn ra năm 1991",
+    "Đại hội đại biểu toàn quốc lần thứ VII của Đảng Cộng sản Việt Nam ảnh tư liệu",
+    "Đại hội đại biểu toàn quốc lần thứ VII của Đảng Cộng sản Việt Nam lễ ký"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

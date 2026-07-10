@@ -1,0 +1,61 @@
+{
+  "eventId": "phong-trao-chong-thuc-dan-phap-xam-luoc-o-viet-nam",
+  "title": "Phong trào chống thực dân Pháp xâm lược ở Việt Nam",
+  "shortTitle": "Phong trào chống thực dân Pháp xâm lược ở Việt Nam",
+  "displayDate": "1858 - khoảng 1884",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1858-1918",
+  "parentId": "viet-nam-1858-1918",
+  "historicalLocations": [
+    "Việt Nam"
+  ],
+  "provinceNames": [
+    "Đà Nẵng"
+  ],
+  "canonicalSummary": "Từ năm 1858, khi thực dân Pháp nổ súng tấn công Đà Nẵng, cuộc chiến đấu chống xâm lược của nhân dân Việt Nam đã làm thất bại kế hoạch “đánh nhanh, thắng nhanh” của chúng. Cuộc chiến đấu lan rộng ra các tỉnh Nam Kì và Bắc Kì, thu hút sự tham gia của đông đảo các tầng lớp nhân dân. Thực dân Pháp phải mất 26 năm mới áp đặt được ách đô hộ trên toàn bộ đất nước Việt Nam.",
+  "keyFacts": [
+    "Lan rộng ra các tỉnh Nam Kì và Bắc Kì",
+    "Bắt đầu từ năm 1858 khi Pháp tấn công Đà Nẵng",
+    "Pháp mất 26 năm để áp đặt ách đô hộ",
+    "Làm thất bại kế hoạch 'đánh nhanh, thắng nhanh' của Pháp"
+  ],
+  "sourceFamily": "colonial",
+  "preferredVerificationDomains": [
+    "baotanglichsu.vn",
+    "luutru.gov.vn",
+    "hochiminh.vn",
+    "nhandan.vn",
+    "qdnd.vn",
+    "vietnamplus.vn",
+    "gallica.bnf.fr",
+    "loc.gov"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Phong trào chống thực dân Pháp xâm lược ở Việt Nam",
+    "Phong trào chống thực dân Pháp xâm lược ở Việt Nam 1858 - khoảng 1884",
+    "Phong trào chống thực dân Pháp xâm lược ở Việt Nam Việt Nam",
+    "Phong trào chống thực dân Pháp xâm lược ở Việt Nam Lan rộng ra các tỉnh Nam Kì và Bắc Kì Bắt đầu từ năm 1858 khi Pháp tấn công Đà Nẵng",
+    "Phong trào chống thực dân Pháp xâm lược ở Việt Nam ảnh tư liệu",
+    "Phong trào chống thực dân Pháp xâm lược ở Việt Nam chân dung"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

@@ -1,0 +1,58 @@
+{
+  "eventId": "khoi-nghia-khuc-thua-du",
+  "title": "Khởi nghĩa Khúc Thừa Dụ",
+  "shortTitle": "Khởi nghĩa Khúc Thừa Dụ",
+  "displayDate": "905",
+  "eventLevel": "atomic",
+  "rootId": "bac-thuoc-va-dau-tranh-gianh-doc-lap",
+  "parentId": "bac-thuoc-va-dau-tranh-gianh-doc-lap",
+  "historicalLocations": [],
+  "provinceNames": [
+    "Hà Nội"
+  ],
+  "canonicalSummary": "Năm 905, Khúc Thừa Dụ lãnh đạo nhân dân tấn công thành Đại La, lật đổ chính quyền đô hộ, tự xưng là Tiết độ sứ, xây dựng chính quyền tự chủ.",
+  "keyFacts": [
+    "Lật đổ chính quyền đô hộ",
+    "Xây dựng chính quyền tự chủ",
+    "Khúc Thừa Dụ lãnh đạo nhân dân tấn công thành Đại La",
+    "Tự xưng là Tiết độ sứ"
+  ],
+  "sourceFamily": "ancient_medieval",
+  "preferredVerificationDomains": [
+    "baotanglichsu.vn",
+    "disanvanhoa.gov.vn",
+    "bvhttdl.gov.vn",
+    "qdnd.vn",
+    "nhandan.vn",
+    "unesco.org",
+    "whc.unesco.org"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Khởi nghĩa Khúc Thừa Dụ",
+    "Khởi nghĩa Khúc Thừa Dụ 905",
+    "Khởi nghĩa Khúc Thừa Dụ Bắc thuộc và đấu tranh giành độc lập",
+    "Khởi nghĩa Khúc Thừa Dụ Lật đổ chính quyền đô hộ Xây dựng chính quyền tự chủ",
+    "Khởi nghĩa Khúc Thừa Dụ hiện vật",
+    "Khởi nghĩa Khúc Thừa Dụ di tích"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

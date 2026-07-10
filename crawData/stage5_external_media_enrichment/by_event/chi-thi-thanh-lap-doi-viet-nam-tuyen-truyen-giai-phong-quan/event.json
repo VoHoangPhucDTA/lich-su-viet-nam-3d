@@ -1,0 +1,55 @@
+{
+  "eventId": "chi-thi-thanh-lap-doi-viet-nam-tuyen-truyen-giai-phong-quan",
+  "title": "Chỉ thị thành lập Đội Việt Nam Tuyên truyền Giải phóng quân",
+  "shortTitle": "Thành lập Đội Việt Nam Tuyên truyền Giải phóng quân",
+  "displayDate": "22 – 12 – 1944",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1919-1945",
+  "parentId": "viet-nam-1919-1945",
+  "historicalLocations": [],
+  "provinceNames": [],
+  "canonicalSummary": "Chỉ thị thành lập Đội Việt Nam Tuyên truyền Giải phóng quân (22 – 12 – 1944).",
+  "keyFacts": [
+    "Tiền thân của Quân đội nhân dân Việt Nam",
+    "Chỉ thị của Hồ Chí Minh"
+  ],
+  "sourceFamily": "revolutionary",
+  "preferredVerificationDomains": [
+    "hochiminh.vn",
+    "tulieuvankien.dangcongsan.vn",
+    "dangcongsan.vn",
+    "baotanglichsu.vn",
+    "nhandan.vn",
+    "qdnd.vn",
+    "vietnamplus.vn",
+    "luutru.gov.vn"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Chỉ thị thành lập Đội Việt Nam Tuyên truyền Giải phóng quân",
+    "Chỉ thị thành lập Đội Việt Nam Tuyên truyền Giải phóng quân 22 – 12 – 1944",
+    "Chỉ thị thành lập Đội Việt Nam Tuyên truyền Giải phóng quân Việt Nam từ năm 1919 đến năm 1945",
+    "Chỉ thị thành lập Đội Việt Nam Tuyên truyền Giải phóng quân Tiền thân của Quân đội nhân dân Việt Nam Chỉ thị của Hồ Chí Minh",
+    "Chỉ thị thành lập Đội Việt Nam Tuyên truyền Giải phóng quân ảnh tư liệu",
+    "Chỉ thị thành lập Đội Việt Nam Tuyên truyền Giải phóng quân chân dung"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

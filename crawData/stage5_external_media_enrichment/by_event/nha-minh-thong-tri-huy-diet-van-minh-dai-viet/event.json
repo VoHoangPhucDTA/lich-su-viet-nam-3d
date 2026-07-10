@@ -1,0 +1,55 @@
+{
+  "eventId": "nha-minh-thong-tri-huy-diet-van-minh-dai-viet",
+  "title": "Nhà Minh thống trị Đại Việt và chính sách huỷ diệt văn minh",
+  "shortTitle": "Nhà Minh thống trị Đại Việt và chính sách huỷ diệt văn minh",
+  "displayDate": "Từ năm 1407 đến năm 1427",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-tu-the-ki-x-den-xv",
+  "parentId": "viet-nam-tu-the-ki-x-den-xv",
+  "historicalLocations": [],
+  "provinceNames": [],
+  "canonicalSummary": "Từ năm 1407 đến năm 1427, nhà Minh thống trị và thực hiện chính sách huỷ diệt văn minh Đại Việt.",
+  "keyFacts": [
+    "Thực hiện chính sách huỷ diệt văn minh Đại Việt",
+    "Diễn ra từ 1407 đến 1427",
+    "Nhà Minh thống trị Đại Việt"
+  ],
+  "sourceFamily": "ancient_medieval",
+  "preferredVerificationDomains": [
+    "baotanglichsu.vn",
+    "disanvanhoa.gov.vn",
+    "bvhttdl.gov.vn",
+    "qdnd.vn",
+    "nhandan.vn",
+    "unesco.org",
+    "whc.unesco.org"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Nhà Minh thống trị Đại Việt và chính sách huỷ diệt văn minh",
+    "Nhà Minh thống trị Đại Việt và chính sách huỷ diệt văn minh Từ năm 1407 đến năm 1427",
+    "Nhà Minh thống trị Đại Việt và chính sách huỷ diệt văn minh Việt Nam từ thế kỉ X đến thế kỉ XV",
+    "Nhà Minh thống trị Đại Việt và chính sách huỷ diệt văn minh Thực hiện chính sách huỷ diệt văn minh Đại Việt Diễn ra từ 1407 đến 1427",
+    "Nhà Minh thống trị Đại Việt và chính sách huỷ diệt văn minh hiện vật",
+    "Nhà Minh thống trị Đại Việt và chính sách huỷ diệt văn minh di tích"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

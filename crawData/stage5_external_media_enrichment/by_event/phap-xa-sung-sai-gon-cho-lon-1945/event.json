@@ -1,0 +1,59 @@
+{
+  "eventId": "phap-xa-sung-sai-gon-cho-lon-1945",
+  "title": "Quân Pháp xả súng vào đồng bào Sài Gòn – Chợ Lớn",
+  "shortTitle": "Pháp xả súng Sài Gòn",
+  "displayDate": "Ngày 2-9-1945",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1945-1954",
+  "parentId": "khang-chien-chong-thuc-dan-phap-1945-1954",
+  "historicalLocations": [],
+  "provinceNames": [
+    "Hồ Chí Minh"
+  ],
+  "canonicalSummary": "Ngày 2-9-1945, trong khi nhân dân Sài Gòn – Chợ Lớn tổ chức mít tinh chào mừng ngày độc lập, quân Pháp đã bất ngờ xả súng vào đồng bào ta.",
+  "keyFacts": [
+    "Quân Pháp xả súng vào người dân đang mít tinh",
+    "Diễn ra ngày 2-9-1945",
+    "Tại Sài Gòn – Chợ Lớn"
+  ],
+  "sourceFamily": "war_1945_1975",
+  "preferredVerificationDomains": [
+    "btlsqsvn.org.vn",
+    "qdnd.vn",
+    "nhandan.vn",
+    "vietnamplus.vn",
+    "hochiminh.vn",
+    "baotanglichsu.vn",
+    "luutru.gov.vn",
+    "loc.gov",
+    "archives.gov"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Quân Pháp xả súng vào đồng bào Sài Gòn – Chợ Lớn",
+    "Quân Pháp xả súng vào đồng bào Sài Gòn – Chợ Lớn Ngày 2-9-1945",
+    "Quân Pháp xả súng vào đồng bào Sài Gòn – Chợ Lớn Cuộc kháng chiến chống thực dân Pháp",
+    "Quân Pháp xả súng vào đồng bào Sài Gòn – Chợ Lớn Quân Pháp xả súng vào người dân đang mít tinh Diễn ra ngày 2-9-1945",
+    "Quân Pháp xả súng vào đồng bào Sài Gòn – Chợ Lớn ảnh tư liệu",
+    "Quân Pháp xả súng vào đồng bào Sài Gòn – Chợ Lớn chiến dịch"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

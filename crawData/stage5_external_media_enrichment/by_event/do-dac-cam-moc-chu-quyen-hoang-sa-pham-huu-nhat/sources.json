@@ -1,0 +1,9 @@
+{
+  "eventId": "do-dac-cam-moc-chu-quyen-hoang-sa-pham-huu-nhat",
+  "status": "pending_download",
+  "images": [],
+  "expected": [
+    "image_01.<ext>",
+    "image_02.<ext>"
+  ]
+}

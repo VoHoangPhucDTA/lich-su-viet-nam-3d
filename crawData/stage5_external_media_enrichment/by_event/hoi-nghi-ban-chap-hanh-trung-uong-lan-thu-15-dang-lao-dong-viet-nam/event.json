@@ -1,0 +1,60 @@
+{
+  "eventId": "hoi-nghi-ban-chap-hanh-trung-uong-lan-thu-15-dang-lao-dong-viet-nam",
+  "title": "Hội nghị Ban Chấp hành Trung ương lần thứ 15 của Đảng Lao động Việt Nam",
+  "shortTitle": "Hội nghị Trung ương 15",
+  "displayDate": "Tháng 1 – 1959",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1954-1975",
+  "parentId": "viet-nam-1954-1975",
+  "historicalLocations": [
+    "miền Nam"
+  ],
+  "provinceNames": [],
+  "canonicalSummary": "Tháng 1 – 1959, Hội nghị Ban Chấp hành Trung ương lần thứ 15 của Đảng Lao động Việt Nam khẳng định: ngoài con đường sử dụng bạo lực cách mạng, nhân dân miền Nam không còn con đường nào khác. Nghị quyết đã thổi bùng lên phong trào Đồng khởi (1959 – 1960).",
+  "keyFacts": [
+    "Diễn ra tháng 1-1959",
+    "Khẳng định con đường sử dụng bạo lực cách mạng ở miền Nam",
+    "Chủ trì bởi Chủ tịch Hồ Chí Minh",
+    "Xác định phương hướng cơ bản cho cách mạng miền Nam"
+  ],
+  "sourceFamily": "war_1945_1975",
+  "preferredVerificationDomains": [
+    "btlsqsvn.org.vn",
+    "qdnd.vn",
+    "nhandan.vn",
+    "vietnamplus.vn",
+    "hochiminh.vn",
+    "baotanglichsu.vn",
+    "luutru.gov.vn",
+    "loc.gov",
+    "archives.gov"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Hội nghị Ban Chấp hành Trung ương lần thứ 15 của Đảng Lao động Việt Nam",
+    "Hội nghị Ban Chấp hành Trung ương lần thứ 15 của Đảng Lao động Việt Nam Tháng 1 – 1959",
+    "Hội nghị Ban Chấp hành Trung ương lần thứ 15 của Đảng Lao động Việt Nam miền Nam",
+    "Hội nghị Ban Chấp hành Trung ương lần thứ 15 của Đảng Lao động Việt Nam Diễn ra tháng 1-1959 Khẳng định con đường sử dụng bạo lực cách mạng ở miền Nam",
+    "Hội nghị Ban Chấp hành Trung ương lần thứ 15 của Đảng Lao động Việt Nam ảnh tư liệu",
+    "Hội nghị Ban Chấp hành Trung ương lần thứ 15 của Đảng Lao động Việt Nam chiến dịch"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

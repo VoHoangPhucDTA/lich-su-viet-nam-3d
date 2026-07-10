@@ -1,0 +1,50 @@
+{
+  "eventId": "viet-nam-1975-den-nay",
+  "title": "Việt Nam từ năm 1975 đến nay",
+  "shortTitle": "Việt Nam 1975 đến nay",
+  "displayDate": "Việt Nam 1975 đến nay",
+  "eventLevel": "collection",
+  "rootId": "viet-nam-1975-den-nay",
+  "parentId": null,
+  "historicalLocations": [
+    "Việt Nam"
+  ],
+  "provinceNames": [],
+  "canonicalSummary": "Nút điều hướng tổng hợp cho Việt Nam từ năm 1975 đến nay.",
+  "keyFacts": [],
+  "sourceFamily": "broad_period",
+  "preferredVerificationDomains": [
+    "baotanglichsu.vn",
+    "nhandan.vn",
+    "qdnd.vn",
+    "vietnamplus.vn",
+    "luutru.gov.vn"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Việt Nam từ năm 1975 đến nay",
+    "Việt Nam từ năm 1975 đến nay Việt Nam 1975 đến nay",
+    "Việt Nam từ năm 1975 đến nay Việt Nam",
+    "Việt Nam từ năm 1975 đến nay toàn cảnh lịch sử",
+    "Việt Nam từ năm 1975 đến nay ảnh tư liệu"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

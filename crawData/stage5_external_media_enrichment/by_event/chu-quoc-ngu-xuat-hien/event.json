@@ -1,0 +1,53 @@
+{
+  "eventId": "chu-quoc-ngu-xuat-hien",
+  "title": "Chữ Quốc ngữ xuất hiện và dần được hoàn thiện",
+  "shortTitle": "Chữ Quốc ngữ xuất hiện và dần được hoàn thiện",
+  "displayDate": "Từ đầu thế kỉ XVI",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-tu-the-ki-xvi-den-xix",
+  "parentId": "viet-nam-tu-the-ki-xvi-den-xix",
+  "historicalLocations": [],
+  "provinceNames": [],
+  "canonicalSummary": "Từ đầu thế kỉ XVI, cùng với sự du nhập của Công giáo, chữ Quốc ngữ đã xuất hiện và dần được hoàn thiện.",
+  "keyFacts": [
+    "Dần được hoàn thiện",
+    "Xuất hiện từ đầu thế kỉ XVI",
+    "Cùng với sự du nhập của Công giáo"
+  ],
+  "sourceFamily": "culture_language",
+  "preferredVerificationDomains": [
+    "baotanglichsu.vn",
+    "bvhttdl.gov.vn",
+    "disanvanhoa.gov.vn",
+    "vnfam.vn",
+    "unesco.org"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Chữ Quốc ngữ xuất hiện và dần được hoàn thiện",
+    "Chữ Quốc ngữ xuất hiện và dần được hoàn thiện Từ đầu thế kỉ XVI",
+    "Chữ Quốc ngữ xuất hiện và dần được hoàn thiện Việt Nam từ thế kỉ XVI đến thế kỉ XIX",
+    "Chữ Quốc ngữ xuất hiện và dần được hoàn thiện Dần được hoàn thiện Xuất hiện từ đầu thế kỉ XVI",
+    "Chữ Quốc ngữ xuất hiện và dần được hoàn thiện hiện vật",
+    "Chữ Quốc ngữ xuất hiện và dần được hoàn thiện di sản"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

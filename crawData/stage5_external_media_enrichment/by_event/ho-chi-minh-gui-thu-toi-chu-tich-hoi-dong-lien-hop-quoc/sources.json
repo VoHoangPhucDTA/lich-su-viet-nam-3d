@@ -1,0 +1,9 @@
+{
+  "eventId": "ho-chi-minh-gui-thu-toi-chu-tich-hoi-dong-lien-hop-quoc",
+  "status": "pending_download",
+  "images": [],
+  "expected": [
+    "image_01.<ext>",
+    "image_02.<ext>"
+  ]
+}

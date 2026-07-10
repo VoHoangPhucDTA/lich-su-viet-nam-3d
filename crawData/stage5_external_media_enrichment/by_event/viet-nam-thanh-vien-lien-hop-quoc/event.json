@@ -1,0 +1,55 @@
+{
+  "eventId": "viet-nam-thanh-vien-lien-hop-quoc",
+  "title": "Việt Nam trở thành thành viên chính thức của Liên hợp quốc",
+  "shortTitle": "Việt Nam gia nhập LHQ",
+  "displayDate": "Ngày 20-9-1977",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1975-den-nay",
+  "parentId": "viet-nam-1975-den-nay",
+  "historicalLocations": [],
+  "provinceNames": [],
+  "canonicalSummary": "Ngày 20-9-1977, Việt Nam trở thành thành viên chính thức của Liên hợp quốc.",
+  "keyFacts": [
+    "Ngày 20-9-1977",
+    "Là thành viên chính thức của Liên hợp quốc"
+  ],
+  "sourceFamily": "diplomacy",
+  "preferredVerificationDomains": [
+    "mofa.gov.vn",
+    "chinhphu.vn",
+    "vietnamplus.vn",
+    "nhandan.vn",
+    "un.org",
+    "asean.org",
+    "apec.org",
+    "europa.eu"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Việt Nam trở thành thành viên chính thức của Liên hợp quốc",
+    "Việt Nam trở thành thành viên chính thức của Liên hợp quốc Ngày 20-9-1977",
+    "Việt Nam trở thành thành viên chính thức của Liên hợp quốc Việt Nam từ năm 1975 đến nay",
+    "Việt Nam trở thành thành viên chính thức của Liên hợp quốc Ngày 20-9-1977 Là thành viên chính thức của Liên hợp quốc",
+    "Việt Nam trở thành thành viên chính thức của Liên hợp quốc lễ ký",
+    "Việt Nam trở thành thành viên chính thức của Liên hợp quốc hội nghị"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

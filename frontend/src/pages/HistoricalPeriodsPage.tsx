@@ -11,6 +11,7 @@ import { getBrowseEvents } from '../services/eventApi';
 import { getEventTitleFallback } from '../data/eventTitleImages';
 import EventCard from '../components/shared/EventCard';
 import BackButton from '../components/shared/BackButton';
+import { compareChronologyS1, matchesNumericFilter } from '../utils/chronology';
 
 /* ─── Historical period definitions ──────────────────────────────────────── */
 
@@ -104,9 +105,9 @@ export default function HistoricalPeriodsPage() {
       // ASC, so ancient events come first. With ~250 events total, 1000 is safe.
       const result = await getBrowseEvents({ limit: 1000 });
       const filtered = result.events.filter(
-        (ev) => ev.startYear >= period.startYear && ev.startYear <= period.endYear
+        (ev) => matchesNumericFilter(ev, { fromYear: period.startYear, toYear: period.endYear })
       );
-      filtered.sort((a, b) => a.startYear - b.startYear);
+      filtered.sort(compareChronologyS1);
       setPeriodEvents(filtered);
     } catch {
       // Silently handle

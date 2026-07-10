@@ -6,7 +6,7 @@ import re
 from typing import Any
 
 from build_review_reports import lessons_label, markdown_table, write_curation_review, write_merge_proposal
-from build_tree import assign_parents, build_forced_collection_nodes, build_tree, merge_approved_groups
+from build_tree import assign_parents, build_forced_collection_nodes, build_tree, merge_approved_groups, synthetic_collection_target_ids
 from common import (
     CONFIG,
     DISPLAY_REVIEW,
@@ -23,6 +23,10 @@ from common import (
     write_jsonl,
 )
 from validate_curated_tree import validate_curated_tree
+from synthetic_chronology_repair import (
+    load_synthetic_chronology_overrides,
+    validate_all_synthetic_overrides_applied,
+)
 
 
 def main() -> int:
@@ -93,7 +97,22 @@ def run_phase2() -> int:
     core, supporting, removed = apply_curation_decisions(merged_events, force_keep, force_supporting, force_remove)
     forced_parent_ids = _forced_parent_ids(force_parent)
     forced_parent_ids.update(_forced_collection_ids(force_parent, {period["id"] for period in root_periods}))
-    core.extend(build_forced_collection_nodes(core, forced_parent_ids, root_periods))
+    synthetic_target_ids = set(synthetic_collection_target_ids(core, forced_parent_ids, root_periods))
+    synthetic_chronology_overrides = load_synthetic_chronology_overrides(
+        CONFIG / "synthetic_chronology_overrides.json",
+        synthetic_target_ids,
+    )
+    synthetic_chronology_counts = {event_id: 0 for event_id in synthetic_chronology_overrides}
+    core.extend(
+        build_forced_collection_nodes(
+            core,
+            forced_parent_ids,
+            root_periods,
+            synthetic_chronology_overrides,
+            synthetic_chronology_counts,
+        )
+    )
+    validate_all_synthetic_overrides_applied(synthetic_chronology_counts)
     assigned = assign_parents(core, root_periods, parent_rules, force_parent)
     nodes, event_tree = build_tree(sorted(assigned, key=date_sort_key), root_periods, curation_rules)
 

@@ -1,0 +1,61 @@
+{
+  "eventId": "chien-thang-van-tuong",
+  "title": "Chiến thắng Vạn Tường",
+  "shortTitle": "Vạn Tường",
+  "displayDate": "18 – 8 – 1965",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1954-1975",
+  "parentId": "viet-nam-1954-1975",
+  "historicalLocations": [
+    "miền Nam"
+  ],
+  "provinceNames": [
+    "Quảng Ngãi"
+  ],
+  "canonicalSummary": "Thực hiện chiến lược “Chiến tranh cục bộ”, quân Mỹ vừa mới vào miền Nam đã cho mở ngay cuộc hành quân “tìm diệt” vào căn cứ của Quân Giải phóng ở Vạn Tường (Quảng Ngãi). Với ý chí “Quyết chiến quyết thắng giặc Mỹ xâm lược, quân dân miền Nam đã anh dũng chiến đấu và giành thắng lợi ở Vạn Tường (18 – 8 – 1965), mở ra khả năng đánh thắng Mỹ trong chiến lược “Chiến tranh cục bộ” về quân sự.",
+  "keyFacts": [
+    "Mở ra khả năng đánh thắng Mỹ trong 'Chiến tranh cục bộ'",
+    "Diễn ra tại Vạn Tường (Quảng Ngãi) ngày 18-8-1965",
+    "Đánh bại cuộc hành quân 'tìm diệt' của quân Mỹ"
+  ],
+  "sourceFamily": "war_1945_1975",
+  "preferredVerificationDomains": [
+    "btlsqsvn.org.vn",
+    "qdnd.vn",
+    "nhandan.vn",
+    "vietnamplus.vn",
+    "hochiminh.vn",
+    "baotanglichsu.vn",
+    "luutru.gov.vn",
+    "loc.gov",
+    "archives.gov"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Chiến thắng Vạn Tường",
+    "Chiến thắng Vạn Tường 18 – 8 – 1965",
+    "Chiến thắng Vạn Tường miền Nam",
+    "Chiến thắng Vạn Tường Mở ra khả năng đánh thắng Mỹ trong 'Chiến tranh cục bộ' Diễn ra tại Vạn Tường (Quảng Ngãi) ngày 18-8-1965",
+    "Chiến thắng Vạn Tường ảnh tư liệu",
+    "Chiến thắng Vạn Tường chiến dịch"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "eventId": "hien-phap-cong-hoa-xa-hoi-chu-nghia-viet-nam-2013",
+  "status": "pending_download",
+  "images": [],
+  "expected": [
+    "image_01.<ext>",
+    "image_02.<ext>"
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "eventId": "phong-trao-tay-son-bung-no",
+  "title": "Phong trào Tây Sơn bùng nổ",
+  "shortTitle": "Phong trào Tây Sơn bùng nổ",
+  "displayDate": "Cuối thế kỉ XVIII",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-tu-the-ki-xvi-den-xix",
+  "parentId": "phong-trao-tay-son",
+  "historicalLocations": [],
+  "provinceNames": [],
+  "canonicalSummary": "Cuối thế kỉ XVIII, phong trào Tây Sơn bùng nổ và lan rộng, lật đổ các chính quyển phong kiến trong nước, đánh tan quân xâm lược Xiêm và Mãn Thanh, xoá bỏ tình trạng chia cắt đất nước, thành lập vương triều, tạo nền tảng cho sự thống nhất quốc gia.",
+  "keyFacts": [
+    "Thành lập vương triều Tây Sơn",
+    "Xoá bỏ chia cắt đất nước",
+    "Lật đổ chính quyền phong kiến",
+    "Bùng nổ cuối thế kỉ XVIII",
+    "Đánh tan quân Xiêm và Mãn Thanh"
+  ],
+  "sourceFamily": "early_modern",
+  "preferredVerificationDomains": [
+    "baotanglichsu.vn",
+    "luutru.gov.vn",
+    "disanvanhoa.gov.vn",
+    "nhandan.vn",
+    "qdnd.vn"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Phong trào Tây Sơn bùng nổ",
+    "Phong trào Tây Sơn bùng nổ Cuối thế kỉ XVIII",
+    "Phong trào Tây Sơn bùng nổ Phong trào Tây Sơn",
+    "Phong trào Tây Sơn bùng nổ Thành lập vương triều Tây Sơn Xoá bỏ chia cắt đất nước",
+    "Phong trào Tây Sơn bùng nổ chân dung",
+    "Phong trào Tây Sơn bùng nổ di tích"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

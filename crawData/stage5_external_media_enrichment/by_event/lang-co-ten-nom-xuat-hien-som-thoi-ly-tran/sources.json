@@ -1,0 +1,9 @@
+{
+  "eventId": "lang-co-ten-nom-xuat-hien-som-thoi-ly-tran",
+  "status": "pending_download",
+  "images": [],
+  "expected": [
+    "image_01.<ext>",
+    "image_02.<ext>"
+  ]
+}

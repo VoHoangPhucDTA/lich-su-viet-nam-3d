@@ -1,0 +1,56 @@
+{
+  "eventId": "nguyen-ai-quoc-hoat-dong-lien-xo-1933",
+  "title": "Nguyễn Ái Quốc hoạt động tại Liên Xô",
+  "shortTitle": "Nguyễn Ái Quốc hoạt động tại Liên Xô",
+  "displayDate": "Năm 1933",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1919-1945",
+  "parentId": "viet-nam-1919-1945",
+  "historicalLocations": [
+    "Liên Xô"
+  ],
+  "provinceNames": [],
+  "canonicalSummary": "Năm 1933, Nguyễn Ái Quốc hoạt động tại Liên Xô.",
+  "keyFacts": [
+    "Hoạt động tại Liên Xô"
+  ],
+  "sourceFamily": "revolutionary",
+  "preferredVerificationDomains": [
+    "hochiminh.vn",
+    "tulieuvankien.dangcongsan.vn",
+    "dangcongsan.vn",
+    "baotanglichsu.vn",
+    "nhandan.vn",
+    "qdnd.vn",
+    "vietnamplus.vn",
+    "luutru.gov.vn"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Nguyễn Ái Quốc hoạt động tại Liên Xô",
+    "Nguyễn Ái Quốc hoạt động tại Liên Xô Năm 1933",
+    "Nguyễn Ái Quốc hoạt động tại Liên Xô Liên Xô",
+    "Nguyễn Ái Quốc hoạt động tại Liên Xô Hoạt động tại Liên Xô",
+    "Nguyễn Ái Quốc hoạt động tại Liên Xô ảnh tư liệu",
+    "Nguyễn Ái Quốc hoạt động tại Liên Xô chân dung"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

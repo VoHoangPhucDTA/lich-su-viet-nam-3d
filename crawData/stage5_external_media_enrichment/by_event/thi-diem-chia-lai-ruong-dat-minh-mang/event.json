@@ -1,0 +1,60 @@
+{
+  "eventId": "thi-diem-chia-lai-ruong-dat-minh-mang",
+  "title": "Thí điểm chia lại ruộng đất dưới thời Minh Mạng",
+  "shortTitle": "Thí điểm chia lại ruộng đất dưới thời Minh Mạng",
+  "displayDate": "1837 - 1840",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-tu-the-ki-xvi-den-xix",
+  "parentId": "cuoc-cai-cach-cua-minh-mang",
+  "historicalLocations": [],
+  "provinceNames": [
+    "Bình Thuận",
+    "Hồ Chí Minh",
+    "Bình Định"
+  ],
+  "canonicalSummary": "Trước thực trạng ruộng đất công làng xã bị thu hẹp nghiêm trọng, vua Minh Mạng tiến hành cải cách ruộng đất ở Bình Định và Nam Kì. Năm 1837, chia ruộng tư thành bản, chiều cấp cho các xã dân. Năm 1839, yêu cầu chủ sở hữu bỏ ra 50% ruộng đất tư sung công quỹ. Năm 1840, quyết định trích một nửa hoặc 3-4 phần mười ruộng tư sung công. Tuy nhiên, kết quả đạt được rất hạn chế, chỉ có 6-7% số người tự nguyện đem ruộng tư nhượng làm ruộng công.",
+  "keyFacts": [
+    "Năm 1839: yêu cầu bỏ 50% ruộng tư sung công",
+    "Năm 1840: trích ruộng tư làm ruộng công",
+    "Diễn ra từ 1837 đến 1840",
+    "Thực hiện ở Bình Định và các tỉnh Nam Kì",
+    "Kết quả đạt được rất hạn chế",
+    "Năm 1837: chia ruộng tư thành bản, cấp cho xã dân"
+  ],
+  "sourceFamily": "early_modern",
+  "preferredVerificationDomains": [
+    "baotanglichsu.vn",
+    "luutru.gov.vn",
+    "disanvanhoa.gov.vn",
+    "nhandan.vn",
+    "qdnd.vn"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Thí điểm chia lại ruộng đất dưới thời Minh Mạng",
+    "Thí điểm chia lại ruộng đất dưới thời Minh Mạng 1837 - 1840",
+    "Thí điểm chia lại ruộng đất dưới thời Minh Mạng Cuộc cải cách của Minh Mạng",
+    "Thí điểm chia lại ruộng đất dưới thời Minh Mạng Năm 1839: yêu cầu bỏ 50% ruộng tư sung công Năm 1840: trích ruộng tư làm ruộng công",
+    "Thí điểm chia lại ruộng đất dưới thời Minh Mạng chân dung",
+    "Thí điểm chia lại ruộng đất dưới thời Minh Mạng di tích"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

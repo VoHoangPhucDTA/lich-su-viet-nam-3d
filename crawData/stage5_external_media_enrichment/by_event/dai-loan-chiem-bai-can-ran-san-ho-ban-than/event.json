@@ -1,0 +1,59 @@
+{
+  "eventId": "dai-loan-chiem-bai-can-ran-san-ho-ban-than",
+  "title": "Đài Loan chiếm bãi cạn rạn san hô Bàn Than",
+  "shortTitle": "Đài Loan chiếm Bàn Than (1995)",
+  "displayDate": "Năm 1995",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1975-den-nay",
+  "parentId": "chu-quyen-bien-dao-viet-nam-1975-den-nay",
+  "historicalLocations": [
+    "bãi cạn rạn san hô Bàn Than"
+  ],
+  "provinceNames": [],
+  "canonicalSummary": "Đài Loan - Năm 1995, chiếm bãi cạn rạn san hô Bàn Than.",
+  "keyFacts": [
+    "Diễn ra năm 1995",
+    "Đối tượng: bãi cạn rạn san hô Bàn Than",
+    "Chủ thể: Đài Loan"
+  ],
+  "sourceFamily": "post_1975",
+  "preferredVerificationDomains": [
+    "chinhphu.vn",
+    "dangcongsan.vn",
+    "tulieuvankien.dangcongsan.vn",
+    "quochoi.vn",
+    "mofa.gov.vn",
+    "vietnamplus.vn",
+    "nhandan.vn",
+    "un.org",
+    "unphoto.un.org"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Đài Loan chiếm bãi cạn rạn san hô Bàn Than",
+    "Đài Loan chiếm bãi cạn rạn san hô Bàn Than Năm 1995",
+    "Đài Loan chiếm bãi cạn rạn san hô Bàn Than bãi cạn rạn san hô Bàn Than",
+    "Đài Loan chiếm bãi cạn rạn san hô Bàn Than Diễn ra năm 1995 Đối tượng: bãi cạn rạn san hô Bàn Than",
+    "Đài Loan chiếm bãi cạn rạn san hô Bàn Than ảnh tư liệu",
+    "Đài Loan chiếm bãi cạn rạn san hô Bàn Than lễ ký"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

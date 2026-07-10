@@ -1,0 +1,56 @@
+{
+  "eventId": "viet-nam-uy-vien-khong-thuong-truc-hoi-dong-bao-an-lhq",
+  "title": "Việt Nam được bầu vào vị trí Uỷ viên không thường trực Hội đồng Bảo an Liên hợp quốc",
+  "shortTitle": "VN Uỷ viên HĐBA LHQ",
+  "displayDate": "Nhiệm kì 2008 – 2009 và 2020 - 2021",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1975-den-nay",
+  "parentId": "cong-cuoc-doi-moi-o-viet-nam",
+  "historicalLocations": [],
+  "provinceNames": [],
+  "canonicalSummary": "Việt Nam hai lần được bầu với số phiếu cao vào vị trí Uỷ viên không thường trực Hội đồng Bảo an Liên hợp quốc nhiệm kì 2008 – 2009 và 2020 - 2021.",
+  "keyFacts": [
+    "Nhiệm kì 2020 - 2021",
+    "Hai lần được bầu",
+    "Nhiệm kì 2008 – 2009"
+  ],
+  "sourceFamily": "diplomacy",
+  "preferredVerificationDomains": [
+    "mofa.gov.vn",
+    "chinhphu.vn",
+    "vietnamplus.vn",
+    "nhandan.vn",
+    "un.org",
+    "asean.org",
+    "apec.org",
+    "europa.eu"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Việt Nam được bầu vào vị trí Uỷ viên không thường trực Hội đồng Bảo an Liên hợp quốc",
+    "Việt Nam được bầu vào vị trí Uỷ viên không thường trực Hội đồng Bảo an Liên hợp quốc Nhiệm kì 2008 – 2009 và 2020 - 2021",
+    "Việt Nam được bầu vào vị trí Uỷ viên không thường trực Hội đồng Bảo an Liên hợp quốc Công cuộc Đổi mới ở Việt Nam",
+    "Việt Nam được bầu vào vị trí Uỷ viên không thường trực Hội đồng Bảo an Liên hợp quốc Nhiệm kì 2020 - 2021 Hai lần được bầu",
+    "Việt Nam được bầu vào vị trí Uỷ viên không thường trực Hội đồng Bảo an Liên hợp quốc lễ ký",
+    "Việt Nam được bầu vào vị trí Uỷ viên không thường trực Hội đồng Bảo an Liên hợp quốc hội nghị"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

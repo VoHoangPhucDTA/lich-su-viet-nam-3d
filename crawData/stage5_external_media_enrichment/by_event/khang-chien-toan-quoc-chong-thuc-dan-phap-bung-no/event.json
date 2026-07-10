@@ -1,0 +1,55 @@
+{
+  "eventId": "khang-chien-toan-quoc-chong-thuc-dan-phap-bung-no",
+  "title": "Kháng chiến toàn quốc chống thực dân Pháp bùng nổ",
+  "shortTitle": "Kháng chiến toàn quốc chống thực dân Pháp bùng nổ",
+  "displayDate": "Tháng 12 năm 1946",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1945-1954",
+  "parentId": "viet-nam-1945-1954",
+  "historicalLocations": [],
+  "provinceNames": [],
+  "canonicalSummary": "Cuộc kháng chiến toàn quốc chống thực dân Pháp bùng nổ (12 – 1946).",
+  "keyFacts": [
+    "Bùng nổ vào tháng 12-1946"
+  ],
+  "sourceFamily": "war_1945_1975",
+  "preferredVerificationDomains": [
+    "btlsqsvn.org.vn",
+    "qdnd.vn",
+    "nhandan.vn",
+    "vietnamplus.vn",
+    "hochiminh.vn",
+    "baotanglichsu.vn",
+    "luutru.gov.vn",
+    "loc.gov",
+    "archives.gov"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Kháng chiến toàn quốc chống thực dân Pháp bùng nổ",
+    "Kháng chiến toàn quốc chống thực dân Pháp bùng nổ Tháng 12 năm 1946",
+    "Kháng chiến toàn quốc chống thực dân Pháp bùng nổ Việt Nam từ năm 1945 đến năm 1954",
+    "Kháng chiến toàn quốc chống thực dân Pháp bùng nổ Bùng nổ vào tháng 12-1946",
+    "Kháng chiến toàn quốc chống thực dân Pháp bùng nổ ảnh tư liệu",
+    "Kháng chiến toàn quốc chống thực dân Pháp bùng nổ chiến dịch"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

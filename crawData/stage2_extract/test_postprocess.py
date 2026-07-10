@@ -1,7 +1,10 @@
 """
-Test fix_bce_years va validate_schema voi cac ca bien quan trong.
+Test fix_bce_years, fix_period_years va validate_schema voi cac ca bien quan trong.
 """
 import sys, os
+from types import SimpleNamespace
+
+sys.modules.setdefault("requests", SimpleNamespace(post=None))
 sys.path.insert(0, os.path.dirname(__file__))
 from extract import fix_bce_years, fix_period_years, validate_schema
 
@@ -17,6 +20,10 @@ def make_event(sid, dd, start_year, end_year, precision="approximate"):
             "isApproximate": True
         }
     }
+
+def clone(data):
+    import copy
+    return copy.deepcopy(data)
 
 def run_tests():
     errors = []
@@ -58,23 +65,73 @@ def run_tests():
     assert s == -558, f"Ca 5 FAIL: start={s}, expected -558 (giu nguyen)"
     print(f"[OK] Ca 5 (da am -> giu nguyen): start={s}")
 
-    # --- Ca 6: fix_period_years null out year khi datePrecision=period ---
-    data6 = {"events": [make_event("test6", "The ki IV - VI", 301, 600, "period")], "concepts": []}
+    # --- Ca 6: period co range nam hop le thi giu year ---
+    data6 = {"events": [make_event("test6", "1954 - 1960", 1954, 1960, "period")], "concepts": []}
     fix_period_years(data6)
     c = data6["events"][0]["chronology"]
-    assert c["start"]["year"] is None, f"Ca 6 FAIL: start.year={c['start']['year']}"
-    assert c["end"]["year"] is None,   f"Ca 6 FAIL: end.year={c['end']['year']}"
-    print(f"[OK] Ca 6 (period -> null): start={c['start']['year']}, end={c['end']['year']}")
+    assert c["start"]["year"] == 1954, f"Ca 6 FAIL: start.year={c['start']['year']}"
+    assert c["end"]["year"] == 1960,   f"Ca 6 FAIL: end.year={c['end']['year']}"
+    print(f"[OK] Ca 6 (period range giu year): start={c['start']['year']}, end={c['end']['year']}")
 
-    # --- Ca 7: validate_schema bat events=[] va concepts=[] dong thoi ---
+    # --- Ca 7: period co 1 start year hop le thi giu start, end null ---
+    data7 = {"events": [make_event("test7", "1954", 1954, None, "period")], "concepts": []}
+    fix_period_years(data7)
+    c = data7["events"][0]["chronology"]
+    assert c["start"]["year"] == 1954, f"Ca 7 FAIL: start.year={c['start']['year']}"
+    assert c["end"]["year"] is None, f"Ca 7 FAIL: end.year={c['end']['year']}"
+    print(f"[OK] Ca 7 (period start year only): start={c['start']['year']}, end={c['end']['year']}")
+
+    # --- Ca 8: period khong co year thi khong tu suy dien ---
+    data8 = {"events": [make_event("test8", "Thoi ky khong ro", None, None, "period")], "concepts": []}
+    fix_period_years(data8)
+    c = data8["events"][0]["chronology"]
+    assert c["start"]["year"] is None, f"Ca 8 FAIL: start.year={c['start']['year']}"
+    assert c["end"]["year"] is None, f"Ca 8 FAIL: end.year={c['end']['year']}"
+    print(f"[OK] Ca 8 (period no years): start={c['start']['year']}, end={c['end']['year']}")
+
+    # --- Ca 9: non-period chronology khong doi ---
+    data9 = {"events": [make_event("test9", "Nam 1954", 1954, None, "year")], "concepts": []}
+    before9 = clone(data9)
+    fix_period_years(data9)
+    assert data9 == before9, "Ca 9 FAIL: non-period chronology bi thay doi"
+    print("[OK] Ca 9 (non-period unchanged)")
+
+    # --- Ca 10: nam am hop le trong period khong bi xoa/chuyen doi ---
+    data10 = {"events": [make_event("test10", "Nam 208 TCN", -208, None, "period")], "concepts": []}
+    fix_period_years(data10)
+    c = data10["events"][0]["chronology"]
+    assert c["start"]["year"] == -208, f"Ca 10 FAIL: start.year={c['start']['year']}"
+    print(f"[OK] Ca 10 (period BCE year): start={c['start']['year']}")
+
+    # --- Ca 11: idempotency va representative range 1964 - 1965 ---
+    data11 = {"events": [make_event("test11", "1964 - 1965", 1964, 1965, "period")], "concepts": []}
+    fix_period_years(data11)
+    once = clone(data11)
+    fix_period_years(data11)
+    assert data11 == once, "Ca 11 FAIL: fix_period_years khong idempotent"
+    c = data11["events"][0]["chronology"]
+    assert c["start"]["year"] == 1964 and c["end"]["year"] == 1965, "Ca 11 FAIL: range 1964-1965 khong duoc giu"
+    print(f"[OK] Ca 11 (idempotent 1964-1965): start={c['start']['year']}, end={c['end']['year']}")
+
+    # --- Ca 12: period xoa month/day qua chi tiet nhung giu year ---
+    data12 = {"events": [make_event("test12", "1954 - 1960", 1954, 1960, "period")], "concepts": []}
+    data12["events"][0]["chronology"]["start"]["month"] = 5
+    data12["events"][0]["chronology"]["end"]["day"] = 7
+    fix_period_years(data12)
+    c = data12["events"][0]["chronology"]
+    assert c["start"]["year"] == 1954 and c["end"]["year"] == 1960, "Ca 12 FAIL: year bi xoa"
+    assert c["start"]["month"] is None and c["end"]["day"] is None, "Ca 12 FAIL: month/day khong duoc normalize"
+    print("[OK] Ca 12 (period clears month/day only)")
+
+    # --- Ca 13: validate_schema bat events=[] va concepts=[] dong thoi ---
     data7 = {"lesson_id": "99999", "lesson_title": "Test", "events": [], "concepts": []}
     try:
         validate_schema(data7, "99999")
-        errors.append("Ca 7 FAIL: validate_schema khong raise khi events=concepts=[]")
+        errors.append("Ca 13 FAIL: validate_schema khong raise khi events=concepts=[]")
     except ValueError as ex:
-        print(f"[OK] Ca 7 (events=concepts=[]): raise '{ex}'")
+        print(f"[OK] Ca 13 (events=concepts=[]): raise '{ex}'")
 
-    # --- Ca 8: Bai thuan ly thuyet hop le (events=[], concepts=[...]) -> PASS ---
+    # --- Ca 14: Bai thuan ly thuyet hop le (events=[], concepts=[...]) -> PASS ---
     data8 = {
         "lesson_id": "99998", "lesson_title": "Test",
         "events": [],
@@ -82,9 +139,9 @@ def run_tests():
     }
     try:
         validate_schema(data8, "99998")
-        print(f"[OK] Ca 8 (events=[], concepts=[1]): PASS (hop le)")
+        print(f"[OK] Ca 14 (events=[], concepts=[1]): PASS (hop le)")
     except ValueError as ex:
-        errors.append(f"Ca 8 FAIL: {ex}")
+        errors.append(f"Ca 14 FAIL: {ex}")
 
     print()
     if errors:

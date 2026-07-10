@@ -1,0 +1,62 @@
+{
+  "version": 1,
+  "mappings": [
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_12/12952/img_01.png",
+      "lessonId": "12952",
+      "altText": "Chủ tịch Hồ Chí Minh đọc Tuyên ngôn Độc lập tại Quảng trường Ba Đình",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "ho-chi-minh-cong-bo-tuyen-ngon-doc-lap",
+          "isThumbnail": true,
+          "sortOrder": 1,
+          "reviewNote": "Caption directly identifies Chủ tịch Hồ Chí Minh reading the Declaration of Independence at Ba Đình."
+        }
+      ]
+    },
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_12/12952/img_02.png",
+      "lessonId": "12952",
+      "altText": "Di tích Đình Tân Trào, nơi diễn ra Đại hội Quốc dân năm 1945",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "dai-hoi-quoc-dan-tan-trao",
+          "isThumbnail": true,
+          "sortOrder": 1,
+          "reviewNote": "Caption directly identifies the event location as Đình Tân Trào, where the National Congress took place."
+        }
+      ]
+    },
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_12/12952/img_03.png",
+      "lessonId": "12952",
+      "altText": "Nhân dân Hà Nội chiếm Phủ Khâm sai ngày 19-8-1945",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "khoi-nghia-gianh-chinh-quyen-ha-noi",
+          "isThumbnail": true,
+          "sortOrder": 1,
+          "reviewNote": "Caption and date directly identify the Hà Nội uprising event on 19-8-1945."
+        }
+      ]
+    },
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_12/12952/img_04.png",
+      "lessonId": "12952",
+      "altText": "Nhân dân Sài Gòn mít tinh mừng khởi nghĩa thắng lợi ngày 25-8-1945",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "khoi-nghia-gianh-chinh-quyen-sai-gon",
+          "isThumbnail": true,
+          "sortOrder": 1,
+          "reviewNote": "Caption, place, and date directly identify the Sài Gòn uprising event on 25-8-1945."
+        }
+      ]
+    }
+  ],
+  "rejected": []
+}

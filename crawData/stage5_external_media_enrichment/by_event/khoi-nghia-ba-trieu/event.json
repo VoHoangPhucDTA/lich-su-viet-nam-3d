@@ -1,0 +1,58 @@
+{
+  "eventId": "khoi-nghia-ba-trieu",
+  "title": "Khởi nghĩa Bà Triệu",
+  "shortTitle": "Khởi nghĩa Bà Triệu",
+  "displayDate": "248",
+  "eventLevel": "atomic",
+  "rootId": "bac-thuoc-va-dau-tranh-gianh-doc-lap",
+  "parentId": "bac-thuoc-va-dau-tranh-gianh-doc-lap",
+  "historicalLocations": [],
+  "provinceNames": [
+    "Thanh Hóa"
+  ],
+  "canonicalSummary": "Năm 248, Bà Triệu lãnh đạo nhân dân vùng Cửu Chân nổi dậy ở căn cứ núi Nưa (Triệu Sơn, Thanh Hoá). Khởi nghĩa nhanh chóng lan rộng ra Giao Chỉ, làm rung chuyển chính quyền đô hộ. Quân Ngô do Lục Dận chỉ huy kéo sang đàn áp, khởi nghĩa thất bại.",
+  "keyFacts": [
+    "Bà Triệu lãnh đạo nhân dân vùng Cửu Chân nổi dậy ở căn cứ núi Nưa (Triệu Sơn, Thanh Hoá)",
+    "Khởi nghĩa thất bại",
+    "Quân Ngô do Lục Dận chỉ huy kéo sang đàn áp",
+    "Khởi nghĩa nhanh chóng lan rộng ra Giao Chỉ"
+  ],
+  "sourceFamily": "ancient_medieval",
+  "preferredVerificationDomains": [
+    "baotanglichsu.vn",
+    "disanvanhoa.gov.vn",
+    "bvhttdl.gov.vn",
+    "qdnd.vn",
+    "nhandan.vn",
+    "unesco.org",
+    "whc.unesco.org"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Khởi nghĩa Bà Triệu",
+    "Khởi nghĩa Bà Triệu 248",
+    "Khởi nghĩa Bà Triệu Bắc thuộc và đấu tranh giành độc lập",
+    "Khởi nghĩa Bà Triệu Bà Triệu lãnh đạo nhân dân vùng Cửu Chân nổi dậy ở căn cứ núi Nưa (Triệu Sơn, Thanh Hoá) Khởi nghĩa thất bại",
+    "Khởi nghĩa Bà Triệu hiện vật",
+    "Khởi nghĩa Bà Triệu di tích"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

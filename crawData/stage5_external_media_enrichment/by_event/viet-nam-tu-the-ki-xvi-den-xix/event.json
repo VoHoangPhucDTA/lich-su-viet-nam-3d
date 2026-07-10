@@ -1,0 +1,50 @@
+{
+  "eventId": "viet-nam-tu-the-ki-xvi-den-xix",
+  "title": "Việt Nam từ thế kỉ XVI đến thế kỉ XIX",
+  "shortTitle": "Việt Nam thế kỉ XVI-XIX",
+  "displayDate": "Việt Nam thế kỉ XVI-XIX",
+  "eventLevel": "collection",
+  "rootId": "viet-nam-tu-the-ki-xvi-den-xix",
+  "parentId": null,
+  "historicalLocations": [
+    "Việt Nam"
+  ],
+  "provinceNames": [],
+  "canonicalSummary": "Nút điều hướng tổng hợp cho Việt Nam từ thế kỉ XVI đến thế kỉ XIX.",
+  "keyFacts": [],
+  "sourceFamily": "broad_period",
+  "preferredVerificationDomains": [
+    "baotanglichsu.vn",
+    "nhandan.vn",
+    "qdnd.vn",
+    "vietnamplus.vn",
+    "luutru.gov.vn"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Việt Nam từ thế kỉ XVI đến thế kỉ XIX",
+    "Việt Nam từ thế kỉ XVI đến thế kỉ XIX Việt Nam thế kỉ XVI-XIX",
+    "Việt Nam từ thế kỉ XVI đến thế kỉ XIX Việt Nam",
+    "Việt Nam từ thế kỉ XVI đến thế kỉ XIX toàn cảnh lịch sử",
+    "Việt Nam từ thế kỉ XVI đến thế kỉ XIX ảnh tư liệu"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

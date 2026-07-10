@@ -1,0 +1,61 @@
+{
+  "eventId": "ke-hoach-nha-nuoc-5-nam-lan-thu-nhat-mien-bac",
+  "title": "Kế hoạch Nhà nước 5 năm lần thứ nhất (1961-1965) ở miền Bắc",
+  "shortTitle": "Kế hoạch 5 năm lần 1 miền Bắc",
+  "displayDate": "1961 - 1965",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1954-1975",
+  "parentId": "viet-nam-1954-1975",
+  "historicalLocations": [
+    "miền Bắc",
+    "miền Nam"
+  ],
+  "provinceNames": [],
+  "canonicalSummary": "Nhân dân miền Bắc tiến hành kế hoạch Nhà nước 5 năm lần thứ nhất (1961 - 1965) với trọng tâm là xây dựng chủ nghĩa xã hội. Nhiệm vụ cơ bản là ra sức phát triển công nghiệp, nông nghiệp, củng cố và tăng cường thành phần kinh tế quốc doanh, cải thiện đời sống vật chất và văn hoá của nhân dân,... Những thành tựu đạt được làm thay đổi bộ mặt xã hội miền Bắc. Miền Bắc còn làm nghĩa vụ hậu phương lớn chi viện cho tiền tuyến miền Nam.",
+  "keyFacts": [
+    "Củng cố kinh tế quốc doanh",
+    "Chi viện cho miền Nam khoảng 4 vạn cán bộ, chiến sĩ và vũ khí (1961-1963)",
+    "Trọng tâm xây dựng chủ nghĩa xã hội",
+    "Phát triển công nghiệp, nông nghiệp"
+  ],
+  "sourceFamily": "war_1945_1975",
+  "preferredVerificationDomains": [
+    "btlsqsvn.org.vn",
+    "qdnd.vn",
+    "nhandan.vn",
+    "vietnamplus.vn",
+    "hochiminh.vn",
+    "baotanglichsu.vn",
+    "luutru.gov.vn",
+    "loc.gov",
+    "archives.gov"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Kế hoạch Nhà nước 5 năm lần thứ nhất (1961-1965) ở miền Bắc",
+    "Kế hoạch Nhà nước 5 năm lần thứ nhất (1961-1965) ở miền Bắc 1961 - 1965",
+    "Kế hoạch Nhà nước 5 năm lần thứ nhất (1961-1965) ở miền Bắc miền Bắc",
+    "Kế hoạch Nhà nước 5 năm lần thứ nhất (1961-1965) ở miền Bắc Củng cố kinh tế quốc doanh Chi viện cho miền Nam khoảng 4 vạn cán bộ, chiến sĩ và vũ khí (1961-1963)",
+    "Kế hoạch Nhà nước 5 năm lần thứ nhất (1961-1965) ở miền Bắc ảnh tư liệu",
+    "Kế hoạch Nhà nước 5 năm lần thứ nhất (1961-1965) ở miền Bắc chiến dịch"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

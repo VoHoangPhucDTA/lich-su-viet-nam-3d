@@ -1,0 +1,61 @@
+{
+  "eventId": "chien-dich-viet-bac-thu-dong-1947",
+  "title": "Chiến dịch Việt Bắc thu – đông năm 1947",
+  "shortTitle": "Chiến dịch Việt Bắc 1947",
+  "displayDate": "Từ tháng 10 đến tháng 12 – 1947",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1945-1954",
+  "parentId": "khang-chien-chong-thuc-dan-phap-1945-1954",
+  "historicalLocations": [],
+  "provinceNames": [
+    "Phú Thọ",
+    "Bắc Kạn"
+  ],
+  "canonicalSummary": "Chiến dịch Việt Bắc thu – đông năm 1947 diễn ra từ tháng 10 đến tháng 12 – 1947 khi thực dân Pháp mở cuộc tấn công lên Việt Bắc. Quân đội Việt Nam chủ động bao vây, tiến công đẩy lùi quân Pháp khỏi một số vị trí quan trọng như Chợ Đồn, Chợ Rã, Đoan Hùng. Sau hai tháng, đại bộ phận quân Pháp phải rút chạy khỏi Việt Bắc; cơ quan đầu não của cuộc kháng chiến được bảo vệ an toàn; bộ đội ta thu được nhiều vũ khí và ngày càng trưởng thành.",
+  "keyFacts": [
+    "Bảo vệ an toàn cơ quan đầu não kháng chiến",
+    "Làm thất bại chiến lược “đánh nhanh, thắng nhanh” của Pháp",
+    "Pháp tấn công Việt Bắc, ta phản công",
+    "Diễn ra từ tháng 10 đến tháng 12-1947"
+  ],
+  "sourceFamily": "war_1945_1975",
+  "preferredVerificationDomains": [
+    "btlsqsvn.org.vn",
+    "qdnd.vn",
+    "nhandan.vn",
+    "vietnamplus.vn",
+    "hochiminh.vn",
+    "baotanglichsu.vn",
+    "luutru.gov.vn",
+    "loc.gov",
+    "archives.gov"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Chiến dịch Việt Bắc thu – đông năm 1947",
+    "Chiến dịch Việt Bắc thu – đông năm 1947 Từ tháng 10 đến tháng 12 – 1947",
+    "Chiến dịch Việt Bắc thu – đông năm 1947 Cuộc kháng chiến chống thực dân Pháp",
+    "Chiến dịch Việt Bắc thu – đông năm 1947 Bảo vệ an toàn cơ quan đầu não kháng chiến Làm thất bại chiến lược “đánh nhanh, thắng nhanh” của Pháp",
+    "Chiến dịch Việt Bắc thu – đông năm 1947 ảnh tư liệu",
+    "Chiến dịch Việt Bắc thu – đông năm 1947 chiến dịch"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

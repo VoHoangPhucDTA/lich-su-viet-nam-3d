@@ -1,0 +1,54 @@
+{
+  "eventId": "viet-nam-ban-hanh-tuyen-bo-vung-bien-them-luc-dia",
+  "title": "Việt Nam ban hành Tuyên bố về các vùng biển và thềm lục địa Việt Nam",
+  "shortTitle": "Tuyên bố vùng biển và thềm lục địa VN",
+  "displayDate": "Tháng 5 năm 1977",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1975-den-nay",
+  "parentId": "chu-quyen-bien-dao-viet-nam-1975-den-nay",
+  "historicalLocations": [],
+  "provinceNames": [],
+  "canonicalSummary": "Ban hành văn bản pháp luật khẳng định chủ quyền: Tuyên bố về các vùng biển và thềm lục địa Việt Nam (5 – 1977).",
+  "keyFacts": [
+    "Nội dung: khẳng định chủ quyền đối với các vùng biển và thềm lục địa Việt Nam",
+    "Ban hành tháng 5 năm 1977"
+  ],
+  "sourceFamily": "maritime",
+  "preferredVerificationDomains": [
+    "mofa.gov.vn",
+    "biengioilanhtho.gov.vn",
+    "mod.gov.vn",
+    "qdnd.vn",
+    "chinhphu.vn",
+    "vietnamplus.vn",
+    "luutru.gov.vn"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Việt Nam ban hành Tuyên bố về các vùng biển và thềm lục địa Việt Nam",
+    "Việt Nam ban hành Tuyên bố về các vùng biển và thềm lục địa Việt Nam Tháng 5 năm 1977",
+    "Việt Nam ban hành Tuyên bố về các vùng biển và thềm lục địa Việt Nam Chủ quyền biển đảo Việt Nam 1975 đến nay",
+    "Việt Nam ban hành Tuyên bố về các vùng biển và thềm lục địa Việt Nam Nội dung: khẳng định chủ quyền đối với các vùng biển và thềm lục địa Việt Nam Ban hành tháng 5 năm 1977",
+    "Việt Nam ban hành Tuyên bố về các vùng biển và thềm lục địa Việt Nam bản đồ",
+    "Việt Nam ban hành Tuyên bố về các vùng biển và thềm lục địa Việt Nam hải đồ"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

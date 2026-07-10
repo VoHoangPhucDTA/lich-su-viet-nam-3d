@@ -11,6 +11,7 @@ from common import (
     merge_unique_list,
     root_period_for_year,
 )
+from synthetic_chronology_repair import apply_synthetic_chronology_override
 
 
 def normalize_display(node: dict[str, Any], root_ids: set[str], overview_ids: set[str]) -> None:
@@ -184,11 +185,24 @@ def build_forced_collection_nodes(
     existing_events: list[dict[str, Any]],
     forced_parent_ids: set[str],
     root_periods: list[dict[str, Any]],
+    chronology_overrides: dict[str, dict[str, Any]] | None = None,
+    chronology_override_counts: dict[str, int] | None = None,
 ) -> list[dict[str, Any]]:
+    nodes = []
+    for parent_id in synthetic_collection_target_ids(existing_events, forced_parent_ids, root_periods):
+        node = _synthetic_collection_node(parent_id, root_periods)
+        nodes.append(apply_synthetic_chronology_override(node, parent_id, chronology_overrides, chronology_override_counts))
+    return nodes
+
+
+def synthetic_collection_target_ids(
+    existing_events: list[dict[str, Any]],
+    forced_parent_ids: set[str],
+    root_periods: list[dict[str, Any]],
+) -> list[str]:
     existing_ids = {event["id"] for event in existing_events}
     root_ids = {period["id"] for period in root_periods}
-    missing_ids = sorted(parent_id for parent_id in forced_parent_ids if parent_id not in existing_ids and parent_id not in root_ids)
-    return [_synthetic_collection_node(parent_id, root_periods) for parent_id in missing_ids]
+    return sorted(parent_id for parent_id in forced_parent_ids if parent_id not in existing_ids and parent_id not in root_ids)
 
 
 def _synthetic_collection_node(collection_id: str, root_periods: list[dict[str, Any]]) -> dict[str, Any]:

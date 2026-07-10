@@ -1,0 +1,58 @@
+{
+  "eventId": "dai-hoi-chien-si-thi-dua-can-bo-guong-mau-toan-quoc-lan-thu-nhat-1952",
+  "title": "Đại hội Chiến sĩ thi đua và Cán bộ gương mẫu toàn quốc lần thứ nhất",
+  "shortTitle": "Đại hội thi đua yêu nước 1952",
+  "displayDate": "1952",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1945-1954",
+  "parentId": "viet-nam-1945-1954",
+  "historicalLocations": [],
+  "provinceNames": [],
+  "canonicalSummary": "Giữa lúc cuộc kháng chiến đang diễn ra quyết liệt, Đại hội Chiến sĩ thi đua và Cán bộ gương mẫu toàn quốc lần thứ nhất được tổ chức tại chiến khu Việt Bắc (1952), đã tuyên dương những anh hùng đầu tiên tiêu biểu cho phong trào thi đua yêu nước của cả nước. Tại Đại hội, Chủ tịch Hồ Chí Minh khẳng định: “Thi đua là yêu nước, yêu nước thì phải thi đua\".",
+  "keyFacts": [
+    "Tuyên dương các anh hùng thi đua",
+    "Tổ chức năm 1952",
+    "Tại chiến khu Việt Bắc",
+    "Chủ tịch Hồ Chí Minh khẳng định “Thi đua là yêu nước”"
+  ],
+  "sourceFamily": "war_1945_1975",
+  "preferredVerificationDomains": [
+    "btlsqsvn.org.vn",
+    "qdnd.vn",
+    "nhandan.vn",
+    "vietnamplus.vn",
+    "hochiminh.vn",
+    "baotanglichsu.vn",
+    "luutru.gov.vn",
+    "loc.gov",
+    "archives.gov"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Đại hội Chiến sĩ thi đua và Cán bộ gương mẫu toàn quốc lần thứ nhất",
+    "Đại hội Chiến sĩ thi đua và Cán bộ gương mẫu toàn quốc lần thứ nhất 1952",
+    "Đại hội Chiến sĩ thi đua và Cán bộ gương mẫu toàn quốc lần thứ nhất Việt Nam từ năm 1945 đến năm 1954",
+    "Đại hội Chiến sĩ thi đua và Cán bộ gương mẫu toàn quốc lần thứ nhất Tuyên dương các anh hùng thi đua Tổ chức năm 1952",
+    "Đại hội Chiến sĩ thi đua và Cán bộ gương mẫu toàn quốc lần thứ nhất ảnh tư liệu",
+    "Đại hội Chiến sĩ thi đua và Cán bộ gương mẫu toàn quốc lần thứ nhất chiến dịch"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

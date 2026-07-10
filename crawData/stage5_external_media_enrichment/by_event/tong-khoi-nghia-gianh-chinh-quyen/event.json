@@ -1,0 +1,65 @@
+{
+  "eventId": "tong-khoi-nghia-gianh-chinh-quyen",
+  "title": "Tổng khởi nghĩa giành chính quyền thắng lợi",
+  "shortTitle": "CMT8 thành công",
+  "displayDate": "Tháng 8 – 1945",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1919-1945",
+  "parentId": "cach-mang-thang-tam-nam-1945",
+  "historicalLocations": [
+    "Việt Nam",
+    "làng xã"
+  ],
+  "provinceNames": [],
+  "canonicalSummary": "Tháng 8 – 1945, Hồ Chí Minh cùng Trung ương Đảng, Mặt trận Việt Minh lãnh đạo nhân dân Tổng khởi nghĩa giành chính quyền thắng lợi, và được cử làm Chủ tịch của Chính phủ lâm thời nước Việt Nam Dân chủ Cộng hoà.",
+  "keyFacts": [
+    "Hồ Chí Minh được cử làm Chủ tịch của Chính phủ lâm thời nước Việt Nam Dân chủ Cộng hoà",
+    "Là mốc thời gian đánh dấu sự thay đổi của tục nộp cheo",
+    "Giành chính quyền và tuyên bố độc lập",
+    "Tận dụng thời cơ sau Chiến tranh thế giới thứ hai",
+    "Diễn ra năm 1945",
+    "Lãnh đạo bởi Hồ Chí Minh và Trung ương Đảng",
+    "Thành công nhờ lực lượng đoàn kết",
+    "Dẫn đến thành lập nước Việt Nam Dân chủ Cộng hoà",
+    "Giành thắng lợi"
+  ],
+  "sourceFamily": "revolutionary",
+  "preferredVerificationDomains": [
+    "hochiminh.vn",
+    "tulieuvankien.dangcongsan.vn",
+    "dangcongsan.vn",
+    "baotanglichsu.vn",
+    "nhandan.vn",
+    "qdnd.vn",
+    "vietnamplus.vn",
+    "luutru.gov.vn"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Tổng khởi nghĩa giành chính quyền thắng lợi",
+    "Tổng khởi nghĩa giành chính quyền thắng lợi Tháng 8 – 1945",
+    "Tổng khởi nghĩa giành chính quyền thắng lợi Việt Nam",
+    "Tổng khởi nghĩa giành chính quyền thắng lợi Hồ Chí Minh được cử làm Chủ tịch của Chính phủ lâm thời nước Việt Nam Dân chủ Cộng hoà Là mốc thời gian đánh dấu sự thay đổi của tục nộp che",
+    "Tổng khởi nghĩa giành chính quyền thắng lợi ảnh tư liệu",
+    "Tổng khởi nghĩa giành chính quyền thắng lợi chân dung"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

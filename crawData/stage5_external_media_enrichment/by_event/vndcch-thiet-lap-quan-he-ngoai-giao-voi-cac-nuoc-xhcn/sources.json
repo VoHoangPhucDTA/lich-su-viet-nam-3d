@@ -1,0 +1,9 @@
+{
+  "eventId": "vndcch-thiet-lap-quan-he-ngoai-giao-voi-cac-nuoc-xhcn",
+  "status": "pending_download",
+  "images": [],
+  "expected": [
+    "image_01.<ext>",
+    "image_02.<ext>"
+  ]
+}

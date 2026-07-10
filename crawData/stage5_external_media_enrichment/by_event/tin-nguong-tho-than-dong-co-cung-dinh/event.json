@@ -1,0 +1,54 @@
+{
+  "eventId": "tin-nguong-tho-than-dong-co-cung-dinh",
+  "title": "Tín ngưỡng thờ thần Đồng Cổ được đưa vào cung đình",
+  "shortTitle": "Tín ngưỡng thờ thần Đồng Cổ được đưa vào cung đình",
+  "displayDate": "Thời Lý",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-tu-the-ki-x-den-xv",
+  "parentId": "viet-nam-tu-the-ki-x-den-xv",
+  "historicalLocations": [],
+  "provinceNames": [],
+  "canonicalSummary": "Tín ngưỡng thờ thần Đồng Cổ (thần Trống đồng) được đưa vào cung đình từ thời Lý, được triều đình bảo trợ và phát triển dưới hình thức một nghi lễ nhằm giữ đạo trung với vua, với quốc gia.",
+  "keyFacts": [
+    "Được triều đình bảo trợ",
+    "Được đưa vào cung đình từ thời Lý",
+    "Phát triển dưới hình thức nghi lễ giữ đạo trung",
+    "Tín ngưỡng thờ thần Đồng Cổ"
+  ],
+  "sourceFamily": "culture_language",
+  "preferredVerificationDomains": [
+    "baotanglichsu.vn",
+    "bvhttdl.gov.vn",
+    "disanvanhoa.gov.vn",
+    "vnfam.vn",
+    "unesco.org"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Tín ngưỡng thờ thần Đồng Cổ được đưa vào cung đình",
+    "Tín ngưỡng thờ thần Đồng Cổ được đưa vào cung đình Thời Lý",
+    "Tín ngưỡng thờ thần Đồng Cổ được đưa vào cung đình Việt Nam từ thế kỉ X đến thế kỉ XV",
+    "Tín ngưỡng thờ thần Đồng Cổ được đưa vào cung đình Được triều đình bảo trợ Được đưa vào cung đình từ thời Lý",
+    "Tín ngưỡng thờ thần Đồng Cổ được đưa vào cung đình hiện vật",
+    "Tín ngưỡng thờ thần Đồng Cổ được đưa vào cung đình di sản"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

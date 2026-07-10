@@ -1,0 +1,60 @@
+{
+  "eventId": "khang-chien-chong-quan-tong-1075-1077",
+  "title": "Kháng chiến chống quân Tống (lần 2)",
+  "shortTitle": "Kháng chiến chống quân Tống (lần 2)",
+  "displayDate": "1075-1077",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-tu-the-ki-x-den-xv",
+  "parentId": "viet-nam-tu-the-ki-x-den-xv",
+  "historicalLocations": [
+    "Phòng tuyến Như Nguyệt"
+  ],
+  "provinceNames": [
+    "Bắc Ninh"
+  ],
+  "canonicalSummary": "Cuộc kháng chiến chống quân Tống lần thứ hai diễn ra từ 1075 đến 1077, dưới sự chỉ huy của Lý Thường Kiệt, với trận quyết chiến tại Phòng tuyến Như Nguyệt (Bắc Ninh).",
+  "keyFacts": [
+    "Diễn ra 1075-1077",
+    "Thực hiện kế sách \"tiên phát chế nhân\"",
+    "Trận quyết chiến: Phòng tuyến Như Nguyệt (Bắc Ninh)",
+    "Người chỉ huy: Lý Thường Kiệt"
+  ],
+  "sourceFamily": "ancient_medieval",
+  "preferredVerificationDomains": [
+    "baotanglichsu.vn",
+    "disanvanhoa.gov.vn",
+    "bvhttdl.gov.vn",
+    "qdnd.vn",
+    "nhandan.vn",
+    "unesco.org",
+    "whc.unesco.org"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Kháng chiến chống quân Tống (lần 2)",
+    "Kháng chiến chống quân Tống (lần 2) 1075-1077",
+    "Kháng chiến chống quân Tống (lần 2) Phòng tuyến Như Nguyệt",
+    "Kháng chiến chống quân Tống (lần 2) Diễn ra 1075-1077 Thực hiện kế sách \"tiên phát chế nhân\"",
+    "Kháng chiến chống quân Tống (lần 2) hiện vật",
+    "Kháng chiến chống quân Tống (lần 2) di tích"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

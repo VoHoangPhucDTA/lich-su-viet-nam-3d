@@ -1,0 +1,56 @@
+{
+  "eventId": "quan-giai-phong-mien-nam-viet-nam-tiep-quan-truong-sa",
+  "title": "Quân giải phóng miền Nam Việt Nam tiếp quản các đảo và triển khai lực lượng thực thi chủ quyền đối với quần đảo Trường Sa",
+  "shortTitle": "QGPMNVN tiếp quản Trường Sa",
+  "displayDate": "Từ ngày 13 đến ngày 28 tháng 4 năm 1975",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1954-1975",
+  "parentId": "chu-quyen-bien-dao-viet-nam-1954-1975",
+  "historicalLocations": [],
+  "provinceNames": [],
+  "canonicalSummary": "Từ ngày 13 đến ngày 28-4-1975, Quân giải phóng miền Nam Việt Nam đã tiếp quản các đảo và triển khai lực lượng thực thi chủ quyền đối với quần đảo Trường Sa.",
+  "keyFacts": [
+    "Đối tượng: quần đảo Trường Sa",
+    "Hành động: tiếp quản các đảo và triển khai lực lượng",
+    "Diễn ra từ 13 đến 28 tháng 4 năm 1975",
+    "Chủ thể: Quân giải phóng miền Nam Việt Nam"
+  ],
+  "sourceFamily": "maritime",
+  "preferredVerificationDomains": [
+    "mofa.gov.vn",
+    "biengioilanhtho.gov.vn",
+    "mod.gov.vn",
+    "qdnd.vn",
+    "chinhphu.vn",
+    "vietnamplus.vn",
+    "luutru.gov.vn"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Quân giải phóng miền Nam Việt Nam tiếp quản các đảo và triển khai lực lượng thực thi chủ quyền đối với quần đảo Trường Sa",
+    "Quân giải phóng miền Nam Việt Nam tiếp quản các đảo và triển khai lực lượng thực thi chủ quyền đối với quần đảo Trường Sa Từ ngày 13 đến ngày 28 tháng 4 năm 1975",
+    "Quân giải phóng miền Nam Việt Nam tiếp quản các đảo và triển khai lực lượng thực thi chủ quyền đối với quần đảo Trường Sa Chủ quyền biển đảo Việt Nam 1954-1975",
+    "Quân giải phóng miền Nam Việt Nam tiếp quản các đảo và triển khai lực lượng thực thi chủ quyền đối với quần đảo Trường Sa Đối tượng: quần đảo Trường Sa Hành động: tiếp quản các đảo và triển khai lực lượng",
+    "Quân giải phóng miền Nam Việt Nam tiếp quản các đảo và triển khai lực lượng thực thi chủ quyền đối với quần đảo Trường Sa bản đồ",
+    "Quân giải phóng miền Nam Việt Nam tiếp quản các đảo và triển khai lực lượng thực thi chủ quyền đối với quần đảo Trường Sa hải đồ"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

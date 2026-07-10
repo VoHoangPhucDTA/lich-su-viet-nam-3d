@@ -1,0 +1,109 @@
+{
+  "eventId": "khang-chien-chong-thuc-dan-phap-1945-1954",
+  "title": "Cuộc kháng chiến chống thực dân Pháp",
+  "shortTitle": "Kháng chiến chống Pháp",
+  "displayDate": "1945-1954",
+  "eventLevel": "collection",
+  "rootId": "viet-nam-1945-1954",
+  "parentId": "viet-nam-1945-1954",
+  "historicalLocations": [
+    "Đông Dương",
+    "Việt Nam",
+    "Đường số 18",
+    "Đường số 4",
+    "Thượng Lào"
+  ],
+  "provinceNames": [
+    "Hà Nội",
+    "Hồ Chí Minh",
+    "Bình Phước",
+    "Tây Ninh",
+    "Bình Dương",
+    "Đồng Nai",
+    "Bà Rịa - Vũng Tàu",
+    "Long An",
+    "Tiền Giang",
+    "Bến Tre",
+    "Trà Vinh",
+    "Vĩnh Long",
+    "Đồng Tháp",
+    "An Giang",
+    "Kiên Giang",
+    "Cần Thơ",
+    "Hậu Giang",
+    "Sóc Trăng",
+    "Bạc Liêu",
+    "Cà Mau",
+    "Hải Phòng",
+    "Quảng Ninh",
+    "Bắc Giang",
+    "Bắc Ninh",
+    "Hải Dương",
+    "Hưng Yên",
+    "Thái Bình",
+    "Nam Định",
+    "Ninh Bình",
+    "Hà Nam",
+    "Vĩnh Phúc",
+    "Phú Thọ",
+    "Thái Nguyên",
+    "Nghệ An",
+    "Hoà Bình",
+    "Điện Biên",
+    "Bắc Kạn",
+    "Cao Bằng",
+    "Tuyên Quang"
+  ],
+  "canonicalSummary": "Cuộc kháng chiến chống thực dân Pháp diễn ra từ năm 1945 đến năm 1954, trong bối cảnh quốc tế và trong nước phức tạp. Cuộc kháng chiến trải qua nhiều giai đoạn, từ kháng chiến ở Nam Bộ, kháng chiến toàn quốc giai đoạn đầu, đến bước phát triển mới và kết thúc bằng chiến thắng Điện Biên Phủ.",
+  "keyFacts": [
+    "Chủ tịch Hồ Chí Minh ra Lời kêu gọi toàn quốc kháng chiến ngày 19-12-1946",
+    "Kết thúc bằng Hiệp định Giơ-ne-vơ (1954)",
+    "Lãnh đạo kháng chiến",
+    "Các chiến dịch lớn: Việt Bắc (1947), Biên giới (1950), Điện Biên Phủ (1954)",
+    "Diễn ra từ 1945 đến 1954",
+    "Bắt đầu với sự trở lại xâm lược của Pháp ở Nam Bộ",
+    "Có sự hỗ trợ của hai nước đứng đầu hai cực",
+    "Ở Việt Nam",
+    "Là cuộc chiến tranh cục bộ tiêu biểu"
+  ],
+  "sourceFamily": "war_1945_1975",
+  "preferredVerificationDomains": [
+    "btlsqsvn.org.vn",
+    "qdnd.vn",
+    "nhandan.vn",
+    "vietnamplus.vn",
+    "hochiminh.vn",
+    "baotanglichsu.vn",
+    "luutru.gov.vn",
+    "loc.gov",
+    "archives.gov"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Cuộc kháng chiến chống thực dân Pháp",
+    "Cuộc kháng chiến chống thực dân Pháp 1945-1954",
+    "Cuộc kháng chiến chống thực dân Pháp Đông Dương",
+    "Cuộc kháng chiến chống thực dân Pháp Chủ tịch Hồ Chí Minh ra Lời kêu gọi toàn quốc kháng chiến ngày 19-12-1946 Kết thúc bằng Hiệp định Giơ-ne-vơ (1954)",
+    "Cuộc kháng chiến chống thực dân Pháp ảnh tư liệu",
+    "Cuộc kháng chiến chống thực dân Pháp chiến dịch"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

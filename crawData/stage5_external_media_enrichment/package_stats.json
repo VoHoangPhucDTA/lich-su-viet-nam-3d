@@ -1,0 +1,11 @@
+{
+  "coreEvents": 361,
+  "reviewedBaseApprovedImages": 121,
+  "reviewedBaseRelationships": 175,
+  "reviewedBaseCoveredEvents": 103,
+  "missingEvents": 258,
+  "requiredExternalImageAssignments": 516,
+  "expectedFinalTargetEventsIfComplete": 361,
+  "expectedFinalRelationshipsIfComplete": 691,
+  "note": "Unique external asset count may be lower than assignments because canonical SHA-256 assets can be shared across events."
+}

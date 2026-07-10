@@ -1,0 +1,9 @@
+{
+  "eventId": "viet-nam-tam-thoi-bi-chia-cat-hai-mien",
+  "status": "pending_download",
+  "images": [],
+  "expected": [
+    "image_01.<ext>",
+    "image_02.<ext>"
+  ]
+}

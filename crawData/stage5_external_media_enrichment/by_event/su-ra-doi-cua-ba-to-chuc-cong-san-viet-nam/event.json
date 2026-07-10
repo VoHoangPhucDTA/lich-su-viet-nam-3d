@@ -1,0 +1,56 @@
+{
+  "eventId": "su-ra-doi-cua-ba-to-chuc-cong-san-viet-nam",
+  "title": "Sự ra đời của ba tổ chức cộng sản ở Việt Nam",
+  "shortTitle": "Ba tổ chức cộng sản ra đời",
+  "displayDate": "Năm 1929",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1919-1945",
+  "parentId": "viet-nam-1919-1945",
+  "historicalLocations": [],
+  "provinceNames": [],
+  "canonicalSummary": "Hoạt động của Hội Việt Nam Cách mạng Thanh niên có ảnh hưởng và thúc đẩy mạnh mẽ sự chuyển biến của phong trào công nhân, phong trào yêu nước Việt Nam, dẫn đến sự ra đời của ba tổ chức cộng sản trong năm 1929. Đó là sự chuẩn bị trực tiếp cho sự ra đời của Đảng Cộng sản Việt Nam.",
+  "keyFacts": [
+    "Là sự chuẩn bị trực tiếp cho sự ra đời của Đảng Cộng sản Việt Nam",
+    "Kết quả của hoạt động Hội Việt Nam Cách mạng Thanh niên",
+    "Thúc đẩy phong trào công nhân và yêu nước"
+  ],
+  "sourceFamily": "revolutionary",
+  "preferredVerificationDomains": [
+    "hochiminh.vn",
+    "tulieuvankien.dangcongsan.vn",
+    "dangcongsan.vn",
+    "baotanglichsu.vn",
+    "nhandan.vn",
+    "qdnd.vn",
+    "vietnamplus.vn",
+    "luutru.gov.vn"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Sự ra đời của ba tổ chức cộng sản ở Việt Nam",
+    "Sự ra đời của ba tổ chức cộng sản ở Việt Nam Năm 1929",
+    "Sự ra đời của ba tổ chức cộng sản ở Việt Nam Việt Nam từ năm 1919 đến năm 1945",
+    "Sự ra đời của ba tổ chức cộng sản ở Việt Nam Là sự chuẩn bị trực tiếp cho sự ra đời của Đảng Cộng sản Việt Nam Kết quả của hoạt động Hội Việt Nam Cách mạng Thanh niên",
+    "Sự ra đời của ba tổ chức cộng sản ở Việt Nam ảnh tư liệu",
+    "Sự ra đời của ba tổ chức cộng sản ở Việt Nam chân dung"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}
