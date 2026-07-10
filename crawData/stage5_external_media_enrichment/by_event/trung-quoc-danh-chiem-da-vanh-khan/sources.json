@@ -1,0 +1,9 @@
+{
+  "eventId": "trung-quoc-danh-chiem-da-vanh-khan",
+  "status": "pending_download",
+  "images": [],
+  "expected": [
+    "image_01.<ext>",
+    "image_02.<ext>"
+  ]
+}

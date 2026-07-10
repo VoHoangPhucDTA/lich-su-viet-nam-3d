@@ -1,0 +1,50 @@
+{
+  "eventId": "bac-thuoc-va-dau-tranh-gianh-doc-lap",
+  "title": "Bắc thuộc và đấu tranh giành độc lập",
+  "shortTitle": "Bắc thuộc",
+  "displayDate": "Bắc thuộc",
+  "eventLevel": "collection",
+  "rootId": "bac-thuoc-va-dau-tranh-gianh-doc-lap",
+  "parentId": null,
+  "historicalLocations": [
+    "Việt Nam"
+  ],
+  "provinceNames": [],
+  "canonicalSummary": "Nút điều hướng tổng hợp cho Bắc thuộc và đấu tranh giành độc lập.",
+  "keyFacts": [],
+  "sourceFamily": "broad_period",
+  "preferredVerificationDomains": [
+    "baotanglichsu.vn",
+    "nhandan.vn",
+    "qdnd.vn",
+    "vietnamplus.vn",
+    "luutru.gov.vn"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Bắc thuộc và đấu tranh giành độc lập",
+    "Bắc thuộc và đấu tranh giành độc lập Bắc thuộc",
+    "Bắc thuộc và đấu tranh giành độc lập Việt Nam",
+    "Bắc thuộc và đấu tranh giành độc lập toàn cảnh lịch sử",
+    "Bắc thuộc và đấu tranh giành độc lập ảnh tư liệu"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

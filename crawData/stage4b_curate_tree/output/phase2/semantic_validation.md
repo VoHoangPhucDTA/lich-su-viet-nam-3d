@@ -15,7 +15,7 @@
 | no_location core count | 169 |
 | featured overview timeline count | 24 |
 | duplicate groups merged | 10 |
-| fallback-to-root count | 233 |
+| fallback-to-root count | 183 |
 | review-needed count | 50 |
 | mixed geoType count | 107 |
 | mixed events with only markers and no polygon | 0 |

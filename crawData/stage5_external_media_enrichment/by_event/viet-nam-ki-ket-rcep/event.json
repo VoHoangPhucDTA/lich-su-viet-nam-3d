@@ -1,0 +1,54 @@
+{
+  "eventId": "viet-nam-ki-ket-rcep",
+  "title": "Việt Nam kí kết Hiệp định Đối tác kinh tế toàn diện Khu vực (RCEP)",
+  "shortTitle": "Việt Nam kí RCEP",
+  "displayDate": "Trong thời kì Đổi mới",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1975-den-nay",
+  "parentId": "cong-cuoc-doi-moi-o-viet-nam",
+  "historicalLocations": [],
+  "provinceNames": [],
+  "canonicalSummary": "Việt Nam kí kết Hiệp định Đối tác kinh tế toàn diện Khu vực (RCEP).",
+  "keyFacts": [
+    "Hiệp định Đối tác kinh tế toàn diện Khu vực"
+  ],
+  "sourceFamily": "diplomacy",
+  "preferredVerificationDomains": [
+    "mofa.gov.vn",
+    "chinhphu.vn",
+    "vietnamplus.vn",
+    "nhandan.vn",
+    "un.org",
+    "asean.org",
+    "apec.org",
+    "europa.eu"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Việt Nam kí kết Hiệp định Đối tác kinh tế toàn diện Khu vực (RCEP)",
+    "Việt Nam kí kết Hiệp định Đối tác kinh tế toàn diện Khu vực (RCEP) Trong thời kì Đổi mới",
+    "Việt Nam kí kết Hiệp định Đối tác kinh tế toàn diện Khu vực (RCEP) Công cuộc Đổi mới ở Việt Nam",
+    "Việt Nam kí kết Hiệp định Đối tác kinh tế toàn diện Khu vực (RCEP) Hiệp định Đối tác kinh tế toàn diện Khu vực",
+    "Việt Nam kí kết Hiệp định Đối tác kinh tế toàn diện Khu vực (RCEP) lễ ký",
+    "Việt Nam kí kết Hiệp định Đối tác kinh tế toàn diện Khu vực (RCEP) hội nghị"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

@@ -1,0 +1,61 @@
+{
+  "eventId": "chien-dich-duong-9-nam-lao",
+  "title": "Chiến dịch Đường 9 – Nam Lào",
+  "shortTitle": "Đường 9 – Nam Lào",
+  "displayDate": "Từ tháng 2 đến tháng 3 – 1971",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1954-1975",
+  "parentId": "viet-nam-1954-1975",
+  "historicalLocations": [
+    "Lào",
+    "Đường 9 – Nam Lào",
+    "Đông Dương"
+  ],
+  "provinceNames": [],
+  "canonicalSummary": "Trong hơn 1 tháng (từ tháng 2 đến tháng 3 – 1971), quân dân Việt Nam có sự phối hợp của quân đội Lào đã giành thắng lợi trong chiến dịch Đường 9 – Nam Lào, giữ vững hành lang chiến lược của cách mạng Đông Dương, trực tiếp mở ra thế tiến công mới cho cách mạng.",
+  "keyFacts": [
+    "Diễn ra từ tháng 2 đến tháng 3-1971",
+    "Giữ vững hành lang chiến lược của cách mạng Đông Dương",
+    "Quân dân Việt Nam phối hợp với quân đội Lào"
+  ],
+  "sourceFamily": "war_1945_1975",
+  "preferredVerificationDomains": [
+    "btlsqsvn.org.vn",
+    "qdnd.vn",
+    "nhandan.vn",
+    "vietnamplus.vn",
+    "hochiminh.vn",
+    "baotanglichsu.vn",
+    "luutru.gov.vn",
+    "loc.gov",
+    "archives.gov"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Chiến dịch Đường 9 – Nam Lào",
+    "Chiến dịch Đường 9 – Nam Lào Từ tháng 2 đến tháng 3 – 1971",
+    "Chiến dịch Đường 9 – Nam Lào Lào",
+    "Chiến dịch Đường 9 – Nam Lào Diễn ra từ tháng 2 đến tháng 3-1971 Giữ vững hành lang chiến lược của cách mạng Đông Dương",
+    "Chiến dịch Đường 9 – Nam Lào ảnh tư liệu",
+    "Chiến dịch Đường 9 – Nam Lào chiến dịch"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

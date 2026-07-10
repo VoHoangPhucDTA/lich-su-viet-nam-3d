@@ -1,0 +1,9 @@
+{
+  "eventId": "ho-chi-minh-sang-con-minh-tim-su-ung-ho-quoc-te",
+  "status": "pending_download",
+  "images": [],
+  "expected": [
+    "image_01.<ext>",
+    "image_02.<ext>"
+  ]
+}

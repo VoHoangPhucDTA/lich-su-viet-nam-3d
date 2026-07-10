@@ -1,0 +1,61 @@
+{
+  "eventId": "chien-thang-ap-bac",
+  "title": "Chiến thắng Ấp Bắc",
+  "shortTitle": "Ấp Bắc",
+  "displayDate": "Tháng 1 – 1963",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1954-1975",
+  "parentId": "viet-nam-1954-1975",
+  "historicalLocations": [
+    "miền Nam"
+  ],
+  "provinceNames": [
+    "Tiền Giang"
+  ],
+  "canonicalSummary": "Trên mặt trận quân sự, chiến thắng Ấp Bắc (Mỹ Tho, tháng 1 1963) đã mở ra khả năng đánh bại chiến thuật “trực thăng vận, thiết xa vận, chứng minh khả năng quân dân Việt Nam có thể đánh bại chiến lược “Chiến tranh đặc biệt” của Mỹ.",
+  "keyFacts": [
+    "Chứng minh khả năng đánh bại chiến lược 'Chiến tranh đặc biệt'",
+    "Mở ra khả năng đánh bại chiến thuật 'trực thăng vận, thiết xa vận'",
+    "Diễn ra tại Ấp Bắc (Mỹ Tho) tháng 1-1963"
+  ],
+  "sourceFamily": "war_1945_1975",
+  "preferredVerificationDomains": [
+    "btlsqsvn.org.vn",
+    "qdnd.vn",
+    "nhandan.vn",
+    "vietnamplus.vn",
+    "hochiminh.vn",
+    "baotanglichsu.vn",
+    "luutru.gov.vn",
+    "loc.gov",
+    "archives.gov"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Chiến thắng Ấp Bắc",
+    "Chiến thắng Ấp Bắc Tháng 1 – 1963",
+    "Chiến thắng Ấp Bắc miền Nam",
+    "Chiến thắng Ấp Bắc Chứng minh khả năng đánh bại chiến lược 'Chiến tranh đặc biệt' Mở ra khả năng đánh bại chiến thuật 'trực thăng vận, thiết xa vận'",
+    "Chiến thắng Ấp Bắc ảnh tư liệu",
+    "Chiến thắng Ấp Bắc chiến dịch"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

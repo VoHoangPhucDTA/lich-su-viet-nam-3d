@@ -16,8 +16,10 @@ export interface HistoricalEvent {
   eventLevel?: 'collection' | 'atomic';
   name: string;
   description: string;
-  startYear: number;
-  endYear?: number;
+  startYear: number | null;
+  endYear: number | null;
+  effectiveEndYear: number | null;
+  displayDate?: string;
   eventType: EventType;
   eventSubtype?: string;
   geoType: GeoType;

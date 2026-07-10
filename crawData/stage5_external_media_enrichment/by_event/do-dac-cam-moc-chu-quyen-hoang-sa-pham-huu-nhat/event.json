@@ -1,0 +1,55 @@
+{
+  "eventId": "do-dac-cam-moc-chu-quyen-hoang-sa-pham-huu-nhat",
+  "title": "Đo đạc, cắm mốc chủ quyền Hoàng Sa của Phạm Hữu Nhật",
+  "shortTitle": "Phạm Hữu Nhật cắm mốc Hoàng Sa",
+  "displayDate": "Ngày 1 tháng Giêng năm 1836",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-tu-the-ki-xvi-den-xix",
+  "parentId": "chu-quyen-bien-dao-viet-nam-tu-the-ki-xvi-den-xix",
+  "historicalLocations": [],
+  "provinceNames": [],
+  "canonicalSummary": "Năm Bính Thân, niên hiệu Minh Mạng thứ 17 (1836), mùa Xuân tháng Giêng ngày mồng 1, Bộ Công tâu về việc cương giới mặt biển nước ta có xứ Hoàng Sa rất là hiểm yếu. Vua y lời tâu, phái Suất đội thuỷ quân Phạm Hữu Nhật đem binh thuyến đi, chuẩn cho mang theo 10 cái bài gỗ, đến nơi đó dựng dấu ghi... mặt bài khắc những chữ: “Minh Mạng thứ 17, năm Bính Thân, thuỷ quân Chánh đội trưởng suất đội Phạm Hữu Nhật, vâng mệnh đi Hoàng Sa trông nom đo đạc đến đây lưu dấu để ghi nhớ.",
+  "keyFacts": [
+    "Nhiệm vụ đo đạc và cắm 10 cột mốc chủ quyền tại Hoàng Sa",
+    "Phạm Hữu Nhật được phái đi",
+    "Diễn ra năm 1836 dưới triều Minh Mạng"
+  ],
+  "sourceFamily": "maritime",
+  "preferredVerificationDomains": [
+    "mofa.gov.vn",
+    "biengioilanhtho.gov.vn",
+    "mod.gov.vn",
+    "qdnd.vn",
+    "chinhphu.vn",
+    "vietnamplus.vn",
+    "luutru.gov.vn"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Đo đạc, cắm mốc chủ quyền Hoàng Sa của Phạm Hữu Nhật",
+    "Đo đạc, cắm mốc chủ quyền Hoàng Sa của Phạm Hữu Nhật Ngày 1 tháng Giêng năm 1836",
+    "Đo đạc, cắm mốc chủ quyền Hoàng Sa của Phạm Hữu Nhật Chủ quyền biển đảo Việt Nam thế kỉ XVI-XIX",
+    "Đo đạc, cắm mốc chủ quyền Hoàng Sa của Phạm Hữu Nhật Nhiệm vụ đo đạc và cắm 10 cột mốc chủ quyền tại Hoàng Sa Phạm Hữu Nhật được phái đi",
+    "Đo đạc, cắm mốc chủ quyền Hoàng Sa của Phạm Hữu Nhật bản đồ",
+    "Đo đạc, cắm mốc chủ quyền Hoàng Sa của Phạm Hữu Nhật hải đồ"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

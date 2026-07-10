@@ -1,0 +1,9 @@
+{
+  "eventId": "ly-thuong-kiet-tap-kich-kham-chau-liem-chau-ung-chau",
+  "status": "pending_download",
+  "images": [],
+  "expected": [
+    "image_01.<ext>",
+    "image_02.<ext>"
+  ]
+}

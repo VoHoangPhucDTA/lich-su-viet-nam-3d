@@ -1,0 +1,53 @@
+{
+  "eventId": "thanh-lap-quoc-su-quan-trieu-nguyen",
+  "title": "Thành lập Quốc sử quán triều Nguyễn",
+  "shortTitle": "Thành lập Quốc sử quán triều Nguyễn",
+  "displayDate": "Thời Nguyễn",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-tu-the-ki-xvi-den-xix",
+  "parentId": "viet-nam-tu-the-ki-xvi-den-xix",
+  "historicalLocations": [],
+  "provinceNames": [],
+  "canonicalSummary": "Triều Nguyễn thành lập Quốc sử quản, biên soạn nhiều công trình sử học, tiêu biểu như: Đại Nam thực lục, Khâm định Việt sử thông giám cương mục,...",
+  "keyFacts": [
+    "Triều Nguyễn thành lập Quốc sử quán",
+    "Biên soạn nhiều công trình sử học",
+    "Tiêu biểu: Đại Nam thực lục, Khâm định Việt sử thông giám cương mục"
+  ],
+  "sourceFamily": "culture_language",
+  "preferredVerificationDomains": [
+    "baotanglichsu.vn",
+    "bvhttdl.gov.vn",
+    "disanvanhoa.gov.vn",
+    "vnfam.vn",
+    "unesco.org"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Thành lập Quốc sử quán triều Nguyễn",
+    "Thành lập Quốc sử quán triều Nguyễn Thời Nguyễn",
+    "Thành lập Quốc sử quán triều Nguyễn Việt Nam từ thế kỉ XVI đến thế kỉ XIX",
+    "Thành lập Quốc sử quán triều Nguyễn Triều Nguyễn thành lập Quốc sử quán Biên soạn nhiều công trình sử học",
+    "Thành lập Quốc sử quán triều Nguyễn hiện vật",
+    "Thành lập Quốc sử quán triều Nguyễn di sản"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

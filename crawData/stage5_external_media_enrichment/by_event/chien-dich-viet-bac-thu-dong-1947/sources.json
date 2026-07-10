@@ -1,0 +1,9 @@
+{
+  "eventId": "chien-dich-viet-bac-thu-dong-1947",
+  "status": "pending_download",
+  "images": [],
+  "expected": [
+    "image_01.<ext>",
+    "image_02.<ext>"
+  ]
+}

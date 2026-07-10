@@ -1,0 +1,9 @@
+{
+  "eventId": "nha-ly-to-chuc-khoa-thi-nho-hoc-dau-tien",
+  "status": "pending_download",
+  "images": [],
+  "expected": [
+    "image_01.<ext>",
+    "image_02.<ext>"
+  ]
+}

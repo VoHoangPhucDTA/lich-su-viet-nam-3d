@@ -1,0 +1,57 @@
+{
+  "eventId": "hoi-the-lung-nhai",
+  "title": "Hội thề Lũng Nhai",
+  "shortTitle": "Hội thề Lũng Nhai",
+  "displayDate": "Năm 1416",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-tu-the-ki-x-den-xv",
+  "parentId": "viet-nam-tu-the-ki-x-den-xv",
+  "historicalLocations": [],
+  "provinceNames": [
+    "Thanh Hóa"
+  ],
+  "canonicalSummary": "Hội thề Lũng Nhai diễn ra vào năm 1416, Lê Lợi cùng 18 hào kiệt làm lễ kết nghĩa anh em, nguyện một lòng đánh giặc cứu nước.",
+  "keyFacts": [
+    "Lê Lợi cùng 18 hào kiệt làm lễ kết nghĩa anh em",
+    "Nguyện một lòng đánh giặc cứu nước",
+    "Diễn ra vào năm 1416"
+  ],
+  "sourceFamily": "ancient_medieval",
+  "preferredVerificationDomains": [
+    "baotanglichsu.vn",
+    "disanvanhoa.gov.vn",
+    "bvhttdl.gov.vn",
+    "qdnd.vn",
+    "nhandan.vn",
+    "unesco.org",
+    "whc.unesco.org"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Hội thề Lũng Nhai",
+    "Hội thề Lũng Nhai Năm 1416",
+    "Hội thề Lũng Nhai Việt Nam từ thế kỉ X đến thế kỉ XV",
+    "Hội thề Lũng Nhai Lê Lợi cùng 18 hào kiệt làm lễ kết nghĩa anh em Nguyện một lòng đánh giặc cứu nước",
+    "Hội thề Lũng Nhai hiện vật",
+    "Hội thề Lũng Nhai di tích"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

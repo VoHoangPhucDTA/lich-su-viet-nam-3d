@@ -1,0 +1,57 @@
+{
+  "eventId": "khoi-nghia-ly-bi-trieu-quang-phuc",
+  "title": "Khởi nghĩa Lý Bí và Triệu Quang Phục",
+  "shortTitle": "Khởi nghĩa Lý Bí và Triệu Quang Phục",
+  "displayDate": "542-602",
+  "eventLevel": "atomic",
+  "rootId": "bac-thuoc-va-dau-tranh-gianh-doc-lap",
+  "parentId": "bac-thuoc-va-dau-tranh-gianh-doc-lap",
+  "historicalLocations": [],
+  "provinceNames": [],
+  "canonicalSummary": "Năm 542, khởi nghĩa Lý Bí bùng nổ, lật đổ chính quyền đô hộ. Sau đó, Lý Bí lập ra Nhà nước Vạn Xuân. Năm 545, quân Lương tiếp tục sang xâm lược, Triệu Quang Phục lãnh đạo cuộc khởi nghĩa và giành thắng lợi. Đến năm 602, nhà Lương đem quân sang đàn áp, cuộc khởi nghĩa thất bại.",
+  "keyFacts": [
+    "Đến năm 602, nhà Lương đem quân sang đàn áp, cuộc khởi nghĩa thất bại",
+    "Năm 542, khởi nghĩa Lý Bí bùng nổ, lật đổ chính quyền đô hộ",
+    "Lý Bí lập ra Nhà nước Vạn Xuân",
+    "Triệu Quang Phục lãnh đạo cuộc khởi nghĩa và giành thắng lợi",
+    "Năm 545, quân Lương tiếp tục sang xâm lược"
+  ],
+  "sourceFamily": "ancient_medieval",
+  "preferredVerificationDomains": [
+    "baotanglichsu.vn",
+    "disanvanhoa.gov.vn",
+    "bvhttdl.gov.vn",
+    "qdnd.vn",
+    "nhandan.vn",
+    "unesco.org",
+    "whc.unesco.org"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Khởi nghĩa Lý Bí và Triệu Quang Phục",
+    "Khởi nghĩa Lý Bí và Triệu Quang Phục 542-602",
+    "Khởi nghĩa Lý Bí và Triệu Quang Phục Bắc thuộc và đấu tranh giành độc lập",
+    "Khởi nghĩa Lý Bí và Triệu Quang Phục Đến năm 602, nhà Lương đem quân sang đàn áp, cuộc khởi nghĩa thất bại Năm 542, khởi nghĩa Lý Bí bùng nổ, lật đổ chính quyền đô hộ",
+    "Khởi nghĩa Lý Bí và Triệu Quang Phục hiện vật",
+    "Khởi nghĩa Lý Bí và Triệu Quang Phục di tích"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "eventId": "le-nghi-dan-dat-luc-bo",
+  "title": "Lê Nghi Dân đặt Lục bộ",
+  "shortTitle": "Lê Nghi Dân đặt Lục bộ",
+  "displayDate": "Năm 1460",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-tu-the-ki-x-den-xv",
+  "parentId": "cai-cach-le-thanh-tong",
+  "historicalLocations": [],
+  "provinceNames": [],
+  "canonicalSummary": "Năm 1460, Lê Nghi Dân đặt lục bộ, nhưng đến năm 1465, vua Lê Thánh Tông mới đưa lục bộ trở thành cơ quan có quyền lực thực sự.",
+  "keyFacts": [
+    "Lục bộ ban đầu chỉ là cơ quan phụ trợ",
+    "Người đặt: Lê Nghi Dân",
+    "Diễn ra năm 1460"
+  ],
+  "sourceFamily": "ancient_medieval",
+  "preferredVerificationDomains": [
+    "baotanglichsu.vn",
+    "disanvanhoa.gov.vn",
+    "bvhttdl.gov.vn",
+    "qdnd.vn",
+    "nhandan.vn",
+    "unesco.org",
+    "whc.unesco.org"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Lê Nghi Dân đặt Lục bộ",
+    "Lê Nghi Dân đặt Lục bộ Năm 1460",
+    "Lê Nghi Dân đặt Lục bộ Cuộc cải cách của Lê Thánh Tông",
+    "Lê Nghi Dân đặt Lục bộ Lục bộ ban đầu chỉ là cơ quan phụ trợ Người đặt: Lê Nghi Dân",
+    "Lê Nghi Dân đặt Lục bộ hiện vật",
+    "Lê Nghi Dân đặt Lục bộ di tích"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

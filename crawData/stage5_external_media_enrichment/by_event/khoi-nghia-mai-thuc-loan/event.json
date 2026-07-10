@@ -1,0 +1,60 @@
+{
+  "eventId": "khoi-nghia-mai-thuc-loan",
+  "title": "Khởi nghĩa Mai Thúc Loan",
+  "shortTitle": "Khởi nghĩa Mai Thúc Loan",
+  "displayDate": "713-722",
+  "eventLevel": "atomic",
+  "rootId": "bac-thuoc-va-dau-tranh-gianh-doc-lap",
+  "parentId": "bac-thuoc-va-dau-tranh-gianh-doc-lap",
+  "historicalLocations": [
+    "Tổng Bình"
+  ],
+  "provinceNames": [
+    "Nghệ An"
+  ],
+  "canonicalSummary": "Mai Thúc Loan kêu gọi nhân dân vùng Nam Đàn (Nghệ An) nổi dậy khởi nghĩa và nhanh chóng làm chủ vùng đất Hoan Châu. Sau đó, nghĩa quân tiến ra Bắc, đánh đuổi chính quyền đô hộ, làm chủ thành Tổng Bình. Cuối cùng, cuộc khởi nghĩa bị nhà Đường đàn áp.",
+  "keyFacts": [
+    "Nghĩa quân nhanh chóng làm chủ vùng đất Hoan Châu",
+    "Tiến ra Bắc, đánh đuổi chính quyền đô hộ, làm chủ thành Tổng Bình",
+    "Mai Thúc Loan kêu gọi nhân dân vùng Nam Đàn (Nghệ An) nổi dậy",
+    "Cuộc khởi nghĩa bị nhà Đường đàn áp"
+  ],
+  "sourceFamily": "ancient_medieval",
+  "preferredVerificationDomains": [
+    "baotanglichsu.vn",
+    "disanvanhoa.gov.vn",
+    "bvhttdl.gov.vn",
+    "qdnd.vn",
+    "nhandan.vn",
+    "unesco.org",
+    "whc.unesco.org"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Khởi nghĩa Mai Thúc Loan",
+    "Khởi nghĩa Mai Thúc Loan 713-722",
+    "Khởi nghĩa Mai Thúc Loan Tổng Bình",
+    "Khởi nghĩa Mai Thúc Loan Nghĩa quân nhanh chóng làm chủ vùng đất Hoan Châu Tiến ra Bắc, đánh đuổi chính quyền đô hộ, làm chủ thành Tổng Bình",
+    "Khởi nghĩa Mai Thúc Loan hiện vật",
+    "Khởi nghĩa Mai Thúc Loan di tích"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

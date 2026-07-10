@@ -35,18 +35,18 @@
   },
   "chronology": {
     "start": {
-      "year": null,
+      "year": 1974,
       "month": null,
       "day": null
     },
     "end": {
-      "year": null,
+      "year": 1975,
       "month": null,
       "day": null
     },
     "datePrecision": "period",
     "displayDate": "Cuối năm 1974, đầu năm 1975",
-    "isApproximate": false
+    "isApproximate": true
   },
   "mapData": {
     "geoType": "no_location",
@@ -118,7 +118,7 @@
     "parentId": null,
     "childIds": [],
     "level": 0,
-    "orderInParent": 306
+    "orderInParent": 280
   },
   "associations": {
     "relatedEventIds": [],

@@ -1,0 +1,135 @@
+{
+  "candidateCardinality": {
+    "averageCandidateCount": 6.7339,
+    "imageLessonsMappingToMultipleEvents": 26,
+    "lessonsMappingToMultipleEvents": 30,
+    "maxCandidateCount": 35,
+    "minCandidateCount": 0
+  },
+  "duplicateAnalysis": {
+    "duplicatePhysicalImageGroups": 1,
+    "groups": [
+      {
+        "contentHash": "838bbc5a4e3887b0439ce760aef5dbead24cc1b2edd2657e0123e0b47b1330f9",
+        "duplicateCount": 2,
+        "sourceImages": [
+          "crawData/stage1_crawl/images/grade_12/12955/img_03.png",
+          "crawData/stage1_crawl/images/grade_12/12955/img_04.png"
+        ]
+      }
+    ],
+    "imageRecordsInDuplicateGroups": 2,
+    "uniquePhysicalImageHashes": 341
+  },
+  "eventIndexIssues": [],
+  "fileSizeAnalysis": {
+    "averageImageSizeBytes": 144405.82,
+    "largestImageSizeBytes": 805687,
+    "topLargestImageFiles": [
+      {
+        "contentHash": "aa7dc35c7d5e27cffe35902b1d4e09f646ccf88c6f7e6a8296d263e5b88ae228",
+        "fileSizeBytes": 805687,
+        "imageId": "grade_11:12373:img_01",
+        "sourceImage": "crawData/stage1_crawl/images/grade_11/12373/img_01.png"
+      },
+      {
+        "contentHash": "72ad7ec304200b5b23bd24a0a6ee880ae422e34587fab5bc7e32734fb22433fa",
+        "fileSizeBytes": 664084,
+        "imageId": "grade_11:12395:img_05",
+        "sourceImage": "crawData/stage1_crawl/images/grade_11/12395/img_05.png"
+      },
+      {
+        "contentHash": "8c707f04e053f9ba9eae73f156a2cbd42a2de76d1661364027a4c11debda0c1c",
+        "fileSizeBytes": 623967,
+        "imageId": "grade_11:12336:img_07",
+        "sourceImage": "crawData/stage1_crawl/images/grade_11/12336/img_07.png"
+      },
+      {
+        "contentHash": "c4055fee4b38c8d0ecb307c320f7ed0900e918e445b905c7fabbf9bfeee4ccf7",
+        "fileSizeBytes": 593060,
+        "imageId": "grade_11:12373:img_03",
+        "sourceImage": "crawData/stage1_crawl/images/grade_11/12373/img_03.png"
+      },
+      {
+        "contentHash": "91a9be7b5d22d74a52251663a95e7fa8be7ef9f88387e1a80a6dd5cf7cc678f7",
+        "fileSizeBytes": 549256,
+        "imageId": "grade_10:12128:img_01",
+        "sourceImage": "crawData/stage1_crawl/images/grade_10/12128/img_01.png"
+      },
+      {
+        "contentHash": "99018f818326b42faa3d4770ae23410cea2c24c0fee0002c014616bd465b96f5",
+        "fileSizeBytes": 511109,
+        "imageId": "grade_11:12382:img_01",
+        "sourceImage": "crawData/stage1_crawl/images/grade_11/12382/img_01.png"
+      },
+      {
+        "contentHash": "7e854dcbc9c1b2c26f0180f4cafd5f14fe7f900b4e3643a4529a8ea90ebbf7e8",
+        "fileSizeBytes": 505804,
+        "imageId": "grade_11:12372:img_03",
+        "sourceImage": "crawData/stage1_crawl/images/grade_11/12372/img_03.png"
+      },
+      {
+        "contentHash": "d443c6adfc83f790eb2a0606cf9663e8043ff399785932f5ab48cd50af4fe623",
+        "fileSizeBytes": 494428,
+        "imageId": "grade_11:12335:img_01",
+        "sourceImage": "crawData/stage1_crawl/images/grade_11/12335/img_01.png"
+      },
+      {
+        "contentHash": "9464c57b473360c9a54067a6a91a6e11aeefd9faf34d094eb2c57b73811cf6ae",
+        "fileSizeBytes": 492230,
+        "imageId": "grade_11:12373:img_04",
+        "sourceImage": "crawData/stage1_crawl/images/grade_11/12373/img_04.png"
+      },
+      {
+        "contentHash": "7d7297c4b8a888f4cdf1733c0181a3f70e0a5a39d41d362c537f33280b0e795c",
+        "fileSizeBytes": 472111,
+        "imageId": "grade_11:12339:img_01",
+        "sourceImage": "crawData/stage1_crawl/images/grade_11/12339/img_01.png"
+      }
+    ],
+    "totalValidImageBytes": 49386791,
+    "totalValidImageMiB": 47.0989
+  },
+  "inputs": {
+    "coreEventRecords": 361,
+    "coreEvents": "crawData/stage4b_curate_tree/output/phase2/core_events.jsonl",
+    "stage1Dir": "crawData/stage1_crawl"
+  },
+  "lessonsAndImages": {
+    "invalidRecords": 6,
+    "lessonsWithImageRecords": 43,
+    "missingFiles": 0,
+    "stage1LessonRecords": 47,
+    "totalImageJsonRecords": 348,
+    "validLocalImageFiles": 342
+  },
+  "mappingCoverage": {
+    "ambiguousImages": 187,
+    "imageLessonIdsFoundInCoreRefs": 32,
+    "imageLessonIdsNotFound": [
+      "12126",
+      "12138",
+      "12141",
+      "12143",
+      "12147",
+      "12162",
+      "12335",
+      "12336",
+      "12337",
+      "12380",
+      "12957"
+    ],
+    "imageLessonIdsNotFoundInCoreRefs": 11,
+    "invalidImages": 6,
+    "singleCandidateImages": 37,
+    "uniqueLessonIdsWithImages": 43,
+    "unresolvedImages": 118
+  },
+  "validationIssueCounts": {
+    "duplicate_physical_image": 2,
+    "empty_alt": 342,
+    "invalid_src": 6,
+    "lesson_id_not_referenced_by_core_events": 118,
+    "missing_caption": 67
+  }
+}

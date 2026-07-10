@@ -1,0 +1,60 @@
+{
+  "eventId": "ga-cong-chua-thieu-dung-duong-tu-minh-1144",
+  "title": "Gả Công chúa Thiều Dung cho Dương Tự Minh",
+  "shortTitle": "Gả Công chúa Thiều Dung cho Dương Tự Minh",
+  "displayDate": "Năm 1144",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-tu-the-ki-x-den-xv",
+  "parentId": "viet-nam-tu-the-ki-x-den-xv",
+  "historicalLocations": [
+    "biên giới"
+  ],
+  "provinceNames": [
+    "Thái Nguyên"
+  ],
+  "canonicalSummary": "Giáp Tý [1144], gả Công chúa Thiều Dung cho Dương Tự Minh (một thủ lĩnh người dân tộc Tày ở Thái Nguyên], phong Tự Minh làm Phò mã lang.... Tháng 5, cho Mậu Du Đô làm Thái sư, xa lĩnh việc các khê động dọc biên giới về đường bộ.",
+  "keyFacts": [
+    "Diễn ra vào năm 1144 (Giáp Tý)",
+    "Công chúa Thiều Dung được gả cho Dương Tự Minh",
+    "Dương Tự Minh được phong làm Phò mã lang",
+    "Dương Tự Minh là thủ lĩnh người Tày ở Thái Nguyên"
+  ],
+  "sourceFamily": "ancient_medieval",
+  "preferredVerificationDomains": [
+    "baotanglichsu.vn",
+    "disanvanhoa.gov.vn",
+    "bvhttdl.gov.vn",
+    "qdnd.vn",
+    "nhandan.vn",
+    "unesco.org",
+    "whc.unesco.org"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Gả Công chúa Thiều Dung cho Dương Tự Minh",
+    "Gả Công chúa Thiều Dung cho Dương Tự Minh Năm 1144",
+    "Gả Công chúa Thiều Dung cho Dương Tự Minh biên giới",
+    "Gả Công chúa Thiều Dung cho Dương Tự Minh Diễn ra vào năm 1144 (Giáp Tý) Công chúa Thiều Dung được gả cho Dương Tự Minh",
+    "Gả Công chúa Thiều Dung cho Dương Tự Minh hiện vật",
+    "Gả Công chúa Thiều Dung cho Dương Tự Minh di tích"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

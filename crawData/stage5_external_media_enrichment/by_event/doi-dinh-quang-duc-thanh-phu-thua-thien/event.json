@@ -1,0 +1,56 @@
+{
+  "eventId": "doi-dinh-quang-duc-thanh-phu-thua-thien",
+  "title": "Đổi dinh Quảng Đức thành phủ Thừa Thiên",
+  "shortTitle": "Đổi dinh Quảng Đức thành phủ Thừa Thiên",
+  "displayDate": "Năm 1822",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-tu-the-ki-xvi-den-xix",
+  "parentId": "cuoc-cai-cach-cua-minh-mang",
+  "historicalLocations": [],
+  "provinceNames": [
+    "Thừa Thiên Huế",
+    "Đắk Nông"
+  ],
+  "canonicalSummary": "Năm 1822, dinh Quảng Đức được đổi thành phủ Thừa Thiên do Đề đốc kinh thành đứng đầu.",
+  "keyFacts": [
+    "Đề đốc kinh thành đứng đầu",
+    "Diễn ra năm 1822",
+    "Đổi tên đơn vị hành chính"
+  ],
+  "sourceFamily": "early_modern",
+  "preferredVerificationDomains": [
+    "baotanglichsu.vn",
+    "luutru.gov.vn",
+    "disanvanhoa.gov.vn",
+    "nhandan.vn",
+    "qdnd.vn"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Đổi dinh Quảng Đức thành phủ Thừa Thiên",
+    "Đổi dinh Quảng Đức thành phủ Thừa Thiên Năm 1822",
+    "Đổi dinh Quảng Đức thành phủ Thừa Thiên Cuộc cải cách của Minh Mạng",
+    "Đổi dinh Quảng Đức thành phủ Thừa Thiên Đề đốc kinh thành đứng đầu Diễn ra năm 1822",
+    "Đổi dinh Quảng Đức thành phủ Thừa Thiên chân dung",
+    "Đổi dinh Quảng Đức thành phủ Thừa Thiên di tích"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

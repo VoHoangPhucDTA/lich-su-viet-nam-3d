@@ -1,0 +1,56 @@
+{
+  "eventId": "viet-nam-the-hien-thien-chi-hoa-binh-sau-12-1946",
+  "title": "Việt Nam thể hiện thiện chí hoà bình sau khi kháng chiến bùng nổ",
+  "shortTitle": "Việt Nam thể hiện thiện chí hoà bình sau khi kháng chiến bùng nổ",
+  "displayDate": "Từ tháng 12 năm 1946",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1945-1954",
+  "parentId": "viet-nam-1945-1954",
+  "historicalLocations": [],
+  "provinceNames": [],
+  "canonicalSummary": "Từ khi cuộc kháng chiến toàn quốc chống thực dân Pháp bùng nổ (12 – 1946), Việt Nam vẫn thể hiện thiện chí hoà bình, để nghị Chính phủ Pháp tiếp tục mở các cuộc thương lượng, kêu gọi nhân dân Pháp chống chiến tranh.",
+  "keyFacts": [
+    "Kêu gọi nhân dân Pháp chống chiến tranh",
+    "Đề nghị Chính phủ Pháp tiếp tục thương lượng"
+  ],
+  "sourceFamily": "war_1945_1975",
+  "preferredVerificationDomains": [
+    "btlsqsvn.org.vn",
+    "qdnd.vn",
+    "nhandan.vn",
+    "vietnamplus.vn",
+    "hochiminh.vn",
+    "baotanglichsu.vn",
+    "luutru.gov.vn",
+    "loc.gov",
+    "archives.gov"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Việt Nam thể hiện thiện chí hoà bình sau khi kháng chiến bùng nổ",
+    "Việt Nam thể hiện thiện chí hoà bình sau khi kháng chiến bùng nổ Từ tháng 12 năm 1946",
+    "Việt Nam thể hiện thiện chí hoà bình sau khi kháng chiến bùng nổ Việt Nam từ năm 1945 đến năm 1954",
+    "Việt Nam thể hiện thiện chí hoà bình sau khi kháng chiến bùng nổ Kêu gọi nhân dân Pháp chống chiến tranh Đề nghị Chính phủ Pháp tiếp tục thương lượng",
+    "Việt Nam thể hiện thiện chí hoà bình sau khi kháng chiến bùng nổ ảnh tư liệu",
+    "Việt Nam thể hiện thiện chí hoà bình sau khi kháng chiến bùng nổ chiến dịch"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

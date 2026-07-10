@@ -1,0 +1,61 @@
+{
+  "eventId": "chien-thang-duong-14-phuoc-long",
+  "title": "Chiến thắng Đường 14 Phước Long",
+  "shortTitle": "Đường 14 Phước Long",
+  "displayDate": "Cuối năm 1974, đầu năm 1975",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1954-1975",
+  "parentId": "tong-tien-cong-va-noi-day-xuan-1975",
+  "historicalLocations": [
+    "Đường 14 Phước Long",
+    "miền Nam"
+  ],
+  "provinceNames": [],
+  "canonicalSummary": "Cuối năm 1974, đầu năm 1975, quân dân miền Nam đã giành thắng lợi trong chiến dịch Đường 14 Phước Long. Chiến thắng này cùng những phản ứng của Mỹ và chính quyền Sài Gòn sau đó cho thấy rõ về sự lớn mạnh, khả năng thắng lớn của quân ta, sự suy yếu và bất lực của quân đội Sài Gòn, về khả năng can thiệp bằng quân sự trở lại của Mỹ là rất hạn chế.",
+  "keyFacts": [
+    "Cho thấy sự suy yếu của quân đội Sài Gòn",
+    "Khả năng can thiệp quân sự của Mỹ rất hạn chế",
+    "Cho thấy sự lớn mạnh của quân ta",
+    "Diễn ra cuối 1974, đầu 1975"
+  ],
+  "sourceFamily": "war_1945_1975",
+  "preferredVerificationDomains": [
+    "btlsqsvn.org.vn",
+    "qdnd.vn",
+    "nhandan.vn",
+    "vietnamplus.vn",
+    "hochiminh.vn",
+    "baotanglichsu.vn",
+    "luutru.gov.vn",
+    "loc.gov",
+    "archives.gov"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Chiến thắng Đường 14 Phước Long",
+    "Chiến thắng Đường 14 Phước Long Cuối năm 1974, đầu năm 1975",
+    "Chiến thắng Đường 14 Phước Long Đường 14 Phước Long",
+    "Chiến thắng Đường 14 Phước Long Cho thấy sự suy yếu của quân đội Sài Gòn Khả năng can thiệp quân sự của Mỹ rất hạn chế",
+    "Chiến thắng Đường 14 Phước Long ảnh tư liệu",
+    "Chiến thắng Đường 14 Phước Long chiến dịch"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

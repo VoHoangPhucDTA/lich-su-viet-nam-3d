@@ -1,0 +1,102 @@
+{
+  "version": 1,
+  "overrides": [
+    {
+      "eventId": "chu-quyen-bien-dao-viet-nam-1858-1918",
+      "mode": "auto_safe",
+      "category": "closed_year_range",
+      "chronology": {
+        "start": {
+          "year": 1858,
+          "month": null,
+          "day": null
+        },
+        "end": {
+          "year": 1918,
+          "month": null,
+          "day": null
+        },
+        "datePrecision": "period",
+        "displayDate": "Chủ quyền biển đảo Việt Nam 1858-1918",
+        "isApproximate": true
+      },
+      "reason": "Explicit closed year range in the generated synthetic collection displayDate."
+    },
+    {
+      "eventId": "chu-quyen-bien-dao-viet-nam-1919-1945",
+      "mode": "auto_safe",
+      "category": "closed_year_range",
+      "chronology": {
+        "start": {
+          "year": 1919,
+          "month": null,
+          "day": null
+        },
+        "end": {
+          "year": 1945,
+          "month": null,
+          "day": null
+        },
+        "datePrecision": "period",
+        "displayDate": "Chủ quyền biển đảo Việt Nam 1919-1945",
+        "isApproximate": true
+      },
+      "reason": "Explicit closed year range in the generated synthetic collection displayDate."
+    },
+    {
+      "eventId": "chu-quyen-bien-dao-viet-nam-1954-1975",
+      "mode": "auto_safe",
+      "category": "closed_year_range",
+      "chronology": {
+        "start": {
+          "year": 1954,
+          "month": null,
+          "day": null
+        },
+        "end": {
+          "year": 1975,
+          "month": null,
+          "day": null
+        },
+        "datePrecision": "period",
+        "displayDate": "Chủ quyền biển đảo Việt Nam 1954-1975",
+        "isApproximate": true
+      },
+      "reason": "Explicit closed year range in the generated synthetic collection displayDate."
+    },
+    {
+      "eventId": "chu-quyen-bien-dao-viet-nam-tu-the-ki-xvi-den-xix",
+      "mode": "manual_curated",
+      "category": "policy_closed_historical_period",
+      "chronology": {
+        "start": {
+          "year": 1501,
+          "month": null,
+          "day": null
+        },
+        "end": {
+          "year": 1900,
+          "month": null,
+          "day": null
+        },
+        "datePrecision": "period",
+        "displayDate": "Chủ quyền biển đảo Việt Nam thế kỉ XVI-XIX",
+        "isApproximate": true
+      },
+      "policyRef": "closed_historical_period_v1",
+      "policySpec": {
+        "start": {
+          "unit": "century",
+          "era": "CE",
+          "index": 16
+        },
+        "end": {
+          "unit": "century",
+          "era": "CE",
+          "index": 19
+        }
+      },
+      "reason": "The generated synthetic collection displayDate identifies the collection with the closed 16th-to-19th-century period. closed_historical_period_v1 maps that closed historical period to 1501-1900 as deterministic approximate sortable bounds; no month or day precision is invented."
+    }
+  ]
+}

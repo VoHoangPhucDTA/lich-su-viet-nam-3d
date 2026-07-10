@@ -1,0 +1,9 @@
+{
+  "eventId": "chi-thi-thanh-lap-doi-viet-nam-tuyen-truyen-giai-phong-quan",
+  "status": "pending_download",
+  "images": [],
+  "expected": [
+    "image_01.<ext>",
+    "image_02.<ext>"
+  ]
+}

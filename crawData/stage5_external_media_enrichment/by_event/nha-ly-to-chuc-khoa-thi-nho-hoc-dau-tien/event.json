@@ -1,0 +1,57 @@
+{
+  "eventId": "nha-ly-to-chuc-khoa-thi-nho-hoc-dau-tien",
+  "title": "Nhà Lý tổ chức khoa thi Nho học đầu tiên",
+  "shortTitle": "Nhà Lý tổ chức khoa thi Nho học đầu tiên",
+  "displayDate": "Thời nhà Lý",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-tu-the-ki-x-den-xv",
+  "parentId": "viet-nam-tu-the-ki-x-den-xv",
+  "historicalLocations": [
+    "Việt Nam"
+  ],
+  "provinceNames": [],
+  "canonicalSummary": "Nhà Lý cho... tổ chức khoa thi Nho học đầu tiên để tuyển dụng quan lại.",
+  "keyFacts": [
+    "Tổ chức bởi nhà Lý",
+    "Mục đích tuyển dụng quan lại",
+    "Khoa thi Nho học đầu tiên"
+  ],
+  "sourceFamily": "ancient_medieval",
+  "preferredVerificationDomains": [
+    "baotanglichsu.vn",
+    "disanvanhoa.gov.vn",
+    "bvhttdl.gov.vn",
+    "qdnd.vn",
+    "nhandan.vn",
+    "unesco.org",
+    "whc.unesco.org"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Nhà Lý tổ chức khoa thi Nho học đầu tiên",
+    "Nhà Lý tổ chức khoa thi Nho học đầu tiên Thời nhà Lý",
+    "Nhà Lý tổ chức khoa thi Nho học đầu tiên Việt Nam",
+    "Nhà Lý tổ chức khoa thi Nho học đầu tiên Tổ chức bởi nhà Lý Mục đích tuyển dụng quan lại",
+    "Nhà Lý tổ chức khoa thi Nho học đầu tiên hiện vật",
+    "Nhà Lý tổ chức khoa thi Nho học đầu tiên di tích"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

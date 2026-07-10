@@ -1,0 +1,9 @@
+{
+  "eventId": "ke-hoach-nha-nuoc-5-nam-lan-thu-nhat-mien-bac",
+  "status": "pending_download",
+  "images": [],
+  "expected": [
+    "image_01.<ext>",
+    "image_02.<ext>"
+  ]
+}

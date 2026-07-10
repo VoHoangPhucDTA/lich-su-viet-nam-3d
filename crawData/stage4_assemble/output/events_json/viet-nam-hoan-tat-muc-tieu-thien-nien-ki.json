@@ -35,12 +35,12 @@
     ]
   },
   "chronology": {
-    "start": null,
-    "end": {
+    "start": {
       "year": 2015,
       "month": null,
       "day": null
     },
+    "end": null,
     "datePrecision": "year",
     "displayDate": "Đến năm 2015",
     "isApproximate": false
@@ -116,7 +116,7 @@
     "parentId": null,
     "childIds": [],
     "level": 0,
-    "orderInParent": 382
+    "orderInParent": 332
   },
   "associations": {
     "relatedEventIds": [],

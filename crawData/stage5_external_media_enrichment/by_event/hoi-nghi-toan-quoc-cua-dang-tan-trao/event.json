@@ -1,0 +1,59 @@
+{
+  "eventId": "hoi-nghi-toan-quoc-cua-dang-tan-trao",
+  "title": "Hội nghị toàn quốc của Đảng họp ở Tân Trào",
+  "shortTitle": "Hội nghị Đảng Tân Trào",
+  "displayDate": "Ngày 14, 15-8 – 1945",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1919-1945",
+  "parentId": "cach-mang-thang-tam-nam-1945",
+  "historicalLocations": [],
+  "provinceNames": [
+    "Tuyên Quang"
+  ],
+  "canonicalSummary": "Ngày 14, 15-8 – 1945, Hội nghị toàn quốc của Đảng họp ở Tân Trào (Sơn Dương, Tuyên Quang), thông qua kế hoạch lãnh đạo toàn dân Tổng khởi nghĩa và quyết định những vấn để quan trọng về chính sách đối nội, đối ngoại sau khi giành được chính quyền.",
+  "keyFacts": [
+    "Quyết định chính sách đối nội, đối ngoại",
+    "Họp ở Tân Trào (Sơn Dương, Tuyên Quang)",
+    "Ngày 14, 15-8-1945",
+    "Thông qua kế hoạch Tổng khởi nghĩa"
+  ],
+  "sourceFamily": "revolutionary",
+  "preferredVerificationDomains": [
+    "hochiminh.vn",
+    "tulieuvankien.dangcongsan.vn",
+    "dangcongsan.vn",
+    "baotanglichsu.vn",
+    "nhandan.vn",
+    "qdnd.vn",
+    "vietnamplus.vn",
+    "luutru.gov.vn"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Hội nghị toàn quốc của Đảng họp ở Tân Trào",
+    "Hội nghị toàn quốc của Đảng họp ở Tân Trào Ngày 14, 15-8 – 1945",
+    "Hội nghị toàn quốc của Đảng họp ở Tân Trào Cách mạng tháng Tám năm 1945",
+    "Hội nghị toàn quốc của Đảng họp ở Tân Trào Quyết định chính sách đối nội, đối ngoại Họp ở Tân Trào (Sơn Dương, Tuyên Quang)",
+    "Hội nghị toàn quốc của Đảng họp ở Tân Trào ảnh tư liệu",
+    "Hội nghị toàn quốc của Đảng họp ở Tân Trào chân dung"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

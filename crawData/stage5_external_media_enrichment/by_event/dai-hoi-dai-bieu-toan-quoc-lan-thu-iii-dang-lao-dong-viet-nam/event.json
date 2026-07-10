@@ -1,0 +1,59 @@
+{
+  "eventId": "dai-hoi-dai-bieu-toan-quoc-lan-thu-iii-dang-lao-dong-viet-nam",
+  "title": "Đại hội đại biểu toàn quốc lần thứ III Đảng Lao động Việt Nam",
+  "shortTitle": "Đại hội III của Đảng",
+  "displayDate": "Tháng 9 – 1960",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1954-1975",
+  "parentId": "viet-nam-1954-1975",
+  "historicalLocations": [],
+  "provinceNames": [
+    "Hà Nội"
+  ],
+  "canonicalSummary": "Đại hội đại biểu toàn quốc lần thứ III Đảng Lao động Việt Nam (9 – 1960) được tổ chức tại Hà Nội. Đại hội đã xác định nhiệm vụ chiến lược của cách mạng cả nước, vai trò, vị trí của cách mạng từng miền và mối quan hệ giữa cách mạng hai miền.",
+  "keyFacts": [
+    "Xác định vai trò, vị trí và mối quan hệ giữa cách mạng hai miền",
+    "Tổ chức tại Hà Nội tháng 9-1960",
+    "Xác định nhiệm vụ chiến lược của cách mạng cả nước"
+  ],
+  "sourceFamily": "war_1945_1975",
+  "preferredVerificationDomains": [
+    "btlsqsvn.org.vn",
+    "qdnd.vn",
+    "nhandan.vn",
+    "vietnamplus.vn",
+    "hochiminh.vn",
+    "baotanglichsu.vn",
+    "luutru.gov.vn",
+    "loc.gov",
+    "archives.gov"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Đại hội đại biểu toàn quốc lần thứ III Đảng Lao động Việt Nam",
+    "Đại hội đại biểu toàn quốc lần thứ III Đảng Lao động Việt Nam Tháng 9 – 1960",
+    "Đại hội đại biểu toàn quốc lần thứ III Đảng Lao động Việt Nam Việt Nam từ năm 1954 đến năm 1975",
+    "Đại hội đại biểu toàn quốc lần thứ III Đảng Lao động Việt Nam Xác định vai trò, vị trí và mối quan hệ giữa cách mạng hai miền Tổ chức tại Hà Nội tháng 9-1960",
+    "Đại hội đại biểu toàn quốc lần thứ III Đảng Lao động Việt Nam ảnh tư liệu",
+    "Đại hội đại biểu toàn quốc lần thứ III Đảng Lao động Việt Nam chiến dịch"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

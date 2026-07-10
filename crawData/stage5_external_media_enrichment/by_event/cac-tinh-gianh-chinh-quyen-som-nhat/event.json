@@ -1,0 +1,61 @@
+{
+  "eventId": "cac-tinh-gianh-chinh-quyen-som-nhat",
+  "title": "Nhân dân Bắc Giang, Hải Dương, Hà Tĩnh và Quảng Nam giành được chính quyền",
+  "shortTitle": "Các tỉnh giành chính quyền sớm",
+  "displayDate": "Ngày 18-8-1945",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1919-1945",
+  "parentId": "cach-mang-thang-tam-nam-1945",
+  "historicalLocations": [],
+  "provinceNames": [
+    "Bắc Giang",
+    "Hà Tĩnh",
+    "Quảng Nam",
+    "Hải Dương"
+  ],
+  "canonicalSummary": "Ngày 18-8-1945, nhân dân Bắc Giang, Hải Dương, Hà Tĩnh và Quảng Nam giành được chính quyền ở tỉnh lị sớm nhất trong cả nước.",
+  "keyFacts": [
+    "Giành chính quyền ở tỉnh lị sớm nhất",
+    "Bắc Giang, Hải Dương, Hà Tĩnh, Quảng Nam",
+    "Ngày 18-8-1945"
+  ],
+  "sourceFamily": "revolutionary",
+  "preferredVerificationDomains": [
+    "hochiminh.vn",
+    "tulieuvankien.dangcongsan.vn",
+    "dangcongsan.vn",
+    "baotanglichsu.vn",
+    "nhandan.vn",
+    "qdnd.vn",
+    "vietnamplus.vn",
+    "luutru.gov.vn"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Nhân dân Bắc Giang, Hải Dương, Hà Tĩnh và Quảng Nam giành được chính quyền",
+    "Nhân dân Bắc Giang, Hải Dương, Hà Tĩnh và Quảng Nam giành được chính quyền Ngày 18-8-1945",
+    "Nhân dân Bắc Giang, Hải Dương, Hà Tĩnh và Quảng Nam giành được chính quyền Cách mạng tháng Tám năm 1945",
+    "Nhân dân Bắc Giang, Hải Dương, Hà Tĩnh và Quảng Nam giành được chính quyền Giành chính quyền ở tỉnh lị sớm nhất Bắc Giang, Hải Dương, Hà Tĩnh, Quảng Nam",
+    "Nhân dân Bắc Giang, Hải Dương, Hà Tĩnh và Quảng Nam giành được chính quyền ảnh tư liệu",
+    "Nhân dân Bắc Giang, Hải Dương, Hà Tĩnh và Quảng Nam giành được chính quyền chân dung"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

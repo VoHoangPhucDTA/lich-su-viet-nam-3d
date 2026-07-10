@@ -1,0 +1,60 @@
+{
+  "eventId": "hoi-nghi-pa-ri-ve-viet-nam",
+  "title": "Hội nghị Pa-ri về Việt Nam",
+  "shortTitle": "Hội nghị Pa-ri",
+  "displayDate": "1968 – 27-1-1973",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1954-1975",
+  "parentId": "viet-nam-1954-1975",
+  "historicalLocations": [
+    "Việt Nam",
+    "Pa-ri"
+  ],
+  "provinceNames": [],
+  "canonicalSummary": "Trên bàn đàm phán tại Hội nghị Pa-ri, đại diện Chính phủ Việt Nam Dân chủ Cộng hoà và Chính phủ Cách mạng lâm thời Cộng hoà miền Nam Việt Nam lần lượt đưa ra các phương án yêu cầu Mỹ phải chấm dứt chiến tranh, lập lại hoà bình ở Việt Nam.",
+  "keyFacts": [
+    "Mục tiêu: yêu cầu Mỹ chấm dứt chiến tranh, lập lại hoà bình",
+    "Có sự tham gia của VNDCCH và Chính phủ Cách mạng lâm thời Cộng hoà miền Nam Việt Nam",
+    "Diễn ra tại Pa-ri"
+  ],
+  "sourceFamily": "war_1945_1975",
+  "preferredVerificationDomains": [
+    "btlsqsvn.org.vn",
+    "qdnd.vn",
+    "nhandan.vn",
+    "vietnamplus.vn",
+    "hochiminh.vn",
+    "baotanglichsu.vn",
+    "luutru.gov.vn",
+    "loc.gov",
+    "archives.gov"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Hội nghị Pa-ri về Việt Nam",
+    "Hội nghị Pa-ri về Việt Nam 1968 – 27-1-1973",
+    "Hội nghị Pa-ri về Việt Nam Việt Nam",
+    "Hội nghị Pa-ri về Việt Nam Mục tiêu: yêu cầu Mỹ chấm dứt chiến tranh, lập lại hoà bình Có sự tham gia của VNDCCH và Chính phủ Cách mạng lâm thời Cộng hoà miền Nam Việt",
+    "Hội nghị Pa-ri về Việt Nam ảnh tư liệu",
+    "Hội nghị Pa-ri về Việt Nam chiến dịch"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

@@ -3,6 +3,7 @@ import { getChildIdsOf, getRawEventById } from './eventRegistry';
 import type { MockEventDetail } from './mockEventDetails';
 import type { EventType, GeoType, HistoricalEvent } from '../types/event';
 import { getCentroidFromProvinceNames } from './vietnamProvinceCentroids';
+import { formatChronologyLabel, normalizeChronology } from '../utils/chronology';
 
 /* ─── Helpers ───────────────────────────────────────────────────────────── */
 
@@ -35,12 +36,11 @@ function toEventType(value?: string): EventType {
 }
 
 function formatDisplayDate(raw: RawEventJson): string {
-  if (raw.chronology?.displayDate) return raw.chronology.displayDate;
-  const sy = raw.chronology?.start?.year;
-  const ey = raw.chronology?.end?.year;
-  if (sy != null && ey != null && ey !== sy) return `${sy} – ${ey}`;
-  if (sy != null) return sy < 0 ? `${Math.abs(sy)} TCN` : `Năm ${sy}`;
-  return 'Không rõ';
+  return formatChronologyLabel({
+    startYear: raw.chronology?.start?.year,
+    endYear: raw.chronology?.end?.year,
+    displayDate: raw.chronology?.displayDate,
+  });
 }
 
 function tagsToStrings(tags?: Array<string | number>): string[] | undefined {
@@ -169,10 +169,10 @@ export function rawToEventDetail(raw: RawEventJson): MockEventDetail {
           provinceNames: rawDg.provinceNames,
           historicalLocations: rawDg.historicalLocations,
         },
-        focusGeometry: raw.mapData.focusGeometry?.center
+        focusGeometry: raw.mapData?.focusGeometry?.center
           ? {
-              center: [raw.mapData.focusGeometry.center.lng, raw.mapData.focusGeometry.center.lat],
-              zoom: raw.mapData.focusGeometry.zoom ?? 8,
+              center: [raw.mapData!.focusGeometry!.center!.lng, raw.mapData!.focusGeometry!.center!.lat],
+              zoom: raw.mapData!.focusGeometry!.zoom ?? 8,
             }
           : undefined,
       }
@@ -242,8 +242,13 @@ export function rawToHistoricalEvent(
     : undefined
   );
   const fg = raw.mapData?.focusGeometry;
-  const startYear = raw.chronology?.start?.year ?? 0;
-  const endYear = raw.chronology?.end?.year;
+  const chronology = normalizeChronology({
+    startYear: raw.chronology?.start?.year,
+    endYear: raw.chronology?.end?.year,
+    displayDate: raw.chronology?.displayDate,
+  });
+  const startYear = chronology.startYear;
+  const endYear = chronology.endYear;
   const rawGeoType = toGeoType(dg?.geoType ?? raw.mapData?.geoType);
 
   // Coordinates: ưu tiên marker → focus center → fallback centroid của tỉnh đầu
@@ -278,7 +283,9 @@ export function rawToHistoricalEvent(
       raw.textbookContent?.canonicalSummary ??
       '',
     startYear,
-    endYear: endYear != null && endYear !== startYear ? endYear : undefined,
+    endYear,
+    effectiveEndYear: chronology.effectiveEndYear,
+    displayDate: chronology.displayDate,
     eventType: toEventType(raw.classification?.eventType),
     eventSubtype: raw.classification?.eventSubtype,
     geoType: resolvedGeoType,

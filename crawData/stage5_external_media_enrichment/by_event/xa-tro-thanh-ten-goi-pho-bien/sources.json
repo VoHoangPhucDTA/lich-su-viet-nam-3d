@@ -1,0 +1,9 @@
+{
+  "eventId": "xa-tro-thanh-ten-goi-pho-bien",
+  "status": "pending_download",
+  "images": [],
+  "expected": [
+    "image_01.<ext>",
+    "image_02.<ext>"
+  ]
+}

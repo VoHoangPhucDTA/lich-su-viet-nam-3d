@@ -1,0 +1,61 @@
+{
+  "eventId": "thanh-lap-cac-dang-cong-san-o-viet-nam-ma-lai-xiem-phi-lip-pin",
+  "title": "Thành lập các đảng cộng sản ở Việt Nam, Mã Lai, Xiêm, Phi-líp-pin",
+  "shortTitle": "Thành lập các đảng cộng sản ở Việt Nam, Mã Lai, Xiêm, Phi-líp-pin",
+  "displayDate": "Trong những năm 30 của thế kỉ XX",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1919-1945",
+  "parentId": "viet-nam-1919-1945",
+  "historicalLocations": [
+    "Mã Lai",
+    "Phi-líp-pin",
+    "Việt Nam",
+    "Xiêm"
+  ],
+  "provinceNames": [],
+  "canonicalSummary": "Trong những năm 30 của thế kỉ XX, các đảng cộng sản được thành lập ở Việt Nam, Mã Lai, Xiêm và Phi-líp-pin, góp phần mở ra khuynh hướng vô sản trong cuộc đấu tranh giành độc lập dân tộc ở Đông Nam Á.",
+  "keyFacts": [
+    "Mở ra khuynh hướng vô sản",
+    "Thành lập trong những năm 30 của thế kỉ XX",
+    "Diễn ra ở Việt Nam, Mã Lai, Xiêm, Phi-líp-pin"
+  ],
+  "sourceFamily": "revolutionary",
+  "preferredVerificationDomains": [
+    "hochiminh.vn",
+    "tulieuvankien.dangcongsan.vn",
+    "dangcongsan.vn",
+    "baotanglichsu.vn",
+    "nhandan.vn",
+    "qdnd.vn",
+    "vietnamplus.vn",
+    "luutru.gov.vn"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Thành lập các đảng cộng sản ở Việt Nam, Mã Lai, Xiêm, Phi-líp-pin",
+    "Thành lập các đảng cộng sản ở Việt Nam, Mã Lai, Xiêm, Phi-líp-pin Trong những năm 30 của thế kỉ XX",
+    "Thành lập các đảng cộng sản ở Việt Nam, Mã Lai, Xiêm, Phi-líp-pin Mã Lai",
+    "Thành lập các đảng cộng sản ở Việt Nam, Mã Lai, Xiêm, Phi-líp-pin Mở ra khuynh hướng vô sản Thành lập trong những năm 30 của thế kỉ XX",
+    "Thành lập các đảng cộng sản ở Việt Nam, Mã Lai, Xiêm, Phi-líp-pin ảnh tư liệu",
+    "Thành lập các đảng cộng sản ở Việt Nam, Mã Lai, Xiêm, Phi-líp-pin chân dung"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

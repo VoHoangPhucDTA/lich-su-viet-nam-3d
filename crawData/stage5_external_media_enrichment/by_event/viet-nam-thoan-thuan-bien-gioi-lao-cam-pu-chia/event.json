@@ -1,0 +1,59 @@
+{
+  "eventId": "viet-nam-thoan-thuan-bien-gioi-lao-cam-pu-chia",
+  "title": "Việt Nam đạt được nhiều thoả thuận trong phát triển đường biên giới hoà bình, hữu nghị với Lào và Cam-pu-chia",
+  "shortTitle": "VN thoả thuận biên giới Lào-Campuchia",
+  "displayDate": "Trong thời kì Đổi mới",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1975-den-nay",
+  "parentId": "cong-cuoc-doi-moi-o-viet-nam",
+  "historicalLocations": [
+    "Cam-pu-chia",
+    "Lào"
+  ],
+  "provinceNames": [],
+  "canonicalSummary": "Với Lào và Cam-pu-chia, Việt Nam đã đạt được nhiều thoả thuận trong phát triển đường biên giới hoà bình, hữu nghị.",
+  "keyFacts": [
+    "Với Lào và Cam-pu-chia",
+    "Phát triển đường biên giới hoà bình, hữu nghị"
+  ],
+  "sourceFamily": "post_1975",
+  "preferredVerificationDomains": [
+    "chinhphu.vn",
+    "dangcongsan.vn",
+    "tulieuvankien.dangcongsan.vn",
+    "quochoi.vn",
+    "mofa.gov.vn",
+    "vietnamplus.vn",
+    "nhandan.vn",
+    "un.org",
+    "unphoto.un.org"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Việt Nam đạt được nhiều thoả thuận trong phát triển đường biên giới hoà bình, hữu nghị với Lào và Cam-pu-chia",
+    "Việt Nam đạt được nhiều thoả thuận trong phát triển đường biên giới hoà bình, hữu nghị với Lào và Cam-pu-chia Trong thời kì Đổi mới",
+    "Việt Nam đạt được nhiều thoả thuận trong phát triển đường biên giới hoà bình, hữu nghị với Lào và Cam-pu-chia Cam-pu-chia",
+    "Việt Nam đạt được nhiều thoả thuận trong phát triển đường biên giới hoà bình, hữu nghị với Lào và Cam-pu-chia Với Lào và Cam-pu-chia Phát triển đường biên giới hoà bình, hữu nghị",
+    "Việt Nam đạt được nhiều thoả thuận trong phát triển đường biên giới hoà bình, hữu nghị với Lào và Cam-pu-chia ảnh tư liệu",
+    "Việt Nam đạt được nhiều thoả thuận trong phát triển đường biên giới hoà bình, hữu nghị với Lào và Cam-pu-chia lễ ký"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

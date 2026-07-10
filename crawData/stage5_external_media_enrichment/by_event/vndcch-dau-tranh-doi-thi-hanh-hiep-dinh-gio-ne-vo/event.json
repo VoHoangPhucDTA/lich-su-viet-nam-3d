@@ -1,0 +1,59 @@
+{
+  "eventId": "vndcch-dau-tranh-doi-thi-hanh-hiep-dinh-gio-ne-vo",
+  "title": "Việt Nam Dân chủ Cộng hoà đấu tranh đòi thi hành Hiệp định Giơ-ne-vơ",
+  "shortTitle": "Việt Nam Dân chủ Cộng hoà đấu tranh đòi thi hành Hiệp định Giơ-ne-vơ",
+  "displayDate": "Trong kháng chiến chống Mỹ (1954-1975)",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1954-1975",
+  "parentId": "khang-chien-chong-my-cuu-nuoc",
+  "historicalLocations": [],
+  "provinceNames": [
+    "Hồ Chí Minh"
+  ],
+  "canonicalSummary": "Việt Nam Dân chủ Cộng hoà phối hợp với Uỷ ban Giám sát quốc tế về Hiệp định Giơ-ne-vơ yêu cầu chính quyền Sài Gòn mở hội nghị hiệp thương về việc tổ chức tổng tuyển cử thống nhất đất nước theo những điều khoản của hội nghị.",
+  "keyFacts": [
+    "Phối hợp với Uỷ ban Giám sát quốc tế",
+    "Yêu cầu chính quyền Sài Gòn mở hội nghị hiệp thương",
+    "Mục đích: tổ chức tổng tuyển cử thống nhất đất nước"
+  ],
+  "sourceFamily": "war_1945_1975",
+  "preferredVerificationDomains": [
+    "btlsqsvn.org.vn",
+    "qdnd.vn",
+    "nhandan.vn",
+    "vietnamplus.vn",
+    "hochiminh.vn",
+    "baotanglichsu.vn",
+    "luutru.gov.vn",
+    "loc.gov",
+    "archives.gov"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Việt Nam Dân chủ Cộng hoà đấu tranh đòi thi hành Hiệp định Giơ-ne-vơ",
+    "Việt Nam Dân chủ Cộng hoà đấu tranh đòi thi hành Hiệp định Giơ-ne-vơ Trong kháng chiến chống Mỹ (1954-1975)",
+    "Việt Nam Dân chủ Cộng hoà đấu tranh đòi thi hành Hiệp định Giơ-ne-vơ Cuộc kháng chiến chống Mỹ, cứu nước",
+    "Việt Nam Dân chủ Cộng hoà đấu tranh đòi thi hành Hiệp định Giơ-ne-vơ Phối hợp với Uỷ ban Giám sát quốc tế Yêu cầu chính quyền Sài Gòn mở hội nghị hiệp thương",
+    "Việt Nam Dân chủ Cộng hoà đấu tranh đòi thi hành Hiệp định Giơ-ne-vơ ảnh tư liệu",
+    "Việt Nam Dân chủ Cộng hoà đấu tranh đòi thi hành Hiệp định Giơ-ne-vơ chiến dịch"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

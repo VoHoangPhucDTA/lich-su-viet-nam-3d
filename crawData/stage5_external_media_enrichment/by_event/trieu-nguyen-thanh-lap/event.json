@@ -1,0 +1,58 @@
+{
+  "eventId": "trieu-nguyen-thanh-lap",
+  "title": "Triều Nguyễn được thành lập",
+  "shortTitle": "Triều Nguyễn được thành lập",
+  "displayDate": "Năm 1802",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-tu-the-ki-xvi-den-xix",
+  "parentId": "viet-nam-tu-the-ki-xvi-den-xix",
+  "historicalLocations": [
+    "Nam",
+    "Bắc"
+  ],
+  "provinceNames": [],
+  "canonicalSummary": "Năm 1802, triều Nguyễn được thành lập, trị vì đất nước với lãnh thổ rộng lớn nhất, kéo dài từ Bắc vào Nam, lại trải qua một thời gian dài chiến tranh, khủng hoảng về nhiều mặt.",
+  "keyFacts": [
+    "Diễn ra năm 1802",
+    "Xây dựng quốc gia thống nhất",
+    "Thành lập năm 1802",
+    "Lãnh thổ rộng lớn nhất từ Bắc vào Nam",
+    "Nhà Nguyễn thành lập"
+  ],
+  "sourceFamily": "early_modern",
+  "preferredVerificationDomains": [
+    "baotanglichsu.vn",
+    "luutru.gov.vn",
+    "disanvanhoa.gov.vn",
+    "nhandan.vn",
+    "qdnd.vn"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Triều Nguyễn được thành lập",
+    "Triều Nguyễn được thành lập Năm 1802",
+    "Triều Nguyễn được thành lập Nam",
+    "Triều Nguyễn được thành lập Diễn ra năm 1802 Xây dựng quốc gia thống nhất",
+    "Triều Nguyễn được thành lập chân dung",
+    "Triều Nguyễn được thành lập di tích"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

@@ -553,6 +553,40 @@ public class EventJsonImportRunner implements CommandLineRunner {
         return value.substring(0, maxLength);
     }
 
+    static ChronologyYears chronologyYearsFrom(JsonNode chronology) {
+        Integer startYear = intValue(chronology.path("start").path("year"));
+        Integer endYear = intValue(chronology.path("end").path("year"));
+        return chronologyYears(startYear, endYear);
+    }
+
+    static ChronologyYears mergeChronology(ChronologyYears current, ChronologyYears incoming) {
+        Integer startYear = current.startYear() != null ? current.startYear() : incoming.startYear();
+        Integer endYear = current.endYear() != null ? current.endYear() : incoming.endYear();
+        return chronologyYears(startYear, endYear);
+    }
+
+    private static ChronologyYears chronologyYears(Integer startYear, Integer endYear) {
+        validateChronologyYear("start.year", startYear);
+        validateChronologyYear("end.year", endYear);
+        if (startYear != null && endYear != null && startYear > endYear) {
+            throw new IllegalArgumentException("chronology start.year must be less than or equal to end.year");
+        }
+        return new ChronologyYears(startYear, endYear, deriveEffectiveEndYear(startYear, endYear));
+    }
+
+    private static Integer deriveEffectiveEndYear(Integer startYear, Integer endYear) {
+        return endYear != null ? endYear : startYear;
+    }
+
+    private static void validateChronologyYear(String field, Integer year) {
+        if (year != null && year == 0) {
+            throw new IllegalArgumentException("chronology " + field + " must not be year zero");
+        }
+    }
+
+    static record ChronologyYears(Integer startYear, Integer endYear, Integer effectiveEndYear) {
+    }
+
     private static String sha256(String value) {
         try {
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
@@ -575,9 +609,9 @@ public class EventJsonImportRunner implements CommandLineRunner {
         private String eventLevel;
         private String eventType;
         private String eventSubtype;
-        private int startYear;
+        private Integer startYear;
         private Integer endYear;
-        private int effectiveEndYear;
+        private Integer effectiveEndYear;
         private String displayDate;
         private String datePrecision;
         private String geoType;
@@ -618,10 +652,10 @@ public class EventJsonImportRunner implements CommandLineRunner {
             event.eventType = normalizeEventType(text(raw.path("classification"), "eventType"));
             event.eventSubtype = text(raw.path("classification"), "eventSubtype");
 
-            Integer startYear = intValue(raw.path("chronology").path("start").path("year"));
-            event.startYear = startYear == null ? 0 : startYear;
-            event.endYear = intValue(raw.path("chronology").path("end").path("year"));
-            event.effectiveEndYear = event.endYear == null ? event.startYear : event.endYear;
+            ChronologyYears chronology = chronologyYearsFrom(raw.path("chronology"));
+            event.startYear = chronology.startYear();
+            event.endYear = chronology.endYear();
+            event.effectiveEndYear = chronology.effectiveEndYear();
             event.displayDate = text(raw.path("chronology"), "displayDate");
             event.datePrecision = text(raw.path("chronology"), "datePrecision");
 
@@ -670,9 +704,13 @@ public class EventJsonImportRunner implements CommandLineRunner {
             this.eventLevel = firstNonBlank(this.eventLevel, incoming.eventLevel);
             this.eventType = firstNonBlank(this.eventType, incoming.eventType);
             this.eventSubtype = firstNonBlank(this.eventSubtype, incoming.eventSubtype);
-            if (this.startYear == 0 && incoming.startYear != 0) this.startYear = incoming.startYear;
-            if (this.endYear == null) this.endYear = incoming.endYear;
-            this.effectiveEndYear = this.endYear == null ? this.startYear : this.endYear;
+            ChronologyYears mergedChronology = mergeChronology(
+                    new ChronologyYears(this.startYear, this.endYear, this.effectiveEndYear),
+                    new ChronologyYears(incoming.startYear, incoming.endYear, incoming.effectiveEndYear)
+            );
+            this.startYear = mergedChronology.startYear();
+            this.endYear = mergedChronology.endYear();
+            this.effectiveEndYear = mergedChronology.effectiveEndYear();
             this.displayDate = firstNonBlank(this.displayDate, incoming.displayDate);
             this.datePrecision = firstNonBlank(this.datePrecision, incoming.datePrecision);
             if (Objects.equals(this.geoType, "no_location") && !Objects.equals(incoming.geoType, "no_location")) {

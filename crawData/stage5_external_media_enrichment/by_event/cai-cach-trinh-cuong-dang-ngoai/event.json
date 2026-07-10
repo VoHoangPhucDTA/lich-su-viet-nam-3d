@@ -1,0 +1,53 @@
+{
+  "eventId": "cai-cach-trinh-cuong-dang-ngoai",
+  "title": "Cải cách của Trịnh Cương ở Đàng Ngoài",
+  "shortTitle": "Cải cách của Trịnh Cương ở Đàng Ngoài",
+  "displayDate": "Thế kỉ XVIII",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-tu-the-ki-xvi-den-xix",
+  "parentId": "viet-nam-tu-the-ki-xvi-den-xix",
+  "historicalLocations": [],
+  "provinceNames": [],
+  "canonicalSummary": "Cải cách của Trịnh Cương ở Đàng Ngoài diễn ra vào thế kỉ XVIII.",
+  "keyFacts": [
+    "Tại Đàng Ngoài",
+    "Do Trịnh Cương tiến hành",
+    "Diễn ra vào thế kỉ XVIII"
+  ],
+  "sourceFamily": "early_modern",
+  "preferredVerificationDomains": [
+    "baotanglichsu.vn",
+    "luutru.gov.vn",
+    "disanvanhoa.gov.vn",
+    "nhandan.vn",
+    "qdnd.vn"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Cải cách của Trịnh Cương ở Đàng Ngoài",
+    "Cải cách của Trịnh Cương ở Đàng Ngoài Thế kỉ XVIII",
+    "Cải cách của Trịnh Cương ở Đàng Ngoài Việt Nam từ thế kỉ XVI đến thế kỉ XIX",
+    "Cải cách của Trịnh Cương ở Đàng Ngoài Tại Đàng Ngoài Do Trịnh Cương tiến hành",
+    "Cải cách của Trịnh Cương ở Đàng Ngoài chân dung",
+    "Cải cách của Trịnh Cương ở Đàng Ngoài di tích"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

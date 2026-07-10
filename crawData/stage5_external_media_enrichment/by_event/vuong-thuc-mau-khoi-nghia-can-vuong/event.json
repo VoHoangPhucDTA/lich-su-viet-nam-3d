@@ -1,0 +1,56 @@
+{
+  "eventId": "vuong-thuc-mau-khoi-nghia-can-vuong",
+  "title": "Vương Thúc Mậu khởi nghĩa hưởng ứng Dụ Cần vương",
+  "shortTitle": "Vương Thúc Mậu khởi nghĩa hưởng ứng Dụ Cần vương",
+  "displayDate": "cuối thế kỉ XIX",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1858-1918",
+  "parentId": "phong-trao-can-vuong",
+  "historicalLocations": [],
+  "provinceNames": [
+    "Nghệ An"
+  ],
+  "canonicalSummary": "Vùng đất Nam Đàn (Nghệ An) là nơi lưu nhiều dấu tích lịch sử liên quan đến Vương Thúc Mậu khởi nghĩa hưởng ứng Dụ Cần vương (cuối thế kỉ XIX).",
+  "keyFacts": [
+    "Diễn ra ở Nam Đàn (Nghệ An)"
+  ],
+  "sourceFamily": "colonial",
+  "preferredVerificationDomains": [
+    "baotanglichsu.vn",
+    "luutru.gov.vn",
+    "hochiminh.vn",
+    "nhandan.vn",
+    "qdnd.vn",
+    "vietnamplus.vn",
+    "gallica.bnf.fr",
+    "loc.gov"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Vương Thúc Mậu khởi nghĩa hưởng ứng Dụ Cần vương",
+    "Vương Thúc Mậu khởi nghĩa hưởng ứng Dụ Cần vương cuối thế kỉ XIX",
+    "Vương Thúc Mậu khởi nghĩa hưởng ứng Dụ Cần vương Phong trào Cần Vương",
+    "Vương Thúc Mậu khởi nghĩa hưởng ứng Dụ Cần vương Diễn ra ở Nam Đàn (Nghệ An)",
+    "Vương Thúc Mậu khởi nghĩa hưởng ứng Dụ Cần vương ảnh tư liệu",
+    "Vương Thúc Mậu khởi nghĩa hưởng ứng Dụ Cần vương chân dung"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

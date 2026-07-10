@@ -1,0 +1,55 @@
+{
+  "eventId": "mai-thuc-loan-khoi-nghia",
+  "title": "Mai Thúc Loan dựng cờ khởi nghĩa",
+  "shortTitle": "Mai Thúc Loan dựng cờ khởi nghĩa",
+  "displayDate": "đầu thế kỉ VIII",
+  "eventLevel": "atomic",
+  "rootId": "bac-thuoc-va-dau-tranh-gianh-doc-lap",
+  "parentId": "bac-thuoc-va-dau-tranh-gianh-doc-lap",
+  "historicalLocations": [],
+  "provinceNames": [
+    "Nghệ An"
+  ],
+  "canonicalSummary": "Vùng đất Nam Đàn (Nghệ An) là nơi lưu nhiều dấu tích lịch sử liên quan đến Mai Thúc Loan dựng cờ khởi nghĩa (đầu thế kỉ VIII).",
+  "keyFacts": [
+    "Diễn ra ở Nam Đàn (Nghệ An)"
+  ],
+  "sourceFamily": "ancient_medieval",
+  "preferredVerificationDomains": [
+    "baotanglichsu.vn",
+    "disanvanhoa.gov.vn",
+    "bvhttdl.gov.vn",
+    "qdnd.vn",
+    "nhandan.vn",
+    "unesco.org",
+    "whc.unesco.org"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Mai Thúc Loan dựng cờ khởi nghĩa",
+    "Mai Thúc Loan dựng cờ khởi nghĩa đầu thế kỉ VIII",
+    "Mai Thúc Loan dựng cờ khởi nghĩa Bắc thuộc và đấu tranh giành độc lập",
+    "Mai Thúc Loan dựng cờ khởi nghĩa Diễn ra ở Nam Đàn (Nghệ An)",
+    "Mai Thúc Loan dựng cờ khởi nghĩa hiện vật",
+    "Mai Thúc Loan dựng cờ khởi nghĩa di tích"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

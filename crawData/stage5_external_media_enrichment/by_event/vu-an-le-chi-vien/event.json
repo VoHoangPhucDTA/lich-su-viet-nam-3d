@@ -1,0 +1,57 @@
+{
+  "eventId": "vu-an-le-chi-vien",
+  "title": "Vụ án Lệ Chi Viên",
+  "shortTitle": "Lệ Chi Viên",
+  "displayDate": "Trước năm 1460",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-tu-the-ki-x-den-xv",
+  "parentId": "cai-cach-le-thanh-tong",
+  "historicalLocations": [],
+  "provinceNames": [
+    "Bắc Ninh"
+  ],
+  "canonicalSummary": "Sự lộng hành của một số quyền thần đã gây nên vụ án oan 'Lệ Chi Viên' tru di tam tộc gia đình Nguyễn Trãi.",
+  "keyFacts": [
+    "Diễn ra trước 1460",
+    "Gây ra bởi quyền thần",
+    "Tru di tam tộc gia đình Nguyễn Trãi"
+  ],
+  "sourceFamily": "ancient_medieval",
+  "preferredVerificationDomains": [
+    "baotanglichsu.vn",
+    "disanvanhoa.gov.vn",
+    "bvhttdl.gov.vn",
+    "qdnd.vn",
+    "nhandan.vn",
+    "unesco.org",
+    "whc.unesco.org"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Vụ án Lệ Chi Viên",
+    "Vụ án Lệ Chi Viên Trước năm 1460",
+    "Vụ án Lệ Chi Viên Cuộc cải cách của Lê Thánh Tông",
+    "Vụ án Lệ Chi Viên Diễn ra trước 1460 Gây ra bởi quyền thần",
+    "Vụ án Lệ Chi Viên hiện vật",
+    "Vụ án Lệ Chi Viên di tích"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

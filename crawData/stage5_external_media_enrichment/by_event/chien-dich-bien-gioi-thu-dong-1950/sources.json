@@ -1,0 +1,9 @@
+{
+  "eventId": "chien-dich-bien-gioi-thu-dong-1950",
+  "status": "pending_download",
+  "images": [],
+  "expected": [
+    "image_01.<ext>",
+    "image_02.<ext>"
+  ]
+}

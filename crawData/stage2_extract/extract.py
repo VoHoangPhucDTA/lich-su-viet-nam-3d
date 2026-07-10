@@ -65,7 +65,8 @@ def call_gemini(system_prompt, user_prompt, max_retries=3):
             "maxOutputTokens": 65536,
             "responseMimeType": "application/json"
             # responseSchema removed: partial schema causes Gemini to drop unlisted fields.
-            # datePrecision enum enforced via prompt Rules 5+6 + fix_period_years post-processing.
+            # datePrecision enum enforced via prompt Rules 5+6; fix_period_years only normalizes
+            # over-specific month/day fields for period chronology.
         }
     }
     
@@ -184,9 +185,12 @@ def fix_bce_years(data):
     return data
 
 def fix_period_years(data):
-    """Post-processing: neu datePrecision='period' thi set year/month/day=null cho ca start va end.
-    Ly do: LLM doi khi set datePrecision=period (dung) nhung van dien year (sai theo Quy tac 5).
-    Viec nay dam bao tinh nhat quan: period luon di kem voi year=null."""
+    """Post-processing: neu datePrecision='period' thi chi xoa month/day qua chi tiet.
+
+    Period khong dong nghia voi unknown chronology. Neu extractor da co start/end.year hop le
+    cho mot khoang thoi gian (vi du 1954-1960), year phai duoc giu lai de Stage4/DB/frontend
+    co the sap xep, loc va gan hierarchy dung.
+    """
     fixed_count = 0
     for e in data.get("events", []):
         chrono = e.get("chronology")
@@ -198,13 +202,12 @@ def fix_period_years(data):
             obj = chrono.get(part)
             if not obj:
                 continue
-            if obj.get("year") is not None or obj.get("month") is not None or obj.get("day") is not None:
-                obj["year"] = None
+            if obj.get("month") is not None or obj.get("day") is not None:
                 obj["month"] = None
                 obj["day"] = None
                 fixed_count += 1
     if fixed_count > 0:
-        print(f"    [POST-FIX] Set year/month/day=null cho {fixed_count} date obj co datePrecision=period.")
+        print(f"    [POST-FIX] Set month/day=null cho {fixed_count} date obj co datePrecision=period.")
     return data
 
 
@@ -320,7 +323,7 @@ def main():
                 
                 # Post-processing: fix TCN year sign truoc khi validate
                 data = fix_bce_years(data)
-                # Post-processing: datePrecision=period -> year/month/day=null
+                # Post-processing: datePrecision=period -> preserve year, normalize month/day=null
                 data = fix_period_years(data)
                 
                 validate_schema(data, lesson_id)

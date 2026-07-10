@@ -1,0 +1,57 @@
+{
+  "eventId": "bo-chinh-tri-ban-hanh-chi-thi-06-ct-tw-ve-cuoc-van-dong-hoc-tap-va-lam-theo-tam-guong-dao-duc-ho-chi-minh",
+  "title": "Bộ Chính trị ban hành Chỉ thị 06-CT/TW về Cuộc vận động “Học tập và làm theo tấm gương đạo đức Hồ Chí Minh”",
+  "shortTitle": "Chỉ thị 06-CT/TW",
+  "displayDate": "Ngày 7-11-2006",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1975-den-nay",
+  "parentId": "viet-nam-1975-den-nay",
+  "historicalLocations": [],
+  "provinceNames": [],
+  "canonicalSummary": "Ngày 7-11-2006, Bộ Chính trị Đảng Cộng sản Việt Nam khoá X ban hành Chỉ thị 06-CT/TW về tổ chức Cuộc vận động “Học tập và làm theo tấm gương đạo đức Hồ Chí Minh”.",
+  "keyFacts": [
+    "Ngày ban hành: 7-11-2006",
+    "Cơ quan ban hành: Bộ Chính trị Đảng Cộng sản Việt Nam khoá X",
+    "Nội dung: Tổ chức Cuộc vận động “Học tập và làm theo tấm gương đạo đức Hồ Chí Minh”"
+  ],
+  "sourceFamily": "post_1975",
+  "preferredVerificationDomains": [
+    "chinhphu.vn",
+    "dangcongsan.vn",
+    "tulieuvankien.dangcongsan.vn",
+    "quochoi.vn",
+    "mofa.gov.vn",
+    "vietnamplus.vn",
+    "nhandan.vn",
+    "un.org",
+    "unphoto.un.org"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Bộ Chính trị ban hành Chỉ thị 06-CT/TW về Cuộc vận động “Học tập và làm theo tấm gương đạo đức Hồ Chí Minh”",
+    "Bộ Chính trị ban hành Chỉ thị 06-CT/TW về Cuộc vận động “Học tập và làm theo tấm gương đạo đức Hồ Chí Minh” Ngày 7-11-2006",
+    "Bộ Chính trị ban hành Chỉ thị 06-CT/TW về Cuộc vận động “Học tập và làm theo tấm gương đạo đức Hồ Chí Minh” Việt Nam từ năm 1975 đến nay",
+    "Bộ Chính trị ban hành Chỉ thị 06-CT/TW về Cuộc vận động “Học tập và làm theo tấm gương đạo đức Hồ Chí Minh” Ngày ban hành: 7-11-2006 Cơ quan ban hành: Bộ Chính trị Đảng Cộng sản Việt Nam khoá X",
+    "Bộ Chính trị ban hành Chỉ thị 06-CT/TW về Cuộc vận động “Học tập và làm theo tấm gương đạo đức Hồ Chí Minh” ảnh tư liệu",
+    "Bộ Chính trị ban hành Chỉ thị 06-CT/TW về Cuộc vận động “Học tập và làm theo tấm gương đạo đức Hồ Chí Minh” lễ ký"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

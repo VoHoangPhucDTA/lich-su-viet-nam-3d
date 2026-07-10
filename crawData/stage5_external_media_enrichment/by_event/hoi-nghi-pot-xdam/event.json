@@ -1,0 +1,61 @@
+{
+  "eventId": "hoi-nghi-pot-xdam",
+  "title": "Hội nghị Pốt-xđam",
+  "shortTitle": "Hội nghị Pốt-xđam",
+  "displayDate": "Từ ngày 17-7 – 1945 đến ngày 2 – 8 – 1945",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1919-1945",
+  "parentId": "viet-nam-1919-1945",
+  "historicalLocations": [
+    "Trung Hoa Dân quốc",
+    "Anh",
+    "Đông Dương"
+  ],
+  "provinceNames": [],
+  "canonicalSummary": "Từ ngày 17-7 – 1945 đến ngày 2 – 8 – 1945, Hội nghị Pốt-xđam quyết định giao việc giải giáp vũ khí của quân phiệt Nhật Bản ở Đông Dương cho quân Trung Hoa Dân quốc ở khu vực phía Bắc vĩ tuyến 16, cho quân Anh ở khu vực phía Nam vĩ tuyến 16.",
+  "keyFacts": [
+    "Trung Hoa Dân quốc giải giáp phía Bắc vĩ tuyến 16",
+    "Diễn ra từ 17-7 đến 2-8-1945",
+    "Quân Anh giải giáp phía Nam vĩ tuyến 16",
+    "Quyết định giải giáp quân Nhật ở Đông Dương"
+  ],
+  "sourceFamily": "revolutionary",
+  "preferredVerificationDomains": [
+    "hochiminh.vn",
+    "tulieuvankien.dangcongsan.vn",
+    "dangcongsan.vn",
+    "baotanglichsu.vn",
+    "nhandan.vn",
+    "qdnd.vn",
+    "vietnamplus.vn",
+    "luutru.gov.vn"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Hội nghị Pốt-xđam",
+    "Hội nghị Pốt-xđam Từ ngày 17-7 – 1945 đến ngày 2 – 8 – 1945",
+    "Hội nghị Pốt-xđam Trung Hoa Dân quốc",
+    "Hội nghị Pốt-xđam Trung Hoa Dân quốc giải giáp phía Bắc vĩ tuyến 16 Diễn ra từ 17-7 đến 2-8-1945",
+    "Hội nghị Pốt-xđam ảnh tư liệu",
+    "Hội nghị Pốt-xđam chân dung"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

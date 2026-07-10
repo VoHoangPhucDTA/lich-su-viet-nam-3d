@@ -32,6 +32,16 @@ import java.util.Optional;
  */
 @Repository
 public class EventReadRepository {
+    static final String NUMERIC_CHRONOLOGY_REQUIRED =
+            "e.start_year IS NOT NULL AND e.effective_end_year IS NOT NULL";
+    static final String CHRONOLOGY_NULL_LAST_ORDER = """
+            CASE WHEN e.start_year IS NULL THEN 1 ELSE 0 END,
+            e.start_year ASC,
+            e.order_in_parent ASC,
+            e.title ASC,
+            e.id ASC
+            """;
+
     private final NamedParameterJdbcTemplate jdbc;
     private final ObjectMapper objectMapper;
 
@@ -68,8 +78,8 @@ public class EventReadRepository {
                        ) AS child_count
                 FROM historical_events e
                 WHERE e.status = 'published'
-                """ + parts.whereSql + """
-                ORDER BY e.start_year ASC, e.order_in_parent ASC, e.title ASC
+                """ + parts.whereSql
+                + " ORDER BY " + CHRONOLOGY_NULL_LAST_ORDER + """
                 LIMIT :limit OFFSET :offset
                 """;
 
@@ -93,10 +103,12 @@ public class EventReadRepository {
             params.addValue("grade", grade);
         }
         if (from != null) {
+            addNumericChronologyRequired(filters);
             filters.add("e.effective_end_year >= :fromYear");
             params.addValue("fromYear", from);
         }
         if (to != null) {
+            addNumericChronologyRequired(filters);
             filters.add("e.start_year <= :toYear");
             params.addValue("toYear", to);
         }
@@ -111,8 +123,8 @@ public class EventReadRepository {
                 FROM historical_events e
                 WHERE e.status = 'published'
                   AND e.show_on_timeline = TRUE
-                """ + toWhere(filters) + """
-                ORDER BY e.start_year ASC, e.order_in_parent ASC, e.title ASC
+                """ + toWhere(filters)
+                + " ORDER BY " + CHRONOLOGY_NULL_LAST_ORDER + """
                 """;
 
         return jdbc.query(sql, params, timelineMapper());
@@ -193,7 +205,11 @@ public class EventReadRepository {
                 FROM historical_events e
                 WHERE e.status = 'published'
                   AND e.parent_id = :eventId
-                ORDER BY e.order_in_parent ASC, e.start_year ASC, e.title ASC
+                ORDER BY e.order_in_parent ASC,
+                         CASE WHEN e.start_year IS NULL THEN 1 ELSE 0 END,
+                         e.start_year ASC,
+                         e.title ASC,
+                         e.id ASC
                 """;
 
         return jdbc.query(sql, new MapSqlParameterSource("eventId", eventId), summaryMapper());
@@ -216,7 +232,12 @@ public class EventReadRepository {
                 JOIN historical_events e ON e.id = r.target_event_id
                 WHERE r.source_event_id = :eventId
                   AND e.status = 'published'
-                ORDER BY r.relation_type ASC, r.sort_order ASC, e.start_year ASC
+                ORDER BY r.relation_type ASC,
+                         r.sort_order ASC,
+                         CASE WHEN e.start_year IS NULL THEN 1 ELSE 0 END,
+                         e.start_year ASC,
+                         e.title ASC,
+                         e.id ASC
                 """;
 
         return jdbc.query(sql, new MapSqlParameterSource("eventId", eventId), (rs, rowNum) ->
@@ -287,7 +308,7 @@ public class EventReadRepository {
         List<String> filters = new ArrayList<>();
 
         if (year != null) {
-            filters.add("e.start_year <= :year AND e.effective_end_year >= :year");
+            filters.add(NUMERIC_CHRONOLOGY_REQUIRED + " AND e.start_year <= :year AND e.effective_end_year >= :year");
             params.addValue("year", year);
         }
         if (grade != null) {
@@ -344,7 +365,7 @@ public class EventReadRepository {
                 rs.getString("title"),
                 rs.getString("short_title"),
                 rs.getString("event_type"),
-                rs.getInt("start_year"),
+                getInteger(rs, "start_year"),
                 getInteger(rs, "end_year"),
                 rs.getString("display_date"),
                 rs.getString("parent_id"),
@@ -362,9 +383,9 @@ public class EventReadRepository {
                 rs.getString("event_level"),
                 rs.getString("event_type"),
                 rs.getString("event_subtype"),
-                rs.getInt("start_year"),
+                getInteger(rs, "start_year"),
                 getInteger(rs, "end_year"),
-                rs.getInt("effective_end_year"),
+                getInteger(rs, "effective_end_year"),
                 rs.getString("display_date"),
                 rs.getString("date_precision"),
                 rs.getString("geo_type"),
@@ -401,7 +422,7 @@ public class EventReadRepository {
                 rs.getString("event_level"),
                 rs.getString("event_type"),
                 rs.getString("event_subtype"),
-                rs.getInt("start_year"),
+                getInteger(rs, "start_year"),
                 getInteger(rs, "end_year"),
                 rs.getString("display_date"),
                 rs.getString("geo_type"),
@@ -468,7 +489,13 @@ public class EventReadRepository {
         return " AND " + String.join(" AND ", filters) + " ";
     }
 
-    private static Integer getInteger(ResultSet rs, String column) throws SQLException {
+    private static void addNumericChronologyRequired(List<String> filters) {
+        if (!filters.contains(NUMERIC_CHRONOLOGY_REQUIRED)) {
+            filters.add(NUMERIC_CHRONOLOGY_REQUIRED);
+        }
+    }
+
+    static Integer getInteger(ResultSet rs, String column) throws SQLException {
         int value = rs.getInt(column);
         return rs.wasNull() ? null : value;
     }

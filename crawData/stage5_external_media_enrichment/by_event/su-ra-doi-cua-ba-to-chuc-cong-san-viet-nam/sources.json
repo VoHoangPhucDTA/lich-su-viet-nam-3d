@@ -1,0 +1,9 @@
+{
+  "eventId": "su-ra-doi-cua-ba-to-chuc-cong-san-viet-nam",
+  "status": "pending_download",
+  "images": [],
+  "expected": [
+    "image_01.<ext>",
+    "image_02.<ext>"
+  ]
+}

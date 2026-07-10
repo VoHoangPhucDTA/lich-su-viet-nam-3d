@@ -1,0 +1,59 @@
+{
+  "eventId": "thanh-lap-mat-tran-viet-nam-doc-lap-dong-minh-viet-minh",
+  "title": "Thành lập Mặt trận Việt Nam Độc lập Đồng minh (Mặt trận Việt Minh)",
+  "shortTitle": "Thành lập Việt Minh",
+  "displayDate": "19-5-1941",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1919-1945",
+  "parentId": "viet-nam-1919-1945",
+  "historicalLocations": [],
+  "provinceNames": [],
+  "canonicalSummary": "Hội nghị chủ trương thành lập Mặt trận Việt Nam Độc lập Đồng minh (gọi tắt là Mặt trận Việt Minh). Tôn chỉ mục đích thành lập của Mặt trận Việt Minh là: “liên hiệp hết thảy các giới đồng bào yêu nước, không phân biệt giàu nghèo, già trẻ, trai gái, không phân biệt tôn giáo, xu hướng chính trị, đặng cùng nhau mưu cuộc dân tộc giải phóng và sinh tồn”. Từ khi Mặt trận Việt Minh ra đời, “toàn bộ phong trào chống phát xít Pháp – Nhật của nhân dân ta mang tên là phong trào Việt Minh, cái tên tiêu biểu cho lòng yêu nước, ý chí quật cường của dân tộc ta.",
+  "keyFacts": [
+    "Tôn chỉ: liên hiệp các giới đồng bào yêu nước",
+    "Tiêu biểu cho lòng yêu nước, ý chí quật cường của dân tộc",
+    "Tổ chức chỉ đạo xây dựng lực lượng vũ trang",
+    "Xây dựng căn cứ địa cách mạng",
+    "Mục đích: mưu cuộc dân tộc giải phóng và sinh tồn",
+    "Thành lập theo chủ trương của Hội nghị Trung ương 8"
+  ],
+  "sourceFamily": "revolutionary",
+  "preferredVerificationDomains": [
+    "hochiminh.vn",
+    "tulieuvankien.dangcongsan.vn",
+    "dangcongsan.vn",
+    "baotanglichsu.vn",
+    "nhandan.vn",
+    "qdnd.vn",
+    "vietnamplus.vn",
+    "luutru.gov.vn"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Thành lập Mặt trận Việt Nam Độc lập Đồng minh (Mặt trận Việt Minh)",
+    "Thành lập Mặt trận Việt Nam Độc lập Đồng minh (Mặt trận Việt Minh) 19-5-1941",
+    "Thành lập Mặt trận Việt Nam Độc lập Đồng minh (Mặt trận Việt Minh) Việt Nam từ năm 1919 đến năm 1945",
+    "Thành lập Mặt trận Việt Nam Độc lập Đồng minh (Mặt trận Việt Minh) Tôn chỉ: liên hiệp các giới đồng bào yêu nước Tiêu biểu cho lòng yêu nước, ý chí quật cường của dân tộc",
+    "Thành lập Mặt trận Việt Nam Độc lập Đồng minh (Mặt trận Việt Minh) ảnh tư liệu",
+    "Thành lập Mặt trận Việt Nam Độc lập Đồng minh (Mặt trận Việt Minh) chân dung"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

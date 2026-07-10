@@ -1,0 +1,65 @@
+{
+  "eventId": "thanh-lap-lien-minh-dong-a-1908",
+  "title": "Thành lập Điền – Quế -Việt liên minh và Đông Á đồng minh",
+  "shortTitle": "Thành lập Điền – Quế -Việt liên minh và Đông Á đồng minh",
+  "displayDate": "Năm 1908",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1858-1918",
+  "parentId": "viet-nam-1858-1918",
+  "historicalLocations": [
+    "Nhật Bản",
+    "Ấn Độ",
+    "Việt Nam",
+    "Trung Quốc",
+    "Triều Tiên",
+    "Quảng Tây",
+    "Vân Nam"
+  ],
+  "provinceNames": [],
+  "canonicalSummary": "Năm 1908, Phan Bội Châu tham gia thành lập các tổ chức có mục tiêu đoàn kết quốc tế như: Điền – Quế -Việt liên minh (liên minh giữa Vân Nam, Quảng Tây với Việt Nam) và Đông Á đồng minh (gồm một số người Nhật Bản, Trung Quốc, Triều Tiên, Ấn Độ,...) để hợp sức chống đế quốc.",
+  "keyFacts": [
+    "Thành lập Điền – Quế -Việt liên minh",
+    "Thành lập Đông Á đồng minh",
+    "Diễn ra năm 1908",
+    "Mục tiêu: đoàn kết quốc tế chống đế quốc"
+  ],
+  "sourceFamily": "colonial",
+  "preferredVerificationDomains": [
+    "baotanglichsu.vn",
+    "luutru.gov.vn",
+    "hochiminh.vn",
+    "nhandan.vn",
+    "qdnd.vn",
+    "vietnamplus.vn",
+    "gallica.bnf.fr",
+    "loc.gov"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Thành lập Điền – Quế -Việt liên minh và Đông Á đồng minh",
+    "Thành lập Điền – Quế -Việt liên minh và Đông Á đồng minh Năm 1908",
+    "Thành lập Điền – Quế -Việt liên minh và Đông Á đồng minh Nhật Bản",
+    "Thành lập Điền – Quế -Việt liên minh và Đông Á đồng minh Thành lập Điền – Quế -Việt liên minh Thành lập Đông Á đồng minh",
+    "Thành lập Điền – Quế -Việt liên minh và Đông Á đồng minh ảnh tư liệu",
+    "Thành lập Điền – Quế -Việt liên minh và Đông Á đồng minh chân dung"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

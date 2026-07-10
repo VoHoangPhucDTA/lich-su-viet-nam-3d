@@ -1,0 +1,9 @@
+{
+  "eventId": "viet-nam-to-chuc-hoi-nghi-quoc-te-asean-asem-apec",
+  "status": "pending_download",
+  "images": [],
+  "expected": [
+    "image_01.<ext>",
+    "image_02.<ext>"
+  ]
+}

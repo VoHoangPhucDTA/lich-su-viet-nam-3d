@@ -1,0 +1,68 @@
+{
+  "eventId": "khang-chien-chong-my-cuu-nuoc",
+  "title": "Cuộc kháng chiến chống Mỹ, cứu nước",
+  "shortTitle": "Kháng chiến chống Mỹ",
+  "displayDate": "1954-1975",
+  "eventLevel": "collection",
+  "rootId": "viet-nam-1954-1975",
+  "parentId": "viet-nam-1954-1975",
+  "historicalLocations": [
+    "miền Bắc",
+    "Đông Nam Á",
+    "Việt Nam",
+    "miền Nam"
+  ],
+  "provinceNames": [],
+  "canonicalSummary": "Cuộc kháng chiến chống Mỹ, cứu nước diễn ra từ năm 1954 đến năm 1975, trải qua nhiều giai đoạn với sự tham gia của nhân dân hai miền Nam - Bắc, nhằm hoàn thành cách mạng dân tộc dân chủ nhân dân và thống nhất đất nước.",
+  "keyFacts": [
+    "Lãnh đạo kháng chiến",
+    "Kết thúc 21 năm chống Mỹ, 30 năm chiến tranh cách mạng",
+    "Góp phần làm sụp đổ chủ nghĩa thực dân mới trên thế giới",
+    "Diễn ra từ 1954-1975",
+    "Thống nhất đất nước, mở ra kỉ nguyên độc lập, thống nhất, đi lên chủ nghĩa xã hội",
+    "Diễn ra từ 1954 đến 1975",
+    "Có sự hỗ trợ của hai nước đứng đầu hai cực",
+    "Ở Việt Nam",
+    "Là cuộc chiến tranh cục bộ tiêu biểu"
+  ],
+  "sourceFamily": "war_1945_1975",
+  "preferredVerificationDomains": [
+    "btlsqsvn.org.vn",
+    "qdnd.vn",
+    "nhandan.vn",
+    "vietnamplus.vn",
+    "hochiminh.vn",
+    "baotanglichsu.vn",
+    "luutru.gov.vn",
+    "loc.gov",
+    "archives.gov"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Cuộc kháng chiến chống Mỹ, cứu nước",
+    "Cuộc kháng chiến chống Mỹ, cứu nước 1954-1975",
+    "Cuộc kháng chiến chống Mỹ, cứu nước miền Bắc",
+    "Cuộc kháng chiến chống Mỹ, cứu nước Lãnh đạo kháng chiến Kết thúc 21 năm chống Mỹ, 30 năm chiến tranh cách mạng",
+    "Cuộc kháng chiến chống Mỹ, cứu nước ảnh tư liệu",
+    "Cuộc kháng chiến chống Mỹ, cứu nước chiến dịch"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

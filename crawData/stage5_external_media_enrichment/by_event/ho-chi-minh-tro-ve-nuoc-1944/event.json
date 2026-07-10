@@ -1,0 +1,55 @@
+{
+  "eventId": "ho-chi-minh-tro-ve-nuoc-1944",
+  "title": "Hồ Chí Minh trở về nước tiếp tục lãnh đạo cách mạng",
+  "shortTitle": "Hồ Chí Minh trở về nước tiếp tục lãnh đạo cách mạng",
+  "displayDate": "Tháng 9 – 1944",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1919-1945",
+  "parentId": "viet-nam-1919-1945",
+  "historicalLocations": [],
+  "provinceNames": [],
+  "canonicalSummary": "Tháng 9 – 1944, Hồ Chí Minh trở về nước tiếp tục lãnh đạo cách mạng.",
+  "keyFacts": [
+    "Tiếp tục lãnh đạo cách mạng",
+    "Trở về nước"
+  ],
+  "sourceFamily": "revolutionary",
+  "preferredVerificationDomains": [
+    "hochiminh.vn",
+    "tulieuvankien.dangcongsan.vn",
+    "dangcongsan.vn",
+    "baotanglichsu.vn",
+    "nhandan.vn",
+    "qdnd.vn",
+    "vietnamplus.vn",
+    "luutru.gov.vn"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Hồ Chí Minh trở về nước tiếp tục lãnh đạo cách mạng",
+    "Hồ Chí Minh trở về nước tiếp tục lãnh đạo cách mạng Tháng 9 – 1944",
+    "Hồ Chí Minh trở về nước tiếp tục lãnh đạo cách mạng Việt Nam từ năm 1919 đến năm 1945",
+    "Hồ Chí Minh trở về nước tiếp tục lãnh đạo cách mạng Tiếp tục lãnh đạo cách mạng Trở về nước",
+    "Hồ Chí Minh trở về nước tiếp tục lãnh đạo cách mạng ảnh tư liệu",
+    "Hồ Chí Minh trở về nước tiếp tục lãnh đạo cách mạng chân dung"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

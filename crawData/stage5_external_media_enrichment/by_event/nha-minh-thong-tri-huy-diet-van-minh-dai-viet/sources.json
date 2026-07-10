@@ -1,0 +1,9 @@
+{
+  "eventId": "nha-minh-thong-tri-huy-diet-van-minh-dai-viet",
+  "status": "pending_download",
+  "images": [],
+  "expected": [
+    "image_01.<ext>",
+    "image_02.<ext>"
+  ]
+}

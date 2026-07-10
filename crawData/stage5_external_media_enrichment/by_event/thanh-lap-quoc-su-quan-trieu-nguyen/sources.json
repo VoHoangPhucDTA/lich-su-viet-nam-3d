@@ -1,0 +1,9 @@
+{
+  "eventId": "thanh-lap-quoc-su-quan-trieu-nguyen",
+  "status": "pending_download",
+  "images": [],
+  "expected": [
+    "image_01.<ext>",
+    "image_02.<ext>"
+  ]
+}

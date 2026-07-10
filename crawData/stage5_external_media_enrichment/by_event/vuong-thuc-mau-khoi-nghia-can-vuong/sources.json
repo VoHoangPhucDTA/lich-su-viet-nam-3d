@@ -1,0 +1,9 @@
+{
+  "eventId": "vuong-thuc-mau-khoi-nghia-can-vuong",
+  "status": "pending_download",
+  "images": [],
+  "expected": [
+    "image_01.<ext>",
+    "image_02.<ext>"
+  ]
+}

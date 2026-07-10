@@ -35,15 +35,11 @@
   },
   "chronology": {
     "start": {
-      "year": null,
-      "month": null,
-      "day": null
-    },
-    "end": {
       "year": 1976,
       "month": null,
       "day": null
     },
+    "end": null,
     "datePrecision": "year",
     "displayDate": "năm 1976",
     "isApproximate": false
@@ -119,7 +115,7 @@
     "parentId": null,
     "childIds": [],
     "level": 0,
-    "orderInParent": 372
+    "orderInParent": 290
   },
   "associations": {
     "relatedEventIds": [],

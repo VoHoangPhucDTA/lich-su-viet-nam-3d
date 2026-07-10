@@ -1,0 +1,9 @@
+{
+  "eventId": "ho-chi-minh-ki-hiep-dinh-so-bo-voi-g-xanh-to-ni",
+  "status": "pending_download",
+  "images": [],
+  "expected": [
+    "image_01.<ext>",
+    "image_02.<ext>"
+  ]
+}

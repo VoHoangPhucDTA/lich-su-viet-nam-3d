@@ -10,6 +10,7 @@ import {
   GEO_TYPE_LABELS,
 } from '../types/event';
 import { useNavigate } from 'react-router-dom';
+import { formatChronologyLabel } from '../utils/chronology';
 
 interface EventPopupProps {
   event: HistoricalEvent;
@@ -28,9 +29,6 @@ export default function EventPopup({
 }: EventPopupProps) {
   const typeColor = EVENT_TYPE_COLORS[event.eventType];
   const navigate = useNavigate();
-
-  const formatYear = (year: number) =>
-    year < 0 ? `${Math.abs(year)} TCN` : `${year}`;
 
   return (
     // 1.1.20: EventPopup.tsx: Khởi tạo và trượt ra ở bên phải màn hình, nhận tham số sự kiện để hiển thị các trường: Tên sự kiện, Phân loại...
@@ -167,10 +165,7 @@ export default function EventPopup({
               Thời gian
             </div>
             <div className="text-[15px] font-semibold">
-              {formatYear(event.startYear)}
-              {event.endYear && event.endYear !== event.startYear
-                ? ` – ${formatYear(event.endYear)}`
-                : ''}
+              {formatChronologyLabel(event)}
             </div>
           </div>
         </div>
@@ -337,7 +332,7 @@ export default function EventPopup({
                       className="text-[11px] mt-0.5"
                       style={{ color: 'var(--text-muted)' }}
                     >
-                      {formatYear(child.startYear)} · {GEO_TYPE_LABELS[child.geoType]}
+                      {formatChronologyLabel(child)} · {GEO_TYPE_LABELS[child.geoType]}
                     </div>
                   </div>
 

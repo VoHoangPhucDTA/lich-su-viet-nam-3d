@@ -1,0 +1,66 @@
+{
+  "eventId": "giai-doan-khang-chien-chong-my-1954-1960",
+  "title": "Giai đoạn 1954 - 1960 của cuộc kháng chiến chống Mỹ, cứu nước",
+  "shortTitle": "Kháng chiến chống Mỹ 1954-1960",
+  "displayDate": "1954 - 1960",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1954-1975",
+  "parentId": "khang-chien-chong-my-cuu-nuoc",
+  "historicalLocations": [
+    "miền Bắc",
+    "miền Nam"
+  ],
+  "provinceNames": [
+    "Ninh Thuận",
+    "Quảng Ngãi",
+    "Bến Tre",
+    "Bình Định"
+  ],
+  "canonicalSummary": "Trong giai đoạn 1954-1960, miền Bắc hoàn thành cải cách ruộng đất, khôi phục kinh tế và cải tạo quan hệ sản xuất. Miền Nam đấu tranh chống Mỹ – chính quyền Ngô Đình Diệm, đòi thi hành Hiệp định Giơ-ne-vơ, bảo vệ hoà bình, giữ gìn và phát triển lực lượng cách mạng, tiến tới phong trào Đồng khởi.",
+  "keyFacts": [
+    "Hội nghị Trung ương 15 (1-1959) xác định con đường bạo lực cách mạng",
+    "Miền Bắc hoàn thành cải cách ruộng đất, khôi phục kinh tế",
+    "Thành lập Mặt trận Dân tộc giải phóng miền Nam Việt Nam (20-12-1960)",
+    "Phong trào Đồng khởi (1959-1960) bùng nổ và lan rộng"
+  ],
+  "sourceFamily": "war_1945_1975",
+  "preferredVerificationDomains": [
+    "btlsqsvn.org.vn",
+    "qdnd.vn",
+    "nhandan.vn",
+    "vietnamplus.vn",
+    "hochiminh.vn",
+    "baotanglichsu.vn",
+    "luutru.gov.vn",
+    "loc.gov",
+    "archives.gov"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Giai đoạn 1954 - 1960 của cuộc kháng chiến chống Mỹ, cứu nước",
+    "Giai đoạn 1954 - 1960 của cuộc kháng chiến chống Mỹ, cứu nước 1954 - 1960",
+    "Giai đoạn 1954 - 1960 của cuộc kháng chiến chống Mỹ, cứu nước miền Bắc",
+    "Giai đoạn 1954 - 1960 của cuộc kháng chiến chống Mỹ, cứu nước Hội nghị Trung ương 15 (1-1959) xác định con đường bạo lực cách mạng Miền Bắc hoàn thành cải cách ruộng đất, khôi phục kinh tế",
+    "Giai đoạn 1954 - 1960 của cuộc kháng chiến chống Mỹ, cứu nước ảnh tư liệu",
+    "Giai đoạn 1954 - 1960 của cuộc kháng chiến chống Mỹ, cứu nước chiến dịch"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

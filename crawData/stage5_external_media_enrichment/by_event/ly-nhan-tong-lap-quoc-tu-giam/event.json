@@ -1,0 +1,58 @@
+{
+  "eventId": "ly-nhan-tong-lap-quoc-tu-giam",
+  "title": "Vua Lý Nhân Tông cho lập Quốc Tử Giám",
+  "shortTitle": "Vua Lý Nhân Tông cho lập Quốc Tử Giám",
+  "displayDate": "Năm 1076",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-tu-the-ki-x-den-xv",
+  "parentId": "viet-nam-tu-the-ki-x-den-xv",
+  "historicalLocations": [],
+  "provinceNames": [
+    "Hà Nội"
+  ],
+  "canonicalSummary": "Năm 1076, vua Lý Nhân Tông cho lập Quốc Tử Giám (Hà Nội) làm trường học Nho giáo cao cấp của triều đình.",
+  "keyFacts": [
+    "Vua Lý Nhân Tông cho lập Quốc Tử Giám",
+    "Diễn ra năm 1076",
+    "Tại Hà Nội",
+    "Là trường học Nho giáo cao cấp của triều đình"
+  ],
+  "sourceFamily": "ancient_medieval",
+  "preferredVerificationDomains": [
+    "baotanglichsu.vn",
+    "disanvanhoa.gov.vn",
+    "bvhttdl.gov.vn",
+    "qdnd.vn",
+    "nhandan.vn",
+    "unesco.org",
+    "whc.unesco.org"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Vua Lý Nhân Tông cho lập Quốc Tử Giám",
+    "Vua Lý Nhân Tông cho lập Quốc Tử Giám Năm 1076",
+    "Vua Lý Nhân Tông cho lập Quốc Tử Giám Việt Nam từ thế kỉ X đến thế kỉ XV",
+    "Vua Lý Nhân Tông cho lập Quốc Tử Giám Vua Lý Nhân Tông cho lập Quốc Tử Giám Diễn ra năm 1076",
+    "Vua Lý Nhân Tông cho lập Quốc Tử Giám hiện vật",
+    "Vua Lý Nhân Tông cho lập Quốc Tử Giám di tích"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

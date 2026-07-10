@@ -1,0 +1,58 @@
+{
+  "eventId": "cai-to-he-thong-quan-doi-le-thanh-tong",
+  "title": "Cải tổ hệ thống quân đội dưới thời Lê Thánh Tông",
+  "shortTitle": "Cải tổ quân đội Lê Thánh Tông",
+  "displayDate": "Năm 1466",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-tu-the-ki-x-den-xv",
+  "parentId": "cai-cach-le-thanh-tong",
+  "historicalLocations": [
+    "kinh thành"
+  ],
+  "provinceNames": [],
+  "canonicalSummary": "Năm 1466, vua Lê Thánh Tông tiến hành cải tổ hệ thống quân đội. Quân đội được chia làm hai loại: quân thường trực bảo vệ kinh thành gọi là cấm binh hay thân binh và quân các đạo, gọi là ngoại binh. Ở mỗi đạo chia binh làm 5 phủ do đô đốc phủ đứng đầu; mỗi phủ gồm 6 vệ; mỗi vệ có 5 hoặc 6 sở. Nhà nước cũng rất chú ý đến rèn luyện quân đội như duyệt tập binh sĩ hằng năm, quy định cứ 3 năm tổ chức một kì thì khảo võ nghệ của quân sĩ và định lệ thưởng phạt,...",
+  "keyFacts": [
+    "Diễn ra năm 1466",
+    "Chia thành cấm binh và ngoại binh",
+    "Chú trọng rèn luyện, khảo võ nghệ",
+    "Tổ chức theo đạo, phủ, vệ, sở"
+  ],
+  "sourceFamily": "ancient_medieval",
+  "preferredVerificationDomains": [
+    "baotanglichsu.vn",
+    "disanvanhoa.gov.vn",
+    "bvhttdl.gov.vn",
+    "qdnd.vn",
+    "nhandan.vn",
+    "unesco.org",
+    "whc.unesco.org"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Cải tổ hệ thống quân đội dưới thời Lê Thánh Tông",
+    "Cải tổ hệ thống quân đội dưới thời Lê Thánh Tông Năm 1466",
+    "Cải tổ hệ thống quân đội dưới thời Lê Thánh Tông kinh thành",
+    "Cải tổ hệ thống quân đội dưới thời Lê Thánh Tông Diễn ra năm 1466 Chia thành cấm binh và ngoại binh",
+    "Cải tổ hệ thống quân đội dưới thời Lê Thánh Tông hiện vật",
+    "Cải tổ hệ thống quân đội dưới thời Lê Thánh Tông di tích"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

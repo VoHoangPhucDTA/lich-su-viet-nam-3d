@@ -1,0 +1,61 @@
+{
+  "eventId": "chien-tranh-pha-hoai-mien-bac-lan-thu-nhat",
+  "title": "Chiến tranh phá hoại miền Bắc lần thứ nhất của Mỹ",
+  "shortTitle": "Chiến tranh phá hoại miền Bắc lần 1",
+  "displayDate": "Tháng 8 – 1964 – 1968",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1954-1975",
+  "parentId": "khang-chien-chong-my-cuu-nuoc",
+  "historicalLocations": [
+    "miền Bắc",
+    "miền Nam"
+  ],
+  "provinceNames": [],
+  "canonicalSummary": "Sau khi dựng lên sự kiện “Vịnh Bắc Bộ” (8 – 1964), Mỹ chính thức mở rộng chiến tranh bằng không quân và hải quân phá hoại miền Bắc lần thứ nhất. Quân dân miền Bắc kịp thời chuyển mọi hoạt động sang thời chiến, vừa chiến đấu chống chiến tranh phá hoại, vừa tiếp tục phát triển kinh tế – xã hội và thực hiện nhiệm vụ hậu phương lớn đối với tiền tuyến miền Nam.",
+  "keyFacts": [
+    "Miền Bắc bắn rơi 3243 máy bay (6 B52), bắn cháy 143 tàu chiến",
+    "Miền Bắc chi viện cho miền Nam tăng gấp 10 lần so với giai đoạn trước",
+    "Bắt đầu sau sự kiện Vịnh Bắc Bộ (8-1964)",
+    "Sử dụng không quân và hải quân"
+  ],
+  "sourceFamily": "war_1945_1975",
+  "preferredVerificationDomains": [
+    "btlsqsvn.org.vn",
+    "qdnd.vn",
+    "nhandan.vn",
+    "vietnamplus.vn",
+    "hochiminh.vn",
+    "baotanglichsu.vn",
+    "luutru.gov.vn",
+    "loc.gov",
+    "archives.gov"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Chiến tranh phá hoại miền Bắc lần thứ nhất của Mỹ",
+    "Chiến tranh phá hoại miền Bắc lần thứ nhất của Mỹ Tháng 8 – 1964 – 1968",
+    "Chiến tranh phá hoại miền Bắc lần thứ nhất của Mỹ miền Bắc",
+    "Chiến tranh phá hoại miền Bắc lần thứ nhất của Mỹ Miền Bắc bắn rơi 3243 máy bay (6 B52), bắn cháy 143 tàu chiến Miền Bắc chi viện cho miền Nam tăng gấp 10 lần so với giai đoạn trước",
+    "Chiến tranh phá hoại miền Bắc lần thứ nhất của Mỹ ảnh tư liệu",
+    "Chiến tranh phá hoại miền Bắc lần thứ nhất của Mỹ chiến dịch"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

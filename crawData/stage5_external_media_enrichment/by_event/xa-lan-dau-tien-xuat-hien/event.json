@@ -1,0 +1,54 @@
+{
+  "eventId": "xa-lan-dau-tien-xuat-hien",
+  "title": "Xã lần đầu tiên xuất hiện",
+  "shortTitle": "Xã xuất hiện",
+  "displayDate": "Đầu thế kỉ VII",
+  "eventLevel": "atomic",
+  "rootId": "bac-thuoc-va-dau-tranh-gianh-doc-lap",
+  "parentId": "bac-thuoc-va-dau-tranh-gianh-doc-lap",
+  "historicalLocations": [],
+  "provinceNames": [],
+  "canonicalSummary": "Xã lần đầu tiên xuất hiện vào đầu thế kỉ VII.",
+  "keyFacts": [
+    "Đầu thế kỉ VII",
+    "Xã xuất hiện lần đầu"
+  ],
+  "sourceFamily": "ancient_medieval",
+  "preferredVerificationDomains": [
+    "baotanglichsu.vn",
+    "disanvanhoa.gov.vn",
+    "bvhttdl.gov.vn",
+    "qdnd.vn",
+    "nhandan.vn",
+    "unesco.org",
+    "whc.unesco.org"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Xã lần đầu tiên xuất hiện",
+    "Xã lần đầu tiên xuất hiện Đầu thế kỉ VII",
+    "Xã lần đầu tiên xuất hiện Bắc thuộc và đấu tranh giành độc lập",
+    "Xã lần đầu tiên xuất hiện Đầu thế kỉ VII Xã xuất hiện lần đầu",
+    "Xã lần đầu tiên xuất hiện hiện vật",
+    "Xã lần đầu tiên xuất hiện di tích"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

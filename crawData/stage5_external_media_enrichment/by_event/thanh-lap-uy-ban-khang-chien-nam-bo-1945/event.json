@@ -1,0 +1,78 @@
+{
+  "eventId": "thanh-lap-uy-ban-khang-chien-nam-bo-1945",
+  "title": "Thành lập Uỷ ban kháng chiến Nam Bộ",
+  "shortTitle": "Uỷ ban kháng chiến Nam Bộ",
+  "displayDate": "Ngày 23 - 9 - 1945",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1945-1954",
+  "parentId": "khang-chien-chong-thuc-dan-phap-1945-1954",
+  "historicalLocations": [],
+  "provinceNames": [
+    "Hồ Chí Minh",
+    "Bình Phước",
+    "Tây Ninh",
+    "Bình Dương",
+    "Đồng Nai",
+    "Bà Rịa - Vũng Tàu",
+    "Long An",
+    "Tiền Giang",
+    "Bến Tre",
+    "Trà Vinh",
+    "Vĩnh Long",
+    "Đồng Tháp",
+    "An Giang",
+    "Kiên Giang",
+    "Cần Thơ",
+    "Hậu Giang",
+    "Sóc Trăng",
+    "Bạc Liêu",
+    "Cà Mau"
+  ],
+  "canonicalSummary": "Trước tình hình thực dân Pháp đánh úp Sài Gòn, ngày 23 - 9 - 1945, Uỷ ban kháng chiến Nam Bộ được thành lập. Quân dân Nam Bộ ra sức củng cố, xây dựng lực lượng vũ trang và tổ chức chiến đấu nhằm kìm chân quân Pháp trong các thành phố, thị xã ở phía Nam vĩ tuyến 16.",
+  "keyFacts": [
+    "Quân dân Nam Bộ củng cố lực lượng, tổ chức chiến đấu",
+    "Thành lập ngày 23-9-1945",
+    "Nhằm lãnh đạo kháng chiến ở Nam Bộ",
+    "Cả nước chi viện cho Nam Bộ"
+  ],
+  "sourceFamily": "war_1945_1975",
+  "preferredVerificationDomains": [
+    "btlsqsvn.org.vn",
+    "qdnd.vn",
+    "nhandan.vn",
+    "vietnamplus.vn",
+    "hochiminh.vn",
+    "baotanglichsu.vn",
+    "luutru.gov.vn",
+    "loc.gov",
+    "archives.gov"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Thành lập Uỷ ban kháng chiến Nam Bộ",
+    "Thành lập Uỷ ban kháng chiến Nam Bộ Ngày 23 - 9 - 1945",
+    "Thành lập Uỷ ban kháng chiến Nam Bộ Cuộc kháng chiến chống thực dân Pháp",
+    "Thành lập Uỷ ban kháng chiến Nam Bộ Quân dân Nam Bộ củng cố lực lượng, tổ chức chiến đấu Thành lập ngày 23-9-1945",
+    "Thành lập Uỷ ban kháng chiến Nam Bộ ảnh tư liệu",
+    "Thành lập Uỷ ban kháng chiến Nam Bộ chiến dịch"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

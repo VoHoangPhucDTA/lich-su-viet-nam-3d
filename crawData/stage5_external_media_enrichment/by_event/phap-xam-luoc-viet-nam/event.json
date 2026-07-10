@@ -1,0 +1,54 @@
+{
+  "eventId": "phap-xam-luoc-viet-nam",
+  "title": "Thực dân Pháp xâm lược và từng bước áp đặt ách cai trị ở Việt Nam",
+  "shortTitle": "Pháp xâm lược Việt Nam",
+  "displayDate": "Giữa thế kỉ XIX",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-tu-the-ki-xvi-den-xix",
+  "parentId": "viet-nam-tu-the-ki-xvi-den-xix",
+  "historicalLocations": [
+    "Việt Nam"
+  ],
+  "provinceNames": [],
+  "canonicalSummary": "Từ giữa thế kỉ XIX, thực dân Pháp xâm lược và từng bước áp đặt ách cai trị ở Việt Nam. Dưới chế độ thực dân, nền độc lập dân tộc và quyền tự do của đại bộ phận nhân dân bị tước đoạt.",
+  "keyFacts": [
+    "Bắt đầu từ giữa thế kỉ XIX",
+    "Áp đặt ách cai trị"
+  ],
+  "sourceFamily": "early_modern",
+  "preferredVerificationDomains": [
+    "baotanglichsu.vn",
+    "luutru.gov.vn",
+    "disanvanhoa.gov.vn",
+    "nhandan.vn",
+    "qdnd.vn"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Thực dân Pháp xâm lược và từng bước áp đặt ách cai trị ở Việt Nam",
+    "Thực dân Pháp xâm lược và từng bước áp đặt ách cai trị ở Việt Nam Giữa thế kỉ XIX",
+    "Thực dân Pháp xâm lược và từng bước áp đặt ách cai trị ở Việt Nam Việt Nam",
+    "Thực dân Pháp xâm lược và từng bước áp đặt ách cai trị ở Việt Nam Bắt đầu từ giữa thế kỉ XIX Áp đặt ách cai trị",
+    "Thực dân Pháp xâm lược và từng bước áp đặt ách cai trị ở Việt Nam chân dung",
+    "Thực dân Pháp xâm lược và từng bước áp đặt ách cai trị ở Việt Nam di tích"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

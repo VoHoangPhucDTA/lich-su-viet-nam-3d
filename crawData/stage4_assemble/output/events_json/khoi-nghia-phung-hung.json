@@ -35,8 +35,16 @@
     ]
   },
   "chronology": {
-    "start": null,
-    "end": null,
+    "start": {
+      "year": 767,
+      "month": null,
+      "day": null
+    },
+    "end": {
+      "year": 800,
+      "month": null,
+      "day": null
+    },
     "datePrecision": "period",
     "displayDate": "Cuối thế kỉ VIII",
     "isApproximate": true
@@ -111,7 +119,7 @@
     "parentId": null,
     "childIds": [],
     "level": 0,
-    "orderInParent": 335
+    "orderInParent": 13
   },
   "associations": {
     "relatedEventIds": [],

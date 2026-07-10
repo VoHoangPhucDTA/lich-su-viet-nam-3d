@@ -1,0 +1,55 @@
+{
+  "eventId": "hoi-nghi-toan-quoc-cua-dang-cong-san-dong-duong-1945",
+  "title": "Hội nghị toàn quốc của Đảng Cộng sản Đông Dương",
+  "shortTitle": "Hội nghị toàn quốc của Đảng (8-1945)",
+  "displayDate": "Từ ngày 14 đến ngày 15-8-1945",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1919-1945",
+  "parentId": "cach-mang-thang-tam-nam-1945",
+  "historicalLocations": [],
+  "provinceNames": [],
+  "canonicalSummary": "Cùng Ban Thường vụ Ban Chấp hành Trung ương Đảng triệu tập Hội nghị toàn quốc của Đảng Cộng sản Đông Dương (từ ngày 14 đến ngày 15-8-1945) thông qua kế hoạch lãnh đạo toàn dân tổng khởi nghĩa.",
+  "keyFacts": [
+    "Thông qua kế hoạch lãnh đạo toàn dân tổng khởi nghĩa",
+    "Triệu tập bởi Hồ Chí Minh và Ban Thường vụ Trung ương Đảng"
+  ],
+  "sourceFamily": "revolutionary",
+  "preferredVerificationDomains": [
+    "hochiminh.vn",
+    "tulieuvankien.dangcongsan.vn",
+    "dangcongsan.vn",
+    "baotanglichsu.vn",
+    "nhandan.vn",
+    "qdnd.vn",
+    "vietnamplus.vn",
+    "luutru.gov.vn"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Hội nghị toàn quốc của Đảng Cộng sản Đông Dương",
+    "Hội nghị toàn quốc của Đảng Cộng sản Đông Dương Từ ngày 14 đến ngày 15-8-1945",
+    "Hội nghị toàn quốc của Đảng Cộng sản Đông Dương Cách mạng tháng Tám năm 1945",
+    "Hội nghị toàn quốc của Đảng Cộng sản Đông Dương Thông qua kế hoạch lãnh đạo toàn dân tổng khởi nghĩa Triệu tập bởi Hồ Chí Minh và Ban Thường vụ Trung ương Đảng",
+    "Hội nghị toàn quốc của Đảng Cộng sản Đông Dương ảnh tư liệu",
+    "Hội nghị toàn quốc của Đảng Cộng sản Đông Dương chân dung"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

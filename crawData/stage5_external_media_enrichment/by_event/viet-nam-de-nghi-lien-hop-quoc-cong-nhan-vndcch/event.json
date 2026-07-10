@@ -1,0 +1,57 @@
+{
+  "eventId": "viet-nam-de-nghi-lien-hop-quoc-cong-nhan-vndcch",
+  "title": "Việt Nam đề nghị Liên hợp quốc và các nước lớn công nhận Nhà nước Việt Nam Dân chủ Cộng hoà",
+  "shortTitle": "Việt Nam đề nghị Liên hợp quốc và các nước lớn công nhận Nhà nước Việt Nam Dân chủ Cộng hoà",
+  "displayDate": "Năm 1945",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1919-1945",
+  "parentId": "viet-nam-1919-1945",
+  "historicalLocations": [
+    "Việt Nam"
+  ],
+  "provinceNames": [],
+  "canonicalSummary": "Chính phủ Việt Nam đã gửi thư, công hàm đề nghị Đại hội đồng Liên hợp quốc và các nước lớn công nhận Nhà nước Việt Nam Dân chủ Cộng hoà.",
+  "keyFacts": [
+    "Đề nghị Đại hội đồng Liên hợp quốc và các nước lớn công nhận VNDCCH",
+    "Chính phủ Việt Nam gửi thư, công hàm"
+  ],
+  "sourceFamily": "diplomacy",
+  "preferredVerificationDomains": [
+    "mofa.gov.vn",
+    "chinhphu.vn",
+    "vietnamplus.vn",
+    "nhandan.vn",
+    "un.org",
+    "asean.org",
+    "apec.org",
+    "europa.eu"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Việt Nam đề nghị Liên hợp quốc và các nước lớn công nhận Nhà nước Việt Nam Dân chủ Cộng hoà",
+    "Việt Nam đề nghị Liên hợp quốc và các nước lớn công nhận Nhà nước Việt Nam Dân chủ Cộng hoà Năm 1945",
+    "Việt Nam đề nghị Liên hợp quốc và các nước lớn công nhận Nhà nước Việt Nam Dân chủ Cộng hoà Việt Nam",
+    "Việt Nam đề nghị Liên hợp quốc và các nước lớn công nhận Nhà nước Việt Nam Dân chủ Cộng hoà Đề nghị Đại hội đồng Liên hợp quốc và các nước lớn công nhận VNDCCH Chính phủ Việt Nam gửi thư, công hàm",
+    "Việt Nam đề nghị Liên hợp quốc và các nước lớn công nhận Nhà nước Việt Nam Dân chủ Cộng hoà lễ ký",
+    "Việt Nam đề nghị Liên hợp quốc và các nước lớn công nhận Nhà nước Việt Nam Dân chủ Cộng hoà hội nghị"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

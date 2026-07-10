@@ -1,0 +1,57 @@
+{
+  "eventId": "bru-nay-tuyen-bo-ranh-gioi-them-luc-dia",
+  "title": "Bru-nây tuyên bố về ranh giới thềm lục địa 200 hải lí",
+  "shortTitle": "Bru-nây tuyên bố thềm lục địa (1983)",
+  "displayDate": "Năm 1983",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1975-den-nay",
+  "parentId": "chu-quyen-bien-dao-viet-nam-1975-den-nay",
+  "historicalLocations": [
+    "quần đảo Trường Sa"
+  ],
+  "provinceNames": [],
+  "canonicalSummary": "Bru-nây - Chưa chiếm giữ đảo nào nhưng đưa yêu sách chủ quyền lãnh thổ đối với quần đảo Trường Sa trong tuyên bố về ranh giới thềm lục địa 200 hải lí năm 1983 và về vùng đặc quyền kinh tế năm 1984.",
+  "keyFacts": [
+    "Diễn ra năm 1983",
+    "Nội dung: tuyên bố về ranh giới thềm lục địa 200 hải lí, đưa yêu sách chủ quyền Trường Sa",
+    "Chủ thể: Bru-nây"
+  ],
+  "sourceFamily": "maritime",
+  "preferredVerificationDomains": [
+    "mofa.gov.vn",
+    "biengioilanhtho.gov.vn",
+    "mod.gov.vn",
+    "qdnd.vn",
+    "chinhphu.vn",
+    "vietnamplus.vn",
+    "luutru.gov.vn"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Bru-nây tuyên bố về ranh giới thềm lục địa 200 hải lí",
+    "Bru-nây tuyên bố về ranh giới thềm lục địa 200 hải lí Năm 1983",
+    "Bru-nây tuyên bố về ranh giới thềm lục địa 200 hải lí quần đảo Trường Sa",
+    "Bru-nây tuyên bố về ranh giới thềm lục địa 200 hải lí Diễn ra năm 1983 Nội dung: tuyên bố về ranh giới thềm lục địa 200 hải lí, đưa yêu sách chủ quyền Trường Sa",
+    "Bru-nây tuyên bố về ranh giới thềm lục địa 200 hải lí bản đồ",
+    "Bru-nây tuyên bố về ranh giới thềm lục địa 200 hải lí hải đồ"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

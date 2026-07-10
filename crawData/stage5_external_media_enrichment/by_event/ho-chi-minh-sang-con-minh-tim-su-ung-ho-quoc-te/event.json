@@ -1,0 +1,58 @@
+{
+  "eventId": "ho-chi-minh-sang-con-minh-tim-su-ung-ho-quoc-te",
+  "title": "Hồ Chí Minh sang Côn Minh (Trung Quốc) tìm kiếm sự ủng hộ quốc tế",
+  "shortTitle": "Hồ Chí Minh sang Côn Minh (1945)",
+  "displayDate": "Tháng 2-1945",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1919-1945",
+  "parentId": "viet-nam-1919-1945",
+  "historicalLocations": [
+    "Trung Quốc",
+    "Côn Minh"
+  ],
+  "provinceNames": [],
+  "canonicalSummary": "Tháng 2-1945, sang Côn Minh (Trung Quốc) nhằm tìm kiếm sự ủng hộ của quốc tế.",
+  "keyFacts": [
+    "Mục đích: tìm kiếm sự ủng hộ của quốc tế",
+    "Địa điểm: Côn Minh (Trung Quốc)"
+  ],
+  "sourceFamily": "revolutionary",
+  "preferredVerificationDomains": [
+    "hochiminh.vn",
+    "tulieuvankien.dangcongsan.vn",
+    "dangcongsan.vn",
+    "baotanglichsu.vn",
+    "nhandan.vn",
+    "qdnd.vn",
+    "vietnamplus.vn",
+    "luutru.gov.vn"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Hồ Chí Minh sang Côn Minh (Trung Quốc) tìm kiếm sự ủng hộ quốc tế",
+    "Hồ Chí Minh sang Côn Minh (Trung Quốc) tìm kiếm sự ủng hộ quốc tế Tháng 2-1945",
+    "Hồ Chí Minh sang Côn Minh (Trung Quốc) tìm kiếm sự ủng hộ quốc tế Trung Quốc",
+    "Hồ Chí Minh sang Côn Minh (Trung Quốc) tìm kiếm sự ủng hộ quốc tế Mục đích: tìm kiếm sự ủng hộ của quốc tế Địa điểm: Côn Minh (Trung Quốc)",
+    "Hồ Chí Minh sang Côn Minh (Trung Quốc) tìm kiếm sự ủng hộ quốc tế ảnh tư liệu",
+    "Hồ Chí Minh sang Côn Minh (Trung Quốc) tìm kiếm sự ủng hộ quốc tế chân dung"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

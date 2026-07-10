@@ -1,0 +1,55 @@
+{
+  "eventId": "le-loi-xay-thanh-luc-nien",
+  "title": "Lê Lợi xây thành Lục Niên",
+  "shortTitle": "Lê Lợi xây thành Lục Niên",
+  "displayDate": "thế kỉ XV",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-tu-the-ki-x-den-xv",
+  "parentId": "viet-nam-tu-the-ki-x-den-xv",
+  "historicalLocations": [],
+  "provinceNames": [
+    "Nghệ An"
+  ],
+  "canonicalSummary": "Vùng đất Nam Đàn (Nghệ An) là nơi lưu nhiều dấu tích lịch sử liên quan đến Lê Lợi xây thành Lục Niên (thế kỉ XV).",
+  "keyFacts": [
+    "Diễn ra ở Nam Đàn (Nghệ An)"
+  ],
+  "sourceFamily": "ancient_medieval",
+  "preferredVerificationDomains": [
+    "baotanglichsu.vn",
+    "disanvanhoa.gov.vn",
+    "bvhttdl.gov.vn",
+    "qdnd.vn",
+    "nhandan.vn",
+    "unesco.org",
+    "whc.unesco.org"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Lê Lợi xây thành Lục Niên",
+    "Lê Lợi xây thành Lục Niên thế kỉ XV",
+    "Lê Lợi xây thành Lục Niên Việt Nam từ thế kỉ X đến thế kỉ XV",
+    "Lê Lợi xây thành Lục Niên Diễn ra ở Nam Đàn (Nghệ An)",
+    "Lê Lợi xây thành Lục Niên hiện vật",
+    "Lê Lợi xây thành Lục Niên di tích"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

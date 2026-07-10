@@ -1,0 +1,57 @@
+{
+  "eventId": "viet-nam-binh-thuong-hoa-quan-he-trung-quoc",
+  "title": "Việt Nam bình thường hoá quan hệ với Trung Quốc",
+  "shortTitle": "VN bình thường hóa QH TQ",
+  "displayDate": "Năm 1991",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1975-den-nay",
+  "parentId": "cong-cuoc-doi-moi-o-viet-nam",
+  "historicalLocations": [
+    "Trung Quốc"
+  ],
+  "provinceNames": [],
+  "canonicalSummary": "Sau khi Hiệp định Pa-ri về Cam-pu-chia được kí kết (10 1991), Việt Nam đã bình thường hoá quan hệ với Trung Quốc (1991).",
+  "keyFacts": [
+    "Bình thường hoá quan hệ",
+    "Năm 1991"
+  ],
+  "sourceFamily": "diplomacy",
+  "preferredVerificationDomains": [
+    "mofa.gov.vn",
+    "chinhphu.vn",
+    "vietnamplus.vn",
+    "nhandan.vn",
+    "un.org",
+    "asean.org",
+    "apec.org",
+    "europa.eu"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Việt Nam bình thường hoá quan hệ với Trung Quốc",
+    "Việt Nam bình thường hoá quan hệ với Trung Quốc Năm 1991",
+    "Việt Nam bình thường hoá quan hệ với Trung Quốc Trung Quốc",
+    "Việt Nam bình thường hoá quan hệ với Trung Quốc Bình thường hoá quan hệ Năm 1991",
+    "Việt Nam bình thường hoá quan hệ với Trung Quốc lễ ký",
+    "Việt Nam bình thường hoá quan hệ với Trung Quốc hội nghị"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

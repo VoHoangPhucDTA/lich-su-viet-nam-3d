@@ -1,0 +1,63 @@
+{
+  "eventId": "khang-chien-chong-quan-minh-nha-ho",
+  "title": "Kháng chiến chống quân Minh của nhà Hồ",
+  "shortTitle": "Kháng chiến chống quân Minh của nhà Hồ",
+  "displayDate": "1406 - 1407",
+  "eventLevel": "collection",
+  "rootId": "viet-nam-tu-the-ki-x-den-xv",
+  "parentId": "viet-nam-tu-the-ki-x-den-xv",
+  "historicalLocations": [],
+  "provinceNames": [
+    "Thanh Hóa",
+    "Hà Nội"
+  ],
+  "canonicalSummary": "Cuộc kháng chiến chống quân Minh của nhà Hồ diễn ra từ cuối năm 1406 đến tháng 6 năm 1407. Nhà Minh huy động một lực lượng quân đội lớn do Trương Phụ và Mộc Thạnh chỉ huy sang xâm lược Đại Ngu. Cuối tháng 1 năm 1407, quân Minh chiếm được thành Đa Bang và Đông Đô (Hà Nội). Nhà Hồ phải rút quân về cố thủ ở thành Tây Đô (Thanh Hoá). Đến tháng 6 năm 1407, cuộc kháng chiến của nhà Hồ bị thất bại.",
+  "keyFacts": [
+    "Diễn ra 1406-1407",
+    "Nhà Minh đặt Đại Ngu thành quận Giao Chỉ",
+    "Năm 1407, cuộc kháng chiến chống Minh của nhà Hồ thất bại",
+    "Địa điểm: Đại Ngu, thành Đa Bang, Đông Đô (Hà Nội), thành Tây Đô (Thanh Hoá)",
+    "Đối thủ: quân Minh (Trương Phụ, Mộc Thạnh)",
+    "Nước Đại Ngu phải chịu ách đô hộ của phong kiến phương Bắc (1407 – 1427)",
+    "Nhà Minh thực hiện chính sách dùng người Việt để trị người Việt, đặt nhiều thứ thuế nặng nề, huỷ diệt nền văn hoá",
+    "Nguyên nhân thất bại: không đoàn kết được nhân dân, phòng ngự bị động"
+  ],
+  "sourceFamily": "ancient_medieval",
+  "preferredVerificationDomains": [
+    "baotanglichsu.vn",
+    "disanvanhoa.gov.vn",
+    "bvhttdl.gov.vn",
+    "qdnd.vn",
+    "nhandan.vn",
+    "unesco.org",
+    "whc.unesco.org"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Kháng chiến chống quân Minh của nhà Hồ",
+    "Kháng chiến chống quân Minh của nhà Hồ 1406 - 1407",
+    "Kháng chiến chống quân Minh của nhà Hồ Việt Nam từ thế kỉ X đến thế kỉ XV",
+    "Kháng chiến chống quân Minh của nhà Hồ Diễn ra 1406-1407 Nhà Minh đặt Đại Ngu thành quận Giao Chỉ",
+    "Kháng chiến chống quân Minh của nhà Hồ hiện vật",
+    "Kháng chiến chống quân Minh của nhà Hồ di tích"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

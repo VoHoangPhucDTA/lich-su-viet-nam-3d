@@ -1,0 +1,62 @@
+{
+  "eventId": "phap-xam-chiem-dong-duong",
+  "title": "Pháp xâm chiếm ba nước Đông Dương",
+  "shortTitle": "Pháp chiếm Đông Dương",
+  "displayDate": "1858-1893",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1858-1918",
+  "parentId": "viet-nam-1858-1918",
+  "historicalLocations": [
+    "Việt Nam",
+    "Đông Dương"
+  ],
+  "provinceNames": [
+    "Đà Nẵng"
+  ],
+  "canonicalSummary": "Thực dân Pháp phải trải qua cuộc chiến tranh xâm lược kéo dài gần nửa thế kỉ (1858-1893) mới hoàn thành việc xâm chiếm ba nước Đông Dương.",
+  "keyFacts": [
+    "Thời gian: 1858-1893",
+    "Chủ thể: Pháp",
+    "Đối tượng: Ba nước Đông Dương",
+    "Liên quân Pháp - Tây Ban Nha tấn công Đà Nẵng 1-9-1858"
+  ],
+  "sourceFamily": "colonial",
+  "preferredVerificationDomains": [
+    "baotanglichsu.vn",
+    "luutru.gov.vn",
+    "hochiminh.vn",
+    "nhandan.vn",
+    "qdnd.vn",
+    "vietnamplus.vn",
+    "gallica.bnf.fr",
+    "loc.gov"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Pháp xâm chiếm ba nước Đông Dương",
+    "Pháp xâm chiếm ba nước Đông Dương 1858-1893",
+    "Pháp xâm chiếm ba nước Đông Dương Việt Nam",
+    "Pháp xâm chiếm ba nước Đông Dương Thời gian: 1858-1893 Chủ thể: Pháp",
+    "Pháp xâm chiếm ba nước Đông Dương ảnh tư liệu",
+    "Pháp xâm chiếm ba nước Đông Dương chân dung"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

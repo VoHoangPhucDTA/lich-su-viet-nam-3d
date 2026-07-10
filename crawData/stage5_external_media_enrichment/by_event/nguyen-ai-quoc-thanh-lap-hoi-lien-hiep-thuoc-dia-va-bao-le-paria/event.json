@@ -1,0 +1,59 @@
+{
+  "eventId": "nguyen-ai-quoc-thanh-lap-hoi-lien-hiep-thuoc-dia-va-bao-le-paria",
+  "title": "Nguyễn Ái Quốc tham gia thành lập Hội liên hiệp thuộc địa và sáng lập tờ báo Le Paria",
+  "shortTitle": "Thành lập Hội liên hiệp thuộc địa và báo Le Paria",
+  "displayDate": "Giữa năm 1921",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1919-1945",
+  "parentId": "viet-nam-1919-1945",
+  "historicalLocations": [
+    "Pháp"
+  ],
+  "provinceNames": [],
+  "canonicalSummary": "Từ giữa năm 1921, tại Pháp, cùng một số nhà cách mạng của các nước thuộc địa khác, Nguyễn Ái Quốc tham gia thành lập Hội liên hiệp thuộc địa, sau đó sáng lập tờ báo Le Paria (Người cùng khổ). Người viết nhiều bài trên các báo: Nhân đạo, Đời sống công nhân, Tạp chí Cộng sản, Tập san Thư tín quốc tế....",
+  "keyFacts": [
+    "Tham gia thành lập Hội liên hiệp thuộc địa",
+    "Sáng lập tờ báo Le Paria (Người cùng khổ)",
+    "Cùng các nhà cách mạng thuộc địa khác",
+    "Tại Pháp"
+  ],
+  "sourceFamily": "revolutionary",
+  "preferredVerificationDomains": [
+    "hochiminh.vn",
+    "tulieuvankien.dangcongsan.vn",
+    "dangcongsan.vn",
+    "baotanglichsu.vn",
+    "nhandan.vn",
+    "qdnd.vn",
+    "vietnamplus.vn",
+    "luutru.gov.vn"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Nguyễn Ái Quốc tham gia thành lập Hội liên hiệp thuộc địa và sáng lập tờ báo Le Paria",
+    "Nguyễn Ái Quốc tham gia thành lập Hội liên hiệp thuộc địa và sáng lập tờ báo Le Paria Giữa năm 1921",
+    "Nguyễn Ái Quốc tham gia thành lập Hội liên hiệp thuộc địa và sáng lập tờ báo Le Paria Pháp",
+    "Nguyễn Ái Quốc tham gia thành lập Hội liên hiệp thuộc địa và sáng lập tờ báo Le Paria Tham gia thành lập Hội liên hiệp thuộc địa Sáng lập tờ báo Le Paria (Người cùng khổ)",
+    "Nguyễn Ái Quốc tham gia thành lập Hội liên hiệp thuộc địa và sáng lập tờ báo Le Paria ảnh tư liệu",
+    "Nguyễn Ái Quốc tham gia thành lập Hội liên hiệp thuộc địa và sáng lập tờ báo Le Paria chân dung"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

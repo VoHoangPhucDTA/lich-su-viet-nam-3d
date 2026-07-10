@@ -1,0 +1,9 @@
+{
+  "eventId": "my-can-thiep-vao-dong-duong",
+  "status": "pending_download",
+  "images": [],
+  "expected": [
+    "image_01.<ext>",
+    "image_02.<ext>"
+  ]
+}

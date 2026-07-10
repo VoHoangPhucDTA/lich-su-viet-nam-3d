@@ -35,12 +35,12 @@
   },
   "chronology": {
     "start": {
-      "year": null,
+      "year": 1954,
       "month": null,
       "day": null
     },
     "end": {
-      "year": null,
+      "year": 1960,
       "month": null,
       "day": null
     },
@@ -117,7 +117,7 @@
     "parentId": null,
     "childIds": [],
     "level": 0,
-    "orderInParent": 302
+    "orderInParent": 231
   },
   "associations": {
     "relatedEventIds": [],

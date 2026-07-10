@@ -1,0 +1,62 @@
+{
+  "eventId": "cac-chien-thang-quan-su-1964-1965",
+  "title": "Các chiến thắng quân sự 1964-1965",
+  "shortTitle": "Thắng lợi quân sự 1964-1965",
+  "displayDate": "1964 – 1965",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1954-1975",
+  "parentId": "viet-nam-1954-1975",
+  "historicalLocations": [],
+  "provinceNames": [
+    "Bình Phước",
+    "Quảng Ngãi",
+    "Bà Rịa - Vũng Tàu",
+    "Bình Định"
+  ],
+  "canonicalSummary": "Trong những năm 1964 – 1965, quân ta tiến công và thắng lợi ở Bình Giã (Bà Rịa – Vũng Tàu), An Lão (Bình Định), Ba Gia (Quảng Ngãi), Đồng Xoài (Bình Phước), làm phá sản hoàn toàn chiến lược “Chiến tranh đặc biệt” của Mỹ.",
+  "keyFacts": [
+    "Các trận đánh tiêu biểu: Bình Giã, An Lão, Ba Gia, Đồng Xoài",
+    "Phá sản hoàn toàn chiến lược 'Chiến tranh đặc biệt'",
+    "Diễn ra trong những năm 1964-1965"
+  ],
+  "sourceFamily": "war_1945_1975",
+  "preferredVerificationDomains": [
+    "btlsqsvn.org.vn",
+    "qdnd.vn",
+    "nhandan.vn",
+    "vietnamplus.vn",
+    "hochiminh.vn",
+    "baotanglichsu.vn",
+    "luutru.gov.vn",
+    "loc.gov",
+    "archives.gov"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Các chiến thắng quân sự 1964-1965",
+    "Các chiến thắng quân sự 1964-1965 1964 – 1965",
+    "Các chiến thắng quân sự 1964-1965 Việt Nam từ năm 1954 đến năm 1975",
+    "Các chiến thắng quân sự 1964-1965 Các trận đánh tiêu biểu: Bình Giã, An Lão, Ba Gia, Đồng Xoài Phá sản hoàn toàn chiến lược 'Chiến tranh đặc biệt'",
+    "Các chiến thắng quân sự 1964-1965 ảnh tư liệu",
+    "Các chiến thắng quân sự 1964-1965 chiến dịch"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

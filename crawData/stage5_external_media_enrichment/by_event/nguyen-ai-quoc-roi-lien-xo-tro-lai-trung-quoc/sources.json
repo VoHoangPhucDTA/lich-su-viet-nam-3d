@@ -1,0 +1,9 @@
+{
+  "eventId": "nguyen-ai-quoc-roi-lien-xo-tro-lai-trung-quoc",
+  "status": "pending_download",
+  "images": [],
+  "expected": [
+    "image_01.<ext>",
+    "image_02.<ext>"
+  ]
+}

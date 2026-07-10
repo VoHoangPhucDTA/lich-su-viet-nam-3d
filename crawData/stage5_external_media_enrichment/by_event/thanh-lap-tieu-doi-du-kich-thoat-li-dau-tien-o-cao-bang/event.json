@@ -1,0 +1,57 @@
+{
+  "eventId": "thanh-lap-tieu-doi-du-kich-thoat-li-dau-tien-o-cao-bang",
+  "title": "Thành lập Tiểu đội du kích thoát li đầu tiên ở Cao Bằng",
+  "shortTitle": "Thành lập Tiểu đội du kích Cao Bằng",
+  "displayDate": "Tháng 11 – 1941",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1919-1945",
+  "parentId": "viet-nam-1919-1945",
+  "historicalLocations": [],
+  "provinceNames": [
+    "Cao Bằng"
+  ],
+  "canonicalSummary": "Thành lập Tiểu đội du kích thoát li đầu tiên ở Cao Bằng (11 – 1941), biên soạn các tài liệu huấn luyện quân sự.",
+  "keyFacts": [
+    "Biên soạn tài liệu huấn luyện quân sự",
+    "Thành lập ở Cao Bằng"
+  ],
+  "sourceFamily": "revolutionary",
+  "preferredVerificationDomains": [
+    "hochiminh.vn",
+    "tulieuvankien.dangcongsan.vn",
+    "dangcongsan.vn",
+    "baotanglichsu.vn",
+    "nhandan.vn",
+    "qdnd.vn",
+    "vietnamplus.vn",
+    "luutru.gov.vn"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Thành lập Tiểu đội du kích thoát li đầu tiên ở Cao Bằng",
+    "Thành lập Tiểu đội du kích thoát li đầu tiên ở Cao Bằng Tháng 11 – 1941",
+    "Thành lập Tiểu đội du kích thoát li đầu tiên ở Cao Bằng Việt Nam từ năm 1919 đến năm 1945",
+    "Thành lập Tiểu đội du kích thoát li đầu tiên ở Cao Bằng Biên soạn tài liệu huấn luyện quân sự Thành lập ở Cao Bằng",
+    "Thành lập Tiểu đội du kích thoát li đầu tiên ở Cao Bằng ảnh tư liệu",
+    "Thành lập Tiểu đội du kích thoát li đầu tiên ở Cao Bằng chân dung"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

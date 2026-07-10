@@ -1,0 +1,56 @@
+{
+  "eventId": "thanh-lap-mat-tran-dan-toc-giai-phong-mien-nam-viet-nam",
+  "title": "Thành lập Mặt trận Dân tộc giải phóng miền Nam Việt Nam",
+  "shortTitle": "Mặt trận Dân tộc giải phóng miền Nam",
+  "displayDate": "20 – 12 – 1960",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1954-1975",
+  "parentId": "viet-nam-1954-1975",
+  "historicalLocations": [],
+  "provinceNames": [],
+  "canonicalSummary": "Thắng lợi của phong trào Đồng khởi đã giáng đòn nặng nề vào chính sách thực dân mới của Mỹ, làm lung lay chính quyền Ngô Đình Diệm. Thắng lợi này đồng thời đánh dấu bước phát triển nhảy vọt của cách mạng miền Nam, chuyển từ thế giữ gìn lực lượng sang thế tiến công, mở ra vùng giải phóng rộng lớn, đưa đến việc thành lập Mặt trận Dân tộc giải phóng miền Nam Việt Nam (20 – 12 – 1960), thúc đẩy lực lượng vũ trang cách mạng phát triển.",
+  "keyFacts": [
+    "Thành lập ngày 20-12-1960",
+    "Là kết quả của phong trào Đồng khởi"
+  ],
+  "sourceFamily": "war_1945_1975",
+  "preferredVerificationDomains": [
+    "btlsqsvn.org.vn",
+    "qdnd.vn",
+    "nhandan.vn",
+    "vietnamplus.vn",
+    "hochiminh.vn",
+    "baotanglichsu.vn",
+    "luutru.gov.vn",
+    "loc.gov",
+    "archives.gov"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Thành lập Mặt trận Dân tộc giải phóng miền Nam Việt Nam",
+    "Thành lập Mặt trận Dân tộc giải phóng miền Nam Việt Nam 20 – 12 – 1960",
+    "Thành lập Mặt trận Dân tộc giải phóng miền Nam Việt Nam Việt Nam từ năm 1954 đến năm 1975",
+    "Thành lập Mặt trận Dân tộc giải phóng miền Nam Việt Nam Thành lập ngày 20-12-1960 Là kết quả của phong trào Đồng khởi",
+    "Thành lập Mặt trận Dân tộc giải phóng miền Nam Việt Nam ảnh tư liệu",
+    "Thành lập Mặt trận Dân tộc giải phóng miền Nam Việt Nam chiến dịch"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

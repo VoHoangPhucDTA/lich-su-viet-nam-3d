@@ -1,0 +1,56 @@
+{
+  "eventId": "phap-chiem-bac-ki-lan-1",
+  "title": "Pháp đánh chiếm Bắc Kì lần thứ nhất",
+  "shortTitle": "Pháp đánh chiếm Bắc Kì lần thứ nhất",
+  "displayDate": "Năm 1873",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1858-1918",
+  "parentId": "viet-nam-1858-1918",
+  "historicalLocations": [],
+  "provinceNames": [],
+  "canonicalSummary": "Năm 1873, thực dân Pháp đem quân đánh chiếm Bắc Kì lần thứ nhất, triều đình nhà Nguyễn tiếp tục lún sâu vào con đường thoả hiệp.",
+  "keyFacts": [
+    "Kết quả: Triều Nguyễn thoả hiệp",
+    "Địa điểm: Bắc Kì",
+    "Diễn ra năm 1873"
+  ],
+  "sourceFamily": "colonial",
+  "preferredVerificationDomains": [
+    "baotanglichsu.vn",
+    "luutru.gov.vn",
+    "hochiminh.vn",
+    "nhandan.vn",
+    "qdnd.vn",
+    "vietnamplus.vn",
+    "gallica.bnf.fr",
+    "loc.gov"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Pháp đánh chiếm Bắc Kì lần thứ nhất",
+    "Pháp đánh chiếm Bắc Kì lần thứ nhất Năm 1873",
+    "Pháp đánh chiếm Bắc Kì lần thứ nhất Việt Nam từ năm 1858 đến năm 1918",
+    "Pháp đánh chiếm Bắc Kì lần thứ nhất Kết quả: Triều Nguyễn thoả hiệp Địa điểm: Bắc Kì",
+    "Pháp đánh chiếm Bắc Kì lần thứ nhất ảnh tư liệu",
+    "Pháp đánh chiếm Bắc Kì lần thứ nhất chân dung"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

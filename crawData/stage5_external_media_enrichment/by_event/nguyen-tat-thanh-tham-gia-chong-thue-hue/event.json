@@ -1,0 +1,56 @@
+{
+  "eventId": "nguyen-tat-thanh-tham-gia-chong-thue-hue",
+  "title": "Nguyễn Tất Thành tham gia phong trào chống thuế ở Huế",
+  "shortTitle": "Nguyễn Tất Thành tham gia phong trào chống thuế ở Huế",
+  "displayDate": "Năm 1908",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1858-1918",
+  "parentId": "viet-nam-1858-1918",
+  "historicalLocations": [],
+  "provinceNames": [
+    "Thừa Thiên Huế"
+  ],
+  "canonicalSummary": "Sớm có tinh thần yêu nước, năm 1908, Nguyễn Tất Thành tham gia phong trào chống thuế ở Huế.",
+  "keyFacts": [
+    "Tham gia phong trào chống thuế"
+  ],
+  "sourceFamily": "colonial",
+  "preferredVerificationDomains": [
+    "baotanglichsu.vn",
+    "luutru.gov.vn",
+    "hochiminh.vn",
+    "nhandan.vn",
+    "qdnd.vn",
+    "vietnamplus.vn",
+    "gallica.bnf.fr",
+    "loc.gov"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Nguyễn Tất Thành tham gia phong trào chống thuế ở Huế",
+    "Nguyễn Tất Thành tham gia phong trào chống thuế ở Huế Năm 1908",
+    "Nguyễn Tất Thành tham gia phong trào chống thuế ở Huế Việt Nam từ năm 1858 đến năm 1918",
+    "Nguyễn Tất Thành tham gia phong trào chống thuế ở Huế Tham gia phong trào chống thuế",
+    "Nguyễn Tất Thành tham gia phong trào chống thuế ở Huế ảnh tư liệu",
+    "Nguyễn Tất Thành tham gia phong trào chống thuế ở Huế chân dung"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

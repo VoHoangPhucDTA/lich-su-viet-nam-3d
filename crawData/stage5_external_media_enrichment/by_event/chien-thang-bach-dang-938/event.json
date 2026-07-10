@@ -1,0 +1,61 @@
+{
+  "eventId": "chien-thang-bach-dang-938",
+  "title": "Chiến thắng Bạch Đằng (938)",
+  "shortTitle": "Chiến thắng Bạch Đằng (938)",
+  "displayDate": "Năm 938",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-tu-the-ki-x-den-xv",
+  "parentId": "viet-nam-tu-the-ki-x-den-xv",
+  "historicalLocations": [],
+  "provinceNames": [
+    "Quảng Ninh"
+  ],
+  "canonicalSummary": "Chiến thắng Bạch Đằng do Ngô Quyền lãnh đạo vào năm 938 đã kết thúc ách đô hộ của phong kiến phương Bắc, mở ra thời kì độc lập tự chủ lâu dài của dân tộc.",
+  "keyFacts": [
+    "Diễn ra vào năm 938",
+    "Mở ra thời kì độc lập tự chủ lâu dài của dân tộc",
+    "Ngô Quyền lãnh đạo",
+    "Diễn ra năm 938",
+    "Người chỉ huy: Ngô Quyền",
+    "Kết thúc ách đô hộ của phong kiến phương Bắc",
+    "Trận quyết chiến: Bạch Đằng (Quảng Ninh)"
+  ],
+  "sourceFamily": "ancient_medieval",
+  "preferredVerificationDomains": [
+    "baotanglichsu.vn",
+    "disanvanhoa.gov.vn",
+    "bvhttdl.gov.vn",
+    "qdnd.vn",
+    "nhandan.vn",
+    "unesco.org",
+    "whc.unesco.org"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Chiến thắng Bạch Đằng (938)",
+    "Chiến thắng Bạch Đằng (938) Năm 938",
+    "Chiến thắng Bạch Đằng (938) Việt Nam từ thế kỉ X đến thế kỉ XV",
+    "Chiến thắng Bạch Đằng (938) Diễn ra vào năm 938 Mở ra thời kì độc lập tự chủ lâu dài của dân tộc",
+    "Chiến thắng Bạch Đằng (938) hiện vật",
+    "Chiến thắng Bạch Đằng (938) di tích"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

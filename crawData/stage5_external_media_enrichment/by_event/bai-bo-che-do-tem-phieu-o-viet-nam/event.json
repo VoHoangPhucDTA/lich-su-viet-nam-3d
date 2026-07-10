@@ -1,0 +1,60 @@
+{
+  "eventId": "bai-bo-che-do-tem-phieu-o-viet-nam",
+  "title": "Bãi bỏ chế độ tem phiếu ở Việt Nam",
+  "shortTitle": "Bãi bỏ tem phiếu",
+  "displayDate": "Ngày 1-4-1989",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1975-den-nay",
+  "parentId": "cong-cuoc-doi-moi-o-viet-nam",
+  "historicalLocations": [
+    "Việt Nam"
+  ],
+  "provinceNames": [],
+  "canonicalSummary": "Ngày 1-4-1989, chế độ tem phiếu hoàn toàn được bãi bỏ ở Việt Nam. Đây là mốc kết thúc việc phát hành tem phiếu dùng để mua các mặt hàng thiết yếu của đời sống do Nhà nước phân phối.",
+  "keyFacts": [
+    "Kết thúc việc phát hành tem phiếu",
+    "Ngày 1-4-1989",
+    "Hoàn toàn bãi bỏ",
+    "Chấm dứt thời kì bao cấp"
+  ],
+  "sourceFamily": "post_1975",
+  "preferredVerificationDomains": [
+    "chinhphu.vn",
+    "dangcongsan.vn",
+    "tulieuvankien.dangcongsan.vn",
+    "quochoi.vn",
+    "mofa.gov.vn",
+    "vietnamplus.vn",
+    "nhandan.vn",
+    "un.org",
+    "unphoto.un.org"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Bãi bỏ chế độ tem phiếu ở Việt Nam",
+    "Bãi bỏ chế độ tem phiếu ở Việt Nam Ngày 1-4-1989",
+    "Bãi bỏ chế độ tem phiếu ở Việt Nam Việt Nam",
+    "Bãi bỏ chế độ tem phiếu ở Việt Nam Kết thúc việc phát hành tem phiếu Ngày 1-4-1989",
+    "Bãi bỏ chế độ tem phiếu ở Việt Nam ảnh tư liệu",
+    "Bãi bỏ chế độ tem phiếu ở Việt Nam lễ ký"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

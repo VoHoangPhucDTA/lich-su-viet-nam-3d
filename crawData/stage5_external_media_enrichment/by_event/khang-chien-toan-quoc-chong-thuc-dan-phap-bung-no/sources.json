@@ -1,0 +1,9 @@
+{
+  "eventId": "khang-chien-toan-quoc-chong-thuc-dan-phap-bung-no",
+  "status": "pending_download",
+  "images": [],
+  "expected": [
+    "image_01.<ext>",
+    "image_02.<ext>"
+  ]
+}

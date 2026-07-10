@@ -1,0 +1,58 @@
+{
+  "eventId": "nguyen-tat-thanh-roi-phan-thiet-vao-sai-gon",
+  "title": "Nguyễn Tất Thành rời Phan Thiết vào Sài Gòn",
+  "shortTitle": "Nguyễn Tất Thành rời Phan Thiết vào Sài Gòn",
+  "displayDate": "Tháng 2-1911",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1858-1918",
+  "parentId": "viet-nam-1858-1918",
+  "historicalLocations": [],
+  "provinceNames": [
+    "Bình Thuận",
+    "Hồ Chí Minh"
+  ],
+  "canonicalSummary": "Tháng 2-1911, Nguyễn Tất Thành rời Phan Thiết vào Sài Gòn, mang theo hoài bão ra nước ngoài, xem thế giới làm như thế nào rồi trở về giúp đồng bào.",
+  "keyFacts": [
+    "Rời Phan Thiết",
+    "Đến Sài Gòn"
+  ],
+  "sourceFamily": "colonial",
+  "preferredVerificationDomains": [
+    "baotanglichsu.vn",
+    "luutru.gov.vn",
+    "hochiminh.vn",
+    "nhandan.vn",
+    "qdnd.vn",
+    "vietnamplus.vn",
+    "gallica.bnf.fr",
+    "loc.gov"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Nguyễn Tất Thành rời Phan Thiết vào Sài Gòn",
+    "Nguyễn Tất Thành rời Phan Thiết vào Sài Gòn Tháng 2-1911",
+    "Nguyễn Tất Thành rời Phan Thiết vào Sài Gòn Việt Nam từ năm 1858 đến năm 1918",
+    "Nguyễn Tất Thành rời Phan Thiết vào Sài Gòn Rời Phan Thiết Đến Sài Gòn",
+    "Nguyễn Tất Thành rời Phan Thiết vào Sài Gòn ảnh tư liệu",
+    "Nguyễn Tất Thành rời Phan Thiết vào Sài Gòn chân dung"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

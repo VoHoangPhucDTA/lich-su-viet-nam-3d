@@ -35,15 +35,11 @@
   },
   "chronology": {
     "start": {
-      "year": null,
-      "month": null,
-      "day": null
-    },
-    "end": {
       "year": 1975,
       "month": 4,
       "day": null
     },
+    "end": null,
     "datePrecision": "month",
     "displayDate": "tháng 4-1975",
     "isApproximate": false
@@ -124,7 +120,7 @@
     "parentId": null,
     "childIds": [],
     "level": 0,
-    "orderInParent": 332
+    "orderInParent": 287
   },
   "associations": {
     "relatedEventIds": [],

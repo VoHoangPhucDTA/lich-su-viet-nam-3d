@@ -1,0 +1,57 @@
+{
+  "eventId": "quoc-hoi-thong-qua-luat-cai-cach-ruong-dat-1953",
+  "title": "Quốc hội thông qua Luật Cải cách ruộng đất và quyết định tiến hành cải cách ruộng đất",
+  "shortTitle": "Thông qua Luật Cải cách ruộng đất",
+  "displayDate": "Tháng 12 – 1953",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1945-1954",
+  "parentId": "viet-nam-1945-1954",
+  "historicalLocations": [],
+  "provinceNames": [],
+  "canonicalSummary": "Tháng 12 – 1953, Quốc hội thông qua Luật Cải cách ruộng đất và quyết định tiến hành cải cách ruộng đất ở vùng tự do.",
+  "keyFacts": [
+    "Do Quốc hội thông qua",
+    "Thông qua tháng 12-1953",
+    "Tiến hành ở vùng tự do"
+  ],
+  "sourceFamily": "war_1945_1975",
+  "preferredVerificationDomains": [
+    "btlsqsvn.org.vn",
+    "qdnd.vn",
+    "nhandan.vn",
+    "vietnamplus.vn",
+    "hochiminh.vn",
+    "baotanglichsu.vn",
+    "luutru.gov.vn",
+    "loc.gov",
+    "archives.gov"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Quốc hội thông qua Luật Cải cách ruộng đất và quyết định tiến hành cải cách ruộng đất",
+    "Quốc hội thông qua Luật Cải cách ruộng đất và quyết định tiến hành cải cách ruộng đất Tháng 12 – 1953",
+    "Quốc hội thông qua Luật Cải cách ruộng đất và quyết định tiến hành cải cách ruộng đất Việt Nam từ năm 1945 đến năm 1954",
+    "Quốc hội thông qua Luật Cải cách ruộng đất và quyết định tiến hành cải cách ruộng đất Do Quốc hội thông qua Thông qua tháng 12-1953",
+    "Quốc hội thông qua Luật Cải cách ruộng đất và quyết định tiến hành cải cách ruộng đất ảnh tư liệu",
+    "Quốc hội thông qua Luật Cải cách ruộng đất và quyết định tiến hành cải cách ruộng đất chiến dịch"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

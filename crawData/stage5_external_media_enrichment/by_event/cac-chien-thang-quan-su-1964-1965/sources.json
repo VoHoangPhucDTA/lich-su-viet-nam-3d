@@ -1,0 +1,9 @@
+{
+  "eventId": "cac-chien-thang-quan-su-1964-1965",
+  "status": "pending_download",
+  "images": [],
+  "expected": [
+    "image_01.<ext>",
+    "image_02.<ext>"
+  ]
+}

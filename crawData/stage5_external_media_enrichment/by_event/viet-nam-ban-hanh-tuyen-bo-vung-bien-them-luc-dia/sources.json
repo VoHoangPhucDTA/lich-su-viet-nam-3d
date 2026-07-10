@@ -1,0 +1,9 @@
+{
+  "eventId": "viet-nam-ban-hanh-tuyen-bo-vung-bien-them-luc-dia",
+  "status": "pending_download",
+  "images": [],
+  "expected": [
+    "image_01.<ext>",
+    "image_02.<ext>"
+  ]
+}

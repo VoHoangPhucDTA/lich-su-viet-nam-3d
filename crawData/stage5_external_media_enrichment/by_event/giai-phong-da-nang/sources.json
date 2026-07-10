@@ -1,0 +1,9 @@
+{
+  "eventId": "giai-phong-da-nang",
+  "status": "pending_download",
+  "images": [],
+  "expected": [
+    "image_01.<ext>",
+    "image_02.<ext>"
+  ]
+}

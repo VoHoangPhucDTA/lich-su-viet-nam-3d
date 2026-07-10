@@ -1,0 +1,9 @@
+{
+  "eventId": "nguyen-ai-quoc-den-lien-xo-1923",
+  "status": "pending_download",
+  "images": [],
+  "expected": [
+    "image_01.<ext>",
+    "image_02.<ext>"
+  ]
+}

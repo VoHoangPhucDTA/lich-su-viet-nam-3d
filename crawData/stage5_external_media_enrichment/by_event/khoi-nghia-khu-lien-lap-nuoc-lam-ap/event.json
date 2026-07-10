@@ -1,0 +1,61 @@
+{
+  "eventId": "khoi-nghia-khu-lien-lap-nuoc-lam-ap",
+  "title": "Khởi nghĩa Khu Liên lập nước Lâm Ấp",
+  "shortTitle": "Lập nước Lâm Ấp",
+  "displayDate": "Năm 192",
+  "eventLevel": "atomic",
+  "rootId": "bac-thuoc-va-dau-tranh-gianh-doc-lap",
+  "parentId": "bac-thuoc-va-dau-tranh-gianh-doc-lap",
+  "historicalLocations": [
+    "Sin-ha-pu-ra"
+  ],
+  "provinceNames": [
+    "Quảng Nam"
+  ],
+  "canonicalSummary": "Trong hai thế kỉ đầu Công nguyên, người Chăm ở quận Nhật Nam liên tục đấu tranh chống lại ách cai trị của nhà Hán. Đến năm 192, dưới sự lãnh đạo của Khu Liên (thủ lĩnh của một bộ lạc ở phía Nam quận Nhật Nam) đã nổi dậy lật đổ ách thống trị của ngoại bang, lập ra nước Lâm Ấp (sau này gọi là Chăm pa), kinh đô là Sin-ha-pu-ra (Trà Kiệu, Quảng Nam).",
+  "keyFacts": [
+    "Diễn ra năm 192",
+    "Thành lập nước Lâm Ấp (sau này là Chăm pa)",
+    "Lật đổ ách thống trị của nhà Hán",
+    "Lãnh đạo: Khu Liên",
+    "Kinh đô: Sin-ha-pu-ra (Trà Kiệu, Quảng Nam)"
+  ],
+  "sourceFamily": "ancient_medieval",
+  "preferredVerificationDomains": [
+    "baotanglichsu.vn",
+    "disanvanhoa.gov.vn",
+    "bvhttdl.gov.vn",
+    "qdnd.vn",
+    "nhandan.vn",
+    "unesco.org",
+    "whc.unesco.org"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Khởi nghĩa Khu Liên lập nước Lâm Ấp",
+    "Khởi nghĩa Khu Liên lập nước Lâm Ấp Năm 192",
+    "Khởi nghĩa Khu Liên lập nước Lâm Ấp Sin-ha-pu-ra",
+    "Khởi nghĩa Khu Liên lập nước Lâm Ấp Diễn ra năm 192 Thành lập nước Lâm Ấp (sau này là Chăm pa)",
+    "Khởi nghĩa Khu Liên lập nước Lâm Ấp hiện vật",
+    "Khởi nghĩa Khu Liên lập nước Lâm Ấp di tích"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}
