@@ -1,35 +1,29 @@
+import { BookOpenCheck } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../auth/AuthContext';
 
 export default function ExamHero() {
   const { currentUser } = useAuth();
-  
+
   return (
-    <section style={{ textAlign: 'center', margin: '3rem 0 4rem 0', position: 'relative' }}>
-        {/* Background Glow */}
-        {/* Background Glow */}
-        <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: '400px', height: '400px', background: 'radial-gradient(circle, var(--accent-soft) 0%, transparent 70%)', pointerEvents: 'none', opacity: 0.5 }}></div>
-        
-        <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', padding: '0.3rem 0.8rem', borderRadius: '2rem', background: 'var(--accent-soft)', border: '1px solid color-mix(in srgb, var(--accent) 35%, transparent)', color: 'var(--accent)', fontWeight: 600, fontSize: '0.85rem', marginBottom: '1.5rem' }}>
-            📝 Chuyên đề Ôn thi THPT Quốc Gia
-        </div>
-        
-        <h1 style={{ fontSize: '3rem', fontWeight: 800, margin: '0 0 1rem 0', color: 'var(--text-primary)', letterSpacing: '-0.02em' }}>
-            Luyện đề thi THPT môn Lịch sử
-        </h1>
-        <p style={{ fontSize: '1.1rem', color: 'var(--text-muted)', maxWidth: '640px', margin: '0 auto 2.5rem', lineHeight: 1.6 }}>
-            Luyện đề thi thử, ôn theo chủ đề và theo dõi lịch sử làm bài từ kho đề THPT đã chuẩn hóa cho môn Lịch sử.
-            {!currentUser && <span style={{ display: 'block', marginTop: '0.5rem', color: 'var(--warning)', fontSize: '0.9rem' }}>Bạn đang truy cập ở chế độ khách.</span>}
-        </p>
-        
-        <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center' }}>
-            <Link to="/exams/browse" style={{ padding: '0.875rem 2rem', background: 'var(--accent)', color: '#fff', borderRadius: '0.75rem', textDecoration: 'none', fontWeight: 700, fontSize: '1rem', boxShadow: '0 10px 15px -3px var(--accent-soft)', transition: 'transform 0.2s' }}>
-                Vào ngân hàng đề
-            </Link>
-            <Link to="/exams/lich-su" style={{ padding: '0.875rem 2rem', background: 'var(--bg-surface)', border: '1px solid var(--border)', color: 'var(--text-primary)', borderRadius: '0.75rem', textDecoration: 'none', fontWeight: 600, fontSize: '1rem', transition: 'background 0.2s' }}>
-                Xem lịch sử luyện thi
-            </Link>
-        </div>
+    <section className="exam-home-hero">
+      <div className="exam-home-eyebrow">
+        <BookOpenCheck aria-hidden="true" size={17} />
+        Chuyên đề ôn thi THPT Quốc gia
+      </div>
+      <h1>Luyện đề thi THPT môn Lịch sử</h1>
+      <p className="exam-home-hero-copy">
+        Luyện đề thi thử, ôn theo chủ đề và theo dõi lịch sử làm bài từ kho đề THPT đã chuẩn hóa cho môn Lịch sử.
+        {!currentUser && <span className="exam-home-guest-note">Bạn đang truy cập ở chế độ khách.</span>}
+      </p>
+      <div className="exam-home-hero-actions">
+        <Link className="exam-focusable exam-home-cta exam-home-cta-primary" to="/exams/browse">
+          Vào ngân hàng đề
+        </Link>
+        <Link className="exam-focusable exam-home-cta exam-home-cta-secondary" to="/exams/lich-su">
+          Xem lịch sử luyện thi
+        </Link>
+      </div>
     </section>
   );
 }
