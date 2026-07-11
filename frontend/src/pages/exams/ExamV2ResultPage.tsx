@@ -71,9 +71,9 @@ function needsRetry(result: ExamResultV2): boolean {
 function Chip({ children, tone = 'default' }: { children: ReactNode; tone?: 'default' | 'success' | 'danger' | 'warning' }) {
   const colors = {
     default: ['var(--bg-surface)', 'var(--border)', 'var(--text-muted)'],
-    success: ['rgba(47,122,87,0.1)', 'rgba(47,122,87,0.28)', 'var(--success)'],
+    success: ['rgba(47,122,87,0.1)', 'rgba(47,122,87,0.28)', 'var(--exam-success)'],
     danger: ['rgba(159,29,45,0.08)', 'rgba(159,29,45,0.22)', 'var(--danger)'],
-    warning: ['rgba(194,155,75,0.12)', 'rgba(194,155,75,0.28)', 'var(--warning)'],
+    warning: ['rgba(194,155,75,0.12)', 'rgba(194,155,75,0.28)', 'var(--exam-warning)'],
   }[tone];
 
   return (
@@ -391,7 +391,7 @@ function MCQReviewCard({ question, result, index }: { question: MCQQuestion; res
   const selected = result.mcq?.selected ?? null;
   const correct = result.mcq?.correct ?? question.correctOptionId;
   const statusTone = selected == null ? 'warning' : result.isCorrect ? 'success' : 'danger';
-  const statusText = selected == null ? 'Bỏ trống' : result.isCorrect ? 'Đúng' : 'Sai';
+  const statusText = selected == null ? 'Chưa trả lời' : result.isCorrect ? 'Trả lời đúng' : 'Trả lời sai';
 
   return (
     <article style={{ background: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: '1rem', padding: '1.25rem' }}>
@@ -457,6 +457,7 @@ function TFStatementRow({ statement, result }: { statement: TFStatement; result:
   const selected = result.tf?.selected?.[statement.id] ?? null;
   const correct = result.tf?.correct?.[statement.id] ?? statement.isTrue;
   const isBlank = selected == null;
+  const statusText = isBlank ? 'Chưa trả lời' : selected === correct ? 'Trả lời đúng' : 'Trả lời sai';
   const isCorrect = selected === correct;
   const border = isBlank ? 'var(--border)' : isCorrect ? 'rgba(47,122,87,0.35)' : 'rgba(159,29,45,0.32)';
   const background = isBlank ? 'var(--bg-surface)' : isCorrect ? 'rgba(47,122,87,0.08)' : 'rgba(159,29,45,0.07)';
@@ -479,6 +480,7 @@ function TFStatementRow({ statement, result }: { statement: TFStatement; result:
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', paddingLeft: '2.25rem' }}>
         <Chip tone={isBlank ? 'warning' : isCorrect ? 'success' : 'danger'}>Bạn chọn: {tfAnswerLabel(selected)}</Chip>
         <Chip tone="success">Đáp án đúng: {tfAnswerLabel(correct)}</Chip>
+        <Chip tone={isBlank ? 'warning' : isCorrect ? 'success' : 'danger'}>{statusText}</Chip>
       </div>
     </div>
   );

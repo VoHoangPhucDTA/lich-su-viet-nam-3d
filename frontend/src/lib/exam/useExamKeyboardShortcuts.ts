@@ -59,6 +59,7 @@ export function useExamKeyboardShortcuts({
 
       const target = getShortcutTarget(event);
       if (isTextEditingTarget(target)) return;
+      if (isActivationTarget(target)) return;
 
       if (event.key === 'ArrowRight' && onNext) {
         event.preventDefault();
@@ -73,7 +74,6 @@ export function useExamKeyboardShortcuts({
       }
 
       if (event.key === 'Enter' && onEnter) {
-        if (isActivationTarget(target)) return;
         event.preventDefault();
         onEnter();
         return;

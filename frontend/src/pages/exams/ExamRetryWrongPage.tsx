@@ -6,6 +6,7 @@ import { useCallback, useEffect, useMemo, useState, type CSSProperties } from 'r
 import { Link, useParams } from 'react-router-dom';
 import { loadExam } from '@/lib/exam/examLoader';
 import { useExamKeyboardShortcuts } from '@/lib/exam/useExamKeyboardShortcuts';
+import { handleRadioGroupKeyDown } from '@/lib/exam/radioGroupKeyboard';
 import { readResultFromLS } from '@/lib/exam/useSessionV2';
 import {
   flattenExamQuestions,
@@ -106,9 +107,9 @@ function tfChoiceButtonStyle(current: boolean | null, value: boolean, checked: b
 function chipStyle(tone: 'default' | 'success' | 'danger' | 'warning' = 'default'): CSSProperties {
   const colors = {
     default: ['var(--bg-surface)', 'var(--border)', 'var(--text-muted)'],
-    success: ['rgba(47,122,87,0.1)', 'rgba(47,122,87,0.3)', 'var(--success)'],
+    success: ['rgba(47,122,87,0.1)', 'rgba(47,122,87,0.3)', 'var(--exam-success)'],
     danger: ['rgba(159,29,45,0.08)', 'rgba(159,29,45,0.26)', 'var(--danger)'],
-    warning: ['rgba(194,155,75,0.12)', 'rgba(194,155,75,0.32)', 'var(--warning)'],
+    warning: ['rgba(194,155,75,0.12)', 'rgba(194,155,75,0.32)', 'var(--exam-warning)'],
   }[tone];
 
   return {
@@ -157,7 +158,7 @@ function MCQRetryCard({
       </div>
       <h2 style={questionTitleStyle}>{question.questionText}</h2>
 
-      <div style={{ display: 'grid', gap: '0.65rem', marginTop: '1rem' }}>
+      <div role="radiogroup" aria-label="Chọn đáp án" style={{ display: 'grid', gap: '0.65rem', marginTop: '1rem' }}>
         {question.options.map((option) => {
           const isSelected = selected === option.id;
           const isAnswer = option.id === question.correctOptionId;
@@ -168,8 +169,14 @@ function MCQRetryCard({
             <button
               key={option.id}
               type="button"
+              role="radio"
+              aria-checked={isSelected}
+              aria-label={`Đáp án ${option.id}: ${option.text}${isSelected ? ', đang chọn' : ''}`}
+              tabIndex={selected ? (isSelected ? 0 : -1) : option.id === question.options[0]?.id ? 0 : -1}
               disabled={checked}
+              onKeyDown={(event) => handleRadioGroupKeyDown(event, question.options.map((item) => item.id), option.id, onSelect, checked)}
               onClick={() => onSelect(option.id)}
+              className="exam-focusable"
               style={{
                 border: `1px solid ${border}`,
                 background,
@@ -241,13 +248,16 @@ function TFRetryCard({
                 <strong style={{ color: 'var(--text-muted)' }}>{statement.id})</strong>
                 <span style={{ flex: 1, lineHeight: 1.55, color: 'var(--text-primary)' }}>{statement.text}</span>
               </div>
-              <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginTop: '0.75rem', paddingLeft: '1.8rem' }}>
+              <div role="group" aria-label={`Lựa chọn cho ý ${statement.id}`} style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginTop: '0.75rem', paddingLeft: '1.8rem' }}>
                 {[true, false].map((value) => (
                   <button
                     key={`${statement.id}-${value}`}
                     type="button"
+                    aria-pressed={current === value}
+                    aria-label={`Chọn ${value ? 'Đúng' : 'Sai'} cho ý ${statement.id}`}
                     disabled={checked}
                     onClick={() => onSelect(statement.id, value)}
+                    className="exam-focusable"
                     style={{
                       ...tfChoiceButtonStyle(current, value, checked, statement.isTrue),
                       padding: '0.45rem 0.8rem',

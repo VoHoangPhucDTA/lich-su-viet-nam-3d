@@ -32,6 +32,12 @@
   --warning-soft: rgba(197, 160, 89, 0.1);
   --danger: #8b1e1e;
   --danger-soft: #fef2f2;
+  --exam-selection: #2563eb;
+  --exam-selection-soft: #eff6ff;
+  --exam-focus-ring: #1d4ed8;
+  --exam-muted: #57534e;
+  --exam-success: #286347;
+  --exam-warning: #72510d;
   --shadow: 0 8px 24px -12px rgba(0,0,0,0.1);
   --shadow-sm: 0 2px 8px rgba(0,0,0,0.06);
   --shadow-glow: 0 0 16px rgba(139,30,30,0.15);
@@ -52,6 +58,11 @@
   --color-surface-2: #f5f5f4;
   --color-surface-3: #ffffff;
   --color-border: #e7e5e4;
+}
+
+.exam-focusable:focus-visible {
+  outline: 3px solid var(--exam-focus-ring);
+  outline-offset: 3px;
 }
 
 /* ─── Tailwind theme extension ──────────────────────────────────────────── */

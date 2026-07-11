@@ -4,7 +4,7 @@
  *  - Session mode (reviewMode=false): chọn đáp án
  *  - Review mode (reviewMode=true): hiển thị đúng/sai, disable click
  */
-import type { CSSProperties } from 'react';
+import { useId, useRef, type CSSProperties, type KeyboardEvent } from 'react';
 import type { MCQQuestion, QuestionResult } from '@/types/exam';
 import ExamOptionCard from './ExamOptionCard';
 
@@ -43,6 +43,21 @@ export default function MCQQuestionCardV2({
   result,
 }: MCQQuestionCardV2Props) {
   const correctId = question.correctOptionId;
+  const questionId = useId();
+  const optionRefs = useRef<Array<HTMLButtonElement | null>>([]);
+
+  function handleOptionKeyDown(event: KeyboardEvent<HTMLButtonElement>, optionIndex: number) {
+    if (reviewMode) return;
+    const keys = ['ArrowDown', 'ArrowRight', 'ArrowUp', 'ArrowLeft', 'Home', 'End'];
+    if (!keys.includes(event.key)) return;
+    event.preventDefault();
+    event.stopPropagation();
+    const nextIndex = event.key === 'Home' ? 0 : event.key === 'End' ? question.options.length - 1 :
+      (optionIndex + (event.key === 'ArrowDown' || event.key === 'ArrowRight' ? 1 : -1) + question.options.length) % question.options.length;
+    const next = question.options[nextIndex];
+    if (next) onSelectOption(next.id);
+    optionRefs.current[nextIndex]?.focus();
+  }
 
   function getReviewStyle(optId: 'A' | 'B' | 'C' | 'D'): CSSProperties {
     if (!reviewMode) return {};
@@ -52,8 +67,8 @@ export default function MCQQuestionCardV2({
     if (isCorrect) {
       return {
         background: 'rgba(47,122,87,0.15)',
-        border: '2px solid var(--success)',
-        color: 'var(--success)',
+        border: '2px solid var(--exam-success)',
+        color: 'var(--exam-success)',
       };
     }
     if (isSelected && !isCorrect) {
@@ -135,7 +150,7 @@ export default function MCQQuestionCardV2({
       </div>
 
       {/* Question text */}
-      <p
+      <p id={questionId}
         style={{
           fontSize: '1rem',
           lineHeight: 1.75,
@@ -211,7 +226,7 @@ export default function MCQQuestionCardV2({
           )}
         </div>
       ) : (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+        <div role="radiogroup" aria-labelledby={questionId} style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
           {question.options.map((opt) => (
             <ExamOptionCard
               key={opt.id}
@@ -219,6 +234,9 @@ export default function MCQQuestionCardV2({
               text={opt.text}
               selected={selectedOptionId === opt.id}
               onClick={() => onSelectOption(opt.id)}
+              buttonRef={(node) => { optionRefs.current[question.options.findIndex((item) => item.id === opt.id)] = node; }}
+              tabIndex={selectedOptionId === null ? (opt.id === question.options[0]?.id ? 0 : -1) : selectedOptionId === opt.id ? 0 : -1}
+              onKeyDown={(event) => handleOptionKeyDown(event, question.options.findIndex((item) => item.id === opt.id))}
             />
           ))}
         </div>
