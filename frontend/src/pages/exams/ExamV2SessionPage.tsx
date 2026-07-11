@@ -5,7 +5,7 @@
  * Tái sử dụng: ExamTimer, ExamSubmitDialog, ExamNavigation (type-compatible).
  * Mới: MCQQuestionCardV2, TFQuestionCard, useSessionV2.
  */
-import { useState, useCallback, useRef } from 'react';
+import { useState, useCallback, useId, useRef } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { useSessionV2 } from '@/lib/exam/useSessionV2';
 import type { QuestionDerivedState } from '@/lib/exam/questionState';
@@ -17,6 +17,7 @@ import TFQuestionCard from '../../components/exams/TFQuestionCard';
 import ExamTimer from '../../components/exams/ExamTimer';
 import ExamSubmitDialog from '../../components/exams/ExamSubmitDialog';
 import ExamNavigation from '../../components/exams/ExamNavigation';
+import ExamAnswerSheet from '../../components/exams/ExamAnswerSheet';
 
 // ── Progress Sidebar ──────────────────────────────────────────────────────────
 function ProgressSidebar({
@@ -180,7 +181,11 @@ export default function ExamV2SessionPage() {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [isTimeUp, setIsTimeUp] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [answerSheetOpen, setAnswerSheetOpen] = useState(false);
   const submitStartedRef = useRef(false);
+  const questionTopRef = useRef<HTMLDivElement>(null);
+  const answerSheetTriggerRef = useRef<HTMLButtonElement>(null);
+  const answerSheetId = useId();
 
   const {
     exam,
@@ -227,13 +232,21 @@ export default function ExamV2SessionPage() {
 
   const handleTimerTick = useCallback(() => {}, []);
 
+  const navigateToQuestion = useCallback((index: number) => {
+    handleNavigate(index);
+    window.requestAnimationFrame(() => {
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      questionTopRef.current?.scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth', block: 'start' });
+    });
+  }, [handleNavigate]);
+
   const goToPreviousQuestion = useCallback(() => {
-    if (currentIndex > 0) handleNavigate(currentIndex - 1);
-  }, [currentIndex, handleNavigate]);
+    if (currentIndex > 0) navigateToQuestion(currentIndex - 1);
+  }, [currentIndex, navigateToQuestion]);
 
   const goToNextQuestion = useCallback(() => {
-    if (currentIndex < flatQuestions.length - 1) handleNavigate(currentIndex + 1);
-  }, [currentIndex, flatQuestions.length, handleNavigate]);
+    if (currentIndex < flatQuestions.length - 1) navigateToQuestion(currentIndex + 1);
+  }, [currentIndex, flatQuestions.length, navigateToQuestion]);
 
   const toggleCurrentFlag = useCallback(() => {
     if (currentQuestion) handleToggleFlag(currentQuestion.id);
@@ -413,7 +426,18 @@ export default function ExamV2SessionPage() {
         }}
       >
         {/* Question area */}
-        <div style={{ flex: '1 1 500px', display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+        <div style={{ flex: '1 1 500px', display: 'flex', flexDirection: 'column', gap: '1.5rem', minWidth: 0 }}>
+          <div ref={questionTopRef} style={{ scrollMarginTop: '5rem' }} />
+          <button
+            ref={answerSheetTriggerRef}
+            type="button"
+            className="exam-answer-sheet-trigger"
+            aria-expanded={answerSheetOpen}
+            aria-controls={answerSheetId}
+            onClick={() => setAnswerSheetOpen(true)}
+          >
+            Phiếu trả lời · {completedCount}/{flatQuestions.length}
+          </button>
           {isMCQQuestion(currentQuestion) && (
             <MCQQuestionCardV2
               question={currentQuestion}
@@ -445,7 +469,7 @@ export default function ExamV2SessionPage() {
           <ExamNavigation
             currentIndex={currentIndex}
             total={flatQuestions.length}
-            onNavigate={handleNavigate}
+            onNavigate={navigateToQuestion}
             questionState={currentQuestionState}
             onToggleFlag={() => handleToggleFlag(currentQuestion.id)}
             onClearSelection={() => handleClearAnswer(currentQuestion.id)}
@@ -458,15 +482,32 @@ export default function ExamV2SessionPage() {
         </div>
 
         {/* Progress sidebar */}
-        <div style={{ flex: '0 0 260px', position: 'sticky', top: '5rem' }}>
+        <div className="exam-desktop-sidebar" style={{ flex: '0 0 260px', position: 'sticky', top: '5rem' }}>
           <ProgressSidebar
             flatQuestions={flatQuestions}
             currentIndex={currentIndex}
             questionStates={questionStates}
-            onNavigate={handleNavigate}
+            onNavigate={navigateToQuestion}
           />
         </div>
       </main>
+
+      <ExamAnswerSheet
+        id={answerSheetId}
+        isOpen={answerSheetOpen}
+        onClose={() => setAnswerSheetOpen(false)}
+        triggerRef={answerSheetTriggerRef}
+      >
+        <ProgressSidebar
+          flatQuestions={flatQuestions}
+          currentIndex={currentIndex}
+          questionStates={questionStates}
+          onNavigate={(index) => {
+            setAnswerSheetOpen(false);
+            navigateToQuestion(index);
+          }}
+        />
+      </ExamAnswerSheet>
 
       {/* ── Submit dialog ─────────────────────────────────────────────────── */}
       <ExamSubmitDialog
@@ -500,8 +541,59 @@ export default function ExamV2SessionPage() {
             gap: 0.5rem !important;
             min-width: 0;
           }
-          main { flex-direction: column-reverse !important; }
-          main > div:last-child { position: static !important; flex: 1 1 100% !important; }
+          main { flex-direction: column !important; padding: 1rem !important; }
+          .exam-desktop-sidebar { display: none !important; }
+          .exam-answer-sheet-trigger {
+            display: inline-flex !important;
+            align-items: center;
+            justify-content: center;
+            align-self: flex-start;
+            padding: 0.65rem 0.9rem;
+            border: 1px solid var(--accent);
+            border-radius: 0.75rem;
+            background: var(--accent-soft);
+            color: var(--accent);
+            font-weight: 800;
+            cursor: pointer;
+          }
+        }
+        .exam-answer-sheet-trigger { display: none; }
+        .exam-answer-sheet-overlay {
+          position: fixed;
+          inset: 0;
+          z-index: 90;
+          display: flex;
+          align-items: end;
+          background: rgba(15, 23, 42, 0.55);
+          padding: 0.75rem;
+        }
+        .exam-answer-sheet-panel {
+          width: min(100%, 34rem);
+          max-height: min(78vh, 42rem);
+          overflow-y: auto;
+          margin: 0 auto;
+          padding: 1rem;
+          border: 1px solid var(--border);
+          border-radius: 1rem 1rem 0.75rem 0.75rem;
+          background: var(--bg-card);
+          box-shadow: var(--shadow);
+        }
+        .exam-answer-sheet-header {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 1rem;
+          margin-bottom: 1rem;
+        }
+        .exam-answer-sheet-header h2 { margin: 0; font-size: 1rem; }
+        .exam-answer-sheet-header button {
+          padding: 0.5rem 0.75rem;
+          border: 1px solid var(--border);
+          border-radius: 0.5rem;
+          background: var(--bg-surface);
+          color: var(--text-primary);
+          font-weight: 700;
+          cursor: pointer;
         }
       `}</style>
     </div>

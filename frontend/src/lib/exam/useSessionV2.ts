@@ -263,7 +263,6 @@ export function useSessionV2(examId: string | undefined): UseSessionV2Return {
       writeSessionToLS(next);
       return next;
     });
-    window.scrollTo({ top: 0, behavior: 'smooth' });
   }, []);
 
   const handleSubmit = useCallback((): ExamResultV2 | null => {
