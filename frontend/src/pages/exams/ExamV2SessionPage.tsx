@@ -53,14 +53,13 @@ function ProgressSidebar({
       position: 'relative',
       border: '2px solid',
       transition: 'all 0.12s',
-      outline: isCurrent ? '2px solid var(--accent)' : undefined,
-      outlineOffset: '1px',
+      boxShadow: isCurrent ? 'inset 0 0 0 2px var(--exam-focus-ring)' : undefined,
     };
 
     if (state?.isComplete)
-      return { ...base, background: 'var(--accent-soft)', borderColor: 'var(--accent)', color: 'var(--accent)' };
+      return { ...base, background: 'var(--exam-selection-soft)', borderColor: 'var(--exam-selection)', color: 'var(--exam-selection)' };
     if (state?.hasAnyAnswer)
-      return { ...base, background: 'var(--warning-soft)', borderColor: 'var(--warning)', color: 'var(--warning)' };
+      return { ...base, background: 'var(--warning-soft)', borderColor: 'var(--exam-warning)', color: 'var(--exam-warning)' };
     return { ...base, background: 'var(--bg-surface)', borderColor: 'var(--border)', color: 'var(--text-muted)' };
   }
 
@@ -96,6 +95,9 @@ function ProgressSidebar({
             key={i}
             type="button"
             aria-label={questionAriaLabel(i)}
+            aria-current={questionStates[flatQuestions[i]?.id]?.isCurrent ? 'step' : undefined}
+            title={questionAriaLabel(i)}
+            className="exam-focusable"
             onClick={() => onNavigate(i)}
             style={boxStyle(i)}
           >
@@ -116,6 +118,9 @@ function ProgressSidebar({
                 key={i}
                 type="button"
                 aria-label={questionAriaLabel(idx)}
+                aria-current={questionStates[flatQuestions[idx]?.id]?.isCurrent ? 'step' : undefined}
+                title={questionAriaLabel(idx)}
+                className="exam-focusable"
                 onClick={() => onNavigate(idx)}
                 style={{ ...boxStyle(idx), width: '2.5rem', position: 'relative' }}
               >
@@ -131,15 +136,15 @@ function ProgressSidebar({
       <div style={{ display: 'flex', flexDirection: 'column', gap: '0.3rem' }}>
         {(
           [
-            ['var(--accent)', 'Đã hoàn thành'],
-            ['var(--warning)', 'Đang làm dở'],
-            ['var(--warning)', 'Xem lại sau'],
+            ['var(--exam-selection)', 'Đã hoàn thành'],
+            ['var(--exam-warning)', 'Đang làm dở'],
+            ['var(--exam-warning)', 'Xem lại sau'],
             ['var(--border)', 'Chưa làm'],
           ] as [string, string][]
         ).map(([color, label]) => (
           <div
             key={label}
-            style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.72rem', color: 'var(--text-muted)' }}
+            style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.75rem', color: 'var(--exam-muted)', fontWeight: 600 }}
           >
             <div
               style={{

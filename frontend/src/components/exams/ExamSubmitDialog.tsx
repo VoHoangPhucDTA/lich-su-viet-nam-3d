@@ -138,7 +138,8 @@ export default function ExamSubmitDialog({
                       type="button"
                       disabled={isSubmitting}
                       onClick={handleCancel}
-                      style={{ flex: 1, padding: '0.75rem', background: 'transparent', border: '1px solid #475569', borderRadius: '0.5rem', color: '#cbd5e1', cursor: 'pointer', fontWeight: 600 }}
+                      className="exam-focusable"
+                      style={{ flex: 1, padding: '0.75rem', background: 'var(--bg-surface)', border: '1px solid var(--border-strong)', borderRadius: '0.5rem', color: 'var(--text-primary)', cursor: 'pointer', fontWeight: 700 }}
                     >
                         Quay lại làm tiếp
                     </button>
@@ -148,6 +149,7 @@ export default function ExamSubmitDialog({
                   type="button"
                   disabled={isSubmitting}
                   onClick={handleConfirm}
+                  className="exam-focusable"
                   style={{ flex: 1, padding: '0.75rem', background: '#2f7a57', border: 'none', borderRadius: '0.5rem', color: '#fff', cursor: 'pointer', fontWeight: 600, boxShadow: '0 4px 6px -1px rgba(47,122,87,0.3)' }}
                 >
                     {isSubmitting ? 'Đang nộp...' : isTimeUp ? 'Đồng ý nộp bài' : 'Xác nhận nộp'}

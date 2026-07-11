@@ -5,7 +5,7 @@
  *  - Review mode: hiển thị kết quả đúng/sai, disable click
  *
  */
-import type { CSSProperties } from 'react';
+import { useId, type CSSProperties } from 'react';
 import type { TFQuestion, QuestionResult } from '@/types/exam';
 import { TF_LADDER_SCORES } from '@/lib/exam/examConstants';
 
@@ -30,6 +30,7 @@ function TFToggle({
   color,
   disabled,
   onClick,
+  statementLabel,
 }: {
   value: boolean;
   label: string;
@@ -37,6 +38,7 @@ function TFToggle({
   color: string;
   disabled: boolean;
   onClick: () => void;
+  statementLabel: string;
 }) {
   const baseStyle: CSSProperties = {
     padding: '0.3rem 0.7rem',
@@ -55,12 +57,12 @@ function TFToggle({
   };
   return (
     <button
-      className="tf-toggle"
+      className="tf-toggle exam-focusable"
       type="button"
       disabled={disabled}
       onClick={onClick}
       aria-pressed={active}
-      aria-label={`${label}: ${value ? 'Đúng' : 'Sai'}`}
+      aria-label={`Chọn ${value ? 'Đúng' : 'Sai'} cho ${statementLabel}`}
       style={baseStyle}
     >
       {label}
@@ -77,6 +79,7 @@ export default function TFQuestionCard({
   reviewMode = false,
   result,
 }: TFQuestionCardProps) {
+  const cardId = useId();
   const correctMap = Object.fromEntries(
     question.statements.map((s) => [s.id, s.isTrue])
   ) as Record<StmtId, boolean>;
@@ -199,9 +202,9 @@ export default function TFQuestionCard({
             ? result?.tf?.selected[id] ?? null
             : selected[id];
           const selectedTone = !reviewMode
-            ? 'var(--accent)'
+            ? 'var(--exam-selection)'
             : selVal === correctMap[id]
-              ? 'var(--success)'
+              ? 'var(--exam-success)'
               : 'var(--danger)';
 
           return (
@@ -215,7 +218,6 @@ export default function TFQuestionCard({
                 ...reviewStyle,
               }}
             >
-              {/* Label */}
               <div
                 style={{
                   width: '1.75rem',
@@ -237,7 +239,7 @@ export default function TFQuestionCard({
               </div>
 
               {/* Statement text */}
-              <p
+              <p id={`${cardId}-${id}`}
                 style={{
                   flex: 1,
                   margin: 0,
@@ -252,7 +254,7 @@ export default function TFQuestionCard({
                     style={{
                       marginLeft: '0.5rem',
                       fontSize: '0.75rem',
-                      color: correctMap[id] ? 'var(--success)' : 'var(--danger)',
+                      color: correctMap[id] ? 'var(--exam-success)' : 'var(--danger)',
                       fontWeight: 600,
                     }}
                   >
@@ -264,6 +266,8 @@ export default function TFQuestionCard({
               {/* Toggle buttons */}
               <div
                 className="tf-statement-controls"
+                role="group"
+                aria-labelledby={`${cardId}-${id}`}
                 style={{ display: 'flex', gap: '0.4rem', flexShrink: 0 }}
               >
                 <TFToggle
@@ -273,6 +277,7 @@ export default function TFQuestionCard({
                   color={selectedTone}
                   disabled={reviewMode}
                   onClick={() => handleToggle(id, true)}
+                  statementLabel={`ý ${id}`}
                 />
                 <TFToggle
                   value={false}
@@ -281,6 +286,7 @@ export default function TFQuestionCard({
                   color={selectedTone}
                   disabled={reviewMode}
                   onClick={() => handleToggle(id, false)}
+                  statementLabel={`ý ${id}`}
                 />
               </div>
             </div>
