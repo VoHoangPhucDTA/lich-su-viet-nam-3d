@@ -27,6 +27,7 @@ interface MCQQuestionCardV2Props {
   selectedOptionId: 'A' | 'B' | 'C' | 'D' | null;
   onSelectOption: (id: 'A' | 'B' | 'C' | 'D') => void;
   reviewMode?: boolean;
+  showLearningMetadata?: boolean;
   /** Cần có khi reviewMode=true để tô màu đúng/sai. */
   result?: QuestionResult;
 }
@@ -38,6 +39,7 @@ export default function MCQQuestionCardV2({
   selectedOptionId,
   onSelectOption,
   reviewMode = false,
+  showLearningMetadata = true,
   result,
 }: MCQQuestionCardV2Props) {
   const correctId = question.correctOptionId;
@@ -103,7 +105,7 @@ export default function MCQQuestionCardV2({
             {' '}/ {total}
           </span>
         </div>
-        <div style={{ display: 'flex', gap: '0.4rem', flexWrap: 'wrap' }}>
+        {showLearningMetadata && <div style={{ display: 'flex', gap: '0.4rem', flexWrap: 'wrap' }}>
           <span
             style={{
               padding: '0.2rem 0.6rem',
@@ -129,7 +131,7 @@ export default function MCQQuestionCardV2({
           >
             {COGNITIVE_LABEL[question.cognitiveLevel] ?? question.cognitiveLevel}
           </span>
-        </div>
+        </div>}
       </div>
 
       {/* Question text */}

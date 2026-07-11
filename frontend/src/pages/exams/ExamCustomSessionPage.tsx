@@ -96,13 +96,15 @@ function tfChoiceButtonStyle(current: boolean | null, value: boolean, checked: b
   };
 }
 
-function QuestionMeta({ question }: { question: CustomQuestionSnapshot }) {
+function QuestionMeta({ question, showLearningMetadata = true }: { question: CustomQuestionSnapshot; showLearningMetadata?: boolean }) {
   return (
     <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.45rem' }}>
       <span style={chipStyle()}>{formatQuestionTypeLabel(question.questionType)}</span>
-      <span style={chipStyle()}>{formatDifficultyLabel(question.difficulty)}</span>
-      <span style={chipStyle()}>{formatCognitiveLevelLabel(question.cognitiveLevel)}</span>
-      {question.topic && <span style={chipStyle()}>{question.topic}</span>}
+      {showLearningMetadata && <>
+        <span style={chipStyle()}>{formatDifficultyLabel(question.difficulty)}</span>
+        <span style={chipStyle()}>{formatCognitiveLevelLabel(question.cognitiveLevel)}</span>
+        {question.topic && <span style={chipStyle()}>{question.topic}</span>}
+      </>}
     </div>
   );
 }
@@ -230,7 +232,7 @@ function MockMCQCard({
 }) {
   return (
     <div style={cardStyle}>
-      <QuestionMeta question={question} />
+      <QuestionMeta question={question} showLearningMetadata={false} />
       <h2 style={{ margin: '1rem 0 0', color: 'var(--text-primary)', fontSize: '1.05rem', lineHeight: 1.6 }}>{question.questionText}</h2>
       <div style={{ display: 'grid', gap: '0.65rem', marginTop: '1rem' }}>
         {question.options.map((option) => {
@@ -258,7 +260,7 @@ function MockTFCard({
 }) {
   return (
     <div style={cardStyle}>
-      <QuestionMeta question={question} />
+      <QuestionMeta question={question} showLearningMetadata={false} />
       <h2 style={{ margin: '1rem 0 0', color: 'var(--text-primary)', fontSize: '1.05rem', lineHeight: 1.6 }}>{question.questionText}</h2>
       <div style={{ display: 'grid', gap: '0.75rem', marginTop: '1rem' }}>
         {question.statements.map((statement) => {
