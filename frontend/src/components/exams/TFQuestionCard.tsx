@@ -40,6 +40,8 @@ function TFToggle({
 }) {
   const baseStyle: CSSProperties = {
     padding: '0.3rem 0.7rem',
+    minHeight: '44px',
+    minWidth: '4.5rem',
     borderRadius: '6px',
     fontSize: '0.8rem',
     fontWeight: 600,
@@ -53,6 +55,7 @@ function TFToggle({
   };
   return (
     <button
+      className="tf-toggle"
       type="button"
       disabled={disabled}
       onClick={onClick}
@@ -204,9 +207,8 @@ export default function TFQuestionCard({
           return (
             <div
               key={id}
+              className="tf-statement-row"
               style={{
-                display: 'flex',
-                alignItems: 'flex-start',
                 gap: '1rem',
                 padding: '0.75rem',
                 borderBottom: id !== 'd' ? '1px solid var(--border)' : 'none',
@@ -261,6 +263,7 @@ export default function TFQuestionCard({
 
               {/* Toggle buttons */}
               <div
+                className="tf-statement-controls"
                 style={{ display: 'flex', gap: '0.4rem', flexShrink: 0 }}
               >
                 <TFToggle
@@ -303,6 +306,26 @@ export default function TFQuestionCard({
           {question.explanation}
         </div>
       )}
+      <style>{`
+        .tf-statement-row {
+          display: grid;
+          grid-template-columns: auto minmax(0, 1fr) auto;
+          align-items: start;
+        }
+        @media (max-width: 768px) {
+          .tf-statement-row {
+            grid-template-columns: auto minmax(0, 1fr);
+          }
+          .tf-statement-controls {
+            grid-column: 1 / -1;
+            width: 100%;
+            margin-top: 0.15rem;
+          }
+          .tf-statement-controls .tf-toggle {
+            flex: 1;
+          }
+        }
+      `}</style>
     </div>
   );
 }
