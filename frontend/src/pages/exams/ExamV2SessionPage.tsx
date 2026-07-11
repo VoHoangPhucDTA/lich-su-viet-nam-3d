@@ -8,6 +8,7 @@
 import { useState, useCallback, useId, useRef } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { useSessionV2 } from '@/lib/exam/useSessionV2';
+import { formatExamTitle, getExamDisplayYear, getExamSourceLabel } from '@/lib/exam/examDisplay';
 import type { QuestionDerivedState } from '@/lib/exam/questionState';
 import { useExamKeyboardShortcuts } from '@/lib/exam/useExamKeyboardShortcuts';
 import { syncAttemptBestEffort } from '@/lib/exam/examAttemptSync';
@@ -179,7 +180,6 @@ export default function ExamV2SessionPage() {
   const { examId } = useParams<{ examId: string }>();
   const navigate = useNavigate();
   const [dialogOpen, setDialogOpen] = useState(false);
-  const [isTimeUp, setIsTimeUp] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [answerSheetOpen, setAnswerSheetOpen] = useState(false);
   const submitStartedRef = useRef(false);
@@ -194,7 +194,7 @@ export default function ExamV2SessionPage() {
     currentIndex,
     loading,
     error,
-    initialRemainingSeconds,
+    session,
     questionStates,
     completedCount,
     incompleteCount,
@@ -226,11 +226,8 @@ export default function ExamV2SessionPage() {
   }, [handleSubmit, navigate]);
 
   const handleTimeUpAndSubmit = useCallback(() => {
-    setIsTimeUp(true);
     executeSubmit();
   }, [executeSubmit]);
-
-  const handleTimerTick = useCallback(() => {}, []);
 
   const navigateToQuestion = useCallback((index: number) => {
     handleNavigate(index);
@@ -290,7 +287,7 @@ export default function ExamV2SessionPage() {
     );
   }
 
-  if (error || !exam || !currentQuestion) {
+  if (error || !exam || !session || !currentQuestion) {
     return (
       <div
         style={{
@@ -316,6 +313,12 @@ export default function ExamV2SessionPage() {
   // ── Compute hasSelection ─────────────────────────────────────────────────
   const currentQuestionState = questionStates[currentQuestion.id];
   const hasSelection = currentQuestionState?.hasAnyAnswer ?? false;
+  const displayTitle = formatExamTitle(exam);
+  const displayMeta = [getExamSourceLabel(exam), getExamDisplayYear(exam) || null]
+    .filter(Boolean)
+    .join(' · ');
+  const sessionDurationMinutes = Math.max(1, Math.round(session.durationSeconds / 60));
+  const deadlineMs = session.startedAt + session.durationSeconds * 1000;
 
   // ── Render ───────────────────────────────────────────────────────────────
   return (
@@ -353,21 +356,20 @@ export default function ExamV2SessionPage() {
           ← Danh sách đề
         </Link>
 
-        <span
+        <div
           className="exam-session-title"
           style={{
             flex: 1,
-            fontSize: '0.9rem',
-            fontWeight: 600,
-            color: 'var(--text-primary)',
-            overflow: 'hidden',
-            textOverflow: 'ellipsis',
-            whiteSpace: 'nowrap',
+            minWidth: 0,
+            display: 'grid',
+            gap: '0.1rem',
           }}
-          title={exam.title}
         >
-          {exam.title}
-        </span>
+          <span title={displayTitle} style={{ fontSize: '0.9rem', fontWeight: 600, color: 'var(--text-primary)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+            {displayTitle}
+          </span>
+          {displayMeta && <span style={{ fontSize: '0.72rem', color: 'var(--text-muted)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{displayMeta}</span>}
+        </div>
 
         <div className="exam-session-actions" style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
           <span
@@ -382,13 +384,12 @@ export default function ExamV2SessionPage() {
               whiteSpace: 'nowrap',
             }}
           >
-            Thi thử 50 phút
+            Thi thử {sessionDurationMinutes} phút
           </span>
 
           <ExamTimer
-            initialSeconds={initialRemainingSeconds}
+            deadlineMs={deadlineMs}
             onTimeUp={handleTimeUpAndSubmit}
-            onTick={handleTimerTick}
           />
 
           <button
@@ -445,6 +446,7 @@ export default function ExamV2SessionPage() {
               total={flatQuestions.length}
               selectedOptionId={getMCQAnswer(currentQuestion.id)?.selected ?? null}
               onSelectOption={(id) => handleMCQSelect(currentQuestion.id, id)}
+              showLearningMetadata={false}
             />
           )}
           {isTFQuestion(currentQuestion) && (
@@ -515,7 +517,6 @@ export default function ExamV2SessionPage() {
         totalQuestions={flatQuestions.length}
         answeredCount={completedCount}
         unansweredCount={incompleteCount}
-        isTimeUp={isTimeUp}
         isSubmitting={isSubmitting}
         onConfirm={executeSubmit}
         onCancel={() => setDialogOpen(false)}

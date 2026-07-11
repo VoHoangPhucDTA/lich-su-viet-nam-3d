@@ -21,7 +21,7 @@ import {
 } from '@/types/exam';
 import { loadExam } from './examLoader';
 import { scoreSession } from './scoring';
-import { EXAM_DURATION_SECONDS } from './examConstants';
+import { normalizeSessionDurationSeconds } from './examDuration';
 import { deriveQuestionState, type QuestionDerivedState } from './questionState';
 
 // ── LocalStorage helpers ───────────────────────────────────────────────────────
@@ -70,8 +70,6 @@ export interface UseSessionV2Return {
   currentIndex: number;
   loading: boolean;
   error: string | null;
-  /** Giây còn lại khi hook lần đầu khởi tạo. Truyền vào ExamTimer làm initialSeconds. */
-  initialRemainingSeconds: number;
   questionStates: Record<string, QuestionDerivedState>;
   completedCount: number;
   incompleteCount: number;
@@ -93,8 +91,6 @@ export function useSessionV2(examId: string | undefined): UseSessionV2Return {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [initialRemainingSeconds, setInitialRemainingSeconds] =
-    useState(EXAM_DURATION_SECONDS);
   const submittingRef = useRef(false);
 
   // ── Load đề + khởi tạo / resume session ────────────────────────────────────
@@ -113,6 +109,10 @@ export function useSessionV2(examId: string | undefined): UseSessionV2Return {
         // Resume nếu còn in-progress, bỏ qua nếu đã submitted
         let sess = readSessionFromLS(examId);
         if (sess?.status === 'submitted') sess = null;
+        const durationSeconds = normalizeSessionDurationSeconds(
+          sess?.durationSeconds,
+          examFile.timeLimitMinutes,
+        );
 
         if (!sess) {
           const allQ = flattenExamQuestions(examFile);
@@ -124,19 +124,19 @@ export function useSessionV2(examId: string | undefined): UseSessionV2Return {
             answers: {},
             flagged: [],
             startedAt: Date.now(),
-            durationSeconds: EXAM_DURATION_SECONDS,
+            durationSeconds,
             status: 'in_progress',
             currentIndex: 0,
           };
+          writeSessionToLS(sess);
+        } else if (sess.durationSeconds !== durationSeconds) {
+          sess = { ...sess, durationSeconds };
           writeSessionToLS(sess);
         }
 
         setSession(sess);
         setCurrentIndex(sess.currentIndex);
 
-        // Tính giây còn lại từ thời gian đã trôi qua
-        const elapsed = Math.floor((Date.now() - sess.startedAt) / 1000);
-        setInitialRemainingSeconds(Math.max(0, EXAM_DURATION_SECONDS - elapsed));
         setLoading(false);
       })
       .catch((e: unknown) => {
@@ -311,7 +311,6 @@ export function useSessionV2(examId: string | undefined): UseSessionV2Return {
     currentIndex,
     loading,
     error,
-    initialRemainingSeconds,
     questionStates,
     completedCount,
     incompleteCount,
