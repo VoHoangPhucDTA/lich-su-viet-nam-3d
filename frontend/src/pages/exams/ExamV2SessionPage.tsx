@@ -8,7 +8,7 @@
 import { useState, useCallback, useRef } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { useSessionV2 } from '@/lib/exam/useSessionV2';
-import type { QuestionDisplayStatus } from '@/lib/exam/useSessionV2';
+import type { QuestionDerivedState } from '@/lib/exam/questionState';
 import { useExamKeyboardShortcuts } from '@/lib/exam/useExamKeyboardShortcuts';
 import { syncAttemptBestEffort } from '@/lib/exam/examAttemptSync';
 import { isMCQQuestion, isTFQuestion } from '@/types/exam';
@@ -17,18 +17,17 @@ import TFQuestionCard from '../../components/exams/TFQuestionCard';
 import ExamTimer from '../../components/exams/ExamTimer';
 import ExamSubmitDialog from '../../components/exams/ExamSubmitDialog';
 import ExamNavigation from '../../components/exams/ExamNavigation';
-import type { ExamQuestionStatus } from '../../types/exam';
 
 // ── Progress Sidebar ──────────────────────────────────────────────────────────
 function ProgressSidebar({
   flatQuestions,
   currentIndex,
-  questionStatuses,
+  questionStates,
   onNavigate,
 }: {
   flatQuestions: ReturnType<typeof useSessionV2>['flatQuestions'];
   currentIndex: number;
-  questionStatuses: Record<string, QuestionDisplayStatus>;
+  questionStates: Record<string, QuestionDerivedState>;
   onNavigate: (i: number) => void;
 }) {
   const mcqCount = flatQuestions.filter((q) => q.questionType === 'mcq').length;
@@ -36,8 +35,8 @@ function ProgressSidebar({
   function boxStyle(idx: number): React.CSSProperties {
     const q = flatQuestions[idx];
     if (!q) return {};
-    const status = questionStatuses[q.id] ?? 'unanswered';
-    const isCurrent = idx === currentIndex;
+    const state = questionStates[q.id];
+    const isCurrent = state?.isCurrent ?? idx === currentIndex;
 
     const base: React.CSSProperties = {
       width: '2rem',
@@ -49,15 +48,16 @@ function ProgressSidebar({
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
+      position: 'relative',
       border: '2px solid',
       transition: 'all 0.12s',
-      outline: isCurrent ? '2px solid var(--accent)' : 'none',
+      outline: isCurrent ? '2px solid var(--accent)' : undefined,
       outlineOffset: '1px',
     };
 
-    if (status === 'answered')
+    if (state?.isComplete)
       return { ...base, background: 'var(--accent-soft)', borderColor: 'var(--accent)', color: 'var(--accent)' };
-    if (status === 'flagged')
+    if (state?.hasAnyAnswer)
       return { ...base, background: 'var(--warning-soft)', borderColor: 'var(--warning)', color: 'var(--warning)' };
     return { ...base, background: 'var(--bg-surface)', borderColor: 'var(--border)', color: 'var(--text-muted)' };
   }
@@ -93,11 +93,12 @@ function ProgressSidebar({
           <button
             key={i}
             type="button"
-            aria-label={`Câu ${i + 1}`}
+            aria-label={questionAriaLabel(i)}
             onClick={() => onNavigate(i)}
             style={boxStyle(i)}
           >
             {i + 1}
+            {questionStates[flatQuestions[i]?.id]?.isFlagged && <span aria-hidden="true" style={{ position: 'absolute', width: '0.35rem', height: '0.35rem', borderRadius: '50%', background: 'var(--warning)', top: '0.15rem', right: '0.15rem' }} />}
           </button>
         ))}
       </div>
@@ -112,11 +113,12 @@ function ProgressSidebar({
               <button
                 key={i}
                 type="button"
-                aria-label={`Câu ${idx + 1}`}
+                aria-label={questionAriaLabel(idx)}
                 onClick={() => onNavigate(idx)}
-                style={{ ...boxStyle(idx), width: '2.5rem' }}
+                style={{ ...boxStyle(idx), width: '2.5rem', position: 'relative' }}
               >
                 {idx + 1}
+                {questionStates[flatQuestions[idx]?.id]?.isFlagged && <span aria-hidden="true" style={{ position: 'absolute', width: '0.35rem', height: '0.35rem', borderRadius: '50%', background: 'var(--warning)', top: '0.15rem', right: '0.15rem' }} />}
               </button>
             );
           }
@@ -127,7 +129,8 @@ function ProgressSidebar({
       <div style={{ display: 'flex', flexDirection: 'column', gap: '0.3rem' }}>
         {(
           [
-            ['var(--accent)', 'Đã trả lời'],
+            ['var(--accent)', 'Đã hoàn thành'],
+            ['var(--warning)', 'Đang làm dở'],
             ['var(--warning)', 'Xem lại sau'],
             ['var(--border)', 'Chưa làm'],
           ] as [string, string][]
@@ -152,6 +155,22 @@ function ProgressSidebar({
       </div>
     </div>
   );
+
+  function questionAriaLabel(index: number): string {
+    const question = flatQuestions[index];
+    const state = question ? questionStates[question.id] : undefined;
+    if (!state) return `Câu ${index + 1}`;
+    const details = [
+      state.isCurrent ? 'đang xem' : null,
+      state.isComplete
+        ? 'đã hoàn thành'
+        : state.hasAnyAnswer
+          ? `đã trả lời ${state.answeredUnitCount} trên ${state.totalUnitCount} ý`
+          : 'chưa làm',
+      state.isFlagged ? 'đánh dấu xem lại' : null,
+    ].filter(Boolean);
+    return `Câu ${index + 1}, ${details.join(', ')}`;
+  }
 }
 
 // ── Main Page ─────────────────────────────────────────────────────────────────
@@ -171,8 +190,9 @@ export default function ExamV2SessionPage() {
     loading,
     error,
     initialRemainingSeconds,
-    questionStatuses,
-    unansweredCount,
+    questionStates,
+    completedCount,
+    incompleteCount,
     handleMCQSelect,
     handleTFSelect,
     handleClearAnswer,
@@ -281,14 +301,8 @@ export default function ExamV2SessionPage() {
   }
 
   // ── Compute hasSelection ─────────────────────────────────────────────────
-  const hasSelection = isMCQQuestion(currentQuestion)
-    ? (getMCQAnswer(currentQuestion.id)?.selected ?? null) !== null
-    : Object.values(
-        getTFAnswer(currentQuestion.id)?.selected ?? {}
-      ).some((v) => v !== null);
-
-  const currentStatus: ExamQuestionStatus =
-    (questionStatuses[currentQuestion.id] as ExamQuestionStatus) ?? 'unanswered';
+  const currentQuestionState = questionStates[currentQuestion.id];
+  const hasSelection = currentQuestionState?.hasAnyAnswer ?? false;
 
   // ── Render ───────────────────────────────────────────────────────────────
   return (
@@ -432,7 +446,7 @@ export default function ExamV2SessionPage() {
             currentIndex={currentIndex}
             total={flatQuestions.length}
             onNavigate={handleNavigate}
-            status={currentStatus}
+            questionState={currentQuestionState}
             onToggleFlag={() => handleToggleFlag(currentQuestion.id)}
             onClearSelection={() => handleClearAnswer(currentQuestion.id)}
             hasSelection={hasSelection}
@@ -448,7 +462,7 @@ export default function ExamV2SessionPage() {
           <ProgressSidebar
             flatQuestions={flatQuestions}
             currentIndex={currentIndex}
-            questionStatuses={questionStatuses}
+            questionStates={questionStates}
             onNavigate={handleNavigate}
           />
         </div>
@@ -458,8 +472,8 @@ export default function ExamV2SessionPage() {
       <ExamSubmitDialog
         isOpen={dialogOpen}
         totalQuestions={flatQuestions.length}
-        answeredCount={flatQuestions.length - unansweredCount}
-        unansweredCount={unansweredCount}
+        answeredCount={completedCount}
+        unansweredCount={incompleteCount}
         isTimeUp={isTimeUp}
         isSubmitting={isSubmitting}
         onConfirm={executeSubmit}

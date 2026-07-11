@@ -22,6 +22,7 @@ import {
 import { loadExam } from './examLoader';
 import { scoreSession } from './scoring';
 import { EXAM_DURATION_SECONDS } from './examConstants';
+import { deriveQuestionState, type QuestionDerivedState } from './questionState';
 
 // ── LocalStorage helpers ───────────────────────────────────────────────────────
 const lsSessionKey = (examId: string) => `v2_session_${examId}`;
@@ -61,8 +62,6 @@ function makeSessionId(): string {
 }
 
 // ── Public types ───────────────────────────────────────────────────────────────
-export type QuestionDisplayStatus = 'unanswered' | 'answered' | 'flagged';
-
 export interface UseSessionV2Return {
   exam: ExamFile | null;
   session: SessionState | null;
@@ -73,9 +72,10 @@ export interface UseSessionV2Return {
   error: string | null;
   /** Giây còn lại khi hook lần đầu khởi tạo. Truyền vào ExamTimer làm initialSeconds. */
   initialRemainingSeconds: number;
-  questionStatuses: Record<string, QuestionDisplayStatus>;
-  answeredCount: number;
-  unansweredCount: number;
+  questionStates: Record<string, QuestionDerivedState>;
+  completedCount: number;
+  incompleteCount: number;
+  partialCount: number;
   handleMCQSelect: (questionId: string, optionId: 'A' | 'B' | 'C' | 'D') => void;
   handleTFSelect: (questionId: string, stmtId: 'a' | 'b' | 'c' | 'd', value: boolean | null) => void;
   handleClearAnswer: (questionId: string) => void;
@@ -154,27 +154,24 @@ export function useSessionV2(examId: string | undefined): UseSessionV2Return {
   const flatQuestions: Question[] = exam ? flattenExamQuestions(exam) : [];
   const currentQuestion: Question | null = flatQuestions[currentIndex] ?? null;
 
-  const questionStatuses: Record<string, QuestionDisplayStatus> = {};
+  const questionStates: Record<string, QuestionDerivedState> = {};
   if (session) {
-    for (const q of flatQuestions) {
-      const isFlagged = session.flagged.includes(q.id);
-      const ans = session.answers[q.id];
-      const hasAnswer =
-        ans !== undefined &&
-        (ans.questionType === 'mcq'
-          ? ans.selected !== null
-          : Object.values(ans.selected).some((v) => v !== null));
-
-      if (isFlagged) questionStatuses[q.id] = 'flagged';
-      else if (hasAnswer) questionStatuses[q.id] = 'answered';
-      else questionStatuses[q.id] = 'unanswered';
+    for (const [index, question] of flatQuestions.entries()) {
+      questionStates[question.id] = deriveQuestionState(
+        question,
+        session.answers[question.id],
+        session.flagged.includes(question.id),
+        index === currentIndex,
+      );
     }
   }
 
-  const answeredCount = Object.values(questionStatuses).filter(
-    (s) => s === 'answered'
+  const derivedStates = Object.values(questionStates);
+  const completedCount = derivedStates.filter((state) => state.isComplete).length;
+  const incompleteCount = flatQuestions.length - completedCount;
+  const partialCount = derivedStates.filter(
+    (state) => state.hasAnyAnswer && !state.isComplete,
   ).length;
-  const unansweredCount = flatQuestions.length - answeredCount;
 
   // ── Handlers ──────────────────────────────────────────────────────────────
   const handleMCQSelect = useCallback(
@@ -316,9 +313,10 @@ export function useSessionV2(examId: string | undefined): UseSessionV2Return {
     loading,
     error,
     initialRemainingSeconds,
-    questionStatuses,
-    answeredCount,
-    unansweredCount,
+    questionStates,
+    completedCount,
+    incompleteCount,
+    partialCount,
     handleMCQSelect,
     handleTFSelect,
     handleClearAnswer,

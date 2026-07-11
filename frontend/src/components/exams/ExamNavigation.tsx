@@ -1,10 +1,13 @@
+import type { QuestionDerivedState } from '@/lib/exam/questionState';
 import type { ExamQuestionStatus } from '../../types/exam';
 
 interface NavigationProps {
   currentIndex: number;
   total: number;
   onNavigate: (index: number) => void;
-  status: ExamQuestionStatus;
+  questionState?: QuestionDerivedState;
+  /** V1 legacy compatibility. V2 passes questionState instead. */
+  status?: ExamQuestionStatus;
   onToggleFlag: () => void;
   onClearSelection: () => void;
   hasSelection: boolean;
@@ -12,8 +15,8 @@ interface NavigationProps {
   isSubmitting?: boolean;
 }
 
-export default function ExamNavigation({ currentIndex, total, onNavigate, status, onToggleFlag, onClearSelection, hasSelection, onSubmit, isSubmitting = false }: NavigationProps) {
-  const isFlagged = status === 'flagged';
+export default function ExamNavigation({ currentIndex, total, onNavigate, questionState, status, onToggleFlag, onClearSelection, hasSelection, onSubmit, isSubmitting = false }: NavigationProps) {
+  const isFlagged = questionState?.isFlagged ?? status === 'flagged';
   const isLastQuestion = currentIndex === total - 1;
 
   return (
