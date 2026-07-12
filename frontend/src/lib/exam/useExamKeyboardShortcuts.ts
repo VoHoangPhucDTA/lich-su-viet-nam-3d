@@ -3,8 +3,8 @@ import { useEffect, useRef } from 'react';
 interface ExamKeyboardShortcutsOptions {
   onNext?: () => void;
   onPrevious?: () => void;
-  onEnter?: () => void;
   onFlag?: () => void;
+  onShowHelp?: () => void;
   disabled?: boolean;
 }
 
@@ -14,25 +14,18 @@ function getShortcutTarget(event: KeyboardEvent): HTMLElement | null {
   return null;
 }
 
-function isTextEditingTarget(target: HTMLElement | null): boolean {
+function isInteractiveTarget(target: HTMLElement | null): boolean {
   if (!target) return false;
-  const tagName = target.tagName.toLowerCase();
-  if (tagName === 'input' || tagName === 'textarea' || tagName === 'select') return true;
-  if (target.isContentEditable) return true;
-  return Boolean(target.closest('[contenteditable="true"]'));
-}
-
-function isActivationTarget(target: HTMLElement | null): boolean {
-  if (!target) return false;
-  const tagName = target.tagName.toLowerCase();
-  return tagName === 'button' || tagName === 'a' || Boolean(target.closest('button,a'));
+  return Boolean(target.closest(
+    'button,a,input,select,textarea,[contenteditable="true"],[role="radio"],[role="button"],[role="dialog"]',
+  ));
 }
 
 export function useExamKeyboardShortcuts({
   onNext,
   onPrevious,
-  onEnter,
   onFlag,
+  onShowHelp,
   disabled = false,
 }: ExamKeyboardShortcutsOptions) {
   const handlersRef = useRef<ExamKeyboardShortcutsOptions>({
@@ -43,23 +36,22 @@ export function useExamKeyboardShortcuts({
     handlersRef.current = {
       onNext,
       onPrevious,
-      onEnter,
       onFlag,
+      onShowHelp,
       disabled,
     };
-  }, [disabled, onEnter, onFlag, onNext, onPrevious]);
+  }, [disabled, onFlag, onNext, onPrevious, onShowHelp]);
 
   useEffect(() => {
     function handleKeyDown(event: KeyboardEvent) {
-      const { onNext, onPrevious, onEnter, onFlag, disabled } = handlersRef.current;
+      const { onNext, onPrevious, onFlag, onShowHelp, disabled } = handlersRef.current;
       if (disabled) return;
       if (event.ctrlKey || event.altKey || event.metaKey) return;
       if (event.repeat) return;
       if (event.isComposing) return;
 
       const target = getShortcutTarget(event);
-      if (isTextEditingTarget(target)) return;
-      if (isActivationTarget(target)) return;
+      if (isInteractiveTarget(target)) return;
 
       if (event.key === 'ArrowRight' && onNext) {
         event.preventDefault();
@@ -73,9 +65,9 @@ export function useExamKeyboardShortcuts({
         return;
       }
 
-      if (event.key === 'Enter' && onEnter) {
+      if (event.key === '?' && onShowHelp) {
         event.preventDefault();
-        onEnter();
+        onShowHelp();
         return;
       }
 

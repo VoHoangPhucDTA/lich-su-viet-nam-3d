@@ -1,196 +1,42 @@
 /**
- * ExamV2SessionPage – Giao diện làm bài thi thật (format thpt_2025).
+ * Timed V2 exam session orchestration.
  * Route: /exams/de/:examId
- *
- * Tái sử dụng: ExamTimer, ExamSubmitDialog, ExamNavigation (type-compatible).
- * Mới: MCQQuestionCardV2, TFQuestionCard, useSessionV2.
  */
-import { useState, useCallback, useId, useRef } from 'react';
-import { useParams, useNavigate, Link } from 'react-router-dom';
-import { useSessionV2 } from '@/lib/exam/useSessionV2';
+import { useCallback, useId, useRef, useState } from 'react';
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import ExamAnswerSheet from '@/components/exams/ExamAnswerSheet';
+import ExamNavigation from '@/components/exams/ExamNavigation';
+import ExamQuestionNavigator from '@/components/exams/ExamQuestionNavigator';
+import ExamQuestionRenderer from '@/components/exams/ExamQuestionRenderer';
+import ExamSessionHeader from '@/components/exams/ExamSessionHeader';
+import ExamShortcutHelp, { type ExamShortcutItem } from '@/components/exams/ExamShortcutHelp';
+import ExamSubmitDialog from '@/components/exams/ExamSubmitDialog';
 import { formatExamTitle, getExamDisplayYear, getExamSourceLabel } from '@/lib/exam/examDisplay';
-import type { QuestionDerivedState } from '@/lib/exam/questionState';
-import { useExamKeyboardShortcuts } from '@/lib/exam/useExamKeyboardShortcuts';
 import { syncAttemptBestEffort } from '@/lib/exam/examAttemptSync';
-import { isMCQQuestion, isTFQuestion } from '@/types/exam';
-import MCQQuestionCardV2 from '../../components/exams/MCQQuestionCardV2';
-import TFQuestionCard from '../../components/exams/TFQuestionCard';
-import ExamTimer from '../../components/exams/ExamTimer';
-import ExamSubmitDialog from '../../components/exams/ExamSubmitDialog';
-import ExamNavigation from '../../components/exams/ExamNavigation';
-import ExamAnswerSheet from '../../components/exams/ExamAnswerSheet';
+import { useExamKeyboardShortcuts } from '@/lib/exam/useExamKeyboardShortcuts';
+import { useSessionV2 } from '@/lib/exam/useSessionV2';
+import type { TFStatement } from '@/types/exam';
 
-// ── Progress Sidebar ──────────────────────────────────────────────────────────
-function ProgressSidebar({
-  flatQuestions,
-  currentIndex,
-  questionStates,
-  onNavigate,
-}: {
-  flatQuestions: ReturnType<typeof useSessionV2>['flatQuestions'];
-  currentIndex: number;
-  questionStates: Record<string, QuestionDerivedState>;
-  onNavigate: (i: number) => void;
-}) {
-  const mcqCount = flatQuestions.filter((q) => q.questionType === 'mcq').length;
+const EMPTY_TF_SELECTION: Record<TFStatement['id'], boolean | null> = {
+  a: null,
+  b: null,
+  c: null,
+  d: null,
+};
 
-  function boxStyle(idx: number): React.CSSProperties {
-    const q = flatQuestions[idx];
-    if (!q) return {};
-    const state = questionStates[q.id];
-    const isCurrent = state?.isCurrent ?? idx === currentIndex;
-
-    const base: React.CSSProperties = {
-      width: '2rem',
-      height: '2rem',
-      borderRadius: '0.375rem',
-      fontSize: '0.7rem',
-      fontWeight: 700,
-      cursor: 'pointer',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      position: 'relative',
-      border: '2px solid',
-      transition: 'all 0.12s',
-      boxShadow: isCurrent ? 'inset 0 0 0 2px var(--exam-focus-ring)' : undefined,
-    };
-
-    if (state?.isComplete)
-      return { ...base, background: 'var(--exam-selection-soft)', borderColor: 'var(--exam-selection)', color: 'var(--exam-selection)' };
-    if (state?.hasAnyAnswer)
-      return { ...base, background: 'var(--warning-soft)', borderColor: 'var(--exam-warning)', color: 'var(--exam-warning)' };
-    return { ...base, background: 'var(--bg-surface)', borderColor: 'var(--border)', color: 'var(--text-muted)' };
-  }
-
-  const sectionLabel: React.CSSProperties = {
-    fontSize: '0.7rem',
-    fontWeight: 700,
-    letterSpacing: '0.08em',
-    textTransform: 'uppercase',
-    color: 'var(--text-muted)',
-    marginBottom: '0.5rem',
-  };
-
-  return (
-    <div
-      style={{
-        background: 'var(--bg-card)',
-        borderRadius: '1rem',
-        padding: '1.25rem',
-        border: '1px solid var(--border)',
-      }}
-    >
-      <div style={sectionLabel}>Phần I - Trắc nghiệm</div>
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(6, 2rem)',
-          gap: '0.35rem',
-          marginBottom: '1rem',
-        }}
-      >
-        {Array.from({ length: mcqCount }, (_, i) => (
-          <button
-            key={i}
-            type="button"
-            aria-label={questionAriaLabel(i)}
-            aria-current={questionStates[flatQuestions[i]?.id]?.isCurrent ? 'step' : undefined}
-            title={questionAriaLabel(i)}
-            className="exam-focusable"
-            onClick={() => onNavigate(i)}
-            style={boxStyle(i)}
-          >
-            {i + 1}
-            {questionStates[flatQuestions[i]?.id]?.isFlagged && <span aria-hidden="true" style={{ position: 'absolute', width: '0.35rem', height: '0.35rem', borderRadius: '50%', background: 'var(--warning)', top: '0.15rem', right: '0.15rem' }} />}
-          </button>
-        ))}
-      </div>
-
-      <div style={sectionLabel}>Phần II - Đúng/Sai</div>
-      <div style={{ display: 'flex', gap: '0.35rem', marginBottom: '1.25rem' }}>
-        {Array.from(
-          { length: flatQuestions.length - mcqCount },
-          (_, i) => {
-            const idx = mcqCount + i;
-            return (
-              <button
-                key={i}
-                type="button"
-                aria-label={questionAriaLabel(idx)}
-                aria-current={questionStates[flatQuestions[idx]?.id]?.isCurrent ? 'step' : undefined}
-                title={questionAriaLabel(idx)}
-                className="exam-focusable"
-                onClick={() => onNavigate(idx)}
-                style={{ ...boxStyle(idx), width: '2.5rem', position: 'relative' }}
-              >
-                {idx + 1}
-                {questionStates[flatQuestions[idx]?.id]?.isFlagged && <span aria-hidden="true" style={{ position: 'absolute', width: '0.35rem', height: '0.35rem', borderRadius: '50%', background: 'var(--warning)', top: '0.15rem', right: '0.15rem' }} />}
-              </button>
-            );
-          }
-        )}
-      </div>
-
-      {/* Legend */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.3rem' }}>
-        {(
-          [
-            ['var(--exam-selection)', 'Đã hoàn thành'],
-            ['var(--exam-warning)', 'Đang làm dở'],
-            ['var(--exam-warning)', 'Xem lại sau'],
-            ['var(--border)', 'Chưa làm'],
-          ] as [string, string][]
-        ).map(([color, label]) => (
-          <div
-            key={label}
-            style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.75rem', color: 'var(--exam-muted)', fontWeight: 600 }}
-          >
-            <div
-              style={{
-                width: '0.75rem',
-                height: '0.75rem',
-                borderRadius: '2px',
-                background: color === 'var(--border)' ? 'var(--bg-surface)' : `color-mix(in srgb, ${color} 20%, transparent)`,
-                border: `1.5px solid ${color}`,
-                flexShrink: 0,
-              }}
-            />
-            {label}
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-
-  function questionAriaLabel(index: number): string {
-    const question = flatQuestions[index];
-    const state = question ? questionStates[question.id] : undefined;
-    if (!state) return `Câu ${index + 1}`;
-    const details = [
-      state.isCurrent ? 'đang xem' : null,
-      state.isComplete
-        ? 'đã hoàn thành'
-        : state.hasAnyAnswer
-          ? `đã trả lời ${state.answeredUnitCount} trên ${state.totalUnitCount} ý`
-          : 'chưa làm',
-      state.isFlagged ? 'đánh dấu xem lại' : null,
-    ].filter(Boolean);
-    return `Câu ${index + 1}, ${details.join(', ')}`;
-  }
-}
-
-// ── Main Page ─────────────────────────────────────────────────────────────────
 export default function ExamV2SessionPage() {
   const { examId } = useParams<{ examId: string }>();
   const navigate = useNavigate();
   const [dialogOpen, setDialogOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [answerSheetOpen, setAnswerSheetOpen] = useState(false);
+  const [shortcutHelpOpen, setShortcutHelpOpen] = useState(false);
   const submitStartedRef = useRef(false);
   const questionTopRef = useRef<HTMLDivElement>(null);
   const answerSheetTriggerRef = useRef<HTMLButtonElement>(null);
+  const shortcutHelpTriggerRef = useRef<HTMLButtonElement>(null);
   const answerSheetId = useId();
+  const shortcutHelpId = useId();
 
   const {
     exam,
@@ -230,10 +76,6 @@ export default function ExamV2SessionPage() {
     setIsSubmitting(false);
   }, [handleSubmit, navigate]);
 
-  const handleTimeUpAndSubmit = useCallback(() => {
-    executeSubmit();
-  }, [executeSubmit]);
-
   const navigateToQuestion = useCallback((index: number) => {
     handleNavigate(index);
     window.requestAnimationFrame(() => {
@@ -258,229 +100,71 @@ export default function ExamV2SessionPage() {
     onPrevious: goToPreviousQuestion,
     onNext: goToNextQuestion,
     onFlag: toggleCurrentFlag,
-    disabled: loading || Boolean(error) || !exam || !currentQuestion || dialogOpen || isSubmitting,
+    onShowHelp: () => setShortcutHelpOpen(true),
+    disabled: loading || Boolean(error) || !exam || !currentQuestion || dialogOpen || answerSheetOpen || shortcutHelpOpen || isSubmitting,
   });
 
-  // ── Loading / Error ──────────────────────────────────────────────────────
-  if (loading) {
-    return (
-      <div
-        style={{
-          minHeight: '100vh',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          flexDirection: 'column',
-          gap: '1rem',
-          background: 'var(--bg-app)',
-          color: 'var(--accent)',
-        }}
-      >
-        <div
-          style={{
-            width: '2rem',
-            height: '2rem',
-            border: '3px solid var(--accent-soft)',
-            borderTopColor: 'var(--accent)',
-            borderRadius: '50%',
-            animation: 'spin 1s linear infinite',
-          }}
-        />
-        <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
-        <span>Đang tải đề thi...</span>
-      </div>
-    );
-  }
+  if (loading) return <SessionLoadingState />;
 
   if (error || !exam || !session || !currentQuestion) {
-    return (
-      <div
-        style={{
-          minHeight: '100vh',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          background: 'var(--bg-app)',
-        }}
-      >
-        <div style={{ textAlign: 'center' }}>
-          <h2 style={{ color: 'var(--danger)', marginBottom: '1rem' }}>
-            {error ?? 'Không tải được đề thi'}
-          </h2>
-          <Link to="/exams/browse" style={{ color: 'var(--accent)' }}>
-            ← Về danh sách đề
-          </Link>
-        </div>
-      </div>
-    );
+    return <SessionErrorState message={error ?? 'Không tải được đề thi'} />;
   }
 
-  // ── Compute hasSelection ─────────────────────────────────────────────────
   const currentQuestionState = questionStates[currentQuestion.id];
-  const hasSelection = currentQuestionState?.hasAnyAnswer ?? false;
   const displayTitle = formatExamTitle(exam);
-  const displayMeta = [getExamSourceLabel(exam), getExamDisplayYear(exam) || null]
-    .filter(Boolean)
-    .join(' · ');
-  const sessionDurationMinutes = Math.max(1, Math.round(session.durationSeconds / 60));
+  const displayMeta = [getExamSourceLabel(exam), getExamDisplayYear(exam) || null].filter(Boolean).join(' · ');
+  const durationMinutes = Math.max(1, Math.round(session.durationSeconds / 60));
   const deadlineMs = session.startedAt + session.durationSeconds * 1000;
 
-  // ── Render ───────────────────────────────────────────────────────────────
   return (
-    <div
-      style={{
-        minHeight: '100vh',
-        background: 'var(--bg-app)',
-        color: 'var(--text-primary)',
-      }}
-    >
-      {/* ── Sticky header ─────────────────────────────────────────────────── */}
-      <header
-        className="exam-session-header"
-        style={{
-          position: 'sticky',
-          top: 0,
-          zIndex: 50,
-          background: 'var(--bg-card)',
-          borderBottom: '1px solid var(--border)',
-          padding: '0.75rem 1.5rem',
-          display: 'flex',
-          alignItems: 'center',
-          gap: '1rem',
+    <div className="exam-session-page">
+      <ExamSessionHeader
+        backLink={<Link to="/exams/browse" className="exam-focusable exam-session-back-link">← Danh sách đề</Link>}
+        title={displayTitle}
+        meta={displayMeta}
+        durationMinutes={durationMinutes}
+        deadlineMs={deadlineMs}
+        isSubmitting={isSubmitting}
+        isShortcutHelpOpen={shortcutHelpOpen}
+        shortcutHelpId={shortcutHelpId}
+        shortcutHelpTriggerRef={shortcutHelpTriggerRef}
+        onTimeUp={executeSubmit}
+        onSubmitRequest={() => {
+          if (!isSubmitting) setDialogOpen(true);
         }}
-      >
-        <Link
-          to="/exams/browse"
-          style={{
-            color: 'var(--text-muted)',
-            textDecoration: 'none',
-            fontSize: '0.875rem',
-            flexShrink: 0,
-          }}
-        >
-          ← Danh sách đề
-        </Link>
+        onShortcutHelpRequest={() => setShortcutHelpOpen(true)}
+      />
 
-        <div
-          className="exam-session-title"
-          style={{
-            flex: 1,
-            minWidth: 0,
-            display: 'grid',
-            gap: '0.1rem',
-          }}
-        >
-          <span title={displayTitle} style={{ fontSize: '0.9rem', fontWeight: 600, color: 'var(--text-primary)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-            {displayTitle}
-          </span>
-          {displayMeta && <span style={{ fontSize: '0.72rem', color: 'var(--text-muted)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{displayMeta}</span>}
-        </div>
-
-        <div className="exam-session-actions" style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-          <span
-            style={{
-              padding: '0.25rem 0.65rem',
-              borderRadius: '999px',
-              background: 'var(--accent-soft)',
-              color: 'var(--accent)',
-              border: '1px solid var(--accent)',
-              fontSize: '0.75rem',
-              fontWeight: 800,
-              whiteSpace: 'nowrap',
-            }}
-          >
-            Thi thử {sessionDurationMinutes} phút
-          </span>
-
-          <ExamTimer
-            deadlineMs={deadlineMs}
-            onTimeUp={handleTimeUpAndSubmit}
-          />
-
-          <button
-            type="button"
-            disabled={isSubmitting}
-            onClick={() => {
-              if (!isSubmitting) setDialogOpen(true);
-            }}
-            style={{
-              padding: '0.5rem 1.25rem',
-              background: isSubmitting ? 'var(--text-muted)' : 'var(--accent)',
-              color: '#fff',
-              border: 'none',
-              borderRadius: '0.75rem',
-              fontWeight: 600,
-              fontSize: '0.875rem',
-              cursor: isSubmitting ? 'not-allowed' : 'pointer',
-              flexShrink: 0,
-            }}
-          >
-            {isSubmitting ? 'Đang nộp...' : 'Nộp bài'}
-          </button>
-        </div>
-      </header>
-
-      {/* ── Main content ──────────────────────────────────────────────────── */}
-      <main
-        style={{
-          maxWidth: '80rem',
-          margin: '0 auto',
-          padding: '2rem 1.5rem',
-          display: 'flex',
-          gap: '1.75rem',
-          alignItems: 'flex-start',
-        }}
-      >
-        {/* Question area */}
-        <div style={{ flex: '1 1 500px', display: 'flex', flexDirection: 'column', gap: '1.5rem', minWidth: 0 }}>
-          <div ref={questionTopRef} style={{ scrollMarginTop: '5rem' }} />
+      <main className="exam-session-main">
+        <div className="exam-session-question-column">
+          <div ref={questionTopRef} className="exam-session-question-anchor" />
           <button
             ref={answerSheetTriggerRef}
             type="button"
-            className="exam-answer-sheet-trigger"
+            className="exam-focusable exam-answer-sheet-trigger"
             aria-expanded={answerSheetOpen}
             aria-controls={answerSheetId}
             onClick={() => setAnswerSheetOpen(true)}
           >
             Phiếu trả lời · {completedCount}/{flatQuestions.length}
           </button>
-          {isMCQQuestion(currentQuestion) && (
-            <MCQQuestionCardV2
-              question={currentQuestion}
-              index={currentIndex}
-              total={flatQuestions.length}
-              selectedOptionId={getMCQAnswer(currentQuestion.id)?.selected ?? null}
-              onSelectOption={(id) => handleMCQSelect(currentQuestion.id, id)}
-              showLearningMetadata={false}
-            />
-          )}
-          {isTFQuestion(currentQuestion) && (
-            <TFQuestionCard
-              question={currentQuestion}
-              index={currentIndex}
-              total={flatQuestions.length}
-              selected={
-                getTFAnswer(currentQuestion.id)?.selected ?? {
-                  a: null,
-                  b: null,
-                  c: null,
-                  d: null,
-                }
-              }
-              onSelect={(stmtId, value) =>
-                handleTFSelect(currentQuestion.id, stmtId, value)
-              }
-            />
-          )}
-
+          <ExamQuestionRenderer
+            question={currentQuestion}
+            index={currentIndex}
+            total={flatQuestions.length}
+            selectedMCQ={getMCQAnswer(currentQuestion.id)?.selected ?? null}
+            selectedTF={getTFAnswer(currentQuestion.id)?.selected ?? EMPTY_TF_SELECTION}
+            onMCQSelect={(optionId) => handleMCQSelect(currentQuestion.id, optionId)}
+            onTFSelect={(statementId, value) => handleTFSelect(currentQuestion.id, statementId, value)}
+          />
           <ExamNavigation
             currentIndex={currentIndex}
             total={flatQuestions.length}
             onNavigate={navigateToQuestion}
             questionState={currentQuestionState}
-            onToggleFlag={() => handleToggleFlag(currentQuestion.id)}
+            onToggleFlag={toggleCurrentFlag}
             onClearSelection={() => handleClearAnswer(currentQuestion.id)}
-            hasSelection={hasSelection}
+            hasSelection={currentQuestionState?.hasAnyAnswer ?? false}
             onSubmit={() => {
               if (!isSubmitting) setDialogOpen(true);
             }}
@@ -488,15 +172,14 @@ export default function ExamV2SessionPage() {
           />
         </div>
 
-        {/* Progress sidebar */}
-        <div className="exam-desktop-sidebar" style={{ flex: '0 0 260px', position: 'sticky', top: '5rem' }}>
-          <ProgressSidebar
-            flatQuestions={flatQuestions}
+        <aside className="exam-desktop-sidebar">
+          <ExamQuestionNavigator
+            questions={flatQuestions}
             currentIndex={currentIndex}
             questionStates={questionStates}
-            onNavigate={navigateToQuestion}
+            onQuestionSelect={navigateToQuestion}
           />
-        </div>
+        </aside>
       </main>
 
       <ExamAnswerSheet
@@ -505,18 +188,25 @@ export default function ExamV2SessionPage() {
         onClose={() => setAnswerSheetOpen(false)}
         triggerRef={answerSheetTriggerRef}
       >
-        <ProgressSidebar
-          flatQuestions={flatQuestions}
+        <ExamQuestionNavigator
+          questions={flatQuestions}
           currentIndex={currentIndex}
           questionStates={questionStates}
-          onNavigate={(index) => {
+          onQuestionSelect={(index) => {
             setAnswerSheetOpen(false);
             navigateToQuestion(index);
           }}
         />
       </ExamAnswerSheet>
 
-      {/* ── Submit dialog ─────────────────────────────────────────────────── */}
+      <ExamShortcutHelp
+        id={shortcutHelpId}
+        isOpen={shortcutHelpOpen}
+        onClose={() => setShortcutHelpOpen(false)}
+        triggerRef={shortcutHelpTriggerRef}
+        shortcuts={TIMED_SHORTCUTS}
+      />
+
       <ExamSubmitDialog
         isOpen={dialogOpen}
         totalQuestions={flatQuestions.length}
@@ -526,82 +216,33 @@ export default function ExamV2SessionPage() {
         onConfirm={executeSubmit}
         onCancel={() => setDialogOpen(false)}
       />
-
-      <style>{`
-        @media (max-width: 768px) {
-          .exam-session-header {
-            display: grid !important;
-            grid-template-columns: minmax(0, 1fr) auto;
-            padding: 0.7rem 1rem !important;
-            gap: 0.65rem !important;
-          }
-          .exam-session-title {
-            grid-column: 1 / -1;
-            grid-row: 2;
-            min-width: 0;
-          }
-          .exam-session-actions {
-            grid-column: 1 / -1;
-            grid-row: 3;
-            justify-content: space-between;
-            gap: 0.5rem !important;
-            min-width: 0;
-          }
-          main { flex-direction: column !important; padding: 1rem !important; }
-          .exam-desktop-sidebar { display: none !important; }
-          .exam-answer-sheet-trigger {
-            display: inline-flex !important;
-            align-items: center;
-            justify-content: center;
-            align-self: flex-start;
-            padding: 0.65rem 0.9rem;
-            border: 1px solid var(--accent);
-            border-radius: 0.75rem;
-            background: var(--accent-soft);
-            color: var(--accent);
-            font-weight: 800;
-            cursor: pointer;
-          }
-        }
-        .exam-answer-sheet-trigger { display: none; }
-        .exam-answer-sheet-overlay {
-          position: fixed;
-          inset: 0;
-          z-index: 90;
-          display: flex;
-          align-items: end;
-          background: rgba(15, 23, 42, 0.55);
-          padding: 0.75rem;
-        }
-        .exam-answer-sheet-panel {
-          width: min(100%, 34rem);
-          max-height: min(78vh, 42rem);
-          overflow-y: auto;
-          margin: 0 auto;
-          padding: 1rem;
-          border: 1px solid var(--border);
-          border-radius: 1rem 1rem 0.75rem 0.75rem;
-          background: var(--bg-card);
-          box-shadow: var(--shadow);
-        }
-        .exam-answer-sheet-header {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          gap: 1rem;
-          margin-bottom: 1rem;
-        }
-        .exam-answer-sheet-header h2 { margin: 0; font-size: 1rem; }
-        .exam-answer-sheet-header button {
-          padding: 0.5rem 0.75rem;
-          border: 1px solid var(--border);
-          border-radius: 0.5rem;
-          background: var(--bg-surface);
-          color: var(--text-primary);
-          font-weight: 700;
-          cursor: pointer;
-        }
-      `}</style>
     </div>
   );
 }
+
+function SessionLoadingState() {
+  return (
+    <div className="exam-session-loading-state">
+      <div aria-hidden="true" />
+      <span>Đang tải đề thi...</span>
+    </div>
+  );
+}
+
+function SessionErrorState({ message }: { message: string }) {
+  return (
+    <div className="exam-session-error-state">
+      <div>
+        <h2>{message}</h2>
+        <Link to="/exams/browse">← Về danh sách đề</Link>
+      </div>
+    </div>
+  );
+}
+
+const TIMED_SHORTCUTS: ExamShortcutItem[] = [
+  { keyLabel: '←', description: 'Câu trước' },
+  { keyLabel: '→', description: 'Câu sau' },
+  { keyLabel: 'F', description: 'Đánh dấu hoặc bỏ đánh dấu xem lại' },
+  { keyLabel: '?', description: 'Mở hướng dẫn phím tắt' },
+];

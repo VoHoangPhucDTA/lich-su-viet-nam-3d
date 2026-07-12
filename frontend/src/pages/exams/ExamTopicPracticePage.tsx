@@ -291,27 +291,9 @@ export default function ExamTopicPracticePage() {
     setCurrentIndex((value) => Math.min(value + 1, Math.max(questions.length - 1, 0)));
   }, [questions.length]);
 
-  const checkCurrentQuestion = useCallback(() => {
-    const question = current?.question;
-    if (!question || checked[question.id]) return;
-
-    if (isMCQQuestion(question)) {
-      if (!mcqAnswers[question.id]) return;
-      setChecked((prev) => ({ ...prev, [question.id]: true }));
-      return;
-    }
-
-    if (isTFQuestion(question)) {
-      const answer = tfAnswers[question.id] ?? blankTF();
-      if (!Object.values(answer).every((value) => value != null)) return;
-      setChecked((prev) => ({ ...prev, [question.id]: true }));
-    }
-  }, [checked, current, mcqAnswers, tfAnswers]);
-
   useExamKeyboardShortcuts({
     onPrevious: goToPreviousQuestion,
     onNext: goToNextQuestion,
-    onEnter: checkCurrentQuestion,
     disabled: loading || Boolean(error) || !current || finished,
   });
 

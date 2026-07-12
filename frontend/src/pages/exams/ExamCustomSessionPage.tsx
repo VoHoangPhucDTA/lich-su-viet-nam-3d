@@ -1,4 +1,5 @@
-import { useCallback, useEffect, useRef, useState, type CSSProperties } from 'react';
+import { useCallback, useEffect, useId, useRef, useState, type CSSProperties } from 'react';
+import { Keyboard } from 'lucide-react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import ExamSubmitDialog from '@/components/exams/ExamSubmitDialog';
 import {
@@ -11,6 +12,7 @@ import { loadCustomSession, saveCustomPracticeState, saveCustomSession, updateCu
 import { syncAttemptBestEffort } from '@/lib/exam/examAttemptSync';
 import { useExamKeyboardShortcuts } from '@/lib/exam/useExamKeyboardShortcuts';
 import { handleRadioGroupKeyDown } from '@/lib/exam/radioGroupKeyboard';
+import ExamShortcutHelp, { type ExamShortcutItem } from '@/components/exams/ExamShortcutHelp';
 import { readResultFromLS, writeResultToLS } from '@/lib/exam/useSessionV2';
 import {
   isMCQQuestion,
@@ -347,7 +349,10 @@ export default function ExamCustomSessionPage() {
   const [markedForReview, setMarkedForReview] = useState<string[]>([]);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [shortcutHelpOpen, setShortcutHelpOpen] = useState(false);
   const submitStartedRef = useRef(false);
+  const shortcutHelpTriggerRef = useRef<HTMLButtonElement>(null);
+  const shortcutHelpId = useId();
 
   useEffect(() => {
     if (!sessionId) {
@@ -471,9 +476,9 @@ export default function ExamCustomSessionPage() {
   useExamKeyboardShortcuts({
     onPrevious: goToPreviousQuestion,
     onNext: goToNextQuestion,
-    onEnter: isMockMode ? undefined : checkCurrentQuestion,
     onFlag: isMockMode ? toggleCurrentMark : undefined,
-    disabled: Boolean(error) || !session || !practiceState || !currentQuestion || practiceState.finished || dialogOpen || isSubmitting,
+    onShowHelp: () => setShortcutHelpOpen(true),
+    disabled: Boolean(error) || !session || !practiceState || !currentQuestion || practiceState.finished || dialogOpen || shortcutHelpOpen || isSubmitting,
   });
 
   useEffect(() => {
@@ -567,10 +572,23 @@ export default function ExamCustomSessionPage() {
           <Link to="/exams/tao-de" style={{ color: 'var(--text-muted)', textDecoration: 'none', fontSize: '0.875rem' }}>← Quay lại tạo đề</Link>
           <h1 style={{ margin: 0, fontSize: '1.65rem', fontWeight: 900 }}>{isMockMode ? 'Thi thử tùy chọn' : 'Luyện tập tùy chọn'}</h1>
           <p style={{ margin: 0, color: 'var(--text-primary)', fontWeight: 700, lineHeight: 1.55 }}>{session.title}</p>
-          <p style={{ margin: 0, color: 'var(--text-muted)', lineHeight: 1.55 }}>
-            {questions.length} câu · {mcqCount} Trắc nghiệm · {tfCount} Đúng/Sai · {session.config.scopeTitle ?? 'Tất cả chủ đề'}
-          </p>
-        </header>
+           <p style={{ margin: 0, color: 'var(--text-muted)', lineHeight: 1.55 }}>
+             {questions.length} câu · {mcqCount} Trắc nghiệm · {tfCount} Đúng/Sai · {session.config.scopeTitle ?? 'Tất cả chủ đề'}
+           </p>
+           <button
+             ref={shortcutHelpTriggerRef}
+             id={shortcutHelpId}
+             type="button"
+             className="exam-focusable exam-shortcut-help-trigger"
+             aria-expanded={shortcutHelpOpen}
+             aria-controls={`${shortcutHelpId}-dialog`}
+             onClick={() => setShortcutHelpOpen(true)}
+             style={{ display: 'inline-flex', width: 'fit-content', minHeight: '2.5rem', alignItems: 'center', gap: '0.35rem', padding: '0.45rem 0.7rem', background: 'var(--bg-surface)', color: 'var(--text-secondary)', border: '1px solid var(--border-strong)', borderRadius: '0.65rem', fontSize: '0.78rem', fontWeight: 700, cursor: 'pointer' }}
+           >
+             <Keyboard aria-hidden="true" size={16} />
+             Phím tắt
+           </button>
+         </header>
 
         {saveError && (
           <div style={{ border: '1px solid rgba(194,155,75,0.34)', background: 'rgba(194,155,75,0.12)', borderRadius: '0.85rem', padding: '0.85rem 0.95rem', color: 'var(--text-secondary)', lineHeight: 1.55, fontSize: '0.86rem' }}>
@@ -672,6 +690,14 @@ export default function ExamCustomSessionPage() {
         </nav>
       </div>
 
+      <ExamShortcutHelp
+        id={shortcutHelpId}
+        isOpen={shortcutHelpOpen}
+        onClose={() => setShortcutHelpOpen(false)}
+        triggerRef={shortcutHelpTriggerRef}
+        shortcuts={isMockMode ? CUSTOM_MOCK_SHORTCUTS : CUSTOM_PRACTICE_SHORTCUTS}
+      />
+
       <ExamSubmitDialog
         isOpen={dialogOpen}
         totalQuestions={questions.length}
@@ -684,3 +710,16 @@ export default function ExamCustomSessionPage() {
     </div>
   );
 }
+
+const CUSTOM_PRACTICE_SHORTCUTS: ExamShortcutItem[] = [
+  { keyLabel: '←', description: 'Câu trước' },
+  { keyLabel: '→', description: 'Câu sau' },
+  { keyLabel: '?', description: 'Mở hướng dẫn phím tắt' },
+];
+
+const CUSTOM_MOCK_SHORTCUTS: ExamShortcutItem[] = [
+  { keyLabel: '←', description: 'Câu trước' },
+  { keyLabel: '→', description: 'Câu sau' },
+  { keyLabel: 'F', description: 'Đánh dấu hoặc bỏ đánh dấu xem lại' },
+  { keyLabel: '?', description: 'Mở hướng dẫn phím tắt' },
+];
