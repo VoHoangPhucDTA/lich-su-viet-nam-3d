@@ -289,26 +289,9 @@ export default function ExamPracticePage() {
     setCurrentIndex((value) => Math.min(value + 1, Math.max(questions.length - 1, 0)));
   }, [questions.length]);
 
-  const checkCurrentQuestion = useCallback(() => {
-    if (!currentQuestion || checked[currentQuestion.id]) return;
-
-    if (isMCQQuestion(currentQuestion)) {
-      if (!mcqAnswers[currentQuestion.id]) return;
-      setChecked((prev) => ({ ...prev, [currentQuestion.id]: true }));
-      return;
-    }
-
-    if (isTFQuestion(currentQuestion)) {
-      const answer = tfAnswers[currentQuestion.id] ?? makeBlankTFChoice();
-      if (!Object.values(answer).every((value) => value != null)) return;
-      setChecked((prev) => ({ ...prev, [currentQuestion.id]: true }));
-    }
-  }, [checked, currentQuestion, mcqAnswers, tfAnswers]);
-
   useExamKeyboardShortcuts({
     onPrevious: goToPreviousQuestion,
     onNext: goToNextQuestion,
-    onEnter: checkCurrentQuestion,
     disabled: loading || Boolean(error) || !exam || !currentQuestion || finished,
   });
 

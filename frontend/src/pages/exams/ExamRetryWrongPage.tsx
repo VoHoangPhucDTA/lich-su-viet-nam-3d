@@ -417,26 +417,9 @@ export default function ExamRetryWrongPage() {
     setCurrentIndex((value) => Math.min(value + 1, Math.max(retryResults.length - 1, 0)));
   }, [retryResults.length]);
 
-  const checkCurrentQuestion = useCallback(() => {
-    if (!currentResult || !currentQuestion || checked[currentResult.questionId]) return;
-
-    if (isMCQQuestion(currentQuestion)) {
-      if (!mcqAnswers[currentResult.questionId]) return;
-      setChecked((prev) => ({ ...prev, [currentResult.questionId]: true }));
-      return;
-    }
-
-    if (isTFQuestion(currentQuestion)) {
-      const answer = tfAnswers[currentResult.questionId] ?? makeBlankTFChoice();
-      if (!currentQuestion.statements.every((statement) => answer[statement.id] != null)) return;
-      setChecked((prev) => ({ ...prev, [currentResult.questionId]: true }));
-    }
-  }, [checked, currentQuestion, currentResult, mcqAnswers, tfAnswers]);
-
   useExamKeyboardShortcuts({
     onPrevious: goToPreviousQuestion,
     onNext: goToNextQuestion,
-    onEnter: checkCurrentQuestion,
     disabled: loading || Boolean(error) || !result || !currentResult || finished,
   });
 
