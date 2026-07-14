@@ -1,6 +1,6 @@
 import type { QuestionDerivedState } from '@/lib/exam/questionState';
 import type { Question } from '@/types/exam';
-import type { CSSProperties } from 'react';
+import { Flag } from 'lucide-react';
 
 interface ExamQuestionNavigatorProps {
   questions: Question[];
@@ -15,13 +15,15 @@ export default function ExamQuestionNavigator({
   currentIndex,
   onQuestionSelect,
 }: ExamQuestionNavigatorProps) {
-  const mcqCount = questions.filter((question) => question.questionType === 'mcq').length;
+  const indexedQuestions = questions.map((question, index) => ({ question, index }));
+  const mcqIndexes = indexedQuestions.filter(({ question }) => question.questionType === 'mcq').map(({ index }) => index);
+  const tfIndexes = indexedQuestions.filter(({ question }) => question.questionType === 'true_false').map(({ index }) => index);
 
   return (
     <div className="exam-question-navigator">
       <NavigatorSection
         label="Phần I - Trắc nghiệm"
-        indexes={Array.from({ length: mcqCount }, (_, index) => index)}
+        indexes={mcqIndexes}
         questions={questions}
         questionStates={questionStates}
         currentIndex={currentIndex}
@@ -29,7 +31,7 @@ export default function ExamQuestionNavigator({
       />
       <NavigatorSection
         label="Phần II - Đúng/Sai"
-        indexes={Array.from({ length: questions.length - mcqCount }, (_, index) => mcqCount + index)}
+        indexes={tfIndexes}
         questions={questions}
         questionStates={questionStates}
         currentIndex={currentIndex}
@@ -37,10 +39,11 @@ export default function ExamQuestionNavigator({
         compact
       />
       <div className="exam-question-navigator-legend">
-        <LegendItem color="var(--exam-selection)" label="Đã hoàn thành" />
-        <LegendItem color="var(--exam-warning)" label="Đang làm dở" />
-        <LegendItem color="var(--exam-warning)" label="Xem lại sau" />
-        <LegendItem color="var(--border)" label="Chưa làm" />
+        <LegendItem state="complete" label="Đã hoàn thành" />
+        <LegendItem state="partial" label="Đang làm dở" />
+        <LegendItem state="flagged" label="Đánh dấu xem lại" />
+        <LegendItem state="current" label="Đang xem" />
+        <LegendItem state="untouched" label="Chưa làm" />
       </div>
     </div>
   );
@@ -83,7 +86,7 @@ function NavigatorSection({
               onClick={() => onQuestionSelect(index)}
             >
               {index + 1}
-              {state?.isFlagged && <span aria-hidden="true" />}
+              {state?.isFlagged && <Flag aria-hidden="true" className="exam-question-flag" size={10} />}
             </button>
           );
         })}
@@ -92,10 +95,12 @@ function NavigatorSection({
   );
 }
 
-function LegendItem({ color, label }: { color: string; label: string }) {
+function LegendItem({ state, label }: { state: 'complete' | 'partial' | 'flagged' | 'current' | 'untouched'; label: string }) {
   return (
     <div>
-      <span aria-hidden="true" style={{ '--navigator-color': color } as CSSProperties} />
+      <span aria-hidden="true" className={`exam-navigator-state-swatch is-${state}`}>
+        {state === 'flagged' && <Flag size={9} />}
+      </span>
       {label}
     </div>
   );

@@ -28,3 +28,11 @@ export function normalizeSessionDurationSeconds(
 
   return EXAM_DURATION_SECONDS;
 }
+
+export function getExamDeadlineMs(startedAt: number, durationSeconds: number): number {
+  return startedAt + durationSeconds * 1000;
+}
+
+export function getRemainingExamSeconds(deadlineMs: number, nowMs: number): number {
+  return Math.max(0, Math.ceil((deadlineMs - nowMs) / 1000));
+}

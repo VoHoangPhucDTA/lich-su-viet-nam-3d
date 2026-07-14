@@ -7,6 +7,7 @@
 import { useId, useRef, type CSSProperties, type KeyboardEvent } from 'react';
 import type { MCQQuestion, QuestionResult } from '@/types/exam';
 import ExamOptionCard from './ExamOptionCard';
+import QuestionSourceBlock from './QuestionSourceBlock';
 
 const DIFFICULTY_LABEL: Record<string, string> = {
   easy: 'Dễ',
@@ -28,6 +29,7 @@ interface MCQQuestionCardV2Props {
   onSelectOption: (id: 'A' | 'B' | 'C' | 'D') => void;
   reviewMode?: boolean;
   showLearningMetadata?: boolean;
+  showSource?: boolean;
   /** Cần có khi reviewMode=true để tô màu đúng/sai. */
   result?: QuestionResult;
 }
@@ -40,6 +42,7 @@ export default function MCQQuestionCardV2({
   onSelectOption,
   reviewMode = false,
   showLearningMetadata = true,
+  showSource = true,
   result,
 }: MCQQuestionCardV2Props) {
   const correctId = question.correctOptionId;
@@ -48,12 +51,12 @@ export default function MCQQuestionCardV2({
 
   function handleOptionKeyDown(event: KeyboardEvent<HTMLButtonElement>, optionIndex: number) {
     if (reviewMode) return;
-    const keys = ['ArrowDown', 'ArrowRight', 'ArrowUp', 'ArrowLeft', 'Home', 'End'];
+    const keys = ['ArrowDown', 'ArrowUp', 'Home', 'End'];
     if (!keys.includes(event.key)) return;
     event.preventDefault();
     event.stopPropagation();
     const nextIndex = event.key === 'Home' ? 0 : event.key === 'End' ? question.options.length - 1 :
-      (optionIndex + (event.key === 'ArrowDown' || event.key === 'ArrowRight' ? 1 : -1) + question.options.length) % question.options.length;
+      (optionIndex + (event.key === 'ArrowDown' ? 1 : -1) + question.options.length) % question.options.length;
     const next = question.options[nextIndex];
     if (next) onSelectOption(next.id);
     optionRefs.current[nextIndex]?.focus();
@@ -161,6 +164,7 @@ export default function MCQQuestionCardV2({
       >
         {question.questionText}
       </p>
+      {showSource && <QuestionSourceBlock sourceRefs={question.sourceRefs} />}
 
       {/* Options */}
       {reviewMode ? (
@@ -226,7 +230,7 @@ export default function MCQQuestionCardV2({
           )}
         </div>
       ) : (
-        <div role="radiogroup" aria-labelledby={questionId} style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+        <div role="radiogroup" aria-orientation="vertical" aria-labelledby={questionId} style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
           {question.options.map((opt) => (
             <ExamOptionCard
               key={opt.id}

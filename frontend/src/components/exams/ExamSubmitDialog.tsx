@@ -1,13 +1,17 @@
+import { FileCheck2, TriangleAlert } from 'lucide-react';
 import { useEffect, useId, useRef, type KeyboardEvent } from 'react';
 
 interface ExamSubmitDialogProps {
-  unansweredCount: number;
+  unansweredCount?: number;
   answeredCount?: number;
   totalQuestions?: number;
+  completedCount?: number;
+  partialCount?: number;
+  untouchedCount?: number;
+  flaggedCount?: number;
   isOpen: boolean;
   onConfirm: () => void;
   onCancel: () => void;
-  isTimeUp?: boolean;
   isSubmitting?: boolean;
 }
 
@@ -15,10 +19,13 @@ export default function ExamSubmitDialog({
   unansweredCount,
   answeredCount,
   totalQuestions,
+  completedCount,
+  partialCount = 0,
+  untouchedCount,
+  flaggedCount = 0,
   isOpen,
   onConfirm,
   onCancel,
-  isTimeUp = false,
   isSubmitting = false,
 }: ExamSubmitDialogProps) {
   const titleId = useId();
@@ -34,7 +41,7 @@ export default function ExamSubmitDialog({
     confirmedRef.current = false;
     previousFocusRef.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
     const frameId = window.requestAnimationFrame(() => {
-      (isTimeUp ? confirmButtonRef.current : cancelButtonRef.current)?.focus();
+      cancelButtonRef.current?.focus();
     });
 
     return () => {
@@ -43,30 +50,30 @@ export default function ExamSubmitDialog({
         previousFocusRef.current.focus();
       }
     };
-  }, [isOpen, isTimeUp]);
+  }, [isOpen]);
 
   if (!isOpen) return null;
 
-  const safeUnansweredCount = Math.max(0, unansweredCount);
+  const safeUnansweredCount = Math.max(0, unansweredCount ?? untouchedCount ?? 0);
   const safeTotalQuestions = totalQuestions == null ? undefined : Math.max(0, totalQuestions);
-  const safeAnsweredCount = answeredCount ?? (
+  const safeAnsweredCount = completedCount ?? answeredCount ?? (
     safeTotalQuestions == null ? undefined : Math.max(0, safeTotalQuestions - safeUnansweredCount)
   );
 
   function handleConfirm() {
-    if (isSubmitting) return;
+    if (isSubmitting || confirmedRef.current) return;
     confirmedRef.current = true;
     onConfirm();
   }
 
   function handleCancel() {
-    if (isTimeUp || isSubmitting) return;
+    if (isSubmitting) return;
     confirmedRef.current = false;
     onCancel();
   }
 
   function handleKeyDown(event: KeyboardEvent<HTMLDivElement>) {
-    if (event.key === 'Escape' && !isTimeUp && !isSubmitting) {
+    if (event.key === 'Escape' && !isSubmitting) {
       event.preventDefault();
       handleCancel();
       return;
@@ -104,42 +111,43 @@ export default function ExamSubmitDialog({
           aria-labelledby={titleId}
           aria-describedby={descriptionId}
           onKeyDown={handleKeyDown}
-          style={{ background: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: '1.25rem', padding: '2rem', maxWidth: '400px', width: '100%', boxShadow: 'var(--shadow)', textAlign: 'center' }}
+          className="exam-submit-dialog"
         >
             
-            <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>
-                {isTimeUp ? '⌛' : unansweredCount > 0 ? '⚠️' : '📝'}
+            <div className="exam-submit-dialog-icon">
+                {safeUnansweredCount > 0 || partialCount > 0 ? <TriangleAlert aria-hidden="true" /> : <FileCheck2 aria-hidden="true" />}
             </div>
             
             <h2 id={titleId} style={{ margin: '0 0 1rem 0', fontSize: '1.25rem', color: 'var(--text-primary)' }}>
-                {isTimeUp ? 'Đã hết thời gian làm bài!' : 'Xác nhận nộp bài'}
+                Xác nhận nộp bài
             </h2>
             
             <p id={descriptionId} style={{ margin: '0 0 1.25rem 0', color: 'var(--text-secondary)', lineHeight: 1.5 }}>
-                {isTimeUp 
-                  ? 'Hệ thống sẽ tự động nộp bài làm của bạn.' 
-                  : unansweredCount > 0 
-                    ? `Bạn vẫn còn ${unansweredCount} câu chưa trả lời. Bạn có chắc chắn muốn nộp bài ngay lúc này không?` 
-                    : 'Bạn đã hoàn thành tất cả câu hỏi. Bạn có muốn nộp bài ngay?'}
+                {partialCount > 0
+                    ? `Bạn còn ${partialCount} câu đang làm dở và ${safeUnansweredCount} câu chưa làm. Bạn có chắc chắn muốn nộp bài ngay lúc này không?`
+                    : safeUnansweredCount > 0
+                      ? `Bạn còn ${safeUnansweredCount} câu chưa làm. Bạn có chắc chắn muốn nộp bài ngay lúc này không?`
+                      : 'Bạn đã hoàn thành tất cả câu hỏi. Bạn có muốn nộp bài ngay?'}
             </p>
 
             {safeTotalQuestions != null && safeAnsweredCount != null && (
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '0.5rem', marginBottom: '1.5rem', color: 'var(--text-muted)', fontSize: '0.75rem' }}>
-                <span>Tổng <strong style={{ display: 'block', color: 'var(--text-primary)', fontSize: '1rem' }}>{safeTotalQuestions}</strong></span>
-                <span>Đã trả lời <strong style={{ display: 'block', color: 'var(--success)', fontSize: '1rem' }}>{safeAnsweredCount}</strong></span>
-                <span>Còn trống <strong style={{ display: 'block', color: safeUnansweredCount > 0 ? 'var(--warning)' : 'var(--text-primary)', fontSize: '1rem' }}>{safeUnansweredCount}</strong></span>
-              </div>
+              <dl className="exam-submit-breakdown">
+                <div><dt>Tổng</dt><dd>{safeTotalQuestions}</dd></div>
+                <div><dt>Hoàn thành</dt><dd className="is-complete">{safeAnsweredCount}</dd></div>
+                <div><dt>Đang làm dở</dt><dd className="is-partial">{partialCount}</dd></div>
+                <div><dt>Chưa làm</dt><dd className="is-untouched">{safeUnansweredCount}</dd></div>
+                <div><dt>Đánh dấu</dt><dd className="is-flagged">{flaggedCount}</dd></div>
+              </dl>
             )}
             
-            <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
-                {!isTimeUp && (
+            <div className="exam-submit-dialog-actions">
+                {(
                     <button 
                       ref={cancelButtonRef}
                       type="button"
                       disabled={isSubmitting}
                       onClick={handleCancel}
-                      className="exam-focusable"
-                      style={{ flex: 1, padding: '0.75rem', background: 'var(--bg-surface)', border: '1px solid var(--border-strong)', borderRadius: '0.5rem', color: 'var(--text-primary)', cursor: 'pointer', fontWeight: 700 }}
+                      className="exam-focusable exam-submit-cancel"
                     >
                         Quay lại làm tiếp
                     </button>
@@ -149,10 +157,9 @@ export default function ExamSubmitDialog({
                   type="button"
                   disabled={isSubmitting}
                   onClick={handleConfirm}
-                  className="exam-focusable"
-                  style={{ flex: 1, padding: '0.75rem', background: '#2f7a57', border: 'none', borderRadius: '0.5rem', color: '#fff', cursor: 'pointer', fontWeight: 600, boxShadow: '0 4px 6px -1px rgba(47,122,87,0.3)' }}
+                  className="exam-focusable exam-submit-confirm"
                 >
-                    {isSubmitting ? 'Đang nộp...' : isTimeUp ? 'Đồng ý nộp bài' : 'Xác nhận nộp'}
+                    {isSubmitting ? 'Đang nộp...' : 'Xác nhận nộp'}
                 </button>
             </div>
         </div>

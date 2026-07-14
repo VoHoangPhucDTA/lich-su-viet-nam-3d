@@ -33,6 +33,7 @@ export default function ExamQuestionRenderer({
         selectedOptionId={selectedMCQ}
         onSelectOption={onMCQSelect}
         showLearningMetadata={false}
+        showSource={false}
       />
     );
   }
@@ -45,6 +46,7 @@ export default function ExamQuestionRenderer({
         total={total}
         selected={selectedTF}
         onSelect={onTFSelect}
+        showSource={false}
       />
     );
   }

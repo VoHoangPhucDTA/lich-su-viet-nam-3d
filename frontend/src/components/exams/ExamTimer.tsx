@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import { formatTimerMilestone, getCrossedTimerMilestone } from '@/lib/exam/timerMilestones';
 
 interface ExamTimerProps {
   deadlineMs?: number;
@@ -19,17 +20,23 @@ export default function ExamTimer({ deadlineMs, initialSeconds, onTimeUp, onTick
   const timeUpRan = useRef(false);
   const onTimeUpRef = useRef(onTimeUp);
   const onTickRef = useRef(onTick);
+  const previousRemainingRef = useRef(seconds);
+  const [announcement, setAnnouncement] = useState('');
 
   onTimeUpRef.current = onTimeUp;
   onTickRef.current = onTick;
 
   useEffect(() => {
     timeUpRan.current = false;
+    previousRemainingRef.current = getRemainingSeconds(resolvedDeadlineMs);
 
     const updateRemainingTime = () => {
       const remaining = getRemainingSeconds(resolvedDeadlineMs);
       setSeconds(remaining);
       onTickRef.current?.(remaining);
+      const crossedMilestone = getCrossedTimerMilestone(previousRemainingRef.current, remaining);
+      if (crossedMilestone != null) setAnnouncement(formatTimerMilestone(crossedMilestone));
+      previousRemainingRef.current = remaining;
       if (remaining === 0 && !timeUpRan.current) {
         timeUpRan.current = true;
         onTimeUpRef.current();
@@ -53,11 +60,14 @@ export default function ExamTimer({ deadlineMs, initialSeconds, onTimeUp, onTick
   const statusLabel = isCritical ? 'Sắp hết giờ' : isWarning ? 'Còn ít thời gian' : 'Thời gian còn lại';
 
   return (
-    <div role="status" aria-live="polite" aria-label={`${statusLabel}: ${m} phút ${s} giây`} style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', padding: '0.4rem 0.8rem', background: bg, border: `1px solid ${isCritical ? 'rgba(159,29,45,0.35)' : isWarning ? 'rgba(194,155,75,0.4)' : 'var(--border)'}`, borderRadius: '0.5rem', color, fontWeight: 700, fontSize: '0.95rem' }}>
-       <span>⏱️</span>
+    <>
+    <div aria-live="off" aria-label={`${statusLabel}: ${m} phút ${s} giây`} style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', padding: '0.4rem 0.8rem', background: bg, border: `1px solid ${isCritical ? 'rgba(159,29,45,0.35)' : isWarning ? 'rgba(194,155,75,0.4)' : 'var(--border)'}`, borderRadius: '0.5rem', color, fontWeight: 700, fontSize: '0.95rem' }}>
+       <span aria-hidden="true">⏱️</span>
        <span style={{ fontVariantNumeric: 'tabular-nums' }}>
            {m.toString().padStart(2, '0')}:{s.toString().padStart(2, '0')}
        </span>
     </div>
+    <span className="sr-only" role="status" aria-live="polite">{announcement}</span>
+    </>
   );
 }

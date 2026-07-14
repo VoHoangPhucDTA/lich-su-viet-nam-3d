@@ -9,14 +9,14 @@ export function handleRadioGroupKeyDown<T extends string>(
   disabled = false,
 ): void {
   if (disabled) return;
-  const keys = ['ArrowDown', 'ArrowRight', 'ArrowUp', 'ArrowLeft', 'Home', 'End'];
+  const keys = ['ArrowDown', 'ArrowUp', 'Home', 'End'];
   if (!keys.includes(event.key)) return;
 
   event.preventDefault();
   event.stopPropagation();
   const currentIndex = optionIds.indexOf(currentId);
   const nextIndex = event.key === 'Home' ? 0 : event.key === 'End' ? optionIds.length - 1 :
-    (currentIndex + (event.key === 'ArrowDown' || event.key === 'ArrowRight' ? 1 : -1) + optionIds.length) % optionIds.length;
+    (currentIndex + (event.key === 'ArrowDown' ? 1 : -1) + optionIds.length) % optionIds.length;
   const nextId = optionIds[nextIndex];
   if (!nextId) return;
   onSelect(nextId);

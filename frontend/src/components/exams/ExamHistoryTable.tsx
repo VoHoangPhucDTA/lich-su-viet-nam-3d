@@ -24,7 +24,7 @@ export default function ExamHistoryTable({ history }: ExamHistoryTableProps) {
            </div>
            <h3 style={{ color: 'var(--text-primary)', marginBottom: '0.5rem' }}>Chưa có bài thi nào</h3>
            <p style={{ color: 'var(--text-muted)', margin: '0 0 1.5rem 0' }}>Hãy bắt đầu làm các bài thi thử THPT để xem lịch sử tại đây.</p>
-            <Link to="/exams/create" style={{ display: 'inline-block', padding: '0.75rem 1.5rem', background: 'var(--accent)', color: '#fff', textDecoration: 'none', borderRadius: '0.5rem', fontWeight: 500 }}>
+            <Link to="/exams/tao-de" style={{ display: 'inline-block', padding: '0.75rem 1.5rem', background: 'var(--accent)', color: '#fff', textDecoration: 'none', borderRadius: '0.5rem', fontWeight: 500 }}>
                Tạo đề thi đầu tiên
             </Link>
         </div>
@@ -92,7 +92,7 @@ export default function ExamHistoryTable({ history }: ExamHistoryTableProps) {
                                  </span> <span style={{ color: 'var(--text-muted)' }}>/ 10</span>
                               </td>
                              <td style={{ padding: '1rem' }}>
-                                <Link to={`/exams/result/${h.examId}`} style={{ color: 'var(--accent)', textDecoration: 'none', fontWeight: 500 }}>
+                                <Link to="/exams/lich-su" style={{ color: 'var(--accent)', textDecoration: 'none', fontWeight: 500 }}>
                                     Xem kết quả
                                 </Link>
                              </td>

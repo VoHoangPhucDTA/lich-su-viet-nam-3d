@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation, useParams } from 'react-router-dom';
 import { AuthProvider } from './auth/AuthContext';
 import ProtectedRoute from './auth/ProtectedRoute';
 import RoleGuard from './auth/RoleGuard';
@@ -41,10 +41,6 @@ import QuizHistoryPage from './pages/quiz/QuizHistoryPage';
 
 // Exams pages
 import ExamHomePage from './pages/exams/ExamHomePage';
-import ExamCreatePage from './pages/exams/ExamCreatePage';
-import ExamSessionPage from './pages/exams/ExamSessionPage';
-import ExamResultPage from './pages/exams/ExamResultPage';
-import ExamHistoryPage from './pages/exams/ExamHistoryPage';
 import ExamBrowsePage from './pages/exams/ExamBrowsePage';
 import ExamV2SessionPage from './pages/exams/ExamV2SessionPage';
 import ExamV2ResultPage from './pages/exams/ExamV2ResultPage';
@@ -55,16 +51,18 @@ import ExamTopicListPage from './pages/exams/ExamTopicListPage';
 import ExamTopicPracticePage from './pages/exams/ExamTopicPracticePage';
 import ExamCustomCreatePage from './pages/exams/ExamCustomCreatePage';
 import ExamCustomSessionPage from './pages/exams/ExamCustomSessionPage';
+import { legacyExamSessionPath } from './lib/exam/legacyExamRedirect';
 
 function AppContent() {
   const location = useLocation();
-  const hideHeaderRoutes = ['/quiz/session', '/exams/session', '/exams/de'];
-  const shouldHideHeader = hideHeaderRoutes.some(path => location.pathname.startsWith(path));
+  const examPracticeRoute = /^\/exams\/(?:luyen-tap\/[^/]+|on-lai\/[^/]+|tuy-chon\/[^/]+|on-chu-de\/[^/]+)$/;
+  const shouldHideHeader = ['/quiz/session', '/exams/session', '/exams/de'].some(path => location.pathname.startsWith(path))
+    || examPracticeRoute.test(location.pathname);
 
   return (
     <div className="flex flex-col h-screen w-screen overflow-hidden bg-stone-50">
       {!shouldHideHeader && <AppHeader />}
-      <div className="flex-1 overflow-y-auto">
+      <div className="app-scroll-container flex-1 overflow-y-auto">
         <Routes>
           {/* === Public routes === */}
           <Route path="/" element={<Navigate to="/home" replace />} />
@@ -90,10 +88,10 @@ function AppContent() {
 
           {/* === Exams routes === */}
           <Route path="/exams" element={<ExamHomePage />} />
-          <Route path="/exams/create" element={<ExamCreatePage />} />
-          <Route path="/exams/session/:examId" element={<ExamSessionPage />} />
-          <Route path="/exams/result/:examId" element={<ExamResultPage />} />
-          <Route path="/exams/history" element={<ExamHistoryPage />} />
+          <Route path="/exams/create" element={<Navigate to="/exams/tao-de" replace />} />
+          <Route path="/exams/session/:examId" element={<LegacyExamSessionRedirect />} />
+          <Route path="/exams/result/:examId" element={<Navigate to="/exams/lich-su" replace />} />
+          <Route path="/exams/history" element={<Navigate to="/exams/lich-su" replace />} />
           <Route path="/exams/browse" element={<ExamBrowsePage />} />
           <Route path="/exams/tao-de" element={<ExamCustomCreatePage />} />
           <Route path="/exams/tuy-chon/:sessionId" element={<ExamCustomSessionPage />} />
@@ -123,6 +121,11 @@ function AppContent() {
       </div>
     </div>
   );
+}
+
+function LegacyExamSessionRedirect() {
+  const { examId } = useParams<{ examId: string }>();
+  return <Navigate to={legacyExamSessionPath(examId)} replace />;
 }
 
 function App() {

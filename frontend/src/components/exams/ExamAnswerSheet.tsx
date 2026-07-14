@@ -5,10 +5,11 @@ interface ExamAnswerSheetProps {
   isOpen: boolean;
   onClose: () => void;
   triggerRef: React.RefObject<HTMLButtonElement | null>;
+  getCloseReason?: () => 'dismiss' | 'select-question';
   children: ReactNode;
 }
 
-export default function ExamAnswerSheet({ id, isOpen, onClose, triggerRef, children }: ExamAnswerSheetProps) {
+export default function ExamAnswerSheet({ id, isOpen, onClose, triggerRef, getCloseReason, children }: ExamAnswerSheetProps) {
   const panelRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -41,9 +42,9 @@ export default function ExamAnswerSheet({ id, isOpen, onClose, triggerRef, child
     window.addEventListener('keydown', handleKeyDown);
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
-      trigger?.focus();
+      if (getCloseReason?.() !== 'select-question') trigger?.focus();
     };
-  }, [isOpen, onClose, triggerRef]);
+  }, [getCloseReason, isOpen, onClose, triggerRef]);
 
   if (!isOpen) return null;
 

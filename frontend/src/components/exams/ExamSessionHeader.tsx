@@ -1,4 +1,4 @@
-import { Keyboard } from 'lucide-react';
+import { CircleHelp } from 'lucide-react';
 import type { ReactNode, RefObject } from 'react';
 import ExamTimer from './ExamTimer';
 
@@ -7,6 +7,8 @@ interface ExamSessionHeaderProps {
   title: string;
   meta?: string;
   durationMinutes: number;
+  currentIndex: number;
+  totalQuestions: number;
   deadlineMs: number;
   isSubmitting: boolean;
   isShortcutHelpOpen: boolean;
@@ -22,6 +24,8 @@ export default function ExamSessionHeader({
   title,
   meta,
   durationMinutes,
+  currentIndex,
+  totalQuestions,
   deadlineMs,
   isSubmitting,
   isShortcutHelpOpen,
@@ -34,6 +38,7 @@ export default function ExamSessionHeader({
   return (
     <header className="exam-session-header">
       {backLink}
+      <strong className="exam-session-mobile-position">Câu {currentIndex + 1}/{totalQuestions}</strong>
       <div className="exam-session-title">
         <span title={title}>{title}</span>
         {meta && <span>{meta}</span>}
@@ -50,8 +55,8 @@ export default function ExamSessionHeader({
           aria-controls={`${shortcutHelpId}-dialog`}
           onClick={onShortcutHelpRequest}
         >
-          <Keyboard aria-hidden="true" size={16} />
-          Phím tắt
+          <CircleHelp aria-hidden="true" size={16} />
+          Hướng dẫn
         </button>
         <button
           type="button"

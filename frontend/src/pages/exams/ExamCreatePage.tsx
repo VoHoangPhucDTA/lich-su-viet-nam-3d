@@ -72,7 +72,7 @@ export default function ExamCreatePage() {
       };
       
       const session = await examService.createExam(config, currentUser?.id);
-      navigate(`/exams/session/${session.examId}`);
+      navigate(`/exams/de/${session.examId}`);
     } catch (err) {
       alert('Có lỗi tạo đề thi. Vui lòng thử lại.');
       setLoading(false);

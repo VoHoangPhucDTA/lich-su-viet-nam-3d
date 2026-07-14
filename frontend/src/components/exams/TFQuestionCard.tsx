@@ -8,6 +8,7 @@
 import { useId, type CSSProperties } from 'react';
 import type { TFQuestion, QuestionResult } from '@/types/exam';
 import { TF_LADDER_SCORES } from '@/lib/exam/examConstants';
+import QuestionSourceBlock from './QuestionSourceBlock';
 
 const STMT_IDS = ['a', 'b', 'c', 'd'] as const;
 type StmtId = 'a' | 'b' | 'c' | 'd';
@@ -19,6 +20,7 @@ interface TFQuestionCardProps {
   selected: Record<StmtId, boolean | null>;
   onSelect: (stmtId: StmtId, value: boolean | null) => void;
   reviewMode?: boolean;
+  showSource?: boolean;
   /** Cần có khi reviewMode=true. */
   result?: QuestionResult;
 }
@@ -78,6 +80,7 @@ export default function TFQuestionCard({
   onSelect,
   reviewMode = false,
   result,
+  showSource = true,
 }: TFQuestionCardProps) {
   const cardId = useId();
   const correctMap = Object.fromEntries(
@@ -103,6 +106,7 @@ export default function TFQuestionCard({
   }
 
   const correctCount = result?.tf?.correctCount ?? null;
+  const answeredStatementCount = question.statements.filter((statement) => selected[statement.id] != null).length;
 
   return (
     <div
@@ -177,6 +181,11 @@ export default function TFQuestionCard({
             {correctCount}/4 ý đúng → {TF_LADDER_SCORES[correctCount as 0 | 1 | 2 | 3 | 4]}đ
           </span>
         )}
+        {!reviewMode && (
+          <span role="status" aria-live="polite" style={{ color: 'var(--text-secondary)', fontSize: '0.82rem', fontWeight: 700 }}>
+            Đã trả lời {answeredStatementCount}/{question.statements.length} ý
+          </span>
+        )}
       </div>
 
       {/* Question text */}
@@ -191,6 +200,7 @@ export default function TFQuestionCard({
       >
         {question.questionText}
       </p>
+      {showSource && <QuestionSourceBlock sourceRefs={question.sourceRefs} />}
 
       {/* Statements */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: '0' }}>
