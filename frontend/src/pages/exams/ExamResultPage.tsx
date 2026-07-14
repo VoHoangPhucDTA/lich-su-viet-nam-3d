@@ -50,7 +50,7 @@ export default function ExamResultPage() {
               <h1 style={{ color: 'var(--warning)', marginBottom: '1rem' }}>Đề thi này chưa được nộp</h1>
               <p style={{ color: 'var(--text-muted)', marginBottom: '2rem' }}>Bạn vẫn có thể tiếp tục làm bài hoặc nộp ngay.</p>
                <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center' }}>
-                  <Link to={`/exams/session/${examId}`} style={{ padding: '0.75rem 1.5rem', background: 'var(--accent)', color: '#fff', borderRadius: '0.5rem', textDecoration: 'none', fontWeight: 500 }}>
+                  <Link to={`/exams/de/${examId}`} style={{ padding: '0.75rem 1.5rem', background: 'var(--accent)', color: '#fff', borderRadius: '0.5rem', textDecoration: 'none', fontWeight: 500 }}>
                      Tiếp tục làm bài
                   </Link>
                   <Link to="/exams" style={{ padding: '0.75rem 1.5rem', background: 'var(--bg-surface)', color: 'var(--text-primary)', border: '1px solid var(--border)', borderRadius: '0.5rem', textDecoration: 'none', fontWeight: 500 }}>
@@ -68,7 +68,7 @@ export default function ExamResultPage() {
            <div style={{ textAlign: 'center', background: 'var(--bg-card)', padding: '3rem', borderRadius: '1rem', border: '1px solid var(--border)' }}>
               <h1 style={{ color: 'var(--danger)', marginBottom: '1rem' }}>Không tìm thấy kết quả</h1>
               <p style={{ color: 'var(--text-muted)', marginBottom: '2rem' }}>Kết quả này không tồn tại hoặc đã bị xóa khỏi trình duyệt.</p>
-               <Link to="/exams/history" style={{ padding: '0.75rem 1.5rem', background: 'var(--accent)', color: '#fff', borderRadius: '0.5rem', textDecoration: 'none', fontWeight: 500 }}>
+               <Link to="/exams/lich-su" style={{ padding: '0.75rem 1.5rem', background: 'var(--accent)', color: '#fff', borderRadius: '0.5rem', textDecoration: 'none', fontWeight: 500 }}>
                   Xem lịch sử đề thi
                </Link>
            </div>

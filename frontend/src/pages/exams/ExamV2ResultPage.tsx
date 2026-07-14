@@ -13,6 +13,7 @@ import { rateScore, scoreToPercent } from '@/lib/exam/scoring';
 import { loadTopicIndex } from '@/lib/exam/topicIndexLoader';
 import { findSummaryBySlug, slugifyTopic } from '@/lib/exam/topicGrouping';
 import { readResultFromLS } from '@/lib/exam/useSessionV2';
+import QuestionSourceBlock from '@/components/exams/QuestionSourceBlock';
 import { analyzeWeaknesses, analyzeWeaknessesFromQuestions, type WeaknessAnalysis, type WeaknessBucket } from '@/lib/exam/weaknessAnalysis';
 import {
   flattenExamQuestions,
@@ -52,12 +53,19 @@ function formatPoints(points: number): string {
   return points > 0 ? `+${points.toFixed(2)}đ` : '0đ';
 }
 
-function getAnsweredCount(result: ExamResultV2): number {
-  return result.questions.filter((q) => {
-    if (q.questionType === 'mcq') return q.mcq?.selected != null;
-    if (!q.tf?.selected) return false;
-    return Object.values(q.tf.selected).some((value) => value != null);
-  }).length;
+function getCompletionCounts(result: ExamResultV2): { complete: number; partial: number; untouched: number } {
+  return result.questions.reduce((counts, question) => {
+    if (question.questionType === 'mcq') {
+      counts[question.mcq?.selected == null ? 'untouched' : 'complete'] += 1;
+      return counts;
+    }
+    const values = question.tf?.selected ? Object.values(question.tf.selected) : [];
+    const selectedCount = values.filter((value) => value != null).length;
+    if (selectedCount === 0) counts.untouched += 1;
+    else if (selectedCount === values.length) counts.complete += 1;
+    else counts.partial += 1;
+    return counts;
+  }, { complete: 0, partial: 0, untouched: 0 });
 }
 
 function needsRetry(result: ExamResultV2): boolean {
@@ -108,8 +116,7 @@ function ScoreCard({ result }: { result: ExamResultV2 }) {
   const rating = rateScore(result.totalScore);
   const pct = scoreToPercent(result.totalScore);
   const color = RATING_COLOR[rating];
-  const answered = getAnsweredCount(result);
-  const blank = Math.max(result.totalQuestions - answered, 0);
+  const completion = getCompletionCounts(result);
 
   return (
     <div
@@ -144,8 +151,9 @@ function ScoreCard({ result }: { result: ExamResultV2 }) {
         <Stat label="Trắc nghiệm" value={`${result.mcqScore.toFixed(2)}đ`} color="var(--accent)" />
         <Stat label="Đúng/Sai" value={`${result.tfScore.toFixed(2)}đ`} color="var(--admin-accent)" />
         <Stat label="Thời gian" value={formatExamDuration(result.durationSeconds)} color="var(--text-muted)" />
-        <Stat label="Đã làm" value={`${answered}/${result.totalQuestions}`} color="var(--success)" />
-        <Stat label="Bỏ trống" value={`${blank}`} color="var(--text-muted)" />
+        <Stat label="Hoàn thành" value={`${completion.complete}/${result.totalQuestions}`} color="var(--exam-success)" />
+        <Stat label="Làm dở" value={`${completion.partial}`} color="var(--exam-warning)" />
+        <Stat label="Bỏ trống" value={`${completion.untouched}`} color="var(--text-muted)" />
       </div>
     </div>
   );
@@ -406,6 +414,7 @@ function MCQReviewCard({ question, result, index }: { question: MCQQuestion; res
             <Chip>{formatPoints(result.pointsEarned)}</Chip>
           </div>
           <h3 style={{ margin: 0, color: 'var(--text-primary)', fontSize: '1rem', lineHeight: 1.55 }}>{question.questionText}</h3>
+          <QuestionSourceBlock sourceRefs={question.sourceRefs} />
           <Metadata question={question} />
         </div>
       </header>
@@ -504,6 +513,7 @@ function TFReviewCard({ question, result, index }: { question: TFQuestion; resul
             <Chip>{formatPoints(result.pointsEarned)}</Chip>
           </div>
           <h3 style={{ margin: 0, color: 'var(--text-primary)', fontSize: '1rem', lineHeight: 1.55 }}>{question.questionText}</h3>
+          <QuestionSourceBlock sourceRefs={question.sourceRefs} />
           <Metadata question={question} />
         </div>
       </header>

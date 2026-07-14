@@ -1,3 +1,4 @@
+import { Eraser, Flag } from 'lucide-react';
 import type { QuestionDerivedState } from '@/lib/exam/questionState';
 import type { ExamQuestionStatus } from '../../types/exam';
 
@@ -20,44 +21,40 @@ export default function ExamNavigation({ currentIndex, total, onNavigate, questi
   const isLastQuestion = currentIndex === total - 1;
 
   return (
-    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem', marginTop: '2rem', paddingTop: '1.5rem', borderTop: '1px solid var(--border)' }}>
-        <div style={{ display: 'flex', gap: '0.75rem' }}>
+    <div className="exam-navigation-bar">
+        <div className="exam-navigation-secondary-actions">
             <button 
               type="button"
               onClick={onClearSelection} 
               disabled={!hasSelection}
-              className="exam-focusable"
-              style={{ padding: '0.6rem 1rem', background: 'transparent', border: '1px solid var(--border)', borderRadius: '0.5rem', color: hasSelection ? 'var(--text-secondary)' : 'var(--text-muted)', cursor: hasSelection ? 'pointer' : 'not-allowed', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '0.4rem' }}
+              className="exam-focusable exam-navigation-button"
             >
-                🧹 Xoá chọn
+                <Eraser aria-hidden="true" size={16} /> Xoá chọn
             </button>
             <button 
               type="button"
               onClick={onToggleFlag}
-              className="exam-focusable"
-              style={{ padding: '0.6rem 1rem', background: isFlagged ? 'var(--warning-soft)' : 'transparent', border: isFlagged ? '1px solid var(--warning)' : '1px solid var(--border)', borderRadius: '0.5rem', color: isFlagged ? 'var(--warning)' : 'var(--text-secondary)', cursor: 'pointer', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '0.4rem', transition: 'all 0.15s' }}
+              className={`exam-focusable exam-navigation-button exam-navigation-flag${isFlagged ? ' is-flagged' : ''}`}
             >
-                🚩 {isFlagged ? 'Bỏ đánh dấu' : 'Xem lại sau'}
+                <Flag aria-hidden="true" size={16} /> {isFlagged ? 'Bỏ đánh dấu' : 'Xem lại sau'}
             </button>
         </div>
         
-        <div style={{ display: 'flex', gap: '0.5rem' }}>
+        <div className="exam-navigation-primary-actions">
             <button 
               type="button"
               onClick={() => onNavigate(currentIndex - 1)}
               disabled={currentIndex === 0}
-              className="exam-focusable"
-              style={{ padding: '0.6rem 1.25rem', background: 'var(--bg-surface)', border: '1px solid var(--border)', borderRadius: '0.5rem', color: currentIndex === 0 ? 'var(--text-muted)' : 'var(--text-primary)', cursor: currentIndex === 0 ? 'not-allowed' : 'pointer', fontWeight: 600 }}
+              className="exam-focusable exam-navigation-button"
             >
                 Câu trước
             </button>
             {isLastQuestion && onSubmit ? (
               <button
                 type="button"
-                className="exam-focusable"
+                className="exam-focusable exam-navigation-button exam-navigation-submit"
                 onClick={onSubmit}
                 disabled={isSubmitting}
-                style={{ padding: '0.6rem 1.25rem', background: isSubmitting ? 'var(--text-muted)' : 'var(--accent)', border: '1px solid transparent', borderRadius: '0.5rem', color: '#fff', cursor: isSubmitting ? 'not-allowed' : 'pointer', fontWeight: 700 }}
               >
                 {isSubmitting ? 'Đang nộp...' : 'Nộp bài'}
               </button>
@@ -66,8 +63,7 @@ export default function ExamNavigation({ currentIndex, total, onNavigate, questi
                 type="button"
                 onClick={() => onNavigate(currentIndex + 1)}
                 disabled={isLastQuestion}
-                className="exam-focusable"
-                style={{ padding: '0.6rem 1.25rem', background: 'var(--bg-surface)', border: '1px solid var(--border)', borderRadius: '0.5rem', color: isLastQuestion ? 'var(--text-muted)' : 'var(--text-primary)', cursor: isLastQuestion ? 'not-allowed' : 'pointer', fontWeight: 600 }}
+                className="exam-focusable exam-navigation-button"
               >
                   Câu sau
               </button>
