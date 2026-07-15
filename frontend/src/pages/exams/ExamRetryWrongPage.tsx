@@ -12,7 +12,6 @@ import ExamShortcutHelp, { type ExamShortcutItem } from '@/components/exams/Exam
 import { readResultFromLS } from '@/lib/exam/useSessionV2';
 import { formatExamTitle } from '@/lib/exam/examDisplay';
 import ExamPracticeHeader from '@/components/exams/ExamPracticeHeader';
-import QuestionSourceBlock from '@/components/exams/QuestionSourceBlock';
 import { useQuestionNavigation } from '@/lib/exam/useQuestionNavigation';
 import {
   flattenExamQuestions,
@@ -163,7 +162,6 @@ function MCQRetryCard({
         {checked && <span style={chipStyle(isCorrect ? 'success' : 'danger')}>{isCorrect ? 'Đã đúng' : 'Cần xem lại'}</span>}
       </div>
       <h2 style={questionTitleStyle}>{question.questionText}</h2>
-      <QuestionSourceBlock sourceRefs={question.sourceRefs} />
 
       <div role="radiogroup" aria-orientation="vertical" aria-label="Chọn đáp án" style={{ display: 'grid', gap: '0.65rem', marginTop: '1rem' }}>
         {question.options.map((option) => {
@@ -240,7 +238,6 @@ function TFRetryCard({
         {checked && <span style={chipStyle(correctCount === question.statements.length ? 'success' : 'warning')}>{correctCount}/{question.statements.length} ý đúng</span>}
       </div>
       <h2 style={questionTitleStyle}>{question.questionText}</h2>
-      <QuestionSourceBlock sourceRefs={question.sourceRefs} />
 
       <div style={{ display: 'grid', gap: '0.75rem', marginTop: '1rem' }}>
         {question.statements.map((statement) => {
@@ -475,7 +472,9 @@ export default function ExamRetryWrongPage() {
   if (finished) {
     return (
       <div style={{ minHeight: '100vh', background: 'var(--bg-app)', padding: '2rem 1.5rem', color: 'var(--text-primary)' }}>
-        <div style={{ maxWidth: '42rem', margin: '0 auto', display: 'grid', gap: '1rem' }}>
+        <div style={{ maxWidth: '80rem', margin: '0 auto', display: 'grid', gap: '1.5rem' }}>
+          <ExamPracticeHeader backTo={`/exams/ket-qua/${result.sessionId}`} backLabel="Quay lại kết quả" mode="Ôn lại câu sai" title={result.isCustom ? result.title ?? 'Thi thử tùy chọn' : exam ? formatExamTitle(exam) : 'Đề thi'} badge="Không tính giờ" />
+          <div style={{ width: '100%', maxWidth: '42rem', margin: '0 auto' }}>
           <div style={{ ...cardStyle, textAlign: 'center', padding: '2rem' }}>
             <h1 style={{ margin: '0 0 0.75rem', fontSize: '1.5rem', fontWeight: 900 }}>Hoàn thành ôn lại</h1>
             <p style={{ margin: '0 0 1.5rem', color: 'var(--text-muted)', lineHeight: 1.6 }}>
@@ -490,6 +489,7 @@ export default function ExamRetryWrongPage() {
               </Link>
             </div>
           </div>
+          </div>
         </div>
       </div>
     );
@@ -499,7 +499,7 @@ export default function ExamRetryWrongPage() {
     <div style={{ minHeight: '100vh', background: 'var(--bg-app)', color: 'var(--text-primary)', padding: '2rem 1.5rem' }}>
       <div className="exam-practice-layout">
       <main className="exam-practice-content">
-        <ExamPracticeHeader backTo={`/exams/ket-qua/${result.sessionId}`} backLabel="Quay lại kết quả" mode="Ôn lại câu sai" title={result.isCustom ? result.title ?? 'Thi thử tùy chọn' : exam ? formatExamTitle(exam) : 'Đề thi'} badge="Không giới hạn" helpId={shortcutHelpId} helpOpen={shortcutHelpOpen} helpTriggerRef={shortcutHelpTriggerRef} onHelp={() => setShortcutHelpOpen(true)} />
+        <ExamPracticeHeader backTo={`/exams/ket-qua/${result.sessionId}`} backLabel="Quay lại kết quả" mode="Ôn lại câu sai" title={result.isCustom ? result.title ?? 'Thi thử tùy chọn' : exam ? formatExamTitle(exam) : 'Đề thi'} badge="Không tính giờ" helpId={shortcutHelpId} helpOpen={shortcutHelpOpen} helpTriggerRef={shortcutHelpTriggerRef} onHelp={() => setShortcutHelpOpen(true)} />
 
         <div style={{ ...cardStyle, padding: '1rem 1.25rem' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap' }}>

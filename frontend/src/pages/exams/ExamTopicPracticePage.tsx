@@ -7,7 +7,6 @@ import { useExamKeyboardShortcuts } from '@/lib/exam/useExamKeyboardShortcuts';
 import ExamQuickNavigator, { type QuickNavigatorItem } from '@/components/exams/ExamQuickNavigator';
 import ExamShortcutHelp, { type ExamShortcutItem } from '@/components/exams/ExamShortcutHelp';
 import ExamPracticeHeader from '@/components/exams/ExamPracticeHeader';
-import QuestionSourceBlock from '@/components/exams/QuestionSourceBlock';
 import { useQuestionNavigation } from '@/lib/exam/useQuestionNavigation';
 import { loadTopicIndex } from '@/lib/exam/topicIndexLoader';
 import { findSummaryBySlug } from '@/lib/exam/topicGrouping';
@@ -103,7 +102,6 @@ function MCQCard({ question, selected, checked, onSelect, onCheck }: { question:
     <div style={cardStyle}>
       <QuestionMeta question={question} />
       <h2 style={questionTitleStyle}>{question.questionText}</h2>
-      <QuestionSourceBlock sourceRefs={question.sourceRefs} />
       <div role="radiogroup" aria-orientation="vertical" aria-label="Chọn đáp án" style={{ display: 'grid', gap: '0.65rem', marginTop: '1rem' }}>
         {question.options.map((option) => {
           const chosen = selected === option.id;
@@ -137,7 +135,6 @@ function TFCard({ question, selected, checked, onSelect, onCheck }: { question: 
     <div style={cardStyle}>
       <QuestionMeta question={question} />
       <h2 style={questionTitleStyle}>{question.questionText}</h2>
-      <QuestionSourceBlock sourceRefs={question.sourceRefs} />
       <div style={{ display: 'grid', gap: '0.75rem', marginTop: '1rem' }}>
         {question.statements.map((statement) => {
           const current = selected[statement.id];
@@ -348,7 +345,9 @@ export default function ExamTopicPracticePage() {
       : 'Bạn nên luyện lại chủ đề này và đọc kỹ phần giải thích ở các câu chưa đúng.';
     return (
       <div style={pageStyle}>
-        <div style={{ maxWidth: '42rem', margin: '0 auto' }}>
+        <div style={{ maxWidth: '80rem', margin: '0 auto', display: 'grid', gap: '1.5rem' }}>
+          <ExamPracticeHeader backTo="/exams/on-chu-de" backLabel="Quay lại danh sách chủ đề" mode={practiceLabel} title={title} badge="Không tính giờ" />
+          <div style={{ width: '100%', maxWidth: '42rem', margin: '0 auto' }}>
           <div style={{ ...cardStyle, textAlign: 'center', padding: '2rem' }}>
             <span style={chipStyle('success')}>{practiceLabel}</span>
             <h1 style={{ margin: '0.8rem 0 0.75rem', fontSize: '1.5rem', fontWeight: 900 }}>Hoàn thành luyện tập</h1>
@@ -364,6 +363,7 @@ export default function ExamTopicPracticePage() {
               <Link to="/exams/browse" style={buttonStyle('secondary')}>Làm đề thi thử</Link>
             </div>
           </div>
+          </div>
         </div>
       </div>
     );
@@ -373,7 +373,7 @@ export default function ExamTopicPracticePage() {
     <div style={pageStyle}>
       <div className="exam-practice-layout">
       <main className="exam-practice-content">
-        <ExamPracticeHeader backTo="/exams/on-chu-de" backLabel="Quay lại danh sách chủ đề" mode={practiceLabel} title={title} badge="Không giới hạn" helpId={shortcutHelpId} helpOpen={shortcutHelpOpen} helpTriggerRef={shortcutHelpTriggerRef} onHelp={() => setShortcutHelpOpen(true)} />
+        <ExamPracticeHeader backTo="/exams/on-chu-de" backLabel="Quay lại danh sách chủ đề" mode={practiceLabel} title={title} badge="Không tính giờ" helpId={shortcutHelpId} helpOpen={shortcutHelpOpen} helpTriggerRef={shortcutHelpTriggerRef} onHelp={() => setShortcutHelpOpen(true)} />
 
         <div style={{ ...cardStyle, padding: '1rem 1.25rem' }}>
           <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap', alignItems: 'center' }}>

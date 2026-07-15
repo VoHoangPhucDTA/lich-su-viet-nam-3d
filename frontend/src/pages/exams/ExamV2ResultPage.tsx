@@ -13,7 +13,6 @@ import { rateScore, scoreToPercent } from '@/lib/exam/scoring';
 import { loadTopicIndex } from '@/lib/exam/topicIndexLoader';
 import { findSummaryBySlug, slugifyTopic } from '@/lib/exam/topicGrouping';
 import { readResultFromLS } from '@/lib/exam/useSessionV2';
-import QuestionSourceBlock from '@/components/exams/QuestionSourceBlock';
 import { analyzeWeaknesses, analyzeWeaknessesFromQuestions, type WeaknessAnalysis, type WeaknessBucket } from '@/lib/exam/weaknessAnalysis';
 import {
   flattenExamQuestions,
@@ -339,7 +338,7 @@ function WeaknessAnalysisSection({ analysis }: { analysis: WeaknessAnalysis }) {
 
 function Metadata({ question }: { question: Question }) {
   return (
-    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem', marginTop: '0.75rem' }}>
+    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem' }} aria-label="Phân loại câu hỏi">
       <Chip>{question.topic}</Chip>
       <Chip>{formatDifficultyLabel(question.difficulty)}</Chip>
       <Chip>{formatCognitiveLevelLabel(question.cognitiveLevel)}</Chip>
@@ -408,14 +407,15 @@ function MCQReviewCard({ question, result, index }: { question: MCQQuestion; res
           {index + 1}
         </div>
         <div style={{ flex: 1 }}>
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', marginBottom: '0.65rem' }}>
-            <Chip>Trắc nghiệm</Chip>
-            <Chip tone={statusTone}>{statusText}</Chip>
-            <Chip>{formatPoints(result.pointsEarned)}</Chip>
+          <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'flex-start', gap: '0.5rem 1rem', marginBottom: '0.65rem' }}>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
+              <Chip>Trắc nghiệm</Chip>
+              <Chip tone={statusTone}>{statusText}</Chip>
+              <Chip>{formatPoints(result.pointsEarned)}</Chip>
+            </div>
+            <Metadata question={question} />
           </div>
           <h3 style={{ margin: 0, color: 'var(--text-primary)', fontSize: '1rem', lineHeight: 1.55 }}>{question.questionText}</h3>
-          <QuestionSourceBlock sourceRefs={question.sourceRefs} />
-          <Metadata question={question} />
         </div>
       </header>
 
@@ -507,14 +507,15 @@ function TFReviewCard({ question, result, index }: { question: TFQuestion; resul
           {index + 1}
         </div>
         <div style={{ flex: 1 }}>
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', marginBottom: '0.65rem' }}>
-            <Chip>Đúng/Sai</Chip>
-            <Chip tone={statusTone}>{correctCount}/{statementCount} ý đúng</Chip>
-            <Chip>{formatPoints(result.pointsEarned)}</Chip>
+          <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'flex-start', gap: '0.5rem 1rem', marginBottom: '0.65rem' }}>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
+              <Chip>Đúng/Sai</Chip>
+              <Chip tone={statusTone}>{correctCount}/{statementCount} ý đúng</Chip>
+              <Chip>{formatPoints(result.pointsEarned)}</Chip>
+            </div>
+            <Metadata question={question} />
           </div>
           <h3 style={{ margin: 0, color: 'var(--text-primary)', fontSize: '1rem', lineHeight: 1.55 }}>{question.questionText}</h3>
-          <QuestionSourceBlock sourceRefs={question.sourceRefs} />
-          <Metadata question={question} />
         </div>
       </header>
 

@@ -7,7 +7,6 @@ import { formatExamTitle } from '@/lib/exam/examDisplay';
 import ExamQuickNavigator, { type QuickNavigatorItem } from '@/components/exams/ExamQuickNavigator';
 import ExamShortcutHelp, { type ExamShortcutItem } from '@/components/exams/ExamShortcutHelp';
 import ExamPracticeHeader from '@/components/exams/ExamPracticeHeader';
-import QuestionSourceBlock from '@/components/exams/QuestionSourceBlock';
 import { useQuestionNavigation } from '@/lib/exam/useQuestionNavigation';
 import {
   flattenExamQuestions,
@@ -151,7 +150,6 @@ function MCQPracticeCard({
         {checked && <span style={chipStyle(isCorrect ? 'success' : 'danger')}>{isCorrect ? 'Đúng' : 'Chưa đúng'}</span>}
       </div>
       <h2 style={questionTitleStyle}>{question.questionText}</h2>
-      <QuestionSourceBlock sourceRefs={question.sourceRefs} />
       <div role="radiogroup" aria-orientation="vertical" aria-label="Chọn đáp án" style={{ display: 'grid', gap: '0.65rem', marginTop: '1rem' }}>
         {question.options.map((option) => {
           const isSelected = selected === option.id;
@@ -200,7 +198,6 @@ function TFPracticeCard({
         {checked && <span style={chipStyle(correctCount === 4 ? 'success' : 'warning')}>{correctCount}/4 ý đúng</span>}
       </div>
       <h2 style={questionTitleStyle}>{question.questionText}</h2>
-      <QuestionSourceBlock sourceRefs={question.sourceRefs} />
       <div style={{ display: 'grid', gap: '0.75rem', marginTop: '1rem' }}>
         {question.statements.map((statement) => {
           const current = selected[statement.id];
@@ -342,7 +339,9 @@ export default function ExamPracticePage() {
   if (finished) {
     return (
       <div style={{ minHeight: '100vh', background: 'var(--bg-app)', color: 'var(--text-primary)', padding: '2rem 1.5rem' }}>
-        <div style={{ maxWidth: '42rem', margin: '0 auto', display: 'grid', gap: '1rem' }}>
+        <div style={{ maxWidth: '80rem', margin: '0 auto', display: 'grid', gap: '1.5rem' }}>
+          <ExamPracticeHeader backTo="/exams/browse" backLabel="Quay lại danh sách đề" mode="Luyện tập tự do" title={formatExamTitle(exam)} badge="Không tính giờ" />
+          <div style={{ width: '100%', maxWidth: '42rem', margin: '0 auto' }}>
           <div style={{ ...cardStyle, textAlign: 'center', padding: '2rem' }}>
             <span style={chipStyle('success')}>Luyện tập tự do</span>
             <h1 style={{ margin: '0.8rem 0 0.75rem', fontSize: '1.5rem', fontWeight: 900 }}>Hoàn thành luyện tập</h1>
@@ -353,6 +352,7 @@ export default function ExamPracticePage() {
               <Link to={`/exams/de/${exam.examId}`} style={buttonStyle('secondary')}>Thi thử đề này</Link>
             </div>
           </div>
+          </div>
         </div>
       </div>
     );
@@ -362,7 +362,7 @@ export default function ExamPracticePage() {
     <div style={{ minHeight: '100vh', background: 'var(--bg-app)', color: 'var(--text-primary)', padding: '2rem 1.5rem' }}>
       <div className="exam-practice-layout">
       <main className="exam-practice-content">
-        <ExamPracticeHeader backTo="/exams/browse" backLabel="Quay lại danh sách đề" mode="Luyện tập tự do" title={formatExamTitle(exam)} badge="Không giới hạn" helpId={shortcutHelpId} helpOpen={shortcutHelpOpen} helpTriggerRef={shortcutHelpTriggerRef} onHelp={() => setShortcutHelpOpen(true)} />
+        <ExamPracticeHeader backTo="/exams/browse" backLabel="Quay lại danh sách đề" mode="Luyện tập tự do" title={formatExamTitle(exam)} badge="Không tính giờ" helpId={shortcutHelpId} helpOpen={shortcutHelpOpen} helpTriggerRef={shortcutHelpTriggerRef} onHelp={() => setShortcutHelpOpen(true)} />
 
         <div style={{ ...cardStyle, padding: '1rem 1.25rem' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap' }}>
