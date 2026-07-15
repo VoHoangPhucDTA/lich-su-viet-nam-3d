@@ -581,7 +581,9 @@ export default function ExamCustomSessionPage() {
         : 'Bạn có thể thử thi thử tùy chọn ở bước sau hoặc làm đề thi thử khác.';
     return (
       <div style={{ minHeight: '100vh', background: 'var(--bg-app)', color: 'var(--text-primary)', padding: '2rem 1.5rem' }}>
-        <div style={{ maxWidth: '42rem', margin: '0 auto', display: 'grid', gap: '1rem' }}>
+        <div style={{ maxWidth: '80rem', margin: '0 auto', display: 'grid', gap: '1.5rem' }}>
+          <ExamPracticeHeader backTo="/exams/tao-de" backLabel="Quay lại tạo đề" mode="Luyện tập tùy chọn" title={session.title} badge="Không tính giờ" />
+          <div style={{ width: '100%', maxWidth: '42rem', margin: '0 auto' }}>
           <div style={{ ...cardStyle, textAlign: 'center', padding: '2rem' }}>
             <span style={chipStyle('success')}>Luyện tập tùy chọn</span>
             <h1 style={{ margin: '0.8rem 0 0.75rem', fontSize: '1.5rem', fontWeight: 900 }}>Tổng kết buổi luyện</h1>
@@ -594,6 +596,7 @@ export default function ExamCustomSessionPage() {
               <Link to="/exams/tao-de" style={buttonStyle('secondary')}>Tạo đề mới</Link>
               <Link to="/exams/browse" style={buttonStyle('secondary')}>Về ngân hàng đề</Link>
             </div>
+          </div>
           </div>
         </div>
       </div>
@@ -609,7 +612,7 @@ export default function ExamCustomSessionPage() {
     <div style={{ minHeight: '100vh', background: 'var(--bg-app)', color: 'var(--text-primary)', padding: '2rem 1.5rem' }}>
       <div className="exam-practice-layout">
       <main className="exam-practice-content">
-        <ExamPracticeHeader backTo="/exams/tao-de" backLabel="Quay lại tạo đề" mode={isMockMode ? 'Thi thử tùy chọn' : 'Luyện tập tùy chọn'} title={session.title} badge={isMockMode ? remainingSeconds == null ? 'Thi thử' : `${Math.ceil(remainingSeconds / 60)} phút` : 'Không giới hạn'} helpId={shortcutHelpId} helpOpen={shortcutHelpOpen} helpTriggerRef={shortcutHelpTriggerRef} onHelp={() => setShortcutHelpOpen(true)} />
+        <ExamPracticeHeader backTo="/exams/tao-de" backLabel="Quay lại tạo đề" mode={isMockMode ? 'Thi thử tùy chọn' : 'Luyện tập tùy chọn'} title={session.title} badge={isMockMode ? remainingSeconds == null ? 'Không tính giờ' : `${Math.ceil(remainingSeconds / 60)} phút` : 'Không tính giờ'} helpId={shortcutHelpId} helpOpen={shortcutHelpOpen} helpTriggerRef={shortcutHelpTriggerRef} onHelp={() => setShortcutHelpOpen(true)} />
 
         {saveError && (
           <div style={{ border: '1px solid rgba(194,155,75,0.34)', background: 'rgba(194,155,75,0.12)', borderRadius: '0.85rem', padding: '0.85rem 0.95rem', color: 'var(--text-secondary)', lineHeight: 1.55, fontSize: '0.86rem' }}>
