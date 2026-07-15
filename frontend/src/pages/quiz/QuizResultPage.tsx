@@ -101,7 +101,7 @@ function AnswerReviewCard({ result, index }: { result: QuizQuestionResult; index
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem', color: 'var(--accent)', fontWeight: 600, fontSize: '0.9rem' }}>
                     <span style={{ fontSize: '1.2rem' }}>💡</span> Giải thích từ AI
                 </div>
-                <p style={{ margin: '0 0 1rem 0', fontSize: '0.95rem', color: 'var(--text-primary)', lineHeight: 1.6 }}>
+                <p style={{ margin: '0 0 1rem 0', fontSize: '0.95rem', color: 'var(--text-primary)', lineHeight: 1.6, whiteSpace: 'pre-wrap' }}>
                     {q.explanation}
                 </p>
                 {q.sourceRefs && q.sourceRefs.length > 0 && (

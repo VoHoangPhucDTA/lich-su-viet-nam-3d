@@ -225,7 +225,7 @@ export default function MCQQuestionCardV2({
               }}
             >
               <strong style={{ color: 'var(--accent)' }}>Giải thích:</strong>{' '}
-              {question.explanation}
+              <span style={{ whiteSpace: 'pre-wrap' }}>{question.explanation}</span>
             </div>
           )}
         </div>

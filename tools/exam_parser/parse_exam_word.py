@@ -342,8 +342,9 @@ def chunk_text(text: str, approx_questions_per_chunk: int = CHUNK_SIZE) -> list[
     Chia text thành chunks. Tìm ranh giới câu hỏi bằng pattern 'Câu X'
     để tránh cắt giữa câu hỏi.
     """
-    # Tìm tất cả vị trí bắt đầu câu hỏi
-    pattern = re.compile(r"(?m)^.*?(?:Câu|CÂU|câu|Cau|cau)\s*\d+", re.IGNORECASE)
+    # Tìm vị trí bắt đầu câu hỏi. Neo "Câu N" phải ở ĐẦU dòng (bỏ .*?) để không
+    # bắt nhầm "Câu N" nằm giữa câu dẫn/tiêu đề (VD "...trả lời các câu 22").
+    pattern = re.compile(r"(?m)^\s*(?:Câu|Cau)\s*\d+", re.IGNORECASE)
     matches = list(pattern.finditer(text))
 
     if not matches:
@@ -1058,6 +1059,39 @@ def build_answer_dict(
 # BƯỚC 4: Merge đáp án + Validate + Xuất JSON
 # ---------------------------------------------------------------------------
 
+_PIPE_HEADER_RE = re.compile(r"^\s*Câu\s*\|\s*Đáp\s*án\s*\|.*$", re.IGNORECASE)
+_PIPE_MCQ_RE = re.compile(r"^\s*\d{1,3}\s*\|\s*[A-D?]?\s*\|\s*(.*)$", re.IGNORECASE)
+_PIPE_TF_RE = re.compile(r"^\s*([a-d])\)?\s*\|\s*[^|]*\|\s*(.*)$", re.IGNORECASE)
+
+
+def _strip_pipe_table_prefix(text: str, qtype: str) -> str:
+    """Bóc prefix bảng thô leak vào explanation ("1 | C | text", "a) | Đ | text").
+
+    Một số đề Word lưu lời giải dưới dạng bảng "Câu | Đáp án | Giải thích".
+    Đáp án/isTrue đã lấy từ Khối 2 nên phần "N | X |" là thừa — chỉ giữ nội dung.
+    KHÔNG sửa ký tự nội dung, chỉ bỏ prefix + dòng header.
+    """
+    if "|" not in text:
+        return text
+    out: list[str] = []
+    for line in text.split("\n"):
+        if _PIPE_HEADER_RE.match(line):
+            continue
+        if qtype == "true_false":
+            m = _PIPE_TF_RE.match(line)
+            if m:
+                out.append(f"{m.group(1).lower()}) {m.group(2).strip()}")
+                continue
+        else:
+            m = _PIPE_MCQ_RE.match(line)
+            if m:
+                out.append(m.group(1).strip())
+                continue
+        if line.strip():
+            out.append(line.strip())
+    return "\n".join(out).strip()
+
+
 def merge_and_validate(
     llm_questions: list[dict],
     answer_dict: dict,
@@ -1082,7 +1116,7 @@ def merge_and_validate(
             # Lấy đáp án MCQ
             ans_entry = answer_dict.get(q_num_str, {})
             correct_id = ans_entry.get("answer")
-            explanation = ans_entry.get("explanation", "")
+            explanation = _strip_pipe_table_prefix(ans_entry.get("explanation", ""), "mcq")
 
             if not correct_id:
                 warnings.append(f"Câu {q_num_str} (MCQ): THIẾU đáp án trong bảng đáp án!")
@@ -1135,7 +1169,7 @@ def merge_and_validate(
                     or answer_dict.get(f"{q_global}{stmt_id}", {})
                 )
                 is_true = ans_entry.get("isTrue")
-                stmt_expl = ans_entry.get("explanation", "")
+                stmt_expl = _strip_pipe_table_prefix(ans_entry.get("explanation", ""), "true_false")
 
                 if is_true is None:
                     warnings.append(f"Câu Đ/S #{section_pos}.{stmt_id}: THIẾU đáp án!")
@@ -1158,7 +1192,7 @@ def merge_and_validate(
             # Fallback: lời giải tổng hợp từ key "{q_global}_tf"
             if not combined_expl:
                 tf_expl_entry = answer_dict.get(f"{q_global}_tf", {})
-                combined_expl = tf_expl_entry.get("explanation", "")
+                combined_expl = _strip_pipe_table_prefix(tf_expl_entry.get("explanation", ""), "true_false")
 
             question_obj = {
                 "id": f"{exam_id_prefix}-q{str(q_global).zfill(2)}",
@@ -1362,7 +1396,10 @@ def verify_cross_source_mapping(full_exam: dict, original_explanation_block: str
 
     # === Parse đáp án MCQ từ lời giải gốc ===
     # Dùng IGNORECASE vì giáo viên có thể gõ "Chọn a" hoặc "Chọn A"
-    mcq_pattern = re.compile(r"Câu\s*(\d+)\.?\s*Chọn\s*([ABCD])\b\.?", re.IGNORECASE)
+    # Hỗ trợ 2 dạng: "Câu 1. Chọn A." và "Câu 1. D. ..." (chữ đáp án ngay sau số).
+    # NEO ĐẦU DÒNG (?m)^ + yêu cầu dấu [.)] sau số câu → tránh bắt nhầm chữ A/B/C/D
+    # xuất hiện trong nội dung lời giải (VD "• A sai vì...").
+    mcq_pattern = re.compile(r"(?m)^\s*Câu\s*(\d+)\s*[.)]\s*(?:Chọn\s+)?([ABCD])\b", re.IGNORECASE)
     expl_mcq_answers = {
         int(m.group(1)): m.group(2).upper()
         for m in mcq_pattern.finditer(original_explanation_block)
