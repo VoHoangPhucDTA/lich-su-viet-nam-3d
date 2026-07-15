@@ -89,7 +89,7 @@ function Explanation({ text, correct }: { text: string; correct: boolean }) {
       {text?.trim() && (
         <p style={{ margin: '0.5rem 0 0' }}>
           <strong style={{ color: 'var(--text-primary)' }}>Giải thích: </strong>
-          {text}
+          <span style={{ whiteSpace: 'pre-wrap' }}>{text}</span>
         </p>
       )}
     </div>

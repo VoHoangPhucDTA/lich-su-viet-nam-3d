@@ -120,7 +120,7 @@ function Explanation({ text }: { text?: string }) {
   return (
     <div style={{ marginTop: '1rem', background: 'var(--bg-surface)', border: '1px solid var(--border)', borderRadius: '0.8rem', padding: '0.95rem 1rem', color: 'var(--text-secondary)', lineHeight: 1.65 }}>
       <strong style={{ color: 'var(--text-primary)' }}>Giải thích: </strong>
-      {text}
+      <span style={{ whiteSpace: 'pre-wrap' }}>{text}</span>
     </div>
   );
 }

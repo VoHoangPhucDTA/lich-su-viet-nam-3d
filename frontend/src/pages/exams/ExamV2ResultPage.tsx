@@ -362,7 +362,7 @@ function Explanation({ text }: { text: string }) {
       }}
     >
       <strong style={{ color: 'var(--text-primary)' }}>Giải thích: </strong>
-      {text}
+      <span style={{ whiteSpace: 'pre-wrap' }}>{text}</span>
     </div>
   );
 }

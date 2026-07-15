@@ -319,7 +319,7 @@ export default function TFQuestionCard({
           }}
         >
           <strong style={{ color: 'var(--accent)' }}>Giải thích:</strong>{' '}
-          {question.explanation}
+          <span style={{ whiteSpace: 'pre-wrap' }}>{question.explanation}</span>
         </div>
       )}
       <style>{`
