@@ -26,7 +26,10 @@ export interface RawTextbookRef {
   lesson?: string;
   pageStart?: number;
   pageEnd?: number;
+  pageRange?: { start?: number; end?: number };
   excerpt?: string;
+  url?: string;
+  detailedNarrative?: string;
 }
 
 export interface RawEventJson {

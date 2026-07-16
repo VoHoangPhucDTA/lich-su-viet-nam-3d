@@ -4,6 +4,7 @@ import type { MockEventDetail } from '../data/mockEventDetails';
 import { getEventDetailBySlug } from '../services/eventDetailService';
 import { recordEventView, getEventProgress } from '../services/eventApi';
 import { useReadingProgress, type SectionInfo } from '../hooks/useReadingProgress';
+import { getAppScrollRoot, useActiveSection } from '../hooks/useActiveSection';
 
 import EventHero from '../components/event-detail/EventHero';
 import EventTTSPlayer from '../components/event-detail/EventTTSPlayer';
@@ -14,6 +15,14 @@ import EventChildrenList from '../components/event-detail/EventChildrenList';
 import EventMediaGallery from '../components/event-detail/EventMediaGallery';
 import EventSources from '../components/event-detail/EventSources';
 import EventDetailSidebar from '../components/event-detail/EventDetailSidebar';
+
+function hasAnyRelatedEvent(eventData: MockEventDetail | null) {
+  const groups = eventData?.relatedEvents;
+  return Boolean(
+    groups &&
+      (groups.predecessors.length > 0 || groups.successors.length > 0 || groups.related.length > 0)
+  );
+}
 
 export default function EventDetailPage() {
   const { slug } = useParams<{ slug: string }>();
@@ -34,11 +43,7 @@ export default function EventDetailPage() {
           setError(false);
           // Don't recordEventView here — we'll record when user actually scrolls
           // (see debounced progress persistence below)
-          // Body là phần tử scroll thực sự (xem index.css), nên gọi cả 3
-          // để cover mọi trường hợp browser/CSS.
-          document.body.scrollTo(0, 0);
-          document.documentElement.scrollTo(0, 0);
-          window.scrollTo(0, 0);
+          getAppScrollRoot()?.scrollTo({ top: 0, left: 0, behavior: 'auto' });
         } else {
           setError(true);
         }
@@ -58,7 +63,7 @@ export default function EventDetailPage() {
     // Weight assignments: content sections are weighted equally, media/sources lighter
     items.push({ id: 'tong-quan', label: 'Tổng quan', weight: 1 });
     if (eventData.textbookContent.detailedNarrative) {
-      items.push({ id: 'noi-dung-sgk', label: 'Nội dung SGK', weight: 2 });
+      items.push({ id: 'noi-dung-sgk', label: 'Nội dung chi tiết', weight: 2 });
     }
     if (eventData.textbookContent.significance) {
       items.push({ id: 'y-nghia', label: 'Ý nghĩa lịch sử', weight: 1 });
@@ -73,7 +78,7 @@ export default function EventDetailPage() {
     } else if (isVN && eventData.mapData?.displayGeometry) {
       items.push({ id: 'dia-diem', label: 'Địa điểm', weight: 1 });
     }
-    if (eventData.hierarchy?.childIds?.length) {
+    if (hasAnyRelatedEvent(eventData)) {
       items.push({ id: 'su-kien-con', label: 'Sự kiện liên quan', weight: 1 });
     }
     if (eventData.media?.thumbnail || eventData.media?.items?.length) {
@@ -90,10 +95,14 @@ export default function EventDetailPage() {
 
   const {
     readingProgress,
-    activeSection,
     resetProgress: resetReadingProgress,
     setInitialProgress,
   } = useReadingProgress(sectionsInfo);
+  const {
+    activeSection,
+    scrollToSection,
+    scrollToTop,
+  } = useActiveSection(sectionsInfo);
 
   /* ─── Reset reading progress on event change ─── */
   const prevEventIdRef = useRef<string | null>(null);
@@ -221,7 +230,7 @@ export default function EventDetailPage() {
     indices.textbookOverview = next();
 
     if (eventData.textbookContent.detailedNarrative) {
-      links.push({ id: 'noi-dung-sgk', label: 'Nội dung SGK' });
+      links.push({ id: 'noi-dung-sgk', label: 'Nội dung chi tiết' });
       indices.textbookNarrative = next();
     }
     if (eventData.textbookContent.significance) {
@@ -241,7 +250,7 @@ export default function EventDetailPage() {
       indices.location = next();
     }
 
-    if (eventData.hierarchy?.childIds?.length) {
+    if (hasAnyRelatedEvent(eventData)) {
       links.push({ id: 'su-kien-con', label: 'Sự kiện liên quan' });
       indices.children = next();
     }
@@ -403,7 +412,8 @@ export default function EventDetailPage() {
             <EventLocationCard event={eventData} index={sectionIndices.location || '05'} />
 
             <EventChildrenList
-              childIds={eventData.hierarchy?.childIds}
+              eventId={eventData.id}
+              relatedEvents={eventData.relatedEvents}
               index={sectionIndices.children || '06'}
             />
 
@@ -422,8 +432,10 @@ export default function EventDetailPage() {
             navLinks={navLinks}
             linkIndices={linkIndices}
             showMapAction={showMapAction}
-            readingProgress={readingProgress}
             activeSection={activeSection}
+            onNavigateToSection={scrollToSection}
+            onScrollToTop={scrollToTop}
+            mapEventKey={eventData.slug || eventData.id}
           />
         </div>
       </div>

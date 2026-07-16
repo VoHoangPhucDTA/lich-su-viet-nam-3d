@@ -4,6 +4,8 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lichsuvn.backend.event.api.dto.EventDetailDto;
 import com.lichsuvn.backend.event.api.dto.EventMediaDto;
+import com.lichsuvn.backend.event.api.dto.EventRelatedEventDto;
+import com.lichsuvn.backend.event.api.dto.EventRelatedEventsDto;
 import com.lichsuvn.backend.event.api.dto.EventRelationDto;
 import com.lichsuvn.backend.event.api.dto.EventSummaryDto;
 import com.lichsuvn.backend.event.api.dto.EventTextbookRefDto;
@@ -18,9 +20,11 @@ import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 
 /**
  * Repository đọc dữ liệu event bằng JdbcTemplate projection.
@@ -44,6 +48,7 @@ public class EventReadRepository {
 
     private final NamedParameterJdbcTemplate jdbc;
     private final ObjectMapper objectMapper;
+    private volatile Boolean eventRelationsHasAssociationType;
 
     public EventReadRepository(NamedParameterJdbcTemplate jdbc, ObjectMapper objectMapper) {
         this.jdbc = jdbc;
@@ -70,6 +75,15 @@ public class EventReadRepository {
                        e.event_subtype, e.start_year, e.end_year, e.display_date, e.geo_type,
                        e.lat, e.lng, e.province_names, e.parent_id, e.root_id, e.level,
                        e.order_in_parent, e.card_summary, e.featured,
+                       (
+                           SELECT em.url
+                           FROM event_media em
+                           WHERE em.event_id = e.id
+                             AND em.status = 'active'
+                             AND em.is_thumbnail = TRUE
+                           ORDER BY em.sort_order ASC, em.id ASC
+                           LIMIT 1
+                       ) AS thumbnail_url,
                        (
                            SELECT COUNT(*)
                            FROM historical_events c
@@ -138,8 +152,15 @@ public class EventReadRepository {
                        e.display_date, e.date_precision, e.geo_type, e.lat, e.lng,
                        e.province_names, e.historical_locations, e.parent_id, e.root_id,
                        e.level, e.order_in_parent, e.card_summary, e.canonical_summary,
-                       e.detailed_narrative, e.significance, e.show_on_homepage,
-                       e.show_on_timeline, e.featured, e.status, e.raw_json
+                       e.detailed_narrative, e.significance, e.key_facts, e.show_on_homepage,
+                       e.show_on_timeline, e.featured,
+                       (
+                           SELECT COUNT(*)
+                           FROM historical_events c
+                           WHERE c.parent_id = e.id
+                             AND c.status = 'published'
+                       ) AS child_count,
+                       e.status, e.raw_json
                 FROM historical_events e
                 WHERE e.status = 'published'
                   AND (e.id = :idOrSlug OR e.slug = :idOrSlug)
@@ -178,14 +199,17 @@ public class EventReadRepository {
                 base.canonicalSummary(),
                 base.detailedNarrative(),
                 base.significance(),
+                base.keyFacts(),
                 base.showOnHomepage(),
                 base.showOnTimeline(),
                 base.featured(),
+                base.childCount(),
                 base.status(),
                 findGrades(base.id()),
                 findTextbookRefs(base.id()),
                 findMedia(base.id()),
                 findRelations(base.id()),
+                findRelatedEvents(base.id()),
                 base.sourceJson()
         ));
     }
@@ -196,6 +220,15 @@ public class EventReadRepository {
                        e.event_subtype, e.start_year, e.end_year, e.display_date, e.geo_type,
                        e.lat, e.lng, e.province_names, e.parent_id, e.root_id, e.level,
                        e.order_in_parent, e.card_summary, e.featured,
+                       (
+                           SELECT em.url
+                           FROM event_media em
+                           WHERE em.event_id = e.id
+                             AND em.status = 'active'
+                             AND em.is_thumbnail = TRUE
+                           ORDER BY em.sort_order ASC, em.id ASC
+                           LIMIT 1
+                       ) AS thumbnail_url,
                        (
                            SELECT COUNT(*)
                            FROM historical_events c
@@ -216,12 +249,22 @@ public class EventReadRepository {
     }
 
     public List<EventRelationDto> findRelations(String eventId) {
+        String associationTypeSql = eventRelationAssociationTypeSql("r");
         String sql = """
-                SELECT r.relation_type,
+                SELECT %s AS association_type, r.relation_type, r.sort_order,
                        e.id, e.slug, e.title, e.short_title, e.event_level, e.event_type,
                        e.event_subtype, e.start_year, e.end_year, e.display_date, e.geo_type,
                        e.lat, e.lng, e.province_names, e.parent_id, e.root_id, e.level,
                        e.order_in_parent, e.card_summary, e.featured,
+                       (
+                           SELECT em.url
+                           FROM event_media em
+                           WHERE em.event_id = e.id
+                             AND em.status = 'active'
+                             AND em.is_thumbnail = TRUE
+                           ORDER BY em.sort_order ASC, em.id ASC
+                           LIMIT 1
+                       ) AS thumbnail_url,
                        (
                            SELECT COUNT(*)
                            FROM historical_events c
@@ -232,17 +275,126 @@ public class EventReadRepository {
                 JOIN historical_events e ON e.id = r.target_event_id
                 WHERE r.source_event_id = :eventId
                   AND e.status = 'published'
-                ORDER BY r.relation_type ASC,
+                  AND e.id <> :eventId
+                ORDER BY FIELD(%s, 'predecessor', 'successor', 'related'),
                          r.sort_order ASC,
+                         r.relation_type ASC,
                          CASE WHEN e.start_year IS NULL THEN 1 ELSE 0 END,
                          e.start_year ASC,
                          e.title ASC,
                          e.id ASC
-                """;
+                """.formatted(associationTypeSql, associationTypeSql);
 
         return jdbc.query(sql, new MapSqlParameterSource("eventId", eventId), (rs, rowNum) ->
-                new EventRelationDto(rs.getString("relation_type"), mapSummary(rs))
+                new EventRelationDto(
+                        rs.getString("association_type"),
+                        rs.getString("relation_type"),
+                        EventRelationDto.relationLabel(rs.getString("relation_type")),
+                        rs.getInt("sort_order"),
+                        mapSummary(rs)
+                )
         );
+    }
+
+    public EventRelatedEventsDto findRelatedEvents(String eventId) {
+        String associationTypeSql = eventRelationAssociationTypeSql("r");
+        String sql = """
+                SELECT %s AS association_type, r.relation_type, r.sort_order,
+                       e.id, e.slug, e.title, e.short_title, e.display_date,
+                       e.card_summary, e.event_type, e.geo_type, e.start_year,
+                       (
+                           SELECT em.url
+                           FROM event_media em
+                           WHERE em.event_id = e.id
+                             AND em.status = 'active'
+                             AND em.is_thumbnail = TRUE
+                           ORDER BY em.sort_order ASC, em.id ASC
+                           LIMIT 1
+                       ) AS thumbnail_url
+                FROM event_relations r
+                JOIN historical_events e ON e.id = r.target_event_id
+                WHERE r.source_event_id = :eventId
+                  AND e.status = 'published'
+                  AND e.id <> :eventId
+                ORDER BY FIELD(%s, 'predecessor', 'successor', 'related'),
+                         r.sort_order ASC,
+                         r.relation_type ASC,
+                         CASE WHEN e.start_year IS NULL THEN 1 ELSE 0 END,
+                         e.start_year ASC,
+                         e.title ASC,
+                         e.id ASC
+                """.formatted(associationTypeSql, associationTypeSql);
+
+        List<EventRelatedEventDto> rows = jdbc.query(sql, new MapSqlParameterSource("eventId", eventId), (rs, rowNum) ->
+                new EventRelatedEventDto(
+                        rs.getString("id"),
+                        rs.getString("slug"),
+                        rs.getString("title"),
+                        rs.getString("short_title"),
+                        rs.getString("display_date"),
+                        rs.getString("card_summary"),
+                        rs.getString("event_type"),
+                        rs.getString("geo_type"),
+                        rs.getString("thumbnail_url"),
+                        rs.getString("association_type"),
+                        rs.getString("relation_type"),
+                        EventRelationDto.relationLabel(rs.getString("relation_type")),
+                        rs.getInt("sort_order")
+                )
+        );
+
+        List<EventRelatedEventDto> predecessors = new ArrayList<>();
+        List<EventRelatedEventDto> successors = new ArrayList<>();
+        List<EventRelatedEventDto> related = new ArrayList<>();
+        Set<String> seenEventIds = new LinkedHashSet<>();
+
+        for (EventRelatedEventDto row : rows) {
+            if (!seenEventIds.add(row.id())) {
+                continue;
+            }
+            switch (row.associationType()) {
+                case "predecessor" -> predecessors.add(row);
+                case "successor" -> successors.add(row);
+                default -> related.add(row);
+            }
+        }
+
+        return new EventRelatedEventsDto(predecessors, successors, related);
+    }
+
+    private String eventRelationAssociationTypeSql(String alias) {
+        if (hasEventRelationAssociationTypeColumn()) {
+            return alias + ".association_type";
+        }
+        return """
+                CASE
+                    WHEN %s.relation_type = 'predecessor' THEN 'predecessor'
+                    WHEN %s.relation_type = 'successor' THEN 'successor'
+                    ELSE 'related'
+                END
+                """.formatted(alias, alias);
+    }
+
+    private boolean hasEventRelationAssociationTypeColumn() {
+        Boolean cached = eventRelationsHasAssociationType;
+        if (cached != null) {
+            return cached;
+        }
+        try {
+            Integer count = jdbc.getJdbcTemplate().queryForObject("""
+                    SELECT COUNT(*)
+                    FROM information_schema.COLUMNS
+                    WHERE TABLE_SCHEMA = DATABASE()
+                      AND TABLE_NAME = 'event_relations'
+                      AND COLUMN_NAME = 'association_type'
+                    """, Integer.class);
+            boolean exists = count != null && count > 0;
+            eventRelationsHasAssociationType = exists;
+            return exists;
+        } catch (Exception ignored) {
+            eventRelationsHasAssociationType = false;
+            return false;
+        }
     }
 
     private List<Integer> findGrades(String eventId) {
@@ -252,7 +404,8 @@ public class EventReadRepository {
 
     private List<EventTextbookRefDto> findTextbookRefs(String eventId) {
         String sql = """
-                SELECT id, grade, book, theme, lesson, page_start, page_end, excerpt, source_key
+                SELECT id, grade, book, theme, lesson, page_start, page_end, excerpt,
+                       url, content, source_key
                 FROM event_textbook_refs
                 WHERE event_id = :eventId
                 ORDER BY grade ASC, page_start ASC, id ASC
@@ -267,6 +420,8 @@ public class EventReadRepository {
                 getInteger(rs, "page_start"),
                 getInteger(rs, "page_end"),
                 rs.getString("excerpt"),
+                rs.getString("url"),
+                rs.getString("content"),
                 rs.getString("source_key")
         ));
     }
@@ -401,14 +556,17 @@ public class EventReadRepository {
                 rs.getString("canonical_summary"),
                 rs.getString("detailed_narrative"),
                 rs.getString("significance"),
+                parseStringList(rs.getString("key_facts")),
                 rs.getBoolean("show_on_homepage"),
                 rs.getBoolean("show_on_timeline"),
                 rs.getBoolean("featured"),
+                rs.getInt("child_count"),
                 rs.getString("status"),
                 List.of(),
                 List.of(),
                 List.of(),
                 List.of(),
+                EventRelatedEventsDto.empty(),
                 parseObject(rs.getString("raw_json"))
         );
     }
@@ -435,6 +593,7 @@ public class EventReadRepository {
                 rs.getInt("order_in_parent"),
                 rs.getString("card_summary"),
                 rs.getBoolean("featured"),
+                rs.getString("thumbnail_url"),
                 rs.getInt("child_count")
         );
     }

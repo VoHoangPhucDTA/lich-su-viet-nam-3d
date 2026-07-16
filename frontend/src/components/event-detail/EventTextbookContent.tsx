@@ -64,8 +64,8 @@ export default function EventTextbookContent({
         <section id="noi-dung-sgk" className="scroll-mt-28">
           <SectionHeader
             index={narrativeIndex}
-            title="Nội dung theo sách giáo khoa"
-            subtitle="Bám sát chương trình Lịch sử THPT, là nguồn chuẩn cho RAG."
+            title="Nội dung chi tiết"
+            subtitle="Nội dung tổng hợp từ các nguồn đã được biên tập."
           />
           <article className={`${cardClass} whitespace-pre-wrap`} style={cardStyle}>
             {textbookContent.detailedNarrative}

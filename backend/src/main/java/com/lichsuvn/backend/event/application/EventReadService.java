@@ -4,7 +4,7 @@ import com.lichsuvn.backend.common.exception.ApiException;
 import com.lichsuvn.backend.common.exception.NotFoundException;
 import com.lichsuvn.backend.event.api.dto.EventDetailDto;
 import com.lichsuvn.backend.event.api.dto.EventListResponse;
-import com.lichsuvn.backend.event.api.dto.EventRelationDto;
+import com.lichsuvn.backend.event.api.dto.EventRelatedEventsDto;
 import com.lichsuvn.backend.event.api.dto.EventSummaryDto;
 import com.lichsuvn.backend.event.api.dto.TimelineEventDto;
 import com.lichsuvn.backend.event.infrastructure.EventReadRepository;
@@ -88,8 +88,8 @@ public class EventReadService {
         return new EventListResponse(items, items.size());
     }
 
-    public List<EventRelationDto> findRelated(String eventId) {
-        return eventReadRepository.findRelations(eventId);
+    public EventRelatedEventsDto findRelated(String eventId) {
+        return eventReadRepository.findRelatedEvents(eventId);
     }
 
     private void validateGrade(Integer grade) {

@@ -1,10 +1,11 @@
-import { useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ArrowRight, MapPin } from 'lucide-react';
 import type { HistoricalEvent } from '../../types/event';
 import { EVENT_TYPE_COLORS, EVENT_TYPE_ICONS } from '../../types/event';
-import { getEventTitleImage, getEventTitleFallback } from '../../data/eventTitleImages';
+import { getEventTitleFallback } from '../../data/eventTitleImages';
 import { formatChronologyLabel } from '../../utils/chronology';
+import { getEventThumbnailDeliveryCandidates } from '../../services/cloudinaryService';
 
 interface EventCardProps {
   event: HistoricalEvent;
@@ -21,14 +22,32 @@ export default function EventCard({ event, imageHeight = 'h-40', compact = false
   const color = EVENT_TYPE_COLORS[event.eventType];
   const yearLabel = formatChronologyLabel(event);
   const detailKey = event.slug || event.id;
-  const titleImage = getEventTitleImage(detailKey);
+  const thumbnailCandidates = useMemo(
+    () => getEventThumbnailDeliveryCandidates(event.id, event.thumbnailUrl),
+    [event.id, event.thumbnailUrl]
+  );
+  const [thumbnailIndex, setThumbnailIndex] = useState(0);
+  const titleImage = thumbnailCandidates[thumbnailIndex];
   const fallbackGradient = getEventTitleFallback(event.eventType);
+
+  useEffect(() => {
+    setImgError(false);
+    setThumbnailIndex(0);
+  }, [thumbnailCandidates]);
+
+  const handleImageError = () => {
+    if (thumbnailIndex < thumbnailCandidates.length - 1) {
+      setThumbnailIndex((current) => current + 1);
+      return;
+    }
+    setImgError(true);
+  };
 
   const handleClick = () => {
     navigate(`/events/${detailKey}`, { state: { from: window.location.pathname } });
   };
 
-  const showImage = titleImage && !imgError;
+  const showImage = Boolean(titleImage) && !imgError;
 
   return (
     <div
@@ -45,7 +64,7 @@ export default function EventCard({ event, imageHeight = 'h-40', compact = false
             <img
               src={titleImage!}
               alt={event.name}
-              onError={() => setImgError(true)}
+              onError={handleImageError}
               className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
             />
           ) : (

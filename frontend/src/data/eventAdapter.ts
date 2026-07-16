@@ -110,16 +110,18 @@ export function rawToEventDetail(raw: RawEventJson): MockEventDetail {
         book: r.book,
         theme: r.theme,
         lesson: r.lesson,
-        pageStart: r.pageStart,
-        pageEnd: r.pageEnd,
+        pageStart: r.pageStart ?? r.pageRange?.start,
+        pageEnd: r.pageEnd ?? r.pageRange?.end,
         excerpt: r.excerpt,
+        url: r.url,
+        content: r.detailedNarrative ?? raw.textbookContent?.detailedNarrative,
       })),
     },
     /* media */
     media: raw.media
       ? {
-          thumbnail: raw.media.thumbnail || undefined,
-          items: raw.media.items
+          thumbnail: raw.media.thumbnail,
+          items: raw.media?.items
             ?.filter((item) => item.url && item.url.trim() !== '')
             .map((item) => ({
               id: item.id,

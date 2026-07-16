@@ -15,6 +15,7 @@ export default function EventLocationCard({ event, index = '05' }: EventLocation
   const geometry = event.mapData?.displayGeometry;
   const isVietnamEvent = !event.classification.tags?.includes('lịch sử thế giới');
   const hasLocation = geometry && geometry.geoType !== 'no_location';
+  const mapUrl = `/map?event=${encodeURIComponent(event.slug || event.id)}`;
 
   if (!isVietnamEvent) return null;
 
@@ -105,18 +106,14 @@ export default function EventLocationCard({ event, index = '05' }: EventLocation
           </div>
 
           <button
-            onClick={() => navigate('/map')}
-            className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl font-semibold transition shrink-0 hover:brightness-110"
+            onClick={() => navigate(mapUrl)}
+            className="inline-flex items-center justify-center px-5 py-3 rounded-xl font-semibold transition shrink-0 hover:brightness-110"
             style={{
               background: 'var(--accent)',
               color: '#fff',
               boxShadow: '0 8px 18px -10px rgba(0,0,0,0.35)',
             }}
           >
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 1118 0z" />
-              <circle cx="12" cy="10" r="3" />
-            </svg>
             Xem trên bản đồ 3D
           </button>
         </div>

@@ -91,14 +91,17 @@ class EventChronologyJsonSerializationTest {
                 "summary",
                 "narrative",
                 "significance",
+                List.of("key fact"),
                 false,
                 true,
                 false,
+                0,
                 "published",
                 List.of(),
                 List.of(),
                 List.of(),
                 List.of(),
+                EventRelatedEventsDto.empty(),
                 Map.of()
         );
         return objectMapper.valueToTree(dto);

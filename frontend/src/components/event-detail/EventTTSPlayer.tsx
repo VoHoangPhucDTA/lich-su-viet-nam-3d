@@ -2,6 +2,8 @@ import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import type { MockEventDetail } from '../../data/mockEventDetails';
 import { generateTts, pollTtsStatus, fetchVoices } from '../../services/ttsService';
 import type { TtsPlaylistItem, TtsVoice } from '../../services/ttsService';
+import { isTtsAssetPlayerEnabled } from '../../config/tts';
+import AssetTTSPlayer from './AssetTTSPlayer';
 import { buildNarrationContent } from './narrationContent';
 
 interface EventTTSPlayerProps {
@@ -33,7 +35,7 @@ const SPEED_OPTIONS = [0.75, 1, 1.25, 1.5] as const;
 const POLL_INTERVAL_MS = 3000;
 const POLL_TIMEOUT_MS = 120_000;
 
-export default function EventTTSPlayer({ event, onNarrationStateChange }: EventTTSPlayerProps) {
+function LegacyTTSPlayer({ event, onNarrationStateChange }: EventTTSPlayerProps) {
   const [status, setStatus] = useState<PlayerStatus>('idle');
   const [playlist, setPlaylist] = useState<TtsPlaylistItem[]>([]);
   const [currentIndex, setCurrentIndex] = useState(-1);
@@ -50,7 +52,8 @@ export default function EventTTSPlayer({ event, onNarrationStateChange }: EventT
   const [errorMessage, setErrorMessage] = useState('');
   const [showSettings, setShowSettings] = useState(false);
   const [voices, setVoices] = useState<TtsVoice[]>([]);
-  const [selectedVoice, setSelectedVoice] = useState<string>('');
+  const [appliedVoice, setAppliedVoice] = useState<string>('');
+  const [draftVoice, setDraftVoice] = useState<string>('');
 
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const audioCtxRef = useRef<AudioContext | null>(null);
@@ -71,6 +74,7 @@ export default function EventTTSPlayer({ event, onNarrationStateChange }: EventT
   const seekTargetRef = useRef<number | null>(null);
   /** Stable ref for duration so seekTo never captures a stale closure. */
   const durationRef = useRef<number>(0);
+  const playlistCacheRef = useRef<Map<string, TtsPlaylistItem[]>>(new Map());
 
   // Keep refs in sync
   playlistRef.current = playlist;
@@ -97,7 +101,10 @@ export default function EventTTSPlayer({ event, onNarrationStateChange }: EventT
     fetchVoices()
       .then((v) => {
         setVoices(v);
-        if (v.length > 0) setSelectedVoice(v[0].code);
+        if (v.length > 0) {
+          setAppliedVoice((current) => current || v[0].code);
+          setDraftVoice((current) => current || v[0].code);
+        }
       })
       .catch(() => { /* silent */ });
   }, []);
@@ -175,6 +182,12 @@ export default function EventTTSPlayer({ event, onNarrationStateChange }: EventT
     cumulativeTimeBeforeRef.current = 0;
   }, [destroyAudio]);
 
+  useEffect(() => {
+    playlistCacheRef.current.clear();
+    resetState();
+    setStatus('idle');
+  }, [event.id, resetState]);
+
   // ── Seek handling ───────────────────────────────────────────────────────
   /**
    * Seek to a position in the global timeline (fraction 0–1).
@@ -187,13 +200,17 @@ export default function EventTTSPlayer({ event, onNarrationStateChange }: EventT
     const pl = playlistRef.current;
     if (!audioRef.current || pl.length === 0 || fraction < 0 || fraction > 1) return;
 
-    const totalGlobalDuration = durationRef.current || 1;
+    const knownDurations = chunkDurationsRef.current.filter((d): d is number => d !== undefined && d > 0);
+    const averageChunkDuration = knownDurations.length > 0
+      ? knownDurations.reduce((sum, d) => sum + d, 0) / knownDurations.length
+      : durationRef.current / Math.max(pl.length, 1) || 1;
+    const totalGlobalDuration = durationRef.current || averageChunkDuration * pl.length || 1;
     const targetGlobalTime = fraction * totalGlobalDuration;
 
     let accumulatedTime = 0;
     let targetChunk = 0;
-    for (let i = 0; i < chunkDurationsRef.current.length; i++) {
-      const chunkDur = chunkDurationsRef.current[i];
+    for (let i = 0; i < pl.length; i++) {
+      const chunkDur = chunkDurationsRef.current[i] || averageChunkDuration;
       if (chunkDur !== undefined && chunkDur > 0) {
         if (accumulatedTime + chunkDur >= targetGlobalTime) {
           targetChunk = i;
@@ -210,6 +227,8 @@ export default function EventTTSPlayer({ event, onNarrationStateChange }: EventT
     // Store target time in ref so playChunk can apply it after loading the chunk
     const chunkTargetTime = targetGlobalTime - accumulatedTime;
     seekTargetRef.current = Math.max(0, chunkTargetTime);
+    setCurrentTime(Math.max(0, targetGlobalTime));
+    setProgress(Math.min(100, Math.max(0, fraction * 100)));
 
     const idx = currentIndexRef.current;
     if (targetChunk !== idx) {
@@ -243,11 +262,11 @@ export default function EventTTSPlayer({ event, onNarrationStateChange }: EventT
     // Do NOT touch audio.currentTime — setting a global time on a
     // chunk-local element would clamp to the chunk boundary and cause
     // inaccurate visual feedback. The real seek happens in handleSeekEnd.
-    setCurrentTime(fraction * (durationRef.current || 0));
-  }, []);
+    seekTo(fraction);
+  }, [seekTo]);
 
   // ── Audio setup for a single chunk ─────────────────────────────────────
-  const playChunk = useCallback((url: string) => {
+  const playChunk = useCallback((url: string, shouldPlay = true) => {
     if (!audioRef.current) {
       audioRef.current = new Audio();
     }
@@ -277,7 +296,11 @@ export default function EventTTSPlayer({ event, onNarrationStateChange }: EventT
       chunkDurationsRef.current[idx] = audio.duration;
       const knownDurations = chunkDurationsRef.current.filter((d): d is number => d !== undefined && d > 0);
       const totalKnown = knownDurations.reduce((sum, d) => sum + d, 0);
-      if (totalKnown > 0) setDuration(totalKnown);
+      if (totalKnown > 0) {
+        const unknownCount = Math.max(0, playlistRef.current.length - knownDurations.length);
+        const average = totalKnown / knownDurations.length;
+        setDuration(totalKnown + unknownCount * average);
+      }
 
       // Apply pending cross-chunk seek if any — MUST happen before play()
       // to avoid a brief "play from position 0" that sounds like repeating.
@@ -288,8 +311,8 @@ export default function EventTTSPlayer({ event, onNarrationStateChange }: EventT
       }
 
       // For cross-chunk seeks, start playback only AFTER seek is applied.
-      // For normal chunk transitions, the seek isn't pending, so play immediately.
-      startPlayback();
+      // When paused, load metadata and seek the real element without resuming.
+      if (shouldPlay) startPlayback();
     };
 
     audio.ontimeupdate = () => {
@@ -351,13 +374,13 @@ export default function EventTTSPlayer({ event, onNarrationStateChange }: EventT
 
   // ── Play chunk on index change ────────────────────────────────────────
   useEffect(() => {
-    if (status !== 'playing' && status !== 'ready') return;
+    if (status !== 'playing' && status !== 'ready' && status !== 'paused') return;
     if (playlist.length === 0) return;
 
     const item = playlist[currentIndex];
     if (!item) return;
 
-    playChunk(item.url);
+    playChunk(item.url, status !== 'paused');
 
     // Preload next chunk for seamless transition
     if (currentIndex + 1 < playlist.length) {
@@ -387,12 +410,19 @@ export default function EventTTSPlayer({ event, onNarrationStateChange }: EventT
     abortRef.current = false;
     resetState();
     setStatus('generating');
+    const voiceKey = appliedVoice || '__default__';
+    const cachedPlaylist = playlistCacheRef.current.get(voiceKey);
+    if (cachedPlaylist?.length) {
+      setPlaylist(cachedPlaylist);
+      setStatus('ready');
+      return;
+    }
 
     try {
       const response = await generateTts({
         eventId: event.id,
         text: narrationText,
-        voice: selectedVoice || undefined,
+        voice: appliedVoice || undefined,
         speed: 1.0,
       });
 
@@ -400,6 +430,7 @@ export default function EventTTSPlayer({ event, onNarrationStateChange }: EventT
       jobIdRef.current = response.jobId;
 
       if (response.status === 'done' && response.data) {
+        playlistCacheRef.current.set(voiceKey, response.data.items);
         setPlaylist(response.data.items);
         setStatus('ready');
         return;
@@ -422,6 +453,7 @@ export default function EventTTSPlayer({ event, onNarrationStateChange }: EventT
 
           if (pollResponse.status === 'done' && pollResponse.data) {
             stopPolling();
+            playlistCacheRef.current.set(voiceKey, pollResponse.data.items);
             setPlaylist(pollResponse.data.items);
             setStatus('ready');
           } else if (pollResponse.status === 'failed') {
@@ -436,7 +468,7 @@ export default function EventTTSPlayer({ event, onNarrationStateChange }: EventT
       setStatus('error');
       setErrorMessage(err instanceof Error ? err.message : 'Kết nối đến máy chủ thất bại. Vui lòng thử lại.');
     }
-  }, [event.id, narrationText, selectedVoice, resetState, stopPolling]);
+  }, [event.id, narrationText, appliedVoice, resetState, stopPolling]);
 
   // ── Controls ───────────────────────────────────────────────────────────
   const handlePlay = useCallback(() => {
@@ -507,6 +539,19 @@ export default function EventTTSPlayer({ event, onNarrationStateChange }: EventT
     if (audioRef.current) audioRef.current.volume = newVolume;
   }, []);
 
+  const handleApplyVoice = useCallback(() => {
+    if (draftVoice === appliedVoice) {
+      setShowSettings(false);
+      return;
+    }
+    abortRef.current = true;
+    stopPolling();
+    resetState();
+    setAppliedVoice(draftVoice);
+    setStatus('idle');
+    setShowSettings(false);
+  }, [appliedVoice, draftVoice, resetState, stopPolling]);
+
   const handleRetry = useCallback(() => {
     handleStop();
     setTimeout(() => startGeneration(), 300);
@@ -520,13 +565,13 @@ export default function EventTTSPlayer({ event, onNarrationStateChange }: EventT
     : isCompleted ? 'Nghe lại'
     : 'Thử lại';
 
-  const statusText = isGenerating ? 'Đang tạo giọng đọc từ Viettel AI...'
+  const statusText = isGenerating ? 'Đang tạo giọng đọc...'
     : isReady ? 'Đã sẵn sàng, chuẩn bị phát...'
     : isPlaying ? `Phần ${currentLabel}/${totalChunks}`
     : isPaused ? 'Đã tạm dừng'
     : isCompleted ? 'Đã phát xong — nhấn Nghe lại để nghe tiếp'
     : isError ? 'Lỗi tường thuật'
-    : 'Trải nghiệm lịch sử qua giọng đọc AI';
+    : 'Sẵn sàng';
 
   const formatTime = (seconds: number) => {
     if (!seconds || !isFinite(seconds)) return '0:00';
@@ -542,7 +587,7 @@ export default function EventTTSPlayer({ event, onNarrationStateChange }: EventT
     <div
       className="p-5 rounded-2xl"
       role="region"
-      aria-label="Trình phát tường thuật AI"
+      aria-label="Trình phát tường thuật"
       style={{
         background: 'linear-gradient(135deg, var(--accent-soft), transparent 60%), var(--bg-card)',
         border: '1px solid var(--border)',
@@ -601,7 +646,7 @@ export default function EventTTSPlayer({ event, onNarrationStateChange }: EventT
                 className="text-[10px] font-bold uppercase tracking-[0.16em] font-mono"
                 style={{ color: 'var(--text-muted)' }}
               >
-                {isGenerating ? 'Đang tạo...' : isCompleted ? 'Hoàn thành' : 'Tường thuật AI'}
+                Tường thuật
               </div>
               <div className="text-sm font-semibold truncate" style={{ color: 'var(--text-primary)' }}>
                 {statusText}
@@ -800,11 +845,25 @@ export default function EventTTSPlayer({ event, onNarrationStateChange }: EventT
           style={{ borderTop: '1px solid var(--border)' }}
         >
           {voices.length > 0 && (
-            <SelectField label="Giọng đọc" value={selectedVoice} onChange={(v) => setSelectedVoice(v)}>
-              {voices.map((v) => (
-                <option key={v.code} value={v.code}>{v.name} ({v.region}) — {v.gender}</option>
-              ))}
-            </SelectField>
+            <div className="flex flex-col gap-2">
+              <SelectField label="Giọng đọc" value={draftVoice} onChange={(v) => setDraftVoice(v)}>
+                {voices.map((v) => (
+                  <option key={v.code} value={v.code}>{v.name} ({v.region}) — {v.gender}</option>
+                ))}
+              </SelectField>
+              <button
+                type="button"
+                onClick={handleApplyVoice}
+                disabled={draftVoice === appliedVoice}
+                className="px-3 py-2 rounded-lg text-xs font-semibold transition disabled:opacity-50 disabled:cursor-not-allowed"
+                style={{
+                  background: 'var(--accent)',
+                  color: '#fff',
+                }}
+              >
+                Áp dụng
+              </button>
+            </div>
           )}
           <SelectField label="Tốc độ" value={String(speed)} onChange={(v) => handleSpeedChange(Number(v))}>
             {SPEED_OPTIONS.map((s) => (<option key={s} value={String(s)}>{s}x</option>))}
@@ -853,4 +912,19 @@ function SelectField({ label, value, onChange, children }: {
       </select>
     </label>
   );
+}
+
+/**
+ * The legacy playlist player remains the default until the asset flow is
+ * enabled. A disabled backend feature flag falls back only to this path.
+ */
+export default function EventTTSPlayer(props: EventTTSPlayerProps) {
+  const [legacyFallbackEventId, setLegacyFallbackEventId] = useState<string | null>(null);
+  const useLegacyFallback = legacyFallbackEventId === props.event.id;
+
+  if (isTtsAssetPlayerEnabled && !useLegacyFallback) {
+    return <AssetTTSPlayer key={props.event.id} {...props} onAssetFlowDisabled={() => setLegacyFallbackEventId(props.event.id)} />;
+  }
+
+  return <LegacyTTSPlayer {...props} />;
 }

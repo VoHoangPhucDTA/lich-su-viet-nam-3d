@@ -57,7 +57,7 @@ const VOICE_METADATA: Record<string, Pick<TtsVoice, 'name' | 'region' | 'gender'
   'hcm-diemmy':    { name: 'Diễm My',   region: 'Miền Nam', gender: 'Nữ' },
   'hcm-thuyduyen': { name: 'Thúy Duyên', region: 'Miền Nam', gender: 'Nữ' },
   'hn-quynhanh':   { name: 'Quỳnh Anh',  region: 'Miền Bắc', gender: 'Nữ' },
-  'hn-quangminh':  { name: 'Quang Minh', region: 'Miền Bắc', gender: 'Nam' },
+  'hn-thanhtung':  { name: 'Thanh Tùng', region: 'Miền Bắc', gender: 'Nam' },
   'hue-maingoc':   { name: 'Mai Ngọc',   region: 'Miền Trung', gender: 'Nữ' },
 };
 
