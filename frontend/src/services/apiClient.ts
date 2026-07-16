@@ -78,15 +78,32 @@ async function refreshAccessToken(): Promise<boolean> {
   }
 }
 
-export async function apiGet<T>(path: string): Promise<T> {
-  return apiRequest<T>(path, { method: 'GET' });
+export async function apiGet<T>(path: string, init: Omit<RequestInit, 'method' | 'body'> = {}): Promise<T> {
+  return apiRequest<T>(path, { ...init, method: 'GET' });
 }
 
-export async function apiPost<T>(path: string, body?: unknown): Promise<T> {
+export async function apiPost<T>(path: string, body?: unknown, init: Omit<RequestInit, 'method' | 'body'> = {}): Promise<T> {
   return apiRequest<T>(path, {
+    ...init,
     method: 'POST',
     body: body === undefined ? undefined : JSON.stringify(body),
   });
+}
+
+/**
+ * Sends a POST exactly once. Use this for operations whose server-side effect
+ * must not be replayed by the HTTP client after an authentication refresh.
+ */
+export async function apiPostOnce<T>(
+  path: string,
+  body?: unknown,
+  init: Omit<RequestInit, 'method' | 'body'> = {},
+): Promise<T> {
+  return apiRequest<T>(path, {
+    ...init,
+    method: 'POST',
+    body: body === undefined ? undefined : JSON.stringify(body),
+  }, false);
 }
 
 async function apiRequest<T>(path: string, init: RequestInit, retry = true): Promise<T> {

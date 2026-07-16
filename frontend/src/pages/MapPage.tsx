@@ -1,4 +1,5 @@
-import { useState, useCallback, useMemo } from 'react';
+import { useState, useCallback, useMemo, useEffect, useRef } from 'react';
+import { useLocation } from 'react-router-dom';
 import { ChevronRight } from 'lucide-react';
 import CesiumMap from '../components/CesiumMap';
 import Timeline from '../components/Timeline';
@@ -8,7 +9,6 @@ import {
   findEventById,
   TIMELINE_MIN_YEAR,
 } from '../data/events';
-import { useEffect } from 'react';
 import type { HistoricalEvent } from '../types/event';
 import { useHeader } from '../components/layout/HeaderContext';
 import OnboardingGuide, { useMapGuide } from '../components/onboarding/OnboardingGuide';
@@ -49,6 +49,25 @@ function replaceEventInTree(
   });
 
   return changed ? next : events;
+}
+
+function mergeEvent(
+  current: HistoricalEvent | undefined,
+  incoming: HistoricalEvent
+): HistoricalEvent {
+  return {
+    ...current,
+    ...incoming,
+    children: incoming.children ?? current?.children,
+  };
+}
+
+function mergeEventList(events: HistoricalEvent[]): HistoricalEvent[] {
+  const byId = new Map<string, HistoricalEvent>();
+  for (const event of events) {
+    byId.set(event.id, mergeEvent(byId.get(event.id), event));
+  }
+  return sortHierarchyEvents(Array.from(byId.values()));
 }
 
 function buildSidebarTree(events: HistoricalEvent[]): HistoricalEvent[] {
@@ -104,7 +123,94 @@ function attachCachedChildren(
   });
 }
 
+function upsertEventInTree(
+  events: HistoricalEvent[],
+  eventToInsert: HistoricalEvent
+): HistoricalEvent[] {
+  let inserted = false;
+  const next = events.map((event) => {
+    if (event.id === eventToInsert.id) {
+      inserted = true;
+      return mergeEvent(event, eventToInsert);
+    }
+
+    if (event.children?.length) {
+      const children = upsertEventInTree(event.children, eventToInsert);
+      if (children !== event.children) {
+        inserted = true;
+        return { ...event, children };
+      }
+    }
+
+    return event;
+  });
+
+  return inserted ? next : sortHierarchyEvents([...events, eventToInsert]);
+}
+
+function withCachedChildren(
+  event: HistoricalEvent,
+  childrenByParentId: Record<string, HistoricalEvent[]>
+): HistoricalEvent {
+  const mergedChildren = mergeEventList([
+    ...(event.children ?? []),
+    ...(childrenByParentId[event.id] ?? []),
+  ]);
+
+  return {
+    ...event,
+    children:
+      mergedChildren.length > 0
+        ? attachCachedChildren(mergedChildren, childrenByParentId)
+        : undefined,
+  };
+}
+
+function ensureSelectedBranchInTree(
+  events: HistoricalEvent[],
+  selectedEvent: HistoricalEvent | null,
+  navigationStack: HistoricalEvent[],
+  childrenByParentId: Record<string, HistoricalEvent[]>
+): HistoricalEvent[] {
+  if (!selectedEvent) return events;
+
+  let branch = withCachedChildren(selectedEvent, childrenByParentId);
+
+  for (let index = navigationStack.length - 1; index >= 0; index -= 1) {
+    const parent = navigationStack[index];
+    if (parent.id === branch.id) continue;
+
+    const children = mergeEventList([
+      ...(parent.children ?? []),
+      ...(childrenByParentId[parent.id] ?? []),
+      branch,
+    ]);
+
+    branch = withCachedChildren({ ...parent, children }, childrenByParentId);
+  }
+
+  return replaceEventInTree(
+    upsertEventInTree(events, branch),
+    withCachedChildren(selectedEvent, childrenByParentId)
+  );
+}
+
+function canShowEventOnMap(event: HistoricalEvent): boolean {
+  return event.geoType !== 'no_location' && !!event.coordinates;
+}
+
+function eventMatchesSearch(event: HistoricalEvent, query: string): boolean {
+  const normalized = query.trim().toLowerCase();
+  if (!normalized) return true;
+
+  return (
+    event.name.toLowerCase().includes(normalized) ||
+    event.description.toLowerCase().includes(normalized)
+  );
+}
+
 export default function MapPage() {
+  const location = useLocation();
   const [currentYear, setCurrentYear] = useState(TIMELINE_MIN_YEAR);
   const [selectedEvent, setSelectedEvent] = useState<HistoricalEvent | null>(
     null
@@ -123,6 +229,11 @@ export default function MapPage() {
   const [timelineYears, setTimelineYears] = useState<number[]>([]);
   const guide = useMapGuide();
   const { setCenterContent } = useHeader();
+  const requestedEventKey = useMemo(
+    () => new URLSearchParams(location.search).get('event')?.trim() ?? '',
+    [location.search]
+  );
+  const loadedRequestedEventRef = useRef('');
 
   useEffect(() => {
     let cancelled = false;
@@ -185,29 +296,36 @@ export default function MapPage() {
   // Events visible on the map based on the current context
   const visibleMapEvents = useMemo(() => {
     // If an event with children is selected, show its children
-    if (
-      selectedEvent &&
-      selectedEvent.children &&
-      selectedEvent.children.length > 0
-    ) {
-      return selectedEvent.children.filter(
-        (c) => c.geoType !== 'no_location' && c.coordinates
-      );
+    let visibleEvents: HistoricalEvent[];
+    if (selectedEvent?.children?.length) {
+      visibleEvents = selectedEvent.children.filter(canShowEventOnMap);
+    } else {
+      const baseEvents = searchQuery.trim() ? searchResults : yearEvents;
+      visibleEvents = baseEvents.filter(canShowEventOnMap);
     }
 
-    // Otherwise show events filtered by year from backend
-    const baseEvents = searchQuery.trim() ? searchResults : yearEvents;
-    return baseEvents.filter(
-      (e) => e.geoType !== 'no_location' && e.coordinates
-    );
+    if (
+      selectedEvent &&
+      canShowEventOnMap(selectedEvent) &&
+      !visibleEvents.some((event) => event.id === selectedEvent.id)
+    ) {
+      return [selectedEvent, ...visibleEvents];
+    }
+
+    return visibleEvents;
   }, [selectedEvent, yearEvents, searchResults, searchQuery]);
 
   // All events visible in sidebar (including no_location)
   const sidebarEvents = useMemo(() => {
     const baseEvents = searchQuery.trim() ? searchResults : yearEvents;
     const tree = attachCachedChildren(buildSidebarTree(baseEvents), childrenByParentId);
-    return replaceEventInTree(tree, selectedEvent);
-  }, [yearEvents, searchResults, searchQuery, selectedEvent, childrenByParentId]);
+    return ensureSelectedBranchInTree(
+      replaceEventInTree(tree, selectedEvent),
+      selectedEvent,
+      navigationStack,
+      childrenByParentId
+    );
+  }, [yearEvents, searchResults, searchQuery, selectedEvent, navigationStack, childrenByParentId]);
 
   // Handle selecting an event from map or sidebar
   const handleSelectEvent = useCallback(
@@ -257,6 +375,50 @@ export default function MapPage() {
     },
     [selectedEvent, searchQuery]
   );
+
+  useEffect(() => {
+    if (!requestedEventKey) {
+      loadedRequestedEventRef.current = '';
+      return;
+    }
+    if (loadedRequestedEventRef.current === requestedEventKey) return;
+
+    let cancelled = false;
+
+    async function loadRequestedEvent() {
+      const detailEvent = await getHistoricalEventFromBackend(requestedEventKey);
+      if (cancelled || !detailEvent) return;
+
+      const children = detailEvent.children
+        ? detailEvent.children
+        : await getChildrenFromBackend(detailEvent.id);
+      if (cancelled) return;
+
+      if (children.length > 0) {
+        setChildrenByParentId((prev) => ({
+          ...prev,
+          [detailEvent.id]: children,
+        }));
+      }
+
+      if (detailEvent.startYear != null) {
+        setCurrentYear(detailEvent.startYear);
+      }
+
+      setSearchQuery((currentQuery) =>
+        eventMatchesSearch(detailEvent, currentQuery) ? currentQuery : ''
+      );
+      setNavigationStack([]);
+      setSelectedEvent(children.length > 0 ? { ...detailEvent, children } : detailEvent);
+      loadedRequestedEventRef.current = requestedEventKey;
+      void recordEventView(detailEvent.id, { source: 'detail' });
+    }
+
+    loadRequestedEvent();
+    return () => {
+      cancelled = true;
+    };
+  }, [requestedEventKey]);
 
   // Navigate to a child event from popup
   const handleNavigateToChild = useCallback(
@@ -311,6 +473,16 @@ export default function MapPage() {
       if (!selectedEvent?.parentId || navigationStack.length > 0) return;
       const parent = await getHistoricalEventFromBackend(selectedEvent.parentId);
       if (!cancelled && parent) {
+        const parentChildren = await getChildrenFromBackend(parent.id);
+        if (cancelled) return;
+        setChildrenByParentId((prev) => ({
+          ...prev,
+          [parent.id]: mergeEventList([
+            ...(prev[parent.id] ?? []),
+            ...parentChildren,
+            selectedEvent,
+          ]),
+        }));
         setNavigationStack([parent]);
       }
     }

@@ -1,3 +1,4 @@
+import { ExternalLink } from 'lucide-react';
 import type { MockEventDetail } from '../../data/mockEventDetails';
 import SectionHeader from './SectionHeader';
 
@@ -50,7 +51,6 @@ export default function EventSources({
           <SectionHeader
             index={textbookIndex}
             title="Nguồn sách giáo khoa"
-            subtitle="Nguồn chính thống bám chương trình Bộ GD&ĐT."
           />
           <div className="flex flex-col gap-3">
             {textbookRefs.map((ref, idx) => (
@@ -108,6 +108,26 @@ export default function EventSources({
                       &ldquo;{ref.excerpt}&rdquo;
                     </blockquote>
                   )}
+                  {ref.content && (
+                    <p
+                      className="mt-4 whitespace-pre-wrap text-sm leading-6"
+                      style={{ color: 'var(--text-secondary)' }}
+                    >
+                      {ref.content}
+                    </p>
+                  )}
+                  {ref.url && (
+                    <a
+                      href={ref.url}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold"
+                      style={{ color: 'var(--accent)' }}
+                    >
+                      Mở nguồn SGK
+                      <ExternalLink size={15} aria-hidden />
+                    </a>
+                  )}
                 </div>
               </div>
             ))}
@@ -120,7 +140,6 @@ export default function EventSources({
           <SectionHeader
             index={externalIndex}
             title="Nguồn tham khảo mở rộng"
-            subtitle="Bổ sung – chỉ dùng cho mục đích hiển thị, không dùng cho RAG."
           />
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             {externalContent?.wikipedia && (

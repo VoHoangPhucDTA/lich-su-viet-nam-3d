@@ -24,6 +24,7 @@ public record EventSummaryDto(
         Integer orderInParent,
         String cardSummary,
         Boolean featured,
+        String thumbnailUrl,
         Integer childCount
 ) {
 }

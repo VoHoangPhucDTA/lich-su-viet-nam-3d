@@ -5,6 +5,7 @@ import RoleGuard from './auth/RoleGuard';
 import { HeaderProvider } from './components/layout/HeaderContext';
 import AppHeader from './components/layout/AppHeader';
 import { ThemeProvider } from './theme/ThemeContext';
+import { APP_SCROLL_ROOT_ID } from './hooks/useActiveSection';
 
 // Pages
 import CoiNguonPage from './pages/CoiNguonPage';
@@ -64,7 +65,7 @@ function AppContent() {
   return (
     <div className="flex flex-col h-screen w-screen overflow-hidden bg-stone-50">
       {!shouldHideHeader && <AppHeader />}
-      <div className="flex-1 overflow-y-auto">
+      <div id={APP_SCROLL_ROOT_ID} className="flex-1 overflow-y-auto">
         <Routes>
           {/* === Public routes === */}
           <Route path="/" element={<Navigate to="/home" replace />} />

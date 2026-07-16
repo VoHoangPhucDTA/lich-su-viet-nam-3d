@@ -24,6 +24,8 @@ const eventTitleImages: Record<string, string> = {
 
   /** Ngô Quyền chiến thắng Bạch Đằng 938 */
   'bach-dang-938-ngo-quyen-xung-vuong': '/event-titles/bach-dang-938.jpg',
+  'bach-dang-938': '/event-titles/bach-dang-938.jpg',
+  'battle-of-bach-dang-938': '/event-titles/bach-dang-938.jpg',
 
   /** Thời đại Hùng Vương dựng nước Văn Lang */
   'nuoc-van-lang-ra-doi': '/event-titles/hung-vuong.jpg',
@@ -45,33 +47,8 @@ const eventTitleImages: Record<string, string> = {
   'tuyen-ngon-doc-lap-1945': '/event-titles/tuyen-ngon-doc-lap-1945.jpg',
   'cach-mang-thang-tam-1945': '/event-titles/tuyen-ngon-doc-lap-1945.jpg',
 
-  // ─── New event images — add actual .jpg files to public/event-titles/ ──
-  //
-  // These entries are ACTIVE but point to image files that do not yet exist
-  // in public/event-titles/. They will use gradient fallbacks until real
-  // images are added. Place 1200×630px .jpg files in public/event-titles/
-  // with the filenames below to activate them.
-
-  /** Chiến dịch Điện Biên Phủ 1954 */
-  'chien-dich-dien-bien-phu-1954': '/event-titles/dien-bien-phu.jpg',
-
-  /** Chiến dịch Hồ Chí Minh 1975 */
-  'chien-dich-ho-chi-minh-1975': '/event-titles/ho-chi-minh-1975.jpg',
-
-  /** Thành lập Đảng CSVN 1930 */
-  'thanh-lap-dang-csvn-1930': '/event-titles/dang-csvn-1930.jpg',
-
-  /** Toàn quốc kháng chiến 19/12/1946 */
-  'toan-quoc-khang-chien-19-12-1946': '/event-titles/toan-quoc-khang-chien.jpg',
-
-  /** Hiệp định Paris 1973 */
-  'hiep-dinh-paris-1973': '/event-titles/hiep-dinh-paris.jpg',
-
-  /** Đổi mới 1986 */
-  'doi-moi-1986-collection': '/event-titles/doi-moi-1986.jpg',
-
-  /** Việt Nam gia nhập ASEAN 1995 */
-  'vn-gia-nhap-asean-1995': '/event-titles/vn-asean.jpg',
+  // Only map files that actually exist in frontend/public/event-titles.
+  // Add new entries here after adding the matching image file.
 };
 
 /**

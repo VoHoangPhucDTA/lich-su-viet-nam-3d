@@ -30,6 +30,42 @@ const EVENT_TYPE_FILTERS: EventType[] = [
   'cultural',
 ];
 
+function eventMatchesSearch(event: HistoricalEvent, query: string): boolean {
+  const normalized = query.trim().toLowerCase();
+  if (!normalized) return true;
+
+  return (
+    event.name.toLowerCase().includes(normalized) ||
+    event.description.toLowerCase().includes(normalized)
+  );
+}
+
+function filterEventTree(
+  events: HistoricalEvent[],
+  activeFilter: EventType | null,
+  searchQuery: string
+): HistoricalEvent[] {
+  return events.flatMap((event) => {
+    const children = event.children
+      ? filterEventTree(event.children, activeFilter, searchQuery)
+      : [];
+    const matchesType = !activeFilter || event.eventType === activeFilter;
+    const matchesSearch = eventMatchesSearch(event, searchQuery);
+    const keepSelf = matchesType && matchesSearch;
+
+    if (!keepSelf && children.length === 0) {
+      return [];
+    }
+
+    return [
+      {
+        ...event,
+        children: event.children ? children : undefined,
+      },
+    ];
+  });
+}
+
 export default function Sidebar({
   events,
   selectedEvent,
@@ -56,20 +92,15 @@ export default function Sidebar({
   };
 
   const filteredEvents = useMemo(() => {
-    let result = events;
-    if (activeFilter) {
-      result = result.filter((e) => e.eventType === activeFilter);
-    }
-    if (searchQuery.trim()) {
-      const q = searchQuery.toLowerCase();
-      result = result.filter(
-        (e) =>
-          e.name.toLowerCase().includes(q) ||
-          e.description.toLowerCase().includes(q)
-      );
-    }
-    return result;
+    return filterEventTree(events, activeFilter, searchQuery);
   }, [events, activeFilter, searchQuery]);
+
+  useEffect(() => {
+    if (!selectedEvent || !activeFilter) return;
+    if (selectedEvent.eventType !== activeFilter) {
+      setActiveFilter(null);
+    }
+  }, [activeFilter, selectedEvent]);
 
   // Auto-expand selected event's ancestors
   useEffect(() => {

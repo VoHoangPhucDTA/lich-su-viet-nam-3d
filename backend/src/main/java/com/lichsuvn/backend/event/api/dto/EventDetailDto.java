@@ -29,14 +29,17 @@ public record EventDetailDto(
         String canonicalSummary,
         String detailedNarrative,
         String significance,
+        List<String> keyFacts,
         Boolean showOnHomepage,
         Boolean showOnTimeline,
         Boolean featured,
+        Integer childCount,
         String status,
         List<Integer> grades,
         List<EventTextbookRefDto> textbookRefs,
         List<EventMediaDto> media,
         List<EventRelationDto> relations,
+        EventRelatedEventsDto relatedEvents,
         Object sourceJson
 ) {
 }

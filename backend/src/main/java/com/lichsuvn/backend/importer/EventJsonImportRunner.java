@@ -140,7 +140,7 @@ public class EventJsonImportRunner implements CommandLineRunner {
                     start_year, end_year, effective_end_year, display_date, date_precision,
                     geo_type, lat, lng, province_names, historical_locations,
                     parent_id, root_id, level, order_in_parent,
-                    card_summary, canonical_summary, detailed_narrative, significance,
+                    card_summary, canonical_summary, detailed_narrative, significance, key_facts,
                     show_on_homepage, show_on_timeline, featured, status,
                     content_hash, raw_json, published_at
                 ) VALUES (
@@ -148,7 +148,7 @@ public class EventJsonImportRunner implements CommandLineRunner {
                     :startYear, :endYear, :effectiveEndYear, :displayDate, :datePrecision,
                     :geoType, :lat, :lng, :provinceNames, :historicalLocations,
                     NULL, NULL, :level, :orderInParent,
-                    :cardSummary, :canonicalSummary, :detailedNarrative, :significance,
+                    :cardSummary, :canonicalSummary, :detailedNarrative, :significance, :keyFacts,
                     :showOnHomepage, :showOnTimeline, :featured, 'published',
                     :contentHash, :rawJson, CURRENT_TIMESTAMP
                 )
@@ -175,6 +175,7 @@ public class EventJsonImportRunner implements CommandLineRunner {
                     canonical_summary = VALUES(canonical_summary),
                     detailed_narrative = VALUES(detailed_narrative),
                     significance = VALUES(significance),
+                    key_facts = VALUES(key_facts),
                     show_on_homepage = VALUES(show_on_homepage),
                     show_on_timeline = VALUES(show_on_timeline),
                     featured = VALUES(featured),
@@ -210,6 +211,7 @@ public class EventJsonImportRunner implements CommandLineRunner {
                     .addValue("canonicalSummary", event.canonicalSummary)
                     .addValue("detailedNarrative", event.detailedNarrative)
                     .addValue("significance", event.significance)
+                    .addValue("keyFacts", toJson(event.keyFacts))
                     .addValue("showOnHomepage", event.showOnHomepage)
                     .addValue("showOnTimeline", event.showOnTimeline)
                     .addValue("featured", event.featured)
@@ -287,9 +289,11 @@ public class EventJsonImportRunner implements CommandLineRunner {
     private void insertTextbookRefs(Iterable<ImportedEvent> events) {
         String sql = """
                 INSERT INTO event_textbook_refs
-                    (event_id, grade, book, theme, lesson, page_start, page_end, excerpt, source_key)
+                    (event_id, grade, book, theme, lesson, page_start, page_end, excerpt,
+                     url, content, source_key)
                 VALUES
-                    (:eventId, :grade, :book, :theme, :lesson, :pageStart, :pageEnd, :excerpt, :sourceKey)
+                    (:eventId, :grade, :book, :theme, :lesson, :pageStart, :pageEnd, :excerpt,
+                     :url, :content, :sourceKey)
                 """;
         List<MapSqlParameterSource> batch = new ArrayList<>();
         for (ImportedEvent event : events) {
@@ -304,9 +308,14 @@ public class EventJsonImportRunner implements CommandLineRunner {
                         .addValue("book", book)
                         .addValue("theme", text(ref, "theme"))
                         .addValue("lesson", text(ref, "lesson"))
-                        .addValue("pageStart", intValue(ref.path("pageStart")))
-                        .addValue("pageEnd", intValue(ref.path("pageEnd")))
+                        .addValue("pageStart", firstIntValue(ref.path("pageStart"), ref.path("pageRange").path("start")))
+                        .addValue("pageEnd", firstIntValue(ref.path("pageEnd"), ref.path("pageRange").path("end")))
                         .addValue("excerpt", text(ref, "excerpt"))
+                        .addValue("url", max(text(ref, "url"), 1000))
+                        .addValue("content", firstNonBlank(
+                                text(ref, "detailedNarrative"),
+                                event.textbookDetailedNarrative
+                        ))
                         .addValue("sourceKey", "SGK" + grade + ":" + event.id));
             }
         }
@@ -362,9 +371,11 @@ public class EventJsonImportRunner implements CommandLineRunner {
 
     private void insertRelations(Map<String, ImportedEvent> eventsById) {
         String sql = """
-                INSERT INTO event_relations (source_event_id, target_event_id, relation_type)
-                VALUES (:sourceId, :targetId, :relationType)
-                ON DUPLICATE KEY UPDATE relation_type = VALUES(relation_type)
+                INSERT INTO event_relations (source_event_id, target_event_id, association_type, relation_type)
+                VALUES (:sourceId, :targetId, :associationType, :relationType)
+                ON DUPLICATE KEY UPDATE
+                    association_type = VALUES(association_type),
+                    relation_type = VALUES(relation_type)
                 """;
         List<MapSqlParameterSource> batch = new ArrayList<>();
         for (ImportedEvent event : eventsById.values()) {
@@ -389,7 +400,18 @@ public class EventJsonImportRunner implements CommandLineRunner {
             batch.add(params()
                     .addValue("sourceId", sourceId)
                     .addValue("targetId", targetId)
+                    .addValue("associationType", EventRelationAssociation.fromRelationType(relationType))
                     .addValue("relationType", relationType));
+        }
+    }
+
+    private static final class EventRelationAssociation {
+        private static String fromRelationType(String relationType) {
+            return switch (relationType) {
+                case "predecessor" -> "predecessor";
+                case "successor" -> "successor";
+                default -> "related";
+            };
         }
     }
 
@@ -553,6 +575,11 @@ public class EventJsonImportRunner implements CommandLineRunner {
         return value.substring(0, maxLength);
     }
 
+    private static Integer firstIntValue(JsonNode primary, JsonNode fallback) {
+        Integer value = intValue(primary);
+        return value != null ? value : intValue(fallback);
+    }
+
     static ChronologyYears chronologyYearsFrom(JsonNode chronology) {
         Integer startYear = intValue(chronology.path("start").path("year"));
         Integer endYear = intValue(chronology.path("end").path("year"));
@@ -627,6 +654,8 @@ public class EventJsonImportRunner implements CommandLineRunner {
         private String canonicalSummary;
         private String detailedNarrative;
         private String significance;
+        private String textbookDetailedNarrative;
+        private final Set<String> keyFacts = new LinkedHashSet<>();
         private boolean showOnHomepage;
         private boolean showOnTimeline;
         private boolean featured;
@@ -679,7 +708,9 @@ public class EventJsonImportRunner implements CommandLineRunner {
             event.cardSummary = text(raw.path("summary"), "cardSummary");
             event.canonicalSummary = text(raw.path("textbookContent"), "canonicalSummary");
             event.detailedNarrative = text(raw.path("textbookContent"), "detailedNarrative");
+            event.textbookDetailedNarrative = event.detailedNarrative;
             event.significance = text(raw.path("textbookContent"), "significance");
+            addStringArray(event.keyFacts, raw.path("textbookContent").path("keyFacts"));
             // New JSONL format uses showOnMap instead of showOnHomepage
             event.showOnHomepage = boolValue(raw.path("display").path("showOnMap"), true);
             event.showOnTimeline = boolValue(raw.path("display").path("showOnTimeline"), true);
@@ -727,7 +758,12 @@ public class EventJsonImportRunner implements CommandLineRunner {
             this.cardSummary = firstNonBlank(this.cardSummary, incoming.cardSummary);
             this.canonicalSummary = firstNonBlank(this.canonicalSummary, incoming.canonicalSummary);
             this.detailedNarrative = firstNonBlank(this.detailedNarrative, incoming.detailedNarrative);
+            this.textbookDetailedNarrative = firstNonBlank(
+                    this.textbookDetailedNarrative,
+                    incoming.textbookDetailedNarrative
+            );
             this.significance = firstNonBlank(this.significance, incoming.significance);
+            this.keyFacts.addAll(incoming.keyFacts);
             this.showOnHomepage = this.showOnHomepage || incoming.showOnHomepage;
             this.showOnTimeline = this.showOnTimeline || incoming.showOnTimeline;
             this.featured = this.featured || incoming.featured;
