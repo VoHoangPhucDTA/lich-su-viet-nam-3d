@@ -1,3 +1,4 @@
+import { lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate, useLocation, useParams } from 'react-router-dom';
 import { AuthProvider } from './auth/AuthContext';
 import ProtectedRoute from './auth/ProtectedRoute';
@@ -53,6 +54,8 @@ import ExamCustomCreatePage from './pages/exams/ExamCustomCreatePage';
 import ExamCustomSessionPage from './pages/exams/ExamCustomSessionPage';
 import { legacyExamSessionPath } from './lib/exam/legacyExamRedirect';
 
+const PersonalLearningDashboardPage = lazy(() => import('./features/dashboard/PersonalLearningDashboardPage'));
+
 function AppContent() {
   const location = useLocation();
   const examPracticeRoute = /^\/exams\/(?:luyen-tap\/[^/]+|on-lai\/[^/]+|tuy-chon\/[^/]+|on-chu-de\/[^/]+)$/;
@@ -103,6 +106,14 @@ function AppContent() {
           <Route path="/exams/on-lai/:sessionId" element={<ExamRetryWrongPage />} />
           <Route path="/exams/lich-su" element={<ExamV2HistoryPage />} />
           <Route path="/exams/lich-su-v2" element={<ExamV2HistoryPage />} />
+          <Route
+            path="/exams/thong-ke"
+            element={(
+              <Suspense fallback={<div className="exam-browse-message" role="status">Đang mở tổng quan học tập…</div>}>
+                <PersonalLearningDashboardPage />
+              </Suspense>
+            )}
+          />
 
           {/* === Profile routes === */}
           <Route path="/profile" element={<Navigate to="/profile/dashboard" replace />} />

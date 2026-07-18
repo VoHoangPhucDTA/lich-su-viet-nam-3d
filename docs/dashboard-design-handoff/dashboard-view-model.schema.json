@@ -1,0 +1,160 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://lichsuvn.local/schemas/personal-learning-dashboard-v1.json",
+  "title": "Personal Learning Dashboard View Model V1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["state", "scope", "summary", "recommendations", "scoreTrend", "strengths", "weaknesses", "questionTypePerformance", "cognitivePerformance", "recentAttempts", "coverage", "notices"],
+  "properties": {
+    "state": { "enum": ["ready", "empty", "loading", "error"] },
+    "scope": { "$ref": "#/$defs/scope" },
+    "summary": { "$ref": "#/$defs/summary" },
+    "recommendations": { "type": "array", "items": { "$ref": "#/$defs/recommendation" } },
+    "scoreTrend": { "$ref": "#/$defs/trendSeries" },
+    "strengths": { "type": "array", "items": { "$ref": "#/$defs/insight" } },
+    "weaknesses": { "type": "array", "items": { "$ref": "#/$defs/insight" } },
+    "questionTypePerformance": { "type": "array", "items": { "$ref": "#/$defs/questionType" } },
+    "cognitivePerformance": { "type": "array", "items": { "$ref": "#/$defs/cognitive" } },
+    "recentAttempts": { "type": "array", "items": { "$ref": "#/$defs/attempt" } },
+    "coverage": { "$ref": "#/$defs/coverage" },
+    "notices": { "type": "array", "items": { "$ref": "#/$defs/notice" } }
+  },
+  "$defs": {
+    "count": { "type": "integer", "minimum": 0 },
+    "score": { "type": "number", "minimum": 0, "maximum": 10 },
+    "nullableScore": { "oneOf": [{ "$ref": "#/$defs/score" }, { "type": "null" }] },
+    "percentage": { "type": "number", "minimum": 0, "maximum": 100 },
+    "nullablePercentage": { "oneOf": [{ "$ref": "#/$defs/percentage" }, { "type": "null" }] },
+    "timestamp": { "type": "string", "format": "date-time" },
+    "calendarDate": { "type": "string", "format": "date", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$" },
+    "confidence": { "enum": ["low", "medium", "high"] },
+    "insightStatus": { "enum": ["strength", "developing", "weakness", "insufficient-data"] },
+    "mode": { "enum": ["thi_thu", "custom_mock"] },
+    "scope": {
+      "type": "object", "additionalProperties": false,
+      "required": ["source", "range", "timezone", "isAuthenticated", "fromDate", "toDateExclusive"],
+      "properties": {
+        "source": { "enum": ["local", "backend", "merged", "local-fallback"] },
+        "range": { "enum": ["7d", "30d", "90d", "all"] },
+        "timezone": { "const": "Asia/Ho_Chi_Minh" },
+        "isAuthenticated": { "type": "boolean" },
+        "fromDate": { "oneOf": [{ "$ref": "#/$defs/calendarDate" }, { "type": "null" }] },
+        "toDateExclusive": { "$ref": "#/$defs/calendarDate" }
+      }
+    },
+    "summary": {
+      "type": "object", "additionalProperties": false,
+      "required": ["totalAttempts", "averageScore", "highestScore", "latestScore", "totalDurationSeconds", "activeDays", "mcqAccuracy", "tfStatementAccuracy", "blankRate", "tfPartialRate"],
+      "properties": {
+        "totalAttempts": { "$ref": "#/$defs/count" },
+        "averageScore": { "$ref": "#/$defs/nullableScore" },
+        "highestScore": { "$ref": "#/$defs/nullableScore" },
+        "latestScore": { "$ref": "#/$defs/nullableScore" },
+        "totalDurationSeconds": { "$ref": "#/$defs/count" },
+        "activeDays": { "$ref": "#/$defs/count" },
+        "mcqAccuracy": { "$ref": "#/$defs/nullablePercentage" },
+        "tfStatementAccuracy": { "$ref": "#/$defs/nullablePercentage" },
+        "blankRate": { "$ref": "#/$defs/nullablePercentage" },
+        "tfPartialRate": { "$ref": "#/$defs/nullablePercentage" }
+      }
+    },
+    "evidence": {
+      "type": "object", "additionalProperties": false,
+      "required": ["accuracy", "correctUnits", "totalUnits", "attemptCount", "confidence"],
+      "properties": {
+        "accuracy": { "$ref": "#/$defs/percentage" },
+        "correctUnits": { "$ref": "#/$defs/count" },
+        "totalUnits": { "$ref": "#/$defs/count" },
+        "attemptCount": { "$ref": "#/$defs/count" },
+        "confidence": { "$ref": "#/$defs/confidence" }
+      }
+    },
+    "recommendation": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "title", "reason", "actionLabel", "actionRoute", "priority", "topicKey", "evidence"],
+      "properties": {
+        "id": { "type": "string", "minLength": 1 }, "title": { "type": "string" }, "reason": { "type": "string" },
+        "actionLabel": { "type": "string" }, "actionRoute": { "type": "string", "pattern": "^/" },
+        "priority": { "enum": ["primary", "secondary"] },
+        "topicKey": { "type": ["string", "null"] },
+        "evidence": { "oneOf": [{ "$ref": "#/$defs/evidence" }, { "type": "null" }] }
+      }
+    },
+    "trendPoint": {
+      "type": "object", "additionalProperties": false,
+      "required": ["attemptId", "submittedAt", "dateLabel", "score", "mode", "title"],
+      "properties": {
+        "attemptId": { "type": "string" }, "submittedAt": { "$ref": "#/$defs/timestamp" }, "dateLabel": { "type": "string" },
+        "score": { "$ref": "#/$defs/score" }, "mode": { "$ref": "#/$defs/mode" }, "title": { "type": "string" }
+      }
+    },
+    "trendSeries": {
+      "type": "object", "additionalProperties": false,
+      "required": ["granularity", "isComplete", "sourceAttemptCount", "points"],
+      "properties": {
+        "granularity": { "enum": ["attempt", "day"] },
+        "isComplete": { "type": "boolean" },
+        "sourceAttemptCount": { "$ref": "#/$defs/count" },
+        "points": { "type": "array", "items": { "$ref": "#/$defs/trendPoint" } }
+      }
+    },
+    "insight": {
+      "type": "object", "additionalProperties": false,
+      "required": ["key", "label", "status", "accuracy", "correctUnits", "totalUnits", "attemptCount", "confidence", "practiceRoute", "summary"],
+      "properties": {
+        "key": { "type": "string" }, "label": { "type": "string" }, "status": { "$ref": "#/$defs/insightStatus" },
+        "accuracy": { "$ref": "#/$defs/percentage" }, "correctUnits": { "$ref": "#/$defs/count" }, "totalUnits": { "$ref": "#/$defs/count" },
+        "attemptCount": { "$ref": "#/$defs/count" }, "confidence": { "$ref": "#/$defs/confidence" },
+        "practiceRoute": { "type": ["string", "null"] }, "summary": { "type": "string" }
+      }
+    },
+    "questionType": {
+      "type": "object", "additionalProperties": false,
+      "required": ["type", "label", "accuracy", "correctUnits", "answeredUnits", "blankUnits", "totalUnits", "partialQuestionCount", "totalQuestionCount", "textualSummary"],
+      "properties": {
+        "type": { "enum": ["mcq", "true_false"] }, "label": { "type": "string" }, "accuracy": { "$ref": "#/$defs/nullablePercentage" },
+        "correctUnits": { "$ref": "#/$defs/count" }, "answeredUnits": { "$ref": "#/$defs/count" }, "blankUnits": { "$ref": "#/$defs/count" },
+        "totalUnits": { "$ref": "#/$defs/count" }, "partialQuestionCount": { "$ref": "#/$defs/count" },
+        "totalQuestionCount": { "$ref": "#/$defs/count" }, "textualSummary": { "type": "string" }
+      }
+    },
+    "cognitive": {
+      "type": "object", "additionalProperties": false,
+      "required": ["level", "label", "accuracy", "correctUnits", "totalUnits", "attemptCount", "confidence", "status", "textualSummary"],
+      "properties": {
+        "level": { "enum": ["knowledge", "comprehension", "application"] }, "label": { "type": "string" },
+        "accuracy": { "$ref": "#/$defs/nullablePercentage" }, "correctUnits": { "$ref": "#/$defs/count" }, "totalUnits": { "$ref": "#/$defs/count" },
+        "attemptCount": { "$ref": "#/$defs/count" }, "confidence": { "$ref": "#/$defs/confidence" },
+        "status": { "$ref": "#/$defs/insightStatus" }, "textualSummary": { "type": "string" }
+      }
+    },
+    "attempt": {
+      "type": "object", "additionalProperties": false,
+      "required": ["attemptId", "title", "mode", "modeLabel", "score", "durationSeconds", "submittedAt", "submittedLabel", "totalQuestions", "resultRoute", "detailStatus"],
+      "properties": {
+        "attemptId": { "type": "string" }, "title": { "type": "string" }, "mode": { "$ref": "#/$defs/mode" }, "modeLabel": { "type": "string" },
+        "score": { "$ref": "#/$defs/score" }, "durationSeconds": { "$ref": "#/$defs/count" }, "submittedAt": { "$ref": "#/$defs/timestamp" },
+        "submittedLabel": { "type": "string" }, "totalQuestions": { "$ref": "#/$defs/count" }, "resultRoute": { "type": "string", "pattern": "^/exams/ket-qua/" },
+        "detailStatus": { "enum": ["full", "summary-only", "unavailable"] }
+      }
+    },
+    "coverage": {
+      "type": "object", "additionalProperties": false,
+      "required": ["summaryAttemptCount", "detailedAttemptCount", "totalKnownAttempts", "fetchLimit", "isComplete", "capturesTimedOriginal", "capturesCustomMock", "capturesPractice", "capturesRetry", "message"],
+      "properties": {
+        "summaryAttemptCount": { "$ref": "#/$defs/count" }, "detailedAttemptCount": { "$ref": "#/$defs/count" }, "totalKnownAttempts": { "$ref": "#/$defs/count" },
+        "fetchLimit": { "oneOf": [{ "$ref": "#/$defs/count" }, { "type": "null" }] }, "isComplete": { "type": "boolean" },
+        "capturesTimedOriginal": { "const": true }, "capturesCustomMock": { "const": true }, "capturesPractice": { "const": false }, "capturesRetry": { "const": false },
+        "message": { "type": "string" }
+      }
+    },
+    "notice": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "type", "title", "message", "actionLabel", "actionRoute"],
+      "properties": {
+        "id": { "type": "string" }, "type": { "enum": ["info", "warning", "error", "success"] }, "title": { "type": "string" }, "message": { "type": "string" },
+        "actionLabel": { "type": ["string", "null"] }, "actionRoute": { "type": ["string", "null"] }
+      }
+    }
+  }
+}
