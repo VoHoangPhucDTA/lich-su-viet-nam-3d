@@ -62,7 +62,6 @@ export default function EventLocationCard({ event, index = '05' }: EventLocation
       <SectionHeader
         index={index}
         title="Địa điểm"
-        subtitle="Vị trí địa lý liên quan đến sự kiện trên bản đồ 3D Việt Nam."
       />
 
       <div

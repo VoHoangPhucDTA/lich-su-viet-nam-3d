@@ -1,8 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getRelatedEventsFromBackend } from '../../services/eventApi';
 import type { RelatedHistoricalEvent, RelatedHistoricalEvents } from '../../types/event';
 import { EVENT_TYPE_COLORS, EVENT_TYPE_LABELS } from '../../types/event';
+import { getEventThumbnailDeliveryCandidates } from '../../services/cloudinaryService';
 import SectionHeader from './SectionHeader';
 
 interface EventChildrenListProps {
@@ -65,7 +66,6 @@ export default function EventChildrenList({
       <SectionHeader
         index={index}
         title="Các sự kiện liên quan"
-        subtitle="Dựa trên quan hệ sự kiện được lưu trong dữ liệu."
       />
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -110,6 +110,26 @@ function RelatedEventCard({
 }) {
   const typeColor = EVENT_TYPE_COLORS[child.eventType];
   const typeLabel = EVENT_TYPE_LABELS[child.eventType];
+  const thumbnailCandidates = useMemo(
+    () => getEventThumbnailDeliveryCandidates(child.id, child.thumbnailUrl),
+    [child.id, child.thumbnailUrl],
+  );
+  const [thumbnailIndex, setThumbnailIndex] = useState(0);
+  const [thumbnailError, setThumbnailError] = useState(false);
+  const thumbnailUrl = thumbnailCandidates[thumbnailIndex];
+
+  useEffect(() => {
+    setThumbnailIndex(0);
+    setThumbnailError(false);
+  }, [thumbnailCandidates]);
+
+  const handleThumbnailError = () => {
+    if (thumbnailIndex < thumbnailCandidates.length - 1) {
+      setThumbnailIndex((current) => current + 1);
+      return;
+    }
+    setThumbnailError(true);
+  };
 
   return (
     <button
@@ -138,10 +158,11 @@ function RelatedEventCard({
           className="flex-shrink-0 relative w-24 h-24 rounded-xl overflow-hidden"
           style={{ background: 'var(--bg-surface)' }}
         >
-          {child.thumbnailUrl ? (
+          {thumbnailUrl && !thumbnailError ? (
             <img
-              src={child.thumbnailUrl}
+              src={thumbnailUrl}
               alt={child.name}
+              onError={handleThumbnailError}
               className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
             />
           ) : (

@@ -290,10 +290,10 @@ public class EventJsonImportRunner implements CommandLineRunner {
         String sql = """
                 INSERT INTO event_textbook_refs
                     (event_id, grade, book, theme, lesson, page_start, page_end, excerpt,
-                     url, content, source_key)
+                     url, source_key)
                 VALUES
                     (:eventId, :grade, :book, :theme, :lesson, :pageStart, :pageEnd, :excerpt,
-                     :url, :content, :sourceKey)
+                     :url, :sourceKey)
                 """;
         List<MapSqlParameterSource> batch = new ArrayList<>();
         for (ImportedEvent event : events) {
@@ -312,10 +312,6 @@ public class EventJsonImportRunner implements CommandLineRunner {
                         .addValue("pageEnd", firstIntValue(ref.path("pageEnd"), ref.path("pageRange").path("end")))
                         .addValue("excerpt", text(ref, "excerpt"))
                         .addValue("url", max(text(ref, "url"), 1000))
-                        .addValue("content", firstNonBlank(
-                                text(ref, "detailedNarrative"),
-                                event.textbookDetailedNarrative
-                        ))
                         .addValue("sourceKey", "SGK" + grade + ":" + event.id));
             }
         }
@@ -654,7 +650,6 @@ public class EventJsonImportRunner implements CommandLineRunner {
         private String canonicalSummary;
         private String detailedNarrative;
         private String significance;
-        private String textbookDetailedNarrative;
         private final Set<String> keyFacts = new LinkedHashSet<>();
         private boolean showOnHomepage;
         private boolean showOnTimeline;
@@ -708,7 +703,6 @@ public class EventJsonImportRunner implements CommandLineRunner {
             event.cardSummary = text(raw.path("summary"), "cardSummary");
             event.canonicalSummary = text(raw.path("textbookContent"), "canonicalSummary");
             event.detailedNarrative = text(raw.path("textbookContent"), "detailedNarrative");
-            event.textbookDetailedNarrative = event.detailedNarrative;
             event.significance = text(raw.path("textbookContent"), "significance");
             addStringArray(event.keyFacts, raw.path("textbookContent").path("keyFacts"));
             // New JSONL format uses showOnMap instead of showOnHomepage
@@ -758,10 +752,6 @@ public class EventJsonImportRunner implements CommandLineRunner {
             this.cardSummary = firstNonBlank(this.cardSummary, incoming.cardSummary);
             this.canonicalSummary = firstNonBlank(this.canonicalSummary, incoming.canonicalSummary);
             this.detailedNarrative = firstNonBlank(this.detailedNarrative, incoming.detailedNarrative);
-            this.textbookDetailedNarrative = firstNonBlank(
-                    this.textbookDetailedNarrative,
-                    incoming.textbookDetailedNarrative
-            );
             this.significance = firstNonBlank(this.significance, incoming.significance);
             this.keyFacts.addAll(incoming.keyFacts);
             this.showOnHomepage = this.showOnHomepage || incoming.showOnHomepage;

@@ -16,7 +16,9 @@ import java.util.regex.Pattern;
 
 public class ApplyEventThumbnailsToDb {
     private static final Pattern ID_PATTERN = Pattern.compile("\"id\"\\s*:\\s*\"([^\"]+)\"");
-    private static final Pattern THUMB_PATTERN = Pattern.compile("\"thumbnail\"\\s*:\\s*\"(https://res\\.cloudinary\\.com/[^\"]*event-thumbnails/[^\"]+)\"");
+    private static final Pattern THUMB_PATTERN = Pattern.compile(
+            "\"thumbnail\"\\s*:\\s*\"(https://res\\.cloudinary\\.com/[^\"]*"
+                    + "(?:historical_events_thumbnail1|historical_events_thumbnail|event-thumbnails)/[^\"]+)\"");
     private static final Pattern MANIFEST_STATUS_PATTERN = Pattern.compile("\"status\"\\s*:\\s*\"([^\"]+)\"");
 
     public static void main(String[] args) throws Exception {

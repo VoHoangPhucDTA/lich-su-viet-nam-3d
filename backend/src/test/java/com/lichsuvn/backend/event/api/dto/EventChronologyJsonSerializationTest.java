@@ -6,9 +6,9 @@ import com.lichsuvn.backend.common.config.JacksonConfig;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
-import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class EventChronologyJsonSerializationTest {
@@ -64,6 +64,14 @@ class EventChronologyJsonSerializationTest {
         assertEquals(-401, json.get("effectiveEndYear").asInt());
     }
 
+    @Test
+    void detailSerializesCanonicalTextbookContentWithoutLegacyRawJson() {
+        JsonNode json = detailJson(1945, null, 1945);
+
+        assertEquals("N\u1ed9i dung SGK chu\u1ea9n", json.get("textbookContent").asText());
+        assertFalse(json.has("sourceJson"));
+    }
+
     private JsonNode detailJson(Integer startYear, Integer endYear, Integer effectiveEndYear) {
         EventDetailDto dto = new EventDetailDto(
                 "event-id",
@@ -82,7 +90,7 @@ class EventChronologyJsonSerializationTest {
                 null,
                 null,
                 List.of(),
-                List.of(),
+                null,
                 null,
                 "root",
                 0,
@@ -101,8 +109,9 @@ class EventChronologyJsonSerializationTest {
                 List.of(),
                 List.of(),
                 List.of(),
+                List.of(),
                 EventRelatedEventsDto.empty(),
-                Map.of()
+                "N\u1ed9i dung SGK chu\u1ea9n"
         );
         return objectMapper.valueToTree(dto);
     }

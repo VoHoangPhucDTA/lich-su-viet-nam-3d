@@ -6,6 +6,83 @@ Run the regular backend test suite from the backend directory:
 mvn test
 ```
 
+## History RAG schema migration test
+
+`HistoryRagSchemaMigrationIntegrationTest` starts a disposable MySQL 8.0
+container, applies the complete Flyway chain, and validates the schema through
+`V30`. It never connects to the application's local or remote datasource.
+
+The expected result is `Tests run: 1, Failures: 0, Errors: 0, Skipped: 0`.
+Testcontainers/Ryuk removes the disposable containers after the JVM exits.
+
+Docker Engine 29 requires API 1.44 or newer. With Docker Desktop 4.63 / Engine
+29, add `-Dapi.version=1.44` to Maven Testcontainers commands; otherwise the
+older docker-java default is rejected before a container starts.
+
+When Testcontainers cannot discover Docker Desktop, pass all three properties
+for a separately created disposable MySQL database: `history.rag.schema.mysql.url`,
+`history.rag.schema.mysql.user`, and `history.rag.schema.mysql.password`.
+The schema test never creates or stops that external database, so it must not
+point to a database containing data that must be retained.
+
+## History RAG package and importer
+
+Generate the deterministic package from the audited workbook at repository
+root:
+
+```powershell
+python scripts/history-rag/export_workbook.py `
+  --workbook "C:\path\to\history_rag_migration_import_package_semantic_active_refs.xlsx" `
+  --output-dir data/history-rag/v1
+```
+
+The semantic-active workbook is an external read-only input. Its expected
+baseline is 386 active textbook refs, 359 visible refs, 27 hidden supporting
+refs, 6 removed wrong mappings and 3 quarantined refs. The generated package
+stores the nine removal before-images in
+`textbook-reference-removals.ndjson`; they are not active RAG rows.
+
+Run the package and dry-run unit tests from `backend`:
+
+```powershell
+mvn '-Dtest=HistoryRagPackageReaderTest,HistoryRagDatasourceGuardTest,HistoryRagTextbookRefPreflightTest,HistoryRagImportRunnerTest' test
+mvn '-Dapi.version=1.44' '-Dtest=HistoryRagSchemaMigrationIntegrationTest,HistoryRagDryRunIntegrationTest,HistoryRagImportServiceIntegrationTest' test
+```
+
+Run the read-only preflight against a local MySQL database only:
+
+```powershell
+mvn spring-boot:run `
+  '-Dspring-boot.run.profiles=history-rag-import' `
+  '-Dspring-boot.run.arguments=--history-rag.import.dry-run=true --history-rag.import.allow-write=false --history-rag.import.expected-database=lichsuvn --history-rag.import.package-dir=../data/history-rag/v1 --history-rag.import.section=all --spring.main.web-application-type=none --spring.flyway.enabled=false'
+```
+
+Apply is blocked whenever preflight reports missing or conflicting baseline
+records. Apply and rollback are allowed only against `localhost`, `127.0.0.1`
+or a Testcontainers-managed host, and require both the importer properties and
+the independent environment gates below. Never set these values for TiDB Cloud
+or another remote datasource.
+
+```powershell
+$env:HISTORY_RAG_IMPORT_ALLOW_WRITE='true'
+$env:HISTORY_RAG_IMPORT_EXPECTED_DATABASE='lichsuvn'
+mvn spring-boot:run `
+  '-Dspring-boot.run.profiles=history-rag-import' `
+  '-Dspring-boot.run.arguments=--history-rag.import.dry-run=false --history-rag.import.allow-write=true --history-rag.import.expected-database=lichsuvn --history-rag.import.package-dir=../data/history-rag/v1 --history-rag.import.section=all --spring.main.web-application-type=none --spring.flyway.enabled=false'
+```
+
+Rollback uses the audit run ID and restores a row only while its current value
+still matches the recorded after-image. Later manual changes are reported as
+`ROLLBACK_CONFLICT` and are not overwritten.
+
+```powershell
+mvn spring-boot:run `
+  '-Dspring-boot.run.profiles=history-rag-import' `
+  '-Dspring-boot.run.arguments=--history-rag.import.dry-run=false --history-rag.import.allow-write=true --history-rag.import.expected-database=lichsuvn --history-rag.import.rollback-run-id=123 --spring.main.web-application-type=none --spring.flyway.enabled=false'
+Remove-Item Env:HISTORY_RAG_IMPORT_ALLOW_WRITE
+Remove-Item Env:HISTORY_RAG_IMPORT_EXPECTED_DATABASE
+```
+
 ## TTS Audio Asset MySQL Integration Test
 
 `TtsAudioAssetRepositoryIntegrationTest` verifies the production Spring JDBC repository against MySQL, including the `UNIQUE(cache_key)` atomic claim behavior and the Flyway migration through `V17__create_tts_audio_assets.sql`.

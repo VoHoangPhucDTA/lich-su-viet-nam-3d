@@ -9,10 +9,6 @@
  */
 
 import type { MockEventDetail } from '../data/mockEventDetails';
-import {
-  type RawEventJson,
-} from '../data/eventRegistry';
-import { rawToEventDetail } from '../data/eventAdapter';
 import type {
   EventAssociationType,
   EventType,
@@ -83,7 +79,19 @@ interface EventDetailDto extends EventSummaryDto {
     pageEnd?: number;
     excerpt?: string;
     url?: string;
-    content?: string;
+  }[];
+  textbookContent?: string;
+  externalSources: {
+    sourceType: string;
+    title: string;
+    canonicalUri?: string;
+    externalId?: string;
+    language?: string;
+    sourceOrder?: number;
+    matchType: string;
+    primary: boolean;
+    verificationStatus: string;
+    notes?: string;
   }[];
   media: {
     id: number;
@@ -94,7 +102,6 @@ interface EventDetailDto extends EventSummaryDto {
   }[];
   relations: EventRelationDto[];
   relatedEvents?: EventRelatedEventsDto;
-  sourceJson?: RawEventJson;
 }
 
 interface EventRelationDto {
@@ -304,48 +311,8 @@ function detailToMockEvent(dto: EventDetailDto): MockEventDetail {
   const relatedEventIds = relatedEvents.related.map((event) => event.id);
   const predecessorEventIds = relatedEvents.predecessors.map((event) => event.id);
   const successorEventIds = relatedEvents.successors.map((event) => event.id);
+  const externalSources = dto.externalSources ?? [];
 
-  if (dto.sourceJson) {
-    const detail = rawToEventDetail(dto.sourceJson);
-    detail.summary = {
-      homepageTitle: dto.title,
-      homepageSummary: dto.canonicalSummary ?? dto.cardSummary ?? '',
-      cardSummary: dto.cardSummary ?? dto.canonicalSummary ?? '',
-    };
-    detail.textbookContent.canonicalSummary = dto.canonicalSummary ?? '';
-    detail.textbookContent.detailedNarrative = dto.detailedNarrative;
-    detail.textbookContent.significance = dto.significance;
-    detail.textbookContent.keyFacts = dto.keyFacts;
-    detail.textbookContent.textbookRefs = dto.textbookRefs.map((ref) => ({
-      grade: String(ref.grade),
-      book: ref.book,
-      theme: ref.theme,
-      lesson: ref.lesson,
-      pageStart: ref.pageStart,
-      pageEnd: ref.pageEnd,
-      excerpt: ref.excerpt,
-      url: ref.url,
-      content: ref.content,
-    }));
-    const media = detailMediaFromDto(dto);
-    detail.media = media;
-    detail.hierarchy = {
-      ...detail.hierarchy,
-      rootId: detail.hierarchy?.rootId ?? dto.rootId ?? undefined,
-      parentId: detail.hierarchy?.parentId ?? dto.parentId ?? undefined,
-      level: detail.hierarchy?.level ?? dto.level,
-      orderInParent: detail.hierarchy?.orderInParent ?? dto.orderInParent,
-      childCount: dto.childCount ?? detail.hierarchy?.childIds?.length ?? 0,
-    };
-    detail.associations = {
-      ...detail.associations,
-      relatedEventIds,
-      predecessorEventIds,
-      successorEventIds,
-    };
-    detail.relatedEvents = relatedEvents;
-    return detail;
-  }
   const media = detailMediaFromDto(dto);
 
   return {
@@ -391,6 +358,7 @@ function detailToMockEvent(dto: EventDetailDto): MockEventDetail {
       detailedNarrative: dto.detailedNarrative,
       significance: dto.significance,
       keyFacts: dto.keyFacts,
+      sourceContent: dto.textbookContent,
       textbookRefs: dto.textbookRefs.map((ref) => ({
         grade: String(ref.grade),
         book: ref.book,
@@ -400,9 +368,9 @@ function detailToMockEvent(dto: EventDetailDto): MockEventDetail {
         pageEnd: ref.pageEnd,
         excerpt: ref.excerpt,
         url: ref.url,
-        content: ref.content,
       })),
     },
+    externalSources,
     media,
     hierarchy: {
       rootId: dto.rootId ?? undefined,

@@ -16,7 +16,7 @@ const DEFAULT_MANIFEST_PATH = path.join(
   repoRoot,
   'crawData/stage4b_curate_tree/output/phase2/event_thumbnail_upload_manifest.json',
 );
-const DEFAULT_CLOUDINARY_FOLDER = 'event-thumbnails';
+const DEFAULT_CLOUDINARY_FOLDER = 'historical_events_thumbnail1';
 const IMAGE_EXTENSIONS = new Set(['.jpg', '.jpeg', '.png', '.webp', '.gif', '.avif']);
 
 function parseArgs(argv) {
@@ -61,7 +61,7 @@ Options:
   --source-dir <path>          Defaults to thumbnails_event
   --events-path <path>         Defaults to crawData/stage4b_curate_tree/output/phase2/core_events.jsonl
   --manifest <path>            Defaults to crawData/stage4b_curate_tree/output/phase2/event_thumbnail_upload_manifest.json
-  --cloudinary-folder <name>   Defaults to event-thumbnails
+  --cloudinary-folder <name>   Defaults to historical_events_thumbnail1
 
 Env:
   CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY, CLOUDINARY_API_SECRET
