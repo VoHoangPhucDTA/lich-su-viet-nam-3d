@@ -1,247 +1,186 @@
-import { useState, useEffect } from 'react';
-import { useSearchParams, useNavigate } from 'react-router-dom';
+import { useEffect, useRef, useState } from 'react';
+import { Link, useSearchParams } from 'react-router-dom';
+import { LoaderCircle } from 'lucide-react';
 import {
-  ArrowLeft,
-  ArrowRight,
-  Clock,
-  Search,
-} from 'lucide-react';
-import type { HistoricalEvent } from '../types/event';
-import { getBrowseEvents } from '../services/eventApi';
-import { getEventTitleFallback } from '../data/eventTitleImages';
+  getHistoricalPeriodById,
+  getPeriodQueryRange,
+  HISTORICAL_PERIODS,
+  intersectHistoricalPeriodRanges,
+} from '../data/historicalPeriods';
 import EventCard from '../components/shared/EventCard';
-import BackButton from '../components/shared/BackButton';
-import { compareChronologyS1, matchesNumericFilter } from '../utils/chronology';
+import EmptyState from '../components/shared/EmptyState';
+import ErrorState from '../components/shared/ErrorState';
+import PublicPageHeader from '../components/public/PublicPageHeader';
+import HistoricalPeriodCard from '../components/public/HistoricalPeriodCard';
+import EventExplorerToolbar from '../components/public/EventExplorerToolbar';
+import { useInfiniteEvents } from '../hooks/useInfiniteEvents';
 
-/* ─── Historical period definitions ──────────────────────────────────────── */
-
-interface HistoricalPeriod {
-  id: string;
-  name: string;
-  startYear: number;
-  endYear: number;
-  description: string;
-  label: string;
-  eventType: string; // maps to a fallback gradient
+function parseYear(value: string): number | undefined {
+  return value.trim() && /^-?\d+$/.test(value.trim()) ? Number(value) : undefined;
 }
 
-const HISTORICAL_PERIODS: HistoricalPeriod[] = [
-  {
-    id: 'ancient',
-    name: 'Cổ đại',
-    startYear: -700,
-    endYear: 938,
-    description: 'Buổi đầu dựng nước thời Hùng Vương, An Dương Vương, và hơn một nghìn năm Bắc thuộc với những cuộc khởi nghĩa hào hùng của Hai Bà Trưng, Bà Triệu, Lý Bí, Mai Thúc Loan, Phùng Hưng.',
-    label: '~700 TCN – 938',
-    eventType: 'cultural',
-  },
-  {
-    id: 'feudal',
-    name: 'Phong kiến',
-    startYear: 938,
-    endYear: 1858,
-    description: 'Kỷ nguyên độc lập tự chủ, mở đầu với chiến thắng Bạch Đằng của Ngô Quyền. Trải qua các triều đại Đinh, Tiền Lê, Lý, Trần, Hậu Lê, Tây Sơn và Nguyễn với những chiến công hiển hách chống ngoại xâm.',
-    label: '938 – 1858',
-    eventType: 'political',
-  },
-  {
-    id: 'colonial',
-    name: 'Cận đại',
-    startYear: 1858,
-    endYear: 1945,
-    description: 'Thực dân Pháp xâm lược, phong trào Cần Vương, các cuộc khởi nghĩa của Phan Đình Phùng, Hoàng Hoa Thám, và sự ra đời của các phong trào yêu nước theo khuynh hướng mới.',
-    label: '1858 – 1945',
-    eventType: 'military',
-  },
-  {
-    id: 'modern',
-    name: 'Hiện đại',
-    startYear: 1945,
-    endYear: 1975,
-    description: 'Từ Cách mạng tháng Tám thành công, khai sinh nước Việt Nam Dân chủ Cộng hòa, qua hai cuộc kháng chiến chống Pháp và chống Mỹ, kết thúc bằng đại thắng mùa Xuân 1975 thống nhất đất nước.',
-    label: '1945 – 1975',
-    eventType: 'military',
-  },
-  {
-    id: 'contemporary',
-    name: 'Đương đại',
-    startYear: 1975,
-    endYear: new Date().getFullYear(),
-    description: 'Thời kỳ xây dựng và phát triển đất nước sau thống nhất, công cuộc Đổi mới từ 1986, hội nhập quốc tế, và phát triển kinh tế - xã hội toàn diện.',
-    label: '1975 – nay',
-    eventType: 'economic',
-  },
-];
-
-/* ─── Page component ──────────────────────────────────────────────────────── */
-
 export default function HistoricalPeriodsPage() {
-  const [searchParams] = useSearchParams();
-  const navigate = useNavigate();
-  const [activePeriod, setActivePeriod] = useState<HistoricalPeriod | null>(null);
-  const [periodEvents, setPeriodEvents] = useState<HistoricalEvent[]>([]);
-  const [eventsLoading, setEventsLoading] = useState(false);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const periodParam = searchParams.get('period');
+  const activePeriod = getHistoricalPeriodById(periodParam);
+  const [query, setQuery] = useState(searchParams.get('q') ?? '');
+  const [debouncedQuery, setDebouncedQuery] = useState(query.trim());
+  const [sortBy, setSortBy] = useState<'year' | 'name'>(searchParams.get('sortBy') === 'name' ? 'name' : 'year');
+  const [sortDir, setSortDir] = useState<'asc' | 'desc'>(searchParams.get('sortDir') === 'desc' ? 'desc' : 'asc');
+  const [yearFrom, setYearFrom] = useState(searchParams.get('from') ?? '');
+  const [yearTo, setYearTo] = useState(searchParams.get('to') ?? '');
+  const sentinelRef = useRef<HTMLDivElement>(null);
+  const baseRange = getPeriodQueryRange(activePeriod?.id);
+  const from = parseYear(yearFrom);
+  const to = parseYear(yearTo);
+  const invalidInput = Boolean(
+    (yearFrom.trim() && from == null) ||
+    (yearTo.trim() && to == null) ||
+    (from != null && to != null && from > to)
+  );
+  const finalRange = baseRange && !invalidInput
+    ? intersectHistoricalPeriodRanges(baseRange, {
+        startYearFrom: from,
+        startYearTo: to != null ? to + 1 : undefined,
+      })
+    : null;
 
-  // Auto-expand period from URL query param (e.g. /periods?period=feudal)
   useEffect(() => {
-    const periodId = searchParams.get('period');
-    if (periodId) {
-      const period = HISTORICAL_PERIODS.find((p) => p.id === periodId);
-      if (period) {
-        handlePeriodClick(period);
-      }
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    const timeout = window.setTimeout(() => setDebouncedQuery(query.trim()), 300);
+    return () => window.clearTimeout(timeout);
+  }, [query]);
 
-  const handlePeriodClick = async (period: HistoricalPeriod) => {
-    setActivePeriod(period);
-    setEventsLoading(true);
-    setPeriodEvents([]);
+  useEffect(() => {
+    if (!activePeriod) return;
+    const next = new URLSearchParams({ period: activePeriod.id });
+    if (query.trim()) next.set('q', query.trim());
+    if (yearFrom.trim()) next.set('from', yearFrom.trim());
+    if (yearTo.trim()) next.set('to', yearTo.trim());
+    if (sortBy !== 'year') next.set('sortBy', sortBy);
+    if (sortDir !== 'asc') next.set('sortDir', sortDir);
+    if (next.toString() !== searchParams.toString()) setSearchParams(next, { replace: true });
+  }, [activePeriod, query, searchParams, setSearchParams, sortBy, sortDir, yearFrom, yearTo]);
 
-    try {
-      // Fetch with maximum limit (1000) to ensure ALL events are available
-      // for client-side year-range filtering. The backend orders by start_year
-      // ASC, so ancient events come first. With ~250 events total, 1000 is safe.
-      const result = await getBrowseEvents({ limit: 1000 });
-      const filtered = result.events.filter(
-        (ev) => matchesNumericFilter(ev, { fromYear: period.startYear, toYear: period.endYear })
-      );
-      filtered.sort(compareChronologyS1);
-      setPeriodEvents(filtered);
-    } catch {
-      // Silently handle
-    } finally {
-      setEventsLoading(false);
-    }
-  };
+  const { events, total, hasMore, isInitialLoading, isLoadingMore, error, loadMore, retry } = useInfiniteEvents({
+    q: debouncedQuery || undefined,
+    eventLevel: 'atomic',
+    sortBy,
+    sortDir,
+    ...finalRange,
+    limit: 24,
+    enabled: Boolean(activePeriod && finalRange),
+  });
+  const hasError = Boolean(error);
 
-  // Context-aware back from individual period: use browser history if available,
-  // otherwise fall back to the period list. Uses history.length not location.key
-  // because key resets on browser refresh.
-  const handleBackToPeriods = () => {
-    if (window.history.length <= 1) {
-      // Direct URL access — no app history, fall back to list
-      setActivePeriod(null);
-      setPeriodEvents([]);
-    } else {
-      navigate(-1);
-    }
-  };
+  useEffect(() => {
+    const node = sentinelRef.current;
+    if (!node || !hasMore || isLoadingMore) return;
+    const observer = new IntersectionObserver(entries => {
+      if (entries[0]?.isIntersecting) loadMore();
+    }, { rootMargin: '500px' });
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, [hasMore, isLoadingMore, loadMore]);
+
+  if (periodParam && !activePeriod) {
+    return (
+      <div className="public-shell">
+        <main className="public-content-narrow">
+          <div className="public-card">
+            <EmptyState title="Thời kỳ không tồn tại" description="Đường dẫn thời kỳ không hợp lệ hoặc đã được thay đổi." />
+            <div className="-mt-10 flex justify-center pb-10">
+              <Link to="/periods" className="public-primary-button no-underline">Quay lại các thời kỳ</Link>
+            </div>
+          </div>
+        </main>
+      </div>
+    );
+  }
+
+  if (!activePeriod) {
+    return (
+      <div className="public-shell">
+        <main className="public-content space-y-8">
+          <PublicPageHeader
+            eyebrow="Tiến trình lịch sử"
+            title="Thời kỳ lịch sử trọng đại"
+            description="Khám phá lịch sử Việt Nam qua năm giai đoạn, được phân loại thống nhất theo năm bắt đầu của sự kiện."
+            showBack
+          />
+          <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
+            {HISTORICAL_PERIODS.map(period => <HistoricalPeriodCard key={period.id} period={period} />)}
+          </div>
+        </main>
+      </div>
+    );
+  }
+
+  const sortValue = `${sortBy}-${sortDir}` as 'year-asc' | 'year-desc' | 'name-asc' | 'name-desc';
+  const emptyRange = !invalidInput && !finalRange;
 
   return (
-    <div className="bg-stone-50 min-h-screen">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-16 space-y-8">
+    <div className="public-shell">
+      <main className="public-content space-y-7">
+        <PublicPageHeader
+          eyebrow="Sự kiện theo thời kỳ"
+          title={activePeriod.label}
+          description={activePeriod.description}
+          showBack
+          backFallback="/periods"
+        />
 
-        {/* Header */}
-        <div>
-          {/* Back navigation — context-aware */}
-          {!activePeriod && (
-            <BackButton className="mb-5" />
-          )}
-          <div className="space-y-3">
-            <span className="font-mono text-xs text-red-900 tracking-[0.2em] uppercase font-bold">
-              {activePeriod ? 'SỰ KIỆN THEO THỜI KỲ' : 'TIẾN TRÌNH LỊCH SỬ'}
-            </span>
-            <h1 className="font-serif text-3xl lg:text-4xl font-black text-stone-900 leading-tight">
-              {activePeriod ? activePeriod.name : 'Thời Kỳ Lịch Sử Trọng Đại'}
-            </h1>
-            <p className="text-sm text-stone-500 max-w-xl">
-              {activePeriod
-                ? activePeriod.description
-                : 'Khám phá lịch sử Việt Nam qua từng thời kỳ — mỗi thời kỳ là một chương sử hào hùng.'}
-            </p>
-          </div>
-        </div>
+        <EventExplorerToolbar
+          query={query}
+          onQueryChange={setQuery}
+          sortValue={sortValue}
+          onSortChange={value => {
+            const [by, direction] = value.split('-') as ['year' | 'name', 'asc' | 'desc'];
+            setSortBy(by);
+            setSortDir(direction);
+          }}
+          yearFrom={yearFrom}
+          onYearFromChange={setYearFrom}
+          yearTo={yearTo}
+          onYearToChange={setYearTo}
+          onReset={() => {
+            setYearFrom('');
+            setYearTo('');
+          }}
+          rangeError={invalidInput ? 'Khoảng năm không hợp lệ.' : null}
+          searchPlaceholder={`Tìm trong ${activePeriod.shortLabel.toLowerCase()}...`}
+        />
 
-        {activePeriod ? (
-          /* ─── Period events drill-down ─── */
-          <div className="space-y-6">
-            <button
-              onClick={handleBackToPeriods}
-              className="inline-flex items-center gap-2 px-4 py-2 text-xs font-mono font-bold uppercase tracking-wider text-stone-500 hover:text-red-900 hover:bg-red-50 rounded-lg transition-colors"
-            >
-              <ArrowLeft className="h-3 w-3" />
-              Quay lại
-            </button>
-
-            {eventsLoading ? (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-                {Array.from({ length: 6 }).map((_, i) => (
-                  <div key={i} className="rounded-2xl bg-white border border-stone-200/65 overflow-hidden animate-pulse">
-                    <div className="h-36 bg-stone-200" />
-                    <div className="p-4 space-y-2">
-                      <div className="h-3 bg-stone-100 rounded w-1/4" />
-                      <div className="h-4 bg-stone-100 rounded w-3/4" />
-                      <div className="h-3 bg-stone-100 rounded w-full" />
-                    </div>
-                  </div>
-                ))}
-              </div>
-            ) : periodEvents.length === 0 ? (
-              <div className="text-center py-16 space-y-3">
-                <Search className="h-8 w-8 mx-auto text-stone-300" strokeWidth={1.5} />
-                <p className="font-serif text-sm text-stone-400 italic">
-                  Chưa có sự kiện cho thời kỳ này.
-                </p>
-              </div>
-            ) : (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-                {periodEvents.map((ev) => (
-                  <EventCard key={ev.id} event={ev} imageHeight="h-36" compact />
-                ))}
-              </div>
-            )}
-          </div>
-        ) : (
-          /* ─── Period cards grid ─── */
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-            {HISTORICAL_PERIODS.map((period) => {
-              const gradient = getEventTitleFallback(period.eventType);
-              return (
-                <div
-                  key={period.id}
-                  onClick={() => handlePeriodClick(period)}
-                  className="group cursor-pointer rounded-2xl bg-white border border-stone-200/60 overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-0.5"
-                >
-                  {/* Image header — gradient fill */}
-                  <div
-                    className="h-32 p-4 flex items-center justify-center relative"
-                    style={{ background: gradient }}
-                  >
-                    <span className="font-serif text-4xl font-black text-white/15 select-none">
-                      {period.name}
-                    </span>
-                    <div className="absolute bottom-3 left-4">
-                      <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-stone-900/70 backdrop-blur-sm border border-amber-500/20 text-amber-200 font-mono text-[9px] font-bold uppercase tracking-widest">
-                        <Clock className="h-3 w-3" strokeWidth={2} />
-                        {period.label}
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Card body */}
-                  <div className="p-5 space-y-3">
-                    <div className="flex items-center justify-between">
-                      <h3 className="font-serif text-lg font-bold text-stone-900 group-hover:text-red-900 transition-colors">
-                        {period.name}
-                      </h3>
-                      <ArrowRight className="h-4 w-4 text-stone-300 group-hover:text-red-900 transition-all group-hover:translate-x-1" />
-                    </div>
-                    <p className="text-[12px] text-stone-500 leading-relaxed line-clamp-3">
-                      {period.description}
-                    </p>
-                    <div className="flex items-center gap-1.5 text-[10px] font-mono font-bold text-red-900 uppercase tracking-wider opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-                      <span>Khám phá thời kỳ</span>
-                      <ArrowRight className="h-3 w-3" />
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
+        {!isInitialLoading && !hasError && !invalidInput && finalRange && (
+          <p className="text-xs font-semibold text-[var(--text-muted)]" aria-live="polite">
+            {total} sự kiện trong {activePeriod.shortLabel}
+          </p>
+        )}
+        {isInitialLoading && (
+          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {Array.from({ length: 6 }).map((_, index) => (
+              <div key={index} className="public-card h-64 animate-pulse bg-[var(--bg-surface)]" />
+            ))}
           </div>
         )}
-      </div>
+        {hasError && <ErrorState onRetry={retry} />}
+        {!isInitialLoading && !hasError && (emptyRange || (!invalidInput && events.length === 0)) && (
+          <EmptyState
+            title="Chưa có sự kiện phù hợp"
+            description={emptyRange ? 'Khoảng năm đã chọn nằm ngoài thời kỳ này.' : 'Hãy thử từ khóa khác hoặc xóa bộ lọc năm.'}
+          />
+        )}
+        {events.length > 0 && (
+          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {events.map(event => <EventCard key={event.id} event={event} imageHeight="h-36" compact />)}
+          </div>
+        )}
+        <div ref={sentinelRef} className="flex min-h-14 items-center justify-center">
+          {isLoadingMore && <LoaderCircle size={22} aria-hidden="true" className="animate-spin text-[var(--accent)]" />}
+          {hasError && events.length > 0 && (
+            <button type="button" onClick={retry} className="public-secondary-button">Tải lại phần tiếp theo</button>
+          )}
+        </div>
+      </main>
     </div>
   );
 }

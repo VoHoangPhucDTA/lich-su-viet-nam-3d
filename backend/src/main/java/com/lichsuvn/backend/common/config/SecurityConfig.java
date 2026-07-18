@@ -94,6 +94,7 @@ public class SecurityConfig {
                         .accessDeniedHandler(accessDeniedHandler)
                 )
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/api/admin/**").hasAuthority("ROLE_admin")
                         .requestMatchers(HttpMethod.GET, "/api/time").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/events", "/api/timeline").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/events/**").permitAll()

@@ -20,7 +20,7 @@ interface BackButtonProps {
  * Styled as a subtle secondary navigation element matching the lsvn3d
  * museum design language.
  */
-export default function BackButton({ fallback = '/home', label = 'Cội Nguồn', className = '' }: BackButtonProps) {
+export default function BackButton({ fallback = '/home', label = 'Quay lại', className = '' }: BackButtonProps) {
   const navigate = useNavigate();
 
   const handleClick = () => {
@@ -34,7 +34,7 @@ export default function BackButton({ fallback = '/home', label = 'Cội Nguồn'
   return (
     <button
       onClick={handleClick}
-      className={`inline-flex items-center gap-1.5 text-xs font-mono font-bold uppercase tracking-wider text-stone-400 hover:text-red-900 transition-colors ${className}`}
+      className={`inline-flex items-center gap-1.5 text-xs font-sans font-bold uppercase tracking-wider text-stone-400 hover:text-red-900 transition-colors ${className}`}
     >
       <ArrowLeft className="h-3 w-3" />
       {label}

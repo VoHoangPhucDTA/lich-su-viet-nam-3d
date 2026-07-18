@@ -1,243 +1,209 @@
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { Plus } from 'lucide-react';
 import AdminLayout from '../../layouts/AdminLayout';
-import AdminTable from '../../components/admin/AdminTable';
-import { MOCK_ADMIN_EVENTS, type AdminEvent } from '../../data/mockAdminData';
-import { EVENT_TYPE_LABELS, EVENT_TYPE_COLORS } from '../../types/event';
+import {
+  AdminDataTable,
+  AdminFilterSelect,
+  AdminPageHeader,
+  AdminPagination,
+  AdminRowActions,
+  AdminSearchInput,
+  AdminSelect,
+  AdminStatusBadge,
+  type AdminDataColumn,
+} from '../../components/admin/AdminUI';
+import { getAdminEvents, setAdminEventStatus, type AdminEvent } from '../../services/adminApi';
 
-/* ─── Badge helpers ──────────────────────────────────────────────────────────── */
-function EventTypeBadge({ type }: { type: AdminEvent['eventType'] }) {
-  const color = EVENT_TYPE_COLORS[type];
-  const label = EVENT_TYPE_LABELS[type];
-  return (
-    <span style={{
-      display: 'inline-flex', alignItems: 'center', padding: '2px 8px',
-      borderRadius: '9999px', fontSize: '0.7rem', fontWeight: 700,
-      background: `${color}15`, color, border: `1px solid ${color}30`,
-      whiteSpace: 'nowrap' as const,
-    }}>
-      {label}
-    </span>
-  );
-}
-
-function StatusBadge({ status }: { status: AdminEvent['status'] }) {
-  const c = status === 'published'
-    ? { color: 'var(--success)', bg: 'var(--success-soft)', label: 'Xuất bản' }
-    : { color: 'var(--warning)', bg: 'var(--warning-soft)', label: 'Nháp' };
-  return (
-    <span style={{
-      padding: '2px 8px', borderRadius: '9999px', fontSize: '0.7rem', fontWeight: 700,
-      background: c.bg, color: c.color, border: `1px solid ${c.color}20`, whiteSpace: 'nowrap' as const,
-    }}>
-      {c.label}
-    </span>
-  );
-}
-
-function DataBadge({ ok }: { ok: boolean }) {
-  return (
-    <span style={{ fontSize: '0.72rem', color: ok ? 'var(--success)' : 'var(--danger)', fontWeight: 700 }}>
-      {ok ? '✅ Đầy đủ' : '⚠️ Thiếu'}
-    </span>
-  );
-}
-
-function FilterBtn({ active, onClick, children }: { active: boolean; onClick: () => void; children: React.ReactNode }) {
-  return (
-    <button
-      onClick={onClick}
-      style={{
-        padding: '0.45rem 1rem', borderRadius: '9999px', fontSize: '0.8rem',
-        fontWeight: active ? 800 : 500,
-        color: active ? 'var(--admin-accent)' : 'var(--text-muted)',
-        background: active ? 'var(--admin-accent-soft)' : 'var(--bg-app)',
-        border: active ? '1px solid var(--admin-accent)' : '1px solid var(--border)',
-        cursor: 'pointer', transition: 'all 0.15s cubic-bezier(0.4, 0, 0.2, 1)', fontFamily: 'inherit', whiteSpace: 'nowrap' as const,
-      }}
-    >
-      {children}
-    </button>
-  );
-}
+const LIMIT = 20;
+const SEARCH_DEBOUNCE_MS = 300;
+const inputClass = 'min-h-11 rounded-[var(--admin-radius)] border border-[var(--border)] bg-[var(--bg-card)] px-3 text-sm text-[var(--text-secondary)] outline-none transition focus:border-[var(--admin-accent)]';
 
 export default function AdminEventsPage() {
-  const [search, setSearch] = useState('');
-  const [gradeFilter, setGradeFilter] = useState<'all' | 10 | 11 | 12>('all');
-  const [typeFilter, setTypeFilter] = useState<AdminEvent['eventType'] | 'all'>('all');
-  const [locationFilter, setLocationFilter] = useState<'all' | 'vn' | 'abroad'>('all');
-  const [dataFilter, setDataFilter] = useState<'all' | 'ok' | 'missing'>('all');
+  const [items, setItems] = useState<AdminEvent[]>([]);
+  const [query, setQuery] = useState('');
+  const [appliedQuery, setAppliedQuery] = useState('');
+  const [status, setStatus] = useState('');
+  const [level, setLevel] = useState('');
+  const [eventType, setEventType] = useState('');
+  const [yearFrom, setYearFrom] = useState('');
+  const [yearTo, setYearTo] = useState('');
+  const [total, setTotal] = useState(0);
+  const [offset, setOffset] = useState(0);
+  const [loading, setLoading] = useState(true);
+  const [updatingId, setUpdatingId] = useState<string | null>(null);
+  const [error, setError] = useState('');
 
-  const filtered = MOCK_ADMIN_EVENTS.filter(e => {
-    const q = search.toLowerCase();
-    const matchQ = !q || e.title.toLowerCase().includes(q) || e.id.toLowerCase().includes(q);
-    const matchGrade = gradeFilter === 'all' || e.grade === gradeFilter;
-    const matchType = typeFilter === 'all' || e.eventType === typeFilter;
-    const matchLoc = locationFilter === 'all' || (locationFilter === 'vn' ? e.isVietnam : !e.isVietnam);
-    const matchData = dataFilter === 'all' || (dataFilter === 'ok' ? e.dataComplete : !e.dataComplete);
-    return matchQ && matchGrade && matchType && matchLoc && matchData;
-  });
+  const load = useCallback(async () => {
+    setLoading(true);
+    setError('');
+    try {
+      const from = yearFrom.trim() ? Number(yearFrom) : undefined;
+      const to = yearTo.trim() ? Number(yearTo) + 1 : undefined;
+      const response = await getAdminEvents({
+        q: appliedQuery || undefined,
+        status: status || undefined,
+        eventLevel: level || undefined,
+        eventType: eventType || undefined,
+        startYearFrom: Number.isFinite(from) ? from : undefined,
+        startYearTo: Number.isFinite(to) ? to : undefined,
+        limit: LIMIT,
+        offset,
+      });
+      setItems(response.items);
+      setTotal(response.total);
+    } catch (cause) {
+      setError(cause instanceof Error ? cause.message : 'Không thể tải danh sách sự kiện.');
+    } finally {
+      setLoading(false);
+    }
+  }, [appliedQuery, eventType, level, offset, status, yearFrom, yearTo]);
 
+  useEffect(() => {
+    const timer = window.setTimeout(() => void load(), 0);
+    return () => window.clearTimeout(timer);
+  }, [load]);
+
+  useEffect(() => {
+    const normalized = query.trim();
+    if (normalized === appliedQuery) return;
+    const timer = window.setTimeout(() => {
+      setOffset(0);
+      setAppliedQuery(normalized);
+    }, SEARCH_DEBOUNCE_MS);
+    return () => window.clearTimeout(timer);
+  }, [appliedQuery, query]);
+
+  const changeFilter = (setter: (value: string) => void, value: string) => {
+    setOffset(0);
+    setter(value);
+  };
+
+  const clearFilters = () => {
+    setQuery('');
+    setAppliedQuery('');
+    setStatus('');
+    setLevel('');
+    setEventType('');
+    setYearFrom('');
+    setYearTo('');
+    setOffset(0);
+  };
+
+  const updateStatus = async (event: AdminEvent, nextStatus: AdminEvent['status']) => {
+    if (nextStatus === event.status || updatingId) return;
+    setUpdatingId(event.id);
+    try {
+      await setAdminEventStatus(event.id, nextStatus);
+      await load();
+    } catch (cause) {
+      setError(cause instanceof Error ? cause.message : 'Không thể cập nhật trạng thái.');
+    } finally {
+      setUpdatingId(null);
+    }
+  };
+
+  const hasFilters = Boolean(appliedQuery || status || level || eventType || yearFrom || yearTo);
+  const searchPending = query.trim() !== appliedQuery;
+
+  const columns: AdminDataColumn<AdminEvent>[] = [
+    {
+      key: 'name',
+      header: 'Tên sự kiện',
+      render: event => <div className="min-w-64"><p className="font-semibold text-[var(--text-primary)]">{event.title}</p><p className="mt-1 truncate text-[10px] text-[var(--text-muted)]" style={{ fontFamily: 'var(--font-sans)' }}>{event.slug}</p></div>,
+    },
+    {
+      key: 'year',
+      header: 'Năm',
+      render: event => <span className="whitespace-nowrap text-[var(--text-secondary)]">{event.startYear}{event.endYear ? `–${event.endYear}` : ''}</span>,
+    },
+    {
+      key: 'level',
+      header: 'Cấp độ',
+      render: event => <span className="text-xs font-medium text-[var(--text-secondary)]">{event.eventLevel}</span>,
+    },
+    {
+      key: 'eventType',
+      header: 'Loại sự kiện',
+      render: event => <span className="text-xs text-[var(--text-secondary)]">{event.eventType}</span>,
+    },
+    {
+      key: 'status',
+      header: 'Trạng thái',
+      render: event => <div className="flex flex-wrap items-center gap-2"><AdminStatusBadge status={event.status} /><AdminSelect
+  compact
+  label={`\u0110\u1ed5i tr\u1ea1ng th\u00e1i ${event.title}`}
+  value={event.status}
+  disabled={updatingId === event.id}
+  onValueChange={value => void updateStatus(event, value as AdminEvent['status'])}
+  options={[{ value: 'draft', label: 'Nh\u00e1p' }, { value: 'published', label: 'Xu\u1ea5t b\u1ea3n' }, { value: 'archived', label: 'L\u01b0u tr\u1eef' }]}
+/></div>,
+    },
+    {
+      key: 'updatedAt',
+      header: 'Cập nhật',
+      render: event => <time dateTime={event.updatedAt} className="whitespace-nowrap text-xs text-[var(--text-muted)]">{new Date(event.updatedAt).toLocaleDateString('vi-VN')}</time>,
+    },
+    {
+      key: 'actions',
+      header: 'Thao tác',
+      width: '100px',
+      render: event => <AdminRowActions><Link to={`/admin/events/${event.id}/edit`} className="text-xs font-semibold text-[var(--accent)] hover:underline">Sửa</Link></AdminRowActions>,
+    },
+  ];
   return (
-    <AdminLayout title="Quản lý sự kiện">
-      {/* Header */}
-      <div style={{ marginBottom: '2rem' }}>
-        <h1 style={{ fontSize: '1.75rem', fontWeight: 900, color: 'var(--text-primary)', marginBottom: '0.5rem', letterSpacing: '-0.02em' }}>
-          🗺️ Quản lý sự kiện lịch sử
-        </h1>
-        <p style={{ fontSize: '0.95rem', color: 'var(--text-muted)', margin: 0, opacity: 0.8 }}>
-          {MOCK_ADMIN_EVENTS.length} sự kiện · {MOCK_ADMIN_EVENTS.filter(e => !e.dataComplete).length} cần bổ sung dữ liệu
-        </p>
-      </div>
+    <AdminLayout title="Sự kiện lịch sử">
+      <AdminPageHeader
+        title="Sự kiện lịch sử"
+        description="Tìm kiếm, lọc và quản lý dữ liệu sự kiện lịch sử."
+        actions={<Link to="/admin/events/new" className="admin-primary-button inline-flex items-center gap-2 no-underline"><Plus size={16} aria-hidden="true" />Tạo sự kiện</Link>}
+      />
 
-      {/* Filters */}
-      <div style={{
-        background: 'var(--bg-card)', border: '1px solid var(--border)',
-        borderRadius: '1.25rem', padding: '1.5rem', marginBottom: '1.5rem',
-        display: 'flex', flexDirection: 'column', gap: '1.25rem',
-        boxShadow: 'var(--shadow)',
-      }}>
-        <div style={{ position: 'relative' }}>
-          <span style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)', pointerEvents: 'none', transition: 'all 0.2s' }}>🔍</span>
-          <input
-            value={search} onChange={e => setSearch(e.target.value)}
-            placeholder="Tìm theo tên hoặc ID sự kiện..."
-            style={{
-              width: '100%', padding: '0.75rem 1rem 0.75rem 2.75rem',
-              background: 'var(--bg-app)', border: '1px solid var(--border)',
-              borderRadius: '0.75rem', color: 'var(--text-primary)', fontSize: '0.875rem', outline: 'none', fontFamily: 'inherit',
-              transition: 'all 0.2s',
-            }}
-            onFocus={e => e.target.style.borderColor = 'var(--accent)'}
-            onBlur={e => e.target.style.borderColor = 'var(--border)'}
-          />
-        </div>
-
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(12rem, 1fr))', gap: '1.5rem' }}>
-          <div>
-            <p style={{ fontSize: '0.72rem', color: 'var(--text-muted)', fontWeight: 800, marginBottom: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.08em' }}>Lớp</p>
-            <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
-              {(['all', 10, 11, 12] as const).map(v => (
-                <FilterBtn key={v} active={gradeFilter === v} onClick={() => setGradeFilter(v)}>
-                  {v === 'all' ? 'Tất cả' : `Lớp ${v}`}
-                </FilterBtn>
-              ))}
+      <section className="overflow-hidden rounded-xl border border-[var(--border)] bg-[var(--bg-card)] shadow-[var(--admin-shadow)]">
+        <div className="space-y-3 border-b border-[var(--border)] p-4 sm:p-5">
+          <div className="flex flex-col gap-2 lg:flex-row">
+            <AdminSearchInput
+              value={query}
+              onChange={event => setQuery(event.target.value)}
+              onSubmit={() => {
+                setOffset(0);
+                setAppliedQuery(query.trim());
+              }}
+              placeholder="Tìm theo tên, slug hoặc tóm tắt..."
+            />
+            <div className="grid grid-cols-2 gap-2 sm:flex sm:flex-wrap">
+              <AdminFilterSelect value={status} onValueChange={value => changeFilter(setStatus, value)} label="Trạng thái" options={[{ value: '', label: 'Trạng thái: Tất cả' }, { value: 'draft', label: 'Bản nháp' }, { value: 'published', label: 'Đã xuất bản' }, { value: 'archived', label: 'Lưu trữ' }]} />
+              <AdminFilterSelect value={level} onValueChange={value => changeFilter(setLevel, value)} label="Cấp độ" options={[{ value: '', label: 'Cấp độ: Tất cả' }, { value: 'atomic', label: 'Sự kiện đơn' }, { value: 'collection', label: 'Bộ sưu tập' }]} />
+              <AdminFilterSelect value={eventType} onValueChange={value => changeFilter(setEventType, value)} label="Loại sự kiện" options={[{ value: '', label: 'Loại: Tất cả' }, { value: 'political', label: 'Chính trị' }, { value: 'military', label: 'Quân sự' }, { value: 'economic', label: 'Kinh tế' }, { value: 'cultural', label: 'Văn hóa - xã hội' }]} />
             </div>
           </div>
-          <div>
-            <p style={{ fontSize: '0.72rem', color: 'var(--text-muted)', fontWeight: 800, marginBottom: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.08em' }}>Loại</p>
-            <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
-              {(['all', 'military', 'political', 'economic', 'cultural'] as const).map(v => (
-                <FilterBtn key={v} active={typeFilter === v} onClick={() => setTypeFilter(v)}>
-                  {v === 'all' ? 'Tất cả' : EVENT_TYPE_LABELS[v]}
-                </FilterBtn>
-              ))}
+          <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+            <div className="flex flex-wrap items-center gap-2">
+              <input value={yearFrom} onChange={event => changeFilter(setYearFrom, event.target.value)} inputMode="numeric" placeholder="Năm từ" aria-label="Năm bắt đầu" className={`${inputClass} w-32`} />
+              <span aria-hidden="true" className="text-[var(--text-muted)]">–</span>
+              <input value={yearTo} onChange={event => changeFilter(setYearTo, event.target.value)} inputMode="numeric" placeholder="Năm đến" aria-label="Năm kết thúc" className={`${inputClass} w-32`} />
+              {searchPending && <span className="text-xs text-[var(--text-muted)]">Đang tìm…</span>}
             </div>
-          </div>
-          <div>
-            <p style={{ fontSize: '0.72rem', color: 'var(--text-muted)', fontWeight: 800, marginBottom: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.08em' }}>Địa điểm</p>
-            <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
-              {[{ v: 'all', l: 'Tất cả' }, { v: 'vn', l: 'Việt Nam' }, { v: 'abroad', l: 'Ngoài VN' }].map(({ v, l }) => (
-                <FilterBtn key={v} active={locationFilter === v as typeof locationFilter} onClick={() => setLocationFilter(v as 'all' | 'vn' | 'abroad')}>
-                  {l}
-                </FilterBtn>
-              ))}
-            </div>
-          </div>
-          <div>
-            <p style={{ fontSize: '0.72rem', color: 'var(--text-muted)', fontWeight: 800, marginBottom: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.08em' }}>Dữ liệu</p>
-            <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
-              {[{ v: 'all', l: 'Tất cả' }, { v: 'ok', l: 'Đầy đủ' }, { v: 'missing', l: 'Thiếu dữ liệu' }].map(({ v, l }) => (
-                <FilterBtn key={v} active={dataFilter === v as typeof dataFilter} onClick={() => setDataFilter(v as 'all' | 'ok' | 'missing')}>
-                  {l}
-                </FilterBtn>
-              ))}
+            <div className="flex items-center gap-3 text-xs text-[var(--text-muted)]">
+              <span>{total} sự kiện</span>
+              {hasFilters && <button type="button" onClick={clearFilters} className="admin-text-button">Xóa bộ lọc</button>}
             </div>
           </div>
         </div>
 
-        <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', borderTop: '1px solid var(--border)', paddingTop: '0.75rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <span>Hiển thị <strong style={{ color: 'var(--text-primary)' }}>{filtered.length}</strong> / {MOCK_ADMIN_EVENTS.length} sự kiện</span>
-          <button style={{ color: 'var(--accent)', background: 'transparent', border: 'none', cursor: 'pointer', fontWeight: 700, fontSize: '0.75rem' }} onClick={() => { setSearch(''); setGradeFilter('all'); setTypeFilter('all'); setLocationFilter('all'); setDataFilter('all'); }}>Thiết lập lại</button>
-        </div>
-      </div>
-
-      {/* Table Section */}
-      <div style={{ background: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: '1.25rem', overflow: 'hidden', boxShadow: 'var(--shadow)' }}>
-        <AdminTable
-          rows={filtered}
-          getKey={e => e.id}
-          emptyIcon="🗺️"
-          emptyTitle="Không có sự kiện"
-          emptyDesc="Thay đổi bộ lọc để tìm sự kiện khác."
-          columns={[
-            {
-              key: 'title', header: 'Sự kiện', render: e => (
-                <div>
-                  <div style={{ fontWeight: 800, color: 'var(--text-primary)', marginBottom: '0.2rem', fontSize: '0.875rem' }}>{e.title}</div>
-                  <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)', fontFamily: 'monospace', opacity: 0.8 }}>{e.id}</div>
-                </div>
-              ),
-            },
-            {
-              key: 'meta', header: 'Lớp / Năm', render: e => (
-                <div>
-                  <div style={{ fontSize: '0.85rem', color: 'var(--text-primary)', fontWeight: 600 }}>{e.grade ? `Lớp ${e.grade}` : 'Chung'}</div>
-                  <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', fontWeight: 500 }}>{e.startYear}{e.endYear ? `–${e.endYear}` : ''}</div>
-                </div>
-              ),
-            },
-            { key: 'type', header: 'Loại', render: e => <EventTypeBadge type={e.eventType} /> },
-            {
-              key: 'geo', header: 'Địa lý', render: e => (
-                <div>
-                  <div style={{ fontSize: '0.8rem', color: 'var(--text-primary)', fontWeight: 600 }}>{e.isVietnam ? '🇻🇳 Việt Nam' : '🌐 Ngoài VN'}</div>
-                  <div style={{ fontSize: '0.72rem', color: e.hasMap ? 'var(--success)' : 'var(--danger)', fontWeight: 600 }}>{e.hasMap ? '📍 Có bản đồ' : '❌ Chưa có bản đồ'}</div>
-                </div>
-              ),
-            },
-            { key: 'data', header: 'Dữ liệu', render: e => <DataBadge ok={e.dataComplete} /> },
-            { key: 'status', header: 'Trạng thái', render: e => <StatusBadge status={e.status} /> },
-            {
-              key: 'actions', header: 'Hành động', render: e => (
-                <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
-                  <a
-                    href={`/events/${e.id}`}
-                    target="_blank"
-                    rel="noreferrer"
-                    style={{
-                      padding: '0.375rem 0.75rem', borderRadius: '0.5rem', fontSize: '0.72rem', fontWeight: 800,
-                      color: 'var(--accent)', background: 'var(--accent-soft)', border: '1px solid var(--accent)',
-                      textDecoration: 'none', whiteSpace: 'nowrap' as const, display: 'inline-block',
-                      transition: 'all 0.2s',
-                    }}
-                    onMouseEnter={e => e.currentTarget.style.opacity = '0.8'}
-                    onMouseLeave={e => e.currentTarget.style.opacity = '1'}
-                  >
-                    Chi tiết
-                  </a>
-                  {e.hasMap && (
-                    <a
-                      href="/"
-                      target="_blank"
-                      rel="noreferrer"
-                      style={{
-                        padding: '0.375rem 0.75rem', borderRadius: '0.5rem', fontSize: '0.72rem', fontWeight: 800,
-                        color: 'var(--admin-accent)', background: 'var(--admin-accent-soft)', border: '1px solid var(--admin-accent)',
-                        textDecoration: 'none', whiteSpace: 'nowrap' as const, display: 'inline-block',
-                        transition: 'all 0.2s',
-                      }}
-                      onMouseEnter={e => e.currentTarget.style.opacity = '0.8'}
-                      onMouseLeave={e => e.currentTarget.style.opacity = '1'}
-                    >
-                      Bản đồ
-                    </a>
-                  )}
-                </div>
-              ), width: '180px',
-            },
-          ]}
+        <AdminDataTable
+          columns={columns}
+          rows={items}
+          getKey={event => event.id}
+          minWidth="800px"
+          loading={loading}
+          error={error || undefined}
+          onRetry={() => void load()}
+          emptyTitle="Không có sự kiện phù hợp"
+          emptyDescription="Thử thay đổi từ khóa hoặc bộ lọc để tìm dữ liệu khác."
+          footer={<AdminPagination total={total} offset={offset} limit={LIMIT} loading={loading} onChange={setOffset} />}
         />
-      </div>
+      </section>
     </AdminLayout>
   );
 }

@@ -59,7 +59,7 @@ import ExamCustomSessionPage from './pages/exams/ExamCustomSessionPage';
 
 function AppContent() {
   const location = useLocation();
-  const hideHeaderRoutes = ['/quiz/session', '/exams/session', '/exams/de'];
+  const hideHeaderRoutes = ['/quiz/session', '/exams/session', '/exams/de', '/admin'];
   const shouldHideHeader = hideHeaderRoutes.some(path => location.pathname.startsWith(path));
 
   return (

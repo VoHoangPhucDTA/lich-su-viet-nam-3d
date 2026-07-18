@@ -93,7 +93,7 @@ public class EventReadRepository {
                 FROM historical_events e
                 WHERE e.status = 'published'
                 """ + parts.whereSql
-                + " ORDER BY " + CHRONOLOGY_NULL_LAST_ORDER + """
+                """ + buildOrderBy(sortBy, sortDir) + """
                 LIMIT :limit OFFSET :offset
                 """;
 
