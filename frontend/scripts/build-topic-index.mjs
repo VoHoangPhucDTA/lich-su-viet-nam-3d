@@ -20,6 +20,7 @@ import {
   CANONICAL_TOPICS,
   FALLBACK_CANONICAL,
 } from './lib/topicTaxonomy.mjs';
+import { parseStrictJson } from './lib/strictJson.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const SRC_DIR = path.resolve(__dirname, '../../data/exams');
@@ -32,7 +33,9 @@ async function main() {
 
   let files;
   try {
-    files = (await fs.readdir(SRC_DIR)).filter((f) => f.endsWith('.json'));
+    files = (await fs.readdir(SRC_DIR))
+      .filter((f) => f.endsWith('.json'))
+      .sort((a, b) => a.localeCompare(b));
   } catch (err) {
     console.error(`❌ Không đọc được thư mục nguồn ${SRC_DIR}:`, err.message);
     process.exit(1);
@@ -48,12 +51,16 @@ async function main() {
 
   for (const file of files) {
     const filePath = path.join(SRC_DIR, file);
-    try {
-      const exam = JSON.parse(await fs.readFile(filePath, 'utf-8'));
-      if (!exam.examId || !exam.sections) continue;
+    const exam = parseStrictJson(
+      await fs.readFile(filePath, 'utf-8'),
+      `data/exams/${file}`
+    );
+    if (!exam.examId || !Array.isArray(exam.sections)) {
+      throw new Error(`data/exams/${file}: thiếu examId hoặc sections hợp lệ`);
+    }
 
-      for (const section of exam.sections) {
-        for (const q of section.questions ?? []) {
+    for (const section of exam.sections) {
+      for (const q of section.questions ?? []) {
           totalQuestions++;
           const rawTopic = (q.topic ?? '').trim() || FALLBACK_CANONICAL;
           const canonicals = splitAndMapTopics(rawTopic);
@@ -72,10 +79,7 @@ async function main() {
             if (!mapping[canonical]) mapping[canonical] = new Set();
             mapping[canonical].add(rawTopic);
           }
-        }
       }
-    } catch (err) {
-      console.error(`❌ Lỗi parse ${file}: ${err.message}`);
     }
   }
 

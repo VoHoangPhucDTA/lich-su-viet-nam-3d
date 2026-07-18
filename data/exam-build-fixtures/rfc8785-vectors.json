@@ -1,0 +1,34 @@
+{
+  "vectors": [
+    {
+      "name": "object-order",
+      "input": "{\"b\":1,\"a\":2}",
+      "expectedCanonical": "{\"a\":2,\"b\":1}",
+      "expectedSha256": "d3626ac30a87e6f7a6428233b3c68299976865fa5508e4267c5415c76af7a772"
+    },
+    {
+      "name": "rfc-numbers",
+      "input": "[333333333.3333333,1e+30,4.5,0.002,1e-27,-0]",
+      "expectedCanonical": "[333333333.3333333,1e+30,4.5,0.002,1e-27,0]",
+      "expectedSha256": "3c9384fb0690970a0df3b40b3cc762ff1b9c9efbd41daeda39db4b2eae1a6cb4"
+    },
+    {
+      "name": "utf16-key-order",
+      "input": "{\"\\u20ac\":\"Euro Sign\",\"$\":\"Dollar Sign\",\"\\ud83d\\ude00\":\"Emoji\",\"a\":\"Latin Small Letter A\"}",
+      "expectedCanonical": "{\"$\":\"Dollar Sign\",\"a\":\"Latin Small Letter A\",\"\u20ac\":\"Euro Sign\",\"\ud83d\ude00\":\"Emoji\"}",
+      "expectedSha256": "801f432daf797d24385eaaa3b9b50d7e4a79dc85c47874ce5aacad83ee49ca87"
+    },
+    {
+      "name": "nested-unicode",
+      "input": "{\"z\":[\"line\\nfeed\",\"\\u00e9\",\"\\\\\"],\"a\":{\"false\":false,\"null\":null,\"true\":true}}",
+      "expectedCanonical": "{\"a\":{\"false\":false,\"null\":null,\"true\":true},\"z\":[\"line\\nfeed\",\"\u00e9\",\"\\\\\"]}",
+      "expectedSha256": "1d850e19c85dffab826eba2dfc66fb5f78c4501df562c860c8bc1b68db5d6c76"
+    }
+  ],
+  "invalid": [
+    {
+      "name": "duplicate-property",
+      "input": "{\"answer\":\"A\",\"answer\":\"B\"}"
+    }
+  ]
+}

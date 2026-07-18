@@ -59,6 +59,10 @@ public class ExamAttemptService {
                     return created;
                 });
 
+        if ("BACKEND".equals(entity.getScoreAuthority())) {
+            throw new ApiException(HttpStatus.CONFLICT, "BACKEND_ATTEMPT_IMMUTABLE", "A backend-scored attempt cannot be overwritten by the legacy endpoint");
+        }
+
         entity.setMode(request.mode().trim());
         entity.setExamId(trimToNull(request.examId()));
         entity.setTitle(trimToNull(request.title()));
