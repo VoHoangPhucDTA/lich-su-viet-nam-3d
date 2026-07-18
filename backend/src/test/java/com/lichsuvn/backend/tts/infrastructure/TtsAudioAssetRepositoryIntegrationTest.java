@@ -353,12 +353,17 @@ class TtsAudioAssetRepositoryIntegrationTest {
     void flywayMigratesThroughV18AndEnforcesAssetConstraints() {
         assumeTrue(mysqlAvailable, mysqlUnavailableReason);
         String databaseName = "lichsuvn_flyway_test";
-        jdbc.execute("DROP DATABASE IF EXISTS " + databaseName);
-        jdbc.execute("CREATE DATABASE " + databaseName + " CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci");
+        JdbcTemplate rootJdbc = new JdbcTemplate(new DriverManagerDataSource(
+                jdbcUrl,
+                "root",
+                password
+        ));
+        rootJdbc.execute("DROP DATABASE IF EXISTS " + databaseName);
+        rootJdbc.execute("CREATE DATABASE " + databaseName + " CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci");
         String flywayUrl = jdbcUrl.replaceFirst("/[^/?]+(\\?.*)?$", "/" + databaseName);
 
         Flyway flyway = Flyway.configure()
-                .dataSource(flywayUrl, username, password)
+                .dataSource(flywayUrl, "root", password)
                 .locations("classpath:db/migration")
                 .load();
 
@@ -366,7 +371,7 @@ class TtsAudioAssetRepositoryIntegrationTest {
 
         JdbcTemplate flywayJdbc = new JdbcTemplate(new DriverManagerDataSource(
                 flywayUrl,
-                username,
+                "root",
                 password
         ));
 
@@ -492,8 +497,8 @@ class TtsAudioAssetRepositoryIntegrationTest {
         targetJdbc.update("""
                 INSERT INTO historical_events (
                     id, slug, title, event_level, event_type, start_year,
-                    effective_end_year, geo_type, raw_json
-                ) VALUES (?, ?, ?, 'atomic', 'political', 1945, 1945, 'no_location', JSON_OBJECT())
+                    effective_end_year, geo_type, key_facts, raw_json
+                ) VALUES (?, ?, ?, 'atomic', 'political', 1945, 1945, 'no_location', JSON_ARRAY(), JSON_OBJECT())
                 """, id, id, "Test event");
     }
 

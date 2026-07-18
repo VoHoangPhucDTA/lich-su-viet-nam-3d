@@ -3,6 +3,7 @@ package com.lichsuvn.backend.event.infrastructure;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lichsuvn.backend.event.api.dto.EventDetailDto;
+import com.lichsuvn.backend.event.api.dto.EventExternalSourceDto;
 import com.lichsuvn.backend.event.api.dto.EventMediaDto;
 import com.lichsuvn.backend.event.api.dto.EventRelatedEventDto;
 import com.lichsuvn.backend.event.api.dto.EventRelatedEventsDto;
@@ -22,7 +23,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
@@ -160,7 +160,7 @@ public class EventReadRepository {
                            WHERE c.parent_id = e.id
                              AND c.status = 'published'
                        ) AS child_count,
-                       e.status, e.raw_json
+                       e.status
                 FROM historical_events e
                 WHERE e.status = 'published'
                   AND (e.id = :idOrSlug OR e.slug = :idOrSlug)
@@ -207,10 +207,11 @@ public class EventReadRepository {
                 base.status(),
                 findGrades(base.id()),
                 findTextbookRefs(base.id()),
+                findExternalSources(base.id()),
                 findMedia(base.id()),
                 findRelations(base.id()),
                 findRelatedEvents(base.id()),
-                base.sourceJson()
+                findTextbookContent(base.id())
         ));
     }
 
@@ -405,9 +406,10 @@ public class EventReadRepository {
     private List<EventTextbookRefDto> findTextbookRefs(String eventId) {
         String sql = """
                 SELECT id, grade, book, theme, lesson, page_start, page_end, excerpt,
-                       url, content, source_key
+                       url, source_key
                 FROM event_textbook_refs
                 WHERE event_id = :eventId
+                  AND show_on_detail = 1
                 ORDER BY grade ASC, page_start ASC, id ASC
                 """;
 
@@ -421,9 +423,17 @@ public class EventReadRepository {
                 getInteger(rs, "page_end"),
                 rs.getString("excerpt"),
                 rs.getString("url"),
-                rs.getString("content"),
                 rs.getString("source_key")
         ));
+    }
+
+    private String findTextbookContent(String eventId) {
+        return jdbc.query("""
+                SELECT content
+                FROM event_textbook_contents
+                WHERE event_id = :eventId
+                """, new MapSqlParameterSource("eventId", eventId),
+                rs -> rs.next() ? rs.getString("content") : null);
     }
 
     private List<EventMediaDto> findMedia(String eventId) {
@@ -566,8 +576,9 @@ public class EventReadRepository {
                 List.of(),
                 List.of(),
                 List.of(),
+                List.of(),
                 EventRelatedEventsDto.empty(),
-                parseObject(rs.getString("raw_json"))
+                null
         );
     }
 
@@ -630,22 +641,37 @@ public class EventReadRepository {
         }
     }
 
-    private Object parseObject(String value) {
-        if (!StringUtils.hasText(value)) {
-            return Map.of();
-        }
-        try {
-            return objectMapper.readValue(value, Object.class);
-        } catch (Exception ex) {
-            return Map.of();
-        }
-    }
-
     private static String toWhere(List<String> filters) {
         if (filters.isEmpty()) {
             return "";
         }
         return " AND " + String.join(" AND ", filters) + " ";
+    }
+
+    private List<EventExternalSourceDto> findExternalSources(String eventId) {
+        String sql = """
+                SELECT s.source_type, s.title, s.canonical_uri, s.external_id, s.language,
+                       e.source_order, e.match_type, e.is_primary, e.verification_status, e.notes
+                FROM event_external_sources e
+                JOIN source_catalog s ON s.id = e.source_id
+                WHERE e.event_id = :eventId
+                  AND s.is_internal = FALSE
+                ORDER BY e.is_primary DESC, e.source_order ASC, s.id ASC
+                """;
+
+        return jdbc.query(sql, new MapSqlParameterSource("eventId", eventId), (rs, rowNum) ->
+                new EventExternalSourceDto(
+                        rs.getString("source_type"),
+                        rs.getString("title"),
+                        rs.getString("canonical_uri"),
+                        rs.getString("external_id"),
+                        rs.getString("language"),
+                        getInteger(rs, "source_order"),
+                        rs.getString("match_type"),
+                        rs.getBoolean("is_primary"),
+                        rs.getString("verification_status"),
+                        rs.getString("notes")
+                ));
     }
 
     private static void addNumericChronologyRequired(List<String> filters) {

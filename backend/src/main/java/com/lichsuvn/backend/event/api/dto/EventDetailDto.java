@@ -37,9 +37,10 @@ public record EventDetailDto(
         String status,
         List<Integer> grades,
         List<EventTextbookRefDto> textbookRefs,
+        List<EventExternalSourceDto> externalSources,
         List<EventMediaDto> media,
         List<EventRelationDto> relations,
         EventRelatedEventsDto relatedEvents,
-        Object sourceJson
+        String textbookContent
 ) {
 }

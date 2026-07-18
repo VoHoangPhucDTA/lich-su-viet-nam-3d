@@ -4,6 +4,8 @@ import SectionHeader from './SectionHeader';
 
 interface EventSourcesProps {
   textbookRefs?: MockEventDetail['textbookContent']['textbookRefs'];
+  textbookSourceContent?: string;
+  externalSources?: MockEventDetail['externalSources'];
   externalContent?: MockEventDetail['externalContent'];
   textbookIndex?: string;
   externalIndex?: string;
@@ -15,16 +17,27 @@ interface EventSourcesProps {
  */
 export default function EventSources({
   textbookRefs,
+  textbookSourceContent,
+  externalSources,
   externalContent,
   textbookIndex = '08',
   externalIndex = '09',
 }: EventSourcesProps) {
   const hasTextbookRefs = textbookRefs && textbookRefs.length > 0;
+  const normalizeText = (value?: string) => value?.replace(/\s+/g, ' ').trim() ?? '';
+  const textbookContentMatchesExcerpt = (content?: string) => {
+    const normalizedContent = normalizeText(content);
+    return Boolean(normalizedContent) && (textbookRefs ?? []).some(
+      (reference) => normalizeText(reference.excerpt) === normalizedContent,
+    );
+  };
+  const publicExternalSources = (externalSources ?? []).filter((source) => Boolean(source.canonicalUri));
   const hasExternal =
-    externalContent &&
-    (externalContent.wikipedia ||
-      externalContent.wikidata ||
-      (externalContent.otherSources && externalContent.otherSources.length > 0));
+    publicExternalSources.length > 0 ||
+    (externalContent &&
+      (externalContent.wikipedia ||
+        externalContent.wikidata ||
+        (externalContent.otherSources && externalContent.otherSources.length > 0)));
 
   if (!hasTextbookRefs && !hasExternal) {
     return (
@@ -108,12 +121,9 @@ export default function EventSources({
                       &ldquo;{ref.excerpt}&rdquo;
                     </blockquote>
                   )}
-                  {ref.content && (
-                    <p
-                      className="mt-4 whitespace-pre-wrap text-sm leading-6"
-                      style={{ color: 'var(--text-secondary)' }}
-                    >
-                      {ref.content}
+                  {idx === 0 && textbookSourceContent && !textbookContentMatchesExcerpt(textbookSourceContent) && (
+                    <p className="mt-4 whitespace-pre-wrap text-sm leading-7" style={{ color: 'var(--text-secondary)' }}>
+                      {textbookSourceContent}
                     </p>
                   )}
                   {ref.url && (
@@ -142,15 +152,27 @@ export default function EventSources({
             title="Nguồn tham khảo mở rộng"
           />
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            {externalContent?.wikipedia && (
-              <SourceLink logo="W" name="Wikipedia" title={externalContent.wikipedia.title} url={externalContent.wikipedia.url} />
-            )}
-            {externalContent?.wikidata && (
-              <SourceLink logo="WD" name="Wikidata" title={externalContent.wikidata.url} url={externalContent.wikidata.url} />
-            )}
-            {externalContent?.otherSources?.map((source, idx) => (
-              <SourceLink key={idx} logo="↗" name={source.name} title={source.url} url={source.url} />
-            ))}
+            {publicExternalSources.length > 0
+              ? publicExternalSources.map((source, index) => (
+                  <SourceLink
+                    key={`${source.sourceType}-${source.title}-${index}`}
+                    logo={source.sourceType === 'wikidata' ? 'WD' : source.sourceType === 'wikipedia' ? 'W' : '↗'}
+                    name={source.sourceType === 'wikidata' ? 'Wikidata' : source.sourceType === 'wikipedia' ? 'Wikipedia' : source.sourceType}
+                    title={source.title}
+                    url={source.canonicalUri!}
+                  />
+                ))
+              : <>
+                  {externalContent?.wikipedia && (
+                    <SourceLink logo="W" name="Wikipedia" title={externalContent.wikipedia.title} url={externalContent.wikipedia.url} />
+                  )}
+                  {externalContent?.wikidata && (
+                    <SourceLink logo="WD" name="Wikidata" title={externalContent.wikidata.url} url={externalContent.wikidata.url} />
+                  )}
+                  {externalContent?.otherSources?.map((source, idx) => (
+                    <SourceLink key={idx} logo="↗" name={source.name} title={source.url} url={source.url} />
+                  ))}
+                </>}
           </div>
         </section>
       )}

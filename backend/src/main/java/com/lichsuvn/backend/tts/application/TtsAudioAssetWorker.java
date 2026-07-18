@@ -84,7 +84,7 @@ public class TtsAudioAssetWorker {
     ) {
         this(assetRepository, textToSpeechService, audioStorageService, maxAttempts, retryDelayMinutes,
                 claimLeaseSeconds, uploadMaxAttempts, uploadBackoffMillis,
-                new com.lichsuvn.backend.tts.infrastructure.TtsCloudinaryPath("history_audio", "narrations", "chunks"),
+                new com.lichsuvn.backend.tts.infrastructure.TtsCloudinaryPath("narrations", "chunks"),
                 null, null, null, null);
     }
 

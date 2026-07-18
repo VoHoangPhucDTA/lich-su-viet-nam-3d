@@ -107,22 +107,6 @@ export default function EventHero({ event, showMapAction }: EventHeroProps) {
               : 'p-8 sm:p-10 lg:px-16 lg:py-14 xl:px-20 xl:py-[72px] flex flex-col'
           }
         >
-          {/* Eyebrow */}
-          <div
-            className="flex items-center gap-2 text-xs font-bold uppercase tracking-[0.18em] mb-4"
-            style={{ color: 'var(--admin-accent)' }}
-          >
-            <span
-              className="inline-block w-6 h-px"
-              style={{ background: 'var(--admin-accent)' }}
-            />
-            Sự kiện lịch sử
-            <span style={{ color: 'var(--text-muted)' }}>·</span>
-            <span style={{ color: 'var(--text-muted)' }}>
-              {event.eventLevel === 'collection' ? 'Chủ đề lớn' : 'Sự kiện cụ thể'}
-            </span>
-          </div>
-
           {/* Title – serif display font for museum feel */}
           <h1
             className="font-extrabold leading-[1.05] mb-3"
@@ -154,9 +138,6 @@ export default function EventHero({ event, showMapAction }: EventHeroProps) {
               color={typeColor}
               filled
             />
-            {event.classification.eventSubtype && (
-              <Chip label={event.classification.eventSubtype} />
-            )}
             {grades.length > 0 && (
               <Chip
                 label={`SGK lớp ${grades.join(', ')}`}

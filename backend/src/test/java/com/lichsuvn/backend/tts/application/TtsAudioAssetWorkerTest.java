@@ -194,7 +194,7 @@ class TtsAudioAssetWorkerTest {
         AudioAssemblyService assembly = mock(AudioAssemblyService.class);
         TtsAudioAssetWorker longWorker = new TtsAudioAssetWorker(
                 repository, provider, storage, 3, 2, 300, 3, 0,
-                new TtsCloudinaryPath("history_audio", "narrations", "chunks"),
+                new TtsCloudinaryPath("narrations", "chunks"),
                 chunkRepository, chunker, keyBuilder, assembly);
         String narration = String.join(" ", java.util.Collections.nCopies(500, "Vietnam"));
 
