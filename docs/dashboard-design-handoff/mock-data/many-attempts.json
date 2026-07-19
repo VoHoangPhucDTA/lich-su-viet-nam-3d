@@ -1,0 +1,671 @@
+{
+  "state": "ready",
+  "scope": {
+    "source": "backend",
+    "range": "90d",
+    "timezone": "Asia/Ho_Chi_Minh",
+    "isAuthenticated": true,
+    "fromDate": "2026-04-17",
+    "toDateExclusive": "2026-07-16"
+  },
+  "summary": {
+    "totalAttempts": 100,
+    "averageScore": 7.18,
+    "highestScore": 9.4,
+    "latestScore": 7.9,
+    "totalDurationSeconds": 238680,
+    "activeDays": 57,
+    "mcqAccuracy": 75.41,
+    "tfStatementAccuracy": 73.18,
+    "blankRate": 4.56,
+    "tfPartialRate": 14.17
+  },
+  "recommendations": [
+    {
+      "id": "rec-viet-nam-1945",
+      "title": "Ôn lại Việt Nam từ 1945 đến 1954",
+      "reason": "Độ chính xác 52,5% trên 40 ý trả lời qua 5 bài; đây là chủ đề yếu có đủ mẫu.",
+      "actionLabel": "Ôn chủ đề này",
+      "actionRoute": "/exams/on-chu-de/viet-nam-1945-1954",
+      "priority": "primary",
+      "topicKey": "viet-nam-1945-1954",
+      "evidence": {
+        "accuracy": 52.5,
+        "correctUnits": 21,
+        "totalUnits": 40,
+        "attemptCount": 5,
+        "confidence": "medium"
+      }
+    }
+  ],
+  "scoreTrend": {
+    "granularity": "attempt",
+    "isComplete": false,
+    "sourceAttemptCount": 100,
+    "points": [
+      {
+        "attemptId": "mock-many-067",
+        "submittedAt": "2026-04-20T12:15:00.000Z",
+        "dateLabel": "20/04",
+        "score": 5.8,
+        "mode": "custom_mock",
+        "title": "Đề tùy chọn tổng hợp"
+      },
+      {
+        "attemptId": "mock-many-068",
+        "submittedAt": "2026-04-22T13:15:00.000Z",
+        "dateLabel": "22/04",
+        "score": 6.61,
+        "mode": "thi_thu",
+        "title": "Đề thi thử tổng hợp"
+      },
+      {
+        "attemptId": "mock-many-069",
+        "submittedAt": "2026-04-24T14:15:00.000Z",
+        "dateLabel": "24/04",
+        "score": 7.42,
+        "mode": "thi_thu",
+        "title": "Đề thi thử tổng hợp"
+      },
+      {
+        "attemptId": "mock-many-070",
+        "submittedAt": "2026-04-26T15:15:00.000Z",
+        "dateLabel": "26/04",
+        "score": 8.21,
+        "mode": "thi_thu",
+        "title": "Đề thi thử tổng hợp"
+      },
+      {
+        "attemptId": "mock-many-071",
+        "submittedAt": "2026-04-28T12:15:00.000Z",
+        "dateLabel": "28/04",
+        "score": 6.58,
+        "mode": "thi_thu",
+        "title": "Đề thi thử tổng hợp"
+      },
+      {
+        "attemptId": "mock-many-072",
+        "submittedAt": "2026-04-30T13:15:00.000Z",
+        "dateLabel": "30/04",
+        "score": 7.33,
+        "mode": "custom_mock",
+        "title": "Đề tùy chọn tổng hợp"
+      },
+      {
+        "attemptId": "mock-many-073",
+        "submittedAt": "2026-05-02T14:15:00.000Z",
+        "dateLabel": "02/05",
+        "score": 8.05,
+        "mode": "thi_thu",
+        "title": "Đề thi thử tổng hợp"
+      },
+      {
+        "attemptId": "mock-many-074",
+        "submittedAt": "2026-05-04T15:15:00.000Z",
+        "dateLabel": "04/05",
+        "score": 6.34,
+        "mode": "thi_thu",
+        "title": "Đề thi thử tổng hợp"
+      },
+      {
+        "attemptId": "mock-many-075",
+        "submittedAt": "2026-05-06T12:15:00.000Z",
+        "dateLabel": "06/05",
+        "score": 7.01,
+        "mode": "thi_thu",
+        "title": "Đề thi thử tổng hợp"
+      },
+      {
+        "attemptId": "mock-many-076",
+        "submittedAt": "2026-05-08T13:15:00.000Z",
+        "dateLabel": "08/05",
+        "score": 7.65,
+        "mode": "thi_thu",
+        "title": "Đề thi thử tổng hợp"
+      },
+      {
+        "attemptId": "mock-many-077",
+        "submittedAt": "2026-05-10T14:15:00.000Z",
+        "dateLabel": "10/05",
+        "score": 8.27,
+        "mode": "custom_mock",
+        "title": "Đề tùy chọn tổng hợp"
+      },
+      {
+        "attemptId": "mock-many-078",
+        "submittedAt": "2026-05-12T15:15:00.000Z",
+        "dateLabel": "12/05",
+        "score": 6.47,
+        "mode": "thi_thu",
+        "title": "Đề thi thử tổng hợp"
+      },
+      {
+        "attemptId": "mock-many-079",
+        "submittedAt": "2026-05-14T12:15:00.000Z",
+        "dateLabel": "14/05",
+        "score": 7.06,
+        "mode": "thi_thu",
+        "title": "Đề thi thử tổng hợp"
+      },
+      {
+        "attemptId": "mock-many-080",
+        "submittedAt": "2026-05-16T13:15:00.000Z",
+        "dateLabel": "16/05",
+        "score": 7.65,
+        "mode": "thi_thu",
+        "title": "Đề thi thử tổng hợp"
+      },
+      {
+        "attemptId": "mock-many-081",
+        "submittedAt": "2026-05-18T14:15:00.000Z",
+        "dateLabel": "18/05",
+        "score": 5.84,
+        "mode": "thi_thu",
+        "title": "Đề thi thử tổng hợp"
+      },
+      {
+        "attemptId": "mock-many-082",
+        "submittedAt": "2026-05-20T15:15:00.000Z",
+        "dateLabel": "20/05",
+        "score": 6.44,
+        "mode": "custom_mock",
+        "title": "Đề tùy chọn tổng hợp"
+      },
+      {
+        "attemptId": "mock-many-083",
+        "submittedAt": "2026-05-22T12:15:00.000Z",
+        "dateLabel": "22/05",
+        "score": 7.06,
+        "mode": "thi_thu",
+        "title": "Đề thi thử tổng hợp"
+      },
+      {
+        "attemptId": "mock-many-084",
+        "submittedAt": "2026-05-24T13:15:00.000Z",
+        "dateLabel": "24/05",
+        "score": 7.7,
+        "mode": "thi_thu",
+        "title": "Đề thi thử tổng hợp"
+      },
+      {
+        "attemptId": "mock-many-085",
+        "submittedAt": "2026-05-26T14:15:00.000Z",
+        "dateLabel": "26/05",
+        "score": 5.96,
+        "mode": "thi_thu",
+        "title": "Đề thi thử tổng hợp"
+      },
+      {
+        "attemptId": "mock-many-086",
+        "submittedAt": "2026-05-28T15:15:00.000Z",
+        "dateLabel": "28/05",
+        "score": 6.65,
+        "mode": "thi_thu",
+        "title": "Đề thi thử tổng hợp"
+      },
+      {
+        "attemptId": "mock-many-087",
+        "submittedAt": "2026-05-30T12:15:00.000Z",
+        "dateLabel": "30/05",
+        "score": 7.37,
+        "mode": "custom_mock",
+        "title": "Đề tùy chọn tổng hợp"
+      },
+      {
+        "attemptId": "mock-many-088",
+        "submittedAt": "2026-06-01T13:15:00.000Z",
+        "dateLabel": "01/06",
+        "score": 5.71,
+        "mode": "thi_thu",
+        "title": "Đề thi thử tổng hợp"
+      },
+      {
+        "attemptId": "mock-many-089",
+        "submittedAt": "2026-06-03T14:15:00.000Z",
+        "dateLabel": "03/06",
+        "score": 6.48,
+        "mode": "thi_thu",
+        "title": "Đề thi thử tổng hợp"
+      },
+      {
+        "attemptId": "mock-many-090",
+        "submittedAt": "2026-06-05T15:15:00.000Z",
+        "dateLabel": "05/06",
+        "score": 7.27,
+        "mode": "thi_thu",
+        "title": "Đề thi thử tổng hợp"
+      },
+      {
+        "attemptId": "mock-many-091",
+        "submittedAt": "2026-06-07T12:15:00.000Z",
+        "dateLabel": "07/06",
+        "score": 5.67,
+        "mode": "thi_thu",
+        "title": "Đề thi thử tổng hợp"
+      },
+      {
+        "attemptId": "mock-many-092",
+        "submittedAt": "2026-06-09T13:15:00.000Z",
+        "dateLabel": "09/06",
+        "score": 6.49,
+        "mode": "custom_mock",
+        "title": "Đề tùy chọn tổng hợp"
+      },
+      {
+        "attemptId": "mock-many-093",
+        "submittedAt": "2026-06-11T14:15:00.000Z",
+        "dateLabel": "11/06",
+        "score": 7.3,
+        "mode": "thi_thu",
+        "title": "Đề thi thử tổng hợp"
+      },
+      {
+        "attemptId": "mock-many-094",
+        "submittedAt": "2026-06-13T15:15:00.000Z",
+        "dateLabel": "13/06",
+        "score": 8.1,
+        "mode": "thi_thu",
+        "title": "Đề thi thử tổng hợp"
+      },
+      {
+        "attemptId": "mock-many-095",
+        "submittedAt": "2026-06-15T12:15:00.000Z",
+        "dateLabel": "15/06",
+        "score": 6.5,
+        "mode": "thi_thu",
+        "title": "Đề thi thử tổng hợp"
+      },
+      {
+        "attemptId": "mock-many-096",
+        "submittedAt": "2026-06-17T13:15:00.000Z",
+        "dateLabel": "17/06",
+        "score": 7.27,
+        "mode": "thi_thu",
+        "title": "Đề thi thử tổng hợp"
+      },
+      {
+        "attemptId": "mock-many-097",
+        "submittedAt": "2026-06-19T14:15:00.000Z",
+        "dateLabel": "19/06",
+        "score": 8.02,
+        "mode": "custom_mock",
+        "title": "Đề tùy chọn tổng hợp"
+      },
+      {
+        "attemptId": "mock-many-098",
+        "submittedAt": "2026-06-21T15:15:00.000Z",
+        "dateLabel": "21/06",
+        "score": 6.35,
+        "mode": "thi_thu",
+        "title": "Đề thi thử tổng hợp"
+      },
+      {
+        "attemptId": "mock-many-099",
+        "submittedAt": "2026-06-23T12:15:00.000Z",
+        "dateLabel": "23/06",
+        "score": 7.05,
+        "mode": "thi_thu",
+        "title": "Đề thi thử tổng hợp"
+      },
+      {
+        "attemptId": "mock-many-100",
+        "submittedAt": "2026-06-25T13:15:00.000Z",
+        "dateLabel": "25/06",
+        "score": 7.72,
+        "mode": "thi_thu",
+        "title": "Đề thi thử tổng hợp"
+      },
+      {
+        "attemptId": "mock-many-101",
+        "submittedAt": "2026-06-27T14:15:00.000Z",
+        "dateLabel": "27/06",
+        "score": 8.36,
+        "mode": "thi_thu",
+        "title": "Đề thi thử tổng hợp"
+      },
+      {
+        "attemptId": "mock-many-102",
+        "submittedAt": "2026-06-29T15:15:00.000Z",
+        "dateLabel": "29/06",
+        "score": 6.58,
+        "mode": "custom_mock",
+        "title": "Đề tùy chọn tổng hợp"
+      },
+      {
+        "attemptId": "mock-many-103",
+        "submittedAt": "2026-07-01T12:15:00.000Z",
+        "dateLabel": "01/07",
+        "score": 7.19,
+        "mode": "thi_thu",
+        "title": "Đề thi thử tổng hợp"
+      },
+      {
+        "attemptId": "mock-many-104",
+        "submittedAt": "2026-07-03T13:15:00.000Z",
+        "dateLabel": "03/07",
+        "score": 7.78,
+        "mode": "thi_thu",
+        "title": "Đề thi thử tổng hợp"
+      },
+      {
+        "attemptId": "mock-many-105",
+        "submittedAt": "2026-07-05T14:15:00.000Z",
+        "dateLabel": "05/07",
+        "score": 5.97,
+        "mode": "thi_thu",
+        "title": "Đề thi thử tổng hợp"
+      },
+      {
+        "attemptId": "mock-many-106",
+        "submittedAt": "2026-07-07T15:15:00.000Z",
+        "dateLabel": "07/07",
+        "score": 6.56,
+        "mode": "thi_thu",
+        "title": "Đề thi thử tổng hợp"
+      },
+      {
+        "attemptId": "mock-many-107",
+        "submittedAt": "2026-07-09T12:15:00.000Z",
+        "dateLabel": "09/07",
+        "score": 7.16,
+        "mode": "custom_mock",
+        "title": "Đề tùy chọn tổng hợp"
+      },
+      {
+        "attemptId": "mock-many-108",
+        "submittedAt": "2026-07-11T13:15:00.000Z",
+        "dateLabel": "11/07",
+        "score": 7.77,
+        "mode": "thi_thu",
+        "title": "Đề thi thử tổng hợp"
+      }
+    ]
+  },
+  "strengths": [
+    {
+      "key": "cach-mang-thang-tam",
+      "label": "Cách mạng tháng Tám năm 1945",
+      "status": "strength",
+      "accuracy": 84.38,
+      "correctUnits": 27,
+      "totalUnits": 32,
+      "attemptCount": 4,
+      "confidence": "medium",
+      "practiceRoute": "/exams/on-chu-de/cach-mang-thang-tam",
+      "summary": "84,38% qua 32 ý trả lời trong 4 bài."
+    },
+    {
+      "key": "quan-he-quoc-te",
+      "label": "Quan hệ quốc tế sau năm 1945",
+      "status": "strength",
+      "accuracy": 82.76,
+      "correctUnits": 24,
+      "totalUnits": 29,
+      "attemptCount": 3,
+      "confidence": "medium",
+      "practiceRoute": "/exams/on-chu-de/quan-he-quoc-te-sau-1945",
+      "summary": "82,76% qua 29 ý trả lời trong 3 bài."
+    }
+  ],
+  "weaknesses": [
+    {
+      "key": "viet-nam-1945-1954",
+      "label": "Việt Nam từ năm 1945 đến năm 1954",
+      "status": "weakness",
+      "accuracy": 52.5,
+      "correctUnits": 21,
+      "totalUnits": 40,
+      "attemptCount": 5,
+      "confidence": "medium",
+      "practiceRoute": "/exams/on-chu-de/viet-nam-1945-1954",
+      "summary": "52,5% qua 40 ý trả lời trong 5 bài."
+    },
+    {
+      "key": "phong-trao-cong-nhan",
+      "label": "Phong trào công nhân và phong trào yêu nước đầu thế kỷ XX",
+      "status": "weakness",
+      "accuracy": 52.63,
+      "correctUnits": 10,
+      "totalUnits": 19,
+      "attemptCount": 3,
+      "confidence": "medium",
+      "practiceRoute": "/exams/on-chu-de/phong-trao-cong-nhan-va-yeu-nuoc",
+      "summary": "52,63% qua 19 ý trả lời trong 3 bài."
+    },
+    {
+      "key": "asean",
+      "label": "ASEAN và quá trình hội nhập khu vực",
+      "status": "weakness",
+      "accuracy": 50,
+      "correctUnits": 8,
+      "totalUnits": 16,
+      "attemptCount": 2,
+      "confidence": "low",
+      "practiceRoute": "/exams/on-chu-de/asean",
+      "summary": "50% qua 16 ý trả lời trong 2 bài; mẫu còn ít."
+    }
+  ],
+  "questionTypePerformance": [
+    {
+      "type": "mcq",
+      "label": "Trắc nghiệm",
+      "accuracy": 75.41,
+      "correctUnits": 1193,
+      "answeredUnits": 1510,
+      "blankUnits": 72,
+      "totalUnits": 1582,
+      "partialQuestionCount": 0,
+      "totalQuestionCount": 1582,
+      "textualSummary": "Đúng 1.193/1.582 câu; 72 câu bỏ trống."
+    },
+    {
+      "type": "true_false",
+      "label": "Đúng/Sai theo mệnh đề",
+      "accuracy": 73.18,
+      "correctUnits": 1877,
+      "answeredUnits": 2448,
+      "blankUnits": 117,
+      "totalUnits": 2565,
+      "partialQuestionCount": 91,
+      "totalQuestionCount": 642,
+      "textualSummary": "Đúng 1.877/2.565 mệnh đề; 117 mệnh đề bỏ trống; 91/642 câu làm dở."
+    }
+  ],
+  "cognitivePerformance": [
+    {
+      "level": "knowledge",
+      "label": "Nhận biết",
+      "accuracy": 80.4,
+      "correctUnits": 1288,
+      "totalUnits": 1602,
+      "attemptCount": 76,
+      "confidence": "high",
+      "status": "strength",
+      "textualSummary": "80,4% trên 1.602 ý trả lời."
+    },
+    {
+      "level": "comprehension",
+      "label": "Thông hiểu",
+      "accuracy": 75.13,
+      "correctUnits": 1450,
+      "totalUnits": 1930,
+      "attemptCount": 82,
+      "confidence": "high",
+      "status": "developing",
+      "textualSummary": "75,13% trên 1.930 ý trả lời."
+    },
+    {
+      "level": "application",
+      "label": "Vận dụng",
+      "accuracy": 53.98,
+      "correctUnits": 332,
+      "totalUnits": 615,
+      "attemptCount": 41,
+      "confidence": "high",
+      "status": "weakness",
+      "textualSummary": "53,98% trên 615 ý trả lời."
+    }
+  ],
+  "recentAttempts": [
+    {
+      "attemptId": "mock-many-108",
+      "title": "Đề tùy chọn: Các cuộc kháng chiến bảo vệ Tổ quốc",
+      "mode": "custom_mock",
+      "modeLabel": "Thi thử tùy chọn",
+      "score": 7.9,
+      "durationSeconds": 2100,
+      "submittedAt": "2026-07-15T13:10:00.000Z",
+      "submittedLabel": "20:10, 15/07/2026",
+      "totalQuestions": 20,
+      "resultRoute": "/exams/ket-qua/mock-many-108",
+      "detailStatus": "full"
+    },
+    {
+      "attemptId": "mock-many-107",
+      "title": "Đề thi thử tổng hợp số 107",
+      "mode": "thi_thu",
+      "modeLabel": "Thi thử nguyên đề",
+      "score": 7.78,
+      "durationSeconds": 2220,
+      "submittedAt": "2026-07-13T13:10:00.000Z",
+      "submittedLabel": "20:10, 13/07/2026",
+      "totalQuestions": 28,
+      "resultRoute": "/exams/ket-qua/mock-many-107",
+      "detailStatus": "full"
+    },
+    {
+      "attemptId": "mock-many-106",
+      "title": "Đề thi thử tổng hợp số 106",
+      "mode": "thi_thu",
+      "modeLabel": "Thi thử nguyên đề",
+      "score": 7.66,
+      "durationSeconds": 2340,
+      "submittedAt": "2026-07-11T13:10:00.000Z",
+      "submittedLabel": "20:10, 11/07/2026",
+      "totalQuestions": 28,
+      "resultRoute": "/exams/ket-qua/mock-many-106",
+      "detailStatus": "full"
+    },
+    {
+      "attemptId": "mock-many-105",
+      "title": "Đề thi thử tổng hợp số 105",
+      "mode": "thi_thu",
+      "modeLabel": "Thi thử nguyên đề",
+      "score": 7.54,
+      "durationSeconds": 2460,
+      "submittedAt": "2026-07-09T13:10:00.000Z",
+      "submittedLabel": "20:10, 09/07/2026",
+      "totalQuestions": 28,
+      "resultRoute": "/exams/ket-qua/mock-many-105",
+      "detailStatus": "full"
+    },
+    {
+      "attemptId": "mock-many-104",
+      "title": "Đề tùy chọn: Các cuộc kháng chiến bảo vệ Tổ quốc",
+      "mode": "custom_mock",
+      "modeLabel": "Thi thử tùy chọn",
+      "score": 7.42,
+      "durationSeconds": 2580,
+      "submittedAt": "2026-07-07T13:10:00.000Z",
+      "submittedLabel": "20:10, 07/07/2026",
+      "totalQuestions": 20,
+      "resultRoute": "/exams/ket-qua/mock-many-104",
+      "detailStatus": "full"
+    },
+    {
+      "attemptId": "mock-many-103",
+      "title": "Đề thi thử tổng hợp số 103",
+      "mode": "thi_thu",
+      "modeLabel": "Thi thử nguyên đề",
+      "score": 7.3,
+      "durationSeconds": 2700,
+      "submittedAt": "2026-07-05T13:10:00.000Z",
+      "submittedLabel": "20:10, 05/07/2026",
+      "totalQuestions": 28,
+      "resultRoute": "/exams/ket-qua/mock-many-103",
+      "detailStatus": "full"
+    },
+    {
+      "attemptId": "mock-many-102",
+      "title": "Đề thi thử tổng hợp số 102",
+      "mode": "thi_thu",
+      "modeLabel": "Thi thử nguyên đề",
+      "score": 7.18,
+      "durationSeconds": 2820,
+      "submittedAt": "2026-07-03T13:10:00.000Z",
+      "submittedLabel": "20:10, 03/07/2026",
+      "totalQuestions": 28,
+      "resultRoute": "/exams/ket-qua/mock-many-102",
+      "detailStatus": "full"
+    },
+    {
+      "attemptId": "mock-many-101",
+      "title": "Đề thi thử tổng hợp số 101",
+      "mode": "thi_thu",
+      "modeLabel": "Thi thử nguyên đề",
+      "score": 7.06,
+      "durationSeconds": 2940,
+      "submittedAt": "2026-07-01T13:10:00.000Z",
+      "submittedLabel": "20:10, 01/07/2026",
+      "totalQuestions": 28,
+      "resultRoute": "/exams/ket-qua/mock-many-101",
+      "detailStatus": "full"
+    },
+    {
+      "attemptId": "mock-many-100",
+      "title": "Đề tùy chọn: Các cuộc kháng chiến bảo vệ Tổ quốc",
+      "mode": "custom_mock",
+      "modeLabel": "Thi thử tùy chọn",
+      "score": 6.94,
+      "durationSeconds": 3060,
+      "submittedAt": "2026-06-29T13:10:00.000Z",
+      "submittedLabel": "20:10, 29/06/2026",
+      "totalQuestions": 20,
+      "resultRoute": "/exams/ket-qua/mock-many-100",
+      "detailStatus": "summary-only"
+    },
+    {
+      "attemptId": "mock-many-099",
+      "title": "Đề thi thử tổng hợp số 99",
+      "mode": "thi_thu",
+      "modeLabel": "Thi thử nguyên đề",
+      "score": 6.82,
+      "durationSeconds": 3180,
+      "submittedAt": "2026-06-27T13:10:00.000Z",
+      "submittedLabel": "20:10, 27/06/2026",
+      "totalQuestions": 28,
+      "resultRoute": "/exams/ket-qua/mock-many-099",
+      "detailStatus": "full"
+    }
+  ],
+  "coverage": {
+    "summaryAttemptCount": 100,
+    "detailedAttemptCount": 92,
+    "totalKnownAttempts": 108,
+    "fetchLimit": 100,
+    "isComplete": false,
+    "capturesTimedOriginal": true,
+    "capturesCustomMock": true,
+    "capturesPractice": false,
+    "capturesRetry": false,
+    "message": "Tài khoản có 108 bài nhưng máy chủ list hiện chỉ trả tối đa 100; dữ liệu chi tiết dùng được cho 92 bài. KPI lifetime có thể chưa đầy đủ."
+  },
+  "notices": [
+    {
+      "id": "fetch-cap",
+      "type": "warning",
+      "title": "Lịch sử vượt giới hạn hiện tại",
+      "message": "máy chủ list tối đa 100 bài thi trong khi tổng đã biết là 108. Prototype phải thể hiện phạm vi dữ liệu và khái niệm pagination, không giả vờ đủ lifetime.",
+      "actionLabel": null,
+      "actionRoute": null
+    },
+    {
+      "id": "dense-chart",
+      "type": "info",
+      "title": "Dữ liệu xu hướng dày",
+      "message": "42 điểm đại diện dùng để kiểm tra mật độ nhãn, focus tooltip và textual access.",
+      "actionLabel": null,
+      "actionRoute": null
+    }
+  ]
+}

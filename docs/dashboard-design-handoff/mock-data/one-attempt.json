@@ -1,0 +1,158 @@
+{
+  "state": "ready",
+  "scope": {
+    "source": "local",
+    "range": "30d",
+    "timezone": "Asia/Ho_Chi_Minh",
+    "isAuthenticated": false,
+    "fromDate": "2026-06-16",
+    "toDateExclusive": "2026-07-16"
+  },
+  "summary": {
+    "totalAttempts": 1,
+    "averageScore": 6.5,
+    "highestScore": 6.5,
+    "latestScore": 6.5,
+    "totalDurationSeconds": 3180,
+    "activeDays": 1,
+    "mcqAccuracy": 66.67,
+    "tfStatementAccuracy": 68.75,
+    "blankRate": 5,
+    "tfPartialRate": 25
+  },
+  "recommendations": [
+    {
+      "id": "rec-more-data",
+      "title": "Làm thêm một đề để thấy xu hướng",
+      "reason": "Một bài chưa đủ để kết luận điểm mạnh hoặc điểm yếu dài hạn.",
+      "actionLabel": "Chọn đề tiếp theo",
+      "actionRoute": "/exams/browse",
+      "priority": "primary",
+      "topicKey": null,
+      "evidence": null
+    }
+  ],
+  "scoreTrend": {
+    "granularity": "attempt",
+    "isComplete": true,
+    "sourceAttemptCount": 1,
+    "points": [
+      {
+        "attemptId": "mock-one-001",
+        "submittedAt": "2026-07-15T13:20:00Z",
+        "dateLabel": "15/07",
+        "score": 6.5,
+        "mode": "thi_thu",
+        "title": "Đề luyện tập tổng hợp đầu tiên"
+      }
+    ]
+  },
+  "strengths": [],
+  "weaknesses": [],
+  "questionTypePerformance": [
+    {
+      "type": "mcq",
+      "label": "Trắc nghiệm",
+      "accuracy": 66.67,
+      "correctUnits": 16,
+      "answeredUnits": 23,
+      "blankUnits": 1,
+      "totalUnits": 24,
+      "partialQuestionCount": 0,
+      "totalQuestionCount": 24,
+      "textualSummary": "Đúng 16/24 câu; 1 câu bỏ trống."
+    },
+    {
+      "type": "true_false",
+      "label": "Đúng/Sai theo mệnh đề",
+      "accuracy": 68.75,
+      "correctUnits": 11,
+      "answeredUnits": 15,
+      "blankUnits": 1,
+      "totalUnits": 16,
+      "partialQuestionCount": 1,
+      "totalQuestionCount": 4,
+      "textualSummary": "Đúng 11/16 mệnh đề; 1 mệnh đề bỏ trống; 1/4 câu làm dở."
+    }
+  ],
+  "cognitivePerformance": [
+    {
+      "level": "knowledge",
+      "label": "Nhận biết",
+      "accuracy": 75,
+      "correctUnits": 12,
+      "totalUnits": 16,
+      "attemptCount": 1,
+      "confidence": "low",
+      "status": "insufficient-data",
+      "textualSummary": "Mới có một bài."
+    },
+    {
+      "level": "comprehension",
+      "label": "Thông hiểu",
+      "accuracy": 61.11,
+      "correctUnits": 11,
+      "totalUnits": 18,
+      "attemptCount": 1,
+      "confidence": "low",
+      "status": "insufficient-data",
+      "textualSummary": "Mới có một bài."
+    },
+    {
+      "level": "application",
+      "label": "Vận dụng",
+      "accuracy": 66.67,
+      "correctUnits": 4,
+      "totalUnits": 6,
+      "attemptCount": 1,
+      "confidence": "low",
+      "status": "insufficient-data",
+      "textualSummary": "Mới có một bài."
+    }
+  ],
+  "recentAttempts": [
+    {
+      "attemptId": "mock-one-001",
+      "title": "Đề luyện tập tổng hợp đầu tiên",
+      "mode": "thi_thu",
+      "modeLabel": "Thi thử nguyên đề",
+      "score": 6.5,
+      "durationSeconds": 3180,
+      "submittedAt": "2026-07-15T13:20:00Z",
+      "submittedLabel": "20:20, 15/07/2026",
+      "totalQuestions": 28,
+      "resultRoute": "/exams/ket-qua/mock-one-001",
+      "detailStatus": "full"
+    }
+  ],
+  "coverage": {
+    "summaryAttemptCount": 1,
+    "detailedAttemptCount": 1,
+    "totalKnownAttempts": 1,
+    "fetchLimit": null,
+    "isComplete": true,
+    "capturesTimedOriginal": true,
+    "capturesCustomMock": true,
+    "capturesPractice": false,
+    "capturesRetry": false,
+    "message": "Có đầy đủ dữ liệu chi tiết cho 1 bài, nhưng chưa đủ mẫu để kết luận xu hướng hoặc mạnh/yếu."
+  },
+  "notices": [
+    {
+      "id": "insufficient-sample",
+      "type": "info",
+      "title": "Chưa đủ dữ liệu",
+      "message": "Cần ít nhất 8 ý trả lời trong ít nhất 2 bài trước khi gắn nhãn mạnh/yếu.",
+      "actionLabel": null,
+      "actionRoute": null
+    },
+    {
+      "id": "device-only",
+      "type": "info",
+      "title": "Dữ liệu chỉ lưu trên thiết bị này",
+      "message": "Bài làm này đang được đọc từ localStorage.",
+      "actionLabel": "Đăng nhập",
+      "actionRoute": "/login"
+    }
+  ]
+}

@@ -57,6 +57,8 @@ const ApiFreePracticeRoutePage = lazy(() => import('./pages/exams/ApiPracticeRou
 const ApiRetryWrongRoutePage = lazy(() => import('./pages/exams/ApiPracticeRoutePages').then((module) => ({ default: module.ApiRetryWrongRoutePage })));
 const ApiTopicPracticeRoutePage = lazy(() => import('./pages/exams/ApiPracticeRoutePages').then((module) => ({ default: module.ApiTopicPracticeRoutePage })));
 
+const PersonalLearningDashboardPage = lazy(() => import('./features/dashboard/PersonalLearningDashboardPage'));
+
 function AppContent() {
   const location = useLocation();
   const hideHeaderRoutes = [
@@ -120,6 +122,14 @@ function AppContent() {
           <Route path="/exams/on-lai/:sessionId" element={<ApiRetryWrongRoutePage />} />
           <Route path="/exams/lich-su" element={<ExamV2HistoryPage />} />
           <Route path="/exams/lich-su-v2" element={<ExamV2HistoryPage />} />
+          <Route
+            path="/exams/thong-ke"
+            element={(
+              <Suspense fallback={<div className="exam-browse-message" role="status">Đang mở tổng quan học tập…</div>}>
+                <PersonalLearningDashboardPage />
+              </Suspense>
+            )}
+          />
 
           {/* === Profile routes === */}
           <Route path="/profile" element={<Navigate to="/profile/dashboard" replace />} />
