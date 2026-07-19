@@ -1,0 +1,58 @@
+{
+  "eventId": "ke-hoach-na-va-1953",
+  "title": "Kế hoạch Na-va",
+  "shortTitle": "Kế hoạch Na-va",
+  "displayDate": "Tháng 7 – 1953",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1945-1954",
+  "parentId": "khang-chien-chong-thuc-dan-phap-1945-1954",
+  "historicalLocations": [],
+  "provinceNames": [],
+  "canonicalSummary": "Được sự thoả thuận của Mỹ, tháng 7 – 1953, thực dân Pháp để ra Kế hoạch Na-va với hi vọng trong vòng 18 tháng giành một thắng lợi quân sự quyết định để kết thúc chiến tranh trong danh dự.",
+  "keyFacts": [
+    "Do Pháp đề ra, có sự thoả thuận của Mỹ",
+    "Mục tiêu: giành thắng lợi quân sự quyết định trong 18 tháng",
+    "Bị phá sản bước đầu bởi Cuộc Tiến công chiến lược Đông - Xuân 1953 - 1954",
+    "Đề ra tháng 7-1953"
+  ],
+  "sourceFamily": "war_1945_1975",
+  "preferredVerificationDomains": [
+    "btlsqsvn.org.vn",
+    "qdnd.vn",
+    "nhandan.vn",
+    "vietnamplus.vn",
+    "hochiminh.vn",
+    "baotanglichsu.vn",
+    "luutru.gov.vn",
+    "loc.gov",
+    "archives.gov"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Kế hoạch Na-va",
+    "Kế hoạch Na-va Tháng 7 – 1953",
+    "Kế hoạch Na-va Cuộc kháng chiến chống thực dân Pháp",
+    "Kế hoạch Na-va Do Pháp đề ra, có sự thoả thuận của Mỹ Mục tiêu: giành thắng lợi quân sự quyết định trong 18 tháng",
+    "Kế hoạch Na-va ảnh tư liệu",
+    "Kế hoạch Na-va chiến dịch"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

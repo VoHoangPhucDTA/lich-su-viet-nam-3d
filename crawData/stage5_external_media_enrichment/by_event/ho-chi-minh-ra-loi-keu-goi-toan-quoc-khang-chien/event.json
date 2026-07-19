@@ -1,0 +1,59 @@
+{
+  "eventId": "ho-chi-minh-ra-loi-keu-goi-toan-quoc-khang-chien",
+  "title": "Chủ tịch Hồ Chí Minh ra Lời kêu gọi toàn quốc kháng chiến",
+  "shortTitle": "Lời kêu gọi toàn quốc kháng chiến",
+  "displayDate": "Tối ngày 19-12-1946",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1945-1954",
+  "parentId": "khang-chien-chong-thuc-dan-phap-1945-1954",
+  "historicalLocations": [],
+  "provinceNames": [],
+  "canonicalSummary": "Khi mọi nhân nhượng của Việt Nam đã đến giới hạn cuối cùng, tối ngày 19-12-1946, Chủ tịch Hồ Chí Minh thay mặt Trung ương Đảng và Chính phủ ra Lời kêu gọi toàn quốc kháng chiến.",
+  "keyFacts": [
+    "Thay mặt Trung ương Đảng và Chính phủ",
+    "Ra Lời kêu gọi toàn quốc kháng chiến",
+    "Do Chủ tịch Hồ Chí Minh ban hành",
+    "Kêu gọi toàn dân đứng lên kháng chiến chống Pháp",
+    "Ra ngày 19-12-1946"
+  ],
+  "sourceFamily": "war_1945_1975",
+  "preferredVerificationDomains": [
+    "btlsqsvn.org.vn",
+    "qdnd.vn",
+    "nhandan.vn",
+    "vietnamplus.vn",
+    "hochiminh.vn",
+    "baotanglichsu.vn",
+    "luutru.gov.vn",
+    "loc.gov",
+    "archives.gov"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Chủ tịch Hồ Chí Minh ra Lời kêu gọi toàn quốc kháng chiến",
+    "Chủ tịch Hồ Chí Minh ra Lời kêu gọi toàn quốc kháng chiến Tối ngày 19-12-1946",
+    "Chủ tịch Hồ Chí Minh ra Lời kêu gọi toàn quốc kháng chiến Cuộc kháng chiến chống thực dân Pháp",
+    "Chủ tịch Hồ Chí Minh ra Lời kêu gọi toàn quốc kháng chiến Thay mặt Trung ương Đảng và Chính phủ Ra Lời kêu gọi toàn quốc kháng chiến",
+    "Chủ tịch Hồ Chí Minh ra Lời kêu gọi toàn quốc kháng chiến ảnh tư liệu",
+    "Chủ tịch Hồ Chí Minh ra Lời kêu gọi toàn quốc kháng chiến chiến dịch"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

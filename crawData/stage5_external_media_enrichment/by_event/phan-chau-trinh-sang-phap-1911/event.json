@@ -1,0 +1,60 @@
+{
+  "eventId": "phan-chau-trinh-sang-phap-1911",
+  "title": "Phan Châu Trinh sang Pháp",
+  "shortTitle": "Phan Châu Trinh sang Pháp",
+  "displayDate": "Năm 1911",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1858-1918",
+  "parentId": "viet-nam-1858-1918",
+  "historicalLocations": [
+    "Việt Nam",
+    "Pháp"
+  ],
+  "provinceNames": [],
+  "canonicalSummary": "Năm 1911, Phan Châu Trinh sang Pháp, tiếp xúc với một số nhóm Việt kiều, tổ chức, đảng phái tiến bộ, nhiều lần gửi kiến nghị đến các thành viên của Chính phủ Pháp..., phê phán chính quyền thực dân, thức tỉnh dư luận Pháp về tình hình Việt Nam.",
+  "keyFacts": [
+    "Tiếp xúc với Việt kiều, tổ chức, đảng phái tiến bộ",
+    "Gửi kiến nghị đến Chính phủ Pháp",
+    "Diễn ra năm 1911",
+    "Mục đích: vận động cải cách"
+  ],
+  "sourceFamily": "colonial",
+  "preferredVerificationDomains": [
+    "baotanglichsu.vn",
+    "luutru.gov.vn",
+    "hochiminh.vn",
+    "nhandan.vn",
+    "qdnd.vn",
+    "vietnamplus.vn",
+    "gallica.bnf.fr",
+    "loc.gov"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Phan Châu Trinh sang Pháp",
+    "Phan Châu Trinh sang Pháp Năm 1911",
+    "Phan Châu Trinh sang Pháp Việt Nam",
+    "Phan Châu Trinh sang Pháp Tiếp xúc với Việt kiều, tổ chức, đảng phái tiến bộ Gửi kiến nghị đến Chính phủ Pháp",
+    "Phan Châu Trinh sang Pháp ảnh tư liệu",
+    "Phan Châu Trinh sang Pháp chân dung"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

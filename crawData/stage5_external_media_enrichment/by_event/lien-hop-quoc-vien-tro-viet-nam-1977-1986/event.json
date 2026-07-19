@@ -1,0 +1,56 @@
+{
+  "eventId": "lien-hop-quoc-vien-tro-viet-nam-1977-1986",
+  "title": "Hệ thống phát triển Liên hợp quốc viện trợ không hoàn lại cho Việt Nam",
+  "shortTitle": "LHQ viện trợ Việt Nam",
+  "displayDate": "Những năm 1977 – 1986",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1975-den-nay",
+  "parentId": "viet-nam-1975-den-nay",
+  "historicalLocations": [],
+  "provinceNames": [],
+  "canonicalSummary": "Trong những năm 1977 – 1986, hệ thống phát triển Liên hợp quốc đã viện trợ không hoàn lại cho Việt Nam khoảng 527,9 triệu USD.",
+  "keyFacts": [
+    "Giai đoạn 1977 – 1986",
+    "Khoảng 527,9 triệu USD",
+    "Viện trợ không hoàn lại"
+  ],
+  "sourceFamily": "diplomacy",
+  "preferredVerificationDomains": [
+    "mofa.gov.vn",
+    "chinhphu.vn",
+    "vietnamplus.vn",
+    "nhandan.vn",
+    "un.org",
+    "asean.org",
+    "apec.org",
+    "europa.eu"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Hệ thống phát triển Liên hợp quốc viện trợ không hoàn lại cho Việt Nam",
+    "Hệ thống phát triển Liên hợp quốc viện trợ không hoàn lại cho Việt Nam Những năm 1977 – 1986",
+    "Hệ thống phát triển Liên hợp quốc viện trợ không hoàn lại cho Việt Nam Việt Nam từ năm 1975 đến nay",
+    "Hệ thống phát triển Liên hợp quốc viện trợ không hoàn lại cho Việt Nam Giai đoạn 1977 – 1986 Khoảng 527,9 triệu USD",
+    "Hệ thống phát triển Liên hợp quốc viện trợ không hoàn lại cho Việt Nam lễ ký",
+    "Hệ thống phát triển Liên hợp quốc viện trợ không hoàn lại cho Việt Nam hội nghị"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

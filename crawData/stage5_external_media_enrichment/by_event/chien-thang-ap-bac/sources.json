@@ -1,0 +1,9 @@
+{
+  "eventId": "chien-thang-ap-bac",
+  "status": "pending_download",
+  "images": [],
+  "expected": [
+    "image_01.<ext>",
+    "image_02.<ext>"
+  ]
+}

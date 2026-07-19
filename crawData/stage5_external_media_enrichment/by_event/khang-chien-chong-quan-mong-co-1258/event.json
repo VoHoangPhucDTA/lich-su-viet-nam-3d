@@ -1,0 +1,59 @@
+{
+  "eventId": "khang-chien-chong-quan-mong-co-1258",
+  "title": "Kháng chiến chống quân Mông Cổ (lần 1)",
+  "shortTitle": "Kháng chiến chống quân Mông Cổ (lần 1)",
+  "displayDate": "Năm 1258",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-tu-the-ki-x-den-xv",
+  "parentId": "viet-nam-tu-the-ki-x-den-xv",
+  "historicalLocations": [],
+  "provinceNames": [
+    "Hà Nội",
+    "Vĩnh Phúc"
+  ],
+  "canonicalSummary": "Cuộc kháng chiến chống quân Mông Cổ lần thứ nhất diễn ra vào năm 1258, dưới sự chỉ huy của Trần Thái Tông và Trần Thủ Độ, với các trận quyết chiến tại Bình Lệ Nguyên (Vĩnh Phúc) và Đông Bộ Đầu (Hà Nội).",
+  "keyFacts": [
+    "Người chỉ huy: Trần Thái Tông, Trần Thủ Độ",
+    "Diễn ra năm 1258",
+    "Trận quyết chiến: Bình Lệ Nguyên (Vĩnh Phúc), Đông Bộ Đầu (Hà Nội)",
+    "Áp dụng kế sách \"vườn không nhà trống\""
+  ],
+  "sourceFamily": "ancient_medieval",
+  "preferredVerificationDomains": [
+    "baotanglichsu.vn",
+    "disanvanhoa.gov.vn",
+    "bvhttdl.gov.vn",
+    "qdnd.vn",
+    "nhandan.vn",
+    "unesco.org",
+    "whc.unesco.org"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Kháng chiến chống quân Mông Cổ (lần 1)",
+    "Kháng chiến chống quân Mông Cổ (lần 1) Năm 1258",
+    "Kháng chiến chống quân Mông Cổ (lần 1) Việt Nam từ thế kỉ X đến thế kỉ XV",
+    "Kháng chiến chống quân Mông Cổ (lần 1) Người chỉ huy: Trần Thái Tông, Trần Thủ Độ Diễn ra năm 1258",
+    "Kháng chiến chống quân Mông Cổ (lần 1) hiện vật",
+    "Kháng chiến chống quân Mông Cổ (lần 1) di tích"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

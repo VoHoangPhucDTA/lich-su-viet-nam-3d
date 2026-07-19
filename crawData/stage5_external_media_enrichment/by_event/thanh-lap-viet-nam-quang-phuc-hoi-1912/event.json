@@ -1,0 +1,58 @@
+{
+  "eventId": "thanh-lap-viet-nam-quang-phuc-hoi-1912",
+  "title": "Thành lập Việt Nam Quang phục hội và Chấn Hoa Hưng Á",
+  "shortTitle": "Thành lập Việt Nam Quang phục hội và Chấn Hoa Hưng Á",
+  "displayDate": "Đầu năm 1912",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1858-1918",
+  "parentId": "viet-nam-1858-1918",
+  "historicalLocations": [
+    "Trung Quốc"
+  ],
+  "provinceNames": [],
+  "canonicalSummary": "Đầu năm 1912, Phan Bội Châu thành lập Việt Nam Quang phục hội và tham gia thành lập Chấn Hoa Hưng Á, nhằm đánh đuổi thực dân Pháp, giành độc lập.",
+  "keyFacts": [
+    "Diễn ra đầu năm 1912",
+    "Mục tiêu: đánh đuổi thực dân Pháp, giành độc lập",
+    "Do Phan Bội Châu thành lập/tham gia"
+  ],
+  "sourceFamily": "colonial",
+  "preferredVerificationDomains": [
+    "baotanglichsu.vn",
+    "luutru.gov.vn",
+    "hochiminh.vn",
+    "nhandan.vn",
+    "qdnd.vn",
+    "vietnamplus.vn",
+    "gallica.bnf.fr",
+    "loc.gov"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Thành lập Việt Nam Quang phục hội và Chấn Hoa Hưng Á",
+    "Thành lập Việt Nam Quang phục hội và Chấn Hoa Hưng Á Đầu năm 1912",
+    "Thành lập Việt Nam Quang phục hội và Chấn Hoa Hưng Á Trung Quốc",
+    "Thành lập Việt Nam Quang phục hội và Chấn Hoa Hưng Á Diễn ra đầu năm 1912 Mục tiêu: đánh đuổi thực dân Pháp, giành độc lập",
+    "Thành lập Việt Nam Quang phục hội và Chấn Hoa Hưng Á ảnh tư liệu",
+    "Thành lập Việt Nam Quang phục hội và Chấn Hoa Hưng Á chân dung"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

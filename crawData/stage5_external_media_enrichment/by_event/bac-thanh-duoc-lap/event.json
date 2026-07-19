@@ -1,0 +1,64 @@
+{
+  "eventId": "bac-thanh-duoc-lap",
+  "title": "Bắc Thành được lập",
+  "shortTitle": "Bắc Thành được lập",
+  "displayDate": "1802 - 1831",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-tu-the-ki-xvi-den-xix",
+  "parentId": "viet-nam-tu-the-ki-xvi-den-xix",
+  "historicalLocations": [],
+  "provinceNames": [
+    "Cao Bằng",
+    "Hải Dương",
+    "Hà Nội",
+    "Quảng Ninh",
+    "Phú Thọ",
+    "Lạng Sơn",
+    "Bắc Giang",
+    "Thái Nguyên",
+    "Hà Nam",
+    "Tuyên Quang"
+  ],
+  "canonicalSummary": "Bắc Thành là đơn vị hành chính cao hơn trấn. Bắc Thành được lập từ năm 1802 đến 1831, cai quản 11 trấn là Sơn Nam Thượng, Sơn Nam Hạ, Sơn Tây, Kinh Bắc, Hải Dương, Tuyên Quang, Hưng Hoá, Cao Bằng, Lạng Sơn, Thái Nguyên, Quảng Yên.",
+  "keyFacts": [
+    "Cai quản 11 trấn",
+    "Tồn tại từ 1802 đến 1831",
+    "Đơn vị hành chính cao hơn trấn"
+  ],
+  "sourceFamily": "early_modern",
+  "preferredVerificationDomains": [
+    "baotanglichsu.vn",
+    "luutru.gov.vn",
+    "disanvanhoa.gov.vn",
+    "nhandan.vn",
+    "qdnd.vn"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Bắc Thành được lập",
+    "Bắc Thành được lập 1802 - 1831",
+    "Bắc Thành được lập Việt Nam từ thế kỉ XVI đến thế kỉ XIX",
+    "Bắc Thành được lập Cai quản 11 trấn Tồn tại từ 1802 đến 1831",
+    "Bắc Thành được lập chân dung",
+    "Bắc Thành được lập di tích"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

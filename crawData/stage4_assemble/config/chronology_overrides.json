@@ -1,0 +1,1256 @@
+{
+  "version": 1,
+  "overrides": [
+    {
+      "eventId": "cac-chien-thang-quan-su-1964-1965",
+      "mode": "auto_safe",
+      "category": "closed_year_range",
+      "chronology": {
+        "start": {
+          "year": 1964,
+          "month": null,
+          "day": null
+        },
+        "end": {
+          "year": 1965,
+          "month": null,
+          "day": null
+        },
+        "datePrecision": "period",
+        "displayDate": "1964 – 1965",
+        "isApproximate": false
+      },
+      "reason": "Explicit closed year range in the existing displayDate."
+    },
+    {
+      "eventId": "cai-cach-ruong-dat-mien-bac",
+      "mode": "auto_safe",
+      "category": "closed_year_range",
+      "chronology": {
+        "start": {
+          "year": 1954,
+          "month": null,
+          "day": null
+        },
+        "end": {
+          "year": 1960,
+          "month": null,
+          "day": null
+        },
+        "datePrecision": "period",
+        "displayDate": "1954 - 1960",
+        "isApproximate": false
+      },
+      "reason": "Explicit closed year range in the existing displayDate."
+    },
+    {
+      "eventId": "cuoc-tien-cong-chien-luoc-dong-xuan-1953-1954",
+      "mode": "auto_safe",
+      "category": "closed_year_range",
+      "chronology": {
+        "start": {
+          "year": 1953,
+          "month": null,
+          "day": null
+        },
+        "end": {
+          "year": 1954,
+          "month": null,
+          "day": null
+        },
+        "datePrecision": "period",
+        "displayDate": "Đông - Xuân 1953 - 1954",
+        "isApproximate": true
+      },
+      "reason": "Explicit closed year range in the existing displayDate."
+    },
+    {
+      "eventId": "giai-doan-day-manh-cong-nghiep-hoa-hien-dai-hoa-hoi-nhap-kinh-te-quoc-te-1996-2006",
+      "mode": "auto_safe",
+      "category": "closed_year_range",
+      "chronology": {
+        "start": {
+          "year": 1996,
+          "month": null,
+          "day": null
+        },
+        "end": {
+          "year": 2006,
+          "month": null,
+          "day": null
+        },
+        "datePrecision": "period",
+        "displayDate": "1996 – 2006",
+        "isApproximate": false
+      },
+      "reason": "Explicit closed year range in the existing displayDate."
+    },
+    {
+      "eventId": "giai-doan-khang-chien-chong-my-1954-1960",
+      "mode": "auto_safe",
+      "category": "closed_year_range",
+      "chronology": {
+        "start": {
+          "year": 1954,
+          "month": null,
+          "day": null
+        },
+        "end": {
+          "year": 1960,
+          "month": null,
+          "day": null
+        },
+        "datePrecision": "period",
+        "displayDate": "1954 - 1960",
+        "isApproximate": false
+      },
+      "reason": "Explicit closed year range in the existing displayDate."
+    },
+    {
+      "eventId": "giai-doan-khang-chien-chong-my-1961-1965",
+      "mode": "auto_safe",
+      "category": "closed_year_range",
+      "chronology": {
+        "start": {
+          "year": 1961,
+          "month": null,
+          "day": null
+        },
+        "end": {
+          "year": 1965,
+          "month": null,
+          "day": null
+        },
+        "datePrecision": "period",
+        "displayDate": "1961 - 1965",
+        "isApproximate": false
+      },
+      "reason": "Explicit closed year range in the existing displayDate."
+    },
+    {
+      "eventId": "giai-doan-khang-chien-chong-my-1965-1968",
+      "mode": "auto_safe",
+      "category": "closed_year_range",
+      "chronology": {
+        "start": {
+          "year": 1965,
+          "month": null,
+          "day": null
+        },
+        "end": {
+          "year": 1968,
+          "month": null,
+          "day": null
+        },
+        "datePrecision": "period",
+        "displayDate": "1965 - 1968",
+        "isApproximate": false
+      },
+      "reason": "Explicit closed year range in the existing displayDate."
+    },
+    {
+      "eventId": "giai-doan-khang-chien-chong-my-1969-1973",
+      "mode": "auto_safe",
+      "category": "closed_year_range",
+      "chronology": {
+        "start": {
+          "year": 1969,
+          "month": null,
+          "day": null
+        },
+        "end": {
+          "year": 1973,
+          "month": null,
+          "day": null
+        },
+        "datePrecision": "period",
+        "displayDate": "1969 – 1973",
+        "isApproximate": false
+      },
+      "reason": "Explicit closed year range in the existing displayDate."
+    },
+    {
+      "eventId": "giai-doan-khang-chien-chong-my-1973-1975",
+      "mode": "auto_safe",
+      "category": "closed_year_range",
+      "chronology": {
+        "start": {
+          "year": 1973,
+          "month": null,
+          "day": null
+        },
+        "end": {
+          "year": 1975,
+          "month": null,
+          "day": null
+        },
+        "datePrecision": "period",
+        "displayDate": "1973 - 1975",
+        "isApproximate": false
+      },
+      "reason": "Explicit closed year range in the existing displayDate."
+    },
+    {
+      "eventId": "giai-doan-khoi-dau-cong-cuoc-doi-moi-1986-1995",
+      "mode": "auto_safe",
+      "category": "closed_year_range",
+      "chronology": {
+        "start": {
+          "year": 1986,
+          "month": null,
+          "day": null
+        },
+        "end": {
+          "year": 1995,
+          "month": null,
+          "day": null
+        },
+        "datePrecision": "period",
+        "displayDate": "1986-1995",
+        "isApproximate": false
+      },
+      "reason": "Explicit closed year range in the existing displayDate."
+    },
+    {
+      "eventId": "hoan-toan-giai-phong-mien-nam-viet-nam",
+      "mode": "auto_safe",
+      "category": "month_year",
+      "chronology": {
+        "start": {
+          "year": 1975,
+          "month": 4,
+          "day": null
+        },
+        "end": null,
+        "datePrecision": "month",
+        "displayDate": "tháng 4-1975",
+        "isApproximate": false
+      },
+      "reason": "Explicit month and calendar year in the existing displayDate."
+    },
+    {
+      "eventId": "ke-hoach-nha-nuoc-5-nam-lan-thu-nhat-mien-bac",
+      "mode": "auto_safe",
+      "category": "closed_year_range",
+      "chronology": {
+        "start": {
+          "year": 1961,
+          "month": null,
+          "day": null
+        },
+        "end": {
+          "year": 1965,
+          "month": null,
+          "day": null
+        },
+        "datePrecision": "period",
+        "displayDate": "1961 - 1965",
+        "isApproximate": false
+      },
+      "reason": "Explicit closed year range in the existing displayDate."
+    },
+    {
+      "eventId": "lien-xo-vien-tro-cho-viet-nam",
+      "mode": "auto_safe",
+      "category": "closed_year_range",
+      "chronology": {
+        "start": {
+          "year": 1955,
+          "month": null,
+          "day": null
+        },
+        "end": {
+          "year": 1975,
+          "month": null,
+          "day": null
+        },
+        "datePrecision": "period",
+        "displayDate": "1955 - 1975",
+        "isApproximate": false
+      },
+      "reason": "Explicit closed year range in the existing displayDate."
+    },
+    {
+      "eventId": "mien-bac-viet-nam-giai-phong-xay-dung-cnxh",
+      "mode": "auto_safe",
+      "category": "exact_single_year",
+      "chronology": {
+        "start": {
+          "year": 1954,
+          "month": null,
+          "day": null
+        },
+        "end": null,
+        "datePrecision": "year",
+        "displayDate": "1954",
+        "isApproximate": false
+      },
+      "reason": "Explicit single calendar year in the existing displayDate."
+    },
+    {
+      "eventId": "phong-trao-dong-khoi",
+      "mode": "auto_safe",
+      "category": "closed_year_range",
+      "chronology": {
+        "start": {
+          "year": 1959,
+          "month": null,
+          "day": null
+        },
+        "end": {
+          "year": 1960,
+          "month": null,
+          "day": null
+        },
+        "datePrecision": "period",
+        "displayDate": "1959 – 1960",
+        "isApproximate": false
+      },
+      "reason": "Explicit closed year range in the existing displayDate."
+    },
+    {
+      "eventId": "thuc-hien-thong-nhat-dat-nuoc-viet-nam",
+      "mode": "auto_safe",
+      "category": "exact_single_year",
+      "chronology": {
+        "start": {
+          "year": 1976,
+          "month": null,
+          "day": null
+        },
+        "end": null,
+        "datePrecision": "year",
+        "displayDate": "năm 1976",
+        "isApproximate": false
+      },
+      "reason": "Explicit single calendar year in the existing displayDate."
+    },
+    {
+      "eventId": "viet-nam-hoan-tat-muc-tieu-thien-nien-ki",
+      "mode": "auto_safe",
+      "category": "exact_single_year",
+      "chronology": {
+        "start": {
+          "year": 2015,
+          "month": null,
+          "day": null
+        },
+        "end": null,
+        "datePrecision": "year",
+        "displayDate": "Đến năm 2015",
+        "isApproximate": false
+      },
+      "reason": "Explicit single calendar year in the existing displayDate."
+    },
+    {
+      "eventId": "cac-chien-dich-tien-cong-quan-doi-viet-nam-1950-1953",
+      "mode": "manual_curated",
+      "category": "manual_approximate_chronology",
+      "chronology": {
+        "start": {
+          "year": 1950,
+          "month": null,
+          "day": null
+        },
+        "end": {
+          "year": 1953,
+          "month": null,
+          "day": null
+        },
+        "datePrecision": "period",
+        "displayDate": "Từ cuối năm 1950 đến giữa năm 1953",
+        "isApproximate": true
+      },
+      "reason": "The existing displayDate and event summaries explicitly span late 1950 to mid-1953; the year bounds are encoded as an approximate period without inventing month or day precision."
+    },
+    {
+      "eventId": "chien-thang-duong-14-phuoc-long",
+      "mode": "manual_curated",
+      "category": "manual_approximate_chronology",
+      "chronology": {
+        "start": {
+          "year": 1974,
+          "month": null,
+          "day": null
+        },
+        "end": {
+          "year": 1975,
+          "month": null,
+          "day": null
+        },
+        "datePrecision": "period",
+        "displayDate": "Cuối năm 1974, đầu năm 1975",
+        "isApproximate": true
+      },
+      "reason": "The existing displayDate and canonical summary explicitly place the event in late 1974 and early 1975; the year bounds are encoded as an approximate period without inventing month or day precision."
+    },
+    {
+      "eventId": "ho-chi-minh-keu-goi-nhuong-com-se-ao-tang-gia-san-xuat",
+      "mode": "manual_curated",
+      "category": "manual_approximate_chronology",
+      "chronology": {
+        "start": {
+          "year": 1945,
+          "month": null,
+          "day": null
+        },
+        "end": {
+          "year": 1946,
+          "month": null,
+          "day": null
+        },
+        "datePrecision": "period",
+        "displayDate": "Những năm 1945 – 1946",
+        "isApproximate": true
+      },
+      "reason": "The existing displayDate and card summary explicitly identify the event with the years 1945-1946; the year bounds are encoded as an approximate period without inventing month or day precision."
+    },
+    {
+      "eventId": "ho-chi-minh-ki-sac-lenh-thanh-lap-nha-binh-dan-hoc-vu-va-quy-doc-lap",
+      "mode": "manual_curated",
+      "category": "manual_approximate_chronology",
+      "chronology": {
+        "start": {
+          "year": 1945,
+          "month": null,
+          "day": null
+        },
+        "end": {
+          "year": 1946,
+          "month": null,
+          "day": null
+        },
+        "datePrecision": "period",
+        "displayDate": "Những năm 1945 – 1946",
+        "isApproximate": true
+      },
+      "reason": "The existing displayDate and card summary explicitly identify the event with the years 1945-1946; the year bounds are encoded as an approximate period without inventing month or day precision."
+    },
+    {
+      "eventId": "lien-hop-quoc-vien-tro-viet-nam-1977-1986",
+      "mode": "manual_curated",
+      "category": "manual_approximate_chronology",
+      "chronology": {
+        "start": {
+          "year": 1977,
+          "month": null,
+          "day": null
+        },
+        "end": {
+          "year": 1986,
+          "month": null,
+          "day": null
+        },
+        "datePrecision": "period",
+        "displayDate": "Những năm 1977 – 1986",
+        "isApproximate": true
+      },
+      "reason": "The existing displayDate, canonical summary, and key facts explicitly identify the aid period as 1977-1986; the year bounds are encoded as an approximate period without inventing month or day precision."
+    },
+    {
+      "eventId": "cai-cach-tran-thu-do",
+      "mode": "manual_curated",
+      "category": "policy_closed_historical_period",
+      "chronology": {
+        "start": {
+          "year": 1201,
+          "month": null,
+          "day": null
+        },
+        "end": {
+          "year": 1300,
+          "month": null,
+          "day": null
+        },
+        "datePrecision": "period",
+        "displayDate": "Thế kỉ XIII",
+        "isApproximate": true
+      },
+      "policyRef": "closed_historical_period_v1",
+      "policySpec": {
+        "start": {
+          "unit": "century",
+          "era": "CE",
+          "index": 13
+        },
+        "end": {
+          "unit": "century",
+          "era": "CE",
+          "index": 13
+        }
+      },
+      "reason": "The existing displayDate identifies the event with the whole 13th century. closed_historical_period_v1 maps that closed historical period to 1201-1300 as deterministic approximate sortable bounds; no month or day precision is invented."
+    },
+    {
+      "eventId": "cai-cach-trinh-cuong-dang-ngoai",
+      "mode": "manual_curated",
+      "category": "policy_closed_historical_period",
+      "chronology": {
+        "start": {
+          "year": 1701,
+          "month": null,
+          "day": null
+        },
+        "end": {
+          "year": 1800,
+          "month": null,
+          "day": null
+        },
+        "datePrecision": "period",
+        "displayDate": "Thế kỉ XVIII",
+        "isApproximate": true
+      },
+      "policyRef": "closed_historical_period_v1",
+      "policySpec": {
+        "start": {
+          "unit": "century",
+          "era": "CE",
+          "index": 18
+        },
+        "end": {
+          "unit": "century",
+          "era": "CE",
+          "index": 18
+        }
+      },
+      "reason": "The existing displayDate identifies the event with the whole 18th century. closed_historical_period_v1 maps that closed historical period to 1701-1800 as deterministic approximate sortable bounds; no month or day precision is invented."
+    },
+    {
+      "eventId": "doi-do-ly-cong-uan",
+      "mode": "manual_curated",
+      "category": "policy_closed_historical_period",
+      "chronology": {
+        "start": {
+          "year": 1001,
+          "month": null,
+          "day": null
+        },
+        "end": {
+          "year": 1100,
+          "month": null,
+          "day": null
+        },
+        "datePrecision": "period",
+        "displayDate": "Thế kỉ XI",
+        "isApproximate": true
+      },
+      "policyRef": "closed_historical_period_v1",
+      "policySpec": {
+        "start": {
+          "unit": "century",
+          "era": "CE",
+          "index": 11
+        },
+        "end": {
+          "unit": "century",
+          "era": "CE",
+          "index": 11
+        }
+      },
+      "reason": "The existing displayDate identifies the event with the whole 11th century. closed_historical_period_v1 maps that closed historical period to 1001-1100 as deterministic approximate sortable bounds; no month or day precision is invented."
+    },
+    {
+      "eventId": "doi-moi-dao-duy-tu-dang-trong",
+      "mode": "manual_curated",
+      "category": "policy_closed_historical_period",
+      "chronology": {
+        "start": {
+          "year": 1501,
+          "month": null,
+          "day": null
+        },
+        "end": {
+          "year": 1600,
+          "month": null,
+          "day": null
+        },
+        "datePrecision": "period",
+        "displayDate": "Thế kỉ XVI",
+        "isApproximate": true
+      },
+      "policyRef": "closed_historical_period_v1",
+      "policySpec": {
+        "start": {
+          "unit": "century",
+          "era": "CE",
+          "index": 16
+        },
+        "end": {
+          "unit": "century",
+          "era": "CE",
+          "index": 16
+        }
+      },
+      "reason": "The existing displayDate identifies the event with the whole 16th century. closed_historical_period_v1 maps that closed historical period to 1501-1600 as deterministic approximate sortable bounds; no month or day precision is invented."
+    },
+    {
+      "eventId": "hinh-thanh-phat-trien-van-minh-cham-pa",
+      "mode": "manual_curated",
+      "category": "policy_closed_historical_period",
+      "chronology": {
+        "start": {
+          "year": 101,
+          "month": null,
+          "day": null
+        },
+        "end": {
+          "year": 1500,
+          "month": null,
+          "day": null
+        },
+        "datePrecision": "period",
+        "displayDate": "Thế kỉ II đến thế kỉ XV",
+        "isApproximate": true
+      },
+      "policyRef": "closed_historical_period_v1",
+      "policySpec": {
+        "start": {
+          "unit": "century",
+          "era": "CE",
+          "index": 2
+        },
+        "end": {
+          "unit": "century",
+          "era": "CE",
+          "index": 15
+        }
+      },
+      "reason": "The existing displayDate identifies the event with the 2nd through 15th centuries. closed_historical_period_v1 maps that closed historical period to 101-1500 as deterministic approximate sortable bounds; no month or day precision is invented."
+    },
+    {
+      "eventId": "ho-khuc-to-chuc-lai-lang-xa-the-ki-x",
+      "mode": "manual_curated",
+      "category": "policy_closed_historical_period",
+      "chronology": {
+        "start": {
+          "year": 901,
+          "month": null,
+          "day": null
+        },
+        "end": {
+          "year": 1000,
+          "month": null,
+          "day": null
+        },
+        "datePrecision": "period",
+        "displayDate": "Thế kỉ X",
+        "isApproximate": true
+      },
+      "policyRef": "closed_historical_period_v1",
+      "policySpec": {
+        "start": {
+          "unit": "century",
+          "era": "CE",
+          "index": 10
+        },
+        "end": {
+          "unit": "century",
+          "era": "CE",
+          "index": 10
+        }
+      },
+      "reason": "The existing displayDate identifies the event with the whole 10th century. closed_historical_period_v1 maps that closed historical period to 901-1000 as deterministic approximate sortable bounds; no month or day precision is invented."
+    },
+    {
+      "eventId": "khoi-nghia-phung-hung",
+      "mode": "manual_curated",
+      "category": "policy_closed_historical_period",
+      "chronology": {
+        "start": {
+          "year": 767,
+          "month": null,
+          "day": null
+        },
+        "end": {
+          "year": 800,
+          "month": null,
+          "day": null
+        },
+        "datePrecision": "period",
+        "displayDate": "Cuối thế kỉ VIII",
+        "isApproximate": true
+      },
+      "policyRef": "closed_historical_period_v1",
+      "policySpec": {
+        "start": {
+          "unit": "century",
+          "era": "CE",
+          "index": 8,
+          "part": "late"
+        },
+        "end": {
+          "unit": "century",
+          "era": "CE",
+          "index": 8,
+          "part": "late"
+        }
+      },
+      "reason": "The existing displayDate identifies the event with the late 8th century. closed_historical_period_v1 maps that closed historical period to 767-800 as deterministic approximate sortable bounds; no month or day precision is invented."
+    },
+    {
+      "eventId": "khung-hoang-cuoi-trieu-tran",
+      "mode": "manual_curated",
+      "category": "policy_closed_historical_period",
+      "chronology": {
+        "start": {
+          "year": 1367,
+          "month": null,
+          "day": null
+        },
+        "end": {
+          "year": 1400,
+          "month": null,
+          "day": null
+        },
+        "datePrecision": "period",
+        "displayDate": "Cuối thế kỉ XIV",
+        "isApproximate": true
+      },
+      "policyRef": "closed_historical_period_v1",
+      "policySpec": {
+        "start": {
+          "unit": "century",
+          "era": "CE",
+          "index": 14,
+          "part": "late"
+        },
+        "end": {
+          "unit": "century",
+          "era": "CE",
+          "index": 14,
+          "part": "late"
+        }
+      },
+      "reason": "The existing displayDate identifies the event with the late 14th century. closed_historical_period_v1 maps that closed historical period to 1367-1400 as deterministic approximate sortable bounds; no month or day precision is invented."
+    },
+    {
+      "eventId": "le-loi-xay-thanh-luc-nien",
+      "mode": "manual_curated",
+      "category": "policy_closed_historical_period",
+      "chronology": {
+        "start": {
+          "year": 1401,
+          "month": null,
+          "day": null
+        },
+        "end": {
+          "year": 1500,
+          "month": null,
+          "day": null
+        },
+        "datePrecision": "period",
+        "displayDate": "thế kỉ XV",
+        "isApproximate": true
+      },
+      "policyRef": "closed_historical_period_v1",
+      "policySpec": {
+        "start": {
+          "unit": "century",
+          "era": "CE",
+          "index": 15
+        },
+        "end": {
+          "unit": "century",
+          "era": "CE",
+          "index": 15
+        }
+      },
+      "reason": "The existing displayDate identifies the event with the whole 15th century. closed_historical_period_v1 maps that closed historical period to 1401-1500 as deterministic approximate sortable bounds; no month or day precision is invented."
+    },
+    {
+      "eventId": "mai-thuc-loan-khoi-nghia",
+      "mode": "manual_curated",
+      "category": "policy_closed_historical_period",
+      "chronology": {
+        "start": {
+          "year": 701,
+          "month": null,
+          "day": null
+        },
+        "end": {
+          "year": 733,
+          "month": null,
+          "day": null
+        },
+        "datePrecision": "period",
+        "displayDate": "đầu thế kỉ VIII",
+        "isApproximate": true
+      },
+      "policyRef": "closed_historical_period_v1",
+      "policySpec": {
+        "start": {
+          "unit": "century",
+          "era": "CE",
+          "index": 8,
+          "part": "early"
+        },
+        "end": {
+          "unit": "century",
+          "era": "CE",
+          "index": 8,
+          "part": "early"
+        }
+      },
+      "reason": "The existing displayDate identifies the event with the early 8th century. closed_historical_period_v1 maps that closed historical period to 701-733 as deterministic approximate sortable bounds; no month or day precision is invented."
+    },
+    {
+      "eventId": "nguyen-hue-dung-chan-chieu-mo-binh-si",
+      "mode": "manual_curated",
+      "category": "policy_closed_historical_period",
+      "chronology": {
+        "start": {
+          "year": 1767,
+          "month": null,
+          "day": null
+        },
+        "end": {
+          "year": 1800,
+          "month": null,
+          "day": null
+        },
+        "datePrecision": "period",
+        "displayDate": "cuối thế kỉ XVIII",
+        "isApproximate": true
+      },
+      "policyRef": "closed_historical_period_v1",
+      "policySpec": {
+        "start": {
+          "unit": "century",
+          "era": "CE",
+          "index": 18,
+          "part": "late"
+        },
+        "end": {
+          "unit": "century",
+          "era": "CE",
+          "index": 18,
+          "part": "late"
+        }
+      },
+      "reason": "The existing displayDate identifies the event with the late 18th century. closed_historical_period_v1 maps that closed historical period to 1767-1800 as deterministic approximate sortable bounds; no month or day precision is invented."
+    },
+    {
+      "eventId": "nha-minh-xam-luoc-dai-ngu",
+      "mode": "manual_curated",
+      "category": "policy_closed_historical_period",
+      "chronology": {
+        "start": {
+          "year": 1401,
+          "month": null,
+          "day": null
+        },
+        "end": {
+          "year": 1433,
+          "month": null,
+          "day": null
+        },
+        "datePrecision": "period",
+        "displayDate": "Giữa lúc công cuộc cải cách của nhà Hồ đang thực hiện (đầu thế kỉ XV)",
+        "isApproximate": true
+      },
+      "policyRef": "closed_historical_period_v1",
+      "policySpec": {
+        "start": {
+          "unit": "century",
+          "era": "CE",
+          "index": 15,
+          "part": "early"
+        },
+        "end": {
+          "unit": "century",
+          "era": "CE",
+          "index": 15,
+          "part": "early"
+        }
+      },
+      "reason": "The existing displayDate identifies the event with the early 15th century. closed_historical_period_v1 maps that closed historical period to 1401-1433 as deterministic approximate sortable bounds; no month or day precision is invented."
+    },
+    {
+      "eventId": "phap-xam-luoc-viet-nam",
+      "mode": "manual_curated",
+      "category": "policy_closed_historical_period",
+      "chronology": {
+        "start": {
+          "year": 1834,
+          "month": null,
+          "day": null
+        },
+        "end": {
+          "year": 1866,
+          "month": null,
+          "day": null
+        },
+        "datePrecision": "period",
+        "displayDate": "Giữa thế kỉ XIX",
+        "isApproximate": true
+      },
+      "policyRef": "closed_historical_period_v1",
+      "policySpec": {
+        "start": {
+          "unit": "century",
+          "era": "CE",
+          "index": 19,
+          "part": "middle"
+        },
+        "end": {
+          "unit": "century",
+          "era": "CE",
+          "index": 19,
+          "part": "middle"
+        }
+      },
+      "reason": "The existing displayDate identifies the event with the middle 19th century. closed_historical_period_v1 maps that closed historical period to 1834-1866 as deterministic approximate sortable bounds; no month or day precision is invented."
+    },
+    {
+      "eventId": "phong-trao-dong-du",
+      "mode": "manual_curated",
+      "category": "policy_closed_historical_period",
+      "chronology": {
+        "start": {
+          "year": 1901,
+          "month": null,
+          "day": null
+        },
+        "end": {
+          "year": 1933,
+          "month": null,
+          "day": null
+        },
+        "datePrecision": "period",
+        "displayDate": "Đầu thế kỉ XX",
+        "isApproximate": true
+      },
+      "policyRef": "closed_historical_period_v1",
+      "policySpec": {
+        "start": {
+          "unit": "century",
+          "era": "CE",
+          "index": 20,
+          "part": "early"
+        },
+        "end": {
+          "unit": "century",
+          "era": "CE",
+          "index": 20,
+          "part": "early"
+        }
+      },
+      "reason": "The existing displayDate identifies the event with the early 20th century. closed_historical_period_v1 maps that closed historical period to 1901-1933 as deterministic approximate sortable bounds; no month or day precision is invented."
+    },
+    {
+      "eventId": "phong-trao-tay-son-bung-no",
+      "mode": "manual_curated",
+      "category": "policy_closed_historical_period",
+      "chronology": {
+        "start": {
+          "year": 1767,
+          "month": null,
+          "day": null
+        },
+        "end": {
+          "year": 1800,
+          "month": null,
+          "day": null
+        },
+        "datePrecision": "period",
+        "displayDate": "Cuối thế kỉ XVIII",
+        "isApproximate": true
+      },
+      "policyRef": "closed_historical_period_v1",
+      "policySpec": {
+        "start": {
+          "unit": "century",
+          "era": "CE",
+          "index": 18,
+          "part": "late"
+        },
+        "end": {
+          "unit": "century",
+          "era": "CE",
+          "index": 18,
+          "part": "late"
+        }
+      },
+      "reason": "The existing displayDate identifies the event with the late 18th century. closed_historical_period_v1 maps that closed historical period to 1767-1800 as deterministic approximate sortable bounds; no month or day precision is invented."
+    },
+    {
+      "eventId": "phu-nam-tro-thanh-vuong-quoc-hung-manh",
+      "mode": "manual_curated",
+      "category": "policy_closed_historical_period",
+      "chronology": {
+        "start": {
+          "year": 201,
+          "month": null,
+          "day": null
+        },
+        "end": {
+          "year": 500,
+          "month": null,
+          "day": null
+        },
+        "datePrecision": "period",
+        "displayDate": "Từ thế kỉ III đến thế kỉ V",
+        "isApproximate": true
+      },
+      "policyRef": "closed_historical_period_v1",
+      "policySpec": {
+        "start": {
+          "unit": "century",
+          "era": "CE",
+          "index": 3
+        },
+        "end": {
+          "unit": "century",
+          "era": "CE",
+          "index": 5
+        }
+      },
+      "reason": "The existing displayDate identifies the event with the 3rd through 5th centuries. closed_historical_period_v1 maps that closed historical period to 201-500 as deterministic approximate sortable bounds; no month or day precision is invented."
+    },
+    {
+      "eventId": "thanh-lap-cac-dang-cong-san-o-viet-nam-ma-lai-xiem-phi-lip-pin",
+      "mode": "manual_curated",
+      "category": "policy_closed_historical_period",
+      "chronology": {
+        "start": {
+          "year": 1930,
+          "month": null,
+          "day": null
+        },
+        "end": {
+          "year": 1939,
+          "month": null,
+          "day": null
+        },
+        "datePrecision": "period",
+        "displayDate": "Trong những năm 30 của thế kỉ XX",
+        "isApproximate": true
+      },
+      "policyRef": "closed_historical_period_v1",
+      "policySpec": {
+        "start": {
+          "unit": "decade",
+          "anchorYear": 1930
+        },
+        "end": {
+          "unit": "decade",
+          "anchorYear": 1930
+        }
+      },
+      "reason": "The existing displayDate identifies the event with the 1930s decade. closed_historical_period_v1 maps that closed historical period to 1930-1939 as deterministic approximate sortable bounds; no month or day precision is invented."
+    },
+    {
+      "eventId": "thanh-lap-lang-xa-huyen-tien-hai-thai-binh",
+      "mode": "manual_curated",
+      "category": "policy_closed_historical_period",
+      "chronology": {
+        "start": {
+          "year": 1801,
+          "month": null,
+          "day": null
+        },
+        "end": {
+          "year": 1833,
+          "month": null,
+          "day": null
+        },
+        "datePrecision": "period",
+        "displayDate": "Đầu thế kỉ XIX",
+        "isApproximate": true
+      },
+      "policyRef": "closed_historical_period_v1",
+      "policySpec": {
+        "start": {
+          "unit": "century",
+          "era": "CE",
+          "index": 19,
+          "part": "early"
+        },
+        "end": {
+          "unit": "century",
+          "era": "CE",
+          "index": 19,
+          "part": "early"
+        }
+      },
+      "reason": "The existing displayDate identifies the event with the early 19th century. closed_historical_period_v1 maps that closed historical period to 1801-1833 as deterministic approximate sortable bounds; no month or day precision is invented."
+    },
+    {
+      "eventId": "thanh-lap-va-hoat-dong-doi-dan-binh-hoang-sa-bac-hai",
+      "mode": "manual_curated",
+      "category": "policy_closed_historical_period",
+      "chronology": {
+        "start": {
+          "year": 1601,
+          "month": null,
+          "day": null
+        },
+        "end": {
+          "year": 1833,
+          "month": null,
+          "day": null
+        },
+        "datePrecision": "period",
+        "displayDate": "Thế kỉ XVII đến đầu thế kỉ XIX",
+        "isApproximate": true
+      },
+      "policyRef": "closed_historical_period_v1",
+      "policySpec": {
+        "start": {
+          "unit": "century",
+          "era": "CE",
+          "index": 17
+        },
+        "end": {
+          "unit": "century",
+          "era": "CE",
+          "index": 19,
+          "part": "early"
+        }
+      },
+      "reason": "The existing displayDate identifies the event with the 17th century through early 19th century. closed_historical_period_v1 maps that closed historical period to 1601-1833 as deterministic approximate sortable bounds; no month or day precision is invented."
+    },
+    {
+      "eventId": "vuong-thuc-mau-khoi-nghia-can-vuong",
+      "mode": "manual_curated",
+      "category": "policy_closed_historical_period",
+      "chronology": {
+        "start": {
+          "year": 1867,
+          "month": null,
+          "day": null
+        },
+        "end": {
+          "year": 1900,
+          "month": null,
+          "day": null
+        },
+        "datePrecision": "period",
+        "displayDate": "cuối thế kỉ XIX",
+        "isApproximate": true
+      },
+      "policyRef": "closed_historical_period_v1",
+      "policySpec": {
+        "start": {
+          "unit": "century",
+          "era": "CE",
+          "index": 19,
+          "part": "late"
+        },
+        "end": {
+          "unit": "century",
+          "era": "CE",
+          "index": 19,
+          "part": "late"
+        }
+      },
+      "reason": "The existing displayDate identifies the event with the late 19th century. closed_historical_period_v1 maps that closed historical period to 1867-1900 as deterministic approximate sortable bounds; no month or day precision is invented."
+    },
+    {
+      "eventId": "xa-lan-dau-tien-xuat-hien",
+      "mode": "manual_curated",
+      "category": "policy_closed_historical_period",
+      "chronology": {
+        "start": {
+          "year": 601,
+          "month": null,
+          "day": null
+        },
+        "end": {
+          "year": 633,
+          "month": null,
+          "day": null
+        },
+        "datePrecision": "period",
+        "displayDate": "Đầu thế kỉ VII",
+        "isApproximate": true
+      },
+      "policyRef": "closed_historical_period_v1",
+      "policySpec": {
+        "start": {
+          "unit": "century",
+          "era": "CE",
+          "index": 7,
+          "part": "early"
+        },
+        "end": {
+          "unit": "century",
+          "era": "CE",
+          "index": 7,
+          "part": "early"
+        }
+      },
+      "reason": "The existing displayDate identifies the event with the early 7th century. closed_historical_period_v1 maps that closed historical period to 601-633 as deterministic approximate sortable bounds; no month or day precision is invented."
+    },
+    {
+      "eventId": "van-hoa-sa-huynh",
+      "mode": "manual_curated",
+      "category": "policy_closed_historical_period",
+      "chronology": {
+        "start": {
+          "year": -500,
+          "month": null,
+          "day": null
+        },
+        "end": {
+          "year": -401,
+          "month": null,
+          "day": null
+        },
+        "datePrecision": "period",
+        "displayDate": "Khoảng thế kỉ V TCN",
+        "isApproximate": true
+      },
+      "policyRef": "closed_historical_period_v1",
+      "policySpec": {
+        "start": {
+          "unit": "century",
+          "era": "BCE",
+          "index": 5
+        },
+        "end": {
+          "unit": "century",
+          "era": "BCE",
+          "index": 5
+        }
+      },
+      "reason": "The existing displayDate identifies the event with the 5th century BCE. closed_historical_period_v1 maps that closed historical period to -500 through -401 as deterministic approximate sortable bounds; no month or day precision is invented."
+    },
+    {
+      "eventId": "van-hoa-tien-oc-eo",
+      "mode": "manual_curated",
+      "category": "policy_closed_historical_period",
+      "chronology": {
+        "start": {
+          "year": -334,
+          "month": null,
+          "day": null
+        },
+        "end": {
+          "year": -1,
+          "month": null,
+          "day": null
+        },
+        "datePrecision": "period",
+        "displayDate": "Cuối thiên niên kỉ I TCN",
+        "isApproximate": true
+      },
+      "policyRef": "closed_historical_period_v1",
+      "policySpec": {
+        "start": {
+          "unit": "millennium",
+          "era": "BCE",
+          "index": 1,
+          "part": "late"
+        },
+        "end": {
+          "unit": "millennium",
+          "era": "BCE",
+          "index": 1,
+          "part": "late"
+        }
+      },
+      "reason": "The existing displayDate identifies the event with the late 1st millennium BCE. closed_historical_period_v1 maps that closed historical period to -334 through -1 as deterministic approximate sortable bounds; no month or day precision is invented."
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "eventId": "hien-phap-viet-nam-dan-chu-cong-hoa-1946",
+  "status": "pending_download",
+  "images": [],
+  "expected": [
+    "image_01.<ext>",
+    "image_02.<ext>"
+  ]
+}

@@ -1,0 +1,58 @@
+{
+  "eventId": "hoi-the-dong-quan",
+  "title": "Hội thề Đông Quan",
+  "shortTitle": "Hội thề Đông Quan",
+  "displayDate": "Tháng 12 - 1427",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-tu-the-ki-x-den-xv",
+  "parentId": "viet-nam-tu-the-ki-x-den-xv",
+  "historicalLocations": [],
+  "provinceNames": [
+    "Hà Nội"
+  ],
+  "canonicalSummary": "Hội thề Đông Quan diễn ra vào tháng 12 năm 1427, do Lê Lợi và Vương Thông dẫn đầu hai phái đoàn để chấm dứt chiến tranh, quân Minh rút về nước.",
+  "keyFacts": [
+    "Quân Minh rút về nước",
+    "Lê Lợi và Vương Thông dẫn đầu hai phái đoàn",
+    "Chấm dứt chiến tranh",
+    "Diễn ra vào tháng 12 - 1427"
+  ],
+  "sourceFamily": "ancient_medieval",
+  "preferredVerificationDomains": [
+    "baotanglichsu.vn",
+    "disanvanhoa.gov.vn",
+    "bvhttdl.gov.vn",
+    "qdnd.vn",
+    "nhandan.vn",
+    "unesco.org",
+    "whc.unesco.org"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Hội thề Đông Quan",
+    "Hội thề Đông Quan Tháng 12 - 1427",
+    "Hội thề Đông Quan Việt Nam từ thế kỉ X đến thế kỉ XV",
+    "Hội thề Đông Quan Quân Minh rút về nước Lê Lợi và Vương Thông dẫn đầu hai phái đoàn",
+    "Hội thề Đông Quan hiện vật",
+    "Hội thề Đông Quan di tích"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

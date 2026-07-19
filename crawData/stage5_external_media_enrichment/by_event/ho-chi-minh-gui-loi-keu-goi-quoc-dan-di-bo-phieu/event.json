@@ -1,0 +1,56 @@
+{
+  "eventId": "ho-chi-minh-gui-loi-keu-goi-quoc-dan-di-bo-phieu",
+  "title": "Chủ tịch Hồ Chí Minh gửi Lời kêu gọi quốc dân đi bỏ phiếu",
+  "shortTitle": "Lời kêu gọi quốc dân đi bỏ phiếu",
+  "displayDate": "Ngày 5 – 1 – 1946",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1945-1954",
+  "parentId": "viet-nam-1945-1954",
+  "historicalLocations": [],
+  "provinceNames": [],
+  "canonicalSummary": "Để tạo cơ sở pháp lí cho chính quyền cách mạng và thực hiện quyền làm chủ của nhân dân, ngày 5 – 1 – 1946, Chủ tịch Hồ Chí Minh gửi Lời kêu gọi quốc dân đi bỏ phiếu.",
+  "keyFacts": [
+    "Để tạo cơ sở pháp lí cho chính quyền cách mạng",
+    "Để thực hiện quyền làm chủ của nhân dân"
+  ],
+  "sourceFamily": "war_1945_1975",
+  "preferredVerificationDomains": [
+    "btlsqsvn.org.vn",
+    "qdnd.vn",
+    "nhandan.vn",
+    "vietnamplus.vn",
+    "hochiminh.vn",
+    "baotanglichsu.vn",
+    "luutru.gov.vn",
+    "loc.gov",
+    "archives.gov"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Chủ tịch Hồ Chí Minh gửi Lời kêu gọi quốc dân đi bỏ phiếu",
+    "Chủ tịch Hồ Chí Minh gửi Lời kêu gọi quốc dân đi bỏ phiếu Ngày 5 – 1 – 1946",
+    "Chủ tịch Hồ Chí Minh gửi Lời kêu gọi quốc dân đi bỏ phiếu Việt Nam từ năm 1945 đến năm 1954",
+    "Chủ tịch Hồ Chí Minh gửi Lời kêu gọi quốc dân đi bỏ phiếu Để tạo cơ sở pháp lí cho chính quyền cách mạng Để thực hiện quyền làm chủ của nhân dân",
+    "Chủ tịch Hồ Chí Minh gửi Lời kêu gọi quốc dân đi bỏ phiếu ảnh tư liệu",
+    "Chủ tịch Hồ Chí Minh gửi Lời kêu gọi quốc dân đi bỏ phiếu chiến dịch"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

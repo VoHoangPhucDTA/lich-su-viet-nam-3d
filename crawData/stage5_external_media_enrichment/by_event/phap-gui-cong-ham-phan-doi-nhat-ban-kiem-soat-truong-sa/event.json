@@ -1,0 +1,55 @@
+{
+  "eventId": "phap-gui-cong-ham-phan-doi-nhat-ban-kiem-soat-truong-sa",
+  "title": "Pháp gửi công hàm phản đối Nhật Bản kiểm soát một số đảo thuộc quần đảo Trường Sa",
+  "shortTitle": "Pháp phản đối Nhật ở Trường Sa",
+  "displayDate": "Năm 1939",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1919-1945",
+  "parentId": "chu-quyen-bien-dao-viet-nam-1919-1945",
+  "historicalLocations": [],
+  "provinceNames": [],
+  "canonicalSummary": "Năm 1939, chính quyền thực dân Pháp gửi công hàm phản đối việc Nhật Bản kiểm soát một số đảo thuộc quần đảo Trường Sa.",
+  "keyFacts": [
+    "Phản đối Nhật Bản kiểm soát các đảo thuộc Trường Sa",
+    "Chính quyền thực dân Pháp gửi công hàm",
+    "Diễn ra năm 1939"
+  ],
+  "sourceFamily": "maritime",
+  "preferredVerificationDomains": [
+    "mofa.gov.vn",
+    "biengioilanhtho.gov.vn",
+    "mod.gov.vn",
+    "qdnd.vn",
+    "chinhphu.vn",
+    "vietnamplus.vn",
+    "luutru.gov.vn"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Pháp gửi công hàm phản đối Nhật Bản kiểm soát một số đảo thuộc quần đảo Trường Sa",
+    "Pháp gửi công hàm phản đối Nhật Bản kiểm soát một số đảo thuộc quần đảo Trường Sa Năm 1939",
+    "Pháp gửi công hàm phản đối Nhật Bản kiểm soát một số đảo thuộc quần đảo Trường Sa Chủ quyền biển đảo Việt Nam 1919-1945",
+    "Pháp gửi công hàm phản đối Nhật Bản kiểm soát một số đảo thuộc quần đảo Trường Sa Phản đối Nhật Bản kiểm soát các đảo thuộc Trường Sa Chính quyền thực dân Pháp gửi công hàm",
+    "Pháp gửi công hàm phản đối Nhật Bản kiểm soát một số đảo thuộc quần đảo Trường Sa bản đồ",
+    "Pháp gửi công hàm phản đối Nhật Bản kiểm soát một số đảo thuộc quần đảo Trường Sa hải đồ"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

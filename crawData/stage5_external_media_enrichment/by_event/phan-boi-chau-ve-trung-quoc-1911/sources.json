@@ -1,0 +1,9 @@
+{
+  "eventId": "phan-boi-chau-ve-trung-quoc-1911",
+  "status": "pending_download",
+  "images": [],
+  "expected": [
+    "image_01.<ext>",
+    "image_02.<ext>"
+  ]
+}

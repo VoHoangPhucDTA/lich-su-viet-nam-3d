@@ -1,0 +1,56 @@
+{
+  "eventId": "thanh-lap-chinh-phu-cach-mang-lam-thoi-cong-hoa-mien-nam-viet-nam",
+  "title": "Thành lập Chính phủ cách mạng lâm thời Cộng hoà miền Nam Việt Nam",
+  "shortTitle": "Chính phủ cách mạng lâm thời miền Nam",
+  "displayDate": "Ngày 6-6-1969",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1954-1975",
+  "parentId": "viet-nam-1954-1975",
+  "historicalLocations": [],
+  "provinceNames": [],
+  "canonicalSummary": "Ngày 6-6-1969, Chính phủ cách mạng lâm thời Cộng hoà miền Nam Việt nam ra đời. Đây là chính phủ hợp phát của nhân dân miền Nam.",
+  "keyFacts": [
+    "Là chính phủ hợp pháp của nhân dân miền Nam",
+    "Thành lập ngày 6-6-1969"
+  ],
+  "sourceFamily": "war_1945_1975",
+  "preferredVerificationDomains": [
+    "btlsqsvn.org.vn",
+    "qdnd.vn",
+    "nhandan.vn",
+    "vietnamplus.vn",
+    "hochiminh.vn",
+    "baotanglichsu.vn",
+    "luutru.gov.vn",
+    "loc.gov",
+    "archives.gov"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Thành lập Chính phủ cách mạng lâm thời Cộng hoà miền Nam Việt Nam",
+    "Thành lập Chính phủ cách mạng lâm thời Cộng hoà miền Nam Việt Nam Ngày 6-6-1969",
+    "Thành lập Chính phủ cách mạng lâm thời Cộng hoà miền Nam Việt Nam Việt Nam từ năm 1954 đến năm 1975",
+    "Thành lập Chính phủ cách mạng lâm thời Cộng hoà miền Nam Việt Nam Là chính phủ hợp pháp của nhân dân miền Nam Thành lập ngày 6-6-1969",
+    "Thành lập Chính phủ cách mạng lâm thời Cộng hoà miền Nam Việt Nam ảnh tư liệu",
+    "Thành lập Chính phủ cách mạng lâm thời Cộng hoà miền Nam Việt Nam chiến dịch"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

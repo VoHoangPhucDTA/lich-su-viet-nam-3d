@@ -1,0 +1,56 @@
+{
+  "eventId": "viet-nam-thong-qua-luat-bien-viet-nam",
+  "title": "Việt Nam thông qua Luật Biển Việt Nam",
+  "shortTitle": "Luật Biển Việt Nam",
+  "displayDate": "Năm 2012",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1975-den-nay",
+  "parentId": "chu-quyen-bien-dao-viet-nam-1975-den-nay",
+  "historicalLocations": [],
+  "provinceNames": [],
+  "canonicalSummary": "Thông qua Luật Biển Việt Nam năm 2012.",
+  "keyFacts": [
+    "Nội dung: quy định về các vùng biển, thềm lục địa và chủ quyền của Việt Nam",
+    "Thông qua năm 2012"
+  ],
+  "sourceFamily": "post_1975",
+  "preferredVerificationDomains": [
+    "chinhphu.vn",
+    "dangcongsan.vn",
+    "tulieuvankien.dangcongsan.vn",
+    "quochoi.vn",
+    "mofa.gov.vn",
+    "vietnamplus.vn",
+    "nhandan.vn",
+    "un.org",
+    "unphoto.un.org"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Việt Nam thông qua Luật Biển Việt Nam",
+    "Việt Nam thông qua Luật Biển Việt Nam Năm 2012",
+    "Việt Nam thông qua Luật Biển Việt Nam Chủ quyền biển đảo Việt Nam 1975 đến nay",
+    "Việt Nam thông qua Luật Biển Việt Nam Nội dung: quy định về các vùng biển, thềm lục địa và chủ quyền của Việt Nam Thông qua năm 2012",
+    "Việt Nam thông qua Luật Biển Việt Nam ảnh tư liệu",
+    "Việt Nam thông qua Luật Biển Việt Nam lễ ký"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

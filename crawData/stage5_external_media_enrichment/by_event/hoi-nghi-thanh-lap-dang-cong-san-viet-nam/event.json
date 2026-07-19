@@ -1,0 +1,68 @@
+{
+  "eventId": "hoi-nghi-thanh-lap-dang-cong-san-viet-nam",
+  "title": "Nguyễn Ái Quốc triệu tập và chủ trì Hội nghị thành lập Đảng Cộng sản Việt Nam",
+  "shortTitle": "Thành lập ĐCSVN",
+  "displayDate": "Ngày 6 – 1 – 1930",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1919-1945",
+  "parentId": "viet-nam-1919-1945",
+  "historicalLocations": [
+    "Đông Dương",
+    "Việt Nam",
+    "Trung Quốc",
+    "Hương Cảng (Trung Quốc)",
+    "Hồng Công"
+  ],
+  "provinceNames": [],
+  "canonicalSummary": "Trước nhu cầu cấp bách của phong trào cách mạng, với tư cách là phái viên của Quốc tế Cộng sản, Nguyễn Ái Quốc đã chủ động triệu tập đại biểu các tổ chức cộng sản đến Cửu Long (Hồng Công – Trung Quốc) để tiến hành hợp nhất. Hội nghị bắt đầu diễn ra từ ngày 6 – 1 – 1930. Trong hội nghị này, Nguyễn Ái Quốc nêu ra những điểm lớn cần thảo luận và thống nhất gồm: bỏ mọi xung đột cũ, thống nhất các nhóm cộng sản ở Đông Dương; định tên Đảng là Đảng Cộng sản Việt Nam; thảo luận Chính cương và Điều lệ sơ lược của Đảng; định kế hoạch việc thống nhất trong nước và cử một Ban Chấp hành Trung ương lâm thời. Hội nghị tán thành ý kiến của Nguyễn Ái Quốc, thông qua các văn kiện do Nguyễn Ái Quốc soạn thảo. Trong đó, Chính cương vắn tắt và Sách lược vắn tắt của Đảng đã phản ánh những vấn đề chiến lược và sách lược của Đảng. Hai văn kiện trên được xem là Cương lĩnh chính trị đầu tiên của Đảng Cộng sản Việt Nam.",
+  "keyFacts": [
+    "Triệu tập đại biểu các tổ chức cộng sản",
+    "Thống nhất các nhóm cộng sản ở Đông Dương",
+    "Thành lập vào năm 1930",
+    "Địa điểm: Cửu Long (Hồng Công – Trung Quốc)",
+    "Triệu tập và chủ trì Hội nghị hợp nhất",
+    "Soạn thảo Cương lĩnh chính trị đầu tiên của Đảng",
+    "Thông qua Chính cương vắn tắt và Sách lược vắn tắt (Cương lĩnh chính trị đầu tiên)",
+    "Củng cố và mở rộng khối đại đoàn kết dân tộc",
+    "Định tên Đảng là Đảng Cộng sản Việt Nam"
+  ],
+  "sourceFamily": "revolutionary",
+  "preferredVerificationDomains": [
+    "hochiminh.vn",
+    "tulieuvankien.dangcongsan.vn",
+    "dangcongsan.vn",
+    "baotanglichsu.vn",
+    "nhandan.vn",
+    "qdnd.vn",
+    "vietnamplus.vn",
+    "luutru.gov.vn"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Nguyễn Ái Quốc triệu tập và chủ trì Hội nghị thành lập Đảng Cộng sản Việt Nam",
+    "Nguyễn Ái Quốc triệu tập và chủ trì Hội nghị thành lập Đảng Cộng sản Việt Nam Ngày 6 – 1 – 1930",
+    "Nguyễn Ái Quốc triệu tập và chủ trì Hội nghị thành lập Đảng Cộng sản Việt Nam Đông Dương",
+    "Nguyễn Ái Quốc triệu tập và chủ trì Hội nghị thành lập Đảng Cộng sản Việt Nam Triệu tập đại biểu các tổ chức cộng sản Thống nhất các nhóm cộng sản ở Đông Dương",
+    "Nguyễn Ái Quốc triệu tập và chủ trì Hội nghị thành lập Đảng Cộng sản Việt Nam ảnh tư liệu",
+    "Nguyễn Ái Quốc triệu tập và chủ trì Hội nghị thành lập Đảng Cộng sản Việt Nam chân dung"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

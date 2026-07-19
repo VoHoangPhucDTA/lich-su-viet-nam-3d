@@ -1,0 +1,60 @@
+{
+  "eventId": "thanh-lap-lien-minh-nhan-dan-viet-mien-lao",
+  "title": "Thành lập Liên minh nhân dân Việt – Miên - Lào",
+  "shortTitle": "Thành lập Liên minh nhân dân Việt – Miên - Lào",
+  "displayDate": "Năm 1951",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1945-1954",
+  "parentId": "viet-nam-1945-1954",
+  "historicalLocations": [
+    "Lào",
+    "Miên",
+    "Việt Nam"
+  ],
+  "provinceNames": [],
+  "canonicalSummary": "Năm 1951, Liên minh nhân dân Việt – Miên - Lào được thành lập trên cơ sở tự nguyện, bình đẳng và tôn trọng chủ quyền của nhau.",
+  "keyFacts": [
+    "Trên cơ sở tự nguyện, bình đẳng, tôn trọng chủ quyền",
+    "Thành lập năm 1951"
+  ],
+  "sourceFamily": "war_1945_1975",
+  "preferredVerificationDomains": [
+    "btlsqsvn.org.vn",
+    "qdnd.vn",
+    "nhandan.vn",
+    "vietnamplus.vn",
+    "hochiminh.vn",
+    "baotanglichsu.vn",
+    "luutru.gov.vn",
+    "loc.gov",
+    "archives.gov"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Thành lập Liên minh nhân dân Việt – Miên - Lào",
+    "Thành lập Liên minh nhân dân Việt – Miên - Lào Năm 1951",
+    "Thành lập Liên minh nhân dân Việt – Miên - Lào Lào",
+    "Thành lập Liên minh nhân dân Việt – Miên - Lào Trên cơ sở tự nguyện, bình đẳng, tôn trọng chủ quyền Thành lập năm 1951",
+    "Thành lập Liên minh nhân dân Việt – Miên - Lào ảnh tư liệu",
+    "Thành lập Liên minh nhân dân Việt – Miên - Lào chiến dịch"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

@@ -58,6 +58,27 @@ public class ExamAttemptEntity {
     @Column(name = "result_json", nullable = false, columnDefinition = "LONGTEXT")
     private String resultJson;
 
+    @Column(name = "snapshot_schema_version")
+    private Integer snapshotSchemaVersion;
+
+    @Column(name = "score_authority", length = 32)
+    private String scoreAuthority;
+
+    @Column(name = "timing_authority", length = 32)
+    private String timingAuthority;
+
+    @Column(name = "submission_origin", length = 40)
+    private String submissionOrigin;
+
+    @Column(name = "scoring_version", length = 64)
+    private String scoringVersion;
+
+    @Column(name = "dataset_version", length = 64)
+    private String datasetVersion;
+
+    @Column(name = "exam_content_hash", length = 64)
+    private String examContentHash;
+
     @Column(name = "total_questions", nullable = false)
     private int totalQuestions;
 
@@ -185,6 +206,21 @@ public class ExamAttemptEntity {
     public void setResultJson(String resultJson) {
         this.resultJson = resultJson;
     }
+
+    public String getScoreAuthority() { return scoreAuthority; }
+    public void setScoreAuthority(String scoreAuthority) { this.scoreAuthority = scoreAuthority; }
+    public Integer getSnapshotSchemaVersion() { return snapshotSchemaVersion; }
+    public void setSnapshotSchemaVersion(Integer snapshotSchemaVersion) { this.snapshotSchemaVersion = snapshotSchemaVersion; }
+    public String getTimingAuthority() { return timingAuthority; }
+    public void setTimingAuthority(String timingAuthority) { this.timingAuthority = timingAuthority; }
+    public String getSubmissionOrigin() { return submissionOrigin; }
+    public void setSubmissionOrigin(String submissionOrigin) { this.submissionOrigin = submissionOrigin; }
+    public String getScoringVersion() { return scoringVersion; }
+    public void setScoringVersion(String scoringVersion) { this.scoringVersion = scoringVersion; }
+    public String getDatasetVersion() { return datasetVersion; }
+    public void setDatasetVersion(String datasetVersion) { this.datasetVersion = datasetVersion; }
+    public String getExamContentHash() { return examContentHash; }
+    public void setExamContentHash(String examContentHash) { this.examContentHash = examContentHash; }
 
     public int getTotalQuestions() {
         return totalQuestions;

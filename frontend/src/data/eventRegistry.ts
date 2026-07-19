@@ -14,9 +14,9 @@ export type RawEventLevel = 'collection' | 'atomic';
 export type RawEventTypeId = 'military' | 'political' | 'economic' | 'cultural';
 
 export interface RawDateField {
-  year?: number;
-  month?: number;
-  day?: number;
+  year?: number | null;
+  month?: number | null;
+  day?: number | null;
 }
 
 export interface RawTextbookRef {
@@ -26,7 +26,10 @@ export interface RawTextbookRef {
   lesson?: string;
   pageStart?: number;
   pageEnd?: number;
+  pageRange?: { start?: number; end?: number };
   excerpt?: string;
+  url?: string;
+  detailedNarrative?: string;
 }
 
 export interface RawEventJson {
@@ -113,15 +116,15 @@ export interface RawEventJson {
   };
 
   display?: {
-    showOnHomepage?: boolean;
     showOnMap?: boolean;
+    showOnHomepage?: boolean;
     showOnTimeline?: boolean;
     featured?: boolean;
   };
 
   sourcePolicy?: {
-    canonicalSource?: string;
     primarySource?: string;
+    canonicalSource?: string;
     /** JSON thật dùng dạng "wikipedia | wikidata" (string), không phải mảng */
     supplementalSources?: string | string[];
   };

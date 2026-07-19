@@ -1,0 +1,2076 @@
+{
+  "version": 1,
+  "mappings": [
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12122/img_01.png",
+      "lessonId": "12122",
+      "altText": "* ** Hình 1. ** Cầu Long Biên (Hà Nội) *",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "xay-dung-cau-long-bien",
+          "isThumbnail": false,
+          "sortOrder": 1,
+          "reviewNote": "[direct/high] Ảnh trực tiếp là Cầu Long Biên, khớp đúng sự kiện xây dựng cầu."
+        }
+      ]
+    },
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12122/img_03.png",
+      "lessonId": "12122",
+      "altText": "* ** Hình 10. ** Lá để trang trí hình rồng gắn trên ngôi úp nóc ở Hoàng thành Thăng Long (Hà Nội) *",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "doi-do-ly-cong-uan",
+          "isThumbnail": false,
+          "sortOrder": 1,
+          "reviewNote": "[strong_contextual/medium] Hiện vật trang trí từ Hoàng thành Thăng Long minh họa trực tiếp không gian kinh đô hình thành sau cuộc dời đô.",
+          "overrideReason": "Full re-review from actual image, caption and event content; original score/candidate ranking was intentionally not used. Hiện vật trang trí từ Hoàng thành Thăng Long minh họa trực tiếp không gian kinh đô hình thành sau cuộc dời đô."
+        },
+        {
+          "eventId": "ly-thai-to-doi-do-thang-long",
+          "isThumbnail": false,
+          "sortOrder": 1,
+          "reviewNote": "[strong_contextual/medium] Hiện vật trang trí từ Hoàng thành Thăng Long minh họa trực tiếp không gian kinh đô hình thành sau cuộc dời đô.",
+          "overrideReason": "Full re-review from actual image, caption and event content; original score/candidate ranking was intentionally not used. Hiện vật trang trí từ Hoàng thành Thăng Long minh họa trực tiếp không gian kinh đô hình thành sau cuộc dời đô."
+        }
+      ]
+    },
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12122/img_04.png",
+      "lessonId": "12122",
+      "altText": "* ** Hình 11. ** Trang đầu bản Tuyên ngôn Độc lập do Chủ tịch Hồ Chí Minh soạn thảo và công bố ngày 2 – 9 – 1945 *",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "ho-chi-minh-cong-bo-tuyen-ngon-doc-lap",
+          "isThumbnail": false,
+          "sortOrder": 1,
+          "reviewNote": "[direct/high] Ảnh là trang đầu Tuyên ngôn Độc lập, khớp trực tiếp sự kiện công bố Tuyên ngôn."
+        }
+      ]
+    },
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12122/img_06.png",
+      "lessonId": "12122",
+      "altText": "Ảnh ghép các hiện vật Cổ Loa và truyền thuyết nỏ thần, gắn trực tiếp với nhà nước Âu Lạc và cuộc kháng chiến của An Dương Vương",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "su-ra-doi-nha-nuoc-au-lac",
+          "isThumbnail": false,
+          "sortOrder": 1,
+          "reviewNote": "[strong_contextual/high] Ảnh ghép các hiện vật Cổ Loa và truyền thuyết nỏ thần, gắn trực tiếp với nhà nước Âu Lạc và cuộc kháng chiến của An Dương Vương.",
+          "overrideReason": "Full re-review from actual image, caption and event content; original score/candidate ranking was intentionally not used. Ảnh ghép các hiện vật Cổ Loa và truyền thuyết nỏ thần, gắn trực tiếp với nhà nước Âu Lạc và cuộc kháng chiến của An Dương Vương."
+        },
+        {
+          "eventId": "khang-chien-chong-quan-trieu-an-duong-vuong",
+          "isThumbnail": false,
+          "sortOrder": 1,
+          "reviewNote": "[strong_contextual/high] Ảnh ghép các hiện vật Cổ Loa và truyền thuyết nỏ thần, gắn trực tiếp với nhà nước Âu Lạc và cuộc kháng chiến của An Dương Vương.",
+          "overrideReason": "Full re-review from actual image, caption and event content; original score/candidate ranking was intentionally not used. Ảnh ghép các hiện vật Cổ Loa và truyền thuyết nỏ thần, gắn trực tiếp với nhà nước Âu Lạc và cuộc kháng chiến của An Dương Vương."
+        }
+      ]
+    },
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12128/img_01.png",
+      "lessonId": "12128",
+      "altText": "** Hình 1. ** Một góc quần thể danh thắng Tràng An (Ninh Bình)",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "trang-an-duoc-ghi-danh-di-san-the-gioi",
+          "isThumbnail": false,
+          "sortOrder": 1,
+          "reviewNote": "[direct/high] Ảnh trực tiếp là Quần thể danh thắng Tràng An."
+        }
+      ]
+    },
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12128/img_02.png",
+      "lessonId": "12128",
+      "altText": "** Hình 3. ** Một trang trong sách Hoàng Việt văn tuyển khắc in lại tác phẩm * Bình Ngô đại cáo * của Nguyễn Trãi, tổng kết về cuộc khởi nghĩa chống quân Minh của Đại Việt (đầu thế kỉ XV)",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "khoi-nghia-lam-son",
+          "isThumbnail": false,
+          "sortOrder": 3,
+          "reviewNote": "[strong_contextual/high] Ảnh là văn bản Bình Ngô đại cáo, gắn trực tiếp với thắng lợi và kết thúc khởi nghĩa Lam Sơn."
+        }
+      ]
+    },
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12137/img_02.png",
+      "lessonId": "12137",
+      "altText": "** Hình 2. ** Quần thể di tích Cố đô Huế – Di sản văn hoá thế giới",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "phe-duyet-chien-luoc-phat-trien-cong-nghiep-van-hoa-viet-nam",
+          "isThumbnail": false,
+          "sortOrder": 1,
+          "reviewNote": "[strong_contextual/medium] Cố đô Huế là tài nguyên di sản văn hóa tiêu biểu cho du lịch văn hóa."
+        }
+      ]
+    },
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12137/img_04.png",
+      "lessonId": "12137",
+      "altText": "** Hình 4. ** Nghệ nhân các phường Xoan (Phú Thọ) giao lưu Hát Xoan – Di sản văn hoá phi vật thể đại diện của nhân loại có sự tham gia của học sinh",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "phe-duyet-chien-luoc-phat-trien-cong-nghiep-van-hoa-viet-nam",
+          "isThumbnail": false,
+          "sortOrder": 2,
+          "reviewNote": "[strong_contextual/medium] Hát Xoan là hoạt động nghệ thuật biểu diễn và di sản văn hóa, phù hợp làm ảnh minh họa lĩnh vực văn hóa."
+        }
+      ]
+    },
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12137/img_07.png",
+      "lessonId": "12137",
+      "altText": "Hoàng thành Thăng Long là tài nguyên di sản văn hóa tiêu biểu cho du lịch văn hóa",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "phe-duyet-chien-luoc-phat-trien-cong-nghiep-van-hoa-viet-nam",
+          "isThumbnail": false,
+          "sortOrder": 3,
+          "reviewNote": "[strong_contextual/medium] Hoàng thành Thăng Long là tài nguyên di sản văn hóa tiêu biểu cho du lịch văn hóa."
+        }
+      ]
+    },
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12137/img_08.png",
+      "lessonId": "12137",
+      "altText": "Khu khảo cổ 18 Hoàng Diệu là tài nguyên di sản văn hóa, phù hợp minh họa khai thác giá trị di sản",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "phe-duyet-chien-luoc-phat-trien-cong-nghiep-van-hoa-viet-nam",
+          "isThumbnail": false,
+          "sortOrder": 4,
+          "reviewNote": "[strong_contextual/medium] Khu khảo cổ 18 Hoàng Diệu là tài nguyên di sản văn hóa, phù hợp minh họa khai thác giá trị di sản."
+        }
+      ]
+    },
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12145/img_01.png",
+      "lessonId": "12145",
+      "altText": "Ảnh trực tiếp là robot Sophia, khớp đúng sự kiện được cấp quyền công dân",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "ro-bot-xophia-duoc-cap-quyen-cong-dan",
+          "isThumbnail": false,
+          "sortOrder": 1,
+          "reviewNote": "[direct/high] Ảnh trực tiếp là robot Sophia, khớp đúng sự kiện được cấp quyền công dân."
+        }
+      ]
+    },
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12146/img_05.png",
+      "lessonId": "12146",
+      "altText": "** Hình 5. ** Hoạ tiết hình thuyền trên trống đồng Đông Sơn (Việt Nam),  niên đại khoảng thế kỉ VII đến thế kỉ I TCN",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "hinh-thanh-phat-trien-van-minh-van-lang-au-lac",
+          "isThumbnail": false,
+          "sortOrder": 2,
+          "reviewNote": "[strong_contextual/high] Họa tiết thuyền trên trống đồng Đông Sơn là tư liệu tiêu biểu của văn minh Văn Lang – Âu Lạc.",
+          "overrideReason": "Full re-review from actual image, caption and event content; original score/candidate ranking was intentionally not used. Họa tiết thuyền trên trống đồng Đông Sơn là tư liệu tiêu biểu của văn minh Văn Lang – Âu Lạc."
+        }
+      ]
+    },
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12146/img_08.png",
+      "lessonId": "12146",
+      "altText": "** Hình 8. ** Bia Vô Cạnh – bia chữ Phạn cổ nhất Đông Nam Á (thế kỉ III — IV) được tìm thấy ở Việt Nam",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "hinh-thanh-phat-trien-van-minh-cham-pa",
+          "isThumbnail": false,
+          "sortOrder": 1,
+          "reviewNote": "[strong_contextual/high] Bia Võ Cạnh là tư liệu chữ Phạn sớm ở Việt Nam, gắn với bối cảnh hình thành văn minh Chăm-pa.",
+          "overrideReason": "Full re-review from actual image, caption and event content; original score/candidate ranking was intentionally not used. Bia Võ Cạnh là tư liệu chữ Phạn sớm ở Việt Nam, gắn với bối cảnh hình thành văn minh Chăm-pa."
+        }
+      ]
+    },
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12146/img_10.png",
+      "lessonId": "12146",
+      "altText": "** Hình 10. ** Khuê Văn Các trong Văn Miếu – Quốc Tử Giám Hà Nội (Việt Nam)",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "nha-ly-xay-dung-van-mieu",
+          "isThumbnail": false,
+          "sortOrder": 1,
+          "reviewNote": "[strong_contextual/high] Khuê Văn Các nằm trong quần thể Văn Miếu – Quốc Tử Giám, phù hợp minh họa sự kiện xây dựng Văn Miếu; không phải công trình nguyên gốc thời Lý."
+        },
+        {
+          "eventId": "ly-thanh-tong-dung-van-mieu",
+          "isThumbnail": false,
+          "sortOrder": 1,
+          "reviewNote": "[strong_contextual/high] Khuê Văn Các nằm trong quần thể Văn Miếu – Quốc Tử Giám, phù hợp minh họa sự kiện xây dựng Văn Miếu; không phải công trình nguyên gốc thời Lý.",
+          "overrideReason": "Full re-review from actual image, caption and event content; original score/candidate ranking was intentionally not used. Khuê Văn Các nằm trong quần thể Văn Miếu – Quốc Tử Giám, phù hợp minh họa sự kiện xây dựng Văn Miếu; không phải công trình nguyên gốc thời Lý."
+        }
+      ]
+    },
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12147/img_09.png",
+      "lessonId": "12147",
+      "altText": "** Hình 10. ** Hoa văn trên thạp đồng Đào Xá thuộc văn hoá Đông Sơn (Việt Nam)",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "hinh-thanh-phat-trien-van-minh-van-lang-au-lac",
+          "isThumbnail": false,
+          "sortOrder": 3,
+          "reviewNote": "[strong_contextual/high] Hoa văn trên thạp đồng Đông Sơn là tư liệu tiêu biểu của văn minh Văn Lang – Âu Lạc.",
+          "overrideReason": "Full re-review from actual image, caption and event content; original score/candidate ranking was intentionally not used. Hoa văn trên thạp đồng Đông Sơn là tư liệu tiêu biểu của văn minh Văn Lang – Âu Lạc."
+        }
+      ]
+    },
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12147/img_11.png",
+      "lessonId": "12147",
+      "altText": "** Hình 12. ** Phù điêu trên đài thờ Mỹ Sơn, thế kỉ VII – VIII (Việt Nam)",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "hinh-thanh-phat-trien-van-minh-cham-pa",
+          "isThumbnail": false,
+          "sortOrder": 2,
+          "reviewNote": "[strong_contextual/high] Phù điêu ở đền tháp Mỹ Sơn là di sản trực tiếp của vương quốc Chăm-pa.",
+          "overrideReason": "Full re-review from actual image, caption and event content; original score/candidate ranking was intentionally not used. Phù điêu ở đền tháp Mỹ Sơn là di sản trực tiếp của vương quốc Chăm-pa."
+        }
+      ]
+    },
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12148/img_01.png",
+      "lessonId": "12148",
+      "altText": "Hiện vật/không gian/họa tiết Đông Sơn – lưu vực sông Hồng là tư liệu tiêu biểu của văn minh Văn Lang – Âu Lạc",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "hinh-thanh-phat-trien-van-minh-van-lang-au-lac",
+          "isThumbnail": false,
+          "sortOrder": 4,
+          "reviewNote": "[strong_contextual/high] Hiện vật/không gian/họa tiết Đông Sơn – lưu vực sông Hồng là tư liệu tiêu biểu của văn minh Văn Lang – Âu Lạc."
+        }
+      ]
+    },
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12148/img_02.png",
+      "lessonId": "12148",
+      "altText": "** **",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "hinh-thanh-phat-trien-van-minh-cham-pa",
+          "isThumbnail": false,
+          "sortOrder": 3,
+          "reviewNote": "[strong_contextual/high] Hiện vật Linga–Yoni là biểu tượng tôn giáo điển hình của văn minh Chăm-pa."
+        }
+      ]
+    },
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12148/img_03.png",
+      "lessonId": "12148",
+      "altText": "** **",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "van-hoa-tien-oc-eo",
+          "isThumbnail": false,
+          "sortOrder": 2,
+          "reviewNote": "[strong_contextual/medium] Hiện vật gốm dạng vòi phù hợp nhóm hiện vật tiền Óc Eo trong mạch bài."
+        }
+      ]
+    },
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12148/img_04.png",
+      "lessonId": "12148",
+      "altText": "** Hình 2. ** Sông Hồng đoạn chảy qua địa phận thị xã Sơn Tây (Hà Nội) và huyện Vĩnh Tường (Vĩnh Phúc)",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "hinh-thanh-phat-trien-van-minh-van-lang-au-lac",
+          "isThumbnail": false,
+          "sortOrder": 5,
+          "reviewNote": "[strong_contextual/high] Hiện vật/không gian/họa tiết Đông Sơn – lưu vực sông Hồng là tư liệu tiêu biểu của văn minh Văn Lang – Âu Lạc."
+        }
+      ]
+    },
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12148/img_05.png",
+      "lessonId": "12148",
+      "altText": "** Hình 3. ** So đó tổ chức Nhà nước Văn Lang",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "su-ra-doi-nha-nuoc-van-lang",
+          "isThumbnail": false,
+          "sortOrder": 1,
+          "reviewNote": "[direct/high] Sơ đồ trực tiếp mô tả tổ chức nhà nước Văn Lang."
+        },
+        {
+          "eventId": "hinh-thanh-phat-trien-van-minh-van-lang-au-lac",
+          "isThumbnail": false,
+          "sortOrder": 1,
+          "reviewNote": "[direct/high] Sơ đồ trực tiếp mô tả tổ chức nhà nước Văn Lang."
+        }
+      ]
+    },
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12148/img_06.png",
+      "lessonId": "12148",
+      "altText": "** Hình 4. ** Muôi đồng Việt Khê (Hải Phòng)",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "hinh-thanh-phat-trien-van-minh-van-lang-au-lac",
+          "isThumbnail": false,
+          "sortOrder": 6,
+          "reviewNote": "[strong_contextual/high] Hiện vật/không gian/họa tiết Đông Sơn – lưu vực sông Hồng là tư liệu tiêu biểu của văn minh Văn Lang – Âu Lạc."
+        }
+      ]
+    },
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12148/img_07.png",
+      "lessonId": "12148",
+      "altText": "** Hình 5. ** Lưỡi cày đồng Cổ Loa (Hà Nội)",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "su-ra-doi-nha-nuoc-au-lac",
+          "isThumbnail": false,
+          "sortOrder": 2,
+          "reviewNote": "[strong_contextual/high] Lưỡi cày đồng Cổ Loa là hiện vật trực tiếp của không gian Âu Lạc và văn minh Việt cổ."
+        },
+        {
+          "eventId": "hinh-thanh-phat-trien-van-minh-van-lang-au-lac",
+          "isThumbnail": false,
+          "sortOrder": 7,
+          "reviewNote": "[strong_contextual/high] Lưỡi cày đồng Cổ Loa là hiện vật trực tiếp của không gian Âu Lạc và văn minh Việt cổ."
+        }
+      ]
+    },
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12148/img_08.png",
+      "lessonId": "12148",
+      "altText": "** Hình 6. ** Trống đồng Ngọc Lũ (Hà Nam)",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "hinh-thanh-phat-trien-van-minh-van-lang-au-lac",
+          "isThumbnail": false,
+          "sortOrder": 8,
+          "reviewNote": "[strong_contextual/high] Hiện vật/không gian/họa tiết Đông Sơn – lưu vực sông Hồng là tư liệu tiêu biểu của văn minh Văn Lang – Âu Lạc."
+        }
+      ]
+    },
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12148/img_09.png",
+      "lessonId": "12148",
+      "altText": "** **",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "hinh-thanh-phat-trien-van-minh-van-lang-au-lac",
+          "isThumbnail": false,
+          "sortOrder": 9,
+          "reviewNote": "[strong_contextual/high] Hiện vật/không gian/họa tiết Đông Sơn – lưu vực sông Hồng là tư liệu tiêu biểu của văn minh Văn Lang – Âu Lạc."
+        }
+      ]
+    },
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12148/img_10.png",
+      "lessonId": "12148",
+      "altText": "** **",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "hinh-thanh-phat-trien-van-minh-van-lang-au-lac",
+          "isThumbnail": false,
+          "sortOrder": 10,
+          "reviewNote": "[strong_contextual/high] Hiện vật/không gian/họa tiết Đông Sơn – lưu vực sông Hồng là tư liệu tiêu biểu của văn minh Văn Lang – Âu Lạc."
+        }
+      ]
+    },
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12148/img_11.png",
+      "lessonId": "12148",
+      "altText": "** **",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "hinh-thanh-phat-trien-van-minh-van-lang-au-lac",
+          "isThumbnail": false,
+          "sortOrder": 11,
+          "reviewNote": "[strong_contextual/high] Hiện vật/không gian/họa tiết Đông Sơn – lưu vực sông Hồng là tư liệu tiêu biểu của văn minh Văn Lang – Âu Lạc."
+        }
+      ]
+    },
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12148/img_12.png",
+      "lessonId": "12148",
+      "altText": "** **",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "hinh-thanh-phat-trien-van-minh-van-lang-au-lac",
+          "isThumbnail": false,
+          "sortOrder": 12,
+          "reviewNote": "[strong_contextual/high] Hiện vật/không gian/họa tiết Đông Sơn – lưu vực sông Hồng là tư liệu tiêu biểu của văn minh Văn Lang – Âu Lạc."
+        }
+      ]
+    },
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12148/img_13.png",
+      "lessonId": "12148",
+      "altText": "** **",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "van-hoa-sa-huynh",
+          "isThumbnail": false,
+          "sortOrder": 1,
+          "reviewNote": "[direct/high] Bộ hiện vật trang sức/đồ tùy táng đặc trưng cho văn hóa Sa Huỳnh."
+        }
+      ]
+    },
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12148/img_14.png",
+      "lessonId": "12148",
+      "altText": "** Hình 9. ** Vùng cửa sông Thu Bồn (Quảng Nam)",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "hinh-thanh-phat-trien-van-minh-cham-pa",
+          "isThumbnail": false,
+          "sortOrder": 4,
+          "reviewNote": "[strong_contextual/high] Ảnh thể hiện không gian, nghi lễ, kiến trúc hoặc nghệ thuật trực tiếp thuộc văn minh Chăm-pa."
+        }
+      ]
+    },
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12148/img_15.png",
+      "lessonId": "12148",
+      "altText": "** Hình 10. ** Lễ hội Ka-tê được người Chăm theo Hin-đu giáo tổ chức tại tháp Pô Sa Inư (Ninh Thuận)",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "hinh-thanh-phat-trien-van-minh-cham-pa",
+          "isThumbnail": false,
+          "sortOrder": 5,
+          "reviewNote": "[strong_contextual/high] Ảnh thể hiện không gian, nghi lễ, kiến trúc hoặc nghệ thuật trực tiếp thuộc văn minh Chăm-pa."
+        }
+      ]
+    },
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12148/img_16.png",
+      "lessonId": "12148",
+      "altText": "** Hình 11. ** Thánh địa Mỹ Sơn (Quảng Nam)",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "hinh-thanh-phat-trien-van-minh-cham-pa",
+          "isThumbnail": false,
+          "sortOrder": 6,
+          "reviewNote": "[strong_contextual/high] Ảnh thể hiện không gian, nghi lễ, kiến trúc hoặc nghệ thuật trực tiếp thuộc văn minh Chăm-pa."
+        }
+      ]
+    },
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12148/img_17.png",
+      "lessonId": "12148",
+      "altText": "** Hình 12. ** Tháp Bà Pô Na-ga ở Nha Trang (Khánh Hoà)",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "hinh-thanh-phat-trien-van-minh-cham-pa",
+          "isThumbnail": false,
+          "sortOrder": 7,
+          "reviewNote": "[strong_contextual/high] Ảnh thể hiện không gian, nghi lễ, kiến trúc hoặc nghệ thuật trực tiếp thuộc văn minh Chăm-pa."
+        }
+      ]
+    },
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12148/img_18.png",
+      "lessonId": "12148",
+      "altText": "** Hình 13. ** Tượng Phật Đồng Dương (Quảng Nam)",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "hinh-thanh-phat-trien-van-minh-cham-pa",
+          "isThumbnail": false,
+          "sortOrder": 8,
+          "reviewNote": "[strong_contextual/high] Ảnh thể hiện không gian, nghi lễ, kiến trúc hoặc nghệ thuật trực tiếp thuộc văn minh Chăm-pa."
+        }
+      ]
+    },
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12148/img_19.png",
+      "lessonId": "12148",
+      "altText": "** Hình 14. ** Phù điêu Krít-ma Go-va-ha-ra Khương Mỹ (Quảng Nam)",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "hinh-thanh-phat-trien-van-minh-cham-pa",
+          "isThumbnail": false,
+          "sortOrder": 9,
+          "reviewNote": "[strong_contextual/high] Ảnh thể hiện không gian, nghi lễ, kiến trúc hoặc nghệ thuật trực tiếp thuộc văn minh Chăm-pa."
+        }
+      ]
+    },
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12148/img_20.png",
+      "lessonId": "12148",
+      "altText": "** Hình 15. ** Nổi và cà ràng (bếp đun) bằng đất nung – một trong những hiện vật tiêu biểu của văn hoá tiền Óc Eo",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "van-hoa-tien-oc-eo",
+          "isThumbnail": false,
+          "sortOrder": 1,
+          "reviewNote": "[direct/high] Caption xác định đây là nồi vòi rồng, hiện vật tiêu biểu của văn hóa tiền Óc Eo."
+        }
+      ]
+    },
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12148/img_21.png",
+      "lessonId": "12148",
+      "altText": "** Hình 16. ** Một số đồng tiền Óc Eo",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "hinh-thanh-phat-trien-van-minh-phu-nam",
+          "isThumbnail": false,
+          "sortOrder": 1,
+          "reviewNote": "[strong_contextual/high] Tiền tệ, trang sức và tượng cổ thuộc hệ thống di vật Óc Eo – Phù Nam, minh họa trực tiếp văn minh Phù Nam."
+        }
+      ]
+    },
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12148/img_22.png",
+      "lessonId": "12148",
+      "altText": "** Hình 17. ** Đồng tiền vàng La Mã được tìm thấy trong di chỉ Óc Eo",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "hinh-thanh-phat-trien-van-minh-phu-nam",
+          "isThumbnail": false,
+          "sortOrder": 2,
+          "reviewNote": "[strong_contextual/high] Tiền tệ, trang sức và tượng cổ thuộc hệ thống di vật Óc Eo – Phù Nam, minh họa trực tiếp văn minh Phù Nam."
+        }
+      ]
+    },
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12148/img_23.png",
+      "lessonId": "12148",
+      "altText": "** Hình 18. ** Một số đồ trang sức của cư dân Phù Nam",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "hinh-thanh-phat-trien-van-minh-phu-nam",
+          "isThumbnail": false,
+          "sortOrder": 3,
+          "reviewNote": "[strong_contextual/high] Tiền tệ, trang sức và tượng cổ thuộc hệ thống di vật Óc Eo – Phù Nam, minh họa trực tiếp văn minh Phù Nam."
+        }
+      ]
+    },
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12148/img_24.png",
+      "lessonId": "12148",
+      "altText": "** **",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "hinh-thanh-phat-trien-van-minh-phu-nam",
+          "isThumbnail": false,
+          "sortOrder": 4,
+          "reviewNote": "[strong_contextual/high] Tiền tệ, trang sức và tượng cổ thuộc hệ thống di vật Óc Eo – Phù Nam, minh họa trực tiếp văn minh Phù Nam."
+        }
+      ]
+    },
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12160/img_02.png",
+      "lessonId": "12160",
+      "altText": "** Hình 2. ** Sơ đồ tổ chức nhà nước thời Lê sơ",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "cai-cach-le-thanh-tong",
+          "isThumbnail": false,
+          "sortOrder": 1,
+          "reviewNote": "[direct/high] Sơ đồ tổ chức nhà nước Lê sơ phản ánh trực tiếp cơ cấu được củng cố trong cải cách Lê Thánh Tông."
+        },
+        {
+          "eventId": "le-thanh-tong-dua-luc-bo-thanh-co-quan-quyen-luc",
+          "isThumbnail": false,
+          "sortOrder": 1,
+          "reviewNote": "[direct/high] Sơ đồ tổ chức nhà nước Lê sơ phản ánh trực tiếp cơ cấu được củng cố trong cải cách Lê Thánh Tông.",
+          "overrideReason": "Full re-review from actual image, caption and event content; original score/candidate ranking was intentionally not used. Sơ đồ tổ chức nhà nước Lê sơ phản ánh trực tiếp cơ cấu được củng cố trong cải cách Lê Thánh Tông."
+        },
+        {
+          "eventId": "cai-to-hanh-chinh-dia-phuong-12-thua-tuyen",
+          "isThumbnail": false,
+          "sortOrder": 1,
+          "reviewNote": "[direct/high] Sơ đồ tổ chức nhà nước Lê sơ phản ánh trực tiếp cơ cấu được củng cố trong cải cách Lê Thánh Tông.",
+          "overrideReason": "Full re-review from actual image, caption and event content; original score/candidate ranking was intentionally not used. Sơ đồ tổ chức nhà nước Lê sơ phản ánh trực tiếp cơ cấu được củng cố trong cải cách Lê Thánh Tông."
+        }
+      ]
+    },
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12160/img_03.png",
+      "lessonId": "12160",
+      "altText": "** Hình 3. ** Trang bìa bản dịch hai bộ luật tiêu biểu của Việt Nam thời kì quân chủ",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "ban-hanh-quoc-trieu-hinh-luat",
+          "isThumbnail": false,
+          "sortOrder": 1,
+          "reviewNote": "[direct/high] Ảnh có bìa Quốc triều hình luật (Luật Hồng Đức), khớp trực tiếp sự kiện ban hành bộ luật.",
+          "overrideReason": "Full re-review from actual image, caption and event content; original score/candidate ranking was intentionally not used. Ảnh có bìa Quốc triều hình luật (Luật Hồng Đức), khớp trực tiếp sự kiện ban hành bộ luật."
+        }
+      ]
+    },
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12160/img_08.png",
+      "lessonId": "12160",
+      "altText": "** **",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "nguoi-viet-che-tao-sung-than-co-thuyen-chien",
+          "isThumbnail": false,
+          "sortOrder": 1,
+          "reviewNote": "[strong_contextual/high] Ảnh là súng thần công cổ, minh họa trực tiếp thành tựu chế tạo súng thần cơ."
+        }
+      ]
+    },
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12160/img_11.png",
+      "lessonId": "12160",
+      "altText": "** Hình 8. ** Bức thư Phúc Nghĩa hầu gửi Quốc vương Nhật Bản đặt quan hệ bang giao năm 1591",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "phuc-nghia-hau-gui-thu-nhat-ban",
+          "isThumbnail": false,
+          "sortOrder": 1,
+          "reviewNote": "[direct/high] Caption xác định trực tiếp bức thư Phúc Nghĩa hầu gửi Quốc vương Nhật Bản năm 1591."
+        }
+      ]
+    },
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12160/img_12.png",
+      "lessonId": "12160",
+      "altText": "** Hình 9. ** Châu ấn trạng do Mạc phủ (Nhật Bản) cấp năm 1614, cho phép thuyền của nước này đến buôn bán với Đàng Trong",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "thuong-mai-a-au-phat-trien-tai-dai-viet",
+          "isThumbnail": false,
+          "sortOrder": 1,
+          "reviewNote": "[direct/high] Châu ấn trạng cho phép thuyền Nhật đến buôn bán với Đàng Trong là tư liệu trực tiếp về thương mại quốc tế ở Đại Việt."
+        }
+      ]
+    },
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12160/img_16.png",
+      "lessonId": "12160",
+      "altText": "** Hình 13. ** Bia Tiến sĩ ở Văn Miếu – Quốc Tử Giám (Hà Nội)",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "le-thanh-tong-dung-bia-tien-si-van-mieu",
+          "isThumbnail": false,
+          "sortOrder": 1,
+          "reviewNote": "[direct/high] Ảnh trực tiếp là hệ thống bia Tiến sĩ ở Văn Miếu."
+        }
+      ]
+    },
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12162/img_05.png",
+      "lessonId": "12162",
+      "altText": "** Hình 5. ** Một công đoạn trong quy trình sản xuất gốm của làng nghề Chu Đậu (Hải Dương)",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "phe-duyet-chien-luoc-phat-trien-cong-nghiep-van-hoa-viet-nam",
+          "isThumbnail": false,
+          "sortOrder": 5,
+          "reviewNote": "[strong_contextual/medium] Làng nghề gốm Chu Đậu minh họa trực tiếp hoạt động thủ công mỹ nghệ. Đây là ảnh minh họa lĩnh vực, không phải ảnh của lễ phê duyệt.",
+          "overrideReason": "Full re-review from actual image, caption and event content; original score/candidate ranking was intentionally not used. Làng nghề gốm Chu Đậu minh họa trực tiếp hoạt động thủ công mỹ nghệ. Đây là ảnh minh họa lĩnh vực, không phải ảnh của lễ phê duyệt."
+        }
+      ]
+    },
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12162/img_16.png",
+      "lessonId": "12162",
+      "altText": "** Hình 16. ** Lễ hội Đền Hùng (Phú Thọ)",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "su-ra-doi-nha-nuoc-van-lang",
+          "isThumbnail": false,
+          "sortOrder": 2,
+          "reviewNote": "[strong_contextual/high] Lễ hội Đền Hùng gắn trực tiếp với truyền thống các Vua Hùng và ký ức cộng đồng về Văn Lang.",
+          "overrideReason": "Full re-review from actual image, caption and event content; original score/candidate ranking was intentionally not used. Lễ hội Đền Hùng gắn trực tiếp với truyền thống các Vua Hùng và ký ức cộng đồng về Văn Lang."
+        },
+        {
+          "eventId": "hinh-thanh-khoi-dai-doan-ket-van-lang-au-lac",
+          "isThumbnail": false,
+          "sortOrder": 1,
+          "reviewNote": "[strong_contextual/high] Lễ hội Đền Hùng gắn trực tiếp với truyền thống các Vua Hùng và ký ức cộng đồng về Văn Lang.",
+          "overrideReason": "Full re-review from actual image, caption and event content; original score/candidate ranking was intentionally not used. Lễ hội Đền Hùng gắn trực tiếp với truyền thống các Vua Hùng và ký ức cộng đồng về Văn Lang."
+        }
+      ]
+    },
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12162/img_18.png",
+      "lessonId": "12162",
+      "altText": "** Hình 18. ** Trình diễn cồng chiêng, trống và múa của người Cơ-tu (Quảng Nam)",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "phe-duyet-chien-luoc-phat-trien-cong-nghiep-van-hoa-viet-nam",
+          "isThumbnail": false,
+          "sortOrder": 6,
+          "reviewNote": "[strong_contextual/medium] Trình diễn cồng chiêng, trống và múa là hoạt động nghệ thuật biểu diễn. Đây là ảnh minh họa lĩnh vực, không phải ảnh của lễ phê duyệt.",
+          "overrideReason": "Full re-review from actual image, caption and event content; original score/candidate ranking was intentionally not used. Trình diễn cồng chiêng, trống và múa là hoạt động nghệ thuật biểu diễn. Đây là ảnh minh họa lĩnh vực, không phải ảnh của lễ phê duyệt."
+        }
+      ]
+    },
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12169/img_01.png",
+      "lessonId": "12169",
+      "altText": "** Hình 1. ** Nhân dân Thành phố Sài Gòn mít tinh chào mừng Uỷ ban Quân quản thành phố ra mắt ngày 7 – 5 – 1975",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "mit-tinh-chao-mung-uy-ban-quan-quan-sai-gon-1975",
+          "isThumbnail": false,
+          "sortOrder": 1,
+          "reviewNote": "[direct/high] Caption và ảnh trực tiếp mô tả cuộc mít tinh chào mừng Uỷ ban Quân quản Sài Gòn ngày 7-5-1975."
+        }
+      ]
+    },
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12169/img_02.png",
+      "lessonId": "12169",
+      "altText": "** Hình 2. ** Nhân dân các dân tộc chung tay ủng hộ các tỉnh miền Trung bị thiệt hại sau cơn bão số 9 (tháng 10 – 2020)",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "nhan-dan-ung-ho-mien-trung-bao-so-9-2020",
+          "isThumbnail": false,
+          "sortOrder": 1,
+          "reviewNote": "[direct/high] Caption và ảnh trực tiếp mô tả hoạt động ủng hộ miền Trung sau bão số 9 năm 2020."
+        }
+      ]
+    },
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12169/img_03.png",
+      "lessonId": "12169",
+      "altText": "** Hình 3. ** Lễ khai mạc Ngày hội văn hoá, Thể thao và Du lịch các dân tộc vùng Đông Bắc lần thứ X (2018)",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "phe-duyet-chien-luoc-phat-trien-cong-nghiep-van-hoa-viet-nam",
+          "isThumbnail": false,
+          "sortOrder": 7,
+          "reviewNote": "[strong_contextual/medium] Ngày hội văn hóa, thể thao và du lịch các dân tộc là hoạt động minh họa rõ cho lĩnh vực văn hóa và du lịch văn hóa.",
+          "overrideReason": "Full re-review from actual image, caption and event content; original score/candidate ranking was intentionally not used. Ngày hội văn hóa, thể thao và du lịch các dân tộc là hoạt động minh họa rõ cho lĩnh vực văn hóa và du lịch văn hóa."
+        }
+      ]
+    },
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_11/12338/img_07.png",
+      "lessonId": "12338",
+      "altText": "Infographic '35 năm Đổi mới 1986–2021' bao quát toàn bộ công cuộc Đổi mới và cả ba giai đoạn trong dữ liệu",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "cong-cuoc-doi-moi-o-viet-nam",
+          "isThumbnail": false,
+          "sortOrder": 1,
+          "reviewNote": "[direct/high] Infographic '35 năm Đổi mới 1986–2021' bao quát toàn bộ công cuộc Đổi mới và cả ba giai đoạn trong dữ liệu."
+        },
+        {
+          "eventId": "giai-doan-khoi-dau-cong-cuoc-doi-moi-1986-1995",
+          "isThumbnail": false,
+          "sortOrder": 1,
+          "reviewNote": "[direct/high] Infographic '35 năm Đổi mới 1986–2021' bao quát toàn bộ công cuộc Đổi mới và cả ba giai đoạn trong dữ liệu.",
+          "overrideReason": "Full re-review from actual image, caption and event content; original score/candidate ranking was intentionally not used. Infographic '35 năm Đổi mới 1986–2021' bao quát toàn bộ công cuộc Đổi mới và cả ba giai đoạn trong dữ liệu."
+        },
+        {
+          "eventId": "giai-doan-day-manh-cong-nghiep-hoa-hien-dai-hoa-hoi-nhap-kinh-te-quoc-te-1996-2006",
+          "isThumbnail": false,
+          "sortOrder": 1,
+          "reviewNote": "[direct/high] Infographic '35 năm Đổi mới 1986–2021' bao quát toàn bộ công cuộc Đổi mới và cả ba giai đoạn trong dữ liệu.",
+          "overrideReason": "Full re-review from actual image, caption and event content; original score/candidate ranking was intentionally not used. Infographic '35 năm Đổi mới 1986–2021' bao quát toàn bộ công cuộc Đổi mới và cả ba giai đoạn trong dữ liệu."
+        },
+        {
+          "eventId": "giai-doan-tiep-tuc-day-manh-cong-nghiep-hoa-hien-dai-hoa-hoi-nhap-quoc-te-sau-rong-2006-nay",
+          "isThumbnail": false,
+          "sortOrder": 1,
+          "reviewNote": "[direct/high] Infographic '35 năm Đổi mới 1986–2021' bao quát toàn bộ công cuộc Đổi mới và cả ba giai đoạn trong dữ liệu.",
+          "overrideReason": "Full re-review from actual image, caption and event content; original score/candidate ranking was intentionally not used. Infographic '35 năm Đổi mới 1986–2021' bao quát toàn bộ công cuộc Đổi mới và cả ba giai đoạn trong dữ liệu."
+        }
+      ]
+    },
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_11/12339/img_05.png",
+      "lessonId": "12339",
+      "altText": "Hình 5. Liên quân Pháp – Tây Ban Nha tấn công Đà Nẵng (Việt Nam) ngày 1-9-1858 (tranh vẽ)",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "thuc-dan-phap-no-sung-tan-cong-da-nang",
+          "isThumbnail": false,
+          "sortOrder": 1,
+          "reviewNote": "[direct/high] Ảnh trực tiếp mô tả liên quân Pháp–Tây Ban Nha tấn công Đà Nẵng ngày 1-9-1858."
+        },
+        {
+          "eventId": "phap-tan-cong-da-nang-1858",
+          "isThumbnail": false,
+          "sortOrder": 1,
+          "reviewNote": "[direct/high] Ảnh trực tiếp mô tả liên quân Pháp–Tây Ban Nha tấn công Đà Nẵng ngày 1-9-1858.",
+          "overrideReason": "Full re-review from actual image, caption and event content; original score/candidate ranking was intentionally not used. Ảnh trực tiếp mô tả liên quân Pháp–Tây Ban Nha tấn công Đà Nẵng ngày 1-9-1858."
+        }
+      ]
+    },
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_11/12339/img_07.png",
+      "lessonId": "12339",
+      "altText": "Hình 7. Trang bìa tác phẩm Bản án chế độ thực dân Pháp",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "hoat-dong-doi-ngoai-nguyen-ai-quoc-1911-1930",
+          "isThumbnail": false,
+          "sortOrder": 1,
+          "reviewNote": "[strong_contextual/medium] Bản án chế độ thực dân Pháp là tác phẩm tiêu biểu trong hoạt động quốc tế và tuyên truyền chống thực dân của Nguyễn Ái Quốc.",
+          "overrideReason": "Full re-review from actual image, caption and event content; original score/candidate ranking was intentionally not used. Bản án chế độ thực dân Pháp là tác phẩm tiêu biểu trong hoạt động quốc tế và tuyên truyền chống thực dân của Nguyễn Ái Quốc."
+        }
+      ]
+    },
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_11/12340/img_03.png",
+      "lessonId": "12340",
+      "altText": "Sơ đồ trực tiếp khái quát các giai đoạn đấu tranh giành độc lập ở Đông Nam Á",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "giai-doan-xuat-hien-xu-huong-moi-trong-phong-trao-dau-tranh-o-dong-nam-a",
+          "isThumbnail": false,
+          "sortOrder": 1,
+          "reviewNote": "[direct/high] Sơ đồ trực tiếp khái quát các giai đoạn đấu tranh giành độc lập ở Đông Nam Á."
+        },
+        {
+          "eventId": "giai-doan-hoan-thanh-cuoc-dau-tranh-gianh-doc-lap-dan-toc-o-dong-nam-a",
+          "isThumbnail": false,
+          "sortOrder": 1,
+          "reviewNote": "[direct/high] Sơ đồ trực tiếp khái quát các giai đoạn đấu tranh giành độc lập ở Đông Nam Á."
+        }
+      ]
+    },
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_11/12340/img_04.png",
+      "lessonId": "12340",
+      "altText": "Hình 4. Quân giải phóng nhân dân Lào tiến vào Viêng Chăn năm 1975",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "giai-doan-hoan-thanh-cuoc-dau-tranh-gianh-doc-lap-dan-toc-o-dong-nam-a",
+          "isThumbnail": false,
+          "sortOrder": 2,
+          "reviewNote": "[direct/high] Ảnh trực tiếp thuộc quá trình các nước Đông Nam Á hoàn thành đấu tranh giành độc lập sau 1945."
+        }
+      ]
+    },
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_11/12340/img_05.png",
+      "lessonId": "12340",
+      "altText": "Hình 5. Hội nghị \"bàn tròn” ở La Hay",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "giai-doan-hoan-thanh-cuoc-dau-tranh-gianh-doc-lap-dan-toc-o-dong-nam-a",
+          "isThumbnail": false,
+          "sortOrder": 3,
+          "reviewNote": "[direct/high] Ảnh trực tiếp thuộc quá trình các nước Đông Nam Á hoàn thành đấu tranh giành độc lập sau 1945."
+        }
+      ]
+    },
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_11/12340/img_06.png",
+      "lessonId": "12340",
+      "altText": "Hình 6. Tun-ku Áp-đun Ra-man, lãnh tụ phong trào độc lập dân tộc, tuyên bố về nền độc lập của Liên bang Mã Lai tại sân vận động Me-de-ca",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "giai-doan-hoan-thanh-cuoc-dau-tranh-gianh-doc-lap-dan-toc-o-dong-nam-a",
+          "isThumbnail": false,
+          "sortOrder": 4,
+          "reviewNote": "[direct/high] Ảnh trực tiếp thuộc quá trình các nước Đông Nam Á hoàn thành đấu tranh giành độc lập sau 1945."
+        }
+      ]
+    },
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_11/12370/img_02.png",
+      "lessonId": "12370",
+      "altText": "Hình 2. Bạch Đằng dậy sóng (mô hình trưng bày tại Bảo tàng Lịch sử quốc gia Việt Nam)",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "khang-chien-chong-quan-nguyen-1287-1288",
+          "isThumbnail": false,
+          "sortOrder": 1,
+          "reviewNote": "[strong_contextual/high] Mô hình Bạch Đằng dậy sóng minh họa trực tiếp trận Bạch Đằng trong kháng chiến chống Nguyên lần ba."
+        }
+      ]
+    },
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_11/12370/img_03.png",
+      "lessonId": "12370",
+      "altText": "Hình 3. Di tích gò Đống Đa (Hà Nội)",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "khang-chien-chong-quan-thanh-1789",
+          "isThumbnail": false,
+          "sortOrder": 2,
+          "reviewNote": "[strong_contextual/high] Di tích gò Đống Đa gắn trực tiếp chiến thắng quân Thanh năm 1789."
+        }
+      ]
+    },
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_11/12370/img_04.png",
+      "lessonId": "12370",
+      "altText": "Hình 4. Đền Cuông (Nghệ An) thờ An Dương Vương",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "su-ra-doi-nha-nuoc-au-lac",
+          "isThumbnail": false,
+          "sortOrder": 3,
+          "reviewNote": "[strong_contextual/high] Đền Cuông thờ An Dương Vương, phù hợp minh họa nhà nước Âu Lạc và cuộc kháng chiến chống quân Triệu.",
+          "overrideReason": "Full re-review from actual image, caption and event content; original score/candidate ranking was intentionally not used. Đền Cuông thờ An Dương Vương, phù hợp minh họa nhà nước Âu Lạc và cuộc kháng chiến chống quân Triệu."
+        },
+        {
+          "eventId": "khang-chien-chong-quan-trieu-an-duong-vuong",
+          "isThumbnail": false,
+          "sortOrder": 2,
+          "reviewNote": "[strong_contextual/high] Đền Cuông thờ An Dương Vương, phù hợp minh họa nhà nước Âu Lạc và cuộc kháng chiến chống quân Triệu."
+        }
+      ]
+    },
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_11/12372/img_01.png",
+      "lessonId": "12372",
+      "altText": "Hình 1. Sơ đồ diễn biến chính của khởi nghĩa Lam Sơn",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "khoi-nghia-lam-son",
+          "isThumbnail": false,
+          "sortOrder": 1,
+          "reviewNote": "[direct/high] Sơ đồ/lược đồ trực tiếp thể hiện diễn biến khởi nghĩa Lam Sơn."
+        }
+      ]
+    },
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_11/12372/img_02.png",
+      "lessonId": "12372",
+      "altText": "Hình 2. Lược đó khởi nghĩa Lam Sơn (1418-1427)",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "khoi-nghia-lam-son",
+          "isThumbnail": false,
+          "sortOrder": 2,
+          "reviewNote": "[direct/high] Sơ đồ/lược đồ trực tiếp thể hiện diễn biến khởi nghĩa Lam Sơn."
+        }
+      ]
+    },
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_11/12372/img_03.png",
+      "lessonId": "12372",
+      "altText": "Hình 3. Khu di tích Lam Kinh (Thanh Hoá) được nhà Lê xây dựng sau thắng lợi của khởi nghĩa Lam Sơn",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "khoi-nghia-lam-son",
+          "isThumbnail": false,
+          "sortOrder": 4,
+          "reviewNote": "[strong_contextual/high] Khu di tích Lam Kinh được xây dựng sau thắng lợi khởi nghĩa Lam Sơn và gắn với triều Lê sơ."
+        },
+        {
+          "eventId": "nha-le-so-thanh-lap",
+          "isThumbnail": false,
+          "sortOrder": 1,
+          "reviewNote": "[strong_contextual/high] Khu di tích Lam Kinh được xây dựng sau thắng lợi khởi nghĩa Lam Sơn và gắn với triều Lê sơ.",
+          "overrideReason": "Full re-review from actual image, caption and event content; original score/candidate ranking was intentionally not used. Khu di tích Lam Kinh được xây dựng sau thắng lợi khởi nghĩa Lam Sơn và gắn với triều Lê sơ."
+        }
+      ]
+    },
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_11/12372/img_04.png",
+      "lessonId": "12372",
+      "altText": "Hình 4. Lược đồ phong trào Tây Sơn",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "phong-trao-tay-son",
+          "isThumbnail": false,
+          "sortOrder": 1,
+          "reviewNote": "[direct/high] Lược đồ phong trào Tây Sơn bao quát trực tiếp phong trào và hai cuộc kháng chiến chống Xiêm, Thanh."
+        },
+        {
+          "eventId": "khang-chien-chong-quan-xiem-1784-1785",
+          "isThumbnail": false,
+          "sortOrder": 1,
+          "reviewNote": "[direct/high] Lược đồ phong trào Tây Sơn bao quát trực tiếp phong trào và hai cuộc kháng chiến chống Xiêm, Thanh."
+        },
+        {
+          "eventId": "khang-chien-chong-quan-thanh-1789",
+          "isThumbnail": false,
+          "sortOrder": 1,
+          "reviewNote": "[direct/high] Lược đồ phong trào Tây Sơn bao quát trực tiếp phong trào và hai cuộc kháng chiến chống Xiêm, Thanh."
+        }
+      ]
+    },
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_11/12372/img_05.png",
+      "lessonId": "12372",
+      "altText": "Hình 5. Tượng Quang Trung ở Bảo tàng Quang Trung (Bình Định)",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "phong-trao-tay-son",
+          "isThumbnail": false,
+          "sortOrder": 2,
+          "reviewNote": "[strong_contextual/high] Tượng Quang Trung là hình ảnh biểu tượng trực tiếp của phong trào Tây Sơn và chiến thắng quân Thanh."
+        },
+        {
+          "eventId": "khang-chien-chong-quan-thanh-1789",
+          "isThumbnail": false,
+          "sortOrder": 3,
+          "reviewNote": "[strong_contextual/high] Tượng Quang Trung là hình ảnh biểu tượng trực tiếp của phong trào Tây Sơn và chiến thắng quân Thanh."
+        }
+      ]
+    },
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_11/12373/img_04.png",
+      "lessonId": "12373",
+      "altText": "Hình 4. Sơ đồ sự phát triển của làng xã Việt Nam qua các thời kì lịch sử",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "lang-xa-hinh-thanh-thoi-van-lang-au-lac",
+          "isThumbnail": false,
+          "sortOrder": 1,
+          "reviewNote": "[direct/high] Sơ đồ trực tiếp tổng hợp sự phát triển của làng xã Việt Nam qua nhiều thời kì, nên cần gắn nhiều event."
+        },
+        {
+          "eventId": "nha-duong-dat-don-vi-huong-xa-thoi-bac-thuoc",
+          "isThumbnail": false,
+          "sortOrder": 1,
+          "reviewNote": "[direct/high] Sơ đồ trực tiếp tổng hợp sự phát triển của làng xã Việt Nam qua nhiều thời kì, nên cần gắn nhiều event."
+        },
+        {
+          "eventId": "ho-khuc-to-chuc-lai-lang-xa-the-ki-x",
+          "isThumbnail": false,
+          "sortOrder": 1,
+          "reviewNote": "[direct/high] Sơ đồ trực tiếp tổng hợp sự phát triển của làng xã Việt Nam qua nhiều thời kì, nên cần gắn nhiều event."
+        },
+        {
+          "eventId": "nha-nuoc-can-thiep-manh-lang-xa-thoi-le-so",
+          "isThumbnail": false,
+          "sortOrder": 1,
+          "reviewNote": "[direct/high] Sơ đồ trực tiếp tổng hợp sự phát triển của làng xã Việt Nam qua nhiều thời kì, nên cần gắn nhiều event."
+        },
+        {
+          "eventId": "nha-nuoc-pho-mac-lang-xa-thoi-le-trung-hung",
+          "isThumbnail": false,
+          "sortOrder": 1,
+          "reviewNote": "[direct/high] Sơ đồ trực tiếp tổng hợp sự phát triển của làng xã Việt Nam qua nhiều thời kì, nên cần gắn nhiều event."
+        },
+        {
+          "eventId": "nha-nuoc-can-thiep-manh-lang-xa-thoi-nguyen",
+          "isThumbnail": false,
+          "sortOrder": 1,
+          "reviewNote": "[direct/high] Sơ đồ trực tiếp tổng hợp sự phát triển của làng xã Việt Nam qua nhiều thời kì, nên cần gắn nhiều event."
+        },
+        {
+          "eventId": "lang-xa-viet-nam-bien-doi-sau-1945",
+          "isThumbnail": false,
+          "sortOrder": 1,
+          "reviewNote": "[direct/high] Sơ đồ trực tiếp tổng hợp sự phát triển của làng xã Việt Nam qua nhiều thời kì, nên cần gắn nhiều event."
+        }
+      ]
+    },
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_11/12382/img_04.png",
+      "lessonId": "12382",
+      "altText": "Hình 4. Biểu diễn hát Quan họ tại lễ hội đình làng Thổ Hà (Bắc Giang)",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "phe-duyet-chien-luoc-phat-trien-cong-nghiep-van-hoa-viet-nam",
+          "isThumbnail": false,
+          "sortOrder": 8,
+          "reviewNote": "[strong_contextual/medium] Biểu diễn Quan họ trong lễ hội là hoạt động nghệ thuật biểu diễn và di sản văn hóa. Ảnh chỉ minh họa lĩnh vực của chiến lược.",
+          "overrideReason": "Full re-review from actual image, caption and event content; original score/candidate ranking was intentionally not used. Biểu diễn Quan họ trong lễ hội là hoạt động nghệ thuật biểu diễn và di sản văn hóa. Ảnh chỉ minh họa lĩnh vực của chiến lược."
+        }
+      ]
+    },
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_11/12382/img_05.png",
+      "lessonId": "12382",
+      "altText": "Hình 5. Lễ rước kiệu trong lễ hội Ngư ông (Bến Tre)",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "phe-duyet-chien-luoc-phat-trien-cong-nghiep-van-hoa-viet-nam",
+          "isThumbnail": false,
+          "sortOrder": 9,
+          "reviewNote": "[strong_contextual/medium] Lễ hội Ngư ông là hoạt động văn hóa, lễ hội và du lịch văn hóa. Ảnh chỉ minh họa lĩnh vực của chiến lược.",
+          "overrideReason": "Full re-review from actual image, caption and event content; original score/candidate ranking was intentionally not used. Lễ hội Ngư ông là hoạt động văn hóa, lễ hội và du lịch văn hóa. Ảnh chỉ minh họa lĩnh vực của chiến lược."
+        }
+      ]
+    },
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_11/12387/img_01.png",
+      "lessonId": "12387",
+      "altText": "Sơ đồ thời gian trực tiếp tổng hợp các mốc chính của cải cách Hồ Quý Ly và triều Hồ",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "cai-cach-ho-quy-ly-trieu-ho",
+          "isThumbnail": false,
+          "sortOrder": 1,
+          "reviewNote": "[direct/high] Sơ đồ thời gian trực tiếp tổng hợp các mốc chính của cải cách Hồ Quý Ly và triều Hồ."
+        },
+        {
+          "eventId": "phat-hanh-tien-giay-thong-bao-hoi-sao",
+          "isThumbnail": false,
+          "sortOrder": 1,
+          "reviewNote": "[direct/high] Sơ đồ thời gian trực tiếp tổng hợp các mốc chính của cải cách Hồ Quý Ly và triều Hồ."
+        },
+        {
+          "eventId": "ban-hanh-chinh-sach-han-dien",
+          "isThumbnail": false,
+          "sortOrder": 1,
+          "reviewNote": "[direct/high] Sơ đồ thời gian trực tiếp tổng hợp các mốc chính của cải cách Hồ Quý Ly và triều Hồ."
+        },
+        {
+          "eventId": "ho-quy-ly-doi-do-thanh-hoa",
+          "isThumbnail": false,
+          "sortOrder": 1,
+          "reviewNote": "[direct/high] Sơ đồ thời gian trực tiếp tổng hợp các mốc chính của cải cách Hồ Quý Ly và triều Hồ."
+        },
+        {
+          "eventId": "ban-hanh-chinh-sach-han-no",
+          "isThumbnail": false,
+          "sortOrder": 1,
+          "reviewNote": "[direct/high] Sơ đồ thời gian trực tiếp tổng hợp các mốc chính của cải cách Hồ Quý Ly và triều Hồ."
+        },
+        {
+          "eventId": "ho-quy-ly-lap-trieu-ho",
+          "isThumbnail": false,
+          "sortOrder": 1,
+          "reviewNote": "[direct/high] Sơ đồ thời gian trực tiếp tổng hợp các mốc chính của cải cách Hồ Quý Ly và triều Hồ."
+        }
+      ]
+    },
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_11/12390/img_01.png",
+      "lessonId": "12390",
+      "altText": "Hình 1. Chân dung vua Lê Thánh Tông (1442-1497)",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "cai-cach-le-thanh-tong",
+          "isThumbnail": false,
+          "sortOrder": 3,
+          "reviewNote": "[strong_contextual/high] Chân dung Lê Thánh Tông là ảnh đại diện trực tiếp cho cuộc cải cách do ông tiến hành."
+        }
+      ]
+    },
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_11/12390/img_02.png",
+      "lessonId": "12390",
+      "altText": "Hình 2. Sơ đồ tổ chức nhà nước dưới thời Lê Thánh Tông",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "cai-cach-le-thanh-tong",
+          "isThumbnail": false,
+          "sortOrder": 2,
+          "reviewNote": "[direct/high] Sơ đồ tổ chức nhà nước dưới thời Lê Thánh Tông phản ánh trực tiếp các nội dung cải cách hành chính."
+        },
+        {
+          "eventId": "le-thanh-tong-dua-luc-bo-thanh-co-quan-quyen-luc",
+          "isThumbnail": false,
+          "sortOrder": 2,
+          "reviewNote": "[direct/high] Sơ đồ tổ chức nhà nước dưới thời Lê Thánh Tông phản ánh trực tiếp các nội dung cải cách hành chính."
+        },
+        {
+          "eventId": "cai-to-hanh-chinh-dia-phuong-12-thua-tuyen",
+          "isThumbnail": false,
+          "sortOrder": 2,
+          "reviewNote": "[direct/high] Sơ đồ tổ chức nhà nước dưới thời Lê Thánh Tông phản ánh trực tiếp các nội dung cải cách hành chính."
+        }
+      ]
+    },
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_11/12393/img_01.png",
+      "lessonId": "12393",
+      "altText": "Hình 1. Chân dung vua Minh Mạng (1791-1841)",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "cuoc-cai-cach-cua-minh-mang",
+          "isThumbnail": false,
+          "sortOrder": 2,
+          "reviewNote": "[strong_contextual/high] Chân dung Minh Mạng là ảnh đại diện trực tiếp cho cuộc cải cách và triều đại của ông."
+        },
+        {
+          "eventId": "minh-mang-len-ngoi-vua",
+          "isThumbnail": false,
+          "sortOrder": 1,
+          "reviewNote": "[strong_contextual/high] Chân dung Minh Mạng là ảnh đại diện trực tiếp cho cuộc cải cách và triều đại của ông."
+        }
+      ]
+    },
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_11/12393/img_02.png",
+      "lessonId": "12393",
+      "altText": "Sơ đồ tổ chức hành chính triều Minh Mạng trực tiếp tổng hợp các nội dung cải cách bộ máy",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "cuoc-cai-cach-cua-minh-mang",
+          "isThumbnail": false,
+          "sortOrder": 1,
+          "reviewNote": "[direct/high] Sơ đồ tổ chức hành chính triều Minh Mạng trực tiếp tổng hợp các nội dung cải cách bộ máy."
+        },
+        {
+          "eventId": "doi-thi-thu-vien-thanh-van-thu-phong",
+          "isThumbnail": false,
+          "sortOrder": 1,
+          "reviewNote": "[direct/high] Sơ đồ tổ chức hành chính triều Minh Mạng trực tiếp tổng hợp các nội dung cải cách bộ máy."
+        },
+        {
+          "eventId": "lap-noi-cac-thay-the-van-thu-phong",
+          "isThumbnail": false,
+          "sortOrder": 1,
+          "reviewNote": "[direct/high] Sơ đồ tổ chức hành chính triều Minh Mạng trực tiếp tổng hợp các nội dung cải cách bộ máy."
+        },
+        {
+          "eventId": "xoa-bo-bac-thanh-chia-thanh-18-tinh",
+          "isThumbnail": false,
+          "sortOrder": 1,
+          "reviewNote": "[direct/high] Sơ đồ tổ chức hành chính triều Minh Mạng trực tiếp tổng hợp các nội dung cải cách bộ máy."
+        },
+        {
+          "eventId": "xoa-bo-gia-dinh-thanh-chia-thanh-12-tinh",
+          "isThumbnail": false,
+          "sortOrder": 1,
+          "reviewNote": "[direct/high] Sơ đồ tổ chức hành chính triều Minh Mạng trực tiếp tổng hợp các nội dung cải cách bộ máy."
+        },
+        {
+          "eventId": "lap-co-mat-vien",
+          "isThumbnail": false,
+          "sortOrder": 1,
+          "reviewNote": "[direct/high] Sơ đồ tổ chức hành chính triều Minh Mạng trực tiếp tổng hợp các nội dung cải cách bộ máy."
+        }
+      ]
+    },
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_11/12394/img_02.png",
+      "lessonId": "12394",
+      "altText": "Hình 2. Lược đồ quần đảo Hoàng Sa và quần đảo Trường Sa thuộc chủ quyền của Việt Nam",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "chu-quyen-bien-dao-viet-nam-1975-den-nay",
+          "isThumbnail": false,
+          "sortOrder": 2,
+          "reviewNote": "[strong_contextual/high] Lược đồ Hoàng Sa và Trường Sa thuộc chủ quyền Việt Nam minh họa trực tiếp chủ đề bảo vệ chủ quyền biển đảo hiện nay.",
+          "overrideReason": "Full re-review from actual image, caption and event content; original score/candidate ranking was intentionally not used. Lược đồ Hoàng Sa và Trường Sa thuộc chủ quyền Việt Nam minh họa trực tiếp chủ đề bảo vệ chủ quyền biển đảo hiện nay."
+        }
+      ]
+    },
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_11/12394/img_03.png",
+      "lessonId": "12394",
+      "altText": "Hình 3. Đảo Trường Sa Lớn thuộc quần đảo Trường Sa (huyện Trường Sa, tỉnh Khánh Hoà)",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "chu-quyen-bien-dao-viet-nam-1975-den-nay",
+          "isThumbnail": false,
+          "sortOrder": 3,
+          "reviewNote": "[strong_contextual/high] Ảnh đảo Trường Sa Lớn trực tiếp minh họa chủ quyền và quản lý biển đảo hiện nay.",
+          "overrideReason": "Full re-review from actual image, caption and event content; original score/candidate ranking was intentionally not used. Ảnh đảo Trường Sa Lớn trực tiếp minh họa chủ quyền và quản lý biển đảo hiện nay."
+        }
+      ]
+    },
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_11/12394/img_04.png",
+      "lessonId": "12394",
+      "altText": "Hình 4. Một số loại sinh vật biển ở khu vực quần đảo Trường Sa",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "ban-hanh-nghi-quyet-36-nq-tw-ve-chien-luoc-phat-trien-kinh-te-bien",
+          "isThumbnail": false,
+          "sortOrder": 2,
+          "reviewNote": "[strong_contextual/medium] Đa dạng sinh vật biển minh họa nguồn lực kinh tế biển, phù hợp bối cảnh chiến lược phát triển kinh tế biển.",
+          "overrideReason": "Full re-review from actual image, caption and event content; original score/candidate ranking was intentionally not used. Đa dạng sinh vật biển minh họa nguồn lực kinh tế biển, phù hợp bối cảnh chiến lược phát triển kinh tế biển."
+        }
+      ]
+    },
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_11/12395/img_01.png",
+      "lessonId": "12395",
+      "altText": "Hình 1. Tàu Kiểm ngư KN-491",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "chu-quyen-bien-dao-viet-nam-1975-den-nay",
+          "isThumbnail": false,
+          "sortOrder": 4,
+          "reviewNote": "[strong_contextual/high] Tàu kiểm ngư là phương tiện thực thi pháp luật và bảo vệ chủ quyền biển đảo hiện nay.",
+          "overrideReason": "Full re-review from actual image, caption and event content; original score/candidate ranking was intentionally not used. Tàu kiểm ngư là phương tiện thực thi pháp luật và bảo vệ chủ quyền biển đảo hiện nay."
+        }
+      ]
+    },
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_11/12395/img_02.png",
+      "lessonId": "12395",
+      "altText": "Hình 2. Cảng Quy Nhơn (Bình Định)",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "ban-hanh-nghi-quyet-36-nq-tw-ve-chien-luoc-phat-trien-kinh-te-bien",
+          "isThumbnail": false,
+          "sortOrder": 3,
+          "reviewNote": "[strong_contextual/medium] Cảng Quy Nhơn minh họa trực tiếp hạ tầng và kinh tế biển."
+        }
+      ]
+    },
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_11/12395/img_03.png",
+      "lessonId": "12395",
+      "altText": "Hình 3. Đảo Cồn Cỏ (Quảng Trị) – \"vọng gác tiền tiêu\" trên Biển Đông ở cửa ngõ phía nam của vịnh Bắc Bộ",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "chu-quyen-bien-dao-viet-nam-1975-den-nay",
+          "isThumbnail": false,
+          "sortOrder": 5,
+          "reviewNote": "[strong_contextual/high] Đảo Cồn Cỏ là địa điểm tiền tiêu minh họa chủ quyền biển đảo hiện nay.",
+          "overrideReason": "Full re-review from actual image, caption and event content; original score/candidate ranking was intentionally not used. Đảo Cồn Cỏ là địa điểm tiền tiêu minh họa chủ quyền biển đảo hiện nay."
+        }
+      ]
+    },
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_11/12395/img_04.png",
+      "lessonId": "12395",
+      "altText": "Hình 4. Một góc huyện đảo Vân Đồn (Quảng Ninh)",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "nha-ly-thanh-lap-trang-van-don",
+          "isThumbnail": false,
+          "sortOrder": 1,
+          "reviewNote": "[strong_contextual/medium] Ảnh hiện đại của Vân Đồn minh họa không gian địa lý của thương cảng Vân Đồn lịch sử.",
+          "overrideReason": "Full re-review from actual image, caption and event content; original score/candidate ranking was intentionally not used. Ảnh hiện đại của Vân Đồn minh họa không gian địa lý của thương cảng Vân Đồn lịch sử."
+        }
+      ]
+    },
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_11/12395/img_05.png",
+      "lessonId": "12395",
+      "altText": "Hình 5. Đại Nam nhất thống toàn đồ",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "chu-quyen-bien-dao-viet-nam-tu-the-ki-xvi-den-xix",
+          "isThumbnail": false,
+          "sortOrder": 1,
+          "reviewNote": "[direct/high] Đại Nam nhất thống toàn đồ là tư liệu bản đồ lịch sử trực tiếp về chủ quyền biển đảo thời quân chủ.",
+          "overrideReason": "Full re-review from actual image, caption and event content; original score/candidate ranking was intentionally not used. Đại Nam nhất thống toàn đồ là tư liệu bản đồ lịch sử trực tiếp về chủ quyền biển đảo thời quân chủ."
+        }
+      ]
+    },
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_11/12395/img_06.png",
+      "lessonId": "12395",
+      "altText": "Hình 6. Tượng đài đội Hoàng Sa kiêm quản Bắc Hải ở đảo Lý Sơn (Quảng Ngãi)",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "thanh-lap-va-hoat-dong-doi-dan-binh-hoang-sa-bac-hai",
+          "isThumbnail": false,
+          "sortOrder": 1,
+          "reviewNote": "[strong_contextual/high] Tượng đài đội Hoàng Sa kiêm quản Bắc Hải trực tiếp tưởng niệm đội dân binh lịch sử."
+        }
+      ]
+    },
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_11/12395/img_07.png",
+      "lessonId": "12395",
+      "altText": "Hình 7. Cột hải đăng trên quần đảo Hoàng Sa được xây dựng năm 1937",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "phap-xay-dung-cot-hai-dang-hoang-sa",
+          "isThumbnail": false,
+          "sortOrder": 1,
+          "reviewNote": "[direct/high] Caption và ảnh trực tiếp về cột hải đăng Hoàng Sa xây dựng năm 1937."
+        }
+      ]
+    },
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_11/12395/img_08.png",
+      "lessonId": "12395",
+      "altText": "Hình 8. Bia chủ quyền trên quần đảo Hoàng Sa do người Pháp xây dựng vào năm 1938",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "phap-xay-dung-bia-chu-quyen-hoang-sa",
+          "isThumbnail": false,
+          "sortOrder": 1,
+          "reviewNote": "[direct/high] Caption và ảnh trực tiếp về bia chủ quyền Hoàng Sa do Pháp xây dựng năm 1938."
+        }
+      ]
+    },
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_11/12395/img_09.png",
+      "lessonId": "12395",
+      "altText": "Sơ đồ thể hiện diễn biến chiếm đóng/kiểm soát các thực thể biển đảo từ sau 1954 tới hiện đại, nên liên quan trực tiếp theo tiến trình tới cả hai giai đoạn chủ quyền",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "chu-quyen-bien-dao-viet-nam-1954-1975",
+          "isThumbnail": false,
+          "sortOrder": 1,
+          "reviewNote": "[strong_contextual/high] Sơ đồ thể hiện diễn biến chiếm đóng/kiểm soát các thực thể biển đảo từ sau 1954 tới hiện đại, nên liên quan trực tiếp theo tiến trình tới cả hai giai đoạn chủ quyền.",
+          "overrideReason": "Full re-review from actual image, caption and event content; original score/candidate ranking was intentionally not used. Sơ đồ thể hiện diễn biến chiếm đóng/kiểm soát các thực thể biển đảo từ sau 1954 tới hiện đại, nên liên quan trực tiếp theo tiến trình tới cả hai giai đoạn chủ quyền."
+        },
+        {
+          "eventId": "chu-quyen-bien-dao-viet-nam-1975-den-nay",
+          "isThumbnail": false,
+          "sortOrder": 6,
+          "reviewNote": "[strong_contextual/high] Sơ đồ thể hiện diễn biến chiếm đóng/kiểm soát các thực thể biển đảo từ sau 1954 tới hiện đại, nên liên quan trực tiếp theo tiến trình tới cả hai giai đoạn chủ quyền.",
+          "overrideReason": "Full re-review from actual image, caption and event content; original score/candidate ranking was intentionally not used. Sơ đồ thể hiện diễn biến chiếm đóng/kiểm soát các thực thể biển đảo từ sau 1954 tới hiện đại, nên liên quan trực tiếp theo tiến trình tới cả hai giai đoạn chủ quyền."
+        }
+      ]
+    },
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_11/12395/img_10.png",
+      "lessonId": "12395",
+      "altText": "Hình 9. Sơ đồ khái quát về cuộc đấu tranh bảo vệ chủ quyền biển đảo của Việt Nam",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "chu-quyen-bien-dao-viet-nam-1975-den-nay",
+          "isThumbnail": false,
+          "sortOrder": 1,
+          "reviewNote": "[direct/high] Sơ đồ trực tiếp khái quát cuộc đấu tranh bảo vệ chủ quyền biển đảo Việt Nam.",
+          "overrideReason": "Full re-review from actual image, caption and event content; original score/candidate ranking was intentionally not used. Sơ đồ trực tiếp khái quát cuộc đấu tranh bảo vệ chủ quyền biển đảo Việt Nam."
+        }
+      ]
+    },
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_11/12395/img_11.png",
+      "lessonId": "12395",
+      "altText": "Hình 10. Tượng đài tưởng niệm chiến sĩ Gạc Ma được xây dựng ở huyện Cam Lâm (tỉnh Khánh Hoà)",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "trung-quoc-danh-chiem-dao-gac-ma-len-dao-chu-thap-va-mot-so-dao-khac-truong-sa",
+          "isThumbnail": false,
+          "sortOrder": 1,
+          "reviewNote": "[strong_contextual/high] Tượng đài tưởng niệm chiến sĩ Gạc Ma trực tiếp gắn với sự kiện chiến đấu và hy sinh bảo vệ Gạc Ma, Cô Lin, Len Đao."
+        },
+        {
+          "eventId": "chien-si-hai-quan-nhan-dan-viet-nam-hi-sinh-bao-ve-gac-ma-co-lin-len-dao",
+          "isThumbnail": false,
+          "sortOrder": 1,
+          "reviewNote": "[strong_contextual/high] Tượng đài tưởng niệm chiến sĩ Gạc Ma trực tiếp gắn với sự kiện chiến đấu và hy sinh bảo vệ Gạc Ma, Cô Lin, Len Đao."
+        }
+      ]
+    },
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_11/12395/img_12.png",
+      "lessonId": "12395",
+      "altText": "Hình 11. Giàn khoan Đại Hùng 01 của Tập đoàn Dầu khí Quốc gia Việt Nam",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "ban-hanh-nghi-quyet-36-nq-tw-ve-chien-luoc-phat-trien-kinh-te-bien",
+          "isThumbnail": false,
+          "sortOrder": 1,
+          "reviewNote": "[strong_contextual/high] Giàn khoan dầu khí minh họa trực tiếp phát triển kinh tế biển."
+        }
+      ]
+    },
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_11/12395/img_13.png",
+      "lessonId": "12395",
+      "altText": "Hình 12. Tàu hộ vệ 016 Quang Trung của Hải quân Nhân dân Việt Nam",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "chu-quyen-bien-dao-viet-nam-1975-den-nay",
+          "isThumbnail": false,
+          "sortOrder": 7,
+          "reviewNote": "[strong_contextual/high] Tàu hộ vệ Hải quân Việt Nam trực tiếp minh họa năng lực bảo vệ chủ quyền biển đảo hiện nay.",
+          "overrideReason": "Full re-review from actual image, caption and event content; original score/candidate ranking was intentionally not used. Tàu hộ vệ Hải quân Việt Nam trực tiếp minh họa năng lực bảo vệ chủ quyền biển đảo hiện nay."
+        }
+      ]
+    },
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_12/12945/img_05.png",
+      "lessonId": "12945",
+      "altText": "Hình 5. Đoàn sĩ quan Việt Nam tham gia Lực lượng gìn giữ hoà bình Liên hợp quốc trong lễ xuất quân lên đường làm nhiệm vụ tại Nam Xu-đăng (2021)",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "doan-si-quan-viet-nam-tham-gia-luc-luong-gin-giu-hoa-binh-lien-hop-quoc-tai-nam-xu-dang",
+          "isThumbnail": false,
+          "sortOrder": 1,
+          "reviewNote": "[direct/high] Caption và ảnh trực tiếp mô tả đoàn sĩ quan Việt Nam lên đường làm nhiệm vụ gìn giữ hòa bình tại Nam Sudan."
+        }
+      ]
+    },
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_12/12948/img_01.png",
+      "lessonId": "12948",
+      "altText": "Hình trên là lâu đài Li-va-đi-a, nơi diễn ra Hội nghị I-an-ta vào năm 1945. Những quyết định của hội nghị này đã tạo cơ sở cho việc thiết lập Trật tự thế giới hai cực I-an-ta. Trật tự này đã trải qua quá trình hình thành và tồn tại như thế nào? Những nguyên nhân nào dẫn đến sự sụp đổ Trật tự thế giới hai cực I-an-ta? Tác động của sự kiện đó đối với tình hình thế giới là gì?",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "giai-doan-cuoi-chien-tranh-the-gioi-thu-hai",
+          "isThumbnail": false,
+          "sortOrder": 1,
+          "reviewNote": "[strong_contextual/high] Ảnh trực tiếp về Hội nghị I-an-ta năm 1945, thuộc giai đoạn cuối Chiến tranh thế giới thứ hai."
+        }
+      ]
+    },
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_12/12948/img_02.png",
+      "lessonId": "12948",
+      "altText": "Hình 2. Từ trái sang phải (hàng ghế ngồi): Thủ tướng Anh - U. Sớc-sin, Tổng thống Mỹ - Ph. Ru-dơ-ven, Chủ tịch Hội đồng Bộ trưởng Liên Xô - I. Xta-lin tại Hội nghị I-an-ta",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "giai-doan-cuoi-chien-tranh-the-gioi-thu-hai",
+          "isThumbnail": false,
+          "sortOrder": 2,
+          "reviewNote": "[strong_contextual/high] Ảnh trực tiếp về Hội nghị I-an-ta năm 1945, thuộc giai đoạn cuối Chiến tranh thế giới thứ hai."
+        }
+      ]
+    },
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_12/12950/img_03.png",
+      "lessonId": "12950",
+      "altText": "Sơ đồ mở rộng thành viên ASEAN trực tiếp thể hiện mốc Việt Nam và Campuchia gia nhập ASEAN",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "viet-nam-gia-nhap-asean",
+          "isThumbnail": false,
+          "sortOrder": 1,
+          "reviewNote": "[direct/high] Sơ đồ mở rộng thành viên ASEAN trực tiếp thể hiện mốc Việt Nam và Campuchia gia nhập ASEAN."
+        },
+        {
+          "eventId": "cam-pu-chia-gia-nhap-asean",
+          "isThumbnail": false,
+          "sortOrder": 1,
+          "reviewNote": "[direct/high] Sơ đồ mở rộng thành viên ASEAN trực tiếp thể hiện mốc Việt Nam và Campuchia gia nhập ASEAN."
+        }
+      ]
+    },
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_12/12950/img_04.png",
+      "lessonId": "12950",
+      "altText": "Hình 4. Lễ kết nạp Vương quốc Cam-pu-chia là thành viên thứ 10 của ASEAN tại Hà Nội (Việt Nam) năm 1999",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "cam-pu-chia-gia-nhap-asean",
+          "isThumbnail": false,
+          "sortOrder": 2,
+          "reviewNote": "[direct/high] Caption và ảnh trực tiếp là lễ kết nạp Campuchia thành thành viên thứ 10 của ASEAN năm 1999."
+        }
+      ]
+    },
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_12/12951/img_05.png",
+      "lessonId": "12951",
+      "altText": "Hình 5. Tổng Bí thư, Chủ tịch nước Nguyễn Phú Trọng phát biểu chào mừng khai mạc Hội nghị cấp cao ASEAN lần thứ 37 (2020)",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "hoi-nghi-cap-cao-asean-37-ha-noi",
+          "isThumbnail": false,
+          "sortOrder": 1,
+          "reviewNote": "[direct/high] Caption và ảnh trực tiếp là khai mạc Hội nghị cấp cao ASEAN lần thứ 37."
+        }
+      ]
+    },
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_12/12952/img_01.png",
+      "lessonId": "12952",
+      "altText": "Hình 1. Chủ tịch Hồ Chí Minh đọc Tuyên ngôn Độc lập tại Quảng trường Ba Đình",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "ho-chi-minh-cong-bo-tuyen-ngon-doc-lap",
+          "isThumbnail": false,
+          "sortOrder": 2,
+          "reviewNote": "[direct/high] Ảnh trực tiếp Hồ Chí Minh đọc Tuyên ngôn Độc lập tại Ba Đình."
+        }
+      ]
+    },
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_12/12952/img_02.png",
+      "lessonId": "12952",
+      "altText": "Hình 2. Di tích Đình Tân Trào – nơi diễn ra Đại hội Quốc dân (1945)",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "dai-hoi-quoc-dan-tan-trao",
+          "isThumbnail": false,
+          "sortOrder": 1,
+          "reviewNote": "[strong_contextual/high] Ảnh là di tích đình Tân Trào, nơi diễn ra Đại hội Quốc dân năm 1945."
+        }
+      ]
+    },
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_12/12952/img_03.png",
+      "lessonId": "12952",
+      "altText": "Hình 3. Nhân dân Hà Nội chiếm Phủ Khâm sai (19-8-1945)",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "khoi-nghia-gianh-chinh-quyen-ha-noi",
+          "isThumbnail": false,
+          "sortOrder": 1,
+          "reviewNote": "[direct/high] Ảnh trực tiếp nhân dân Hà Nội chiếm Phủ Khâm sai ngày 19-8-1945."
+        }
+      ]
+    },
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_12/12952/img_04.png",
+      "lessonId": "12952",
+      "altText": "Hình 4. Nhân dân Sài Gòn mít tinh mừng khởi nghĩa giành thắng lợi (25 – 8 – 1945)",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "khoi-nghia-gianh-chinh-quyen-sai-gon",
+          "isThumbnail": false,
+          "sortOrder": 1,
+          "reviewNote": "[direct/high] Ảnh trực tiếp nhân dân Sài Gòn mít tinh mừng khởi nghĩa thắng lợi ngày 25-8-1945."
+        }
+      ]
+    },
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_12/12955/img_01.png",
+      "lessonId": "12955",
+      "altText": "Tượng đài Quyết tử để Tổ quốc quyết sinh trực tiếp tưởng niệm cuộc chiến đấu ở Hà Nội đầu toàn quốc kháng chiến",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "chien-dau-cac-do-thi-phia-bac-vi-tuyen-16-1946-1947",
+          "isThumbnail": false,
+          "sortOrder": 1,
+          "reviewNote": "[strong_contextual/high] Tượng đài Quyết tử để Tổ quốc quyết sinh trực tiếp tưởng niệm cuộc chiến đấu ở Hà Nội đầu toàn quốc kháng chiến."
+        }
+      ]
+    },
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_12/12955/img_03.png",
+      "lessonId": "12955",
+      "altText": "Hình 3. Đại hội đại biểu lần thứ II của Đảng Cộng sản Đông Dương ở Chiêm Hoá (Tuyên Quang)",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "dai-hoi-dai-bieu-lan-thu-ii-dang-cong-san-dong-duong-1951",
+          "isThumbnail": false,
+          "sortOrder": 1,
+          "reviewNote": "[direct/high] Ảnh thực tế là cùng một bức chụp Đại hội II năm 1951; file img_04 có caption gốc sai."
+        },
+        {
+          "eventId": "dai-hoi-dai-bieu-lan-thu-ii-cua-dang-lao-dong-viet-nam",
+          "isThumbnail": false,
+          "sortOrder": 1,
+          "reviewNote": "[direct/high] Ảnh thực tế là cùng một bức chụp Đại hội II năm 1951; file img_04 có caption gốc sai.",
+          "overrideReason": "Full re-review from actual image, caption and event content; original score/candidate ranking was intentionally not used. Ảnh thực tế là cùng một bức chụp Đại hội II năm 1951; file img_04 có caption gốc sai."
+        }
+      ]
+    },
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_12/12955/img_05.png",
+      "lessonId": "12955",
+      "altText": "Hình 5. Lược đồ diễn biến chiến dịch Điện Biên Phủ",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "chien-dich-dien-bien-phu-1954",
+          "isThumbnail": false,
+          "sortOrder": 1,
+          "reviewNote": "[direct/high] Lược đồ/sơ đồ/ảnh dân công trực tiếp thuộc Chiến dịch Điện Biên Phủ."
+        }
+      ]
+    },
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_12/12955/img_06.png",
+      "lessonId": "12955",
+      "altText": "Lược đồ/sơ đồ/ảnh dân công trực tiếp thuộc Chiến dịch Điện Biên Phủ",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "chien-dich-dien-bien-phu-1954",
+          "isThumbnail": false,
+          "sortOrder": 2,
+          "reviewNote": "[direct/high] Lược đồ/sơ đồ/ảnh dân công trực tiếp thuộc Chiến dịch Điện Biên Phủ."
+        }
+      ]
+    },
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_12/12955/img_07.png",
+      "lessonId": "12955",
+      "altText": "Hình 7. Dân công dùng xe đạp thổ phục vụ chiến dịch Điện Biên Phủ",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "chien-dich-dien-bien-phu-1954",
+          "isThumbnail": false,
+          "sortOrder": 3,
+          "reviewNote": "[direct/high] Lược đồ/sơ đồ/ảnh dân công trực tiếp thuộc Chiến dịch Điện Biên Phủ."
+        }
+      ]
+    },
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_12/12956/img_01.png",
+      "lessonId": "12956",
+      "altText": "Hình 1. Bức ảnh Nụ cười chiến thắng bên Thành cổ Quảng Trị (Đoàn Công Tính chụp)",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "giai-doan-khang-chien-chong-my-1969-1973",
+          "isThumbnail": false,
+          "sortOrder": 1,
+          "reviewNote": "[direct/high] Ảnh Nụ cười chiến thắng tại Thành cổ Quảng Trị thuộc bối cảnh chiến sự năm 1972."
+        }
+      ]
+    },
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_12/12956/img_02.png",
+      "lessonId": "12956",
+      "altText": "Hình 2. Nhân dân Bến Tre biểu tình trong phong trào Đồng khởi (1960)",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "phong-trao-dong-khoi",
+          "isThumbnail": false,
+          "sortOrder": 1,
+          "reviewNote": "[direct/high] Ảnh trực tiếp nhân dân Bến Tre biểu tình trong phong trào Đồng khởi năm 1960."
+        }
+      ]
+    },
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_12/12956/img_03.png",
+      "lessonId": "12956",
+      "altText": "Hình 3. Phá \"ấp chiến lược\" khiêng nhà về nơi ở cũ",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "giai-doan-khang-chien-chong-my-1961-1965",
+          "isThumbnail": false,
+          "sortOrder": 1,
+          "reviewNote": "[strong_contextual/high] Ảnh phá ấp chiến lược là hình ảnh trực tiếp của cuộc đấu tranh chống chiến lược chiến tranh đặc biệt giai đoạn 1961–1965."
+        }
+      ]
+    },
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_12/12956/img_04.png",
+      "lessonId": "12956",
+      "altText": "Hình 4. Quân Giải phóng làm chủ đường Lê Lợi (Sài Gòn) trong cuộc Tổng tiến công và nổi dậy Xuân Mậu Thân năm 1968",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "tong-tien-cong-va-noi-day-xuan-mau-than-1968",
+          "isThumbnail": false,
+          "sortOrder": 1,
+          "reviewNote": "[direct/high] Ảnh trực tiếp quân Giải phóng làm chủ đường Lê Lợi trong Tổng tiến công Mậu Thân 1968."
+        }
+      ]
+    },
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_12/12956/img_05.png",
+      "lessonId": "12956",
+      "altText": "Hình 6. Bộ Chính trị họp Hội nghị mở rộng quyết định kế hoạch giải phóng miền Nam (1 – 1975)",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "tong-tien-cong-va-noi-day-xuan-1975",
+          "isThumbnail": false,
+          "sortOrder": 1,
+          "reviewNote": "[direct/high] Ảnh trực tiếp Bộ Chính trị họp quyết định kế hoạch giải phóng miền Nam tháng 1-1975."
+        },
+        {
+          "eventId": "giai-doan-khang-chien-chong-my-1973-1975",
+          "isThumbnail": false,
+          "sortOrder": 1,
+          "reviewNote": "[direct/high] Ảnh trực tiếp Bộ Chính trị họp quyết định kế hoạch giải phóng miền Nam tháng 1-1975."
+        }
+      ]
+    },
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_12/12956/img_06.png",
+      "lessonId": "12956",
+      "altText": "Hình 7. Nhân dân Sài Gòn chào mừng Quân Giải phóng tiến vào thành phố (30-4-1975)",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "chien-dich-giai-phong-sai-gon-gia-dinh-chien-dich-ho-chi-minh",
+          "isThumbnail": false,
+          "sortOrder": 1,
+          "reviewNote": "[direct/high] Ảnh trực tiếp nhân dân Sài Gòn chào mừng Quân Giải phóng ngày 30-4-1975."
+        },
+        {
+          "eventId": "tong-tien-cong-va-noi-day-xuan-1975",
+          "isThumbnail": false,
+          "sortOrder": 2,
+          "reviewNote": "[direct/high] Ảnh trực tiếp nhân dân Sài Gòn chào mừng Quân Giải phóng ngày 30-4-1975."
+        }
+      ]
+    },
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_12/12960/img_01.png",
+      "lessonId": "12960",
+      "altText": "Biểu đồ tăng trưởng GDP 1986–2022 trực tiếp bao quát toàn bộ công cuộc Đổi mới và ba giai đoạn",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "cong-cuoc-doi-moi-o-viet-nam",
+          "isThumbnail": false,
+          "sortOrder": 2,
+          "reviewNote": "[direct/high] Biểu đồ tăng trưởng GDP 1986–2022 trực tiếp bao quát toàn bộ công cuộc Đổi mới và ba giai đoạn."
+        },
+        {
+          "eventId": "giai-doan-khoi-dau-cong-cuoc-doi-moi-1986-1995",
+          "isThumbnail": false,
+          "sortOrder": 2,
+          "reviewNote": "[direct/high] Biểu đồ tăng trưởng GDP 1986–2022 trực tiếp bao quát toàn bộ công cuộc Đổi mới và ba giai đoạn.",
+          "overrideReason": "Full re-review from actual image, caption and event content; original score/candidate ranking was intentionally not used. Biểu đồ tăng trưởng GDP 1986–2022 trực tiếp bao quát toàn bộ công cuộc Đổi mới và ba giai đoạn."
+        },
+        {
+          "eventId": "giai-doan-day-manh-cong-nghiep-hoa-hien-dai-hoa-hoi-nhap-kinh-te-quoc-te-1996-2006",
+          "isThumbnail": false,
+          "sortOrder": 2,
+          "reviewNote": "[direct/high] Biểu đồ tăng trưởng GDP 1986–2022 trực tiếp bao quát toàn bộ công cuộc Đổi mới và ba giai đoạn.",
+          "overrideReason": "Full re-review from actual image, caption and event content; original score/candidate ranking was intentionally not used. Biểu đồ tăng trưởng GDP 1986–2022 trực tiếp bao quát toàn bộ công cuộc Đổi mới và ba giai đoạn."
+        },
+        {
+          "eventId": "giai-doan-tiep-tuc-day-manh-cong-nghiep-hoa-hien-dai-hoa-hoi-nhap-quoc-te-sau-rong-2006-nay",
+          "isThumbnail": false,
+          "sortOrder": 2,
+          "reviewNote": "[direct/high] Biểu đồ tăng trưởng GDP 1986–2022 trực tiếp bao quát toàn bộ công cuộc Đổi mới và ba giai đoạn.",
+          "overrideReason": "Full re-review from actual image, caption and event content; original score/candidate ranking was intentionally not used. Biểu đồ tăng trưởng GDP 1986–2022 trực tiếp bao quát toàn bộ công cuộc Đổi mới và ba giai đoạn."
+        }
+      ]
+    },
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_12/12960/img_02.png",
+      "lessonId": "12960",
+      "altText": "Biểu đồ thu nhập bình quân 1995–2022 phản ánh kết quả chuyển tiếp từ cuối giai đoạn đầu Đổi mới qua hai giai đoạn sau",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "giai-doan-khoi-dau-cong-cuoc-doi-moi-1986-1995",
+          "isThumbnail": false,
+          "sortOrder": 3,
+          "reviewNote": "[direct/high] Biểu đồ thu nhập bình quân 1995–2022 phản ánh kết quả chuyển tiếp từ cuối giai đoạn đầu Đổi mới qua hai giai đoạn sau.",
+          "overrideReason": "Full re-review from actual image, caption and event content; original score/candidate ranking was intentionally not used. Biểu đồ thu nhập bình quân 1995–2022 phản ánh kết quả chuyển tiếp từ cuối giai đoạn đầu Đổi mới qua hai giai đoạn sau."
+        },
+        {
+          "eventId": "giai-doan-day-manh-cong-nghiep-hoa-hien-dai-hoa-hoi-nhap-kinh-te-quoc-te-1996-2006",
+          "isThumbnail": false,
+          "sortOrder": 3,
+          "reviewNote": "[direct/high] Biểu đồ thu nhập bình quân 1995–2022 phản ánh kết quả chuyển tiếp từ cuối giai đoạn đầu Đổi mới qua hai giai đoạn sau.",
+          "overrideReason": "Full re-review from actual image, caption and event content; original score/candidate ranking was intentionally not used. Biểu đồ thu nhập bình quân 1995–2022 phản ánh kết quả chuyển tiếp từ cuối giai đoạn đầu Đổi mới qua hai giai đoạn sau."
+        },
+        {
+          "eventId": "giai-doan-tiep-tuc-day-manh-cong-nghiep-hoa-hien-dai-hoa-hoi-nhap-quoc-te-sau-rong-2006-nay",
+          "isThumbnail": false,
+          "sortOrder": 3,
+          "reviewNote": "[direct/high] Biểu đồ thu nhập bình quân 1995–2022 phản ánh kết quả chuyển tiếp từ cuối giai đoạn đầu Đổi mới qua hai giai đoạn sau.",
+          "overrideReason": "Full re-review from actual image, caption and event content; original score/candidate ranking was intentionally not used. Biểu đồ thu nhập bình quân 1995–2022 phản ánh kết quả chuyển tiếp từ cuối giai đoạn đầu Đổi mới qua hai giai đoạn sau."
+        }
+      ]
+    },
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_12/12960/img_03.png",
+      "lessonId": "12960",
+      "altText": "Hình 8. Biểu diễn Dân ca Quan họ của người Việt Nam tại Cộng hoà Séc (2019)",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "giai-doan-tiep-tuc-day-manh-cong-nghiep-hoa-hien-dai-hoa-hoi-nhap-quoc-te-sau-rong-2006-nay",
+          "isThumbnail": false,
+          "sortOrder": 4,
+          "reviewNote": "[strong_contextual/medium] Biểu diễn Quan họ tại Cộng hòa Séc năm 2019 minh họa hội nhập quốc tế sâu rộng và quảng bá văn hóa Việt Nam.",
+          "overrideReason": "Full re-review from actual image, caption and event content; original score/candidate ranking was intentionally not used. Biểu diễn Quan họ tại Cộng hòa Séc năm 2019 minh họa hội nhập quốc tế sâu rộng và quảng bá văn hóa Việt Nam."
+        },
+        {
+          "eventId": "phe-duyet-chien-luoc-phat-trien-cong-nghiep-van-hoa-viet-nam",
+          "isThumbnail": false,
+          "sortOrder": 10,
+          "reviewNote": "[strong_contextual/medium] Biểu diễn Quan họ tại Cộng hòa Séc năm 2019 minh họa hội nhập quốc tế sâu rộng và quảng bá văn hóa Việt Nam.",
+          "overrideReason": "Full re-review from actual image, caption and event content; original score/candidate ranking was intentionally not used. Biểu diễn Quan họ tại Cộng hòa Séc năm 2019 minh họa hội nhập quốc tế sâu rộng và quảng bá văn hóa Việt Nam."
+        }
+      ]
+    },
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_12/12964/img_01.png",
+      "lessonId": "12964",
+      "altText": "Hình 2. Chủ tịch Hồ Chí Minh và Thủ tướng Bi-đôn (Pháp) năm 1946",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "ho-chi-minh-sang-phap-van-dong-ngoai-giao-va-ki-tam-uoc",
+          "isThumbnail": false,
+          "sortOrder": 1,
+          "reviewNote": "[strong_contextual/high] Ảnh Hồ Chí Minh với Thủ tướng Bidault tại Pháp năm 1946 thuộc trực tiếp chuyến vận động ngoại giao dẫn tới Tạm ước Việt–Pháp.",
+          "overrideReason": "Full re-review from actual image, caption and event content; original score/candidate ranking was intentionally not used. Ảnh Hồ Chí Minh với Thủ tướng Bidault tại Pháp năm 1946 thuộc trực tiếp chuyến vận động ngoại giao dẫn tới Tạm ước Việt–Pháp."
+        },
+        {
+          "eventId": "ki-tam-uoc-viet-phap",
+          "isThumbnail": false,
+          "sortOrder": 1,
+          "reviewNote": "[strong_contextual/high] Ảnh Hồ Chí Minh với Thủ tướng Bidault tại Pháp năm 1946 thuộc trực tiếp chuyến vận động ngoại giao dẫn tới Tạm ước Việt–Pháp."
+        }
+      ]
+    },
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_12/12964/img_02.png",
+      "lessonId": "12964",
+      "altText": "Hình 3. Phiên khai mạc Hội nghị Giơ-ne-vơ về Đông Dương (8 – 7 – 1954)",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "hoi-nghi-gio-ne-vo-ve-dong-duong",
+          "isThumbnail": false,
+          "sortOrder": 1,
+          "reviewNote": "[direct/high] Ảnh trực tiếp phiên khai mạc Hội nghị Giơ-ne-vơ về Đông Dương năm 1954."
+        },
+        {
+          "eventId": "ky-ket-hiep-dinh-go-ne-vo-1954",
+          "isThumbnail": false,
+          "sortOrder": 1,
+          "reviewNote": "[direct/high] Ảnh trực tiếp phiên khai mạc Hội nghị Giơ-ne-vơ về Đông Dương năm 1954."
+        }
+      ]
+    },
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_12/12964/img_03.png",
+      "lessonId": "12964",
+      "altText": "Hình 5. Quang cảnh lễ kí Hiệp định Pa-ri về chấm dứt chiến tranh, lập lại hoà bình ở Việt Nam",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "ki-ket-hiep-dinh-pa-ri-ve-cham-dut-chien-tranh-lap-lai-hoa-binh-o-viet-nam",
+          "isThumbnail": false,
+          "sortOrder": 1,
+          "reviewNote": "[direct/high] Ảnh trực tiếp quang cảnh lễ ký Hiệp định Pa-ri."
+        }
+      ]
+    },
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_12/12967/img_01.png",
+      "lessonId": "12967",
+      "altText": "Hình 9. Chủ tịch Hồ Chí Minh với đoàn đại biểu anh hùng, chiến sĩ thi đua các lực lượng vũ trang nhân dân giải phóng miền Nam ra thăm miền Bắc (1965)",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "giai-doan-khang-chien-chong-my-1965-1968",
+          "isThumbnail": false,
+          "sortOrder": 1,
+          "reviewNote": "[strong_contextual/medium] Ảnh năm 1965 về Chủ tịch Hồ Chí Minh với đại biểu anh hùng, chiến sĩ thi đua lực lượng vũ trang giải phóng miền Nam phản ánh trực tiếp bối cảnh kháng chiến chống Mỹ giai đoạn 1965–1968, nhưng không phải ảnh của một trận đánh cụ thể.",
+          "overrideReason": "Full re-review from actual image, caption and event content; original score/candidate ranking was intentionally not used. Ảnh năm 1965 về Chủ tịch Hồ Chí Minh với đại biểu anh hùng, chiến sĩ thi đua lực lượng vũ trang giải phóng miền Nam phản ánh trực tiếp bối cảnh kháng chiến chống Mỹ giai đoạn 1965–1968, nhưng không phải ảnh của một trận đánh cụ thể."
+        }
+      ]
+    },
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_12/12968/img_05.png",
+      "lessonId": "12968",
+      "altText": "Hình 5. Căn nhà số 13 (nay là 248 – 250) đường Văn Minh, thành phố Quảng Châu",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "nguyen-ai-quoc-den-quang-chau-1924",
+          "isThumbnail": false,
+          "sortOrder": 1,
+          "reviewNote": "[strong_contextual/high] Căn nhà số 13 đường Văn Minh ở Quảng Châu là địa điểm trực tiếp gắn với hoạt động của Nguyễn Ái Quốc và Hội Việt Nam Cách mạng Thanh niên.",
+          "overrideReason": "Full re-review from actual image, caption and event content; original score/candidate ranking was intentionally not used. Căn nhà số 13 đường Văn Minh ở Quảng Châu là địa điểm trực tiếp gắn với hoạt động của Nguyễn Ái Quốc và Hội Việt Nam Cách mạng Thanh niên."
+        },
+        {
+          "eventId": "nguyen-ai-quoc-thanh-lap-hoi-viet-nam-cach-mang-thanh-nien",
+          "isThumbnail": false,
+          "sortOrder": 1,
+          "reviewNote": "[strong_contextual/high] Căn nhà số 13 đường Văn Minh ở Quảng Châu là địa điểm trực tiếp gắn với hoạt động của Nguyễn Ái Quốc và Hội Việt Nam Cách mạng Thanh niên.",
+          "overrideReason": "Full re-review from actual image, caption and event content; original score/candidate ranking was intentionally not used. Căn nhà số 13 đường Văn Minh ở Quảng Châu là địa điểm trực tiếp gắn với hoạt động của Nguyễn Ái Quốc và Hội Việt Nam Cách mạng Thanh niên."
+        },
+        {
+          "eventId": "ho-chi-minh-mo-lop-dao-tao-can-bo-tai-quang-chau-trung-quoc",
+          "isThumbnail": false,
+          "sortOrder": 1,
+          "reviewNote": "[strong_contextual/high] Căn nhà số 13 đường Văn Minh ở Quảng Châu là địa điểm trực tiếp gắn với hoạt động của Nguyễn Ái Quốc và Hội Việt Nam Cách mạng Thanh niên."
+        }
+      ]
+    },
+    {
+      "sourceImage": "crawData/stage1_crawl/images/grade_12/12968/img_08.png",
+      "lessonId": "12968",
+      "altText": "Hình 8. Bác Hồ bắt nhịp Bài ca kết đoàn (1960)",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "dai-hoi-dai-bieu-toan-quoc-lan-thu-iii-cua-dang-lao-dong-viet-nam",
+          "isThumbnail": false,
+          "sortOrder": 1,
+          "reviewNote": "[strong_contextual/medium] Ảnh Bác Hồ bắt nhịp Bài ca kết đoàn năm 1960 phù hợp bối cảnh đại hội và hoạt động chính trị-văn hóa năm 1960; không phải ảnh trực tiếp nghi thức bầu cử.",
+          "overrideReason": "Full re-review from actual image, caption and event content; original score/candidate ranking was intentionally not used. Ảnh Bác Hồ bắt nhịp Bài ca kết đoàn năm 1960 phù hợp bối cảnh đại hội và hoạt động chính trị-văn hóa năm 1960; không phải ảnh trực tiếp nghi thức bầu cử."
+        },
+        {
+          "eventId": "ho-chi-minh-tiep-tuc-duoc-bau-chu-tich-dang-lao-dong-1960",
+          "isThumbnail": false,
+          "sortOrder": 1,
+          "reviewNote": "[strong_contextual/medium] Ảnh Bác Hồ bắt nhịp Bài ca kết đoàn năm 1960 phù hợp bối cảnh đại hội và hoạt động chính trị-văn hóa năm 1960; không phải ảnh trực tiếp nghi thức bầu cử.",
+          "overrideReason": "Full re-review from actual image, caption and event content; original score/candidate ranking was intentionally not used. Ảnh Bác Hồ bắt nhịp Bài ca kết đoàn năm 1960 phù hợp bối cảnh đại hội và hoạt động chính trị-văn hóa năm 1960; không phải ảnh trực tiếp nghi thức bầu cử."
+        }
+      ]
+    }
+  ],
+  "rejected": []
+}

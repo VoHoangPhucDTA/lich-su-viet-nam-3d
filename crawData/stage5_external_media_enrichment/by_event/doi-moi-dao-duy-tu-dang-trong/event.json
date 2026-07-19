@@ -1,0 +1,53 @@
+{
+  "eventId": "doi-moi-dao-duy-tu-dang-trong",
+  "title": "Sự nghiệp đổi mới của Đào Duy Từ ở Đàng Trong",
+  "shortTitle": "Sự nghiệp đổi mới của Đào Duy Từ ở Đàng Trong",
+  "displayDate": "Thế kỉ XVI",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-tu-the-ki-xvi-den-xix",
+  "parentId": "viet-nam-tu-the-ki-xvi-den-xix",
+  "historicalLocations": [],
+  "provinceNames": [],
+  "canonicalSummary": "Sự nghiệp đổi mới của Đào Duy Từ ở Đàng Trong diễn ra vào thế kỉ XVI.",
+  "keyFacts": [
+    "Tại Đàng Trong",
+    "Do Đào Duy Từ tiến hành",
+    "Diễn ra vào thế kỉ XVI"
+  ],
+  "sourceFamily": "early_modern",
+  "preferredVerificationDomains": [
+    "baotanglichsu.vn",
+    "luutru.gov.vn",
+    "disanvanhoa.gov.vn",
+    "nhandan.vn",
+    "qdnd.vn"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Sự nghiệp đổi mới của Đào Duy Từ ở Đàng Trong",
+    "Sự nghiệp đổi mới của Đào Duy Từ ở Đàng Trong Thế kỉ XVI",
+    "Sự nghiệp đổi mới của Đào Duy Từ ở Đàng Trong Việt Nam từ thế kỉ XVI đến thế kỉ XIX",
+    "Sự nghiệp đổi mới của Đào Duy Từ ở Đàng Trong Tại Đàng Trong Do Đào Duy Từ tiến hành",
+    "Sự nghiệp đổi mới của Đào Duy Từ ở Đàng Trong chân dung",
+    "Sự nghiệp đổi mới của Đào Duy Từ ở Đàng Trong di tích"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

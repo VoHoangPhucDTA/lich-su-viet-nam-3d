@@ -3,7 +3,7 @@ package com.lichsuvn.backend.event.api;
 import com.lichsuvn.backend.common.api.ApiResponse;
 import com.lichsuvn.backend.event.api.dto.EventDetailDto;
 import com.lichsuvn.backend.event.api.dto.EventListResponse;
-import com.lichsuvn.backend.event.api.dto.EventRelationDto;
+import com.lichsuvn.backend.event.api.dto.EventRelatedEventsDto;
 import com.lichsuvn.backend.event.api.dto.TimelineEventDto;
 import com.lichsuvn.backend.event.application.EventReadService;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,6 +39,11 @@ public class EventController {
             @RequestParam(required = false, name = "q") String query,
             @RequestParam(required = false) String parentId,
             @RequestParam(required = false) Integer level,
+            @RequestParam(required = false) String eventLevel,
+            @RequestParam(required = false) Integer startYearFrom,
+            @RequestParam(required = false) Integer startYearTo,
+            @RequestParam(required = false) String sortBy,
+            @RequestParam(required = false) String sortDir,
             @RequestParam(required = false) Integer limit,
             @RequestParam(required = false) Integer offset
     ) {
@@ -51,6 +56,11 @@ public class EventController {
                 query,
                 parentId,
                 level,
+                eventLevel,
+                startYearFrom,
+                startYearTo,
+                sortBy,
+                sortDir,
                 limit,
                 offset
         ));
@@ -77,7 +87,7 @@ public class EventController {
     }
 
     @GetMapping("/events/{eventId}/related")
-    public ApiResponse<List<EventRelationDto>> findRelated(@PathVariable String eventId) {
+    public ApiResponse<EventRelatedEventsDto> findRelated(@PathVariable String eventId) {
         return ApiResponse.ok(eventReadService.findRelated(eventId));
     }
 }

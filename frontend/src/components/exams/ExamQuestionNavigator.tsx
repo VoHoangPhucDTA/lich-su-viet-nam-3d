@@ -1,9 +1,9 @@
 import type { QuestionDerivedState } from '@/lib/exam/questionState';
-import type { Question } from '@/types/exam';
+import type { QuestionType } from '@/types/exam';
 import { Flag } from 'lucide-react';
 
 interface ExamQuestionNavigatorProps {
-  questions: Question[];
+  questions: Array<{ id: string; questionType: QuestionType }>;
   questionStates: Record<string, QuestionDerivedState>;
   currentIndex: number;
   onQuestionSelect: (index: number) => void;
@@ -60,7 +60,7 @@ function NavigatorSection({
 }: {
   label: string;
   indexes: number[];
-  questions: Question[];
+  questions: Array<{ id: string; questionType: QuestionType }>;
   questionStates: Record<string, QuestionDerivedState>;
   currentIndex: number;
   onQuestionSelect: (index: number) => void;

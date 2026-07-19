@@ -1,0 +1,55 @@
+{
+  "eventId": "nha-minh-xam-luoc-dai-ngu",
+  "title": "Nhà Minh xâm lược Đại Ngu",
+  "shortTitle": "Minh xâm lược Đại Ngu",
+  "displayDate": "Giữa lúc công cuộc cải cách của nhà Hồ đang thực hiện (đầu thế kỉ XV)",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-tu-the-ki-x-den-xv",
+  "parentId": "khang-chien-chong-quan-minh-nha-ho",
+  "historicalLocations": [],
+  "provinceNames": [],
+  "canonicalSummary": "Giữa lúc công cuộc cải cách đang thực hiện, các mâu thuẫn xã hội diễn biến phức tạp, nhà Minh đã tận dụng cơ hội tiến hành xâm lược Đại Ngu.",
+  "keyFacts": [
+    "Là nhân tố khách quan khiến cải cách và kháng chiến nhà Hồ thất bại",
+    "Diễn ra khi cải cách nhà Hồ đang thực hiện",
+    "Nhà Minh tận dụng cơ hội"
+  ],
+  "sourceFamily": "ancient_medieval",
+  "preferredVerificationDomains": [
+    "baotanglichsu.vn",
+    "disanvanhoa.gov.vn",
+    "bvhttdl.gov.vn",
+    "qdnd.vn",
+    "nhandan.vn",
+    "unesco.org",
+    "whc.unesco.org"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Nhà Minh xâm lược Đại Ngu",
+    "Nhà Minh xâm lược Đại Ngu Giữa lúc công cuộc cải cách của nhà Hồ đang thực hiện (đầu thế kỉ XV)",
+    "Nhà Minh xâm lược Đại Ngu Kháng chiến chống quân Minh của nhà Hồ",
+    "Nhà Minh xâm lược Đại Ngu Là nhân tố khách quan khiến cải cách và kháng chiến nhà Hồ thất bại Diễn ra khi cải cách nhà Hồ đang thực hiện",
+    "Nhà Minh xâm lược Đại Ngu hiện vật",
+    "Nhà Minh xâm lược Đại Ngu di tích"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

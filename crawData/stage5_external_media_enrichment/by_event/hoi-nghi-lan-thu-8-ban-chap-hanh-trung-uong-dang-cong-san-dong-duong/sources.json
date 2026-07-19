@@ -1,0 +1,9 @@
+{
+  "eventId": "hoi-nghi-lan-thu-8-ban-chap-hanh-trung-uong-dang-cong-san-dong-duong",
+  "status": "pending_download",
+  "images": [],
+  "expected": [
+    "image_01.<ext>",
+    "image_02.<ext>"
+  ]
+}

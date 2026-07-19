@@ -1,0 +1,55 @@
+{
+  "eventId": "lang-co-ten-nom-xuat-hien-som-thoi-ly-tran",
+  "title": "Những làng có tên nôm xuất hiện sớm vào thời Lý – Trần",
+  "shortTitle": "Làng tên nôm thời Lý – Trần",
+  "displayDate": "Thời Lý – Trần",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-tu-the-ki-x-den-xv",
+  "parentId": "viet-nam-tu-the-ki-x-den-xv",
+  "historicalLocations": [],
+  "provinceNames": [],
+  "canonicalSummary": "Những làng có tên nôm thường là những làng xuất hiện sớm vào thời Lý – Trần.",
+  "keyFacts": [
+    "Thời Lý – Trần",
+    "Xuất hiện sớm",
+    "Làng có tên nôm"
+  ],
+  "sourceFamily": "ancient_medieval",
+  "preferredVerificationDomains": [
+    "baotanglichsu.vn",
+    "disanvanhoa.gov.vn",
+    "bvhttdl.gov.vn",
+    "qdnd.vn",
+    "nhandan.vn",
+    "unesco.org",
+    "whc.unesco.org"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Những làng có tên nôm xuất hiện sớm vào thời Lý – Trần",
+    "Những làng có tên nôm xuất hiện sớm vào thời Lý – Trần Thời Lý – Trần",
+    "Những làng có tên nôm xuất hiện sớm vào thời Lý – Trần Việt Nam từ thế kỉ X đến thế kỉ XV",
+    "Những làng có tên nôm xuất hiện sớm vào thời Lý – Trần Thời Lý – Trần Xuất hiện sớm",
+    "Những làng có tên nôm xuất hiện sớm vào thời Lý – Trần hiện vật",
+    "Những làng có tên nôm xuất hiện sớm vào thời Lý – Trần di tích"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

@@ -1,0 +1,57 @@
+{
+  "eventId": "cuoc-van-dong-san-xuat-va-tiet-kiem-1952",
+  "title": "Cuộc vận động sản xuất và tiết kiệm",
+  "shortTitle": "Vận động sản xuất và tiết kiệm",
+  "displayDate": "Năm 1952",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1945-1954",
+  "parentId": "viet-nam-1945-1954",
+  "historicalLocations": [],
+  "provinceNames": [],
+  "canonicalSummary": "Năm 1952, cuộc vận động sản xuất và tiết kiệm được phát động, đã trở thành một phong trào quần chúng sôi nổi, lôi cuốn mọi ngành, mọi giới tham gia. Các ngành kinh tế cơ bản đáp ứng được yêu cầu của cuộc kháng chiến và đời sống nhân dân.",
+  "keyFacts": [
+    "Đáp ứng yêu cầu kháng chiến và đời sống nhân dân",
+    "Là phong trào quần chúng sôi nổi",
+    "Diễn ra năm 1952"
+  ],
+  "sourceFamily": "war_1945_1975",
+  "preferredVerificationDomains": [
+    "btlsqsvn.org.vn",
+    "qdnd.vn",
+    "nhandan.vn",
+    "vietnamplus.vn",
+    "hochiminh.vn",
+    "baotanglichsu.vn",
+    "luutru.gov.vn",
+    "loc.gov",
+    "archives.gov"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Cuộc vận động sản xuất và tiết kiệm",
+    "Cuộc vận động sản xuất và tiết kiệm Năm 1952",
+    "Cuộc vận động sản xuất và tiết kiệm Việt Nam từ năm 1945 đến năm 1954",
+    "Cuộc vận động sản xuất và tiết kiệm Đáp ứng yêu cầu kháng chiến và đời sống nhân dân Là phong trào quần chúng sôi nổi",
+    "Cuộc vận động sản xuất và tiết kiệm ảnh tư liệu",
+    "Cuộc vận động sản xuất và tiết kiệm chiến dịch"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

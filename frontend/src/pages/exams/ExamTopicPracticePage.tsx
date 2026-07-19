@@ -7,6 +7,7 @@ import { useExamKeyboardShortcuts } from '@/lib/exam/useExamKeyboardShortcuts';
 import ExamQuickNavigator, { type QuickNavigatorItem } from '@/components/exams/ExamQuickNavigator';
 import ExamShortcutHelp, { type ExamShortcutItem } from '@/components/exams/ExamShortcutHelp';
 import ExamPracticeHeader from '@/components/exams/ExamPracticeHeader';
+import ExamExplanationText from '@/components/exams/ExamExplanationText';
 import { useQuestionNavigation } from '@/lib/exam/useQuestionNavigation';
 import { loadTopicIndex } from '@/lib/exam/topicIndexLoader';
 import { findSummaryBySlug } from '@/lib/exam/topicGrouping';
@@ -89,7 +90,7 @@ function Explanation({ text, correct }: { text: string; correct: boolean }) {
       {text?.trim() && (
         <p style={{ margin: '0.5rem 0 0' }}>
           <strong style={{ color: 'var(--text-primary)' }}>Giải thích: </strong>
-          <span style={{ whiteSpace: 'pre-wrap' }}>{text}</span>
+          <ExamExplanationText text={text} />
         </p>
       )}
     </div>

@@ -1,0 +1,61 @@
+{
+  "eventId": "ki-tuyen-bo-ve-ung-xu-cua-cac-ben-o-bien-dong-doc",
+  "title": "Kí Tuyên bố về ứng xử của các bên ở Biển Đông (DOC)",
+  "shortTitle": "Kí DOC",
+  "displayDate": "Ngày 4 tháng 11 năm 2002",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1975-den-nay",
+  "parentId": "chu-quyen-bien-dao-viet-nam-1975-den-nay",
+  "historicalLocations": [
+    "Cam-pu-chia",
+    "Phnôm Pênh"
+  ],
+  "provinceNames": [],
+  "canonicalSummary": "Tuyên bố về Cách ứng xử của các bên ở Biển Đông (DOC) được các nước ASEAN và Trung Quốc kí ngày 4-11-2002 tại Thủ đô Phnôm Pênh, Cam-pu-chia.",
+  "keyFacts": [
+    "Mục tiêu: giải quyết tranh chấp bằng biện pháp hòa bình, không sử dụng vũ lực",
+    "Kí ngày 4 tháng 11 năm 2002",
+    "Địa điểm: Phnôm Pênh, Cam-pu-chia",
+    "Các bên tham gia: các nước ASEAN và Trung Quốc"
+  ],
+  "sourceFamily": "post_1975",
+  "preferredVerificationDomains": [
+    "chinhphu.vn",
+    "dangcongsan.vn",
+    "tulieuvankien.dangcongsan.vn",
+    "quochoi.vn",
+    "mofa.gov.vn",
+    "vietnamplus.vn",
+    "nhandan.vn",
+    "un.org",
+    "unphoto.un.org"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Kí Tuyên bố về ứng xử của các bên ở Biển Đông (DOC)",
+    "Kí Tuyên bố về ứng xử của các bên ở Biển Đông (DOC) Ngày 4 tháng 11 năm 2002",
+    "Kí Tuyên bố về ứng xử của các bên ở Biển Đông (DOC) Cam-pu-chia",
+    "Kí Tuyên bố về ứng xử của các bên ở Biển Đông (DOC) Mục tiêu: giải quyết tranh chấp bằng biện pháp hòa bình, không sử dụng vũ lực Kí ngày 4 tháng 11 năm 2002",
+    "Kí Tuyên bố về ứng xử của các bên ở Biển Đông (DOC) ảnh tư liệu",
+    "Kí Tuyên bố về ứng xử của các bên ở Biển Đông (DOC) lễ ký"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

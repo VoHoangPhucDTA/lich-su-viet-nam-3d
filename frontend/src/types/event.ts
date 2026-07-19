@@ -16,8 +16,10 @@ export interface HistoricalEvent {
   eventLevel?: 'collection' | 'atomic';
   name: string;
   description: string;
-  startYear: number;
-  endYear?: number;
+  startYear: number | null;
+  endYear: number | null;
+  effectiveEndYear: number | null;
+  displayDate?: string;
   eventType: EventType;
   eventSubtype?: string;
   geoType: GeoType;
@@ -29,7 +31,23 @@ export interface HistoricalEvent {
   orderInParent?: number;
   children?: HistoricalEvent[];
   images?: string[];
+  thumbnailUrl?: string;
   details?: string;
+}
+
+export type EventAssociationType = 'predecessor' | 'successor' | 'related';
+
+export interface RelatedHistoricalEvent extends HistoricalEvent {
+  associationType: EventAssociationType;
+  relationType: 'related' | 'predecessor' | 'successor' | 'same_topic' | 'same_location' | string;
+  relationLabel: string;
+  sortOrder: number;
+}
+
+export interface RelatedHistoricalEvents {
+  predecessors: RelatedHistoricalEvent[];
+  successors: RelatedHistoricalEvent[];
+  related: RelatedHistoricalEvent[];
 }
 
 export type EventType = 'military' | 'political' | 'economic' | 'cultural';

@@ -1,0 +1,9 @@
+{
+  "eventId": "thanh-lap-lang-xa-huyen-tien-hai-thai-binh",
+  "status": "pending_download",
+  "images": [],
+  "expected": [
+    "image_01.<ext>",
+    "image_02.<ext>"
+  ]
+}

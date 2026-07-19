@@ -1,0 +1,9 @@
+{
+  "eventId": "chu-tich-ho-chi-minh-tham-quan-cang-bai-chay-1961",
+  "status": "pending_download",
+  "images": [],
+  "expected": [
+    "image_01.<ext>",
+    "image_02.<ext>"
+  ]
+}

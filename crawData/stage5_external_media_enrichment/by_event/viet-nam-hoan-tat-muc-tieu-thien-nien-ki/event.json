@@ -1,0 +1,58 @@
+{
+  "eventId": "viet-nam-hoan-tat-muc-tieu-thien-nien-ki",
+  "title": "Việt Nam hoàn tất việc thực hiện các Mục tiêu Thiên niên kỉ (MDGs) của Liên hợp quốc",
+  "shortTitle": "Việt Nam hoàn tất MDGs",
+  "displayDate": "Đến năm 2015",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1975-den-nay",
+  "parentId": "cong-cuoc-doi-moi-o-viet-nam",
+  "historicalLocations": [
+    "Việt Nam"
+  ],
+  "provinceNames": [],
+  "canonicalSummary": "Đến 2015, Việt Nam đã hoàn tất việc thực hiện các Mục tiêu Thiên niên kỉ (MDGs) của Liên hợp quốc như: xoá đói, giảm nghèo, đạt phổ cập giáo dục tiểu học, thúc đẩy bình đẳng giới và đạt nhiều tiến bộ trong chỉ tiêu về y tế.",
+  "keyFacts": [
+    "Thành tựu về xoá đói giảm nghèo, phổ cập giáo dục, bình đẳng giới, y tế",
+    "Thực hiện các Mục tiêu Thiên niên kỉ của Liên hợp quốc",
+    "Hoàn tất đến năm 2015"
+  ],
+  "sourceFamily": "diplomacy",
+  "preferredVerificationDomains": [
+    "mofa.gov.vn",
+    "chinhphu.vn",
+    "vietnamplus.vn",
+    "nhandan.vn",
+    "un.org",
+    "asean.org",
+    "apec.org",
+    "europa.eu"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Việt Nam hoàn tất việc thực hiện các Mục tiêu Thiên niên kỉ (MDGs) của Liên hợp quốc",
+    "Việt Nam hoàn tất việc thực hiện các Mục tiêu Thiên niên kỉ (MDGs) của Liên hợp quốc Đến năm 2015",
+    "Việt Nam hoàn tất việc thực hiện các Mục tiêu Thiên niên kỉ (MDGs) của Liên hợp quốc Việt Nam",
+    "Việt Nam hoàn tất việc thực hiện các Mục tiêu Thiên niên kỉ (MDGs) của Liên hợp quốc Thành tựu về xoá đói giảm nghèo, phổ cập giáo dục, bình đẳng giới, y tế Thực hiện các Mục tiêu Thiên niên kỉ của Liên hợp quốc",
+    "Việt Nam hoàn tất việc thực hiện các Mục tiêu Thiên niên kỉ (MDGs) của Liên hợp quốc lễ ký",
+    "Việt Nam hoàn tất việc thực hiện các Mục tiêu Thiên niên kỉ (MDGs) của Liên hợp quốc hội nghị"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

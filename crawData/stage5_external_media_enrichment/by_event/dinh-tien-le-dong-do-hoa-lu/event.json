@@ -1,0 +1,57 @@
+{
+  "eventId": "dinh-tien-le-dong-do-hoa-lu",
+  "title": "Triều Đinh và Tiền Lê đóng đô ở Hoa Lư",
+  "shortTitle": "Triều Đinh và Tiền Lê đóng đô ở Hoa Lư",
+  "displayDate": "Thời Đinh – Tiền Lê",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-tu-the-ki-x-den-xv",
+  "parentId": "viet-nam-tu-the-ki-x-den-xv",
+  "historicalLocations": [],
+  "provinceNames": [
+    "Ninh Bình"
+  ],
+  "canonicalSummary": "Triều Định và Tiền Lê đóng đô ở Hoa Lư (Ninh Bình); kinh tế và văn hoá dân tộc bước đầu phát triển.",
+  "keyFacts": [
+    "Đóng đô ở Hoa Lư (Ninh Bình)",
+    "Kinh tế và văn hoá bước đầu phát triển",
+    "Triều Đinh và Tiền Lê"
+  ],
+  "sourceFamily": "ancient_medieval",
+  "preferredVerificationDomains": [
+    "baotanglichsu.vn",
+    "disanvanhoa.gov.vn",
+    "bvhttdl.gov.vn",
+    "qdnd.vn",
+    "nhandan.vn",
+    "unesco.org",
+    "whc.unesco.org"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Triều Đinh và Tiền Lê đóng đô ở Hoa Lư",
+    "Triều Đinh và Tiền Lê đóng đô ở Hoa Lư Thời Đinh – Tiền Lê",
+    "Triều Đinh và Tiền Lê đóng đô ở Hoa Lư Việt Nam từ thế kỉ X đến thế kỉ XV",
+    "Triều Đinh và Tiền Lê đóng đô ở Hoa Lư Đóng đô ở Hoa Lư (Ninh Bình) Kinh tế và văn hoá bước đầu phát triển",
+    "Triều Đinh và Tiền Lê đóng đô ở Hoa Lư hiện vật",
+    "Triều Đinh và Tiền Lê đóng đô ở Hoa Lư di tích"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

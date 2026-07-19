@@ -1,0 +1,58 @@
+{
+  "eventId": "hoi-nghi-dien-hong",
+  "title": "Hội nghị Diên Hồng",
+  "shortTitle": "Hội nghị Diên Hồng",
+  "displayDate": "Năm 1285",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-tu-the-ki-x-den-xv",
+  "parentId": "viet-nam-tu-the-ki-x-den-xv",
+  "historicalLocations": [],
+  "provinceNames": [
+    "Hà Nội"
+  ],
+  "canonicalSummary": "Năm 1285, tại điện Diên Hồng ở kinh thành Thăng Long, khi Thượng hoàng Trần Thánh Tông hỏi về kế sách đánh giặc, các vị bô lão đều đồng thanh hô lớn: \"Đánh!\".",
+  "keyFacts": [
+    "Diễn ra năm 1285",
+    "Địa điểm: điện Diên Hồng, Thăng Long",
+    "Mục đích: hỏi kế sách đánh giặc Nguyên",
+    "Kết quả: bô lão đồng thanh hô \"Đánh!\""
+  ],
+  "sourceFamily": "ancient_medieval",
+  "preferredVerificationDomains": [
+    "baotanglichsu.vn",
+    "disanvanhoa.gov.vn",
+    "bvhttdl.gov.vn",
+    "qdnd.vn",
+    "nhandan.vn",
+    "unesco.org",
+    "whc.unesco.org"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Hội nghị Diên Hồng",
+    "Hội nghị Diên Hồng Năm 1285",
+    "Hội nghị Diên Hồng Việt Nam từ thế kỉ X đến thế kỉ XV",
+    "Hội nghị Diên Hồng Diễn ra năm 1285 Địa điểm: điện Diên Hồng, Thăng Long",
+    "Hội nghị Diên Hồng hiện vật",
+    "Hội nghị Diên Hồng di tích"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

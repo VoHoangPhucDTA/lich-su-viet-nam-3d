@@ -13,21 +13,21 @@ interface MediaItem {
   caption?: string;
 }
 
-/**
- * Media gallery redesigned with CoiNguonPage design language.
- * Red-900 active border, white cards, subtle shadow.
- */
 export default function EventMediaGallery({ media, index = '07' }: EventMediaGalleryProps) {
-  const items: MediaItem[] = [];
+  const rawItems: MediaItem[] = [];
   if (media?.thumbnail) {
-    items.push({ type: 'image', url: media.thumbnail, caption: 'Ảnh đại diện' });
+    rawItems.push({ type: 'image', url: media.thumbnail, caption: 'Ảnh đại diện' });
   }
   if (media?.items) {
-    items.push(...media.items.map((it) => ({ type: it.type, url: it.url, caption: it.caption })));
+    rawItems.push(...media.items.map((it) => ({ type: it.type, url: it.url, caption: it.caption })));
   }
 
-  const [activeIdx, setActiveIdx] = useState(0);
-  const [lightbox, setLightbox] = useState(false);
+  const items = rawItems.filter(
+    (item, idx, arr) =>
+      item.url &&
+      arr.findIndex((candidate) => candidate.url === item.url && candidate.type === item.type) === idx
+  );
+  const [lightboxIdx, setLightboxIdx] = useState<number | null>(null);
 
   if (items.length === 0) {
     return (
@@ -52,85 +52,82 @@ export default function EventMediaGallery({ media, index = '07' }: EventMediaGal
     );
   }
 
-  const active = items[activeIdx];
+  const openItem = (item: MediaItem, idx: number) => {
+    if (item.type === 'image') {
+      setLightboxIdx(idx);
+      return;
+    }
+    window.open(item.url, '_blank', 'noopener,noreferrer');
+  };
+
+  const active = lightboxIdx === null ? null : items[lightboxIdx];
 
   return (
     <section id="media" className="scroll-mt-28 w-full">
       <SectionHeader
         index={index}
         title="Tư liệu hình ảnh & video"
-        subtitle={`${items.length} tư liệu được sưu tầm từ SGK và nguồn mở.`}
+        subtitle={`${items.length} tư liệu được sưu tầm.`}
       />
 
-      <div className="grid grid-cols-1 md:grid-cols-[1fr_120px] gap-4">
-        <button
-          onClick={() => setLightbox(true)}
-          className="relative aspect-[16/10] rounded-2xl overflow-hidden cursor-zoom-in"
-          style={{
-            background: 'var(--bg-surface)',
-            border: '1px solid var(--border)',
-            boxShadow: 'var(--shadow)',
-          }}
-        >
-          {active.type === 'video' ? (
-            <div className="w-full h-full flex flex-col items-center justify-center gap-3" style={{ color: 'var(--text-muted)' }}>
-              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4">
-                <polygon points="5,3 19,12 5,21" />
-              </svg>
-              <span className="text-sm">Nội dung video</span>
+      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
+        {items.map((item, idx) => (
+          <button
+            key={`${item.type}-${item.url}-${idx}`}
+            onClick={() => openItem(item, idx)}
+            className="group text-left rounded-2xl overflow-hidden transition-all duration-200"
+            style={{
+              background: 'var(--bg-card)',
+              border: '1px solid var(--border)',
+              boxShadow: 'var(--shadow)',
+            }}
+            onMouseEnter={(e) => {
+              (e.currentTarget as HTMLButtonElement).style.borderColor = 'var(--accent)';
+            }}
+            onMouseLeave={(e) => {
+              (e.currentTarget as HTMLButtonElement).style.borderColor = 'var(--border)';
+            }}
+          >
+            <div className="aspect-[16/10] overflow-hidden" style={{ background: 'var(--bg-surface)' }}>
+              {item.type === 'image' ? (
+                <img
+                  src={item.url}
+                  alt={item.caption || 'Tư liệu sự kiện'}
+                  className="w-full h-full object-cover"
+                />
+              ) : (
+                <div className="w-full h-full flex flex-col items-center justify-center gap-3" style={{ color: 'var(--text-muted)' }}>
+                  <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                    {item.type === 'video' ? (
+                      <polygon points="7,4 19,12 7,20" />
+                    ) : (
+                      <>
+                        <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" />
+                        <path d="M14 2v6h6" />
+                      </>
+                    )}
+                  </svg>
+                  <span className="text-sm font-medium">
+                    {item.type === 'video' ? 'Mở video' : 'Mở tư liệu'}
+                  </span>
+                </div>
+              )}
             </div>
-          ) : (
-            <img
-              src={active.url}
-              alt={active.caption || 'Tư liệu sự kiện'}
-              className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
-            />
-          )}
-          {active.caption && (
-            <div
-              className="absolute bottom-0 left-0 right-0 p-4 text-sm font-medium"
-              style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.78), transparent)', color: '#fff' }}
-            >
-              {active.caption}
+            <div className="p-4">
+              <div className="text-[10px] font-bold uppercase tracking-[0.14em] mb-1" style={{ color: 'var(--text-muted)' }}>
+                {item.type === 'video' ? 'Video' : item.type === 'document' ? 'Tài liệu' : 'Hình ảnh'}
+              </div>
+              <div className="text-sm font-semibold line-clamp-2" style={{ color: 'var(--text-primary)' }}>
+                {item.caption || 'Tư liệu sự kiện'}
+              </div>
             </div>
-          )}
-        </button>
-
-        <div className="flex md:flex-col gap-2 overflow-x-auto md:overflow-y-auto md:max-h-[420px] pb-2 md:pb-0 md:pr-1">
-          {items.map((it, idx) => {
-            const isActive = idx === activeIdx;
-            return (
-              <button
-                key={idx}
-                onClick={() => setActiveIdx(idx)}
-                className="relative aspect-square w-24 md:w-full flex-shrink-0 rounded-lg overflow-hidden transition-all duration-200"
-                style={{
-                  background: 'var(--bg-surface)',
-                  border: `2px solid ${isActive ? 'var(--accent)' : 'var(--border)'}`,
-                  opacity: isActive ? 1 : 0.7,
-                  transform: isActive ? 'scale(1.02)' : 'none',
-                }}
-                onMouseEnter={(e) => { if (!isActive) (e.currentTarget as HTMLButtonElement).style.opacity = '0.9'; }}
-                onMouseLeave={(e) => { if (!isActive) (e.currentTarget as HTMLButtonElement).style.opacity = '0.7'; }}
-              >
-                {it.type === 'video' ? (
-                  <div className="w-full h-full flex items-center justify-center" style={{ color: 'var(--text-muted)' }}>
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
-                      <polygon points="5,3 19,12 5,21" />
-                    </svg>
-                  </div>
-                ) : (
-                  <img src={it.url} alt={it.caption || ''} className="w-full h-full object-cover" />
-                )}
-              </button>
-            );
-          })}
-        </div>
+          </button>
+        ))}
       </div>
 
-      {lightbox && active.type !== 'video' && (
+      {active && active.type === 'image' && (
         <div
-          onClick={() => setLightbox(false)}
+          onClick={() => setLightboxIdx(null)}
           className="fixed inset-0 z-[200] flex items-center justify-center p-6 cursor-zoom-out"
           style={{ background: 'rgba(0,0,0,0.92)', backdropFilter: 'blur(6px)' }}
         >

@@ -1,0 +1,68 @@
+{
+  "eventId": "hoat-dong-doi-ngoai-phan-boi-chau",
+  "title": "Hoạt động đối ngoại của Phan Bội Châu",
+  "shortTitle": "Hoạt động đối ngoại của Phan Bội Châu",
+  "displayDate": "1905 - 1912",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1858-1918",
+  "parentId": "viet-nam-1858-1918",
+  "historicalLocations": [
+    "Nhật Bản",
+    "Nga",
+    "Ấn Độ",
+    "Đức",
+    "Việt Nam",
+    "Trung Quốc",
+    "Triều Tiên",
+    "Quảng Tây",
+    "Vân Nam"
+  ],
+  "provinceNames": [],
+  "canonicalSummary": "Hoạt động đối ngoại của Phan Bội Châu diễn ra chủ yếu ở Nhật Bản, Trung Quốc với mục đích tìm kiếm sự giúp đỡ từ bên ngoài để chống thực dân Pháp, giành độc lập dân tộc.",
+  "keyFacts": [
+    "Thành lập Điền – Quế -Việt liên minh và Đông Á đồng minh (1908)",
+    "Đưa 200 thanh niên sang Nhật học tập (1905)",
+    "Hoạt động ở Nhật Bản và Trung Quốc",
+    "Thành lập Việt Nam Quang phục hội (1912)",
+    "Liên lạc với Công sứ Đức, Đại sứ quán Nga"
+  ],
+  "sourceFamily": "colonial",
+  "preferredVerificationDomains": [
+    "baotanglichsu.vn",
+    "luutru.gov.vn",
+    "hochiminh.vn",
+    "nhandan.vn",
+    "qdnd.vn",
+    "vietnamplus.vn",
+    "gallica.bnf.fr",
+    "loc.gov"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Hoạt động đối ngoại của Phan Bội Châu",
+    "Hoạt động đối ngoại của Phan Bội Châu 1905 - 1912",
+    "Hoạt động đối ngoại của Phan Bội Châu Nhật Bản",
+    "Hoạt động đối ngoại của Phan Bội Châu Thành lập Điền – Quế -Việt liên minh và Đông Á đồng minh (1908) Đưa 200 thanh niên sang Nhật học tập (1905)",
+    "Hoạt động đối ngoại của Phan Bội Châu ảnh tư liệu",
+    "Hoạt động đối ngoại của Phan Bội Châu chân dung"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

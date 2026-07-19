@@ -1,0 +1,9 @@
+{
+  "eventId": "dinh-tien-le-dong-do-hoa-lu",
+  "status": "pending_download",
+  "images": [],
+  "expected": [
+    "image_01.<ext>",
+    "image_02.<ext>"
+  ]
+}

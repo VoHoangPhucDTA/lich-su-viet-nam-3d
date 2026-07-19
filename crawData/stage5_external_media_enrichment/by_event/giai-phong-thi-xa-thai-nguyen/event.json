@@ -1,0 +1,61 @@
+{
+  "eventId": "giai-phong-thi-xa-thai-nguyen",
+  "title": "Giải phóng thị xã Thái Nguyên",
+  "shortTitle": "Giải phóng Thái Nguyên",
+  "displayDate": "Chiều ngày 16 – 8 – 1945",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1919-1945",
+  "parentId": "cach-mang-thang-tam-nam-1945",
+  "historicalLocations": [],
+  "provinceNames": [
+    "Thái Nguyên",
+    "Hà Nội",
+    "Tuyên Quang"
+  ],
+  "canonicalSummary": "Chiều ngày 16 – 8 – 1945, một đơn vị Giải phóng quân do Võ Nguyên Giáp chỉ huy, xuất phát từ Tân Trào tiến về giải phóng thị xã Thái Nguyên, mở đường tiến về Hà Nội.",
+  "keyFacts": [
+    "Xuất phát từ Tân Trào",
+    "Chiều 16-8-1945",
+    "Giải phóng thị xã Thái Nguyên",
+    "Giải phóng quân do Võ Nguyên Giáp chỉ huy"
+  ],
+  "sourceFamily": "revolutionary",
+  "preferredVerificationDomains": [
+    "hochiminh.vn",
+    "tulieuvankien.dangcongsan.vn",
+    "dangcongsan.vn",
+    "baotanglichsu.vn",
+    "nhandan.vn",
+    "qdnd.vn",
+    "vietnamplus.vn",
+    "luutru.gov.vn"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Giải phóng thị xã Thái Nguyên",
+    "Giải phóng thị xã Thái Nguyên Chiều ngày 16 – 8 – 1945",
+    "Giải phóng thị xã Thái Nguyên Cách mạng tháng Tám năm 1945",
+    "Giải phóng thị xã Thái Nguyên Xuất phát từ Tân Trào Chiều 16-8-1945",
+    "Giải phóng thị xã Thái Nguyên ảnh tư liệu",
+    "Giải phóng thị xã Thái Nguyên chân dung"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

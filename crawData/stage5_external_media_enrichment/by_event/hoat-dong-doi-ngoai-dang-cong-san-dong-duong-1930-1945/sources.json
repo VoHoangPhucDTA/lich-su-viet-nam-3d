@@ -1,0 +1,9 @@
+{
+  "eventId": "hoat-dong-doi-ngoai-dang-cong-san-dong-duong-1930-1945",
+  "status": "pending_download",
+  "images": [],
+  "expected": [
+    "image_01.<ext>",
+    "image_02.<ext>"
+  ]
+}

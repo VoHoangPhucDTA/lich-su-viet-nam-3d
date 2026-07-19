@@ -1,0 +1,64 @@
+{
+  "eventId": "lien-xo-vien-tro-cho-viet-nam",
+  "title": "Liên Xô viện trợ cho Việt Nam",
+  "shortTitle": "Viện trợ Liên Xô cho Việt Nam",
+  "displayDate": "1955 - 1975",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1954-1975",
+  "parentId": "viet-nam-1954-1975",
+  "historicalLocations": [
+    "miền Bắc",
+    "Liên Xô",
+    "Việt Nam",
+    "miền Nam"
+  ],
+  "provinceNames": [],
+  "canonicalSummary": "Trong những năm 1955 - 1975, Liên Xô viện trợ về kinh tế – kĩ thuật cho Việt Nam trị giá khoảng 2,1 tỉ rúp và nhiều vũ khí, phương tiện quân sự,... phục vụ cho công cuộc xây dựng chủ nghĩa xã hội ở miền Bắc và chi viện cho chiến trường miền Nam.",
+  "keyFacts": [
+    "Diễn ra từ 1955-1975",
+    "Viện trợ nhiều vũ khí, phương tiện quân sự",
+    "Chi viện cho chiến trường miền Nam",
+    "Phục vụ xây dựng chủ nghĩa xã hội ở miền Bắc",
+    "Viện trợ khoảng 2,1 tỉ rúp"
+  ],
+  "sourceFamily": "war_1945_1975",
+  "preferredVerificationDomains": [
+    "btlsqsvn.org.vn",
+    "qdnd.vn",
+    "nhandan.vn",
+    "vietnamplus.vn",
+    "hochiminh.vn",
+    "baotanglichsu.vn",
+    "luutru.gov.vn",
+    "loc.gov",
+    "archives.gov"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Liên Xô viện trợ cho Việt Nam",
+    "Liên Xô viện trợ cho Việt Nam 1955 - 1975",
+    "Liên Xô viện trợ cho Việt Nam miền Bắc",
+    "Liên Xô viện trợ cho Việt Nam Diễn ra từ 1955-1975 Viện trợ nhiều vũ khí, phương tiện quân sự",
+    "Liên Xô viện trợ cho Việt Nam ảnh tư liệu",
+    "Liên Xô viện trợ cho Việt Nam chiến dịch"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "eventId": "lien-hop-quoc-vien-tro-viet-nam-1977-1986",
+  "status": "pending_download",
+  "images": [],
+  "expected": [
+    "image_01.<ext>",
+    "image_02.<ext>"
+  ]
+}

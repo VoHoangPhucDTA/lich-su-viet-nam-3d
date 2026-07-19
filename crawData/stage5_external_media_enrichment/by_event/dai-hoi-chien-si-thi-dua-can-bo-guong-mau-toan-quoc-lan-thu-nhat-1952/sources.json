@@ -1,0 +1,9 @@
+{
+  "eventId": "dai-hoi-chien-si-thi-dua-can-bo-guong-mau-toan-quoc-lan-thu-nhat-1952",
+  "status": "pending_download",
+  "images": [],
+  "expected": [
+    "image_01.<ext>",
+    "image_02.<ext>"
+  ]
+}

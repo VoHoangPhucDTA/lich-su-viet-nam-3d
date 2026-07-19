@@ -1,0 +1,55 @@
+{
+  "eventId": "khang-chien-thang-loi",
+  "title": "Kháng chiến thắng lợi",
+  "shortTitle": "Kháng chiến thắng lợi",
+  "displayDate": "Thời kì kháng chiến",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1945-1954",
+  "parentId": "viet-nam-1945-1954",
+  "historicalLocations": [],
+  "provinceNames": [],
+  "canonicalSummary": "Lực lượng đoàn kết đã giúp kháng chiến thắng lợi.",
+  "keyFacts": [
+    "Thắng lợi nhờ lực lượng đoàn kết"
+  ],
+  "sourceFamily": "war_1945_1975",
+  "preferredVerificationDomains": [
+    "btlsqsvn.org.vn",
+    "qdnd.vn",
+    "nhandan.vn",
+    "vietnamplus.vn",
+    "hochiminh.vn",
+    "baotanglichsu.vn",
+    "luutru.gov.vn",
+    "loc.gov",
+    "archives.gov"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Kháng chiến thắng lợi",
+    "Kháng chiến thắng lợi Thời kì kháng chiến",
+    "Kháng chiến thắng lợi Việt Nam từ năm 1945 đến năm 1954",
+    "Kháng chiến thắng lợi Thắng lợi nhờ lực lượng đoàn kết",
+    "Kháng chiến thắng lợi ảnh tư liệu",
+    "Kháng chiến thắng lợi chiến dịch"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

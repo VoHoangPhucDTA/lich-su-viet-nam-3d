@@ -1,0 +1,9 @@
+{
+  "eventId": "quoc-hoi-khoa-vi-doi-ten-sai-gon-thanh-thanh-pho-ho-chi-minh",
+  "status": "pending_download",
+  "images": [],
+  "expected": [
+    "image_01.<ext>",
+    "image_02.<ext>"
+  ]
+}

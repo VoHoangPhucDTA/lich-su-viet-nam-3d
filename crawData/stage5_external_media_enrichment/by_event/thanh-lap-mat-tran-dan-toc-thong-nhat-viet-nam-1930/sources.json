@@ -1,0 +1,9 @@
+{
+  "eventId": "thanh-lap-mat-tran-dan-toc-thong-nhat-viet-nam-1930",
+  "status": "pending_download",
+  "images": [],
+  "expected": [
+    "image_01.<ext>",
+    "image_02.<ext>"
+  ]
+}

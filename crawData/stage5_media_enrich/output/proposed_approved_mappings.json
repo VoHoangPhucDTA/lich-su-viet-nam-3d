@@ -1,0 +1,551 @@
+{
+  "mappings": [
+    {
+      "altText": "",
+      "lessonId": "12122",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12122/img_01.png",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "xay-dung-cau-long-bien",
+          "isThumbnail": true,
+          "reviewNote": "existing candidate; same lesson evidence; caption/title/context token match: biên, cầu, hiện, long, lịch; specific event",
+          "sortOrder": 1
+        }
+      ]
+    },
+    {
+      "altText": "",
+      "lessonId": "12122",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12122/img_04.png",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "ho-chi-minh-cong-bo-tuyen-ngon-doc-lap",
+          "isThumbnail": true,
+          "reviewNote": "existing candidate; same lesson evidence; caption/title/context token match: 1945, bản, chí, chủ, công; specific event; chronology match",
+          "sortOrder": 1
+        }
+      ]
+    },
+    {
+      "altText": "",
+      "lessonId": "12128",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12128/img_01.png",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "trang-an-duoc-ghi-danh-di-san-the-gioi",
+          "isThumbnail": true,
+          "reviewNote": "existing candidate; same lesson evidence; caption/title/context token match: bình, danh, học, khoa, ninh; specific event",
+          "sortOrder": 1
+        }
+      ]
+    },
+    {
+      "altText": "",
+      "lessonId": "12128",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12128/img_02.png",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "khoi-nghia-lam-son",
+          "isThumbnail": true,
+          "reviewNote": "existing candidate; same lesson evidence; caption/title/context token match: bình, chống, cuộc, các, cáo; specific event",
+          "sortOrder": 1
+        }
+      ]
+    },
+    {
+      "altText": "",
+      "lessonId": "12137",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12137/img_02.png",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "phe-duyet-chien-luoc-phat-trien-cong-nghiep-van-hoa-viet-nam",
+          "isThumbnail": true,
+          "reviewNote": "existing candidate; same lesson evidence; caption/title/context token match: hoá, hình, văn; specific event",
+          "sortOrder": 1
+        }
+      ]
+    },
+    {
+      "altText": "",
+      "lessonId": "12137",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12137/img_06.png",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "phe-duyet-chien-luoc-phat-trien-cong-nghiep-van-hoa-viet-nam",
+          "isThumbnail": true,
+          "reviewNote": "existing candidate; same lesson evidence; caption/title/context token match: biểu, diễn, hình; specific event",
+          "sortOrder": 1
+        }
+      ]
+    },
+    {
+      "altText": "",
+      "lessonId": "12137",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12137/img_07.png",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "phe-duyet-chien-luoc-phat-trien-cong-nghiep-van-hoa-viet-nam",
+          "isThumbnail": true,
+          "reviewNote": "existing candidate; same lesson evidence; specific event",
+          "sortOrder": 1
+        }
+      ]
+    },
+    {
+      "altText": "",
+      "lessonId": "12137",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12137/img_08.png",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "phe-duyet-chien-luoc-phat-trien-cong-nghiep-van-hoa-viet-nam",
+          "isThumbnail": true,
+          "reviewNote": "existing candidate; same lesson evidence; specific event",
+          "sortOrder": 1
+        }
+      ]
+    },
+    {
+      "altText": "",
+      "lessonId": "12145",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12145/img_01.png",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "ro-bot-xophia-duoc-cap-quyen-cong-dan",
+          "isThumbnail": true,
+          "reviewNote": "existing candidate; same lesson evidence; caption/title/context token match: cách, công, hiện, mạng, nghiệp; specific event",
+          "sortOrder": 1
+        }
+      ]
+    },
+    {
+      "altText": "",
+      "lessonId": "12145",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12145/img_02.png",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "ro-bot-xophia-duoc-cap-quyen-cong-dan",
+          "isThumbnail": true,
+          "reviewNote": "existing candidate; same lesson evidence; caption/title/context token match: cách, công, hiện, hình, mạng; specific event",
+          "sortOrder": 1
+        }
+      ]
+    },
+    {
+      "altText": "",
+      "lessonId": "12146",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12146/img_10.png",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "nha-ly-xay-dung-van-mieu",
+          "isThumbnail": true,
+          "reviewNote": "existing candidate; same lesson evidence; caption/title/context token match: miếu, nam, việt, văn; specific event",
+          "sortOrder": 1
+        }
+      ]
+    },
+    {
+      "altText": "",
+      "lessonId": "12148",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12148/img_04.png",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "hinh-thanh-phat-trien-van-minh-van-lang-au-lac",
+          "isThumbnail": true,
+          "reviewNote": "existing candidate; same lesson evidence; caption/title/context token match: hình, hồng, minh, nam, nước; specific event",
+          "sortOrder": 1
+        }
+      ]
+    },
+    {
+      "altText": "",
+      "lessonId": "12148",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12148/img_05.png",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "hinh-thanh-phat-trien-van-minh-van-lang-au-lac",
+          "isThumbnail": true,
+          "reviewNote": "existing candidate; same lesson evidence; caption/title/context token match: hình, lang, minh, nam, nhà; specific event",
+          "sortOrder": 1
+        }
+      ]
+    },
+    {
+      "altText": "",
+      "lessonId": "12148",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12148/img_06.png",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "hinh-thanh-phat-trien-van-minh-van-lang-au-lac",
+          "isThumbnail": true,
+          "reviewNote": "existing candidate; same lesson evidence; caption/title/context token match: hình, minh, nam, nước, trên; specific event",
+          "sortOrder": 1
+        }
+      ]
+    },
+    {
+      "altText": "",
+      "lessonId": "12148",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12148/img_07.png",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "hinh-thanh-phat-trien-van-minh-van-lang-au-lac",
+          "isThumbnail": true,
+          "reviewNote": "existing candidate; same lesson evidence; caption/title/context token match: hình, minh, nam, nước, trên; specific event",
+          "sortOrder": 1
+        }
+      ]
+    },
+    {
+      "altText": "",
+      "lessonId": "12148",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12148/img_08.png",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "hinh-thanh-phat-trien-van-minh-van-lang-au-lac",
+          "isThumbnail": true,
+          "reviewNote": "existing candidate; same lesson evidence; caption/title/context token match: hình, minh, nam, nước, trên; specific event",
+          "sortOrder": 1
+        }
+      ]
+    },
+    {
+      "altText": "",
+      "lessonId": "12148",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12148/img_14.png",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "hinh-thanh-phat-trien-van-minh-cham-pa",
+          "isThumbnail": true,
+          "reviewNote": "existing candidate; same lesson evidence; caption/title/context token match: hình, minh, một, nam, nước; specific event",
+          "sortOrder": 1
+        }
+      ]
+    },
+    {
+      "altText": "",
+      "lessonId": "12148",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12148/img_15.png",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "hinh-thanh-phat-trien-van-minh-cham-pa",
+          "isThumbnail": true,
+          "reviewNote": "existing candidate; same lesson evidence; caption/title/context token match: chăm, chức, giáo, hình, minh; specific event",
+          "sortOrder": 1
+        }
+      ]
+    },
+    {
+      "altText": "",
+      "lessonId": "12148",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12148/img_16.png",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "hinh-thanh-phat-trien-van-minh-cham-pa",
+          "isThumbnail": true,
+          "reviewNote": "existing candidate; same lesson evidence; caption/title/context token match: hình, minh, một, nam, nước; specific event",
+          "sortOrder": 1
+        }
+      ]
+    },
+    {
+      "altText": "",
+      "lessonId": "12148",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12148/img_17.png",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "hinh-thanh-phat-trien-van-minh-cham-pa",
+          "isThumbnail": true,
+          "reviewNote": "existing candidate; same lesson evidence; caption/title/context token match: hình, minh, một, nam, nước; specific event",
+          "sortOrder": 1
+        }
+      ]
+    },
+    {
+      "altText": "",
+      "lessonId": "12148",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12148/img_18.png",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "hinh-thanh-phat-trien-van-minh-cham-pa",
+          "isThumbnail": true,
+          "reviewNote": "existing candidate; same lesson evidence; caption/title/context token match: hình, minh, một, nam, nước; specific event",
+          "sortOrder": 1
+        }
+      ]
+    },
+    {
+      "altText": "",
+      "lessonId": "12148",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12148/img_19.png",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "hinh-thanh-phat-trien-van-minh-cham-pa",
+          "isThumbnail": true,
+          "reviewNote": "existing candidate; same lesson evidence; caption/title/context token match: hình, minh, một, nam, nước; specific event",
+          "sortOrder": 1
+        }
+      ]
+    },
+    {
+      "altText": "",
+      "lessonId": "12148",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12148/img_20.png",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "van-hoa-tien-oc-eo",
+          "isThumbnail": true,
+          "reviewNote": "existing candidate; same lesson evidence; caption/title/context token match: của, hoá, hình, minh, một; specific event",
+          "sortOrder": 1
+        }
+      ]
+    },
+    {
+      "altText": "",
+      "lessonId": "12148",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12148/img_21.png",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "van-hoa-tien-oc-eo",
+          "isThumbnail": true,
+          "reviewNote": "existing candidate; same lesson evidence; caption/title/context token match: hình, minh, một, nam, nước; specific event",
+          "sortOrder": 1
+        }
+      ]
+    },
+    {
+      "altText": "",
+      "lessonId": "12148",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12148/img_22.png",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "hinh-thanh-phat-trien-van-minh-phu-nam",
+          "isThumbnail": true,
+          "reviewNote": "existing candidate; same lesson evidence; caption/title/context token match: hình, minh, nam, nước, tiền; specific event",
+          "sortOrder": 1
+        }
+      ]
+    },
+    {
+      "altText": "",
+      "lessonId": "12148",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12148/img_23.png",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "hinh-thanh-phat-trien-van-minh-phu-nam",
+          "isThumbnail": true,
+          "reviewNote": "existing candidate; same lesson evidence; caption/title/context token match: của, hình, minh, nam, nước; specific event",
+          "sortOrder": 1
+        }
+      ]
+    },
+    {
+      "altText": "",
+      "lessonId": "12148",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12148/img_24.png",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "hinh-thanh-phat-trien-van-minh-cham-pa",
+          "isThumbnail": true,
+          "reviewNote": "existing candidate; same lesson evidence; caption/title/context token match: minh, một, nam, nước, nền; specific event",
+          "sortOrder": 1
+        }
+      ]
+    },
+    {
+      "altText": "",
+      "lessonId": "12160",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12160/img_02.png",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "nha-le-so-thanh-lap",
+          "isThumbnail": true,
+          "reviewNote": "existing candidate; same lesson evidence; caption/title/context token match: nhà, việt, đại; specific event",
+          "sortOrder": 1
+        }
+      ]
+    },
+    {
+      "altText": "",
+      "lessonId": "12160",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12160/img_05.png",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "nha-le-so-thanh-lap",
+          "isThumbnail": true,
+          "reviewNote": "existing candidate; same lesson evidence; caption/title/context token match: việt, đại; specific event",
+          "sortOrder": 1
+        }
+      ]
+    },
+    {
+      "altText": "",
+      "lessonId": "12160",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12160/img_06.png",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "nha-le-so-thanh-lap",
+          "isThumbnail": true,
+          "reviewNote": "existing candidate; same lesson evidence; caption/title/context token match: việt, đại; specific event",
+          "sortOrder": 1
+        }
+      ]
+    },
+    {
+      "altText": "",
+      "lessonId": "12160",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12160/img_07.png",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "nha-le-so-thanh-lap",
+          "isThumbnail": true,
+          "reviewNote": "existing candidate; same lesson evidence; caption/title/context token match: việt, đại; specific event",
+          "sortOrder": 1
+        }
+      ]
+    },
+    {
+      "altText": "",
+      "lessonId": "12160",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12160/img_12.png",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "thuong-mai-a-au-phat-trien-tai-dai-viet",
+          "isThumbnail": true,
+          "reviewNote": "existing candidate; same lesson evidence; caption/title/context token match: buôn, bán, bản, của, nhật; specific event",
+          "sortOrder": 1
+        }
+      ]
+    },
+    {
+      "altText": "",
+      "lessonId": "12160",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12160/img_16.png",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "le-thanh-tong-dung-bia-tien-si-van-mieu",
+          "isThumbnail": true,
+          "reviewNote": "existing candidate; same lesson evidence; caption/title/context token match: bia, miếu, tiến, văn; specific event",
+          "sortOrder": 1
+        }
+      ]
+    },
+    {
+      "altText": "",
+      "lessonId": "12162",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12162/img_09.png",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "giai-doan-day-manh-cong-nghiep-hoa-hien-dai-hoa-hoi-nhap-kinh-te-quoc-te-1996-2006",
+          "isThumbnail": true,
+          "reviewNote": "caption/title/context token match: chất, các, cộng, của, dân; specific event",
+          "sortOrder": 1
+        }
+      ]
+    },
+    {
+      "altText": "",
+      "lessonId": "12169",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12169/img_01.png",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "mit-tinh-chao-mung-uy-ban-quan-quan-sai-gon-1975",
+          "isThumbnail": true,
+          "reviewNote": "existing candidate; same lesson evidence; caption/title/context token match: 1975, ban, chào, dân, gòn; specific event; chronology match",
+          "sortOrder": 1
+        }
+      ]
+    },
+    {
+      "altText": "",
+      "lessonId": "12169",
+      "sourceImage": "crawData/stage1_crawl/images/grade_10/12169/img_02.png",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "nhan-dan-ung-ho-mien-trung-bao-so-9-2020",
+          "isThumbnail": true,
+          "reviewNote": "existing candidate; same lesson evidence; caption/title/context token match: 2020, bão, chung, các, cơn; specific event; chronology match",
+          "sortOrder": 1
+        }
+      ]
+    },
+    {
+      "altText": "",
+      "lessonId": "12339",
+      "sourceImage": "crawData/stage1_crawl/images/grade_11/12339/img_02.png",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "phap-xam-chiem-dong-duong",
+          "isThumbnail": true,
+          "reviewNote": "existing candidate; same lesson evidence; caption/title/context token match: lược, nam, nước, thế, xâm; specific event",
+          "sortOrder": 1
+        }
+      ]
+    },
+    {
+      "altText": "",
+      "lessonId": "12339",
+      "sourceImage": "crawData/stage1_crawl/images/grade_11/12339/img_05.png",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "thuc-dan-phap-no-sung-tan-cong-da-nang",
+          "isThumbnail": true,
+          "reviewNote": "existing candidate; same lesson evidence; caption/title/context token match: 1858, ban, công, của, liên; specific event; chronology match",
+          "sortOrder": 1
+        }
+      ]
+    },
+    {
+      "altText": "",
+      "lessonId": "12339",
+      "sourceImage": "crawData/stage1_crawl/images/grade_11/12339/img_07.png",
+      "status": "approved",
+      "targets": [
+        {
+          "eventId": "phap-xam-chiem-dong-duong",
+          "isThumbnail": true,
+          "reviewNote": "existing candidate; same lesson evidence; caption/title/context token match: dân, lược, pháp, thực, xâm; specific event",
+          "sortOrder": 1
+        }
+      ]
+    }
+  ],
+  "version": 1
+}

@@ -1,0 +1,2102 @@
+{
+  "automaticApprovals": 0,
+  "decisionFile": "crawData\\stage5_external_media_enrichment\\external_event_media_review_decisions.json",
+  "duplicateAffectedEvents": 162,
+  "duplicateEventsMarkedNeedsReplacement": 0,
+  "duplicateHashGroups": 71,
+  "eventsMarkedNeedsReplacement": 14,
+  "hardBlockerEvents": 14,
+  "missingEventsLeftUntouched": 104,
+  "rows": [
+    {
+      "action": "needs_replacement",
+      "category": "data_issue",
+      "detail": "Không dùng ngày 1/4/1989 cho đến khi có nguồn chính thức.",
+      "eventId": "bai-bo-che-do-tem-phieu-o-viet-nam",
+      "reasonType": "hard_blocker",
+      "status": "blocked_data_issue",
+      "title": "Bãi bỏ chế độ tem phiếu ở Việt Nam"
+    },
+    {
+      "action": "needs_replacement",
+      "category": "missing_direct_source",
+      "detail": "Giữ event ở trạng thái blocked cho đến khi tìm được tư liệu trực tiếp hoặc chấp nhận rõ đây chỉ là contextual.",
+      "eventId": "bru-nay-tuyen-bo-ranh-gioi-them-luc-dia",
+      "reasonType": "hard_blocker",
+      "status": "blocked_needs_direct_source",
+      "title": "Bru-nây tuyên bố về ranh giới thềm lục địa 200 hải lí"
+    },
+    {
+      "action": "needs_replacement",
+      "category": "missing_direct_source",
+      "detail": "Giữ event ở trạng thái blocked cho đến khi tìm được tư liệu trực tiếp hoặc chấp nhận rõ đây chỉ là contextual.",
+      "eventId": "bru-nay-tuyen-bo-vung-dac-quyen-kinh-te",
+      "reasonType": "hard_blocker",
+      "status": "blocked_needs_direct_source",
+      "title": "Bru-nây tuyên bố về vùng đặc quyền kinh tế"
+    },
+    {
+      "action": "needs_replacement",
+      "category": "missing_direct_source",
+      "detail": "Giữ event ở trạng thái blocked cho đến khi tìm được tư liệu trực tiếp hoặc chấp nhận rõ đây chỉ là contextual.",
+      "eventId": "chu-tich-ho-chi-minh-tham-quan-cang-bai-chay-1961",
+      "reasonType": "hard_blocker",
+      "status": "blocked_needs_direct_source",
+      "title": "Chủ tịch Hồ Chí Minh thăm Quân cảng Bãi Cháy và căn dặn về bảo vệ biển"
+    },
+    {
+      "action": "needs_replacement",
+      "category": "missing_direct_source",
+      "detail": "Giữ event ở trạng thái blocked cho đến khi tìm được tư liệu trực tiếp hoặc chấp nhận rõ đây chỉ là contextual.",
+      "eventId": "dai-hoi-dai-bieu-toan-quoc-lan-thu-viii-cua-dang-cong-san-viet-nam",
+      "reasonType": "hard_blocker",
+      "status": "blocked_needs_direct_source",
+      "title": "Đại hội đại biểu toàn quốc lần thứ VIII của Đảng Cộng sản Việt Nam"
+    },
+    {
+      "action": "needs_replacement",
+      "category": "data_issue",
+      "detail": "Phân biệt chiếm/kiểm soát với hoạt động xây dựng năm 1995 tại Bãi Bàn Than/Zhongzhou Reef.",
+      "eventId": "dai-loan-chiem-bai-can-ran-san-ho-ban-than",
+      "reasonType": "hard_blocker",
+      "status": "blocked_data_issue",
+      "title": "Đài Loan chiếm bãi cạn rạn san hô Bàn Than"
+    },
+    {
+      "action": "needs_replacement",
+      "category": "missing_direct_source",
+      "detail": "Giữ event ở trạng thái blocked cho đến khi tìm được tư liệu trực tiếp hoặc chấp nhận rõ đây chỉ là contextual.",
+      "eventId": "hoi-nghi-cap-cao-ba-nuoc-viet-nam-lao-cam-pu-chia",
+      "reasonType": "hard_blocker",
+      "status": "blocked_needs_direct_source",
+      "title": "Hội nghị cấp cao ba nước Việt Nam - Lào - Cam-pu-chia"
+    },
+    {
+      "action": "needs_replacement",
+      "category": "missing_direct_source",
+      "detail": "Giữ event ở trạng thái blocked cho đến khi tìm được tư liệu trực tiếp hoặc chấp nhận rõ đây chỉ là contextual.",
+      "eventId": "lang-co-ten-nom-xuat-hien-som-thoi-ly-tran",
+      "reasonType": "hard_blocker",
+      "status": "blocked_needs_direct_source",
+      "title": "Những làng có tên nôm xuất hiện sớm vào thời Lý – Trần"
+    },
+    {
+      "action": "needs_replacement",
+      "category": "data_issue",
+      "detail": "Xác minh lại phát biểu “thời Trần đặt chức xã quan”.",
+      "eventId": "thoi-tran-dat-chuc-xa-quan",
+      "reasonType": "hard_blocker",
+      "status": "blocked_data_issue",
+      "title": "Thời Trần đặt chức xã quan"
+    },
+    {
+      "action": "needs_replacement",
+      "category": "missing_direct_source",
+      "detail": "Giữ event ở trạng thái blocked cho đến khi tìm được tư liệu trực tiếp hoặc chấp nhận rõ đây chỉ là contextual.",
+      "eventId": "viet-nam-ban-hanh-tuyen-bo-vung-bien-them-luc-dia",
+      "reasonType": "hard_blocker",
+      "status": "blocked_needs_direct_source",
+      "title": "Việt Nam ban hành Tuyên bố về các vùng biển và thềm lục địa Việt Nam"
+    },
+    {
+      "action": "needs_replacement",
+      "category": "data_issue",
+      "detail": "Không phê duyệt ảnh trước khi sửa/đối chiếu lại event về nhóm An Vĩnh năm 1956.",
+      "eventId": "viet-nam-danh-chiem-nua-phia-dong-hoang-sa",
+      "reasonType": "hard_blocker",
+      "status": "blocked_data_issue",
+      "title": "Việt Nam (chính quyền Sài Gòn) đánh chiếm nửa phía đông của quần đảo Hoàng Sa (nhóm An Vĩnh)"
+    },
+    {
+      "action": "needs_replacement",
+      "category": "data_issue",
+      "detail": "Xác minh Việt Nam đạt từng MDG; tránh caption “hoàn tất tất cả MDGs” nếu không có nguồn.",
+      "eventId": "viet-nam-hoan-tat-muc-tieu-thien-nien-ki",
+      "reasonType": "hard_blocker",
+      "status": "blocked_data_issue",
+      "title": "Việt Nam hoàn tất việc thực hiện các Mục tiêu Thiên niên kỉ (MDGs) của Liên hợp quốc"
+    },
+    {
+      "action": "needs_replacement",
+      "category": "missing_direct_source",
+      "detail": "Giữ event ở trạng thái blocked cho đến khi tìm được tư liệu trực tiếp hoặc chấp nhận rõ đây chỉ là contextual.",
+      "eventId": "vndcch-gap-go-dang-cong-san-phap-va-cac-to-chuc-quoc-te",
+      "reasonType": "hard_blocker",
+      "status": "blocked_needs_direct_source",
+      "title": "Chính phủ Việt Nam Dân chủ Cộng hoà gặp gỡ đại diện Đảng Cộng sản Pháp và nhiều tổ chức quốc tế"
+    },
+    {
+      "action": "needs_replacement",
+      "category": "data_issue",
+      "detail": "Xác minh lại phát biểu “xã trở thành tên gọi phổ biến từ thế kỉ X”.",
+      "eventId": "xa-tro-thanh-ten-goi-pho-bien",
+      "reasonType": "hard_blocker",
+      "status": "blocked_data_issue",
+      "title": "Xã chính thức trở thành tên gọi phổ biến"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 2 local files; allowed by external policy.",
+      "eventId": "bac-thuoc-va-dau-tranh-gianh-doc-lap",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "a3fdd7e0cab87b4c418920a418d37ca4783e47a93be4b09ca54ce089a490f87b",
+      "slot": 2,
+      "title": "Bắc thuộc và đấu tranh giành độc lập"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 2 local files; allowed by external policy.",
+      "eventId": "bac-thuoc-va-dau-tranh-gianh-doc-lap",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "b4e32b736dfcb2de1e354ace296b8c6b961efa775e2823a6a5127d7471a28e90",
+      "slot": 1,
+      "title": "Bắc thuộc và đấu tranh giành độc lập"
+    },
+    {
+      "action": "hard_blocked_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 4 local files; allowed by external policy.",
+      "eventId": "bai-bo-che-do-tem-phieu-o-viet-nam",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "2b6acaeef473b4cf4b0b85551dd4957efd158062c94f43d2de92ae70451e1df8",
+      "slot": 2,
+      "title": "Bãi bỏ chế độ tem phiếu ở Việt Nam"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 3 local files; allowed by external policy.",
+      "eventId": "ban-hanh-chinh-sach-loc-dien-quan-dien",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "63788b13ca653804e4b56b590e09aafcef71132fec7da375641c68d38706927a",
+      "slot": 2,
+      "title": "Ban hành chính sách lộc điền và quân điền"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 3 local files; allowed by external policy.",
+      "eventId": "ban-hanh-chinh-sach-loc-dien-quan-dien",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "de71178f070b067b39abcc07f257157da189856a749cc70b635d101d74a164df",
+      "slot": 1,
+      "title": "Ban hành chính sách lộc điền và quân điền"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 2 local files; allowed by external policy.",
+      "eventId": "bo-chinh-tri-ban-hanh-chi-thi-05-ct-tw-ve-day-manh-hoc-tap-va-lam-theo-tu-tuong-dao-duc-phong-cach-ho-chi-minh",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "9938583f2533def20a933d36b6484b9bd85f1da4917b18a70bde83f7a6618fc3",
+      "slot": 2,
+      "title": "Bộ Chính trị ban hành Chỉ thị 05-CT/TW về “đẩy mạnh học tập và làm theo tư tưởng, đạo đức, phong cách Hồ Chí Minh”"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 7 local files; allowed by external policy.",
+      "eventId": "bo-chinh-tri-ban-hanh-chi-thi-05-ct-tw-ve-day-manh-hoc-tap-va-lam-theo-tu-tuong-dao-duc-phong-cach-ho-chi-minh",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "9bc5bf1604b93e0995075e09dbcad67c040115007a4cdf1ebc3b54a5cef45573",
+      "slot": 1,
+      "title": "Bộ Chính trị ban hành Chỉ thị 05-CT/TW về “đẩy mạnh học tập và làm theo tư tưởng, đạo đức, phong cách Hồ Chí Minh”"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 2 local files; allowed by external policy.",
+      "eventId": "bo-chinh-tri-ban-hanh-chi-thi-06-ct-tw-ve-cuoc-van-dong-hoc-tap-va-lam-theo-tam-guong-dao-duc-ho-chi-minh",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "9938583f2533def20a933d36b6484b9bd85f1da4917b18a70bde83f7a6618fc3",
+      "slot": 1,
+      "title": "Bộ Chính trị ban hành Chỉ thị 06-CT/TW về Cuộc vận động “Học tập và làm theo tấm gương đạo đức Hồ Chí Minh”"
+    },
+    {
+      "action": "hard_blocked_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 2 local files; allowed by external policy.",
+      "eventId": "bru-nay-tuyen-bo-ranh-gioi-them-luc-dia",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "eb9734cec45e8df77224c37fd7a796df5f4f7759bbb8c8890936a9d55f4d12d3",
+      "slot": 2,
+      "title": "Bru-nây tuyên bố về ranh giới thềm lục địa 200 hải lí"
+    },
+    {
+      "action": "hard_blocked_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 3 local files; allowed by external policy.",
+      "eventId": "bru-nay-tuyen-bo-vung-dac-quyen-kinh-te",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "bd95951ef6e6c6f681211ef3553d492cd8d3eca5262865dfffb0d52c2ca9074e",
+      "slot": 2,
+      "title": "Bru-nây tuyên bố về vùng đặc quyền kinh tế"
+    },
+    {
+      "action": "hard_blocked_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 2 local files; allowed by external policy.",
+      "eventId": "bru-nay-tuyen-bo-vung-dac-quyen-kinh-te",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "eb9734cec45e8df77224c37fd7a796df5f4f7759bbb8c8890936a9d55f4d12d3",
+      "slot": 1,
+      "title": "Bru-nây tuyên bố về vùng đặc quyền kinh tế"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 11 local files; allowed by external policy.",
+      "eventId": "cac-chien-dich-tien-cong-quan-doi-viet-nam-1950-1953",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "c61b54693d5ab1b108391c4eb588912ec0f5a954216249116b3f44407fcdd284",
+      "slot": 1,
+      "title": "Các chiến dịch tiến công của Quân đội Việt Nam (1950-1953)"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 4 local files; allowed by external policy.",
+      "eventId": "cac-dia-phuong-cuoi-cung-gianh-chinh-quyen",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "1088752ab38488572b462617d90061a7ea64f415f4e126db27351c3154e7971a",
+      "slot": 1,
+      "title": "Đồng Nai Thượng và Hà Tiên là những địa phương cuối cùng giành chính quyền"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 4 local files; allowed by external policy.",
+      "eventId": "cac-tinh-gianh-chinh-quyen-som-nhat",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "1088752ab38488572b462617d90061a7ea64f415f4e126db27351c3154e7971a",
+      "slot": 1,
+      "title": "Nhân dân Bắc Giang, Hải Dương, Hà Tĩnh và Quảng Nam giành được chính quyền"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 4 local files; allowed by external policy.",
+      "eventId": "cach-mang-thang-tam-nam-1945",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "1088752ab38488572b462617d90061a7ea64f415f4e126db27351c3154e7971a",
+      "slot": 1,
+      "title": "Cách mạng tháng Tám năm 1945"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 3 local files; allowed by external policy.",
+      "eventId": "cach-mang-thang-tam-nam-1945",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "8bfdbb22ebc74e5300e7cbb925724907229bfb08a90c12fe343eeed0266418c9",
+      "slot": 2,
+      "title": "Cách mạng tháng Tám năm 1945"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 2 local files; allowed by external policy.",
+      "eventId": "cai-cach-tran-thu-do",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "f93e7f53a23bf802d0b0f73909d40d71117ee07cd9c374561502bcbcec2981ea",
+      "slot": 1,
+      "title": "Cải cách của Trần Thủ Độ"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 3 local files; allowed by external policy.",
+      "eventId": "cai-to-he-thong-quan-doi-le-thanh-tong",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "de71178f070b067b39abcc07f257157da189856a749cc70b635d101d74a164df",
+      "slot": 1,
+      "title": "Cải tổ hệ thống quân đội dưới thời Lê Thánh Tông"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 2 local files; allowed by external policy.",
+      "eventId": "chi-thi-thanh-lap-doi-viet-nam-tuyen-truyen-giai-phong-quan",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "0efcff0a58387693839fd5f4fccea79e75518cd5b10b2fe06e945a2bdab8239a",
+      "slot": 2,
+      "title": "Chỉ thị thành lập Đội Việt Nam Tuyên truyền Giải phóng quân"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 4 local files; allowed by external policy.",
+      "eventId": "chien-dich-tay-nguyen-1975",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "5181c4ff8eeefe7d872c741e6ff5556ef2db3b1bba633ba1815e5221343a9f45",
+      "slot": 2,
+      "title": "Chiến dịch Tây Nguyên"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 2 local files; allowed by external policy.",
+      "eventId": "chien-dich-viet-bac-thu-dong-1947",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "b56750e769f7a287ea04191679b831c017832e5305c873bf6446e88257dc19be",
+      "slot": 1,
+      "title": "Chiến dịch Việt Bắc thu – đông năm 1947"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 11 local files; allowed by external policy.",
+      "eventId": "chien-dich-viet-bac-thu-dong-1947",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "c61b54693d5ab1b108391c4eb588912ec0f5a954216249116b3f44407fcdd284",
+      "slot": 2,
+      "title": "Chiến dịch Việt Bắc thu – đông năm 1947"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 2 local files; allowed by external policy.",
+      "eventId": "chien-thang-bach-dang-938",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "45d3574d4c9c9369d38ac243b4ddb4da1f419764ecb0c81df344f3d6732d4add",
+      "slot": 1,
+      "title": "Chiến thắng Bạch Đằng (938)"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 4 local files; allowed by external policy.",
+      "eventId": "chien-thang-duong-14-phuoc-long",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "5181c4ff8eeefe7d872c741e6ff5556ef2db3b1bba633ba1815e5221343a9f45",
+      "slot": 2,
+      "title": "Chiến thắng Đường 14 Phước Long"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 2 local files; allowed by external policy.",
+      "eventId": "chien-thang-van-tuong",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "a9b7d38d7167e3fe7a391ce938871fa72644274d24c64f5252e10763b15fe025",
+      "slot": 2,
+      "title": "Chiến thắng Vạn Tường"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 2 local files; allowed by external policy.",
+      "eventId": "chien-tranh-bao-ve-doc-lap-dan-toc-va-chu-quyen-quoc-gia-o-dong-duong",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "5bfb049b0cc829e8543ea5316d92a65aec3ff0e0d19ed73d8142ffeb3775d356",
+      "slot": 1,
+      "title": "Chiến tranh bảo vệ độc lập dân tộc và chủ quyền quốc gia ở Đông Dương"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 2 local files; allowed by external policy.",
+      "eventId": "chu-nom-su-dung-rong-rai",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "77ebff9493f16d64e6be030c508faa9531fb2013aa2947ad993c9df670bce628",
+      "slot": 1,
+      "title": "Chữ Nôm được sử dụng rộng rãi"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 10 local files; allowed by external policy.",
+      "eventId": "chu-quyen-bien-dao-viet-nam-1858-1918",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "ce2b47535dc49e9dddfe3cf35ab594eb23711d2e1aeda7cf5e96b039d5b8636e",
+      "slot": 2,
+      "title": "Chủ quyền biển đảo Việt Nam 1858-1918"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 4 local files; allowed by external policy.",
+      "eventId": "chu-quyen-bien-dao-viet-nam-1858-1918",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "f08e74f3321567cab211c362ce2b406bbf49a11491e0a25a0d4dd1f92d8f6b77",
+      "slot": 1,
+      "title": "Chủ quyền biển đảo Việt Nam 1858-1918"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 10 local files; allowed by external policy.",
+      "eventId": "chu-quyen-bien-dao-viet-nam-1919-1945",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "ce2b47535dc49e9dddfe3cf35ab594eb23711d2e1aeda7cf5e96b039d5b8636e",
+      "slot": 2,
+      "title": "Chủ quyền biển đảo Việt Nam 1919-1945"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 4 local files; allowed by external policy.",
+      "eventId": "chu-quyen-bien-dao-viet-nam-1919-1945",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "f08e74f3321567cab211c362ce2b406bbf49a11491e0a25a0d4dd1f92d8f6b77",
+      "slot": 1,
+      "title": "Chủ quyền biển đảo Việt Nam 1919-1945"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 10 local files; allowed by external policy.",
+      "eventId": "chu-quyen-viet-nam-duoc-tuyen-bo-cong-nhan-hoi-nghi-xan-phran-xi-xo",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "ce2b47535dc49e9dddfe3cf35ab594eb23711d2e1aeda7cf5e96b039d5b8636e",
+      "slot": 1,
+      "title": "Chủ quyền của Việt Nam đối với Hoàng Sa và Trường Sa được tuyên bố và công nhận tại Hội nghị Hoà bình Xan Phran-xi-xcô"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 11 local files; allowed by external policy.",
+      "eventId": "cuoc-tien-cong-chien-luoc-dong-xuan-1953-1954",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "c61b54693d5ab1b108391c4eb588912ec0f5a954216249116b3f44407fcdd284",
+      "slot": 1,
+      "title": "Cuộc Tiến công chiến lược Đông - Xuân 1953 - 1954"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 3 local files; allowed by external policy.",
+      "eventId": "cuoc-tien-cong-chien-luoc-dong-xuan-1953-1954",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "e34310f6796e92cf2a2f7df5ab269ee50810234081b3e20ed8ec445402e85795",
+      "slot": 2,
+      "title": "Cuộc Tiến công chiến lược Đông - Xuân 1953 - 1954"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 2 local files; allowed by external policy.",
+      "eventId": "cuoc-van-dong-san-xuat-va-tiet-kiem-1952",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "18d54d74940f3cbce300b550034606a931e396e20f2060fbf649181d6baf7be3",
+      "slot": 1,
+      "title": "Cuộc vận động sản xuất và tiết kiệm"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 9 local files; allowed by external policy.",
+      "eventId": "cuoc-van-dong-san-xuat-va-tiet-kiem-1952",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "a03a15ee2daf662c10a09a2d1fb27c9893d3b08cedb6d3b72c1c39a47c252e60",
+      "slot": 2,
+      "title": "Cuộc vận động sản xuất và tiết kiệm"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 9 local files; allowed by external policy.",
+      "eventId": "dai-hoi-chien-si-thi-dua-can-bo-guong-mau-toan-quoc-lan-thu-nhat-1952",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "a03a15ee2daf662c10a09a2d1fb27c9893d3b08cedb6d3b72c1c39a47c252e60",
+      "slot": 1,
+      "title": "Đại hội Chiến sĩ thi đua và Cán bộ gương mẫu toàn quốc lần thứ nhất"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 7 local files; allowed by external policy.",
+      "eventId": "dai-hoi-dai-bieu-toan-quoc-lan-thu-iii-dang-lao-dong-viet-nam",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "9bc5bf1604b93e0995075e09dbcad67c040115007a4cdf1ebc3b54a5cef45573",
+      "slot": 1,
+      "title": "Đại hội đại biểu toàn quốc lần thứ III Đảng Lao động Việt Nam"
+    },
+    {
+      "action": "hard_blocked_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 6 local files; allowed by external policy.",
+      "eventId": "dai-hoi-dai-bieu-toan-quoc-lan-thu-viii-cua-dang-cong-san-viet-nam",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "35305cf622ec5c88d90b9a3475a964bf94dc630e69ce98a19b72228655610d00",
+      "slot": 1,
+      "title": "Đại hội đại biểu toàn quốc lần thứ VIII của Đảng Cộng sản Việt Nam"
+    },
+    {
+      "action": "hard_blocked_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 7 local files; allowed by external policy.",
+      "eventId": "dai-hoi-dai-bieu-toan-quoc-lan-thu-viii-cua-dang-cong-san-viet-nam",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "9bc5bf1604b93e0995075e09dbcad67c040115007a4cdf1ebc3b54a5cef45573",
+      "slot": 2,
+      "title": "Đại hội đại biểu toàn quốc lần thứ VIII của Đảng Cộng sản Việt Nam"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 4 local files; allowed by external policy.",
+      "eventId": "dai-hoi-dai-bieu-toan-quoc-lan-thu-x-cua-dang-cong-san-viet-nam",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "2b6acaeef473b4cf4b0b85551dd4957efd158062c94f43d2de92ae70451e1df8",
+      "slot": 2,
+      "title": "Đại hội đại biểu toàn quốc lần thứ X của Đảng Cộng sản Việt Nam"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 6 local files; allowed by external policy.",
+      "eventId": "dai-hoi-dai-bieu-toan-quoc-lan-thu-x-cua-dang-cong-san-viet-nam",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "35305cf622ec5c88d90b9a3475a964bf94dc630e69ce98a19b72228655610d00",
+      "slot": 1,
+      "title": "Đại hội đại biểu toàn quốc lần thứ X của Đảng Cộng sản Việt Nam"
+    },
+    {
+      "action": "hard_blocked_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 3 local files; allowed by external policy.",
+      "eventId": "dai-loan-chiem-bai-can-ran-san-ho-ban-than",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "e0c08b4e62be45a1c9f9c86011136b68f16f8b06c45af880df94f20fd9b40646",
+      "slot": 2,
+      "title": "Đài Loan chiếm bãi cạn rạn san hô Bàn Than"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 10 local files; allowed by external policy.",
+      "eventId": "dai-loan-chiem-dong-dao-ba-binh-truong-sa",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "ce2b47535dc49e9dddfe3cf35ab594eb23711d2e1aeda7cf5e96b039d5b8636e",
+      "slot": 2,
+      "title": "Đài Loan chiếm đóng đảo Ba Bình thuộc quần đảo Trường Sa"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 3 local files; allowed by external policy.",
+      "eventId": "dat-them-thua-tuyen-quang-nam",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "63788b13ca653804e4b56b590e09aafcef71132fec7da375641c68d38706927a",
+      "slot": 2,
+      "title": "Đặt thêm thừa tuyên Quảng Nam"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 3 local files; allowed by external policy.",
+      "eventId": "dat-them-thua-tuyen-quang-nam",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "de71178f070b067b39abcc07f257157da189856a749cc70b635d101d74a164df",
+      "slot": 1,
+      "title": "Đặt thêm thừa tuyên Quảng Nam"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 2 local files; allowed by external policy.",
+      "eventId": "dau-tranh-chong-phong-kien-phuong-bac",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "45d3574d4c9c9369d38ac243b4ddb4da1f419764ecb0c81df344f3d6732d4add",
+      "slot": 2,
+      "title": "Đấu tranh chống sự thống trị, đồng hoá của các triều đại phong kiến phương Bắc"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 4 local files; allowed by external policy.",
+      "eventId": "dau-tranh-chong-phong-kien-phuong-bac",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "72c7d0111c80e59835bdc5a28cedb0ed3017ff98f038b8314d9d97a28afe2fa0",
+      "slot": 1,
+      "title": "Đấu tranh chống sự thống trị, đồng hoá của các triều đại phong kiến phương Bắc"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 2 local files; allowed by external policy.",
+      "eventId": "dinh-tien-le-dong-do-hoa-lu",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "0dd79b24455fc4bb6cb38a6fc210672458389d8b4a82a4c8f86ca70ba4b82def",
+      "slot": 1,
+      "title": "Triều Đinh và Tiền Lê đóng đô ở Hoa Lư"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 4 local files; allowed by external policy.",
+      "eventId": "do-dac-cam-moc-chu-quyen-hoang-sa-pham-huu-nhat",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "f08e74f3321567cab211c362ce2b406bbf49a11491e0a25a0d4dd1f92d8f6b77",
+      "slot": 1,
+      "title": "Đo đạc, cắm mốc chủ quyền Hoàng Sa của Phạm Hữu Nhật"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 2 local files; allowed by external policy.",
+      "eventId": "giai-doan-khang-chien-chong-my-1954-1960",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "55e7e5a6e2370760fc3186008044abfb529b67a9c9913b35deb92edc04b139f8",
+      "slot": 1,
+      "title": "Giai đoạn 1954 - 1960 của cuộc kháng chiến chống Mỹ, cứu nước"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 3 local files; allowed by external policy.",
+      "eventId": "giai-doan-khang-chien-chong-my-1954-1960",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "baa4c4f19449fb9e9d5365ef0e9a1b0c06b790bf23daf9b54cc1b502b04dfa77",
+      "slot": 2,
+      "title": "Giai đoạn 1954 - 1960 của cuộc kháng chiến chống Mỹ, cứu nước"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 4 local files; allowed by external policy.",
+      "eventId": "giai-phong-da-nang",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "5181c4ff8eeefe7d872c741e6ff5556ef2db3b1bba633ba1815e5221343a9f45",
+      "slot": 2,
+      "title": "Giải phóng Đà Nẵng"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 2 local files; allowed by external policy.",
+      "eventId": "giai-phong-da-nang",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "ad1e053a1747bce6fe72a420584b3f13f80adc67483f056b53470a3d35ba4466",
+      "slot": 1,
+      "title": "Giải phóng Đà Nẵng"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 4 local files; allowed by external policy.",
+      "eventId": "giai-phong-hue-va-thua-thien",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "5181c4ff8eeefe7d872c741e6ff5556ef2db3b1bba633ba1815e5221343a9f45",
+      "slot": 2,
+      "title": "Giải phóng thành phố Huế và toàn tỉnh Thừa Thiên"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 2 local files; allowed by external policy.",
+      "eventId": "giai-phong-hue-va-thua-thien",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "ad1e053a1747bce6fe72a420584b3f13f80adc67483f056b53470a3d35ba4466",
+      "slot": 1,
+      "title": "Giải phóng thành phố Huế và toàn tỉnh Thừa Thiên"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 2 local files; allowed by external policy.",
+      "eventId": "giai-phong-thi-xa-thai-nguyen",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "0efcff0a58387693839fd5f4fccea79e75518cd5b10b2fe06e945a2bdab8239a",
+      "slot": 2,
+      "title": "Giải phóng thị xã Thái Nguyên"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 2 local files; allowed by external policy.",
+      "eventId": "hien-phap-cong-hoa-xa-hoi-chu-nghia-viet-nam-2013",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "7c370993c68c8d890a66ffdb7e861ceae5b24e50911485cfc69080c92cb1bdbf",
+      "slot": 1,
+      "title": "Hiến pháp nước Cộng hoà xã hội chủ nghĩa Việt Nam năm 2013"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 2 local files; allowed by external policy.",
+      "eventId": "hien-phap-viet-nam-dan-chu-cong-hoa-1946",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "063dff2750333d6f86f93b7bee62c31c183f94c9c6813ab4a1308ef192e81c16",
+      "slot": 2,
+      "title": "Hiến pháp nước Việt Nam Dân chủ Cộng hoà năm 1946"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 2 local files; allowed by external policy.",
+      "eventId": "hien-phap-viet-nam-dan-chu-cong-hoa-1946",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "7c370993c68c8d890a66ffdb7e861ceae5b24e50911485cfc69080c92cb1bdbf",
+      "slot": 1,
+      "title": "Hiến pháp nước Việt Nam Dân chủ Cộng hoà năm 1946"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 11 local files; allowed by external policy.",
+      "eventId": "hiep-uoc-hoa-phap-1946",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "c61b54693d5ab1b108391c4eb588912ec0f5a954216249116b3f44407fcdd284",
+      "slot": 1,
+      "title": "Kí Hiệp ước Hoa - Pháp"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 7 local files; allowed by external policy.",
+      "eventId": "ho-chi-minh-chu-tich-tong-bi-thu-dang-lao-dong-1956",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "9bc5bf1604b93e0995075e09dbcad67c040115007a4cdf1ebc3b54a5cef45573",
+      "slot": 1,
+      "title": "Chủ tịch Hồ Chí Minh là Chủ tịch Đảng, kiêm Tổng Bí thư Đảng Lao động Việt Nam"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 7 local files; allowed by external policy.",
+      "eventId": "ho-chi-minh-duoc-bau-chu-tich-ban-chap-hanh-trung-uong-dang-1951",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "9bc5bf1604b93e0995075e09dbcad67c040115007a4cdf1ebc3b54a5cef45573",
+      "slot": 1,
+      "title": "Hồ Chí Minh được bầu làm Chủ tịch Ban Chấp hành Trung ương Đảng"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 2 local files; allowed by external policy.",
+      "eventId": "ho-chi-minh-duoc-bau-chu-tich-nuoc-1946",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "c7b33acbacbab581acb1721bcf3f74f44aec1c039ad8fd090377ef8e4c7a2959",
+      "slot": 1,
+      "title": "Hồ Chí Minh được Quốc hội khoá I bầu làm Chủ tịch nước Việt Nam Dân chủ Cộng hoà"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 2 local files; allowed by external policy.",
+      "eventId": "ho-chi-minh-gui-loi-keu-goi-quoc-dan-di-bo-phieu",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "063dff2750333d6f86f93b7bee62c31c183f94c9c6813ab4a1308ef192e81c16",
+      "slot": 1,
+      "title": "Chủ tịch Hồ Chí Minh gửi Lời kêu gọi quốc dân đi bỏ phiếu"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 9 local files; allowed by external policy.",
+      "eventId": "ho-chi-minh-keu-goi-nhuong-com-se-ao-tang-gia-san-xuat",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "a03a15ee2daf662c10a09a2d1fb27c9893d3b08cedb6d3b72c1c39a47c252e60",
+      "slot": 2,
+      "title": "Chủ tịch Hồ Chí Minh kêu gọi nhân dân cả nước “Nhường cơm sẻ áo” và “Tăng gia sản xuất”"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 9 local files; allowed by external policy.",
+      "eventId": "ho-chi-minh-ra-loi-keu-goi-toan-quoc-khang-chien",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "a03a15ee2daf662c10a09a2d1fb27c9893d3b08cedb6d3b72c1c39a47c252e60",
+      "slot": 2,
+      "title": "Chủ tịch Hồ Chí Minh ra Lời kêu gọi toàn quốc kháng chiến"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 2 local files; allowed by external policy.",
+      "eventId": "ho-chi-minh-ra-loi-keu-goi-toan-quoc-khang-chien",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "a7b6a162bb18749d09452e60b5a81c2441f896b7fd57cfdd134e0c2c2f24a58a",
+      "slot": 1,
+      "title": "Chủ tịch Hồ Chí Minh ra Lời kêu gọi toàn quốc kháng chiến"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 3 local files; allowed by external policy.",
+      "eventId": "ho-chi-minh-sang-con-minh-tim-su-ung-ho-quoc-te",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "edd3200b9a3556517b4206de3bbd78e95a49c4a46bd6b4b6a55312cefdc352ca",
+      "slot": 1,
+      "title": "Hồ Chí Minh sang Côn Minh (Trung Quốc) tìm kiếm sự ủng hộ quốc tế"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 3 local files; allowed by external policy.",
+      "eventId": "ho-chi-minh-tro-ve-nuoc-1944",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "edd3200b9a3556517b4206de3bbd78e95a49c4a46bd6b4b6a55312cefdc352ca",
+      "slot": 1,
+      "title": "Hồ Chí Minh trở về nước tiếp tục lãnh đạo cách mạng"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 6 local files; allowed by external policy.",
+      "eventId": "hoat-dong-doi-ngoai-dang-cong-san-dong-duong-1930-1945",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "35305cf622ec5c88d90b9a3475a964bf94dc630e69ce98a19b72228655610d00",
+      "slot": 1,
+      "title": "Hoạt động đối ngoại của Đảng Cộng sản Đông Dương"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 5 local files; allowed by external policy.",
+      "eventId": "hoat-dong-doi-ngoai-phan-boi-chau",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "286951184bc8375b16ec8a0c217369fd19c7ef16e521026e160922a916560cdf",
+      "slot": 1,
+      "title": "Hoạt động đối ngoại của Phan Bội Châu"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 2 local files; allowed by external policy.",
+      "eventId": "hoat-dong-doi-ngoai-phan-chau-trinh",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "1bfba1a681aa2a412fa5dc188663e66c8f209edac8184f95eb90b556f0d39da1",
+      "slot": 1,
+      "title": "Hoạt động đối ngoại của Phan Châu Trinh"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 7 local files; allowed by external policy.",
+      "eventId": "hoi-nghi-ban-chap-hanh-trung-uong-dang-lan-thu-21",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "9bc5bf1604b93e0995075e09dbcad67c040115007a4cdf1ebc3b54a5cef45573",
+      "slot": 1,
+      "title": "Hội nghị Ban Chấp hành Trung ương Đảng lần thứ 21"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 7 local files; allowed by external policy.",
+      "eventId": "hoi-nghi-ban-chap-hanh-trung-uong-lan-thu-15-dang-lao-dong-viet-nam",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "9bc5bf1604b93e0995075e09dbcad67c040115007a4cdf1ebc3b54a5cef45573",
+      "slot": 1,
+      "title": "Hội nghị Ban Chấp hành Trung ương lần thứ 15 của Đảng Lao động Việt Nam"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 3 local files; allowed by external policy.",
+      "eventId": "hoi-nghi-ban-chap-hanh-trung-uong-lan-thu-15-dang-lao-dong-viet-nam",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "baa4c4f19449fb9e9d5365ef0e9a1b0c06b790bf23daf9b54cc1b502b04dfa77",
+      "slot": 2,
+      "title": "Hội nghị Ban Chấp hành Trung ương lần thứ 15 của Đảng Lao động Việt Nam"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 4 local files; allowed by external policy.",
+      "eventId": "hoi-nghi-lan-thu-8-ban-chap-hanh-trung-uong-dang-cong-san-dong-duong",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "3e26a279d1a2fa7fa69f6e4e75e9c35670705ccbc273cbb04fcba711bab36c5a",
+      "slot": 1,
+      "title": "Hội nghị lần thứ 8 Ban Chấp hành Trung ương Đảng Cộng sản Đông Dương"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 5 local files; allowed by external policy.",
+      "eventId": "hoi-nghi-lan-thu-8-ban-chap-hanh-trung-uong-dang-cong-san-dong-duong",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "f5359777e15d84ea14bc38e2c08bac757125758a7a3da768012a7015f917a055",
+      "slot": 2,
+      "title": "Hội nghị lần thứ 8 Ban Chấp hành Trung ương Đảng Cộng sản Đông Dương"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 6 local files; allowed by external policy.",
+      "eventId": "hoi-nghi-thanh-lap-dang-cong-san-viet-nam",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "35305cf622ec5c88d90b9a3475a964bf94dc630e69ce98a19b72228655610d00",
+      "slot": 1,
+      "title": "Nguyễn Ái Quốc triệu tập và chủ trì Hội nghị thành lập Đảng Cộng sản Việt Nam"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 3 local files; allowed by external policy.",
+      "eventId": "hoi-the-dong-quan",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "68d645b9cf2709cea3fd0f7896556727b636cb32a840b96ff4526de28ec1c9c8",
+      "slot": 1,
+      "title": "Hội thề Đông Quan"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 3 local files; allowed by external policy.",
+      "eventId": "hoi-the-dong-quan",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "e6f33804f6cb763f8023d6747cc7af391fa851c1761de157221c66188640ba21",
+      "slot": 2,
+      "title": "Hội thề Đông Quan"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 3 local files; allowed by external policy.",
+      "eventId": "hoi-the-lung-nhai",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "68d645b9cf2709cea3fd0f7896556727b636cb32a840b96ff4526de28ec1c9c8",
+      "slot": 1,
+      "title": "Hội thề Lũng Nhai"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 3 local files; allowed by external policy.",
+      "eventId": "hoi-the-lung-nhai",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "e6f33804f6cb763f8023d6747cc7af391fa851c1761de157221c66188640ba21",
+      "slot": 2,
+      "title": "Hội thề Lũng Nhai"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 11 local files; allowed by external policy.",
+      "eventId": "ke-hoach-na-va-1953",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "c61b54693d5ab1b108391c4eb588912ec0f5a954216249116b3f44407fcdd284",
+      "slot": 1,
+      "title": "Kế hoạch Na-va"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 3 local files; allowed by external policy.",
+      "eventId": "ke-hoach-na-va-1953",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "e34310f6796e92cf2a2f7df5ab269ee50810234081b3e20ed8ec445402e85795",
+      "slot": 2,
+      "title": "Kế hoạch Na-va"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 2 local files; allowed by external policy.",
+      "eventId": "ke-hoach-nha-nuoc-5-nam-lan-thu-nhat-mien-bac",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "15bc236a2870c365d04c8e61adcde1ab21eda2fce9fd068e80391ed07ec3253e",
+      "slot": 1,
+      "title": "Kế hoạch Nhà nước 5 năm lần thứ nhất (1961-1965) ở miền Bắc"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 2 local files; allowed by external policy.",
+      "eventId": "ke-hoach-nha-nuoc-5-nam-lan-thu-nhat-mien-bac",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "18d54d74940f3cbce300b550034606a931e396e20f2060fbf649181d6baf7be3",
+      "slot": 2,
+      "title": "Kế hoạch Nhà nước 5 năm lần thứ nhất (1961-1965) ở miền Bắc"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 2 local files; allowed by external policy.",
+      "eventId": "khang-chien-chong-my-cuu-nuoc",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "5bfb049b0cc829e8543ea5316d92a65aec3ff0e0d19ed73d8142ffeb3775d356",
+      "slot": 1,
+      "title": "Cuộc kháng chiến chống Mỹ, cứu nước"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 2 local files; allowed by external policy.",
+      "eventId": "khang-chien-chong-quan-minh-nha-ho",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "48f861762c584f755ef179bfa48e32d330cc161c43e19667dfe00123ef4f83af",
+      "slot": 1,
+      "title": "Kháng chiến chống quân Minh của nhà Hồ"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 2 local files; allowed by external policy.",
+      "eventId": "khang-chien-chong-quan-mong-co-1258",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "c921f6640583247bc7845b16b2097ea9c0990f95d29ac0a9ff22b0a75b648d48",
+      "slot": 1,
+      "title": "Kháng chiến chống quân Mông Cổ (lần 1)"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 2 local files; allowed by external policy.",
+      "eventId": "khang-chien-chong-quan-nguyen-1285",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "c921f6640583247bc7845b16b2097ea9c0990f95d29ac0a9ff22b0a75b648d48",
+      "slot": 1,
+      "title": "Kháng chiến chống quân Nguyên (lần 2)"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 2 local files; allowed by external policy.",
+      "eventId": "khang-chien-chong-quan-tong-1075-1077",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "69f9ea3ee6027bd867a78d71fa6165935fc7089e40faec5886b6b124afa1a0ca",
+      "slot": 1,
+      "title": "Kháng chiến chống quân Tống (lần 2)"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 11 local files; allowed by external policy.",
+      "eventId": "khang-chien-chong-thuc-dan-phap-1945-1954",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "c61b54693d5ab1b108391c4eb588912ec0f5a954216249116b3f44407fcdd284",
+      "slot": 1,
+      "title": "Cuộc kháng chiến chống thực dân Pháp"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 5 local files; allowed by external policy.",
+      "eventId": "khang-chien-chong-thuc-dan-phap-1945-1954",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "f5359777e15d84ea14bc38e2c08bac757125758a7a3da768012a7015f917a055",
+      "slot": 2,
+      "title": "Cuộc kháng chiến chống thực dân Pháp"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 11 local files; allowed by external policy.",
+      "eventId": "khang-chien-chong-thuc-dan-phap-o-viet-nam-lao-cam-pu-chia",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "c61b54693d5ab1b108391c4eb588912ec0f5a954216249116b3f44407fcdd284",
+      "slot": 1,
+      "title": "Kháng chiến chống thực dân Pháp ở Việt Nam, Lào, Cam-pu-chia"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 2 local files; allowed by external policy.",
+      "eventId": "khang-chien-chong-thuc-dan-phap-trieu-nguyen",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "433c9e1e09d6d2961597ab936f2833838ee4e0f7ba68bd4299a4521cecb5238c",
+      "slot": 2,
+      "title": "Kháng chiến chống thực dân Pháp của triều Nguyễn"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 4 local files; allowed by external policy.",
+      "eventId": "khang-chien-chong-thuc-dan-phap-trieu-nguyen",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "7e4ed42bbb03ac141af1b3199808f1e48ebfe62ef050077dd11c8ef3f7f0d436",
+      "slot": 1,
+      "title": "Kháng chiến chống thực dân Pháp của triều Nguyễn"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 11 local files; allowed by external policy.",
+      "eventId": "khang-chien-thang-loi",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "c61b54693d5ab1b108391c4eb588912ec0f5a954216249116b3f44407fcdd284",
+      "slot": 1,
+      "title": "Kháng chiến thắng lợi"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 3 local files; allowed by external policy.",
+      "eventId": "khang-chien-thang-loi",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "e34310f6796e92cf2a2f7df5ab269ee50810234081b3e20ed8ec445402e85795",
+      "slot": 2,
+      "title": "Kháng chiến thắng lợi"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 2 local files; allowed by external policy.",
+      "eventId": "khang-chien-toan-quoc-chong-thuc-dan-phap-bung-no",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "a7b6a162bb18749d09452e60b5a81c2441f896b7fd57cfdd134e0c2c2f24a58a",
+      "slot": 1,
+      "title": "Kháng chiến toàn quốc chống thực dân Pháp bùng nổ"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 11 local files; allowed by external policy.",
+      "eventId": "khang-chien-toan-quoc-chong-thuc-dan-phap-bung-no",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "c61b54693d5ab1b108391c4eb588912ec0f5a954216249116b3f44407fcdd284",
+      "slot": 2,
+      "title": "Kháng chiến toàn quốc chống thực dân Pháp bùng nổ"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 2 local files; allowed by external policy.",
+      "eventId": "khoi-nghia-ba-trieu",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "a3fdd7e0cab87b4c418920a418d37ca4783e47a93be4b09ca54ce089a490f87b",
+      "slot": 1,
+      "title": "Khởi nghĩa Bà Triệu"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 2 local files; allowed by external policy.",
+      "eventId": "khoi-nghia-hai-ba-trung",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "b4e32b736dfcb2de1e354ace296b8c6b961efa775e2823a6a5127d7471a28e90",
+      "slot": 1,
+      "title": "Khởi nghĩa Hai Bà Trưng"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 4 local files; allowed by external policy.",
+      "eventId": "khoi-nghia-khuc-thua-du",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "ae63352169def380becccc0a5160d005ef04b91161b0f1c91abf539739ddf295",
+      "slot": 1,
+      "title": "Khởi nghĩa Khúc Thừa Dụ"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 4 local files; allowed by external policy.",
+      "eventId": "khoi-nghia-mai-thuc-loan",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "ae63352169def380becccc0a5160d005ef04b91161b0f1c91abf539739ddf295",
+      "slot": 2,
+      "title": "Khởi nghĩa Mai Thúc Loan"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 2 local files; allowed by external policy.",
+      "eventId": "khoi-nghia-mai-thuc-loan",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "eec7c2ea0b83b502bc38c264c64c54fd8dd98afcdf97f37639c7cab9e7b08a80",
+      "slot": 1,
+      "title": "Khởi nghĩa Mai Thúc Loan"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 2 local files; allowed by external policy.",
+      "eventId": "khung-hoang-cuoi-trieu-tran",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "f93e7f53a23bf802d0b0f73909d40d71117ee07cd9c374561502bcbcec2981ea",
+      "slot": 1,
+      "title": "Khủng hoảng cuối triều Trần"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 3 local files; allowed by external policy.",
+      "eventId": "ki-tuyen-bo-ve-ung-xu-cua-cac-ben-o-bien-dong-doc",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "bd95951ef6e6c6f681211ef3553d492cd8d3eca5262865dfffb0d52c2ca9074e",
+      "slot": 2,
+      "title": "Kí Tuyên bố về ứng xử của các bên ở Biển Đông (DOC)"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 4 local files; allowed by external policy.",
+      "eventId": "ki-tuyen-bo-ve-ung-xu-cua-cac-ben-o-bien-dong-doc",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "c44d89b7c5ad085c7938fb68a5078b9d67ae758202ef14b209cb5b22d10fa1b9",
+      "slot": 1,
+      "title": "Kí Tuyên bố về ứng xử của các bên ở Biển Đông (DOC)"
+    },
+    {
+      "action": "hard_blocked_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 2 local files; allowed by external policy.",
+      "eventId": "lang-co-ten-nom-xuat-hien-som-thoi-ly-tran",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "77ebff9493f16d64e6be030c508faa9531fb2013aa2947ad993c9df670bce628",
+      "slot": 1,
+      "title": "Những làng có tên nôm xuất hiện sớm vào thời Lý – Trần"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 3 local files; allowed by external policy.",
+      "eventId": "le-loi-xay-thanh-luc-nien",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "68d645b9cf2709cea3fd0f7896556727b636cb32a840b96ff4526de28ec1c9c8",
+      "slot": 1,
+      "title": "Lê Lợi xây thành Lục Niên"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 3 local files; allowed by external policy.",
+      "eventId": "le-loi-xay-thanh-luc-nien",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "e6f33804f6cb763f8023d6747cc7af391fa851c1761de157221c66188640ba21",
+      "slot": 2,
+      "title": "Lê Lợi xây thành Lục Niên"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 3 local files; allowed by external policy.",
+      "eventId": "lien-hop-quoc-vien-tro-viet-nam-1977-1986",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "e54a4f3d5262565e67defd28bcf6894de882d3a8e35cfdb67a2c46fea992ce9b",
+      "slot": 1,
+      "title": "Hệ thống phát triển Liên hợp quốc viện trợ không hoàn lại cho Việt Nam"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 2 local files; allowed by external policy.",
+      "eventId": "lien-xo-vien-tro-cho-viet-nam",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "75c0425d590c6f5e335e414a9b51ac437bf3211c3e5f3e92758086cad6eddf61",
+      "slot": 1,
+      "title": "Liên Xô viện trợ cho Việt Nam"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 3 local files; allowed by external policy.",
+      "eventId": "ly-nhan-tong-lap-quoc-tu-giam",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "75297dbfbf1bba8492343a539afa45cddf45862e17fe67d3f9817bc7c82ab16b",
+      "slot": 1,
+      "title": "Vua Lý Nhân Tông cho lập Quốc Tử Giám"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 2 local files; allowed by external policy.",
+      "eventId": "ly-nhan-tong-lap-quoc-tu-giam",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "76432a77a53e7c3fba5c28909b0d6f5d4b62b188839667400e9ad2a59aeaf76f",
+      "slot": 2,
+      "title": "Vua Lý Nhân Tông cho lập Quốc Tử Giám"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 2 local files; allowed by external policy.",
+      "eventId": "ly-thuong-kiet-tap-kich-kham-chau-liem-chau-ung-chau",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "69f9ea3ee6027bd867a78d71fa6165935fc7089e40faec5886b6b124afa1a0ca",
+      "slot": 1,
+      "title": "Lý Thường Kiệt chủ động tập kích Khâm Châu, Liêm Châu, Ung Châu"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 4 local files; allowed by external policy.",
+      "eventId": "mai-thuc-loan-khoi-nghia",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "ae63352169def380becccc0a5160d005ef04b91161b0f1c91abf539739ddf295",
+      "slot": 2,
+      "title": "Mai Thúc Loan dựng cờ khởi nghĩa"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 2 local files; allowed by external policy.",
+      "eventId": "mai-thuc-loan-khoi-nghia",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "eec7c2ea0b83b502bc38c264c64c54fd8dd98afcdf97f37639c7cab9e7b08a80",
+      "slot": 1,
+      "title": "Mai Thúc Loan dựng cờ khởi nghĩa"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 2 local files; allowed by external policy.",
+      "eventId": "my-can-thiep-vao-dong-duong",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "a9b7d38d7167e3fe7a391ce938871fa72644274d24c64f5252e10763b15fe025",
+      "slot": 1,
+      "title": "Mỹ can thiệp vào Đông Dương"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 2 local files; allowed by external policy.",
+      "eventId": "my-thay-chan-phap-dung-chinh-quyen-ngo-dinh-diem",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "55e7e5a6e2370760fc3186008044abfb529b67a9c9913b35deb92edc04b139f8",
+      "slot": 2,
+      "title": "Mỹ thay chân Pháp, dựng chính quyền Ngô Đình Diệm"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 9 local files; allowed by external policy.",
+      "eventId": "nguyen-ai-quoc-den-lien-xo-1923",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "a03a15ee2daf662c10a09a2d1fb27c9893d3b08cedb6d3b72c1c39a47c252e60",
+      "slot": 1,
+      "title": "Nguyễn Ái Quốc đến Liên Xô và tham gia Quốc tế Cộng sản"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 5 local files; allowed by external policy.",
+      "eventId": "nguyen-ai-quoc-doc-luan-cuong-le-nin",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "200a96d41711a157c83d0723813d8e1211cf746787cdb2afe2dd5ed786ba0ffd",
+      "slot": 1,
+      "title": "Nguyễn Ái Quốc đọc Sơ thảo lần thứ nhất những luận cương về vấn đề dân tộc và vấn đề thuộc địa của Lê-nin"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 5 local files; allowed by external policy.",
+      "eventId": "nguyen-ai-quoc-gia-nhap-quoc-te-cong-san-va-sang-lap-dang-cong-san-phap",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "200a96d41711a157c83d0723813d8e1211cf746787cdb2afe2dd5ed786ba0ffd",
+      "slot": 2,
+      "title": "Nguyễn Ái Quốc bỏ phiếu tán thành gia nhập Quốc tế Cộng sản và sáng lập Đảng Cộng sản Pháp"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 5 local files; allowed by external policy.",
+      "eventId": "nguyen-ai-quoc-gui-yeu-sach-vec-xai",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "200a96d41711a157c83d0723813d8e1211cf746787cdb2afe2dd5ed786ba0ffd",
+      "slot": 1,
+      "title": "Nguyễn Ái Quốc gửi Yêu sách của nhân dân An Nam đến Hội nghị Véc-xai"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 9 local files; allowed by external policy.",
+      "eventId": "nguyen-ai-quoc-hoat-dong-chau-au-siam-1927-1929",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "a03a15ee2daf662c10a09a2d1fb27c9893d3b08cedb6d3b72c1c39a47c252e60",
+      "slot": 2,
+      "title": "Nguyễn Ái Quốc hoạt động cách mạng ở Pháp, Bỉ, Đức, Xiêm"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 4 local files; allowed by external policy.",
+      "eventId": "nguyen-ai-quoc-hoat-dong-chau-au-siam-1927-1929",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "ae97b27b06a44eb49363f2c834d7406931eeb64fc077e522291dd988a570fce5",
+      "slot": 1,
+      "title": "Nguyễn Ái Quốc hoạt động cách mạng ở Pháp, Bỉ, Đức, Xiêm"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 4 local files; allowed by external policy.",
+      "eventId": "nguyen-ai-quoc-hoat-dong-lien-xo-1933",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "ae97b27b06a44eb49363f2c834d7406931eeb64fc077e522291dd988a570fce5",
+      "slot": 1,
+      "title": "Nguyễn Ái Quốc hoạt động tại Liên Xô"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 5 local files; allowed by external policy.",
+      "eventId": "nguyen-ai-quoc-hoat-dong-phap-1921-1923",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "200a96d41711a157c83d0723813d8e1211cf746787cdb2afe2dd5ed786ba0ffd",
+      "slot": 1,
+      "title": "Nguyễn Ái Quốc hoạt động ở Pháp"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 4 local files; allowed by external policy.",
+      "eventId": "nguyen-ai-quoc-roi-lien-xo-tro-lai-trung-quoc",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "ae97b27b06a44eb49363f2c834d7406931eeb64fc077e522291dd988a570fce5",
+      "slot": 1,
+      "title": "Nguyễn Ái Quốc rời Liên Xô trở lại Trung Quốc"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 5 local files; allowed by external policy.",
+      "eventId": "nguyen-ai-quoc-thanh-lap-hoi-lien-hiep-thuoc-dia-1921",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "200a96d41711a157c83d0723813d8e1211cf746787cdb2afe2dd5ed786ba0ffd",
+      "slot": 1,
+      "title": "Nguyễn Ái Quốc tham gia thành lập Hội Liên hiệp thuộc địa"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 4 local files; allowed by external policy.",
+      "eventId": "nguyen-ai-quoc-tro-ve-nuoc",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "3e26a279d1a2fa7fa69f6e4e75e9c35670705ccbc273cbb04fcba711bab36c5a",
+      "slot": 1,
+      "title": "Nguyễn Ái Quốc trở về nước"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 3 local files; allowed by external policy.",
+      "eventId": "nguyen-ai-quoc-tro-ve-nuoc",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "edd3200b9a3556517b4206de3bbd78e95a49c4a46bd6b4b6a55312cefdc352ca",
+      "slot": 2,
+      "title": "Nguyễn Ái Quốc trở về nước"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 2 local files; allowed by external policy.",
+      "eventId": "nguyen-hue-dung-chan-chieu-mo-binh-si",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "57aa5d1405a737301e2b8209cbaa61b9472eee0422c3ade4e137d38b863797fd",
+      "slot": 2,
+      "title": "Nguyễn Huệ dừng chân chiêu mộ binh sĩ"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 9 local files; allowed by external policy.",
+      "eventId": "nguyen-tat-thanh-ra-di-tim-duong-cuu-nuoc",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "a03a15ee2daf662c10a09a2d1fb27c9893d3b08cedb6d3b72c1c39a47c252e60",
+      "slot": 2,
+      "title": "Nguyễn Tất Thành ra đi tìm đường cứu nước"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 2 local files; allowed by external policy.",
+      "eventId": "nguyen-tat-thanh-ra-di-tim-duong-cuu-nuoc",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "b6b0b35c4f2073b59cd078b352bdb3035b202515757956b57b564fbb9bbf54f9",
+      "slot": 1,
+      "title": "Nguyễn Tất Thành ra đi tìm đường cứu nước"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 2 local files; allowed by external policy.",
+      "eventId": "nguyen-tat-thanh-roi-phan-thiet-vao-sai-gon",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "b6b0b35c4f2073b59cd078b352bdb3035b202515757956b57b564fbb9bbf54f9",
+      "slot": 1,
+      "title": "Nguyễn Tất Thành rời Phan Thiết vào Sài Gòn"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 9 local files; allowed by external policy.",
+      "eventId": "nguyen-tat-thanh-tham-gia-chong-thue-hue",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "a03a15ee2daf662c10a09a2d1fb27c9893d3b08cedb6d3b72c1c39a47c252e60",
+      "slot": 1,
+      "title": "Nguyễn Tất Thành tham gia phong trào chống thuế ở Huế"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 3 local files; allowed by external policy.",
+      "eventId": "nha-ly-su-dung-thi-cu-nho-hoc",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "75297dbfbf1bba8492343a539afa45cddf45862e17fe67d3f9817bc7c82ab16b",
+      "slot": 2,
+      "title": "Nhà Lý chính thức sử dụng chế độ thi cử Nho học"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 3 local files; allowed by external policy.",
+      "eventId": "nha-ly-to-chuc-khoa-thi-nho-hoc-dau-tien",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "75297dbfbf1bba8492343a539afa45cddf45862e17fe67d3f9817bc7c82ab16b",
+      "slot": 2,
+      "title": "Nhà Lý tổ chức khoa thi Nho học đầu tiên"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 2 local files; allowed by external policy.",
+      "eventId": "nha-ly-to-chuc-khoa-thi-nho-hoc-dau-tien",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "76432a77a53e7c3fba5c28909b0d6f5d4b62b188839667400e9ad2a59aeaf76f",
+      "slot": 1,
+      "title": "Nhà Lý tổ chức khoa thi Nho học đầu tiên"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 2 local files; allowed by external policy.",
+      "eventId": "nha-minh-xam-luoc-dai-ngu",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "48f861762c584f755ef179bfa48e32d330cc161c43e19667dfe00123ef4f83af",
+      "slot": 1,
+      "title": "Nhà Minh xâm lược Đại Ngu"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 4 local files; allowed by external policy.",
+      "eventId": "nho-giao-du-nhap-viet-nam",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "72c7d0111c80e59835bdc5a28cedb0ed3017ff98f038b8314d9d97a28afe2fa0",
+      "slot": 2,
+      "title": "Nho giáo du nhập vào Việt Nam"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 5 local files; allowed by external policy.",
+      "eventId": "phan-boi-chau-sang-nhat-ban-1905",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "286951184bc8375b16ec8a0c217369fd19c7ef16e521026e160922a916560cdf",
+      "slot": 1,
+      "title": "Phan Bội Châu sang Nhật Bản"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 5 local files; allowed by external policy.",
+      "eventId": "phan-boi-chau-ve-trung-quoc-1911",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "286951184bc8375b16ec8a0c217369fd19c7ef16e521026e160922a916560cdf",
+      "slot": 1,
+      "title": "Phan Bội Châu về hoạt động ở Trung Quốc"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 2 local files; allowed by external policy.",
+      "eventId": "phan-chau-trinh-sang-phap-1911",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "1bfba1a681aa2a412fa5dc188663e66c8f209edac8184f95eb90b556f0d39da1",
+      "slot": 1,
+      "title": "Phan Châu Trinh sang Pháp"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 4 local files; allowed by external policy.",
+      "eventId": "phap-chiem-sau-tinh-nam-ki",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "7e4ed42bbb03ac141af1b3199808f1e48ebfe62ef050077dd11c8ef3f7f0d436",
+      "slot": 1,
+      "title": "Pháp chiếm sáu tỉnh Nam Kì"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 4 local files; allowed by external policy.",
+      "eventId": "phap-cho-hai-quan-tru-dong-truong-sa",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "c44d89b7c5ad085c7938fb68a5078b9d67ae758202ef14b209cb5b22d10fa1b9",
+      "slot": 1,
+      "title": "Pháp cho hải quân trú đóng ở các đảo chính thuộc quần đảo Trường Sa"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 10 local files; allowed by external policy.",
+      "eventId": "phap-cho-hai-quan-tru-dong-truong-sa",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "ce2b47535dc49e9dddfe3cf35ab594eb23711d2e1aeda7cf5e96b039d5b8636e",
+      "slot": 2,
+      "title": "Pháp cho hải quân trú đóng ở các đảo chính thuộc quần đảo Trường Sa"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 3 local files; allowed by external policy.",
+      "eventId": "phap-danh-up-uy-ban-hanh-chinh-nam-bo-1945",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "ba2e34f1e066605d598ce54a32ce01b7714e87bf7c909cdd7d4e59525a39d7fb",
+      "slot": 2,
+      "title": "Thực dân Pháp đánh úp trụ sở Uỷ ban hành chính Nam Bộ và cơ quan tự vệ thành phố Sài Gòn"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 10 local files; allowed by external policy.",
+      "eventId": "phap-gui-cong-ham-phan-doi-nhat-ban-kiem-soat-truong-sa",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "ce2b47535dc49e9dddfe3cf35ab594eb23711d2e1aeda7cf5e96b039d5b8636e",
+      "slot": 1,
+      "title": "Pháp gửi công hàm phản đối Nhật Bản kiểm soát một số đảo thuộc quần đảo Trường Sa"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 3 local files; allowed by external policy.",
+      "eventId": "phap-xa-sung-sai-gon-cho-lon-1945",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "ba2e34f1e066605d598ce54a32ce01b7714e87bf7c909cdd7d4e59525a39d7fb",
+      "slot": 1,
+      "title": "Quân Pháp xả súng vào đồng bào Sài Gòn – Chợ Lớn"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 2 local files; allowed by external policy.",
+      "eventId": "phap-xam-luoc-viet-nam",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "433c9e1e09d6d2961597ab936f2833838ee4e0f7ba68bd4299a4521cecb5238c",
+      "slot": 2,
+      "title": "Thực dân Pháp xâm lược và từng bước áp đặt ách cai trị ở Việt Nam"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 4 local files; allowed by external policy.",
+      "eventId": "phap-xam-luoc-viet-nam",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "7e4ed42bbb03ac141af1b3199808f1e48ebfe62ef050077dd11c8ef3f7f0d436",
+      "slot": 1,
+      "title": "Thực dân Pháp xâm lược và từng bước áp đặt ách cai trị ở Việt Nam"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 2 local files; allowed by external policy.",
+      "eventId": "philippin-ban-hanh-sac-lenh-1596-tuyen-bo-chu-quyen-truong-sa",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "9cda01061f566c8cb5206f64eace35c103e9fc4c44cfdd8e21f1cd733dd4c702",
+      "slot": 2,
+      "title": "Phi-líp-pin ban hành Sắc lệnh 1596 tuyên bố chủ quyền đối với hầu hết các đảo thuộc quần đảo Trường Sa"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 4 local files; allowed by external policy.",
+      "eventId": "philippin-ban-hanh-sac-lenh-1596-tuyen-bo-chu-quyen-truong-sa",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "c44d89b7c5ad085c7938fb68a5078b9d67ae758202ef14b209cb5b22d10fa1b9",
+      "slot": 1,
+      "title": "Phi-líp-pin ban hành Sắc lệnh 1596 tuyên bố chủ quyền đối với hầu hết các đảo thuộc quần đảo Trường Sa"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 10 local files; allowed by external policy.",
+      "eventId": "philippin-chiem-dong-9-dao-truong-sa",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "ce2b47535dc49e9dddfe3cf35ab594eb23711d2e1aeda7cf5e96b039d5b8636e",
+      "slot": 2,
+      "title": "Phi-líp-pin chiếm đóng 9 đảo thuộc quần đảo Trường Sa"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 2 local files; allowed by external policy.",
+      "eventId": "philippin-tuyen-bo-quyen-khai-thac-lap-nghiep-truong-sa",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "9cda01061f566c8cb5206f64eace35c103e9fc4c44cfdd8e21f1cd733dd4c702",
+      "slot": 2,
+      "title": "Phi-líp-pin tuyên bố có quyền khai thác, lập nghiệp tại nhóm đảo Trường Sa"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 2 local files; allowed by external policy.",
+      "eventId": "phong-trao-can-vuong",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "a52bb779f15df158bd7cb845e56427da9b1888a8a261255aac78fba3e4717516",
+      "slot": 2,
+      "title": "Phong trào Cần Vương"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 2 local files; allowed by external policy.",
+      "eventId": "phong-trao-can-vuong",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "bdb8c1e01902a71f9e9a4b7523f85153c336df47a30ec2e8aecda21e30b92ebd",
+      "slot": 1,
+      "title": "Phong trào Cần Vương"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 4 local files; allowed by external policy.",
+      "eventId": "phong-trao-chong-thuc-dan-phap-xam-luoc-o-viet-nam",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "7e4ed42bbb03ac141af1b3199808f1e48ebfe62ef050077dd11c8ef3f7f0d436",
+      "slot": 1,
+      "title": "Phong trào chống thực dân Pháp xâm lược ở Việt Nam"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 5 local files; allowed by external policy.",
+      "eventId": "phong-trao-dong-du",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "286951184bc8375b16ec8a0c217369fd19c7ef16e521026e160922a916560cdf",
+      "slot": 1,
+      "title": "Phong trào Đông du"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 2 local files; allowed by external policy.",
+      "eventId": "phong-trao-tay-son-bung-no",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "57aa5d1405a737301e2b8209cbaa61b9472eee0422c3ade4e137d38b863797fd",
+      "slot": 1,
+      "title": "Phong trào Tây Sơn bùng nổ"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 10 local files; allowed by external policy.",
+      "eventId": "quan-giai-phong-mien-nam-viet-nam-tiep-quan-truong-sa",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "ce2b47535dc49e9dddfe3cf35ab594eb23711d2e1aeda7cf5e96b039d5b8636e",
+      "slot": 2,
+      "title": "Quân giải phóng miền Nam Việt Nam tiếp quản các đảo và triển khai lực lượng thực thi chủ quyền đối với quần đảo Trường Sa"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 3 local files; allowed by external policy.",
+      "eventId": "quan-giai-phong-mien-nam-viet-nam-tiep-quan-truong-sa",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "e0c08b4e62be45a1c9f9c86011136b68f16f8b06c45af880df94f20fd9b40646",
+      "slot": 1,
+      "title": "Quân giải phóng miền Nam Việt Nam tiếp quản các đảo và triển khai lực lượng thực thi chủ quyền đối với quần đảo Trường Sa"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 3 local files; allowed by external policy.",
+      "eventId": "quan-he-viet-nam-my-doi-tac-chien-luoc-toan-dien",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "e54a4f3d5262565e67defd28bcf6894de882d3a8e35cfdb67a2c46fea992ce9b",
+      "slot": 1,
+      "title": "Quan hệ Việt Nam - Mỹ lên tầm đối tác chiến lược toàn diện"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 10 local files; allowed by external policy.",
+      "eventId": "quan-li-hanh-chinh-chinh-quyen-sai-gon-hoang-sa-truong-sa",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "ce2b47535dc49e9dddfe3cf35ab594eb23711d2e1aeda7cf5e96b039d5b8636e",
+      "slot": 1,
+      "title": "Quản lí hành chính của chính quyền Sài Gòn đối với quần đảo Hoàng Sa và quần đảo Trường Sa"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 2 local files; allowed by external policy.",
+      "eventId": "quan-li-hanh-chinh-chinh-quyen-sai-gon-hoang-sa-truong-sa",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "e31d6a28b76e1e52bb3f8430fea0c2233327b9f63cc5481825f49a3e55ebb645",
+      "slot": 2,
+      "title": "Quản lí hành chính của chính quyền Sài Gòn đối với quần đảo Hoàng Sa và quần đảo Trường Sa"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 2 local files; allowed by external policy.",
+      "eventId": "quoc-hoi-khoa-vi-doi-ten-sai-gon-thanh-thanh-pho-ho-chi-minh",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "c7b33acbacbab581acb1721bcf3f74f44aec1c039ad8fd090377ef8e4c7a2959",
+      "slot": 1,
+      "title": "Quốc hội khoá VI quyết định đổi tên Sài Gòn thành Thành phố Hồ Chí Minh"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 2 local files; allowed by external policy.",
+      "eventId": "quoc-hoi-thong-qua-luat-cai-cach-ruong-dat-1953",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "15bc236a2870c365d04c8e61adcde1ab21eda2fce9fd068e80391ed07ec3253e",
+      "slot": 1,
+      "title": "Quốc hội thông qua Luật Cải cách ruộng đất và quyết định tiến hành cải cách ruộng đất"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 6 local files; allowed by external policy.",
+      "eventId": "su-ra-doi-cua-ba-to-chuc-cong-san-viet-nam",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "35305cf622ec5c88d90b9a3475a964bf94dc630e69ce98a19b72228655610d00",
+      "slot": 1,
+      "title": "Sự ra đời của ba tổ chức cộng sản ở Việt Nam"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 3 local files; allowed by external policy.",
+      "eventId": "tan-cong-champa-dai-viet-cuoi-tk14",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "63788b13ca653804e4b56b590e09aafcef71132fec7da375641c68d38706927a",
+      "slot": 1,
+      "title": "Các cuộc tấn công của Chăm-pa vào Đại Việt"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 4 local files; allowed by external policy.",
+      "eventId": "thanh-lap-hoi-lien-hiep-cac-dan-toc-bi-ap-buc-a-dong-1925",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "ae97b27b06a44eb49363f2c834d7406931eeb64fc077e522291dd988a570fce5",
+      "slot": 1,
+      "title": "Nguyễn Ái Quốc tham gia thành lập Hội Liên hiệp các dân tộc bị áp bức ở Á Đông"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 5 local files; allowed by external policy.",
+      "eventId": "thanh-lap-lien-minh-dong-a-1908",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "286951184bc8375b16ec8a0c217369fd19c7ef16e521026e160922a916560cdf",
+      "slot": 1,
+      "title": "Thành lập Điền – Quế -Việt liên minh và Đông Á đồng minh"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 5 local files; allowed by external policy.",
+      "eventId": "thanh-lap-lien-minh-nhan-dan-viet-mien-lao",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "f5359777e15d84ea14bc38e2c08bac757125758a7a3da768012a7015f917a055",
+      "slot": 2,
+      "title": "Thành lập Liên minh nhân dân Việt – Miên - Lào"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 3 local files; allowed by external policy.",
+      "eventId": "thanh-lap-mat-tran-dan-toc-giai-phong-mien-nam-viet-nam",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "baa4c4f19449fb9e9d5365ef0e9a1b0c06b790bf23daf9b54cc1b502b04dfa77",
+      "slot": 2,
+      "title": "Thành lập Mặt trận Dân tộc giải phóng miền Nam Việt Nam"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 6 local files; allowed by external policy.",
+      "eventId": "thanh-lap-mat-tran-dan-toc-thong-nhat-viet-nam-1930",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "35305cf622ec5c88d90b9a3475a964bf94dc630e69ce98a19b72228655610d00",
+      "slot": 2,
+      "title": "Thành lập Mặt trận Dân tộc Thống nhất Việt Nam (Hội Phản đế Đồng minh)"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 5 local files; allowed by external policy.",
+      "eventId": "thanh-lap-mat-tran-dan-toc-thong-nhat-viet-nam-1930",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "f5359777e15d84ea14bc38e2c08bac757125758a7a3da768012a7015f917a055",
+      "slot": 1,
+      "title": "Thành lập Mặt trận Dân tộc Thống nhất Việt Nam (Hội Phản đế Đồng minh)"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 4 local files; allowed by external policy.",
+      "eventId": "thanh-lap-mat-tran-viet-nam-doc-lap-dong-minh-viet-minh",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "3e26a279d1a2fa7fa69f6e4e75e9c35670705ccbc273cbb04fcba711bab36c5a",
+      "slot": 2,
+      "title": "Thành lập Mặt trận Việt Nam Độc lập Đồng minh (Mặt trận Việt Minh)"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 5 local files; allowed by external policy.",
+      "eventId": "thanh-lap-mat-tran-viet-nam-doc-lap-dong-minh-viet-minh",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "f5359777e15d84ea14bc38e2c08bac757125758a7a3da768012a7015f917a055",
+      "slot": 1,
+      "title": "Thành lập Mặt trận Việt Nam Độc lập Đồng minh (Mặt trận Việt Minh)"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 4 local files; allowed by external policy.",
+      "eventId": "thanh-lap-tieu-doi-du-kich-thoat-li-dau-tien-o-cao-bang",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "3e26a279d1a2fa7fa69f6e4e75e9c35670705ccbc273cbb04fcba711bab36c5a",
+      "slot": 1,
+      "title": "Thành lập Tiểu đội du kích thoát li đầu tiên ở Cao Bằng"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 3 local files; allowed by external policy.",
+      "eventId": "thanh-lap-uy-ban-khang-chien-nam-bo-1945",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "ba2e34f1e066605d598ce54a32ce01b7714e87bf7c909cdd7d4e59525a39d7fb",
+      "slot": 1,
+      "title": "Thành lập Uỷ ban kháng chiến Nam Bộ"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 2 local files; allowed by external policy.",
+      "eventId": "thoi-gia-long-tri-vi",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "cef9f21aad2c3ba5e39d4f552a8124bcfbabd8ed6f1e0863b05ef5d4e3b83ffa",
+      "slot": 1,
+      "title": "Thời Gia Long trị vì"
+    },
+    {
+      "action": "hard_blocked_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 2 local files; allowed by external policy.",
+      "eventId": "thoi-tran-dat-chuc-xa-quan",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "199af608aec4a019e672a3e70c045175d99b8bbf4f513c6f17bc66ff1ae90acb",
+      "slot": 1,
+      "title": "Thời Trần đặt chức xã quan"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 4 local files; allowed by external policy.",
+      "eventId": "thuc-hien-thong-nhat-dat-nuoc-viet-nam",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "72c7d0111c80e59835bdc5a28cedb0ed3017ff98f038b8314d9d97a28afe2fa0",
+      "slot": 2,
+      "title": "Thực hiện thống nhất đất nước Việt Nam"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 3 local files; allowed by external policy.",
+      "eventId": "thuc-hien-thong-nhat-dat-nuoc-viet-nam",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "e54a4f3d5262565e67defd28bcf6894de882d3a8e35cfdb67a2c46fea992ce9b",
+      "slot": 1,
+      "title": "Thực hiện thống nhất đất nước Việt Nam"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 4 local files; allowed by external policy.",
+      "eventId": "tong-khoi-nghia-gianh-chinh-quyen",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "1088752ab38488572b462617d90061a7ea64f415f4e126db27351c3154e7971a",
+      "slot": 1,
+      "title": "Tổng khởi nghĩa giành chính quyền thắng lợi"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 2 local files; allowed by external policy.",
+      "eventId": "trieu-nguyen-thanh-lap",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "cef9f21aad2c3ba5e39d4f552a8124bcfbabd8ed6f1e0863b05ef5d4e3b83ffa",
+      "slot": 1,
+      "title": "Triều Nguyễn được thành lập"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 3 local files; allowed by external policy.",
+      "eventId": "trung-quoc-danh-chiem-da-vanh-khan",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "e0c08b4e62be45a1c9f9c86011136b68f16f8b06c45af880df94f20fd9b40646",
+      "slot": 2,
+      "title": "Trung Quốc đánh chiếm đá Vành Khăn"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 4 local files; allowed by external policy.",
+      "eventId": "trung-quoc-tu-choi-boi-thuong-vu-tau-dam-hoang-sa",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "f08e74f3321567cab211c362ce2b406bbf49a11491e0a25a0d4dd1f92d8f6b77",
+      "slot": 1,
+      "title": "Trung Quốc từ chối bồi thường vụ tàu đắm ở Hoàng Sa"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 3 local files; allowed by external policy.",
+      "eventId": "viet-nam-1919-1945",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "8bfdbb22ebc74e5300e7cbb925724907229bfb08a90c12fe343eeed0266418c9",
+      "slot": 1,
+      "title": "Việt Nam từ năm 1919 đến năm 1945"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 9 local files; allowed by external policy.",
+      "eventId": "viet-nam-1919-1945",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "a03a15ee2daf662c10a09a2d1fb27c9893d3b08cedb6d3b72c1c39a47c252e60",
+      "slot": 2,
+      "title": "Việt Nam từ năm 1919 đến năm 1945"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 3 local files; allowed by external policy.",
+      "eventId": "viet-nam-1945-1954",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "8bfdbb22ebc74e5300e7cbb925724907229bfb08a90c12fe343eeed0266418c9",
+      "slot": 2,
+      "title": "Việt Nam từ năm 1945 đến năm 1954"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 11 local files; allowed by external policy.",
+      "eventId": "viet-nam-1945-1954",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "c61b54693d5ab1b108391c4eb588912ec0f5a954216249116b3f44407fcdd284",
+      "slot": 1,
+      "title": "Việt Nam từ năm 1945 đến năm 1954"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 4 local files; allowed by external policy.",
+      "eventId": "viet-nam-1975-den-nay",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "2b6acaeef473b4cf4b0b85551dd4957efd158062c94f43d2de92ae70451e1df8",
+      "slot": 1,
+      "title": "Việt Nam từ năm 1975 đến nay"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 2 local files; allowed by external policy.",
+      "eventId": "viet-nam-1975-den-nay",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "4b3bee647dd396b68b614fbe9cd2897788f0e6a3deb8d5b57dd6d49258f44ce1",
+      "slot": 2,
+      "title": "Việt Nam từ năm 1975 đến nay"
+    },
+    {
+      "action": "hard_blocked_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 3 local files; allowed by external policy.",
+      "eventId": "viet-nam-ban-hanh-tuyen-bo-vung-bien-them-luc-dia",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "bd95951ef6e6c6f681211ef3553d492cd8d3eca5262865dfffb0d52c2ca9074e",
+      "slot": 2,
+      "title": "Việt Nam ban hành Tuyên bố về các vùng biển và thềm lục địa Việt Nam"
+    },
+    {
+      "action": "hard_blocked_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 10 local files; allowed by external policy.",
+      "eventId": "viet-nam-ban-hanh-tuyen-bo-vung-bien-them-luc-dia",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "ce2b47535dc49e9dddfe3cf35ab594eb23711d2e1aeda7cf5e96b039d5b8636e",
+      "slot": 1,
+      "title": "Việt Nam ban hành Tuyên bố về các vùng biển và thềm lục địa Việt Nam"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 2 local files; allowed by external policy.",
+      "eventId": "viet-nam-binh-thuong-hoa-quan-he-trung-quoc",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "d3388260b74351930faf7a48399ea3c45cf5bd62fd1f69e9e44e534a4f9af69f",
+      "slot": 2,
+      "title": "Việt Nam bình thường hoá quan hệ với Trung Quốc"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 3 local files; allowed by external policy.",
+      "eventId": "viet-nam-binh-thuong-hoa-quan-he-trung-quoc",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "f90a3c0ddece93f8aced8f2996b78d9b4743d27d2d8f57b45b291c4519155801",
+      "slot": 1,
+      "title": "Việt Nam bình thường hoá quan hệ với Trung Quốc"
+    },
+    {
+      "action": "hard_blocked_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 4 local files; allowed by external policy.",
+      "eventId": "viet-nam-danh-chiem-nua-phia-dong-hoang-sa",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "c44d89b7c5ad085c7938fb68a5078b9d67ae758202ef14b209cb5b22d10fa1b9",
+      "slot": 2,
+      "title": "Việt Nam (chính quyền Sài Gòn) đánh chiếm nửa phía đông của quần đảo Hoàng Sa (nhóm An Vĩnh)"
+    },
+    {
+      "action": "hard_blocked_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 2 local files; allowed by external policy.",
+      "eventId": "viet-nam-danh-chiem-nua-phia-dong-hoang-sa",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "e31d6a28b76e1e52bb3f8430fea0c2233327b9f63cc5481825f49a3e55ebb645",
+      "slot": 1,
+      "title": "Việt Nam (chính quyền Sài Gòn) đánh chiếm nửa phía đông của quần đảo Hoàng Sa (nhóm An Vĩnh)"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 11 local files; allowed by external policy.",
+      "eventId": "viet-nam-de-nghi-lien-hop-quoc-cong-nhan-vndcch",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "c61b54693d5ab1b108391c4eb588912ec0f5a954216249116b3f44407fcdd284",
+      "slot": 1,
+      "title": "Việt Nam đề nghị Liên hợp quốc và các nước lớn công nhận Nhà nước Việt Nam Dân chủ Cộng hoà"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 4 local files; allowed by external policy.",
+      "eventId": "viet-nam-gia-nhap-sev",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "72c7d0111c80e59835bdc5a28cedb0ed3017ff98f038b8314d9d97a28afe2fa0",
+      "slot": 1,
+      "title": "Việt Nam gia nhập Hội đồng tương trợ kinh tế (SEV)"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 4 local files; allowed by external policy.",
+      "eventId": "viet-nam-lao-cam-pu-chia-chuyen-sang-kinh-te-thi-truong-va-cong-nghiep-hoa",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "2b6acaeef473b4cf4b0b85551dd4957efd158062c94f43d2de92ae70451e1df8",
+      "slot": 1,
+      "title": "Việt Nam, Lào, Cam-pu-chia chuyển sang kinh tế thị trường và công nghiệp hóa"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 2 local files; allowed by external policy.",
+      "eventId": "viet-nam-tam-thoi-bi-chia-cat-hai-mien",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "87a5fc6f13f0e2fd0a283f66e14e274eb4bc7af30fd5d68e1004cd583e5d4861",
+      "slot": 1,
+      "title": "Việt Nam tạm thời bị chia cắt làm hai miền"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 2 local files; allowed by external policy.",
+      "eventId": "viet-nam-thanh-vien-lien-hop-quoc",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "4b3bee647dd396b68b614fbe9cd2897788f0e6a3deb8d5b57dd6d49258f44ce1",
+      "slot": 1,
+      "title": "Việt Nam trở thành thành viên chính thức của Liên hợp quốc"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 2 local files; allowed by external policy.",
+      "eventId": "viet-nam-the-hien-thien-chi-hoa-binh-sau-12-1946",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "b56750e769f7a287ea04191679b831c017832e5305c873bf6446e88257dc19be",
+      "slot": 2,
+      "title": "Việt Nam thể hiện thiện chí hoà bình sau khi kháng chiến bùng nổ"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 2 local files; allowed by external policy.",
+      "eventId": "viet-nam-tu-the-ki-x-den-xv",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "0dd79b24455fc4bb6cb38a6fc210672458389d8b4a82a4c8f86ca70ba4b82def",
+      "slot": 1,
+      "title": "Việt Nam từ thế kỉ X đến thế kỉ XV"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 2 local files; allowed by external policy.",
+      "eventId": "vndcch-can-bang-quan-he-voi-lien-xo-trung-quoc-va-van-dong-vien-tro",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "75c0425d590c6f5e335e414a9b51ac437bf3211c3e5f3e92758086cad6eddf61",
+      "slot": 1,
+      "title": "Việt Nam Dân chủ Cộng hoà cân bằng quan hệ với Liên Xô, Trung Quốc và vận động viện trợ"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 3 local files; allowed by external policy.",
+      "eventId": "vndcch-can-bang-quan-he-voi-lien-xo-trung-quoc-va-van-dong-vien-tro",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "f90a3c0ddece93f8aced8f2996b78d9b4743d27d2d8f57b45b291c4519155801",
+      "slot": 2,
+      "title": "Việt Nam Dân chủ Cộng hoà cân bằng quan hệ với Liên Xô, Trung Quốc và vận động viện trợ"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 2 local files; allowed by external policy.",
+      "eventId": "vndcch-dau-tranh-doi-thi-hanh-hiep-dinh-gio-ne-vo",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "87a5fc6f13f0e2fd0a283f66e14e274eb4bc7af30fd5d68e1004cd583e5d4861",
+      "slot": 1,
+      "title": "Việt Nam Dân chủ Cộng hoà đấu tranh đòi thi hành Hiệp định Giơ-ne-vơ"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 2 local files; allowed by external policy.",
+      "eventId": "vndcch-thiet-lap-quan-he-ngoai-giao-voi-cac-nuoc-xhcn",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "d3388260b74351930faf7a48399ea3c45cf5bd62fd1f69e9e44e534a4f9af69f",
+      "slot": 1,
+      "title": "Việt Nam Dân chủ Cộng hoà thiết lập quan hệ ngoại giao với Cộng hoà Nhân dân Trung Hoa, Liên Xô và các nước xã hội chủ nghĩa khác"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 3 local files; allowed by external policy.",
+      "eventId": "vndcch-thiet-lap-quan-he-ngoai-giao-voi-cac-nuoc-xhcn",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "f90a3c0ddece93f8aced8f2996b78d9b4743d27d2d8f57b45b291c4519155801",
+      "slot": 2,
+      "title": "Việt Nam Dân chủ Cộng hoà thiết lập quan hệ ngoại giao với Cộng hoà Nhân dân Trung Hoa, Liên Xô và các nước xã hội chủ nghĩa khác"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 2 local files; allowed by external policy.",
+      "eventId": "vuong-thuc-mau-khoi-nghia-can-vuong",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "a52bb779f15df158bd7cb845e56427da9b1888a8a261255aac78fba3e4717516",
+      "slot": 2,
+      "title": "Vương Thúc Mậu khởi nghĩa hưởng ứng Dụ Cần vương"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 2 local files; allowed by external policy.",
+      "eventId": "vuong-thuc-mau-khoi-nghia-can-vuong",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "bdb8c1e01902a71f9e9a4b7523f85153c336df47a30ec2e8aecda21e30b92ebd",
+      "slot": 1,
+      "title": "Vương Thúc Mậu khởi nghĩa hưởng ứng Dụ Cần vương"
+    },
+    {
+      "action": "allowed_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 4 local files; allowed by external policy.",
+      "eventId": "xa-lan-dau-tien-xuat-hien",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "ae63352169def380becccc0a5160d005ef04b91161b0f1c91abf539739ddf295",
+      "slot": 1,
+      "title": "Xã lần đầu tiên xuất hiện"
+    },
+    {
+      "action": "hard_blocked_duplicate_report_only",
+      "detail": "Duplicate image hash appears in 2 local files; allowed by external policy.",
+      "eventId": "xa-tro-thanh-ten-goi-pho-bien",
+      "reasonType": "duplicate_physical_hash",
+      "sha256": "199af608aec4a019e672a3e70c045175d99b8bbf4f513c6f17bc66ff1ae90acb",
+      "slot": 1,
+      "title": "Xã chính thức trở thành tên gọi phổ biến"
+    }
+  ],
+  "staleDuplicateDecisionsCleared": 152,
+  "version": 1
+}

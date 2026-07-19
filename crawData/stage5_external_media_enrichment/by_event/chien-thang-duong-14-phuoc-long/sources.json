@@ -1,0 +1,9 @@
+{
+  "eventId": "chien-thang-duong-14-phuoc-long",
+  "status": "pending_download",
+  "images": [],
+  "expected": [
+    "image_01.<ext>",
+    "image_02.<ext>"
+  ]
+}

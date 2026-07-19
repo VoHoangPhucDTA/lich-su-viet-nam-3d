@@ -1,0 +1,59 @@
+{
+  "eventId": "khoi-nghia-gianh-chinh-quyen-hue",
+  "title": "Khởi nghĩa giành chính quyền tại Huế",
+  "shortTitle": "Khởi nghĩa Huế",
+  "displayDate": "Ngày 23 – 8",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1919-1945",
+  "parentId": "cach-mang-thang-tam-nam-1945",
+  "historicalLocations": [],
+  "provinceNames": [
+    "Thừa Thiên Huế"
+  ],
+  "canonicalSummary": "Tại Huế, ngày 23 – 8, hàng vạn nhân dân biểu tình thị uy, chiếm các công sở giành chính quyền về tay nhân dân.",
+  "keyFacts": [
+    "Chiếm các công sở giành chính quyền",
+    "Hàng vạn nhân dân biểu tình",
+    "Ngày 23-8-1945",
+    "Tại Huế"
+  ],
+  "sourceFamily": "revolutionary",
+  "preferredVerificationDomains": [
+    "hochiminh.vn",
+    "tulieuvankien.dangcongsan.vn",
+    "dangcongsan.vn",
+    "baotanglichsu.vn",
+    "nhandan.vn",
+    "qdnd.vn",
+    "vietnamplus.vn",
+    "luutru.gov.vn"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Khởi nghĩa giành chính quyền tại Huế",
+    "Khởi nghĩa giành chính quyền tại Huế Ngày 23 – 8",
+    "Khởi nghĩa giành chính quyền tại Huế Cách mạng tháng Tám năm 1945",
+    "Khởi nghĩa giành chính quyền tại Huế Chiếm các công sở giành chính quyền Hàng vạn nhân dân biểu tình",
+    "Khởi nghĩa giành chính quyền tại Huế ảnh tư liệu",
+    "Khởi nghĩa giành chính quyền tại Huế chân dung"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

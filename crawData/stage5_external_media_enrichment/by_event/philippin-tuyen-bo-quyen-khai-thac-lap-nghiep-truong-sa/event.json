@@ -1,0 +1,57 @@
+{
+  "eventId": "philippin-tuyen-bo-quyen-khai-thac-lap-nghiep-truong-sa",
+  "title": "Phi-líp-pin tuyên bố có quyền khai thác, lập nghiệp tại nhóm đảo Trường Sa",
+  "shortTitle": "Phi-líp-pin tuyên bố chủ quyền Trường Sa (1956)",
+  "displayDate": "Năm 1956",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1954-1975",
+  "parentId": "chu-quyen-bien-dao-viet-nam-1954-1975",
+  "historicalLocations": [
+    "nhóm đảo Trường Sa"
+  ],
+  "provinceNames": [],
+  "canonicalSummary": "Phi-líp-pin - Năm 1956, tuyên bố có quyền khai thác, lập nghiệp tại nhóm đảo Trường Sa.",
+  "keyFacts": [
+    "Chủ thể: Phi-líp-pin",
+    "Nội dung: tuyên bố quyền khai thác, lập nghiệp tại nhóm đảo Trường Sa",
+    "Diễn ra năm 1956"
+  ],
+  "sourceFamily": "maritime",
+  "preferredVerificationDomains": [
+    "mofa.gov.vn",
+    "biengioilanhtho.gov.vn",
+    "mod.gov.vn",
+    "qdnd.vn",
+    "chinhphu.vn",
+    "vietnamplus.vn",
+    "luutru.gov.vn"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Phi-líp-pin tuyên bố có quyền khai thác, lập nghiệp tại nhóm đảo Trường Sa",
+    "Phi-líp-pin tuyên bố có quyền khai thác, lập nghiệp tại nhóm đảo Trường Sa Năm 1956",
+    "Phi-líp-pin tuyên bố có quyền khai thác, lập nghiệp tại nhóm đảo Trường Sa nhóm đảo Trường Sa",
+    "Phi-líp-pin tuyên bố có quyền khai thác, lập nghiệp tại nhóm đảo Trường Sa Chủ thể: Phi-líp-pin Nội dung: tuyên bố quyền khai thác, lập nghiệp tại nhóm đảo Trường Sa",
+    "Phi-líp-pin tuyên bố có quyền khai thác, lập nghiệp tại nhóm đảo Trường Sa bản đồ",
+    "Phi-líp-pin tuyên bố có quyền khai thác, lập nghiệp tại nhóm đảo Trường Sa hải đồ"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

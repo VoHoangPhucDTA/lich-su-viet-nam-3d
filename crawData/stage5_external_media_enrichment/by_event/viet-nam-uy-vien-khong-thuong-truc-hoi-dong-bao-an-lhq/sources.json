@@ -1,0 +1,9 @@
+{
+  "eventId": "viet-nam-uy-vien-khong-thuong-truc-hoi-dong-bao-an-lhq",
+  "status": "pending_download",
+  "images": [],
+  "expected": [
+    "image_01.<ext>",
+    "image_02.<ext>"
+  ]
+}

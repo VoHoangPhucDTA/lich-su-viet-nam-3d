@@ -1,0 +1,63 @@
+{
+  "eventId": "chien-tranh-bao-ve-doc-lap-dan-toc-va-chu-quyen-quoc-gia-o-dong-duong",
+  "title": "Chiến tranh bảo vệ độc lập dân tộc và chủ quyền quốc gia ở Đông Dương",
+  "shortTitle": "Chiến tranh bảo vệ độc lập dân tộc và chủ quyền quốc gia ở Đông Dương",
+  "displayDate": "1954 - 1975",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1945-1954",
+  "parentId": "viet-nam-1945-1954",
+  "historicalLocations": [
+    "Cam-pu-chia",
+    "Lào",
+    "Việt Nam",
+    "Đông Dương"
+  ],
+  "provinceNames": [],
+  "canonicalSummary": "Từ năm 1954, sau khi Mỹ can thiệp vào Đông Dương, nhân dân ba nước Đông Dương (Việt Nam, Lào, Cam-pu-chia) phải tiếp tục tiến hành cuộc chiến tranh bảo vệ nền độc lập dân tộc và chủ quyền quốc gia.",
+  "keyFacts": [
+    "Diễn ra từ 1954",
+    "Là cuộc chiến đấu quyết liệt nhất",
+    "Chống Mỹ can thiệp",
+    "Diễn ra ở Việt Nam, Lào, Cam-pu-chia"
+  ],
+  "sourceFamily": "war_1945_1975",
+  "preferredVerificationDomains": [
+    "btlsqsvn.org.vn",
+    "qdnd.vn",
+    "nhandan.vn",
+    "vietnamplus.vn",
+    "hochiminh.vn",
+    "baotanglichsu.vn",
+    "luutru.gov.vn",
+    "loc.gov",
+    "archives.gov"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Chiến tranh bảo vệ độc lập dân tộc và chủ quyền quốc gia ở Đông Dương",
+    "Chiến tranh bảo vệ độc lập dân tộc và chủ quyền quốc gia ở Đông Dương 1954 - 1975",
+    "Chiến tranh bảo vệ độc lập dân tộc và chủ quyền quốc gia ở Đông Dương Cam-pu-chia",
+    "Chiến tranh bảo vệ độc lập dân tộc và chủ quyền quốc gia ở Đông Dương Diễn ra từ 1954 Là cuộc chiến đấu quyết liệt nhất",
+    "Chiến tranh bảo vệ độc lập dân tộc và chủ quyền quốc gia ở Đông Dương ảnh tư liệu",
+    "Chiến tranh bảo vệ độc lập dân tộc và chủ quyền quốc gia ở Đông Dương chiến dịch"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

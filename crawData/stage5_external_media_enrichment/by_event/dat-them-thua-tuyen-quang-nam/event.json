@@ -1,0 +1,57 @@
+{
+  "eventId": "dat-them-thua-tuyen-quang-nam",
+  "title": "Đặt thêm thừa tuyên Quảng Nam",
+  "shortTitle": "Thêm Quảng Nam",
+  "displayDate": "Năm 1471",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-tu-the-ki-x-den-xv",
+  "parentId": "cai-cach-le-thanh-tong",
+  "historicalLocations": [],
+  "provinceNames": [
+    "Quảng Nam"
+  ],
+  "canonicalSummary": "Năm 1471, đặt thêm thừa tuyên thứ 13 là Quảng Nam.",
+  "keyFacts": [
+    "Địa danh: Quảng Nam",
+    "Diễn ra năm 1471",
+    "Thừa tuyên thứ 13"
+  ],
+  "sourceFamily": "ancient_medieval",
+  "preferredVerificationDomains": [
+    "baotanglichsu.vn",
+    "disanvanhoa.gov.vn",
+    "bvhttdl.gov.vn",
+    "qdnd.vn",
+    "nhandan.vn",
+    "unesco.org",
+    "whc.unesco.org"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Đặt thêm thừa tuyên Quảng Nam",
+    "Đặt thêm thừa tuyên Quảng Nam Năm 1471",
+    "Đặt thêm thừa tuyên Quảng Nam Cuộc cải cách của Lê Thánh Tông",
+    "Đặt thêm thừa tuyên Quảng Nam Địa danh: Quảng Nam Diễn ra năm 1471",
+    "Đặt thêm thừa tuyên Quảng Nam hiện vật",
+    "Đặt thêm thừa tuyên Quảng Nam di tích"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

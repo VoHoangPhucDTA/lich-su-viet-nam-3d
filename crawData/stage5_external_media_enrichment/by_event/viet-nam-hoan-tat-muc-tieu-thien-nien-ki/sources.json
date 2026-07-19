@@ -1,0 +1,9 @@
+{
+  "eventId": "viet-nam-hoan-tat-muc-tieu-thien-nien-ki",
+  "status": "pending_download",
+  "images": [],
+  "expected": [
+    "image_01.<ext>",
+    "image_02.<ext>"
+  ]
+}

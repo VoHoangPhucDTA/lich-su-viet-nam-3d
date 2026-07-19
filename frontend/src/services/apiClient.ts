@@ -31,11 +31,13 @@ export interface StoredUser {
 
 export class ApiRequestError extends Error {
   code: string;
+  status: number;
 
-  constructor(code: string, message: string) {
+  constructor(code: string, message: string, status = 0) {
     super(message);
     this.name = 'ApiRequestError';
     this.code = code;
+    this.status = status;
   }
 }
 
@@ -78,15 +80,60 @@ async function refreshAccessToken(): Promise<boolean> {
   }
 }
 
-export async function apiGet<T>(path: string): Promise<T> {
-  return apiRequest<T>(path, { method: 'GET' });
+export async function apiGet<T>(path: string, init: Omit<RequestInit, 'method' | 'body'> = {}): Promise<T> {
+  return apiRequest<T>(path, { ...init, method: 'GET' });
 }
 
-export async function apiPost<T>(path: string, body?: unknown): Promise<T> {
+export async function apiPost<T>(path: string, body?: unknown, init: Omit<RequestInit, 'method' | 'body'> = {}): Promise<T> {
   return apiRequest<T>(path, {
+    ...init,
     method: 'POST',
     body: body === undefined ? undefined : JSON.stringify(body),
   });
+}
+
+/**
+ * Sends a POST exactly once. Use this for operations whose server-side effect
+ * must not be replayed by the HTTP client after an authentication refresh.
+ */
+export async function apiPostOnce<T>(
+  path: string,
+  body?: unknown,
+  init: Omit<RequestInit, 'method' | 'body'> = {},
+): Promise<T> {
+  return apiRequest<T>(path, {
+    ...init,
+    method: 'POST',
+    body: body === undefined ? undefined : JSON.stringify(body),
+  }, false);
+}
+
+export async function apiPut<T>(
+  path: string,
+  body?: unknown,
+  init: Omit<RequestInit, 'method' | 'body'> = {},
+): Promise<T> {
+  return apiRequest<T>(path, {
+    ...init,
+    method: 'PUT',
+    body: body === undefined ? undefined : JSON.stringify(body),
+  });
+}
+
+export async function apiPatch<T>(
+  path: string,
+  body?: unknown,
+  init: Omit<RequestInit, 'method' | 'body'> = {},
+): Promise<T> {
+  return apiRequest<T>(path, {
+    ...init,
+    method: 'PATCH',
+    body: body === undefined ? undefined : JSON.stringify(body),
+  });
+}
+
+export async function apiDelete<T>(path: string, init: Omit<RequestInit, 'method' | 'body'> = {}): Promise<T> {
+  return apiRequest<T>(path, { ...init, method: 'DELETE' });
 }
 
 async function apiRequest<T>(path: string, init: RequestInit, retry = true): Promise<T> {
@@ -112,9 +159,18 @@ async function apiRequest<T>(path: string, init: RequestInit, retry = true): Pro
     }
   }
 
-  const payload = (await response.json()) as ApiResponse<T>;
-  if (!response.ok || !payload.success) {
-    throw new ApiRequestError(payload.code || 'API_ERROR', payload.message || `API request failed: ${path}`);
+  let payload: ApiResponse<T> | null = null;
+  try {
+    payload = (await response.json()) as ApiResponse<T>;
+  } catch {
+    // A proxy or unavailable backend can return a non-JSON error body.
+  }
+  if (!response.ok || !payload?.success) {
+    throw new ApiRequestError(
+      payload?.code || 'API_ERROR',
+      payload?.message || `API request failed: ${path}`,
+      response.status,
+    );
   }
 
   return payload.data;

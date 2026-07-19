@@ -1,0 +1,56 @@
+Stage5 external historical media enrichment package validation
+=============================================================
+
+Completed checks:
+
+1. Full re-review base validation
+   approved images: 121
+   image-event relationships: 175
+   target events: 103
+   thumbnails: 103
+   gallery relationships: 72
+   validator warnings: 0
+   validator errors: 0
+
+2. Missing-event plan regeneration
+   core events: 361
+   covered by reviewed mappings: 103
+   missing events: 258
+   required external image assignments: 516
+
+3. Folder structure
+   by_event event directories: 258
+   plan event IDs: 258 unique
+   folder IDs exactly equal plan IDs: PASS
+   every folder contains event.json: PASS
+   every folder contains sources.json: PASS
+
+4. Package tests
+   test_two_verified_images_finalize: PASS
+   test_untrusted_verification_rejected: PASS
+   test_duplicate_sort_order_rejected: PASS
+   test_thumbnail_and_gallery_item: PASS
+   total: 4 tests PASS
+
+5. Python compilation
+   activate_full_rereview.py: PASS
+   prepare_external_event_media.py: PASS
+   discover_trusted_verification_sources.py: PASS
+   download_external_event_images.py: PASS
+   review_external_event_media.py: PASS
+   validate_external_event_media.py: PASS
+   finalize_external_event_media.py: PASS
+   publish_approved_media_v2.py: PASS
+
+6. Expected final scale if every missing event passes external review
+   final target events: 361
+   base relationships: 175
+   new external relationships: 516
+   expected total relationships: 691
+
+Important runtime limitation
+----------------------------
+The current sandbox supports web research but blocks public DNS/binary downloads
+from the container runtime. Therefore the package does not falsely claim that
+516 web image files have been materialized. The networked downloader is included
+and will create image_01/image_02 files in a network-enabled Codex/repo runtime.

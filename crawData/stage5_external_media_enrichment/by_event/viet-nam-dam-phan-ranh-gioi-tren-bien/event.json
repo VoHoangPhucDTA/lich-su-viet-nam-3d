@@ -1,0 +1,62 @@
+{
+  "eventId": "viet-nam-dam-phan-ranh-gioi-tren-bien",
+  "title": "Việt Nam đàm phán về ranh giới trên biển với Ma-lai-xi-a, In-đô-nê-xi-a, Phi-líp-pin và Thái Lan",
+  "shortTitle": "VN đàm phán ranh giới biển",
+  "displayDate": "Trong thời kì Đổi mới",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1975-den-nay",
+  "parentId": "cong-cuoc-doi-moi-o-viet-nam",
+  "historicalLocations": [
+    "In-đô-nê-xi-a",
+    "Ma-lai-xi-a",
+    "Phi-líp-pin",
+    "Thái Lan"
+  ],
+  "provinceNames": [],
+  "canonicalSummary": "Việt Nam đã đàm phán về ranh giới trên biển với Ma-lai-xi-a, In-đô-nê-xi-a, Phi-líp-pin và và Thái Lan, giải quyết các bất đồng bằng con đường đàm phán, thương lượng.",
+  "keyFacts": [
+    "Đàm phán về ranh giới trên biển",
+    "Giải quyết bất đồng bằng đàm phán, thương lượng",
+    "Với Ma-lai-xi-a, In-đô-nê-xi-a, Phi-líp-pin và Thái Lan"
+  ],
+  "sourceFamily": "post_1975",
+  "preferredVerificationDomains": [
+    "chinhphu.vn",
+    "dangcongsan.vn",
+    "tulieuvankien.dangcongsan.vn",
+    "quochoi.vn",
+    "mofa.gov.vn",
+    "vietnamplus.vn",
+    "nhandan.vn",
+    "un.org",
+    "unphoto.un.org"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Việt Nam đàm phán về ranh giới trên biển với Ma-lai-xi-a, In-đô-nê-xi-a, Phi-líp-pin và Thái Lan",
+    "Việt Nam đàm phán về ranh giới trên biển với Ma-lai-xi-a, In-đô-nê-xi-a, Phi-líp-pin và Thái Lan Trong thời kì Đổi mới",
+    "Việt Nam đàm phán về ranh giới trên biển với Ma-lai-xi-a, In-đô-nê-xi-a, Phi-líp-pin và Thái Lan In-đô-nê-xi-a",
+    "Việt Nam đàm phán về ranh giới trên biển với Ma-lai-xi-a, In-đô-nê-xi-a, Phi-líp-pin và Thái Lan Đàm phán về ranh giới trên biển Giải quyết bất đồng bằng đàm phán, thương lượng",
+    "Việt Nam đàm phán về ranh giới trên biển với Ma-lai-xi-a, In-đô-nê-xi-a, Phi-líp-pin và Thái Lan ảnh tư liệu",
+    "Việt Nam đàm phán về ranh giới trên biển với Ma-lai-xi-a, In-đô-nê-xi-a, Phi-líp-pin và Thái Lan lễ ký"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

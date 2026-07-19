@@ -1,0 +1,58 @@
+{
+  "eventId": "thanh-lap-quan-giai-phong-mien-nam",
+  "title": "Thành lập Quân Giải phóng miền Nam",
+  "shortTitle": "Quân Giải phóng miền Nam",
+  "displayDate": "Ngày 15 – 2 – 1961",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1954-1975",
+  "parentId": "viet-nam-1954-1975",
+  "historicalLocations": [
+    "miền Nam"
+  ],
+  "provinceNames": [],
+  "canonicalSummary": "Để đáp ứng yêu cầu của cuộc kháng chiến, ngày 15 – 2 – 1961, các lực lượng vũ trang cách mạng thống nhất thành Quân Giải phóng miền Nam.",
+  "keyFacts": [
+    "Thống nhất các lực lượng vũ trang cách mạng",
+    "Thành lập ngày 15-2-1961"
+  ],
+  "sourceFamily": "war_1945_1975",
+  "preferredVerificationDomains": [
+    "btlsqsvn.org.vn",
+    "qdnd.vn",
+    "nhandan.vn",
+    "vietnamplus.vn",
+    "hochiminh.vn",
+    "baotanglichsu.vn",
+    "luutru.gov.vn",
+    "loc.gov",
+    "archives.gov"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Thành lập Quân Giải phóng miền Nam",
+    "Thành lập Quân Giải phóng miền Nam Ngày 15 – 2 – 1961",
+    "Thành lập Quân Giải phóng miền Nam miền Nam",
+    "Thành lập Quân Giải phóng miền Nam Thống nhất các lực lượng vũ trang cách mạng Thành lập ngày 15-2-1961",
+    "Thành lập Quân Giải phóng miền Nam ảnh tư liệu",
+    "Thành lập Quân Giải phóng miền Nam chiến dịch"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

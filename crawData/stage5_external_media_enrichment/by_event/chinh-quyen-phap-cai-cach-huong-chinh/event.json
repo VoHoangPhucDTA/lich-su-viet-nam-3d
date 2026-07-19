@@ -1,0 +1,57 @@
+{
+  "eventId": "chinh-quyen-phap-cai-cach-huong-chinh",
+  "title": "Chính quyền thực dân Pháp thực hiện cải cách hương chính",
+  "shortTitle": "Cải cách hương chính thời Pháp thuộc",
+  "displayDate": "Thời Pháp thuộc",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1858-1918",
+  "parentId": "viet-nam-1858-1918",
+  "historicalLocations": [],
+  "provinceNames": [],
+  "canonicalSummary": "Thời Pháp thuộc: Chính quyền thực dân Pháp thực hiện nhiều biện pháp cải cách nhằm tăng cường quản lí hành chính (như chính sách \"cải lương hương chính\") nhưng không thành công.",
+  "keyFacts": [
+    "Chính sách \"cải lương hương chính\"",
+    "Nhằm tăng cường quản lí hành chính",
+    "Không thành công",
+    "Chính quyền Pháp thực hiện cải cách"
+  ],
+  "sourceFamily": "colonial",
+  "preferredVerificationDomains": [
+    "baotanglichsu.vn",
+    "luutru.gov.vn",
+    "hochiminh.vn",
+    "nhandan.vn",
+    "qdnd.vn",
+    "vietnamplus.vn",
+    "gallica.bnf.fr",
+    "loc.gov"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Chính quyền thực dân Pháp thực hiện cải cách hương chính",
+    "Chính quyền thực dân Pháp thực hiện cải cách hương chính Thời Pháp thuộc",
+    "Chính quyền thực dân Pháp thực hiện cải cách hương chính Việt Nam từ năm 1858 đến năm 1918",
+    "Chính quyền thực dân Pháp thực hiện cải cách hương chính Chính sách \"cải lương hương chính\" Nhằm tăng cường quản lí hành chính",
+    "Chính quyền thực dân Pháp thực hiện cải cách hương chính ảnh tư liệu",
+    "Chính quyền thực dân Pháp thực hiện cải cách hương chính chân dung"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

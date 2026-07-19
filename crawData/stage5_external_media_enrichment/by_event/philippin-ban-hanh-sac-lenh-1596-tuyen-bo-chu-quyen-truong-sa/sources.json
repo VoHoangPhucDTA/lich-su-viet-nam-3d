@@ -1,0 +1,9 @@
+{
+  "eventId": "philippin-ban-hanh-sac-lenh-1596-tuyen-bo-chu-quyen-truong-sa",
+  "status": "pending_download",
+  "images": [],
+  "expected": [
+    "image_01.<ext>",
+    "image_02.<ext>"
+  ]
+}

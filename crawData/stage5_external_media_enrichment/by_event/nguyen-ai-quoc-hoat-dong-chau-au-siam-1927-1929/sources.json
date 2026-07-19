@@ -1,0 +1,9 @@
+{
+  "eventId": "nguyen-ai-quoc-hoat-dong-chau-au-siam-1927-1929",
+  "status": "pending_download",
+  "images": [],
+  "expected": [
+    "image_01.<ext>",
+    "image_02.<ext>"
+  ]
+}

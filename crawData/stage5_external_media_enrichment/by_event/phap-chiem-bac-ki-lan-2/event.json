@@ -1,0 +1,58 @@
+{
+  "eventId": "phap-chiem-bac-ki-lan-2",
+  "title": "Pháp đánh chiếm Bắc Kì lần thứ hai",
+  "shortTitle": "Pháp đánh chiếm Bắc Kì lần thứ hai",
+  "displayDate": "Năm 1882",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1858-1918",
+  "parentId": "viet-nam-1858-1918",
+  "historicalLocations": [],
+  "provinceNames": [
+    "Thừa Thiên Huế"
+  ],
+  "canonicalSummary": "Năm 1882, Pháp lại đưa quân đánh chiếm Bắc Kì lần thứ hai, sau đó quyết định đánh thẳng vào Huế.",
+  "keyFacts": [
+    "Địa điểm: Bắc Kì, Huế",
+    "Mở đường cho việc Pháp đánh chiếm Huế",
+    "Diễn ra năm 1882"
+  ],
+  "sourceFamily": "colonial",
+  "preferredVerificationDomains": [
+    "baotanglichsu.vn",
+    "luutru.gov.vn",
+    "hochiminh.vn",
+    "nhandan.vn",
+    "qdnd.vn",
+    "vietnamplus.vn",
+    "gallica.bnf.fr",
+    "loc.gov"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Pháp đánh chiếm Bắc Kì lần thứ hai",
+    "Pháp đánh chiếm Bắc Kì lần thứ hai Năm 1882",
+    "Pháp đánh chiếm Bắc Kì lần thứ hai Việt Nam từ năm 1858 đến năm 1918",
+    "Pháp đánh chiếm Bắc Kì lần thứ hai Địa điểm: Bắc Kì, Huế Mở đường cho việc Pháp đánh chiếm Huế",
+    "Pháp đánh chiếm Bắc Kì lần thứ hai ảnh tư liệu",
+    "Pháp đánh chiếm Bắc Kì lần thứ hai chân dung"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

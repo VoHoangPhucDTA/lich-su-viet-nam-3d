@@ -1,0 +1,58 @@
+{
+  "eventId": "cao-trao-khang-nhat-cuu-nuoc",
+  "title": "Cao trào kháng Nhật, cứu nước",
+  "shortTitle": "Cao trào kháng Nhật, cứu nước",
+  "displayDate": "Từ tháng 3 đến tháng 8 – 1945",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1919-1945",
+  "parentId": "cach-mang-thang-tam-nam-1945",
+  "historicalLocations": [
+    "cả nước"
+  ],
+  "provinceNames": [],
+  "canonicalSummary": "Trước đó, từ tháng 3 đến tháng 8 – 1945, cao trào kháng Nhật, cứu nước đã diễn ra trong cả nước, góp phần chuẩn bị lực lượng, tập dượt cho quần chúng đấu tranh, sẵn sàng tổng khởi nghĩa giành chính quyền khi thời cơ đến.",
+  "keyFacts": [
+    "Diễn ra từ tháng 3 đến tháng 8-1945",
+    "Trong cả nước",
+    "Chuẩn bị lực lượng cho Tổng khởi nghĩa"
+  ],
+  "sourceFamily": "revolutionary",
+  "preferredVerificationDomains": [
+    "hochiminh.vn",
+    "tulieuvankien.dangcongsan.vn",
+    "dangcongsan.vn",
+    "baotanglichsu.vn",
+    "nhandan.vn",
+    "qdnd.vn",
+    "vietnamplus.vn",
+    "luutru.gov.vn"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Cao trào kháng Nhật, cứu nước",
+    "Cao trào kháng Nhật, cứu nước Từ tháng 3 đến tháng 8 – 1945",
+    "Cao trào kháng Nhật, cứu nước cả nước",
+    "Cao trào kháng Nhật, cứu nước Diễn ra từ tháng 3 đến tháng 8-1945 Trong cả nước",
+    "Cao trào kháng Nhật, cứu nước ảnh tư liệu",
+    "Cao trào kháng Nhật, cứu nước chân dung"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

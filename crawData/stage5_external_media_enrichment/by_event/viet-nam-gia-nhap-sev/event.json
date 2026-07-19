@@ -1,0 +1,56 @@
+{
+  "eventId": "viet-nam-gia-nhap-sev",
+  "title": "Việt Nam gia nhập Hội đồng tương trợ kinh tế (SEV)",
+  "shortTitle": "Việt Nam gia nhập SEV",
+  "displayDate": "Năm 1978",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1975-den-nay",
+  "parentId": "viet-nam-1975-den-nay",
+  "historicalLocations": [],
+  "provinceNames": [],
+  "canonicalSummary": "Năm 1978, Việt Nam gia nhập Hội đồng tương trợ kinh tế (SEV).",
+  "keyFacts": [
+    "Năm 1978",
+    "Gia nhập Hội đồng tương trợ kinh tế (SEV)"
+  ],
+  "sourceFamily": "post_1975",
+  "preferredVerificationDomains": [
+    "chinhphu.vn",
+    "dangcongsan.vn",
+    "tulieuvankien.dangcongsan.vn",
+    "quochoi.vn",
+    "mofa.gov.vn",
+    "vietnamplus.vn",
+    "nhandan.vn",
+    "un.org",
+    "unphoto.un.org"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Việt Nam gia nhập Hội đồng tương trợ kinh tế (SEV)",
+    "Việt Nam gia nhập Hội đồng tương trợ kinh tế (SEV) Năm 1978",
+    "Việt Nam gia nhập Hội đồng tương trợ kinh tế (SEV) Việt Nam từ năm 1975 đến nay",
+    "Việt Nam gia nhập Hội đồng tương trợ kinh tế (SEV) Năm 1978 Gia nhập Hội đồng tương trợ kinh tế (SEV)",
+    "Việt Nam gia nhập Hội đồng tương trợ kinh tế (SEV) ảnh tư liệu",
+    "Việt Nam gia nhập Hội đồng tương trợ kinh tế (SEV) lễ ký"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

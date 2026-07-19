@@ -1,0 +1,9 @@
+{
+  "eventId": "vndcch-thiet-lap-quan-he-ngoai-giao-voi-lao-campuchia-va-ung-ho-phong-trao-giai-phong-dan-toc",
+  "status": "pending_download",
+  "images": [],
+  "expected": [
+    "image_01.<ext>",
+    "image_02.<ext>"
+  ]
+}

@@ -1,0 +1,61 @@
+{
+  "eventId": "go-ro-bat-co-pham-tuan-bay-vu-tru",
+  "title": "V. Go-rơ-bát cô (Liên Xô) và Phạm Tuân (Việt Nam) cùng bay vào vũ trụ",
+  "shortTitle": "Phạm Tuân bay vào vũ trụ",
+  "displayDate": "1980",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1975-den-nay",
+  "parentId": "viet-nam-1975-den-nay",
+  "historicalLocations": [
+    "Liên Xô",
+    "Việt Nam"
+  ],
+  "provinceNames": [],
+  "canonicalSummary": "V. Go-rơ-bát cô (Liên Xô) và Phạm Tuân (Việt Nam) cùng bay vào vũ trụ (1980).",
+  "keyFacts": [
+    "V. Go-rơ-bát cô (Liên Xô)",
+    "Bay vào vũ trụ",
+    "Năm 1980",
+    "Phạm Tuân (Việt Nam)"
+  ],
+  "sourceFamily": "post_1975",
+  "preferredVerificationDomains": [
+    "chinhphu.vn",
+    "dangcongsan.vn",
+    "tulieuvankien.dangcongsan.vn",
+    "quochoi.vn",
+    "mofa.gov.vn",
+    "vietnamplus.vn",
+    "nhandan.vn",
+    "un.org",
+    "unphoto.un.org"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "V. Go-rơ-bát cô (Liên Xô) và Phạm Tuân (Việt Nam) cùng bay vào vũ trụ",
+    "V. Go-rơ-bát cô (Liên Xô) và Phạm Tuân (Việt Nam) cùng bay vào vũ trụ 1980",
+    "V. Go-rơ-bát cô (Liên Xô) và Phạm Tuân (Việt Nam) cùng bay vào vũ trụ Liên Xô",
+    "V. Go-rơ-bát cô (Liên Xô) và Phạm Tuân (Việt Nam) cùng bay vào vũ trụ V. Go-rơ-bát cô (Liên Xô) Bay vào vũ trụ",
+    "V. Go-rơ-bát cô (Liên Xô) và Phạm Tuân (Việt Nam) cùng bay vào vũ trụ ảnh tư liệu",
+    "V. Go-rơ-bát cô (Liên Xô) và Phạm Tuân (Việt Nam) cùng bay vào vũ trụ lễ ký"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

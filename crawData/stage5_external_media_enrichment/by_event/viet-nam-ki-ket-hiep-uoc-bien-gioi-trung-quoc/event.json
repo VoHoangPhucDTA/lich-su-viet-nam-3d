@@ -1,0 +1,60 @@
+{
+  "eventId": "viet-nam-ki-ket-hiep-uoc-bien-gioi-trung-quoc",
+  "title": "Việt Nam kí kết các hiệp ước về biên giới trên đất liền và phân định vịnh Bắc Bộ với Trung Quốc",
+  "shortTitle": "VN kí hiệp ước biên giới TQ",
+  "displayDate": "Trong thời kì Đổi mới",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1975-den-nay",
+  "parentId": "cong-cuoc-doi-moi-o-viet-nam",
+  "historicalLocations": [
+    "Trung Quốc"
+  ],
+  "provinceNames": [],
+  "canonicalSummary": "Đối với Trung Quốc, Việt Nam kí kết các hiệp ước về biên giới trên đất liền và phân định vịnh Bắc Bộ, giải quyết những tranh chấp thông qua biện pháp hoà bình.",
+  "keyFacts": [
+    "Với Trung Quốc",
+    "Kí kết hiệp ước biên giới trên đất liền",
+    "Kí kết hiệp ước phân định vịnh Bắc Bộ",
+    "Giải quyết tranh chấp bằng biện pháp hoà bình"
+  ],
+  "sourceFamily": "post_1975",
+  "preferredVerificationDomains": [
+    "chinhphu.vn",
+    "dangcongsan.vn",
+    "tulieuvankien.dangcongsan.vn",
+    "quochoi.vn",
+    "mofa.gov.vn",
+    "vietnamplus.vn",
+    "nhandan.vn",
+    "un.org",
+    "unphoto.un.org"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Việt Nam kí kết các hiệp ước về biên giới trên đất liền và phân định vịnh Bắc Bộ với Trung Quốc",
+    "Việt Nam kí kết các hiệp ước về biên giới trên đất liền và phân định vịnh Bắc Bộ với Trung Quốc Trong thời kì Đổi mới",
+    "Việt Nam kí kết các hiệp ước về biên giới trên đất liền và phân định vịnh Bắc Bộ với Trung Quốc Trung Quốc",
+    "Việt Nam kí kết các hiệp ước về biên giới trên đất liền và phân định vịnh Bắc Bộ với Trung Quốc Với Trung Quốc Kí kết hiệp ước biên giới trên đất liền",
+    "Việt Nam kí kết các hiệp ước về biên giới trên đất liền và phân định vịnh Bắc Bộ với Trung Quốc ảnh tư liệu",
+    "Việt Nam kí kết các hiệp ước về biên giới trên đất liền và phân định vịnh Bắc Bộ với Trung Quốc lễ ký"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

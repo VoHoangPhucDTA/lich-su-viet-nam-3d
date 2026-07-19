@@ -1,0 +1,2591 @@
+{
+  "automaticApprovals": 0,
+  "duplicatePhysicalHashes": {},
+  "eventCount": 258,
+  "eventsWithTwoImages": 0,
+  "imageCount": 0,
+  "missing": [
+    {
+      "eventId": "viet-nam-thoi-dung-nuoc",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "viet-nam-thoi-dung-nuoc",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "bac-thuoc-va-dau-tranh-gianh-doc-lap",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "bac-thuoc-va-dau-tranh-gianh-doc-lap",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "viet-nam-tu-the-ki-x-den-xv",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "viet-nam-tu-the-ki-x-den-xv",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "viet-nam-tu-the-ki-xvi-den-xix",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "viet-nam-tu-the-ki-xvi-den-xix",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "viet-nam-1858-1918",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "viet-nam-1858-1918",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "viet-nam-1919-1945",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "viet-nam-1919-1945",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "viet-nam-1945-1954",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "viet-nam-1945-1954",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "viet-nam-1954-1975",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "viet-nam-1954-1975",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "viet-nam-1975-den-nay",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "viet-nam-1975-den-nay",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "khoi-nghia-hai-ba-trung",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "khoi-nghia-hai-ba-trung",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "khoi-nghia-khu-lien-lap-nuoc-lam-ap",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "khoi-nghia-khu-lien-lap-nuoc-lam-ap",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "phu-nam-tro-thanh-vuong-quoc-hung-manh",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "phu-nam-tro-thanh-vuong-quoc-hung-manh",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "khoi-nghia-ba-trieu",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "khoi-nghia-ba-trieu",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "khoi-nghia-ly-bi-trieu-quang-phuc",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "khoi-nghia-ly-bi-trieu-quang-phuc",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "xa-lan-dau-tien-xuat-hien",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "xa-lan-dau-tien-xuat-hien",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "mai-thuc-loan-khoi-nghia",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "mai-thuc-loan-khoi-nghia",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "khoi-nghia-mai-thuc-loan",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "khoi-nghia-mai-thuc-loan",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "khoi-nghia-phung-hung",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "khoi-nghia-phung-hung",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "khoi-nghia-khuc-thua-du",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "khoi-nghia-khuc-thua-du",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "chien-thang-bach-dang-938",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "chien-thang-bach-dang-938",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "ngo-quyen-xung-vuong-co-loa",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "ngo-quyen-xung-vuong-co-loa",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "khang-chien-chong-quan-tong-981",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "khang-chien-chong-quan-tong-981",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "khang-chien-chong-quan-tong-1075-1077",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "khang-chien-chong-quan-tong-1075-1077",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "ly-thuong-kiet-tap-kich-kham-chau-liem-chau-ung-chau",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "ly-thuong-kiet-tap-kich-kham-chau-liem-chau-ung-chau",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "ly-nhan-tong-lap-quoc-tu-giam",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "ly-nhan-tong-lap-quoc-tu-giam",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "ga-cong-chua-thieu-dung-duong-tu-minh-1144",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "ga-cong-chua-thieu-dung-duong-tu-minh-1144",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "cai-cach-tran-thu-do",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "cai-cach-tran-thu-do",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "khang-chien-chong-quan-mong-co-1258",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "khang-chien-chong-quan-mong-co-1258",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "hoi-nghi-binh-than",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "hoi-nghi-binh-than",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "hoi-nghi-dien-hong",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "hoi-nghi-dien-hong",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "khang-chien-chong-quan-nguyen-1285",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "khang-chien-chong-quan-nguyen-1285",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "khung-hoang-cuoi-trieu-tran",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "khung-hoang-cuoi-trieu-tran",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "le-loi-xay-thanh-luc-nien",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "le-loi-xay-thanh-luc-nien",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "nha-minh-xam-luoc-dai-ngu",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "nha-minh-xam-luoc-dai-ngu",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "khang-chien-chong-quan-minh-nha-ho",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "khang-chien-chong-quan-minh-nha-ho",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "nha-minh-thong-tri-huy-diet-van-minh-dai-viet",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "nha-minh-thong-tri-huy-diet-van-minh-dai-viet",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "hoi-the-lung-nhai",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "hoi-the-lung-nhai",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "hoi-the-dong-quan",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "hoi-the-dong-quan",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "le-nghi-dan-dat-luc-bo",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "le-nghi-dan-dat-luc-bo",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "cai-to-he-thong-quan-doi-le-thanh-tong",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "cai-to-he-thong-quan-doi-le-thanh-tong",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "dat-them-thua-tuyen-quang-nam",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "dat-them-thua-tuyen-quang-nam",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "ban-hanh-chinh-sach-loc-dien-quan-dien",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "ban-hanh-chinh-sach-loc-dien-quan-dien",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "doi-moi-dao-duy-tu-dang-trong",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "doi-moi-dao-duy-tu-dang-trong",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "nha-mac-thanh-lap",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "nha-mac-thanh-lap",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "giao-si-phuong-tay-truyen-dao-cong-giao",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "giao-si-phuong-tay-truyen-dao-cong-giao",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "giang-van-minh-di-su-nha-minh",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "giang-van-minh-di-su-nha-minh",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "cai-cach-trinh-cuong-dang-ngoai",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "cai-cach-trinh-cuong-dang-ngoai",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "nguyen-hue-dung-chan-chieu-mo-binh-si",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "nguyen-hue-dung-chan-chieu-mo-binh-si",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "phong-trao-tay-son-bung-no",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "phong-trao-tay-son-bung-no",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "thanh-lap-lang-xa-huyen-tien-hai-thai-binh",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "thanh-lap-lang-xa-huyen-tien-hai-thai-binh",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "bac-thanh-duoc-lap",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "bac-thanh-duoc-lap",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "thoi-gia-long-tri-vi",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "thoi-gia-long-tri-vi",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "trieu-nguyen-thanh-lap",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "trieu-nguyen-thanh-lap",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "gia-dinh-thanh-duoc-lap",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "gia-dinh-thanh-duoc-lap",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "doi-dinh-quang-duc-thanh-phu-thua-thien",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "doi-dinh-quang-duc-thanh-phu-thua-thien",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "doi-cac-doanh-quang-binh-quang-tri-quang-nam-thanh-tran",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "doi-cac-doanh-quang-binh-quang-tri-quang-nam-thanh-tran",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "phap-xam-luoc-viet-nam",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "phap-xam-luoc-viet-nam",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "do-dac-cam-moc-chu-quyen-hoang-sa-pham-huu-nhat",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "do-dac-cam-moc-chu-quyen-hoang-sa-pham-huu-nhat",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "thi-diem-chia-lai-ruong-dat-minh-mang",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "thi-diem-chia-lai-ruong-dat-minh-mang",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "chu-quyen-bien-dao-viet-nam-1858-1918",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "chu-quyen-bien-dao-viet-nam-1858-1918",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "khang-chien-chong-thuc-dan-phap-trieu-nguyen",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "khang-chien-chong-thuc-dan-phap-trieu-nguyen",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "phap-xam-chiem-dong-duong",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "phap-xam-chiem-dong-duong",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "phong-trao-chong-thuc-dan-phap-xam-luoc-o-viet-nam",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "phong-trao-chong-thuc-dan-phap-xam-luoc-o-viet-nam",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "khoi-nghia-cua-pu-com-bo",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "khoi-nghia-cua-pu-com-bo",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "phap-chiem-sau-tinh-nam-ki",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "phap-chiem-sau-tinh-nam-ki",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "vuong-thuc-mau-khoi-nghia-can-vuong",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "vuong-thuc-mau-khoi-nghia-can-vuong",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "phap-chiem-bac-ki-lan-1",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "phap-chiem-bac-ki-lan-1",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "phap-chiem-bac-ki-lan-2",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "phap-chiem-bac-ki-lan-2",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "hiep-uoc-hac-mang",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "hiep-uoc-hac-mang",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "hiep-uoc-pa-to-not",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "hiep-uoc-pa-to-not",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "trung-quoc-tu-choi-boi-thuong-vu-tau-dam-hoang-sa",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "trung-quoc-tu-choi-boi-thuong-vu-tau-dam-hoang-sa",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "phong-trao-dong-du",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "phong-trao-dong-du",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "hoat-dong-doi-ngoai-phan-boi-chau",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "hoat-dong-doi-ngoai-phan-boi-chau",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "phan-boi-chau-sang-nhat-ban-1905",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "phan-boi-chau-sang-nhat-ban-1905",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "nguyen-tat-thanh-tham-gia-chong-thue-hue",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "nguyen-tat-thanh-tham-gia-chong-thue-hue",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "thanh-lap-lien-minh-dong-a-1908",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "thanh-lap-lien-minh-dong-a-1908",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "nguyen-tat-thanh-roi-phan-thiet-vao-sai-gon",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "nguyen-tat-thanh-roi-phan-thiet-vao-sai-gon",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "nguyen-tat-thanh-ra-di-tim-duong-cuu-nuoc",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "nguyen-tat-thanh-ra-di-tim-duong-cuu-nuoc",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "hoat-dong-doi-ngoai-phan-chau-trinh",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "hoat-dong-doi-ngoai-phan-chau-trinh",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "phan-boi-chau-ve-trung-quoc-1911",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "phan-boi-chau-ve-trung-quoc-1911",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "phan-chau-trinh-sang-phap-1911",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "phan-chau-trinh-sang-phap-1911",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "thanh-lap-viet-nam-quang-phuc-hoi-1912",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "thanh-lap-viet-nam-quang-phuc-hoi-1912",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "chu-quyen-bien-dao-viet-nam-1919-1945",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "chu-quyen-bien-dao-viet-nam-1919-1945",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "nguyen-ai-quoc-gui-yeu-sach-vec-xai",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "nguyen-ai-quoc-gui-yeu-sach-vec-xai",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "nguyen-ai-quoc-doc-luan-cuong-le-nin",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "nguyen-ai-quoc-doc-luan-cuong-le-nin",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "nguyen-ai-quoc-gia-nhap-quoc-te-cong-san-va-sang-lap-dang-cong-san-phap",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "nguyen-ai-quoc-gia-nhap-quoc-te-cong-san-va-sang-lap-dang-cong-san-phap",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "nguyen-ai-quoc-hoat-dong-phap-1921-1923",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "nguyen-ai-quoc-hoat-dong-phap-1921-1923",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "nguyen-ai-quoc-thanh-lap-hoi-lien-hiep-thuoc-dia-1921",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "nguyen-ai-quoc-thanh-lap-hoi-lien-hiep-thuoc-dia-1921",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "nguyen-ai-quoc-thanh-lap-hoi-lien-hiep-thuoc-dia-va-bao-le-paria",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "nguyen-ai-quoc-thanh-lap-hoi-lien-hiep-thuoc-dia-va-bao-le-paria",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "nguyen-ai-quoc-den-lien-xo-1923",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "nguyen-ai-quoc-den-lien-xo-1923",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "thanh-lap-hoi-lien-hiep-cac-dan-toc-bi-ap-buc-a-dong-1925",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "thanh-lap-hoi-lien-hiep-cac-dan-toc-bi-ap-buc-a-dong-1925",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "nguyen-ai-quoc-hoat-dong-chau-au-siam-1927-1929",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "nguyen-ai-quoc-hoat-dong-chau-au-siam-1927-1929",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "su-ra-doi-cua-ba-to-chuc-cong-san-viet-nam",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "su-ra-doi-cua-ba-to-chuc-cong-san-viet-nam",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "hoi-nghi-thanh-lap-dang-cong-san-viet-nam",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "hoi-nghi-thanh-lap-dang-cong-san-viet-nam",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "thanh-lap-mat-tran-dan-toc-thong-nhat-viet-nam-1930",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "thanh-lap-mat-tran-dan-toc-thong-nhat-viet-nam-1930",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "hoat-dong-doi-ngoai-dang-cong-san-dong-duong-1930-1945",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "hoat-dong-doi-ngoai-dang-cong-san-dong-duong-1930-1945",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "thanh-lap-cac-dang-cong-san-o-viet-nam-ma-lai-xiem-phi-lip-pin",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "thanh-lap-cac-dang-cong-san-o-viet-nam-ma-lai-xiem-phi-lip-pin",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "nguyen-ai-quoc-hoat-dong-lien-xo-1933",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "nguyen-ai-quoc-hoat-dong-lien-xo-1933",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "nguyen-ai-quoc-roi-lien-xo-tro-lai-trung-quoc",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "nguyen-ai-quoc-roi-lien-xo-tro-lai-trung-quoc",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "phap-gui-cong-ham-phan-doi-nhat-ban-kiem-soat-truong-sa",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "phap-gui-cong-ham-phan-doi-nhat-ban-kiem-soat-truong-sa",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "nguyen-ai-quoc-tro-ve-nuoc",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "nguyen-ai-quoc-tro-ve-nuoc",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "hoi-nghi-lan-thu-8-ban-chap-hanh-trung-uong-dang-cong-san-dong-duong",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "hoi-nghi-lan-thu-8-ban-chap-hanh-trung-uong-dang-cong-san-dong-duong",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "thanh-lap-mat-tran-viet-nam-doc-lap-dong-minh-viet-minh",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "thanh-lap-mat-tran-viet-nam-doc-lap-dong-minh-viet-minh",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "thanh-lap-tieu-doi-du-kich-thoat-li-dau-tien-o-cao-bang",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "thanh-lap-tieu-doi-du-kich-thoat-li-dau-tien-o-cao-bang",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "ho-chi-minh-di-trung-quoc-phoi-hop-chong-nhat",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "ho-chi-minh-di-trung-quoc-phoi-hop-chong-nhat",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "ho-chi-minh-sang-trung-quoc-1942",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "ho-chi-minh-sang-trung-quoc-1942",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "ho-chi-minh-tro-ve-nuoc-1944",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "ho-chi-minh-tro-ve-nuoc-1944",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "chi-thi-thanh-lap-doi-viet-nam-tuyen-truyen-giai-phong-quan",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "chi-thi-thanh-lap-doi-viet-nam-tuyen-truyen-giai-phong-quan",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "ho-chi-minh-sang-con-minh-tim-su-ung-ho-quoc-te",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "ho-chi-minh-sang-con-minh-tim-su-ung-ho-quoc-te",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "cao-trao-khang-nhat-cuu-nuoc",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "cao-trao-khang-nhat-cuu-nuoc",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "viet-minh-hop-tac-oss-1945",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "viet-minh-hop-tac-oss-1945",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "hoi-nghi-pot-xdam",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "hoi-nghi-pot-xdam",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "uy-ban-khoi-nghia-ban-bo-quan-lenh-so-1",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "uy-ban-khoi-nghia-ban-bo-quan-lenh-so-1",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "cach-mang-thang-tam-nam-1945",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "cach-mang-thang-tam-nam-1945",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "hoi-nghi-toan-quoc-cua-dang-cong-san-dong-duong-1945",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "hoi-nghi-toan-quoc-cua-dang-cong-san-dong-duong-1945",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "hoi-nghi-toan-quoc-cua-dang-tan-trao",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "hoi-nghi-toan-quoc-cua-dang-tan-trao",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "nhat-ban-tuyen-bo-dau-hang-dong-minh",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "nhat-ban-tuyen-bo-dau-hang-dong-minh",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "giai-phong-thi-xa-thai-nguyen",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "giai-phong-thi-xa-thai-nguyen",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "cac-tinh-gianh-chinh-quyen-som-nhat",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "cac-tinh-gianh-chinh-quyen-som-nhat",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "khoi-nghia-gianh-chinh-quyen-hue",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "khoi-nghia-gianh-chinh-quyen-hue",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "cac-dia-phuong-cuoi-cung-gianh-chinh-quyen",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "cac-dia-phuong-cuoi-cung-gianh-chinh-quyen",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "tong-khoi-nghia-gianh-chinh-quyen",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "tong-khoi-nghia-gianh-chinh-quyen",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "phap-xa-sung-sai-gon-cho-lon-1945",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "phap-xa-sung-sai-gon-cho-lon-1945",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "phap-danh-up-uy-ban-hanh-chinh-nam-bo-1945",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "phap-danh-up-uy-ban-hanh-chinh-nam-bo-1945",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "thanh-lap-uy-ban-khang-chien-nam-bo-1945",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "thanh-lap-uy-ban-khang-chien-nam-bo-1945",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "ho-chi-minh-gui-thu-toi-chu-tich-hoi-dong-lien-hop-quoc",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "ho-chi-minh-gui-thu-toi-chu-tich-hoi-dong-lien-hop-quoc",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "ho-chi-minh-keu-goi-nhuong-com-se-ao-tang-gia-san-xuat",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "ho-chi-minh-keu-goi-nhuong-com-se-ao-tang-gia-san-xuat",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "ho-chi-minh-ki-sac-lenh-thanh-lap-nha-binh-dan-hoc-vu-va-quy-doc-lap",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "ho-chi-minh-ki-sac-lenh-thanh-lap-nha-binh-dan-hoc-vu-va-quy-doc-lap",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "hoat-dong-doi-ngoai-cua-vndcch-voi-trung-hoa-dan-quoc",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "hoat-dong-doi-ngoai-cua-vndcch-voi-trung-hoa-dan-quoc",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "khang-chien-chong-thuc-dan-phap-1945-1954",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "khang-chien-chong-thuc-dan-phap-1945-1954",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "khang-chien-chong-thuc-dan-phap-o-viet-nam-lao-cam-pu-chia",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "khang-chien-chong-thuc-dan-phap-o-viet-nam-lao-cam-pu-chia",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "viet-nam-de-nghi-lien-hop-quoc-cong-nhan-vndcch",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "viet-nam-de-nghi-lien-hop-quoc-cong-nhan-vndcch",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "ho-chi-minh-gui-loi-keu-goi-quoc-dan-di-bo-phieu",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "ho-chi-minh-gui-loi-keu-goi-quoc-dan-di-bo-phieu",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "ho-chi-minh-duoc-bau-chu-tich-nuoc-1946",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "ho-chi-minh-duoc-bau-chu-tich-nuoc-1946",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "hiep-uoc-hoa-phap-1946",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "hiep-uoc-hoa-phap-1946",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "ho-chi-minh-ki-hiep-dinh-so-bo-voi-g-xanh-to-ni",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "ho-chi-minh-ki-hiep-dinh-so-bo-voi-g-xanh-to-ni",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "ho-chi-minh-ra-loi-keu-goi-toan-quoc-khang-chien",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "ho-chi-minh-ra-loi-keu-goi-toan-quoc-khang-chien",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "khang-chien-toan-quoc-chong-thuc-dan-phap-bung-no",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "khang-chien-toan-quoc-chong-thuc-dan-phap-bung-no",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "viet-nam-the-hien-thien-chi-hoa-binh-sau-12-1946",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "viet-nam-the-hien-thien-chi-hoa-binh-sau-12-1946",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "hien-phap-viet-nam-dan-chu-cong-hoa-1946",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "hien-phap-viet-nam-dan-chu-cong-hoa-1946",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "phap-cho-hai-quan-tru-dong-truong-sa",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "phap-cho-hai-quan-tru-dong-truong-sa",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "chien-dich-viet-bac-thu-dong-1947",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "chien-dich-viet-bac-thu-dong-1947",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "chien-dich-bien-gioi-thu-dong-1950",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "chien-dich-bien-gioi-thu-dong-1950",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "cac-chien-dich-tien-cong-quan-doi-viet-nam-1950-1953",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "cac-chien-dich-tien-cong-quan-doi-viet-nam-1950-1953",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "vndcch-thiet-lap-quan-he-ngoai-giao-voi-cac-nuoc-xhcn",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "vndcch-thiet-lap-quan-he-ngoai-giao-voi-cac-nuoc-xhcn",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "ho-chi-minh-duoc-bau-chu-tich-ban-chap-hanh-trung-uong-dang-1951",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "ho-chi-minh-duoc-bau-chu-tich-ban-chap-hanh-trung-uong-dang-1951",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "mat-tran-lien-viet-ra-doi-1951",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "mat-tran-lien-viet-ra-doi-1951",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "chu-quyen-viet-nam-duoc-tuyen-bo-cong-nhan-hoi-nghi-xan-phran-xi-xo",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "chu-quyen-viet-nam-duoc-tuyen-bo-cong-nhan-hoi-nghi-xan-phran-xi-xo",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "thanh-lap-lien-minh-nhan-dan-viet-mien-lao",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "thanh-lap-lien-minh-nhan-dan-viet-mien-lao",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "cuoc-van-dong-san-xuat-va-tiet-kiem-1952",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "cuoc-van-dong-san-xuat-va-tiet-kiem-1952",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "dai-hoi-chien-si-thi-dua-can-bo-guong-mau-toan-quoc-lan-thu-nhat-1952",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "dai-hoi-chien-si-thi-dua-can-bo-guong-mau-toan-quoc-lan-thu-nhat-1952",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "ke-hoach-na-va-1953",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "ke-hoach-na-va-1953",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "quoc-hoi-thong-qua-luat-cai-cach-ruong-dat-1953",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "quoc-hoi-thong-qua-luat-cai-cach-ruong-dat-1953",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "cuoc-tien-cong-chien-luoc-dong-xuan-1953-1954",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "cuoc-tien-cong-chien-luoc-dong-xuan-1953-1954",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "cai-cach-ruong-dat-mien-bac",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "cai-cach-ruong-dat-mien-bac",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "chien-tranh-bao-ve-doc-lap-dan-toc-va-chu-quyen-quoc-gia-o-dong-duong",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "chien-tranh-bao-ve-doc-lap-dan-toc-va-chu-quyen-quoc-gia-o-dong-duong",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "giai-doan-khang-chien-chong-my-1954-1960",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "giai-doan-khang-chien-chong-my-1954-1960",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "khang-chien-chong-my-cuu-nuoc",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "khang-chien-chong-my-cuu-nuoc",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "mien-bac-viet-nam-giai-phong-xay-dung-cnxh",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "mien-bac-viet-nam-giai-phong-xay-dung-cnxh",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "my-can-thiep-vao-dong-duong",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "my-can-thiep-vao-dong-duong",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "my-thay-chan-phap-dung-chinh-quyen-ngo-dinh-diem",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "my-thay-chan-phap-dung-chinh-quyen-ngo-dinh-diem",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "quan-li-hanh-chinh-chinh-quyen-sai-gon-hoang-sa-truong-sa",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "quan-li-hanh-chinh-chinh-quyen-sai-gon-hoang-sa-truong-sa",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "viet-nam-tam-thoi-bi-chia-cat-hai-mien",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "viet-nam-tam-thoi-bi-chia-cat-hai-mien",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "lien-xo-vien-tro-cho-viet-nam",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "lien-xo-vien-tro-cho-viet-nam",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "ho-chi-minh-chu-tich-tong-bi-thu-dang-lao-dong-1956",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "ho-chi-minh-chu-tich-tong-bi-thu-dang-lao-dong-1956",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "dai-loan-chiem-dong-dao-ba-binh-truong-sa",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "dai-loan-chiem-dong-dao-ba-binh-truong-sa",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "philippin-tuyen-bo-quyen-khai-thac-lap-nghiep-truong-sa",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "philippin-tuyen-bo-quyen-khai-thac-lap-nghiep-truong-sa",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "viet-nam-danh-chiem-nua-phia-dong-hoang-sa",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "viet-nam-danh-chiem-nua-phia-dong-hoang-sa",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "hoi-nghi-ban-chap-hanh-trung-uong-lan-thu-15-dang-lao-dong-viet-nam",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "hoi-nghi-ban-chap-hanh-trung-uong-lan-thu-15-dang-lao-dong-viet-nam",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "dai-hoi-dai-bieu-toan-quoc-lan-thu-iii-dang-lao-dong-viet-nam",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "dai-hoi-dai-bieu-toan-quoc-lan-thu-iii-dang-lao-dong-viet-nam",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "thanh-lap-mat-tran-dan-toc-giai-phong-mien-nam-viet-nam",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "thanh-lap-mat-tran-dan-toc-giai-phong-mien-nam-viet-nam",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "thanh-lap-quan-giai-phong-mien-nam",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "thanh-lap-quan-giai-phong-mien-nam",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "chu-tich-ho-chi-minh-tham-quan-cang-bai-chay-1961",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "chu-tich-ho-chi-minh-tham-quan-cang-bai-chay-1961",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "ke-hoach-nha-nuoc-5-nam-lan-thu-nhat-mien-bac",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "ke-hoach-nha-nuoc-5-nam-lan-thu-nhat-mien-bac",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "chien-thang-ap-bac",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "chien-thang-ap-bac",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "chien-tranh-pha-hoai-mien-bac-lan-thu-nhat",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "chien-tranh-pha-hoai-mien-bac-lan-thu-nhat",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "cac-chien-thang-quan-su-1964-1965",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "cac-chien-thang-quan-su-1964-1965",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "chien-thang-van-tuong",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "chien-thang-van-tuong",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "hoi-nghi-pa-ri-ve-viet-nam",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "hoi-nghi-pa-ri-ve-viet-nam",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "thanh-lap-chinh-phu-cach-mang-lam-thoi-cong-hoa-mien-nam-viet-nam",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "thanh-lap-chinh-phu-cach-mang-lam-thoi-cong-hoa-mien-nam-viet-nam",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "dap-tan-cuoc-hanh-quan-xam-luoc-vao-cam-pu-chia-1970",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "dap-tan-cuoc-hanh-quan-xam-luoc-vao-cam-pu-chia-1970",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "hoi-nghi-cap-cao-ba-nuoc-viet-nam-lao-cam-pu-chia",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "hoi-nghi-cap-cao-ba-nuoc-viet-nam-lao-cam-pu-chia",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "chien-dich-duong-9-nam-lao",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "chien-dich-duong-9-nam-lao",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "philippin-chiem-dong-9-dao-truong-sa",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "philippin-chiem-dong-9-dao-truong-sa",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "cuoc-tien-cong-chien-luoc-nam-1972",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "cuoc-tien-cong-chien-luoc-nam-1972",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "chien-tranh-pha-hoai-mien-bac-lan-thu-hai",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "chien-tranh-pha-hoai-mien-bac-lan-thu-hai",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "hoi-nghi-ban-chap-hanh-trung-uong-dang-lan-thu-21",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "hoi-nghi-ban-chap-hanh-trung-uong-dang-lan-thu-21",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "quan-doi-sai-gon-that-bai-bao-ve-hoang-sa",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "quan-doi-sai-gon-that-bai-bao-ve-hoang-sa",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "trung-quoc-danh-chiem-toan-bo-hoang-sa",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "trung-quoc-danh-chiem-toan-bo-hoang-sa",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "chien-thang-duong-14-phuoc-long",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "chien-thang-duong-14-phuoc-long",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "chien-dich-tay-nguyen-1975",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "chien-dich-tay-nguyen-1975",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "giai-phong-hue-va-thua-thien",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "giai-phong-hue-va-thua-thien",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "giai-phong-da-nang",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "giai-phong-da-nang",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "quan-giai-phong-mien-nam-viet-nam-tiep-quan-truong-sa",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "quan-giai-phong-mien-nam-viet-nam-tiep-quan-truong-sa",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "hoan-toan-giai-phong-mien-nam-viet-nam",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "hoan-toan-giai-phong-mien-nam-viet-nam",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "quoc-hoi-khoa-vi-doi-ten-sai-gon-thanh-thanh-pho-ho-chi-minh",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "quoc-hoi-khoa-vi-doi-ten-sai-gon-thanh-thanh-pho-ho-chi-minh",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "thuc-hien-thong-nhat-dat-nuoc-viet-nam",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "thuc-hien-thong-nhat-dat-nuoc-viet-nam",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "viet-nam-ban-hanh-tuyen-bo-vung-bien-them-luc-dia",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "viet-nam-ban-hanh-tuyen-bo-vung-bien-them-luc-dia",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "viet-nam-thanh-vien-lien-hop-quoc",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "viet-nam-thanh-vien-lien-hop-quoc",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "lien-hop-quoc-vien-tro-viet-nam-1977-1986",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "lien-hop-quoc-vien-tro-viet-nam-1977-1986",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "philippin-ban-hanh-sac-lenh-1596-tuyen-bo-chu-quyen-truong-sa",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "philippin-ban-hanh-sac-lenh-1596-tuyen-bo-chu-quyen-truong-sa",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "viet-nam-gia-nhap-sev",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "viet-nam-gia-nhap-sev",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "go-ro-bat-co-pham-tuan-bay-vu-tru",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "go-ro-bat-co-pham-tuan-bay-vu-tru",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "thanh-lap-huyen-hoang-sa-va-huyen-truong-sa",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "thanh-lap-huyen-hoang-sa-va-huyen-truong-sa",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "bru-nay-tuyen-bo-ranh-gioi-them-luc-dia",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "bru-nay-tuyen-bo-ranh-gioi-them-luc-dia",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "bru-nay-tuyen-bo-vung-dac-quyen-kinh-te",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "bru-nay-tuyen-bo-vung-dac-quyen-kinh-te",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "dai-hoi-dai-bieu-toan-quoc-lan-thu-vi-cua-dang-cong-san-viet-nam",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "dai-hoi-dai-bieu-toan-quoc-lan-thu-vi-cua-dang-cong-san-viet-nam",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "bai-bo-che-do-tem-phieu-o-viet-nam",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "bai-bo-che-do-tem-phieu-o-viet-nam",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "dai-hoi-dai-bieu-toan-quoc-lan-thu-vii-cua-dang-cong-san-viet-nam",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "dai-hoi-dai-bieu-toan-quoc-lan-thu-vii-cua-dang-cong-san-viet-nam",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "viet-nam-binh-thuong-hoa-quan-he-trung-quoc",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "viet-nam-binh-thuong-hoa-quan-he-trung-quoc",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "xay-dung-va-dong-dien-duong-day-500kv-bac-nam-mach-1",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "xay-dung-va-dong-dien-duong-day-500kv-bac-nam-mach-1",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "dai-loan-chiem-bai-can-ran-san-ho-ban-than",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "dai-loan-chiem-bai-can-ran-san-ho-ban-than",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "trung-quoc-danh-chiem-da-vanh-khan",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "trung-quoc-danh-chiem-da-vanh-khan",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "viet-nam-binh-thuong-hoa-quan-he-my",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "viet-nam-binh-thuong-hoa-quan-he-my",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "dai-hoi-dai-bieu-toan-quoc-lan-thu-viii-cua-dang-cong-san-viet-nam",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "dai-hoi-dai-bieu-toan-quoc-lan-thu-viii-cua-dang-cong-san-viet-nam",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "ki-tuyen-bo-ve-ung-xu-cua-cac-ben-o-bien-dong-doc",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "ki-tuyen-bo-ve-ung-xu-cua-cac-ben-o-bien-dong-doc",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "bo-chinh-tri-ban-hanh-chi-thi-06-ct-tw-ve-cuoc-van-dong-hoc-tap-va-lam-theo-tam-guong-dao-duc-ho-chi-minh",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "bo-chinh-tri-ban-hanh-chi-thi-06-ct-tw-ve-cuoc-van-dong-hoc-tap-va-lam-theo-tam-guong-dao-duc-ho-chi-minh",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "dai-hoi-dai-bieu-toan-quoc-lan-thu-x-cua-dang-cong-san-viet-nam",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "dai-hoi-dai-bieu-toan-quoc-lan-thu-x-cua-dang-cong-san-viet-nam",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "viet-nam-thong-qua-luat-bien-viet-nam",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "viet-nam-thong-qua-luat-bien-viet-nam",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "hien-phap-cong-hoa-xa-hoi-chu-nghia-viet-nam-2013",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "hien-phap-cong-hoa-xa-hoi-chu-nghia-viet-nam-2013",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "viet-nam-hoan-tat-muc-tieu-thien-nien-ki",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "viet-nam-hoan-tat-muc-tieu-thien-nien-ki",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "bo-chinh-tri-ban-hanh-chi-thi-05-ct-tw-ve-day-manh-hoc-tap-va-lam-theo-tu-tuong-dao-duc-phong-cach-ho-chi-minh",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "bo-chinh-tri-ban-hanh-chi-thi-05-ct-tw-ve-day-manh-hoc-tap-va-lam-theo-tu-tuong-dao-duc-phong-cach-ho-chi-minh",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "quan-he-viet-nam-my-doi-tac-chien-luoc-toan-dien",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "quan-he-viet-nam-my-doi-tac-chien-luoc-toan-dien",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "chien-luoc-vua-danh-vua-dam-va-van-dong-quoc-te-cong-nhan-mat-tran-dan-toc-giai-phong-mien-nam-viet-nam",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "chien-luoc-vua-danh-vua-dam-va-van-dong-quoc-te-cong-nhan-mat-tran-dan-toc-giai-phong-mien-nam-viet-nam",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "chinh-quyen-phap-cai-cach-huong-chinh",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "chinh-quyen-phap-cai-cach-huong-chinh",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "chu-nom-su-dung-rong-rai",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "chu-nom-su-dung-rong-rai",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "chu-quoc-ngu-xuat-hien",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "chu-quoc-ngu-xuat-hien",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "dau-tranh-chong-phong-kien-phuong-bac",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "dau-tranh-chong-phong-kien-phuong-bac",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "dinh-tien-le-dong-do-hoa-lu",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "dinh-tien-le-dong-do-hoa-lu",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "khang-chien-thang-loi",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "khang-chien-thang-loi",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "lang-co-ten-nom-xuat-hien-som-thoi-ly-tran",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "lang-co-ten-nom-xuat-hien-som-thoi-ly-tran",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "nha-ly-su-dung-thi-cu-nho-hoc",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "nha-ly-su-dung-thi-cu-nho-hoc",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "nha-ly-to-chuc-khoa-thi-nho-hoc-dau-tien",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "nha-ly-to-chuc-khoa-thi-nho-hoc-dau-tien",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "nho-giao-du-nhap-viet-nam",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "nho-giao-du-nhap-viet-nam",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "phong-trao-can-vuong",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "phong-trao-can-vuong",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "tan-cong-champa-dai-viet-cuoi-tk14",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "tan-cong-champa-dai-viet-cuoi-tk14",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "thanh-lap-quoc-su-quan-trieu-nguyen",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "thanh-lap-quoc-su-quan-trieu-nguyen",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "thoi-tran-dat-chuc-xa-quan",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "thoi-tran-dat-chuc-xa-quan",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "tin-nguong-tho-than-dong-co-cung-dinh",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "tin-nguong-tho-than-dong-co-cung-dinh",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "tuyen-duong-chi-vien-chien-luoc-tren-bien-mang-ten-chu-tich-ho-chi-minh",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "tuyen-duong-chi-vien-chien-luoc-tren-bien-mang-ten-chu-tich-ho-chi-minh",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "van-hoa-phung-nguyen",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "van-hoa-phung-nguyen",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "viet-nam-dam-phan-ranh-gioi-tren-bien",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "viet-nam-dam-phan-ranh-gioi-tren-bien",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "viet-nam-ki-ket-evfta",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "viet-nam-ki-ket-evfta",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "viet-nam-ki-ket-hiep-uoc-bien-gioi-trung-quoc",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "viet-nam-ki-ket-hiep-uoc-bien-gioi-trung-quoc",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "viet-nam-ki-ket-nghi-dinh-thu-ki-o-to",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "viet-nam-ki-ket-nghi-dinh-thu-ki-o-to",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "viet-nam-ki-ket-rcep",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "viet-nam-ki-ket-rcep",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "viet-nam-lao-cam-pu-chia-chuyen-sang-kinh-te-thi-truong-va-cong-nghiep-hoa",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "viet-nam-lao-cam-pu-chia-chuyen-sang-kinh-te-thi-truong-va-cong-nghiep-hoa",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "viet-nam-mo-co-quan-dai-dien-ngoai-giao-va-thong-tin-o-nuoc-ngoai",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "viet-nam-mo-co-quan-dai-dien-ngoai-giao-va-thong-tin-o-nuoc-ngoai",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "viet-nam-tham-gia-afta",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "viet-nam-tham-gia-afta",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "viet-nam-thoan-thuan-bien-gioi-lao-cam-pu-chia",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "viet-nam-thoan-thuan-bien-gioi-lao-cam-pu-chia",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "viet-nam-to-chuc-hoi-nghi-quoc-te-asean-asem-apec",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "viet-nam-to-chuc-hoi-nghi-quoc-te-asean-asem-apec",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "viet-nam-uy-vien-khong-thuong-truc-hoi-dong-bao-an-lhq",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "viet-nam-uy-vien-khong-thuong-truc-hoi-dong-bao-an-lhq",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "vndcch-can-bang-quan-he-voi-lien-xo-trung-quoc-va-van-dong-vien-tro",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "vndcch-can-bang-quan-he-voi-lien-xo-trung-quoc-va-van-dong-vien-tro",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "vndcch-dau-tranh-doi-thi-hanh-hiep-dinh-gio-ne-vo",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "vndcch-dau-tranh-doi-thi-hanh-hiep-dinh-gio-ne-vo",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "vndcch-gap-go-dang-cong-san-phap-va-cac-to-chuc-quoc-te",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "vndcch-gap-go-dang-cong-san-phap-va-cac-to-chuc-quoc-te",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "vndcch-thiet-lap-quan-he-ngoai-giao-voi-lao-campuchia-va-ung-ho-phong-trao-giai-phong-dan-toc",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "vndcch-thiet-lap-quan-he-ngoai-giao-voi-lao-campuchia-va-ung-ho-phong-trao-giai-phong-dan-toc",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "vu-an-le-chi-vien",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "vu-an-le-chi-vien",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    },
+    {
+      "eventId": "xa-tro-thanh-ten-goi-pho-bien",
+      "expected": "image_01.<jpg|png|webp>",
+      "slot": 1
+    },
+    {
+      "eventId": "xa-tro-thanh-ten-goi-pho-bien",
+      "expected": "image_02.<jpg|png|webp>",
+      "slot": 2
+    }
+  ],
+  "unexpected": [],
+  "version": 1
+}

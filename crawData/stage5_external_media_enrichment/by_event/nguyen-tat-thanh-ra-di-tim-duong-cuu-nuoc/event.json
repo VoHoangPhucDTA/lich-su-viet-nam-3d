@@ -1,0 +1,58 @@
+{
+  "eventId": "nguyen-tat-thanh-ra-di-tim-duong-cuu-nuoc",
+  "title": "Nguyễn Tất Thành ra đi tìm đường cứu nước",
+  "shortTitle": "Ra đi tìm đường cứu nước",
+  "displayDate": "5-6-1911",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1858-1918",
+  "parentId": "viet-nam-1858-1918",
+  "historicalLocations": [],
+  "provinceNames": [
+    "Hồ Chí Minh"
+  ],
+  "canonicalSummary": "Sau một thời gian tìm hiểu, ngày 5-6-1911, Nguyễn Tất Thành (với tên gọi mới là Văn Ba) đã rời Bến Nhà Rồng trên con tàu La-tu-sơ Tơ-rê-vin, bắt đầu hành trình tìm đường cứu nước.",
+  "keyFacts": [
+    "Rời Bến Nhà Rồng",
+    "Tên gọi: Văn Ba",
+    "Trên tàu La-tu-sơ Tơ-rê-vin"
+  ],
+  "sourceFamily": "colonial",
+  "preferredVerificationDomains": [
+    "baotanglichsu.vn",
+    "luutru.gov.vn",
+    "hochiminh.vn",
+    "nhandan.vn",
+    "qdnd.vn",
+    "vietnamplus.vn",
+    "gallica.bnf.fr",
+    "loc.gov"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Nguyễn Tất Thành ra đi tìm đường cứu nước",
+    "Nguyễn Tất Thành ra đi tìm đường cứu nước 5-6-1911",
+    "Nguyễn Tất Thành ra đi tìm đường cứu nước Việt Nam từ năm 1858 đến năm 1918",
+    "Nguyễn Tất Thành ra đi tìm đường cứu nước Rời Bến Nhà Rồng Tên gọi: Văn Ba",
+    "Nguyễn Tất Thành ra đi tìm đường cứu nước ảnh tư liệu",
+    "Nguyễn Tất Thành ra đi tìm đường cứu nước chân dung"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

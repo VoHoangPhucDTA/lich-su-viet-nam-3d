@@ -1,0 +1,54 @@
+{
+  "eventId": "cai-cach-tran-thu-do",
+  "title": "Cải cách của Trần Thủ Độ",
+  "shortTitle": "Cải cách của Trần Thủ Độ",
+  "displayDate": "Thế kỉ XIII",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-tu-the-ki-x-den-xv",
+  "parentId": "viet-nam-tu-the-ki-x-den-xv",
+  "historicalLocations": [],
+  "provinceNames": [],
+  "canonicalSummary": "Cải cách của Trần Thủ Độ diễn ra vào thế kỉ XIII.",
+  "keyFacts": [
+    "Do Trần Thủ Độ tiến hành",
+    "Diễn ra vào thế kỉ XIII"
+  ],
+  "sourceFamily": "ancient_medieval",
+  "preferredVerificationDomains": [
+    "baotanglichsu.vn",
+    "disanvanhoa.gov.vn",
+    "bvhttdl.gov.vn",
+    "qdnd.vn",
+    "nhandan.vn",
+    "unesco.org",
+    "whc.unesco.org"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Cải cách của Trần Thủ Độ",
+    "Cải cách của Trần Thủ Độ Thế kỉ XIII",
+    "Cải cách của Trần Thủ Độ Việt Nam từ thế kỉ X đến thế kỉ XV",
+    "Cải cách của Trần Thủ Độ Do Trần Thủ Độ tiến hành Diễn ra vào thế kỉ XIII",
+    "Cải cách của Trần Thủ Độ hiện vật",
+    "Cải cách của Trần Thủ Độ di tích"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

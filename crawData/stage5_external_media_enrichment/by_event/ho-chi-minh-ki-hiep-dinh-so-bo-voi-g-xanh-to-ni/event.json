@@ -1,0 +1,65 @@
+{
+  "eventId": "ho-chi-minh-ki-hiep-dinh-so-bo-voi-g-xanh-to-ni",
+  "title": "Chủ tịch Hồ Chí Minh kí Hiệp định Sơ bộ với G. Xanh-tơ-ni",
+  "shortTitle": "Hiệp định Sơ bộ",
+  "displayDate": "6 – 3 – 1946",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1945-1954",
+  "parentId": "viet-nam-1945-1954",
+  "historicalLocations": [
+    "miền Bắc"
+  ],
+  "provinceNames": [],
+  "canonicalSummary": "Sau khi thực dân Pháp và Trung Hoa Dân quốc kí Hiệp ước Hoa - Pháp, Chủ tịch Hồ Chí Minh thay mặt Chính phủ Việt Nam Dân chủ Cộng hoà, kí với G. Xanh-tơ-ni đại diện Chính phủ Pháp Hiệp định Sơ bộ. Hiệp định Sơ bộ đã làm thất bại âm mưu câu kết giữa Pháp và Trung Hoa Dân quốc, tạo thêm thời gian hoà bình để củng cố và xây dựng lực lượng.",
+  "keyFacts": [
+    "Kí ngày 6-3-1946",
+    "Đồng ý để quân đội Pháp thay quân đội Trung Hoa Dân quốc",
+    "Làm thất bại âm mưu câu kết giữa Pháp và Trung Hoa Dân quốc",
+    "Kí với G. Xanh-tơ-ni đại diện Chính phủ Pháp",
+    "Kí với Pháp",
+    "Tạo thêm thời gian hoà bình để củng cố và xây dựng lực lượng",
+    "Giữa Chính phủ Việt Nam Dân chủ Cộng hoà (Chủ tịch Hồ Chí Minh) và Pháp",
+    "Nhiệm vụ: giải giáp quân đội Nhật Bản ở miền Bắc",
+    "Thể hiện thiện chí hoà bình của Việt Nam"
+  ],
+  "sourceFamily": "war_1945_1975",
+  "preferredVerificationDomains": [
+    "btlsqsvn.org.vn",
+    "qdnd.vn",
+    "nhandan.vn",
+    "vietnamplus.vn",
+    "hochiminh.vn",
+    "baotanglichsu.vn",
+    "luutru.gov.vn",
+    "loc.gov",
+    "archives.gov"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Chủ tịch Hồ Chí Minh kí Hiệp định Sơ bộ với G. Xanh-tơ-ni",
+    "Chủ tịch Hồ Chí Minh kí Hiệp định Sơ bộ với G. Xanh-tơ-ni 6 – 3 – 1946",
+    "Chủ tịch Hồ Chí Minh kí Hiệp định Sơ bộ với G. Xanh-tơ-ni miền Bắc",
+    "Chủ tịch Hồ Chí Minh kí Hiệp định Sơ bộ với G. Xanh-tơ-ni Kí ngày 6-3-1946 Đồng ý để quân đội Pháp thay quân đội Trung Hoa Dân quốc",
+    "Chủ tịch Hồ Chí Minh kí Hiệp định Sơ bộ với G. Xanh-tơ-ni ảnh tư liệu",
+    "Chủ tịch Hồ Chí Minh kí Hiệp định Sơ bộ với G. Xanh-tơ-ni chiến dịch"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "eventId": "dap-tan-cuoc-hanh-quan-xam-luoc-vao-cam-pu-chia-1970",
+  "status": "pending_download",
+  "images": [],
+  "expected": [
+    "image_01.<ext>",
+    "image_02.<ext>"
+  ]
+}

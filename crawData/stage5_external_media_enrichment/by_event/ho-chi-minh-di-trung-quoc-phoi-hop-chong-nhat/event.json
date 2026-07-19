@@ -1,0 +1,60 @@
+{
+  "eventId": "ho-chi-minh-di-trung-quoc-phoi-hop-chong-nhat",
+  "title": "Hồ Chí Minh đi Trung Quốc để tìm cách phối hợp hành động với phong trào chống Nhật và các lực lượng Đồng minh",
+  "shortTitle": "Hồ Chí Minh đi Trung Quốc (1942)",
+  "displayDate": "Tháng 8 – 1942",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1919-1945",
+  "parentId": "viet-nam-1919-1945",
+  "historicalLocations": [
+    "châu Á – Thái Bình Dương",
+    "Trung Quốc"
+  ],
+  "provinceNames": [],
+  "canonicalSummary": "Tháng 8 – 1942, lấy tên Hồ Chí Minh, lên đường đi Trung Quốc để tìm cách phối hợp hành động với phong trào chống Nhật của nhân dân Trung Quốc và các lực lượng Đồng minh chống phát xít trên chiến trường châu Á – Thái Bình Dương.",
+  "keyFacts": [
+    "Lấy tên Hồ Chí Minh",
+    "Phối hợp với các lực lượng Đồng minh chống phát xít",
+    "Đi Trung Quốc",
+    "Phối hợp hành động với phong trào chống Nhật"
+  ],
+  "sourceFamily": "revolutionary",
+  "preferredVerificationDomains": [
+    "hochiminh.vn",
+    "tulieuvankien.dangcongsan.vn",
+    "dangcongsan.vn",
+    "baotanglichsu.vn",
+    "nhandan.vn",
+    "qdnd.vn",
+    "vietnamplus.vn",
+    "luutru.gov.vn"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Hồ Chí Minh đi Trung Quốc để tìm cách phối hợp hành động với phong trào chống Nhật và các lực lượng Đồng minh",
+    "Hồ Chí Minh đi Trung Quốc để tìm cách phối hợp hành động với phong trào chống Nhật và các lực lượng Đồng minh Tháng 8 – 1942",
+    "Hồ Chí Minh đi Trung Quốc để tìm cách phối hợp hành động với phong trào chống Nhật và các lực lượng Đồng minh châu Á – Thái Bình Dương",
+    "Hồ Chí Minh đi Trung Quốc để tìm cách phối hợp hành động với phong trào chống Nhật và các lực lượng Đồng minh Lấy tên Hồ Chí Minh Phối hợp với các lực lượng Đồng minh chống phát xít",
+    "Hồ Chí Minh đi Trung Quốc để tìm cách phối hợp hành động với phong trào chống Nhật và các lực lượng Đồng minh ảnh tư liệu",
+    "Hồ Chí Minh đi Trung Quốc để tìm cách phối hợp hành động với phong trào chống Nhật và các lực lượng Đồng minh chân dung"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

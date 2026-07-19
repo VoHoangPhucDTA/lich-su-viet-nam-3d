@@ -1,0 +1,9 @@
+{
+  "eventId": "bo-chinh-tri-ban-hanh-chi-thi-06-ct-tw-ve-cuoc-van-dong-hoc-tap-va-lam-theo-tam-guong-dao-duc-ho-chi-minh",
+  "status": "pending_download",
+  "images": [],
+  "expected": [
+    "image_01.<ext>",
+    "image_02.<ext>"
+  ]
+}

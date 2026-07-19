@@ -1,0 +1,58 @@
+{
+  "eventId": "nguyen-ai-quoc-doc-luan-cuong-le-nin",
+  "title": "Nguyễn Ái Quốc đọc Sơ thảo lần thứ nhất những luận cương về vấn đề dân tộc và vấn đề thuộc địa của Lê-nin",
+  "shortTitle": "Nguyễn Ái Quốc đọc Luận cương của Lê-nin",
+  "displayDate": "Tháng 7 – 1920",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1919-1945",
+  "parentId": "viet-nam-1919-1945",
+  "historicalLocations": [],
+  "provinceNames": [],
+  "canonicalSummary": "Tháng 7 – 1920, Nguyễn Ái Quốc đọc Sơ thảo lần thứ nhất những luận cương về vấn đề dân tộc và vấn đề thuộc địa của Lê-nin đăng trên báo Nhân đạo. Luận cương đã giúp Nguyễn Ái Quốc khẳng định con đường giành độc lập và tự do cho dân tộc Việt Nam là đi theo con đường cách mạng vô sản, gắn giải phóng dân tộc với giải phóng giai cấp, độc lập dân tộc với chủ nghĩa xã hội.",
+  "keyFacts": [
+    "Gắn giải phóng dân tộc với giải phóng giai cấp, độc lập dân tộc với chủ nghĩa xã hội",
+    "Đăng trên báo Nhân đạo",
+    "Khẳng định con đường cách mạng vô sản",
+    "Đọc Sơ thảo lần thứ nhất những luận cương về vấn đề dân tộc và vấn đề thuộc địa của Lê-nin",
+    "Đọc Sơ thảo Luận cương của V. Lê-nin"
+  ],
+  "sourceFamily": "revolutionary",
+  "preferredVerificationDomains": [
+    "hochiminh.vn",
+    "tulieuvankien.dangcongsan.vn",
+    "dangcongsan.vn",
+    "baotanglichsu.vn",
+    "nhandan.vn",
+    "qdnd.vn",
+    "vietnamplus.vn",
+    "luutru.gov.vn"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Nguyễn Ái Quốc đọc Sơ thảo lần thứ nhất những luận cương về vấn đề dân tộc và vấn đề thuộc địa của Lê-nin",
+    "Nguyễn Ái Quốc đọc Sơ thảo lần thứ nhất những luận cương về vấn đề dân tộc và vấn đề thuộc địa của Lê-nin Tháng 7 – 1920",
+    "Nguyễn Ái Quốc đọc Sơ thảo lần thứ nhất những luận cương về vấn đề dân tộc và vấn đề thuộc địa của Lê-nin Việt Nam từ năm 1919 đến năm 1945",
+    "Nguyễn Ái Quốc đọc Sơ thảo lần thứ nhất những luận cương về vấn đề dân tộc và vấn đề thuộc địa của Lê-nin Gắn giải phóng dân tộc với giải phóng giai cấp, độc lập dân tộc với chủ nghĩa xã hội Đăng trên báo Nhân đạo",
+    "Nguyễn Ái Quốc đọc Sơ thảo lần thứ nhất những luận cương về vấn đề dân tộc và vấn đề thuộc địa của Lê-nin ảnh tư liệu",
+    "Nguyễn Ái Quốc đọc Sơ thảo lần thứ nhất những luận cương về vấn đề dân tộc và vấn đề thuộc địa của Lê-nin chân dung"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

@@ -1,0 +1,75 @@
+{
+  "eventId": "hoat-dong-doi-ngoai-dang-cong-san-dong-duong-1930-1945",
+  "title": "Hoạt động đối ngoại của Đảng Cộng sản Đông Dương",
+  "shortTitle": "Hoạt động đối ngoại của Đảng Cộng sản Đông Dương",
+  "displayDate": "1930 – 1945",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1919-1945",
+  "parentId": "viet-nam-1919-1945",
+  "historicalLocations": [
+    "Miến Điện",
+    "Mỹ",
+    "Tân Trào",
+    "Thái Lan",
+    "Đông Dương",
+    "Mã Lai",
+    "In-đô-nê-xi-a",
+    "Liên Xô",
+    "Phi-líp-pin",
+    "Việt Nam",
+    "Trung Quốc",
+    "Trung Hoa Dân quốc",
+    "Đông Nam Á",
+    "Tuyên Quang"
+  ],
+  "provinceNames": [],
+  "canonicalSummary": "Trong những năm 1930 – 1945, hoạt động đối ngoại của Đảng Cộng sản Đông Dương chủ yếu phục vụ cho cuộc đấu tranh chống thực dân, phát xít, tiến tới giành độc lập, tự do, góp phần bảo vệ hoà bình. Đảng ủng hộ Liên Xô, phối hợp với các tổ chức người Pháp, người Hoa giúp đỡ nạn nhân chiến tranh ở Trung Quốc, củng cố quan hệ với Đảng Cộng sản Trung Quốc, liên lạc với phong trào dân tộc chống quân phiệt Nhật Bản ở Đông Nam Á. Thông qua Mặt trận Việt Minh, Đảng đứng về phía lực lượng Đồng minh, tiếp xúc với Trung Hoa Dân quốc và hợp tác với Cơ quan Tình báo chiến lược Mỹ (OSS).",
+  "keyFacts": [
+    "Giúp đỡ nạn nhân chiến tranh ở Trung Quốc",
+    "Ủng hộ Liên Xô",
+    "Củng cố quan hệ với Đảng Cộng sản Trung Quốc",
+    "Liên lạc với phong trào chống Nhật ở Đông Nam Á",
+    "Hợp tác với Trung Hoa Dân quốc và OSS Mỹ",
+    "Phục vụ đấu tranh chống thực dân, phát xít",
+    "Thông qua Việt Minh, đứng về phía Đồng minh"
+  ],
+  "sourceFamily": "revolutionary",
+  "preferredVerificationDomains": [
+    "hochiminh.vn",
+    "tulieuvankien.dangcongsan.vn",
+    "dangcongsan.vn",
+    "baotanglichsu.vn",
+    "nhandan.vn",
+    "qdnd.vn",
+    "vietnamplus.vn",
+    "luutru.gov.vn"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Hoạt động đối ngoại của Đảng Cộng sản Đông Dương",
+    "Hoạt động đối ngoại của Đảng Cộng sản Đông Dương 1930 – 1945",
+    "Hoạt động đối ngoại của Đảng Cộng sản Đông Dương Miến Điện",
+    "Hoạt động đối ngoại của Đảng Cộng sản Đông Dương Giúp đỡ nạn nhân chiến tranh ở Trung Quốc Ủng hộ Liên Xô",
+    "Hoạt động đối ngoại của Đảng Cộng sản Đông Dương ảnh tư liệu",
+    "Hoạt động đối ngoại của Đảng Cộng sản Đông Dương chân dung"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

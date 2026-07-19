@@ -35,11 +35,15 @@
   },
   "chronology": {
     "start": {
-      "year": null,
+      "year": 1767,
       "month": null,
       "day": null
     },
-    "end": null,
+    "end": {
+      "year": 1800,
+      "month": null,
+      "day": null
+    },
     "datePrecision": "period",
     "displayDate": "Cuối thế kỉ XVIII",
     "isApproximate": true
@@ -112,7 +116,7 @@
     "parentId": null,
     "childIds": [],
     "level": 0,
-    "orderInParent": 361
+    "orderInParent": 73
   },
   "associations": {
     "relatedEventIds": [],

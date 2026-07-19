@@ -1,0 +1,9 @@
+{
+  "eventId": "chinh-quyen-phap-cai-cach-huong-chinh",
+  "status": "pending_download",
+  "images": [],
+  "expected": [
+    "image_01.<ext>",
+    "image_02.<ext>"
+  ]
+}

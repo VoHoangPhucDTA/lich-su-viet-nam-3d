@@ -1,0 +1,9 @@
+{
+  "eventId": "thanh-lap-huyen-hoang-sa-va-huyen-truong-sa",
+  "status": "pending_download",
+  "images": [],
+  "expected": [
+    "image_01.<ext>",
+    "image_02.<ext>"
+  ]
+}

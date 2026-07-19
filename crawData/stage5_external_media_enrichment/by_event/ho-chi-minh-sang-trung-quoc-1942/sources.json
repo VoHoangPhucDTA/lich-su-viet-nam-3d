@@ -1,0 +1,9 @@
+{
+  "eventId": "ho-chi-minh-sang-trung-quoc-1942",
+  "status": "pending_download",
+  "images": [],
+  "expected": [
+    "image_01.<ext>",
+    "image_02.<ext>"
+  ]
+}

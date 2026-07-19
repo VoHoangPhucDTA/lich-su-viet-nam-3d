@@ -1,0 +1,53 @@
+{
+  "eventId": "chu-quyen-bien-dao-viet-nam-1919-1945",
+  "title": "Chủ quyền biển đảo Việt Nam 1919-1945",
+  "shortTitle": "Chủ quyền biển đảo Việt Nam 1919-1945",
+  "displayDate": "Chủ quyền biển đảo Việt Nam 1919-1945",
+  "eventLevel": "collection",
+  "rootId": "viet-nam-1919-1945",
+  "parentId": "viet-nam-1919-1945",
+  "historicalLocations": [
+    "Việt Nam"
+  ],
+  "provinceNames": [],
+  "canonicalSummary": "Nút collection dẫn xuất từ force_parent.json cho nhóm Chủ quyền biển đảo Việt Nam 1919-1945.",
+  "keyFacts": [],
+  "sourceFamily": "revolutionary",
+  "preferredVerificationDomains": [
+    "hochiminh.vn",
+    "tulieuvankien.dangcongsan.vn",
+    "dangcongsan.vn",
+    "baotanglichsu.vn",
+    "nhandan.vn",
+    "qdnd.vn",
+    "vietnamplus.vn",
+    "luutru.gov.vn"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Chủ quyền biển đảo Việt Nam 1919-1945",
+    "Chủ quyền biển đảo Việt Nam 1919-1945 Chủ quyền biển đảo Việt Nam 1919-1945",
+    "Chủ quyền biển đảo Việt Nam 1919-1945 Việt Nam",
+    "Chủ quyền biển đảo Việt Nam 1919-1945 ảnh tư liệu",
+    "Chủ quyền biển đảo Việt Nam 1919-1945 chân dung"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

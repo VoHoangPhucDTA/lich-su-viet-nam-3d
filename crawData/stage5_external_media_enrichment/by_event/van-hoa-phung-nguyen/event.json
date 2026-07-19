@@ -1,0 +1,55 @@
+{
+  "eventId": "van-hoa-phung-nguyen",
+  "title": "Văn hoá Phùng Nguyên",
+  "shortTitle": "Văn hoá Phùng Nguyên",
+  "displayDate": "Khoảng 4000 năm trước",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-thoi-dung-nuoc",
+  "parentId": "viet-nam-thoi-dung-nuoc",
+  "historicalLocations": [
+    "Việt Nam"
+  ],
+  "provinceNames": [],
+  "canonicalSummary": "Văn hoá Phùng Nguyên (khoảng 4000 năm trước) là cội nguồn của văn minh Văn Lang – Âu Lạc.",
+  "keyFacts": [
+    "Nền văn hoá đồng thau tiền Đông Sơn",
+    "Cội nguồn của văn minh Văn Lang – Âu Lạc",
+    "Khoảng 4000 năm trước"
+  ],
+  "sourceFamily": "culture_language",
+  "preferredVerificationDomains": [
+    "baotanglichsu.vn",
+    "bvhttdl.gov.vn",
+    "disanvanhoa.gov.vn",
+    "vnfam.vn",
+    "unesco.org"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Văn hoá Phùng Nguyên",
+    "Văn hoá Phùng Nguyên Khoảng 4000 năm trước",
+    "Văn hoá Phùng Nguyên Việt Nam",
+    "Văn hoá Phùng Nguyên Nền văn hoá đồng thau tiền Đông Sơn Cội nguồn của văn minh Văn Lang – Âu Lạc",
+    "Văn hoá Phùng Nguyên hiện vật",
+    "Văn hoá Phùng Nguyên di sản"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

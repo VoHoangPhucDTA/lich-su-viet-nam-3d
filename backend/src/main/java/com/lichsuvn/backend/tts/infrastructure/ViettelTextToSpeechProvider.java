@@ -36,7 +36,7 @@ import java.util.UUID;
  *   <li>{@code hcm-diemmy} — Southern female (default) 🏆</li>
  *   <li>{@code hcm-thuyduyen} — Southern female</li>
  *   <li>{@code hn-quynhanh} — Northern female</li>
- *   <li>{@code hn-quangminh} — Northern male</li>
+ *   <li>{@code hn-thanhtung} — Northern male</li>
  *   <li>{@code hue-maingoc} — Central female</li>
  * </ul>
  */
@@ -61,7 +61,7 @@ public class ViettelTextToSpeechProvider implements TextToSpeechService {
             "hcm-diemmy",    // Southern female
             "hcm-thuyduyen", // Southern female
             "hn-quynhanh",   // Northern female
-            "hn-quangminh",  // Northern male
+            "hn-thanhtung",  // Northern male
             "hue-maingoc"    // Central female
     );
 

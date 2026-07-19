@@ -1,0 +1,9 @@
+{
+  "eventId": "bru-nay-tuyen-bo-ranh-gioi-them-luc-dia",
+  "status": "pending_download",
+  "images": [],
+  "expected": [
+    "image_01.<ext>",
+    "image_02.<ext>"
+  ]
+}

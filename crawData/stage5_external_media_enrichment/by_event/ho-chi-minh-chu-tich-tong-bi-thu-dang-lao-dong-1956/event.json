@@ -1,0 +1,56 @@
+{
+  "eventId": "ho-chi-minh-chu-tich-tong-bi-thu-dang-lao-dong-1956",
+  "title": "Chủ tịch Hồ Chí Minh là Chủ tịch Đảng, kiêm Tổng Bí thư Đảng Lao động Việt Nam",
+  "shortTitle": "Hồ Chí Minh làm Chủ tịch kiêm Tổng Bí thư Đảng",
+  "displayDate": "Tháng 10 – 1956",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1954-1975",
+  "parentId": "viet-nam-1954-1975",
+  "historicalLocations": [],
+  "provinceNames": [],
+  "canonicalSummary": "Tháng 10 – 1956, Chủ tịch Hồ Chí Minh là Chủ tịch Đảng, kiêm Tổng Bí thư Đảng Lao động Việt Nam.",
+  "keyFacts": [
+    "Giữ chức Chủ tịch Đảng",
+    "Kiêm Tổng Bí thư Đảng Lao động Việt Nam"
+  ],
+  "sourceFamily": "war_1945_1975",
+  "preferredVerificationDomains": [
+    "btlsqsvn.org.vn",
+    "qdnd.vn",
+    "nhandan.vn",
+    "vietnamplus.vn",
+    "hochiminh.vn",
+    "baotanglichsu.vn",
+    "luutru.gov.vn",
+    "loc.gov",
+    "archives.gov"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Chủ tịch Hồ Chí Minh là Chủ tịch Đảng, kiêm Tổng Bí thư Đảng Lao động Việt Nam",
+    "Chủ tịch Hồ Chí Minh là Chủ tịch Đảng, kiêm Tổng Bí thư Đảng Lao động Việt Nam Tháng 10 – 1956",
+    "Chủ tịch Hồ Chí Minh là Chủ tịch Đảng, kiêm Tổng Bí thư Đảng Lao động Việt Nam Việt Nam từ năm 1954 đến năm 1975",
+    "Chủ tịch Hồ Chí Minh là Chủ tịch Đảng, kiêm Tổng Bí thư Đảng Lao động Việt Nam Giữ chức Chủ tịch Đảng Kiêm Tổng Bí thư Đảng Lao động Việt Nam",
+    "Chủ tịch Hồ Chí Minh là Chủ tịch Đảng, kiêm Tổng Bí thư Đảng Lao động Việt Nam ảnh tư liệu",
+    "Chủ tịch Hồ Chí Minh là Chủ tịch Đảng, kiêm Tổng Bí thư Đảng Lao động Việt Nam chiến dịch"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

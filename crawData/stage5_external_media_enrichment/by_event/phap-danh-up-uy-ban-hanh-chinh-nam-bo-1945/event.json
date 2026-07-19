@@ -1,0 +1,78 @@
+{
+  "eventId": "phap-danh-up-uy-ban-hanh-chinh-nam-bo-1945",
+  "title": "Thực dân Pháp đánh úp trụ sở Uỷ ban hành chính Nam Bộ và cơ quan tự vệ thành phố Sài Gòn",
+  "shortTitle": "Pháp đánh úp Sài Gòn",
+  "displayDate": "Đêm 22, rạng sáng 23 – 9 – 1945",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1945-1954",
+  "parentId": "khang-chien-chong-thuc-dan-phap-1945-1954",
+  "historicalLocations": [],
+  "provinceNames": [
+    "Hồ Chí Minh",
+    "Bình Phước",
+    "Tây Ninh",
+    "Bình Dương",
+    "Đồng Nai",
+    "Bà Rịa - Vũng Tàu",
+    "Long An",
+    "Tiền Giang",
+    "Bến Tre",
+    "Trà Vinh",
+    "Vĩnh Long",
+    "Đồng Tháp",
+    "An Giang",
+    "Kiên Giang",
+    "Cần Thơ",
+    "Hậu Giang",
+    "Sóc Trăng",
+    "Bạc Liêu",
+    "Cà Mau"
+  ],
+  "canonicalSummary": "Đêm 22, rạng sáng 23 – 9 – 1945, thực dân Pháp đánh úp trụ sở Uỷ ban hành chính Nam Bộ và cơ quan tự vệ thành phố Sài Gòn, mở đầu cuộc chiến tranh xâm lược Việt Nam lần thứ hai.",
+  "keyFacts": [
+    "Pháp đánh úp trụ sở Uỷ ban hành chính Nam Bộ và cơ quan tự vệ",
+    "Mở đầu cuộc chiến tranh xâm lược Việt Nam lần thứ hai",
+    "Tại Sài Gòn",
+    "Diễn ra đêm 22, rạng sáng 23-9-1945"
+  ],
+  "sourceFamily": "war_1945_1975",
+  "preferredVerificationDomains": [
+    "btlsqsvn.org.vn",
+    "qdnd.vn",
+    "nhandan.vn",
+    "vietnamplus.vn",
+    "hochiminh.vn",
+    "baotanglichsu.vn",
+    "luutru.gov.vn",
+    "loc.gov",
+    "archives.gov"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Thực dân Pháp đánh úp trụ sở Uỷ ban hành chính Nam Bộ và cơ quan tự vệ thành phố Sài Gòn",
+    "Thực dân Pháp đánh úp trụ sở Uỷ ban hành chính Nam Bộ và cơ quan tự vệ thành phố Sài Gòn Đêm 22, rạng sáng 23 – 9 – 1945",
+    "Thực dân Pháp đánh úp trụ sở Uỷ ban hành chính Nam Bộ và cơ quan tự vệ thành phố Sài Gòn Cuộc kháng chiến chống thực dân Pháp",
+    "Thực dân Pháp đánh úp trụ sở Uỷ ban hành chính Nam Bộ và cơ quan tự vệ thành phố Sài Gòn Pháp đánh úp trụ sở Uỷ ban hành chính Nam Bộ và cơ quan tự vệ Mở đầu cuộc chiến tranh xâm lược Việt Nam lần thứ hai",
+    "Thực dân Pháp đánh úp trụ sở Uỷ ban hành chính Nam Bộ và cơ quan tự vệ thành phố Sài Gòn ảnh tư liệu",
+    "Thực dân Pháp đánh úp trụ sở Uỷ ban hành chính Nam Bộ và cơ quan tự vệ thành phố Sài Gòn chiến dịch"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

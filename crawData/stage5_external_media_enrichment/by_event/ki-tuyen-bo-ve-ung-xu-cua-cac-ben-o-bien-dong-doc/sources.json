@@ -1,0 +1,9 @@
+{
+  "eventId": "ki-tuyen-bo-ve-ung-xu-cua-cac-ben-o-bien-dong-doc",
+  "status": "pending_download",
+  "images": [],
+  "expected": [
+    "image_01.<ext>",
+    "image_02.<ext>"
+  ]
+}

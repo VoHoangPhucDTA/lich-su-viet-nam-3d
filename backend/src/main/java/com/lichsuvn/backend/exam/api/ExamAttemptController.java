@@ -2,18 +2,17 @@ package com.lichsuvn.backend.exam.api;
 
 import com.lichsuvn.backend.auth.security.UserPrincipal;
 import com.lichsuvn.backend.common.api.ApiResponse;
+import com.lichsuvn.backend.common.exception.ApiException;
 import com.lichsuvn.backend.exam.api.dto.ExamAttemptDetailResponse;
 import com.lichsuvn.backend.exam.api.dto.ExamAttemptListResponse;
 import com.lichsuvn.backend.exam.api.dto.ExamAttemptSummaryResponse;
-import com.lichsuvn.backend.exam.api.dto.ExamAttemptUpsertRequest;
 import com.lichsuvn.backend.exam.api.dto.ServerTimeResponse;
 import com.lichsuvn.backend.exam.application.ExamAttemptService;
-import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -36,11 +35,12 @@ public class ExamAttemptController {
     }
 
     @PostMapping("/exams/attempts")
-    public ApiResponse<ExamAttemptSummaryResponse> upsertAttempt(
-            @Valid @RequestBody ExamAttemptUpsertRequest request,
-            @AuthenticationPrincipal UserPrincipal principal
-    ) {
-        return ApiResponse.ok(examAttemptService.upsertAttempt(request, principal));
+    public ApiResponse<Void> retiredAttemptWrite() {
+        throw new ApiException(
+                HttpStatus.GONE,
+                "LEGACY_EXAM_WRITE_RETIRED",
+                "Legacy frontend-scored exam writes are retired; submit through a server-issued exam session."
+        );
     }
 
     @GetMapping("/exams/attempts")

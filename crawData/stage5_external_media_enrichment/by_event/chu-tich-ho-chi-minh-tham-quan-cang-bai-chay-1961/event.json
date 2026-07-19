@@ -1,0 +1,59 @@
+{
+  "eventId": "chu-tich-ho-chi-minh-tham-quan-cang-bai-chay-1961",
+  "title": "Chủ tịch Hồ Chí Minh thăm Quân cảng Bãi Cháy và căn dặn về bảo vệ biển",
+  "shortTitle": "Hồ Chí Minh căn dặn về biển",
+  "displayDate": "Năm 1961",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1954-1975",
+  "parentId": "viet-nam-1954-1975",
+  "historicalLocations": [],
+  "provinceNames": [
+    "Hà Tĩnh"
+  ],
+  "canonicalSummary": "Trong dịp tới thăm Bộ đội Hải quân tại Quân cảng Bãi Cháy (năm 1961), Chủ tịch Hồ Chí Minh đã căn dặn: “Ngày trước ta chỉ có đêm và rừng. Ngày nay ta có ngày, có trời, có biển. Bờ biển ta dài, tươi đẹp, ta phải biết giữ gìn lấy nó\".",
+  "keyFacts": [
+    "Căn dặn về giữ gìn và bảo vệ biển",
+    "Chủ tịch Hồ Chí Minh thăm Quân cảng Bãi Cháy",
+    "Năm 1961"
+  ],
+  "sourceFamily": "war_1945_1975",
+  "preferredVerificationDomains": [
+    "btlsqsvn.org.vn",
+    "qdnd.vn",
+    "nhandan.vn",
+    "vietnamplus.vn",
+    "hochiminh.vn",
+    "baotanglichsu.vn",
+    "luutru.gov.vn",
+    "loc.gov",
+    "archives.gov"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Chủ tịch Hồ Chí Minh thăm Quân cảng Bãi Cháy và căn dặn về bảo vệ biển",
+    "Chủ tịch Hồ Chí Minh thăm Quân cảng Bãi Cháy và căn dặn về bảo vệ biển Năm 1961",
+    "Chủ tịch Hồ Chí Minh thăm Quân cảng Bãi Cháy và căn dặn về bảo vệ biển Việt Nam từ năm 1954 đến năm 1975",
+    "Chủ tịch Hồ Chí Minh thăm Quân cảng Bãi Cháy và căn dặn về bảo vệ biển Căn dặn về giữ gìn và bảo vệ biển Chủ tịch Hồ Chí Minh thăm Quân cảng Bãi Cháy",
+    "Chủ tịch Hồ Chí Minh thăm Quân cảng Bãi Cháy và căn dặn về bảo vệ biển ảnh tư liệu",
+    "Chủ tịch Hồ Chí Minh thăm Quân cảng Bãi Cháy và căn dặn về bảo vệ biển chiến dịch"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

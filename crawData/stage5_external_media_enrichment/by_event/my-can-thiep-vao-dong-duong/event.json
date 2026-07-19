@@ -1,0 +1,58 @@
+{
+  "eventId": "my-can-thiep-vao-dong-duong",
+  "title": "Mỹ can thiệp vào Đông Dương",
+  "shortTitle": "Mỹ can thiệp vào Đông Dương",
+  "displayDate": "Từ năm 1954",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1954-1975",
+  "parentId": "khang-chien-chong-my-cuu-nuoc",
+  "historicalLocations": [
+    "Đông Dương"
+  ],
+  "provinceNames": [],
+  "canonicalSummary": "Từ năm 1954, Mỹ can thiệp vào Đông Dương, khiến nhân dân ba nước Đông Dương phải tiếp tục tiến hành cuộc chiến tranh bảo vệ nền độc lập dân tộc và chủ quyền quốc gia.",
+  "keyFacts": [
+    "Dẫn đến cuộc chiến tranh bảo vệ độc lập dân tộc và chủ quyền quốc gia",
+    "Bắt đầu từ năm 1954"
+  ],
+  "sourceFamily": "war_1945_1975",
+  "preferredVerificationDomains": [
+    "btlsqsvn.org.vn",
+    "qdnd.vn",
+    "nhandan.vn",
+    "vietnamplus.vn",
+    "hochiminh.vn",
+    "baotanglichsu.vn",
+    "luutru.gov.vn",
+    "loc.gov",
+    "archives.gov"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Mỹ can thiệp vào Đông Dương",
+    "Mỹ can thiệp vào Đông Dương Từ năm 1954",
+    "Mỹ can thiệp vào Đông Dương Đông Dương",
+    "Mỹ can thiệp vào Đông Dương Dẫn đến cuộc chiến tranh bảo vệ độc lập dân tộc và chủ quyền quốc gia Bắt đầu từ năm 1954",
+    "Mỹ can thiệp vào Đông Dương ảnh tư liệu",
+    "Mỹ can thiệp vào Đông Dương chiến dịch"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

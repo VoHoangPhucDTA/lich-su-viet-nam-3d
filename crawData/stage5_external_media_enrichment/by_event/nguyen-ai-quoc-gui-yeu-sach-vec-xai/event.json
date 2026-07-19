@@ -1,0 +1,58 @@
+{
+  "eventId": "nguyen-ai-quoc-gui-yeu-sach-vec-xai",
+  "title": "Nguyễn Ái Quốc gửi Yêu sách của nhân dân An Nam đến Hội nghị Véc-xai",
+  "shortTitle": "Yêu sách của nhân dân An Nam",
+  "displayDate": "Năm 1919",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1919-1945",
+  "parentId": "viet-nam-1919-1945",
+  "historicalLocations": [
+    "Hội nghị Véc-xai",
+    "Pháp"
+  ],
+  "provinceNames": [],
+  "canonicalSummary": "Năm 1919, Nguyễn Tất Thành thay mặt những người Việt Nam yêu nước tại Pháp gửi tới Hội nghị Véc-xai bản Yêu sách của nhân dân An Nam, trong đó kí tên là Nguyễn Ái Quốc.",
+  "keyFacts": [
+    "Kí tên Nguyễn Ái Quốc",
+    "Thay mặt người Việt Nam yêu nước"
+  ],
+  "sourceFamily": "revolutionary",
+  "preferredVerificationDomains": [
+    "hochiminh.vn",
+    "tulieuvankien.dangcongsan.vn",
+    "dangcongsan.vn",
+    "baotanglichsu.vn",
+    "nhandan.vn",
+    "qdnd.vn",
+    "vietnamplus.vn",
+    "luutru.gov.vn"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Nguyễn Ái Quốc gửi Yêu sách của nhân dân An Nam đến Hội nghị Véc-xai",
+    "Nguyễn Ái Quốc gửi Yêu sách của nhân dân An Nam đến Hội nghị Véc-xai Năm 1919",
+    "Nguyễn Ái Quốc gửi Yêu sách của nhân dân An Nam đến Hội nghị Véc-xai Hội nghị Véc-xai",
+    "Nguyễn Ái Quốc gửi Yêu sách của nhân dân An Nam đến Hội nghị Véc-xai Kí tên Nguyễn Ái Quốc Thay mặt người Việt Nam yêu nước",
+    "Nguyễn Ái Quốc gửi Yêu sách của nhân dân An Nam đến Hội nghị Véc-xai ảnh tư liệu",
+    "Nguyễn Ái Quốc gửi Yêu sách của nhân dân An Nam đến Hội nghị Véc-xai chân dung"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

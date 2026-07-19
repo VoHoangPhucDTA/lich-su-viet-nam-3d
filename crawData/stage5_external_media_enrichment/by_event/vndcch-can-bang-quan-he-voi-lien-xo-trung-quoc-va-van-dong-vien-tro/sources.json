@@ -1,0 +1,9 @@
+{
+  "eventId": "vndcch-can-bang-quan-he-voi-lien-xo-trung-quoc-va-van-dong-vien-tro",
+  "status": "pending_download",
+  "images": [],
+  "expected": [
+    "image_01.<ext>",
+    "image_02.<ext>"
+  ]
+}

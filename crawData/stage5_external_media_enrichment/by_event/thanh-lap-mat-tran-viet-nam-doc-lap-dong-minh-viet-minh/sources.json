@@ -1,0 +1,9 @@
+{
+  "eventId": "thanh-lap-mat-tran-viet-nam-doc-lap-dong-minh-viet-minh",
+  "status": "pending_download",
+  "images": [],
+  "expected": [
+    "image_01.<ext>",
+    "image_02.<ext>"
+  ]
+}
