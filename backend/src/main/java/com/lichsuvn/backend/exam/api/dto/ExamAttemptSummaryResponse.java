@@ -13,6 +13,9 @@ public record ExamAttemptSummaryResponse(
         BigDecimal totalScore,
         Integer durationSeconds,
         long submittedAt,
+        String scoreAuthority,
+        String timingAuthority,
+        String submissionOrigin,
         Instant createdAt,
         Instant updatedAt
 ) {

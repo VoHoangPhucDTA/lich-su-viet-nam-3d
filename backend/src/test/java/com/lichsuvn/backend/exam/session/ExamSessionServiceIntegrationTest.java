@@ -9,6 +9,7 @@ import com.lichsuvn.backend.exam.dataset.ExamH2TestDatabase;
 import com.lichsuvn.backend.exam.session.api.dto.CheckQuestionRequest;
 import com.lichsuvn.backend.exam.session.api.dto.CreateExamSessionRequest;
 import com.lichsuvn.backend.exam.session.api.dto.ExamSessionResponse;
+import com.lichsuvn.backend.exam.session.api.dto.RecoverExamSubmissionRequest;
 import com.lichsuvn.backend.exam.session.api.dto.SubmitExamSessionRequest;
 import com.lichsuvn.backend.exam.session.application.ExamSessionService;
 import com.lichsuvn.backend.exam.session.infrastructure.ExamSessionRepository;
@@ -127,6 +128,60 @@ class ExamSessionServiceIntegrationTest {
         jdbc.getJdbcTemplate().update("INSERT INTO exam_submission_receipts (id,session_id,client_submission_id,submission_hash,status) VALUES (?,?,?,?, 'FAILED_RETRYABLE')", UuidBytes.fromUuid(UUID.randomUUID()), sessionId, "null-slot-a", "a".repeat(64));
         jdbc.getJdbcTemplate().update("INSERT INTO exam_submission_receipts (id,session_id,client_submission_id,submission_hash,status) VALUES (?,?,?,?, 'FAILED_RETRYABLE')", UuidBytes.fromUuid(UUID.randomUUID()), sessionId, "null-slot-b", "b".repeat(64));
         assertThrows(Exception.class, () -> jdbc.getJdbcTemplate().update("INSERT INTO exam_submission_receipts (id,session_id,client_submission_id,submission_hash,status,success_slot) VALUES (?,?,?,?, 'SUCCESS', 1)", UuidBytes.fromUuid(UUID.randomUUID()), sessionId, "second-success", "c".repeat(64)));
+    }
+
+    @Test
+    void authenticatedLateRecoveryRescoresPinnedSessionAndKeepsUnverifiedTimingAuthority() {
+        byte[] userId = UuidBytes.fromUuid(UUID.randomUUID());
+        jdbc.getJdbcTemplate().update("INSERT INTO users (id) VALUES (?)", userId);
+        UserPrincipal principal = new UserPrincipal(UUID.randomUUID().toString(), userId, "recover@example.test", List.of("USER"));
+        var created = service.create(new CreateExamSessionRequest("TIMED_ORIGINAL", cleanExamId(), null, null, null, null, null, null, null, null), principal);
+        jdbc.getJdbcTemplate().update("UPDATE exam_sessions SET deadline_at=DATEADD('SECOND', -20, CURRENT_TIMESTAMP(6)) WHERE public_session_id=?", created.sessionId());
+        List<SubmitExamSessionRequest.AnswerItem> answers = answersFor(created, false);
+        var refs = created.questions().stream().map(question -> new RecoverExamSubmissionRequest.QuestionRef(question.questionInstanceId(), question.publicQuestionId())).toList();
+        var recovered = service.recover(new RecoverExamSubmissionRequest("00000000-0000-4000-8000-000000000009", created.sessionId(), null, "TIMED_ORIGINAL", activeDatasetVersion(), cleanExamId(), created.examContentHash(), "client-hash", new RecoverExamSubmissionRequest.ClientTiming(System.currentTimeMillis() - 1_000, System.currentTimeMillis()), refs, answers), principal);
+        assertEquals("BACKEND", recovered.scoreAuthority());
+        assertEquals("CLIENT_UNVERIFIED", recovered.timingAuthority());
+        assertEquals("SERVER_ISSUED_LATE", recovered.submissionOrigin());
+        assertEquals("CLIENT_UNVERIFIED", jdbc.getJdbcTemplate().queryForObject("SELECT timing_authority FROM exam_v2_attempts", String.class));
+        assertEquals(1, count("exam_submission_receipts"));
+    }
+
+    @Test
+    void authenticatedStaticRecoveryUsesPinnedH1AndIsIdempotent() {
+        byte[] userId = UuidBytes.fromUuid(UUID.randomUUID());
+        jdbc.getJdbcTemplate().update("INSERT INTO users (id) VALUES (?)", userId);
+        UserPrincipal principal = new UserPrincipal(UUID.randomUUID().toString(), userId, "static@example.test", List.of("USER"));
+        var issued = service.create(new CreateExamSessionRequest("TIMED_ORIGINAL", cleanExamId(), null, null, null, null, null, null, null, null), null);
+        var refs = issued.questions().stream().map(question -> new RecoverExamSubmissionRequest.QuestionRef(question.questionInstanceId(), question.publicQuestionId())).toList();
+        var request = new RecoverExamSubmissionRequest("00000000-0000-4000-8000-000000000010", null, "local-static-1", "TIMED_ORIGINAL",
+                activeDatasetVersion(), cleanExamId(), issued.examContentHash(), "client-hash", new RecoverExamSubmissionRequest.ClientTiming(1L, 2L), refs, answersFor(issued, false));
+
+        var recovered = service.recover(request, principal);
+        assertEquals("BACKEND", recovered.scoreAuthority());
+        assertEquals("CLIENT_UNVERIFIED", recovered.timingAuthority());
+        assertEquals("CLIENT_FALLBACK", recovered.submissionOrigin());
+        assertEquals(1, count("exam_v2_attempts"));
+        assertEquals(recovered.sessionId(), service.recover(request, principal).sessionId());
+        assertEquals(1, count("exam_v2_attempts"));
+    }
+
+    @Test
+    void recoveryRejectsMissingHistoricalDatasetAndWrongOwner() {
+        byte[] ownerId = UuidBytes.fromUuid(UUID.randomUUID());
+        byte[] strangerId = UuidBytes.fromUuid(UUID.randomUUID());
+        jdbc.getJdbcTemplate().update("INSERT INTO users (id) VALUES (?), (?)", ownerId, strangerId);
+        UserPrincipal owner = new UserPrincipal(UUID.randomUUID().toString(), ownerId, "owner@example.test", List.of("USER"));
+        UserPrincipal stranger = new UserPrincipal(UUID.randomUUID().toString(), strangerId, "stranger@example.test", List.of("USER"));
+        var created = service.create(new CreateExamSessionRequest("TIMED_ORIGINAL", cleanExamId(), null, null, null, null, null, null, null, null), owner);
+        var refs = created.questions().stream().map(question -> new RecoverExamSubmissionRequest.QuestionRef(question.questionInstanceId(), question.publicQuestionId())).toList();
+        var serverRequest = new RecoverExamSubmissionRequest("00000000-0000-4000-8000-000000000011", created.sessionId(), null, "TIMED_ORIGINAL",
+                activeDatasetVersion(), cleanExamId(), created.examContentHash(), "client-hash", new RecoverExamSubmissionRequest.ClientTiming(1L, 2L), refs, answersFor(created, false));
+        assertThrows(ApiException.class, () -> service.recover(serverRequest, stranger));
+        var missingH1 = new RecoverExamSubmissionRequest("00000000-0000-4000-8000-000000000012", null, "local-missing", "TIMED_ORIGINAL",
+                "not-a-retained-dataset", cleanExamId(), created.examContentHash(), "client-hash", new RecoverExamSubmissionRequest.ClientTiming(1L, 2L), refs, answersFor(created, false));
+        assertThrows(ApiException.class, () -> service.recover(missingH1, owner));
+        assertEquals(0, count("exam_v2_attempts"));
     }
 
     @Test

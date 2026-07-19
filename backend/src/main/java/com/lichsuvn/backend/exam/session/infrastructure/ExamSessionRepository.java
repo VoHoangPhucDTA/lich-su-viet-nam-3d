@@ -25,6 +25,12 @@ public class ExamSessionRepository {
                         """, Map.of(), (rs, n) -> new DatasetRow(rs.getBytes(1), rs.getString(2))).stream().findFirst();
     }
 
+    /** Historical datasets remain queryable for version-aware local recovery. */
+    public Optional<DatasetRow> findDatasetByVersion(String version) {
+        return jdbc.query("SELECT id, aggregate_hash FROM exam_datasets WHERE aggregate_hash=:version",
+                p().addValue("version", version), (rs, n) -> new DatasetRow(rs.getBytes(1), rs.getString(2))).stream().findFirst();
+    }
+
     public Optional<ExamRow> findPublicExam(byte[] datasetId, String examId) {
         return jdbc.query("""
                         SELECT id, exam_id, title, time_limit_minutes, content_hash, total_score
@@ -53,6 +59,15 @@ public class ExamSessionRepository {
             where.append(" AND t.period_slug=:scopeSlug"); params.addValue("scopeSlug", filter.scopeSlug());
         }
         return queryQuestions(join + where + " ORDER BY q.question_id", params);
+    }
+
+    public List<QuestionRow> questionsForPublicIds(byte[] datasetId, List<String> publicIds) {
+        if (publicIds.isEmpty()) return List.of();
+        List<QuestionRow> rows = queryQuestions(" WHERE q.dataset_id=:datasetId AND e.dataset_id=:datasetId AND e.visibility_status='PUBLIC' AND q.question_id IN (:ids)",
+                p().addValue("datasetId", datasetId).addValue("ids", publicIds));
+        Map<String, QuestionRow> byPublicId = new java.util.HashMap<>();
+        for (QuestionRow row : rows) byPublicId.put(row.publicId(), row);
+        return publicIds.stream().map(byPublicId::get).filter(java.util.Objects::nonNull).toList();
     }
 
     public Optional<String> findAttemptResult(byte[] userId, String sessionId) {
@@ -154,8 +169,8 @@ public class ExamSessionRepository {
     public void updateReceipt(byte[] id, String status, String error, byte[] attemptId, Integer successSlot) { jdbc.update("UPDATE exam_submission_receipts SET status=:status,error_code=:error,attempt_id=:attempt,success_slot=:slot,completed_at=CASE WHEN :status IN ('SUCCESS','SUPERSEDED','FAILED_PERMANENT','FAILED_RETRYABLE') THEN CURRENT_TIMESTAMP(6) ELSE completed_at END WHERE id=:id", p().addValue("id",id).addValue("status",status).addValue("error",error).addValue("attempt",attemptId).addValue("slot",successSlot)); }
     public void insertAttempt(AttemptRow a) { jdbc.update("""
                 INSERT INTO exam_v2_attempts (id,user_id,session_id,mode,exam_id,title,is_custom,source_exam_ids_json,question_refs_json,question_snapshots_json,answers_json,config_json,result_json,snapshot_schema_version,score_authority,timing_authority,submission_origin,scoring_version,dataset_version,exam_content_hash,total_questions,total_score,mcq_score,tf_score,duration_seconds,submitted_at)
-                VALUES (:id,:user,:session,:mode,:exam,:title,:custom,:sourceExamIds,:refs,:snapshots,:answers,:config,:result,2,'BACKEND','SERVER','SERVER_ON_TIME',:scoring,:dataset,:content,:total,:score,:mcq,:tf,:duration,:submitted)
-                """, p().addValue("id",a.id()).addValue("user",a.userId()).addValue("session",a.sessionId()).addValue("mode",a.mode()).addValue("exam",a.examId()).addValue("title",a.title()).addValue("custom",a.custom()).addValue("sourceExamIds",a.sourceExamIdsJson()).addValue("refs",a.refsJson()).addValue("snapshots",null).addValue("answers",a.answersJson()).addValue("config",a.configJson()).addValue("result",a.resultJson()).addValue("scoring",a.scoringVersion()).addValue("dataset",a.datasetVersion()).addValue("content",a.contentHash()).addValue("total",a.totalQuestions()).addValue("score",a.totalScore()).addValue("mcq",a.mcqScore()).addValue("tf",a.tfScore()).addValue("duration",a.durationSeconds()).addValue("submitted",a.submittedAt())); }
+                VALUES (:id,:user,:session,:mode,:exam,:title,:custom,:sourceExamIds,:refs,:snapshots,:answers,:config,:result,2,:scoreAuthority,:timingAuthority,:origin,:scoring,:dataset,:content,:total,:score,:mcq,:tf,:duration,:submitted)
+                """, p().addValue("id",a.id()).addValue("user",a.userId()).addValue("session",a.sessionId()).addValue("mode",a.mode()).addValue("exam",a.examId()).addValue("title",a.title()).addValue("custom",a.custom()).addValue("sourceExamIds",a.sourceExamIdsJson()).addValue("refs",a.refsJson()).addValue("snapshots",null).addValue("answers",a.answersJson()).addValue("config",a.configJson()).addValue("result",a.resultJson()).addValue("scoreAuthority",a.scoreAuthority()).addValue("timingAuthority",a.timingAuthority()).addValue("origin",a.submissionOrigin()).addValue("scoring",a.scoringVersion()).addValue("dataset",a.datasetVersion()).addValue("content",a.contentHash()).addValue("total",a.totalQuestions()).addValue("score",a.totalScore()).addValue("mcq",a.mcqScore()).addValue("tf",a.tfScore()).addValue("duration",a.durationSeconds()).addValue("submitted",a.submittedAt())); }
 
     private void addFilter(StringBuilder where, MapSqlParameterSource p, String column, String name, String value) { if (!"all".equals(value)) { where.append(" AND ").append(column).append("=:").append(name); p.addValue(name,value); } }
     private static Instant timestamp(java.sql.ResultSet rs, String name) throws java.sql.SQLException { var value=rs.getTimestamp(name); return value == null ? null : value.toInstant(); }
@@ -172,5 +187,5 @@ public class ExamSessionRepository {
     public record SessionRow(byte[] id,String publicId,byte[] userId,String tokenHash,byte[] datasetId,String datasetVersion,String mode,String title,String examId,String contentHash,String configJson,String scoringVersion,Instant startedAt,Instant deadlineAt,int graceSeconds,String status,String resultJson,Instant completedAt,Instant submittedAt) {}
     public record SessionQuestionRow(byte[] id,byte[] sessionId,String instanceId,byte[] sourceQuestionId,String publicQuestionId,int position,String sectionId,String sectionType,String safeJson,String answerKeyJson,String practiceAnswerJson,String checkedResultJson,Instant checkedAt) {}
     public record ReceiptRow(byte[] id,byte[] sessionId,byte[] userId,String clientSubmissionId,String submissionHash,String status,String errorCode,byte[] attemptId,Integer successSlot) {}
-    public record AttemptRow(byte[] id,byte[] userId,String sessionId,String mode,String examId,String title,boolean custom,String sourceExamIdsJson,String refsJson,String answersJson,String configJson,String resultJson,String scoringVersion,String datasetVersion,String contentHash,int totalQuestions,double totalScore,double mcqScore,double tfScore,int durationSeconds,Instant submittedAt) {}
+    public record AttemptRow(byte[] id,byte[] userId,String sessionId,String mode,String examId,String title,boolean custom,String sourceExamIdsJson,String refsJson,String answersJson,String configJson,String resultJson,String scoreAuthority,String timingAuthority,String submissionOrigin,String scoringVersion,String datasetVersion,String contentHash,int totalQuestions,double totalScore,double mcqScore,double tfScore,int durationSeconds,Instant submittedAt) {}
 }

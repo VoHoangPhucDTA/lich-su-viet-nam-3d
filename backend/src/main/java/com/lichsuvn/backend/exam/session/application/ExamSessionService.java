@@ -9,6 +9,7 @@ import com.lichsuvn.backend.exam.session.api.dto.CheckQuestionRequest;
 import com.lichsuvn.backend.exam.session.api.dto.CreateExamSessionRequest;
 import com.lichsuvn.backend.exam.session.api.dto.ExamSessionResponse;
 import com.lichsuvn.backend.exam.session.api.dto.ExamSessionSubmitResponse;
+import com.lichsuvn.backend.exam.session.api.dto.RecoverExamSubmissionRequest;
 import com.lichsuvn.backend.exam.session.api.dto.SubmitExamSessionRequest;
 import com.lichsuvn.backend.exam.session.infrastructure.ExamSessionRepository;
 import org.springframework.beans.factory.annotation.Value;
@@ -164,6 +165,189 @@ public class ExamSessionService {
         }
     }
 
+    /**
+     * Recovers an authenticated submission without trusting browser-side scoring or timing.
+     * A server-issued session is re-scored from its pinned snapshots. A static fallback is
+     * accepted only when its H1 dataset/exam/refs can be reconstructed from the database.
+     */
+    public ExamSessionSubmitResponse recover(RecoverExamSubmissionRequest request, UserPrincipal principal) {
+        byte[] userId = principalId(principal);
+        if (userId == null) throw new ApiException(HttpStatus.UNAUTHORIZED, "AUTHENTICATION_REQUIRED", "Recovery requires an authenticated owner");
+        requireClientSubmissionId(request.clientSubmissionId());
+        String recoverySessionId = StringUtils.hasText(request.serverSessionId()) ? request.serverSessionId().trim() : null;
+        boolean staticRecovery = recoverySessionId == null;
+        if (recoverySessionId == null) {
+            recoverySessionId = createStaticRecoverySession(request, userId);
+        }
+        final String pinnedRecoverySessionId = recoverySessionId;
+        var preflight = requireSession(pinnedRecoverySessionId);
+        requireTimed(preflight);
+        if (!same(preflight.userId(), userId)) throw new ApiException(HttpStatus.FORBIDDEN, "RECOVERY_OWNER_REQUIRED", "Only the authenticated session owner may recover this submission");
+        SubmitExamSessionRequest submitted;
+        if (staticRecovery) {
+            requireStaticRecoveryDescriptor(preflight, request);
+            submitted = remapStaticRecoveryAnswers(request, preflight);
+        } else {
+            requireRecoveryDescriptor(preflight, request);
+            submitted = new SubmitExamSessionRequest(request.clientSubmissionId(), request.answers());
+        }
+        String hash = submissionHash(pinnedRecoverySessionId, submitted);
+        var success = repository.findSuccessReceipt(preflight.id());
+        if (success.isPresent()) {
+            if (success.get().submissionHash().equals(hash)) return storedSuccess(preflight, success.get());
+            throw new ApiException(HttpStatus.CONFLICT, "SESSION_ALREADY_SUBMITTED", "This session already has a successful submission");
+        }
+        var receipt = acquireReceipt(preflight, request.clientSubmissionId().trim(), hash, userId);
+        if (receipt.status().equals("SUCCESS")) return storedSuccess(preflight, receipt);
+        String origin = staticRecovery ? "CLIENT_FALLBACK" : "SERVER_ISSUED_LATE";
+        try {
+            return transaction.execute(status -> scoreRecovery(pinnedRecoverySessionId, submitted, hash, userId, receipt, origin));
+        } catch (ApiException ex) {
+            requiresNew.executeWithoutResult(status -> repository.updateReceipt(receipt.id(),
+                    ex.getCode().equals("VERSION_MISMATCH") ? "VERSION_MISMATCH" : "FAILED_PERMANENT", ex.getCode(), null, null));
+            throw ex;
+        } catch (RuntimeException ex) {
+            requiresNew.executeWithoutResult(status -> repository.updateReceipt(receipt.id(), "FAILED_RETRYABLE", "SCORING_TEMPORARILY_UNAVAILABLE", null, null));
+            throw ex;
+        }
+    }
+
+    private ExamSessionSubmitResponse scoreRecovery(String sessionId, SubmitExamSessionRequest request, String hash, byte[] userId,
+                                                     ExamSessionRepository.ReceiptRow receipt, String origin) {
+        var session = repository.lockSession(sessionId).orElseThrow(() -> new NotFoundException("EXAM_SESSION_NOT_FOUND", "Exam session was not found"));
+        requireTimed(session);
+        if (!same(session.userId(), userId)) throw new ApiException(HttpStatus.FORBIDDEN, "RECOVERY_OWNER_REQUIRED", "Only the authenticated session owner may recover this submission");
+        var success = repository.findSuccessReceipt(session.id());
+        if (success.isPresent()) {
+            if (success.get().submissionHash().equals(hash)) return storedSuccess(session, success.get());
+            throw new ApiException(HttpStatus.CONFLICT, "SESSION_ALREADY_SUBMITTED", "This session already has a successful submission");
+        }
+        if (!session.status().equals("IN_PROGRESS")) throw new ApiException(HttpStatus.CONFLICT, "SESSION_NOT_RECOVERABLE", "This session is not accepting recovery");
+        repository.updateReceipt(receipt.id(), "PROCESSING", null, null, null);
+        List<ExamSessionRepository.SessionQuestionRow> questions = repository.listSessionQuestions(session.id());
+        Map<String, JsonNode> answers = validateSubmission(request, questions);
+        SnapshotResult result = scoreSession(session, questions, answers, "BACKEND", "CLIENT_UNVERIFIED", origin);
+        String resultJson = write(result.snapshot());
+        byte[] attemptId = bytes();
+        repository.insertAttempt(new ExamSessionRepository.AttemptRow(attemptId, userId, session.publicId(), session.mode(), session.examId(), session.title(), session.mode().equals("CUSTOM_MOCK"),
+                session.examId() == null ? "[]" : write(arrayOf(session.examId())), write(questionRefs(result.snapshot())), write(answersArray(answers)), session.configJson(), resultJson,
+                "BACKEND", "CLIENT_UNVERIFIED", origin, session.scoringVersion(), session.datasetVersion(), session.contentHash(), result.totalQuestions(), result.totalScore(), result.mcqScore(), result.tfScore(), result.durationSeconds(), Instant.now()));
+        repository.submitSession(session.id(), null);
+        repository.updateReceipt(receipt.id(), "SUCCESS", null, attemptId, 1);
+        return new ExamSessionSubmitResponse(session.publicId(), "SUCCESS", "BACKEND", "CLIENT_UNVERIFIED", origin, result.snapshot());
+    }
+
+    private String createStaticRecoverySession(RecoverExamSubmissionRequest request, byte[] userId) {
+        String mode = normalizeMode(request.mode());
+        if (!TIMED.contains(mode)) throw new ApiException(HttpStatus.BAD_REQUEST, "RECOVERY_MODE_UNSUPPORTED", "Only timed and custom mock submissions can be recovered");
+        if (mode.equals("CUSTOM_MOCK")) {
+            throw new ApiException(HttpStatus.CONFLICT, "RECOVERY_DESCRIPTOR_UNAVAILABLE",
+                    "Static custom mock recovery requires a server-verifiable selection descriptor");
+        }
+        String localSessionId = requireText(request.localSessionId(), "INVALID_SUBMISSION", "localSessionId is required for static recovery");
+        String datasetVersion = requireText(request.datasetVersion(), "VERSION_MISMATCH", "datasetVersion is required for local recovery");
+        var dataset = repository.findDatasetByVersion(datasetVersion)
+                .orElseThrow(() -> new ApiException(HttpStatus.CONFLICT, "VERSION_MISMATCH", "The local dataset version is no longer available"));
+        List<RecoverExamSubmissionRequest.QuestionRef> refs = request.questionRefs();
+        Set<String> instances = new HashSet<>();
+        Set<String> publicIds = new HashSet<>();
+        for (var ref : refs) {
+            if (ref == null || !StringUtils.hasText(ref.questionInstanceId()) || !StringUtils.hasText(ref.publicQuestionId())
+                    || !instances.add(ref.questionInstanceId()) || !publicIds.add(ref.publicQuestionId())) {
+                throw new ApiException(HttpStatus.BAD_REQUEST, "INVALID_SUBMISSION", "Recovery question references are invalid");
+            }
+        }
+        List<String> orderedPublicIds = refs.stream().map(RecoverExamSubmissionRequest.QuestionRef::publicQuestionId).toList();
+        List<ExamSessionRepository.QuestionRow> questions = repository.questionsForPublicIds(dataset.id(), orderedPublicIds);
+        if (questions.size() != refs.size()) throw new ApiException(HttpStatus.CONFLICT, "VERSION_MISMATCH", "A recovered question is missing from the pinned dataset");
+        String examId = StringUtils.hasText(request.examId()) ? request.examId().trim() : null;
+        String title = mode.equals("CUSTOM_MOCK") ? "Đề thi thử tùy chọn đã khôi phục" : "Đề thi đã khôi phục";
+        String contentHash = null;
+        int durationMinutes = 0;
+        if (examId != null) {
+            var exam = repository.findPublicExam(dataset.id(), examId)
+                    .orElseThrow(() -> new ApiException(HttpStatus.CONFLICT, "VERSION_MISMATCH", "The recovered exam is not available in its pinned dataset"));
+            if (!StringUtils.hasText(request.examContentHash()) || !exam.contentHash().equals(request.examContentHash().trim())) {
+                throw new ApiException(HttpStatus.CONFLICT, "VERSION_MISMATCH", "The recovered exam content does not match the pinned version");
+            }
+            List<String> expectedPublicIds = repository.questionsForExam(dataset.id(), exam.id()).stream()
+                    .map(ExamSessionRepository.QuestionRow::publicId).toList();
+            if (!orderedPublicIds.equals(expectedPublicIds)) {
+                throw new ApiException(HttpStatus.CONFLICT, "VERSION_MISMATCH", "The recovered questions do not match the pinned exam version");
+            }
+            title = exam.title(); contentHash = exam.contentHash(); durationMinutes = exam.durationMinutes();
+        }
+        String publicId = "recover_" + sha256(Base64.getUrlEncoder().withoutPadding().encodeToString(userId) + ":" + localSessionId).substring(0, 32);
+        if (repository.findSession(publicId).isPresent()) return publicId;
+        byte[] sessionId = bytes();
+        Instant now = Instant.now();
+        try {
+            repository.insertSession(new ExamSessionRepository.SessionRow(sessionId, publicId, userId, null, dataset.id(), dataset.version(), mode, title, examId, contentHash,
+                    write(objectMapper.createObjectNode().put("recovery", true)), SCORING_VERSION, now, null, submitGraceSeconds, "IN_PROGRESS", null, null, null));
+        } catch (DataIntegrityViolationException race) {
+            if (repository.findSession(publicId).isPresent()) return publicId;
+            throw race;
+        }
+        for (int index = 0; index < questions.size(); index++) {
+            var question = questions.get(index);
+            var ref = refs.get(index);
+            String recoveryInstanceId = "recover_" + UUID.randomUUID();
+            Snapshot snapshot = snapshot(question, recoveryInstanceId, mode);
+            repository.insertSessionQuestion(new ExamSessionRepository.SessionQuestionRow(bytes(), sessionId, recoveryInstanceId, question.id(), question.publicId(), index + 1,
+                    question.sectionId(), question.sectionType(), write(snapshot.safe()), write(snapshot.answerKey()), null, null, null));
+        }
+        return publicId;
+    }
+
+    private void requireRecoveryDescriptor(ExamSessionRepository.SessionRow session, RecoverExamSubmissionRequest request) {
+        if (!session.mode().equals(normalizeMode(request.mode()))) throw new ApiException(HttpStatus.CONFLICT, "VERSION_MISMATCH", "Recovery mode does not match the server session");
+        if (StringUtils.hasText(request.datasetVersion()) && !session.datasetVersion().equals(request.datasetVersion().trim())) throw new ApiException(HttpStatus.CONFLICT, "VERSION_MISMATCH", "Recovery dataset version does not match the server session");
+        if (StringUtils.hasText(request.examId()) && !java.util.Objects.equals(session.examId(), request.examId().trim())) throw new ApiException(HttpStatus.CONFLICT, "VERSION_MISMATCH", "Recovery exam does not match the server session");
+        if (StringUtils.hasText(request.examContentHash()) && !java.util.Objects.equals(session.contentHash(), request.examContentHash().trim())) throw new ApiException(HttpStatus.CONFLICT, "VERSION_MISMATCH", "Recovery exam content does not match the server session");
+        List<ExamSessionRepository.SessionQuestionRow> questions = repository.listSessionQuestions(session.id());
+        if (questions.size() != request.questionRefs().size()) throw new ApiException(HttpStatus.BAD_REQUEST, "INVALID_SUBMISSION", "Recovery question references do not match the session");
+        Set<String> seen = new HashSet<>();
+        for (int index = 0; index < questions.size(); index++) {
+            var ref = request.questionRefs().get(index);
+            var expected = questions.get(index);
+            if (ref == null || !seen.add(ref.questionInstanceId())
+                    || !expected.instanceId().equals(ref.questionInstanceId())
+                    || !expected.publicQuestionId().equals(ref.publicQuestionId())) {
+                throw new ApiException(HttpStatus.BAD_REQUEST, "INVALID_SUBMISSION", "Recovery question references do not match the session");
+            }
+        }
+    }
+
+    private void requireStaticRecoveryDescriptor(ExamSessionRepository.SessionRow session, RecoverExamSubmissionRequest request) {
+        List<ExamSessionRepository.SessionQuestionRow> questions = repository.listSessionQuestions(session.id());
+        if (questions.size() != request.questionRefs().size()) throw new ApiException(HttpStatus.BAD_REQUEST, "INVALID_SUBMISSION", "Recovery question references do not match the pinned dataset");
+        Set<String> clientInstances = new HashSet<>();
+        for (int index = 0; index < questions.size(); index++) {
+            var ref = request.questionRefs().get(index);
+            if (ref == null || !StringUtils.hasText(ref.questionInstanceId()) || !clientInstances.add(ref.questionInstanceId())
+                    || !questions.get(index).publicQuestionId().equals(ref.publicQuestionId())) {
+                throw new ApiException(HttpStatus.BAD_REQUEST, "INVALID_SUBMISSION", "Recovery question references do not match the pinned dataset");
+            }
+        }
+    }
+
+    private SubmitExamSessionRequest remapStaticRecoveryAnswers(RecoverExamSubmissionRequest request, ExamSessionRepository.SessionRow session) {
+        List<ExamSessionRepository.SessionQuestionRow> questions = repository.listSessionQuestions(session.id());
+        Map<String, SubmitExamSessionRequest.AnswerItem> byClientInstance = new HashMap<>();
+        for (var answer : request.answers()) {
+            if (answer == null || !StringUtils.hasText(answer.questionInstanceId()) || byClientInstance.put(answer.questionInstanceId(), answer) != null) throw invalidSubmission();
+        }
+        List<SubmitExamSessionRequest.AnswerItem> remapped = new ArrayList<>();
+        for (int index = 0; index < questions.size(); index++) {
+            var clientRef = request.questionRefs().get(index);
+            var answer = byClientInstance.remove(clientRef.questionInstanceId());
+            if (answer == null) throw invalidSubmission();
+            remapped.add(new SubmitExamSessionRequest.AnswerItem(questions.get(index).instanceId(), answer.questionType(), answer.selected()));
+        }
+        if (!byClientInstance.isEmpty()) throw invalidSubmission();
+        return new SubmitExamSessionRequest(request.clientSubmissionId(), remapped);
+    }
+
     private ExamSessionSubmitResponse scoreSubmission(String sessionId, SubmitExamSessionRequest request, String hash, String token, UserPrincipal principal, ExamSessionRepository.ReceiptRow receipt) {
         var session = lockAndAuthorize(sessionId, token, principal);
         requireTimed(session);
@@ -181,14 +365,14 @@ public class ExamSessionService {
             throw new ApiException(HttpStatus.CONFLICT, "SUBMISSION_AFTER_GRACE", "Submission arrived after the server grace period");
         }
         Map<String, JsonNode> answers = validateSubmission(request, repository.listSessionQuestions(session.id()));
-        SnapshotResult result = scoreSession(session, repository.listSessionQuestions(session.id()), answers);
+        SnapshotResult result = scoreSession(session, repository.listSessionQuestions(session.id()), answers, "BACKEND", "SERVER", "SERVER_ON_TIME");
         String resultJson = write(result.snapshot());
         byte[] attemptId = null;
         if (session.userId() != null) {
             attemptId = bytes();
             repository.insertAttempt(new ExamSessionRepository.AttemptRow(attemptId, session.userId(), session.publicId(), session.mode(), session.examId(), session.title(), session.mode().equals("CUSTOM_MOCK"),
                     session.examId() == null ? "[]" : write(arrayOf(session.examId())), write(questionRefs(result.snapshot())), write(answersArray(answers)), session.configJson(), resultJson,
-                    session.scoringVersion(), session.datasetVersion(), session.contentHash(), result.totalQuestions(), result.totalScore(), result.mcqScore(), result.tfScore(), result.durationSeconds(), Instant.now()));
+                    "BACKEND", "SERVER", "SERVER_ON_TIME", session.scoringVersion(), session.datasetVersion(), session.contentHash(), result.totalQuestions(), result.totalScore(), result.mcqScore(), result.tfScore(), result.durationSeconds(), Instant.now()));
             repository.submitSession(session.id(), null);
         } else {
             repository.submitSession(session.id(), resultJson);
@@ -230,7 +414,8 @@ public class ExamSessionService {
         return answers;
     }
 
-    private SnapshotResult scoreSession(ExamSessionRepository.SessionRow session, List<ExamSessionRepository.SessionQuestionRow> questions, Map<String, JsonNode> answers) {
+    private SnapshotResult scoreSession(ExamSessionRepository.SessionRow session, List<ExamSessionRepository.SessionQuestionRow> questions, Map<String, JsonNode> answers,
+                                        String scoreAuthority, String timingAuthority, String submissionOrigin) {
         ArrayNode reviewed = objectMapper.createArrayNode();
         int correctMcq = 0, blankMcq = 0, wrongMcq = 0;
         int[] tfBreakdown = new int[5];
@@ -262,7 +447,7 @@ public class ExamSessionService {
         summary.put("totalScore", total); summary.put("mcqScore", mcq); summary.put("tfScore", tf); summary.put("totalQuestions", questions.size()); summary.put("correctMCQ", correctMcq); summary.put("wrongMCQ", wrongMcq); summary.put("blankMCQ", blankMcq);
         ArrayNode histogram = summary.putArray("tfBreakdown"); for (int value : tfBreakdown) histogram.add(value);
         ObjectNode root = objectMapper.createObjectNode();
-        root.put("snapshotSchemaVersion", 2); root.put("sessionId", session.publicId()); root.put("mode", session.mode()); root.put("title", session.title()); root.put("datasetVersion", session.datasetVersion()); root.put("examContentHash", session.contentHash()); root.put("scoringVersion", session.scoringVersion()); root.put("scoreAuthority", "BACKEND"); root.put("timingAuthority", "SERVER"); root.put("submissionOrigin", "SERVER_ON_TIME"); root.put("startedAtServer", session.startedAt().toEpochMilli()); root.put("submittedAtServer", now.toEpochMilli()); root.set("summary", summary); root.set("questions", reviewed);
+        root.put("snapshotSchemaVersion", 2); root.put("sessionId", session.publicId()); root.put("mode", session.mode()); root.put("title", session.title()); root.put("datasetVersion", session.datasetVersion()); root.put("examContentHash", session.contentHash()); root.put("scoringVersion", session.scoringVersion()); root.put("scoreAuthority", scoreAuthority); root.put("timingAuthority", timingAuthority); root.put("submissionOrigin", submissionOrigin); root.put("startedAtServer", session.startedAt().toEpochMilli()); root.put("submittedAtServer", now.toEpochMilli()); root.set("summary", summary); root.set("questions", reviewed);
         return new SnapshotResult(root, total, mcq, tf, questions.size(), (int)Math.max(0, Duration.between(session.startedAt(), now).toSeconds()));
     }
 
@@ -298,7 +483,8 @@ public class ExamSessionService {
         JsonNode result = session.resultJson() != null ? read(session.resultJson()) : receipt.attemptId() == null
                 ? objectMapper.createObjectNode()
                 : repository.findAttemptResult(receipt.attemptId()).map(this::read).orElseThrow(() -> new ApiException(HttpStatus.INTERNAL_SERVER_ERROR, "ATTEMPT_RESULT_MISSING", "Successful attempt result is unavailable"));
-        return new ExamSessionSubmitResponse(session.publicId(), "SUCCESS", "BACKEND", "SERVER", "SERVER_ON_TIME", result);
+        return new ExamSessionSubmitResponse(session.publicId(), "SUCCESS", result.path("scoreAuthority").asText("BACKEND"),
+                result.path("timingAuthority").asText("SERVER"), result.path("submissionOrigin").asText("SERVER_ON_TIME"), result);
     }
 
     private CreatePlan buildPlan(CreateExamSessionRequest request, String mode, ExamSessionRepository.DatasetRow dataset, byte[] userId) {

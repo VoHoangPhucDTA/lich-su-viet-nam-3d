@@ -206,6 +206,9 @@ public class ExamAttemptService {
                 entity.getTotalScore(),
                 entity.getDurationSeconds(),
                 toEpochMillis(entity.getSubmittedAt()),
+                entity.getScoreAuthority(),
+                entity.getTimingAuthority(),
+                entity.getSubmissionOrigin(),
                 entity.getCreatedAt(),
                 entity.getUpdatedAt()
         );
@@ -230,6 +233,9 @@ public class ExamAttemptService {
                 entity.getTfScore(),
                 entity.getDurationSeconds(),
                 toEpochMillis(entity.getSubmittedAt()),
+                entity.getScoreAuthority(),
+                entity.getTimingAuthority(),
+                entity.getSubmissionOrigin(),
                 entity.getCreatedAt(),
                 entity.getUpdatedAt()
         );
