@@ -14,6 +14,7 @@ import PublicPageHeader from '../components/public/PublicPageHeader';
 import HistoricalPeriodCard from '../components/public/HistoricalPeriodCard';
 import EventExplorerToolbar from '../components/public/EventExplorerToolbar';
 import { useInfiniteEvents } from '../hooks/useInfiniteEvents';
+import type { EventType } from '../types/event';
 
 function parseYear(value: string): number | undefined {
   return value.trim() && /^-?\d+$/.test(value.trim()) ? Number(value) : undefined;
@@ -29,6 +30,12 @@ export default function HistoricalPeriodsPage() {
   const [sortDir, setSortDir] = useState<'asc' | 'desc'>(searchParams.get('sortDir') === 'desc' ? 'desc' : 'asc');
   const [yearFrom, setYearFrom] = useState(searchParams.get('from') ?? '');
   const [yearTo, setYearTo] = useState(searchParams.get('to') ?? '');
+  const initialType = searchParams.get('type');
+  const [eventType, setEventType] = useState<EventType | null>(
+    initialType === 'military' || initialType === 'political' || initialType === 'economic' || initialType === 'cultural'
+      ? initialType
+      : null,
+  );
   const sentinelRef = useRef<HTMLDivElement>(null);
   const baseRange = getPeriodQueryRange(activePeriod?.id);
   const from = parseYear(yearFrom);
@@ -56,14 +63,16 @@ export default function HistoricalPeriodsPage() {
     if (query.trim()) next.set('q', query.trim());
     if (yearFrom.trim()) next.set('from', yearFrom.trim());
     if (yearTo.trim()) next.set('to', yearTo.trim());
+    if (eventType) next.set('type', eventType);
     if (sortBy !== 'year') next.set('sortBy', sortBy);
     if (sortDir !== 'asc') next.set('sortDir', sortDir);
     if (next.toString() !== searchParams.toString()) setSearchParams(next, { replace: true });
-  }, [activePeriod, query, searchParams, setSearchParams, sortBy, sortDir, yearFrom, yearTo]);
+  }, [activePeriod, eventType, query, searchParams, setSearchParams, sortBy, sortDir, yearFrom, yearTo]);
 
   const { events, total, hasMore, isInitialLoading, isLoadingMore, error, loadMore, retry } = useInfiniteEvents({
     q: debouncedQuery || undefined,
     eventLevel: 'atomic',
+    eventType: eventType ?? undefined,
     sortBy,
     sortDir,
     ...finalRange,
@@ -142,9 +151,12 @@ export default function HistoricalPeriodsPage() {
           onYearFromChange={setYearFrom}
           yearTo={yearTo}
           onYearToChange={setYearTo}
+          activeType={eventType}
+          onTypeChange={setEventType}
           onReset={() => {
             setYearFrom('');
             setYearTo('');
+            setEventType(null);
           }}
           rangeError={invalidInput ? 'Khoảng năm không hợp lệ.' : null}
           searchPlaceholder={`Tìm trong ${activePeriod.shortLabel.toLowerCase()}...`}

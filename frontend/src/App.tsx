@@ -31,7 +31,6 @@ import ProfileSettingsPage from './pages/profile/ProfileSettingsPage';
 import AdminDashboardPage from './pages/admin/AdminDashboardPage';
 import AdminUsersPage from './pages/admin/AdminUsersPage';
 import AdminEventsPage from './pages/admin/AdminEventsPage';
-import AdminQuestionsPage from './pages/admin/AdminQuestionsPage';
 
 // Quiz pages
 import QuizHomePage from './pages/quiz/QuizHomePage';
@@ -59,7 +58,17 @@ import ExamCustomSessionPage from './pages/exams/ExamCustomSessionPage';
 
 function AppContent() {
   const location = useLocation();
-  const hideHeaderRoutes = ['/quiz/session', '/exams/session', '/exams/de', '/admin'];
+  const hideHeaderRoutes = [
+    '/quiz/session',
+    '/exams/session',
+    '/exams/de',
+    '/admin',
+    '/login',
+    '/register',
+    '/forgot-password',
+    '/reset-password',
+    '/verify-email',
+  ];
   const shouldHideHeader = hideHeaderRoutes.some(path => location.pathname.startsWith(path));
 
   return (
@@ -119,7 +128,7 @@ function AppContent() {
           <Route path="/admin/dashboard" element={<ProtectedRoute><RoleGuard requiredRole="admin"><AdminDashboardPage /></RoleGuard></ProtectedRoute>} />
           <Route path="/admin/users" element={<ProtectedRoute><RoleGuard requiredRole="admin"><AdminUsersPage /></RoleGuard></ProtectedRoute>} />
           <Route path="/admin/events" element={<ProtectedRoute><RoleGuard requiredRole="admin"><AdminEventsPage /></RoleGuard></ProtectedRoute>} />
-          <Route path="/admin/questions" element={<ProtectedRoute><RoleGuard requiredRole="admin"><AdminQuestionsPage /></RoleGuard></ProtectedRoute>} />
+          <Route path="/admin/questions" element={<Navigate to="/admin/events" replace />} />
         </Routes>
       </div>
     </div>

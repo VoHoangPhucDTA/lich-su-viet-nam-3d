@@ -15,7 +15,11 @@ export default function EventCard({ event, imageHeight = 'h-40', compact = false
   const [imgError, setImgError] = useState(false);
   const Icon = EVENT_TYPE_ICONS[event.eventType];
   const color = EVENT_TYPE_COLORS[event.eventType];
-  const yearLabel = event.startYear < 0 ? `${Math.abs(event.startYear)} TCN` : String(event.startYear);
+  const yearLabel = event.startYear == null
+    ? ''
+    : event.startYear < 0
+      ? `${Math.abs(event.startYear)} TCN`
+      : String(event.startYear);
   const detailKey = event.slug || event.id;
   const titleImage = getEventTitleImage(detailKey);
   const showImage = Boolean(titleImage && !imgError);

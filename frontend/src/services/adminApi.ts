@@ -1,4 +1,4 @@
-import { apiGet, apiPatch, apiPost, apiPut, toQueryString } from './apiClient';
+import { apiDelete, apiGet, apiPatch, apiPost, apiPut, toQueryString } from './apiClient';
 
 export interface AdminPage<T> {
   items: T[];
@@ -27,7 +27,7 @@ export interface AdminEvent {
   title: string;
   eventLevel: 'atomic' | 'collection';
   eventType: 'military' | 'political' | 'economic' | 'cultural';
-  startYear: number;
+  startYear: number | null;
   endYear?: number | null;
   status: 'draft' | 'published' | 'archived';
   featured: boolean;
@@ -60,6 +60,10 @@ export function setAdminUserRole(id: string, role: AdminUser['role']) {
   return apiPatch<{ id: string; role: AdminUser['role'] }>(`/api/admin/users/${id}/role`, { role });
 }
 
+export function deleteAdminUser(id: string) {
+  return apiDelete<{ id: string }>(`/api/admin/users/${id}`);
+}
+
 export function getAdminEvents(params: { q?: string; status?: string; eventLevel?: string; eventType?: string; startYearFrom?: number; startYearTo?: number; limit?: number; offset?: number }) {
   return apiGet<AdminPage<AdminEvent>>(`/api/admin/events${toQueryString(params)}`);
 }
@@ -78,4 +82,8 @@ export function updateAdminEvent(id: string, payload: AdminEventPayload) {
 
 export function setAdminEventStatus(id: string, status: AdminEvent['status']) {
   return apiPatch<AdminEventPayload>(`/api/admin/events/${id}/status`, { status });
+}
+
+export function deleteAdminEvent(id: string) {
+  return apiDelete<{ id: string }>(`/api/admin/events/${id}`);
 }

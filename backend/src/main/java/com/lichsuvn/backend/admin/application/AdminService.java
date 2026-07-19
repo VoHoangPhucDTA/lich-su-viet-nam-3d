@@ -148,6 +148,18 @@ public class AdminService {
         return Map.of("id", id, "role", role);
     }
 
+    @Transactional
+    public Map<String, Object> deleteUser(String id, UserPrincipal principal) {
+        UserEntity target = user(id);
+        if (principal.id().equals(id)) throw forbidden("An administrator cannot disable their own account.");
+        if (isActiveAdmin(target) && activeAdminCount() <= 1) throw forbidden("At least one active administrator must remain.");
+        String before = target.getStatus();
+        target.setStatus("disabled");
+        userRepository.save(target);
+        audit(principal, "user.disabled", "user", id, Map.of("status", before), Map.of("status", "disabled"));
+        return Map.of("id", id, "status", "disabled");
+    }
+
     public Map<String, Object> events(String query, String status, String eventLevel, String eventType, Integer from, Integer to, Integer limit, Integer offset) {
         if (StringUtils.hasText(status)) validate("status", status, EVENT_STATUSES);
         if (StringUtils.hasText(eventLevel)) validate("eventLevel", eventLevel, EVENT_LEVELS);
@@ -170,7 +182,7 @@ public class AdminService {
                 FROM historical_events e
                 """ + where + " ORDER BY e.updated_at DESC, e.id ASC LIMIT :limit OFFSET :offset", params, (rs, row) -> {
             Map<String, Object> item = new LinkedHashMap<>();
-            item.put("id", rs.getString("id")); item.put("slug", rs.getString("slug")); item.put("title", rs.getString("title")); item.put("eventLevel", rs.getString("eventLevel")); item.put("eventType", rs.getString("eventType")); item.put("startYear", rs.getInt("startYear"));
+            item.put("id", rs.getString("id")); item.put("slug", rs.getString("slug")); item.put("title", rs.getString("title")); item.put("eventLevel", rs.getString("eventLevel")); item.put("eventType", rs.getString("eventType")); item.put("startYear", rs.getObject("startYear"));
             item.put("endYear", rs.getObject("endYear")); item.put("status", rs.getString("status")); item.put("featured", rs.getBoolean("featured")); item.put("cardSummary", rs.getString("cardSummary")); item.put("thumbnailUrl", rs.getString("thumbnailUrl")); item.put("updatedAt", rs.getTimestamp("updatedAt").toInstant().toString()); return item;
         });
         return page(items, total == null ? 0 : total, safeLimit, safeOffset);
@@ -202,6 +214,21 @@ public class AdminService {
         String status = requiredText(body, "status"); validate("status", status, EVENT_STATUSES); Map<String, Object> before = event(id);
         jdbc.update("UPDATE historical_events SET status = :status, published_at = CASE WHEN :status = 'published' THEN COALESCE(published_at, CURRENT_TIMESTAMP) ELSE published_at END WHERE id = :id", new MapSqlParameterSource().addValue("id", id).addValue("status", status));
         Map<String, Object> after = event(id); audit(principal, "event.status_updated", "historical_event", id, before, after); return after;
+    }
+
+    @Transactional
+    public Map<String, Object> deleteEvent(String id, UserPrincipal principal) {
+        Map<String, Object> before = event(id);
+        Integer audioAssets = jdbc.queryForObject(
+                "SELECT COUNT(*) FROM tts_audio_assets WHERE event_id = :id",
+                new MapSqlParameterSource("id", id), Integer.class
+        );
+        if (audioAssets != null && audioAssets > 0) {
+            throw new ApiException(HttpStatus.CONFLICT, "EVENT_HAS_TTS_ASSETS", "Delete related TTS assets before deleting this event");
+        }
+        jdbc.update("DELETE FROM historical_events WHERE id = :id", new MapSqlParameterSource("id", id));
+        audit(principal, "event.deleted", "historical_event", id, before, Map.of());
+        return Map.of("id", id);
     }
 
     private void writeEvent(String id, Map<String, Object> body, boolean creating, UserPrincipal principal) {

@@ -55,6 +55,9 @@ public class EventReadRepository {
         this.objectMapper = objectMapper;
     }
 
+    /**
+     * Backward-compatible entry point retained for existing repository tests and callers.
+     */
     public List<EventSummaryDto> findEvents(
             Integer year,
             Integer grade,
@@ -66,7 +69,32 @@ public class EventReadRepository {
             int limit,
             int offset
     ) {
-        QueryParts parts = buildEventFilters(year, grade, eventType, geoType, query, parentId, level);
+        return findEvents(
+                year, grade, eventType, geoType, query, parentId, level,
+                null, null, null, "year", "asc", limit, offset
+        );
+    }
+
+    public List<EventSummaryDto> findEvents(
+            Integer year,
+            Integer grade,
+            String eventType,
+            String geoType,
+            String query,
+            String parentId,
+            Integer level,
+            String eventLevel,
+            Integer startYearFrom,
+            Integer startYearTo,
+            String sortBy,
+            String sortDir,
+            int limit,
+            int offset
+    ) {
+        QueryParts parts = buildEventFilters(
+                year, grade, eventType, geoType, query, parentId, level,
+                eventLevel, startYearFrom, startYearTo
+        );
         parts.params.addValue("limit", limit);
         parts.params.addValue("offset", offset);
 
@@ -92,13 +120,37 @@ public class EventReadRepository {
                        ) AS child_count
                 FROM historical_events e
                 WHERE e.status = 'published'
-                """ + parts.whereSql
-                """ + buildOrderBy(sortBy, sortDir) + """
+                """ + parts.whereSql + buildOrderBy(sortBy, sortDir) + """
                 LIMIT :limit OFFSET :offset
                 """;
 
         // 1.1.6: MySQL: Trả về danh sách Event Entity.
         return jdbc.query(sql, parts.params(), summaryMapper());
+    }
+
+    public int countEvents(
+            Integer year,
+            Integer grade,
+            String eventType,
+            String geoType,
+            String query,
+            String parentId,
+            Integer level,
+            String eventLevel,
+            Integer startYearFrom,
+            Integer startYearTo
+    ) {
+        QueryParts parts = buildEventFilters(
+                year, grade, eventType, geoType, query, parentId, level,
+                eventLevel, startYearFrom, startYearTo
+        );
+        String sql = """
+                SELECT COUNT(*)
+                FROM historical_events e
+                WHERE e.status = 'published'
+                """ + parts.whereSql;
+        Integer total = jdbc.queryForObject(sql, parts.params(), Integer.class);
+        return total == null ? 0 : total;
     }
 
     public List<TimelineEventDto> findTimeline(Integer from, Integer to, Integer grade, String eventType) {
@@ -457,7 +509,10 @@ public class EventReadRepository {
             String geoType,
             String query,
             String parentId,
-            Integer level
+            Integer level,
+            String eventLevel,
+            Integer startYearFrom,
+            Integer startYearTo
     ) {
         MapSqlParameterSource params = new MapSqlParameterSource();
         List<String> filters = new ArrayList<>();
@@ -505,8 +560,29 @@ public class EventReadRepository {
             filters.add("e.level = :level");
             params.addValue("level", level);
         }
+        if (StringUtils.hasText(eventLevel)) {
+            filters.add("e.event_level = :eventLevel");
+            params.addValue("eventLevel", eventLevel);
+        }
+        if (startYearFrom != null) {
+            filters.add("e.start_year >= :startYearFrom");
+            params.addValue("startYearFrom", startYearFrom);
+        }
+        if (startYearTo != null) {
+            filters.add("e.start_year < :startYearTo");
+            params.addValue("startYearTo", startYearTo);
+        }
 
         return new QueryParts(toWhere(filters), params);
+    }
+
+    private String buildOrderBy(String sortBy, String sortDir) {
+        String direction = "desc".equalsIgnoreCase(sortDir) ? "DESC" : "ASC";
+        if ("name".equalsIgnoreCase(sortBy)) {
+            return " ORDER BY e.title " + direction + ", e.id ASC ";
+        }
+        return " ORDER BY CASE WHEN e.start_year IS NULL THEN 1 ELSE 0 END, e.start_year "
+                + direction + ", e.order_in_parent ASC, e.title ASC, e.id ASC ";
     }
 
     private RowMapper<EventSummaryDto> summaryMapper() {

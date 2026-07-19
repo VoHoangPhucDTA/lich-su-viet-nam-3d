@@ -5,6 +5,7 @@ import com.lichsuvn.backend.auth.security.UserPrincipal;
 import com.lichsuvn.backend.common.api.ApiResponse;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -60,6 +61,14 @@ public class AdminController {
         return ApiResponse.ok(adminService.updateUserRole(id, body, principal));
     }
 
+    @DeleteMapping("/users/{id}")
+    public ApiResponse<Map<String, Object>> deleteUser(
+            @PathVariable String id,
+            @AuthenticationPrincipal UserPrincipal principal
+    ) {
+        return ApiResponse.ok(adminService.deleteUser(id, principal));
+    }
+
     @GetMapping("/events")
     public ApiResponse<Map<String, Object>> events(
             @RequestParam(required = false, name = "q") String query,
@@ -103,5 +112,13 @@ public class AdminController {
             @AuthenticationPrincipal UserPrincipal principal
     ) {
         return ApiResponse.ok(adminService.updateEventStatus(id, body, principal));
+    }
+
+    @DeleteMapping("/events/{id}")
+    public ApiResponse<Map<String, Object>> deleteEvent(
+            @PathVariable String id,
+            @AuthenticationPrincipal UserPrincipal principal
+    ) {
+        return ApiResponse.ok(adminService.deleteEvent(id, principal));
     }
 }

@@ -130,6 +130,10 @@ export async function apiPatch<T>(
   });
 }
 
+export async function apiDelete<T>(path: string, init: Omit<RequestInit, 'method' | 'body'> = {}): Promise<T> {
+  return apiRequest<T>(path, { ...init, method: 'DELETE' });
+}
+
 async function apiRequest<T>(path: string, init: RequestInit, retry = true): Promise<T> {
   const headers = new Headers(init.headers);
   headers.set('Accept', 'application/json');

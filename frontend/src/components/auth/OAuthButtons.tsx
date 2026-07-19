@@ -10,14 +10,6 @@ interface GoogleCredentialResponse {
   select_by?: string;
 }
 
-interface GoogleMoment {
-  getDismissed: () => boolean;
-  getNotDisplayed: () => boolean;
-  isDisplayed: () => boolean;
-  isNotDisplayed: () => boolean;
-  isSkippedMoment: () => boolean;
-}
-
 interface GoogleAccountsId {
   initialize: (config: {
     client_id: string;
@@ -25,7 +17,6 @@ interface GoogleAccountsId {
     auto_select?: boolean;
     cancel_on_tap_outside?: boolean;
   }) => void;
-  prompt: (momentListener: (moment: GoogleMoment) => void) => void;
   renderButton: (
     parent: HTMLElement,
     options: {
@@ -211,14 +202,14 @@ export default function OAuthButtons({ mode: _mode = 'login', onError }: OAuthBu
 
   // ── Google state ────────────────────────────────────────────────────
   const gsiInitialized = useRef(false);
+  const googleButtonRef = useRef<HTMLDivElement>(null);
   const [googleScriptReady, setGoogleScriptReady] = useState(false);
-  const [googleLoading, setGoogleLoading] = useState(false);
 
   // ── Facebook state ──────────────────────────────────────────────────
   const [fbSdkReady, setFbSdkReady] = useState(false);
   const [fbLoading, setFbLoading] = useState(false);
 
-  const actionLabel = 'Đăng nhập bằng';
+  const actionLabel = _mode === 'register' ? 'Đăng ký bằng' : 'Đăng nhập bằng';
   const isGoogleConfigured = Boolean(GOOGLE_CLIENT_ID);
   const isFacebookConfigured = Boolean(FACEBOOK_APP_ID);
 
@@ -233,9 +224,6 @@ export default function OAuthButtons({ mode: _mode = 'login', onError }: OAuthBu
   // ── Google GSI ───────────────────────────────────────────────────────
   const handleGoogleCredential = useCallback(
     async (response: GoogleCredentialResponse) => {
-      // Reset loading state when credential is received
-      setGoogleLoading(false);
-
       // Bước 6B.2.2: Google Server: Trả về credential (id_token)
       if (!response.credential) {
         onError?.('Không nhận được thông tin từ Google. Vui lòng thử lại.');
@@ -295,35 +283,23 @@ export default function OAuthButtons({ mode: _mode = 'login', onError }: OAuthBu
     document.head.appendChild(script);
   }, [isGoogleConfigured, handleGoogleCredential, onError]);
 
-  // ── Custom Google button click ─────────────────────────────────────────
-  const handleGoogleClick = useCallback(() => {
-    if (!window.google?.accounts?.id) {
-      onError?.('Google SDK chưa sẵn sàng. Vui lòng thử lại sau.');
-      return;
-    }
+  // Render the official GIS button. Clicking it opens Google's standard
+  // account chooser instead of the top-right One Tap prompt.
+  useEffect(() => {
+    const target = googleButtonRef.current;
+    if (!googleScriptReady || !target || !window.google?.accounts?.id) return;
 
-    setGoogleLoading(true);
-
-    try {
-      // Trigger GSI One Tap / sign-in popup via prompt()
-      // The callback (handleGoogleCredential) was set in initialize() above
-      window.google.accounts.id.prompt((notification) => {
-        if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
-          setGoogleLoading(false);
-          // If One Tap is not displayed (e.g. user dismissed it), use the button flow
-          // which re-prompts on next click.
-        }
-        // On dismiss/close, reset loading
-        if (notification.getDismissed() || notification.getNotDisplayed()) {
-          setGoogleLoading(false);
-        }
-      });
-    } catch (err) {
-      setGoogleLoading(false);
-      console.error('[Google Login Error]:', err);
-      onError?.('Lỗi khởi tạo đăng nhập Google. Vui lòng thử lại.');
-    }
-  }, [onError]);
+    target.replaceChildren();
+    window.google.accounts.id.renderButton(target, {
+      theme: 'outline',
+      size: 'large',
+      type: 'standard',
+      shape: 'rectangular',
+      text: _mode === 'register' ? 'signup_with' : 'signin_with',
+      width: Math.min(360, Math.max(240, target.clientWidth || 320)),
+      locale: 'vi',
+    });
+  }, [googleScriptReady, _mode]);
 
   // ── Facebook SDK loader ──────────────────────────────────────────────
   useEffect(() => {
@@ -377,6 +353,11 @@ export default function OAuthButtons({ mode: _mode = 'login', onError }: OAuthBu
           // Bước 6B.3.2: Facebook Server: Trả về access_token
           if (response.status !== 'connected' || !response.authResponse?.accessToken) {
             setFbLoading(false);
+            onError?.(
+              response.status === 'not_authorized'
+                ? 'Tài khoản Facebook chưa cấp quyền cho ứng dụng.'
+                : 'Facebook chưa hoàn tất đăng nhập. Nếu tài khoản khác không truy cập được, hãy kiểm tra ứng dụng đã chuyển sang chế độ Live và tài khoản có quyền sử dụng.'
+            );
             return;
           }
           // FB.login KHÔNG chấp nhận async callback => dùng IIFE bên trong
@@ -424,19 +405,28 @@ export default function OAuthButtons({ mode: _mode = 'login', onError }: OAuthBu
         <div style={{ flex: 1, height: '1px', background: 'var(--border)' }} />
       </div>
 
-      {/* Social buttons row */}
-      <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem' }}>
-        {/* Google — custom button with SVG icon (not GSI renderButton for reliability) */}
+      {/* Social providers */}
+      <div style={{ display: 'grid', gap: '0.75rem' }}>
+        {/* Google — official GIS button opens the provider-managed account chooser */}
         {isGoogleConfigured ? (
-          <OAuthButton
-            label={`${actionLabel} Google`}
-            icon={<GoogleIcon />}
-            onClick={handleGoogleClick}
-            disabled={!googleScriptReady}
-            loading={googleLoading}
-            disabledReason={!googleScriptReady ? 'Đang tải Google SDK...' : undefined}
-            iconOnly
-          />
+          <div
+            ref={googleButtonRef}
+            aria-label={`${actionLabel} Google`}
+            aria-busy={!googleScriptReady}
+            style={{
+              minHeight: '40px',
+              width: '100%',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
+            {!googleScriptReady && (
+              <span style={{ fontSize: '0.8125rem', color: 'var(--text-muted)' }}>
+                Đang tải Google...
+              </span>
+            )}
+          </div>
         ) : (
           <OAuthButton
             label={`${actionLabel} Google`}
@@ -444,7 +434,6 @@ export default function OAuthButtons({ mode: _mode = 'login', onError }: OAuthBu
             onClick={() => onError?.('Google OAuth chưa được cấu hình. Liên hệ quản trị viên.')}
             disabled
             disabledReason="Google OAuth chưa được cấu hình"
-            iconOnly
           />
         )}
 
@@ -457,7 +446,6 @@ export default function OAuthButtons({ mode: _mode = 'login', onError }: OAuthBu
             disabled={!fbSdkReady}
             loading={fbLoading}
             disabledReason={!fbSdkReady ? 'Đang tải Facebook SDK...' : undefined}
-            iconOnly
           />
         ) : (
           <OAuthButton
@@ -466,7 +454,6 @@ export default function OAuthButtons({ mode: _mode = 'login', onError }: OAuthBu
             onClick={() => onError?.('Facebook OAuth chưa được cấu hình. Liên hệ quản trị viên.')}
             disabled
             disabledReason="Facebook OAuth chưa được cấu hình"
-            iconOnly
           />
         )}
       </div>

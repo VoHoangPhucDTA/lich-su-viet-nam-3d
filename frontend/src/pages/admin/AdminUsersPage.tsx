@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
+import { Pencil, Trash2 } from 'lucide-react';
 import AdminLayout from '../../layouts/AdminLayout';
 import {
   AdminConfirmDialog,
@@ -6,12 +7,12 @@ import {
   AdminFilterSelect,
   AdminPageHeader,
   AdminPagination,
+  AdminRowActions,
   AdminSearchInput,
-  AdminSelect,
   AdminStatusBadge,
   type AdminDataColumn,
 } from '../../components/admin/AdminUI';
-import { getAdminUsers, setAdminUserRole, setAdminUserStatus, type AdminUser } from '../../services/adminApi';
+import { deleteAdminUser, getAdminUsers, setAdminUserRole, setAdminUserStatus, type AdminUser } from '../../services/adminApi';
 
 const LIMIT = 20;
 const SEARCH_DEBOUNCE_MS = 300;
@@ -29,6 +30,7 @@ export default function AdminUsersPage() {
   const [updating, setUpdating] = useState(false);
   const [error, setError] = useState('');
   const [pendingAction, setPendingAction] = useState<PendingAction>(null);
+  const [deletingUser, setDeletingUser] = useState<AdminUser | null>(null);
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -93,6 +95,21 @@ export default function AdminUsersPage() {
     }
   };
 
+  const confirmDelete = async () => {
+    if (!deletingUser || updating) return;
+    const user = deletingUser;
+    setDeletingUser(null);
+    setUpdating(true);
+    try {
+      await deleteAdminUser(user.id);
+      await load();
+    } catch (cause) {
+      setError(cause instanceof Error ? cause.message : 'Không thể vô hiệu hóa tài khoản.');
+    } finally {
+      setUpdating(false);
+    }
+  };
+
   const hasFilters = Boolean(appliedQuery || status || role);
   const searchPending = query.trim() !== appliedQuery;
 
@@ -119,22 +136,12 @@ export default function AdminUsersPage() {
     {
       key: 'status',
       header: 'Trạng thái',
-      render: user => (
-        <div className="flex flex-wrap items-center gap-2">
-          <AdminStatusBadge status={user.status} />
-          <AdminSelect compact label={`\u0110\u1ed5i tr\u1ea1ng th\u00e1i ${user.fullName}`} value={user.status} disabled={updating} onValueChange={value => setPendingAction({ user, field: 'status', value })} options={[{ value: 'active', label: 'Ho\u1ea1t \u0111\u1ed9ng' }, { value: 'pending', label: 'Ch\u1edd x\u00e1c th\u1ef1c' }, { value: 'disabled', label: '\u0110\u00e3 kh\u00f3a' }]} />
-        </div>
-      ),
+      render: user => <AdminStatusBadge status={user.status} />,
     },
     {
       key: 'role',
       header: 'Quyền',
-      render: user => (
-        <div className="flex flex-wrap items-center gap-2">
-          <AdminStatusBadge status={user.role} />
-          <AdminSelect compact label={`\u0110\u1ed5i quy\u1ec1n ${user.fullName}`} value={user.role} disabled={updating} onValueChange={value => setPendingAction({ user, field: 'role', value })} options={[{ value: 'student', label: 'H\u1ecdc sinh' }, { value: 'admin', label: 'Admin' }]} />
-        </div>
-      ),
+      render: user => <AdminStatusBadge status={user.role} />,
     },
     {
       key: 'createdAt',
@@ -147,6 +154,12 @@ export default function AdminUsersPage() {
       render: user => user.lastActivity
         ? <time dateTime={user.lastActivity} className="whitespace-nowrap text-xs text-[var(--text-muted)]">{new Date(user.lastActivity).toLocaleDateString('vi-VN')}</time>
         : <span className="text-xs text-[var(--text-muted)]">Chưa có hoạt động</span>,
+    },
+    {
+      key: 'actions',
+      header: 'Thao tác',
+      width: '110px',
+      render: user => <AdminRowActions><button type="button" className="admin-icon-button" aria-label={`Sửa ${user.fullName}`} title="Sửa" onClick={() => setPendingAction({ user, field: 'status', value: user.status === 'disabled' ? 'active' : 'disabled' })}><Pencil size={15} aria-hidden="true" /></button><button type="button" className="admin-icon-button text-[var(--accent)]" aria-label={`Xóa ${user.fullName}`} title="Xóa" onClick={() => setDeletingUser(user)}><Trash2 size={15} aria-hidden="true" /></button></AdminRowActions>,
     },
   ];
 
@@ -219,6 +232,7 @@ export default function AdminUsersPage() {
         onCancel={() => setPendingAction(null)}
         danger={pendingAction?.value === 'disabled' || pendingAction?.field === 'role' && pendingAction.value === 'student'}
       />
+      <AdminConfirmDialog open={Boolean(deletingUser)} title="Xóa người dùng?" description={deletingUser ? `Tài khoản ${deletingUser.fullName} sẽ bị vô hiệu hóa nhưng lịch sử học tập được giữ lại.` : undefined} confirmLabel="Xóa" danger onConfirm={() => void confirmDelete()} onCancel={() => setDeletingUser(null)} />
     </AdminLayout>
   );
 }
