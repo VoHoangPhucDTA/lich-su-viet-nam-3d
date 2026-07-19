@@ -3,7 +3,7 @@
  * Official route: /exams/lich-su
  * Temporary alias: /exams/lich-su-v2
  */
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '@/auth/AuthContext';
 import { fetchBackendAttemptHistory, resultSummaryFromAttempt } from '@/lib/exam/examAttemptSync';
@@ -12,6 +12,8 @@ import { formatExamTitle, getExamDisplayYear, getExamSourceLabel } from '@/lib/e
 import { loadManifest } from '@/lib/exam/manifestLoader';
 import { rateScore } from '@/lib/exam/scoring';
 import { clearAllV2Results, getAllV2Results } from '@/lib/exam/v2History';
+import { flushRecoveryQueue } from '@/lib/exam/examRecoveryQueue';
+import { isOfficialTimedResult } from '@/lib/exam/resultAdapters';
 import type { ExamManifestEntry, ExamResultV2 } from '@/types/exam';
 
 const RATING_LABEL: Record<string, string> = {
@@ -47,6 +49,14 @@ function formatCustomSubtitle(result: ExamResultV2): string {
     config?.scopeTitle,
   ].filter(Boolean);
   return parts.join(' · ') || 'Đề tùy chọn';
+}
+
+function authorityLabel(result: ExamResultV2): string | null {
+  if (result.scoreAuthority === 'BACKEND' && result.timingAuthority === 'SERVER' && result.submissionOrigin === 'SERVER_ON_TIME') return 'Kết quả chính thức đúng hạn';
+  if (result.scoreAuthority === 'BACKEND' && result.timingAuthority === 'CLIENT_UNVERIFIED' && result.submissionOrigin === 'SERVER_ISSUED_LATE') return 'Được chấm bởi hệ thống - thời gian nộp chưa được xác minh';
+  if (result.scoreAuthority === 'BACKEND' && result.timingAuthority === 'CLIENT_UNVERIFIED' && result.submissionOrigin === 'CLIENT_FALLBACK') return 'Được hệ thống chấm lại từ phiên cục bộ';
+  if (result.scoreAuthority === 'LOCAL_FALLBACK') return 'Kết quả cục bộ - chưa được hệ thống xác minh';
+  return null;
 }
 
 function buildMetaMap(manifest: ExamManifestEntry[]): Map<string, ExamManifestEntry> {
@@ -110,6 +120,7 @@ function HistoryRow({ result, meta }: { result: ExamResultV2; meta?: ExamManifes
           <InfoPill label="Ngày làm" value={formatDate(result.submittedAt)} />
           <InfoPill label="Thời gian" value={formatExamDuration(result.durationSeconds)} />
           <InfoPill label="Số câu" value={`${result.totalQuestions ?? result.questions.length} câu`} />
+          {authorityLabel(result) && <InfoPill label="Trạng thái" value={authorityLabel(result)!} />}
         </div>
       </div>
 
@@ -197,17 +208,22 @@ export default function ExamV2HistoryPage() {
   const [isBackendHistory, setIsBackendHistory] = useState(false);
 
   const stats = useMemo(() => {
-    if (results.length === 0) return null;
-    const total = results.reduce((sum, result) => sum + result.totalScore, 0);
-    const max = Math.max(...results.map((result) => result.totalScore));
+    const officialResults = results.filter((result) => isOfficialTimedResult({
+      scoreAuthority: result.scoreAuthority ?? null,
+      timingAuthority: result.timingAuthority ?? null,
+      submissionOrigin: result.submissionOrigin ?? null,
+    }));
+    if (officialResults.length === 0) return null;
+    const total = officialResults.reduce((sum, result) => sum + result.totalScore, 0);
+    const max = Math.max(...officialResults.map((result) => result.totalScore));
     return {
-      count: results.length,
-      avg: total / results.length,
+      count: officialResults.length,
+      avg: total / officialResults.length,
       max,
     };
   }, [results]);
 
-  async function load() {
+  const load = useCallback(async () => {
     setLoading(true);
     setManifestWarning(null);
     setHistoryNotice(null);
@@ -216,10 +232,13 @@ export default function ExamV2HistoryPage() {
 
     if (isAuthenticated) {
       try {
+        const recovery = await flushRecoveryQueue();
         const backendHistory = await fetchBackendAttemptHistory(100);
         if (backendHistory?.items) {
           setResults(backendHistory.items.map(resultSummaryFromAttempt));
           setIsBackendHistory(true);
+          if (recovery.recovered > 0) setHistoryNotice(`Đã khôi phục ${recovery.recovered} bài làm chờ đồng bộ.`);
+          else if (recovery.pending > 0) setHistoryNotice(`${recovery.pending} bài làm vẫn chờ hệ thống xác minh.`);
         } else {
           setResults(storedResults);
           setHistoryNotice('Đang hiển thị lịch sử lưu trên thiết bị này.');
@@ -243,11 +262,11 @@ export default function ExamV2HistoryPage() {
     } finally {
       setLoading(false);
     }
-  }
+  }, [isAuthenticated]);
 
   useEffect(() => {
     void load();
-  }, [isAuthenticated]);
+  }, [load]);
 
   function handleClear() {
     if (!confirm('Xóa toàn bộ lịch sử làm bài? Hành động này không thể hoàn tác.')) return;
@@ -336,19 +355,19 @@ export default function ExamV2HistoryPage() {
         )}
 
         {!loading && stats && (
-          <>
             <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
-              <SummaryStat label="Bài đã làm" value={`${stats.count}`} color="var(--accent)" />
+              <SummaryStat label="Bài đúng hạn" value={`${stats.count}`} color="var(--accent)" />
               <SummaryStat label="Điểm cao nhất" value={stats.max.toFixed(1)} color="var(--admin-accent)" />
               <SummaryStat label="Điểm trung bình" value={stats.avg.toFixed(1)} color="var(--success)" />
             </div>
+        )}
 
-            <div style={{ display: 'grid', gap: '0.8rem' }}>
-              {results.map((result) => (
-                <HistoryRow key={result.sessionId} result={result} meta={result.examId ? metaById.get(result.examId) : undefined} />
-              ))}
-            </div>
-          </>
+        {!loading && results.length > 0 && (
+          <div style={{ display: 'grid', gap: '0.8rem' }}>
+            {results.map((result) => (
+              <HistoryRow key={result.sessionId} result={result} meta={result.examId ? metaById.get(result.examId) : undefined} />
+            ))}
+          </div>
         )}
       </div>
     </div>

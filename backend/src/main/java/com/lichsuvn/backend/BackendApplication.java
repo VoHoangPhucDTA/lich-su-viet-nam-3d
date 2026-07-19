@@ -1,6 +1,7 @@
 package com.lichsuvn.backend;
 
 import io.github.cdimascio.dotenv.Dotenv;
+import com.lichsuvn.backend.exam.dataset.ExamDatasetImportApplication;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -12,6 +13,10 @@ public class BackendApplication {
 
 	public static void main(String[] args) {
 		loadLocalDotenv();
+		if (ExamDatasetImportApplication.isRequested(args)) {
+			ExamDatasetImportApplication.main(args);
+			return;
+		}
 		SpringApplication.run(BackendApplication.class, args);
 		System.out.println("Connect database sucessfully");
 	}

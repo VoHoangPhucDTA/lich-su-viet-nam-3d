@@ -22,14 +22,14 @@ public class ExamDatasetImportRunner implements CommandLineRunner {
             @Value("${app.import.exams.repository-root:..}") String repositoryRoot,
             @Value("${app.import.exams.source-directory:../data/exams}") String sourceDirectory,
             @Value("${app.import.exams.artifact-directory:../frontend/public/data/exams}") String artifactDirectory,
-            @Value("${app.import.exams.dry-run:true}") boolean dryRun,
+            @Value("${app.import.exams.promote:false}") boolean promote,
             @Value("${app.import.exams.source-commit:}") String sourceCommit
     ) {
         this.importService = importService;
         this.repositoryRoot = Path.of(repositoryRoot).toAbsolutePath().normalize();
         this.sourceDirectory = Path.of(sourceDirectory).toAbsolutePath().normalize();
         this.artifactDirectory = Path.of(artifactDirectory).toAbsolutePath().normalize();
-        this.dryRun = dryRun;
+        this.dryRun = !promote;
         this.sourceCommit = sourceCommit;
     }
 

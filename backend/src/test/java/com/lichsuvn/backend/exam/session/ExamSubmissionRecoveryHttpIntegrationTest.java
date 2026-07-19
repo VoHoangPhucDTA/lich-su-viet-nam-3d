@@ -88,6 +88,21 @@ class ExamSubmissionRecoveryHttpIntegrationTest {
                 .andExpect(jsonPath("$.code").value("VALIDATION_ERROR"));
     }
 
+    @Test
+    void legacyFrontendScoredWriteIsRetiredButAuthenticatedReadCompatibilityRemains() throws Exception {
+        UserPrincipal owner = createUser("legacy-retired");
+
+        mockMvc.perform(post("/api/exams/attempts")
+                        .with(auth(owner))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{}"))
+                .andExpect(status().isGone())
+                .andExpect(jsonPath("$.code").value("LEGACY_EXAM_WRITE_RETIRED"));
+
+        mockMvc.perform(get("/api/exams/attempts").with(auth(owner)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.data.items").isArray());
+    }
 
     @Test
     void serverIssuedRecoveryRejectsOwnerVersionContentAndQuestionDescriptorMismatches() throws Exception {
