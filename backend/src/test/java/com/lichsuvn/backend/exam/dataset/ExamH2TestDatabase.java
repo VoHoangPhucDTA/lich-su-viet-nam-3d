@@ -24,21 +24,21 @@ public final class ExamH2TestDatabase {
             connection.createStatement().execute("CREATE TABLE users (id BINARY(16) PRIMARY KEY)");
         }
         executeMigration(dataSource, "V13__exam_v2_attempts.sql");
-        executeMigration(dataSource, "V14__versioned_exam_question_bank.sql");
-        executeMigration(dataSource, "V15__exam_sessions_and_submission_receipts.sql");
-        executeMigration(dataSource, "V16__exam_v2_attempt_snapshot_authority.sql");
+        executeMigration(dataSource, "V31__versioned_exam_question_bank.sql");
+        executeMigration(dataSource, "V32__exam_sessions_and_submission_receipts.sql");
+        executeMigration(dataSource, "V33__exam_v2_attempt_snapshot_authority.sql");
     }
 
     /** Keeps the Goal 1 catalog HTTP fixture focused on the question-bank schema. */
-    public static void applyV14Schema(javax.sql.DataSource dataSource) throws Exception {
-        executeMigration(dataSource, "V14__versioned_exam_question_bank.sql");
+    public static void applyQuestionBankSchema(javax.sql.DataSource dataSource) throws Exception {
+        executeMigration(dataSource, "V31__versioned_exam_question_bank.sql");
     }
 
     private static void executeMigration(javax.sql.DataSource dataSource, String file) throws Exception {
         String h2Sql = Files.readString(Path.of("src/main/resources/db/migration", file));
         h2Sql = h2Sql.replaceAll("(?i)\\) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_[a-z0-9_]+;", ");");
         h2Sql = h2Sql.replaceAll("(?i) AFTER [a-z_]+", "");
-        if (file.startsWith("V16__")) {
+        if (file.startsWith("V33__")) {
             h2Sql = h2Sql.replaceAll("(?i),\\s*ADD COLUMN", "; ALTER TABLE exam_v2_attempts ADD COLUMN");
         }
         h2Sql = neutralizeChecks(h2Sql);
@@ -69,7 +69,7 @@ public final class ExamH2TestDatabase {
                 }
             }
             if (checkStart < 0 || open < 0 || close < 0) {
-                throw new IllegalStateException("Cannot normalize V14 CHECK constraint for H2 test");
+                throw new IllegalStateException("Cannot normalize question-bank CHECK constraint for H2 test");
             }
             result.replace(constraintStart, close + 1, "CHECK (1 = 1)");
             searchFrom = constraintStart + 13;

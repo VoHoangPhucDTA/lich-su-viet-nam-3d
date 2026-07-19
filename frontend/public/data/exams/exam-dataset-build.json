@@ -1,13 +1,13 @@
 {
-  "buildId": "21e64989-871f-4a7f-aba8-1814cb49a9a9",
-  "generatedAt": "2026-07-18T12:32:26.180Z",
+  "buildId": "83f69e37-f53f-422e-bac2-8e36173f625e",
+  "generatedAt": "2026-07-19T06:25:20.149Z",
   "hashAlgorithm": "SHA-256",
   "canonicalization": "RFC8785",
   "canonicalizationImplementation": "canonicalize@3.0.0",
   "duplicateKeyValidator": "json-dup-key-validator@1.0.3",
   "hashSchemaVersion": 1,
   "buildAlgorithmVersion": 1,
-  "aggregateHash": "9256b19fa10cbcad797a3795ebd3f43f52e6b986eedea7c31e812cee10242b94",
+  "aggregateHash": "815b1f5a32fdffd64b5abde108fdd22921f61c4f1fbc725e56ae14df4c702a3e",
   "sources": [
     {
       "path": "data/exams/thuvienhoclieu-com-de-kscl-thi-tn-thpt-2026-mon-lich-su-cum-truong-bac-ninh-2026-lan-1.json",
@@ -176,8 +176,8 @@
     },
     {
       "path": "data/exams/thuvienhoclieu-com-de-thi-thu-tot-nghiep-2026-lich-su-thpt-nguyen-van-troi-ha-tinh.json",
-      "sha256": "50c2fefc345034ce34136a7a29b4554e5a88c4330ba1367fe8dd64ad559c464d",
-      "byteLength": 59119
+      "sha256": "415f69b0202ded428814427d7dc438ad590b44e3e16e8fe4ba2e2bdb55060de6",
+      "byteLength": 59463
     },
     {
       "path": "data/exams/thuvienhoclieu-com-de-thi-thu-tot-nghiep-nam-2026-lich-su-cum-chuyen-mon-6-lao-cai-lan-2.json",
@@ -202,8 +202,8 @@
   ],
   "artifacts": {
     "exams-manifest.json": {
-      "sha256": "19722b182ac020f7c93b69b52c9192ac27fc757fb200b913fec945c9af3e8c84",
-      "byteLength": 24697
+      "sha256": "f4035b2e48f76ab5913d1ed0ffb9594069f59ae6df69bf3dfb09820c569c8f07",
+      "byteLength": 28003
     },
     "topic-index.json": {
       "sha256": "0803d92d42d784552548e23565e9270b376a2422b54c29f9b31f5105270639c8",

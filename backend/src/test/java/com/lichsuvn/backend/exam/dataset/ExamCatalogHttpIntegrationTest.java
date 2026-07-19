@@ -46,7 +46,7 @@ class ExamCatalogHttpIntegrationTest {
 
     @BeforeAll
     void setUpDatabase() throws Exception {
-        ExamH2TestDatabase.applyV14Schema(dataSource);
+        ExamH2TestDatabase.applyQuestionBankSchema(dataSource);
         Path root = Path.of("..").toAbsolutePath().normalize();
         importer.run(
                 root,

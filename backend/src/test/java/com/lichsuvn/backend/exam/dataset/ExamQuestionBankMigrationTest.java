@@ -10,9 +10,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class ExamQuestionBankMigrationTest {
     @Test
-    void v14CreatesOnlyVersionedQuestionBankTablesAndRequiredConstraints() throws Exception {
+    void questionBankMigrationCreatesOnlyVersionedTablesAndRequiredConstraints() throws Exception {
         String migration = Files.readString(Path.of(
-                "src/main/resources/db/migration/V14__versioned_exam_question_bank.sql"
+                "src/main/resources/db/migration/V31__versioned_exam_question_bank.sql"
         ));
         for (String table : ListHolder.TABLES) {
             assertTrue(migration.contains("CREATE TABLE " + table), table);
