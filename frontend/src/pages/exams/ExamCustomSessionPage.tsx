@@ -8,7 +8,6 @@ import {
 } from '@/lib/exam/displayLabels';
 import { scoreCustomMockSession } from '@/lib/exam/customScoring';
 import { loadCustomSession, saveCustomPracticeState, saveCustomSession, updateCustomSession } from '@/lib/exam/customSessionStorage';
-import { syncAttemptBestEffort } from '@/lib/exam/examAttemptSync';
 import { useExamKeyboardShortcuts } from '@/lib/exam/useExamKeyboardShortcuts';
 import { handleRadioGroupKeyDown } from '@/lib/exam/radioGroupKeyboard';
 import ExamShortcutHelp, { type ExamShortcutItem } from '@/components/exams/ExamShortcutHelp';
@@ -347,15 +346,66 @@ function formatRemainingSeconds(seconds: number): string {
   return `${minutes}:${rest.toString().padStart(2, '0')}`;
 }
 
-export default function ExamCustomSessionPage() {
-  const { sessionId } = useParams<{ sessionId: string }>();
+interface InitialCustomSessionState {
+  session: CustomExamSession | null;
+  practiceState: CustomPracticeState | null;
+  error: string | null;
+  remainingSeconds: number | null;
+  markedForReview: string[];
+  submittedResultSessionId: string | null;
+}
+
+function loadInitialCustomSession(sessionId: string | undefined): InitialCustomSessionState {
+  const emptyState = {
+    session: null,
+    practiceState: null,
+    remainingSeconds: null,
+    markedForReview: [],
+    submittedResultSessionId: null,
+  };
+
+  if (!sessionId) {
+    return { ...emptyState, error: 'Liên kết luyện tập tùy chọn không hợp lệ.' };
+  }
+
+  const loaded = loadCustomSession(sessionId);
+  if (!loaded) {
+    return {
+      ...emptyState,
+      error: 'Không tìm thấy phiên luyện tập tùy chọn. Có thể phiên đã bị xóa hoặc dữ liệu trình duyệt bị dọn dẹp.',
+    };
+  }
+  if (!Array.isArray(loaded.questionSnapshots) || loaded.questionSnapshots.length === 0) {
+    return { ...emptyState, error: 'Phiên luyện tập này chưa có câu hỏi để hiển thị.' };
+  }
+
+  const isSubmittedMock = loaded.mode === 'custom_mock'
+    && loaded.status === 'submitted'
+    && Boolean(readResultFromLS(loaded.sessionId));
+  const elapsed = Math.floor((Date.now() - (loaded.startedAt ?? Date.now())) / 1000);
+  const remainingSeconds = loaded.mode === 'custom_mock' && loaded.durationSeconds && loaded.durationSeconds > 0
+    ? Math.max(0, loaded.durationSeconds - elapsed)
+    : null;
+
+  return {
+    session: loaded,
+    practiceState: makeInitialPracticeState(loaded),
+    error: null,
+    remainingSeconds,
+    markedForReview: loaded.markedForReview ?? [],
+    submittedResultSessionId: isSubmittedMock ? loaded.sessionId : null,
+  };
+}
+
+function ExamCustomSessionContent({ sessionId }: { sessionId: string | undefined }) {
   const navigate = useNavigate();
-  const [session, setSession] = useState<CustomExamSession | null>(null);
-  const [practiceState, setPracticeState] = useState<CustomPracticeState | null>(null);
-  const [error, setError] = useState<string | null>(null);
+  const [initialState] = useState(() => loadInitialCustomSession(sessionId));
+  const [session, setSession] = useState<CustomExamSession | null>(initialState.session);
+  const [practiceState, setPracticeState] = useState<CustomPracticeState | null>(initialState.practiceState);
+  const error = initialState.error;
   const [saveError, setSaveError] = useState<string | null>(null);
-  const [remainingSeconds, setRemainingSeconds] = useState<number | null>(null);
-  const [markedForReview, setMarkedForReview] = useState<string[]>([]);
+  const [remainingSeconds, setRemainingSeconds] = useState<number | null>(initialState.remainingSeconds);
+  const [markedForReview, setMarkedForReview] = useState<string[]>(initialState.markedForReview);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [shortcutHelpOpen, setShortcutHelpOpen] = useState(false);
@@ -365,33 +415,10 @@ export default function ExamCustomSessionPage() {
   const shortcutHelpId = useId();
 
   useEffect(() => {
-    if (!sessionId) {
-      setError('Liên kết luyện tập tùy chọn không hợp lệ.');
-      return;
+    if (initialState.submittedResultSessionId) {
+      navigate(`/exams/ket-qua/${initialState.submittedResultSessionId}`, { replace: true });
     }
-    const loaded = loadCustomSession(sessionId);
-    if (!loaded) {
-      setError('Không tìm thấy phiên luyện tập tùy chọn. Có thể phiên đã bị xóa hoặc dữ liệu trình duyệt bị dọn dẹp.');
-      return;
-    }
-    if (!Array.isArray(loaded.questionSnapshots) || loaded.questionSnapshots.length === 0) {
-      setError('Phiên luyện tập này chưa có câu hỏi để hiển thị.');
-      return;
-    }
-    if (loaded.mode === 'custom_mock' && loaded.status === 'submitted' && readResultFromLS(loaded.sessionId)) {
-      navigate(`/exams/ket-qua/${loaded.sessionId}`, { replace: true });
-      return;
-    }
-    setSession(loaded);
-    setPracticeState(makeInitialPracticeState(loaded));
-    setMarkedForReview(loaded.markedForReview ?? []);
-    if (loaded.mode === 'custom_mock' && loaded.durationSeconds && loaded.durationSeconds > 0) {
-      const elapsed = Math.floor((Date.now() - (loaded.startedAt ?? Date.now())) / 1000);
-      setRemainingSeconds(Math.max(0, loaded.durationSeconds - elapsed));
-    } else {
-      setRemainingSeconds(null);
-    }
-  }, [navigate, sessionId]);
+  }, [initialState.submittedResultSessionId, navigate]);
 
   const questions = session?.questionSnapshots ?? [];
   const currentIndex = Math.min(practiceState?.currentIndex ?? 0, Math.max(questions.length - 1, 0));
@@ -479,9 +506,15 @@ export default function ExamCustomSessionPage() {
     try {
       saveCustomSession(finalSession);
       setSession(finalSession);
-      const result = scoreCustomMockSession(finalSession);
+      const result = {
+        ...scoreCustomMockSession(finalSession),
+        scoreAuthority: 'LOCAL_FALLBACK',
+        timingAuthority: 'CLIENT_UNVERIFIED',
+        submissionOrigin: 'CLIENT_FALLBACK',
+      };
+      // This legacy local custom flow has no server-verifiable filter descriptor.
+      // Keep its result local rather than posting a client-scored official attempt.
       writeResultToLS(result);
-      void syncAttemptBestEffort(result);
       navigate(`/exams/ket-qua/${result.sessionId}`);
     } catch {
       submitStartedRef.current = false;
@@ -524,8 +557,8 @@ export default function ExamCustomSessionPage() {
   useEffect(() => {
     if (!isMockMode || remainingSeconds == null || !session || session.status === 'submitted') return;
     if (remainingSeconds <= 0) {
-      submitCustomMock();
-      return;
+      const timeoutId = window.setTimeout(() => void submitCustomMock(), 0);
+      return () => window.clearTimeout(timeoutId);
     }
     const timerId = window.setInterval(() => {
       setRemainingSeconds((prev) => (prev == null ? prev : Math.max(0, prev - 1)));
@@ -740,6 +773,11 @@ export default function ExamCustomSessionPage() {
       />
     </div>
   );
+}
+
+export default function ExamCustomSessionPage() {
+  const { sessionId } = useParams<{ sessionId: string }>();
+  return <ExamCustomSessionContent key={sessionId ?? 'missing'} sessionId={sessionId} />;
 }
 
 const CUSTOM_PRACTICE_SHORTCUTS: ExamShortcutItem[] = [

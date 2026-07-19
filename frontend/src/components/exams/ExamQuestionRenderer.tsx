@@ -1,4 +1,5 @@
-import { isMCQQuestion, isTFQuestion, type MCQQuestion, type Question, type TFStatement } from '@/types/exam';
+import { type MCQQuestion, type Question, type TFStatement } from '@/types/exam';
+import type { SafeQuestion } from '@/types/examApi';
 import MCQQuestionCardV2 from './MCQQuestionCardV2';
 import TFQuestionCard from './TFQuestionCard';
 
@@ -6,13 +7,14 @@ type MCQChoice = MCQQuestion['options'][number]['id'];
 type TFChoice = Record<TFStatement['id'], boolean | null>;
 
 interface ExamQuestionRendererProps {
-  question: Question;
+  question: Question | SafeQuestion;
   index: number;
   total: number;
   selectedMCQ: MCQChoice | null;
   selectedTF: TFChoice;
   onMCQSelect: (optionId: MCQChoice) => void;
   onTFSelect: (statementId: TFStatement['id'], value: boolean | null) => void;
+  disabled?: boolean;
 }
 
 export default function ExamQuestionRenderer({
@@ -23,8 +25,9 @@ export default function ExamQuestionRenderer({
   selectedTF,
   onMCQSelect,
   onTFSelect,
+  disabled = false,
 }: ExamQuestionRendererProps) {
-  if (isMCQQuestion(question)) {
+  if (question.questionType === 'mcq') {
     return (
       <MCQQuestionCardV2
         question={question}
@@ -32,13 +35,14 @@ export default function ExamQuestionRenderer({
         total={total}
         selectedOptionId={selectedMCQ}
         onSelectOption={onMCQSelect}
+        disabled={disabled}
         showLearningMetadata={false}
         showSource={false}
       />
     );
   }
 
-  if (isTFQuestion(question)) {
+  if (question.questionType === 'true_false') {
     return (
       <TFQuestionCard
         question={question}
@@ -46,6 +50,7 @@ export default function ExamQuestionRenderer({
         total={total}
         selected={selectedTF}
         onSelect={onTFSelect}
+        disabled={disabled}
         showSource={false}
       />
     );

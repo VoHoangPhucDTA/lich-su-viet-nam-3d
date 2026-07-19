@@ -1,0 +1,24 @@
+import { useMemo } from 'react';
+import { useParams } from 'react-router-dom';
+import ApiPracticeSessionPage from './ApiPracticeSessionPage';
+import ExamPracticePage from './ExamPracticePage';
+import ExamRetryWrongPage from './ExamRetryWrongPage';
+import ExamTopicPracticePage from './ExamTopicPracticePage';
+
+export function ApiFreePracticeRoutePage() {
+  const { examId } = useParams<{ examId: string }>();
+  const request = useMemo(() => examId ? { mode: 'FREE_PRACTICE' as const, examId } : null, [examId]);
+  return <ApiPracticeSessionPage routeKey={`FREE_PRACTICE:${examId ?? ''}`} request={request} title="Luyện tập tự do" modeLabel="Luyện tập tự do" backTo="/exams/browse" backLabel="Quay lại danh sách đề" legacyFallback={<ExamPracticePage />} />;
+}
+
+export function ApiTopicPracticeRoutePage() {
+  const { topicSlug } = useParams<{ topicSlug: string }>();
+  const request = useMemo(() => topicSlug ? { mode: 'TOPIC_PRACTICE' as const, questionCount: 30, scopeType: 'topic' as const, scopeSlug: topicSlug } : null, [topicSlug]);
+  return <ApiPracticeSessionPage routeKey={`TOPIC_PRACTICE:${topicSlug ?? ''}`} request={request} title="Ôn theo chủ đề" modeLabel="Ôn theo chủ đề" backTo="/exams/on-chu-de" backLabel="Quay lại danh sách chủ đề" legacyFallback={<ExamTopicPracticePage />} />;
+}
+
+export function ApiRetryWrongRoutePage() {
+  const { sessionId } = useParams<{ sessionId: string }>();
+  const request = useMemo(() => sessionId ? { mode: 'RETRY_WRONG' as const, sourceAttemptId: sessionId } : null, [sessionId]);
+  return <ApiPracticeSessionPage routeKey={`RETRY_WRONG:${sessionId ?? ''}`} request={request} title="Ôn lại câu sai" modeLabel="Ôn lại câu sai" backTo={sessionId ? `/exams/ket-qua/${sessionId}` : '/exams/lich-su'} backLabel="Quay lại kết quả" legacyFallback={<ExamRetryWrongPage />} />;
+}

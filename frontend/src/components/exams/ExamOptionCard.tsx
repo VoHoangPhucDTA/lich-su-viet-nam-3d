@@ -8,15 +8,17 @@ interface ExamOptionCardProps {
   tabIndex?: number;
   onKeyDown?: KeyboardEventHandler<HTMLButtonElement>;
   buttonRef?: Ref<HTMLButtonElement>;
+  disabled?: boolean;
 }
 
-export default function ExamOptionCard({ id, text, selected, onClick, tabIndex, onKeyDown, buttonRef }: ExamOptionCardProps) {
+export default function ExamOptionCard({ id, text, selected, onClick, tabIndex, onKeyDown, buttonRef, disabled = false }: ExamOptionCardProps) {
   return (
     <button
       type="button"
       ref={buttonRef}
       role="radio"
       aria-checked={selected}
+      disabled={disabled}
       aria-label={`Đáp án ${id}: ${text}${selected ? ', đang chọn' : ''}`}
       tabIndex={tabIndex}
       onClick={onClick}
@@ -31,7 +33,7 @@ export default function ExamOptionCard({ id, text, selected, onClick, tabIndex, 
         border: selected ? '2px solid var(--exam-selection)' : '2px solid var(--border)',
         borderRadius: '0.75rem',
         color: selected ? 'var(--exam-selection)' : 'var(--text-secondary)',
-        cursor: 'pointer',
+        cursor: disabled ? 'default' : 'pointer',
         transition: 'all 0.15s',
         textAlign: 'left',
         width: '100%',
@@ -39,13 +41,13 @@ export default function ExamOptionCard({ id, text, selected, onClick, tabIndex, 
         fontSize: '1rem'
       }}
       onMouseEnter={e => {
-        if (!selected) {
+        if (!selected && !disabled) {
             e.currentTarget.style.background = 'var(--bg-surface)';
             e.currentTarget.style.borderColor = 'var(--exam-selection)';
         }
       }}
       onMouseLeave={e => {
-        if (!selected) {
+        if (!selected && !disabled) {
             e.currentTarget.style.background = 'var(--bg-surface)';
             e.currentTarget.style.borderColor = 'var(--border)';
         }

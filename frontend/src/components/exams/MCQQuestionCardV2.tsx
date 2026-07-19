@@ -6,6 +6,7 @@
  */
 import { useId, useRef, type CSSProperties, type KeyboardEvent } from 'react';
 import type { MCQQuestion, QuestionResult } from '@/types/exam';
+import type { SafeMCQQuestion } from '@/types/examApi';
 import ExamOptionCard from './ExamOptionCard';
 import QuestionSourceBlock from './QuestionSourceBlock';
 
@@ -22,12 +23,13 @@ const COGNITIVE_LABEL: Record<string, string> = {
 };
 
 interface MCQQuestionCardV2Props {
-  question: MCQQuestion;
+  question: MCQQuestion | SafeMCQQuestion;
   index: number;
   total: number;
   selectedOptionId: 'A' | 'B' | 'C' | 'D' | null;
   onSelectOption: (id: 'A' | 'B' | 'C' | 'D') => void;
   reviewMode?: boolean;
+  disabled?: boolean;
   showLearningMetadata?: boolean;
   showSource?: boolean;
   /** Cần có khi reviewMode=true để tô màu đúng/sai. */
@@ -41,16 +43,17 @@ export default function MCQQuestionCardV2({
   selectedOptionId,
   onSelectOption,
   reviewMode = false,
+  disabled = false,
   showLearningMetadata = true,
   showSource = true,
   result,
 }: MCQQuestionCardV2Props) {
-  const correctId = question.correctOptionId;
+  const correctId = 'correctOptionId' in question ? question.correctOptionId : null;
   const questionId = useId();
   const optionRefs = useRef<Array<HTMLButtonElement | null>>([]);
 
   function handleOptionKeyDown(event: KeyboardEvent<HTMLButtonElement>, optionIndex: number) {
-    if (reviewMode) return;
+    if (reviewMode || disabled) return;
     const keys = ['ArrowDown', 'ArrowUp', 'Home', 'End'];
     if (!keys.includes(event.key)) return;
     event.preventDefault();
@@ -64,7 +67,7 @@ export default function MCQQuestionCardV2({
 
   function getReviewStyle(optId: 'A' | 'B' | 'C' | 'D'): CSSProperties {
     if (!reviewMode) return {};
-    const isCorrect = optId === correctId;
+    const isCorrect = correctId !== null && optId === correctId;
     const isSelected = optId === result?.mcq?.selected;
 
     if (isCorrect) {
@@ -135,7 +138,7 @@ export default function MCQQuestionCardV2({
               border: '1px solid var(--border)',
             }}
           >
-            {DIFFICULTY_LABEL[question.difficulty] ?? question.difficulty}
+            {DIFFICULTY_LABEL[question.difficulty ?? ''] ?? question.difficulty ?? 'Chưa phân loại'}
           </span>
           <span
             style={{
@@ -147,7 +150,7 @@ export default function MCQQuestionCardV2({
               fontWeight: 600,
             }}
           >
-            {COGNITIVE_LABEL[question.cognitiveLevel] ?? question.cognitiveLevel}
+            {COGNITIVE_LABEL[question.cognitiveLevel ?? ''] ?? question.cognitiveLevel ?? 'Chưa phân loại'}
           </span>
         </div>}
       </div>
@@ -164,7 +167,7 @@ export default function MCQQuestionCardV2({
       >
         {question.questionText}
       </p>
-      {showSource && <QuestionSourceBlock sourceRefs={question.sourceRefs} />}
+      {showSource && 'sourceRefs' in question && <QuestionSourceBlock sourceRefs={question.sourceRefs} />}
 
       {/* Options */}
       {reviewMode ? (
@@ -201,7 +204,7 @@ export default function MCQQuestionCardV2({
               <span style={{ flex: 1, lineHeight: 1.5, fontSize: '0.95rem' }}>
                 {opt.text}
               </span>
-              {opt.id === correctId && (
+              {correctId !== null && opt.id === correctId && (
                 <span style={{ fontSize: '1rem' }}>✓</span>
               )}
               {opt.id === result?.mcq?.selected && opt.id !== correctId && (
@@ -211,7 +214,7 @@ export default function MCQQuestionCardV2({
           ))}
 
           {/* Explanation */}
-          {question.explanation && (
+          {'explanation' in question && question.explanation && (
             <div
               style={{
                 marginTop: '1rem',
@@ -238,6 +241,7 @@ export default function MCQQuestionCardV2({
               text={opt.text}
               selected={selectedOptionId === opt.id}
               onClick={() => onSelectOption(opt.id)}
+              disabled={disabled}
               buttonRef={(node) => { optionRefs.current[question.options.findIndex((item) => item.id === opt.id)] = node; }}
               tabIndex={selectedOptionId === null ? (opt.id === question.options[0]?.id ? 0 : -1) : selectedOptionId === opt.id ? 0 : -1}
               onKeyDown={(event) => handleOptionKeyDown(event, question.options.findIndex((item) => item.id === opt.id))}

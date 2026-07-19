@@ -185,6 +185,7 @@ export interface ExamManifestEntry {
   structuralPassed: boolean;
   crossSourcePassed: boolean;
   hasContentSuspicion: boolean;
+  contentHash?: string;
   fileName: string;
 }
 
@@ -320,6 +321,9 @@ export interface ExamResultV2 {
   tfBreakdown: [number, number, number, number, number];
   durationSeconds: number;
   submittedAt: number;
+  scoreAuthority?: string | null;
+  timingAuthority?: string | null;
+  submissionOrigin?: string | null;
   questions: QuestionResult[];
   userId?: string;
 }

@@ -4,6 +4,7 @@
  */
 import { useEffect, useMemo, useState, type ReactNode } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import ApiResultSnapshotView from '@/components/exams/ApiResultSnapshotView';
 import { formatCognitiveLevelLabel, formatDifficultyLabel, formatQuestionTypeLabel } from '@/lib/exam/displayLabels';
 import { fetchBackendAttemptDetail, resultFromAttemptDetail } from '@/lib/exam/examAttemptSync';
 import { formatExamDuration } from '@/lib/exam/durationFormat';
@@ -13,6 +14,8 @@ import { rateScore, scoreToPercent } from '@/lib/exam/scoring';
 import { loadTopicIndex } from '@/lib/exam/topicIndexLoader';
 import { findSummaryBySlug, slugifyTopic } from '@/lib/exam/topicGrouping';
 import { readResultFromLS } from '@/lib/exam/useSessionV2';
+import { readApiResult } from '@/lib/exam/useApiTimedSession';
+import { adaptResultSnapshotV2, formatAuthorityLabel, type NormalizedExamResult } from '@/lib/exam/resultAdapters';
 import { analyzeWeaknesses, analyzeWeaknessesFromQuestions, type WeaknessAnalysis, type WeaknessBucket } from '@/lib/exam/weaknessAnalysis';
 import {
   flattenExamQuestions,
@@ -585,6 +588,7 @@ function LoadingState() {
 export default function ExamV2ResultPage() {
   const { sessionId } = useParams<{ sessionId: string }>();
   const [result, setResult] = useState<ExamResultV2 | null>(null);
+  const [snapshotResult, setSnapshotResult] = useState<NormalizedExamResult | null>(null);
   const [exam, setExam] = useState<ExamFile | null>(null);
   const [weakestTopicSlug, setWeakestTopicSlug] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
@@ -603,11 +607,27 @@ export default function ExamV2ResultPage() {
       setLoading(true);
       setError(null);
       setExam(null);
+      setSnapshotResult(null);
+
+      const cachedSnapshot = adaptResultSnapshotV2(readApiResult(sessionId));
+      if (cachedSnapshot) {
+        if (!alive) return;
+        setSnapshotResult(cachedSnapshot);
+        setLoading(false);
+        return;
+      }
 
       let currentResult = readResultFromLS(sessionId);
       if (!currentResult) {
         try {
           const backendDetail = await fetchBackendAttemptDetail(sessionId);
+          const backendSnapshot = backendDetail ? adaptResultSnapshotV2(backendDetail.result) : null;
+          if (backendSnapshot) {
+            if (!alive) return;
+            setSnapshotResult(backendSnapshot);
+            setLoading(false);
+            return;
+          }
           currentResult = backendDetail ? resultFromAttemptDetail(backendDetail) : null;
         } catch {
           currentResult = null;
@@ -706,6 +726,8 @@ export default function ExamV2ResultPage() {
 
   if (loading) return <LoadingState />;
 
+  if (snapshotResult) return <ApiResultSnapshotView result={snapshotResult} />;
+
   if (!result) {
     return <EmptyState title="Không tìm thấy kết quả" message={error ?? 'Kết quả đã bị xóa hoặc liên kết không hợp lệ.'} />;
   }
@@ -723,6 +745,15 @@ export default function ExamV2ResultPage() {
         </div>
 
         <div>
+          {result.scoreAuthority && (
+            <p style={{ margin: '0 0 0.5rem', color: 'var(--text-muted)', fontWeight: 700 }}>
+              {formatAuthorityLabel({
+                scoreAuthority: result.scoreAuthority ?? null,
+                timingAuthority: result.timingAuthority ?? null,
+                submissionOrigin: result.submissionOrigin ?? null,
+              })}
+            </p>
+          )}
           <h1 style={{ margin: 0, fontSize: '1.6rem', fontWeight: 900 }}>Kết quả luyện thi</h1>
           {(exam || result.isCustom) && (
             <p style={{ margin: '0.45rem 0 0', color: 'var(--text-muted)', lineHeight: 1.5 }}>

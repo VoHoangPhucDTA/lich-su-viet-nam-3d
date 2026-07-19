@@ -3,7 +3,28 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { formatExamTitle, getExamDisplayYear, getExamSourceLabel } from '@/lib/exam/examDisplay';
 import { listAllExams, listPublishedExams } from '@/lib/exam/manifestLoader';
+import { isExamApiFallbackError, listCatalog } from '@/services/examApi';
+import type { ExamCatalogItem } from '@/types/examApi';
 import type { ExamManifestEntry } from '@/types/exam';
+
+function catalogItemToManifest(item: ExamCatalogItem): ExamManifestEntry {
+  const verified = item.verificationStatus === 'VERIFIED';
+  return {
+    examId: item.examId,
+    title: item.title,
+    year: item.year ?? 0,
+    sourceDetail: item.sourceDetail ?? '',
+    format: item.format,
+    timeLimitMinutes: item.timeLimitMinutes,
+    totalScore: item.totalScore,
+    mcqCount: item.mcqCount,
+    tfCount: item.tfCount,
+    structuralPassed: verified,
+    crossSourcePassed: verified,
+    hasContentSuspicion: !verified,
+    fileName: '',
+  };
+}
 
 function ExamCard({ entry }: { entry: ExamManifestEntry }) {
   const verified = entry.structuralPassed && entry.crossSourcePassed && !entry.hasContentSuspicion;
@@ -41,15 +62,43 @@ export default function ExamBrowsePage() {
   const [error, setError] = useState<string | null>(null);
   const [filterYear, setFilterYear] = useState<number | null>(null);
   const [showAllExams, setShowAllExams] = useState(false);
+  const [usingLocalFallback, setUsingLocalFallback] = useState(false);
 
   useEffect(() => {
-    Promise.all([listAllExams(), listPublishedExams()])
-      .then(([all, published]) => {
-        setAllExams(all);
-        setPublishedExams(published);
+    const controller = new AbortController();
+    let active = true;
+    Promise.all([listCatalog('reviewable', controller.signal), listCatalog('verified', controller.signal)])
+      .then(([reviewable, published]) => {
+        if (!active) return;
+        setAllExams(reviewable.items.map(catalogItemToManifest));
+        setPublishedExams(published.items.map(catalogItemToManifest));
+        setError(null);
+        setUsingLocalFallback(false);
       })
-      .catch((err: unknown) => setError(err instanceof Error ? err.message : 'Không tải được danh sách đề thi.'))
-      .finally(() => setLoading(false));
+      .catch(async (err: unknown) => {
+        if (!active || controller.signal.aborted) return;
+        if (!isExamApiFallbackError(err)) {
+          setError(err instanceof Error ? err.message : 'Không tải được danh sách đề thi.');
+          return;
+        }
+        try {
+          const [all, published] = await Promise.all([listAllExams(), listPublishedExams()]);
+          if (!active) return;
+          setAllExams(all);
+          setPublishedExams(published);
+          setUsingLocalFallback(true);
+        } catch (fallbackError: unknown) {
+          if (!active) return;
+          setError(fallbackError instanceof Error ? fallbackError.message : 'Không tải được danh sách đề thi.');
+        }
+      })
+      .finally(() => {
+        if (active) setLoading(false);
+      });
+    return () => {
+      active = false;
+      controller.abort();
+    };
   }, []);
 
   const activeManifest = showAllExams ? allExams : publishedExams;
@@ -103,6 +152,9 @@ export default function ExamBrowsePage() {
           </section>
         )}
 
+        {usingLocalFallback && (
+          <p className="exam-browse-message" role="status">Đang sử dụng dữ liệu cục bộ vì máy chủ đề thi tạm thời không khả dụng.</p>
+        )}
         {loading && <div className="exam-browse-message">Đang tải danh sách đề thi...</div>}
         {error && <div className="exam-browse-message exam-browse-error">{error}</div>}
         {!loading && !error && (

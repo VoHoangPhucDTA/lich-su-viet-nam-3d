@@ -7,6 +7,7 @@
  */
 import { useId, type CSSProperties } from 'react';
 import type { TFQuestion, QuestionResult } from '@/types/exam';
+import type { SafeTFQuestion } from '@/types/examApi';
 import { TF_LADDER_SCORES } from '@/lib/exam/examConstants';
 import QuestionSourceBlock from './QuestionSourceBlock';
 
@@ -14,12 +15,13 @@ const STMT_IDS = ['a', 'b', 'c', 'd'] as const;
 type StmtId = 'a' | 'b' | 'c' | 'd';
 
 interface TFQuestionCardProps {
-  question: TFQuestion;
+  question: TFQuestion | SafeTFQuestion;
   index: number;
   total: number;
   selected: Record<StmtId, boolean | null>;
   onSelect: (stmtId: StmtId, value: boolean | null) => void;
   reviewMode?: boolean;
+  disabled?: boolean;
   showSource?: boolean;
   /** Cần có khi reviewMode=true. */
   result?: QuestionResult;
@@ -79,16 +81,17 @@ export default function TFQuestionCard({
   selected,
   onSelect,
   reviewMode = false,
+  disabled = false,
   result,
   showSource = true,
 }: TFQuestionCardProps) {
   const cardId = useId();
   const correctMap = Object.fromEntries(
-    question.statements.map((s) => [s.id, s.isTrue])
-  ) as Record<StmtId, boolean>;
+    question.statements.map((statement) => [statement.id, 'isTrue' in statement ? statement.isTrue : null])
+  ) as Record<StmtId, boolean | null>;
 
   function handleToggle(stmtId: StmtId, value: boolean) {
-    if (reviewMode) return;
+    if (reviewMode || disabled) return;
     // Nhấn lại cùng nút → xóa chọn (về null)
     const current = selected[stmtId];
     onSelect(stmtId, current === value ? null : value);
@@ -99,7 +102,7 @@ export default function TFQuestionCard({
     const userChoice = result?.tf?.selected[stmtId];
     const correct = correctMap[stmtId];
 
-    if (userChoice === null || userChoice === undefined) return { opacity: 0.6 };
+    if (correct === null || userChoice === null || userChoice === undefined) return { opacity: 0.6 };
     if (userChoice === correct)
       return { background: 'rgba(47,122,87,0.08)', borderRadius: '0.5rem' };
     return { background: 'rgba(159,29,45,0.08)', borderRadius: '0.5rem' };
@@ -200,7 +203,7 @@ export default function TFQuestionCard({
       >
         {question.questionText}
       </p>
-      {showSource && <QuestionSourceBlock sourceRefs={question.sourceRefs} />}
+      {showSource && 'sourceRefs' in question && <QuestionSourceBlock sourceRefs={question.sourceRefs} />}
 
       {/* Statements */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: '0' }}>
@@ -213,7 +216,7 @@ export default function TFQuestionCard({
             : selected[id];
           const selectedTone = !reviewMode
             ? 'var(--exam-selection)'
-            : selVal === correctMap[id]
+            : correctMap[id] !== null && selVal === correctMap[id]
               ? 'var(--exam-success)'
               : 'var(--danger)';
 
@@ -285,7 +288,7 @@ export default function TFQuestionCard({
                   label="Đúng"
                   active={selVal === true}
                   color={selectedTone}
-                  disabled={reviewMode}
+                  disabled={reviewMode || disabled}
                   onClick={() => handleToggle(id, true)}
                   statementLabel={`ý ${id}`}
                 />
@@ -294,7 +297,7 @@ export default function TFQuestionCard({
                   label="Sai"
                   active={selVal === false}
                   color={selectedTone}
-                  disabled={reviewMode}
+                  disabled={reviewMode || disabled}
                   onClick={() => handleToggle(id, false)}
                   statementLabel={`ý ${id}`}
                 />
@@ -305,7 +308,7 @@ export default function TFQuestionCard({
       </div>
 
       {/* Explanation (review mode only) */}
-      {reviewMode && question.explanation && (
+      {reviewMode && 'explanation' in question && question.explanation && (
         <div
           style={{
             marginTop: '1.25rem',
