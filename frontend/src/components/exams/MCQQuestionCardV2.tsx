@@ -9,6 +9,7 @@ import type { MCQQuestion, QuestionResult } from '@/types/exam';
 import type { SafeMCQQuestion } from '@/types/examApi';
 import ExamOptionCard from './ExamOptionCard';
 import QuestionSourceBlock from './QuestionSourceBlock';
+import ExamExplanationText from './ExamExplanationText';
 
 const DIFFICULTY_LABEL: Record<string, string> = {
   easy: 'Dễ',
@@ -228,7 +229,7 @@ export default function MCQQuestionCardV2({
               }}
             >
               <strong style={{ color: 'var(--accent)' }}>Giải thích:</strong>{' '}
-              <span style={{ whiteSpace: 'pre-wrap' }}>{question.explanation}</span>
+              <ExamExplanationText text={question.explanation} />
             </div>
           )}
         </div>

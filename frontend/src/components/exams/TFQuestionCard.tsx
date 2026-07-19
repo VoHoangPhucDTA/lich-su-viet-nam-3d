@@ -10,6 +10,7 @@ import type { TFQuestion, QuestionResult } from '@/types/exam';
 import type { SafeTFQuestion } from '@/types/examApi';
 import { TF_LADDER_SCORES } from '@/lib/exam/examConstants';
 import QuestionSourceBlock from './QuestionSourceBlock';
+import ExamExplanationText from './ExamExplanationText';
 
 const STMT_IDS = ['a', 'b', 'c', 'd'] as const;
 type StmtId = 'a' | 'b' | 'c' | 'd';
@@ -322,7 +323,7 @@ export default function TFQuestionCard({
           }}
         >
           <strong style={{ color: 'var(--accent)' }}>Giải thích:</strong>{' '}
-          <span style={{ whiteSpace: 'pre-wrap' }}>{question.explanation}</span>
+          <ExamExplanationText text={question.explanation} />
         </div>
       )}
       <style>{`

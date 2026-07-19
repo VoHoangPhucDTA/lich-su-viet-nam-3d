@@ -5,6 +5,7 @@
 import { useEffect, useMemo, useState, type ReactNode } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import ApiResultSnapshotView from '@/components/exams/ApiResultSnapshotView';
+import ExamExplanationText from '@/components/exams/ExamExplanationText';
 import { formatCognitiveLevelLabel, formatDifficultyLabel, formatQuestionTypeLabel } from '@/lib/exam/displayLabels';
 import { fetchBackendAttemptDetail, resultFromAttemptDetail } from '@/lib/exam/examAttemptSync';
 import { formatExamDuration } from '@/lib/exam/durationFormat';
@@ -365,7 +366,7 @@ function Explanation({ text }: { text: string }) {
       }}
     >
       <strong style={{ color: 'var(--text-primary)' }}>Giải thích: </strong>
-      <span style={{ whiteSpace: 'pre-wrap' }}>{text}</span>
+      <ExamExplanationText text={text} />
     </div>
   );
 }

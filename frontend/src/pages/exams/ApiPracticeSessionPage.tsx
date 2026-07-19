@@ -1,6 +1,7 @@
 import { useCallback, useMemo, useRef, useState, type ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import ExamQuestionRenderer from '@/components/exams/ExamQuestionRenderer';
+import ExamExplanationText from '@/components/exams/ExamExplanationText';
 import { useApiPracticeSession } from '@/lib/exam/useApiPracticeSession';
 import { useQuestionNavigation } from '@/lib/exam/useQuestionNavigation';
 import type { CreateExamSessionRequest, SafeQuestionType } from '@/types/examApi';
@@ -25,7 +26,7 @@ function PracticeFeedback({ questionType, result }: { questionType: SafeQuestion
       <strong style={{ color: result.correct ? 'var(--success)' : 'var(--danger)' }}>{result.correct ? 'Trả lời đúng' : 'Cần xem lại'}</strong>
       {questionType === 'mcq' && <p style={{ margin: '0.45rem 0 0' }}>Đáp án đúng: <strong>{String(result.correctAnswer)}</strong></p>}
       {questionType === 'true_false' && <p style={{ margin: '0.45rem 0 0' }}>Bạn trả lời đúng {result.correctCount}/4 ý.</p>}
-      {result.explanation && <p style={{ margin: '0.65rem 0 0' }}><strong>Giải thích: </strong>{result.explanation}</p>}
+      {result.explanation && <p style={{ margin: '0.65rem 0 0' }}><strong>Giải thích: </strong><ExamExplanationText text={result.explanation} /></p>}
     </section>
   );
 }

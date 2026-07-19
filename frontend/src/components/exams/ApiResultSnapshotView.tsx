@@ -1,6 +1,7 @@
 import type { CSSProperties } from 'react';
 import { Link } from 'react-router-dom';
 import { formatAuthorityLabel, type NormalizedExamResult } from '@/lib/exam/resultAdapters';
+import ExamExplanationText from './ExamExplanationText';
 
 function answerText(value: unknown): string {
   if (value === null || value === undefined) return 'Chưa chọn';
@@ -55,7 +56,7 @@ export default function ApiResultSnapshotView({ result }: { result: NormalizedEx
                   })}
                 </div>
               )}
-              {review.explanation && <p style={{ margin: 0, padding: '0.8rem', background: 'var(--accent-soft)', borderRadius: '0.7rem', lineHeight: 1.55 }}><strong>Giải thích: </strong>{review.explanation}</p>}
+              {review.explanation && <p style={{ margin: 0, padding: '0.8rem', background: 'var(--accent-soft)', borderRadius: '0.7rem', lineHeight: 1.55 }}><strong>Giải thích: </strong><ExamExplanationText text={review.explanation} /></p>}
             </article>
           ))}
         </section>

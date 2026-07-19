@@ -7,6 +7,7 @@ import { formatExamTitle } from '@/lib/exam/examDisplay';
 import ExamQuickNavigator, { type QuickNavigatorItem } from '@/components/exams/ExamQuickNavigator';
 import ExamShortcutHelp, { type ExamShortcutItem } from '@/components/exams/ExamShortcutHelp';
 import ExamPracticeHeader from '@/components/exams/ExamPracticeHeader';
+import ExamExplanationText from '@/components/exams/ExamExplanationText';
 import { useQuestionNavigation } from '@/lib/exam/useQuestionNavigation';
 import {
   flattenExamQuestions,
@@ -123,7 +124,7 @@ function Explanation({ text }: { text: string }) {
   return (
     <div style={{ marginTop: '1rem', background: 'var(--bg-surface)', border: '1px solid var(--border)', borderRadius: '0.8rem', padding: '0.95rem 1rem', color: 'var(--text-secondary)', lineHeight: 1.65 }}>
       <strong style={{ color: 'var(--text-primary)' }}>Giải thích: </strong>
-      <span style={{ whiteSpace: 'pre-wrap' }}>{text}</span>
+      <ExamExplanationText text={text} />
     </div>
   );
 }
