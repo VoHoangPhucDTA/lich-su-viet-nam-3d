@@ -1,0 +1,55 @@
+{
+  "eventId": "giang-van-minh-di-su-nha-minh",
+  "title": "Giang Văn Minh đi sứ nhà Minh",
+  "shortTitle": "Giang Văn Minh đi sứ nhà Minh",
+  "displayDate": "Năm 1637",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-tu-the-ki-xvi-den-xix",
+  "parentId": "viet-nam-tu-the-ki-xvi-den-xix",
+  "historicalLocations": [
+    "triều Minh"
+  ],
+  "provinceNames": [],
+  "canonicalSummary": "Năm 1637, Giang Văn Minh được vua Lê cử đi sứ sang triều Minh. Trong buổi triều kiến, vua Minh ra vế đối: \"Đồng trụ chỉ kim đài đĩ lục\" (Đồng trụ đến giờ đã mọc rêu xanh) nhắc đến sự tích cột đồng Mã Viện và thất bại của cuộc khởi nghĩa Hai Bà Trưng. Giang Văn Minh đã đối lại: \"Đằng Giang tự cổ huyết do hồng\" (Sông Bạch Đằng từ trước máu còn loang đỏ) gợi lại việc ba lần đánh bại quân xâm lược phương Bắc trên sông Bạch Đằng của dân tộc ta.",
+  "keyFacts": [
+    "Đối đáp với vua Minh về lịch sử chống ngoại xâm",
+    "Diễn ra năm 1637",
+    "Người thực hiện: Giang Văn Minh"
+  ],
+  "sourceFamily": "early_modern",
+  "preferredVerificationDomains": [
+    "baotanglichsu.vn",
+    "luutru.gov.vn",
+    "disanvanhoa.gov.vn",
+    "nhandan.vn",
+    "qdnd.vn"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Giang Văn Minh đi sứ nhà Minh",
+    "Giang Văn Minh đi sứ nhà Minh Năm 1637",
+    "Giang Văn Minh đi sứ nhà Minh triều Minh",
+    "Giang Văn Minh đi sứ nhà Minh Đối đáp với vua Minh về lịch sử chống ngoại xâm Diễn ra năm 1637",
+    "Giang Văn Minh đi sứ nhà Minh chân dung",
+    "Giang Văn Minh đi sứ nhà Minh di tích"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

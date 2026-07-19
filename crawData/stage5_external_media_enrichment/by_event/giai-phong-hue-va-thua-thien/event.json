@@ -1,0 +1,59 @@
+{
+  "eventId": "giai-phong-hue-va-thua-thien",
+  "title": "Giải phóng thành phố Huế và toàn tỉnh Thừa Thiên",
+  "shortTitle": "Giải phóng Huế – Thừa Thiên",
+  "displayDate": "Ngày 26 – 3 – 1975",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1954-1975",
+  "parentId": "tong-tien-cong-va-noi-day-xuan-1975",
+  "historicalLocations": [],
+  "provinceNames": [
+    "Thừa Thiên Huế"
+  ],
+  "canonicalSummary": "Ngày 26 – 3, thành phố Huế và toàn tỉnh Thừa Thiên được giải phóng.",
+  "keyFacts": [
+    "Giải phóng toàn tỉnh Thừa Thiên",
+    "Diễn ra ngày 26-3-1975",
+    "Giải phóng thành phố Huế"
+  ],
+  "sourceFamily": "war_1945_1975",
+  "preferredVerificationDomains": [
+    "btlsqsvn.org.vn",
+    "qdnd.vn",
+    "nhandan.vn",
+    "vietnamplus.vn",
+    "hochiminh.vn",
+    "baotanglichsu.vn",
+    "luutru.gov.vn",
+    "loc.gov",
+    "archives.gov"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Giải phóng thành phố Huế và toàn tỉnh Thừa Thiên",
+    "Giải phóng thành phố Huế và toàn tỉnh Thừa Thiên Ngày 26 – 3 – 1975",
+    "Giải phóng thành phố Huế và toàn tỉnh Thừa Thiên Cuộc Tổng tiến công và nổi dậy Xuân 1975",
+    "Giải phóng thành phố Huế và toàn tỉnh Thừa Thiên Giải phóng toàn tỉnh Thừa Thiên Diễn ra ngày 26-3-1975",
+    "Giải phóng thành phố Huế và toàn tỉnh Thừa Thiên ảnh tư liệu",
+    "Giải phóng thành phố Huế và toàn tỉnh Thừa Thiên chiến dịch"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "eventId": "ho-chi-minh-gui-thu-toi-chu-tich-hoi-dong-lien-hop-quoc",
+  "title": "Chủ tịch Hồ Chí Minh gửi thư tới Chủ tịch Hội đồng Liên hợp quốc và nguyên thủ các nước lớn",
+  "shortTitle": "Hồ Chí Minh gửi thư tới Liên hợp quốc",
+  "displayDate": "Sau Cách mạng tháng Tám thành công (1945)",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1919-1945",
+  "parentId": "viet-nam-1919-1945",
+  "historicalLocations": [],
+  "provinceNames": [],
+  "canonicalSummary": "Về đối ngoại, ngay sau Cách mạng tháng Tám thành công, Chủ tịch Hồ Chí Minh đã gửi thư tới Chủ tịch Hội đồng Liên hợp quốc và nguyên thủ các nước lớn, khẳng định nền độc lập của Việt Nam.",
+  "keyFacts": [
+    "Gửi thư tới nguyên thủ các nước lớn",
+    "Gửi thư tới Chủ tịch Hội đồng Liên hợp quốc",
+    "Khẳng định nền độc lập của Việt Nam"
+  ],
+  "sourceFamily": "diplomacy",
+  "preferredVerificationDomains": [
+    "mofa.gov.vn",
+    "chinhphu.vn",
+    "vietnamplus.vn",
+    "nhandan.vn",
+    "un.org",
+    "asean.org",
+    "apec.org",
+    "europa.eu"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Chủ tịch Hồ Chí Minh gửi thư tới Chủ tịch Hội đồng Liên hợp quốc và nguyên thủ các nước lớn",
+    "Chủ tịch Hồ Chí Minh gửi thư tới Chủ tịch Hội đồng Liên hợp quốc và nguyên thủ các nước lớn Sau Cách mạng tháng Tám thành công (1945)",
+    "Chủ tịch Hồ Chí Minh gửi thư tới Chủ tịch Hội đồng Liên hợp quốc và nguyên thủ các nước lớn Việt Nam từ năm 1919 đến năm 1945",
+    "Chủ tịch Hồ Chí Minh gửi thư tới Chủ tịch Hội đồng Liên hợp quốc và nguyên thủ các nước lớn Gửi thư tới nguyên thủ các nước lớn Gửi thư tới Chủ tịch Hội đồng Liên hợp quốc",
+    "Chủ tịch Hồ Chí Minh gửi thư tới Chủ tịch Hội đồng Liên hợp quốc và nguyên thủ các nước lớn lễ ký",
+    "Chủ tịch Hồ Chí Minh gửi thư tới Chủ tịch Hội đồng Liên hợp quốc và nguyên thủ các nước lớn hội nghị"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

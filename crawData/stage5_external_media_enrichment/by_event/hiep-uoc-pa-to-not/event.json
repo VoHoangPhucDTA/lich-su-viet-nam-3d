@@ -1,0 +1,56 @@
+{
+  "eventId": "hiep-uoc-pa-to-not",
+  "title": "Hiệp ước Pa-tơ-nốt",
+  "shortTitle": "Hiệp ước Pa-tơ-nốt",
+  "displayDate": "Năm 1884",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1858-1918",
+  "parentId": "viet-nam-1858-1918",
+  "historicalLocations": [],
+  "provinceNames": [],
+  "canonicalSummary": "Triều đình nhà Nguyễn kí với Pháp bản Hiệp ước Pa-tơ-nốt (1884), đánh dấu sự đầu hàng hoàn toàn của triều đình phong kiến Việt Nam và sự xác lập nền bảo hộ của Pháp trên toàn bộ đất nước ta.",
+  "keyFacts": [
+    "Nội dung chính: Xác lập nền bảo hộ của Pháp trên toàn Việt Nam",
+    "Diễn ra năm 1884",
+    "Các bên kí kết: Triều Nguyễn và Pháp"
+  ],
+  "sourceFamily": "colonial",
+  "preferredVerificationDomains": [
+    "baotanglichsu.vn",
+    "luutru.gov.vn",
+    "hochiminh.vn",
+    "nhandan.vn",
+    "qdnd.vn",
+    "vietnamplus.vn",
+    "gallica.bnf.fr",
+    "loc.gov"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Hiệp ước Pa-tơ-nốt",
+    "Hiệp ước Pa-tơ-nốt Năm 1884",
+    "Hiệp ước Pa-tơ-nốt Việt Nam từ năm 1858 đến năm 1918",
+    "Hiệp ước Pa-tơ-nốt Nội dung chính: Xác lập nền bảo hộ của Pháp trên toàn Việt Nam Diễn ra năm 1884",
+    "Hiệp ước Pa-tơ-nốt ảnh tư liệu",
+    "Hiệp ước Pa-tơ-nốt chân dung"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

@@ -1,0 +1,73 @@
+{
+  "eventId": "cuoc-tien-cong-chien-luoc-nam-1972",
+  "title": "Cuộc Tiến công chiến lược năm 1972",
+  "shortTitle": "Tiến công chiến lược 1972",
+  "displayDate": "Từ tháng 3 – 1972",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1954-1975",
+  "parentId": "viet-nam-1954-1975",
+  "historicalLocations": [
+    "miền Nam"
+  ],
+  "provinceNames": [
+    "Quảng Trị",
+    "Hồ Chí Minh",
+    "Bình Phước",
+    "Tây Ninh",
+    "Bình Dương",
+    "Đồng Nai",
+    "Bà Rịa - Vũng Tàu",
+    "Kon Tum",
+    "Gia Lai",
+    "Đắk Lắk",
+    "Đắk Nông",
+    "Lâm Đồng"
+  ],
+  "canonicalSummary": "Từ tháng 3 – 1972, quân đội Việt Nam mở cuộc Tiến công chiến lược vào Quảng Trị rồi phát triển rộng khắp chiến trường miền Nam, chọc thủng ba phòng tuyến của địch ở Quảng Trị, Tây Nguyên và Đông Nam Bộ. Cuộc Tiến công chiến lược năm 1972 đã buộc Mỹ phải thừa nhận thất bại của chiến lược “Việt Nam hoá chiến tranh\".",
+  "keyFacts": [
+    "Buộc Mỹ thừa nhận thất bại của 'Việt Nam hoá chiến tranh'",
+    "Chọc thủng ba phòng tuyến của địch",
+    "Bắt đầu từ tháng 3-1972",
+    "Mở cuộc tiến công vào Quảng Trị, Tây Nguyên, Đông Nam Bộ"
+  ],
+  "sourceFamily": "war_1945_1975",
+  "preferredVerificationDomains": [
+    "btlsqsvn.org.vn",
+    "qdnd.vn",
+    "nhandan.vn",
+    "vietnamplus.vn",
+    "hochiminh.vn",
+    "baotanglichsu.vn",
+    "luutru.gov.vn",
+    "loc.gov",
+    "archives.gov"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Cuộc Tiến công chiến lược năm 1972",
+    "Cuộc Tiến công chiến lược năm 1972 Từ tháng 3 – 1972",
+    "Cuộc Tiến công chiến lược năm 1972 miền Nam",
+    "Cuộc Tiến công chiến lược năm 1972 Buộc Mỹ thừa nhận thất bại của 'Việt Nam hoá chiến tranh' Chọc thủng ba phòng tuyến của địch",
+    "Cuộc Tiến công chiến lược năm 1972 ảnh tư liệu",
+    "Cuộc Tiến công chiến lược năm 1972 chiến dịch"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

@@ -5,6 +5,7 @@ import com.lichsuvn.backend.auth.security.JwtAuthenticationFilter;
 import com.lichsuvn.backend.common.security.ApiAccessDeniedHandler;
 import com.lichsuvn.backend.common.security.ApiAuthenticationEntryPoint;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -77,6 +78,7 @@ public class SecurityConfig {
     }
 
     @Bean
+    @ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.SERVLET)
     public SecurityFilterChain securityFilterChain(
             HttpSecurity http,
             JwtAuthenticationFilter jwtAuthenticationFilter,
@@ -94,6 +96,7 @@ public class SecurityConfig {
                         .accessDeniedHandler(accessDeniedHandler)
                 )
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/api/admin/**").hasAuthority("ROLE_admin")
                         .requestMatchers(HttpMethod.GET, "/api/time").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/events", "/api/timeline").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/events/**").permitAll()

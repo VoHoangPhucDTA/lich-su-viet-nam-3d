@@ -1,0 +1,61 @@
+{
+  "eventId": "khoi-nghia-cua-pu-com-bo",
+  "title": "Khởi nghĩa của Pu-côm-bô",
+  "shortTitle": "Khởi nghĩa của Pu-côm-bô",
+  "displayDate": "1866-1867",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1858-1918",
+  "parentId": "viet-nam-1858-1918",
+  "historicalLocations": [
+    "Cam-pu-chia",
+    "Tây Ninh (Việt Nam)"
+  ],
+  "provinceNames": [],
+  "canonicalSummary": "Cuộc khởi nghĩa của Pu-côm-bô (1866-1867) có quy mô lớn, gây nhiều tổn thất cho thực dân Pháp. Ông lập căn cứ ở Tây Ninh (Việt Nam) và liên kết với Trương Quyền, trở thành biểu tượng của sự liên minh chiến đấu giữa nhân dân Cam-pu-chia với nhân dân Việt Nam.",
+  "keyFacts": [
+    "Biểu tượng liên minh chiến đấu Việt Nam - Cam-pu-chia",
+    "Lập căn cứ ở Tây Ninh (Việt Nam)",
+    "Diễn ra từ 1866-1867",
+    "Lãnh đạo bởi nhà sư Pu-côm-bô",
+    "Trương Quyền liên kết với nghĩa quân"
+  ],
+  "sourceFamily": "colonial",
+  "preferredVerificationDomains": [
+    "baotanglichsu.vn",
+    "luutru.gov.vn",
+    "hochiminh.vn",
+    "nhandan.vn",
+    "qdnd.vn",
+    "vietnamplus.vn",
+    "gallica.bnf.fr",
+    "loc.gov"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Khởi nghĩa của Pu-côm-bô",
+    "Khởi nghĩa của Pu-côm-bô 1866-1867",
+    "Khởi nghĩa của Pu-côm-bô Cam-pu-chia",
+    "Khởi nghĩa của Pu-côm-bô Biểu tượng liên minh chiến đấu Việt Nam - Cam-pu-chia Lập căn cứ ở Tây Ninh (Việt Nam)",
+    "Khởi nghĩa của Pu-côm-bô ảnh tư liệu",
+    "Khởi nghĩa của Pu-côm-bô chân dung"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

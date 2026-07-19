@@ -1,0 +1,9 @@
+{
+  "eventId": "vndcch-dau-tranh-doi-thi-hanh-hiep-dinh-gio-ne-vo",
+  "status": "pending_download",
+  "images": [],
+  "expected": [
+    "image_01.<ext>",
+    "image_02.<ext>"
+  ]
+}

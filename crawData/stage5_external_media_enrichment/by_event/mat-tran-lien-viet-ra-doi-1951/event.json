@@ -1,0 +1,57 @@
+{
+  "eventId": "mat-tran-lien-viet-ra-doi-1951",
+  "title": "Mặt trận Liên hiệp quốc dân Việt Nam (Mặt trận Liên Việt) ra đời",
+  "shortTitle": "Mặt trận Liên Việt ra đời",
+  "displayDate": "Ngày 3-3-1951",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1945-1954",
+  "parentId": "viet-nam-1945-1954",
+  "historicalLocations": [],
+  "provinceNames": [],
+  "canonicalSummary": "Ngày 3-3-1951, Mặt trận Liên hiệp quốc dân Việt Nam (gọi tắt là Mặt trận Liên Việt) ra đời trên cơ sở hợp nhất Mặt trận Việt Minh và Hội Liên Việt.",
+  "keyFacts": [
+    "Hợp nhất Mặt trận Việt Minh và Hội Liên Việt",
+    "Tên đầy đủ: Mặt trận Liên hiệp quốc dân Việt Nam",
+    "Ra đời ngày 3-3-1951"
+  ],
+  "sourceFamily": "war_1945_1975",
+  "preferredVerificationDomains": [
+    "btlsqsvn.org.vn",
+    "qdnd.vn",
+    "nhandan.vn",
+    "vietnamplus.vn",
+    "hochiminh.vn",
+    "baotanglichsu.vn",
+    "luutru.gov.vn",
+    "loc.gov",
+    "archives.gov"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Mặt trận Liên hiệp quốc dân Việt Nam (Mặt trận Liên Việt) ra đời",
+    "Mặt trận Liên hiệp quốc dân Việt Nam (Mặt trận Liên Việt) ra đời Ngày 3-3-1951",
+    "Mặt trận Liên hiệp quốc dân Việt Nam (Mặt trận Liên Việt) ra đời Việt Nam từ năm 1945 đến năm 1954",
+    "Mặt trận Liên hiệp quốc dân Việt Nam (Mặt trận Liên Việt) ra đời Hợp nhất Mặt trận Việt Minh và Hội Liên Việt Tên đầy đủ: Mặt trận Liên hiệp quốc dân Việt Nam",
+    "Mặt trận Liên hiệp quốc dân Việt Nam (Mặt trận Liên Việt) ra đời ảnh tư liệu",
+    "Mặt trận Liên hiệp quốc dân Việt Nam (Mặt trận Liên Việt) ra đời chiến dịch"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

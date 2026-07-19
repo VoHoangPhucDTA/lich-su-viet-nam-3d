@@ -1,0 +1,57 @@
+{
+  "eventId": "ngo-quyen-xung-vuong-co-loa",
+  "title": "Ngô Quyền xưng vương và đóng đô ở Cổ Loa",
+  "shortTitle": "Ngô Quyền xưng vương và đóng đô ở Cổ Loa",
+  "displayDate": "Sau năm 938",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-tu-the-ki-x-den-xv",
+  "parentId": "viet-nam-tu-the-ki-x-den-xv",
+  "historicalLocations": [],
+  "provinceNames": [
+    "Hà Nội"
+  ],
+  "canonicalSummary": "Sau chiến thắng Bạch Đằng (năm 938), Ngô Quyền xưng vương, đóng đô ở Cổ Loa (Hà Nội), nền độc lập dân tộc được khôi phục hoàn toàn.",
+  "keyFacts": [
+    "Đóng đô ở Cổ Loa (Hà Nội)",
+    "Ngô Quyền xưng vương",
+    "Diễn ra sau chiến thắng Bạch Đằng năm 938"
+  ],
+  "sourceFamily": "ancient_medieval",
+  "preferredVerificationDomains": [
+    "baotanglichsu.vn",
+    "disanvanhoa.gov.vn",
+    "bvhttdl.gov.vn",
+    "qdnd.vn",
+    "nhandan.vn",
+    "unesco.org",
+    "whc.unesco.org"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Ngô Quyền xưng vương và đóng đô ở Cổ Loa",
+    "Ngô Quyền xưng vương và đóng đô ở Cổ Loa Sau năm 938",
+    "Ngô Quyền xưng vương và đóng đô ở Cổ Loa Việt Nam từ thế kỉ X đến thế kỉ XV",
+    "Ngô Quyền xưng vương và đóng đô ở Cổ Loa Đóng đô ở Cổ Loa (Hà Nội) Ngô Quyền xưng vương",
+    "Ngô Quyền xưng vương và đóng đô ở Cổ Loa hiện vật",
+    "Ngô Quyền xưng vương và đóng đô ở Cổ Loa di tích"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

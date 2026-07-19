@@ -1,0 +1,62 @@
+{
+  "eventId": "chien-dich-tay-nguyen-1975",
+  "title": "Chiến dịch Tây Nguyên",
+  "shortTitle": "Tây Nguyên 1975",
+  "displayDate": "Từ ngày 10 – 3 đến ngày 24 – 3 – 1975",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1954-1975",
+  "parentId": "tong-tien-cong-va-noi-day-xuan-1975",
+  "historicalLocations": [],
+  "provinceNames": [
+    "Kon Tum",
+    "Gia Lai",
+    "Đắk Lắk",
+    "Đắk Nông",
+    "Lâm Đồng"
+  ],
+  "canonicalSummary": "Chiến dịch Tây Nguyên diễn ra từ ngày 10 – 3, đến ngày 24 – 3 thì kết thúc thắng lợi.",
+  "keyFacts": [
+    "Kết thúc thắng lợi",
+    "Diễn ra từ 10-3 đến 24-3-1975"
+  ],
+  "sourceFamily": "war_1945_1975",
+  "preferredVerificationDomains": [
+    "btlsqsvn.org.vn",
+    "qdnd.vn",
+    "nhandan.vn",
+    "vietnamplus.vn",
+    "hochiminh.vn",
+    "baotanglichsu.vn",
+    "luutru.gov.vn",
+    "loc.gov",
+    "archives.gov"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Chiến dịch Tây Nguyên",
+    "Chiến dịch Tây Nguyên Từ ngày 10 – 3 đến ngày 24 – 3 – 1975",
+    "Chiến dịch Tây Nguyên Cuộc Tổng tiến công và nổi dậy Xuân 1975",
+    "Chiến dịch Tây Nguyên Kết thúc thắng lợi Diễn ra từ 10-3 đến 24-3-1975",
+    "Chiến dịch Tây Nguyên ảnh tư liệu",
+    "Chiến dịch Tây Nguyên chiến dịch"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

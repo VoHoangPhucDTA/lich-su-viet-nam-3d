@@ -1,0 +1,59 @@
+{
+  "eventId": "hoat-dong-doi-ngoai-cua-vndcch-voi-trung-hoa-dan-quoc",
+  "title": "Hoạt động đối ngoại của Việt Nam Dân chủ Cộng hoà với Trung Hoa Dân quốc",
+  "shortTitle": "Hoạt động đối ngoại của Việt Nam Dân chủ Cộng hoà với Trung Hoa Dân quốc",
+  "displayDate": "Khoảng năm 1945",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1919-1945",
+  "parentId": "viet-nam-1919-1945",
+  "historicalLocations": [
+    "Việt Nam"
+  ],
+  "provinceNames": [],
+  "canonicalSummary": "Với Trung Hoa Dân quốc, Chính phủ Việt Nam Dân chủ Cộng hoà chủ động vừa đấu tranh chính trị, vừa vận động ngoại giao; thực hiện các hoạt động hữu nghị, thân thiện với nhân dân Trung Quốc và hoà hoãn với quân Trung Hoa Dân quốc ở Việt Nam để tranh thủ thời gian củng cố chính quyền cách mạng.",
+  "keyFacts": [
+    "Vừa đấu tranh chính trị, vừa vận động ngoại giao",
+    "Thực hiện hữu nghị với nhân dân Trung Quốc",
+    "Hoà hoãn với quân Trung Hoa Dân quốc ở Việt Nam",
+    "Mục đích: tranh thủ thời gian củng cố chính quyền cách mạng"
+  ],
+  "sourceFamily": "revolutionary",
+  "preferredVerificationDomains": [
+    "hochiminh.vn",
+    "tulieuvankien.dangcongsan.vn",
+    "dangcongsan.vn",
+    "baotanglichsu.vn",
+    "nhandan.vn",
+    "qdnd.vn",
+    "vietnamplus.vn",
+    "luutru.gov.vn"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Hoạt động đối ngoại của Việt Nam Dân chủ Cộng hoà với Trung Hoa Dân quốc",
+    "Hoạt động đối ngoại của Việt Nam Dân chủ Cộng hoà với Trung Hoa Dân quốc Khoảng năm 1945",
+    "Hoạt động đối ngoại của Việt Nam Dân chủ Cộng hoà với Trung Hoa Dân quốc Việt Nam",
+    "Hoạt động đối ngoại của Việt Nam Dân chủ Cộng hoà với Trung Hoa Dân quốc Vừa đấu tranh chính trị, vừa vận động ngoại giao Thực hiện hữu nghị với nhân dân Trung Quốc",
+    "Hoạt động đối ngoại của Việt Nam Dân chủ Cộng hoà với Trung Hoa Dân quốc ảnh tư liệu",
+    "Hoạt động đối ngoại của Việt Nam Dân chủ Cộng hoà với Trung Hoa Dân quốc chân dung"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

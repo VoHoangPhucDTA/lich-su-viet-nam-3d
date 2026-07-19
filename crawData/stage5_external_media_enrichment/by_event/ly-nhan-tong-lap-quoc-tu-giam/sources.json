@@ -1,0 +1,9 @@
+{
+  "eventId": "ly-nhan-tong-lap-quoc-tu-giam",
+  "status": "pending_download",
+  "images": [],
+  "expected": [
+    "image_01.<ext>",
+    "image_02.<ext>"
+  ]
+}

@@ -1,0 +1,65 @@
+{
+  "eventId": "thanh-lap-hoi-lien-hiep-cac-dan-toc-bi-ap-buc-a-dong-1925",
+  "title": "Nguyễn Ái Quốc tham gia thành lập Hội Liên hiệp các dân tộc bị áp bức ở Á Đông",
+  "shortTitle": "Nguyễn Ái Quốc tham gia thành lập Hội Liên hiệp các dân tộc bị áp bức ở Á Đông",
+  "displayDate": "Tháng 7 – 1925",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1919-1945",
+  "parentId": "viet-nam-1919-1945",
+  "historicalLocations": [
+    "Miến Điện",
+    "Ấn Độ",
+    "In-đô-nê-xi-a",
+    "Á Đông",
+    "Việt Nam",
+    "Trung Quốc",
+    "Triều Tiên"
+  ],
+  "provinceNames": [],
+  "canonicalSummary": "Tháng 7 – 1925, Nguyễn Ái Quốc tham gia thành lập Hội Liên hiệp các dân tộc bị áp bức ở Á Đông, một đoàn thể có tính chất quốc tế bao gồm người Việt Nam, Trung Quốc, Ấn Độ, Triều Tiên, In-đô-nê-xi-a, Miến Điện. Tuyên ngôn của Hội khẳng định con đường duy nhất để xoá bỏ sự áp bức chỉ có thể là liên hiệp các dân tộc nhỏ yếu bị áp bức và giai cấp vô sản toàn thế giới, áp dụng những phương pháp cách mạng để lật đổ đế quốc thực dân.",
+  "keyFacts": [
+    "Bao gồm nhiều dân tộc Á Đông",
+    "Mục tiêu: liên hiệp chống đế quốc thực dân",
+    "Do Nguyễn Ái Quốc tham gia thành lập",
+    "Diễn ra tháng 7-1925"
+  ],
+  "sourceFamily": "revolutionary",
+  "preferredVerificationDomains": [
+    "hochiminh.vn",
+    "tulieuvankien.dangcongsan.vn",
+    "dangcongsan.vn",
+    "baotanglichsu.vn",
+    "nhandan.vn",
+    "qdnd.vn",
+    "vietnamplus.vn",
+    "luutru.gov.vn"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Nguyễn Ái Quốc tham gia thành lập Hội Liên hiệp các dân tộc bị áp bức ở Á Đông",
+    "Nguyễn Ái Quốc tham gia thành lập Hội Liên hiệp các dân tộc bị áp bức ở Á Đông Tháng 7 – 1925",
+    "Nguyễn Ái Quốc tham gia thành lập Hội Liên hiệp các dân tộc bị áp bức ở Á Đông Miến Điện",
+    "Nguyễn Ái Quốc tham gia thành lập Hội Liên hiệp các dân tộc bị áp bức ở Á Đông Bao gồm nhiều dân tộc Á Đông Mục tiêu: liên hiệp chống đế quốc thực dân",
+    "Nguyễn Ái Quốc tham gia thành lập Hội Liên hiệp các dân tộc bị áp bức ở Á Đông ảnh tư liệu",
+    "Nguyễn Ái Quốc tham gia thành lập Hội Liên hiệp các dân tộc bị áp bức ở Á Đông chân dung"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "eventId": "ho-chi-minh-ra-loi-keu-goi-toan-quoc-khang-chien",
+  "status": "pending_download",
+  "images": [],
+  "expected": [
+    "image_01.<ext>",
+    "image_02.<ext>"
+  ]
+}

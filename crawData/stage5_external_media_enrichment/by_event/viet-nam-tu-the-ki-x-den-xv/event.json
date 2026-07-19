@@ -1,0 +1,50 @@
+{
+  "eventId": "viet-nam-tu-the-ki-x-den-xv",
+  "title": "Việt Nam từ thế kỉ X đến thế kỉ XV",
+  "shortTitle": "Việt Nam thế kỉ X-XV",
+  "displayDate": "Việt Nam thế kỉ X-XV",
+  "eventLevel": "collection",
+  "rootId": "viet-nam-tu-the-ki-x-den-xv",
+  "parentId": null,
+  "historicalLocations": [
+    "Việt Nam"
+  ],
+  "provinceNames": [],
+  "canonicalSummary": "Nút điều hướng tổng hợp cho Việt Nam từ thế kỉ X đến thế kỉ XV.",
+  "keyFacts": [],
+  "sourceFamily": "broad_period",
+  "preferredVerificationDomains": [
+    "baotanglichsu.vn",
+    "nhandan.vn",
+    "qdnd.vn",
+    "vietnamplus.vn",
+    "luutru.gov.vn"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Việt Nam từ thế kỉ X đến thế kỉ XV",
+    "Việt Nam từ thế kỉ X đến thế kỉ XV Việt Nam thế kỉ X-XV",
+    "Việt Nam từ thế kỉ X đến thế kỉ XV Việt Nam",
+    "Việt Nam từ thế kỉ X đến thế kỉ XV toàn cảnh lịch sử",
+    "Việt Nam từ thế kỉ X đến thế kỉ XV ảnh tư liệu"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

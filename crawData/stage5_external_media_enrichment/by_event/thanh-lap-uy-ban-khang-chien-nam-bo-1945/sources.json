@@ -1,0 +1,9 @@
+{
+  "eventId": "thanh-lap-uy-ban-khang-chien-nam-bo-1945",
+  "status": "pending_download",
+  "images": [],
+  "expected": [
+    "image_01.<ext>",
+    "image_02.<ext>"
+  ]
+}

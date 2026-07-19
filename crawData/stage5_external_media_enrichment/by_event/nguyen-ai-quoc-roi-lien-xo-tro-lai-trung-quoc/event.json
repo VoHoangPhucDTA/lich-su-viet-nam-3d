@@ -1,0 +1,57 @@
+{
+  "eventId": "nguyen-ai-quoc-roi-lien-xo-tro-lai-trung-quoc",
+  "title": "Nguyễn Ái Quốc rời Liên Xô trở lại Trung Quốc",
+  "shortTitle": "Nguyễn Ái Quốc rời Liên Xô trở lại Trung Quốc",
+  "displayDate": "Năm 1938",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1919-1945",
+  "parentId": "viet-nam-1919-1945",
+  "historicalLocations": [
+    "Liên Xô",
+    "Trung Quốc"
+  ],
+  "provinceNames": [],
+  "canonicalSummary": "Năm 1938, Nguyễn Ái Quốc rời Liên Xô trở lại Trung Quốc và hoạt động cách mạng ở đây.",
+  "keyFacts": [
+    "Hoạt động cách mạng ở Trung Quốc"
+  ],
+  "sourceFamily": "revolutionary",
+  "preferredVerificationDomains": [
+    "hochiminh.vn",
+    "tulieuvankien.dangcongsan.vn",
+    "dangcongsan.vn",
+    "baotanglichsu.vn",
+    "nhandan.vn",
+    "qdnd.vn",
+    "vietnamplus.vn",
+    "luutru.gov.vn"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Nguyễn Ái Quốc rời Liên Xô trở lại Trung Quốc",
+    "Nguyễn Ái Quốc rời Liên Xô trở lại Trung Quốc Năm 1938",
+    "Nguyễn Ái Quốc rời Liên Xô trở lại Trung Quốc Liên Xô",
+    "Nguyễn Ái Quốc rời Liên Xô trở lại Trung Quốc Hoạt động cách mạng ở Trung Quốc",
+    "Nguyễn Ái Quốc rời Liên Xô trở lại Trung Quốc ảnh tư liệu",
+    "Nguyễn Ái Quốc rời Liên Xô trở lại Trung Quốc chân dung"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

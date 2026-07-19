@@ -1,0 +1,53 @@
+{
+  "eventId": "nguyen-hue-dung-chan-chieu-mo-binh-si",
+  "title": "Nguyễn Huệ dừng chân chiêu mộ binh sĩ",
+  "shortTitle": "Nguyễn Huệ dừng chân chiêu mộ binh sĩ",
+  "displayDate": "cuối thế kỉ XVIII",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-tu-the-ki-xvi-den-xix",
+  "parentId": "viet-nam-tu-the-ki-xvi-den-xix",
+  "historicalLocations": [],
+  "provinceNames": [
+    "Nghệ An"
+  ],
+  "canonicalSummary": "Vùng đất Nam Đàn (Nghệ An) là nơi lưu nhiều dấu tích lịch sử liên quan đến Nguyễn Huệ dừng chân chiêu mộ binh sĩ (cuối thế kỉ XVIII).",
+  "keyFacts": [
+    "Diễn ra ở Nam Đàn (Nghệ An)"
+  ],
+  "sourceFamily": "early_modern",
+  "preferredVerificationDomains": [
+    "baotanglichsu.vn",
+    "luutru.gov.vn",
+    "disanvanhoa.gov.vn",
+    "nhandan.vn",
+    "qdnd.vn"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Nguyễn Huệ dừng chân chiêu mộ binh sĩ",
+    "Nguyễn Huệ dừng chân chiêu mộ binh sĩ cuối thế kỉ XVIII",
+    "Nguyễn Huệ dừng chân chiêu mộ binh sĩ Việt Nam từ thế kỉ XVI đến thế kỉ XIX",
+    "Nguyễn Huệ dừng chân chiêu mộ binh sĩ Diễn ra ở Nam Đàn (Nghệ An)",
+    "Nguyễn Huệ dừng chân chiêu mộ binh sĩ chân dung",
+    "Nguyễn Huệ dừng chân chiêu mộ binh sĩ di tích"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

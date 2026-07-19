@@ -1,0 +1,59 @@
+{
+  "eventId": "gia-dinh-thanh-duoc-lap",
+  "title": "Gia Định Thành được lập",
+  "shortTitle": "Gia Định Thành được lập",
+  "displayDate": "1808 - 1832",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-tu-the-ki-xvi-den-xix",
+  "parentId": "viet-nam-tu-the-ki-xvi-den-xix",
+  "historicalLocations": [
+    "Phiên An"
+  ],
+  "provinceNames": [
+    "Tiền Giang",
+    "Hồ Chí Minh",
+    "Đồng Nai"
+  ],
+  "canonicalSummary": "Gia Định Thành được lập từ năm 1808 đến năm 1832, cai quản 5 trấn là Phiên An, Biên Hoà, Vĩnh Thanh, Định Tường và An Giang.",
+  "keyFacts": [
+    "Đơn vị hành chính cao hơn trấn",
+    "Tồn tại từ 1808 đến 1832",
+    "Cai quản 5 trấn"
+  ],
+  "sourceFamily": "early_modern",
+  "preferredVerificationDomains": [
+    "baotanglichsu.vn",
+    "luutru.gov.vn",
+    "disanvanhoa.gov.vn",
+    "nhandan.vn",
+    "qdnd.vn"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Gia Định Thành được lập",
+    "Gia Định Thành được lập 1808 - 1832",
+    "Gia Định Thành được lập Phiên An",
+    "Gia Định Thành được lập Đơn vị hành chính cao hơn trấn Tồn tại từ 1808 đến 1832",
+    "Gia Định Thành được lập chân dung",
+    "Gia Định Thành được lập di tích"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

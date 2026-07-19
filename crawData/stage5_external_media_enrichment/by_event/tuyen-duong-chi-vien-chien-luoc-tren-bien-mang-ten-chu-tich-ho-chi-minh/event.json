@@ -1,0 +1,61 @@
+{
+  "eventId": "tuyen-duong-chi-vien-chien-luoc-tren-bien-mang-ten-chu-tich-ho-chi-minh",
+  "title": "Tuyến đường chi viện chiến lược trên biển mang tên Chủ tịch Hồ Chí Minh",
+  "shortTitle": "Đường Hồ Chí Minh trên biển",
+  "displayDate": "Trong cuộc kháng chiến chống Mỹ, cứu nước",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1954-1975",
+  "parentId": "khang-chien-chong-my-cuu-nuoc",
+  "historicalLocations": [
+    "miền Bắc",
+    "miền Nam"
+  ],
+  "provinceNames": [],
+  "canonicalSummary": "Trong cuộc kháng chiến chống Mỹ, cứu nước, tuyến đường chỉ viện chiến lược trên biển mang tên Chủ tịch Hồ Chí Minh là con đường huyền thoại, biểu tượng cho khát vọng độc lập, tự do và thống nhất Tổ quốc. Tuyến đường này đã kết nối hậu phương lớn miền Bắc với tiến tuyến lớn miền Nam, vận chuyển kịp thời, hiệu quả vũ khí và lực lượng, góp phần quan trọng vào Đại thắng Xuân năm 1975.",
+  "keyFacts": [
+    "Diễn ra trong kháng chiến chống Mỹ, cứu nước",
+    "Kết nối hậu phương miền Bắc với tiền tuyến miền Nam",
+    "Góp phần vào Đại thắng Xuân năm 1975",
+    "Vận chuyển vũ khí và lực lượng"
+  ],
+  "sourceFamily": "war_1945_1975",
+  "preferredVerificationDomains": [
+    "btlsqsvn.org.vn",
+    "qdnd.vn",
+    "nhandan.vn",
+    "vietnamplus.vn",
+    "hochiminh.vn",
+    "baotanglichsu.vn",
+    "luutru.gov.vn",
+    "loc.gov",
+    "archives.gov"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Tuyến đường chi viện chiến lược trên biển mang tên Chủ tịch Hồ Chí Minh",
+    "Tuyến đường chi viện chiến lược trên biển mang tên Chủ tịch Hồ Chí Minh Trong cuộc kháng chiến chống Mỹ, cứu nước",
+    "Tuyến đường chi viện chiến lược trên biển mang tên Chủ tịch Hồ Chí Minh miền Bắc",
+    "Tuyến đường chi viện chiến lược trên biển mang tên Chủ tịch Hồ Chí Minh Diễn ra trong kháng chiến chống Mỹ, cứu nước Kết nối hậu phương miền Bắc với tiền tuyến miền Nam",
+    "Tuyến đường chi viện chiến lược trên biển mang tên Chủ tịch Hồ Chí Minh ảnh tư liệu",
+    "Tuyến đường chi viện chiến lược trên biển mang tên Chủ tịch Hồ Chí Minh chiến dịch"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

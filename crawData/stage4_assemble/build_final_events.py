@@ -6,6 +6,11 @@ from collections import defaultdict
 from copy import deepcopy
 from typing import Any
 
+from chronology_repair import (
+    apply_chronology_override,
+    load_chronology_overrides,
+    validate_all_overrides_applied,
+)
 from stage4_common import (
     CANONICAL_TOP_LEVEL,
     CONFIG,
@@ -79,6 +84,11 @@ def merge_rows(rows: list[dict[str, Any]]) -> tuple[dict[str, Any], list[str]]:
     primary["rawPlaceMentions"] = clean_string_array(raw_places)
     primary["relatedMentions"] = clean_string_array(related)
     return primary, collisions
+
+
+def event_id_for_sid(sid: Any) -> str:
+    text = str(sid)
+    return text if is_safe_id(text) else slugify(text)
 
 
 def load_indexes() -> dict[str, Any]:
@@ -456,6 +466,10 @@ def main() -> None:
         if keep:
             groups[str(sid)].append(row)
 
+    valid_event_ids = {event_id_for_sid(sid) for sid in groups}
+    chronology_overrides = load_chronology_overrides(CONFIG / "chronology_overrides.json", valid_event_ids)
+    chronology_override_counts = {event_id: 0 for event_id in chronology_overrides}
+
     final_events: list[dict[str, Any]] = []
     collision_lines = ["# Collision Review", ""]
     collision_count = 0
@@ -465,6 +479,8 @@ def main() -> None:
 
     for sid, rows in sorted(groups.items()):
         row, collisions = merge_rows(rows)
+        event_id = event_id_for_sid(sid)
+        row = apply_chronology_override(row, event_id, chronology_overrides, chronology_override_counts)
         if collisions:
             collision_lines.append(f"- `{sid}`: {', '.join(collisions)}")
             collision_count += 1
@@ -477,6 +493,8 @@ def main() -> None:
             event_type_warnings.append(f"- `{event['id']}`: `{event['_stage4_eventTypeWarning']}`")
             del event["_stage4_eventTypeWarning"]
         final_events.append(event)
+
+    validate_all_overrides_applied(chronology_override_counts)
 
     final_events.sort(key=date_sort_key)
     build_hierarchy(final_events, hierarchy_seed)

@@ -1,0 +1,58 @@
+{
+  "eventId": "thanh-lap-mat-tran-dan-toc-thong-nhat-viet-nam-1930",
+  "title": "Thành lập Mặt trận Dân tộc Thống nhất Việt Nam (Hội Phản đế Đồng minh)",
+  "shortTitle": "Thành lập Mặt trận Dân tộc Thống nhất",
+  "displayDate": "Ngày 18 – 11 – 1930",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1919-1945",
+  "parentId": "viet-nam-1919-1945",
+  "historicalLocations": [
+    "Việt Nam"
+  ],
+  "provinceNames": [],
+  "canonicalSummary": "Khối đại đoàn kết các dân tộc Việt Nam được thể hiện tập trung trong Mặt trận dân tộc thống nhất Việt Nam, được thành lập ngày 18 – 11 – 1930 với tên gọi Hội Phản đế Đồng minh, nay là Mặt trận Tổ quốc Việt Nam.",
+  "keyFacts": [
+    "Hiện nay là Mặt trận Tổ quốc Việt Nam",
+    "Thành lập ngày 18 – 11 – 1930",
+    "Tên gọi ban đầu là Hội Phản đế Đồng minh"
+  ],
+  "sourceFamily": "revolutionary",
+  "preferredVerificationDomains": [
+    "hochiminh.vn",
+    "tulieuvankien.dangcongsan.vn",
+    "dangcongsan.vn",
+    "baotanglichsu.vn",
+    "nhandan.vn",
+    "qdnd.vn",
+    "vietnamplus.vn",
+    "luutru.gov.vn"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Thành lập Mặt trận Dân tộc Thống nhất Việt Nam (Hội Phản đế Đồng minh)",
+    "Thành lập Mặt trận Dân tộc Thống nhất Việt Nam (Hội Phản đế Đồng minh) Ngày 18 – 11 – 1930",
+    "Thành lập Mặt trận Dân tộc Thống nhất Việt Nam (Hội Phản đế Đồng minh) Việt Nam",
+    "Thành lập Mặt trận Dân tộc Thống nhất Việt Nam (Hội Phản đế Đồng minh) Hiện nay là Mặt trận Tổ quốc Việt Nam Thành lập ngày 18 – 11 – 1930",
+    "Thành lập Mặt trận Dân tộc Thống nhất Việt Nam (Hội Phản đế Đồng minh) ảnh tư liệu",
+    "Thành lập Mặt trận Dân tộc Thống nhất Việt Nam (Hội Phản đế Đồng minh) chân dung"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

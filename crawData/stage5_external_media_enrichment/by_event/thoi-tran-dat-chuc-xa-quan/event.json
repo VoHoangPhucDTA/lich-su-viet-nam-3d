@@ -1,0 +1,55 @@
+{
+  "eventId": "thoi-tran-dat-chuc-xa-quan",
+  "title": "Thời Trần đặt chức xã quan",
+  "shortTitle": "Chức xã quan thời Trần",
+  "displayDate": "Thời Trần",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-tu-the-ki-x-den-xv",
+  "parentId": "viet-nam-tu-the-ki-x-den-xv",
+  "historicalLocations": [],
+  "provinceNames": [],
+  "canonicalSummary": "Thời Trần: Đặt chức xã quan và các chức đứng đầu bộ máy quản lí cấp xã (đại tư xã, tiểu tư xã,..).",
+  "keyFacts": [
+    "Diễn ra thời Trần",
+    "Đặt chức xã quan",
+    "Đặt các chức đại tư xã, tiểu tư xã"
+  ],
+  "sourceFamily": "ancient_medieval",
+  "preferredVerificationDomains": [
+    "baotanglichsu.vn",
+    "disanvanhoa.gov.vn",
+    "bvhttdl.gov.vn",
+    "qdnd.vn",
+    "nhandan.vn",
+    "unesco.org",
+    "whc.unesco.org"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Thời Trần đặt chức xã quan",
+    "Thời Trần đặt chức xã quan Thời Trần",
+    "Thời Trần đặt chức xã quan Việt Nam từ thế kỉ X đến thế kỉ XV",
+    "Thời Trần đặt chức xã quan Diễn ra thời Trần Đặt chức xã quan",
+    "Thời Trần đặt chức xã quan hiện vật",
+    "Thời Trần đặt chức xã quan di tích"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

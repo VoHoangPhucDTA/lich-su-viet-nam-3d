@@ -1,0 +1,9 @@
+{
+  "eventId": "hoat-dong-doi-ngoai-cua-vndcch-voi-trung-hoa-dan-quoc",
+  "status": "pending_download",
+  "images": [],
+  "expected": [
+    "image_01.<ext>",
+    "image_02.<ext>"
+  ]
+}

@@ -1,0 +1,62 @@
+{
+  "eventId": "xay-dung-va-dong-dien-duong-day-500kv-bac-nam-mach-1",
+  "title": "Xây dựng và đóng điện đường dây 500 kV Bắc - Nam (mạch 1)",
+  "shortTitle": "Đường dây 500 kV Bắc - Nam",
+  "displayDate": "1992 - 1993",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1975-den-nay",
+  "parentId": "cong-cuoc-doi-moi-o-viet-nam",
+  "historicalLocations": [
+    "Việt Nam",
+    "Bắc - Nam"
+  ],
+  "provinceNames": [
+    "Ninh Thuận"
+  ],
+  "canonicalSummary": "Công trình đường dây 500 kV Bắc - Nam (mạch 1) được khởi công thiết kế và xây dựng chỉ trong hai năm (1992 - 1993) từ khi khởi công đến khi đóng điện thành công.",
+  "keyFacts": [
+    "Khởi công và hoàn thành 1992-1993",
+    "Trục xương sống hệ thống điện Việt Nam",
+    "Tổng chiều dài 1 487 km"
+  ],
+  "sourceFamily": "post_1975",
+  "preferredVerificationDomains": [
+    "chinhphu.vn",
+    "dangcongsan.vn",
+    "tulieuvankien.dangcongsan.vn",
+    "quochoi.vn",
+    "mofa.gov.vn",
+    "vietnamplus.vn",
+    "nhandan.vn",
+    "un.org",
+    "unphoto.un.org"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Xây dựng và đóng điện đường dây 500 kV Bắc - Nam (mạch 1)",
+    "Xây dựng và đóng điện đường dây 500 kV Bắc - Nam (mạch 1) 1992 - 1993",
+    "Xây dựng và đóng điện đường dây 500 kV Bắc - Nam (mạch 1) Việt Nam",
+    "Xây dựng và đóng điện đường dây 500 kV Bắc - Nam (mạch 1) Khởi công và hoàn thành 1992-1993 Trục xương sống hệ thống điện Việt Nam",
+    "Xây dựng và đóng điện đường dây 500 kV Bắc - Nam (mạch 1) ảnh tư liệu",
+    "Xây dựng và đóng điện đường dây 500 kV Bắc - Nam (mạch 1) lễ ký"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "eventId": "trung-quoc-danh-chiem-toan-bo-hoang-sa",
+  "title": "Trung Quốc đánh chiếm toàn bộ quần đảo Hoàng Sa",
+  "shortTitle": "TQ chiếm Hoàng Sa (1974)",
+  "displayDate": "Tháng 1 năm 1974",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1954-1975",
+  "parentId": "chu-quyen-bien-dao-viet-nam-1954-1975",
+  "historicalLocations": [],
+  "provinceNames": [],
+  "canonicalSummary": "Trung Quốc - Tháng 1 – 1974: đánh chiếm toàn bộ quần đảo Hoàng Sa. Tháng 1 – 1974, quân đội Sài Gòn thất bại trong chiến đấu bảo vệ quần đảo Hoàng Sa trước cuộc tấn công của quân đội Trung Quốc.",
+  "keyFacts": [
+    "Đối tượng: toàn bộ quần đảo Hoàng Sa",
+    "Diễn ra tháng 1 năm 1974",
+    "Chủ thể: quân đội Trung Quốc",
+    "Quân đội Sài Gòn thất bại trong chiến đấu bảo vệ"
+  ],
+  "sourceFamily": "maritime",
+  "preferredVerificationDomains": [
+    "mofa.gov.vn",
+    "biengioilanhtho.gov.vn",
+    "mod.gov.vn",
+    "qdnd.vn",
+    "chinhphu.vn",
+    "vietnamplus.vn",
+    "luutru.gov.vn"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Trung Quốc đánh chiếm toàn bộ quần đảo Hoàng Sa",
+    "Trung Quốc đánh chiếm toàn bộ quần đảo Hoàng Sa Tháng 1 năm 1974",
+    "Trung Quốc đánh chiếm toàn bộ quần đảo Hoàng Sa Chủ quyền biển đảo Việt Nam 1954-1975",
+    "Trung Quốc đánh chiếm toàn bộ quần đảo Hoàng Sa Đối tượng: toàn bộ quần đảo Hoàng Sa Diễn ra tháng 1 năm 1974",
+    "Trung Quốc đánh chiếm toàn bộ quần đảo Hoàng Sa bản đồ",
+    "Trung Quốc đánh chiếm toàn bộ quần đảo Hoàng Sa hải đồ"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

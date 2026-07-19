@@ -1,0 +1,43 @@
+{
+  "binaryDownloads": 0,
+  "events": [
+    {
+      "eventId": "viet-nam-thoi-dung-nuoc",
+      "historicalVerificationSources": [],
+      "sourceCount": 0,
+      "status": "needs_manual_source_search",
+      "title": "Việt Nam thời dựng nước"
+    },
+    {
+      "eventId": "bac-thuoc-va-dau-tranh-gianh-doc-lap",
+      "historicalVerificationSources": [],
+      "sourceCount": 0,
+      "status": "needs_manual_source_search",
+      "title": "Bắc thuộc và đấu tranh giành độc lập"
+    },
+    {
+      "eventId": "viet-nam-tu-the-ki-x-den-xv",
+      "historicalVerificationSources": [],
+      "sourceCount": 0,
+      "status": "needs_manual_source_search",
+      "title": "Việt Nam từ thế kỉ X đến thế kỉ XV"
+    },
+    {
+      "eventId": "viet-nam-tu-the-ki-xvi-den-xix",
+      "historicalVerificationSources": [],
+      "sourceCount": 0,
+      "status": "needs_manual_source_search",
+      "title": "Việt Nam từ thế kỉ XVI đến thế kỉ XIX"
+    },
+    {
+      "eventId": "viet-nam-1858-1918",
+      "historicalVerificationSources": [],
+      "sourceCount": 0,
+      "status": "needs_manual_source_search",
+      "title": "Việt Nam từ năm 1858 đến năm 1918"
+    }
+  ],
+  "source": "discover_external_media_links",
+  "verifiedSourceCount": 0,
+  "version": 1
+}

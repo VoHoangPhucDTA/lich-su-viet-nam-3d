@@ -1,0 +1,59 @@
+{
+  "eventId": "phan-boi-chau-sang-nhat-ban-1905",
+  "title": "Phan Bội Châu sang Nhật Bản",
+  "shortTitle": "Phan Bội Châu sang Nhật Bản",
+  "displayDate": "Đầu năm 1905",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1858-1918",
+  "parentId": "viet-nam-1858-1918",
+  "historicalLocations": [
+    "Nhật Bản",
+    "Việt Nam"
+  ],
+  "provinceNames": [],
+  "canonicalSummary": "Đầu năm 1905, Phan Bội Châu sang Nhật Bản nhờ giúp đỡ về khí giới, đào tạo nhân lực cho công cuộc cứu nước,... Ông đưa 200 thanh niên Việt Nam sang học tập ở các trường tư thục khác nhau.",
+  "keyFacts": [
+    "Đưa 200 thanh niên Việt Nam sang học tập",
+    "Mục đích: tìm kiếm giúp đỡ về khí giới, đào tạo nhân lực",
+    "Diễn ra đầu năm 1905"
+  ],
+  "sourceFamily": "colonial",
+  "preferredVerificationDomains": [
+    "baotanglichsu.vn",
+    "luutru.gov.vn",
+    "hochiminh.vn",
+    "nhandan.vn",
+    "qdnd.vn",
+    "vietnamplus.vn",
+    "gallica.bnf.fr",
+    "loc.gov"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Phan Bội Châu sang Nhật Bản",
+    "Phan Bội Châu sang Nhật Bản Đầu năm 1905",
+    "Phan Bội Châu sang Nhật Bản Nhật Bản",
+    "Phan Bội Châu sang Nhật Bản Đưa 200 thanh niên Việt Nam sang học tập Mục đích: tìm kiếm giúp đỡ về khí giới, đào tạo nhân lực",
+    "Phan Bội Châu sang Nhật Bản ảnh tư liệu",
+    "Phan Bội Châu sang Nhật Bản chân dung"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

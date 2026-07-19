@@ -17,6 +17,7 @@
 import type { HistoricalEvent } from '../types/event';
 import { getAllRawEvents, getRawEventById } from './eventRegistry';
 import { rawToHistoricalEvent } from './eventAdapter';
+import { matchesNumericFilter } from '../utils/chronology';
 
 /* ─── Build full tree once, then index ─────────────────────────────────── */
 
@@ -56,10 +57,7 @@ export function findEventById(id: string): HistoricalEvent | undefined {
 }
 
 export function getEventsByYear(year: number): HistoricalEvent[] {
-  return HISTORICAL_EVENTS.filter((e) => {
-    const endYear = e.endYear ?? e.startYear;
-    return e.startYear <= year && endYear >= year;
-  });
+  return HISTORICAL_EVENTS.filter((e) => matchesNumericFilter(e, { year }));
 }
 
 /* ─── Timeline range tự động tính từ data thật ──────────────────────────── */

@@ -1,0 +1,60 @@
+{
+  "eventId": "nhat-ban-tuyen-bo-dau-hang-dong-minh",
+  "title": "Nhật Bản tuyên bố đầu hàng Đồng minh không điều kiện",
+  "shortTitle": "Nhật đầu hàng Đồng minh",
+  "displayDate": "Ngày 15 – 8 – 1945",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1919-1945",
+  "parentId": "cach-mang-thang-tam-nam-1945",
+  "historicalLocations": [
+    "Nhật Bản",
+    "Đông Dương"
+  ],
+  "provinceNames": [],
+  "canonicalSummary": "Đến ngày 15 – 8 – 1945, Nhật Bản tuyên bố đầu hàng Đồng minh không điều kiện.",
+  "keyFacts": [
+    "Đầu hàng Đồng minh không điều kiện",
+    "Chính phủ Trần Trọng Kim hoang mang",
+    "Quân Nhật ở Đông Dương rệu rã",
+    "Ngày 15-8-1945"
+  ],
+  "sourceFamily": "revolutionary",
+  "preferredVerificationDomains": [
+    "hochiminh.vn",
+    "tulieuvankien.dangcongsan.vn",
+    "dangcongsan.vn",
+    "baotanglichsu.vn",
+    "nhandan.vn",
+    "qdnd.vn",
+    "vietnamplus.vn",
+    "luutru.gov.vn"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Nhật Bản tuyên bố đầu hàng Đồng minh không điều kiện",
+    "Nhật Bản tuyên bố đầu hàng Đồng minh không điều kiện Ngày 15 – 8 – 1945",
+    "Nhật Bản tuyên bố đầu hàng Đồng minh không điều kiện Nhật Bản",
+    "Nhật Bản tuyên bố đầu hàng Đồng minh không điều kiện Đầu hàng Đồng minh không điều kiện Chính phủ Trần Trọng Kim hoang mang",
+    "Nhật Bản tuyên bố đầu hàng Đồng minh không điều kiện ảnh tư liệu",
+    "Nhật Bản tuyên bố đầu hàng Đồng minh không điều kiện chân dung"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

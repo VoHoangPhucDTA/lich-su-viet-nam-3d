@@ -1,0 +1,62 @@
+{
+  "eventId": "phan-boi-chau-ve-trung-quoc-1911",
+  "title": "Phan Bội Châu về hoạt động ở Trung Quốc",
+  "shortTitle": "Phan Bội Châu về hoạt động ở Trung Quốc",
+  "displayDate": "Năm 1911",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1858-1918",
+  "parentId": "viet-nam-1858-1918",
+  "historicalLocations": [
+    "Nga",
+    "Việt Nam",
+    "Đức",
+    "Trung Quốc"
+  ],
+  "provinceNames": [],
+  "canonicalSummary": "Năm 1911, Phan Bội Châu quyết định về hoạt động ở Trung Quốc. Đầu năm 1912, Phan Bội Châu thành lập Việt Nam Quang phục hội và tham gia thành lập Chấn Hoa Hưng Á, nhằm đánh đuổi thực dân Pháp, giành độc lập. Tại đây, Phan Bội Châu cử người liên lạc với một số tổ chức, đại diện nước ngoài như Công sứ Đức, Đại sứ quán Nga,... để tìm kiếm sự giúp đỡ cho phong trào đấu tranh chống Pháp ở Việt Nam.",
+  "keyFacts": [
+    "Liên lạc với Công sứ Đức, Đại sứ quán Nga",
+    "Diễn ra năm 1911",
+    "Hoạt động ở Trung Quốc",
+    "Thành lập Việt Nam Quang phục hội (1912)"
+  ],
+  "sourceFamily": "colonial",
+  "preferredVerificationDomains": [
+    "baotanglichsu.vn",
+    "luutru.gov.vn",
+    "hochiminh.vn",
+    "nhandan.vn",
+    "qdnd.vn",
+    "vietnamplus.vn",
+    "gallica.bnf.fr",
+    "loc.gov"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Phan Bội Châu về hoạt động ở Trung Quốc",
+    "Phan Bội Châu về hoạt động ở Trung Quốc Năm 1911",
+    "Phan Bội Châu về hoạt động ở Trung Quốc Nga",
+    "Phan Bội Châu về hoạt động ở Trung Quốc Liên lạc với Công sứ Đức, Đại sứ quán Nga Diễn ra năm 1911",
+    "Phan Bội Châu về hoạt động ở Trung Quốc ảnh tư liệu",
+    "Phan Bội Châu về hoạt động ở Trung Quốc chân dung"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

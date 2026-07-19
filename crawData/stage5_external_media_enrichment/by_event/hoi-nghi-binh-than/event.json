@@ -1,0 +1,57 @@
+{
+  "eventId": "hoi-nghi-binh-than",
+  "title": "Hội nghị Bình Than",
+  "shortTitle": "Hội nghị Bình Than",
+  "displayDate": "Năm 1282",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-tu-the-ki-x-den-xv",
+  "parentId": "viet-nam-tu-the-ki-x-den-xv",
+  "historicalLocations": [],
+  "provinceNames": [
+    "Hải Dương"
+  ],
+  "canonicalSummary": "Để chuẩn bị cho cuộc kháng chiến chống Nguyên năm 1285, nhà Trần đã tổ chức Hội nghị Bình Than vào năm 1282, triệu tập vương hầu, quý tộc, tướng lĩnh để bàn kế sách đánh giặc.",
+  "keyFacts": [
+    "Diễn ra năm 1282",
+    "Mục đích: bàn kế sách đánh giặc Nguyên",
+    "Do nhà Trần tổ chức"
+  ],
+  "sourceFamily": "ancient_medieval",
+  "preferredVerificationDomains": [
+    "baotanglichsu.vn",
+    "disanvanhoa.gov.vn",
+    "bvhttdl.gov.vn",
+    "qdnd.vn",
+    "nhandan.vn",
+    "unesco.org",
+    "whc.unesco.org"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Hội nghị Bình Than",
+    "Hội nghị Bình Than Năm 1282",
+    "Hội nghị Bình Than Việt Nam từ thế kỉ X đến thế kỉ XV",
+    "Hội nghị Bình Than Diễn ra năm 1282 Mục đích: bàn kế sách đánh giặc Nguyên",
+    "Hội nghị Bình Than hiện vật",
+    "Hội nghị Bình Than di tích"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

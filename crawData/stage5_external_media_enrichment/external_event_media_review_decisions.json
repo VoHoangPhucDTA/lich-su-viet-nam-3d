@@ -1,0 +1,233 @@
+{
+  "decisions": {
+    "bai-bo-che-do-tem-phieu-o-viet-nam": {
+      "images": [
+        {
+          "approved": false,
+          "historicalVerificationUrl": "https://en.wikipedia.org/wiki/Subsidy_period",
+          "note": "hard_blocker:blocked_data_issue:data_issue: Không dùng ngày 1/4/1989 cho đến khi có nguồn chính thức.",
+          "relationType": "direct"
+        },
+        {
+          "approved": false,
+          "historicalVerificationUrl": "https://en.wikipedia.org/wiki/%C4%90%E1%BB%95i_M%E1%BB%9Bi",
+          "note": "hard_blocker:blocked_data_issue:data_issue: Không dùng ngày 1/4/1989 cho đến khi có nguồn chính thức.",
+          "relationType": "strong_contextual"
+        }
+      ],
+      "reason": "hard_blocker:blocked_data_issue:data_issue: Không dùng ngày 1/4/1989 cho đến khi có nguồn chính thức.",
+      "status": "needs_replacement"
+    },
+    "bru-nay-tuyen-bo-ranh-gioi-them-luc-dia": {
+      "images": [
+        {
+          "approved": false,
+          "historicalVerificationUrl": "https://en.wikipedia.org/wiki/Department_of_Fisheries_%28Brunei%29",
+          "note": "hard_blocker:blocked_needs_direct_source:missing_direct_source: Giữ event ở trạng thái blocked cho đến khi tìm được tư liệu trực tiếp hoặc chấp nhận rõ đây chỉ là contextual.",
+          "relationType": "strong_contextual"
+        },
+        {
+          "approved": false,
+          "historicalVerificationUrl": "https://en.wikipedia.org/wiki/Brunei%E2%80%93Malaysia_border",
+          "note": "hard_blocker:blocked_needs_direct_source:missing_direct_source: Giữ event ở trạng thái blocked cho đến khi tìm được tư liệu trực tiếp hoặc chấp nhận rõ đây chỉ là contextual.",
+          "relationType": "strong_contextual"
+        }
+      ],
+      "reason": "hard_blocker:blocked_needs_direct_source:missing_direct_source: Giữ event ở trạng thái blocked cho đến khi tìm được tư liệu trực tiếp hoặc chấp nhận rõ đây chỉ là contextual.",
+      "status": "needs_replacement"
+    },
+    "bru-nay-tuyen-bo-vung-dac-quyen-kinh-te": {
+      "images": [
+        {
+          "approved": false,
+          "historicalVerificationUrl": "https://en.wikipedia.org/wiki/Brunei%E2%80%93Malaysia_border",
+          "note": "hard_blocker:blocked_needs_direct_source:missing_direct_source: Giữ event ở trạng thái blocked cho đến khi tìm được tư liệu trực tiếp hoặc chấp nhận rõ đây chỉ là contextual.",
+          "relationType": "strong_contextual"
+        },
+        {
+          "approved": false,
+          "historicalVerificationUrl": "https://en.wikipedia.org/wiki/Territorial_disputes_in_the_South_China_Sea",
+          "note": "hard_blocker:blocked_needs_direct_source:missing_direct_source: Giữ event ở trạng thái blocked cho đến khi tìm được tư liệu trực tiếp hoặc chấp nhận rõ đây chỉ là contextual.",
+          "relationType": "strong_contextual"
+        }
+      ],
+      "reason": "hard_blocker:blocked_needs_direct_source:missing_direct_source: Giữ event ở trạng thái blocked cho đến khi tìm được tư liệu trực tiếp hoặc chấp nhận rõ đây chỉ là contextual.",
+      "status": "needs_replacement"
+    },
+    "chu-tich-ho-chi-minh-tham-quan-cang-bai-chay-1961": {
+      "images": [
+        {
+          "approved": false,
+          "historicalVerificationUrl": "https://en.wikipedia.org/wiki/B%C3%A3i_Ch%C3%A1y",
+          "note": "hard_blocker:blocked_needs_direct_source:missing_direct_source: Giữ event ở trạng thái blocked cho đến khi tìm được tư liệu trực tiếp hoặc chấp nhận rõ đây chỉ là contextual.",
+          "relationType": "strong_contextual"
+        },
+        {
+          "approved": false,
+          "historicalVerificationUrl": "https://en.wikipedia.org/wiki/Vietnam_People%27s_Navy",
+          "note": "hard_blocker:blocked_needs_direct_source:missing_direct_source: Giữ event ở trạng thái blocked cho đến khi tìm được tư liệu trực tiếp hoặc chấp nhận rõ đây chỉ là contextual.",
+          "relationType": "strong_contextual"
+        }
+      ],
+      "reason": "hard_blocker:blocked_needs_direct_source:missing_direct_source: Giữ event ở trạng thái blocked cho đến khi tìm được tư liệu trực tiếp hoặc chấp nhận rõ đây chỉ là contextual.",
+      "status": "needs_replacement"
+    },
+    "dai-hoi-dai-bieu-toan-quoc-lan-thu-viii-cua-dang-cong-san-viet-nam": {
+      "images": [
+        {
+          "approved": false,
+          "historicalVerificationUrl": "https://en.wikipedia.org/wiki/8th_Central_Committee_of_the_Communist_Party_of_Vietnam",
+          "note": "hard_blocker:blocked_needs_direct_source:missing_direct_source: Giữ event ở trạng thái blocked cho đến khi tìm được tư liệu trực tiếp hoặc chấp nhận rõ đây chỉ là contextual.",
+          "relationType": "strong_contextual"
+        },
+        {
+          "approved": false,
+          "historicalVerificationUrl": "https://en.wikipedia.org/wiki/8th_Politburo_Standing_Committee_of_the_Communist_Party_of_Vietnam",
+          "note": "hard_blocker:blocked_needs_direct_source:missing_direct_source: Giữ event ở trạng thái blocked cho đến khi tìm được tư liệu trực tiếp hoặc chấp nhận rõ đây chỉ là contextual.",
+          "relationType": "strong_contextual"
+        }
+      ],
+      "reason": "hard_blocker:blocked_needs_direct_source:missing_direct_source: Giữ event ở trạng thái blocked cho đến khi tìm được tư liệu trực tiếp hoặc chấp nhận rõ đây chỉ là contextual.",
+      "status": "needs_replacement"
+    },
+    "dai-loan-chiem-bai-can-ran-san-ho-ban-than": {
+      "images": [
+        {
+          "approved": false,
+          "historicalVerificationUrl": "https://en.wikipedia.org/wiki/Zhongzhou_Reef",
+          "note": "hard_blocker:blocked_data_issue:data_issue: Phân biệt chiếm/kiểm soát với hoạt động xây dựng năm 1995 tại Bãi Bàn Than/Zhongzhou Reef.",
+          "relationType": "direct"
+        },
+        {
+          "approved": false,
+          "historicalVerificationUrl": "https://en.wikipedia.org/wiki/List_of_maritime_features_in_the_Spratly_Islands",
+          "note": "hard_blocker:blocked_data_issue:data_issue: Phân biệt chiếm/kiểm soát với hoạt động xây dựng năm 1995 tại Bãi Bàn Than/Zhongzhou Reef.",
+          "relationType": "direct"
+        }
+      ],
+      "reason": "hard_blocker:blocked_data_issue:data_issue: Phân biệt chiếm/kiểm soát với hoạt động xây dựng năm 1995 tại Bãi Bàn Than/Zhongzhou Reef.",
+      "status": "needs_replacement"
+    },
+    "hoi-nghi-cap-cao-ba-nuoc-viet-nam-lao-cam-pu-chia": {
+      "images": [
+        {
+          "approved": false,
+          "historicalVerificationUrl": "https://en.wikipedia.org/wiki/Norodom_Sihanouk",
+          "note": "hard_blocker:blocked_needs_direct_source:missing_direct_source: Giữ event ở trạng thái blocked cho đến khi tìm được tư liệu trực tiếp hoặc chấp nhận rõ đây chỉ là contextual.",
+          "relationType": "strong_contextual"
+        }
+      ],
+      "reason": "hard_blocker:blocked_needs_direct_source:missing_direct_source: Giữ event ở trạng thái blocked cho đến khi tìm được tư liệu trực tiếp hoặc chấp nhận rõ đây chỉ là contextual.",
+      "status": "needs_replacement"
+    },
+    "lang-co-ten-nom-xuat-hien-som-thoi-ly-tran": {
+      "images": [
+        {
+          "approved": false,
+          "historicalVerificationUrl": "https://en.wikipedia.org/wiki/Ch%E1%BB%AF_N%C3%B4m",
+          "note": "hard_blocker:blocked_needs_direct_source:missing_direct_source: Giữ event ở trạng thái blocked cho đến khi tìm được tư liệu trực tiếp hoặc chấp nhận rõ đây chỉ là contextual.",
+          "relationType": "strong_contextual"
+        }
+      ],
+      "reason": "hard_blocker:blocked_needs_direct_source:missing_direct_source: Giữ event ở trạng thái blocked cho đến khi tìm được tư liệu trực tiếp hoặc chấp nhận rõ đây chỉ là contextual.",
+      "status": "needs_replacement"
+    },
+    "thoi-tran-dat-chuc-xa-quan": {
+      "images": [
+        {
+          "approved": false,
+          "historicalVerificationUrl": "https://en.wikipedia.org/wiki/Commune_%28Vietnam%29",
+          "note": "hard_blocker:blocked_data_issue:data_issue: Xác minh lại phát biểu “thời Trần đặt chức xã quan”.",
+          "relationType": "strong_contextual"
+        }
+      ],
+      "reason": "hard_blocker:blocked_data_issue:data_issue: Xác minh lại phát biểu “thời Trần đặt chức xã quan”.",
+      "status": "needs_replacement"
+    },
+    "viet-nam-ban-hanh-tuyen-bo-vung-bien-them-luc-dia": {
+      "images": [
+        {
+          "approved": false,
+          "historicalVerificationUrl": "https://en.wikipedia.org/wiki/Spratly_Islands_dispute",
+          "note": "hard_blocker:blocked_needs_direct_source:missing_direct_source: Giữ event ở trạng thái blocked cho đến khi tìm được tư liệu trực tiếp hoặc chấp nhận rõ đây chỉ là contextual.",
+          "relationType": "strong_contextual"
+        },
+        {
+          "approved": false,
+          "historicalVerificationUrl": "https://en.wikipedia.org/wiki/Territorial_disputes_in_the_South_China_Sea",
+          "note": "hard_blocker:blocked_needs_direct_source:missing_direct_source: Giữ event ở trạng thái blocked cho đến khi tìm được tư liệu trực tiếp hoặc chấp nhận rõ đây chỉ là contextual.",
+          "relationType": "strong_contextual"
+        }
+      ],
+      "reason": "hard_blocker:blocked_needs_direct_source:missing_direct_source: Giữ event ở trạng thái blocked cho đến khi tìm được tư liệu trực tiếp hoặc chấp nhận rõ đây chỉ là contextual.",
+      "status": "needs_replacement"
+    },
+    "viet-nam-danh-chiem-nua-phia-dong-hoang-sa": {
+      "images": [
+        {
+          "approved": false,
+          "historicalVerificationUrl": "https://en.wikipedia.org/wiki/Paracel_Islands",
+          "note": "hard_blocker:blocked_data_issue:data_issue: Không phê duyệt ảnh trước khi sửa/đối chiếu lại event về nhóm An Vĩnh năm 1956.",
+          "relationType": "strong_contextual"
+        },
+        {
+          "approved": false,
+          "historicalVerificationUrl": "https://en.wikipedia.org/wiki/Timeline_of_the_South_China_Sea_dispute",
+          "note": "hard_blocker:blocked_data_issue:data_issue: Không phê duyệt ảnh trước khi sửa/đối chiếu lại event về nhóm An Vĩnh năm 1956.",
+          "relationType": "strong_contextual"
+        }
+      ],
+      "reason": "hard_blocker:blocked_data_issue:data_issue: Không phê duyệt ảnh trước khi sửa/đối chiếu lại event về nhóm An Vĩnh năm 1956.",
+      "status": "needs_replacement"
+    },
+    "viet-nam-hoan-tat-muc-tieu-thien-nien-ki": {
+      "images": [
+        {
+          "approved": false,
+          "historicalVerificationUrl": "https://en.wikipedia.org/wiki/Millennium_Development_Goals",
+          "note": "hard_blocker:blocked_data_issue:data_issue: Xác minh Việt Nam đạt từng MDG; tránh caption “hoàn tất tất cả MDGs” nếu không có nguồn.",
+          "relationType": "strong_contextual"
+        },
+        {
+          "approved": false,
+          "historicalVerificationUrl": "https://en.wikipedia.org/wiki/Vietnam_and_the_World_Bank",
+          "note": "hard_blocker:blocked_data_issue:data_issue: Xác minh Việt Nam đạt từng MDG; tránh caption “hoàn tất tất cả MDGs” nếu không có nguồn.",
+          "relationType": "strong_contextual"
+        }
+      ],
+      "reason": "hard_blocker:blocked_data_issue:data_issue: Xác minh Việt Nam đạt từng MDG; tránh caption “hoàn tất tất cả MDGs” nếu không có nguồn.",
+      "status": "needs_replacement"
+    },
+    "vndcch-gap-go-dang-cong-san-phap-va-cac-to-chuc-quoc-te": {
+      "images": [
+        {
+          "approved": false,
+          "historicalVerificationUrl": "https://en.wikipedia.org/wiki/1957_International_Meeting_of_Communist_and_Workers_Parties",
+          "note": "hard_blocker:blocked_needs_direct_source:missing_direct_source: Giữ event ở trạng thái blocked cho đến khi tìm được tư liệu trực tiếp hoặc chấp nhận rõ đây chỉ là contextual.",
+          "relationType": "direct"
+        }
+      ],
+      "reason": "hard_blocker:blocked_needs_direct_source:missing_direct_source: Giữ event ở trạng thái blocked cho đến khi tìm được tư liệu trực tiếp hoặc chấp nhận rõ đây chỉ là contextual.",
+      "status": "needs_replacement"
+    },
+    "xa-tro-thanh-ten-goi-pho-bien": {
+      "images": [
+        {
+          "approved": false,
+          "historicalVerificationUrl": "https://en.wikipedia.org/wiki/Commune_%28Vietnam%29",
+          "note": "hard_blocker:blocked_data_issue:data_issue: Xác minh lại phát biểu “xã trở thành tên gọi phổ biến từ thế kỉ X”.",
+          "relationType": "strong_contextual"
+        },
+        {
+          "approved": false,
+          "historicalVerificationUrl": "https://en.wikipedia.org/wiki/Subdivisions_of_Vietnam",
+          "note": "hard_blocker:blocked_data_issue:data_issue: Xác minh lại phát biểu “xã trở thành tên gọi phổ biến từ thế kỉ X”.",
+          "relationType": "strong_contextual"
+        }
+      ],
+      "reason": "hard_blocker:blocked_data_issue:data_issue: Xác minh lại phát biểu “xã trở thành tên gọi phổ biến từ thế kỉ X”.",
+      "status": "needs_replacement"
+    }
+  },
+  "version": 1
+}

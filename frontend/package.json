@@ -5,8 +5,11 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "check:encoding": "node scripts/check-source-encoding.mjs",
+    "build": "npm run check:encoding && tsc -b && vite build",
     "lint": "eslint .",
+    "test": "vitest run",
+    "test:d10d": "node scripts/d10d-chronology-tests.mjs",
     "build:exams-manifest": "node scripts/build-exams-manifest.mjs",
     "build:topic-index": "node scripts/build-topic-index.mjs",
     "build:exam-dataset": "node scripts/build-exam-dataset.mjs",
@@ -15,7 +18,6 @@
     "predev": "npm run build:data",
     "prebuild": "npm run build:data",
     "preview": "vite preview",
-    "test": "vitest",
     "test:run": "vitest run"
   },
   "dependencies": {

@@ -1,0 +1,59 @@
+{
+  "eventId": "dap-tan-cuoc-hanh-quan-xam-luoc-vao-cam-pu-chia-1970",
+  "title": "Đập tan cuộc hành quân xâm lược của Mỹ và quân đội Sài Gòn vào Cam-pu-chia",
+  "shortTitle": "Đánh bại xâm lược Cam-pu-chia",
+  "displayDate": "Từ ngày 30 – 4 đến ngày 30-6-1970",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1954-1975",
+  "parentId": "viet-nam-1954-1975",
+  "historicalLocations": [
+    "Cam-pu-chia"
+  ],
+  "provinceNames": [],
+  "canonicalSummary": "Từ ngày 30 – 4 đến ngày 30-6-1970, với sự hỗ trợ của quân Cam-pu-chia, quân đội Việt Nam đã đập tan cuộc hành quân xâm lược của 10 vạn quân Mỹ và quân đội Sài Gòn.",
+  "keyFacts": [
+    "Diễn ra từ 30-4 đến 30-6-1970",
+    "Đánh bại 10 vạn quân Mỹ và quân đội Sài Gòn",
+    "Quân đội Việt Nam phối hợp với quân Cam-pu-chia"
+  ],
+  "sourceFamily": "war_1945_1975",
+  "preferredVerificationDomains": [
+    "btlsqsvn.org.vn",
+    "qdnd.vn",
+    "nhandan.vn",
+    "vietnamplus.vn",
+    "hochiminh.vn",
+    "baotanglichsu.vn",
+    "luutru.gov.vn",
+    "loc.gov",
+    "archives.gov"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Đập tan cuộc hành quân xâm lược của Mỹ và quân đội Sài Gòn vào Cam-pu-chia",
+    "Đập tan cuộc hành quân xâm lược của Mỹ và quân đội Sài Gòn vào Cam-pu-chia Từ ngày 30 – 4 đến ngày 30-6-1970",
+    "Đập tan cuộc hành quân xâm lược của Mỹ và quân đội Sài Gòn vào Cam-pu-chia Cam-pu-chia",
+    "Đập tan cuộc hành quân xâm lược của Mỹ và quân đội Sài Gòn vào Cam-pu-chia Diễn ra từ 30-4 đến 30-6-1970 Đánh bại 10 vạn quân Mỹ và quân đội Sài Gòn",
+    "Đập tan cuộc hành quân xâm lược của Mỹ và quân đội Sài Gòn vào Cam-pu-chia ảnh tư liệu",
+    "Đập tan cuộc hành quân xâm lược của Mỹ và quân đội Sài Gòn vào Cam-pu-chia chiến dịch"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

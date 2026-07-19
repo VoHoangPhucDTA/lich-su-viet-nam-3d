@@ -66,8 +66,6 @@ export default function ForgotPasswordPage() {
 
       {success ? (
         <div className="animate-fade-in">
-          <AuthFormMessage type="success" message={success} />
-
           <div
             style={{
               textAlign: 'center',

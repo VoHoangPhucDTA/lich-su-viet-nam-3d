@@ -1,0 +1,59 @@
+{
+  "eventId": "trung-quoc-tu-choi-boi-thuong-vu-tau-dam-hoang-sa",
+  "title": "Trung Quốc từ chối bồi thường vụ tàu đắm ở Hoàng Sa",
+  "shortTitle": "Trung Quốc từ chối bồi thường vụ tàu đắm ở Hoàng Sa",
+  "displayDate": "Năm 1898",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1858-1918",
+  "parentId": "chu-quyen-bien-dao-viet-nam-1858-1918",
+  "historicalLocations": [
+    "quần đảo Hoàng Sa",
+    "bãi đá Bắc",
+    "Hải Nam"
+  ],
+  "provinceNames": [],
+  "canonicalSummary": "Năm 1898, khi Công ti Bảo hiểm Anh đòi Trung Quốc phải bồi thường việc người dân Hải Nam \"hôi của\" tàu Bê-lô-na của Đức bị đắm vào năm 1894 ở ngoài khơi bãi đá Bắc và tàu U-nô-phi Ma-ru của Nhật Bản đắm năm 1896 cũng ở quần đảo Hoàng Sa. Trung Quốc đã nêu lí do quần đảo Hoàng Sa không thuộc chủ quyền Trung Quốc để dứt khoát từ chối bồi thường.",
+  "keyFacts": [
+    "Diễn ra năm 1898",
+    "Liên quan đến việc bồi thường tàu đắm của Anh, Đức, Nhật",
+    "Trung Quốc từ chối bồi thường với lí do Hoàng Sa không thuộc chủ quyền Trung Quốc"
+  ],
+  "sourceFamily": "maritime",
+  "preferredVerificationDomains": [
+    "mofa.gov.vn",
+    "biengioilanhtho.gov.vn",
+    "mod.gov.vn",
+    "qdnd.vn",
+    "chinhphu.vn",
+    "vietnamplus.vn",
+    "luutru.gov.vn"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Trung Quốc từ chối bồi thường vụ tàu đắm ở Hoàng Sa",
+    "Trung Quốc từ chối bồi thường vụ tàu đắm ở Hoàng Sa Năm 1898",
+    "Trung Quốc từ chối bồi thường vụ tàu đắm ở Hoàng Sa quần đảo Hoàng Sa",
+    "Trung Quốc từ chối bồi thường vụ tàu đắm ở Hoàng Sa Diễn ra năm 1898 Liên quan đến việc bồi thường tàu đắm của Anh, Đức, Nhật",
+    "Trung Quốc từ chối bồi thường vụ tàu đắm ở Hoàng Sa bản đồ",
+    "Trung Quốc từ chối bồi thường vụ tàu đắm ở Hoàng Sa hải đồ"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

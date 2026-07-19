@@ -1,4 +1,4 @@
-import type { EventType, GeoType } from '../types/event';
+import type { EventType, GeoType, RelatedHistoricalEvents } from '../types/event';
 
 /**
  * Shape của một event chi tiết được EventDetailPage và các sub-component sử dụng.
@@ -64,6 +64,7 @@ export interface MockEventDetail {
     detailedNarrative?: string;
     significance?: string;
     keyFacts?: string[];
+    sourceContent?: string;
     textbookRefs?: {
       grade: string;
       book: string;
@@ -72,6 +73,7 @@ export interface MockEventDetail {
       pageStart?: number;
       pageEnd?: number;
       excerpt?: string;
+      url?: string;
     }[];
   };
 
@@ -89,6 +91,18 @@ export interface MockEventDetail {
     }[];
   };
 
+  externalSources?: {
+    sourceType: string;
+    title: string;
+    canonicalUri?: string;
+    language?: string;
+    sourceOrder?: number;
+    matchType: string;
+    primary: boolean;
+    verificationStatus: string;
+    notes?: string;
+  }[];
+
   media?: {
     thumbnail?: string;
     items?: {
@@ -103,6 +117,7 @@ export interface MockEventDetail {
     rootId?: string;
     parentId?: string;
     childIds?: string[];
+    childCount?: number;
     level?: number;
     orderInParent?: number;
   };
@@ -113,6 +128,8 @@ export interface MockEventDetail {
     predecessorEventIds?: string[];
     successorEventIds?: string[];
   };
+
+  relatedEvents?: RelatedHistoricalEvents;
 
   display: {
     showOnHomepage: boolean;

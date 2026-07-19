@@ -1,0 +1,9 @@
+{
+  "eventId": "cuoc-tien-cong-chien-luoc-dong-xuan-1953-1954",
+  "status": "pending_download",
+  "images": [],
+  "expected": [
+    "image_01.<ext>",
+    "image_02.<ext>"
+  ]
+}

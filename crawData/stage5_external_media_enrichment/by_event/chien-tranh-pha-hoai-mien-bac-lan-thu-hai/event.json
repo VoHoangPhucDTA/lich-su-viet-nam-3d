@@ -1,0 +1,63 @@
+{
+  "eventId": "chien-tranh-pha-hoai-mien-bac-lan-thu-hai",
+  "title": "Chiến tranh phá hoại miền Bắc lần thứ hai của Mỹ",
+  "shortTitle": "Chiến tranh phá hoại miền Bắc lần 2",
+  "displayDate": "Từ ngày 16-4-1972 đến 29-12-1972",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1954-1975",
+  "parentId": "khang-chien-chong-my-cuu-nuoc",
+  "historicalLocations": [
+    "miền Bắc"
+  ],
+  "provinceNames": [
+    "Hà Nội",
+    "Hải Phòng"
+  ],
+  "canonicalSummary": "Với tư thế luôn sẵn sàng chiến đấu, quân dân miền Bắc đã chủ động, kịp thời giáng trả ngay từ trận đầu cuộc chiến tranh phá hoại lần thứ hai bằng không quân và hải quân của Mỹ (bắt đầu từ ngày 16-4-1972), đặc biệt đã đánh bại hoàn toàn cuộc tập kích chiến lược bằng máy bay B52 của Mỹ vào Hà Nội, Hải Phòng và một số thành phố trong 12 ngày đêm (từ 18 đến 29 – 12 – 1972).",
+  "keyFacts": [
+    "Bắt đầu từ 16-4-1972",
+    "Buộc Mỹ trở lại bàn hội nghị và kí Hiệp định Pa-ri",
+    "Thắng lợi được coi như 'Điện Biên Phủ trên không'",
+    "Đánh bại cuộc tập kích chiến lược bằng máy bay B52 vào Hà Nội, Hải Phòng (18-29/12/1972)"
+  ],
+  "sourceFamily": "war_1945_1975",
+  "preferredVerificationDomains": [
+    "btlsqsvn.org.vn",
+    "qdnd.vn",
+    "nhandan.vn",
+    "vietnamplus.vn",
+    "hochiminh.vn",
+    "baotanglichsu.vn",
+    "luutru.gov.vn",
+    "loc.gov",
+    "archives.gov"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Chiến tranh phá hoại miền Bắc lần thứ hai của Mỹ",
+    "Chiến tranh phá hoại miền Bắc lần thứ hai của Mỹ Từ ngày 16-4-1972 đến 29-12-1972",
+    "Chiến tranh phá hoại miền Bắc lần thứ hai của Mỹ miền Bắc",
+    "Chiến tranh phá hoại miền Bắc lần thứ hai của Mỹ Bắt đầu từ 16-4-1972 Buộc Mỹ trở lại bàn hội nghị và kí Hiệp định Pa-ri",
+    "Chiến tranh phá hoại miền Bắc lần thứ hai của Mỹ ảnh tư liệu",
+    "Chiến tranh phá hoại miền Bắc lần thứ hai của Mỹ chiến dịch"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

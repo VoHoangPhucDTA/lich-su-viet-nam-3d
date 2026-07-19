@@ -1,0 +1,61 @@
+{
+  "eventId": "thanh-lap-huyen-hoang-sa-va-huyen-truong-sa",
+  "title": "Thành lập huyện Hoàng Sa và huyện Trường Sa",
+  "shortTitle": "Thành lập huyện Hoàng Sa, Trường Sa",
+  "displayDate": "Năm 1982",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1975-den-nay",
+  "parentId": "chu-quyen-bien-dao-viet-nam-1975-den-nay",
+  "historicalLocations": [
+    "xã Song Tử Tây"
+  ],
+  "provinceNames": [
+    "Đà Nẵng",
+    "Khánh Hòa"
+  ],
+  "canonicalSummary": "Năm 1982, huyện Hoàng Sa thuộc tỉnh Quảng Nam - Đà Nẵng (từ năm 1997 thuộc thành phố Đà Nẵng) và huyện Trường Sa thuộc tỉnh Khánh Hoà được thành lập. Trong huyện Trường Sa có các đơn vị hành chính nhỏ hơn như: thị trấn Trường Sa (bao gồm đảo Trường Sa Lớn và phụ cận); xã Song Tử Tây (đảo Song Tử Tây và phụ cận); xã Sinh Tồn (đảo Sinh Tồn và phụ cận).",
+  "keyFacts": [
+    "Huyện Hoàng Sa thuộc Quảng Nam - Đà Nẵng (nay Đà Nẵng)",
+    "Trong huyện Trường Sa có các đơn vị hành chính nhỏ hơn",
+    "Thành lập năm 1982",
+    "Huyện Trường Sa thuộc Khánh Hoà"
+  ],
+  "sourceFamily": "maritime",
+  "preferredVerificationDomains": [
+    "mofa.gov.vn",
+    "biengioilanhtho.gov.vn",
+    "mod.gov.vn",
+    "qdnd.vn",
+    "chinhphu.vn",
+    "vietnamplus.vn",
+    "luutru.gov.vn"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Thành lập huyện Hoàng Sa và huyện Trường Sa",
+    "Thành lập huyện Hoàng Sa và huyện Trường Sa Năm 1982",
+    "Thành lập huyện Hoàng Sa và huyện Trường Sa xã Song Tử Tây",
+    "Thành lập huyện Hoàng Sa và huyện Trường Sa Huyện Hoàng Sa thuộc Quảng Nam - Đà Nẵng (nay Đà Nẵng) Trong huyện Trường Sa có các đơn vị hành chính nhỏ hơn",
+    "Thành lập huyện Hoàng Sa và huyện Trường Sa bản đồ",
+    "Thành lập huyện Hoàng Sa và huyện Trường Sa hải đồ"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

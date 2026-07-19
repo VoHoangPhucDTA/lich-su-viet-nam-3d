@@ -1,0 +1,60 @@
+{
+  "eventId": "khoi-nghia-hai-ba-trung",
+  "title": "Khởi nghĩa Hai Bà Trưng",
+  "shortTitle": "Khởi nghĩa Hai Bà Trưng",
+  "displayDate": "40-43",
+  "eventLevel": "atomic",
+  "rootId": "bac-thuoc-va-dau-tranh-gianh-doc-lap",
+  "parentId": "bac-thuoc-va-dau-tranh-gianh-doc-lap",
+  "historicalLocations": [],
+  "provinceNames": [
+    "Hà Nội",
+    "Bắc Ninh"
+  ],
+  "canonicalSummary": "Khởi nghĩa Hai Bà Trưng diễn ra từ năm 40 đến năm 43. Hai Bà Trưng dựng cờ khởi nghĩa ở Hát Môn, đánh chiếm Mê Linh, Cổ Loa và Luy Lâu, khiến Thái thú Tô Định phải bỏ chạy. Trưng Trắc lên làm vua. Năm 43, Mã Viện đem quân tấn công, khởi nghĩa thất bại.",
+  "keyFacts": [
+    "Thái thú Tô Định phải bỏ chạy về nước",
+    "Hai Bà Trưng dựng cờ khởi nghĩa ở Hát Môn (Phúc Thọ, Hà Nội)",
+    "Năm 43, Mã Viện đem quân tấn công, khởi nghĩa thất bại",
+    "Nghĩa quân đánh chiếm Mê Linh, Cổ Loa (Hà Nội) và Luy Lâu (Bắc Ninh)",
+    "Trưng Trắc lên làm vua"
+  ],
+  "sourceFamily": "ancient_medieval",
+  "preferredVerificationDomains": [
+    "baotanglichsu.vn",
+    "disanvanhoa.gov.vn",
+    "bvhttdl.gov.vn",
+    "qdnd.vn",
+    "nhandan.vn",
+    "unesco.org",
+    "whc.unesco.org"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Khởi nghĩa Hai Bà Trưng",
+    "Khởi nghĩa Hai Bà Trưng 40-43",
+    "Khởi nghĩa Hai Bà Trưng Bắc thuộc và đấu tranh giành độc lập",
+    "Khởi nghĩa Hai Bà Trưng Thái thú Tô Định phải bỏ chạy về nước Hai Bà Trưng dựng cờ khởi nghĩa ở Hát Môn (Phúc Thọ, Hà Nội)",
+    "Khởi nghĩa Hai Bà Trưng hiện vật",
+    "Khởi nghĩa Hai Bà Trưng di tích"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

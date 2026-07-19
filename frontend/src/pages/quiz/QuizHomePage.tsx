@@ -1,368 +1,157 @@
-/**
- * QuizHomePage – Landing page for the AI/RAG Quiz module.
- * Shows overview, stats teaser, and entry points for guest & authenticated users.
- */
-
+import {
+  ArrowRight,
+  BookOpenCheck,
+  BrainCircuit,
+  ChartNoAxesCombined,
+  ClipboardList,
+  History,
+  Target,
+  UserRound,
+} from 'lucide-react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../auth/AuthContext';
-import { useState, useEffect } from 'react';
+import PublicPageHeader from '../../components/public/PublicPageHeader';
 import * as quizService from '../../services/quizService';
 
-function GuestBadge() {
+function StatCard({
+  label,
+  value,
+  icon: Icon,
+}: {
+  label: string;
+  value: string | number;
+  icon: typeof ClipboardList;
+}) {
   return (
-    <span
-      className="badge-economic"
-      style={{
-        display: 'inline-flex',
-        alignItems: 'center',
-        gap: '0.35rem',
-        padding: '0.25rem 0.75rem',
-        borderRadius: '9999px',
-        fontSize: '0.75rem',
-        fontWeight: 600,
-      }}
-    >
-      👤 Chế độ khách
-    </span>
-  );
-}
-
-function StatCard({ label, value, icon, color }: { label: string; value: string | number; icon: string; color: string }) {
-  return (
-    <div
-      style={{
-        background: 'var(--bg-surface)',
-        border: `1px solid ${color}30`,
-        borderRadius: '0.875rem',
-        padding: '1rem',
-        display: 'flex',
-        alignItems: 'center',
-        gap: '1rem',
-        flex: 1,
-        minWidth: '150px',
-        boxShadow: 'var(--shadow)'
-      }}
-    >
-      <div style={{ fontSize: '1.75rem', background: 'var(--bg-app)', padding: '0.6rem', borderRadius: '0.625rem', display: 'flex', alignItems: 'center', justifyContent: 'center', color: color }}>
-        {icon}
-      </div>
+    <div className="quiz-stat-card">
+      <span className="quiz-preview-icon"><Icon size={19} aria-hidden="true" /></span>
       <div>
-        <div style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--text-primary)' }}>{value}</div>
-        <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>{label}</div>
+        <strong className="serif-heading">{value}</strong>
+        <span>{label}</span>
       </div>
     </div>
   );
 }
 
-function ActionCard({ to, title, desc, icon, highlight }: { to: string; title: string; desc: string; icon: string; highlight?: string }) {
+function ActionCard({
+  to,
+  title,
+  description,
+  icon: Icon,
+}: {
+  to: string;
+  title: string;
+  description: string;
+  icon: typeof BrainCircuit;
+}) {
   return (
-    <Link
-      to={to}
-      className="glass"
-      style={{
-        background: 'var(--bg-card)',
-        border: `1px solid ${highlight ? 'var(--accent)' : 'var(--border)'}`,
-        borderRadius: '1rem',
-        padding: '1.5rem',
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '0.75rem',
-        textDecoration: 'none',
-        flex: 1,
-        minWidth: '220px',
-        boxShadow: highlight ? '0 4px 20px var(--accent-soft)' : 'var(--shadow)',
-        transition: 'transform 0.2s, box-shadow 0.2s'
-      }}
-      onMouseEnter={e => {
-        e.currentTarget.style.transform = 'translateY(-4px)';
-        if (!highlight) e.currentTarget.style.boxShadow = '0 10px 25px var(--shadow)';
-        else e.currentTarget.style.boxShadow = '0 10px 25px var(--accent-soft)';
-      }}
-      onMouseLeave={e => {
-        e.currentTarget.style.transform = '';
-        e.currentTarget.style.boxShadow = highlight ? '0 4px 20px var(--accent-soft)' : 'var(--shadow)';
-      }}
-    >
-      <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-        <div style={{ fontSize: '2rem' }}>{icon}</div>
-        <h3 style={{ margin: 0, fontSize: '1.1rem', fontWeight: 700, color: 'var(--text-primary)' }}>{title}</h3>
-      </div>
-      <p style={{ margin: 0, fontSize: '0.85rem', color: 'var(--text-secondary)', lineHeight: 1.5 }}>
-        {desc}
-      </p>
+    <Link to={to} className="public-card group block p-5 no-underline transition hover:-translate-y-0.5 hover:shadow-[var(--shadow)]">
+      <span className="quiz-preview-icon"><Icon size={20} aria-hidden="true" /></span>
+      <h3 className="serif-heading mt-4 text-2xl font-bold text-[var(--text-primary)] group-hover:text-[var(--accent)]">{title}</h3>
+      <p className="mt-2 text-sm leading-6 text-[var(--text-muted)]">{description}</p>
+      <span className="mt-4 inline-flex items-center gap-2 text-sm font-bold text-[var(--accent)]">
+        Khám phá <ArrowRight size={15} aria-hidden="true" />
+      </span>
     </Link>
   );
 }
 
 export default function QuizHomePage() {
   const { isAuthenticated, currentUser } = useAuth();
-
-  // Stats mock state
+  const [attemptCount, setAttemptCount] = useState(0);
   const [totalQuestions, setTotalQuestions] = useState(0);
   const [avgScore, setAvgScore] = useState(0);
 
   useEffect(() => {
-    // Load actual history to calculate some basic initial stats if present
+    let cancelled = false;
     quizService.getQuizHistory(currentUser?.id).then(history => {
-      if (history.length > 0) {
-        const total = history.reduce((acc, r) => acc + r.totalQuestions, 0);
-        const avg = history.reduce((acc, r) => acc + r.score10, 0) / history.length;
-        setTotalQuestions(total);
-        setAvgScore(Math.round(avg * 10) / 10);
-      }
+      if (cancelled) return;
+      setAttemptCount(history.length);
+      setTotalQuestions(history.reduce((total, result) => total + result.totalQuestions, 0));
+      setAvgScore(history.length
+        ? Math.round((history.reduce((total, result) => total + result.score10, 0) / history.length) * 10) / 10
+        : 0);
     });
+    return () => {
+      cancelled = true;
+    };
   }, [currentUser?.id]);
 
   return (
-    <div
-      style={{
-        minHeight: '100vh',
-        background: 'var(--bg-app)',
-        color: 'var(--text-primary)',
-        fontFamily: 'Inter, sans-serif',
-        overflowY: 'auto',
-      }}
-    >
-      {/* ── Top nav ── */}
-      <header
-        style={{
-          height: '3.5rem',
-          background: 'var(--bg-app)',
-          borderBottom: '1px solid var(--border)',
-          backdropFilter: 'blur(12px)',
-          display: 'flex',
-          alignItems: 'center',
-          padding: '0 1.5rem',
-          gap: '1rem',
-          position: 'sticky',
-          top: 0,
-          zIndex: 50,
-        }}
-      >
-        <Link
-          to="/"
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '0.5rem',
-            textDecoration: 'none',
-          }}
-        >
-          <span style={{ fontSize: '1.25rem' }}>🗺️</span>
-          <span
-            style={{
-              fontWeight: 700,
-              fontSize: '0.9rem',
-              background: 'linear-gradient(135deg, var(--accent), var(--accent-secondary))',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-            }}
-          >
-            Lịch Sử Việt Nam 3D
-          </span>
-        </Link>
-
-        <span style={{ color: 'var(--text-muted)' }}>·</span>
-        <span style={{ fontSize: '0.85rem', color: 'var(--accent)', fontWeight: 700 }}>Trắc nghiệm AI</span>
-
-        <div style={{ flex: 1 }} />
-
-        {!isAuthenticated && <GuestBadge />}
-
-        {isAuthenticated ? (
-          <Link
-            to="/profile/dashboard"
-            style={{
-              fontSize: '0.8rem',
-              color: 'var(--text-secondary)',
-              textDecoration: 'none',
-              padding: '0.375rem 0.875rem',
-              borderRadius: '0.5rem',
-              background: 'var(--bg-surface)',
-              border: '1px solid var(--border)',
-            }}
-          >
-            👤 {currentUser?.fullName?.split(' ').pop()}
-          </Link>
-        ) : (
-          <Link
-            to="/login"
-            style={{
-              fontSize: '0.8rem',
-              color: 'var(--accent)',
-              textDecoration: 'none',
-              padding: '0.375rem 0.875rem',
-              borderRadius: '0.5rem',
-              background: 'var(--accent-soft)',
-              border: '1px solid var(--accent-soft)',
-            }}
-          >
-            Đăng nhập
-          </Link>
-        )}
-      </header>
-
-      {/* ── Hero ── */}
-      <main style={{ maxWidth: '64rem', margin: '0 auto', padding: '3rem 1.5rem 4rem' }}>
-        {/* Decorative glow */}
-        <div
-          aria-hidden="true"
-          style={{
-            position: 'fixed',
-            top: '20%',
-            left: '50%',
-            transform: 'translate(-50%, 0)',
-            width: '600px',
-            height: '400px',
-            borderRadius: '50%',
-            background: 'var(--accent-soft)',
-            opacity: 0.2,
-            filter: 'blur(60px)',
-            pointerEvents: 'none',
-          }}
+    <div className="public-shell quiz-shell">
+      <main className="public-content space-y-10">
+        <PublicPageHeader
+          eyebrow="Ôn luyện lịch sử"
+          title="Trắc nghiệm lịch sử với AI"
+          description="Tạo bài luyện tập theo sự kiện, chủ đề hoặc khối lớp và theo dõi tiến độ học tập của bạn."
+          showBack
+          action={(
+            <span className="inline-flex items-center gap-2 rounded-[var(--admin-radius)] border border-[var(--border)] bg-[var(--bg-card)] px-3 py-2 text-xs font-semibold text-[var(--text-muted)]">
+              <UserRound size={15} aria-hidden="true" />
+              {isAuthenticated ? currentUser?.fullName || 'Học sinh' : 'Chế độ khách'}
+            </span>
+          )}
         />
 
-        <div className="animate-fade-in" style={{ textAlign: 'center', marginBottom: '3rem', position: 'relative' }}>
-          <div
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              width: '4.5rem',
-              height: '4.5rem',
-              borderRadius: '1.25rem',
-              background: 'var(--accent)',
-              fontSize: '2rem',
-              marginBottom: '1.25rem',
-              boxShadow: '0 0 40px var(--accent-soft)',
-            }}
-          >
-            🤖
+        <section className="quiz-hero">
+          <div className="relative z-10 max-w-2xl">
+            <h2 className="serif-heading mt-2 text-4xl font-bold text-[var(--text-primary)] sm:text-5xl">
+              Luyện đúng trọng tâm, hiểu rõ từng đáp án
+            </h2>
+            <p className="mt-4 max-w-xl text-sm leading-7 text-[var(--text-secondary)] sm:text-base">
+              Cấu hình phạm vi kiến thức, số câu và mức độ nhận thức. Mỗi kết quả đều có lời giải cùng nguồn tham khảo để bạn tự học hiệu quả hơn.
+            </p>
+            <div className="mt-7 flex flex-wrap gap-3">
+              <Link to="/quiz/generate" className="public-primary-button no-underline">
+                <BrainCircuit size={17} aria-hidden="true" /> Tạo bài trắc nghiệm
+              </Link>
+              <Link to="/quiz/history" className="public-secondary-button no-underline">
+                <History size={17} aria-hidden="true" /> Xem lịch sử
+              </Link>
+            </div>
           </div>
+          <div className="quiz-hero-mark" aria-hidden="true"><BookOpenCheck size={150} strokeWidth={0.7} /></div>
+        </section>
 
-          <h1
-            style={{
-              fontSize: 'clamp(2rem, 5vw, 3rem)',
-              fontWeight: 800,
-              color: 'var(--text-primary)',
-              marginBottom: '0.75rem',
-              lineHeight: 1.2,
-              letterSpacing: '-0.02em'
-            }}
-          >
-            Luyện trắc nghiệm Lịch sử với AI
-          </h1>
+        <section>
+          <div className="mb-5">
+            <p className="public-eyebrow">Tiến độ thực tế</p>
+            <h2 className="serif-heading mt-2 text-3xl font-bold">Kết quả học tập của bạn</h2>
+          </div>
+          <div className="grid gap-4 sm:grid-cols-3">
+            <StatCard label="Bài đã hoàn thành" value={attemptCount} icon={ClipboardList} />
+            <StatCard label="Câu đã làm" value={totalQuestions} icon={Target} />
+            <StatCard label="Điểm trung bình" value={avgScore ? `${avgScore}/10` : '—'} icon={ChartNoAxesCombined} />
+          </div>
+        </section>
 
-          <p
-            style={{
-              fontSize: '1.1rem',
-              color: 'var(--text-secondary)',
-              maxWidth: '42rem',
-              margin: '0 auto 2rem',
-              lineHeight: 1.6,
-            }}
-          >
-            Tạo câu hỏi từ sự kiện, chủ đề hoặc giai đoạn lịch sử theo nội dung SGK
-          </p>
-
-          {/* CTA */}
-          <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem', flexWrap: 'wrap' }}>
-            <Link
+        <section>
+          <div className="mb-5">
+            <p className="public-eyebrow">Không gian học tập</p>
+            <h2 className="serif-heading mt-2 text-3xl font-bold">Chọn hoạt động</h2>
+          </div>
+          <div className="grid gap-5 md:grid-cols-3">
+            <ActionCard
               to="/quiz/generate"
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '0.6rem',
-                padding: '0.875rem 2rem',
-                borderRadius: '0.75rem',
-                background: 'var(--accent)',
-                color: '#ffffff',
-                fontWeight: 700,
-                fontSize: '1rem',
-                textDecoration: 'none',
-                boxShadow: '0 4px 12px var(--accent-soft)',
-                transition: 'transform 0.2s',
-              }}
-              onMouseEnter={e => e.currentTarget.style.transform = 'translateY(-2px)'}
-              onMouseLeave={e => e.currentTarget.style.transform = ''}
-            >
-              ✨ Tạo câu hỏi
-            </Link>
-
-            <Link
+              title="Tạo bài mới"
+              description="Tùy chỉnh phạm vi, độ khó, mức độ nhận thức và số lượng câu hỏi."
+              icon={BrainCircuit}
+            />
+            <ActionCard
               to="/quiz/history"
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '0.5rem',
-                padding: '0.875rem 1.75rem',
-                borderRadius: '0.75rem',
-                background: 'var(--bg-surface)',
-                border: '1px solid var(--border)',
-                color: 'var(--text-primary)',
-                fontWeight: 600,
-                fontSize: '1rem',
-                textDecoration: 'none',
-                transition: 'background 0.2s',
-              }}
-              onMouseEnter={e => e.currentTarget.style.background = 'var(--bg-card)'}
-              onMouseLeave={e => e.currentTarget.style.background = 'var(--bg-surface)'}
-            >
-              📜 Xem lịch sử
-            </Link>
+              title="Lịch sử làm bài"
+              description="Xem lại điểm số, lời giải và các nguồn kiến thức của những bài đã hoàn thành."
+              icon={History}
+            />
+            <ActionCard
+              to="/quiz/generate?mode=weakness"
+              title="Ôn theo điểm yếu"
+              description="Bắt đầu cấu hình một bài luyện tập mới tập trung vào nội dung cần củng cố."
+              icon={Target}
+            />
           </div>
-        </div>
-
-        {/* ── Stats Mock ── */}
-        <div
-          className="animate-fade-in"
-          style={{
-            display: 'flex',
-            flexWrap: 'wrap',
-            gap: '1rem',
-            marginBottom: '3rem',
-            animationDelay: '0.1s',
-            animationFillMode: 'both'
-          }}
-        >
-          <StatCard label="Câu đã làm" value={totalQuestions > 0 ? totalQuestions : 124} icon="✍️" color="#4f6f95" />
-          <StatCard label="Điểm trung bình" value={avgScore > 0 ? avgScore : 8.5} icon="⭐" color="#c29b4b" />
-          <StatCard label="Chủ đề cần ôn" value="Kháng chiến chống Pháp" icon="🎯" color="#9f1d2d" />
-          <StatCard label="Chuỗi ngày học" value="7 ngày" icon="🔥" color="#2f7a57" />
-        </div>
-
-        {/* ── Functional Cards ── */}
-        <h2 style={{ fontSize: '1.25rem', fontWeight: 700, marginBottom: '1.25rem', color: 'var(--text-primary)' }}>Tính năng chính</h2>
-        <div
-          className="animate-fade-in"
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-            gap: '1.25rem',
-            animationDelay: '0.2s',
-            animationFillMode: 'both'
-          }}
-        >
-          <ActionCard
-            to="/quiz/generate"
-            title="Tạo bài trắc nghiệm mới"
-            desc="Tùy chỉnh nội dung, độ khó và số lượng câu hỏi. RAG AI sẽ tự động sinh đề theo yêu cầu của bạn."
-            icon="🚀"
-            highlight="var(--accent)"
-          />
-          <ActionCard
-            to="/quiz/history"
-            title="Xem lịch sử làm bài"
-            desc="Xem lại các đề đã làm, tra cứu kết quả chi tiết, lời giải thích và các trích dẫn nguồn."
-            icon="📚"
-          />
-          <ActionCard
-            to="/quiz/generate?mode=weakness"
-            title="Ôn tập theo điểm yếu"
-            desc="Hệ thống tự động phân tích lịch sử làm bài và gợi ý tập trung vào các giai đoạn bạn hay sai."
-            icon="📈"
-          />
-        </div>
+        </section>
       </main>
     </div>
   );

@@ -1,0 +1,63 @@
+{
+  "eventId": "vndcch-thiet-lap-quan-he-ngoai-giao-voi-lao-campuchia-va-ung-ho-phong-trao-giai-phong-dan-toc",
+  "title": "Việt Nam Dân chủ Cộng hoà thiết lập quan hệ ngoại giao với Lào, Campuchia và ủng hộ phong trào giải phóng dân tộc",
+  "shortTitle": "Việt Nam Dân chủ Cộng hoà thiết lập quan hệ ngoại giao với Lào, Campuchia và ủng hộ phong trào giải phóng dân tộc",
+  "displayDate": "Trong kháng chiến chống Mỹ (1954-1975)",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1954-1975",
+  "parentId": "khang-chien-chong-my-cuu-nuoc",
+  "historicalLocations": [
+    "Á",
+    "Phi",
+    "Cam-pu-chia",
+    "Lào",
+    "Mỹ La-tinh"
+  ],
+  "provinceNames": [],
+  "canonicalSummary": "Việt Nam Dân chủ Cộng hoà thiết lập quan hệ ngoại giao với Lào, xây dựng quan hệ láng giềng hữu nghị với Cam-pu-chia; ủng hộ cuộc đấu tranh chống chủ nghĩa thực dân của nhân dân các nước Á, Phi Mỹ La-tinh,... phát triển mối quan hệ liên minh chiến đấu chống các lực lượng yêu nước, kháng chiến của Lào, Cam-pu-chia.",
+  "keyFacts": [
+    "Ủng hộ đấu tranh chống chủ nghĩa thực dân của các nước Á, Phi, Mỹ La-tinh",
+    "Phát triển liên minh chiến đấu với Lào, Campuchia",
+    "Thiết lập quan hệ ngoại giao với Lào",
+    "Xây dựng quan hệ hữu nghị với Campuchia"
+  ],
+  "sourceFamily": "diplomacy",
+  "preferredVerificationDomains": [
+    "mofa.gov.vn",
+    "chinhphu.vn",
+    "vietnamplus.vn",
+    "nhandan.vn",
+    "un.org",
+    "asean.org",
+    "apec.org",
+    "europa.eu"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Việt Nam Dân chủ Cộng hoà thiết lập quan hệ ngoại giao với Lào, Campuchia và ủng hộ phong trào giải phóng dân tộc",
+    "Việt Nam Dân chủ Cộng hoà thiết lập quan hệ ngoại giao với Lào, Campuchia và ủng hộ phong trào giải phóng dân tộc Trong kháng chiến chống Mỹ (1954-1975)",
+    "Việt Nam Dân chủ Cộng hoà thiết lập quan hệ ngoại giao với Lào, Campuchia và ủng hộ phong trào giải phóng dân tộc Á",
+    "Việt Nam Dân chủ Cộng hoà thiết lập quan hệ ngoại giao với Lào, Campuchia và ủng hộ phong trào giải phóng dân tộc Ủng hộ đấu tranh chống chủ nghĩa thực dân của các nước Á, Phi, Mỹ La-tinh Phát triển liên minh chiến đấu với Lào, Campuchia",
+    "Việt Nam Dân chủ Cộng hoà thiết lập quan hệ ngoại giao với Lào, Campuchia và ủng hộ phong trào giải phóng dân tộc lễ ký",
+    "Việt Nam Dân chủ Cộng hoà thiết lập quan hệ ngoại giao với Lào, Campuchia và ủng hộ phong trào giải phóng dân tộc hội nghị"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

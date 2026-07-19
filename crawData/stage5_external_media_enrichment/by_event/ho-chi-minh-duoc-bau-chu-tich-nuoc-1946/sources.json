@@ -1,0 +1,9 @@
+{
+  "eventId": "ho-chi-minh-duoc-bau-chu-tich-nuoc-1946",
+  "status": "pending_download",
+  "images": [],
+  "expected": [
+    "image_01.<ext>",
+    "image_02.<ext>"
+  ]
+}

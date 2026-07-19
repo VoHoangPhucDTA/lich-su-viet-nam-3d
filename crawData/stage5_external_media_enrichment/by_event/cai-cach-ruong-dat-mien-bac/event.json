@@ -1,0 +1,60 @@
+{
+  "eventId": "cai-cach-ruong-dat-mien-bac",
+  "title": "Hoàn thành cải cách ruộng đất, khôi phục kinh tế ở miền Bắc",
+  "shortTitle": "Cải cách ruộng đất miền Bắc",
+  "displayDate": "1954 - 1960",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1945-1954",
+  "parentId": "viet-nam-1945-1954",
+  "historicalLocations": [
+    "miền Bắc"
+  ],
+  "provinceNames": [],
+  "canonicalSummary": "Nhân dân miền Bắc hoàn thành cải cách ruộng đất, khôi phục kinh tế, hàn gắn vết thương chiến tranh và cải tạo quan hệ sản xuất, bước đầu phát triển kinh tế – xã hội.",
+  "keyFacts": [
+    "Cải tạo quan hệ sản xuất",
+    "Khôi phục kinh tế, hàn gắn vết thương chiến tranh",
+    "Giai cấp địa chủ phong kiến bị xoá bỏ, nông dân làm chủ ở nông thôn",
+    "Hoàn thành cải cách ruộng đất"
+  ],
+  "sourceFamily": "war_1945_1975",
+  "preferredVerificationDomains": [
+    "btlsqsvn.org.vn",
+    "qdnd.vn",
+    "nhandan.vn",
+    "vietnamplus.vn",
+    "hochiminh.vn",
+    "baotanglichsu.vn",
+    "luutru.gov.vn",
+    "loc.gov",
+    "archives.gov"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Hoàn thành cải cách ruộng đất, khôi phục kinh tế ở miền Bắc",
+    "Hoàn thành cải cách ruộng đất, khôi phục kinh tế ở miền Bắc 1954 - 1960",
+    "Hoàn thành cải cách ruộng đất, khôi phục kinh tế ở miền Bắc miền Bắc",
+    "Hoàn thành cải cách ruộng đất, khôi phục kinh tế ở miền Bắc Cải tạo quan hệ sản xuất Khôi phục kinh tế, hàn gắn vết thương chiến tranh",
+    "Hoàn thành cải cách ruộng đất, khôi phục kinh tế ở miền Bắc ảnh tư liệu",
+    "Hoàn thành cải cách ruộng đất, khôi phục kinh tế ở miền Bắc chiến dịch"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

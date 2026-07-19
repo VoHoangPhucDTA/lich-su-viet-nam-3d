@@ -1,0 +1,76 @@
+{
+  "eventId": "cach-mang-thang-tam-nam-1945",
+  "title": "Cách mạng tháng Tám năm 1945",
+  "shortTitle": "CMT8 1945",
+  "displayDate": "Tháng 8 – 9 năm 1945",
+  "eventLevel": "collection",
+  "rootId": "viet-nam-1919-1945",
+  "parentId": "viet-nam-1919-1945",
+  "historicalLocations": [
+    "Phủ Khâm sai",
+    "Sở Cảnh sát Trung ương",
+    "Sở Mật thám",
+    "cả nước",
+    "Sở Cảnh sát",
+    "Sở Bưu điện"
+  ],
+  "provinceNames": [
+    "Bắc Giang",
+    "Đồng Nai",
+    "Hà Tĩnh",
+    "Tuyên Quang",
+    "Hải Dương",
+    "Thừa Thiên Huế",
+    "Quảng Nam",
+    "Hà Nội",
+    "Hồ Chí Minh",
+    "Thái Nguyên"
+  ],
+  "canonicalSummary": "Cách mạng tháng Tám năm 1945 là sự kiện lịch sử vĩ đại, đã lật đổ ách cai trị của thực dân Pháp trong hơn 80 năm, của quân phiệt Nhật Bản gần 5 năm; chấm dứt thời kì quân chủ hơn 1000 năm; lập nên nước Việt Nam Dân chủ Cộng hòa.",
+  "keyFacts": [
+    "Thành lập nước Việt Nam Dân chủ Cộng hoà",
+    "Diễn ra từ giữa tháng 8 đến 2-9-1945",
+    "Giành chính quyền trên cả nước",
+    "Đảng Cộng sản Đông Dương trở thành đảng cầm quyền",
+    "Lật đổ ách Pháp, Nhật, chấm dứt quân chủ"
+  ],
+  "sourceFamily": "revolutionary",
+  "preferredVerificationDomains": [
+    "hochiminh.vn",
+    "tulieuvankien.dangcongsan.vn",
+    "dangcongsan.vn",
+    "baotanglichsu.vn",
+    "nhandan.vn",
+    "qdnd.vn",
+    "vietnamplus.vn",
+    "luutru.gov.vn"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Cách mạng tháng Tám năm 1945",
+    "Cách mạng tháng Tám năm 1945 Tháng 8 – 9 năm 1945",
+    "Cách mạng tháng Tám năm 1945 Phủ Khâm sai",
+    "Cách mạng tháng Tám năm 1945 Thành lập nước Việt Nam Dân chủ Cộng hoà Diễn ra từ giữa tháng 8 đến 2-9-1945",
+    "Cách mạng tháng Tám năm 1945 ảnh tư liệu",
+    "Cách mạng tháng Tám năm 1945 chân dung"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

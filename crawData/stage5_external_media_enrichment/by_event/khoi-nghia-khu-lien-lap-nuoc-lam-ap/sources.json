@@ -1,0 +1,9 @@
+{
+  "eventId": "khoi-nghia-khu-lien-lap-nuoc-lam-ap",
+  "status": "pending_download",
+  "images": [],
+  "expected": [
+    "image_01.<ext>",
+    "image_02.<ext>"
+  ]
+}

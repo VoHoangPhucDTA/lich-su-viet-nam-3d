@@ -1,0 +1,58 @@
+{
+  "eventId": "chu-quyen-viet-nam-duoc-tuyen-bo-cong-nhan-hoi-nghi-xan-phran-xi-xo",
+  "title": "Chủ quyền của Việt Nam đối với Hoàng Sa và Trường Sa được tuyên bố và công nhận tại Hội nghị Hoà bình Xan Phran-xi-xcô",
+  "shortTitle": "Hội nghị Xan Phran-xi-xcô công nhận chủ quyền VN",
+  "displayDate": "Tháng 9 năm 1951",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1945-1954",
+  "parentId": "viet-nam-1945-1954",
+  "historicalLocations": [
+    "Xan Phran-xi-xcô"
+  ],
+  "provinceNames": [],
+  "canonicalSummary": "Đến tháng 9 – 1951, chủ quyền của Việt Nam đối với quần đảo Hoàng Sa và quần đảo Trường Sa tiếp tục được tuyên bố và công nhận tại Hội nghị Hoà bình Xan Phran-xi-xcô với sự tham dự của 51 quốc gia thành viên Liên hợp quốc.",
+  "keyFacts": [
+    "Tại Hội nghị Hoà bình Xan Phran-xi-xcô",
+    "Chủ quyền Việt Nam đối với Hoàng Sa và Trường Sa được tuyên bố và công nhận",
+    "Diễn ra tháng 9 năm 1951",
+    "Có sự tham dự của 51 quốc gia thành viên Liên hợp quốc"
+  ],
+  "sourceFamily": "maritime",
+  "preferredVerificationDomains": [
+    "mofa.gov.vn",
+    "biengioilanhtho.gov.vn",
+    "mod.gov.vn",
+    "qdnd.vn",
+    "chinhphu.vn",
+    "vietnamplus.vn",
+    "luutru.gov.vn"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Chủ quyền của Việt Nam đối với Hoàng Sa và Trường Sa được tuyên bố và công nhận tại Hội nghị Hoà bình Xan Phran-xi-xcô",
+    "Chủ quyền của Việt Nam đối với Hoàng Sa và Trường Sa được tuyên bố và công nhận tại Hội nghị Hoà bình Xan Phran-xi-xcô Tháng 9 năm 1951",
+    "Chủ quyền của Việt Nam đối với Hoàng Sa và Trường Sa được tuyên bố và công nhận tại Hội nghị Hoà bình Xan Phran-xi-xcô Xan Phran-xi-xcô",
+    "Chủ quyền của Việt Nam đối với Hoàng Sa và Trường Sa được tuyên bố và công nhận tại Hội nghị Hoà bình Xan Phran-xi-xcô Tại Hội nghị Hoà bình Xan Phran-xi-xcô Chủ quyền Việt Nam đối với Hoàng Sa và Trường Sa được tuyên bố và công nhận",
+    "Chủ quyền của Việt Nam đối với Hoàng Sa và Trường Sa được tuyên bố và công nhận tại Hội nghị Hoà bình Xan Phran-xi-xcô bản đồ",
+    "Chủ quyền của Việt Nam đối với Hoàng Sa và Trường Sa được tuyên bố và công nhận tại Hội nghị Hoà bình Xan Phran-xi-xcô hải đồ"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

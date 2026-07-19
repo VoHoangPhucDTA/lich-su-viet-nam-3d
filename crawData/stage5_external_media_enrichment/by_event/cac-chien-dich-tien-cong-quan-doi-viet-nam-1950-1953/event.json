@@ -1,0 +1,63 @@
+{
+  "eventId": "cac-chien-dich-tien-cong-quan-doi-viet-nam-1950-1953",
+  "title": "Các chiến dịch tiến công của Quân đội Việt Nam (1950-1953)",
+  "shortTitle": "Các chiến dịch tiến công 1950-1953",
+  "displayDate": "Từ cuối năm 1950 đến giữa năm 1953",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1945-1954",
+  "parentId": "viet-nam-1945-1954",
+  "historicalLocations": [
+    "Đường số 18",
+    "Thượng Lào"
+  ],
+  "provinceNames": [
+    "Hoà Bình",
+    "Hà Nam"
+  ],
+  "canonicalSummary": "Quân đội Việt Nam liên tiếp mở những chiến dịch tiến công, tiếp tục giữ vững quyền chủ động trên chiến trường như: ba chiến dịch là Trần Hưng Đạo (Trung du), Hoàng Hoa Thám (Đường số 18), Quang Trung (Hà Nam Ninh) (từ cuối năm 1950 đến giữa năm 1951); sau đó là chiến dịch Hoà Bình (đông - xuân 1951-1952), chiến dịch Tây Bắc (thu - đông năm 1952), chiến dịch Thượng Lào (xuân – hè năm 1953).",
+  "keyFacts": [
+    "Giữ vững quyền chủ động trên chiến trường",
+    "Bao gồm các chiến dịch: Trần Hưng Đạo, Hoàng Hoa Thám, Quang Trung, Hoà Bình, Tây Bắc, Thượng Lào",
+    "Diễn ra từ cuối năm 1950 đến giữa năm 1953"
+  ],
+  "sourceFamily": "war_1945_1975",
+  "preferredVerificationDomains": [
+    "btlsqsvn.org.vn",
+    "qdnd.vn",
+    "nhandan.vn",
+    "vietnamplus.vn",
+    "hochiminh.vn",
+    "baotanglichsu.vn",
+    "luutru.gov.vn",
+    "loc.gov",
+    "archives.gov"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Các chiến dịch tiến công của Quân đội Việt Nam (1950-1953)",
+    "Các chiến dịch tiến công của Quân đội Việt Nam (1950-1953) Từ cuối năm 1950 đến giữa năm 1953",
+    "Các chiến dịch tiến công của Quân đội Việt Nam (1950-1953) Đường số 18",
+    "Các chiến dịch tiến công của Quân đội Việt Nam (1950-1953) Giữ vững quyền chủ động trên chiến trường Bao gồm các chiến dịch: Trần Hưng Đạo, Hoàng Hoa Thám, Quang Trung, Hoà Bình, Tây Bắc, Thượng Lào",
+    "Các chiến dịch tiến công của Quân đội Việt Nam (1950-1953) ảnh tư liệu",
+    "Các chiến dịch tiến công của Quân đội Việt Nam (1950-1953) chiến dịch"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

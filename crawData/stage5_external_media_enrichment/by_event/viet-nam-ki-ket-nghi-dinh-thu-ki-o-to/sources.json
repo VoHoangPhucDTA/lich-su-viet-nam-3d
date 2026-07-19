@@ -1,0 +1,9 @@
+{
+  "eventId": "viet-nam-ki-ket-nghi-dinh-thu-ki-o-to",
+  "status": "pending_download",
+  "images": [],
+  "expected": [
+    "image_01.<ext>",
+    "image_02.<ext>"
+  ]
+}

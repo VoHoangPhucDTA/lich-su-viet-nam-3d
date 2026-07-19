@@ -1,0 +1,9 @@
+{
+  "eventId": "phong-trao-chong-thuc-dan-phap-xam-luoc-o-viet-nam",
+  "status": "pending_download",
+  "images": [],
+  "expected": [
+    "image_01.<ext>",
+    "image_02.<ext>"
+  ]
+}

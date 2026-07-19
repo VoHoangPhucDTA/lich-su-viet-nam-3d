@@ -1,0 +1,58 @@
+{
+  "eventId": "dai-hoi-dai-bieu-toan-quoc-lan-thu-viii-cua-dang-cong-san-viet-nam",
+  "title": "Đại hội đại biểu toàn quốc lần thứ VIII của Đảng Cộng sản Việt Nam",
+  "shortTitle": "Đại hội VIII của Đảng",
+  "displayDate": "1996",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1975-den-nay",
+  "parentId": "cong-cuoc-doi-moi-o-viet-nam",
+  "historicalLocations": [
+    "Việt Nam"
+  ],
+  "provinceNames": [],
+  "canonicalSummary": "Đại hội đại biểu toàn quốc lần thứ VIII của Đảng Cộng sản Việt Nam diễn ra vào năm 1996.",
+  "keyFacts": [
+    "Xác định chuyển sang thời kì đẩy mạnh công nghiệp hóa, hiện đại hóa",
+    "Diễn ra năm 1996"
+  ],
+  "sourceFamily": "post_1975",
+  "preferredVerificationDomains": [
+    "chinhphu.vn",
+    "dangcongsan.vn",
+    "tulieuvankien.dangcongsan.vn",
+    "quochoi.vn",
+    "mofa.gov.vn",
+    "vietnamplus.vn",
+    "nhandan.vn",
+    "un.org",
+    "unphoto.un.org"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Đại hội đại biểu toàn quốc lần thứ VIII của Đảng Cộng sản Việt Nam",
+    "Đại hội đại biểu toàn quốc lần thứ VIII của Đảng Cộng sản Việt Nam 1996",
+    "Đại hội đại biểu toàn quốc lần thứ VIII của Đảng Cộng sản Việt Nam Việt Nam",
+    "Đại hội đại biểu toàn quốc lần thứ VIII của Đảng Cộng sản Việt Nam Xác định chuyển sang thời kì đẩy mạnh công nghiệp hóa, hiện đại hóa Diễn ra năm 1996",
+    "Đại hội đại biểu toàn quốc lần thứ VIII của Đảng Cộng sản Việt Nam ảnh tư liệu",
+    "Đại hội đại biểu toàn quốc lần thứ VIII của Đảng Cộng sản Việt Nam lễ ký"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

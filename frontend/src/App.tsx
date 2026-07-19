@@ -6,6 +6,7 @@ import RoleGuard from './auth/RoleGuard';
 import { HeaderProvider } from './components/layout/HeaderContext';
 import AppHeader from './components/layout/AppHeader';
 import { ThemeProvider } from './theme/ThemeContext';
+import { APP_SCROLL_ROOT_ID } from './hooks/useActiveSection';
 
 // Pages
 import CoiNguonPage from './pages/CoiNguonPage';
@@ -31,7 +32,6 @@ import ProfileSettingsPage from './pages/profile/ProfileSettingsPage';
 import AdminDashboardPage from './pages/admin/AdminDashboardPage';
 import AdminUsersPage from './pages/admin/AdminUsersPage';
 import AdminEventsPage from './pages/admin/AdminEventsPage';
-import AdminQuestionsPage from './pages/admin/AdminQuestionsPage';
 
 // Quiz pages
 import QuizHomePage from './pages/quiz/QuizHomePage';
@@ -59,14 +59,25 @@ const ApiTopicPracticeRoutePage = lazy(() => import('./pages/exams/ApiPracticeRo
 
 function AppContent() {
   const location = useLocation();
+  const hideHeaderRoutes = [
+    '/quiz/session',
+    '/exams/session',
+    '/exams/de',
+    '/admin',
+    '/login',
+    '/register',
+    '/forgot-password',
+    '/reset-password',
+    '/verify-email',
+  ];
   const examPracticeRoute = /^\/exams\/(?:luyen-tap\/[^/]+|on-lai\/[^/]+|tuy-chon\/[^/]+|on-chu-de\/[^/]+)$/;
-  const shouldHideHeader = ['/quiz/session', '/exams/session', '/exams/de'].some(path => location.pathname.startsWith(path))
+  const shouldHideHeader = hideHeaderRoutes.some(path => location.pathname.startsWith(path))
     || examPracticeRoute.test(location.pathname);
 
   return (
     <div className="flex flex-col h-screen w-screen overflow-hidden bg-stone-50">
       {!shouldHideHeader && <AppHeader />}
-      <div className="app-scroll-container flex-1 overflow-y-auto">
+      <div id={APP_SCROLL_ROOT_ID} className="flex-1 overflow-y-auto">
         <Suspense fallback={<div style={{ padding: '2rem', color: 'var(--text-muted)' }}>Đang tải...</div>}>
         <Routes>
           {/* === Public routes === */}
@@ -122,7 +133,7 @@ function AppContent() {
           <Route path="/admin/dashboard" element={<ProtectedRoute><RoleGuard requiredRole="admin"><AdminDashboardPage /></RoleGuard></ProtectedRoute>} />
           <Route path="/admin/users" element={<ProtectedRoute><RoleGuard requiredRole="admin"><AdminUsersPage /></RoleGuard></ProtectedRoute>} />
           <Route path="/admin/events" element={<ProtectedRoute><RoleGuard requiredRole="admin"><AdminEventsPage /></RoleGuard></ProtectedRoute>} />
-          <Route path="/admin/questions" element={<ProtectedRoute><RoleGuard requiredRole="admin"><AdminQuestionsPage /></RoleGuard></ProtectedRoute>} />
+          <Route path="/admin/questions" element={<Navigate to="/admin/events" replace />} />
         </Routes>
         </Suspense>
       </div>

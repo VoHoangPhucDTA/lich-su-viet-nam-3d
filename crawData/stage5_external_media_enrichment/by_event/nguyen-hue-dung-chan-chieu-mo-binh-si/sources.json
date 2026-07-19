@@ -1,0 +1,9 @@
+{
+  "eventId": "nguyen-hue-dung-chan-chieu-mo-binh-si",
+  "status": "pending_download",
+  "images": [],
+  "expected": [
+    "image_01.<ext>",
+    "image_02.<ext>"
+  ]
+}

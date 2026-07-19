@@ -1,0 +1,59 @@
+{
+  "eventId": "hien-phap-viet-nam-dan-chu-cong-hoa-1946",
+  "title": "Hiến pháp nước Việt Nam Dân chủ Cộng hoà năm 1946",
+  "shortTitle": "Hiến pháp 1946",
+  "displayDate": "Năm 1946",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1945-1954",
+  "parentId": "viet-nam-1945-1954",
+  "historicalLocations": [
+    "Việt Nam"
+  ],
+  "provinceNames": [],
+  "canonicalSummary": "Hiến pháp nước Việt Nam Dân chủ Cộng hoà năm 1946 khẳng định: “Đoàn kết toàn dân không phân biệt giống nòi, gái, trai, giai cấp, tôn giáo”.",
+  "keyFacts": [
+    "Không phân biệt giống nòi, gái, trai, giai cấp, tôn giáo",
+    "Khẳng định nguyên tắc đoàn kết toàn dân",
+    "Ban hành năm 1946"
+  ],
+  "sourceFamily": "war_1945_1975",
+  "preferredVerificationDomains": [
+    "btlsqsvn.org.vn",
+    "qdnd.vn",
+    "nhandan.vn",
+    "vietnamplus.vn",
+    "hochiminh.vn",
+    "baotanglichsu.vn",
+    "luutru.gov.vn",
+    "loc.gov",
+    "archives.gov"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Hiến pháp nước Việt Nam Dân chủ Cộng hoà năm 1946",
+    "Hiến pháp nước Việt Nam Dân chủ Cộng hoà năm 1946 Năm 1946",
+    "Hiến pháp nước Việt Nam Dân chủ Cộng hoà năm 1946 Việt Nam",
+    "Hiến pháp nước Việt Nam Dân chủ Cộng hoà năm 1946 Không phân biệt giống nòi, gái, trai, giai cấp, tôn giáo Khẳng định nguyên tắc đoàn kết toàn dân",
+    "Hiến pháp nước Việt Nam Dân chủ Cộng hoà năm 1946 ảnh tư liệu",
+    "Hiến pháp nước Việt Nam Dân chủ Cộng hoà năm 1946 chiến dịch"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

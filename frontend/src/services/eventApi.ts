@@ -5,27 +5,34 @@
  * - Gọi các endpoint `/api/events`, `/api/events/{id}`, `/api/events/{id}/children`.
  * - Chuyển DTO nhẹ từ backend sang shape `HistoricalEvent` mà UI bản đồ đang dùng.
  * - Chuyển DTO detail sang `MockEventDetail` để tái sử dụng các component chi tiết cũ.
- * - Có fallback về static JSON để dev không bị gãy UI khi backend tạm thời tắt.
+ * - Không trộn dữ liệu static/mock vào runtime khi backend lỗi.
  */
 
 import type { MockEventDetail } from '../data/mockEventDetails';
+import type {
+  EventAssociationType,
+  EventType,
+  GeoType,
+  HistoricalEvent,
+  RelatedHistoricalEvent,
+  RelatedHistoricalEvents,
+} from '../types/event';
 import {
-  findRawEventByIdOrSlug,
-  getRawEventById,
-  type RawEventJson,
-} from '../data/eventRegistry';
-import { rawToEventDetail, rawToHistoricalEvent } from '../data/eventAdapter';
-import {
-  findEventById,
-  getEventsByYear,
-  HISTORICAL_EVENTS,
-} from '../data/events';
-import type { EventType, GeoType, HistoricalEvent } from '../types/event';
+  compareChronologyS1,
+  compareChronologyS1Descending,
+  compareHierarchyChronology,
+  formatChronologyLabel,
+  normalizeChronology,
+  timelineYearsFromEvents,
+} from '../utils/chronology';
 import { apiGet, apiPost, toQueryString } from './apiClient';
 
 interface EventListResponse {
   items: EventSummaryDto[];
   count: number;
+  total?: number;
+  limit?: number;
+  offset?: number;
 }
 
 interface EventSummaryDto {
@@ -36,8 +43,9 @@ interface EventSummaryDto {
   eventLevel: 'collection' | 'atomic';
   eventType: EventType;
   eventSubtype?: string;
-  startYear: number;
-  endYear?: number | null;
+  startYear: number | null;
+  endYear: number | null;
+  effectiveEndYear?: number | null;
   displayDate?: string;
   geoType: GeoType;
   lat?: number | null;
@@ -49,16 +57,18 @@ interface EventSummaryDto {
   orderInParent?: number;
   cardSummary?: string;
   featured?: boolean;
+  thumbnailUrl?: string | null;
   childCount?: number;
 }
 
 interface EventDetailDto extends EventSummaryDto {
-  effectiveEndYear: number;
+  effectiveEndYear: number | null;
   datePrecision?: string;
   historicalLocations?: string[];
   canonicalSummary?: string;
   detailedNarrative?: string;
   significance?: string;
+  keyFacts?: string[];
   showOnHomepage: boolean;
   showOnTimeline: boolean;
   status: string;
@@ -71,6 +81,20 @@ interface EventDetailDto extends EventSummaryDto {
     pageStart?: number;
     pageEnd?: number;
     excerpt?: string;
+    url?: string;
+  }[];
+  textbookContent?: string;
+  externalSources: {
+    sourceType: string;
+    title: string;
+    canonicalUri?: string;
+    externalId?: string;
+    language?: string;
+    sourceOrder?: number;
+    matchType: string;
+    primary: boolean;
+    verificationStatus: string;
+    notes?: string;
   }[];
   media: {
     id: number;
@@ -79,7 +103,38 @@ interface EventDetailDto extends EventSummaryDto {
     caption?: string;
     thumbnail: boolean;
   }[];
-  sourceJson?: RawEventJson;
+  relations: EventRelationDto[];
+  relatedEvents?: EventRelatedEventsDto;
+}
+
+interface EventRelationDto {
+  associationType?: EventAssociationType;
+  relationType: 'related' | 'predecessor' | 'successor' | 'same_topic' | 'same_location' | string;
+  relationLabel?: string;
+  sortOrder?: number;
+  event: EventSummaryDto;
+}
+
+interface EventRelatedEventDto {
+  id: string;
+  slug?: string;
+  title: string;
+  shortTitle?: string;
+  displayDate?: string;
+  cardSummary?: string;
+  eventType: EventType;
+  geoType: GeoType;
+  thumbnailUrl?: string | null;
+  associationType: EventAssociationType;
+  relationType: 'related' | 'predecessor' | 'successor' | 'same_topic' | 'same_location' | string;
+  relationLabel: string;
+  sortOrder?: number | null;
+}
+
+interface EventRelatedEventsDto {
+  predecessors?: EventRelatedEventDto[];
+  successors?: EventRelatedEventDto[];
+  related?: EventRelatedEventDto[];
 }
 
 interface TimelineEventDto {
@@ -88,8 +143,9 @@ interface TimelineEventDto {
   title: string;
   shortTitle?: string;
   eventType: EventType;
-  startYear: number;
-  endYear?: number | null;
+  startYear: number | null;
+  endYear: number | null;
+  effectiveEndYear?: number | null;
   displayDate?: string;
   parentId?: string | null;
   level?: number;
@@ -102,6 +158,23 @@ function isDisplayMediaType(value: string): value is DisplayMediaType {
   return value === 'image' || value === 'video' || value === 'document';
 }
 
+function detailMediaFromDto(dto: EventDetailDto): MockEventDetail['media'] | undefined {
+  if (!dto.media.length) return undefined;
+  return {
+    thumbnail: dto.media.find((item) => item.thumbnail)?.url,
+    items: dto.media
+      .filter((item): item is typeof item & { mediaType: DisplayMediaType } =>
+        isDisplayMediaType(item.mediaType)
+      )
+      .map((item) => ({
+        id: String(item.id),
+        type: item.mediaType,
+        url: item.url,
+        caption: item.caption,
+      })),
+  };
+}
+
 function toStringArray(value: unknown): string[] | undefined {
   if (!Array.isArray(value)) return undefined;
   const items = value
@@ -112,14 +185,22 @@ function toStringArray(value: unknown): string[] | undefined {
 
 function summaryToHistoricalEvent(dto: EventSummaryDto): HistoricalEvent {
   const hasCoordinates = dto.lat != null && dto.lng != null;
+  const chronology = normalizeChronology({
+    startYear: dto.startYear,
+    endYear: dto.endYear,
+    effectiveEndYear: dto.effectiveEndYear,
+    displayDate: dto.displayDate,
+  });
   return {
     id: dto.id,
     slug: dto.slug ?? dto.id,
     eventLevel: dto.eventLevel,
     name: dto.title,
     description: dto.cardSummary ?? '',
-    startYear: dto.startYear,
-    endYear: dto.endYear != null && dto.endYear !== dto.startYear ? dto.endYear : undefined,
+    startYear: chronology.startYear,
+    endYear: chronology.endYear,
+    effectiveEndYear: chronology.effectiveEndYear,
+    displayDate: chronology.displayDate,
     eventType: dto.eventType,
     eventSubtype: dto.eventSubtype,
     geoType: dto.geoType,
@@ -128,23 +209,114 @@ function summaryToHistoricalEvent(dto: EventSummaryDto): HistoricalEvent {
     parentId: dto.parentId ?? null,
     childCount: dto.childCount ?? 0,
     orderInParent: dto.orderInParent ?? 0,
+    thumbnailUrl: dto.thumbnailUrl || undefined,
     details: dto.cardSummary,
   };
 }
 
+function relatedDtoToHistoricalEvent(dto: EventRelatedEventDto): RelatedHistoricalEvent {
+  return {
+    id: dto.id,
+    slug: dto.slug ?? dto.id,
+    name: dto.title,
+    description: dto.cardSummary ?? '',
+    startYear: null,
+    endYear: null,
+    effectiveEndYear: null,
+    displayDate: dto.displayDate,
+    eventType: dto.eventType,
+    geoType: dto.geoType,
+    parentId: null,
+    thumbnailUrl: dto.thumbnailUrl || undefined,
+    details: dto.cardSummary,
+    associationType: dto.associationType,
+    relationType: dto.relationType,
+    relationLabel: dto.relationLabel,
+    sortOrder: dto.sortOrder ?? 0,
+  };
+}
+
+function relatedEventsFromDto(dto?: EventRelatedEventsDto): RelatedHistoricalEvents {
+  return {
+    predecessors: (dto?.predecessors ?? []).map(relatedDtoToHistoricalEvent),
+    successors: (dto?.successors ?? []).map(relatedDtoToHistoricalEvent),
+    related: (dto?.related ?? []).map(relatedDtoToHistoricalEvent),
+  };
+}
+
+function hasRelatedGroups(groups: RelatedHistoricalEvents): boolean {
+  return groups.predecessors.length > 0 || groups.successors.length > 0 || groups.related.length > 0;
+}
+
+function associationTypeFromRelationType(relationType: EventRelationDto['relationType']): EventAssociationType {
+  if (relationType === 'predecessor') return 'predecessor';
+  if (relationType === 'successor') return 'successor';
+  return 'related';
+}
+
+function relationLabel(relationType: EventRelationDto['relationType']): string {
+  switch (relationType) {
+    case 'predecessor':
+      return 'Sự kiện trước đó';
+    case 'successor':
+      return 'Diễn biến tiếp theo';
+    case 'same_topic':
+      return 'Cùng chủ đề';
+    case 'same_location':
+      return 'Cùng địa điểm';
+    default:
+      return 'Liên quan';
+  }
+}
+
+function relatedEventsFromRelations(relations: EventRelationDto[] | undefined, currentEventId: string): RelatedHistoricalEvents {
+  const groups: RelatedHistoricalEvents = { predecessors: [], successors: [], related: [] };
+  const seen = new Set<string>();
+
+  for (const relation of relations ?? []) {
+    if (relation.event.id === currentEventId || seen.has(relation.event.id)) continue;
+    seen.add(relation.event.id);
+
+    const associationType = relation.associationType ?? associationTypeFromRelationType(relation.relationType);
+    const item: RelatedHistoricalEvent = {
+      ...summaryToHistoricalEvent(relation.event),
+      associationType,
+      relationType: relation.relationType,
+      relationLabel: relation.relationLabel ?? relationLabel(relation.relationType),
+      sortOrder: relation.sortOrder ?? 0,
+    };
+
+    if (associationType === 'predecessor') groups.predecessors.push(item);
+    else if (associationType === 'successor') groups.successors.push(item);
+    else groups.related.push(item);
+  }
+
+  return groups;
+}
+
 export function sortHistoricalEvents(events: HistoricalEvent[]): HistoricalEvent[] {
-  return [...events].sort(
-    (a, b) =>
-      (a.orderInParent ?? 0) - (b.orderInParent ?? 0) ||
-      a.startYear - b.startYear ||
-      a.name.localeCompare(b.name, 'vi')
-  );
+  return [...events].sort(compareChronologyS1);
+}
+
+export function sortHistoricalEventsDescending(events: HistoricalEvent[]): HistoricalEvent[] {
+  return [...events].sort(compareChronologyS1Descending);
+}
+
+export function sortHierarchyEvents(events: HistoricalEvent[]): HistoricalEvent[] {
+  return [...events].sort(compareHierarchyChronology);
 }
 
 function detailToMockEvent(dto: EventDetailDto): MockEventDetail {
-  if (dto.sourceJson) {
-    return rawToEventDetail(dto.sourceJson);
-  }
+  const apiRelatedEvents = relatedEventsFromDto(dto.relatedEvents);
+  const relatedEvents = hasRelatedGroups(apiRelatedEvents)
+    ? apiRelatedEvents
+    : relatedEventsFromRelations(dto.relations, dto.id);
+  const relatedEventIds = relatedEvents.related.map((event) => event.id);
+  const predecessorEventIds = relatedEvents.predecessors.map((event) => event.id);
+  const successorEventIds = relatedEvents.successors.map((event) => event.id);
+  const externalSources = dto.externalSources ?? [];
+
+  const media = detailMediaFromDto(dto);
 
   return {
     id: dto.id,
@@ -163,10 +335,10 @@ function detailToMockEvent(dto: EventDetailDto): MockEventDetail {
       grades: dto.grades.map(String),
     },
     chronology: {
-      start: String(dto.startYear),
+      start: dto.startYear != null ? String(dto.startYear) : '',
       end: dto.endYear != null ? String(dto.endYear) : undefined,
       datePrecision: dto.datePrecision ?? 'year',
-      displayDate: dto.displayDate ?? String(dto.startYear),
+      displayDate: formatChronologyLabel(dto),
     },
     mapData: {
       displayGeometry: {
@@ -188,6 +360,8 @@ function detailToMockEvent(dto: EventDetailDto): MockEventDetail {
       canonicalSummary: dto.canonicalSummary ?? '',
       detailedNarrative: dto.detailedNarrative,
       significance: dto.significance,
+      keyFacts: dto.keyFacts,
+      sourceContent: dto.textbookContent,
       textbookRefs: dto.textbookRefs.map((ref) => ({
         grade: String(ref.grade),
         book: ref.book,
@@ -196,29 +370,24 @@ function detailToMockEvent(dto: EventDetailDto): MockEventDetail {
         pageStart: ref.pageStart,
         pageEnd: ref.pageEnd,
         excerpt: ref.excerpt,
+        url: ref.url,
       })),
     },
-    media: dto.media.length
-      ? {
-          thumbnail: dto.media.find((item) => item.thumbnail)?.url,
-          items: dto.media
-            .filter((item): item is typeof item & { mediaType: DisplayMediaType } =>
-              isDisplayMediaType(item.mediaType)
-            )
-            .map((item) => ({
-              id: String(item.id),
-              type: item.mediaType,
-              url: item.url,
-              caption: item.caption,
-            })),
-        }
-      : undefined,
+    externalSources,
+    media,
     hierarchy: {
       rootId: dto.rootId ?? undefined,
       parentId: dto.parentId ?? undefined,
+      childCount: dto.childCount ?? 0,
       level: dto.level,
       orderInParent: dto.orderInParent,
     },
+    associations: {
+      relatedEventIds,
+      predecessorEventIds,
+      successorEventIds,
+    },
+    relatedEvents,
     display: {
       showOnHomepage: dto.showOnHomepage,
       showOnTimeline: dto.showOnTimeline,
@@ -238,8 +407,8 @@ export async function getEventsByYearFromBackend(year: number, grade?: number | 
     // 1.1.9: eventApi.ts: Trả dữ liệu mảng sự kiện (HistoricalEvent) về cho Component quản lý state chính.
     return sortHistoricalEvents(data.items.map(summaryToHistoricalEvent));
   } catch (error) {
-    console.warn('Fallback to static events because backend event list failed.', error);
-    return getEventsByYear(year);
+    console.warn('Could not load events by year from backend.', error);
+    return [];
   }
 }
 
@@ -252,13 +421,8 @@ export async function searchEventsFromBackend(queryText: string): Promise<Histor
     const data = await apiGet<EventListResponse>(`/api/events${query}`);
     return sortHistoricalEvents(data.items.map(summaryToHistoricalEvent));
   } catch (error) {
-    console.warn('Fallback to static events because backend search failed.', error);
-    const q = normalized.toLowerCase();
-    return getEventsByYear(new Date().getFullYear()).filter(
-      (event) =>
-        event.name.toLowerCase().includes(q) ||
-        event.description.toLowerCase().includes(q)
-    );
+    console.warn('Could not search events from backend.', error);
+    return [];
   }
 }
 
@@ -266,23 +430,30 @@ export async function getChildrenFromBackend(eventId: string): Promise<Historica
   try {
     // 1.1.14: eventApi.ts: Gọi API GET /api/events/{eventId}/children đến Backend để lấy dữ liệu con.
     const data = await apiGet<EventListResponse>(`/api/events/${eventId}/children`);
-    return sortHistoricalEvents(data.items.map(summaryToHistoricalEvent));
+    return sortHierarchyEvents(data.items.map(summaryToHistoricalEvent));
   } catch (error) {
-    console.warn('Fallback to static children because backend children API failed.', error);
-    return findEventById(eventId)?.children ?? [];
+    console.warn('Could not load children from backend.', error);
+    return [];
+  }
+}
+
+export async function getRelatedEventsFromBackend(eventId: string): Promise<RelatedHistoricalEvents> {
+  try {
+    const data = await apiGet<EventRelatedEventsDto>(`/api/events/${eventId}/related`);
+    return relatedEventsFromDto(data);
+  } catch (error) {
+    console.warn('Could not load related events from backend.', error);
+    return { predecessors: [], successors: [], related: [] };
   }
 }
 
 export async function getHistoricalEventFromBackend(idOrSlug: string): Promise<HistoricalEvent | null> {
   try {
     const data = await apiGet<EventDetailDto>(`/api/events/${idOrSlug}`);
-    if (data.sourceJson) {
-      return rawToHistoricalEvent(data.sourceJson, { withChildren: true });
-    }
     return summaryToHistoricalEvent(data);
   } catch (error) {
-    console.warn('Fallback to static event because backend detail API failed.', error);
-    return findEventById(idOrSlug) ?? null;
+    console.warn('Could not load event detail from backend.', error);
+    return null;
   }
 }
 
@@ -291,9 +462,8 @@ export async function getEventDetailFromBackend(slugOrId: string): Promise<MockE
     const data = await apiGet<EventDetailDto>(`/api/events/${slugOrId}`);
     return detailToMockEvent(data);
   } catch (error) {
-    console.warn('Fallback to static event detail because backend detail API failed.', error);
-    const raw = getRawEventById(slugOrId) ?? findRawEventByIdOrSlug(slugOrId);
-    return raw ? rawToEventDetail(raw) : null;
+    console.warn('Could not load event detail from backend.', error);
+    return null;
   }
 }
 
@@ -301,9 +471,9 @@ export async function getTimelineYearsFromBackend(grade?: number | null): Promis
   try {
     const query = toQueryString({ grade });
     const data = await apiGet<TimelineEventDto[]>(`/api/timeline${query}`);
-    return Array.from(new Set(data.map((item) => item.startYear))).sort((a, b) => a - b);
+    return timelineYearsFromEvents(data);
   } catch (error) {
-    console.warn('Fallback to static timeline years because backend timeline failed.', error);
+    console.warn('Could not load timeline years from backend.', error);
     return [];
   }
 }
@@ -326,21 +496,23 @@ export async function getHomepageEvents(): Promise<HistoricalEvent[]> {
 
     return sortHistoricalEvents(events);
   } catch (error) {
-    console.warn('Could not load homepage events from backend. Falling back to static data.', error);
-    // Fallback: use static JSON data loaded via import.meta.glob — return up to 6 root events sorted chronologically
-    return sortHistoricalEvents([...HISTORICAL_EVENTS]).slice(0, 6);
+    console.warn('Could not load homepage events from backend.', error);
+    return [];
   }
 }
 
 export interface BrowseEventsParams {
   q?: string;
   eventType?: string;
+  eventLevel?: 'atomic' | 'collection';
   year?: number;
   grade?: number;
   limit?: number;
   offset?: number;
   sortBy?: 'year' | 'name';
   sortDir?: 'asc' | 'desc';
+  startYearFrom?: number;
+  startYearTo?: number;
 }
 
 export interface BrowseEventsResult {
@@ -349,17 +521,25 @@ export interface BrowseEventsResult {
   hasMore: boolean;
 }
 
-export async function getBrowseEvents(params: BrowseEventsParams): Promise<BrowseEventsResult> {
+export async function getBrowseEvents(
+  params: BrowseEventsParams,
+  options?: { signal?: AbortSignal },
+): Promise<BrowseEventsResult> {
   try {
     const query = toQueryString({
       q: params.q || undefined,
       eventType: params.eventType || undefined,
+      eventLevel: params.eventLevel ?? 'atomic',
       year: params.year || undefined,
       grade: params.grade || undefined,
       limit: params.limit ?? 24,
       offset: params.offset ?? 0,
+      sortBy: params.sortBy,
+      sortDir: params.sortDir,
+      startYearFrom: params.startYearFrom,
+      startYearTo: params.startYearTo,
     });
-    const data = await apiGet<EventListResponse>(`/api/events${query}`);
+    const data = await apiGet<EventListResponse>(`/api/events${query}`, { signal: options?.signal });
     const events = data.items.map(summaryToHistoricalEvent);
 
     if (params.sortBy === 'name') {
@@ -367,68 +547,24 @@ export async function getBrowseEvents(params: BrowseEventsParams): Promise<Brows
         (params.sortDir === 'desc' ? -1 : 1) * a.name.localeCompare(b.name, 'vi')
       );
     } else {
-      sortHistoricalEvents(events);
-      if (params.sortDir === 'desc') events.reverse();
+      events.sort(params.sortDir === 'desc' ? compareChronologyS1Descending : compareChronologyS1);
     }
 
-    // data.count is the response-item count (after LIMIT/OFFSET), NOT the
-    // total matching rows in the database. Use response length to infer hasMore.
     const responseSize = events.length;
     const limit = params.limit ?? 24;
+    const offset = params.offset ?? 0;
+    const total = data.total ?? data.count ?? responseSize;
     return {
       events,
-      total: data.count,
-      hasMore: responseSize >= limit,
+      total,
+      hasMore: data.total != null ? offset + responseSize < total : responseSize >= limit,
     };
   } catch (error) {
-    console.warn('Could not browse events from backend. Falling back to static data.', error);
-
-    // Fallback: filter, sort, and paginate static data
-    let filtered = [...HISTORICAL_EVENTS];
-
-    // Text search
-    if (params.q) {
-      const q = params.q.toLowerCase();
-      filtered = filtered.filter(
-        (e) =>
-          e.name.toLowerCase().includes(q) ||
-          e.description.toLowerCase().includes(q)
-      );
-    }
-
-    // Filter by event type
-    if (params.eventType) {
-      filtered = filtered.filter((e) => e.eventType === params.eventType);
-    }
-
-    // Filter by year
-    if (params.year != null) {
-      const year = params.year;
-      filtered = filtered.filter((e) => {
-        const endYear = e.endYear ?? e.startYear;
-        return e.startYear <= year && endYear >= year;
-      });
-    }
-
-    // Sort
-    if (params.sortBy === 'name') {
-      filtered.sort((a, b) =>
-        (params.sortDir === 'desc' ? -1 : 1) * a.name.localeCompare(b.name, 'vi')
-      );
-    } else {
-      sortHistoricalEvents(filtered);
-      if (params.sortDir === 'desc') filtered.reverse();
-    }
-
-    const total = filtered.length;
-    const limit = params.limit ?? 24;
-    const offset = params.offset ?? 0;
-    const paginated = filtered.slice(offset, offset + limit);
-
+    console.warn('Could not browse events from backend.', error);
     return {
-      events: paginated,
-      total,
-      hasMore: offset + limit < total,
+      events: [],
+      total: 0,
+      hasMore: false,
     };
   }
 }

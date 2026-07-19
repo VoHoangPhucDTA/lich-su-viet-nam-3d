@@ -1,0 +1,57 @@
+{
+  "eventId": "nguyen-ai-quoc-tro-ve-nuoc",
+  "title": "Nguyễn Ái Quốc trở về nước",
+  "shortTitle": "Nguyễn Ái Quốc về nước",
+  "displayDate": "Ngày 28-1-1941",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1919-1945",
+  "parentId": "viet-nam-1919-1945",
+  "historicalLocations": [],
+  "provinceNames": [
+    "Cao Bằng"
+  ],
+  "canonicalSummary": "Ngày 28-1-1941, sau hơn 30 năm xa Tổ quốc, Nguyễn Ái Quốc trở về nước, trực tiếp lãnh đạo cách mạng Việt Nam.",
+  "keyFacts": [
+    "Trực tiếp lãnh đạo cách mạng Việt Nam",
+    "Về nước tại Pác Bó (Hà Quảng, Cao Bằng)"
+  ],
+  "sourceFamily": "revolutionary",
+  "preferredVerificationDomains": [
+    "hochiminh.vn",
+    "tulieuvankien.dangcongsan.vn",
+    "dangcongsan.vn",
+    "baotanglichsu.vn",
+    "nhandan.vn",
+    "qdnd.vn",
+    "vietnamplus.vn",
+    "luutru.gov.vn"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Nguyễn Ái Quốc trở về nước",
+    "Nguyễn Ái Quốc trở về nước Ngày 28-1-1941",
+    "Nguyễn Ái Quốc trở về nước Việt Nam từ năm 1919 đến năm 1945",
+    "Nguyễn Ái Quốc trở về nước Trực tiếp lãnh đạo cách mạng Việt Nam Về nước tại Pác Bó (Hà Quảng, Cao Bằng)",
+    "Nguyễn Ái Quốc trở về nước ảnh tư liệu",
+    "Nguyễn Ái Quốc trở về nước chân dung"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "eventId": "thoi-gia-long-tri-vi",
+  "title": "Thời Gia Long trị vì",
+  "shortTitle": "Thời Gia Long trị vì",
+  "displayDate": "1802 - 1820",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-tu-the-ki-xvi-den-xix",
+  "parentId": "viet-nam-tu-the-ki-xvi-den-xix",
+  "historicalLocations": [
+    "miền núi",
+    "đồng bằng"
+  ],
+  "provinceNames": [
+    "Hà Nội",
+    "Hồ Chí Minh"
+  ],
+  "canonicalSummary": "Thời Gia Long (1802 - 1820), bộ máy hành chính nhà nước yếu kém về nhiều mặt. Tính chất phân quyền còn đậm nét với sự tồn tại của hai khu vực hành chính là Bắc Thành và Gia Định Thành. Tổ chức hành chính giữa Bắc Thành và Gia Định Thành, giữa đồng bằng và miền núi còn thiếu thống nhất. Quan lại trong bộ máy chủ yếu do các quan võ nắm giữ.",
+  "keyFacts": [
+    "Tồn tại Bắc Thành và Gia Định Thành",
+    "Tính chất phân quyền đậm nét",
+    "Bộ máy hành chính yếu kém",
+    "Quan lại chủ yếu do quan võ nắm giữ"
+  ],
+  "sourceFamily": "early_modern",
+  "preferredVerificationDomains": [
+    "baotanglichsu.vn",
+    "luutru.gov.vn",
+    "disanvanhoa.gov.vn",
+    "nhandan.vn",
+    "qdnd.vn"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Thời Gia Long trị vì",
+    "Thời Gia Long trị vì 1802 - 1820",
+    "Thời Gia Long trị vì miền núi",
+    "Thời Gia Long trị vì Tồn tại Bắc Thành và Gia Định Thành Tính chất phân quyền đậm nét",
+    "Thời Gia Long trị vì chân dung",
+    "Thời Gia Long trị vì di tích"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

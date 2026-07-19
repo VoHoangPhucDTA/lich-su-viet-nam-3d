@@ -1,0 +1,57 @@
+{
+  "eventId": "hoan-toan-giai-phong-mien-nam-viet-nam",
+  "title": "Hoàn toàn giải phóng miền Nam Việt Nam",
+  "shortTitle": "Giải phóng miền Nam",
+  "displayDate": "tháng 4-1975",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1954-1975",
+  "parentId": "viet-nam-1954-1975",
+  "historicalLocations": [],
+  "provinceNames": [],
+  "canonicalSummary": "Sau khi hoàn toàn giải phóng miền Nam (tháng 4-1975) và thực hiện thống nhất đất nước (năm 1976), cả nước Việt Nam tiến lên xây dựng chủ nghĩa xã hội.",
+  "keyFacts": [
+    "Giải phóng miền Nam Việt Nam",
+    "Dẫn đến thống nhất đất nước",
+    "Diễn ra tháng 4-1975"
+  ],
+  "sourceFamily": "war_1945_1975",
+  "preferredVerificationDomains": [
+    "btlsqsvn.org.vn",
+    "qdnd.vn",
+    "nhandan.vn",
+    "vietnamplus.vn",
+    "hochiminh.vn",
+    "baotanglichsu.vn",
+    "luutru.gov.vn",
+    "loc.gov",
+    "archives.gov"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Hoàn toàn giải phóng miền Nam Việt Nam",
+    "Hoàn toàn giải phóng miền Nam Việt Nam tháng 4-1975",
+    "Hoàn toàn giải phóng miền Nam Việt Nam Việt Nam từ năm 1954 đến năm 1975",
+    "Hoàn toàn giải phóng miền Nam Việt Nam Giải phóng miền Nam Việt Nam Dẫn đến thống nhất đất nước",
+    "Hoàn toàn giải phóng miền Nam Việt Nam ảnh tư liệu",
+    "Hoàn toàn giải phóng miền Nam Việt Nam chiến dịch"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

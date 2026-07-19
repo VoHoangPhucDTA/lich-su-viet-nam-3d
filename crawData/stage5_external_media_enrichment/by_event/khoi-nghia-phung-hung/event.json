@@ -1,0 +1,59 @@
+{
+  "eventId": "khoi-nghia-phung-hung",
+  "title": "Khởi nghĩa Phùng Hưng",
+  "shortTitle": "Khởi nghĩa Phùng Hưng",
+  "displayDate": "Cuối thế kỉ VIII",
+  "eventLevel": "atomic",
+  "rootId": "bac-thuoc-va-dau-tranh-gianh-doc-lap",
+  "parentId": "bac-thuoc-va-dau-tranh-gianh-doc-lap",
+  "historicalLocations": [
+    "Đường Lâm (Sơn Tây, Hà Nội)",
+    "Tổng Bình"
+  ],
+  "provinceNames": [],
+  "canonicalSummary": "Cuối thế kỉ VIII, Phùng Hưng phát động khởi nghĩa ở Đường Lâm (Sơn Tây, Hà Nội). Nghĩa quân đánh chiếm phủ thành Tổng Bình, giành quyền tự chủ trong một thời gian ngắn. Năm 791, nhà Đường đem quân sang đàn áp và chiếm lại.",
+  "keyFacts": [
+    "Phùng Hưng phát động khởi nghĩa ở Đường Lâm (Sơn Tây, Hà Nội)",
+    "Năm 791, nhà Đường đem quân sang đàn áp và chiếm lại",
+    "Nghĩa quân đánh chiếm phủ thành Tổng Bình",
+    "Giành quyền tự chủ trong một thời gian ngắn"
+  ],
+  "sourceFamily": "ancient_medieval",
+  "preferredVerificationDomains": [
+    "baotanglichsu.vn",
+    "disanvanhoa.gov.vn",
+    "bvhttdl.gov.vn",
+    "qdnd.vn",
+    "nhandan.vn",
+    "unesco.org",
+    "whc.unesco.org"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Khởi nghĩa Phùng Hưng",
+    "Khởi nghĩa Phùng Hưng Cuối thế kỉ VIII",
+    "Khởi nghĩa Phùng Hưng Đường Lâm (Sơn Tây, Hà Nội)",
+    "Khởi nghĩa Phùng Hưng Phùng Hưng phát động khởi nghĩa ở Đường Lâm (Sơn Tây, Hà Nội) Năm 791, nhà Đường đem quân sang đàn áp và chiếm lại",
+    "Khởi nghĩa Phùng Hưng hiện vật",
+    "Khởi nghĩa Phùng Hưng di tích"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

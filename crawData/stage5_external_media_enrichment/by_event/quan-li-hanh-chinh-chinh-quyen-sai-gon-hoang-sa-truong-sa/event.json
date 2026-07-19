@@ -1,0 +1,59 @@
+{
+  "eventId": "quan-li-hanh-chinh-chinh-quyen-sai-gon-hoang-sa-truong-sa",
+  "title": "Quản lí hành chính của chính quyền Sài Gòn đối với quần đảo Hoàng Sa và quần đảo Trường Sa",
+  "shortTitle": "Chính quyền Sài Gòn quản lí Hoàng Sa, Trường Sa",
+  "displayDate": "Từ năm 1954 đến năm 1975",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1954-1975",
+  "parentId": "chu-quyen-bien-dao-viet-nam-1954-1975",
+  "historicalLocations": [],
+  "provinceNames": [
+    "Bà Rịa - Vũng Tàu",
+    "Quảng Nam"
+  ],
+  "canonicalSummary": "Từ năm 1954 đến năm 1975, hai quần đảo được đặt dưới sự quản lí hành chính của chính quyền Sài Gòn. Chính quyền Sài Gòn đã liên tục thực thi chủ quyền của Việt Nam ở quần đảo Hoàng Sa và quần đảo Trường Sa thông qua việc ban hành các văn bản hành chính nhà nước, cử quân đồn trú, dựng bia chủ quyền, treo cờ trên các đảo chính. Về mặt hành chính, quần đảo Hoàng Sa thuộc tỉnh Quảng Nam và quần đảo Trường Sa thuộc tỉnh Phước Tuy (tỉnh Bà Rịa - Vũng Tàu ngày nay).",
+  "keyFacts": [
+    "Hoàng Sa thuộc Quảng Nam, Trường Sa thuộc Phước Tuy",
+    "Diễn ra từ 1954 đến 1975",
+    "Thực thi chủ quyền bằng văn bản, đồn trú quân, dựng bia, treo cờ",
+    "Chính quyền Sài Gòn quản lí hành chính"
+  ],
+  "sourceFamily": "maritime",
+  "preferredVerificationDomains": [
+    "mofa.gov.vn",
+    "biengioilanhtho.gov.vn",
+    "mod.gov.vn",
+    "qdnd.vn",
+    "chinhphu.vn",
+    "vietnamplus.vn",
+    "luutru.gov.vn"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Quản lí hành chính của chính quyền Sài Gòn đối với quần đảo Hoàng Sa và quần đảo Trường Sa",
+    "Quản lí hành chính của chính quyền Sài Gòn đối với quần đảo Hoàng Sa và quần đảo Trường Sa Từ năm 1954 đến năm 1975",
+    "Quản lí hành chính của chính quyền Sài Gòn đối với quần đảo Hoàng Sa và quần đảo Trường Sa Chủ quyền biển đảo Việt Nam 1954-1975",
+    "Quản lí hành chính của chính quyền Sài Gòn đối với quần đảo Hoàng Sa và quần đảo Trường Sa Hoàng Sa thuộc Quảng Nam, Trường Sa thuộc Phước Tuy Diễn ra từ 1954 đến 1975",
+    "Quản lí hành chính của chính quyền Sài Gòn đối với quần đảo Hoàng Sa và quần đảo Trường Sa bản đồ",
+    "Quản lí hành chính của chính quyền Sài Gòn đối với quần đảo Hoàng Sa và quần đảo Trường Sa hải đồ"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

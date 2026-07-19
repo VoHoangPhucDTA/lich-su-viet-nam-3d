@@ -1,0 +1,57 @@
+{
+  "eventId": "doi-cac-doanh-quang-binh-quang-tri-quang-nam-thanh-tran",
+  "title": "Đổi các doanh Quảng Bình, Quảng Trị, Quảng Nam thành trấn",
+  "shortTitle": "Đổi các doanh Quảng Bình, Quảng Trị, Quảng Nam thành trấn",
+  "displayDate": "Năm 1827",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-tu-the-ki-xvi-den-xix",
+  "parentId": "cuoc-cai-cach-cua-minh-mang",
+  "historicalLocations": [],
+  "provinceNames": [
+    "Quảng Nam",
+    "Quảng Bình",
+    "Quảng Trị"
+  ],
+  "canonicalSummary": "Năm 1827, vua Minh Mạng đổi các doanh Quảng Bình, Quảng Trị, Quảng Nam thành trấn, thống nhất trên toàn quốc tên gọi các đơn vị hành chính địa phương.",
+  "keyFacts": [
+    "Đổi doanh thành trấn",
+    "Diễn ra năm 1827",
+    "Thống nhất tên gọi đơn vị hành chính địa phương"
+  ],
+  "sourceFamily": "early_modern",
+  "preferredVerificationDomains": [
+    "baotanglichsu.vn",
+    "luutru.gov.vn",
+    "disanvanhoa.gov.vn",
+    "nhandan.vn",
+    "qdnd.vn"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Đổi các doanh Quảng Bình, Quảng Trị, Quảng Nam thành trấn",
+    "Đổi các doanh Quảng Bình, Quảng Trị, Quảng Nam thành trấn Năm 1827",
+    "Đổi các doanh Quảng Bình, Quảng Trị, Quảng Nam thành trấn Cuộc cải cách của Minh Mạng",
+    "Đổi các doanh Quảng Bình, Quảng Trị, Quảng Nam thành trấn Đổi doanh thành trấn Diễn ra năm 1827",
+    "Đổi các doanh Quảng Bình, Quảng Trị, Quảng Nam thành trấn chân dung",
+    "Đổi các doanh Quảng Bình, Quảng Trị, Quảng Nam thành trấn di tích"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

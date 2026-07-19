@@ -10,6 +10,7 @@ import {
   GEO_TYPE_LABELS,
 } from '../types/event';
 import { useNavigate } from 'react-router-dom';
+import { formatChronologyLabel } from '../utils/chronology';
 
 interface EventPopupProps {
   event: HistoricalEvent;
@@ -29,21 +30,16 @@ export default function EventPopup({
   const typeColor = EVENT_TYPE_COLORS[event.eventType];
   const navigate = useNavigate();
 
-  const formatYear = (year: number) =>
-    year < 0 ? `${Math.abs(year)} TCN` : `${year}`;
-
   return (
     // 1.1.20: EventPopup.tsx: Khởi tạo và trượt ra ở bên phải màn hình, nhận tham số sự kiện để hiển thị các trường: Tên sự kiện, Phân loại...
     <div
-      className="glass-map animate-slide-in-right"
+      className="map-event-panel"
       style={{
-        width: '400px',
         height: '100%',
         display: 'flex',
         flexDirection: 'column',
-        zIndex: 10,
-        background: '#ffffff',
-        borderLeft: '1px solid #e7e5e4',
+        background: 'var(--bg-card)',
+        borderLeft: '1px solid var(--border)',
         boxShadow: '-8px 0 24px -12px rgba(0,0,0,0.08)',
       }}
     >
@@ -51,7 +47,7 @@ export default function EventPopup({
       <div
         style={{
           padding: '20px',
-          borderBottom: '1px solid #e7e5e4',
+          borderBottom: '1px solid var(--border)',
           display: 'flex',
           alignItems: 'flex-start',
           justifyContent: 'space-between',
@@ -122,21 +118,21 @@ export default function EventPopup({
           aria-label="Đóng"
           className="flex items-center justify-center w-9 h-9 rounded-[10px] cursor-pointer flex-shrink-0 border transition-all duration-200"
           style={{
-            background: '#ffffff',
-            borderColor: '#e7e5e4',
-            color: '#78716c',
-            boxShadow: '0 2px 8px rgba(0,0,0,0.06)',
+            background: 'var(--bg-card)',
+            borderColor: 'var(--border)',
+            color: 'var(--text-muted)',
+            boxShadow: 'var(--admin-shadow)',
           }}
           onMouseEnter={(e) => {
-            e.currentTarget.style.background = '#8b1e1e';
+            e.currentTarget.style.background = 'var(--accent)';
             e.currentTarget.style.color = '#ffffff';
-            e.currentTarget.style.borderColor = '#8b1e1e';
+            e.currentTarget.style.borderColor = 'var(--accent)';
             e.currentTarget.style.transform = 'rotate(90deg)';
           }}
           onMouseLeave={(e) => {
-            e.currentTarget.style.background = '#ffffff';
-            e.currentTarget.style.color = '#78716c';
-            e.currentTarget.style.borderColor = '#e7e5e4';
+            e.currentTarget.style.background = 'var(--bg-card)';
+            e.currentTarget.style.color = 'var(--text-muted)';
+            e.currentTarget.style.borderColor = 'var(--border)';
             e.currentTarget.style.transform = 'rotate(0deg)';
           }}
         >
@@ -167,10 +163,7 @@ export default function EventPopup({
               Thời gian
             </div>
             <div className="text-[15px] font-semibold">
-              {formatYear(event.startYear)}
-              {event.endYear && event.endYear !== event.startYear
-                ? ` – ${formatYear(event.endYear)}`
-                : ''}
+              {formatChronologyLabel(event)}
             </div>
           </div>
         </div>
@@ -337,7 +330,7 @@ export default function EventPopup({
                       className="text-[11px] mt-0.5"
                       style={{ color: 'var(--text-muted)' }}
                     >
-                      {formatYear(child.startYear)} · {GEO_TYPE_LABELS[child.geoType]}
+                      {formatChronologyLabel(child)} · {GEO_TYPE_LABELS[child.geoType]}
                     </div>
                   </div>
 
@@ -352,7 +345,7 @@ export default function EventPopup({
       <div
         style={{
           padding: '16px 20px',
-          borderTop: '1px solid #e7e5e4',
+          borderTop: '1px solid var(--border)',
           display: 'flex',
           gap: '8px',
           flexWrap: 'wrap',

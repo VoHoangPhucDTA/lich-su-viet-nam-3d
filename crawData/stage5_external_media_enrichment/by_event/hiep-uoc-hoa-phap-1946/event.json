@@ -1,0 +1,56 @@
+{
+  "eventId": "hiep-uoc-hoa-phap-1946",
+  "title": "Kí Hiệp ước Hoa - Pháp",
+  "shortTitle": "Hiệp ước Hoa - Pháp",
+  "displayDate": "28-2-1946",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1945-1954",
+  "parentId": "viet-nam-1945-1954",
+  "historicalLocations": [],
+  "provinceNames": [],
+  "canonicalSummary": "Ngày 28-2-1946, thực dân Pháp và Chính phủ Trung Hoa Dân quốc kí Hiệp ước Hoa - Pháp.",
+  "keyFacts": [
+    "Giữa Pháp và Trung Hoa Dân quốc",
+    "Kí ngày 28-2-1946"
+  ],
+  "sourceFamily": "war_1945_1975",
+  "preferredVerificationDomains": [
+    "btlsqsvn.org.vn",
+    "qdnd.vn",
+    "nhandan.vn",
+    "vietnamplus.vn",
+    "hochiminh.vn",
+    "baotanglichsu.vn",
+    "luutru.gov.vn",
+    "loc.gov",
+    "archives.gov"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Kí Hiệp ước Hoa - Pháp",
+    "Kí Hiệp ước Hoa - Pháp 28-2-1946",
+    "Kí Hiệp ước Hoa - Pháp Việt Nam từ năm 1945 đến năm 1954",
+    "Kí Hiệp ước Hoa - Pháp Giữa Pháp và Trung Hoa Dân quốc Kí ngày 28-2-1946",
+    "Kí Hiệp ước Hoa - Pháp ảnh tư liệu",
+    "Kí Hiệp ước Hoa - Pháp chiến dịch"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

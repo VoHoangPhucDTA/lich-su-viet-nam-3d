@@ -1,0 +1,56 @@
+{
+  "eventId": "nho-giao-du-nhap-viet-nam",
+  "title": "Nho giáo du nhập vào Việt Nam",
+  "shortTitle": "Nho giáo du nhập vào Việt Nam",
+  "displayDate": "Thời Bắc thuộc",
+  "eventLevel": "atomic",
+  "rootId": "bac-thuoc-va-dau-tranh-gianh-doc-lap",
+  "parentId": "bac-thuoc-va-dau-tranh-gianh-doc-lap",
+  "historicalLocations": [
+    "Việt Nam",
+    "Trung Quốc"
+  ],
+  "provinceNames": [],
+  "canonicalSummary": "Nho giáo (Trung Quốc) du nhập vào Việt Nam từ thời Bắc thuộc.",
+  "keyFacts": [
+    "Ảnh hưởng đến Việt Nam",
+    "Du nhập thời Bắc thuộc",
+    "Nguồn gốc từ Trung Quốc"
+  ],
+  "sourceFamily": "culture_language",
+  "preferredVerificationDomains": [
+    "baotanglichsu.vn",
+    "bvhttdl.gov.vn",
+    "disanvanhoa.gov.vn",
+    "vnfam.vn",
+    "unesco.org"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Nho giáo du nhập vào Việt Nam",
+    "Nho giáo du nhập vào Việt Nam Thời Bắc thuộc",
+    "Nho giáo du nhập vào Việt Nam Việt Nam",
+    "Nho giáo du nhập vào Việt Nam Ảnh hưởng đến Việt Nam Du nhập thời Bắc thuộc",
+    "Nho giáo du nhập vào Việt Nam hiện vật",
+    "Nho giáo du nhập vào Việt Nam di sản"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

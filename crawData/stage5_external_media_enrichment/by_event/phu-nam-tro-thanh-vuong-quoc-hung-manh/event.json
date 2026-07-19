@@ -1,0 +1,61 @@
+{
+  "eventId": "phu-nam-tro-thanh-vuong-quoc-hung-manh",
+  "title": "Phù Nam trở thành vương quốc hùng mạnh",
+  "shortTitle": "Phù Nam trở thành vương quốc hùng mạnh",
+  "displayDate": "Từ thế kỉ III đến thế kỉ V",
+  "eventLevel": "atomic",
+  "rootId": "bac-thuoc-va-dau-tranh-gianh-doc-lap",
+  "parentId": "bac-thuoc-va-dau-tranh-gianh-doc-lap",
+  "historicalLocations": [
+    "Đốn Tốn",
+    "Xích Thổ",
+    "Đông Nam Á",
+    "Chân Lạp"
+  ],
+  "provinceNames": [],
+  "canonicalSummary": "Trong khoảng hơn hai thế kỉ đầu sau khi thành lập, tổ chức nhà nước Phù Nam còn đơn giản. Từ thế kỉ III đến thế kỉ V, tổ chức nhà nước ngày càng được hoàn thiện. Phù Nam vươn lên trở thành vương quốc hùng mạnh, có ảnh hưởng rộng ra nhiều vùng đất ở khu vực Đông Nam Á.",
+  "keyFacts": [
+    "Diễn ra từ thế kỉ III đến thế kỉ V",
+    "Có ảnh hưởng rộng ra nhiều vùng đất ở Đông Nam Á",
+    "Trở thành vương quốc hùng mạnh",
+    "Tổ chức nhà nước được hoàn thiện"
+  ],
+  "sourceFamily": "ancient_medieval",
+  "preferredVerificationDomains": [
+    "baotanglichsu.vn",
+    "disanvanhoa.gov.vn",
+    "bvhttdl.gov.vn",
+    "qdnd.vn",
+    "nhandan.vn",
+    "unesco.org",
+    "whc.unesco.org"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Phù Nam trở thành vương quốc hùng mạnh",
+    "Phù Nam trở thành vương quốc hùng mạnh Từ thế kỉ III đến thế kỉ V",
+    "Phù Nam trở thành vương quốc hùng mạnh Đốn Tốn",
+    "Phù Nam trở thành vương quốc hùng mạnh Diễn ra từ thế kỉ III đến thế kỉ V Có ảnh hưởng rộng ra nhiều vùng đất ở Đông Nam Á",
+    "Phù Nam trở thành vương quốc hùng mạnh hiện vật",
+    "Phù Nam trở thành vương quốc hùng mạnh di tích"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

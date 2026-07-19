@@ -1,0 +1,58 @@
+{
+  "eventId": "vndcch-thiet-lap-quan-he-ngoai-giao-voi-cac-nuoc-xhcn",
+  "title": "Việt Nam Dân chủ Cộng hoà thiết lập quan hệ ngoại giao với Cộng hoà Nhân dân Trung Hoa, Liên Xô và các nước xã hội chủ nghĩa khác",
+  "shortTitle": "Việt Nam Dân chủ Cộng hoà thiết lập quan hệ ngoại giao với Cộng hoà Nhân dân Trung Hoa, Liên Xô và các nước xã hội chủ nghĩa khác",
+  "displayDate": "Năm 1950",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1945-1954",
+  "parentId": "viet-nam-1945-1954",
+  "historicalLocations": [
+    "Liên Xô",
+    "Cộng hoà Nhân dân Trung Hoa"
+  ],
+  "provinceNames": [],
+  "canonicalSummary": "Năm 1950, Việt Nam Dân chủ Cộng hoà thiết lập quan hệ ngoại giao với Cộng hoà Nhân dân Trung Hoa, Liên Xô và các nước xã hội chủ nghĩa khác. Đây là một thắng lợi chính trị to lớn, tạo tiền đề cho những thắng lợi quân sự sau này.",
+  "keyFacts": [
+    "Thiết lập quan hệ ngoại giao với Trung Quốc, Liên Xô và các nước XHCN",
+    "Là thắng lợi chính trị to lớn"
+  ],
+  "sourceFamily": "diplomacy",
+  "preferredVerificationDomains": [
+    "mofa.gov.vn",
+    "chinhphu.vn",
+    "vietnamplus.vn",
+    "nhandan.vn",
+    "un.org",
+    "asean.org",
+    "apec.org",
+    "europa.eu"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Việt Nam Dân chủ Cộng hoà thiết lập quan hệ ngoại giao với Cộng hoà Nhân dân Trung Hoa, Liên Xô và các nước xã hội chủ nghĩa khác",
+    "Việt Nam Dân chủ Cộng hoà thiết lập quan hệ ngoại giao với Cộng hoà Nhân dân Trung Hoa, Liên Xô và các nước xã hội chủ nghĩa khác Năm 1950",
+    "Việt Nam Dân chủ Cộng hoà thiết lập quan hệ ngoại giao với Cộng hoà Nhân dân Trung Hoa, Liên Xô và các nước xã hội chủ nghĩa khác Liên Xô",
+    "Việt Nam Dân chủ Cộng hoà thiết lập quan hệ ngoại giao với Cộng hoà Nhân dân Trung Hoa, Liên Xô và các nước xã hội chủ nghĩa khác Thiết lập quan hệ ngoại giao với Trung Quốc, Liên Xô và các nước XHCN Là thắng lợi chính trị to lớn",
+    "Việt Nam Dân chủ Cộng hoà thiết lập quan hệ ngoại giao với Cộng hoà Nhân dân Trung Hoa, Liên Xô và các nước xã hội chủ nghĩa khác lễ ký",
+    "Việt Nam Dân chủ Cộng hoà thiết lập quan hệ ngoại giao với Cộng hoà Nhân dân Trung Hoa, Liên Xô và các nước xã hội chủ nghĩa khác hội nghị"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

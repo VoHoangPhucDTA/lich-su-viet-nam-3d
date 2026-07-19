@@ -1,0 +1,30 @@
+{
+  "events": {
+    "example-event-id": {
+      "images": [
+        {
+          "title": "Exact historical image title",
+          "downloadUrl": "https://upload.wikimedia.org/.../example.jpg",
+          "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:Example.jpg",
+          "originalSource": "https://trusted-history-site.example/article",
+          "historicalVerificationUrl": "https://baotanglichsu.vn/vi/Articles/example",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "mime": "image/jpeg",
+          "relationType": "direct",
+          "description": "Why this exact image belongs to the event"
+        },
+        {
+          "title": "Second exact or strongly contextual historical image",
+          "downloadUrl": "https://upload.wikimedia.org/.../example-2.jpg",
+          "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:Example_2.jpg",
+          "historicalVerificationUrl": "https://qdnd.vn/.../historical-article",
+          "license": "Public Domain",
+          "licenseUrl": "",
+          "mime": "image/jpeg",
+          "relationType": "strong_contextual"
+        }
+      ]
+    }
+  }
+}

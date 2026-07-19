@@ -1,0 +1,44 @@
+{
+  "checks": [
+    {
+      "detail": {
+        "contentType": "text/html; charset=utf-8",
+        "url": "https://baotanglichsu.vn/"
+      },
+      "name": "direct_official_html_baotanglichsu",
+      "status": "ok"
+    },
+    {
+      "detail": {
+        "siteName": "Wikimedia Commons"
+      },
+      "name": "commons_api",
+      "status": "ok"
+    },
+    {
+      "detail": {
+        "pages": [
+          "Việt Nam",
+          "Chủ tịch nước Cộng hòa xã hội chủ nghĩa Việt Nam",
+          "Ngân hàng Nhà nước Việt Nam"
+        ]
+      },
+      "name": "viwiki_api",
+      "status": "ok"
+    },
+    {
+      "detail": {
+        "contentType": "text/html; charset=UTF-8",
+        "url": "https://hochiminh.vn/"
+      },
+      "name": "direct_historical_source_html",
+      "status": "ok"
+    },
+    {
+      "detail": "<urlopen error timed out>",
+      "name": "existing_search_provider_ddg_html",
+      "status": "error"
+    }
+  ],
+  "version": 1
+}

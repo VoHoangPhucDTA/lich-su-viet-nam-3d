@@ -1,0 +1,56 @@
+{
+  "eventId": "khung-hoang-cuoi-trieu-tran",
+  "title": "Khủng hoảng cuối triều Trần",
+  "shortTitle": "Khủng hoảng cuối triều Trần",
+  "displayDate": "Cuối thế kỉ XIV",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-tu-the-ki-x-den-xv",
+  "parentId": "viet-nam-tu-the-ki-x-den-xv",
+  "historicalLocations": [],
+  "provinceNames": [],
+  "canonicalSummary": "Cuối thế kỉ XIV, nhà Trần lâm vào cuộc khủng hoảng, ngày càng suy yếu. Tầng lớp quý tộc có xu hướng ăn chơi hưởng lạc, đất nước lâm vào khủng hoảng, nhiều cuộc khởi nghĩa của nông dân và nô tì nổ ra.",
+  "keyFacts": [
+    "Quý tộc ăn chơi hưởng lạc",
+    "Nhiều cuộc khởi nghĩa nông dân, nô tì",
+    "Bất lực trước Chăm-pa và nhà Minh",
+    "Nhà Trần suy yếu"
+  ],
+  "sourceFamily": "ancient_medieval",
+  "preferredVerificationDomains": [
+    "baotanglichsu.vn",
+    "disanvanhoa.gov.vn",
+    "bvhttdl.gov.vn",
+    "qdnd.vn",
+    "nhandan.vn",
+    "unesco.org",
+    "whc.unesco.org"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Khủng hoảng cuối triều Trần",
+    "Khủng hoảng cuối triều Trần Cuối thế kỉ XIV",
+    "Khủng hoảng cuối triều Trần Việt Nam từ thế kỉ X đến thế kỉ XV",
+    "Khủng hoảng cuối triều Trần Quý tộc ăn chơi hưởng lạc Nhiều cuộc khởi nghĩa nông dân, nô tì",
+    "Khủng hoảng cuối triều Trần hiện vật",
+    "Khủng hoảng cuối triều Trần di tích"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

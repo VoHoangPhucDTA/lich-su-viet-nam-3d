@@ -1,0 +1,55 @@
+{
+  "eventId": "thanh-lap-lang-xa-huyen-tien-hai-thai-binh",
+  "title": "Thành lập làng xã thuộc huyện Tiền Hải (Thái Bình)",
+  "shortTitle": "Làng Tiền Hải thành lập",
+  "displayDate": "Đầu thế kỉ XIX",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-tu-the-ki-xvi-den-xix",
+  "parentId": "viet-nam-tu-the-ki-xvi-den-xix",
+  "historicalLocations": [],
+  "provinceNames": [
+    "Thái Bình"
+  ],
+  "canonicalSummary": "Làng xã thuộc huyện Tiền Hải (Thái Bình) được thành lập vào đầu thế kỉ XIX không có tên nôm.",
+  "keyFacts": [
+    "Thành lập đầu thế kỉ XIX",
+    "Thuộc huyện Tiền Hải (Thái Bình)",
+    "Không có tên nôm"
+  ],
+  "sourceFamily": "early_modern",
+  "preferredVerificationDomains": [
+    "baotanglichsu.vn",
+    "luutru.gov.vn",
+    "disanvanhoa.gov.vn",
+    "nhandan.vn",
+    "qdnd.vn"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Thành lập làng xã thuộc huyện Tiền Hải (Thái Bình)",
+    "Thành lập làng xã thuộc huyện Tiền Hải (Thái Bình) Đầu thế kỉ XIX",
+    "Thành lập làng xã thuộc huyện Tiền Hải (Thái Bình) Việt Nam từ thế kỉ XVI đến thế kỉ XIX",
+    "Thành lập làng xã thuộc huyện Tiền Hải (Thái Bình) Thành lập đầu thế kỉ XIX Thuộc huyện Tiền Hải (Thái Bình)",
+    "Thành lập làng xã thuộc huyện Tiền Hải (Thái Bình) chân dung",
+    "Thành lập làng xã thuộc huyện Tiền Hải (Thái Bình) di tích"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

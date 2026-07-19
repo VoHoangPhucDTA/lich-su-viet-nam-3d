@@ -1,0 +1,56 @@
+{
+  "eventId": "quan-doi-sai-gon-that-bai-bao-ve-hoang-sa",
+  "title": "Quân đội Sài Gòn thất bại trong chiến đấu bảo vệ quần đảo Hoàng Sa",
+  "shortTitle": "Sài Gòn thất bại ở Hoàng Sa (1974)",
+  "displayDate": "Tháng 1 năm 1974",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1954-1975",
+  "parentId": "chu-quyen-bien-dao-viet-nam-1954-1975",
+  "historicalLocations": [],
+  "provinceNames": [],
+  "canonicalSummary": "Tháng 1 – 1974, quân đội Sài Gòn thất bại trong chiến đấu bảo vệ quần đảo Hoàng Sa trước cuộc tấn công của quân đội Trung Quốc.",
+  "keyFacts": [
+    "Đối thủ: quân đội Trung Quốc",
+    "Diễn ra tháng 1 năm 1974",
+    "Đối tượng: bảo vệ quần đảo Hoàng Sa",
+    "Chủ thể: quân đội Sài Gòn"
+  ],
+  "sourceFamily": "maritime",
+  "preferredVerificationDomains": [
+    "mofa.gov.vn",
+    "biengioilanhtho.gov.vn",
+    "mod.gov.vn",
+    "qdnd.vn",
+    "chinhphu.vn",
+    "vietnamplus.vn",
+    "luutru.gov.vn"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Quân đội Sài Gòn thất bại trong chiến đấu bảo vệ quần đảo Hoàng Sa",
+    "Quân đội Sài Gòn thất bại trong chiến đấu bảo vệ quần đảo Hoàng Sa Tháng 1 năm 1974",
+    "Quân đội Sài Gòn thất bại trong chiến đấu bảo vệ quần đảo Hoàng Sa Chủ quyền biển đảo Việt Nam 1954-1975",
+    "Quân đội Sài Gòn thất bại trong chiến đấu bảo vệ quần đảo Hoàng Sa Đối thủ: quân đội Trung Quốc Diễn ra tháng 1 năm 1974",
+    "Quân đội Sài Gòn thất bại trong chiến đấu bảo vệ quần đảo Hoàng Sa bản đồ",
+    "Quân đội Sài Gòn thất bại trong chiến đấu bảo vệ quần đảo Hoàng Sa hải đồ"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

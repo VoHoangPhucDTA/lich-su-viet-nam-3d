@@ -1,0 +1,57 @@
+{
+  "eventId": "ho-chi-minh-keu-goi-nhuong-com-se-ao-tang-gia-san-xuat",
+  "title": "Chủ tịch Hồ Chí Minh kêu gọi nhân dân cả nước “Nhường cơm sẻ áo” và “Tăng gia sản xuất”",
+  "shortTitle": "Kêu gọi “Nhường cơm sẻ áo” và “Tăng gia sản xuất”",
+  "displayDate": "Những năm 1945 – 1946",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1919-1945",
+  "parentId": "viet-nam-1919-1945",
+  "historicalLocations": [],
+  "provinceNames": [],
+  "canonicalSummary": "Về đối nội, để giải quyết nạn đói, nạn dốt và khó khăn về tài chính, Chủ tịch Hồ ChíMinh kêu gọi nhân dân cả nước “Nhường cơm sẻ áo” và “Tăng gia sản xuất, kí sắc lệnh thành lập Nha Bình dân học vụ và thành lập Quỹ Độc lập, gửi thư kêu gọi các tầng lớp nhân dân hưởng ứng Tuần lễ vàng ủng hộ Chính phủ.",
+  "keyFacts": [
+    "Kêu gọi nhân dân cả nước",
+    "“Tăng gia sản xuất”",
+    "“Nhường cơm sẻ áo”",
+    "Để giải quyết nạn đói"
+  ],
+  "sourceFamily": "revolutionary",
+  "preferredVerificationDomains": [
+    "hochiminh.vn",
+    "tulieuvankien.dangcongsan.vn",
+    "dangcongsan.vn",
+    "baotanglichsu.vn",
+    "nhandan.vn",
+    "qdnd.vn",
+    "vietnamplus.vn",
+    "luutru.gov.vn"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Chủ tịch Hồ Chí Minh kêu gọi nhân dân cả nước “Nhường cơm sẻ áo” và “Tăng gia sản xuất”",
+    "Chủ tịch Hồ Chí Minh kêu gọi nhân dân cả nước “Nhường cơm sẻ áo” và “Tăng gia sản xuất” Những năm 1945 – 1946",
+    "Chủ tịch Hồ Chí Minh kêu gọi nhân dân cả nước “Nhường cơm sẻ áo” và “Tăng gia sản xuất” Việt Nam từ năm 1919 đến năm 1945",
+    "Chủ tịch Hồ Chí Minh kêu gọi nhân dân cả nước “Nhường cơm sẻ áo” và “Tăng gia sản xuất” Kêu gọi nhân dân cả nước “Tăng gia sản xuất”",
+    "Chủ tịch Hồ Chí Minh kêu gọi nhân dân cả nước “Nhường cơm sẻ áo” và “Tăng gia sản xuất” ảnh tư liệu",
+    "Chủ tịch Hồ Chí Minh kêu gọi nhân dân cả nước “Nhường cơm sẻ áo” và “Tăng gia sản xuất” chân dung"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

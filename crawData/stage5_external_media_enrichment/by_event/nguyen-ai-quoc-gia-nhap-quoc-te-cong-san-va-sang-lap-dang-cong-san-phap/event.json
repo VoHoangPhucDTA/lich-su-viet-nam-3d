@@ -1,0 +1,65 @@
+{
+  "eventId": "nguyen-ai-quoc-gia-nhap-quoc-te-cong-san-va-sang-lap-dang-cong-san-phap",
+  "title": "Nguyễn Ái Quốc bỏ phiếu tán thành gia nhập Quốc tế Cộng sản và sáng lập Đảng Cộng sản Pháp",
+  "shortTitle": "Thành lập Đảng Cộng sản Pháp",
+  "displayDate": "Tháng 12 - 1920",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1919-1945",
+  "parentId": "viet-nam-1919-1945",
+  "historicalLocations": [
+    "Pháp",
+    "Đảng Xã hội Pháp"
+  ],
+  "provinceNames": [],
+  "canonicalSummary": "Tại Đại hội lần thứ XVIII của Đảng Xã hội Pháp (12 – 1920), Nguyễn Ái Quốc đã bỏ phiếu tán thành việc gia nhập Quốc tế Cộng sản, trở thành người cộng sản Việt Nam đầu tiên và một trong những người sáng lập Đảng Cộng sản Pháp.",
+  "keyFacts": [
+    "Bỏ phiếu tán thành gia nhập Quốc tế Cộng sản",
+    "Trở thành người cộng sản Việt Nam đầu tiên",
+    "Là một trong những người sáng lập Đảng Cộng sản Pháp",
+    "Bỏ phiếu tán thành Quốc tế Cộng sản",
+    "Tại Đại hội lần thứ XVIII của Đảng Xã hội Pháp",
+    "Trở thành người Cộng sản đầu tiên của Việt Nam",
+    "Nguyễn Ái Quốc là một trong những người sáng lập",
+    "Diễn ra năm 1920",
+    "Tại Pháp"
+  ],
+  "sourceFamily": "revolutionary",
+  "preferredVerificationDomains": [
+    "hochiminh.vn",
+    "tulieuvankien.dangcongsan.vn",
+    "dangcongsan.vn",
+    "baotanglichsu.vn",
+    "nhandan.vn",
+    "qdnd.vn",
+    "vietnamplus.vn",
+    "luutru.gov.vn"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Nguyễn Ái Quốc bỏ phiếu tán thành gia nhập Quốc tế Cộng sản và sáng lập Đảng Cộng sản Pháp",
+    "Nguyễn Ái Quốc bỏ phiếu tán thành gia nhập Quốc tế Cộng sản và sáng lập Đảng Cộng sản Pháp Tháng 12 - 1920",
+    "Nguyễn Ái Quốc bỏ phiếu tán thành gia nhập Quốc tế Cộng sản và sáng lập Đảng Cộng sản Pháp Pháp",
+    "Nguyễn Ái Quốc bỏ phiếu tán thành gia nhập Quốc tế Cộng sản và sáng lập Đảng Cộng sản Pháp Bỏ phiếu tán thành gia nhập Quốc tế Cộng sản Trở thành người cộng sản Việt Nam đầu tiên",
+    "Nguyễn Ái Quốc bỏ phiếu tán thành gia nhập Quốc tế Cộng sản và sáng lập Đảng Cộng sản Pháp ảnh tư liệu",
+    "Nguyễn Ái Quốc bỏ phiếu tán thành gia nhập Quốc tế Cộng sản và sáng lập Đảng Cộng sản Pháp chân dung"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

@@ -1,0 +1,59 @@
+{
+  "eventId": "thuc-hien-thong-nhat-dat-nuoc-viet-nam",
+  "title": "Thực hiện thống nhất đất nước Việt Nam",
+  "shortTitle": "Thống nhất đất nước Việt Nam",
+  "displayDate": "năm 1976",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1975-den-nay",
+  "parentId": "viet-nam-1975-den-nay",
+  "historicalLocations": [
+    "Việt Nam"
+  ],
+  "provinceNames": [],
+  "canonicalSummary": "Sau khi hoàn toàn giải phóng miền Nam (tháng 4-1975) và thực hiện thống nhất đất nước (năm 1976), cả nước Việt Nam tiến lên xây dựng chủ nghĩa xã hội.",
+  "keyFacts": [
+    "Sau giải phóng miền Nam",
+    "Cả nước tiến lên xây dựng chủ nghĩa xã hội",
+    "Diễn ra năm 1976"
+  ],
+  "sourceFamily": "post_1975",
+  "preferredVerificationDomains": [
+    "chinhphu.vn",
+    "dangcongsan.vn",
+    "tulieuvankien.dangcongsan.vn",
+    "quochoi.vn",
+    "mofa.gov.vn",
+    "vietnamplus.vn",
+    "nhandan.vn",
+    "un.org",
+    "unphoto.un.org"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Thực hiện thống nhất đất nước Việt Nam",
+    "Thực hiện thống nhất đất nước Việt Nam năm 1976",
+    "Thực hiện thống nhất đất nước Việt Nam Việt Nam",
+    "Thực hiện thống nhất đất nước Việt Nam Sau giải phóng miền Nam Cả nước tiến lên xây dựng chủ nghĩa xã hội",
+    "Thực hiện thống nhất đất nước Việt Nam ảnh tư liệu",
+    "Thực hiện thống nhất đất nước Việt Nam lễ ký"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

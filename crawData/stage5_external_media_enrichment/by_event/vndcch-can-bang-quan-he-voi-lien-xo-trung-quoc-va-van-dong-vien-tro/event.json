@@ -1,0 +1,61 @@
+{
+  "eventId": "vndcch-can-bang-quan-he-voi-lien-xo-trung-quoc-va-van-dong-vien-tro",
+  "title": "Việt Nam Dân chủ Cộng hoà cân bằng quan hệ với Liên Xô, Trung Quốc và vận động viện trợ",
+  "shortTitle": "Việt Nam Dân chủ Cộng hoà cân bằng quan hệ với Liên Xô, Trung Quốc và vận động viện trợ",
+  "displayDate": "Trong kháng chiến chống Mỹ (1954-1975)",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1954-1975",
+  "parentId": "khang-chien-chong-my-cuu-nuoc",
+  "historicalLocations": [
+    "miền Bắc",
+    "Liên Xô",
+    "miền Nam",
+    "Trung Quốc"
+  ],
+  "provinceNames": [],
+  "canonicalSummary": "Việt Nam Dân chủ Cộng hoà khéo léo cân bằng quan hệ với Liên Xô, Trung Quốc; vận động các nước xã hội chủ nghĩa viện trợ cho công cuộc xây dựng chủ nghĩa xã hội ở miền Bắc, ủng hộ cuộc kháng chiến ở miền Nam.",
+  "keyFacts": [
+    "Vận động ủng hộ kháng chiến ở miền Nam",
+    "Vận động các nước XHCN viện trợ cho miền Bắc",
+    "Cân bằng quan hệ với Liên Xô, Trung Quốc"
+  ],
+  "sourceFamily": "diplomacy",
+  "preferredVerificationDomains": [
+    "mofa.gov.vn",
+    "chinhphu.vn",
+    "vietnamplus.vn",
+    "nhandan.vn",
+    "un.org",
+    "asean.org",
+    "apec.org",
+    "europa.eu"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Việt Nam Dân chủ Cộng hoà cân bằng quan hệ với Liên Xô, Trung Quốc và vận động viện trợ",
+    "Việt Nam Dân chủ Cộng hoà cân bằng quan hệ với Liên Xô, Trung Quốc và vận động viện trợ Trong kháng chiến chống Mỹ (1954-1975)",
+    "Việt Nam Dân chủ Cộng hoà cân bằng quan hệ với Liên Xô, Trung Quốc và vận động viện trợ miền Bắc",
+    "Việt Nam Dân chủ Cộng hoà cân bằng quan hệ với Liên Xô, Trung Quốc và vận động viện trợ Vận động ủng hộ kháng chiến ở miền Nam Vận động các nước XHCN viện trợ cho miền Bắc",
+    "Việt Nam Dân chủ Cộng hoà cân bằng quan hệ với Liên Xô, Trung Quốc và vận động viện trợ lễ ký",
+    "Việt Nam Dân chủ Cộng hoà cân bằng quan hệ với Liên Xô, Trung Quốc và vận động viện trợ hội nghị"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

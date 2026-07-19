@@ -1,0 +1,9 @@
+{
+  "eventId": "viet-nam-binh-thuong-hoa-quan-he-trung-quoc",
+  "status": "pending_download",
+  "images": [],
+  "expected": [
+    "image_01.<ext>",
+    "image_02.<ext>"
+  ]
+}

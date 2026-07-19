@@ -1,0 +1,56 @@
+{
+  "eventId": "phap-cho-hai-quan-tru-dong-truong-sa",
+  "title": "Pháp cho hải quân trú đóng ở các đảo chính thuộc quần đảo Trường Sa",
+  "shortTitle": "Pháp trú đóng Trường Sa",
+  "displayDate": "Năm 1946",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1945-1954",
+  "parentId": "viet-nam-1945-1954",
+  "historicalLocations": [],
+  "provinceNames": [],
+  "canonicalSummary": "Năm 1946, chính quyền thực dân Pháp cho hải quân trú đóng ở các đảo chính thuộc quần đảo Trường Sa và yêu cầu quân đội Trung Hoa Dân quốc rút khỏi các đảo đã chiếm đóng trái phép.",
+  "keyFacts": [
+    "Chính quyền thực dân Pháp triển khai hải quân",
+    "Diễn ra năm 1946",
+    "Địa điểm: các đảo chính thuộc quần đảo Trường Sa",
+    "Yêu cầu Trung Hoa Dân quốc rút quân"
+  ],
+  "sourceFamily": "maritime",
+  "preferredVerificationDomains": [
+    "mofa.gov.vn",
+    "biengioilanhtho.gov.vn",
+    "mod.gov.vn",
+    "qdnd.vn",
+    "chinhphu.vn",
+    "vietnamplus.vn",
+    "luutru.gov.vn"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Pháp cho hải quân trú đóng ở các đảo chính thuộc quần đảo Trường Sa",
+    "Pháp cho hải quân trú đóng ở các đảo chính thuộc quần đảo Trường Sa Năm 1946",
+    "Pháp cho hải quân trú đóng ở các đảo chính thuộc quần đảo Trường Sa Việt Nam từ năm 1945 đến năm 1954",
+    "Pháp cho hải quân trú đóng ở các đảo chính thuộc quần đảo Trường Sa Chính quyền thực dân Pháp triển khai hải quân Diễn ra năm 1946",
+    "Pháp cho hải quân trú đóng ở các đảo chính thuộc quần đảo Trường Sa bản đồ",
+    "Pháp cho hải quân trú đóng ở các đảo chính thuộc quần đảo Trường Sa hải đồ"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

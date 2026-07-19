@@ -1,0 +1,57 @@
+{
+  "eventId": "philippin-ban-hanh-sac-lenh-1596-tuyen-bo-chu-quyen-truong-sa",
+  "title": "Phi-líp-pin ban hành Sắc lệnh 1596 tuyên bố chủ quyền đối với hầu hết các đảo thuộc quần đảo Trường Sa",
+  "shortTitle": "Phi-líp-pin ban hành Sắc lệnh 1596",
+  "displayDate": "Năm 1978",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1975-den-nay",
+  "parentId": "chu-quyen-bien-dao-viet-nam-1975-den-nay",
+  "historicalLocations": [
+    "quần đảo Trường Sa"
+  ],
+  "provinceNames": [],
+  "canonicalSummary": "Phi-líp-pin - Năm 1978, ban hành Sắc lệnh 1596 tuyên bố chủ quyền đối với hầu hết các đảo thuộc quần đảo Trường Sa.",
+  "keyFacts": [
+    "Chủ thể: Phi-líp-pin",
+    "Ban hành năm 1978",
+    "Nội dung: tuyên bố chủ quyền đối với hầu hết các đảo thuộc quần đảo Trường Sa"
+  ],
+  "sourceFamily": "maritime",
+  "preferredVerificationDomains": [
+    "mofa.gov.vn",
+    "biengioilanhtho.gov.vn",
+    "mod.gov.vn",
+    "qdnd.vn",
+    "chinhphu.vn",
+    "vietnamplus.vn",
+    "luutru.gov.vn"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Phi-líp-pin ban hành Sắc lệnh 1596 tuyên bố chủ quyền đối với hầu hết các đảo thuộc quần đảo Trường Sa",
+    "Phi-líp-pin ban hành Sắc lệnh 1596 tuyên bố chủ quyền đối với hầu hết các đảo thuộc quần đảo Trường Sa Năm 1978",
+    "Phi-líp-pin ban hành Sắc lệnh 1596 tuyên bố chủ quyền đối với hầu hết các đảo thuộc quần đảo Trường Sa quần đảo Trường Sa",
+    "Phi-líp-pin ban hành Sắc lệnh 1596 tuyên bố chủ quyền đối với hầu hết các đảo thuộc quần đảo Trường Sa Chủ thể: Phi-líp-pin Ban hành năm 1978",
+    "Phi-líp-pin ban hành Sắc lệnh 1596 tuyên bố chủ quyền đối với hầu hết các đảo thuộc quần đảo Trường Sa bản đồ",
+    "Phi-líp-pin ban hành Sắc lệnh 1596 tuyên bố chủ quyền đối với hầu hết các đảo thuộc quần đảo Trường Sa hải đồ"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

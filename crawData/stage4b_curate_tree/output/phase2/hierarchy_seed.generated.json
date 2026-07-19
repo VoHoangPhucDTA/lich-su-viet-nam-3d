@@ -3,8 +3,15 @@
     "parentId": null,
     "rootId": "viet-nam-thoi-dung-nuoc",
     "childIds": [
+      "van-hoa-sa-huynh",
+      "van-hoa-tien-oc-eo",
       "su-ra-doi-nha-nuoc-au-lac",
-      "khang-chien-chong-quan-trieu-an-duong-vuong"
+      "khang-chien-chong-quan-trieu-an-duong-vuong",
+      "hinh-thanh-khoi-dai-doan-ket-van-lang-au-lac",
+      "hinh-thanh-phat-trien-van-minh-van-lang-au-lac",
+      "lang-xa-hinh-thanh-thoi-van-lang-au-lac",
+      "su-ra-doi-nha-nuoc-van-lang",
+      "van-hoa-phung-nguyen"
     ],
     "level": 0,
     "orderInParent": 0
@@ -14,11 +21,21 @@
     "rootId": "bac-thuoc-va-dau-tranh-gianh-doc-lap",
     "childIds": [
       "khoi-nghia-hai-ba-trung",
+      "hinh-thanh-phat-trien-van-minh-cham-pa",
       "khoi-nghia-khu-lien-lap-nuoc-lam-ap",
+      "phu-nam-tro-thanh-vuong-quoc-hung-manh",
       "khoi-nghia-ba-trieu",
       "khoi-nghia-ly-bi-trieu-quang-phuc",
+      "xa-lan-dau-tien-xuat-hien",
+      "mai-thuc-loan-khoi-nghia",
       "khoi-nghia-mai-thuc-loan",
-      "khoi-nghia-khuc-thua-du"
+      "khoi-nghia-phung-hung",
+      "ho-khuc-to-chuc-lai-lang-xa-the-ki-x",
+      "khoi-nghia-khuc-thua-du",
+      "dau-tranh-chong-phong-kien-phuong-bac",
+      "hinh-thanh-phat-trien-van-minh-phu-nam",
+      "nha-duong-dat-don-vi-huong-xa-thoi-bac-thuoc",
+      "nho-giao-du-nhap-viet-nam"
     ],
     "level": 0,
     "orderInParent": 1
@@ -30,6 +47,7 @@
       "chien-thang-bach-dang-938",
       "ngo-quyen-xung-vuong-co-loa",
       "khang-chien-chong-quan-tong-981",
+      "doi-do-ly-cong-uan",
       "ly-thai-to-doi-do-thang-long",
       "ly-thanh-tong-dung-van-mieu",
       "khang-chien-chong-quan-tong-1075-1077",
@@ -37,24 +55,39 @@
       "ly-nhan-tong-lap-quoc-tu-giam",
       "ga-cong-chua-thieu-dung-duong-tu-minh-1144",
       "nha-ly-thanh-lap-trang-van-don",
+      "cai-cach-tran-thu-do",
       "khang-chien-chong-quan-mong-co-1258",
       "hoi-nghi-binh-than",
       "hoi-nghi-dien-hong",
       "khang-chien-chong-quan-nguyen-1285",
       "khang-chien-chong-quan-nguyen-1287-1288",
+      "khung-hoang-cuoi-trieu-tran",
       "cai-cach-ho-quy-ly-trieu-ho",
       "phat-hanh-tien-giay-thong-bao-hoi-sao",
       "ban-hanh-chinh-sach-han-dien",
       "ho-quy-ly-doi-do-thanh-hoa",
       "ho-quy-ly-lap-trieu-ho",
       "ban-hanh-chinh-sach-han-no",
+      "le-loi-xay-thanh-luc-nien",
       "khang-chien-chong-quan-minh-nha-ho",
       "nha-minh-thong-tri-huy-diet-van-minh-dai-viet",
       "hoi-the-lung-nhai",
       "khoi-nghia-lam-son",
       "hoi-the-dong-quan",
       "nha-le-so-thanh-lap",
-      "cai-cach-le-thanh-tong"
+      "cai-cach-le-thanh-tong",
+      "chu-nom-su-dung-rong-rai",
+      "dinh-tien-le-dong-do-hoa-lu",
+      "lang-co-ten-nom-xuat-hien-som-thoi-ly-tran",
+      "nguoi-viet-che-tao-sung-than-co-thuyen-chien",
+      "nha-ly-su-dung-thi-cu-nho-hoc",
+      "nha-ly-to-chuc-khoa-thi-nho-hoc-dau-tien",
+      "nha-ly-xay-dung-van-mieu",
+      "nha-nuoc-can-thiep-manh-lang-xa-thoi-le-so",
+      "tan-cong-champa-dai-viet-cuoi-tk14",
+      "thoi-tran-dat-chuc-xa-quan",
+      "tin-nguong-tho-than-dong-co-cung-dinh",
+      "xa-tro-thanh-ten-goi-pho-bien"
     ],
     "level": 0,
     "orderInParent": 2
@@ -63,17 +96,27 @@
     "parentId": null,
     "rootId": "viet-nam-tu-the-ki-xvi-den-xix",
     "childIds": [
+      "chu-quyen-bien-dao-viet-nam-tu-the-ki-xvi-den-xix",
+      "doi-moi-dao-duy-tu-dang-trong",
       "nha-mac-thanh-lap",
       "giao-si-phuong-tay-truyen-dao-cong-giao",
       "phuc-nghia-hau-gui-thu-nhat-ban",
       "giang-van-minh-di-su-nha-minh",
+      "cai-cach-trinh-cuong-dang-ngoai",
+      "nguyen-hue-dung-chan-chieu-mo-binh-si",
       "phong-trao-tay-son",
+      "thanh-lap-lang-xa-huyen-tien-hai-thai-binh",
       "bac-thanh-duoc-lap",
       "thoi-gia-long-tri-vi",
       "trieu-nguyen-thanh-lap",
       "gia-dinh-thanh-duoc-lap",
       "cuoc-cai-cach-cua-minh-mang",
-      "chu-quyen-bien-dao-viet-nam-tu-the-ki-xvi-den-xix"
+      "phap-xam-luoc-viet-nam",
+      "chu-quoc-ngu-xuat-hien",
+      "nha-nuoc-can-thiep-manh-lang-xa-thoi-nguyen",
+      "nha-nuoc-pho-mac-lang-xa-thoi-le-trung-hung",
+      "thanh-lap-quoc-su-quan-trieu-nguyen",
+      "thuong-mai-a-au-phat-trien-tai-dai-viet"
     ],
     "level": 0,
     "orderInParent": 3
@@ -83,6 +126,7 @@
     "rootId": "viet-nam-1858-1918",
     "childIds": [
       "thuc-dan-phap-no-sung-tan-cong-da-nang",
+      "chu-quyen-bien-dao-viet-nam-1858-1918",
       "khang-chien-chong-thuc-dan-phap-trieu-nguyen",
       "phap-tan-cong-da-nang-1858",
       "phap-xam-chiem-dong-duong",
@@ -94,6 +138,7 @@
       "hiep-uoc-hac-mang",
       "hiep-uoc-pa-to-not",
       "xay-dung-cau-long-bien",
+      "phong-trao-dong-du",
       "hoat-dong-doi-ngoai-phan-boi-chau",
       "phan-boi-chau-sang-nhat-ban-1905",
       "nguyen-tat-thanh-tham-gia-chong-thue-hue",
@@ -105,7 +150,7 @@
       "phan-boi-chau-ve-trung-quoc-1911",
       "phan-chau-trinh-sang-phap-1911",
       "thanh-lap-viet-nam-quang-phuc-hoi-1912",
-      "chu-quyen-bien-dao-viet-nam-1858-1918",
+      "chinh-quyen-phap-cai-cach-huong-chinh",
       "phong-trao-can-vuong"
     ],
     "level": 0,
@@ -115,6 +160,7 @@
     "parentId": null,
     "rootId": "viet-nam-1919-1945",
     "childIds": [
+      "chu-quyen-bien-dao-viet-nam-1919-1945",
       "nguyen-ai-quoc-gui-yeu-sach-vec-xai",
       "nguyen-ai-quoc-doc-luan-cuong-le-nin",
       "nguyen-ai-quoc-gia-nhap-quoc-te-cong-san-va-sang-lap-dang-cong-san-phap",
@@ -132,6 +178,7 @@
       "hoi-nghi-thanh-lap-dang-cong-san-viet-nam",
       "thanh-lap-mat-tran-dan-toc-thong-nhat-viet-nam-1930",
       "hoat-dong-doi-ngoai-dang-cong-san-dong-duong-1930-1945",
+      "thanh-lap-cac-dang-cong-san-o-viet-nam-ma-lai-xiem-phi-lip-pin",
       "nguyen-ai-quoc-hoat-dong-lien-xo-1933",
       "nguyen-ai-quoc-roi-lien-xo-tro-lai-trung-quoc",
       "nguyen-ai-quoc-tro-ve-nuoc",
@@ -147,11 +194,13 @@
       "cach-mang-thang-tam-nam-1945",
       "giai-doan-hoan-thanh-cuoc-dau-tranh-gianh-doc-lap-dan-toc-o-dong-nam-a",
       "ho-chi-minh-gui-thu-toi-chu-tich-hoi-dong-lien-hop-quoc",
+      "ho-chi-minh-keu-goi-nhuong-com-se-ao-tang-gia-san-xuat",
+      "ho-chi-minh-ki-sac-lenh-thanh-lap-nha-binh-dan-hoc-vu-va-quy-doc-lap",
       "hoat-dong-doi-ngoai-cua-vndcch-voi-trung-hoa-dan-quoc",
       "khang-chien-chong-thuc-dan-phap-o-viet-nam-lao-cam-pu-chia",
       "lang-xa-viet-nam-bien-doi-sau-1945",
       "viet-nam-de-nghi-lien-hop-quoc-cong-nhan-vndcch",
-      "chu-quyen-bien-dao-viet-nam-1919-1945"
+      "giai-doan-cuoi-chien-tranh-the-gioi-thu-hai"
     ],
     "level": 0,
     "orderInParent": 5
@@ -172,6 +221,7 @@
       "viet-nam-the-hien-thien-chi-hoa-binh-sau-12-1946",
       "hien-phap-viet-nam-dan-chu-cong-hoa-1946",
       "phap-cho-hai-quan-tru-dong-truong-sa",
+      "cac-chien-dich-tien-cong-quan-doi-viet-nam-1950-1953",
       "vndcch-thiet-lap-quan-he-ngoai-giao-voi-cac-nuoc-xhcn",
       "dai-hoi-dai-bieu-lan-thu-ii-cua-dang-lao-dong-viet-nam",
       "dai-hoi-dai-bieu-lan-thu-ii-dang-cong-san-dong-duong-1951",
@@ -182,7 +232,10 @@
       "cuoc-van-dong-san-xuat-va-tiet-kiem-1952",
       "dai-hoi-chien-si-thi-dua-can-bo-guong-mau-toan-quoc-lan-thu-nhat-1952",
       "quoc-hoi-thong-qua-luat-cai-cach-ruong-dat-1953",
-      "chien-tranh-bao-ve-doc-lap-dan-toc-va-chu-quyen-quoc-gia-o-dong-duong"
+      "cai-cach-ruong-dat-mien-bac",
+      "chien-tranh-bao-ve-doc-lap-dan-toc-va-chu-quyen-quoc-gia-o-dong-duong",
+      "mien-bac-viet-nam-giai-phong-xay-dung-cnxh",
+      "khang-chien-thang-loi"
     ],
     "level": 0,
     "orderInParent": 6
@@ -191,16 +244,21 @@
     "parentId": null,
     "rootId": "viet-nam-1954-1975",
     "childIds": [
+      "chu-quyen-bien-dao-viet-nam-1954-1975",
       "khang-chien-chong-my-cuu-nuoc",
+      "lien-xo-vien-tro-cho-viet-nam",
       "ho-chi-minh-chu-tich-tong-bi-thu-dang-lao-dong-1956",
       "hoi-nghi-ban-chap-hanh-trung-uong-lan-thu-15-dang-lao-dong-viet-nam",
+      "phong-trao-dong-khoi",
       "dai-hoi-dai-bieu-toan-quoc-lan-thu-iii-cua-dang-lao-dong-viet-nam",
       "dai-hoi-dai-bieu-toan-quoc-lan-thu-iii-dang-lao-dong-viet-nam",
       "ho-chi-minh-tiep-tuc-duoc-bau-chu-tich-dang-lao-dong-1960",
       "thanh-lap-mat-tran-dan-toc-giai-phong-mien-nam-viet-nam",
       "thanh-lap-quan-giai-phong-mien-nam",
       "chu-tich-ho-chi-minh-tham-quan-cang-bai-chay-1961",
+      "ke-hoach-nha-nuoc-5-nam-lan-thu-nhat-mien-bac",
       "chien-thang-ap-bac",
+      "cac-chien-thang-quan-su-1964-1965",
       "chien-thang-van-tuong",
       "hoi-nghi-pa-ri-ve-viet-nam",
       "tong-tien-cong-va-noi-day-xuan-mau-than-1968",
@@ -210,8 +268,8 @@
       "chien-dich-duong-9-nam-lao",
       "cuoc-tien-cong-chien-luoc-nam-1972",
       "hoi-nghi-ban-chap-hanh-trung-uong-dang-lan-thu-21",
-      "mit-tinh-chao-mung-uy-ban-quan-quan-sai-gon-1975",
-      "chu-quyen-bien-dao-viet-nam-1954-1975"
+      "hoan-toan-giai-phong-mien-nam-viet-nam",
+      "mit-tinh-chao-mung-uy-ban-quan-quan-sai-gon-1975"
     ],
     "level": 0,
     "orderInParent": 7
@@ -221,7 +279,9 @@
     "rootId": "viet-nam-1975-den-nay",
     "childIds": [
       "quoc-hoi-khoa-vi-doi-ten-sai-gon-thanh-thanh-pho-ho-chi-minh",
+      "thuc-hien-thong-nhat-dat-nuoc-viet-nam",
       "viet-nam-thanh-vien-lien-hop-quoc",
+      "lien-hop-quoc-vien-tro-viet-nam-1977-1986",
       "viet-nam-gia-nhap-sev",
       "go-ro-bat-co-pham-tuan-bay-vu-tru",
       "cong-cuoc-doi-moi-o-viet-nam",
@@ -232,105 +292,40 @@
       "ro-bot-xophia-duoc-cap-quyen-cong-dan",
       "nhan-dan-ung-ho-mien-trung-bao-so-9-2020",
       "hoi-nghi-cap-cao-asean-37-ha-noi",
-      "cac-chien-dich-tien-cong-quan-doi-viet-nam-1950-1953",
-      "cac-chien-thang-quan-su-1964-1965",
-      "cai-cach-ruong-dat-mien-bac",
-      "cai-cach-tran-thu-do",
-      "cai-cach-trinh-cuong-dang-ngoai",
-      "chien-luoc-vua-danh-vua-dam-va-van-dong-quoc-te-cong-nhan-mat-tran-dan-toc-giai-phong-mien-nam-viet-nam",
-      "chinh-quyen-phap-cai-cach-huong-chinh",
-      "chu-nom-su-dung-rong-rai",
-      "chu-quoc-ngu-xuat-hien",
       "chu-quyen-bien-dao-viet-nam-1975-den-nay",
-      "dau-tranh-chong-phong-kien-phuong-bac",
-      "dinh-tien-le-dong-do-hoa-lu",
-      "doi-do-ly-cong-uan",
-      "doi-moi-dao-duy-tu-dang-trong",
-      "giai-doan-cuoi-chien-tranh-the-gioi-thu-hai",
-      "giai-doan-day-manh-cong-nghiep-hoa-hien-dai-hoa-hoi-nhap-kinh-te-quoc-te-1996-2006",
-      "giai-doan-khoi-dau-cong-cuoc-doi-moi-1986-1995",
-      "giai-doan-tiep-tuc-day-manh-cong-nghiep-hoa-hien-dai-hoa-hoi-nhap-quoc-te-sau-rong-2006-nay",
-      "hinh-thanh-khoi-dai-doan-ket-van-lang-au-lac",
-      "hinh-thanh-phat-trien-van-minh-cham-pa",
-      "hinh-thanh-phat-trien-van-minh-phu-nam",
-      "hinh-thanh-phat-trien-van-minh-van-lang-au-lac",
-      "ho-chi-minh-keu-goi-nhuong-com-se-ao-tang-gia-san-xuat",
-      "ho-chi-minh-ki-sac-lenh-thanh-lap-nha-binh-dan-hoc-vu-va-quy-doc-lap",
-      "ho-khuc-to-chuc-lai-lang-xa-the-ki-x",
-      "hoan-toan-giai-phong-mien-nam-viet-nam",
-      "ke-hoach-nha-nuoc-5-nam-lan-thu-nhat-mien-bac",
-      "khang-chien-thang-loi",
-      "khoi-nghia-phung-hung",
-      "khung-hoang-cuoi-trieu-tran",
-      "lang-co-ten-nom-xuat-hien-som-thoi-ly-tran",
-      "lang-xa-hinh-thanh-thoi-van-lang-au-lac",
-      "le-loi-xay-thanh-luc-nien",
-      "lien-hop-quoc-vien-tro-viet-nam-1977-1986",
-      "lien-xo-vien-tro-cho-viet-nam",
-      "mai-thuc-loan-khoi-nghia",
-      "mien-bac-viet-nam-giai-phong-xay-dung-cnxh",
-      "nguoi-viet-che-tao-sung-than-co-thuyen-chien",
-      "nguyen-hue-dung-chan-chieu-mo-binh-si",
-      "nha-duong-dat-don-vi-huong-xa-thoi-bac-thuoc",
-      "nha-ly-su-dung-thi-cu-nho-hoc",
-      "nha-ly-to-chuc-khoa-thi-nho-hoc-dau-tien",
-      "nha-ly-xay-dung-van-mieu",
-      "nha-nuoc-can-thiep-manh-lang-xa-thoi-le-so",
-      "nha-nuoc-can-thiep-manh-lang-xa-thoi-nguyen",
-      "nha-nuoc-pho-mac-lang-xa-thoi-le-trung-hung",
-      "nho-giao-du-nhap-viet-nam",
-      "phap-xam-luoc-viet-nam",
-      "phong-trao-dong-du",
-      "phong-trao-dong-khoi",
-      "phu-nam-tro-thanh-vuong-quoc-hung-manh",
-      "su-ra-doi-nha-nuoc-van-lang",
-      "tan-cong-champa-dai-viet-cuoi-tk14",
-      "thanh-lap-cac-dang-cong-san-o-viet-nam-ma-lai-xiem-phi-lip-pin",
-      "thanh-lap-lang-xa-huyen-tien-hai-thai-binh",
-      "thanh-lap-quoc-su-quan-trieu-nguyen",
-      "thoi-tran-dat-chuc-xa-quan",
-      "thuc-hien-thong-nhat-dat-nuoc-viet-nam",
-      "thuong-mai-a-au-phat-trien-tai-dai-viet",
-      "tin-nguong-tho-than-dong-co-cung-dinh",
       "trang-an-duoc-ghi-danh-di-san-the-gioi",
-      "tuyen-duong-chi-vien-chien-luoc-tren-bien-mang-ten-chu-tich-ho-chi-minh",
-      "van-hoa-phung-nguyen",
-      "van-hoa-sa-huynh",
-      "van-hoa-tien-oc-eo",
-      "viet-nam-dam-phan-ranh-gioi-tren-bien",
-      "viet-nam-hoan-tat-muc-tieu-thien-nien-ki",
-      "viet-nam-ki-ket-evfta",
-      "viet-nam-ki-ket-hiep-uoc-bien-gioi-trung-quoc",
-      "viet-nam-ki-ket-nghi-dinh-thu-ki-o-to",
-      "viet-nam-ki-ket-rcep",
-      "viet-nam-lao-cam-pu-chia-chuyen-sang-kinh-te-thi-truong-va-cong-nghiep-hoa",
-      "viet-nam-mo-co-quan-dai-dien-ngoai-giao-va-thong-tin-o-nuoc-ngoai",
-      "viet-nam-tham-gia-afta",
-      "viet-nam-thoan-thuan-bien-gioi-lao-cam-pu-chia",
-      "viet-nam-to-chuc-hoi-nghi-quoc-te-asean-asem-apec",
-      "viet-nam-uy-vien-khong-thuong-truc-hoi-dong-bao-an-lhq",
-      "vndcch-can-bang-quan-he-voi-lien-xo-trung-quoc-va-van-dong-vien-tro",
-      "vndcch-gap-go-dang-cong-san-phap-va-cac-to-chuc-quoc-te",
-      "vndcch-thiet-lap-quan-he-ngoai-giao-voi-lao-campuchia-va-ung-ho-phong-trao-giai-phong-dan-toc",
-      "xa-lan-dau-tien-xuat-hien",
-      "xa-tro-thanh-ten-goi-pho-bien"
+      "viet-nam-lao-cam-pu-chia-chuyen-sang-kinh-te-thi-truong-va-cong-nghiep-hoa"
     ],
     "level": 0,
     "orderInParent": 8
   },
-  "su-ra-doi-nha-nuoc-au-lac": {
+  "van-hoa-sa-huynh": {
     "parentId": "viet-nam-thoi-dung-nuoc",
     "rootId": "viet-nam-thoi-dung-nuoc",
     "childIds": [],
     "level": 1,
     "orderInParent": 0
   },
-  "khang-chien-chong-quan-trieu-an-duong-vuong": {
+  "van-hoa-tien-oc-eo": {
     "parentId": "viet-nam-thoi-dung-nuoc",
     "rootId": "viet-nam-thoi-dung-nuoc",
     "childIds": [],
     "level": 1,
     "orderInParent": 1
+  },
+  "su-ra-doi-nha-nuoc-au-lac": {
+    "parentId": "viet-nam-thoi-dung-nuoc",
+    "rootId": "viet-nam-thoi-dung-nuoc",
+    "childIds": [],
+    "level": 1,
+    "orderInParent": 2
+  },
+  "khang-chien-chong-quan-trieu-an-duong-vuong": {
+    "parentId": "viet-nam-thoi-dung-nuoc",
+    "rootId": "viet-nam-thoi-dung-nuoc",
+    "childIds": [],
+    "level": 1,
+    "orderInParent": 3
   },
   "khoi-nghia-hai-ba-trung": {
     "parentId": "bac-thuoc-va-dau-tranh-gianh-doc-lap",
@@ -339,40 +334,82 @@
     "level": 1,
     "orderInParent": 0
   },
-  "khoi-nghia-khu-lien-lap-nuoc-lam-ap": {
+  "hinh-thanh-phat-trien-van-minh-cham-pa": {
     "parentId": "bac-thuoc-va-dau-tranh-gianh-doc-lap",
     "rootId": "bac-thuoc-va-dau-tranh-gianh-doc-lap",
     "childIds": [],
     "level": 1,
     "orderInParent": 1
   },
-  "khoi-nghia-ba-trieu": {
+  "khoi-nghia-khu-lien-lap-nuoc-lam-ap": {
     "parentId": "bac-thuoc-va-dau-tranh-gianh-doc-lap",
     "rootId": "bac-thuoc-va-dau-tranh-gianh-doc-lap",
     "childIds": [],
     "level": 1,
     "orderInParent": 2
   },
-  "khoi-nghia-ly-bi-trieu-quang-phuc": {
+  "phu-nam-tro-thanh-vuong-quoc-hung-manh": {
     "parentId": "bac-thuoc-va-dau-tranh-gianh-doc-lap",
     "rootId": "bac-thuoc-va-dau-tranh-gianh-doc-lap",
     "childIds": [],
     "level": 1,
     "orderInParent": 3
   },
-  "khoi-nghia-mai-thuc-loan": {
+  "khoi-nghia-ba-trieu": {
     "parentId": "bac-thuoc-va-dau-tranh-gianh-doc-lap",
     "rootId": "bac-thuoc-va-dau-tranh-gianh-doc-lap",
     "childIds": [],
     "level": 1,
     "orderInParent": 4
   },
-  "khoi-nghia-khuc-thua-du": {
+  "khoi-nghia-ly-bi-trieu-quang-phuc": {
     "parentId": "bac-thuoc-va-dau-tranh-gianh-doc-lap",
     "rootId": "bac-thuoc-va-dau-tranh-gianh-doc-lap",
     "childIds": [],
     "level": 1,
     "orderInParent": 5
+  },
+  "xa-lan-dau-tien-xuat-hien": {
+    "parentId": "bac-thuoc-va-dau-tranh-gianh-doc-lap",
+    "rootId": "bac-thuoc-va-dau-tranh-gianh-doc-lap",
+    "childIds": [],
+    "level": 1,
+    "orderInParent": 6
+  },
+  "mai-thuc-loan-khoi-nghia": {
+    "parentId": "bac-thuoc-va-dau-tranh-gianh-doc-lap",
+    "rootId": "bac-thuoc-va-dau-tranh-gianh-doc-lap",
+    "childIds": [],
+    "level": 1,
+    "orderInParent": 7
+  },
+  "khoi-nghia-mai-thuc-loan": {
+    "parentId": "bac-thuoc-va-dau-tranh-gianh-doc-lap",
+    "rootId": "bac-thuoc-va-dau-tranh-gianh-doc-lap",
+    "childIds": [],
+    "level": 1,
+    "orderInParent": 8
+  },
+  "khoi-nghia-phung-hung": {
+    "parentId": "bac-thuoc-va-dau-tranh-gianh-doc-lap",
+    "rootId": "bac-thuoc-va-dau-tranh-gianh-doc-lap",
+    "childIds": [],
+    "level": 1,
+    "orderInParent": 9
+  },
+  "ho-khuc-to-chuc-lai-lang-xa-the-ki-x": {
+    "parentId": "bac-thuoc-va-dau-tranh-gianh-doc-lap",
+    "rootId": "bac-thuoc-va-dau-tranh-gianh-doc-lap",
+    "childIds": [],
+    "level": 1,
+    "orderInParent": 10
+  },
+  "khoi-nghia-khuc-thua-du": {
+    "parentId": "bac-thuoc-va-dau-tranh-gianh-doc-lap",
+    "rootId": "bac-thuoc-va-dau-tranh-gianh-doc-lap",
+    "childIds": [],
+    "level": 1,
+    "orderInParent": 11
   },
   "chien-thang-bach-dang-938": {
     "parentId": "viet-nam-tu-the-ki-x-den-xv",
@@ -395,131 +432,166 @@
     "level": 1,
     "orderInParent": 2
   },
-  "ly-thai-to-doi-do-thang-long": {
+  "doi-do-ly-cong-uan": {
     "parentId": "viet-nam-tu-the-ki-x-den-xv",
     "rootId": "viet-nam-tu-the-ki-x-den-xv",
     "childIds": [],
     "level": 1,
     "orderInParent": 3
   },
-  "ly-thanh-tong-dung-van-mieu": {
+  "ly-thai-to-doi-do-thang-long": {
     "parentId": "viet-nam-tu-the-ki-x-den-xv",
     "rootId": "viet-nam-tu-the-ki-x-den-xv",
     "childIds": [],
     "level": 1,
     "orderInParent": 4
   },
-  "khang-chien-chong-quan-tong-1075-1077": {
+  "ly-thanh-tong-dung-van-mieu": {
     "parentId": "viet-nam-tu-the-ki-x-den-xv",
     "rootId": "viet-nam-tu-the-ki-x-den-xv",
     "childIds": [],
     "level": 1,
     "orderInParent": 5
   },
-  "ly-thuong-kiet-tap-kich-kham-chau-liem-chau-ung-chau": {
+  "khang-chien-chong-quan-tong-1075-1077": {
     "parentId": "viet-nam-tu-the-ki-x-den-xv",
     "rootId": "viet-nam-tu-the-ki-x-den-xv",
     "childIds": [],
     "level": 1,
     "orderInParent": 6
   },
-  "ly-nhan-tong-lap-quoc-tu-giam": {
+  "ly-thuong-kiet-tap-kich-kham-chau-liem-chau-ung-chau": {
     "parentId": "viet-nam-tu-the-ki-x-den-xv",
     "rootId": "viet-nam-tu-the-ki-x-den-xv",
     "childIds": [],
     "level": 1,
     "orderInParent": 7
   },
-  "ga-cong-chua-thieu-dung-duong-tu-minh-1144": {
+  "ly-nhan-tong-lap-quoc-tu-giam": {
     "parentId": "viet-nam-tu-the-ki-x-den-xv",
     "rootId": "viet-nam-tu-the-ki-x-den-xv",
     "childIds": [],
     "level": 1,
     "orderInParent": 8
   },
-  "nha-ly-thanh-lap-trang-van-don": {
+  "ga-cong-chua-thieu-dung-duong-tu-minh-1144": {
     "parentId": "viet-nam-tu-the-ki-x-den-xv",
     "rootId": "viet-nam-tu-the-ki-x-den-xv",
     "childIds": [],
     "level": 1,
     "orderInParent": 9
   },
-  "khang-chien-chong-quan-mong-co-1258": {
+  "nha-ly-thanh-lap-trang-van-don": {
     "parentId": "viet-nam-tu-the-ki-x-den-xv",
     "rootId": "viet-nam-tu-the-ki-x-den-xv",
     "childIds": [],
     "level": 1,
     "orderInParent": 10
   },
-  "hoi-nghi-binh-than": {
+  "cai-cach-tran-thu-do": {
     "parentId": "viet-nam-tu-the-ki-x-den-xv",
     "rootId": "viet-nam-tu-the-ki-x-den-xv",
     "childIds": [],
     "level": 1,
     "orderInParent": 11
   },
-  "hoi-nghi-dien-hong": {
+  "khang-chien-chong-quan-mong-co-1258": {
     "parentId": "viet-nam-tu-the-ki-x-den-xv",
     "rootId": "viet-nam-tu-the-ki-x-den-xv",
     "childIds": [],
     "level": 1,
     "orderInParent": 12
   },
-  "khang-chien-chong-quan-nguyen-1285": {
+  "hoi-nghi-binh-than": {
     "parentId": "viet-nam-tu-the-ki-x-den-xv",
     "rootId": "viet-nam-tu-the-ki-x-den-xv",
     "childIds": [],
     "level": 1,
     "orderInParent": 13
   },
-  "khang-chien-chong-quan-nguyen-1287-1288": {
+  "hoi-nghi-dien-hong": {
     "parentId": "viet-nam-tu-the-ki-x-den-xv",
     "rootId": "viet-nam-tu-the-ki-x-den-xv",
     "childIds": [],
     "level": 1,
     "orderInParent": 14
   },
-  "cai-cach-ho-quy-ly-trieu-ho": {
+  "khang-chien-chong-quan-nguyen-1285": {
     "parentId": "viet-nam-tu-the-ki-x-den-xv",
     "rootId": "viet-nam-tu-the-ki-x-den-xv",
     "childIds": [],
     "level": 1,
     "orderInParent": 15
   },
-  "phat-hanh-tien-giay-thong-bao-hoi-sao": {
+  "khang-chien-chong-quan-nguyen-1287-1288": {
     "parentId": "viet-nam-tu-the-ki-x-den-xv",
     "rootId": "viet-nam-tu-the-ki-x-den-xv",
     "childIds": [],
     "level": 1,
     "orderInParent": 16
   },
-  "ban-hanh-chinh-sach-han-dien": {
+  "khung-hoang-cuoi-trieu-tran": {
     "parentId": "viet-nam-tu-the-ki-x-den-xv",
     "rootId": "viet-nam-tu-the-ki-x-den-xv",
     "childIds": [],
     "level": 1,
     "orderInParent": 17
   },
-  "ho-quy-ly-doi-do-thanh-hoa": {
+  "cai-cach-ho-quy-ly-trieu-ho": {
     "parentId": "viet-nam-tu-the-ki-x-den-xv",
     "rootId": "viet-nam-tu-the-ki-x-den-xv",
     "childIds": [],
     "level": 1,
     "orderInParent": 18
   },
-  "ho-quy-ly-lap-trieu-ho": {
+  "phat-hanh-tien-giay-thong-bao-hoi-sao": {
     "parentId": "viet-nam-tu-the-ki-x-den-xv",
     "rootId": "viet-nam-tu-the-ki-x-den-xv",
     "childIds": [],
     "level": 1,
     "orderInParent": 19
   },
-  "ban-hanh-chinh-sach-han-no": {
+  "ban-hanh-chinh-sach-han-dien": {
     "parentId": "viet-nam-tu-the-ki-x-den-xv",
     "rootId": "viet-nam-tu-the-ki-x-den-xv",
     "childIds": [],
     "level": 1,
     "orderInParent": 20
+  },
+  "ho-quy-ly-doi-do-thanh-hoa": {
+    "parentId": "viet-nam-tu-the-ki-x-den-xv",
+    "rootId": "viet-nam-tu-the-ki-x-den-xv",
+    "childIds": [],
+    "level": 1,
+    "orderInParent": 21
+  },
+  "ho-quy-ly-lap-trieu-ho": {
+    "parentId": "viet-nam-tu-the-ki-x-den-xv",
+    "rootId": "viet-nam-tu-the-ki-x-den-xv",
+    "childIds": [],
+    "level": 1,
+    "orderInParent": 22
+  },
+  "ban-hanh-chinh-sach-han-no": {
+    "parentId": "viet-nam-tu-the-ki-x-den-xv",
+    "rootId": "viet-nam-tu-the-ki-x-den-xv",
+    "childIds": [],
+    "level": 1,
+    "orderInParent": 23
+  },
+  "le-loi-xay-thanh-luc-nien": {
+    "parentId": "viet-nam-tu-the-ki-x-den-xv",
+    "rootId": "viet-nam-tu-the-ki-x-den-xv",
+    "childIds": [],
+    "level": 1,
+    "orderInParent": 24
+  },
+  "nha-minh-xam-luoc-dai-ngu": {
+    "parentId": "khang-chien-chong-quan-minh-nha-ho",
+    "rootId": "viet-nam-tu-the-ki-x-den-xv",
+    "childIds": [],
+    "level": 2,
+    "orderInParent": 0
   },
   "khang-chien-chong-quan-minh-nha-ho": {
     "parentId": "viet-nam-tu-the-ki-x-den-xv",
@@ -528,42 +600,42 @@
       "nha-minh-xam-luoc-dai-ngu"
     ],
     "level": 1,
-    "orderInParent": 21
+    "orderInParent": 25
   },
   "nha-minh-thong-tri-huy-diet-van-minh-dai-viet": {
     "parentId": "viet-nam-tu-the-ki-x-den-xv",
     "rootId": "viet-nam-tu-the-ki-x-den-xv",
     "childIds": [],
     "level": 1,
-    "orderInParent": 22
+    "orderInParent": 26
   },
   "hoi-the-lung-nhai": {
     "parentId": "viet-nam-tu-the-ki-x-den-xv",
     "rootId": "viet-nam-tu-the-ki-x-den-xv",
     "childIds": [],
     "level": 1,
-    "orderInParent": 23
+    "orderInParent": 27
   },
   "khoi-nghia-lam-son": {
     "parentId": "viet-nam-tu-the-ki-x-den-xv",
     "rootId": "viet-nam-tu-the-ki-x-den-xv",
     "childIds": [],
     "level": 1,
-    "orderInParent": 24
+    "orderInParent": 28
   },
   "hoi-the-dong-quan": {
     "parentId": "viet-nam-tu-the-ki-x-den-xv",
     "rootId": "viet-nam-tu-the-ki-x-den-xv",
     "childIds": [],
     "level": 1,
-    "orderInParent": 25
+    "orderInParent": 29
   },
   "nha-le-so-thanh-lap": {
     "parentId": "viet-nam-tu-the-ki-x-den-xv",
     "rootId": "viet-nam-tu-the-ki-x-den-xv",
     "childIds": [],
     "level": 1,
-    "orderInParent": 26
+    "orderInParent": 30
   },
   "le-nghi-dan-dat-luc-bo": {
     "parentId": "cai-cach-le-thanh-tong",
@@ -621,86 +693,138 @@
     "level": 2,
     "orderInParent": 7
   },
-  "nha-mac-thanh-lap": {
+  "chu-quyen-bien-dao-viet-nam-tu-the-ki-xvi-den-xix": {
     "parentId": "viet-nam-tu-the-ki-xvi-den-xix",
     "rootId": "viet-nam-tu-the-ki-xvi-den-xix",
-    "childIds": [],
+    "childIds": [
+      "thanh-lap-va-hoat-dong-doi-dan-binh-hoang-sa-bac-hai",
+      "do-dac-cam-moc-chu-quyen-hoang-sa-pham-huu-nhat"
+    ],
     "level": 1,
     "orderInParent": 0
   },
-  "giao-si-phuong-tay-truyen-dao-cong-giao": {
+  "doi-moi-dao-duy-tu-dang-trong": {
     "parentId": "viet-nam-tu-the-ki-xvi-den-xix",
     "rootId": "viet-nam-tu-the-ki-xvi-den-xix",
     "childIds": [],
     "level": 1,
     "orderInParent": 1
   },
-  "phuc-nghia-hau-gui-thu-nhat-ban": {
+  "nha-mac-thanh-lap": {
     "parentId": "viet-nam-tu-the-ki-xvi-den-xix",
     "rootId": "viet-nam-tu-the-ki-xvi-den-xix",
     "childIds": [],
     "level": 1,
     "orderInParent": 2
   },
-  "giang-van-minh-di-su-nha-minh": {
+  "giao-si-phuong-tay-truyen-dao-cong-giao": {
     "parentId": "viet-nam-tu-the-ki-xvi-den-xix",
     "rootId": "viet-nam-tu-the-ki-xvi-den-xix",
     "childIds": [],
     "level": 1,
     "orderInParent": 3
   },
-  "phong-trao-tay-son": {
+  "phuc-nghia-hau-gui-thu-nhat-ban": {
     "parentId": "viet-nam-tu-the-ki-xvi-den-xix",
     "rootId": "viet-nam-tu-the-ki-xvi-den-xix",
-    "childIds": [
-      "khang-chien-chong-quan-xiem-1784-1785",
-      "khang-chien-chong-quan-thanh-1789",
-      "phong-trao-tay-son-bung-no"
-    ],
+    "childIds": [],
     "level": 1,
     "orderInParent": 4
   },
-  "khang-chien-chong-quan-xiem-1784-1785": {
-    "parentId": "phong-trao-tay-son",
+  "thanh-lap-va-hoat-dong-doi-dan-binh-hoang-sa-bac-hai": {
+    "parentId": "chu-quyen-bien-dao-viet-nam-tu-the-ki-xvi-den-xix",
     "rootId": "viet-nam-tu-the-ki-xvi-den-xix",
     "childIds": [],
     "level": 2,
     "orderInParent": 0
   },
-  "khang-chien-chong-quan-thanh-1789": {
-    "parentId": "phong-trao-tay-son",
-    "rootId": "viet-nam-tu-the-ki-xvi-den-xix",
-    "childIds": [],
-    "level": 2,
-    "orderInParent": 1
-  },
-  "bac-thanh-duoc-lap": {
+  "giang-van-minh-di-su-nha-minh": {
     "parentId": "viet-nam-tu-the-ki-xvi-den-xix",
     "rootId": "viet-nam-tu-the-ki-xvi-den-xix",
     "childIds": [],
     "level": 1,
     "orderInParent": 5
   },
-  "thoi-gia-long-tri-vi": {
+  "cai-cach-trinh-cuong-dang-ngoai": {
     "parentId": "viet-nam-tu-the-ki-xvi-den-xix",
     "rootId": "viet-nam-tu-the-ki-xvi-den-xix",
     "childIds": [],
     "level": 1,
     "orderInParent": 6
   },
-  "trieu-nguyen-thanh-lap": {
+  "nguyen-hue-dung-chan-chieu-mo-binh-si": {
     "parentId": "viet-nam-tu-the-ki-xvi-den-xix",
     "rootId": "viet-nam-tu-the-ki-xvi-den-xix",
     "childIds": [],
     "level": 1,
     "orderInParent": 7
   },
+  "phong-trao-tay-son-bung-no": {
+    "parentId": "phong-trao-tay-son",
+    "rootId": "viet-nam-tu-the-ki-xvi-den-xix",
+    "childIds": [],
+    "level": 2,
+    "orderInParent": 0
+  },
+  "phong-trao-tay-son": {
+    "parentId": "viet-nam-tu-the-ki-xvi-den-xix",
+    "rootId": "viet-nam-tu-the-ki-xvi-den-xix",
+    "childIds": [
+      "phong-trao-tay-son-bung-no",
+      "khang-chien-chong-quan-xiem-1784-1785",
+      "khang-chien-chong-quan-thanh-1789"
+    ],
+    "level": 1,
+    "orderInParent": 8
+  },
+  "khang-chien-chong-quan-xiem-1784-1785": {
+    "parentId": "phong-trao-tay-son",
+    "rootId": "viet-nam-tu-the-ki-xvi-den-xix",
+    "childIds": [],
+    "level": 2,
+    "orderInParent": 1
+  },
+  "khang-chien-chong-quan-thanh-1789": {
+    "parentId": "phong-trao-tay-son",
+    "rootId": "viet-nam-tu-the-ki-xvi-den-xix",
+    "childIds": [],
+    "level": 2,
+    "orderInParent": 2
+  },
+  "thanh-lap-lang-xa-huyen-tien-hai-thai-binh": {
+    "parentId": "viet-nam-tu-the-ki-xvi-den-xix",
+    "rootId": "viet-nam-tu-the-ki-xvi-den-xix",
+    "childIds": [],
+    "level": 1,
+    "orderInParent": 9
+  },
+  "bac-thanh-duoc-lap": {
+    "parentId": "viet-nam-tu-the-ki-xvi-den-xix",
+    "rootId": "viet-nam-tu-the-ki-xvi-den-xix",
+    "childIds": [],
+    "level": 1,
+    "orderInParent": 10
+  },
+  "thoi-gia-long-tri-vi": {
+    "parentId": "viet-nam-tu-the-ki-xvi-den-xix",
+    "rootId": "viet-nam-tu-the-ki-xvi-den-xix",
+    "childIds": [],
+    "level": 1,
+    "orderInParent": 11
+  },
+  "trieu-nguyen-thanh-lap": {
+    "parentId": "viet-nam-tu-the-ki-xvi-den-xix",
+    "rootId": "viet-nam-tu-the-ki-xvi-den-xix",
+    "childIds": [],
+    "level": 1,
+    "orderInParent": 12
+  },
   "gia-dinh-thanh-duoc-lap": {
     "parentId": "viet-nam-tu-the-ki-xvi-den-xix",
     "rootId": "viet-nam-tu-the-ki-xvi-den-xix",
     "childIds": [],
     "level": 1,
-    "orderInParent": 8
+    "orderInParent": 13
   },
   "cuoc-cai-cach-cua-minh-mang": {
     "parentId": "viet-nam-tu-the-ki-xvi-den-xix",
@@ -717,7 +841,7 @@
       "thi-diem-chia-lai-ruong-dat-minh-mang"
     ],
     "level": 1,
-    "orderInParent": 9
+    "orderInParent": 14
   },
   "doi-thi-thu-vien-thanh-van-thu-phong": {
     "parentId": "cuoc-cai-cach-cua-minh-mang",
@@ -775,12 +899,19 @@
     "level": 2,
     "orderInParent": 7
   },
+  "phap-xam-luoc-viet-nam": {
+    "parentId": "viet-nam-tu-the-ki-xvi-den-xix",
+    "rootId": "viet-nam-tu-the-ki-xvi-den-xix",
+    "childIds": [],
+    "level": 1,
+    "orderInParent": 15
+  },
   "do-dac-cam-moc-chu-quyen-hoang-sa-pham-huu-nhat": {
     "parentId": "chu-quyen-bien-dao-viet-nam-tu-the-ki-xvi-den-xix",
     "rootId": "viet-nam-tu-the-ki-xvi-den-xix",
     "childIds": [],
     "level": 2,
-    "orderInParent": 0
+    "orderInParent": 1
   },
   "thi-diem-chia-lai-ruong-dat-minh-mang": {
     "parentId": "cuoc-cai-cach-cua-minh-mang",
@@ -796,75 +927,91 @@
     "level": 1,
     "orderInParent": 0
   },
-  "khang-chien-chong-thuc-dan-phap-trieu-nguyen": {
+  "chu-quyen-bien-dao-viet-nam-1858-1918": {
     "parentId": "viet-nam-1858-1918",
     "rootId": "viet-nam-1858-1918",
-    "childIds": [],
+    "childIds": [
+      "trung-quoc-tu-choi-boi-thuong-vu-tau-dam-hoang-sa"
+    ],
     "level": 1,
     "orderInParent": 1
   },
-  "phap-tan-cong-da-nang-1858": {
+  "khang-chien-chong-thuc-dan-phap-trieu-nguyen": {
     "parentId": "viet-nam-1858-1918",
     "rootId": "viet-nam-1858-1918",
     "childIds": [],
     "level": 1,
     "orderInParent": 2
   },
-  "phap-xam-chiem-dong-duong": {
+  "phap-tan-cong-da-nang-1858": {
     "parentId": "viet-nam-1858-1918",
     "rootId": "viet-nam-1858-1918",
     "childIds": [],
     "level": 1,
     "orderInParent": 3
   },
-  "phong-trao-chong-thuc-dan-phap-xam-luoc-o-viet-nam": {
+  "phap-xam-chiem-dong-duong": {
     "parentId": "viet-nam-1858-1918",
     "rootId": "viet-nam-1858-1918",
     "childIds": [],
     "level": 1,
     "orderInParent": 4
   },
-  "khoi-nghia-cua-pu-com-bo": {
+  "phong-trao-chong-thuc-dan-phap-xam-luoc-o-viet-nam": {
     "parentId": "viet-nam-1858-1918",
     "rootId": "viet-nam-1858-1918",
     "childIds": [],
     "level": 1,
     "orderInParent": 5
   },
-  "phap-chiem-sau-tinh-nam-ki": {
+  "khoi-nghia-cua-pu-com-bo": {
     "parentId": "viet-nam-1858-1918",
     "rootId": "viet-nam-1858-1918",
     "childIds": [],
     "level": 1,
     "orderInParent": 6
   },
-  "phap-chiem-bac-ki-lan-1": {
+  "phap-chiem-sau-tinh-nam-ki": {
     "parentId": "viet-nam-1858-1918",
     "rootId": "viet-nam-1858-1918",
     "childIds": [],
     "level": 1,
     "orderInParent": 7
   },
-  "phap-chiem-bac-ki-lan-2": {
+  "vuong-thuc-mau-khoi-nghia-can-vuong": {
+    "parentId": "phong-trao-can-vuong",
+    "rootId": "viet-nam-1858-1918",
+    "childIds": [],
+    "level": 2,
+    "orderInParent": 0
+  },
+  "phap-chiem-bac-ki-lan-1": {
     "parentId": "viet-nam-1858-1918",
     "rootId": "viet-nam-1858-1918",
     "childIds": [],
     "level": 1,
     "orderInParent": 8
   },
-  "hiep-uoc-hac-mang": {
+  "phap-chiem-bac-ki-lan-2": {
     "parentId": "viet-nam-1858-1918",
     "rootId": "viet-nam-1858-1918",
     "childIds": [],
     "level": 1,
     "orderInParent": 9
   },
-  "hiep-uoc-pa-to-not": {
+  "hiep-uoc-hac-mang": {
     "parentId": "viet-nam-1858-1918",
     "rootId": "viet-nam-1858-1918",
     "childIds": [],
     "level": 1,
     "orderInParent": 10
+  },
+  "hiep-uoc-pa-to-not": {
+    "parentId": "viet-nam-1858-1918",
+    "rootId": "viet-nam-1858-1918",
+    "childIds": [],
+    "level": 1,
+    "orderInParent": 11
   },
   "trung-quoc-tu-choi-boi-thuong-vu-tau-dam-hoang-sa": {
     "parentId": "chu-quyen-bien-dao-viet-nam-1858-1918",
@@ -878,210 +1025,235 @@
     "rootId": "viet-nam-1858-1918",
     "childIds": [],
     "level": 1,
-    "orderInParent": 11
+    "orderInParent": 12
+  },
+  "phong-trao-dong-du": {
+    "parentId": "viet-nam-1858-1918",
+    "rootId": "viet-nam-1858-1918",
+    "childIds": [],
+    "level": 1,
+    "orderInParent": 13
   },
   "hoat-dong-doi-ngoai-phan-boi-chau": {
     "parentId": "viet-nam-1858-1918",
     "rootId": "viet-nam-1858-1918",
     "childIds": [],
     "level": 1,
-    "orderInParent": 12
+    "orderInParent": 14
   },
   "phan-boi-chau-sang-nhat-ban-1905": {
     "parentId": "viet-nam-1858-1918",
     "rootId": "viet-nam-1858-1918",
     "childIds": [],
     "level": 1,
-    "orderInParent": 13
+    "orderInParent": 15
   },
   "nguyen-tat-thanh-tham-gia-chong-thue-hue": {
     "parentId": "viet-nam-1858-1918",
     "rootId": "viet-nam-1858-1918",
     "childIds": [],
     "level": 1,
-    "orderInParent": 14
+    "orderInParent": 16
   },
   "thanh-lap-lien-minh-dong-a-1908": {
     "parentId": "viet-nam-1858-1918",
     "rootId": "viet-nam-1858-1918",
     "childIds": [],
     "level": 1,
-    "orderInParent": 15
+    "orderInParent": 17
   },
   "nguyen-tat-thanh-roi-phan-thiet-vao-sai-gon": {
     "parentId": "viet-nam-1858-1918",
     "rootId": "viet-nam-1858-1918",
     "childIds": [],
     "level": 1,
-    "orderInParent": 16
+    "orderInParent": 18
   },
   "nguyen-tat-thanh-ra-di-tim-duong-cuu-nuoc": {
     "parentId": "viet-nam-1858-1918",
     "rootId": "viet-nam-1858-1918",
     "childIds": [],
     "level": 1,
-    "orderInParent": 17
+    "orderInParent": 19
   },
   "hoat-dong-doi-ngoai-nguyen-ai-quoc-1911-1930": {
     "parentId": "viet-nam-1858-1918",
     "rootId": "viet-nam-1858-1918",
     "childIds": [],
     "level": 1,
-    "orderInParent": 18
+    "orderInParent": 20
   },
   "hoat-dong-doi-ngoai-phan-chau-trinh": {
     "parentId": "viet-nam-1858-1918",
     "rootId": "viet-nam-1858-1918",
     "childIds": [],
     "level": 1,
-    "orderInParent": 19
+    "orderInParent": 21
   },
   "phan-boi-chau-ve-trung-quoc-1911": {
     "parentId": "viet-nam-1858-1918",
     "rootId": "viet-nam-1858-1918",
     "childIds": [],
     "level": 1,
-    "orderInParent": 20
+    "orderInParent": 22
   },
   "phan-chau-trinh-sang-phap-1911": {
     "parentId": "viet-nam-1858-1918",
     "rootId": "viet-nam-1858-1918",
     "childIds": [],
     "level": 1,
-    "orderInParent": 21
+    "orderInParent": 23
   },
   "thanh-lap-viet-nam-quang-phuc-hoi-1912": {
     "parentId": "viet-nam-1858-1918",
     "rootId": "viet-nam-1858-1918",
     "childIds": [],
     "level": 1,
-    "orderInParent": 22
+    "orderInParent": 24
+  },
+  "chu-quyen-bien-dao-viet-nam-1919-1945": {
+    "parentId": "viet-nam-1919-1945",
+    "rootId": "viet-nam-1919-1945",
+    "childIds": [
+      "phap-xay-dung-cot-hai-dang-hoang-sa",
+      "phap-xay-dung-bia-chu-quyen-hoang-sa",
+      "phap-gui-cong-ham-phan-doi-nhat-ban-kiem-soat-truong-sa"
+    ],
+    "level": 1,
+    "orderInParent": 0
   },
   "nguyen-ai-quoc-gui-yeu-sach-vec-xai": {
     "parentId": "viet-nam-1919-1945",
     "rootId": "viet-nam-1919-1945",
     "childIds": [],
     "level": 1,
-    "orderInParent": 0
+    "orderInParent": 1
   },
   "nguyen-ai-quoc-doc-luan-cuong-le-nin": {
     "parentId": "viet-nam-1919-1945",
     "rootId": "viet-nam-1919-1945",
     "childIds": [],
     "level": 1,
-    "orderInParent": 1
+    "orderInParent": 2
   },
   "nguyen-ai-quoc-gia-nhap-quoc-te-cong-san-va-sang-lap-dang-cong-san-phap": {
     "parentId": "viet-nam-1919-1945",
     "rootId": "viet-nam-1919-1945",
     "childIds": [],
     "level": 1,
-    "orderInParent": 2
+    "orderInParent": 3
   },
   "giai-doan-xuat-hien-xu-huong-moi-trong-phong-trao-dau-tranh-o-dong-nam-a": {
     "parentId": "viet-nam-1919-1945",
     "rootId": "viet-nam-1919-1945",
     "childIds": [],
     "level": 1,
-    "orderInParent": 3
+    "orderInParent": 4
   },
   "nguyen-ai-quoc-hoat-dong-phap-1921-1923": {
     "parentId": "viet-nam-1919-1945",
     "rootId": "viet-nam-1919-1945",
     "childIds": [],
     "level": 1,
-    "orderInParent": 4
+    "orderInParent": 5
   },
   "nguyen-ai-quoc-thanh-lap-hoi-lien-hiep-thuoc-dia-1921": {
     "parentId": "viet-nam-1919-1945",
     "rootId": "viet-nam-1919-1945",
     "childIds": [],
     "level": 1,
-    "orderInParent": 5
+    "orderInParent": 6
   },
   "nguyen-ai-quoc-thanh-lap-hoi-lien-hiep-thuoc-dia-va-bao-le-paria": {
     "parentId": "viet-nam-1919-1945",
     "rootId": "viet-nam-1919-1945",
     "childIds": [],
     "level": 1,
-    "orderInParent": 6
+    "orderInParent": 7
   },
   "nguyen-ai-quoc-den-lien-xo-1923": {
     "parentId": "viet-nam-1919-1945",
     "rootId": "viet-nam-1919-1945",
     "childIds": [],
     "level": 1,
-    "orderInParent": 7
+    "orderInParent": 8
   },
   "nguyen-ai-quoc-den-quang-chau-1924": {
     "parentId": "viet-nam-1919-1945",
     "rootId": "viet-nam-1919-1945",
     "childIds": [],
     "level": 1,
-    "orderInParent": 8
+    "orderInParent": 9
   },
   "nguyen-ai-quoc-thanh-lap-hoi-viet-nam-cach-mang-thanh-nien": {
     "parentId": "viet-nam-1919-1945",
     "rootId": "viet-nam-1919-1945",
     "childIds": [],
     "level": 1,
-    "orderInParent": 9
+    "orderInParent": 10
   },
   "thanh-lap-hoi-lien-hiep-cac-dan-toc-bi-ap-buc-a-dong-1925": {
     "parentId": "viet-nam-1919-1945",
     "rootId": "viet-nam-1919-1945",
     "childIds": [],
     "level": 1,
-    "orderInParent": 10
+    "orderInParent": 11
   },
   "ho-chi-minh-mo-lop-dao-tao-can-bo-tai-quang-chau-trung-quoc": {
     "parentId": "viet-nam-1919-1945",
     "rootId": "viet-nam-1919-1945",
     "childIds": [],
     "level": 1,
-    "orderInParent": 11
+    "orderInParent": 12
   },
   "nguyen-ai-quoc-hoat-dong-chau-au-siam-1927-1929": {
     "parentId": "viet-nam-1919-1945",
     "rootId": "viet-nam-1919-1945",
     "childIds": [],
     "level": 1,
-    "orderInParent": 12
+    "orderInParent": 13
   },
   "su-ra-doi-cua-ba-to-chuc-cong-san-viet-nam": {
     "parentId": "viet-nam-1919-1945",
     "rootId": "viet-nam-1919-1945",
     "childIds": [],
     "level": 1,
-    "orderInParent": 13
+    "orderInParent": 14
   },
   "hoi-nghi-thanh-lap-dang-cong-san-viet-nam": {
     "parentId": "viet-nam-1919-1945",
     "rootId": "viet-nam-1919-1945",
     "childIds": [],
     "level": 1,
-    "orderInParent": 14
+    "orderInParent": 15
   },
   "thanh-lap-mat-tran-dan-toc-thong-nhat-viet-nam-1930": {
     "parentId": "viet-nam-1919-1945",
     "rootId": "viet-nam-1919-1945",
     "childIds": [],
     "level": 1,
-    "orderInParent": 15
+    "orderInParent": 16
   },
   "hoat-dong-doi-ngoai-dang-cong-san-dong-duong-1930-1945": {
     "parentId": "viet-nam-1919-1945",
     "rootId": "viet-nam-1919-1945",
     "childIds": [],
     "level": 1,
-    "orderInParent": 16
+    "orderInParent": 17
+  },
+  "thanh-lap-cac-dang-cong-san-o-viet-nam-ma-lai-xiem-phi-lip-pin": {
+    "parentId": "viet-nam-1919-1945",
+    "rootId": "viet-nam-1919-1945",
+    "childIds": [],
+    "level": 1,
+    "orderInParent": 18
   },
   "nguyen-ai-quoc-hoat-dong-lien-xo-1933": {
     "parentId": "viet-nam-1919-1945",
     "rootId": "viet-nam-1919-1945",
     "childIds": [],
     "level": 1,
-    "orderInParent": 17
+    "orderInParent": 19
   },
   "phap-xay-dung-cot-hai-dang-hoang-sa": {
     "parentId": "chu-quyen-bien-dao-viet-nam-1919-1945",
@@ -1095,7 +1267,7 @@
     "rootId": "viet-nam-1919-1945",
     "childIds": [],
     "level": 1,
-    "orderInParent": 18
+    "orderInParent": 20
   },
   "phap-xay-dung-bia-chu-quyen-hoang-sa": {
     "parentId": "chu-quyen-bien-dao-viet-nam-1919-1945",
@@ -1116,7 +1288,7 @@
     "rootId": "viet-nam-1919-1945",
     "childIds": [],
     "level": 1,
-    "orderInParent": 19
+    "orderInParent": 21
   },
   "hoi-nghi-lan-thu-8-ban-chap-hanh-trung-uong-dang-cong-san-dong-duong": {
     "parentId": "cach-mang-thang-tam-nam-1945",
@@ -1130,49 +1302,49 @@
     "rootId": "viet-nam-1919-1945",
     "childIds": [],
     "level": 1,
-    "orderInParent": 20
+    "orderInParent": 22
   },
   "thanh-lap-tieu-doi-du-kich-thoat-li-dau-tien-o-cao-bang": {
     "parentId": "viet-nam-1919-1945",
     "rootId": "viet-nam-1919-1945",
     "childIds": [],
     "level": 1,
-    "orderInParent": 21
+    "orderInParent": 23
   },
   "ho-chi-minh-di-trung-quoc-phoi-hop-chong-nhat": {
     "parentId": "viet-nam-1919-1945",
     "rootId": "viet-nam-1919-1945",
     "childIds": [],
     "level": 1,
-    "orderInParent": 22
+    "orderInParent": 24
   },
   "ho-chi-minh-sang-trung-quoc-1942": {
     "parentId": "viet-nam-1919-1945",
     "rootId": "viet-nam-1919-1945",
     "childIds": [],
     "level": 1,
-    "orderInParent": 23
+    "orderInParent": 25
   },
   "ho-chi-minh-tro-ve-nuoc-1944": {
     "parentId": "viet-nam-1919-1945",
     "rootId": "viet-nam-1919-1945",
     "childIds": [],
     "level": 1,
-    "orderInParent": 24
+    "orderInParent": 26
   },
   "chi-thi-thanh-lap-doi-viet-nam-tuyen-truyen-giai-phong-quan": {
     "parentId": "viet-nam-1919-1945",
     "rootId": "viet-nam-1919-1945",
     "childIds": [],
     "level": 1,
-    "orderInParent": 25
+    "orderInParent": 27
   },
   "ho-chi-minh-sang-con-minh-tim-su-ung-ho-quoc-te": {
     "parentId": "viet-nam-1919-1945",
     "rootId": "viet-nam-1919-1945",
     "childIds": [],
     "level": 1,
-    "orderInParent": 26
+    "orderInParent": 28
   },
   "cao-trao-khang-nhat-cuu-nuoc": {
     "parentId": "cach-mang-thang-tam-nam-1945",
@@ -1186,14 +1358,14 @@
     "rootId": "viet-nam-1919-1945",
     "childIds": [],
     "level": 1,
-    "orderInParent": 27
+    "orderInParent": 29
   },
   "hoi-nghi-pot-xdam": {
     "parentId": "viet-nam-1919-1945",
     "rootId": "viet-nam-1919-1945",
     "childIds": [],
     "level": 1,
-    "orderInParent": 28
+    "orderInParent": 30
   },
   "uy-ban-khoi-nghia-ban-bo-quan-lenh-so-1": {
     "parentId": "cach-mang-thang-tam-nam-1945",
@@ -1223,7 +1395,7 @@
       "ho-chi-minh-cong-bo-tuyen-ngon-doc-lap"
     ],
     "level": 1,
-    "orderInParent": 29
+    "orderInParent": 31
   },
   "hoi-nghi-toan-quoc-cua-dang-cong-san-dong-duong-1945": {
     "parentId": "cach-mang-thang-tam-nam-1945",
@@ -1335,21 +1507,35 @@
     "rootId": "viet-nam-1919-1945",
     "childIds": [],
     "level": 1,
-    "orderInParent": 30
+    "orderInParent": 32
   },
   "ho-chi-minh-gui-thu-toi-chu-tich-hoi-dong-lien-hop-quoc": {
     "parentId": "viet-nam-1919-1945",
     "rootId": "viet-nam-1919-1945",
     "childIds": [],
     "level": 1,
-    "orderInParent": 31
+    "orderInParent": 33
+  },
+  "ho-chi-minh-keu-goi-nhuong-com-se-ao-tang-gia-san-xuat": {
+    "parentId": "viet-nam-1919-1945",
+    "rootId": "viet-nam-1919-1945",
+    "childIds": [],
+    "level": 1,
+    "orderInParent": 34
+  },
+  "ho-chi-minh-ki-sac-lenh-thanh-lap-nha-binh-dan-hoc-vu-va-quy-doc-lap": {
+    "parentId": "viet-nam-1919-1945",
+    "rootId": "viet-nam-1919-1945",
+    "childIds": [],
+    "level": 1,
+    "orderInParent": 35
   },
   "hoat-dong-doi-ngoai-cua-vndcch-voi-trung-hoa-dan-quoc": {
     "parentId": "viet-nam-1919-1945",
     "rootId": "viet-nam-1919-1945",
     "childIds": [],
     "level": 1,
-    "orderInParent": 32
+    "orderInParent": 36
   },
   "khang-chien-chong-thuc-dan-phap-1945-1954": {
     "parentId": "viet-nam-1945-1954",
@@ -1362,10 +1548,12 @@
       "chien-dich-viet-bac-thu-dong-1947",
       "chien-dich-bien-gioi-thu-dong-1950",
       "ke-hoach-na-va-1953",
+      "cuoc-tien-cong-chien-luoc-dong-xuan-1953-1954",
       "chien-dich-dien-bien-phu-1954",
       "hoi-nghi-gio-ne-vo-ve-dong-duong",
       "ky-ket-hiep-dinh-go-ne-vo-1954",
-      "cuoc-tien-cong-chien-luoc-dong-xuan-1953-1954"
+      "viet-nam-mo-co-quan-dai-dien-ngoai-giao-va-thong-tin-o-nuoc-ngoai",
+      "vndcch-gap-go-dang-cong-san-phap-va-cac-to-chuc-quoc-te"
     ],
     "level": 1,
     "orderInParent": 0
@@ -1375,21 +1563,21 @@
     "rootId": "viet-nam-1919-1945",
     "childIds": [],
     "level": 1,
-    "orderInParent": 33
+    "orderInParent": 37
   },
   "lang-xa-viet-nam-bien-doi-sau-1945": {
     "parentId": "viet-nam-1919-1945",
     "rootId": "viet-nam-1919-1945",
     "childIds": [],
     "level": 1,
-    "orderInParent": 34
+    "orderInParent": 38
   },
   "viet-nam-de-nghi-lien-hop-quoc-cong-nhan-vndcch": {
     "parentId": "viet-nam-1919-1945",
     "rootId": "viet-nam-1919-1945",
     "childIds": [],
     "level": 1,
-    "orderInParent": 35
+    "orderInParent": 39
   },
   "ho-chi-minh-gui-loi-keu-goi-quoc-dan-di-bo-phieu": {
     "parentId": "viet-nam-1945-1954",
@@ -1489,68 +1677,75 @@
     "level": 2,
     "orderInParent": 5
   },
-  "vndcch-thiet-lap-quan-he-ngoai-giao-voi-cac-nuoc-xhcn": {
+  "cac-chien-dich-tien-cong-quan-doi-viet-nam-1950-1953": {
     "parentId": "viet-nam-1945-1954",
     "rootId": "viet-nam-1945-1954",
     "childIds": [],
     "level": 1,
     "orderInParent": 12
   },
-  "dai-hoi-dai-bieu-lan-thu-ii-cua-dang-lao-dong-viet-nam": {
+  "vndcch-thiet-lap-quan-he-ngoai-giao-voi-cac-nuoc-xhcn": {
     "parentId": "viet-nam-1945-1954",
     "rootId": "viet-nam-1945-1954",
     "childIds": [],
     "level": 1,
     "orderInParent": 13
   },
-  "dai-hoi-dai-bieu-lan-thu-ii-dang-cong-san-dong-duong-1951": {
+  "dai-hoi-dai-bieu-lan-thu-ii-cua-dang-lao-dong-viet-nam": {
     "parentId": "viet-nam-1945-1954",
     "rootId": "viet-nam-1945-1954",
     "childIds": [],
     "level": 1,
     "orderInParent": 14
   },
-  "ho-chi-minh-duoc-bau-chu-tich-ban-chap-hanh-trung-uong-dang-1951": {
+  "dai-hoi-dai-bieu-lan-thu-ii-dang-cong-san-dong-duong-1951": {
     "parentId": "viet-nam-1945-1954",
     "rootId": "viet-nam-1945-1954",
     "childIds": [],
     "level": 1,
     "orderInParent": 15
   },
-  "mat-tran-lien-viet-ra-doi-1951": {
+  "ho-chi-minh-duoc-bau-chu-tich-ban-chap-hanh-trung-uong-dang-1951": {
     "parentId": "viet-nam-1945-1954",
     "rootId": "viet-nam-1945-1954",
     "childIds": [],
     "level": 1,
     "orderInParent": 16
   },
-  "chu-quyen-viet-nam-duoc-tuyen-bo-cong-nhan-hoi-nghi-xan-phran-xi-xo": {
+  "mat-tran-lien-viet-ra-doi-1951": {
     "parentId": "viet-nam-1945-1954",
     "rootId": "viet-nam-1945-1954",
     "childIds": [],
     "level": 1,
     "orderInParent": 17
   },
-  "thanh-lap-lien-minh-nhan-dan-viet-mien-lao": {
+  "chu-quyen-viet-nam-duoc-tuyen-bo-cong-nhan-hoi-nghi-xan-phran-xi-xo": {
     "parentId": "viet-nam-1945-1954",
     "rootId": "viet-nam-1945-1954",
     "childIds": [],
     "level": 1,
     "orderInParent": 18
   },
-  "cuoc-van-dong-san-xuat-va-tiet-kiem-1952": {
+  "thanh-lap-lien-minh-nhan-dan-viet-mien-lao": {
     "parentId": "viet-nam-1945-1954",
     "rootId": "viet-nam-1945-1954",
     "childIds": [],
     "level": 1,
     "orderInParent": 19
   },
-  "dai-hoi-chien-si-thi-dua-can-bo-guong-mau-toan-quoc-lan-thu-nhat-1952": {
+  "cuoc-van-dong-san-xuat-va-tiet-kiem-1952": {
     "parentId": "viet-nam-1945-1954",
     "rootId": "viet-nam-1945-1954",
     "childIds": [],
     "level": 1,
     "orderInParent": 20
+  },
+  "dai-hoi-chien-si-thi-dua-can-bo-guong-mau-toan-quoc-lan-thu-nhat-1952": {
+    "parentId": "viet-nam-1945-1954",
+    "rootId": "viet-nam-1945-1954",
+    "childIds": [],
+    "level": 1,
+    "orderInParent": 21
   },
   "ke-hoach-na-va-1953": {
     "parentId": "khang-chien-chong-thuc-dan-phap-1945-1954",
@@ -1564,70 +1759,118 @@
     "rootId": "viet-nam-1945-1954",
     "childIds": [],
     "level": 1,
-    "orderInParent": 21
+    "orderInParent": 22
   },
-  "chien-dich-dien-bien-phu-1954": {
+  "cuoc-tien-cong-chien-luoc-dong-xuan-1953-1954": {
     "parentId": "khang-chien-chong-thuc-dan-phap-1945-1954",
     "rootId": "viet-nam-1945-1954",
     "childIds": [],
     "level": 2,
     "orderInParent": 7
   },
-  "hoi-nghi-gio-ne-vo-ve-dong-duong": {
+  "chien-dich-dien-bien-phu-1954": {
     "parentId": "khang-chien-chong-thuc-dan-phap-1945-1954",
     "rootId": "viet-nam-1945-1954",
     "childIds": [],
     "level": 2,
     "orderInParent": 8
   },
-  "ky-ket-hiep-dinh-go-ne-vo-1954": {
+  "hoi-nghi-gio-ne-vo-ve-dong-duong": {
     "parentId": "khang-chien-chong-thuc-dan-phap-1945-1954",
     "rootId": "viet-nam-1945-1954",
     "childIds": [],
     "level": 2,
     "orderInParent": 9
   },
+  "ky-ket-hiep-dinh-go-ne-vo-1954": {
+    "parentId": "khang-chien-chong-thuc-dan-phap-1945-1954",
+    "rootId": "viet-nam-1945-1954",
+    "childIds": [],
+    "level": 2,
+    "orderInParent": 10
+  },
+  "cai-cach-ruong-dat-mien-bac": {
+    "parentId": "viet-nam-1945-1954",
+    "rootId": "viet-nam-1945-1954",
+    "childIds": [],
+    "level": 1,
+    "orderInParent": 23
+  },
   "chien-tranh-bao-ve-doc-lap-dan-toc-va-chu-quyen-quoc-gia-o-dong-duong": {
     "parentId": "viet-nam-1945-1954",
     "rootId": "viet-nam-1945-1954",
     "childIds": [],
     "level": 1,
-    "orderInParent": 22
+    "orderInParent": 24
+  },
+  "chu-quyen-bien-dao-viet-nam-1954-1975": {
+    "parentId": "viet-nam-1954-1975",
+    "rootId": "viet-nam-1954-1975",
+    "childIds": [
+      "quan-li-hanh-chinh-chinh-quyen-sai-gon-hoang-sa-truong-sa",
+      "dai-loan-chiem-dong-dao-ba-binh-truong-sa",
+      "philippin-tuyen-bo-quyen-khai-thac-lap-nghiep-truong-sa",
+      "viet-nam-danh-chiem-nua-phia-dong-hoang-sa",
+      "philippin-chiem-dong-9-dao-truong-sa",
+      "quan-doi-sai-gon-that-bai-bao-ve-hoang-sa",
+      "trung-quoc-danh-chiem-toan-bo-hoang-sa",
+      "quan-giai-phong-mien-nam-viet-nam-tiep-quan-truong-sa"
+    ],
+    "level": 1,
+    "orderInParent": 0
+  },
+  "giai-doan-khang-chien-chong-my-1954-1960": {
+    "parentId": "khang-chien-chong-my-cuu-nuoc",
+    "rootId": "viet-nam-1954-1975",
+    "childIds": [],
+    "level": 2,
+    "orderInParent": 0
   },
   "khang-chien-chong-my-cuu-nuoc": {
     "parentId": "viet-nam-1954-1975",
     "rootId": "viet-nam-1954-1975",
     "childIds": [
+      "giai-doan-khang-chien-chong-my-1954-1960",
       "my-can-thiep-vao-dong-duong",
       "my-thay-chan-phap-dung-chinh-quyen-ngo-dinh-diem",
       "viet-nam-tam-thoi-bi-chia-cat-hai-mien",
-      "chien-tranh-pha-hoai-mien-bac-lan-thu-nhat",
-      "chien-tranh-pha-hoai-mien-bac-lan-thu-hai",
-      "ki-ket-hiep-dinh-pa-ri-ve-cham-dut-chien-tranh-lap-lai-hoa-binh-o-viet-nam",
-      "tong-tien-cong-va-noi-day-xuan-1975",
-      "giai-doan-khang-chien-chong-my-1954-1960",
       "giai-doan-khang-chien-chong-my-1961-1965",
+      "chien-tranh-pha-hoai-mien-bac-lan-thu-nhat",
       "giai-doan-khang-chien-chong-my-1965-1968",
       "giai-doan-khang-chien-chong-my-1969-1973",
+      "chien-tranh-pha-hoai-mien-bac-lan-thu-hai",
+      "ki-ket-hiep-dinh-pa-ri-ve-cham-dut-chien-tranh-lap-lai-hoa-binh-o-viet-nam",
       "giai-doan-khang-chien-chong-my-1973-1975",
-      "vndcch-dau-tranh-doi-thi-hanh-hiep-dinh-gio-ne-vo"
+      "tong-tien-cong-va-noi-day-xuan-1975",
+      "chien-luoc-vua-danh-vua-dam-va-van-dong-quoc-te-cong-nhan-mat-tran-dan-toc-giai-phong-mien-nam-viet-nam",
+      "tuyen-duong-chi-vien-chien-luoc-tren-bien-mang-ten-chu-tich-ho-chi-minh",
+      "vndcch-can-bang-quan-he-voi-lien-xo-trung-quoc-va-van-dong-vien-tro",
+      "vndcch-dau-tranh-doi-thi-hanh-hiep-dinh-gio-ne-vo",
+      "vndcch-thiet-lap-quan-he-ngoai-giao-voi-lao-campuchia-va-ung-ho-phong-trao-giai-phong-dan-toc"
     ],
     "level": 1,
-    "orderInParent": 0
+    "orderInParent": 1
+  },
+  "mien-bac-viet-nam-giai-phong-xay-dung-cnxh": {
+    "parentId": "viet-nam-1945-1954",
+    "rootId": "viet-nam-1945-1954",
+    "childIds": [],
+    "level": 1,
+    "orderInParent": 25
   },
   "my-can-thiep-vao-dong-duong": {
     "parentId": "khang-chien-chong-my-cuu-nuoc",
     "rootId": "viet-nam-1954-1975",
     "childIds": [],
     "level": 2,
-    "orderInParent": 0
+    "orderInParent": 1
   },
   "my-thay-chan-phap-dung-chinh-quyen-ngo-dinh-diem": {
     "parentId": "khang-chien-chong-my-cuu-nuoc",
     "rootId": "viet-nam-1954-1975",
     "childIds": [],
     "level": 2,
-    "orderInParent": 1
+    "orderInParent": 2
   },
   "quan-li-hanh-chinh-chinh-quyen-sai-gon-hoang-sa-truong-sa": {
     "parentId": "chu-quyen-bien-dao-viet-nam-1954-1975",
@@ -1641,6 +1884,13 @@
     "rootId": "viet-nam-1954-1975",
     "childIds": [],
     "level": 2,
+    "orderInParent": 3
+  },
+  "lien-xo-vien-tro-cho-viet-nam": {
+    "parentId": "viet-nam-1954-1975",
+    "rootId": "viet-nam-1954-1975",
+    "childIds": [],
+    "level": 1,
     "orderInParent": 2
   },
   "ho-chi-minh-chu-tich-tong-bi-thu-dang-lao-dong-1956": {
@@ -1648,7 +1898,7 @@
     "rootId": "viet-nam-1954-1975",
     "childIds": [],
     "level": 1,
-    "orderInParent": 1
+    "orderInParent": 3
   },
   "dai-loan-chiem-dong-dao-ba-binh-truong-sa": {
     "parentId": "chu-quyen-bien-dao-viet-nam-1954-1975",
@@ -1676,112 +1926,154 @@
     "rootId": "viet-nam-1954-1975",
     "childIds": [],
     "level": 1,
-    "orderInParent": 2
-  },
-  "dai-hoi-dai-bieu-toan-quoc-lan-thu-iii-cua-dang-lao-dong-viet-nam": {
-    "parentId": "viet-nam-1954-1975",
-    "rootId": "viet-nam-1954-1975",
-    "childIds": [],
-    "level": 1,
-    "orderInParent": 3
-  },
-  "dai-hoi-dai-bieu-toan-quoc-lan-thu-iii-dang-lao-dong-viet-nam": {
-    "parentId": "viet-nam-1954-1975",
-    "rootId": "viet-nam-1954-1975",
-    "childIds": [],
-    "level": 1,
     "orderInParent": 4
   },
-  "ho-chi-minh-tiep-tuc-duoc-bau-chu-tich-dang-lao-dong-1960": {
+  "phong-trao-dong-khoi": {
     "parentId": "viet-nam-1954-1975",
     "rootId": "viet-nam-1954-1975",
     "childIds": [],
     "level": 1,
     "orderInParent": 5
   },
-  "thanh-lap-mat-tran-dan-toc-giai-phong-mien-nam-viet-nam": {
+  "dai-hoi-dai-bieu-toan-quoc-lan-thu-iii-cua-dang-lao-dong-viet-nam": {
     "parentId": "viet-nam-1954-1975",
     "rootId": "viet-nam-1954-1975",
     "childIds": [],
     "level": 1,
     "orderInParent": 6
   },
-  "thanh-lap-quan-giai-phong-mien-nam": {
+  "dai-hoi-dai-bieu-toan-quoc-lan-thu-iii-dang-lao-dong-viet-nam": {
     "parentId": "viet-nam-1954-1975",
     "rootId": "viet-nam-1954-1975",
     "childIds": [],
     "level": 1,
     "orderInParent": 7
   },
-  "chu-tich-ho-chi-minh-tham-quan-cang-bai-chay-1961": {
+  "ho-chi-minh-tiep-tuc-duoc-bau-chu-tich-dang-lao-dong-1960": {
     "parentId": "viet-nam-1954-1975",
     "rootId": "viet-nam-1954-1975",
     "childIds": [],
     "level": 1,
     "orderInParent": 8
   },
-  "chien-thang-ap-bac": {
+  "thanh-lap-mat-tran-dan-toc-giai-phong-mien-nam-viet-nam": {
     "parentId": "viet-nam-1954-1975",
     "rootId": "viet-nam-1954-1975",
     "childIds": [],
     "level": 1,
     "orderInParent": 9
   },
-  "chien-tranh-pha-hoai-mien-bac-lan-thu-nhat": {
-    "parentId": "khang-chien-chong-my-cuu-nuoc",
-    "rootId": "viet-nam-1954-1975",
-    "childIds": [],
-    "level": 2,
-    "orderInParent": 3
-  },
-  "chien-thang-van-tuong": {
+  "thanh-lap-quan-giai-phong-mien-nam": {
     "parentId": "viet-nam-1954-1975",
     "rootId": "viet-nam-1954-1975",
     "childIds": [],
     "level": 1,
     "orderInParent": 10
   },
-  "hoi-nghi-pa-ri-ve-viet-nam": {
+  "chu-tich-ho-chi-minh-tham-quan-cang-bai-chay-1961": {
     "parentId": "viet-nam-1954-1975",
     "rootId": "viet-nam-1954-1975",
     "childIds": [],
     "level": 1,
     "orderInParent": 11
   },
-  "tong-tien-cong-va-noi-day-xuan-mau-than-1968": {
+  "giai-doan-khang-chien-chong-my-1961-1965": {
+    "parentId": "khang-chien-chong-my-cuu-nuoc",
+    "rootId": "viet-nam-1954-1975",
+    "childIds": [],
+    "level": 2,
+    "orderInParent": 4
+  },
+  "ke-hoach-nha-nuoc-5-nam-lan-thu-nhat-mien-bac": {
     "parentId": "viet-nam-1954-1975",
     "rootId": "viet-nam-1954-1975",
     "childIds": [],
     "level": 1,
     "orderInParent": 12
   },
-  "thanh-lap-chinh-phu-cach-mang-lam-thoi-cong-hoa-mien-nam-viet-nam": {
+  "chien-thang-ap-bac": {
     "parentId": "viet-nam-1954-1975",
     "rootId": "viet-nam-1954-1975",
     "childIds": [],
     "level": 1,
     "orderInParent": 13
   },
-  "dap-tan-cuoc-hanh-quan-xam-luoc-vao-cam-pu-chia-1970": {
+  "chien-tranh-pha-hoai-mien-bac-lan-thu-nhat": {
+    "parentId": "khang-chien-chong-my-cuu-nuoc",
+    "rootId": "viet-nam-1954-1975",
+    "childIds": [],
+    "level": 2,
+    "orderInParent": 5
+  },
+  "cac-chien-thang-quan-su-1964-1965": {
     "parentId": "viet-nam-1954-1975",
     "rootId": "viet-nam-1954-1975",
     "childIds": [],
     "level": 1,
     "orderInParent": 14
   },
-  "hoi-nghi-cap-cao-ba-nuoc-viet-nam-lao-cam-pu-chia": {
+  "chien-thang-van-tuong": {
     "parentId": "viet-nam-1954-1975",
     "rootId": "viet-nam-1954-1975",
     "childIds": [],
     "level": 1,
     "orderInParent": 15
   },
-  "chien-dich-duong-9-nam-lao": {
+  "giai-doan-khang-chien-chong-my-1965-1968": {
+    "parentId": "khang-chien-chong-my-cuu-nuoc",
+    "rootId": "viet-nam-1954-1975",
+    "childIds": [],
+    "level": 2,
+    "orderInParent": 6
+  },
+  "hoi-nghi-pa-ri-ve-viet-nam": {
     "parentId": "viet-nam-1954-1975",
     "rootId": "viet-nam-1954-1975",
     "childIds": [],
     "level": 1,
     "orderInParent": 16
+  },
+  "tong-tien-cong-va-noi-day-xuan-mau-than-1968": {
+    "parentId": "viet-nam-1954-1975",
+    "rootId": "viet-nam-1954-1975",
+    "childIds": [],
+    "level": 1,
+    "orderInParent": 17
+  },
+  "thanh-lap-chinh-phu-cach-mang-lam-thoi-cong-hoa-mien-nam-viet-nam": {
+    "parentId": "viet-nam-1954-1975",
+    "rootId": "viet-nam-1954-1975",
+    "childIds": [],
+    "level": 1,
+    "orderInParent": 18
+  },
+  "giai-doan-khang-chien-chong-my-1969-1973": {
+    "parentId": "khang-chien-chong-my-cuu-nuoc",
+    "rootId": "viet-nam-1954-1975",
+    "childIds": [],
+    "level": 2,
+    "orderInParent": 7
+  },
+  "dap-tan-cuoc-hanh-quan-xam-luoc-vao-cam-pu-chia-1970": {
+    "parentId": "viet-nam-1954-1975",
+    "rootId": "viet-nam-1954-1975",
+    "childIds": [],
+    "level": 1,
+    "orderInParent": 19
+  },
+  "hoi-nghi-cap-cao-ba-nuoc-viet-nam-lao-cam-pu-chia": {
+    "parentId": "viet-nam-1954-1975",
+    "rootId": "viet-nam-1954-1975",
+    "childIds": [],
+    "level": 1,
+    "orderInParent": 20
+  },
+  "chien-dich-duong-9-nam-lao": {
+    "parentId": "viet-nam-1954-1975",
+    "rootId": "viet-nam-1954-1975",
+    "childIds": [],
+    "level": 1,
+    "orderInParent": 21
   },
   "philippin-chiem-dong-9-dao-truong-sa": {
     "parentId": "chu-quyen-bien-dao-viet-nam-1954-1975",
@@ -1795,28 +2087,35 @@
     "rootId": "viet-nam-1954-1975",
     "childIds": [],
     "level": 1,
-    "orderInParent": 17
+    "orderInParent": 22
   },
   "chien-tranh-pha-hoai-mien-bac-lan-thu-hai": {
     "parentId": "khang-chien-chong-my-cuu-nuoc",
     "rootId": "viet-nam-1954-1975",
     "childIds": [],
     "level": 2,
-    "orderInParent": 4
+    "orderInParent": 8
   },
   "ki-ket-hiep-dinh-pa-ri-ve-cham-dut-chien-tranh-lap-lai-hoa-binh-o-viet-nam": {
     "parentId": "khang-chien-chong-my-cuu-nuoc",
     "rootId": "viet-nam-1954-1975",
     "childIds": [],
     "level": 2,
-    "orderInParent": 5
+    "orderInParent": 9
   },
   "hoi-nghi-ban-chap-hanh-trung-uong-dang-lan-thu-21": {
     "parentId": "viet-nam-1954-1975",
     "rootId": "viet-nam-1954-1975",
     "childIds": [],
     "level": 1,
-    "orderInParent": 18
+    "orderInParent": 23
+  },
+  "giai-doan-khang-chien-chong-my-1973-1975": {
+    "parentId": "khang-chien-chong-my-cuu-nuoc",
+    "rootId": "viet-nam-1954-1975",
+    "childIds": [],
+    "level": 2,
+    "orderInParent": 10
   },
   "quan-doi-sai-gon-that-bai-bao-ve-hoang-sa": {
     "parentId": "chu-quyen-bien-dao-viet-nam-1954-1975",
@@ -1832,39 +2131,46 @@
     "level": 2,
     "orderInParent": 6
   },
-  "chien-dich-tay-nguyen-1975": {
+  "chien-thang-duong-14-phuoc-long": {
     "parentId": "tong-tien-cong-va-noi-day-xuan-1975",
     "rootId": "viet-nam-1954-1975",
     "childIds": [],
     "level": 3,
     "orderInParent": 0
   },
-  "giai-phong-hue-va-thua-thien": {
+  "chien-dich-tay-nguyen-1975": {
     "parentId": "tong-tien-cong-va-noi-day-xuan-1975",
     "rootId": "viet-nam-1954-1975",
     "childIds": [],
     "level": 3,
     "orderInParent": 1
   },
-  "giai-phong-da-nang": {
+  "giai-phong-hue-va-thua-thien": {
     "parentId": "tong-tien-cong-va-noi-day-xuan-1975",
     "rootId": "viet-nam-1954-1975",
     "childIds": [],
     "level": 3,
     "orderInParent": 2
   },
+  "giai-phong-da-nang": {
+    "parentId": "tong-tien-cong-va-noi-day-xuan-1975",
+    "rootId": "viet-nam-1954-1975",
+    "childIds": [],
+    "level": 3,
+    "orderInParent": 3
+  },
   "tong-tien-cong-va-noi-day-xuan-1975": {
     "parentId": "khang-chien-chong-my-cuu-nuoc",
     "rootId": "viet-nam-1954-1975",
     "childIds": [
+      "chien-thang-duong-14-phuoc-long",
       "chien-dich-tay-nguyen-1975",
       "giai-phong-hue-va-thua-thien",
       "giai-phong-da-nang",
-      "chien-dich-giai-phong-sai-gon-gia-dinh-chien-dich-ho-chi-minh",
-      "chien-thang-duong-14-phuoc-long"
+      "chien-dich-giai-phong-sai-gon-gia-dinh-chien-dich-ho-chi-minh"
     ],
     "level": 2,
-    "orderInParent": 6
+    "orderInParent": 11
   },
   "quan-giai-phong-mien-nam-viet-nam-tiep-quan-truong-sa": {
     "parentId": "chu-quyen-bien-dao-viet-nam-1954-1975",
@@ -1878,14 +2184,21 @@
     "rootId": "viet-nam-1954-1975",
     "childIds": [],
     "level": 3,
-    "orderInParent": 3
+    "orderInParent": 4
+  },
+  "hoan-toan-giai-phong-mien-nam-viet-nam": {
+    "parentId": "viet-nam-1954-1975",
+    "rootId": "viet-nam-1954-1975",
+    "childIds": [],
+    "level": 1,
+    "orderInParent": 24
   },
   "mit-tinh-chao-mung-uy-ban-quan-quan-sai-gon-1975": {
     "parentId": "viet-nam-1954-1975",
     "rootId": "viet-nam-1954-1975",
     "childIds": [],
     "level": 1,
-    "orderInParent": 19
+    "orderInParent": 25
   },
   "quoc-hoi-khoa-vi-doi-ten-sai-gon-thanh-thanh-pho-ho-chi-minh": {
     "parentId": "viet-nam-1975-den-nay",
@@ -1893,6 +2206,13 @@
     "childIds": [],
     "level": 1,
     "orderInParent": 0
+  },
+  "thuc-hien-thong-nhat-dat-nuoc-viet-nam": {
+    "parentId": "viet-nam-1975-den-nay",
+    "rootId": "viet-nam-1975-den-nay",
+    "childIds": [],
+    "level": 1,
+    "orderInParent": 1
   },
   "viet-nam-ban-hanh-tuyen-bo-vung-bien-them-luc-dia": {
     "parentId": "chu-quyen-bien-dao-viet-nam-1975-den-nay",
@@ -1906,7 +2226,14 @@
     "rootId": "viet-nam-1975-den-nay",
     "childIds": [],
     "level": 1,
-    "orderInParent": 1
+    "orderInParent": 2
+  },
+  "lien-hop-quoc-vien-tro-viet-nam-1977-1986": {
+    "parentId": "viet-nam-1975-den-nay",
+    "rootId": "viet-nam-1975-den-nay",
+    "childIds": [],
+    "level": 1,
+    "orderInParent": 3
   },
   "philippin-ban-hanh-sac-lenh-1596-tuyen-bo-chu-quyen-truong-sa": {
     "parentId": "chu-quyen-bien-dao-viet-nam-1975-den-nay",
@@ -1920,14 +2247,14 @@
     "rootId": "viet-nam-1975-den-nay",
     "childIds": [],
     "level": 1,
-    "orderInParent": 2
+    "orderInParent": 4
   },
   "go-ro-bat-co-pham-tuan-bay-vu-tru": {
     "parentId": "viet-nam-1975-den-nay",
     "rootId": "viet-nam-1975-den-nay",
     "childIds": [],
     "level": 1,
-    "orderInParent": 3
+    "orderInParent": 5
   },
   "thanh-lap-huyen-hoang-sa-va-huyen-truong-sa": {
     "parentId": "chu-quyen-bien-dao-viet-nam-1975-den-nay",
@@ -1962,6 +2289,7 @@
     "rootId": "viet-nam-1975-den-nay",
     "childIds": [
       "dai-hoi-dai-bieu-toan-quoc-lan-thu-vi-cua-dang-cong-san-viet-nam",
+      "giai-doan-khoi-dau-cong-cuoc-doi-moi-1986-1995",
       "bai-bo-che-do-tem-phieu-o-viet-nam",
       "dai-hoi-dai-bieu-toan-quoc-lan-thu-vii-cua-dang-cong-san-viet-nam",
       "viet-nam-binh-thuong-hoa-quan-he-trung-quoc",
@@ -1969,13 +2297,32 @@
       "viet-nam-binh-thuong-hoa-quan-he-my",
       "viet-nam-gia-nhap-asean",
       "dai-hoi-dai-bieu-toan-quoc-lan-thu-viii-cua-dang-cong-san-viet-nam",
+      "giai-doan-day-manh-cong-nghiep-hoa-hien-dai-hoa-hoi-nhap-kinh-te-quoc-te-1996-2006",
       "dai-hoi-dai-bieu-toan-quoc-lan-thu-x-cua-dang-cong-san-viet-nam",
       "hien-phap-cong-hoa-xa-hoi-chu-nghia-viet-nam-2013",
+      "viet-nam-hoan-tat-muc-tieu-thien-nien-ki",
       "doan-si-quan-viet-nam-tham-gia-luc-luong-gin-giu-hoa-binh-lien-hop-quoc-tai-nam-xu-dang",
-      "quan-he-viet-nam-my-doi-tac-chien-luoc-toan-dien"
+      "quan-he-viet-nam-my-doi-tac-chien-luoc-toan-dien",
+      "giai-doan-tiep-tuc-day-manh-cong-nghiep-hoa-hien-dai-hoa-hoi-nhap-quoc-te-sau-rong-2006-nay",
+      "viet-nam-dam-phan-ranh-gioi-tren-bien",
+      "viet-nam-ki-ket-evfta",
+      "viet-nam-ki-ket-hiep-uoc-bien-gioi-trung-quoc",
+      "viet-nam-ki-ket-nghi-dinh-thu-ki-o-to",
+      "viet-nam-ki-ket-rcep",
+      "viet-nam-tham-gia-afta",
+      "viet-nam-thoan-thuan-bien-gioi-lao-cam-pu-chia",
+      "viet-nam-to-chuc-hoi-nghi-quoc-te-asean-asem-apec",
+      "viet-nam-uy-vien-khong-thuong-truc-hoi-dong-bao-an-lhq"
     ],
     "level": 1,
-    "orderInParent": 4
+    "orderInParent": 6
+  },
+  "giai-doan-khoi-dau-cong-cuoc-doi-moi-1986-1995": {
+    "parentId": "cong-cuoc-doi-moi-o-viet-nam",
+    "rootId": "viet-nam-1975-den-nay",
+    "childIds": [],
+    "level": 2,
+    "orderInParent": 1
   },
   "trung-quoc-danh-chiem-dao-gac-ma-len-dao-chu-thap-va-mot-so-dao-khac-truong-sa": {
     "parentId": "chu-quyen-bien-dao-viet-nam-1975-den-nay",
@@ -1996,28 +2343,28 @@
     "rootId": "viet-nam-1975-den-nay",
     "childIds": [],
     "level": 2,
-    "orderInParent": 1
+    "orderInParent": 2
   },
   "dai-hoi-dai-bieu-toan-quoc-lan-thu-vii-cua-dang-cong-san-viet-nam": {
     "parentId": "cong-cuoc-doi-moi-o-viet-nam",
     "rootId": "viet-nam-1975-den-nay",
     "childIds": [],
     "level": 2,
-    "orderInParent": 2
+    "orderInParent": 3
   },
   "viet-nam-binh-thuong-hoa-quan-he-trung-quoc": {
     "parentId": "cong-cuoc-doi-moi-o-viet-nam",
     "rootId": "viet-nam-1975-den-nay",
     "childIds": [],
     "level": 2,
-    "orderInParent": 3
+    "orderInParent": 4
   },
   "xay-dung-va-dong-dien-duong-day-500kv-bac-nam-mach-1": {
     "parentId": "cong-cuoc-doi-moi-o-viet-nam",
     "rootId": "viet-nam-1975-den-nay",
     "childIds": [],
     "level": 2,
-    "orderInParent": 4
+    "orderInParent": 5
   },
   "dai-loan-chiem-bai-can-ran-san-ho-ban-than": {
     "parentId": "chu-quyen-bien-dao-viet-nam-1975-den-nay",
@@ -2038,28 +2385,35 @@
     "rootId": "viet-nam-1975-den-nay",
     "childIds": [],
     "level": 2,
-    "orderInParent": 5
+    "orderInParent": 6
   },
   "viet-nam-gia-nhap-asean": {
     "parentId": "cong-cuoc-doi-moi-o-viet-nam",
     "rootId": "viet-nam-1975-den-nay",
     "childIds": [],
     "level": 2,
-    "orderInParent": 6
+    "orderInParent": 7
   },
   "dai-hoi-dai-bieu-toan-quoc-lan-thu-viii-cua-dang-cong-san-viet-nam": {
     "parentId": "cong-cuoc-doi-moi-o-viet-nam",
     "rootId": "viet-nam-1975-den-nay",
     "childIds": [],
     "level": 2,
-    "orderInParent": 7
+    "orderInParent": 8
+  },
+  "giai-doan-day-manh-cong-nghiep-hoa-hien-dai-hoa-hoi-nhap-kinh-te-quoc-te-1996-2006": {
+    "parentId": "cong-cuoc-doi-moi-o-viet-nam",
+    "rootId": "viet-nam-1975-den-nay",
+    "childIds": [],
+    "level": 2,
+    "orderInParent": 9
   },
   "cam-pu-chia-gia-nhap-asean": {
     "parentId": "viet-nam-1975-den-nay",
     "rootId": "viet-nam-1975-den-nay",
     "childIds": [],
     "level": 1,
-    "orderInParent": 5
+    "orderInParent": 7
   },
   "ki-tuyen-bo-ve-ung-xu-cua-cac-ben-o-bien-dong-doc": {
     "parentId": "chu-quyen-bien-dao-viet-nam-1975-den-nay",
@@ -2073,14 +2427,14 @@
     "rootId": "viet-nam-1975-den-nay",
     "childIds": [],
     "level": 1,
-    "orderInParent": 6
+    "orderInParent": 8
   },
   "dai-hoi-dai-bieu-toan-quoc-lan-thu-x-cua-dang-cong-san-viet-nam": {
     "parentId": "cong-cuoc-doi-moi-o-viet-nam",
     "rootId": "viet-nam-1975-den-nay",
     "childIds": [],
     "level": 2,
-    "orderInParent": 8
+    "orderInParent": 10
   },
   "viet-nam-thong-qua-luat-bien-viet-nam": {
     "parentId": "chu-quyen-bien-dao-viet-nam-1975-den-nay",
@@ -2094,28 +2448,35 @@
     "rootId": "viet-nam-1975-den-nay",
     "childIds": [],
     "level": 2,
-    "orderInParent": 9
+    "orderInParent": 11
+  },
+  "viet-nam-hoan-tat-muc-tieu-thien-nien-ki": {
+    "parentId": "cong-cuoc-doi-moi-o-viet-nam",
+    "rootId": "viet-nam-1975-den-nay",
+    "childIds": [],
+    "level": 2,
+    "orderInParent": 12
   },
   "bo-chinh-tri-ban-hanh-chi-thi-05-ct-tw-ve-day-manh-hoc-tap-va-lam-theo-tu-tuong-dao-duc-phong-cach-ho-chi-minh": {
     "parentId": "viet-nam-1975-den-nay",
     "rootId": "viet-nam-1975-den-nay",
     "childIds": [],
     "level": 1,
-    "orderInParent": 7
+    "orderInParent": 9
   },
   "phe-duyet-chien-luoc-phat-trien-cong-nghiep-van-hoa-viet-nam": {
     "parentId": "viet-nam-1975-den-nay",
     "rootId": "viet-nam-1975-den-nay",
     "childIds": [],
     "level": 1,
-    "orderInParent": 8
+    "orderInParent": 10
   },
   "ro-bot-xophia-duoc-cap-quyen-cong-dan": {
     "parentId": "viet-nam-1975-den-nay",
     "rootId": "viet-nam-1975-den-nay",
     "childIds": [],
     "level": 1,
-    "orderInParent": 9
+    "orderInParent": 11
   },
   "ban-hanh-nghi-quyet-36-nq-tw-ve-chien-luoc-phat-trien-kinh-te-bien": {
     "parentId": "chu-quyen-bien-dao-viet-nam-1975-den-nay",
@@ -2129,42 +2490,28 @@
     "rootId": "viet-nam-1975-den-nay",
     "childIds": [],
     "level": 1,
-    "orderInParent": 10
+    "orderInParent": 12
   },
   "hoi-nghi-cap-cao-asean-37-ha-noi": {
     "parentId": "viet-nam-1975-den-nay",
     "rootId": "viet-nam-1975-den-nay",
     "childIds": [],
     "level": 1,
-    "orderInParent": 11
+    "orderInParent": 13
   },
   "doan-si-quan-viet-nam-tham-gia-luc-luong-gin-giu-hoa-binh-lien-hop-quoc-tai-nam-xu-dang": {
     "parentId": "cong-cuoc-doi-moi-o-viet-nam",
     "rootId": "viet-nam-1975-den-nay",
     "childIds": [],
     "level": 2,
-    "orderInParent": 10
+    "orderInParent": 13
   },
   "quan-he-viet-nam-my-doi-tac-chien-luoc-toan-dien": {
     "parentId": "cong-cuoc-doi-moi-o-viet-nam",
     "rootId": "viet-nam-1975-den-nay",
     "childIds": [],
     "level": 2,
-    "orderInParent": 11
-  },
-  "cac-chien-dich-tien-cong-quan-doi-viet-nam-1950-1953": {
-    "parentId": "viet-nam-1975-den-nay",
-    "rootId": "viet-nam-1975-den-nay",
-    "childIds": [],
-    "level": 1,
-    "orderInParent": 12
-  },
-  "cac-chien-thang-quan-su-1964-1965": {
-    "parentId": "viet-nam-1975-den-nay",
-    "rootId": "viet-nam-1975-den-nay",
-    "childIds": [],
-    "level": 1,
-    "orderInParent": 13
+    "orderInParent": 14
   },
   "cai-cach-le-thanh-tong": {
     "parentId": "viet-nam-tu-the-ki-x-den-xv",
@@ -2181,99 +2528,35 @@
       "vu-an-le-chi-vien"
     ],
     "level": 1,
-    "orderInParent": 27
+    "orderInParent": 31
   },
-  "cai-cach-ruong-dat-mien-bac": {
-    "parentId": "viet-nam-1975-den-nay",
-    "rootId": "viet-nam-1975-den-nay",
+  "chien-luoc-vua-danh-vua-dam-va-van-dong-quoc-te-cong-nhan-mat-tran-dan-toc-giai-phong-mien-nam-viet-nam": {
+    "parentId": "khang-chien-chong-my-cuu-nuoc",
+    "rootId": "viet-nam-1954-1975",
+    "childIds": [],
+    "level": 2,
+    "orderInParent": 12
+  },
+  "chinh-quyen-phap-cai-cach-huong-chinh": {
+    "parentId": "viet-nam-1858-1918",
+    "rootId": "viet-nam-1858-1918",
     "childIds": [],
     "level": 1,
-    "orderInParent": 14
+    "orderInParent": 25
   },
-  "cai-cach-tran-thu-do": {
-    "parentId": "viet-nam-1975-den-nay",
-    "rootId": "viet-nam-1975-den-nay",
+  "chu-nom-su-dung-rong-rai": {
+    "parentId": "viet-nam-tu-the-ki-x-den-xv",
+    "rootId": "viet-nam-tu-the-ki-x-den-xv",
     "childIds": [],
     "level": 1,
-    "orderInParent": 15
+    "orderInParent": 32
   },
-  "cai-cach-trinh-cuong-dang-ngoai": {
-    "parentId": "viet-nam-1975-den-nay",
-    "rootId": "viet-nam-1975-den-nay",
+  "chu-quoc-ngu-xuat-hien": {
+    "parentId": "viet-nam-tu-the-ki-xvi-den-xix",
+    "rootId": "viet-nam-tu-the-ki-xvi-den-xix",
     "childIds": [],
     "level": 1,
     "orderInParent": 16
-  },
-  "chien-luoc-vua-danh-vua-dam-va-van-dong-quoc-te-cong-nhan-mat-tran-dan-toc-giai-phong-mien-nam-viet-nam": {
-    "parentId": "viet-nam-1975-den-nay",
-    "rootId": "viet-nam-1975-den-nay",
-    "childIds": [],
-    "level": 1,
-    "orderInParent": 17
-  },
-  "chien-thang-duong-14-phuoc-long": {
-    "parentId": "tong-tien-cong-va-noi-day-xuan-1975",
-    "rootId": "viet-nam-1954-1975",
-    "childIds": [],
-    "level": 3,
-    "orderInParent": 4
-  },
-  "chinh-quyen-phap-cai-cach-huong-chinh": {
-    "parentId": "viet-nam-1975-den-nay",
-    "rootId": "viet-nam-1975-den-nay",
-    "childIds": [],
-    "level": 1,
-    "orderInParent": 18
-  },
-  "chu-nom-su-dung-rong-rai": {
-    "parentId": "viet-nam-1975-den-nay",
-    "rootId": "viet-nam-1975-den-nay",
-    "childIds": [],
-    "level": 1,
-    "orderInParent": 19
-  },
-  "chu-quoc-ngu-xuat-hien": {
-    "parentId": "viet-nam-1975-den-nay",
-    "rootId": "viet-nam-1975-den-nay",
-    "childIds": [],
-    "level": 1,
-    "orderInParent": 20
-  },
-  "chu-quyen-bien-dao-viet-nam-1858-1918": {
-    "parentId": "viet-nam-1858-1918",
-    "rootId": "viet-nam-1858-1918",
-    "childIds": [
-      "trung-quoc-tu-choi-boi-thuong-vu-tau-dam-hoang-sa"
-    ],
-    "level": 1,
-    "orderInParent": 23
-  },
-  "chu-quyen-bien-dao-viet-nam-1919-1945": {
-    "parentId": "viet-nam-1919-1945",
-    "rootId": "viet-nam-1919-1945",
-    "childIds": [
-      "phap-xay-dung-cot-hai-dang-hoang-sa",
-      "phap-xay-dung-bia-chu-quyen-hoang-sa",
-      "phap-gui-cong-ham-phan-doi-nhat-ban-kiem-soat-truong-sa"
-    ],
-    "level": 1,
-    "orderInParent": 36
-  },
-  "chu-quyen-bien-dao-viet-nam-1954-1975": {
-    "parentId": "viet-nam-1954-1975",
-    "rootId": "viet-nam-1954-1975",
-    "childIds": [
-      "quan-li-hanh-chinh-chinh-quyen-sai-gon-hoang-sa-truong-sa",
-      "dai-loan-chiem-dong-dao-ba-binh-truong-sa",
-      "philippin-tuyen-bo-quyen-khai-thac-lap-nghiep-truong-sa",
-      "viet-nam-danh-chiem-nua-phia-dong-hoang-sa",
-      "philippin-chiem-dong-9-dao-truong-sa",
-      "quan-doi-sai-gon-that-bai-bao-ve-hoang-sa",
-      "trung-quoc-danh-chiem-toan-bo-hoang-sa",
-      "quan-giai-phong-mien-nam-viet-nam-tiep-quan-truong-sa"
-    ],
-    "level": 1,
-    "orderInParent": 20
   },
   "chu-quyen-bien-dao-viet-nam-1975-den-nay": {
     "parentId": "viet-nam-1975-den-nay",
@@ -2290,335 +2573,143 @@
       "trung-quoc-danh-chiem-da-vanh-khan",
       "ki-tuyen-bo-ve-ung-xu-cua-cac-ben-o-bien-dong-doc",
       "viet-nam-thong-qua-luat-bien-viet-nam",
-      "ban-hanh-nghi-quyet-36-nq-tw-ve-chien-luoc-phat-trien-kinh-te-bien",
-      "thanh-lap-va-hoat-dong-doi-dan-binh-hoang-sa-bac-hai"
+      "ban-hanh-nghi-quyet-36-nq-tw-ve-chien-luoc-phat-trien-kinh-te-bien"
     ],
     "level": 1,
-    "orderInParent": 21
-  },
-  "chu-quyen-bien-dao-viet-nam-tu-the-ki-xvi-den-xix": {
-    "parentId": "viet-nam-tu-the-ki-xvi-den-xix",
-    "rootId": "viet-nam-tu-the-ki-xvi-den-xix",
-    "childIds": [
-      "do-dac-cam-moc-chu-quyen-hoang-sa-pham-huu-nhat"
-    ],
-    "level": 1,
-    "orderInParent": 10
-  },
-  "cuoc-tien-cong-chien-luoc-dong-xuan-1953-1954": {
-    "parentId": "khang-chien-chong-thuc-dan-phap-1945-1954",
-    "rootId": "viet-nam-1945-1954",
-    "childIds": [],
-    "level": 2,
-    "orderInParent": 10
+    "orderInParent": 14
   },
   "dau-tranh-chong-phong-kien-phuong-bac": {
-    "parentId": "viet-nam-1975-den-nay",
-    "rootId": "viet-nam-1975-den-nay",
+    "parentId": "bac-thuoc-va-dau-tranh-gianh-doc-lap",
+    "rootId": "bac-thuoc-va-dau-tranh-gianh-doc-lap",
     "childIds": [],
     "level": 1,
-    "orderInParent": 22
+    "orderInParent": 12
   },
   "dinh-tien-le-dong-do-hoa-lu": {
-    "parentId": "viet-nam-1975-den-nay",
-    "rootId": "viet-nam-1975-den-nay",
-    "childIds": [],
-    "level": 1,
-    "orderInParent": 23
-  },
-  "doi-do-ly-cong-uan": {
-    "parentId": "viet-nam-1975-den-nay",
-    "rootId": "viet-nam-1975-den-nay",
-    "childIds": [],
-    "level": 1,
-    "orderInParent": 24
-  },
-  "doi-moi-dao-duy-tu-dang-trong": {
-    "parentId": "viet-nam-1975-den-nay",
-    "rootId": "viet-nam-1975-den-nay",
-    "childIds": [],
-    "level": 1,
-    "orderInParent": 25
-  },
-  "giai-doan-cuoi-chien-tranh-the-gioi-thu-hai": {
-    "parentId": "viet-nam-1975-den-nay",
-    "rootId": "viet-nam-1975-den-nay",
-    "childIds": [],
-    "level": 1,
-    "orderInParent": 26
-  },
-  "giai-doan-day-manh-cong-nghiep-hoa-hien-dai-hoa-hoi-nhap-kinh-te-quoc-te-1996-2006": {
-    "parentId": "viet-nam-1975-den-nay",
-    "rootId": "viet-nam-1975-den-nay",
-    "childIds": [],
-    "level": 1,
-    "orderInParent": 27
-  },
-  "giai-doan-khang-chien-chong-my-1954-1960": {
-    "parentId": "khang-chien-chong-my-cuu-nuoc",
-    "rootId": "viet-nam-1954-1975",
-    "childIds": [],
-    "level": 2,
-    "orderInParent": 7
-  },
-  "giai-doan-khang-chien-chong-my-1961-1965": {
-    "parentId": "khang-chien-chong-my-cuu-nuoc",
-    "rootId": "viet-nam-1954-1975",
-    "childIds": [],
-    "level": 2,
-    "orderInParent": 8
-  },
-  "giai-doan-khang-chien-chong-my-1965-1968": {
-    "parentId": "khang-chien-chong-my-cuu-nuoc",
-    "rootId": "viet-nam-1954-1975",
-    "childIds": [],
-    "level": 2,
-    "orderInParent": 9
-  },
-  "giai-doan-khang-chien-chong-my-1969-1973": {
-    "parentId": "khang-chien-chong-my-cuu-nuoc",
-    "rootId": "viet-nam-1954-1975",
-    "childIds": [],
-    "level": 2,
-    "orderInParent": 10
-  },
-  "giai-doan-khang-chien-chong-my-1973-1975": {
-    "parentId": "khang-chien-chong-my-cuu-nuoc",
-    "rootId": "viet-nam-1954-1975",
-    "childIds": [],
-    "level": 2,
-    "orderInParent": 11
-  },
-  "giai-doan-khoi-dau-cong-cuoc-doi-moi-1986-1995": {
-    "parentId": "viet-nam-1975-den-nay",
-    "rootId": "viet-nam-1975-den-nay",
-    "childIds": [],
-    "level": 1,
-    "orderInParent": 28
-  },
-  "giai-doan-tiep-tuc-day-manh-cong-nghiep-hoa-hien-dai-hoa-hoi-nhap-quoc-te-sau-rong-2006-nay": {
-    "parentId": "viet-nam-1975-den-nay",
-    "rootId": "viet-nam-1975-den-nay",
-    "childIds": [],
-    "level": 1,
-    "orderInParent": 29
-  },
-  "hinh-thanh-khoi-dai-doan-ket-van-lang-au-lac": {
-    "parentId": "viet-nam-1975-den-nay",
-    "rootId": "viet-nam-1975-den-nay",
-    "childIds": [],
-    "level": 1,
-    "orderInParent": 30
-  },
-  "hinh-thanh-phat-trien-van-minh-cham-pa": {
-    "parentId": "viet-nam-1975-den-nay",
-    "rootId": "viet-nam-1975-den-nay",
-    "childIds": [],
-    "level": 1,
-    "orderInParent": 31
-  },
-  "hinh-thanh-phat-trien-van-minh-phu-nam": {
-    "parentId": "viet-nam-1975-den-nay",
-    "rootId": "viet-nam-1975-den-nay",
-    "childIds": [],
-    "level": 1,
-    "orderInParent": 32
-  },
-  "hinh-thanh-phat-trien-van-minh-van-lang-au-lac": {
-    "parentId": "viet-nam-1975-den-nay",
-    "rootId": "viet-nam-1975-den-nay",
+    "parentId": "viet-nam-tu-the-ki-x-den-xv",
+    "rootId": "viet-nam-tu-the-ki-x-den-xv",
     "childIds": [],
     "level": 1,
     "orderInParent": 33
   },
-  "ho-chi-minh-keu-goi-nhuong-com-se-ao-tang-gia-san-xuat": {
-    "parentId": "viet-nam-1975-den-nay",
-    "rootId": "viet-nam-1975-den-nay",
-    "childIds": [],
-    "level": 1,
-    "orderInParent": 34
-  },
-  "ho-chi-minh-ki-sac-lenh-thanh-lap-nha-binh-dan-hoc-vu-va-quy-doc-lap": {
-    "parentId": "viet-nam-1975-den-nay",
-    "rootId": "viet-nam-1975-den-nay",
-    "childIds": [],
-    "level": 1,
-    "orderInParent": 35
-  },
-  "ho-khuc-to-chuc-lai-lang-xa-the-ki-x": {
-    "parentId": "viet-nam-1975-den-nay",
-    "rootId": "viet-nam-1975-den-nay",
-    "childIds": [],
-    "level": 1,
-    "orderInParent": 36
-  },
-  "hoan-toan-giai-phong-mien-nam-viet-nam": {
-    "parentId": "viet-nam-1975-den-nay",
-    "rootId": "viet-nam-1975-den-nay",
-    "childIds": [],
-    "level": 1,
-    "orderInParent": 37
-  },
-  "ke-hoach-nha-nuoc-5-nam-lan-thu-nhat-mien-bac": {
-    "parentId": "viet-nam-1975-den-nay",
-    "rootId": "viet-nam-1975-den-nay",
-    "childIds": [],
-    "level": 1,
-    "orderInParent": 38
-  },
-  "khang-chien-thang-loi": {
-    "parentId": "viet-nam-1975-den-nay",
-    "rootId": "viet-nam-1975-den-nay",
-    "childIds": [],
-    "level": 1,
-    "orderInParent": 39
-  },
-  "khoi-nghia-phung-hung": {
-    "parentId": "viet-nam-1975-den-nay",
-    "rootId": "viet-nam-1975-den-nay",
+  "giai-doan-cuoi-chien-tranh-the-gioi-thu-hai": {
+    "parentId": "viet-nam-1919-1945",
+    "rootId": "viet-nam-1919-1945",
     "childIds": [],
     "level": 1,
     "orderInParent": 40
   },
-  "khung-hoang-cuoi-trieu-tran": {
-    "parentId": "viet-nam-1975-den-nay",
+  "giai-doan-tiep-tuc-day-manh-cong-nghiep-hoa-hien-dai-hoa-hoi-nhap-quoc-te-sau-rong-2006-nay": {
+    "parentId": "cong-cuoc-doi-moi-o-viet-nam",
     "rootId": "viet-nam-1975-den-nay",
-    "childIds": [],
-    "level": 1,
-    "orderInParent": 41
-  },
-  "lang-co-ten-nom-xuat-hien-som-thoi-ly-tran": {
-    "parentId": "viet-nam-1975-den-nay",
-    "rootId": "viet-nam-1975-den-nay",
-    "childIds": [],
-    "level": 1,
-    "orderInParent": 42
-  },
-  "lang-xa-hinh-thanh-thoi-van-lang-au-lac": {
-    "parentId": "viet-nam-1975-den-nay",
-    "rootId": "viet-nam-1975-den-nay",
-    "childIds": [],
-    "level": 1,
-    "orderInParent": 43
-  },
-  "le-loi-xay-thanh-luc-nien": {
-    "parentId": "viet-nam-1975-den-nay",
-    "rootId": "viet-nam-1975-den-nay",
-    "childIds": [],
-    "level": 1,
-    "orderInParent": 44
-  },
-  "lien-hop-quoc-vien-tro-viet-nam-1977-1986": {
-    "parentId": "viet-nam-1975-den-nay",
-    "rootId": "viet-nam-1975-den-nay",
-    "childIds": [],
-    "level": 1,
-    "orderInParent": 45
-  },
-  "lien-xo-vien-tro-cho-viet-nam": {
-    "parentId": "viet-nam-1975-den-nay",
-    "rootId": "viet-nam-1975-den-nay",
-    "childIds": [],
-    "level": 1,
-    "orderInParent": 46
-  },
-  "mai-thuc-loan-khoi-nghia": {
-    "parentId": "viet-nam-1975-den-nay",
-    "rootId": "viet-nam-1975-den-nay",
-    "childIds": [],
-    "level": 1,
-    "orderInParent": 47
-  },
-  "mien-bac-viet-nam-giai-phong-xay-dung-cnxh": {
-    "parentId": "viet-nam-1975-den-nay",
-    "rootId": "viet-nam-1975-den-nay",
-    "childIds": [],
-    "level": 1,
-    "orderInParent": 48
-  },
-  "nguoi-viet-che-tao-sung-than-co-thuyen-chien": {
-    "parentId": "viet-nam-1975-den-nay",
-    "rootId": "viet-nam-1975-den-nay",
-    "childIds": [],
-    "level": 1,
-    "orderInParent": 49
-  },
-  "nguyen-hue-dung-chan-chieu-mo-binh-si": {
-    "parentId": "viet-nam-1975-den-nay",
-    "rootId": "viet-nam-1975-den-nay",
-    "childIds": [],
-    "level": 1,
-    "orderInParent": 50
-  },
-  "nha-duong-dat-don-vi-huong-xa-thoi-bac-thuoc": {
-    "parentId": "viet-nam-1975-den-nay",
-    "rootId": "viet-nam-1975-den-nay",
-    "childIds": [],
-    "level": 1,
-    "orderInParent": 51
-  },
-  "nha-ly-su-dung-thi-cu-nho-hoc": {
-    "parentId": "viet-nam-1975-den-nay",
-    "rootId": "viet-nam-1975-den-nay",
-    "childIds": [],
-    "level": 1,
-    "orderInParent": 52
-  },
-  "nha-ly-to-chuc-khoa-thi-nho-hoc-dau-tien": {
-    "parentId": "viet-nam-1975-den-nay",
-    "rootId": "viet-nam-1975-den-nay",
-    "childIds": [],
-    "level": 1,
-    "orderInParent": 53
-  },
-  "nha-ly-xay-dung-van-mieu": {
-    "parentId": "viet-nam-1975-den-nay",
-    "rootId": "viet-nam-1975-den-nay",
-    "childIds": [],
-    "level": 1,
-    "orderInParent": 54
-  },
-  "nha-minh-xam-luoc-dai-ngu": {
-    "parentId": "khang-chien-chong-quan-minh-nha-ho",
-    "rootId": "viet-nam-tu-the-ki-x-den-xv",
     "childIds": [],
     "level": 2,
-    "orderInParent": 0
+    "orderInParent": 15
+  },
+  "hinh-thanh-khoi-dai-doan-ket-van-lang-au-lac": {
+    "parentId": "viet-nam-thoi-dung-nuoc",
+    "rootId": "viet-nam-thoi-dung-nuoc",
+    "childIds": [],
+    "level": 1,
+    "orderInParent": 4
+  },
+  "hinh-thanh-phat-trien-van-minh-phu-nam": {
+    "parentId": "bac-thuoc-va-dau-tranh-gianh-doc-lap",
+    "rootId": "bac-thuoc-va-dau-tranh-gianh-doc-lap",
+    "childIds": [],
+    "level": 1,
+    "orderInParent": 13
+  },
+  "hinh-thanh-phat-trien-van-minh-van-lang-au-lac": {
+    "parentId": "viet-nam-thoi-dung-nuoc",
+    "rootId": "viet-nam-thoi-dung-nuoc",
+    "childIds": [],
+    "level": 1,
+    "orderInParent": 5
+  },
+  "khang-chien-thang-loi": {
+    "parentId": "viet-nam-1945-1954",
+    "rootId": "viet-nam-1945-1954",
+    "childIds": [],
+    "level": 1,
+    "orderInParent": 26
+  },
+  "lang-co-ten-nom-xuat-hien-som-thoi-ly-tran": {
+    "parentId": "viet-nam-tu-the-ki-x-den-xv",
+    "rootId": "viet-nam-tu-the-ki-x-den-xv",
+    "childIds": [],
+    "level": 1,
+    "orderInParent": 34
+  },
+  "lang-xa-hinh-thanh-thoi-van-lang-au-lac": {
+    "parentId": "viet-nam-thoi-dung-nuoc",
+    "rootId": "viet-nam-thoi-dung-nuoc",
+    "childIds": [],
+    "level": 1,
+    "orderInParent": 6
+  },
+  "nguoi-viet-che-tao-sung-than-co-thuyen-chien": {
+    "parentId": "viet-nam-tu-the-ki-x-den-xv",
+    "rootId": "viet-nam-tu-the-ki-x-den-xv",
+    "childIds": [],
+    "level": 1,
+    "orderInParent": 35
+  },
+  "nha-duong-dat-don-vi-huong-xa-thoi-bac-thuoc": {
+    "parentId": "bac-thuoc-va-dau-tranh-gianh-doc-lap",
+    "rootId": "bac-thuoc-va-dau-tranh-gianh-doc-lap",
+    "childIds": [],
+    "level": 1,
+    "orderInParent": 14
+  },
+  "nha-ly-su-dung-thi-cu-nho-hoc": {
+    "parentId": "viet-nam-tu-the-ki-x-den-xv",
+    "rootId": "viet-nam-tu-the-ki-x-den-xv",
+    "childIds": [],
+    "level": 1,
+    "orderInParent": 36
+  },
+  "nha-ly-to-chuc-khoa-thi-nho-hoc-dau-tien": {
+    "parentId": "viet-nam-tu-the-ki-x-den-xv",
+    "rootId": "viet-nam-tu-the-ki-x-den-xv",
+    "childIds": [],
+    "level": 1,
+    "orderInParent": 37
+  },
+  "nha-ly-xay-dung-van-mieu": {
+    "parentId": "viet-nam-tu-the-ki-x-den-xv",
+    "rootId": "viet-nam-tu-the-ki-x-den-xv",
+    "childIds": [],
+    "level": 1,
+    "orderInParent": 38
   },
   "nha-nuoc-can-thiep-manh-lang-xa-thoi-le-so": {
-    "parentId": "viet-nam-1975-den-nay",
-    "rootId": "viet-nam-1975-den-nay",
+    "parentId": "viet-nam-tu-the-ki-x-den-xv",
+    "rootId": "viet-nam-tu-the-ki-x-den-xv",
     "childIds": [],
     "level": 1,
-    "orderInParent": 55
+    "orderInParent": 39
   },
   "nha-nuoc-can-thiep-manh-lang-xa-thoi-nguyen": {
-    "parentId": "viet-nam-1975-den-nay",
-    "rootId": "viet-nam-1975-den-nay",
+    "parentId": "viet-nam-tu-the-ki-xvi-den-xix",
+    "rootId": "viet-nam-tu-the-ki-xvi-den-xix",
     "childIds": [],
     "level": 1,
-    "orderInParent": 56
+    "orderInParent": 17
   },
   "nha-nuoc-pho-mac-lang-xa-thoi-le-trung-hung": {
-    "parentId": "viet-nam-1975-den-nay",
-    "rootId": "viet-nam-1975-den-nay",
+    "parentId": "viet-nam-tu-the-ki-xvi-den-xix",
+    "rootId": "viet-nam-tu-the-ki-xvi-den-xix",
     "childIds": [],
     "level": 1,
-    "orderInParent": 57
+    "orderInParent": 18
   },
   "nho-giao-du-nhap-viet-nam": {
-    "parentId": "viet-nam-1975-den-nay",
-    "rootId": "viet-nam-1975-den-nay",
+    "parentId": "bac-thuoc-va-dau-tranh-gianh-doc-lap",
+    "rootId": "bac-thuoc-va-dau-tranh-gianh-doc-lap",
     "childIds": [],
     "level": 1,
-    "orderInParent": 58
-  },
-  "phap-xam-luoc-viet-nam": {
-    "parentId": "viet-nam-1975-den-nay",
-    "rootId": "viet-nam-1975-den-nay",
-    "childIds": [],
-    "level": 1,
-    "orderInParent": 59
+    "orderInParent": 15
   },
   "phong-trao-can-vuong": {
     "parentId": "viet-nam-1858-1918",
@@ -2627,252 +2718,175 @@
       "vuong-thuc-mau-khoi-nghia-can-vuong"
     ],
     "level": 1,
-    "orderInParent": 24
-  },
-  "phong-trao-dong-du": {
-    "parentId": "viet-nam-1975-den-nay",
-    "rootId": "viet-nam-1975-den-nay",
-    "childIds": [],
-    "level": 1,
-    "orderInParent": 60
-  },
-  "phong-trao-dong-khoi": {
-    "parentId": "viet-nam-1975-den-nay",
-    "rootId": "viet-nam-1975-den-nay",
-    "childIds": [],
-    "level": 1,
-    "orderInParent": 61
-  },
-  "phong-trao-tay-son-bung-no": {
-    "parentId": "phong-trao-tay-son",
-    "rootId": "viet-nam-tu-the-ki-xvi-den-xix",
-    "childIds": [],
-    "level": 2,
-    "orderInParent": 2
-  },
-  "phu-nam-tro-thanh-vuong-quoc-hung-manh": {
-    "parentId": "viet-nam-1975-den-nay",
-    "rootId": "viet-nam-1975-den-nay",
-    "childIds": [],
-    "level": 1,
-    "orderInParent": 62
+    "orderInParent": 26
   },
   "su-ra-doi-nha-nuoc-van-lang": {
-    "parentId": "viet-nam-1975-den-nay",
-    "rootId": "viet-nam-1975-den-nay",
+    "parentId": "viet-nam-thoi-dung-nuoc",
+    "rootId": "viet-nam-thoi-dung-nuoc",
     "childIds": [],
     "level": 1,
-    "orderInParent": 63
+    "orderInParent": 7
   },
   "tan-cong-champa-dai-viet-cuoi-tk14": {
-    "parentId": "viet-nam-1975-den-nay",
-    "rootId": "viet-nam-1975-den-nay",
+    "parentId": "viet-nam-tu-the-ki-x-den-xv",
+    "rootId": "viet-nam-tu-the-ki-x-den-xv",
     "childIds": [],
     "level": 1,
-    "orderInParent": 64
-  },
-  "thanh-lap-cac-dang-cong-san-o-viet-nam-ma-lai-xiem-phi-lip-pin": {
-    "parentId": "viet-nam-1975-den-nay",
-    "rootId": "viet-nam-1975-den-nay",
-    "childIds": [],
-    "level": 1,
-    "orderInParent": 65
-  },
-  "thanh-lap-lang-xa-huyen-tien-hai-thai-binh": {
-    "parentId": "viet-nam-1975-den-nay",
-    "rootId": "viet-nam-1975-den-nay",
-    "childIds": [],
-    "level": 1,
-    "orderInParent": 66
+    "orderInParent": 40
   },
   "thanh-lap-quoc-su-quan-trieu-nguyen": {
-    "parentId": "viet-nam-1975-den-nay",
-    "rootId": "viet-nam-1975-den-nay",
+    "parentId": "viet-nam-tu-the-ki-xvi-den-xix",
+    "rootId": "viet-nam-tu-the-ki-xvi-den-xix",
     "childIds": [],
     "level": 1,
-    "orderInParent": 67
-  },
-  "thanh-lap-va-hoat-dong-doi-dan-binh-hoang-sa-bac-hai": {
-    "parentId": "chu-quyen-bien-dao-viet-nam-1975-den-nay",
-    "rootId": "viet-nam-1975-den-nay",
-    "childIds": [],
-    "level": 2,
-    "orderInParent": 12
+    "orderInParent": 19
   },
   "thoi-tran-dat-chuc-xa-quan": {
-    "parentId": "viet-nam-1975-den-nay",
-    "rootId": "viet-nam-1975-den-nay",
+    "parentId": "viet-nam-tu-the-ki-x-den-xv",
+    "rootId": "viet-nam-tu-the-ki-x-den-xv",
     "childIds": [],
     "level": 1,
-    "orderInParent": 68
-  },
-  "thuc-hien-thong-nhat-dat-nuoc-viet-nam": {
-    "parentId": "viet-nam-1975-den-nay",
-    "rootId": "viet-nam-1975-den-nay",
-    "childIds": [],
-    "level": 1,
-    "orderInParent": 69
+    "orderInParent": 41
   },
   "thuong-mai-a-au-phat-trien-tai-dai-viet": {
-    "parentId": "viet-nam-1975-den-nay",
-    "rootId": "viet-nam-1975-den-nay",
+    "parentId": "viet-nam-tu-the-ki-xvi-den-xix",
+    "rootId": "viet-nam-tu-the-ki-xvi-den-xix",
     "childIds": [],
     "level": 1,
-    "orderInParent": 70
+    "orderInParent": 20
   },
   "tin-nguong-tho-than-dong-co-cung-dinh": {
-    "parentId": "viet-nam-1975-den-nay",
-    "rootId": "viet-nam-1975-den-nay",
+    "parentId": "viet-nam-tu-the-ki-x-den-xv",
+    "rootId": "viet-nam-tu-the-ki-x-den-xv",
     "childIds": [],
     "level": 1,
-    "orderInParent": 71
+    "orderInParent": 42
   },
   "trang-an-duoc-ghi-danh-di-san-the-gioi": {
     "parentId": "viet-nam-1975-den-nay",
     "rootId": "viet-nam-1975-den-nay",
     "childIds": [],
     "level": 1,
-    "orderInParent": 72
+    "orderInParent": 15
   },
   "tuyen-duong-chi-vien-chien-luoc-tren-bien-mang-ten-chu-tich-ho-chi-minh": {
-    "parentId": "viet-nam-1975-den-nay",
-    "rootId": "viet-nam-1975-den-nay",
+    "parentId": "khang-chien-chong-my-cuu-nuoc",
+    "rootId": "viet-nam-1954-1975",
     "childIds": [],
-    "level": 1,
-    "orderInParent": 73
+    "level": 2,
+    "orderInParent": 13
   },
   "van-hoa-phung-nguyen": {
-    "parentId": "viet-nam-1975-den-nay",
-    "rootId": "viet-nam-1975-den-nay",
+    "parentId": "viet-nam-thoi-dung-nuoc",
+    "rootId": "viet-nam-thoi-dung-nuoc",
     "childIds": [],
     "level": 1,
-    "orderInParent": 74
-  },
-  "van-hoa-sa-huynh": {
-    "parentId": "viet-nam-1975-den-nay",
-    "rootId": "viet-nam-1975-den-nay",
-    "childIds": [],
-    "level": 1,
-    "orderInParent": 75
-  },
-  "van-hoa-tien-oc-eo": {
-    "parentId": "viet-nam-1975-den-nay",
-    "rootId": "viet-nam-1975-den-nay",
-    "childIds": [],
-    "level": 1,
-    "orderInParent": 76
+    "orderInParent": 8
   },
   "viet-nam-dam-phan-ranh-gioi-tren-bien": {
-    "parentId": "viet-nam-1975-den-nay",
+    "parentId": "cong-cuoc-doi-moi-o-viet-nam",
     "rootId": "viet-nam-1975-den-nay",
     "childIds": [],
-    "level": 1,
-    "orderInParent": 77
-  },
-  "viet-nam-hoan-tat-muc-tieu-thien-nien-ki": {
-    "parentId": "viet-nam-1975-den-nay",
-    "rootId": "viet-nam-1975-den-nay",
-    "childIds": [],
-    "level": 1,
-    "orderInParent": 78
+    "level": 2,
+    "orderInParent": 16
   },
   "viet-nam-ki-ket-evfta": {
-    "parentId": "viet-nam-1975-den-nay",
+    "parentId": "cong-cuoc-doi-moi-o-viet-nam",
     "rootId": "viet-nam-1975-den-nay",
     "childIds": [],
-    "level": 1,
-    "orderInParent": 79
+    "level": 2,
+    "orderInParent": 17
   },
   "viet-nam-ki-ket-hiep-uoc-bien-gioi-trung-quoc": {
-    "parentId": "viet-nam-1975-den-nay",
+    "parentId": "cong-cuoc-doi-moi-o-viet-nam",
     "rootId": "viet-nam-1975-den-nay",
     "childIds": [],
-    "level": 1,
-    "orderInParent": 80
+    "level": 2,
+    "orderInParent": 18
   },
   "viet-nam-ki-ket-nghi-dinh-thu-ki-o-to": {
-    "parentId": "viet-nam-1975-den-nay",
+    "parentId": "cong-cuoc-doi-moi-o-viet-nam",
     "rootId": "viet-nam-1975-den-nay",
     "childIds": [],
-    "level": 1,
-    "orderInParent": 81
+    "level": 2,
+    "orderInParent": 19
   },
   "viet-nam-ki-ket-rcep": {
-    "parentId": "viet-nam-1975-den-nay",
+    "parentId": "cong-cuoc-doi-moi-o-viet-nam",
     "rootId": "viet-nam-1975-den-nay",
     "childIds": [],
-    "level": 1,
-    "orderInParent": 82
+    "level": 2,
+    "orderInParent": 20
   },
   "viet-nam-lao-cam-pu-chia-chuyen-sang-kinh-te-thi-truong-va-cong-nghiep-hoa": {
     "parentId": "viet-nam-1975-den-nay",
     "rootId": "viet-nam-1975-den-nay",
     "childIds": [],
     "level": 1,
-    "orderInParent": 83
+    "orderInParent": 16
   },
   "viet-nam-mo-co-quan-dai-dien-ngoai-giao-va-thong-tin-o-nuoc-ngoai": {
-    "parentId": "viet-nam-1975-den-nay",
-    "rootId": "viet-nam-1975-den-nay",
+    "parentId": "khang-chien-chong-thuc-dan-phap-1945-1954",
+    "rootId": "viet-nam-1945-1954",
     "childIds": [],
-    "level": 1,
-    "orderInParent": 84
+    "level": 2,
+    "orderInParent": 11
   },
   "viet-nam-tham-gia-afta": {
-    "parentId": "viet-nam-1975-den-nay",
+    "parentId": "cong-cuoc-doi-moi-o-viet-nam",
     "rootId": "viet-nam-1975-den-nay",
     "childIds": [],
-    "level": 1,
-    "orderInParent": 85
+    "level": 2,
+    "orderInParent": 21
   },
   "viet-nam-thoan-thuan-bien-gioi-lao-cam-pu-chia": {
-    "parentId": "viet-nam-1975-den-nay",
+    "parentId": "cong-cuoc-doi-moi-o-viet-nam",
     "rootId": "viet-nam-1975-den-nay",
     "childIds": [],
-    "level": 1,
-    "orderInParent": 86
+    "level": 2,
+    "orderInParent": 22
   },
   "viet-nam-to-chuc-hoi-nghi-quoc-te-asean-asem-apec": {
-    "parentId": "viet-nam-1975-den-nay",
+    "parentId": "cong-cuoc-doi-moi-o-viet-nam",
     "rootId": "viet-nam-1975-den-nay",
     "childIds": [],
-    "level": 1,
-    "orderInParent": 87
+    "level": 2,
+    "orderInParent": 23
   },
   "viet-nam-uy-vien-khong-thuong-truc-hoi-dong-bao-an-lhq": {
-    "parentId": "viet-nam-1975-den-nay",
+    "parentId": "cong-cuoc-doi-moi-o-viet-nam",
     "rootId": "viet-nam-1975-den-nay",
     "childIds": [],
-    "level": 1,
-    "orderInParent": 88
+    "level": 2,
+    "orderInParent": 24
   },
   "vndcch-can-bang-quan-he-voi-lien-xo-trung-quoc-va-van-dong-vien-tro": {
-    "parentId": "viet-nam-1975-den-nay",
-    "rootId": "viet-nam-1975-den-nay",
+    "parentId": "khang-chien-chong-my-cuu-nuoc",
+    "rootId": "viet-nam-1954-1975",
     "childIds": [],
-    "level": 1,
-    "orderInParent": 89
+    "level": 2,
+    "orderInParent": 14
   },
   "vndcch-dau-tranh-doi-thi-hanh-hiep-dinh-gio-ne-vo": {
     "parentId": "khang-chien-chong-my-cuu-nuoc",
     "rootId": "viet-nam-1954-1975",
     "childIds": [],
     "level": 2,
-    "orderInParent": 12
+    "orderInParent": 15
   },
   "vndcch-gap-go-dang-cong-san-phap-va-cac-to-chuc-quoc-te": {
-    "parentId": "viet-nam-1975-den-nay",
-    "rootId": "viet-nam-1975-den-nay",
+    "parentId": "khang-chien-chong-thuc-dan-phap-1945-1954",
+    "rootId": "viet-nam-1945-1954",
     "childIds": [],
-    "level": 1,
-    "orderInParent": 90
+    "level": 2,
+    "orderInParent": 12
   },
   "vndcch-thiet-lap-quan-he-ngoai-giao-voi-lao-campuchia-va-ung-ho-phong-trao-giai-phong-dan-toc": {
-    "parentId": "viet-nam-1975-den-nay",
-    "rootId": "viet-nam-1975-den-nay",
+    "parentId": "khang-chien-chong-my-cuu-nuoc",
+    "rootId": "viet-nam-1954-1975",
     "childIds": [],
-    "level": 1,
-    "orderInParent": 91
+    "level": 2,
+    "orderInParent": 16
   },
   "vu-an-le-chi-vien": {
     "parentId": "cai-cach-le-thanh-tong",
@@ -2881,25 +2895,11 @@
     "level": 2,
     "orderInParent": 8
   },
-  "vuong-thuc-mau-khoi-nghia-can-vuong": {
-    "parentId": "phong-trao-can-vuong",
-    "rootId": "viet-nam-1858-1918",
-    "childIds": [],
-    "level": 2,
-    "orderInParent": 0
-  },
-  "xa-lan-dau-tien-xuat-hien": {
-    "parentId": "viet-nam-1975-den-nay",
-    "rootId": "viet-nam-1975-den-nay",
-    "childIds": [],
-    "level": 1,
-    "orderInParent": 92
-  },
   "xa-tro-thanh-ten-goi-pho-bien": {
-    "parentId": "viet-nam-1975-den-nay",
-    "rootId": "viet-nam-1975-den-nay",
+    "parentId": "viet-nam-tu-the-ki-x-den-xv",
+    "rootId": "viet-nam-tu-the-ki-x-den-xv",
     "childIds": [],
     "level": 1,
-    "orderInParent": 93
+    "orderInParent": 43
   }
 }

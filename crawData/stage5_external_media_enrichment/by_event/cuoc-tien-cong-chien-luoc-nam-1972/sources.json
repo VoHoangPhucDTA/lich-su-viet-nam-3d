@@ -1,0 +1,9 @@
+{
+  "eventId": "cuoc-tien-cong-chien-luoc-nam-1972",
+  "status": "pending_download",
+  "images": [],
+  "expected": [
+    "image_01.<ext>",
+    "image_02.<ext>"
+  ]
+}

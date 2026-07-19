@@ -1,0 +1,53 @@
+{
+  "eventId": "phong-trao-can-vuong",
+  "title": "Phong trào Cần Vương",
+  "shortTitle": "Phong trào Cần Vương",
+  "displayDate": "Phong trào Cần Vương",
+  "eventLevel": "collection",
+  "rootId": "viet-nam-1858-1918",
+  "parentId": "viet-nam-1858-1918",
+  "historicalLocations": [
+    "Việt Nam"
+  ],
+  "provinceNames": [],
+  "canonicalSummary": "Nút collection dẫn xuất từ force_parent.json cho nhóm Phong trào Cần Vương.",
+  "keyFacts": [],
+  "sourceFamily": "colonial",
+  "preferredVerificationDomains": [
+    "baotanglichsu.vn",
+    "luutru.gov.vn",
+    "hochiminh.vn",
+    "nhandan.vn",
+    "qdnd.vn",
+    "vietnamplus.vn",
+    "gallica.bnf.fr",
+    "loc.gov"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Phong trào Cần Vương",
+    "Phong trào Cần Vương Phong trào Cần Vương",
+    "Phong trào Cần Vương Việt Nam",
+    "Phong trào Cần Vương ảnh tư liệu",
+    "Phong trào Cần Vương chân dung"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

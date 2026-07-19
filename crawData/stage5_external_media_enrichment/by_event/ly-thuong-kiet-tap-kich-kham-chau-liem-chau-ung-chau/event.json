@@ -1,0 +1,61 @@
+{
+  "eventId": "ly-thuong-kiet-tap-kich-kham-chau-liem-chau-ung-chau",
+  "title": "Lý Thường Kiệt chủ động tập kích Khâm Châu, Liêm Châu, Ung Châu",
+  "shortTitle": "Lý Thường Kiệt chủ động tập kích Khâm Châu, Liêm Châu, Ung Châu",
+  "displayDate": "Năm 1075",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-tu-the-ki-x-den-xv",
+  "parentId": "viet-nam-tu-the-ki-x-den-xv",
+  "historicalLocations": [
+    "Liêm Châu",
+    "Ung Châu",
+    "Khâm Châu",
+    "Trung Quốc"
+  ],
+  "provinceNames": [],
+  "canonicalSummary": "Trong cuộc kháng chiến chống Tống giai đoạn thứ nhất (1075), triều Lý đã thực hiện kế sách \"tiên phát chế nhân\" bằng cách chủ động tập kích Khâm Châu, Liêm Châu, Ung Châu (Trung Quốc) nhằm ngăn chặn âm mưu xâm lược của quân Tống.",
+  "keyFacts": [
+    "Người chỉ huy: Lý Thường Kiệt",
+    "Kế sách: \"tiên phát chế nhân\"",
+    "Địa điểm: Khâm Châu, Liêm Châu, Ung Châu (Trung Quốc)",
+    "Diễn ra năm 1075"
+  ],
+  "sourceFamily": "ancient_medieval",
+  "preferredVerificationDomains": [
+    "baotanglichsu.vn",
+    "disanvanhoa.gov.vn",
+    "bvhttdl.gov.vn",
+    "qdnd.vn",
+    "nhandan.vn",
+    "unesco.org",
+    "whc.unesco.org"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Lý Thường Kiệt chủ động tập kích Khâm Châu, Liêm Châu, Ung Châu",
+    "Lý Thường Kiệt chủ động tập kích Khâm Châu, Liêm Châu, Ung Châu Năm 1075",
+    "Lý Thường Kiệt chủ động tập kích Khâm Châu, Liêm Châu, Ung Châu Liêm Châu",
+    "Lý Thường Kiệt chủ động tập kích Khâm Châu, Liêm Châu, Ung Châu Người chỉ huy: Lý Thường Kiệt Kế sách: \"tiên phát chế nhân\"",
+    "Lý Thường Kiệt chủ động tập kích Khâm Châu, Liêm Châu, Ung Châu hiện vật",
+    "Lý Thường Kiệt chủ động tập kích Khâm Châu, Liêm Châu, Ung Châu di tích"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

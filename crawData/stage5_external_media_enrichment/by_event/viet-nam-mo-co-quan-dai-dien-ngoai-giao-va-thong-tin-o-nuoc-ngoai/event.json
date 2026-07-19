@@ -1,0 +1,57 @@
+{
+  "eventId": "viet-nam-mo-co-quan-dai-dien-ngoai-giao-va-thong-tin-o-nuoc-ngoai",
+  "title": "Việt Nam mở các cơ quan đại diện ngoại giao và thông tin ở nước ngoài",
+  "shortTitle": "Việt Nam mở các cơ quan đại diện ngoại giao và thông tin ở nước ngoài",
+  "displayDate": "Trong kháng chiến chống Pháp (1945-1954)",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1945-1954",
+  "parentId": "khang-chien-chong-thuc-dan-phap-1945-1954",
+  "historicalLocations": [
+    "châu Á"
+  ],
+  "provinceNames": [],
+  "canonicalSummary": "Việt Nam mở các cơ quan đại diện ngoại giao tại một số nước châu Á và các cơ quan thông tin ở một số nước trên thế giới.",
+  "keyFacts": [
+    "Mở cơ quan thông tin ở một số nước trên thế giới",
+    "Mở cơ quan đại diện ngoại giao tại một số nước châu Á"
+  ],
+  "sourceFamily": "diplomacy",
+  "preferredVerificationDomains": [
+    "mofa.gov.vn",
+    "chinhphu.vn",
+    "vietnamplus.vn",
+    "nhandan.vn",
+    "un.org",
+    "asean.org",
+    "apec.org",
+    "europa.eu"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Việt Nam mở các cơ quan đại diện ngoại giao và thông tin ở nước ngoài",
+    "Việt Nam mở các cơ quan đại diện ngoại giao và thông tin ở nước ngoài Trong kháng chiến chống Pháp (1945-1954)",
+    "Việt Nam mở các cơ quan đại diện ngoại giao và thông tin ở nước ngoài châu Á",
+    "Việt Nam mở các cơ quan đại diện ngoại giao và thông tin ở nước ngoài Mở cơ quan thông tin ở một số nước trên thế giới Mở cơ quan đại diện ngoại giao tại một số nước châu Á",
+    "Việt Nam mở các cơ quan đại diện ngoại giao và thông tin ở nước ngoài lễ ký",
+    "Việt Nam mở các cơ quan đại diện ngoại giao và thông tin ở nước ngoài hội nghị"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

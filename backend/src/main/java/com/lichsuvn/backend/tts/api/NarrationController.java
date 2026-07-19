@@ -1,13 +1,18 @@
 package com.lichsuvn.backend.tts.api;
 
 import com.lichsuvn.backend.common.api.ApiResponse;
+import com.lichsuvn.backend.common.exception.ApiException;
+import com.lichsuvn.backend.tts.api.dto.TtsAudioAssetRequest;
+import com.lichsuvn.backend.tts.api.dto.TtsAudioAssetResponse;
 import com.lichsuvn.backend.tts.api.dto.TtsGenerateRequest;
 import com.lichsuvn.backend.tts.api.dto.TtsJobStatusResponse;
 import com.lichsuvn.backend.tts.api.dto.TtsJobStatusResponse.PlaylistData;
 import com.lichsuvn.backend.tts.api.dto.TtsJobStatusResponse.PlaylistItem;
 import com.lichsuvn.backend.tts.application.NarrationService;
+import com.lichsuvn.backend.tts.application.TtsAudioAssetService;
 import com.lichsuvn.backend.tts.application.TtsJobManager;
 import com.lichsuvn.backend.tts.application.TtsJobManager.TtsJob;
+import org.springframework.beans.factory.annotation.Value;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
@@ -38,10 +43,40 @@ public class NarrationController {
 
     private final TtsJobManager jobManager;
     private final NarrationService narrationService;
+    private final TtsAudioAssetService audioAssetService;
+    private final boolean assetFlowEnabled;
 
-    public NarrationController(TtsJobManager jobManager, NarrationService narrationService) {
+    public NarrationController(
+            TtsJobManager jobManager,
+            NarrationService narrationService,
+            TtsAudioAssetService audioAssetService,
+            @Value("${app.tts.asset-flow-enabled:false}") boolean assetFlowEnabled) {
         this.jobManager = jobManager;
         this.narrationService = narrationService;
+        this.audioAssetService = audioAssetService;
+        this.assetFlowEnabled = assetFlowEnabled;
+    }
+
+    @PostMapping("/events/{eventId}/audio")
+    public ResponseEntity<ApiResponse<TtsAudioAssetResponse>> requestEventAudio(
+            @PathVariable String eventId,
+            @RequestBody(required = false) TtsAudioAssetRequest request) {
+        if (!assetFlowEnabled) {
+            throw new ApiException(
+                    HttpStatus.SERVICE_UNAVAILABLE,
+                    "TTS_ASSET_FLOW_DISABLED",
+                    "TTS audio asset flow is not enabled yet"
+            );
+        }
+
+        TtsAudioAssetResponse response = audioAssetService.requestAsset(eventId, request);
+        HttpStatus status = "pending".equals(response.status()) ? HttpStatus.ACCEPTED : HttpStatus.OK;
+        return ResponseEntity.status(status).body(ApiResponse.ok(response));
+    }
+
+    @GetMapping("/audio-assets/{assetId}")
+    public ResponseEntity<ApiResponse<TtsAudioAssetResponse>> getAudioAsset(@PathVariable String assetId) {
+        return ResponseEntity.ok(ApiResponse.ok(audioAssetService.getAsset(assetId)));
     }
 
     /**

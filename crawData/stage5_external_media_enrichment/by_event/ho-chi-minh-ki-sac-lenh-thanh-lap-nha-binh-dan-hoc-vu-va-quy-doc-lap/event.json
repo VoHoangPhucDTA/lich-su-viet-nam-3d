@@ -1,0 +1,57 @@
+{
+  "eventId": "ho-chi-minh-ki-sac-lenh-thanh-lap-nha-binh-dan-hoc-vu-va-quy-doc-lap",
+  "title": "Chủ tịch Hồ Chí Minh kí sắc lệnh thành lập Nha Bình dân học vụ và thành lập Quỹ Độc lập, kêu gọi hưởng ứng Tuần lễ vàng",
+  "shortTitle": "Thành lập Nha Bình dân học vụ và Quỹ Độc lập",
+  "displayDate": "Những năm 1945 – 1946",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1919-1945",
+  "parentId": "viet-nam-1919-1945",
+  "historicalLocations": [],
+  "provinceNames": [],
+  "canonicalSummary": "Về đối nội, để giải quyết nạn đói, nạn dốt và khó khăn về tài chính, Chủ tịch Hồ ChíMinh kêu gọi nhân dân cả nước “Nhường cơm sẻ áo” và “Tăng gia sản xuất, kí sắc lệnh thành lập Nha Bình dân học vụ và thành lập Quỹ Độc lập, gửi thư kêu gọi các tầng lớp nhân dân hưởng ứng Tuần lễ vàng ủng hộ Chính phủ.",
+  "keyFacts": [
+    "Kí sắc lệnh thành lập Nha Bình dân học vụ",
+    "Thành lập Quỹ Độc lập",
+    "Kêu gọi hưởng ứng Tuần lễ vàng",
+    "Để giải quyết nạn dốt và khó khăn về tài chính"
+  ],
+  "sourceFamily": "revolutionary",
+  "preferredVerificationDomains": [
+    "hochiminh.vn",
+    "tulieuvankien.dangcongsan.vn",
+    "dangcongsan.vn",
+    "baotanglichsu.vn",
+    "nhandan.vn",
+    "qdnd.vn",
+    "vietnamplus.vn",
+    "luutru.gov.vn"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Chủ tịch Hồ Chí Minh kí sắc lệnh thành lập Nha Bình dân học vụ và thành lập Quỹ Độc lập, kêu gọi hưởng ứng Tuần lễ vàng",
+    "Chủ tịch Hồ Chí Minh kí sắc lệnh thành lập Nha Bình dân học vụ và thành lập Quỹ Độc lập, kêu gọi hưởng ứng Tuần lễ vàng Những năm 1945 – 1946",
+    "Chủ tịch Hồ Chí Minh kí sắc lệnh thành lập Nha Bình dân học vụ và thành lập Quỹ Độc lập, kêu gọi hưởng ứng Tuần lễ vàng Việt Nam từ năm 1919 đến năm 1945",
+    "Chủ tịch Hồ Chí Minh kí sắc lệnh thành lập Nha Bình dân học vụ và thành lập Quỹ Độc lập, kêu gọi hưởng ứng Tuần lễ vàng Kí sắc lệnh thành lập Nha Bình dân học vụ Thành lập Quỹ Độc lập",
+    "Chủ tịch Hồ Chí Minh kí sắc lệnh thành lập Nha Bình dân học vụ và thành lập Quỹ Độc lập, kêu gọi hưởng ứng Tuần lễ vàng ảnh tư liệu",
+    "Chủ tịch Hồ Chí Minh kí sắc lệnh thành lập Nha Bình dân học vụ và thành lập Quỹ Độc lập, kêu gọi hưởng ứng Tuần lễ vàng chân dung"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

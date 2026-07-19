@@ -1,0 +1,59 @@
+{
+  "eventId": "dai-hoi-dai-bieu-toan-quoc-lan-thu-x-cua-dang-cong-san-viet-nam",
+  "title": "Đại hội đại biểu toàn quốc lần thứ X của Đảng Cộng sản Việt Nam",
+  "shortTitle": "Đại hội X của Đảng",
+  "displayDate": "2006",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1975-den-nay",
+  "parentId": "cong-cuoc-doi-moi-o-viet-nam",
+  "historicalLocations": [
+    "Việt Nam"
+  ],
+  "provinceNames": [],
+  "canonicalSummary": "Đại hội đại biểu toàn quốc lần thứ X của Đảng Cộng sản Việt Nam diễn ra vào năm 2006.",
+  "keyFacts": [
+    "Mục tiêu đưa Việt Nam ra khỏi tình trạng kém phát triển",
+    "Chủ trương đẩy mạnh toàn diện công cuộc Đổi mới",
+    "Diễn ra năm 2006"
+  ],
+  "sourceFamily": "post_1975",
+  "preferredVerificationDomains": [
+    "chinhphu.vn",
+    "dangcongsan.vn",
+    "tulieuvankien.dangcongsan.vn",
+    "quochoi.vn",
+    "mofa.gov.vn",
+    "vietnamplus.vn",
+    "nhandan.vn",
+    "un.org",
+    "unphoto.un.org"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Đại hội đại biểu toàn quốc lần thứ X của Đảng Cộng sản Việt Nam",
+    "Đại hội đại biểu toàn quốc lần thứ X của Đảng Cộng sản Việt Nam 2006",
+    "Đại hội đại biểu toàn quốc lần thứ X của Đảng Cộng sản Việt Nam Việt Nam",
+    "Đại hội đại biểu toàn quốc lần thứ X của Đảng Cộng sản Việt Nam Mục tiêu đưa Việt Nam ra khỏi tình trạng kém phát triển Chủ trương đẩy mạnh toàn diện công cuộc Đổi mới",
+    "Đại hội đại biểu toàn quốc lần thứ X của Đảng Cộng sản Việt Nam ảnh tư liệu",
+    "Đại hội đại biểu toàn quốc lần thứ X của Đảng Cộng sản Việt Nam lễ ký"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

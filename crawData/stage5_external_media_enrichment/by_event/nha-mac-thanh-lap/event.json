@@ -1,0 +1,53 @@
+{
+  "eventId": "nha-mac-thanh-lap",
+  "title": "Nhà Mạc thành lập",
+  "shortTitle": "Nhà Mạc thành lập",
+  "displayDate": "Năm 1527",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-tu-the-ki-xvi-den-xix",
+  "parentId": "viet-nam-tu-the-ki-xvi-den-xix",
+  "historicalLocations": [],
+  "provinceNames": [],
+  "canonicalSummary": "Năm 1527, nhà Mạc thành lập, khuyến khích phát triển kinh tế công thương nghiệp và văn hoá.",
+  "keyFacts": [
+    "Diễn ra năm 1527",
+    "Khuyến khích phát triển kinh tế công thương nghiệp và văn hoá",
+    "Nhà Mạc thành lập"
+  ],
+  "sourceFamily": "early_modern",
+  "preferredVerificationDomains": [
+    "baotanglichsu.vn",
+    "luutru.gov.vn",
+    "disanvanhoa.gov.vn",
+    "nhandan.vn",
+    "qdnd.vn"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Nhà Mạc thành lập",
+    "Nhà Mạc thành lập Năm 1527",
+    "Nhà Mạc thành lập Việt Nam từ thế kỉ XVI đến thế kỉ XIX",
+    "Nhà Mạc thành lập Diễn ra năm 1527 Khuyến khích phát triển kinh tế công thương nghiệp và văn hoá",
+    "Nhà Mạc thành lập chân dung",
+    "Nhà Mạc thành lập di tích"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

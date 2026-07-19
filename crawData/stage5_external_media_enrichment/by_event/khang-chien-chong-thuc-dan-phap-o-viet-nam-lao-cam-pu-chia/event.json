@@ -1,0 +1,61 @@
+{
+  "eventId": "khang-chien-chong-thuc-dan-phap-o-viet-nam-lao-cam-pu-chia",
+  "title": "Kháng chiến chống thực dân Pháp ở Việt Nam, Lào, Cam-pu-chia",
+  "shortTitle": "Kháng chiến chống Pháp ở Đông Dương",
+  "displayDate": "1945 – 1954",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1919-1945",
+  "parentId": "viet-nam-1919-1945",
+  "historicalLocations": [
+    "Cam-pu-chia",
+    "Lào",
+    "Việt Nam",
+    "Đông Dương"
+  ],
+  "provinceNames": [],
+  "canonicalSummary": "Mặc dù Việt Nam và Lào tuyên bố độc lập ngay từ năm 1945, nhưng ba nước Đông Dương (Việt Nam, Lào, Cam-pu-chia) lại phải trải qua cuộc kháng chiến chống thực dân Pháp từ 1945 đến 1954. Đây là cuộc chiến đấu quyết liệt nhất trong lịch sử đấu tranh giành độc lập dân tộc ở Đông Nam Á.",
+  "keyFacts": [
+    "Là cuộc chiến đấu quyết liệt nhất",
+    "Diễn ra từ 1945-1954",
+    "Diễn ra ở Việt Nam, Lào, Cam-pu-chia"
+  ],
+  "sourceFamily": "revolutionary",
+  "preferredVerificationDomains": [
+    "hochiminh.vn",
+    "tulieuvankien.dangcongsan.vn",
+    "dangcongsan.vn",
+    "baotanglichsu.vn",
+    "nhandan.vn",
+    "qdnd.vn",
+    "vietnamplus.vn",
+    "luutru.gov.vn"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Kháng chiến chống thực dân Pháp ở Việt Nam, Lào, Cam-pu-chia",
+    "Kháng chiến chống thực dân Pháp ở Việt Nam, Lào, Cam-pu-chia 1945 – 1954",
+    "Kháng chiến chống thực dân Pháp ở Việt Nam, Lào, Cam-pu-chia Cam-pu-chia",
+    "Kháng chiến chống thực dân Pháp ở Việt Nam, Lào, Cam-pu-chia Là cuộc chiến đấu quyết liệt nhất Diễn ra từ 1945-1954",
+    "Kháng chiến chống thực dân Pháp ở Việt Nam, Lào, Cam-pu-chia ảnh tư liệu",
+    "Kháng chiến chống thực dân Pháp ở Việt Nam, Lào, Cam-pu-chia chân dung"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

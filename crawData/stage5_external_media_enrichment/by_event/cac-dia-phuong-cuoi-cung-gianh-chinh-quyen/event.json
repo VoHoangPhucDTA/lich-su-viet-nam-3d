@@ -1,0 +1,59 @@
+{
+  "eventId": "cac-dia-phuong-cuoi-cung-gianh-chinh-quyen",
+  "title": "Đồng Nai Thượng và Hà Tiên là những địa phương cuối cùng giành chính quyền",
+  "shortTitle": "Địa phương cuối cùng giành chính quyền",
+  "displayDate": "Đến ngày 28 - 8",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1919-1945",
+  "parentId": "cach-mang-thang-tam-nam-1945",
+  "historicalLocations": [],
+  "provinceNames": [
+    "Đồng Nai",
+    "Hà Tĩnh"
+  ],
+  "canonicalSummary": "Đến ngày 28 - 8, Đồng Nai Thượng và Hà Tiên là những địa phương cuối cùng giành chính quyền.",
+  "keyFacts": [
+    "Đến ngày 28-8-1945",
+    "Là những địa phương cuối cùng giành chính quyền",
+    "Đồng Nai Thượng và Hà Tiên"
+  ],
+  "sourceFamily": "revolutionary",
+  "preferredVerificationDomains": [
+    "hochiminh.vn",
+    "tulieuvankien.dangcongsan.vn",
+    "dangcongsan.vn",
+    "baotanglichsu.vn",
+    "nhandan.vn",
+    "qdnd.vn",
+    "vietnamplus.vn",
+    "luutru.gov.vn"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Đồng Nai Thượng và Hà Tiên là những địa phương cuối cùng giành chính quyền",
+    "Đồng Nai Thượng và Hà Tiên là những địa phương cuối cùng giành chính quyền Đến ngày 28 - 8",
+    "Đồng Nai Thượng và Hà Tiên là những địa phương cuối cùng giành chính quyền Cách mạng tháng Tám năm 1945",
+    "Đồng Nai Thượng và Hà Tiên là những địa phương cuối cùng giành chính quyền Đến ngày 28-8-1945 Là những địa phương cuối cùng giành chính quyền",
+    "Đồng Nai Thượng và Hà Tiên là những địa phương cuối cùng giành chính quyền ảnh tư liệu",
+    "Đồng Nai Thượng và Hà Tiên là những địa phương cuối cùng giành chính quyền chân dung"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

@@ -1,0 +1,53 @@
+{
+  "eventId": "chu-quyen-bien-dao-viet-nam-1858-1918",
+  "title": "Chủ quyền biển đảo Việt Nam 1858-1918",
+  "shortTitle": "Chủ quyền biển đảo Việt Nam 1858-1918",
+  "displayDate": "Chủ quyền biển đảo Việt Nam 1858-1918",
+  "eventLevel": "collection",
+  "rootId": "viet-nam-1858-1918",
+  "parentId": "viet-nam-1858-1918",
+  "historicalLocations": [
+    "Việt Nam"
+  ],
+  "provinceNames": [],
+  "canonicalSummary": "Nút collection dẫn xuất từ force_parent.json cho nhóm Chủ quyền biển đảo Việt Nam 1858-1918.",
+  "keyFacts": [],
+  "sourceFamily": "colonial",
+  "preferredVerificationDomains": [
+    "baotanglichsu.vn",
+    "luutru.gov.vn",
+    "hochiminh.vn",
+    "nhandan.vn",
+    "qdnd.vn",
+    "vietnamplus.vn",
+    "gallica.bnf.fr",
+    "loc.gov"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Chủ quyền biển đảo Việt Nam 1858-1918",
+    "Chủ quyền biển đảo Việt Nam 1858-1918 Chủ quyền biển đảo Việt Nam 1858-1918",
+    "Chủ quyền biển đảo Việt Nam 1858-1918 Việt Nam",
+    "Chủ quyền biển đảo Việt Nam 1858-1918 ảnh tư liệu",
+    "Chủ quyền biển đảo Việt Nam 1858-1918 chân dung"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

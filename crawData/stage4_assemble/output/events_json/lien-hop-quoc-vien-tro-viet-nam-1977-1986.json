@@ -35,18 +35,18 @@
   },
   "chronology": {
     "start": {
-      "year": null,
+      "year": 1977,
       "month": null,
       "day": null
     },
     "end": {
-      "year": null,
+      "year": 1986,
       "month": null,
       "day": null
     },
     "datePrecision": "period",
     "displayDate": "Những năm 1977 – 1986",
-    "isApproximate": false
+    "isApproximate": true
   },
   "mapData": {
     "geoType": "no_location",
@@ -114,7 +114,7 @@
     "parentId": null,
     "childIds": [],
     "level": 0,
-    "orderInParent": 342
+    "orderInParent": 293
   },
   "associations": {
     "relatedEventIds": [],

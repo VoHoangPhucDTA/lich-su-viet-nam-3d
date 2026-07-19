@@ -1,0 +1,1812 @@
+{
+  "events": [
+    {
+      "displayDate": "Thời dựng nước",
+      "eventId": "viet-nam-thoi-dung-nuoc",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Việt Nam thời dựng nước"
+    },
+    {
+      "displayDate": "Bắc thuộc",
+      "eventId": "bac-thuoc-va-dau-tranh-gianh-doc-lap",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Bắc thuộc và đấu tranh giành độc lập"
+    },
+    {
+      "displayDate": "Việt Nam thế kỉ X-XV",
+      "eventId": "viet-nam-tu-the-ki-x-den-xv",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Việt Nam từ thế kỉ X đến thế kỉ XV"
+    },
+    {
+      "displayDate": "Việt Nam thế kỉ XVI-XIX",
+      "eventId": "viet-nam-tu-the-ki-xvi-den-xix",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Việt Nam từ thế kỉ XVI đến thế kỉ XIX"
+    },
+    {
+      "displayDate": "Việt Nam 1858-1918",
+      "eventId": "viet-nam-1858-1918",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Việt Nam từ năm 1858 đến năm 1918"
+    },
+    {
+      "displayDate": "Việt Nam 1919-1945",
+      "eventId": "viet-nam-1919-1945",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Việt Nam từ năm 1919 đến năm 1945"
+    },
+    {
+      "displayDate": "Việt Nam 1945-1954",
+      "eventId": "viet-nam-1945-1954",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Việt Nam từ năm 1945 đến năm 1954"
+    },
+    {
+      "displayDate": "Việt Nam 1954-1975",
+      "eventId": "viet-nam-1954-1975",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Việt Nam từ năm 1954 đến năm 1975"
+    },
+    {
+      "displayDate": "Việt Nam 1975 đến nay",
+      "eventId": "viet-nam-1975-den-nay",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Việt Nam từ năm 1975 đến nay"
+    },
+    {
+      "displayDate": "40-43",
+      "eventId": "khoi-nghia-hai-ba-trung",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Khởi nghĩa Hai Bà Trưng"
+    },
+    {
+      "displayDate": "Năm 192",
+      "eventId": "khoi-nghia-khu-lien-lap-nuoc-lam-ap",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Khởi nghĩa Khu Liên lập nước Lâm Ấp"
+    },
+    {
+      "displayDate": "Từ thế kỉ III đến thế kỉ V",
+      "eventId": "phu-nam-tro-thanh-vuong-quoc-hung-manh",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Phù Nam trở thành vương quốc hùng mạnh"
+    },
+    {
+      "displayDate": "248",
+      "eventId": "khoi-nghia-ba-trieu",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Khởi nghĩa Bà Triệu"
+    },
+    {
+      "displayDate": "542-602",
+      "eventId": "khoi-nghia-ly-bi-trieu-quang-phuc",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Khởi nghĩa Lý Bí và Triệu Quang Phục"
+    },
+    {
+      "displayDate": "Đầu thế kỉ VII",
+      "eventId": "xa-lan-dau-tien-xuat-hien",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Xã lần đầu tiên xuất hiện"
+    },
+    {
+      "displayDate": "đầu thế kỉ VIII",
+      "eventId": "mai-thuc-loan-khoi-nghia",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Mai Thúc Loan dựng cờ khởi nghĩa"
+    },
+    {
+      "displayDate": "713-722",
+      "eventId": "khoi-nghia-mai-thuc-loan",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Khởi nghĩa Mai Thúc Loan"
+    },
+    {
+      "displayDate": "Cuối thế kỉ VIII",
+      "eventId": "khoi-nghia-phung-hung",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Khởi nghĩa Phùng Hưng"
+    },
+    {
+      "displayDate": "905",
+      "eventId": "khoi-nghia-khuc-thua-du",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Khởi nghĩa Khúc Thừa Dụ"
+    },
+    {
+      "displayDate": "Năm 938",
+      "eventId": "chien-thang-bach-dang-938",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Chiến thắng Bạch Đằng (938)"
+    },
+    {
+      "displayDate": "Sau năm 938",
+      "eventId": "ngo-quyen-xung-vuong-co-loa",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Ngô Quyền xưng vương và đóng đô ở Cổ Loa"
+    },
+    {
+      "displayDate": "Năm 981",
+      "eventId": "khang-chien-chong-quan-tong-981",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Kháng chiến chống quân Tống (lần 1)"
+    },
+    {
+      "displayDate": "1075-1077",
+      "eventId": "khang-chien-chong-quan-tong-1075-1077",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Kháng chiến chống quân Tống (lần 2)"
+    },
+    {
+      "displayDate": "Năm 1075",
+      "eventId": "ly-thuong-kiet-tap-kich-kham-chau-liem-chau-ung-chau",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Lý Thường Kiệt chủ động tập kích Khâm Châu, Liêm Châu, Ung Châu"
+    },
+    {
+      "displayDate": "Năm 1076",
+      "eventId": "ly-nhan-tong-lap-quoc-tu-giam",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Vua Lý Nhân Tông cho lập Quốc Tử Giám"
+    },
+    {
+      "displayDate": "Năm 1144",
+      "eventId": "ga-cong-chua-thieu-dung-duong-tu-minh-1144",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Gả Công chúa Thiều Dung cho Dương Tự Minh"
+    },
+    {
+      "displayDate": "Thế kỉ XIII",
+      "eventId": "cai-cach-tran-thu-do",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Cải cách của Trần Thủ Độ"
+    },
+    {
+      "displayDate": "Năm 1258",
+      "eventId": "khang-chien-chong-quan-mong-co-1258",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Kháng chiến chống quân Mông Cổ (lần 1)"
+    },
+    {
+      "displayDate": "Năm 1282",
+      "eventId": "hoi-nghi-binh-than",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Hội nghị Bình Than"
+    },
+    {
+      "displayDate": "Năm 1285",
+      "eventId": "hoi-nghi-dien-hong",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Hội nghị Diên Hồng"
+    },
+    {
+      "displayDate": "Năm 1285",
+      "eventId": "khang-chien-chong-quan-nguyen-1285",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Kháng chiến chống quân Nguyên (lần 2)"
+    },
+    {
+      "displayDate": "Cuối thế kỉ XIV",
+      "eventId": "khung-hoang-cuoi-trieu-tran",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Khủng hoảng cuối triều Trần"
+    },
+    {
+      "displayDate": "thế kỉ XV",
+      "eventId": "le-loi-xay-thanh-luc-nien",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Lê Lợi xây thành Lục Niên"
+    },
+    {
+      "displayDate": "Giữa lúc công cuộc cải cách của nhà Hồ đang thực hiện (đầu thế kỉ XV)",
+      "eventId": "nha-minh-xam-luoc-dai-ngu",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Nhà Minh xâm lược Đại Ngu"
+    },
+    {
+      "displayDate": "1406 - 1407",
+      "eventId": "khang-chien-chong-quan-minh-nha-ho",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Kháng chiến chống quân Minh của nhà Hồ"
+    },
+    {
+      "displayDate": "Từ năm 1407 đến năm 1427",
+      "eventId": "nha-minh-thong-tri-huy-diet-van-minh-dai-viet",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Nhà Minh thống trị Đại Việt và chính sách huỷ diệt văn minh"
+    },
+    {
+      "displayDate": "Năm 1416",
+      "eventId": "hoi-the-lung-nhai",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Hội thề Lũng Nhai"
+    },
+    {
+      "displayDate": "Tháng 12 - 1427",
+      "eventId": "hoi-the-dong-quan",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Hội thề Đông Quan"
+    },
+    {
+      "displayDate": "Năm 1460",
+      "eventId": "le-nghi-dan-dat-luc-bo",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Lê Nghi Dân đặt Lục bộ"
+    },
+    {
+      "displayDate": "Năm 1466",
+      "eventId": "cai-to-he-thong-quan-doi-le-thanh-tong",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Cải tổ hệ thống quân đội dưới thời Lê Thánh Tông"
+    },
+    {
+      "displayDate": "Năm 1471",
+      "eventId": "dat-them-thua-tuyen-quang-nam",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Đặt thêm thừa tuyên Quảng Nam"
+    },
+    {
+      "displayDate": "Năm 1477",
+      "eventId": "ban-hanh-chinh-sach-loc-dien-quan-dien",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Ban hành chính sách lộc điền và quân điền"
+    },
+    {
+      "displayDate": "Thế kỉ XVI",
+      "eventId": "doi-moi-dao-duy-tu-dang-trong",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Sự nghiệp đổi mới của Đào Duy Từ ở Đàng Trong"
+    },
+    {
+      "displayDate": "Năm 1527",
+      "eventId": "nha-mac-thanh-lap",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Nhà Mạc thành lập"
+    },
+    {
+      "displayDate": "Năm 1533",
+      "eventId": "giao-si-phuong-tay-truyen-dao-cong-giao",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Giáo sĩ phương Tây truyền đạo Công giáo ở Nam Định"
+    },
+    {
+      "displayDate": "Năm 1637",
+      "eventId": "giang-van-minh-di-su-nha-minh",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Giang Văn Minh đi sứ nhà Minh"
+    },
+    {
+      "displayDate": "Thế kỉ XVIII",
+      "eventId": "cai-cach-trinh-cuong-dang-ngoai",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Cải cách của Trịnh Cương ở Đàng Ngoài"
+    },
+    {
+      "displayDate": "cuối thế kỉ XVIII",
+      "eventId": "nguyen-hue-dung-chan-chieu-mo-binh-si",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Nguyễn Huệ dừng chân chiêu mộ binh sĩ"
+    },
+    {
+      "displayDate": "Cuối thế kỉ XVIII",
+      "eventId": "phong-trao-tay-son-bung-no",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Phong trào Tây Sơn bùng nổ"
+    },
+    {
+      "displayDate": "Đầu thế kỉ XIX",
+      "eventId": "thanh-lap-lang-xa-huyen-tien-hai-thai-binh",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Thành lập làng xã thuộc huyện Tiền Hải (Thái Bình)"
+    },
+    {
+      "displayDate": "1802 - 1831",
+      "eventId": "bac-thanh-duoc-lap",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Bắc Thành được lập"
+    },
+    {
+      "displayDate": "1802 - 1820",
+      "eventId": "thoi-gia-long-tri-vi",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Thời Gia Long trị vì"
+    },
+    {
+      "displayDate": "Năm 1802",
+      "eventId": "trieu-nguyen-thanh-lap",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Triều Nguyễn được thành lập"
+    },
+    {
+      "displayDate": "1808 - 1832",
+      "eventId": "gia-dinh-thanh-duoc-lap",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Gia Định Thành được lập"
+    },
+    {
+      "displayDate": "Năm 1822",
+      "eventId": "doi-dinh-quang-duc-thanh-phu-thua-thien",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Đổi dinh Quảng Đức thành phủ Thừa Thiên"
+    },
+    {
+      "displayDate": "Năm 1827",
+      "eventId": "doi-cac-doanh-quang-binh-quang-tri-quang-nam-thanh-tran",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Đổi các doanh Quảng Bình, Quảng Trị, Quảng Nam thành trấn"
+    },
+    {
+      "displayDate": "Giữa thế kỉ XIX",
+      "eventId": "phap-xam-luoc-viet-nam",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Thực dân Pháp xâm lược và từng bước áp đặt ách cai trị ở Việt Nam"
+    },
+    {
+      "displayDate": "Ngày 1 tháng Giêng năm 1836",
+      "eventId": "do-dac-cam-moc-chu-quyen-hoang-sa-pham-huu-nhat",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Đo đạc, cắm mốc chủ quyền Hoàng Sa của Phạm Hữu Nhật"
+    },
+    {
+      "displayDate": "1837 - 1840",
+      "eventId": "thi-diem-chia-lai-ruong-dat-minh-mang",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Thí điểm chia lại ruộng đất dưới thời Minh Mạng"
+    },
+    {
+      "displayDate": "Chủ quyền biển đảo Việt Nam 1858-1918",
+      "eventId": "chu-quyen-bien-dao-viet-nam-1858-1918",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Chủ quyền biển đảo Việt Nam 1858-1918"
+    },
+    {
+      "displayDate": "1858 – 1884",
+      "eventId": "khang-chien-chong-thuc-dan-phap-trieu-nguyen",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Kháng chiến chống thực dân Pháp của triều Nguyễn"
+    },
+    {
+      "displayDate": "1858-1893",
+      "eventId": "phap-xam-chiem-dong-duong",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Pháp xâm chiếm ba nước Đông Dương"
+    },
+    {
+      "displayDate": "1858 - khoảng 1884",
+      "eventId": "phong-trao-chong-thuc-dan-phap-xam-luoc-o-viet-nam",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Phong trào chống thực dân Pháp xâm lược ở Việt Nam"
+    },
+    {
+      "displayDate": "1866-1867",
+      "eventId": "khoi-nghia-cua-pu-com-bo",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Khởi nghĩa của Pu-côm-bô"
+    },
+    {
+      "displayDate": "Năm 1867",
+      "eventId": "phap-chiem-sau-tinh-nam-ki",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Pháp chiếm sáu tỉnh Nam Kì"
+    },
+    {
+      "displayDate": "cuối thế kỉ XIX",
+      "eventId": "vuong-thuc-mau-khoi-nghia-can-vuong",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Vương Thúc Mậu khởi nghĩa hưởng ứng Dụ Cần vương"
+    },
+    {
+      "displayDate": "Năm 1873",
+      "eventId": "phap-chiem-bac-ki-lan-1",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Pháp đánh chiếm Bắc Kì lần thứ nhất"
+    },
+    {
+      "displayDate": "Năm 1882",
+      "eventId": "phap-chiem-bac-ki-lan-2",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Pháp đánh chiếm Bắc Kì lần thứ hai"
+    },
+    {
+      "displayDate": "Năm 1883",
+      "eventId": "hiep-uoc-hac-mang",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Hiệp ước Hác-măng"
+    },
+    {
+      "displayDate": "Năm 1884",
+      "eventId": "hiep-uoc-pa-to-not",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Hiệp ước Pa-tơ-nốt"
+    },
+    {
+      "displayDate": "Năm 1898",
+      "eventId": "trung-quoc-tu-choi-boi-thuong-vu-tau-dam-hoang-sa",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Trung Quốc từ chối bồi thường vụ tàu đắm ở Hoàng Sa"
+    },
+    {
+      "displayDate": "Đầu thế kỉ XX",
+      "eventId": "phong-trao-dong-du",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Phong trào Đông du"
+    },
+    {
+      "displayDate": "1905 - 1912",
+      "eventId": "hoat-dong-doi-ngoai-phan-boi-chau",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Hoạt động đối ngoại của Phan Bội Châu"
+    },
+    {
+      "displayDate": "Đầu năm 1905",
+      "eventId": "phan-boi-chau-sang-nhat-ban-1905",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Phan Bội Châu sang Nhật Bản"
+    },
+    {
+      "displayDate": "Năm 1908",
+      "eventId": "nguyen-tat-thanh-tham-gia-chong-thue-hue",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Nguyễn Tất Thành tham gia phong trào chống thuế ở Huế"
+    },
+    {
+      "displayDate": "Năm 1908",
+      "eventId": "thanh-lap-lien-minh-dong-a-1908",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Thành lập Điền – Quế -Việt liên minh và Đông Á đồng minh"
+    },
+    {
+      "displayDate": "Tháng 2-1911",
+      "eventId": "nguyen-tat-thanh-roi-phan-thiet-vao-sai-gon",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Nguyễn Tất Thành rời Phan Thiết vào Sài Gòn"
+    },
+    {
+      "displayDate": "5-6-1911",
+      "eventId": "nguyen-tat-thanh-ra-di-tim-duong-cuu-nuoc",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Nguyễn Tất Thành ra đi tìm đường cứu nước"
+    },
+    {
+      "displayDate": "Từ năm 1911",
+      "eventId": "hoat-dong-doi-ngoai-phan-chau-trinh",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Hoạt động đối ngoại của Phan Châu Trinh"
+    },
+    {
+      "displayDate": "Năm 1911",
+      "eventId": "phan-boi-chau-ve-trung-quoc-1911",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Phan Bội Châu về hoạt động ở Trung Quốc"
+    },
+    {
+      "displayDate": "Năm 1911",
+      "eventId": "phan-chau-trinh-sang-phap-1911",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Phan Châu Trinh sang Pháp"
+    },
+    {
+      "displayDate": "Đầu năm 1912",
+      "eventId": "thanh-lap-viet-nam-quang-phuc-hoi-1912",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Thành lập Việt Nam Quang phục hội và Chấn Hoa Hưng Á"
+    },
+    {
+      "displayDate": "Chủ quyền biển đảo Việt Nam 1919-1945",
+      "eventId": "chu-quyen-bien-dao-viet-nam-1919-1945",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Chủ quyền biển đảo Việt Nam 1919-1945"
+    },
+    {
+      "displayDate": "Năm 1919",
+      "eventId": "nguyen-ai-quoc-gui-yeu-sach-vec-xai",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Nguyễn Ái Quốc gửi Yêu sách của nhân dân An Nam đến Hội nghị Véc-xai"
+    },
+    {
+      "displayDate": "Tháng 7 – 1920",
+      "eventId": "nguyen-ai-quoc-doc-luan-cuong-le-nin",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Nguyễn Ái Quốc đọc Sơ thảo lần thứ nhất những luận cương về vấn đề dân tộc và vấn đề thuộc địa của Lê-nin"
+    },
+    {
+      "displayDate": "Tháng 12 - 1920",
+      "eventId": "nguyen-ai-quoc-gia-nhap-quoc-te-cong-san-va-sang-lap-dang-cong-san-phap",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Nguyễn Ái Quốc bỏ phiếu tán thành gia nhập Quốc tế Cộng sản và sáng lập Đảng Cộng sản Pháp"
+    },
+    {
+      "displayDate": "Từ năm 1921 đến tháng 6 – 1923",
+      "eventId": "nguyen-ai-quoc-hoat-dong-phap-1921-1923",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Nguyễn Ái Quốc hoạt động ở Pháp"
+    },
+    {
+      "displayDate": "Năm 1921",
+      "eventId": "nguyen-ai-quoc-thanh-lap-hoi-lien-hiep-thuoc-dia-1921",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Nguyễn Ái Quốc tham gia thành lập Hội Liên hiệp thuộc địa"
+    },
+    {
+      "displayDate": "Giữa năm 1921",
+      "eventId": "nguyen-ai-quoc-thanh-lap-hoi-lien-hiep-thuoc-dia-va-bao-le-paria",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Nguyễn Ái Quốc tham gia thành lập Hội liên hiệp thuộc địa và sáng lập tờ báo Le Paria"
+    },
+    {
+      "displayDate": "Tháng 6-1923",
+      "eventId": "nguyen-ai-quoc-den-lien-xo-1923",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Nguyễn Ái Quốc đến Liên Xô và tham gia Quốc tế Cộng sản"
+    },
+    {
+      "displayDate": "Tháng 7 – 1925",
+      "eventId": "thanh-lap-hoi-lien-hiep-cac-dan-toc-bi-ap-buc-a-dong-1925",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Nguyễn Ái Quốc tham gia thành lập Hội Liên hiệp các dân tộc bị áp bức ở Á Đông"
+    },
+    {
+      "displayDate": "Từ giữa năm 1927 đến cuối năm 1929",
+      "eventId": "nguyen-ai-quoc-hoat-dong-chau-au-siam-1927-1929",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Nguyễn Ái Quốc hoạt động cách mạng ở Pháp, Bỉ, Đức, Xiêm"
+    },
+    {
+      "displayDate": "Năm 1929",
+      "eventId": "su-ra-doi-cua-ba-to-chuc-cong-san-viet-nam",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Sự ra đời của ba tổ chức cộng sản ở Việt Nam"
+    },
+    {
+      "displayDate": "Ngày 6 – 1 – 1930",
+      "eventId": "hoi-nghi-thanh-lap-dang-cong-san-viet-nam",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Nguyễn Ái Quốc triệu tập và chủ trì Hội nghị thành lập Đảng Cộng sản Việt Nam"
+    },
+    {
+      "displayDate": "Ngày 18 – 11 – 1930",
+      "eventId": "thanh-lap-mat-tran-dan-toc-thong-nhat-viet-nam-1930",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Thành lập Mặt trận Dân tộc Thống nhất Việt Nam (Hội Phản đế Đồng minh)"
+    },
+    {
+      "displayDate": "1930 – 1945",
+      "eventId": "hoat-dong-doi-ngoai-dang-cong-san-dong-duong-1930-1945",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Hoạt động đối ngoại của Đảng Cộng sản Đông Dương"
+    },
+    {
+      "displayDate": "Trong những năm 30 của thế kỉ XX",
+      "eventId": "thanh-lap-cac-dang-cong-san-o-viet-nam-ma-lai-xiem-phi-lip-pin",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Thành lập các đảng cộng sản ở Việt Nam, Mã Lai, Xiêm, Phi-líp-pin"
+    },
+    {
+      "displayDate": "Năm 1933",
+      "eventId": "nguyen-ai-quoc-hoat-dong-lien-xo-1933",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Nguyễn Ái Quốc hoạt động tại Liên Xô"
+    },
+    {
+      "displayDate": "Năm 1938",
+      "eventId": "nguyen-ai-quoc-roi-lien-xo-tro-lai-trung-quoc",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Nguyễn Ái Quốc rời Liên Xô trở lại Trung Quốc"
+    },
+    {
+      "displayDate": "Năm 1939",
+      "eventId": "phap-gui-cong-ham-phan-doi-nhat-ban-kiem-soat-truong-sa",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Pháp gửi công hàm phản đối Nhật Bản kiểm soát một số đảo thuộc quần đảo Trường Sa"
+    },
+    {
+      "displayDate": "Ngày 28-1-1941",
+      "eventId": "nguyen-ai-quoc-tro-ve-nuoc",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Nguyễn Ái Quốc trở về nước"
+    },
+    {
+      "displayDate": "Từ ngày 10 đến ngày 19-5-1941",
+      "eventId": "hoi-nghi-lan-thu-8-ban-chap-hanh-trung-uong-dang-cong-san-dong-duong",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Hội nghị lần thứ 8 Ban Chấp hành Trung ương Đảng Cộng sản Đông Dương"
+    },
+    {
+      "displayDate": "19-5-1941",
+      "eventId": "thanh-lap-mat-tran-viet-nam-doc-lap-dong-minh-viet-minh",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Thành lập Mặt trận Việt Nam Độc lập Đồng minh (Mặt trận Việt Minh)"
+    },
+    {
+      "displayDate": "Tháng 11 – 1941",
+      "eventId": "thanh-lap-tieu-doi-du-kich-thoat-li-dau-tien-o-cao-bang",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Thành lập Tiểu đội du kích thoát li đầu tiên ở Cao Bằng"
+    },
+    {
+      "displayDate": "Tháng 8 – 1942",
+      "eventId": "ho-chi-minh-di-trung-quoc-phoi-hop-chong-nhat",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Hồ Chí Minh đi Trung Quốc để tìm cách phối hợp hành động với phong trào chống Nhật và các lực lượng Đồng minh"
+    },
+    {
+      "displayDate": "Tháng 8 – 1942",
+      "eventId": "ho-chi-minh-sang-trung-quoc-1942",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Nguyễn Ái Quốc lấy tên là Hồ Chí Minh, sang Trung Quốc"
+    },
+    {
+      "displayDate": "Tháng 9 – 1944",
+      "eventId": "ho-chi-minh-tro-ve-nuoc-1944",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Hồ Chí Minh trở về nước tiếp tục lãnh đạo cách mạng"
+    },
+    {
+      "displayDate": "22 – 12 – 1944",
+      "eventId": "chi-thi-thanh-lap-doi-viet-nam-tuyen-truyen-giai-phong-quan",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Chỉ thị thành lập Đội Việt Nam Tuyên truyền Giải phóng quân"
+    },
+    {
+      "displayDate": "Tháng 2-1945",
+      "eventId": "ho-chi-minh-sang-con-minh-tim-su-ung-ho-quoc-te",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Hồ Chí Minh sang Côn Minh (Trung Quốc) tìm kiếm sự ủng hộ quốc tế"
+    },
+    {
+      "displayDate": "Từ tháng 3 đến tháng 8 – 1945",
+      "eventId": "cao-trao-khang-nhat-cuu-nuoc",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Cao trào kháng Nhật, cứu nước"
+    },
+    {
+      "displayDate": "Cuối tháng 4 – 1945",
+      "eventId": "viet-minh-hop-tac-oss-1945",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Việt Minh hợp tác với Cơ quan Tình báo chiến lược Mỹ (OSS)"
+    },
+    {
+      "displayDate": "Từ ngày 17-7 – 1945 đến ngày 2 – 8 – 1945",
+      "eventId": "hoi-nghi-pot-xdam",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Hội nghị Pốt-xđam"
+    },
+    {
+      "displayDate": "Ngày 13-8-1945",
+      "eventId": "uy-ban-khoi-nghia-ban-bo-quan-lenh-so-1",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Trung ương Đảng và Tổng bộ Việt Minh thành lập Uỷ ban Khởi nghĩa toàn quốc, ban bố Quân lệnh số 1"
+    },
+    {
+      "displayDate": "Tháng 8 – 9 năm 1945",
+      "eventId": "cach-mang-thang-tam-nam-1945",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Cách mạng tháng Tám năm 1945"
+    },
+    {
+      "displayDate": "Từ ngày 14 đến ngày 15-8-1945",
+      "eventId": "hoi-nghi-toan-quoc-cua-dang-cong-san-dong-duong-1945",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Hội nghị toàn quốc của Đảng Cộng sản Đông Dương"
+    },
+    {
+      "displayDate": "Ngày 14, 15-8 – 1945",
+      "eventId": "hoi-nghi-toan-quoc-cua-dang-tan-trao",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Hội nghị toàn quốc của Đảng họp ở Tân Trào"
+    },
+    {
+      "displayDate": "Ngày 15 – 8 – 1945",
+      "eventId": "nhat-ban-tuyen-bo-dau-hang-dong-minh",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Nhật Bản tuyên bố đầu hàng Đồng minh không điều kiện"
+    },
+    {
+      "displayDate": "Chiều ngày 16 – 8 – 1945",
+      "eventId": "giai-phong-thi-xa-thai-nguyen",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Giải phóng thị xã Thái Nguyên"
+    },
+    {
+      "displayDate": "Ngày 18-8-1945",
+      "eventId": "cac-tinh-gianh-chinh-quyen-som-nhat",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Nhân dân Bắc Giang, Hải Dương, Hà Tĩnh và Quảng Nam giành được chính quyền"
+    },
+    {
+      "displayDate": "Ngày 23 – 8",
+      "eventId": "khoi-nghia-gianh-chinh-quyen-hue",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Khởi nghĩa giành chính quyền tại Huế"
+    },
+    {
+      "displayDate": "Đến ngày 28 - 8",
+      "eventId": "cac-dia-phuong-cuoi-cung-gianh-chinh-quyen",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Đồng Nai Thượng và Hà Tiên là những địa phương cuối cùng giành chính quyền"
+    },
+    {
+      "displayDate": "Tháng 8 – 1945",
+      "eventId": "tong-khoi-nghia-gianh-chinh-quyen",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Tổng khởi nghĩa giành chính quyền thắng lợi"
+    },
+    {
+      "displayDate": "Ngày 2-9-1945",
+      "eventId": "phap-xa-sung-sai-gon-cho-lon-1945",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Quân Pháp xả súng vào đồng bào Sài Gòn – Chợ Lớn"
+    },
+    {
+      "displayDate": "Đêm 22, rạng sáng 23 – 9 – 1945",
+      "eventId": "phap-danh-up-uy-ban-hanh-chinh-nam-bo-1945",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Thực dân Pháp đánh úp trụ sở Uỷ ban hành chính Nam Bộ và cơ quan tự vệ thành phố Sài Gòn"
+    },
+    {
+      "displayDate": "Ngày 23 - 9 - 1945",
+      "eventId": "thanh-lap-uy-ban-khang-chien-nam-bo-1945",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Thành lập Uỷ ban kháng chiến Nam Bộ"
+    },
+    {
+      "displayDate": "Sau Cách mạng tháng Tám thành công (1945)",
+      "eventId": "ho-chi-minh-gui-thu-toi-chu-tich-hoi-dong-lien-hop-quoc",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Chủ tịch Hồ Chí Minh gửi thư tới Chủ tịch Hội đồng Liên hợp quốc và nguyên thủ các nước lớn"
+    },
+    {
+      "displayDate": "Những năm 1945 – 1946",
+      "eventId": "ho-chi-minh-keu-goi-nhuong-com-se-ao-tang-gia-san-xuat",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Chủ tịch Hồ Chí Minh kêu gọi nhân dân cả nước “Nhường cơm sẻ áo” và “Tăng gia sản xuất”"
+    },
+    {
+      "displayDate": "Những năm 1945 – 1946",
+      "eventId": "ho-chi-minh-ki-sac-lenh-thanh-lap-nha-binh-dan-hoc-vu-va-quy-doc-lap",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Chủ tịch Hồ Chí Minh kí sắc lệnh thành lập Nha Bình dân học vụ và thành lập Quỹ Độc lập, kêu gọi hưởng ứng Tuần lễ vàng"
+    },
+    {
+      "displayDate": "Khoảng năm 1945",
+      "eventId": "hoat-dong-doi-ngoai-cua-vndcch-voi-trung-hoa-dan-quoc",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Hoạt động đối ngoại của Việt Nam Dân chủ Cộng hoà với Trung Hoa Dân quốc"
+    },
+    {
+      "displayDate": "1945-1954",
+      "eventId": "khang-chien-chong-thuc-dan-phap-1945-1954",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Cuộc kháng chiến chống thực dân Pháp"
+    },
+    {
+      "displayDate": "1945 – 1954",
+      "eventId": "khang-chien-chong-thuc-dan-phap-o-viet-nam-lao-cam-pu-chia",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Kháng chiến chống thực dân Pháp ở Việt Nam, Lào, Cam-pu-chia"
+    },
+    {
+      "displayDate": "Năm 1945",
+      "eventId": "viet-nam-de-nghi-lien-hop-quoc-cong-nhan-vndcch",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Việt Nam đề nghị Liên hợp quốc và các nước lớn công nhận Nhà nước Việt Nam Dân chủ Cộng hoà"
+    },
+    {
+      "displayDate": "Ngày 5 – 1 – 1946",
+      "eventId": "ho-chi-minh-gui-loi-keu-goi-quoc-dan-di-bo-phieu",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Chủ tịch Hồ Chí Minh gửi Lời kêu gọi quốc dân đi bỏ phiếu"
+    },
+    {
+      "displayDate": "Tháng 1 – 1946",
+      "eventId": "ho-chi-minh-duoc-bau-chu-tich-nuoc-1946",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Hồ Chí Minh được Quốc hội khoá I bầu làm Chủ tịch nước Việt Nam Dân chủ Cộng hoà"
+    },
+    {
+      "displayDate": "28-2-1946",
+      "eventId": "hiep-uoc-hoa-phap-1946",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Kí Hiệp ước Hoa - Pháp"
+    },
+    {
+      "displayDate": "6 – 3 – 1946",
+      "eventId": "ho-chi-minh-ki-hiep-dinh-so-bo-voi-g-xanh-to-ni",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Chủ tịch Hồ Chí Minh kí Hiệp định Sơ bộ với G. Xanh-tơ-ni"
+    },
+    {
+      "displayDate": "Tối ngày 19-12-1946",
+      "eventId": "ho-chi-minh-ra-loi-keu-goi-toan-quoc-khang-chien",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Chủ tịch Hồ Chí Minh ra Lời kêu gọi toàn quốc kháng chiến"
+    },
+    {
+      "displayDate": "Tháng 12 năm 1946",
+      "eventId": "khang-chien-toan-quoc-chong-thuc-dan-phap-bung-no",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Kháng chiến toàn quốc chống thực dân Pháp bùng nổ"
+    },
+    {
+      "displayDate": "Từ tháng 12 năm 1946",
+      "eventId": "viet-nam-the-hien-thien-chi-hoa-binh-sau-12-1946",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Việt Nam thể hiện thiện chí hoà bình sau khi kháng chiến bùng nổ"
+    },
+    {
+      "displayDate": "Năm 1946",
+      "eventId": "hien-phap-viet-nam-dan-chu-cong-hoa-1946",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Hiến pháp nước Việt Nam Dân chủ Cộng hoà năm 1946"
+    },
+    {
+      "displayDate": "Năm 1946",
+      "eventId": "phap-cho-hai-quan-tru-dong-truong-sa",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Pháp cho hải quân trú đóng ở các đảo chính thuộc quần đảo Trường Sa"
+    },
+    {
+      "displayDate": "Từ tháng 10 đến tháng 12 – 1947",
+      "eventId": "chien-dich-viet-bac-thu-dong-1947",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Chiến dịch Việt Bắc thu – đông năm 1947"
+    },
+    {
+      "displayDate": "Từ tháng 9 đến tháng 10 – 1950",
+      "eventId": "chien-dich-bien-gioi-thu-dong-1950",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Chiến dịch Biên giới thu – đông năm 1950"
+    },
+    {
+      "displayDate": "Từ cuối năm 1950 đến giữa năm 1953",
+      "eventId": "cac-chien-dich-tien-cong-quan-doi-viet-nam-1950-1953",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Các chiến dịch tiến công của Quân đội Việt Nam (1950-1953)"
+    },
+    {
+      "displayDate": "Năm 1950",
+      "eventId": "vndcch-thiet-lap-quan-he-ngoai-giao-voi-cac-nuoc-xhcn",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Việt Nam Dân chủ Cộng hoà thiết lập quan hệ ngoại giao với Cộng hoà Nhân dân Trung Hoa, Liên Xô và các nước xã hội chủ nghĩa khác"
+    },
+    {
+      "displayDate": "Tháng 2 – 1951",
+      "eventId": "ho-chi-minh-duoc-bau-chu-tich-ban-chap-hanh-trung-uong-dang-1951",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Hồ Chí Minh được bầu làm Chủ tịch Ban Chấp hành Trung ương Đảng"
+    },
+    {
+      "displayDate": "Ngày 3-3-1951",
+      "eventId": "mat-tran-lien-viet-ra-doi-1951",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Mặt trận Liên hiệp quốc dân Việt Nam (Mặt trận Liên Việt) ra đời"
+    },
+    {
+      "displayDate": "Tháng 9 năm 1951",
+      "eventId": "chu-quyen-viet-nam-duoc-tuyen-bo-cong-nhan-hoi-nghi-xan-phran-xi-xo",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Chủ quyền của Việt Nam đối với Hoàng Sa và Trường Sa được tuyên bố và công nhận tại Hội nghị Hoà bình Xan Phran-xi-xcô"
+    },
+    {
+      "displayDate": "Năm 1951",
+      "eventId": "thanh-lap-lien-minh-nhan-dan-viet-mien-lao",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Thành lập Liên minh nhân dân Việt – Miên - Lào"
+    },
+    {
+      "displayDate": "Năm 1952",
+      "eventId": "cuoc-van-dong-san-xuat-va-tiet-kiem-1952",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Cuộc vận động sản xuất và tiết kiệm"
+    },
+    {
+      "displayDate": "1952",
+      "eventId": "dai-hoi-chien-si-thi-dua-can-bo-guong-mau-toan-quoc-lan-thu-nhat-1952",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Đại hội Chiến sĩ thi đua và Cán bộ gương mẫu toàn quốc lần thứ nhất"
+    },
+    {
+      "displayDate": "Tháng 7 – 1953",
+      "eventId": "ke-hoach-na-va-1953",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Kế hoạch Na-va"
+    },
+    {
+      "displayDate": "Tháng 12 – 1953",
+      "eventId": "quoc-hoi-thong-qua-luat-cai-cach-ruong-dat-1953",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Quốc hội thông qua Luật Cải cách ruộng đất và quyết định tiến hành cải cách ruộng đất"
+    },
+    {
+      "displayDate": "Đông - Xuân 1953 - 1954",
+      "eventId": "cuoc-tien-cong-chien-luoc-dong-xuan-1953-1954",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Cuộc Tiến công chiến lược Đông - Xuân 1953 - 1954"
+    },
+    {
+      "displayDate": "1954 - 1960",
+      "eventId": "cai-cach-ruong-dat-mien-bac",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Hoàn thành cải cách ruộng đất, khôi phục kinh tế ở miền Bắc"
+    },
+    {
+      "displayDate": "1954 - 1975",
+      "eventId": "chien-tranh-bao-ve-doc-lap-dan-toc-va-chu-quyen-quoc-gia-o-dong-duong",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Chiến tranh bảo vệ độc lập dân tộc và chủ quyền quốc gia ở Đông Dương"
+    },
+    {
+      "displayDate": "1954 - 1960",
+      "eventId": "giai-doan-khang-chien-chong-my-1954-1960",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Giai đoạn 1954 - 1960 của cuộc kháng chiến chống Mỹ, cứu nước"
+    },
+    {
+      "displayDate": "1954-1975",
+      "eventId": "khang-chien-chong-my-cuu-nuoc",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Cuộc kháng chiến chống Mỹ, cứu nước"
+    },
+    {
+      "displayDate": "1954",
+      "eventId": "mien-bac-viet-nam-giai-phong-xay-dung-cnxh",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Miền Bắc Việt Nam được giải phóng và đi theo con đường xây dựng chủ nghĩa xã hội"
+    },
+    {
+      "displayDate": "Từ năm 1954",
+      "eventId": "my-can-thiep-vao-dong-duong",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Mỹ can thiệp vào Đông Dương"
+    },
+    {
+      "displayDate": "Sau Hiệp định Giơ-ne-vơ (1954)",
+      "eventId": "my-thay-chan-phap-dung-chinh-quyen-ngo-dinh-diem",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Mỹ thay chân Pháp, dựng chính quyền Ngô Đình Diệm"
+    },
+    {
+      "displayDate": "Từ năm 1954 đến năm 1975",
+      "eventId": "quan-li-hanh-chinh-chinh-quyen-sai-gon-hoang-sa-truong-sa",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Quản lí hành chính của chính quyền Sài Gòn đối với quần đảo Hoàng Sa và quần đảo Trường Sa"
+    },
+    {
+      "displayDate": "Sau Hiệp định Giơ-ne-vơ (1954)",
+      "eventId": "viet-nam-tam-thoi-bi-chia-cat-hai-mien",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Việt Nam tạm thời bị chia cắt làm hai miền"
+    },
+    {
+      "displayDate": "1955 - 1975",
+      "eventId": "lien-xo-vien-tro-cho-viet-nam",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Liên Xô viện trợ cho Việt Nam"
+    },
+    {
+      "displayDate": "Tháng 10 – 1956",
+      "eventId": "ho-chi-minh-chu-tich-tong-bi-thu-dang-lao-dong-1956",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Chủ tịch Hồ Chí Minh là Chủ tịch Đảng, kiêm Tổng Bí thư Đảng Lao động Việt Nam"
+    },
+    {
+      "displayDate": "Năm 1956",
+      "eventId": "dai-loan-chiem-dong-dao-ba-binh-truong-sa",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Đài Loan chiếm đóng đảo Ba Bình thuộc quần đảo Trường Sa"
+    },
+    {
+      "displayDate": "Năm 1956",
+      "eventId": "philippin-tuyen-bo-quyen-khai-thac-lap-nghiep-truong-sa",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Phi-líp-pin tuyên bố có quyền khai thác, lập nghiệp tại nhóm đảo Trường Sa"
+    },
+    {
+      "displayDate": "Năm 1956",
+      "eventId": "viet-nam-danh-chiem-nua-phia-dong-hoang-sa",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Việt Nam (chính quyền Sài Gòn) đánh chiếm nửa phía đông của quần đảo Hoàng Sa (nhóm An Vĩnh)"
+    },
+    {
+      "displayDate": "Tháng 1 – 1959",
+      "eventId": "hoi-nghi-ban-chap-hanh-trung-uong-lan-thu-15-dang-lao-dong-viet-nam",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Hội nghị Ban Chấp hành Trung ương lần thứ 15 của Đảng Lao động Việt Nam"
+    },
+    {
+      "displayDate": "Tháng 9 – 1960",
+      "eventId": "dai-hoi-dai-bieu-toan-quoc-lan-thu-iii-dang-lao-dong-viet-nam",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Đại hội đại biểu toàn quốc lần thứ III Đảng Lao động Việt Nam"
+    },
+    {
+      "displayDate": "20 – 12 – 1960",
+      "eventId": "thanh-lap-mat-tran-dan-toc-giai-phong-mien-nam-viet-nam",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Thành lập Mặt trận Dân tộc giải phóng miền Nam Việt Nam"
+    },
+    {
+      "displayDate": "Ngày 15 – 2 – 1961",
+      "eventId": "thanh-lap-quan-giai-phong-mien-nam",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Thành lập Quân Giải phóng miền Nam"
+    },
+    {
+      "displayDate": "Năm 1961",
+      "eventId": "chu-tich-ho-chi-minh-tham-quan-cang-bai-chay-1961",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Chủ tịch Hồ Chí Minh thăm Quân cảng Bãi Cháy và căn dặn về bảo vệ biển"
+    },
+    {
+      "displayDate": "1961 - 1965",
+      "eventId": "ke-hoach-nha-nuoc-5-nam-lan-thu-nhat-mien-bac",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Kế hoạch Nhà nước 5 năm lần thứ nhất (1961-1965) ở miền Bắc"
+    },
+    {
+      "displayDate": "Tháng 1 – 1963",
+      "eventId": "chien-thang-ap-bac",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Chiến thắng Ấp Bắc"
+    },
+    {
+      "displayDate": "Tháng 8 – 1964 – 1968",
+      "eventId": "chien-tranh-pha-hoai-mien-bac-lan-thu-nhat",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Chiến tranh phá hoại miền Bắc lần thứ nhất của Mỹ"
+    },
+    {
+      "displayDate": "1964 – 1965",
+      "eventId": "cac-chien-thang-quan-su-1964-1965",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Các chiến thắng quân sự 1964-1965"
+    },
+    {
+      "displayDate": "18 – 8 – 1965",
+      "eventId": "chien-thang-van-tuong",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Chiến thắng Vạn Tường"
+    },
+    {
+      "displayDate": "1968 – 27-1-1973",
+      "eventId": "hoi-nghi-pa-ri-ve-viet-nam",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Hội nghị Pa-ri về Việt Nam"
+    },
+    {
+      "displayDate": "Ngày 6-6-1969",
+      "eventId": "thanh-lap-chinh-phu-cach-mang-lam-thoi-cong-hoa-mien-nam-viet-nam",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Thành lập Chính phủ cách mạng lâm thời Cộng hoà miền Nam Việt Nam"
+    },
+    {
+      "displayDate": "Từ ngày 30 – 4 đến ngày 30-6-1970",
+      "eventId": "dap-tan-cuoc-hanh-quan-xam-luoc-vao-cam-pu-chia-1970",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Đập tan cuộc hành quân xâm lược của Mỹ và quân đội Sài Gòn vào Cam-pu-chia"
+    },
+    {
+      "displayDate": "Tháng 4 – 1970",
+      "eventId": "hoi-nghi-cap-cao-ba-nuoc-viet-nam-lao-cam-pu-chia",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Hội nghị cấp cao ba nước Việt Nam - Lào - Cam-pu-chia"
+    },
+    {
+      "displayDate": "Từ tháng 2 đến tháng 3 – 1971",
+      "eventId": "chien-dich-duong-9-nam-lao",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Chiến dịch Đường 9 – Nam Lào"
+    },
+    {
+      "displayDate": "Từ năm 1971 đến năm 1980",
+      "eventId": "philippin-chiem-dong-9-dao-truong-sa",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Phi-líp-pin chiếm đóng 9 đảo thuộc quần đảo Trường Sa"
+    },
+    {
+      "displayDate": "Từ tháng 3 – 1972",
+      "eventId": "cuoc-tien-cong-chien-luoc-nam-1972",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Cuộc Tiến công chiến lược năm 1972"
+    },
+    {
+      "displayDate": "Từ ngày 16-4-1972 đến 29-12-1972",
+      "eventId": "chien-tranh-pha-hoai-mien-bac-lan-thu-hai",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Chiến tranh phá hoại miền Bắc lần thứ hai của Mỹ"
+    },
+    {
+      "displayDate": "Tháng 7 – 1973",
+      "eventId": "hoi-nghi-ban-chap-hanh-trung-uong-dang-lan-thu-21",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Hội nghị Ban Chấp hành Trung ương Đảng lần thứ 21"
+    },
+    {
+      "displayDate": "Tháng 1 năm 1974",
+      "eventId": "quan-doi-sai-gon-that-bai-bao-ve-hoang-sa",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Quân đội Sài Gòn thất bại trong chiến đấu bảo vệ quần đảo Hoàng Sa"
+    },
+    {
+      "displayDate": "Tháng 1 năm 1974",
+      "eventId": "trung-quoc-danh-chiem-toan-bo-hoang-sa",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Trung Quốc đánh chiếm toàn bộ quần đảo Hoàng Sa"
+    },
+    {
+      "displayDate": "Cuối năm 1974, đầu năm 1975",
+      "eventId": "chien-thang-duong-14-phuoc-long",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Chiến thắng Đường 14 Phước Long"
+    },
+    {
+      "displayDate": "Từ ngày 10 – 3 đến ngày 24 – 3 – 1975",
+      "eventId": "chien-dich-tay-nguyen-1975",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Chiến dịch Tây Nguyên"
+    },
+    {
+      "displayDate": "Ngày 26 – 3 – 1975",
+      "eventId": "giai-phong-hue-va-thua-thien",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Giải phóng thành phố Huế và toàn tỉnh Thừa Thiên"
+    },
+    {
+      "displayDate": "Chiều 29 – 3 – 1975",
+      "eventId": "giai-phong-da-nang",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Giải phóng Đà Nẵng"
+    },
+    {
+      "displayDate": "Từ ngày 13 đến ngày 28 tháng 4 năm 1975",
+      "eventId": "quan-giai-phong-mien-nam-viet-nam-tiep-quan-truong-sa",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Quân giải phóng miền Nam Việt Nam tiếp quản các đảo và triển khai lực lượng thực thi chủ quyền đối với quần đảo Trường Sa"
+    },
+    {
+      "displayDate": "tháng 4-1975",
+      "eventId": "hoan-toan-giai-phong-mien-nam-viet-nam",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Hoàn toàn giải phóng miền Nam Việt Nam"
+    },
+    {
+      "displayDate": "Năm 1976",
+      "eventId": "quoc-hoi-khoa-vi-doi-ten-sai-gon-thanh-thanh-pho-ho-chi-minh",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Quốc hội khoá VI quyết định đổi tên Sài Gòn thành Thành phố Hồ Chí Minh"
+    },
+    {
+      "displayDate": "năm 1976",
+      "eventId": "thuc-hien-thong-nhat-dat-nuoc-viet-nam",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Thực hiện thống nhất đất nước Việt Nam"
+    },
+    {
+      "displayDate": "Tháng 5 năm 1977",
+      "eventId": "viet-nam-ban-hanh-tuyen-bo-vung-bien-them-luc-dia",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Việt Nam ban hành Tuyên bố về các vùng biển và thềm lục địa Việt Nam"
+    },
+    {
+      "displayDate": "Ngày 20-9-1977",
+      "eventId": "viet-nam-thanh-vien-lien-hop-quoc",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Việt Nam trở thành thành viên chính thức của Liên hợp quốc"
+    },
+    {
+      "displayDate": "Những năm 1977 – 1986",
+      "eventId": "lien-hop-quoc-vien-tro-viet-nam-1977-1986",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Hệ thống phát triển Liên hợp quốc viện trợ không hoàn lại cho Việt Nam"
+    },
+    {
+      "displayDate": "Năm 1978",
+      "eventId": "philippin-ban-hanh-sac-lenh-1596-tuyen-bo-chu-quyen-truong-sa",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Phi-líp-pin ban hành Sắc lệnh 1596 tuyên bố chủ quyền đối với hầu hết các đảo thuộc quần đảo Trường Sa"
+    },
+    {
+      "displayDate": "Năm 1978",
+      "eventId": "viet-nam-gia-nhap-sev",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Việt Nam gia nhập Hội đồng tương trợ kinh tế (SEV)"
+    },
+    {
+      "displayDate": "1980",
+      "eventId": "go-ro-bat-co-pham-tuan-bay-vu-tru",
+      "images": [],
+      "requiredImages": 2,
+      "title": "V. Go-rơ-bát cô (Liên Xô) và Phạm Tuân (Việt Nam) cùng bay vào vũ trụ"
+    },
+    {
+      "displayDate": "Năm 1982",
+      "eventId": "thanh-lap-huyen-hoang-sa-va-huyen-truong-sa",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Thành lập huyện Hoàng Sa và huyện Trường Sa"
+    },
+    {
+      "displayDate": "Năm 1983",
+      "eventId": "bru-nay-tuyen-bo-ranh-gioi-them-luc-dia",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Bru-nây tuyên bố về ranh giới thềm lục địa 200 hải lí"
+    },
+    {
+      "displayDate": "Năm 1984",
+      "eventId": "bru-nay-tuyen-bo-vung-dac-quyen-kinh-te",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Bru-nây tuyên bố về vùng đặc quyền kinh tế"
+    },
+    {
+      "displayDate": "12 – 1986",
+      "eventId": "dai-hoi-dai-bieu-toan-quoc-lan-thu-vi-cua-dang-cong-san-viet-nam",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Đại hội đại biểu toàn quốc lần thứ VI của Đảng Cộng sản Việt Nam"
+    },
+    {
+      "displayDate": "Ngày 1-4-1989",
+      "eventId": "bai-bo-che-do-tem-phieu-o-viet-nam",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Bãi bỏ chế độ tem phiếu ở Việt Nam"
+    },
+    {
+      "displayDate": "1991",
+      "eventId": "dai-hoi-dai-bieu-toan-quoc-lan-thu-vii-cua-dang-cong-san-viet-nam",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Đại hội đại biểu toàn quốc lần thứ VII của Đảng Cộng sản Việt Nam"
+    },
+    {
+      "displayDate": "Năm 1991",
+      "eventId": "viet-nam-binh-thuong-hoa-quan-he-trung-quoc",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Việt Nam bình thường hoá quan hệ với Trung Quốc"
+    },
+    {
+      "displayDate": "1992 - 1993",
+      "eventId": "xay-dung-va-dong-dien-duong-day-500kv-bac-nam-mach-1",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Xây dựng và đóng điện đường dây 500 kV Bắc - Nam (mạch 1)"
+    },
+    {
+      "displayDate": "Năm 1995",
+      "eventId": "dai-loan-chiem-bai-can-ran-san-ho-ban-than",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Đài Loan chiếm bãi cạn rạn san hô Bàn Than"
+    },
+    {
+      "displayDate": "Năm 1995",
+      "eventId": "trung-quoc-danh-chiem-da-vanh-khan",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Trung Quốc đánh chiếm đá Vành Khăn"
+    },
+    {
+      "displayDate": "Năm 1995",
+      "eventId": "viet-nam-binh-thuong-hoa-quan-he-my",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Việt Nam bình thường hoá quan hệ với Mỹ"
+    },
+    {
+      "displayDate": "1996",
+      "eventId": "dai-hoi-dai-bieu-toan-quoc-lan-thu-viii-cua-dang-cong-san-viet-nam",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Đại hội đại biểu toàn quốc lần thứ VIII của Đảng Cộng sản Việt Nam"
+    },
+    {
+      "displayDate": "Ngày 4 tháng 11 năm 2002",
+      "eventId": "ki-tuyen-bo-ve-ung-xu-cua-cac-ben-o-bien-dong-doc",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Kí Tuyên bố về ứng xử của các bên ở Biển Đông (DOC)"
+    },
+    {
+      "displayDate": "Ngày 7-11-2006",
+      "eventId": "bo-chinh-tri-ban-hanh-chi-thi-06-ct-tw-ve-cuoc-van-dong-hoc-tap-va-lam-theo-tam-guong-dao-duc-ho-chi-minh",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Bộ Chính trị ban hành Chỉ thị 06-CT/TW về Cuộc vận động “Học tập và làm theo tấm gương đạo đức Hồ Chí Minh”"
+    },
+    {
+      "displayDate": "2006",
+      "eventId": "dai-hoi-dai-bieu-toan-quoc-lan-thu-x-cua-dang-cong-san-viet-nam",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Đại hội đại biểu toàn quốc lần thứ X của Đảng Cộng sản Việt Nam"
+    },
+    {
+      "displayDate": "Năm 2012",
+      "eventId": "viet-nam-thong-qua-luat-bien-viet-nam",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Việt Nam thông qua Luật Biển Việt Nam"
+    },
+    {
+      "displayDate": "Năm 2013",
+      "eventId": "hien-phap-cong-hoa-xa-hoi-chu-nghia-viet-nam-2013",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Hiến pháp nước Cộng hoà xã hội chủ nghĩa Việt Nam năm 2013"
+    },
+    {
+      "displayDate": "Đến năm 2015",
+      "eventId": "viet-nam-hoan-tat-muc-tieu-thien-nien-ki",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Việt Nam hoàn tất việc thực hiện các Mục tiêu Thiên niên kỉ (MDGs) của Liên hợp quốc"
+    },
+    {
+      "displayDate": "Ngày 15 – 5 – 2016",
+      "eventId": "bo-chinh-tri-ban-hanh-chi-thi-05-ct-tw-ve-day-manh-hoc-tap-va-lam-theo-tu-tuong-dao-duc-phong-cach-ho-chi-minh",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Bộ Chính trị ban hành Chỉ thị 05-CT/TW về “đẩy mạnh học tập và làm theo tư tưởng, đạo đức, phong cách Hồ Chí Minh”"
+    },
+    {
+      "displayDate": "Năm 2023",
+      "eventId": "quan-he-viet-nam-my-doi-tac-chien-luoc-toan-dien",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Quan hệ Việt Nam - Mỹ lên tầm đối tác chiến lược toàn diện"
+    },
+    {
+      "displayDate": "Trong kháng chiến chống Mỹ (1954-1975)",
+      "eventId": "chien-luoc-vua-danh-vua-dam-va-van-dong-quoc-te-cong-nhan-mat-tran-dan-toc-giai-phong-mien-nam-viet-nam",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Chiến lược \"vừa đánh, vừa đàm\" và vận động quốc tế công nhận Mặt trận Dân tộc giải phóng miền Nam Việt Nam"
+    },
+    {
+      "displayDate": "Thời Pháp thuộc",
+      "eventId": "chinh-quyen-phap-cai-cach-huong-chinh",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Chính quyền thực dân Pháp thực hiện cải cách hương chính"
+    },
+    {
+      "displayDate": "Từ thế kỉ XIII",
+      "eventId": "chu-nom-su-dung-rong-rai",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Chữ Nôm được sử dụng rộng rãi"
+    },
+    {
+      "displayDate": "Từ đầu thế kỉ XVI",
+      "eventId": "chu-quoc-ngu-xuat-hien",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Chữ Quốc ngữ xuất hiện và dần được hoàn thiện"
+    },
+    {
+      "displayDate": "Hơn 1000 năm Bắc thuộc",
+      "eventId": "dau-tranh-chong-phong-kien-phuong-bac",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Đấu tranh chống sự thống trị, đồng hoá của các triều đại phong kiến phương Bắc"
+    },
+    {
+      "displayDate": "Thời Đinh – Tiền Lê",
+      "eventId": "dinh-tien-le-dong-do-hoa-lu",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Triều Đinh và Tiền Lê đóng đô ở Hoa Lư"
+    },
+    {
+      "displayDate": "Thời kì kháng chiến",
+      "eventId": "khang-chien-thang-loi",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Kháng chiến thắng lợi"
+    },
+    {
+      "displayDate": "Thời Lý – Trần",
+      "eventId": "lang-co-ten-nom-xuat-hien-som-thoi-ly-tran",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Những làng có tên nôm xuất hiện sớm vào thời Lý – Trần"
+    },
+    {
+      "displayDate": "Thời Lý",
+      "eventId": "nha-ly-su-dung-thi-cu-nho-hoc",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Nhà Lý chính thức sử dụng chế độ thi cử Nho học"
+    },
+    {
+      "displayDate": "Thời nhà Lý",
+      "eventId": "nha-ly-to-chuc-khoa-thi-nho-hoc-dau-tien",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Nhà Lý tổ chức khoa thi Nho học đầu tiên"
+    },
+    {
+      "displayDate": "Thời Bắc thuộc",
+      "eventId": "nho-giao-du-nhap-viet-nam",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Nho giáo du nhập vào Việt Nam"
+    },
+    {
+      "displayDate": "Phong trào Cần Vương",
+      "eventId": "phong-trao-can-vuong",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Phong trào Cần Vương"
+    },
+    {
+      "displayDate": "Trong khoảng 30 năm cuối thế kỉ XIV",
+      "eventId": "tan-cong-champa-dai-viet-cuoi-tk14",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Các cuộc tấn công của Chăm-pa vào Đại Việt"
+    },
+    {
+      "displayDate": "Thời Nguyễn",
+      "eventId": "thanh-lap-quoc-su-quan-trieu-nguyen",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Thành lập Quốc sử quán triều Nguyễn"
+    },
+    {
+      "displayDate": "Thời Trần",
+      "eventId": "thoi-tran-dat-chuc-xa-quan",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Thời Trần đặt chức xã quan"
+    },
+    {
+      "displayDate": "Thời Lý",
+      "eventId": "tin-nguong-tho-than-dong-co-cung-dinh",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Tín ngưỡng thờ thần Đồng Cổ được đưa vào cung đình"
+    },
+    {
+      "displayDate": "Trong cuộc kháng chiến chống Mỹ, cứu nước",
+      "eventId": "tuyen-duong-chi-vien-chien-luoc-tren-bien-mang-ten-chu-tich-ho-chi-minh",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Tuyến đường chi viện chiến lược trên biển mang tên Chủ tịch Hồ Chí Minh"
+    },
+    {
+      "displayDate": "Khoảng 4000 năm trước",
+      "eventId": "van-hoa-phung-nguyen",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Văn hoá Phùng Nguyên"
+    },
+    {
+      "displayDate": "Trong thời kì Đổi mới",
+      "eventId": "viet-nam-dam-phan-ranh-gioi-tren-bien",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Việt Nam đàm phán về ranh giới trên biển với Ma-lai-xi-a, In-đô-nê-xi-a, Phi-líp-pin và Thái Lan"
+    },
+    {
+      "displayDate": "Trong thời kì Đổi mới",
+      "eventId": "viet-nam-ki-ket-evfta",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Việt Nam kí kết Hiệp định Thương mại tự do Việt Nam - EU (EVFTA)"
+    },
+    {
+      "displayDate": "Trong thời kì Đổi mới",
+      "eventId": "viet-nam-ki-ket-hiep-uoc-bien-gioi-trung-quoc",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Việt Nam kí kết các hiệp ước về biên giới trên đất liền và phân định vịnh Bắc Bộ với Trung Quốc"
+    },
+    {
+      "displayDate": "Trong thời kì Đổi mới",
+      "eventId": "viet-nam-ki-ket-nghi-dinh-thu-ki-o-to",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Việt Nam kí kết Nghị định thư Ki-ô-tô"
+    },
+    {
+      "displayDate": "Trong thời kì Đổi mới",
+      "eventId": "viet-nam-ki-ket-rcep",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Việt Nam kí kết Hiệp định Đối tác kinh tế toàn diện Khu vực (RCEP)"
+    },
+    {
+      "displayDate": "Từ cuối thập kỉ 80 – 90 của thế kỉ XX",
+      "eventId": "viet-nam-lao-cam-pu-chia-chuyen-sang-kinh-te-thi-truong-va-cong-nghiep-hoa",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Việt Nam, Lào, Cam-pu-chia chuyển sang kinh tế thị trường và công nghiệp hóa"
+    },
+    {
+      "displayDate": "Trong kháng chiến chống Pháp (1945-1954)",
+      "eventId": "viet-nam-mo-co-quan-dai-dien-ngoai-giao-va-thong-tin-o-nuoc-ngoai",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Việt Nam mở các cơ quan đại diện ngoại giao và thông tin ở nước ngoài"
+    },
+    {
+      "displayDate": "Trong thời kì Đổi mới (sau 1995)",
+      "eventId": "viet-nam-tham-gia-afta",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Việt Nam kí hiệp định tham gia Khu vực Mậu dịch tự do ASEAN (AFTA)"
+    },
+    {
+      "displayDate": "Trong thời kì Đổi mới",
+      "eventId": "viet-nam-thoan-thuan-bien-gioi-lao-cam-pu-chia",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Việt Nam đạt được nhiều thoả thuận trong phát triển đường biên giới hoà bình, hữu nghị với Lào và Cam-pu-chia"
+    },
+    {
+      "displayDate": "Trong thời kì Đổi mới (từ 1986 đến nay)",
+      "eventId": "viet-nam-to-chuc-hoi-nghi-quoc-te-asean-asem-apec",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Việt Nam tổ chức thành công nhiều hội nghị quốc tế quan trọng thuộc ASEAN, ASEM và APEC"
+    },
+    {
+      "displayDate": "Nhiệm kì 2008 – 2009 và 2020 - 2021",
+      "eventId": "viet-nam-uy-vien-khong-thuong-truc-hoi-dong-bao-an-lhq",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Việt Nam được bầu vào vị trí Uỷ viên không thường trực Hội đồng Bảo an Liên hợp quốc"
+    },
+    {
+      "displayDate": "Trong kháng chiến chống Mỹ (1954-1975)",
+      "eventId": "vndcch-can-bang-quan-he-voi-lien-xo-trung-quoc-va-van-dong-vien-tro",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Việt Nam Dân chủ Cộng hoà cân bằng quan hệ với Liên Xô, Trung Quốc và vận động viện trợ"
+    },
+    {
+      "displayDate": "Trong kháng chiến chống Mỹ (1954-1975)",
+      "eventId": "vndcch-dau-tranh-doi-thi-hanh-hiep-dinh-gio-ne-vo",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Việt Nam Dân chủ Cộng hoà đấu tranh đòi thi hành Hiệp định Giơ-ne-vơ"
+    },
+    {
+      "displayDate": "Sau năm 1950",
+      "eventId": "vndcch-gap-go-dang-cong-san-phap-va-cac-to-chuc-quoc-te",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Chính phủ Việt Nam Dân chủ Cộng hoà gặp gỡ đại diện Đảng Cộng sản Pháp và nhiều tổ chức quốc tế"
+    },
+    {
+      "displayDate": "Trong kháng chiến chống Mỹ (1954-1975)",
+      "eventId": "vndcch-thiet-lap-quan-he-ngoai-giao-voi-lao-campuchia-va-ung-ho-phong-trao-giai-phong-dan-toc",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Việt Nam Dân chủ Cộng hoà thiết lập quan hệ ngoại giao với Lào, Campuchia và ủng hộ phong trào giải phóng dân tộc"
+    },
+    {
+      "displayDate": "Trước năm 1460",
+      "eventId": "vu-an-le-chi-vien",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Vụ án Lệ Chi Viên"
+    },
+    {
+      "displayDate": "Từ thế kỉ X",
+      "eventId": "xa-tro-thanh-ten-goi-pho-bien",
+      "images": [],
+      "requiredImages": 2,
+      "title": "Xã chính thức trở thành tên gọi phổ biến"
+    }
+  ],
+  "source": "manual_external_image_ingest",
+  "version": 1
+}

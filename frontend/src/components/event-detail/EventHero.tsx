@@ -1,9 +1,11 @@
+import { useEffect, useMemo, useState, type ReactNode } from 'react';
 import { useNavigate } from 'react-router-dom';
 import type { MockEventDetail } from '../../data/mockEventDetails';
 import {
   EVENT_TYPE_COLORS,
   EVENT_TYPE_LABELS,
 } from '../../types/event';
+import { getEventThumbnailDeliveryCandidates } from '../../services/cloudinaryService';
 
 interface EventHeroProps {
   event: MockEventDetail;
@@ -13,18 +15,39 @@ interface EventHeroProps {
 /**
  * Hero của trang chi tiết sự kiện.
  * - Banner gradient theo màu eventType (đậm → trong suốt) để tăng tính sử thi.
- * - Bố cục: thumbnail trái 40%, content phải 60% (đảo lại trên mobile).
+ * - Bố cục có thumbnail: content trái khoảng 60%, thumbnail phải khoảng 40% trên desktop.
  * - Bám design_system.md mục 8 + 10.1.
  */
 export default function EventHero({ event, showMapAction }: EventHeroProps) {
   const navigate = useNavigate();
+  const [thumbnailError, setThumbnailError] = useState(false);
+  const [thumbnailIndex, setThumbnailIndex] = useState(0);
   const typeColor = EVENT_TYPE_COLORS[event.classification.eventType];
   const typeLabel = EVENT_TYPE_LABELS[event.classification.eventType];
 
   const isWorldHistory = event.classification.tags?.includes('lịch sử thế giới');
   const provinces = event.mapData?.displayGeometry?.provinceNames ?? [];
   const grades = event.coverage?.grades ?? [];
-  const hasThumbnail = !!event.media?.thumbnail;
+  const thumbnailCandidates = useMemo(
+    () => getEventThumbnailDeliveryCandidates(event.id, event.media?.thumbnail),
+    [event.id, event.media?.thumbnail]
+  );
+  const thumbnailUrl = thumbnailCandidates[thumbnailIndex];
+  const hasThumbnail = Boolean(thumbnailUrl) && !thumbnailError;
+  const mapUrl = `/map?event=${encodeURIComponent(event.slug || event.id)}`;
+
+  useEffect(() => {
+    setThumbnailError(false);
+    setThumbnailIndex(0);
+  }, [thumbnailCandidates]);
+
+  const handleThumbnailError = () => {
+    if (thumbnailIndex < thumbnailCandidates.length - 1) {
+      setThumbnailIndex((current) => current + 1);
+      return;
+    }
+    setThumbnailError(true);
+  };
 
   return (
     <section
@@ -72,56 +95,18 @@ export default function EventHero({ event, showMapAction }: EventHeroProps) {
       <div
         className={
           hasThumbnail
-            ? 'relative grid grid-cols-1 xl:grid-cols-[2fr_3fr] gap-0'
+            ? 'relative grid grid-cols-1 xl:grid-cols-[minmax(0,3fr)_minmax(280px,2fr)] gap-0'
             : 'relative'
         }
       >
-        {/* Thumbnail – chỉ render khi có ảnh */}
-        {hasThumbnail && (
-          <div
-            className="relative aspect-[16/9] xl:aspect-auto xl:min-h-[340px] overflow-hidden"
-            style={{ background: 'var(--bg-surface)' }}
-          >
-            <img
-              src={event.media!.thumbnail!}
-              alt={event.titles.primary}
-              className="w-full h-full object-cover"
-            />
-            {/* Subtle inner shadow on the right edge for depth on desktop */}
-            <div
-              className="hidden xl:block absolute inset-y-0 right-0 w-12 pointer-events-none"
-              style={{
-                background:
-                  'linear-gradient(to right, transparent, var(--bg-card))',
-              }}
-            />
-          </div>
-        )}
-
         {/* Content */}
         <div
           className={
             hasThumbnail
-              ? 'p-6 sm:p-8 xl:p-10 flex flex-col justify-center'
+              ? 'p-6 sm:p-8 xl:p-10 flex flex-col'
               : 'p-8 sm:p-10 lg:px-16 lg:py-14 xl:px-20 xl:py-[72px] flex flex-col'
           }
         >
-          {/* Eyebrow */}
-          <div
-            className="flex items-center gap-2 text-xs font-bold uppercase tracking-[0.18em] mb-4"
-            style={{ color: 'var(--admin-accent)' }}
-          >
-            <span
-              className="inline-block w-6 h-px"
-              style={{ background: 'var(--admin-accent)' }}
-            />
-            Sự kiện lịch sử
-            <span style={{ color: 'var(--text-muted)' }}>·</span>
-            <span style={{ color: 'var(--text-muted)' }}>
-              {event.eventLevel === 'collection' ? 'Chủ đề lớn' : 'Sự kiện cụ thể'}
-            </span>
-          </div>
-
           {/* Title – serif display font for museum feel */}
           <h1
             className="font-extrabold leading-[1.05] mb-3"
@@ -153,9 +138,6 @@ export default function EventHero({ event, showMapAction }: EventHeroProps) {
               color={typeColor}
               filled
             />
-            {event.classification.eventSubtype && (
-              <Chip label={event.classification.eventSubtype} />
-            )}
             {grades.length > 0 && (
               <Chip
                 label={`SGK lớp ${grades.join(', ')}`}
@@ -167,6 +149,16 @@ export default function EventHero({ event, showMapAction }: EventHeroProps) {
               accent={isWorldHistory ? 'warning' : 'accent'}
             />
           </div>
+
+          {hasThumbnail && (
+            <div className="mb-6 xl:hidden">
+              <HeroThumbnail
+                src={thumbnailUrl!}
+                alt={event.titles.primary}
+                onError={handleThumbnailError}
+              />
+            </div>
+          )}
 
           {/* Meta row */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
@@ -198,8 +190,8 @@ export default function EventHero({ event, showMapAction }: EventHeroProps) {
           {showMapAction && (
             <div className="flex flex-wrap gap-3">
               <button
-                onClick={() => navigate('/map')}
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold transition"
+                onClick={() => navigate(mapUrl)}
+                className="inline-flex items-center px-5 py-2.5 rounded-xl font-semibold transition"
                 style={{
                   background: 'var(--accent)',
                   color: '#fff',
@@ -213,14 +205,10 @@ export default function EventHero({ event, showMapAction }: EventHeroProps) {
                   ((e.currentTarget as HTMLButtonElement).style.filter = 'none')
                 }
               >
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <circle cx="12" cy="12" r="10" />
-                  <path d="M2 12h20M12 2a15 15 0 010 20M12 2a15 15 0 000 20" />
-                </svg>
                 Xem trên bản đồ 3D
               </button>
               <button
-                onClick={() => navigate('/map')}
+                onClick={() => navigate(mapUrl)}
                 className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-medium transition"
                 style={{
                   background: 'var(--bg-surface)',
@@ -233,12 +221,50 @@ export default function EventHero({ event, showMapAction }: EventHeroProps) {
             </div>
           )}
         </div>
+
+        {hasThumbnail && (
+          <div className="hidden xl:flex items-center p-8 pl-0">
+            <HeroThumbnail
+              src={thumbnailUrl!}
+              alt={event.titles.primary}
+              onError={handleThumbnailError}
+            />
+          </div>
+        )}
       </div>
     </section>
   );
 }
 
 /* ─── helpers ────────────────────────────────────────────────────────────── */
+
+function HeroThumbnail({
+  src,
+  alt,
+  onError,
+}: {
+  src: string;
+  alt: string;
+  onError?: () => void;
+}) {
+  return (
+    <figure
+      className="relative w-full aspect-[16/9] overflow-hidden rounded-2xl"
+      style={{
+        background: 'var(--bg-surface)',
+        border: '1px solid var(--border)',
+        boxShadow: '0 18px 40px -28px rgba(0,0,0,0.45)',
+      }}
+    >
+      <img
+        src={src}
+        alt={alt}
+        onError={onError}
+        className="w-full h-full object-cover"
+      />
+    </figure>
+  );
+}
 
 function Chip({
   label,
@@ -288,7 +314,7 @@ function MetaItem({
   label,
   value,
 }: {
-  icon: React.ReactNode;
+  icon: ReactNode;
   label: string;
   value: string;
 }) {

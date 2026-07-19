@@ -1,0 +1,54 @@
+{
+  "eventId": "tan-cong-champa-dai-viet-cuoi-tk14",
+  "title": "Các cuộc tấn công của Chăm-pa vào Đại Việt",
+  "shortTitle": "Chăm-pa tấn công Đại Việt",
+  "displayDate": "Trong khoảng 30 năm cuối thế kỉ XIV",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-tu-the-ki-x-den-xv",
+  "parentId": "viet-nam-tu-the-ki-x-den-xv",
+  "historicalLocations": [],
+  "provinceNames": [],
+  "canonicalSummary": "Trong khoảng 30 năm cuối thế kỉ XIV, Chăm-pa đã 16 lần tấn công Đại Việt. Nhiều lần nhà Trần đem quân chống cự nhưng cũng ít lần bị thất bại.",
+  "keyFacts": [
+    "16 lần tấn công",
+    "Nhà Trần thất bại nhiều lần"
+  ],
+  "sourceFamily": "ancient_medieval",
+  "preferredVerificationDomains": [
+    "baotanglichsu.vn",
+    "disanvanhoa.gov.vn",
+    "bvhttdl.gov.vn",
+    "qdnd.vn",
+    "nhandan.vn",
+    "unesco.org",
+    "whc.unesco.org"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Các cuộc tấn công của Chăm-pa vào Đại Việt",
+    "Các cuộc tấn công của Chăm-pa vào Đại Việt Trong khoảng 30 năm cuối thế kỉ XIV",
+    "Các cuộc tấn công của Chăm-pa vào Đại Việt Việt Nam từ thế kỉ X đến thế kỉ XV",
+    "Các cuộc tấn công của Chăm-pa vào Đại Việt 16 lần tấn công Nhà Trần thất bại nhiều lần",
+    "Các cuộc tấn công của Chăm-pa vào Đại Việt hiện vật",
+    "Các cuộc tấn công của Chăm-pa vào Đại Việt di tích"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

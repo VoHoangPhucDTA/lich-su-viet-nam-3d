@@ -1,0 +1,65 @@
+{
+  "eventId": "hoi-nghi-lan-thu-8-ban-chap-hanh-trung-uong-dang-cong-san-dong-duong",
+  "title": "Hội nghị lần thứ 8 Ban Chấp hành Trung ương Đảng Cộng sản Đông Dương",
+  "shortTitle": "Hội nghị Trung ương 8 (5-1941)",
+  "displayDate": "Từ ngày 10 đến ngày 19-5-1941",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1919-1945",
+  "parentId": "cach-mang-thang-tam-nam-1945",
+  "historicalLocations": [
+    "Cam-pu-chia",
+    "Lào"
+  ],
+  "provinceNames": [
+    "Cao Bằng"
+  ],
+  "canonicalSummary": "Sau một thời gian chuẩn bị, Nguyễn Ái Quốc triệu tập Hội nghị lần thứ 8 Ban Chấp hành Trung ương Đảng Cộng sản Đông Dương tại Pác Bó (Hà Quảng, Cao Bằng) từ ngày 10 đến ngày 19-5-1941. Dưới sự chủ trì của Nguyễn Ái Quốc, Hội nghị xác định cách mạng Việt Nam hiện tại là cuộc cách mạng giải phóng dân tộc. Hội nghị chủ trương thành lập Mặt trận Việt Nam Độc lập Đồng minh (gọi tắt là Mặt trận Việt Minh) và giúp đỡ nhân dân Lào, Cam-pu-chia thành lập mặt trận riêng. Về vấn đề chính quyền, Hội nghị chủ trương thành lập Chính phủ Dân chủ Cộng hoà. Hội nghị nhấn mạnh chuẩn bị khởi nghĩa là nhiệm vụ trung tâm của toàn Đảng, toàn dân và xác định tiến trình cách mạng Việt Nam là đi từ khởi nghĩa từng phần tiến lên tổng khởi nghĩa.",
+  "keyFacts": [
+    "Triệu tập và chủ trì Hội nghị",
+    "Chủ trương thành lập Mặt trận Việt Minh",
+    "Thành lập Việt Nam Độc lập đồng minh (Việt Minh)",
+    "Xác định cách mạng Việt Nam là cách mạng giải phóng dân tộc",
+    "Triệu tập và chủ trì bởi Nguyễn Ái Quốc",
+    "Địa điểm: Pác Bó (Hà Quảng, Cao Bằng)",
+    "Nhấn mạnh chuẩn bị khởi nghĩa là nhiệm vụ trung tâm"
+  ],
+  "sourceFamily": "revolutionary",
+  "preferredVerificationDomains": [
+    "hochiminh.vn",
+    "tulieuvankien.dangcongsan.vn",
+    "dangcongsan.vn",
+    "baotanglichsu.vn",
+    "nhandan.vn",
+    "qdnd.vn",
+    "vietnamplus.vn",
+    "luutru.gov.vn"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Hội nghị lần thứ 8 Ban Chấp hành Trung ương Đảng Cộng sản Đông Dương",
+    "Hội nghị lần thứ 8 Ban Chấp hành Trung ương Đảng Cộng sản Đông Dương Từ ngày 10 đến ngày 19-5-1941",
+    "Hội nghị lần thứ 8 Ban Chấp hành Trung ương Đảng Cộng sản Đông Dương Cam-pu-chia",
+    "Hội nghị lần thứ 8 Ban Chấp hành Trung ương Đảng Cộng sản Đông Dương Triệu tập và chủ trì Hội nghị Chủ trương thành lập Mặt trận Việt Minh",
+    "Hội nghị lần thứ 8 Ban Chấp hành Trung ương Đảng Cộng sản Đông Dương ảnh tư liệu",
+    "Hội nghị lần thứ 8 Ban Chấp hành Trung ương Đảng Cộng sản Đông Dương chân dung"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

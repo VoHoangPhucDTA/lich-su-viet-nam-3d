@@ -1,0 +1,59 @@
+{
+  "eventId": "chien-luoc-vua-danh-vua-dam-va-van-dong-quoc-te-cong-nhan-mat-tran-dan-toc-giai-phong-mien-nam-viet-nam",
+  "title": "Chiến lược \"vừa đánh, vừa đàm\" và vận động quốc tế công nhận Mặt trận Dân tộc giải phóng miền Nam Việt Nam",
+  "shortTitle": "Chiến lược \"vừa đánh, vừa đàm\" và vận động quốc tế công nhận Mặt trận Dân tộc giải phóng miền Nam Việt Nam",
+  "displayDate": "Trong kháng chiến chống Mỹ (1954-1975)",
+  "eventLevel": "atomic",
+  "rootId": "viet-nam-1954-1975",
+  "parentId": "khang-chien-chong-my-cuu-nuoc",
+  "historicalLocations": [],
+  "provinceNames": [],
+  "canonicalSummary": "Cùng với những thắng lợi quân sự, Chính phủ Việt Nam Dân chủ Cộng hoà chủ động kết hợp “vừa đánh, vừa đàm, cung cấp tư liệu về cuộc chiến tranh phi nghĩa mà Mỹ tiến hành ở miền Nam Việt Nam, tranh thủ sự ủng hộ của nhân dân tiến bộ trên thế giới, đòi Mỹ chấm dứt chiến tranh; đồng thời, tích cực vận động quốc tế công nhận Mặt trận Dân tộc giải phóng miền Nam Việt Nam.",
+  "keyFacts": [
+    "Tranh thủ ủng hộ quốc tế",
+    "Cung cấp tư liệu về chiến tranh phi nghĩa của Mỹ",
+    "Đòi Mỹ chấm dứt chiến tranh",
+    "Kết hợp 'vừa đánh, vừa đàm'",
+    "Vận động quốc tế công nhận Mặt trận Dân tộc giải phóng miền Nam Việt Nam"
+  ],
+  "sourceFamily": "war_1945_1975",
+  "preferredVerificationDomains": [
+    "btlsqsvn.org.vn",
+    "qdnd.vn",
+    "nhandan.vn",
+    "vietnamplus.vn",
+    "hochiminh.vn",
+    "baotanglichsu.vn",
+    "luutru.gov.vn",
+    "loc.gov",
+    "archives.gov"
+  ],
+  "assetBackends": [
+    "wikipedia_page",
+    "commons_search"
+  ],
+  "queries": [
+    "Chiến lược \"vừa đánh, vừa đàm\" và vận động quốc tế công nhận Mặt trận Dân tộc giải phóng miền Nam Việt Nam",
+    "Chiến lược \"vừa đánh, vừa đàm\" và vận động quốc tế công nhận Mặt trận Dân tộc giải phóng miền Nam Việt Nam Trong kháng chiến chống Mỹ (1954-1975)",
+    "Chiến lược \"vừa đánh, vừa đàm\" và vận động quốc tế công nhận Mặt trận Dân tộc giải phóng miền Nam Việt Nam Cuộc kháng chiến chống Mỹ, cứu nước",
+    "Chiến lược \"vừa đánh, vừa đàm\" và vận động quốc tế công nhận Mặt trận Dân tộc giải phóng miền Nam Việt Nam Tranh thủ ủng hộ quốc tế Cung cấp tư liệu về chiến tranh phi nghĩa của Mỹ",
+    "Chiến lược \"vừa đánh, vừa đàm\" và vận động quốc tế công nhận Mặt trận Dân tộc giải phóng miền Nam Việt Nam ảnh tư liệu",
+    "Chiến lược \"vừa đánh, vừa đàm\" và vận động quốc tế công nhận Mặt trận Dân tộc giải phóng miền Nam Việt Nam chiến dịch"
+  ],
+  "requiredImages": 2,
+  "slots": [
+    {
+      "slot": 1,
+      "role": "thumbnail",
+      "isThumbnail": true,
+      "minimumRelation": "strong_contextual"
+    },
+    {
+      "slot": 2,
+      "role": "gallery",
+      "isThumbnail": false,
+      "sortOrder": 2,
+      "minimumRelation": "strong_contextual"
+    }
+  ]
+}

@@ -92,7 +92,51 @@ export async function apiPost<T>(path: string, body?: unknown, init: Omit<Reques
   });
 }
 
-export async function apiRequest<T>(path: string, init: RequestInit, retry = true): Promise<T> {
+/**
+ * Sends a POST exactly once. Use this for operations whose server-side effect
+ * must not be replayed by the HTTP client after an authentication refresh.
+ */
+export async function apiPostOnce<T>(
+  path: string,
+  body?: unknown,
+  init: Omit<RequestInit, 'method' | 'body'> = {},
+): Promise<T> {
+  return apiRequest<T>(path, {
+    ...init,
+    method: 'POST',
+    body: body === undefined ? undefined : JSON.stringify(body),
+  }, false);
+}
+
+export async function apiPut<T>(
+  path: string,
+  body?: unknown,
+  init: Omit<RequestInit, 'method' | 'body'> = {},
+): Promise<T> {
+  return apiRequest<T>(path, {
+    ...init,
+    method: 'PUT',
+    body: body === undefined ? undefined : JSON.stringify(body),
+  });
+}
+
+export async function apiPatch<T>(
+  path: string,
+  body?: unknown,
+  init: Omit<RequestInit, 'method' | 'body'> = {},
+): Promise<T> {
+  return apiRequest<T>(path, {
+    ...init,
+    method: 'PATCH',
+    body: body === undefined ? undefined : JSON.stringify(body),
+  });
+}
+
+export async function apiDelete<T>(path: string, init: Omit<RequestInit, 'method' | 'body'> = {}): Promise<T> {
+  return apiRequest<T>(path, { ...init, method: 'DELETE' });
+}
+
+async function apiRequest<T>(path: string, init: RequestInit, retry = true): Promise<T> {
   const headers = new Headers(init.headers);
   headers.set('Accept', 'application/json');
   if (init.body !== undefined) {

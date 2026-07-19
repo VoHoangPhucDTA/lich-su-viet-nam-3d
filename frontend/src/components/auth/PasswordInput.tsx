@@ -29,31 +29,19 @@ export default function PasswordInput({
   onFocus,
 }: PasswordInputProps) {
   const [visible, setVisible] = useState(false);
-  const [focused, setFocused] = useState(false);
 
   return (
-    <div>
-      <label htmlFor={id} style={{ display: 'block', fontSize: '0.875rem', fontWeight: 600, color: 'var(--text-secondary)', marginBottom: '0.375rem' }}>
+    <div className="auth-field">
+      <label htmlFor={id} className="auth-field-label">
         {label}
       </label>
-      <div style={{ position: 'relative' }}>
-        <span
-          style={{
-            position: 'absolute',
-            left: '0.875rem',
-            top: '50%',
-            transform: 'translateY(-50%)',
-            pointerEvents: 'none',
-            color: focused ? 'var(--input-focus)' : 'var(--input-icon)',
-            display: 'flex',
-            transition: 'color 0.2s',
-          }}
-        >
-          <Lock size={18} strokeWidth={2} />
+      <div className="auth-input-wrap">
+        <span className="auth-input-icon" aria-hidden="true">
+          <Lock size={17} strokeWidth={1.8} />
         </span>
 
         <input
-          className="themed-input"
+          className="auth-input auth-input-with-icon auth-password-input"
           id={id}
           type={visible ? 'text' : 'password'}
           value={value}
@@ -61,52 +49,22 @@ export default function PasswordInput({
           placeholder={placeholder}
           required={required}
           autoComplete={autoComplete}
-          onFocus={() => { setFocused(true); onFocus?.(); }}
-          onBlur={() => setFocused(false)}
-          style={{
-            width: '100%',
-            paddingLeft: '2.75rem',
-            paddingRight: '3rem',
-            paddingTop: '0.75rem',
-            paddingBottom: '0.75rem',
-            background: 'var(--input-bg)',
-            border: focused ? '1px solid var(--input-focus)' : '1px solid var(--input-border)',
-            borderRadius: '0.625rem',
-            color: 'var(--input-text)',
-            fontSize: '0.9375rem',
-            outline: 'none',
-            transition: 'border-color 0.2s, box-shadow 0.2s',
-            boxShadow: focused ? '0 0 0 3px var(--accent-soft)' : 'none',
-            fontFamily: 'inherit',
-          }}
+          onFocus={onFocus}
         />
 
         <button
           type="button"
           onClick={() => setVisible((v) => !v)}
           aria-label={visible ? 'Ẩn mật khẩu' : 'Hiện mật khẩu'}
-          style={{
-            position: 'absolute',
-            right: '0.875rem',
-            top: '50%',
-            transform: 'translateY(-50%)',
-            background: 'none',
-            border: 'none',
-            cursor: 'pointer',
-            color: 'var(--input-icon)',
-            padding: '0.25rem',
-            display: 'flex',
-            alignItems: 'center',
-            transition: 'color 0.2s',
-          }}
+          className="auth-password-toggle"
         >
-          {visible ? <EyeOff size={18} strokeWidth={2} /> : <Eye size={18} strokeWidth={2} />}
+          {visible ? <EyeOff size={17} strokeWidth={1.8} /> : <Eye size={17} strokeWidth={1.8} />}
         </button>
       </div>
       {error ? (
-        <p style={{ fontSize: '0.75rem', color: '#dc2626', marginTop: '0.375rem', lineHeight: 1.5 }}>{error}</p>
+        <p className="auth-field-error">{error}</p>
       ) : hint ? (
-        <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginTop: '0.375rem' }}>{hint}</p>
+        <p className="auth-field-hint">{hint}</p>
       ) : null}
     </div>
   );

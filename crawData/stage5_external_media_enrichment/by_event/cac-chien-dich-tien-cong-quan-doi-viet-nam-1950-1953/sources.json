@@ -1,0 +1,9 @@
+{
+  "eventId": "cac-chien-dich-tien-cong-quan-doi-viet-nam-1950-1953",
+  "status": "pending_download",
+  "images": [],
+  "expected": [
+    "image_01.<ext>",
+    "image_02.<ext>"
+  ]
+}
