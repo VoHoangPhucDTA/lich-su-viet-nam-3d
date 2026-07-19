@@ -25,6 +25,7 @@ interface GoogleAccountsId {
       type?: 'standard' | 'icon';
       shape?: 'rectangular' | 'pill' | 'circle' | 'square';
       text?: 'signin_with' | 'signup_with' | 'continue_with' | 'signin';
+      logo_alignment?: 'left' | 'center';
       width?: number;
       locale?: string;
     }
@@ -121,7 +122,7 @@ function OAuthButton({
   const isInteractive = !disabled && !loading;
 
   return (
-    <div style={{ flex: iconOnly ? 'none' : 1, position: 'relative' }}>
+    <div style={{ width: iconOnly ? '40px' : '100%', position: 'relative' }}>
       <button
         type="button"
         onClick={isInteractive ? onClick : undefined}
@@ -296,7 +297,8 @@ export default function OAuthButtons({ mode: _mode = 'login', onError }: OAuthBu
       type: 'standard',
       shape: 'rectangular',
       text: _mode === 'register' ? 'signup_with' : 'signin_with',
-      width: Math.min(360, Math.max(240, target.clientWidth || 320)),
+      logo_alignment: 'center',
+      width: Math.min(400, Math.max(240, target.clientWidth || 320)),
       locale: 'vi',
     });
   }, [googleScriptReady, _mode]);
@@ -406,7 +408,7 @@ export default function OAuthButtons({ mode: _mode = 'login', onError }: OAuthBu
       </div>
 
       {/* Social providers */}
-      <div style={{ display: 'grid', gap: '0.75rem' }}>
+      <div style={{ display: 'grid', width: '100%', gap: '0.75rem' }}>
         {/* Google — official GIS button opens the provider-managed account chooser */}
         {isGoogleConfigured ? (
           <div
@@ -417,7 +419,7 @@ export default function OAuthButtons({ mode: _mode = 'login', onError }: OAuthBu
               minHeight: '40px',
               width: '100%',
               display: 'flex',
-              justifyContent: 'center',
+              justifyContent: 'stretch',
               alignItems: 'center',
             }}
           >

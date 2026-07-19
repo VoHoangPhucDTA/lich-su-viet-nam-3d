@@ -289,7 +289,6 @@
   display: none;
   min-height: 100dvh;
   overflow: hidden;
-  border-right: 1px solid rgba(197, 160, 89, 0.28);
   background: #35140d;
 }
 
@@ -427,7 +426,7 @@
 }
 
 .auth-card {
-  width: min(100%, 31rem);
+  width: min(100%, 29.5rem);
   padding: clamp(1.25rem, 5vw, 2.25rem);
   border: 1px solid var(--border);
   border-radius: 1rem;
@@ -578,15 +577,23 @@
 
 @media (min-width: 1024px) {
   .auth-shell {
-    grid-template-columns: minmax(25rem, 0.95fr) minmax(30rem, 1.05fr);
+    height: 100dvh;
+    min-height: 0;
+    grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+    overflow: hidden;
   }
 
   .auth-showcase {
     display: flex;
+    height: 100dvh;
+    min-height: 0;
   }
 
   .auth-form-region {
-    padding: 3rem;
+    height: 100dvh;
+    min-height: 0;
+    overflow-y: auto;
+    padding: clamp(1.5rem, 3vw, 3.5rem);
   }
 
   .auth-mobile-brand {
