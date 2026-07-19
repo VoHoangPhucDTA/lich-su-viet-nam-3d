@@ -1,0 +1,139 @@
+# AI Service RAG — Architecture
+
+## Kiến trúc logic
+
+```text
+┌──────────────┐
+│ React        │
+└──────┬───────┘
+       │ POST /api/quiz/generate
+       ▼
+┌──────────────┐
+│ Spring Boot  │
+│ Auth/Policy  │
+└──────┬───────┘
+       │ internal HTTP
+       ▼
+┌─────────────────────────────┐
+│ FastAPI AI Service          │
+│                             │
+│ Retrieval                   │
+│ Prompt/Generation           │
+│ Validation                  │
+└──────┬───────────┬──────────┘
+       │           │
+       ▼           ▼
+┌──────────────┐  ┌──────────────┐
+│ ChromaDB     │  │ Gemini API   │
+│ SGK vectors  │  │ Embed/Gen    │
+└──────────────┘  └──────────────┘
+       ▲
+       │
+┌──────────────┐
+│ sgk_chunks   │
+│ canonical    │
+└──────────────┘
+
+Spring Boot/MySQL
+└── verified exam questions → Style Examples
+```
+
+## Luồng indexing
+
+```text
+sgk_chunks.jsonl
+→ validate schema/hash/version
+→ create embeddings
+→ batch upsert ChromaDB
+→ index manifest
+→ retrieval smoke tests
+```
+
+## Luồng sinh câu hỏi
+
+```text
+User request
+→ Spring validates request
+→ FastAPI builds retrieval query
+→ query embedding
+→ Chroma metadata filter + similarity search
+→ top-k chunks
+→ Fact Context
+→ fetch verified Style Examples
+→ Gemini structured generation
+→ validators
+→ response with sourceChunkIds
+```
+
+## Ranh giới trách nhiệm
+
+### React
+
+- Nhập lựa chọn người dùng.
+- Hiển thị quiz, loading, lỗi, lời giải và nguồn.
+- Không lưu API key.
+- Không gọi Gemini/Chroma trực tiếp.
+
+### Spring Boot
+
+- Xác thực và phân quyền.
+- Validation nghiệp vụ.
+- Rate limit/timeout.
+- Kết nối dữ liệu module luyện thi.
+- Chuẩn hóa lỗi cho frontend.
+- Có thể lưu audit/history nếu phạm vi yêu cầu.
+
+### FastAPI AI Service
+
+- Indexing orchestration.
+- Retrieval.
+- Fact Context assembly.
+- Prompting và model call.
+- Structured output parsing.
+- Validation và retry.
+- Debug/evaluation endpoint nội bộ.
+
+### ChromaDB
+
+- Lưu embeddings, documents và metadata.
+- Similarity search và metadata filter.
+- Không thay thế MySQL cho dữ liệu nghiệp vụ.
+
+### MySQL
+
+- User, đề thi, câu hỏi, options, attempt, điểm.
+- Verified exam questions dùng làm Style Examples.
+
+## Cấu trúc thư mục đề xuất
+
+Goal 0 phải điều chỉnh theo repository thực tế.
+
+```text
+project-root/
+├── backend/                     # tên thực tế cần audit
+├── frontend/                    # tên thực tế cần audit
+├── ai-service/
+│   ├── app/
+│   │   ├── api/
+│   │   ├── core/
+│   │   ├── embedding/
+│   │   ├── vectorstore/
+│   │   ├── retrieval/
+│   │   ├── generation/
+│   │   ├── validation/
+│   │   └── main.py
+│   ├── data/
+│   │   └── sgk/
+│   ├── scripts/
+│   ├── tests/
+│   ├── .env.example
+│   └── requirements.txt hoặc pyproject.toml
+└── docs/ai-service/
+```
+
+## Quy tắc versioning
+
+- Collection name phải chứa corpus/index version.
+- Đổi embedding model/dimension → collection mới.
+- Đổi chunking logic làm thay đổi chunk IDs/content → corpus version mới.
+- Không ghi đè index production nếu chưa qua retrieval evaluation.

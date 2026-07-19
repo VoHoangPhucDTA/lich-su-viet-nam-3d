@@ -1,0 +1,17 @@
+.env
+.venv/
+
+data/artifacts/
+data/preprocessing/
+
+storage/chroma/*
+!storage/chroma/.gitkeep
+storage/chroma-reports/
+storage/embeddings/
+storage/checkpoints/
+
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.coverage
