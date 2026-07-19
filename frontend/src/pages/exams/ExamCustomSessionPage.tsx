@@ -1,5 +1,6 @@
-import { useCallback, useEffect, useRef, useState, type CSSProperties } from 'react';
+import { useCallback, useEffect, useId, useRef, useState, type CSSProperties } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
+import ExamSubmitDialog from '@/components/exams/ExamSubmitDialog';
 import {
   formatCognitiveLevelLabel,
   formatDifficultyLabel,
@@ -7,8 +8,14 @@ import {
 } from '@/lib/exam/displayLabels';
 import { scoreCustomMockSession } from '@/lib/exam/customScoring';
 import { loadCustomSession, saveCustomPracticeState, saveCustomSession, updateCustomSession } from '@/lib/exam/customSessionStorage';
-import { syncAttemptBestEffort } from '@/lib/exam/examAttemptSync';
 import { useExamKeyboardShortcuts } from '@/lib/exam/useExamKeyboardShortcuts';
+import { handleRadioGroupKeyDown } from '@/lib/exam/radioGroupKeyboard';
+import ExamShortcutHelp, { type ExamShortcutItem } from '@/components/exams/ExamShortcutHelp';
+import ExamQuickNavigator, { type QuickNavigatorItem } from '@/components/exams/ExamQuickNavigator';
+import ExamPracticeHeader from '@/components/exams/ExamPracticeHeader';
+import ExamExplanationText from '@/components/exams/ExamExplanationText';
+import QuestionSourceBlock from '@/components/exams/QuestionSourceBlock';
+import { useQuestionNavigation } from '@/lib/exam/useQuestionNavigation';
 import { readResultFromLS, writeResultToLS } from '@/lib/exam/useSessionV2';
 import {
   isMCQQuestion,
@@ -60,9 +67,9 @@ function buttonStyle(tone: 'primary' | 'secondary' | 'danger'): CSSProperties {
 function chipStyle(tone: 'default' | 'success' | 'danger' | 'warning' = 'default'): CSSProperties {
   const colors = {
     default: ['var(--bg-surface)', 'var(--border)', 'var(--text-muted)'],
-    success: ['rgba(47,122,87,0.1)', 'rgba(47,122,87,0.3)', 'var(--success)'],
+    success: ['rgba(47,122,87,0.1)', 'rgba(47,122,87,0.3)', 'var(--exam-success)'],
     danger: ['rgba(159,29,45,0.08)', 'rgba(159,29,45,0.26)', 'var(--danger)'],
-    warning: ['rgba(194,155,75,0.12)', 'rgba(194,155,75,0.32)', 'var(--warning)'],
+    warning: ['rgba(194,155,75,0.12)', 'rgba(194,155,75,0.32)', 'var(--exam-warning)'],
   }[tone];
 
   return {
@@ -95,13 +102,15 @@ function tfChoiceButtonStyle(current: boolean | null, value: boolean, checked: b
   };
 }
 
-function QuestionMeta({ question }: { question: CustomQuestionSnapshot }) {
+function QuestionMeta({ question, showLearningMetadata = true }: { question: CustomQuestionSnapshot; showLearningMetadata?: boolean }) {
   return (
     <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.45rem' }}>
       <span style={chipStyle()}>{formatQuestionTypeLabel(question.questionType)}</span>
-      <span style={chipStyle()}>{formatDifficultyLabel(question.difficulty)}</span>
-      <span style={chipStyle()}>{formatCognitiveLevelLabel(question.cognitiveLevel)}</span>
-      {question.topic && <span style={chipStyle()}>{question.topic}</span>}
+      {showLearningMetadata && <>
+        <span style={chipStyle()}>{formatDifficultyLabel(question.difficulty)}</span>
+        <span style={chipStyle()}>{formatCognitiveLevelLabel(question.cognitiveLevel)}</span>
+        {question.topic && <span style={chipStyle()}>{question.topic}</span>}
+      </>}
     </div>
   );
 }
@@ -111,7 +120,7 @@ function Explanation({ text }: { text?: string }) {
   return (
     <div style={{ marginTop: '1rem', background: 'var(--bg-surface)', border: '1px solid var(--border)', borderRadius: '0.8rem', padding: '0.95rem 1rem', color: 'var(--text-secondary)', lineHeight: 1.65 }}>
       <strong style={{ color: 'var(--text-primary)' }}>Giải thích: </strong>
-      {text}
+      <ExamExplanationText text={text} />
     </div>
   );
 }
@@ -137,14 +146,15 @@ function MCQCard({
         {checked && <span style={chipStyle(isCorrect ? 'success' : 'danger')}>{isCorrect ? 'Đúng' : 'Chưa đúng'}</span>}
       </div>
       <h2 style={{ margin: '1rem 0 0', color: 'var(--text-primary)', fontSize: '1.05rem', lineHeight: 1.6 }}>{question.questionText}</h2>
-      <div style={{ display: 'grid', gap: '0.65rem', marginTop: '1rem' }}>
+      <QuestionSourceBlock sourceRefs={question.sourceRefs} />
+      <div role="radiogroup" aria-orientation="vertical" aria-label="Chọn đáp án" style={{ display: 'grid', gap: '0.65rem', marginTop: '1rem' }}>
         {question.options.map((option) => {
           const isSelected = selected === option.id;
           const isAnswer = option.id === question.correctOptionId;
           const border = checked && isAnswer ? 'rgba(47,122,87,0.38)' : checked && isSelected && !isAnswer ? 'rgba(159,29,45,0.32)' : isSelected ? 'var(--accent)' : 'var(--border)';
           const background = checked && isAnswer ? 'rgba(47,122,87,0.1)' : checked && isSelected && !isAnswer ? 'rgba(159,29,45,0.08)' : isSelected ? 'var(--accent-soft)' : 'var(--bg-surface)';
           return (
-            <button key={option.id} type="button" onClick={() => onSelect(option.id)} style={{ border: `1px solid ${border}`, background, color: 'var(--text-primary)', borderRadius: '0.8rem', padding: '0.9rem 1rem', display: 'flex', gap: '0.75rem', alignItems: 'flex-start', textAlign: 'left', cursor: 'pointer' }}>
+            <button key={option.id} type="button" role="radio" aria-checked={isSelected} aria-label={`Đáp án ${option.id}: ${option.text}${isSelected ? ', đang chọn' : ''}`} tabIndex={selected ? (isSelected ? 0 : -1) : option.id === question.options[0]?.id ? 0 : -1} disabled={checked} onKeyDown={(event) => handleRadioGroupKeyDown(event, question.options.map((item) => item.id), option.id, onSelect, checked)} onClick={() => onSelect(option.id)} className="exam-focusable" style={{ border: `1px solid ${border}`, background, color: 'var(--text-primary)', borderRadius: '0.8rem', padding: '0.9rem 1rem', display: 'flex', gap: '0.75rem', alignItems: 'flex-start', textAlign: 'left', cursor: checked ? 'default' : 'pointer' }}>
               <strong style={{ minWidth: '1.5rem', color: checked && isAnswer ? 'var(--success)' : 'var(--text-muted)' }}>{option.id}.</strong>
               <span style={{ flex: 1, lineHeight: 1.55 }}>{option.text}</span>
               {checked && isAnswer && <span style={chipStyle('success')}>Đáp án đúng</span>}
@@ -184,6 +194,7 @@ function TFCard({
         {checked && <span style={chipStyle(correctCount === question.statements.length ? 'success' : 'warning')}>{correctCount}/{question.statements.length} ý đúng</span>}
       </div>
       <h2 style={{ margin: '1rem 0 0', color: 'var(--text-primary)', fontSize: '1.05rem', lineHeight: 1.6 }}>{question.questionText}</h2>
+      <QuestionSourceBlock sourceRefs={question.sourceRefs} />
       <div style={{ display: 'grid', gap: '0.75rem', marginTop: '1rem' }}>
         {question.statements.map((statement) => {
           const current = selected[statement.id];
@@ -197,9 +208,9 @@ function TFCard({
                 <strong style={{ color: 'var(--text-muted)' }}>{statement.id})</strong>
                 <span style={{ flex: 1, lineHeight: 1.55, color: 'var(--text-primary)' }}>{statement.text}</span>
               </div>
-              <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginTop: '0.75rem', paddingLeft: '1.8rem' }}>
+              <div role="group" aria-label={`Lựa chọn cho ý ${statement.id}`} style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginTop: '0.75rem', paddingLeft: '1.8rem' }}>
                 {[true, false].map((value) => (
-                  <button key={`${statement.id}-${value}`} type="button" onClick={() => onSelect(statement.id, value)} style={{ ...tfChoiceButtonStyle(current, value, checked, statement.isTrue), padding: '0.45rem 0.8rem', fontSize: '0.82rem' }}>
+                  <button key={`${statement.id}-${value}`} type="button" aria-pressed={current === value} aria-label={`Chọn ${value ? 'Đúng' : 'Sai'} cho ý ${statement.id}`} disabled={checked} onClick={() => onSelect(statement.id, value)} className="exam-focusable" style={{ ...tfChoiceButtonStyle(current, value, checked, statement.isTrue), padding: '0.45rem 0.8rem', fontSize: '0.82rem' }}>
                     {value ? 'Đúng' : 'Sai'}
                   </button>
                 ))}
@@ -229,13 +240,13 @@ function MockMCQCard({
 }) {
   return (
     <div style={cardStyle}>
-      <QuestionMeta question={question} />
+      <QuestionMeta question={question} showLearningMetadata={false} />
       <h2 style={{ margin: '1rem 0 0', color: 'var(--text-primary)', fontSize: '1.05rem', lineHeight: 1.6 }}>{question.questionText}</h2>
-      <div style={{ display: 'grid', gap: '0.65rem', marginTop: '1rem' }}>
+      <div role="radiogroup" aria-orientation="vertical" aria-label="Chọn đáp án" style={{ display: 'grid', gap: '0.65rem', marginTop: '1rem' }}>
         {question.options.map((option) => {
           const isSelected = selected === option.id;
           return (
-            <button key={option.id} type="button" onClick={() => onSelect(option.id)} style={{ border: `1px solid ${isSelected ? 'var(--accent)' : 'var(--border)'}`, background: isSelected ? 'var(--accent-soft)' : 'var(--bg-surface)', color: 'var(--text-primary)', borderRadius: '0.8rem', padding: '0.9rem 1rem', display: 'flex', gap: '0.75rem', alignItems: 'flex-start', textAlign: 'left', cursor: 'pointer' }}>
+            <button key={option.id} type="button" role="radio" aria-checked={isSelected} aria-label={`Đáp án ${option.id}: ${option.text}${isSelected ? ', đang chọn' : ''}`} tabIndex={selected ? (isSelected ? 0 : -1) : option.id === question.options[0]?.id ? 0 : -1} onKeyDown={(event) => handleRadioGroupKeyDown(event, question.options.map((item) => item.id), option.id, onSelect)} onClick={() => onSelect(option.id)} className="exam-focusable" style={{ border: `1px solid ${isSelected ? 'var(--exam-selection)' : 'var(--border)'}`, background: isSelected ? 'var(--exam-selection-soft)' : 'var(--bg-surface)', color: 'var(--text-primary)', borderRadius: '0.8rem', padding: '0.9rem 1rem', display: 'flex', gap: '0.75rem', alignItems: 'flex-start', textAlign: 'left', cursor: 'pointer' }}>
               <strong style={{ minWidth: '1.5rem', color: isSelected ? 'var(--accent)' : 'var(--text-muted)' }}>{option.id}.</strong>
               <span style={{ flex: 1, lineHeight: 1.55 }}>{option.text}</span>
             </button>
@@ -255,9 +266,13 @@ function MockTFCard({
   selected: TFChoice;
   onSelect: (statementId: TFStatement['id'], value: boolean) => void;
 }) {
+  const answeredStatementCount = question.statements.filter((statement) => selected[statement.id] != null).length;
   return (
     <div style={cardStyle}>
-      <QuestionMeta question={question} />
+      <QuestionMeta question={question} showLearningMetadata={false} />
+      <p role="status" aria-live="polite" style={{ margin: '0.65rem 0 0', color: 'var(--text-secondary)', fontSize: '0.82rem', fontWeight: 700 }}>
+        Đã trả lời {answeredStatementCount}/{question.statements.length} ý
+      </p>
       <h2 style={{ margin: '1rem 0 0', color: 'var(--text-primary)', fontSize: '1.05rem', lineHeight: 1.6 }}>{question.questionText}</h2>
       <div style={{ display: 'grid', gap: '0.75rem', marginTop: '1rem' }}>
         {question.statements.map((statement) => {
@@ -268,9 +283,9 @@ function MockTFCard({
                 <strong style={{ color: 'var(--text-muted)' }}>{statement.id})</strong>
                 <span style={{ flex: 1, lineHeight: 1.55, color: 'var(--text-primary)' }}>{statement.text}</span>
               </div>
-              <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginTop: '0.75rem', paddingLeft: '1.8rem' }}>
+              <div role="group" aria-label={`Lựa chọn cho ý ${statement.id}`} style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginTop: '0.75rem', paddingLeft: '1.8rem' }}>
                 {[true, false].map((value) => (
-                  <button key={`${statement.id}-${value}`} type="button" onClick={() => onSelect(statement.id, value)} style={{ ...buttonStyle(current === value ? 'primary' : 'secondary'), padding: '0.45rem 0.8rem', fontSize: '0.82rem' }}>
+                  <button key={`${statement.id}-${value}`} type="button" aria-pressed={current === value} aria-label={`Chọn ${value ? 'Đúng' : 'Sai'} cho ý ${statement.id}`} onClick={() => onSelect(statement.id, value)} className="exam-focusable" style={{ ...buttonStyle(current === value ? 'primary' : 'secondary'), ...(current === value ? { background: 'var(--exam-selection)', borderColor: 'var(--exam-selection)' } : {}), padding: '0.45rem 0.8rem', fontSize: '0.82rem' }}>
                     {value ? 'Đúng' : 'Sai'}
                   </button>
                 ))}
@@ -332,45 +347,79 @@ function formatRemainingSeconds(seconds: number): string {
   return `${minutes}:${rest.toString().padStart(2, '0')}`;
 }
 
-export default function ExamCustomSessionPage() {
-  const { sessionId } = useParams<{ sessionId: string }>();
+interface InitialCustomSessionState {
+  session: CustomExamSession | null;
+  practiceState: CustomPracticeState | null;
+  error: string | null;
+  remainingSeconds: number | null;
+  markedForReview: string[];
+  submittedResultSessionId: string | null;
+}
+
+function loadInitialCustomSession(sessionId: string | undefined): InitialCustomSessionState {
+  const emptyState = {
+    session: null,
+    practiceState: null,
+    remainingSeconds: null,
+    markedForReview: [],
+    submittedResultSessionId: null,
+  };
+
+  if (!sessionId) {
+    return { ...emptyState, error: 'Liên kết luyện tập tùy chọn không hợp lệ.' };
+  }
+
+  const loaded = loadCustomSession(sessionId);
+  if (!loaded) {
+    return {
+      ...emptyState,
+      error: 'Không tìm thấy phiên luyện tập tùy chọn. Có thể phiên đã bị xóa hoặc dữ liệu trình duyệt bị dọn dẹp.',
+    };
+  }
+  if (!Array.isArray(loaded.questionSnapshots) || loaded.questionSnapshots.length === 0) {
+    return { ...emptyState, error: 'Phiên luyện tập này chưa có câu hỏi để hiển thị.' };
+  }
+
+  const isSubmittedMock = loaded.mode === 'custom_mock'
+    && loaded.status === 'submitted'
+    && Boolean(readResultFromLS(loaded.sessionId));
+  const elapsed = Math.floor((Date.now() - (loaded.startedAt ?? Date.now())) / 1000);
+  const remainingSeconds = loaded.mode === 'custom_mock' && loaded.durationSeconds && loaded.durationSeconds > 0
+    ? Math.max(0, loaded.durationSeconds - elapsed)
+    : null;
+
+  return {
+    session: loaded,
+    practiceState: makeInitialPracticeState(loaded),
+    error: null,
+    remainingSeconds,
+    markedForReview: loaded.markedForReview ?? [],
+    submittedResultSessionId: isSubmittedMock ? loaded.sessionId : null,
+  };
+}
+
+function ExamCustomSessionContent({ sessionId }: { sessionId: string | undefined }) {
   const navigate = useNavigate();
-  const [session, setSession] = useState<CustomExamSession | null>(null);
-  const [practiceState, setPracticeState] = useState<CustomPracticeState | null>(null);
-  const [error, setError] = useState<string | null>(null);
+  const [initialState] = useState(() => loadInitialCustomSession(sessionId));
+  const [session, setSession] = useState<CustomExamSession | null>(initialState.session);
+  const [practiceState, setPracticeState] = useState<CustomPracticeState | null>(initialState.practiceState);
+  const error = initialState.error;
   const [saveError, setSaveError] = useState<string | null>(null);
-  const [remainingSeconds, setRemainingSeconds] = useState<number | null>(null);
-  const [markedForReview, setMarkedForReview] = useState<string[]>([]);
+  const [remainingSeconds, setRemainingSeconds] = useState<number | null>(initialState.remainingSeconds);
+  const [markedForReview, setMarkedForReview] = useState<string[]>(initialState.markedForReview);
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [shortcutHelpOpen, setShortcutHelpOpen] = useState(false);
   const submitStartedRef = useRef(false);
+  const shortcutHelpTriggerRef = useRef<HTMLButtonElement>(null);
+  const questionRef = useRef<HTMLDivElement>(null);
+  const shortcutHelpId = useId();
 
   useEffect(() => {
-    if (!sessionId) {
-      setError('Liên kết luyện tập tùy chọn không hợp lệ.');
-      return;
+    if (initialState.submittedResultSessionId) {
+      navigate(`/exams/ket-qua/${initialState.submittedResultSessionId}`, { replace: true });
     }
-    const loaded = loadCustomSession(sessionId);
-    if (!loaded) {
-      setError('Không tìm thấy phiên luyện tập tùy chọn. Có thể phiên đã bị xóa hoặc dữ liệu trình duyệt bị dọn dẹp.');
-      return;
-    }
-    if (!Array.isArray(loaded.questionSnapshots) || loaded.questionSnapshots.length === 0) {
-      setError('Phiên luyện tập này chưa có câu hỏi để hiển thị.');
-      return;
-    }
-    if (loaded.mode === 'custom_mock' && loaded.status === 'submitted' && readResultFromLS(loaded.sessionId)) {
-      navigate(`/exams/ket-qua/${loaded.sessionId}`, { replace: true });
-      return;
-    }
-    setSession(loaded);
-    setPracticeState(makeInitialPracticeState(loaded));
-    setMarkedForReview(loaded.markedForReview ?? []);
-    if (loaded.mode === 'custom_mock' && loaded.durationSeconds && loaded.durationSeconds > 0) {
-      const elapsed = Math.floor((Date.now() - (loaded.startedAt ?? Date.now())) / 1000);
-      setRemainingSeconds(Math.max(0, loaded.durationSeconds - elapsed));
-    } else {
-      setRemainingSeconds(null);
-    }
-  }, [navigate, sessionId]);
+  }, [initialState.submittedResultSessionId, navigate]);
 
   const questions = session?.questionSnapshots ?? [];
   const currentIndex = Math.min(practiceState?.currentIndex ?? 0, Math.max(questions.length - 1, 0));
@@ -378,11 +427,28 @@ export default function ExamCustomSessionPage() {
   const checkedCount = questions.filter((question) => practiceState?.checked[question.id]).length;
   const correctCount = questions.filter((question) => practiceState?.checked[question.id] && isQuestionCorrect(question, practiceState.answers[question.id])).length;
   const percent = checkedCount > 0 ? Math.round((correctCount / checkedCount) * 100) : 0;
-  const mcqCount = questions.filter(isMCQQuestion).length;
-  const tfCount = questions.filter(isTFQuestion).length;
   const isMockMode = session?.mode === 'custom_mock';
   const answeredCount = questions.filter((question) => answerIsReady(question, practiceState?.answers[question.id])).length;
+  const partialCount = questions.filter((question) => {
+    const answer = practiceState?.answers[question.id];
+    return answer?.questionType === 'true_false'
+      && Object.values(answer.selected).some((value) => value != null)
+      && !answerIsReady(question, answer);
+  }).length;
   const isCurrentMarked = currentQuestion ? markedForReview.includes(currentQuestion.id) : false;
+  const navigatorItems: QuickNavigatorItem[] = questions.map((question, index) => {
+    const answer = practiceState?.answers[question.id];
+    const wasChecked = !!practiceState?.checked[question.id];
+    const ready = answerIsReady(question, answer);
+    const hasSelection = answer?.questionType === 'mcq'
+      ? answer.selected != null
+      : answer?.questionType === 'true_false' && Object.values(answer.selected).some((value) => value != null);
+    const correct = wasChecked && isQuestionCorrect(question, answer);
+    const state: QuickNavigatorItem['state'] = isMockMode
+      ? ready ? 'complete' : hasSelection ? 'partial' : 'untouched'
+      : wasChecked ? (correct ? 'correct' : 'incorrect') : hasSelection ? 'selected' : 'untouched';
+    return { id: `${question.id}-${index}`, label: String(index + 1), state, flagged: markedForReview.includes(question.id) };
+  });
 
   const persistState = useCallback((next: CustomPracticeState) => {
     if (!sessionId) return;
@@ -395,15 +461,20 @@ export default function ExamCustomSessionPage() {
     }
   }, [sessionId]);
 
+  const setQuestionIndex = useCallback((index: number) => {
+    if (practiceState) persistState({ ...practiceState, currentIndex: index });
+  }, [persistState, practiceState]);
+  const navigateToQuestion = useQuestionNavigation({ questionCount: questions.length, onIndexChange: setQuestionIndex, questionRef });
+
   const goToPreviousQuestion = useCallback(() => {
     if (!practiceState || questions.length === 0) return;
-    persistState({ ...practiceState, currentIndex: Math.max(currentIndex - 1, 0) });
-  }, [currentIndex, persistState, practiceState, questions.length]);
+    navigateToQuestion(currentIndex - 1);
+  }, [currentIndex, navigateToQuestion, practiceState, questions.length]);
 
   const goToNextQuestion = useCallback(() => {
     if (!practiceState || questions.length === 0) return;
-    persistState({ ...practiceState, currentIndex: Math.min(currentIndex + 1, questions.length - 1) });
-  }, [currentIndex, persistState, practiceState, questions.length]);
+    navigateToQuestion(currentIndex + 1);
+  }, [currentIndex, navigateToQuestion, practiceState, questions.length]);
 
   const checkCurrentQuestion = useCallback(() => {
     if (!practiceState || !currentQuestion || practiceState.checked[currentQuestion.id]) return;
@@ -421,6 +492,7 @@ export default function ExamCustomSessionPage() {
     }
 
     submitStartedRef.current = true;
+    setIsSubmitting(true);
     const finalSession: CustomExamSession = {
       ...session,
       status: 'submitted',
@@ -435,12 +507,19 @@ export default function ExamCustomSessionPage() {
     try {
       saveCustomSession(finalSession);
       setSession(finalSession);
-      const result = scoreCustomMockSession(finalSession);
+      const result = {
+        ...scoreCustomMockSession(finalSession),
+        scoreAuthority: 'LOCAL_FALLBACK',
+        timingAuthority: 'CLIENT_UNVERIFIED',
+        submissionOrigin: 'CLIENT_FALLBACK',
+      };
+      // This legacy local custom flow has no server-verifiable filter descriptor.
+      // Keep its result local rather than posting a client-scored official attempt.
       writeResultToLS(result);
-      void syncAttemptBestEffort(result);
       navigate(`/exams/ket-qua/${result.sessionId}`);
     } catch {
       submitStartedRef.current = false;
+      setIsSubmitting(false);
       setSaveError('Chưa lưu được kết quả thi thử tùy chọn. Hãy thử nộp lại trước khi đóng trang.');
     }
   }, [currentIndex, markedForReview, navigate, practiceState, session]);
@@ -463,16 +542,24 @@ export default function ExamCustomSessionPage() {
   useExamKeyboardShortcuts({
     onPrevious: goToPreviousQuestion,
     onNext: goToNextQuestion,
-    onEnter: isMockMode ? undefined : checkCurrentQuestion,
     onFlag: isMockMode ? toggleCurrentMark : undefined,
-    disabled: Boolean(error) || !session || !practiceState || !currentQuestion || practiceState.finished,
+    onShowHelp: () => setShortcutHelpOpen(true),
+    onCheck: isMockMode ? undefined : checkCurrentQuestion,
+    onSelectOptionByIndex: (index) => {
+      if (currentQuestion && isMCQQuestion(currentQuestion) && (isMockMode || !practiceState?.checked[currentQuestion.id])) {
+        const option = currentQuestion.options[index];
+        if (option) handleMCQSelect(currentQuestion, option.id);
+      }
+    },
+    mode: isMockMode ? 'timed' : 'practice',
+    disabled: Boolean(error) || !session || !practiceState || !currentQuestion || practiceState.finished || dialogOpen || shortcutHelpOpen || isSubmitting,
   });
 
   useEffect(() => {
     if (!isMockMode || remainingSeconds == null || !session || session.status === 'submitted') return;
     if (remainingSeconds <= 0) {
-      submitCustomMock();
-      return;
+      const timeoutId = window.setTimeout(() => void submitCustomMock(), 0);
+      return () => window.clearTimeout(timeoutId);
     }
     const timerId = window.setInterval(() => {
       setRemainingSeconds((prev) => (prev == null ? prev : Math.max(0, prev - 1)));
@@ -482,12 +569,14 @@ export default function ExamCustomSessionPage() {
 
   function handleMCQSelect(question: MCQQuestion & CustomQuestionSnapshot, selected: MCQChoice) {
     if (!practiceState) return;
+    if (!isMockMode && practiceState.checked[question.id]) return;
     const answer: MCQAnswer = { questionId: question.id, questionType: 'mcq', selected };
     persistState({ ...practiceState, answers: { ...practiceState.answers, [question.id]: answer } });
   }
 
   function handleTFSelect(question: TFQuestion & CustomQuestionSnapshot, statementId: TFStatement['id'], value: boolean) {
     if (!practiceState) return;
+    if (!isMockMode && practiceState.checked[question.id]) return;
     const existing = practiceState.answers[question.id];
     const current = existing?.questionType === 'true_false' ? existing.selected : makeBlankTFChoice();
     const answer: TFAnswer = {
@@ -526,7 +615,9 @@ export default function ExamCustomSessionPage() {
         : 'Bạn có thể thử thi thử tùy chọn ở bước sau hoặc làm đề thi thử khác.';
     return (
       <div style={{ minHeight: '100vh', background: 'var(--bg-app)', color: 'var(--text-primary)', padding: '2rem 1.5rem' }}>
-        <div style={{ maxWidth: '42rem', margin: '0 auto', display: 'grid', gap: '1rem' }}>
+        <div style={{ maxWidth: '80rem', margin: '0 auto', display: 'grid', gap: '1.5rem' }}>
+          <ExamPracticeHeader backTo="/exams/tao-de" backLabel="Quay lại tạo đề" mode="Luyện tập tùy chọn" title={session.title} badge="Không tính giờ" />
+          <div style={{ width: '100%', maxWidth: '42rem', margin: '0 auto' }}>
           <div style={{ ...cardStyle, textAlign: 'center', padding: '2rem' }}>
             <span style={chipStyle('success')}>Luyện tập tùy chọn</span>
             <h1 style={{ margin: '0.8rem 0 0.75rem', fontSize: '1.5rem', fontWeight: 900 }}>Tổng kết buổi luyện</h1>
@@ -540,6 +631,7 @@ export default function ExamCustomSessionPage() {
               <Link to="/exams/browse" style={buttonStyle('secondary')}>Về ngân hàng đề</Link>
             </div>
           </div>
+          </div>
         </div>
       </div>
     );
@@ -552,18 +644,9 @@ export default function ExamCustomSessionPage() {
 
   return (
     <div style={{ minHeight: '100vh', background: 'var(--bg-app)', color: 'var(--text-primary)', padding: '2rem 1.5rem' }}>
-      <div style={{ maxWidth: '54rem', margin: '0 auto', display: 'grid', gap: '1rem' }}>
-        <header style={{ display: 'grid', gap: '0.55rem' }}>
-          <Link to="/exams/tao-de" style={{ color: 'var(--text-muted)', textDecoration: 'none', fontSize: '0.875rem' }}>← Quay lại tạo đề</Link>
-          <h1 style={{ margin: 0, fontSize: '1.65rem', fontWeight: 900 }}>{isMockMode ? 'Thi thử tùy chọn' : 'Luyện tập tùy chọn'}</h1>
-          <p style={{ margin: 0, color: 'var(--text-primary)', fontWeight: 700, lineHeight: 1.55 }}>{session.title}</p>
-          <p style={{ margin: 0, color: 'var(--text-muted)', lineHeight: 1.55 }}>
-            {questions.length} câu · {mcqCount} Trắc nghiệm · {tfCount} Đúng/Sai · {session.config.scopeTitle ?? 'Tất cả chủ đề'}
-          </p>
-          <p style={{ margin: 0, color: 'var(--text-muted)', fontSize: '0.82rem', lineHeight: 1.5 }}>
-            {isMockMode ? 'Phím tắt: ←/→ chuyển câu, F đánh dấu câu cần xem lại.' : 'Phím tắt: ←/→ chuyển câu, Enter kiểm tra đáp án.'}
-          </p>
-        </header>
+      <div className="exam-practice-layout">
+      <main className="exam-practice-content">
+        <ExamPracticeHeader backTo="/exams/tao-de" backLabel="Quay lại tạo đề" mode={isMockMode ? 'Thi thử tùy chọn' : 'Luyện tập tùy chọn'} title={session.title} badge={isMockMode ? remainingSeconds == null ? 'Không tính giờ' : `${Math.ceil(remainingSeconds / 60)} phút` : 'Không tính giờ'} helpId={shortcutHelpId} helpOpen={shortcutHelpOpen} helpTriggerRef={shortcutHelpTriggerRef} onHelp={() => setShortcutHelpOpen(true)} />
 
         {saveError && (
           <div style={{ border: '1px solid rgba(194,155,75,0.34)', background: 'rgba(194,155,75,0.12)', borderRadius: '0.85rem', padding: '0.85rem 0.95rem', color: 'var(--text-secondary)', lineHeight: 1.55, fontSize: '0.86rem' }}>
@@ -591,10 +674,11 @@ export default function ExamCustomSessionPage() {
             )}
           </div>
           <div style={{ height: '0.45rem', background: 'var(--bg-surface)', borderRadius: '999px', overflow: 'hidden', marginTop: '0.8rem' }}>
-            <div style={{ width: `${((currentIndex + 1) / questions.length) * 100}%`, height: '100%', background: 'var(--accent)', borderRadius: '999px' }} />
+            <div role="progressbar" aria-label={isMockMode ? `Tiến độ hoàn thành: ${answeredCount} trên ${questions.length} câu` : `Tiến độ kiểm tra: ${checkedCount} trên ${questions.length} câu`} aria-valuemin={0} aria-valuemax={questions.length} aria-valuenow={isMockMode ? answeredCount : checkedCount} style={{ width: `${(((isMockMode ? answeredCount : checkedCount) / questions.length) * 100)}%`, height: '100%', background: 'var(--accent)', borderRadius: '999px' }} />
           </div>
         </div>
 
+        <div ref={questionRef} tabIndex={-1} data-exam-current-question>
         {currentQuestion && isMockMode && isMCQQuestion(currentQuestion) && (
           <MockMCQCard
             question={currentQuestion}
@@ -630,6 +714,7 @@ export default function ExamCustomSessionPage() {
             onCheck={checkCurrentQuestion}
           />
         )}
+        </div>
 
         <nav style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap', justifyContent: 'space-between' }}>
           <button type="button" onClick={goToPreviousQuestion} disabled={currentIndex === 0} style={{ ...buttonStyle('secondary'), opacity: currentIndex === 0 ? 0.55 : 1 }}>Câu trước</button>
@@ -642,7 +727,14 @@ export default function ExamCustomSessionPage() {
                 {currentIndex < questions.length - 1 && (
                   <button type="button" onClick={goToNextQuestion} style={buttonStyle('secondary')}>Câu tiếp theo</button>
                 )}
-                <button type="button" onClick={submitCustomMock} style={buttonStyle('primary')}>Nộp bài</button>
+                <button
+                  type="button"
+                  disabled={isSubmitting}
+                  onClick={() => setDialogOpen(true)}
+                  style={{ ...buttonStyle('primary'), opacity: isSubmitting ? 0.65 : 1 }}
+                >
+                  {isSubmitting ? 'Đang nộp...' : 'Nộp bài'}
+                </button>
               </>
             ) : (
               <>
@@ -656,7 +748,51 @@ export default function ExamCustomSessionPage() {
             )}
           </div>
         </nav>
+      </main>
+      <ExamQuickNavigator items={navigatorItems} currentIndex={currentIndex} onSelect={navigateToQuestion} />
       </div>
+
+      <ExamShortcutHelp
+        id={shortcutHelpId}
+        isOpen={shortcutHelpOpen}
+        onClose={() => setShortcutHelpOpen(false)}
+        triggerRef={shortcutHelpTriggerRef}
+        shortcuts={isMockMode ? CUSTOM_MOCK_SHORTCUTS : CUSTOM_PRACTICE_SHORTCUTS}
+        description={isMockMode ? 'Bài thi tùy chọn có thể giới hạn thời gian và không hiển thị đáp án trước khi nộp.' : 'Không giới hạn thời gian. Kiểm tra và đọc giải thích sau từng câu.'}
+      />
+
+      <ExamSubmitDialog
+        isOpen={dialogOpen}
+        totalQuestions={questions.length}
+        completedCount={answeredCount}
+        partialCount={partialCount}
+        untouchedCount={questions.length - answeredCount - partialCount}
+        flaggedCount={markedForReview.length}
+        isSubmitting={isSubmitting}
+        onConfirm={submitCustomMock}
+        onCancel={() => setDialogOpen(false)}
+      />
     </div>
   );
 }
+
+export default function ExamCustomSessionPage() {
+  const { sessionId } = useParams<{ sessionId: string }>();
+  return <ExamCustomSessionContent key={sessionId ?? 'missing'} sessionId={sessionId} />;
+}
+
+const CUSTOM_PRACTICE_SHORTCUTS: ExamShortcutItem[] = [
+  { keyLabel: '← / →', description: 'Chuyển câu' },
+  { keyLabel: '↑ / ↓', description: 'Chuyển giữa các đáp án trắc nghiệm' },
+  { keyLabel: '1–4', description: 'Chọn nhanh đáp án A–D' },
+  { keyLabel: 'Ctrl + Enter', description: 'Kiểm tra câu hiện tại' },
+  { keyLabel: '?', description: 'Mở hướng dẫn làm bài' },
+];
+
+const CUSTOM_MOCK_SHORTCUTS: ExamShortcutItem[] = [
+  { keyLabel: '← / →', description: 'Chuyển câu' },
+  { keyLabel: '↑ / ↓', description: 'Chuyển giữa các đáp án trắc nghiệm' },
+  { keyLabel: '1–4', description: 'Chọn nhanh đáp án A–D' },
+  { keyLabel: 'Shift + F', description: 'Đánh dấu hoặc bỏ đánh dấu xem lại' },
+  { keyLabel: '?', description: 'Mở hướng dẫn làm bài' },
+];

@@ -2,11 +2,9 @@ import { loadStoredUser } from '@/services/apiClient';
 import {
   getExamAttemptDetail,
   listExamAttempts,
-  saveExamAttempt,
   type ExamAttemptDetailResponse,
   type ExamAttemptListResponse,
   type ExamAttemptSummaryResponse,
-  type ExamAttemptUpsertRequest,
 } from '@/services/examAttemptApi';
 import type { ExamResultV2 } from '@/types/exam';
 
@@ -30,40 +28,6 @@ function hasStoredUser(): boolean {
 
 function isPlainObject(value: unknown): value is Record<string, unknown> {
   return typeof value === 'object' && value !== null && !Array.isArray(value);
-}
-
-export function buildAttemptRequestFromResult(result: ExamResultV2): ExamAttemptUpsertRequest {
-  return {
-    sessionId: result.sessionId,
-    mode: result.mode,
-    examId: result.examId ?? null,
-    title: result.title ?? null,
-    isCustom: Boolean(result.isCustom),
-    sourceExamIds: result.sourceExamIds ?? undefined,
-    questionRefs: undefined,
-    questionSnapshots: result.questionSnapshots ?? undefined,
-    answers: result.answers ?? undefined,
-    config: result.config ?? undefined,
-    result,
-    totalQuestions: result.totalQuestions,
-    totalScore: result.totalScore,
-    mcqScore: result.mcqScore,
-    tfScore: result.tfScore,
-    durationSeconds: result.durationSeconds,
-    submittedAt: result.submittedAt,
-  };
-}
-
-export async function syncAttemptBestEffort(result: ExamResultV2): Promise<{ ok: boolean; error?: unknown }> {
-  if (!hasStoredUser()) return { ok: false };
-
-  try {
-    await saveExamAttempt(buildAttemptRequestFromResult(result));
-    return { ok: true };
-  } catch (error) {
-    console.info('Exam attempt sync skipped; using local result.', error);
-    return { ok: false, error };
-  }
 }
 
 export async function fetchBackendAttemptHistory(limit?: number): Promise<ExamAttemptListResponse | null> {
@@ -110,8 +74,8 @@ export function resultSummaryFromAttempt(summary: ExamAttemptSummaryResponse): E
     title: summary.title ?? undefined,
     isCustom: Boolean(summary.isCustom),
     totalScore,
-    mcqScore: 0,
-    tfScore: 0,
+    mcqScore: numberValue(summary.mcqScore),
+    tfScore: numberValue(summary.tfScore),
     totalQuestions: summary.totalQuestions,
     correctMCQ: 0,
     wrongMCQ: 0,
@@ -119,6 +83,9 @@ export function resultSummaryFromAttempt(summary: ExamAttemptSummaryResponse): E
     tfBreakdown: [0, 0, 0, 0, 0],
     durationSeconds: summary.durationSeconds ?? 0,
     submittedAt: summary.submittedAt,
+    scoreAuthority: summary.scoreAuthority,
+    timingAuthority: summary.timingAuthority,
+    submissionOrigin: summary.submissionOrigin,
     questions: [],
   };
 }

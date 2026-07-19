@@ -1,7 +1,14 @@
-import { useCallback, useEffect, useMemo, useState, type CSSProperties } from 'react';
+import { useCallback, useEffect, useId, useMemo, useRef, useState, type CSSProperties } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { loadExam } from '@/lib/exam/examLoader';
 import { useExamKeyboardShortcuts } from '@/lib/exam/useExamKeyboardShortcuts';
+import { handleRadioGroupKeyDown } from '@/lib/exam/radioGroupKeyboard';
+import { formatExamTitle } from '@/lib/exam/examDisplay';
+import ExamQuickNavigator, { type QuickNavigatorItem } from '@/components/exams/ExamQuickNavigator';
+import ExamShortcutHelp, { type ExamShortcutItem } from '@/components/exams/ExamShortcutHelp';
+import ExamPracticeHeader from '@/components/exams/ExamPracticeHeader';
+import ExamExplanationText from '@/components/exams/ExamExplanationText';
+import { useQuestionNavigation } from '@/lib/exam/useQuestionNavigation';
 import {
   flattenExamQuestions,
   isMCQQuestion,
@@ -74,9 +81,9 @@ function tfChoiceButtonStyle(current: boolean | null, value: boolean, checked: b
 function chipStyle(tone: 'default' | 'success' | 'danger' | 'warning' = 'default'): CSSProperties {
   const colors = {
     default: ['var(--bg-surface)', 'var(--border)', 'var(--text-muted)'],
-    success: ['rgba(47,122,87,0.1)', 'rgba(47,122,87,0.3)', 'var(--success)'],
+    success: ['rgba(47,122,87,0.1)', 'rgba(47,122,87,0.3)', 'var(--exam-success)'],
     danger: ['rgba(159,29,45,0.08)', 'rgba(159,29,45,0.26)', 'var(--danger)'],
-    warning: ['rgba(194,155,75,0.12)', 'rgba(194,155,75,0.32)', 'var(--warning)'],
+    warning: ['rgba(194,155,75,0.12)', 'rgba(194,155,75,0.32)', 'var(--exam-warning)'],
   }[tone];
 
   return {
@@ -117,7 +124,7 @@ function Explanation({ text }: { text: string }) {
   return (
     <div style={{ marginTop: '1rem', background: 'var(--bg-surface)', border: '1px solid var(--border)', borderRadius: '0.8rem', padding: '0.95rem 1rem', color: 'var(--text-secondary)', lineHeight: 1.65 }}>
       <strong style={{ color: 'var(--text-primary)' }}>Giải thích: </strong>
-      {text}
+      <ExamExplanationText text={text} />
     </div>
   );
 }
@@ -144,14 +151,14 @@ function MCQPracticeCard({
         {checked && <span style={chipStyle(isCorrect ? 'success' : 'danger')}>{isCorrect ? 'Đúng' : 'Chưa đúng'}</span>}
       </div>
       <h2 style={questionTitleStyle}>{question.questionText}</h2>
-      <div style={{ display: 'grid', gap: '0.65rem', marginTop: '1rem' }}>
+      <div role="radiogroup" aria-orientation="vertical" aria-label="Chọn đáp án" style={{ display: 'grid', gap: '0.65rem', marginTop: '1rem' }}>
         {question.options.map((option) => {
           const isSelected = selected === option.id;
           const isAnswer = option.id === question.correctOptionId;
           const border = checked && isAnswer ? 'rgba(47,122,87,0.38)' : checked && isSelected && !isAnswer ? 'rgba(159,29,45,0.32)' : isSelected ? 'var(--accent)' : 'var(--border)';
           const background = checked && isAnswer ? 'rgba(47,122,87,0.1)' : checked && isSelected && !isAnswer ? 'rgba(159,29,45,0.08)' : isSelected ? 'var(--accent-soft)' : 'var(--bg-surface)';
           return (
-            <button key={option.id} type="button" onClick={() => onSelect(option.id)} style={{ border: `1px solid ${border}`, background, color: 'var(--text-primary)', borderRadius: '0.8rem', padding: '0.9rem 1rem', display: 'flex', gap: '0.75rem', alignItems: 'flex-start', textAlign: 'left', cursor: 'pointer' }}>
+            <button key={option.id} type="button" role="radio" aria-checked={isSelected} aria-label={`Đáp án ${option.id}: ${option.text}${isSelected ? ', đang chọn' : ''}`} tabIndex={selected ? (isSelected ? 0 : -1) : option.id === question.options[0]?.id ? 0 : -1} disabled={checked} onKeyDown={(event) => handleRadioGroupKeyDown(event, question.options.map((item) => item.id), option.id, onSelect, checked)} onClick={() => onSelect(option.id)} className="exam-focusable" style={{ border: `1px solid ${border}`, background, color: 'var(--text-primary)', borderRadius: '0.8rem', padding: '0.9rem 1rem', display: 'flex', gap: '0.75rem', alignItems: 'flex-start', textAlign: 'left', cursor: checked ? 'default' : 'pointer' }}>
               <strong style={{ minWidth: '1.5rem', color: checked && isAnswer ? 'var(--success)' : 'var(--text-muted)' }}>{option.id}.</strong>
               <span style={{ flex: 1, lineHeight: 1.55 }}>{option.text}</span>
               {checked && isAnswer && <span style={chipStyle('success')}>Đáp án đúng</span>}
@@ -161,7 +168,7 @@ function MCQPracticeCard({
         })}
       </div>
       <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap', marginTop: '1rem', alignItems: 'center' }}>
-        <button type="button" onClick={onCheck} disabled={!selected} style={{ ...buttonStyle('primary'), opacity: selected ? 1 : 0.55 }}>Kiểm tra</button>
+        <button type="button" onClick={onCheck} disabled={!selected || checked} style={{ ...buttonStyle('primary'), opacity: selected && !checked ? 1 : 0.55 }}>Kiểm tra</button>
         {checked && <span style={chipStyle('success')}>Đáp án đúng: {question.correctOptionId}</span>}
       </div>
       {checked && <Explanation text={question.explanation} />}
@@ -205,9 +212,9 @@ function TFPracticeCard({
                 <strong style={{ color: 'var(--text-muted)' }}>{statement.id})</strong>
                 <span style={{ flex: 1, lineHeight: 1.55, color: 'var(--text-primary)' }}>{statement.text}</span>
               </div>
-              <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginTop: '0.75rem', paddingLeft: '1.8rem' }}>
+              <div role="group" aria-label={`Lựa chọn cho ý ${statement.id}`} style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginTop: '0.75rem', paddingLeft: '1.8rem' }}>
                 {[true, false].map((value) => (
-                  <button key={`${statement.id}-${value}`} type="button" onClick={() => onSelect(statement.id, value)} style={{ ...tfChoiceButtonStyle(current, value, checked, statement.isTrue), padding: '0.45rem 0.8rem', fontSize: '0.82rem' }}>
+                  <button key={`${statement.id}-${value}`} type="button" aria-pressed={current === value} aria-label={`Chọn ${value ? 'Đúng' : 'Sai'} cho ý ${statement.id}`} disabled={checked} onClick={() => onSelect(statement.id, value)} className="exam-focusable" style={{ ...tfChoiceButtonStyle(current, value, checked, statement.isTrue), padding: '0.45rem 0.8rem', fontSize: '0.82rem' }}>
                     {value ? 'Đúng' : 'Sai'}
                   </button>
                 ))}
@@ -218,7 +225,7 @@ function TFPracticeCard({
         })}
       </div>
       <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap', marginTop: '1rem', alignItems: 'center' }}>
-        <button type="button" onClick={onCheck} disabled={!allAnswered} style={{ ...buttonStyle('primary'), opacity: allAnswered ? 1 : 0.55 }}>Kiểm tra</button>
+        <button type="button" onClick={onCheck} disabled={!allAnswered || checked} style={{ ...buttonStyle('primary'), opacity: allAnswered && !checked ? 1 : 0.55 }}>Kiểm tra</button>
         {!allAnswered && <span style={{ color: 'var(--text-muted)', fontSize: '0.85rem' }}>Hãy chọn Đúng/Sai cho đủ 4 ý.</span>}
       </div>
       {checked && <Explanation text={question.explanation} />}
@@ -236,6 +243,10 @@ export default function ExamPracticePage() {
   const [mcqAnswers, setMcqAnswers] = useState<Record<string, MCQChoice | null>>({});
   const [tfAnswers, setTfAnswers] = useState<Record<string, TFChoice>>({});
   const [checked, setChecked] = useState<Record<string, boolean>>({});
+  const [shortcutHelpOpen, setShortcutHelpOpen] = useState(false);
+  const shortcutHelpId = useId();
+  const shortcutHelpTriggerRef = useRef<HTMLButtonElement>(null);
+  const questionRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     let alive = true;
@@ -279,36 +290,39 @@ export default function ExamPracticePage() {
   }).length;
   const mcqCount = questions.filter(isMCQQuestion).length;
   const tfCount = questions.filter(isTFQuestion).length;
+  const navigatorItems: QuickNavigatorItem[] = questions.map((question, index) => {
+    const wasChecked = !!checked[question.id];
+    const hasSelection = isMCQQuestion(question)
+      ? mcqAnswers[question.id] != null
+      : Object.values(tfAnswers[question.id] ?? makeBlankTFChoice()).some((value) => value != null);
+    const isCorrect = wasChecked && (isMCQQuestion(question)
+      ? mcqAnswers[question.id] === question.correctOptionId
+      : question.statements.every((statement) => tfAnswers[question.id]?.[statement.id] === statement.isTrue));
+    return { id: question.id, label: String(index + 1), state: wasChecked ? (isCorrect ? 'correct' : 'incorrect') : hasSelection ? 'selected' : 'untouched' };
+  });
 
-  const goToPreviousQuestion = useCallback(() => {
-    setCurrentIndex((value) => Math.max(value - 1, 0));
-  }, []);
-
-  const goToNextQuestion = useCallback(() => {
-    setCurrentIndex((value) => Math.min(value + 1, Math.max(questions.length - 1, 0)));
-  }, [questions.length]);
-
+  const navigateToQuestion = useQuestionNavigation({ questionCount: questions.length, onIndexChange: setCurrentIndex, questionRef });
+  const goToPreviousQuestion = useCallback(() => navigateToQuestion(currentIndex - 1), [currentIndex, navigateToQuestion]);
+  const goToNextQuestion = useCallback(() => navigateToQuestion(currentIndex + 1), [currentIndex, navigateToQuestion]);
   const checkCurrentQuestion = useCallback(() => {
     if (!currentQuestion || checked[currentQuestion.id]) return;
-
-    if (isMCQQuestion(currentQuestion)) {
-      if (!mcqAnswers[currentQuestion.id]) return;
-      setChecked((prev) => ({ ...prev, [currentQuestion.id]: true }));
-      return;
-    }
-
-    if (isTFQuestion(currentQuestion)) {
-      const answer = tfAnswers[currentQuestion.id] ?? makeBlankTFChoice();
-      if (!Object.values(answer).every((value) => value != null)) return;
-      setChecked((prev) => ({ ...prev, [currentQuestion.id]: true }));
-    }
+    const ready = isMCQQuestion(currentQuestion) ? mcqAnswers[currentQuestion.id] != null : currentQuestion.statements.every((statement) => tfAnswers[currentQuestion.id]?.[statement.id] != null);
+    if (ready) setChecked((prev) => ({ ...prev, [currentQuestion.id]: true }));
   }, [checked, currentQuestion, mcqAnswers, tfAnswers]);
 
   useExamKeyboardShortcuts({
     onPrevious: goToPreviousQuestion,
     onNext: goToNextQuestion,
-    onEnter: checkCurrentQuestion,
-    disabled: loading || Boolean(error) || !exam || !currentQuestion || finished,
+    onShowHelp: () => setShortcutHelpOpen(true),
+    onCheck: checkCurrentQuestion,
+    onSelectOptionByIndex: (index) => {
+      if (currentQuestion && isMCQQuestion(currentQuestion) && !checked[currentQuestion.id]) {
+        const option = currentQuestion.options[index];
+        if (option) setMcqAnswers((prev) => ({ ...prev, [currentQuestion.id]: option.id }));
+      }
+    },
+    mode: 'practice',
+    disabled: loading || Boolean(error) || !exam || !currentQuestion || finished || shortcutHelpOpen,
   });
 
   function resetPractice() {
@@ -326,7 +340,9 @@ export default function ExamPracticePage() {
   if (finished) {
     return (
       <div style={{ minHeight: '100vh', background: 'var(--bg-app)', color: 'var(--text-primary)', padding: '2rem 1.5rem' }}>
-        <div style={{ maxWidth: '42rem', margin: '0 auto', display: 'grid', gap: '1rem' }}>
+        <div style={{ maxWidth: '80rem', margin: '0 auto', display: 'grid', gap: '1.5rem' }}>
+          <ExamPracticeHeader backTo="/exams/browse" backLabel="Quay lại danh sách đề" mode="Luyện tập tự do" title={formatExamTitle(exam)} badge="Không tính giờ" />
+          <div style={{ width: '100%', maxWidth: '42rem', margin: '0 auto' }}>
           <div style={{ ...cardStyle, textAlign: 'center', padding: '2rem' }}>
             <span style={chipStyle('success')}>Luyện tập tự do</span>
             <h1 style={{ margin: '0.8rem 0 0.75rem', fontSize: '1.5rem', fontWeight: 900 }}>Hoàn thành luyện tập</h1>
@@ -337,6 +353,7 @@ export default function ExamPracticePage() {
               <Link to={`/exams/de/${exam.examId}`} style={buttonStyle('secondary')}>Thi thử đề này</Link>
             </div>
           </div>
+          </div>
         </div>
       </div>
     );
@@ -344,17 +361,9 @@ export default function ExamPracticePage() {
 
   return (
     <div style={{ minHeight: '100vh', background: 'var(--bg-app)', color: 'var(--text-primary)', padding: '2rem 1.5rem' }}>
-      <div style={{ maxWidth: '52rem', margin: '0 auto', display: 'grid', gap: '1rem' }}>
-        <header style={{ display: 'grid', gap: '0.55rem' }}>
-          <Link to="/exams/browse" style={{ color: 'var(--text-muted)', textDecoration: 'none', fontSize: '0.875rem' }}>← Danh sách đề</Link>
-          <div style={{ display: 'flex', gap: '0.65rem', flexWrap: 'wrap', alignItems: 'center' }}>
-            <h1 style={{ margin: 0, fontSize: '1.65rem', fontWeight: 900 }}>Luyện tập tự do</h1>
-            <span style={chipStyle('warning')}>Không giới hạn thời gian</span>
-          </div>
-          <p style={{ margin: 0, color: 'var(--text-primary)', fontWeight: 700, lineHeight: 1.55 }}>{exam.title}</p>
-          <p style={{ margin: 0, color: 'var(--text-muted)', lineHeight: 1.55 }}>Không giới hạn thời gian, kiểm tra đáp án ngay sau từng câu.</p>
-          <p style={{ margin: 0, color: 'var(--text-muted)', fontSize: '0.82rem', lineHeight: 1.5 }}>Phím tắt: ←/→ chuyển câu, Enter kiểm tra đáp án.</p>
-        </header>
+      <div className="exam-practice-layout">
+      <main className="exam-practice-content">
+        <ExamPracticeHeader backTo="/exams/browse" backLabel="Quay lại danh sách đề" mode="Luyện tập tự do" title={formatExamTitle(exam)} badge="Không tính giờ" helpId={shortcutHelpId} helpOpen={shortcutHelpOpen} helpTriggerRef={shortcutHelpTriggerRef} onHelp={() => setShortcutHelpOpen(true)} />
 
         <div style={{ ...cardStyle, padding: '1rem 1.25rem' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap' }}>
@@ -365,30 +374,47 @@ export default function ExamPracticePage() {
             <span style={chipStyle()}>{mcqCount} Trắc nghiệm · {tfCount} Đúng/Sai</span>
           </div>
           <div style={{ height: '0.45rem', background: 'var(--bg-surface)', borderRadius: '999px', overflow: 'hidden', marginTop: '0.8rem' }}>
-            <div style={{ width: `${((currentIndex + 1) / questions.length) * 100}%`, height: '100%', background: 'var(--accent)', borderRadius: '999px' }} />
+            <div role="progressbar" aria-label={`Tiến độ kiểm tra: ${checkedCount} trên ${questions.length} câu`} aria-valuemin={0} aria-valuemax={questions.length} aria-valuenow={checkedCount} style={{ width: `${(checkedCount / questions.length) * 100}%`, height: '100%', background: 'var(--accent)', borderRadius: '999px' }} />
           </div>
         </div>
 
+        <div ref={questionRef} tabIndex={-1} data-exam-current-question>
         {currentQuestion && isMCQQuestion(currentQuestion) && (
-          <MCQPracticeCard question={currentQuestion} selected={mcqAnswers[currentQuestion.id] ?? null} checked={!!checked[currentQuestion.id]} onSelect={(value) => setMcqAnswers((prev) => ({ ...prev, [currentQuestion.id]: value }))} onCheck={() => setChecked((prev) => ({ ...prev, [currentQuestion.id]: true }))} />
+          <MCQPracticeCard question={currentQuestion} selected={mcqAnswers[currentQuestion.id] ?? null} checked={!!checked[currentQuestion.id]} onSelect={(value) => {
+            if (!checked[currentQuestion.id]) setMcqAnswers((prev) => ({ ...prev, [currentQuestion.id]: value }));
+          }} onCheck={() => setChecked((prev) => ({ ...prev, [currentQuestion.id]: true }))} />
         )}
 
         {currentQuestion && isTFQuestion(currentQuestion) && (
-          <TFPracticeCard question={currentQuestion} selected={tfAnswers[currentQuestion.id] ?? makeBlankTFChoice()} checked={!!checked[currentQuestion.id]} onSelect={(statementId, value) => setTfAnswers((prev) => ({ ...prev, [currentQuestion.id]: { ...(prev[currentQuestion.id] ?? makeBlankTFChoice()), [statementId]: value } }))} onCheck={() => setChecked((prev) => ({ ...prev, [currentQuestion.id]: true }))} />
+          <TFPracticeCard question={currentQuestion} selected={tfAnswers[currentQuestion.id] ?? makeBlankTFChoice()} checked={!!checked[currentQuestion.id]} onSelect={(statementId, value) => {
+            if (!checked[currentQuestion.id]) setTfAnswers((prev) => ({ ...prev, [currentQuestion.id]: { ...(prev[currentQuestion.id] ?? makeBlankTFChoice()), [statementId]: value } }));
+          }} onCheck={() => setChecked((prev) => ({ ...prev, [currentQuestion.id]: true }))} />
         )}
+        </div>
 
         <nav style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap', justifyContent: 'space-between' }}>
-          <button type="button" onClick={() => setCurrentIndex((value) => Math.max(value - 1, 0))} disabled={currentIndex === 0} style={{ ...buttonStyle('secondary'), opacity: currentIndex === 0 ? 0.55 : 1 }}>Câu trước</button>
+          <button type="button" onClick={goToPreviousQuestion} disabled={currentIndex === 0} style={{ ...buttonStyle('secondary'), opacity: currentIndex === 0 ? 0.55 : 1 }}>Câu trước</button>
           <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
             <button type="button" onClick={() => setFinished(true)} style={buttonStyle('danger')}>Kết thúc luyện tập</button>
             {currentIndex < questions.length - 1 ? (
-              <button type="button" onClick={() => setCurrentIndex((value) => Math.min(value + 1, questions.length - 1))} style={buttonStyle('primary')}>Câu tiếp theo</button>
+              <button type="button" onClick={goToNextQuestion} style={buttonStyle('primary')}>Câu tiếp theo</button>
             ) : (
               <button type="button" onClick={() => setFinished(true)} style={buttonStyle('primary')}>Hoàn thành</button>
             )}
           </div>
         </nav>
+      </main>
+      <ExamQuickNavigator items={navigatorItems} currentIndex={currentIndex} onSelect={navigateToQuestion} />
       </div>
+      <ExamShortcutHelp id={shortcutHelpId} isOpen={shortcutHelpOpen} onClose={() => setShortcutHelpOpen(false)} triggerRef={shortcutHelpTriggerRef} shortcuts={PRACTICE_SHORTCUTS} description="Không giới hạn thời gian. Kiểm tra và đọc giải thích sau từng câu." />
     </div>
   );
 }
+
+const PRACTICE_SHORTCUTS: ExamShortcutItem[] = [
+  { keyLabel: '← / →', description: 'Chuyển câu' },
+  { keyLabel: '↑ / ↓', description: 'Chuyển giữa các đáp án trắc nghiệm' },
+  { keyLabel: '1–4', description: 'Chọn nhanh đáp án A–D' },
+  { keyLabel: 'Ctrl + Enter', description: 'Kiểm tra câu hiện tại' },
+  { keyLabel: '?', description: 'Mở hướng dẫn làm bài' },
+];

@@ -4,6 +4,7 @@ import { formatCognitiveLevelLabel } from '@/lib/exam/displayLabels';
 import { loadTopicIndex } from '@/lib/exam/topicIndexLoader';
 import { buildPeriodSummaries, buildTopicSummaries, filterRefs, type TopicSummary } from '@/lib/exam/topicGrouping';
 import type { CognitiveLevel, QuestionType, TopicIndex } from '@/types/exam';
+import ExamBackLink from '@/components/exams/ExamBackLink';
 
 type ViewMode = 'topic' | 'period';
 type TypeFilter = QuestionType | 'all';
@@ -24,7 +25,7 @@ function pillStyle(active = false): CSSProperties {
 
 function TopicCard({ summary, mode }: { summary: TopicSummary; mode: ViewMode }) {
   return (
-    <article style={{ background: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: '1rem', padding: '1.25rem', display: 'grid', gap: '0.9rem' }}>
+    <article className="exam-topic-card">
       <div>
         <h2 style={{ margin: '0 0 0.45rem', fontSize: '1.05rem', fontWeight: 900, color: 'var(--text-primary)', lineHeight: 1.45 }}>
           {summary.title}
@@ -34,7 +35,7 @@ function TopicCard({ summary, mode }: { summary: TopicSummary; mode: ViewMode })
         </p>
       </div>
 
-      <div style={{ display: 'flex', gap: '0.45rem', flexWrap: 'wrap' }}>
+      <div className="exam-topic-badges">
         <Badge>{summary.total} câu</Badge>
         {mode === 'period' && <Badge>{summary.topics.length} chủ đề con</Badge>}
         <Badge>{summary.mcqCount} Trắc nghiệm</Badge>
@@ -46,16 +47,7 @@ function TopicCard({ summary, mode }: { summary: TopicSummary; mode: ViewMode })
 
       <Link
         to={`/exams/on-chu-de/${summary.slug}`}
-        style={{
-          justifySelf: 'start',
-          padding: '0.68rem 1rem',
-          background: 'var(--accent)',
-          color: '#fff',
-          borderRadius: '0.75rem',
-          textDecoration: 'none',
-          fontWeight: 800,
-          fontSize: '0.9rem',
-        }}
+        className="exam-focusable exam-topic-cta"
       >
         Bắt đầu ôn
       </Link>
@@ -65,7 +57,7 @@ function TopicCard({ summary, mode }: { summary: TopicSummary; mode: ViewMode })
 
 function Badge({ children }: { children: ReactNode }) {
   return (
-    <span style={{ padding: '0.2rem 0.55rem', borderRadius: '999px', background: 'var(--bg-surface)', border: '1px solid var(--border)', color: 'var(--text-muted)', fontSize: '0.75rem', fontWeight: 800 }}>
+    <span className="exam-topic-badge">
       {children}
     </span>
   );
@@ -113,9 +105,7 @@ export default function ExamTopicListPage() {
     <div style={{ minHeight: '100vh', background: 'var(--bg-app)', color: 'var(--text-primary)', padding: '2rem 1.5rem' }}>
       <div style={{ maxWidth: '64rem', margin: '0 auto', display: 'grid', gap: '1.5rem' }}>
         <header style={{ display: 'grid', gap: '0.55rem' }}>
-          <Link to="/exams/browse" style={{ color: 'var(--text-muted)', textDecoration: 'none', fontSize: '0.875rem' }}>
-            ← Danh sách đề
-          </Link>
+          <ExamBackLink to="/exams">Quay lại luyện thi</ExamBackLink>
           <h1 style={{ margin: 0, fontSize: '1.8rem', fontWeight: 900 }}>Ôn theo chủ đề</h1>
           <p style={{ margin: 0, color: 'var(--text-muted)', lineHeight: 1.6 }}>
             Chọn một chủ đề hoặc giai đoạn lịch sử để luyện các câu hỏi liên quan, xem đáp án và giải thích ngay sau từng câu.
@@ -128,19 +118,21 @@ export default function ExamTopicListPage() {
             <button type="button" onClick={() => setMode('period')} style={pillStyle(mode === 'period')}>Theo giai đoạn</button>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'minmax(14rem, 1fr) auto auto', gap: '0.75rem', alignItems: 'center' }}>
+          <div className="exam-topic-filters" style={{ display: 'grid', gridTemplateColumns: 'minmax(14rem, 1fr) auto auto', gap: '0.75rem', alignItems: 'center' }}>
             <input
               value={search}
               onChange={(event) => setSearch(event.target.value)}
               placeholder="Tìm kiếm chủ đề..."
-              style={{ padding: '0.7rem 0.9rem', borderRadius: '0.75rem', border: '1px solid var(--border)', background: 'var(--bg-surface)', color: 'var(--text-primary)', outline: 'none' }}
+              aria-label="Tìm kiếm chủ đề"
+              className="exam-focusable"
+              style={{ padding: '0.7rem 0.9rem', borderRadius: '0.75rem', border: '1px solid var(--border)', background: 'var(--bg-surface)', color: 'var(--text-primary)', width: '100%', minWidth: 0, boxSizing: 'border-box' }}
             />
-            <select value={typeFilter} onChange={(event) => setTypeFilter(event.target.value as TypeFilter)} style={selectStyle}>
+            <select aria-label="Lọc theo dạng câu" className="exam-focusable" value={typeFilter} onChange={(event) => setTypeFilter(event.target.value as TypeFilter)} style={selectStyle}>
               <option value="all">Tất cả dạng câu</option>
               <option value="mcq">Trắc nghiệm</option>
               <option value="true_false">Đúng/Sai</option>
             </select>
-            <select value={levelFilter} onChange={(event) => setLevelFilter(event.target.value as LevelFilter)} style={selectStyle}>
+            <select aria-label="Lọc theo mức độ" className="exam-focusable" value={levelFilter} onChange={(event) => setLevelFilter(event.target.value as LevelFilter)} style={selectStyle}>
               <option value="all">Tất cả mức độ</option>
               <option value="knowledge">Nhận biết</option>
               <option value="comprehension">Thông hiểu</option>
@@ -161,10 +153,23 @@ export default function ExamTopicListPage() {
           </div>
         )}
         {!loading && !error && summaries.length > 0 && (
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(18rem, 1fr))', gap: '1rem' }}>
+          <div className="exam-topic-cards" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(18rem, 1fr))', gap: '1rem', minWidth: 0 }}>
             {summaries.map((summary) => <TopicCard key={summary.slug} summary={summary} mode={mode} />)}
           </div>
         )}
+        <style>{`
+          @media (max-width: 640px) {
+            .exam-topic-filters,
+            .exam-topic-cards {
+              grid-template-columns: minmax(0, 1fr) !important;
+            }
+            .exam-topic-filters select {
+              width: 100%;
+              min-width: 0;
+              box-sizing: border-box;
+            }
+          }
+        `}</style>
       </div>
     </div>
   );
@@ -177,6 +182,7 @@ const selectStyle: CSSProperties = {
   background: 'var(--bg-surface)',
   color: 'var(--text-primary)',
   fontWeight: 700,
+  minWidth: 0,
 };
 
 function ErrorBox({ message }: { message: string }) {

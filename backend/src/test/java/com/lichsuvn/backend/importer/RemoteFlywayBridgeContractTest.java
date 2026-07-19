@@ -22,7 +22,7 @@ class RemoteFlywayBridgeContractTest {
     private static final Path DEFAULT_PROPERTIES = Path.of("src/main/resources/application.properties");
 
     @Test
-    void currentMigrationSetConflictsWithKnownRemoteV12History() throws IOException {
+    void currentMigrationSetUsesReconciledV12AndForwardGeoMigration() throws IOException {
         List<String> migrationNames = Files.list(MIGRATION_DIR)
                 .map(path -> path.getFileName().toString())
                 .filter(name -> name.endsWith(".sql"))
@@ -31,14 +31,11 @@ class RemoteFlywayBridgeContractTest {
 
         assertTrue(migrationNames.contains("V12__nullable_event_chronology.sql"));
         assertFalse(migrationNames.contains("V12__expand_event_geo_type_enum.sql"));
-        assertFalse(migrationNames.contains("V13__exam_v2_attempts.sql"));
+        assertTrue(migrationNames.contains("V13__exam_v2_attempts.sql"));
+        assertTrue(migrationNames.contains("V34__expand_event_geo_type_enum.sql"));
 
-        String remoteV12Description = "expand event geo type enum";
-        String resolvedV12Description = descriptionOf("V12__nullable_event_chronology.sql");
-        assertFalse(
-                remoteV12Description.equals(resolvedV12Description),
-                "Remote V12 and repo V12 intentionally differ, so default Flyway validation would fail."
-        );
+        assertEquals("nullable event chronology", descriptionOf("V12__nullable_event_chronology.sql"));
+        assertEquals("expand event geo type enum", descriptionOf("V34__expand_event_geo_type_enum.sql"));
     }
 
     @Test

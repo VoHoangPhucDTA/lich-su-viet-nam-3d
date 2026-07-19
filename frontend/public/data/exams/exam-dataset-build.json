@@ -1,0 +1,217 @@
+{
+  "buildId": "64c71d23-fc60-44ca-b957-0c91f14ff547",
+  "generatedAt": "2026-07-19T14:15:34.588Z",
+  "hashAlgorithm": "SHA-256",
+  "canonicalization": "RFC8785",
+  "canonicalizationImplementation": "canonicalize@3.0.0",
+  "duplicateKeyValidator": "json-dup-key-validator@1.0.3",
+  "hashSchemaVersion": 1,
+  "buildAlgorithmVersion": 1,
+  "aggregateHash": "815b1f5a32fdffd64b5abde108fdd22921f61c4f1fbc725e56ae14df4c702a3e",
+  "sources": [
+    {
+      "path": "data/exams/thuvienhoclieu-com-de-kscl-thi-tn-thpt-2026-mon-lich-su-cum-truong-bac-ninh-2026-lan-1.json",
+      "sha256": "4eaa7ed67dedf9ee362b223fad363e22668459c4aead8676c6662886b35b7839",
+      "byteLength": 48771
+    },
+    {
+      "path": "data/exams/thuvienhoclieu-com-de-thi-thu-tn-2026-mon-lich-su-chuyen-phan-boi-chau-nghe-an-lan-1.json",
+      "sha256": "20f0b5f9fd20802fbd2358c8ad490ffc28ad93463af6d08eabf9cb38a59a6295",
+      "byteLength": 59974
+    },
+    {
+      "path": "data/exams/thuvienhoclieu-com-de-thi-thu-tn-2026-mon-lich-su-chuyen-tran-phu-hai-phong.json",
+      "sha256": "d5a106b2848385daafece05919cbe268f4e0b7db5b2fb97238c5b5a5c76b84ff",
+      "byteLength": 67181
+    },
+    {
+      "path": "data/exams/thuvienhoclieu-com-de-thi-thu-tn-2026-mon-lich-su-so-gd-bac-ninh-lan-1.json",
+      "sha256": "81b90240c27b77ac15a12a53e48d2ef3c5517e20538ca173641ba7a366e5679e",
+      "byteLength": 60173
+    },
+    {
+      "path": "data/exams/thuvienhoclieu-com-de-thi-thu-tn-2026-mon-lich-su-so-gd-hung-yen-lan-1.json",
+      "sha256": "7717c670b28ce49f6b54bec5d25edf446b5d339c2a9afe87debbccd9fb29bc90",
+      "byteLength": 61568
+    },
+    {
+      "path": "data/exams/thuvienhoclieu-com-de-thi-thu-tn-2026-mon-lich-su-so-gd-quang-tri-lan-1.json",
+      "sha256": "e655a421bd42ad93ae49142db5db74cf02ea4cf110378bd275263a5d52a6b781",
+      "byteLength": 62180
+    },
+    {
+      "path": "data/exams/thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-cum-chuyen-mon-so-2-dak-lak-lan-1.json",
+      "sha256": "23a7581a5a24ff559af41d20660f75c205a3c6066e28c08056f94d1518d560eb",
+      "byteLength": 61982
+    },
+    {
+      "path": "data/exams/thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-cum-chuyen-mon-so-6-ca-mau-lan-1.json",
+      "sha256": "1e93ce940e2db2a48889decefe49601beacf8375990f50c4d7f5c3c5ae7307f4",
+      "byteLength": 72669
+    },
+    {
+      "path": "data/exams/thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-cum-truong-hai-phong-lan-2-1.json",
+      "sha256": "f55aef4f0636e796580a9f0e563edc806f206bf773def70fe8a987385a934e85",
+      "byteLength": 59907
+    },
+    {
+      "path": "data/exams/thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-cum-truong-so-15-ninh-binh-lan-1.json",
+      "sha256": "c4cb04a6cbbcaf0a3029cb34b9383d7c4c89fc2230dda642f789d2880fa7944a",
+      "byteLength": 63649
+    },
+    {
+      "path": "data/exams/thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-lien-truong-bac-ninh-lan-1.json",
+      "sha256": "728d2168b47a395c51ff5343b3317df810581b348e79f1a090c780551c098a2c",
+      "byteLength": 48174
+    },
+    {
+      "path": "data/exams/thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-lien-truong-da-nang-1.json",
+      "sha256": "cb4c004a4d8e3cc916cf080be664f12f20e6fc7d4c990eab2b2bb41279acc0f8",
+      "byteLength": 51004
+    },
+    {
+      "path": "data/exams/thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-so-gd-cao-bang-lan-1.json",
+      "sha256": "04a8e2ea8527b571f1419562dfa4536d7fab6f9b2ebff78fc705ff17494efd32",
+      "byteLength": 59202
+    },
+    {
+      "path": "data/exams/thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-so-gd-dong-nai-lan-1.json",
+      "sha256": "6b8d9955fd314a6bc5ca6504d625336bb51969efc619c282bac7a554e63fb136",
+      "byteLength": 55254
+    },
+    {
+      "path": "data/exams/thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-so-gd-nghe-an-lan-1.json",
+      "sha256": "3a23539ae74d400580cf63d8183657505b9ec7d0dc7ebc4c1abeab43ff1fd618",
+      "byteLength": 65707
+    },
+    {
+      "path": "data/exams/thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-so-gd-phu-tho-lan-2.json",
+      "sha256": "2763c3535b99c89d0d3ce8175e30a2a39fc88c158ca4aee43c99b13da265df8c",
+      "byteLength": 58047
+    },
+    {
+      "path": "data/exams/thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-so-gd-quang-ninh-lan-1.json",
+      "sha256": "d36074b0042fae907844c5389b519e86cff4247e0e18fa39773c32d009a611ee",
+      "byteLength": 63791
+    },
+    {
+      "path": "data/exams/thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-so-gd-thanh-hoa-lan-1.json",
+      "sha256": "ead43b049e76efd098883629c8aac43b75dbf7c14cd071ae0a5d9a9646897bb0",
+      "byteLength": 63100
+    },
+    {
+      "path": "data/exams/thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-lich-su-so-gd-tp-hue-lan-1.json",
+      "sha256": "cdf8b9e734ea50cce5ba0b601e62628bce9b580de2a628e9dff8fec5359c38eb",
+      "byteLength": 60426
+    },
+    {
+      "path": "data/exams/thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-mon-lich-su-chuyen-ha-long.json",
+      "sha256": "8d15365531c55b21a2eefc9ee4f7943a13120d10193b1922f61193217c4cbb4b",
+      "byteLength": 69251
+    },
+    {
+      "path": "data/exams/thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-mon-lich-su-so-gd-ha-tinh-lan-1.json",
+      "sha256": "4ccd99e37b732ce74c0a43e30a5f7b04544fc88ac0b906bba604f6908fba04ca",
+      "byteLength": 63528
+    },
+    {
+      "path": "data/exams/thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-mon-lich-su-so-gd-ninh-binh-lan-1.json",
+      "sha256": "37e7f8def9d6f3d26c772f983597128050143a1e225cd5e491f7e6b888ac0319",
+      "byteLength": 64741
+    },
+    {
+      "path": "data/exams/thuvienhoclieu-com-de-thi-thu-tn-thpt-2026-mon-lich-su-so-gd-phu-tho-lan-1.json",
+      "sha256": "bdd21e509ab90e34cf671012835fd0ed16205c9867d50fb1cacdac8adf5b7faf",
+      "byteLength": 62330
+    },
+    {
+      "path": "data/exams/thuvienhoclieu-com-de-thi-thu-tn-thpt-lich-su-2026-so-gd-ha-tinh-lan-1.json",
+      "sha256": "7395a717a32dbbb0bc8338d7eb0c1841109bc957739a1f4116657f7e25c6e52f",
+      "byteLength": 52535
+    },
+    {
+      "path": "data/exams/thuvienhoclieu-com-de-thi-thu-tn-thpt-nam-2026-lich-su-so-gd-thai-nguyen-lan-2.json",
+      "sha256": "e9431f5c9328c0d84c872576681b1a13934a235c15907cb987b39dfbb7b7b8dc",
+      "byteLength": 61572
+    },
+    {
+      "path": "data/exams/thuvienhoclieu-com-de-thi-thu-tn-thpt-nam-2026-mon-lich-su-so-gd-hai-phong-lan-1.json",
+      "sha256": "19bbf731d65a43acc6462bba2bd87593d87ded489e658f46741d1bd148ab4704",
+      "byteLength": 62451
+    },
+    {
+      "path": "data/exams/thuvienhoclieu-com-de-thi-thu-tn-thpt-nam-2026-mon-lich-su-so-gd-son-la-lan-2.json",
+      "sha256": "be4391ddd6a4446a6ecd319cbdd77acd5da1f87ab0440c30a991b9221f8e4e09",
+      "byteLength": 61440
+    },
+    {
+      "path": "data/exams/thuvienhoclieu-com-de-thi-thu-tn-thpt-nam-2026-mon-lich-su-so-gd-thanh-hoa-lan-2.json",
+      "sha256": "47ab404bb427f95ad857b037f6fb5e8c3d6443814eb0af402c71eee5132b96ab",
+      "byteLength": 62416
+    },
+    {
+      "path": "data/exams/thuvienhoclieu-com-de-thi-thu-tot-nghiep-2026-lich-su-so-gd-hung-yen-lan-2.json",
+      "sha256": "2f84b0aeb547961fe5a0f1a853eaf62b1960c645ea8ed4cfd05bcfcd0b49b6b5",
+      "byteLength": 59186
+    },
+    {
+      "path": "data/exams/thuvienhoclieu-com-de-thi-thu-tot-nghiep-2026-lich-su-so-gd-nghe-an-lan-2.json",
+      "sha256": "64fb679cf2b72d85d51c853aadee428e653b83f879f8a97dc108600cfd84aff9",
+      "byteLength": 62583
+    },
+    {
+      "path": "data/exams/thuvienhoclieu-com-de-thi-thu-tot-nghiep-2026-lich-su-so-gd-ninh-binh-lan-3.json",
+      "sha256": "390b1c74c49cfdc4bbd0d93779d7743eed29e7d0840f1ee408b8df68092e6cb1",
+      "byteLength": 61554
+    },
+    {
+      "path": "data/exams/thuvienhoclieu-com-de-thi-thu-tot-nghiep-2026-lich-su-so-gd-tuyen-quang-lan-2.json",
+      "sha256": "7466e353c7e333f9f56bf042fc64712f91805617b3853529df6972ba28be6db8",
+      "byteLength": 59158
+    },
+    {
+      "path": "data/exams/thuvienhoclieu-com-de-thi-thu-tot-nghiep-2026-lich-su-thpt-hoang-hoa-lan-1.json",
+      "sha256": "af227e9e989776ac8fa81b1725c6bcfcde702ce85d0f33919ddba45bb6f79d40",
+      "byteLength": 65601
+    },
+    {
+      "path": "data/exams/thuvienhoclieu-com-de-thi-thu-tot-nghiep-2026-lich-su-thpt-nguyen-van-troi-ha-tinh.json",
+      "sha256": "415f69b0202ded428814427d7dc438ad590b44e3e16e8fe4ba2e2bdb55060de6",
+      "byteLength": 59463
+    },
+    {
+      "path": "data/exams/thuvienhoclieu-com-de-thi-thu-tot-nghiep-nam-2026-lich-su-cum-chuyen-mon-6-lao-cai-lan-2.json",
+      "sha256": "ec2913da7b6cde1912d9046d0fd65675ecd8bb378e421daa9d31873ffb3a08bf",
+      "byteLength": 62208
+    },
+    {
+      "path": "data/exams/thuvienhoclieu-com-de-thi-thu-tot-nghiep-nam-2026-lich-su-cum-truong-bac-ninh-thang-4.json",
+      "sha256": "4732ff1a8e544144f068e38e9a227e1fff8fe0a5125c33d56b6db8ce6f460907",
+      "byteLength": 70250
+    },
+    {
+      "path": "data/exams/thuvienhoclieu-com-de-thi-thu-tot-nghiep-nam-2026-lich-su-so-gd-ca-mau-lan-1.json",
+      "sha256": "bb7170be3385721d570d2eb39473e4dd3081dba053ad94ea482db6e6fc753991",
+      "byteLength": 61284
+    },
+    {
+      "path": "data/exams/thuvienhoclieu-com-de-thi-thu-tot-nghiep-nam-2026-lich-su-so-gd-da-nang-lan-1.json",
+      "sha256": "73196ee7997224f48503cd09b5a2b224b171ecbe038394d1ef5f8f9a7336e488",
+      "byteLength": 56069
+    }
+  ],
+  "artifacts": {
+    "exams-manifest.json": {
+      "sha256": "f4035b2e48f76ab5913d1ed0ffb9594069f59ae6df69bf3dfb09820c569c8f07",
+      "byteLength": 28003
+    },
+    "topic-index.json": {
+      "sha256": "0803d92d42d784552548e23565e9270b376a2422b54c29f9b31f5105270639c8",
+      "byteLength": 340846
+    },
+    "topic-raw-mapping.json": {
+      "sha256": "5df77ec53a3b7938eda1b2f8394ae792c7182a6db85558726fdbae15a92ea5d6",
+      "byteLength": 25948
+    }
+  }
+}

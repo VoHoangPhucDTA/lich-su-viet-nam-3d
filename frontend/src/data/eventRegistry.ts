@@ -64,6 +64,10 @@ export interface RawEventJson {
   };
 
   mapData?: {
+    geoType?: string;
+    marker?: { lat: number; lng: number; label?: string };
+    provinceNames?: string[];
+    historicalLocations?: string[];
     displayGeometry?: {
       geoType?: string;
       marker?: { lat: number; lng: number; label?: string };
@@ -76,10 +80,6 @@ export interface RawEventJson {
       zoom?: number;
       provinceNames?: string[];
     };
-    geoType?: string;
-    marker?: { lat: number; lng: number; label?: string };
-    provinceNames?: string[];
-    historicalLocations?: string[];
   };
 
   summary?: {
@@ -126,7 +126,7 @@ export interface RawEventJson {
     primarySource?: string;
     canonicalSource?: string;
     /** JSON thật dùng dạng "wikipedia | wikidata" (string), không phải mảng */
-    supplementalSources?: string;
+    supplementalSources?: string | string[];
   };
 
   /** External sources (Wikipedia, Wikidata, Other) – copied to MockEventDetail.externalContent */

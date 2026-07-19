@@ -199,10 +199,10 @@ export function scoreSession(
     tfBreakdown[cnt as 0 | 1 | 2 | 3 | 4]++;
   }
 
-  const durationSeconds =
-    session.submittedAt != null
-      ? Math.round((session.submittedAt - session.startedAt) / 1000)
-      : session.durationSeconds;
+  const elapsedSeconds = session.submittedAt != null
+    ? Math.max(0, Math.round((session.submittedAt - session.startedAt) / 1000))
+    : session.durationSeconds;
+  const durationSeconds = Math.min(elapsedSeconds, session.durationSeconds);
 
   return {
     sessionId: session.sessionId,

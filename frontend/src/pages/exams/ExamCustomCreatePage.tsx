@@ -518,7 +518,7 @@ export default function ExamCustomCreatePage() {
                   </button>
                   {practiceMode === 'mock' ? (
                     <p style={{ margin: 0, color: 'var(--text-muted)', fontSize: '0.82rem', lineHeight: 1.5 }}>
-                      Phiên thi thử không hiển thị đúng/sai trước khi nộp. Nếu chọn thời gian, hết giờ sẽ tự nộp bài.
+                      Chế độ cục bộ: kết quả chỉ được lưu trên trình duyệt và không thể đồng bộ thành bài thi đã được hệ thống xác minh. Phiên thi thử không hiển thị đúng/sai trước khi nộp; nếu chọn thời gian, hết giờ sẽ tự nộp bài.
                     </p>
                   ) : preview.matchedCount === 0 ? (
                     <p style={{ margin: 0, color: 'var(--text-muted)', fontSize: '0.82rem', lineHeight: 1.5 }}>

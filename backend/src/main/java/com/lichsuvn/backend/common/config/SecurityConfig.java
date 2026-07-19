@@ -65,7 +65,7 @@ public class SecurityConfig {
         config.setAllowedOrigins(origins);
 
         config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
-        config.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type", "Accept"));
+        config.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type", "Accept", "X-Exam-Session-Token"));
 
         // allowCredentials(true) = cho phép browser gửi/nhận HttpOnly Cookie cross-origin.
         // KHÔNG thể kết hợp với allowedOrigins("*") — phải dùng danh sách origin cụ thể.
@@ -100,6 +100,12 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/api/time").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/events", "/api/timeline").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/events/**").permitAll()
+                        // Keep legacy attempt history authenticated before exposing public catalog routes.
+                        .requestMatchers("/api/exams/attempts/**").authenticated()
+                        .requestMatchers("/api/exam-submissions/recover").authenticated()
+                        .requestMatchers(HttpMethod.GET, "/api/exams", "/api/exams/topics", "/api/exams/*").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/exams/custom/preview").permitAll()
+                        .requestMatchers("/api/exam-sessions/**").permitAll()
                         // Reading-progress endpoints must allow anonymous callers so the frontend
                         // can record and restore progress before login. The service layer no-ops
                         // persistence for anonymous users and returns empty stats.

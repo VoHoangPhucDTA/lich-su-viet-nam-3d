@@ -1,24 +1,39 @@
+import type { KeyboardEventHandler, Ref } from 'react';
+
 interface ExamOptionCardProps {
   id: 'A' | 'B' | 'C' | 'D';
   text: string;
   selected: boolean;
   onClick: () => void;
+  tabIndex?: number;
+  onKeyDown?: KeyboardEventHandler<HTMLButtonElement>;
+  buttonRef?: Ref<HTMLButtonElement>;
+  disabled?: boolean;
 }
 
-export default function ExamOptionCard({ id, text, selected, onClick }: ExamOptionCardProps) {
+export default function ExamOptionCard({ id, text, selected, onClick, tabIndex, onKeyDown, buttonRef, disabled = false }: ExamOptionCardProps) {
   return (
     <button
+      type="button"
+      ref={buttonRef}
+      role="radio"
+      aria-checked={selected}
+      disabled={disabled}
+      aria-label={`Đáp án ${id}: ${text}${selected ? ', đang chọn' : ''}`}
+      tabIndex={tabIndex}
       onClick={onClick}
+      onKeyDown={onKeyDown}
+      className="exam-focusable"
       style={{
         display: 'flex',
         alignItems: 'center',
         gap: '1rem',
         padding: '1rem',
-        background: selected ? 'var(--accent-soft)' : 'var(--bg-surface)',
-        border: selected ? '2px solid var(--accent)' : '2px solid var(--border)',
+        background: selected ? 'var(--exam-selection-soft)' : 'var(--bg-surface)',
+        border: selected ? '2px solid var(--exam-selection)' : '2px solid var(--border)',
         borderRadius: '0.75rem',
-        color: selected ? 'var(--accent)' : 'var(--text-secondary)',
-        cursor: 'pointer',
+        color: selected ? 'var(--exam-selection)' : 'var(--text-secondary)',
+        cursor: disabled ? 'default' : 'pointer',
         transition: 'all 0.15s',
         textAlign: 'left',
         width: '100%',
@@ -26,13 +41,13 @@ export default function ExamOptionCard({ id, text, selected, onClick }: ExamOpti
         fontSize: '1rem'
       }}
       onMouseEnter={e => {
-        if (!selected) {
+        if (!selected && !disabled) {
             e.currentTarget.style.background = 'var(--bg-surface)';
-            e.currentTarget.style.borderColor = 'var(--accent)';
+            e.currentTarget.style.borderColor = 'var(--exam-selection)';
         }
       }}
       onMouseLeave={e => {
-        if (!selected) {
+        if (!selected && !disabled) {
             e.currentTarget.style.background = 'var(--bg-surface)';
             e.currentTarget.style.borderColor = 'var(--border)';
         }
@@ -44,7 +59,7 @@ export default function ExamOptionCard({ id, text, selected, onClick }: ExamOpti
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          background: selected ? 'var(--accent)' : 'var(--bg-surface)',
+          background: selected ? 'var(--exam-selection)' : 'var(--bg-surface)',
           color: selected ? '#fff' : 'var(--text-secondary)',
           borderRadius: '50%',
           border: selected ? 'none' : '1px solid var(--border)',
