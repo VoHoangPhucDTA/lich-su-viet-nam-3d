@@ -39,6 +39,11 @@ public class EventController {
             @RequestParam(required = false, name = "q") String query,
             @RequestParam(required = false) String parentId,
             @RequestParam(required = false) Integer level,
+            @RequestParam(required = false) String eventLevel,
+            @RequestParam(required = false) Integer startYearFrom,
+            @RequestParam(required = false) Integer startYearTo,
+            @RequestParam(required = false) String sortBy,
+            @RequestParam(required = false) String sortDir,
             @RequestParam(required = false) Integer limit,
             @RequestParam(required = false) Integer offset
     ) {
@@ -51,6 +56,11 @@ public class EventController {
                 query,
                 parentId,
                 level,
+                eventLevel,
+                startYearFrom,
+                startYearTo,
+                sortBy,
+                sortDir,
                 limit,
                 offset
         ));

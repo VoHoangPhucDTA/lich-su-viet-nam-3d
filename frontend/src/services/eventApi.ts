@@ -30,6 +30,9 @@ import { apiGet, apiPost, toQueryString } from './apiClient';
 interface EventListResponse {
   items: EventSummaryDto[];
   count: number;
+  total?: number;
+  limit?: number;
+  offset?: number;
 }
 
 interface EventSummaryDto {
@@ -501,12 +504,15 @@ export async function getHomepageEvents(): Promise<HistoricalEvent[]> {
 export interface BrowseEventsParams {
   q?: string;
   eventType?: string;
+  eventLevel?: 'atomic' | 'collection';
   year?: number;
   grade?: number;
   limit?: number;
   offset?: number;
   sortBy?: 'year' | 'name';
   sortDir?: 'asc' | 'desc';
+  startYearFrom?: number;
+  startYearTo?: number;
 }
 
 export interface BrowseEventsResult {
@@ -515,17 +521,25 @@ export interface BrowseEventsResult {
   hasMore: boolean;
 }
 
-export async function getBrowseEvents(params: BrowseEventsParams): Promise<BrowseEventsResult> {
+export async function getBrowseEvents(
+  params: BrowseEventsParams,
+  options?: { signal?: AbortSignal },
+): Promise<BrowseEventsResult> {
   try {
     const query = toQueryString({
       q: params.q || undefined,
       eventType: params.eventType || undefined,
+      eventLevel: params.eventLevel ?? 'atomic',
       year: params.year || undefined,
       grade: params.grade || undefined,
       limit: params.limit ?? 24,
       offset: params.offset ?? 0,
+      sortBy: params.sortBy,
+      sortDir: params.sortDir,
+      startYearFrom: params.startYearFrom,
+      startYearTo: params.startYearTo,
     });
-    const data = await apiGet<EventListResponse>(`/api/events${query}`);
+    const data = await apiGet<EventListResponse>(`/api/events${query}`, { signal: options?.signal });
     const events = data.items.map(summaryToHistoricalEvent);
 
     if (params.sortBy === 'name') {
@@ -536,14 +550,14 @@ export async function getBrowseEvents(params: BrowseEventsParams): Promise<Brows
       events.sort(params.sortDir === 'desc' ? compareChronologyS1Descending : compareChronologyS1);
     }
 
-    // data.count is the response-item count (after LIMIT/OFFSET), NOT the
-    // total matching rows in the database. Use response length to infer hasMore.
     const responseSize = events.length;
     const limit = params.limit ?? 24;
+    const offset = params.offset ?? 0;
+    const total = data.total ?? data.count ?? responseSize;
     return {
       events,
-      total: data.count,
-      hasMore: responseSize >= limit,
+      total,
+      hasMore: data.total != null ? offset + responseSize < total : responseSize >= limit,
     };
   } catch (error) {
     console.warn('Could not browse events from backend.', error);

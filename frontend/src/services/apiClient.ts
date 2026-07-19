@@ -106,6 +106,34 @@ export async function apiPostOnce<T>(
   }, false);
 }
 
+export async function apiPut<T>(
+  path: string,
+  body?: unknown,
+  init: Omit<RequestInit, 'method' | 'body'> = {},
+): Promise<T> {
+  return apiRequest<T>(path, {
+    ...init,
+    method: 'PUT',
+    body: body === undefined ? undefined : JSON.stringify(body),
+  });
+}
+
+export async function apiPatch<T>(
+  path: string,
+  body?: unknown,
+  init: Omit<RequestInit, 'method' | 'body'> = {},
+): Promise<T> {
+  return apiRequest<T>(path, {
+    ...init,
+    method: 'PATCH',
+    body: body === undefined ? undefined : JSON.stringify(body),
+  });
+}
+
+export async function apiDelete<T>(path: string, init: Omit<RequestInit, 'method' | 'body'> = {}): Promise<T> {
+  return apiRequest<T>(path, { ...init, method: 'DELETE' });
+}
+
 async function apiRequest<T>(path: string, init: RequestInit, retry = true): Promise<T> {
   const headers = new Headers(init.headers);
   headers.set('Accept', 'application/json');

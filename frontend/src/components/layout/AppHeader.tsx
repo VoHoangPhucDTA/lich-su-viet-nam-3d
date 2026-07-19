@@ -3,8 +3,6 @@ import { Link, NavLink, useNavigate, useLocation } from 'react-router-dom';
 import {
   Menu,
   ChevronDown,
-  Sparkles,
-  Globe,
   ShieldCheck,
 } from 'lucide-react';
 import { useAuth } from '../../auth/AuthContext';
@@ -52,12 +50,6 @@ export default function AppHeader() {
         {/* ── Left: Brand ── */}
         <div className="flex items-center gap-3 flex-shrink-0">
           <Link to="/home" className="flex items-center gap-3 group no-underline">
-            {/* Compass motif */}
-            <div className="relative w-10 h-10 flex items-center justify-center">
-              <div className="absolute inset-0 rounded-full border border-amber-200/60 animate-spin-slow" />
-              <div className="absolute inset-1 rounded-full border border-red-900/20" />
-              <Globe size={18} strokeWidth={1.5} className="text-red-900 relative z-10 group-hover:rotate-45 transition-transform duration-500" />
-            </div>
             <div className="hidden sm:block">
               <div className="font-serif text-lg sm:text-xl font-bold text-stone-900 leading-tight">
                 Lịch Sử Việt Nam
@@ -102,7 +94,6 @@ export default function AppHeader() {
               onClick={() => setExamDropdownOpen(!examDropdownOpen)}
               className="flex items-center gap-1.5 px-3 py-1.5 text-[10px] font-mono font-bold uppercase tracking-wider rounded-xl bg-stone-100 border border-stone-200/60 text-stone-500 hover:bg-stone-200/60 hover:text-red-900 transition-all duration-300"
             >
-              <Sparkles size={13} strokeWidth={2} />
               Luyện tập
               <ChevronDown size={11} strokeWidth={2.5} className={examDropdownOpen ? 'rotate-180' : ''} style={{ transition: 'transform 0.2s' }} />
             </button>

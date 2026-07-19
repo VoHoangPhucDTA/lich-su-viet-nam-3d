@@ -1,6 +1,5 @@
-import { useState, useCallback, useMemo, useEffect, useRef } from 'react';
-import { useLocation } from 'react-router-dom';
-import { ChevronRight } from 'lucide-react';
+import { useState, useCallback, useMemo } from 'react';
+import { ChevronRight, CircleAlert, Clock, List, MapPin, X, Compass } from 'lucide-react';
 import CesiumMap from '../components/CesiumMap';
 import Timeline from '../components/Timeline';
 import Sidebar from '../components/Sidebar';
@@ -9,9 +8,9 @@ import {
   findEventById,
   TIMELINE_MIN_YEAR,
 } from '../data/events';
+import { useEffect } from 'react';
 import type { HistoricalEvent } from '../types/event';
 import { useHeader } from '../components/layout/HeaderContext';
-import OnboardingGuide, { useMapGuide } from '../components/onboarding/OnboardingGuide';
 import {
   getChildrenFromBackend,
   getEventsByYearFromBackend,
@@ -19,7 +18,7 @@ import {
   getTimelineYearsFromBackend,
   recordEventView,
   searchEventsFromBackend,
-  sortHierarchyEvents,
+  sortHistoricalEvents,
 } from '../services/eventApi';
 
 function replaceEventInTree(
@@ -51,25 +50,6 @@ function replaceEventInTree(
   return changed ? next : events;
 }
 
-function mergeEvent(
-  current: HistoricalEvent | undefined,
-  incoming: HistoricalEvent
-): HistoricalEvent {
-  return {
-    ...current,
-    ...incoming,
-    children: incoming.children ?? current?.children,
-  };
-}
-
-function mergeEventList(events: HistoricalEvent[]): HistoricalEvent[] {
-  const byId = new Map<string, HistoricalEvent>();
-  for (const event of events) {
-    byId.set(event.id, mergeEvent(byId.get(event.id), event));
-  }
-  return sortHierarchyEvents(Array.from(byId.values()));
-}
-
 function buildSidebarTree(events: HistoricalEvent[]): HistoricalEvent[] {
   const byId = new Map<string, HistoricalEvent>();
   for (const event of events) {
@@ -84,7 +64,7 @@ function buildSidebarTree(events: HistoricalEvent[]): HistoricalEvent[] {
 
     const existingChildren = parent.children ?? [];
     if (!existingChildren.some((child) => child.id === event.id)) {
-      parent.children = sortHierarchyEvents([...existingChildren, event]);
+      parent.children = sortHistoricalEvents([...existingChildren, event]);
     }
     childIds.add(event.id);
   }
@@ -111,7 +91,7 @@ function attachCachedChildren(
       });
     }
 
-    const mergedChildren = sortHierarchyEvents(Array.from(mergedById.values()));
+    const mergedChildren = sortHistoricalEvents(Array.from(mergedById.values()));
 
     return {
       ...event,
@@ -123,94 +103,7 @@ function attachCachedChildren(
   });
 }
 
-function upsertEventInTree(
-  events: HistoricalEvent[],
-  eventToInsert: HistoricalEvent
-): HistoricalEvent[] {
-  let inserted = false;
-  const next = events.map((event) => {
-    if (event.id === eventToInsert.id) {
-      inserted = true;
-      return mergeEvent(event, eventToInsert);
-    }
-
-    if (event.children?.length) {
-      const children = upsertEventInTree(event.children, eventToInsert);
-      if (children !== event.children) {
-        inserted = true;
-        return { ...event, children };
-      }
-    }
-
-    return event;
-  });
-
-  return inserted ? next : sortHierarchyEvents([...events, eventToInsert]);
-}
-
-function withCachedChildren(
-  event: HistoricalEvent,
-  childrenByParentId: Record<string, HistoricalEvent[]>
-): HistoricalEvent {
-  const mergedChildren = mergeEventList([
-    ...(event.children ?? []),
-    ...(childrenByParentId[event.id] ?? []),
-  ]);
-
-  return {
-    ...event,
-    children:
-      mergedChildren.length > 0
-        ? attachCachedChildren(mergedChildren, childrenByParentId)
-        : undefined,
-  };
-}
-
-function ensureSelectedBranchInTree(
-  events: HistoricalEvent[],
-  selectedEvent: HistoricalEvent | null,
-  navigationStack: HistoricalEvent[],
-  childrenByParentId: Record<string, HistoricalEvent[]>
-): HistoricalEvent[] {
-  if (!selectedEvent) return events;
-
-  let branch = withCachedChildren(selectedEvent, childrenByParentId);
-
-  for (let index = navigationStack.length - 1; index >= 0; index -= 1) {
-    const parent = navigationStack[index];
-    if (parent.id === branch.id) continue;
-
-    const children = mergeEventList([
-      ...(parent.children ?? []),
-      ...(childrenByParentId[parent.id] ?? []),
-      branch,
-    ]);
-
-    branch = withCachedChildren({ ...parent, children }, childrenByParentId);
-  }
-
-  return replaceEventInTree(
-    upsertEventInTree(events, branch),
-    withCachedChildren(selectedEvent, childrenByParentId)
-  );
-}
-
-function canShowEventOnMap(event: HistoricalEvent): boolean {
-  return event.geoType !== 'no_location' && !!event.coordinates;
-}
-
-function eventMatchesSearch(event: HistoricalEvent, query: string): boolean {
-  const normalized = query.trim().toLowerCase();
-  if (!normalized) return true;
-
-  return (
-    event.name.toLowerCase().includes(normalized) ||
-    event.description.toLowerCase().includes(normalized)
-  );
-}
-
 export default function MapPage() {
-  const location = useLocation();
   const [currentYear, setCurrentYear] = useState(TIMELINE_MIN_YEAR);
   const [selectedEvent, setSelectedEvent] = useState<HistoricalEvent | null>(
     null
@@ -227,23 +120,25 @@ export default function MapPage() {
   const [eventsLoading, setEventsLoading] = useState(false);
   const [selectedGrade, setSelectedGrade] = useState<number | null>(null);
   const [timelineYears, setTimelineYears] = useState<number[]>([]);
-  const guide = useMapGuide();
+  const [onboardingDismissed, setOnboardingDismissed] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [mapError, setMapError] = useState<string | null>(null);
+
   const { setCenterContent } = useHeader();
-  const requestedEventKey = useMemo(
-    () => new URLSearchParams(location.search).get('event')?.trim() ?? '',
-    [location.search]
-  );
-  const loadedRequestedEventRef = useRef('');
 
   useEffect(() => {
     let cancelled = false;
 
     async function loadEvents() {
       setEventsLoading(true);
-      const events = await getEventsByYearFromBackend(currentYear, selectedGrade);
-      if (!cancelled) {
-        setYearEvents(events);
-        setEventsLoading(false);
+      setMapError(null);
+      try {
+        const events = await getEventsByYearFromBackend(currentYear, selectedGrade);
+        if (!cancelled) setYearEvents(events);
+      } catch {
+        if (!cancelled) setMapError('Không thể tải sự kiện cho mốc thời gian này.');
+      } finally {
+        if (!cancelled) setEventsLoading(false);
       }
     }
 
@@ -280,10 +175,14 @@ export default function MapPage() {
     let cancelled = false;
     const timeoutId = window.setTimeout(async () => {
       setSearchLoading(true);
-      const results = await searchEventsFromBackend(query);
-      if (!cancelled) {
-        setSearchResults(results);
-        setSearchLoading(false);
+      setMapError(null);
+      try {
+        const results = await searchEventsFromBackend(query);
+        if (!cancelled) setSearchResults(results);
+      } catch {
+        if (!cancelled) setMapError('Không thể tìm kiếm sự kiện lúc này.');
+      } finally {
+        if (!cancelled) setSearchLoading(false);
       }
     }, 250);
 
@@ -296,36 +195,29 @@ export default function MapPage() {
   // Events visible on the map based on the current context
   const visibleMapEvents = useMemo(() => {
     // If an event with children is selected, show its children
-    let visibleEvents: HistoricalEvent[];
-    if (selectedEvent?.children?.length) {
-      visibleEvents = selectedEvent.children.filter(canShowEventOnMap);
-    } else {
-      const baseEvents = searchQuery.trim() ? searchResults : yearEvents;
-      visibleEvents = baseEvents.filter(canShowEventOnMap);
-    }
-
     if (
       selectedEvent &&
-      canShowEventOnMap(selectedEvent) &&
-      !visibleEvents.some((event) => event.id === selectedEvent.id)
+      selectedEvent.children &&
+      selectedEvent.children.length > 0
     ) {
-      return [selectedEvent, ...visibleEvents];
+      return selectedEvent.children.filter(
+        (c) => c.geoType !== 'no_location' && c.coordinates
+      );
     }
 
-    return visibleEvents;
+    // Otherwise show events filtered by year from backend
+    const baseEvents = searchQuery.trim() ? searchResults : yearEvents;
+    return baseEvents.filter(
+      (e) => e.geoType !== 'no_location' && e.coordinates
+    );
   }, [selectedEvent, yearEvents, searchResults, searchQuery]);
 
   // All events visible in sidebar (including no_location)
   const sidebarEvents = useMemo(() => {
     const baseEvents = searchQuery.trim() ? searchResults : yearEvents;
     const tree = attachCachedChildren(buildSidebarTree(baseEvents), childrenByParentId);
-    return ensureSelectedBranchInTree(
-      replaceEventInTree(tree, selectedEvent),
-      selectedEvent,
-      navigationStack,
-      childrenByParentId
-    );
-  }, [yearEvents, searchResults, searchQuery, selectedEvent, navigationStack, childrenByParentId]);
+    return replaceEventInTree(tree, selectedEvent);
+  }, [yearEvents, searchResults, searchQuery, selectedEvent, childrenByParentId]);
 
   // Handle selecting an event from map or sidebar
   const handleSelectEvent = useCallback(
@@ -375,50 +267,6 @@ export default function MapPage() {
     },
     [selectedEvent, searchQuery]
   );
-
-  useEffect(() => {
-    if (!requestedEventKey) {
-      loadedRequestedEventRef.current = '';
-      return;
-    }
-    if (loadedRequestedEventRef.current === requestedEventKey) return;
-
-    let cancelled = false;
-
-    async function loadRequestedEvent() {
-      const detailEvent = await getHistoricalEventFromBackend(requestedEventKey);
-      if (cancelled || !detailEvent) return;
-
-      const children = detailEvent.children
-        ? detailEvent.children
-        : await getChildrenFromBackend(detailEvent.id);
-      if (cancelled) return;
-
-      if (children.length > 0) {
-        setChildrenByParentId((prev) => ({
-          ...prev,
-          [detailEvent.id]: children,
-        }));
-      }
-
-      if (detailEvent.startYear != null) {
-        setCurrentYear(detailEvent.startYear);
-      }
-
-      setSearchQuery((currentQuery) =>
-        eventMatchesSearch(detailEvent, currentQuery) ? currentQuery : ''
-      );
-      setNavigationStack([]);
-      setSelectedEvent(children.length > 0 ? { ...detailEvent, children } : detailEvent);
-      loadedRequestedEventRef.current = requestedEventKey;
-      void recordEventView(detailEvent.id, { source: 'detail' });
-    }
-
-    loadRequestedEvent();
-    return () => {
-      cancelled = true;
-    };
-  }, [requestedEventKey]);
 
   // Navigate to a child event from popup
   const handleNavigateToChild = useCallback(
@@ -473,16 +321,6 @@ export default function MapPage() {
       if (!selectedEvent?.parentId || navigationStack.length > 0) return;
       const parent = await getHistoricalEventFromBackend(selectedEvent.parentId);
       if (!cancelled && parent) {
-        const parentChildren = await getChildrenFromBackend(parent.id);
-        if (cancelled) return;
-        setChildrenByParentId((prev) => ({
-          ...prev,
-          [parent.id]: mergeEventList([
-            ...(prev[parent.id] ?? []),
-            ...parentChildren,
-            selectedEvent,
-          ]),
-        }));
         setNavigationStack([parent]);
       }
     }
@@ -511,6 +349,16 @@ export default function MapPage() {
     setSelectedEvent(null);
     setNavigationStack([]);
   }, []);
+
+  useEffect(() => {
+    const closePanelsOnEscape = (event: KeyboardEvent) => {
+      if (event.key !== 'Escape') return;
+      if (sidebarOpen) setSidebarOpen(false);
+      else if (selectedEvent) handleClosePopup();
+    };
+    document.addEventListener('keydown', closePanelsOnEscape);
+    return () => document.removeEventListener('keydown', closePanelsOnEscape);
+  }, [handleClosePopup, selectedEvent, sidebarOpen]);
 
   // Clear header breadcrumb when MapPage unmounts so stale state doesn't leak to Homepage etc.
   useEffect(() => {
@@ -610,7 +458,7 @@ export default function MapPage() {
             </span>
           ))}
           <ChevronRight size={13} strokeWidth={2} style={{ color: '#78716c', flexShrink: 0 }} />
-          <span className="serif-heading" style={{ fontSize: '13px', color: '#1c1917', fontWeight: 600, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', minWidth: 0 }}>
+           <span className="serif-heading" style={{ fontSize: '13px', color: '#1c1917', fontWeight: 600, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', minWidth: 0 }}>
             {selectedEvent.name}
           </span>
         </div>
@@ -622,6 +470,7 @@ export default function MapPage() {
 
   return (
     <div
+      className="map-shell"
       style={{
         width: '100%',
         height: '100%',
@@ -632,23 +481,45 @@ export default function MapPage() {
       }}
     >
       {/* Main content */}
-      <div style={{ flex: 1, display: 'flex', overflow: 'hidden' }}>
+      <div className="map-main" style={{ flex: 1, display: 'flex', overflow: 'hidden' }}>
+        {sidebarOpen && (
+          <button
+            type="button"
+            className="map-panel-overlay"
+            aria-label="Đóng danh sách sự kiện"
+            onClick={() => setSidebarOpen(false)}
+          />
+        )}
         {/* Sidebar */}
         <Sidebar
           events={sidebarEvents}
           selectedEvent={selectedEvent}
-          onSelectEvent={handleSelectEvent}
+          onSelectEvent={event => {
+            void handleSelectEvent(event);
+            setSidebarOpen(false);
+          }}
           onHoverEvent={setHighlightedEventId}
           searchQuery={searchQuery}
           onSearchQueryChange={setSearchQuery}
           loading={searchLoading}
           currentYear={currentYear}
+          open={sidebarOpen}
+          onClose={() => setSidebarOpen(false)}
         />
 
         {/* Map area */}
         <div className="relative flex flex-col flex-1 min-w-0 min-h-0 overflow-hidden">
           {/* Cesium Map (flex-1 + min-h-0 để không đẩy Timeline ra khỏi viewport) */}
           <div className="relative flex-1 min-h-0">
+            <button
+              type="button"
+              className="map-sidebar-toggle public-secondary-button"
+              onClick={() => setSidebarOpen(true)}
+              aria-label="Mở danh sách sự kiện"
+            >
+              <List size={16} aria-hidden="true" />
+              Sự kiện
+            </button>
             <CesiumMap
               events={visibleMapEvents}
               selectedEvent={selectedEvent}
@@ -656,18 +527,138 @@ export default function MapPage() {
               highlightedEventId={highlightedEventId}
             />
 
-            {/* Onboarding Guide — collapsible help panel */}
-            <OnboardingGuide
-              isOpen={guide.isOpen}
-              onDismiss={guide.dismiss}
-              onToggle={guide.toggle}
-            />
+            {/* Hero Preview — Bento-style floating museum introduction */}
+            {!selectedEvent && !onboardingDismissed && (
+              <div
+                className="map-onboarding glass-map animate-fade-in-up absolute top-4 left-4 rounded-2xl overflow-hidden"
+                style={{
+                  maxWidth: '380px',
+                  boxShadow: 'var(--shadow)',
+                }}
+              >
+                {/* Gold accent top bar */}
+                <div
+                  style={{
+                    height: '3px',
+                    background: 'linear-gradient(to right, var(--accent), var(--admin-accent), transparent)',
+                  }}
+                />
+                <div style={{ padding: '16px 18px 18px' }}>
+                  {/* Title row */}
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '12px' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                      <div
+                        style={{
+                          width: '32px',
+                          height: '32px',
+                          borderRadius: '10px',
+                          background: 'var(--accent-soft)',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                        }}
+                      >
+                        <Compass size={17} strokeWidth={1.8} style={{ color: 'var(--accent)' }} />
+                      </div>
+                      <h3
+                        className="serif-heading"
+                        style={{ fontSize: '16px', fontWeight: 700, color: 'var(--text-primary)', margin: 0 }}
+                      >
+                        Khám phá Lịch sử Việt Nam
+                      </h3>
+                    </div>
+                    <button
+                      onClick={() => setOnboardingDismissed(true)}
+                      aria-label="Đóng hướng dẫn"
+                      style={{
+                        background: 'var(--bg-surface)',
+                        border: '1px solid var(--border)',
+                        cursor: 'pointer',
+                        color: 'var(--text-muted)',
+                        padding: '4px',
+                        borderRadius: '6px',
+                        display: 'flex',
+                      }}
+                    >
+                      <X size={13} strokeWidth={2.4} />
+                    </button>
+                  </div>
+
+                  {/* Intro text */}
+                  <p
+                    style={{
+                      fontSize: '12.5px',
+                      color: 'var(--text-secondary)',
+                      lineHeight: 1.6,
+                      marginBottom: '14px',
+                    }}
+                  >
+                    Hành trình xuyên suốt hơn 2.000 năm lịch sử dân tộc qua bản đồ 3D tương tác.
+                    Chọn một mốc thời gian để bắt đầu.
+                  </p>
+
+                  {/* Quick start steps */}
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                    {[
+                      { icon: Clock, label: 'Chọn mốc thời gian', desc: 'Kéo thanh Timeline bên dưới để chọn thời kỳ lịch sử bạn muốn khám phá' },
+                      { icon: List, label: 'Duyệt danh sách sự kiện', desc: 'Tìm kiếm, lọc và duyệt qua danh sách sự kiện hiển thị ở bảng điều khiển bên trái' },
+                      { icon: MapPin, label: 'Chọn sự kiện từ sidebar', desc: 'Nhấp vào một sự kiện trong danh sách bên trái để xem chi tiết và khám phá trên bản đồ' },
+                    ].map((step, i) => (
+                      <div
+                        key={i}
+                        className="museum-card"
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '10px',
+                          padding: '10px 12px',
+                          borderRadius: '12px',
+                          cursor: 'default',
+                        }}
+                      >
+                        <div
+                          style={{
+                            width: '28px',
+                            height: '28px',
+                            borderRadius: '8px',
+                            background: 'var(--accent-soft)',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            flexShrink: 0,
+                          }}
+                        >
+                          <step.icon size={13} strokeWidth={2} style={{ color: 'var(--accent)' }} />
+                        </div>
+                        <div style={{ minWidth: 0 }}>
+                          <div className="mono-label" style={{ fontSize: '10px', color: 'var(--text-muted)', marginBottom: '1px' }}>
+                            {String(i + 1).padStart(2, '0')} — {step.label}
+                          </div>
+                          <div style={{ fontSize: '11.5px', color: 'var(--text-primary)', fontWeight: 500 }}>
+                            {step.desc}
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            )}
             {eventsLoading && (
               <div
                 className="glass-map animate-fade-in absolute top-4 right-4 rounded-xl px-4 py-2.5 text-sm font-medium"
                 style={{ color: 'var(--text-primary)' }}
               >
                 Đang tải dữ liệu từ backend...
+              </div>
+            )}
+            {mapError && (
+              <div className="map-error-banner" role="alert">
+                <CircleAlert size={16} aria-hidden="true" />
+                <span>{mapError}</span>
+                <button type="button" onClick={() => setMapError(null)} aria-label="Đóng thông báo lỗi">
+                  <X size={14} aria-hidden="true" />
+                </button>
               </div>
             )}
           </div>

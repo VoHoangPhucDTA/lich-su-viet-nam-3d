@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "check:encoding": "node scripts/check-source-encoding.mjs",
+    "build": "npm run check:encoding && tsc -b && vite build",
     "lint": "eslint .",
     "test": "vitest run",
     "test:d10d": "node scripts/d10d-chronology-tests.mjs",

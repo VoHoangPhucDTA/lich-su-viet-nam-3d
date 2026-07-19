@@ -27,6 +27,9 @@ public class EventReadService {
     private static final Set<Integer> SUPPORTED_GRADES = Set.of(10, 11, 12);
     private static final Set<String> EVENT_TYPES = Set.of("military", "political", "economic", "cultural");
     private static final Set<String> GEO_TYPES = Set.of("single_point", "multi_region", "nationwide", "no_location");
+    private static final Set<String> EVENT_LEVELS = Set.of("collection", "atomic");
+    private static final Set<String> SORT_FIELDS = Set.of("year", "name");
+    private static final Set<String> SORT_DIRECTIONS = Set.of("asc", "desc");
     private static final int DEFAULT_LIMIT = 300;
     private static final int MAX_LIMIT = 1000;
 
@@ -44,15 +47,26 @@ public class EventReadService {
             String query,
             String parentId,
             Integer level,
+            String eventLevel,
+            Integer startYearFrom,
+            Integer startYearTo,
+            String sortBy,
+            String sortDir,
             Integer limit,
             Integer offset
     ) {
         validateGrade(grade);
         validateEnum("eventType", eventType, EVENT_TYPES);
         validateEnum("geoType", geoType, GEO_TYPES);
+        validateEnum("eventLevel", eventLevel, EVENT_LEVELS);
+        validateEnum("sortBy", sortBy, SORT_FIELDS);
+        validateEnum("sortDir", sortDir, SORT_DIRECTIONS);
+        validateStartYearRange(startYearFrom, startYearTo);
 
         int safeLimit = normalizeLimit(limit);
         int safeOffset = normalizeOffset(offset);
+        String safeSortBy = sortBy == null ? "year" : sortBy;
+        String safeSortDir = sortDir == null ? "asc" : sortDir;
         // 1.1.5: EventReadService.java: Thực hiện truy vấn MySQL để lấy dữ liệu sự kiện lịch sử.
         List<EventSummaryDto> items = eventReadRepository.findEvents(
                 year,
@@ -62,11 +76,28 @@ public class EventReadService {
                 query,
                 parentId,
                 level,
+                eventLevel,
+                startYearFrom,
+                startYearTo,
+                safeSortBy,
+                safeSortDir,
                 safeLimit,
                 safeOffset
         );
+        int total = eventReadRepository.countEvents(
+                year,
+                grade,
+                eventType,
+                geoType,
+                query,
+                parentId,
+                level,
+                eventLevel,
+                startYearFrom,
+                startYearTo
+        );
         // 1.1.7: EventReadService.java: Chuyển đổi thành DTO và trả kết quả cho EventController.java.
-        return new EventListResponse(items, items.size());
+        return new EventListResponse(items, items.size(), total, safeLimit, safeOffset);
     }
 
     public List<TimelineEventDto> findTimeline(Integer from, Integer to, Integer grade, String eventType) {
@@ -105,6 +136,12 @@ public class EventReadService {
                     "INVALID_" + name.toUpperCase(),
                     name + " has unsupported value"
             );
+        }
+    }
+
+    private void validateStartYearRange(Integer startYearFrom, Integer startYearTo) {
+        if (startYearFrom != null && startYearTo != null && startYearFrom >= startYearTo) {
+            throw new ApiException(HttpStatus.BAD_REQUEST, "INVALID_START_YEAR_RANGE", "startYearFrom must be less than startYearTo");
         }
     }
 
