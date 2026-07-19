@@ -13,6 +13,8 @@ export interface ExamAttemptSummaryResponse {
   isCustom?: boolean;
   totalQuestions: number;
   totalScore: number | string;
+  mcqScore?: number | string | null;
+  tfScore?: number | string | null;
   durationSeconds?: number | null;
   submittedAt: number;
   scoreAuthority?: string | null;
@@ -33,8 +35,6 @@ export interface ExamAttemptDetailResponse extends ExamAttemptSummaryResponse {
   answers?: unknown;
   config?: unknown;
   result?: unknown;
-  mcqScore?: number | string | null;
-  tfScore?: number | string | null;
 }
 
 export function getServerTime(): Promise<ServerTimeResponse> {

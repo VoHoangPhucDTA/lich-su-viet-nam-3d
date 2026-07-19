@@ -42,10 +42,11 @@ import QuizHistoryPage from './pages/quiz/QuizHistoryPage';
 
 // Exams pages
 import { legacyExamSessionPath } from './lib/exam/legacyExamRedirect';
+import { loadExamV2SessionPage } from './lib/exam/examRoutePreload';
 
 const ExamHomePage = lazy(() => import('./pages/exams/ExamHomePage'));
 const ExamBrowsePage = lazy(() => import('./pages/exams/ExamBrowsePage'));
-const ExamV2SessionPage = lazy(() => import('./pages/exams/ExamV2SessionPage'));
+const ExamV2SessionPage = lazy(loadExamV2SessionPage);
 const ExamV2ResultPage = lazy(() => import('./pages/exams/ExamV2ResultPage'));
 const ExamV2HistoryPage = lazy(() => import('./pages/exams/ExamV2HistoryPage'));
 const ApiTopicListPage = lazy(() => import('./pages/exams/ApiTopicListPage'));

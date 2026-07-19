@@ -36,7 +36,7 @@ public class ExamAttemptService {
         byte[] userId = requireUser(principal);
         int safeLimit = limit == null ? DEFAULT_LIMIT : Math.max(1, Math.min(limit, MAX_LIMIT));
         var items = examAttemptRepository
-                .findByUserIdOrderBySubmittedAtDescCreatedAtDesc(userId, PageRequest.of(0, safeLimit))
+                .findSummariesByUserId(userId, PageRequest.of(0, safeLimit))
                 .stream()
                 .map(this::toSummary)
                 .toList();
@@ -77,15 +77,17 @@ public class ExamAttemptService {
         return instant == null ? 0L : instant.toEpochMilli();
     }
 
-    private ExamAttemptSummaryResponse toSummary(ExamAttemptEntity entity) {
+    private ExamAttemptSummaryResponse toSummary(ExamAttemptRepository.ExamAttemptSummaryView entity) {
         return new ExamAttemptSummaryResponse(
                 entity.getSessionId(),
                 entity.getMode(),
                 entity.getExamId(),
                 entity.getTitle(),
-                entity.isCustom(),
+                entity.getCustom(),
                 entity.getTotalQuestions(),
                 entity.getTotalScore(),
+                entity.getMcqScore(),
+                entity.getTfScore(),
                 entity.getDurationSeconds(),
                 toEpochMillis(entity.getSubmittedAt()),
                 entity.getScoreAuthority(),

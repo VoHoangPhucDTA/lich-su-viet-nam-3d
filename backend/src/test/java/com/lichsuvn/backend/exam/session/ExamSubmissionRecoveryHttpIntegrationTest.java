@@ -163,6 +163,12 @@ class ExamSubmissionRecoveryHttpIntegrationTest {
         assertEquals(1, jdbc.queryForObject("SELECT COUNT(*) FROM exam_v2_attempts WHERE session_id=?", Integer.class, session.sessionId()));
         assertEquals(1, jdbc.queryForObject("SELECT COUNT(*) FROM exam_submission_receipts r JOIN exam_sessions s ON s.id=r.session_id WHERE s.public_session_id=? AND r.status='SUCCESS'", Integer.class, session.sessionId()));
 
+        mockMvc.perform(get("/api/exams/attempts").with(auth(owner)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.data.items[0].sessionId").value(session.sessionId()))
+                .andExpect(jsonPath("$.data.items[0].mcqScore").isNumber())
+                .andExpect(jsonPath("$.data.items[0].tfScore").isNumber());
+
         List<SubmitExamSessionRequest.AnswerItem> changed = new ArrayList<>(request.answers());
         var answer = changed.getFirst();
         changed.set(0, new SubmitExamSessionRequest.AnswerItem(answer.questionInstanceId(), answer.questionType(), different(answer.selected())));

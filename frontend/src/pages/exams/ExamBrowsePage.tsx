@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { formatExamTitle, getExamDisplayYear, getExamSourceLabel } from '@/lib/exam/examDisplay';
+import { preloadExamV2SessionPage } from '@/lib/exam/examRoutePreload';
 import { listAllExams, listPublishedExams } from '@/lib/exam/manifestLoader';
 import { isExamApiFallbackError, listCatalog } from '@/services/examApi';
 import type { ExamCatalogItem } from '@/types/examApi';
@@ -48,7 +49,14 @@ function ExamCard({ entry }: { entry: ExamManifestEntry }) {
         </p>
       </div>
       <div className="exam-browse-card-actions">
-        <Link className="exam-focusable exam-browse-primary-action" to={`/exams/de/${entry.examId}`}>Thi thử</Link>
+        <Link
+          className="exam-focusable exam-browse-primary-action"
+          to={`/exams/de/${entry.examId}`}
+          onFocus={preloadExamV2SessionPage}
+          onPointerEnter={preloadExamV2SessionPage}
+        >
+          Thi thử
+        </Link>
         <Link className="exam-focusable exam-browse-secondary-action" to={`/exams/luyen-tap/${entry.examId}`}>Luyện tập tự do</Link>
       </div>
     </article>
@@ -63,6 +71,10 @@ export default function ExamBrowsePage() {
   const [filterYear, setFilterYear] = useState<number | null>(null);
   const [showAllExams, setShowAllExams] = useState(false);
   const [usingLocalFallback, setUsingLocalFallback] = useState(false);
+
+  useEffect(() => {
+    preloadExamV2SessionPage();
+  }, []);
 
   useEffect(() => {
     const controller = new AbortController();

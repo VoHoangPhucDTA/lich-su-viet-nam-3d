@@ -84,19 +84,23 @@ public class ExamSessionService {
         byte[] sessionId = bytes();
         repository.insertSession(new ExamSessionRepository.SessionRow(sessionId, publicId, userId, token == null ? null : sha256(token), dataset.id(), dataset.version(), mode,
                 plan.title(), plan.examId(), plan.contentHash(), write(plan.config()), SCORING_VERSION, started, deadline, submitGraceSeconds, "IN_PROGRESS", null, null, null));
+        List<ExamSessionRepository.QuestionRow> sourceQuestions = plan.questions().stream().map(SeedQuestion::question).filter(java.util.Objects::nonNull).toList();
+        var materials = repository.loadQuestionMaterials(sourceQuestions);
         int position = 0;
         List<ExamSessionResponse.SessionQuestion> safeQuestions = new ArrayList<>();
+        List<ExamSessionRepository.SessionQuestionRow> sessionQuestions = new ArrayList<>();
         for (SeedQuestion seed : plan.questions()) {
             ExamSessionRepository.QuestionRow question = seed.question();
             String instance = "qi_" + UUID.randomUUID();
-            Snapshot snapshot = question == null ? seed.snapshot() : snapshot(question, instance, mode);
+            Snapshot snapshot = question == null ? seed.snapshot() : snapshot(question, materials.forQuestion(question.id()));
             position++;
             String publicQuestionId = question == null ? seed.publicQuestionId() : question.publicId();
             String type = question == null ? snapshot.safe().path("questionType").asText() : question.sectionType();
             String sectionId = question == null ? null : question.sectionId();
-            repository.insertSessionQuestion(new ExamSessionRepository.SessionQuestionRow(bytes(), sessionId, instance, question == null ? null : question.id(), publicQuestionId, position, sectionId, type, write(snapshot.safe()), write(snapshot.answerKey()), null, null, null));
+            sessionQuestions.add(new ExamSessionRepository.SessionQuestionRow(bytes(), sessionId, instance, question == null ? null : question.id(), publicQuestionId, position, sectionId, type, write(snapshot.safe()), write(snapshot.answerKey()), null, null, null));
             safeQuestions.add(new ExamSessionResponse.SessionQuestion(instance, publicQuestionId, position, snapshot.safe(), null));
         }
+        repository.insertSessionQuestions(sessionQuestions);
         return new ExamSessionResponse(publicId, token, mode, plan.title(), dataset.version(), plan.contentHash(), SCORING_VERSION,
                 started.toEpochMilli(), deadline == null ? null : deadline.toEpochMilli(), "IN_PROGRESS", safeQuestions, null, null);
     }
@@ -123,8 +127,7 @@ public class ExamSessionService {
         }
         var checked = scoreQuestion(question, answer, session.mode());
         repository.saveCheckedQuestion(question.id(), answerJson, writeChecked(checked));
-        var refreshed = repository.listSessionQuestions(session.id());
-        if (refreshed.stream().allMatch(item -> item.checkedResultJson() != null)) repository.completeSession(session.id());
+        repository.completeSessionIfAllQuestionsChecked(session.id());
         return checked;
     }
 
@@ -288,14 +291,16 @@ public class ExamSessionService {
             if (repository.findSession(publicId).isPresent()) return publicId;
             throw race;
         }
+        var materials = repository.loadQuestionMaterials(questions);
+        List<ExamSessionRepository.SessionQuestionRow> sessionQuestions = new ArrayList<>();
         for (int index = 0; index < questions.size(); index++) {
             var question = questions.get(index);
-            var ref = refs.get(index);
             String recoveryInstanceId = "recover_" + UUID.randomUUID();
-            Snapshot snapshot = snapshot(question, recoveryInstanceId, mode);
-            repository.insertSessionQuestion(new ExamSessionRepository.SessionQuestionRow(bytes(), sessionId, recoveryInstanceId, question.id(), question.publicId(), index + 1,
+            Snapshot snapshot = snapshot(question, materials.forQuestion(question.id()));
+            sessionQuestions.add(new ExamSessionRepository.SessionQuestionRow(bytes(), sessionId, recoveryInstanceId, question.id(), question.publicId(), index + 1,
                     question.sectionId(), question.sectionType(), write(snapshot.safe()), write(snapshot.answerKey()), null, null, null));
         }
+        repository.insertSessionQuestions(sessionQuestions);
         return publicId;
     }
 
@@ -364,8 +369,9 @@ public class ExamSessionService {
         if (Instant.now().isAfter(session.deadlineAt().plusSeconds(session.graceSeconds()))) {
             throw new ApiException(HttpStatus.CONFLICT, "SUBMISSION_AFTER_GRACE", "Submission arrived after the server grace period");
         }
-        Map<String, JsonNode> answers = validateSubmission(request, repository.listSessionQuestions(session.id()));
-        SnapshotResult result = scoreSession(session, repository.listSessionQuestions(session.id()), answers, "BACKEND", "SERVER", "SERVER_ON_TIME");
+        List<ExamSessionRepository.SessionQuestionRow> questions = repository.listSessionQuestions(session.id());
+        Map<String, JsonNode> answers = validateSubmission(request, questions);
+        SnapshotResult result = scoreSession(session, questions, answers, "BACKEND", "SERVER", "SERVER_ON_TIME");
         String resultJson = write(result.snapshot());
         byte[] attemptId = null;
         if (session.userId() != null) {
@@ -520,16 +526,16 @@ public class ExamSessionService {
         return new CreatePlan(title, null, null, mode.equals("CUSTOM_MOCK") ? 50 : 0, config, seeds(candidates));
     }
 
-    private Snapshot snapshot(ExamSessionRepository.QuestionRow q, String instance, String mode) {
+    private Snapshot snapshot(ExamSessionRepository.QuestionRow q, ExamSessionRepository.QuestionMaterial material) {
         ObjectNode safe = objectMapper.createObjectNode(); safe.put("questionType", q.type()); safe.put("questionText", q.text()); safe.put("difficulty", q.difficulty()); safe.put("cognitiveLevel", q.cognitiveLevel());
-        ObjectNode key = objectMapper.createObjectNode(); key.put("questionType", q.type()); key.set("explanation", q.explanation() == null ? objectMapper.nullNode() : objectMapper.getNodeFactory().textNode(q.explanation())); key.set("sources", sourceArray(q.id())); key.set("topics", topicArray(q.id())); key.put("flatPoints", q.sectionQuestionCount() == 0 ? .25d : q.sectionMaxScore() / q.sectionQuestionCount());
-        if (q.type().equals("mcq")) { ArrayNode options=safe.putArray("options"); for(var option:repository.options(q.id())) {ObjectNode o=options.addObject();o.put("id",option.key());o.put("text",option.text());if(option.correct())key.put("correctOptionId",option.key());} }
-        else { ArrayNode statements=safe.putArray("statements"); ObjectNode correct=key.putObject("correctStatements"); for(var statement:repository.statements(q.id())) {ObjectNode s=statements.addObject();s.put("id",statement.key());s.put("text",statement.text());correct.put(statement.key(),statement.truth());} }
+        ObjectNode key = objectMapper.createObjectNode(); key.put("questionType", q.type()); key.set("explanation", q.explanation() == null ? objectMapper.nullNode() : objectMapper.getNodeFactory().textNode(q.explanation())); key.set("sources", sourceArray(material.sources())); key.set("topics", topicArray(material.topics())); key.put("flatPoints", q.sectionQuestionCount() == 0 ? .25d : q.sectionMaxScore() / q.sectionQuestionCount());
+        if (q.type().equals("mcq")) { ArrayNode options=safe.putArray("options"); for(var option:material.options()) {ObjectNode o=options.addObject();o.put("id",option.key());o.put("text",option.text());if(option.correct())key.put("correctOptionId",option.key());} }
+        else { ArrayNode statements=safe.putArray("statements"); ObjectNode correct=key.putObject("correctStatements"); for(var statement:material.statements()) {ObjectNode s=statements.addObject();s.put("id",statement.key());s.put("text",statement.text());correct.put(statement.key(),statement.truth());} }
         return new Snapshot(safe,key);
     }
 
-    private ArrayNode sourceArray(byte[] id) { ArrayNode array=objectMapper.createArrayNode(); for(var s:repository.sources(id)){ObjectNode node=array.addObject();node.put("title",s.title());if(s.location()==null)node.putNull("location");else node.put("location",s.location());} return array; }
-    private ArrayNode topicArray(byte[] id) { ArrayNode array=objectMapper.createArrayNode(); for(var t:repository.topics(id)){ObjectNode node=array.addObject();node.put("slug",t.slug());node.put("title",t.title());node.put("periodSlug",t.periodSlug());node.put("periodTitle",t.periodTitle());} return array; }
+    private ArrayNode sourceArray(List<ExamSessionRepository.SourceRow> sources) { ArrayNode array=objectMapper.createArrayNode(); for(var s:sources){ObjectNode node=array.addObject();node.put("title",s.title());if(s.location()==null)node.putNull("location");else node.put("location",s.location());} return array; }
+    private ArrayNode topicArray(List<ExamSessionRepository.TopicRow> topics) { ArrayNode array=objectMapper.createArrayNode(); for(var t:topics){ObjectNode node=array.addObject();node.put("slug",t.slug());node.put("title",t.title());node.put("periodSlug",t.periodSlug());node.put("periodTitle",t.periodTitle());} return array; }
     private ExamSessionResponse.PracticeSummary practiceSummary(List<ExamSessionRepository.SessionQuestionRow> questions) { int checked=0,correct=0;double points=0;for(var q:questions)if(q.checkedResultJson()!=null){checked++;var r=checkedResult(q.checkedResultJson());if(r.correct())correct++;points+=r.points();}return new ExamSessionResponse.PracticeSummary(questions.size(),checked,correct,round(points),questions.size()-checked); }
     private ExamSessionResponse.CheckedQuestionResult checkedResult(String raw) { JsonNode n=read(raw);return new ExamSessionResponse.CheckedQuestionResult(n.path("userAnswer"),n.path("correctAnswer"),n.path("correct").asBoolean(),n.path("points").asDouble(),n.path("completionState").asText(),textOrNull(n.path("explanation")),n.path("correctCount").asInt()); }
     private String writeChecked(ExamSessionResponse.CheckedQuestionResult r) { ObjectNode n=objectMapper.createObjectNode();n.set("userAnswer",r.userAnswer());n.set("correctAnswer",r.correctAnswer());n.put("correct",r.correct());n.put("points",r.points());n.put("completionState",r.completionState());n.put("correctCount",r.correctCount());if(r.explanation()==null)n.putNull("explanation");else n.put("explanation",r.explanation());return write(n); }

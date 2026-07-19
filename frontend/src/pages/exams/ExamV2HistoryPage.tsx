@@ -83,7 +83,9 @@ function SummaryStat({ label, value, color }: { label: string; value: string; co
 function HistoryRow({ result, meta }: { result: ExamResultV2; meta?: ExamManifestEntry }) {
   const rating = rateScore(result.totalScore);
   const color = RATING_COLOR[rating];
-  const hasSectionScores = result.questions.length > 0 || result.mcqScore > 0 || result.tfScore > 0;
+  const backendMode = result.mode as string;
+  const hasSectionScores = result.questions.length > 0 || result.mcqScore > 0 || result.tfScore > 0
+    || backendMode === 'TIMED_ORIGINAL' || backendMode === 'CUSTOM_MOCK';
   const displaySource = meta ?? { examId: result.examId, title: result.title };
   const displayYear = getExamDisplayYear(displaySource);
   const sourceLabel = getExamSourceLabel(displaySource);

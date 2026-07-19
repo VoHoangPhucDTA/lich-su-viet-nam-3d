@@ -80,6 +80,7 @@ export function useApiTimedSession({ routeKey, request, initialSessionId }: ApiT
   const [error, setError] = useState<string | null>(null);
   const [fallbackEligible, setFallbackEligible] = useState(false);
   const submittingRef = useRef(false);
+  const loadRef = useRef<{ key: string; promise: Promise<ExamSessionResponse> } | null>(null);
 
   useEffect(() => {
     if (!request && !initialSessionId) {
@@ -87,19 +88,27 @@ export function useApiTimedSession({ routeKey, request, initialSessionId }: ApiT
       setError('Liên kết đề thi không hợp lệ.');
       return;
     }
-    const controller = new AbortController();
     const createRequest = request;
+    const priorSessionId = initialSessionId ?? readApiSessionLocator(routeKey);
+    const loadKey = priorSessionId ? `resume:${priorSessionId}` : `create:${routeKey}`;
+    if (!loadRef.current || loadRef.current.key !== loadKey) {
+      loadRef.current = {
+        key: loadKey,
+        promise: priorSessionId
+          ? resumeExamSession(priorSessionId, sessionOptions(priorSessionId))
+          : createExamSession(createRequest!),
+      };
+    }
+    const loadPromise = loadRef.current.promise;
+    let cancelled = false;
     setLoading(true);
     setError(null);
     setFallbackEligible(false);
 
     async function load(): Promise<void> {
       try {
-        const priorSessionId = initialSessionId ?? readApiSessionLocator(routeKey);
-        const response = priorSessionId
-          ? await resumeExamSession(priorSessionId, { ...sessionOptions(priorSessionId), signal: controller.signal })
-          : await createExamSession(createRequest!, controller.signal);
-        if (controller.signal.aborted) return;
+        const response = await loadPromise;
+        if (cancelled) return;
         if (response.anonymousSessionToken) saveAnonymousSessionToken(response.sessionId, response.anonymousSessionToken);
         saveApiSessionLocator(routeKey, response.sessionId);
         const local = readApiSessionDraft(response.sessionId);
@@ -108,16 +117,18 @@ export function useApiTimedSession({ routeKey, request, initialSessionId }: ApiT
         setServerSession(response);
         setDraft(merged);
       } catch (loadError: unknown) {
-        if (controller.signal.aborted) return;
+        if (cancelled) return;
         setFallbackEligible(isExamApiFallbackError(loadError));
         setError(loadError instanceof Error ? loadError.message : 'Không thể tạo phiên thi từ máy chủ.');
       } finally {
-        if (!controller.signal.aborted) setLoading(false);
+        if (!cancelled) setLoading(false);
       }
     }
 
     void load();
-    return () => controller.abort();
+    return () => {
+      cancelled = true;
+    };
   }, [initialSessionId, request, routeKey]);
 
   const questions = useMemo<ApiTimedQuestion[]>(() => (serverSession?.questions ?? []).map((item) => ({

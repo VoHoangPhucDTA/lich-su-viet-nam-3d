@@ -5,6 +5,9 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.Base64;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -113,6 +116,55 @@ public class ExamSessionRepository {
                         """, p().addValue("id", questionId), (rs, n) -> new TopicRow(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4)));
     }
 
+    public QuestionMaterials loadQuestionMaterials(List<QuestionRow> questions) {
+        if (questions.isEmpty()) return new QuestionMaterials(Map.of());
+
+        List<byte[]> ids = questions.stream().map(QuestionRow::id).toList();
+        Map<String, QuestionMaterialBuilder> builders = new HashMap<>();
+        for (QuestionRow question : questions) builders.put(questionKey(question.id()), new QuestionMaterialBuilder());
+
+        jdbc.query("""
+                        SELECT question_internal_id, option_key, option_text, is_correct
+                        FROM exam_mcq_options
+                        WHERE question_internal_id IN (:ids)
+                        ORDER BY question_internal_id, order_in_question
+                        """, p().addValue("ids", ids), (rs, n) -> new MaterialOptionRow(
+                rs.getBytes("question_internal_id"), new OptionRow(rs.getString("option_key"), rs.getString("option_text"), rs.getBoolean("is_correct"))))
+                .forEach(row -> builder(builders, row.questionId()).options.add(row.option()));
+
+        jdbc.query("""
+                        SELECT question_internal_id, statement_key, statement_text, is_true
+                        FROM exam_tf_statements
+                        WHERE question_internal_id IN (:ids)
+                        ORDER BY question_internal_id, order_in_question
+                        """, p().addValue("ids", ids), (rs, n) -> new MaterialStatementRow(
+                rs.getBytes("question_internal_id"), new StatementRow(rs.getString("statement_key"), rs.getString("statement_text"), rs.getBoolean("is_true"))))
+                .forEach(row -> builder(builders, row.questionId()).statements.add(row.statement()));
+
+        jdbc.query("""
+                        SELECT question_internal_id, source_title, source_location
+                        FROM exam_question_sources
+                        WHERE question_internal_id IN (:ids)
+                        ORDER BY question_internal_id, order_in_question
+                        """, p().addValue("ids", ids), (rs, n) -> new MaterialSourceRow(
+                rs.getBytes("question_internal_id"), new SourceRow(rs.getString("source_title"), rs.getString("source_location"))))
+                .forEach(row -> builder(builders, row.questionId()).sources.add(row.source()));
+
+        jdbc.query("""
+                        SELECT qt.question_internal_id, t.topic_slug, t.title, t.period_slug, t.period_title
+                        FROM exam_question_topics qt
+                        JOIN exam_topics t ON t.id=qt.topic_id
+                        WHERE qt.question_internal_id IN (:ids)
+                        ORDER BY qt.question_internal_id, t.display_order
+                        """, p().addValue("ids", ids), (rs, n) -> new MaterialTopicRow(
+                rs.getBytes("question_internal_id"), new TopicRow(rs.getString("topic_slug"), rs.getString("title"), rs.getString("period_slug"), rs.getString("period_title"))))
+                .forEach(row -> builder(builders, row.questionId()).topics.add(row.topic()));
+
+        Map<String, QuestionMaterial> materials = new HashMap<>();
+        builders.forEach((key, value) -> materials.put(key, value.build()));
+        return new QuestionMaterials(Map.copyOf(materials));
+    }
+
     public void insertSession(SessionRow row) {
         jdbc.update("""
                 INSERT INTO exam_sessions (id,public_session_id,user_id,anonymous_token_hash,source_dataset_id,dataset_version,mode,title,exam_id,exam_content_hash,config_json,scoring_version,started_at_server,deadline_at,submit_grace_seconds,status)
@@ -130,6 +182,18 @@ public class ExamSessionRepository {
                 """, p().addValue("id", row.id()).addValue("sessionId", row.sessionId()).addValue("instance", row.instanceId()).addValue("sourceId", row.sourceQuestionId())
                 .addValue("publicId", row.publicQuestionId()).addValue("position", row.position()).addValue("sectionId", row.sectionId()).addValue("sectionType", row.sectionType())
                 .addValue("safe", row.safeJson()).addValue("answerKey", row.answerKeyJson()));
+    }
+
+    public void insertSessionQuestions(List<SessionQuestionRow> rows) {
+        if (rows.isEmpty()) return;
+        MapSqlParameterSource[] batch = rows.stream().map(row -> p()
+                .addValue("id", row.id()).addValue("sessionId", row.sessionId()).addValue("instance", row.instanceId()).addValue("sourceId", row.sourceQuestionId())
+                .addValue("publicId", row.publicQuestionId()).addValue("position", row.position()).addValue("sectionId", row.sectionId()).addValue("sectionType", row.sectionType())
+                .addValue("safe", row.safeJson()).addValue("answerKey", row.answerKeyJson())).toArray(MapSqlParameterSource[]::new);
+        jdbc.batchUpdate("""
+                INSERT INTO exam_session_questions (id,session_id,public_question_instance_id,source_question_id,public_question_id,position_in_session,section_id,section_type,safe_snapshot_json,answer_key_snapshot_json)
+                VALUES (:id,:sessionId,:instance,:sourceId,:publicId,:position,:sectionId,:sectionType,:safe,:answerKey)
+                """, batch);
     }
 
     public Optional<SessionRow> findSession(String publicId) { return querySession(publicId, false); }
@@ -159,6 +223,17 @@ public class ExamSessionRepository {
     }
 
     public void saveCheckedQuestion(byte[] id, String answerJson, String resultJson) { jdbc.update("UPDATE exam_session_questions SET practice_answer_json=:answer, checked_result_json=:result, checked_at=CURRENT_TIMESTAMP(6) WHERE id=:id", p().addValue("id",id).addValue("answer",answerJson).addValue("result",resultJson)); }
+    public void completeSessionIfAllQuestionsChecked(byte[] sessionId) {
+        jdbc.update("""
+                UPDATE exam_sessions
+                SET status='COMPLETED', completed_at=COALESCE(completed_at,CURRENT_TIMESTAMP(6))
+                WHERE id=:id AND status='IN_PROGRESS'
+                  AND NOT EXISTS (
+                    SELECT 1 FROM exam_session_questions
+                    WHERE session_id=:id AND checked_result_json IS NULL
+                  )
+                """, p().addValue("id", sessionId));
+    }
     public void completeSession(byte[] id) { jdbc.update("UPDATE exam_sessions SET status='COMPLETED', completed_at=COALESCE(completed_at,CURRENT_TIMESTAMP(6)) WHERE id=:id", p().addValue("id",id)); }
     public void submitSession(byte[] id, String resultJson) { jdbc.update("UPDATE exam_sessions SET status='SUBMITTED', result_json=:result, submitted_at_server=CURRENT_TIMESTAMP(6) WHERE id=:id", p().addValue("id",id).addValue("result",resultJson)); }
 
@@ -175,6 +250,12 @@ public class ExamSessionRepository {
     private void addFilter(StringBuilder where, MapSqlParameterSource p, String column, String name, String value) { if (!"all".equals(value)) { where.append(" AND ").append(column).append("=:").append(name); p.addValue(name,value); } }
     private static Instant timestamp(java.sql.ResultSet rs, String name) throws java.sql.SQLException { var value=rs.getTimestamp(name); return value == null ? null : value.toInstant(); }
     private static MapSqlParameterSource p() { return new MapSqlParameterSource(); }
+    private static String questionKey(byte[] id) { return Base64.getEncoder().encodeToString(id); }
+    private static QuestionMaterialBuilder builder(Map<String, QuestionMaterialBuilder> builders, byte[] id) {
+        QuestionMaterialBuilder value = builders.get(questionKey(id));
+        if (value == null) throw new IllegalStateException("Question material does not belong to the requested question set");
+        return value;
+    }
 
     public record DatasetRow(byte[] id, String version) {}
     public record ExamRow(byte[] id,String examId,String title,int durationMinutes,String contentHash,double totalScore) {}
@@ -184,6 +265,28 @@ public class ExamSessionRepository {
     public record StatementRow(String key,String text,boolean truth) {}
     public record SourceRow(String title,String location) {}
     public record TopicRow(String slug,String title,String periodSlug,String periodTitle) {}
+    public record QuestionMaterial(List<OptionRow> options,List<StatementRow> statements,List<SourceRow> sources,List<TopicRow> topics) {}
+    public static final class QuestionMaterials {
+        private final Map<String, QuestionMaterial> byQuestion;
+
+        private QuestionMaterials(Map<String, QuestionMaterial> byQuestion) { this.byQuestion = byQuestion; }
+
+        public QuestionMaterial forQuestion(byte[] questionId) {
+            return byQuestion.getOrDefault(questionKey(questionId), new QuestionMaterial(List.of(), List.of(), List.of(), List.of()));
+        }
+    }
+    private static final class QuestionMaterialBuilder {
+        private final List<OptionRow> options = new ArrayList<>();
+        private final List<StatementRow> statements = new ArrayList<>();
+        private final List<SourceRow> sources = new ArrayList<>();
+        private final List<TopicRow> topics = new ArrayList<>();
+
+        private QuestionMaterial build() { return new QuestionMaterial(List.copyOf(options), List.copyOf(statements), List.copyOf(sources), List.copyOf(topics)); }
+    }
+    private record MaterialOptionRow(byte[] questionId, OptionRow option) {}
+    private record MaterialStatementRow(byte[] questionId, StatementRow statement) {}
+    private record MaterialSourceRow(byte[] questionId, SourceRow source) {}
+    private record MaterialTopicRow(byte[] questionId, TopicRow topic) {}
     public record SessionRow(byte[] id,String publicId,byte[] userId,String tokenHash,byte[] datasetId,String datasetVersion,String mode,String title,String examId,String contentHash,String configJson,String scoringVersion,Instant startedAt,Instant deadlineAt,int graceSeconds,String status,String resultJson,Instant completedAt,Instant submittedAt) {}
     public record SessionQuestionRow(byte[] id,byte[] sessionId,String instanceId,byte[] sourceQuestionId,String publicQuestionId,int position,String sectionId,String sectionType,String safeJson,String answerKeyJson,String practiceAnswerJson,String checkedResultJson,Instant checkedAt) {}
     public record ReceiptRow(byte[] id,byte[] sessionId,byte[] userId,String clientSubmissionId,String submissionHash,String status,String errorCode,byte[] attemptId,Integer successSlot) {}
