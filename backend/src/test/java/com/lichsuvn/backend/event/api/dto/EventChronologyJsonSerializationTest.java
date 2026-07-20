@@ -69,7 +69,8 @@ class EventChronologyJsonSerializationTest {
         JsonNode json = detailJson(1945, null, 1945);
 
         assertEquals("N\u1ed9i dung SGK chu\u1ea9n", json.get("textbookContent").asText());
-        assertFalse(json.has("sourceJson"));
+        assertTrue(json.has("sourceJson"));
+        assertTrue(json.get("sourceJson").isNull());
     }
 
     private JsonNode detailJson(Integer startYear, Integer endYear, Integer effectiveEndYear) {
@@ -111,7 +112,8 @@ class EventChronologyJsonSerializationTest {
                 List.of(),
                 List.of(),
                 EventRelatedEventsDto.empty(),
-                "N\u1ed9i dung SGK chu\u1ea9n"
+                "N\u1ed9i dung SGK chu\u1ea9n",
+                null
         );
         return objectMapper.valueToTree(dto);
     }

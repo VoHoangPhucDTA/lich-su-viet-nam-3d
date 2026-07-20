@@ -1,15 +1,36 @@
-import { useState, useCallback, useMemo } from 'react';
+import {
+  useState,
+  useCallback,
+  useMemo,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useReducer,
+} from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { ChevronRight, CircleAlert, Clock, List, MapPin, X, Compass } from 'lucide-react';
-import CesiumMap from '../components/CesiumMap';
+import CesiumMap, {
+  type CesiumMapHandle,
+  type TerrainExplorationMode,
+  type TerrainInspectionPayload,
+} from '../components/CesiumMap';
 import Timeline from '../components/Timeline';
 import Sidebar from '../components/Sidebar';
 import EventPopup from '../components/EventPopup';
+import TerrainExplorationToolbar, {
+  type TerrainExplorationInspectorState,
+} from '../components/terrain/TerrainExplorationToolbar';
 import {
   findEventById,
   TIMELINE_MIN_YEAR,
 } from '../data/events';
-import { useEffect } from 'react';
 import type { HistoricalEvent } from '../types/event';
+import type {
+  RegionGeometryStatus,
+  TerrainRuntimeError,
+  TerrainSessionCommand,
+  TerrainViewModel,
+} from '../types/terrain';
 import { useHeader } from '../components/layout/HeaderContext';
 import {
   getChildrenFromBackend,
@@ -20,6 +41,8 @@ import {
   searchEventsFromBackend,
   sortHistoricalEvents,
 } from '../services/eventApi';
+import { normalizeTerrainTargets } from '../utils/terrainTargets';
+import { INITIAL_TERRAIN_STATE, terrainReducer } from '../utils/terrainState';
 
 function replaceEventInTree(
   events: HistoricalEvent[],
@@ -72,6 +95,16 @@ function buildSidebarTree(events: HistoricalEvent[]): HistoricalEvent[] {
   return Array.from(byId.values()).filter((event) => !childIds.has(event.id));
 }
 
+function eventMatchesSearch(event: HistoricalEvent, query: string): boolean {
+  const normalized = query.trim().toLowerCase();
+  if (!normalized) return true;
+
+  return (
+    event.name.toLowerCase().includes(normalized) ||
+    event.description.toLowerCase().includes(normalized)
+  );
+}
+
 function attachCachedChildren(
   events: HistoricalEvent[],
   childrenByParentId: Record<string, HistoricalEvent[]>
@@ -104,6 +137,8 @@ function attachCachedChildren(
 }
 
 export default function MapPage() {
+  const location = useLocation();
+  const navigate = useNavigate();
   const [currentYear, setCurrentYear] = useState(TIMELINE_MIN_YEAR);
   const [selectedEvent, setSelectedEvent] = useState<HistoricalEvent | null>(
     null
@@ -120,11 +155,61 @@ export default function MapPage() {
   const [eventsLoading, setEventsLoading] = useState(false);
   const [selectedGrade, setSelectedGrade] = useState<number | null>(null);
   const [timelineYears, setTimelineYears] = useState<number[]>([]);
+  const [terrainState, terrainDispatch] = useReducer(terrainReducer, INITIAL_TERRAIN_STATE);
   const [onboardingDismissed, setOnboardingDismissed] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [mapError, setMapError] = useState<string | null>(null);
-
+  // ─── Terrain exploration toolbar (Task C) ─────────────────────────────────
+  const cesiumApiRef = useRef<CesiumMapHandle | null>(null);
+  const [inspectMode, setInspectMode] = useState<TerrainExplorationMode>('none');
+  const [inspectSessionId, setInspectSessionId] = useState(0);
+  const [inspection, setInspection] = useState<TerrainExplorationInspectorState>({
+    result: null,
+    loading: false,
+    error: null,
+  });
   const { setCenterContent } = useHeader();
+  const requestedEventKey = useMemo(
+    () => new URLSearchParams(location.search).get('event')?.trim() ?? '',
+    [location.search]
+  );
+  const loadedRequestedEventRef = useRef('');
+  const terrainStateRef = useRef(terrainState);
+  const terrainSessionCounterRef = useRef(0);
+  const pendingAfterTerrainExitRef = useRef<(() => void) | null>(null);
+  const selectionRequestIdRef = useRef(0);
+  useLayoutEffect(() => {
+    terrainStateRef.current = terrainState;
+  }, [terrainState]);
+
+  const terrainTargetResult = useMemo(
+    () => selectedEvent
+      ? normalizeTerrainTargets(
+        selectedEvent.id,
+        selectedEvent.sourceJson ?? selectedEvent.sourceMapData,
+      )
+      : null,
+    [selectedEvent],
+  );
+
+  const ensureTerrainExit = useCallback(() => {
+    const current = terrainStateRef.current;
+    if (current.sessionId !== null && current.mode !== 'idle' && current.mode !== 'exiting') {
+      terrainDispatch({ type: 'EXIT', sessionId: current.sessionId });
+    }
+  }, []);
+
+  const scheduleAfterTerrainExit = useCallback((action: () => void) => {
+    const current = terrainStateRef.current;
+    if (current.sessionId === null || current.mode === 'idle') {
+      action();
+      return;
+    }
+    pendingAfterTerrainExitRef.current = action;
+    if (current.mode !== 'exiting') {
+      terrainDispatch({ type: 'EXIT', sessionId: current.sessionId });
+    }
+  }, []);
 
   useEffect(() => {
     let cancelled = false;
@@ -222,85 +307,143 @@ export default function MapPage() {
   // Handle selecting an event from map or sidebar
   const handleSelectEvent = useCallback(
     async (event: HistoricalEvent | null) => {
+      const requestId = ++selectionRequestIdRef.current;
+      ensureTerrainExit();
       if (event === null) {
-        // Deselect — go back to root view
-        setSelectedEvent(null);
-        setNavigationStack([]);
+        scheduleAfterTerrainExit(() => {
+          setSelectedEvent(null);
+          setNavigationStack([]);
+        });
         return;
       }
 
+      const selectedAtRequest = selectedEvent;
       const [detailEvent, children] = await Promise.all([
         getHistoricalEventFromBackend(event.slug || event.id),
         event.children ? Promise.resolve(event.children) : getChildrenFromBackend(event.id),
       ]);
+      if (selectionRequestIdRef.current !== requestId) return;
       const baseEvent = detailEvent ? { ...event, ...detailEvent } : event;
       const eventWithChildren =
         children.length > 0 ? { ...baseEvent, children } : baseEvent;
-      if (children.length > 0) {
-        setChildrenByParentId((prev) => ({
-          ...prev,
-          [event.id]: children,
-        }));
-      }
-      void recordEventView(event.id, { source: searchQuery.trim() ? 'search' : 'map' });
-
-      // If the event has children, drill down
-      if (eventWithChildren.children && eventWithChildren.children.length > 0) {
-        setNavigationStack((prev) =>
-          selectedEvent ? [...prev, selectedEvent] : prev
-        );
-        setSelectedEvent(eventWithChildren);
-      } else {
-        // Leaf event — just select it
-        // Push parent to stack if we're navigating from a parent context
-        if (selectedEvent && selectedEvent.id !== event.id) {
-          // Check if clicked event is a child of selectedEvent
-          const isChildOfCurrent = selectedEvent.children?.some(
-            (c) => c.id === event.id
-          );
-          if (isChildOfCurrent) {
-            setNavigationStack((prev) => [...prev, selectedEvent]);
-          }
+      scheduleAfterTerrainExit(() => {
+        if (selectionRequestIdRef.current !== requestId) return;
+        if (children.length > 0) {
+          setChildrenByParentId((prev) => ({
+            ...prev,
+            [event.id]: children,
+          }));
         }
-        setSelectedEvent(eventWithChildren);
-      }
+        void recordEventView(event.id, { source: searchQuery.trim() ? 'search' : 'map' });
+
+        if (eventWithChildren.children && eventWithChildren.children.length > 0) {
+          setNavigationStack((prev) =>
+            selectedAtRequest ? [...prev, selectedAtRequest] : prev
+          );
+          setSelectedEvent(eventWithChildren);
+        } else {
+          if (selectedAtRequest && selectedAtRequest.id !== event.id) {
+            const isChildOfCurrent = selectedAtRequest.children?.some(
+              (child) => child.id === event.id
+            );
+            if (isChildOfCurrent) {
+              setNavigationStack((prev) => [...prev, selectedAtRequest]);
+            }
+          }
+          setSelectedEvent(eventWithChildren);
+        }
+      });
     },
-    [selectedEvent, searchQuery]
+    [ensureTerrainExit, scheduleAfterTerrainExit, searchQuery, selectedEvent]
   );
 
+  useEffect(() => {
+    if (!requestedEventKey) {
+      loadedRequestedEventRef.current = '';
+      return;
+    }
+    if (loadedRequestedEventRef.current === requestedEventKey) return;
+
+    let cancelled = false;
+    const requestId = ++selectionRequestIdRef.current;
+    ensureTerrainExit();
+
+    async function loadRequestedEvent() {
+      const detailEvent = await getHistoricalEventFromBackend(requestedEventKey);
+      if (cancelled || selectionRequestIdRef.current !== requestId || !detailEvent) return;
+
+      const children = detailEvent.children
+        ? detailEvent.children
+        : await getChildrenFromBackend(detailEvent.id);
+      if (cancelled || selectionRequestIdRef.current !== requestId) return;
+
+      scheduleAfterTerrainExit(() => {
+        if (cancelled || selectionRequestIdRef.current !== requestId) return;
+        if (children.length > 0) {
+          setChildrenByParentId((prev) => ({
+            ...prev,
+            [detailEvent.id]: children,
+          }));
+        }
+        if (detailEvent.startYear != null) setCurrentYear(detailEvent.startYear);
+        setSearchQuery((currentQuery) =>
+          eventMatchesSearch(detailEvent, currentQuery) ? currentQuery : ''
+        );
+        setNavigationStack([]);
+        setSelectedEvent(children.length > 0 ? { ...detailEvent, children } : detailEvent);
+        loadedRequestedEventRef.current = requestedEventKey;
+        void recordEventView(detailEvent.id, { source: 'detail' });
+      });
+    }
+
+    loadRequestedEvent();
+    return () => {
+      cancelled = true;
+    };
+  }, [ensureTerrainExit, requestedEventKey, scheduleAfterTerrainExit]);
   // Navigate to a child event from popup
   const handleNavigateToChild = useCallback(
     async (child: HistoricalEvent) => {
-      if (selectedEvent) {
-        setNavigationStack((prev) => [...prev, selectedEvent]);
-      }
+      const requestId = ++selectionRequestIdRef.current;
+      const selectedAtRequest = selectedEvent;
+      ensureTerrainExit();
       const [detailEvent, children] = await Promise.all([
         getHistoricalEventFromBackend(child.slug || child.id),
         child.children ? Promise.resolve(child.children) : getChildrenFromBackend(child.id),
       ]);
+      if (selectionRequestIdRef.current !== requestId) return;
       const nextEvent = detailEvent ? { ...child, ...detailEvent } : child;
-      if (children.length > 0) {
-        setChildrenByParentId((prev) => ({
-          ...prev,
-          [child.id]: children,
-        }));
-      }
-      void recordEventView(child.id, { source: 'map' });
-      setSelectedEvent(children.length > 0 ? { ...nextEvent, children } : nextEvent);
+      scheduleAfterTerrainExit(() => {
+        if (selectionRequestIdRef.current !== requestId) return;
+        if (selectedAtRequest) {
+          setNavigationStack((prev) => [...prev, selectedAtRequest]);
+        }
+        if (children.length > 0) {
+          setChildrenByParentId((prev) => ({
+            ...prev,
+            [child.id]: children,
+          }));
+        }
+        void recordEventView(child.id, { source: 'map' });
+        setSelectedEvent(children.length > 0 ? { ...nextEvent, children } : nextEvent);
+      });
     },
-    [selectedEvent]
+    [ensureTerrainExit, scheduleAfterTerrainExit, selectedEvent]
   );
 
   // Navigate back to parent
   const handleNavigateToParent = useCallback(() => {
-    if (navigationStack.length > 0) {
-      const parent = navigationStack[navigationStack.length - 1];
-      setNavigationStack((prev) => prev.slice(0, -1));
-      setSelectedEvent(parent);
-    } else {
-      setSelectedEvent(null);
-    }
-  }, [navigationStack]);
+    ++selectionRequestIdRef.current;
+    scheduleAfterTerrainExit(() => {
+      if (navigationStack.length > 0) {
+        const parent = navigationStack[navigationStack.length - 1];
+        setNavigationStack((prev) => prev.slice(0, -1));
+        setSelectedEvent(parent);
+      } else {
+        setSelectedEvent(null);
+      }
+    });
+  }, [navigationStack, scheduleAfterTerrainExit]);
 
   // Get parent event for the popup "back" button
   const parentEvent = useMemo(() => {
@@ -333,22 +476,215 @@ export default function MapPage() {
 
   // Handle year change from timeline
   const handleYearChange = useCallback((year: number) => {
-    setCurrentYear(year);
-    setSelectedEvent(null);
-    setNavigationStack([]);
-  }, []);
+    ++selectionRequestIdRef.current;
+    scheduleAfterTerrainExit(() => {
+      setCurrentYear(year);
+      setSelectedEvent(null);
+      setNavigationStack([]);
+    });
+  }, [scheduleAfterTerrainExit]);
 
   const handleGradeChange = useCallback((grade: number | null) => {
-    setSelectedGrade(grade);
-    setSelectedEvent(null);
-    setNavigationStack([]);
-  }, []);
+    ++selectionRequestIdRef.current;
+    scheduleAfterTerrainExit(() => {
+      setSelectedGrade(grade);
+      setSelectedEvent(null);
+      setNavigationStack([]);
+    });
+  }, [scheduleAfterTerrainExit]);
 
   // Close popup
   const handleClosePopup = useCallback(() => {
-    setSelectedEvent(null);
-    setNavigationStack([]);
+    ++selectionRequestIdRef.current;
+    scheduleAfterTerrainExit(() => {
+      setSelectedEvent(null);
+      setNavigationStack([]);
+    });
+  }, [scheduleAfterTerrainExit]);
+
+  const handleViewEventDetails = useCallback(() => {
+    if (!selectedEvent) return;
+    const detailKey = selectedEvent.slug || selectedEvent.id;
+    scheduleAfterTerrainExit(() => {
+      navigate(`/events/${detailKey}`, { state: { from: window.location.pathname } });
+    });
+  }, [navigate, scheduleAfterTerrainExit, selectedEvent]);
+
+  const handleOpenTerrain = useCallback(() => {
+    if (!selectedEvent || !terrainTargetResult) return;
+    const current = terrainStateRef.current;
+    if (current.mode === 'entering' || current.mode === 'active' || current.mode === 'exiting') return;
+    const sessionId = ++terrainSessionCounterRef.current;
+    pendingAfterTerrainExitRef.current = null;
+    if (!terrainTargetResult.eligible) {
+      terrainDispatch({
+        type: 'OPEN_REJECTED',
+        sessionId,
+        eventId: selectedEvent.id,
+        error: {
+          code: 'no_valid_targets',
+          message: 'Sự kiện chưa có vị trí hợp lệ để xem địa hình.',
+        },
+      });
+      return;
+    }
+    terrainDispatch({
+      type: 'OPEN',
+      sessionId,
+      eventId: selectedEvent.id,
+      targets: terrainTargetResult.targets,
+    });
+  }, [selectedEvent, terrainTargetResult]);
+
+  const handleExitTerrain = useCallback(() => {
+    const current = terrainStateRef.current;
+    if (current.sessionId !== null && current.mode !== 'idle' && current.mode !== 'exiting') {
+      terrainDispatch({ type: 'EXIT', sessionId: current.sessionId });
+    }
   }, []);
+
+  // ─── Terrain Exploration toolbar wiring (Task C) ───────────────────────────
+  const clearInspection = useCallback(() => {
+    setInspectMode('none');
+    setInspection({ result: null, loading: false, error: null });
+    cesiumApiRef.current?.clearInspectionMarker();
+  }, []);
+
+  const handleToggleInspect = useCallback((next: TerrainExplorationMode) => {
+    // Always bump session id on every transition so cross-cancel inside CesiumMap
+    // remains deterministic even on rapid ON→OFF→ON toggles.
+    setInspectSessionId((prev) => prev + 1);
+    if (next === 'inspect-location') {
+      setInspection({ result: null, loading: false, error: null });
+      setInspectMode(next);
+    } else {
+      clearInspection();
+    }
+  }, [clearInspection]);
+
+  const handleZoomIn = useCallback(() => {
+    cesiumApiRef.current?.zoomByFactor(0.3);
+  }, []);
+
+  const handleZoomOut = useCallback(() => {
+    cesiumApiRef.current?.zoomByFactor(-0.3);
+  }, []);
+
+  const handleInspectionResultChange = useCallback(
+    (payload: TerrainInspectionPayload) => {
+      if (payload.loading) {
+        setInspection({ result: null, loading: true, error: null });
+        return;
+      }
+      setInspection({
+        result: payload.result,
+        loading: false,
+        error: payload.error,
+      });
+    },
+    [],
+  );
+
+  const handleTerrainReady = useCallback((sessionId: number) => {
+    terrainDispatch({ type: 'ENTER_READY', sessionId });
+  }, []);
+
+  const handleTerrainProviderReady = useCallback((sessionId: number) => {
+    terrainDispatch({ type: 'PROVIDER_READY', sessionId });
+  }, []);
+
+  const handleTerrainGeometryReady = useCallback((sessionId: number) => {
+    terrainDispatch({ type: 'SESSION_GEOMETRY_READY', sessionId });
+  }, []);
+
+  const handleTerrainEnterError = useCallback((sessionId: number, error: TerrainRuntimeError) => {
+    terrainDispatch({ type: 'ENTER_ERROR', sessionId, error });
+  }, []);
+
+  const handleTerrainExitComplete = useCallback((sessionId: number) => {
+    if (terrainStateRef.current.sessionId !== sessionId) return;
+    terrainDispatch({ type: 'EXIT_COMPLETE', sessionId });
+    const pending = pendingAfterTerrainExitRef.current;
+    pendingAfterTerrainExitRef.current = null;
+    if (pending) queueMicrotask(pending);
+  }, []);
+
+  const handleTerrainTargetSelect = useCallback((sessionId: number, targetId: string) => {
+    terrainDispatch({ type: 'SELECT_TARGET', sessionId, targetId });
+  }, []);
+
+  const handleShowTerrainOverview = useCallback(() => {
+    const current = terrainStateRef.current;
+    if (current.sessionId !== null) {
+      terrainDispatch({ type: 'SHOW_OVERVIEW', sessionId: current.sessionId });
+    }
+  }, []);
+
+  const handleRegionGeometryStatus = useCallback((
+    status: Exclude<RegionGeometryStatus, 'idle'>,
+    error?: TerrainRuntimeError,
+  ) => {
+    if (status === 'loading') {
+      terrainDispatch({ type: 'REGION_GEOMETRY_LOADING' });
+    } else if (status === 'ready') {
+      terrainDispatch({ type: 'REGION_GEOMETRY_READY' });
+    } else {
+      terrainDispatch({
+        type: 'REGION_GEOMETRY_ERROR',
+        error: error ?? {
+          code: 'geojson_load_failed',
+          message: 'Chưa tải được dữ liệu khu vực trên bản đồ.',
+        },
+      });
+    }
+  }, []);
+
+  const terrainSession = useMemo<TerrainSessionCommand | null>(() => {
+    if (
+      terrainState.sessionId === null ||
+      terrainState.eventId === null ||
+      (terrainState.mode !== 'entering' &&
+        terrainState.mode !== 'active' &&
+        terrainState.mode !== 'exiting')
+    ) {
+      return null;
+    }
+    return {
+      id: terrainState.sessionId,
+      eventId: terrainState.eventId,
+      mode: terrainState.mode,
+      targets: terrainState.targets,
+      selectedTargetId: terrainState.selectedTargetId,
+      overview: terrainState.overview,
+      cameraRequestId: terrainState.cameraRequestId,
+    };
+  }, [
+    terrainState.cameraRequestId,
+    terrainState.eventId,
+    terrainState.mode,
+    terrainState.overview,
+    terrainState.selectedTargetId,
+    terrainState.sessionId,
+    terrainState.targets,
+  ]);
+
+  const terrainViewModel = useMemo<TerrainViewModel>(() => {
+    const targets = terrainState.mode === 'idle'
+      ? terrainTargetResult?.targets ?? []
+      : terrainState.targets;
+    const needsRegions = targets.some((target) => target.kind === 'region');
+    return {
+      mode: terrainState.mode,
+      providerStatus: terrainState.providerStatus,
+      geometryStatus: terrainState.geometryStatus,
+      targets,
+      selectedTargetId: terrainState.selectedTargetId,
+      eligible: terrainTargetResult?.eligible === true
+        && (!needsRegions || terrainState.geometryStatus === 'ready'),
+      ineligibleReason: terrainTargetResult?.reason ?? 'missing_map_data',
+      error: terrainState.error,
+    };
+  }, [terrainState, terrainTargetResult]);
 
   useEffect(() => {
     const closePanelsOnEscape = (event: KeyboardEvent) => {
@@ -360,11 +696,30 @@ export default function MapPage() {
     return () => document.removeEventListener('keydown', closePanelsOnEscape);
   }, [handleClosePopup, selectedEvent, sidebarOpen]);
 
+  // ─── Clear inspection whenever the terrain session leaves "active" ───────────
+  // This catches Close popup, View details, change event, change year/grade,
+  // Route change (unmount), and any other path that funnels through EXIT.
+  useEffect(() => {
+    if (terrainViewModel.mode !== 'active') clearInspection();
+  }, [clearInspection, terrainViewModel.mode]);
+
+  // ─── Also clear whenever the selected event id changes mid-session. ───────
+  useEffect(() => {
+    if (inspectMode === 'inspect-location') clearInspection();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedEvent?.id]);
+
   // Clear header breadcrumb when MapPage unmounts so stale state doesn't leak to Homepage etc.
   useEffect(() => {
+    const selectionRequest = selectionRequestIdRef;
     return () => {
+      ++selectionRequest.current;
+      pendingAfterTerrainExitRef.current = null;
       setCenterContent(null);
+      clearInspection();
+      cesiumApiRef.current = null;
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [setCenterContent]);
 
   useEffect(() => {
@@ -396,8 +751,11 @@ export default function MapPage() {
         >
           <button
             onClick={() => {
-              setSelectedEvent(null);
-              setNavigationStack([]);
+              ++selectionRequestIdRef.current;
+              scheduleAfterTerrainExit(() => {
+                setSelectedEvent(null);
+                setNavigationStack([]);
+              });
             }}
             className="accent-hover-glow"
             style={{
@@ -426,8 +784,11 @@ export default function MapPage() {
               <button
                 onClick={() => {
                   const idx = navigationStack.indexOf(navEvent);
-                  setNavigationStack((prev) => prev.slice(0, idx));
-                  setSelectedEvent(navEvent);
+                  ++selectionRequestIdRef.current;
+                  scheduleAfterTerrainExit(() => {
+                    setNavigationStack((prev) => prev.slice(0, idx));
+                    setSelectedEvent(navEvent);
+                  });
                 }}
                 className="accent-hover-glow"
                 style={{
@@ -466,7 +827,7 @@ export default function MapPage() {
     } else {
       setCenterContent(null);
     }
-  }, [selectedEvent, navigationStack, setCenterContent]);
+  }, [selectedEvent, navigationStack, scheduleAfterTerrainExit, setCenterContent]);
 
   return (
     <div
@@ -481,7 +842,7 @@ export default function MapPage() {
       }}
     >
       {/* Main content */}
-      <div className="map-main" style={{ flex: 1, display: 'flex', overflow: 'hidden' }}>
+      <div className="map-main" style={{ flex: 1, display: 'flex', overflow: 'hidden', position: 'relative' }}>
         {sidebarOpen && (
           <button
             type="button"
@@ -525,6 +886,18 @@ export default function MapPage() {
               selectedEvent={selectedEvent}
               onSelectEvent={handleSelectEvent}
               highlightedEventId={highlightedEventId}
+              terrainSession={terrainSession}
+              onTerrainReady={handleTerrainReady}
+              onTerrainProviderReady={handleTerrainProviderReady}
+              onTerrainGeometryReady={handleTerrainGeometryReady}
+              onTerrainEnterError={handleTerrainEnterError}
+              onTerrainExitComplete={handleTerrainExitComplete}
+              onTerrainTargetSelect={handleTerrainTargetSelect}
+              onRegionGeometryStatus={handleRegionGeometryStatus}
+              inspectMode={inspectMode}
+              inspectionSessionId={inspectSessionId}
+              onInspectionResultChange={handleInspectionResultChange}
+              apiRef={cesiumApiRef}
             />
 
             {/* Hero Preview — Bento-style floating museum introduction */}
@@ -661,6 +1034,22 @@ export default function MapPage() {
                 </button>
               </div>
             )}
+
+            {/* Terrain exploration toolbar (Task C). Anchored to the map-area
+                relative container so it sits over the Cesium canvas, not over
+                the sidebar. */}
+            {terrainViewModel.mode === 'active' && (
+              <TerrainExplorationToolbar
+                isVisible
+                inspectMode={inspectMode}
+                onToggleInspect={handleToggleInspect}
+                inspectionState={inspection}
+                onZoomIn={handleZoomIn}
+                onZoomOut={handleZoomOut}
+                zoomDisabled={terrainViewModel.mode !== 'active'}
+                inspectDisabled={terrainViewModel.mode !== 'active'}
+              />
+            )}
           </div>
 
           {/* Timeline — flex-shrink-0 đảm bảo không bị squeeze khi map shrink */}
@@ -681,6 +1070,26 @@ export default function MapPage() {
             onNavigateToChild={handleNavigateToChild}
             onNavigateToParent={handleNavigateToParent}
             parentEvent={parentEvent}
+            terrain={terrainViewModel}
+            onOpenTerrain={handleOpenTerrain}
+            onRetryTerrain={handleOpenTerrain}
+            onSelectTerrainTarget={(targetId) => {
+              const sessionId = terrainStateRef.current.sessionId;
+              if (sessionId !== null) handleTerrainTargetSelect(sessionId, targetId);
+              clearInspection();
+            }}
+            onShowTerrainOverview={() => {
+              handleShowTerrainOverview();
+              clearInspection();
+            }}
+            onExitTerrain={() => {
+              handleExitTerrain();
+              clearInspection();
+            }}
+            onViewDetails={() => {
+              handleViewEventDetails();
+              clearInspection();
+            }}
           />
         )}
       </div>

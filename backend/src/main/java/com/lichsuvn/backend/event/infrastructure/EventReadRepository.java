@@ -23,6 +23,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
@@ -212,7 +213,7 @@ public class EventReadRepository {
                            WHERE c.parent_id = e.id
                              AND c.status = 'published'
                        ) AS child_count,
-                       e.status
+                       e.status, e.raw_json
                 FROM historical_events e
                 WHERE e.status = 'published'
                   AND (e.id = :idOrSlug OR e.slug = :idOrSlug)
@@ -263,7 +264,8 @@ public class EventReadRepository {
                 findMedia(base.id()),
                 findRelations(base.id()),
                 findRelatedEvents(base.id()),
-                findTextbookContent(base.id())
+                findTextbookContent(base.id()),
+                base.sourceJson()
         ));
     }
 
@@ -654,7 +656,8 @@ public class EventReadRepository {
                 List.of(),
                 List.of(),
                 EventRelatedEventsDto.empty(),
-                null
+                null,
+                parseObject(rs.getString("raw_json"))
         );
     }
 
@@ -685,14 +688,14 @@ public class EventReadRepository {
         );
     }
 
-    private JsonNode parseJson(String value) {
+    private Object parseObject(String value) {
         if (!StringUtils.hasText(value)) {
-            return objectMapper.nullNode();
+            return Map.of();
         }
         try {
-            return objectMapper.readTree(value);
+            return objectMapper.readValue(value, Object.class);
         } catch (Exception ex) {
-            return objectMapper.nullNode();
+            return Map.of();
         }
     }
 

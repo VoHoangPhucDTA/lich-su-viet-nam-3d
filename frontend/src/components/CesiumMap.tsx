@@ -1,4 +1,10 @@
-import { useEffect, useRef, useCallback, useState } from 'react';
+import {
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+  type MutableRefObject,
+} from 'react';
 import { AlertTriangle } from 'lucide-react';
 import {
   Viewer,
@@ -12,6 +18,7 @@ import {
   defined,
   HeightReference,
   VerticalOrigin,
+  HorizontalOrigin,
   Math as CesiumMath,
   Cartesian2,
   GeoJsonDataSource,
@@ -20,27 +27,108 @@ import {
   EllipsoidTerrainProvider,
   DistanceDisplayCondition,
   LabelStyle,
+  TerrainProvider,
+  BoundingSphere,
+  HeadingPitchRange,
+  Matrix4,
+  PolygonHierarchy,
+  PropertyBag,
+  ConstantProperty,
+  sampleTerrainMostDetailed,
 } from 'cesium';
+import type { TerrainInspectionResult } from '../utils/terrainInspection';
 import 'cesium/Build/Cesium/Widgets/widgets.css';
-import { VIETNAM_CENTER, getMarkerColor } from '../lib/cesium';
+import {
+  VIETNAM_CENTER,
+  configureCesiumIonToken,
+  getCesiumIonToken,
+  getMarkerColor,
+  getTerrainProvider,
+} from '../lib/cesium';
 import type { HistoricalEvent } from '../types/event';
+import type { TerrainRuntimeError, TerrainSessionCommand } from '../types/terrain';
+import type { TerrainRegionTarget } from '../utils/terrainTargets';
+import type { RegionGeometryIndex, ResolvedRegionGeometry } from '../utils/regionGeometry';
+import { parseRegionGeoJSON, resolveRegionGeometry } from '../utils/regionGeometry';
+import {
+  createCameraSnapshot,
+  isSnapshotForSession,
+  terrainFlightDuration,
+  type CameraSnapshot,
+} from '../utils/cameraSnapshot';
 
 // ─── SAFE MODE ────────────────────────────────────────────────────────────────
 // Set to false when globe is confirmed stable to re-enable markers + polygon.
 const CESIUM_SAFE_MODE = false;
+const TERRAIN_REGION_FILL = Color.fromCssColorString('#c49a45').withAlpha(0.24);
+const TERRAIN_REGION_SELECTED_FILL = Color.fromCssColorString('#8b1e1e').withAlpha(0.46);
+const TERRAIN_REGION_OUTLINE = Color.fromCssColorString('#6f4e22').withAlpha(0.9);
+const TERRAIN_REGION_SELECTED_OUTLINE = Color.WHITE.withAlpha(0.98);
+const TERRAIN_POINT_HEIGHT = 45000;
+const TERRAIN_OVERVIEW_MIN_RANGE = 80000;
+const TERRAIN_OVERVIEW_MAX_RANGE = 1600000;
 
-// ─── Module-level guard ────────────────────────────────────────────────────────
-// A React useRef resets on every mount (including StrictMode double-mount).
-// A module-level variable persists across StrictMode mount/unmount/re-mount cycles,
-// preventing two Viewers from being created on the same container.
-let viewerInstance: Viewer | null = null;
-let viewerContainerEl: HTMLDivElement | null = null;
+function polygonHierarchy(polygon: ResolvedRegionGeometry['polygons'][number]) {
+  const positions = polygon[0].map((point) => Cartesian3.fromDegrees(point.lng, point.lat));
+  const holes = polygon.slice(1).map((ring) => new PolygonHierarchy(
+    ring.map((point) => Cartesian3.fromDegrees(point.lng, point.lat)),
+  ));
+  return new PolygonHierarchy(positions, holes);
+}
+
+function regionCartesianPoints(geometry: ResolvedRegionGeometry) {
+  return geometry.polygons.flatMap((polygon) =>
+    (polygon[0] ?? []).map((point) => Cartesian3.fromDegrees(point.lng, point.lat)),
+  );
+}
+
+/** Modes supported by the Terrain Exploration toolbar's inspect toggle. */
+export type TerrainExplorationMode = 'none' | 'inspect-location';
+
+/** Result payload pushed back to the host after a terrain inspection attempt. */
+export interface TerrainInspectionPayload {
+  result: TerrainInspectionResult | null;
+  loading: boolean;
+  error: string | null;
+}
+
+/**
+ * Imperative handle exposed by CesiumMap. The host (MapPage) uses a
+ * pre-allocated ref to call these without ever receiving a Cesium Viewer,
+ * Scene, Camera, Entity, DataSource, or ScreenSpaceEventHandler.
+ */
+export interface CesiumMapHandle {
+  /**
+   * Move the camera by a fractional amount of its current height.
+   * Positive factor = zoom in, negative = zoom out. No-op when the terrain
+   * session is not active.
+   */
+  zoomByFactor(factor: number): void;
+  /** Remove the inspection marker and invalidate any pending sample. */
+  clearInspectionMarker(): void;
+}
 
 interface CesiumMapProps {
   events: HistoricalEvent[];
   selectedEvent: HistoricalEvent | null;
   onSelectEvent: (event: HistoricalEvent | null) => void;
   highlightedEventId: string | null;
+  terrainSession: TerrainSessionCommand | null;
+  onTerrainReady: (sessionId: number) => void;
+  onTerrainProviderReady: (sessionId: number) => void;
+  onTerrainGeometryReady: (sessionId: number) => void;
+  onTerrainEnterError: (sessionId: number, error: TerrainRuntimeError) => void;
+  onTerrainExitComplete: (sessionId: number) => void;
+  onTerrainTargetSelect: (sessionId: number, targetId: string) => void;
+  onRegionGeometryStatus: (status: 'loading' | 'ready' | 'error', error?: TerrainRuntimeError) => void;
+  inspectMode?: TerrainExplorationMode;
+  inspectionSessionId?: number;
+  onInspectionResultChange?: (payload: TerrainInspectionPayload) => void;
+  /**
+   * Mutable ref published by CesiumMap so the host can drive imperative
+   * actions (zoom, inspection cleanup) without owning Cesium objects.
+   */
+  apiRef?: MutableRefObject<CesiumMapHandle | null>;
 }
 
 export default function CesiumMap({
@@ -48,42 +136,90 @@ export default function CesiumMap({
   selectedEvent,
   onSelectEvent,
   highlightedEventId,
+  terrainSession,
+  onTerrainReady,
+  onTerrainProviderReady,
+  onTerrainGeometryReady,
+  onTerrainEnterError,
+  onTerrainExitComplete,
+  onTerrainTargetSelect,
+  onRegionGeometryStatus,
+  inspectMode = 'none',
+  inspectionSessionId = 0,
+  onInspectionResultChange,
+  apiRef,
 }: CesiumMapProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const viewerRef = useRef<Viewer | null>(null);
   const entitiesMapRef = useRef<Map<string, Entity>>(new Map());
+  const eventEntityDataRef = useRef<WeakMap<Entity, HistoricalEvent>>(new WeakMap());
   const handlerRef = useRef<ScreenSpaceEventHandler | null>(null);
   const dataSourceRef = useRef<GeoJsonDataSource | null>(null);
   const markerDataSourceRef = useRef<CustomDataSource | null>(null);
+  const terrainRegionDataSourceRef = useRef<CustomDataSource | null>(null);
+  const regionGeometryIndexRef = useRef<RegionGeometryIndex | null>(null);
+  const regionGeometryPromiseRef = useRef<Promise<RegionGeometryIndex> | null>(null);
+  const regionGeometryResourcePromiseRef = useRef<Promise<{ raw: unknown; index: RegionGeometryIndex }> | null>(null);
+  const regionGeometryOperationRef = useRef(0);
+  const terrainRegionEntitiesRef = useRef<Map<string, Entity[]>>(new Map());
+  const resolvedTerrainRegionsRef = useRef<Map<string, ResolvedRegionGeometry>>(new Map());
+  const lastTerrainCameraRequestRef = useRef<{ sessionId: number; requestId: number } | null>(null);
+  const baseTerrainProviderRef = useRef<EllipsoidTerrainProvider | null>(null);
+  const terrainProviderRef = useRef<TerrainProvider | null>(null);
+  const terrainProviderPromiseRef = useRef<Promise<TerrainProvider> | null>(null);
+  const terrainProviderOperationRef = useRef(0);
+  const cameraOperationRef = useRef(0);
+  const cameraSnapshotRef = useRef<CameraSnapshot | null>(null);
+  const mountedRef = useRef(false);
+  const viewerLifecycleRef = useRef(0);
+  const terrainSessionRef = useRef(terrainSession);
+  const skipNextSelectedEventFlyRef = useRef(false);
+  const renderErrorRemoverRef = useRef<(() => void) | null>(null);
   const [mapError, setMapError] = useState<string | null>(null);
+  const [viewerReady, setViewerReady] = useState(false);
+  // ─── Inspection-related refs (Task C) ──────────────────────────────────────
+  const inspectDataSourceRef = useRef<CustomDataSource | null>(null);
+  const internalInspectOpRef = useRef(0);
+  const onInspectionResultChangeRef = useRef(onInspectionResultChange);
+  onInspectionResultChangeRef.current = onInspectionResultChange;
+  const inspectModePropRef = useRef(inspectMode);
+  inspectModePropRef.current = inspectMode;
 
   // Stable ref to callback — avoids re-running init effect when callback changes
   const onSelectEventRef = useRef(onSelectEvent);
   onSelectEventRef.current = onSelectEvent;
+  const onTerrainReadyRef = useRef(onTerrainReady);
+  const onTerrainProviderReadyRef = useRef(onTerrainProviderReady);
+  const onTerrainGeometryReadyRef = useRef(onTerrainGeometryReady);
+  const onTerrainEnterErrorRef = useRef(onTerrainEnterError);
+  const onTerrainExitCompleteRef = useRef(onTerrainExitComplete);
+  const onTerrainTargetSelectRef = useRef(onTerrainTargetSelect);
+  const onRegionGeometryStatusRef = useRef(onRegionGeometryStatus);
+  onTerrainReadyRef.current = onTerrainReady;
+  onTerrainProviderReadyRef.current = onTerrainProviderReady;
+  onTerrainGeometryReadyRef.current = onTerrainGeometryReady;
+  onTerrainEnterErrorRef.current = onTerrainEnterError;
+  onTerrainExitCompleteRef.current = onTerrainExitComplete;
+  onTerrainTargetSelectRef.current = onTerrainTargetSelect;
+  onRegionGeometryStatusRef.current = onRegionGeometryStatus;
+  terrainSessionRef.current = terrainSession;
 
   // ─── Initialize Cesium Viewer (once, synchronous path) ─────────────────────
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
-
-    // Guard: if we already have a live viewer attached to THIS container, skip.
-    if (viewerInstance && !viewerInstance.isDestroyed() && viewerContainerEl === container) {
-      viewerRef.current = viewerInstance;
-      return;
-    }
-
-    // Guard: destroy stale viewer from a previous container (HMR / navigate away)
-    if (viewerInstance && !viewerInstance.isDestroyed()) {
-      viewerInstance.destroy();
-      viewerInstance = null;
-      viewerContainerEl = null;
-    }
+    const viewerLifecycle = viewerLifecycleRef;
+    const terrainProviderOperation = terrainProviderOperationRef;
+    const regionGeometryOperation = regionGeometryOperationRef;
+    const cameraOperation = cameraOperationRef;
+    const terrainRegionEntities = terrainRegionEntitiesRef;
+    mountedRef.current = true;
+    const lifecycleId = ++viewerLifecycleRef.current;
 
     // Safety: verify container has real dimensions before init
     // Use rAF so the DOM has been painted and layout is final.
-    let rafId: number;
-    rafId = requestAnimationFrame(() => {
-      if (!container || !containerRef.current) return;
+    const rafId = requestAnimationFrame(() => {
+      if (!mountedRef.current || viewerLifecycleRef.current !== lifecycleId || !containerRef.current) return;
 
       const w = container.clientWidth;
       const h = container.clientHeight;
@@ -96,10 +232,15 @@ export default function CesiumMap({
       }
 
       try {
+        const ionToken = getCesiumIonToken();
+        if (ionToken) configureCesiumIonToken(ionToken);
+        const baseTerrainProvider = new EllipsoidTerrainProvider();
+        baseTerrainProviderRef.current = baseTerrainProvider;
         // ── Synchronous Viewer creation (no async = no StrictMode race) ──
         const viewer = new Viewer(container, {
-          // SAFE MODE: always use EllipsoidTerrainProvider (no network, no token needed)
-          terrainProvider: new EllipsoidTerrainProvider(),
+          terrainProvider: baseTerrainProvider,
+          // Missing Ion credentials must not prevent the globe from initializing.
+          baseLayer: ionToken ? undefined : false,
           animation: false,
           timeline: false,
           fullscreenButton: false,
@@ -115,7 +256,7 @@ export default function CesiumMap({
         });
 
         // ── Suppress Cesium's built-in error overlay (replaces [object Object] alert) ──
-        viewer.scene.renderError.addEventListener((_scene: unknown, error: unknown) => {
+        renderErrorRemoverRef.current = viewer.scene.renderError.addEventListener((_scene: unknown, error: unknown) => {
           const msg =
             error instanceof Error
               ? `${error.message}\n${error.stack ?? ''}`
@@ -141,11 +282,37 @@ export default function CesiumMap({
             (movement: { position: Cartesian2 }) => {
               const v = viewerRef.current;
               if (!v || v.isDestroyed()) return;
+              // Inspect mode takes precedence over picking — see Task C.
+              if (
+                inspectModePropRef.current === 'inspect-location'
+                && terrainSessionRef.current?.mode === 'active'
+              ) {
+                void runInspectionAt(movement.position);
+                return;
+              }
               try {
                 const picked = v.scene.pick(movement.position);
-                if (defined(picked) && picked.id && (picked.id as any).eventData) {
+                const pickedEntity = defined(picked) && picked.id instanceof Entity
+                  ? picked.id
+                  : null;
+                const currentTerrain = terrainSessionRef.current;
+                const pickedSessionId = pickedEntity?.properties?.terrainSessionId?.getValue();
+                const pickedTargetId = pickedEntity?.properties?.terrainTargetId?.getValue();
+                if (
+                  currentTerrain?.mode === 'active'
+                  && pickedSessionId === currentTerrain.id
+                  && typeof pickedTargetId === 'string'
+                ) {
+                  onTerrainTargetSelectRef.current(currentTerrain.id, pickedTargetId);
+                  return;
+                }
+                if (currentTerrain) return;
+                const pickedEvent = pickedEntity
+                  ? eventEntityDataRef.current.get(pickedEntity)
+                  : undefined;
+                if (pickedEvent) {
                   // Clicked an individual event marker
-                  onSelectEventRef.current((picked.id as any).eventData as HistoricalEvent);
+                  onSelectEventRef.current(pickedEvent);
                 } else if (!defined(picked) || !picked.id) {
                   // Clicked empty space — deselect
                   onSelectEventRef.current(null);
@@ -162,27 +329,71 @@ export default function CesiumMap({
 
         handlerRef.current = handler;
         viewerRef.current = viewer;
-        viewerInstance = viewer;
-        viewerContainerEl = container;
+        setViewerReady(true);
 
-        // ── Load GeoJSON (non-blocking, optional) ──
+        // ── Load and parse province GeoJSON once for this Viewer lifecycle ──
         if (!CESIUM_SAFE_MODE) {
-          GeoJsonDataSource.load('/geojson/vietnam-provinces.json', {
-            stroke: Color.fromCssColorString('#8b7355').withAlpha(0.45),
-            fill: Color.TRANSPARENT,
-            strokeWidth: 2,
-          })
-            .then((dataSource) => {
-              if (viewer && !viewer.isDestroyed()) {
-                viewer.dataSources.add(dataSource);
-                dataSourceRef.current = dataSource;
-                // Re-apply polygon highlights now that GeoJSON is loaded.
-                // selectedEvent might have been set before GeoJSON finished loading.
-                applyPolygonHighlights(selectedEventRef.current);
+          const geometryOperation = ++regionGeometryOperationRef.current;
+          onRegionGeometryStatusRef.current('loading');
+          const resourcePromise = fetch('/geojson/vietnam-provinces.json')
+            .then((response) => {
+              if (!response.ok) throw new Error(`GeoJSON HTTP ${response.status}`);
+              return response.json() as Promise<unknown>;
+            })
+            .then((raw) => {
+              const index = parseRegionGeoJSON(raw);
+              if (index.features.length === 0) throw new Error('Invalid or empty province GeoJSON');
+              return { raw, index };
+            });
+          regionGeometryResourcePromiseRef.current = resourcePromise;
+          regionGeometryPromiseRef.current = resourcePromise.then(({ index }) => index);
+          resourcePromise
+            .then(async ({ raw, index }) => {
+              if (
+                !mountedRef.current
+                || viewerLifecycleRef.current !== lifecycleId
+                || regionGeometryOperationRef.current !== geometryOperation
+                || viewer.isDestroyed()
+              ) return;
+              regionGeometryIndexRef.current = index;
+              onRegionGeometryStatusRef.current('ready');
+              const dataSource = await GeoJsonDataSource.load(raw, {
+                stroke: Color.fromCssColorString('#8b7355').withAlpha(0.45),
+                fill: Color.TRANSPARENT,
+                strokeWidth: 2,
+              });
+              if (
+                !mountedRef.current
+                || viewerLifecycleRef.current !== lifecycleId
+                || regionGeometryOperationRef.current !== geometryOperation
+                || viewer.isDestroyed()
+              ) {
+                return;
               }
+              await viewer.dataSources.add(dataSource);
+              if (
+                !mountedRef.current ||
+                viewerLifecycleRef.current !== lifecycleId ||
+                viewer.isDestroyed()
+              ) {
+                if (!viewer.isDestroyed()) viewer.dataSources.remove(dataSource, true);
+                return;
+              }
+              dataSourceRef.current = dataSource;
+              applyPolygonHighlights(selectedEventRef.current);
             })
             .catch((e) => {
               console.warn('[CesiumMap] GeoJSON load failed (non-fatal):', e);
+              if (
+                mountedRef.current
+                && viewerLifecycleRef.current === lifecycleId
+                && regionGeometryOperationRef.current === geometryOperation
+              ) {
+                onRegionGeometryStatusRef.current('error', {
+                  code: 'geojson_load_failed',
+                  message: 'Chưa tải được dữ liệu khu vực trên bản đồ.',
+                });
+              }
             });
         }
 
@@ -196,24 +407,252 @@ export default function CesiumMap({
     });
 
     return () => {
+      mountedRef.current = false;
+      ++viewerLifecycle.current;
+      ++terrainProviderOperation.current;
+      ++regionGeometryOperation.current;
+      ++cameraOperation.current;
       cancelAnimationFrame(rafId);
-      // On unmount: clean up handler but KEEP the viewer alive on the module-level variable.
-      // This prevents StrictMode from destroying and re-creating the viewer on the 2nd mount.
-      // The viewer will only be truly destroyed when the container element changes.
+      const viewer = viewerRef.current;
+      if (viewer && !viewer.isDestroyed()) viewer.camera.cancelFlight();
       if (handlerRef.current && !handlerRef.current.isDestroyed()) {
         handlerRef.current.destroy();
         handlerRef.current = null;
       }
-      // Do NOT destroy viewerInstance here — that causes the StrictMode double-init crash.
-      viewerRef.current = null;
-      // Clean up marker datasource on unmount
-      if (markerDataSourceRef.current && viewerInstance && !viewerInstance.isDestroyed()) {
-        viewerInstance.dataSources.remove(markerDataSourceRef.current, true);
+      renderErrorRemoverRef.current?.();
+      renderErrorRemoverRef.current = null;
+      if (markerDataSourceRef.current && viewer && !viewer.isDestroyed()) {
+        viewer.dataSources.remove(markerDataSourceRef.current, true);
         markerDataSourceRef.current = null;
       }
+      if (terrainRegionDataSourceRef.current && viewer && !viewer.isDestroyed()) {
+        viewer.dataSources.remove(terrainRegionDataSourceRef.current, true);
+        terrainRegionDataSourceRef.current = null;
+      }
+      if (inspectDataSourceRef.current && viewer && !viewer.isDestroyed()) {
+        viewer.dataSources.remove(inspectDataSourceRef.current, true);
+        inspectDataSourceRef.current = null;
+      }
+      if (dataSourceRef.current && viewer && !viewer.isDestroyed()) {
+        viewer.dataSources.remove(dataSourceRef.current, true);
+        dataSourceRef.current = null;
+      }
+      if (viewer && !viewer.isDestroyed()) viewer.destroy();
+      viewerRef.current = null;
+      baseTerrainProviderRef.current = null;
+      terrainProviderRef.current = null;
+      terrainProviderPromiseRef.current = null;
+      regionGeometryIndexRef.current = null;
+      regionGeometryPromiseRef.current = null;
+      regionGeometryResourcePromiseRef.current = null;
+      terrainRegionEntities.current.clear();
+      cameraSnapshotRef.current = null;
+      eventEntityDataRef.current = new WeakMap();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  // ─── Inspection pipeline (Task C) ────────────────────────────────────────────
+  const inspectionSessionIdRef = useRef(inspectionSessionId);
+  inspectionSessionIdRef.current = inspectionSessionId;
+  const removeInspectionMarker = useCallback((viewerInstance: Viewer) => {
+    const ds = inspectDataSourceRef.current;
+    if (ds && !viewerInstance.isDestroyed()) {
+      viewerInstance.dataSources.remove(ds, true);
+    }
+    inspectDataSourceRef.current = null;
+  }, []);
+
+  const updateInspectionMarker = useCallback(
+    (viewerInstance: Viewer, cartesian: Cartesian3) => {
+      const ds = inspectDataSourceRef.current
+        ?? new CustomDataSource('terrain-inspect-marker');
+      if (!inspectDataSourceRef.current) {
+        viewerInstance.dataSources.add(ds);
+        inspectDataSourceRef.current = ds;
+      } else {
+        ds.entities.removeAll();
+      }
+      ds.entities.add({
+        id: 'terrain-inspect-marker:current',
+        position: cartesian,
+        point: {
+          pixelSize: 14,
+          color: Color.fromCssColorString('#8b1e1e'),
+          outlineColor: Color.WHITE,
+          outlineWidth: 2,
+          heightReference: HeightReference.NONE,
+          disableDepthTestDistance: Number.POSITIVE_INFINITY,
+        },
+      });
+    },
+    [],
+  );
+
+  const runInspectionAt = useCallback(async (pixel: Cartesian2) => {
+    const viewer = viewerRef.current;
+    const session = terrainSessionRef.current;
+    if (
+      !viewer
+      || viewer.isDestroyed()
+      || !session
+      || session.mode !== 'active'
+      || inspectModePropRef.current !== 'inspect-location'
+    ) {
+      return;
+    }
+    const currentInspectSessionId = inspectionSessionIdRef.current;
+    const opId = ++internalInspectOpRef.current;
+    const onResult = onInspectionResultChangeRef.current;
+    onResult?.({ result: null, loading: true, error: null });
+    try {
+      const scene = viewer.scene;
+      const depthTest = scene.globe.depthTestAgainstTerrain === true;
+      const pickSupported = scene.pickPositionSupported === true;
+      const cartesian = depthTest && pickSupported
+        ? scene.pickPosition(pixel)
+        : scene.camera.pickEllipsoid(pixel, scene.globe.ellipsoid);
+      if (
+        !viewerRef.current
+        || viewer.isDestroyed()
+        || opId !== internalInspectOpRef.current
+        || currentInspectSessionId !== inspectionSessionIdRef.current
+      ) {
+        return;
+      }
+      if (!cartesian) {
+        removeInspectionMarker(viewer);
+        onResult?.({
+          result: null,
+          loading: false,
+          error: 'Không thể xác định vị trí trên bản đồ.',
+        });
+        return;
+      }
+      let status: 'available' | 'ellipsoid_only' = 'available';
+      let heightValue: number | null = 0;
+      const carto = Cartographic.fromCartesian(cartesian);
+      const provider = viewer.terrainProvider;
+      const providerIsEllipsoid = !provider
+        || provider instanceof EllipsoidTerrainProvider
+        || !depthTest;
+      if (providerIsEllipsoid) {
+        status = 'ellipsoid_only';
+        heightValue = carto.height;
+      } else {
+        try {
+          const sampled = await sampleTerrainMostDetailed(provider, [
+            Cartographic.fromRadians(carto.longitude, carto.latitude),
+          ]);
+          if (
+            !viewerRef.current
+            || viewer.isDestroyed()
+            || opId !== internalInspectOpRef.current
+            || currentInspectSessionId !== inspectionSessionIdRef.current
+          ) {
+            return;
+          }
+          const sampledCarto = sampled[0];
+          if (sampledCarto && Number.isFinite(sampledCarto.height)) {
+            heightValue = sampledCarto.height;
+            status = 'available';
+          } else {
+            status = 'ellipsoid_only';
+            heightValue = carto.height;
+          }
+        } catch {
+          if (
+            !viewerRef.current
+            || viewer.isDestroyed()
+            || opId !== internalInspectOpRef.current
+            || currentInspectSessionId !== inspectionSessionIdRef.current
+          ) {
+            return;
+          }
+          onResult?.({
+            result: null,
+            loading: false,
+            error: 'Không thể tải độ cao địa hình tại vị trí này.',
+          });
+          return;
+        }
+      }
+      updateInspectionMarker(
+        viewer,
+        status === 'available' && Number.isFinite(heightValue)
+          ? Cartesian3.fromRadians(carto.longitude, carto.latitude, heightValue as number)
+          : cartesian,
+      );
+      onResult?.({
+        result: {
+          latitude: carto.latitude,
+          longitude: carto.longitude,
+          heightMeters: heightValue,
+          heightStatus: status,
+        },
+        loading: false,
+        error: null,
+      });
+    } finally {
+      // opId + inspectionSessionId together enforce latest-wins.
+    }
+  }, [removeInspectionMarker, updateInspectionMarker]);
+
+  // ─── App API Handle (Task C) ──────────────────────────────────────────────────
+  useEffect(() => {
+    if (!apiRef) return;
+    if (!viewerReady) {
+      apiRef.current = null;
+      return undefined;
+    }
+    const handle: CesiumMapHandle = {
+      zoomByFactor(factor) {
+        const viewer = viewerRef.current;
+        if (!viewer || viewer.isDestroyed()) return;
+        if (terrainSessionRef.current?.mode !== 'active') return;
+        if (!Number.isFinite(factor) || factor === 0) return;
+        ++cameraOperationRef.current; // invalidate any in-flight terrain flyTo callbacks
+        viewer.camera.cancelFlight();
+        const height = Number.isFinite(viewer.camera.positionCartographic.height)
+          ? viewer.camera.positionCartographic.height
+          : 200000;
+        const amount = Math.max(50, Math.abs(height * Math.abs(factor)));
+        if (factor > 0) viewer.camera.zoomIn(amount);
+        else viewer.camera.zoomOut(amount);
+      },
+      clearInspectionMarker() {
+        const viewer = viewerRef.current;
+        if (viewer && !viewer.isDestroyed()) removeInspectionMarker(viewer);
+        ++internalInspectOpRef.current; // drop any in-flight sample
+        onInspectionResultChangeRef.current?.({
+          result: null,
+          loading: false,
+          error: null,
+        });
+      },
+    };
+    apiRef.current = handle;
+    return () => {
+      if (apiRef.current === handle) apiRef.current = null;
+    };
+  }, [apiRef, removeInspectionMarker, viewerReady]);
+
+  // Clear inspection marker when inspect mode flips off, or when the
+  // terrain session exits "active".
+  useEffect(() => {
+    if (inspectMode !== 'inspect-location') {
+      const viewer = viewerRef.current;
+      if (viewer && !viewer.isDestroyed()) removeInspectionMarker(viewer);
+      ++internalInspectOpRef.current;
+    }
+  }, [inspectMode, removeInspectionMarker]);
+
+  useEffect(() => {
+    if (terrainSession?.mode === 'active') return;
+    const viewer = viewerRef.current;
+    if (viewer && !viewer.isDestroyed()) removeInspectionMarker(viewer);
+    ++internalInspectOpRef.current;
+  }, [removeInspectionMarker, terrainSession]);
 
   // ─── Render markers ──────────────────────────────────────────────────────────
   const renderMarkers = useCallback(
@@ -244,11 +683,12 @@ export default function CesiumMap({
         cluster.label.backgroundColor = Color.fromCssColorString('rgba(18, 16, 14, 0.85)');
         cluster.label.outlineWidth = 2;
         cluster.label.verticalOrigin = VerticalOrigin.CENTER;
-        cluster.label.horizontalOrigin = 0 as any; // HorizontalOrigin.CENTER
+        cluster.label.horizontalOrigin = HorizontalOrigin.CENTER;
         cluster.billboard.show = false;
       });
 
       entitiesMapRef.current.clear();
+      eventEntityDataRef.current = new WeakMap();
 
       eventsToRender.forEach((event) => {
         // Guard: skip no-location events
@@ -288,16 +728,16 @@ export default function CesiumMap({
               outlineWidth: 3,
               style: LabelStyle.FILL_AND_OUTLINE,
               verticalOrigin: VerticalOrigin.BOTTOM,
-              pixelOffset: new Cartesian3(0, -22, 0) as any,
+              pixelOffset: new Cartesian2(0, -22),
               heightReference: HeightReference.CLAMP_TO_GROUND,
               distanceDisplayCondition: new DistanceDisplayCondition(0, 2000000),
               showBackground: true,
               backgroundColor: Color.fromCssColorString('rgba(28, 25, 23, 0.9)'),
-              backgroundPadding: new Cartesian3(10, 6, 0) as any,
+              backgroundPadding: new Cartesian2(10, 6),
             },
           });
 
-          (entity as any).eventData = event;
+          eventEntityDataRef.current.set(entity, event);
           entitiesMapRef.current.set(event.id, entity);
         } catch (e) {
           console.warn(`[CesiumMap] Failed to add entity for "${event.id}":`, e);
@@ -311,8 +751,9 @@ export default function CesiumMap({
   );
 
   useEffect(() => {
+    if (!viewerReady) return;
     renderMarkers(events);
-  }, [events, renderMarkers]);
+  }, [events, renderMarkers, viewerReady]);
 
   // ─── Selected event ref (for reapply when GeoJSON loads async) ─────────────
   const selectedEventRef = useRef(selectedEvent);
@@ -364,15 +805,17 @@ export default function CesiumMap({
         const normalizedName = normalizeString(name);
         if (primarySet.has(normalizedName)) {
           entity.polygon.material = primaryMaterial;
-          entity.polygon.outlineColor = baseColor.withAlpha(0.95) as any;
-          entity.polygon.outlineWidth = 2 as any;
+          entity.polygon.outlineColor = new ConstantProperty(baseColor.withAlpha(0.95));
+          entity.polygon.outlineWidth = new ConstantProperty(2);
         } else if (secondarySet.has(normalizedName)) {
           entity.polygon.material = secondaryMaterial;
-          entity.polygon.outlineColor = baseColor.withAlpha(0.65) as any;
-          entity.polygon.outlineWidth = 1.5 as any;
+          entity.polygon.outlineColor = new ConstantProperty(baseColor.withAlpha(0.65));
+          entity.polygon.outlineWidth = new ConstantProperty(1.5);
         } else {
           entity.polygon.material = defaultMaterial;
-          entity.polygon.outlineColor = Color.fromCssColorString('#8b7355').withAlpha(0.45) as any;
+          entity.polygon.outlineColor = new ConstantProperty(
+            Color.fromCssColorString('#8b7355').withAlpha(0.45),
+          );
         }
       }
     },
@@ -417,10 +860,418 @@ export default function CesiumMap({
     []
   );
 
+  const clearTerrainRegions = useCallback((viewer: Viewer) => {
+    const dataSource = terrainRegionDataSourceRef.current;
+    if (dataSource && !viewer.isDestroyed()) viewer.dataSources.remove(dataSource, true);
+    terrainRegionDataSourceRef.current = null;
+    terrainRegionEntitiesRef.current.clear();
+    resolvedTerrainRegionsRef.current.clear();
+  }, []);
+
+  const styleTerrainRegions = useCallback((selectedTargetId: string | null) => {
+    for (const [targetId, entities] of terrainRegionEntitiesRef.current) {
+      const selected = targetId === selectedTargetId;
+      for (const entity of entities) {
+        if (!entity.polygon) continue;
+        entity.polygon.material = new ColorMaterialProperty(
+          selected ? TERRAIN_REGION_SELECTED_FILL : TERRAIN_REGION_FILL,
+        );
+        entity.polygon.outlineColor = new ConstantProperty(selected
+          ? TERRAIN_REGION_SELECTED_OUTLINE
+          : TERRAIN_REGION_OUTLINE);
+        entity.polygon.outlineWidth = new ConstantProperty(selected ? 4 : 2);
+      }
+    }
+  }, []);
+
+  const flyTerrainView = useCallback((
+    viewer: Viewer,
+    session: TerrainSessionCommand,
+    complete?: () => void,
+    cancel?: () => void,
+  ) => {
+    const target = session.overview || !session.selectedTargetId
+      ? null
+      : session.targets.find((item) => item.id === session.selectedTargetId) ?? null;
+    const points: Cartesian3[] = [];
+    if (target?.kind === 'point') {
+      points.push(Cartesian3.fromDegrees(target.position.lng, target.position.lat));
+    } else if (target?.kind === 'region') {
+      const geometry = resolvedTerrainRegionsRef.current.get(target.id);
+      if (geometry) points.push(...regionCartesianPoints(geometry));
+    } else {
+      for (const item of session.targets) {
+        if (item.kind === 'point') {
+          points.push(Cartesian3.fromDegrees(item.position.lng, item.position.lat));
+        } else {
+          const geometry = resolvedTerrainRegionsRef.current.get(item.id);
+          if (geometry) points.push(...regionCartesianPoints(geometry));
+        }
+      }
+    }
+    if (points.length === 0) throw new Error('No resolved terrain camera targets');
+
+    const reducedMotion = typeof window !== 'undefined'
+      && window.matchMedia?.('(prefers-reduced-motion: reduce)').matches === true;
+    const duration = terrainFlightDuration(reducedMotion);
+    if (target?.kind === 'point') {
+      const destination = Cartesian3.fromDegrees(
+        target.position.lng,
+        target.position.lat,
+        TERRAIN_POINT_HEIGHT,
+      );
+      if (duration === 0) {
+        viewer.camera.setView({
+          destination,
+          orientation: { heading: 0, pitch: CesiumMath.toRadians(-35), roll: 0 },
+        });
+        complete?.();
+      } else {
+        viewer.camera.flyTo({
+          destination,
+          orientation: { heading: 0, pitch: CesiumMath.toRadians(-35), roll: 0 },
+          duration,
+          complete,
+          cancel,
+        });
+      }
+      return;
+    }
+
+    const sphere = BoundingSphere.fromPoints(points);
+    const range = Math.min(
+      Math.max(sphere.radius * 2.8, TERRAIN_OVERVIEW_MIN_RANGE),
+      TERRAIN_OVERVIEW_MAX_RANGE,
+    );
+    const offset = new HeadingPitchRange(0, CesiumMath.toRadians(-50), range);
+    viewer.camera.flyToBoundingSphere(sphere, {
+      offset,
+      duration,
+      complete,
+      cancel,
+    });
+  }, []);
+
+  useEffect(() => {
+    if (!mapError || terrainSession?.mode !== 'entering') return;
+    onTerrainEnterErrorRef.current(terrainSession.id, {
+      code: 'viewer_unavailable',
+      message: 'Bản đồ 3D hiện không khả dụng. Vui lòng thử lại sau.',
+    });
+  }, [mapError, terrainSession]);
+
+  // ─── Terrain provider + camera session lifecycle ────────────────────────────
+  useEffect(() => {
+    const session = terrainSession;
+    if (!session || !viewerReady) return;
+    const viewer = viewerRef.current;
+    if (!viewer || viewer.isDestroyed()) return;
+
+    const isCurrentSession = () => {
+      const current = terrainSessionRef.current;
+      return mountedRef.current
+        && !viewer.isDestroyed()
+        && current?.id === session.id;
+    };
+    const prefersReducedMotion = () =>
+      typeof window !== 'undefined'
+      && window.matchMedia?.('(prefers-reduced-motion: reduce)').matches === true;
+    const resetBaseTerrain = () => {
+      const base = baseTerrainProviderRef.current;
+      if (!viewer.isDestroyed() && base) viewer.terrainProvider = base;
+      if (!viewer.isDestroyed()) {
+        viewer.scene.globe.enableLighting = false;
+        viewer.scene.globe.depthTestAgainstTerrain = false;
+      }
+    };
+    const reportError = (error: TerrainRuntimeError) => {
+      if (!isCurrentSession()) return;
+      resetBaseTerrain();
+      clearTerrainRegions(viewer);
+      onTerrainEnterErrorRef.current(session.id, error);
+    };
+
+    if (session.mode === 'exiting') {
+      ++terrainProviderOperationRef.current;
+      const cameraOperation = ++cameraOperationRef.current;
+      viewer.camera.cancelFlight();
+      clearTerrainRegions(viewer);
+      lastTerrainCameraRequestRef.current = null;
+      const snapshot = cameraSnapshotRef.current;
+      const finalizeExit = () => {
+        if (
+          cameraOperationRef.current !== cameraOperation
+          || !isCurrentSession()
+        ) return;
+        resetBaseTerrain();
+        cameraSnapshotRef.current = null;
+        skipNextSelectedEventFlyRef.current = true;
+        onTerrainExitCompleteRef.current(session.id);
+      };
+      if (!snapshot || snapshot.sessionId !== session.id) {
+        finalizeExit();
+        return;
+      }
+      const applySnapshot = () => {
+        if (viewer.isDestroyed()) return;
+        viewer.camera.lookAtTransform(Matrix4.IDENTITY);
+        viewer.camera.setView({
+          destination: Cartesian3.fromElements(...snapshot.positionWC),
+          orientation: {
+            direction: Cartesian3.fromElements(...snapshot.directionWC),
+            up: Cartesian3.fromElements(...snapshot.upWC),
+          },
+        });
+      };
+      const duration = terrainFlightDuration(prefersReducedMotion(), 1.1);
+      if (duration === 0) {
+        applySnapshot();
+        finalizeExit();
+        return;
+      }
+      try {
+        viewer.camera.lookAtTransform(Matrix4.IDENTITY);
+        viewer.camera.flyTo({
+          destination: Cartesian3.fromElements(...snapshot.positionWC),
+          orientation: {
+            direction: Cartesian3.fromElements(...snapshot.directionWC),
+            up: Cartesian3.fromElements(...snapshot.upWC),
+          },
+          duration,
+          complete: finalizeExit,
+          cancel: () => {
+            if (cameraOperationRef.current !== cameraOperation || !isCurrentSession()) return;
+            applySnapshot();
+            finalizeExit();
+          },
+        });
+      } catch {
+        applySnapshot();
+        finalizeExit();
+      }
+      return;
+    }
+
+    if (session.mode === 'active') {
+      styleTerrainRegions(session.overview ? null : session.selectedTargetId);
+      const lastRequest = lastTerrainCameraRequestRef.current;
+      if (
+        lastRequest?.sessionId === session.id
+        && lastRequest.requestId === session.cameraRequestId
+      ) return;
+      lastTerrainCameraRequestRef.current = {
+        sessionId: session.id,
+        requestId: session.cameraRequestId,
+      };
+      ++cameraOperationRef.current;
+      viewer.camera.cancelFlight();
+      try {
+        flyTerrainView(viewer, session);
+      } catch (error) {
+        console.warn('[CesiumMap] terrain target camera failed:', error);
+      }
+      return;
+    }
+
+    if (session.mode !== 'entering') return;
+    const regionTargets = session.targets.filter(
+      (target): target is TerrainRegionTarget => target.kind === 'region',
+    );
+
+    const providerOperation = ++terrainProviderOperationRef.current;
+    const enteringViewer = viewer;
+    const enteringSession = session;
+    const enteringSessionId = session.id;
+    async function enterTerrain() {
+      const token = getCesiumIonToken();
+      if (!token) {
+        reportError({
+          code: 'missing_token',
+          message: 'Chưa cấu hình quyền truy cập địa hình 3D.',
+        });
+        return;
+      }
+
+      try {
+        let provider = terrainProviderRef.current;
+        if (!provider) {
+          let providerPromise = terrainProviderPromiseRef.current;
+          if (!providerPromise) {
+            providerPromise = getTerrainProvider(token);
+            terrainProviderPromiseRef.current = providerPromise;
+          }
+          try {
+            provider = await providerPromise;
+          } finally {
+            if (terrainProviderPromiseRef.current === providerPromise) {
+              terrainProviderPromiseRef.current = null;
+            }
+          }
+          if (!mountedRef.current || enteringViewer.isDestroyed()) return;
+          terrainProviderRef.current = provider;
+        }
+        if (
+          terrainProviderOperationRef.current !== providerOperation
+          || !isCurrentSession()
+          || terrainSessionRef.current?.mode !== 'entering'
+        ) return;
+
+        enteringViewer.terrainProvider = provider;
+        enteringViewer.scene.globe.enableLighting = true;
+        enteringViewer.scene.globe.depthTestAgainstTerrain = true;
+        onTerrainProviderReadyRef.current(enteringSessionId);
+
+        if (regionTargets.length > 0) {
+          let index = regionGeometryIndexRef.current;
+          if (!index) {
+            try {
+              index = await regionGeometryPromiseRef.current;
+            } catch {
+              onRegionGeometryStatusRef.current('loading');
+              try {
+                const retryPromise = fetch('/geojson/vietnam-provinces.json')
+                  .then((response) => {
+                    if (!response.ok) throw new Error(`GeoJSON HTTP ${response.status}`);
+                    return response.json() as Promise<unknown>;
+                  })
+                  .then((raw) => {
+                    const parsed = parseRegionGeoJSON(raw);
+                    if (parsed.features.length === 0) throw new Error('Invalid or empty province GeoJSON');
+                    return parsed;
+                  });
+                regionGeometryPromiseRef.current = retryPromise;
+                index = await retryPromise;
+                if (!isCurrentSession()) return;
+                regionGeometryIndexRef.current = index;
+                onRegionGeometryStatusRef.current('ready');
+              } catch {
+                onRegionGeometryStatusRef.current('error', {
+                  code: 'geojson_load_failed',
+                  message: 'Chưa tải được dữ liệu khu vực trên bản đồ.',
+                });
+                reportError({
+                  code: 'geojson_load_failed',
+                  message: 'Chưa tải được dữ liệu khu vực trên bản đồ.',
+                });
+                return;
+              }
+            }
+          }
+          if (!index || !isCurrentSession()) return;
+          const resolved = regionTargets.flatMap((target) => {
+            const geometry = resolveRegionGeometry(index, target.gadmRef, target.label);
+            if (geometry) return [{ target, geometry }];
+            console.warn('[CesiumMap] terrain region unresolved', {
+              sessionId: enteringSessionId,
+              eventId: enteringSession.eventId,
+              gadmRef: target.gadmRef,
+              code: 'region_not_found',
+            });
+            return [];
+          });
+          const hasPointTarget = enteringSession.targets.some((target) => target.kind === 'point');
+          if (resolved.length === 0 && !hasPointTarget) {
+            reportError({
+              code: 'region_not_found',
+              message: 'Chưa xác định được khu vực liên quan trên bản đồ.',
+            });
+            return;
+          }
+
+          clearTerrainRegions(enteringViewer);
+          if (resolved.length > 0) {
+            const dataSource = new CustomDataSource(`terrain-region-session-${enteringSessionId}`);
+            for (const item of resolved) {
+              resolvedTerrainRegionsRef.current.set(item.target.id, item.geometry);
+              const entities = item.geometry.polygons.map((polygon, polygonIndex) => dataSource.entities.add({
+                id: `${item.target.id}:part:${polygonIndex}`,
+                name: item.target.label,
+                properties: new PropertyBag({
+                  terrainSessionId: enteringSessionId,
+                  terrainTargetId: item.target.id,
+                  terrainTargetKind: 'region',
+                  gadmRef: item.target.gadmRef,
+                }),
+                polygon: {
+                  hierarchy: polygonHierarchy(polygon),
+                  material: TERRAIN_REGION_FILL,
+                  outline: true,
+                  outlineColor: TERRAIN_REGION_OUTLINE,
+                  outlineWidth: 2,
+                  heightReference: HeightReference.CLAMP_TO_GROUND,
+                },
+              }));
+              terrainRegionEntitiesRef.current.set(item.target.id, entities);
+            }
+            await enteringViewer.dataSources.add(dataSource);
+            if (!isCurrentSession() || terrainProviderOperationRef.current !== providerOperation) {
+              if (!enteringViewer.isDestroyed()) enteringViewer.dataSources.remove(dataSource, true);
+              return;
+            }
+            terrainRegionDataSourceRef.current = dataSource;
+          }
+        }
+        onTerrainGeometryReadyRef.current(enteringSessionId);
+        if (!isSnapshotForSession(cameraSnapshotRef.current, enteringSessionId)) {
+          cameraSnapshotRef.current = createCameraSnapshot(enteringSessionId, enteringViewer.camera);
+        }
+
+        const cameraOperation = ++cameraOperationRef.current;
+        enteringViewer.camera.cancelFlight();
+        const isCurrentFlight = () =>
+          cameraOperationRef.current === cameraOperation
+          && isCurrentSession()
+          && terrainSessionRef.current?.mode === 'entering';
+        const complete = () => {
+          if (isCurrentFlight()) onTerrainReadyRef.current(enteringSessionId);
+        };
+        const cancel = () => {
+          if (!isCurrentFlight()) return;
+          reportError({
+            code: 'camera_failed',
+            message: 'Chuyển góc nhìn địa hình đã bị hủy.',
+          });
+        };
+        lastTerrainCameraRequestRef.current = {
+          sessionId: enteringSessionId,
+          requestId: enteringSession.cameraRequestId,
+        };
+        styleTerrainRegions(null);
+        try {
+          flyTerrainView(enteringViewer, enteringSession, complete, cancel);
+        } catch {
+          reportError({
+            code: 'camera_failed',
+            message: 'Không thể thiết lập góc nhìn địa hình cho sự kiện này.',
+          });
+        }
+      } catch {
+        if (terrainProviderOperationRef.current !== providerOperation) return;
+        terrainProviderRef.current = null;
+        reportError({
+          code: 'provider_load_failed',
+          message: 'Không tải được địa hình 3D. Bản đồ cơ bản vẫn có thể sử dụng.',
+        });
+      }
+    }
+
+    void enterTerrain();
+  }, [
+    clearTerrainRegions,
+    flyTerrainView,
+    styleTerrainRegions,
+    terrainSession,
+    viewerReady,
+  ]);
+
   // ─── Fly to selected event ───────────────────────────────────────────────────
   useEffect(() => {
     // 1.1.19: CesiumMap.tsx: Lắng nghe selectedEvent thay đổi, sử dụng thư viện CesiumJS để hiển thị vùng đánh dấu (polygon, điểm) và tự động bay camera (flyTo) đến tọa độ vùng ảnh hưởng của sự kiện.
-    if (CESIUM_SAFE_MODE) return;
+    if (CESIUM_SAFE_MODE || terrainSession || cameraSnapshotRef.current) return;
+    if (skipNextSelectedEventFlyRef.current) {
+      skipNextSelectedEventFlyRef.current = false;
+      return;
+    }
 
     const viewer = viewerRef.current;
     if (!viewer || viewer.isDestroyed() || !selectedEvent) return;
@@ -499,7 +1350,7 @@ export default function CesiumMap({
     } catch (e) {
       console.warn('[CesiumMap] flyTo (default view) error:', e);
     }
-  }, [selectedEvent, computeRegionBounds]);
+  }, [selectedEvent, computeRegionBounds, terrainSession]);
 
   return (
     <div style={{ width: '100%', height: '100%', position: 'relative' }}>

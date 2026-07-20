@@ -41,6 +41,7 @@ public record EventDetailDto(
         List<EventMediaDto> media,
         List<EventRelationDto> relations,
         EventRelatedEventsDto relatedEvents,
-        String textbookContent
+        String textbookContent,
+        Object sourceJson
 ) {
 }
