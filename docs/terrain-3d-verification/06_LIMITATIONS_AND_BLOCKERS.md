@@ -1,29 +1,17 @@
-# Limitations và blockers
+# Limitations and remaining blockers
 
-## Blockers
+1. Token value, provider quota, exact request count, GPU/FPS, and memory growth were not recorded.
+2. Browser harness could not prove Tab/Enter/Space traversal; static semantics and mouse activation were verified.
+3. Cesium reports existing non-fatal geometry outline/heightReference warnings; no terrain crash followed.
+4. Event-view recording still logs an `Invalid CORS request` warning; it is outside the terrain workflow.
+5. GADM boundaries are modern reference regions, not historical borders.
+6. No production deploy, cloud database, or push was performed.
 
-1. `BLOCKED_BY_MISSING_CESIUM_TOKEN`: không có `frontend/.env.local`; World Terrain, elevation thật, quota/origin và retry provider chưa thể nghiệm thu.
-2. `BLOCKED_BY_LOCAL_DATABASE`: backend dotenv trỏ datasource cloud/non-local có credentials. Backend không được khởi động và database không bị ghi.
-3. `DB_LIVE_UNVERIFIED`: chưa chứng minh database detail `sourceJson.mapData` tương đồng canonical JSONL.
-4. Không có fixture/mock API `/map` tương thích sẵn; browser chỉ kiểm tra được application shell.
-5. Ranh giới là GADM hiện đại, không phải historical boundary.
-6. Resource lifecycle 10 vòng, camera restore tolerance và WebGL performance chưa được đo.
-7. Production base path/CSP/static asset hosting chưa được kiểm tra.
+## Reproduced bug fixed locally
 
-## Có thể dùng trong khóa luận
-
-- Kiến trúc/state machine và implementation đã typecheck.
-- 28/28 unit tests PASS; các test terrain bao phủ target normalization, reducer/session, camera snapshot/reduced motion và region geometry.
-- Audit read-only: 361 records, 136 supported/eligible events, 380/380 exact GID refs resolve.
-- Build production trực tiếp PASS và không sửa source/generated data.
-- Responsive shell không overflow tại desktop, 375 px và 320 px.
-- Security remediation: token cũ đã được loại khỏi source hiện tại và người dùng xác nhận đã revoke/rotate.
-
-## Chưa được phép tuyên bố
-
-- End-to-end Terrain 3D PASS.
-- World Terrain/elevation thật hoạt động trên staging/production.
-- Không có datasource/entity/handler/WebGL leak sau 10 vòng.
-- Camera restore, polygon picking và target switching đã được nghiệm thu bằng browser runtime.
-- Backend live contract và deploy CSP/base path đã được xác minh.
-- Ranh giới hiển thị phản ánh chính xác địa giới lịch sử.
+- Steps: open `/map?event=van-hoa-sa-huynh` at 320px while the popup is open.
+- Expected: Cesium canvas and terrain CTA remain usable.
+- Actual: fixed sidebar plus popup collapsed Cesium container to zero; timeline also covered the popup footer.
+- Root cause: fixed 320px sidebar, flex popup in the same row, popup `z-index:10` below timeline `z-index:50`, and an unbounded popup content flex item.
+- Files changed: `frontend/src/components/Sidebar.tsx`, `frontend/src/components/EventPopup.tsx`, `frontend/src/pages/MapPage.tsx`.
+- Verification: 320/375/1280 browser checks PASS with canvas present, no zero-size error, active terrain controls, and no horizontal overflow.

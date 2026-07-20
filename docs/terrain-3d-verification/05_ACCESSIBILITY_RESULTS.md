@@ -1,28 +1,17 @@
-# Accessibility và responsive
+# Accessibility and responsive results
 
-## Static/source verification
+| Criterion | Result |
+|---|---|
+| Native buttons for CTA, targets, overview, restore, close | PASS |
+| `role=dialog` with accessible event name | PASS |
+| `aria-live` loading/error messaging | PASS (source/runtime structure) |
+| Overview `aria-pressed` | PASS; active overview reported `true` |
+| Visible selected target text/icon | PASS |
+| Desktop 1280x720 terrain popup | PASS |
+| Mobile 375x800 terrain popup | PASS after responsive fix |
+| Narrow 320x700 terrain popup | PASS after responsive fix |
+| Horizontal overflow at all three sizes | PASS; scrollWidth matched viewport |
+| Tab/Enter/Space focus traversal in browser harness | UNVERIFIED; harness did not advance focus with synthetic Tab |
+| Escape close | PASS in browser lifecycle check |
 
-| Tiêu chí | Trạng thái | Mức chứng cứ |
-|---|---|---|
-| CTA/target/overview/exit là native button | PASS | OBSERVED |
-| Loading dùng `aria-live="polite"` | PASS | OBSERVED |
-| Error dùng `role="alert"` | PASS | OBSERVED |
-| Target list có list/listitem semantics | PASS | OBSERVED |
-| Target có `aria-pressed` | PASS | OBSERVED |
-| Overview có `aria-pressed` | PASS | OBSERVED |
-| Selection có icon/text ngoài màu sắc | PASS | OBSERVED |
-| Popup có `role="dialog"` và accessible name | PASS | OBSERVED |
-| Escape đi qua callback close | PASS | OBSERVED |
-| Mở popup focus nút đóng; unmount restore focus | PASS | OBSERVED |
-| `prefers-reduced-motion` được dùng cho flight | PASS | OBSERVED |
-| Nhãn “Quay lại góc nhìn” và disclaimer | PASS | OBSERVED |
-
-## Browser shell
-
-| Viewport | Horizontal overflow | Kết quả |
-|---|---:|---|
-| Desktop 1280×720 | Không | PASS — MEASURED |
-| 375×800 | Không | PASS — MEASURED |
-| 320×700 | Không | PASS — MEASURED |
-
-Backend fetch bị chặn nên popup terrain không xuất hiện trong browser session. Tab/Enter/Space/Escape/focus restore trên popup thật và mobile target picker là `UNVERIFIED`, dù cấu trúc source hỗ trợ các hành vi này.
+The mobile fix hides the fixed 320px sidebar below `md`, overlays the popup above the timeline, and allows the popup content to scroll while keeping actions visible.

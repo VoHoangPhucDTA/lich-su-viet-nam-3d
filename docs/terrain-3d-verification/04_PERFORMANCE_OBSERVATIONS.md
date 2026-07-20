@@ -1,20 +1,7 @@
-# Quan sát hiệu năng
+# Performance observations
 
-## Build
-
-`npx vite build` được chạy trực tiếp, không chạy npm `prebuild`.
-
-| Chỉ số | Giá trị | Mức chứng cứ |
-|---|---:|---|
-| Build result | PASS | MEASURED |
-| Build time | 27.66 giây | MEASURED |
-| Modules transformed | 3,553 | MEASURED |
-| CSS | 84.88 kB; gzip 16.30 kB | MEASURED |
-| JavaScript | 5,715.42 kB; gzip 1,445.44 kB | MEASURED |
-| Source/generated status changed | Không | MEASURED |
-
-Vite cảnh báo chunk JavaScript lớn hơn 500 kB. Đây là limitation hiện hữu; Phase 8–9 không thực hiện refactor/code-splitting lớn.
-
-## Runtime
-
-FPS, time-to-terrain, camera duration, network timing, GPU memory và WebGL resource growth là `UNVERIFIED` do thiếu token/backend local. Không suy diễn performance runtime từ build output.
+- Vite dev server ready on localhost; Cesium canvas initialized at 1280, 375, and 320 pixel widths.
+- 10 lifecycle rounds completed without a visible stale popup or terrain state.
+- Production Vite build PASS: 3,553 modules; CSS 84.92 kB (gzip 16.31 kB); JavaScript 5,715.47 kB (gzip 1,445.46 kB); 474 static items copied; 44.78s in the latest pre-commit run.
+- No FPS, GPU memory, provider request count, or exact terrain-load timing was instrumented; those remain `UNVERIFIED`.
+- Existing production build warning about a large JavaScript chunk remains outside this runtime fix.
