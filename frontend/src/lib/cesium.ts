@@ -9,17 +9,24 @@ import {
   createWorldTerrainAsync,
 } from 'cesium';
 
-// Set your Cesium Ion access token here
-// Get a free token at: https://ion.cesium.com/
-Ion.defaultAccessToken =
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJhMjU4ZWNhMC00MTgyLTRiMjEtODNmYi0wNTY2NTU3YzNiMTAiLCJpZCI6NDAyMzAwLCJpYXQiOjE3NzMyOTczMzN9.op6w5yyz8-45g92FFq9J6XLX-Dmlt-V1RgZj2KwN5Kk';
+export function getCesiumIonToken(): string | null {
+  const token = import.meta.env.VITE_CESIUM_ION_TOKEN;
+  return typeof token === 'string' && token.trim() ? token.trim() : null;
+}
+
+export function configureCesiumIonToken(token: string): void {
+  Ion.defaultAccessToken = token;
+}
 
 // Default camera position (centered on Vietnam)
 export const VIETNAM_CENTER = Cartesian3.fromDegrees(108.0, 16.0, 2000000);
 export const HANOI_POSITION = Cartesian3.fromDegrees(105.8542, 21.0285, 50000);
 
-// Terrain provider
-export const getTerrainProvider = () => createWorldTerrainAsync();
+// World Terrain is requested lazily by a terrain session, never during Viewer init.
+export async function getTerrainProvider(token: string) {
+  configureCesiumIonToken(token);
+  return createWorldTerrainAsync();
+}
 
 // Marker styling helpers
 export const getMarkerColor = (eventType: string): Color => {

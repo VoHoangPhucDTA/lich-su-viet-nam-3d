@@ -1,16 +1,14 @@
-import {
-  ArrowLeft,
-  X,
-  Mountain,
-} from 'lucide-react';
+import { ArrowLeft, X } from 'lucide-react';
+import { useEffect, useRef } from 'react';
 import type { HistoricalEvent } from '../types/event';
 import {
   EVENT_TYPE_LABELS,
   EVENT_TYPE_COLORS,
   GEO_TYPE_LABELS,
 } from '../types/event';
-import { useNavigate } from 'react-router-dom';
 import { formatChronologyLabel } from '../utils/chronology';
+import type { TerrainViewModel } from '../types/terrain';
+import TerrainControls from './terrain/TerrainControls';
 
 interface EventPopupProps {
   event: HistoricalEvent;
@@ -18,6 +16,13 @@ interface EventPopupProps {
   onNavigateToChild: (child: HistoricalEvent) => void;
   onNavigateToParent: () => void;
   parentEvent: HistoricalEvent | null;
+  terrain: TerrainViewModel;
+  onOpenTerrain: () => void;
+  onRetryTerrain: () => void;
+  onSelectTerrainTarget: (targetId: string) => void;
+  onShowTerrainOverview: () => void;
+  onExitTerrain: () => void;
+  onViewDetails: () => void;
 }
 
 export default function EventPopup({
@@ -26,16 +31,46 @@ export default function EventPopup({
   onNavigateToChild,
   onNavigateToParent,
   parentEvent,
+  terrain,
+  onOpenTerrain,
+  onRetryTerrain,
+  onSelectTerrainTarget,
+  onShowTerrainOverview,
+  onExitTerrain,
+  onViewDetails,
 }: EventPopupProps) {
   const typeColor = EVENT_TYPE_COLORS[event.eventType];
-  const navigate = useNavigate();
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    const previouslyFocused = document.activeElement instanceof HTMLElement
+      ? document.activeElement
+      : null;
+    return () => {
+      if (previouslyFocused?.isConnected) previouslyFocused.focus();
+    };
+  }, []);
+
+  useEffect(() => {
+    closeButtonRef.current?.focus();
+  }, [event.id]);
+
+  useEffect(() => {
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') onClose();
+    };
+    window.addEventListener('keydown', closeOnEscape);
+    return () => window.removeEventListener('keydown', closeOnEscape);
+  }, [onClose]);
 
   return (
     // 1.1.20: EventPopup.tsx: Khởi tạo và trượt ra ở bên phải màn hình, nhận tham số sự kiện để hiển thị các trường: Tên sự kiện, Phân loại...
     <div
+      role="dialog"
+      aria-labelledby="event-popup-title"
       className="glass-map animate-slide-in-right"
       style={{
-        width: '400px',
+        width: 'min(400px, 100vw)',
         height: '100%',
         display: 'flex',
         flexDirection: 'column',
@@ -70,6 +105,7 @@ export default function EventPopup({
           )}
 
           <h2
+            id="event-popup-title"
             className="serif-heading"
             style={{
               fontSize: '1.25rem',
@@ -116,6 +152,8 @@ export default function EventPopup({
         </div>
 
         <button
+          ref={closeButtonRef}
+          type="button"
           onClick={onClose}
           aria-label="Đóng"
           className="flex items-center justify-center w-9 h-9 rounded-[10px] cursor-pointer flex-shrink-0 border transition-all duration-200"
@@ -354,10 +392,7 @@ export default function EventPopup({
         }}
       >
         <button
-          onClick={() => {
-            const detailKey = event.slug || event.id;
-            navigate(`/events/${detailKey}`, { state: { from: window.location.pathname } });
-          }}
+          onClick={onViewDetails}
           className="flex-1 px-3 py-3 rounded-[10px] text-[13px] font-bold cursor-pointer transition-all duration-200 border-0"
           style={{
             minWidth: '120px',
@@ -377,21 +412,14 @@ export default function EventPopup({
           Xem chi tiết
         </button>
 
-        {/* Terrain View placeholder — chuẩn bị cho tính năng 3D Địa hình tương lai */}
-        <button
-          disabled
-          title="Tính năng Xem Địa hình 3D đang được phát triển"
-          className="flex items-center justify-center gap-1.5 px-3 py-3 rounded-[10px] text-[13px] font-semibold transition-all duration-200 border opacity-50 cursor-not-allowed"
-          style={{
-            borderColor: '#e7e5e4',
-            background: '#ffffff',
-            color: '#78716c',
-          }}
-          tabIndex={-1}
-        >
-          <Mountain size={15} strokeWidth={2.2} />
-          3D Địa hình
-        </button>
+        <TerrainControls
+          terrain={terrain}
+          onOpen={onOpenTerrain}
+          onRetry={onRetryTerrain}
+          onSelectTarget={onSelectTerrainTarget}
+          onShowOverview={onShowTerrainOverview}
+          onExit={onExitTerrain}
+        />
 
         {parentEvent && (
           <button
