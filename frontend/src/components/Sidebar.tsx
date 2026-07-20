@@ -129,11 +129,10 @@ export default function Sidebar({
 
   return (
     <div
-      className="animate-slide-in-left"
+      className="hidden md:flex animate-slide-in-left"
       style={{
         width: '320px',
         height: '100%',
-        display: 'flex',
         flexDirection: 'column',
         zIndex: 10,
         background: '#ffffff',

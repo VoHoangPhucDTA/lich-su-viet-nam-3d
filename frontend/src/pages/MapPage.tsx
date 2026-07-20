@@ -861,7 +861,7 @@ export default function MapPage() {
       }}
     >
       {/* Main content */}
-      <div style={{ flex: 1, display: 'flex', overflow: 'hidden' }}>
+      <div style={{ flex: 1, display: 'flex', overflow: 'hidden', position: 'relative' }}>
         {/* Sidebar */}
         <Sidebar
           events={sidebarEvents}

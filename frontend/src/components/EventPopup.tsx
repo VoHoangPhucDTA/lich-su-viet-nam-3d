@@ -68,13 +68,13 @@ export default function EventPopup({
     <div
       role="dialog"
       aria-labelledby="event-popup-title"
-      className="glass-map animate-slide-in-right"
+      className="glass-map animate-slide-in-right absolute inset-y-0 right-0 md:relative"
       style={{
         width: 'min(400px, 100vw)',
         height: '100%',
         display: 'flex',
         flexDirection: 'column',
-        zIndex: 10,
+        zIndex: 60,
         background: '#ffffff',
         borderLeft: '1px solid #e7e5e4',
         boxShadow: '-8px 0 24px -12px rgba(0,0,0,0.08)',
@@ -86,6 +86,7 @@ export default function EventPopup({
           padding: '20px',
           borderBottom: '1px solid #e7e5e4',
           display: 'flex',
+          flexShrink: 0,
           alignItems: 'flex-start',
           justifyContent: 'space-between',
           gap: '12px',
@@ -184,6 +185,7 @@ export default function EventPopup({
       <div
         style={{
           flex: 1,
+          minHeight: 0,
           overflowY: 'auto',
           padding: '20px',
         }}
@@ -387,6 +389,7 @@ export default function EventPopup({
           padding: '16px 20px',
           borderTop: '1px solid #e7e5e4',
           display: 'flex',
+          flexShrink: 0,
           gap: '8px',
           flexWrap: 'wrap',
         }}
