@@ -81,6 +81,23 @@ Gate code, production artifact, index và persistence: PASSED.
 
 Exact next action: Goal 8 retrieval debug/service và evaluation trên collection production; không thay đổi embedding/index contract nếu chưa version lại.
 
+## Goal 8 — Retrieval service, Fact Context và evaluation
+
+**Trạng thái: DONE_PRODUCTION (2026-07-20)**
+
+- [x] Typed request/response, exact filters và raw cosine distance.
+- [x] Query formatter `gemini-retrieval-query-v1`, Gemini query vector 768 chiều và read-only Chroma query bằng precomputed embedding.
+- [x] Stable deduplicate/diversify với fallback; deterministic Fact Context tối đa 12.000 ký tự/5 chunk.
+- [x] `POST /ai/retrieval/debug`, manual CLI và health `retrievalReady`.
+- [x] Engineering benchmark 36 query: 12 query mỗi lớp, đủ 9 category và có corpus evidence.
+- [x] Cache identity theo query hash/model/dimension/formatter; resume xác nhận 36/36 cache hit.
+- [x] Baseline: strict chunk Hit@1 `0.888889`, Hit@3/5 `1.0`, MRR `0.944444`; toàn bộ invariant bắt buộc đạt.
+- [x] Full suite `98 passed, 2 skipped`; production smoke 6 loại query và debug API pass.
+
+Gate: PASSED. Không rebuild embedding/index, không dùng generation model, không sửa Spring Boot/frontend.
+
+Exact next action cho Goal 9: review bốn rank-1 miss, sau đó thiết kế generation contract và validation chỉ dựa trên sourceChunkIds của Fact Context; chưa ghi câu sinh vào ngân hàng đề.
+
 ---
 
 ## Goal 0 — Audit repository và chốt integration contract

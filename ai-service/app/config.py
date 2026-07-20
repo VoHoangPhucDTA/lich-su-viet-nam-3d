@@ -52,6 +52,13 @@ class Settings(BaseSettings):
     rag_include_pending_review: bool = False
     rag_default_top_k: int = Field(default=5, ge=1)
     rag_max_top_k: int = Field(default=10, ge=1)
+    rag_candidate_multiplier: int = Field(default=3, gt=0)
+    rag_max_candidates: int = Field(default=30, gt=0)
+    rag_max_chunks_per_document: int = Field(default=2, gt=0)
+    rag_context_max_chars: int = Field(default=12000, gt=0)
+    rag_context_max_chunks: int = Field(default=5, gt=0)
+    rag_query_max_length: int = Field(default=1000, gt=0)
+    rag_retrieval_timeout_seconds: float = Field(default=30, gt=0)
 
     @property
     def gemini_configured(self) -> bool:
@@ -95,6 +102,14 @@ class Settings(BaseSettings):
                 "GEMINI_EMBEDDING_RETRY_MAX_SECONDS must be greater than or equal "
                 "to GEMINI_EMBEDDING_RETRY_MIN_SECONDS"
             )
+        return self
+
+    @model_validator(mode="after")
+    def validate_retrieval_limits(self) -> "Settings":
+        if self.rag_max_top_k < self.rag_default_top_k:
+            raise ValueError("RAG_MAX_TOP_K must be >= RAG_DEFAULT_TOP_K")
+        if self.rag_max_candidates < self.rag_max_top_k:
+            raise ValueError("RAG_MAX_CANDIDATES must be >= RAG_MAX_TOP_K")
         return self
 
 

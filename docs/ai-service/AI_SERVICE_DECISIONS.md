@@ -200,6 +200,36 @@
 
 ## Quy tắc thêm quyết định mới
 
+## ADR-025 — Raw distance, không gán confidence
+
+- Status: Accepted cho Goal 8.
+- Decision: Giữ raw Chroma distance tăng dần; không có similarity threshold mặc định và không đổi thành phần trăm confidence.
+
+## ADR-026 — Typed exact metadata filters
+
+- Status: Accepted cho Goal 8.
+- Decision: Chỉ nhận `grade`, `lessonNumber`, `documentId`; exact `$eq`/`$and`, hậu kiểm compliance và không nhận raw `where`.
+
+## ADR-027 — Stable diversity với fallback
+
+- Status: Accepted cho Goal 8.
+- Decision: Loại ID trùng, ưu tiên tối đa 2 chunk/document, rồi bổ sung deferred candidate theo relevance nếu cần đủ topK; không MMR/generation reranker.
+
+## ADR-028 — Fact Context deterministic có budget
+
+- Status: Accepted cho Goal 8.
+- Decision: Tối đa 12.000 ký tự/5 chunk, marker truy nguồn; ưu tiên chunk trọn vẹn và cắt ở ranh giới câu khi cần.
+
+## ADR-029 — Source-evidenced engineering benchmark
+
+- Status: Accepted cho Goal 8.
+- Decision: 36 query cân bằng lớp, ground truth từ eligible corpus, không chỉnh chọn lọc sau metric; chưa phải expert validation.
+
+## ADR-030 — Evaluation query cache identity
+
+- Status: Accepted cho Goal 8.
+- Decision: Key gồm SHA-256 query, model, dimension và query formatter; cache ngoài Git, atomic, không dùng trong production API và không lưu secret/header.
+
 Mỗi quyết định phải có:
 
 ```text

@@ -5,6 +5,7 @@ from dataclasses import dataclass
 from app.corpus.models import CorpusChunk
 
 FORMATTER_VERSION = "gemini-retrieval-document-v1"
+QUERY_FORMATTER_VERSION = "gemini-retrieval-query-v1"
 
 
 def _clean(value: str) -> str:
@@ -29,6 +30,7 @@ def format_retrieval_document(title: object, text: object) -> str:
 @dataclass(frozen=True)
 class RetrievalFormatter:
     version: str = FORMATTER_VERSION
+    query_version: str = QUERY_FORMATTER_VERSION
 
     def document_title(self, chunk: CorpusChunk) -> str:
         parts = [f"Lịch sử lớp {chunk.grade}", _clean(chunk.lessonTitle)]

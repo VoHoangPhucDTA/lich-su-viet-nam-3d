@@ -213,3 +213,35 @@ Ghi vào `AI_SERVICE_STATUS.md`:
 - File bị ảnh hưởng.
 - Cách tái hiện.
 - Điều đã thử.
+
+## 11. Retrieval và evaluation — Goal 8
+
+Khởi động API:
+
+```powershell
+python -m uvicorn app.main:app --host 127.0.0.1 --port 8001
+```
+
+Manual query:
+
+```powershell
+python -m scripts.query_retrieval --query "Nguyên nhân thắng lợi của Cách mạng tháng Tám năm 1945" --grade 12 --lesson-number 6 --top-k 5 --show-context
+```
+
+CLI hỗ trợ `--grade`, `--lesson-number`, `--document-id`, `--top-k`, `--json`, `--show-context`; chỉ query read-only, không in key/vector.
+
+Debug API:
+
+```powershell
+Invoke-RestMethod -Method Post -Uri http://127.0.0.1:8001/ai/retrieval/debug -ContentType application/json -Body '{"query":"Nguyên nhân thắng lợi của Cách mạng tháng Tám","grade":12,"lessonNumber":6,"topK":5}'
+```
+
+Evaluation/resume:
+
+```powershell
+python -m scripts.evaluate_retrieval
+```
+
+Cache atomic nằm tại `storage/evaluation-cache/`; cùng query/model/dimension/formatter sẽ resume không gọi embedding lại. Không đổi model hoặc rebuild document embeddings khi quota tạm thời; tối đa ba resume pass khi có tiến triển. Report runtime ở `storage/evaluation-reports/retrieval-evaluation.json` và `.md`.
+
+Production smoke automated chỉ chạy khi `RUN_PRODUCTION_RETRIEVAL_SMOKE=1`; thiếu Gemini key hoặc Chroma thì skip. Kiểm tra filter, ID trùng, finite distance, ordered source IDs và collection count không đổi.

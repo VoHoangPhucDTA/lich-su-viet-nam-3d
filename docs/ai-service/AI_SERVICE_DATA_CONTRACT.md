@@ -263,4 +263,24 @@ Chỉ lấy câu đã được project hiện tại xem là verified/public theo
 - `chunkId` phải deterministic.
 - `chunkHash` dùng để tránh re-embed chunk không đổi.
 - Mọi index build có manifest chứa model, dimension, corpus version và count.
+
+## 14. Retrieval, Fact Context và benchmark — Goal 8
+
+`RetrievalResult` giữ rank, chunk/document identity, grade/lesson, title/path/page nullable, content types, nguyên văn `text`, raw `distance` và `chunkHash`. API không trả vector hoặc confidence.
+
+```json
+{
+  "text": "[SOURCE 1]\nchunkId: ...",
+  "sourceChunkIds": ["..."],
+  "includedChunks": 1,
+  "truncated": false,
+  "characterCount": 500
+}
+```
+
+Fact Context theo đúng thứ tự result, chỉ dùng eligible final results, tối đa 5 chunk/12.000 ký tự; có thể cắt ở ranh giới câu. Page thiếu là `unknown` trong context và `null` trong API.
+
+Benchmark JSONL `data/evaluation/retrieval_benchmark.jsonl` gồm query identity/content/category, grade/lesson, typed filters, expected chunk/document/section keywords và `sourceEvidence`. Expected ID phải thuộc canonical eligible corpus. Đây là engineering baseline, không phải expert-labelled dataset.
+
+Cache chỉ chứa vector dưới identity không đảo ngược dựa trên query hash + model + dimension + query formatter. Cache/report runtime bị Git ignore; report/API không chứa vector, API key hoặc authorization header.
 - Không upsert vector khác dimension vào collection cũ.

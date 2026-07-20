@@ -9,6 +9,8 @@ storage/chroma/*
 storage/chroma-reports/
 storage/embeddings/
 storage/checkpoints/
+storage/evaluation-cache/
+storage/evaluation-reports/
 
 __pycache__/
 *.py[cod]

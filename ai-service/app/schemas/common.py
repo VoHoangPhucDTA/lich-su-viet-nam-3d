@@ -17,4 +17,5 @@ class HealthResponse(CamelModel):
     service: str
     environment: str
     chroma_ready: bool
+    retrieval_ready: bool
     gemini_configured: bool

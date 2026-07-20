@@ -149,6 +149,19 @@
 - Health: HTTP 200, `chromaReady=true`; readiness chỉ đọc SQLite marker và completed index report.
 - Exact next action: Goal 8 retrieval debug/service và retrieval evaluation; không bắt đầu retrieval/generation/integration trong phiên này.
 
+### 2026-07-20 — Goal 8 retrieval service và evaluation baseline
+
+- Trạng thái `DONE_PRODUCTION`; `POST /ai/retrieval/debug` và `retrievalReady=true` đã smoke thành công.
+- Artifact giữ nguyên: corpus SHA `a4bd330be7b4b43ac9da25966877fef51c66c0e14cc68baa7eccf46a63e15ab2`; manifest `COMPLETED` 414; collection cosine/768 có 414 unique ID, không pending-review.
+- Benchmark engineering: 36 query, mỗi lớp 10/11/12 có 12, đủ 9 category, expected chunk có source evidence.
+- Baseline: strict chunk Hit@1 `0.888889`, Hit@3/5 `1.0`, document/lesson Hit@1/3/5 `1.0`, MRR `0.944444`.
+- Invariant: filter compliance `1.0`; pending leakage, duplicate, empty result đều `0.0`; dimension/metadata mismatch đều `0`.
+- Pass đầu 36 cache miss, 0 lỗi/quota incident. Resume: 36 cache hit, 0 embedding call mới; average/P50/P95 `264.75/265.5/344.0 ms`.
+- Smoke 6/6 loại query pass. Grade+lesson bài 10 trả 3/5 vì collection chỉ có 3 chunk đúng filter. Full suite `98 passed, 2 skipped`.
+- Hạn chế: benchmark chưa expert validation; bốn query không hit expected chunk ở rank 1 nhưng đều hit top 3; raw distance không phải confidence.
+- Blocker: không có.
+- Exact next action Goal 9: review bốn rank-1 miss, khóa generation contract/validation chỉ dùng Fact Context có truy nguồn; chưa persist vào ngân hàng đề.
+
 ## Kế hoạch dài hạn tham chiếu
 
 1. Chạy Goal 0: audit project hiện tại bằng Codex.

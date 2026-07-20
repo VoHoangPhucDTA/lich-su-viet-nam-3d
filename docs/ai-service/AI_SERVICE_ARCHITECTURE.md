@@ -137,3 +137,21 @@ project-root/
 - Đổi embedding model/dimension → collection mới.
 - Đổi chunking logic làm thay đổi chunk IDs/content → corpus version mới.
 - Không ghi đè index production nếu chưa qua retrieval evaluation.
+
+## Luồng retrieval production — Goal 8
+
+```text
+RetrievalRequest
+→ validate query/topK/typed filters
+→ gemini-retrieval-query-v1
+→ Gemini gemini-embedding-2 query vector (768)
+→ validate dimension và finite values
+→ read-only Chroma query_embeddings (cosine, candidate pool)
+→ typed metadata + pending rejection + filter compliance
+→ stable distance order → deduplicate → per-document diversity → fallback
+→ topK RetrievalResult
+→ deterministic Fact Context + ordered sourceChunkIds
+→ RetrievalResponse
+```
+
+API, CLI và evaluator dùng chung `RetrievalService`. Cache evaluator trong `storage/evaluation-cache/` không tham gia production API. Health chỉ đọc file/report/config; không gọi Gemini, không query Chroma và không load corpus.

@@ -19,6 +19,13 @@ def test_config_loads_defaults_without_api_key() -> None:
     assert settings.gemini_embedding_model == "gemini-embedding-2"
     assert settings.gemini_embedding_dimension == 768
     assert settings.gemini_embedding_batch_size == 8
+    assert settings.rag_candidate_multiplier == 3
+    assert settings.rag_max_candidates == 30
+    assert settings.rag_max_chunks_per_document == 2
+    assert settings.rag_context_max_chars == 12000
+    assert settings.rag_context_max_chunks == 5
+    assert settings.rag_query_max_length == 1000
+    assert settings.rag_retrieval_timeout_seconds == 30
     assert settings.gemini_configured is False
 
 
@@ -31,6 +38,12 @@ def test_config_loads_defaults_without_api_key() -> None:
         {"chroma_upsert_batch_size": 0},
         {"chroma_collection_name": " "},
         {"chroma_distance_metric": "unsupported"},
+        {"rag_candidate_multiplier": 0},
+        {"rag_context_max_chars": 0},
+        {"rag_query_max_length": 0},
+        {"rag_retrieval_timeout_seconds": 0},
+        {"rag_default_top_k": 5, "rag_max_top_k": 4},
+        {"rag_max_top_k": 10, "rag_max_candidates": 9},
         {
             "gemini_embedding_retry_min_seconds": 10,
             "gemini_embedding_retry_max_seconds": 1,

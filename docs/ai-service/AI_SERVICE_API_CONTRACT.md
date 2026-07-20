@@ -22,7 +22,7 @@ Không trả secret hoặc API key.
 
 ### `POST /ai/retrieval/debug`
 
-Dev/admin only.
+Endpoint nội bộ cho development/evaluation; không lưu request và không gọi generation model.
 
 Request:
 
@@ -32,8 +32,7 @@ Request:
   "grade": 12,
   "lessonNumber": 6,
   "documentId": null,
-  "topK": 5,
-  "includePendingReview": false
+  "topK": 5
 }
 ```
 
@@ -42,21 +41,48 @@ Response:
 ```json
 {
   "query": "...",
-  "filters": {"grade": 12},
+  "filters": {"grade": 12, "lessonNumber": 6, "documentId": null},
+  "topK": 5,
+  "candidateCount": 15,
+  "resultCount": 5,
   "results": [
     {
       "rank": 1,
       "chunkId": "...",
       "documentId": "...",
+      "grade": 12,
+      "lessonNumber": 6,
       "lessonTitle": "...",
       "sectionTitle": "...",
+      "sectionPath": "...",
+      "pageStart": 34,
+      "pageEnd": 35,
+      "contentTypes": "knowledge",
       "text": "...",
       "distance": 0.0,
-      "pendingReview": false
+      "chunkHash": "..."
     }
-  ]
+  ],
+  "factContext": {
+    "text": "[SOURCE 1]...",
+    "sourceChunkIds": ["..."],
+    "includedChunks": 5,
+    "truncated": false,
+    "characterCount": 1000
+  },
+  "metadata": {
+    "embeddingModel": "gemini-embedding-2",
+    "embeddingDimension": 768,
+    "queryFormatterVersion": "gemini-retrieval-query-v1",
+    "collectionName": "sgk_kntt_history_gemini_v1",
+    "distanceMetric": "cosine"
+  }
 }
 ```
+
+Validation: query bắt buộc, trim, tối đa 1000 ký tự; grade chỉ 10/11/12; `lessonNumber > 0`; `documentId` không rỗng; `topK` mặc định 5 và trong 1..10. Client không truyền raw Chroma `where` hoặc bật pending-review.
+
+Errors: `422` request/topK/filter sai; `503` collection/manifest chưa sẵn sàng hoặc embedding tạm lỗi; `500` lỗi không dự kiến. Không trả key, vector hoặc stack trace. `distance` là raw distance, không phải confidence/probability.
 
 ### `POST /ai/quiz/generate`
 
