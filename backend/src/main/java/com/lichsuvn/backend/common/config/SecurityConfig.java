@@ -102,6 +102,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/api/events/**").permitAll()
                         // Keep legacy attempt history authenticated before exposing public catalog routes.
                         .requestMatchers("/api/exams/attempts/**").authenticated()
+                        .requestMatchers(HttpMethod.POST, "/api/exams/ai/generate").authenticated()
                         .requestMatchers("/api/exam-submissions/recover").authenticated()
                         .requestMatchers(HttpMethod.GET, "/api/exams", "/api/exams/topics", "/api/exams/*").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/exams/custom/preview").permitAll()

@@ -57,6 +57,7 @@ Không được đánh dấu `DONE` nếu chưa có bằng chứng từ build/te
 - Embedding local TF-IDF + Random Projection 256 chiều: hoàn thành, chỉ dùng baseline.
 - Gemini embedding production: hoàn tất 414 eligible chunks, dimension 768.
 - ChromaDB production collection: hoàn tất 414 records, cosine, idempotent và persistent.
-- Retrieval API, generation API, Spring integration, frontend integration: chưa triển khai.
+- Retrieval API, generation API và Spring integration: đã triển khai và smoke production pass.
+- Frontend integration: chưa triển khai; là Goal 11 tiếp theo.
 
 Xem chi tiết tại `AI_SERVICE_STATUS.md`.

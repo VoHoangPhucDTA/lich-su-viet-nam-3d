@@ -278,6 +278,47 @@
 - Decision: Date/proper-name evidence heuristics chỉ đưa câu vào manual review. Không tự động tuyên bố groundedness hoặc answer correctness.
 - Consequences: 22 câu production đều cần manual review; `properNameEvidenceWarningRate=0.75` được công bố như limitation, không là failure rate.
 
+## ADR-037 — Read-only verified Style Examples theo schema exam thật
+
+- Date: 2026-07-20
+- Status: Accepted cho Goal 10.
+- Context: Verification/public thuộc `exam_definitions`; grade/lesson không tồn tại trong versioned exam bank.
+- Decision: Chỉ đọc active dataset, PUBLIC+VERIFIED definition, `mcq`, no image, nonblank question/explanation, đúng A–D và một correct. Ưu tiên exact topic+difficulty, exact topic, difficulty, rồi stable `question_id`; tối đa ba. Không giả lập grade/lesson.
+- Consequences: Có thể trả zero Style Examples. Grade/lesson chỉ filter SGK retrieval. Không dùng entity/JPA làm HTTP body và không có write method.
+- Verification: H2 repository/service tests và full-route smoke với một synthetic verified style.
+
+## ADR-038 — JDK HTTP/1.1 client, 5s/90s và zero retry
+
+- Date: 2026-07-20
+- Status: Accepted.
+- Decision: Dùng JDK `HttpClient` sẵn có, explicit HTTP/1.1, connect timeout 5s, request/read timeout 90s, `X-Request-ID`, redirect disabled và không retry generation.
+- Consequences: Tránh duplicate Gemini cost khi response bị mất. HTTP/1.1 là bắt buộc vì Uvicorn local từ chối JDK h2c upgrade trong smoke đầu.
+- Verification: client tests cho status/timeout/connection/malformed và production smoke count 1/3.
+
+## ADR-039 — Authenticated gateway, không forward JWT
+
+- Date: 2026-07-20
+- Status: Accepted.
+- Decision: `/api/exams/ai/generate` yêu cầu authenticated user qua Spring Security; FastAPI là internal service và không nhận user JWT.
+- Consequences: Student/user và admin/teacher authenticated đều dùng được; internal service authentication là hardening riêng, không hard-code shared secret.
+- Verification: controller tests authenticated success và anonymous 401.
+
+## ADR-040 — Partial/warning giữ nguyên, internal metadata bị ẩn
+
+- Date: 2026-07-20
+- Status: Accepted.
+- Decision: Partial có ít nhất một câu được trả với `partial=true`; không retry để bù. Warning được giữ nhưng không diễn giải thành factual error. Public response bỏ model/collection/prompt/schema/internal latency.
+- Consequences: Frontend Goal 11 phải xử lý partial và warning trung tính; zero question hoặc response hỏng bị chặn.
+- Verification: service/controller tests cho partial, zero, warnings và defensive contract.
+
+## ADR-041 — Generated quiz không persist
+
+- Date: 2026-07-20
+- Status: Accepted.
+- Decision: Goal 10 chỉ trả response; không migration, không question/option repository write, không auto verification/approval.
+- Consequences: Generated question lifetime bằng request/response. Attempt/session persistence nếu cần là goal riêng.
+- Verification: gated full-route smoke kiểm tra count `exam_questions` và `exam_mcq_options` trước/sau count 1/3 không đổi.
+
 Mỗi quyết định phải có:
 
 ```text

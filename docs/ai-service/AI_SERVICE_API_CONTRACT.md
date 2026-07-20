@@ -172,11 +172,50 @@ Yêu cầu auth/policy phải chốt sau Goal 0.
 
 ## 2. Spring Boot public endpoint
 
-Dự kiến:
+Đã triển khai:
 
 ```http
-POST /api/quiz/generate
+POST /api/exams/ai/generate
 ```
+
+Endpoint yêu cầu authenticated user (student/teacher/admin đều được theo policy `anyRequest().authenticated()` và matcher tường minh). Frontend không gửi `styleExamples`.
+
+Request:
+
+```json
+{
+  "query": "Nguyên nhân thắng lợi của Cách mạng tháng Tám năm 1945",
+  "grade": 12,
+  "lessonNumber": 6,
+  "documentId": null,
+  "difficulty": "MEDIUM",
+  "count": 5,
+  "topK": 5
+}
+```
+
+Response dùng wrapper chung:
+
+```json
+{
+  "success": true,
+  "code": "SUCCESS",
+  "message": "Success",
+  "data": {
+    "questions": [],
+    "sources": [],
+    "warnings": [],
+    "generation": {
+      "requestedCount": 5,
+      "generatedCount": 5,
+      "partial": false
+    }
+  },
+  "timestamp": "ISO-8601"
+}
+```
+
+Validation public: query nonblank/tối đa 1000; grade 10/11/12; lesson dương; difficulty EASY/MEDIUM/HARD; count/topK 1..10; documentId nếu có phải nonblank/tối đa 255. Unknown/raw Fact Context/source/model/key/filter fields không nằm trong DTO.
 
 Spring Boot chịu trách nhiệm:
 
@@ -185,6 +224,23 @@ Spring Boot chịu trách nhiệm:
 - Timeout và error mapping.
 - Không trả internal debug data nếu không cần.
 - Không để frontend biết địa chỉ hoặc key của Gemini.
+
+DTO mapping:
+
+```text
+AiQuizGenerateRequest
++ tối đa 3 AiStyleExample được Spring đọc từ verified bank
+→ AiQuizGenerationRequest
+→ FastAPI GenerationRequest
+
+FastAPI GenerationResponse
+→ AiQuizGenerationResponse (internal, đầy đủ metadata)
+→ AiQuizGenerateResponse (public, bỏ model/collection/prompt/schema/latency)
+```
+
+Partial: `generatedCount > 0` và nhỏ hơn `requestedCount` vẫn HTTP 200, `partial=true`, giữ warning và không gọi bù. Zero question không được trả như success.
+
+Warning: giữ chuỗi warning của FastAPI; warning heuristic chỉ là manual-review signal, không mang nghĩa factual error.
 
 ## 3. Error contract draft
 
@@ -207,6 +263,22 @@ Các code dự kiến:
 - `AI_OUTPUT_INVALID`
 - `AI_RATE_LIMITED`
 - `AI_TIMEOUT`
+
+Error code Spring Goal 10 thực tế:
+
+| Nguồn | HTTP Spring | Code |
+|---|---:|---|
+| Public DTO invalid | 400 | `VALIDATION_ERROR` |
+| AI integration disabled | 503 | `AI_SERVICE_DISABLED` |
+| FastAPI 409 `INSUFFICIENT_CONTEXT` | 409 | `AI_INSUFFICIENT_CONTEXT` |
+| FastAPI 422 | 422 | `AI_SERVICE_CONTRACT_REJECTED` |
+| FastAPI 502 | 502 | `AI_GENERATION_FAILED` |
+| FastAPI 503/connection refused | 503 | `AI_SERVICE_UNAVAILABLE` |
+| Timeout | 504 | `AI_SERVICE_TIMEOUT` |
+| Malformed/inconsistent response | 502 | `AI_SERVICE_INVALID_RESPONSE` |
+| Style bank unavailable | 503 | `AI_STYLE_EXAMPLES_UNAVAILABLE` |
+
+Không trả raw FastAPI/Gemini body hoặc stack trace.
 
 Goal 0 phải map theo error schema hiện có của backend.
 

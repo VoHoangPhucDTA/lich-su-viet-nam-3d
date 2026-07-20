@@ -6,8 +6,8 @@
 - Repository dự kiến: `D:/KLTN/lich-su-viet-nam-3d`
 - Nhánh đã được nhắc trước đây: `be_exams`
 - Nhánh thực tế: `ai_service` (khác tên `ai-service` trong yêu cầu; không đổi branch)
-- Commit đã xác minh: `590bbe1a` (`feat(ai-service): implement grounded retrieval and evaluation`)
-- Người cập nhật gần nhất: `Codex — Goal 9 Grounded Generation`
+- Commit đầu Goal 10: `e5b2d1e8` (`feat(ai-service): implement grounded quiz generation and evaluation`)
+- Người cập nhật gần nhất: `Codex — Goal 10 Spring Integration`
 
 ## Trạng thái tổng quát
 
@@ -29,7 +29,7 @@
 | Retrieval service | DONE_PRODUCTION | `POST /ai/retrieval/debug`, Fact Context có nguồn |
 | Retrieval evaluation | DONE_PRODUCTION | 36 query; Hit@3/5 = 1.0, invariant pass |
 | Gemini question generation | DONE_PRODUCTION | `POST /ai/quiz/generate`, Gemini structured output, validator/repair/cache/evaluation |
-| Spring Boot integration | NOT_STARTED | Cần audit project |
+| Spring Boot integration | DONE_WITH_BASELINE_LIMITATION | `/api/exams/ai/generate`, authenticated, typed client/config/DTO, verified Style Examples, no persistence |
 | React integration | NOT_STARTED | Cần audit component quiz hiện có |
 | Thesis evaluation | NOT_STARTED | Cần số liệu thực nghiệm |
 
@@ -176,6 +176,23 @@
 - Verification cuối: `112 passed, 3 skipped`; compileall, corpus validator, Chroma inspect và `git diff --check` pass. HTTP-level `TestClient` smoke trả 200, generated `1/1`, đúng 4 option, source không rỗng, repair `0`; warning tên riêng được giữ để manual review.
 - Không sửa Spring Boot/frontend, không ghi ngân hàng câu hỏi, không rebuild artifact Goal 7C/7D.
 - Blocker: không có cho Goal 9. Exact next action Goal 10: Spring Boot lấy tối đa 2–3 câu verified từ MySQL làm Style Examples rồi gọi FastAPI; AI Service không truy cập MySQL trực tiếp.
+
+### 2026-07-20 — Goal 10 Spring Boot integration
+
+- Goal 9 đã commit riêng tại `e5b2d1e8`; toàn bộ thay đổi Goal 10 giữ chưa commit.
+- Backend audit: Spring Boot 4.0.3/Java 21/Maven, Spring MVC, JWT filter, `ApiResponse<T>`, `ApiException`/`GlobalExceptionHandler`, JDBC exam bank version hóa.
+- Public endpoint: authenticated `POST /api/exams/ai/generate`; internal endpoint giữ nguyên `POST /ai/quiz/generate`. Frontend không gửi Style Examples và JWT không được forward sang FastAPI.
+- Typed config `app.ai-service`: enabled, base URL, connect `5s`, read `90s`, generation/health path, max Style Examples `3`; không có Gemini key trong Spring.
+- Style source: active dataset (`exam_runtime_state` + `exam_datasets.status='ACTIVE'`), public/verified `exam_definitions`, `exam_questions.question_type='mcq'`, `has_image=false`, text/explanation không rỗng, đúng bốn `exam_mcq_options` A–D và đúng một `is_correct=true`.
+- Exam bank không có grade/lesson field. Selection thực tế vì vậy là: exact `raw_topic`/topic slug/title + difficulty → exact topic → difficulty → stable `question_id`; tối đa ba. Grade/lesson vẫn được gửi sang FastAPI retrieval, không được giả lập thành metadata ngân hàng đề.
+- HTTP client dùng JDK `HttpClient`, khóa HTTP/1.1 để tương thích Uvicorn, connect/read timeout, `X-Request-ID`, JSON typed, zero automatic retry và safe error mapping.
+- Response defensive gate kiểm tra count, nonzero questions, đúng A–D, correct option, difficulty, source subset và duplicate source IDs. Partial hợp lệ được trả với `partial=true`; zero question bị từ chối.
+- Warning được giữ nguyên như warning; `PROPER_NAME_EVIDENCE_WARNING` không được đổi thành factual error hoặc dùng để loại câu.
+- Không có repository/migration/write path cho câu AI. Gated smoke dùng H2 synthetic verified bank, gọi full Spring route cho count 1 rồi 3 và xác nhận `exam_questions`/`exam_mcq_options` không đổi.
+- Tests Goal 10 offline: 16 pass, 1 gated smoke skip; gated production smoke riêng: 1 pass. Compile pass. AI regression: 112 pass, 3 skip; Chroma 414.
+- Full backend: 166 tests, 0 failure, 1 error, 14 skip. Error duy nhất là baseline `HistoryRagPackageReaderTest` do thiếu `data/history-rag/v1`, đã tái hiện trước khi sửa Goal 10.
+- Hạn chế: chưa smoke bằng JWT/cookie thật và MySQL local vì port 3306 không chạy; auth được kiểm tra bằng actual Spring Security chain với authenticated/unauthenticated MockMvc.
+- Exact next action Goal 11: frontend gọi `/api/exams/ai/generate`, hiển thị loading/partial/source và không diễn giải manual-review warning thành câu sai.
 
 ## Kế hoạch dài hạn tham chiếu
 

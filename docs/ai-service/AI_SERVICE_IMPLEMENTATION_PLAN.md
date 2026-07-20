@@ -117,6 +117,26 @@ Gate: PASSED cho phạm vi AI Service. Cảnh báo tên riêng là tín hiệu r
 
 Exact next action Goal 10: tích hợp Spring Boot làm gateway, lấy 2–3 câu verified từ MySQL làm Style Examples và map error/timeout; không cho FastAPI truy cập MySQL trực tiếp.
 
+## Goal 10 — Spring Boot gateway cho AI quiz
+
+**Trạng thái: DONE_WITH_BASELINE_LIMITATION (2026-07-20)**
+
+- [x] Audit JWT/security, response/error convention, config, HTTP client và versioned exam bank.
+- [x] Typed `app.ai-service` config; base URL từ environment, timeout 5s/90s, max 3 styles.
+- [x] Read-only Style Example query từ active/public/verified MCQ, đúng A–D/một đáp án, stable ordering.
+- [x] Tách public DTO khỏi internal FastAPI DTO; frontend không truyền Style Examples/raw context/model/key.
+- [x] JDK HTTP client HTTP/1.1, correlation ID, typed response/error, không automatic retry.
+- [x] Service orchestration, defensive response validation, partial/warning policy và zero-result rejection.
+- [x] Authenticated `POST /api/exams/ai/generate`, dùng `ApiResponse<T>` và error handler hiện có.
+- [x] Micrometer counters/timer; safe structured logs không chứa question/style/context/JWT/body.
+- [x] Unit, repository, client và controller tests; offline 16 pass, gated smoke mặc định skip.
+- [x] Full Spring route → FastAPI smoke count 1/3 pass trên H2 isolated verified bank; no-persistence counts pass.
+- [x] AI Service regression 112 pass/3 skip; Chroma inspect 414; không sửa AI pipeline.
+
+Gate Goal 10: PASSED cho code integration. Full repository suite vẫn có một baseline error ngoài phạm vi vì thiếu `data/history-rag/v1`; live JWT/MySQL smoke còn là environment limitation, không phải lỗi Goal 10.
+
+Exact next action Goal 11: tích hợp frontend với public Spring contract; không gọi FastAPI trực tiếp.
+
 ---
 
 ## Goal 0 — Audit repository và chốt integration contract

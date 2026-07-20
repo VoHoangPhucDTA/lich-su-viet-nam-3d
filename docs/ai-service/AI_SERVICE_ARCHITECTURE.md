@@ -175,3 +175,22 @@ GenerationRequest
 API, CLI và evaluator dùng chung `GenerationService`. Service chỉ chấp nhận `sourceChunkIds` thuộc Fact Context đã retrieval; không dùng pending-review chunk, không ghi MySQL và không đổi Chroma. Generation cache chỉ dùng trong evaluator, có identity gồm request, source ID/hash, model, temperature, prompt/schema version và style hash.
 
 `generationReady` là readiness nhẹ từ retrieval readiness + model/key configuration; health không gọi Gemini. Goal 10 sẽ để Spring Boot lấy Style Examples đã verified từ MySQL và truyền vào request, giữ ranh giới FastAPI không truy cập dữ liệu nghiệp vụ.
+
+## Spring integration production — Goal 10
+
+```text
+React (Goal 11)
+→ POST /api/exams/ai/generate + JWT/cookie
+→ Spring Security + public request validation
+→ read-only verified Style Example selection từ MySQL
+→ public request + style-only DTO
+→ JDK HttpClient HTTP/1.1, X-Request-ID, no retry
+→ POST /ai/quiz/generate
+→ FastAPI retrieval → Fact Context → Gemini → validation
+→ typed Spring defensive validation
+→ ApiResponse<AiQuizGenerateResponse>
+```
+
+Spring không gọi health trước mỗi generation request, không forward JWT, không biết Gemini key và không persist generated questions. Public response chỉ giữ questions, sources, warnings và requested/generated/partial; model, collection, prompt/schema version và internal latency chỉ tồn tại trong internal DTO.
+
+Style query là read-only. Do schema exam bank không có grade/lesson, Spring không suy diễn các field đó; query ưu tiên exact topic/difficulty từ `raw_topic` hoặc `exam_topics`, sau đó difficulty và stable `question_id`. Grade/lesson của public request chỉ đi vào FastAPI retrieval filters.

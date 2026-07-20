@@ -212,8 +212,8 @@ Manifest status:
 - [x] Retrieval test pass ngưỡng.
 - [x] Không dùng pending-review chunks ngoài policy.
 - [x] Gemini structured output pass.
-- [ ] Không có API key trong git diff/log.
-- [ ] Spring integration test pass.
+- [x] Không có API key trong git diff/log.
+- [x] Spring integration test pass.
 - [ ] Frontend build/typecheck pass.
 
 ## 10. Khi gặp lỗi
@@ -304,3 +304,59 @@ python -m scripts.evaluate_generation
 Cache ở `storage/generation-cache/`; report ở `storage/evaluation-reports/generation-evaluation.json` và `.md`, đều Git-ignored. Pass production đã xác minh: pass đầu 12 miss/12 success, pass hai 12 hit/0 miss; các structural/source metrics đạt 1.0, duplicate/partial/insufficient 0.0. Tất cả 22 câu vẫn phải manual review; warning tên riêng/ngày tháng không phải correctness score.
 
 Không xóa cache để tạo thêm provider calls khi report hiện tại đã đủ gate. Không in prompt, key, vector hoặc raw response. Khi 429/quota xảy ra, dừng evaluation nếu không có tiến triển; không rebuild embedding/index và không chuyển key vì generation quota.
+
+## 13. Spring Boot integration — Goal 10
+
+Backend environment mẫu:
+
+```env
+AI_SERVICE_ENABLED=true
+AI_SERVICE_BASE_URL=http://127.0.0.1:8001
+AI_SERVICE_CONNECT_TIMEOUT=5s
+AI_SERVICE_READ_TIMEOUT=90s
+AI_SERVICE_GENERATION_PATH=/ai/quiz/generate
+AI_SERVICE_HEALTH_PATH=/ai/health
+AI_SERVICE_MAX_STYLE_EXAMPLES=3
+```
+
+Gemini key không được đặt trong backend. Khởi động FastAPI trước, xác nhận health một lần cho diagnostics:
+
+```powershell
+cd D:/KLTN/lich-su-viet-nam-3d/ai-service
+$env:GEMINI_GENERATION_MODEL='gemini-2.5-flash'
+python -m uvicorn app.main:app --host 127.0.0.1 --port 8001
+Invoke-RestMethod http://127.0.0.1:8001/ai/health
+```
+
+Khởi động Spring:
+
+```powershell
+cd D:/KLTN/lich-su-viet-nam-3d/backend
+.\mvnw.cmd spring-boot:run
+```
+
+Public smoke cần JWT/cookie authenticated:
+
+```powershell
+$body = @{query='Nguyên nhân thắng lợi của Cách mạng tháng Tám năm 1945'; grade=12; lessonNumber=6; difficulty='MEDIUM'; count=1; topK=5} | ConvertTo-Json
+Invoke-RestMethod -Method Post -Uri http://127.0.0.1:8080/api/exams/ai/generate -Headers @{Authorization="Bearer <local-test-token>"} -ContentType application/json -Body $body
+```
+
+Test offline và gated H2 → FastAPI smoke:
+
+```powershell
+.\mvnw.cmd -q "-Dtest=*Ai*Test" test
+$env:RUN_SPRING_AI_SMOKE='1'
+.\mvnw.cmd -q "-Dtest=AiSpringFastApiSmokeTest" test
+```
+
+Gated smoke gọi count 1 rồi 3 và assert count `exam_questions`/`exam_mcq_options` không đổi. Không bật cờ trong CI không có FastAPI/key; test mặc định skip và không gọi production.
+
+Troubleshooting:
+
+- `AI_SERVICE_DISABLED`: kiểm tra `AI_SERVICE_ENABLED`.
+- `AI_SERVICE_UNAVAILABLE`: kiểm tra FastAPI listen/base URL/health; không retry request thủ công hàng loạt.
+- `AI_SERVICE_TIMEOUT`: giữ read timeout lớn hơn Gemini timeout; không tự động resend.
+- `AI_SERVICE_INVALID_RESPONSE`: kiểm tra protocol; client phải là HTTP/1.1 với Uvicorn local.
+- `AI_STYLE_EXAMPLES_UNAVAILABLE`: kiểm tra datasource/active exam dataset; zero eligible example tự thân vẫn hợp lệ.
+- Full backend test hiện có baseline error nếu thiếu `data/history-rag/v1`; phân biệt với các suite `exam.ai`.
