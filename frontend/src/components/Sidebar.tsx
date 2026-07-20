@@ -357,13 +357,11 @@ function EventTreeNode({
     <div>
       <div
         // 1.1.17: Sidebar.tsx: Người dùng nhấp trực tiếp vào tiêu đề sự kiện (cha hoặc con) để xem.
+        className="map-event-row"
         onClick={() => onSelectEvent(event)}
         onMouseEnter={() => onHoverEvent(event.id)}
         onMouseLeave={() => onHoverEvent(null)}
         style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: '6px',
           padding: '8px 12px',
           paddingLeft: `${12 + depth * 12}px`,
           cursor: 'pointer',
@@ -402,7 +400,7 @@ function EventTreeNode({
               }
             }}
             aria-label={isExpanded ? 'Thu gọn' : 'Mở rộng'}
-            className="bg-transparent border-0 cursor-pointer w-[18px] h-[18px] flex items-center justify-center flex-shrink-0"
+            className="map-event-expand bg-transparent border-0 cursor-pointer flex items-center justify-center"
             style={{ color: '#78716c' }}
           >
             <ChevronRight
@@ -415,20 +413,17 @@ function EventTreeNode({
             />
           </button>
         ) : (
-          <span className="w-4 flex-shrink-0" />
+          <span className="map-event-expand-spacer" aria-hidden="true" />
         )}
 
         {/* Event name */}
         <span
           title={event.name}
+          className="map-event-title"
           style={{
-            flex: 1,
-            minWidth: 0,
             fontWeight: isSelected ? 700 : 400,
             color: isSelected ? 'var(--accent)' : 'var(--text-primary)',
             lineHeight: '1.4',
-            wordBreak: 'break-word',
-            overflowWrap: 'break-word',
           }}
         >
           {event.name}
@@ -436,7 +431,7 @@ function EventTreeNode({
 
         {/* Year badge */}
         <span
-          className="text-[10px] px-1.5 py-0.5 rounded border flex-shrink-0 font-medium inline-flex items-center gap-0.5"
+          className="map-event-chronology text-[10px] px-1.5 py-0.5 rounded border font-medium inline-flex items-center gap-0.5"
           style={{
             color: 'var(--text-muted)',
             background: isFutureEvent && !isSelected ? 'transparent' : 'var(--bg-card)',

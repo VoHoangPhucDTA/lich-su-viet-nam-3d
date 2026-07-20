@@ -147,8 +147,9 @@ export default function Timeline({
           <span
             className="map-timeline-count text-[11px] font-medium opacity-70"
             style={{ color: '#78716c' }}
+            aria-label={`${availableYears.length} mốc năm trong dòng thời gian hiện tại; đây không phải tổng số sự kiện.`}
           >
-            {availableYears.length} mốc sự kiện
+            {availableYears.length} mốc năm
           </span>
         </div>
 
@@ -164,6 +165,9 @@ export default function Timeline({
                   key={grade ?? 'all'}
                   type="button"
                   onClick={() => onGradeChange(grade)}
+                  aria-label={grade == null
+                    ? 'Hiển thị tất cả các lớp trong mốc thời gian hiện tại'
+                    : `Chỉ hiển thị lớp ${grade} trong mốc thời gian hiện tại`}
                   className="rounded-md px-2.5 py-1 text-[11px] font-semibold transition"
                   style={{
                   background: isActive ? '#8b1e1e' : 'transparent',
