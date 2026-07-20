@@ -4,7 +4,8 @@
 
 ## Contract và ranh giới
 
-- Public: authenticated `POST /api/exams/ai/generate`.
+- Student practice: authenticated `POST /api/quiz/generate` (no receipt/database write; grade/lesson/document null and topK=5).
+- Compatibility/admin: `POST /api/exams/ai/generate` keeps the receipt/candidate contract.
 - Internal: `POST /ai/quiz/generate`.
 - Spring giữ JWT/auth, request validation, Style Example selection, error normalization và public response.
 - FastAPI giữ retrieval, Fact Context, Gemini generation, repair và validation.
@@ -61,7 +62,7 @@ Chỉ các field `question/options/correctOptionId/explanation/difficulty` đư�
 
 ## Goal 11 frontend consumer
 
-Authenticated route `/exams/ai` gọi Spring bằng shared `apiPostOnce`, giữ HttpOnly cookie và không replay generation. Typed parser/adapter xử lý full/partial/source/error; source chỉ hiện sau submit và warning được trình bày trung tính. Quiz/answers/score chỉ tồn tại trong React memory. Frontend không gửi Style Examples, Fact Context, model, source IDs hoặc API key và không gọi official exam persistence/submission API.
+Authenticated route `/quiz/generate` gọi Spring bằng shared `apiPostOnce`, giữ HttpOnly cookie và không replay generation. Typed parser xử lý full/partial/source/error; source chỉ hiện sau submit và warning được trình bày trung tính. Session/result/history tự học được user-isolate trong localStorage; frontend không gửi Style Examples, Fact Context, model, source IDs hoặc API key và không gọi official exam persistence/submission API. `/exams/ai` chỉ là redirect tương thích.
 
 ## Goal 13 Spring integration
 

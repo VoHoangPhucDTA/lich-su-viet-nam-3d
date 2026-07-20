@@ -57,7 +57,6 @@ const ApiCustomPracticeSessionRoutePage = lazy(() => import('./pages/exams/ApiCu
 const ApiFreePracticeRoutePage = lazy(() => import('./pages/exams/ApiPracticeRoutePages').then((module) => ({ default: module.ApiFreePracticeRoutePage })));
 const ApiRetryWrongRoutePage = lazy(() => import('./pages/exams/ApiPracticeRoutePages').then((module) => ({ default: module.ApiRetryWrongRoutePage })));
 const ApiTopicPracticeRoutePage = lazy(() => import('./pages/exams/ApiPracticeRoutePages').then((module) => ({ default: module.ApiTopicPracticeRoutePage })));
-const AiQuizPage = lazy(() => import('./pages/exams/AiQuizPage'));
 const AdminAiCandidatesPage = lazy(() => import('./pages/admin/AdminAiCandidatesPage'));
 const AdminAiCandidateDetailPage = lazy(() => import('./pages/admin/AdminAiCandidateDetailPage'));
 
@@ -103,10 +102,10 @@ function AppContent() {
 
           {/* === Quiz routes === */}
           <Route path="/quiz" element={<QuizHomePage />} />
-          <Route path="/quiz/generate" element={<QuizGeneratePage />} />
-          <Route path="/quiz/session/:sessionId" element={<QuizSessionPage />} />
-          <Route path="/quiz/result/:sessionId" element={<QuizResultPage />} />
-          <Route path="/quiz/history" element={<QuizHistoryPage />} />
+          <Route path="/quiz/generate" element={<ProtectedRoute><QuizGeneratePage /></ProtectedRoute>} />
+          <Route path="/quiz/session/:sessionId" element={<ProtectedRoute><QuizSessionPage /></ProtectedRoute>} />
+          <Route path="/quiz/result/:sessionId" element={<ProtectedRoute><QuizResultPage /></ProtectedRoute>} />
+          <Route path="/quiz/history" element={<ProtectedRoute><QuizHistoryPage /></ProtectedRoute>} />
 
           {/* === Exams routes === */}
           <Route path="/exams" element={<ExamHomePage />} />
@@ -122,7 +121,7 @@ function AppContent() {
           <Route path="/exams/luyen-tap/:examId" element={<ApiFreePracticeRoutePage />} />
           <Route path="/exams/on-chu-de" element={<ApiTopicListPage />} />
           <Route path="/exams/on-chu-de/:topicSlug" element={<ApiTopicPracticeRoutePage />} />
-          <Route path="/exams/ai" element={<ProtectedRoute><AiQuizPage /></ProtectedRoute>} />
+          <Route path="/exams/ai" element={<Navigate to="/quiz/generate" replace />} />
           <Route path="/exams/ket-qua/:sessionId" element={<ExamV2ResultPage />} />
           <Route path="/exams/on-lai/:sessionId" element={<ApiRetryWrongRoutePage />} />
           <Route path="/exams/lich-su" element={<ExamV2HistoryPage />} />

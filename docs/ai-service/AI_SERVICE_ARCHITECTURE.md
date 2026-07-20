@@ -219,6 +219,10 @@ Before submit, approve and publish, Spring calls protected `POST /ai/provenance/
 
 ## Review/publish boundary
 
+## Student practice boundary
+
+`/quiz` uses authenticated `POST /api/quiz/generate` and a no-receipt response. Spring sends null grade/lesson/document filters and `topK=5` to FastAPI, then React stores only the self-study session locally. The receipt/candidate/revision path below remains an admin-only compatibility workflow and is not reachable from the student quiz UI.
+
 Spring persists each successful generation as a short-lived, user-bound receipt. An admin can explicitly copy selected receipt questions into isolated candidate tables; students cannot. Candidate content and immutable provenance remain outside the official bank until a separate publish transaction locks candidate and target, inserts the official MCQ/options, links it back, and audits the transition. Publish targets are restricted to hidden, review-required definitions in active/validated datasets.
 
 ## Revision architecture

@@ -4,10 +4,12 @@ import com.lichsuvn.backend.auth.security.UserPrincipal;
 import com.lichsuvn.backend.common.exception.ApiException;
 import com.lichsuvn.backend.exam.ai.api.dto.AiQuizDifficulty;
 import com.lichsuvn.backend.exam.ai.api.dto.AiQuizGenerateRequest;
+import com.lichsuvn.backend.exam.ai.api.dto.PracticeQuizGenerateRequest;
 import com.lichsuvn.backend.exam.ai.application.AiQuizGenerationService;
 import com.lichsuvn.backend.exam.ai.application.AiQuizMetrics;
 import com.lichsuvn.backend.exam.ai.application.AiStyleExampleService;
 import com.lichsuvn.backend.exam.ai.client.AiQuizClient;
+import com.lichsuvn.backend.exam.ai.client.dto.AiQuizGenerationRequest;
 import com.lichsuvn.backend.exam.ai.client.dto.AiQuizGenerationResponse;
 import com.lichsuvn.backend.exam.ai.config.AiServiceProperties;
 import com.lichsuvn.backend.exam.ai.review.infrastructure.AiGenerationReceiptRepository;
@@ -27,6 +29,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import org.mockito.ArgumentCaptor;
 
 class AiQuizGenerationServiceTest {
     private final AiQuizClient client = mock(AiQuizClient.class);
@@ -66,6 +69,28 @@ class AiQuizGenerationServiceTest {
         assertEquals(1, result.questions().size());
         verify(client).generate(any(), anyString());
         verify(metrics).success(true);
+    }
+
+    @Test
+    void practiceGenerationSearchesWholeCorpusAndDoesNotIssueReceipt() {
+        when(client.generate(any(), anyString())).thenReturn(response(5, 3, "B", List.of("INSUFFICIENT_VALID_QUESTIONS")));
+
+        var result = service.generatePractice(
+                new PracticeQuizGenerateRequest("Cách mạng tháng Tám", AiQuizDifficulty.MEDIUM, 5),
+                principal()
+        );
+
+        ArgumentCaptor<AiQuizGenerationRequest> requestCaptor = ArgumentCaptor.forClass(AiQuizGenerationRequest.class);
+        verify(client).generate(requestCaptor.capture(), anyString());
+        AiQuizGenerationRequest internal = requestCaptor.getValue();
+        assertEquals("Cách mạng tháng Tám", internal.query());
+        assertEquals(null, internal.grade());
+        assertEquals(null, internal.lessonNumber());
+        assertEquals(null, internal.documentId());
+        assertEquals(5, internal.topK());
+        assertTrue(result.generation().partial());
+        assertEquals(3, result.questions().size());
+        verify(receipts, never()).issue(any(), any(), any(), anyString());
     }
 
     @Test

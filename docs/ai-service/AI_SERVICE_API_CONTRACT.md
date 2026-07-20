@@ -174,6 +174,20 @@ Yêu cầu auth/policy phải chốt sau Goal 0.
 
 ## 2. Spring Boot public endpoint
 
+### Practice flow: `POST /api/quiz/generate`
+
+Đây là endpoint authenticated dành cho tự học trên `/quiz`; endpoint không tạo candidate và không ghi generation receipt.
+
+Request:
+
+```json
+{"query":"Cách mạng tháng Tám năm 1945","difficulty":"MEDIUM","count":5}
+```
+
+Spring tự đặt `topK=5`, `grade=null`, `lessonNumber=null`, `documentId=null` khi gọi FastAPI để retrieval trên toàn bộ SGK lớp 10–12. Response `data` gồm `questions`, `sources`, `warnings`, `generation` và không có `generationReceipt`. Partial (`generatedCount > 0`) trả HTTP 200; zero question map thành `AI_INSUFFICIENT_CONTEXT`.
+
+Endpoint legacy `/api/exams/ai/generate` bên dưới vẫn giữ request có grade/topK và receipt contract để tương thích candidate/review workflow.
+
 Đã triển khai:
 
 ```http
@@ -244,9 +258,9 @@ Partial: `generatedCount > 0` và nhỏ hơn `requestedCount` vẫn HTTP 200, `p
 
 Warning: giữ chuỗi warning của FastAPI; warning heuristic chỉ là manual-review signal, không mang nghĩa factual error.
 
-### Frontend contract — Goal 11
+### Frontend contract — `/quiz` practice
 
-Frontend gọi duy nhất `POST /api/exams/ai/generate` qua API client chung (`credentials: include`). Body UI gồm `query`, `grade`, optional `lessonNumber`, `difficulty`, `count`; API layer thêm `topK=5`. Frontend không gửi `styleExamples`, Fact Context, source ID, model, key hoặc internal filter.
+Frontend gọi duy nhất `POST /api/quiz/generate` qua API client chung (`credentials: include`). Body UI gồm `query`, `difficulty`, `count`; Spring tự thêm `grade=null`, `lessonNumber=null`, `documentId=null`, `topK=5`. Frontend không gửi `styleExamples`, Fact Context, source ID, model, key hoặc internal filter. `/api/exams/ai/generate` chỉ còn là compatibility contract cho candidate workflow.
 
 Response `data` được parse phòng thủ: questions/sources/warnings/generation bắt buộc; bốn option phải theo A–D, correct ID phải tồn tại, source ID phải map được, count/partial phải nhất quán và nullable source page phải an toàn. Mismatch được normalize thành `AI_SERVICE_INVALID_RESPONSE`, không tự sửa đáp án.
 

@@ -1,5 +1,5 @@
 import type { LucideIcon } from 'lucide-react';
-import { BookOpen, FilePlus2, History, LibraryBig, Sparkles } from 'lucide-react';
+import { BookOpen, FilePlus2, History, LibraryBig } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import ExamHero from '../../components/exams/ExamHero';
 
@@ -36,7 +36,6 @@ export default function ExamHomePage() {
             <FeatureCard primary title="Ngân hàng đề thi" desc="Chọn đề thật từ kho dữ liệu, thi thử 50 phút hoặc luyện tập tự do theo từng đề." icon={LibraryBig} to="/exams/browse" />
             <FeatureCard title="Ôn theo chủ đề" desc="Luyện câu hỏi theo từng mảng kiến thức và giai đoạn lịch sử, xem giải thích ngay sau từng câu." icon={BookOpen} to="/exams/on-chu-de" />
             <FeatureCard title="Tạo đề tùy chọn" desc="Tự chọn số câu, chủ đề, độ khó và thời gian để luyện đúng phần bạn cần." icon={FilePlus2} to="/exams/tao-de" />
-            <FeatureCard title="Tạo bài luyện tập bằng AI" desc="Tạo câu hỏi luyện tập từ tài liệu học tập. Nội dung được tạo tự động và không phải đề thi chính thức." icon={Sparkles} to="/exams/ai" />
             <FeatureCard title="Lịch sử luyện thi" desc="Xem lại các bài đã nộp, điểm số, thời gian làm bài và mở phần ôn lại câu sai." icon={History} to="/exams/lich-su" />
           </div>
         </section>

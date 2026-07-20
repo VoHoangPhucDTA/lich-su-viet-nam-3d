@@ -4,6 +4,8 @@ import com.lichsuvn.backend.auth.security.UserPrincipal;
 import com.lichsuvn.backend.common.exception.ApiException;
 import com.lichsuvn.backend.exam.ai.api.dto.AiQuizGenerateRequest;
 import com.lichsuvn.backend.exam.ai.api.dto.AiQuizGenerateResponse;
+import com.lichsuvn.backend.exam.ai.api.dto.PracticeQuizGenerateRequest;
+import com.lichsuvn.backend.exam.ai.api.dto.PracticeQuizGenerateResponse;
 import com.lichsuvn.backend.exam.ai.client.AiQuizClient;
 import com.lichsuvn.backend.exam.ai.client.dto.AiQuizGenerationRequest;
 import com.lichsuvn.backend.exam.ai.client.dto.AiQuizGenerationResponse;
@@ -47,6 +49,21 @@ public class AiQuizGenerationService {
     }
 
     public AiQuizGenerateResponse generate(AiQuizGenerateRequest request, UserPrincipal principal) {
+        return generateInternal(request, principal, true);
+    }
+
+    public PracticeQuizGenerateResponse generatePractice(PracticeQuizGenerateRequest request, UserPrincipal principal) {
+        AiQuizGenerateRequest internalRequest = new AiQuizGenerateRequest(
+                request.query(), null, null, null, request.difficulty(), request.count(), 5
+        );
+        return PracticeQuizGenerateResponse.from(generateInternal(internalRequest, principal, false));
+    }
+
+    private AiQuizGenerateResponse generateInternal(
+            AiQuizGenerateRequest request,
+            UserPrincipal principal,
+            boolean issueReceipt
+    ) {
         if (!properties.enabled()) {
             throw new ApiException(HttpStatus.SERVICE_UNAVAILABLE, "AI_SERVICE_DISABLED", "AI quiz generation is disabled");
         }
@@ -60,15 +77,17 @@ public class AiQuizGenerationService {
                     request.difficulty().name(), request.count(), request.topK(), selectedStyles
             ), requestId);
             AiQuizGenerateResponse mapped = validateAndMap(response, request.difficulty().name());
-            AiGenerationReceiptRepository.Issued receipt;
-            try {
-                receipt = receipts.issue(request, response, principal, requestId);
-            } catch (DataAccessException ex) {
-                throw new ApiException(HttpStatus.SERVICE_UNAVAILABLE, "AI_GENERATION_RECEIPT_UNAVAILABLE",
-                        "Generation receipt could not be created");
+            if (issueReceipt) {
+                AiGenerationReceiptRepository.Issued receipt;
+                try {
+                    receipt = receipts.issue(request, response, principal, requestId);
+                } catch (DataAccessException ex) {
+                    throw new ApiException(HttpStatus.SERVICE_UNAVAILABLE, "AI_GENERATION_RECEIPT_UNAVAILABLE",
+                            "Generation receipt could not be created");
+                }
+                mapped = new AiQuizGenerateResponse(mapped.questions(), mapped.sources(), mapped.warnings(), mapped.generation(),
+                        new AiQuizGenerateResponse.GenerationReceipt(receipt.id(), receipt.expiresAt().toString()));
             }
-            mapped = new AiQuizGenerateResponse(mapped.questions(), mapped.sources(), mapped.warnings(), mapped.generation(),
-                    new AiQuizGenerateResponse.GenerationReceipt(receipt.id(), receipt.expiresAt().toString()));
             metrics.success(mapped.generation().partial());
             log.info(
                     "AI quiz generated requestId={} userId={} grade={} lessonNumber={} difficulty={} requestedCount={} styleExampleCount={} generatedCount={} partial={}",

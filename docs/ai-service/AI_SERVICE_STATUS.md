@@ -22,6 +22,10 @@
 
 ## Trạng thái tổng quát
 
+### Student quiz merge (Goal 14)
+
+Completed in the working tree: `/quiz` is the only student AI entry point; `/quiz/generate` calls authenticated `POST /api/quiz/generate` without receipt persistence, searches all grade 10–12 sources, and keeps sessions/results/history user-isolated in localStorage. `/exams/ai` redirects for bookmarks. The legacy receipt/candidate workflow remains available only under its compatibility API/admin routes.
+
 | Hạng mục | Trạng thái | Ghi chú |
 |---|---|---|
 | HTML crawl gốc | DONE | 47 bài |

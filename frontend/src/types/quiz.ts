@@ -57,24 +57,17 @@ export interface QuizQuestion {
 // ── Session types ─────────────────────────────────────────────────────────────
 
 export interface QuizConfig {
+  query: string;
   /** How many questions to generate (default: 10) */
   questionCount: number;
   difficulty: QuizDifficulty;
-  sourceMode: QuizSourceMode;
   /** Filter by school grade */
-  grade?: QuizGrade;
   /** Filter by specific event IDs */
-  eventIds?: string[];
   /** Filter by topic keyword */
-  topic?: string;
   /** Historical period range in years */
-  period?: { from: number; to: number };
   /** Event types to include */
-  eventTypes?: EventType[];
   /** Cognitive level (Nhận biết, thông hiểu, vận dụng) */
-  cognitiveLevel?: CognitiveLevel;
   /** Source material to use (SGK, Data, Wiki) */
-  source?: QuestionSource;
   /** Time limit in minutes (0 = no limit) */
   timeLimitMinutes: number;
 }
@@ -100,6 +93,7 @@ export interface QuizSession {
   currentQuestionIndex: number;
   /** userId or 'guest' */
   userId: string;
+  generation?: { requestedCount: number; generatedCount: number; partial: boolean; warnings?: string[] };
 }
 
 // ── Result types ──────────────────────────────────────────────────────────────

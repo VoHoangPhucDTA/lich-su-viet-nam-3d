@@ -385,7 +385,7 @@ npm ci
 npm run dev
 ```
 
-Đăng nhập, mở `http://localhost:5173/exams/ai`, nhập query/lớp/bài/độ khó/số câu rồi generate. Network phải chỉ có `POST /api/exams/ai/generate` tới Vite proxy/Spring; không có request browser tới port 8001. Source chỉ hiện sau nộp, “Làm lại” không gọi API, “Tạo bộ câu hỏi mới” gọi đúng một request mới.
+Đăng nhập, mở `http://localhost:5173/quiz/generate`, nhập chủ đề/độ khó/số câu rồi generate. Network phải chỉ có đúng một `POST /api/quiz/generate` tới Vite proxy/Spring; không có request browser tới port 8001. Không gửi grade/lesson/document/topK từ browser. Source chỉ hiện sau nộp; hủy chờ không retry.
 
 Verification frontend:
 
