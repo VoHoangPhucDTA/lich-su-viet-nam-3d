@@ -1,4 +1,4 @@
-import { useState, type ComponentType } from 'react';
+import type { ComponentType } from 'react';
 
 interface TextInputProps {
   id: string;
@@ -27,34 +27,22 @@ export default function TextInput({
   hint,
   disabled,
 }: TextInputProps) {
-  const [focused, setFocused] = useState(false);
   const hasIcon = Boolean(Icon);
 
   return (
-    <div>
-      <label htmlFor={id} style={{ display: 'block', fontSize: '0.875rem', fontWeight: 600, color: 'var(--text-secondary)', marginBottom: '0.375rem' }}>
+    <div className="auth-field">
+      <label htmlFor={id} className="auth-field-label">
         {label}
       </label>
-      <div style={{ position: 'relative' }}>
+      <div className="auth-input-wrap">
         {Icon && (
-          <span
-            style={{
-              position: 'absolute',
-              left: '0.875rem',
-              top: '50%',
-              transform: 'translateY(-50%)',
-              pointerEvents: 'none',
-              color: focused ? 'var(--input-focus)' : 'var(--input-icon)',
-              display: 'flex',
-              transition: 'color 0.2s',
-            }}
-          >
-            <Icon size={18} strokeWidth={2} />
+          <span className="auth-input-icon" aria-hidden="true">
+            <Icon size={17} strokeWidth={1.8} />
           </span>
         )}
 
         <input
-          className="themed-input"
+          className={`auth-input ${hasIcon ? 'auth-input-with-icon' : ''}`}
           id={id}
           type={type}
           value={value}
@@ -63,28 +51,9 @@ export default function TextInput({
           required={required}
           autoComplete={autoComplete}
           disabled={disabled}
-          onFocus={() => setFocused(true)}
-          onBlur={() => setFocused(false)}
-          style={{
-            width: '100%',
-            paddingLeft: hasIcon ? '2.75rem' : '1rem',
-            paddingRight: '1rem',
-            paddingTop: '0.75rem',
-            paddingBottom: '0.75rem',
-            background: 'var(--input-bg)',
-            border: focused ? '1px solid var(--input-focus)' : '1px solid var(--input-border)',
-            borderRadius: '0.625rem',
-            color: 'var(--input-text)',
-            fontSize: '0.9375rem',
-            outline: 'none',
-            transition: 'border-color 0.2s, box-shadow 0.2s',
-            boxShadow: focused ? '0 0 0 3px var(--accent-soft)' : 'none',
-            fontFamily: 'inherit',
-            opacity: disabled ? 0.7 : 1,
-          }}
         />
       </div>
-      {hint && <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginTop: '0.375rem' }}>{hint}</p>}
+      {hint && <p className="auth-field-hint">{hint}</p>}
     </div>
   );
 }

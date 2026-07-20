@@ -127,10 +127,6 @@ public class EventSourceJsonSyncRunner implements CommandLineRunner {
             Integer pageEnd = firstInteger(ref.path("pageEnd"), ref.path("pageRange").path("end"));
             String excerpt = text(ref, "excerpt");
             String url = text(ref, "url");
-            String content = firstNonBlank(
-                    text(ref, "detailedNarrative"),
-                    text(event.raw().path("textbookContent"), "detailedNarrative")
-            );
             String sourceKey = "SGK" + grade + ":" + event.id();
 
             MapSqlParameterSource params = params(event.id())
@@ -142,7 +138,6 @@ public class EventSourceJsonSyncRunner implements CommandLineRunner {
                     .addValue("pageEnd", pageEnd)
                     .addValue("excerpt", excerpt)
                     .addValue("url", url)
-                    .addValue("content", content)
                     .addValue("sourceKey", sourceKey);
             TextbookRefState existing = findTextbookRef(params);
             if (existing == null) {
@@ -151,14 +146,14 @@ public class EventSourceJsonSyncRunner implements CommandLineRunner {
                     jdbc.update("""
                             INSERT INTO event_textbook_refs
                                 (event_id, grade, book, theme, lesson, page_start, page_end, excerpt,
-                                 url, content, source_key)
+                                 url, source_key)
                             VALUES
                                 (:eventId, :grade, :book, :theme, :lesson, :pageStart, :pageEnd, :excerpt,
-                                 :url, :content, :sourceKey)
+                                 :url, :sourceKey)
                             """, params);
                     stats.textbookRefsInserted++;
                 }
-            } else if (existing.hasMissingData(pageStart, pageEnd, url, content)) {
+            } else if (existing.hasMissingData(pageStart, pageEnd, url)) {
                 stats.textbookRefsMissing++;
                 stats.textbookRefsUpdated++;
                 if (apply) {
@@ -166,8 +161,7 @@ public class EventSourceJsonSyncRunner implements CommandLineRunner {
                             UPDATE event_textbook_refs
                             SET page_start = COALESCE(page_start, :pageStart),
                                 page_end = COALESCE(page_end, :pageEnd),
-                                url = COALESCE(url, :url),
-                                content = COALESCE(content, :content)
+                                url = COALESCE(url, :url)
                             WHERE id = :id
                             """, params.addValue("id", existing.id()));
                 }
@@ -177,7 +171,7 @@ public class EventSourceJsonSyncRunner implements CommandLineRunner {
 
     private TextbookRefState findTextbookRef(MapSqlParameterSource params) {
         List<TextbookRefState> refs = jdbc.query("""
-                SELECT id, page_start, page_end, url, content
+                SELECT id, page_start, page_end, url
                 FROM event_textbook_refs
                 WHERE event_id = :eventId
                   AND grade = :grade
@@ -194,8 +188,7 @@ public class EventSourceJsonSyncRunner implements CommandLineRunner {
                 rs.getLong("id"),
                 rs.getObject("page_start", Integer.class),
                 rs.getObject("page_end", Integer.class),
-                rs.getString("url"),
-                rs.getString("content")
+                rs.getString("url")
         ));
         return refs.isEmpty() ? null : refs.get(0);
     }
@@ -347,10 +340,6 @@ public class EventSourceJsonSyncRunner implements CommandLineRunner {
         return value != null ? value : integer(fallback);
     }
 
-    private static String firstNonBlank(String primary, String fallback) {
-        return StringUtils.hasText(primary) ? primary : fallback;
-    }
-
     private static String normalizeMediaType(String type) {
         return switch (type == null ? "" : type.toLowerCase()) {
             case "video" -> "video";
@@ -367,14 +356,12 @@ public class EventSourceJsonSyncRunner implements CommandLineRunner {
 
     private record EventDocument(String id, JsonNode raw) {}
 
-    private record TextbookRefState(Long id, Integer pageStart, Integer pageEnd,
-                                    String url, String content) {
+    private record TextbookRefState(Long id, Integer pageStart, Integer pageEnd, String url) {
         private boolean hasMissingData(Integer sourcePageStart, Integer sourcePageEnd,
-                                       String sourceUrl, String sourceDetailedNarrative) {
+                                       String sourceUrl) {
             return pageStart == null && sourcePageStart != null
                     || pageEnd == null && sourcePageEnd != null
-                    || !StringUtils.hasText(url) && StringUtils.hasText(sourceUrl)
-                    || !StringUtils.hasText(content) && StringUtils.hasText(sourceDetailedNarrative);
+                    || !StringUtils.hasText(url) && StringUtils.hasText(sourceUrl);
         }
     }
 

@@ -29,7 +29,7 @@ export default function ExamSessionPage() {
   
   // Dialog state
   const [dialogOpen, setDialogOpen] = useState(false);
-  const [isTimeUpSignal, setIsTimeUpSignal] = useState(false);
+  const [, setIsTimeUpSignal] = useState(false);
 
   // 1. Initial Load
   useEffect(() => {
@@ -236,7 +236,6 @@ export default function ExamSessionPage() {
         <ExamSubmitDialog 
            isOpen={dialogOpen}
            unansweredCount={unansweredCount}
-           isTimeUp={isTimeUpSignal}
            onConfirm={executeSubmit}
            onCancel={() => setDialogOpen(false)}
         />

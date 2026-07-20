@@ -68,15 +68,14 @@ export default function EventPopup({
     <div
       role="dialog"
       aria-labelledby="event-popup-title"
-      className="glass-map animate-slide-in-right absolute inset-y-0 right-0 md:relative"
+      className="map-event-panel glass-map animate-slide-in-right absolute inset-y-0 right-0 md:relative"
       style={{
-        width: 'min(400px, 100vw)',
         height: '100%',
         display: 'flex',
         flexDirection: 'column',
         zIndex: 60,
-        background: '#ffffff',
-        borderLeft: '1px solid #e7e5e4',
+        background: 'var(--bg-card)',
+        borderLeft: '1px solid var(--border)',
         boxShadow: '-8px 0 24px -12px rgba(0,0,0,0.08)',
       }}
     >
@@ -84,7 +83,7 @@ export default function EventPopup({
       <div
         style={{
           padding: '20px',
-          borderBottom: '1px solid #e7e5e4',
+          borderBottom: '1px solid var(--border)',
           display: 'flex',
           flexShrink: 0,
           alignItems: 'flex-start',
@@ -159,21 +158,21 @@ export default function EventPopup({
           aria-label="Đóng"
           className="flex items-center justify-center w-9 h-9 rounded-[10px] cursor-pointer flex-shrink-0 border transition-all duration-200"
           style={{
-            background: '#ffffff',
-            borderColor: '#e7e5e4',
-            color: '#78716c',
-            boxShadow: '0 2px 8px rgba(0,0,0,0.06)',
+            background: 'var(--bg-card)',
+            borderColor: 'var(--border)',
+            color: 'var(--text-muted)',
+            boxShadow: 'var(--admin-shadow)',
           }}
           onMouseEnter={(e) => {
-            e.currentTarget.style.background = '#8b1e1e';
+            e.currentTarget.style.background = 'var(--accent)';
             e.currentTarget.style.color = '#ffffff';
-            e.currentTarget.style.borderColor = '#8b1e1e';
+            e.currentTarget.style.borderColor = 'var(--accent)';
             e.currentTarget.style.transform = 'rotate(90deg)';
           }}
           onMouseLeave={(e) => {
-            e.currentTarget.style.background = '#ffffff';
-            e.currentTarget.style.color = '#78716c';
-            e.currentTarget.style.borderColor = '#e7e5e4';
+            e.currentTarget.style.background = 'var(--bg-card)';
+            e.currentTarget.style.color = 'var(--text-muted)';
+            e.currentTarget.style.borderColor = 'var(--border)';
             e.currentTarget.style.transform = 'rotate(0deg)';
           }}
         >
@@ -387,7 +386,7 @@ export default function EventPopup({
       <div
         style={{
           padding: '16px 20px',
-          borderTop: '1px solid #e7e5e4',
+          borderTop: '1px solid var(--border)',
           display: 'flex',
           flexShrink: 0,
           gap: '8px',

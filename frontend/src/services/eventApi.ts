@@ -9,10 +9,6 @@
  */
 
 import type { MockEventDetail } from '../data/mockEventDetails';
-import {
-  type RawEventJson,
-} from '../data/eventRegistry';
-import { rawToEventDetail } from '../data/eventAdapter';
 import type {
   EventAssociationType,
   CanonicalGeoType,
@@ -37,6 +33,9 @@ import { apiGet, apiPost, toQueryString } from './apiClient';
 interface EventListResponse {
   items: EventSummaryDto[];
   count: number;
+  total?: number;
+  limit?: number;
+  offset?: number;
 }
 
 interface EventSummaryDto {
@@ -86,7 +85,19 @@ interface EventDetailDto extends EventSummaryDto {
     pageEnd?: number;
     excerpt?: string;
     url?: string;
-    content?: string;
+  }[];
+  textbookContent?: string;
+  externalSources: {
+    sourceType: string;
+    title: string;
+    canonicalUri?: string;
+    externalId?: string;
+    language?: string;
+    sourceOrder?: number;
+    matchType: string;
+    primary: boolean;
+    verificationStatus: string;
+    notes?: string;
   }[];
   media: {
     id: number;
@@ -97,7 +108,7 @@ interface EventDetailDto extends EventSummaryDto {
   }[];
   relations: EventRelationDto[];
   relatedEvents?: EventRelatedEventsDto;
-  sourceJson?: RawEventJson;
+  sourceJson?: unknown;
 }
 
 function isCanonicalGeoType(value: unknown): value is CanonicalGeoType {
@@ -345,48 +356,8 @@ function detailToMockEvent(dto: EventDetailDto): MockEventDetail {
   const relatedEventIds = relatedEvents.related.map((event) => event.id);
   const predecessorEventIds = relatedEvents.predecessors.map((event) => event.id);
   const successorEventIds = relatedEvents.successors.map((event) => event.id);
+  const externalSources = dto.externalSources ?? [];
 
-  if (dto.sourceJson) {
-    const detail = rawToEventDetail(dto.sourceJson);
-    detail.summary = {
-      homepageTitle: dto.title,
-      homepageSummary: dto.canonicalSummary ?? dto.cardSummary ?? '',
-      cardSummary: dto.cardSummary ?? dto.canonicalSummary ?? '',
-    };
-    detail.textbookContent.canonicalSummary = dto.canonicalSummary ?? '';
-    detail.textbookContent.detailedNarrative = dto.detailedNarrative;
-    detail.textbookContent.significance = dto.significance;
-    detail.textbookContent.keyFacts = dto.keyFacts;
-    detail.textbookContent.textbookRefs = dto.textbookRefs.map((ref) => ({
-      grade: String(ref.grade),
-      book: ref.book,
-      theme: ref.theme,
-      lesson: ref.lesson,
-      pageStart: ref.pageStart,
-      pageEnd: ref.pageEnd,
-      excerpt: ref.excerpt,
-      url: ref.url,
-      content: ref.content,
-    }));
-    const media = detailMediaFromDto(dto);
-    detail.media = media;
-    detail.hierarchy = {
-      ...detail.hierarchy,
-      rootId: detail.hierarchy?.rootId ?? dto.rootId ?? undefined,
-      parentId: detail.hierarchy?.parentId ?? dto.parentId ?? undefined,
-      level: detail.hierarchy?.level ?? dto.level,
-      orderInParent: detail.hierarchy?.orderInParent ?? dto.orderInParent,
-      childCount: dto.childCount ?? detail.hierarchy?.childIds?.length ?? 0,
-    };
-    detail.associations = {
-      ...detail.associations,
-      relatedEventIds,
-      predecessorEventIds,
-      successorEventIds,
-    };
-    detail.relatedEvents = relatedEvents;
-    return detail;
-  }
   const media = detailMediaFromDto(dto);
 
   return {
@@ -432,6 +403,7 @@ function detailToMockEvent(dto: EventDetailDto): MockEventDetail {
       detailedNarrative: dto.detailedNarrative,
       significance: dto.significance,
       keyFacts: dto.keyFacts,
+      sourceContent: dto.textbookContent,
       textbookRefs: dto.textbookRefs.map((ref) => ({
         grade: String(ref.grade),
         book: ref.book,
@@ -441,9 +413,9 @@ function detailToMockEvent(dto: EventDetailDto): MockEventDetail {
         pageEnd: ref.pageEnd,
         excerpt: ref.excerpt,
         url: ref.url,
-        content: ref.content,
       })),
     },
+    externalSources,
     media,
     hierarchy: {
       rootId: dto.rootId ?? undefined,
@@ -574,12 +546,15 @@ export async function getHomepageEvents(): Promise<HistoricalEvent[]> {
 export interface BrowseEventsParams {
   q?: string;
   eventType?: string;
+  eventLevel?: 'atomic' | 'collection';
   year?: number;
   grade?: number;
   limit?: number;
   offset?: number;
   sortBy?: 'year' | 'name';
   sortDir?: 'asc' | 'desc';
+  startYearFrom?: number;
+  startYearTo?: number;
 }
 
 export interface BrowseEventsResult {
@@ -588,17 +563,25 @@ export interface BrowseEventsResult {
   hasMore: boolean;
 }
 
-export async function getBrowseEvents(params: BrowseEventsParams): Promise<BrowseEventsResult> {
+export async function getBrowseEvents(
+  params: BrowseEventsParams,
+  options?: { signal?: AbortSignal },
+): Promise<BrowseEventsResult> {
   try {
     const query = toQueryString({
       q: params.q || undefined,
       eventType: params.eventType || undefined,
+      eventLevel: params.eventLevel ?? 'atomic',
       year: params.year || undefined,
       grade: params.grade || undefined,
       limit: params.limit ?? 24,
       offset: params.offset ?? 0,
+      sortBy: params.sortBy,
+      sortDir: params.sortDir,
+      startYearFrom: params.startYearFrom,
+      startYearTo: params.startYearTo,
     });
-    const data = await apiGet<EventListResponse>(`/api/events${query}`);
+    const data = await apiGet<EventListResponse>(`/api/events${query}`, { signal: options?.signal });
     const events = data.items.map(summaryToHistoricalEvent);
 
     if (params.sortBy === 'name') {
@@ -609,14 +592,14 @@ export async function getBrowseEvents(params: BrowseEventsParams): Promise<Brows
       events.sort(params.sortDir === 'desc' ? compareChronologyS1Descending : compareChronologyS1);
     }
 
-    // data.count is the response-item count (after LIMIT/OFFSET), NOT the
-    // total matching rows in the database. Use response length to infer hasMore.
     const responseSize = events.length;
     const limit = params.limit ?? 24;
+    const offset = params.offset ?? 0;
+    const total = data.total ?? data.count ?? responseSize;
     return {
       events,
-      total: data.count,
-      hasMore: responseSize >= limit,
+      total,
+      hasMore: data.total != null ? offset + responseSize < total : responseSize >= limit,
     };
   } catch (error) {
     console.warn('Could not browse events from backend.', error);

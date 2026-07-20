@@ -3,6 +3,7 @@ package com.lichsuvn.backend.event.infrastructure;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lichsuvn.backend.event.api.dto.EventDetailDto;
+import com.lichsuvn.backend.event.api.dto.EventExternalSourceDto;
 import com.lichsuvn.backend.event.api.dto.EventMediaDto;
 import com.lichsuvn.backend.event.api.dto.EventRelatedEventDto;
 import com.lichsuvn.backend.event.api.dto.EventRelatedEventsDto;
@@ -55,6 +56,9 @@ public class EventReadRepository {
         this.objectMapper = objectMapper;
     }
 
+    /**
+     * Backward-compatible entry point retained for existing repository tests and callers.
+     */
     public List<EventSummaryDto> findEvents(
             Integer year,
             Integer grade,
@@ -66,7 +70,32 @@ public class EventReadRepository {
             int limit,
             int offset
     ) {
-        QueryParts parts = buildEventFilters(year, grade, eventType, geoType, query, parentId, level);
+        return findEvents(
+                year, grade, eventType, geoType, query, parentId, level,
+                null, null, null, "year", "asc", limit, offset
+        );
+    }
+
+    public List<EventSummaryDto> findEvents(
+            Integer year,
+            Integer grade,
+            String eventType,
+            String geoType,
+            String query,
+            String parentId,
+            Integer level,
+            String eventLevel,
+            Integer startYearFrom,
+            Integer startYearTo,
+            String sortBy,
+            String sortDir,
+            int limit,
+            int offset
+    ) {
+        QueryParts parts = buildEventFilters(
+                year, grade, eventType, geoType, query, parentId, level,
+                eventLevel, startYearFrom, startYearTo
+        );
         parts.params.addValue("limit", limit);
         parts.params.addValue("offset", offset);
 
@@ -92,13 +121,37 @@ public class EventReadRepository {
                        ) AS child_count
                 FROM historical_events e
                 WHERE e.status = 'published'
-                """ + parts.whereSql
-                + " ORDER BY " + CHRONOLOGY_NULL_LAST_ORDER + """
+                """ + parts.whereSql + buildOrderBy(sortBy, sortDir) + """
                 LIMIT :limit OFFSET :offset
                 """;
 
         // 1.1.6: MySQL: Trả về danh sách Event Entity.
         return jdbc.query(sql, parts.params(), summaryMapper());
+    }
+
+    public int countEvents(
+            Integer year,
+            Integer grade,
+            String eventType,
+            String geoType,
+            String query,
+            String parentId,
+            Integer level,
+            String eventLevel,
+            Integer startYearFrom,
+            Integer startYearTo
+    ) {
+        QueryParts parts = buildEventFilters(
+                year, grade, eventType, geoType, query, parentId, level,
+                eventLevel, startYearFrom, startYearTo
+        );
+        String sql = """
+                SELECT COUNT(*)
+                FROM historical_events e
+                WHERE e.status = 'published'
+                """ + parts.whereSql;
+        Integer total = jdbc.queryForObject(sql, parts.params(), Integer.class);
+        return total == null ? 0 : total;
     }
 
     public List<TimelineEventDto> findTimeline(Integer from, Integer to, Integer grade, String eventType) {
@@ -207,9 +260,11 @@ public class EventReadRepository {
                 base.status(),
                 findGrades(base.id()),
                 findTextbookRefs(base.id()),
+                findExternalSources(base.id()),
                 findMedia(base.id()),
                 findRelations(base.id()),
                 findRelatedEvents(base.id()),
+                findTextbookContent(base.id()),
                 base.sourceJson()
         ));
     }
@@ -405,9 +460,10 @@ public class EventReadRepository {
     private List<EventTextbookRefDto> findTextbookRefs(String eventId) {
         String sql = """
                 SELECT id, grade, book, theme, lesson, page_start, page_end, excerpt,
-                       url, content, source_key
+                       url, source_key
                 FROM event_textbook_refs
                 WHERE event_id = :eventId
+                  AND show_on_detail = 1
                 ORDER BY grade ASC, page_start ASC, id ASC
                 """;
 
@@ -421,9 +477,17 @@ public class EventReadRepository {
                 getInteger(rs, "page_end"),
                 rs.getString("excerpt"),
                 rs.getString("url"),
-                rs.getString("content"),
                 rs.getString("source_key")
         ));
+    }
+
+    private String findTextbookContent(String eventId) {
+        return jdbc.query("""
+                SELECT content
+                FROM event_textbook_contents
+                WHERE event_id = :eventId
+                """, new MapSqlParameterSource("eventId", eventId),
+                rs -> rs.next() ? rs.getString("content") : null);
     }
 
     private List<EventMediaDto> findMedia(String eventId) {
@@ -457,7 +521,10 @@ public class EventReadRepository {
             String geoType,
             String query,
             String parentId,
-            Integer level
+            Integer level,
+            String eventLevel,
+            Integer startYearFrom,
+            Integer startYearTo
     ) {
         MapSqlParameterSource params = new MapSqlParameterSource();
         List<String> filters = new ArrayList<>();
@@ -505,8 +572,29 @@ public class EventReadRepository {
             filters.add("e.level = :level");
             params.addValue("level", level);
         }
+        if (StringUtils.hasText(eventLevel)) {
+            filters.add("e.event_level = :eventLevel");
+            params.addValue("eventLevel", eventLevel);
+        }
+        if (startYearFrom != null) {
+            filters.add("e.start_year >= :startYearFrom");
+            params.addValue("startYearFrom", startYearFrom);
+        }
+        if (startYearTo != null) {
+            filters.add("e.start_year < :startYearTo");
+            params.addValue("startYearTo", startYearTo);
+        }
 
         return new QueryParts(toWhere(filters), params);
+    }
+
+    private String buildOrderBy(String sortBy, String sortDir) {
+        String direction = "desc".equalsIgnoreCase(sortDir) ? "DESC" : "ASC";
+        if ("name".equalsIgnoreCase(sortBy)) {
+            return " ORDER BY e.title " + direction + ", e.id ASC ";
+        }
+        return " ORDER BY CASE WHEN e.start_year IS NULL THEN 1 ELSE 0 END, e.start_year "
+                + direction + ", e.order_in_parent ASC, e.title ASC, e.id ASC ";
     }
 
     private RowMapper<EventSummaryDto> summaryMapper() {
@@ -566,7 +654,9 @@ public class EventReadRepository {
                 List.of(),
                 List.of(),
                 List.of(),
+                List.of(),
                 EventRelatedEventsDto.empty(),
+                null,
                 parseObject(rs.getString("raw_json"))
         );
     }
@@ -598,14 +688,14 @@ public class EventReadRepository {
         );
     }
 
-    private JsonNode parseJson(String value) {
+    private Object parseObject(String value) {
         if (!StringUtils.hasText(value)) {
-            return objectMapper.nullNode();
+            return Map.of();
         }
         try {
-            return objectMapper.readTree(value);
+            return objectMapper.readValue(value, Object.class);
         } catch (Exception ex) {
-            return objectMapper.nullNode();
+            return Map.of();
         }
     }
 
@@ -630,22 +720,37 @@ public class EventReadRepository {
         }
     }
 
-    private Object parseObject(String value) {
-        if (!StringUtils.hasText(value)) {
-            return Map.of();
-        }
-        try {
-            return objectMapper.readValue(value, Object.class);
-        } catch (Exception ex) {
-            return Map.of();
-        }
-    }
-
     private static String toWhere(List<String> filters) {
         if (filters.isEmpty()) {
             return "";
         }
         return " AND " + String.join(" AND ", filters) + " ";
+    }
+
+    private List<EventExternalSourceDto> findExternalSources(String eventId) {
+        String sql = """
+                SELECT s.source_type, s.title, s.canonical_uri, s.external_id, s.language,
+                       e.source_order, e.match_type, e.is_primary, e.verification_status, e.notes
+                FROM event_external_sources e
+                JOIN source_catalog s ON s.id = e.source_id
+                WHERE e.event_id = :eventId
+                  AND s.is_internal = FALSE
+                ORDER BY e.is_primary DESC, e.source_order ASC, s.id ASC
+                """;
+
+        return jdbc.query(sql, new MapSqlParameterSource("eventId", eventId), (rs, rowNum) ->
+                new EventExternalSourceDto(
+                        rs.getString("source_type"),
+                        rs.getString("title"),
+                        rs.getString("canonical_uri"),
+                        rs.getString("external_id"),
+                        rs.getString("language"),
+                        getInteger(rs, "source_order"),
+                        rs.getString("match_type"),
+                        rs.getBoolean("is_primary"),
+                        rs.getString("verification_status"),
+                        rs.getString("notes")
+                ));
     }
 
     private static void addNumericChronologyRequired(List<String> filters) {

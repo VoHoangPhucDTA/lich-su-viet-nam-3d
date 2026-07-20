@@ -11,8 +11,13 @@ public record ExamAttemptSummaryResponse(
         boolean isCustom,
         int totalQuestions,
         BigDecimal totalScore,
+        BigDecimal mcqScore,
+        BigDecimal tfScore,
         Integer durationSeconds,
         long submittedAt,
+        String scoreAuthority,
+        String timingAuthority,
+        String submissionOrigin,
         Instant createdAt,
         Instant updatedAt
 ) {

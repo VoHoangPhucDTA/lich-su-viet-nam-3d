@@ -64,6 +64,7 @@ export interface MockEventDetail {
     detailedNarrative?: string;
     significance?: string;
     keyFacts?: string[];
+    sourceContent?: string;
     textbookRefs?: {
       grade: string;
       book: string;
@@ -73,7 +74,6 @@ export interface MockEventDetail {
       pageEnd?: number;
       excerpt?: string;
       url?: string;
-      content?: string;
     }[];
   };
 
@@ -90,6 +90,18 @@ export interface MockEventDetail {
       url: string;
     }[];
   };
+
+  externalSources?: {
+    sourceType: string;
+    title: string;
+    canonicalUri?: string;
+    language?: string;
+    sourceOrder?: number;
+    matchType: string;
+    primary: boolean;
+    verificationStatus: string;
+    notes?: string;
+  }[];
 
   media?: {
     thumbnail?: string;

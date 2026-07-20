@@ -18,7 +18,7 @@ export default function ExamResultActions({ examId }: ExamResultActionsProps) {
     try {
       setLoading(true);
       const newExamId = await examService.retakeExam(examId, currentUser?.id);
-      navigate(`/exams/session/${newExamId}`);
+      navigate(`/exams/de/${newExamId}`);
     } catch (e) {
       alert('Không thể tạo lại đề. ' + (e as Error).message);
       setLoading(false);
@@ -58,14 +58,14 @@ export default function ExamResultActions({ examId }: ExamResultActionsProps) {
       </button>
 
       <button 
-        onClick={() => navigate('/exams/create')}
+        onClick={() => navigate('/exams/tao-de')}
         style={{ ...btnStyle, background: 'var(--bg-surface)', color: 'var(--text-primary)', border: '1px solid var(--border)' }}
       >
         Tạo đề mới
       </button>
 
       <button 
-        onClick={() => navigate('/exams/history')}
+        onClick={() => navigate('/exams/lich-su')}
         style={{ ...btnStyle, background: 'var(--bg-surface)', color: 'var(--text-primary)', border: '1px solid var(--border)' }}
       >
         Xem lịch sử

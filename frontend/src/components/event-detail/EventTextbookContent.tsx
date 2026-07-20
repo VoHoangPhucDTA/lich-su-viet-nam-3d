@@ -19,6 +19,10 @@ export default function EventTextbookContent({
   significanceIndex = '03',
 }: EventTextbookContentProps) {
   const { summary, textbookContent } = event;
+  const normalizeOverviewText = (value?: string | null) => value?.replace(/\s+/g, ' ').trim() ?? '';
+  const overviewQuote = normalizeOverviewText(summary.homepageSummary);
+  const canonicalSummary = normalizeOverviewText(textbookContent.canonicalSummary);
+  const showOverviewQuote = Boolean(overviewQuote) && overviewQuote !== canonicalSummary;
 
   const cardClass = 'p-6 md:p-8 lg:p-10 rounded-2xl text-[15.5px] leading-loose';
   const cardStyle: React.CSSProperties = {
@@ -34,7 +38,7 @@ export default function EventTextbookContent({
       <section id="tong-quan" className="scroll-mt-28">
         <SectionHeader index={overviewIndex} title="Tổng quan" />
 
-        {summary.homepageSummary && (
+        {showOverviewQuote && (
           <blockquote
             className="relative italic font-serif text-lg md:text-xl leading-[1.7] mb-6 py-4 pl-7 md:pl-8 pr-6 border-l-[3px]"
             style={{
@@ -65,7 +69,6 @@ export default function EventTextbookContent({
           <SectionHeader
             index={narrativeIndex}
             title="Nội dung chi tiết"
-            subtitle="Nội dung tổng hợp từ các nguồn đã được biên tập."
           />
           <article className={`${cardClass} whitespace-pre-wrap`} style={cardStyle}>
             {textbookContent.detailedNarrative}
@@ -85,13 +88,6 @@ export default function EventTextbookContent({
               boxShadow: 'var(--shadow)',
             }}
           >
-            <span
-              aria-hidden
-              className="absolute -top-2 left-4 select-none pointer-events-none font-serif leading-none text-[7rem]"
-              style={{ color: 'var(--accent)', opacity: 0.12 }}
-            >
-              &ldquo;
-            </span>
             <p
               className="relative whitespace-pre-wrap text-[15.5px] leading-loose font-medium"
               style={{ color: 'var(--text-primary)' }}

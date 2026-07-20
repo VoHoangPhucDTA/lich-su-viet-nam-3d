@@ -2,11 +2,18 @@
  * Retry wrong or blank questions from a submitted exam result.
  * Route: /exams/on-lai/:sessionId
  */
-import { useCallback, useEffect, useMemo, useState, type CSSProperties } from 'react';
+import { useCallback, useEffect, useId, useMemo, useRef, useState, type CSSProperties } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { loadExam } from '@/lib/exam/examLoader';
 import { useExamKeyboardShortcuts } from '@/lib/exam/useExamKeyboardShortcuts';
+import { handleRadioGroupKeyDown } from '@/lib/exam/radioGroupKeyboard';
+import ExamQuickNavigator, { type QuickNavigatorItem } from '@/components/exams/ExamQuickNavigator';
+import ExamShortcutHelp, { type ExamShortcutItem } from '@/components/exams/ExamShortcutHelp';
 import { readResultFromLS } from '@/lib/exam/useSessionV2';
+import { formatExamTitle } from '@/lib/exam/examDisplay';
+import ExamPracticeHeader from '@/components/exams/ExamPracticeHeader';
+import ExamExplanationText from '@/components/exams/ExamExplanationText';
+import { useQuestionNavigation } from '@/lib/exam/useQuestionNavigation';
 import {
   flattenExamQuestions,
   isMCQQuestion,
@@ -106,9 +113,9 @@ function tfChoiceButtonStyle(current: boolean | null, value: boolean, checked: b
 function chipStyle(tone: 'default' | 'success' | 'danger' | 'warning' = 'default'): CSSProperties {
   const colors = {
     default: ['var(--bg-surface)', 'var(--border)', 'var(--text-muted)'],
-    success: ['rgba(47,122,87,0.1)', 'rgba(47,122,87,0.3)', 'var(--success)'],
+    success: ['rgba(47,122,87,0.1)', 'rgba(47,122,87,0.3)', 'var(--exam-success)'],
     danger: ['rgba(159,29,45,0.08)', 'rgba(159,29,45,0.26)', 'var(--danger)'],
-    warning: ['rgba(194,155,75,0.12)', 'rgba(194,155,75,0.32)', 'var(--warning)'],
+    warning: ['rgba(194,155,75,0.12)', 'rgba(194,155,75,0.32)', 'var(--exam-warning)'],
   }[tone];
 
   return {
@@ -129,7 +136,7 @@ function Explanation({ text }: { text: string }) {
   return (
     <div style={{ marginTop: '1rem', background: 'var(--bg-surface)', border: '1px solid var(--border)', borderRadius: '0.8rem', padding: '0.95rem 1rem', color: 'var(--text-secondary)', lineHeight: 1.65 }}>
       <strong style={{ color: 'var(--text-primary)' }}>Giải thích: </strong>
-      {text}
+      <ExamExplanationText text={text} />
     </div>
   );
 }
@@ -157,7 +164,7 @@ function MCQRetryCard({
       </div>
       <h2 style={questionTitleStyle}>{question.questionText}</h2>
 
-      <div style={{ display: 'grid', gap: '0.65rem', marginTop: '1rem' }}>
+      <div role="radiogroup" aria-orientation="vertical" aria-label="Chọn đáp án" style={{ display: 'grid', gap: '0.65rem', marginTop: '1rem' }}>
         {question.options.map((option) => {
           const isSelected = selected === option.id;
           const isAnswer = option.id === question.correctOptionId;
@@ -168,7 +175,14 @@ function MCQRetryCard({
             <button
               key={option.id}
               type="button"
+              role="radio"
+              aria-checked={isSelected}
+              aria-label={`Đáp án ${option.id}: ${option.text}${isSelected ? ', đang chọn' : ''}`}
+              tabIndex={selected ? (isSelected ? 0 : -1) : option.id === question.options[0]?.id ? 0 : -1}
+              disabled={checked}
+              onKeyDown={(event) => handleRadioGroupKeyDown(event, question.options.map((item) => item.id), option.id, onSelect, checked)}
               onClick={() => onSelect(option.id)}
+              className="exam-focusable"
               style={{
                 border: `1px solid ${border}`,
                 background,
@@ -179,7 +193,7 @@ function MCQRetryCard({
                 gap: '0.75rem',
                 alignItems: 'flex-start',
                 textAlign: 'left',
-                cursor: 'pointer',
+                cursor: checked ? 'default' : 'pointer',
               }}
             >
               <strong style={{ minWidth: '1.5rem', color: checked && isAnswer ? 'var(--success)' : 'var(--text-muted)' }}>{option.id}.</strong>
@@ -192,7 +206,7 @@ function MCQRetryCard({
       </div>
 
       <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap', marginTop: '1rem', alignItems: 'center' }}>
-        <button type="button" onClick={onCheck} disabled={!selected} style={{ ...buttonStyle('primary'), opacity: selected ? 1 : 0.55 }}>
+        <button type="button" onClick={onCheck} disabled={!selected || checked} style={{ ...buttonStyle('primary'), opacity: selected && !checked ? 1 : 0.55 }}>
           Kiểm tra
         </button>
         {checked && <span style={chipStyle('success')}>Đáp án đúng: {question.correctOptionId}</span>}
@@ -240,12 +254,16 @@ function TFRetryCard({
                 <strong style={{ color: 'var(--text-muted)' }}>{statement.id})</strong>
                 <span style={{ flex: 1, lineHeight: 1.55, color: 'var(--text-primary)' }}>{statement.text}</span>
               </div>
-              <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginTop: '0.75rem', paddingLeft: '1.8rem' }}>
+              <div role="group" aria-label={`Lựa chọn cho ý ${statement.id}`} style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginTop: '0.75rem', paddingLeft: '1.8rem' }}>
                 {[true, false].map((value) => (
                   <button
                     key={`${statement.id}-${value}`}
                     type="button"
+                    aria-pressed={current === value}
+                    aria-label={`Chọn ${value ? 'Đúng' : 'Sai'} cho ý ${statement.id}`}
+                    disabled={checked}
                     onClick={() => onSelect(statement.id, value)}
+                    className="exam-focusable"
                     style={{
                       ...tfChoiceButtonStyle(current, value, checked, statement.isTrue),
                       padding: '0.45rem 0.8rem',
@@ -263,7 +281,7 @@ function TFRetryCard({
       </div>
 
       <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap', marginTop: '1rem', alignItems: 'center' }}>
-        <button type="button" onClick={onCheck} disabled={!allAnswered} style={{ ...buttonStyle('primary'), opacity: allAnswered ? 1 : 0.55 }}>
+        <button type="button" onClick={onCheck} disabled={!allAnswered || checked} style={{ ...buttonStyle('primary'), opacity: allAnswered && !checked ? 1 : 0.55 }}>
           Kiểm tra
         </button>
         {!allAnswered && <span style={{ color: 'var(--text-muted)', fontSize: '0.85rem' }}>Hãy chọn Đúng/Sai cho đủ các ý.</span>}
@@ -299,6 +317,10 @@ const questionTitleStyle: CSSProperties = {
 };
 
 export default function ExamRetryWrongPage() {
+  const [shortcutHelpOpen, setShortcutHelpOpen] = useState(false);
+  const shortcutHelpId = useId();
+  const shortcutHelpTriggerRef = useRef<HTMLButtonElement>(null);
+  const questionRef = useRef<HTMLDivElement>(null);
   const { sessionId } = useParams<{ sessionId: string }>();
   const [result, setResult] = useState<ExamResultV2 | null>(null);
   const [exam, setExam] = useState<ExamFile | null>(null);
@@ -396,36 +418,40 @@ export default function ExamRetryWrongPage() {
     }
     return false;
   }).length;
+  const navigatorItems: QuickNavigatorItem[] = retryResults.map((item, index) => {
+    const question = questionMap.get(item.questionId);
+    const wasChecked = !!checked[item.questionId];
+    const hasSelection = question && isMCQQuestion(question)
+      ? mcqAnswers[item.questionId] != null
+      : Object.values(tfAnswers[item.questionId] ?? makeBlankTFChoice()).some((value) => value != null);
+    const isCorrect = !!question && wasChecked && (isMCQQuestion(question)
+      ? mcqAnswers[item.questionId] === question.correctOptionId
+      : isTFQuestion(question) && question.statements.every((statement) => tfAnswers[item.questionId]?.[statement.id] === statement.isTrue));
+    return { id: `${item.questionId}-${index}`, label: String(index + 1), state: wasChecked ? (isCorrect ? 'correct' : 'incorrect') : hasSelection ? 'selected' : 'untouched' };
+  });
 
-  const goToPreviousQuestion = useCallback(() => {
-    setCurrentIndex((value) => Math.max(value - 1, 0));
-  }, []);
-
-  const goToNextQuestion = useCallback(() => {
-    setCurrentIndex((value) => Math.min(value + 1, Math.max(retryResults.length - 1, 0)));
-  }, [retryResults.length]);
-
+  const navigateToQuestion = useQuestionNavigation({ questionCount: retryResults.length, onIndexChange: setCurrentIndex, questionRef });
+  const goToPreviousQuestion = useCallback(() => navigateToQuestion(currentIndex - 1), [currentIndex, navigateToQuestion]);
+  const goToNextQuestion = useCallback(() => navigateToQuestion(currentIndex + 1), [currentIndex, navigateToQuestion]);
   const checkCurrentQuestion = useCallback(() => {
-    if (!currentResult || !currentQuestion || checked[currentResult.questionId]) return;
-
-    if (isMCQQuestion(currentQuestion)) {
-      if (!mcqAnswers[currentResult.questionId]) return;
-      setChecked((prev) => ({ ...prev, [currentResult.questionId]: true }));
-      return;
-    }
-
-    if (isTFQuestion(currentQuestion)) {
-      const answer = tfAnswers[currentResult.questionId] ?? makeBlankTFChoice();
-      if (!currentQuestion.statements.every((statement) => answer[statement.id] != null)) return;
-      setChecked((prev) => ({ ...prev, [currentResult.questionId]: true }));
-    }
+    if (!currentQuestion || !currentResult || checked[currentResult.questionId]) return;
+    const ready = isMCQQuestion(currentQuestion) ? mcqAnswers[currentResult.questionId] != null : currentQuestion.statements.every((statement) => tfAnswers[currentResult.questionId]?.[statement.id] != null);
+    if (ready) setChecked((prev) => ({ ...prev, [currentResult.questionId]: true }));
   }, [checked, currentQuestion, currentResult, mcqAnswers, tfAnswers]);
 
   useExamKeyboardShortcuts({
     onPrevious: goToPreviousQuestion,
     onNext: goToNextQuestion,
-    onEnter: checkCurrentQuestion,
-    disabled: loading || Boolean(error) || !result || !currentResult || finished,
+    onShowHelp: () => setShortcutHelpOpen(true),
+    onCheck: checkCurrentQuestion,
+    onSelectOptionByIndex: (index) => {
+      if (currentQuestion && currentResult && isMCQQuestion(currentQuestion) && !checked[currentResult.questionId]) {
+        const option = currentQuestion.options[index];
+        if (option) setMcqAnswers((prev) => ({ ...prev, [currentResult.questionId]: option.id }));
+      }
+    },
+    mode: 'practice',
+    disabled: loading || Boolean(error) || !result || !currentResult || finished || shortcutHelpOpen,
   });
 
   if (loading) return <LoadingState />;
@@ -447,7 +473,9 @@ export default function ExamRetryWrongPage() {
   if (finished) {
     return (
       <div style={{ minHeight: '100vh', background: 'var(--bg-app)', padding: '2rem 1.5rem', color: 'var(--text-primary)' }}>
-        <div style={{ maxWidth: '42rem', margin: '0 auto', display: 'grid', gap: '1rem' }}>
+        <div style={{ maxWidth: '80rem', margin: '0 auto', display: 'grid', gap: '1.5rem' }}>
+          <ExamPracticeHeader backTo={`/exams/ket-qua/${result.sessionId}`} backLabel="Quay lại kết quả" mode="Ôn lại câu sai" title={result.isCustom ? result.title ?? 'Thi thử tùy chọn' : exam ? formatExamTitle(exam) : 'Đề thi'} badge="Không tính giờ" />
+          <div style={{ width: '100%', maxWidth: '42rem', margin: '0 auto' }}>
           <div style={{ ...cardStyle, textAlign: 'center', padding: '2rem' }}>
             <h1 style={{ margin: '0 0 0.75rem', fontSize: '1.5rem', fontWeight: 900 }}>Hoàn thành ôn lại</h1>
             <p style={{ margin: '0 0 1.5rem', color: 'var(--text-muted)', lineHeight: 1.6 }}>
@@ -462,6 +490,7 @@ export default function ExamRetryWrongPage() {
               </Link>
             </div>
           </div>
+          </div>
         </div>
       </div>
     );
@@ -469,15 +498,9 @@ export default function ExamRetryWrongPage() {
 
   return (
     <div style={{ minHeight: '100vh', background: 'var(--bg-app)', color: 'var(--text-primary)', padding: '2rem 1.5rem' }}>
-      <div style={{ maxWidth: '52rem', margin: '0 auto', display: 'grid', gap: '1rem' }}>
-        <header style={{ display: 'grid', gap: '0.5rem' }}>
-          <Link to={`/exams/ket-qua/${result.sessionId}`} style={{ color: 'var(--text-muted)', textDecoration: 'none', fontSize: '0.875rem' }}>
-            ← Quay về kết quả
-          </Link>
-          <h1 style={{ margin: 0, fontSize: '1.65rem', fontWeight: 900 }}>Ôn lại câu sai</h1>
-          <p style={{ margin: 0, color: 'var(--text-muted)', lineHeight: 1.55 }}>{result.isCustom ? result.title ?? 'Thi thử tùy chọn' : exam?.title ?? 'Đề thi'}</p>
-          <p style={{ margin: 0, color: 'var(--text-muted)', fontSize: '0.82rem', lineHeight: 1.5 }}>Phím tắt: ←/→ chuyển câu, Enter kiểm tra đáp án.</p>
-        </header>
+      <div className="exam-practice-layout">
+      <main className="exam-practice-content">
+        <ExamPracticeHeader backTo={`/exams/ket-qua/${result.sessionId}`} backLabel="Quay lại kết quả" mode="Ôn lại câu sai" title={result.isCustom ? result.title ?? 'Thi thử tùy chọn' : exam ? formatExamTitle(exam) : 'Đề thi'} badge="Không tính giờ" helpId={shortcutHelpId} helpOpen={shortcutHelpOpen} helpTriggerRef={shortcutHelpTriggerRef} onHelp={() => setShortcutHelpOpen(true)} />
 
         <div style={{ ...cardStyle, padding: '1rem 1.25rem' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap' }}>
@@ -489,16 +512,19 @@ export default function ExamRetryWrongPage() {
             <span style={chipStyle('warning')}>{retryResults.length} câu cần ôn</span>
           </div>
           <div style={{ height: '0.45rem', background: 'var(--bg-surface)', borderRadius: '999px', overflow: 'hidden', marginTop: '0.8rem' }}>
-            <div style={{ width: `${((currentIndex + 1) / retryResults.length) * 100}%`, height: '100%', background: 'var(--accent)', borderRadius: '999px' }} />
+            <div role="progressbar" aria-label={`Tiến độ kiểm tra: ${checkedCount} trên ${retryResults.length} câu`} aria-valuemin={0} aria-valuemax={retryResults.length} aria-valuenow={checkedCount} style={{ width: `${(checkedCount / retryResults.length) * 100}%`, height: '100%', background: 'var(--accent)', borderRadius: '999px' }} />
           </div>
         </div>
 
+        <div ref={questionRef} tabIndex={-1} data-exam-current-question>
         {currentResult && currentQuestion && isMCQQuestion(currentQuestion) && (
           <MCQRetryCard
             question={currentQuestion}
             selected={mcqAnswers[currentResult.questionId] ?? null}
             checked={!!checked[currentResult.questionId]}
-            onSelect={(value) => setMcqAnswers((prev) => ({ ...prev, [currentResult.questionId]: value }))}
+            onSelect={(value) => {
+              if (!checked[currentResult.questionId]) setMcqAnswers((prev) => ({ ...prev, [currentResult.questionId]: value }));
+            }}
             onCheck={() => setChecked((prev) => ({ ...prev, [currentResult.questionId]: true }))}
           />
         )}
@@ -509,7 +535,7 @@ export default function ExamRetryWrongPage() {
             selected={tfAnswers[currentResult.questionId] ?? makeBlankTFChoice()}
             checked={!!checked[currentResult.questionId]}
             onSelect={(statementId, value) =>
-              setTfAnswers((prev) => ({
+              !checked[currentResult.questionId] && setTfAnswers((prev) => ({
                 ...prev,
                 [currentResult.questionId]: {
                   ...(prev[currentResult.questionId] ?? makeBlankTFChoice()),
@@ -522,11 +548,12 @@ export default function ExamRetryWrongPage() {
         )}
 
         {currentResult && !currentQuestion && <MissingQuestionCard result={currentResult} />}
+        </div>
 
         <nav style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap', justifyContent: 'space-between' }}>
           <button
             type="button"
-            onClick={() => setCurrentIndex((value) => Math.max(value - 1, 0))}
+            onClick={goToPreviousQuestion}
             disabled={currentIndex === 0}
             style={{ ...buttonStyle('secondary'), opacity: currentIndex === 0 ? 0.55 : 1 }}
           >
@@ -534,7 +561,7 @@ export default function ExamRetryWrongPage() {
           </button>
           <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
             {currentIndex < retryResults.length - 1 ? (
-              <button type="button" onClick={() => setCurrentIndex((value) => Math.min(value + 1, retryResults.length - 1))} style={buttonStyle('primary')}>
+              <button type="button" onClick={goToNextQuestion} style={buttonStyle('primary')}>
                 Câu tiếp theo
               </button>
             ) : (
@@ -544,7 +571,18 @@ export default function ExamRetryWrongPage() {
             )}
           </div>
         </nav>
+      </main>
+      <ExamQuickNavigator items={navigatorItems} currentIndex={currentIndex} onSelect={navigateToQuestion} />
       </div>
+      <ExamShortcutHelp id={shortcutHelpId} isOpen={shortcutHelpOpen} onClose={() => setShortcutHelpOpen(false)} triggerRef={shortcutHelpTriggerRef} shortcuts={PRACTICE_SHORTCUTS} description="Không giới hạn thời gian. Kiểm tra lại từng câu và đọc giải thích để củng cố phần còn thiếu." />
     </div>
   );
 }
+
+const PRACTICE_SHORTCUTS: ExamShortcutItem[] = [
+  { keyLabel: '← / →', description: 'Chuyển câu' },
+  { keyLabel: '↑ / ↓', description: 'Chuyển giữa các đáp án trắc nghiệm' },
+  { keyLabel: '1–4', description: 'Chọn nhanh đáp án A–D' },
+  { keyLabel: 'Ctrl + Enter', description: 'Kiểm tra câu hiện tại' },
+  { keyLabel: '?', description: 'Mở hướng dẫn làm bài' },
+];

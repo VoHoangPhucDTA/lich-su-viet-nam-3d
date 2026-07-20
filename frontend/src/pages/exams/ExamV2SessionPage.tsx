@@ -1,479 +1,420 @@
 /**
- * ExamV2SessionPage – Giao diện làm bài thi thật (format thpt_2025).
+ * Timed V2 exam session orchestration.
  * Route: /exams/de/:examId
- *
- * Tái sử dụng: ExamTimer, ExamSubmitDialog, ExamNavigation (type-compatible).
- * Mới: MCQQuestionCardV2, TFQuestionCard, useSessionV2.
  */
-import { useState, useCallback, useRef } from 'react';
-import { useParams, useNavigate, Link } from 'react-router-dom';
-import { useSessionV2 } from '@/lib/exam/useSessionV2';
-import type { QuestionDisplayStatus } from '@/lib/exam/useSessionV2';
+import { useCallback, useId, useMemo, useRef, useState, type ReactNode } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import ExamAnswerSheet from '@/components/exams/ExamAnswerSheet';
+import ExamBackLink from '@/components/exams/ExamBackLink';
+import ExamNavigation from '@/components/exams/ExamNavigation';
+import ExamQuestionNavigator from '@/components/exams/ExamQuestionNavigator';
+import ExamQuestionRenderer from '@/components/exams/ExamQuestionRenderer';
+import ExamSessionHeader from '@/components/exams/ExamSessionHeader';
+import ExamShortcutHelp, { type ExamShortcutItem } from '@/components/exams/ExamShortcutHelp';
+import ExamSubmitDialog from '@/components/exams/ExamSubmitDialog';
 import { useExamKeyboardShortcuts } from '@/lib/exam/useExamKeyboardShortcuts';
-import { syncAttemptBestEffort } from '@/lib/exam/examAttemptSync';
-import { isMCQQuestion, isTFQuestion } from '@/types/exam';
-import MCQQuestionCardV2 from '../../components/exams/MCQQuestionCardV2';
-import TFQuestionCard from '../../components/exams/TFQuestionCard';
-import ExamTimer from '../../components/exams/ExamTimer';
-import ExamSubmitDialog from '../../components/exams/ExamSubmitDialog';
-import ExamNavigation from '../../components/exams/ExamNavigation';
-import type { ExamQuestionStatus } from '../../types/exam';
+import { useQuestionNavigation } from '@/lib/exam/useQuestionNavigation';
+import { useApiTimedSession } from '@/lib/exam/useApiTimedSession';
+import { useSessionV2 } from '@/lib/exam/useSessionV2';
+import { getExamDeadlineMs } from '@/lib/exam/examDuration';
+import { formatExamTitle, getExamDisplayYear, getExamSourceLabel } from '@/lib/exam/examDisplay';
+import { getExamMeta } from '@/lib/exam/manifestLoader';
+import { EXAM_DATASET_BUILD_URL } from '@/lib/exam/examConstants';
+import { createLocalSubmissionHash, enqueueRecovery } from '@/lib/exam/examRecoveryQueue';
+import type { RecoverExamSubmissionRequest, SubmitAnswer } from '@/types/examApi';
+import type { TFStatement } from '@/types/exam';
 
-// ── Progress Sidebar ──────────────────────────────────────────────────────────
-function ProgressSidebar({
-  flatQuestions,
-  currentIndex,
-  questionStatuses,
-  onNavigate,
-}: {
-  flatQuestions: ReturnType<typeof useSessionV2>['flatQuestions'];
-  currentIndex: number;
-  questionStatuses: Record<string, QuestionDisplayStatus>;
-  onNavigate: (i: number) => void;
-}) {
-  const mcqCount = flatQuestions.filter((q) => q.questionType === 'mcq').length;
+const EMPTY_TF_SELECTION: Record<TFStatement['id'], boolean | null> = {
+  a: null,
+  b: null,
+  c: null,
+  d: null,
+};
 
-  function boxStyle(idx: number): React.CSSProperties {
-    const q = flatQuestions[idx];
-    if (!q) return {};
-    const status = questionStatuses[q.id] ?? 'unanswered';
-    const isCurrent = idx === currentIndex;
-
-    const base: React.CSSProperties = {
-      width: '2rem',
-      height: '2rem',
-      borderRadius: '0.375rem',
-      fontSize: '0.7rem',
-      fontWeight: 700,
-      cursor: 'pointer',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      border: '2px solid',
-      transition: 'all 0.12s',
-      outline: isCurrent ? '2px solid var(--accent)' : 'none',
-      outlineOffset: '1px',
-    };
-
-    if (status === 'answered')
-      return { ...base, background: 'var(--accent-soft)', borderColor: 'var(--accent)', color: 'var(--accent)' };
-    if (status === 'flagged')
-      return { ...base, background: 'var(--warning-soft)', borderColor: 'var(--warning)', color: 'var(--warning)' };
-    return { ...base, background: 'var(--bg-surface)', borderColor: 'var(--border)', color: 'var(--text-muted)' };
-  }
-
-  const sectionLabel: React.CSSProperties = {
-    fontSize: '0.7rem',
-    fontWeight: 700,
-    letterSpacing: '0.08em',
-    textTransform: 'uppercase',
-    color: 'var(--text-muted)',
-    marginBottom: '0.5rem',
-  };
-
-  return (
-    <div
-      style={{
-        background: 'var(--bg-card)',
-        borderRadius: '1rem',
-        padding: '1.25rem',
-        border: '1px solid var(--border)',
-      }}
-    >
-      <div style={sectionLabel}>Phần I - Trắc nghiệm</div>
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(6, 2rem)',
-          gap: '0.35rem',
-          marginBottom: '1rem',
-        }}
-      >
-        {Array.from({ length: mcqCount }, (_, i) => (
-          <button
-            key={i}
-            type="button"
-            aria-label={`Câu ${i + 1}`}
-            onClick={() => onNavigate(i)}
-            style={boxStyle(i)}
-          >
-            {i + 1}
-          </button>
-        ))}
-      </div>
-
-      <div style={sectionLabel}>Phần II - Đúng/Sai</div>
-      <div style={{ display: 'flex', gap: '0.35rem', marginBottom: '1.25rem' }}>
-        {Array.from(
-          { length: flatQuestions.length - mcqCount },
-          (_, i) => {
-            const idx = mcqCount + i;
-            return (
-              <button
-                key={i}
-                type="button"
-                aria-label={`Câu ${idx + 1}`}
-                onClick={() => onNavigate(idx)}
-                style={{ ...boxStyle(idx), width: '2.5rem' }}
-              >
-                {idx + 1}
-              </button>
-            );
-          }
-        )}
-      </div>
-
-      {/* Legend */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.3rem' }}>
-        {(
-          [
-            ['var(--accent)', 'Đã trả lời'],
-            ['var(--warning)', 'Xem lại sau'],
-            ['var(--border)', 'Chưa làm'],
-          ] as [string, string][]
-        ).map(([color, label]) => (
-          <div
-            key={label}
-            style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.72rem', color: 'var(--text-muted)' }}
-          >
-            <div
-              style={{
-                width: '0.75rem',
-                height: '0.75rem',
-                borderRadius: '2px',
-                background: color === 'var(--border)' ? 'var(--bg-surface)' : `color-mix(in srgb, ${color} 20%, transparent)`,
-                border: `1.5px solid ${color}`,
-                flexShrink: 0,
-              }}
-            />
-            {label}
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-// ── Main Page ─────────────────────────────────────────────────────────────────
-export default function ExamV2SessionPage() {
+export default function ExamV2SessionPage({ initialSessionId, legacyFallback }: { initialSessionId?: string; legacyFallback?: ReactNode }) {
   const { examId } = useParams<{ examId: string }>();
   const navigate = useNavigate();
   const [dialogOpen, setDialogOpen] = useState(false);
-  const [isTimeUp, setIsTimeUp] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [answerSheetOpen, setAnswerSheetOpen] = useState(false);
+  const [shortcutHelpOpen, setShortcutHelpOpen] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
   const submitStartedRef = useRef(false);
+  const questionTopRef = useRef<HTMLDivElement>(null);
+  const answerSheetTriggerRef = useRef<HTMLButtonElement>(null);
+  const answerSheetCloseReasonRef = useRef<'dismiss' | 'select-question'>('dismiss');
+  const getAnswerSheetCloseReason = useCallback(() => answerSheetCloseReasonRef.current, []);
+  const shortcutHelpTriggerRef = useRef<HTMLButtonElement>(null);
+  const answerSheetId = useId();
+  const shortcutHelpId = useId();
+  const timedRequest = useMemo(() => initialSessionId || !examId ? null : { mode: 'TIMED_ORIGINAL' as const, examId }, [examId, initialSessionId]);
 
   const {
-    exam,
-    flatQuestions,
+    serverSession,
+    draft,
+    questions,
     currentQuestion,
     currentIndex,
+    answers,
     loading,
     error,
-    initialRemainingSeconds,
-    questionStatuses,
-    unansweredCount,
-    handleMCQSelect,
-    handleTFSelect,
-    handleClearAnswer,
-    handleToggleFlag,
-    handleNavigate,
-    handleSubmit,
-    getMCQAnswer,
-    getTFAnswer,
-  } = useSessionV2(examId);
+    fallbackEligible,
+    questionStates,
+    completedCount,
+    incompleteCount,
+    partialCount,
+    setAnswer,
+    clearAnswer,
+    toggleFlag,
+    navigate: handleNavigate,
+    submit,
+  } = useApiTimedSession({
+    routeKey: initialSessionId ? `CUSTOM_MOCK:${initialSessionId}` : `TIMED_ORIGINAL:${examId ?? ''}`,
+    request: timedRequest,
+    initialSessionId,
+  });
 
-  const executeSubmit = useCallback(() => {
+  const executeSubmit = useCallback(async () => {
     if (submitStartedRef.current) return;
     submitStartedRef.current = true;
     setIsSubmitting(true);
+    setSubmitError(null);
 
-    const result = handleSubmit();
-    setDialogOpen(false);
-    if (result) {
-      void syncAttemptBestEffort(result);
-      navigate(`/exams/ket-qua/${result.sessionId}`);
-      return;
+    try {
+      const result = await submit();
+      setDialogOpen(false);
+      if (result) {
+        navigate(`/exams/ket-qua/${result.sessionId}`);
+        return;
+      }
+      setSubmitError('Không thể nộp bài lúc này. Bài làm vẫn được giữ trên thiết bị.');
+    } catch (submitFailure: unknown) {
+      setSubmitError(submitFailure instanceof Error ? submitFailure.message : 'Không thể nộp bài lúc này. Bài làm vẫn được giữ trên thiết bị.');
+    } finally {
+      submitStartedRef.current = false;
+      setIsSubmitting(false);
     }
+  }, [navigate, submit]);
 
-    submitStartedRef.current = false;
-    setIsSubmitting(false);
-  }, [handleSubmit, navigate]);
-
-  const handleTimeUpAndSubmit = useCallback(() => {
-    setIsTimeUp(true);
-    executeSubmit();
-  }, [executeSubmit]);
-
-  const handleTimerTick = useCallback(() => {}, []);
+  const navigateToQuestion = useQuestionNavigation({ questionCount: questions.length, onIndexChange: handleNavigate, questionRef: questionTopRef });
 
   const goToPreviousQuestion = useCallback(() => {
-    if (currentIndex > 0) handleNavigate(currentIndex - 1);
-  }, [currentIndex, handleNavigate]);
+    if (currentIndex > 0) navigateToQuestion(currentIndex - 1);
+  }, [currentIndex, navigateToQuestion]);
 
   const goToNextQuestion = useCallback(() => {
-    if (currentIndex < flatQuestions.length - 1) handleNavigate(currentIndex + 1);
-  }, [currentIndex, flatQuestions.length, handleNavigate]);
+    if (currentIndex < questions.length - 1) navigateToQuestion(currentIndex + 1);
+  }, [currentIndex, navigateToQuestion, questions.length]);
 
   const toggleCurrentFlag = useCallback(() => {
-    if (currentQuestion) handleToggleFlag(currentQuestion.id);
-  }, [currentQuestion, handleToggleFlag]);
+    if (currentQuestion) toggleFlag(currentQuestion.id);
+  }, [currentQuestion, toggleFlag]);
 
   useExamKeyboardShortcuts({
     onPrevious: goToPreviousQuestion,
     onNext: goToNextQuestion,
     onFlag: toggleCurrentFlag,
-    disabled: loading || Boolean(error) || !exam || !currentQuestion || dialogOpen || isSubmitting,
+    onShowHelp: () => setShortcutHelpOpen(true),
+    onSelectOptionByIndex: (index) => {
+      if (currentQuestion?.question.questionType === 'mcq') {
+        const option = currentQuestion.question.options[index];
+        if (option) setAnswer(currentQuestion.id, 'mcq', option.id);
+      }
+    },
+    mode: 'timed',
+    disabled: loading || Boolean(error) || !serverSession || !currentQuestion || dialogOpen || answerSheetOpen || shortcutHelpOpen || isSubmitting,
   });
 
-  // ── Loading / Error ──────────────────────────────────────────────────────
-  if (loading) {
-    return (
-      <div
-        style={{
-          minHeight: '100vh',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          flexDirection: 'column',
-          gap: '1rem',
-          background: 'var(--bg-app)',
-          color: 'var(--accent)',
-        }}
-      >
-        <div
-          style={{
-            width: '2rem',
-            height: '2rem',
-            border: '3px solid var(--accent-soft)',
-            borderTopColor: 'var(--accent)',
-            borderRadius: '50%',
-            animation: 'spin 1s linear infinite',
-          }}
-        />
-        <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
-        <span>Đang tải đề thi...</span>
-      </div>
-    );
+  if (loading) return <SessionLoadingState />;
+
+  // A static result is only a transport fallback for the published original exam route.
+  // API business errors deliberately remain visible rather than silently changing authority.
+  if (fallbackEligible && legacyFallback) return <>{legacyFallback}</>;
+  if (fallbackEligible && examId && !initialSessionId) {
+    return <StaticTimedFallback examId={examId} />;
   }
 
-  if (error || !exam || !currentQuestion) {
-    return (
-      <div
-        style={{
-          minHeight: '100vh',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          background: 'var(--bg-app)',
-        }}
-      >
-        <div style={{ textAlign: 'center' }}>
-          <h2 style={{ color: 'var(--danger)', marginBottom: '1rem' }}>
-            {error ?? 'Không tải được đề thi'}
-          </h2>
-          <Link to="/exams/browse" style={{ color: 'var(--accent)' }}>
-            ← Về danh sách đề
-          </Link>
-        </div>
-      </div>
-    );
+  if (error || !serverSession || !draft || !currentQuestion) {
+    return <SessionErrorState message={error ?? 'Không tải được phiên thi'} />;
   }
 
-  // ── Compute hasSelection ─────────────────────────────────────────────────
-  const hasSelection = isMCQQuestion(currentQuestion)
-    ? (getMCQAnswer(currentQuestion.id)?.selected ?? null) !== null
-    : Object.values(
-        getTFAnswer(currentQuestion.id)?.selected ?? {}
-      ).some((v) => v !== null);
+  const currentQuestionState = questionStates[currentQuestion.id];
+  const displayTitle = serverSession.title;
+  const displayMeta = `Dữ liệu phiên bản ${serverSession.datasetVersion.slice(0, 12)}`;
+  const durationMinutes = Math.max(1, Math.round(((serverSession.deadlineAt ?? serverSession.startedAtServer) - serverSession.startedAtServer) / 60000));
+  const deadlineMs = serverSession.deadlineAt ?? serverSession.startedAtServer;
+  const navigatorQuestions = questions.map((question) => ({ id: question.id, questionType: question.question.questionType }));
+  const currentAnswer = answers[currentQuestion.id];
+  const selectedMCQ = currentAnswer?.questionType === 'mcq' ? currentAnswer.selected : null;
+  const selectedTF = currentAnswer?.questionType === 'true_false' ? currentAnswer.selected : EMPTY_TF_SELECTION;
 
-  const currentStatus: ExamQuestionStatus =
-    (questionStatuses[currentQuestion.id] as ExamQuestionStatus) ?? 'unanswered';
-
-  // ── Render ───────────────────────────────────────────────────────────────
   return (
-    <div
-      style={{
-        minHeight: '100vh',
-        background: 'var(--bg-app)',
-        color: 'var(--text-primary)',
-      }}
-    >
-      {/* ── Sticky header ─────────────────────────────────────────────────── */}
-      <header
-        style={{
-          position: 'sticky',
-          top: 0,
-          zIndex: 50,
-          background: 'var(--bg-card)',
-          borderBottom: '1px solid var(--border)',
-          padding: '0.75rem 1.5rem',
-          display: 'flex',
-          alignItems: 'center',
-          gap: '1rem',
+    <div className="exam-session-page">
+      <ExamSessionHeader
+        backLink={<ExamBackLink to="/exams/browse">Quay lại danh sách đề</ExamBackLink>}
+        title={displayTitle}
+        meta={displayMeta}
+        durationMinutes={durationMinutes}
+        currentIndex={currentIndex}
+        totalQuestions={questions.length}
+        deadlineMs={deadlineMs}
+        isSubmitting={isSubmitting}
+        isShortcutHelpOpen={shortcutHelpOpen}
+        shortcutHelpId={shortcutHelpId}
+        shortcutHelpTriggerRef={shortcutHelpTriggerRef}
+        onTimeUp={executeSubmit}
+        onSubmitRequest={() => {
+          if (!isSubmitting) setDialogOpen(true);
         }}
+        onShortcutHelpRequest={() => setShortcutHelpOpen(true)}
+      />
+
+      <main className="exam-session-main">
+        {submitError && <p role="alert" className="exam-session-submit-error">{submitError}</p>}
+        <div className="exam-session-question-column">
+          <div ref={questionTopRef} className="exam-session-question-anchor" tabIndex={-1} data-exam-current-question />
+          <button
+            ref={answerSheetTriggerRef}
+            type="button"
+            className="exam-focusable exam-answer-sheet-trigger"
+            aria-expanded={answerSheetOpen}
+            aria-controls={answerSheetId}
+            onClick={() => {
+              answerSheetCloseReasonRef.current = 'dismiss';
+              setAnswerSheetOpen(true);
+            }}
+          >
+            Phiếu trả lời · {completedCount}/{questions.length}
+          </button>
+          <ExamQuestionRenderer
+            question={currentQuestion.question}
+            index={currentIndex}
+            total={questions.length}
+            selectedMCQ={selectedMCQ}
+            selectedTF={selectedTF}
+            onMCQSelect={(optionId) => setAnswer(currentQuestion.id, 'mcq', optionId)}
+            onTFSelect={(statementId, value) => {
+              const existing = currentAnswer?.questionType === 'true_false' ? currentAnswer.selected : EMPTY_TF_SELECTION;
+              setAnswer(currentQuestion.id, 'true_false', { ...existing, [statementId]: value });
+            }}
+          />
+          <ExamNavigation
+            currentIndex={currentIndex}
+            total={questions.length}
+            onNavigate={navigateToQuestion}
+            questionState={currentQuestionState}
+            onToggleFlag={toggleCurrentFlag}
+            onClearSelection={() => clearAnswer(currentQuestion.id)}
+            hasSelection={currentQuestionState?.hasAnyAnswer ?? false}
+            onSubmit={() => {
+              if (!isSubmitting) setDialogOpen(true);
+            }}
+            isSubmitting={isSubmitting}
+          />
+        </div>
+
+        <aside className="exam-desktop-sidebar">
+          <ExamQuestionNavigator
+            questions={navigatorQuestions}
+            currentIndex={currentIndex}
+            questionStates={questionStates}
+            onQuestionSelect={navigateToQuestion}
+          />
+        </aside>
+      </main>
+
+      <ExamAnswerSheet
+        id={answerSheetId}
+        isOpen={answerSheetOpen}
+        onClose={() => {
+          answerSheetCloseReasonRef.current = 'dismiss';
+          setAnswerSheetOpen(false);
+        }}
+        triggerRef={answerSheetTriggerRef}
+        getCloseReason={getAnswerSheetCloseReason}
       >
-        <Link
-          to="/exams/browse"
-          style={{
-            color: 'var(--text-muted)',
-            textDecoration: 'none',
-            fontSize: '0.875rem',
-            flexShrink: 0,
+        <ExamQuestionNavigator
+          questions={navigatorQuestions}
+          currentIndex={currentIndex}
+          questionStates={questionStates}
+          onQuestionSelect={(index) => {
+            answerSheetCloseReasonRef.current = 'select-question';
+            setAnswerSheetOpen(false);
+            navigateToQuestion(index);
           }}
-        >
-          ← Danh sách đề
-        </Link>
-
-        <span
-          style={{
-            flex: 1,
-            fontSize: '0.9rem',
-            fontWeight: 600,
-            color: 'var(--text-primary)',
-            overflow: 'hidden',
-            textOverflow: 'ellipsis',
-            whiteSpace: 'nowrap',
-          }}
-          title={exam.title}
-        >
-          {exam.title}
-        </span>
-
-        <span
-          style={{
-            padding: '0.25rem 0.65rem',
-            borderRadius: '999px',
-            background: 'var(--accent-soft)',
-            color: 'var(--accent)',
-            border: '1px solid var(--accent)',
-            fontSize: '0.75rem',
-            fontWeight: 800,
-            whiteSpace: 'nowrap',
-          }}
-        >
-          Thi thử 50 phút
-        </span>
-
-        <ExamTimer
-          initialSeconds={initialRemainingSeconds}
-          onTimeUp={handleTimeUpAndSubmit}
-          onTick={handleTimerTick}
         />
+      </ExamAnswerSheet>
 
-        <button
-          type="button"
-          disabled={isSubmitting}
-          onClick={() => {
-            if (!isSubmitting) setDialogOpen(true);
-          }}
-          style={{
-            padding: '0.5rem 1.25rem',
-            background: isSubmitting ? 'var(--text-muted)' : 'var(--accent)',
-            color: '#fff',
-            border: 'none',
-            borderRadius: '0.75rem',
-            fontWeight: 600,
-            fontSize: '0.875rem',
-            cursor: isSubmitting ? 'not-allowed' : 'pointer',
-            flexShrink: 0,
-          }}
-        >
-          {isSubmitting ? 'Đang nộp...' : 'Nộp bài'}
-        </button>
-      </header>
+      <ExamShortcutHelp
+        id={shortcutHelpId}
+        isOpen={shortcutHelpOpen}
+        onClose={() => setShortcutHelpOpen(false)}
+        triggerRef={shortcutHelpTriggerRef}
+        shortcuts={TIMED_SHORTCUTS}
+        description="Bài thi có giới hạn thời gian và sẽ tự động nộp khi hết giờ."
+        notes="Mũi tên lên/xuống và Home/End đổi đáp án trong câu trắc nghiệm. Enter và Space giữ hành vi mặc định của điều khiển đang focus."
+      />
 
-      <div
-        style={{
-          maxWidth: '80rem',
-          margin: '0 auto',
-          padding: '0.75rem 1.5rem 0',
-          color: 'var(--text-muted)',
-          fontSize: '0.78rem',
-          lineHeight: 1.5,
-        }}
-      >
-        Phím tắt: ←/→ chuyển câu, F đánh dấu xem lại.
-      </div>
+      <ExamSubmitDialog
+        isOpen={dialogOpen}
+        totalQuestions={questions.length}
+        completedCount={completedCount}
+        partialCount={partialCount}
+        untouchedCount={incompleteCount - partialCount}
+        flaggedCount={draft.flags.length}
+        isSubmitting={isSubmitting}
+        onConfirm={executeSubmit}
+        onCancel={() => setDialogOpen(false)}
+      />
+    </div>
+  );
+}
 
-      {/* ── Main content ──────────────────────────────────────────────────── */}
-      <main
-        style={{
-          maxWidth: '80rem',
-          margin: '0 auto',
-          padding: '2rem 1.5rem',
-          display: 'flex',
-          gap: '1.75rem',
-          alignItems: 'flex-start',
-        }}
-      >
-        {/* Question area */}
-        <div style={{ flex: '1 1 500px', display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-          {isMCQQuestion(currentQuestion) && (
-            <MCQQuestionCardV2
-              question={currentQuestion}
-              index={currentIndex}
-              total={flatQuestions.length}
-              selectedOptionId={getMCQAnswer(currentQuestion.id)?.selected ?? null}
-              onSelectOption={(id) => handleMCQSelect(currentQuestion.id, id)}
-            />
-          )}
-          {isTFQuestion(currentQuestion) && (
-            <TFQuestionCard
-              question={currentQuestion}
-              index={currentIndex}
-              total={flatQuestions.length}
-              selected={
-                getTFAnswer(currentQuestion.id)?.selected ?? {
-                  a: null,
-                  b: null,
-                  c: null,
-                  d: null,
-                }
-              }
-              onSelect={(stmtId, value) =>
-                handleTFSelect(currentQuestion.id, stmtId, value)
-              }
-            />
-          )}
+function StaticTimedFallback({ examId }: { examId: string }) {
+  const navigate = useNavigate();
+  const [submitting, setSubmitting] = useState(false);
+  const [shortcutHelpOpen, setShortcutHelpOpen] = useState(false);
+  const shortcutHelpTriggerRef = useRef<HTMLButtonElement>(null);
+  const shortcutHelpId = useId();
+  const {
+    exam, flatQuestions, currentQuestion, currentIndex, loading, error, session, questionStates,
+    handleMCQSelect, handleTFSelect, handleClearAnswer, handleToggleFlag, handleNavigate,
+    handleSubmit, getMCQAnswer, getTFAnswer,
+  } = useSessionV2(examId);
 
+  if (loading) return <SessionLoadingState />;
+  if (error || !exam || !session || !currentQuestion) return <SessionErrorState message={error ?? 'Khong tai duoc de thi'} />;
+
+  const submit = () => {
+    if (submitting) return;
+    setSubmitting(true);
+    const result = handleSubmit();
+    if (result) {
+      const localResult = { ...result, scoreAuthority: 'LOCAL_FALLBACK', timingAuthority: 'CLIENT_UNVERIFIED', submissionOrigin: 'CLIENT_FALLBACK' };
+      localStorage.setItem(`v2_result_${result.sessionId}`, JSON.stringify(localResult));
+      void queueStaticFallbackRecovery(examId, session.startedAt, flatQuestions, getMCQAnswer, getTFAnswer, localResult);
+      navigate(`/exams/ket-qua/${result.sessionId}`);
+      return;
+    }
+    setSubmitting(false);
+  };
+  const title = formatExamTitle(exam);
+  const meta = [getExamSourceLabel(exam), getExamDisplayYear(exam) || null].filter(Boolean).join(' · ');
+  const selectedTf = getTFAnswer(currentQuestion.id)?.selected ?? EMPTY_TF_SELECTION;
+
+  return (
+    <div className="exam-session-page">
+      <ExamSessionHeader
+        backLink={<ExamBackLink to="/exams/browse">Quay lại danh sách đề</ExamBackLink>}
+        title={title}
+        meta={meta}
+        durationMinutes={Math.max(1, Math.round(session.durationSeconds / 60))}
+        currentIndex={currentIndex}
+        totalQuestions={flatQuestions.length}
+        deadlineMs={getExamDeadlineMs(session.startedAt, session.durationSeconds)}
+        isSubmitting={submitting}
+        isShortcutHelpOpen={shortcutHelpOpen}
+        shortcutHelpId={shortcutHelpId}
+        shortcutHelpTriggerRef={shortcutHelpTriggerRef}
+        onTimeUp={submit}
+        onSubmitRequest={submit}
+        onShortcutHelpRequest={() => setShortcutHelpOpen(true)}
+      />
+      <main className="exam-session-main">
+        <div className="exam-session-question-column">
+          <p role="status" className="exam-session-submit-error">Đang dùng dữ liệu lưu trên thiết bị vì máy chủ chưa truy cập được.</p>
+          <ExamQuestionRenderer
+            question={currentQuestion}
+            index={currentIndex}
+            total={flatQuestions.length}
+            selectedMCQ={getMCQAnswer(currentQuestion.id)?.selected ?? null}
+            selectedTF={selectedTf}
+            onMCQSelect={(optionId) => handleMCQSelect(currentQuestion.id, optionId)}
+            onTFSelect={(statementId, value) => handleTFSelect(currentQuestion.id, statementId, value)}
+          />
           <ExamNavigation
             currentIndex={currentIndex}
             total={flatQuestions.length}
             onNavigate={handleNavigate}
-            status={currentStatus}
+            questionState={questionStates[currentQuestion.id]}
             onToggleFlag={() => handleToggleFlag(currentQuestion.id)}
             onClearSelection={() => handleClearAnswer(currentQuestion.id)}
-            hasSelection={hasSelection}
+            hasSelection={questionStates[currentQuestion.id]?.hasAnyAnswer ?? false}
+            onSubmit={submit}
+            isSubmitting={submitting}
           />
         </div>
-
-        {/* Progress sidebar */}
-        <div style={{ flex: '0 0 260px', position: 'sticky', top: '5rem' }}>
-          <ProgressSidebar
-            flatQuestions={flatQuestions}
-            currentIndex={currentIndex}
-            questionStatuses={questionStatuses}
-            onNavigate={handleNavigate}
-          />
-        </div>
+        <aside className="exam-desktop-sidebar">
+          <ExamQuestionNavigator questions={flatQuestions} currentIndex={currentIndex} questionStates={questionStates} onQuestionSelect={handleNavigate} />
+        </aside>
       </main>
-
-      {/* ── Submit dialog ─────────────────────────────────────────────────── */}
-      <ExamSubmitDialog
-        isOpen={dialogOpen}
-        unansweredCount={unansweredCount}
-        isTimeUp={isTimeUp}
-        onConfirm={executeSubmit}
-        onCancel={() => setDialogOpen(false)}
+      <ExamShortcutHelp
+        id={shortcutHelpId}
+        isOpen={shortcutHelpOpen}
+        onClose={() => setShortcutHelpOpen(false)}
+        triggerRef={shortcutHelpTriggerRef}
+        shortcuts={TIMED_SHORTCUTS}
+        description="Bài thi có giới hạn thời gian và sẽ tự động nộp khi hết giờ."
+        notes="Dữ liệu được lưu cục bộ trong khi máy chủ chưa truy cập được."
       />
-
-      <style>{`
-        @media (max-width: 768px) {
-          main { flex-direction: column-reverse !important; }
-          main > div:last-child { position: static !important; flex: 1 1 100% !important; }
-        }
-      `}</style>
     </div>
   );
 }
+
+async function queueStaticFallbackRecovery(
+  examId: string,
+  startedAtClient: number,
+  questions: ReturnType<typeof useSessionV2>['flatQuestions'],
+  getMCQAnswer: ReturnType<typeof useSessionV2>['getMCQAnswer'],
+  getTFAnswer: ReturnType<typeof useSessionV2>['getTFAnswer'],
+  localResult: import('@/types/exam').ExamResultV2,
+): Promise<void> {
+  try {
+    const [meta, dataset] = await Promise.all([
+      getExamMeta(examId),
+      fetch(EXAM_DATASET_BUILD_URL).then((response) => response.ok ? response.json() as Promise<{ aggregateHash?: string }> : null),
+    ]);
+    if (!meta?.contentHash || !dataset?.aggregateHash) return;
+    const answers: SubmitAnswer[] = questions.map((question) => question.questionType === 'mcq'
+      ? { questionInstanceId: question.id, questionType: 'mcq', selected: getMCQAnswer(question.id)?.selected ?? null }
+      : { questionInstanceId: question.id, questionType: 'true_false', selected: getTFAnswer(question.id)?.selected ?? { a: null, b: null, c: null, d: null } });
+    const request: RecoverExamSubmissionRequest = {
+      clientSubmissionId: crypto.randomUUID(), localSessionId: localResult.sessionId, mode: 'TIMED_ORIGINAL',
+      datasetVersion: dataset.aggregateHash, examId, examContentHash: meta.contentHash,
+      localSubmissionHash: await createLocalSubmissionHash({ examId, answers }),
+      clientTiming: { startedAtClient, submittedAtClient: localResult.submittedAt },
+      questionRefs: questions.map((question) => ({ questionInstanceId: question.id, publicQuestionId: question.id })), answers,
+    };
+    enqueueRecovery(request, localResult);
+  } catch {
+    // The local result remains usable; a missing static descriptor must not erase it.
+  }
+}
+
+function SessionLoadingState() {
+  return (
+    <div className="exam-session-loading-state">
+      <div aria-hidden="true" />
+      <span>Đang tải đề thi...</span>
+    </div>
+  );
+}
+
+function SessionErrorState({ message }: { message: string }) {
+  return (
+    <div className="exam-session-error-state">
+      <div>
+        <h2>{message}</h2>
+        <ExamBackLink to="/exams/browse">Quay lại danh sách đề</ExamBackLink>
+      </div>
+    </div>
+  );
+}
+
+const TIMED_SHORTCUTS: ExamShortcutItem[] = [
+  { keyLabel: '← / →', description: 'Chuyển câu, kể cả khi đang focus đáp án' },
+  { keyLabel: '↑ / ↓', description: 'Chuyển giữa các đáp án trắc nghiệm' },
+  { keyLabel: '1–4', description: 'Chọn nhanh đáp án A–D' },
+  { keyLabel: 'Shift + F', description: 'Đánh dấu hoặc bỏ đánh dấu xem lại' },
+  { keyLabel: '?', description: 'Mở hướng dẫn làm bài' },
+];

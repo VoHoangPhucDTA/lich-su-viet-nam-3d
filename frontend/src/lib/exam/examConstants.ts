@@ -8,6 +8,7 @@
 // ===== URLs runtime (Vite SPA — fetch từ public/) ============================
 export const EXAM_MANIFEST_URL = '/data/exams/exams-manifest.json';
 export const TOPIC_INDEX_URL = '/data/exams/topic-index.json';
+export const EXAM_DATASET_BUILD_URL = '/data/exams/exam-dataset-build.json';
 /** Trả URL fetch 1 file đề theo examId. */
 export const examFileURL = (examId: string): string =>
   `/data/exams/${examId}.json`;

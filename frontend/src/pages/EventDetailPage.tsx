@@ -87,7 +87,7 @@ export default function EventDetailPage() {
     if (eventData.textbookContent.textbookRefs?.length) {
       items.push({ id: 'nguon-sgk', label: 'Nguồn SGK', weight: 1 });
     }
-    if (eventData.externalContent) {
+    if (eventData.externalSources?.length || eventData.externalContent) {
       items.push({ id: 'nguon-mo-rong', label: 'Nguồn mở rộng', weight: 1 });
     }
     return items;
@@ -265,7 +265,7 @@ export default function EventDetailPage() {
       indices.sourcesTextbook = next();
     }
 
-    if (eventData.externalContent) {
+    if (eventData.externalSources?.length || eventData.externalContent) {
       links.push({ id: 'nguon-mo-rong', label: 'Nguồn mở rộng' });
       indices.sourcesExternal = next();
     }
@@ -421,6 +421,8 @@ export default function EventDetailPage() {
 
             <EventSources
               textbookRefs={eventData.textbookContent.textbookRefs}
+              textbookSourceContent={eventData.textbookContent.sourceContent}
+              externalSources={eventData.externalSources}
               externalContent={eventData.externalContent}
               textbookIndex={sectionIndices.sourcesTextbook || '08'}
               externalIndex={sectionIndices.sourcesExternal || '09'}

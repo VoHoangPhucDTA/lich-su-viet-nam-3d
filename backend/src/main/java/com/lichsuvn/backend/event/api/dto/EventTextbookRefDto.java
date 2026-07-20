@@ -10,7 +10,6 @@ public record EventTextbookRefDto(
         Integer pageEnd,
         String excerpt,
         String url,
-        String content,
         String sourceKey
 ) {
 }

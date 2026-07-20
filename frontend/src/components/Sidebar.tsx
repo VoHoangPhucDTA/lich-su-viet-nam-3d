@@ -3,6 +3,7 @@ import {
   Search,
   ChevronRight,
   Clock,
+  X,
 } from 'lucide-react';
 import type { HistoricalEvent, EventType } from '../types/event';
 import {
@@ -21,6 +22,8 @@ interface SidebarProps {
   onSearchQueryChange: (query: string) => void;
   loading?: boolean;
   currentYear?: number;
+  open?: boolean;
+  onClose?: () => void;
 }
 
 const EVENT_TYPE_FILTERS: EventType[] = [
@@ -75,6 +78,8 @@ export default function Sidebar({
   onSearchQueryChange,
   loading = false,
   currentYear,
+  open = false,
+  onClose,
 }: SidebarProps) {
   const [expandedIds, setExpandedIds] = useState<Set<string>>(new Set());
   const [activeFilter, setActiveFilter] = useState<EventType | null>(null);
@@ -129,14 +134,12 @@ export default function Sidebar({
 
   return (
     <div
-      className="hidden md:flex animate-slide-in-left"
+      className={`map-sidebar ${open ? 'map-panel-open' : ''}`}
       style={{
-        width: '320px',
         height: '100%',
         flexDirection: 'column',
-        zIndex: 10,
-        background: '#ffffff',
-        borderRight: '1px solid #e7e5e4',
+        background: 'var(--bg-card)',
+        borderRight: '1px solid var(--border)',
       }}
     >
       {/* Header */}
@@ -146,17 +149,14 @@ export default function Sidebar({
           borderBottom: '1px solid #e7e5e4',
         }}
       >
-        <h2
-          className="serif-heading"
-          style={{
-            fontSize: '16px',
-            fontWeight: 700,
-            color: '#1c1917',
-            marginBottom: '10px',
-          }}
-        >
-          Sự kiện Lịch sử
-        </h2>
+        <div className="mb-2.5 flex items-center justify-between gap-3">
+          <h2 className="serif-heading text-lg font-bold text-[var(--text-primary)]">Sự kiện lịch sử</h2>
+          {onClose && (
+            <button type="button" onClick={onClose} className="public-icon-button map-panel-close" aria-label="Đóng danh sách sự kiện">
+              <X size={17} aria-hidden="true" />
+            </button>
+          )}
+        </div>
 
         {/* Search */}
         <div className="relative mb-2.5">
@@ -173,15 +173,15 @@ export default function Sidebar({
             onChange={(e) => onSearchQueryChange(e.target.value)}
             className="w-full pl-9 pr-3 py-2 rounded-[10px] border text-[13px] outline-none transition-all duration-200"
             style={{
-              borderColor: '#d6d3d1',
-              background: '#fafaf9',
-              color: '#1c1917',
+              borderColor: 'var(--border-strong)',
+              background: 'var(--bg-app)',
+              color: 'var(--text-primary)',
             }}
             onFocus={(e) => {
-              e.currentTarget.style.borderColor = '#8b1e1e';
+              e.currentTarget.style.borderColor = 'var(--admin-accent)';
             }}
             onBlur={(e) => {
-              e.currentTarget.style.borderColor = '#d6d3d1';
+              e.currentTarget.style.borderColor = 'var(--border-strong)';
             }}
           />
         </div>
@@ -216,9 +216,9 @@ export default function Sidebar({
                 style={{
                   background: isActive
                     ? `${color}22`
-                    : '#ffffff',
-                  color: isActive ? color : '#78716c',
-                  borderColor: isActive ? `${color}50` : '#e7e5e4',
+                    : 'var(--bg-card)',
+                  color: isActive ? color : 'var(--text-muted)',
+                  borderColor: isActive ? `${color}50` : 'var(--border)',
                 }}
               >
                 {/* Colored dot accent — Option D */}
@@ -295,9 +295,9 @@ export default function Sidebar({
       <div
         style={{
           padding: '8px 14px',
-          borderTop: '1px solid #e7e5e4',
+          borderTop: '1px solid var(--border)',
           fontSize: '11px',
-          color: '#78716c',
+          color: 'var(--text-muted)',
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
@@ -368,10 +368,10 @@ function EventTreeNode({
           paddingLeft: `${12 + depth * 12}px`,
           cursor: 'pointer',
           background: isSelected
-            ? '#fef2f2'
+            ? 'var(--accent-soft)'
             : 'transparent',
           borderLeft: isSelected
-            ? '4px solid #8b1e1e'
+            ? '4px solid var(--accent)'
             : '4px solid transparent',
           transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
           fontSize: '13.5px',
@@ -379,7 +379,7 @@ function EventTreeNode({
         }}
         onMouseOver={(e) => {
           if (!isSelected) {
-            e.currentTarget.style.background = '#fef2f2';
+            e.currentTarget.style.background = 'var(--accent-soft)';
             e.currentTarget.style.opacity = '0.9';
           }
         }}
@@ -425,7 +425,7 @@ function EventTreeNode({
             flex: 1,
             minWidth: 0,
             fontWeight: isSelected ? 700 : 400,
-            color: isSelected ? '#8b1e1e' : '#1c1917',
+            color: isSelected ? 'var(--accent)' : 'var(--text-primary)',
             lineHeight: '1.4',
             wordBreak: 'break-word',
             overflowWrap: 'break-word',
@@ -438,9 +438,9 @@ function EventTreeNode({
         <span
           className="text-[10px] px-1.5 py-0.5 rounded border flex-shrink-0 font-medium inline-flex items-center gap-0.5"
           style={{
-            color: '#78716c',
-            background: isFutureEvent && !isSelected ? 'transparent' : '#ffffff',
-            borderColor: '#e7e5e4',
+            color: 'var(--text-muted)',
+            background: isFutureEvent && !isSelected ? 'transparent' : 'var(--bg-card)',
+            borderColor: 'var(--border)',
             borderStyle: isFutureEvent && !isSelected ? 'dashed' : 'solid',
             opacity: isFutureEvent && !isSelected ? 0.7 : 1,
           }}
@@ -462,7 +462,7 @@ function EventTreeNode({
       {hasLoadedChildren && isExpanded && (
         <div
           style={{
-            borderLeft: `1px dashed #d6d3d1`,
+            borderLeft: '1px dashed var(--border-strong)',
             marginLeft: `${20 + depth * 12}px`,
           }}
         >

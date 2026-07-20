@@ -1,4 +1,5 @@
-import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation, useParams } from 'react-router-dom';
+import { lazy, Suspense } from 'react';
 import { AuthProvider } from './auth/AuthContext';
 import ProtectedRoute from './auth/ProtectedRoute';
 import RoleGuard from './auth/RoleGuard';
@@ -31,7 +32,6 @@ import ProfileSettingsPage from './pages/profile/ProfileSettingsPage';
 import AdminDashboardPage from './pages/admin/AdminDashboardPage';
 import AdminUsersPage from './pages/admin/AdminUsersPage';
 import AdminEventsPage from './pages/admin/AdminEventsPage';
-import AdminQuestionsPage from './pages/admin/AdminQuestionsPage';
 
 // Quiz pages
 import QuizHomePage from './pages/quiz/QuizHomePage';
@@ -41,31 +41,46 @@ import QuizResultPage from './pages/quiz/QuizResultPage';
 import QuizHistoryPage from './pages/quiz/QuizHistoryPage';
 
 // Exams pages
-import ExamHomePage from './pages/exams/ExamHomePage';
-import ExamCreatePage from './pages/exams/ExamCreatePage';
-import ExamSessionPage from './pages/exams/ExamSessionPage';
-import ExamResultPage from './pages/exams/ExamResultPage';
-import ExamHistoryPage from './pages/exams/ExamHistoryPage';
-import ExamBrowsePage from './pages/exams/ExamBrowsePage';
-import ExamV2SessionPage from './pages/exams/ExamV2SessionPage';
-import ExamV2ResultPage from './pages/exams/ExamV2ResultPage';
-import ExamV2HistoryPage from './pages/exams/ExamV2HistoryPage';
-import ExamRetryWrongPage from './pages/exams/ExamRetryWrongPage';
-import ExamPracticePage from './pages/exams/ExamPracticePage';
-import ExamTopicListPage from './pages/exams/ExamTopicListPage';
-import ExamTopicPracticePage from './pages/exams/ExamTopicPracticePage';
-import ExamCustomCreatePage from './pages/exams/ExamCustomCreatePage';
-import ExamCustomSessionPage from './pages/exams/ExamCustomSessionPage';
+import { legacyExamSessionPath } from './lib/exam/legacyExamRedirect';
+import { loadExamV2SessionPage } from './lib/exam/examRoutePreload';
+
+const ExamHomePage = lazy(() => import('./pages/exams/ExamHomePage'));
+const ExamBrowsePage = lazy(() => import('./pages/exams/ExamBrowsePage'));
+const ExamV2SessionPage = lazy(loadExamV2SessionPage);
+const ExamV2ResultPage = lazy(() => import('./pages/exams/ExamV2ResultPage'));
+const ExamV2HistoryPage = lazy(() => import('./pages/exams/ExamV2HistoryPage'));
+const ApiTopicListPage = lazy(() => import('./pages/exams/ApiTopicListPage'));
+const ApiCustomCreatePage = lazy(() => import('./pages/exams/ApiCustomCreatePage'));
+const ApiCustomMockSessionRoutePage = lazy(() => import('./pages/exams/ApiCustomSessionRoutePages').then((module) => ({ default: module.ApiCustomMockSessionRoutePage })));
+const ApiCustomPracticeSessionRoutePage = lazy(() => import('./pages/exams/ApiCustomSessionRoutePages').then((module) => ({ default: module.ApiCustomPracticeSessionRoutePage })));
+const ApiFreePracticeRoutePage = lazy(() => import('./pages/exams/ApiPracticeRoutePages').then((module) => ({ default: module.ApiFreePracticeRoutePage })));
+const ApiRetryWrongRoutePage = lazy(() => import('./pages/exams/ApiPracticeRoutePages').then((module) => ({ default: module.ApiRetryWrongRoutePage })));
+const ApiTopicPracticeRoutePage = lazy(() => import('./pages/exams/ApiPracticeRoutePages').then((module) => ({ default: module.ApiTopicPracticeRoutePage })));
+
+const PersonalLearningDashboardPage = lazy(() => import('./features/dashboard/PersonalLearningDashboardPage'));
 
 function AppContent() {
   const location = useLocation();
-  const hideHeaderRoutes = ['/quiz/session', '/exams/session', '/exams/de'];
-  const shouldHideHeader = hideHeaderRoutes.some(path => location.pathname.startsWith(path));
+  const hideHeaderRoutes = [
+    '/quiz/session',
+    '/exams/session',
+    '/exams/de',
+    '/admin',
+    '/login',
+    '/register',
+    '/forgot-password',
+    '/reset-password',
+    '/verify-email',
+  ];
+  const examPracticeRoute = /^\/exams\/(?:luyen-tap\/[^/]+|on-lai\/[^/]+|tuy-chon\/[^/]+|on-chu-de\/[^/]+)$/;
+  const shouldHideHeader = hideHeaderRoutes.some(path => location.pathname.startsWith(path))
+    || examPracticeRoute.test(location.pathname);
 
   return (
     <div className="flex flex-col h-screen w-screen overflow-hidden bg-stone-50">
       {!shouldHideHeader && <AppHeader />}
       <div id={APP_SCROLL_ROOT_ID} className="flex-1 overflow-y-auto">
+        <Suspense fallback={<div style={{ padding: '2rem', color: 'var(--text-muted)' }}>Đang tải...</div>}>
         <Routes>
           {/* === Public routes === */}
           <Route path="/" element={<Navigate to="/home" replace />} />
@@ -91,21 +106,30 @@ function AppContent() {
 
           {/* === Exams routes === */}
           <Route path="/exams" element={<ExamHomePage />} />
-          <Route path="/exams/create" element={<ExamCreatePage />} />
-          <Route path="/exams/session/:examId" element={<ExamSessionPage />} />
-          <Route path="/exams/result/:examId" element={<ExamResultPage />} />
-          <Route path="/exams/history" element={<ExamHistoryPage />} />
+          <Route path="/exams/create" element={<Navigate to="/exams/tao-de" replace />} />
+          <Route path="/exams/session/:examId" element={<LegacyExamSessionRedirect />} />
+          <Route path="/exams/result/:examId" element={<Navigate to="/exams/lich-su" replace />} />
+          <Route path="/exams/history" element={<Navigate to="/exams/lich-su" replace />} />
           <Route path="/exams/browse" element={<ExamBrowsePage />} />
-          <Route path="/exams/tao-de" element={<ExamCustomCreatePage />} />
-          <Route path="/exams/tuy-chon/:sessionId" element={<ExamCustomSessionPage />} />
+          <Route path="/exams/tao-de" element={<ApiCustomCreatePage />} />
+          <Route path="/exams/tuy-chon/luyen-tap/:sessionId" element={<ApiCustomPracticeSessionRoutePage />} />
+          <Route path="/exams/tuy-chon/:sessionId" element={<ApiCustomMockSessionRoutePage />} />
           <Route path="/exams/de/:examId" element={<ExamV2SessionPage />} />
-          <Route path="/exams/luyen-tap/:examId" element={<ExamPracticePage />} />
-          <Route path="/exams/on-chu-de" element={<ExamTopicListPage />} />
-          <Route path="/exams/on-chu-de/:topicSlug" element={<ExamTopicPracticePage />} />
+          <Route path="/exams/luyen-tap/:examId" element={<ApiFreePracticeRoutePage />} />
+          <Route path="/exams/on-chu-de" element={<ApiTopicListPage />} />
+          <Route path="/exams/on-chu-de/:topicSlug" element={<ApiTopicPracticeRoutePage />} />
           <Route path="/exams/ket-qua/:sessionId" element={<ExamV2ResultPage />} />
-          <Route path="/exams/on-lai/:sessionId" element={<ExamRetryWrongPage />} />
+          <Route path="/exams/on-lai/:sessionId" element={<ApiRetryWrongRoutePage />} />
           <Route path="/exams/lich-su" element={<ExamV2HistoryPage />} />
           <Route path="/exams/lich-su-v2" element={<ExamV2HistoryPage />} />
+          <Route
+            path="/exams/thong-ke"
+            element={(
+              <Suspense fallback={<div className="exam-browse-message" role="status">Đang mở tổng quan học tập…</div>}>
+                <PersonalLearningDashboardPage />
+              </Suspense>
+            )}
+          />
 
           {/* === Profile routes === */}
           <Route path="/profile" element={<Navigate to="/profile/dashboard" replace />} />
@@ -119,11 +143,17 @@ function AppContent() {
           <Route path="/admin/dashboard" element={<ProtectedRoute><RoleGuard requiredRole="admin"><AdminDashboardPage /></RoleGuard></ProtectedRoute>} />
           <Route path="/admin/users" element={<ProtectedRoute><RoleGuard requiredRole="admin"><AdminUsersPage /></RoleGuard></ProtectedRoute>} />
           <Route path="/admin/events" element={<ProtectedRoute><RoleGuard requiredRole="admin"><AdminEventsPage /></RoleGuard></ProtectedRoute>} />
-          <Route path="/admin/questions" element={<ProtectedRoute><RoleGuard requiredRole="admin"><AdminQuestionsPage /></RoleGuard></ProtectedRoute>} />
+          <Route path="/admin/questions" element={<Navigate to="/admin/events" replace />} />
         </Routes>
+        </Suspense>
       </div>
     </div>
   );
+}
+
+function LegacyExamSessionRedirect() {
+  const { examId } = useParams<{ examId: string }>();
+  return <Navigate to={legacyExamSessionPath(examId)} replace />;
 }
 
 function App() {

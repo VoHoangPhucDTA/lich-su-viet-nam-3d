@@ -81,7 +81,10 @@ export function scoreCustomMockSession(session: CustomExamSession): ExamResultV2
   const maxUnits = Math.max(questions.length, 1);
   const submittedAt = session.submittedAt ?? Date.now();
   const startedAt = session.startedAt ?? submittedAt;
-  const durationSeconds = Math.max(0, Math.floor((submittedAt - startedAt) / 1000));
+  const elapsedSeconds = Math.max(0, Math.floor((submittedAt - startedAt) / 1000));
+  const durationSeconds = session.durationSeconds && session.durationSeconds > 0
+    ? Math.min(elapsedSeconds, session.durationSeconds)
+    : elapsedSeconds;
   const totalScore = round2((achievedUnits / maxUnits) * 10);
 
   return {

@@ -1,48 +1,165 @@
+import { FileCheck2, TriangleAlert } from 'lucide-react';
+import { useEffect, useId, useRef, type KeyboardEvent } from 'react';
+
 interface ExamSubmitDialogProps {
-  unansweredCount: number;
+  unansweredCount?: number;
+  answeredCount?: number;
+  totalQuestions?: number;
+  completedCount?: number;
+  partialCount?: number;
+  untouchedCount?: number;
+  flaggedCount?: number;
   isOpen: boolean;
   onConfirm: () => void;
   onCancel: () => void;
-  isTimeUp?: boolean;
+  isSubmitting?: boolean;
 }
 
-export default function ExamSubmitDialog({ unansweredCount, isOpen, onConfirm, onCancel, isTimeUp = false }: ExamSubmitDialogProps) {
+export default function ExamSubmitDialog({
+  unansweredCount,
+  answeredCount,
+  totalQuestions,
+  completedCount,
+  partialCount = 0,
+  untouchedCount,
+  flaggedCount = 0,
+  isOpen,
+  onConfirm,
+  onCancel,
+  isSubmitting = false,
+}: ExamSubmitDialogProps) {
+  const titleId = useId();
+  const descriptionId = useId();
+  const cancelButtonRef = useRef<HTMLButtonElement>(null);
+  const confirmButtonRef = useRef<HTMLButtonElement>(null);
+  const previousFocusRef = useRef<HTMLElement | null>(null);
+  const confirmedRef = useRef(false);
+
+  useEffect(() => {
+    if (!isOpen) return;
+
+    confirmedRef.current = false;
+    previousFocusRef.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    const frameId = window.requestAnimationFrame(() => {
+      cancelButtonRef.current?.focus();
+    });
+
+    return () => {
+      window.cancelAnimationFrame(frameId);
+      if (!confirmedRef.current && previousFocusRef.current?.isConnected) {
+        previousFocusRef.current.focus();
+      }
+    };
+  }, [isOpen]);
+
   if (!isOpen) return null;
 
+  const safeUnansweredCount = Math.max(0, unansweredCount ?? untouchedCount ?? 0);
+  const safeTotalQuestions = totalQuestions == null ? undefined : Math.max(0, totalQuestions);
+  const safeAnsweredCount = completedCount ?? answeredCount ?? (
+    safeTotalQuestions == null ? undefined : Math.max(0, safeTotalQuestions - safeUnansweredCount)
+  );
+
+  function handleConfirm() {
+    if (isSubmitting || confirmedRef.current) return;
+    confirmedRef.current = true;
+    onConfirm();
+  }
+
+  function handleCancel() {
+    if (isSubmitting) return;
+    confirmedRef.current = false;
+    onCancel();
+  }
+
+  function handleKeyDown(event: KeyboardEvent<HTMLDivElement>) {
+    if (event.key === 'Escape' && !isSubmitting) {
+      event.preventDefault();
+      handleCancel();
+      return;
+    }
+    if (event.key !== 'Tab') return;
+
+    const focusable = [cancelButtonRef.current, confirmButtonRef.current]
+      .filter((element): element is HTMLButtonElement => Boolean(element && !element.disabled));
+    if (focusable.length === 0) {
+      event.preventDefault();
+      return;
+    }
+
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
+    }
+  }
+
   return (
-    <div style={{ position: 'fixed', inset: 0, background: 'rgba(15,23,42,0.65)', backdropFilter: 'blur(4px)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 100, padding: '1rem' }}>
-        <div style={{ background: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: '1.25rem', padding: '2rem', maxWidth: '400px', width: '100%', boxShadow: 'var(--shadow)', textAlign: 'center' }}>
+    <div
+      onMouseDown={(event) => {
+        if (event.target === event.currentTarget) handleCancel();
+      }}
+      style={{ position: 'fixed', inset: 0, background: 'rgba(15,23,42,0.65)', backdropFilter: 'blur(4px)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 100, padding: '1rem' }}
+    >
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby={titleId}
+          aria-describedby={descriptionId}
+          onKeyDown={handleKeyDown}
+          className="exam-submit-dialog"
+        >
             
-            <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>
-                {isTimeUp ? '⌛' : unansweredCount > 0 ? '⚠️' : '📝'}
+            <div className="exam-submit-dialog-icon">
+                {safeUnansweredCount > 0 || partialCount > 0 ? <TriangleAlert aria-hidden="true" /> : <FileCheck2 aria-hidden="true" />}
             </div>
             
-            <h2 style={{ margin: '0 0 1rem 0', fontSize: '1.25rem', color: 'var(--text-primary)' }}>
-                {isTimeUp ? 'Đã hết thời gian làm bài!' : 'Xác nhận nộp bài'}
+            <h2 id={titleId} style={{ margin: '0 0 1rem 0', fontSize: '1.25rem', color: 'var(--text-primary)' }}>
+                Xác nhận nộp bài
             </h2>
             
-            <p style={{ margin: '0 0 2rem 0', color: 'var(--text-secondary)', lineHeight: 1.5 }}>
-                {isTimeUp 
-                  ? 'Hệ thống sẽ tự động nộp bài làm của bạn.' 
-                  : unansweredCount > 0 
-                    ? `Bạn vẫn còn ${unansweredCount} câu chưa trả lời. Bạn có chắc chắn muốn nộp bài ngay lúc này không?` 
-                    : 'Bạn đã hoàn thành tất cả câu hỏi. Bạn có muốn nộp bài ngay?'}
+            <p id={descriptionId} style={{ margin: '0 0 1.25rem 0', color: 'var(--text-secondary)', lineHeight: 1.5 }}>
+                {partialCount > 0
+                    ? `Bạn còn ${partialCount} câu đang làm dở và ${safeUnansweredCount} câu chưa làm. Bạn có chắc chắn muốn nộp bài ngay lúc này không?`
+                    : safeUnansweredCount > 0
+                      ? `Bạn còn ${safeUnansweredCount} câu chưa làm. Bạn có chắc chắn muốn nộp bài ngay lúc này không?`
+                      : 'Bạn đã hoàn thành tất cả câu hỏi. Bạn có muốn nộp bài ngay?'}
             </p>
+
+            {safeTotalQuestions != null && safeAnsweredCount != null && (
+              <dl className="exam-submit-breakdown">
+                <div><dt>Tổng</dt><dd>{safeTotalQuestions}</dd></div>
+                <div><dt>Hoàn thành</dt><dd className="is-complete">{safeAnsweredCount}</dd></div>
+                <div><dt>Đang làm dở</dt><dd className="is-partial">{partialCount}</dd></div>
+                <div><dt>Chưa làm</dt><dd className="is-untouched">{safeUnansweredCount}</dd></div>
+                <div><dt>Đánh dấu</dt><dd className="is-flagged">{flaggedCount}</dd></div>
+              </dl>
+            )}
             
-            <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
-                {!isTimeUp && (
+            <div className="exam-submit-dialog-actions">
+                {(
                     <button 
-                      onClick={onCancel} 
-                      style={{ flex: 1, padding: '0.75rem', background: 'transparent', border: '1px solid #475569', borderRadius: '0.5rem', color: '#cbd5e1', cursor: 'pointer', fontWeight: 600 }}
+                      ref={cancelButtonRef}
+                      type="button"
+                      disabled={isSubmitting}
+                      onClick={handleCancel}
+                      className="exam-focusable exam-submit-cancel"
                     >
                         Quay lại làm tiếp
                     </button>
                 )}
                 <button 
-                  onClick={onConfirm} 
-                  style={{ flex: 1, padding: '0.75rem', background: '#2f7a57', border: 'none', borderRadius: '0.5rem', color: '#fff', cursor: 'pointer', fontWeight: 600, boxShadow: '0 4px 6px -1px rgba(47,122,87,0.3)' }}
+                  ref={confirmButtonRef}
+                  type="button"
+                  disabled={isSubmitting}
+                  onClick={handleConfirm}
+                  className="exam-focusable exam-submit-confirm"
                 >
-                    {isTimeUp ? 'Đồng ý nộp bài' : 'Xác nhận nộp'}
+                    {isSubmitting ? 'Đang nộp...' : 'Xác nhận nộp'}
                 </button>
             </div>
         </div>

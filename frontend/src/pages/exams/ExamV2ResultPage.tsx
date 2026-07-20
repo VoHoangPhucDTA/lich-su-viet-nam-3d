@@ -4,14 +4,19 @@
  */
 import { useEffect, useMemo, useState, type ReactNode } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import ApiResultSnapshotView from '@/components/exams/ApiResultSnapshotView';
+import ExamExplanationText from '@/components/exams/ExamExplanationText';
 import { formatCognitiveLevelLabel, formatDifficultyLabel, formatQuestionTypeLabel } from '@/lib/exam/displayLabels';
 import { fetchBackendAttemptDetail, resultFromAttemptDetail } from '@/lib/exam/examAttemptSync';
+import { formatExamDuration } from '@/lib/exam/durationFormat';
 import { formatExamTitle } from '@/lib/exam/examDisplay';
 import { loadExam } from '@/lib/exam/examLoader';
 import { rateScore, scoreToPercent } from '@/lib/exam/scoring';
 import { loadTopicIndex } from '@/lib/exam/topicIndexLoader';
 import { findSummaryBySlug, slugifyTopic } from '@/lib/exam/topicGrouping';
 import { readResultFromLS } from '@/lib/exam/useSessionV2';
+import { readApiResult } from '@/lib/exam/useApiTimedSession';
+import { adaptResultSnapshotV2, formatAuthorityLabel, type NormalizedExamResult } from '@/lib/exam/resultAdapters';
 import { analyzeWeaknesses, analyzeWeaknessesFromQuestions, type WeaknessAnalysis, type WeaknessBucket } from '@/lib/exam/weaknessAnalysis';
 import {
   flattenExamQuestions,
@@ -51,25 +56,19 @@ function formatPoints(points: number): string {
   return points > 0 ? `+${points.toFixed(2)}đ` : '0đ';
 }
 
-function formatDuration(seconds: number): string {
-  const safeSeconds = Math.max(0, Math.floor(Number.isFinite(seconds) ? seconds : 0));
-  const hours = Math.floor(safeSeconds / 3600);
-  const minutes = Math.floor((safeSeconds % 3600) / 60);
-  const restSeconds = safeSeconds % 60;
-  const parts: string[] = [];
-
-  if (hours > 0) parts.push(`${hours} giờ`);
-  if (minutes > 0 || hours > 0) parts.push(`${hours > 0 ? minutes.toString().padStart(2, '0') : minutes} phút`);
-  if (restSeconds > 0 || parts.length === 0) parts.push(`${hours > 0 ? restSeconds.toString().padStart(2, '0') : restSeconds} giây`);
-  return parts.join(' ');
-}
-
-function getAnsweredCount(result: ExamResultV2): number {
-  return result.questions.filter((q) => {
-    if (q.questionType === 'mcq') return q.mcq?.selected != null;
-    if (!q.tf?.selected) return false;
-    return Object.values(q.tf.selected).some((value) => value != null);
-  }).length;
+function getCompletionCounts(result: ExamResultV2): { complete: number; partial: number; untouched: number } {
+  return result.questions.reduce((counts, question) => {
+    if (question.questionType === 'mcq') {
+      counts[question.mcq?.selected == null ? 'untouched' : 'complete'] += 1;
+      return counts;
+    }
+    const values = question.tf?.selected ? Object.values(question.tf.selected) : [];
+    const selectedCount = values.filter((value) => value != null).length;
+    if (selectedCount === 0) counts.untouched += 1;
+    else if (selectedCount === values.length) counts.complete += 1;
+    else counts.partial += 1;
+    return counts;
+  }, { complete: 0, partial: 0, untouched: 0 });
 }
 
 function needsRetry(result: ExamResultV2): boolean {
@@ -83,9 +82,9 @@ function needsRetry(result: ExamResultV2): boolean {
 function Chip({ children, tone = 'default' }: { children: ReactNode; tone?: 'default' | 'success' | 'danger' | 'warning' }) {
   const colors = {
     default: ['var(--bg-surface)', 'var(--border)', 'var(--text-muted)'],
-    success: ['rgba(47,122,87,0.1)', 'rgba(47,122,87,0.28)', 'var(--success)'],
+    success: ['rgba(47,122,87,0.1)', 'rgba(47,122,87,0.28)', 'var(--exam-success)'],
     danger: ['rgba(159,29,45,0.08)', 'rgba(159,29,45,0.22)', 'var(--danger)'],
-    warning: ['rgba(194,155,75,0.12)', 'rgba(194,155,75,0.28)', 'var(--warning)'],
+    warning: ['rgba(194,155,75,0.12)', 'rgba(194,155,75,0.28)', 'var(--exam-warning)'],
   }[tone];
 
   return (
@@ -120,8 +119,7 @@ function ScoreCard({ result }: { result: ExamResultV2 }) {
   const rating = rateScore(result.totalScore);
   const pct = scoreToPercent(result.totalScore);
   const color = RATING_COLOR[rating];
-  const answered = getAnsweredCount(result);
-  const blank = Math.max(result.totalQuestions - answered, 0);
+  const completion = getCompletionCounts(result);
 
   return (
     <div
@@ -155,9 +153,10 @@ function ScoreCard({ result }: { result: ExamResultV2 }) {
       >
         <Stat label="Trắc nghiệm" value={`${result.mcqScore.toFixed(2)}đ`} color="var(--accent)" />
         <Stat label="Đúng/Sai" value={`${result.tfScore.toFixed(2)}đ`} color="var(--admin-accent)" />
-        <Stat label="Thời gian" value={formatDuration(result.durationSeconds)} color="var(--text-muted)" />
-        <Stat label="Đã làm" value={`${answered}/${result.totalQuestions}`} color="var(--success)" />
-        <Stat label="Bỏ trống" value={`${blank}`} color="var(--text-muted)" />
+        <Stat label="Thời gian" value={formatExamDuration(result.durationSeconds)} color="var(--text-muted)" />
+        <Stat label="Hoàn thành" value={`${completion.complete}/${result.totalQuestions}`} color="var(--exam-success)" />
+        <Stat label="Làm dở" value={`${completion.partial}`} color="var(--exam-warning)" />
+        <Stat label="Bỏ trống" value={`${completion.untouched}`} color="var(--text-muted)" />
       </div>
     </div>
   );
@@ -343,7 +342,7 @@ function WeaknessAnalysisSection({ analysis }: { analysis: WeaknessAnalysis }) {
 
 function Metadata({ question }: { question: Question }) {
   return (
-    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem', marginTop: '0.75rem' }}>
+    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem' }} aria-label="Phân loại câu hỏi">
       <Chip>{question.topic}</Chip>
       <Chip>{formatDifficultyLabel(question.difficulty)}</Chip>
       <Chip>{formatCognitiveLevelLabel(question.cognitiveLevel)}</Chip>
@@ -367,7 +366,7 @@ function Explanation({ text }: { text: string }) {
       }}
     >
       <strong style={{ color: 'var(--text-primary)' }}>Giải thích: </strong>
-      {text}
+      <ExamExplanationText text={text} />
     </div>
   );
 }
@@ -403,7 +402,7 @@ function MCQReviewCard({ question, result, index }: { question: MCQQuestion; res
   const selected = result.mcq?.selected ?? null;
   const correct = result.mcq?.correct ?? question.correctOptionId;
   const statusTone = selected == null ? 'warning' : result.isCorrect ? 'success' : 'danger';
-  const statusText = selected == null ? 'Bỏ trống' : result.isCorrect ? 'Đúng' : 'Sai';
+  const statusText = selected == null ? 'Chưa trả lời' : result.isCorrect ? 'Trả lời đúng' : 'Trả lời sai';
 
   return (
     <article style={{ background: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: '1rem', padding: '1.25rem' }}>
@@ -412,13 +411,15 @@ function MCQReviewCard({ question, result, index }: { question: MCQQuestion; res
           {index + 1}
         </div>
         <div style={{ flex: 1 }}>
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', marginBottom: '0.65rem' }}>
-            <Chip>Trắc nghiệm</Chip>
-            <Chip tone={statusTone}>{statusText}</Chip>
-            <Chip>{formatPoints(result.pointsEarned)}</Chip>
+          <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'flex-start', gap: '0.5rem 1rem', marginBottom: '0.65rem' }}>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
+              <Chip>Trắc nghiệm</Chip>
+              <Chip tone={statusTone}>{statusText}</Chip>
+              <Chip>{formatPoints(result.pointsEarned)}</Chip>
+            </div>
+            <Metadata question={question} />
           </div>
           <h3 style={{ margin: 0, color: 'var(--text-primary)', fontSize: '1rem', lineHeight: 1.55 }}>{question.questionText}</h3>
-          <Metadata question={question} />
         </div>
       </header>
 
@@ -469,6 +470,7 @@ function TFStatementRow({ statement, result }: { statement: TFStatement; result:
   const selected = result.tf?.selected?.[statement.id] ?? null;
   const correct = result.tf?.correct?.[statement.id] ?? statement.isTrue;
   const isBlank = selected == null;
+  const statusText = isBlank ? 'Chưa trả lời' : selected === correct ? 'Trả lời đúng' : 'Trả lời sai';
   const isCorrect = selected === correct;
   const border = isBlank ? 'var(--border)' : isCorrect ? 'rgba(47,122,87,0.35)' : 'rgba(159,29,45,0.32)';
   const background = isBlank ? 'var(--bg-surface)' : isCorrect ? 'rgba(47,122,87,0.08)' : 'rgba(159,29,45,0.07)';
@@ -491,6 +493,7 @@ function TFStatementRow({ statement, result }: { statement: TFStatement; result:
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', paddingLeft: '2.25rem' }}>
         <Chip tone={isBlank ? 'warning' : isCorrect ? 'success' : 'danger'}>Bạn chọn: {tfAnswerLabel(selected)}</Chip>
         <Chip tone="success">Đáp án đúng: {tfAnswerLabel(correct)}</Chip>
+        <Chip tone={isBlank ? 'warning' : isCorrect ? 'success' : 'danger'}>{statusText}</Chip>
       </div>
     </div>
   );
@@ -508,13 +511,15 @@ function TFReviewCard({ question, result, index }: { question: TFQuestion; resul
           {index + 1}
         </div>
         <div style={{ flex: 1 }}>
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', marginBottom: '0.65rem' }}>
-            <Chip>Đúng/Sai</Chip>
-            <Chip tone={statusTone}>{correctCount}/{statementCount} ý đúng</Chip>
-            <Chip>{formatPoints(result.pointsEarned)}</Chip>
+          <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'flex-start', gap: '0.5rem 1rem', marginBottom: '0.65rem' }}>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
+              <Chip>Đúng/Sai</Chip>
+              <Chip tone={statusTone}>{correctCount}/{statementCount} ý đúng</Chip>
+              <Chip>{formatPoints(result.pointsEarned)}</Chip>
+            </div>
+            <Metadata question={question} />
           </div>
           <h3 style={{ margin: 0, color: 'var(--text-primary)', fontSize: '1rem', lineHeight: 1.55 }}>{question.questionText}</h3>
-          <Metadata question={question} />
         </div>
       </header>
 
@@ -584,6 +589,7 @@ function LoadingState() {
 export default function ExamV2ResultPage() {
   const { sessionId } = useParams<{ sessionId: string }>();
   const [result, setResult] = useState<ExamResultV2 | null>(null);
+  const [snapshotResult, setSnapshotResult] = useState<NormalizedExamResult | null>(null);
   const [exam, setExam] = useState<ExamFile | null>(null);
   const [weakestTopicSlug, setWeakestTopicSlug] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
@@ -602,11 +608,27 @@ export default function ExamV2ResultPage() {
       setLoading(true);
       setError(null);
       setExam(null);
+      setSnapshotResult(null);
+
+      const cachedSnapshot = adaptResultSnapshotV2(readApiResult(sessionId));
+      if (cachedSnapshot) {
+        if (!alive) return;
+        setSnapshotResult(cachedSnapshot);
+        setLoading(false);
+        return;
+      }
 
       let currentResult = readResultFromLS(sessionId);
       if (!currentResult) {
         try {
           const backendDetail = await fetchBackendAttemptDetail(sessionId);
+          const backendSnapshot = backendDetail ? adaptResultSnapshotV2(backendDetail.result) : null;
+          if (backendSnapshot) {
+            if (!alive) return;
+            setSnapshotResult(backendSnapshot);
+            setLoading(false);
+            return;
+          }
           currentResult = backendDetail ? resultFromAttemptDetail(backendDetail) : null;
         } catch {
           currentResult = null;
@@ -705,6 +727,8 @@ export default function ExamV2ResultPage() {
 
   if (loading) return <LoadingState />;
 
+  if (snapshotResult) return <ApiResultSnapshotView result={snapshotResult} />;
+
   if (!result) {
     return <EmptyState title="Không tìm thấy kết quả" message={error ?? 'Kết quả đã bị xóa hoặc liên kết không hợp lệ.'} />;
   }
@@ -722,6 +746,15 @@ export default function ExamV2ResultPage() {
         </div>
 
         <div>
+          {result.scoreAuthority && (
+            <p style={{ margin: '0 0 0.5rem', color: 'var(--text-muted)', fontWeight: 700 }}>
+              {formatAuthorityLabel({
+                scoreAuthority: result.scoreAuthority ?? null,
+                timingAuthority: result.timingAuthority ?? null,
+                submissionOrigin: result.submissionOrigin ?? null,
+              })}
+            </p>
+          )}
           <h1 style={{ margin: 0, fontSize: '1.6rem', fontWeight: 900 }}>Kết quả luyện thi</h1>
           {(exam || result.isCustom) && (
             <p style={{ margin: '0.45rem 0 0', color: 'var(--text-muted)', lineHeight: 1.5 }}>

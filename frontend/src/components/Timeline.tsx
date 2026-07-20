@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { Clock, Plus, X } from 'lucide-react';
 import {
   EVENT_YEARS_SORTED,
@@ -50,10 +50,10 @@ export default function Timeline({
   }, [currentYear, range]);
 
   /** Vị trí % trên track của 1 năm (0–100). */
-  const yearToPercent = (year: number): number => {
+  const yearToPercent = useCallback((year: number): number => {
     if (range <= 0) return 0;
     return ((year - TIMELINE_MIN_YEAR) / range) * 100;
-  };
+  }, [range]);
 
   const keyYears = useMemo(() => {
     return HISTORICAL_KEY_YEARS.filter(
@@ -101,13 +101,13 @@ export default function Timeline({
     }
 
     return clusters;
-  }, [keyYears]);
+  }, [keyYears, yearToPercent]);
 
 
 
   return (
     <div
-      className="relative flex-shrink-0 border-t border-stone-200/60 bg-white"
+      className="map-timeline relative flex-shrink-0"
       style={{
         padding: '14px 24px 14px',
         zIndex: 50,
@@ -118,7 +118,7 @@ export default function Timeline({
         minHeight: '116px',
       }}
     >
-      <div className="flex items-center justify-between mb-3">
+      <div className="map-timeline-header mb-3 flex items-center justify-between gap-3">
         <div className="flex items-center gap-3">
           <span
             className="inline-flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-[0.12em]"
@@ -145,7 +145,7 @@ export default function Timeline({
             {formatYear(currentYear)}
           </span>
           <span
-            className="text-[11px] font-medium opacity-70"
+            className="map-timeline-count text-[11px] font-medium opacity-70"
             style={{ color: '#78716c' }}
           >
             {availableYears.length} mốc sự kiện
@@ -154,7 +154,7 @@ export default function Timeline({
 
         {onGradeChange && (
           <div
-            className="flex gap-1 rounded-lg border p-1"
+            className="map-grade-filter flex gap-1 rounded-lg border p-1"
             style={{ borderColor: '#e7e5e4', background: '#ffffff' }}
           >
             {[null, 10, 11, 12].map((grade) => {
@@ -240,7 +240,7 @@ export default function Timeline({
       </div>
 
       {/* Key year markers — cluster grouping */}
-      <div className="relative" style={{ minHeight: `${Math.max(28, Math.max(...keyYearClusters.map((c, i) => expandedClusters.has(i) ? c.years.length * 26 + 22 : 26)))}px` }}>
+      <div className="map-timeline-key-years relative" style={{ minHeight: `${Math.max(28, Math.max(...keyYearClusters.map((c, i) => expandedClusters.has(i) ? c.years.length * 26 + 22 : 26)))}px` }}>
         {keyYearClusters.map((cluster, clusterIdx) => {
           const isExpanded = expandedClusters.has(clusterIdx);
           const hasMultiple = cluster.years.length > 1;

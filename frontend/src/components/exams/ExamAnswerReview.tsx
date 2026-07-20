@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import type { ExamResult, ExamSession } from '../../types/exam';
 import ExamSourceBadge from './ExamSourceBadge';
+import ExamExplanationText from './ExamExplanationText';
 
 interface ExamAnswerReviewProps {
   result: ExamResult;
@@ -140,7 +141,7 @@ export default function ExamAnswerReview({ result, session }: ExamAnswerReviewPr
 
                      <div style={{ background: 'var(--bg-surface)', padding: '1rem', borderRadius: '0.5rem', borderLeft: '3px solid var(--accent)', border: '1px solid var(--border)', borderLeftWidth: '4px', borderLeftColor: 'var(--accent)' }}>
                         <h4 style={{ margin: '0 0 0.5rem 0', color: 'var(--accent)', fontSize: '0.875rem' }}>Giải thích:</h4>
-                        <p style={{ margin: 0, color: 'var(--text-secondary)', fontSize: '0.875rem', lineHeight: 1.5 }}>{q.explanation}</p>
+                        <p style={{ margin: 0, color: 'var(--text-secondary)', fontSize: '0.875rem', lineHeight: 1.5 }}><ExamExplanationText text={q.explanation} /></p>
                         
                         {q.sourceRefs && q.sourceRefs.length > 0 && (
                            <div style={{ marginTop: '1rem', display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>

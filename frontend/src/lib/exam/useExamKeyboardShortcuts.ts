@@ -3,8 +3,11 @@ import { useEffect, useRef } from 'react';
 interface ExamKeyboardShortcutsOptions {
   onNext?: () => void;
   onPrevious?: () => void;
-  onEnter?: () => void;
   onFlag?: () => void;
+  onShowHelp?: () => void;
+  onCheck?: () => void;
+  onSelectOptionByIndex?: (index: number) => void;
+  mode?: 'timed' | 'practice';
   disabled?: boolean;
 }
 
@@ -14,25 +17,21 @@ function getShortcutTarget(event: KeyboardEvent): HTMLElement | null {
   return null;
 }
 
-function isTextEditingTarget(target: HTMLElement | null): boolean {
+function isTypingTarget(target: HTMLElement | null): boolean {
   if (!target) return false;
-  const tagName = target.tagName.toLowerCase();
-  if (tagName === 'input' || tagName === 'textarea' || tagName === 'select') return true;
-  if (target.isContentEditable) return true;
-  return Boolean(target.closest('[contenteditable="true"]'));
-}
-
-function isActivationTarget(target: HTMLElement | null): boolean {
-  if (!target) return false;
-  const tagName = target.tagName.toLowerCase();
-  return tagName === 'button' || tagName === 'a' || Boolean(target.closest('button,a'));
+  return Boolean(target.closest(
+    'input,select,textarea,[contenteditable="true"]',
+  ));
 }
 
 export function useExamKeyboardShortcuts({
   onNext,
   onPrevious,
-  onEnter,
   onFlag,
+  onShowHelp,
+  onCheck,
+  onSelectOptionByIndex,
+  mode = 'timed',
   disabled = false,
 }: ExamKeyboardShortcutsOptions) {
   const handlersRef = useRef<ExamKeyboardShortcutsOptions>({
@@ -43,22 +42,33 @@ export function useExamKeyboardShortcuts({
     handlersRef.current = {
       onNext,
       onPrevious,
-      onEnter,
       onFlag,
+      onShowHelp,
+      onCheck,
+      onSelectOptionByIndex,
+      mode,
       disabled,
     };
-  }, [disabled, onEnter, onFlag, onNext, onPrevious]);
+  }, [disabled, mode, onCheck, onFlag, onNext, onPrevious, onSelectOptionByIndex, onShowHelp]);
 
   useEffect(() => {
     function handleKeyDown(event: KeyboardEvent) {
-      const { onNext, onPrevious, onEnter, onFlag, disabled } = handlersRef.current;
+      const { onNext, onPrevious, onFlag, onShowHelp, onCheck, onSelectOptionByIndex, mode, disabled } = handlersRef.current;
       if (disabled) return;
-      if (event.ctrlKey || event.altKey || event.metaKey) return;
+      if (event.altKey || event.metaKey) return;
       if (event.repeat) return;
       if (event.isComposing) return;
 
       const target = getShortcutTarget(event);
-      if (isTextEditingTarget(target)) return;
+      if (isTypingTarget(target)) return;
+
+      if (event.ctrlKey) {
+        if (event.key === 'Enter' && mode === 'practice' && onCheck) {
+          event.preventDefault();
+          onCheck();
+        }
+        return;
+      }
 
       if (event.key === 'ArrowRight' && onNext) {
         event.preventDefault();
@@ -72,16 +82,21 @@ export function useExamKeyboardShortcuts({
         return;
       }
 
-      if (event.key === 'Enter' && onEnter) {
-        if (isActivationTarget(target)) return;
+      if (event.key === '?' && onShowHelp) {
         event.preventDefault();
-        onEnter();
+        onShowHelp();
         return;
       }
 
-      if (event.key.toLowerCase() === 'f' && onFlag) {
+      if (event.shiftKey && event.key.toLowerCase() === 'f' && mode === 'timed' && onFlag) {
         event.preventDefault();
         onFlag();
+        return;
+      }
+
+      if (!event.shiftKey && /^[1-4]$/.test(event.key) && onSelectOptionByIndex) {
+        event.preventDefault();
+        onSelectOptionByIndex(Number(event.key) - 1);
       }
     }
 
