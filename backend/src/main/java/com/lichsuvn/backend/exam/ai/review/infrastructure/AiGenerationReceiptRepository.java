@@ -73,6 +73,21 @@ public class AiGenerationReceiptRepository {
         return rows.isEmpty() ? null : rows.getFirst();
     }
 
+    public int deleteExpiredUnreferenced(LocalDateTime now, LocalDateTime retentionCutoff, int batchSize) {
+        return jdbc.update("""
+                DELETE FROM ai_generation_receipts
+                WHERE id IN (
+                    SELECT selected.id FROM (
+                        SELECT r.id FROM ai_generation_receipts r
+                        LEFT JOIN ai_question_candidates c ON c.receipt_id=r.id
+                        WHERE r.expires_at < :now AND r.created_at < :cutoff AND c.id IS NULL
+                        ORDER BY r.created_at,r.id LIMIT :batchSize
+                    ) selected
+                )
+                """, new MapSqlParameterSource().addValue("now", now).addValue("cutoff", retentionCutoff)
+                .addValue("batchSize", batchSize));
+    }
+
     private String json(Object value) {
         try { return objectMapper.writeValueAsString(value); }
         catch (JacksonException ex) { throw new IllegalStateException("Cannot serialize generation receipt", ex); }

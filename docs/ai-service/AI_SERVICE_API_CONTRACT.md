@@ -299,6 +299,21 @@ Goal 0 phải map theo error schema hiện có của backend.
 - Không cho client truyền raw prompt.
 - Không cho client chỉ định model tùy ý.
 
+## Goal 13 authorization and internal provenance API
+
+Candidate routes require matching `AI_CANDIDATE_*` authority; review and publish are distinct. Approve accepts `selfReviewOverride` and `overrideReason`; only the admin creator may use it and a nonblank reason is mandatory. Normal approval requires a different actor.
+
+Protected `POST /ai/provenance/validate` accepts corpus SHA, collection, embedding model/dimension and chunk ID/hash pairs using `X-Internal-Service-Token`. It returns identity flags and sanitized codes only—never text, paths, vectors or secrets. Transition errors distinguish missing, changed, pending/not-eligible, stale, unavailable, timeout, and invalid provenance.
+
 ## Goal 12 review API
 
 Generation responses now include `generationReceipt: { id, expiresAt }`. Candidate creation sends only this opaque receipt ID and selected question indexes; model/source/corpus fields are server controlled. Admin-only routes provide list/detail/update, submit, approve, reject, publish, audit, and publish-target discovery under `/api/exams/ai/candidates`. Every mutation uses a specific command; update/publish include `version`, reject requires `reason`, and publish requires dataset/definition/section IDs. Error codes include `AI_CANDIDATE_NOT_FOUND`, `AI_CANDIDATE_INVALID_STATUS`, `AI_CANDIDATE_INVALID_CONTENT`, `AI_CANDIDATE_VERSION_CONFLICT`, `AI_CANDIDATE_FORBIDDEN`, `AI_CANDIDATE_PROVENANCE_INVALID`, `AI_CANDIDATE_PUBLISH_FAILED`, and `AI_CANDIDATE_TARGET_INVALID`.
+
+## Goal 13C revision API
+
+- `POST /api/exams/ai/candidates/{publishedId}/revisions` with `{reason}` creates a new draft.
+- `POST /api/exams/ai/candidates/{revisionId}/source-search` with query/optional grade/lesson/topK returns bounded canonical metadata.
+- `PUT /api/exams/ai/candidates/{revisionId}/sources` with `{version,sources:[{chunkId,chunkHash}],reason}` explicitly remaps after live validation.
+- Internal Spring-to-FastAPI `POST /ai/provenance/sources/search` uses `X-Internal-Service-Token`; browsers never call it.
+
+Conflict codes add `AI_REVISION_ALREADY_OPEN`, `AI_REVISION_REQUIRED`, `AI_REVISION_INVALID_PARENT`, `AI_REVISION_BASE_CHANGED`, and `AI_REVISION_HEAD_CONFLICT`. Revision detail includes identity/base snapshot and open-candidate reference, never vectors, secrets, raw prompts, filesystem paths, or full chunks.

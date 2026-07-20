@@ -105,7 +105,7 @@ class AiQuizGenerationServiceTest {
                 AiStyleExampleServiceTest.properties(3).baseUrl(),
                 AiStyleExampleServiceTest.properties(3).connectTimeout(),
                 AiStyleExampleServiceTest.properties(3).readTimeout(),
-                "/ai/quiz/generate", "/ai/health", 3);
+                "/ai/quiz/generate", "/ai/health", "/ai/provenance/validate", "test-internal-token", 3);
         AiQuizGenerationService disabledService = new AiQuizGenerationService(client, styles, disabled, metrics, receipts);
 
         ApiException error = assertThrows(ApiException.class, () -> disabledService.generate(request(1), principal()));

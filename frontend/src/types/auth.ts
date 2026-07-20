@@ -1,10 +1,17 @@
-export type UserRole = 'student' | 'admin';
+export type UserRole = 'student' | 'teacher' | 'admin';
+
+export type AiCandidatePermission =
+  | 'AI_CANDIDATE_CREATE' | 'AI_CANDIDATE_VIEW' | 'AI_CANDIDATE_EDIT'
+  | 'AI_CANDIDATE_SUBMIT' | 'AI_CANDIDATE_REVIEW' | 'AI_CANDIDATE_PUBLISH'
+  | 'AI_CANDIDATE_AUDIT_VIEW';
 
 export interface User {
   id: string;
   fullName: string;
   email: string;
   role: UserRole;
+  roles?: UserRole[];
+  permissions?: AiCandidatePermission[];
   grade?: '10' | '11' | '12' | 'other';
   school?: string;
   avatarUrl?: string;

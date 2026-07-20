@@ -23,6 +23,8 @@ export interface StoredUser {
   fullName: string;
   email: string;
   role: string;
+  roles?: string[];
+  permissions?: string[];
   grade?: string;
   school?: string;
   avatarUrl?: string;

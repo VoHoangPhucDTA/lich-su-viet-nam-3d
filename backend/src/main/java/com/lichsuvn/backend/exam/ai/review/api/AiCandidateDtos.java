@@ -7,6 +7,7 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
 import java.time.LocalDateTime;
@@ -30,8 +31,17 @@ public final class AiCandidateDtos {
     ) {}
     public record OptionInput(@NotBlank String id, @NotBlank @Size(max = 3000) String text, boolean correct) {}
     public record VersionRequest(@NotNull Long version, @Size(max = 2000) String note) {}
+    public record ApproveRequest(@NotNull Long version, @Size(max = 2000) String note,
+                                 boolean selfReviewOverride, @Size(max = 2000) String overrideReason) {}
     public record RejectRequest(@NotNull Long version, @NotBlank @Size(max = 2000) String reason) {}
     public record PublishRequest(@NotNull Long version, @NotBlank String datasetId, @NotBlank String definitionId, @NotBlank String sectionId) {}
+    public record RevisionCreateRequest(@NotBlank @Size(max = 2000) String reason) {}
+    public record SourceSearchRequest(@NotBlank @Size(max = 1000) String query, @Min(10) @Max(12) Integer grade,
+                                      @Min(1) Integer lessonNumber, @Min(1) @Max(20) Integer topK) {}
+    public record SourceIdentity(@NotBlank @Size(max = 255) String chunkId,
+                                 @NotBlank @Pattern(regexp = "[0-9a-f]{64}") String chunkHash) {}
+    public record SourceRemapRequest(@NotNull Long version, @NotEmpty @Size(max = 20) List<@Valid SourceIdentity> sources,
+                                     @NotBlank @Size(max = 2000) String reason) {}
 
     public record Page(List<Summary> items, long total, int limit, int offset) {}
     public record Summary(
@@ -49,7 +59,8 @@ public final class AiCandidateDtos {
             String createdBy, String submittedBy, String reviewedBy, String publishedBy,
             LocalDateTime createdAt, LocalDateTime updatedAt, LocalDateTime submittedAt,
             LocalDateTime reviewedAt, LocalDateTime publishedAt, String rejectionReason, String reviewNote,
-            String officialQuestionId, long version, List<Option> options, List<Source> sources
+            String officialQuestionId, boolean selfReviewOverrideUsed, String selfReviewOverrideReason,
+            long version, List<Option> options, List<Source> sources, RevisionInfo revision
     ) {}
     public record Option(String id, String text, boolean correct, int displayOrder, String originalText) {}
     public record Source(
@@ -61,4 +72,14 @@ public final class AiCandidateDtos {
             List<String> changedFields, String note, LocalDateTime createdAt, String requestId
     ) {}
     public record PublishTarget(String datasetId, String definitionId, String sectionId, String label) {}
+    public record RevisionInfo(
+            String originType, String parentCandidateId, String rootOfficialQuestionId, String baseOfficialQuestionId,
+            Integer revisionNumber, String revisionReason, String baseContentHash, String baseQuestionText,
+            String baseExplanation, String baseDifficulty, String baseTopic, String baseDatasetId,
+            String baseDefinitionId, String baseSectionId, String openRevisionCandidateId,
+            List<Option> baseOptions, List<Source> baseSources
+    ) {}
+    public record SourceSearchResult(String chunkId, String chunkHash, String documentId, int grade, int lessonNumber,
+                                     String lessonTitle, String sectionTitle, Integer pageStart, Integer pageEnd,
+                                     String excerpt, double distance) {}
 }

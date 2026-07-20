@@ -19,6 +19,7 @@ public record AiServiceProperties(
         @NotNull Duration readTimeout,
         @NotBlank String generationPath,
         @NotBlank String healthPath,
+        @NotBlank String provenancePath,
+        @NotNull String internalToken,
         @Min(0) @Max(3) int maxStyleExamples
-) {
-}
+) {}

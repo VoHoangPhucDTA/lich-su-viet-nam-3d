@@ -9,7 +9,7 @@ vi.mock('@/services/aiQuizApi', async (importOriginal) => {
   return { ...actual, generateAiQuiz };
 });
 vi.mock('@/auth/AuthContext', () => ({
-  useAuth: () => ({ currentUser: { role: auth.role } }),
+  useAuth: () => ({ currentUser: { role: auth.role, permissions: auth.role === 'admin' ? ['AI_CANDIDATE_CREATE'] : [] } }),
 }));
 vi.mock('@/services/aiCandidateApi', () => ({ saveGeneratedCandidates }));
 

@@ -10,8 +10,18 @@ export interface AiCandidateDetail extends AiCandidateSummary {
   corpusSha256: string; collectionName: string; validationStatus: string; validationWarnings: string[];
   generationWarnings: string[]; submittedBy: string | null; publishedBy: string | null; submittedAt: string | null;
   reviewedAt: string | null; publishedAt: string | null; rejectionReason: string | null; reviewNote: string | null;
-  officialQuestionId: string | null; options: AiCandidateOption[]; sources: AiCandidateSource[];
+  officialQuestionId: string | null; selfReviewOverrideUsed: boolean; selfReviewOverrideReason: string | null;
+  options: AiCandidateOption[]; sources: AiCandidateSource[]; revision?: AiCandidateRevisionInfo;
 }
+export interface AiCandidateRevisionInfo {
+  originType: 'GENERATED' | 'REVISION'; parentCandidateId: string | null; rootOfficialQuestionId: string | null;
+  baseOfficialQuestionId: string | null; revisionNumber: number | null; revisionReason: string | null;
+  baseContentHash: string | null; baseQuestionText: string | null; baseExplanation: string | null;
+  baseDifficulty: string | null; baseTopic: string | null; baseDatasetId: string | null;
+  baseDefinitionId: string | null; baseSectionId: string | null; openRevisionCandidateId: string | null;
+  baseOptions: AiCandidateOption[]; baseSources: AiCandidateSource[];
+}
+export interface AiSourceSearchResult { chunkId: string; chunkHash: string; documentId: string; grade: number; lessonNumber: number; lessonTitle: string; sectionTitle: string; pageStart: number | null; pageEnd: number | null; excerpt: string; distance: number }
 export interface AiCandidatePage { items: AiCandidateSummary[]; total: number; limit: number; offset: number }
 export interface AiCandidateAuditEvent { id: number; eventType: string; actorId: string; fromStatus: string | null; toStatus: string | null; changedFields: string[]; note: string | null; createdAt: string; requestId: string }
 export interface AiPublishTarget { datasetId: string; definitionId: string; sectionId: string; label: string }

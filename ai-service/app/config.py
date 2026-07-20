@@ -5,7 +5,7 @@ from pathlib import Path
 import re
 from typing import Literal
 
-from pydantic import Field, field_validator, model_validator
+from pydantic import Field, SecretStr, field_validator, model_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -29,6 +29,9 @@ class Settings(BaseSettings):
     host: str = Field(default="127.0.0.1", validation_alias="AI_SERVICE_HOST")
     port: int = Field(default=8001, ge=1, le=65535, validation_alias="AI_SERVICE_PORT")
     log_level: str = "INFO"
+    ai_service_internal_token: SecretStr = Field(
+        default=SecretStr(""), validation_alias="AI_SERVICE_INTERNAL_TOKEN"
+    )
 
     gemini_api_key: str = ""
     gemini_embedding_model: str = "gemini-embedding-2"

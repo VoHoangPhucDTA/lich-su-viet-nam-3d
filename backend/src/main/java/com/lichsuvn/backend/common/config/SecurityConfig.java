@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -24,6 +25,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @Configuration
+@EnableMethodSecurity
 public class SecurityConfig {
 
     /**
@@ -102,7 +104,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/api/events/**").permitAll()
                         // Keep legacy attempt history authenticated before exposing public catalog routes.
                         .requestMatchers("/api/exams/attempts/**").authenticated()
-                        .requestMatchers("/api/exams/ai/candidates/**", "/api/exams/ai/candidates").hasAuthority("ROLE_admin")
+                        .requestMatchers("/api/exams/ai/candidates/**", "/api/exams/ai/candidates").authenticated()
                         .requestMatchers(HttpMethod.POST, "/api/exams/ai/generate").authenticated()
                         .requestMatchers("/api/exam-submissions/recover").authenticated()
                         .requestMatchers(HttpMethod.GET, "/api/exams", "/api/exams/topics", "/api/exams/*").permitAll()

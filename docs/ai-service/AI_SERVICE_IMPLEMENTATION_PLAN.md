@@ -355,6 +355,14 @@ Cho người dùng chọn phạm vi và làm quiz AI.
 - Tài liệu handoff đầy đủ.
 - Không còn claim “100% chính xác” hoặc “không hallucination”.
 
+## Goal 13A–13B — implemented scope
+
+Granular role-derived authorities, teacher mapping, four-eyes approval, explicit self-review override audit, protected live provenance validation, validation records, fail-closed transitions, and receipt retention cleanup are implemented without changing prompt/model/retrieval/embedding behavior. Exact next action for Goal 13C: create a post-publish revision workflow with a new immutable revision/candidate, explicit source remapping, and a fresh review/provenance cycle; never mutate a published question in place.
+
 ## Goal 12 — Teacher/admin review, provenance, audit, explicit publish
 
 Status: implemented. Gate: V35 staging schema, opaque user-bound receipt, lifecycle commands, admin authorization, provenance/audit, optimistic version checks, hidden-target atomic publish, idempotent repeat publish, admin queue/detail UI, tests, and documentation. Real multi-service E2E remains environment-dependent; no result is inferred when services are unavailable. Exact next action for Goal 13: add teacher/granular permissions, four-eyes policy, canonical source revalidation, and revision flow without weakening the no-auto-publish invariant.
+
+## Goal 13C — immutable post-publish revision
+
+Status: implemented locally, uncommitted. Gate includes V37, new revision candidate from the current published head, one-open lock, deterministic numbering, base snapshot conflict checks, internal canonical search, explicit remap, normal review lifecycle, new official row plus chain/head transaction, frontend comparison/actions, and automated tests. Goal 13D is the exact next phase: production-like MySQL migration and real two-user multi-service E2E in a non-public environment, followed by deployment planning only after evidence is captured.

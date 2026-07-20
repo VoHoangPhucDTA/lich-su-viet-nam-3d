@@ -23,6 +23,8 @@ import static org.mockito.ArgumentMatchers.nullable;
 import static org.mockito.Mockito.when;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -46,16 +48,47 @@ class AiCandidateControllerSecurityTest {
         mockMvc.perform(get("/api/exams/ai/candidates/publish-targets")
                         .with(user("student").authorities(() -> "ROLE_student")))
                 .andExpect(status().isForbidden())
-                .andExpect(jsonPath("$.code").value("FORBIDDEN"));
+                .andExpect(jsonPath("$.code").value("AI_CANDIDATE_PUBLISH_FORBIDDEN"));
     }
 
     @Test
     void adminIsAllowed() throws Exception {
         when(service.publishTargets(nullable(com.lichsuvn.backend.auth.security.UserPrincipal.class))).thenReturn(List.of());
         mockMvc.perform(get("/api/exams/ai/candidates/publish-targets")
-                        .with(user("admin").authorities(() -> "ROLE_admin")))
+                        .with(user("admin").authorities(() -> "ROLE_admin", () -> "AI_CANDIDATE_PUBLISH")))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.success").value(true));
+    }
+
+    @Test
+    void teacherCannotUsePublishPermissionEndpoint() throws Exception {
+        mockMvc.perform(get("/api/exams/ai/candidates/publish-targets")
+                        .with(user("teacher").authorities(() -> "ROLE_teacher", () -> "AI_CANDIDATE_VIEW", () -> "AI_CANDIDATE_REVIEW")))
+                .andExpect(status().isForbidden());
+    }
+
+    @Test
+    void teacherWithViewPermissionCanOpenQueue() throws Exception {
+        mockMvc.perform(get("/api/exams/ai/candidates")
+                        .with(user("teacher").authorities(() -> "ROLE_teacher", () -> "AI_CANDIDATE_VIEW")))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    void teacherCanReachRevisionCreateAndRemapButStudentCannot() throws Exception {
+        var teacher = user("teacher").authorities(() -> "ROLE_teacher", () -> "AI_CANDIDATE_CREATE", () -> "AI_CANDIDATE_EDIT");
+        mockMvc.perform(post("/api/exams/ai/candidates/00000000-0000-0000-0000-000000000000/revisions")
+                        .with(teacher).contentType("application/json").content("{\"reason\":\"correct source\"}"))
+                .andExpect(status().isOk());
+        mockMvc.perform(put("/api/exams/ai/candidates/00000000-0000-0000-0000-000000000000/sources")
+                        .with(teacher).contentType("application/json").content("""
+                                {"version":1,"reason":"canonical correction","sources":[{"chunkId":"chunk-1","chunkHash":"%s"}]}
+                                """.formatted("b".repeat(64))))
+                .andExpect(status().isOk());
+        mockMvc.perform(post("/api/exams/ai/candidates/00000000-0000-0000-0000-000000000000/revisions")
+                        .with(user("student").authorities(() -> "ROLE_student"))
+                        .contentType("application/json").content("{\"reason\":\"no\"}"))
+                .andExpect(status().isForbidden());
     }
 
     @TestConfiguration

@@ -14,6 +14,7 @@ import {
 import type { QuestionResult } from '@/types/exam';
 import type { AiQuizDifficulty, AiQuizViewModel } from '@/types/aiQuiz';
 import { useAuth } from '@/auth/AuthContext';
+import { hasPermission } from '@/auth/permissions';
 import { saveGeneratedCandidates } from '@/services/aiCandidateApi';
 
 type PageStatus = 'IDLE' | 'VALIDATING' | 'GENERATING' | 'READY' | 'SUBMITTED' | 'ERROR';
@@ -161,7 +162,7 @@ export default function AiQuizPage() {
             <p className="ai-quiz-notice" role="status">Hệ thống đã tạo được {quiz.generation.generatedCount}/{quiz.generation.requestedCount} câu phù hợp với nguồn tài liệu.</p>
           )}
           <p className="ai-quiz-auto-note">Nội dung được tạo tự động từ tài liệu học tập.</p>
-          {currentUser?.role === 'admin' && (
+          {hasPermission(currentUser, 'AI_CANDIDATE_CREATE') && (
             <section className="ai-quiz-review-save" aria-label="Lưu câu hỏi vào hàng chờ duyệt">
               <label><input type="checkbox" checked={selectedForReview.has(currentIndex)} onChange={() => setSelectedForReview((current) => {
                 const next = new Set(current);

@@ -209,6 +209,16 @@ React /exams/ai (authenticated)
 
 Frontend không có FastAPI base URL, Gemini key, prompt, raw filter hoặc persistence adapter. State chuyển `IDLE → VALIDATING → GENERATING → READY → SUBMITTED`; lỗi đi tới `ERROR`. Abort chỉ dừng chờ browser và không khẳng định request upstream đã dừng. `MCQQuestionCardV2`, `ExamQuickNavigator` và `ExamPracticeHeader` được tái sử dụng; adapter giữ source mapping ngoài official exam/session schema.
 
+## Goal 13 trust boundaries
+
+JWT roles are reloaded from the database and expanded into candidate authorities. Method security and application guards both enforce commands. Teacher can create/view/edit/submit/review/audit but cannot publish; admin adds publish. Approval separates creator and approver unless the admin creator supplies an explicit audited override reason.
+
+Before submit, approve and publish, Spring calls protected `POST /ai/provenance/validate` with server-stored identities and a service token. FastAPI reads canonical manifest/Chroma metadata only and never returns documents or vectors. Failed/unavailable validation blocks the transition. Receipt cleanup uses short stable batches and deletes only expired, beyond-retention, unreferenced rows.
+
 ## Review/publish boundary
 
 Spring persists each successful generation as a short-lived, user-bound receipt. An admin can explicitly copy selected receipt questions into isolated candidate tables; students cannot. Candidate content and immutable provenance remain outside the official bank until a separate publish transaction locks candidate and target, inserts the official MCQ/options, links it back, and audits the transition. Publish targets are restricted to hidden, review-required definitions in active/validated datasets.
+
+## Revision architecture
+
+The official schema has no native version/current flag. `ai_question_revision_heads` serializes one open candidate and deterministic numbering per root; `ai_question_official_revisions` is the append-only chain. A revision candidate preserves original AI, base official, and current editable snapshots. Spring owns authorization, conflicts, remap and publish orchestration; FastAPI exposes token-protected read-only search/validation over eligible Chroma chunks. Revision publish inserts a new official row/options and moves only the AI-owned head in one transaction; prior official rows and definition states remain untouched.

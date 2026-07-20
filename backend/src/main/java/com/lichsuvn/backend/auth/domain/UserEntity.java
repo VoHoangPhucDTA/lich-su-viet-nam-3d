@@ -16,6 +16,8 @@ import jakarta.persistence.Table;
 import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.List;
+import com.lichsuvn.backend.exam.ai.review.security.AiCandidateAuthorization;
 
 @Entity
 @Table(name = "users")
@@ -71,6 +73,8 @@ public class UserEntity {
                 fullName,
                 email,
                 primaryRole(),
+                roleCodes(),
+                AiCandidateAuthorization.names(roleCodes()),
                 grade,
                 school,
                 avatarUrl,
@@ -79,7 +83,13 @@ public class UserEntity {
     }
 
     public String primaryRole() {
-        return roles.stream().anyMatch(role -> "admin".equals(role.getCode())) ? "admin" : "student";
+        if (roles.stream().anyMatch(role -> "admin".equals(role.getCode()))) return "admin";
+        if (roles.stream().anyMatch(role -> "teacher".equals(role.getCode()))) return "teacher";
+        return "student";
+    }
+
+    private List<String> roleCodes() {
+        return roles.stream().map(RoleEntity::getCode).sorted().toList();
     }
 
     public byte[] getId() {

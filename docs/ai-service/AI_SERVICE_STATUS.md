@@ -235,6 +235,14 @@ Các phiên sau tiếp tục thêm nhật ký theo mẫu:
 - Exact next action:
 ```
 
+## Goal 13A–13B — security, provenance and retention
+
+Granular teacher/admin candidate authorities, controller plus service enforcement, four-eyes approval, explicit audited admin-only self-review override, independent publish authority, protected live provenance validation, fail-closed transitions, and bounded cleanup of old unreferenced receipts are implemented. Receipt validity remains 30 minutes. See `AI_SERVICE_SECURITY_AND_PROVENANCE.md`.
+
 ## Goal 12 — review and explicit publish
 
 Implemented server-bound generation receipts, isolated AI candidate staging, DRAFT/PENDING_REVIEW/APPROVED/REJECTED/PUBLISHED transitions, provenance, append-only audit commands, optimistic locking, admin-only review APIs, and atomic explicit publish into hidden review-required targets. There is no auto-save, auto-approve, or auto-publish. See `AI_QUESTION_REVIEW_WORKFLOW.md` for the operational contract and limitations.
+
+## Goal 13C — immutable revision and source remapping
+
+Implemented in the working tree: V37 revision head/chain/snapshots, one-open deterministic allocation, teacher/admin revision lifecycle with unchanged four-eyes and publish boundaries, protected canonical-source search, explicit live-validated remapping, base/head conflict guards, and new-row official revision publish. Goal 13C does not deploy, mutate an old official row, change catalog visibility, or run real E2E; see `AI_QUESTION_REVISION_WORKFLOW.md`.

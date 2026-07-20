@@ -357,6 +357,15 @@ Mỗi quyết định phải có:
 - Verification:
 ```
 
+## ADR — Goal 13A–13B granular security and live validation
+
+- Date: 2026-07-20
+- Status: Accepted; supersedes Goal 12 admin-only/self-review defaults.
+- Decision: derive candidate permissions from existing roles rather than add a second permission framework; seed teacher without assigning users; enforce method and service guards; require four-eyes except an explicit reasoned admin-creator override; keep publish admin-only and separate.
+- Decision: protect read-only provenance validation with a separately rotated environment token, validate submit/approve/publish against canonical metadata, fail closed, and retain immutable hashes.
+- Decision: keep 30-minute receipt validity, retain expired receipts for 24 hours by default, and delete only old unreferenced rows in stable bounded batches.
+- Consequences: provenance availability is deliberately required for transitions. See `AI_SERVICE_SECURITY_AND_PROVENANCE.md`.
+
 ## ADR — Goal 12 authorization and publishing
 
 - Date: 2026-07-20
@@ -366,3 +375,9 @@ Mỗi quyết định phải có:
 - Alternatives: accept client provenance; add a fictional teacher role; force four-eyes review; publish directly to the official bank.
 - Consequences: safe first release with no auto-publish, but no granular teacher permissions or mandatory separation of duties.
 - Verification: Spring Security/service authorization tests, receipt validation, lifecycle tests, explicit confirmation UI, unique official link, and transaction rollback semantics.
+
+## ADR — Post-publish correction uses new rows and an AI-owned revision chain
+
+- Decision: because `exam_questions` has no version/current/deactivation support, every correction is a new candidate and, after normal review, a new official row. A locked root-head table enforces one open revision and allocates the next number; an append-only link table records supersession. Search/remap is explicit, internal-token protected, and live validated.
+- Rejected: updating published/official rows in place, deriving numbers with `COUNT(*)`, automatic source replacement, automatic merge/rebase, or forcing old/new catalog visibility.
+- Consequences: provenance and old content remain reproducible; currentness for AI admin revision is separate from public catalog behavior. Real MySQL/concurrent E2E is deferred to Goal 13D.

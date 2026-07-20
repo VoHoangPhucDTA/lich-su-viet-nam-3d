@@ -82,6 +82,8 @@ public class AiCandidateRepository {
                     .addValue("chunkHash", source.chunkHash()).addValue("order", sourceOrder));
         }
         audit(candidateId, actorId, "CREATED", null, "DRAFT", List.of(), "Created from server generation receipt", auditRequestId);
+        jdbc.update("UPDATE ai_generation_receipts SET last_used_at=CURRENT_TIMESTAMP(6) WHERE id=:id",
+                p().addValue("id", receipt.id()));
         return UuidBytes.toString(candidateId);
     }
 
@@ -103,12 +105,27 @@ public class AiCandidateRepository {
                 SELECT option_id,option_text,is_correct,display_order,original_option_text
                 FROM ai_question_candidate_options WHERE candidate_id=:id ORDER BY display_order
                 """, p().addValue("id", row.id()), (rs, n) -> new AiCandidateDtos.Option(rs.getString(1), rs.getString(2), rs.getBoolean(3), rs.getInt(4), rs.getString(5)));
-        List<AiCandidateDtos.Source> sources = jdbc.query("""
-                SELECT chunk_id,document_id,grade,lesson_number,lesson_title,section_title,page_start,page_end,chunk_hash,display_order
-                FROM ai_question_candidate_sources WHERE candidate_id=:id ORDER BY display_order
-                """, p().addValue("id", row.id()), (rs, n) -> new AiCandidateDtos.Source(
-                rs.getString(1), rs.getString(2), integer(rs, 3), integer(rs, 4), rs.getString(5), rs.getString(6),
-                integer(rs, 7), integer(rs, 8), rs.getString(9), rs.getInt(10)));
+        List<AiCandidateDtos.Source> sources = sources(row.id());
+        List<AiCandidateDtos.Source> baseSources = row.parentCandidateId() == null ? List.of() : sources(row.parentCandidateId());
+        List<AiCandidateDtos.Option> baseOptions = jdbc.query("""
+                SELECT option_id,base_option_text,base_is_correct,display_order,original_option_text
+                FROM ai_question_candidate_options
+                WHERE candidate_id=:id AND base_option_text IS NOT NULL ORDER BY display_order
+                """, p().addValue("id", row.id()), (rs, n) -> new AiCandidateDtos.Option(
+                rs.getString(1), rs.getString(2), rs.getBoolean(3), rs.getInt(4), rs.getString(5)));
+        String openRevision = null;
+        if (row.rootOfficialQuestionId() != null) {
+            List<byte[]> open = jdbc.query("SELECT open_candidate_id FROM ai_question_revision_heads WHERE root_official_question_id=:root",
+                    p().addValue("root", row.rootOfficialQuestionId()), (rs, n) -> rs.getBytes(1));
+            if (!open.isEmpty()) openRevision = id(open.getFirst());
+        }
+        OfficialSnapshot baseOfficial = row.baseOfficialQuestionId() == null ? null : officialSnapshot(row.baseOfficialQuestionId());
+        AiCandidateDtos.RevisionInfo revision = new AiCandidateDtos.RevisionInfo(
+                row.originType(), id(row.parentCandidateId()), id(row.rootOfficialQuestionId()), id(row.baseOfficialQuestionId()),
+                row.revisionNumber(), row.revisionReason(), row.baseContentHash(), row.baseQuestionText(),
+                row.baseExplanation(), row.baseDifficulty(), row.baseTopic(), baseOfficial == null ? null : id(baseOfficial.datasetId()),
+                baseOfficial == null ? null : id(baseOfficial.definitionId()), baseOfficial == null ? null : id(baseOfficial.sectionId()),
+                openRevision, baseOptions, baseSources);
         return new AiCandidateDtos.Detail(
                 row.idString(), row.status(), row.questionText(), row.explanation(), row.difficulty(),
                 row.originalQuestionText(), row.originalExplanation(), row.originalCorrectOptionId(), row.grade(), row.lessonNumber(),
@@ -117,8 +134,17 @@ public class AiCandidateRepository {
                 row.collectionName(), row.validationStatus(), strings(row.validationWarningsJson()), strings(row.generationWarningsJson()),
                 id(row.createdBy()), id(row.submittedBy()), id(row.reviewedBy()), id(row.publishedBy()), row.createdAt(), row.updatedAt(),
                 row.submittedAt(), row.reviewedAt(), row.publishedAt(), row.rejectionReason(), row.reviewNote(), id(row.officialQuestionId()),
-                row.version(), options, sources
+                row.selfReviewOverrideUsed(), row.selfReviewOverrideReason(), row.version(), options, sources, revision
         );
+    }
+
+    private List<AiCandidateDtos.Source> sources(byte[] candidateId) {
+        return jdbc.query("""
+                SELECT chunk_id,document_id,grade,lesson_number,lesson_title,section_title,page_start,page_end,chunk_hash,display_order
+                FROM ai_question_candidate_sources WHERE candidate_id=:id ORDER BY display_order
+                """, p().addValue("id", candidateId), (rs, n) -> new AiCandidateDtos.Source(
+                rs.getString(1), rs.getString(2), integer(rs, 3), integer(rs, 4), rs.getString(5), rs.getString(6),
+                integer(rs, 7), integer(rs, 8), rs.getString(9), rs.getInt(10)));
     }
 
     public AiCandidateDtos.Page list(String status, String difficulty, Integer grade, Integer lesson, String createdBy,
@@ -152,9 +178,19 @@ public class AiCandidateRepository {
 
     public boolean updateContent(Candidate current, AiCandidateDtos.UpdateRequest request, byte[] actor, String requestId) {
         var originalById = new java.util.HashMap<String, String>();
-        jdbc.queryForList("SELECT option_id,original_option_text FROM ai_question_candidate_options WHERE candidate_id=:id",
+        var baseTextById = new java.util.HashMap<String, String>();
+        var baseCorrectById = new java.util.HashMap<String, Boolean>();
+        jdbc.queryForList("SELECT option_id,original_option_text,base_option_text,base_is_correct FROM ai_question_candidate_options WHERE candidate_id=:id",
                         p().addValue("id", current.id()))
-                .forEach(row -> originalById.put((String) row.get("option_id"), (String) row.get("original_option_text")));
+                .forEach(row -> {
+                    String key = (String) row.get("option_id");
+                    originalById.put(key, (String) row.get("original_option_text"));
+                    baseTextById.put(key, (String) row.get("base_option_text"));
+                    Object rawCorrect = row.get("base_is_correct");
+                    baseCorrectById.put(key, rawCorrect == null ? null
+                            : rawCorrect instanceof Boolean value ? value
+                            : ((Number) rawCorrect).intValue() != 0);
+                });
         int updated = jdbc.update("""
                 UPDATE ai_question_candidates SET question_text=:question,explanation=:explanation,difficulty=:difficulty,
                     grade=:grade,lesson_number=:lesson,topic=:topic,review_note=:note,rejection_reason=NULL,
@@ -169,10 +205,13 @@ public class AiCandidateRepository {
         for (AiCandidateDtos.OptionInput option : request.options()) {
             order++;
             String original = originalById.getOrDefault(option.id(), option.text());
-            jdbc.update("INSERT INTO ai_question_candidate_options (candidate_id,option_id,option_text,is_correct,display_order,original_option_text) VALUES (:id,:key,:text,:correct,:order,:original)",
-                    p().addValue("id", current.id()).addValue("key", option.id()).addValue("text", option.text().trim()).addValue("correct", option.correct()).addValue("order", order).addValue("original", original));
+            jdbc.update("INSERT INTO ai_question_candidate_options (candidate_id,option_id,option_text,is_correct,display_order,original_option_text,base_option_text,base_is_correct) VALUES (:id,:key,:text,:correct,:order,:original,:baseText,:baseCorrect)",
+                    p().addValue("id", current.id()).addValue("key", option.id()).addValue("text", option.text().trim())
+                            .addValue("correct", option.correct()).addValue("order", order).addValue("original", original)
+                            .addValue("baseText", baseTextById.get(option.id())).addValue("baseCorrect", baseCorrectById.get(option.id())));
         }
-        audit(current.id(), actor, "EDITED", current.status().name(), current.status() == AiCandidateStatus.REJECTED ? "DRAFT" : current.status().name(),
+        audit(current.id(), actor, "REVISION".equals(current.originType()) ? "REVISION_EDITED" : "EDITED",
+                current.status().name(), current.status() == AiCandidateStatus.REJECTED ? "DRAFT" : current.status().name(),
                 List.of("questionText", "explanation", "difficulty", "grade", "lessonNumber", "topic", "options", "reviewNote"), trim(request.reviewNote()), requestId);
         return true;
     }
@@ -254,16 +293,210 @@ public class AiCandidateRepository {
     }
 
     public boolean markPublished(Candidate candidate, long version, byte[] officialId, byte[] actor, String requestId) {
+        String contentHash = jdbc.queryForObject("SELECT content_hash FROM exam_questions WHERE id=:id",
+                p().addValue("id", officialId), String.class);
         int updated = jdbc.update("""
                 UPDATE ai_question_candidates SET status='PUBLISHED',official_question_id=:official,published_by=:actor,
-                    published_at=CURRENT_TIMESTAMP(6),version=version+1 WHERE id=:id AND version=:version AND status='APPROVED' AND official_question_id IS NULL
-                """, p().addValue("official", officialId).addValue("actor", actor).addValue("id", candidate.id()).addValue("version", version));
-        if (updated == 1) audit(candidate.id(), actor, "PUBLISHED", "APPROVED", "PUBLISHED", List.of("status", "officialQuestionId"), "Explicit publish to hidden review-required definition", requestId);
+                    published_at=CURRENT_TIMESTAMP(6),version=version+1,
+                    root_official_question_id=CASE WHEN origin_type='GENERATED' THEN :official ELSE root_official_question_id END,
+                    base_official_question_id=CASE WHEN origin_type='GENERATED' THEN :official ELSE base_official_question_id END,
+                    revision_number=CASE WHEN origin_type='GENERATED' THEN 1 ELSE revision_number END,
+                    base_content_hash=CASE WHEN origin_type='GENERATED' THEN :contentHash ELSE base_content_hash END,
+                    base_question_text=CASE WHEN origin_type='GENERATED' THEN question_text ELSE base_question_text END,
+                    base_explanation=CASE WHEN origin_type='GENERATED' THEN explanation ELSE base_explanation END,
+                    base_difficulty=CASE WHEN origin_type='GENERATED' THEN difficulty ELSE base_difficulty END,
+                    base_topic=CASE WHEN origin_type='GENERATED' THEN topic ELSE base_topic END
+                WHERE id=:id AND version=:version AND status='APPROVED' AND official_question_id IS NULL
+                """, p().addValue("official", officialId).addValue("actor", actor).addValue("id", candidate.id())
+                .addValue("version", version).addValue("contentHash", contentHash));
+        if (updated == 1) {
+            jdbc.update("UPDATE ai_question_candidates SET base_content_hash=:hash WHERE id=:id AND origin_type='GENERATED'",
+                    p().addValue("hash", contentHash).addValue("id", candidate.id()));
+            jdbc.update("INSERT INTO ai_question_revision_heads (root_official_question_id,head_official_question_id,next_revision_number) VALUES (:official,:official,2)",
+                    p().addValue("official", officialId));
+            jdbc.update("INSERT INTO ai_question_official_revisions (root_official_question_id,previous_official_question_id,new_official_question_id,candidate_id,revision_number,created_by) VALUES (:official,NULL,:official,:candidate,1,:actor)",
+                    p().addValue("official", officialId).addValue("candidate", candidate.id()).addValue("actor", actor));
+            audit(candidate.id(), actor, "PUBLISHED", "APPROVED", "PUBLISHED", List.of("status", "officialQuestionId"), "Explicit publish to hidden review-required definition", requestId);
+        }
         return updated == 1;
     }
 
-    public void publishFailed(byte[] candidateId, byte[] actor, String note, String requestId) {
-        audit(candidateId, actor, "PUBLISH_FAILED", "APPROVED", "APPROVED", List.of(), note, requestId);
+    public RevisionHead lockRevisionHead(byte[] rootOfficialId) {
+        List<RevisionHead> rows = jdbc.query("""
+                SELECT root_official_question_id,head_official_question_id,open_candidate_id,next_revision_number
+                FROM ai_question_revision_heads WHERE root_official_question_id=:root FOR UPDATE
+                """, p().addValue("root", rootOfficialId), (rs, n) -> new RevisionHead(
+                rs.getBytes(1), rs.getBytes(2), rs.getBytes(3), rs.getInt(4)));
+        return rows.isEmpty() ? null : rows.getFirst();
+    }
+
+    public OfficialSnapshot officialSnapshot(byte[] officialId) {
+        List<OfficialSnapshot> rows = jdbc.query("""
+                SELECT q.id,q.dataset_id,s.exam_definition_id,q.exam_section_id,q.content_hash,q.question_text,
+                       q.explanation,q.difficulty,q.raw_topic
+                FROM exam_questions q JOIN exam_sections s ON s.id=q.exam_section_id WHERE q.id=:id
+                """, p().addValue("id", officialId), (rs, n) -> new OfficialSnapshot(
+                rs.getBytes(1), rs.getBytes(2), rs.getBytes(3), rs.getBytes(4), rs.getString(5), rs.getString(6),
+                rs.getString(7), rs.getString(8).toUpperCase(Locale.ROOT), rs.getString(9), officialOptions(officialId)));
+        return rows.isEmpty() ? null : rows.getFirst();
+    }
+
+    private List<AiCandidateDtos.Option> officialOptions(byte[] officialId) {
+        return jdbc.query("SELECT option_key,option_text,is_correct,order_in_question FROM exam_mcq_options WHERE question_internal_id=:id ORDER BY order_in_question",
+                p().addValue("id", officialId), (rs, n) -> new AiCandidateDtos.Option(
+                        rs.getString(1), rs.getString(2), rs.getBoolean(3), rs.getInt(4), rs.getString(2)));
+    }
+
+    public String createRevision(Candidate parent, RevisionHead head, OfficialSnapshot base, String reason,
+                                 byte[] actor, String requestId) {
+        byte[] candidateId = randomId();
+        jdbc.update("""
+                INSERT INTO ai_question_candidates (
+                    id,receipt_id,receipt_question_index,status,question_type,question_text,explanation,difficulty,
+                    original_question_text,original_explanation,original_correct_option_id,grade,lesson_number,topic,
+                    generation_query,requested_count,generation_request_id,generation_model,embedding_model,
+                    embedding_dimension,prompt_version,schema_version,corpus_sha256,collection_name,validation_status,
+                    validation_warnings_json,generation_warnings_json,created_by,origin_type,parent_candidate_id,
+                    root_official_question_id,base_official_question_id,revision_number,revision_reason,base_content_hash,
+                    base_question_text,base_explanation,base_difficulty,base_topic
+                )
+                SELECT :id,NULL,NULL,'DRAFT',question_type,:question,:explanation,:difficulty,
+                    original_question_text,original_explanation,original_correct_option_id,grade,lesson_number,:topic,
+                    generation_query,requested_count,generation_request_id,generation_model,embedding_model,
+                    embedding_dimension,prompt_version,schema_version,corpus_sha256,collection_name,validation_status,
+                    validation_warnings_json,generation_warnings_json,:actor,'REVISION',id,
+                    :root,:baseOfficial,:revisionNumber,:reason,:baseHash,:question,:explanation,:difficulty,:topic
+                FROM ai_question_candidates WHERE id=:parent
+                """, p().addValue("id", candidateId).addValue("question", base.questionText())
+                .addValue("explanation", base.explanation()).addValue("difficulty", base.difficulty()).addValue("topic", base.topic())
+                .addValue("actor", actor).addValue("root", head.rootOfficialId()).addValue("baseOfficial", base.id())
+                .addValue("revisionNumber", head.nextRevisionNumber()).addValue("reason", reason.trim())
+                .addValue("baseHash", base.contentHash()).addValue("parent", parent.id()));
+        java.util.Map<String, String> originals = new java.util.HashMap<>();
+        jdbc.queryForList("SELECT option_id,original_option_text FROM ai_question_candidate_options WHERE candidate_id=:id",
+                p().addValue("id", parent.id())).forEach(row -> originals.put((String) row.get("option_id"), (String) row.get("original_option_text")));
+        for (AiCandidateDtos.Option option : base.options()) {
+            jdbc.update("""
+                    INSERT INTO ai_question_candidate_options
+                    (candidate_id,option_id,option_text,is_correct,display_order,original_option_text,base_option_text,base_is_correct)
+                    VALUES (:candidate,:key,:text,:correct,:order,:original,:text,:correct)
+                    """, p().addValue("candidate", candidateId).addValue("key", option.id()).addValue("text", option.text())
+                    .addValue("correct", option.correct()).addValue("order", option.displayOrder())
+                    .addValue("original", originals.getOrDefault(option.id(), option.text())));
+        }
+        jdbc.update("""
+                INSERT INTO ai_question_candidate_sources
+                    (candidate_id,chunk_id,document_id,grade,lesson_number,lesson_title,section_title,page_start,page_end,chunk_hash,display_order)
+                SELECT :candidate,chunk_id,document_id,grade,lesson_number,lesson_title,section_title,page_start,page_end,chunk_hash,display_order
+                FROM ai_question_candidate_sources WHERE candidate_id=:parent
+                """, p().addValue("candidate", candidateId).addValue("parent", parent.id()));
+        int claimed = jdbc.update("""
+                UPDATE ai_question_revision_heads SET open_candidate_id=:candidate,next_revision_number=next_revision_number+1
+                WHERE root_official_question_id=:root AND head_official_question_id=:head AND open_candidate_id IS NULL
+                """, p().addValue("candidate", candidateId).addValue("root", head.rootOfficialId()).addValue("head", head.headOfficialId()));
+        if (claimed != 1) throw new IllegalStateException("REVISION_HEAD_CLAIM_FAILED");
+        audit(candidateId, actor, "REVISION_CREATED", null, "DRAFT",
+                List.of("parentCandidateId", "baseOfficialQuestionId", "revisionNumber", "revisionReason"), reason, requestId);
+        return UuidBytes.toString(candidateId);
+    }
+
+    public String revisionConflict(Candidate revision) {
+        if (!"REVISION".equals(revision.originType())) return null;
+        RevisionHead head = lockRevisionHead(revision.rootOfficialQuestionId());
+        if (head == null || !java.util.Arrays.equals(head.headOfficialId(), revision.baseOfficialQuestionId())) return "AI_REVISION_HEAD_CONFLICT";
+        String currentHash = jdbc.queryForObject("SELECT content_hash FROM exam_questions WHERE id=:id",
+                p().addValue("id", revision.baseOfficialQuestionId()), String.class);
+        return revision.baseContentHash() != null && revision.baseContentHash().equals(currentHash)
+                ? null : "AI_REVISION_BASE_CHANGED";
+    }
+
+    public void revisionBaseConflict(Candidate revision, byte[] actor, String code, String requestId) {
+        audit(revision.id(), actor, "REVISION_BASE_CONFLICT", revision.status().name(), revision.status().name(),
+                List.of("baseOfficialQuestionId", "baseContentHash"), code, requestId);
+    }
+
+    public boolean remapSources(Candidate revision, long version, List<com.lichsuvn.backend.exam.ai.client.dto.AiProvenanceDtos.SourceResult> sources,
+                                byte[] actor, String reason, String requestId) {
+        int updated = jdbc.update("UPDATE ai_question_candidates SET version=version+1,status=CASE WHEN status='REJECTED' THEN 'DRAFT' ELSE status END WHERE id=:id AND version=:version AND origin_type='REVISION' AND status IN ('DRAFT','REJECTED')",
+                p().addValue("id", revision.id()).addValue("version", version));
+        if (updated != 1) return false;
+        jdbc.update("DELETE FROM ai_question_candidate_sources WHERE candidate_id=:id", p().addValue("id", revision.id()));
+        int order = 0;
+        for (var source : sources) {
+            order++;
+            jdbc.update("""
+                    INSERT INTO ai_question_candidate_sources
+                    (candidate_id,chunk_id,document_id,grade,lesson_number,lesson_title,section_title,page_start,page_end,chunk_hash,display_order)
+                    VALUES (:candidate,:chunk,:document,:grade,:lesson,:lessonTitle,:sectionTitle,:pageStart,:pageEnd,:hash,:order)
+                    """, p().addValue("candidate", revision.id()).addValue("chunk", source.chunkId()).addValue("document", source.documentId())
+                    .addValue("grade", source.grade()).addValue("lesson", source.lessonNumber()).addValue("lessonTitle", source.lessonTitle())
+                    .addValue("sectionTitle", source.sectionTitle()).addValue("pageStart", source.pageStart()).addValue("pageEnd", source.pageEnd())
+                    .addValue("hash", source.chunkHash()).addValue("order", order));
+        }
+        audit(revision.id(), actor, "REVISION_SOURCE_REMAPPED", revision.status().name(),
+                revision.status() == AiCandidateStatus.REJECTED ? "DRAFT" : revision.status().name(), List.of("sources"), reason, requestId);
+        return true;
+    }
+
+    public boolean markRevisionPublished(Candidate revision, long version, byte[] officialId, byte[] actor, String requestId) {
+        int linked = jdbc.update("""
+                INSERT INTO ai_question_official_revisions
+                    (root_official_question_id,previous_official_question_id,new_official_question_id,candidate_id,revision_number,created_by)
+                VALUES (:root,:previous,:newOfficial,:candidate,:revisionNumber,:actor)
+                """, p().addValue("root", revision.rootOfficialQuestionId()).addValue("previous", revision.baseOfficialQuestionId())
+                .addValue("newOfficial", officialId).addValue("candidate", revision.id())
+                .addValue("revisionNumber", revision.revisionNumber()).addValue("actor", actor));
+        if (linked != 1) return false;
+        int head = jdbc.update("""
+                UPDATE ai_question_revision_heads SET head_official_question_id=:newOfficial,open_candidate_id=NULL
+                WHERE root_official_question_id=:root AND head_official_question_id=:previous AND open_candidate_id=:candidate
+                """, p().addValue("newOfficial", officialId).addValue("root", revision.rootOfficialQuestionId())
+                .addValue("previous", revision.baseOfficialQuestionId()).addValue("candidate", revision.id()));
+        if (head != 1) return false;
+        int updated = jdbc.update("""
+                UPDATE ai_question_candidates SET status='PUBLISHED',official_question_id=:official,published_by=:actor,
+                    published_at=CURRENT_TIMESTAMP(6),version=version+1
+                WHERE id=:id AND version=:version AND status='APPROVED' AND origin_type='REVISION' AND official_question_id IS NULL
+                """, p().addValue("official", officialId).addValue("actor", actor).addValue("id", revision.id()).addValue("version", version));
+        if (updated == 1) audit(revision.id(), actor, "REVISION_PUBLISHED", "APPROVED", "PUBLISHED",
+                List.of("status", "officialQuestionId"), "Published immutable official revision", requestId);
+        return updated == 1;
+    }
+
+    public void publishFailed(Candidate candidate, byte[] actor, String note, String requestId) {
+        audit(candidate.id(), actor, "REVISION".equals(candidate.originType()) ? "REVISION_PUBLISH_FAILED" : "PUBLISH_FAILED",
+                "APPROVED", "APPROVED", List.of(), note, requestId);
+    }
+
+    public void selfReviewOverride(byte[] candidateId, byte[] actor, String reason, String requestId) {
+        jdbc.update("UPDATE ai_question_candidates SET self_review_override_used=TRUE,self_review_override_reason=:reason WHERE id=:id",
+                p().addValue("reason", reason).addValue("id", candidateId));
+        audit(candidateId, actor, "SELF_REVIEW_OVERRIDE_USED", "PENDING_REVIEW", "PENDING_REVIEW",
+                List.of("selfReviewOverride"), reason, requestId);
+    }
+
+    public boolean hasOtherReviewer(byte[] actor) {
+        Integer count = jdbc.queryForObject("""
+                SELECT COUNT(DISTINCT u.id) FROM users u
+                JOIN user_roles ur ON ur.user_id=u.id
+                JOIN roles r ON r.id=ur.role_id
+                WHERE u.id<>:actor AND u.status='active' AND r.code IN ('teacher','admin')
+                """, p().addValue("actor", actor), Integer.class);
+        return count != null && count > 0;
+    }
+
+    public void provenanceValidation(byte[] candidateId, long version, String action, String corpusSha,
+                                     String collection, int sourceCount, boolean valid, List<String> errors,
+                                     byte[] actor, String requestId) {
+        jdbc.update("""
+                INSERT INTO ai_candidate_provenance_validations
+                    (candidate_id,candidate_version,validation_action,corpus_sha256,collection_name,source_count,valid,error_codes_json)
+                VALUES (:candidate,:version,:action,:corpus,:collection,:sourceCount,:valid,:errors)
+                """, p().addValue("candidate", candidateId).addValue("version", version).addValue("action", action)
+                .addValue("corpus", corpusSha).addValue("collection", collection).addValue("sourceCount", sourceCount)
+                .addValue("valid", valid).addValue("errors", json(errors)));
+        audit(candidateId, actor, valid ? "PROVENANCE_VALIDATED" : "PROVENANCE_VALIDATION_FAILED", null, null,
+                List.of("provenanceValidation"), errors.isEmpty() ? action : String.join(",", errors), requestId);
     }
 
     private Candidate candidate(ResultSet rs, int row) throws SQLException {
@@ -274,7 +507,11 @@ public class AiCandidateRepository {
                 rs.getString("collection_name"), rs.getString("validation_status"), rs.getString("validation_warnings_json"), rs.getString("generation_warnings_json"),
                 rs.getBytes("created_by"), rs.getBytes("submitted_by"), rs.getBytes("reviewed_by"), rs.getBytes("published_by"), rs.getTimestamp("created_at").toLocalDateTime(),
                 rs.getTimestamp("updated_at").toLocalDateTime(), time(rs, "submitted_at"), time(rs, "reviewed_at"), time(rs, "published_at"), rs.getString("rejection_reason"),
-                rs.getString("review_note"), rs.getBytes("official_question_id"), rs.getLong("version"));
+                rs.getString("review_note"), rs.getBytes("official_question_id"), rs.getBoolean("self_review_override_used"),
+                rs.getString("self_review_override_reason"), rs.getLong("version"), rs.getString("origin_type"),
+                rs.getBytes("parent_candidate_id"), rs.getBytes("root_official_question_id"), rs.getBytes("base_official_question_id"),
+                integer(rs, "revision_number"), rs.getString("revision_reason"), rs.getString("base_content_hash"),
+                rs.getString("base_question_text"), rs.getString("base_explanation"), rs.getString("base_difficulty"), rs.getString("base_topic"));
     }
 
     private void audit(byte[] candidate, byte[] actor, String event, String from, String to, List<String> fields, String note, String requestId) {
@@ -305,7 +542,14 @@ public class AiCandidateRepository {
             byte[] createdBy, byte[] submittedBy, byte[] reviewedBy, byte[] publishedBy,
             LocalDateTime createdAt, LocalDateTime updatedAt, LocalDateTime submittedAt,
             LocalDateTime reviewedAt, LocalDateTime publishedAt, String rejectionReason, String reviewNote,
-            byte[] officialQuestionId, long version
+            byte[] officialQuestionId, boolean selfReviewOverrideUsed, String selfReviewOverrideReason, long version,
+            String originType, byte[] parentCandidateId, byte[] rootOfficialQuestionId, byte[] baseOfficialQuestionId,
+            Integer revisionNumber, String revisionReason, String baseContentHash, String baseQuestionText,
+            String baseExplanation, String baseDifficulty, String baseTopic
     ) { public String idString() { return UuidBytes.toString(id); } }
     public record PublishTarget(byte[] datasetId, byte[] definitionId, byte[] sectionId, String visibility, String verification) {}
+    public record RevisionHead(byte[] rootOfficialId, byte[] headOfficialId, byte[] openCandidateId, int nextRevisionNumber) {}
+    public record OfficialSnapshot(byte[] id, byte[] datasetId, byte[] definitionId, byte[] sectionId,
+                                   String contentHash, String questionText, String explanation, String difficulty,
+                                   String topic, List<AiCandidateDtos.Option> options) {}
 }

@@ -35,6 +35,14 @@ Partial có ít nhất một câu vẫn dùng được và hiển thị X/Y. Sou
 
 Kết quả 2026-07-20: 27/27 test Goal 11 và 118/118 full frontend tests pass; `tsc -b` và `npm run build` pass. ESLint trên các file Goal 11 pass; full repository ESLint còn 36 baseline findings ngoài phạm vi. Các port local 3306/8001/8080/5173 đều không listen nên real authenticated E2E chưa chạy.
 
+## Goal 13 permission-aware UI
+
+The auth context refreshes `/api/auth/me` and consumes backend-exposed permissions. Candidate routes/navigation/actions use permission guards rather than inferring publish authority from an admin URL. Teacher can review another creator's candidate but never sees publish. A creator does not see normal approve; an admin creator sees only explicit override controls with mandatory reason. Forbidden backend responses remain authoritative even if browser state is stale.
+
 ## Goal 12 admin review UI
 
 Students retain the memory-only `/exams/ai` flow. An admin additionally sees an explicit per-question selection and “Lưu để duyệt” action backed by the generation receipt. `/admin/exams/ai-candidates` provides the queue and filters; `/admin/exams/ai-candidates/:id` separates original/current content, provenance, neutral manual-review warnings, sources, audit, edit/submit/approve/reject, and confirmed explicit publish. Published fields are disabled, and version conflicts ask the reviewer to reload. No API key, raw prompt, vector, or client-selected provenance is sent.
+
+## Revision detail UX
+
+A published detail shows create-revision only when permitted and no revision is open; otherwise it links to the open candidate. Revision detail renders the immutable base snapshot/options beside current editable content, reason/number/hash, sources and audit. Draft/rejected revisions can search via Spring, select canonical results, supply a remap reason, then use the normal lifecycle. Target publish is pinned to the base dataset/definition/section. React text rendering escapes excerpts/diffs; the frontend contains no FastAPI URL or internal token.

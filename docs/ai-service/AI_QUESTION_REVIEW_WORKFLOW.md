@@ -64,8 +64,14 @@ The official question inherits the target definition's hidden/review-required wo
 
 Operational checks: verify Flyway V35 on a non-production database, log in as admin, generate and save a test question, exercise every transition, publish only to a hidden test definition, repeat publish to confirm the same official link, inspect audit, and confirm a student receives 403. Do not use a public/production dataset for smoke testing.
 
+## Goal 13A–13B amendment
+
+Teacher has create/view/edit/submit/review/audit; admin additionally publishes; student has no candidate authority. Creator and approver differ unless an admin creator explicitly supplies an override reason, producing `SELF_REVIEW_OVERRIDE_USED` separately from `APPROVED`. Approve never publishes.
+
+Submit, approve and publish each perform live canonical validation and fail closed. Missing/changed/pending sources, identity mismatch, timeout or outage leave status unchanged and publish creates no official row. Validation is recorded. Receipt validity stays 30 minutes; each response index is saved once; scheduled retention cleanup preserves referenced receipts. Goal 13C must add new revisions/source remapping rather than mutate published provenance.
+
 ## Test strategy and limitations
 
 Unit/security tests cover receipt-aware generation, invalid lifecycle, student denial/admin access, idempotent repeat publish, version conflict, UI provenance/warning/audit rendering, separate submit, explicit publish confirmation, and published immutability. Python generation tests retain grounded metadata. Full real E2E requires MySQL, AI Service, Spring, frontend, and test identities; when unavailable it must be reported as not run rather than inferred from mocks.
 
-Current limitations: no teacher role/granular publish permission, no mandatory four-eyes policy, no source-remapping UI, no scheduled expired-receipt cleanup yet, and no live corpus lookup during publish. Source provenance is immutable and server-receipt controlled; a later goal can add canonical corpus revalidation, receipt retention, and revision workflows.
+Post-publish correction is now delegated to Goal 13C's separate candidate/official revision flow; this original review workflow still never reopens or mutates a published candidate. See `AI_QUESTION_REVISION_WORKFLOW.md` for source remapping, chain/head, conflict and new-official publish rules.

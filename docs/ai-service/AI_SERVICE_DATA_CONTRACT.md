@@ -297,6 +297,16 @@ Generation evaluation cache identity gồm hash request, ordered source IDs/chun
 
 Report gồm request/parse/schema/source/option/explanation rates, duplicate rates, heuristic warning rates, repair/partial/insufficient rates, latency, cache hits/misses, errors và danh sách câu cần manual review. `properNameEvidenceWarningRate` và `dateEvidenceWarningRate` là review signal; report không được diễn giải chúng như correctness score.
 
+## Goal 13 persistence additions
+
+V36 seeds teacher only (no user assignment), adds self-review override flag/reason, and creates `ai_candidate_provenance_validations` with candidate/version/action/time/corpus/collection/source count/result/sanitized codes. Audit adds `SELF_REVIEW_OVERRIDE_USED`, `PROVENANCE_VALIDATED`, and `PROVENANCE_VALIDATION_FAILED`. It stores no text, vector, service token or API key.
+
+Receipt validity stays 30 minutes and ownership stays user-bound. One receipt covers a response; unique `(receipt_id, receipt_question_index)` permits each generated index to become at most one candidate. Cleanup deletes only expired rows beyond retention without candidate references; referenced receipts are retained for audit.
+
 ## Candidate provenance contract
 
 The server retains request ID/query/filter/count, generation and embedding model, embedding dimension, prompt/schema version, corpus SHA, collection, validation/generation warnings, and immutable source metadata including optional chunk hash. It stores original and editable question/option snapshots separately. It never stores Gemini keys, JWTs, Authorization headers, vectors, raw prompts, or full textbook chunks. Provenance describes lineage and review history; it is not proof of factual correctness.
+
+## Revision data contract
+
+V37 adds `origin_type`, parent/root/base IDs, revision number/reason, base content hash and base question/option snapshots. `ai_question_revision_heads` stores current head/open candidate/next number; `ai_question_official_revisions` records immutable official links. Source remap accepts identities only, persists metadata returned by canonical live validation, and versions validation evidence against the candidate version. Existing published candidate/source rows and old `exam_questions`/options are never updated.

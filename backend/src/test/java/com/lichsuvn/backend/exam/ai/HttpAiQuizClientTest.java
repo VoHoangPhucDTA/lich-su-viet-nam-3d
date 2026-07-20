@@ -87,7 +87,8 @@ class HttpAiQuizClientTest {
     private HttpAiQuizClient client(Duration timeout) {
         AiServiceProperties properties = new AiServiceProperties(true,
                 URI.create("http://127.0.0.1:" + server.getAddress().getPort()),
-                Duration.ofSeconds(1), timeout, "/ai/quiz/generate", "/ai/health", 3);
+                Duration.ofSeconds(1), timeout, "/ai/quiz/generate", "/ai/health",
+                "/ai/provenance/validate", "test-internal-token", 3);
         return new HttpAiQuizClient(HttpClient.newBuilder().connectTimeout(Duration.ofSeconds(1)).build(), new ObjectMapper(), properties);
     }
 

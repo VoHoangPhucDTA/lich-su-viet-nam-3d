@@ -61,6 +61,7 @@ class AiStyleExampleServiceTest {
 
     static AiServiceProperties properties(int maxStyles) {
         return new AiServiceProperties(true, URI.create("http://127.0.0.1:8001"), Duration.ofSeconds(5),
-                Duration.ofSeconds(90), "/ai/quiz/generate", "/ai/health", maxStyles);
+                Duration.ofSeconds(90), "/ai/quiz/generate", "/ai/health",
+                "/ai/provenance/validate", "test-internal-token", maxStyles);
     }
 }

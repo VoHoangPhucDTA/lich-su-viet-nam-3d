@@ -14,14 +14,16 @@ import {
 import type { LucideIcon } from 'lucide-react';
 import { useAuth } from '../auth/AuthContext';
 import UserAvatar from '../components/profile/UserAvatar';
+import { hasPermission } from '../auth/permissions';
+import type { AiCandidatePermission } from '../types/auth';
 
-type AdminNavItem = { to: string; label: string; icon: LucideIcon };
+type AdminNavItem = { to: string; label: string; icon: LucideIcon; permission?: AiCandidatePermission; adminOnly?: boolean };
 
 const NAV_ITEMS: AdminNavItem[] = [
-  { to: '/admin/dashboard', label: 'Tổng quan', icon: LayoutDashboard },
-  { to: '/admin/events', label: 'Sự kiện lịch sử', icon: CalendarDays },
-  { to: '/admin/users', label: 'Người dùng', icon: Users },
-  { to: '/admin/exams/ai-candidates', label: 'Duyệt câu hỏi AI', icon: Sparkles },
+  { to: '/admin/dashboard', label: 'Tổng quan', icon: LayoutDashboard, adminOnly: true },
+  { to: '/admin/events', label: 'Sự kiện lịch sử', icon: CalendarDays, adminOnly: true },
+  { to: '/admin/users', label: 'Người dùng', icon: Users, adminOnly: true },
+  { to: '/admin/exams/ai-candidates', label: 'Duyệt câu hỏi AI', icon: Sparkles, permission: 'AI_CANDIDATE_VIEW' },
 ];
 
 function AdminSidebar({ open, onClose }: { open: boolean; onClose: () => void }) {
@@ -77,7 +79,7 @@ function AdminSidebar({ open, onClose }: { open: boolean; onClose: () => void })
         <nav aria-label="Điều hướng quản trị" className="flex-1 overflow-y-auto px-3 py-5">
           <p className="mb-2 px-3 text-[10px] font-semibold uppercase tracking-[0.16em]" style={{ color: 'var(--text-muted)' }}>Quản trị</p>
           <div className="space-y-1">
-            {NAV_ITEMS.map(({ to, label, icon: Icon }) => (
+            {NAV_ITEMS.filter(item => (!item.adminOnly || currentUser?.role === 'admin') && (!item.permission || hasPermission(currentUser, item.permission))).map(({ to, label, icon: Icon }) => (
               <NavLink key={to} to={to} onClick={onClose} className={({ isActive }) => ['admin-nav-item', isActive ? 'admin-nav-item-active' : ''].filter(Boolean).join(' ')}>
                 <Icon size={17} strokeWidth={1.8} aria-hidden="true" />
                 <span>{label}</span>

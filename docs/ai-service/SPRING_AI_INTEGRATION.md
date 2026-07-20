@@ -61,6 +61,14 @@ Chỉ các field `question/options/correctOptionId/explanation/difficulty` đư�
 
 Authenticated route `/exams/ai` gọi Spring bằng shared `apiPostOnce`, giữ HttpOnly cookie và không replay generation. Typed parser/adapter xử lý full/partial/source/error; source chỉ hiện sau submit và warning được trình bày trung tính. Quiz/answers/score chỉ tồn tại trong React memory. Frontend không gửi Style Examples, Fact Context, model, source IDs hoặc API key và không gọi official exam persistence/submission API.
 
+## Goal 13 Spring integration
+
+Candidate authorization is authority-specific, with controller `@PreAuthorize` and matching service guards. Auth responses expose current roles and permissions. Spring calls protected `/ai/provenance/validate` before submit/approve/publish, records sanitized outcomes, and never falls back to stale validation. Publish validation completes before the locked official insert transaction, so validation failure cannot create an official question.
+
 ## Goal 12 persistence boundary
 
 Spring now issues an opaque generation receipt after validating the FastAPI response. Candidate creation resolves questions and provenance from that server receipt; it does not trust model/source identity supplied by the browser. `/api/exams/ai/candidates/**` requires `ROLE_admin`, and the application layer repeats the role check. Publish uses row locks and one transaction for official question/options/counts/candidate link/audit; failure rolls back and records best-effort `PUBLISH_FAILED` separately.
+
+## Goal 13C orchestration
+
+Spring exposes revision create/search/remap commands and remains the browser trust boundary. It sends only the configured internal token—not user JWT—to fixed FastAPI provenance paths. Canonical response metadata is authoritative; client titles/corpus/model fields are not accepted. Revision submit/approve/publish rerun fail-closed validation and base/head checks. Publish reuses official insert mapping but links a new row through the locked revision chain; teacher/admin permissions are checked in controller security and service methods.

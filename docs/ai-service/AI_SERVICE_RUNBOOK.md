@@ -389,6 +389,16 @@ Troubleshooting:
 - Mock smoke: chạy component test `AiQuizPage.test.tsx`; mock public Spring response, không mock FastAPI.
 - Không thêm `VITE_GEMINI_API_KEY`, FastAPI URL, local/session storage hoặc official exam submit vào flow này.
 
+## Goal 13 operations
+
+Assign `teacher` explicitly in `user_roles`; V36 never assigns it. Configure the same strong `AI_SERVICE_INTERNAL_TOKEN` in Spring and FastAPI, distinct from Gemini/JWT secrets, and coordinate rotation/restart; never print the header.
+
+Receipt settings are `AI_RECEIPT_RETENTION_HOURS` (24), `AI_RECEIPT_CLEANUP_CRON` (`0 17 * * * *`), `AI_RECEIPT_CLEANUP_BATCH_SIZE` (100), and `AI_RECEIPT_CLEANUP_ENABLED`. Validity remains 30 minutes. Monitor `ai.receipt.cleanup.runs`, `.deleted`, and `.failures`; logs contain counts only. For provenance errors, verify identity fields, chunk hash/pending state, token parity and AI Service reachability. Never bypass validation or overwrite stored hashes; regenerate/create a new candidate. Apply V36 to a backed-up non-production MySQL database before traffic.
+
 ## Review workflow smoke run
 
 Use a non-production MySQL database and a hidden `REVIEW_REQUIRED` test definition. Log in as admin, generate one question, explicitly select “Lưu để duyệt”, edit it, submit, approve, then confirm publish. Verify four official options/one correct answer, repeat publish and confirm no duplicate, inspect the audit timeline, and verify a student receives 403 for candidate routes. Do not publish to a public definition. If MySQL or authenticated services are unavailable, run unit/mock integration suites and report real E2E as not run.
+
+## Revision smoke and incident checks
+
+In a non-production hidden/review-required target, open a published candidate, create revision 2, confirm the parent is unchanged, search/select/remap a canonical source with a reason, submit, approve as a different reviewer, verify teacher publish is denied, and publish as admin. Assert a new official ID/four options/one correct, old official bytes unchanged, chain/head moved, open cleared, and repeated publish creates nothing. Race two create/publish requests and expect one success plus a sanitized conflict. For stale base/head, do not merge: reload and create from the current head. Never log the internal token or full excerpts.
