@@ -1,5 +1,7 @@
 # AI Service RAG — Decision Log
 
+> Goal 13D decision: packaging remains development/test only, containers remain non-root, health separates liveness from optional SMTP, and new metrics use fixed low-cardinality tags only. Evidence: `AI_SERVICE_E2E_AND_DEPLOYMENT_READINESS.md`.
+
 ## ADR-001 — SGK là nguồn sự thật
 
 - Status: Accepted

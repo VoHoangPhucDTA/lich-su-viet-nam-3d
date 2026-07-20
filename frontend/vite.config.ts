@@ -28,7 +28,7 @@ export default defineConfig({
     // Nhờ đó cookie HttpOnly (SameSite=Lax) hoạt động mà không cần HTTPS hay SameSite=None.
     proxy: {
       '/api': {
-        target: 'http://localhost:8080',
+        target: process.env.VITE_DEV_PROXY_TARGET ?? 'http://localhost:8080',
         changeOrigin: true,
         secure: false,
       },

@@ -1,5 +1,7 @@
 # AI Service RAG — Data Contract
 
+> Goal 13D applied all 37 migrations twice on empty MySQL 8.4 schemas and verified Goal 13 tables, indexes, foreign keys, version columns, immutable old official data, and one append-only revision link.
+
 ## 1. Nguồn canonical
 
 Nguồn chính cho indexing là:

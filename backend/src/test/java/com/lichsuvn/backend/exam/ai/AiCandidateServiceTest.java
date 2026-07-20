@@ -4,6 +4,8 @@ import com.lichsuvn.backend.auth.security.UserPrincipal;
 import com.lichsuvn.backend.common.exception.ApiException;
 import com.lichsuvn.backend.exam.ai.review.api.AiCandidateDtos;
 import com.lichsuvn.backend.exam.ai.review.application.AiCandidateService;
+import com.lichsuvn.backend.exam.ai.review.application.AiCandidateMetrics;
+import io.micrometer.core.instrument.simple.SimpleMeterRegistry;
 import com.lichsuvn.backend.exam.ai.review.domain.AiCandidateStatus;
 import com.lichsuvn.backend.exam.ai.review.infrastructure.AiCandidateRepository;
 import com.lichsuvn.backend.exam.ai.review.infrastructure.AiGenerationReceiptRepository;
@@ -39,7 +41,8 @@ class AiCandidateServiceTest {
     @BeforeEach
     void setUp() {
         when(transactions.getTransaction(any())).thenReturn(mock(TransactionStatus.class));
-        service = new AiCandidateService(receipts, repository, provenance, transactions);
+        service = new AiCandidateService(receipts, repository, provenance, transactions,
+                new AiCandidateMetrics(new SimpleMeterRegistry()));
     }
 
     @Test
@@ -283,6 +286,20 @@ class AiCandidateServiceTest {
         verify(repository).insertOfficial(revision, target);
         verify(repository).markRevisionPublished(eq(revision), eq(7L), eq(newId), any(), any());
         verify(repository, never()).markPublished(any(), any(Long.class), any(), any(), any());
+    }
+
+    @Test
+    void concurrentPublishLoserReturnsExistingReferenceWhenWinnerCommitsDuringRevalidation() {
+        AiCandidateRepository.Candidate approved = candidate(AiCandidateStatus.APPROVED, 7);
+        AiCandidateRepository.Candidate published = candidate(AiCandidateStatus.PUBLISHED, 8);
+        AiCandidateDtos.Detail detail = validDetail();
+        when(repository.find(ID)).thenReturn(approved, published);
+        when(repository.detail(ID)).thenReturn(detail);
+        when(provenance.validate(any(), any())).thenThrow(new ApiException(HttpStatus.BAD_GATEWAY,
+                "AI_CANDIDATE_PROVENANCE_INVALID", "Concurrent validation response was unavailable"));
+
+        assertSame(detail, service.publish(ID, publishRequest(7), admin()));
+        verify(repository, never()).insertOfficial(any(), any());
     }
 
     private static AiCandidateDtos.UpdateRequest updateRequest(long version) {

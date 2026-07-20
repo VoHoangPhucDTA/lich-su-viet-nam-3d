@@ -1,5 +1,7 @@
 # AI Service RAG — Implementation Plan
 
+> Goal 13D completed locally without production deployment. Goal 13E should harden CI automation and resolve the documented baseline/environment limitations in `AI_SERVICE_E2E_AND_DEPLOYMENT_READINESS.md`.
+
 ## Nguyên tắc triển khai
 
 - Audit project trước khi sửa code.

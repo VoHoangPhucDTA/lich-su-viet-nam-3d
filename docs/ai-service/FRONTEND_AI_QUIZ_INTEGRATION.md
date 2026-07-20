@@ -1,5 +1,7 @@
 # Frontend AI Quiz Integration
 
+> Goal 13D verified the production frontend build under Nginx: `/` returns 200 and `/api/auth/me` reaches Spring and returns 401 anonymously. The frontend has no FastAPI URL, Gemini key, or internal token.
+
 ## Runtime và route
 
 - Path: `frontend/`.

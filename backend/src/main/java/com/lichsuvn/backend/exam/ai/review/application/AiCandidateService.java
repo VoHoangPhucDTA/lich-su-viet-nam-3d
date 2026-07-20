@@ -31,14 +31,17 @@ public class AiCandidateService {
     private final AiGenerationReceiptRepository receipts;
     private final AiCandidateRepository candidates;
     private final AiProvenanceClient provenance;
+    private final AiCandidateMetrics metrics;
     private final TransactionTemplate transaction;
     private final TransactionTemplate requiresNew;
 
     public AiCandidateService(AiGenerationReceiptRepository receipts, AiCandidateRepository candidates,
-                              AiProvenanceClient provenance, PlatformTransactionManager manager) {
+                              AiProvenanceClient provenance, PlatformTransactionManager manager,
+                              AiCandidateMetrics metrics) {
         this.receipts = receipts;
         this.candidates = candidates;
         this.provenance = provenance;
+        this.metrics = metrics;
         this.transaction = new TransactionTemplate(manager);
         this.requiresNew = new TransactionTemplate(manager);
         this.requiresNew.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRES_NEW);
@@ -53,9 +56,11 @@ public class AiCandidateService {
             throw error(HttpStatus.UNPROCESSABLE_ENTITY, "AI_CANDIDATE_PROVENANCE_INVALID", "Question selection does not match generation receipt");
         }
         try {
-            return transaction.execute(status -> indexes.stream()
+            List<AiCandidateDtos.Detail> created = transaction.execute(status -> indexes.stream()
                     .map(index -> candidates.detail(candidates.create(receipt, index, principal.idBytes(), requestId())))
                     .toList());
+            created.forEach(ignored -> metrics.lifecycle("create"));
+            return created;
         } catch (DataIntegrityViolationException ex) {
             throw error(HttpStatus.CONFLICT, "AI_CANDIDATE_PROVENANCE_INVALID", "A selected generated question was already saved");
         }
@@ -121,6 +126,7 @@ public class AiCandidateService {
             if (!"REVISION_HEAD_CLAIM_FAILED".equals(ex.getMessage())) throw ex;
             throw error(HttpStatus.CONFLICT, "AI_REVISION_ALREADY_OPEN", "A concurrent revision already claimed this official head");
         }
+        metrics.revision("create");
         return candidates.detail(createdId);
     }
 
@@ -166,6 +172,7 @@ public class AiCandidateService {
                 && !blank(source.lessonTitle()) && !blank(source.sectionTitle()));
         candidates.provenanceValidation(current.id(), current.version(), "REMAP", current.corpusSha256(), current.collectionName(),
                 request.sources().size(), valid, errors, principal.idBytes(), validationRequestId);
+        metrics.provenance("REMAP", valid);
         if (!valid) throw provenanceError(errors);
         transaction.executeWithoutResult(status -> {
             AiCandidateRepository.Candidate locked = candidates.findForUpdate(id);
@@ -174,6 +181,7 @@ public class AiCandidateService {
             validateRevisionBase(locked, principal);
             if (!candidates.remapSources(locked, request.version(), response.sources(), principal.idBytes(), request.reason(), requestId())) versionConflict();
         });
+        metrics.revision("source_remap");
         return candidates.detail(id);
     }
 
@@ -184,6 +192,7 @@ public class AiCandidateService {
         validateRevisionBase(current, principal);
         revalidate(current, "SUBMIT", principal);
         transition(current, request.version(), request.note(), principal, AiCandidateStatus.PENDING_REVIEW, workflowEvent(current, "SUBMITTED"));
+        metrics.lifecycle("submit");
         return candidates.detail(id);
     }
 
@@ -218,6 +227,7 @@ public class AiCandidateService {
             if (!candidates.transition(current, request.version(), AiCandidateStatus.APPROVED, principal.idBytes(),
                     request.note(), workflowEvent(current, "APPROVED"), auditRequestId)) versionConflict();
         });
+        metrics.lifecycle("approve");
         return candidates.detail(id);
     }
 
@@ -226,6 +236,7 @@ public class AiCandidateService {
         AiCandidateRepository.Candidate current = prepareTransition(id, request.version(),
                 Set.of(AiCandidateStatus.PENDING_REVIEW), AiCandidateStatus.REJECTED);
         transition(current, request.version(), request.reason(), principal, AiCandidateStatus.REJECTED, workflowEvent(current, "REJECTED"));
+        metrics.lifecycle("reject");
         return candidates.detail(id);
     }
 
@@ -237,7 +248,16 @@ public class AiCandidateService {
         if (before.status() != AiCandidateStatus.APPROVED) invalidStatus("Only approved candidate can be published");
         validateStored(before.idString());
         validateRevisionBase(before, principal);
-        revalidate(before, "PUBLISH", principal);
+        try {
+            revalidate(before, "PUBLISH", principal);
+        } catch (ApiException ex) {
+            AiCandidateRepository.Candidate concurrent = current(id);
+            if (concurrent.status() == AiCandidateStatus.PUBLISHED) {
+                metrics.publishConflict();
+                return candidates.detail(id);
+            }
+            throw ex;
+        }
         String auditRequestId = requestId();
         try {
             transaction.executeWithoutResult(status -> {
@@ -263,12 +283,15 @@ public class AiCandidateService {
                 if (!published) versionConflict();
             });
         } catch (ApiException ex) {
+            if ("AI_CANDIDATE_VERSION_CONFLICT".equals(ex.getCode())) metrics.publishConflict();
             recordPublishFailure(before, principal, ex.getCode(), auditRequestId);
             throw ex;
         } catch (RuntimeException ex) {
             recordPublishFailure(before, principal, "AI_CANDIDATE_PUBLISH_FAILED", auditRequestId);
             throw error(HttpStatus.INTERNAL_SERVER_ERROR, "AI_CANDIDATE_PUBLISH_FAILED", "Candidate publish transaction failed");
         }
+        metrics.lifecycle("publish");
+        if ("REVISION".equals(before.originType())) metrics.revision("publish");
         return candidates.detail(id);
     }
 
@@ -321,6 +344,7 @@ public class AiCandidateService {
             candidates.provenanceValidation(current.id(), current.version(), action, detail.corpusSha256(),
                     detail.collectionName(), sources.size(), response.valid(), errors, principal.idBytes(), validationRequestId);
             if (!response.valid()) throw provenanceError(errors);
+            metrics.provenance(action, true);
         } catch (ApiException ex) {
             if (!"AI_CANDIDATE_PROVENANCE_STALE".equals(ex.getCode())
                     && !"AI_CANDIDATE_SOURCE_MISSING".equals(ex.getCode())
@@ -330,6 +354,7 @@ public class AiCandidateService {
                         detail.collectionName(), sources.size(), false, List.of(ex.getCode()), principal.idBytes(), validationRequestId); }
                 catch (RuntimeException ignored) { /* preserve sanitized service failure */ }
             }
+            metrics.provenance(action, false);
             throw ex;
         }
     }

@@ -1,5 +1,7 @@
 # AI question review workflow
 
+> Goal 13D real E2E passed: self-approval denied, other-teacher approval allowed, teacher publish denied, admin publish/idempotency allowed, and explicit self-review override denied/allowed in the correct reviewer conditions.
+
 ## Safety invariant
 
 `POST /api/exams/ai/generate` never creates a candidate or an official question. Saving, submitting, approving, rejecting, and publishing are separate commands. Approval is not publication. Only an explicit admin publish command can write to `exam_questions`, and its target must be an existing `HIDDEN` + `REVIEW_REQUIRED` MCQ definition in an `ACTIVE` or `VALIDATED` dataset.

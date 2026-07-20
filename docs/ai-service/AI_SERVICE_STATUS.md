@@ -1,5 +1,7 @@
 # AI Service RAG — Current Status
 
+> Goal 13D status: real MySQL 8.4, authenticated multi-service E2E, concurrency/rollback, observability, and four-container development packaging are verified. See `AI_SERVICE_E2E_AND_DEPLOYMENT_READINESS.md` for evidence and limitations.
+
 ## Metadata phiên bản
 
 - Ngày cập nhật gần nhất: 2026-07-20

@@ -1,5 +1,7 @@
 # AI Service RAG — API Contract
 
+> Goal 13D verified public Spring contracts through HttpOnly-cookie auth and fixed internal provenance routes through a separate service token. Concurrent publish losers return the committed reference or a safe conflict without duplication.
+
 FastAPI contract đã triển khai cho health, retrieval debug và grounded generation. Naming/auth/error public của Spring Boot vẫn phải được map theo backend hiện tại ở Goal 10.
 
 ## 1. FastAPI internal endpoints

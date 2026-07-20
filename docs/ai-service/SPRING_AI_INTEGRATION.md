@@ -1,5 +1,7 @@
 # Spring Boot ↔ AI Service Integration
 
+> Goal 13D verified Spring against real MySQL/FastAPI with four real cookie-authenticated roles. Candidate lifecycle, provenance, conflict, and revision meters now complement generation and receipt-cleanup metrics.
+
 ## Contract và ranh giới
 
 - Public: authenticated `POST /api/exams/ai/generate`.

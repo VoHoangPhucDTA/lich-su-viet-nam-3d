@@ -1,5 +1,7 @@
 # AI Question Revision Workflow
 
+> Goal 13D real concurrency passed: one open revision, stale-save conflict, one new official revision/four options/one chain row, immutable old official content, advanced head, cleared open candidate, and idempotent repeat publish.
+
 ## Scope and invariants
 
 Goal 13C adds post-publish correction without mutating a published candidate or an existing `exam_questions` row. The official bank has no native version/current/soft-delete fields, so a published revision creates a new official row and records supersession only in AI-owned revision tables. It never changes definition visibility or verification.

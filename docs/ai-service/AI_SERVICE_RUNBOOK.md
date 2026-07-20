@@ -1,5 +1,7 @@
 # AI Service RAG — Runbook
 
+> Goal 13D local stack: copy `.env.ai-e2e.example` to an untracked local file, fill test-only values, then run `docker compose --env-file .env.ai-e2e.local -f compose.ai-e2e.yml up -d --build --wait`. Full checks and seed guidance are in `AI_SERVICE_E2E_AND_DEPLOYMENT_READINESS.md`.
+
 Các lệnh dưới đây chạy từ `D:/KLTN/lich-su-viet-nam-3d/ai-service` trên Python 3.10+.
 
 ## 1. Environment variables dự kiến
