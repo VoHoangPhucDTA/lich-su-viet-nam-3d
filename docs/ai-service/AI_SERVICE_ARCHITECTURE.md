@@ -1,6 +1,6 @@
 # AI Service RAG — Architecture
 
-> Goal 13D topology baseline: browser -> loopback Nginx frontend -> internal Spring -> internal FastAPI/MySQL. FastAPI alone has Gemini outbound access; corpus and Chroma are runtime mounts. See `AI_SERVICE_E2E_AND_DEPLOYMENT_READINESS.md`.
+> Goal 13D topology baseline: browser -> loopback Nginx frontend -> internal Spring -> internal FastAPI/MySQL. Goal 13E adds a guarded e2e-only deterministic provider; production defaults and runtime corpus/Chroma contracts are unchanged.
 
 ## Kiến trúc logic
 

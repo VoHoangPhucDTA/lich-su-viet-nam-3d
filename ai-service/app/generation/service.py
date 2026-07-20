@@ -179,6 +179,17 @@ class GenerationService:
 
 
 def create_generation_service(settings: Settings) -> GenerationService:
+    if settings.deterministic_e2e_provider:
+        from app.e2e.deterministic import (
+            DeterministicGenerationProvider,
+            DeterministicRetrievalService,
+        )
+
+        return GenerationService(
+            settings=settings,
+            retrieval_service=DeterministicRetrievalService(),  # type: ignore[arg-type]
+            provider=DeterministicGenerationProvider(),
+        )
     retrieval = create_retrieval_service(settings)
     provider = GeminiGenerationProvider(
         api_key=settings.gemini_api_key,

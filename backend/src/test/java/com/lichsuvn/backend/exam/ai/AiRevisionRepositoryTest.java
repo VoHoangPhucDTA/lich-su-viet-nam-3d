@@ -28,7 +28,8 @@ class AiRevisionRepositoryTest {
         ExamH2TestDatabase.applyAiQuestionSecuritySchema(dataSource);
         ExamH2TestDatabase.applyAiQuestionRevisionSchema(dataSource);
         JdbcTemplate sql = new JdbcTemplate(dataSource);
-        AiCandidateRepository repository = new AiCandidateRepository(new NamedParameterJdbcTemplate(dataSource), new ObjectMapper());
+        NamedParameterJdbcTemplate named = new NamedParameterJdbcTemplate(dataSource);
+        AiCandidateRepository repository = new AiCandidateRepository(named, new ObjectMapper());
 
         byte[] actor = id(1), dataset = id(2), definition = id(3), section = id(4), official = id(5), parentId = id(6);
         sql.update("INSERT INTO users (id) VALUES (?)", actor);
@@ -104,15 +105,58 @@ class AiRevisionRepositoryTest {
         sql.update("UPDATE ai_question_candidates SET status='APPROVED' WHERE id=?", revisionBytes);
         AiCandidateRepository.Candidate approved = repository.findForUpdate(revisionId);
         AiCandidateRepository.PublishTarget target = new AiCandidateRepository.PublishTarget(dataset, definition, section, "HIDDEN", "REVIEW_REQUIRED");
+        AiCandidateRepository faultingRepository = new AiCandidateRepository(named, new ObjectMapper(), (questionId, options) -> {
+            for (int index = 0; index < options.size(); index++) {
+                var option = options.get(index);
+                named.update("INSERT INTO exam_mcq_options (question_internal_id,option_key,option_text,is_correct,order_in_question) VALUES (:id,:key,:text,:correct,:order)",
+                        new org.springframework.jdbc.core.namedparam.MapSqlParameterSource()
+                                .addValue("id", questionId).addValue("key", option.id()).addValue("text", option.text())
+                                .addValue("correct", option.correct()).addValue("order", option.displayOrder()));
+                if (index == 1) throw new IllegalStateException("test fault after option B");
+            }
+        });
         TransactionTemplate transaction = new TransactionTemplate(new DataSourceTransactionManager(dataSource));
+
+        byte[] originalId = id(7);
+        sql.update("""
+                INSERT INTO ai_question_candidates
+                (id,status,question_type,question_text,explanation,difficulty,original_question_text,original_explanation,
+                 original_correct_option_id,grade,lesson_number,topic,generation_query,requested_count,generation_request_id,
+                 generation_model,embedding_model,embedding_dimension,prompt_version,schema_version,corpus_sha256,
+                 collection_name,validation_status,validation_warnings_json,generation_warnings_json,created_by,
+                 version,origin_type,created_at,updated_at)
+                VALUES (?,'APPROVED','mcq','Original candidate?','Original explanation','MEDIUM','Original candidate?',
+                        'Original explanation','A',12,6,'Topic','query',1,'request-original','generation','embedding',768,
+                        'prompt','schema',?,'collection','PASSED','[]','[]',?,0,'GENERATED',?,?)
+                """, originalId, "d".repeat(64), actor, LocalDateTime.now(), LocalDateTime.now());
+        for (int index = 0; index < 4; index++) {
+            String key = String.valueOf((char) ('A' + index));
+            sql.update("INSERT INTO ai_question_candidate_options (candidate_id,option_id,option_text,is_correct,display_order,original_option_text) VALUES (?,?,?,?,?,?)",
+                    originalId, key, "Original candidate " + key, index == 0, index + 1, "Original candidate " + key);
+        }
+        sql.update("INSERT INTO ai_question_candidate_sources (candidate_id,chunk_id,document_id,grade,lesson_number,lesson_title,section_title,chunk_hash,display_order) VALUES (?,'chunk-original','doc',12,6,'Lesson','Section',?,1)", originalId, "e".repeat(64));
+        AiCandidateRepository.Candidate approvedOriginal = repository.findForUpdate(uuid(originalId));
         assertThrows(IllegalStateException.class, () -> transaction.executeWithoutResult(status -> {
-            repository.insertOfficial(approved, target);
-            throw new IllegalStateException("simulated option/publish failure");
+            byte[] failedOfficial = faultingRepository.insertOfficial(approvedOriginal, target);
+            faultingRepository.markPublished(approvedOriginal, 0, failedOfficial, actor, "request-original-fault");
+        }));
+        assertEquals(1, sql.queryForObject("SELECT COUNT(*) FROM exam_questions", Integer.class));
+        assertEquals(4, sql.queryForObject("SELECT COUNT(*) FROM exam_mcq_options", Integer.class));
+        assertEquals("APPROVED", sql.queryForObject("SELECT status FROM ai_question_candidates WHERE id=?", String.class, originalId));
+        assertNull(sql.queryForObject("SELECT official_question_id FROM ai_question_candidates WHERE id=?", byte[].class, originalId));
+        assertEquals(0, sql.queryForObject("SELECT COUNT(*) FROM ai_question_official_revisions", Integer.class));
+
+        assertThrows(IllegalStateException.class, () -> transaction.executeWithoutResult(status -> {
+            byte[] failedOfficial = faultingRepository.insertOfficial(approved, target);
+            faultingRepository.markRevisionPublished(approved, 1, failedOfficial, actor, "request-fault");
         }));
         assertEquals(1, sql.queryForObject("SELECT COUNT(*) FROM exam_questions", Integer.class));
         assertEquals(4, sql.queryForObject("SELECT COUNT(*) FROM exam_mcq_options", Integer.class));
         assertEquals("APPROVED", sql.queryForObject("SELECT status FROM ai_question_candidates WHERE id=?", String.class, revisionBytes));
+        assertNull(sql.queryForObject("SELECT official_question_id FROM ai_question_candidates WHERE id=?", byte[].class, revisionBytes));
+        assertEquals(0, sql.queryForObject("SELECT COUNT(*) FROM ai_question_official_revisions", Integer.class));
         assertEquals(uuid(official), uuid(sql.queryForObject("SELECT head_official_question_id FROM ai_question_revision_heads WHERE root_official_question_id=?", byte[].class, official)));
+        assertEquals(uuid(revisionBytes), uuid(sql.queryForObject("SELECT open_candidate_id FROM ai_question_revision_heads WHERE root_official_question_id=?", byte[].class, official)));
 
         byte[] newOfficial = repository.insertOfficial(approved, target);
         assertTrue(repository.markRevisionPublished(approved, 1, newOfficial, actor, "request-publish"));

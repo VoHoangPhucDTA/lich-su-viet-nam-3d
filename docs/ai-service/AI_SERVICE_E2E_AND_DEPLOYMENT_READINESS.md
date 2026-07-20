@@ -1,6 +1,22 @@
 # AI Service E2E and Deployment Readiness
 
+## Goal 13F research-evaluation readiness
+
+- [x] Versioned 36-item manifest validates grade/difficulty balance.
+- [x] Offline preflight avoids retrieval initialization and Gemini calls.
+- [x] Static blinded package, UTF-8 BOM form, strict import, analysis tables, agreement, and warning comparison pass with explicitly synthetic fixtures.
+- [x] Runtime output is Git-ignored and has no PII fields.
+- [x] Protocol and thesis templates distinguish engineering evidence from human judgment.
+- [ ] Real generation: requires explicit cost/quota approval and preserves failures.
+- [ ] Teacher privacy/participation process: manual institutional responsibility.
+- [ ] Teacher data collection: NOT STARTED.
+- [ ] Teacher analysis: NOT AVAILABLE; **Teacher evaluation: NOT YET COLLECTED**.
+
+This is not deployment approval, teacher approval, or evidence of absolute factual correctness; evaluation decisions do not alter four-eyes candidate/publish workflow.
+
 ## Scope and safety
+
+Goal 13E CI matrix, Windows API 1.44 workaround, external History RAG policy, rollback fixture, and repeated HTTP race runner are specified in `AI_SERVICE_CI_AND_TEST_STRATEGY.md`.
 
 Goal 13D was verified on branch `ai_service` from commit `dfd757ac84af1cc770bda2d865a7a2a60b2b317e`. All users, questions, datasets, and credentials used here are local test fixtures. No production database, public dataset, production account, deployment, corpus rebuild, embedding rebuild, Chroma rebuild, prompt change, or model change was performed.
 

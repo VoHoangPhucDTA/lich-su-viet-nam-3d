@@ -1,6 +1,10 @@
 # AI Service RAG — Implementation Plan
 
-> Goal 13D completed locally without production deployment. Goal 13E should harden CI automation and resolve the documented baseline/environment limitations in `AI_SERVICE_E2E_AND_DEPLOYMENT_READINESS.md`.
+## Goal 13F — teacher evaluation and thesis experiment
+
+Status: tooling complete; real data collection not started; analysis not available. The v1 manifest fixes 36 requests (12 per grade, 4 per difficulty per grade) before ratings. The gate includes failure-preserving generation, deterministic blinded export, rubric/schema, strict import, Wilson intervals, missing-aware pairwise agreement, locked warning matrix, ignored runtime output, synthetic no-provider smoke, and protocol/thesis documentation. No rating changes candidate state or publishes content. Next manual phase is approved sample generation and teacher review; synthetic data is never a thesis result.
+
+> Goal 13D completed locally without production deployment. Goal 13E implementation and verification are tracked in `AI_SERVICE_CI_AND_TEST_STRATEGY.md`; these changes remain uncommitted.
 
 ## Nguyên tắc triển khai
 

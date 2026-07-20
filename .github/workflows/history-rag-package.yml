@@ -1,0 +1,29 @@
+name: History RAG external package validation
+
+on:
+  workflow_dispatch:
+    inputs:
+      artifact_run_id:
+        description: Run ID containing the approved history-rag-v1 artifact
+        required: true
+
+permissions:
+  actions: read
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: history-rag-v1
+          path: data/history-rag/v1
+          run-id: ${{ inputs.artifact_run_id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - run: python scripts/history-rag/preflight_package.py --package-dir data/history-rag/v1
+      - uses: actions/setup-java@v4
+        with: {distribution: temurin, java-version: '21', cache: maven}
+      - run: ./mvnw -Dtest=HistoryRagPackageReaderTest test
+        working-directory: backend

@@ -80,3 +80,12 @@ def test_config_parses_comma_separated_gemini_key_pool() -> None:
 
     assert settings.gemini_configured is True
     assert settings.gemini_api_keys == ("key-one", "key-two")
+
+
+def test_deterministic_provider_is_rejected_outside_test_or_e2e() -> None:
+    with pytest.raises(ValidationError, match="permitted only"):
+        Settings(_env_file=None, app_env="production", deterministic_e2e_provider=True)
+
+    assert Settings(
+        _env_file=None, app_env="e2e", deterministic_e2e_provider=True
+    ).deterministic_e2e_provider

@@ -1,6 +1,14 @@
 # AI Service RAG — Current Status
 
-> Goal 13D status: real MySQL 8.4, authenticated multi-service E2E, concurrency/rollback, observability, and four-container development packaging are verified. See `AI_SERVICE_E2E_AND_DEPLOYMENT_READINESS.md` for evidence and limitations.
+## Goal 13F — teacher evaluation tooling
+
+- Teacher evaluation tooling: **COMPLETED** (fixed `teacher-evaluation-v1` manifest, explicit-cost sample builder, deterministic blinded offline export, strict import, analysis, agreement/warning contracts, fixture, protocol, and thesis template).
+- Teacher evaluation data collection: **NOT STARTED**. Teacher evaluation: **NOT YET COLLECTED**.
+- Teacher evaluation analysis: **NOT AVAILABLE** until validated real teacher reviews exist. Synthetic fixture output is test evidence only and never a thesis result.
+- Scope is frozen: no model, prompt, retrieval, corpus, workflow, or publish behavior changed. Runtime output is ignored under `artifacts/teacher-evaluation/`.
+- Exact next action: obtain cost/quota approval, invite teachers under the approved privacy process, import pseudonymous reviews, then analyze.
+
+> Goal 13D status: real MySQL 8.4, authenticated multi-service E2E, concurrency/rollback, observability, and four-container development packaging are verified. Goal 13E CI/test strategy is in `AI_SERVICE_CI_AND_TEST_STRATEGY.md`; Goal 13E remains uncommitted.
 
 ## Metadata phiên bản
 

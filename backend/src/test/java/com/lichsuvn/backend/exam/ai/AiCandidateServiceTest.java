@@ -289,6 +289,26 @@ class AiCandidateServiceTest {
     }
 
     @Test
+    void midOptionsFailureKeepsSanitizedFailureAuditOutsidePublishTransaction() {
+        AiCandidateRepository.Candidate approved = candidate(AiCandidateStatus.APPROVED, 7);
+        AiCandidateRepository.PublishTarget target = new AiCandidateRepository.PublishTarget(
+                bytes(4), bytes(5), bytes(6), "HIDDEN", "REVIEW_REQUIRED");
+        when(repository.find(ID)).thenReturn(approved);
+        when(repository.detail(ID)).thenReturn(validDetail());
+        when(provenance.validate(any(), any())).thenReturn(validProvenance());
+        when(repository.findForUpdate(ID)).thenReturn(approved);
+        when(repository.publishTarget(any(), any(), any())).thenReturn(target);
+        when(repository.insertOfficial(approved, target))
+                .thenThrow(new IllegalStateException("raw SQL and credential-like test detail"));
+
+        ApiException error = assertThrows(ApiException.class,
+                () -> service.publish(ID, publishRequest(7), admin()));
+
+        assertEquals("AI_CANDIDATE_PUBLISH_FAILED", error.getCode());
+        verify(repository).publishFailed(eq(approved), any(), eq("AI_CANDIDATE_PUBLISH_FAILED"), any());
+    }
+
+    @Test
     void concurrentPublishLoserReturnsExistingReferenceWhenWinnerCommitsDuringRevalidation() {
         AiCandidateRepository.Candidate approved = candidate(AiCandidateStatus.APPROVED, 7);
         AiCandidateRepository.Candidate published = candidate(AiCandidateStatus.PUBLISHED, 8);

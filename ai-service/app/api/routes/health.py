@@ -67,6 +67,16 @@ def _retrieval_ready(settings: Settings, chroma_ready: bool) -> bool:
 def health(
     settings: Annotated[Settings, Depends(get_request_settings)],
 ) -> HealthResponse:
+    if settings.deterministic_e2e_provider:
+        return HealthResponse(
+            status="ok",
+            service="history-rag-ai-service",
+            environment=settings.app_env,
+            chroma_ready=True,
+            retrieval_ready=True,
+            generation_ready=True,
+            gemini_configured=False,
+        )
     chroma_ready = _chroma_ready(settings)
     retrieval_ready = _retrieval_ready(settings, chroma_ready)
     return HealthResponse(

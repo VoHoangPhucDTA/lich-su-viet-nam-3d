@@ -6,6 +6,7 @@ import com.lichsuvn.backend.exam.ai.review.api.AiCandidateDtos;
 import com.lichsuvn.backend.exam.ai.review.domain.AiCandidateStatus;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import tools.jackson.core.JacksonException;
 import tools.jackson.databind.ObjectMapper;
@@ -24,10 +25,29 @@ public class AiCandidateRepository {
     private static final List<String> OPTION_IDS = List.of("A", "B", "C", "D");
     private final NamedParameterJdbcTemplate jdbc;
     private final ObjectMapper objectMapper;
+    private final OfficialOptionWriter officialOptionWriter;
 
+    @Autowired
     public AiCandidateRepository(NamedParameterJdbcTemplate jdbc, ObjectMapper objectMapper) {
+        this(jdbc, objectMapper, (questionId, options) -> {
+            for (AiCandidateDtos.Option option : options) {
+                jdbc.update("INSERT INTO exam_mcq_options (question_internal_id,option_key,option_text,is_correct,order_in_question) VALUES (:id,:key,:text,:correct,:order)",
+                        new MapSqlParameterSource().addValue("id", questionId).addValue("key", option.id()).addValue("text", option.text())
+                                .addValue("correct", option.correct()).addValue("order", option.displayOrder()));
+            }
+        });
+    }
+
+    public AiCandidateRepository(NamedParameterJdbcTemplate jdbc, ObjectMapper objectMapper,
+                                 OfficialOptionWriter officialOptionWriter) {
         this.jdbc = jdbc;
         this.objectMapper = objectMapper;
+        this.officialOptionWriter = officialOptionWriter;
+    }
+
+    @FunctionalInterface
+    public interface OfficialOptionWriter {
+        void write(byte[] questionId, List<AiCandidateDtos.Option> options);
     }
 
     public String create(AiGenerationReceiptRepository.Receipt receipt, int questionIndex, byte[] actorId, String auditRequestId) {
@@ -275,8 +295,7 @@ public class AiCandidateRepository {
                 .addValue("difficulty", candidate.difficulty().toLowerCase(Locale.ROOT)).addValue("topic", candidate.topic() == null ? candidate.generationQuery() : candidate.topic())
                 .addValue("hash", sha256(candidate.questionText() + "\n" + candidate.explanation())));
         List<AiCandidateDtos.Option> options = detail(candidate.idString()).options();
-        for (AiCandidateDtos.Option option : options) jdbc.update("INSERT INTO exam_mcq_options (question_internal_id,option_key,option_text,is_correct,order_in_question) VALUES (:id,:key,:text,:correct,:order)",
-                p().addValue("id", questionId).addValue("key", option.id()).addValue("text", option.text()).addValue("correct", option.correct()).addValue("order", option.displayOrder()));
+        officialOptionWriter.write(questionId, options);
         List<AiCandidateDtos.Source> sources = detail(candidate.idString()).sources();
         int order = 0;
         for (AiCandidateDtos.Source source : sources) {

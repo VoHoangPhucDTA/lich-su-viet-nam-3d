@@ -1,6 +1,6 @@
 # AI Service security and provenance
 
-> Goal 13D verified fail-closed provenance failures, runtime-only secrets, sanitized logs/metrics, no internal API strings in the frontend bundle, and no host-published MySQL/FastAPI ports.
+> Goal 13D verified fail-closed provenance failures, runtime-only secrets, sanitized logs/metrics, no internal API strings in the frontend bundle, and no host-published MySQL/FastAPI ports. Goal 13E adds a test/e2e-only deterministic provider rejected by production settings.
 
 ## Permission matrix
 

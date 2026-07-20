@@ -1,6 +1,18 @@
 # AI Service RAG — Runbook
 
-> Goal 13D local stack: copy `.env.ai-e2e.example` to an untracked local file, fill test-only values, then run `docker compose --env-file .env.ai-e2e.local -f compose.ai-e2e.yml up -d --build --wait`. Full checks and seed guidance are in `AI_SERVICE_E2E_AND_DEPLOYMENT_READINESS.md`.
+## Goal 13F teacher evaluation operations
+
+Run no-provider validation from `ai-service/`: `python -m scripts.build_teacher_evaluation_sample --offline-preflight`. Only after explicit cost/quota approval use `--execute --allow-provider-call`; cache hits are reused, failures remain recorded, and no unbounded retry occurs. From repository root, export one offline package per `GVxx`, then import and analyze:
+
+```powershell
+python scripts/evaluation/export_teacher_review.py --sample artifacts/teacher-evaluation/sample.jsonl --output-dir artifacts/teacher-evaluation/GV01 --evaluator-id GV01 --seed '<controlled-study-seed>'
+python scripts/evaluation/import_teacher_reviews.py --sample artifacts/teacher-evaluation/sample.jsonl --reviews '<approved-path>/teacher-reviews.csv' --output-dir artifacts/teacher-evaluation
+python scripts/evaluation/analyze_teacher_reviews.py --sample artifacts/teacher-evaluation/sample.jsonl --reviews artifacts/teacher-evaluation/results/teacher-reviews.jsonl --output-dir artifacts/teacher-evaluation
+```
+
+The HTML is static and needs no Gemini key. Keep identity mappings outside Git. Import errors are corrected in the source form, never silently repaired. Without real reviews analysis exits `Teacher evaluation: NOT YET COLLECTED`; ratings never invoke approval or publish. See `AI_TEACHER_EVALUATION_PROTOCOL.md`.
+
+> Goal 13D local stack remains available. For Goal 13E deterministic verification run `.\scripts\e2e\run-ai-e2e.ps1 -Repeat 2` (or `./scripts/e2e/run-ai-e2e.sh --repeat 2`); it creates/cleans temporary secrets and reports under ignored `artifacts/e2e/`.
 
 Các lệnh dưới đây chạy từ `D:/KLTN/lich-su-viet-nam-3d/ai-service` trên Python 3.10+.
 

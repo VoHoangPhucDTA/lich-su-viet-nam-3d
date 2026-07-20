@@ -26,6 +26,9 @@ class Settings(BaseSettings):
     )
 
     app_env: str = "development"
+    deterministic_e2e_provider: bool = Field(
+        default=False, validation_alias="AI_DETERMINISTIC_E2E_PROVIDER"
+    )
     host: str = Field(default="127.0.0.1", validation_alias="AI_SERVICE_HOST")
     port: int = Field(default=8001, ge=1, le=65535, validation_alias="AI_SERVICE_PORT")
     log_level: str = "INFO"
@@ -134,6 +137,14 @@ class Settings(BaseSettings):
     def validate_quiz_limits(self) -> "Settings":
         if self.quiz_max_count < self.quiz_default_count:
             raise ValueError("QUIZ_MAX_COUNT must be >= QUIZ_DEFAULT_COUNT")
+        return self
+
+    @model_validator(mode="after")
+    def guard_deterministic_e2e_provider(self) -> "Settings":
+        if self.deterministic_e2e_provider and self.app_env.casefold() not in {"test", "e2e"}:
+            raise ValueError(
+                "AI_DETERMINISTIC_E2E_PROVIDER is permitted only when APP_ENV is test or e2e"
+            )
         return self
 
 

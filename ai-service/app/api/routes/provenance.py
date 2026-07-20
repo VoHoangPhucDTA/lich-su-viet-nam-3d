@@ -38,6 +38,10 @@ def provenance_validate(
     settings: Annotated[Settings, Depends(get_request_settings)],
 ) -> ProvenanceValidationResponse:
     try:
+        if settings.deterministic_e2e_provider:
+            from app.e2e.deterministic import validate_deterministic_provenance
+
+            return validate_deterministic_provenance(request)
         return validate_provenance(request, settings)
     except RetrievalNotReadyError as exc:
         raise HTTPException(status_code=status.HTTP_503_SERVICE_UNAVAILABLE, detail="Provenance index is unavailable") from exc
@@ -56,7 +60,12 @@ def canonical_source_search(
 ) -> CanonicalSourceSearchResponse:
     service = None
     try:
-        service = create_retrieval_service(settings)
+        if settings.deterministic_e2e_provider:
+            from app.e2e.deterministic import DeterministicRetrievalService
+
+            service = DeterministicRetrievalService()
+        else:
+            service = create_retrieval_service(settings)
         response = service.retrieve(RetrievalRequest(
             query=request.query,
             grade=request.grade,

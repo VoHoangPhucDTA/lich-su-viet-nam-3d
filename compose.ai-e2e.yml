@@ -23,17 +23,14 @@ services:
     build:
       context: ./ai-service
     environment:
-      APP_ENV: test
+      TZ: Asia/Ho_Chi_Minh
+      APP_ENV: e2e
+      AI_DETERMINISTIC_E2E_PROVIDER: "true"
       AI_SERVICE_HOST: 0.0.0.0
       AI_SERVICE_PORT: 8001
       AI_SERVICE_INTERNAL_TOKEN: ${AI_E2E_INTERNAL_TOKEN:?set in an untracked environment file}
-      GEMINI_API_KEY: ${GEMINI_API_KEY:?set in an untracked environment file}
-      GEMINI_GENERATION_MODEL: gemini-2.5-flash
-      CHROMA_PERSIST_DIR: /app/storage/chroma
-      SGK_CHUNKS_PATH: /app/data/corpus/sgk_chunks.jsonl
-    volumes:
-      - ./ai-service/data/corpus:/app/data/corpus:ro
-      - ./ai-service/storage/chroma:/app/storage/chroma
+      GEMINI_API_KEY: ""
+      GEMINI_GENERATION_MODEL: ""
     healthcheck:
       test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8001/ai/health', timeout=3)"]
       interval: 10s
@@ -46,6 +43,7 @@ services:
       context: .
       dockerfile: backend/Dockerfile
     environment:
+      TZ: Asia/Ho_Chi_Minh
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/lichsuvn_ai_e2e?useSSL=false&connectionTimeZone=Asia/Ho_Chi_Minh&allowPublicKeyRetrieval=true
       SPRING_DATASOURCE_USERNAME: ai_e2e
       SPRING_DATASOURCE_PASSWORD: ${AI_E2E_MYSQL_PASSWORD:?set in an untracked environment file}
@@ -55,6 +53,7 @@ services:
       AI_SERVICE_BASE_URL: http://ai-service:8001
       AI_SERVICE_INTERNAL_TOKEN: ${AI_E2E_INTERNAL_TOKEN:?set in an untracked environment file}
       APP_MAIL_ENABLED: "false"
+      APP_COOKIE_SECURE: "false"
       MANAGEMENT_HEALTH_MAIL_ENABLED: "false"
       SPRING_FLYWAY_ENABLED: ${AI_E2E_FLYWAY_ENABLED:-true}
     depends_on:
