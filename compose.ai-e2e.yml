@@ -1,0 +1,90 @@
+name: lichsuvn-ai-e2e
+
+services:
+  mysql:
+    image: mysql:8.4.6
+    environment:
+      MYSQL_DATABASE: lichsuvn_ai_e2e
+      MYSQL_USER: ai_e2e
+      MYSQL_PASSWORD: ${AI_E2E_MYSQL_PASSWORD:?set in an untracked environment file}
+      MYSQL_RANDOM_ROOT_PASSWORD: "yes"
+      TZ: Asia/Ho_Chi_Minh
+    command: ["--character-set-server=utf8mb4", "--collation-server=utf8mb4_0900_ai_ci"]
+    volumes:
+      - ai-e2e-mysql:/var/lib/mysql
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -uai_e2e -p$$MYSQL_PASSWORD --silent"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+    networks: [internal]
+
+  ai-service:
+    build:
+      context: ./ai-service
+    environment:
+      TZ: Asia/Ho_Chi_Minh
+      APP_ENV: e2e
+      AI_DETERMINISTIC_E2E_PROVIDER: "true"
+      AI_SERVICE_HOST: 0.0.0.0
+      AI_SERVICE_PORT: 8001
+      AI_SERVICE_INTERNAL_TOKEN: ${AI_E2E_INTERNAL_TOKEN:?set in an untracked environment file}
+      GEMINI_API_KEY: ""
+      GEMINI_GENERATION_MODEL: ""
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8001/ai/health', timeout=3)"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    networks: [internal, outbound]
+
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    environment:
+      TZ: Asia/Ho_Chi_Minh
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/lichsuvn_ai_e2e?useSSL=false&connectionTimeZone=Asia/Ho_Chi_Minh&allowPublicKeyRetrieval=true
+      SPRING_DATASOURCE_USERNAME: ai_e2e
+      SPRING_DATASOURCE_PASSWORD: ${AI_E2E_MYSQL_PASSWORD:?set in an untracked environment file}
+      APP_JWT_SECRET: ${AI_E2E_JWT_SECRET:?set in an untracked environment file}
+      APP_FRONTEND_BASE_URL: http://localhost:15173
+      AI_SERVICE_ENABLED: "true"
+      AI_SERVICE_BASE_URL: http://ai-service:8001
+      AI_SERVICE_INTERNAL_TOKEN: ${AI_E2E_INTERNAL_TOKEN:?set in an untracked environment file}
+      APP_MAIL_ENABLED: "false"
+      APP_COOKIE_SECURE: "false"
+      MANAGEMENT_HEALTH_MAIL_ENABLED: "false"
+      SPRING_FLYWAY_ENABLED: ${AI_E2E_FLYWAY_ENABLED:-true}
+    depends_on:
+      mysql:
+        condition: service_healthy
+      ai-service:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "--fail", "--silent", "http://127.0.0.1:8080/actuator/health/liveness"]
+      interval: 10s
+      timeout: 5s
+      start_period: 40s
+      retries: 12
+    networks: [internal]
+
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+    ports:
+      - "127.0.0.1:15173:8080"
+    depends_on:
+      backend:
+        condition: service_healthy
+    networks: [internal, edge]
+
+volumes:
+  ai-e2e-mysql:
+
+networks:
+  internal:
+    internal: true
+  outbound:
+  edge:

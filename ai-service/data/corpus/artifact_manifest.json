@@ -1,0 +1,85 @@
+{
+  "version": "steps-5-6-v1",
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 3071,
+      "sha256": "42605f3237c6e9740a710a4a47b38ff0f2ecc01577f11773ecbc9150529417b6"
+    },
+    {
+      "path": "chunks/sgk_chunks.jsonl",
+      "bytes": 2558162,
+      "sha256": "a4bd330be7b4b43ac9da25966877fef51c66c0e14cc68baa7eccf46a63e15ab2"
+    },
+    {
+      "path": "chunks/sgk_chunks_compact.jsonl",
+      "bytes": 847519,
+      "sha256": "4ce8d7ed1a67a5bc101b17230ad4fd08d012316af0dc0744c15d984bf7a6faf9"
+    },
+    {
+      "path": "db_ready/chroma_records_local.jsonl",
+      "bytes": 2291169,
+      "sha256": "2330c72d5186135cfab92edf01772063bc34b6b7af0face3f60fb0c6381ac61c"
+    },
+    {
+      "path": "embeddings/local_tfidf_rp_256/chunk_ids.json",
+      "bytes": 19280,
+      "sha256": "8a9ebc46f9c68003f291f8547c9c7b28e2e41581b426b77972bc349b8ae42be3"
+    },
+    {
+      "path": "embeddings/local_tfidf_rp_256/embedding_records.jsonl",
+      "bytes": 1429863,
+      "sha256": "dfc3af2e2e51408b151da77ee5784605005ce4d50cab993a2a3a3e4600e9c6e4"
+    },
+    {
+      "path": "embeddings/local_tfidf_rp_256/embeddings.npy",
+      "bytes": 470144,
+      "sha256": "f6498304b32956a4034b3002a1edcc917cf83edfd70d02d38c128812bb5ac9ea"
+    },
+    {
+      "path": "models/local_embedding_model.joblib",
+      "bytes": 151032,
+      "sha256": "9825f558ed07a6255565e4e26002d8c1ee0d91e519f9a32f5c7f86d34ef1673d"
+    },
+    {
+      "path": "reports/chunk_audit_report.json",
+      "bytes": 156,
+      "sha256": "a08eb6f6d198190d9dee8e23dc7fbcb4453c72a829037a2cbbef74d563c417b1"
+    },
+    {
+      "path": "reports/chunk_statistics.json",
+      "bytes": 2624,
+      "sha256": "129da538aaabd5c099f023bf74d13dad1449756088d5e96fddd1db69c382103f"
+    },
+    {
+      "path": "reports/embedding_report.json",
+      "bytes": 760,
+      "sha256": "2aad8ea81555603eeec8f8bc3d86fe8c116b0fc4087cefa8eb244fc140c37ddd"
+    },
+    {
+      "path": "reports/retrieval_smoke_test.json",
+      "bytes": 19771,
+      "sha256": "13ee25b536d91ac1532877f45db4f31c7ff0b13382d75a4ec5ccaee23b1a667b"
+    },
+    {
+      "path": "scripts/build_chunks.py",
+      "bytes": 16119,
+      "sha256": "3bfbfed015172c8aff6e99d8941b01970a69fa1c072d5514c98566332cc5a94a"
+    },
+    {
+      "path": "scripts/build_gemini_embeddings.py",
+      "bytes": 3616,
+      "sha256": "f1cc523654139a081a49275c525a5744c78732c0f0e38fd4de3b7edf0f974cb4"
+    },
+    {
+      "path": "scripts/build_local_embeddings.py",
+      "bytes": 3696,
+      "sha256": "07c4bd67c7daa5fdc0e3fa44f5fa023955c3bb3cbe14b6c8b8c4d83c7fae107d"
+    },
+    {
+      "path": "scripts/query_local_embeddings.py",
+      "bytes": 1572,
+      "sha256": "d4149b83842c57e73211aa7af75daebfb713f1908400c7d2ed4a0d9067cd90a1"
+    }
+  ]
+}

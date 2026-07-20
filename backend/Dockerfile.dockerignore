@@ -1,0 +1,9 @@
+.git
+.env*
+ai-service
+data
+docs
+frontend
+backend/target
+backend/.idea
+backend/*.iml

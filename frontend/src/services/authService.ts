@@ -29,6 +29,8 @@ function toStoredUser(user: User): StoredUser {
     fullName: user.fullName,
     email: user.email,
     role: user.role,
+    roles: user.roles,
+    permissions: user.permissions,
     grade: user.grade,
     school: user.school,
     avatarUrl: user.avatarUrl,

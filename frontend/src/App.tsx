@@ -3,6 +3,7 @@ import { lazy, Suspense } from 'react';
 import { AuthProvider } from './auth/AuthContext';
 import ProtectedRoute from './auth/ProtectedRoute';
 import RoleGuard from './auth/RoleGuard';
+import PermissionGuard from './auth/PermissionGuard';
 import { HeaderProvider } from './components/layout/HeaderContext';
 import AppHeader from './components/layout/AppHeader';
 import { ThemeProvider } from './theme/ThemeContext';
@@ -56,6 +57,8 @@ const ApiCustomPracticeSessionRoutePage = lazy(() => import('./pages/exams/ApiCu
 const ApiFreePracticeRoutePage = lazy(() => import('./pages/exams/ApiPracticeRoutePages').then((module) => ({ default: module.ApiFreePracticeRoutePage })));
 const ApiRetryWrongRoutePage = lazy(() => import('./pages/exams/ApiPracticeRoutePages').then((module) => ({ default: module.ApiRetryWrongRoutePage })));
 const ApiTopicPracticeRoutePage = lazy(() => import('./pages/exams/ApiPracticeRoutePages').then((module) => ({ default: module.ApiTopicPracticeRoutePage })));
+const AdminAiCandidatesPage = lazy(() => import('./pages/admin/AdminAiCandidatesPage'));
+const AdminAiCandidateDetailPage = lazy(() => import('./pages/admin/AdminAiCandidateDetailPage'));
 
 const PersonalLearningDashboardPage = lazy(() => import('./features/dashboard/PersonalLearningDashboardPage'));
 
@@ -99,10 +102,10 @@ function AppContent() {
 
           {/* === Quiz routes === */}
           <Route path="/quiz" element={<QuizHomePage />} />
-          <Route path="/quiz/generate" element={<QuizGeneratePage />} />
-          <Route path="/quiz/session/:sessionId" element={<QuizSessionPage />} />
-          <Route path="/quiz/result/:sessionId" element={<QuizResultPage />} />
-          <Route path="/quiz/history" element={<QuizHistoryPage />} />
+          <Route path="/quiz/generate" element={<ProtectedRoute><QuizGeneratePage /></ProtectedRoute>} />
+          <Route path="/quiz/session/:sessionId" element={<ProtectedRoute><QuizSessionPage /></ProtectedRoute>} />
+          <Route path="/quiz/result/:sessionId" element={<ProtectedRoute><QuizResultPage /></ProtectedRoute>} />
+          <Route path="/quiz/history" element={<ProtectedRoute><QuizHistoryPage /></ProtectedRoute>} />
 
           {/* === Exams routes === */}
           <Route path="/exams" element={<ExamHomePage />} />
@@ -118,6 +121,7 @@ function AppContent() {
           <Route path="/exams/luyen-tap/:examId" element={<ApiFreePracticeRoutePage />} />
           <Route path="/exams/on-chu-de" element={<ApiTopicListPage />} />
           <Route path="/exams/on-chu-de/:topicSlug" element={<ApiTopicPracticeRoutePage />} />
+          <Route path="/exams/ai" element={<Navigate to="/quiz/generate" replace />} />
           <Route path="/exams/ket-qua/:sessionId" element={<ExamV2ResultPage />} />
           <Route path="/exams/on-lai/:sessionId" element={<ApiRetryWrongRoutePage />} />
           <Route path="/exams/lich-su" element={<ExamV2HistoryPage />} />
@@ -143,6 +147,8 @@ function AppContent() {
           <Route path="/admin/dashboard" element={<ProtectedRoute><RoleGuard requiredRole="admin"><AdminDashboardPage /></RoleGuard></ProtectedRoute>} />
           <Route path="/admin/users" element={<ProtectedRoute><RoleGuard requiredRole="admin"><AdminUsersPage /></RoleGuard></ProtectedRoute>} />
           <Route path="/admin/events" element={<ProtectedRoute><RoleGuard requiredRole="admin"><AdminEventsPage /></RoleGuard></ProtectedRoute>} />
+          <Route path="/admin/exams/ai-candidates" element={<ProtectedRoute><PermissionGuard permission="AI_CANDIDATE_VIEW"><AdminAiCandidatesPage /></PermissionGuard></ProtectedRoute>} />
+          <Route path="/admin/exams/ai-candidates/:id" element={<ProtectedRoute><PermissionGuard permission="AI_CANDIDATE_VIEW"><AdminAiCandidateDetailPage /></PermissionGuard></ProtectedRoute>} />
           <Route path="/admin/questions" element={<Navigate to="/admin/events" replace />} />
         </Routes>
         </Suspense>

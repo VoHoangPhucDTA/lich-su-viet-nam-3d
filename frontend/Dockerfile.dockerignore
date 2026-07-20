@@ -1,0 +1,7 @@
+.git
+.env*
+ai-service
+backend
+frontend/node_modules
+frontend/dist
+frontend/coverage

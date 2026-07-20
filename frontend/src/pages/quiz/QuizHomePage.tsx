@@ -84,7 +84,7 @@ export default function QuizHomePage() {
         <PublicPageHeader
           eyebrow="Ôn luyện lịch sử"
           title="Trắc nghiệm lịch sử với AI"
-          description="Tạo bài luyện tập theo sự kiện, chủ đề hoặc khối lớp và theo dõi tiến độ học tập của bạn."
+          description="Tạo bài luyện tập bằng AI từ nguồn SGK Lịch sử lớp 10–12 và theo dõi tiến độ học tập của bạn."
           showBack
           action={(
             <span className="inline-flex items-center gap-2 rounded-[var(--admin-radius)] border border-[var(--border)] bg-[var(--bg-card)] px-3 py-2 text-xs font-semibold text-[var(--text-muted)]">
@@ -100,7 +100,7 @@ export default function QuizHomePage() {
               Luyện đúng trọng tâm, hiểu rõ từng đáp án
             </h2>
             <p className="mt-4 max-w-xl text-sm leading-7 text-[var(--text-secondary)] sm:text-base">
-              Cấu hình phạm vi kiến thức, số câu và mức độ nhận thức. Mỗi kết quả đều có lời giải cùng nguồn tham khảo để bạn tự học hiệu quả hơn.
+              Nhập chủ đề, chọn độ khó và số câu. Mỗi kết quả đều có lời giải cùng nguồn SGK để bạn tự học hiệu quả hơn.
             </p>
             <div className="mt-7 flex flex-wrap gap-3">
               <Link to="/quiz/generate" className="public-primary-button no-underline">
@@ -135,7 +135,7 @@ export default function QuizHomePage() {
             <ActionCard
               to="/quiz/generate"
               title="Tạo bài mới"
-              description="Tùy chỉnh phạm vi, độ khó, mức độ nhận thức và số lượng câu hỏi."
+              description="Nhập chủ đề, chọn độ khó và số lượng câu hỏi cần luyện tập."
               icon={BrainCircuit}
             />
             <ActionCard
@@ -143,12 +143,6 @@ export default function QuizHomePage() {
               title="Lịch sử làm bài"
               description="Xem lại điểm số, lời giải và các nguồn kiến thức của những bài đã hoàn thành."
               icon={History}
-            />
-            <ActionCard
-              to="/quiz/generate?mode=weakness"
-              title="Ôn theo điểm yếu"
-              description="Bắt đầu cấu hình một bài luyện tập mới tập trung vào nội dung cần củng cố."
-              icon={Target}
             />
           </div>
         </section>

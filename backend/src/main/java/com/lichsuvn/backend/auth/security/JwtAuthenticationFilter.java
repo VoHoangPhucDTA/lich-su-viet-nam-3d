@@ -10,6 +10,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
+import com.lichsuvn.backend.exam.ai.review.security.AiCandidateAuthorization;
 
 import java.io.IOException;
 
@@ -50,8 +51,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
                         principal,
                         null,
-                        principal.roles().stream()
-                                .map(role -> new SimpleGrantedAuthority("ROLE_" + role))
+                        java.util.stream.Stream.concat(
+                                principal.roles().stream().map(role -> "ROLE_" + role),
+                                AiCandidateAuthorization.names(principal.roles()).stream())
+                                .map(SimpleGrantedAuthority::new)
                                 .toList()
                 );
                 SecurityContextHolder.getContext().setAuthentication(authentication);

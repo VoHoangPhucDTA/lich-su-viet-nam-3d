@@ -1,278 +1,111 @@
-import {
-  BookOpen,
-  BrainCircuit,
-  Flag,
-  GraduationCap,
-  Layers3,
-  Network,
-  Settings2,
-} from 'lucide-react';
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { BookOpen, BrainCircuit, ChevronDown } from 'lucide-react';
+import { useRef, useState } from 'react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useAuth } from '../../auth/AuthContext';
 import PublicPageHeader from '../../components/public/PublicPageHeader';
-import MuseumSelect, { type MuseumSelectOption } from '../../components/shared/MuseumSelect';
 import QuizGenerationLoading from '../../components/quiz/QuizGenerationLoading';
-import QuizSelectionCard from '../../components/quiz/QuizSelectionCard';
 import * as quizService from '../../services/quizService';
-import type {
-  CognitiveLevel,
-  QuizConfig,
-  QuizGrade,
-  QuizSourceMode,
-} from '../../types/quiz';
+import { getQuizAiErrorMessage } from '../../services/quizAiApi';
+import type { QuizConfig, QuizDifficulty } from '../../types/quiz';
 
-const SCOPE_OPTIONS: Array<{
-  value: QuizSourceMode;
-  label: string;
-  description: string;
-  icon: typeof Layers3;
-}> = [
-  { value: 'mixed', label: 'Nội dung tổng hợp', description: 'Trộn nhiều phạm vi kiến thức', icon: Layers3 },
-  { value: 'event', label: 'Theo sự kiện', description: 'Tập trung vào một sự kiện', icon: Flag },
-  { value: 'topic', label: 'Theo chủ đề', description: 'Ôn theo chuyên đề lịch sử', icon: BookOpen },
-  { value: 'period', label: 'Theo giai đoạn', description: 'Chọn một thời kỳ lịch sử', icon: Network },
-  { value: 'grade', label: 'Theo lớp học', description: 'Bám sát chương trình 10–12', icon: GraduationCap },
+const PRESET_COUNTS = [3, 5, 10];
+const PRESET_TOPICS = [
+  { label: 'Cách mạng tháng Tám năm 1945', value: 'Cách mạng tháng Tám năm 1945' },
+  { label: 'Chiến thắng Điện Biên Phủ năm 1954', value: 'Chiến thắng Điện Biên Phủ năm 1954' },
+  { label: 'Kháng chiến chống Mỹ cứu nước', value: 'Kháng chiến chống Mỹ cứu nước' },
+  { label: 'ASEAN và quan hệ quốc tế', value: 'ASEAN và quan hệ quốc tế' },
+  { label: 'Văn minh Đại Việt', value: 'Văn minh Đại Việt' },
+  { label: 'Công cuộc Đổi mới từ năm 1986', value: 'Công cuộc Đổi mới từ năm 1986' },
 ];
-
-const TOPICS = [
-  'Cách mạng tháng Tám 1945',
-  'Chiến dịch Điện Biên Phủ 1954',
-  'ASEAN',
-  'Trật tự hai cực I-an-ta',
-  'Văn minh Đại Việt',
-  'Biển Đông',
-];
-
-const PERIODS = ['Cổ - trung đại', 'Cận đại', 'Hiện đại', '1945–1954', '1954–1975', '1975–nay'];
-const PRESET_COUNTS = [5, 10, 15, 20];
-
-const COGNITIVE_OPTIONS: Array<{ value: CognitiveLevel; label: string }> = [
-  { value: 'knowledge', label: 'Nhận biết' },
-  { value: 'comprehension', label: 'Thông hiểu' },
-  { value: 'application', label: 'Vận dụng' },
-  { value: 'mixed', label: 'Trộn mức độ' },
-];
-
-const TOPIC_OPTIONS: MuseumSelectOption<string>[] = [
-  { value: '', label: 'Chọn nội dung' },
-  ...TOPICS.map(value => ({ value, label: value })),
-];
-
-const PERIOD_OPTIONS: MuseumSelectOption<string>[] = [
-  { value: '', label: 'Chọn giai đoạn lịch sử' },
-  ...PERIODS.map(value => ({ value, label: value })),
-];
-
-function FormSection({
-  title,
-  description,
-  children,
-}: {
-  title: string;
-  description?: string;
-  children: React.ReactNode;
-}) {
-  return (
-    <section className="quiz-form-section">
-      <div className="mb-4">
-        <h2 className="serif-heading text-2xl font-bold text-[var(--text-primary)]">{title}</h2>
-        {description && <p className="mt-1 text-sm leading-6 text-[var(--text-muted)]">{description}</p>}
-      </div>
-      {children}
-    </section>
-  );
-}
 
 export default function QuizGeneratePage() {
   const { currentUser } = useAuth();
   const navigate = useNavigate();
-  const [sourceMode, setSourceMode] = useState<QuizSourceMode>('mixed');
-  const [grade, setGrade] = useState<QuizGrade>('all');
-  const [selectedTopic, setSelectedTopic] = useState('');
-  const [selectedPeriod, setSelectedPeriod] = useState('');
-  const [questionCount, setQuestionCount] = useState<number | string>(10);
-  const [cognitiveLevel, setCognitiveLevel] = useState<CognitiveLevel>('mixed');
+  const [searchParams] = useSearchParams();
+  const [query, setQuery] = useState(() => searchParams.get('q')?.slice(0, 1000) ?? '');
+  const [difficulty, setDifficulty] = useState<QuizDifficulty>('medium');
+  const [questionCount, setQuestionCount] = useState<number | string>(5);
   const [isGenerating, setIsGenerating] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const abortRef = useRef<AbortController | null>(null);
 
   const handleGenerate = async () => {
-    setError(null);
+    if (isGenerating) return;
     const count = typeof questionCount === 'string' ? Number.parseInt(questionCount, 10) : questionCount;
-    if (!Number.isFinite(count) || count < 1 || count > 100) {
-      setError('Số lượng câu hỏi phải nằm trong khoảng từ 1 đến 100.');
-      return;
-    }
-
+    if (!query.trim() || query.length > 1000) { setError('Chủ đề hoặc yêu cầu phải có từ 1 đến 1.000 ký tự.'); return; }
+    if (!Number.isInteger(count) || count < 1 || count > 10) { setError('Số câu phải nằm trong khoảng từ 1 đến 10.'); return; }
+    setError(null);
     setIsGenerating(true);
+    const controller = new AbortController();
+    abortRef.current = controller;
     try {
-      const config: QuizConfig = {
-        questionCount: count,
-        difficulty: 'mixed',
-        sourceMode,
-        grade: grade === 'all' ? undefined : grade,
-        topic: selectedTopic || undefined,
-        cognitiveLevel,
-        source: 'textbook',
-        timeLimitMinutes: 15,
-      };
-      const session = await quizService.generateQuiz(config, currentUser?.id ?? 'guest');
+      const config: QuizConfig = { query: query.trim(), difficulty, questionCount: count, timeLimitMinutes: 15 };
+      const session = await quizService.generateQuiz(config, currentUser?.id ?? 'guest', controller.signal);
       navigate(`/quiz/session/${session.sessionId}`);
     } catch (requestError) {
-      setError(requestError instanceof Error
-        ? requestError.message
-        : 'Không thể tạo bài trắc nghiệm. Hãy thử một phạm vi rộng hơn.');
+      if (!(requestError instanceof DOMException && requestError.name === 'AbortError')) setError(getQuizAiErrorMessage(requestError));
     } finally {
+      abortRef.current = null;
       setIsGenerating(false);
     }
   };
 
-  const count = typeof questionCount === 'string' ? questionCount || 'Tùy chỉnh' : questionCount;
-  const scopeLabel = SCOPE_OPTIONS.find(option => option.value === sourceMode)?.label ?? sourceMode;
-  const detailLabel = selectedTopic || selectedPeriod || (grade === 'all' ? 'Tất cả khối lớp' : `Lớp ${grade}`);
-  const cognitiveLabel = COGNITIVE_OPTIONS.find(option => option.value === cognitiveLevel)?.label ?? cognitiveLevel;
-
   return (
     <div className="public-shell quiz-shell">
-      <main className="public-content space-y-7">
-        <PublicPageHeader
-          eyebrow="Tạo bài luyện tập"
-          title="Tạo bài trắc nghiệm lịch sử"
-          description="Chọn phạm vi kiến thức, số lượng câu hỏi và mức độ nhận thức phù hợp với mục tiêu ôn tập."
-          showBack
-          backFallback="/quiz"
-        />
-
-        <div className="quiz-create-layout">
-          <div className="space-y-5">
-            {error && (
-              <div className="quiz-alert" role="alert">
-                <span className="quiz-alert-icon"><BrainCircuit size={18} aria-hidden="true" /></span>
-                <span>{error}</span>
-              </div>
-            )}
-
-            <FormSection title="Phạm vi câu hỏi" description="Bạn muốn ôn tập theo nhóm kiến thức nào?">
-              <div className="quiz-selection-grid">
-                {SCOPE_OPTIONS.map(option => (
-                  <QuizSelectionCard
-                    key={option.value}
-                    title={option.label}
-                    description={option.description}
-                    icon={option.icon}
-                    selected={sourceMode === option.value}
-                    onClick={() => setSourceMode(option.value)}
-                  />
-                ))}
-              </div>
-
-              <div className="mt-4">
-                {sourceMode === 'grade' && (
-                  <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
-                    {(['all', 10, 11, 12] as QuizGrade[]).map(value => (
-                      <QuizSelectionCard
-                        key={value}
-                        title={value === 'all' ? 'Tất cả' : `Lớp ${value}`}
-                        selected={grade === value}
-                        onClick={() => setGrade(value)}
-                        compact
-                      />
-                    ))}
-                  </div>
-                )}
-                {(sourceMode === 'topic' || sourceMode === 'event') && (
-                  <MuseumSelect
-                    value={selectedTopic}
-                    options={TOPIC_OPTIONS}
-                    onValueChange={setSelectedTopic}
-                    label={sourceMode === 'event' ? 'Chọn sự kiện' : 'Chọn chủ đề'}
-                  />
-                )}
-                {sourceMode === 'period' && (
-                  <MuseumSelect
-                    value={selectedPeriod}
-                    options={PERIOD_OPTIONS}
-                    onValueChange={setSelectedPeriod}
-                    label="Chọn giai đoạn lịch sử"
-                  />
-                )}
-              </div>
-            </FormSection>
-
-            <div className="grid gap-5 lg:grid-cols-2">
-              <FormSection title="Số lượng câu hỏi" description="Chọn quy mô bài luyện tập của bạn.">
-                <div className="flex flex-wrap gap-2">
-                  {PRESET_COUNTS.map(value => (
-                    <button
-                      key={value}
-                      type="button"
-                      className={`quiz-count-button ${questionCount === value ? 'quiz-count-button-selected' : ''}`}
-                      onClick={() => setQuestionCount(value)}
-                    >
-                      {value} câu
-                    </button>
-                  ))}
-                  <label className="quiz-number-input">
-                    <span className="sr-only">Số câu tùy chỉnh</span>
-                    <input
-                      type="number"
-                      min={1}
-                      max={100}
-                      value={typeof questionCount === 'string' ? questionCount : ''}
-                      onChange={event => setQuestionCount(event.target.value)}
-                      placeholder="Khác"
-                    />
-                  </label>
-                </div>
-              </FormSection>
-
-              <FormSection title="Mức độ nhận thức" description="Chọn yêu cầu tư duy phù hợp với mục tiêu luyện tập.">
-                <div className="grid grid-cols-2 gap-2">
-                  {COGNITIVE_OPTIONS.map(({ value, label }) => (
-                    <QuizSelectionCard
-                      key={value}
-                      title={label}
-                      selected={cognitiveLevel === value}
-                      onClick={() => setCognitiveLevel(value)}
-                      compact
-                    />
-                  ))}
-                </div>
-              </FormSection>
+      <main className="public-content-narrow space-y-7">
+        <PublicPageHeader eyebrow="Tạo bài luyện tập" title="Câu hỏi tạo bởi AI từ nguồn SGK"
+          description="Nhập chủ đề bạn muốn ôn tập. Hệ thống sẽ tìm trong toàn bộ SGK Lịch sử lớp 10–12 và tạo câu hỏi có giải thích, trích nguồn."
+          showBack backFallback="/quiz" />
+        {error && <div className="quiz-alert" role="alert"><span>{error}</span></div>}
+        <section className="public-card quiz-generate-card">
+          <div className="quiz-generate-section-heading">
+            <span className="quiz-preview-icon"><BookOpen size={19} aria-hidden="true" /></span>
+            <div>
+              <h2>Chủ đề hoặc yêu cầu</h2>
+              <p>Chọn một chủ đề gợi ý hoặc viết yêu cầu riêng để AI tìm trong nguồn SGK.</p>
             </div>
           </div>
-
-          <aside className="quiz-config-sidebar">
-            <section className="quiz-form-section">
-              <div className="flex items-center gap-3">
-                <span className="quiz-preview-icon"><Settings2 size={20} aria-hidden="true" /></span>
-                <div>
-                  <p className="public-eyebrow">Cấu hình hiện tại</p>
-                  <h2 className="serif-heading text-2xl font-bold">Bài luyện tập của bạn</h2>
-                </div>
+          <div className="quiz-topic-picker">
+            <label htmlFor="quiz-topic-preset">Chủ đề có sẵn <span>(không bắt buộc)</span></label>
+            <div className="quiz-topic-select-wrap">
+              <select id="quiz-topic-preset" value={PRESET_TOPICS.some(topic => topic.value === query) ? query : ''}
+                onChange={event => event.target.value && setQuery(event.target.value)}>
+                <option value="">Chọn nhanh một chủ đề…</option>
+                {PRESET_TOPICS.map(topic => <option key={topic.value} value={topic.value}>{topic.label}</option>)}
+              </select>
+              <ChevronDown size={16} aria-hidden="true" />
+            </div>
+          </div>
+          <div className="quiz-query-field">
+            <label htmlFor="quiz-query">Nội dung muốn ôn tập</label>
+            <textarea id="quiz-query" value={query} maxLength={1000} onChange={event => setQuery(event.target.value)}
+              placeholder="Ví dụ: Phân tích nguyên nhân thắng lợi của Cách mạng tháng Tám năm 1945" />
+            <div className="quiz-field-helper"><span>AI sẽ tìm kiếm trên SGK Lịch sử lớp 10–12</span><span>{query.length}/1000</span></div>
+          </div>
+          <div className="quiz-generate-options">
+            <div className="quiz-option-field">
+              <label htmlFor="quiz-difficulty">Độ khó</label>
+              <select id="quiz-difficulty" value={difficulty} onChange={event => setDifficulty(event.target.value as QuizDifficulty)}>
+                <option value="easy">Dễ</option><option value="medium">Trung bình</option><option value="hard">Khó</option>
+              </select>
+            </div>
+            <div className="quiz-option-field">
+              <span>Số câu</span>
+              <div className="quiz-count-picker">
+                {PRESET_COUNTS.map(value => <button key={value} type="button" className={`quiz-count-button ${questionCount === value ? 'quiz-count-button-selected' : ''}`} onClick={() => setQuestionCount(value)}>{value} câu</button>)}
+                <input aria-label="Số câu tùy chỉnh" type="number" min={1} max={10} value={typeof questionCount === 'string' ? questionCount : ''} placeholder="Khác" onChange={event => setQuestionCount(event.target.value)} />
               </div>
-              <dl className="quiz-config-list">
-                <div><dt>Phạm vi</dt><dd>{scopeLabel}</dd></div>
-                <div><dt>Nội dung</dt><dd>{detailLabel}</dd></div>
-                <div><dt>Số câu</dt><dd>{count}</dd></div>
-                <div><dt>Mức độ</dt><dd>{cognitiveLabel}</dd></div>
-                <div><dt>Thời gian</dt><dd>15 phút</dd></div>
-              </dl>
-              <button
-                type="button"
-                onClick={() => void handleGenerate()}
-                disabled={isGenerating}
-                className="public-primary-button mt-5 w-full"
-              >
-                <BrainCircuit size={17} aria-hidden="true" />
-                Tạo bài trắc nghiệm
-              </button>
-            </section>
-
-          </aside>
-        </div>
+            </div>
+          </div>
+          <div className="quiz-generate-footer">
+            <p><strong>15 phút</strong><span>Thời gian làm bài cố định</span></p>
+            <button type="button" onClick={() => void handleGenerate()} disabled={isGenerating || !query.trim()} className="public-primary-button">
+              <BrainCircuit size={17} aria-hidden="true" /> Tạo bài luyện tập
+            </button>
+          </div>
+        </section>
       </main>
-      {isGenerating && <QuizGenerationLoading />}
+      {isGenerating && <QuizGenerationLoading onCancel={() => abortRef.current?.abort()} />}
     </div>
   );
 }

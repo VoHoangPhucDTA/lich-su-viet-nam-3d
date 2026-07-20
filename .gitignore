@@ -1,0 +1,4 @@
+artifacts/e2e/
+artifacts/teacher-evaluation/
+.env.ai-e2e
+**/__pycache__/

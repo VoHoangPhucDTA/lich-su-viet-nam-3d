@@ -29,22 +29,15 @@ const DIFFICULTY_OPTIONS: MuseumSelectOption<string>[] = [
   { value: 'easy', label: 'Dễ' },
   { value: 'medium', label: 'Trung bình' },
   { value: 'hard', label: 'Khó' },
-  { value: 'mixed', label: 'Trộn mức độ' },
 ];
 
-const GRADE_OPTIONS: MuseumSelectOption<string>[] = [
-  { value: 'all', label: 'Tất cả khối lớp' },
-  { value: '10', label: 'Lớp 10' },
-  { value: '11', label: 'Lớp 11' },
-  { value: '12', label: 'Lớp 12' },
-];
+const DIFFICULTY_LABELS: Record<string, string> = { easy: 'Dễ', medium: 'Trung bình', hard: 'Khó' };
 
 export default function QuizHistoryPage() {
   const { currentUser } = useAuth();
   const [history, setHistory] = useState<QuizResult[]>([]);
   const [loading, setLoading] = useState(true);
   const [filterDifficulty, setFilterDifficulty] = useState('all');
-  const [filterGrade, setFilterGrade] = useState('all');
 
   useEffect(() => {
     let cancelled = false;
@@ -61,7 +54,6 @@ export default function QuizHistoryPage() {
 
   const filteredHistory = history.filter(item => {
     if (filterDifficulty !== 'all' && item.config.difficulty !== filterDifficulty) return false;
-    if (filterGrade !== 'all' && item.config.grade && String(item.config.grade) !== filterGrade) return false;
     return true;
   });
 
@@ -85,12 +77,6 @@ export default function QuizHistoryPage() {
               onValueChange={setFilterDifficulty}
               label="Lọc theo độ khó"
             />
-            <MuseumSelect
-              value={filterGrade}
-              options={GRADE_OPTIONS}
-              onValueChange={setFilterGrade}
-              label="Lọc theo khối lớp"
-            />
           </div>
         </section>
 
@@ -109,7 +95,7 @@ export default function QuizHistoryPage() {
           </div>
         ) : filteredHistory.length === 0 ? (
           <div className="public-card">
-            <EmptyState title="Không có kết quả phù hợp" description="Hãy thay đổi bộ lọc độ khó hoặc khối lớp." />
+            <EmptyState title="Không có kết quả phù hợp" description="Hãy thay đổi bộ lọc độ khó." />
           </div>
         ) : (
           <div className="space-y-3">
@@ -122,12 +108,11 @@ export default function QuizHistoryPage() {
                     <span className="inline-flex items-center gap-1"><Clock3 size={13} aria-hidden="true" />{formatTime(item.totalTimeMs)}</span>
                   </div>
                   <h2 className="serif-heading mt-2 text-xl font-bold text-[var(--text-primary)]">
-                    {item.config.topic || 'Bài luyện tập tổng hợp'}
+                    {item.config.query || 'Bài luyện tập tổng hợp'}
                   </h2>
                   <div className="mt-2 flex flex-wrap gap-2">
                     <span className="quiz-badge">{item.totalQuestions} câu</span>
-                    {item.config.grade && <span className="quiz-badge">Lớp {item.config.grade}</span>}
-                    <span className="quiz-badge">{item.config.difficulty}</span>
+                    <span className="quiz-badge">{DIFFICULTY_LABELS[item.config.difficulty] ?? item.config.difficulty}</span>
                   </div>
                 </div>
                 <div className="quiz-history-score">

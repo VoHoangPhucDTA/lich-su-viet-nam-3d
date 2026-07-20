@@ -13,6 +13,7 @@ import {
 } from 'lucide-react';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { useAuth } from '../../auth/AuthContext';
 import * as quizService from '../../services/quizService';
 import type { QuestionStatus, QuizAnswer, QuizSession } from '../../types/quiz';
 
@@ -114,6 +115,7 @@ function ProgressPanel({
 }
 
 export default function QuizSessionPage() {
+  const { currentUser } = useAuth();
   const { sessionId } = useParams<{ sessionId: string }>();
   const navigate = useNavigate();
   const [session, setSession] = useState<QuizSession | null>(null);
@@ -133,7 +135,7 @@ export default function QuizSessionPage() {
         return;
       }
       try {
-        const data = await quizService.getQuizSession(sessionId);
+        const data = await quizService.getQuizSession(sessionId, currentUser?.id);
         if (cancelled) return;
         if (!data) setError('Không tìm thấy phiên làm bài này.');
         else if (data.submittedAt) navigate(`/quiz/result/${sessionId}`, { replace: true });
@@ -191,13 +193,13 @@ export default function QuizSessionPage() {
     setIsSubmitting(true);
     setShowConfirm(false);
     try {
-      await quizService.submitQuiz(session.sessionId, session.answers);
+      await quizService.submitQuiz(session.sessionId, session.answers, currentUser?.id);
       navigate(`/quiz/result/${session.sessionId}`, { replace: true });
     } catch {
       window.alert('Có lỗi xảy ra khi nộp bài. Vui lòng thử lại.');
       setIsSubmitting(false);
     }
-  }, [isSubmitting, navigate, session]);
+  }, [currentUser?.id, isSubmitting, navigate, session]);
 
   const handleTimeUp = useCallback(() => {
     if (timeUpTriggered.current) return;
@@ -251,7 +253,7 @@ export default function QuizSessionPage() {
           <span className="quiz-preview-icon"><BookOpenCheck size={19} aria-hidden="true" /></span>
           <div className="min-w-0">
             <h1 className="truncate text-sm font-bold text-[var(--text-primary)]">Đề trắc nghiệm lịch sử</h1>
-            <p className="text-xs text-[var(--text-muted)]">{session.questions.length} câu · MVP Mock</p>
+            <p className="text-xs text-[var(--text-muted)]">{session.questions.length} câu · Câu hỏi tạo bởi AI từ nguồn SGK</p>
           </div>
         </div>
         <div className="ml-auto flex items-center gap-2">
@@ -268,6 +270,7 @@ export default function QuizSessionPage() {
 
       <div className="quiz-session-body">
         <main className="quiz-question-area">
+          {session.generation?.partial && <div className="quiz-alert mb-4" role="status">Chỉ tạo được {session.generation.generatedCount}/{session.generation.requestedCount} câu phù hợp với nguồn SGK.</div>}
           <div className="quiz-question-container">
             <div className="flex flex-wrap items-start justify-between gap-3">
               <div>
@@ -277,7 +280,7 @@ export default function QuizSessionPage() {
                 </h2>
               </div>
               <div className="flex flex-wrap gap-2">
-                {currentQuestion.grade !== 'all' && <span className="quiz-badge">Lớp {currentQuestion.grade}</span>}
+                <span className="quiz-badge">{currentQuestion.grade === 'all' ? 'Lớp 10–12' : `Lớp ${currentQuestion.grade}`}</span>
                 <span className="quiz-badge">{difficultyLabel}</span>
                 {currentQuestion.topic && <span className="quiz-badge">{currentQuestion.topic}</span>}
               </div>
@@ -328,9 +331,16 @@ export default function QuizSessionPage() {
               <button type="button" disabled={isFirst} onClick={() => jumpToQuestion(session.currentQuestionIndex - 1)} className="public-secondary-button">
                 <ChevronLeft size={16} aria-hidden="true" /> Câu trước
               </button>
-              <button type="button" disabled={isLast} onClick={() => jumpToQuestion(session.currentQuestionIndex + 1)} className="public-primary-button">
-                Câu tiếp <ChevronRight size={16} aria-hidden="true" />
-              </button>
+              {isLast ? (
+                <button type="button" disabled={isSubmitting} onClick={() => void handleSubmit(false)} className="public-primary-button quiz-final-submit-button">
+                  {isSubmitting ? <LoaderCircle size={16} aria-hidden="true" className="animate-spin" /> : <Send size={16} aria-hidden="true" />}
+                  Nộp bài
+                </button>
+              ) : (
+                <button type="button" onClick={() => jumpToQuestion(session.currentQuestionIndex + 1)} className="public-primary-button">
+                  Câu tiếp <ChevronRight size={16} aria-hidden="true" />
+                </button>
+              )}
             </div>
           </div>
         </main>

@@ -1,0 +1,26 @@
+[
+  {
+    "question": "Ý nghĩa nổi bật của một sự kiện lịch sử được thể hiện rõ nhất ở nội dung nào?",
+    "options": [
+      {"id": "A", "text": "Tạo ra chuyển biến quan trọng phù hợp với bối cảnh lịch sử"},
+      {"id": "B", "text": "Làm mọi mâu thuẫn xã hội biến mất ngay lập tức"},
+      {"id": "C", "text": "Khiến tất cả quốc gia có cùng thể chế chính trị"},
+      {"id": "D", "text": "Chấm dứt hoàn toàn mọi cuộc xung đột trên thế giới"}
+    ],
+    "correctOptionId": "A",
+    "explanation": "Đáp án đúng phải phản ánh trực tiếp ý nghĩa được nêu trong nguồn học tập.",
+    "difficulty": "MEDIUM"
+  },
+  {
+    "question": "Nguyên nhân nào giữ vai trò trực tiếp đối với kết quả của sự kiện được đề cập?",
+    "options": [
+      {"id": "A", "text": "Điều kiện và lực lượng được nêu trong tư liệu"},
+      {"id": "B", "text": "Một yếu tố không xuất hiện trong tư liệu"},
+      {"id": "C", "text": "Một sự kiện diễn ra ở thời kì hoàn toàn khác"},
+      {"id": "D", "text": "Một nhận định trái với nội dung nguồn"}
+    ],
+    "correctOptionId": "A",
+    "explanation": "Lựa chọn đúng phải có bằng chứng trực tiếp trong Fact Context.",
+    "difficulty": "HARD"
+  }
+]

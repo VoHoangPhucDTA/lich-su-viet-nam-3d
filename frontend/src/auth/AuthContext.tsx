@@ -41,6 +41,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const user = authService.getCurrentUser();
     if (user) {
       setCurrentUser(user);
+      void authService.refreshCurrentUser().then(setCurrentUser).catch(() => undefined);
     }
     setIsLoading(false);
   }, []);
@@ -146,6 +147,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   );
 }
 
+// The hook intentionally shares the context module with its provider.
+// eslint-disable-next-line react-refresh/only-export-components
 export function useAuth(): AuthContextType {
   const ctx = useContext(AuthContext);
   if (!ctx) {

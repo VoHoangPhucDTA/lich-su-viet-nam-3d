@@ -8,9 +8,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import java.util.List;
@@ -60,6 +62,29 @@ public class GlobalExceptionHandler {
                         "Invalid parameter: " + ex.getName(),
                         ApiError.of(request.getRequestURI())
                 ));
+    }
+
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public ResponseEntity<ApiResponse<ApiError>> handleUnreadableBody(
+            HttpMessageNotReadableException ex,
+            HttpServletRequest request
+    ) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(ApiResponse.error("VALIDATION_ERROR", "Request body is invalid", ApiError.of(request.getRequestURI())));
+    }
+
+    @ExceptionHandler(AccessDeniedException.class)
+    public ResponseEntity<ApiResponse<ApiError>> handleAccessDenied(AccessDeniedException ex, HttpServletRequest request) {
+        String path = request.getRequestURI();
+        boolean candidatePath = path.startsWith("/api/exams/ai/candidates");
+        String code = !candidatePath ? "FORBIDDEN"
+                : path.endsWith("/approve") || path.endsWith("/reject")
+                ? "AI_CANDIDATE_REVIEW_FORBIDDEN"
+                : path.endsWith("/publish") || path.endsWith("/publish-targets")
+                ? "AI_CANDIDATE_PUBLISH_FORBIDDEN"
+                : "AI_CANDIDATE_FORBIDDEN";
+        return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                .body(ApiResponse.error(code, candidatePath ? "Candidate permission is required" : "Access denied", ApiError.of(path)));
     }
 
     @ExceptionHandler(Exception.class)

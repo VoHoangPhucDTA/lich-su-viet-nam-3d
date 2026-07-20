@@ -4,7 +4,6 @@ import {
   CircleCheck,
   CircleMinus,
   CircleX,
-  Download,
   ExternalLink,
   History,
   Lightbulb,
@@ -12,6 +11,7 @@ import {
 } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useAuth } from '../../auth/AuthContext';
 import PublicPageHeader from '../../components/public/PublicPageHeader';
 import EmptyState from '../../components/shared/EmptyState';
 import LoadingState from '../../components/shared/LoadingState';
@@ -32,6 +32,13 @@ function formatDate(iso: string) {
     hour: '2-digit',
     minute: '2-digit',
   }).format(new Date(iso));
+}
+
+function formatTextbookExplanation(explanation: string) {
+  return explanation
+    .replace(/fact[_\s-]*context/gi, 'nội dung sách giáo khoa được trích dẫn')
+    .replace(/retrieved\s*context/gi, 'nguồn sách giáo khoa được tìm thấy')
+    .replace(/context\s*provided/gi, 'nguồn sách giáo khoa được cung cấp');
 }
 
 function ResultMetric({ label, value, tone }: { label: string; value: string | number; tone: string }) {
@@ -82,11 +89,11 @@ function AnswerReviewCard({ result, index }: { result: QuizQuestionResult; index
       </div>
 
       <section className="quiz-explanation">
-        <h4><Lightbulb size={17} aria-hidden="true" />Giải thích</h4>
-        <p>{question.explanation}</p>
+        <h4><Lightbulb size={17} aria-hidden="true" />Giải thích theo nguồn SGK</h4>
+        <p>{formatTextbookExplanation(question.explanation)}</p>
         {question.sourceRefs.length > 0 && (
           <div className="mt-3">
-            <p className="public-field-label">Nguồn tham khảo</p>
+            <p className="public-field-label">Đối chiếu trong sách giáo khoa</p>
             <div className="mt-2 flex flex-wrap gap-2">
               {question.sourceRefs.map((source, sourceIndex) => (
                 <span key={`${source.title}-${sourceIndex}`} className="quiz-source-chip">
@@ -107,6 +114,7 @@ function AnswerReviewCard({ result, index }: { result: QuizQuestionResult; index
 }
 
 export default function QuizResultPage() {
+  const { currentUser } = useAuth();
   const { sessionId } = useParams<{ sessionId: string }>();
   const navigate = useNavigate();
   const [result, setResult] = useState<QuizResult | null>(null);
@@ -120,7 +128,7 @@ export default function QuizResultPage() {
         setLoading(false);
         return;
       }
-      const response = await quizService.getQuizResult(sessionId);
+      const response = await quizService.getQuizResult(sessionId, currentUser?.id);
       if (!cancelled) {
         setResult(response);
         setLoading(false);
@@ -130,11 +138,7 @@ export default function QuizResultPage() {
     return () => {
       cancelled = true;
     };
-  }, [sessionId]);
-
-  const handleMockExport = (type: string) => {
-    window.alert(`Tính năng xuất file ${type} sẽ được tích hợp ở phiên bản hệ thống có backend thực tế.`);
-  };
+  }, [currentUser?.id, sessionId]);
 
   if (loading) {
     return <div className="public-shell quiz-shell"><LoadingState label="Đang tạo báo cáo kết quả..." /></div>;
@@ -213,7 +217,7 @@ export default function QuizResultPage() {
             <div className="mt-3 flex flex-wrap gap-2">
               {weakTopics.map(topic => <span key={topic} className="quiz-source-chip">{topic}</span>)}
             </div>
-            <Link to="/quiz/generate?mode=weakness" className="public-primary-button mt-4 no-underline">Tạo bài ôn điểm yếu</Link>
+            <Link to={`/quiz/generate?q=${encodeURIComponent(weakTopics[0] ?? '')}`} className="public-primary-button mt-4 no-underline">Tạo bài ôn lại chủ đề này</Link>
           </section>
         )}
 
@@ -252,12 +256,8 @@ export default function QuizResultPage() {
         </section>
 
         <div className="flex flex-wrap justify-center gap-3 border-t border-[var(--border)] pt-6">
-          <button type="button" onClick={() => handleMockExport('PDF')} className="public-secondary-button">
-            <Download size={15} aria-hidden="true" /> Xuất PDF
-          </button>
-          <button type="button" onClick={() => handleMockExport('Excel')} className="public-secondary-button">
-            <Download size={15} aria-hidden="true" /> Xuất Excel
-          </button>
+          <Link to="/quiz/generate" className="public-primary-button no-underline">Tạo bài luyện tập mới</Link>
+          <Link to="/quiz/history" className="public-secondary-button no-underline"><History size={15} aria-hidden="true" /> Xem lịch sử</Link>
           <button type="button" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="public-secondary-button">
             <ArrowUp size={15} aria-hidden="true" /> Lên đầu trang
           </button>
