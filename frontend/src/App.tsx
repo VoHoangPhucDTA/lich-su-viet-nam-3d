@@ -56,6 +56,7 @@ const ApiCustomPracticeSessionRoutePage = lazy(() => import('./pages/exams/ApiCu
 const ApiFreePracticeRoutePage = lazy(() => import('./pages/exams/ApiPracticeRoutePages').then((module) => ({ default: module.ApiFreePracticeRoutePage })));
 const ApiRetryWrongRoutePage = lazy(() => import('./pages/exams/ApiPracticeRoutePages').then((module) => ({ default: module.ApiRetryWrongRoutePage })));
 const ApiTopicPracticeRoutePage = lazy(() => import('./pages/exams/ApiPracticeRoutePages').then((module) => ({ default: module.ApiTopicPracticeRoutePage })));
+const AiQuizPage = lazy(() => import('./pages/exams/AiQuizPage'));
 
 const PersonalLearningDashboardPage = lazy(() => import('./features/dashboard/PersonalLearningDashboardPage'));
 
@@ -118,6 +119,7 @@ function AppContent() {
           <Route path="/exams/luyen-tap/:examId" element={<ApiFreePracticeRoutePage />} />
           <Route path="/exams/on-chu-de" element={<ApiTopicListPage />} />
           <Route path="/exams/on-chu-de/:topicSlug" element={<ApiTopicPracticeRoutePage />} />
+          <Route path="/exams/ai" element={<ProtectedRoute><AiQuizPage /></ProtectedRoute>} />
           <Route path="/exams/ket-qua/:sessionId" element={<ExamV2ResultPage />} />
           <Route path="/exams/on-lai/:sessionId" element={<ApiRetryWrongRoutePage />} />
           <Route path="/exams/lich-su" element={<ExamV2HistoryPage />} />

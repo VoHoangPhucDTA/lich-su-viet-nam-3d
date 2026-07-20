@@ -360,3 +360,31 @@ Troubleshooting:
 - `AI_SERVICE_INVALID_RESPONSE`: kiểm tra protocol; client phải là HTTP/1.1 với Uvicorn local.
 - `AI_STYLE_EXAMPLES_UNAVAILABLE`: kiểm tra datasource/active exam dataset; zero eligible example tự thân vẫn hợp lệ.
 - Full backend test hiện có baseline error nếu thiếu `data/history-rag/v1`; phân biệt với các suite `exam.ai`.
+
+## 14. Frontend AI quiz — Goal 11
+
+Khởi động frontend sau FastAPI và Spring:
+
+```powershell
+cd D:/KLTN/lich-su-viet-nam-3d/frontend
+npm ci
+npm run dev
+```
+
+Đăng nhập, mở `http://localhost:5173/exams/ai`, nhập query/lớp/bài/độ khó/số câu rồi generate. Network phải chỉ có `POST /api/exams/ai/generate` tới Vite proxy/Spring; không có request browser tới port 8001. Source chỉ hiện sau nộp, “Làm lại” không gọi API, “Tạo bộ câu hỏi mới” gọi đúng một request mới.
+
+Verification frontend:
+
+```powershell
+npx tsc -b --pretty false
+npm run test -- --run
+npm run build
+```
+
+Troubleshooting:
+
+- 401: đăng nhập lại; generation không được replay tự động sau refresh.
+- `AI_INSUFFICIENT_CONTEXT`: cụ thể hóa query hoặc đổi lớp/bài.
+- `AI_SERVICE_TIMEOUT`/`AI_SERVICE_UNAVAILABLE`: kiểm tra Spring và FastAPI; frontend không tự retry.
+- Mock smoke: chạy component test `AiQuizPage.test.tsx`; mock public Spring response, không mock FastAPI.
+- Không thêm `VITE_GEMINI_API_KEY`, FastAPI URL, local/session storage hoặc official exam submit vào flow này.

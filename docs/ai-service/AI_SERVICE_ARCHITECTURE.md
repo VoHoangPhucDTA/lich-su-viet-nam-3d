@@ -194,3 +194,17 @@ React (Goal 11)
 Spring không gọi health trước mỗi generation request, không forward JWT, không biết Gemini key và không persist generated questions. Public response chỉ giữ questions, sources, warnings và requested/generated/partial; model, collection, prompt/schema version và internal latency chỉ tồn tại trong internal DTO.
 
 Style query là read-only. Do schema exam bank không có grade/lesson, Spring không suy diễn các field đó; query ưu tiên exact topic/difficulty từ `raw_topic` hoặc `exam_topics`, sau đó difficulty và stable `question_id`. Grade/lesson của public request chỉ đi vào FastAPI retrieval filters.
+
+## Frontend integration — Goal 11
+
+```text
+React /exams/ai (authenticated)
+→ shared apiPostOnce + HttpOnly cookie
+→ POST /api/exams/ai/generate
+→ Spring → verified Style Examples → FastAPI retrieval/generation
+→ Spring normalized response
+→ strict frontend parser → MCQ adapter
+→ React memory-only quiz → local scoring/source review
+```
+
+Frontend không có FastAPI base URL, Gemini key, prompt, raw filter hoặc persistence adapter. State chuyển `IDLE → VALIDATING → GENERATING → READY → SUBMITTED`; lỗi đi tới `ERROR`. Abort chỉ dừng chờ browser và không khẳng định request upstream đã dừng. `MCQQuestionCardV2`, `ExamQuickNavigator` và `ExamPracticeHeader` được tái sử dụng; adapter giữ source mapping ngoài official exam/session schema.

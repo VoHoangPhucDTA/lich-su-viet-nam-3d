@@ -57,6 +57,6 @@ Chỉ các field `question/options/correctOptionId/explanation/difficulty` đư�
 - Full backend: 166 test, một baseline error ngoài phạm vi vì thiếu `data/history-rag/v1`.
 - Live JWT/cookie + MySQL smoke chưa chạy vì không có auth fixture và MySQL local không listen; actual SecurityFilterChain đã được kiểm thử bằng MockMvc authenticated/anonymous cases.
 
-## Goal 11 handoff
+## Goal 11 frontend consumer
 
-Frontend chỉ gọi Spring public endpoint, xử lý `generation.partial`, giữ source IDs, hiển thị warning trung tính và gắn nhãn câu AI. Không gửi Style Examples, Fact Context, model, source IDs hoặc API key.
+Authenticated route `/exams/ai` gọi Spring bằng shared `apiPostOnce`, giữ HttpOnly cookie và không replay generation. Typed parser/adapter xử lý full/partial/source/error; source chỉ hiện sau submit và warning được trình bày trung tính. Quiz/answers/score chỉ tồn tại trong React memory. Frontend không gửi Style Examples, Fact Context, model, source IDs hoặc API key và không gọi official exam persistence/submission API.

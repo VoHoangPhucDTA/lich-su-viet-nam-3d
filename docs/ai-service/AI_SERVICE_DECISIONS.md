@@ -319,6 +319,31 @@
 - Consequences: Generated question lifetime bằng request/response. Attempt/session persistence nếu cần là goal riêng.
 - Verification: gated full-route smoke kiểm tra count `exam_questions` và `exam_mcq_options` trước/sau count 1/3 không đổi.
 
+## ADR-042 — Frontend AI quiz memory-only và tái sử dụng renderer
+
+- Date: 2026-07-20
+- Status: Accepted cho Goal 11.
+- Context: Module luyện thi đã có MCQ renderer, keyboard/radio semantics, navigator và header; official session/submit API sẽ persist attempt không phù hợp với generated quiz.
+- Decision: Route authenticated `/exams/ai` dùng adapter riêng sang `MCQQuestion`, giữ answer/score/source trong React memory và không gọi official create/save/submit API.
+- Consequences: Refresh/rời trang làm mất quiz; đây là hành vi chủ đích. Temporary ID `ai-{index}-{shortHash}` không phải database ID.
+- Verification: component tests cho generate/answer/submit/restart/new set/source và static endpoint/storage scan.
+
+## ADR-043 — Generation request frontend không replay
+
+- Date: 2026-07-20
+- Status: Accepted.
+- Decision: Dùng shared `apiPostOnce` để giữ base URL/cookie/error wrapper nhưng không replay generation sau refresh; một request trên page instance, không retry/poll/health preflight. AbortController chỉ hủy chờ phía browser.
+- Consequences: User có phiên hết hạn nhận thông báo đăng nhập lại thay vì request đắt tiền bị phát lại. Người dùng chủ động tạo lại sau lỗi.
+- Verification: API client test kiểm tra endpoint/body/signal và component test double-submit/partial zero retry.
+
+## ADR-044 — Source sau submit và warning trung tính
+
+- Date: 2026-07-20
+- Status: Accepted.
+- Decision: Source metadata chỉ hiện sau submit để không gợi ý đáp án. Warning kỹ thuật không render; UI chỉ ghi “Nội dung được tạo tự động từ tài liệu học tập.”
+- Consequences: Học sinh vẫn thấy provenance khi review nhưng không bị dẫn dắt rằng warning heuristic đồng nghĩa câu sai.
+- Verification: component tests xác nhận source ẩn trước submit, hiện sau submit và không render `MANUAL_REVIEW_RECOMMENDED`/“câu hỏi sai”.
+
 Mỗi quyết định phải có:
 
 ```text

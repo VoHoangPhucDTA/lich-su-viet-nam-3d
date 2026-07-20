@@ -7,7 +7,8 @@
 - Nhánh đã được nhắc trước đây: `be_exams`
 - Nhánh thực tế: `ai_service` (khác tên `ai-service` trong yêu cầu; không đổi branch)
 - Commit đầu Goal 10: `e5b2d1e8` (`feat(ai-service): implement grounded quiz generation and evaluation`)
-- Người cập nhật gần nhất: `Codex — Goal 10 Spring Integration`
+- Commit đầu Goal 11: `9eedd780` (`feat(ai-service): integrate Spring quiz generation gateway`)
+- Người cập nhật gần nhất: `Codex — Goal 11 Frontend Integration`
 
 ## Trạng thái tổng quát
 
@@ -30,6 +31,7 @@
 | Retrieval evaluation | DONE_PRODUCTION | 36 query; Hit@3/5 = 1.0, invariant pass |
 | Gemini question generation | DONE_PRODUCTION | `POST /ai/quiz/generate`, Gemini structured output, validator/repair/cache/evaluation |
 | Spring Boot integration | DONE_WITH_BASELINE_LIMITATION | `/api/exams/ai/generate`, authenticated, typed client/config/DTO, verified Style Examples, no persistence |
+| Frontend AI quiz | DONE_WITH_REAL_E2E_LIMITATION | Authenticated `/exams/ai`, memory-only, partial/source/error UX, mock Spring tests; real browser E2E còn bị chặn bởi local auth/MySQL |
 | React integration | NOT_STARTED | Cần audit component quiz hiện có |
 | Thesis evaluation | NOT_STARTED | Cần số liệu thực nghiệm |
 
@@ -193,6 +195,22 @@
 - Full backend: 166 tests, 0 failure, 1 error, 14 skip. Error duy nhất là baseline `HistoryRagPackageReaderTest` do thiếu `data/history-rag/v1`, đã tái hiện trước khi sửa Goal 10.
 - Hạn chế: chưa smoke bằng JWT/cookie thật và MySQL local vì port 3306 không chạy; auth được kiểm tra bằng actual Spring Security chain với authenticated/unauthenticated MockMvc.
 - Exact next action Goal 11: frontend gọi `/api/exams/ai/generate`, hiển thị loading/partial/source và không diễn giải manual-review warning thành câu sai.
+
+### 2026-07-20 — Goal 11 frontend AI quiz integration
+
+- Goal 10 đã commit riêng tại `9eedd780`; thay đổi Goal 11 giữ chưa commit.
+- Frontend audit: React 19.2, TypeScript 5.9, Vite 7.3, npm; React Router 7; shared `apiClient` dùng HttpOnly cookie/`credentials: include`; Vitest/Testing Library; CSS/Tailwind 4.
+- Route authenticated `/exams/ai` và navigation card “Tạo bài luyện tập bằng AI”; không gọi FastAPI trực tiếp.
+- Tái sử dụng `ExamPracticeHeader`, `MCQQuestionCardV2`, `ExamQuickNavigator`; adapter riêng tạo temporary `ai-*` ID và giữ mapping source.
+- Form bám Spring bounds: query 1..1000, grade 10/11/12, optional positive lesson, EASY/MEDIUM/HARD, count 1..10; `topK=5` chỉ trong API layer.
+- State/loading/cancel: `IDLE/VALIDATING/GENERATING/READY/SUBMITTED/ERROR`, một in-flight request, AbortController, không fake progress, không retry/replay generation.
+- Full/partial/error, local scoring, restart không API, new set một API call; explanation/source chỉ hiện sau submit. Warning chỉ được trình bày trung tính.
+- No persistence: không save/create/official submit, không localStorage/sessionStorage/IndexedDB; state mất khi refresh/rời trang.
+- Tests mới: 27 pass cho API parser/client, mocked public Spring endpoint, adapter và page interaction. Full frontend regression `118 passed`; `tsc -b`, production build và lint riêng các file Goal 11 pass.
+- Full repository lint còn fail với 36 vấn đề baseline ngoài file Goal 11 (Cesium/auth/event/exam legacy và các module khác); không sửa ngoài phạm vi. Build pass với warning chunk hiện hữu >500 kB.
+- Security/no-persistence scan pass: production Goal 11 chỉ chứa `/api/exams/ai/generate`; không Gemini key/FastAPI URL/internal endpoint/storage/official submit/unsafe HTML.
+- Real browser E2E chưa chạy vì MySQL local/JWT test session chưa sẵn sàng; mock Spring UI smoke không được báo là full E2E.
+- Exact next action Goal 12: teacher review/publish workflow có provenance/audit trước mọi persistence; không auto-publish câu AI.
 
 ## Kế hoạch dài hạn tham chiếu
 

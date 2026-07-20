@@ -137,6 +137,25 @@ Gate Goal 10: PASSED cho code integration. Full repository suite vẫn có một
 
 Exact next action Goal 11: tích hợp frontend với public Spring contract; không gọi FastAPI trực tiếp.
 
+## Goal 11 — Frontend AI quiz memory-only
+
+**Trạng thái: DONE_WITH_REAL_E2E_LIMITATION (2026-07-20)**
+
+- [x] Audit React 19/TypeScript/Vite/npm, React Router, HttpOnly-cookie API client và module luyện thi.
+- [x] Authenticated route `/exams/ai` và entry “Tạo bài luyện tập bằng AI” trong trang luyện thi.
+- [x] Typed public request/response, strict defensive parser và adapter sang `MCQQuestion` với temporary `ai-*` ID.
+- [x] Form query/grade/optional lesson/difficulty/count bám bounds Spring; `topK=5` chỉ ở API layer.
+- [x] Loading không phần trăm giả, AbortController, one in-flight request và `apiPostOnce` không replay generation.
+- [x] Full/partial/error UX; manual-review warning chỉ tạo thông báo tự động chung, không khẳng định factual error.
+- [x] Tái sử dụng `MCQQuestionCardV2`, `ExamQuickNavigator`, `ExamPracticeHeader`; chấm điểm, restart và result chạy local.
+- [x] Source chỉ hiển thị sau submit; nullable page và deduplicate label an toàn.
+- [x] Memory-only: không gọi save/create/official submit, không localStorage/sessionStorage/IndexedDB.
+- [x] Unit/component mock-Spring tests, typecheck và production build pass.
+
+Gate Goal 11: pass cho frontend code và mock Spring integration. Real browser E2E với authenticated cookie/MySQL/FastAPI chưa chạy vì local MySQL/JWT test session chưa sẵn sàng; không tuyên bố full E2E pass.
+
+Exact next action Goal 12: thiết kế teacher review/publish workflow có provenance và audit rõ ràng trước khi cho phép persist bất kỳ câu AI nào; không auto-publish vào official bank.
+
 ---
 
 ## Goal 0 — Audit repository và chốt integration contract

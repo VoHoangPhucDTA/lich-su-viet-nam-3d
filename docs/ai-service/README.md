@@ -58,6 +58,6 @@ Không được đánh dấu `DONE` nếu chưa có bằng chứng từ build/te
 - Gemini embedding production: hoàn tất 414 eligible chunks, dimension 768.
 - ChromaDB production collection: hoàn tất 414 records, cosine, idempotent và persistent.
 - Retrieval API, generation API và Spring integration: đã triển khai và smoke production pass.
-- Frontend integration: chưa triển khai; là Goal 11 tiếp theo.
+- Frontend integration: đã triển khai tại authenticated route `/exams/ai`; quiz chỉ tồn tại trong memory, gọi Spring public endpoint và không persist.
 
 Xem chi tiết tại `AI_SERVICE_STATUS.md`.

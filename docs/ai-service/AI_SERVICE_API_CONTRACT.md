@@ -242,6 +242,14 @@ Partial: `generatedCount > 0` và nhỏ hơn `requestedCount` vẫn HTTP 200, `p
 
 Warning: giữ chuỗi warning của FastAPI; warning heuristic chỉ là manual-review signal, không mang nghĩa factual error.
 
+### Frontend contract — Goal 11
+
+Frontend gọi duy nhất `POST /api/exams/ai/generate` qua API client chung (`credentials: include`). Body UI gồm `query`, `grade`, optional `lessonNumber`, `difficulty`, `count`; API layer thêm `topK=5`. Frontend không gửi `styleExamples`, Fact Context, source ID, model, key hoặc internal filter.
+
+Response `data` được parse phòng thủ: questions/sources/warnings/generation bắt buộc; bốn option phải theo A–D, correct ID phải tồn tại, source ID phải map được, count/partial phải nhất quán và nullable source page phải an toàn. Mismatch được normalize thành `AI_SERVICE_INVALID_RESPONSE`, không tự sửa đáp án.
+
+Partial hợp lệ vẫn vào quiz với thông báo `generatedCount/requestedCount`, không retry. Error code public được map sang tiếng Việt thân thiện; raw Spring/FastAPI/Gemini detail không render. Warnings không được hiển thị như factual error cho học sinh.
+
 ## 3. Error contract draft
 
 ```json
