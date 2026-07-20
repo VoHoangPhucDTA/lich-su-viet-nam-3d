@@ -57,7 +57,7 @@ export async function generateAiQuiz(
 
 export function parseAiQuizResponse(value: unknown): AiGeneratedQuizResponse {
   if (!isRecord(value) || !Array.isArray(value.questions) || !Array.isArray(value.sources)
-      || !Array.isArray(value.warnings) || !isRecord(value.generation)) invalid();
+      || !Array.isArray(value.warnings) || !isRecord(value.generation) || !isRecord(value.generationReceipt)) invalid();
 
   const questions = value.questions.map(parseQuestion);
   const sources = value.sources.map(parseSource);
@@ -66,15 +66,17 @@ export function parseAiQuizResponse(value: unknown): AiGeneratedQuizResponse {
     return warning;
   });
   const { requestedCount, generatedCount, partial } = value.generation;
+  const { id: receiptId, expiresAt } = value.generationReceipt;
   if (!isPositiveInteger(requestedCount) || !isPositiveInteger(generatedCount)
       || generatedCount !== questions.length || generatedCount > requestedCount || typeof partial !== 'boolean'
-      || partial !== (generatedCount < requestedCount)) invalid();
+      || partial !== (generatedCount < requestedCount) || typeof receiptId !== 'string' || !receiptId
+      || typeof expiresAt !== 'string' || !expiresAt) invalid();
 
   const sourceIds = new Set(sources.map((source) => source.chunkId));
   if (sourceIds.size !== sources.length
       || questions.some((question) => question.sourceChunkIds.some((id) => !sourceIds.has(id)))) invalid();
 
-  return { questions, sources, warnings, generation: { requestedCount, generatedCount, partial } };
+  return { questions, sources, warnings, generation: { requestedCount, generatedCount, partial }, generationReceipt: { id: receiptId, expiresAt } };
 }
 
 function parseQuestion(value: unknown): AiGeneratedQuestion {
@@ -112,6 +114,7 @@ function parseSource(value: unknown): AiQuizSource {
   for (const field of ['documentId', 'lessonTitle', 'sectionTitle'] as const) {
     if (value[field] !== null && typeof value[field] !== 'string') invalid();
   }
+  if (value.chunkHash !== null && typeof value.chunkHash !== 'string') invalid();
   for (const field of ['grade', 'lessonNumber', 'pageStart', 'pageEnd'] as const) {
     if (value[field] !== null && !Number.isInteger(value[field])) invalid();
   }

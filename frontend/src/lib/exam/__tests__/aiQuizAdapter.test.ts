@@ -8,10 +8,11 @@ const response: AiGeneratedQuizResponse = {
     correctOptionId: 'C', explanation: 'Giải thích', difficulty: 'HARD', sourceChunkIds: ['s1', 's2'],
   }],
   sources: [
-    { chunkId: 's1', documentId: 'doc', grade: 12, lessonNumber: 6, lessonTitle: 'Tên bài', sectionTitle: 'Mục I', pageStart: 35, pageEnd: 36 },
-    { chunkId: 's2', documentId: null, grade: null, lessonNumber: null, lessonTitle: null, sectionTitle: null, pageStart: null, pageEnd: null },
+    { chunkId: 's1', documentId: 'doc', grade: 12, lessonNumber: 6, lessonTitle: 'Tên bài', sectionTitle: 'Mục I', pageStart: 35, pageEnd: 36, chunkHash: null },
+    { chunkId: 's2', documentId: null, grade: null, lessonNumber: null, lessonTitle: null, sectionTitle: null, pageStart: null, pageEnd: null, chunkHash: null },
   ],
   warnings: ['MANUAL_REVIEW_RECOMMENDED'], generation: { requestedCount: 5, generatedCount: 1, partial: true },
+  generationReceipt: { id: 'receipt-1', expiresAt: '2026-07-20T14:00:00' },
 };
 
 describe('AI quiz response adapter', () => {

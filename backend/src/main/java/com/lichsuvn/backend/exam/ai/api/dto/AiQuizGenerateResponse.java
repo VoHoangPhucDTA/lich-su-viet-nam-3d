@@ -6,7 +6,8 @@ public record AiQuizGenerateResponse(
         List<Question> questions,
         List<Source> sources,
         List<String> warnings,
-        Generation generation
+        Generation generation,
+        GenerationReceipt generationReceipt
 ) {
     public record Question(
             String question,
@@ -29,10 +30,14 @@ public record AiQuizGenerateResponse(
             String lessonTitle,
             String sectionTitle,
             Integer pageStart,
-            Integer pageEnd
+            Integer pageEnd,
+            String chunkHash
     ) {
     }
 
     public record Generation(int requestedCount, int generatedCount, boolean partial) {
+    }
+
+    public record GenerationReceipt(String id, String expiresAt) {
     }
 }

@@ -86,6 +86,7 @@ class RetrievalService:
         self.settings = settings
         self.provider = provider
         self.retriever = retriever
+        self.collection_metadata = _expected_collection_metadata(settings)
 
     def retrieve(
         self, request: RetrievalRequest, *, query_vector: list[float] | None = None
@@ -140,6 +141,7 @@ class RetrievalService:
             metadata=RetrievalMetadata(
                 embeddingModel=self.settings.gemini_embedding_model,
                 embeddingDimension=self.settings.gemini_embedding_dimension,
+                corpusSha256=str(self.collection_metadata["corpusSha256"]),
                 queryFormatterVersion=QUERY_FORMATTER_VERSION,
                 collectionName=self.settings.chroma_collection_name,
                 distanceMetric=self.settings.chroma_distance_metric,

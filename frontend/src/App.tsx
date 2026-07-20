@@ -57,6 +57,8 @@ const ApiFreePracticeRoutePage = lazy(() => import('./pages/exams/ApiPracticeRou
 const ApiRetryWrongRoutePage = lazy(() => import('./pages/exams/ApiPracticeRoutePages').then((module) => ({ default: module.ApiRetryWrongRoutePage })));
 const ApiTopicPracticeRoutePage = lazy(() => import('./pages/exams/ApiPracticeRoutePages').then((module) => ({ default: module.ApiTopicPracticeRoutePage })));
 const AiQuizPage = lazy(() => import('./pages/exams/AiQuizPage'));
+const AdminAiCandidatesPage = lazy(() => import('./pages/admin/AdminAiCandidatesPage'));
+const AdminAiCandidateDetailPage = lazy(() => import('./pages/admin/AdminAiCandidateDetailPage'));
 
 const PersonalLearningDashboardPage = lazy(() => import('./features/dashboard/PersonalLearningDashboardPage'));
 
@@ -145,6 +147,8 @@ function AppContent() {
           <Route path="/admin/dashboard" element={<ProtectedRoute><RoleGuard requiredRole="admin"><AdminDashboardPage /></RoleGuard></ProtectedRoute>} />
           <Route path="/admin/users" element={<ProtectedRoute><RoleGuard requiredRole="admin"><AdminUsersPage /></RoleGuard></ProtectedRoute>} />
           <Route path="/admin/events" element={<ProtectedRoute><RoleGuard requiredRole="admin"><AdminEventsPage /></RoleGuard></ProtectedRoute>} />
+          <Route path="/admin/exams/ai-candidates" element={<ProtectedRoute><RoleGuard requiredRole="admin"><AdminAiCandidatesPage /></RoleGuard></ProtectedRoute>} />
+          <Route path="/admin/exams/ai-candidates/:id" element={<ProtectedRoute><RoleGuard requiredRole="admin"><AdminAiCandidateDetailPage /></RoleGuard></ProtectedRoute>} />
           <Route path="/admin/questions" element={<Navigate to="/admin/events" replace />} />
         </Routes>
         </Suspense>

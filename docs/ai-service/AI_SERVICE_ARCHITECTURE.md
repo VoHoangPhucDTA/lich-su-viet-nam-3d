@@ -208,3 +208,7 @@ React /exams/ai (authenticated)
 ```
 
 Frontend không có FastAPI base URL, Gemini key, prompt, raw filter hoặc persistence adapter. State chuyển `IDLE → VALIDATING → GENERATING → READY → SUBMITTED`; lỗi đi tới `ERROR`. Abort chỉ dừng chờ browser và không khẳng định request upstream đã dừng. `MCQQuestionCardV2`, `ExamQuickNavigator` và `ExamPracticeHeader` được tái sử dụng; adapter giữ source mapping ngoài official exam/session schema.
+
+## Review/publish boundary
+
+Spring persists each successful generation as a short-lived, user-bound receipt. An admin can explicitly copy selected receipt questions into isolated candidate tables; students cannot. Candidate content and immutable provenance remain outside the official bank until a separate publish transaction locks candidate and target, inserts the official MCQ/options, links it back, and audits the transition. Publish targets are restricted to hidden, review-required definitions in active/validated datasets.

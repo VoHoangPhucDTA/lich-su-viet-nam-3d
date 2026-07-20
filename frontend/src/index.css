@@ -263,6 +263,10 @@
 .ai-quiz-sources summary { cursor: pointer; font-weight: 800; }
 .ai-quiz-sources div { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr)); gap: .75rem; margin-top: .8rem; }
 .ai-quiz-sources ul { margin: 0; padding: .8rem .8rem .8rem 1.8rem; border-radius: .6rem; background: var(--bg-surface); overflow-wrap: anywhere; }
+.ai-quiz-review-save { display: flex; align-items: center; gap: .75rem; flex-wrap: wrap; margin: 1rem 0; padding: 1rem; border: 1px solid var(--admin-accent); border-radius: .75rem; background: var(--bg-card); }
+.ai-quiz-review-save label { display: flex; align-items: center; gap: .5rem; font-weight: 700; }
+.ai-quiz-review-save button { min-height: 44px; padding: .65rem 1rem; border: 1px solid var(--admin-accent); border-radius: .6rem; background: var(--admin-accent); color: #fff; font-weight: 800; }
+.ai-quiz-review-save p { width: 100%; margin: 0; color: var(--text-muted); }
 @keyframes ai-quiz-spin { to { transform: rotate(360deg); } }
 
 .exam-browse-main { width: min(64rem, 100%); margin: 0 auto; padding: 1.5rem; }
@@ -1125,6 +1129,20 @@
 .admin-secondary-button:disabled { cursor: not-allowed; opacity: 0.45; }
 .admin-primary-button { border: 1px solid var(--accent); background: var(--accent); color: white; }
 .admin-primary-button:hover { background: #701717; }
+.admin-form-input {
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: 0.625rem;
+  background: var(--bg-card);
+  color: var(--text-primary);
+  padding: 0.625rem 0.75rem;
+}
+.admin-form-input:focus {
+  border-color: var(--admin-accent);
+  outline: 2px solid color-mix(in srgb, var(--admin-accent) 20%, transparent);
+  outline-offset: 1px;
+}
+.admin-form-input:disabled { cursor: not-allowed; opacity: 0.7; }
 .admin-danger-button { border: 1px solid var(--danger); background: var(--danger); color: white; }
 .admin-danger-button:hover { background: #701717; }
 .admin-text-button { min-height: auto; padding: 0; color: var(--accent); background: transparent; }

@@ -354,3 +354,7 @@ Cho người dùng chọn phạm vi và làm quiz AI.
 - Có số liệu tái lập được.
 - Tài liệu handoff đầy đủ.
 - Không còn claim “100% chính xác” hoặc “không hallucination”.
+
+## Goal 12 — Teacher/admin review, provenance, audit, explicit publish
+
+Status: implemented. Gate: V35 staging schema, opaque user-bound receipt, lifecycle commands, admin authorization, provenance/audit, optimistic version checks, hidden-target atomic publish, idempotent repeat publish, admin queue/detail UI, tests, and documentation. Real multi-service E2E remains environment-dependent; no result is inferred when services are unavailable. Exact next action for Goal 13: add teacher/granular permissions, four-eyes policy, canonical source revalidation, and revision flow without weakening the no-auto-publish invariant.

@@ -24,9 +24,10 @@ const fullResponse = {
     options: ['A', 'B', 'C', 'D'].map((id) => ({ id, text: `Lựa chọn ${id}` })),
     correctOptionId: 'A', explanation: 'Dựa trên nội dung bài học.', difficulty: 'MEDIUM', sourceChunkIds: ['chunk-1'],
   }],
-  sources: [{ chunkId: 'chunk-1', documentId: 'doc-1', grade: 12, lessonNumber: 6, lessonTitle: 'Cách mạng tháng Tám', sectionTitle: null, pageStart: 35, pageEnd: null }],
+  sources: [{ chunkId: 'chunk-1', documentId: 'doc-1', grade: 12, lessonNumber: 6, lessonTitle: 'Cách mạng tháng Tám', sectionTitle: null, pageStart: 35, pageEnd: null, chunkHash: null }],
   warnings: [],
   generation: { requestedCount: 1, generatedCount: 1, partial: false },
+  generationReceipt: { id: 'receipt-1', expiresAt: '2026-07-20T14:00:00' },
 };
 
 describe('aiQuizApi public Spring contract', () => {

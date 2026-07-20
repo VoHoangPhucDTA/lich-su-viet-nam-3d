@@ -60,3 +60,7 @@ Chỉ các field `question/options/correctOptionId/explanation/difficulty` đư�
 ## Goal 11 frontend consumer
 
 Authenticated route `/exams/ai` gọi Spring bằng shared `apiPostOnce`, giữ HttpOnly cookie và không replay generation. Typed parser/adapter xử lý full/partial/source/error; source chỉ hiện sau submit và warning được trình bày trung tính. Quiz/answers/score chỉ tồn tại trong React memory. Frontend không gửi Style Examples, Fact Context, model, source IDs hoặc API key và không gọi official exam persistence/submission API.
+
+## Goal 12 persistence boundary
+
+Spring now issues an opaque generation receipt after validating the FastAPI response. Candidate creation resolves questions and provenance from that server receipt; it does not trust model/source identity supplied by the browser. `/api/exams/ai/candidates/**` requires `ROLE_admin`, and the application layer repeats the role check. Publish uses row locks and one transaction for official question/options/counts/candidate link/audit; failure rolls back and records best-effort `PUBLISH_FAILED` separately.

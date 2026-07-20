@@ -10,10 +10,12 @@ import com.lichsuvn.backend.exam.ai.application.AiStyleExampleService;
 import com.lichsuvn.backend.exam.ai.client.AiQuizClient;
 import com.lichsuvn.backend.exam.ai.client.dto.AiQuizGenerationResponse;
 import com.lichsuvn.backend.exam.ai.config.AiServiceProperties;
+import com.lichsuvn.backend.exam.ai.review.infrastructure.AiGenerationReceiptRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
+import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -30,12 +32,15 @@ class AiQuizGenerationServiceTest {
     private final AiQuizClient client = mock(AiQuizClient.class);
     private final AiStyleExampleService styles = mock(AiStyleExampleService.class);
     private final AiQuizMetrics metrics = mock(AiQuizMetrics.class);
+    private final AiGenerationReceiptRepository receipts = mock(AiGenerationReceiptRepository.class);
     private AiQuizGenerationService service;
 
     @BeforeEach
     void setUp() {
-        service = new AiQuizGenerationService(client, styles, AiStyleExampleServiceTest.properties(3), metrics);
+        service = new AiQuizGenerationService(client, styles, AiStyleExampleServiceTest.properties(3), metrics, receipts);
         when(styles.select(anyString(), anyString())).thenReturn(List.of());
+        when(receipts.issue(any(), any(), any(), anyString())).thenReturn(
+                new AiGenerationReceiptRepository.Issued("receipt-1", LocalDateTime.now().plusMinutes(30)));
     }
 
     @Test
@@ -77,7 +82,8 @@ class AiQuizGenerationServiceTest {
     @Test
     void rejectsMissingQuestionsAndUnknownSourceIds() {
         AiQuizGenerationResponse missing = new AiQuizGenerationResponse(null, List.of(),
-                new AiQuizGenerationResponse.Metadata(1, 1, 1, "g", "e", "c", "p", "s", 0, 1.0), List.of());
+                new AiQuizGenerationResponse.Metadata(1, 1, 1, "g", "e", 768,
+                        "a".repeat(64), "c", "p", "s", 0, 1.0), List.of());
         when(client.generate(any(), anyString())).thenReturn(missing);
         assertEquals("AI_SERVICE_INVALID_RESPONSE",
                 assertThrows(ApiException.class, () -> service.generate(request(1), principal())).getCode());
@@ -100,7 +106,7 @@ class AiQuizGenerationServiceTest {
                 AiStyleExampleServiceTest.properties(3).connectTimeout(),
                 AiStyleExampleServiceTest.properties(3).readTimeout(),
                 "/ai/quiz/generate", "/ai/health", 3);
-        AiQuizGenerationService disabledService = new AiQuizGenerationService(client, styles, disabled, metrics);
+        AiQuizGenerationService disabledService = new AiQuizGenerationService(client, styles, disabled, metrics, receipts);
 
         ApiException error = assertThrows(ApiException.class, () -> disabledService.generate(request(1), principal()));
 
@@ -130,8 +136,9 @@ class AiQuizGenerationServiceTest {
                 )).toList();
         return new AiQuizGenerationResponse(
                 questions,
-                List.of(new AiQuizGenerationResponse.Source("chunk-1", "doc-1", 12, 6, "Lesson", "Section", 1, 1)),
-                new AiQuizGenerationResponse.Metadata(requested, generated, 1, "model", "embedding", "collection", "prompt", "schema", 0, 10.0),
+                List.of(new AiQuizGenerationResponse.Source("chunk-1", "doc-1", 12, 6, "Lesson", "Section", 1, 1, "b".repeat(64))),
+                new AiQuizGenerationResponse.Metadata(requested, generated, 1, "model", "embedding", 768,
+                        "a".repeat(64), "collection", "prompt", "schema", 0, 10.0),
                 warnings
         );
     }

@@ -13,6 +13,8 @@ import {
 } from '@/services/aiQuizApi';
 import type { QuestionResult } from '@/types/exam';
 import type { AiQuizDifficulty, AiQuizViewModel } from '@/types/aiQuiz';
+import { useAuth } from '@/auth/AuthContext';
+import { saveGeneratedCandidates } from '@/services/aiCandidateApi';
 
 type PageStatus = 'IDLE' | 'VALIDATING' | 'GENERATING' | 'READY' | 'SUBMITTED' | 'ERROR';
 type OptionId = 'A' | 'B' | 'C' | 'D';
@@ -25,6 +27,7 @@ const DIFFICULTY_OPTIONS: Array<{ value: AiQuizDifficulty; label: string }> = [
 ];
 
 export default function AiQuizPage() {
+  const { currentUser } = useAuth();
   const [status, setStatus] = useState<PageStatus>('IDLE');
   const [query, setQuery] = useState('');
   const [grade, setGrade] = useState<10 | 11 | 12>(12);
@@ -38,6 +41,9 @@ export default function AiQuizPage() {
   const [quizGrade, setQuizGrade] = useState<number>(12);
   const [answers, setAnswers] = useState<Record<string, OptionId>>({});
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [selectedForReview, setSelectedForReview] = useState<Set<number>>(new Set());
+  const [saveMessage, setSaveMessage] = useState<string | null>(null);
+  const [savingCandidates, setSavingCandidates] = useState(false);
   const abortRef = useRef<AbortController | null>(null);
   const queryRef = useRef<HTMLTextAreaElement>(null);
   const lessonRef = useRef<HTMLInputElement>(null);
@@ -99,6 +105,8 @@ export default function AiQuizPage() {
       setQuizGrade(grade);
       setAnswers({});
       setCurrentIndex(0);
+      setSelectedForReview(new Set());
+      setSaveMessage(null);
       setStatus('READY');
     } catch (error: unknown) {
       if (controller.signal.aborted) return;
@@ -121,6 +129,21 @@ export default function AiQuizPage() {
     setStatus('READY');
   }
 
+  async function saveForReview() {
+    if (!quiz || savingCandidates || selectedForReview.size === 0) return;
+    setSavingCandidates(true);
+    setSaveMessage(null);
+    try {
+      const saved = await saveGeneratedCandidates(quiz.generationReceipt.id, [...selectedForReview].sort((a, b) => a - b));
+      setSaveMessage(`Đã lưu ${saved.length} câu ở trạng thái nháp để admin duyệt.`);
+      setSelectedForReview(new Set());
+    } catch (error: unknown) {
+      setSaveMessage(error instanceof Error ? error.message : 'Không thể lưu câu hỏi để duyệt.');
+    } finally {
+      setSavingCandidates(false);
+    }
+  }
+
   if (quiz && currentQuestion && (status === 'READY' || status === 'SUBMITTED')) {
     const selected = answers[currentQuestion.id] ?? null;
     const result: QuestionResult = {
@@ -138,6 +161,19 @@ export default function AiQuizPage() {
             <p className="ai-quiz-notice" role="status">Hệ thống đã tạo được {quiz.generation.generatedCount}/{quiz.generation.requestedCount} câu phù hợp với nguồn tài liệu.</p>
           )}
           <p className="ai-quiz-auto-note">Nội dung được tạo tự động từ tài liệu học tập.</p>
+          {currentUser?.role === 'admin' && (
+            <section className="ai-quiz-review-save" aria-label="Lưu câu hỏi vào hàng chờ duyệt">
+              <label><input type="checkbox" checked={selectedForReview.has(currentIndex)} onChange={() => setSelectedForReview((current) => {
+                const next = new Set(current);
+                if (next.has(currentIndex)) next.delete(currentIndex); else next.add(currentIndex);
+                return next;
+              })} /> Chọn câu hiện tại để lưu duyệt</label>
+              <button type="button" disabled={selectedForReview.size === 0 || savingCandidates} onClick={() => void saveForReview()}>
+                {savingCandidates ? 'Đang lưu...' : `Lưu ${selectedForReview.size} câu để duyệt`}
+              </button>
+              {saveMessage && <p role="status">{saveMessage}</p>}
+            </section>
+          )}
           {status === 'SUBMITTED' && (
             <section className="ai-quiz-summary" aria-labelledby="ai-quiz-result-title">
               <div><span>Kết quả</span><strong id="ai-quiz-result-title">{correctCount}/{quiz.questions.length} câu đúng</strong></div>

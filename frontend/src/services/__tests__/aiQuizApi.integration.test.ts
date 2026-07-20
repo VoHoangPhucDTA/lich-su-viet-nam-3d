@@ -7,8 +7,9 @@ const data = {
     question: 'Câu hỏi?', options: [{ id: 'A', text: 'A' }, { id: 'B', text: 'B' }, { id: 'C', text: 'C' }, { id: 'D', text: 'D' }],
     correctOptionId: 'A', explanation: 'Giải thích', difficulty: 'MEDIUM', sourceChunkIds: ['s1'],
   }],
-  sources: [{ chunkId: 's1', documentId: null, grade: 12, lessonNumber: null, lessonTitle: null, sectionTitle: null, pageStart: null, pageEnd: null }],
+  sources: [{ chunkId: 's1', documentId: null, grade: 12, lessonNumber: null, lessonTitle: null, sectionTitle: null, pageStart: null, pageEnd: null, chunkHash: null }],
   warnings: [], generation: { requestedCount: 1, generatedCount: 1, partial: false },
+  generationReceipt: { id: 'receipt-1', expiresAt: '2026-07-20T14:00:00' },
 };
 
 function jsonResponse(status: number, code: string, responseData: unknown, success = status >= 200 && status < 300) {

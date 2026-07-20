@@ -234,3 +234,7 @@ Các phiên sau tiếp tục thêm nhật ký theo mẫu:
 - Remaining issues:
 - Exact next action:
 ```
+
+## Goal 12 — review and explicit publish
+
+Implemented server-bound generation receipts, isolated AI candidate staging, DRAFT/PENDING_REVIEW/APPROVED/REJECTED/PUBLISHED transitions, provenance, append-only audit commands, optimistic locking, admin-only review APIs, and atomic explicit publish into hidden review-required targets. There is no auto-save, auto-approve, or auto-publish. See `AI_QUESTION_REVIEW_WORKFLOW.md` for the operational contract and limitations.

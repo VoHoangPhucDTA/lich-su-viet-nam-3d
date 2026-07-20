@@ -356,3 +356,13 @@ Mỗi quyết định phải có:
 - Consequences:
 - Verification:
 ```
+
+## ADR — Goal 12 authorization and publishing
+
+- Date: 2026-07-20
+- Status: Accepted
+- Context: the actual user model exposes only `student` and `admin`; no teacher permission exists, and the thesis/demo may have one admin.
+- Decision: students generate and answer only; admins alone save/review/publish. Self-review is permitted but audited. Generation provenance is accepted only through a 30-minute opaque database receipt bound to the generating user. Approval and publication remain separate, and publication is allowed only into a hidden review-required target.
+- Alternatives: accept client provenance; add a fictional teacher role; force four-eyes review; publish directly to the official bank.
+- Consequences: safe first release with no auto-publish, but no granular teacher permissions or mandatory separation of duties.
+- Verification: Spring Security/service authorization tests, receipt validation, lifecycle tests, explicit confirmation UI, unique official link, and transaction rollback semantics.

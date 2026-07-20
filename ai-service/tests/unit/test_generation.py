@@ -85,6 +85,7 @@ def retrieval_response(results=None) -> RetrievalResponse:
         metadata=RetrievalMetadata(
             embeddingModel="gemini-embedding-2",
             embeddingDimension=768,
+            corpusSha256="a" * 64,
             queryFormatterVersion="gemini-retrieval-query-v1",
             collectionName="sgk_kntt_history_gemini_v1",
             distanceMetric="cosine",

@@ -34,6 +34,10 @@ public final class ExamH2TestDatabase {
         executeMigration(dataSource, "V31__versioned_exam_question_bank.sql");
     }
 
+    public static void applyAiQuestionReviewSchema(javax.sql.DataSource dataSource) throws Exception {
+        executeMigration(dataSource, "V35__ai_question_review_workflow.sql");
+    }
+
     private static void executeMigration(javax.sql.DataSource dataSource, String file) throws Exception {
         String h2Sql = Files.readString(Path.of("src/main/resources/db/migration", file));
         h2Sql = h2Sql.replaceAll("(?i)\\) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_[a-z0-9_]+;", ");");

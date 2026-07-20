@@ -108,6 +108,7 @@ class FactContext(CamelModel):
 class RetrievalMetadata(CamelModel):
     embedding_model: str
     embedding_dimension: int
+    corpus_sha256: str
     query_formatter_version: str
     collection_name: str
     distance_metric: str

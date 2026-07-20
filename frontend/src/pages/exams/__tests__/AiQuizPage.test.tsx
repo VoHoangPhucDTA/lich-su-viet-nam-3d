@@ -3,11 +3,15 @@ import userEvent from '@testing-library/user-event';
 import { BrowserRouter } from 'react-router-dom';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
-const { generateAiQuiz } = vi.hoisted(() => ({ generateAiQuiz: vi.fn() }));
+const { generateAiQuiz, saveGeneratedCandidates, auth } = vi.hoisted(() => ({ generateAiQuiz: vi.fn(), saveGeneratedCandidates: vi.fn(), auth: { role: 'student' } }));
 vi.mock('@/services/aiQuizApi', async (importOriginal) => {
   const actual = await importOriginal<typeof import('@/services/aiQuizApi')>();
   return { ...actual, generateAiQuiz };
 });
+vi.mock('@/auth/AuthContext', () => ({
+  useAuth: () => ({ currentUser: { role: auth.role } }),
+}));
+vi.mock('@/services/aiCandidateApi', () => ({ saveGeneratedCandidates }));
 
 import AiQuizPage from '../AiQuizPage';
 
@@ -17,8 +21,9 @@ const response = {
     options: [{ id: 'A', text: 'Đáp án đúng' }, { id: 'B', text: 'Đáp án B' }, { id: 'C', text: 'Đáp án C' }, { id: 'D', text: 'Đáp án D' }],
     correctOptionId: 'A', explanation: 'Giải thích từ tài liệu.', difficulty: 'MEDIUM', sourceChunkIds: ['chunk-1'],
   }],
-  sources: [{ chunkId: 'chunk-1', documentId: 'doc', grade: 12, lessonNumber: 6, lessonTitle: 'Tên bài', sectionTitle: 'Mục I', pageStart: 35, pageEnd: null }],
+  sources: [{ chunkId: 'chunk-1', documentId: 'doc', grade: 12, lessonNumber: 6, lessonTitle: 'Tên bài', sectionTitle: 'Mục I', pageStart: 35, pageEnd: null, chunkHash: null }],
   warnings: ['MANUAL_REVIEW_RECOMMENDED'], generation: { requestedCount: 1, generatedCount: 1, partial: false },
+  generationReceipt: { id: 'receipt-1', expiresAt: '2026-07-20T14:00:00' },
 } as const;
 
 function renderPage() {
@@ -36,6 +41,8 @@ async function generate(user: ReturnType<typeof userEvent.setup>) {
 describe('AiQuizPage', () => {
   beforeEach(() => {
     generateAiQuiz.mockReset();
+    saveGeneratedCandidates.mockReset();
+    auth.role = 'student';
     generateAiQuiz.mockResolvedValue(response);
   });
 
@@ -94,5 +101,17 @@ describe('AiQuizPage', () => {
     await user.dblClick(button);
     expect(generateAiQuiz).toHaveBeenCalledTimes(1);
     expect(screen.getByRole('status')).toHaveTextContent('Đang tìm nội dung phù hợp');
+  });
+
+  it('lets an admin explicitly select and save a generated question as draft', async () => {
+    auth.role = 'admin';
+    saveGeneratedCandidates.mockResolvedValue([{ id: 'candidate-1' }]);
+    const user = userEvent.setup();
+    renderPage();
+    await generate(user);
+    await user.click(screen.getByRole('checkbox', { name: /Chọn câu hiện tại/ }));
+    await user.click(screen.getByRole('button', { name: 'Lưu 1 câu để duyệt' }));
+    await waitFor(() => expect(saveGeneratedCandidates).toHaveBeenCalledWith('receipt-1', [0]));
+    expect(screen.getByRole('status')).toHaveTextContent('Đã lưu 1 câu ở trạng thái nháp');
   });
 });

@@ -29,7 +29,8 @@ public record AiQuizGenerationResponse(
             String lessonTitle,
             String sectionTitle,
             Integer pageStart,
-            Integer pageEnd
+            Integer pageEnd,
+            String chunkHash
     ) {
     }
 
@@ -39,6 +40,8 @@ public record AiQuizGenerationResponse(
             Integer retrievedChunkCount,
             String generationModel,
             String embeddingModel,
+            Integer embeddingDimension,
+            String corpusSha256,
             String collectionName,
             String promptVersion,
             String schemaVersion,

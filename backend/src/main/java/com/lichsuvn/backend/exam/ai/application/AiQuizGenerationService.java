@@ -9,6 +9,7 @@ import com.lichsuvn.backend.exam.ai.client.dto.AiQuizGenerationRequest;
 import com.lichsuvn.backend.exam.ai.client.dto.AiQuizGenerationResponse;
 import com.lichsuvn.backend.exam.ai.client.dto.AiStyleExample;
 import com.lichsuvn.backend.exam.ai.config.AiServiceProperties;
+import com.lichsuvn.backend.exam.ai.review.infrastructure.AiGenerationReceiptRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -29,17 +30,20 @@ public class AiQuizGenerationService {
     private final AiStyleExampleService styleExamples;
     private final AiServiceProperties properties;
     private final AiQuizMetrics metrics;
+    private final AiGenerationReceiptRepository receipts;
 
     public AiQuizGenerationService(
             AiQuizClient client,
             AiStyleExampleService styleExamples,
             AiServiceProperties properties,
-            AiQuizMetrics metrics
+            AiQuizMetrics metrics,
+            AiGenerationReceiptRepository receipts
     ) {
         this.client = client;
         this.styleExamples = styleExamples;
         this.properties = properties;
         this.metrics = metrics;
+        this.receipts = receipts;
     }
 
     public AiQuizGenerateResponse generate(AiQuizGenerateRequest request, UserPrincipal principal) {
@@ -56,6 +60,15 @@ public class AiQuizGenerationService {
                     request.difficulty().name(), request.count(), request.topK(), selectedStyles
             ), requestId);
             AiQuizGenerateResponse mapped = validateAndMap(response, request.difficulty().name());
+            AiGenerationReceiptRepository.Issued receipt;
+            try {
+                receipt = receipts.issue(request, response, principal, requestId);
+            } catch (DataAccessException ex) {
+                throw new ApiException(HttpStatus.SERVICE_UNAVAILABLE, "AI_GENERATION_RECEIPT_UNAVAILABLE",
+                        "Generation receipt could not be created");
+            }
+            mapped = new AiQuizGenerateResponse(mapped.questions(), mapped.sources(), mapped.warnings(), mapped.generation(),
+                    new AiQuizGenerateResponse.GenerationReceipt(receipt.id(), receipt.expiresAt().toString()));
             metrics.success(mapped.generation().partial());
             log.info(
                     "AI quiz generated requestId={} userId={} grade={} lessonNumber={} difficulty={} requestedCount={} styleExampleCount={} generatedCount={} partial={}",
@@ -88,7 +101,9 @@ public class AiQuizGenerationService {
         Integer requested = response.metadata().requestedCount();
         Integer generated = response.metadata().generatedCount();
         if (requested == null || generated == null || requested < 1 || generated < 0
-                || generated > requested || generated != response.questions().size()) {
+                || generated > requested || generated != response.questions().size()
+                || response.metadata().embeddingDimension() == null || response.metadata().embeddingDimension() < 1
+                || blank(response.metadata().corpusSha256()) || response.metadata().corpusSha256().length() != 64) {
             throw invalid("AI Service response has inconsistent generation counts");
         }
         if (generated == 0) {
@@ -105,13 +120,14 @@ public class AiQuizGenerationService {
         List<AiQuizGenerateResponse.Source> sources = response.sources().stream()
                 .map(source -> new AiQuizGenerateResponse.Source(
                         source.chunkId(), source.documentId(), source.grade(), source.lessonNumber(),
-                        source.lessonTitle(), source.sectionTitle(), source.pageStart(), source.pageEnd()
+                        source.lessonTitle(), source.sectionTitle(), source.pageStart(), source.pageEnd(), source.chunkHash()
                 )).toList();
         return new AiQuizGenerateResponse(
                 questions,
                 sources,
                 List.copyOf(response.warnings()),
-                new AiQuizGenerateResponse.Generation(requested, generated, generated < requested)
+                new AiQuizGenerateResponse.Generation(requested, generated, generated < requested),
+                null
         );
     }
 

@@ -82,8 +82,9 @@ class AiQuizControllerTest {
                         new AiQuizGenerateResponse.Option("A", "A"), new AiQuizGenerateResponse.Option("B", "B"),
                         new AiQuizGenerateResponse.Option("C", "C"), new AiQuizGenerateResponse.Option("D", "D")
                 ), "B", "E", "MEDIUM", List.of("c1"))),
-                List.of(new AiQuizGenerateResponse.Source("c1", "d1", 12, 6, "L", "S", 1, 1)),
-                List.of(), new AiQuizGenerateResponse.Generation(1, 1, false)
+                List.of(new AiQuizGenerateResponse.Source("c1", "d1", 12, 6, "L", "S", 1, 1, "b".repeat(64))),
+                List.of(), new AiQuizGenerateResponse.Generation(1, 1, false),
+                new AiQuizGenerateResponse.GenerationReceipt("receipt-1", "2026-07-20T12:00:00")
         );
     }
 

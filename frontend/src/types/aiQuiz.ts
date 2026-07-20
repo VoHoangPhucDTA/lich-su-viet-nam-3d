@@ -36,6 +36,7 @@ export interface AiQuizSource {
   sectionTitle: string | null;
   pageStart: number | null;
   pageEnd: number | null;
+  chunkHash: string | null;
 }
 
 export type AiQuizWarning = string;
@@ -51,6 +52,7 @@ export interface AiGeneratedQuizResponse {
   sources: AiQuizSource[];
   warnings: AiQuizWarning[];
   generation: AiQuizGenerationSummary;
+  generationReceipt: { id: string; expiresAt: string };
 }
 
 export interface AiQuizViewModel {
@@ -58,4 +60,5 @@ export interface AiQuizViewModel {
   sourcesByQuestionId: Record<string, AiQuizSource[]>;
   generation: AiQuizGenerationSummary;
   hasReviewAdvisory: boolean;
+  generationReceipt: { id: string; expiresAt: string };
 }

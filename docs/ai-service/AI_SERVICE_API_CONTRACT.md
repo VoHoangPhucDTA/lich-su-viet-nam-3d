@@ -298,3 +298,7 @@ Goal 0 phải map theo error schema hiện có của backend.
 - `topK`: giới hạn server-side.
 - Không cho client truyền raw prompt.
 - Không cho client chỉ định model tùy ý.
+
+## Goal 12 review API
+
+Generation responses now include `generationReceipt: { id, expiresAt }`. Candidate creation sends only this opaque receipt ID and selected question indexes; model/source/corpus fields are server controlled. Admin-only routes provide list/detail/update, submit, approve, reject, publish, audit, and publish-target discovery under `/api/exams/ai/candidates`. Every mutation uses a specific command; update/publish include `version`, reject requires `reason`, and publish requires dataset/definition/section IDs. Error codes include `AI_CANDIDATE_NOT_FOUND`, `AI_CANDIDATE_INVALID_STATUS`, `AI_CANDIDATE_INVALID_CONTENT`, `AI_CANDIDATE_VERSION_CONFLICT`, `AI_CANDIDATE_FORBIDDEN`, `AI_CANDIDATE_PROVENANCE_INVALID`, `AI_CANDIDATE_PUBLISH_FAILED`, and `AI_CANDIDATE_TARGET_INVALID`.

@@ -1,4 +1,5 @@
 import math
+import json
 from pathlib import Path
 from typing import Any
 
@@ -8,6 +9,7 @@ from pydantic import ValidationError
 
 from app.config import Settings
 from app.embedding.formatter import QUERY_FORMATTER_VERSION, RetrievalFormatter
+from app.embedding.checkpoint import sanitize_artifact_name
 from app.main import create_app
 from app.retrieval.context_builder import build_fact_context
 from app.retrieval.filters import build_chroma_where, candidate_matches_filters
@@ -93,7 +95,16 @@ def settings(tmp_path: Path, **overrides: Any) -> Settings:
         "embedding_checkpoint_dir": tmp_path / "checkpoints",
     }
     values.update(overrides)
-    return Settings(_env_file=None, **values)
+    configured = Settings(_env_file=None, **values)
+    artifact = configured.embedding_output_dir / sanitize_artifact_name(
+        configured.gemini_embedding_model, configured.gemini_embedding_dimension
+    )
+    artifact.mkdir(parents=True, exist_ok=True)
+    (artifact / "embedding_manifest.json").write_text(json.dumps({
+        "status": "COMPLETED", "corpusSha256": "c" * 64,
+        "formatterVersion": "gemini-retrieval-document-v1",
+    }), encoding="utf-8")
+    return configured
 
 
 def test_request_validation_and_query_formatter() -> None:

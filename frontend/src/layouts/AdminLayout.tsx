@@ -7,6 +7,7 @@ import {
   LogOut,
   Map,
   Menu,
+  Sparkles,
   Users,
   X,
 } from 'lucide-react';
@@ -20,6 +21,7 @@ const NAV_ITEMS: AdminNavItem[] = [
   { to: '/admin/dashboard', label: 'Tổng quan', icon: LayoutDashboard },
   { to: '/admin/events', label: 'Sự kiện lịch sử', icon: CalendarDays },
   { to: '/admin/users', label: 'Người dùng', icon: Users },
+  { to: '/admin/exams/ai-candidates', label: 'Duyệt câu hỏi AI', icon: Sparkles },
 ];
 
 function AdminSidebar({ open, onClose }: { open: boolean; onClose: () => void }) {

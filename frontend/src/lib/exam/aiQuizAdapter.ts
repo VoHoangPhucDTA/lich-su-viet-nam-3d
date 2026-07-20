@@ -30,6 +30,7 @@ export function adaptAiQuizResponse(response: AiGeneratedQuizResponse, query: st
     sourcesByQuestionId,
     generation: response.generation,
     hasReviewAdvisory: response.warnings.length > 0,
+    generationReceipt: response.generationReceipt,
   };
 }
 

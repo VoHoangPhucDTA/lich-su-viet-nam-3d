@@ -146,6 +146,7 @@ class GenerationSource(StrictCamelModel):
     section_title: str
     page_start: int | None = None
     page_end: int | None = None
+    chunk_hash: str
 
 
 class GenerationMetadata(StrictCamelModel):
@@ -154,6 +155,8 @@ class GenerationMetadata(StrictCamelModel):
     retrieved_chunk_count: int
     generation_model: str
     embedding_model: str
+    embedding_dimension: int
+    corpus_sha256: str
     collection_name: str
     prompt_version: str = PROMPT_VERSION
     schema_version: str = SCHEMA_VERSION

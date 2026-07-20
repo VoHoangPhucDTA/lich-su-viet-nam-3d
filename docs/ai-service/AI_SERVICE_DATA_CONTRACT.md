@@ -296,3 +296,7 @@ Benchmark JSONL `data/evaluation/generation_benchmark.jsonl` có 12 case: bốn 
 Generation evaluation cache identity gồm hash request, ordered source IDs/chunk hashes, generation model, temperature, prompt version, schema version và style hash. Cache/report nằm dưới `storage/`, atomic và Git-ignored; không chứa API key, prompt đầy đủ, vector hay raw provider response. Source thay đổi hoặc đổi bất kỳ semantic identity field nào đều cache miss.
 
 Report gồm request/parse/schema/source/option/explanation rates, duplicate rates, heuristic warning rates, repair/partial/insufficient rates, latency, cache hits/misses, errors và danh sách câu cần manual review. `properNameEvidenceWarningRate` và `dateEvidenceWarningRate` là review signal; report không được diễn giải chúng như correctness score.
+
+## Candidate provenance contract
+
+The server retains request ID/query/filter/count, generation and embedding model, embedding dimension, prompt/schema version, corpus SHA, collection, validation/generation warnings, and immutable source metadata including optional chunk hash. It stores original and editable question/option snapshots separately. It never stores Gemini keys, JWTs, Authorization headers, vectors, raw prompts, or full textbook chunks. Provenance describes lineage and review history; it is not proof of factual correctness.

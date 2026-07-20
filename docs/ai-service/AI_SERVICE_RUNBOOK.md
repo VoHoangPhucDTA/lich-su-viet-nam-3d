@@ -388,3 +388,7 @@ Troubleshooting:
 - `AI_SERVICE_TIMEOUT`/`AI_SERVICE_UNAVAILABLE`: kiểm tra Spring và FastAPI; frontend không tự retry.
 - Mock smoke: chạy component test `AiQuizPage.test.tsx`; mock public Spring response, không mock FastAPI.
 - Không thêm `VITE_GEMINI_API_KEY`, FastAPI URL, local/session storage hoặc official exam submit vào flow này.
+
+## Review workflow smoke run
+
+Use a non-production MySQL database and a hidden `REVIEW_REQUIRED` test definition. Log in as admin, generate one question, explicitly select “Lưu để duyệt”, edit it, submit, approve, then confirm publish. Verify four official options/one correct answer, repeat publish and confirm no duplicate, inspect the audit timeline, and verify a student receives 403 for candidate routes. Do not publish to a public definition. If MySQL or authenticated services are unavailable, run unit/mock integration suites and report real E2E as not run.

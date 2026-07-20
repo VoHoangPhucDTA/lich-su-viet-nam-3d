@@ -151,6 +151,7 @@ class GenerationService:
                 sectionTitle=item.section_title,
                 pageStart=item.page_start,
                 pageEnd=item.page_end,
+                chunkHash=item.chunk_hash,
             )
             for item in retrieval.results
         ]
@@ -163,6 +164,8 @@ class GenerationService:
                 retrievedChunkCount=len(retrieval.results),
                 generationModel=self.provider.model,
                 embeddingModel=retrieval.metadata.embedding_model,
+                embeddingDimension=retrieval.metadata.embedding_dimension,
+                corpusSha256=retrieval.metadata.corpus_sha256,
                 collectionName=retrieval.metadata.collection_name,
                 repairAttempts=repair_attempts,
                 latencyMs=round((time.monotonic() - started) * 1000, 3),
