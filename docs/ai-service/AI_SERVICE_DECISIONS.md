@@ -230,6 +230,54 @@
 - Status: Accepted cho Goal 8.
 - Decision: Key gồm SHA-256 query, model, dimension và query formatter; cache ngoài Git, atomic, không dùng trong production API và không lưu secret/header.
 
+## ADR-031 — Gemini 2.5 Flash và JSON Schema chính thức
+
+- Date: 2026-07-20
+- Status: Accepted cho Goal 9.
+- Context: Cần model ổn định hỗ trợ structured output cho MCQ tiếng Việt có schema chặt.
+- Decision: Dùng `gemini-2.5-flash`, temperature `0.3`, SDK `google-genai==2.12.1` và `response_json_schema` từ Pydantic JSON Schema. Parser nội bộ vẫn `extra=forbid`.
+- Consequences: Không truyền keyword `additional_properties` không được Gemini API chấp nhận; mọi response vẫn phải qua strict internal parse/validation.
+- Verification: [Gemini 2.5 Flash model card](https://ai.google.dev/gemini-api/docs/models/gemini-2.5-flash), [structured outputs](https://ai.google.dev/gemini-api/docs/generate-content/structured-output), [official Python SDK](https://googleapis.github.io/python-genai/); production smoke count 1/3 pass.
+
+## ADR-032 — Fact Context là nguồn duy nhất, Style Examples chỉ định hình
+
+- Date: 2026-07-20
+- Status: Accepted.
+- Decision: Prompt tách marker `FACT CONTEXT` và `STYLE EXAMPLES`; style được ghi rõ không phải fact source. Output source IDs chỉ được là subset của retrieval context.
+- Consequences: FastAPI không truy cập MySQL. Goal 10 để Spring Boot chọn câu verified và truyền vào; style fixture Goal 9 chỉ synthetic/sanitized.
+- Verification: prompt isolation/source-subset tests và production benchmark pass.
+
+## ADR-033 — Bounded repair và partial-result policy
+
+- Date: 2026-07-20
+- Status: Accepted.
+- Decision: Tối đa một targeted repair cho output sửa được; không repair permanent/safety/transient provider failure. Sau repair, trả partial nếu còn câu hợp lệ kèm `INSUFFICIENT_VALID_QUESTIONS`; zero valid thì fail.
+- Consequences: Không retry vô hạn hoặc che lỗi provider; metadata luôn cho biết repair count và requested/generated count.
+- Verification: unit/integration tests cho repair success, repair failure, partial và zero-valid failure.
+
+## ADR-034 — Deterministic duplicate check, không tạo vector mới
+
+- Date: 2026-07-20
+- Status: Accepted.
+- Decision: Dùng normalized token Jaccard threshold `0.9` cộng option signature để so trong batch và với Style Examples.
+- Consequences: Không rebuild corpus/embedding/Chroma và không truy cập ngân hàng câu hỏi ở Goal 9. Duplicate detection toàn ngân hàng thuộc integration sau.
+- Verification: duplicate tests và production benchmark có within-batch/style duplicate rate `0.0`.
+
+## ADR-035 — Generation evaluation cache phụ thuộc nguồn
+
+- Date: 2026-07-20
+- Status: Accepted.
+- Decision: Cache identity gồm request, source ID/hash, model, temperature, prompt/schema version và style hash; cache chỉ ở evaluator và atomic/Git-ignored.
+- Consequences: pass hai không gọi generation model khi toàn bộ identity giữ nguyên; retrieval query vẫn chạy để xác nhận nguồn hiện hành.
+- Verification: 12 miss ở pass đầu, 12 hit/0 miss ở pass hai, cùng quality metrics.
+
+## ADR-036 — Heuristic warning không phải factuality score
+
+- Date: 2026-07-20
+- Status: Accepted.
+- Decision: Date/proper-name evidence heuristics chỉ đưa câu vào manual review. Không tự động tuyên bố groundedness hoặc answer correctness.
+- Consequences: 22 câu production đều cần manual review; `properNameEvidenceWarningRate=0.75` được công bố như limitation, không là failure rate.
+
 Mỗi quyết định phải có:
 
 ```text

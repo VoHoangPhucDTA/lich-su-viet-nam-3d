@@ -14,7 +14,12 @@ GEMINI_EMBEDDING_BATCH_SIZE=8
 GEMINI_EMBEDDING_MAX_RETRIES=5
 GEMINI_EMBEDDING_RETRY_MIN_SECONDS=1
 GEMINI_EMBEDDING_RETRY_MAX_SECONDS=30
-GEMINI_GENERATION_MODEL=
+GEMINI_GENERATION_MODEL=gemini-2.5-flash
+GEMINI_GENERATION_TEMPERATURE=0.3
+GEMINI_GENERATION_MAX_OUTPUT_TOKENS=8192
+GEMINI_GENERATION_MAX_RETRIES=3
+GEMINI_GENERATION_REPAIR_ATTEMPTS=1
+GEMINI_GENERATION_TIMEOUT_SECONDS=60
 EMBEDDING_OUTPUT_DIR=./storage/embeddings
 EMBEDDING_CHECKPOINT_DIR=./storage/checkpoints
 CHROMA_PERSIST_DIR=./storage/chroma
@@ -26,6 +31,15 @@ SGK_CHUNKS_PATH=./data/corpus/sgk_chunks.jsonl
 RAG_INCLUDE_PENDING_REVIEW=false
 RAG_DEFAULT_TOP_K=5
 RAG_MAX_TOP_K=10
+QUIZ_DEFAULT_COUNT=5
+QUIZ_MAX_COUNT=10
+QUIZ_MAX_STYLE_EXAMPLES=3
+QUIZ_MAX_STYLE_EXAMPLE_CHARS=12000
+QUIZ_MAX_QUESTION_LENGTH=500
+QUIZ_MAX_OPTION_LENGTH=300
+QUIZ_MAX_EXPLANATION_LENGTH=1500
+QUIZ_DUPLICATE_SIMILARITY_THRESHOLD=0.9
+QUIZ_ALLOW_PENDING_REVIEW=false
 LOG_LEVEL=INFO
 ```
 
@@ -194,10 +208,10 @@ Manifest status:
 ## 9. Checklist trước demo
 
 - [x] Health endpoint UP cho Goal 7A/7B.
-- [ ] Index count đúng.
-- [ ] Retrieval test pass ngưỡng.
-- [ ] Không dùng pending-review chunks ngoài policy.
-- [ ] Gemini structured output pass.
+- [x] Index count đúng.
+- [x] Retrieval test pass ngưỡng.
+- [x] Không dùng pending-review chunks ngoài policy.
+- [x] Gemini structured output pass.
 - [ ] Không có API key trong git diff/log.
 - [ ] Spring integration test pass.
 - [ ] Frontend build/typecheck pass.
@@ -245,3 +259,48 @@ python -m scripts.evaluate_retrieval
 Cache atomic nằm tại `storage/evaluation-cache/`; cùng query/model/dimension/formatter sẽ resume không gọi embedding lại. Không đổi model hoặc rebuild document embeddings khi quota tạm thời; tối đa ba resume pass khi có tiến triển. Report runtime ở `storage/evaluation-reports/retrieval-evaluation.json` và `.md`.
 
 Production smoke automated chỉ chạy khi `RUN_PRODUCTION_RETRIEVAL_SMOKE=1`; thiếu Gemini key hoặc Chroma thì skip. Kiểm tra filter, ID trùng, finite distance, ordered source IDs và collection count không đổi.
+
+## 12. Grounded generation — Goal 9
+
+Service có thể khởi động khi generation model/key trống; khi đó `generationReady=false` và endpoint trả lỗi an toàn. Health không gọi Gemini. Production dùng `gemini-2.5-flash`; nếu `.env` local đang để model trống, đặt process environment trước khi smoke:
+
+```powershell
+$env:GEMINI_GENERATION_MODEL='gemini-2.5-flash'
+```
+
+Sinh thủ công, không persist:
+
+```powershell
+python -m scripts.generate_quiz --query "Nguyên nhân thắng lợi của Cách mạng tháng Tám năm 1945" --grade 12 --lesson-number 6 --difficulty MEDIUM --count 3 --top-k 5 --show-sources
+```
+
+Dùng style fixture chỉ cho test/evaluation:
+
+```powershell
+python -m scripts.generate_quiz --query "Vai trò của tri thức lịch sử" --grade 10 --difficulty MEDIUM --count 2 --style-examples-file tests/fixtures/style_examples.json --json
+```
+
+API nội bộ:
+
+```powershell
+$body = @{query='Nguyên nhân thắng lợi của Cách mạng tháng Tám'; grade=12; lessonNumber=6; difficulty='MEDIUM'; count=1; topK=5; styleExamples=@()} | ConvertTo-Json -Depth 8
+Invoke-RestMethod -Method Post -Uri http://127.0.0.1:8001/ai/quiz/generate -ContentType application/json -Body $body
+```
+
+Production smoke automated chỉ chạy khi bật rõ:
+
+```powershell
+$env:RUN_PRODUCTION_GENERATION_SMOKE='1'
+python -m pytest tests/integration/test_production_generation_smoke.py -q
+```
+
+Evaluation 12 case và resume cache:
+
+```powershell
+python -m scripts.evaluate_generation
+python -m scripts.evaluate_generation
+```
+
+Cache ở `storage/generation-cache/`; report ở `storage/evaluation-reports/generation-evaluation.json` và `.md`, đều Git-ignored. Pass production đã xác minh: pass đầu 12 miss/12 success, pass hai 12 hit/0 miss; các structural/source metrics đạt 1.0, duplicate/partial/insufficient 0.0. Tất cả 22 câu vẫn phải manual review; warning tên riêng/ngày tháng không phải correctness score.
+
+Không xóa cache để tạo thêm provider calls khi report hiện tại đã đủ gate. Không in prompt, key, vector hoặc raw response. Khi 429/quota xảy ra, dừng evaluation nếu không có tiến triển; không rebuild embedding/index và không chuyển key vì generation quota.

@@ -6,8 +6,8 @@
 - Repository dự kiến: `D:/KLTN/lich-su-viet-nam-3d`
 - Nhánh đã được nhắc trước đây: `be_exams`
 - Nhánh thực tế: `ai_service` (khác tên `ai-service` trong yêu cầu; không đổi branch)
-- Commit đã xác minh: `99296ca31a953027dc91f4cd122cdd27b45a5ca9`
-- Người cập nhật gần nhất: `Codex — Goal 7C/7D Production`
+- Commit đã xác minh: `590bbe1a` (`feat(ai-service): implement grounded retrieval and evaluation`)
+- Người cập nhật gần nhất: `Codex — Goal 9 Grounded Generation`
 
 ## Trạng thái tổng quát
 
@@ -26,9 +26,9 @@
 | Gemini embedding production artifacts | COMPLETED | Manifest `COMPLETED`; 414 unique finite vectors; 45 pending excluded |
 | Goal 7D — Chroma indexing | DONE_PRODUCTION | Dry-run, smoke 3, full 414, idempotency và persistence pass |
 | ChromaDB production index | READY | `sgk_kntt_history_gemini_v1`, 414 unique IDs, cosine |
-| Retrieval service | NOT_STARTED | Chưa có API production |
-| Retrieval evaluation | PARTIAL | Mới có smoke test local |
-| Gemini question generation | NOT_STARTED | Chưa có prompt/schema/validator production |
+| Retrieval service | DONE_PRODUCTION | `POST /ai/retrieval/debug`, Fact Context có nguồn |
+| Retrieval evaluation | DONE_PRODUCTION | 36 query; Hit@3/5 = 1.0, invariant pass |
+| Gemini question generation | DONE_PRODUCTION | `POST /ai/quiz/generate`, Gemini structured output, validator/repair/cache/evaluation |
 | Spring Boot integration | NOT_STARTED | Cần audit project |
 | React integration | NOT_STARTED | Cần audit component quiz hiện có |
 | Thesis evaluation | NOT_STARTED | Cần số liệu thực nghiệm |
@@ -161,6 +161,21 @@
 - Hạn chế: benchmark chưa expert validation; bốn query không hit expected chunk ở rank 1 nhưng đều hit top 3; raw distance không phải confidence.
 - Blocker: không có.
 - Exact next action Goal 9: review bốn rank-1 miss, khóa generation contract/validation chỉ dùng Fact Context có truy nguồn; chưa persist vào ngân hàng đề.
+
+### 2026-07-20 — Goal 9 grounded generation và evaluation
+
+- Trạng thái `DONE_PRODUCTION`; code Goal 9 chưa commit để review riêng. Goal 8 đã commit tại `590bbe1a`.
+- Bốn rank-1 miss của Goal 8 đều trúng đúng document/lesson ở rank 1 và expected chunk ở rank 2; top 3 đủ Fact Context, không cần rebuild corpus/embedding/Chroma.
+- Generation model: `gemini-2.5-flash`, temperature `0.3`; prompt `grounded-mcq-v1`, schema `grounded-mcq-schema-v1`; SDK `google-genai==2.12.1`.
+- Luồng: retrieval production → Fact Context có marker chunk → Style Examples tách biệt → structured JSON → strict parser/validator → tối đa một repair → response; không persist MySQL.
+- Production smoke count 1 và count 3 đều đủ số câu, đúng bốn lựa chọn, một đáp án, lời giải/source ID hợp lệ, zero repair và zero duplicate.
+- Benchmark 12 case cân bằng lớp 10/11/12 và EASY/MEDIUM/HARD; 4 case có synthetic style fixture, có một narrow-context case.
+- Pass production đầu: 12/12 request success, parse/schema/four-options/single-answer/source/explanation đều `1.0`; duplicate, partial và insufficient-context đều `0.0`; average/P50/P95 `11778.667/12359/15750 ms`; 0 quota incident.
+- Pass cache: 12 hit, 0 miss; cùng quality metrics; average/P50/P95 `759.083/742/1078 ms`. Retrieval vẫn tạo query embedding để xác định source identity; cache ngăn generation call khi identity không đổi.
+- `properNameEvidenceWarningRate=0.75` là heuristic review bảo thủ, không phải factuality failure. Toàn bộ 22 câu được đưa vào manual review; automated checks không chứng minh answer correctness/groundedness tuyệt đối.
+- Verification cuối: `112 passed, 3 skipped`; compileall, corpus validator, Chroma inspect và `git diff --check` pass. HTTP-level `TestClient` smoke trả 200, generated `1/1`, đúng 4 option, source không rỗng, repair `0`; warning tên riêng được giữ để manual review.
+- Không sửa Spring Boot/frontend, không ghi ngân hàng câu hỏi, không rebuild artifact Goal 7C/7D.
+- Blocker: không có cho Goal 9. Exact next action Goal 10: Spring Boot lấy tối đa 2–3 câu verified từ MySQL làm Style Examples rồi gọi FastAPI; AI Service không truy cập MySQL trực tiếp.
 
 ## Kế hoạch dài hạn tham chiếu
 

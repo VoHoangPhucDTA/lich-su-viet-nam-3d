@@ -68,11 +68,17 @@ def health(
     settings: Annotated[Settings, Depends(get_request_settings)],
 ) -> HealthResponse:
     chroma_ready = _chroma_ready(settings)
+    retrieval_ready = _retrieval_ready(settings, chroma_ready)
     return HealthResponse(
         status="ok",
         service="history-rag-ai-service",
         environment=settings.app_env,
         chroma_ready=chroma_ready,
-        retrieval_ready=_retrieval_ready(settings, chroma_ready),
+        retrieval_ready=retrieval_ready,
+        generation_ready=(
+            retrieval_ready
+            and bool(settings.gemini_generation_model.strip())
+            and settings.gemini_configured
+        ),
         gemini_configured=settings.gemini_configured,
     )

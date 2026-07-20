@@ -98,6 +98,25 @@ Gate: PASSED. Không rebuild embedding/index, không dùng generation model, kh�
 
 Exact next action cho Goal 9: review bốn rank-1 miss, sau đó thiết kế generation contract và validation chỉ dựa trên sourceChunkIds của Fact Context; chưa ghi câu sinh vào ngân hàng đề.
 
+## Goal 9 — Grounded generation, validation và evaluation
+
+**Trạng thái: DONE_PRODUCTION (2026-07-20)**
+
+- [x] Review bốn rank-1 miss: cùng document/lesson, expected chunk ở rank 2 và top 3 đủ làm ngữ cảnh.
+- [x] Chọn `gemini-2.5-flash`; structured JSON schema, prompt/schema version và config typed.
+- [x] Prompt tách FACT CONTEXT khỏi STYLE EXAMPLES; style chỉ hướng dẫn cách viết, không là nguồn sự thật.
+- [x] Strict parser và validator cho bốn option A–D, một đáp án, độ dài, difficulty, source subset, option/source duplicate và warning evidence.
+- [x] Duplicate check deterministic trong batch/với style examples, không tạo collection hoặc embedding mới.
+- [x] Tối đa một repair có mục tiêu; cho partial có warning khi còn câu hợp lệ, fail khi không còn câu hợp lệ.
+- [x] `POST /ai/quiz/generate`, CLI, fake provider, unit/integration/production smoke tests; không persist câu hỏi.
+- [x] Benchmark production 12 case và cache identity theo request/source/model/prompt/schema/temperature/style.
+- [x] Pass đầu 12/12 success; mọi structural/source metric bắt buộc đạt 1.0, duplicate/partial/insufficient 0.0; 22 câu chờ manual review.
+- [x] Pass hai 12/12 cache hit, zero generation call; quality metrics giữ nguyên.
+
+Gate: PASSED cho phạm vi AI Service. Cảnh báo tên riêng là tín hiệu review, không phải xác nhận factuality; chưa có expert-labelled correctness score.
+
+Exact next action Goal 10: tích hợp Spring Boot làm gateway, lấy 2–3 câu verified từ MySQL làm Style Examples và map error/timeout; không cho FastAPI truy cập MySQL trực tiếp.
+
 ---
 
 ## Goal 0 — Audit repository và chốt integration contract

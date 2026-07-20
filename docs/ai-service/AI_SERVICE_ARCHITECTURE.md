@@ -155,3 +155,23 @@ RetrievalRequest
 ```
 
 API, CLI và evaluator dùng chung `RetrievalService`. Cache evaluator trong `storage/evaluation-cache/` không tham gia production API. Health chỉ đọc file/report/config; không gọi Gemini, không query Chroma và không load corpus.
+
+## Luồng generation production — Goal 9
+
+```text
+GenerationRequest
+→ RetrievalService (read-only production collection)
+→ ordered RetrievalResult
+→ deterministic Fact Context [SOURCE chunkId=...]
+→ optional Style Examples (STYLE ONLY, không phải fact source)
+→ Prompt grounded-mcq-v1 + JSON Schema grounded-mcq-schema-v1
+→ Gemini gemini-2.5-flash structured output
+→ strict parse (unknown field/fence/schema đều bị từ chối)
+→ semantic validators + deterministic duplicate checker
+→ tối đa một targeted repair nếu cần
+→ GenerationResponse (questions + sources + metadata + warnings)
+```
+
+API, CLI và evaluator dùng chung `GenerationService`. Service chỉ chấp nhận `sourceChunkIds` thuộc Fact Context đã retrieval; không dùng pending-review chunk, không ghi MySQL và không đổi Chroma. Generation cache chỉ dùng trong evaluator, có identity gồm request, source ID/hash, model, temperature, prompt/schema version và style hash.
+
+`generationReady` là readiness nhẹ từ retrieval readiness + model/key configuration; health không gọi Gemini. Goal 10 sẽ để Spring Boot lấy Style Examples đã verified từ MySQL và truyền vào request, giữ ranh giới FastAPI không truy cập dữ liệu nghiệp vụ.

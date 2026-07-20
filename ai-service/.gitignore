@@ -11,6 +11,7 @@ storage/embeddings/
 storage/checkpoints/
 storage/evaluation-cache/
 storage/evaluation-reports/
+storage/generation-cache/
 
 __pycache__/
 *.py[cod]

@@ -1,6 +1,6 @@
-# AI Service RAG — API Contract Draft
+# AI Service RAG — API Contract
 
-Tài liệu này là draft. Goal 0 phải điều chỉnh naming, auth và error format theo project hiện tại.
+FastAPI contract đã triển khai cho health, retrieval debug và grounded generation. Naming/auth/error public của Spring Boot vẫn phải được map theo backend hiện tại ở Goal 10.
 
 ## 1. FastAPI internal endpoints
 
@@ -86,17 +86,20 @@ Errors: `422` request/topK/filter sai; `503` collection/manifest chưa sẵn sà
 
 ### `POST /ai/quiz/generate`
 
+Endpoint nội bộ đã triển khai. Endpoint không lưu request/câu hỏi, không nhận raw prompt/model, không truy cập MySQL và không trả prompt, API key, vector hay raw provider response.
+
 Request:
 
 ```json
 {
+  "query": "Nguyên nhân thắng lợi của Cách mạng tháng Tám",
   "grade": 12,
-  "topic": "Cách mạng tháng Tám",
   "lessonNumber": 6,
   "documentId": null,
   "count": 5,
   "difficulty": "MEDIUM",
-  "cognitiveLevel": "UNDERSTANDING"
+  "topK": 5,
+  "styleExamples": []
 }
 ```
 
@@ -104,7 +107,6 @@ Response:
 
 ```json
 {
-  "requestId": "...",
   "questions": [
     {
       "question": "...",
@@ -117,15 +119,50 @@ Response:
       "correctOptionId": "B",
       "explanation": "...",
       "difficulty": "MEDIUM",
-      "cognitiveLevel": "UNDERSTANDING",
       "sourceChunkIds": ["..."]
     }
   ],
-  "retrieval": {
-    "usedChunkIds": ["..."]
-  }
+  "sources": [
+    {
+      "chunkId": "...",
+      "documentId": "...",
+      "grade": 12,
+      "lessonNumber": 6,
+      "lessonTitle": "...",
+      "sectionTitle": "...",
+      "pageStart": 35,
+      "pageEnd": 35
+    }
+  ],
+  "metadata": {
+    "requestedCount": 5,
+    "generatedCount": 5,
+    "retrievedChunkCount": 5,
+    "generationModel": "gemini-2.5-flash",
+    "embeddingModel": "gemini-embedding-2",
+    "collectionName": "sgk_kntt_history_gemini_v1",
+    "promptVersion": "grounded-mcq-v1",
+    "schemaVersion": "grounded-mcq-schema-v1",
+    "repairAttempts": 0,
+    "latencyMs": 12000.0
+  },
+  "warnings": []
 }
 ```
+
+Validation request: `query` bắt buộc; grade chỉ 10/11/12; lesson dương; difficulty EASY/MEDIUM/HARD; count mặc định 5, tối đa 10; topK theo retrieval 1..10; tối đa 3 Style Examples. Mỗi Style Example phải có đúng A–D, một đáp án và lời giải.
+
+Validation output: đúng bốn option A–D, một đáp án hợp lệ, text/lời giải không rỗng và trong giới hạn, difficulty khớp, source ID không trùng và là subset của Fact Context, không duplicate trong batch hoặc với style fixture. Date/proper-name checks là warning để review, không tự động chứng minh factuality.
+
+Partial policy: sau tối đa một repair, nếu còn ít nhất một câu hợp lệ thì trả các câu đó cùng warning `INSUFFICIENT_VALID_QUESTIONS`; nếu không có câu hợp lệ thì request thất bại. `questions` không bao giờ được tự động persist.
+
+HTTP errors hiện tại:
+
+- `422`: request/constraint sai.
+- `409`: không đủ Fact Context (`INSUFFICIENT_CONTEXT`).
+- `503`: retrieval/generation chưa cấu hình hoặc provider tạm thời unavailable.
+- `502`: provider output invalid/permanent/safety failure; không lộ raw provider response.
+- `500`: lỗi không dự kiến với message an toàn.
 
 ### `POST /ai/index/rebuild`
 

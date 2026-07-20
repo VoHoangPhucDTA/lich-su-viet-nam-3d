@@ -284,3 +284,15 @@ Benchmark JSONL `data/evaluation/retrieval_benchmark.jsonl` gồm query identity
 
 Cache chỉ chứa vector dưới identity không đảo ngược dựa trên query hash + model + dimension + query formatter. Cache/report runtime bị Git ignore; report/API không chứa vector, API key hoặc authorization header.
 - Không upsert vector khác dimension vào collection cũ.
+
+## 15. Grounded generation — Goal 9
+
+Structured output dùng `GeneratedQuestionBatch` với danh sách câu hỏi strict; unknown fields bị từ chối. Mỗi `GeneratedQuestion` có `question`, đúng bốn `options` A–D, `correctOptionId`, `explanation`, `difficulty` và ít nhất một `sourceChunkId`. Source ID bắt buộc thuộc tập Fact Context của đúng request.
+
+Style fixture tại `tests/fixtures/style_examples.json` là dữ liệu synthetic/sanitized để test và benchmark, không phải nguồn fact và không đại diện dữ liệu verified trong MySQL. Production integration sau này chỉ truyền tối đa 2–3 câu đã verified qua Spring Boot.
+
+Benchmark JSONL `data/evaluation/generation_benchmark.jsonl` có 12 case: bốn case cho mỗi lớp 10/11/12, bốn case cho mỗi difficulty, bốn case có style fixture và một case context hẹp. Document ID phải tồn tại trong eligible corpus.
+
+Generation evaluation cache identity gồm hash request, ordered source IDs/chunk hashes, generation model, temperature, prompt version, schema version và style hash. Cache/report nằm dưới `storage/`, atomic và Git-ignored; không chứa API key, prompt đầy đủ, vector hay raw provider response. Source thay đổi hoặc đổi bất kỳ semantic identity field nào đều cache miss.
+
+Report gồm request/parse/schema/source/option/explanation rates, duplicate rates, heuristic warning rates, repair/partial/insufficient rates, latency, cache hits/misses, errors và danh sách câu cần manual review. `properNameEvidenceWarningRate` và `dateEvidenceWarningRate` là review signal; report không được diễn giải chúng như correctness score.

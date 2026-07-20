@@ -24,6 +24,7 @@ def test_health_endpoint_without_external_clients(tmp_path) -> None:
         "environment": "development",
         "chromaReady": False,
         "retrievalReady": False,
+        "generationReady": False,
         "geminiConfigured": False,
     }
 
@@ -109,3 +110,4 @@ def test_retrieval_ready_requires_compatible_manifest_and_index_report(tmp_path)
     response = TestClient(create_app(configured)).get("/ai/health")
 
     assert response.json()["retrievalReady"] is True
+    assert response.json()["generationReady"] is False

@@ -26,6 +26,12 @@ def test_config_loads_defaults_without_api_key() -> None:
     assert settings.rag_context_max_chunks == 5
     assert settings.rag_query_max_length == 1000
     assert settings.rag_retrieval_timeout_seconds == 30
+    assert settings.gemini_generation_temperature == 0.3
+    assert settings.gemini_generation_max_output_tokens == 8192
+    assert settings.gemini_generation_repair_attempts == 1
+    assert settings.quiz_default_count == 5
+    assert settings.quiz_max_count == 10
+    assert settings.quiz_duplicate_similarity_threshold == 0.9
     assert settings.gemini_configured is False
 
 

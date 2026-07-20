@@ -38,6 +38,11 @@ class Settings(BaseSettings):
     gemini_embedding_retry_min_seconds: float = Field(default=1, ge=0)
     gemini_embedding_retry_max_seconds: float = Field(default=30, ge=0)
     gemini_generation_model: str = ""
+    gemini_generation_temperature: float = Field(default=0.3, ge=0, le=2)
+    gemini_generation_max_output_tokens: int = Field(default=8192, gt=0)
+    gemini_generation_max_retries: int = Field(default=3, ge=0)
+    gemini_generation_repair_attempts: int = Field(default=1, ge=0)
+    gemini_generation_timeout_seconds: float = Field(default=60, gt=0)
 
     embedding_output_dir: Path = Path("./storage/embeddings")
     embedding_checkpoint_dir: Path = Path("./storage/checkpoints")
@@ -59,6 +64,16 @@ class Settings(BaseSettings):
     rag_context_max_chunks: int = Field(default=5, gt=0)
     rag_query_max_length: int = Field(default=1000, gt=0)
     rag_retrieval_timeout_seconds: float = Field(default=30, gt=0)
+
+    quiz_default_count: int = Field(default=5, ge=1)
+    quiz_max_count: int = Field(default=10, ge=1)
+    quiz_max_style_examples: int = Field(default=3, ge=0)
+    quiz_max_style_example_chars: int = Field(default=12000, gt=0)
+    quiz_max_question_length: int = Field(default=500, gt=0)
+    quiz_max_option_length: int = Field(default=300, gt=0)
+    quiz_max_explanation_length: int = Field(default=1500, gt=0)
+    quiz_duplicate_similarity_threshold: float = Field(default=0.9, ge=0, le=1)
+    quiz_allow_pending_review: bool = False
 
     @property
     def gemini_configured(self) -> bool:
@@ -110,6 +125,12 @@ class Settings(BaseSettings):
             raise ValueError("RAG_MAX_TOP_K must be >= RAG_DEFAULT_TOP_K")
         if self.rag_max_candidates < self.rag_max_top_k:
             raise ValueError("RAG_MAX_CANDIDATES must be >= RAG_MAX_TOP_K")
+        return self
+
+    @model_validator(mode="after")
+    def validate_quiz_limits(self) -> "Settings":
+        if self.quiz_max_count < self.quiz_default_count:
+            raise ValueError("QUIZ_MAX_COUNT must be >= QUIZ_DEFAULT_COUNT")
         return self
 
 
