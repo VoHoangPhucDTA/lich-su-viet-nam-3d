@@ -1,4 +1,10 @@
-import { useEffect, useRef, useCallback, useState } from 'react';
+import {
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+  type MutableRefObject,
+} from 'react';
 import { AlertTriangle } from 'lucide-react';
 import {
   Viewer,
@@ -28,7 +34,9 @@ import {
   PolygonHierarchy,
   PropertyBag,
   ConstantProperty,
+  sampleTerrainMostDetailed,
 } from 'cesium';
+import type { TerrainInspectionResult } from '../utils/terrainInspection';
 import 'cesium/Build/Cesium/Widgets/widgets.css';
 import {
   VIETNAM_CENTER,
@@ -74,6 +82,32 @@ function regionCartesianPoints(geometry: ResolvedRegionGeometry) {
   );
 }
 
+/** Modes supported by the Terrain Exploration toolbar's inspect toggle. */
+export type TerrainExplorationMode = 'none' | 'inspect-location';
+
+/** Result payload pushed back to the host after a terrain inspection attempt. */
+export interface TerrainInspectionPayload {
+  result: TerrainInspectionResult | null;
+  loading: boolean;
+  error: string | null;
+}
+
+/**
+ * Imperative handle exposed by CesiumMap. The host (MapPage) uses a
+ * pre-allocated ref to call these without ever receiving a Cesium Viewer,
+ * Scene, Camera, Entity, DataSource, or ScreenSpaceEventHandler.
+ */
+export interface CesiumMapHandle {
+  /**
+   * Move the camera by a fractional amount of its current height.
+   * Positive factor = zoom in, negative = zoom out. No-op when the terrain
+   * session is not active.
+   */
+  zoomByFactor(factor: number): void;
+  /** Remove the inspection marker and invalidate any pending sample. */
+  clearInspectionMarker(): void;
+}
+
 interface CesiumMapProps {
   events: HistoricalEvent[];
   selectedEvent: HistoricalEvent | null;
@@ -87,6 +121,14 @@ interface CesiumMapProps {
   onTerrainExitComplete: (sessionId: number) => void;
   onTerrainTargetSelect: (sessionId: number, targetId: string) => void;
   onRegionGeometryStatus: (status: 'loading' | 'ready' | 'error', error?: TerrainRuntimeError) => void;
+  inspectMode?: TerrainExplorationMode;
+  inspectionSessionId?: number;
+  onInspectionResultChange?: (payload: TerrainInspectionPayload) => void;
+  /**
+   * Mutable ref published by CesiumMap so the host can drive imperative
+   * actions (zoom, inspection cleanup) without owning Cesium objects.
+   */
+  apiRef?: MutableRefObject<CesiumMapHandle | null>;
 }
 
 export default function CesiumMap({
@@ -102,6 +144,10 @@ export default function CesiumMap({
   onTerrainExitComplete,
   onTerrainTargetSelect,
   onRegionGeometryStatus,
+  inspectMode = 'none',
+  inspectionSessionId = 0,
+  onInspectionResultChange,
+  apiRef,
 }: CesiumMapProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const viewerRef = useRef<Viewer | null>(null);
@@ -131,6 +177,13 @@ export default function CesiumMap({
   const renderErrorRemoverRef = useRef<(() => void) | null>(null);
   const [mapError, setMapError] = useState<string | null>(null);
   const [viewerReady, setViewerReady] = useState(false);
+  // ─── Inspection-related refs (Task C) ──────────────────────────────────────
+  const inspectDataSourceRef = useRef<CustomDataSource | null>(null);
+  const internalInspectOpRef = useRef(0);
+  const onInspectionResultChangeRef = useRef(onInspectionResultChange);
+  onInspectionResultChangeRef.current = onInspectionResultChange;
+  const inspectModePropRef = useRef(inspectMode);
+  inspectModePropRef.current = inspectMode;
 
   // Stable ref to callback — avoids re-running init effect when callback changes
   const onSelectEventRef = useRef(onSelectEvent);
@@ -229,6 +282,14 @@ export default function CesiumMap({
             (movement: { position: Cartesian2 }) => {
               const v = viewerRef.current;
               if (!v || v.isDestroyed()) return;
+              // Inspect mode takes precedence over picking — see Task C.
+              if (
+                inspectModePropRef.current === 'inspect-location'
+                && terrainSessionRef.current?.mode === 'active'
+              ) {
+                void runInspectionAt(movement.position);
+                return;
+              }
               try {
                 const picked = v.scene.pick(movement.position);
                 const pickedEntity = defined(picked) && picked.id instanceof Entity
@@ -368,6 +429,10 @@ export default function CesiumMap({
         viewer.dataSources.remove(terrainRegionDataSourceRef.current, true);
         terrainRegionDataSourceRef.current = null;
       }
+      if (inspectDataSourceRef.current && viewer && !viewer.isDestroyed()) {
+        viewer.dataSources.remove(inspectDataSourceRef.current, true);
+        inspectDataSourceRef.current = null;
+      }
       if (dataSourceRef.current && viewer && !viewer.isDestroyed()) {
         viewer.dataSources.remove(dataSourceRef.current, true);
         dataSourceRef.current = null;
@@ -386,6 +451,208 @@ export default function CesiumMap({
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  // ─── Inspection pipeline (Task C) ────────────────────────────────────────────
+  const inspectionSessionIdRef = useRef(inspectionSessionId);
+  inspectionSessionIdRef.current = inspectionSessionId;
+  const removeInspectionMarker = useCallback((viewerInstance: Viewer) => {
+    const ds = inspectDataSourceRef.current;
+    if (ds && !viewerInstance.isDestroyed()) {
+      viewerInstance.dataSources.remove(ds, true);
+    }
+    inspectDataSourceRef.current = null;
+  }, []);
+
+  const updateInspectionMarker = useCallback(
+    (viewerInstance: Viewer, cartesian: Cartesian3) => {
+      const ds = inspectDataSourceRef.current
+        ?? new CustomDataSource('terrain-inspect-marker');
+      if (!inspectDataSourceRef.current) {
+        viewerInstance.dataSources.add(ds);
+        inspectDataSourceRef.current = ds;
+      } else {
+        ds.entities.removeAll();
+      }
+      ds.entities.add({
+        id: 'terrain-inspect-marker:current',
+        position: cartesian,
+        point: {
+          pixelSize: 14,
+          color: Color.fromCssColorString('#8b1e1e'),
+          outlineColor: Color.WHITE,
+          outlineWidth: 2,
+          heightReference: HeightReference.NONE,
+          disableDepthTestDistance: Number.POSITIVE_INFINITY,
+        },
+      });
+    },
+    [],
+  );
+
+  const runInspectionAt = useCallback(async (pixel: Cartesian2) => {
+    const viewer = viewerRef.current;
+    const session = terrainSessionRef.current;
+    if (
+      !viewer
+      || viewer.isDestroyed()
+      || !session
+      || session.mode !== 'active'
+      || inspectModePropRef.current !== 'inspect-location'
+    ) {
+      return;
+    }
+    const currentInspectSessionId = inspectionSessionIdRef.current;
+    const opId = ++internalInspectOpRef.current;
+    const onResult = onInspectionResultChangeRef.current;
+    onResult?.({ result: null, loading: true, error: null });
+    try {
+      const scene = viewer.scene;
+      const depthTest = scene.globe.depthTestAgainstTerrain === true;
+      const pickSupported = scene.pickPositionSupported === true;
+      const cartesian = depthTest && pickSupported
+        ? scene.pickPosition(pixel)
+        : scene.camera.pickEllipsoid(pixel, scene.globe.ellipsoid);
+      if (
+        !viewerRef.current
+        || viewer.isDestroyed()
+        || opId !== internalInspectOpRef.current
+        || currentInspectSessionId !== inspectionSessionIdRef.current
+      ) {
+        return;
+      }
+      if (!cartesian) {
+        removeInspectionMarker(viewer);
+        onResult?.({
+          result: null,
+          loading: false,
+          error: 'Không thể xác định vị trí trên bản đồ.',
+        });
+        return;
+      }
+      let status: 'available' | 'ellipsoid_only' = 'available';
+      let heightValue: number | null = 0;
+      const carto = Cartographic.fromCartesian(cartesian);
+      const provider = viewer.terrainProvider;
+      const providerIsEllipsoid = !provider
+        || provider instanceof EllipsoidTerrainProvider
+        || !depthTest;
+      if (providerIsEllipsoid) {
+        status = 'ellipsoid_only';
+        heightValue = carto.height;
+      } else {
+        try {
+          const sampled = await sampleTerrainMostDetailed(provider, [
+            Cartographic.fromRadians(carto.longitude, carto.latitude),
+          ]);
+          if (
+            !viewerRef.current
+            || viewer.isDestroyed()
+            || opId !== internalInspectOpRef.current
+            || currentInspectSessionId !== inspectionSessionIdRef.current
+          ) {
+            return;
+          }
+          const sampledCarto = sampled[0];
+          if (sampledCarto && Number.isFinite(sampledCarto.height)) {
+            heightValue = sampledCarto.height;
+            status = 'available';
+          } else {
+            status = 'ellipsoid_only';
+            heightValue = carto.height;
+          }
+        } catch {
+          if (
+            !viewerRef.current
+            || viewer.isDestroyed()
+            || opId !== internalInspectOpRef.current
+            || currentInspectSessionId !== inspectionSessionIdRef.current
+          ) {
+            return;
+          }
+          onResult?.({
+            result: null,
+            loading: false,
+            error: 'Không thể tải độ cao địa hình tại vị trí này.',
+          });
+          return;
+        }
+      }
+      updateInspectionMarker(
+        viewer,
+        status === 'available' && Number.isFinite(heightValue)
+          ? Cartesian3.fromRadians(carto.longitude, carto.latitude, heightValue as number)
+          : cartesian,
+      );
+      onResult?.({
+        result: {
+          latitude: carto.latitude,
+          longitude: carto.longitude,
+          heightMeters: heightValue,
+          heightStatus: status,
+        },
+        loading: false,
+        error: null,
+      });
+    } finally {
+      // opId + inspectionSessionId together enforce latest-wins.
+    }
+  }, [removeInspectionMarker, updateInspectionMarker]);
+
+  // ─── App API Handle (Task C) ──────────────────────────────────────────────────
+  useEffect(() => {
+    if (!apiRef) return;
+    if (!viewerReady) {
+      apiRef.current = null;
+      return undefined;
+    }
+    const handle: CesiumMapHandle = {
+      zoomByFactor(factor) {
+        const viewer = viewerRef.current;
+        if (!viewer || viewer.isDestroyed()) return;
+        if (terrainSessionRef.current?.mode !== 'active') return;
+        if (!Number.isFinite(factor) || factor === 0) return;
+        ++cameraOperationRef.current; // invalidate any in-flight terrain flyTo callbacks
+        viewer.camera.cancelFlight();
+        const height = Number.isFinite(viewer.camera.positionCartographic.height)
+          ? viewer.camera.positionCartographic.height
+          : 200000;
+        const amount = Math.max(50, Math.abs(height * Math.abs(factor)));
+        if (factor > 0) viewer.camera.zoomIn(amount);
+        else viewer.camera.zoomOut(amount);
+      },
+      clearInspectionMarker() {
+        const viewer = viewerRef.current;
+        if (viewer && !viewer.isDestroyed()) removeInspectionMarker(viewer);
+        ++internalInspectOpRef.current; // drop any in-flight sample
+        onInspectionResultChangeRef.current?.({
+          result: null,
+          loading: false,
+          error: null,
+        });
+      },
+    };
+    apiRef.current = handle;
+    return () => {
+      if (apiRef.current === handle) apiRef.current = null;
+    };
+  }, [apiRef, removeInspectionMarker, viewerReady]);
+
+  // Clear inspection marker when inspect mode flips off, or when the
+  // terrain session exits "active".
+  useEffect(() => {
+    if (inspectMode !== 'inspect-location') {
+      const viewer = viewerRef.current;
+      if (viewer && !viewer.isDestroyed()) removeInspectionMarker(viewer);
+      ++internalInspectOpRef.current;
+    }
+  }, [inspectMode, removeInspectionMarker]);
+
+  useEffect(() => {
+    if (terrainSession?.mode === 'active') return;
+    const viewer = viewerRef.current;
+    if (viewer && !viewer.isDestroyed()) removeInspectionMarker(viewer);
+    ++internalInspectOpRef.current;
+  }, [removeInspectionMarker, terrainSession]);
 
   // ─── Render markers ──────────────────────────────────────────────────────────
   const renderMarkers = useCallback(

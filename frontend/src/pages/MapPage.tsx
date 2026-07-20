@@ -9,10 +9,17 @@ import {
 } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { ChevronRight, CircleAlert, Clock, List, MapPin, X, Compass } from 'lucide-react';
-import CesiumMap from '../components/CesiumMap';
+import CesiumMap, {
+  type CesiumMapHandle,
+  type TerrainExplorationMode,
+  type TerrainInspectionPayload,
+} from '../components/CesiumMap';
 import Timeline from '../components/Timeline';
 import Sidebar from '../components/Sidebar';
 import EventPopup from '../components/EventPopup';
+import TerrainExplorationToolbar, {
+  type TerrainExplorationInspectorState,
+} from '../components/terrain/TerrainExplorationToolbar';
 import {
   findEventById,
   TIMELINE_MIN_YEAR,
@@ -152,6 +159,15 @@ export default function MapPage() {
   const [onboardingDismissed, setOnboardingDismissed] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [mapError, setMapError] = useState<string | null>(null);
+  // ─── Terrain exploration toolbar (Task C) ─────────────────────────────────
+  const cesiumApiRef = useRef<CesiumMapHandle | null>(null);
+  const [inspectMode, setInspectMode] = useState<TerrainExplorationMode>('none');
+  const [inspectSessionId, setInspectSessionId] = useState(0);
+  const [inspection, setInspection] = useState<TerrainExplorationInspectorState>({
+    result: null,
+    loading: false,
+    error: null,
+  });
   const { setCenterContent } = useHeader();
   const requestedEventKey = useMemo(
     () => new URLSearchParams(location.search).get('event')?.trim() ?? '',
@@ -527,6 +543,48 @@ export default function MapPage() {
     }
   }, []);
 
+  // ─── Terrain Exploration toolbar wiring (Task C) ───────────────────────────
+  const clearInspection = useCallback(() => {
+    setInspectMode('none');
+    setInspection({ result: null, loading: false, error: null });
+    cesiumApiRef.current?.clearInspectionMarker();
+  }, []);
+
+  const handleToggleInspect = useCallback((next: TerrainExplorationMode) => {
+    // Always bump session id on every transition so cross-cancel inside CesiumMap
+    // remains deterministic even on rapid ON→OFF→ON toggles.
+    setInspectSessionId((prev) => prev + 1);
+    if (next === 'inspect-location') {
+      setInspection({ result: null, loading: false, error: null });
+      setInspectMode(next);
+    } else {
+      clearInspection();
+    }
+  }, [clearInspection]);
+
+  const handleZoomIn = useCallback(() => {
+    cesiumApiRef.current?.zoomByFactor(0.3);
+  }, []);
+
+  const handleZoomOut = useCallback(() => {
+    cesiumApiRef.current?.zoomByFactor(-0.3);
+  }, []);
+
+  const handleInspectionResultChange = useCallback(
+    (payload: TerrainInspectionPayload) => {
+      if (payload.loading) {
+        setInspection({ result: null, loading: true, error: null });
+        return;
+      }
+      setInspection({
+        result: payload.result,
+        loading: false,
+        error: payload.error,
+      });
+    },
+    [],
+  );
+
   const handleTerrainReady = useCallback((sessionId: number) => {
     terrainDispatch({ type: 'ENTER_READY', sessionId });
   }, []);
@@ -638,6 +696,19 @@ export default function MapPage() {
     return () => document.removeEventListener('keydown', closePanelsOnEscape);
   }, [handleClosePopup, selectedEvent, sidebarOpen]);
 
+  // ─── Clear inspection whenever the terrain session leaves "active" ───────────
+  // This catches Close popup, View details, change event, change year/grade,
+  // Route change (unmount), and any other path that funnels through EXIT.
+  useEffect(() => {
+    if (terrainViewModel.mode !== 'active') clearInspection();
+  }, [clearInspection, terrainViewModel.mode]);
+
+  // ─── Also clear whenever the selected event id changes mid-session. ───────
+  useEffect(() => {
+    if (inspectMode === 'inspect-location') clearInspection();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedEvent?.id]);
+
   // Clear header breadcrumb when MapPage unmounts so stale state doesn't leak to Homepage etc.
   useEffect(() => {
     const selectionRequest = selectionRequestIdRef;
@@ -645,7 +716,10 @@ export default function MapPage() {
       ++selectionRequest.current;
       pendingAfterTerrainExitRef.current = null;
       setCenterContent(null);
+      clearInspection();
+      cesiumApiRef.current = null;
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [setCenterContent]);
 
   useEffect(() => {
@@ -820,6 +894,10 @@ export default function MapPage() {
               onTerrainExitComplete={handleTerrainExitComplete}
               onTerrainTargetSelect={handleTerrainTargetSelect}
               onRegionGeometryStatus={handleRegionGeometryStatus}
+              inspectMode={inspectMode}
+              inspectionSessionId={inspectSessionId}
+              onInspectionResultChange={handleInspectionResultChange}
+              apiRef={cesiumApiRef}
             />
 
             {/* Hero Preview — Bento-style floating museum introduction */}
@@ -956,6 +1034,22 @@ export default function MapPage() {
                 </button>
               </div>
             )}
+
+            {/* Terrain exploration toolbar (Task C). Anchored to the map-area
+                relative container so it sits over the Cesium canvas, not over
+                the sidebar. */}
+            {terrainViewModel.mode === 'active' && (
+              <TerrainExplorationToolbar
+                isVisible
+                inspectMode={inspectMode}
+                onToggleInspect={handleToggleInspect}
+                inspectionState={inspection}
+                onZoomIn={handleZoomIn}
+                onZoomOut={handleZoomOut}
+                zoomDisabled={terrainViewModel.mode !== 'active'}
+                inspectDisabled={terrainViewModel.mode !== 'active'}
+              />
+            )}
           </div>
 
           {/* Timeline — flex-shrink-0 đảm bảo không bị squeeze khi map shrink */}
@@ -982,10 +1076,20 @@ export default function MapPage() {
             onSelectTerrainTarget={(targetId) => {
               const sessionId = terrainStateRef.current.sessionId;
               if (sessionId !== null) handleTerrainTargetSelect(sessionId, targetId);
+              clearInspection();
             }}
-            onShowTerrainOverview={handleShowTerrainOverview}
-            onExitTerrain={handleExitTerrain}
-            onViewDetails={handleViewEventDetails}
+            onShowTerrainOverview={() => {
+              handleShowTerrainOverview();
+              clearInspection();
+            }}
+            onExitTerrain={() => {
+              handleExitTerrain();
+              clearInspection();
+            }}
+            onViewDetails={() => {
+              handleViewEventDetails();
+              clearInspection();
+            }}
           />
         )}
       </div>
