@@ -15,11 +15,14 @@ import {
 import { rawToEventDetail } from '../data/eventAdapter';
 import type {
   EventAssociationType,
+  CanonicalGeoType,
   EventType,
   GeoType,
   HistoricalEvent,
   RelatedHistoricalEvent,
   RelatedHistoricalEvents,
+  EventSourceJson,
+  SourceMapData,
 } from '../types/event';
 import {
   compareChronologyS1,
@@ -95,6 +98,31 @@ interface EventDetailDto extends EventSummaryDto {
   relations: EventRelationDto[];
   relatedEvents?: EventRelatedEventsDto;
   sourceJson?: RawEventJson;
+}
+
+function isCanonicalGeoType(value: unknown): value is CanonicalGeoType {
+  return (
+    value === 'point' ||
+    value === 'multi_point' ||
+    value === 'multi_polygon' ||
+    value === 'mixed' ||
+    value === 'nationwide' ||
+    value === 'no_location'
+  );
+}
+
+function sourceMapDataFromDto(dto: EventDetailDto): SourceMapData | undefined {
+  const sourceJson = dto.sourceJson;
+  if (!sourceJson || typeof sourceJson !== 'object' || Array.isArray(sourceJson)) return undefined;
+  const mapData = (sourceJson as { mapData?: unknown }).mapData;
+  if (!mapData || typeof mapData !== 'object' || Array.isArray(mapData)) return undefined;
+  return mapData as SourceMapData;
+}
+
+function sourceJsonFromDto(dto: EventDetailDto): EventSourceJson | undefined {
+  const sourceJson = dto.sourceJson;
+  if (!sourceJson || typeof sourceJson !== 'object' || Array.isArray(sourceJson)) return undefined;
+  return sourceJson as unknown as EventSourceJson;
 }
 
 interface EventRelationDto {
@@ -201,6 +229,19 @@ function summaryToHistoricalEvent(dto: EventSummaryDto): HistoricalEvent {
     orderInParent: dto.orderInParent ?? 0,
     thumbnailUrl: dto.thumbnailUrl || undefined,
     details: dto.cardSummary,
+  };
+}
+
+function detailToHistoricalEvent(dto: EventDetailDto): HistoricalEvent {
+  const event = summaryToHistoricalEvent(dto);
+  const sourceMapData = sourceMapDataFromDto(dto);
+  return {
+    ...event,
+    sourceJson: sourceJsonFromDto(dto),
+    sourceMapData,
+    canonicalGeoType: isCanonicalGeoType(sourceMapData?.geoType)
+      ? sourceMapData.geoType
+      : undefined,
   };
 }
 
@@ -479,7 +520,7 @@ export async function getRelatedEventsFromBackend(eventId: string): Promise<Rela
 export async function getHistoricalEventFromBackend(idOrSlug: string): Promise<HistoricalEvent | null> {
   try {
     const data = await apiGet<EventDetailDto>(`/api/events/${idOrSlug}`);
-    return summaryToHistoricalEvent(data);
+    return detailToHistoricalEvent(data);
   } catch (error) {
     console.warn('Could not load event detail from backend.', error);
     return null;

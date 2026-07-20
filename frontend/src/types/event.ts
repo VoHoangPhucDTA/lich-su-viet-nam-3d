@@ -23,6 +23,9 @@ export interface HistoricalEvent {
   eventType: EventType;
   eventSubtype?: string;
   geoType: GeoType;
+  canonicalGeoType?: CanonicalGeoType;
+  sourceJson?: EventSourceJson;
+  sourceMapData?: SourceMapData;
   coordinates?: { lat: number; lng: number };
   primaryRegions?: string[];
   secondaryRegions?: string[];
@@ -51,7 +54,42 @@ export interface RelatedHistoricalEvents {
 }
 
 export type EventType = 'military' | 'political' | 'economic' | 'cultural';
-export type GeoType = 'multi_region' | 'single_point' | 'nationwide' | 'no_location';
+
+/** Canonical geo contract from the event source JSON. */
+export type CanonicalGeoType =
+  | 'point'
+  | 'multi_point'
+  | 'multi_polygon'
+  | 'mixed'
+  | 'nationwide'
+  | 'no_location';
+
+/** Legacy normalized values still consumed by existing map/list UI. */
+export type LegacyGeoType = 'multi_region' | 'single_point' | 'nationwide' | 'no_location';
+
+export type GeoType = LegacyGeoType;
+
+export interface SourceMapMarker {
+  name?: unknown;
+  label?: unknown;
+  lat?: unknown;
+  lng?: unknown;
+  confidence?: unknown;
+}
+
+export interface SourceMapData {
+  geoType?: unknown;
+  marker?: SourceMapMarker | null;
+  markers?: unknown;
+  provinceNames?: unknown;
+  gadmRefs?: unknown;
+  focusGeometry?: unknown;
+}
+
+export interface EventSourceJson {
+  mapData?: SourceMapData;
+  [key: string]: unknown;
+}
 
 export const EVENT_TYPE_LABELS: Record<EventType, string> = {
   military: 'Quân sự',
