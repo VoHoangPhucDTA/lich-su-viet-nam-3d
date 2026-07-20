@@ -9,10 +9,7 @@ import {
   createWorldTerrainAsync,
 } from 'cesium';
 
-// Set your Cesium Ion access token here
-// Get a free token at: https://ion.cesium.com/
-Ion.defaultAccessToken =
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJhMjU4ZWNhMC00MTgyLTRiMjEtODNmYi0wNTY2NTU3YzNiMTAiLCJpZCI6NDAyMzAwLCJpYXQiOjE3NzMyOTczMzN9.op6w5yyz8-45g92FFq9J6XLX-Dmlt-V1RgZj2KwN5Kk';
+Ion.defaultAccessToken = import.meta.env.VITE_CESIUM_ION_TOKEN?.trim() ?? '';
 
 // Default camera position (centered on Vietnam)
 export const VIETNAM_CENTER = Cartesian3.fromDegrees(108.0, 16.0, 2000000);
