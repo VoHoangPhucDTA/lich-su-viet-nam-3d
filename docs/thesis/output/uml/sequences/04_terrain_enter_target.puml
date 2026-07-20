@@ -1,0 +1,14 @@
+@startuml
+skinparam shadowing false
+skinparam monochrome true
+title 04 terrain enter target
+actor Visitor
+participant MapPage
+participant TargetNormalizer
+participant Cesium
+Visitor -> MapPage: click terrain
+MapPage -> TargetNormalizer: normalize mapData
+TargetNormalizer --> MapPage: targets + diagnostics
+MapPage -> Cesium: enter session/flyTo
+Cesium --> Visitor: 3D view
+@enduml

@@ -1,0 +1,13 @@
+@startuml
+skinparam shadowing false
+skinparam monochrome true
+left to right direction
+actor Visitor
+actor Student
+actor Admin
+rectangle LSVN3D { usecase "UC-001 Browse events" as U1; usecase "UC-002 View detail" as U2; usecase "UC-003 Drill down" as U3; usecase "UC-004 Select terrain target" as U4; usecase "UC-005 Terrain session" as U5; usecase "UC-006 Authenticate" as U6; usecase "UC-007 Narration" as U7; usecase "UC-008 AI quiz" as U8; usecase "UC-009 Exam" as U9; usecase "UC-010 Progress" as U10; usecase "UC-011 Admin" as U11; usecase "UC-012 Review candidate" as U12; usecase "UC-013 RAG evaluation (planned)" as U13 }
+Visitor --> U1; Visitor --> U2; Visitor --> U3; Visitor --> U4; Visitor --> U5
+Student --> U6; Student --> U7; Student --> U8; Student --> U9; Student --> U10
+Admin --> U11; Admin --> U12
+Admin --> U13
+@enduml

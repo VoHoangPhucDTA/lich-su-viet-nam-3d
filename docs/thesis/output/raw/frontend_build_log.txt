@@ -1,0 +1,5 @@
+Command: npm.cmd run build -- --outDir ..\thesis\.audit_tmp\frontend-build
+Exit: TIMEOUT (180 s watchdog; script includes build:data).
+Direct verification: node node_modules/vite/bin/vite.js build --outDir ..\thesis\.audit_tmp\vite-build
+Result: PASS; 4,166 modules transformed, built in about 1m48s. Main bundle about 5.47 MB minified / 1.40 MB gzip; several chunks exceed 500 kB.
+TypeScript: tsc -b --pretty false -> PASS (exit 0).

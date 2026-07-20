@@ -1,0 +1,35 @@
+@startuml
+title Current system use-case overview — LSVN3D
+left to right direction
+actor Visitor
+actor Student
+actor Administrator
+rectangle "LSVN3D current repository" {
+  usecase "UC-001 Browse/search/filter events" as U1
+  usecase "UC-002 View event detail" as U2
+  usecase "UC-003 Navigate event hierarchy" as U3
+  usecase "UC-004 Select map/terrain target" as U4
+  usecase "UC-005 Enter/exit terrain session" as U5
+  usecase "UC-006 Authenticate" as U6
+  usecase "UC-007 Listen to narration" as U7
+  usecase "UC-008 Generate/answer AI quiz" as U8
+  usecase "UC-009 Take/submit exam" as U9
+  usecase "UC-010 View progress" as U10
+  usecase "UC-011 Administer users/events" as U11
+  usecase "UC-012 Review AI candidate provenance" as U12
+  usecase "UC-013 RAG evaluation (planned)" as U13
+}
+Visitor --> U1
+Visitor --> U2
+Visitor --> U3
+Visitor --> U4
+Visitor --> U5
+Student --> U6
+Student --> U7
+Student --> U8
+Student --> U9
+Student --> U10
+Administrator --> U11
+Administrator --> U12
+Administrator --> U13
+@enduml

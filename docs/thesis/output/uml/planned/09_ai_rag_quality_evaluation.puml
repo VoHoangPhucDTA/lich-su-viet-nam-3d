@@ -1,0 +1,9 @@
+@startuml
+skinparam shadowing false
+skinparam monochrome true
+title PLANNED — AI/RAG quality evaluation
+' No reproducible evaluation artifact or metric run verified.
+actor Operator
+Operator -> Evaluation: supply corpus, run retrieval/generation
+Evaluation --> Operator: precision/grounding/latency report
+@enduml

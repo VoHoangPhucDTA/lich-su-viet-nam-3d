@@ -1,0 +1,12 @@
+@startuml
+skinparam shadowing false
+skinparam monochrome true
+title 06 authentication
+actor Student
+participant Browser
+participant AuthAPI
+Student -> Browser: submit login/register
+Browser -> AuthAPI: POST /api/auth/login or register
+AuthAPI --> Browser: session/user
+Browser --> Student: protected route
+@enduml

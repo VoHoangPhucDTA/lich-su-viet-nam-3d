@@ -1,0 +1,4 @@
+Command: backend\mvnw.cmd test -DskipTests=false
+Exit: 1
+Result: 206 tests run; 190 passed, 0 failures, 1 error, 15 skipped. The single error is HistoryRagPackageReaderTest.validatesGeneratedPackageAndBaselineCounts because data/history-rag/v1 is absent. Docker/Testcontainers integrations were skipped because the Docker daemon was unavailable.
+Generated Spring development credentials and other sensitive runtime output intentionally omitted.

@@ -1,0 +1,17 @@
+@startuml
+skinparam shadowing false
+skinparam monochrome true
+title Deployment (conditional integrations marked)
+node "Browser" { artifact "React/Vite bundle" }
+node "Application host" { component "Spring Boot"; component "FastAPI AI" }
+database "MySQL"
+node "Vector store" { component "ChromaDB (conditional)" }
+cloud "Viettel AI"
+cloud "Cloudinary (conditional)"
+Browser --> "Spring Boot"
+"Spring Boot" --> MySQL
+"Spring Boot" --> "FastAPI AI"
+"FastAPI AI" --> "ChromaDB (conditional)"
+"Spring Boot" --> "Viettel AI"
+Browser --> "Cloudinary (conditional)
+@enduml

@@ -1,0 +1,21 @@
+@startuml
+skinparam shadowing false
+skinparam monochrome true
+entity users
+entity roles
+entity historical_events
+entity event_textbook_refs
+entity event_media
+entity learning_progress
+entity exam_sessions
+entity exam_questions
+entity ai_question_candidates
+users ||--o{ learning_progress
+users ||--o{ exam_sessions
+users }o--o{ roles
+historical_events ||--o{ event_textbook_refs
+historical_events ||--o{ event_media
+historical_events ||--o{ learning_progress
+exam_sessions }o--o{ exam_questions
+ai_question_candidates }o--|| exam_questions
+@enduml
