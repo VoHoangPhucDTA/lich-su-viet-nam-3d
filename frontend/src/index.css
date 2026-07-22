@@ -2192,6 +2192,20 @@
   color: var(--text-primary, #1c1917);
 }
 
+.map-exploration-panel__supplemental-heading {
+  margin: 0 0 8px;
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--text-primary, #292524);
+}
+
+.map-exploration-panel__optional-copy {
+  margin: 7px 0 0;
+  font-size: 11px;
+  line-height: 1.35;
+  color: var(--text-muted, #78716c);
+}
+
 .map-exploration-panel__guide {
   list-style: none;
   margin: 0;
@@ -2267,7 +2281,7 @@
   line-height: 1.45;
 }
 
-.map-exploration-inspect-toggle {
+.map-exploration-mode-toggle {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -2280,20 +2294,22 @@
   font-weight: 700;
   cursor: pointer;
   width: 100%;
+  min-height: 44px;
+  gap: 8px;
   transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
 }
 
-.map-exploration-inspect-toggle:hover:not(:disabled) {
+.map-exploration-mode-toggle:hover:not(:disabled) {
   background: #fafaf9;
 }
 
-.map-exploration-inspect-toggle[aria-pressed='true'] {
+.map-exploration-mode-toggle[aria-pressed='true'] {
   background: #fef2f2;
   border-color: #8b1e1e;
   color: #8b1e1e;
 }
 
-.map-exploration-inspect-toggle:disabled {
+.map-exploration-mode-toggle:disabled {
   opacity: 0.55;
   cursor: not-allowed;
 }
@@ -2352,6 +2368,47 @@
   margin: 6px 0 0;
   color: var(--text-muted, #78716c);
   font-style: italic;
+}
+
+.map-exploration-measurement {
+  min-width: 0;
+}
+
+.map-exploration-measurement__result {
+  margin: 9px 0 0;
+  padding: 9px 10px;
+  border: 1px solid #e7e5e4;
+  border-radius: 9px;
+  background: #fafaf9;
+  color: var(--text-primary, #1c1917);
+  font-size: 13px;
+  line-height: 1.45;
+  overflow-wrap: anywhere;
+}
+
+.map-exploration-measurement__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 9px;
+}
+
+.map-exploration-measurement__actions button {
+  min-height: 44px;
+  flex: 1 1 8rem;
+  border: 1px solid #d6d3d1;
+  border-radius: 9px;
+  background: #ffffff;
+  padding: 8px 10px;
+  color: var(--text-primary, #1c1917);
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.map-exploration-measurement__actions button:hover {
+  border-color: var(--accent, #8b1e1e);
+  color: var(--accent, #8b1e1e);
 }
 
 @media (max-width: 639.98px) {
