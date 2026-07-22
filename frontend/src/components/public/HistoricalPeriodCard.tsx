@@ -35,7 +35,7 @@ export default function HistoricalPeriodCard({ period, compact = false }: Histor
         <div className="absolute inset-0 bg-gradient-to-t from-stone-950/75 via-stone-950/15 to-transparent" />
         <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-3 p-4">
           <div>
-            <span className="mono-label inline-flex rounded-md border border-white/20 bg-stone-950/55 px-2 py-1 text-[10px] font-semibold text-amber-100">
+            <span className="ui-label inline-flex rounded-md border border-white/20 bg-stone-950/55 px-2 py-1 text-[10px] font-semibold text-amber-100">
               {formatPeriodRange(period)}
             </span>
             <p className="mt-2 text-lg font-bold text-white">{period.shortLabel}</p>
@@ -44,7 +44,7 @@ export default function HistoricalPeriodCard({ period, compact = false }: Histor
         </div>
       </div>
       <div className={compact ? 'p-4' : 'p-5'}>
-        <h3 className="serif-heading text-xl font-bold text-[var(--text-primary)] transition-colors group-hover:text-[var(--accent)]">
+        <h3 className="app-heading text-xl font-bold text-[var(--text-primary)] transition-colors group-hover:text-[var(--accent)]">
           {period.label}
         </h3>
         <p className="mt-2 line-clamp-3 text-sm leading-6 text-[var(--text-muted)]">{period.description}</p>

@@ -40,7 +40,7 @@ export default function EventTextbookContent({
 
         {showOverviewQuote && (
           <blockquote
-            className="relative italic font-serif text-lg md:text-xl leading-[1.7] mb-6 py-4 pl-7 md:pl-8 pr-6 border-l-[3px]"
+            className="relative italic font-sans text-lg md:text-xl leading-[1.7] mb-6 py-4 pl-7 md:pl-8 pr-6 border-l-[3px]"
             style={{
               color: 'var(--text-primary)',
               borderLeftColor: 'var(--accent)',
@@ -49,7 +49,7 @@ export default function EventTextbookContent({
           >
             <span
               aria-hidden
-              className="absolute -top-1 left-2 font-serif text-4xl leading-none select-none"
+              className="absolute -top-1 left-2 font-sans text-4xl leading-none select-none"
               style={{ color: 'var(--accent)', opacity: 0.25 }}
             >
               &ldquo;

@@ -44,7 +44,7 @@ export default function AppHeader() {
     location.pathname === path || location.pathname.startsWith(`${path}/`);
 
   const tabClass = (path: string) =>
-    `relative px-3 py-2 text-xs font-mono font-bold uppercase tracking-wider transition-colors duration-300 ${
+    `relative px-3 py-2 text-xs font-sans font-bold uppercase tracking-wide transition-colors duration-300 ${
       isActiveTab(path)
         ? 'text-red-900'
         : 'text-stone-500 hover:text-red-900'
@@ -64,10 +64,10 @@ export default function AppHeader() {
               <Globe size={18} strokeWidth={1.5} className="text-red-900 relative z-10 group-hover:rotate-45 transition-transform duration-500" />
             </div>
             <div className="hidden sm:block">
-              <div className="font-serif text-lg sm:text-xl font-bold text-stone-900 leading-tight">
+              <div className="app-brand-title text-lg sm:text-xl text-stone-900">
                 Lịch Sử Việt Nam
               </div>
-              <div className="font-mono text-[9px] uppercase tracking-[0.2em] text-stone-400">
+              <div className="app-brand-subtitle text-[10px] uppercase text-stone-500">
                 Bảo tàng số học đường THPT
               </div>
             </div>
@@ -111,14 +111,14 @@ export default function AppHeader() {
                 onClick={() => setProfileDropdownOpen(!profileDropdownOpen)}
                 aria-haspopup="true"
                 aria-expanded={profileDropdownOpen}
-                className="px-3 py-1.5 text-[10px] font-mono font-bold uppercase tracking-wider rounded-xl bg-red-900/10 border border-red-900/20 text-red-900 hover:bg-red-900/20 transition-all duration-300"
+                className="px-3 py-1.5 text-xs font-sans font-bold uppercase tracking-wide rounded-xl bg-red-900/10 border border-red-900/20 text-red-900 hover:bg-red-900/20 transition-all duration-300"
               >
                 {currentUser?.fullName || 'Hồ sơ'}
               </button>
             ) : (
               <button
                 onClick={() => navigate('/login')}
-                className="px-4 py-2 text-xs font-mono font-bold uppercase tracking-wider rounded-xl bg-red-900 text-white hover:bg-red-950 transition-all duration-300 shadow-sm"
+                className="px-4 py-2 text-xs font-sans font-bold uppercase tracking-wide rounded-xl bg-red-900 text-white hover:bg-red-950 transition-all duration-300 shadow-sm"
               >
                 Đăng nhập
               </button>
@@ -126,7 +126,7 @@ export default function AppHeader() {
 
             {profileDropdownOpen && isAuthenticated && (
               <div className="absolute right-0 top-full mt-2 w-48 bg-white border border-stone-200/60 rounded-2xl shadow-lg p-2 z-20 flex flex-col gap-0.5">
-                <div className="px-3 py-2 text-[10px] font-mono uppercase tracking-wider text-stone-400 border-b border-stone-100">
+                <div className="px-3 py-2 text-xs font-sans font-semibold uppercase tracking-wide text-stone-500 border-b border-stone-100">
                   {currentUser?.role === 'admin' ? 'Quản trị viên' : 'Học sinh'}
                 </div>
                 <DropdownLink to="/profile/dashboard" onClick={() => setProfileDropdownOpen(false)}>Dashboard</DropdownLink>

@@ -76,7 +76,7 @@ export default function EventDetailSidebar({
                 }}
               >
                 <span
-                  className="font-mono text-[10px] mr-2"
+                  className="font-sans text-[10px] mr-2"
                   style={{
                     color: isActive
                       ? 'var(--admin-accent)'

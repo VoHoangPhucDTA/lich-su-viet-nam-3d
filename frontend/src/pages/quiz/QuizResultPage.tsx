@@ -44,7 +44,7 @@ function formatTextbookExplanation(explanation: string) {
 function ResultMetric({ label, value, tone }: { label: string; value: string | number; tone: string }) {
   return (
     <div className="quiz-result-metric">
-      <strong className="serif-heading" style={{ color: tone }}>{value}</strong>
+      <strong className="app-heading" style={{ color: tone }}>{value}</strong>
       <span>{label}</span>
     </div>
   );
@@ -72,7 +72,7 @@ function AnswerReviewCard({ result, index }: { result: QuizQuestionResult; index
         </div>
       </header>
 
-      <h3 className="serif-heading text-xl font-bold leading-8 text-[var(--text-primary)]">{question.questionText}</h3>
+      <h3 className="app-heading text-xl font-bold leading-8 text-[var(--text-primary)]">{question.questionText}</h3>
       <div className="space-y-2">
         {question.options.map(option => {
           const correct = question.correctOptionId === option.id;
@@ -189,13 +189,13 @@ export default function QuizResultPage() {
         <section className="quiz-result-summary">
           <div>
             <span className="quiz-badge">{level}</span>
-            <h2 className="serif-heading mt-3 text-3xl font-bold">Bạn đã hoàn thành bài luyện tập</h2>
+            <h2 className="app-heading mt-3 text-3xl font-bold">Bạn đã hoàn thành bài luyện tập</h2>
             <p className="mt-2 text-sm leading-6 text-[var(--text-muted)]">
               Xem lại từng câu, lời giải và nguồn tham khảo để củng cố phần kiến thức còn thiếu.
             </p>
           </div>
           <div className="quiz-result-score">
-            <strong className="serif-heading">{result.score10}</strong>
+            <strong className="app-heading">{result.score10}</strong>
             <span>trên thang 10</span>
           </div>
         </section>
@@ -211,7 +211,7 @@ export default function QuizResultPage() {
           <section className="quiz-recommendation">
             <div className="flex items-center gap-2">
               <Target size={18} aria-hidden="true" />
-              <h2 className="serif-heading text-2xl font-bold">Gợi ý ôn tập</h2>
+              <h2 className="app-heading text-2xl font-bold">Gợi ý ôn tập</h2>
             </div>
             <p className="mt-2 text-sm leading-6">Bạn nên xem lại các chủ đề sau trước khi tạo bài mới:</p>
             <div className="mt-3 flex flex-wrap gap-2">
@@ -225,7 +225,7 @@ export default function QuizResultPage() {
           <div className="mb-4 flex flex-col justify-between gap-3 sm:flex-row sm:items-center">
             <div>
               <p className="public-eyebrow">Đáp án và lời giải</p>
-              <h2 className="serif-heading mt-1 text-3xl font-bold">Chi tiết {filteredQuestions.length} câu</h2>
+              <h2 className="app-heading mt-1 text-3xl font-bold">Chi tiết {filteredQuestions.length} câu</h2>
             </div>
             <div className="quiz-result-filter" role="group" aria-label="Lọc kết quả câu hỏi">
               {([

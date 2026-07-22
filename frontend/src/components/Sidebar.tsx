@@ -150,7 +150,7 @@ export default function Sidebar({
         }}
       >
         <div className="mb-2.5 flex items-center justify-between gap-3">
-          <h2 className="serif-heading text-lg font-bold text-[var(--text-primary)]">Sự kiện lịch sử</h2>
+          <h2 className="app-heading text-lg font-bold text-[var(--text-primary)]">Sự kiện lịch sử</h2>
           {onClose && (
             <button type="button" onClick={onClose} className="public-icon-button map-panel-close" aria-label="Đóng danh sách sự kiện">
               <X size={17} aria-hidden="true" />

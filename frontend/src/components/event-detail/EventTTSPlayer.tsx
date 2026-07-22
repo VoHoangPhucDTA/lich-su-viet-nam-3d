@@ -643,7 +643,7 @@ function LegacyTTSPlayer({ event, onNarrationStateChange }: EventTTSPlayerProps)
           <div className="flex items-center justify-between gap-2">
             <div className="min-w-0">
               <div
-                className="text-[10px] font-bold uppercase tracking-[0.16em] font-mono"
+                className="text-[10px] font-bold uppercase tracking-[0.16em] font-sans"
                 style={{ color: 'var(--text-muted)' }}
               >
                 Tường thuật
@@ -774,11 +774,11 @@ function LegacyTTSPlayer({ event, onNarrationStateChange }: EventTTSPlayerProps)
 
               {/* Time display */}
               {(isPlaying || isPaused) && (
-                <div className="flex items-center justify-between mt-1">
-                  <span className="font-mono text-[11px]" style={{ color: 'var(--text-muted)' }}>
+                <div className="tts-time flex items-center justify-between mt-1">
+                  <span className="font-sans text-[11px]" style={{ color: 'var(--text-muted)' }}>
                     {formatTime(currentTime)}
                   </span>
-                  <span className="font-mono text-[11px]" style={{ color: 'var(--text-muted)' }}>
+                  <span className="font-sans text-[11px]" style={{ color: 'var(--text-muted)' }}>
                     -{formatTime(remainingTime)}
                   </span>
                 </div>
@@ -807,11 +807,11 @@ function LegacyTTSPlayer({ event, onNarrationStateChange }: EventTTSPlayerProps)
                   }}
                 />
               </div>
-              <div className="flex items-center justify-between mt-1">
-                <span className="font-mono text-[11px]" style={{ color: 'var(--text-muted)' }}>
+              <div className="tts-time flex items-center justify-between mt-1">
+                <span className="font-sans text-[11px]" style={{ color: 'var(--text-muted)' }}>
                   {formatTime(duration)}
                 </span>
-                <span className="font-mono text-[11px]" style={{ color: 'var(--accent)' }}>
+                <span className="font-sans text-[11px]" style={{ color: 'var(--accent)' }}>
                   Đã phát xong
                 </span>
               </div>
@@ -877,7 +877,7 @@ function LegacyTTSPlayer({ event, onNarrationStateChange }: EventTTSPlayerProps)
           </SelectField>
           {totalChunks > 1 && (isPlaying || isPaused) && (
             <div className="flex items-center gap-2 md:col-span-3">
-              <span className="text-[10px] font-bold uppercase tracking-[0.16em] font-mono" style={{ color: 'var(--text-muted)' }}>
+              <span className="text-[10px] font-bold uppercase tracking-[0.16em] font-sans" style={{ color: 'var(--text-muted)' }}>
                 Đoạn: {currentLabel}/{totalChunks}
               </span>
               <button onClick={handlePrevChunk} disabled={currentIndex <= 0}
@@ -904,7 +904,7 @@ function SelectField({ label, value, onChange, children }: {
 }) {
   return (
     <label className="flex flex-col gap-1.5">
-      <span className="text-[10px] font-bold uppercase tracking-[0.16em] font-mono" style={{ color: 'var(--text-muted)' }}>{label}</span>
+      <span className="text-[10px] font-bold uppercase tracking-[0.16em] font-sans" style={{ color: 'var(--text-muted)' }}>{label}</span>
       <select value={value} onChange={(e) => onChange(e.target.value)}
         className="px-3 py-2 rounded-lg text-sm outline-none transition"
         style={{ background: 'var(--input-bg)', border: '1px solid var(--input-border)', color: 'var(--input-text)' }}>

@@ -82,7 +82,7 @@ export default function EventHero({ event, showMapAction }: EventHeroProps) {
           style={{
             fontSize: '22rem',
             lineHeight: 1,
-            fontFamily: 'serif',
+            fontFamily: 'var(--font-heading)',
             color: 'var(--admin-accent)',
             opacity: 0.06,
             fontWeight: 900,
@@ -111,7 +111,7 @@ export default function EventHero({ event, showMapAction }: EventHeroProps) {
           <h1
             className="font-extrabold leading-[1.05] mb-3"
             style={{
-              fontFamily: 'var(--font-serif)',
+              fontFamily: 'var(--font-heading)',
               color: 'var(--text-primary)',
               letterSpacing: '-0.02em',
               fontSize: hasThumbnail

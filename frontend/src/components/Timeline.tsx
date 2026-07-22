@@ -134,7 +134,7 @@ export default function Timeline({
           <span
             className="text-[1.75rem] font-extrabold leading-none"
             style={{
-              fontFamily: 'var(--font-serif)',
+              fontFamily: 'var(--font-heading)',
               background:
                 'linear-gradient(135deg,              var(--admin-accent), var(--accent))',
               WebkitBackgroundClip: 'text',

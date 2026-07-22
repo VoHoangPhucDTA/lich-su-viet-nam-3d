@@ -167,7 +167,7 @@ function RelatedEventCard({
             />
           ) : (
             <div
-              className="w-full h-full flex items-center justify-center font-serif font-bold text-xl"
+              className="w-full h-full flex items-center justify-center font-sans font-bold text-xl"
               style={{ color: typeColor, opacity: 0.7 }}
             >
               •
@@ -183,17 +183,17 @@ function RelatedEventCard({
             >
               {child.relationLabel}
             </span>
-            <span className="text-[10px] font-bold uppercase tracking-[0.14em] font-mono" style={{ color: typeColor }}>
+            <span className="text-[10px] font-bold uppercase tracking-[0.14em] font-sans" style={{ color: typeColor }}>
               {typeLabel}
             </span>
             {child.displayDate && (
-              <span className="text-[10px] font-bold uppercase tracking-[0.14em] font-mono" style={{ color: 'var(--text-muted)' }}>
+              <span className="text-[10px] font-bold uppercase tracking-[0.14em] font-sans" style={{ color: 'var(--text-muted)' }}>
                 {child.displayDate}
               </span>
             )}
           </div>
           <h3
-            className="line-clamp-2 text-base font-bold leading-snug mb-1.5 font-serif"
+            className="line-clamp-2 text-base font-bold leading-snug mb-1.5 font-sans"
             style={{ color: 'var(--text-primary)' }}
           >
             {child.name}

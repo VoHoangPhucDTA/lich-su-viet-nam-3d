@@ -52,7 +52,7 @@ export default function EventCard({ event, imageHeight = 'h-40', compact = false
             />
           )}
           <div className="absolute inset-0 bg-gradient-to-t from-stone-950/25 via-transparent to-transparent" />
-          <span className="mono-label absolute left-2 top-2 rounded-md border border-amber-200/20 bg-[var(--accent)] px-2.5 py-1 text-[10px] font-bold text-amber-50 shadow-sm">
+          <span className="ui-label absolute left-2 top-2 rounded-md border border-amber-200/20 bg-[var(--accent)] px-2.5 py-1 text-[10px] font-bold text-amber-50 shadow-sm">
             {yearLabel}
           </span>
         </div>
@@ -66,7 +66,7 @@ export default function EventCard({ event, imageHeight = 'h-40', compact = false
           </span>
           <span className="shrink-0 font-semibold" style={{ color }}>{EVENT_TYPE_LABELS[event.eventType]}</span>
         </div>
-        <h3 className={`serif-heading line-clamp-2 font-bold leading-tight text-[var(--text-primary)] transition-colors group-hover:text-[var(--accent)] ${compact ? 'text-lg' : 'text-xl'}`}>
+        <h3 className={`app-heading line-clamp-2 font-bold leading-tight text-[var(--text-primary)] transition-colors group-hover:text-[var(--accent)] ${compact ? 'text-lg' : 'text-xl'}`}>
           {event.name}
         </h3>
         <p className={`line-clamp-2 leading-relaxed text-[var(--text-muted)] ${compact ? 'text-xs' : 'text-sm'}`}>

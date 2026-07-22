@@ -420,7 +420,7 @@ export default function AssetTTSPlayer({
         <div className="flex-1 min-w-0">
           <div className="flex items-center justify-between gap-2">
             <div className="min-w-0">
-              <div className="text-[10px] font-bold uppercase tracking-[0.16em] font-mono" style={{ color: 'var(--text-muted)' }}>
+              <div className="text-[10px] font-bold uppercase tracking-[0.16em] font-sans" style={{ color: 'var(--text-muted)' }}>
                 Tường thuật
               </div>
               <div className="text-sm font-semibold truncate" style={{ color: 'var(--text-primary)' }}>{statusText}</div>
@@ -458,7 +458,7 @@ export default function AssetTTSPlayer({
                 aria-label="Tìm kiếm tường thuật"
                 className="w-full accent-[var(--accent)] disabled:opacity-50"
               />
-              <div className="flex items-center justify-between mt-1 font-mono text-[11px]" style={{ color: 'var(--text-muted)' }}>
+              <div className="tts-time flex items-center justify-between mt-1 font-sans text-[11px]" style={{ color: 'var(--text-muted)' }}>
                 <span>{formatTime(currentTime)}</span>
                 <span>{duration > 0 ? `-${formatTime(Math.max(0, duration - currentTime))}` : '--:--'}</span>
               </div>
@@ -512,7 +512,7 @@ function SelectField({ label, value, onChange, children }: {
 }) {
   return (
     <label className="flex flex-col gap-1.5">
-      <span className="text-[10px] font-bold uppercase tracking-[0.16em] font-mono" style={{ color: 'var(--text-muted)' }}>{label}</span>
+      <span className="text-[10px] font-bold uppercase tracking-[0.16em] font-sans" style={{ color: 'var(--text-muted)' }}>{label}</span>
       <select value={value} onChange={(event) => onChange(event.target.value)}
         className="px-3 py-2 rounded-lg text-sm outline-none transition"
         style={{ background: 'var(--input-bg)', border: '1px solid var(--input-border)', color: 'var(--input-text)' }}>

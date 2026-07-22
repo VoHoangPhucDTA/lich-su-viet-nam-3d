@@ -183,7 +183,7 @@ export default function ExamSessionPage() {
   const answeredCount = session.questions.length - unansweredCount;
 
   return (
-    <div style={{ minHeight: '100vh', background: 'var(--bg-app)', color: 'var(--text-primary)', fontFamily: 'Inter, sans-serif' }}>
+    <div style={{ minHeight: '100vh', background: 'var(--bg-app)', color: 'var(--text-primary)', fontFamily: 'var(--font-body)' }}>
         
         <ExamHeader session={session} onSubmitClick={handleSubmitFlow}>
             {session.remainingSeconds !== undefined && session.remainingSeconds > 0 && (

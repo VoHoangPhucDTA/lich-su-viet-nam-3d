@@ -106,7 +106,7 @@ export default function EventPopup({
 
           <h2
             id="event-popup-title"
-            className="serif-heading"
+            className="app-heading"
             style={{
               fontSize: '1.25rem',
               fontWeight: 800,

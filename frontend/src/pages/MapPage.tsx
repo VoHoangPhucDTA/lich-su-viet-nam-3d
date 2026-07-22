@@ -819,7 +819,7 @@ export default function MapPage() {
             </span>
           ))}
           <ChevronRight size={13} strokeWidth={2} style={{ color: '#78716c', flexShrink: 0 }} />
-           <span className="serif-heading" style={{ fontSize: '13px', color: '#1c1917', fontWeight: 600, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', minWidth: 0 }}>
+           <span className="app-heading" style={{ fontSize: '13px', color: '#1c1917', fontWeight: 600, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', minWidth: 0 }}>
             {selectedEvent.name}
           </span>
         </div>
@@ -934,7 +934,7 @@ export default function MapPage() {
                         <Compass size={17} strokeWidth={1.8} style={{ color: 'var(--accent)' }} />
                       </div>
                       <h3
-                        className="serif-heading"
+                        className="app-heading"
                         style={{ fontSize: '16px', fontWeight: 700, color: 'var(--text-primary)', margin: 0 }}
                       >
                         Khám phá Lịch sử Việt Nam
@@ -1004,7 +1004,7 @@ export default function MapPage() {
                           <step.icon size={13} strokeWidth={2} style={{ color: 'var(--accent)' }} />
                         </div>
                         <div style={{ minWidth: 0 }}>
-                          <div className="mono-label" style={{ fontSize: '10px', color: 'var(--text-muted)', marginBottom: '1px' }}>
+                          <div className="ui-label" style={{ fontSize: '10px', color: 'var(--text-muted)', marginBottom: '1px' }}>
                             {String(i + 1).padStart(2, '0')} — {step.label}
                           </div>
                           <div style={{ fontSize: '11.5px', color: 'var(--text-primary)', fontWeight: 500 }}>

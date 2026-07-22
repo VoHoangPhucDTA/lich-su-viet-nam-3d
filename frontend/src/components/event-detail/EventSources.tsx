@@ -97,7 +97,7 @@ export default function EventSources({
                       {ref.book}
                     </h4>
                     <span
-                      className="text-xs font-semibold px-2 py-0.5 rounded-md font-mono"
+                      className="text-xs font-semibold px-2 py-0.5 rounded-md font-sans"
                       style={{ background: 'var(--accent-soft)', color: 'var(--accent)', border: '1px solid color-mix(in srgb, var(--accent) 30%, transparent)' }}
                     >
                       Lớp {ref.grade}
@@ -109,7 +109,7 @@ export default function EventSources({
                     </div>
                   )}
                   {(ref.pageStart || ref.pageEnd) && (
-                    <div className="text-xs font-mono" style={{ color: 'var(--text-muted)' }}>
+                    <div className="text-xs font-sans" style={{ color: 'var(--text-muted)' }}>
                       Trang {ref.pageStart}{ref.pageEnd && ref.pageEnd !== ref.pageStart ? ` – ${ref.pageEnd}` : ''}
                     </div>
                   )}
