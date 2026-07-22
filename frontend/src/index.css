@@ -1,4 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap');
 @import 'tailwindcss';
 
 /* ═══════════════════════════════════════════════════════════════════════════
@@ -57,6 +56,34 @@
   --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
   --font-serif: 'Cormorant Garamond', ui-serif, Georgia, serif;
   --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+  --font-heading: var(--font-serif);
+  --font-body: var(--font-sans);
+  --type-display: clamp(2.5rem, 5vw, 4rem);
+  --type-page-title: clamp(2rem, 4vw, 3rem);
+  --type-section-title: clamp(1.5rem, 2.6vw, 2.125rem);
+  --type-card-title: clamp(1.125rem, 1.7vw, 1.375rem);
+  --type-dialog-title: 1.5rem;
+  --type-table-heading: 0.75rem;
+  --type-body: 1rem;
+  --type-secondary: 0.875rem;
+  --type-small: 0.8125rem;
+  --type-label: 0.8125rem;
+  --type-input: 1rem;
+  --type-button: 0.875rem;
+  --type-badge: 0.75rem;
+  --type-validation: 0.8125rem;
+  --leading-heading: 1.18;
+  --leading-body: 1.7;
+  --leading-compact: 1.45;
+  --weight-body: 400;
+  --weight-medium: 500;
+  --weight-label: 600;
+  --weight-heading: 700;
+  --control-height: 2.75rem;
+  --control-radius: 0.75rem;
+  --card-radius: 1rem;
+  --focus-ring: #9a6b16;
+  --reading-measure: 72ch;
   --color-text-dim: #78716c;
   --color-text: #1c1917;
   --color-surface: #fafaf9;
@@ -3169,5 +3196,447 @@
 
   .quiz-field-helper span:first-child {
     display: none;
+  }
+}
+
+/* Unified application typography ----------------------------------------- */
+:where(
+  .public-shell,
+  .event-detail-shell,
+  .auth-shell,
+  .profile-shell,
+  .admin-shell,
+  .map-shell,
+  .quiz-shell,
+  .quiz-session-shell,
+  .exam-home-page,
+  .exam-browse-page,
+  .exam-session-page
+) {
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: var(--type-body);
+  font-weight: var(--weight-body);
+  line-height: var(--leading-body);
+  text-rendering: optimizeLegibility;
+}
+
+:where(
+  .public-shell,
+  .event-detail-shell,
+  .auth-shell,
+  .profile-shell,
+  .admin-shell,
+  .map-shell,
+  .quiz-shell,
+  .quiz-session-shell,
+  .exam-home-page,
+  .exam-browse-page,
+  .exam-session-page
+) :where(h1, h2, h3, h4),
+.serif-heading {
+  font-family: var(--font-heading);
+  font-weight: var(--weight-heading);
+  letter-spacing: -0.012em;
+  line-height: var(--leading-heading);
+  text-wrap: balance;
+}
+
+:where(
+  .public-shell,
+  .event-detail-shell,
+  .auth-shell,
+  .profile-shell,
+  .admin-shell,
+  .map-shell,
+  .quiz-shell,
+  .quiz-session-shell,
+  .exam-home-page,
+  .exam-browse-page,
+  .exam-session-page
+) :where(button, input, select, textarea) {
+  font-family: var(--font-body);
+}
+
+:where(
+  .public-shell,
+  .event-detail-shell,
+  .auth-shell,
+  .profile-shell,
+  .admin-shell,
+  .map-shell,
+  .quiz-shell,
+  .quiz-session-shell,
+  .exam-home-page,
+  .exam-browse-page,
+  .exam-session-page
+) :where(input, select, textarea) {
+  font-size: var(--type-input);
+  line-height: var(--leading-compact);
+}
+
+:where(
+  .app-header,
+  .public-shell,
+  .event-detail-shell,
+  .auth-shell,
+  .profile-shell,
+  .admin-shell,
+  .map-shell,
+  .quiz-shell,
+  .quiz-session-shell,
+  .exam-home-page,
+  .exam-browse-page,
+  .exam-session-page
+) :where(a[href], button, input, select, textarea, [tabindex]:not([tabindex='-1'])):focus-visible {
+  outline: 3px solid var(--focus-ring);
+  outline-offset: 3px;
+}
+
+.public-content > section:first-child h1,
+.exam-home-hero h1 {
+  font-size: var(--type-display);
+}
+
+.public-page-header h1,
+.admin-page-title,
+.profile-shell main h1,
+.exam-browse-header h1 {
+  font-size: var(--type-page-title);
+}
+
+.public-content h2,
+.event-detail-shell h2,
+.profile-shell main h2,
+.admin-form-section h2,
+.quiz-shell h2,
+.exam-home-features > h2 {
+  font-size: var(--type-section-title);
+}
+
+.public-card h3,
+.public-state h2,
+.event-detail-shell h3,
+.profile-shell main h3,
+.map-event-panel h2,
+.exam-home-feature h3,
+.exam-browse-card-content h2,
+.exam-practice-heading h1 {
+  font-size: var(--type-card-title);
+}
+
+.admin-dialog h2,
+.auth-card h1,
+.auth-card h2 {
+  font-size: var(--type-dialog-title);
+}
+
+.public-eyebrow,
+.public-field-label,
+.auth-field-label,
+.admin-data-table th,
+.map-exploration-panel__section-title,
+.map-event-chronology {
+  font-size: var(--type-label) !important;
+  font-weight: var(--weight-label);
+  line-height: var(--leading-compact);
+}
+
+.public-filter-button,
+.public-primary-button,
+.public-secondary-button,
+.public-text-button,
+.public-type-filter,
+.admin-small-button,
+.admin-secondary-button,
+.admin-primary-button,
+.admin-danger-button,
+.admin-text-button,
+.auth-card button[type='submit'] {
+  min-height: var(--control-height);
+  border-radius: var(--control-radius);
+  font-size: var(--type-button);
+  font-weight: var(--weight-label);
+  line-height: var(--leading-compact);
+}
+
+.public-card,
+.public-toolbar,
+.museum-card,
+.auth-card,
+.admin-form-section,
+.admin-dialog {
+  border-radius: var(--card-radius);
+}
+
+.public-state h2 {
+  color: var(--text-primary);
+}
+
+.public-state p,
+.public-card > div:last-child > p,
+.public-page-header > div > div > p,
+.admin-state,
+.admin-page-header > div > p,
+.auth-card > p {
+  font-size: var(--type-secondary);
+  line-height: var(--leading-body);
+}
+
+/* Shared application header */
+.app-header {
+  color: var(--text-primary);
+  font-family: var(--font-body);
+}
+
+.app-header a,
+.app-header button {
+  font-family: var(--font-body);
+}
+
+.app-header a:not(.auth-brand),
+.app-header button {
+  font-size: var(--type-small);
+  letter-spacing: 0.025em;
+}
+
+.app-header button {
+  min-height: 2.75rem;
+}
+
+.app-header [role='menu'] {
+  line-height: var(--leading-compact);
+}
+
+/* Long-form event reading */
+.event-detail-shell .event-longform {
+  min-width: 0;
+}
+
+.event-detail-shell .event-prose {
+  width: 100%;
+  max-width: var(--reading-measure);
+  color: var(--text-secondary);
+  font-size: var(--type-body);
+  line-height: 1.82;
+  overflow-wrap: break-word;
+  text-wrap: pretty;
+}
+
+.event-detail-shell .event-prose p + p {
+  margin-top: 1.1em;
+}
+
+.event-detail-shell :where(figure, img) {
+  max-width: 100%;
+}
+
+.event-detail-shell :where(figcaption, cite) {
+  font-size: var(--type-small);
+  line-height: var(--leading-body);
+}
+
+.event-detail-shell :where(blockquote, .event-prose) a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+}
+
+/* Authentication and profile */
+.auth-input {
+  min-height: 3rem;
+  font-size: var(--type-input);
+  line-height: var(--leading-compact);
+}
+
+.auth-field-hint,
+.auth-field-error,
+.auth-form-message {
+  font-size: var(--type-validation) !important;
+  line-height: 1.6 !important;
+}
+
+.auth-field-error {
+  font-weight: var(--weight-label);
+}
+
+.profile-shell main {
+  min-width: 0;
+}
+
+.profile-shell main :where(p, li, label, input, select, textarea) {
+  line-height: var(--leading-body);
+}
+
+.profile-shell main :where(input, select, textarea) {
+  min-height: var(--control-height);
+  font-size: var(--type-input);
+}
+
+.profile-shell main button {
+  font-size: var(--type-button);
+  letter-spacing: 0.025em;
+}
+
+/* Administration */
+.admin-page-header {
+  gap: 1rem;
+}
+
+.admin-data-table {
+  font-size: var(--type-secondary) !important;
+  line-height: 1.55;
+}
+
+.admin-data-table th {
+  font-family: var(--font-body);
+  font-size: var(--type-table-heading) !important;
+  letter-spacing: 0.08em !important;
+}
+
+.admin-data-table td {
+  line-height: 1.55;
+  overflow-wrap: anywhere;
+}
+
+.admin-data-table td :where(a, button) {
+  white-space: normal;
+}
+
+.admin-status-badge {
+  min-height: 1.75rem;
+  font-size: var(--type-badge) !important;
+  line-height: 1.25;
+}
+
+.admin-state :where(h2, p:first-child) {
+  font-family: var(--font-heading);
+  font-size: var(--type-card-title);
+  font-weight: var(--weight-heading);
+}
+
+.admin-form-input,
+.admin-dropdown-trigger,
+.admin-select-trigger,
+.admin-select-inline {
+  min-height: var(--control-height);
+  font-size: var(--type-input);
+}
+
+/* Map and terrain UI typography */
+.map-shell {
+  min-width: 0;
+}
+
+.map-sidebar,
+.map-event-panel,
+.map-onboarding,
+.map-exploration-panel {
+  font-family: var(--font-body);
+  line-height: var(--leading-compact);
+}
+
+.map-sidebar input {
+  min-height: var(--control-height);
+  font-size: var(--type-input) !important;
+}
+
+.map-event-title {
+  min-width: 0;
+  font-family: var(--font-heading);
+  font-size: var(--type-small);
+  font-weight: var(--weight-heading);
+  line-height: 1.35;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+.map-event-panel :where([class*='text-[11px]'], [class*='text-[10px]']),
+.map-sidebar :where([class*='text-[11px]'], [class*='text-[10px]']) {
+  font-size: var(--type-badge) !important;
+  line-height: var(--leading-compact);
+}
+
+.map-onboarding p,
+.map-exploration-panel__hint,
+.map-exploration-panel__status,
+.map-exploration-panel__error,
+.map-exploration-panel__result-row,
+.map-exploration-panel__result-note,
+.map-exploration-panel__footnote {
+  font-size: var(--type-small) !important;
+  line-height: 1.55;
+}
+
+.map-event-panel :where(button, a),
+.map-sidebar :where(button, a),
+.map-exploration-panel :where(button, a) {
+  font-family: var(--font-body);
+}
+
+.map-event-panel p,
+.map-exploration-panel p {
+  overflow-wrap: anywhere;
+}
+
+/* The exam system supplies the reference hierarchy; make its semantic
+   headings consume the same shared heading token explicitly. */
+.exam-home-page :where(h1, h2, h3),
+.exam-browse-page :where(h1, h2),
+.exam-session-page :where(h1, h2),
+.exam-submit-dialog h2,
+.exam-answer-sheet-header h2,
+.exam-shortcut-help-heading h2 {
+  font-family: var(--font-heading);
+  font-weight: var(--weight-heading);
+  line-height: var(--leading-heading);
+}
+
+@media (max-width: 639px) {
+  :root {
+    --type-display: clamp(2.25rem, 11vw, 3rem);
+    --type-page-title: clamp(1.875rem, 9vw, 2.5rem);
+    --type-section-title: clamp(1.5rem, 7vw, 2rem);
+  }
+
+  .public-content,
+  .public-content-narrow {
+    padding-inline: 1rem;
+  }
+
+  .event-detail-shell .event-prose {
+    font-size: var(--type-body);
+    line-height: 1.75;
+  }
+
+  .admin-dialog {
+    max-height: calc(100dvh - 2rem);
+    overflow-y: auto;
+  }
+
+  .map-event-panel {
+    overflow-wrap: anywhere;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .app-header *,
+  .event-detail-shell *,
+  .profile-shell *,
+  .map-shell *,
+  .exam-home-page *,
+  .exam-browse-page *,
+  .exam-session-page * {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@media (forced-colors: active) {
+  :where(.public-shell, .event-detail-shell, .auth-shell, .profile-shell, .admin-shell, .map-shell)
+  :where(button, a[href], input, select, textarea) {
+    border: 1px solid CanvasText;
   }
 }

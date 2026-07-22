@@ -338,7 +338,7 @@ export default function EventDetailPage() {
 
   return (
     <div
-      className="min-h-screen w-full font-sans"
+      className="event-detail-shell min-h-screen w-full"
       style={{
         background: 'var(--bg-app)',
         color: 'var(--text-primary)',

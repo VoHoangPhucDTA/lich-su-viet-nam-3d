@@ -111,7 +111,7 @@ export default function ProfileLayout({ children }: { children: ReactNode }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-[#fafaf9]" style={{ display: 'flex', flexDirection: 'column' }}>
+    <div className="profile-shell min-h-screen bg-[#fafaf9]" style={{ display: 'flex', flexDirection: 'column' }}>
       {/* Body */}
       <div className="flex flex-1 overflow-hidden relative">
         {/* Mobile sidebar overlay */}
@@ -138,6 +138,7 @@ export default function ProfileLayout({ children }: { children: ReactNode }) {
             onClick={() => setSidebarOpen(p => !p)}
             className="fixed bottom-4 left-4 z-30 lg:hidden w-11 h-11 rounded-xl bg-white border border-stone-200 shadow-md flex items-center justify-center transition-all active:scale-95"
             aria-label="Menu"
+            aria-expanded={sidebarOpen}
           >
             {sidebarOpen ? (
               <X size={18} strokeWidth={2} className="text-stone-600" />

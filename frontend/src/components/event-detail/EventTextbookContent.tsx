@@ -33,7 +33,7 @@ export default function EventTextbookContent({
   };
 
   return (
-    <div className="flex flex-col gap-12 w-full">
+    <div className="event-longform flex flex-col gap-12 w-full">
       {/* === Tổng quan === */}
       <section id="tong-quan" className="scroll-mt-28">
         <SectionHeader index={overviewIndex} title="Tổng quan" />
@@ -58,7 +58,7 @@ export default function EventTextbookContent({
           </blockquote>
         )}
 
-        <article className={cardClass} style={cardStyle}>
+        <article className={`event-prose ${cardClass}`} style={cardStyle}>
           {textbookContent.canonicalSummary}
         </article>
       </section>
@@ -70,7 +70,7 @@ export default function EventTextbookContent({
             index={narrativeIndex}
             title="Nội dung chi tiết"
           />
-          <article className={`${cardClass} whitespace-pre-wrap`} style={cardStyle}>
+          <article className={`event-prose ${cardClass} whitespace-pre-wrap`} style={cardStyle}>
             {textbookContent.detailedNarrative}
           </article>
         </section>
@@ -81,7 +81,7 @@ export default function EventTextbookContent({
         <section id="y-nghia" className="scroll-mt-28">
           <SectionHeader index={significanceIndex} title="Ý nghĩa lịch sử" />
           <div
-            className={`${cardClass} relative overflow-hidden`}
+            className={`event-prose ${cardClass} relative overflow-hidden`}
             style={{
               background: 'linear-gradient(135deg, var(--accent-soft), transparent 70%), var(--bg-card)',
               border: '1px solid color-mix(in srgb, var(--accent) 40%, transparent)',

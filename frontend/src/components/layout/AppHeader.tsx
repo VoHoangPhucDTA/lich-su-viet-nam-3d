@@ -51,7 +51,7 @@ export default function AppHeader() {
     }`;
 
   return (
-    <nav className="sticky top-0 z-50 backdrop-blur-md bg-stone-50/80 border-b border-stone-200/60 shadow-sm">
+    <nav aria-label="Điều hướng chính" className="app-header sticky top-0 z-50 backdrop-blur-md bg-stone-50/80 border-b border-stone-200/60 shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
 
         {/* ── Left: Brand ── */}
@@ -109,6 +109,8 @@ export default function AppHeader() {
             {isAuthenticated ? (
               <button
                 onClick={() => setProfileDropdownOpen(!profileDropdownOpen)}
+                aria-haspopup="true"
+                aria-expanded={profileDropdownOpen}
                 className="px-3 py-1.5 text-[10px] font-mono font-bold uppercase tracking-wider rounded-xl bg-red-900/10 border border-red-900/20 text-red-900 hover:bg-red-900/20 transition-all duration-300"
               >
                 {currentUser?.fullName || 'Hồ sơ'}
