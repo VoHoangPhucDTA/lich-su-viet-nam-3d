@@ -27,6 +27,7 @@ import {
 import type { HistoricalEvent } from '../types/event';
 import type {
   RegionGeometryStatus,
+  TerrainDataSourceStatus,
   TerrainRuntimeError,
   TerrainSessionCommand,
   TerrainViewModel,
@@ -686,6 +687,15 @@ export default function MapPage() {
     };
   }, [terrainState, terrainTargetResult]);
 
+  const terrainDataSourceStatus = useMemo<TerrainDataSourceStatus>(() => {
+    if (terrainViewModel.mode === 'active' && terrainViewModel.providerStatus === 'ready') {
+      return 'world-terrain';
+    }
+    if (terrainViewModel.mode === 'entering') return 'loading';
+    if (terrainViewModel.mode === 'error') return 'ellipsoid-fallback';
+    return 'unavailable';
+  }, [terrainViewModel.mode, terrainViewModel.providerStatus]);
+
   useEffect(() => {
     const closePanelsOnEscape = (event: KeyboardEvent) => {
       if (event.key !== 'Escape') return;
@@ -1041,6 +1051,7 @@ export default function MapPage() {
             {terrainViewModel.mode === 'active' && (
               <TerrainExplorationToolbar
                 isVisible
+                terrainDataSourceStatus={terrainDataSourceStatus}
                 inspectMode={inspectMode}
                 onToggleInspect={handleToggleInspect}
                 inspectionState={inspection}

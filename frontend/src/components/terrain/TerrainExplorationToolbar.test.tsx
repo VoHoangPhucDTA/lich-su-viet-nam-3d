@@ -161,6 +161,7 @@ describe('TerrainExplorationToolbar', () => {
     expect(
       screen.getByRole('button', { name: 'Mở bảng công cụ khám phá' })
     ).toBeInTheDocument();
+    expect(trigger).toHaveFocus();
   });
 
   it('renders formatted lat/lng/height when a result is provided', () => {
@@ -229,5 +230,62 @@ describe('TerrainExplorationToolbar', () => {
         name: 'Bật chọn vị trí trên bản đồ',
       })
     ).toBeDisabled();
+  });
+
+  it('shows modern-reference data information and the three learning prompts', () => {
+    render(
+      <TerrainExplorationToolbar
+        isVisible
+        terrainDataSourceStatus="world-terrain"
+        inspectMode="none"
+        onToggleInspect={() => {}}
+        inspectionState={emptyState}
+        onZoomIn={() => {}}
+        onZoomOut={() => {}}
+      />
+    );
+
+    fireEvent.click(screen.getByRole('button', { name: 'Mở bảng công cụ khám phá' }));
+
+    expect(screen.getByText('Thông tin dữ liệu')).toBeInTheDocument();
+    expect(screen.getByText('Cesium World Terrain')).toBeInTheDocument();
+    expect(screen.getByText('Địa hình tham chiếu thời hiện đại.')).toBeInTheDocument();
+    expect(screen.getByText('Gợi ý khám phá')).toBeInTheDocument();
+    expect(screen.getByText(/Khu vực hiện nay thuộc miền núi/)).toBeInTheDocument();
+    expect(screen.getByText(/Các địa điểm liên quan phân bố/)).toBeInTheDocument();
+    expect(screen.getByText(/Yếu tố địa lý nào có thể/)).toBeInTheDocument();
+    expect(screen.getByText('Phạm vi sử dụng')).toBeInTheDocument();
+    expect(screen.getByText(/không dùng để chứng minh tuyến hành quân/i)).toBeInTheDocument();
+    expect(screen.queryByText(/phục dựng địa hình lịch sử/i)).not.toBeInTheDocument();
+  });
+
+  it('does not present ellipsoid fallback height as a terrain measurement', () => {
+    render(
+      <TerrainExplorationToolbar
+        isVisible
+        terrainDataSourceStatus="ellipsoid-fallback"
+        inspectMode="inspect-location"
+        onToggleInspect={() => {}}
+        inspectionState={{
+          result: {
+            latitude: 15.2251,
+            longitude: 108.6552,
+            heightMeters: 0,
+            heightStatus: 'ellipsoid_only',
+          },
+          loading: false,
+          error: null,
+        }}
+        onZoomIn={() => {}}
+        onZoomOut={() => {}}
+      />
+    );
+
+    fireEvent.click(screen.getByRole('button', { name: 'Mở bảng công cụ khám phá' }));
+
+    expect(screen.getByText('Mô hình ellipsoid dự phòng')).toBeInTheDocument();
+    expect(screen.getByText('—')).toBeInTheDocument();
+    expect(screen.queryByText('0.0 m')).not.toBeInTheDocument();
+    expect(screen.getByText(/Không có dữ liệu độ cao địa hình chi tiết/)).toBeInTheDocument();
   });
 });
