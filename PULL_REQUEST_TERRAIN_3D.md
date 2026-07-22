@@ -322,3 +322,61 @@ detail: |
   - 300 là default page size của API, không phải tổng DB.
 
   Không tự đề xuất hoặc triển khai P1/P2 trong branch này.
+
+  Task D0 — Academic Integrity & Learning Alignment
+
+  Tóm tắt
+
+  - Đổi CTA mở Terrain thành "Khám phá địa hình khu vực" và chỉ hiển thị
+    disclaimer khi Terrain đang active: mô hình địa hình là tham chiếu
+    hiện đại; sông, bờ biển và cảnh quan có thể khác thời điểm lịch sử.
+  - Toolbar công bố nguồn dữ liệu, phạm vi dùng/không dùng và ba gợi ý
+    khám phá; không bổ sung công cụ P1/P2.
+
+  Liên kết học tập và dữ liệu
+
+  - Terrain là Cesium World Terrain được tải theo phiên Terrain. UI dùng
+    trạng thái serializable (`world-terrain`, `ellipsoid-fallback`,
+    `loading`, `unavailable`), không đưa Viewer hay provider vào React state.
+  - Không cấu hình imagery provider riêng; Viewer sử dụng base layer mặc
+    định theo cấu hình hiện tại. Source không tải Cesium OSM Buildings,
+    Google Photorealistic 3D Tiles hoặc custom 3D Tiles.
+  - Ellipsoid fallback không được hiển thị như phép đo độ cao địa hình:
+    kết quả dùng dấu "—" cùng thông báo không có dữ liệu độ cao chi tiết.
+
+  Giới hạn học thuật
+
+  - Có thể dùng để đọc địa thế tổng quát, vị trí tương đối, độ cao tham
+    khảo và phạm vi phân bố target.
+  - Không dùng để chứng minh tuyến hành quân, dòng chảy, đường bờ hoặc
+    ranh giới lịch sử chính xác; không phục dựng cảnh quan quá khứ.
+  - Tài liệu đầy đủ: `docs/terrain-academic-alignment/TERRAIN_ACADEMIC_ALIGNMENT.md`.
+
+  Kiểm thử Task D0
+
+  - TypeScript: PASS (`npx tsc --noEmit -p tsconfig.app.json`).
+  - Targeted tests: PASS — 2 files, 12 tests.
+  - Scoped ESLint: PASS — 6 TypeScript/test files.
+  - Production build: PASS (`npx vite build`).
+  - Full test suite: 178/179 PASS; một lỗi timeout 5 giây có sẵn ngoài
+    phạm vi D0 tại `src/pages/admin/__tests__/AdminAiCandidateDetailPage.test.tsx`.
+  - Manual Cesium browser smoke: chưa chạy trong phiên này.
+
+  Checklist / known limitations
+
+  - [x] Nội dung D0, accessibility test (Escape/focus restore) và fallback
+    height đã được kiểm thử tự động.
+  - [x] Chỉ commit 8 file D0 trong `a8e4725`.
+  - [ ] Manual smoke cần xác nhận với Cesium Ion token hợp lệ và dữ liệu event.
+  - [ ] Không push/deploy, không database/migration, không P1/P2.
+
+  Files Task D0
+
+  - `frontend/src/types/terrain.ts`
+  - `frontend/src/pages/MapPage.tsx`
+  - `frontend/src/components/terrain/TerrainControls.tsx`
+  - `frontend/src/components/terrain/TerrainControls.test.tsx`
+  - `frontend/src/components/terrain/TerrainExplorationToolbar.tsx`
+  - `frontend/src/components/terrain/TerrainExplorationToolbar.test.tsx`
+  - `frontend/src/index.css`
+  - `docs/terrain-academic-alignment/TERRAIN_ACADEMIC_ALIGNMENT.md`
