@@ -380,3 +380,48 @@ detail: |
   - `frontend/src/components/terrain/TerrainExplorationToolbar.test.tsx`
   - `frontend/src/index.css`
   - `docs/terrain-academic-alignment/TERRAIN_ACADEMIC_ALIGNMENT.md`
+
+  Task D1 — Optional Distance Comparison
+
+  Tóm tắt
+
+  - Bổ sung “So sánh khoảng cách” vào nhóm “Công cụ bổ sung” cùng công
+    cụ xem tọa độ và độ cao. Đây là công cụ tùy chọn, không phải nhiệm vụ
+    bắt buộc và không ảnh hưởng các event `nationwide` hoặc `no_location`.
+  - Kết quả là khoảng cách geodesic tham chiếu trên ellipsoid giữa hai vị
+    trí, không dùng độ cao và không phải terrain-following distance.
+  - UI học sinh chỉ trình bày khoảng cách gần đúng giữa hai vị trí trên bản
+    đồ, đồng thời nêu rõ kết quả không phải đường đi hoặc tuyến hành quân
+    lịch sử.
+
+  Hành vi kỹ thuật và lifecycle
+
+  - Chỉ một exploration mode được active tại một thời điểm: inspect hoặc
+    measure. Shared `LEFT_CLICK` handler giữ thứ tự ưu tiên
+    measure → inspect → target; không tạo thêm `ScreenSpaceEventHandler`.
+  - Measurement dùng datasource riêng với marker A/B và polyline geodesic.
+  - Session/latest-operation guards chặn kết quả async stale; datasource và
+    marker được cleanup khi tắt mode, đổi/thoát phiên Terrain, đổi event và
+    unmount.
+  - Escape/focus restore, `aria-pressed`, touch target và responsive panel
+    được giữ nguyên; panel vẫn cuộn trong viewport hẹp.
+
+  Kiểm thử Task D1
+
+  - TypeScript: PASS (`npx tsc --noEmit -p tsconfig.app.json`).
+  - Targeted tests: PASS — 3 files, 37/37 tests.
+  - Full frontend tests: PASS — 38 files, 204/204 tests.
+  - Scoped ESLint: PASS — 7 TypeScript/TSX files thuộc phạm vi D1.
+  - Production build: PASS (`npx vite build`, 4167 modules transformed).
+  - `git diff --check`: PASS trước khi commit.
+  - Manual Cesium browser smoke: `MANUAL_D1_SMOKE_UNVERIFIED`.
+
+  Checklist / known limitations
+
+  - [x] Distance helper và reducer có unit tests, bao gồm stale-session guard.
+  - [x] Toolbar có component tests cho wording học sinh, optional framing,
+    Escape/focus restore và `aria-pressed`.
+  - [x] D1 được commit riêng trong `34a505e` với đúng 8 file.
+  - [ ] Manual smoke cần xác nhận click A/B, reset/clear, đổi exploration mode,
+    đổi event, thoát Terrain và layout 320 px trước khi phát hành.
+  - [ ] Không push/deploy và không bắt đầu Task D2 trong lượt này.
