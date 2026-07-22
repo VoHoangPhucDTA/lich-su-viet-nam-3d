@@ -47,10 +47,10 @@ function WelcomeHero({ firstName }: { firstName: string }) {
           </div>
           <div>
             <div className="flex items-center gap-3 flex-wrap">
-              <h1 className="font-serif text-2xl sm:text-3xl font-black text-stone-900 tracking-tight">
+              <h1 className="font-sans text-2xl sm:text-3xl font-black text-stone-900 tracking-tight">
                 Xin chào, {firstName}!
               </h1>
-              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[9px] font-mono font-bold uppercase tracking-wider bg-red-50 text-red-900 border border-red-200/60">
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[9px] font-sans font-bold uppercase tracking-wider bg-red-50 text-red-900 border border-red-200/60">
                 <Star size={10} strokeWidth={2} className="text-amber-500" />
                 Top {mockStats.rankPercentile}%
               </span>
@@ -64,24 +64,24 @@ function WelcomeHero({ firstName }: { firstName: string }) {
         <div className="shrink-0 flex items-center gap-3 px-4 py-3 rounded-xl bg-amber-50 border border-amber-200/60">
           <Flame size={22} strokeWidth={1.5} className="text-amber-600" />
           <div className="text-right">
-            <div className="font-serif text-2xl font-bold text-amber-600">{mockStats.streakDays}</div>
-            <div className="text-[8px] font-mono font-bold uppercase tracking-wider text-stone-400">Ngày liên tiếp</div>
+            <div className="font-sans text-2xl font-bold text-amber-600">{mockStats.streakDays}</div>
+            <div className="text-[8px] font-sans font-bold uppercase tracking-wider text-stone-400">Ngày liên tiếp</div>
           </div>
         </div>
       </div>
 
       <div className="mt-6 pt-5 border-t border-stone-100 grid grid-cols-3 gap-6">
         <div className="space-y-0.5">
-          <span className="block font-serif text-2xl font-bold text-red-900">{mockStats.eventsViewed}</span>
-          <span className="text-[9px] font-mono font-bold uppercase tracking-wider text-stone-400">Sự kiện đã xem</span>
+          <span className="block font-sans text-2xl font-bold text-red-900">{mockStats.eventsViewed}</span>
+          <span className="text-[9px] font-sans font-bold uppercase tracking-wider text-stone-400">Sự kiện đã xem</span>
         </div>
         <div className="space-y-0.5">
-          <span className="block font-serif text-2xl font-bold text-amber-600">{mockStats.quizzesCompleted}</span>
-          <span className="text-[9px] font-mono font-bold uppercase tracking-wider text-stone-400">Bài trắc nghiệm</span>
+          <span className="block font-sans text-2xl font-bold text-amber-600">{mockStats.quizzesCompleted}</span>
+          <span className="text-[9px] font-sans font-bold uppercase tracking-wider text-stone-400">Bài trắc nghiệm</span>
         </div>
         <div className="space-y-0.5">
-          <span className="block font-serif text-2xl font-bold text-emerald-600">{mockStats.weeklyMinutes}'</span>
-          <span className="text-[9px] font-mono font-bold uppercase tracking-wider text-stone-400">Phút tuần này</span>
+          <span className="block font-sans text-2xl font-bold text-emerald-600">{mockStats.weeklyMinutes}'</span>
+          <span className="text-[9px] font-sans font-bold uppercase tracking-wider text-stone-400">Phút tuần này</span>
         </div>
       </div>
     </section>
@@ -112,26 +112,26 @@ function ChartsGrid() {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
       <div className="rounded-2xl bg-white border border-stone-200/60 p-5 relative">
-        <span className="absolute top-3 right-3 text-[9px] font-mono text-stone-300 font-bold">01</span>
+        <span className="absolute top-3 right-3 text-[9px] font-sans text-stone-300 font-bold">01</span>
         <div className="space-y-1 mb-4">
-          <span className="font-mono text-[9px] font-bold uppercase tracking-wider text-red-900">Thống kê</span>
-          <h3 className="font-serif text-lg font-bold text-stone-900">Điểm theo tuần</h3>
+          <span className="font-sans text-[9px] font-bold uppercase tracking-wider text-red-900">Thống kê</span>
+          <h3 className="font-sans text-lg font-bold text-stone-900">Điểm theo tuần</h3>
         </div>
         <WeeklyScoreChart data={mockWeeklyScores} />
       </div>
       <div className="rounded-2xl bg-white border border-stone-200/60 p-5 relative">
-        <span className="absolute top-3 right-3 text-[9px] font-mono text-stone-300 font-bold">02</span>
+        <span className="absolute top-3 right-3 text-[9px] font-sans text-stone-300 font-bold">02</span>
         <div className="space-y-1 mb-4">
-          <span className="font-mono text-[9px] font-bold uppercase tracking-wider text-red-900">Phân tích</span>
-          <h3 className="font-serif text-lg font-bold text-stone-900">Tỉ lệ đúng theo chủ đề</h3>
+          <span className="font-sans text-[9px] font-bold uppercase tracking-wider text-red-900">Phân tích</span>
+          <h3 className="font-sans text-lg font-bold text-stone-900">Tỉ lệ đúng theo chủ đề</h3>
         </div>
         <CategoryChart data={mockCategoryScores} />
       </div>
       <div className="rounded-2xl bg-white border border-stone-200/60 p-5 relative">
-        <span className="absolute top-3 right-3 text-[9px] font-mono text-stone-300 font-bold">03</span>
+        <span className="absolute top-3 right-3 text-[9px] font-sans text-stone-300 font-bold">03</span>
         <div className="space-y-1 mb-4">
-          <span className="font-mono text-[9px] font-bold uppercase tracking-wider text-red-900">Tiến độ</span>
-          <h3 className="font-serif text-lg font-bold text-stone-900">Tiến độ theo lớp</h3>
+          <span className="font-sans text-[9px] font-bold uppercase tracking-wider text-red-900">Tiến độ</span>
+          <h3 className="font-sans text-lg font-bold text-stone-900">Tiến độ theo lớp</h3>
         </div>
         <GradeProgressChart data={mockProgressByGrade} />
       </div>
@@ -151,14 +151,14 @@ function StrengthsWeaknesses() {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
       <div className="rounded-2xl bg-white border border-stone-200/60 p-5 relative">
-        <span className="absolute top-3 right-3 text-[9px] font-mono text-stone-300 font-bold">04</span>
+        <span className="absolute top-3 right-3 text-[9px] font-sans text-stone-300 font-bold">04</span>
         <div className="space-y-1 mb-4">
-          <span className="font-mono text-[9px] font-bold uppercase tracking-wider text-emerald-600">Điểm mạnh</span>
-          <h3 className="font-serif text-lg font-bold text-stone-900">Chủ đề làm tốt nhất</h3>
+          <span className="font-sans text-[9px] font-bold uppercase tracking-wider text-emerald-600">Điểm mạnh</span>
+          <h3 className="font-sans text-lg font-bold text-stone-900">Chủ đề làm tốt nhất</h3>
         </div>
         <div className="flex flex-wrap gap-2">
           {strengths.length === 0 ? (
-            <p className="text-sm text-stone-400 italic font-serif">Chưa có dữ liệu</p>
+            <p className="text-sm text-stone-400 italic font-sans">Chưa có dữ liệu</p>
           ) : (
             strengths.map(c => (
               <div key={c.category} className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold transition-all hover:scale-105 cursor-default"
@@ -172,14 +172,14 @@ function StrengthsWeaknesses() {
         </div>
       </div>
       <div className="rounded-2xl bg-white border border-stone-200/60 p-5 relative">
-        <span className="absolute top-3 right-3 text-[9px] font-mono text-stone-300 font-bold">05</span>
+        <span className="absolute top-3 right-3 text-[9px] font-sans text-stone-300 font-bold">05</span>
         <div className="space-y-1 mb-4">
-          <span className="font-mono text-[9px] font-bold uppercase tracking-wider text-red-900">Cần cải thiện</span>
-          <h3 className="font-serif text-lg font-bold text-stone-900">Chủ đề cần ôn luyện</h3>
+          <span className="font-sans text-[9px] font-bold uppercase tracking-wider text-red-900">Cần cải thiện</span>
+          <h3 className="font-sans text-lg font-bold text-stone-900">Chủ đề cần ôn luyện</h3>
         </div>
         <div className="flex flex-wrap gap-2">
           {weaknesses.length === 0 ? (
-            <p className="text-sm text-stone-400 italic font-serif">Tuyệt vời, không có điểm yếu!</p>
+            <p className="text-sm text-stone-400 italic font-sans">Tuyệt vời, không có điểm yếu!</p>
           ) : (
             weaknesses.map(c => (
               <div key={c.category} className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold cursor-default"
@@ -206,10 +206,10 @@ const eventIcons: Record<string, React.ReactNode> = {
 function ContinueLearning() {
   return (
     <div className="rounded-2xl bg-white border border-stone-200/60 p-5 relative">
-      <span className="absolute top-3 right-3 text-[9px] font-mono text-stone-300 font-bold">06</span>
+      <span className="absolute top-3 right-3 text-[9px] font-sans text-stone-300 font-bold">06</span>
       <div className="space-y-1 mb-4">
-        <span className="font-mono text-[9px] font-bold uppercase tracking-wider text-red-900">Học tập</span>
-        <h3 className="font-serif text-lg font-bold text-stone-900">Tiếp tục học</h3>
+        <span className="font-sans text-[9px] font-bold uppercase tracking-wider text-red-900">Học tập</span>
+        <h3 className="font-sans text-lg font-bold text-stone-900">Tiếp tục học</h3>
       </div>
       <div className="flex flex-col gap-2.5">
         {mockRecentEvents.map(ev => {
@@ -219,7 +219,7 @@ function ContinueLearning() {
                 {eventIcons[ev.title] ?? <BookOpenText size={20} strokeWidth={1.5} />}
               </div>
               <div className="flex-1 min-w-0">
-                <div className="font-serif text-sm font-bold text-stone-900 truncate">{ev.title}</div>
+                <div className="font-sans text-sm font-bold text-stone-900 truncate">{ev.title}</div>
                 <div className="flex gap-3 text-xs text-stone-400 mt-0.5">
                   <span>{ev.topic}</span>
                   <span>Lớp {ev.grade}</span>
@@ -234,7 +234,7 @@ function ContinueLearning() {
                     style={{ width: `${ev.progress}%`, background: ev.progress === 100 ? '#3D8361' : '#8b1e1e' }} />
                 </div>
               </div>
-              <button className="shrink-0 rounded-lg px-3 py-1.5 text-xs font-mono font-bold uppercase tracking-wider transition-all bg-red-50 text-red-900 border border-red-200/60 hover:bg-red-100">
+              <button className="shrink-0 rounded-lg px-3 py-1.5 text-xs font-sans font-bold uppercase tracking-wider transition-all bg-red-50 text-red-900 border border-red-200/60 hover:bg-red-100">
                 <span className="flex items-center gap-1">
                   {ev.progress === 100 ? 'Ôn lại' : 'Tiếp tục'}
                   <ArrowRight size={12} strokeWidth={2.5} />
@@ -245,7 +245,7 @@ function ContinueLearning() {
         })}
       </div>
       <div className="mt-3 text-right">
-        <Link to="/profile/history" className="inline-flex items-center gap-1 text-xs font-mono font-bold uppercase tracking-wider text-red-900 hover:text-red-700 transition-colors">
+        <Link to="/profile/history" className="inline-flex items-center gap-1 text-xs font-sans font-bold uppercase tracking-wider text-red-900 hover:text-red-700 transition-colors">
           Xem lịch sử
           <ChevronRight size={13} strokeWidth={2.5} />
         </Link>
@@ -270,10 +270,10 @@ export default function ProfileDashboardPage() {
         <ContinueLearning />
 
         <div className="rounded-2xl bg-white border border-stone-200/60 p-5 relative">
-          <span className="absolute top-3 right-3 text-[9px] font-mono text-stone-300 font-bold">07</span>
+          <span className="absolute top-3 right-3 text-[9px] font-sans text-stone-300 font-bold">07</span>
           <div className="space-y-1 mb-4">
-            <span className="font-mono text-[9px] font-bold uppercase tracking-wider text-red-900">Đề xuất</span>
-            <h3 className="font-serif text-lg font-bold text-stone-900">Gợi ý ôn tập</h3>
+            <span className="font-sans text-[9px] font-bold uppercase tracking-wider text-red-900">Đề xuất</span>
+            <h3 className="font-sans text-lg font-bold text-stone-900">Gợi ý ôn tập</h3>
           </div>
           <div className="flex flex-col gap-3">
             {mockRecommendations.map(r => (

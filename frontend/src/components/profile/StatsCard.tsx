@@ -24,9 +24,9 @@ export default function StatsCard({
           style={{ background: `color-mix(in srgb, ${color} 6%, transparent)`, color }}>
           {icon}
         </div>
-        <span className="text-[9px] font-mono font-bold uppercase tracking-wider text-stone-400">{label}</span>
+        <span className="text-[9px] font-sans font-bold uppercase tracking-wider text-stone-400">{label}</span>
       </div>
-      <div className="font-serif text-xl sm:text-2xl font-black leading-none tracking-tight mb-1" style={{ color }}>
+      <div className="font-sans text-xl sm:text-2xl font-black leading-none tracking-tight mb-1" style={{ color }}>
         {value}
       </div>
       {sub && <span className="text-xs text-stone-400">{sub}</span>}

@@ -37,9 +37,9 @@ function SummaryKPI({
           style={{ background: `${color}10`, color }}>
           {icon}
         </div>
-        <span className="text-[9px] font-mono font-bold uppercase tracking-wider text-stone-400">{label}</span>
+        <span className="text-[9px] font-sans font-bold uppercase tracking-wider text-stone-400">{label}</span>
       </div>
-      <div className="font-serif text-2xl font-black leading-none tracking-tight" style={{ color }}>
+      <div className="font-sans text-2xl font-black leading-none tracking-tight" style={{ color }}>
         {value}
       </div>
     </div>
@@ -59,8 +59,8 @@ export default function ScoresPage() {
       <div className="space-y-8 lg:space-y-10 animate-fade-in">
         {/* Page header */}
         <div className="space-y-2">
-          <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-red-900">Kết quả học tập</span>
-          <h1 className="font-serif text-2xl sm:text-3xl font-black text-stone-900 leading-tight tracking-tight">
+          <span className="font-sans text-[10px] font-bold uppercase tracking-wider text-red-900">Kết quả học tập</span>
+          <h1 className="font-sans text-2xl sm:text-3xl font-black text-stone-900 leading-tight tracking-tight">
             Điểm số
           </h1>
           <p className="text-sm text-stone-500">
@@ -80,18 +80,18 @@ export default function ScoresPage() {
         {/* Charts */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="rounded-2xl bg-white border border-stone-200/60 p-5 relative">
-            <span className="absolute top-3 right-3 text-[9px] font-mono text-stone-300 font-bold">01</span>
+            <span className="absolute top-3 right-3 text-[9px] font-sans text-stone-300 font-bold">01</span>
             <div className="space-y-1 mb-4">
-              <span className="font-mono text-[9px] font-bold uppercase tracking-wider text-red-900">Thống kê</span>
-              <h3 className="font-serif text-lg font-bold text-stone-900">Điểm theo tuần</h3>
+              <span className="font-sans text-[9px] font-bold uppercase tracking-wider text-red-900">Thống kê</span>
+              <h3 className="font-sans text-lg font-bold text-stone-900">Điểm theo tuần</h3>
             </div>
             <WeeklyScoreChart data={mockWeeklyScores} />
           </div>
           <div className="rounded-2xl bg-white border border-stone-200/60 p-5 relative">
-            <span className="absolute top-3 right-3 text-[9px] font-mono text-stone-300 font-bold">02</span>
+            <span className="absolute top-3 right-3 text-[9px] font-sans text-stone-300 font-bold">02</span>
             <div className="space-y-1 mb-4">
-              <span className="font-mono text-[9px] font-bold uppercase tracking-wider text-red-900">Phân tích</span>
-              <h3 className="font-serif text-lg font-bold text-stone-900">Tỉ lệ đúng theo chủ đề</h3>
+              <span className="font-sans text-[9px] font-bold uppercase tracking-wider text-red-900">Phân tích</span>
+              <h3 className="font-sans text-lg font-bold text-stone-900">Tỉ lệ đúng theo chủ đề</h3>
             </div>
             <CategoryChart data={mockCategoryScores} />
           </div>
@@ -99,10 +99,10 @@ export default function ScoresPage() {
 
         {/* All scores */}
         <div className="rounded-2xl bg-white border border-stone-200/60 p-5 relative">
-          <span className="absolute top-3 right-3 text-[9px] font-mono text-stone-300 font-bold">03</span>
+          <span className="absolute top-3 right-3 text-[9px] font-sans text-stone-300 font-bold">03</span>
           <div className="space-y-1 mb-4">
-            <span className="font-mono text-[9px] font-bold uppercase tracking-wider text-red-900">Chi tiết</span>
-            <h3 className="font-serif text-lg font-bold text-stone-900">Tất cả bài đã làm</h3>
+            <span className="font-sans text-[9px] font-bold uppercase tracking-wider text-red-900">Chi tiết</span>
+            <h3 className="font-sans text-lg font-bold text-stone-900">Tất cả bài đã làm</h3>
           </div>
           <ScoreTable scores={mockScores} />
         </div>

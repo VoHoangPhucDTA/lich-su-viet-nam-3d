@@ -31,7 +31,7 @@ function FilterChip({
   return (
     <button
       onClick={onClick}
-      className={`px-3 py-1.5 rounded-full text-xs font-mono font-bold whitespace-nowrap transition-all duration-200 ${
+      className={`px-3 py-1.5 rounded-full text-xs font-sans font-bold whitespace-nowrap transition-all duration-200 ${
         active
           ? 'bg-red-900 text-white border border-red-900'
           : 'bg-stone-100 text-stone-400 border border-stone-200 hover:bg-white hover:border-stone-300'
@@ -57,8 +57,8 @@ export default function LearningHistoryPage() {
       <div className="space-y-8 lg:space-y-10 animate-fade-in">
         {/* Page header */}
         <div className="space-y-2">
-          <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-red-900">Lịch sử hoạt động</span>
-          <h1 className="font-serif text-2xl sm:text-3xl font-black text-stone-900 leading-tight tracking-tight">
+          <span className="font-sans text-[10px] font-bold uppercase tracking-wider text-red-900">Lịch sử hoạt động</span>
+          <h1 className="font-sans text-2xl sm:text-3xl font-black text-stone-900 leading-tight tracking-tight">
             Lịch sử học tập
           </h1>
           <p className="text-sm text-stone-500">
@@ -71,11 +71,11 @@ export default function LearningHistoryPage() {
         <div className="rounded-2xl bg-white border border-stone-200/60 p-5">
           <div className="flex items-center gap-2 mb-4">
             <SlidersHorizontal size={14} strokeWidth={1.5} className="text-stone-400" />
-            <span className="font-mono text-[9px] font-bold uppercase tracking-wider text-stone-400">Bộ lọc</span>
+            <span className="font-sans text-[9px] font-bold uppercase tracking-wider text-stone-400">Bộ lọc</span>
           </div>
           <div className="flex flex-col sm:flex-row gap-4">
             <div className="flex-1">
-              <p className="font-mono text-[8px] font-bold uppercase tracking-wider text-stone-400 mb-2">Loại</p>
+              <p className="font-sans text-[8px] font-bold uppercase tracking-wider text-stone-400 mb-2">Loại</p>
               <div className="flex gap-1.5 flex-wrap">
                 {TYPE_FILTERS.map(f => (
                   <FilterChip key={f.value} active={typeFilter === f.value} onClick={() => setTypeFilter(f.value as ActivityType | 'all')}>
@@ -85,7 +85,7 @@ export default function LearningHistoryPage() {
               </div>
             </div>
             <div>
-              <p className="font-mono text-[8px] font-bold uppercase tracking-wider text-stone-400 mb-2">Lớp</p>
+              <p className="font-sans text-[8px] font-bold uppercase tracking-wider text-stone-400 mb-2">Lớp</p>
               <div className="flex gap-1.5 flex-wrap">
                 {GRADE_FILTERS.map(f => (
                   <FilterChip key={f.value} active={gradeFilter === f.value} onClick={() => setGradeFilter(f.value as GradeLevel | 'all')}>
@@ -102,10 +102,10 @@ export default function LearningHistoryPage() {
 
         {/* Activity list */}
         <div className="rounded-2xl bg-white border border-stone-200/60 p-5 relative">
-          <span className="absolute top-3 right-3 text-[9px] font-mono text-stone-300 font-bold">01</span>
+          <span className="absolute top-3 right-3 text-[9px] font-sans text-stone-300 font-bold">01</span>
           <div className="space-y-1 mb-4">
-            <span className="font-mono text-[9px] font-bold uppercase tracking-wider text-red-900">Hoạt động</span>
-            <h3 className="font-serif text-lg font-bold text-stone-900">Dòng thời gian</h3>
+            <span className="font-sans text-[9px] font-bold uppercase tracking-wider text-red-900">Hoạt động</span>
+            <h3 className="font-sans text-lg font-bold text-stone-900">Dòng thời gian</h3>
           </div>
           <ActivityList activities={filtered} />
         </div>

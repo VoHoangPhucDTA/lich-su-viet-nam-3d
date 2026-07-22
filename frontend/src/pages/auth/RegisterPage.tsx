@@ -185,7 +185,7 @@ export default function RegisterPage() {
       {/* Heading */}
       <div style={{ marginBottom: '1.5rem' }}>
         <h1
-          className="font-serif text-2xl font-bold text-stone-900"
+          className="font-sans text-2xl font-bold text-stone-900"
           style={{ marginBottom: '0.25rem', letterSpacing: '-0.01em' }}
         >
           Tạo tài khoản
@@ -299,7 +299,7 @@ export default function RegisterPage() {
                 <CheckCircle size={22} strokeWidth={2} />
               </span>
               <div>
-                <h2 id="verify-dialog-title" className="font-serif text-lg font-bold text-stone-900" style={{ margin: 0 }}>
+                <h2 id="verify-dialog-title" className="font-sans text-lg font-bold text-stone-900" style={{ margin: 0 }}>
                   Kiểm tra email để xác minh
                 </h2>
                 <p className="text-sm text-stone-500 mt-2 leading-relaxed">
@@ -318,11 +318,11 @@ export default function RegisterPage() {
                 background: '#fafaf9',
               }}
             >
-              <div className="text-xs text-stone-500 font-mono tracking-wider uppercase mb-1">
+              <div className="text-xs text-stone-500 font-sans tracking-wider uppercase mb-1">
                 Link hết hạn sau
               </div>
               <div
-                className="font-mono text-2xl font-bold text-red-900"
+                className="font-sans text-2xl font-bold text-red-900"
                 style={{ fontVariantNumeric: 'tabular-nums' }}
               >
                 {countdownText}

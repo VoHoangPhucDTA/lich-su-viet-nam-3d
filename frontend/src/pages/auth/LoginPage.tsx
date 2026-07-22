@@ -92,7 +92,7 @@ export default function LoginPage() {
       {/* Heading */}
       <div style={{ marginBottom: '1.75rem' }}>
         <h1
-          className="font-serif text-2xl font-bold text-stone-900"
+          className="font-sans text-2xl font-bold text-stone-900"
           style={{ marginBottom: '0.25rem', letterSpacing: '-0.01em' }}
         >
           Đăng nhập

@@ -45,7 +45,7 @@ function FormField({
 
   return (
     <div>
-      <label htmlFor={id} className="block text-xs font-mono font-bold uppercase tracking-wider text-stone-400 mb-1.5">
+      <label htmlFor={id} className="block text-xs font-sans font-bold uppercase tracking-wider text-stone-400 mb-1.5">
         {label}
       </label>
       <input
@@ -91,7 +91,7 @@ function SelectField({
 
   return (
     <div>
-      <label htmlFor={id} className="block text-xs font-mono font-bold uppercase tracking-wider text-stone-400 mb-1.5">
+      <label htmlFor={id} className="block text-xs font-sans font-bold uppercase tracking-wider text-stone-400 mb-1.5">
         {label}
       </label>
       <div className="relative" onFocus={() => setFocused(true)} onBlur={() => setFocused(false)}>
@@ -129,7 +129,7 @@ function Card({ children, className = '' }: { children: React.ReactNode; classNa
 /* ─── Card title ────────────────────────────────────────────────────────────── */
 function CardTitle({ children }: { children: React.ReactNode }) {
   return (
-    <h2 className="font-serif text-xl font-bold text-stone-900 mb-6 flex items-center gap-3">
+    <h2 className="font-sans text-xl font-bold text-stone-900 mb-6 flex items-center gap-3">
       {children}
     </h2>
   );
@@ -306,8 +306,8 @@ export default function ProfileSettingsPage() {
       <div className="space-y-8 lg:space-y-10 animate-fade-in">
         {/* Page Header */}
         <div className="space-y-2">
-          <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-red-900">Cài đặt</span>
-          <h1 className="font-serif text-2xl sm:text-3xl font-black text-stone-900 leading-tight tracking-tight">
+          <span className="font-sans text-[10px] font-bold uppercase tracking-wider text-red-900">Cài đặt</span>
+          <h1 className="font-sans text-2xl sm:text-3xl font-black text-stone-900 leading-tight tracking-tight">
             Cài đặt tài khoản
           </h1>
           <p className="text-sm text-stone-500">
@@ -342,13 +342,13 @@ export default function ProfileSettingsPage() {
               <input ref={fileRef} type="file" accept="image/*" onChange={handleAvatarChange} className="hidden" />
             </div>
             <div>
-              <p className="font-serif text-lg font-bold text-stone-900">{fullName || 'Học sinh'}</p>
+              <p className="font-sans text-lg font-bold text-stone-900">{fullName || 'Học sinh'}</p>
               <p className="text-sm text-stone-400">{currentUser?.email}</p>
               <button
                 type="button"
                 onClick={() => fileRef.current?.click()}
                 disabled={avatarUploading}
-                className="mt-2 text-xs font-mono font-bold uppercase tracking-wider text-red-900 bg-red-50 px-3 py-1.5 rounded-lg border border-red-200/60 hover:bg-red-100 transition-colors disabled:opacity-50 inline-flex items-center gap-1.5"
+                className="mt-2 text-xs font-sans font-bold uppercase tracking-wider text-red-900 bg-red-50 px-3 py-1.5 rounded-lg border border-red-200/60 hover:bg-red-100 transition-colors disabled:opacity-50 inline-flex items-center gap-1.5"
               >
                 {avatarUploading ? (
                   <><span className="w-3 h-3 border-2 border-red-900/30 border-t-red-900 rounded-full animate-spin" /> Đang tải</>
@@ -385,7 +385,7 @@ export default function ProfileSettingsPage() {
               <button
                 type="submit"
                 disabled={saving}
-                className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl text-sm font-mono font-bold uppercase tracking-wider transition-all duration-200 bg-red-900 text-amber-50 hover:bg-red-950 disabled:opacity-50"
+                className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl text-sm font-sans font-bold uppercase tracking-wider transition-all duration-200 bg-red-900 text-amber-50 hover:bg-red-950 disabled:opacity-50"
                 style={{ fontFamily: 'inherit' }}
               >
                 {saving ? (
@@ -452,7 +452,7 @@ export default function ProfileSettingsPage() {
               <button
                 type="submit"
                 disabled={pwSaving}
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-mono font-bold uppercase tracking-wider transition-all duration-200 bg-white border border-stone-200/60 text-stone-700 hover:bg-stone-50 hover:border-red-200/60 disabled:opacity-50"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-sans font-bold uppercase tracking-wider transition-all duration-200 bg-white border border-stone-200/60 text-stone-700 hover:bg-stone-50 hover:border-red-200/60 disabled:opacity-50"
                 style={{ fontFamily: 'inherit' }}
               >
                 {pwSaving ? 'Đang xử lý...' : (
@@ -480,7 +480,7 @@ export default function ProfileSettingsPage() {
               </div>
               <button
                 onClick={handleLogout}
-                className="shrink-0 px-4 py-2 rounded-lg text-xs font-mono font-bold uppercase tracking-wider transition-all bg-white border border-stone-200/60 text-stone-600 hover:bg-stone-50"
+                className="shrink-0 px-4 py-2 rounded-lg text-xs font-sans font-bold uppercase tracking-wider transition-all bg-white border border-stone-200/60 text-stone-600 hover:bg-stone-50"
               >
                 <span className="flex items-center gap-1.5">
                   <LogIn size={13} strokeWidth={2} />
@@ -506,7 +506,7 @@ export default function ProfileSettingsPage() {
             </div>
             <button
               onClick={handleOpenDeleteDialog}
-              className="shrink-0 px-4 py-2 rounded-lg text-xs font-mono font-bold uppercase tracking-wider transition-all bg-red-900 text-amber-50 hover:bg-red-950 shadow-sm"
+              className="shrink-0 px-4 py-2 rounded-lg text-xs font-sans font-bold uppercase tracking-wider transition-all bg-red-900 text-amber-50 hover:bg-red-950 shadow-sm"
             >
               <span className="flex items-center gap-1.5">
                 <AlertTriangle size={13} strokeWidth={2} />

@@ -95,11 +95,11 @@ export default function DeleteAccountDialog({
               <div>
                 <h2
                   id="delete-account-title"
-                  className="font-serif text-xl font-black text-stone-900 leading-tight"
+                  className="font-sans text-xl font-black text-stone-900 leading-tight"
                 >
                   Xóa tài khoản vĩnh viễn
                 </h2>
-                <p className="text-xs text-stone-400 mt-0.5 font-mono uppercase tracking-wider font-bold">
+                <p className="text-xs text-stone-400 mt-0.5 font-sans uppercase tracking-wider font-bold">
                   Hành động không thể hoàn tác
                 </p>
               </div>
@@ -180,7 +180,7 @@ export default function DeleteAccountDialog({
             <button
               onClick={onCancel}
               disabled={isDeleting}
-              className="flex-1 px-5 py-3 rounded-xl text-sm font-mono font-bold uppercase tracking-wider transition-all duration-150 cursor-pointer disabled:opacity-40"
+              className="flex-1 px-5 py-3 rounded-xl text-sm font-sans font-bold uppercase tracking-wider transition-all duration-150 cursor-pointer disabled:opacity-40"
               style={{
                 background: '#fff',
                 border: '1px solid #e7e5e4',
@@ -203,7 +203,7 @@ export default function DeleteAccountDialog({
             <button
               onClick={onConfirm}
               disabled={isDeleting}
-              className="flex-1 px-5 py-3 rounded-xl text-sm font-mono font-bold uppercase tracking-wider transition-all duration-150 cursor-pointer disabled:opacity-40"
+              className="flex-1 px-5 py-3 rounded-xl text-sm font-sans font-bold uppercase tracking-wider transition-all duration-150 cursor-pointer disabled:opacity-40"
               style={{
                 background: '#8b1e1e',
                 border: 'none',

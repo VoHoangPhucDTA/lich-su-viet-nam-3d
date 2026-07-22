@@ -27,7 +27,7 @@ export default function AuthLayout({ children }: AuthLayoutProps) {
               <BookOpenCheck size={22} strokeWidth={1.6} />
             </span>
             <span>
-              <strong className="serif-heading">Lịch Sử Việt Nam</strong>
+              <strong className="app-heading">Lịch Sử Việt Nam</strong>
               <small>Bảo tàng số học đường THPT</small>
             </span>
           </Link>

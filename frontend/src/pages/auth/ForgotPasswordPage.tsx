@@ -52,7 +52,7 @@ export default function ForgotPasswordPage() {
           <KeyRound size={30} strokeWidth={1.8} />
         </div>
         <h1
-          className="font-serif text-2xl font-bold text-stone-900"
+          className="font-sans text-2xl font-bold text-stone-900"
           style={{ marginBottom: '0.5rem', letterSpacing: '-0.01em' }}
         >
           Quên mật khẩu
