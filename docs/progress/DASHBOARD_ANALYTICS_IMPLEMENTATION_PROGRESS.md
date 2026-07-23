@@ -2,16 +2,16 @@
 
 Ngày cập nhật: 2026-07-24  
 Nhánh làm việc: `dashboard_exams`  
-Baseline commit: `5a8a8323bfbd7b5119add79f5c575509cb7fcd72`
+Goal 1 commit / Goal 2 baseline: `0edd68166609cbc1228c79e5218dc91038e75ac7`
 
 ## Trạng thái tổng quát
 
 | Goal | Trạng thái | Phạm vi |
 | --- | --- | --- |
 | Goal 0 | Hoàn thành | Source audit read-only và bản đồ nguồn dữ liệu |
-| Goal 1 | Hoàn thành, chờ review | Fixture boundary, wire contract V1, validator, policy, mapper và test frontend |
-| Goal 2 | Chưa thực hiện | Backend analytics API và production API client/loader |
-| Goal 3 | Chưa thực hiện | Tích hợp auth, lỗi mạng, partial response và chiến lược fallback |
+| Goal 1 | Hoàn thành, đã commit | Fixture boundary, wire contract V1, validator, policy, mapper và test frontend |
+| Goal 2 | Đã triển khai, REVIEW GATE | Authenticated backend analytics API V1; chưa nối frontend |
+| Goal 3 | Chưa thực hiện | Production API client/loader, auth UX, lỗi mạng và chiến lược fallback |
 | Goal 4 | Chưa thực hiện | Đối soát dữ liệu thật, observability và rollout |
 
 ## Goal 0 — Source audit
@@ -135,27 +135,198 @@ Build chỉ có cảnh báo chunk lớn đã tồn tại ở cấp ứng dụng.
 tên fixture, marker mock hoặc `dashboardDevelopmentFixtures`. Bốn artifact exam do `prebuild` sinh
 lại đã được khôi phục đúng SHA-256 trước build để không ghi đè thay đổi có sẵn trong working tree.
 
-## Goal 2–4 — Phần chủ động deferred
+## Goal 2 — Backend Dashboard Analytics API V1
 
-Chưa triển khai:
+Goal 2 đã được triển khai trong working tree và đang dừng tại **REVIEW GATE**. Các thay đổi Goal 2 chưa
+được stage, commit hoặc push.
 
-- backend controller/service/query cho dashboard analytics;
-- database hoặc migration;
-- production API client và authenticated loader;
-- aggregation từ localStorage, recovery queue hay persistence snapshot;
-- scoring, weakness analysis hoặc exam persistence mới;
-- merge dữ liệu backend/local;
-- telemetry, rollout và đối soát response production.
+### Endpoint và security
 
-Goal 2 phải tạo response tương thích `DashboardAnalyticsResponseV1`, kiểm thử bằng golden fixtures,
-sau đó mới nối API client theo chuỗi:
+```text
+GET /api/exams/dashboard-analytics?range=30d&recentLimit=5
+```
+
+- Bắt buộc authenticated; owner chỉ lấy từ principal, không nhận `userId` từ request.
+- `range` nhận `7d`, `30d`, `90d`, `all`; mặc định `30d`.
+- `recentLimit` nhận số nguyên `1..10`; mặc định `5`.
+- Anonymous trả `401`, query sai trả `400`, empty analytics trả `200`.
+- Response dùng `schemaVersion = 1`, `policyVersion = dashboard-v1`,
+  `timezone = Asia/Ho_Chi_Minh`.
+
+### Backend package
+
+```text
+backend/src/main/java/com/lichsuvn/backend/exam/api/
+  DashboardAnalyticsController.java
+  dto/DashboardAnalyticsResponse.java
+
+backend/src/main/java/com/lichsuvn/backend/exam/application/
+  DashboardAnalyticsService.java
+  DashboardAnalyticsAggregator.java
+  DashboardSnapshotV2Parser.java
+  DashboardAnalyticsPolicy.java
+  DashboardAnalyticsConfiguration.java
+  model/DashboardAttemptRecord.java
+  model/DashboardAnalyzedAttempt.java
+
+backend/src/main/java/com/lichsuvn/backend/exam/infrastructure/
+  ExamAttemptRepository.java
+```
+
+`SecurityConfig` có matcher authenticated riêng cho endpoint. `application.properties` cấu hình
+`exam.dashboard.fetch-limit`, được giới hạn tối đa 500.
+
+### Time range và storage convention
+
+`submitted_at` được ánh xạ thành `Instant`. Hibernate/JDBC của ứng dụng dùng
+`Asia/Ho_Chi_Minh` và connection init dùng `+07:00`. Service tạo calendar-day boundaries trong
+`Asia/Ho_Chi_Minh`, rồi chuyển thành `Instant` để query theo lower-inclusive/upper-exclusive.
+`Clock` được inject để range test có tính xác định.
+
+### Query và coverage
+
+Mỗi request dùng đúng ba repository operation, không query theo từng attempt:
+
+1. count attempt thuộc `TIMED_ORIGINAL` hoặc `CUSTOM_MOCK`;
+2. count attempt bị loại vì mode khác;
+3. fetch projection có giới hạn, order `submittedAt DESC, createdAt DESC`.
+
+Projection chỉ đọc các cột summary/authority/version/hash và `result_json`; không fetch relationship,
+không join question bank. Fetch limit mặc định và tối đa là 500. Response phân biệt:
+`totalKnownAttempts`, `fetchedAttemptCount`, `summaryAttemptCount`, `detailedAttemptCount`,
+`unsupportedSnapshotCount`, `malformedDetailCount`, `legacySummaryCount`,
+`excludedModeCount`, `excludedInvalidSummaryCount`, `snapshotVersionCounts` và `isComplete`.
+
+Khi lịch sử vượt cap, KPI chỉ đại diện tập đã fetch và `isComplete = false`; frontend mapper Goal 1
+sẽ tạo coverage notice sau khi được nối ở Goal 3.
+
+### Summary, authority và deep analytics
+
+Summary eligibility dùng denormalized columns hợp lệ; không rescore và không sửa persisted row.
+Policy authority:
+
+- `BACKEND/SERVER/SERVER_ON_TIME` → official;
+- `BACKEND/CLIENT_UNVERIFIED/SERVER_ISSUED_LATE` → recovered late;
+- `BACKEND/CLIENT_UNVERIFIED/CLIENT_FALLBACK` → recovered fallback;
+- `FRONTEND_LEGACY`, hoặc row pre-v2 không có score authority → legacy summary-only;
+- các combination khác, gồm `LOCAL_FALLBACK`, bị loại khỏi summary.
+
+Parser chỉ dùng snapshot immutable schema v2 cho deep analytics. Nó kiểm tra root/column consistency,
+shape, enum, authority/version/hash/score và T/F statement keys. Attempt unsupported hoặc malformed
+vẫn giữ summary nếu basic columns hợp lệ, nhưng không tham gia deep analytics và không làm request
+thất bại.
+
+MCQ dùng một question unit. T/F dùng từng immutable statement làm unit; accuracy dựa trên từng
+statement, còn `PARTIAL` được đếm ở cấp question. Topic dùng slug, dedupe cùng question, giữ historical
+label mới nhất theo thứ tự deterministic và không join current question bank. Cognitive không biết/null
+chỉ bị bỏ khỏi cognitive aggregate, không làm hỏng snapshot.
+
+Topic/cognitive status và confidence dùng đúng boundary `dashboard-v1`: minimum 8 units/2 attempts;
+strength từ 80%, developing từ 60%, weakness dưới 60%; medium từ 16 units/3 attempts và high từ
+30 units/5 attempts.
+
+### Contract, redaction và validation
+
+Java DTO deserialize/serialize semantic-parity với cả bốn golden fixture Goal 1. Response không có
+`userAnswer`, `correctAnswer`, `explanation`, `resultJson`, `answers`, `questionSnapshots` hoặc
+`rawSnapshot`.
+
+Validation ngày 2026-07-24:
+
+```text
+.\mvnw.cmd -Dtest="Dashboard*" test
+PASS — 34 tests
+
+.\mvnw.cmd -Dtest="Dashboard*,ExamSessionServiceIntegrationTest,ExamSubmissionRecoveryHttpIntegrationTest" test
+PASS — 49 tests
+
+.\mvnw.cmd clean test
+240 tests discovered — 0 failures, 1 error, 15 skipped
+Known out-of-scope error: HistoryRagPackageReaderTest thiếu data/history-rag/v1
+
+.\mvnw.cmd -Dtest="!HistoryRagPackageReaderTest" test
+PASS — 239 tests, 15 skipped
+
+.\mvnw.cmd -DskipTests package
+PASS
+
+npm run test:run
+PASS — 40 files, 217 tests
+
+npx tsc -b
+PASS
+
+npm run build
+PASS
+```
+
+Full backend suite chưa thể được ghi là PASS vì repository hiện không có artifact
+`data/history-rag/v1` mà `HistoryRagPackageReaderTest` yêu cầu. Lỗi đã được xác định là ngoài module
+dashboard; Goal 2 không tạo hoặc sửa artifact ngoài phạm vi để hợp thức hóa gate này.
+
+### Corrective review — History RAG không chặn Goal 2
+
+Verdict: **PRE_EXISTING_OUT_OF_SCOPE_BLOCKER**; không phải `REAL_DASHBOARD_BLOCKER`.
+
+Corrective review đã tạo detached temporary worktree từ commit `0edd6816`, tức baseline Goal 1 trước
+mọi thay đổi Goal 2, rồi chạy đúng:
+
+```text
+.\mvnw.cmd clean test
+```
+
+Baseline compile 183 production sources, compile 51 test sources và khởi tạo
+`BackendApplicationTests` thành công. Sau đó suite baseline chạy 206 tests, 0 failures, 1 error,
+15 skipped. Error duy nhất giống hệt current worktree:
+
+```text
+HistoryRagPackageReaderTest.validatesGeneratedPackageAndBaselineCounts
+HistoryRagPackageReaderTest.java:18
+  -> HistoryRagPackageReader.read(...)
+HistoryRagPackageReader.java:73
+  -> PackageValidationException: Package directory does not exist: .../data/history-rag/v1
+```
+
+Failure xảy ra trong Maven Surefire test phase của một artifact-contract test thuộc importer/RAG;
+không xảy ra trong compile, Spring context initialization, packaging hoặc Dashboard application
+startup. `HistoryRagPackageReaderTest.java:18` là source trực tiếp truyền
+`Path.of("../data/history-rag/v1")`; `HistoryRagPackageReader.java:70-73` normalize path, kiểm tra
+`Files.isDirectory` và fail-fast khi thư mục không tồn tại.
+
+Dependency classification:
+
+- **A — Dashboard analytics trực tiếp:** không có reference/import/call.
+- **B — Exam attempt/session:** không có reference/import/call.
+- **C — Spring context global:** không có dependency bắt buộc ở default profile;
+  `HistoryRagImportRunner` chỉ active với profile `history-rag-import`, còn release-C runner cần
+  profile/property riêng. Baseline `BackendApplicationTests` đã khởi tạo context thành công.
+- **D — RAG/history ngoài scope:** importer, package reader và controlled release runners.
+- **E — Test/tooling ngoài scope:** package-reader/integration tests, export/preflight scripts và
+  GitHub workflow.
+- **F — Documentation only:** `backend/TESTING.md` và tài liệu `docs/ai-service/**`.
+
+Scan các file Goal 2 — controller, DTO, service, parser, aggregator, policy, repository projection và
+`ExamAttemptEntity` — không tìm thấy `history-rag`, canonical-history hoặc importer dependency.
+Backend compile, 34 Dashboard tests, 15 exam session/recovery tests và package đều chạy độc lập.
+Vì vậy History RAG chỉ được giữ như residual full-repository validation issue; Goal 2 implementation
+không bị chặn và có thể chuyển sang review/Goal 3. Full suite vẫn được báo trung thực là không PASS.
+
+Read-only TiDB smoke/EXPLAIN: **CANNOT CONFIRM** vì không có verified QA token hoặc read-only
+development connection được xác nhận an toàn. Việc này được chuyển sang Goal 4.
+
+### Database/migration decision và phần deferred
+
+Goal 2 không tạo bảng dashboard, migration, index hay database data; không sửa migration V1–V34,
+scoring, session, recovery hoặc persistence behavior.
+
+Frontend production vẫn chưa gọi endpoint. Goal 3 sẽ nối chuỗi:
 
 ```text
 backend response → runtime validator → pure mapper → DashboardViewModel → page
 ```
 
-Mọi thay đổi semantic phải cập nhật contract, validator, policy, golden fixtures và test trong cùng
-một review.
+Anonymous/local fallback, merge local/backend, telemetry, production data reconciliation và rollout
+vẫn chưa được triển khai. Không được tuyên bố dashboard end-to-end hoàn thành ở Goal 2.
 
 ## Rollback Goal 1
 

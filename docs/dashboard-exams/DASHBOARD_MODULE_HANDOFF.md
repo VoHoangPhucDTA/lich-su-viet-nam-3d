@@ -14,11 +14,12 @@
 
 Đây là dashboard học tập cá nhân cho người dùng ôn thi Lịch sử THPT: tổng hợp kết quả làm bài, xu hướng điểm, chủ đề mạnh/yếu, hiệu suất theo dạng câu, mức nhận thức, phạm vi dữ liệu và các bước học tiếp theo.
 
-Module hiện tại có **frontend presentation hoàn chỉnh** và đã hoàn thành Goal 1 về data boundary:
-fixture development được tách khỏi docs, wire DTO V1 có runtime validator, policy `dashboard-v1`
-và mapper DTO → ViewModel. Nó vẫn chưa kết nối API/backend thật, chưa aggregate localStorage và
-chưa tự lưu dữ liệu dashboard. Production hiện hiển thị trạng thái “chưa được kết nối”, không hiển
-thị fixture mặc định.
+Module hiện tại có **frontend presentation hoàn chỉnh**, đã hoàn thành Goal 1 về data boundary và đã
+triển khai backend Dashboard Analytics API V1 trong Goal 2. Fixture development được tách khỏi docs,
+wire DTO V1 có runtime validator, policy `dashboard-v1` và mapper DTO → ViewModel. Backend có
+authenticated endpoint đọc `exam_v2_attempts`, nhưng frontend production vẫn chưa gọi endpoint này,
+chưa aggregate localStorage và chưa tự lưu dữ liệu dashboard. Production vì vậy vẫn hiển thị trạng
+thái “chưa được kết nối”, không hiển thị fixture mặc định.
 
 ---
 
@@ -35,7 +36,7 @@ Frontend dashboard đã hoàn thành ở mức presentation và fixture-driven b
 - Có 10 fixture bao phủ ready, loading, error, empty, one-attempt, anonymous, fallback, partial data và dữ liệu dài/nhiều.
 - 10 fixture runtime nằm tại `frontend/src/features/dashboard/__fixtures__/`; bản docs chỉ là tài liệu tham chiếu.
 - Static imports fixture nằm trong `dashboardDevelopmentFixtures.ts`, được nạp qua dynamic DEV-only boundary.
-- Production bundle không chứa fixture và trả explicit unavailable state cho tới khi Goal 2 nối API.
+- Production bundle không chứa fixture và trả explicit unavailable state cho tới khi Goal 3 nối API.
 - Wire contract V1 nằm ở `dashboardAnalyticsTypes.ts`; validator từ chối enum/count/range/coverage sai và unknown fields.
 - Policy thuần `dashboard-v1` khóa modes, threshold, confidence và authority triples.
 - Mapper thuần `dashboardMappers.ts` tạo ViewModel, recommendation, labels/routes/notices mà không fetch, auth, localStorage hay raw snapshot.
@@ -49,14 +50,20 @@ Frontend dashboard đã hoàn thành ở mức presentation và fixture-driven b
 
 ### 2.2. Backend
 
-Phần dashboard backend **chưa được nối**:
+Backend Dashboard Analytics API V1 **đã được triển khai trong Goal 2**, nhưng chưa được frontend gọi:
 
-- Chưa có endpoint dashboard chính thức được frontend sử dụng.
-- Chưa có adapter từ response API thật sang dashboard view model.
-- Chưa có persistence riêng cho dashboard.
-- Chưa di chuyển scoring, weakness analysis hoặc cognitive analysis vào dashboard.
-- Chưa có cơ chế đồng bộ local data và server data cho module này.
-- Không được suy đoán API hoặc tự thay đổi backend khi tiếp tục công việc.
+- Endpoint: `GET /api/exams/dashboard-analytics?range=30d&recentLimit=5`.
+- Bắt buộc authenticated; owner lấy từ principal; anonymous trả `401`.
+- Đọc projection có giới hạn từ `exam_v2_attempts`, chỉ gồm `TIMED_ORIGINAL` và `CUSTOM_MOCK`.
+- Mỗi request dùng ba repository operation: included count, excluded-mode count và một bounded fetch;
+  không có N+1 và không join current question bank.
+- Parse immutable result snapshot schema v2 cho topic/cognitive/question-type analytics.
+- Summary vẫn được giữ khi detail của một attempt unsupported/malformed; coverage phản ánh phần bị
+  cap, thiếu hoặc malformed.
+- Response Java khớp `DashboardAnalyticsResponseV1` và bốn golden fixtures của Goal 1.
+- Không trả raw result JSON, answers, correct answers, explanations hoặc PII.
+- Không có persistence riêng cho dashboard, bảng dashboard, migration hoặc index mới.
+- Không rescore, không sửa scoring/session/recovery và không đồng bộ local/server data.
 
 Vì vậy, trạng thái hiện tại nên được hiểu là:
 
@@ -68,8 +75,9 @@ Vì vậy, trạng thái hiện tại nên được hiểu là:
 | Dashboard API wire contract V1 | Hoàn thành ở frontend |
 | Runtime validator/policy/mapper | Hoàn thành ở frontend |
 | Production fake fixture | Đã loại bỏ |
-| Dashboard API client | Chưa triển khai |
-| Backend aggregation | Chưa kết nối |
+| Backend Analytics API V1 | Đã triển khai, đang ở review gate |
+| Dashboard API client | Chưa triển khai; deferred Goal 3 |
+| Backend aggregation | Đã triển khai trên immutable attempt snapshot |
 | Real data integration | Chưa làm |
 | Scoring/weakness/cognitive engine | Ngoài phạm vi dashboard hiện tại |
 
@@ -82,7 +90,7 @@ Vì vậy, trạng thái hiện tại nên được hiểu là:
 Nhánh hiện tại cần kiểm tra bằng Git trước mỗi Goal. Tại Goal 1:
 
 - **Branch:** `dashboard_exams`
-- **HEAD baseline:** `5a8a8323bfbd7b5119add79f5c575509cb7fcd72`
+- **Goal 1 commit / Goal 2 baseline:** `0edd68166609cbc1228c79e5218dc91038e75ac7`
 - Dashboard commit lịch sử: `878571186afda4744d2a4106bd2d37502e3734ab`
 
 Commit gồm:
@@ -153,7 +161,7 @@ Giữ các nội dung:
 - range filter.
 
 Range filter chỉ thay đổi trạng thái UI/live announcement trong development fixture mode. Production
-unavailable state không giả lập query; range thật sẽ được nối ở Goal 2.
+unavailable state không giả lập query; endpoint backend đã hỗ trợ range thật nhưng frontend sẽ nối ở Goal 3.
 
 ### 4.2. Recommendation hero
 
@@ -564,7 +572,7 @@ App
 └── route /exams/thong-ke
     └── lazy dashboard page
         ├── development: dynamic-import fixture module và đọc query fixture
-        ├── production: explicit not-connected ViewModel, không có fake KPI
+        ├── production: explicit not-connected ViewModel, chưa gọi API, không có fake KPI
         ├── render header
         └── render theo state
             ├── loading skeleton
@@ -687,7 +695,7 @@ docs/dashboard-exams/dashboard-design-handoff/references/v3/
 
 ---
 
-## 13. Goal 1 contract và công việc Goal 2 cần làm tiếp
+## 13. Goal 1 contract, Goal 2 backend và công việc Goal 3
 
 Goal 1 đã khóa các artifact:
 
@@ -699,24 +707,61 @@ frontend/src/features/dashboard/dashboardMappers.ts
 data/dashboard-analytics-fixtures/
 ```
 
-Backend Goal 2 phải tái sử dụng semantic contract/golden fixtures này. Khi backend sẵn sàng, nên
-triển khai theo thứ tự:
+Backend Goal 2 đã tái sử dụng semantic contract/golden fixtures này và triển khai:
 
-### Bước 1 — Implement API contract đã khóa
+```text
+backend/src/main/java/com/lichsuvn/backend/exam/api/DashboardAnalyticsController.java
+backend/src/main/java/com/lichsuvn/backend/exam/api/dto/DashboardAnalyticsResponse.java
+backend/src/main/java/com/lichsuvn/backend/exam/application/DashboardAnalyticsService.java
+backend/src/main/java/com/lichsuvn/backend/exam/application/DashboardAnalyticsAggregator.java
+backend/src/main/java/com/lichsuvn/backend/exam/application/DashboardSnapshotV2Parser.java
+backend/src/main/java/com/lichsuvn/backend/exam/application/DashboardAnalyticsPolicy.java
+```
 
-Implement response tương thích `DashboardAnalyticsResponseV1`; nếu cần đổi semantic phải cập nhật
-contract, golden fixture và frontend validator trong cùng review.
+Backend facts quan trọng:
 
-Không để UI phụ thuộc trực tiếp vào:
+- Calendar range được tính tại `Asia/Ho_Chi_Minh`, lower inclusive và upper exclusive.
+- Fetch cap mặc định/tối đa 500; response coverage không giả vờ bao phủ toàn bộ khi bị cap.
+- Summary dùng denormalized columns; deep analytics chỉ dùng parseable immutable snapshot v2.
+- Official, recovered và frontend legacy được phân loại riêng; invalid authority bị loại.
+- MCQ dùng question unit, T/F dùng statement unit.
+- Topic dùng historical slug/label trong snapshot; unknown cognitive không làm snapshot malformed.
+- Malformed/unsupported detail không làm toàn endpoint thất bại.
+- Không có query sang current question bank, rescore, dashboard table, migration hoặc index.
 
-- bảng database;
-- tên cột persistence;
-- scoring implementation nội bộ;
-- cấu trúc localStorage.
+Validation Goal 2:
 
-### Bước 2 — Nối API client/data loader
+```text
+targeted backend dashboard tests PASS — 34 tests
+dashboard + exam session/recovery tests PASS — 49 tests
+backend regression excluding missing history-rag artifact PASS — 239 tests, 15 skipped
+backend package PASS
+frontend regression PASS — 40 files, 217 tests
+TypeScript PASS
+production build PASS
+```
 
-Mapper đã tồn tại. Goal 2 chỉ thêm client/orchestrator:
+`.\mvnw.cmd clean test` còn một error ngoài module:
+`HistoryRagPackageReaderTest` yêu cầu `data/history-rag/v1`, nhưng artifact này không tồn tại trong
+repository hiện tại. Không được tạo/sửa artifact ngoài phạm vi chỉ để làm test đó pass.
+
+Corrective review đã tái hiện cùng error trên detached clean worktree tại commit Goal 1 `0edd6816`,
+trước khi có bất kỳ source Goal 2 nào. Baseline compile và Spring context đều đạt; failure chỉ xảy ra
+trong `HistoryRagPackageReaderTest.validatesGeneratedPackageAndBaselineCounts`, từ
+`HistoryRagPackageReaderTest.java:18` đến fail-fast directory check tại
+`HistoryRagPackageReader.java:73`. Không file Dashboard analytics, exam attempt/session,
+`ExamAttemptRepository` hay `ExamAttemptEntity` import/call History RAG.
+
+Verdict chính thức: **PRE_EXISTING_OUT_OF_SCOPE_BLOCKER**. Đây là residual full-repository validation
+issue, không phải Dashboard blocker và không ngăn Goal 2 chuyển sang review hoặc Goal 3. Không được
+tuyên bố full-suite PASS trong khi artifact vẫn thiếu.
+
+Read-only TiDB/EXPLAIN là **CANNOT CONFIRM** do chưa có verified QA token hoặc read-only development
+connection được xác nhận an toàn.
+
+### Bước tiếp theo — Nối API client/data loader trong Goal 3
+
+Mapper đã tồn tại. Goal 3 cần thêm client/orchestrator:
 
 ```text
 API response
@@ -737,7 +782,7 @@ Mapper hiện chịu trách nhiệm:
 - map coverage;
 - map notices.
 
-### Bước 3 — Giữ fixture development-only
+### Giữ fixture development-only
 
 Trong development/test vẫn giữ fixture. Không xóa fixture chỉ vì API đã có.
 
@@ -747,7 +792,7 @@ Nên có boundary rõ:
 - development/test: fixture resolver;
 - component: chỉ nhận cùng một ViewModel shape.
 
-### Bước 4 — Xử lý auth và failure
+### Xử lý auth và failure
 
 Cần quyết định:
 
@@ -756,7 +801,7 @@ Cần quyết định:
 - notice backend unavailable hiển thị ở đâu;
 - data partial có được dùng cho topic analysis hay không.
 
-### Bước 5 — Kiểm thử contract
+### Kiểm thử integration
 
 Cần thêm test cho:
 
@@ -786,14 +831,16 @@ Cần thêm test cho:
 
 ## 15. Kết luận handoff
 
-Dashboard người dùng đã hoàn thành phần frontend presentation và Goal 1 data boundary. Nhánh
-`dashboard_exams` là điểm bắt đầu cho Goal 2 backend/API integration.
+Dashboard người dùng đã hoàn thành frontend presentation, Goal 1 data boundary và implementation
+backend Analytics API V1 của Goal 2. Goal 2 đang dừng tại review gate; các thay đổi Goal 2 chưa được
+stage, commit hoặc push.
 
-Việc còn lại chính là:
+Dashboard **chưa hoàn thành end-to-end** vì frontend production chưa gọi API. Việc còn lại chính là:
 
-1. implement backend response theo wire contract/golden fixtures;
-2. tạo API client và production loader;
+1. review và chấp nhận backend Goal 2;
+2. ở Goal 3, tạo authenticated API client và production loader;
 3. validate response rồi map sang ViewModel;
-4. kiểm tra auth/fallback/partial data;
-5. triển khai local fallback ở Goal riêng;
-6. giữ nguyên presentation, accessibility và scroll invariants đã QA.
+4. kiểm tra auth expiry, network failure, retry và partial data;
+5. quyết định/triển khai anonymous hoặc local fallback ở Goal riêng;
+6. ở Goal 4, chạy TiDB read-only profile/EXPLAIN và production reconciliation khi có quyền an toàn;
+7. giữ nguyên presentation, accessibility và scroll invariants đã QA.
