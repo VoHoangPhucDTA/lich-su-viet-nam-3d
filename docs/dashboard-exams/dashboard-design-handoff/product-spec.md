@@ -4,23 +4,27 @@
 
 Dashboard giúp học sinh hiểu tiến độ, nhận biết điểm mạnh/yếu khi đủ bằng chứng, biết nên ôn gì tiếp theo và mở lại lịch sử. Mỗi số liệu phải dẫn tới hiểu biết hoặc hành động, không chỉ là trang trí.
 
-Route dự kiến là `/exams/thong-ke`, thuộc module luyện thi và chưa được implement. Profile có thể dẫn link tới đây, nhưng mock stats trong profile không phải dữ liệu thật.
+Route `/exams/thong-ke` đã được implement ở presentation layer. Goal 1 đã khóa wire contract,
+validator, threshold/authority policy và mapper; backend API/data source thật vẫn chưa được implement.
 
 ### Current system truth
 
 - Kho dữ liệu hiện có 38 đề, trong đó 23 đề publish, 32 canonical topics và 1.064 câu duy nhất.
 - Chỉ timed original (`thi_thu`) và custom mock (`custom_mock`) hiện tạo result/history.
 - Free practice, topic practice, retry và custom practice chưa tạo attempt lịch sử; dashboard không được diễn giải sự vắng mặt này thành “không học”.
-- History đã đăng nhập hiện backend-first, không merge local; backend list tối đa 100 attempt. Merge backend/local trong tài liệu này là contract tương lai, không phải behavior hiện tại.
-- Weakness analysis hiện tại chỉ phân tích một attempt. Rule mạnh/yếu nhiều attempt trong handoff là đề xuất sản phẩm cần xác nhận và triển khai riêng.
+- History đã đăng nhập hiện backend-first, không merge local; backend list tối đa 100 attempt.
+  Dashboard V1 đã khóa policy authenticated backend-only, không merge local.
+- Policy `dashboard-v1` đã khóa rule mạnh/yếu/confidence nhiều attempt bằng pure functions và boundary
+  tests. Backend analytics chưa implement rule này.
 - Period chưa có metadata chuẩn; difficulty bị phụ thuộc mạnh vào question type. V1 không thiết kế insight/chart cho hai chiều này.
 - Backend chưa re-score. Mọi điểm số trong dashboard chỉ dùng cho learning analytics, không phải thành tích xác minh chính thức.
 
 ## 2. Users và data scope
 
 - **Anonymous:** xem attempt trong localStorage của thiết bị hiện tại; luôn có notice “Dữ liệu chỉ lưu trên thiết bị này” và CTA đăng nhập.
-- **Authenticated:** contract tương lai dùng backend và merge local-only attempt; khi trùng `sessionId`, backend thắng. Đây chưa phải behavior hiện tại: history hiện backend-first và không merge local.
-- **Backend fallback:** nếu backend lỗi, dùng local nếu có, hiện warning rõ và giữ dashboard usable.
+- **Authenticated V1:** backend-only, không merge local.
+- **Backend fallback/local aggregation:** deferred; production Goal 1 hiển thị unavailable state thay
+  vì fake fixture hoặc silent local merge.
 
 Score chỉ phục vụ learning analytics. Backend chưa re-score, vì vậy không mô tả là điểm xác minh, thành tích chính thức hay chứng chỉ.
 
@@ -86,17 +90,18 @@ Scope thời gian dùng ngày lịch `fromDate` và `toDateExclusive` theo `Asia
 
 Ưu tiên topic yếu đủ mẫu và có route `/exams/on-chu-de/:topicSlug`; kế đến topic đang phát triển hoặc CTA làm đề. Recommendation giải thích “vì sao”, nêu sample và không hứa cải thiện. Khi detail thiếu, đề xuất hành động chung thay vì suy đoán topic.
 
-## 8. Product decisions still pending
+## 8. Product decisions sau Goal 1
 
 | Decision | Proposed default | Needs confirmation before implementation |
 | --- | --- | --- |
-| Merge local/backend | Union theo `sessionId`, backend thắng | Có; behavior hiện tại chưa merge |
-| Range mặc định | 30 ngày | Có |
-| Minimum sample | 8 units và 2 attempts | Có |
-| Route | `/exams/thong-ke`, public/local-aware | Có |
-| Active days vs streak | Chỉ active days | Có; streak deferred |
-| Chart library | Chưa chọn; prototype framework-neutral | Có |
-| Sync local attempts | Không tự backfill trong V1 design | Có |
+| Merge local/backend | Không merge ở V1; authenticated backend-only | Đã khóa |
+| Range mặc định | 30 ngày | Đã khóa |
+| Minimum sample | 8 units và 2 attempts | Đã khóa trong `dashboard-v1` |
+| Route | `/exams/thong-ke` | Đã implement |
+| Active days vs streak | Chỉ active days | Đã khóa; streak deferred |
+| Chart library | Recharts | Đã implement |
+| Sync local attempts | Không tự backfill/aggregate trong Goal 1 | Deferred |
 | History pagination size | 20 item/page, recent preview 5 | Có; backend chưa có pagination |
 
-AI thiết kế không được tự quyết hay biến các đề xuất này thành behavior production.
+Các mục “Đã khóa” phải đồng bộ với wire contract, pure policy tests và mapper. Mọi thay đổi semantic
+cần review contract mới.

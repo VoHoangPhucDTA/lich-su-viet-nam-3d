@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import {
   Activity,
@@ -30,7 +30,13 @@ import {
   XAxis,
   YAxis,
 } from 'recharts';
-import { DASHBOARD_FIXTURES, resolveDashboardFixture } from './dashboardFixtures';
+import {
+  createDashboardLoadingViewModel,
+  createDashboardUnavailableViewModel,
+  loadDashboardPresentationState,
+  type DashboardLoadResult,
+} from './dashboardFixtures';
+import { formatDashboardDuration, formatDashboardScore } from './dashboardFormatters';
 import type {
   CognitivePerformance,
   DashboardNotice,
@@ -82,19 +88,6 @@ function insightCaution(item: LearningInsight) {
   }
   if (summary.includes('thận trọng') || summary.includes('chưa đầy đủ')) return item.summary;
   return null;
-}
-
-function formatScore(value: number | null) {
-  return value === null
-    ? '—'
-    : value.toLocaleString('vi-VN', { minimumFractionDigits: 1, maximumFractionDigits: 2 });
-}
-
-function formatDuration(seconds: number) {
-  const hours = Math.floor(seconds / 3600);
-  const minutes = Math.floor((seconds % 3600) / 60);
-  if (hours === 0) return `${minutes} phút`;
-  return `${hours} giờ ${minutes.toString().padStart(2, '0')} phút`;
 }
 
 function sourceLabel(source: PersonalLearningDashboardViewModel['scope']['source']) {
@@ -170,11 +163,11 @@ function readyNotices(vm: PersonalLearningDashboardViewModel) {
   if (hasNotice(vm, 'backend-unavailable')) {
     return vm.notices.filter((notice) => notice.id === 'backend-unavailable');
   }
-  if (hasNotice(vm, 'partial-detail')) {
-    return vm.notices.filter((notice) => notice.id === 'partial-detail');
-  }
-  if (hasNotice(vm, 'fetch-cap') || hasNotice(vm, 'dense-chart')) return [];
-  return vm.notices.filter((notice) => notice.id !== 'coverage-partial');
+  return vm.notices.filter((notice) => (
+    notice.id !== 'coverage-partial'
+    && notice.id !== 'fetch-cap'
+    && notice.id !== 'dense-chart'
+  ));
 }
 
 function DashboardRecommendationCard({ vm }: { vm: PersonalLearningDashboardViewModel }) {
@@ -205,9 +198,9 @@ function DashboardRecommendationCard({ vm }: { vm: PersonalLearningDashboardView
 function DashboardKpiGrid({ vm }: { vm: PersonalLearningDashboardViewModel }) {
   const items = [
     { label: 'Số bài đã làm', value: vm.summary.totalAttempts.toLocaleString('vi-VN'), suffix: 'bài', icon: <ListChecks aria-hidden="true" /> },
-    { label: 'Điểm trung bình', value: formatScore(vm.summary.averageScore), suffix: '/10', icon: <Gauge aria-hidden="true" /> },
-    { label: 'Điểm cao nhất', value: formatScore(vm.summary.highestScore), suffix: '/10', icon: <Trophy aria-hidden="true" /> },
-    { label: 'Điểm gần nhất', value: formatScore(vm.summary.latestScore), suffix: '/10', icon: <Clock3 aria-hidden="true" /> },
+    { label: 'Điểm trung bình', value: formatDashboardScore(vm.summary.averageScore), suffix: '/10', icon: <Gauge aria-hidden="true" /> },
+    { label: 'Điểm cao nhất', value: formatDashboardScore(vm.summary.highestScore), suffix: '/10', icon: <Trophy aria-hidden="true" /> },
+    { label: 'Điểm gần nhất', value: formatDashboardScore(vm.summary.latestScore), suffix: '/10', icon: <Clock3 aria-hidden="true" /> },
   ];
   return (
     <section className="dashboard-card dashboard-kpi-surface" aria-labelledby="dashboard-kpi-title">
@@ -233,8 +226,8 @@ function DashboardScoreTrend({ vm }: { vm: PersonalLearningDashboardViewModel })
   const summary = points.length === 0
     ? 'Chưa có điểm để hiển thị.'
     : points.length === 1
-      ? `Một điểm ${formatScore(points[0].score)} trên 10; chưa đủ dữ liệu để nhận xét xu hướng.`
-      : `${points.length} điểm biểu diễn ${sourceAttemptCount} bài nguồn, từ ${formatScore(points[0].score)} đến ${formatScore(points.at(-1)?.score ?? null)} trên 10.`;
+      ? `Một điểm ${formatDashboardScore(points[0].score)} trên 10; chưa đủ dữ liệu để nhận xét xu hướng.`
+      : `${points.length} điểm biểu diễn ${sourceAttemptCount} bài nguồn, từ ${formatDashboardScore(points[0].score)} đến ${formatDashboardScore(points.at(-1)?.score ?? null)} trên 10.`;
   return (
     <section className="dashboard-card dashboard-chart-card" aria-labelledby="dashboard-trend-title">
       <div className="dashboard-section-heading">
@@ -247,8 +240,8 @@ function DashboardScoreTrend({ vm }: { vm: PersonalLearningDashboardViewModel })
         </div>
         {points.length > 1 && (
           <div className="dashboard-chart-highlights" aria-label="Điểm nổi bật trên biểu đồ">
-            <span><small>Cao nhất</small><strong>{formatScore(highestPoint?.score ?? null)}</strong></span>
-            <span><small>Gần nhất</small><strong>{formatScore(latestPoint?.score ?? null)}</strong></span>
+            <span><small>Cao nhất</small><strong>{formatDashboardScore(highestPoint?.score ?? null)}</strong></span>
+            <span><small>Gần nhất</small><strong>{formatDashboardScore(latestPoint?.score ?? null)}</strong></span>
           </div>
         )}
       </div>
@@ -260,7 +253,7 @@ function DashboardScoreTrend({ vm }: { vm: PersonalLearningDashboardViewModel })
       ) : points.length === 1 ? (
         <div className="dashboard-one-point" aria-label={summary}>
           <span aria-hidden="true" />
-          <strong>{formatScore(points[0].score)}/10</strong>
+          <strong>{formatDashboardScore(points[0].score)}/10</strong>
           <p>Chưa đủ dữ liệu để nhận xét xu hướng.</p>
         </div>
       ) : (
@@ -271,7 +264,7 @@ function DashboardScoreTrend({ vm }: { vm: PersonalLearningDashboardViewModel })
               <XAxis dataKey="dateLabel" interval="preserveStartEnd" minTickGap={32} tick={{ fill: 'var(--dashboard-muted)', fontSize: 12 }} />
               <YAxis domain={[0, 10]} ticks={[0, 2, 4, 6, 8, 10]} tick={{ fill: 'var(--dashboard-muted)', fontSize: 12 }} />
               <Tooltip
-                formatter={(value) => [`${formatScore(Number(value))}/10`, 'Điểm']}
+                formatter={(value) => [`${formatDashboardScore(Number(value))}/10`, 'Điểm']}
                 labelFormatter={(label) => `Ngày ${String(label)}`}
                 contentStyle={{ background: 'var(--dashboard-card)', borderColor: 'var(--dashboard-border)', borderRadius: 10 }}
               />
@@ -298,7 +291,7 @@ function DashboardScoreTrend({ vm }: { vm: PersonalLearningDashboardViewModel })
           <ol>
             {points.map((point) => (
               <li key={point.attemptId}>
-                <time dateTime={point.submittedAt}>{point.dateLabel}</time>: {point.title} — {formatScore(point.score)}/10
+                <time dateTime={point.submittedAt}>{point.dateLabel}</time>: {point.title} — {formatDashboardScore(point.score)}/10
               </li>
             ))}
           </ol>
@@ -476,11 +469,11 @@ function DashboardRecentAttemptItem({ attempt }: { attempt: RecentAttemptItem })
   return (
     <li>
       <article className="dashboard-attempt-row">
-        <strong className="dashboard-attempt-score">{formatScore(attempt.score)}<small>/10</small></strong>
+        <strong className="dashboard-attempt-score">{formatDashboardScore(attempt.score)}<small>/10</small></strong>
         <div className="dashboard-attempt-copy">
           <h3>{attempt.title}</h3>
           <p>{attempt.modeLabel} · <time dateTime={attempt.submittedAt}>{attempt.submittedLabel}</time></p>
-          <p>{formatDuration(attempt.durationSeconds)} · {attempt.totalQuestions} câu · {detailStatusLabel(attempt.detailStatus)}</p>
+          <p>{formatDashboardDuration(attempt.durationSeconds)} · {attempt.totalQuestions} câu · {detailStatusLabel(attempt.detailStatus)}</p>
         </div>
         <Link className="dashboard-attempt-action" aria-label={`Xem lại bài làm: ${attempt.title}`} to={attempt.resultRoute}>Xem lại<ArrowRight aria-hidden="true" /></Link>
       </article>
@@ -546,7 +539,7 @@ function DashboardUtilityRail({ vm }: { vm: PersonalLearningDashboardViewModel }
         </div>
         <div className="dashboard-activity-stats">
           <article><CalendarDays aria-hidden="true" /><strong>{vm.summary.activeDays}</strong><span>ngày hoạt động</span></article>
-          <article><Clock3 aria-hidden="true" /><strong>{formatDuration(vm.summary.totalDurationSeconds)}</strong><span>tổng thời gian</span></article>
+          <article><Clock3 aria-hidden="true" /><strong>{formatDashboardDuration(vm.summary.totalDurationSeconds)}</strong><span>tổng thời gian</span></article>
         </div>
         <p className="dashboard-rail-note">Số ngày có bài thi trong kỳ đã chọn.</p>
       </section>
@@ -598,7 +591,7 @@ function DashboardErrorState({ vm, onRetry }: { vm: PersonalLearningDashboardVie
   return (
     <main className="dashboard-content dashboard-state-content">
       <section className="dashboard-card dashboard-state-card dashboard-error-state" role="alert" aria-labelledby="dashboard-error-title">
-        <h2 id="dashboard-error-title">Không thể tải thống kê học tập</h2>
+        <h2 id="dashboard-error-title">{notice?.title ?? 'Không thể tải thống kê học tập'}</h2>
         <p>{notice?.message ?? 'Dữ liệu thống kê hiện không khả dụng. Hãy thử tải lại hoặc tiếp tục với một đề thi mới.'}</p>
         <div className="dashboard-state-actions">
           <button className="dashboard-primary-action" type="button" onClick={onRetry}>Thử lại</button>
@@ -645,32 +638,82 @@ function DashboardReadyState({ vm }: { vm: PersonalLearningDashboardViewModel })
   );
 }
 
-export default function PersonalLearningDashboardPage() {
+export type DashboardDataLoader = (search: string) => Promise<DashboardLoadResult>;
+
+interface PersonalLearningDashboardPageProps {
+  initialViewModel?: PersonalLearningDashboardViewModel;
+  loadDashboard?: DashboardDataLoader;
+}
+
+export default function PersonalLearningDashboardPage({
+  initialViewModel,
+  loadDashboard = loadDashboardPresentationState,
+}: PersonalLearningDashboardPageProps = {}) {
   const location = useLocation();
   const isDarkPreview = import.meta.env.DEV && new URLSearchParams(location.search).get('theme') === 'dark';
-  const fixtureFromUrl = resolveDashboardFixture(location.search);
-  const [vm, setVm] = useState(fixtureFromUrl);
-  const [range, setRange] = useState<DashboardRange>(fixtureFromUrl.scope.range);
+  const [vm, setVm] = useState(() => initialViewModel ?? createDashboardLoadingViewModel());
+  const [range, setRange] = useState<DashboardRange>(() => initialViewModel?.scope.range ?? '30d');
+  const [loadSource, setLoadSource] = useState<DashboardLoadResult['source'] | 'loading'>(
+    initialViewModel ? 'development-fixture' : 'loading',
+  );
   const [announcement, setAnnouncement] = useState('');
+  const retryTimer = useRef<number | null>(null);
 
   useEffect(() => {
-    setVm(fixtureFromUrl);
-    setRange(fixtureFromUrl.scope.range);
-  }, [fixtureFromUrl]);
+    if (initialViewModel) {
+      return undefined;
+    }
+    let active = true;
+    void loadDashboard(location.search)
+      .then((result) => {
+        if (!active) return;
+        setVm(result.viewModel);
+        setRange(result.viewModel.scope.range);
+        setLoadSource(result.source);
+      })
+      .catch(() => {
+        if (!active) return;
+        setVm(createDashboardUnavailableViewModel());
+        setLoadSource('unavailable');
+      });
+    return () => {
+      active = false;
+    };
+  }, [initialViewModel, loadDashboard, location.search]);
+
+  useEffect(() => () => {
+    if (retryTimer.current !== null) window.clearTimeout(retryTimer.current);
+  }, []);
 
   const handleRangeChange = (nextRange: DashboardRange) => {
     setRange(nextRange);
     const label = RANGE_OPTIONS.find((item) => item.value === nextRange)?.label ?? nextRange;
-    setAnnouncement(`Đã chuyển khoảng thời gian sang ${label}. Dữ liệu mock hiện tại được giữ nguyên.`);
+    const sourceMessage = loadSource === 'development-fixture'
+      ? 'Dữ liệu mock hiện tại được giữ nguyên.'
+      : 'Nguồn dữ liệu thật chưa được kết nối.';
+    setAnnouncement(`Đã chuyển khoảng thời gian sang ${label}. ${sourceMessage}`);
   };
 
   const handleRetry = () => {
-    setVm(DASHBOARD_FIXTURES.loading);
+    if (retryTimer.current !== null) window.clearTimeout(retryTimer.current);
+    setVm(createDashboardLoadingViewModel(range));
+    setLoadSource('loading');
     setAnnouncement('Đang thử tải lại thống kê học tập.');
-    window.setTimeout(() => {
-      setVm(DASHBOARD_FIXTURES.default);
-      setRange(DASHBOARD_FIXTURES.default.scope.range);
-      setAnnouncement('Đã tải lại thống kê học tập.');
+    retryTimer.current = window.setTimeout(() => {
+      void loadDashboard('?fixture=default')
+        .then((result) => {
+          setVm(result.viewModel);
+          setRange(result.viewModel.scope.range);
+          setLoadSource(result.source);
+          setAnnouncement(result.source === 'development-fixture'
+            ? 'Đã tải lại thống kê học tập.'
+            : 'Nguồn thống kê thật vẫn chưa được kết nối.');
+        })
+        .catch(() => {
+          setVm(createDashboardUnavailableViewModel(range));
+          setLoadSource('unavailable');
+          setAnnouncement('Nguồn thống kê thật vẫn chưa được kết nối.');
+        });
     }, 300);
   };
 

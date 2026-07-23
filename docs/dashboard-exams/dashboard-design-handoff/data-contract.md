@@ -172,7 +172,9 @@ Tổng cộng có 17 subtype/union được đặt tên ngoài root view model.
 - `scoreTrend.sourceAttemptCount` là số bài thi làm nguồn cho chuỗi. `points` có thể ít hơn khi tổng hợp/lấy mẫu; `isComplete` chỉ true khi chuỗi bao phủ đủ nguồn. `granularity = 'attempt'` nghĩa là mỗi point là một bài thi. Không diễn giải chuỗi không đầy đủ như toàn bộ lịch sử.
 - Mọi chart có `textualSummary` hoặc dữ liệu danh sách tương đương; tooltip không phải nguồn duy nhất.
 - `null` nghĩa là không đủ/không có dữ liệu; không thay bằng 0 nếu 0 tạo hiểu sai.
-- Insight luôn có sample size và attempt count. Confidence V1: low nếu vừa đạt minimum; medium khi ≥16 units/≥3 attempts; high khi ≥30 units/≥5 attempts (quy tắc presentation đề xuất, cần xác nhận trước implementation).
+- Insight luôn có sample size và attempt count. Policy `dashboard-v1` đã khóa: insufficient nếu
+  `<8 units` hoặc `<2 attempts`; medium khi `≥16 units` và `≥3 attempts`; high khi `≥30 units` và
+  `≥5 attempts`; còn lại low. Insufficient-data ưu tiên hơn accuracy band.
 - `attemptId` trong mock là ID hư cấu; production có thể map từ `sessionId` nhưng contract không buộc backend DTO.
 
 ## 4. Learning units

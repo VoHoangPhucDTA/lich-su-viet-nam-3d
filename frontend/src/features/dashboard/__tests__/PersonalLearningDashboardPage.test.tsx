@@ -3,7 +3,12 @@ import { act, fireEvent, render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import PersonalLearningDashboardPage from '../PersonalLearningDashboardPage';
-import { DASHBOARD_FIXTURES, resolveDashboardFixture, type DashboardFixtureKey } from '../dashboardFixtures';
+import { DASHBOARD_FIXTURES, resolveDevelopmentDashboardFixture } from '../dashboardDevelopmentFixtures';
+import {
+  DASHBOARD_NOT_CONNECTED_MESSAGE,
+  loadDashboardPresentationState,
+  type DashboardFixtureKey,
+} from '../dashboardFixtures';
 
 vi.mock('recharts', () => {
   const Wrapper = ({ children }: { children?: ReactNode }) => <div>{children}</div>;
@@ -21,9 +26,16 @@ vi.mock('recharts', () => {
 });
 
 function renderFixture(key: DashboardFixtureKey) {
+  const loadDashboard = vi.fn(async () => ({
+    source: 'development-fixture' as const,
+    viewModel: DASHBOARD_FIXTURES.default,
+  }));
   return render(
     <MemoryRouter initialEntries={[`/exams/thong-ke?fixture=${key}`]}>
-      <PersonalLearningDashboardPage />
+      <PersonalLearningDashboardPage
+        initialViewModel={DASHBOARD_FIXTURES[key]}
+        loadDashboard={loadDashboard}
+      />
     </MemoryRouter>,
   );
 }
@@ -61,7 +73,7 @@ describe('PersonalLearningDashboardPage fixtures', () => {
     expect(container.querySelector('.dashboard-skeleton-utility')).toBeInTheDocument();
   });
 
-  it('renders error and the retry callback transitions through loading to default', () => {
+  it('renders error and the retry callback transitions through loading to default', async () => {
     vi.useFakeTimers();
     renderFixture('error');
     expect(screen.getAllByRole('alert')).toHaveLength(1);
@@ -71,6 +83,7 @@ describe('PersonalLearningDashboardPage fixtures', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Thử lại' }));
     expect(screen.getByRole('status')).toHaveTextContent('Đang tải thống kê học tập');
     act(() => vi.advanceTimersByTime(300));
+    await act(async () => Promise.resolve());
     expect(screen.getByText('Số bài đã làm')).toBeInTheDocument();
   });
 
@@ -160,10 +173,22 @@ describe('dashboard interactions and adapter boundaries', () => {
     expect(screen.getByText(/Đã chuyển khoảng thời gian sang 7 ngày/)).toBeInTheDocument();
   });
 
-  it('ignores fixture query parameters outside development builds', () => {
-    expect(resolveDashboardFixture('?fixture=error', false)).toBe(DASHBOARD_FIXTURES.default);
-    expect(resolveDashboardFixture('?fixture=error', true)).toBe(DASHBOARD_FIXTURES.error);
-    expect(resolveDashboardFixture('?fixture=not-real', true)).toBe(DASHBOARD_FIXTURES.default);
+  it('resolves fixture query parameters only inside the development fixture module', () => {
+    expect(resolveDevelopmentDashboardFixture('?fixture=error')).toBe(DASHBOARD_FIXTURES.error);
+    expect(resolveDevelopmentDashboardFixture('?fixture=not-real')).toBe(DASHBOARD_FIXTURES.default);
+  });
+
+  it('renders an explicit not-connected state when the production loader has no fixture source', async () => {
+    render(
+      <MemoryRouter initialEntries={['/exams/thong-ke?fixture=default']}>
+        <PersonalLearningDashboardPage
+          loadDashboard={(search) => loadDashboardPresentationState(search, null)}
+        />
+      </MemoryRouter>,
+    );
+    expect(await screen.findByRole('heading', { name: 'Thống kê học tập chưa được kết nối' })).toBeInTheDocument();
+    expect(screen.getByText(DASHBOARD_NOT_CONNECTED_MESSAGE)).toBeInTheDocument();
+    expect(screen.queryByText('Điểm trung bình')).not.toBeInTheDocument();
   });
 
   it('keeps the utility rail in natural flow without equal-height stretch or nested scrolling', () => {
