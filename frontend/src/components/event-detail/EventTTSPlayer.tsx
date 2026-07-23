@@ -35,6 +35,13 @@ const SPEED_OPTIONS = [0.75, 1, 1.25, 1.5] as const;
 const POLL_INTERVAL_MS = 3000;
 const POLL_TIMEOUT_MS = 120_000;
 
+/**
+ * Renders the legacy playlist-based text-to-speech player for an event.
+ *
+ * @param event - The event whose narration is generated and played.
+ * @param onNarrationStateChange - Callback notified when playback status or progress changes.
+ * @returns The legacy narration player interface.
+ */
 function LegacyTTSPlayer({ event, onNarrationStateChange }: EventTTSPlayerProps) {
   const [status, setStatus] = useState<PlayerStatus>('idle');
   const [playlist, setPlaylist] = useState<TtsPlaylistItem[]>([]);

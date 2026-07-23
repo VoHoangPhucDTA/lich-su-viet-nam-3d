@@ -5,12 +5,12 @@ interface SectionHeaderProps {
 }
 
 /**
- * CoiNguonPage-style section header.
- * Pattern: Eyebrow (mono, 10px, uppercase, red/gold) + Serif title
+ * Renders a styled section header with an eyebrow label, title, optional subtitle, and decorative dividers.
  *
- * Example:
- *   CÔNG CỤ HỌC TẬP
- *   Nền Tảng Số Hỗ Trợ Học Tập Lịch Sử
+ * @param eyebrow - The short label displayed above the title
+ * @param title - The main section heading
+ * @param subtitle - Optional supporting text displayed below the title
+ * @returns The rendered section header
  */
 export default function SectionHeader({
   eyebrow,

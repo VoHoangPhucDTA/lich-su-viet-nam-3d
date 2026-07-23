@@ -25,7 +25,11 @@ const NAV_ITEMS = [
 ];
 
 
-/* ─── Sidebar ────────────────────────────────────────────────────────────────── */
+/**
+ * Renders the profile sidebar with user information, navigation links, and a logout action.
+ *
+ * @param onClose - Optional callback invoked when a navigation link is selected.
+ */
 function Sidebar({ onClose }: { onClose?: () => void }) {
   const { currentUser, logout } = useAuth();
   const name = currentUser?.fullName ?? 'Học sinh';
@@ -87,7 +91,11 @@ function Sidebar({ onClose }: { onClose?: () => void }) {
 }
 
 
-/* ─── ProfileLayout ──────────────────────────────────────────────────────────── */
+/**
+ * Renders the profile page layout with responsive navigation and a main content area.
+ *
+ * @param children - The profile page content to render.
+ */
 export default function ProfileLayout({ children }: { children: ReactNode }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 

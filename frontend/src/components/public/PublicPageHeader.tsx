@@ -10,6 +10,17 @@ interface PublicPageHeaderProps {
   action?: ReactNode;
 }
 
+/**
+ * Renders a public page header with optional navigation, description, and action content.
+ *
+ * @param eyebrow - The text displayed above the page title
+ * @param title - The page title
+ * @param description - Optional supporting text displayed below the title
+ * @param showBack - Whether to display a back button
+ * @param backFallback - The fallback path used by the back button
+ * @param action - Optional content displayed beside the header text
+ * @returns The rendered public page header
+ */
 export default function PublicPageHeader({
   eyebrow,
   title,

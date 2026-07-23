@@ -37,6 +37,13 @@ function isAbortError(error: unknown): boolean {
   return error instanceof DOMException && error.name === 'AbortError';
 }
 
+/**
+ * Provides controls for generating and playing an event's asset-based narration.
+ *
+ * @param event - The event whose narration asset should be generated.
+ * @param onNarrationStateChange - Called when playback state or progress changes.
+ * @param onAssetFlowDisabled - Called when the backend disables asset-based narration.
+ */
 export default function AssetTTSPlayer({
   event,
   onNarrationStateChange,

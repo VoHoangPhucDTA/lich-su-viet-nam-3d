@@ -21,7 +21,14 @@ import {
   Upload,
 } from 'lucide-react';
 
-/* ─── Shared input ──────────────────────────────────────────────────────────── */
+/**
+ * Renders a labeled text input with optional placeholder, disabled state, and helper text.
+ *
+ * @param id - The input's unique identifier.
+ * @param label - The text displayed above the input.
+ * @param onChange - Called with the input's current value when it changes.
+ * @param helperText - Additional guidance displayed below the input.
+ */
 function FormField({
   id,
   label,
@@ -63,7 +70,15 @@ function FormField({
   );
 }
 
-/* ─── Select field ──────────────────────────────────────────────────────────── */
+/**
+ * Renders a labeled select control with the provided options.
+ *
+ * @param id - The select element's identifier.
+ * @param label - The label displayed for the select control.
+ * @param value - The currently selected option value.
+ * @param onChange - Called with the selected option value.
+ * @param options - The options available for selection.
+ */
 function SelectField({
   id,
   label,
@@ -109,7 +124,11 @@ function Card({ children, className = '' }: { children: React.ReactNode; classNa
   );
 }
 
-/* ─── Card title ────────────────────────────────────────────────────────────── */
+/**
+ * Renders a styled heading for a card section.
+ *
+ * @param children - The content displayed within the heading
+ */
 function CardTitle({ children }: { children: React.ReactNode }) {
   return (
     <h2 className="font-sans text-xl font-bold text-stone-900 mb-6 flex items-center gap-3">
@@ -118,7 +137,12 @@ function CardTitle({ children }: { children: React.ReactNode }) {
   );
 }
 
-/* ─── Toast ─────────────────────────────────────────────────────────────────── */
+/**
+ * Displays a success or error notification message.
+ *
+ * @param message - The notification text to display
+ * @param type - The notification severity
+ */
 function Toast({ message, type }: { message: string; type: 'success' | 'error' }) {
   return (
     <div
@@ -139,7 +163,9 @@ function Toast({ message, type }: { message: string; type: 'success' | 'error' }
   );
 }
 
-/* ─── Main Page ─────────────────────────────────────────────────────────────── */
+/**
+ * Renders account settings for updating profile information, changing the password, managing the avatar, and deleting or logging out of the account.
+ */
 export default function ProfileSettingsPage() {
   const { currentUser, updateProfile, changePassword, deleteAccount, logout } = useAuth();
   const navigate = useNavigate();

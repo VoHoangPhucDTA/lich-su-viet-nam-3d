@@ -14,7 +14,11 @@ interface EventDetailSidebarProps {
 }
 
 /**
- * Sidebar TOC – sticky desktop navigation and quick actions.
+ * Renders a desktop table of contents with optional map and scroll-to-top actions.
+ *
+ * @param navLinks - Sections available in the table of contents.
+ * @param onNavigateToSection - Callback invoked with the selected section ID.
+ * @param onScrollToTop - Callback invoked when the scroll-to-top action is selected.
  */
 export default function EventDetailSidebar({
   navLinks,

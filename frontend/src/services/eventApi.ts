@@ -509,6 +509,12 @@ export async function getEventDetailFromBackend(slugOrId: string): Promise<MockE
   }
 }
 
+/**
+ * Retrieves the available timeline years, optionally filtered by grade.
+ *
+ * @param grade - The grade used to filter timeline events
+ * @returns The available timeline years, or an empty array if the request fails
+ */
 export async function getTimelineYearsFromBackend(grade?: number | null): Promise<number[]> {
   try {
     const query = toQueryString({ grade });
@@ -529,6 +535,11 @@ const HOMEPAGE_FEATURED_EVENT_IDS = [
   'chien-dich-giai-phong-sai-gon-gia-dinh-chien-dich-ho-chi-minh',
 ] as const;
 
+/**
+ * Loads the featured events for the homepage, supplementing unavailable events with atomic-level events.
+ *
+ * @returns The successfully loaded homepage events.
+ */
 export async function getHomepageEvents(): Promise<HistoricalEvent[]> {
   const results = await Promise.allSettled(
     HOMEPAGE_FEATURED_EVENT_IDS.map((eventId) =>

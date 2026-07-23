@@ -20,6 +20,12 @@ const variants = {
   },
 };
 
+/**
+ * Renders an accessible authentication form message with styling and an icon.
+ *
+ * @param type - The message category, which determines its styling and accessibility behavior.
+ * @param message - The message text to display; an empty value renders nothing.
+ */
 export default function AuthFormMessage({ type, message }: AuthFormMessageProps) {
   if (!message) return null;
 

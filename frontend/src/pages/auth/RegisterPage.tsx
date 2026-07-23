@@ -10,6 +10,12 @@ import TextInput from '../../components/auth/TextInput';
 import PasswordInput from '../../components/auth/PasswordInput';
 import type { RegisterResponse } from '../../types/auth';
 
+/**
+ * Renders the account creation form's submit button with loading and disabled states.
+ *
+ * @param loading - Whether to display the loading indicator and message
+ * @param disabled - Whether to disable the button and apply disabled styling
+ */
 function SubmitButton({ loading, disabled }: { loading: boolean; disabled: boolean }) {
   return (
     <button
@@ -80,6 +86,11 @@ function secondsUntil(timestamp: string) {
   return Math.max(0, Math.ceil((new Date(timestamp).getTime() - Date.now()) / 1000));
 }
 
+/**
+ * Renders the account registration page with validation, verification, and resend controls.
+ *
+ * @returns The registration page content
+ */
 export default function RegisterPage() {
   const { register, resendVerification } = useAuth();
 

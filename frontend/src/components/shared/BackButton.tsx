@@ -10,14 +10,11 @@ interface BackButtonProps {
 }
 
 /**
- * Context-aware back navigation button.
+ * Renders a button that navigates to the previous page or a fallback route.
  *
- * Uses `window.history.length` to detect direct URL access (new tab, no app
- * history) — falls back to `fallback` route. Otherwise calls `navigate(-1)`
- * to preserve the actual browser history.
- *
- * Styled as a subtle secondary navigation element matching the lsvn3d
- * museum design language.
+ * @param fallback - Route to use when browser history has no previous entry
+ * @param label - Text displayed in the button
+ * @param className - Additional CSS classes applied to the button
  */
 export default function BackButton({ fallback = '/home', label = 'Quay lại', className = '' }: BackButtonProps) {
   const navigate = useNavigate();

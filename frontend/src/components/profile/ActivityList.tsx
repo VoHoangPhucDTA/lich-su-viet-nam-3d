@@ -21,6 +21,11 @@ function ScoreBadge({ score }: { score: number }) {
   );
 }
 
+/**
+ * Displays learning activities with their type, topic, grade, score, and date.
+ *
+ * @param activities - The learning activities to display
+ */
 export default function ActivityList({ activities }: { activities: LearningActivity[] }) {
   if (activities.length === 0) {
     return (

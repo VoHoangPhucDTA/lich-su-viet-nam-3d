@@ -22,6 +22,17 @@ const buttonStyle = {
   cursor: 'pointer',
 } as const;
 
+/**
+ * Renders terrain-view controls and status messages based on the current terrain state.
+ *
+ * @param terrain - The terrain view state, targets, eligibility, and selected target.
+ * @param onOpen - Called when terrain viewing is opened.
+ * @param onRetry - Called to retry a failed terrain or geometry load.
+ * @param onSelectTarget - Called when a terrain target is selected.
+ * @param onShowOverview - Called to show the overview of all terrain targets.
+ * @param onExit - Called to return to the previous map view.
+ * @returns The terrain controls for the current state, or `null` when no controls are applicable.
+ */
 export default function TerrainControls({
   terrain,
   onOpen,

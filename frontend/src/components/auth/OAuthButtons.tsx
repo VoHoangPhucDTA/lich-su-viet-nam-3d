@@ -99,7 +99,14 @@ function FacebookIcon() {
   );
 }
 
-// ── Shared OAuthButton ────────────────────────────────────────────────────────
+/**
+ * Renders a styled OAuth provider button with optional loading and disabled states.
+ *
+ * @param label - The button label and accessible name.
+ * @param icon - The provider icon displayed in the button.
+ * @param onClick - The callback invoked when the button is interactive.
+ * @param disabledReason - The explanation shown when the disabled button is hovered.
+ */
 
 function OAuthButton({
   label,

@@ -19,6 +19,9 @@ function reviewError(cause: unknown) {
   return cause instanceof Error ? cause.message : 'Thao tác thất bại.';
 }
 
+/**
+ * Manages review, revision, provenance, and publishing actions for an AI candidate.
+ */
 export default function AdminAiCandidateDetailPage() {
   const { id = '' } = useParams<{ id: string }>();
   const navigate = useNavigate();

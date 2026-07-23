@@ -18,7 +18,13 @@ const GRADE_FILTERS: { value: GradeLevel | 'all'; label: string }[] = [
   { value: 12, label: 'Lớp 12' },
 ];
 
-/* ─── Filter chip ───────────────────────────────────────────────────────────── */
+/**
+ * Renders a selectable chip button for filter controls.
+ *
+ * @param active - Whether the chip is currently selected.
+ * @param onClick - Handler invoked when the chip is clicked.
+ * @param children - The chip content.
+ */
 function FilterChip({
   active,
   onClick,
@@ -44,6 +50,9 @@ function FilterChip({
   );
 }
 
+/**
+ * Displays the user's learning activity history with type and grade filters.
+ */
 export default function LearningHistoryPage() {
   const [typeFilter, setTypeFilter] = useState<ActivityType | 'all'>('all');
   const [gradeFilter, setGradeFilter] = useState<GradeLevel | 'all'>('all');

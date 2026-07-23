@@ -17,6 +17,16 @@ interface DeleteAccountDialogProps {
   onCancel: () => void;
 }
 
+/**
+ * Renders a confirmation dialog for permanently deleting a user account.
+ *
+ * @param userName - The account owner's display name.
+ * @param userEmail - The account owner's email address.
+ * @param isOpen - Whether the dialog is visible.
+ * @param isDeleting - Whether account deletion is in progress.
+ * @param onConfirm - Invoked when deletion is confirmed.
+ * @param onCancel - Invoked when the dialog is cancelled or closed.
+ */
 export default function DeleteAccountDialog({
   userName,
   userEmail,

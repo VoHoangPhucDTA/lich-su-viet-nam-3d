@@ -16,7 +16,14 @@ import {
   BarChart3,
 } from 'lucide-react';
 
-/* ─── Summary KPI ───────────────────────────────────────────────────────────── */
+/**
+ * Renders a summary KPI card with an icon, label, value, and accent color.
+ *
+ * @param icon - The icon displayed in the card.
+ * @param label - The KPI label.
+ * @param value - The KPI value displayed prominently.
+ * @param color - The accent color applied to the card.
+ */
 function SummaryKPI({
   icon,
   label,
@@ -46,7 +53,9 @@ function SummaryKPI({
   );
 }
 
-/* ─── Main Page ──────────────────────────────────────────────────────────────── */
+/**
+ * Renders the scores page with learning performance summaries, charts, and completed assessment details.
+ */
 export default function ScoresPage() {
   const avg = (mockScores.reduce((s, r) => s + r.score, 0) / mockScores.length).toFixed(1);
   const totalCorrect = mockScores.reduce((s, r) => s + r.correct, 0);

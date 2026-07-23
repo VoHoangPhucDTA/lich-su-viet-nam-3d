@@ -111,6 +111,18 @@ const NAVIGATION_GUIDE_ROWS: { label: string; description: string }[] = [
   },
 ];
 
+/**
+ * Renders controls for 3D map zooming, camera navigation guidance, and terrain inspection.
+ *
+ * @param isVisible - Whether the toolbar is displayed.
+ * @param inspectMode - The current terrain inspection mode.
+ * @param onToggleInspect - Updates the terrain inspection mode.
+ * @param inspectionState - The current terrain inspection result, loading state, and error.
+ * @param onZoomIn - Handles zooming in.
+ * @param onZoomOut - Handles zooming out.
+ * @param zoomDisabled - Whether the zoom controls are disabled.
+ * @param inspectDisabled - Whether the inspection toggle is disabled.
+ */
 export default function TerrainExplorationToolbar({
   isVisible,
   inspectMode,

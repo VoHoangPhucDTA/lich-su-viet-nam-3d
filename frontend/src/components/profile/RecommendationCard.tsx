@@ -13,6 +13,11 @@ const recIcon: Record<string, React.ReactNode> = {
   trophy: <Trophy size={20} strokeWidth={1.5} />,
 };
 
+/**
+ * Renders a recommendation card with its type, description, topic, estimated duration, and start action.
+ *
+ * @param item - The recommendation data displayed in the card.
+ */
 export default function RecommendationCard({ item }: { item: RecommendationItem }) {
   const cfg = typeConfig[item.type];
 

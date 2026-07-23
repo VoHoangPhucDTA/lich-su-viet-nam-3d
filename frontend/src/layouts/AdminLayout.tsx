@@ -107,6 +107,12 @@ function AdminSidebar({ open, onClose }: { open: boolean; onClose: () => void })
   );
 }
 
+/**
+ * Renders an administrative shell with responsive navigation around page content.
+ *
+ * @param children - The content displayed in the main area.
+ * @returns The administrative layout element.
+ */
 export default function AdminLayout({ children }: { children: ReactNode; title?: string }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   return (

@@ -9,7 +9,12 @@ interface EventTextbookContentProps {
 }
 
 /**
- * Textbook content follows the shared event-detail reading rhythm.
+ * Renders an event's overview, detailed narrative, and historical significance sections.
+ *
+ * @param overviewIndex - The section index displayed for the overview.
+ * @param narrativeIndex - The section index displayed for the detailed narrative.
+ * @param significanceIndex - The section index displayed for the historical significance.
+ * @returns The rendered textbook content sections.
  */
 export default function EventTextbookContent({
   event,

@@ -11,8 +11,14 @@ interface EventSourcesProps {
 }
 
 /**
- * Sources section redesigned with CoiNguonPage design language.
- * Red-900 accents, white cards, stone border, subtle hover.
+ * Renders textbook and extended reference sources for an event.
+ *
+ * Displays available textbook references and external sources, or an empty-state message when no sources are available.
+ *
+ * @param textbookSourceContent - Additional textbook source content.
+ * @param externalContent - Fallback external source data.
+ * @param textbookIndex - Section index for textbook sources.
+ * @param externalIndex - Section index for extended sources.
  */
 export default function EventSources({
   textbookRefs,
@@ -168,6 +174,14 @@ export default function EventSources({
   );
 }
 
+/**
+ * Renders a styled external source link with its name and title.
+ *
+ * @param name - The source name displayed prominently.
+ * @param title - The source title displayed beneath the name.
+ * @param url - The destination URL.
+ * @returns An anchor element that opens the source in a new tab.
+ */
 function SourceLink({ name, title, url }: { name: string; title: string; url: string }) {
   return (
     <a

@@ -68,6 +68,20 @@ function filterEventTree(
   });
 }
 
+/**
+ * Renders a searchable, filterable tree of historical events with selection and expansion controls.
+ *
+ * @param events - The historical event tree to display.
+ * @param selectedEvent - The currently selected event, if any.
+ * @param onSelectEvent - Called when an event is selected.
+ * @param onHoverEvent - Called with an event ID when an event is hovered, or `null` when the hover ends.
+ * @param searchQuery - The current event search query.
+ * @param onSearchQueryChange - Called when the search query changes.
+ * @param loading - Whether to show the backend search loading state when no events match.
+ * @param currentYear - The year used to identify future events.
+ * @param open - Whether the sidebar has its open-panel styling.
+ * @param onClose - Called when the sidebar close control is activated.
+ */
 export default function Sidebar({
   events,
   selectedEvent,
@@ -333,6 +347,14 @@ interface EventTreeNodeProps {
   currentYear?: number;
 }
 
+/**
+ * Renders an event in the expandable hierarchical event tree.
+ *
+ * @param event - The event represented by this node
+ * @param depth - The node's nesting depth, used to calculate indentation
+ * @param currentYear - The reference year for identifying future events
+ * @returns The rendered event node and its expanded child nodes
+ */
 function EventTreeNode({
   event,
   depth,

@@ -13,6 +13,13 @@ interface MediaItem {
   caption?: string;
 }
 
+/**
+ * Renders an event media gallery with image lightbox viewing and links for other media types.
+ *
+ * @param media - The event media entries and optional thumbnail to display.
+ * @param index - The section index shown in the gallery header.
+ * @returns The rendered media gallery section.
+ */
 export default function EventMediaGallery({ media, index = '07' }: EventMediaGalleryProps) {
   const rawItems: MediaItem[] = [];
   if (media?.thumbnail) {

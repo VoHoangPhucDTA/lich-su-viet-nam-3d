@@ -41,6 +41,13 @@ function formatTextbookExplanation(explanation: string) {
     .replace(/context\s*provided/gi, 'nguồn sách giáo khoa được cung cấp');
 }
 
+/**
+ * Renders a labeled quiz result metric with a themed value.
+ *
+ * @param label - The metric label.
+ * @param value - The metric value to display.
+ * @param tone - The color applied to the metric value.
+ */
 function ResultMetric({ label, value, tone }: { label: string; value: string | number; tone: string }) {
   return (
     <div className="quiz-result-metric">
@@ -50,6 +57,13 @@ function ResultMetric({ label, value, tone }: { label: string; value: string | n
   );
 }
 
+/**
+ * Renders a review card for an individual quiz question, including its answer status, options, explanation, and sources.
+ *
+ * @param result - The question result and associated question details.
+ * @param index - The zero-based position of the question in the results.
+ * @returns The rendered question review card.
+ */
 function AnswerReviewCard({ result, index }: { result: QuizQuestionResult; index: number }) {
   const question = result.question;
   const skipped = result.selectedOptionId === null;
@@ -113,6 +127,9 @@ function AnswerReviewCard({ result, index }: { result: QuizQuestionResult; index
   );
 }
 
+/**
+ * Displays the completed quiz results, performance summary, recommendations, and question review.
+ */
 export default function QuizResultPage() {
   const { currentUser } = useAuth();
   const { sessionId } = useParams<{ sessionId: string }>();

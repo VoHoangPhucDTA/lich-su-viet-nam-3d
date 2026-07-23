@@ -4,6 +4,14 @@ interface ErrorStateProps {
   onRetry?: () => void;
 }
 
+/**
+ * Renders an alert-style error message with an optional retry action.
+ *
+ * @param title - The error heading, defaulting to a Vietnamese loading error message.
+ * @param description - The error details, defaulting to a Vietnamese retry message.
+ * @param onRetry - Callback invoked when the retry button is clicked.
+ * @returns The rendered error state.
+ */
 export default function ErrorState({
   title = 'Không thể tải dữ liệu',
   description = 'Đã có lỗi xảy ra. Vui lòng thử lại sau ít phút.',

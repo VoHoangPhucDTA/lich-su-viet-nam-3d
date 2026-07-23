@@ -16,6 +16,11 @@ interface PasswordInputProps {
   onFocus?: () => void;
 }
 
+/**
+ * Renders a labeled password field with visibility controls and optional hint or error text.
+ *
+ * @returns The password input component.
+ */
 export default function PasswordInput({
   id,
   value,

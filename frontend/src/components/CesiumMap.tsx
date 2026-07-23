@@ -132,6 +132,16 @@ interface CesiumMapProps {
   apiRef?: MutableRefObject<CesiumMapHandle | null>;
 }
 
+/**
+ * Renders an interactive Cesium map with event markers, region highlighting, terrain sessions, and location inspection.
+ *
+ * @param events - Events to display as map markers.
+ * @param selectedEvent - Event currently selected for highlighting and camera positioning.
+ * @param terrainSession - Current terrain exploration session, if any.
+ * @param inspectMode - Enables location inspection when set to `'inspect-location'`.
+ * @param inspectionSessionId - Identifier used to associate inspection results with the current inspection session.
+ * @param apiRef - Optional ref for imperative map controls.
+ */
 export default function CesiumMap({
   events,
   selectedEvent,

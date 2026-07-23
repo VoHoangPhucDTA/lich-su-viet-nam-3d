@@ -15,15 +15,30 @@ import EventExplorerToolbar from '../components/public/EventExplorerToolbar';
 import { useInfiniteEvents } from '../hooks/useInfiniteEvents';
 import type { EventGrade, EventType } from '../types/event';
 
+/**
+ * Parses a trimmed string as an integer year.
+ *
+ * @param value - The string to parse
+ * @returns The numeric year if the value contains an optional leading minus sign followed by digits, `undefined` otherwise
+ */
 function parseYear(value: string): number | undefined {
   return value.trim() && /^-?\d+$/.test(value.trim()) ? Number(value) : undefined;
 }
 
+/**
+ * Parses a value into a supported event grade.
+ *
+ * @param value - The value to parse.
+ * @returns `10`, `11`, or `12` when the value represents a supported grade; `null` otherwise.
+ */
 function parseGrade(value: string | null): EventGrade | null {
   const grade = Number(value);
   return grade === 10 || grade === 11 || grade === 12 ? grade : null;
 }
 
+/**
+ * Displays historical periods and lets users browse, filter, sort, and paginate their events.
+ */
 export default function HistoricalPeriodsPage() {
   const [searchParams, setSearchParams] = useSearchParams();
   const periodParam = searchParams.get('period');

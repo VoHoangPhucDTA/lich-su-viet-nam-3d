@@ -188,6 +188,11 @@ function CustomConfigCard({ result }: { result: ExamResultV2 }) {
   );
 }
 
+/**
+ * Displays the multiple-choice section score and answer counts.
+ *
+ * @param result - The exam result containing the multiple-choice score and response totals
+ */
 function MCQBreakdown({ result }: { result: ExamResultV2 }) {
   return (
     <section style={{ background: 'var(--bg-card)', borderRadius: '1rem', padding: '1.25rem', border: '1px solid var(--border)' }}>
@@ -206,6 +211,11 @@ function MCQBreakdown({ result }: { result: ExamResultV2 }) {
   );
 }
 
+/**
+ * Displays the true/false section score and the distribution of questions by correct-statement count.
+ *
+ * @param result - The exam result containing the true/false score and breakdown.
+ */
 function TFBreakdown({ result }: { result: ExamResultV2 }) {
   const ladderLabels = ['0 ý', '1 ý', '2 ý', '3 ý', '4 ý'];
   const ladderPoints = [0, 0.1, 0.25, 0.5, 1.0];

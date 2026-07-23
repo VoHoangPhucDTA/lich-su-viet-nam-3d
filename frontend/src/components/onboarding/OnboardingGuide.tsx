@@ -58,6 +58,13 @@ interface OnboardingGuideProps {
   onToggle: () => void;
 }
 
+/**
+ * Renders an interactive onboarding guide for the map interface.
+ *
+ * @param isOpen - Whether the guide panel is expanded
+ * @param onDismiss - Permanently closes the guide
+ * @param onToggle - Expands or temporarily collapses the guide
+ */
 export default function OnboardingGuide({
   isOpen,
   onDismiss,

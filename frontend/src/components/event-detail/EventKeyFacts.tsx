@@ -6,8 +6,10 @@ interface EventKeyFactsProps {
 }
 
 /**
- * Key facts redesigned with CoiNguonPage design language.
- * Red-900 serif numbering, white cards, subtle shadow, stone border.
+ * Renders a responsive section of numbered key facts.
+ *
+ * @param keyFacts - The key facts to display; renders nothing when empty or omitted.
+ * @param index - The section index displayed in the header.
  */
 export default function EventKeyFacts({ keyFacts, index = '04' }: EventKeyFactsProps) {
   if (!keyFacts || keyFacts.length === 0) return null;

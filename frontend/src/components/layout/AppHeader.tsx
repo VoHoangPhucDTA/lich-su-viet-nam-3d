@@ -8,6 +8,11 @@ import { useAuth } from '../../auth/AuthContext';
 import appLogo from '../../assets/lich-su-viet-nam-3d-logo-header-transparent.webp';
 import { useHeader } from './HeaderContext';
 
+/**
+ * Renders the responsive application header with navigation, authentication controls, and mobile menu.
+ *
+ * @returns The application header element
+ */
 export default function AppHeader() {
   const { currentUser, isAuthenticated, logout } = useAuth();
   const navigate = useNavigate();
@@ -208,7 +213,13 @@ export default function AppHeader() {
   );
 }
 
-/* ─── Dropdown helpers ─── */
+/**
+ * Renders a profile dropdown navigation link that invokes a callback when selected.
+ *
+ * @param to - The destination route for the link
+ * @param onClick - The callback invoked when the link is selected
+ * @param children - The link content
+ */
 
 function DropdownLink({ to, onClick, children }: { to: string; onClick: () => void; children: React.ReactNode }) {
   return (
@@ -222,6 +233,14 @@ function DropdownLink({ to, onClick, children }: { to: string; onClick: () => vo
   );
 }
 
+/**
+ * Renders a mobile navigation link with active-route styling and click handling.
+ *
+ * @param to - The destination route.
+ * @param active - Whether the link represents the current route.
+ * @param onClick - The callback invoked when the link is clicked.
+ * @param children - The link content.
+ */
 function MobileLink({ to, active, onClick, children }: { to: string; active: boolean; onClick: () => void; children: React.ReactNode }) {
   return (
     <Link

@@ -13,6 +13,9 @@ import ExamConfigPreview from '../../components/exams/ExamConfigPreview';
 import ExamGenerationLoading from '../../components/exams/ExamGenerationLoading';
 import { useAuth } from '../../auth/AuthContext';
 
+/**
+ * Provides a page for configuring and generating a new THPT exam.
+ */
 export default function ExamCreatePage() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();

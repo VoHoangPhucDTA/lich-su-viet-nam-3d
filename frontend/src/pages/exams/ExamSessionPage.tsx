@@ -15,6 +15,9 @@ import ExamProgressSidebar from '../../components/exams/ExamProgressSidebar';
 import ExamNavigation from '../../components/exams/ExamNavigation';
 import ExamSubmitDialog from '../../components/exams/ExamSubmitDialog';
 
+/**
+ * Renders the exam session interface for answering questions, tracking progress, and submitting the exam.
+ */
 export default function ExamSessionPage() {
   const { examId } = useParams<{ examId: string }>();
   const navigate = useNavigate();

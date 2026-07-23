@@ -7,6 +7,14 @@ interface EmptyStateProps {
   description?: string;
 }
 
+/**
+ * Renders a standardized empty-results state with optional icon and text content.
+ *
+ * @param icon - Custom icon displayed in the icon section.
+ * @param textOnly - Whether to hide the icon section.
+ * @param title - Heading text for the empty state.
+ * @param description - Supporting description text.
+ */
 export default function EmptyState({
   icon,
   textOnly = false,

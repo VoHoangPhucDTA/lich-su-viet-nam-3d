@@ -5,8 +5,10 @@ interface SectionHeaderProps {
 }
 
 /**
- * Museum-exhibit style section header — Đông Sơn inspired.
- * Mẫu: "01  Tổng quan ◆━━━━━"
+ * Renders a museum-exhibit-style section header with an index, title, decorative divider, and optional subtitle.
+ *
+ * @param subtitle - Optional supporting text displayed beneath the header.
+ * @returns The rendered section header.
  */
 export default function SectionHeader({ index, title, subtitle }: SectionHeaderProps) {
   return (

@@ -10,6 +10,14 @@ interface AdminPageHeaderProps {
   actions?: ReactNode;
 }
 
+/**
+ * Renders an admin page header with an optional eyebrow, description, and action content.
+ *
+ * @param eyebrow - Optional text displayed above the title.
+ * @param title - The page title.
+ * @param description - Optional supporting text displayed below the title.
+ * @param actions - Optional content displayed beside the title.
+ */
 export function AdminPageHeader({ eyebrow, title, description, actions }: AdminPageHeaderProps) {
   return (
     <div
@@ -51,6 +59,11 @@ interface AdminSearchInputProps {
   onSubmit?: () => void;
 }
 
+/**
+ * Renders a controlled search input with optional submission on Enter.
+ *
+ * @param onSubmit - Called when the user presses Enter in the input.
+ */
 export function AdminSearchInput({
   value,
   onChange,
@@ -190,6 +203,12 @@ const STATUS_STYLES: Record<string, CSSProperties> = {
   admin: { borderColor: 'rgba(139,30,30,.2)', background: 'var(--accent-soft)', color: 'var(--accent)' },
 };
 
+/**
+ * Displays a consistently styled status badge.
+ *
+ * @param status - The status key used to determine the badge style and default label
+ * @param label - Optional label displayed instead of the status label
+ */
 export function AdminStatusBadge({ status, label }: { status: string; label?: string }) {
   const style = STATUS_STYLES[status] ?? {
     borderColor: 'var(--border)',
@@ -214,6 +233,15 @@ function getPageItems(currentPage: number, pageCount: number): Array<number | 'e
   if (currentPage >= pageCount - 3) return [1, 'ellipsis-start', pageCount - 4, pageCount - 3, pageCount - 2, pageCount - 1, pageCount];
   return [1, 'ellipsis-start', currentPage - 1, currentPage, currentPage + 1, 'ellipsis-end', pageCount];
 }
+/**
+ * Renders pagination controls and the current record range.
+ *
+ * @param total - The total number of records.
+ * @param offset - The zero-based offset of the current page.
+ * @param limit - The maximum number of records displayed per page.
+ * @param loading - Whether pagination controls are disabled while data is loading.
+ * @param onChange - Called with the offset of the selected page.
+ */
 export function AdminPagination({ total, offset, limit, loading, onChange }: { total: number; offset: number; limit: number; loading: boolean; onChange: (offset: number) => void }) {
   const pageCount = Math.max(1, Math.ceil(total / limit));
   const currentPage = Math.min(pageCount, Math.floor(offset / limit) + 1);
@@ -221,7 +249,12 @@ export function AdminPagination({ total, offset, limit, loading, onChange }: { t
   const to = Math.min(offset + limit, total);
   const pageItems = getPageItems(currentPage, pageCount);
   return <div className="flex flex-wrap items-center justify-between gap-3 border-t border-[var(--border)] px-4 py-3 text-xs text-[var(--text-muted)] sm:px-5"><span>Hiển thị {from}–{to} trong {total} bản ghi</span><nav aria-label="Phân trang" className="flex items-center gap-1"><button type="button" className="admin-icon-button" aria-label="Trang trước" disabled={currentPage === 1 || loading} onClick={() => onChange(Math.max(0, offset - limit))}><ChevronLeft size={15} aria-hidden="true" /></button>{pageItems.map((item, index) => typeof item === 'number' ? <button key={item} type="button" aria-label={`Trang ${item}`} aria-current={item === currentPage ? 'page' : undefined} disabled={loading} onClick={() => onChange((item - 1) * limit)} className="inline-flex h-9 min-w-9 items-center justify-center rounded-[var(--admin-radius)] border px-2 text-xs font-semibold transition" style={{ borderColor: item === currentPage ? 'var(--accent)' : 'transparent', background: item === currentPage ? 'var(--accent)' : 'transparent', color: item === currentPage ? '#fff' : 'var(--text-secondary)' }}>{item}</button> : <span key={`${item}-${index}`} className="inline-flex h-9 min-w-7 items-center justify-center" aria-hidden="true">…</span>)}<button type="button" className="admin-icon-button" aria-label="Trang sau" disabled={currentPage === pageCount || loading} onClick={() => onChange(offset + limit)}><ChevronRight size={15} aria-hidden="true" /></button></nav><span className="hidden sm:inline">{limit} / trang</span></div>;
-}export function AdminLoadingState({ label = 'Đang tải dữ liệu…' }: { label?: string }) {
+}/**
+ * Displays a loading indicator with a customizable label.
+ *
+ * @param label - Text displayed alongside the loading indicator
+ */
+export function AdminLoadingState({ label = 'Đang tải dữ liệu…' }: { label?: string }) {
   return (
     <div
       className="admin-state admin-state-loading flex min-h-48 items-center justify-center gap-3 text-sm"
@@ -239,7 +272,12 @@ export function AdminPagination({ total, offset, limit, loading, onChange }: { t
   );
 }
 
-// --- AdminEmptyState ---------------------------------------------------------
+/**
+ * Displays an empty-state message when no data is available.
+ *
+ * @param title - The heading displayed for the empty state
+ * @param description - The supporting message displayed below the heading
+ */
 
 export function AdminEmptyState({
   title = 'Chưa có dữ liệu',
@@ -260,7 +298,12 @@ export function AdminEmptyState({
   );
 }
 
-// --- AdminErrorState ---------------------------------------------------------
+/**
+ * Displays an error message with an optional retry action.
+ *
+ * @param message - The error message to display.
+ * @param onRetry - The callback invoked when the retry action is selected.
+ */
 
 export function AdminErrorState({
   message = 'Không thể tải dữ liệu.',
@@ -283,7 +326,17 @@ export function AdminErrorState({
   );
 }
 
-// --- AdminConfirmDialog ------------------------------------------------------
+/**
+ * Displays a modal dialog for confirming an action.
+ *
+ * @param open - Whether the dialog is visible
+ * @param title - The dialog heading
+ * @param description - Optional explanation of the action
+ * @param confirmLabel - Text for the confirm button
+ * @param onConfirm - Called when the action is confirmed
+ * @param onCancel - Called when cancellation is requested, including Escape or outside-click dismissal
+ * @param danger - Whether to style the confirm action as destructive
+ */
 
 export function AdminConfirmDialog({
   open,
@@ -373,7 +426,13 @@ export function AdminConfirmDialog({
   );
 }
 
-// --- AdminFormSection --------------------------------------------------------
+/**
+ * Renders a titled form section with an optional description and content.
+ *
+ * @param title - The section heading
+ * @param description - Additional text displayed below the heading
+ * @param children - The section content
+ */
 
 export function AdminFormSection({
   title,
@@ -438,6 +497,20 @@ export interface AdminDataTableProps<T> {
   footer?: ReactNode;
 }
 
+/**
+ * Renders tabular data with standardized loading, error, empty, and footer states.
+ *
+ * @param columns - Column definitions used to render table headers and cell content
+ * @param rows - Records displayed in the table
+ * @param getKey - Provides a stable key for each row
+ * @param minWidth - Minimum width of the table
+ * @param loading - Whether to display the loading state
+ * @param error - Error message to display instead of the table
+ * @param onRetry - Callback for retrying after an error
+ * @param emptyTitle - Title shown when there are no rows
+ * @param emptyDescription - Description shown when there are no rows
+ * @param footer - Optional content rendered below the table
+ */
 export function AdminDataTable<T>({
   columns,
   rows,

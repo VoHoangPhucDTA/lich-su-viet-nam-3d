@@ -24,6 +24,9 @@ function hasAnyRelatedEvent(eventData: MockEventDetail | null) {
   );
 }
 
+/**
+ * Displays the detailed page for the event identified by the route slug.
+ */
 export default function EventDetailPage() {
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
@@ -442,7 +445,12 @@ export default function EventDetailPage() {
   );
 }
 
-/* ─── Not-found state ───────────────────────────────────────────────────── */
+/**
+ * Displays the event not-found state with suggested events and a home navigation action.
+ *
+ * @param slug - The requested event slug shown in the message.
+ * @param onGoHome - Callback invoked when the user selects the home button.
+ */
 
 function NotFoundEventState({
   slug,

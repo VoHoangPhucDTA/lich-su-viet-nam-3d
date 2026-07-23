@@ -8,6 +8,11 @@ import ExamAnalysisPanel from '../../components/exams/ExamAnalysisPanel';
 import ExamAnswerReview from '../../components/exams/ExamAnswerReview';
 import ExamResultActions from '../../components/exams/ExamResultActions';
 
+/**
+ * Displays an exam's result, analysis, actions, and answer review.
+ *
+ * Shows loading, incomplete-session, and missing-result states when applicable.
+ */
 export default function ExamResultPage() {
   const { examId } = useParams<{ examId: string }>();
 

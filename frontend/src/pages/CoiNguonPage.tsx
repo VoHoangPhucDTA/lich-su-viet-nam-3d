@@ -7,6 +7,9 @@ import EventCard from '../components/shared/EventCard';
 import HistoricalPeriodCard from '../components/public/HistoricalPeriodCard';
 import appLogo from '../assets/lich-su-viet-nam-3d-logo-header-transparent.webp';
 
+/**
+ * Renders the historical education platform's homepage with featured periods, events, and navigation.
+ */
 export default function CoiNguonPage() {
   const [featuredEvents, setFeaturedEvents] = useState<HistoricalEvent[]>([]);
   const [loading, setLoading] = useState(true);

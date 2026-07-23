@@ -25,6 +25,13 @@ interface EventPopupProps {
   onViewDetails: () => void;
 }
 
+/**
+ * Displays an event panel with chronology, location, description, child events, and actions.
+ *
+ * @param event - The event to display.
+ * @param parentEvent - The optional parent event used for navigation.
+ * @param terrain - The current terrain state for terrain controls.
+ */
 export default function EventPopup({
   event,
   onClose,

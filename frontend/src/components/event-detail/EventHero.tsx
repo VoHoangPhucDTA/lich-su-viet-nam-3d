@@ -13,10 +13,11 @@ interface EventHeroProps {
 }
 
 /**
- * Hero của trang chi tiết sự kiện.
- * - Banner gradient theo màu eventType (đậm → trong suốt) để tăng tính sử thi.
- * - Bố cục có thumbnail: content trái khoảng 60%, thumbnail phải khoảng 40% trên desktop.
- * - Bám design_system.md mục 8 + 10.1.
+ * Renders the hero section for an event detail page.
+ *
+ * @param event - The event whose title, classification, metadata, and media are displayed.
+ * @param showMapAction - Whether to display actions for opening the event on the map.
+ * @returns The event hero section.
  */
 export default function EventHero({ event, showMapAction }: EventHeroProps) {
   const navigate = useNavigate();
@@ -251,6 +252,14 @@ function HeroThumbnail({
   );
 }
 
+/**
+ * Renders a styled label with optional color or accent variants.
+ *
+ * @param label - The text displayed in the chip
+ * @param color - The color used for the chip when `filled` is enabled
+ * @param filled - Whether to apply the provided color to the chip
+ * @param accent - The predefined accent variant to apply
+ */
 function Chip({
   label,
   color,
@@ -294,6 +303,12 @@ function Chip({
   );
 }
 
+/**
+ * Renders a labeled metadata card with a truncated value.
+ *
+ * @param label - The metadata label.
+ * @param value - The metadata value.
+ */
 function MetaItem({
   label,
   value,

@@ -14,6 +14,15 @@ interface TextInputProps {
   disabled?: boolean;
 }
 
+/**
+ * Renders a labeled text input with optional icon and hint text.
+ *
+ * @param id - The input's unique identifier.
+ * @param value - The current input value.
+ * @param onChange - Called with the updated input value.
+ * @param label - The label displayed for the input.
+ * @param hint - Optional supporting text associated with the input.
+ */
 export default function TextInput({
   id,
   type = 'text',

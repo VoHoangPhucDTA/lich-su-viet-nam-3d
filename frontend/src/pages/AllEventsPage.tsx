@@ -10,16 +10,31 @@ import { useInfiniteEvents } from '../hooks/useInfiniteEvents';
 
 const PAGE_SIZE = 24;
 
+/**
+ * Parses a trimmed integer year value.
+ *
+ * @param value - The string to parse
+ * @returns The numeric year, or `undefined` when the value is empty or not an integer
+ */
 function parseYear(value: string): number | undefined {
   if (!value.trim() || !/^-?\d+$/.test(value.trim())) return undefined;
   return Number(value);
 }
 
+/**
+ * Parses a value into a supported event grade.
+ *
+ * @param value - The value to parse.
+ * @returns The event grade when `value` is `10`, `11`, or `12`; `null` otherwise.
+ */
 function parseGrade(value: string | null): EventGrade | null {
   const grade = Number(value);
   return grade === 10 || grade === 11 || grade === 12 ? grade : null;
 }
 
+/**
+ * Displays a searchable, filterable, and sortable list of historical events with infinite scrolling.
+ */
 export default function AllEventsPage() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [searchQuery, setSearchQuery] = useState(searchParams.get('q') ?? '');

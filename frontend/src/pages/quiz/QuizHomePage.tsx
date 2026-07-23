@@ -14,6 +14,13 @@ import { useAuth } from '../../auth/AuthContext';
 import PublicPageHeader from '../../components/public/PublicPageHeader';
 import * as quizService from '../../services/quizService';
 
+/**
+ * Displays a statistic with its label and icon.
+ *
+ * @param label - The text describing the statistic
+ * @param value - The statistic value to display
+ * @param icon - The icon component displayed alongside the statistic
+ */
 function StatCard({
   label,
   value,
@@ -34,6 +41,14 @@ function StatCard({
   );
 }
 
+/**
+ * Renders a card that links to a destination and presents an icon, title, and description.
+ *
+ * @param to - The destination route for the card.
+ * @param title - The card's title.
+ * @param description - Supporting text displayed below the title.
+ * @param icon - The icon component displayed on the card.
+ */
 function ActionCard({
   to,
   title,
@@ -57,6 +72,9 @@ function ActionCard({
   );
 }
 
+/**
+ * Renders the quiz landing page with practice options and learning progress.
+ */
 export default function QuizHomePage() {
   const { isAuthenticated, currentUser } = useAuth();
   const [attemptCount, setAttemptCount] = useState(0);

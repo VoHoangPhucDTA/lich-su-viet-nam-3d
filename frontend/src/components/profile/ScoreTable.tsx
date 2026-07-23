@@ -18,6 +18,12 @@ function formatDate(iso: string): string {
   return new Date(iso).toLocaleDateString('vi-VN', { day: '2-digit', month: '2-digit', year: 'numeric' });
 }
 
+/**
+ * Renders a circular progress indicator for a score.
+ *
+ * @param score - The score displayed and represented as progress out of 10
+ * @returns A circular score indicator with color-coded progress and a one-decimal score label
+ */
 function ScoreCircle({ score }: { score: number }) {
   const color = score >= 8 ? '#3D8361' : score >= 6.5 ? '#c5a059' : '#8b1e1e';
   const pct = (score / 10) * 360;
@@ -35,6 +41,11 @@ function ScoreCircle({ score }: { score: number }) {
   );
 }
 
+/**
+ * Renders completed test scores or an empty state when no scores are available.
+ *
+ * @param scores - The completed test score records to display
+ */
 export default function ScoreTable({ scores }: { scores: ScoreRecord[] }) {
   if (scores.length === 0) {
     return (

@@ -33,6 +33,11 @@ const DIFFICULTY_OPTIONS: MuseumSelectOption<string>[] = [
 
 const DIFFICULTY_LABELS: Record<string, string> = { easy: 'Dễ', medium: 'Trung bình', hard: 'Khó' };
 
+/**
+ * Displays completed quiz sessions with difficulty filtering and links to detailed results.
+ *
+ * @returns The quiz history page.
+ */
 export default function QuizHistoryPage() {
   const { currentUser } = useAuth();
   const [history, setHistory] = useState<QuizResult[]>([]);

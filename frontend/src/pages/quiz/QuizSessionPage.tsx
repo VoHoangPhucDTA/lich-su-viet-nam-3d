@@ -114,6 +114,11 @@ function ProgressPanel({
   );
 }
 
+/**
+ * Renders the interactive quiz session page with question navigation, progress tracking, timed submission, and answer management.
+ *
+ * @returns The quiz session interface, loading state, or error state.
+ */
 export default function QuizSessionPage() {
   const { currentUser } = useAuth();
   const { sessionId } = useParams<{ sessionId: string }>();

@@ -9,6 +9,11 @@ import TextInput from '../../components/auth/TextInput';
 import PasswordInput from '../../components/auth/PasswordInput';
 import { ApiRequestError } from '../../services/apiClient';
 
+/**
+ * Renders the login form's submit button with loading and hover states.
+ *
+ * @param loading - Whether the button is processing a submission.
+ */
 function SubmitButton({ loading }: { loading: boolean }) {
   return (
     <button
@@ -50,6 +55,9 @@ function SubmitButton({ loading }: { loading: boolean }) {
   );
 }
 
+/**
+ * Renders the login page and handles authentication submission.
+ */
 export default function LoginPage() {
   const { login } = useAuth();
   const navigate = useNavigate();

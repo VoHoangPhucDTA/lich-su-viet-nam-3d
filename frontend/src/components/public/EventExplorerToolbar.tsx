@@ -39,6 +39,25 @@ const GRADE_OPTIONS: MuseumSelectOption<GradeSelectValue>[] = [
   { value: '12', label: 'Lớp 12' },
 ];
 
+/**
+ * Renders a controlled search, sorting, and expandable event filtering toolbar.
+ *
+ * @param query - The current search query.
+ * @param onQueryChange - Updates the search query.
+ * @param sortValue - The current event sorting option.
+ * @param onSortChange - Updates the sorting option.
+ * @param yearFrom - The lower year-bound input value.
+ * @param onYearFromChange - Updates the lower year bound.
+ * @param yearTo - The upper year-bound input value.
+ * @param onYearToChange - Updates the upper year bound.
+ * @param activeType - The currently selected event type.
+ * @param onTypeChange - Updates or clears the event type filter.
+ * @param activeGrade - The currently selected event grade.
+ * @param onGradeChange - Updates or clears the event grade filter.
+ * @param onReset - Clears the active filters.
+ * @param rangeError - An error message for the selected year range.
+ * @param searchPlaceholder - Placeholder text for the search input.
+ */
 export default function EventExplorerToolbar({
   query,
   onQueryChange,

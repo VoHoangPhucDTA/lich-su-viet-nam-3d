@@ -13,6 +13,13 @@ function formatPeriodRange(period: HistoricalPeriod) {
   return `${start} – ${end}`;
 }
 
+/**
+ * Renders a navigable card for a historical period.
+ *
+ * @param period - The historical period displayed by the card
+ * @param compact - Whether to use the compact card layout
+ * @returns The rendered historical period card
+ */
 export default function HistoricalPeriodCard({ period, compact = false }: HistoricalPeriodCardProps) {
   return (
     <Link

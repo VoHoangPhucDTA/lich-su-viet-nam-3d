@@ -8,6 +8,12 @@ interface AuthLayoutProps {
   children: ReactNode;
 }
 
+/**
+ * Renders the shared layout for authentication pages.
+ *
+ * @param children - The authentication content displayed in the form area.
+ * @returns The authentication page layout.
+ */
 export default function AuthLayout({ children }: AuthLayoutProps) {
   return (
     <main className="auth-shell">

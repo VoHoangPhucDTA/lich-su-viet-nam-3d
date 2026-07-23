@@ -8,6 +8,15 @@ interface StatsCardProps {
   color?: string;
 }
 
+/**
+ * Displays a labeled value with an icon, accent color, and optional supporting text.
+ *
+ * @param icon - The icon displayed alongside the label
+ * @param label - The label displayed above the value
+ * @param value - The primary value displayed by the card
+ * @param sub - Optional supporting text displayed below the value
+ * @param color - The accent color applied to the card
+ */
 export default function StatsCard({
   icon,
   label,

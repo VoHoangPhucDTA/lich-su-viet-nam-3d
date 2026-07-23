@@ -101,6 +101,13 @@ export default function EventChildrenList({
   );
 }
 
+/**
+ * Displays a related historical event as an interactive card.
+ *
+ * @param child - The historical event and its relationship metadata to display
+ * @param onOpen - Callback invoked when the card is selected
+ * @returns The rendered related event card
+ */
 function RelatedEventCard({
   child,
   onOpen,

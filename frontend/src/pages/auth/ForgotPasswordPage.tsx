@@ -6,6 +6,12 @@ import AuthLayout from '../../components/auth/AuthLayout';
 import AuthFormMessage from '../../components/auth/AuthFormMessage';
 import TextInput from '../../components/auth/TextInput';
 
+/**
+ * Renders a form for requesting password-reset instructions by email.
+ *
+ * Displays validation or request errors, a success confirmation with the submitted
+ * email address, and links for returning to the login page.
+ */
 export default function ForgotPasswordPage() {
   const { forgotPassword } = useAuth();
   const [email, setEmail] = useState('');

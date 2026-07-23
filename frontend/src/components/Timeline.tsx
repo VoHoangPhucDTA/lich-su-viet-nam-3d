@@ -25,6 +25,12 @@ const HISTORICAL_KEY_YEARS = [
 export const MAP_TIMELINE_MIN_YEAR = -2000;
 export const MAP_TIMELINE_MAX_YEAR = TIMELINE_MAX_YEAR;
 
+/**
+ * Formats a year for display, using the `TCN` suffix for negative years.
+ *
+ * @param year - The year to format
+ * @returns The formatted year label
+ */
 function formatYear(year: number): string {
   if (year < 0) return `${Math.abs(year)} TCN`;
   return `${year}`;
@@ -35,6 +41,16 @@ function formatYearShort(year: number): string {
   return `${year}`;
 }
 
+/**
+ * Renders a timeline slider for selecting historical years and optionally filtering by grade.
+ *
+ * @param currentYear - The currently selected year.
+ * @param onYearChange - Handles changes to the selected year.
+ * @param selectedGrade - The currently selected grade filter.
+ * @param onGradeChange - Handles changes to the grade filter.
+ * @param eventYears - The years available on the timeline.
+ * @returns The rendered timeline interface.
+ */
 export default function Timeline({
   currentYear,
   onYearChange,

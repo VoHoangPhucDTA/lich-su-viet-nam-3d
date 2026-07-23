@@ -16,6 +16,17 @@ interface MuseumSelectProps<T extends string = string> {
   textOnly?: boolean;
 }
 
+/**
+ * Renders an accessible dropdown for selecting a value from a list of options.
+ *
+ * @param value - The currently selected option value
+ * @param options - The available selectable options
+ * @param onValueChange - Callback invoked with the selected option value
+ * @param label - Accessible label for the select control
+ * @param disabled - Whether the select control is disabled
+ * @param className - Additional class name applied to the select wrapper
+ * @param textOnly - Whether to display text instead of selection icons
+ */
 export default function MuseumSelect<T extends string = string>({
   value,
   options,

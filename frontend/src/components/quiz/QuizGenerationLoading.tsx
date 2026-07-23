@@ -1,5 +1,10 @@
 import { BrainCircuit, LoaderCircle } from 'lucide-react';
 
+/**
+ * Displays the loading state while a practice quiz is being generated.
+ *
+ * @param onCancel - Optional callback invoked when the user cancels waiting.
+ */
 export default function QuizGenerationLoading({ onCancel }: { onCancel?: () => void }) {
   return (
     <div className="quiz-loading-overlay" role="status" aria-live="assertive">

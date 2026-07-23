@@ -5,6 +5,9 @@ import type { ExamResult } from '../../types/exam';
 import { useAuth } from '../../auth/AuthContext';
 import ExamHistoryTable from '../../components/exams/ExamHistoryTable';
 
+/**
+ * Displays the current user's exam history, or guest exam history when no user is signed in.
+ */
 export default function ExamHistoryPage() {
   const [history, setHistory] = useState<ExamResult[]>([]);
   const [loading, setLoading] = useState(true);

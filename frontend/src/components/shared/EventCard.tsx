@@ -11,6 +11,14 @@ interface EventCardProps {
   compact?: boolean;
 }
 
+/**
+ * Renders a clickable preview card for a historical event.
+ *
+ * @param event - The historical event to display.
+ * @param imageHeight - The CSS height class applied to the image area.
+ * @param compact - Whether to use the compact card layout.
+ * @returns The rendered event card.
+ */
 export default function EventCard({ event, imageHeight = 'h-40', compact = false }: EventCardProps) {
   const [failedImageUrls, setFailedImageUrls] = useState<Set<string>>(() => new Set());
   const color = EVENT_TYPE_COLORS[event.eventType];

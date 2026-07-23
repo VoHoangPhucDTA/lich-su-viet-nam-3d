@@ -8,7 +8,10 @@ interface EventLocationCardProps {
 }
 
 /**
- * Khối "Địa điểm" – hiển thị tỉnh/địa danh + CTA bay tới bản đồ 3D.
+ * Renders the event location section with mapped places and a link to the 3D map.
+ *
+ * @param index - The section index displayed in the header.
+ * @returns The location section for eligible events, or `null` for world-history events.
  */
 export default function EventLocationCard({ event, index = '05' }: EventLocationCardProps) {
   const navigate = useNavigate();

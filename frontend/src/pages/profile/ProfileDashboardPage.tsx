@@ -36,7 +36,12 @@ import {
 const strengths = mockCategoryScores.filter(c => c.correctRate >= 75);
 const weaknesses = mockCategoryScores.filter(c => c.correctRate < 70);
 
-/* ─── Welcome Hero ──────────────────────────────────────────────────────────── */
+/**
+ * Displays a personalized welcome section with learning progress highlights.
+ *
+ * @param firstName - The first name shown in the greeting.
+ * @returns The rendered welcome section.
+ */
 function WelcomeHero({ firstName }: { firstName: string }) {
   return (
     <section className="relative overflow-hidden rounded-2xl bg-white border border-stone-200/60 p-6 sm:p-8">
@@ -107,7 +112,9 @@ function StatsGrid() {
   );
 }
 
-/* ─── Charts ────────────────────────────────────────────────────────────────── */
+/**
+ * Displays weekly scores, topic accuracy, and progress by grade in chart panels.
+ */
 function ChartsGrid() {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -147,6 +154,12 @@ const categoryIcon: Record<string, React.ReactNode> = {
   cultural: <BookOpenText size={12} strokeWidth={2} />,
 };
 
+/**
+ * Displays the learner's strongest and weakest study categories.
+ *
+ * Shows category labels with their correct-answer rates, or an appropriate
+ * message when either category group has no data.
+ */
 function StrengthsWeaknesses() {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -203,6 +216,11 @@ const eventIcons: Record<string, React.ReactNode> = {
   'Khởi nghĩa Lam Sơn (1418–1427)': <Zap size={20} strokeWidth={1.5} />,
 };
 
+/**
+ * Displays recent learning activities with progress and actions to continue or review them.
+ *
+ * @returns The rendered continue-learning panel
+ */
 function ContinueLearning() {
   return (
     <div className="rounded-2xl bg-white border border-stone-200/60 p-5 relative">
@@ -254,7 +272,12 @@ function ContinueLearning() {
   );
 }
 
-/* ─── Main Page ──────────────────────────────────────────────────────────────── */
+/**
+ * Renders the authenticated user's learning dashboard.
+ *
+ * Displays personalized welcome information, learning statistics, progress charts,
+ * strengths and weaknesses, recent learning activity, and study recommendations.
+ */
 export default function ProfileDashboardPage() {
   const { currentUser } = useAuth();
   const name = currentUser?.fullName ?? 'Học sinh';
