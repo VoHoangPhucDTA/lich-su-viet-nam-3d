@@ -116,16 +116,13 @@ export default function EventDetailSidebar({
 
         <button
           onClick={onScrollToTop}
-          className="inline-flex items-center justify-center gap-2 w-full px-4 py-3 rounded-[10px] text-sm font-medium transition"
+          className="inline-flex items-center justify-center w-full px-4 py-3 rounded-[10px] text-sm font-medium transition"
           style={{
             background: 'var(--bg-surface)',
             border: '1px solid var(--border)',
             color: 'var(--text-secondary)',
           }}
         >
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <path d="M12 19V5M5 12l7-7 7 7" />
-          </svg>
           Lên đầu trang
         </button>
       </div>

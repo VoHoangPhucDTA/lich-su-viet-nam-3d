@@ -757,7 +757,7 @@ export default function MapPage() {
                 setNavigationStack([]);
               });
             }}
-            className="accent-hover-glow"
+            className="accent-hover-glow map-text-action"
             style={{
               background: 'none',
               border: 'none',
@@ -767,13 +767,6 @@ export default function MapPage() {
               fontWeight: 600,
               padding: '2px 8px',
               borderRadius: '6px',
-              transition: 'all 0.2s var(--ease-museum)',
-            }}
-            onMouseEnter={(e) => {
-              (e.currentTarget as HTMLButtonElement).style.background = 'var(--accent-soft)';
-            }}
-            onMouseLeave={(e) => {
-              (e.currentTarget as HTMLButtonElement).style.background = 'transparent';
             }}
           >
             Tổng quan
@@ -790,7 +783,7 @@ export default function MapPage() {
                     setSelectedEvent(navEvent);
                   });
                 }}
-                className="accent-hover-glow"
+                className="accent-hover-glow map-text-action"
                 style={{
                   background: 'none',
                   border: 'none',
@@ -805,13 +798,6 @@ export default function MapPage() {
                   textOverflow: 'ellipsis',
                   whiteSpace: 'nowrap',
                   minWidth: 0,
-                  transition: 'all 0.2s var(--ease-museum)',
-                }}
-                onMouseEnter={(e) => {
-                  (e.currentTarget as HTMLButtonElement).style.background = 'var(--accent-soft)';
-                }}
-                onMouseLeave={(e) => {
-                  (e.currentTarget as HTMLButtonElement).style.background = 'transparent';
                 }}
               >
                 {navEvent.name}
@@ -874,12 +860,11 @@ export default function MapPage() {
           <div className="relative flex-1 min-h-0">
             <button
               type="button"
-              className="map-sidebar-toggle public-secondary-button"
+              className="map-sidebar-toggle map-sidebar-text-toggle"
               onClick={() => setSidebarOpen(true)}
               aria-label="Mở danh sách sự kiện"
             >
-              <List size={16} aria-hidden="true" />
-              Sự kiện
+              Danh sách
             </button>
             <CesiumMap
               events={visibleMapEvents}
@@ -1016,6 +1001,16 @@ export default function MapPage() {
                   </div>
                 </div>
               </div>
+            )}
+            {!selectedEvent && onboardingDismissed && (
+              <button
+                type="button"
+                className="map-guide-toggle"
+                onClick={() => setOnboardingDismissed(false)}
+                aria-expanded="false"
+              >
+                Hướng dẫn sử dụng
+              </button>
             )}
             {eventsLoading && (
               <div

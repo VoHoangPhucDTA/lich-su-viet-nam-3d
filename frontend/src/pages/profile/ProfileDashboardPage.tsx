@@ -161,7 +161,7 @@ function StrengthsWeaknesses() {
             <p className="text-sm text-stone-400 italic font-sans">Chưa có dữ liệu</p>
           ) : (
             strengths.map(c => (
-              <div key={c.category} className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold transition-all hover:scale-105 cursor-default"
+              <div key={c.category} className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold cursor-default"
                 style={{ background: `${c.color}12`, color: c.color, border: `1px solid ${c.color}25` }}>
                 {categoryIcon[c.category] ?? null}
                 <span>{c.label}</span>
@@ -214,7 +214,7 @@ function ContinueLearning() {
       <div className="flex flex-col gap-2.5">
         {mockRecentEvents.map(ev => {
           return (
-            <div key={ev.id} className="group rounded-xl transition-all duration-200 flex items-center gap-3.5 p-3.5 bg-stone-50 border border-stone-200/60 hover:bg-white hover:shadow-sm">
+            <div key={ev.id} className="rounded-xl flex items-center gap-3.5 p-3.5 bg-stone-50 border border-stone-200/60">
               <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 bg-red-50 text-red-900">
                 {eventIcons[ev.title] ?? <BookOpenText size={20} strokeWidth={1.5} />}
               </div>
@@ -230,11 +230,11 @@ function ContinueLearning() {
                   <span>{ev.progress}%</span>
                 </div>
                 <div className="h-1.5 rounded-full overflow-hidden bg-stone-200">
-                  <div className="h-full rounded-full transition-all duration-500"
+                  <div className="h-full rounded-full transition-[width] duration-500"
                     style={{ width: `${ev.progress}%`, background: ev.progress === 100 ? '#3D8361' : '#8b1e1e' }} />
                 </div>
               </div>
-              <button className="shrink-0 rounded-lg px-3 py-1.5 text-xs font-sans font-bold uppercase tracking-wider transition-all bg-red-50 text-red-900 border border-red-200/60 hover:bg-red-100">
+              <button type="button" className="profile-action shrink-0 rounded-lg px-3 py-1.5 text-xs font-sans font-bold uppercase tracking-wider bg-red-50 text-red-900 border border-red-200/60 hover:bg-red-100">
                 <span className="flex items-center gap-1">
                   {ev.progress === 100 ? 'Ôn lại' : 'Tiếp tục'}
                   <ArrowRight size={12} strokeWidth={2.5} />
@@ -245,7 +245,7 @@ function ContinueLearning() {
         })}
       </div>
       <div className="mt-3 text-right">
-        <Link to="/profile/history" className="inline-flex items-center gap-1 text-xs font-sans font-bold uppercase tracking-wider text-red-900 hover:text-red-700 transition-colors">
+        <Link to="/profile/history" className="profile-action inline-flex items-center gap-1 rounded text-xs font-sans font-bold uppercase tracking-wider text-red-900 hover:text-red-700">
           Xem lịch sử
           <ChevronRight size={13} strokeWidth={2.5} />
         </Link>

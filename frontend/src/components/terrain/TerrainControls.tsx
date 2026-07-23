@@ -1,4 +1,4 @@
-import { Check, Info, LoaderCircle, Mountain } from 'lucide-react';
+import { Check, Info, LoaderCircle } from 'lucide-react';
 import type { TerrainViewModel } from '../../types/terrain';
 import TerrainTargetList from './TerrainTargetList';
 
@@ -42,7 +42,7 @@ export default function TerrainControls({
             <div role="alert" style={{ fontSize: '12px', color: '#991b1b', marginBottom: '8px' }}>
               Chưa tải được dữ liệu khu vực trên bản đồ.
             </div>
-            <button type="button" onClick={onRetry} style={buttonStyle}>Thử lại</button>
+            <button type="button" onClick={onRetry} className="terrain-action" style={buttonStyle}>Thử lại</button>
           </div>
         );
       }
@@ -55,10 +55,9 @@ export default function TerrainControls({
       <button
         type="button"
         onClick={onOpen}
-        className="flex items-center justify-center gap-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+        className="terrain-action flex items-center justify-center"
         style={{ ...buttonStyle, borderColor: '#8b1e1e', color: '#8b1e1e' }}
       >
-        <Mountain size={16} aria-hidden="true" />
         Xem địa hình
       </button>
     );
@@ -80,10 +79,10 @@ export default function TerrainControls({
           {terrain.error?.message || 'Không thể tải dữ liệu địa hình. Vui lòng thử lại.'}
         </div>
         <div className="flex gap-2 flex-wrap">
-          <button type="button" onClick={onRetry} style={{ ...buttonStyle, color: '#8b1e1e' }}>
+          <button type="button" onClick={onRetry} className="terrain-action" style={{ ...buttonStyle, color: '#8b1e1e' }}>
             Thử lại
           </button>
-          <button type="button" onClick={onExit} style={buttonStyle}>
+          <button type="button" onClick={onExit} className="terrain-action" style={buttonStyle}>
             Quay lại góc nhìn
           </button>
         </div>
@@ -116,11 +115,12 @@ export default function TerrainControls({
           type="button"
           onClick={onShowOverview}
           aria-pressed={terrain.selectedTargetId === null}
+          className="terrain-action"
           style={buttonStyle}
         >
           Xem toàn bộ
         </button>
-        <button type="button" onClick={onExit} style={{ ...buttonStyle, color: '#8b1e1e' }}>
+        <button type="button" onClick={onExit} className="terrain-action" style={{ ...buttonStyle, color: '#8b1e1e' }}>
           Quay lại góc nhìn
         </button>
       </div>

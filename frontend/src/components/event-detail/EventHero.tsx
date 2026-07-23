@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState, type ReactNode } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import type { MockEventDetail } from '../../data/mockEventDetails';
 import {
@@ -144,10 +144,7 @@ export default function EventHero({ event, showMapAction }: EventHeroProps) {
                 accent="admin"
               />
             )}
-            <Chip
-              label={isWorldHistory ? 'Bối cảnh thế giới' : 'Lịch sử Việt Nam'}
-              accent={isWorldHistory ? 'warning' : 'accent'}
-            />
+            {isWorldHistory && <Chip label="Bối cảnh thế giới" accent="warning" />}
           </div>
 
           {hasThumbnail && (
@@ -163,23 +160,11 @@ export default function EventHero({ event, showMapAction }: EventHeroProps) {
           {/* Meta row */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
             <MetaItem
-              icon={
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6">
-                  <rect x="3" y="4" width="18" height="18" rx="2" />
-                  <path d="M16 2v4M8 2v4M3 10h18" />
-                </svg>
-              }
               label="Thời gian"
               value={event.chronology.displayDate}
             />
             {provinces.length > 0 && (
               <MetaItem
-                icon={
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6">
-                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 1118 0z" />
-                    <circle cx="12" cy="10" r="3" />
-                  </svg>
-                }
                 label="Địa điểm"
                 value={provinces.join(', ')}
               />
@@ -310,28 +295,17 @@ function Chip({
 }
 
 function MetaItem({
-  icon,
   label,
   value,
 }: {
-  icon: ReactNode;
   label: string;
   value: string;
 }) {
   return (
     <div
-      className="flex items-center gap-3 px-4 py-3 rounded-xl"
+      className="px-4 py-3 rounded-xl"
       style={{ background: 'var(--bg-surface)', border: '1px solid var(--border)' }}
     >
-      <div
-        className="flex-shrink-0 w-9 h-9 rounded-lg flex items-center justify-center"
-        style={{
-          background: 'var(--accent-soft)',
-          color: 'var(--accent)',
-        }}
-      >
-        {icon}
-      </div>
       <div className="min-w-0">
         <div
           className="text-[10px] font-bold uppercase tracking-[0.14em]"

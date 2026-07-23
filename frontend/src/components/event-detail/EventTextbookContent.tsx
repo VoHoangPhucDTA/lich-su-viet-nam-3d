@@ -9,8 +9,7 @@ interface EventTextbookContentProps {
 }
 
 /**
- * Textbook content redesigned with CoiNguonPage design language.
- * Red-900 accent blockquotes, serif typography, white cards, subtle shadow.
+ * Textbook content follows the shared event-detail reading rhythm.
  */
 export default function EventTextbookContent({
   event,
@@ -24,12 +23,12 @@ export default function EventTextbookContent({
   const canonicalSummary = normalizeOverviewText(textbookContent.canonicalSummary);
   const showOverviewQuote = Boolean(overviewQuote) && overviewQuote !== canonicalSummary;
 
-  const cardClass = 'p-6 md:p-8 lg:p-10 rounded-2xl text-[15.5px] leading-loose';
+  const cardClass = 'w-full text-[15.5px] leading-loose';
   const cardStyle: React.CSSProperties = {
-    background: 'var(--bg-card)',
-    border: '1px solid var(--border)',
+    background: 'transparent',
+    border: 0,
     color: 'var(--text-secondary)',
-    boxShadow: 'var(--shadow)',
+    boxShadow: 'none',
   };
 
   return (
@@ -83,9 +82,9 @@ export default function EventTextbookContent({
           <div
             className={`event-prose ${cardClass} relative overflow-hidden`}
             style={{
-              background: 'linear-gradient(135deg, var(--accent-soft), transparent 70%), var(--bg-card)',
-              border: '1px solid color-mix(in srgb, var(--accent) 40%, transparent)',
-              boxShadow: 'var(--shadow)',
+              background: 'transparent',
+              border: 0,
+              boxShadow: 'none',
             }}
           >
             <p

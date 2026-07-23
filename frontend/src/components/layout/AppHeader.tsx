@@ -2,10 +2,10 @@ import { useState, useRef, useEffect } from 'react';
 import { Link, NavLink, useNavigate, useLocation } from 'react-router-dom';
 import {
   Menu,
-  Globe,
   ShieldCheck,
 } from 'lucide-react';
 import { useAuth } from '../../auth/AuthContext';
+import appLogo from '../../assets/lich-su-viet-nam-3d-logo-header-transparent.webp';
 import { useHeader } from './HeaderContext';
 
 export default function AppHeader() {
@@ -13,6 +13,7 @@ export default function AppHeader() {
   const navigate = useNavigate();
   const location = useLocation();
   const { centerContent } = useHeader();
+  const preserveExcludedModuleIcons = /^\/(?:quiz|exams)(?:\/|$)/.test(location.pathname);
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [profileDropdownOpen, setProfileDropdownOpen] = useState(false);
@@ -44,33 +45,35 @@ export default function AppHeader() {
     location.pathname === path || location.pathname.startsWith(`${path}/`);
 
   const tabClass = (path: string) =>
-    `relative px-3 py-2 text-xs font-sans font-bold uppercase tracking-wide transition-colors duration-300 ${
+    `app-nav-link relative px-3 py-2 text-xs font-sans font-bold uppercase tracking-wide ${
       isActiveTab(path)
         ? 'text-red-900'
         : 'text-stone-500 hover:text-red-900'
     }`;
 
   return (
-    <nav aria-label="Điều hướng chính" className="app-header sticky top-0 z-50 backdrop-blur-md bg-stone-50/80 border-b border-stone-200/60 shadow-sm">
+    <nav
+      aria-label="Điều hướng chính"
+      className={`app-header sticky top-0 z-50 backdrop-blur-md bg-stone-50/80 border-b border-stone-200/60 shadow-sm ${
+        preserveExcludedModuleIcons ? 'app-header-excluded' : 'app-header-standard'
+      }`}
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
 
         {/* ── Left: Brand ── */}
         <div className="flex items-center gap-3 flex-shrink-0">
-          <Link to="/home" className="flex items-center gap-3 group no-underline">
-            {/* Compass motif */}
-            <div className="relative w-10 h-10 flex items-center justify-center">
-              <div className="absolute inset-0 rounded-full border border-amber-200/60 animate-spin-slow" />
-              <div className="absolute inset-1 rounded-full border border-red-900/20" />
-              <Globe size={18} strokeWidth={1.5} className="text-red-900 relative z-10 group-hover:rotate-45 transition-transform duration-500" />
-            </div>
-            <div className="hidden sm:block">
-              <div className="app-brand-title text-lg sm:text-xl text-stone-900">
-                Lịch Sử Việt Nam
-              </div>
-              <div className="app-brand-subtitle text-[10px] uppercase text-stone-500">
-                Bảo tàng số học đường THPT
-              </div>
-            </div>
+          <Link
+            to="/home"
+            className="app-brand-link flex items-center no-underline"
+            aria-label="Lịch Sử Việt Nam 3D - Trang chủ"
+          >
+            <img
+              src={appLogo}
+              alt="Lịch Sử Việt Nam 3D"
+              width={1215}
+              height={534}
+              className="app-brand-logo"
+            />
           </Link>
         </div>
 
@@ -111,14 +114,18 @@ export default function AppHeader() {
                 onClick={() => setProfileDropdownOpen(!profileDropdownOpen)}
                 aria-haspopup="true"
                 aria-expanded={profileDropdownOpen}
-                className="px-3 py-1.5 text-xs font-sans font-bold uppercase tracking-wide rounded-xl bg-red-900/10 border border-red-900/20 text-red-900 hover:bg-red-900/20 transition-all duration-300"
+                className={`px-3 py-1.5 text-xs font-sans font-bold uppercase tracking-wide rounded-xl bg-red-900/10 border border-red-900/20 text-red-900 hover:bg-red-900/20 ${
+                  preserveExcludedModuleIcons ? 'transition-all duration-300' : 'app-header-action'
+                }`}
               >
                 {currentUser?.fullName || 'Hồ sơ'}
               </button>
             ) : (
               <button
                 onClick={() => navigate('/login')}
-                className="px-4 py-2 text-xs font-sans font-bold uppercase tracking-wide rounded-xl bg-red-900 text-white hover:bg-red-950 transition-all duration-300 shadow-sm"
+                className={`px-4 py-2 text-xs font-sans font-bold uppercase tracking-wide rounded-xl bg-red-900 text-white hover:bg-red-950 shadow-sm ${
+                  preserveExcludedModuleIcons ? 'transition-all duration-300' : 'app-header-action'
+                }`}
               >
                 Đăng nhập
               </button>
@@ -136,7 +143,7 @@ export default function AppHeader() {
                   <>
                     <div className="h-px bg-stone-200/60 my-1" />
                     <DropdownLink to="/admin/dashboard" onClick={() => setProfileDropdownOpen(false)}>
-                      <ShieldCheck size={13} strokeWidth={2} />
+                      {preserveExcludedModuleIcons && <ShieldCheck size={13} strokeWidth={2} />}
                       Quản trị
                     </DropdownLink>
                   </>
@@ -156,12 +163,14 @@ export default function AppHeader() {
         {/* ── Mobile toggle ── */}
         <button
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="lg:hidden w-11 h-11 flex items-center justify-center rounded-xl bg-stone-100 border border-stone-200/60 text-stone-600"
+          className={`lg:hidden min-h-11 flex items-center justify-center rounded-xl bg-stone-100 border border-stone-200/60 text-stone-600 ${
+            preserveExcludedModuleIcons ? 'w-11' : 'px-4 text-sm font-semibold'
+          }`}
           aria-label="Menu"
           aria-expanded={mobileMenuOpen}
           aria-controls="app-mobile-navigation"
         >
-          <Menu size={18} strokeWidth={2} />
+          {preserveExcludedModuleIcons ? <Menu size={18} strokeWidth={2} /> : 'Menu'}
         </button>
       </div>
 
@@ -206,7 +215,7 @@ function DropdownLink({ to, onClick, children }: { to: string; onClick: () => vo
     <Link
       to={to}
       onClick={onClick}
-      className="flex items-center gap-2 px-3 py-2 text-xs text-stone-700 hover:text-red-900 hover:bg-red-50 rounded-lg transition-all duration-200 no-underline font-medium"
+      className="app-dropdown-link flex items-center gap-2 px-3 py-2 text-xs text-stone-700 hover:text-red-900 hover:bg-red-50 rounded-lg no-underline font-medium"
     >
       {children}
     </Link>
@@ -219,7 +228,7 @@ function MobileLink({ to, active, onClick, children }: { to: string; active: boo
       to={to}
       onClick={onClick}
       aria-current={active ? 'page' : undefined}
-      className={`block min-h-11 px-4 py-3 rounded-xl text-sm font-medium transition-colors no-underline ${
+      className={`app-mobile-link block min-h-11 px-4 py-3 rounded-xl text-sm font-medium no-underline ${
         active ? 'bg-red-50 text-red-900 font-bold' : 'text-stone-700 hover:text-red-900 hover:bg-red-50'
       }`}
     >

@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
-import { ArrowRight, Quote } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import type { HistoricalEvent } from '../types/event';
 import { HISTORICAL_PERIODS } from '../data/historicalPeriods';
 import { getHomepageEvents } from '../services/eventApi';
 import EventCard from '../components/shared/EventCard';
 import HistoricalPeriodCard from '../components/public/HistoricalPeriodCard';
+import appLogo from '../assets/lich-su-viet-nam-3d-logo-header-transparent.webp';
 
 export default function CoiNguonPage() {
   const [featuredEvents, setFeaturedEvents] = useState<HistoricalEvent[]>([]);
@@ -15,7 +15,7 @@ export default function CoiNguonPage() {
     let cancelled = false;
     getHomepageEvents()
       .then(events => {
-        if (!cancelled) setFeaturedEvents(events.filter(event => event.eventLevel === 'atomic').slice(0, 6));
+        if (!cancelled) setFeaturedEvents(events);
       })
       .finally(() => {
         if (!cancelled) setLoading(false);
@@ -68,20 +68,13 @@ export default function CoiNguonPage() {
               <p className="public-eyebrow">Tiến trình lịch sử</p>
               <h2 className="app-heading mt-2 text-3xl font-bold text-[var(--text-primary)] sm:text-4xl">Thời kỳ lịch sử trọng đại</h2>
             </div>
-            <Link to="/periods" className="inline-flex items-center gap-2 text-sm font-bold text-[var(--accent)] no-underline">
-              Xem tất cả thời kỳ <ArrowRight size={15} aria-hidden="true" />
+            <Link to="/periods" className="public-text-link inline-flex items-center text-sm font-bold no-underline">
+              Xem tất cả thời kỳ
             </Link>
           </div>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-5">
             {HISTORICAL_PERIODS.map(period => <HistoricalPeriodCard key={period.id} period={period} compact />)}
           </div>
-        </section>
-
-        <section className="border-y border-[var(--border)] py-10 text-center sm:py-12">
-          <Quote className="mx-auto text-[var(--admin-accent)]" size={34} strokeWidth={1.5} aria-hidden="true" />
-          <blockquote className="app-heading mx-auto mt-4 max-w-3xl text-2xl font-bold leading-relaxed text-[var(--accent)] sm:text-3xl">
-            “Dân ta phải biết sử ta, cho tường gốc tích nước nhà Việt Nam.”
-          </blockquote>
         </section>
 
         <section>
@@ -90,8 +83,8 @@ export default function CoiNguonPage() {
               <p className="public-eyebrow">Ký ức vàng son</p>
               <h2 className="app-heading mt-2 text-3xl font-bold text-[var(--text-primary)] sm:text-4xl">Sự kiện lịch sử tiêu biểu</h2>
             </div>
-            <Link to="/browse" className="inline-flex items-center gap-2 text-sm font-bold text-[var(--accent)] no-underline">
-              Xem thư viện sự kiện <ArrowRight size={15} aria-hidden="true" />
+            <Link to="/browse" className="public-text-link inline-flex items-center text-sm font-bold no-underline">
+              Xem thư viện sự kiện
             </Link>
           </div>
           {loading ? (
@@ -106,10 +99,30 @@ export default function CoiNguonPage() {
             </div>
           )}
         </section>
+
+        <section className="public-card relative isolate min-h-64 overflow-hidden px-6 py-12 text-center sm:px-10 sm:py-16">
+          <img
+            src="/vietnam_heritage_hero.jpg"
+            alt=""
+            loading="lazy"
+            className="absolute inset-0 -z-20 h-full w-full object-cover"
+          />
+          <div className="absolute inset-0 -z-10 bg-stone-950/70" />
+          <blockquote className="app-heading mx-auto max-w-4xl text-2xl font-extrabold leading-relaxed text-white drop-shadow-sm sm:text-3xl lg:text-4xl">
+            “Dân ta phải biết sử ta, cho tường gốc tích nước nhà Việt Nam.”
+          </blockquote>
+        </section>
       </main>
       <footer className="border-t border-[var(--border)] bg-[var(--bg-card)]">
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-2 px-4 py-8 text-center sm:flex-row sm:px-6 sm:text-left">
-          <span className="app-heading text-lg font-bold text-[var(--text-primary)]">Lịch sử Việt Nam 3D</span>
+          <img
+            src={appLogo}
+            alt="Lịch Sử Việt Nam 3D"
+            width={1215}
+            height={534}
+            loading="lazy"
+            className="app-footer-logo"
+          />
           <span className="text-[11px] font-semibold uppercase tracking-[0.12em] text-[var(--text-muted)]">
             Bảo tàng số học đường THPT · {new Date().getFullYear()}
           </span>

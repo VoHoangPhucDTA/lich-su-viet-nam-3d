@@ -41,8 +41,6 @@ function FormField({
   disabled?: boolean;
   helperText?: string;
 }) {
-  const [focused, setFocused] = useState(false);
-
   return (
     <div>
       <label htmlFor={id} className="block text-xs font-sans font-bold uppercase tracking-wider text-stone-400 mb-1.5">
@@ -55,16 +53,8 @@ function FormField({
         onChange={e => onChange?.(e.target.value)}
         placeholder={placeholder}
         disabled={disabled}
-        onFocus={() => setFocused(true)}
-        onBlur={() => setFocused(false)}
-        className="w-full px-4 py-2.5 rounded-xl text-sm outline-none transition-all duration-200"
-        style={{
-          background: disabled ? '#f5f5f4' : '#fff',
-          border: focused ? '2px solid #8b1e1e' : '1px solid #e7e5e4',
-          color: disabled ? '#a8a29e' : '#1c1917',
-          fontFamily: 'inherit',
-          cursor: disabled ? 'not-allowed' : 'text',
-        }}
+        className="profile-form-control px-4 py-2.5 text-sm"
+        style={{ fontFamily: 'inherit' }}
       />
       {helperText && (
         <p className="text-xs text-stone-400 mt-1">{helperText}</p>
@@ -87,25 +77,18 @@ function SelectField({
   onChange: (v: string) => void;
   options: { value: string; label: string }[];
 }) {
-  const [focused, setFocused] = useState(false);
-
   return (
     <div>
       <label htmlFor={id} className="block text-xs font-sans font-bold uppercase tracking-wider text-stone-400 mb-1.5">
         {label}
       </label>
-      <div className="relative" onFocus={() => setFocused(true)} onBlur={() => setFocused(false)}>
+      <div className="relative">
         <select
           id={id}
           value={value}
           onChange={e => onChange(e.target.value)}
-          className="w-full px-4 py-2.5 rounded-xl text-sm outline-none appearance-none cursor-pointer transition-all duration-200"
-          style={{
-            background: '#fff',
-            border: focused ? '2px solid #8b1e1e' : '1px solid #e7e5e4',
-            color: '#1c1917',
-            fontFamily: 'inherit',
-          }}
+          className="profile-form-control px-4 py-2.5 text-sm appearance-none cursor-pointer"
+          style={{ fontFamily: 'inherit' }}
         >
           {options.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
         </select>
@@ -138,7 +121,10 @@ function CardTitle({ children }: { children: React.ReactNode }) {
 /* ─── Toast ─────────────────────────────────────────────────────────────────── */
 function Toast({ message, type }: { message: string; type: 'success' | 'error' }) {
   return (
-    <div className="fixed bottom-6 right-6 z-[9999] flex items-center gap-3 px-5 py-3 rounded-xl text-sm font-bold shadow-lg animate-fade-in"
+    <div
+      role={type === 'error' ? 'alert' : 'status'}
+      aria-live={type === 'error' ? 'assertive' : 'polite'}
+      className="fixed bottom-6 right-6 z-[9999] flex items-center gap-3 px-5 py-3 rounded-xl text-sm font-bold shadow-lg animate-fade-in"
       style={{
         background: type === 'success' ? '#3D8361' : '#8b1e1e',
         color: '#fff',
@@ -329,9 +315,11 @@ export default function ProfileSettingsPage() {
               <UserAvatar fullName={fullName || 'Học sinh'} avatarUrl={avatarPreview} size="xl" />
               <button
                 type="button"
+                aria-label="Đổi ảnh đại diện"
+                aria-busy={avatarUploading}
                 onClick={() => fileRef.current?.click()}
                 disabled={avatarUploading}
-                className="absolute -bottom-1 -right-1 w-8 h-8 rounded-full bg-white border-2 border-stone-200 flex items-center justify-center shadow-sm cursor-pointer transition-transform hover:scale-110 disabled:cursor-not-allowed disabled:opacity-50"
+                className="profile-action absolute -bottom-1 -right-1 w-8 h-8 rounded-full bg-white border-2 border-stone-200 flex items-center justify-center shadow-sm cursor-pointer"
               >
                 {avatarUploading ? (
                   <span className="w-3.5 h-3.5 border-2 border-stone-400 border-t-red-900 rounded-full animate-spin" />
@@ -348,7 +336,8 @@ export default function ProfileSettingsPage() {
                 type="button"
                 onClick={() => fileRef.current?.click()}
                 disabled={avatarUploading}
-                className="mt-2 text-xs font-sans font-bold uppercase tracking-wider text-red-900 bg-red-50 px-3 py-1.5 rounded-lg border border-red-200/60 hover:bg-red-100 transition-colors disabled:opacity-50 inline-flex items-center gap-1.5"
+                aria-busy={avatarUploading}
+                className="profile-action mt-2 text-xs font-sans font-bold uppercase tracking-wider text-red-900 bg-red-50 px-3 py-1.5 rounded-lg border border-red-200/60 hover:bg-red-100 inline-flex items-center gap-1.5"
               >
                 {avatarUploading ? (
                   <><span className="w-3 h-3 border-2 border-red-900/30 border-t-red-900 rounded-full animate-spin" /> Đang tải</>
@@ -385,7 +374,8 @@ export default function ProfileSettingsPage() {
               <button
                 type="submit"
                 disabled={saving}
-                className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl text-sm font-sans font-bold uppercase tracking-wider transition-all duration-200 bg-red-900 text-amber-50 hover:bg-red-950 disabled:opacity-50"
+                aria-busy={saving}
+                className="profile-action inline-flex items-center gap-2 px-6 py-2.5 rounded-xl text-sm font-sans font-bold uppercase tracking-wider bg-red-900 text-amber-50 hover:bg-red-950"
                 style={{ fontFamily: 'inherit' }}
               >
                 {saving ? (
@@ -452,7 +442,8 @@ export default function ProfileSettingsPage() {
               <button
                 type="submit"
                 disabled={pwSaving}
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-sans font-bold uppercase tracking-wider transition-all duration-200 bg-white border border-stone-200/60 text-stone-700 hover:bg-stone-50 hover:border-red-200/60 disabled:opacity-50"
+                aria-busy={pwSaving}
+                className="profile-action inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-sans font-bold uppercase tracking-wider bg-white border border-stone-200/60 text-stone-700 hover:bg-stone-50 hover:border-red-200/60"
                 style={{ fontFamily: 'inherit' }}
               >
                 {pwSaving ? 'Đang xử lý...' : (
@@ -479,8 +470,9 @@ export default function ProfileSettingsPage() {
                 <p className="text-xs text-stone-400 mt-0.5">Rời khỏi ứng dụng trên trình duyệt này.</p>
               </div>
               <button
+                type="button"
                 onClick={handleLogout}
-                className="shrink-0 px-4 py-2 rounded-lg text-xs font-sans font-bold uppercase tracking-wider transition-all bg-white border border-stone-200/60 text-stone-600 hover:bg-stone-50"
+                className="profile-action shrink-0 px-4 py-2 rounded-lg text-xs font-sans font-bold uppercase tracking-wider bg-white border border-stone-200/60 text-stone-600 hover:bg-stone-50"
               >
                 <span className="flex items-center gap-1.5">
                   <LogIn size={13} strokeWidth={2} />
@@ -505,8 +497,9 @@ export default function ProfileSettingsPage() {
               </p>
             </div>
             <button
+              type="button"
               onClick={handleOpenDeleteDialog}
-              className="shrink-0 px-4 py-2 rounded-lg text-xs font-sans font-bold uppercase tracking-wider transition-all bg-red-900 text-amber-50 hover:bg-red-950 shadow-sm"
+              className="profile-action shrink-0 px-4 py-2 rounded-lg text-xs font-sans font-bold uppercase tracking-wider bg-red-900 text-amber-50 hover:bg-red-950 shadow-sm"
             >
               <span className="flex items-center gap-1.5">
                 <AlertTriangle size={13} strokeWidth={2} />

@@ -3,7 +3,6 @@ import {
   Search,
   ChevronRight,
   Clock,
-  X,
 } from 'lucide-react';
 import type { HistoricalEvent, EventType } from '../types/event';
 import {
@@ -137,6 +136,9 @@ export default function Sidebar({
       className={`map-sidebar ${open ? 'map-panel-open' : ''}`}
       style={{
         height: '100%',
+        display: 'flex',
+        minHeight: 0,
+        overflow: 'hidden',
         flexDirection: 'column',
         background: 'var(--bg-card)',
         borderRight: '1px solid var(--border)',
@@ -152,8 +154,8 @@ export default function Sidebar({
         <div className="mb-2.5 flex items-center justify-between gap-3">
           <h2 className="app-heading text-lg font-bold text-[var(--text-primary)]">Sự kiện lịch sử</h2>
           {onClose && (
-            <button type="button" onClick={onClose} className="public-icon-button map-panel-close" aria-label="Đóng danh sách sự kiện">
-              <X size={17} aria-hidden="true" />
+            <button type="button" onClick={onClose} className="map-panel-close map-panel-close-text">
+              Đóng
             </button>
           )}
         </div>
@@ -171,17 +173,11 @@ export default function Sidebar({
             placeholder="Tìm kiếm sự kiện..."
             value={searchQuery}
             onChange={(e) => onSearchQueryChange(e.target.value)}
-            className="w-full pl-9 pr-3 py-2 rounded-[10px] border text-[13px] outline-none transition-all duration-200"
+            className="map-sidebar-search w-full pl-9 pr-3 py-2 rounded-[10px] border text-[13px] outline-none"
             style={{
               borderColor: 'var(--border-strong)',
               background: 'var(--bg-app)',
               color: 'var(--text-primary)',
-            }}
-            onFocus={(e) => {
-              e.currentTarget.style.borderColor = 'var(--admin-accent)';
-            }}
-            onBlur={(e) => {
-              e.currentTarget.style.borderColor = 'var(--border-strong)';
             }}
           />
         </div>
@@ -212,7 +208,7 @@ export default function Sidebar({
                   setActiveFilter(isActive ? null : type)
                 }
                 aria-pressed={isActive}
-                className="inline-flex items-center gap-1.5 px-2 py-1 rounded-full text-[11px] font-semibold cursor-pointer transition-all duration-150 border"
+                className="map-filter-chip inline-flex items-center gap-1.5 px-2 py-1 rounded-full text-[11px] font-semibold cursor-pointer border"
                 style={{
                   background: isActive
                     ? `${color}22`
@@ -240,7 +236,7 @@ export default function Sidebar({
             <button
               type="button"
               onClick={() => setActiveFilter(null)}
-              className="inline-flex items-center px-2 py-1 rounded-full text-[11px] font-medium cursor-pointer transition-all duration-150 border-0"
+              className="map-text-action inline-flex items-center px-2 py-1 rounded-full text-[11px] font-medium cursor-pointer border-0"
               style={{
                 background: 'transparent',
                 color: '#78716c',
@@ -258,7 +254,10 @@ export default function Sidebar({
         aria-label="Danh sách sự kiện lịch sử"
         style={{
           flex: 1,
+          minHeight: 0,
           overflowY: 'auto',
+          overscrollBehavior: 'contain',
+          scrollbarGutter: 'stable',
           padding: '6px 0',
         }}
       >
@@ -357,35 +356,13 @@ function EventTreeNode({
     <div>
       <div
         // 1.1.17: Sidebar.tsx: Người dùng nhấp trực tiếp vào tiêu đề sự kiện (cha hoặc con) để xem.
-        className="map-event-row"
-        onClick={() => onSelectEvent(event)}
+        className={`map-event-row ${isSelected ? 'is-selected' : ''} ${isFutureEvent ? 'is-future' : ''}`}
         onMouseEnter={() => onHoverEvent(event.id)}
         onMouseLeave={() => onHoverEvent(null)}
         style={{
           padding: '8px 12px',
           paddingLeft: `${12 + depth * 12}px`,
-          cursor: 'pointer',
-          background: isSelected
-            ? 'var(--accent-soft)'
-            : 'transparent',
-          borderLeft: isSelected
-            ? '4px solid var(--accent)'
-            : '4px solid transparent',
-          transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
           fontSize: '13.5px',
-          opacity: isFutureEvent && !isSelected ? 0.5 : 1,
-        }}
-        onMouseOver={(e) => {
-          if (!isSelected) {
-            e.currentTarget.style.background = 'var(--accent-soft)';
-            e.currentTarget.style.opacity = '0.9';
-          }
-        }}
-        onMouseOut={(e) => {
-          if (!isSelected) {
-            e.currentTarget.style.background = 'transparent';
-            e.currentTarget.style.opacity = isFutureEvent ? '0.5' : '1';
-          }
         }}
       >
         {/* Expand toggle */}
@@ -416,41 +393,49 @@ function EventTreeNode({
           <span className="map-event-expand-spacer" aria-hidden="true" />
         )}
 
-        {/* Event name */}
-        <span
-          title={event.name}
-          className="map-event-title"
-          style={{
-            fontWeight: isSelected ? 700 : 400,
-            color: isSelected ? 'var(--accent)' : 'var(--text-primary)',
-            lineHeight: '1.4',
-          }}
+        <button
+          type="button"
+          className="map-event-select"
+          aria-current={isSelected ? 'true' : undefined}
+          aria-label={`Chọn sự kiện ${event.name}`}
+          onClick={() => onSelectEvent(event)}
+          onFocus={() => onHoverEvent(event.id)}
+          onBlur={() => onHoverEvent(null)}
         >
-          {event.name}
-        </span>
+          {/* Event name */}
+          <span
+            title={event.name}
+            className="map-event-title"
+            style={{
+              fontWeight: isSelected ? 700 : 400,
+              color: isSelected ? 'var(--accent)' : 'var(--text-primary)',
+              lineHeight: '1.4',
+            }}
+          >
+            {event.name}
+          </span>
 
-        {/* Year badge */}
-        <span
-          className="map-event-chronology text-[10px] px-1.5 py-0.5 rounded border font-medium inline-flex items-center gap-0.5"
-          style={{
-            color: 'var(--text-muted)',
-            background: isFutureEvent && !isSelected ? 'transparent' : 'var(--bg-card)',
-            borderColor: 'var(--border)',
-            borderStyle: isFutureEvent && !isSelected ? 'dashed' : 'solid',
-            opacity: isFutureEvent && !isSelected ? 0.7 : 1,
-          }}
-        >
-          {isFutureEvent && !isSelected && (
-            <span title="Sự kiện chưa diễn ra tại mốc thời gian hiện tại">
-              <Clock
-                size={9}
-                strokeWidth={2.5}
-                style={{ color: '#78716c', flexShrink: 0 }}
-              />
-            </span>
-          )}
-          {formatChronologyLabel(event)}
-        </span>
+          {/* Year badge */}
+          <span
+            className="map-event-chronology inline-flex items-center gap-1 rounded-md px-2 py-1 text-[11px] font-semibold"
+            style={{
+              color: isSelected ? 'var(--accent)' : 'var(--text-secondary)',
+              background: isSelected ? 'var(--accent-soft)' : 'var(--bg-surface)',
+              opacity: isFutureEvent && !isSelected ? 0.72 : 1,
+            }}
+          >
+            {isFutureEvent && !isSelected && (
+              <span title="Sự kiện chưa diễn ra tại mốc thời gian hiện tại">
+                <Clock
+                  size={9}
+                  strokeWidth={2.5}
+                  style={{ color: '#78716c', flexShrink: 0 }}
+                />
+              </span>
+            )}
+            {formatChronologyLabel(event)}
+          </span>
+        </button>
       </div>
 
       {/* Children */}

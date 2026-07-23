@@ -17,7 +17,7 @@ export default function RecommendationCard({ item }: { item: RecommendationItem 
   const cfg = typeConfig[item.type];
 
   return (
-    <div className="group relative overflow-hidden rounded-xl transition-all duration-200 hover:shadow-sm hover:-translate-y-0.5"
+    <div className="relative overflow-hidden rounded-xl"
       style={{
         background: '#fafaf9',
         border: '1px solid #e7e5e4',
@@ -51,15 +51,13 @@ export default function RecommendationCard({ item }: { item: RecommendationItem 
           </span>
         </div>
       </div>
-      <button className="shrink-0 rounded-lg px-3.5 py-2 text-xs font-sans font-bold uppercase tracking-wider transition-all duration-200 flex items-center gap-1.5"
+      <button type="button" className="profile-action shrink-0 rounded-lg px-3.5 py-2 text-xs font-sans font-bold uppercase tracking-wider flex items-center gap-1.5"
         style={{
           background: `${cfg.color}10`,
           color: cfg.color,
           border: `1px solid ${cfg.color}18`,
           fontFamily: 'inherit',
-        }}
-        onMouseEnter={e => (e.currentTarget.style.opacity = '0.75')}
-        onMouseLeave={e => (e.currentTarget.style.opacity = '1')}>
+        }}>
         Bắt đầu
         <ArrowRight size={12} strokeWidth={2.5} />
       </button>

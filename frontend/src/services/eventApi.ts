@@ -520,27 +520,43 @@ export async function getTimelineYearsFromBackend(grade?: number | null): Promis
   }
 }
 
-export async function getHomepageEvents(): Promise<HistoricalEvent[]> {
-  try {
-    // Single broad query — no year filter, higher limit, dedupe client-side
-    const query = toQueryString({ limit: 30 });
-    const data = await apiGet<EventListResponse>(`/api/events${query}`);
+const HOMEPAGE_FEATURED_EVENT_IDS = [
+  'chien-thang-bach-dang-938',
+  'ly-thai-to-doi-do-thang-long',
+  'khang-chien-chong-quan-thanh-1789',
+  'ho-chi-minh-cong-bo-tuyen-ngon-doc-lap',
+  'chien-dich-dien-bien-phu-1954',
+  'chien-dich-giai-phong-sai-gon-gia-dinh-chien-dich-ho-chi-minh',
+] as const;
 
-    // Deduplicate by id, pick up to 6
-    const seen = new Set<string>();
-    const events: HistoricalEvent[] = [];
+export async function getHomepageEvents(): Promise<HistoricalEvent[]> {
+  const results = await Promise.allSettled(
+    HOMEPAGE_FEATURED_EVENT_IDS.map((eventId) =>
+      apiGet<EventDetailDto>(`/api/events/${eventId}`),
+    ),
+  );
+  const events = results.flatMap((result) =>
+    result.status === 'fulfilled' ? [summaryToHistoricalEvent(result.value)] : [],
+  );
+
+  if (events.length === HOMEPAGE_FEATURED_EVENT_IDS.length) return events;
+
+  try {
+    const query = toQueryString({ eventLevel: 'atomic', limit: 30 });
+    const data = await apiGet<EventListResponse>(`/api/events${query}`);
+    const seen = new Set(events.map((event) => event.id));
+
     for (const dto of data.items) {
       if (seen.has(dto.id)) continue;
       seen.add(dto.id);
       events.push(summaryToHistoricalEvent(dto));
-      if (events.length >= 6) break;
+      if (events.length >= HOMEPAGE_FEATURED_EVENT_IDS.length) break;
     }
-
-    return sortHistoricalEvents(events);
   } catch (error) {
-    console.warn('Could not load homepage events from backend.', error);
-    return [];
+    console.warn('Could not load fallback homepage events from backend.', error);
   }
+
+  return events;
 }
 
 export interface BrowseEventsParams {

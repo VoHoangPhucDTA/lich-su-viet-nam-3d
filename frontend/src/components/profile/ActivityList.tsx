@@ -41,7 +41,7 @@ export default function ActivityList({ activities }: { activities: LearningActiv
         const Icon = cfg.icon;
 
         return (
-          <div key={a.id} className="group rounded-xl transition-all duration-200 flex items-center gap-3.5 p-3.5 bg-stone-50 border border-stone-200/60 hover:bg-white hover:shadow-sm">
+          <div key={a.id} className="rounded-xl flex items-center gap-3.5 p-3.5 bg-stone-50 border border-stone-200/60">
             <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0"
               style={{ background: `${cfg.color}10`, color: cfg.color }}>
               <Icon size={17} strokeWidth={1.5} />

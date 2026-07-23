@@ -57,7 +57,7 @@ export default function ScoreTable({ scores }: { scores: ScoreRecord[] }) {
         const pct = Math.round((s.correct / s.total) * 100);
 
         return (
-          <div key={s.id} className="group rounded-xl transition-all duration-200 flex items-center gap-4 p-3.5 bg-stone-50 border border-stone-200/60 hover:bg-white hover:shadow-sm">
+          <div key={s.id} className="rounded-xl flex items-center gap-4 p-3.5 bg-stone-50 border border-stone-200/60">
             <ScoreCircle score={s.score} />
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2.5 flex-wrap mb-1">
@@ -92,7 +92,7 @@ export default function ScoreTable({ scores }: { scores: ScoreRecord[] }) {
                 </span>
               </div>
             </div>
-            <button className="shrink-0 rounded-lg px-3 py-1.5 text-xs font-bold transition-all duration-200 flex items-center gap-1.5 bg-white border border-stone-200/60 text-stone-500 hover:bg-stone-50 hover:text-red-900 hover:border-red-200/60">
+            <button type="button" className="profile-action shrink-0 rounded-lg px-3 py-1.5 text-xs font-bold flex items-center gap-1.5 bg-white border border-stone-200/60 text-stone-500 hover:bg-stone-50 hover:text-red-900 hover:border-red-200/60">
               <Eye size={13} strokeWidth={1.5} />
               <span className="hidden sm:inline">Chi tiết</span>
             </button>

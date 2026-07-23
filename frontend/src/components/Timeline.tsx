@@ -3,7 +3,6 @@ import { Clock, Plus, X } from 'lucide-react';
 import {
   EVENT_YEARS_SORTED,
   TIMELINE_MAX_YEAR,
-  TIMELINE_MIN_YEAR,
 } from '../data/events';
 
 interface TimelineProps {
@@ -20,8 +19,11 @@ interface TimelineProps {
  * động ra những mốc nằm trong khoảng dữ liệu hiện có.
  */
 const HISTORICAL_KEY_YEARS = [
-  -700, -208, 40, 938, 1010, 1428, 1789, 1858, 1945, 1975, 2000,
+  -2000, -700, -208, 40, 938, 1010, 1428, 1789, 1858, 1945, 1975, 2000,
 ] as const;
+
+export const MAP_TIMELINE_MIN_YEAR = -2000;
+export const MAP_TIMELINE_MAX_YEAR = TIMELINE_MAX_YEAR;
 
 function formatYear(year: number): string {
   if (year < 0) return `${Math.abs(year)} TCN`;
@@ -40,24 +42,25 @@ export default function Timeline({
   onGradeChange,
   eventYears,
 }: TimelineProps) {
-  const range = TIMELINE_MAX_YEAR - TIMELINE_MIN_YEAR;
-  const availableYears = eventYears && eventYears.length > 0 ? eventYears : EVENT_YEARS_SORTED;
+  const range = MAP_TIMELINE_MAX_YEAR - MAP_TIMELINE_MIN_YEAR;
+  const availableYears = (eventYears && eventYears.length > 0 ? eventYears : EVENT_YEARS_SORTED)
+    .filter((year) => year >= MAP_TIMELINE_MIN_YEAR && year <= MAP_TIMELINE_MAX_YEAR);
   const [expandedClusters, setExpandedClusters] = useState<Set<number>>(new Set());
 
   const percentage = useMemo(() => {
     if (range <= 0) return 0;
-    return ((currentYear - TIMELINE_MIN_YEAR) / range) * 100;
+    return Math.min(100, Math.max(0, ((currentYear - MAP_TIMELINE_MIN_YEAR) / range) * 100));
   }, [currentYear, range]);
 
   /** Vị trí % trên track của 1 năm (0–100). */
   const yearToPercent = useCallback((year: number): number => {
     if (range <= 0) return 0;
-    return ((year - TIMELINE_MIN_YEAR) / range) * 100;
+    return ((year - MAP_TIMELINE_MIN_YEAR) / range) * 100;
   }, [range]);
 
   const keyYears = useMemo(() => {
     return HISTORICAL_KEY_YEARS.filter(
-      (y) => y >= TIMELINE_MIN_YEAR && y <= TIMELINE_MAX_YEAR
+      (y) => y >= MAP_TIMELINE_MIN_YEAR && y <= MAP_TIMELINE_MAX_YEAR
     );
   }, []);
 
@@ -109,16 +112,16 @@ export default function Timeline({
     <div
       className="map-timeline relative flex-shrink-0"
       style={{
-        padding: '14px 24px 14px',
+        padding: '8px 20px 7px',
         zIndex: 50,
         transform: 'translateZ(0)',
         background: '#ffffff',
         borderTop: '1px solid #e7e5e4',
         boxShadow: '0 -4px 16px -8px rgba(0,0,0,0.08)',
-        minHeight: '116px',
+        minHeight: '88px',
       }}
     >
-      <div className="map-timeline-header mb-3 flex items-center justify-between gap-3">
+      <div className="map-timeline-header mb-1.5 flex items-center justify-between gap-3">
         <div className="flex items-center gap-3">
           <span
             className="inline-flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-[0.12em]"
@@ -132,7 +135,7 @@ export default function Timeline({
             style={{ background: 'var(--border)' }}
           />
           <span
-            className="text-[1.75rem] font-extrabold leading-none"
+            className="text-[1.4rem] font-extrabold leading-none"
             style={{
               fontFamily: 'var(--font-heading)',
               background:
@@ -165,6 +168,7 @@ export default function Timeline({
                   key={grade ?? 'all'}
                   type="button"
                   onClick={() => onGradeChange(grade)}
+                  aria-pressed={isActive}
                   aria-label={grade == null
                     ? 'Hiển thị tất cả các lớp trong mốc thời gian hiện tại'
                     : `Chỉ hiển thị lớp ${grade} trong mốc thời gian hiện tại`}
@@ -183,7 +187,7 @@ export default function Timeline({
       </div>
 
       {/* Slider track + tick marks */}
-      <div className="relative mb-2">
+      <div className="relative mb-1">
         {/* Background track */}
         <div
           className="absolute left-0 right-0 h-1.5 rounded-full opacity-80"
@@ -233,23 +237,38 @@ export default function Timeline({
 
         <input
           type="range"
-          min={TIMELINE_MIN_YEAR}
-          max={TIMELINE_MAX_YEAR}
+          min={MAP_TIMELINE_MIN_YEAR}
+          max={MAP_TIMELINE_MAX_YEAR}
           value={currentYear}
           // 1.1.2: Timeline.tsx: Kích hoạt sự kiện thay đổi, gọi hàm getEventsByYearFromBackend() trong eventApi.ts.
           onChange={(e) => onYearChange(Number(e.target.value))}
-          className="timeline-slider relative z-[2] w-full h-6 bg-transparent appearance-none cursor-pointer"
+          className="timeline-slider relative z-[2] w-full h-5 bg-transparent appearance-none cursor-pointer"
           aria-label="Chọn mốc thời gian"
         />
       </div>
 
       {/* Key year markers — cluster grouping */}
-      <div className="map-timeline-key-years relative" style={{ minHeight: `${Math.max(28, Math.max(...keyYearClusters.map((c, i) => expandedClusters.has(i) ? c.years.length * 26 + 22 : 26)))}px` }}>
+      <div
+        className="map-timeline-key-years relative"
+        style={{
+          minHeight: `${Math.max(
+            24,
+            Math.max(...keyYearClusters.map((cluster, index) => {
+              const canToggle = cluster.years[0] === 1789
+                && cluster.years[cluster.years.length - 1] === 2000;
+              const isExpanded = expandedClusters.has(index);
+              return canToggle && !isExpanded ? 24 : cluster.years.length * 22 + (canToggle ? 18 : 0);
+            })),
+          )}px`,
+        }}
+      >
         {keyYearClusters.map((cluster, clusterIdx) => {
           const isExpanded = expandedClusters.has(clusterIdx);
           const hasMultiple = cluster.years.length > 1;
+          const canToggle = cluster.years[0] === 1789
+            && cluster.years[cluster.years.length - 1] === 2000;
 
-          if (hasMultiple && !isExpanded) {
+          if (hasMultiple && canToggle && !isExpanded) {
             // Collapsed cluster chip — positioned at midpoint of first/last year
             const firstPos = yearToPercent(cluster.years[0]);
             const lastPos = yearToPercent(cluster.years[cluster.years.length - 1]);
@@ -268,6 +287,7 @@ export default function Timeline({
                 }}
                 title={`${cluster.years.length} mốc: ${cluster.label} — nhấn để mở rộng`}
                 aria-label={`Cụm ${cluster.years.length} mốc thời gian: ${cluster.label}. Nhấn để mở rộng.`}
+                aria-current={anyActive ? 'date' : undefined}
                 className="key-year-chip cluster-chip absolute -translate-x-1/2 inline-flex items-center gap-1 cursor-pointer rounded-full border px-2 py-0.5 text-[10.5px] font-semibold leading-none transition-colors duration-150"
                 style={{
                   left: `${left}%`,
@@ -294,7 +314,8 @@ export default function Timeline({
               {cluster.years.map((year, yearIdx) => {
                 const left = yearToPercent(year);
                 const isActive = currentYear === year;
-                const topOffset = yearIdx * 26;
+                const isRangeStart = year === MAP_TIMELINE_MIN_YEAR;
+                const topOffset = yearIdx * 22;
                 return (
                   <button
                     key={year}
@@ -302,7 +323,8 @@ export default function Timeline({
                     onClick={() => onYearChange(year)}
                     title={`Đi tới mốc ${formatYearShort(year)}`}
                     aria-label={`Đi tới mốc ${formatYearShort(year)}`}
-                    className="key-year-chip absolute -translate-x-1/2 inline-flex items-center gap-1 cursor-pointer rounded-full border px-2 py-0.5 text-[10.5px] font-semibold leading-none transition-colors duration-150"
+                    aria-current={isActive ? 'date' : undefined}
+                    className={`key-year-chip absolute inline-flex items-center gap-1 cursor-pointer rounded-full border px-2 py-0.5 text-[10.5px] font-semibold leading-none transition-colors duration-150 ${isRangeStart ? '' : '-translate-x-1/2'}`}
                     style={{
                       left: `${left}%`,
                       top: `${topOffset}px`,
@@ -326,32 +348,33 @@ export default function Timeline({
                   </button>
                 );
               })}
-              {/* Collapse button — visible on the expanded cluster */}
-              <button
-                type="button"
-                onClick={() => {
-                  setExpandedClusters((prev) => {
-                    const next = new Set(prev);
-                    next.delete(clusterIdx);
-                    return next;
-                  });
-                }}
-                title="Thu gọn cụm"
-                aria-label="Thu gọn cụm mốc thời gian"
-                className="absolute inline-flex items-center justify-center cursor-pointer rounded-full transition-colors duration-150"
-                style={{
-                  left: `${(yearToPercent(cluster.years[0]) + yearToPercent(cluster.years[cluster.years.length - 1])) / 2}%`,
-                  transform: 'translateX(-50%)',
-                  top: `${cluster.years.length * 26}px`,
-                  width: '18px',
-                  height: '18px',
-                  background: '#ffffff',
-                  color: '#78716c',
-                  border: '1px solid #e7e5e4',
-                }}
-              >
-                <X size={10} strokeWidth={2.8} />
-              </button>
+              {canToggle && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    setExpandedClusters((prev) => {
+                      const next = new Set(prev);
+                      next.delete(clusterIdx);
+                      return next;
+                    });
+                  }}
+                  title="Thu gọn cụm 1789–2000"
+                  aria-label="Thu gọn cụm mốc thời gian 1789 đến 2000"
+                  className="absolute inline-flex items-center justify-center cursor-pointer rounded-full transition-colors duration-150"
+                  style={{
+                    left: `${(yearToPercent(cluster.years[0]) + yearToPercent(cluster.years[cluster.years.length - 1])) / 2}%`,
+                    transform: 'translateX(-50%)',
+                    top: `${cluster.years.length * 22}px`,
+                    width: '18px',
+                    height: '18px',
+                    background: '#ffffff',
+                    color: '#78716c',
+                    border: '1px solid #e7e5e4',
+                  }}
+                >
+                  <X size={10} strokeWidth={2.8} />
+                </button>
+              )}
             </div>
           );
         })}
@@ -368,7 +391,7 @@ export default function Timeline({
           border-radius: 50%;
           cursor: pointer;
           box-shadow: 0 0 0 4px var(--accent-soft), 0 6px 12px rgba(15, 23, 42, 0.28);
-          transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+          transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1);
         }
         .timeline-slider::-webkit-slider-thumb:hover {
           transform: scale(1.15);
@@ -382,12 +405,7 @@ export default function Timeline({
           border-radius: 50%;
           cursor: pointer;
           box-shadow: 0 0 0 4px var(--accent-soft), 0 6px 12px rgba(15, 23, 42, 0.28);
-          transition: all 0.2s;
-        }
-        .key-year-chip:hover {
-          border-color: #8b1e1e !important;
-          color: #8b1e1e !important;
-          box-shadow: 0 6px 14px -4px rgba(139,30,30,0.2), 0 0 0 2px rgba(139,30,30,0.15) !important;
+          transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
       `}</style>
     </div>

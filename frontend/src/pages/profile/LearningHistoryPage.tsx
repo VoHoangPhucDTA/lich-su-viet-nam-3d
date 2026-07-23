@@ -30,8 +30,10 @@ function FilterChip({
 }) {
   return (
     <button
+      type="button"
       onClick={onClick}
-      className={`px-3 py-1.5 rounded-full text-xs font-sans font-bold whitespace-nowrap transition-all duration-200 ${
+      aria-pressed={active}
+      className={`profile-filter-chip px-3 py-1.5 rounded-full text-xs font-sans font-bold whitespace-nowrap ${
         active
           ? 'bg-red-900 text-white border border-red-900'
           : 'bg-stone-100 text-stone-400 border border-stone-200 hover:bg-white hover:border-stone-300'

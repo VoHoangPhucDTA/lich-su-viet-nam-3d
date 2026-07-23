@@ -203,14 +203,9 @@ function RelatedEventCard({
           </p>
         </div>
 
-        <div
-          className="flex-shrink-0 self-center transition-all duration-300 opacity-0 group-hover:opacity-100 group-hover:translate-x-1"
-          style={{ color: typeColor }}
-        >
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <path d="M5 12h14M13 5l7 7-7 7" />
-          </svg>
-        </div>
+        <span className="flex-shrink-0 self-center text-xs font-semibold" style={{ color: typeColor }}>
+          Xem chi tiết
+        </span>
       </div>
     </button>
   );

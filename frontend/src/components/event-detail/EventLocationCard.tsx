@@ -24,7 +24,7 @@ export default function EventLocationCard({ event, index = '05' }: EventLocation
       <section id="dia-diem" className="scroll-mt-28 w-full">
         <SectionHeader index={index} title="Địa điểm" />
         <div
-          className="p-6 md:p-8 rounded-2xl flex items-center gap-3"
+          className="p-6 md:p-8 rounded-2xl"
           style={{
             background: 'var(--warning-soft)',
             border:
@@ -32,19 +32,6 @@ export default function EventLocationCard({ event, index = '05' }: EventLocation
             color: 'var(--text-primary)',
           }}
         >
-          <svg
-            width="22"
-            height="22"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.6"
-            className="flex-shrink-0"
-            style={{ color: 'var(--warning)' }}
-          >
-            <circle cx="12" cy="12" r="10" />
-            <path d="M12 8v4M12 16h.01" />
-          </svg>
           <span className="text-sm">
             Sự kiện này không gắn với một địa điểm cụ thể trên bản đồ.
           </span>

@@ -362,7 +362,7 @@ export default function EventDetailPage() {
                 navigate('/home');
               }
             }}
-            className="inline-flex items-center gap-1.5 font-medium transition"
+            className="inline-flex items-center font-medium transition"
             style={{ color: 'var(--text-secondary)' }}
             onMouseEnter={(e) =>
               ((e.currentTarget as HTMLButtonElement).style.color =
@@ -373,9 +373,6 @@ export default function EventDetailPage() {
                 'var(--text-secondary)')
             }
           >
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M19 12H5M12 19l-7-7 7-7" />
-            </svg>
             Quay lại
           </button>
           <span style={{ color: 'var(--text-muted)' }}>/</span>
@@ -477,17 +474,6 @@ function NotFoundEventState({
       className="flex flex-col items-center justify-center min-h-screen p-6 text-center gap-5"
       style={{ background: 'var(--bg-app)', color: 'var(--text-primary)' }}
     >
-      <div
-        className="w-16 h-16 rounded-2xl flex items-center justify-center"
-        style={{
-          background: 'var(--admin-accent-soft)',
-          color: 'var(--admin-accent)',
-        }}
-      >
-        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6">
-          <path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2zM22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z" />
-        </svg>
-      </div>
       <h2 className="text-2xl font-bold">Không tìm thấy thông tin sự kiện</h2>
       <p
         className="max-w-lg text-sm leading-relaxed"
@@ -533,7 +519,7 @@ function NotFoundEventState({
                   'var(--text-secondary)';
               }}
             >
-              → {s.label}
+              {s.label}
             </a>
           ))}
         </div>

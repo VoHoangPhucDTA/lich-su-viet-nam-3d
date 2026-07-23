@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, Inbox, KeyRound, Mail, RefreshCw, Send } from 'lucide-react';
+import { Inbox, Mail, RefreshCw } from 'lucide-react';
 import { useAuth } from '../../auth/AuthContext';
 import AuthLayout from '../../components/auth/AuthLayout';
 import AuthFormMessage from '../../components/auth/AuthFormMessage';
@@ -35,22 +35,6 @@ export default function ForgotPasswordPage() {
     <AuthLayout>
       {/* Heading — trust & calm museum style */}
       <div style={{ textAlign: 'center', marginBottom: '1.75rem' }}>
-        <div
-          style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            width: '4rem',
-            height: '4rem',
-            borderRadius: '1rem',
-            background: '#fef2f2',
-            border: '1px solid rgba(139,30,30,0.15)',
-            color: '#8b1e1e',
-            marginBottom: '1rem',
-          }}
-        >
-          <KeyRound size={30} strokeWidth={1.8} />
-        </div>
         <h1
           className="font-sans text-2xl font-bold text-stone-900"
           style={{ marginBottom: '0.5rem', letterSpacing: '-0.01em' }}
@@ -92,7 +76,6 @@ export default function ForgotPasswordPage() {
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              gap: '0.5rem',
               width: '100%',
               padding: '0.8125rem',
               background: '#8b1e1e',
@@ -105,7 +88,6 @@ export default function ForgotPasswordPage() {
               boxShadow: '0 2px 12px rgba(139,30,30,0.2)',
             }}
           >
-            <ArrowLeft size={18} strokeWidth={2} />
             Quay lại đăng nhập
           </Link>
         </div>
@@ -126,6 +108,7 @@ export default function ForgotPasswordPage() {
           <button
             type="submit"
             disabled={loading}
+            aria-busy={loading}
             style={{
               width: '100%',
               padding: '0.8125rem',
@@ -154,20 +137,21 @@ export default function ForgotPasswordPage() {
               }
             }}
           >
-            {loading ? <RefreshCw size={18} strokeWidth={2} style={{ animation: 'spin 0.7s linear infinite' }} /> : <Send size={18} strokeWidth={2} />}
-            {loading ? 'Đang gửi...' : 'Gửi hướng dẫn đặt lại'}
+            {loading && <RefreshCw size={18} strokeWidth={2} aria-hidden="true" style={{ animation: 'spin 0.7s linear infinite' }} />}
+            <span aria-live="polite">
+              {loading ? 'Đang gửi hướng dẫn...' : 'Gửi hướng dẫn đặt lại'}
+            </span>
             <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
           </button>
 
           <div style={{ textAlign: 'center' }}>
             <Link
               to="/login"
-              className="inline-flex items-center gap-1.5 text-sm transition-colors"
+              className="inline-flex items-center text-sm transition-colors"
               style={{ color: '#78716c', textDecoration: 'none' }}
               onMouseEnter={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = '#8b1e1e')}
               onMouseLeave={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = '#78716c')}
             >
-              <ArrowLeft size={16} strokeWidth={2} />
               Quay lại đăng nhập
             </Link>
           </div>

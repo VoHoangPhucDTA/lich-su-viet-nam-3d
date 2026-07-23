@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { CheckCircle, Mail, RefreshCw, Send } from 'lucide-react';
+import { CheckCircle, Mail, RefreshCw } from 'lucide-react';
 import { useAuth } from '../../auth/AuthContext';
 import AuthLayout from '../../components/auth/AuthLayout';
 import AuthFormMessage from '../../components/auth/AuthFormMessage';
@@ -44,11 +44,7 @@ function SubmitButton({ loading, disabled }: { loading: boolean; disabled: boole
         }
       }}
     >
-      {loading ? (
-        <RefreshCw size={18} strokeWidth={2} style={{ animation: 'spin 0.7s linear infinite' }} />
-      ) : (
-        <Send size={18} strokeWidth={2} />
-      )}
+      {loading && <RefreshCw size={18} strokeWidth={2} aria-hidden="true" style={{ animation: 'spin 0.7s linear infinite' }} />}
       {loading ? 'Đang tạo...' : 'Tạo tài khoản'}
       <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
     </button>

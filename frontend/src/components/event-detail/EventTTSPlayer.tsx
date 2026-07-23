@@ -601,7 +601,7 @@ function LegacyTTSPlayer({ event, onNarrationStateChange }: EventTTSPlayerProps)
           disabled={isGenerating || isReady}
           aria-label={buttonLabel}
           aria-busy={isGenerating}
-          className="flex-shrink-0 w-14 h-14 rounded-full flex items-center justify-center transition-all duration-200 relative disabled:opacity-50 disabled:cursor-not-allowed"
+          className="flex-shrink-0 min-h-11 rounded-xl px-4 text-sm font-semibold transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
           style={{
             background: isCompleted ? 'linear-gradient(135deg, var(--accent), var(--admin-accent))' : 'var(--accent)',
             color: '#fff',
@@ -614,28 +614,7 @@ function LegacyTTSPlayer({ event, onNarrationStateChange }: EventTTSPlayerProps)
             (e.currentTarget as HTMLButtonElement).style.transform = 'none';
           }}
         >
-          {isGenerating ? (
-            <svg className="animate-spin" width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="3" opacity="0.3" />
-              <path d="M12 2a10 10 0 019.95 9" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
-            </svg>
-          ) : isPlaying ? (
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-              <rect x="6" y="5" width="4" height="14" rx="1" />
-              <rect x="14" y="5" width="4" height="14" rx="1" />
-            </svg>
-          ) : isCompleted ? (
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-              <path d="M17.65 6.35A7.96 7.96 0 0012 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08A5.99 5.99 0 0112 18c-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z" />
-            </svg>
-          ) : (
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-              <polygon points="6,4 20,12 6,20" />
-            </svg>
-          )}
-          {isPlaying && (
-            <span aria-hidden className="absolute inset-0 rounded-full animate-pulse-glow pointer-events-none" />
-          )}
+          {buttonLabel}
         </button>
 
         {/* Info + Progress */}
@@ -657,54 +636,45 @@ function LegacyTTSPlayer({ event, onNarrationStateChange }: EventTTSPlayerProps)
             <div className="flex items-center gap-1 flex-shrink-0">
               {isError && (
                 <button onClick={handleRetry} aria-label="Thử lại"
-                  className="w-9 h-9 rounded-lg flex items-center justify-center transition-all duration-200"
+                  className="min-h-9 rounded-lg px-3 text-xs font-semibold transition-all duration-200"
                   style={{ background: 'var(--accent-soft)', border: '1px solid var(--border)', color: 'var(--accent)' }}
                   onMouseEnter={(e) => ((e.currentTarget as HTMLButtonElement).style.background = 'var(--accent-soft)')}
                   onMouseLeave={(e) => ((e.currentTarget as HTMLButtonElement).style.background = 'var(--accent-soft)')}
                 >
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
-                    <path d="M1 4v6h6M23 20v-6h-6" /><path d="M20.49 9A9 9 0 005.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 013.51 15" />
-                  </svg>
+                  Thử lại
                 </button>
               )}
               {isCompleted && (
                 <button onClick={handleReplay} aria-label="Nghe lại từ đầu"
-                  className="w-9 h-9 rounded-lg flex items-center justify-center transition-all duration-200"
+                  className="min-h-9 rounded-lg px-3 text-xs font-semibold transition-all duration-200"
                   style={{ background: 'var(--accent-soft)', border: '1px solid var(--border)', color: 'var(--accent)' }}
                   onMouseEnter={(e) => ((e.currentTarget as HTMLButtonElement).style.background = 'var(--accent-soft)')}
                   onMouseLeave={(e) => ((e.currentTarget as HTMLButtonElement).style.background = 'var(--accent-soft)')}
                 >
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
-                    <path d="M17.65 6.35A7.96 7.96 0 0012 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08A5.99 5.99 0 0112 18c-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z" />
-                  </svg>
+                  Nghe lại
                 </button>
               )}
               {(isPlaying || isPaused) && (
                 <button onClick={handleStop} aria-label="Dừng"
-                  className="w-9 h-9 rounded-lg flex items-center justify-center transition-all duration-200"
+                  className="min-h-9 rounded-lg px-3 text-xs font-semibold transition-all duration-200"
                   style={{ background: 'var(--bg-surface)', border: '1px solid var(--border)', color: 'var(--danger)' }}
                   onMouseEnter={(e) => ((e.currentTarget as HTMLButtonElement).style.background = 'var(--danger-soft)')}
                   onMouseLeave={(e) => ((e.currentTarget as HTMLButtonElement).style.background = 'var(--bg-surface)')}
                 >
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                    <rect x="6" y="6" width="12" height="12" rx="1" />
-                  </svg>
+                  Dừng
                 </button>
               )}
               <button
                 onClick={() => setShowSettings((v) => !v)}
                 aria-label="Cài đặt" aria-expanded={showSettings}
-                className="w-9 h-9 rounded-lg flex items-center justify-center transition-all duration-200"
+                className="min-h-9 rounded-lg px-3 text-xs font-semibold transition-all duration-200"
                 style={{
                   background: showSettings ? 'var(--accent-soft)' : 'var(--bg-surface)',
                   border: '1px solid var(--border)',
                   color: showSettings ? 'var(--accent)' : 'var(--text-secondary)',
                 }}
               >
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
-                  <circle cx="12" cy="12" r="3" />
-                  <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 01-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09a1.65 1.65 0 00-1-1.51 1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09a1.65 1.65 0 001.51-1 1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z" />
-                </svg>
+                Cài đặt
               </button>
             </div>
           </div>
@@ -823,7 +793,7 @@ function LegacyTTSPlayer({ event, onNarrationStateChange }: EventTTSPlayerProps)
       {/* Error message */}
       {isError && errorMessage && (
         <div
-          className="mt-3 px-4 py-3 rounded-xl text-sm flex items-start gap-2"
+          className="mt-3 px-4 py-3 rounded-xl text-sm"
           role="alert"
           style={{
             background: 'var(--danger-soft)',
@@ -831,9 +801,6 @@ function LegacyTTSPlayer({ event, onNarrationStateChange }: EventTTSPlayerProps)
             color: 'var(--text-primary)',
           }}
         >
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="mt-0.5 flex-shrink-0" style={{ color: 'var(--danger)' }} aria-hidden="true">
-            <circle cx="12" cy="12" r="10" /><line x1="12" y1="8" x2="12" y2="12" /><line x1="12" y1="16" x2="12.01" y2="16" />
-          </svg>
           <span>{errorMessage}</span>
         </div>
       )}
@@ -883,12 +850,12 @@ function LegacyTTSPlayer({ event, onNarrationStateChange }: EventTTSPlayerProps)
               <button onClick={handlePrevChunk} disabled={currentIndex <= 0}
                 className="px-3 py-1.5 rounded-lg text-xs font-medium transition-all duration-200 disabled:opacity-30"
                 style={{ background: 'var(--bg-surface)', border: '1px solid var(--border)', color: 'var(--text-secondary)' }}>
-                ← Trước
+                Trước
               </button>
               <button onClick={handleNextChunk} disabled={currentIndex >= totalChunks - 1}
                 className="px-3 py-1.5 rounded-lg text-xs font-medium transition-all duration-200 disabled:opacity-30"
                 style={{ background: 'var(--bg-surface)', border: '1px solid var(--border)', color: 'var(--text-secondary)' }}>
-                Sau →
+                Sau
               </button>
             </div>
           )}

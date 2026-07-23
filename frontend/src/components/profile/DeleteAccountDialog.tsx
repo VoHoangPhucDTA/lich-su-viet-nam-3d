@@ -73,6 +73,7 @@ export default function DeleteAccountDialog({
         role="dialog"
         aria-modal="true"
         aria-labelledby="delete-account-title"
+        aria-describedby="delete-account-description"
       >
         {/* ── Top accent bar ── */}
         <div className="h-1.5 w-full bg-gradient-to-r from-red-900 via-red-700 to-amber-500/50" />
@@ -105,25 +106,14 @@ export default function DeleteAccountDialog({
               </div>
             </div>
             <button
+              type="button"
               onClick={onCancel}
               disabled={isDeleting}
-              className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0 transition-all duration-150 cursor-pointer disabled:opacity-30"
+              className="profile-action profile-action-danger w-8 h-8 rounded-lg flex items-center justify-center shrink-0 cursor-pointer"
               style={{
                 background: 'transparent',
                 border: '1px solid #e7e5e4',
                 color: '#78716c',
-              }}
-              onMouseEnter={e => {
-                if (!isDeleting) {
-                  e.currentTarget.style.background = '#8b1e1e';
-                  e.currentTarget.style.color = '#fff';
-                  e.currentTarget.style.borderColor = '#8b1e1e';
-                }
-              }}
-              onMouseLeave={e => {
-                e.currentTarget.style.background = 'transparent';
-                e.currentTarget.style.color = '#78716c';
-                e.currentTarget.style.borderColor = '#e7e5e4';
               }}
               aria-label="Đóng"
             >
@@ -170,7 +160,7 @@ export default function DeleteAccountDialog({
           </div>
 
           {/* Final confirmation prompt */}
-          <p className="text-xs text-stone-500 text-center leading-relaxed">
+          <p id="delete-account-description" className="text-xs text-stone-500 text-center leading-relaxed">
             Bạn có chắc chắn muốn xóa tài khoản này?{' '}
             <span className="font-bold text-red-900">Hành động này KHÔNG THỂ HOÀN TÁC.</span>
           </p>
@@ -178,50 +168,31 @@ export default function DeleteAccountDialog({
           {/* Actions */}
           <div className="flex flex-col-reverse sm:flex-row gap-3">
             <button
+              type="button"
               onClick={onCancel}
               disabled={isDeleting}
-              className="flex-1 px-5 py-3 rounded-xl text-sm font-sans font-bold uppercase tracking-wider transition-all duration-150 cursor-pointer disabled:opacity-40"
+              className="profile-action profile-action-secondary flex-1 px-5 py-3 rounded-xl text-sm font-sans font-bold uppercase tracking-wider cursor-pointer"
               style={{
                 background: '#fff',
                 border: '1px solid #e7e5e4',
                 color: '#57534e',
                 fontFamily: 'inherit',
               }}
-              onMouseEnter={e => {
-                if (!isDeleting) {
-                  e.currentTarget.style.background = '#f5f5f4';
-                  e.currentTarget.style.borderColor = '#d6d3d1';
-                }
-              }}
-              onMouseLeave={e => {
-                e.currentTarget.style.background = '#fff';
-                e.currentTarget.style.borderColor = '#e7e5e4';
-              }}
             >
               Hủy
             </button>
             <button
+              type="button"
               onClick={onConfirm}
               disabled={isDeleting}
-              className="flex-1 px-5 py-3 rounded-xl text-sm font-sans font-bold uppercase tracking-wider transition-all duration-150 cursor-pointer disabled:opacity-40"
+              aria-busy={isDeleting}
+              className="profile-action profile-action-danger flex-1 px-5 py-3 rounded-xl text-sm font-sans font-bold uppercase tracking-wider cursor-pointer"
               style={{
                 background: '#8b1e1e',
                 border: 'none',
                 color: '#fef2f2',
                 boxShadow: '0 4px 12px rgba(139, 30, 30, 0.3)',
                 fontFamily: 'inherit',
-              }}
-              onMouseEnter={e => {
-                if (!isDeleting) {
-                  e.currentTarget.style.background = '#6b1515';
-                  e.currentTarget.style.transform = 'translateY(-1px)';
-                  e.currentTarget.style.boxShadow = '0 6px 16px rgba(139, 30, 30, 0.4)';
-                }
-              }}
-              onMouseLeave={e => {
-                e.currentTarget.style.background = '#8b1e1e';
-                e.currentTarget.style.transform = 'none';
-                e.currentTarget.style.boxShadow = '0 4px 12px rgba(139, 30, 30, 0.3)';
               }}
             >
               {isDeleting ? (

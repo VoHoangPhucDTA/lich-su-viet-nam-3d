@@ -1,13 +1,4 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import {
-  AlertCircle,
-  LoaderCircle,
-  Pause,
-  Play,
-  RotateCcw,
-  Settings2,
-  Square,
-} from 'lucide-react';
 import type { MockEventDetail } from '../../data/mockEventDetails';
 import { ApiRequestError } from '../../services/apiClient';
 import { fetchVoices } from '../../services/ttsService';
@@ -408,13 +399,10 @@ export default function AssetTTSPlayer({
           disabled={isWorking}
           aria-label={buttonLabel}
           aria-busy={isWorking}
-          className="flex-shrink-0 w-14 h-14 rounded-full flex items-center justify-center transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+          className="flex-shrink-0 min-h-11 rounded-xl px-4 text-sm font-semibold transition-all disabled:opacity-50 disabled:cursor-not-allowed"
           style={{ background: 'var(--accent)', color: '#fff', boxShadow: '0 8px 22px -8px var(--accent)' }}
         >
-          {isWorking ? <LoaderCircle size={22} className="animate-spin" aria-hidden="true" />
-            : isPlaying ? <Pause size={22} fill="currentColor" aria-hidden="true" />
-              : isCompleted ? <RotateCcw size={22} aria-hidden="true" />
-                : <Play size={22} fill="currentColor" aria-hidden="true" />}
+          {buttonLabel}
         </button>
 
         <div className="flex-1 min-w-0">
@@ -427,21 +415,21 @@ export default function AssetTTSPlayer({
             </div>
             <div className="flex items-center gap-1 flex-shrink-0">
               {isCompleted && (
-                <button type="button" onClick={handleReplay} aria-label="Nghe lại từ đầu" className="w-9 h-9 rounded-lg flex items-center justify-center"
+                <button type="button" onClick={handleReplay} aria-label="Nghe lại từ đầu" className="min-h-9 rounded-lg px-3 text-xs font-semibold"
                   style={{ background: 'var(--accent-soft)', border: '1px solid var(--border)', color: 'var(--accent)' }}>
-                  <RotateCcw size={15} aria-hidden="true" />
+                  Nghe lại
                 </button>
               )}
               {(isPlaying || isPaused || isWorking) && (
-                <button type="button" onClick={handleStop} aria-label="Dừng" className="w-9 h-9 rounded-lg flex items-center justify-center"
+                <button type="button" onClick={handleStop} aria-label="Dừng" className="min-h-9 rounded-lg px-3 text-xs font-semibold"
                   style={{ background: 'var(--bg-surface)', border: '1px solid var(--border)', color: 'var(--danger)' }}>
-                  <Square size={14} fill="currentColor" aria-hidden="true" />
+                  Dừng
                 </button>
               )}
               <button type="button" onClick={() => setShowSettings((current) => !current)} aria-label="Cài đặt" aria-expanded={showSettings}
-                className="w-9 h-9 rounded-lg flex items-center justify-center"
+                className="min-h-9 rounded-lg px-3 text-xs font-semibold"
                 style={{ background: showSettings ? 'var(--accent-soft)' : 'var(--bg-surface)', border: '1px solid var(--border)', color: showSettings ? 'var(--accent)' : 'var(--text-secondary)' }}>
-                <Settings2 size={16} aria-hidden="true" />
+                Cài đặt
               </button>
             </div>
           </div>
@@ -468,9 +456,8 @@ export default function AssetTTSPlayer({
       </div>
 
       {isError && errorMessage && (
-        <div className="mt-3 px-4 py-3 rounded-xl text-sm flex items-start gap-2" role="alert"
+        <div className="mt-3 px-4 py-3 rounded-xl text-sm" role="alert"
           style={{ background: 'var(--danger-soft)', border: '1px solid color-mix(in srgb, var(--danger) 30%, transparent)', color: 'var(--text-primary)' }}>
-          <AlertCircle size={16} className="mt-0.5 flex-shrink-0" style={{ color: 'var(--danger)' }} aria-hidden="true" />
           <span>{errorMessage}</span>
         </div>
       )}
