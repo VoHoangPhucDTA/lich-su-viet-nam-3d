@@ -27,6 +27,7 @@ import static org.mockito.ArgumentMatchers.nullable;
 import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.verifyNoInteractions;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
@@ -125,6 +126,7 @@ class AdminControllerSecurityTest {
 
         mockMvc.perform(patch("/api/admin/users/user-1/status")
                         .with(user("admin").authorities(() -> "ROLE_admin"))
+                        .with(csrf())
                         .contentType("application/json")
                         .content("{\"status\":\"disabled\"}"))
                 .andExpect(status().isOk())
@@ -132,12 +134,14 @@ class AdminControllerSecurityTest {
 
         mockMvc.perform(patch("/api/admin/users/user-1/status")
                         .with(user("student").authorities(() -> "ROLE_student"))
+                        .with(csrf())
                         .contentType("application/json")
                         .content("{\"status\":\"disabled\"}"))
                 .andExpect(status().isForbidden());
 
         mockMvc.perform(patch("/api/admin/users/user-1/status")
                         .with(user("teacher").authorities(() -> "ROLE_teacher"))
+                        .with(csrf())
                         .contentType("application/json")
                         .content("{\"status\":\"disabled\"}"))
                 .andExpect(status().isForbidden());
@@ -149,6 +153,7 @@ class AdminControllerSecurityTest {
 
         mockMvc.perform(post("/api/admin/events")
                         .with(admin)
+                        .with(csrf())
                         .contentType("application/json")
                         .content("{}"))
                 .andExpect(status().isConflict())
@@ -156,12 +161,13 @@ class AdminControllerSecurityTest {
 
         mockMvc.perform(put("/api/admin/events/event-1")
                         .with(admin)
+                        .with(csrf())
                         .contentType("application/json")
                         .content("{}"))
                 .andExpect(status().isConflict())
                 .andExpect(jsonPath("$.code").value("ADMIN_EVENT_UPDATE_DISABLED"));
 
-        mockMvc.perform(delete("/api/admin/events/event-1").with(admin))
+        mockMvc.perform(delete("/api/admin/events/event-1").with(admin).with(csrf()))
                 .andExpect(status().isConflict())
                 .andExpect(jsonPath("$.code").value("EVENT_HARD_DELETE_DISABLED"));
 
@@ -173,17 +179,22 @@ class AdminControllerSecurityTest {
         mockMvc.perform(post("/api/admin/events")
                         .contentType("application/json")
                         .content("{}"))
-                .andExpect(status().isUnauthorized());
+                .andExpect(status().isForbidden())
+                .andExpect(jsonPath("$.code").value("CSRF_TOKEN_INVALID"));
 
         mockMvc.perform(put("/api/admin/events/event-1")
                         .with(user("student").authorities(() -> "ROLE_student"))
+                        .with(csrf())
                         .contentType("application/json")
                         .content("{}"))
-                .andExpect(status().isForbidden());
+                .andExpect(status().isForbidden())
+                .andExpect(jsonPath("$.code").value("FORBIDDEN"));
 
         mockMvc.perform(delete("/api/admin/events/event-1")
-                        .with(user("teacher").authorities(() -> "ROLE_teacher")))
-                .andExpect(status().isForbidden());
+                        .with(user("teacher").authorities(() -> "ROLE_teacher"))
+                        .with(csrf()))
+                .andExpect(status().isForbidden())
+                .andExpect(jsonPath("$.code").value("FORBIDDEN"));
 
         verifyNoInteractions(adminService);
     }

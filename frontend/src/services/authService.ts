@@ -18,6 +18,7 @@ import {
   saveStoredUser,
   type StoredUser,
 } from './apiClient';
+import { bootstrapCsrfToken, refreshCsrfToken } from './csrfClient';
 
 // ── Helpers lưu trữ User info (non-sensitive) ────────────────────────────────
 // Token (access + refresh) được quản lý hoàn toàn bởi HttpOnly Cookie.
@@ -38,6 +39,10 @@ function toStoredUser(user: User): StoredUser {
   };
 }
 
+export async function initializeSecurity(): Promise<void> {
+  await bootstrapCsrfToken();
+}
+
 export function getCurrentUser(): User | null {
   const stored = loadStoredUser();
   if (!stored) return null;
@@ -50,6 +55,7 @@ export function getCurrentUser(): User | null {
 export async function login(req: LoginRequest): Promise<AuthResponse> {
   // Bước 6B.1.3: authService.ts: gọi POST /api/auth/login đến AuthController.java
   const response = await apiPost<AuthResponse>('/api/auth/login', req);
+  await refreshCsrfToken();
   // Bước 6B.1.9: authService.ts: lưu User info vào localStorage (Token được browser lưu tự động qua HttpOnly Cookie)
   saveStoredUser(toStoredUser(response.user));
   return response;
@@ -59,7 +65,9 @@ export async function register(req: RegisterRequest): Promise<RegisterResponse> 
   // Bước 6A.1.3: authService.ts: gọi POST /api/auth/register đến AuthController.java
   clearStoredUser();
   // Bước 6A.1.10: authService.ts: trả dữ liệu cho RegisterPage.tsx
-  return apiPost<RegisterResponse>('/api/auth/register', req);
+  const response = await apiPost<RegisterResponse>('/api/auth/register', req);
+  await refreshCsrfToken();
+  return response;
 }
 
 export async function resendVerification(req: ResendVerificationRequest): Promise<RegisterResponse> {
@@ -68,6 +76,7 @@ export async function resendVerification(req: ResendVerificationRequest): Promis
 
 export async function verifyEmail(token: string): Promise<VerifyEmailResponse> {
   const response = await apiGet<VerifyEmailResponse>(`/api/auth/verify-email?token=${encodeURIComponent(token)}`);
+  await refreshCsrfToken();
   if (response.auth?.user) {
     saveStoredUser(toStoredUser(response.auth.user));
   }
@@ -88,6 +97,11 @@ export async function logout(): Promise<void> {
   } finally {
     // Bước 6D.1.7: authService.ts: clearStoredUser() — luôn xóa auth_user khỏi localStorage kể cả khi API lỗi
     clearStoredUser();
+    try {
+      await refreshCsrfToken();
+    } catch {
+      // A later unsafe request will retry CSRF bootstrap.
+    }
   }
 }
 
@@ -114,6 +128,7 @@ export async function loginWithGoogle(idToken: string): Promise<AuthResponse> {
     provider: 'google',
     token: idToken,
   });
+  await refreshCsrfToken();
   // Bước 6B.2.12: authService.ts: lưu User info (Token được browser lưu tự động qua HttpOnly Cookie)
   saveStoredUser(toStoredUser(response.user));
   return response;
@@ -124,6 +139,7 @@ export async function loginWithFacebook(accessToken: string): Promise<AuthRespon
     provider: 'facebook',
     token: accessToken,
   });
+  await refreshCsrfToken();
   saveStoredUser(toStoredUser(response.user));
   return response;
 }

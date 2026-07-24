@@ -10,6 +10,7 @@ import com.lichsuvn.backend.auth.application.VerifyEmailResult;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.test.util.ReflectionTestUtils;
+import org.springframework.security.web.csrf.CsrfTokenRepository;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
@@ -20,6 +21,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.cookie;
@@ -28,6 +30,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 class AuthControllerCookieBoundaryTest {
 
+    private AuthController controller;
     private AuthService authService;
     private SocialAuthService socialAuthService;
     private MockMvc mockMvc;
@@ -37,10 +40,11 @@ class AuthControllerCookieBoundaryTest {
     void setUp() {
         authService = mock(AuthService.class);
         socialAuthService = mock(SocialAuthService.class);
-        AuthController controller = new AuthController(
+        controller = new AuthController(
                 authService,
                 mock(AuthRateLimiter.class),
-                socialAuthService
+                socialAuthService,
+                mock(CsrfTokenRepository.class)
         );
         ReflectionTestUtils.setField(controller, "cookieSecure", false);
         ReflectionTestUtils.setField(controller, "cookieSameSite", "Lax");
@@ -59,6 +63,14 @@ class AuthControllerCookieBoundaryTest {
                 Instant.parse("2026-01-01T00:00:00Z")
         );
         session = new AuthSession("opaque-access", "opaque-refresh", user);
+    }
+
+    @Test
+    void sameSiteNoneCannotUseInsecureAuthenticationCookies() {
+        ReflectionTestUtils.setField(controller, "cookieSecure", false);
+        ReflectionTestUtils.setField(controller, "cookieSameSite", "None");
+
+        assertThrows(IllegalStateException.class, controller::validateCookieSecurity);
     }
 
     @Test

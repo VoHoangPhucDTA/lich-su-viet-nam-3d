@@ -1,3 +1,5 @@
+import { ensureCsrfToken } from './csrfClient';
+
 export interface ApiResponse<T> {
   success: boolean;
   code: string;
@@ -68,11 +70,15 @@ export function clearStoredUser(): void {
  */
 async function refreshAccessToken(): Promise<boolean> {
   try {
+    const csrf = await ensureCsrfToken();
     // Không gửi body — refresh_token nằm trong HttpOnly Cookie (path=/api/auth/refresh).
     // Backend đọc cookie trực tiếp, không cần @RequestBody nữa.
     const response = await fetch(`${API_BASE_URL}/api/auth/refresh`, {
       method: 'POST',
-      headers: { Accept: 'application/json' },
+      headers: {
+        Accept: 'application/json',
+        [csrf.headerName]: csrf.token,
+      },
       // credentials: 'include' bắt buộc để browser đính kèm refresh_token cookie
       credentials: 'include',
     });
@@ -140,9 +146,14 @@ export async function apiDelete<T>(path: string, init: Omit<RequestInit, 'method
 
 async function apiRequest<T>(path: string, init: RequestInit, retry = true): Promise<T> {
   const headers = new Headers(init.headers);
+  const method = (init.method ?? 'GET').toUpperCase();
   headers.set('Accept', 'application/json');
   if (init.body !== undefined) {
     headers.set('Content-Type', 'application/json');
+  }
+  if (['POST', 'PUT', 'PATCH', 'DELETE'].includes(method)) {
+    const csrf = await ensureCsrfToken();
+    headers.set(csrf.headerName, csrf.token);
   }
   // KHÔNG set Authorization header nữa — token được gửi tự động qua HttpOnly Cookie.
   // credentials: 'include' là bắt buộc để browser đính kèm cookie vào mọi request.
@@ -153,7 +164,8 @@ async function apiRequest<T>(path: string, init: RequestInit, retry = true): Pro
     credentials: 'include', // Bắt buộc cho HttpOnly Cookie cross-origin và same-origin
   });
 
-  if (response.status === 401 && retry && !path.startsWith('/api/auth/refresh')) {
+  const replaySafe = ['GET', 'HEAD', 'OPTIONS'].includes(method);
+  if (response.status === 401 && retry && replaySafe && !path.startsWith('/api/auth/refresh')) {
     // Access token hết hạn → thử refresh bằng cookie, sau đó replay request
     const refreshed = await refreshAccessToken();
     if (refreshed) {
