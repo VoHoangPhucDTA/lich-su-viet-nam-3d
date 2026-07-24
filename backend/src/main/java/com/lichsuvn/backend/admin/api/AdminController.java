@@ -3,6 +3,8 @@ package com.lichsuvn.backend.admin.api;
 import com.lichsuvn.backend.admin.application.AdminService;
 import com.lichsuvn.backend.auth.security.UserPrincipal;
 import com.lichsuvn.backend.common.api.ApiResponse;
+import com.lichsuvn.backend.common.exception.ApiException;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -93,7 +95,9 @@ public class AdminController {
             @RequestBody Map<String, Object> body,
             @AuthenticationPrincipal UserPrincipal principal
     ) {
-        return ApiResponse.ok(adminService.createEvent(body, principal), "Event created");
+        throw mutationDisabled(
+                "ADMIN_EVENT_CREATE_DISABLED",
+                "Event creation is temporarily disabled while safe event editing is being completed");
     }
 
     @PutMapping("/events/{id}")
@@ -102,7 +106,9 @@ public class AdminController {
             @RequestBody Map<String, Object> body,
             @AuthenticationPrincipal UserPrincipal principal
     ) {
-        return ApiResponse.ok(adminService.updateEvent(id, body, principal), "Event updated");
+        throw mutationDisabled(
+                "ADMIN_EVENT_UPDATE_DISABLED",
+                "Event updates are temporarily disabled while safe event editing is being completed");
     }
 
     @PatchMapping("/events/{id}/status")
@@ -119,6 +125,12 @@ public class AdminController {
             @PathVariable String id,
             @AuthenticationPrincipal UserPrincipal principal
     ) {
-        return ApiResponse.ok(adminService.deleteEvent(id, principal));
+        throw mutationDisabled(
+                "EVENT_HARD_DELETE_DISABLED",
+                "Hard deletion of historical events is disabled");
+    }
+
+    private ApiException mutationDisabled(String code, String message) {
+        return new ApiException(HttpStatus.CONFLICT, code, message);
     }
 }

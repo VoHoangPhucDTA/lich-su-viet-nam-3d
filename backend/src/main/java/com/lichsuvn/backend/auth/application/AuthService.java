@@ -1,6 +1,5 @@
 package com.lichsuvn.backend.auth.application;
 
-import com.lichsuvn.backend.auth.api.dto.AuthResponseDto;
 import com.lichsuvn.backend.auth.api.dto.AuthUserDto;
 import com.lichsuvn.backend.auth.api.dto.ChangePasswordRequest;
 import com.lichsuvn.backend.auth.api.dto.ForgotPasswordRequest;
@@ -11,7 +10,6 @@ import com.lichsuvn.backend.auth.api.dto.RegisterRequest;
 import com.lichsuvn.backend.auth.api.dto.ResendVerificationRequest;
 import com.lichsuvn.backend.auth.api.dto.ResetPasswordRequest;
 import com.lichsuvn.backend.auth.api.dto.UpdateProfileRequest;
-import com.lichsuvn.backend.auth.api.dto.VerifyEmailResponseDto;
 import com.lichsuvn.backend.auth.domain.AuthEmailTokenEntity;
 import com.lichsuvn.backend.auth.domain.RoleEntity;
 import com.lichsuvn.backend.auth.domain.UserEntity;
@@ -153,7 +151,7 @@ public class AuthService {
     }
 
     @Transactional
-    public VerifyEmailResponseDto verifyEmail(String rawToken) {
+    public VerifyEmailResult verifyEmail(String rawToken) {
         AuthEmailTokenEntity token = tokenRepository.findByTokenHashAndTokenType(
                 authTokenService.hashToken(rawToken),
                 "email_verification")
@@ -162,7 +160,7 @@ public class AuthService {
         UserEntity user = token.getUser();
         if (token.getUsedAt() != null) {
             if (UserStatus.ACTIVE.matches(user.getStatus())) {
-                return new VerifyEmailResponseDto("Email đã được xác minh trước đó.", null);
+                return new VerifyEmailResult("Email đã được xác minh trước đó.", null);
             }
             throw new ApiException(HttpStatus.BAD_REQUEST, "INVALID_AUTH_TOKEN", "Invalid or expired token");
         }
@@ -172,12 +170,12 @@ public class AuthService {
         user.setStatus(UserStatus.ACTIVE.value());
         user.setEmailVerifiedAt(Instant.now());
         token.setUsedAt(Instant.now());
-        return new VerifyEmailResponseDto("Xác minh email thành công. Bạn đã được đăng nhập tự động.",
-                toAuthResponse(user));
+        return new VerifyEmailResult("Xác minh email thành công. Bạn đã được đăng nhập tự động.",
+                toAuthSession(user));
     }
 
     @Transactional
-    public AuthResponseDto login(LoginRequest request) {
+    public AuthSession login(LoginRequest request) {
         String email = normalizeEmail(request.email());
         // Bước 6B.1.5: AuthService.java: truy vấn xác thực thông tin tại MySQL
         // Bước 6B.4.1: AuthService.java: truy vấn xác thực tại MySQL
@@ -204,7 +202,7 @@ public class AuthService {
 
         user.setFailedLoginCount(0);
         user.setLockedUntil(null);
-        return toAuthResponse(user);
+        return toAuthSession(user);
     }
 
     public AuthUserDto me(UserPrincipal principal) {
@@ -246,7 +244,7 @@ public class AuthService {
      *             để tương thích ngược với các client cũ gửi RefreshRequest body.
      */
     @Deprecated
-    public AuthResponseDto refresh(RefreshRequest request) {
+    public AuthSession refresh(RefreshRequest request) {
         return refreshByToken(request.refreshToken());
     }
 
@@ -256,12 +254,12 @@ public class AuthService {
      * Phương thức {@link #refresh(RefreshRequest)} được giữ lại để tương thích ngược.
      */
     @Transactional
-    public AuthResponseDto refreshByToken(String refreshToken) {
+    public AuthSession refreshByToken(String refreshToken) {
         JwtClaims claims = jwtService.parseAndValidate(refreshToken, "refresh");
         UserEntity user = userRepository.findById(UuidBytes.fromUuid(UUID.fromString(claims.subject())))
                 .filter(item -> UserStatus.ACTIVE.matches(item.getStatus()))
                 .orElseThrow(() -> new ApiException(HttpStatus.UNAUTHORIZED, "INVALID_TOKEN", "Invalid token"));
-        return toAuthResponse(user);
+        return toAuthSession(user);
     }
 
     public UserPrincipal principalFromAccessToken(String token) {
@@ -338,11 +336,11 @@ public class AuthService {
         return new MessageDto("Đổi mật khẩu thành công.");
     }
 
-    private AuthResponseDto toAuthResponse(UserEntity user) {
+    private AuthSession toAuthSession(UserEntity user) {
         List<String> roles = roleCodes(user);
         String userIdStr = UuidBytes.toString(user.getId());
         // Bước 6B.1.7: AuthService.java: tạo JWT Token và trả về cho AuthController.java
-        return new AuthResponseDto(
+        return new AuthSession(
                 jwtService.createAccessToken(userIdStr, user.getEmail(), roles),
                 jwtService.createRefreshToken(userIdStr, user.getEmail(), roles),
                 user.toDto()

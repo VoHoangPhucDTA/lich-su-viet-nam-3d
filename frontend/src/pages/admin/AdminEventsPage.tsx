@@ -1,19 +1,15 @@
 import { useCallback, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Pencil, Plus, Trash2 } from 'lucide-react';
 import AdminLayout from '../../layouts/AdminLayout';
 import {
-  AdminConfirmDialog,
   AdminDataTable,
   AdminFilterSelect,
   AdminPageHeader,
   AdminPagination,
-  AdminRowActions,
   AdminSearchInput,
   AdminStatusBadge,
   type AdminDataColumn,
 } from '../../components/admin/AdminUI';
-import { deleteAdminEvent, getAdminEvents, type AdminEvent } from '../../services/adminApi';
+import { getAdminEvents, type AdminEvent } from '../../services/adminApi';
 
 const LIMIT = 20;
 const SEARCH_DEBOUNCE_MS = 300;
@@ -31,8 +27,6 @@ export default function AdminEventsPage() {
   const [total, setTotal] = useState(0);
   const [offset, setOffset] = useState(0);
   const [loading, setLoading] = useState(true);
-  const [deletingEvent, setDeletingEvent] = useState<AdminEvent | null>(null);
-  const [deleting, setDeleting] = useState(false);
   const [error, setError] = useState('');
 
   const load = useCallback(async () => {
@@ -91,23 +85,6 @@ export default function AdminEventsPage() {
     setOffset(0);
   };
 
-  const confirmDelete = async () => {
-    if (!deletingEvent || deleting) return;
-    const event = deletingEvent;
-    setDeleting(true);
-    setError('');
-    try {
-      await deleteAdminEvent(event.id);
-      setDeletingEvent(null);
-      if (items.length === 1 && offset > 0) setOffset(Math.max(0, offset - LIMIT));
-      await load();
-    } catch (cause) {
-      setError(cause instanceof Error ? cause.message : 'Không thể xóa sự kiện.');
-    } finally {
-      setDeleting(false);
-    }
-  };
-
   const hasFilters = Boolean(appliedQuery || status || level || eventType || yearFrom || yearTo);
   const searchPending = query.trim() !== appliedQuery;
 
@@ -142,22 +119,18 @@ export default function AdminEventsPage() {
       header: 'Cập nhật',
       render: event => <time dateTime={event.updatedAt} className="whitespace-nowrap text-xs text-[var(--text-muted)]">{new Date(event.updatedAt).toLocaleDateString('vi-VN')}</time>,
     },
-    {
-      key: 'actions',
-      header: 'Thao tác',
-      width: '116px',
-      render: event => <AdminRowActions><Link to={`/admin/events/${event.id}/edit`} className="admin-icon-button" aria-label={`Edit ${event.title}`} title="Edit"><Pencil size={15} aria-hidden="true" /></Link><button type="button" className="admin-icon-button text-[var(--accent)]" aria-label={`Delete ${event.title}`} title="Delete" onClick={() => setDeletingEvent(event)}><Trash2 size={15} aria-hidden="true" /></button></AdminRowActions>,
-    },
   ];
   return (
     <AdminLayout title="Sự kiện lịch sử">
       <AdminPageHeader
         title="Sự kiện lịch sử"
         description="Tìm kiếm, lọc và quản lý dữ liệu sự kiện lịch sử."
-        actions={<Link to="/admin/events/new" className="admin-primary-button inline-flex items-center gap-2 no-underline"><Plus size={16} aria-hidden="true" />Tạo sự kiện</Link>}
       />
 
       <section className="overflow-hidden rounded-xl border border-[var(--border)] bg-[var(--bg-card)] shadow-[var(--admin-shadow)]">
+        <p role="note" className="border-b border-[var(--border)] bg-[var(--bg-secondary)] px-4 py-3 text-sm text-[var(--text-secondary)] sm:px-5">
+          Tạo, chỉnh sửa và xóa sự kiện tạm thời tắt trong khi quy trình biên tập an toàn đang được hoàn thiện.
+        </p>
         <div className="space-y-3 border-b border-[var(--border)] p-4 sm:p-5">
           <div className="flex flex-col gap-2 lg:flex-row">
             <AdminSearchInput
@@ -202,15 +175,6 @@ export default function AdminEventsPage() {
           footer={<AdminPagination total={total} offset={offset} limit={LIMIT} loading={loading} onChange={setOffset} />}
         />
       </section>
-      <AdminConfirmDialog
-        open={Boolean(deletingEvent)}
-        title="Xóa sự kiện?"
-        description={deletingEvent ? `Sự kiện “${deletingEvent.title}” sẽ bị xóa vĩnh viễn.` : undefined}
-        confirmLabel="Xóa"
-        danger
-        onConfirm={() => void confirmDelete()}
-        onCancel={() => setDeletingEvent(null)}
-      />
     </AdminLayout>
   );
 }

@@ -2,6 +2,8 @@ package com.lichsuvn.backend.event.infrastructure;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.lichsuvn.backend.event.api.dto.EventDetailDto;
 import com.lichsuvn.backend.event.api.dto.EventExternalSourceDto;
 import com.lichsuvn.backend.event.api.dto.EventMediaDto;
@@ -265,7 +267,7 @@ public class EventReadRepository {
                 findRelations(base.id()),
                 findRelatedEvents(base.id()),
                 findTextbookContent(base.id()),
-                base.sourceJson()
+                base.mapData()
         ));
     }
 
@@ -657,7 +659,7 @@ public class EventReadRepository {
                 List.of(),
                 EventRelatedEventsDto.empty(),
                 null,
-                parseObject(rs.getString("raw_json"))
+                parsePublicMapData(rs.getString("raw_json"))
         );
     }
 
@@ -688,15 +690,135 @@ public class EventReadRepository {
         );
     }
 
-    private Object parseObject(String value) {
+    JsonNode parsePublicMapData(String value) {
         if (!StringUtils.hasText(value)) {
-            return Map.of();
+            return null;
         }
         try {
-            return objectMapper.readValue(value, Object.class);
+            JsonNode root = objectMapper.readTree(value);
+            JsonNode mapData = root == null ? null : root.get("mapData");
+            if (!(mapData instanceof ObjectNode source)) {
+                return null;
+            }
+
+            ObjectNode safe = objectMapper.createObjectNode();
+            copyText(source, safe, "geoType");
+            copyMarker(source, safe, "marker");
+            copyMarkers(source, safe);
+            copyStringArray(source, safe, "provinceNames");
+            copyStringArray(source, safe, "historicalLocations");
+            copyStringArray(source, safe, "gadmRefs");
+            copyDisplayGeometry(source, safe);
+            copyFocusGeometry(source, safe);
+            return safe.isEmpty() ? null : safe;
         } catch (Exception ex) {
-            return Map.of();
+            return null;
         }
+    }
+
+    private void copyDisplayGeometry(ObjectNode source, ObjectNode target) {
+        if (!(source.get("displayGeometry") instanceof ObjectNode display)) {
+            return;
+        }
+        ObjectNode safe = objectMapper.createObjectNode();
+        copyText(display, safe, "geoType");
+        copyMarker(display, safe, "marker");
+        copyStringArray(display, safe, "provinceNames");
+        copyStringArray(display, safe, "historicalLocations");
+        if (!safe.isEmpty()) {
+            target.set("displayGeometry", safe);
+        }
+    }
+
+    private void copyFocusGeometry(ObjectNode source, ObjectNode target) {
+        if (!(source.get("focusGeometry") instanceof ObjectNode focus)) {
+            return;
+        }
+        ObjectNode safe = objectMapper.createObjectNode();
+        copyText(focus, safe, "mode");
+        copyNumber(focus, safe, "zoom");
+        copyStringArray(focus, safe, "provinceNames");
+        if (focus.get("center") instanceof ObjectNode center) {
+            ObjectNode safeCenter = objectMapper.createObjectNode();
+            copyNumber(center, safeCenter, "lat");
+            copyNumber(center, safeCenter, "lng");
+            if (!safeCenter.isEmpty()) {
+                safe.set("center", safeCenter);
+            }
+        }
+        if (!safe.isEmpty()) {
+            target.set("focusGeometry", safe);
+        }
+    }
+
+    private void copyMarkers(ObjectNode source, ObjectNode target) {
+        if (!(source.get("markers") instanceof ArrayNode markers)) {
+            return;
+        }
+        ArrayNode safeMarkers = objectMapper.createArrayNode();
+        for (JsonNode item : markers) {
+            if (item instanceof ObjectNode marker) {
+                ObjectNode safeMarker = sanitizeMarker(marker);
+                if (!safeMarker.isEmpty()) {
+                    safeMarkers.add(safeMarker);
+                }
+            }
+        }
+        if (!safeMarkers.isEmpty()) {
+            target.set("markers", safeMarkers);
+        }
+    }
+
+    private void copyMarker(ObjectNode source, ObjectNode target, String key) {
+        if (source.get(key) instanceof ObjectNode marker) {
+            ObjectNode safeMarker = sanitizeMarker(marker);
+            if (!safeMarker.isEmpty()) {
+                target.set(key, safeMarker);
+            }
+        }
+    }
+
+    private ObjectNode sanitizeMarker(ObjectNode marker) {
+        ObjectNode safe = objectMapper.createObjectNode();
+        copyText(marker, safe, "name");
+        copyText(marker, safe, "label");
+        copyNumber(marker, safe, "lat");
+        copyNumber(marker, safe, "lng");
+        copyNumber(marker, safe, "confidence");
+        return safe;
+    }
+
+    private void copyStringArray(ObjectNode source, ObjectNode target, String key) {
+        if (!(source.get(key) instanceof ArrayNode values)) {
+            return;
+        }
+        ArrayNode safe = objectMapper.createArrayNode();
+        for (JsonNode value : values) {
+            if (value.isTextual() && !isLocalValue(value.asText())) {
+                safe.add(value.asText());
+            }
+        }
+        if (!safe.isEmpty()) {
+            target.set(key, safe);
+        }
+    }
+
+    private void copyText(ObjectNode source, ObjectNode target, String key) {
+        JsonNode value = source.get(key);
+        if (value != null && value.isTextual() && !isLocalValue(value.asText())) {
+            target.put(key, value.asText());
+        }
+    }
+
+    private void copyNumber(ObjectNode source, ObjectNode target, String key) {
+        JsonNode value = source.get(key);
+        if (value != null && value.isNumber()) {
+            target.set(key, value.deepCopy());
+        }
+    }
+
+    private boolean isLocalValue(String value) {
+        return value != null && value.trim().toLowerCase().startsWith("local:");
     }
 
     private List<String> parseStringList(String value) {

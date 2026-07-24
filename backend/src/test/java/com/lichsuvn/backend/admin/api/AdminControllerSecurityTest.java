@@ -25,9 +25,13 @@ import static org.mockito.ArgumentMatchers.anyMap;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.nullable;
 import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.verifyNoInteractions;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -137,6 +141,51 @@ class AdminControllerSecurityTest {
                         .contentType("application/json")
                         .content("{\"status\":\"disabled\"}"))
                 .andExpect(status().isForbidden());
+    }
+
+    @Test
+    void adminEventMutationsAreQuarantinedBeforeUnsafeServiceLogic() throws Exception {
+        var admin = user("admin").authorities(() -> "ROLE_admin");
+
+        mockMvc.perform(post("/api/admin/events")
+                        .with(admin)
+                        .contentType("application/json")
+                        .content("{}"))
+                .andExpect(status().isConflict())
+                .andExpect(jsonPath("$.code").value("ADMIN_EVENT_CREATE_DISABLED"));
+
+        mockMvc.perform(put("/api/admin/events/event-1")
+                        .with(admin)
+                        .contentType("application/json")
+                        .content("{}"))
+                .andExpect(status().isConflict())
+                .andExpect(jsonPath("$.code").value("ADMIN_EVENT_UPDATE_DISABLED"));
+
+        mockMvc.perform(delete("/api/admin/events/event-1").with(admin))
+                .andExpect(status().isConflict())
+                .andExpect(jsonPath("$.code").value("EVENT_HARD_DELETE_DISABLED"));
+
+        verifyNoInteractions(adminService);
+    }
+
+    @Test
+    void authorizationRunsBeforeAdminEventMutationQuarantine() throws Exception {
+        mockMvc.perform(post("/api/admin/events")
+                        .contentType("application/json")
+                        .content("{}"))
+                .andExpect(status().isUnauthorized());
+
+        mockMvc.perform(put("/api/admin/events/event-1")
+                        .with(user("student").authorities(() -> "ROLE_student"))
+                        .contentType("application/json")
+                        .content("{}"))
+                .andExpect(status().isForbidden());
+
+        mockMvc.perform(delete("/api/admin/events/event-1")
+                        .with(user("teacher").authorities(() -> "ROLE_teacher")))
+                .andExpect(status().isForbidden());
+
+        verifyNoInteractions(adminService);
     }
 
     @TestConfiguration

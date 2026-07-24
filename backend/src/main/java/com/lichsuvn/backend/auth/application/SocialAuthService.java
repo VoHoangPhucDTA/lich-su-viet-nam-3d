@@ -1,6 +1,5 @@
 package com.lichsuvn.backend.auth.application;
 
-import com.lichsuvn.backend.auth.api.dto.AuthResponseDto;
 import com.lichsuvn.backend.auth.domain.RoleEntity;
 import com.lichsuvn.backend.auth.domain.UserEntity;
 import com.lichsuvn.backend.auth.domain.UserSocialProviderEntity;
@@ -98,7 +97,7 @@ public class SocialAuthService {
      * @throws ApiException 503 if the Google tokeninfo service is unreachable.
      */
     @Transactional
-    public AuthResponseDto loginWithGoogle(String idToken) {
+    public AuthSession loginWithGoogle(String idToken) {
         // Bước 6B.2.6: SocialAuthService.java: Xác thực token với Google (tokeninfo)
         // Bước 6B.2.7: Google Server: Trả về thông tin User hợp lệ
         GoogleClaims claims = verifyGoogleIdToken(idToken);
@@ -124,7 +123,7 @@ public class SocialAuthService {
      * @throws ApiException 503 OAUTH_NOT_CONFIGURED if Facebook credentials are not set.
      */
     @Transactional
-    public AuthResponseDto loginWithFacebook(String accessToken) {
+    public AuthSession loginWithFacebook(String accessToken) {
         if (facebookAppId == null || facebookAppId.isBlank() ||
                 facebookAppSecret == null || facebookAppSecret.isBlank()) {
             throw new ApiException(HttpStatus.SERVICE_UNAVAILABLE,
@@ -367,7 +366,7 @@ public class SocialAuthService {
 
     // ── OAuth Login Matrix ────────────────────────────────────────────────
 
-    private AuthResponseDto processOAuthLogin(
+    private AuthSession processOAuthLogin(
             String provider, String providerId,
             String email, String displayName, String avatarUrl) {
             
@@ -389,7 +388,7 @@ public class SocialAuthService {
             guardAccountStatus(user, provider);
             log.info("Social login C3 (already linked): provider={} userId={}", provider,
                     UuidBytes.toString(user.getId()));
-            return toAuthResponse(user);
+            return toAuthSession(user);
         }
 
         // C2: Email already registered (local account) — auto-merge
@@ -413,7 +412,7 @@ public class SocialAuthService {
             }
             log.info("Social login C2 (email merge): provider={} email={} userId={}", provider,
                     email, UuidBytes.toString(user.getId()));
-            return toAuthResponse(user);
+            return toAuthSession(user);
         }
 
         // C1: Brand new user — create active account (no password needed)
@@ -421,7 +420,7 @@ public class SocialAuthService {
         linkProvider(newUser, provider, providerId, email, displayName, avatarUrl);
         log.info("Social login C1 (new user): provider={} email={} userId={}", provider,
                 email, UuidBytes.toString(newUser.getId()));
-        return toAuthResponse(newUser);
+        return toAuthSession(newUser);
     }
 
     /**
@@ -470,13 +469,13 @@ public class SocialAuthService {
         socialRepository.save(link);
     }
 
-    private AuthResponseDto toAuthResponse(UserEntity user) {
+    private AuthSession toAuthSession(UserEntity user) {
         List<String> roles = user.getRoles().stream()
                 .map(r -> r.getCode())
                 .sorted()
                 .toList();
         // Bước 6B.2.10 / 6B.3.10: SocialAuthService.java: Tạo JWT Token và trả về
-        return new AuthResponseDto(
+        return new AuthSession(
                 jwtService.createAccessToken(UuidBytes.toString(user.getId()), user.getEmail(), roles),
                 jwtService.createRefreshToken(UuidBytes.toString(user.getId()), user.getEmail(), roles),
                 user.toDto()

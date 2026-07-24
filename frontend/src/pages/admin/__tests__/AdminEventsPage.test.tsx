@@ -3,7 +3,7 @@ import { MemoryRouter } from 'react-router-dom';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import AdminEventsPage from '../AdminEventsPage';
-import { deleteAdminEvent, getAdminEvents } from '../../../services/adminApi';
+import { getAdminEvents } from '../../../services/adminApi';
 
 vi.mock('../../../layouts/AdminLayout', () => ({
   default: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
@@ -82,7 +82,6 @@ vi.mock('../../../services/adminApi', async () => {
   return {
     ...actual,
     getAdminEvents: vi.fn(),
-    deleteAdminEvent: vi.fn(),
   };
 });
 
@@ -111,7 +110,6 @@ describe('AdminEventsPage characterization', () => {
   beforeEach(() => {
     vi.clearAllMocks();
     vi.mocked(getAdminEvents).mockResolvedValue(page);
-    vi.mocked(deleteAdminEvent).mockResolvedValue({ id: 'event-1' });
   });
 
   const renderPage = () => render(
@@ -154,14 +152,13 @@ describe('AdminEventsPage characterization', () => {
     expect(getAdminEvents).toHaveBeenCalledTimes(2);
   });
 
-  it('characterizes current delete confirmation and mutation feedback path', async () => {
+  it('does not expose create, edit or hard-delete controls while mutations are quarantined', async () => {
     renderPage();
     await waitFor(() => expect(screen.getByText('Bach Dang')).toBeInTheDocument());
 
-    fireEvent.click(screen.getByRole('button', { name: 'Delete Bach Dang' }));
-    expect(screen.getByRole('dialog')).toHaveTextContent('Xóa sự kiện?');
-    fireEvent.click(screen.getByRole('button', { name: 'Xóa' }));
-
-    await waitFor(() => expect(deleteAdminEvent).toHaveBeenCalledWith('event-1'));
+    expect(screen.getByRole('note')).toHaveTextContent('quy trình biên tập an toàn');
+    expect(screen.queryByRole('link', { name: /Tạo sự kiện/i })).not.toBeInTheDocument();
+    expect(screen.queryByRole('link', { name: 'Edit Bach Dang' })).not.toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: 'Delete Bach Dang' })).not.toBeInTheDocument();
   });
 });
