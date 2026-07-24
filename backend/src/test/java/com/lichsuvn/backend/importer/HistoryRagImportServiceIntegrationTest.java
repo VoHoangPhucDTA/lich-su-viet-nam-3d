@@ -10,7 +10,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.testcontainers.containers.MySQLContainer;
+import org.testcontainers.mysql.MySQLContainer;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -25,7 +25,7 @@ import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 class HistoryRagImportServiceIntegrationTest {
 
-    private static MySQLContainer<?> mysql;
+    private static MySQLContainer mysql;
     private static HikariDataSource dataSource;
     private static NamedParameterJdbcTemplate jdbc;
     private static HistoryRagPackageReader.PackageData packageData;
@@ -37,7 +37,7 @@ class HistoryRagImportServiceIntegrationTest {
     static void setupDatabase() {
         boolean containerStarted = false;
         try {
-            mysql = new MySQLContainer<>("mysql:8.0.36")
+            mysql = new MySQLContainer("mysql:8.0.36")
                     .withDatabaseName("history_rag_apply_test")
                     .withUsername("test")
                     .withPassword("test");

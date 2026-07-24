@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.testcontainers.containers.MySQLContainer;
+import org.testcontainers.mysql.MySQLContainer;
 
 import javax.sql.DataSource;
 import java.nio.file.Path;
@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 class HistoryRagDryRunIntegrationTest {
 
-    private static MySQLContainer<?> mysql;
+    private static MySQLContainer mysql;
     private static HistoryRagPackageReader.PackageData packageData;
     private static HistoryRagTextbookRefPreflight preflight;
     private static NamedParameterJdbcTemplate jdbc;
@@ -31,7 +31,7 @@ class HistoryRagDryRunIntegrationTest {
     static void setupDisposableDatabase() {
         boolean containerStarted = false;
         try {
-            mysql = new MySQLContainer<>("mysql:8.0.36")
+            mysql = new MySQLContainer("mysql:8.0.36")
                     .withDatabaseName("history_rag_dry_run_test")
                     .withUsername("test")
                     .withPassword("test");
