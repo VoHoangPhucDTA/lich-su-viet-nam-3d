@@ -331,6 +331,18 @@
   color: var(--dashboard-text);
 }
 
+.dashboard-fallback-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin: -.2rem 0 1rem;
+}
+
+.dashboard-attempt-action-disabled {
+  cursor: default;
+  opacity: .62;
+  text-decoration: none;
+}
+
 .dashboard-kpi-surface {
   padding: .7rem;
   overflow: hidden;

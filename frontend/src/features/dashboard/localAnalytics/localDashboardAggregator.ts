@@ -109,6 +109,8 @@ export function buildLocalDashboardAnalytics(
   const boundary = rangeBoundary(range, now);
   const attempts = scanResult.attempts
     .filter((attempt) => (
+      attempt.submittedAt <= now.getTime()
+      &&
       attempt.submittedAt < boundary.toMs
       && (boundary.fromMs === null || attempt.submittedAt >= boundary.fromMs)
     ))
@@ -254,6 +256,10 @@ export function buildLocalDashboardAnalytics(
     questionTypes: questionTypeFacts,
     recentAttempts: [...attempts].reverse().slice(0, recentLimit).map((attempt) => ({
       attemptId: attempt.sessionId ?? attempt.stableId,
+      resultRouteId: (
+        attempt.sourceKind === 'api-snapshot-v2-cache'
+        || attempt.sourceKind === 'v2-result'
+      ) ? attempt.sessionId : null,
       submittedAt: new Date(attempt.submittedAt).toISOString(),
       score: attempt.totalScore,
       mode: attempt.mode,
@@ -276,6 +282,7 @@ export function buildLocalDashboardAnalytics(
     diagnostics: { ...scanResult.diagnostics },
     pendingRecoveryCount: scanResult.pendingRecoveryCount,
     ownerScopeBreakdown: { ...scanResult.ownerScopeBreakdown },
+    excludedOwnerScopeBreakdown: { ...scanResult.excludedOwnerScopeBreakdown },
     sourceBreakdown: { ...scanResult.sourceBreakdown },
   };
 }

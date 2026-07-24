@@ -33,6 +33,7 @@ import {
 } from 'recharts';
 import type { DashboardDevelopmentFixtureLoader } from './dashboardFixtures';
 import { formatDashboardDuration, formatDashboardScore } from './dashboardFormatters';
+import type { DashboardLocalStorageProvider } from './localAnalytics/localDashboardSource';
 import { usePersonalLearningDashboard } from './usePersonalLearningDashboard';
 import type {
   CognitivePerformance,
@@ -474,7 +475,9 @@ function DashboardRecentAttemptItem({ attempt }: { attempt: RecentAttemptItem })
           <p>{attempt.modeLabel} · <time dateTime={attempt.submittedAt}>{attempt.submittedLabel}</time></p>
           <p>{formatDashboardDuration(attempt.durationSeconds)} · {attempt.totalQuestions} câu · {detailStatusLabel(attempt.detailStatus)}</p>
         </div>
-        <Link className="dashboard-attempt-action" aria-label={`Xem lại bài làm: ${attempt.title}`} to={attempt.resultRoute}>Xem lại<ArrowRight aria-hidden="true" /></Link>
+        {attempt.resultRoute
+          ? <Link className="dashboard-attempt-action" aria-label={`Xem lại bài làm: ${attempt.title}`} to={attempt.resultRoute}>Xem lại<ArrowRight aria-hidden="true" /></Link>
+          : <span className="dashboard-attempt-action dashboard-attempt-action-disabled" aria-label="Không có dữ liệu xem lại an toàn">Chỉ tổng quan</span>}
       </article>
     </li>
   );
@@ -617,7 +620,7 @@ function DashboardEmptyState({ vm }: { vm: PersonalLearningDashboardViewModel })
           {isAnonymous ? 'Đăng nhập để xem thống kê học tập' : 'Chưa có bài thi nào'}
         </h2>
         <p>{isAnonymous
-          ? 'Dashboard tài khoản tải kết quả đã lưu trên máy chủ. Phân tích dữ liệu anonymous chưa được triển khai trong Goal 3A.'
+          ? 'Không có kết quả anonymous đã được xác nhận trên thiết bị này. Đăng nhập để xem dữ liệu đã lưu trên máy chủ.'
           : 'Hoàn thành một đề thi thử để bắt đầu theo dõi kết quả học tập.'}</p>
         {recommendation && <Link className="dashboard-primary-action" to={recommendation.actionRoute}>{recommendation.actionLabel}</Link>}
       </section>
@@ -626,11 +629,22 @@ function DashboardEmptyState({ vm }: { vm: PersonalLearningDashboardViewModel })
   );
 }
 
-function DashboardReadyState({ vm }: { vm: PersonalLearningDashboardViewModel }) {
+function DashboardReadyState({ vm, onRetry }: {
+  vm: PersonalLearningDashboardViewModel;
+  onRetry: () => void;
+}) {
   const notices = readyNotices(vm);
+  const isLocalFallback = vm.scope.source === 'local-fallback';
   return (
     <main className="dashboard-content">
       {notices.length > 0 && <div className="dashboard-notice-stack">{notices.map((notice) => <DashboardNoticeBanner key={notice.id} notice={notice} />)}</div>}
+      {isLocalFallback && (
+        <div className="dashboard-fallback-actions">
+          <button className="dashboard-secondary-action" type="button" onClick={onRetry}>
+            Thử kết nối máy chủ lại
+          </button>
+        </div>
+      )}
       <div className="dashboard-layout">
         <div className="dashboard-main-column">
           <DashboardRecommendationCard vm={vm} />
@@ -650,12 +664,14 @@ interface PersonalLearningDashboardPageProps {
   initialViewModel?: PersonalLearningDashboardViewModel;
   requestDashboard?: DashboardAnalyticsRequest;
   fixtureLoader?: DashboardDevelopmentFixtureLoader | null;
+  localStorageProvider?: DashboardLocalStorageProvider;
 }
 
 export default function PersonalLearningDashboardPage({
   initialViewModel,
   requestDashboard,
   fixtureLoader,
+  localStorageProvider,
 }: PersonalLearningDashboardPageProps = {}) {
   const location = useLocation();
   const { currentUser, isAuthenticated, isLoading } = useAuth();
@@ -670,6 +686,7 @@ export default function PersonalLearningDashboardPage({
     initialViewModel,
     requestDashboard,
     fixtureLoader,
+    localStorageProvider,
   });
 
   return (
@@ -679,7 +696,7 @@ export default function PersonalLearningDashboardPage({
       {vm.state === 'loading' && <DashboardLoadingState />}
       {vm.state === 'error' && <DashboardErrorState vm={vm} onRetry={retry} />}
       {vm.state === 'empty' && <DashboardEmptyState vm={vm} />}
-      {vm.state === 'ready' && <DashboardReadyState vm={vm} />}
+      {vm.state === 'ready' && <DashboardReadyState vm={vm} onRetry={retry} />}
     </div>
   );
 }

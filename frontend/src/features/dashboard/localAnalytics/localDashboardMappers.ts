@@ -44,14 +44,35 @@ export function mapLocalDashboardAnalyticsToViewModel(
     summary: 'Kết quả cục bộ cho thấy chủ đề này cần được ưu tiên ôn lại.',
   }));
   const priority = weaknesses[0] ?? null;
-  const notices: PersonalLearningDashboardViewModel['notices'] = [{
+  const notices: PersonalLearningDashboardViewModel['notices'] = [];
+  if (source === 'local-fallback') {
+    notices.push({
+      id: 'backend-unavailable-local-fallback',
+      type: 'warning',
+      title: 'Máy chủ thống kê đang tạm thời không khả dụng',
+      message: 'Dashboard đang hiển thị riêng dữ liệu cục bộ thuộc đúng tài khoản hiện tại trên thiết bị này. Đây không phải toàn bộ lịch sử tài khoản.',
+      actionLabel: null,
+      actionRoute: null,
+    });
+  }
+  notices.push({
     id: 'device-only-local-analytics',
     type: 'info',
     title: source === 'local-fallback' ? 'Đang xem dữ liệu dự phòng trên thiết bị' : 'Dữ liệu chỉ có trên thiết bị này',
     message: 'Các thống kê này không đại diện cho toàn bộ lịch sử tài khoản và không được tự động gộp với backend.',
-    actionLabel: null,
-    actionRoute: null,
-  }];
+    actionLabel: source === 'local' ? 'Đăng nhập' : null,
+    actionRoute: source === 'local' ? '/login' : null,
+  });
+  if (facts.excludedOwnerScopeBreakdown['device-legacy-unscoped'] > 0) {
+    notices.push({
+      id: 'device-unscoped-excluded',
+      type: 'info',
+      title: 'Một số dữ liệu cũ không được tính',
+      message: 'Một số kết quả cũ trên thiết bị đã bị loại khỏi thống kê vì không xác định được chủ sở hữu.',
+      actionLabel: null,
+      actionRoute: null,
+    });
+  }
   if (!facts.coverage.isComplete || facts.coverage.detailedAttemptCount < facts.coverage.summaryAttemptCount) {
     notices.push({
       id: 'local-coverage-partial',
@@ -159,7 +180,9 @@ export function mapLocalDashboardAnalyticsToViewModel(
       submittedAt: attempt.submittedAt,
       submittedLabel: formatDashboardSubmittedLabel(attempt.submittedAt),
       totalQuestions: attempt.totalQuestions,
-      resultRoute: `/exams/ket-qua/${encodeURIComponent(attempt.attemptId)}`,
+      resultRoute: attempt.resultRouteId
+        ? `/exams/ket-qua/${encodeURIComponent(attempt.resultRouteId)}`
+        : null,
       detailStatus: attempt.detailStatus === 'full' ? 'full'
         : attempt.detailStatus === 'summary-only' ? 'summary-only' : 'unavailable',
     })),

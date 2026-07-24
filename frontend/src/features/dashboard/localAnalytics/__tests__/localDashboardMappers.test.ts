@@ -49,6 +49,7 @@ function facts(overrides: Partial<LocalDashboardAnalyticsResultV1> = {}): LocalD
     }],
     recentAttempts: [{
       attemptId: 'local/attempt 1',
+      resultRouteId: 'local/attempt 1',
       submittedAt: '2026-07-20T03:00:00.000Z',
       score: 5,
       mode: 'TIMED_ORIGINAL',
@@ -90,6 +91,13 @@ function facts(overrides: Partial<LocalDashboardAnalyticsResultV1> = {}): LocalD
       unknown: 0,
       conflicting: 0,
     },
+    excludedOwnerScopeBreakdown: {
+      anonymous: 0,
+      'authenticated-owner': 0,
+      'device-legacy-unscoped': 0,
+      unknown: 0,
+      conflicting: 0,
+    },
     sourceBreakdown: { 'v2-result': 1 },
     ...overrides,
   };
@@ -105,7 +113,10 @@ describe('local dashboard ViewModel mapper', () => {
     expect(local.scope).toMatchObject({ source: 'local', isAuthenticated: false });
     expect(local.notices.map((notice) => notice.id)).toContain('device-only-local-analytics');
     expect(fallback.scope).toMatchObject({ source: 'local-fallback', isAuthenticated: true });
-    expect(fallback.notices[0]?.id).toBe('device-only-local-analytics');
+    expect(fallback.notices.map((notice) => notice.id)).toEqual(expect.arrayContaining([
+      'backend-unavailable-local-fallback',
+      'device-only-local-analytics',
+    ]));
   });
 
   it('adds pending-recovery and partial-coverage notices', () => {

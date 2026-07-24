@@ -139,6 +139,7 @@ export interface LocalDashboardScanResult {
   diagnostics: LocalDashboardScanDiagnostics;
   pendingRecoveryCount: number;
   ownerScopeBreakdown: Record<LocalDashboardOwnerScope, number>;
+  excludedOwnerScopeBreakdown: Record<LocalDashboardOwnerScope, number>;
   sourceBreakdown: Partial<Record<LocalDashboardSourceKind, number>>;
 }
 
@@ -208,6 +209,7 @@ export interface LocalDashboardAnalyticsResultV1 {
   questionTypes: LocalDashboardQuestionTypeFact[];
   recentAttempts: Array<{
     attemptId: string;
+    resultRouteId: string | null;
     submittedAt: string;
     score: number;
     mode: LocalDashboardMode;
@@ -235,6 +237,7 @@ export interface LocalDashboardAnalyticsResultV1 {
   diagnostics: LocalDashboardScanDiagnostics;
   pendingRecoveryCount: number;
   ownerScopeBreakdown: Record<LocalDashboardOwnerScope, number>;
+  excludedOwnerScopeBreakdown: Record<LocalDashboardOwnerScope, number>;
   sourceBreakdown: Partial<Record<LocalDashboardSourceKind, number>>;
 }
 

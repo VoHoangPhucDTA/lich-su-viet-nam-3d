@@ -11,6 +11,12 @@ import type { DashboardAnalyticsResponseV1 } from '../dashboardAnalyticsTypes';
 import { validateDashboardAnalyticsResponseV1 } from '../dashboardAnalyticsValidation';
 import { DASHBOARD_FIXTURES, resolveDevelopmentDashboardFixture } from '../dashboardDevelopmentFixtures';
 import type { DashboardFixtureKey } from '../dashboardFixtures';
+import type { LocalDashboardStorage } from '../localAnalytics/localDashboardRepository';
+import {
+  recoveryQueueItemFixture,
+  v2DetailedFixture,
+  v2SummaryFixture,
+} from '../localAnalytics/__tests__/fixtures/localDashboardSyntheticFixtures';
 
 const { authState } = vi.hoisted(() => ({
   authState: {
@@ -33,6 +39,20 @@ function validated(value: unknown): DashboardAnalyticsResponseV1 {
 const readyAnalyticsResponse = validated(defaultAnalyticsFixture);
 const emptyAnalyticsResponse = validated(emptyAnalyticsFixture);
 const partialAnalyticsResponse = validated(partialAnalyticsFixture);
+
+function localStorageWith(entries: Record<string, unknown>): LocalDashboardStorage {
+  const values = new Map(
+    Object.entries(entries).map(([key, value]) => [
+      key,
+      typeof value === 'string' ? value : JSON.stringify(value),
+    ]),
+  );
+  return {
+    get length() { return values.size; },
+    key: (index) => [...values.keys()][index] ?? null,
+    getItem: (key) => values.get(key) ?? null,
+  };
+}
 
 vi.mock('recharts', () => {
   const Wrapper = ({ children }: { children?: ReactNode }) => <div>{children}</div>;
@@ -198,13 +218,53 @@ describe('dashboard interactions and adapter boundaries', () => {
   it('renders an anonymous sign-in state without returning a fake default fixture', async () => {
     render(
       <MemoryRouter initialEntries={['/exams/thong-ke']}>
-        <PersonalLearningDashboardPage />
+        <PersonalLearningDashboardPage localStorageProvider={() => localStorageWith({})} />
       </MemoryRouter>,
     );
     expect(await screen.findByRole('heading', { name: 'Đăng nhập để xem thống kê học tập' })).toBeInTheDocument();
     expect(screen.getByRole('link', { name: 'Đăng nhập' })).toHaveAttribute('href', '/login');
     expect(screen.queryByText('Điểm trung bình')).not.toBeInTheDocument();
     expect(screen.queryByText(/· Máy chủ$/)).not.toBeInTheDocument();
+  });
+
+  it('renders explicit anonymous local analytics and excludes device-unscoped content', async () => {
+    const storage = localStorageWith({
+      'v2_result_anonymous': v2DetailedFixture({
+        sessionId: 'anonymous-result',
+        ownerScope: 'anonymous',
+        title: 'Synthetic anonymous result',
+      }),
+      'v2_result_device': v2SummaryFixture({
+        sessionId: 'device-result',
+        title: 'Hidden device result title',
+      }),
+    });
+    render(
+      <MemoryRouter initialEntries={['/exams/thong-ke']}>
+        <PersonalLearningDashboardPage localStorageProvider={() => storage} fixtureLoader={null} />
+      </MemoryRouter>,
+    );
+    expect(await screen.findByText('Số bài đã làm')).toBeInTheDocument();
+    expect(screen.getByText('Dữ liệu chỉ có trên thiết bị này')).toBeInTheDocument();
+    expect(screen.getByText('Một số dữ liệu cũ không được tính')).toBeInTheDocument();
+    expect(screen.queryByText('Hidden device result title')).not.toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'Đăng nhập' })).toHaveAttribute('href', '/login');
+  });
+
+  it('renders anonymous summary-only data with a partial coverage notice', async () => {
+    const storage = localStorageWith({
+      'v2_result_anonymous': v2SummaryFixture({
+        sessionId: 'anonymous-summary',
+        ownerScope: 'anonymous',
+      }),
+    });
+    render(
+      <MemoryRouter initialEntries={['/exams/thong-ke']}>
+        <PersonalLearningDashboardPage localStorageProvider={() => storage} fixtureLoader={null} />
+      </MemoryRouter>,
+    );
+    expect(await screen.findByText('Phân tích cục bộ chưa đầy đủ')).toBeInTheDocument();
+    expect(screen.getByText('Số bài đã làm')).toBeInTheDocument();
   });
 
   it('keeps the utility rail in natural flow without equal-height stretch or nested scrolling', () => {
@@ -238,14 +298,20 @@ describe('authenticated dashboard integration', () => {
   it('renders mapped backend data for an authenticated user', async () => {
     authenticate();
     const requestDashboard = vi.fn().mockResolvedValue(readyAnalyticsResponse);
+    const localStorageProvider = vi.fn();
     render(
       <MemoryRouter initialEntries={['/exams/thong-ke']}>
-        <PersonalLearningDashboardPage requestDashboard={requestDashboard} fixtureLoader={null} />
+        <PersonalLearningDashboardPage
+          requestDashboard={requestDashboard}
+          fixtureLoader={null}
+          localStorageProvider={localStorageProvider}
+        />
       </MemoryRouter>,
     );
     expect(await screen.findByText('Số bài đã làm')).toBeInTheDocument();
     expect(screen.getByText('4', { selector: '.dashboard-kpi-value strong' })).toBeInTheDocument();
     expect(requestDashboard).toHaveBeenCalledWith('30d', expect.any(AbortSignal));
+    expect(localStorageProvider).not.toHaveBeenCalled();
   });
 
   it('renders authenticated empty data as an empty state', async () => {
@@ -310,6 +376,51 @@ describe('authenticated dashboard integration', () => {
     expect(screen.getByRole('link', { name: 'Đăng nhập lại' })).toHaveAttribute('href', '/login');
     fireEvent.click(screen.getByRole('button', { name: 'Thử lại' }));
     expect(await screen.findByText('Số bài đã làm')).toBeInTheDocument();
+    expect(requestDashboard).toHaveBeenCalledTimes(2);
+  });
+
+  it('shows exact-owner local fallback, pending notice, and retries backend first', async () => {
+    authenticate();
+    const localResult = v2DetailedFixture({
+      sessionId: 'test-owner-result',
+      userId: 'test-owner',
+    });
+    const storage = localStorageWith({
+      'v2_result_test-owner-result': localResult,
+      exam_submission_recovery_queue_v1: [recoveryQueueItemFixture({
+        ownerId: 'test-owner',
+        localResult,
+        request: {
+          clientSubmissionId: 'client-test-owner',
+          localSessionId: 'test-owner-result',
+          mode: 'TIMED_ORIGINAL',
+          datasetVersion: 'synthetic-dataset-v1',
+          clientTiming: {},
+          questionRefs: [],
+          answers: [],
+        },
+      })],
+    });
+    const requestDashboard = vi.fn()
+      .mockRejectedValueOnce(new DashboardAnalyticsApiError('server', 'safe', 503))
+      .mockResolvedValueOnce(readyAnalyticsResponse);
+    render(
+      <MemoryRouter initialEntries={['/exams/thong-ke']}>
+        <PersonalLearningDashboardPage
+          requestDashboard={requestDashboard}
+          fixtureLoader={null}
+          localStorageProvider={() => storage}
+        />
+      </MemoryRouter>,
+    );
+    expect(await screen.findByText('Máy chủ thống kê đang tạm thời không khả dụng')).toBeInTheDocument();
+    expect(screen.getByText('Có bài đang chờ đồng bộ')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Thử kết nối máy chủ lại' })).toBeInTheDocument();
+    expect(screen.queryByText('test-owner')).not.toBeInTheDocument();
+
+    fireEvent.click(screen.getByRole('button', { name: 'Thử kết nối máy chủ lại' }));
+    expect(await screen.findByText('4', { selector: '.dashboard-kpi-value strong' })).toBeInTheDocument();
+    expect(screen.queryByText('Máy chủ thống kê đang tạm thời không khả dụng')).not.toBeInTheDocument();
     expect(requestDashboard).toHaveBeenCalledTimes(2);
   });
 

@@ -110,7 +110,7 @@ export interface RecentAttemptItem {
   submittedAt: string;
   submittedLabel: string;
   totalQuestions: number;
-  resultRoute: string;
+  resultRoute: string | null;
   detailStatus: 'full' | 'summary-only' | 'unavailable';
 }
 

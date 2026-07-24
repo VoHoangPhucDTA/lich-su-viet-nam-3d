@@ -8,6 +8,8 @@ Goal 2 commit / Goal 3A baseline: `195db79f4b2055e97bbd02909ce7f1a2ba4134ca`
 
 Goal 3A commit / Goal 3B1 baseline: `655702f48522faed9f5ce1691be190c7b582a117`
 
+Goal 3B1 commit / Goal 3B2 baseline: `c88c2213bd82b7738a19ab3edec02355f5aa46ea`
+
 ## Trạng thái tổng quát
 
 | Goal | Trạng thái | Phạm vi |
@@ -16,8 +18,8 @@ Goal 3A commit / Goal 3B1 baseline: `655702f48522faed9f5ce1691be190c7b582a117`
 | Goal 1 | Hoàn thành, đã commit | Fixture boundary, wire contract V1, validator, policy, mapper và test frontend |
 | Goal 2 | Hoàn thành, đã commit | Authenticated backend analytics API V1 |
 | Goal 3A | Hoàn thành, đã commit | Authenticated production API client/hook, auth/range/error/retry/partial coverage |
-| Goal 3B1 | Đã triển khai, REVIEW GATE | Local scanner/adapters/owner scope/dedupe/aggregation/mapper thuần; chưa wired production |
-| Goal 3B2 | Deferred | Quyết định và nối anonymous/device-local/backend-off presentation; không silent merge |
+| Goal 3B1 | Hoàn thành, đã commit | Local scanner/adapters/owner scope/dedupe/aggregation/mapper thuần |
+| Goal 3B2 | Đã triển khai, REVIEW GATE | Anonymous local, exact-owner backend-off fallback, source priority và stale/cross-user protection |
 | Goal 4 | Chưa thực hiện | Đối soát dữ liệu thật, observability và rollout |
 
 ## Goal 0 — Source audit
@@ -392,9 +394,10 @@ user, bypass verification hoặc đọc credential.
 ## Goal 3B1 — Local analytics foundation
 
 Goal 3B1 đã triển khai local foundation dưới
-`frontend/src/features/dashboard/localAnalytics/` và dừng tại **REVIEW GATE**. Toàn bộ thay đổi Goal 3B1
-đang unstaged, chưa commit và chưa push. `PersonalLearningDashboardPage` và
-`usePersonalLearningDashboard` không import hoặc gọi local scanner/aggregator/mapper.
+`frontend/src/features/dashboard/localAnalytics/`, vượt review gate và được commit riêng tại
+`c88c2213bd82b7738a19ab3edec02355f5aa46ea` với message
+`feat(dashboard): add local analytics foundation`. Commit gồm đúng foundation/tests/docs Goal 3B1,
+không gồm thay đổi có trước tại `frontend/public/data/exams/exam-dataset-build.json` và chưa được push.
 
 ### Local storage source map đã xác minh
 
@@ -444,9 +447,10 @@ metadata; không giữ raw JSON, answer objects, correct-answer snapshots, token
 - malformed, unsupported, owner conflict, oversize, read error hoặc cap đều làm coverage incomplete.
 
 Pure mapper local → `PersonalLearningDashboardViewModel` đã có notice device-only/local-fallback, partial
-coverage và pending recovery; bỏ topic insufficient khỏi weaknesses. Mapper chưa được wired production.
+coverage và pending recovery; bỏ topic insufficient khỏi weaknesses. Goal 3B2 đã nối mapper này qua
+orchestration production mà không đưa parsing hoặc aggregation vào component.
 
-### Validation và Goal 3B2 deferred
+### Validation Goal 3B1
 
 Validation Goal 3B1 tại review gate:
 
@@ -463,9 +467,66 @@ Build data pre-step đã được chạy trong một backup/restore boundary; b�
 được khôi phục byte-for-byte sau build. Thay đổi có trước Goal tại `exam-dataset-build.json` vẫn giữ nguyên và
 không thuộc Goal 3B1.
 
-Goal 3B2 mới được phép quyết định source filter và presentation cho anonymous, legacy device-local và
-backend-off fallback. Cho tới đó anonymous vẫn là sign-in state, backend failure vẫn là error state và không
-có backend/local merge.
+## Goal 3B2 — Local production integration
+
+Goal 3B2 đã được triển khai và đang dừng tại **REVIEW GATE**, unstaged/uncommitted. Source priority được
+khóa theo thứ tự: explicit DEV fixture → auth loading → anonymous local → authenticated backend →
+exact-owner local fallback chỉ khi backend unavailable → error. Mỗi lần chỉ có một source làm authority;
+backend và local attempts không bao giờ được merge.
+
+### Source, owner và fallback policy
+
+- DEV fixture vẫn deterministic, chỉ hoạt động khi `import.meta.env.DEV`, không gọi backend hoặc scan storage.
+- Auth loading xóa ViewModel cũ và không đọc source nào.
+- Anonymous không gọi backend; chỉ nhận record có `ownerScope=anonymous`. Không có summary-eligible attempt
+  thì giữ sign-in state, không dựng dashboard KPI 0.
+- Authenticated luôn gọi backend trước. Response thành công là ViewModel duy nhất và không nhận thêm local
+  KPI/trend/topic/recent.
+- Fallback chỉ áp dụng cho transport/network, timeout và HTTP `502/503/504`. Các lỗi
+  `400/401/403/404/409/429/500`, contract, abort và unknown không scan/fallback local.
+- Stable owner key là opaque `currentUser.id`, cùng convention `ownerId` đang dùng bởi recovery queue.
+  Fallback chỉ nhận exact `authenticated-owner` có `ownerKey` khớp; không dùng email, display name, token,
+  anonymous, unknown, conflicting, owner khác hoặc device-unscoped.
+- `device-legacy-unscoped` không tham gia KPI/recent/detail. UI chỉ có thể hiển thị count-only privacy notice,
+  không title, score, route hoặc raw payload.
+- Anonymous không đọc authenticated recovery queue. Pending recovery của authenticated owner chỉ là notice,
+  không làm tăng totalAttempts/coverage và không tạo recent item trùng.
+
+### Range, retry, stale state và presentation
+
+- Local range dùng `submittedAt`, timezone `Asia/Ho_Chi_Minh`, lower bound theo calendar day cho
+  `7d/30d/90d`, upper bound ngày mai exclusive; `all` không có lower bound. Future timestamp bị loại.
+- Range change và retry scan lại local source. Retry từ authenticated fallback luôn gọi backend trước; khi
+  backend phục hồi, backend ViewModel thay hoàn toàn local fallback.
+- Request generation gồm auth/owner/range/retry/source; AbortController và generation check chặn response hoặc
+  local scan cũ ghi state. Logout, anonymous ↔ login và user A → user B xóa ViewModel owner trước.
+- Anonymous local dùng `source=local`, notice device-only và CTA đăng nhập nhưng không che analytics.
+  Authenticated fallback dùng `source=local-fallback`, warning backend unavailable và nút thử backend lại.
+- Recent local chỉ có route cho cached API snapshot v2 hoặc valid `v2_result_*` có identity an toàn.
+  Summary-only/legacy hiển thị action disabled `Chỉ tổng quan`; không dựng route bằng heuristic.
+- Storage unavailable không crash: anonymous giữ sign-in state; authenticated giữ backend error.
+
+Cross-tab `storage` event refresh được deferred sang Goal 4. Goal 3B2 vẫn refresh khi mount, auth/source/range
+hoặc retry thay đổi và khi người dùng điều hướng lại dashboard sau khi nộp bài.
+
+### Validation Goal 3B2
+
+```text
+targeted dashboard/local integration PASS — 7 files, 154 tests
+full frontend tests PASS — 47 files, 368 tests
+TypeScript PASS
+targeted ESLint PASS, zero warnings
+production build PASS — 4,168 modules transformed
+production bundle audit PASS — endpoint và local production source có mặt; DEV/synthetic fixture,
+raw-answer và synthetic token/credential markers không có
+```
+
+Build data pre-step chạy trong backup/restore boundary; bốn tracked `public/data/exams` artifacts được khôi
+phục byte-for-byte. Browser QA development đã xác minh anonymous no-data, explicit-anonymous fixture,
+count-only unscoped notice, local range, fallback warning/retry và layout mobile 320 px; browser console
+không có error/warning. Authenticated real-account browser smoke:
+**CANNOT CONFIRM** vì không có verified QA account/session; các nhánh backend success, 503 fallback, exact
+owner, backend recovery, logout và user switch được kiểm thử bằng integration/mock, không bypass verification.
 
 ## Rollback Goal 1
 

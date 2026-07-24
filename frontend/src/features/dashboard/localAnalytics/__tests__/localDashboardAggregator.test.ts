@@ -74,6 +74,9 @@ function scan(attempts: LocalDashboardAttemptV1[], overrides: Partial<LocalDashb
     ownerScopeBreakdown: {
       anonymous: 0, 'authenticated-owner': 0, 'device-legacy-unscoped': attempts.length, unknown: 0, conflicting: 0,
     },
+    excludedOwnerScopeBreakdown: {
+      anonymous: 0, 'authenticated-owner': 0, 'device-legacy-unscoped': 0, unknown: 0, conflicting: 0,
+    },
     sourceBreakdown: { 'v2-result': attempts.length },
     ...overrides,
   };
@@ -199,6 +202,39 @@ describe('local dashboard analytics aggregation', () => {
     ]), { range: '7d', now: NOW });
     expect(result.scope).toMatchObject({ fromDate: '2026-07-18', toDateExclusive: '2026-07-25' });
     expect(result.summary.totalAttempts).toBe(1);
+  });
+
+  it.each([
+    ['30d', '2026-06-24T17:00:00Z', '2026-06-24T16:59:59Z'],
+    ['90d', '2026-04-25T17:00:00Z', '2026-04-25T16:59:59Z'],
+  ] as const)('uses the inclusive %s lower calendar boundary', (range, inside, outside) => {
+    const result = buildLocalDashboardAnalytics(scan([
+      attempt('inside', { submittedAt: Date.parse(inside) }),
+      attempt('outside', { submittedAt: Date.parse(outside) }),
+    ]), { range, now: NOW });
+    expect(result.summary.totalAttempts).toBe(1);
+    expect(result.recentAttempts[0]?.attemptId).toBe('inside');
+  });
+
+  it('keeps all historical attempts for all while excluding future timestamps', () => {
+    const result = buildLocalDashboardAnalytics(scan([
+      attempt('historical', { submittedAt: Date.parse('2010-01-01T00:00:00Z') }),
+      attempt('now', { submittedAt: NOW.getTime() }),
+      attempt('future-today', { submittedAt: NOW.getTime() + 60_000 }),
+      attempt('tomorrow', { submittedAt: Date.parse('2026-07-24T17:00:00Z') }),
+    ]), { range: 'all', now: NOW });
+    expect(result.recentAttempts.map((item) => item.attemptId)).toEqual(['now', 'historical']);
+  });
+
+  it('calculates active days and ordering in Asia/Ho_Chi_Minh after range filtering', () => {
+    const result = buildLocalDashboardAnalytics(scan([
+      attempt('day-one-a', { submittedAt: Date.parse('2026-07-20T16:59:00Z') }),
+      attempt('day-two-a', { submittedAt: Date.parse('2026-07-20T17:01:00Z') }),
+      attempt('day-two-b', { submittedAt: Date.parse('2026-07-21T02:00:00Z') }),
+    ]), { range: '30d', now: NOW });
+    expect(result.summary.activeDays).toBe(2);
+    expect(result.trend.map((item) => item.attemptId)).toEqual(['day-one-a', 'day-two-a', 'day-two-b']);
+    expect(result.recentAttempts.map((item) => item.attemptId)).toEqual(['day-two-b', 'day-two-a', 'day-one-a']);
   });
 
   it('preserves local authority and only counts exact cached backend official triples', () => {

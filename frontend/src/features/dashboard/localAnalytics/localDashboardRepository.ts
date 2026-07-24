@@ -60,6 +60,7 @@ function readAllowedEntries(
   maxMatchingKeys: number,
   maxPayloadCharacters: number,
   diagnostics: LocalDashboardScanDiagnostics,
+  includeRecovery: boolean,
 ): Array<{ key: string; value: unknown }> {
   const keys: string[] = [];
   let length = 0;
@@ -76,7 +77,7 @@ function readAllowedEntries(
     } catch {
       diagnostics.storageReadErrorCount += 1;
     }
-    if (key && isAllowedKey(key)) keys.push(key);
+    if (key && isAllowedKey(key) && (includeRecovery || key !== RECOVERY_KEY)) keys.push(key);
   }
   keys.sort((left, right) => left.localeCompare(right));
   diagnostics.matchingKeyCount = keys.length;
@@ -316,7 +317,13 @@ export function scanLocalDashboardAttempts(
     LOCAL_DASHBOARD_MAX_PAYLOAD_CHARACTERS,
   ));
   const diagnostics = emptyDiagnostics();
-  const entries = readAllowedEntries(storage, maxMatchingKeys, maxPayloadCharacters, diagnostics);
+  const entries = readAllowedEntries(
+    storage,
+    maxMatchingKeys,
+    maxPayloadCharacters,
+    diagnostics,
+    options.ownerFilter.kind !== 'anonymous',
+  );
   const recoveryMetadata = entries
     .filter((entry) => entry.key === RECOVERY_KEY)
     .flatMap((entry) => parseRecoveryMetadata(entry.value));
@@ -367,7 +374,18 @@ export function scanLocalDashboardAttempts(
     unknown: 0,
     conflicting: diagnostics.ownerConflictCount,
   };
+  const excludedOwnerScopeBreakdown: Record<LocalDashboardOwnerScope, number> = {
+    anonymous: 0,
+    'authenticated-owner': 0,
+    'device-legacy-unscoped': 0,
+    unknown: 0,
+    conflicting: diagnostics.ownerConflictCount,
+  };
   const sourceBreakdown: Partial<Record<LocalDashboardSourceKind, number>> = {};
+  const filteredIds = new Set(filtered.map((attempt) => attempt.stableId));
+  for (const attempt of deduped) {
+    if (!filteredIds.has(attempt.stableId)) excludedOwnerScopeBreakdown[attempt.ownerScope] += 1;
+  }
   for (const attempt of filtered) {
     ownerScopeBreakdown[attempt.ownerScope] += 1;
     sourceBreakdown[attempt.sourceKind] = (sourceBreakdown[attempt.sourceKind] ?? 0) + 1;
@@ -377,6 +395,7 @@ export function scanLocalDashboardAttempts(
     diagnostics: { ...diagnostics },
     pendingRecoveryCount: pendingCountForFilter(recoveryMetadata, options.ownerFilter),
     ownerScopeBreakdown,
+    excludedOwnerScopeBreakdown,
     sourceBreakdown,
   };
 }
