@@ -5,7 +5,8 @@
 Dashboard giúp học sinh hiểu tiến độ, nhận biết điểm mạnh/yếu khi đủ bằng chứng, biết nên ôn gì tiếp theo và mở lại lịch sử. Mỗi số liệu phải dẫn tới hiểu biết hoặc hành động, không chỉ là trang trí.
 
 Route `/exams/thong-ke` đã được implement ở presentation layer. Goal 1 đã khóa wire contract,
-validator, threshold/authority policy và mapper; backend API/data source thật vẫn chưa được implement.
+validator, threshold/authority policy và mapper; Goal 2 đã triển khai backend Analytics API V1, Goal 3A
+đã nối authenticated API và Goal 3B2 đã nối anonymous local/exact-owner fallback.
 
 ### Current system truth
 
@@ -15,16 +16,18 @@ validator, threshold/authority policy và mapper; backend API/data source thật
 - History đã đăng nhập hiện backend-first, không merge local; backend list tối đa 100 attempt.
   Dashboard V1 đã khóa policy authenticated backend-only, không merge local.
 - Policy `dashboard-v1` đã khóa rule mạnh/yếu/confidence nhiều attempt bằng pure functions và boundary
-  tests. Backend analytics chưa implement rule này.
+  tests; backend và local aggregator dùng cùng policy.
 - Period chưa có metadata chuẩn; difficulty bị phụ thuộc mạnh vào question type. V1 không thiết kế insight/chart cho hai chiều này.
 - Backend chưa re-score. Mọi điểm số trong dashboard chỉ dùng cho learning analytics, không phải thành tích xác minh chính thức.
 
 ## 2. Users và data scope
 
-- **Anonymous:** xem attempt trong localStorage của thiết bị hiện tại; luôn có notice “Dữ liệu chỉ lưu trên thiết bị này” và CTA đăng nhập.
+- **Anonymous:** chỉ xem attempt local có `ownerScope=anonymous` trên thiết bị hiện tại; luôn có notice
+  “Dữ liệu chỉ lưu trên thiết bị này” và CTA đăng nhập. Device-unscoped/unknown/conflicting không được claim.
 - **Authenticated V1:** backend-only, không merge local.
-- **Backend fallback/local aggregation:** deferred; production Goal 1 hiển thị unavailable state thay
-  vì fake fixture hoặc silent local merge.
+- **Backend fallback/local aggregation:** khi network/timeout/502/503/504, fallback chỉ dùng exact
+  authenticated owner; lỗi contract/4xx/500/abort/unknown không fallback. Không có exact-owner data thì
+  giữ backend error.
 
 Score chỉ phục vụ learning analytics. Backend chưa re-score, vì vậy không mô tả là điểm xác minh, thành tích chính thức hay chứng chỉ.
 
@@ -52,7 +55,7 @@ Score chỉ phục vụ learning analytics. Backend chưa re-score, vì vậy kh
 | --- | --- | --- |
 | Tổng attempt, điểm TB/cao nhất/gần nhất | Export, delete backend history | Practice activity tracking |
 | Tổng thời gian, active days | Chart library chính thức | Retry improvement |
-| Score trend | Backend aggregation/pagination | Abandonment/completion rate |
+| Score trend | Cursor pagination beyond bounded fetch | Abandonment/completion rate |
 | MCQ accuracy | Sync/backfill local attempts | Reliable period insight |
 | T/F statement accuracy, partial rate | Verified scoring | Independent difficulty insight |
 | Blank rate | Official streak | Certificate/verified achievement |
@@ -100,8 +103,8 @@ Scope thời gian dùng ngày lịch `fromDate` và `toDateExclusive` theo `Asia
 | Route | `/exams/thong-ke` | Đã implement |
 | Active days vs streak | Chỉ active days | Đã khóa; streak deferred |
 | Chart library | Recharts | Đã implement |
-| Sync local attempts | Không tự backfill/aggregate trong Goal 1 | Deferred |
-| History pagination size | 20 item/page, recent preview 5 | Có; backend chưa có pagination |
+| Sync local attempts | Không backfill/merge; chỉ cross-tab refresh theo allowlist | Không claim account-wide completeness |
+| History pagination size | Recent preview 5, backend fetch cap 500 | Cursor pagination beyond V1 bounded fetch |
 
 Các mục “Đã khóa” phải đồng bộ với wire contract, pure policy tests và mapper. Mọi thay đổi semantic
 cần review contract mới.

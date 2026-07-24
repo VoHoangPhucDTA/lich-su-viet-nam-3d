@@ -41,12 +41,13 @@ describe('dashboardAnalyticsApi', () => {
   });
 
   it('classifies an invalid payload as a contract error without exposing raw content', async () => {
-    vi.spyOn(console, 'error').mockImplementation(() => undefined);
+    const consoleError = vi.spyOn(console, 'error').mockImplementation(() => undefined);
     mockedApiGet.mockResolvedValue({ schemaVersion: 99, secretAnswer: 'must-not-leak' });
     const error = await getDashboardAnalytics('30d').catch((value: unknown) => value);
     expect(error).toBeInstanceOf(DashboardAnalyticsApiError);
     expect(error).toMatchObject({ kind: 'contract' });
     expect(String(error)).not.toContain('must-not-leak');
+    expect(consoleError.mock.calls.flat().join(' ')).not.toContain('must-not-leak');
   });
 
   it.each([

@@ -10,6 +10,8 @@ Goal 3A commit / Goal 3B1 baseline: `655702f48522faed9f5ce1691be190c7b582a117`
 
 Goal 3B1 commit / Goal 3B2 baseline: `c88c2213bd82b7738a19ab3edec02355f5aa46ea`
 
+Goal 3B2 commit / Goal 4 baseline: `76e69231e5b02006ad687026557384787b0d7a18`
+
 ## Trạng thái tổng quát
 
 | Goal | Trạng thái | Phạm vi |
@@ -19,8 +21,8 @@ Goal 3B1 commit / Goal 3B2 baseline: `c88c2213bd82b7738a19ab3edec02355f5aa46ea`
 | Goal 2 | Hoàn thành, đã commit | Authenticated backend analytics API V1 |
 | Goal 3A | Hoàn thành, đã commit | Authenticated production API client/hook, auth/range/error/retry/partial coverage |
 | Goal 3B1 | Hoàn thành, đã commit | Local scanner/adapters/owner scope/dedupe/aggregation/mapper thuần |
-| Goal 3B2 | Đã triển khai, REVIEW GATE | Anonymous local, exact-owner backend-off fallback, source priority và stale/cross-user protection |
-| Goal 4 | Chưa thực hiện | Đối soát dữ liệu thật, observability và rollout |
+| Goal 3B2 | Hoàn thành, đã commit | Anonymous local, exact-owner backend-off fallback, source priority và stale/cross-user protection |
+| Goal 4 | Đã triển khai, FINAL REVIEW GATE | Cross-tab refresh, release/security/performance/browser audit và release checklist; chưa stage/commit |
 
 ## Goal 0 — Source audit
 
@@ -338,6 +340,9 @@ không thuộc Goal 2.
 
 ## Goal 3A — Authenticated frontend integration
 
+Các source-policy bullet trong section này là baseline lịch sử của Goal 3A; phần Goal 3B2 bên dưới đã mở rộng
+anonymous/local và exact-owner fallback, còn Goal 4 bổ sung cross-tab refresh.
+
 Goal 3A đã hoàn thành review và được commit riêng tại
 `655702f48522faed9f5ce1691be190c7b582a117` với message
 `feat(dashboard): connect authenticated analytics API`. Commit không chứa thay đổi
@@ -469,7 +474,8 @@ không thuộc Goal 3B1.
 
 ## Goal 3B2 — Local production integration
 
-Goal 3B2 đã được triển khai và đang dừng tại **REVIEW GATE**, unstaged/uncommitted. Source priority được
+Goal 3B2 đã được triển khai, review và commit riêng tại
+`76e69231e5b02006ad687026557384787b0d7a18`. Source priority được
 khóa theo thứ tự: explicit DEV fixture → auth loading → anonymous local → authenticated backend →
 exact-owner local fallback chỉ khi backend unavailable → error. Mỗi lần chỉ có một source làm authority;
 backend và local attempts không bao giờ được merge.
@@ -506,7 +512,7 @@ backend và local attempts không bao giờ được merge.
   Summary-only/legacy hiển thị action disabled `Chỉ tổng quan`; không dựng route bằng heuristic.
 - Storage unavailable không crash: anonymous giữ sign-in state; authenticated giữ backend error.
 
-Cross-tab `storage` event refresh được deferred sang Goal 4. Goal 3B2 vẫn refresh khi mount, auth/source/range
+Tại baseline Goal 3B2, cross-tab `storage` event refresh được deferred sang Goal 4. Goal 3B2 vẫn refresh khi mount, auth/source/range
 hoặc retry thay đổi và khi người dùng điều hướng lại dashboard sau khi nộp bài.
 
 ### Validation Goal 3B2
@@ -527,6 +533,165 @@ count-only unscoped notice, local range, fallback warning/retry và layout mobil
 không có error/warning. Authenticated real-account browser smoke:
 **CANNOT CONFIRM** vì không có verified QA account/session; các nhánh backend success, 503 fallback, exact
 owner, backend recovery, logout và user switch được kiểm thử bằng integration/mock, không bypass verification.
+
+## Goal 4 — Release hardening và final audit
+
+Goal 4 đã được triển khai và dừng tại **FINAL REVIEW GATE**. Toàn bộ thay đổi Goal 4 đang unstaged,
+uncommitted và chưa push. Goal này không thay đổi scoring, exam persistence, recovery semantics, migration,
+index, database data, History RAG hoặc `data/exams`.
+
+### Goal 3B2 commit boundary
+
+Goal 3B2 được stage theo từng path tường minh và commit riêng:
+
+```text
+76e69231e5b02006ad687026557384787b0d7a18
+feat(dashboard): add anonymous and local fallback analytics
+```
+
+Commit gồm 16 files, 1.153 insertions và 61 deletions. Staging trống sau commit;
+`frontend/public/data/exams/exam-dataset-build.json` không thuộc commit và không push.
+
+### Cross-tab refresh
+
+Hook nghe browser `storage` event bằng cùng exact allowlist của local repository:
+
+```text
+exam_api_result_*
+v2_result_*
+custom_exam_session_*
+exam_result_*
+exam_history
+exam_submission_recovery_queue_v1
+event.key === null
+```
+
+Event chỉ là refresh signal; code không đọc/parse/log `newValue`. Token/auth/JWT, draft, locator, unrelated và
+test-only key bị bỏ qua. Burst event được debounce 300 ms; listener/timer được cleanup khi unmount hoặc auth,
+owner, range/source callback thay đổi. Anonymous rescan local; authenticated vẫn backend-first; fallback thử
+backend trước rồi mới rescan exact owner. DEV fixture và auth-loading không refresh. Tests bao phủ range switch,
+logout, owner switch, unmount và không đọc/log event value.
+
+### Security, privacy và source priority
+
+- Controller không nhận `userId`; owner lấy từ authenticated principal.
+- Hai count query và một bounded fetch đều filter `a.userId = :userId`.
+- Chỉ `TIMED_ORIGINAL` và `CUSTOM_MOCK`; practice/retry bị loại.
+- Serialization test kiểm tra exact forbidden keys gồm user/correct answer, explanation, result/snapshot,
+  password/token/email/userId.
+- Parser malformed chỉ trả category, không log raw JSON; frontend contract error chỉ log issue list.
+- Backend success, anonymous local và exact-owner fallback vẫn là ba nguồn tách biệt; không merge.
+- Logout/user switch/range switch dùng abort + generation guard nên không giữ KPI/chart/recent cũ.
+- Device-unscoped chỉ được đếm trong privacy notice, không lộ title/score/route.
+
+### E2E source trace
+
+```text
+TIMED_ORIGINAL/CUSTOM_MOCK
+→ server-issued public session
+→ submit hoặc authenticated recovery
+→ exam_v2_attempts (owner + public session + mode + summary + authority + immutable result)
+→ owner/range/mode bounded dashboard projection
+→ snapshot v2 parser + aggregator
+→ versioned redacted API response
+→ frontend runtime validator
+→ pure mapper
+→ PersonalLearningDashboardPage
+```
+
+`exam_v2_attempts.session_id` giữ public session ID; aggregator dùng nó làm `attemptId`, và recent result route
+dùng `/exams/ket-qua/<encoded-public-session-id>`. Internal binary attempt/entity ID không rời persistence
+layer. Dashboard không join current question bank và không rescore. Trace table chi tiết nằm trong
+`docs/dashboard-exams/DASHBOARD_RELEASE_CHECKLIST.md`.
+
+### Performance và API size
+
+Synthetic backend test tạo 500 projections, 34 topics, ba cognitive levels và cả MCQ/T/F, warm-up rồi đo bảy
+lượt parser + aggregator. Lượt release audit ghi:
+
+```text
+median 37.561 ms
+max 83.836 ms
+serialized response 16,816 bytes
+trend 50
+recent 10
+```
+
+Đây là non-gating benchmark, không có assertion theo thời gian. Source review xác nhận đúng ba repository
+operations/request, không N+1, fetch cap 500, trend cap 50, recent `1..10` mặc định 5, JSON chỉ parse trên
+fetched rows và projection không fetch relation/question bank.
+
+Frontend maximum-case test cũng pass với 500 attempts/50 trend/34 topics/10 recent: runtime validator nhận
+response, mapper không mutate input và ViewModel không có raw response keys.
+
+### Frontend production bundle
+
+Build production pass với 4.168 modules trong 41,67 s. Bốn tracked exam build artifacts được backup/restore
+byte-for-byte. Dashboard vẫn lazy-loaded:
+
+```text
+PersonalLearningDashboardPage JS 460.00 kB, gzip 130.73 kB
+PersonalLearningDashboardPage CSS 26.56 kB, gzip 5.05 kB
+main index JS 5,466.46 kB, gzip 1,400.92 kB
+source maps 0
+```
+
+Dashboard chunk có production endpoint/local scanner và không có development fixture module/name, synthetic
+owner/topic/private/token marker hoặc docs schema marker. Main chunk >500 kB là warning cấp ứng dụng tồn tại
+trước; dashboard chunk dưới 500 kB nên Goal 4 không thay đổi manual chunk architecture.
+
+### Browser, responsive và accessibility
+
+Synthetic matrix đã chạy ở desktop 1440, fallback 1366, tablet 768, anonymous mobile 390 và long-content
+mobile 320; thêm dark mode, keyboard và console inspection. App scroll root vẫn là scroll owner, utility rail
+không sticky/overflow riêng và AppHeader là sticky element duy nhất. Heading/range/progress/chart semantics,
+textual chart summary và reduced-motion CSS được xác minh.
+
+Ở 320/390 px, audit phát hiện horizontal overflow từ app shell dùng `w-screen` cùng vertical scrollbar.
+Goal 4 đổi sang `w-full`; recheck 320/390/768/1440 đều không còn horizontal overflow. Browser console có
+0 error và 0 warning. Exact WCAG contrast ratio vẫn cần manual/tool sign-off, nhưng không thấy lỗi trực quan
+trong light/dark synthetic QA.
+
+### TiDB và real-account status
+
+```text
+PRODUCTION_DATA_VERIFIED: cannot-confirm
+TIDB_QUERY_PROFILED: cannot-confirm
+REAL_ACCOUNT_E2E: cannot-confirm
+```
+
+Không có verified QA browser session hoặc development/read-only TiDB connection được xác nhận an toàn.
+Không đọc credential/cookie/token, không tạo account, không bypass verification và không chạy DB query/write.
+Do đó không kết luận index plan hoặc dữ liệu production; không tạo migration/index. Manual checklists chính
+xác nằm trong release checklist.
+
+### Validation Goal 4
+
+```text
+backend dashboard targeted PASS — 34 tests
+backend security + performance PASS — 5 tests
+backend package PASS
+frontend targeted cross-tab hook PASS — 51 tests
+frontend full suite PASS — 47 files, 393 tests
+TypeScript PASS
+targeted ESLint PASS, zero warnings
+production build PASS
+synthetic browser QA PASS
+```
+
+Full backend suite không được gọi là PASS: lượt cuối chạy `.\mvnw.cmd clean test` có **241 tests, 0 failures,
+1 error, 15 skipped**; error duy nhất là `HistoryRagPackageReaderTest` thiếu `data/history-rag/v1`. Đây là
+baseline ngoài dashboard đã được tái hiện trước Goal 2; Goal 4 không sửa/tạo History RAG.
+
+Final model:
+
+```text
+CODE_COMPLETE: yes
+PRODUCTION_DATA_VERIFIED: cannot-confirm
+TIDB_QUERY_PROFILED: cannot-confirm
+REAL_ACCOUNT_E2E: cannot-confirm
+RELEASE_RECOMMENDATION: READY_WITH_MANUAL_VERIFICATION
+```
 
 ## Rollback Goal 1
 

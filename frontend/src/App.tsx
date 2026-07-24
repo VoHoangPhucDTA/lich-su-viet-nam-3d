@@ -80,7 +80,7 @@ function AppContent() {
     || examPracticeRoute.test(location.pathname);
 
   return (
-    <div className="flex flex-col h-screen w-screen overflow-hidden bg-stone-50">
+    <div className="flex flex-col h-screen w-full overflow-hidden bg-stone-50">
       {!shouldHideHeader && <AppHeader />}
       <div id={APP_SCROLL_ROOT_ID} className="flex-1 overflow-y-auto">
         <Suspense fallback={<div style={{ padding: '2rem', color: 'var(--text-muted)' }}>Đang tải...</div>}>

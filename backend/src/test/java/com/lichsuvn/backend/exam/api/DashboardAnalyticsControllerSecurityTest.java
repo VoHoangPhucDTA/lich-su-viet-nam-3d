@@ -61,7 +61,8 @@ class DashboardAnalyticsControllerSecurityTest {
     private static final String PATH = "/api/exams/dashboard-analytics";
     private static final Set<String> FORBIDDEN_KEYS = Set.of(
             "userAnswer", "correctAnswer", "explanation", "resultJson",
-            "answers", "questionSnapshots", "rawSnapshot"
+            "answers", "answersJson", "questionSnapshots", "rawSnapshot",
+            "password", "token", "email", "userId"
     );
 
     @Autowired MockMvc mockMvc;

@@ -8,6 +8,7 @@ import {
   scanLocalDashboardAttempts,
   type LocalDashboardStorage,
 } from './localDashboardRepository';
+import { isLocalDashboardStorageKey } from './localDashboardRepository';
 import type {
   LocalDashboardOwnerFilter,
 } from './localDashboardTypes';
@@ -46,6 +47,16 @@ export function getBrowserLocalDashboardStorage(): LocalDashboardStorage | null 
   } catch {
     return null;
   }
+}
+
+export function isRelevantLocalDashboardStorageEvent(
+  event: Pick<StorageEvent, 'key' | 'storageArea'>,
+): boolean {
+  if (event.storageArea !== null) {
+    const browserStorage = getBrowserLocalDashboardStorage();
+    if (!browserStorage || event.storageArea !== browserStorage) return false;
+  }
+  return isLocalDashboardStorageKey(event.key);
 }
 
 export function isLocalFallbackEligible(error: unknown): boolean {

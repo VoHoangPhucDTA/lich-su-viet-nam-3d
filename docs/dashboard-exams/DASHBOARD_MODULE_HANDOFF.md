@@ -22,6 +22,8 @@ Goal 3B1 đã bổ sung local analytics foundation thuần (allowlisted scanner,
 aggregation và ViewModel mapper). Goal 3B2 đã nối foundation vào page/hook: anonymous chỉ dùng dữ liệu
 explicit-anonymous, còn authenticated chỉ fallback sang local exact-owner khi network/timeout/502/503/504.
 Module không merge local với backend và không gán dữ liệu device-unscoped cho anonymous hoặc tài khoản.
+Goal 4 đã bổ sung cross-tab refresh exact-key, security/redaction audit, synthetic performance/bundle audit,
+browser matrix và release checklist; các thay đổi Goal 4 vẫn unstaged/uncommitted tại FINAL REVIEW GATE.
 
 ---
 
@@ -92,7 +94,7 @@ Vì vậy, trạng thái hiện tại nên được hiểu là:
 | Backend aggregation | Đã triển khai trên immutable attempt snapshot |
 | Authenticated real-data integration | Đã triển khai; real browser smoke cần verified QA session |
 | Local analytics foundation | Hoàn thành Goal 3B1, commit `c88c2213` |
-| Anonymous/local/offline presentation | Đã triển khai Goal 3B2, unstaged/uncommitted tại review gate |
+| Anonymous/local/offline presentation | Hoàn thành Goal 3B2, commit `76e69231`; Goal 4 hardening đang unstaged/uncommitted |
 | Scoring/weakness/cognitive engine | Ngoài phạm vi dashboard hiện tại |
 
 ---
@@ -108,6 +110,7 @@ Nhánh hiện tại cần kiểm tra bằng Git trước mỗi Goal. Tại Goal 
 - **Goal 2 commit / Goal 3A baseline:** `195db79f4b2055e97bbd02909ce7f1a2ba4134ca`
 - **Goal 3A commit / Goal 3B1 baseline:** `655702f48522faed9f5ce1691be190c7b582a117`
 - **Goal 3B1 commit / Goal 3B2 baseline:** `c88c2213bd82b7738a19ab3edec02355f5aa46ea`
+- **Goal 3B2 commit / Goal 4 baseline:** `76e69231e5b02006ad687026557384787b0d7a18`
 - Dashboard commit lịch sử: `878571186afda4744d2a4106bd2d37502e3734ab`
 
 Commit gồm:
@@ -373,7 +376,7 @@ State quyết định renderer, không phải CSS.
 
 Mô tả phạm vi dữ liệu:
 
-- source: local, backend, local-fallback hoặc merged;
+- source: local, backend hoặc local-fallback; không có source merged;
 - range: 7d, 30d, 90d hoặc all;
 - timezone;
 - authenticated;
@@ -590,7 +593,7 @@ App
     └── lazy dashboard page
         ├── DEV + explicit fixture query: dynamic-import fixture module, không HTTP
         ├── auth loading: loading skeleton, không HTTP
-        ├── anonymous: sign-in state, không local analytics, không HTTP
+        ├── anonymous: bounded local analytics với ownerScope=anonymous, không HTTP
         ├── authenticated: GET Dashboard Analytics V1
         │   └── runtime validator → mapper → ViewModel
         ├── render header
@@ -822,12 +825,13 @@ Boundary hiện tại:
 - development không fixture: cùng backend/auth flow như production;
 - component luôn nhận cùng một ViewModel shape.
 
-### Auth và failure policy Goal 3A
+### Auth và failure policy Goal 3A baseline (đã được Goal 3B2 mở rộng)
 
 - Auth loading không request.
-- Anonymous không request và không local analytics.
+- Ở baseline Goal 3A, anonymous chỉ hiện sign-in state; Goal 3B2 hiện đã cho phép explicit-anonymous local
+  analytics.
 - 401 yêu cầu đăng nhập lại; 403 hiển thị access error.
-- Transport/timeout/5xx/contract error có retry nhưng không local fallback.
+- Goal 3A baseline không local fallback; Goal 3B2 chỉ fallback transport/timeout/502/503/504 với exact owner.
 - Logout/user switch xóa dữ liệu owner trước khỏi view và abort request cũ.
 - Partial response hợp lệ vẫn render số liệu cùng mapper coverage notice.
 
@@ -946,7 +950,8 @@ unavailable không làm crash hoặc fabricate local dashboard.
 
 Known limitations:
 
-- cross-tab `storage` event refresh deferred Goal 4; mount/auth/source/range/retry vẫn scan dữ liệu mới;
+- cross-tab `storage` event refresh đã hoàn thành trong Goal 4: exact allowlist, `event.key === null`, debounce
+  300 ms, không đọc `newValue`, cleanup listener/timer; mount/auth/source/range/retry vẫn scan dữ liệu mới;
 - local analytics không tuyên bố account-wide completeness;
 - device-unscoped/legacy không thể tự claim cho anonymous hoặc authenticated owner;
 - real verified-account browser smoke **CANNOT CONFIRM**; authenticated behavior được kiểm thử mock/integration;
@@ -967,7 +972,74 @@ real verified-account smoke CANNOT CONFIRM
 
 ---
 
-## 14. Những điều không được làm tùy tiện
+## 14. Goal 4 — Release hardening
+
+Goal 4 hiện đã hoàn tất implementation/audit và dừng ở FINAL REVIEW GATE. Goal 3B2 đã commit riêng tại
+`76e69231e5b02006ad687026557384787b0d7a18`; Goal 4 không stage, commit hoặc push.
+
+### Cross-tab và source orchestration
+
+- Storage event dùng exact allowlist của local repository: supported result keys, `exam_history`,
+  recovery queue và `event.key === null`.
+- Token/auth/JWT, draft, locator, unrelated và synthetic-only key bị bỏ qua.
+- Debounce 300 ms, cleanup khi unmount/auth-owner-range callback thay đổi; không parse/log `newValue`.
+- Anonymous rescan local; authenticated backend success vẫn backend-only; fallback thử backend trước rồi mới
+  scan exact owner.
+- Range switch, logout, owner switch, stale response và DEV fixture/auth loading đã có test riêng.
+
+### Security/coverage/authority
+
+Backend owner lấy từ principal; repository dashboard luôn filter owner; chỉ tính `TIMED_ORIGINAL` và
+`CUSTOM_MOCK`. Summary columns là KPI authority; immutable snapshot v2 mới được dùng deep analytics. Legacy
+summary chỉ góp KPI/trend; malformed/unsupported detail giữ summary nếu hợp lệ và phản ánh coverage. Response
+không trả raw answers/correct answers/explanation/question snapshots/user ID. Không join current question bank,
+không rescore.
+
+### Source trace
+
+```text
+server-issued public session
+→ submit/recovery
+→ exam_v2_attempts.session_id + submitted_at + mode + summary + authority + result_json
+→ bounded dashboard repository projection
+→ parser/aggregator
+→ redacted DashboardAnalyticsResponseV1
+→ frontend validator
+→ mapper
+→ ViewModel/UI
+```
+
+Recent route dùng public session ID, không dùng internal attempt/entity ID. Bản trace table đầy đủ và failure
+matrix nằm ở `docs/dashboard-exams/DASHBOARD_RELEASE_CHECKLIST.md`.
+
+### Validation và known status
+
+```text
+frontend full: 47 files, 393 tests — PASS
+frontend TypeScript — PASS
+targeted dashboard ESLint — PASS, zero warnings
+production build — PASS, 4,168 modules
+backend dashboard targeted — 34 tests PASS
+backend security + performance — 5 tests PASS
+synthetic browser matrix — PASS, console 0 error/warning
+PRODUCTION_DATA_VERIFIED — CANNOT_CONFIRM
+TIDB_QUERY_PROFILED — CANNOT_CONFIRM
+REAL_ACCOUNT_E2E — CANNOT_CONFIRM
+RELEASE_RECOMMENDATION — READY_WITH_MANUAL_VERIFICATION
+```
+
+Full backend suite cuối có **241 tests, 0 failures, 1 error, 15 skipped**; error duy nhất là baseline ngoài
+scope `HistoryRagPackageReaderTest` thiếu `data/history-rag/v1`. Không gọi full suite là PASS và không sửa
+History RAG. Không có migration/index/database change trong Goal 4. Bốn tracked exam build artifacts được
+backup/restore byte-for-byte sau production build.
+
+### Manual release gate
+
+Trước khi deploy cần verified-account smoke (API 200, range, recent public route, submit → dashboard,
+logout, 503 exact-owner fallback/recovery) và read-only TiDB `EXPLAIN` hoặc waiver được review. Không đọc
+credential/token/cookie, không tạo account và không ghi DB.
+
+## 15. Những điều không được làm tùy tiện
 
 - Không đổi `DashboardViewModel` chỉ để làm UI thuận tiện.
 - Không đưa scoring hoặc weakness analysis vào component presentation.
@@ -980,17 +1052,18 @@ real verified-account smoke CANNOT CONFIRM
 
 ---
 
-## 15. Kết luận handoff
+## 16. Kết luận handoff
 
 Dashboard người dùng đã hoàn thành presentation, Goal 1 data boundary, backend Analytics API V1 của
 Goal 2, authenticated frontend integration của Goal 3A và local foundation Goal 3B1. Goal 2 đã commit tại
-`195db79f`; Goal 3A tại `655702f4`; Goal 3B1 tại `c88c2213`. Goal 3B2 đã nối anonymous local và
-exact-owner backend-off fallback, hiện dừng review gate ở trạng thái unstaged/uncommitted và chưa push.
+`195db79f`; Goal 3A tại `655702f4`; Goal 3B1 tại `c88c2213`; Goal 3B2 tại
+`76e69231`. Goal 4 đã hoàn tất audit/hardening và hiện dừng FINAL REVIEW GATE ở trạng thái
+unstaged/uncommitted, chưa push.
 
 Authenticated backend success vẫn là backend-only; anonymous chỉ dùng explicit-anonymous data; fallback chỉ
 dùng exact owner và không silent merge. Việc còn lại chính là:
 
-1. review Goal 3B2 và chạy smoke authenticated backend/fallback khi có verified QA session an toàn;
-2. ở Goal 4, cân nhắc exact-key cross-tab refresh và production data reconciliation;
-3. chạy TiDB read-only profile/EXPLAIN khi có quyền an toàn;
-4. giữ nguyên privacy, source priority, presentation, accessibility và scroll invariants đã QA.
+1. chạy manual verified-account smoke theo `DASHBOARD_RELEASE_CHECKLIST.md`;
+2. chạy read-only TiDB profile/EXPLAIN khi có quyền an toàn hoặc ghi waiver được review;
+3. giữ nguyên privacy, source priority, presentation, accessibility và scroll invariants đã QA;
+4. chỉ sau review gate mới quyết định stage/commit Goal 4.

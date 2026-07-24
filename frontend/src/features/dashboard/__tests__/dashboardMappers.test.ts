@@ -165,4 +165,66 @@ describe('DashboardAnalyticsResponseV1 to ViewModel mapper', () => {
     mapDashboardAnalyticsToViewModel(response);
     expect(response).toEqual(before);
   });
+
+  it('validates and maps the maximum bounded response without mutation or raw fields', () => {
+    const base = validated(defaultFixture);
+    const maximum = {
+      ...base,
+      summary: {
+        ...base.summary,
+        totalAttempts: 500,
+        officialAttemptCount: 500,
+        recoveredAttemptCount: 0,
+        legacyAttemptCount: 0,
+      },
+      trend: Array.from({ length: 50 }, (_, index) => ({
+        ...base.trend[index % base.trend.length]!,
+        attemptId: `synthetic-trend-${index}`,
+      })),
+      topics: Array.from({ length: 34 }, (_, index) => ({
+        ...base.topics[index % base.topics.length]!,
+        topicKey: `synthetic-topic-${index}`,
+        topicLabel: `Synthetic topic ${index}`,
+      })),
+      recentAttempts: Array.from({ length: 10 }, (_, index) => ({
+        ...base.recentAttempts[index % base.recentAttempts.length]!,
+        attemptId: `synthetic-recent-${index}`,
+      })),
+      coverage: {
+        totalKnownAttempts: 500,
+        fetchedAttemptCount: 500,
+        summaryAttemptCount: 500,
+        detailedAttemptCount: 500,
+        unsupportedSnapshotCount: 0,
+        malformedDetailCount: 0,
+        legacySummaryCount: 0,
+        fetchLimit: 500,
+        isComplete: true,
+      },
+      authorityBreakdown: {
+        backendOnTime: 500,
+        backendLate: 0,
+        backendFallback: 0,
+        frontendLegacy: 0,
+      },
+      diagnostics: {
+        snapshotVersionCounts: { 2: 500 },
+        excludedModeCount: 0,
+        excludedInvalidSummaryCount: 0,
+      },
+    };
+    const validation = validateDashboardAnalyticsResponseV1(maximum);
+    expect(validation.success).toBe(true);
+    if (!validation.success) return;
+
+    const before = JSON.stringify(validation.data);
+    const viewModel = mapDashboardAnalyticsToViewModel(validation.data);
+    expect(JSON.stringify(validation.data)).toBe(before);
+    expect(viewModel.summary.totalAttempts).toBe(500);
+    expect(viewModel.scoreTrend.points).toHaveLength(50);
+    expect(viewModel.recentAttempts).toHaveLength(10);
+    expect(JSON.stringify(viewModel)).not.toMatch(
+      /userAnswer|correctAnswer|resultJson|answersJson|questionSnapshots|rawSnapshot/,
+    );
+  });
 });

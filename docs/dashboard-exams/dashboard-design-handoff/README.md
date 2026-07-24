@@ -5,8 +5,9 @@
 Đây là gói **product spec + data contract + reference analysis + design brief + mock data** ban đầu
 cho dashboard học tập cá nhân. Route `/exams/thong-ke` và presentation React/CSS hiện đã được
 implement. Goal 1 đã tách runtime fixture sang
-`frontend/src/features/dashboard/__fixtures__/`, khóa wire DTO/validator/policy/mapper; backend API
-và database aggregation vẫn chưa được triển khai.
+`frontend/src/features/dashboard/__fixtures__/`, khóa wire DTO/validator/policy/mapper; Goal 2 đã triển khai
+backend API và Goal 3A/3B2 đã nối production source orchestration. Database aggregation vẫn đọc
+immutable `exam_v2_attempts`, không có dashboard table mới.
 
 Trạng thái package: **design handoff V1, giữ làm tài liệu tham chiếu**. Khi nội dung cũ khác source
 Goal 1, `docs/progress/DASHBOARD_ANALYTICS_IMPLEMENTATION_PROGRESS.md` và source frontend là bằng

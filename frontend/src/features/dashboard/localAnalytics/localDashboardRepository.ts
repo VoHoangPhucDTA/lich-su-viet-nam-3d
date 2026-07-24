@@ -22,7 +22,8 @@ export const LOCAL_DASHBOARD_MAX_NORMALIZED_ATTEMPTS = 500;
 /** Current immutable snapshots are normally well below this; 2 MiB leaves headroom without unbounded parsing. */
 export const LOCAL_DASHBOARD_MAX_PAYLOAD_CHARACTERS = 2 * 1024 * 1024;
 
-const RECOVERY_KEY = 'exam_submission_recovery_queue_v1';
+export const LOCAL_DASHBOARD_RECOVERY_KEY = 'exam_submission_recovery_queue_v1';
+const RECOVERY_KEY = LOCAL_DASHBOARD_RECOVERY_KEY;
 const PREFIXES = [
   'exam_api_result_',
   'v2_result_',
@@ -45,6 +46,14 @@ function isRecord(value: unknown): value is Record<string, unknown> {
 
 function isAllowedKey(key: string): boolean {
   return EXACT_KEYS.has(key) || PREFIXES.some((prefix) => key.startsWith(prefix));
+}
+
+/**
+ * Storage-event predicate shared with the source orchestration. It only inspects
+ * the key; callers must not parse StorageEvent.newValue.
+ */
+export function isLocalDashboardStorageKey(key: string | null): boolean {
+  return key === null || isAllowedKey(key);
 }
 
 function safeParse(raw: string): { ok: true; value: unknown } | { ok: false } {

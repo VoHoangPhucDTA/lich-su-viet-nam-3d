@@ -1,5 +1,5 @@
 export type DashboardState = 'ready' | 'empty' | 'loading' | 'error';
-export type DashboardSource = 'local' | 'backend' | 'merged' | 'local-fallback';
+export type DashboardSource = 'local' | 'backend' | 'local-fallback';
 export type DashboardRange = '7d' | '30d' | '90d' | 'all';
 export type Confidence = 'low' | 'medium' | 'high';
 export type InsightStatus = 'strength' | 'developing' | 'weakness' | 'insufficient-data';

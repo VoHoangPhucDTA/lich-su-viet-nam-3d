@@ -64,8 +64,13 @@ function deferred<T>() {
   return { promise, resolve, reject };
 }
 
+function dispatchStorage(key: string | null) {
+  window.dispatchEvent(new StorageEvent('storage', { key }));
+}
+
 afterEach(() => {
   vi.useRealTimers();
+  vi.restoreAllMocks();
 });
 
 describe('usePersonalLearningDashboard orchestration', () => {
@@ -371,6 +376,286 @@ describe('usePersonalLearningDashboard orchestration', () => {
     }));
     act(() => result.current.retry());
     await waitFor(() => expect(result.current.viewModel.summary.totalAttempts).toBe(2));
+  });
+
+  it('debounces relevant anonymous storage events into one rescan', async () => {
+    const storage = new MutableFakeStorage({
+      'v2_result_initial': v2SummaryFixture({
+        sessionId: 'initial',
+        ownerScope: 'anonymous',
+        submittedAt: Date.parse('2026-07-24T03:00:00Z'),
+      }),
+    });
+    const localStorageProvider = vi.fn(provider(storage));
+    const { result } = renderHook(() => usePersonalLearningDashboard({
+      auth: anonymous,
+      search: '',
+      fixtureLoader: null,
+      localStorageProvider,
+      now,
+    }));
+    await waitFor(() => expect(result.current.viewModel.summary.totalAttempts).toBe(1));
+    vi.useFakeTimers();
+    storage.set('v2_result_new', v2SummaryFixture({
+      sessionId: 'new',
+      ownerScope: 'anonymous',
+      submittedAt: Date.parse('2026-07-24T04:00:00Z'),
+    }));
+    act(() => {
+      dispatchStorage('v2_result_new');
+      dispatchStorage('exam_history');
+      dispatchStorage(null);
+      vi.advanceTimersByTime(299);
+    });
+    expect(localStorageProvider).toHaveBeenCalledTimes(1);
+    await act(async () => {
+      vi.advanceTimersByTime(1);
+      await Promise.resolve();
+      await Promise.resolve();
+    });
+    expect(result.current.viewModel.summary.totalAttempts).toBe(2);
+    expect(localStorageProvider).toHaveBeenCalledTimes(2);
+  });
+
+  it('refreshes authenticated backend first after a relevant storage event', async () => {
+    const request = vi.fn().mockResolvedValue(readyResponse);
+    const { result } = renderHook(() => usePersonalLearningDashboard({
+      auth: authenticated,
+      search: '',
+      requestDashboard: request,
+      fixtureLoader: null,
+    }));
+    await waitFor(() => expect(result.current.viewModel.state).toBe('ready'));
+    vi.useFakeTimers();
+    act(() => {
+      dispatchStorage('v2_result_owner-a');
+      vi.advanceTimersByTime(300);
+    });
+    await act(async () => {
+      await Promise.resolve();
+      await Promise.resolve();
+    });
+    expect(request).toHaveBeenCalledTimes(2);
+    expect(result.current.viewModel.scope.source).toBe('backend');
+  });
+
+  it('refreshes backend before rescanning exact-owner fallback after a storage event', async () => {
+    const request = vi.fn()
+      .mockRejectedValue(new DashboardAnalyticsApiError('server', 'safe', 503));
+    const storage = new MutableFakeStorage({
+      'v2_result_owner-a': v2DetailedFixture({ sessionId: 'owner-a-local', userId: 'owner-a' }),
+    });
+    const localStorageProvider = vi.fn(provider(storage));
+    const { result } = renderHook(() => usePersonalLearningDashboard({
+      auth: authenticated,
+      search: '',
+      requestDashboard: request,
+      fixtureLoader: null,
+      localStorageProvider,
+      now,
+    }));
+    await waitFor(() => expect(result.current.viewModel.scope.source).toBe('local-fallback'));
+    vi.useFakeTimers();
+    storage.set('v2_result_owner-a-new', v2DetailedFixture({ sessionId: 'owner-a-new', userId: 'owner-a' }));
+    act(() => {
+      dispatchStorage('v2_result_owner-a-new');
+      vi.advanceTimersByTime(300);
+    });
+    await act(async () => {
+      await Promise.resolve();
+      await Promise.resolve();
+      await Promise.resolve();
+    });
+    expect(request).toHaveBeenCalledTimes(2);
+    expect(localStorageProvider).toHaveBeenCalledTimes(2);
+    expect(result.current.viewModel.scope.source).toBe('local-fallback');
+    expect(result.current.viewModel.summary.totalAttempts).toBe(2);
+  });
+
+  it('does not refresh for unrelated, token or session keys', async () => {
+    const request = vi.fn().mockResolvedValue(readyResponse);
+    const { result } = renderHook(() => usePersonalLearningDashboard({
+      auth: authenticated,
+      search: '',
+      requestDashboard: request,
+      fixtureLoader: null,
+    }));
+    await waitFor(() => expect(result.current.viewModel.state).toBe('ready'));
+    vi.useFakeTimers();
+    act(() => {
+      dispatchStorage('unrelated');
+      dispatchStorage('exam_session_token_secret');
+      dispatchStorage('exam_api_session_draft_owner-a');
+      vi.advanceTimersByTime(500);
+    });
+    expect(request).toHaveBeenCalledTimes(1);
+  });
+
+  it('cleans the storage listener on unmount', async () => {
+    const request = vi.fn().mockResolvedValue(readyResponse);
+    const { result, unmount } = renderHook(() => usePersonalLearningDashboard({
+      auth: authenticated,
+      search: '',
+      requestDashboard: request,
+      fixtureLoader: null,
+    }));
+    await waitFor(() => expect(result.current.viewModel.state).toBe('ready'));
+    vi.useFakeTimers();
+    unmount();
+    act(() => {
+      dispatchStorage('v2_result_owner-a');
+      vi.advanceTimersByTime(500);
+    });
+    expect(request).toHaveBeenCalledTimes(1);
+  });
+
+  it('does not refresh fixture mode or auth-loading mode', async () => {
+    const fixtureLoader = vi.fn().mockResolvedValue({
+      resolveDevelopmentDashboardFixture: () => DASHBOARD_FIXTURES.default,
+    });
+    const fixtureRequest = vi.fn();
+    const fixture = renderHook(() => usePersonalLearningDashboard({
+      auth: authenticated,
+      search: '?fixture=default',
+      requestDashboard: fixtureRequest,
+      fixtureLoader,
+      localStorageProvider: vi.fn(),
+    }));
+    await waitFor(() => expect(fixture.result.current.viewModel.state).toBe('ready'));
+    vi.useFakeTimers();
+    act(() => {
+      dispatchStorage('v2_result_owner-a');
+      vi.advanceTimersByTime(500);
+    });
+    expect(fixtureRequest).not.toHaveBeenCalled();
+    fixture.unmount();
+
+    const loadingRequest = vi.fn();
+    const loadingLocal = vi.fn();
+    const loading = renderHook(() => usePersonalLearningDashboard({
+      auth: { isLoading: true, isAuthenticated: false, ownerKey: null },
+      search: '',
+      requestDashboard: loadingRequest,
+      fixtureLoader: null,
+      localStorageProvider: loadingLocal,
+    }));
+    act(() => {
+      dispatchStorage('v2_result_owner-a');
+      vi.advanceTimersByTime(500);
+    });
+    expect(loadingRequest).not.toHaveBeenCalled();
+    expect(loadingLocal).not.toHaveBeenCalled();
+    loading.unmount();
+  });
+
+  it('cancels a pending storage refresh when owner changes', async () => {
+    const request = vi.fn().mockResolvedValue(readyResponse);
+    const { result, rerender } = renderHook(
+      ({ auth }) => usePersonalLearningDashboard({
+        auth,
+        search: '',
+        requestDashboard: request,
+        fixtureLoader: null,
+      }),
+      { initialProps: { auth: authenticated } },
+    );
+    await waitFor(() => expect(result.current.viewModel.state).toBe('ready'));
+    vi.useFakeTimers();
+    act(() => dispatchStorage('v2_result_owner-a'));
+    await act(async () => {
+      rerender({ auth: { ...authenticated, ownerKey: 'owner-b' } });
+      await Promise.resolve();
+      await Promise.resolve();
+    });
+    expect(request).toHaveBeenCalledTimes(2);
+    act(() => vi.advanceTimersByTime(500));
+    expect(request).toHaveBeenCalledTimes(2);
+  });
+
+  it('cancels a pending storage refresh and uses the new range immediately', async () => {
+    const sevenDayResponse = {
+      ...readyResponse,
+      scope: { ...readyResponse.scope, range: '7d' as const },
+    };
+    const request = vi.fn()
+      .mockResolvedValueOnce(readyResponse)
+      .mockResolvedValueOnce(sevenDayResponse);
+    const { result } = renderHook(() => usePersonalLearningDashboard({
+      auth: authenticated,
+      search: '',
+      requestDashboard: request,
+      fixtureLoader: null,
+    }));
+    await waitFor(() => expect(result.current.viewModel.state).toBe('ready'));
+    vi.useFakeTimers();
+    act(() => {
+      dispatchStorage('v2_result_owner-a');
+      result.current.setRange('7d');
+    });
+    await act(async () => {
+      await Promise.resolve();
+      await Promise.resolve();
+    });
+    expect(request).toHaveBeenCalledTimes(2);
+    expect(request.mock.calls[1]?.[0]).toBe('7d');
+    expect(result.current.viewModel.scope.range).toBe('7d');
+    act(() => vi.advanceTimersByTime(500));
+    expect(request).toHaveBeenCalledTimes(2);
+  });
+
+  it('cancels a pending storage refresh on logout without retaining account data', async () => {
+    const request = vi.fn().mockResolvedValue(readyResponse);
+    const localStorageProvider = provider(new MutableFakeStorage());
+    const { result, rerender } = renderHook(
+      ({ auth }) => usePersonalLearningDashboard({
+        auth,
+        search: '',
+        requestDashboard: request,
+        fixtureLoader: null,
+        localStorageProvider,
+      }),
+      { initialProps: { auth: authenticated } },
+    );
+    await waitFor(() => expect(result.current.viewModel.state).toBe('ready'));
+    vi.useFakeTimers();
+    act(() => dispatchStorage('v2_result_owner-a'));
+    act(() => {
+      rerender({ auth: anonymous });
+      vi.advanceTimersByTime(500);
+    });
+    expect(request).toHaveBeenCalledTimes(1);
+    vi.useRealTimers();
+    await waitFor(() => {
+      expect(result.current.viewModel.scope.isAuthenticated).toBe(false);
+      expect(result.current.viewModel.summary.totalAttempts).toBe(0);
+    });
+  });
+
+  it('uses storage events only as signals without reading or logging event values', async () => {
+    const valueGetter = vi.fn(() => '{not-json-and-private}');
+    const consoleError = vi.spyOn(console, 'error').mockImplementation(() => undefined);
+    const localStorageProvider = vi.fn(provider(new MutableFakeStorage()));
+    renderHook(() => usePersonalLearningDashboard({
+      auth: anonymous,
+      search: '',
+      fixtureLoader: null,
+      localStorageProvider,
+      now,
+    }));
+    await waitFor(() => expect(localStorageProvider).toHaveBeenCalledTimes(1));
+    vi.useFakeTimers();
+    const event = new StorageEvent('storage', { key: 'v2_result_signal' });
+    Object.defineProperty(event, 'newValue', { get: valueGetter });
+    act(() => {
+      window.dispatchEvent(event);
+      vi.advanceTimersByTime(300);
+    });
+    await act(async () => {
+      await Promise.resolve();
+      await Promise.resolve();
+    });
+    expect(valueGetter).not.toHaveBeenCalled();
+    expect(consoleError).not.toHaveBeenCalled();
   });
 
   it('prevents an older retry request from overwriting the latest response', async () => {

@@ -1,7 +1,7 @@
 {
   "state": "ready",
   "scope": {
-    "source": "merged",
+    "source": "backend",
     "range": "30d",
     "timezone": "Asia/Ho_Chi_Minh",
     "isAuthenticated": true,

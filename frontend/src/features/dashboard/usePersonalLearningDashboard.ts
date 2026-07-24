@@ -16,6 +16,7 @@ import {
   dashboardErrorKind,
   getBrowserLocalDashboardStorage,
   isLocalFallbackEligible,
+  isRelevantLocalDashboardStorageEvent,
   loadLocalDashboard,
   type DashboardLocalStorageProvider,
   type LocalDashboardLoadResult,
@@ -23,6 +24,7 @@ import {
 import type { DashboardRange, PersonalLearningDashboardViewModel } from './dashboardTypes';
 
 const DASHBOARD_REQUEST_TIMEOUT_MS = 15_000;
+const DASHBOARD_STORAGE_REFRESH_DEBOUNCE_MS = 300;
 
 const defaultFixtureLoader: DashboardDevelopmentFixtureLoader | null = import.meta.env.DEV
   ? () => import('./dashboardDevelopmentFixtures')
@@ -335,6 +337,32 @@ export function usePersonalLearningDashboard({
     }));
     setRetryVersion((value) => value + 1);
   }, [range]);
+
+  useEffect(() => {
+    if (fixtureMode || auth.isLoading || typeof window === 'undefined') return undefined;
+
+    let refreshTimer: number | null = null;
+    const onStorage = (event: StorageEvent) => {
+      if (!isRelevantLocalDashboardStorageEvent(event)) return;
+      if (refreshTimer !== null) window.clearTimeout(refreshTimer);
+      refreshTimer = window.setTimeout(() => {
+        refreshTimer = null;
+        retry();
+      }, DASHBOARD_STORAGE_REFRESH_DEBOUNCE_MS);
+    };
+
+    window.addEventListener('storage', onStorage);
+    return () => {
+      if (refreshTimer !== null) window.clearTimeout(refreshTimer);
+      window.removeEventListener('storage', onStorage);
+    };
+  }, [
+    auth.isAuthenticated,
+    auth.isLoading,
+    auth.ownerKey,
+    fixtureMode,
+    retry,
+  ]);
 
   const viewModel = useMemo(() => {
     if (fixtureMode) return runtime.viewModel;

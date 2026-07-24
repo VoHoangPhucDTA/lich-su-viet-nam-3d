@@ -24,7 +24,7 @@ type PersonalLearningDashboardViewModel = {
 ## 2. Subtypes
 
 ```ts
-type DashboardSource = 'local' | 'backend' | 'merged' | 'local-fallback';
+type DashboardSource = 'local' | 'backend' | 'local-fallback';
 type DashboardRange = '7d' | '30d' | '90d' | 'all';
 type Confidence = 'low' | 'medium' | 'high';
 type InsightStatus = 'strength' | 'developing' | 'weakness' | 'insufficient-data';
@@ -135,7 +135,7 @@ type RecentAttemptItem = {
   submittedAt: string;
   submittedLabel: string;
   totalQuestions: number;
-  resultRoute: string;
+  resultRoute: string | null;
   detailStatus: 'full' | 'summary-only' | 'unavailable';
 };
 
@@ -202,4 +202,7 @@ T/F chart không dùng whole-question correctness làm denominator duy nhất. `
 
 ## 5. Aggregation and trust
 
-Authenticated merge là contract tương lai: union backend và local-only theo `attemptId/sessionId`, backend record thắng khi trùng. Current history không làm vậy. Backend list tối đa 100 và weakness hiện chỉ một attempt, nên coverage phải nói rõ phần đã phân tích. Score là learning-only vì backend chưa re-score.
+Không có `merged` source trong V1: authenticated backend success là backend-only; local chỉ là anonymous
+explicit-local hoặc exact-owner fallback khi backend unavailable. Không union backend và local theo
+`attemptId/sessionId`. Backend response hiện dùng bounded fetch và coverage phải nói rõ phần đã phân tích.
+Score là learning-only vì backend chưa re-score.

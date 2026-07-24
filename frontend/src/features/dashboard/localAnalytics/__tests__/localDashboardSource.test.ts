@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { DashboardAnalyticsApiError } from '@/services/dashboardAnalyticsApi';
 import {
   isLocalFallbackEligible,
+  isRelevantLocalDashboardStorageEvent,
   loadLocalDashboard,
 } from '../localDashboardSource';
 import type { LocalDashboardStorage } from '../localDashboardRepository';
@@ -62,6 +63,33 @@ describe('dashboard local fallback eligibility', () => {
   it('rejects raw and message-only errors', () => {
     expect(isLocalFallbackEligible(new TypeError('network'))).toBe(false);
     expect(isLocalFallbackEligible(new Error('503 timeout'))).toBe(false);
+  });
+});
+
+describe('dashboard local storage-event allowlist', () => {
+  it.each([
+    ['exam_api_result_session', true],
+    ['v2_result_session', true],
+    ['custom_exam_session_session', true],
+    ['exam_result_exam', true],
+    ['exam_history', true],
+    ['exam_submission_recovery_queue_v1', true],
+    [null, true],
+    ['exam_session_token_secret', false],
+    ['auth_user', false],
+    ['refresh_token', false],
+    ['exam_api_session_draft_session', false],
+    ['exam_api_session_locator_session', false],
+    ['unrelated', false],
+  ] as const)('classifies %s as %s without reading event value', (key, expected) => {
+    expect(isRelevantLocalDashboardStorageEvent({ key, storageArea: null })).toBe(expected);
+  });
+
+  it('rejects sessionStorage events even when the key is allowlisted', () => {
+    expect(isRelevantLocalDashboardStorageEvent({
+      key: 'v2_result_session',
+      storageArea: window.sessionStorage,
+    })).toBe(false);
   });
 });
 
