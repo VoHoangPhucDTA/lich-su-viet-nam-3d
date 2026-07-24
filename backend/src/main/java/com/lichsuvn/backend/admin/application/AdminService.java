@@ -50,40 +50,6 @@ public class AdminService {
         this.roleRepository = roleRepository;
     }
 
-    public Map<String, Object> dashboard() {
-        Map<String, Object> users = new LinkedHashMap<>();
-        users.put("total", count("SELECT COUNT(*) FROM users", new MapSqlParameterSource()));
-        users.put("active", count("SELECT COUNT(*) FROM users WHERE status = 'active'", new MapSqlParameterSource()));
-        users.put("pending", count("SELECT COUNT(*) FROM users WHERE status = 'pending'", new MapSqlParameterSource()));
-        users.put("disabled", count("SELECT COUNT(*) FROM users WHERE status = 'disabled'", new MapSqlParameterSource()));
-        users.put("newLast7Days", count("SELECT COUNT(*) FROM users WHERE created_at >= DATE_SUB(CURRENT_TIMESTAMP, INTERVAL 7 DAY)", new MapSqlParameterSource()));
-
-        Map<String, Object> events = new LinkedHashMap<>();
-        events.put("total", count("SELECT COUNT(*) FROM historical_events", new MapSqlParameterSource()));
-        events.put("published", count("SELECT COUNT(*) FROM historical_events WHERE status = 'published'", new MapSqlParameterSource()));
-        events.put("draft", count("SELECT COUNT(*) FROM historical_events WHERE status = 'draft'", new MapSqlParameterSource()));
-        events.put("archived", count("SELECT COUNT(*) FROM historical_events WHERE status = 'archived'", new MapSqlParameterSource()));
-        events.put("atomic", count("SELECT COUNT(*) FROM historical_events WHERE event_level = 'atomic'", new MapSqlParameterSource()));
-        events.put("collection", count("SELECT COUNT(*) FROM historical_events WHERE event_level = 'collection'", new MapSqlParameterSource()));
-        events.put("needsContent", count("SELECT COUNT(*) FROM historical_events WHERE card_summary IS NULL OR TRIM(card_summary) = ''", new MapSqlParameterSource()));
-
-        List<Map<String, Object>> audit = jdbc.query("""
-                SELECT a.action, a.entity_type AS entityType, a.entity_id AS entityId, a.created_at AS createdAt,
-                       u.full_name AS actorName
-                FROM admin_audit_logs a
-                LEFT JOIN users u ON u.id = a.user_id
-                ORDER BY a.created_at DESC LIMIT 8
-                """, new MapSqlParameterSource(), (rs, row) -> Map.<String, Object>of(
-                "action", rs.getString("action"),
-                "entityType", rs.getString("entityType"),
-                "entityId", rs.getString("entityId"),
-                "createdAt", rs.getTimestamp("createdAt").toInstant().toString(),
-                "actorName", rs.getString("actorName") == null ? "Hệ thống" : rs.getString("actorName")
-        ));
-
-        return Map.of("users", users, "events", events, "recentAudit", audit);
-    }
-
     public Map<String, Object> users(String query, String status, String role, Integer limit, Integer offset) {
         if (StringUtils.hasText(status)) validate("status", status, USER_STATUSES);
         if (StringUtils.hasText(role)) validate("role", role, Set.of("student", "admin"));

@@ -1,8 +1,10 @@
 package com.lichsuvn.backend.admin.api;
 
-import com.lichsuvn.backend.admin.application.AdminService;
-import com.lichsuvn.backend.admin.application.AdminEventReadService;
+import com.lichsuvn.backend.admin.api.dto.AdminDashboardDtos;
 import com.lichsuvn.backend.admin.api.dto.AdminEventDtos;
+import com.lichsuvn.backend.admin.application.AdminDashboardReadService;
+import com.lichsuvn.backend.admin.application.AdminEventReadService;
+import com.lichsuvn.backend.admin.application.AdminService;
 import com.lichsuvn.backend.auth.security.UserPrincipal;
 import com.lichsuvn.backend.common.api.ApiResponse;
 import com.lichsuvn.backend.common.exception.ApiException;
@@ -27,15 +29,36 @@ import java.util.Map;
 public class AdminController {
     private final AdminService adminService;
     private final AdminEventReadService adminEventReadService;
+    private final AdminDashboardReadService adminDashboardReadService;
 
-    public AdminController(AdminService adminService, AdminEventReadService adminEventReadService) {
+    public AdminController(
+            AdminService adminService,
+            AdminEventReadService adminEventReadService,
+            AdminDashboardReadService adminDashboardReadService
+    ) {
         this.adminService = adminService;
         this.adminEventReadService = adminEventReadService;
+        this.adminDashboardReadService = adminDashboardReadService;
     }
 
     @GetMapping("/dashboard")
-    public ApiResponse<Map<String, Object>> dashboard() {
-        return ApiResponse.ok(adminService.dashboard());
+    public ApiResponse<AdminDashboardDtos.Dashboard> dashboard() {
+        return ApiResponse.ok(adminDashboardReadService.findDashboard());
+    }
+
+    @GetMapping("/dashboard/metrics")
+    public ApiResponse<AdminDashboardDtos.Metrics> dashboardMetrics() {
+        return ApiResponse.ok(adminDashboardReadService.findMetrics());
+    }
+
+    @GetMapping("/dashboard/attention")
+    public ApiResponse<java.util.List<AdminDashboardDtos.AttentionEvent>> dashboardAttention() {
+        return ApiResponse.ok(adminDashboardReadService.findAttention());
+    }
+
+    @GetMapping("/dashboard/audit")
+    public ApiResponse<java.util.List<AdminDashboardDtos.AuditEntry>> dashboardAudit() {
+        return ApiResponse.ok(adminDashboardReadService.findRecentAudit());
     }
 
     @GetMapping("/users")

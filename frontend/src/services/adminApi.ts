@@ -30,19 +30,14 @@ export interface AdminEvent {
   eventType: 'military' | 'political' | 'economic' | 'cultural';
   eventSubtype?: string | null;
   chronology: AdminEventChronology;
-  /** Temporary bridge for the existing Dashboard; remove in the Dashboard phase. */
-  startYear: number | null;
-  endYear: number | null;
   cardSummary?: string | null;
   status: 'draft' | 'published' | 'archived';
   grades: number[];
   normalizedGeoType: string;
   canonicalGeoType?: AdminCanonicalGeoType | null;
   thumbnail?: { id: number; url: string; altText?: string | null } | null;
-  thumbnailUrl?: string | null;
   activeMediaCount: number;
   flags: AdminEventFlags;
-  featured: boolean;
   completeness: AdminEventCompleteness;
   createdAt: string;
   updatedAt: string;
@@ -206,16 +201,55 @@ export interface AdminEventLink {
   endYear: number | null;
 }
 
-export interface AdminDashboard {
-  users: { total: number; active: number; pending: number; disabled: number; newLast7Days: number };
-  events: { total: number; published: number; draft: number; archived: number; atomic: number; collection: number; needsContent: number };
-  recentAudit: Array<{ action: string; entityType: string; entityId?: string | null; createdAt: string; actorName: string }>;
+export interface AdminDashboardMetrics {
+  events: {
+    total: number;
+    published: number;
+    draft: number;
+    archived: number;
+    missingThumbnail: number;
+    missingActiveMedia: number;
+    missingOrInvalidMapData: number;
+    withCompletenessIssues: number;
+  };
+  users: {
+    activeTotal: number;
+    createdLast7Days: number;
+  };
+}
+
+export interface AdminDashboardAttentionEvent {
+  id: string;
+  title: string;
+  chronology: AdminEventChronology;
+  status: AdminEvent['status'];
+  thumbnail?: AdminEvent['thumbnail'];
+  completeness: AdminEventCompleteness;
+  updatedAt: string;
+  reasonCode: string;
+  recommendedFilter: string;
+}
+
+export interface AdminDashboardAuditEntry {
+  actor: { displayName: string };
+  action: string;
+  entityType: string;
+  entityId?: string | null;
+  timestamp: string;
 }
 
 export type AdminEventPayload = Record<string, unknown>;
 
-export function getAdminDashboard() {
-  return apiGet<AdminDashboard>('/api/admin/dashboard');
+export function getAdminDashboardMetrics(signal?: AbortSignal) {
+  return apiGet<AdminDashboardMetrics>('/api/admin/dashboard/metrics', { signal });
+}
+
+export function getAdminDashboardAttention(signal?: AbortSignal) {
+  return apiGet<AdminDashboardAttentionEvent[]>('/api/admin/dashboard/attention', { signal });
+}
+
+export function getAdminDashboardAudit(signal?: AbortSignal) {
+  return apiGet<AdminDashboardAuditEntry[]>('/api/admin/dashboard/audit', { signal });
 }
 
 export function getAdminUsers(params: { q?: string; status?: string; role?: string; limit?: number; offset?: number }) {

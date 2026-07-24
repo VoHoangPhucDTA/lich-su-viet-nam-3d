@@ -70,11 +70,10 @@ public class AdminEventReadService {
             return new AdminEventDtos.ListItem(
                     row.id(), row.slug(), row.title(), row.shortTitle(),
                     row.eventLevel(), row.eventType(), row.eventSubtype(), row.chronology(),
-                    row.chronology().startYear(), row.chronology().endYear(), row.cardSummary(),
+                    row.cardSummary(),
                     row.status(), facts.grades(), row.normalizedGeoType(),
                     assessment.canonicalGeoType(), row.thumbnail(),
-                    row.thumbnail() == null ? null : row.thumbnail().url(), row.activeMediaCount(),
-                    row.flags(), row.flags().featured(), assessment.completeness(),
+                    row.activeMediaCount(), row.flags(), assessment.completeness(),
                     row.createdAt(), row.updatedAt()
             );
         }).toList();

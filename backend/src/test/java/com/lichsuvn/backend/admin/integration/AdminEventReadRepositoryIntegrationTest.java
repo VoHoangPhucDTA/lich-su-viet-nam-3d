@@ -1,8 +1,10 @@
 package com.lichsuvn.backend.admin.integration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.lichsuvn.backend.admin.application.AdminDashboardReadService;
 import com.lichsuvn.backend.admin.application.AdminEventReadService;
 import com.lichsuvn.backend.admin.application.EventCompletenessService;
+import com.lichsuvn.backend.admin.infrastructure.AdminDashboardReadRepository;
 import com.lichsuvn.backend.admin.infrastructure.AdminEventReadRepository;
 import org.flywaydb.core.Flyway;
 import org.junit.jupiter.api.AfterAll;
@@ -25,6 +27,7 @@ class AdminEventReadRepositoryIntegrationTest {
     private static MySQLContainer mysql;
     private static JdbcTemplate jdbc;
     private static AdminEventReadService service;
+    private static AdminDashboardReadService dashboardService;
     private static boolean available;
     private static String unavailableReason;
 
@@ -43,9 +46,12 @@ class AdminEventReadRepositoryIntegrationTest {
                     .locations("filesystem:src/main/resources/db/migration")
                     .load().migrate();
             jdbc = new JdbcTemplate(dataSource);
-            var repository = new AdminEventReadRepository(
-                    new NamedParameterJdbcTemplate(dataSource), new ObjectMapper());
-            service = new AdminEventReadService(repository, new EventCompletenessService());
+            var namedJdbc = new NamedParameterJdbcTemplate(dataSource);
+            var repository = new AdminEventReadRepository(namedJdbc, new ObjectMapper());
+            var completeness = new EventCompletenessService();
+            service = new AdminEventReadService(repository, completeness);
+            dashboardService = new AdminDashboardReadService(
+                    repository, new AdminDashboardReadRepository(namedJdbc), completeness);
             seed();
             available = true;
         } catch (Exception ex) {
@@ -197,6 +203,46 @@ class AdminEventReadRepositoryIntegrationTest {
                 detail.completeness().issues().stream().map(issue -> issue.code()).toList());
     }
 
+    @Test
+    void dashboardCountsAndCompletenessMatchListAndDetailWithoutPrivateAuditPayloads() {
+        assumeTrue(available, unavailableReason);
+
+        var dashboard = dashboardService.findDashboard();
+
+        assertEquals(3, dashboard.metrics().events().total());
+        assertEquals(1, dashboard.metrics().events().published());
+        assertEquals(1, dashboard.metrics().events().draft());
+        assertEquals(1, dashboard.metrics().events().archived());
+        assertEquals(1, dashboard.metrics().events().missingThumbnail());
+        assertEquals(1, dashboard.metrics().events().missingActiveMedia());
+        assertEquals(0, dashboard.metrics().events().missingOrInvalidMapData());
+        assertEquals(1, dashboard.metrics().events().withCompletenessIssues());
+        assertEquals(1, dashboard.metrics().users().activeTotal());
+        assertEquals(1, dashboard.metrics().users().createdLast7Days());
+        assertEquals(1, dashboard.attention().size());
+        assertEquals("unknown-event", dashboard.attention().getFirst().id());
+
+        List<String> dashboardCodes = dashboard.attention().getFirst().completeness().issues()
+                .stream().map(issue -> issue.code()).toList();
+        List<String> listCodes = service.findEvents(
+                "Unknown", null, null, null, null, null, null,
+                null, null, null, null, null, null, null, 20, 0)
+                .items().getFirst().completeness().issues().stream()
+                .map(issue -> issue.code()).toList();
+        List<String> detailCodes = service.findEvent("unknown-event").completeness().issues()
+                .stream().map(issue -> issue.code()).toList();
+        assertEquals(listCodes, dashboardCodes);
+        assertEquals(detailCodes, dashboardCodes);
+
+        assertEquals(1, dashboard.recentAudit().size());
+        assertEquals("Admin User", dashboard.recentAudit().getFirst().actor().displayName());
+        String serialized = dashboard.toString();
+        assertFalse(serialized.contains("before_json"));
+        assertFalse(serialized.contains("after_json"));
+        assertFalse(serialized.contains("local:"));
+        assertFalse(serialized.contains("secret"));
+    }
+
     private static void assertSingle(
             String id, com.lichsuvn.backend.admin.api.dto.AdminEventDtos.Page page
     ) {
@@ -216,6 +262,15 @@ class AdminEventReadRepositoryIntegrationTest {
     }
 
     private static void seed() {
+        jdbc.update("""
+                INSERT INTO users(id,email,password_hash,full_name,status,created_at)
+                VALUES
+                  (UUID_TO_BIN('00000000-0000-0000-0000-000000000001'),
+                   'admin@example.test','hash','Admin User','active',CURRENT_TIMESTAMP),
+                  (UUID_TO_BIN('00000000-0000-0000-0000-000000000002'),
+                   'old@example.test','hash','Old User','disabled',
+                   DATE_SUB(CURRENT_TIMESTAMP,INTERVAL 8 DAY))
+                """);
         jdbc.update("""
                 INSERT INTO historical_events
                   (id,slug,title,event_level,event_type,start_year,end_year,effective_end_year,
@@ -282,6 +337,14 @@ class AdminEventReadRepositoryIntegrationTest {
                 VALUES
                   ('complete-point',9001,0,'DIRECT',TRUE,'VERIFIED'),
                   ('complete-point',9002,1,'DIRECT',FALSE,'VERIFIED')
+                """);
+        jdbc.update("""
+                INSERT INTO admin_audit_logs
+                  (user_id,action,entity_type,entity_id,before_json,after_json)
+                VALUES
+                  (UUID_TO_BIN('00000000-0000-0000-0000-000000000001'),
+                   'event.status_updated','historical_event','unknown-event',
+                   JSON_OBJECT('secret','local:before'),JSON_OBJECT('secret','local:after'))
                 """);
     }
 }

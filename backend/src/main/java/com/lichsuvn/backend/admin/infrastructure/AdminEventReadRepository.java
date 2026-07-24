@@ -119,6 +119,64 @@ public class AdminEventReadRepository {
         return jdbc.query(sql, parts.params(), (rs, row) -> mapListRow(rs));
     }
 
+    /**
+     * Bounded Dashboard projection. It intentionally selects only presence facts and compact
+     * operational fields; narrative/source payloads are never loaded.
+     */
+    public List<ListRow> findDashboardRows() {
+        String sql = """
+                SELECT e.id, e.slug, e.title, e.short_title, e.event_level, e.event_type,
+                       e.event_subtype, e.start_year, e.end_year, e.effective_end_year,
+                       e.display_date, e.date_precision, e.status, e.geo_type, e.lat, e.lng,
+                       e.card_summary,
+                       e.province_names, e.historical_locations, e.show_on_homepage,
+                       e.show_on_timeline, e.featured, e.created_at, e.updated_at,
+                       e.key_facts,
+                       (TRIM(e.title) <> '') AS title_present,
+                       (TRIM(e.slug) <> '') AS slug_present,
+                       (e.card_summary IS NOT NULL AND TRIM(e.card_summary) <> '') AS card_present,
+                       (e.canonical_summary IS NOT NULL AND TRIM(e.canonical_summary) <> '') AS canonical_present,
+                       (e.detailed_narrative IS NOT NULL AND TRIM(e.detailed_narrative) <> '') AS narrative_present,
+                       (e.significance IS NOT NULL AND TRIM(e.significance) <> '') AS significance_present,
+                       JSON_TYPE(%s) AS map_data_type,
+                       %s AS map_data_json,
+                       COALESCE((
+                           SELECT COUNT(*) FROM event_media active_media
+                           WHERE active_media.event_id = e.id
+                             AND active_media.status = 'active'
+                             AND TRIM(active_media.url) <> ''
+                             AND LOWER(TRIM(active_media.url)) NOT LIKE 'local:%%'
+                       ), 0) AS active_media_count,
+                       (
+                           SELECT thumb.id FROM event_media thumb
+                           WHERE thumb.event_id = e.id AND thumb.status = 'active'
+                             AND thumb.is_thumbnail = TRUE AND thumb.media_type = 'image'
+                             AND TRIM(thumb.url) <> ''
+                             AND LOWER(TRIM(thumb.url)) NOT LIKE 'local:%%'
+                           ORDER BY thumb.sort_order, thumb.id LIMIT 1
+                       ) AS thumbnail_id,
+                       (
+                           SELECT thumb.url FROM event_media thumb
+                           WHERE thumb.event_id = e.id AND thumb.status = 'active'
+                             AND thumb.is_thumbnail = TRUE AND thumb.media_type = 'image'
+                             AND TRIM(thumb.url) <> ''
+                             AND LOWER(TRIM(thumb.url)) NOT LIKE 'local:%%'
+                           ORDER BY thumb.sort_order, thumb.id LIMIT 1
+                       ) AS thumbnail_url,
+                       (
+                           SELECT thumb.alt_text FROM event_media thumb
+                           WHERE thumb.event_id = e.id AND thumb.status = 'active'
+                             AND thumb.is_thumbnail = TRUE AND thumb.media_type = 'image'
+                             AND TRIM(thumb.url) <> ''
+                             AND LOWER(TRIM(thumb.url)) NOT LIKE 'local:%%'
+                           ORDER BY thumb.sort_order, thumb.id LIMIT 1
+                       ) AS thumbnail_alt
+                FROM historical_events e
+                ORDER BY e.id
+                """.formatted(MAP_DATA, MAP_DATA);
+        return jdbc.query(sql, new MapSqlParameterSource(), (rs, row) -> mapListRow(rs));
+    }
+
     public Map<String, List<Integer>> findGrades(List<String> eventIds) {
         if (eventIds.isEmpty()) return Map.of();
         Map<String, List<Integer>> result = new LinkedHashMap<>();

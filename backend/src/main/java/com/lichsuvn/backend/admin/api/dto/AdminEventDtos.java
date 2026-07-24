@@ -20,21 +20,14 @@ public final class AdminEventDtos {
             String eventType,
             String eventSubtype,
             Chronology chronology,
-            /** Temporary compatibility bridge; remove when Dashboard adopts chronology. */
-            Integer startYear,
-            Integer endYear,
             String cardSummary,
             String status,
             List<Integer> grades,
             String normalizedGeoType,
             String canonicalGeoType,
             Thumbnail thumbnail,
-            /** Temporary compatibility bridge; remove when Dashboard adopts thumbnail. */
-            String thumbnailUrl,
             int activeMediaCount,
             Flags flags,
-            /** Temporary compatibility bridge; remove when Dashboard adopts flags. */
-            boolean featured,
             Completeness completeness,
             Instant createdAt,
             Instant updatedAt
