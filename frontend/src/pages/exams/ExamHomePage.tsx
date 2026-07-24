@@ -1,19 +1,25 @@
 import type { LucideIcon } from 'lucide-react';
-import { BookOpen, FilePlus2, History, LibraryBig } from 'lucide-react';
+import { BarChart3, BookOpen, FilePlus2, History, LibraryBig } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import ExamHero from '../../components/exams/ExamHero';
+import { PERSONAL_LEARNING_DASHBOARD_ROUTE } from '../../features/dashboard/dashboardRoute';
 
 type FeatureCardProps = {
   title: string;
   desc: string;
   icon: LucideIcon;
   to: string;
+  ariaLabel?: string;
   primary?: boolean;
 };
 
-function FeatureCard({ title, desc, icon: Icon, to, primary = false }: FeatureCardProps) {
+function FeatureCard({ title, desc, icon: Icon, to, ariaLabel, primary = false }: FeatureCardProps) {
   return (
-    <Link className={`exam-focusable exam-home-feature${primary ? ' exam-home-feature-primary' : ''}`} to={to}>
+    <Link
+      aria-label={ariaLabel}
+      className={`exam-focusable exam-home-feature${primary ? ' exam-home-feature-primary' : ''}`}
+      to={to}
+    >
       <span className="exam-home-feature-icon" aria-hidden="true">
         <Icon size={30} strokeWidth={1.8} />
       </span>
@@ -37,6 +43,13 @@ export default function ExamHomePage() {
             <FeatureCard title="Ôn theo chủ đề" desc="Luyện câu hỏi theo từng mảng kiến thức và giai đoạn lịch sử, xem giải thích ngay sau từng câu." icon={BookOpen} to="/exams/on-chu-de" />
             <FeatureCard title="Tạo đề tùy chọn" desc="Tự chọn số câu, chủ đề, độ khó và thời gian để luyện đúng phần bạn cần." icon={FilePlus2} to="/exams/tao-de" />
             <FeatureCard title="Lịch sử luyện thi" desc="Xem lại các bài đã nộp, điểm số, thời gian làm bài và mở phần ôn lại câu sai." icon={History} to="/exams/lich-su" />
+            <FeatureCard
+              ariaLabel="Xem thống kê học tập"
+              title="Thống kê học tập"
+              desc="Xem xu hướng điểm, chủ đề mạnh yếu và nhịp luyện thi của bạn."
+              icon={BarChart3}
+              to={PERSONAL_LEARNING_DASHBOARD_ROUTE}
+            />
           </div>
         </section>
       </main>

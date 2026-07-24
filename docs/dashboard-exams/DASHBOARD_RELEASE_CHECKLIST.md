@@ -3,7 +3,8 @@
 Ngày kiểm tra: 2026-07-24
 Nhánh: `dashboard_exams`
 Goal 3B2 commit: `76e69231e5b02006ad687026557384787b0d7a18`
-Trạng thái: **FINAL REVIEW GATE — Goal 4 chưa stage, chưa commit, chưa push**
+Goal 4 commit: `4cf7184fb33f93eeb9bd1035d11f7772ffa39f74`
+Trạng thái: **Goal 4 đã commit; discoverability implementation đang ở REVIEW GATE, chưa stage/commit/push**
 
 ## 1. Code validation
 
@@ -232,7 +233,7 @@ Known limitations:
 Rollback:
 
 1. Goal 3B2 có thể revert riêng bằng commit `76e69231`.
-2. Goal 4 chưa commit; review/revert theo từng hunk dashboard, tests và docs.
+2. Goal 4 có thể revert riêng bằng commit `4cf7184f`.
 3. Không rollback toàn repository và không dùng `git reset --hard` vì có thay đổi người dùng tồn tại trước.
 4. Scroll-width fix là hunk `w-screen` → `w-full` trong `frontend/src/App.tsx`.
 
@@ -257,3 +258,48 @@ RELEASE_RECOMMENDATION: READY_WITH_MANUAL_VERIFICATION
 
 Không có evidence về owner leak, raw answer leak, stale data leak, contract mismatch hoặc dashboard blocker.
 Không khuyến nghị `READY` cho đến khi manual verified-account E2E hoàn tất.
+
+## 13. Dashboard discoverability checks
+
+### Canonical route và entry points
+
+- [x] `/exams/thong-ke` vẫn là canonical full-dashboard route.
+- [x] Route vẫn public, không thêm `ProtectedRoute`, redirect hoặc alias.
+- [x] `/exams` có primary link “Thống kê học tập”.
+- [x] Anonymous và authenticated user đều thấy ExamHome entry.
+- [x] `/profile/dashboard` có secondary link-only card “Thống kê luyện thi”.
+- [x] Profile vẫn protected và generic overview; không nhúng full dashboard.
+- [x] Cả hai entry point trỏ trực tiếp tới `/exams/thong-ke`.
+- [x] Browser Back dùng normal history, không dùng replace navigation.
+- [x] Dashboard có thể được tìm thấy mà không cần biết direct URL.
+
+### No-fetch và bundle boundary
+
+- [x] ExamHome entry không request dashboard analytics và không scan local storage.
+- [x] Profile entry không request dashboard analytics, không nhận/hiển thị KPI và không scan local storage.
+- [x] Hai entry point không import dashboard page, hook, API client, Recharts hoặc DEV fixture.
+- [x] Route constant nằm trong module độc lập, không đi qua dashboard barrel.
+- [x] `PersonalLearningDashboardPage` vẫn lazy-loaded trong `App.tsx`.
+- [x] Production bundle scan xác nhận profile/exam home không kéo full dashboard implementation.
+- [x] Production bundle không chứa DEV fixture chunk hoặc synthetic marker.
+
+### Accessibility và responsive
+
+- [x] Card dùng semantic `<Link>` với accessible name riêng.
+- [x] Không có nested button/link.
+- [x] Icon decorative dùng `aria-hidden`.
+- [x] Focus-visible style tồn tại; keyboard Enter navigation có automated test.
+- [x] Existing exam card padding/touch target và profile card `min-height` đáp ứng tối thiểu 44px.
+- [x] Browser QA ExamHome 1440×900, 768×1024, 390×844 và 320×568 không overflow.
+- [x] Profile card component/integration harness không tạo scroll container; real sidebar overlay xem mục kế.
+- [x] Browser console không có error/warning.
+- [x] Real authenticated profile browser session: explicit `CANNOT_CONFIRM`, không bypass auth.
+
+### Deferred và scope integrity
+
+- [x] AppHeader không thay đổi.
+- [x] ProfileLayout/scroll owner không thay đổi.
+- [x] History/result contextual CTA chưa được thêm và được deferred.
+- [x] Không backend/database/migration/auth/scoring change.
+- [x] Audit được commit riêng tại `838ed43047896fd3cddb1b484de4b20b786d65f8`.
+- [x] Implementation chưa stage, commit hoặc push.

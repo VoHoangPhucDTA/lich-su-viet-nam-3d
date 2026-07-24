@@ -23,7 +23,7 @@ aggregation và ViewModel mapper). Goal 3B2 đã nối foundation vào page/hook
 explicit-anonymous, còn authenticated chỉ fallback sang local exact-owner khi network/timeout/502/503/504.
 Module không merge local với backend và không gán dữ liệu device-unscoped cho anonymous hoặc tài khoản.
 Goal 4 đã bổ sung cross-tab refresh exact-key, security/redaction audit, synthetic performance/bundle audit,
-browser matrix và release checklist; các thay đổi Goal 4 vẫn unstaged/uncommitted tại FINAL REVIEW GATE.
+browser matrix và release checklist; Goal 4 đã commit tại `4cf7184f`.
 
 ---
 
@@ -94,7 +94,7 @@ Vì vậy, trạng thái hiện tại nên được hiểu là:
 | Backend aggregation | Đã triển khai trên immutable attempt snapshot |
 | Authenticated real-data integration | Đã triển khai; real browser smoke cần verified QA session |
 | Local analytics foundation | Hoàn thành Goal 3B1, commit `c88c2213` |
-| Anonymous/local/offline presentation | Hoàn thành Goal 3B2, commit `76e69231`; Goal 4 hardening đang unstaged/uncommitted |
+| Anonymous/local/offline presentation | Hoàn thành Goal 3B2, commit `76e69231`; Goal 4 hardening commit `4cf7184f` |
 | Scoring/weakness/cognitive engine | Ngoài phạm vi dashboard hiện tại |
 
 ---
@@ -974,8 +974,9 @@ real verified-account smoke CANNOT CONFIRM
 
 ## 14. Goal 4 — Release hardening
 
-Goal 4 hiện đã hoàn tất implementation/audit và dừng ở FINAL REVIEW GATE. Goal 3B2 đã commit riêng tại
-`76e69231e5b02006ad687026557384787b0d7a18`; Goal 4 không stage, commit hoặc push.
+Goal 4 đã hoàn tất implementation/audit và commit riêng tại
+`4cf7184fb33f93eeb9bd1035d11f7772ffa39f74`. Goal 3B2 đã commit riêng tại
+`76e69231e5b02006ad687026557384787b0d7a18`; chưa push.
 
 ### Cross-tab và source orchestration
 
@@ -1057,8 +1058,7 @@ credential/token/cookie, không tạo account và không ghi DB.
 Dashboard người dùng đã hoàn thành presentation, Goal 1 data boundary, backend Analytics API V1 của
 Goal 2, authenticated frontend integration của Goal 3A và local foundation Goal 3B1. Goal 2 đã commit tại
 `195db79f`; Goal 3A tại `655702f4`; Goal 3B1 tại `c88c2213`; Goal 3B2 tại
-`76e69231`. Goal 4 đã hoàn tất audit/hardening và hiện dừng FINAL REVIEW GATE ở trạng thái
-unstaged/uncommitted, chưa push.
+`76e69231`. Goal 4 đã hoàn tất audit/hardening và commit tại `4cf7184f`, chưa push.
 
 Authenticated backend success vẫn là backend-only; anonymous chỉ dùng explicit-anonymous data; fallback chỉ
 dùng exact owner và không silent merge. Việc còn lại chính là:
@@ -1067,3 +1067,53 @@ dùng exact owner và không silent merge. Việc còn lại chính là:
 2. chạy read-only TiDB profile/EXPLAIN khi có quyền an toàn hoặc ghi waiver được review;
 3. giữ nguyên privacy, source priority, presentation, accessibility và scroll invariants đã QA;
 4. chỉ sau review gate mới quyết định stage/commit Goal 4.
+
+---
+
+## 17. Dashboard discoverability integration
+
+Canonical full dashboard vẫn là `/exams/thong-ke`, public và lazy-loaded. Dashboard hiện có hai entry point
+được triển khai trong frontend:
+
+1. primary entry tại `/exams`: card “Thống kê học tập” trỏ tới canonical route, hiển thị cho cả anonymous và
+   authenticated user;
+2. secondary entry tại `/profile/dashboard`: link-only card “Thống kê luyện thi” ngay sau welcome hero.
+
+Profile dashboard không phải analytics authority. Card profile không nhận KPI, không fetch
+`GET /api/exams/dashboard-analytics`, không dùng `usePersonalLearningDashboard`, không đọc local storage và
+không dùng `mockLearningStats` để mô tả official exam analytics. Exam home cũng chỉ render link và không mount
+dashboard source orchestration.
+
+Hai entry point dùng trực tiếp module nhỏ:
+
+```text
+frontend/src/features/dashboard/dashboardRoute.ts
+PERSONAL_LEARNING_DASHBOARD_ROUTE = /exams/thong-ke
+```
+
+Module này không export qua barrel và không import page, Recharts, hook, API, local analytics hoặc DEV fixture.
+`PersonalLearningDashboardPage` vẫn được lazy-load tại `App.tsx`; route declaration và auth policy không đổi.
+
+Không thay đổi AppHeader, ProfileLayout, ExamV2HistoryPage hoặc ExamV2ResultPage. Contextual history/result CTA
+được deferred. Audit quyết định được commit riêng tại `838ed43047896fd3cddb1b484de4b20b786d65f8`;
+implementation hiện unstaged/uncommitted và dừng ở REVIEW GATE.
+
+Targeted automated validation hiện tại:
+
+```text
+5 test files, 35 tests PASS
+full frontend suite: 51 files, 402 tests PASS
+TypeScript PASS
+targeted ESLint PASS, zero warnings
+production build PASS, 4,170 modules
+dashboard lazy chunk 460.00 kB; ExamHome chunk 3.34 kB
+anonymous browser matrix 1440/768/390/320 PASS
+browser console zero error/warning
+```
+
+Bundle scan chỉ tìm thấy dashboard implementation trong `PersonalLearningDashboardPage` lazy chunk; không có
+fixture chunk hoặc synthetic marker. Bốn generated exam artifacts được backup/restore và xác minh SHA-256
+byte-for-byte sau build.
+
+Real authenticated browser profile session vẫn `CANNOT_CONFIRM`; profile card được kiểm tra bằng
+component/integration harness, không bypass auth. Implementation vẫn unstaged/uncommitted và chưa push.

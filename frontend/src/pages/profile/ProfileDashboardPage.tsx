@@ -1,5 +1,6 @@
 import { useAuth } from '../../auth/AuthContext';
 import ProfileLayout from '../../layouts/ProfileLayout';
+import LearningAnalyticsEntryCard from '../../components/profile/LearningAnalyticsEntryCard';
 import StatsCard from '../../components/profile/StatsCard';
 import RecommendationCard from '../../components/profile/RecommendationCard';
 import {
@@ -264,6 +265,7 @@ export default function ProfileDashboardPage() {
     <ProfileLayout>
       <div className="space-y-8 lg:space-y-10 animate-fade-in">
         <WelcomeHero firstName={firstName} />
+        <LearningAnalyticsEntryCard />
         <StatsGrid />
         <ChartsGrid />
         <StrengthsWeaknesses />

@@ -22,7 +22,7 @@ Goal 3B2 commit / Goal 4 baseline: `76e69231e5b02006ad687026557384787b0d7a18`
 | Goal 3A | Hoàn thành, đã commit | Authenticated production API client/hook, auth/range/error/retry/partial coverage |
 | Goal 3B1 | Hoàn thành, đã commit | Local scanner/adapters/owner scope/dedupe/aggregation/mapper thuần |
 | Goal 3B2 | Hoàn thành, đã commit | Anonymous local, exact-owner backend-off fallback, source priority và stale/cross-user protection |
-| Goal 4 | Đã triển khai, FINAL REVIEW GATE | Cross-tab refresh, release/security/performance/browser audit và release checklist; chưa stage/commit |
+| Goal 4 | Hoàn thành, đã commit | Cross-tab refresh, release/security/performance/browser audit và release checklist; commit `4cf7184f` |
 
 ## Goal 0 — Source audit
 
@@ -536,8 +536,9 @@ owner, backend recovery, logout và user switch được kiểm thử bằng int
 
 ## Goal 4 — Release hardening và final audit
 
-Goal 4 đã được triển khai và dừng tại **FINAL REVIEW GATE**. Toàn bộ thay đổi Goal 4 đang unstaged,
-uncommitted và chưa push. Goal này không thay đổi scoring, exam persistence, recovery semantics, migration,
+Goal 4 đã hoàn thành và được commit tại `4cf7184fb33f93eeb9bd1035d11f7772ffa39f74`
+(`feat(dashboard): harden analytics release readiness`). Goal này không thay đổi scoring, exam persistence,
+recovery semantics, migration,
 index, database data, History RAG hoặc `data/exams`.
 
 ### Goal 3B2 commit boundary
@@ -709,3 +710,41 @@ riêng Goal 1:
 
 Nên rollback theo commit/hunk sau khi Goal 1 được commit riêng; không dùng `git reset --hard` hoặc
 restore toàn working tree.
+
+## Dashboard discoverability integration
+
+Audit navigation và profile integration đã được review và commit riêng tại
+`838ed43047896fd3cddb1b484de4b20b786d65f8` với message
+`docs(dashboard): audit analytics access integration`.
+
+Implementation hiện dừng ở REVIEW GATE với các quyết định đã khóa:
+
+- `/exams/thong-ke` tiếp tục là canonical full-dashboard route và tiếp tục public;
+- `/exams` có primary entry “Thống kê học tập” bên cạnh các action luyện thi hiện có;
+- `/profile/dashboard` có secondary link-only card “Thống kê luyện thi” ngay sau welcome hero;
+- hai surface chỉ import `PERSONAL_LEARNING_DASHBOARD_ROUTE` từ module route constant nhỏ;
+- ExamHome và ProfileDashboard không mount dashboard page/hook/API/local scanner, không request analytics;
+- profile overview vẫn dùng mock data hiện có nhưng không dùng mock đó làm official dashboard analytics;
+- `PersonalLearningDashboardPage` vẫn lazy-loaded trong `App.tsx`;
+- AppHeader, ProfileLayout, history và result không thay đổi;
+- history/result contextual CTA được deferred sang Goal riêng sau product/browser feedback;
+- implementation chưa stage, commit hoặc push.
+
+Targeted validation tại implementation review gate:
+
+```text
+discoverability + route policy + existing dashboard page: 5 files, 35 tests PASS
+full frontend suite: 51 files, 402 tests PASS
+TypeScript: PASS
+targeted ESLint: PASS, zero warnings
+production build: PASS, 4,170 modules
+bundle boundary: PASS, dashboard 460.00 kB riêng; ExamHome 3.34 kB
+anonymous browser QA: PASS, 1440/768/390/320 px; console zero error/warning
+```
+
+Browser QA xác nhận ExamHome card không horizontal overflow, touch target lớn hơn 44 px, click tới canonical
+route và Back trở lại `/exams`. Anonymous dashboard ở 320 px vẫn dùng `#app-scroll-root` và không có dashboard
+overflow riêng. Anonymous `/profile/dashboard` vẫn redirect `/login`.
+
+Real authenticated browser profile session là `CANNOT_CONFIRM`; profile card được kiểm tra bằng component và
+integration harness theo fallback đã duyệt. Không bypass auth và không đọc credential/cookie/token.
