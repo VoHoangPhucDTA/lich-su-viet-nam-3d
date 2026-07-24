@@ -1,14 +1,38 @@
 import type { ReactNode } from 'react';
-import { act, fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { afterEach, describe, expect, it, vi } from 'vitest';
+import defaultAnalyticsFixture from '../../../../../data/dashboard-analytics-fixtures/response-v1-default.json';
+import emptyAnalyticsFixture from '../../../../../data/dashboard-analytics-fixtures/response-v1-empty.json';
+import partialAnalyticsFixture from '../../../../../data/dashboard-analytics-fixtures/response-v1-partial-coverage.json';
 import PersonalLearningDashboardPage from '../PersonalLearningDashboardPage';
+import { DashboardAnalyticsApiError } from '@/services/dashboardAnalyticsApi';
+import type { DashboardAnalyticsResponseV1 } from '../dashboardAnalyticsTypes';
+import { validateDashboardAnalyticsResponseV1 } from '../dashboardAnalyticsValidation';
 import { DASHBOARD_FIXTURES, resolveDevelopmentDashboardFixture } from '../dashboardDevelopmentFixtures';
-import {
-  DASHBOARD_NOT_CONNECTED_MESSAGE,
-  loadDashboardPresentationState,
-  type DashboardFixtureKey,
-} from '../dashboardFixtures';
+import type { DashboardFixtureKey } from '../dashboardFixtures';
+
+const { authState } = vi.hoisted(() => ({
+  authState: {
+    currentUser: null as { id: string } | null,
+    isAuthenticated: false,
+    isLoading: false,
+  },
+}));
+
+vi.mock('@/auth/AuthContext', () => ({
+  useAuth: () => authState,
+}));
+
+function validated(value: unknown): DashboardAnalyticsResponseV1 {
+  const result = validateDashboardAnalyticsResponseV1(value);
+  if (!result.success) throw new Error(result.issues.join(', '));
+  return result.data;
+}
+
+const readyAnalyticsResponse = validated(defaultAnalyticsFixture);
+const emptyAnalyticsResponse = validated(emptyAnalyticsFixture);
+const partialAnalyticsResponse = validated(partialAnalyticsFixture);
 
 vi.mock('recharts', () => {
   const Wrapper = ({ children }: { children?: ReactNode }) => <div>{children}</div>;
@@ -26,22 +50,18 @@ vi.mock('recharts', () => {
 });
 
 function renderFixture(key: DashboardFixtureKey) {
-  const loadDashboard = vi.fn(async () => ({
-    source: 'development-fixture' as const,
-    viewModel: DASHBOARD_FIXTURES.default,
-  }));
   return render(
     <MemoryRouter initialEntries={[`/exams/thong-ke?fixture=${key}`]}>
-      <PersonalLearningDashboardPage
-        initialViewModel={DASHBOARD_FIXTURES[key]}
-        loadDashboard={loadDashboard}
-      />
+      <PersonalLearningDashboardPage initialViewModel={DASHBOARD_FIXTURES[key]} />
     </MemoryRouter>,
   );
 }
 
 afterEach(() => {
   vi.useRealTimers();
+  authState.currentUser = null;
+  authState.isAuthenticated = false;
+  authState.isLoading = false;
 });
 
 describe('PersonalLearningDashboardPage fixtures', () => {
@@ -74,7 +94,6 @@ describe('PersonalLearningDashboardPage fixtures', () => {
   });
 
   it('renders error and the retry callback transitions through loading to default', async () => {
-    vi.useFakeTimers();
     renderFixture('error');
     expect(screen.getAllByRole('alert')).toHaveLength(1);
     expect(screen.getByRole('alert')).toHaveTextContent('Không thể tải thống kê học tập');
@@ -82,9 +101,7 @@ describe('PersonalLearningDashboardPage fixtures', () => {
 
     fireEvent.click(screen.getByRole('button', { name: 'Thử lại' }));
     expect(screen.getByRole('status')).toHaveTextContent('Đang tải thống kê học tập');
-    act(() => vi.advanceTimersByTime(300));
-    await act(async () => Promise.resolve());
-    expect(screen.getByText('Số bài đã làm')).toBeInTheDocument();
+    expect(await screen.findByText('Số bài đã làm')).toBeInTheDocument();
   });
 
   it('renders one concise empty state with a start action', () => {
@@ -178,17 +195,16 @@ describe('dashboard interactions and adapter boundaries', () => {
     expect(resolveDevelopmentDashboardFixture('?fixture=not-real')).toBe(DASHBOARD_FIXTURES.default);
   });
 
-  it('renders an explicit not-connected state when the production loader has no fixture source', async () => {
+  it('renders an anonymous sign-in state without returning a fake default fixture', async () => {
     render(
-      <MemoryRouter initialEntries={['/exams/thong-ke?fixture=default']}>
-        <PersonalLearningDashboardPage
-          loadDashboard={(search) => loadDashboardPresentationState(search, null)}
-        />
+      <MemoryRouter initialEntries={['/exams/thong-ke']}>
+        <PersonalLearningDashboardPage />
       </MemoryRouter>,
     );
-    expect(await screen.findByRole('heading', { name: 'Thống kê học tập chưa được kết nối' })).toBeInTheDocument();
-    expect(screen.getByText(DASHBOARD_NOT_CONNECTED_MESSAGE)).toBeInTheDocument();
+    expect(await screen.findByRole('heading', { name: 'Đăng nhập để xem thống kê học tập' })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'Đăng nhập' })).toHaveAttribute('href', '/login');
     expect(screen.queryByText('Điểm trung bình')).not.toBeInTheDocument();
+    expect(screen.queryByText(/· Máy chủ$/)).not.toBeInTheDocument();
   });
 
   it('keeps the utility rail in natural flow without equal-height stretch or nested scrolling', () => {
@@ -197,5 +213,118 @@ describe('dashboard interactions and adapter boundaries', () => {
     expect(utility).toHaveAttribute('data-scroll-behavior', 'document-flow');
     expect(utility).toHaveAttribute('data-scroll-owner', 'app-scroll-container');
     expect(document.querySelector('.dashboard-insight-grid')).toHaveAttribute('data-card-alignment', 'start');
+  });
+});
+
+describe('authenticated dashboard integration', () => {
+  function authenticate() {
+    authState.currentUser = { id: 'test-owner' };
+    authState.isAuthenticated = true;
+    authState.isLoading = false;
+  }
+
+  it('shows auth loading without requesting the backend', () => {
+    authState.isLoading = true;
+    const requestDashboard = vi.fn();
+    render(
+      <MemoryRouter initialEntries={['/exams/thong-ke']}>
+        <PersonalLearningDashboardPage requestDashboard={requestDashboard} fixtureLoader={null} />
+      </MemoryRouter>,
+    );
+    expect(screen.getByRole('status')).toHaveTextContent('Đang tải thống kê học tập');
+    expect(requestDashboard).not.toHaveBeenCalled();
+  });
+
+  it('renders mapped backend data for an authenticated user', async () => {
+    authenticate();
+    const requestDashboard = vi.fn().mockResolvedValue(readyAnalyticsResponse);
+    render(
+      <MemoryRouter initialEntries={['/exams/thong-ke']}>
+        <PersonalLearningDashboardPage requestDashboard={requestDashboard} fixtureLoader={null} />
+      </MemoryRouter>,
+    );
+    expect(await screen.findByText('Số bài đã làm')).toBeInTheDocument();
+    expect(screen.getByText('4', { selector: '.dashboard-kpi-value strong' })).toBeInTheDocument();
+    expect(requestDashboard).toHaveBeenCalledWith('30d', expect.any(AbortSignal));
+  });
+
+  it('renders authenticated empty data as an empty state', async () => {
+    authenticate();
+    render(
+      <MemoryRouter initialEntries={['/exams/thong-ke']}>
+        <PersonalLearningDashboardPage
+          requestDashboard={vi.fn().mockResolvedValue(emptyAnalyticsResponse)}
+          fixtureLoader={null}
+        />
+      </MemoryRouter>,
+    );
+    expect(await screen.findByRole('heading', { name: 'Chưa có bài thi nào' })).toBeInTheDocument();
+  });
+
+  it('requests a real new range and announces the request', async () => {
+    authenticate();
+    const requestDashboard = vi.fn().mockImplementation(async (range: DashboardAnalyticsResponseV1['scope']['range']) => ({
+      ...readyAnalyticsResponse,
+      scope: {
+        ...readyAnalyticsResponse.scope,
+        range,
+        fromDate: range === 'all' ? null : readyAnalyticsResponse.scope.fromDate,
+      },
+    }));
+    render(
+      <MemoryRouter initialEntries={['/exams/thong-ke']}>
+        <PersonalLearningDashboardPage requestDashboard={requestDashboard} fixtureLoader={null} />
+      </MemoryRouter>,
+    );
+    await screen.findByText('Số bài đã làm');
+    fireEvent.click(screen.getByRole('button', { name: 'Tất cả' }));
+    expect(await screen.findByText(/Đang tải thống kê cho khoảng Tất cả|Đã tải thống kê học tập từ máy chủ/)).toBeInTheDocument();
+    await vi.waitFor(() => expect(requestDashboard).toHaveBeenLastCalledWith('all', expect.any(AbortSignal)));
+  });
+
+  it('shows mapper partial coverage notice without hiding data', async () => {
+    authenticate();
+    render(
+      <MemoryRouter initialEntries={['/exams/thong-ke']}>
+        <PersonalLearningDashboardPage
+          requestDashboard={vi.fn().mockResolvedValue(partialAnalyticsResponse)}
+          fixtureLoader={null}
+        />
+      </MemoryRouter>,
+    );
+    expect(await screen.findByText('Phân tích chưa bao phủ toàn bộ lịch sử')).toBeInTheDocument();
+    expect(screen.getByText('Số bài đã làm')).toBeInTheDocument();
+  });
+
+  it('shows session expiry explicitly and retries without local fallback', async () => {
+    authenticate();
+    const requestDashboard = vi.fn()
+      .mockRejectedValueOnce(new DashboardAnalyticsApiError('unauthenticated', 'safe', 401))
+      .mockResolvedValueOnce(readyAnalyticsResponse);
+    render(
+      <MemoryRouter initialEntries={['/exams/thong-ke']}>
+        <PersonalLearningDashboardPage requestDashboard={requestDashboard} fixtureLoader={null} />
+      </MemoryRouter>,
+    );
+    expect(await screen.findByRole('heading', { name: 'Phiên đăng nhập đã hết hạn' })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'Đăng nhập lại' })).toHaveAttribute('href', '/login');
+    fireEvent.click(screen.getByRole('button', { name: 'Thử lại' }));
+    expect(await screen.findByText('Số bài đã làm')).toBeInTheDocument();
+    expect(requestDashboard).toHaveBeenCalledTimes(2);
+  });
+
+  it('keeps explicit DEV fixture mode isolated from HTTP', async () => {
+    authenticate();
+    const requestDashboard = vi.fn();
+    const fixtureLoader = vi.fn().mockResolvedValue({
+      resolveDevelopmentDashboardFixture: () => DASHBOARD_FIXTURES.default,
+    });
+    render(
+      <MemoryRouter initialEntries={['/exams/thong-ke?fixture=default']}>
+        <PersonalLearningDashboardPage requestDashboard={requestDashboard} fixtureLoader={fixtureLoader} />
+      </MemoryRouter>,
+    );
+    expect(await screen.findByText('Số bài đã làm')).toBeInTheDocument();
+    expect(requestDashboard).not.toHaveBeenCalled();
   });
 });

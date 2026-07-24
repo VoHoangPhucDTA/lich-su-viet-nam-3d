@@ -46,6 +46,7 @@ function createDashboardState(
   state: PersonalLearningDashboardViewModel['state'],
   range: DashboardRange,
   now: Date,
+  isAuthenticated = false,
 ): PersonalLearningDashboardViewModel {
   return {
     state,
@@ -53,7 +54,7 @@ function createDashboardState(
       source: 'backend',
       range,
       timezone: 'Asia/Ho_Chi_Minh',
-      isAuthenticated: false,
+      isAuthenticated,
       fromDate: null,
       toDateExclusive: calendarDateInVietnam(now),
     },
@@ -118,6 +119,104 @@ export function createDashboardUnavailableViewModel(
       message: DASHBOARD_NOT_CONNECTED_MESSAGE,
       actionLabel: null,
       actionRoute: null,
+    }],
+  };
+}
+
+export function createDashboardAnonymousViewModel(
+  range: DashboardRange = '30d',
+  now = new Date(),
+): PersonalLearningDashboardViewModel {
+  const viewModel = createDashboardState('empty', range, now);
+  return {
+    ...viewModel,
+    recommendations: [{
+      id: 'sign-in-dashboard',
+      title: 'Đăng nhập để xem thống kê học tập',
+      reason: 'Dashboard tài khoản sử dụng kết quả đã lưu trên máy chủ. Dữ liệu cục bộ chưa được tổng hợp trong phiên bản này.',
+      actionLabel: 'Đăng nhập',
+      actionRoute: '/login',
+      priority: 'primary',
+      topicKey: null,
+      evidence: null,
+    }],
+    coverage: {
+      ...viewModel.coverage,
+      message: 'Cần đăng nhập để tải thống kê học tập từ máy chủ.',
+    },
+    notices: [{
+      id: 'authentication-required',
+      type: 'info',
+      title: 'Đăng nhập để xem dashboard tài khoản',
+      message: 'Goal 3A chưa tổng hợp dữ liệu anonymous hoặc dữ liệu lưu cục bộ.',
+      actionLabel: 'Đăng nhập',
+      actionRoute: '/login',
+    }],
+  };
+}
+
+export type DashboardErrorKind =
+  | 'unauthenticated'
+  | 'forbidden'
+  | 'invalid-request'
+  | 'contract'
+  | 'transport'
+  | 'timeout'
+  | 'server'
+  | 'unknown';
+
+const DASHBOARD_ERROR_COPY: Record<DashboardErrorKind, { title: string; message: string }> = {
+  unauthenticated: {
+    title: 'Phiên đăng nhập đã hết hạn',
+    message: 'Vui lòng đăng nhập lại để tải thống kê học tập từ máy chủ.',
+  },
+  forbidden: {
+    title: 'Không có quyền xem thống kê',
+    message: 'Tài khoản hiện tại không được phép truy cập dashboard học tập này.',
+  },
+  'invalid-request': {
+    title: 'Khoảng thống kê không hợp lệ',
+    message: 'Hãy chọn lại khoảng thời gian và thử tải dashboard.',
+  },
+  contract: {
+    title: 'Dữ liệu thống kê không đúng định dạng',
+    message: 'Máy chủ đã phản hồi nhưng dữ liệu không khớp Dashboard Analytics V1.',
+  },
+  transport: {
+    title: 'Không thể kết nối máy chủ thống kê',
+    message: 'Dữ liệu cục bộ chưa được dùng làm fallback trong Goal 3A. Hãy kiểm tra kết nối và thử lại.',
+  },
+  timeout: {
+    title: 'Tải thống kê quá thời gian chờ',
+    message: 'Máy chủ chưa phản hồi kịp. Hãy thử tải lại sau ít phút.',
+  },
+  server: {
+    title: 'Máy chủ thống kê đang tạm gián đoạn',
+    message: 'Dashboard chưa thể tải dữ liệu tài khoản. Hãy thử lại sau.',
+  },
+  unknown: {
+    title: 'Không thể tải thống kê học tập',
+    message: 'Đã xảy ra lỗi không xác định khi tải dashboard. Hãy thử lại.',
+  },
+};
+
+export function createDashboardApiErrorViewModel(
+  kind: DashboardErrorKind,
+  range: DashboardRange = '30d',
+  now = new Date(),
+): PersonalLearningDashboardViewModel {
+  const viewModel = createDashboardState('error', range, now, true);
+  const copy = DASHBOARD_ERROR_COPY[kind];
+  return {
+    ...viewModel,
+    coverage: { ...viewModel.coverage, message: copy.message },
+    notices: [{
+      id: `dashboard-${kind}`,
+      type: 'error',
+      title: copy.title,
+      message: copy.message,
+      actionLabel: kind === 'unauthenticated' ? 'Đăng nhập lại' : null,
+      actionRoute: kind === 'unauthenticated' ? '/login' : null,
     }],
   };
 }

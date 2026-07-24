@@ -1,5 +1,6 @@
-import { useEffect, useRef, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { useAuth } from '@/auth/AuthContext';
+import type { DashboardAnalyticsRequest } from '@/services/dashboardAnalyticsApi';
 import {
   Activity,
   AlertTriangle,
@@ -30,13 +31,9 @@ import {
   XAxis,
   YAxis,
 } from 'recharts';
-import {
-  createDashboardLoadingViewModel,
-  createDashboardUnavailableViewModel,
-  loadDashboardPresentationState,
-  type DashboardLoadResult,
-} from './dashboardFixtures';
+import type { DashboardDevelopmentFixtureLoader } from './dashboardFixtures';
 import { formatDashboardDuration, formatDashboardScore } from './dashboardFormatters';
+import { usePersonalLearningDashboard } from './usePersonalLearningDashboard';
 import type {
   CognitivePerformance,
   DashboardNotice,
@@ -120,13 +117,15 @@ function DashboardPageHeader({ vm, range, onRangeChange }: {
   onRangeChange: (range: DashboardRange) => void;
 }) {
   const from = vm.scope.fromDate ? `Từ ${vm.scope.fromDate}` : 'Toàn bộ thời gian';
+  const showScope = vm.state !== 'loading'
+    && !vm.notices.some((notice) => notice.id === 'authentication-required');
   return (
     <header className="dashboard-page-header">
       <div className="dashboard-heading-copy">
         <p className="dashboard-eyebrow">Luyện thi THPT</p>
         <h1>Tổng quan học tập</h1>
         <p>Nhìn lại kết quả, hiểu phần cần cải thiện và chọn bước ôn tập tiếp theo.</p>
-        {vm.state !== 'loading' && (
+        {showScope && (
           <p className="dashboard-scope-line">
             {from} · đến trước {vm.scope.toDateExclusive} · {sourceLabel(vm.scope.source)}
           </p>
@@ -595,7 +594,9 @@ function DashboardErrorState({ vm, onRetry }: { vm: PersonalLearningDashboardVie
         <p>{notice?.message ?? 'Dữ liệu thống kê hiện không khả dụng. Hãy thử tải lại hoặc tiếp tục với một đề thi mới.'}</p>
         <div className="dashboard-state-actions">
           <button className="dashboard-primary-action" type="button" onClick={onRetry}>Thử lại</button>
-          <Link className="dashboard-secondary-action" to="/exams/browse">Duyệt kho đề</Link>
+          <Link className="dashboard-secondary-action" to={notice?.actionRoute ?? '/exams/browse'}>
+            {notice?.actionLabel ?? 'Duyệt kho đề'}
+          </Link>
         </div>
       </section>
     </main>
@@ -604,13 +605,20 @@ function DashboardErrorState({ vm, onRetry }: { vm: PersonalLearningDashboardVie
 
 function DashboardEmptyState({ vm }: { vm: PersonalLearningDashboardViewModel }) {
   const recommendation = vm.recommendations[0];
-  const nonDuplicateNotices = vm.notices.filter((notice) => notice.id !== 'empty-state');
+  const isAnonymous = vm.notices.some((notice) => notice.id === 'authentication-required');
+  const nonDuplicateNotices = vm.notices.filter((notice) => (
+    notice.id !== 'empty-state' && notice.id !== 'authentication-required'
+  ));
   return (
     <main className="dashboard-content dashboard-state-content">
       {nonDuplicateNotices.map((notice) => <DashboardNoticeBanner key={notice.id} notice={notice} />)}
       <section className="dashboard-card dashboard-state-card" aria-labelledby="dashboard-empty-title">
-        <h2 id="dashboard-empty-title">Chưa có bài thi nào</h2>
-        <p>Hoàn thành một đề thi thử để bắt đầu theo dõi kết quả học tập.</p>
+        <h2 id="dashboard-empty-title">
+          {isAnonymous ? 'Đăng nhập để xem thống kê học tập' : 'Chưa có bài thi nào'}
+        </h2>
+        <p>{isAnonymous
+          ? 'Dashboard tài khoản tải kết quả đã lưu trên máy chủ. Phân tích dữ liệu anonymous chưa được triển khai trong Goal 3A.'
+          : 'Hoàn thành một đề thi thử để bắt đầu theo dõi kết quả học tập.'}</p>
         {recommendation && <Link className="dashboard-primary-action" to={recommendation.actionRoute}>{recommendation.actionLabel}</Link>}
       </section>
       <DashboardQuickActions vm={vm} />
@@ -638,91 +646,38 @@ function DashboardReadyState({ vm }: { vm: PersonalLearningDashboardViewModel })
   );
 }
 
-export type DashboardDataLoader = (search: string) => Promise<DashboardLoadResult>;
-
 interface PersonalLearningDashboardPageProps {
   initialViewModel?: PersonalLearningDashboardViewModel;
-  loadDashboard?: DashboardDataLoader;
+  requestDashboard?: DashboardAnalyticsRequest;
+  fixtureLoader?: DashboardDevelopmentFixtureLoader | null;
 }
 
 export default function PersonalLearningDashboardPage({
   initialViewModel,
-  loadDashboard = loadDashboardPresentationState,
+  requestDashboard,
+  fixtureLoader,
 }: PersonalLearningDashboardPageProps = {}) {
   const location = useLocation();
+  const { currentUser, isAuthenticated, isLoading } = useAuth();
   const isDarkPreview = import.meta.env.DEV && new URLSearchParams(location.search).get('theme') === 'dark';
-  const [vm, setVm] = useState(() => initialViewModel ?? createDashboardLoadingViewModel());
-  const [range, setRange] = useState<DashboardRange>(() => initialViewModel?.scope.range ?? '30d');
-  const [loadSource, setLoadSource] = useState<DashboardLoadResult['source'] | 'loading'>(
-    initialViewModel ? 'development-fixture' : 'loading',
-  );
-  const [announcement, setAnnouncement] = useState('');
-  const retryTimer = useRef<number | null>(null);
-
-  useEffect(() => {
-    if (initialViewModel) {
-      return undefined;
-    }
-    let active = true;
-    void loadDashboard(location.search)
-      .then((result) => {
-        if (!active) return;
-        setVm(result.viewModel);
-        setRange(result.viewModel.scope.range);
-        setLoadSource(result.source);
-      })
-      .catch(() => {
-        if (!active) return;
-        setVm(createDashboardUnavailableViewModel());
-        setLoadSource('unavailable');
-      });
-    return () => {
-      active = false;
-    };
-  }, [initialViewModel, loadDashboard, location.search]);
-
-  useEffect(() => () => {
-    if (retryTimer.current !== null) window.clearTimeout(retryTimer.current);
-  }, []);
-
-  const handleRangeChange = (nextRange: DashboardRange) => {
-    setRange(nextRange);
-    const label = RANGE_OPTIONS.find((item) => item.value === nextRange)?.label ?? nextRange;
-    const sourceMessage = loadSource === 'development-fixture'
-      ? 'Dữ liệu mock hiện tại được giữ nguyên.'
-      : 'Nguồn dữ liệu thật chưa được kết nối.';
-    setAnnouncement(`Đã chuyển khoảng thời gian sang ${label}. ${sourceMessage}`);
-  };
-
-  const handleRetry = () => {
-    if (retryTimer.current !== null) window.clearTimeout(retryTimer.current);
-    setVm(createDashboardLoadingViewModel(range));
-    setLoadSource('loading');
-    setAnnouncement('Đang thử tải lại thống kê học tập.');
-    retryTimer.current = window.setTimeout(() => {
-      void loadDashboard('?fixture=default')
-        .then((result) => {
-          setVm(result.viewModel);
-          setRange(result.viewModel.scope.range);
-          setLoadSource(result.source);
-          setAnnouncement(result.source === 'development-fixture'
-            ? 'Đã tải lại thống kê học tập.'
-            : 'Nguồn thống kê thật vẫn chưa được kết nối.');
-        })
-        .catch(() => {
-          setVm(createDashboardUnavailableViewModel(range));
-          setLoadSource('unavailable');
-          setAnnouncement('Nguồn thống kê thật vẫn chưa được kết nối.');
-        });
-    }, 300);
-  };
+  const { viewModel: vm, range, setRange, retry, announcement } = usePersonalLearningDashboard({
+    auth: {
+      isLoading,
+      isAuthenticated,
+      ownerKey: currentUser?.id ?? null,
+    },
+    search: location.search,
+    initialViewModel,
+    requestDashboard,
+    fixtureLoader,
+  });
 
   return (
     <div className={`dashboard-page${isDarkPreview ? ' dashboard-theme-dark' : ''}`}>
-      <DashboardPageHeader vm={vm} range={range} onRangeChange={handleRangeChange} />
+      <DashboardPageHeader vm={vm} range={range} onRangeChange={setRange} />
       <p className="dashboard-visually-hidden" aria-live="polite">{announcement}</p>
       {vm.state === 'loading' && <DashboardLoadingState />}
-      {vm.state === 'error' && <DashboardErrorState vm={vm} onRetry={handleRetry} />}
+      {vm.state === 'error' && <DashboardErrorState vm={vm} onRetry={retry} />}
       {vm.state === 'empty' && <DashboardEmptyState vm={vm} />}
       {vm.state === 'ready' && <DashboardReadyState vm={vm} />}
     </div>

@@ -2,7 +2,9 @@
 
 Ngày cập nhật: 2026-07-24  
 Nhánh làm việc: `dashboard_exams`  
-Goal 1 commit / Goal 2 baseline: `0edd68166609cbc1228c79e5218dc91038e75ac7`
+Goal 1 commit: `0edd68166609cbc1228c79e5218dc91038e75ac7`
+
+Goal 2 commit / Goal 3A baseline: `195db79f4b2055e97bbd02909ce7f1a2ba4134ca`
 
 ## Trạng thái tổng quát
 
@@ -10,8 +12,9 @@ Goal 1 commit / Goal 2 baseline: `0edd68166609cbc1228c79e5218dc91038e75ac7`
 | --- | --- | --- |
 | Goal 0 | Hoàn thành | Source audit read-only và bản đồ nguồn dữ liệu |
 | Goal 1 | Hoàn thành, đã commit | Fixture boundary, wire contract V1, validator, policy, mapper và test frontend |
-| Goal 2 | Đã triển khai, REVIEW GATE | Authenticated backend analytics API V1; chưa nối frontend |
-| Goal 3 | Chưa thực hiện | Production API client/loader, auth UX, lỗi mạng và chiến lược fallback |
+| Goal 2 | Hoàn thành, đã commit | Authenticated backend analytics API V1 |
+| Goal 3A | Đã triển khai, REVIEW GATE | Authenticated production API client/hook, auth/range/error/retry/partial coverage |
+| Goal 3B | Deferred | Anonymous/local/offline analytics và mọi fallback cục bộ |
 | Goal 4 | Chưa thực hiện | Đối soát dữ liệu thật, observability và rollout |
 
 ## Goal 0 — Source audit
@@ -137,8 +140,8 @@ lại đã được khôi phục đúng SHA-256 trước build để không ghi 
 
 ## Goal 2 — Backend Dashboard Analytics API V1
 
-Goal 2 đã được triển khai trong working tree và đang dừng tại **REVIEW GATE**. Các thay đổi Goal 2 chưa
-được stage, commit hoặc push.
+Goal 2 đã hoàn thành review và được commit riêng tại
+`195db79f4b2055e97bbd02909ce7f1a2ba4134ca`. Goal 3A dùng commit này làm baseline.
 
 ### Endpoint và security
 
@@ -319,14 +322,73 @@ development connection được xác nhận an toàn. Việc này được chuy�
 Goal 2 không tạo bảng dashboard, migration, index hay database data; không sửa migration V1–V34,
 scoring, session, recovery hoặc persistence behavior.
 
-Frontend production vẫn chưa gọi endpoint. Goal 3 sẽ nối chuỗi:
+Frontend production được nối với endpoint trong Goal 3A theo chuỗi:
 
 ```text
 backend response → runtime validator → pure mapper → DashboardViewModel → page
 ```
 
 Anonymous/local fallback, merge local/backend, telemetry, production data reconciliation và rollout
-vẫn chưa được triển khai. Không được tuyên bố dashboard end-to-end hoàn thành ở Goal 2.
+không thuộc Goal 2.
+
+## Goal 3A — Authenticated frontend integration
+
+Goal 3A đã được triển khai trong working tree và đang dừng tại **REVIEW GATE**. Không stage, commit
+hoặc push các thay đổi Goal 3A.
+
+### API client và validation boundary
+
+`frontend/src/services/dashboardAnalyticsApi.ts` gọi:
+
+```text
+GET /api/exams/dashboard-analytics?range=<7d|30d|90d|all>&recentLimit=5
+```
+
+Client tái sử dụng `apiGet`, nên giữ nguyên base URL, HttpOnly-cookie credentials và refresh convention
+của ứng dụng. `AbortSignal` được truyền xuyên boundary. Payload được giữ là `unknown` cho tới khi
+`validateDashboardAnalyticsResponseV1` thành công; payload sai contract không được map hoặc render.
+Error được phân loại thành 401, 403, 400, contract, transport, timeout, abort, 5xx và unknown mà không
+đưa raw response vào error message/log.
+
+### Hook, auth và range
+
+`frontend/src/features/dashboard/usePersonalLearningDashboard.ts` điều phối source và state:
+
+- auth đang restore: loading, không request;
+- anonymous: sign-in state không KPI giả, không request và không đọc localStorage;
+- authenticated: backend-only;
+- explicit `?fixture=...` trong DEV: fixture-only, không HTTP;
+- range mặc định `30d`; mọi thay đổi `7d/30d/90d/all` tạo request mới;
+- retry tạo request mới;
+- abort + request version ngăn response cũ ghi đè range/user mới;
+- owner key và derived loading/anonymous state ngăn dữ liệu user cũ xuất hiện khi logout/switch user;
+- 401/403/5xx/contract không local-fallback;
+- partial coverage tiếp tục hiển thị mapper notice cùng số liệu hợp lệ.
+
+`PersonalLearningDashboardPage.tsx` giữ presentation/layout/scroll hiện có và chuyển orchestration sang
+hook. Empty authenticated và anonymous sign-in được trình bày riêng.
+
+### Validation Goal 3A
+
+Kết quả trước full validation gate:
+
+```text
+targeted dashboard + API client PASS — 7 files, 94 tests
+full frontend tests PASS — 42 files, 254 tests
+TypeScript PASS
+targeted ESLint PASS
+production build PASS
+production fixture marker scan PASS
+```
+
+Real backend/browser smoke: **CANNOT CONFIRM** nếu không có verified QA account/session sẵn; không tạo
+user, bypass verification hoặc đọc credential.
+
+### Deferred Goal 3B
+
+Goal 3A không đọc `v2_result_*`, `exam_api_result_*`, custom local session, `exam_history` hoặc recovery
+queue; không aggregate anonymous local data và không merge local/backend. Mọi local/offline analytics
+hoặc backend-off fallback phải là Goal 3B riêng.
 
 ## Rollback Goal 1
 

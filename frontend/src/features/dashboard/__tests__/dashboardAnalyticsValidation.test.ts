@@ -65,6 +65,14 @@ describe('DashboardAnalyticsResponseV1 runtime validator', () => {
     expect(validateDashboardAnalyticsResponseV1(value).success).toBe(false);
   });
 
+  it('rejects a score outside the 0..10 contract', () => {
+    const value = cloneRecord(defaultFixture);
+    const trend = value.trend;
+    if (!Array.isArray(trend) || typeof trend[0] !== 'object' || trend[0] === null) throw new Error('Missing trend point');
+    (trend[0] as Record<string, unknown>).score = 10.01;
+    expect(validateDashboardAnalyticsResponseV1(value).success).toBe(false);
+  });
+
   it('rejects a missing required array', () => {
     const value = cloneRecord(defaultFixture);
     delete value.trend;

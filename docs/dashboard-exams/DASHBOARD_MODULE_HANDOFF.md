@@ -14,12 +14,12 @@
 
 Đây là dashboard học tập cá nhân cho người dùng ôn thi Lịch sử THPT: tổng hợp kết quả làm bài, xu hướng điểm, chủ đề mạnh/yếu, hiệu suất theo dạng câu, mức nhận thức, phạm vi dữ liệu và các bước học tiếp theo.
 
-Module hiện tại có **frontend presentation hoàn chỉnh**, đã hoàn thành Goal 1 về data boundary và đã
-triển khai backend Dashboard Analytics API V1 trong Goal 2. Fixture development được tách khỏi docs,
-wire DTO V1 có runtime validator, policy `dashboard-v1` và mapper DTO → ViewModel. Backend có
-authenticated endpoint đọc `exam_v2_attempts`, nhưng frontend production vẫn chưa gọi endpoint này,
-chưa aggregate localStorage và chưa tự lưu dữ liệu dashboard. Production vì vậy vẫn hiển thị trạng
-thái “chưa được kết nối”, không hiển thị fixture mặc định.
+Module hiện tại có **frontend presentation hoàn chỉnh**, Goal 1 data boundary, backend Dashboard
+Analytics API V1 của Goal 2 và authenticated frontend integration của Goal 3A. Fixture development
+được tách khỏi docs; wire DTO V1 có runtime validator, policy `dashboard-v1` và mapper DTO → ViewModel.
+Frontend production gọi authenticated endpoint đọc `exam_v2_attempts`; anonymous chỉ thấy sign-in
+state. Module chưa aggregate localStorage, chưa có backend-off local analytics và không merge local với
+backend.
 
 ---
 
@@ -27,7 +27,7 @@ thái “chưa được kết nối”, không hiển thị fixture mặc địn
 
 ### 2.1. Frontend
 
-Frontend dashboard đã hoàn thành ở mức presentation và fixture-driven behavior:
+Frontend dashboard đã hoàn thành presentation và authenticated backend behavior:
 
 - Có route `/exams/thong-ke`.
 - Route được lazy-load trong App và có fallback loading.
@@ -36,7 +36,11 @@ Frontend dashboard đã hoàn thành ở mức presentation và fixture-driven b
 - Có 10 fixture bao phủ ready, loading, error, empty, one-attempt, anonymous, fallback, partial data và dữ liệu dài/nhiều.
 - 10 fixture runtime nằm tại `frontend/src/features/dashboard/__fixtures__/`; bản docs chỉ là tài liệu tham chiếu.
 - Static imports fixture nằm trong `dashboardDevelopmentFixtures.ts`, được nạp qua dynamic DEV-only boundary.
-- Production bundle không chứa fixture và trả explicit unavailable state cho tới khi Goal 3 nối API.
+- Production bundle không chứa fixture; authenticated non-fixture flow gọi backend API thật.
+- `dashboardAnalyticsApi.ts` dùng API client/cookie convention hiện có và validate payload trước mapper.
+- `usePersonalLearningDashboard.ts` điều phối auth, range, cancellation, stale-response protection, retry và lỗi.
+- Anonymous không gọi API, không đọc localStorage và chỉ hiện CTA đăng nhập.
+- 401/403/transport/5xx/contract error không local-fallback; Goal 3A không silent merge.
 - Wire contract V1 nằm ở `dashboardAnalyticsTypes.ts`; validator từ chối enum/count/range/coverage sai và unknown fields.
 - Policy thuần `dashboard-v1` khóa modes, threshold, confidence và authority triples.
 - Mapper thuần `dashboardMappers.ts` tạo ViewModel, recommendation, labels/routes/notices mà không fetch, auth, localStorage hay raw snapshot.
@@ -50,7 +54,7 @@ Frontend dashboard đã hoàn thành ở mức presentation và fixture-driven b
 
 ### 2.2. Backend
 
-Backend Dashboard Analytics API V1 **đã được triển khai trong Goal 2**, nhưng chưa được frontend gọi:
+Backend Dashboard Analytics API V1 **đã được triển khai trong Goal 2 và được frontend Goal 3A gọi**:
 
 - Endpoint: `GET /api/exams/dashboard-analytics?range=30d&recentLimit=5`.
 - Bắt buộc authenticated; owner lấy từ principal; anonymous trả `401`.
@@ -75,10 +79,11 @@ Vì vậy, trạng thái hiện tại nên được hiểu là:
 | Dashboard API wire contract V1 | Hoàn thành ở frontend |
 | Runtime validator/policy/mapper | Hoàn thành ở frontend |
 | Production fake fixture | Đã loại bỏ |
-| Backend Analytics API V1 | Đã triển khai, đang ở review gate |
-| Dashboard API client | Chưa triển khai; deferred Goal 3 |
+| Backend Analytics API V1 | Hoàn thành, commit `195db79f` |
+| Dashboard API client/hook | Đã triển khai Goal 3A, đang ở review gate |
 | Backend aggregation | Đã triển khai trên immutable attempt snapshot |
-| Real data integration | Chưa làm |
+| Authenticated real-data integration | Đã triển khai; real browser smoke cần verified QA session |
+| Anonymous/local/offline analytics | Chưa triển khai; deferred Goal 3B |
 | Scoring/weakness/cognitive engine | Ngoài phạm vi dashboard hiện tại |
 
 ---
@@ -91,6 +96,7 @@ Nhánh hiện tại cần kiểm tra bằng Git trước mỗi Goal. Tại Goal 
 
 - **Branch:** `dashboard_exams`
 - **Goal 1 commit / Goal 2 baseline:** `0edd68166609cbc1228c79e5218dc91038e75ac7`
+- **Goal 2 commit / Goal 3A baseline:** `195db79f4b2055e97bbd02909ce7f1a2ba4134ca`
 - Dashboard commit lịch sử: `878571186afda4744d2a4106bd2d37502e3734ab`
 
 Commit gồm:
@@ -160,8 +166,8 @@ Giữ các nội dung:
 - khoảng ngày và nguồn dữ liệu;
 - range filter.
 
-Range filter chỉ thay đổi trạng thái UI/live announcement trong development fixture mode. Production
-unavailable state không giả lập query; endpoint backend đã hỗ trợ range thật nhưng frontend sẽ nối ở Goal 3.
+Range filter chỉ giữ deterministic presentation behavior trong explicit development fixture mode.
+Authenticated non-fixture flow gọi endpoint thật cho từng range; anonymous không gọi API.
 
 ### 4.2. Recommendation hero
 
@@ -571,8 +577,11 @@ Production build không static-import hoặc bundle 10 fixture này.
 App
 └── route /exams/thong-ke
     └── lazy dashboard page
-        ├── development: dynamic-import fixture module và đọc query fixture
-        ├── production: explicit not-connected ViewModel, chưa gọi API, không có fake KPI
+        ├── DEV + explicit fixture query: dynamic-import fixture module, không HTTP
+        ├── auth loading: loading skeleton, không HTTP
+        ├── anonymous: sign-in state, không local analytics, không HTTP
+        ├── authenticated: GET Dashboard Analytics V1
+        │   └── runtime validator → mapper → ViewModel
         ├── render header
         └── render theo state
             ├── loading skeleton
@@ -590,9 +599,9 @@ ViewModel
 └── utility rail
 ```
 
-Range filter và retry hiện chỉ mô phỏng state transition. Trong development, retry error chuyển qua
-loading rồi quay về default fixture sau khoảng 300ms. Trong production chưa nối API, retry quay lại
-explicit unavailable state.
+Range filter `7d/30d/90d/all` tạo request backend mới ở authenticated non-fixture flow; `recentLimit`
+cố định là 5. Retry cũng tạo request mới. AbortController, request version và owner key ngăn response
+cũ ghi đè range/user mới. Fixture QA giữ deterministic presentation behavior và không gọi backend.
 
 ---
 
@@ -695,7 +704,7 @@ docs/dashboard-exams/dashboard-design-handoff/references/v3/
 
 ---
 
-## 13. Goal 1 contract, Goal 2 backend và công việc Goal 3
+## 13. Goal 1 contract, Goal 2 backend và Goal 3A frontend integration
 
 Goal 1 đã khóa các artifact:
 
@@ -759,9 +768,9 @@ tuyên bố full-suite PASS trong khi artifact vẫn thiếu.
 Read-only TiDB/EXPLAIN là **CANNOT CONFIRM** do chưa có verified QA token hoặc read-only development
 connection được xác nhận an toàn.
 
-### Bước tiếp theo — Nối API client/data loader trong Goal 3
+### Goal 3A — API client và orchestrator
 
-Mapper đã tồn tại. Goal 3 cần thêm client/orchestrator:
+Goal 3A đã nối chuỗi:
 
 ```text
 API response
@@ -782,37 +791,57 @@ Mapper hiện chịu trách nhiệm:
 - map coverage;
 - map notices.
 
+API client: `frontend/src/services/dashboardAnalyticsApi.ts`.
+
+Hook: `frontend/src/features/dashboard/usePersonalLearningDashboard.ts`.
+
+Client dùng API/cookie convention hiện có, giữ payload là `unknown` và chỉ trả DTO sau runtime
+validation. Hook quản lý auth loading/anonymous/authenticated, range, timeout, cancellation, retry,
+partial coverage và stale owner/range protection.
+
 ### Giữ fixture development-only
 
 Trong development/test vẫn giữ fixture. Không xóa fixture chỉ vì API đã có.
 
-Nên có boundary rõ:
+Boundary hiện tại:
 
-- production: API loader; khi chưa có API là unavailable state;
-- development/test: fixture resolver;
-- component: chỉ nhận cùng một ViewModel shape.
+- production/authenticated: backend API;
+- production/anonymous: sign-in state không KPI giả;
+- development có explicit `fixture`: fixture resolver, không HTTP;
+- development không fixture: cùng backend/auth flow như production;
+- component luôn nhận cùng một ViewModel shape.
 
-### Xử lý auth và failure
+### Auth và failure policy Goal 3A
 
-Cần quyết định:
+- Auth loading không request.
+- Anonymous không request và không local analytics.
+- 401 yêu cầu đăng nhập lại; 403 hiển thị access error.
+- Transport/timeout/5xx/contract error có retry nhưng không local fallback.
+- Logout/user switch xóa dữ liệu owner trước khỏi view và abort request cũ.
+- Partial response hợp lệ vẫn render số liệu cùng mapper coverage notice.
 
-- khi user chưa đăng nhập thì API trả local-only hay empty;
-- khi backend timeout thì dùng local fallback hay error;
-- notice backend unavailable hiển thị ở đâu;
-- data partial có được dùng cho topic analysis hay không.
+### Kiểm thử integration Goal 3A
 
-### Kiểm thử integration
+Đã thêm test API client, hook và component cho URL/range/recentLimit, signal, validator, auth states,
+ready/empty/partial/error/retry, 401/403/5xx/contract, stale range, logout/user switch, unmount abort và
+DEV fixture suppression. Goal 3A chủ ý không có source merged local + backend.
 
-Cần thêm test cho:
+Validation Goal 3A:
 
-- API response đầy đủ;
-- API response thiếu detail;
-- backend timeout;
-- auth expired;
-- empty response;
-- pagination/fetch limit;
-- source merged local + backend;
-- score trend không đầy đủ.
+```text
+targeted dashboard + API client PASS — 7 files, 94 tests
+full frontend tests PASS — 42 files, 254 tests
+TypeScript PASS
+targeted ESLint PASS
+production build PASS
+production fixture marker scan PASS
+real backend/browser smoke CANNOT CONFIRM — không có verified QA session
+```
+
+### Deferred Goal 3B
+
+Anonymous local analytics, backend-off local fallback và mọi local/backend merge chưa triển khai.
+Không đọc local result keys hoặc recovery queue trong Goal 3A.
 
 ---
 
@@ -831,16 +860,15 @@ Cần thêm test cho:
 
 ## 15. Kết luận handoff
 
-Dashboard người dùng đã hoàn thành frontend presentation, Goal 1 data boundary và implementation
-backend Analytics API V1 của Goal 2. Goal 2 đang dừng tại review gate; các thay đổi Goal 2 chưa được
-stage, commit hoặc push.
+Dashboard người dùng đã hoàn thành presentation, Goal 1 data boundary, backend Analytics API V1 của
+Goal 2 và authenticated frontend integration của Goal 3A. Goal 2 đã commit tại `195db79f`; Goal 3A
+đang dừng tại review gate và chưa stage/commit/push.
 
-Dashboard **chưa hoàn thành end-to-end** vì frontend production chưa gọi API. Việc còn lại chính là:
+Authenticated dashboard đã có đường end-to-end ở mức source; real browser/backend smoke vẫn cần một
+verified QA account/session. Việc còn lại chính là:
 
-1. review và chấp nhận backend Goal 2;
-2. ở Goal 3, tạo authenticated API client và production loader;
-3. validate response rồi map sang ViewModel;
-4. kiểm tra auth expiry, network failure, retry và partial data;
-5. quyết định/triển khai anonymous hoặc local fallback ở Goal riêng;
-6. ở Goal 4, chạy TiDB read-only profile/EXPLAIN và production reconciliation khi có quyền an toàn;
-7. giữ nguyên presentation, accessibility và scroll invariants đã QA.
+1. review Goal 3A và chạy smoke khi có QA session an toàn;
+2. ở Goal 3B riêng, quyết định/triển khai anonymous hoặc backend-off local analytics nếu product duyệt;
+3. không silent merge local/backend;
+4. ở Goal 4, chạy TiDB read-only profile/EXPLAIN và production reconciliation khi có quyền an toàn;
+5. giữ nguyên presentation, accessibility và scroll invariants đã QA.
