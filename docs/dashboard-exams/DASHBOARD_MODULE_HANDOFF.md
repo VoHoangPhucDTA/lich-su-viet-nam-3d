@@ -18,8 +18,9 @@ Module hiện tại có **frontend presentation hoàn chỉnh**, Goal 1 data bou
 Analytics API V1 của Goal 2 và authenticated frontend integration của Goal 3A. Fixture development
 được tách khỏi docs; wire DTO V1 có runtime validator, policy `dashboard-v1` và mapper DTO → ViewModel.
 Frontend production gọi authenticated endpoint đọc `exam_v2_attempts`; anonymous chỉ thấy sign-in
-state. Module chưa aggregate localStorage, chưa có backend-off local analytics và không merge local với
-backend.
+state. Goal 3B1 đã bổ sung local analytics foundation thuần (allowlisted scanner, adapters, owner scope,
+dedupe, aggregation và ViewModel mapper), nhưng chưa nối foundation này vào page/hook production. Vì vậy
+anonymous vẫn chưa thấy local KPI, backend-off vẫn là error state và module không merge local với backend.
 
 ---
 
@@ -41,6 +42,10 @@ Frontend dashboard đã hoàn thành presentation và authenticated backend beha
 - `usePersonalLearningDashboard.ts` điều phối auth, range, cancellation, stale-response protection, retry và lỗi.
 - Anonymous không gọi API, không đọc localStorage và chỉ hiện CTA đăng nhập.
 - 401/403/transport/5xx/contract error không local-fallback; Goal 3A không silent merge.
+- Local foundation Goal 3B1 chỉ đọc exact result/history/recovery allowlist qua API thuần có hard cap;
+  production hook/page chưa gọi nó.
+- Token/auth/session credential keys không thuộc allowlist và không bị đọc.
+- Legacy result thiếu bằng chứng owner được phân loại device-legacy-unscoped, không phải dữ liệu account.
 - Wire contract V1 nằm ở `dashboardAnalyticsTypes.ts`; validator từ chối enum/count/range/coverage sai và unknown fields.
 - Policy thuần `dashboard-v1` khóa modes, threshold, confidence và authority triples.
 - Mapper thuần `dashboardMappers.ts` tạo ViewModel, recommendation, labels/routes/notices mà không fetch, auth, localStorage hay raw snapshot.
@@ -80,10 +85,11 @@ Vì vậy, trạng thái hiện tại nên được hiểu là:
 | Runtime validator/policy/mapper | Hoàn thành ở frontend |
 | Production fake fixture | Đã loại bỏ |
 | Backend Analytics API V1 | Hoàn thành, commit `195db79f` |
-| Dashboard API client/hook | Đã triển khai Goal 3A, đang ở review gate |
+| Dashboard API client/hook | Hoàn thành Goal 3A, commit `655702f4` |
 | Backend aggregation | Đã triển khai trên immutable attempt snapshot |
 | Authenticated real-data integration | Đã triển khai; real browser smoke cần verified QA session |
-| Anonymous/local/offline analytics | Chưa triển khai; deferred Goal 3B |
+| Local analytics foundation | Đã triển khai Goal 3B1, unstaged tại review gate; chưa wired production |
+| Anonymous/local/offline presentation | Chưa triển khai; deferred Goal 3B2 |
 | Scoring/weakness/cognitive engine | Ngoài phạm vi dashboard hiện tại |
 
 ---
@@ -97,6 +103,7 @@ Nhánh hiện tại cần kiểm tra bằng Git trước mỗi Goal. Tại Goal 
 - **Branch:** `dashboard_exams`
 - **Goal 1 commit / Goal 2 baseline:** `0edd68166609cbc1228c79e5218dc91038e75ac7`
 - **Goal 2 commit / Goal 3A baseline:** `195db79f4b2055e97bbd02909ce7f1a2ba4134ca`
+- **Goal 3A commit / Goal 3B1 baseline:** `655702f48522faed9f5ce1691be190c7b582a117`
 - Dashboard commit lịch sử: `878571186afda4744d2a4106bd2d37502e3734ab`
 
 Commit gồm:
@@ -838,10 +845,71 @@ production fixture marker scan PASS
 real backend/browser smoke CANNOT CONFIRM — không có verified QA session
 ```
 
-### Deferred Goal 3B
+### Goal 3B1 — Local analytics foundation (chưa wired production)
 
-Anonymous local analytics, backend-off local fallback và mọi local/backend merge chưa triển khai.
-Không đọc local result keys hoặc recovery queue trong Goal 3A.
+Foundation nằm tại `frontend/src/features/dashboard/localAnalytics/`:
+
+- `localDashboardTypes.ts`: `LocalDashboardAttemptV1`, local facts, diagnostics và owner filters;
+- `localDashboardAdapters.ts`: adapter riêng cho cached snapshot v2, v2 legacy/custom result,
+  old result/history và optional recovery local result;
+- `localDashboardRepository.ts`: allowlisted bounded scanner, recovery annotation, owner filter và dedupe;
+- `localDashboardAggregator.ts`: policy V1 cho summary/trend/topic/cognitive/question type/coverage;
+- `localDashboardMappers.ts`: pure local facts → existing dashboard ViewModel;
+- `__tests__/`: chỉ synthetic fixtures, không credential hoặc nội dung đề production.
+
+Allowlist scanner chỉ đọc:
+
+```text
+exam_api_result_*
+v2_result_*
+custom_exam_session_*
+exam_result_*
+exam_history
+exam_submission_recovery_queue_v1
+```
+
+Scanner không đọc `exam_session_token_*`, auth/JWT/refresh keys, cookies, session drafts/locators hoặc mọi
+unknown localStorage value. Hard caps là 1.000 matching keys, 500 attempts sau dedupe và 2 MiB ký tự/payload;
+options không thể nâng các hard caps.
+
+Owner policy là conservative: chỉ explicit owner metadata hoặc exact recovery correlation mới tạo
+`authenticated-owner`; explicit anonymous mới là `anonymous`; record cũ không chứng minh được nguồn là
+`device-legacy-unscoped`; explicit unknown là `unknown`; conflicting metadata bị exclude. Không claim dữ liệu
+anonymous/unscoped sau login và không suy owner từ title/examId/time/key/session prefix.
+
+Dedupe hierarchy: exact server session, client submission, session + compatible owner, local session +
+compatible owner, rồi source stable ID. Không dùng cùng score/title/time. Recovery queue chỉ annotate owner,
+IDs và pending state hoặc cung cấp optional local result khi chưa có nguồn khác; nó không trở thành attempt thứ
+hai và scanner không mutate/flush/retry queue.
+
+Summary KPI chấp nhận exact supported legacy shape nếu score/time/mode hợp lệ. Deep analytics chỉ dùng immutable
+detail parseable; thiếu topic/cognitive vẫn có question-type analytics nhưng coverage tương ứng thấp hơn. Không
+join current question bank, không rescore và raw answers/correct keys không rời adapter dưới dạng output/log/API.
+
+Local authority luôn giữ provenance gốc. Chỉ cached snapshot có exact
+`BACKEND + SERVER + SERVER_ON_TIME` mới tăng backend-official count; local fallback/legacy không được nâng thành
+official.
+
+Validation Goal 3B1 tại review gate:
+
+```text
+targeted local analytics PASS — 4 files, 61 tests
+full frontend tests PASS — 46 files, 315 tests
+TypeScript PASS
+targeted local analytics ESLint PASS, zero warnings
+production build PASS — 4,162 modules transformed
+production bundle marker scan PASS
+```
+
+### Deferred Goal 3B2
+
+Goal 3B2 mới quyết định owner filter và nối local foundation vào UI. Hiện tại:
+
+- anonymous vẫn là sign-in state, không local KPI;
+- backend transport/5xx/contract failure vẫn là error state, không local fallback;
+- production hook/page không import local foundation;
+- không merge local với backend;
+- device-legacy-unscoped không được gọi là account history.
 
 ---
 
@@ -861,14 +929,15 @@ Không đọc local result keys hoặc recovery queue trong Goal 3A.
 ## 15. Kết luận handoff
 
 Dashboard người dùng đã hoàn thành presentation, Goal 1 data boundary, backend Analytics API V1 của
-Goal 2 và authenticated frontend integration của Goal 3A. Goal 2 đã commit tại `195db79f`; Goal 3A
-đang dừng tại review gate và chưa stage/commit/push.
+Goal 2 và authenticated frontend integration của Goal 3A. Goal 2 đã commit tại `195db79f`; Goal 3A đã
+commit riêng tại `655702f4`. Goal 3B1 local analytics foundation đã triển khai và đang dừng tại review
+gate ở trạng thái unstaged, chưa commit/push.
 
 Authenticated dashboard đã có đường end-to-end ở mức source; real browser/backend smoke vẫn cần một
 verified QA account/session. Việc còn lại chính là:
 
-1. review Goal 3A và chạy smoke khi có QA session an toàn;
-2. ở Goal 3B riêng, quyết định/triển khai anonymous hoặc backend-off local analytics nếu product duyệt;
+1. review Goal 3B1 và chạy smoke authenticated backend khi có QA session an toàn;
+2. ở Goal 3B2 riêng, quyết định owner filter/presentation và nối anonymous hoặc backend-off local analytics;
 3. không silent merge local/backend;
 4. ở Goal 4, chạy TiDB read-only profile/EXPLAIN và production reconciliation khi có quyền an toàn;
 5. giữ nguyên presentation, accessibility và scroll invariants đã QA.

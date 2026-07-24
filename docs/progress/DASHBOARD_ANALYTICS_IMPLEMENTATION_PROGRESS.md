@@ -6,6 +6,8 @@ Goal 1 commit: `0edd68166609cbc1228c79e5218dc91038e75ac7`
 
 Goal 2 commit / Goal 3A baseline: `195db79f4b2055e97bbd02909ce7f1a2ba4134ca`
 
+Goal 3A commit / Goal 3B1 baseline: `655702f48522faed9f5ce1691be190c7b582a117`
+
 ## Trạng thái tổng quát
 
 | Goal | Trạng thái | Phạm vi |
@@ -13,8 +15,9 @@ Goal 2 commit / Goal 3A baseline: `195db79f4b2055e97bbd02909ce7f1a2ba4134ca`
 | Goal 0 | Hoàn thành | Source audit read-only và bản đồ nguồn dữ liệu |
 | Goal 1 | Hoàn thành, đã commit | Fixture boundary, wire contract V1, validator, policy, mapper và test frontend |
 | Goal 2 | Hoàn thành, đã commit | Authenticated backend analytics API V1 |
-| Goal 3A | Đã triển khai, REVIEW GATE | Authenticated production API client/hook, auth/range/error/retry/partial coverage |
-| Goal 3B | Deferred | Anonymous/local/offline analytics và mọi fallback cục bộ |
+| Goal 3A | Hoàn thành, đã commit | Authenticated production API client/hook, auth/range/error/retry/partial coverage |
+| Goal 3B1 | Đã triển khai, REVIEW GATE | Local scanner/adapters/owner scope/dedupe/aggregation/mapper thuần; chưa wired production |
+| Goal 3B2 | Deferred | Quyết định và nối anonymous/device-local/backend-off presentation; không silent merge |
 | Goal 4 | Chưa thực hiện | Đối soát dữ liệu thật, observability và rollout |
 
 ## Goal 0 — Source audit
@@ -333,8 +336,10 @@ không thuộc Goal 2.
 
 ## Goal 3A — Authenticated frontend integration
 
-Goal 3A đã được triển khai trong working tree và đang dừng tại **REVIEW GATE**. Không stage, commit
-hoặc push các thay đổi Goal 3A.
+Goal 3A đã hoàn thành review và được commit riêng tại
+`655702f48522faed9f5ce1691be190c7b582a117` với message
+`feat(dashboard): connect authenticated analytics API`. Commit không chứa thay đổi
+`frontend/public/data/exams/exam-dataset-build.json` đã tồn tại từ trước và không được push trong Goal 3B1.
 
 ### API client và validation boundary
 
@@ -384,11 +389,83 @@ production fixture marker scan PASS
 Real backend/browser smoke: **CANNOT CONFIRM** nếu không có verified QA account/session sẵn; không tạo
 user, bypass verification hoặc đọc credential.
 
-### Deferred Goal 3B
+## Goal 3B1 — Local analytics foundation
 
-Goal 3A không đọc `v2_result_*`, `exam_api_result_*`, custom local session, `exam_history` hoặc recovery
-queue; không aggregate anonymous local data và không merge local/backend. Mọi local/offline analytics
-hoặc backend-off fallback phải là Goal 3B riêng.
+Goal 3B1 đã triển khai local foundation dưới
+`frontend/src/features/dashboard/localAnalytics/` và dừng tại **REVIEW GATE**. Toàn bộ thay đổi Goal 3B1
+đang unstaged, chưa commit và chưa push. `PersonalLearningDashboardPage` và
+`usePersonalLearningDashboard` không import hoặc gọi local scanner/aggregator/mapper.
+
+### Local storage source map đã xác minh
+
+| Source | Writer / reader thực tế | Shape và identity | Owner / authority | Summary | Deep / quyết định |
+|---|---|---|---|---|---|
+| `v2_result_{sessionId}` | `writeResultToLS` / `readResultFromLS`, `getAllV2Results`; custom fallback cũng ghi qua cùng writer | `ExamResultV2`, không schema discriminator; `sessionId`, optional `serverSessionId`/`clientSubmissionId`; score/duration/submittedAt | owner chỉ khi `userId`/`ownerId` explicit hoặc recovery correlation; thiếu bằng chứng là device-legacy-unscoped; authority giữ nguyên/default legacy | Có cho hai V1 modes | Question-type nếu `questions` parse được; topic/cognitive chỉ khi immutable `questionSnapshots` nhúng trong result |
+| `exam_api_result_{sessionId}` | `writeApiResult` / `readApiResult` trong `useApiTimedSession.ts` | exact `ResultSnapshotV2`, `snapshotSchemaVersion=2`, server `sessionId`, summary và reviewed questions | snapshot không tự có owner; chỉ recovery correlation mới nâng thành authenticated-owner; giữ exact backend authority triple | Có | Full immutable detail: question type, answer/correct answer, completion, topicRefs và cognitive |
+| `custom_exam_session_{sessionId}` | `saveCustomSession` / `loadCustomSession` | `CustomExamSession`, có snapshots/answers nhưng không có persisted score | không đủ owner/authority cho attempt hoàn tất | Không | Exclude: không rescore standalone session và không thay writer/scoring |
+| `exam_submission_recovery_queue_v1` | `enqueueRecovery`, private `readAll`, `pendingRecoveryCount` | `RecoveryQueueItem storageVersion=1`; ownerId, client/server/local IDs, optional `localResult` | owner-scoped correlation; pending dùng đúng terminal-state policy hiện có | Chỉ optional `localResult` khi không có bản ghi khác | Queue annotate owner/IDs/pending và hỗ trợ dedupe; không tạo attempt thứ hai, không mutate/flush/retry |
+| `exam_result_{examId}` | `submitExam` / `getExamResult` trong `examService.ts` | legacy `ExamResult`; stable `examId`; `score10`, duration, submittedAt, config.mode | optional `userId`; thiếu owner là device-legacy-unscoped; frontend legacy | Có cho `thpt_mock/custom`; practice exclude | Summary-only; answersReview không đủ immutable metadata an toàn cho deep analytics |
+| `exam_history` | `submitExam` / `getExamHistory` trong `examService.ts` | array của cùng legacy `ExamResult`; dedupe theo exact identity với `exam_result_*` | như trên | Có khi exact legacy shape hợp lệ | Summary-only; practice/unknown shape unsupported |
+| `exam_session_token_*` | `saveAnonymousSessionToken` / `readAnonymousSessionToken` | anonymous session token | credential-like secret | Không | Explicit deny: scanner không gọi `getItem` cho prefix này |
+| `exam_api_session_draft_*`, `exam_api_session_locator_*`, `exam_session_*` | session/draft/locator writers hiện có | session metadata/progress, không phải completed result | không dùng để tự suy owner | Không | Không nằm trong result allowlist; không đọc |
+
+Raw answers/correct answers chỉ tồn tại tạm trong từng adapter để sinh count an toàn. Chúng không nằm trong
+`LocalDashboardAttemptV1`, analytics result, error, notice hoặc log.
+
+### Repository, owner scope và dedupe
+
+- Allowlist duy nhất: bốn prefixes `exam_api_result_`, `v2_result_`, `custom_exam_session_`,
+  `exam_result_` và hai exact keys `exam_history`, `exam_submission_recovery_queue_v1`.
+- Hard cap: tối đa 1.000 matching keys, 500 normalized attempts sau dedupe và 2 MiB ký tự cho mỗi payload;
+  caller chỉ có thể hạ, không thể nâng các cap này. Corrupt/oversized/read-error bị skip và chỉ tăng diagnostic.
+- Owner scopes: `anonymous`, `authenticated-owner`, `device-legacy-unscoped`, `unknown`, `conflicting`.
+  Không suy owner từ user đang login, title, examId, timestamp, session ID hoặc key prefix. Conflict bị exclude.
+- Owner filter là input thuần: anonymous, exact authenticated owner key, device-local hoặc
+  all-for-diagnostics chỉ dành test/dev.
+- Dedupe deterministic theo exact `serverSessionId`, `clientSubmissionId`, `sessionId + compatible owner`,
+  `localSessionId + compatible owner`, rồi source stable ID. Không dùng score/title/time heuristic.
+- Winner ưu tiên immutable detail rồi source priority: cached API snapshot, richer local snapshot,
+  recovery local result, legacy detail và summary-only. Metadata chỉ merge khi identity/owner tương thích.
+
+### Normalized model và aggregation
+
+`LocalDashboardAttemptV1` là model nội bộ, không phải wire DTO và không serialize lên network. Nó chỉ giữ
+identity/provenance/owner, V1 mode, summary fields, safe question evidence counts, detail status và pending
+metadata; không giữ raw JSON, answer objects, correct-answer snapshots, token, email hoặc JWT.
+
+`LocalDashboardAnalyticsResultV1` là local-only facts model. Aggregator dùng policy `dashboard-v1`:
+
+- modes `TIMED_ORIGINAL` / `CUSTOM_MOCK`, range theo `Asia/Ho_Chi_Minh`;
+- MCQ là một unit, T/F là từng statement; blank/partial được tính riêng;
+- topic dùng distinct attempt count; cognitive chỉ dùng metadata immutable có thật;
+- thresholds 8 units/2 attempts, bands 80/60, confidence 16/3 và 30/5;
+- trend tối đa 50, recent tối đa 5;
+- exact backend authority triple trong cache mới được đếm backend-official; local/legacy không được nâng authority;
+- malformed, unsupported, owner conflict, oversize, read error hoặc cap đều làm coverage incomplete.
+
+Pure mapper local → `PersonalLearningDashboardViewModel` đã có notice device-only/local-fallback, partial
+coverage và pending recovery; bỏ topic insufficient khỏi weaknesses. Mapper chưa được wired production.
+
+### Validation và Goal 3B2 deferred
+
+Validation Goal 3B1 tại review gate:
+
+```text
+targeted local analytics PASS — 4 files, 61 tests
+full frontend tests PASS — 46 files, 315 tests
+TypeScript PASS
+targeted local analytics ESLint PASS, zero warnings
+production build PASS — 4,162 modules transformed
+production bundle marker scan PASS — không UI fixture, synthetic fixture/answer/token marker hoặc local foundation chưa wired
+```
+
+Build data pre-step đã được chạy trong một backup/restore boundary; bốn tracked `public/data/exams` artifacts
+được khôi phục byte-for-byte sau build. Thay đổi có trước Goal tại `exam-dataset-build.json` vẫn giữ nguyên và
+không thuộc Goal 3B1.
+
+Goal 3B2 mới được phép quyết định source filter và presentation cho anonymous, legacy device-local và
+backend-off fallback. Cho tới đó anonymous vẫn là sign-in state, backend failure vẫn là error state và không
+có backend/local merge.
 
 ## Rollback Goal 1
 
