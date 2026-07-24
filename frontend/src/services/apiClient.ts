@@ -68,9 +68,17 @@ export function clearStoredUser(): void {
  * Refresh token được gửi tự động qua HttpOnly Cookie (không cần đọc từ localStorage).
  * Backend sẽ set lại cả hai cookie mới trong response.
  */
-async function refreshAccessToken(): Promise<boolean> {
+function throwIfAborted(signal?: AbortSignal | null): void {
+  if (signal?.aborted) {
+    throw new DOMException('The operation was aborted.', 'AbortError');
+  }
+}
+
+async function refreshAccessToken(signal?: AbortSignal | null): Promise<boolean> {
   try {
+    throwIfAborted(signal);
     const csrf = await ensureCsrfToken();
+    throwIfAborted(signal);
     // Không gửi body — refresh_token nằm trong HttpOnly Cookie (path=/api/auth/refresh).
     // Backend đọc cookie trực tiếp, không cần @RequestBody nữa.
     const response = await fetch(`${API_BASE_URL}/api/auth/refresh`, {
@@ -81,9 +89,11 @@ async function refreshAccessToken(): Promise<boolean> {
       },
       // credentials: 'include' bắt buộc để browser đính kèm refresh_token cookie
       credentials: 'include',
+      signal,
     });
     return response.ok;
-  } catch {
+  } catch (cause) {
+    if (cause instanceof DOMException && cause.name === 'AbortError') throw cause;
     return false;
   }
 }
@@ -145,6 +155,7 @@ export async function apiDelete<T>(path: string, init: Omit<RequestInit, 'method
 }
 
 async function apiRequest<T>(path: string, init: RequestInit, retry = true): Promise<T> {
+  throwIfAborted(init.signal);
   const headers = new Headers(init.headers);
   const method = (init.method ?? 'GET').toUpperCase();
   headers.set('Accept', 'application/json');
@@ -163,11 +174,13 @@ async function apiRequest<T>(path: string, init: RequestInit, retry = true): Pro
     headers,
     credentials: 'include', // Bắt buộc cho HttpOnly Cookie cross-origin và same-origin
   });
+  throwIfAborted(init.signal);
 
   const replaySafe = ['GET', 'HEAD', 'OPTIONS'].includes(method);
   if (response.status === 401 && retry && replaySafe && !path.startsWith('/api/auth/refresh')) {
     // Access token hết hạn → thử refresh bằng cookie, sau đó replay request
-    const refreshed = await refreshAccessToken();
+    const refreshed = await refreshAccessToken(init.signal);
+    throwIfAborted(init.signal);
     if (refreshed) {
       return apiRequest<T>(path, init, false);
     }
@@ -190,7 +203,7 @@ async function apiRequest<T>(path: string, init: RequestInit, retry = true): Pro
   return payload.data;
 }
 
-export function toQueryString(params: Record<string, string | number | undefined | null>) {
+export function toQueryString(params: Record<string, string | number | boolean | undefined | null>) {
   const searchParams = new URLSearchParams();
   for (const [key, value] of Object.entries(params)) {
     if (value !== undefined && value !== null && value !== '') {

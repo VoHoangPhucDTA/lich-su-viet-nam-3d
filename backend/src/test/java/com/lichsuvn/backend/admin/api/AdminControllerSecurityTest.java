@@ -1,6 +1,8 @@
 package com.lichsuvn.backend.admin.api;
 
 import com.lichsuvn.backend.admin.application.AdminService;
+import com.lichsuvn.backend.admin.application.AdminEventReadService;
+import com.lichsuvn.backend.admin.api.dto.AdminEventDtos;
 import com.lichsuvn.backend.auth.application.AuthService;
 import com.lichsuvn.backend.auth.security.UserPrincipal;
 import com.lichsuvn.backend.common.config.JacksonConfig;
@@ -8,6 +10,8 @@ import com.lichsuvn.backend.common.config.SecurityConfig;
 import com.lichsuvn.backend.common.security.ApiAccessDeniedHandler;
 import com.lichsuvn.backend.common.security.ApiAuthenticationEntryPoint;
 import com.lichsuvn.backend.common.exception.GlobalExceptionHandler;
+import com.lichsuvn.backend.common.exception.ApiException;
+import org.springframework.http.HttpStatus;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.TestConfiguration;
@@ -54,6 +58,9 @@ class AdminControllerSecurityTest {
     AdminService adminService;
 
     @MockitoBean
+    AdminEventReadService adminEventReadService;
+
+    @MockitoBean
     AuthService authService;
 
     @Test
@@ -76,6 +83,10 @@ class AdminControllerSecurityTest {
         mockMvc.perform(get("/api/admin/users")
                         .with(user("student").authorities(() -> "ROLE_student")))
                 .andExpect(status().isForbidden());
+
+        mockMvc.perform(get("/api/admin/events/event-1")
+                        .with(user("student").authorities(() -> "ROLE_student")))
+                .andExpect(status().isForbidden());
     }
 
     @Test
@@ -91,6 +102,10 @@ class AdminControllerSecurityTest {
         mockMvc.perform(get("/api/admin/users")
                         .with(user("teacher").authorities(() -> "ROLE_teacher")))
                 .andExpect(status().isForbidden());
+
+        mockMvc.perform(get("/api/admin/events/event-1")
+                        .with(user("teacher").authorities(() -> "ROLE_teacher")))
+                .andExpect(status().isForbidden());
     }
 
     @Test
@@ -100,8 +115,10 @@ class AdminControllerSecurityTest {
                 "events", Map.of("total", 1),
                 "recentAudit", List.of()
         ));
-        when(adminService.events(null, null, null, null, null, null, null, null))
-                .thenReturn(Map.of("items", List.of(), "count", 0, "total", 0, "limit", 25, "offset", 0));
+        when(adminEventReadService.findEvents(
+                null, null, null, null, null, null, null,
+                null, null, null, null, null, null, null, null, null))
+                .thenReturn(new AdminEventDtos.Page(List.of(), 0, 0, 20, 0));
         when(adminService.users(null, null, null, null, null))
                 .thenReturn(Map.of("items", List.of(), "count", 0, "total", 0, "limit", 25, "offset", 0));
 
@@ -116,6 +133,52 @@ class AdminControllerSecurityTest {
         mockMvc.perform(get("/api/admin/users").with(admin))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.success").value(true));
+    }
+
+    @Test
+    void adminCanReadTypedEventDetailWithoutExposingRawData() throws Exception {
+        var detail = new AdminEventDtos.Detail(
+                new AdminEventDtos.Core("event-1", "event-1", "Event", null),
+                new AdminEventDtos.Content("Card", "Canonical", "Narrative", "Significance", List.of("Fact")),
+                new AdminEventDtos.Chronology(null, null, null, null, null),
+                new AdminEventDtos.Classification("atomic", "political", null, List.of(10)),
+                new AdminEventDtos.Publication("draft", new AdminEventDtos.Flags(false, true, false),
+                        null, java.time.Instant.EPOCH, java.time.Instant.EPOCH),
+                new AdminEventDtos.MediaSection(null, List.of(), 0),
+                new AdminEventDtos.Geography("no_location", "no_location", null, null,
+                        List.of(), List.of(), null),
+                new AdminEventDtos.Hierarchy(null, null, List.of(), List.of()),
+                new AdminEventDtos.Textbook(List.of(), 0, 0, false),
+                List.of(),
+                new AdminEventDtos.Completeness(true, 0, List.of())
+        );
+        when(adminEventReadService.findEvent("event-1")).thenReturn(detail);
+
+        String body = mockMvc.perform(get("/api/admin/events/event-1")
+                        .with(user("admin").authorities(() -> "ROLE_admin")))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.data.core.id").value("event-1"))
+                .andReturn().getResponse().getContentAsString();
+
+        org.junit.jupiter.api.Assertions.assertFalse(body.contains("rawJson"));
+        org.junit.jupiter.api.Assertions.assertFalse(body.contains("sourceJson"));
+        org.junit.jupiter.api.Assertions.assertFalse(body.contains("local:"));
+    }
+
+    @Test
+    void invalidListSortReturnsStableBadRequestContract() throws Exception {
+        when(adminEventReadService.findEvents(
+                null, null, null, null, null, null, null,
+                null, null, null, null, null, "raw_json", null, null, null))
+                .thenThrow(new ApiException(
+                        HttpStatus.BAD_REQUEST, "INVALID_SORT_FIELD", "sortBy has unsupported value"));
+
+        mockMvc.perform(get("/api/admin/events")
+                        .param("sortBy", "raw_json")
+                        .with(user("admin").authorities(() -> "ROLE_admin")))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.success").value(false))
+                .andExpect(jsonPath("$.code").value("INVALID_SORT_FIELD"));
     }
 
     @Test

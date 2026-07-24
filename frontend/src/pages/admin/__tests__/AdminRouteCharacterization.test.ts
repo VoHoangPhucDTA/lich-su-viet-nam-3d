@@ -7,6 +7,7 @@ describe('Admin route characterization', () => {
     expect(appSource).toContain('path="/admin/dashboard"');
     expect(appSource).toContain('path="/admin/users"');
     expect(appSource).toContain('path="/admin/events"');
+    expect(appSource).toContain('path="/admin/events/:id"');
   });
 
   it('documents that event editor routes are currently absent', () => {

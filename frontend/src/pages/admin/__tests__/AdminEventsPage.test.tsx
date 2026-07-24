@@ -3,7 +3,8 @@ import { MemoryRouter } from 'react-router-dom';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import AdminEventsPage from '../AdminEventsPage';
-import { getAdminEvents } from '../../../services/adminApi';
+import { getAdminEvents, type AdminEvent } from '../../../services/adminApi';
+import { ApiRequestError } from '../../../services/apiClient';
 
 vi.mock('../../../layouts/AdminLayout', () => ({
   default: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
@@ -29,8 +30,7 @@ vi.mock('../../../components/admin/AdminUI', () => ({
       {options.map(option => <option key={option.value} value={option.value}>{option.label}</option>)}
     </select></label>
   ),
-  AdminStatusBadge: ({ status }: { status: string }) => <span>{status}</span>,
-  AdminRowActions: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
+  AdminStatusBadge: ({ label, status }: { label?: string; status: string }) => <span>{label ?? status}</span>,
   AdminDataTable: ({
     columns,
     rows,
@@ -40,8 +40,8 @@ vi.mock('../../../components/admin/AdminUI', () => ({
     emptyTitle,
     footer,
   }: {
-    columns: Array<{ key: string; render?: (row: { id: string } & Record<string, unknown>) => React.ReactNode }>;
-    rows: Array<{ id: string } & Record<string, unknown>>;
+    columns: Array<{ key: string; render: (row: AdminEvent) => React.ReactNode }>;
+    rows: AdminEvent[];
     loading: boolean;
     error?: string;
     onRetry?: () => void;
@@ -52,26 +52,9 @@ vi.mock('../../../components/admin/AdminUI', () => ({
     if (error) return <div role="alert">{error}<button onClick={onRetry}>Retry events</button></div>;
     if (!rows.length) return <div>{emptyTitle}{footer}</div>;
     return <div>{rows.map(row => (
-      <article key={row.id}>{columns.map(column => (
-        <div key={column.key}>{column.render ? column.render(row) : null}</div>
-      ))}</article>
+      <article key={row.id}>{columns.map(column => <div key={column.key}>{column.render(row)}</div>)}</article>
     ))}{footer}</div>;
   },
-  AdminConfirmDialog: ({
-    open,
-    title,
-    description,
-    confirmLabel,
-    onConfirm,
-    onCancel,
-  }: {
-    open: boolean;
-    title: string;
-    description?: string;
-    confirmLabel: string;
-    onConfirm: () => void;
-    onCancel: () => void;
-  }) => open ? <div role="dialog"><h2>{title}</h2><p>{description}</p><button onClick={onCancel}>Cancel</button><button onClick={onConfirm}>{confirmLabel}</button></div> : null,
   AdminPagination: ({ total, offset, limit, onChange }: { total: number; offset: number; limit: number; loading: boolean; onChange: (offset: number) => void }) => (
     <nav><span>{total}</span><button onClick={() => onChange(offset + limit)}>Next page</button></nav>
   ),
@@ -79,86 +62,139 @@ vi.mock('../../../components/admin/AdminUI', () => ({
 
 vi.mock('../../../services/adminApi', async () => {
   const actual = await vi.importActual<typeof import('../../../services/adminApi')>('../../../services/adminApi');
-  return {
-    ...actual,
-    getAdminEvents: vi.fn(),
-  };
+  return { ...actual, getAdminEvents: vi.fn() };
 });
 
-const page = {
-  items: [{
-    id: 'event-1',
-    slug: 'event-1',
-    title: 'Bach Dang',
-    eventLevel: 'atomic' as const,
-    eventType: 'military' as const,
+const item: AdminEvent = {
+  id: 'event-1',
+  slug: 'event-1',
+  title: 'Bạch Đằng',
+  shortTitle: null,
+  eventLevel: 'atomic',
+  eventType: 'military',
+  eventSubtype: null,
+  chronology: {
     startYear: null,
     endYear: null,
-    status: 'draft' as const,
-    featured: false,
-    cardSummary: 'Summary',
-    thumbnailUrl: null,
-    updatedAt: '2026-01-01T00:00:00Z',
-  }],
-  count: 1,
-  total: 21,
-  limit: 20,
-  offset: 0,
+    effectiveEndYear: null,
+    displayDate: null,
+    datePrecision: null,
+  },
+  startYear: null,
+  endYear: null,
+  cardSummary: 'Tóm tắt',
+  status: 'draft',
+  grades: [],
+  normalizedGeoType: 'single_point',
+  canonicalGeoType: 'point',
+  thumbnail: null,
+  thumbnailUrl: null,
+  activeMediaCount: 0,
+  flags: { showOnHomepage: false, showOnTimeline: false, featured: false },
+  featured: false,
+  completeness: {
+    complete: false,
+    issueCount: 2,
+    issues: [
+      { code: 'MISSING_THUMBNAIL', section: 'media', severity: 'WARNING', fields: ['thumbnail'] },
+      { code: 'MISSING_GRADES', section: 'classification', severity: 'WARNING', fields: ['grades'] },
+    ],
+  },
+  createdAt: '2026-01-01T00:00:00Z',
+  updatedAt: '2026-01-02T00:00:00Z',
 };
 
-describe('AdminEventsPage characterization', () => {
+const page = { items: [item], count: 1, total: 21, limit: 20, offset: 0 };
+
+describe('AdminEventsPage', () => {
   beforeEach(() => {
     vi.clearAllMocks();
     vi.mocked(getAdminEvents).mockResolvedValue(page);
   });
 
-  const renderPage = () => render(
-    <MemoryRouter>
+  const renderPage = (initialEntry = '/admin/events') => render(
+    <MemoryRouter initialEntries={[initialEntry]}>
       <AdminEventsPage />
     </MemoryRouter>,
   );
 
-  it('renders loading, successful data and unknown chronology', async () => {
+  it('renders loading, typed data, unknown chronology and completeness', async () => {
     renderPage();
     expect(screen.getByRole('status')).toHaveTextContent('loading events');
-    await waitFor(() => expect(screen.getByText('Bach Dang')).toBeInTheDocument());
-    expect(screen.getByText('Không rõ')).toBeInTheDocument();
-    expect(getAdminEvents).toHaveBeenCalledWith(expect.objectContaining({ limit: 20, offset: 0 }));
+    await waitFor(() => expect(screen.getByText('Bạch Đằng')).toBeInTheDocument());
+    expect(screen.getAllByText('Không rõ')).toHaveLength(2);
+    expect(screen.getByText('2 vấn đề')).toBeInTheDocument();
+    expect(getAdminEvents).toHaveBeenCalledWith(
+      expect.objectContaining({ limit: 20, offset: 0, sortBy: 'updatedAt', sortDir: 'desc' }),
+      expect.any(AbortSignal),
+    );
   });
 
-  it('passes filter changes and server pagination to the API', async () => {
-    renderPage();
-    await waitFor(() => expect(screen.getByText('Bach Dang')).toBeInTheDocument());
+  it('hydrates URL filters and sends server pagination with an exclusive year upper bound', async () => {
+    renderPage('/admin/events?eventType=military&yearFrom=938&yearTo=939&offset=20');
+    await waitFor(() => expect(screen.getByText('Bạch Đằng')).toBeInTheDocument());
+    expect(getAdminEvents).toHaveBeenCalledWith(
+      expect.objectContaining({
+        eventType: 'military',
+        startYearFrom: 938,
+        startYearTo: 940,
+        offset: 20,
+      }),
+      expect.any(AbortSignal),
+    );
 
-    fireEvent.change(screen.getByLabelText('Loại sự kiện'), { target: { value: 'military' } });
-    await waitFor(() => expect(getAdminEvents).toHaveBeenCalledWith(expect.objectContaining({
-      eventType: 'military',
-      offset: 0,
-    })));
-
+    fireEvent.change(screen.getByLabelText('Loại'), { target: { value: 'political' } });
+    await waitFor(() => expect(getAdminEvents).toHaveBeenLastCalledWith(
+      expect.objectContaining({ eventType: 'political', offset: 0 }),
+      expect.any(AbortSignal),
+    ));
     fireEvent.click(screen.getByRole('button', { name: 'Next page' }));
-    await waitFor(() => expect(getAdminEvents).toHaveBeenCalledWith(expect.objectContaining({ offset: 20 })));
+    await waitFor(() => expect(getAdminEvents).toHaveBeenLastCalledWith(
+      expect.objectContaining({ offset: 20 }),
+      expect.any(AbortSignal),
+    ));
+  });
+
+  it('renders empty state', async () => {
+    vi.mocked(getAdminEvents).mockResolvedValue({ ...page, items: [], count: 0, total: 0 });
+    renderPage();
+    expect(await screen.findByText('Không có sự kiện phù hợp')).toBeInTheDocument();
   });
 
   it('renders error and retries the request', async () => {
     vi.mocked(getAdminEvents)
       .mockRejectedValueOnce(new Error('events unavailable'))
       .mockResolvedValueOnce(page);
-
     renderPage();
     await waitFor(() => expect(screen.getByRole('alert')).toHaveTextContent('events unavailable'));
     fireEvent.click(screen.getByRole('button', { name: 'Retry events' }));
-    await waitFor(() => expect(screen.getByText('Bach Dang')).toBeInTheDocument());
+    await waitFor(() => expect(screen.getByText('Bạch Đằng')).toBeInTheDocument());
     expect(getAdminEvents).toHaveBeenCalledTimes(2);
   });
 
-  it('does not expose create, edit or hard-delete controls while mutations are quarantined', async () => {
+  it('renders an authorization state for forbidden API responses', async () => {
+    vi.mocked(getAdminEvents).mockRejectedValue(new ApiRequestError('FORBIDDEN', 'internal', 403));
     renderPage();
-    await waitFor(() => expect(screen.getByText('Bach Dang')).toBeInTheDocument());
+    expect(await screen.findByRole('alert')).toHaveTextContent('không có quyền');
+  });
 
+  it('aborts the stale request after a URL filter changes', async () => {
+    const pending = new Promise<never>(() => undefined);
+    vi.mocked(getAdminEvents).mockReturnValue(pending);
+    renderPage();
+    await waitFor(() => expect(getAdminEvents).toHaveBeenCalledTimes(1));
+    const firstSignal = vi.mocked(getAdminEvents).mock.calls[0][1]!;
+    fireEvent.change(screen.getByLabelText('Trạng thái'), { target: { value: 'published' } });
+    await waitFor(() => expect(getAdminEvents).toHaveBeenCalledTimes(2));
+    expect(firstSignal.aborted).toBe(true);
+  });
+
+  it('links only to read detail and exposes no mutation controls', async () => {
+    renderPage('/admin/events?status=draft');
+    await screen.findByText('Bạch Đằng');
+    expect(screen.getByRole('link', { name: 'Bạch Đằng' })).toHaveAttribute('href', '/admin/events/event-1');
     expect(screen.getByRole('note')).toHaveTextContent('quy trình biên tập an toàn');
     expect(screen.queryByRole('link', { name: /Tạo sự kiện/i })).not.toBeInTheDocument();
-    expect(screen.queryByRole('link', { name: 'Edit Bach Dang' })).not.toBeInTheDocument();
-    expect(screen.queryByRole('button', { name: 'Delete Bach Dang' })).not.toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: /xóa sự kiện/i })).not.toBeInTheDocument();
   });
 });

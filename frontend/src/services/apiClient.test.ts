@@ -93,4 +93,34 @@ describe('apiClient CSRF integration', () => {
     expect(fetchMock).toHaveBeenCalledTimes(2);
     expect(String(fetchMock.mock.calls[1][0])).toMatch(/\/api\/mutation$/);
   });
+
+  it('does not refresh or replay a safe request aborted after its response', async () => {
+    const controller = new AbortController();
+    const fetchMock = vi.spyOn(globalThis, 'fetch').mockImplementationOnce(async () => {
+      controller.abort();
+      return response(null, 401);
+    });
+
+    await expect(apiGet('/api/admin/events', { signal: controller.signal }))
+      .rejects.toMatchObject({ name: 'AbortError' });
+
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+  });
+
+  it('does not replay when a safe request is aborted during refresh', async () => {
+    const controller = new AbortController();
+    const fetchMock = vi.spyOn(globalThis, 'fetch')
+      .mockResolvedValueOnce(response(null, 401))
+      .mockResolvedValueOnce(csrfResponse())
+      .mockImplementationOnce(async () => {
+        controller.abort();
+        throw new DOMException('aborted', 'AbortError');
+      });
+
+    await expect(apiGet('/api/admin/events', { signal: controller.signal }))
+      .rejects.toMatchObject({ name: 'AbortError' });
+
+    expect(fetchMock).toHaveBeenCalledTimes(3);
+    expect(String(fetchMock.mock.calls[2][0])).toMatch(/\/api\/auth\/refresh$/);
+  });
 });

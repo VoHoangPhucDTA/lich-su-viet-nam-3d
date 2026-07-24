@@ -33,6 +33,7 @@ import ProfileSettingsPage from './pages/profile/ProfileSettingsPage';
 import AdminDashboardPage from './pages/admin/AdminDashboardPage';
 import AdminUsersPage from './pages/admin/AdminUsersPage';
 import AdminEventsPage from './pages/admin/AdminEventsPage';
+import AdminEventDetailPage from './pages/admin/AdminEventDetailPage';
 
 // Quiz pages
 import QuizHomePage from './pages/quiz/QuizHomePage';
@@ -147,6 +148,7 @@ function AppContent() {
           <Route path="/admin/dashboard" element={<ProtectedRoute><RoleGuard requiredRole="admin"><AdminDashboardPage /></RoleGuard></ProtectedRoute>} />
           <Route path="/admin/users" element={<ProtectedRoute><RoleGuard requiredRole="admin"><AdminUsersPage /></RoleGuard></ProtectedRoute>} />
           <Route path="/admin/events" element={<ProtectedRoute><RoleGuard requiredRole="admin"><AdminEventsPage /></RoleGuard></ProtectedRoute>} />
+          <Route path="/admin/events/:id" element={<ProtectedRoute><RoleGuard requiredRole="admin"><AdminEventDetailPage /></RoleGuard></ProtectedRoute>} />
           <Route path="/admin/exams/ai-candidates" element={<ProtectedRoute><PermissionGuard permission="AI_CANDIDATE_VIEW"><AdminAiCandidatesPage /></PermissionGuard></ProtectedRoute>} />
           <Route path="/admin/exams/ai-candidates/:id" element={<ProtectedRoute><PermissionGuard permission="AI_CANDIDATE_VIEW"><AdminAiCandidateDetailPage /></PermissionGuard></ProtectedRoute>} />
           <Route path="/admin/questions" element={<Navigate to="/admin/events" replace />} />

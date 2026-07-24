@@ -1,6 +1,8 @@
 package com.lichsuvn.backend.admin.api;
 
 import com.lichsuvn.backend.admin.application.AdminService;
+import com.lichsuvn.backend.admin.application.AdminEventReadService;
+import com.lichsuvn.backend.admin.api.dto.AdminEventDtos;
 import com.lichsuvn.backend.auth.security.UserPrincipal;
 import com.lichsuvn.backend.common.api.ApiResponse;
 import com.lichsuvn.backend.common.exception.ApiException;
@@ -24,9 +26,11 @@ import java.util.Map;
 @RequestMapping("/api/admin")
 public class AdminController {
     private final AdminService adminService;
+    private final AdminEventReadService adminEventReadService;
 
-    public AdminController(AdminService adminService) {
+    public AdminController(AdminService adminService, AdminEventReadService adminEventReadService) {
         this.adminService = adminService;
+        this.adminEventReadService = adminEventReadService;
     }
 
     @GetMapping("/dashboard")
@@ -72,22 +76,33 @@ public class AdminController {
     }
 
     @GetMapping("/events")
-    public ApiResponse<Map<String, Object>> events(
+    public ApiResponse<AdminEventDtos.Page> events(
             @RequestParam(required = false, name = "q") String query,
             @RequestParam(required = false) String status,
             @RequestParam(required = false) String eventLevel,
             @RequestParam(required = false) String eventType,
+            @RequestParam(required = false) Integer grade,
+            @RequestParam(required = false) String geoType,
+            @RequestParam(required = false) String chronology,
             @RequestParam(required = false) Integer startYearFrom,
             @RequestParam(required = false) Integer startYearTo,
+            @RequestParam(required = false) Boolean missingThumbnail,
+            @RequestParam(required = false) Boolean missingMedia,
+            @RequestParam(required = false) Boolean missingMapData,
+            @RequestParam(required = false) String sortBy,
+            @RequestParam(required = false) String sortDir,
             @RequestParam(required = false) Integer limit,
             @RequestParam(required = false) Integer offset
     ) {
-        return ApiResponse.ok(adminService.events(query, status, eventLevel, eventType, startYearFrom, startYearTo, limit, offset));
+        return ApiResponse.ok(adminEventReadService.findEvents(
+                query, status, eventLevel, eventType, grade, geoType, chronology,
+                startYearFrom, startYearTo, missingThumbnail, missingMedia, missingMapData,
+                sortBy, sortDir, limit, offset));
     }
 
     @GetMapping("/events/{id}")
-    public ApiResponse<Map<String, Object>> event(@PathVariable String id) {
-        return ApiResponse.ok(adminService.event(id));
+    public ApiResponse<AdminEventDtos.Detail> event(@PathVariable String id) {
+        return ApiResponse.ok(adminEventReadService.findEvent(id));
     }
 
     @PostMapping("/events")
