@@ -37,6 +37,9 @@ describe('LearningAnalyticsEntryCard', () => {
     expect(link.querySelectorAll('a, button')).toHaveLength(0);
     expect(screen.getByText('Luyện thi THPT')).toBeInTheDocument();
     expect(screen.getByText('Thống kê luyện thi')).toBeInTheDocument();
+    expect(screen.getByText(
+      'Xem xu hướng điểm, chủ đề mạnh yếu và lịch sử luyện thi tại trang thống kê chuyên biệt.',
+    )).toBeInTheDocument();
     expect(screen.queryByText('/10')).not.toBeInTheDocument();
     expect(getDashboardAnalytics).not.toHaveBeenCalled();
 

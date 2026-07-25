@@ -3,15 +3,9 @@ import ProfileLayout from '../../layouts/ProfileLayout';
 import LearningAnalyticsEntryCard from '../../components/profile/LearningAnalyticsEntryCard';
 import StatsCard from '../../components/profile/StatsCard';
 import RecommendationCard from '../../components/profile/RecommendationCard';
-import {
-  WeeklyScoreChart,
-  CategoryChart,
-  GradeProgressChart,
-} from '../../components/profile/ProgressChart';
+import { GradeProgressChart } from '../../components/profile/ProgressChart';
 import {
   mockStats,
-  mockWeeklyScores,
-  mockCategoryScores,
   mockProgressByGrade,
   mockRecommendations,
   mockRecentEvents,
@@ -27,15 +21,10 @@ import {
   ChevronRight,
   User,
   Swords,
-  Landmark,
-  Coins,
   BookOpenText,
   Shield,
   Zap,
 } from 'lucide-react';
-
-const strengths = mockCategoryScores.filter(c => c.correctRate >= 75);
-const weaknesses = mockCategoryScores.filter(c => c.correctRate < 70);
 
 /* ─── Welcome Hero ──────────────────────────────────────────────────────────── */
 function WelcomeHero({ firstName }: { firstName: string }) {
@@ -94,106 +83,35 @@ function StatsGrid() {
   const items = [
     { icon: <Eye size={16} strokeWidth={1.5} />, label: 'Sự kiện', value: mockStats.eventsViewed, sub: 'đã xem', color: 'var(--accent)' },
     { icon: <FileText size={16} strokeWidth={1.5} />, label: 'Trắc nghiệm', value: mockStats.quizzesCompleted, sub: 'hoàn thành', color: 'var(--warning)' },
-    { icon: <Star size={16} strokeWidth={1.5} />, label: 'Điểm TB', value: mockStats.averageScore, sub: '/10', color: 'var(--success)' },
     { icon: <Flame size={16} strokeWidth={1.5} />, label: 'Chuỗi học', value: `${mockStats.streakDays} ngày`, sub: 'đang duy trì', color: 'var(--accent)' },
     { icon: <Clock size={16} strokeWidth={1.5} />, label: 'Tuần này', value: `${mockStats.weeklyMinutes}p`, sub: `tổng ${mockStats.totalMinutes}p`, color: 'var(--text-muted)' },
   ];
 
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
+    <section aria-label="Tổng quan học tập chung" className="grid grid-cols-2 lg:grid-cols-4 gap-3">
       {items.map((s, i) => (
         <StatsCard key={i} icon={s.icon} label={s.label} value={s.value} sub={s.sub} color={s.color} />
       ))}
-    </div>
+    </section>
   );
 }
 
-/* ─── Charts ────────────────────────────────────────────────────────────────── */
-function ChartsGrid() {
+/* ─── Grade Progress ────────────────────────────────────────────────────────── */
+function GradeProgressSection() {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-      <div className="rounded-2xl bg-white border border-stone-200/60 p-5 relative">
-        <span className="absolute top-3 right-3 text-[9px] font-mono text-stone-300 font-bold">01</span>
-        <div className="space-y-1 mb-4">
-          <span className="font-mono text-[9px] font-bold uppercase tracking-wider text-red-900">Thống kê</span>
-          <h3 className="font-serif text-lg font-bold text-stone-900">Điểm theo tuần</h3>
-        </div>
-        <WeeklyScoreChart data={mockWeeklyScores} />
+    <section
+      aria-labelledby="grade-progress-heading"
+      className="rounded-2xl bg-white border border-stone-200/60 p-5 sm:p-6 relative"
+    >
+      <span aria-hidden="true" className="absolute top-3 right-3 text-[9px] font-mono text-stone-300 font-bold">01</span>
+      <div className="space-y-1 mb-5">
+        <span className="font-mono text-[9px] font-bold uppercase tracking-wider text-red-900">Tiến độ</span>
+        <h2 id="grade-progress-heading" className="font-serif text-lg font-bold text-stone-900">Tiến độ theo lớp</h2>
       </div>
-      <div className="rounded-2xl bg-white border border-stone-200/60 p-5 relative">
-        <span className="absolute top-3 right-3 text-[9px] font-mono text-stone-300 font-bold">02</span>
-        <div className="space-y-1 mb-4">
-          <span className="font-mono text-[9px] font-bold uppercase tracking-wider text-red-900">Phân tích</span>
-          <h3 className="font-serif text-lg font-bold text-stone-900">Tỉ lệ đúng theo chủ đề</h3>
-        </div>
-        <CategoryChart data={mockCategoryScores} />
-      </div>
-      <div className="rounded-2xl bg-white border border-stone-200/60 p-5 relative">
-        <span className="absolute top-3 right-3 text-[9px] font-mono text-stone-300 font-bold">03</span>
-        <div className="space-y-1 mb-4">
-          <span className="font-mono text-[9px] font-bold uppercase tracking-wider text-red-900">Tiến độ</span>
-          <h3 className="font-serif text-lg font-bold text-stone-900">Tiến độ theo lớp</h3>
-        </div>
+      <div className="max-w-2xl">
         <GradeProgressChart data={mockProgressByGrade} />
       </div>
-    </div>
-  );
-}
-
-/* ─── Strengths & Weaknesses ────────────────────────────────────────────────── */
-const categoryIcon: Record<string, React.ReactNode> = {
-  military: <Swords size={12} strokeWidth={2} />,
-  political: <Landmark size={12} strokeWidth={2} />,
-  economic: <Coins size={12} strokeWidth={2} />,
-  cultural: <BookOpenText size={12} strokeWidth={2} />,
-};
-
-function StrengthsWeaknesses() {
-  return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-      <div className="rounded-2xl bg-white border border-stone-200/60 p-5 relative">
-        <span className="absolute top-3 right-3 text-[9px] font-mono text-stone-300 font-bold">04</span>
-        <div className="space-y-1 mb-4">
-          <span className="font-mono text-[9px] font-bold uppercase tracking-wider text-emerald-600">Điểm mạnh</span>
-          <h3 className="font-serif text-lg font-bold text-stone-900">Chủ đề làm tốt nhất</h3>
-        </div>
-        <div className="flex flex-wrap gap-2">
-          {strengths.length === 0 ? (
-            <p className="text-sm text-stone-400 italic font-serif">Chưa có dữ liệu</p>
-          ) : (
-            strengths.map(c => (
-              <div key={c.category} className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold transition-all hover:scale-105 cursor-default"
-                style={{ background: `${c.color}12`, color: c.color, border: `1px solid ${c.color}25` }}>
-                {categoryIcon[c.category] ?? null}
-                <span>{c.label}</span>
-                <span className="opacity-60 font-normal">({c.correctRate}%)</span>
-              </div>
-            ))
-          )}
-        </div>
-      </div>
-      <div className="rounded-2xl bg-white border border-stone-200/60 p-5 relative">
-        <span className="absolute top-3 right-3 text-[9px] font-mono text-stone-300 font-bold">05</span>
-        <div className="space-y-1 mb-4">
-          <span className="font-mono text-[9px] font-bold uppercase tracking-wider text-red-900">Cần cải thiện</span>
-          <h3 className="font-serif text-lg font-bold text-stone-900">Chủ đề cần ôn luyện</h3>
-        </div>
-        <div className="flex flex-wrap gap-2">
-          {weaknesses.length === 0 ? (
-            <p className="text-sm text-stone-400 italic font-serif">Tuyệt vời, không có điểm yếu!</p>
-          ) : (
-            weaknesses.map(c => (
-              <div key={c.category} className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold cursor-default"
-                style={{ background: 'rgba(139,30,30,0.08)', color: '#dc2626', border: '1px solid rgba(139,30,30,0.18)' }}>
-                {categoryIcon[c.category] ?? null}
-                <span>{c.label}</span>
-                <span className="opacity-60 font-normal">({c.correctRate}%)</span>
-              </div>
-            ))
-          )}
-        </div>
-      </div>
-    </div>
+    </section>
   );
 }
 
@@ -206,11 +124,11 @@ const eventIcons: Record<string, React.ReactNode> = {
 
 function ContinueLearning() {
   return (
-    <div className="rounded-2xl bg-white border border-stone-200/60 p-5 relative">
-      <span className="absolute top-3 right-3 text-[9px] font-mono text-stone-300 font-bold">06</span>
+    <section aria-labelledby="continue-learning-heading" className="rounded-2xl bg-white border border-stone-200/60 p-5 relative">
+      <span aria-hidden="true" className="absolute top-3 right-3 text-[9px] font-mono text-stone-300 font-bold">02</span>
       <div className="space-y-1 mb-4">
         <span className="font-mono text-[9px] font-bold uppercase tracking-wider text-red-900">Học tập</span>
-        <h3 className="font-serif text-lg font-bold text-stone-900">Tiếp tục học</h3>
+        <h2 id="continue-learning-heading" className="font-serif text-lg font-bold text-stone-900">Tiếp tục học</h2>
       </div>
       <div className="flex flex-col gap-2.5">
         {mockRecentEvents.map(ev => {
@@ -251,7 +169,7 @@ function ContinueLearning() {
           <ChevronRight size={13} strokeWidth={2.5} />
         </Link>
       </div>
-    </div>
+    </section>
   );
 }
 
@@ -267,22 +185,21 @@ export default function ProfileDashboardPage() {
         <WelcomeHero firstName={firstName} />
         <LearningAnalyticsEntryCard />
         <StatsGrid />
-        <ChartsGrid />
-        <StrengthsWeaknesses />
+        <GradeProgressSection />
         <ContinueLearning />
 
-        <div className="rounded-2xl bg-white border border-stone-200/60 p-5 relative">
-          <span className="absolute top-3 right-3 text-[9px] font-mono text-stone-300 font-bold">07</span>
+        <section aria-labelledby="general-recommendations-heading" className="rounded-2xl bg-white border border-stone-200/60 p-5 relative">
+          <span aria-hidden="true" className="absolute top-3 right-3 text-[9px] font-mono text-stone-300 font-bold">03</span>
           <div className="space-y-1 mb-4">
             <span className="font-mono text-[9px] font-bold uppercase tracking-wider text-red-900">Đề xuất</span>
-            <h3 className="font-serif text-lg font-bold text-stone-900">Gợi ý ôn tập</h3>
+            <h2 id="general-recommendations-heading" className="font-serif text-lg font-bold text-stone-900">Gợi ý học tập</h2>
           </div>
           <div className="flex flex-col gap-3">
             {mockRecommendations.map(r => (
               <RecommendationCard key={r.id} item={r} />
             ))}
           </div>
-        </div>
+        </section>
       </div>
     </ProfileLayout>
   );

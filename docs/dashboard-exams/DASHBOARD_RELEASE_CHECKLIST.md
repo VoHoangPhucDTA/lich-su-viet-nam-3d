@@ -1,10 +1,11 @@
 # Personal Learning Dashboard — Release Checklist
 
-Ngày kiểm tra: 2026-07-24
+Ngày kiểm tra: 2026-07-25
 Nhánh: `dashboard_exams`
 Goal 3B2 commit: `76e69231e5b02006ad687026557384787b0d7a18`
 Goal 4 commit: `4cf7184fb33f93eeb9bd1035d11f7772ffa39f74`
-Trạng thái: **Goal 4 đã commit; discoverability implementation đang ở REVIEW GATE, chưa stage/commit/push**
+Discoverability commit: `a995f3e75369cb2356d582815c1bd27b99b8de6f`
+Trạng thái: **Discoverability đã commit/push; profile duplication cleanup đang ở REVIEW GATE, chưa stage/commit/push**
 
 ## 1. Code validation
 
@@ -302,4 +303,42 @@ Không khuyến nghị `READY` cho đến khi manual verified-account E2E hoàn 
 - [x] History/result contextual CTA chưa được thêm và được deferred.
 - [x] Không backend/database/migration/auth/scoring change.
 - [x] Audit được commit riêng tại `838ed43047896fd3cddb1b484de4b20b786d65f8`.
-- [x] Implementation chưa stage, commit hoặc push.
+- [x] Discoverability implementation được commit/push riêng tại `a995f3e75369cb2356d582815c1bd27b99b8de6f`.
+
+## 14. Profile analytics duplication cleanup
+
+### Single analytics authority
+
+- [x] `/profile/dashboard` không còn `Điểm theo tuần`.
+- [x] `/profile/dashboard` không còn `Tỉ lệ đúng theo chủ đề`.
+- [x] `/profile/dashboard` không còn `Chủ đề làm tốt nhất`.
+- [x] `/profile/dashboard` không còn `Chủ đề cần ôn luyện`.
+- [x] KPI `Điểm TB` mock bị loại vì `mockStats.averageScore` không chứng minh aggregate đa-module.
+- [x] Recommendation profile không còn score/percentage/weakness claim.
+- [x] `/exams/thong-ke` không đổi và vẫn là canonical deep exam analytics.
+
+### Profile boundary và layout
+
+- [x] Profile giữ WelcomeHero, general KPI, grade progress, continue learning và general recommendation.
+- [x] `LearningAnalyticsEntryCard` vẫn ngay sau WelcomeHero và trỏ `/exams/thong-ke`.
+- [x] Card vẫn link-only; không KPI, API, localStorage, dashboard hook/mapper hoặc full dashboard mount.
+- [x] Grid ba chart và strength/weakness wrapper đã bị xóa, không placeholder/empty landmark.
+- [x] Grade progress full-width với inner max-width; không tạo overflow/scroll context mới.
+- [x] Heading hierarchy H1 → H2 → H3; grade progress có accessible progressbar semantics.
+- [x] ProfileLayout, sidebar, auth route và canonical route không đổi.
+
+### Validation
+
+- [x] Targeted profile/card/auth: 3 files, 8 tests PASS.
+- [x] Removed-content assertions dùng exact accessible heading/text, không snapshot-only.
+- [x] Retained-content/no-fetch/localStorage/dashboard-mount assertions PASS.
+- [x] Full frontend: 51 files, 404 tests PASS.
+- [x] TypeScript PASS.
+- [x] Targeted ESLint PASS, zero warnings.
+- [x] Production build PASS, 4.170 modules.
+- [x] Bốn exam build artifacts được restore và SHA-256 khớp byte-for-byte.
+- [x] Bundle: dashboard API chỉ trong lazy dashboard chunk; không DEV fixture/synthetic/docs marker.
+- [x] Chart tuần/chủ đề vẫn tồn tại vì `/profile/scores` là consumer; profile dashboard không import/render.
+- [ ] Authenticated browser responsive matrix: `CANNOT_CONFIRM` — không có verified session; component/integration harness PASS.
+- [x] Không backend/database/migration/scoring/recovery/History RAG/data-exams change.
+- [x] Cleanup chưa stage, commit hoặc push.

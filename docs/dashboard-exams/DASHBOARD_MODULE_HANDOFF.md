@@ -3,7 +3,7 @@
 > Tài liệu độc lập dành cho AI/agent tiếp nhận module dashboard người dùng.  
 > Mục tiêu: hiểu module đang làm gì, dữ liệu nào được dùng, phần frontend/backend đang ở đâu và cần tiếp tục thế nào mà không phải đọc toàn bộ source code.
 
-**Cập nhật:** 2026-07-24  
+**Cập nhật:** 2026-07-25
 **Repository:** `D:/KLTN/lich-su-viet-nam-3d`  
 **Frontend:** `D:/KLTN/lich-su-viet-nam-3d/frontend`  
 **Route:** `/exams/thong-ke`
@@ -1096,7 +1096,8 @@ Module này không export qua barrel và không import page, Recharts, hook, API
 
 Không thay đổi AppHeader, ProfileLayout, ExamV2HistoryPage hoặc ExamV2ResultPage. Contextual history/result CTA
 được deferred. Audit quyết định được commit riêng tại `838ed43047896fd3cddb1b484de4b20b786d65f8`;
-implementation hiện unstaged/uncommitted và dừng ở REVIEW GATE.
+implementation discoverability đã commit/push riêng tại
+`a995f3e75369cb2356d582815c1bd27b99b8de6f`.
 
 Targeted automated validation hiện tại:
 
@@ -1116,4 +1117,52 @@ fixture chunk hoặc synthetic marker. Bốn generated exam artifacts được b
 byte-for-byte sau build.
 
 Real authenticated browser profile session vẫn `CANNOT_CONFIRM`; profile card được kiểm tra bằng
-component/integration harness, không bypass auth. Implementation vẫn unstaged/uncommitted và chưa push.
+component/integration harness, không bypass auth. Discoverability implementation đã commit/push; profile
+duplication cleanup ở mục 18 là change set mới chưa stage/commit/push.
+
+---
+
+## 18. Profile overview không còn duplicated exam analytics
+
+Cleanup ngày 2026-07-25 xác lập rõ hai surface:
+
+- `/profile/dashboard`: general learning overview;
+- `/exams/thong-ke`: canonical deep exam analytics duy nhất.
+
+Profile không còn render bốn khối mock trùng analytics luyện thi:
+
+1. `Điểm theo tuần`;
+2. `Tỉ lệ đúng theo chủ đề`;
+3. `Chủ đề làm tốt nhất`;
+4. `Chủ đề cần ôn luyện`.
+
+KPI profile `Điểm TB` bị loại vì exact source `mockStats.averageScore` là số mock không có bằng chứng
+aggregate nhiều module. `ProgressByGrade.averageScore` cũng bị loại; progress theo lớp chỉ còn
+`eventsViewed/eventsTotal`. Gợi ý profile được giữ ở vai trò general recommendation nhưng không còn copy dựa
+trên điểm, percentage hoặc weakness topic.
+
+Profile vẫn giữ WelcomeHero, sự kiện đã xem, quiz đã hoàn thành, streak, thời gian học, tiến độ theo lớp, tiếp
+tục học, gợi ý chung và card `Thống kê luyện thi`. Card nằm ngay sau WelcomeHero, là link-only tới
+`/exams/thong-ke`, không KPI, không API, không localStorage, không hook/mapper và không mount full dashboard.
+
+Layout cũ ba cột và strength/weakness grid đã bị xóa khỏi render tree. Tiến độ theo lớp hiện là section
+full-width với content `max-width`, không placeholder, empty wrapper, fixed min-height hay scroll context mới.
+Heading profile theo thứ tự H1 → H2 → H3; grade meter có semantics `progressbar`.
+
+Các chart/type tuần và chủ đề vẫn tồn tại trong shared profile source vì `/profile/scores` còn sử dụng; chúng
+không còn được import/render bởi `ProfileDashboardPage`.
+
+Validation:
+
+```text
+targeted profile/card/auth tests PASS — 3 files, 8 tests
+full frontend tests PASS — 51 files, 404 tests
+TypeScript PASS
+targeted ESLint PASS, zero warnings
+production build PASS — 4,170 modules
+bundle boundary PASS
+AUTHENTICATED_BROWSER_QA — CANNOT_CONFIRM; integration harness PASS
+```
+
+Canonical dashboard, App route, ProfileLayout, auth, backend, migration, database, History RAG và exam data
+không đổi. Cleanup đang ở REVIEW GATE, chưa stage/commit/push.

@@ -1,6 +1,6 @@
 # Dashboard Analytics — Implementation Progress
 
-Ngày cập nhật: 2026-07-24  
+Ngày cập nhật: 2026-07-25
 Nhánh làm việc: `dashboard_exams`  
 Goal 1 commit: `0edd68166609cbc1228c79e5218dc91038e75ac7`
 
@@ -23,6 +23,7 @@ Goal 3B2 commit / Goal 4 baseline: `76e69231e5b02006ad687026557384787b0d7a18`
 | Goal 3B1 | Hoàn thành, đã commit | Local scanner/adapters/owner scope/dedupe/aggregation/mapper thuần |
 | Goal 3B2 | Hoàn thành, đã commit | Anonymous local, exact-owner backend-off fallback, source priority và stale/cross-user protection |
 | Goal 4 | Hoàn thành, đã commit | Cross-tab refresh, release/security/performance/browser audit và release checklist; commit `4cf7184f` |
+| Profile analytics duplication cleanup | REVIEW GATE, chưa commit | Loại analytics luyện thi mock khỏi `/profile/dashboard`, giữ canonical `/exams/thong-ke` và link-only card |
 
 ## Goal 0 — Source audit
 
@@ -717,7 +718,8 @@ Audit navigation và profile integration đã được review và commit riêng 
 `838ed43047896fd3cddb1b484de4b20b786d65f8` với message
 `docs(dashboard): audit analytics access integration`.
 
-Implementation hiện dừng ở REVIEW GATE với các quyết định đã khóa:
+Implementation discoverability đã hoàn thành và được commit/push tại
+`a995f3e75369cb2356d582815c1bd27b99b8de6f` với các quyết định đã khóa:
 
 - `/exams/thong-ke` tiếp tục là canonical full-dashboard route và tiếp tục public;
 - `/exams` có primary entry “Thống kê học tập” bên cạnh các action luyện thi hiện có;
@@ -728,7 +730,8 @@ Implementation hiện dừng ở REVIEW GATE với các quyết định đã kh�
 - `PersonalLearningDashboardPage` vẫn lazy-loaded trong `App.tsx`;
 - AppHeader, ProfileLayout, history và result không thay đổi;
 - history/result contextual CTA được deferred sang Goal riêng sau product/browser feedback;
-- implementation chưa stage, commit hoặc push.
+- implementation discoverability đã commit/push riêng; profile duplication cleanup bên dưới là change set
+  mới đang dừng ở REVIEW GATE.
 
 Targeted validation tại implementation review gate:
 
@@ -748,3 +751,52 @@ overflow riêng. Anonymous `/profile/dashboard` vẫn redirect `/login`.
 
 Real authenticated browser profile session là `CANNOT_CONFIRM`; profile card được kiểm tra bằng component và
 integration harness theo fallback đã duyệt. Không bypass auth và không đọc credential/cookie/token.
+
+## Profile analytics duplication cleanup
+
+Ngày 2026-07-25, `/profile/dashboard` được tinh gọn để trở lại đúng vai trò general learning overview.
+Implementation hiện dừng tại REVIEW GATE, chưa stage/commit/push.
+
+Đã xóa hoàn toàn khỏi render tree của profile:
+
+- `Điểm theo tuần`;
+- `Tỉ lệ đúng theo chủ đề`;
+- `Chủ đề làm tốt nhất`;
+- `Chủ đề cần ôn luyện`.
+
+KPI `Điểm TB` cũng bị loại. Exact source là `mockStats.averageScore`; field này chỉ là số mock trên profile,
+không có provenance chứng minh aggregate đa-module và còn bị lặp trong recommendation copy. Các
+`ProgressByGrade.averageScore` mock cũng bị loại để progress theo lớp chỉ mô tả số sự kiện đã xem/tổng sự kiện.
+Không nối Dashboard API hoặc tự gán lại label cho các score mock này.
+
+Các phần còn lại:
+
+- WelcomeHero, sự kiện đã xem, số quiz hoàn thành, chuỗi học và thời gian học;
+- card `Thống kê luyện thi` ngay sau WelcomeHero, link-only tới `/exams/thong-ke`;
+- tiến độ theo lớp full-width với phần nội dung giới hạn `max-width`, progressbar có accessible name/value;
+- tiếp tục học;
+- gợi ý học tập chung không chứa score/percentage/weakness claim.
+
+`mockWeeklyScores`, `mockCategoryScores`, `WeeklyScorePoint`, `CategoryScore`, `WeeklyScoreChart` và
+`CategoryChart` không bị xóa vì `/profile/scores` vẫn là consumer độc lập. Cleanup chỉ bỏ import/render của
+chúng khỏi `ProfileDashboardPage`.
+
+Boundary giữ nguyên:
+
+- `/exams/thong-ke` vẫn public, lazy và là canonical deep exam analytics;
+- profile không import/mount page/hook/API/local analytics, không đọc localStorage và không tạo request;
+- `LearningAnalyticsEntryCard` vẫn là semantic link, không nested interaction;
+- `App.tsx`, `ProfileLayout`, auth, backend, database, migration và dashboard implementation không đổi.
+
+Validation tại review gate:
+
+```text
+targeted profile/card/auth tests PASS — 3 files, 8 tests
+full frontend tests PASS — 51 files, 404 tests
+TypeScript PASS
+targeted ESLint PASS, zero warnings
+production build PASS — 4,170 modules
+build artifact restore PASS — 4 exam artifacts SHA-256 byte-for-byte
+bundle boundary PASS — dashboard API chỉ trong lazy dashboard chunk; không DEV fixture/synthetic/docs marker
+AUTHENTICATED_BROWSER_QA — CANNOT_CONFIRM (không có verified session; component/integration harness PASS)
+```

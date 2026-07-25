@@ -23,7 +23,7 @@ export default function LearningAnalyticsEntryCard() {
           Thống kê luyện thi
         </span>
         <span className="mt-1 block text-sm leading-6 text-stone-600">
-          Xem xu hướng điểm, chủ đề mạnh yếu và nhịp học tập từ các bài luyện thi.
+          Xem xu hướng điểm, chủ đề mạnh yếu và lịch sử luyện thi tại trang thống kê chuyên biệt.
         </span>
         <span className="mt-3 inline-flex items-center gap-1.5 text-xs font-mono font-bold uppercase tracking-wider text-red-900">
           Xem thống kê
