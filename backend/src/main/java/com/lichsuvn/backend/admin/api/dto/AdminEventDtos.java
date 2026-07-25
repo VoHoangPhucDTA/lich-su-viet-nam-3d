@@ -1,5 +1,7 @@
 package com.lichsuvn.backend.admin.api.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.List;
@@ -83,6 +85,10 @@ public final class AdminEventDtos {
             Flags flags,
             Instant publishedAt,
             Instant createdAt,
+            @JsonFormat(
+                    shape = JsonFormat.Shape.STRING,
+                    pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'",
+                    timezone = "UTC")
             Instant updatedAt
     ) {
     }

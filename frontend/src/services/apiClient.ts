@@ -36,12 +36,14 @@ export interface StoredUser {
 export class ApiRequestError extends Error {
   code: string;
   status: number;
+  violations: Array<{ field: string; message: string }>;
 
-  constructor(code: string, message: string, status = 0) {
+  constructor(code: string, message: string, status = 0, violations: Array<{ field: string; message: string }> = []) {
     super(message);
     this.name = 'ApiRequestError';
     this.code = code;
     this.status = status;
+    this.violations = violations;
   }
 }
 
@@ -193,10 +195,14 @@ async function apiRequest<T>(path: string, init: RequestInit, retry = true): Pro
     // A proxy or unavailable backend can return a non-JSON error body.
   }
   if (!response.ok || !payload?.success) {
+    const errorData = payload?.data as unknown as {
+      violations?: Array<{ field: string; message: string }>;
+    } | undefined;
     throw new ApiRequestError(
       payload?.code || 'API_ERROR',
       payload?.message || `API request failed: ${path}`,
       response.status,
+      errorData?.violations ?? [],
     );
   }
 

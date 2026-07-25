@@ -100,6 +100,57 @@ export interface AdminEventCompleteness {
   }>;
 }
 
+export interface AdminEventCreateRequest {
+  title: string;
+  slug: string;
+  shortTitle?: string | null;
+  eventLevel: 'atomic' | 'collection';
+  eventType: 'military' | 'political' | 'economic' | 'cultural';
+  eventSubtype?: string | null;
+  startYear?: number | null;
+  endYear?: number | null;
+  effectiveEndYear?: number | null;
+  displayDate?: string | null;
+  datePrecision?: string | null;
+  cardSummary?: string | null;
+  canonicalSummary?: string | null;
+  detailedNarrative?: string | null;
+  significance?: string | null;
+  keyFacts: string[];
+  grades: number[];
+  showOnHomepage: boolean;
+  showOnTimeline: boolean;
+  featured: boolean;
+}
+
+export interface AdminEventCorePatchRequest {
+  expectedUpdatedAt: string;
+  title?: string | null;
+  slug?: string | null;
+  shortTitle?: string | null;
+  eventLevel?: 'atomic' | 'collection' | null;
+  eventType?: 'military' | 'political' | 'economic' | 'cultural' | null;
+  eventSubtype?: string | null;
+  startYear?: number | null;
+  endYear?: number | null;
+  effectiveEndYear?: number | null;
+  displayDate?: string | null;
+  datePrecision?: string | null;
+  cardSummary?: string | null;
+  canonicalSummary?: string | null;
+  detailedNarrative?: string | null;
+  significance?: string | null;
+  keyFacts?: string[] | null;
+  showOnHomepage?: boolean | null;
+  showOnTimeline?: boolean | null;
+  featured?: boolean | null;
+}
+
+export interface AdminEventGradesRequest {
+  expectedUpdatedAt: string;
+  grades: number[];
+}
+
 export interface AdminEventDetail {
   core: { id: string; slug: string; title: string; shortTitle?: string | null };
   content: {
@@ -295,13 +346,21 @@ export function getAdminEventDetail(id: string, signal?: AbortSignal) {
   return apiGet<AdminEventDetail>(`/api/admin/events/${encodeURIComponent(id)}`, { signal });
 }
 
+export function createAdminEvent(payload: AdminEventCreateRequest, signal?: AbortSignal) {
+  return apiPost<AdminEventDetail>('/api/admin/events', payload, { signal });
+}
+
+export function updateAdminEventCore(id: string, payload: AdminEventCorePatchRequest, signal?: AbortSignal) {
+  return apiPatch<AdminEventDetail>(`/api/admin/events/${encodeURIComponent(id)}/core`, payload, { signal });
+}
+
+export function replaceAdminEventGrades(id: string, payload: AdminEventGradesRequest, signal?: AbortSignal) {
+  return apiPut<AdminEventDetail>(`/api/admin/events/${encodeURIComponent(id)}/grades`, payload, { signal });
+}
+
 /** Kept only for the currently unreachable legacy editor module. */
 export function getAdminEvent(id: string) {
   return apiGet<AdminEventPayload>(`/api/admin/events/${encodeURIComponent(id)}`);
-}
-
-export function createAdminEvent(payload: AdminEventPayload) {
-  return apiPost<AdminEventPayload>('/api/admin/events', payload);
 }
 
 export function updateAdminEvent(id: string, payload: AdminEventPayload) {

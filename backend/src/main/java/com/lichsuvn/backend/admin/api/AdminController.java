@@ -2,13 +2,17 @@ package com.lichsuvn.backend.admin.api;
 
 import com.lichsuvn.backend.admin.api.dto.AdminDashboardDtos;
 import com.lichsuvn.backend.admin.api.dto.AdminEventDtos;
+import com.lichsuvn.backend.admin.api.dto.AdminEventMutationDtos;
 import com.lichsuvn.backend.admin.application.AdminDashboardReadService;
 import com.lichsuvn.backend.admin.application.AdminEventReadService;
+import com.lichsuvn.backend.admin.application.AdminEventMutationService;
 import com.lichsuvn.backend.admin.application.AdminService;
 import com.lichsuvn.backend.auth.security.UserPrincipal;
 import com.lichsuvn.backend.common.api.ApiResponse;
 import com.lichsuvn.backend.common.exception.ApiException;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import java.net.URI;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -20,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import jakarta.validation.Valid;
 
 import java.util.Map;
 
@@ -30,15 +35,18 @@ public class AdminController {
     private final AdminService adminService;
     private final AdminEventReadService adminEventReadService;
     private final AdminDashboardReadService adminDashboardReadService;
+    private final AdminEventMutationService adminEventMutationService;
 
     public AdminController(
             AdminService adminService,
             AdminEventReadService adminEventReadService,
-            AdminDashboardReadService adminDashboardReadService
+            AdminDashboardReadService adminDashboardReadService,
+            AdminEventMutationService adminEventMutationService
     ) {
         this.adminService = adminService;
         this.adminEventReadService = adminEventReadService;
         this.adminDashboardReadService = adminDashboardReadService;
+        this.adminEventMutationService = adminEventMutationService;
     }
 
     @GetMapping("/dashboard")
@@ -129,13 +137,13 @@ public class AdminController {
     }
 
     @PostMapping("/events")
-    public ApiResponse<Map<String, Object>> createEvent(
-            @RequestBody Map<String, Object> body,
+    public ResponseEntity<ApiResponse<AdminEventDtos.Detail>> createEvent(
+            @Valid @RequestBody AdminEventMutationDtos.Create body,
             @AuthenticationPrincipal UserPrincipal principal
     ) {
-        throw mutationDisabled(
-                "ADMIN_EVENT_CREATE_DISABLED",
-                "Event creation is temporarily disabled while safe event editing is being completed");
+        AdminEventDtos.Detail created = adminEventMutationService.create(body, principal);
+        return ResponseEntity.created(URI.create("/api/admin/events/" + created.core().id()))
+                .body(ApiResponse.ok(created));
     }
 
     @PutMapping("/events/{id}")
@@ -149,13 +157,33 @@ public class AdminController {
                 "Event updates are temporarily disabled while safe event editing is being completed");
     }
 
+    @PatchMapping("/events/{id}/core")
+    public ApiResponse<AdminEventDtos.Detail> updateEventCore(
+            @PathVariable String id,
+            @RequestBody AdminEventMutationDtos.CorePatch body,
+            @AuthenticationPrincipal UserPrincipal principal
+    ) {
+        return ApiResponse.ok(adminEventMutationService.updateCore(id, body, principal));
+    }
+
+    @PutMapping("/events/{id}/grades")
+    public ApiResponse<AdminEventDtos.Detail> replaceEventGrades(
+            @PathVariable String id,
+            @Valid @RequestBody AdminEventMutationDtos.Grades body,
+            @AuthenticationPrincipal UserPrincipal principal
+    ) {
+        return ApiResponse.ok(adminEventMutationService.replaceGrades(id, body, principal));
+    }
+
     @PatchMapping("/events/{id}/status")
     public ApiResponse<Map<String, Object>> updateEventStatus(
             @PathVariable String id,
             @RequestBody Map<String, Object> body,
             @AuthenticationPrincipal UserPrincipal principal
     ) {
-        return ApiResponse.ok(adminService.updateEventStatus(id, body, principal));
+        throw mutationDisabled(
+                "ADMIN_EVENT_STATUS_DISABLED",
+                "Event status changes are outside the safe core editing phase");
     }
 
     @DeleteMapping("/events/{id}")

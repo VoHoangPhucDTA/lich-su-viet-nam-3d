@@ -4,6 +4,7 @@ import com.lichsuvn.backend.admin.api.dto.AdminDashboardDtos;
 import com.lichsuvn.backend.admin.api.dto.AdminEventDtos;
 import com.lichsuvn.backend.admin.application.AdminDashboardReadService;
 import com.lichsuvn.backend.admin.application.AdminEventReadService;
+import com.lichsuvn.backend.admin.application.AdminEventMutationService;
 import com.lichsuvn.backend.admin.application.AdminService;
 import com.lichsuvn.backend.auth.application.AuthService;
 import com.lichsuvn.backend.auth.security.UserPrincipal;
@@ -23,6 +24,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.Map;
 
@@ -64,6 +66,9 @@ class AdminControllerSecurityTest {
 
     @MockitoBean
     AdminDashboardReadService adminDashboardReadService;
+
+    @MockitoBean
+    AdminEventMutationService adminEventMutationService;
 
     @MockitoBean
     AuthService authService;
@@ -274,13 +279,19 @@ class AdminControllerSecurityTest {
     void adminEventMutationsAreQuarantinedBeforeUnsafeServiceLogic() throws Exception {
         var admin = user("admin").authorities(() -> "ROLE_admin");
 
+        when(adminEventMutationService.create(any(), nullable(UserPrincipal.class))).thenReturn(
+                new AdminEventDtos.Detail(
+                        new AdminEventDtos.Core("draft-event", "draft-event", "Draft event", null),
+                        null, null, null, null, null, null, null, null, List.of(), null));
         mockMvc.perform(post("/api/admin/events")
                         .with(admin)
                         .with(csrf())
                         .contentType("application/json")
-                        .content("{}"))
-                .andExpect(status().isConflict())
-                .andExpect(jsonPath("$.code").value("ADMIN_EVENT_CREATE_DISABLED"));
+                        .content("""
+                                {"title":"Draft event","slug":"draft-event","eventLevel":"atomic",
+                                 "eventType":"political","keyFacts":[],"grades":[]}
+                                """))
+                .andExpect(status().isCreated());
 
         mockMvc.perform(put("/api/admin/events/event-1")
                         .with(admin)
@@ -293,6 +304,12 @@ class AdminControllerSecurityTest {
         mockMvc.perform(delete("/api/admin/events/event-1").with(admin).with(csrf()))
                 .andExpect(status().isConflict())
                 .andExpect(jsonPath("$.code").value("EVENT_HARD_DELETE_DISABLED"));
+
+        mockMvc.perform(patch("/api/admin/events/event-1/status")
+                        .with(admin).with(csrf())
+                        .contentType("application/json").content("{\"status\":\"published\"}"))
+                .andExpect(status().isConflict())
+                .andExpect(jsonPath("$.code").value("ADMIN_EVENT_STATUS_DISABLED"));
 
         verifyNoInteractions(adminService);
     }
@@ -319,7 +336,51 @@ class AdminControllerSecurityTest {
                 .andExpect(status().isForbidden())
                 .andExpect(jsonPath("$.code").value("FORBIDDEN"));
 
+        mockMvc.perform(patch("/api/admin/events/event-1/core")
+                        .with(user("student").authorities(() -> "ROLE_student"))
+                        .with(csrf())
+                        .contentType("application/json")
+                        .content("{\"expectedUpdatedAt\":\"2026-07-24T17:20:30.123456Z\",\"title\":\"x\"}"))
+                .andExpect(status().isForbidden());
+
+        mockMvc.perform(put("/api/admin/events/event-1/grades")
+                        .with(user("teacher").authorities(() -> "ROLE_teacher"))
+                        .with(csrf())
+                        .contentType("application/json")
+                        .content("{\"expectedUpdatedAt\":\"2026-07-24T17:20:30.123456Z\",\"grades\":[]}"))
+                .andExpect(status().isForbidden());
+
         verifyNoInteractions(adminService);
+    }
+
+    @Test
+    void adminCanReachTypedCoreAndGradeMutationEndpoints() throws Exception {
+        var admin = user("admin").authorities(() -> "ROLE_admin");
+        var mutationDetail = new AdminEventDtos.Detail(
+                new AdminEventDtos.Core("event-1", "event-1", "Event", null),
+                null, null, null,
+                new AdminEventDtos.Publication(
+                        "draft", new AdminEventDtos.Flags(false, false, false),
+                        null, null, Instant.parse("2026-07-24T17:20:30Z")),
+                null, null, null, null, List.of(), null);
+        when(adminEventMutationService.updateCore(
+                anyString(), any(), nullable(UserPrincipal.class))).thenReturn(mutationDetail);
+        when(adminEventMutationService.replaceGrades(
+                anyString(), any(), nullable(UserPrincipal.class))).thenReturn(mutationDetail);
+
+        mockMvc.perform(patch("/api/admin/events/event-1/core")
+                        .with(admin).with(csrf())
+                        .contentType("application/json")
+                        .content("{\"expectedUpdatedAt\":\"2026-07-24T17:20:30.123456Z\",\"title\":\"Updated\"}"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.data.publication.updatedAt")
+                        .value("2026-07-24T17:20:30.000000Z"));
+
+        mockMvc.perform(put("/api/admin/events/event-1/grades")
+                        .with(admin).with(csrf())
+                        .contentType("application/json")
+                        .content("{\"expectedUpdatedAt\":\"2026-07-24T17:20:30.123456Z\",\"grades\":[10,12]}"))
+                .andExpect(status().isOk());
     }
 
     @TestConfiguration

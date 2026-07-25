@@ -10,8 +10,10 @@ describe('Admin route characterization', () => {
     expect(appSource).toContain('path="/admin/events/:id"');
   });
 
-  it('documents that event editor routes are currently absent', () => {
-    expect(appSource).not.toContain('path="/admin/events/new"');
-    expect(appSource).not.toContain('path="/admin/events/:id/edit"');
+  it('opens only the protected Phase 5 event create and edit routes', () => {
+    expect(appSource).toContain('path="/admin/events/new"');
+    expect(appSource).toContain('path="/admin/events/:id/edit"');
+    expect(appSource).not.toContain('path="/admin/events/:id/media"');
+    expect(appSource).not.toContain('path="/admin/events/:id/geography"');
   });
 });
