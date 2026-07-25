@@ -6,6 +6,7 @@ import com.lichsuvn.backend.admin.application.AdminEventReadService;
 import com.lichsuvn.backend.admin.application.EventCompletenessService;
 import com.lichsuvn.backend.admin.infrastructure.AdminDashboardReadRepository;
 import com.lichsuvn.backend.admin.infrastructure.AdminEventReadRepository;
+import com.lichsuvn.backend.event.infrastructure.EventReadRepository;
 import org.flywaydb.core.Flyway;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -28,6 +29,7 @@ class AdminEventReadRepositoryIntegrationTest {
     private static JdbcTemplate jdbc;
     private static AdminEventReadService service;
     private static AdminDashboardReadService dashboardService;
+    private static EventReadRepository publicRepository;
     private static boolean available;
     private static String unavailableReason;
 
@@ -48,6 +50,7 @@ class AdminEventReadRepositoryIntegrationTest {
             jdbc = new JdbcTemplate(dataSource);
             var namedJdbc = new NamedParameterJdbcTemplate(dataSource);
             var repository = new AdminEventReadRepository(namedJdbc, new ObjectMapper());
+            publicRepository = new EventReadRepository(namedJdbc, new ObjectMapper());
             var completeness = new EventCompletenessService();
             service = new AdminEventReadService(repository, completeness);
             dashboardService = new AdminDashboardReadService(
@@ -174,7 +177,10 @@ class AdminEventReadRepositoryIntegrationTest {
         var detail = service.findEvent("complete-point");
         assertEquals("Complete point", detail.core().title());
         assertEquals(1, detail.media().activeCount());
-        assertEquals(1, detail.media().items().size());
+        assertEquals(2, detail.media().items().size());
+        assertNull(detail.media().items().stream()
+                .filter(item -> item.id() != null && item.url() == null)
+                .findFirst().orElseThrow().url());
         assertEquals(1, detail.classification().grades().size());
         assertTrue(detail.textbook().hasTextbookContent());
         assertEquals(1, detail.textbook().totalReferenceCount());
@@ -241,6 +247,60 @@ class AdminEventReadRepositoryIntegrationTest {
         assertFalse(serialized.contains("after_json"));
         assertFalse(serialized.contains("local:"));
         assertFalse(serialized.contains("secret"));
+    }
+
+    @Test
+    void duplicateThumbnailDiagnosticsStayConsistentAndPublicMediaRedactsUnsafeLegacyRows() {
+        assumeTrue(available, unavailableReason);
+        jdbc.update("""
+                INSERT INTO event_media(
+                    event_id,media_type,url,source_name,license,is_thumbnail,sort_order,status)
+                VALUES
+                  ('complete-point','image','https://example.test/duplicate.jpg',
+                   NULL,NULL,TRUE,1,'active'),
+                  ('complete-point','image','http://127.0.0.1/private.jpg',
+                   'local:private-source','local:private-license',FALSE,2,'active')
+                """);
+        Long unsafeId = jdbc.queryForObject("""
+                SELECT id FROM event_media
+                WHERE event_id='complete-point' AND url='http://127.0.0.1/private.jpg'
+                """, Long.class);
+        try {
+            var detail = service.findEvent("complete-point");
+            var unsafe = detail.media().items().stream()
+                    .filter(item -> item.id().equals(unsafeId)).findFirst().orElseThrow();
+            assertNull(unsafe.url());
+            assertFalse(unsafe.urlSafe());
+            assertNull(unsafe.sourceName());
+            assertNull(unsafe.license());
+
+            List<String> listCodes = service.findEvents(
+                    "Complete point", null, null, null, null, null, null,
+                    null, null, null, null, null, null, null, 20, 0)
+                    .items().getFirst().completeness().issues().stream()
+                    .map(issue -> issue.code()).toList();
+            List<String> detailCodes = detail.completeness().issues().stream()
+                    .map(issue -> issue.code()).toList();
+            List<String> dashboardCodes = dashboardService.findDashboard().attention().stream()
+                    .filter(item -> item.id().equals("complete-point")).findFirst().orElseThrow()
+                    .completeness().issues().stream().map(issue -> issue.code()).toList();
+            assertEquals(listCodes, detailCodes);
+            assertEquals(detailCodes, dashboardCodes);
+            assertTrue(detailCodes.contains("INVALID_THUMBNAIL"));
+            assertFalse(detailCodes.contains("MISSING_THUMBNAIL"));
+
+            var publicDetail = publicRepository.findDetailByIdOrSlug("complete-point").orElseThrow();
+            assertTrue(publicDetail.media().stream()
+                    .allMatch(item -> item.url() != null && !item.url().contains("127.0.0.1")));
+            assertFalse(publicDetail.toString().contains("local:private-source"));
+            assertFalse(publicDetail.toString().contains("local:private-license"));
+        } finally {
+            jdbc.update("""
+                    DELETE FROM event_media
+                    WHERE event_id='complete-point'
+                      AND url IN ('https://example.test/duplicate.jpg','http://127.0.0.1/private.jpg')
+                    """);
+        }
     }
 
     private static void assertSingle(

@@ -2,13 +2,17 @@ package com.lichsuvn.backend.admin.integration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lichsuvn.backend.admin.api.dto.AdminEventMutationDtos;
+import com.lichsuvn.backend.admin.api.dto.AdminEventMediaMutationDtos;
+import com.lichsuvn.backend.admin.application.AdminEventMediaMutationService;
 import com.lichsuvn.backend.admin.application.AdminEventMutationService;
 import com.lichsuvn.backend.admin.application.AdminEventReadService;
 import com.lichsuvn.backend.admin.application.EventCompletenessService;
 import com.lichsuvn.backend.admin.infrastructure.AdminEventMutationRepository;
 import com.lichsuvn.backend.admin.infrastructure.AdminEventReadRepository;
+import com.lichsuvn.backend.admin.infrastructure.AdminEventMediaMutationRepository;
 import com.lichsuvn.backend.auth.security.UserPrincipal;
 import com.lichsuvn.backend.common.exception.ApiException;
+import com.lichsuvn.backend.common.media.MediaUrlPolicy;
 import org.flywaydb.core.Flyway;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -22,11 +26,15 @@ import org.testcontainers.mysql.MySQLContainer;
 
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
@@ -35,6 +43,7 @@ class AdminEventMutationIntegrationTest {
     private static MySQLContainer mysql;
     private static JdbcTemplate jdbc;
     private static AdminEventMutationService service;
+    private static AdminEventMediaMutationService mediaService;
     private static TransactionTemplate tx;
     private static boolean available;
     private static String unavailableReason;
@@ -61,8 +70,11 @@ class AdminEventMutationIntegrationTest {
             var mapper = new ObjectMapper();
             var read = new AdminEventReadService(
                     new AdminEventReadRepository(named, mapper), new EventCompletenessService());
-            service = new AdminEventMutationService(
-                    new AdminEventMutationRepository(named, mapper), read, mapper);
+            var mutations = new AdminEventMutationRepository(named, mapper);
+            service = new AdminEventMutationService(mutations, read, mapper);
+            mediaService = new AdminEventMediaMutationService(
+                    new AdminEventMediaMutationRepository(named), mutations, read,
+                    new MediaUrlPolicy(), mapper);
             tx = new TransactionTemplate(new DataSourceTransactionManager(dataSource));
             available = true;
         } catch (Exception ex) {
@@ -329,6 +341,304 @@ class AdminEventMutationIntegrationTest {
         assertEquals(auditCount, jdbc.queryForObject("""
                 SELECT COUNT(*) FROM admin_audit_logs WHERE entity_id='phase5-core-rollback'
                 """, Integer.class));
+    }
+
+    @Test
+    void mediaMetadataUsesOpaqueVersionExternalStorageAndSinglePinnedThumbnail() {
+        assumeTrue(available, unavailableReason);
+        tx.executeWithoutResult(status -> service.create(create("phase6-media"), ADMIN));
+        jdbc.update("""
+                UPDATE historical_events
+                SET updated_at='2026-07-24 10:20:30.123456'
+                WHERE id='phase6-media'
+                """);
+        var before = serviceRead("phase6-media");
+        assertTrue(version(before).endsWith(".123456Z"), version(before));
+        var first = tx.execute(status -> mediaService.add("phase6-media",
+                new AdminEventMediaMutationDtos.Create(
+                        version(before), "image", "https://cdn.example.org/one.jpg",
+                        "One", "One", "Museum", "CC BY", "active"), ADMIN));
+        assertNotEquals(version(before), version(first.detail()));
+        assertEquals("external", jdbc.queryForObject(
+                "SELECT storage_type FROM event_media WHERE id=?", String.class, first.mediaId()));
+
+        var second = tx.execute(status -> mediaService.add("phase6-media",
+                new AdminEventMediaMutationDtos.Create(
+                        version(first.detail()), "image", "https://cdn.example.org/two.jpg",
+                        "Two", "Two", null, null, "active"), ADMIN));
+        var selected = tx.execute(status -> mediaService.selectThumbnail(
+                "phase6-media", second.mediaId(),
+                new AdminEventMediaMutationDtos.Version(version(second.detail())), ADMIN));
+
+        assertEquals(1, jdbc.queryForObject("""
+                SELECT COUNT(*) FROM event_media
+                WHERE event_id='phase6-media' AND is_thumbnail=TRUE
+                """, Integer.class));
+        assertEquals(0, jdbc.queryForObject(
+                "SELECT sort_order FROM event_media WHERE id=?", Integer.class, second.mediaId()));
+        assertEquals(second.mediaId(), selected.media().thumbnail().id());
+    }
+
+    @Test
+    void staleOrUnsafeMediaMutationLeavesRowsAndVersionUntouched() {
+        assumeTrue(available, unavailableReason);
+        tx.executeWithoutResult(status -> service.create(create("phase6-safe"), ADMIN));
+        var before = serviceRead("phase6-safe");
+        ApiException unsafe = assertThrows(ApiException.class, () -> tx.execute(status ->
+                mediaService.add("phase6-safe", new AdminEventMediaMutationDtos.Create(
+                        version(before), "image", "http://127.0.0.1/private.jpg",
+                        null, null, null, null, "active"), ADMIN)));
+        assertEquals("INVALID_MEDIA_URL", unsafe.getCode());
+        assertEquals(version(before), version(serviceRead("phase6-safe")));
+        assertEquals(0, jdbc.queryForObject(
+                "SELECT COUNT(*) FROM event_media WHERE event_id='phase6-safe'", Integer.class));
+
+        var unsupported = media(version(before), "image", "safe.jpg", "active");
+        unsupported.unsupported("storageType", "local");
+        ApiException forbiddenField = assertThrows(ApiException.class, () -> tx.execute(status ->
+                mediaService.add("phase6-safe", unsupported, ADMIN)));
+        assertEquals("UNSUPPORTED_FIELD", forbiddenField.getCode());
+        assertEquals(version(before), version(serviceRead("phase6-safe")));
+    }
+
+    @Test
+    void mediaPatchReorderRemoveAndOwnershipUseOneVersionedAggregate() {
+        assumeTrue(available, unavailableReason);
+        tx.executeWithoutResult(status -> service.create(create("phase6-flow"), ADMIN));
+        tx.executeWithoutResult(status -> service.create(create("phase6-foreign"), ADMIN));
+
+        var first = tx.execute(status -> mediaService.add("phase6-flow",
+                media(version(serviceRead("phase6-flow")), "image", "one.jpg", "active"), ADMIN));
+        var second = tx.execute(status -> mediaService.add("phase6-flow",
+                media(version(first.detail()), "video", "two.mp4", "hidden"), ADMIN));
+        var third = tx.execute(status -> mediaService.add("phase6-flow",
+                media(version(second.detail()), "document", "three.pdf", "missing"), ADMIN));
+        var foreign = tx.execute(status -> mediaService.add("phase6-foreign",
+                media(version(serviceRead("phase6-foreign")), "image", "foreign.jpg", "active"), ADMIN));
+
+        var patch = new AdminEventMediaMutationDtos.Patch();
+        patch.setExpectedUpdatedAt(version(third.detail()));
+        patch.setCaption("Updated caption");
+        patch.setStatus("active");
+        var patched = tx.execute(status -> mediaService.patch(
+                "phase6-flow", second.mediaId(), patch, ADMIN));
+        assertEquals("Updated caption", jdbc.queryForObject(
+                "SELECT caption FROM event_media WHERE id=?", String.class, second.mediaId()));
+
+        var selected = tx.execute(status -> mediaService.selectThumbnail(
+                "phase6-flow", first.mediaId(),
+                new AdminEventMediaMutationDtos.Version(version(patched)), ADMIN));
+        var reordered = tx.execute(status -> mediaService.reorder(
+                "phase6-flow",
+                new AdminEventMediaMutationDtos.Order(
+                        version(selected), List.of(third.mediaId(), second.mediaId(), first.mediaId())),
+                ADMIN));
+        assertEquals(List.of(first.mediaId(), third.mediaId(), second.mediaId()),
+                jdbc.queryForList("""
+                        SELECT id FROM event_media WHERE event_id='phase6-flow'
+                        ORDER BY sort_order,id
+                        """, Long.class));
+        assertEquals(List.of(0, 1, 2), jdbc.queryForList("""
+                SELECT sort_order FROM event_media WHERE event_id='phase6-flow'
+                ORDER BY sort_order,id
+                """, Integer.class));
+
+        String beforeOwnershipFailure = version(reordered);
+        var foreignPatch = new AdminEventMediaMutationDtos.Patch();
+        foreignPatch.setExpectedUpdatedAt(beforeOwnershipFailure);
+        foreignPatch.setCaption("Must not cross event");
+        ApiException ownership = assertThrows(ApiException.class, () -> tx.execute(status ->
+                mediaService.patch("phase6-flow", foreign.mediaId(), foreignPatch, ADMIN)));
+        assertEquals("EVENT_MEDIA_OWNERSHIP_MISMATCH", ownership.getCode());
+        assertEquals(beforeOwnershipFailure, version(serviceRead("phase6-flow")));
+        assertNull(jdbc.queryForObject(
+                "SELECT caption FROM event_media WHERE id=?", String.class, foreign.mediaId()));
+
+        var removed = tx.execute(status -> mediaService.remove(
+                "phase6-flow", second.mediaId(), beforeOwnershipFailure, ADMIN));
+        assertEquals(0, jdbc.queryForObject(
+                "SELECT COUNT(*) FROM event_media WHERE id=?", Integer.class, second.mediaId()));
+        assertEquals(List.of(0, 1), jdbc.queryForList("""
+                SELECT sort_order FROM event_media WHERE event_id='phase6-flow'
+                ORDER BY sort_order,id
+                """, Integer.class));
+        assertNotEquals(beforeOwnershipFailure, version(removed));
+    }
+
+    @Test
+    void reorderRejectsDuplicatesIncompleteAndNoOpWithoutChangingVersion() {
+        assumeTrue(available, unavailableReason);
+        tx.executeWithoutResult(status -> service.create(create("phase6-order"), ADMIN));
+        var first = tx.execute(status -> mediaService.add("phase6-order",
+                media(version(serviceRead("phase6-order")), "image", "one.jpg", "active"), ADMIN));
+        var second = tx.execute(status -> mediaService.add("phase6-order",
+                media(version(first.detail()), "image", "two.jpg", "hidden"), ADMIN));
+        String current = version(second.detail());
+
+        ApiException duplicate = assertThrows(ApiException.class, () -> tx.execute(status ->
+                mediaService.reorder("phase6-order",
+                        new AdminEventMediaMutationDtos.Order(
+                                current, List.of(first.mediaId(), first.mediaId())), ADMIN)));
+        assertEquals("DUPLICATE_MEDIA_ID", duplicate.getCode());
+        assertEquals(current, version(serviceRead("phase6-order")));
+
+        ApiException incomplete = assertThrows(ApiException.class, () -> tx.execute(status ->
+                mediaService.reorder("phase6-order",
+                        new AdminEventMediaMutationDtos.Order(current, List.of(first.mediaId())), ADMIN)));
+        assertEquals("INVALID_MEDIA_ORDER", incomplete.getCode());
+        assertEquals(current, version(serviceRead("phase6-order")));
+
+        ApiException noChanges = assertThrows(ApiException.class, () -> tx.execute(status ->
+                mediaService.reorder("phase6-order",
+                        new AdminEventMediaMutationDtos.Order(
+                                current, List.of(first.mediaId(), second.mediaId())), ADMIN)));
+        assertEquals("NO_CHANGES", noChanges.getCode());
+        assertEquals(current, version(serviceRead("phase6-order")));
+    }
+
+    @Test
+    void mediaLimitAndAuditFailureRollBackVersionRowsFlagsAndOrder() {
+        assumeTrue(available, unavailableReason);
+        tx.executeWithoutResult(status -> service.create(create("phase6-limit"), ADMIN));
+        jdbc.batchUpdate("""
+                INSERT INTO event_media(
+                    event_id,media_type,url,storage_type,is_thumbnail,sort_order,status)
+                VALUES('phase6-limit','image',?,'external',FALSE,?,'active')
+                """, java.util.stream.IntStream.range(0, 200)
+                .mapToObj(index -> new Object[]{"https://cdn.example.org/" + index + ".jpg", index})
+                .toList());
+        String limitVersion = version(serviceRead("phase6-limit"));
+        ApiException limit = assertThrows(ApiException.class, () -> tx.execute(status ->
+                mediaService.add("phase6-limit",
+                        media(limitVersion, "image", "overflow.jpg", "active"), ADMIN)));
+        assertEquals("EVENT_MEDIA_LIMIT_REACHED", limit.getCode());
+        assertEquals(200, jdbc.queryForObject(
+                "SELECT COUNT(*) FROM event_media WHERE event_id='phase6-limit'", Integer.class));
+        assertEquals(limitVersion, version(serviceRead("phase6-limit")));
+
+        tx.executeWithoutResult(status -> service.create(create("phase6-audit-rollback"), ADMIN));
+        var added = tx.execute(status -> mediaService.add("phase6-audit-rollback",
+                media(version(serviceRead("phase6-audit-rollback")), "image", "one.jpg", "active"), ADMIN));
+        byte[] missingUser = new byte[16];
+        missingUser[0] = 9;
+        var invalidActor = new UserPrincipal("missing", missingUser, "missing@test", List.of("admin"));
+        String before = version(added.detail());
+        assertThrows(RuntimeException.class, () -> tx.execute(status ->
+                mediaService.selectThumbnail("phase6-audit-rollback", added.mediaId(),
+                        new AdminEventMediaMutationDtos.Version(before), invalidActor)));
+        assertEquals(before, version(serviceRead("phase6-audit-rollback")));
+        assertEquals(0, jdbc.queryForObject(
+                "SELECT COUNT(*) FROM event_media WHERE event_id='phase6-audit-rollback' AND is_thumbnail",
+                Integer.class));
+        assertEquals(0, jdbc.queryForObject(
+                "SELECT sort_order FROM event_media WHERE id=?", Integer.class, added.mediaId()));
+    }
+
+    @Test
+    void thumbnailSelectionHealsDuplicatesAndConcurrentSameVersionHasOneWinner() throws Exception {
+        assumeTrue(available, unavailableReason);
+        tx.executeWithoutResult(status -> service.create(create("phase6-thumbnail"), ADMIN));
+        var first = tx.execute(status -> mediaService.add("phase6-thumbnail",
+                media(version(serviceRead("phase6-thumbnail")), "image", "one.jpg", "active"), ADMIN));
+        var second = tx.execute(status -> mediaService.add("phase6-thumbnail",
+                media(version(first.detail()), "image", "two.jpg", "active"), ADMIN));
+        var third = tx.execute(status -> mediaService.add("phase6-thumbnail",
+                media(version(second.detail()), "image", "three.jpg", "active"), ADMIN));
+        jdbc.update("""
+                UPDATE event_media SET is_thumbnail=TRUE
+                WHERE id IN (?,?)
+                """, first.mediaId(), second.mediaId());
+
+        var healed = tx.execute(status -> mediaService.selectThumbnail(
+                "phase6-thumbnail", third.mediaId(),
+                new AdminEventMediaMutationDtos.Version(version(third.detail())), ADMIN));
+        assertEquals(1, jdbc.queryForObject("""
+                SELECT COUNT(*) FROM event_media
+                WHERE event_id='phase6-thumbnail' AND is_thumbnail
+                """, Integer.class));
+        assertEquals(third.mediaId(), healed.media().thumbnail().id());
+        assertEquals(List.of(0, 1, 2), jdbc.queryForList("""
+                SELECT sort_order FROM event_media WHERE event_id='phase6-thumbnail'
+                ORDER BY sort_order,id
+                """, Integer.class));
+
+        String sharedVersion = version(healed);
+        CountDownLatch ready = new CountDownLatch(2);
+        CountDownLatch start = new CountDownLatch(1);
+        try (var executor = Executors.newFixedThreadPool(2)) {
+            var left = executor.submit(() -> selectAfterLatch(
+                    ready, start, first.mediaId(), sharedVersion));
+            var right = executor.submit(() -> selectAfterLatch(
+                    ready, start, second.mediaId(), sharedVersion));
+            assertTrue(ready.await(10, TimeUnit.SECONDS));
+            start.countDown();
+            List<Object> outcomes = List.of(left.get(30, TimeUnit.SECONDS), right.get(30, TimeUnit.SECONDS));
+            assertEquals(1, outcomes.stream()
+                    .filter(value -> value instanceof com.lichsuvn.backend.admin.api.dto.AdminEventDtos.Detail)
+                    .count());
+            assertEquals(1, outcomes.stream()
+                    .filter(value -> "EVENT_UPDATE_CONFLICT".equals(value)).count());
+        }
+        assertEquals(1, jdbc.queryForObject("""
+                SELECT COUNT(*) FROM event_media
+                WHERE event_id='phase6-thumbnail' AND is_thumbnail
+                """, Integer.class));
+    }
+
+    @Test
+    void patchingSelectedThumbnailToHiddenClearsItAndStalePatchChangesNothing() {
+        assumeTrue(available, unavailableReason);
+        tx.executeWithoutResult(status -> service.create(create("phase6-patch"), ADMIN));
+        var added = tx.execute(status -> mediaService.add("phase6-patch",
+                media(version(serviceRead("phase6-patch")), "image", "one.jpg", "active"), ADMIN));
+        var selected = tx.execute(status -> mediaService.selectThumbnail(
+                "phase6-patch", added.mediaId(),
+                new AdminEventMediaMutationDtos.Version(version(added.detail())), ADMIN));
+        String stale = version(added.detail());
+
+        var hide = new AdminEventMediaMutationDtos.Patch();
+        hide.setExpectedUpdatedAt(version(selected));
+        hide.setStatus("hidden");
+        var hidden = tx.execute(status -> mediaService.patch(
+                "phase6-patch", added.mediaId(), hide, ADMIN));
+        assertNull(hidden.media().thumbnail());
+        assertEquals(0, jdbc.queryForObject(
+                "SELECT is_thumbnail FROM event_media WHERE id=?", Integer.class, added.mediaId()));
+
+        var stalePatch = new AdminEventMediaMutationDtos.Patch();
+        stalePatch.setExpectedUpdatedAt(stale);
+        stalePatch.setCaption("stale");
+        ApiException conflict = assertThrows(ApiException.class, () -> tx.execute(status ->
+                mediaService.patch("phase6-patch", added.mediaId(), stalePatch, ADMIN)));
+        assertEquals("EVENT_UPDATE_CONFLICT", conflict.getCode());
+        assertNull(jdbc.queryForObject(
+                "SELECT caption FROM event_media WHERE id=?", String.class, added.mediaId()));
+        assertEquals(version(hidden), version(serviceRead("phase6-patch")));
+    }
+
+    private static Object selectAfterLatch(
+            CountDownLatch ready, CountDownLatch start, long mediaId, String expectedVersion
+    ) {
+        try {
+            ready.countDown();
+            start.await(10, TimeUnit.SECONDS);
+            return tx.execute(status -> mediaService.selectThumbnail(
+                    "phase6-thumbnail", mediaId,
+                    new AdminEventMediaMutationDtos.Version(expectedVersion), ADMIN));
+        } catch (ApiException ex) {
+            return ex.getCode();
+        } catch (InterruptedException ex) {
+            Thread.currentThread().interrupt();
+            return "INTERRUPTED";
+        }
+    }
+
+    private static AdminEventMediaMutationDtos.Create media(
+            String version, String type, String fileName, String status
+    ) {
+        return new AdminEventMediaMutationDtos.Create(
+                version, type, "https://cdn.example.org/" + fileName,
+                null, null, null, null, status);
     }
 
     private static Map<String, Object> aggregateSnapshot(String id) {

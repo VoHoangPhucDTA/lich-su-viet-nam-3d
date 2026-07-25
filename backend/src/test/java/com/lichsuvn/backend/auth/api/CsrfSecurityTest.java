@@ -217,7 +217,7 @@ class CsrfSecurityTest {
     }
 
     @Test
-    void approvedCredentialedCorsAndPreflightAllowCsrfHeader() throws Exception {
+    void approvedCredentialedCorsAndPreflightAllowCsrfAndEventVersionHeaders() throws Exception {
         mockMvc.perform(options("/api/auth/login")
                         .header("Origin", "http://localhost:5173")
                         .header("Access-Control-Request-Method", "POST")
@@ -233,14 +233,28 @@ class CsrfSecurityTest {
                 .andExpect(status().isOk())
                 .andExpect(header().string("Access-Control-Allow-Origin", "http://localhost:5173"))
                 .andExpect(header().string("Access-Control-Allow-Credentials", "true"));
+
+        mockMvc.perform(options("/api/admin/events/event-1/media/41")
+                        .header("Origin", "http://localhost:5173")
+                        .header("Access-Control-Request-Method", "DELETE")
+                        .header("Access-Control-Request-Headers",
+                                "x-csrf-token,x-event-version"))
+                .andExpect(status().isOk())
+                .andExpect(header().string("Access-Control-Allow-Origin", "http://localhost:5173"))
+                .andExpect(header().string("Access-Control-Allow-Credentials", "true"))
+                .andExpect(header().string("Access-Control-Allow-Headers",
+                        org.hamcrest.Matchers.allOf(
+                                org.hamcrest.Matchers.containsStringIgnoringCase("x-csrf-token"),
+                                org.hamcrest.Matchers.containsStringIgnoringCase("x-event-version"))));
     }
 
     @Test
     void unapprovedOriginReceivesNoCredentialedCorsPermission() throws Exception {
-        mockMvc.perform(options("/api/auth/login")
+        mockMvc.perform(options("/api/admin/events/event-1/media/41")
                         .header("Origin", "https://unapproved.example")
-                        .header("Access-Control-Request-Method", "POST")
-                        .header("Access-Control-Request-Headers", "x-csrf-token"))
+                        .header("Access-Control-Request-Method", "DELETE")
+                        .header("Access-Control-Request-Headers",
+                                "x-csrf-token,x-event-version"))
                 .andExpect(status().isForbidden())
                 .andExpect(header().doesNotExist("Access-Control-Allow-Origin"))
                 .andExpect(header().doesNotExist("Access-Control-Allow-Credentials"));

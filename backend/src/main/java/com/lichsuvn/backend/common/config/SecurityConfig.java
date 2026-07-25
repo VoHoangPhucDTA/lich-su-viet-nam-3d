@@ -98,7 +98,8 @@ public class SecurityConfig {
                 "Content-Type",
                 "Accept",
                 "X-Exam-Session-Token",
-                "X-CSRF-TOKEN"
+                "X-CSRF-TOKEN",
+                "X-Event-Version"
         ));
 
         // allowCredentials(true) = cho phép browser gửi/nhận HttpOnly Cookie cross-origin.

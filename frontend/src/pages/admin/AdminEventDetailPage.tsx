@@ -155,9 +155,13 @@ export default function AdminEventDetailPage() {
                 <ul className="space-y-2">
                   {event.media.items.map(item => (
                     <li key={item.id} className="rounded-lg bg-[var(--bg-surface)] px-3 py-2 text-sm">
-                      <a href={item.url} target="_blank" rel="noreferrer" className="font-semibold text-[var(--admin-accent)]">
-                        {item.caption || item.altText || `${item.mediaType} #${item.id}`}
-                      </a>
+                      {item.urlSafe !== false && item.url ? (
+                        <a href={item.url} target="_blank" rel="noreferrer" className="font-semibold text-[var(--admin-accent)]">
+                          {item.caption || item.altText || `${item.mediaType} #${item.id}`}
+                        </a>
+                      ) : (
+                        <span className="font-semibold text-[var(--text-muted)]">URL không an toàn đã ẩn</span>
+                      )}
                       <span className="ml-2 text-[var(--text-muted)]">{item.status}</span>
                     </li>
                   ))}

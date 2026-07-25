@@ -3,9 +3,11 @@ package com.lichsuvn.backend.admin.api;
 import com.lichsuvn.backend.admin.api.dto.AdminDashboardDtos;
 import com.lichsuvn.backend.admin.api.dto.AdminEventDtos;
 import com.lichsuvn.backend.admin.api.dto.AdminEventMutationDtos;
+import com.lichsuvn.backend.admin.api.dto.AdminEventMediaMutationDtos;
 import com.lichsuvn.backend.admin.application.AdminDashboardReadService;
 import com.lichsuvn.backend.admin.application.AdminEventReadService;
 import com.lichsuvn.backend.admin.application.AdminEventMutationService;
+import com.lichsuvn.backend.admin.application.AdminEventMediaMutationService;
 import com.lichsuvn.backend.admin.application.AdminService;
 import com.lichsuvn.backend.auth.security.UserPrincipal;
 import com.lichsuvn.backend.common.api.ApiResponse;
@@ -23,6 +25,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 import jakarta.validation.Valid;
 
@@ -36,17 +39,20 @@ public class AdminController {
     private final AdminEventReadService adminEventReadService;
     private final AdminDashboardReadService adminDashboardReadService;
     private final AdminEventMutationService adminEventMutationService;
+    private final AdminEventMediaMutationService adminEventMediaMutationService;
 
     public AdminController(
             AdminService adminService,
             AdminEventReadService adminEventReadService,
             AdminDashboardReadService adminDashboardReadService,
-            AdminEventMutationService adminEventMutationService
+            AdminEventMutationService adminEventMutationService,
+            AdminEventMediaMutationService adminEventMediaMutationService
     ) {
         this.adminService = adminService;
         this.adminEventReadService = adminEventReadService;
         this.adminDashboardReadService = adminDashboardReadService;
         this.adminEventMutationService = adminEventMutationService;
+        this.adminEventMediaMutationService = adminEventMediaMutationService;
     }
 
     @GetMapping("/dashboard")
@@ -173,6 +179,62 @@ public class AdminController {
             @AuthenticationPrincipal UserPrincipal principal
     ) {
         return ApiResponse.ok(adminEventMutationService.replaceGrades(id, body, principal));
+    }
+
+    @PostMapping("/events/{id}/media")
+    public ResponseEntity<ApiResponse<AdminEventDtos.Detail>> addEventMedia(
+            @PathVariable String id,
+            @Valid @RequestBody AdminEventMediaMutationDtos.Create body,
+            @AuthenticationPrincipal UserPrincipal principal
+    ) {
+        AdminEventMediaMutationService.AddResult result =
+                adminEventMediaMutationService.add(id, body, principal);
+        return ResponseEntity.created(URI.create("/api/admin/events/" + id + "/media/" + result.mediaId()))
+                .body(ApiResponse.ok(result.detail()));
+    }
+
+    @PatchMapping("/events/{id}/media/{mediaId}")
+    public ApiResponse<AdminEventDtos.Detail> updateEventMedia(
+            @PathVariable String id,
+            @PathVariable long mediaId,
+            @Valid @RequestBody AdminEventMediaMutationDtos.Patch body,
+            @AuthenticationPrincipal UserPrincipal principal
+    ) {
+        return ApiResponse.ok(adminEventMediaMutationService.patch(id, mediaId, body, principal));
+    }
+
+    @DeleteMapping("/events/{id}/media/{mediaId}")
+    public ApiResponse<AdminEventDtos.Detail> deleteEventMedia(
+            @PathVariable String id,
+            @PathVariable long mediaId,
+            @RequestHeader(value = "X-Event-Version", required = false) String version,
+            @AuthenticationPrincipal UserPrincipal principal
+    ) {
+        if (version == null || version.isBlank()) {
+            throw new ApiException(
+                    HttpStatus.BAD_REQUEST, "INVALID_EXPECTED_VERSION",
+                    "X-Event-Version is required");
+        }
+        return ApiResponse.ok(adminEventMediaMutationService.remove(id, mediaId, version, principal));
+    }
+
+    @PutMapping("/events/{id}/media/order")
+    public ApiResponse<AdminEventDtos.Detail> reorderEventMedia(
+            @PathVariable String id,
+            @Valid @RequestBody AdminEventMediaMutationDtos.Order body,
+            @AuthenticationPrincipal UserPrincipal principal
+    ) {
+        return ApiResponse.ok(adminEventMediaMutationService.reorder(id, body, principal));
+    }
+
+    @PutMapping("/events/{id}/thumbnail/{mediaId}")
+    public ApiResponse<AdminEventDtos.Detail> selectEventThumbnail(
+            @PathVariable String id,
+            @PathVariable long mediaId,
+            @Valid @RequestBody AdminEventMediaMutationDtos.Version body,
+            @AuthenticationPrincipal UserPrincipal principal
+    ) {
+        return ApiResponse.ok(adminEventMediaMutationService.selectThumbnail(id, mediaId, body, principal));
     }
 
     @PatchMapping("/events/{id}/status")

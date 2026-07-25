@@ -55,6 +55,28 @@ class EventCompletenessServiceTest {
         assertFalse(result.completeness().complete());
     }
 
+    @Test
+    void thumbnailDiagnosticsAreMutuallyExclusive() throws Exception {
+        EventCompletenessFacts base = facts("no_location", false, null, null, null);
+        var missing = service.assess(withThumbnailCount(base, 0));
+        var duplicate = service.assess(withThumbnailCount(base, 2));
+        assertEquals(List.of("MISSING_THUMBNAIL"), codes(missing).stream()
+                .filter(code -> code.endsWith("THUMBNAIL")).toList());
+        assertEquals(List.of("INVALID_THUMBNAIL"), codes(duplicate).stream()
+                .filter(code -> code.endsWith("THUMBNAIL")).toList());
+    }
+
+    private EventCompletenessFacts withThumbnailCount(EventCompletenessFacts value, int count) {
+        return new EventCompletenessFacts(
+                value.titlePresent(), value.slugPresent(), value.cardSummaryPresent(),
+                value.canonicalSummaryPresent(), value.detailedNarrativePresent(),
+                value.significancePresent(), value.keyFacts(), count, value.activeMediaCount(),
+                value.normalizedGeoType(), value.lat(), value.lng(), value.provinceNames(),
+                value.historicalLocations(), value.mapDataPresent(), value.mapDataObject(),
+                value.sanitizedMapData(), value.startYear(), value.endYear(),
+                value.effectiveEndYear(), value.eventLevel(), value.eventType(), value.grades());
+    }
+
     private EventCompletenessFacts facts(
             String geoType, boolean mapPresent, JsonNode mapData, Double lat, Double lng
     ) throws Exception {

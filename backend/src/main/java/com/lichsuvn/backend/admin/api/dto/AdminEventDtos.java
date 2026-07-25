@@ -106,6 +106,7 @@ public final class AdminEventDtos {
             Long id,
             String mediaType,
             String url,
+            boolean urlSafe,
             String caption,
             String altText,
             String sourceName,

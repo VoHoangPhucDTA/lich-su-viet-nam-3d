@@ -40,8 +40,10 @@ public class EventCompletenessService {
             add(issues, "INVALID_CORE_CONTENT", "CONTENT", "ERROR", List.of("keyFacts"));
         }
 
-        if (!facts.thumbnailPresent()) {
+        if (facts.activeThumbnailCount() == 0) {
             add(issues, "MISSING_THUMBNAIL", "MEDIA", "WARNING", List.of("thumbnail"));
+        } else if (facts.activeThumbnailCount() > 1) {
+            add(issues, "INVALID_THUMBNAIL", "MEDIA", "ERROR", List.of("thumbnail"));
         }
         if (facts.activeMediaCount() < 1) {
             add(issues, "MISSING_ACTIVE_MEDIA", "MEDIA", "WARNING", List.of("media"));

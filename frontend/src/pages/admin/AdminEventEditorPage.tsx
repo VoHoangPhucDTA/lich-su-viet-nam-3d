@@ -12,6 +12,7 @@ import {
   type AdminEventCorePatchRequest,
 } from '../../services/adminApi';
 import { ApiRequestError } from '../../services/apiClient';
+import AdminEventMediaSection from '../../components/admin/AdminEventMediaSection';
 
 type CoreForm = {
   title: string;
@@ -112,6 +113,7 @@ export default function AdminEventEditorPage() {
   const [loading, setLoading] = useState(editing);
   const [coreSaving, setCoreSaving] = useState(false);
   const [gradeSaving, setGradeSaving] = useState(false);
+  const [mediaSaving, setMediaSaving] = useState(false);
   const [coreError, setCoreError] = useState('');
   const [gradeError, setGradeError] = useState('');
   const [coreSuccess, setCoreSuccess] = useState('');
@@ -154,7 +156,7 @@ export default function AdminEventEditorPage() {
     setCoreDirty(true);
     setCoreSuccess('');
   };
-  const mutationSaving = coreSaving || gradeSaving;
+  const mutationSaving = coreSaving || gradeSaving || mediaSaving;
 
   const saveCore = async (event: FormEvent) => {
     event.preventDefault();
@@ -274,7 +276,18 @@ export default function AdminEventEditorPage() {
         {gradeError && <p className="mt-3 text-sm text-[var(--accent)]">{gradeError} {gradeError.includes('thay đổi') && <button type="button" onClick={reload} className="underline">Tải lại</button>}</p>}
         {editing && <div className="mt-4 flex items-center justify-between"><span className="text-xs text-[var(--text-muted)]">{gradeSuccess}</span><button type="button" disabled={mutationSaving || !gradeDirty} onClick={saveGrades} className="admin-primary-button disabled:cursor-not-allowed disabled:opacity-50">{gradeSaving ? 'Đang lưu…' : 'Lưu khối lớp'}</button></div>}
       </AdminFormSection>
-      {editing && detail && <AdminFormSection title="Dữ liệu chỉ đọc"><p className="text-sm text-[var(--text-secondary)]">Media, thumbnail, geography, hierarchy và nguồn được giữ nguyên và chỉ hiển thị ở trang chi tiết.</p><p className="mt-2 text-xs text-[var(--text-muted)]">Phiên bản hiện tại: {version}</p></AdminFormSection>}
+      {editing && detail && <div className="mt-5 space-y-5">
+        <AdminEventMediaSection
+          eventId={id!}
+          detail={detail}
+          version={version}
+          disabled={mutationSaving}
+          onBusyChange={setMediaSaving}
+          onUpdated={updated => { setDetail(updated); setVersion(updated.publication.updatedAt); }}
+          onConflict={reload}
+        />
+        <AdminFormSection title="Dữ liệu chỉ đọc"><p className="text-sm text-[var(--text-secondary)]">Media, thumbnail, geography, hierarchy và nguồn được giữ nguyên hoặc chỉ cập nhật metadata an toàn; geography, hierarchy và nguồn vẫn chỉ đọc trong Phase 6 P0.</p><p className="mt-2 text-xs text-[var(--text-muted)]">Phiên bản hiện tại: {version}</p></AdminFormSection>
+      </div>}
     </AdminLayout>
   );
 }

@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lichsuvn.backend.admin.api.dto.AdminEventDtos;
 import com.lichsuvn.backend.admin.application.AdminEventReadService;
 import com.lichsuvn.backend.admin.application.EventCompletenessFacts;
+import com.lichsuvn.backend.common.media.MediaUrlPolicy;
 import com.lichsuvn.backend.event.infrastructure.PublicMapDataSanitizer;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -17,6 +18,7 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -47,10 +49,21 @@ public class AdminEventReadRepository {
 
     private final NamedParameterJdbcTemplate jdbc;
     private final ObjectMapper objectMapper;
+    private final MediaUrlPolicy mediaUrlPolicy;
 
     public AdminEventReadRepository(NamedParameterJdbcTemplate jdbc, ObjectMapper objectMapper) {
+        this(jdbc, objectMapper, new MediaUrlPolicy());
+    }
+
+    @org.springframework.beans.factory.annotation.Autowired
+    public AdminEventReadRepository(
+            NamedParameterJdbcTemplate jdbc,
+            ObjectMapper objectMapper,
+            MediaUrlPolicy mediaUrlPolicy
+    ) {
         this.jdbc = jdbc;
         this.objectMapper = objectMapper;
+        this.mediaUrlPolicy = mediaUrlPolicy;
     }
 
     public long count(AdminEventReadService.Query query) {
@@ -72,6 +85,12 @@ public class AdminEventReadRepository {
                        e.province_names, e.historical_locations, e.show_on_homepage,
                        e.show_on_timeline, e.featured, e.created_at, e.updated_at,
                        e.key_facts,
+                       (SELECT JSON_ARRAYAGG(JSON_OBJECT(
+                            'id', media_fact.id, 'url', media_fact.url,
+                            'mediaType', media_fact.media_type, 'status', media_fact.status,
+                            'thumbnail', media_fact.is_thumbnail, 'sortOrder', media_fact.sort_order,
+                            'altText', media_fact.alt_text))
+                        FROM event_media media_fact WHERE media_fact.event_id=e.id) AS media_facts_json,
                        (TRIM(e.title) <> '') AS title_present,
                        (TRIM(e.slug) <> '') AS slug_present,
                        (e.card_summary IS NOT NULL AND TRIM(e.card_summary) <> '') AS card_present,
@@ -87,6 +106,13 @@ public class AdminEventReadRepository {
                              AND TRIM(active_media.url) <> ''
                              AND LOWER(TRIM(active_media.url)) NOT LIKE 'local:%%'
                        ), 0) AS active_media_count,
+                       (
+                           SELECT COUNT(*) FROM event_media thumb
+                           WHERE thumb.event_id = e.id AND thumb.status = 'active'
+                             AND thumb.is_thumbnail = TRUE AND thumb.media_type = 'image'
+                             AND TRIM(thumb.url) <> ''
+                             AND LOWER(TRIM(thumb.url)) NOT LIKE 'local:%%'
+                       ) AS active_thumbnail_count,
                        (
                            SELECT thumb.id FROM event_media thumb
                            WHERE thumb.event_id = e.id AND thumb.status = 'active'
@@ -132,6 +158,12 @@ public class AdminEventReadRepository {
                        e.province_names, e.historical_locations, e.show_on_homepage,
                        e.show_on_timeline, e.featured, e.created_at, e.updated_at,
                        e.key_facts,
+                       (SELECT JSON_ARRAYAGG(JSON_OBJECT(
+                            'id', media_fact.id, 'url', media_fact.url,
+                            'mediaType', media_fact.media_type, 'status', media_fact.status,
+                            'thumbnail', media_fact.is_thumbnail, 'sortOrder', media_fact.sort_order,
+                            'altText', media_fact.alt_text))
+                        FROM event_media media_fact WHERE media_fact.event_id=e.id) AS media_facts_json,
                        (TRIM(e.title) <> '') AS title_present,
                        (TRIM(e.slug) <> '') AS slug_present,
                        (e.card_summary IS NOT NULL AND TRIM(e.card_summary) <> '') AS card_present,
@@ -147,6 +179,13 @@ public class AdminEventReadRepository {
                              AND TRIM(active_media.url) <> ''
                              AND LOWER(TRIM(active_media.url)) NOT LIKE 'local:%%'
                        ), 0) AS active_media_count,
+                       (
+                           SELECT COUNT(*) FROM event_media thumb
+                           WHERE thumb.event_id = e.id AND thumb.status = 'active'
+                             AND thumb.is_thumbnail = TRUE AND thumb.media_type = 'image'
+                             AND TRIM(thumb.url) <> ''
+                             AND LOWER(TRIM(thumb.url)) NOT LIKE 'local:%%'
+                       ) AS active_thumbnail_count,
                        (
                            SELECT thumb.id FROM event_media thumb
                            WHERE thumb.event_id = e.id AND thumb.status = 'active'
@@ -200,6 +239,12 @@ public class AdminEventReadRepository {
                        e.canonical_summary, e.detailed_narrative, e.significance, e.key_facts,
                        e.show_on_homepage, e.show_on_timeline, e.featured,
                        e.parent_id, e.root_id, e.published_at, e.created_at, e.updated_at,
+                       (SELECT JSON_ARRAYAGG(JSON_OBJECT(
+                            'id', media_fact.id, 'url', media_fact.url,
+                            'mediaType', media_fact.media_type, 'status', media_fact.status,
+                            'thumbnail', media_fact.is_thumbnail, 'sortOrder', media_fact.sort_order,
+                            'altText', media_fact.alt_text))
+                        FROM event_media media_fact WHERE media_fact.event_id=e.id) AS media_facts_json,
                        JSON_TYPE(%s) AS map_data_type, %s AS map_data_json,
                        (SELECT COUNT(*) FROM event_textbook_refs tr WHERE tr.event_id=e.id) AS textbook_ref_count,
                        (SELECT COUNT(*) FROM event_textbook_refs vr WHERE vr.event_id=e.id AND vr.show_on_detail=1) AS visible_ref_count,
@@ -211,6 +256,11 @@ public class AdminEventReadRepository {
                         WHERE am.event_id=e.id AND am.status='active' AND TRIM(am.url)<>''
                           AND LOWER(TRIM(am.url)) NOT LIKE 'local:%%')
                            AS active_media_count,
+                       (SELECT COUNT(*) FROM event_media tm
+                        WHERE tm.event_id=e.id AND tm.status='active'
+                          AND tm.is_thumbnail=TRUE AND tm.media_type='image' AND TRIM(tm.url)<>''
+                          AND LOWER(TRIM(tm.url)) NOT LIKE 'local:%%'
+                       ) AS active_thumbnail_count,
                        (SELECT tm.id FROM event_media tm
                         WHERE tm.event_id=e.id AND tm.status='active'
                           AND tm.is_thumbnail=TRUE AND tm.media_type='image' AND TRIM(tm.url)<>''
@@ -235,13 +285,18 @@ public class AdminEventReadRepository {
                        storage_type, is_thumbnail, sort_order, status, created_at
                 FROM event_media WHERE event_id=:id
                 ORDER BY is_thumbnail DESC, sort_order, id
-                """, new MapSqlParameterSource("id", id), (rs, row) -> new AdminEventDtos.Media(
-                rs.getLong("id"), rs.getString("media_type"), safeUri(rs.getString("url"), true),
-                safeText(rs.getString("caption")), safeText(rs.getString("alt_text")),
-                safeText(rs.getString("source_name")), safeText(rs.getString("license")),
-                rs.getString("storage_type"), rs.getBoolean("is_thumbnail"),
-                rs.getInt("sort_order"), rs.getString("status"), instant(rs, "created_at")
-        )).stream().filter(media -> media.url() != null).toList();
+        """, new MapSqlParameterSource("id", id), (rs, row) -> {
+            String url = mediaUrlPolicy.redactDisplayUrl(rs.getString("url"));
+            return new AdminEventDtos.Media(
+                    rs.getLong("id"), rs.getString("media_type"), url, url != null,
+                    mediaUrlPolicy.redactMetadata(rs.getString("caption")),
+                    mediaUrlPolicy.redactMetadata(rs.getString("alt_text")),
+                    mediaUrlPolicy.redactMetadata(rs.getString("source_name")),
+                    mediaUrlPolicy.redactMetadata(rs.getString("license")),
+                    rs.getString("storage_type"), rs.getBoolean("is_thumbnail"),
+                    rs.getInt("sort_order"), rs.getString("status"), instant(rs, "created_at")
+            );
+        });
     }
 
     public List<AdminEventDtos.TextbookReference> findVisibleTextbookReferences(String id) {
@@ -392,23 +447,21 @@ public class AdminEventReadRepository {
 
     private ListRow mapListRow(ResultSet rs) throws SQLException {
         JsonNode mapData = PublicMapDataSanitizer.fromMapDataJson(objectMapper, rs.getString("map_data_json"));
-        EventCompletenessFacts facts = facts(rs, mapData, List.of());
-        AdminEventDtos.Thumbnail thumbnail = rs.getObject("thumbnail_id") == null ? null
-                : new AdminEventDtos.Thumbnail(
-                rs.getLong("thumbnail_id"), rs.getString("thumbnail_url"),
-                safeText(rs.getString("thumbnail_alt")));
+        MediaProjection media = mediaProjection(rs.getString("media_facts_json"));
+        EventCompletenessFacts facts = facts(rs, mapData, List.of(), media);
         return new ListRow(
                 rs.getString("id"), rs.getString("slug"), rs.getString("title"),
                 rs.getString("short_title"), rs.getString("event_level"),
                 rs.getString("event_type"), rs.getString("event_subtype"),
                 chronology(rs), rs.getString("status"), rs.getString("geo_type"),
-                rs.getString("card_summary"), thumbnail, rs.getInt("active_media_count"), flags(rs),
+                rs.getString("card_summary"), media.thumbnail(), media.activeCount(), flags(rs),
                 instant(rs, "created_at"), instant(rs, "updated_at"), facts
         );
     }
 
     private DetailRow mapDetailRow(ResultSet rs) throws SQLException {
         JsonNode mapData = PublicMapDataSanitizer.fromMapDataJson(objectMapper, rs.getString("map_data_json"));
+        MediaProjection media = mediaProjection(rs.getString("media_facts_json"));
         return new DetailRow(
                 rs.getString("id"), rs.getString("slug"), rs.getString("title"),
                 rs.getString("short_title"), rs.getString("event_level"),
@@ -423,19 +476,21 @@ public class AdminEventReadRepository {
                 instantNullable(rs, "published_at"), instant(rs, "created_at"), instant(rs, "updated_at"),
                 rs.getInt("textbook_ref_count"), rs.getInt("visible_ref_count"),
                 rs.getBoolean("has_textbook_content"), mapData, mapData(mapData),
-                facts(rs, mapData, List.of())
+                facts(rs, mapData, List.of(), media)
         );
     }
 
-    private EventCompletenessFacts facts(ResultSet rs, JsonNode mapData, List<Integer> grades)
+    private EventCompletenessFacts facts(
+            ResultSet rs, JsonNode mapData, List<Integer> grades, MediaProjection media
+    )
             throws SQLException {
         String mapDataType = rs.getString("map_data_type");
         return new EventCompletenessFacts(
                 rs.getBoolean("title_present"), rs.getBoolean("slug_present"),
                 rs.getBoolean("card_present"), rs.getBoolean("canonical_present"),
                 rs.getBoolean("narrative_present"), rs.getBoolean("significance_present"),
-                json(rs.getString("key_facts")), rs.getObject("thumbnail_id") != null,
-                rs.getInt("active_media_count"), rs.getString("geo_type"),
+                json(rs.getString("key_facts")), media.activeThumbnailCount(),
+                media.activeCount(), rs.getString("geo_type"),
                 rs.getBigDecimal("lat"), rs.getBigDecimal("lng"),
                 stringList(rs.getString("province_names")), stringList(rs.getString("historical_locations")),
                 mapDataType != null && !"NULL".equals(mapDataType),
@@ -444,6 +499,32 @@ public class AdminEventReadRepository {
                 integer(rs, "effective_end_year"), rs.getString("event_level"),
                 rs.getString("event_type"), grades
         );
+    }
+
+    private MediaProjection mediaProjection(String value) {
+        JsonNode rows = json(value);
+        if (rows == null || !rows.isArray()) return new MediaProjection(null, 0, 0);
+        int activeCount = 0;
+        List<JsonNode> thumbnails = new ArrayList<>();
+        for (JsonNode row : rows) {
+            String url = textValue(row.get("url"));
+            boolean safe = mediaUrlPolicy.isSafeDisplayUrl(url);
+            boolean active = "active".equals(textValue(row.get("status")));
+            if (active && safe) activeCount++;
+            if (active && safe && row.path("thumbnail").asBoolean()
+                    && "image".equals(textValue(row.get("mediaType")))) {
+                thumbnails.add(row);
+            }
+        }
+        thumbnails.sort(Comparator
+                .comparingInt((JsonNode row) -> row.path("sortOrder").asInt())
+                .thenComparingLong(row -> row.path("id").asLong()));
+        AdminEventDtos.Thumbnail thumbnail = thumbnails.isEmpty() ? null
+                : new AdminEventDtos.Thumbnail(
+                thumbnails.getFirst().path("id").asLong(),
+                mediaUrlPolicy.redactDisplayUrl(textValue(thumbnails.getFirst().get("url"))),
+                mediaUrlPolicy.redactMetadata(textValue(thumbnails.getFirst().get("altText"))));
+        return new MediaProjection(thumbnail, activeCount, thumbnails.size());
     }
 
     private AdminEventDtos.MapData mapData(JsonNode node) {
@@ -520,11 +601,14 @@ public class AdminEventReadRepository {
         return !StringUtils.hasText(value) || PublicMapDataSanitizer.isLocal(value) ? null : value;
     }
 
-    private static String safeUri(String value, boolean relativeAllowed) {
-        if (!StringUtils.hasText(value) || PublicMapDataSanitizer.isLocal(value)) return null;
-        String normalized = value.trim().toLowerCase();
-        if (relativeAllowed && (normalized.startsWith("/") || normalized.startsWith("./"))) return value;
-        return normalized.startsWith("https://") || normalized.startsWith("http://") ? value : null;
+    private String safeUri(String value, boolean relativeAllowed) {
+        if (!StringUtils.hasText(value)) return null;
+        String normalized = value.trim();
+        if (relativeAllowed && ((normalized.startsWith("/") && !normalized.startsWith("//"))
+                || normalized.startsWith("./"))) {
+            return mediaUrlPolicy.isSafeDisplayUrl(normalized) ? normalized : null;
+        }
+        return mediaUrlPolicy.redactDisplayUrl(normalized);
     }
 
     private static String escapeLike(String value) {
@@ -593,7 +677,18 @@ public class AdminEventReadRepository {
                 ? value.asText() : null;
     }
 
+    private static String textValue(JsonNode value) {
+        return value != null && value.isTextual() ? value.asText() : null;
+    }
+
     private record SqlParts(String where, MapSqlParameterSource params) {
+    }
+
+    private record MediaProjection(
+            AdminEventDtos.Thumbnail thumbnail,
+            int activeCount,
+            int activeThumbnailCount
+    ) {
     }
 
     public record ListRow(

@@ -5,6 +5,7 @@ import com.lichsuvn.backend.admin.api.dto.AdminEventDtos;
 import com.lichsuvn.backend.admin.application.AdminDashboardReadService;
 import com.lichsuvn.backend.admin.application.AdminEventReadService;
 import com.lichsuvn.backend.admin.application.AdminEventMutationService;
+import com.lichsuvn.backend.admin.application.AdminEventMediaMutationService;
 import com.lichsuvn.backend.admin.application.AdminService;
 import com.lichsuvn.backend.auth.application.AuthService;
 import com.lichsuvn.backend.auth.security.UserPrincipal;
@@ -29,6 +30,7 @@ import java.util.List;
 import java.util.Map;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.anyMap;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.nullable;
@@ -42,6 +44,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(AdminController.class)
@@ -69,6 +72,9 @@ class AdminControllerSecurityTest {
 
     @MockitoBean
     AdminEventMutationService adminEventMutationService;
+
+    @MockitoBean
+    AdminEventMediaMutationService adminEventMediaMutationService;
 
     @MockitoBean
     AuthService authService;
@@ -381,6 +387,67 @@ class AdminControllerSecurityTest {
                         .contentType("application/json")
                         .content("{\"expectedUpdatedAt\":\"2026-07-24T17:20:30.123456Z\",\"grades\":[10,12]}"))
                 .andExpect(status().isOk());
+    }
+
+    @Test
+    void mediaMutationsPreserveCsrfRoleAndAdminSuccessContracts() throws Exception {
+        var detail = new AdminEventDtos.Detail(
+                new AdminEventDtos.Core("event-1", "event-1", "Event", null),
+                null, null, null,
+                new AdminEventDtos.Publication(
+                        "draft", new AdminEventDtos.Flags(false, false, false),
+                        null, null, Instant.parse("2026-07-24T17:20:30.123456Z")),
+                new AdminEventDtos.MediaSection(null, List.of(), 0),
+                null, null, null, List.of(), null);
+        when(adminEventMediaMutationService.add(
+                anyString(), any(), nullable(UserPrincipal.class)))
+                .thenReturn(new AdminEventMediaMutationService.AddResult(41L, detail));
+        when(adminEventMediaMutationService.remove(
+                anyString(), anyLong(), anyString(), nullable(UserPrincipal.class)))
+                .thenReturn(detail);
+
+        String createBody = """
+                {"expectedUpdatedAt":"2026-07-24T17:20:30.123456Z",
+                 "mediaType":"image","url":"https://cdn.example.org/image.jpg","status":"active"}
+                """;
+        mockMvc.perform(post("/api/admin/events/event-1/media")
+                        .with(user("admin").authorities(() -> "ROLE_admin"))
+                        .contentType("application/json").content(createBody))
+                .andExpect(status().isForbidden())
+                .andExpect(jsonPath("$.code").value("CSRF_TOKEN_INVALID"));
+
+        mockMvc.perform(post("/api/admin/events/event-1/media")
+                        .with(user("student").authorities(() -> "ROLE_student"))
+                        .with(csrf()).contentType("application/json").content(createBody))
+                .andExpect(status().isForbidden())
+                .andExpect(jsonPath("$.code").value("FORBIDDEN"));
+
+        mockMvc.perform(post("/api/admin/events/event-1/media")
+                        .with(user("teacher").authorities(() -> "ROLE_teacher"))
+                        .with(csrf()).contentType("application/json").content(createBody))
+                .andExpect(status().isForbidden())
+                .andExpect(jsonPath("$.code").value("FORBIDDEN"));
+
+        mockMvc.perform(post("/api/admin/events/event-1/media")
+                        .with(user("admin").authorities(() -> "ROLE_admin"))
+                        .with(csrf()).contentType("application/json").content(createBody))
+                .andExpect(status().isCreated())
+                .andExpect(header().string(
+                        "Location", "/api/admin/events/event-1/media/41"))
+                .andExpect(jsonPath("$.data.core.id").value("event-1"));
+
+        mockMvc.perform(delete("/api/admin/events/event-1/media/41")
+                        .header("X-Event-Version", "2026-07-24T17:20:30.123456Z")
+                        .with(user("admin").authorities(() -> "ROLE_admin"))
+                        .with(csrf()))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.data.core.id").value("event-1"));
+
+        mockMvc.perform(delete("/api/admin/events/event-1/media/41")
+                        .with(user("admin").authorities(() -> "ROLE_admin"))
+                        .with(csrf()))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.code").value("INVALID_EXPECTED_VERSION"));
     }
 
     @TestConfiguration

@@ -3,6 +3,7 @@ import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import AdminEventEditorPage from '../AdminEventEditorPage';
 import {
+  addAdminEventMedia,
   getAdminEventDetail,
   replaceAdminEventGrades,
   updateAdminEventCore,
@@ -22,6 +23,7 @@ vi.mock('../../../services/adminApi', async () => {
     updateAdminEventCore: vi.fn(),
     replaceAdminEventGrades: vi.fn(),
     createAdminEvent: vi.fn(),
+    addAdminEventMedia: vi.fn(),
   };
 });
 
@@ -132,5 +134,50 @@ describe('AdminEventEditorPage', () => {
     expect(screen.getByLabelText('Năm bắt đầu')).toHaveValue(null);
     expect(screen.queryByLabelText(/trạng thái/i)).not.toBeInTheDocument();
     expect(screen.getByText(/Media, thumbnail, geography/i)).toBeInTheDocument();
+  });
+
+  it('shares the page mutation lock while a media save is in flight', async () => {
+    let releaseMedia!: (value: AdminEventDetail) => void;
+    vi.mocked(addAdminEventMedia).mockImplementation(
+      () => new Promise(resolve => { releaseMedia = resolve; }),
+    );
+    renderEditor();
+    await screen.findByDisplayValue('Sự kiện');
+    fireEvent.change(screen.getByDisplayValue('Sự kiện'), { target: { value: 'Changed' } });
+    fireEvent.click(screen.getByLabelText('Lớp 11'));
+    fireEvent.change(screen.getByLabelText('URL media'), {
+      target: { value: 'https://cdn.example.org/new.jpg' },
+    });
+    fireEvent.click(screen.getByRole('button', { name: 'Thêm media' }));
+
+    await waitFor(() => expect(screen.getByRole('button', { name: 'Lưu nội dung' })).toBeDisabled());
+    expect(screen.getByRole('button', { name: 'Lưu khối lớp' })).toBeDisabled();
+    expect(screen.getByRole('button', { name: 'Thêm media' })).toBeDisabled();
+    expect(updateAdminEventCore).not.toHaveBeenCalled();
+    expect(replaceAdminEventGrades).not.toHaveBeenCalled();
+
+    releaseMedia({
+      ...detail,
+      publication: { ...detail.publication, updatedAt: nextVersion },
+    });
+    await waitFor(() => expect(screen.getByRole('button', { name: 'Lưu nội dung' })).not.toBeDisabled());
+    fireEvent.click(screen.getByRole('button', { name: 'Lưu nội dung' }));
+    await waitFor(() => expect(updateAdminEventCore).toHaveBeenCalledWith(
+      'event-1',
+      expect.objectContaining({ expectedUpdatedAt: nextVersion }),
+    ));
+  });
+
+  it('renders loading and read errors without showing an empty media state prematurely', async () => {
+    let rejectLoad!: (reason: unknown) => void;
+    vi.mocked(getAdminEventDetail).mockImplementation(
+      () => new Promise((_resolve, reject) => { rejectLoad = reject; }),
+    );
+    renderEditor();
+    expect(screen.getByText(/Đang tải sự kiện/i)).toBeInTheDocument();
+    expect(screen.queryByText('Chưa có media.')).not.toBeInTheDocument();
+
+    rejectLoad(new Error('Read failed'));
+    expect(await screen.findByText('Read failed')).toBeInTheDocument();
   });
 });

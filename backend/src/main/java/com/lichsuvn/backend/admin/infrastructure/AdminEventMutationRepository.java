@@ -92,9 +92,14 @@ public class AdminEventMutationRepository {
      * pre-read is used for this operation.
      */
     public boolean claimGradeVersion(String id, LocalDateTime expected) {
+        return claimEventVersion(id, expected);
+    }
+
+    public boolean claimEventVersion(String id, LocalDateTime expected) {
         return jdbc.update("""
                 UPDATE historical_events
-                SET updated_at=CURRENT_TIMESTAMP(6)
+                SET updated_at=GREATEST(CURRENT_TIMESTAMP(6),
+                    updated_at + INTERVAL 1 MICROSECOND)
                 WHERE id=:id AND updated_at=:expectedUpdatedAt
                 """, new MapSqlParameterSource()
                 .addValue("id", id)

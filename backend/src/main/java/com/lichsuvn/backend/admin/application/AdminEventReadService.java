@@ -89,7 +89,7 @@ public class AdminEventReadService {
         List<AdminEventDtos.Media> media = repository.findMedia(id);
         AdminEventDtos.Thumbnail thumbnail = media.stream()
                 .filter(item -> item.thumbnail() && "active".equals(item.status())
-                        && "image".equals(item.mediaType()))
+                        && "image".equals(item.mediaType()) && item.urlSafe())
                 .map(item -> new AdminEventDtos.Thumbnail(item.id(), item.url(), item.altText()))
                 .findFirst().orElse(null);
         AdminEventReadRepository.HierarchyRows hierarchy =
@@ -108,7 +108,7 @@ public class AdminEventReadService {
                         row.status(), row.flags(), row.publishedAt(), row.createdAt(), row.updatedAt()),
                 new AdminEventDtos.MediaSection(
                         thumbnail, media, (int) media.stream()
-                        .filter(item -> "active".equals(item.status())).count()),
+                        .filter(item -> "active".equals(item.status()) && item.urlSafe()).count()),
                 new AdminEventDtos.Geography(
                         row.normalizedGeoType(), assessment.canonicalGeoType(),
                         row.lat(), row.lng(), row.provinceNames(), row.historicalLocations(), row.mapData()),

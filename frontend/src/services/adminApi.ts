@@ -151,6 +151,28 @@ export interface AdminEventGradesRequest {
   grades: number[];
 }
 
+export interface AdminEventMediaCreateRequest {
+  expectedUpdatedAt: string;
+  mediaType: 'image' | 'video' | 'document' | 'audio';
+  url: string;
+  caption?: string | null;
+  altText?: string | null;
+  sourceName?: string | null;
+  license?: string | null;
+  status?: 'active' | 'missing' | 'hidden';
+}
+
+export interface AdminEventMediaPatchRequest {
+  expectedUpdatedAt: string;
+  mediaType?: AdminEventMediaCreateRequest['mediaType'];
+  url?: string;
+  caption?: string | null;
+  altText?: string | null;
+  sourceName?: string | null;
+  license?: string | null;
+  status?: 'active' | 'missing' | 'hidden';
+}
+
 export interface AdminEventDetail {
   core: { id: string; slug: string; title: string; shortTitle?: string | null };
   content: {
@@ -179,7 +201,8 @@ export interface AdminEventDetail {
     items: Array<{
       id: number;
       mediaType: 'image' | 'video' | 'document' | 'audio';
-      url: string;
+      url: string | null;
+      urlSafe?: boolean;
       caption?: string | null;
       altText?: string | null;
       sourceName?: string | null;
@@ -356,6 +379,46 @@ export function updateAdminEventCore(id: string, payload: AdminEventCorePatchReq
 
 export function replaceAdminEventGrades(id: string, payload: AdminEventGradesRequest, signal?: AbortSignal) {
   return apiPut<AdminEventDetail>(`/api/admin/events/${encodeURIComponent(id)}/grades`, payload, { signal });
+}
+
+export function addAdminEventMedia(id: string, payload: AdminEventMediaCreateRequest, signal?: AbortSignal) {
+  return apiPost<AdminEventDetail>(`/api/admin/events/${encodeURIComponent(id)}/media`, payload, { signal });
+}
+
+export function updateAdminEventMedia(
+  id: string,
+  mediaId: number,
+  payload: AdminEventMediaPatchRequest,
+  signal?: AbortSignal,
+) {
+  return apiPatch<AdminEventDetail>(
+    `/api/admin/events/${encodeURIComponent(id)}/media/${mediaId}`,
+    payload,
+    { signal },
+  );
+}
+
+export function removeAdminEventMedia(id: string, mediaId: number, expectedUpdatedAt: string, signal?: AbortSignal) {
+  return apiDelete<AdminEventDetail>(
+    `/api/admin/events/${encodeURIComponent(id)}/media/${mediaId}`,
+    { signal, headers: { 'X-Event-Version': expectedUpdatedAt } },
+  );
+}
+
+export function reorderAdminEventMedia(id: string, expectedUpdatedAt: string, mediaIds: number[], signal?: AbortSignal) {
+  return apiPut<AdminEventDetail>(
+    `/api/admin/events/${encodeURIComponent(id)}/media/order`,
+    { expectedUpdatedAt, mediaIds },
+    { signal },
+  );
+}
+
+export function selectAdminEventThumbnail(id: string, mediaId: number, expectedUpdatedAt: string, signal?: AbortSignal) {
+  return apiPut<AdminEventDetail>(
+    `/api/admin/events/${encodeURIComponent(id)}/thumbnail/${mediaId}`,
+    { expectedUpdatedAt },
+    { signal },
+  );
 }
 
 /** Kept only for the currently unreachable legacy editor module. */

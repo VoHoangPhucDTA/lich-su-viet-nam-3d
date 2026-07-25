@@ -13,6 +13,8 @@ import com.lichsuvn.backend.event.api.dto.EventRelationDto;
 import com.lichsuvn.backend.event.api.dto.EventSummaryDto;
 import com.lichsuvn.backend.event.api.dto.EventTextbookRefDto;
 import com.lichsuvn.backend.event.api.dto.TimelineEventDto;
+import com.lichsuvn.backend.common.media.MediaUrlPolicy;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -51,11 +53,22 @@ public class EventReadRepository {
 
     private final NamedParameterJdbcTemplate jdbc;
     private final ObjectMapper objectMapper;
+    private final MediaUrlPolicy mediaUrlPolicy;
     private volatile Boolean eventRelationsHasAssociationType;
 
     public EventReadRepository(NamedParameterJdbcTemplate jdbc, ObjectMapper objectMapper) {
+        this(jdbc, objectMapper, new MediaUrlPolicy());
+    }
+
+    @Autowired
+    public EventReadRepository(
+            NamedParameterJdbcTemplate jdbc,
+            ObjectMapper objectMapper,
+            MediaUrlPolicy mediaUrlPolicy
+    ) {
         this.jdbc = jdbc;
         this.objectMapper = objectMapper;
+        this.mediaUrlPolicy = mediaUrlPolicy;
     }
 
     /**
@@ -392,7 +405,7 @@ public class EventReadRepository {
                         rs.getString("card_summary"),
                         rs.getString("event_type"),
                         rs.getString("geo_type"),
-                        rs.getString("thumbnail_url"),
+                        mediaUrlPolicy.redactDisplayUrl(rs.getString("thumbnail_url")),
                         rs.getString("association_type"),
                         rs.getString("relation_type"),
                         EventRelationDto.relationLabel(rs.getString("relation_type")),
@@ -505,15 +518,15 @@ public class EventReadRepository {
         return jdbc.query(sql, new MapSqlParameterSource("eventId", eventId), (rs, rowNum) -> new EventMediaDto(
                 rs.getLong("id"),
                 rs.getString("media_type"),
-                rs.getString("url"),
-                rs.getString("caption"),
-                rs.getString("alt_text"),
-                rs.getString("source_name"),
-                rs.getString("license"),
+                mediaUrlPolicy.redactDisplayUrl(rs.getString("url")),
+                mediaUrlPolicy.redactMetadata(rs.getString("caption")),
+                mediaUrlPolicy.redactMetadata(rs.getString("alt_text")),
+                mediaUrlPolicy.redactMetadata(rs.getString("source_name")),
+                mediaUrlPolicy.redactMetadata(rs.getString("license")),
                 rs.getString("storage_type"),
                 rs.getBoolean("is_thumbnail"),
                 rs.getInt("sort_order")
-        ));
+        )).stream().filter(media -> media.url() != null).toList();
     }
 
     private QueryParts buildEventFilters(
@@ -685,7 +698,7 @@ public class EventReadRepository {
                 rs.getInt("order_in_parent"),
                 rs.getString("card_summary"),
                 rs.getBoolean("featured"),
-                rs.getString("thumbnail_url"),
+                mediaUrlPolicy.redactDisplayUrl(rs.getString("thumbnail_url")),
                 rs.getInt("child_count")
         );
     }
