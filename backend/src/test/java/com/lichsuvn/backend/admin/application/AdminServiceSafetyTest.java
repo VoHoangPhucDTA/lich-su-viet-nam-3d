@@ -123,20 +123,6 @@ class AdminServiceSafetyTest {
     }
 
     @Test
-    void userListQueryCurrentlyCollapsesTeacherIntoStudent() {
-        when(jdbc.queryForObject(anyString(), any(MapSqlParameterSource.class), eq(Integer.class)))
-                .thenReturn(0);
-        when(jdbc.query(anyString(), any(MapSqlParameterSource.class), any(RowMapper.class)))
-                .thenReturn(List.of());
-
-        service.users(null, null, null, 20, 0);
-
-        ArgumentCaptor<String> sql = ArgumentCaptor.forClass(String.class);
-        verify(jdbc).query(sql.capture(), any(MapSqlParameterSource.class), any(RowMapper.class));
-        assertTrue(sql.getValue().contains("ELSE 'student'"));
-    }
-
-    @Test
     void eventListUsesServerPaginationAndParameterizedSearchFilters() {
         when(jdbc.queryForObject(anyString(), any(MapSqlParameterSource.class), eq(Integer.class)))
                 .thenReturn(1);

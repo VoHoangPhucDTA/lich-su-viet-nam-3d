@@ -1,152 +1,178 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { MemoryRouter, Route, Routes, useLocation } from 'react-router-dom';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import AdminUsersPage from '../AdminUsersPage';
-import { deleteAdminUser, getAdminUsers, setAdminUserStatus } from '../../../services/adminApi';
+import { getAdminUsers, type AdminUserListItem } from '../../../services/adminApi';
+import { ApiRequestError } from '../../../services/apiClient';
 
 vi.mock('../../../layouts/AdminLayout', () => ({
   default: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
 }));
 
-vi.mock('../../../components/admin/AdminUI', () => ({
-  AdminPageHeader: ({ title }: { title: string }) => <h1>{title}</h1>,
-  AdminSearchInput: (props: React.InputHTMLAttributes<HTMLInputElement>) => (
-    <input {...props} aria-label="user-search" />
-  ),
-  AdminFilterSelect: ({
-    value,
-    onValueChange,
-    label,
-    options,
-  }: {
-    value: string;
-    onValueChange: (value: string) => void;
-    label: string;
-    options: Array<{ value: string; label: string }>;
-  }) => (
-    <label>{label}<select value={value} onChange={event => onValueChange(event.target.value)}>
-      {options.map(option => <option key={option.value} value={option.value}>{option.label}</option>)}
-    </select></label>
-  ),
-  AdminStatusBadge: ({ status }: { status: string }) => <span data-testid={`status-${status}`}>{status}</span>,
-  AdminRowActions: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
-  AdminDataTable: ({
-    columns,
-    rows,
-    loading,
-    error,
-    onRetry,
-    emptyTitle,
-  }: {
-    columns: Array<{ key: string; render?: (row: { id: string } & Record<string, unknown>) => React.ReactNode }>;
-    rows: Array<{ id: string } & Record<string, unknown>>;
-    loading: boolean;
-    error?: string;
-    onRetry?: () => void;
-    emptyTitle?: string;
-  }) => {
-    if (loading) return <div role="status">loading users</div>;
-    if (error) return <div role="alert">{error}<button onClick={onRetry}>Retry users</button></div>;
-    if (!rows.length) return <div>{emptyTitle}</div>;
-    return <div>{rows.map(row => (
-      <article key={row.id}>{columns.map(column => (
-        <div key={column.key}>{column.render ? column.render(row) : null}</div>
-      ))}</article>
-    ))}</div>;
-  },
-  AdminConfirmDialog: ({
-    open,
-    title,
-    description,
-    confirmLabel,
-    onConfirm,
-    onCancel,
-  }: {
-    open: boolean;
-    title: string;
-    description?: string;
-    confirmLabel: string;
-    onConfirm: () => void;
-    onCancel: () => void;
-  }) => open ? <div role="dialog"><h2>{title}</h2><p>{description}</p><button onClick={onCancel}>Cancel</button><button onClick={onConfirm}>{confirmLabel}</button></div> : null,
-  AdminPagination: ({ total, offset, limit, onChange }: { total: number; offset: number; limit: number; loading: boolean; onChange: (offset: number) => void }) => (
-    <nav><span>{total}</span><button onClick={() => onChange(offset + limit)}>Next page</button>
-    </nav>
-  ),
-}));
-
 vi.mock('../../../services/adminApi', async () => {
   const actual = await vi.importActual<typeof import('../../../services/adminApi')>('../../../services/adminApi');
-  return {
-    ...actual,
-    getAdminUsers: vi.fn(),
-    setAdminUserStatus: vi.fn(),
-    deleteAdminUser: vi.fn(),
-  };
+  return { ...actual, getAdminUsers: vi.fn() };
 });
 
-const page = {
-  items: [{
+const users: AdminUserListItem[] = [
+  {
     id: 'user-1',
-    fullName: 'Nguyen Admin',
+    displayName: 'Nguyễn Quản trị',
     email: 'admin@example.test',
-    grade: 'other' as unknown as number,
-    school: 'Demo school',
-    avatarUrl: null,
-    status: 'active' as const,
-    role: 'admin' as const,
+    primaryRole: 'admin',
+    roles: ['admin', 'teacher', 'student'],
+    status: 'active',
+    emailVerified: true,
     createdAt: '2026-01-01T00:00:00Z',
-    lastActivity: null,
-  }],
-  count: 1,
-  total: 1,
+    updatedAt: '2026-01-02T00:00:00Z',
+    lastMeaningfulActivityAt: '2026-01-03T00:00:00Z',
+  },
+  {
+    id: 'user-2',
+    displayName: null,
+    email: 'teacher@example.test',
+    primaryRole: 'teacher',
+    roles: ['teacher'],
+    status: 'deleted',
+    emailVerified: false,
+    createdAt: '2026-01-04T00:00:00Z',
+    updatedAt: '2026-01-04T00:00:00Z',
+    lastMeaningfulActivityAt: null,
+  },
+  {
+    id: 'user-3',
+    displayName: 'Không có quyền',
+    email: 'none@example.test',
+    primaryRole: null,
+    roles: [],
+    status: 'pending',
+    emailVerified: false,
+    createdAt: '2026-01-05T00:00:00Z',
+    updatedAt: '2026-01-05T00:00:00Z',
+    lastMeaningfulActivityAt: null,
+  },
+];
+
+const page = {
+  items: users,
+  count: users.length,
+  total: users.length,
   limit: 20,
   offset: 0,
 };
 
-describe('AdminUsersPage characterization', () => {
+function LocationProbe() {
+  const location = useLocation();
+  return <div data-testid="location">{`${location.pathname}${location.search}`}</div>;
+}
+
+function renderPage(initialEntry = '/admin/users') {
+  return render(
+    <MemoryRouter initialEntries={[initialEntry]}>
+      <Routes>
+        <Route path="/admin/users" element={<><AdminUsersPage /><LocationProbe /></>} />
+      </Routes>
+    </MemoryRouter>,
+  );
+}
+
+describe('AdminUsersPage', () => {
   beforeEach(() => {
     vi.clearAllMocks();
     vi.mocked(getAdminUsers).mockResolvedValue(page);
-    vi.mocked(setAdminUserStatus).mockResolvedValue({ id: 'user-1', status: 'disabled' });
-    vi.mocked(deleteAdminUser).mockResolvedValue({ id: 'user-1' });
   });
 
-  it('renders loading, status/role and empty activity state', async () => {
-    render(<AdminUsersPage />);
-    expect(screen.getByRole('status')).toHaveTextContent('loading users');
-    await waitFor(() => expect(screen.getByText('Nguyen Admin')).toBeInTheDocument());
-    expect(screen.getByTestId('status-active')).toBeInTheDocument();
-    expect(screen.getByTestId('status-admin')).toBeInTheDocument();
-    expect(screen.getByText('Chưa có hoạt động')).toBeInTheDocument();
+  it('renders loading, complete role/status data and a read-only detail link', async () => {
+    renderPage();
+    expect(screen.getByRole('status')).toHaveTextContent('Đang tải dữ liệu');
+
+    expect(await screen.findByText('Nguyễn Quản trị')).toBeInTheDocument();
+    expect(screen.getAllByText('Giáo viên').length).toBeGreaterThan(0);
+    expect(screen.getByText('Chưa có quyền')).toBeInTheDocument();
+    expect(screen.getByText('Đã xóa (trạng thái DB)')).toBeInTheDocument();
+    expect(screen.getAllByText('Chưa có hoạt động').length).toBeGreaterThan(0);
+    expect(screen.getByRole('link', { name: 'Nguyễn Quản trị' }))
+      .toHaveAttribute('href', '/admin/users/user-1');
+    expect(screen.queryByRole('button', { name: /sửa|xóa|khóa/i })).not.toBeInTheDocument();
+    expect(getAdminUsers).toHaveBeenCalledWith(
+      expect.objectContaining({ sortBy: 'createdAt', sortDir: 'desc', limit: 20, offset: 0 }),
+      expect.any(AbortSignal),
+    );
   });
 
-  it('confirms the current status mutation path', async () => {
-    render(<AdminUsersPage />);
-    await waitFor(() => expect(screen.getByText('Nguyen Admin')).toBeInTheDocument());
+  it('drives filters, sort and pagination from the URL contract', async () => {
+    vi.mocked(getAdminUsers).mockResolvedValue({ ...page, total: 45 });
+    renderPage('/admin/users?q=Lan&role=teacher&status=active&verified=true&sortBy=email&sortDir=asc&limit=20');
 
-    fireEvent.click(screen.getByRole('button', { name: 'Sửa Nguyen Admin' }));
-    expect(screen.getByRole('dialog')).toHaveTextContent('Xác nhận thay đổi');
-    fireEvent.click(screen.getByRole('button', { name: 'Cập nhật' }));
+    await waitFor(() => expect(getAdminUsers).toHaveBeenCalledWith(
+      {
+        q: 'Lan',
+        role: 'teacher',
+        status: 'active',
+        verified: 'true',
+        sortBy: 'email',
+        sortDir: 'asc',
+        limit: 20,
+        offset: 0,
+      },
+      expect.any(AbortSignal),
+    ));
 
-    await waitFor(() => expect(setAdminUserStatus).toHaveBeenCalledWith('user-1', 'disabled'));
+    fireEvent.click(screen.getByRole('button', { name: 'Trang 2' }));
+    await waitFor(() => expect(screen.getByTestId('location')).toHaveTextContent('offset=20'));
+    await waitFor(() => expect(getAdminUsers).toHaveBeenLastCalledWith(
+      expect.objectContaining({ offset: 20 }),
+      expect.any(AbortSignal),
+    ));
   });
 
-  it('confirms the current delete/disable path and handles API errors', async () => {
-    vi.mocked(deleteAdminUser).mockRejectedValueOnce(new Error('cannot disable'));
-    render(<AdminUsersPage />);
-    await waitFor(() => expect(screen.getByText('Nguyen Admin')).toBeInTheDocument());
+  it('writes debounced search to the URL and cancels the stale request', async () => {
+    let firstSignal: AbortSignal | undefined;
+    vi.mocked(getAdminUsers)
+      .mockImplementationOnce((_params, signal) => {
+        firstSignal = signal;
+        return new Promise(() => undefined);
+      })
+      .mockResolvedValue(page);
+    renderPage();
+    await waitFor(() => expect(getAdminUsers).toHaveBeenCalledTimes(1));
 
-    fireEvent.click(screen.getByRole('button', { name: 'Xóa Nguyen Admin' }));
-    expect(screen.getByRole('dialog')).toHaveTextContent('sẽ bị vô hiệu hóa');
-    fireEvent.click(screen.getByRole('button', { name: 'Xóa' }));
+    fireEvent.change(screen.getByPlaceholderText('Tìm theo tên hoặc email...'), {
+      target: { value: '  An  ' },
+    });
 
-    await waitFor(() => expect(screen.getByRole('alert')).toHaveTextContent('cannot disable'));
+    await waitFor(() => expect(screen.getByTestId('location')).toHaveTextContent('q=An'), { timeout: 1000 });
+    await waitFor(() => expect(getAdminUsers).toHaveBeenCalledTimes(2));
+    expect(firstSignal?.aborted).toBe(true);
+    expect(await screen.findByText('Nguyễn Quản trị')).toBeInTheDocument();
   });
 
-  it('renders empty state from an empty server page', async () => {
-    vi.mocked(getAdminUsers).mockResolvedValue({ ...page, items: [], count: 0, total: 0 });
-    render(<AdminUsersPage />);
-    await waitFor(() => expect(screen.getByText('Không tìm thấy tài khoản')).toBeInTheDocument());
+  it('renders empty, forbidden and retry states without treating AbortError as an error', async () => {
+    vi.mocked(getAdminUsers).mockResolvedValueOnce({ ...page, items: [], count: 0, total: 0 });
+    const first = renderPage();
+    expect(await screen.findByText('Không tìm thấy tài khoản')).toBeInTheDocument();
+    first.unmount();
+
+    vi.mocked(getAdminUsers)
+      .mockRejectedValueOnce(new ApiRequestError('FORBIDDEN', 'internal detail', 403))
+      .mockResolvedValueOnce(page);
+    renderPage();
+    expect(await screen.findByRole('alert')).toHaveTextContent('không có quyền');
+    fireEvent.click(screen.getByRole('button', { name: 'Thử lại' }));
+    expect(await screen.findByText('Nguyễn Quản trị')).toBeInTheDocument();
+  });
+
+  it('corrects an out-of-range offset to the nearest valid server page', async () => {
+    vi.mocked(getAdminUsers)
+      .mockResolvedValueOnce({ items: [], count: 0, total: 21, limit: 20, offset: 80 })
+      .mockResolvedValueOnce({ ...page, total: 21, offset: 20 });
+    renderPage('/admin/users?offset=80');
+
+    await waitFor(() => expect(screen.getByTestId('location')).toHaveTextContent('offset=20'));
+    await waitFor(() => expect(getAdminUsers).toHaveBeenLastCalledWith(
+      expect.objectContaining({ offset: 20 }),
+      expect.any(AbortSignal),
+    ));
   });
 });

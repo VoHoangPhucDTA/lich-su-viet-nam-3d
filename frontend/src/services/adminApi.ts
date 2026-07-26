@@ -8,17 +8,81 @@ export interface AdminPage<T> {
   offset: number;
 }
 
-export interface AdminUser {
+export type AdminUserRole = 'student' | 'teacher' | 'admin';
+export type AdminUserStatus = 'active' | 'pending' | 'disabled' | 'deleted';
+export type AdminUserGrade = '10' | '11' | '12' | 'other' | null;
+
+export interface AdminUserListItem {
   id: string;
-  fullName: string;
+  displayName: string | null;
   email: string;
-  grade?: number | null;
-  school?: string | null;
-  avatarUrl?: string | null;
-  status: 'active' | 'pending' | 'disabled';
-  role: 'student' | 'admin';
+  primaryRole: AdminUserRole | null;
+  roles: AdminUserRole[];
+  status: AdminUserStatus;
+  emailVerified: boolean;
   createdAt: string;
-  lastActivity?: string | null;
+  updatedAt: string;
+  lastMeaningfulActivityAt: string | null;
+}
+
+export interface AdminUserDetail {
+  account: {
+    id: string;
+    displayName: string | null;
+    email: string;
+    primaryRole: AdminUserRole | null;
+    roles: AdminUserRole[];
+    status: AdminUserStatus;
+    emailVerified: boolean;
+    emailVerifiedAt: string | null;
+    grade: AdminUserGrade;
+    school: string | null;
+    avatarUrl: string | null;
+    createdAt: string;
+    updatedAt: string;
+  };
+  sessions: {
+    trackingMode: 'STATELESS_JWT';
+    trackingAvailable: false;
+    activeRefreshSessionCount: null;
+  };
+  learning: {
+    progress: {
+      eventsViewed: number;
+      distinctEventsViewed: number;
+      totalMinutes: number;
+      lastActivityAt: string | null;
+    };
+    quizzes: AdminUserAssessmentSummary;
+    exams: AdminUserAssessmentSummary;
+  };
+  activity: {
+    lastMeaningfulActivityAt: string | null;
+    recent: AdminUserActivityItem[];
+  };
+  recentAdminAudit: AdminUserAuditEntry[];
+}
+
+export interface AdminUserAssessmentSummary {
+  submittedCount: number;
+  averageScore10: number | null;
+  lastSubmittedAt: string | null;
+}
+
+export interface AdminUserActivityItem {
+  kind: 'event_view' | 'quiz_submitted' | 'exam_submitted';
+  timestamp: string;
+  title: string;
+  score10: number | null;
+}
+
+export interface AdminUserAuditEntry {
+  action: string | null;
+  relation: 'target' | 'actor' | 'both';
+  actor: { displayName: string };
+  entityType: string | null;
+  entityId: string | null;
+  timestamp: string;
 }
 
 export interface AdminEvent {
@@ -368,16 +432,34 @@ export function getAdminDashboardAudit(signal?: AbortSignal) {
   return apiGet<AdminDashboardAuditEntry[]>('/api/admin/dashboard/audit', { signal });
 }
 
-export function getAdminUsers(params: { q?: string; status?: string; role?: string; limit?: number; offset?: number }) {
-  return apiGet<AdminPage<AdminUser>>(`/api/admin/users${toQueryString(params)}`);
+export interface AdminUserListParams {
+  q?: string;
+  role?: AdminUserRole;
+  status?: AdminUserStatus;
+  verified?: 'true' | 'false';
+  sortBy?: 'displayName' | 'email' | 'createdAt' | 'updatedAt';
+  sortDir?: 'asc' | 'desc';
+  limit?: number;
+  offset?: number;
 }
 
-export function setAdminUserStatus(id: string, status: AdminUser['status']) {
-  return apiPatch<{ id: string; status: AdminUser['status'] }>(`/api/admin/users/${id}/status`, { status });
+export function getAdminUsers(params: AdminUserListParams, signal?: AbortSignal) {
+  return apiGet<AdminPage<AdminUserListItem>>(
+    `/api/admin/users${toQueryString({ ...params })}`,
+    { signal },
+  );
 }
 
-export function setAdminUserRole(id: string, role: AdminUser['role']) {
-  return apiPatch<{ id: string; role: AdminUser['role'] }>(`/api/admin/users/${id}/role`, { role });
+export function getAdminUserDetail(id: string, signal?: AbortSignal) {
+  return apiGet<AdminUserDetail>(`/api/admin/users/${encodeURIComponent(id)}`, { signal });
+}
+
+export function setAdminUserStatus(id: string, status: 'active' | 'pending' | 'disabled') {
+  return apiPatch<{ id: string; status: 'active' | 'pending' | 'disabled' }>(`/api/admin/users/${id}/status`, { status });
+}
+
+export function setAdminUserRole(id: string, role: 'student' | 'admin') {
+  return apiPatch<{ id: string; role: 'student' | 'admin' }>(`/api/admin/users/${id}/role`, { role });
 }
 
 export function deleteAdminUser(id: string) {

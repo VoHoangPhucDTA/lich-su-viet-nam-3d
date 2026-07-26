@@ -50,43 +50,6 @@ public class AdminService {
         this.roleRepository = roleRepository;
     }
 
-    public Map<String, Object> users(String query, String status, String role, Integer limit, Integer offset) {
-        if (StringUtils.hasText(status)) validate("status", status, USER_STATUSES);
-        if (StringUtils.hasText(role)) validate("role", role, Set.of("student", "admin"));
-        int safeLimit = limit == null ? 25 : Math.min(Math.max(limit, 1), 100);
-        int safeOffset = offset == null ? 0 : Math.max(offset, 0);
-        MapSqlParameterSource params = new MapSqlParameterSource();
-        List<String> filters = new ArrayList<>();
-        if (StringUtils.hasText(query)) {
-            filters.add("(u.full_name LIKE :query OR u.email LIKE :query)");
-            params.addValue("query", "%" + query.trim() + "%");
-        }
-        if (StringUtils.hasText(status)) { filters.add("u.status = :status"); params.addValue("status", status); }
-        if (StringUtils.hasText(role)) {
-            filters.add("EXISTS (SELECT 1 FROM user_roles ur JOIN roles r ON r.id = ur.role_id WHERE ur.user_id = u.id AND r.code = :role)");
-            params.addValue("role", role);
-        }
-        String where = filters.isEmpty() ? "" : " WHERE " + String.join(" AND ", filters);
-        Integer total = jdbc.queryForObject("SELECT COUNT(*) FROM users u" + where, params, Integer.class);
-        params.addValue("limit", safeLimit).addValue("offset", safeOffset);
-        List<Map<String, Object>> items = jdbc.query("""
-                SELECT BIN_TO_UUID(u.id) AS id, u.full_name AS fullName, u.email, u.grade, u.school,
-                       u.avatar_url AS avatarUrl, u.status, u.created_at AS createdAt,
-                       CASE WHEN EXISTS (SELECT 1 FROM user_roles ur JOIN roles r ON r.id = ur.role_id WHERE ur.user_id = u.id AND r.code = 'admin') THEN 'admin' ELSE 'student' END AS role,
-                       (SELECT MAX(v.viewed_at) FROM event_view_logs v WHERE v.user_id = u.id) AS lastActivity
-                FROM users u
-                """ + where + " ORDER BY u.created_at DESC LIMIT :limit OFFSET :offset", params, (rs, row) -> {
-            Map<String, Object> item = new LinkedHashMap<>();
-            item.put("id", rs.getString("id")); item.put("fullName", rs.getString("fullName")); item.put("email", rs.getString("email"));
-            item.put("grade", rs.getObject("grade")); item.put("school", rs.getString("school")); item.put("avatarUrl", rs.getString("avatarUrl"));
-            item.put("status", rs.getString("status")); item.put("role", rs.getString("role"));
-            item.put("createdAt", rs.getTimestamp("createdAt").toInstant().toString());
-            var last = rs.getTimestamp("lastActivity"); item.put("lastActivity", last == null ? null : last.toInstant().toString());
-            return item;
-        });
-        return page(items, total == null ? 0 : total, safeLimit, safeOffset);
-    }
-
     @Transactional
     public Map<String, Object> updateUserStatus(String id, Map<String, Object> body, UserPrincipal principal) {
         String next = requiredText(body, "status"); validate("status", next, USER_STATUSES);

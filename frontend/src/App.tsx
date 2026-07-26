@@ -32,6 +32,7 @@ import ProfileSettingsPage from './pages/profile/ProfileSettingsPage';
 // Admin pages
 import AdminDashboardPage from './pages/admin/AdminDashboardPage';
 import AdminUsersPage from './pages/admin/AdminUsersPage';
+import AdminUserDetailPage from './pages/admin/AdminUserDetailPage';
 import AdminEventsPage from './pages/admin/AdminEventsPage';
 import AdminEventDetailPage from './pages/admin/AdminEventDetailPage';
 import AdminEventEditorPage from './pages/admin/AdminEventEditorPage';
@@ -148,6 +149,7 @@ function AppContent() {
           <Route path="/admin" element={<Navigate to="/admin/dashboard" replace />} />
           <Route path="/admin/dashboard" element={<ProtectedRoute><RoleGuard requiredRole="admin"><AdminDashboardPage /></RoleGuard></ProtectedRoute>} />
           <Route path="/admin/users" element={<ProtectedRoute><RoleGuard requiredRole="admin"><AdminUsersPage /></RoleGuard></ProtectedRoute>} />
+          <Route path="/admin/users/:id" element={<ProtectedRoute><RoleGuard requiredRole="admin"><AdminUserDetailPage /></RoleGuard></ProtectedRoute>} />
           <Route path="/admin/events" element={<ProtectedRoute><RoleGuard requiredRole="admin"><AdminEventsPage /></RoleGuard></ProtectedRoute>} />
           <Route path="/admin/events/new" element={<ProtectedRoute><RoleGuard requiredRole="admin"><AdminEventEditorPage /></RoleGuard></ProtectedRoute>} />
           <Route path="/admin/events/:id/edit" element={<ProtectedRoute><RoleGuard requiredRole="admin"><AdminEventEditorPage /></RoleGuard></ProtectedRoute>} />

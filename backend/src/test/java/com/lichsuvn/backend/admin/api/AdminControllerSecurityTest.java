@@ -2,12 +2,14 @@ package com.lichsuvn.backend.admin.api;
 
 import com.lichsuvn.backend.admin.api.dto.AdminDashboardDtos;
 import com.lichsuvn.backend.admin.api.dto.AdminEventDtos;
+import com.lichsuvn.backend.admin.api.dto.AdminUserDtos;
 import com.lichsuvn.backend.admin.application.AdminDashboardReadService;
 import com.lichsuvn.backend.admin.application.AdminEventReadService;
 import com.lichsuvn.backend.admin.application.AdminEventMutationService;
 import com.lichsuvn.backend.admin.application.AdminEventMediaMutationService;
 import com.lichsuvn.backend.admin.application.AdminEventGeographyMutationService;
 import com.lichsuvn.backend.admin.application.AdminEventPublicationService;
+import com.lichsuvn.backend.admin.application.AdminUserReadService;
 import com.lichsuvn.backend.admin.application.EventPublishBlockedException;
 import com.lichsuvn.backend.admin.application.AdminService;
 import com.lichsuvn.backend.auth.application.AuthService;
@@ -87,6 +89,9 @@ class AdminControllerSecurityTest {
     AdminEventPublicationService adminEventPublicationService;
 
     @MockitoBean
+    AdminUserReadService adminUserReadService;
+
+    @MockitoBean
     AuthService authService;
 
     @Test
@@ -148,8 +153,9 @@ class AdminControllerSecurityTest {
                 null, null, null, null, null, null, null,
                 null, null, null, null, null, null, null, null, null))
                 .thenReturn(new AdminEventDtos.Page(List.of(), 0, 0, 20, 0));
-        when(adminService.users(null, null, null, null, null))
-                .thenReturn(Map.of("items", List.of(), "count", 0, "total", 0, "limit", 25, "offset", 0));
+        when(adminUserReadService.findUsers(
+                null, null, null, null, null, null, null, null))
+                .thenReturn(new AdminUserDtos.Page(List.of(), 0, 0, 20, 0));
 
         var admin = user("admin").authorities(() -> "ROLE_admin");
 
@@ -164,6 +170,116 @@ class AdminControllerSecurityTest {
         mockMvc.perform(get("/api/admin/users").with(admin))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.success").value(true));
+    }
+
+    @Test
+    void userDetailAuthorizationRunsBeforeReadServiceAndAdminReceivesTypedResponse() throws Exception {
+        String id = "11111111-1111-1111-1111-111111111111";
+        var detail = userDetail(id);
+        when(adminUserReadService.findUser(id)).thenReturn(detail);
+
+        mockMvc.perform(get("/api/admin/users/{id}", id))
+                .andExpect(status().isUnauthorized());
+        mockMvc.perform(get("/api/admin/users/{id}", id)
+                        .with(user("student").authorities(() -> "ROLE_student")))
+                .andExpect(status().isForbidden());
+        mockMvc.perform(get("/api/admin/users/{id}", id)
+                        .with(user("teacher").authorities(() -> "ROLE_teacher")))
+                .andExpect(status().isForbidden());
+
+        org.mockito.Mockito.verifyNoInteractions(adminUserReadService);
+
+        String body = mockMvc.perform(get("/api/admin/users/{id}", id)
+                        .with(user("admin").authorities(() -> "ROLE_admin")))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.data.account.primaryRole").value("teacher"))
+                .andExpect(jsonPath("$.data.sessions.trackingAvailable").value(false))
+                .andExpect(jsonPath("$.data.sessions.activeRefreshSessionCount").isEmpty())
+                .andReturn().getResponse().getContentAsString();
+
+        for (String denied : List.of(
+                "passwordHash", "password_hash", "tokenHash", "token_hash",
+                "providerId", "provider_id", "failedLoginCount", "lockedUntil",
+                "beforeJson", "afterJson", "ipAddress", "anonymousTokenHash",
+                "questionsJson", "answersJson", "configJson", "resultJson", "local:")) {
+            org.junit.jupiter.api.Assertions.assertFalse(body.contains(denied), denied);
+        }
+    }
+
+    @Test
+    void rejectedUserListRequestsNeverInvokeReadServiceAndAdminReceivesAllowlistedJson() throws Exception {
+        var nonAdmin = user("teacher").authorities(() -> "ROLE_teacher");
+        mockMvc.perform(get("/api/admin/users"))
+                .andExpect(status().isUnauthorized());
+        mockMvc.perform(get("/api/admin/users").with(nonAdmin))
+                .andExpect(status().isForbidden());
+        verifyNoInteractions(adminUserReadService);
+
+        Instant created = Instant.parse("2026-01-01T00:00:00Z");
+        when(adminUserReadService.findUsers(
+                "Teacher", "teacher", "deleted", "false", "email", "asc", 10, 20))
+                .thenReturn(new AdminUserDtos.Page(List.of(new AdminUserDtos.ListItem(
+                        "11111111-1111-1111-1111-111111111111",
+                        null,
+                        "teacher@example.test",
+                        AdminUserDtos.Role.TEACHER,
+                        List.of(AdminUserDtos.Role.TEACHER),
+                        AdminUserDtos.Status.DELETED,
+                        false,
+                        created,
+                        created,
+                        null
+                )), 1, 21, 10, 20));
+
+        String body = mockMvc.perform(get("/api/admin/users")
+                        .param("q", "Teacher")
+                        .param("role", "teacher")
+                        .param("status", "deleted")
+                        .param("verified", "false")
+                        .param("sortBy", "email")
+                        .param("sortDir", "asc")
+                        .param("limit", "10")
+                        .param("offset", "20")
+                        .with(user("admin").authorities(() -> "ROLE_admin")))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.data.items[0].displayName").isEmpty())
+                .andExpect(jsonPath("$.data.items[0].primaryRole").value("teacher"))
+                .andExpect(jsonPath("$.data.items[0].roles[0]").value("teacher"))
+                .andExpect(jsonPath("$.data.items[0].status").value("deleted"))
+                .andExpect(jsonPath("$.data.items[0].emailVerified").value(false))
+                .andExpect(jsonPath("$.data.total").value(21))
+                .andReturn().getResponse().getContentAsString();
+        for (String denied : List.of(
+                "passwordHash", "tokenHash", "providerId", "failedLoginCount",
+                "lockedUntil", "grade", "school", "avatarUrl", "local:")) {
+            org.junit.jupiter.api.Assertions.assertFalse(body.contains(denied), denied);
+        }
+    }
+
+    @Test
+    void malformedAndMissingUserIdsAreResolvedOnlyAfterAdminAuthorization() throws Exception {
+        String malformed = "not-a-uuid";
+        mockMvc.perform(get("/api/admin/users/{id}", malformed))
+                .andExpect(status().isUnauthorized());
+        mockMvc.perform(get("/api/admin/users/{id}", malformed)
+                        .with(user("student").authorities(() -> "ROLE_student")))
+                .andExpect(status().isForbidden());
+        verifyNoInteractions(adminUserReadService);
+
+        when(adminUserReadService.findUser(malformed)).thenThrow(new ApiException(
+                HttpStatus.BAD_REQUEST, "INVALID_USER_ID", "User ID must be a UUID"));
+        mockMvc.perform(get("/api/admin/users/{id}", malformed)
+                        .with(user("admin").authorities(() -> "ROLE_admin")))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.code").value("INVALID_USER_ID"));
+
+        String missing = "11111111-1111-1111-1111-111111111199";
+        when(adminUserReadService.findUser(missing)).thenThrow(new ApiException(
+                HttpStatus.NOT_FOUND, "ADMIN_USER_NOT_FOUND", "Admin user account not found"));
+        mockMvc.perform(get("/api/admin/users/{id}", missing)
+                        .with(user("admin").authorities(() -> "ROLE_admin")))
+                .andExpect(status().isNotFound())
+                .andExpect(jsonPath("$.code").value("ADMIN_USER_NOT_FOUND"));
     }
 
     @Test
@@ -622,6 +738,27 @@ class AdminControllerSecurityTest {
                 "provenance", "local:")) {
             org.junit.jupiter.api.Assertions.assertFalse(response.contains(forbidden), forbidden);
         }
+    }
+
+    private static AdminUserDtos.Detail userDetail(String id) {
+        Instant created = Instant.parse("2026-01-01T00:00:00Z");
+        return new AdminUserDtos.Detail(
+                new AdminUserDtos.Account(
+                        id, "Teacher", "teacher@example.test",
+                        AdminUserDtos.Role.TEACHER,
+                        List.of(AdminUserDtos.Role.TEACHER),
+                        AdminUserDtos.Status.ACTIVE,
+                        true, created, "other", "School",
+                        "https://cdn.example.test/avatar.png", created, created),
+                new AdminUserDtos.SessionTracking(
+                        AdminUserDtos.TrackingMode.STATELESS_JWT, false, null),
+                new AdminUserDtos.Learning(
+                        new AdminUserDtos.Progress(2, 1, 3, created),
+                        new AdminUserDtos.AssessmentSummary(1, java.math.BigDecimal.TEN, created),
+                        new AdminUserDtos.AssessmentSummary(1, java.math.BigDecimal.TEN, created)),
+                new AdminUserDtos.Activity(created, List.of()),
+                List.of()
+        );
     }
 
     @TestConfiguration

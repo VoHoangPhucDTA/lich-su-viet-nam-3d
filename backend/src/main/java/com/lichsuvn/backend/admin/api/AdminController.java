@@ -6,12 +6,14 @@ import com.lichsuvn.backend.admin.api.dto.AdminEventMutationDtos;
 import com.lichsuvn.backend.admin.api.dto.AdminEventMediaMutationDtos;
 import com.lichsuvn.backend.admin.api.dto.AdminEventGeographyDtos;
 import com.lichsuvn.backend.admin.api.dto.AdminEventPublicationDtos;
+import com.lichsuvn.backend.admin.api.dto.AdminUserDtos;
 import com.lichsuvn.backend.admin.application.AdminDashboardReadService;
 import com.lichsuvn.backend.admin.application.AdminEventReadService;
 import com.lichsuvn.backend.admin.application.AdminEventMutationService;
 import com.lichsuvn.backend.admin.application.AdminEventMediaMutationService;
 import com.lichsuvn.backend.admin.application.AdminEventGeographyMutationService;
 import com.lichsuvn.backend.admin.application.AdminEventPublicationService;
+import com.lichsuvn.backend.admin.application.AdminUserReadService;
 import com.lichsuvn.backend.admin.application.AdminService;
 import com.lichsuvn.backend.auth.security.UserPrincipal;
 import com.lichsuvn.backend.common.api.ApiResponse;
@@ -46,6 +48,7 @@ public class AdminController {
     private final AdminEventMediaMutationService adminEventMediaMutationService;
     private final AdminEventGeographyMutationService adminEventGeographyMutationService;
     private final AdminEventPublicationService adminEventPublicationService;
+    private final AdminUserReadService adminUserReadService;
 
     public AdminController(
             AdminService adminService,
@@ -54,7 +57,8 @@ public class AdminController {
             AdminEventMutationService adminEventMutationService,
             AdminEventMediaMutationService adminEventMediaMutationService,
             AdminEventGeographyMutationService adminEventGeographyMutationService,
-            AdminEventPublicationService adminEventPublicationService
+            AdminEventPublicationService adminEventPublicationService,
+            AdminUserReadService adminUserReadService
     ) {
         this.adminService = adminService;
         this.adminEventReadService = adminEventReadService;
@@ -63,6 +67,7 @@ public class AdminController {
         this.adminEventMediaMutationService = adminEventMediaMutationService;
         this.adminEventGeographyMutationService = adminEventGeographyMutationService;
         this.adminEventPublicationService = adminEventPublicationService;
+        this.adminUserReadService = adminUserReadService;
     }
 
     @GetMapping("/dashboard")
@@ -86,14 +91,23 @@ public class AdminController {
     }
 
     @GetMapping("/users")
-    public ApiResponse<Map<String, Object>> users(
+    public ApiResponse<AdminUserDtos.Page> users(
             @RequestParam(required = false, name = "q") String query,
-            @RequestParam(required = false) String status,
             @RequestParam(required = false) String role,
+            @RequestParam(required = false) String status,
+            @RequestParam(required = false) String verified,
+            @RequestParam(required = false) String sortBy,
+            @RequestParam(required = false) String sortDir,
             @RequestParam(required = false) Integer limit,
             @RequestParam(required = false) Integer offset
     ) {
-        return ApiResponse.ok(adminService.users(query, status, role, limit, offset));
+        return ApiResponse.ok(adminUserReadService.findUsers(
+                query, role, status, verified, sortBy, sortDir, limit, offset));
+    }
+
+    @GetMapping("/users/{id}")
+    public ApiResponse<AdminUserDtos.Detail> user(@PathVariable String id) {
+        return ApiResponse.ok(adminUserReadService.findUser(id));
     }
 
     @PatchMapping("/users/{id}/status")
