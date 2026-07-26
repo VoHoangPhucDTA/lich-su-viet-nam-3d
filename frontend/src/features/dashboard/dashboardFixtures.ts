@@ -25,7 +25,7 @@ export type DashboardDevelopmentFixtureLoader = () => Promise<{
 }>;
 
 export const DASHBOARD_NOT_CONNECTED_MESSAGE =
-  'Dashboard Analytics API chưa được triển khai. Trang này chưa sử dụng dữ liệu học tập thật.';
+  'Chưa có dữ liệu phạm vi thống kê cho trạng thái hiện tại.';
 
 const developmentFixtureLoader: DashboardDevelopmentFixtureLoader | null = import.meta.env.DEV
   ? () => import('./dashboardDevelopmentFixtures')
@@ -133,7 +133,7 @@ export function createDashboardAnonymousViewModel(
     recommendations: [{
       id: 'sign-in-dashboard',
       title: 'Đăng nhập để xem thống kê học tập',
-      reason: 'Dashboard tài khoản sử dụng kết quả đã lưu trên máy chủ. Dữ liệu cục bộ chưa được tổng hợp trong phiên bản này.',
+      reason: 'Đăng nhập để xem toàn bộ lịch sử luyện thi đã lưu trên máy chủ. Thiết bị này hiện chưa có kết quả ẩn danh nào.',
       actionLabel: 'Đăng nhập',
       actionRoute: '/login',
       priority: 'primary',
@@ -148,7 +148,7 @@ export function createDashboardAnonymousViewModel(
       id: 'authentication-required',
       type: 'info',
       title: 'Đăng nhập để xem dashboard tài khoản',
-      message: 'Goal 3A chưa tổng hợp dữ liệu anonymous hoặc dữ liệu lưu cục bộ.',
+      message: 'Thống kê đầy đủ được lưu theo tài khoản trên máy chủ. Đăng nhập để xem toàn bộ lịch sử luyện thi của bạn.',
       actionLabel: 'Đăng nhập',
       actionRoute: '/login',
     }],
@@ -184,7 +184,7 @@ const DASHBOARD_ERROR_COPY: Record<DashboardErrorKind, { title: string; message:
   },
   transport: {
     title: 'Không thể kết nối máy chủ thống kê',
-    message: 'Dữ liệu cục bộ chưa được dùng làm fallback trong Goal 3A. Hãy kiểm tra kết nối và thử lại.',
+    message: 'Đã thử dùng dữ liệu dự phòng trên thiết bị nhưng không tìm thấy kết quả phù hợp. Hãy kiểm tra kết nối và thử lại.',
   },
   timeout: {
     title: 'Tải thống kê quá thời gian chờ',
@@ -192,7 +192,7 @@ const DASHBOARD_ERROR_COPY: Record<DashboardErrorKind, { title: string; message:
   },
   server: {
     title: 'Máy chủ thống kê đang tạm gián đoạn',
-    message: 'Dashboard chưa thể tải dữ liệu tài khoản. Hãy thử lại sau.',
+    message: 'Dashboard chưa tải được dữ liệu học tập của bạn. Hãy thử lại sau ít phút.',
   },
   unknown: {
     title: 'Không thể tải thống kê học tập',
