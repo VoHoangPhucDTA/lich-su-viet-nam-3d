@@ -133,7 +133,7 @@ describe('AdminEventEditorPage', () => {
     await screen.findByDisplayValue('Sự kiện');
     expect(screen.getByLabelText('Năm bắt đầu')).toHaveValue(null);
     expect(screen.queryByLabelText(/trạng thái/i)).not.toBeInTheDocument();
-    expect(screen.getByText(/Media, thumbnail, geography/i)).toBeInTheDocument();
+    expect(screen.getByText(/Không có trình sửa raw JSON/i)).toBeInTheDocument();
   });
 
   it('shares the page mutation lock while a media save is in flight', async () => {

@@ -110,11 +110,16 @@ public class EventCompletenessService {
         if (geoType == null) return GeographyState.INVALID;
         boolean latPresent = facts.lat() != null;
         boolean lngPresent = facts.lng() != null;
-        boolean regionsPresent = nonEmpty(facts.provinceNames()) || nonEmpty(facts.historicalLocations());
+        boolean regionsPresent = nonEmpty(facts.provinceNames());
         if ("no_location".equals(geoType)) {
             return latPresent || lngPresent || regionsPresent ? GeographyState.INVALID : GeographyState.VALID;
         }
-        if ("nationwide".equals(geoType)) return GeographyState.VALID;
+        if ("nationwide".equals(geoType)) {
+            // Legacy nationwide rows may retain the display label "Việt Nam";
+            // it is not a local geometry and remains readable.
+            return latPresent || lngPresent || !nationwideLabelsOnly(facts.provinceNames())
+                    ? GeographyState.INVALID : GeographyState.VALID;
+        }
         if ("point".equals(geoType) || "multi_point".equals(geoType)) {
             if (!latPresent && !lngPresent) return GeographyState.MISSING;
             return validCoordinates(facts.lat(), facts.lng()) ? GeographyState.VALID : GeographyState.INVALID;
@@ -143,7 +148,11 @@ public class EventCompletenessService {
             case "multi_point" -> markerCount >= 2;
             case "multi_polygon" -> regions;
             case "mixed" -> markerCount >= 1 && regions;
-            case "nationwide" -> "nationwide".equals(declared);
+            case "nationwide" -> "nationwide".equals(declared)
+                    && markerCount == 0
+                    && absentOrEmptyArray(mapData.get("gadmRefs"))
+                    && nationwideLabelsOnly(mapData.get("provinceNames"))
+                    && nationwideLabelsOnly(mapData.at("/displayGeometry/provinceNames"));
             case "no_location" -> markerCount == 0 && !regions
                     && (declared == null || "no_location".equals(declared));
             default -> false;
@@ -203,6 +212,25 @@ public class EventCompletenessService {
         if (value == null || !value.isArray()) return false;
         for (JsonNode item : value) if (item.isTextual() && StringUtils.hasText(item.asText())) return true;
         return false;
+    }
+
+    private static boolean absentOrEmptyArray(JsonNode value) {
+        return value == null || value.isMissingNode() || (value.isArray() && value.isEmpty());
+    }
+
+    private static boolean nationwideLabelsOnly(List<String> values) {
+        return values == null || values.stream()
+                .filter(StringUtils::hasText)
+                .allMatch(value -> "Việt Nam".equals(value.trim()));
+    }
+
+    private static boolean nationwideLabelsOnly(JsonNode value) {
+        if (value == null || value.isMissingNode()) return true;
+        if (!value.isArray()) return false;
+        for (JsonNode item : value) {
+            if (!item.isTextual() || !"Việt Nam".equals(item.asText().trim())) return false;
+        }
+        return true;
     }
 
     private static boolean nonEmpty(List<String> values) {

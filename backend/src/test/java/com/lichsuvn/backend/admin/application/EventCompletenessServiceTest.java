@@ -66,6 +66,39 @@ class EventCompletenessServiceTest {
                 .filter(code -> code.endsWith("THUMBNAIL")).toList());
     }
 
+    @Test
+    void nationwideAllowsOnlyLegacyVietnamLabelAndRejectsContradictoryLocalGeometry()
+            throws Exception {
+        var compatible = service.assess(nationwide(
+                null, null, List.of("Việt Nam"),
+                mapper.readTree("""
+                        {"geoType":"nationwide","provinceNames":["Việt Nam"]}
+                        """)));
+        assertTrue(geographyIssueCodes(compatible).isEmpty());
+
+        var coordinates = service.assess(nationwide(
+                21.0, 105.0, List.of("Việt Nam"),
+                mapper.readTree("{\"geoType\":\"nationwide\"}")));
+        assertEquals(List.of("INVALID_GEOGRAPHY"), geographyIssueCodes(coordinates));
+
+        var localRegion = service.assess(nationwide(
+                null, null, List.of("Hà Nội"),
+                mapper.readTree("""
+                        {"geoType":"nationwide","gadmRefs":["VNM.27_1"],
+                         "provinceNames":["Hà Nội"]}
+                        """)));
+        assertEquals(List.of("INVALID_GEOGRAPHY", "INVALID_MAP_DATA"),
+                geographyIssueCodes(localRegion));
+
+        var pointMarker = service.assess(nationwide(
+                null, null, List.of("Việt Nam"),
+                mapper.readTree("""
+                        {"geoType":"nationwide",
+                         "marker":{"label":"Hà Nội","lat":21.0,"lng":105.0}}
+                        """)));
+        assertEquals(List.of("INVALID_MAP_DATA"), geographyIssueCodes(pointMarker));
+    }
+
     private EventCompletenessFacts withThumbnailCount(EventCompletenessFacts value, int count) {
         return new EventCompletenessFacts(
                 value.titlePresent(), value.slugPresent(), value.cardSummaryPresent(),
@@ -88,6 +121,27 @@ class EventCompletenessServiceTest {
                 List.of(), List.of(), mapPresent, mapPresent, mapData,
                 null, null, null, "atomic", "political", List.of(10)
         );
+    }
+
+    private EventCompletenessFacts nationwide(
+            Double lat, Double lng, List<String> provinceNames, JsonNode mapData
+    ) throws Exception {
+        EventCompletenessFacts base = facts("nationwide", true, mapData, lat, lng);
+        return new EventCompletenessFacts(
+                base.titlePresent(), base.slugPresent(), base.cardSummaryPresent(),
+                base.canonicalSummaryPresent(), base.detailedNarrativePresent(),
+                base.significancePresent(), base.keyFacts(), base.activeThumbnailCount(),
+                base.activeMediaCount(), base.normalizedGeoType(), base.lat(), base.lng(),
+                provinceNames, base.historicalLocations(), base.mapDataPresent(),
+                base.mapDataObject(), base.sanitizedMapData(), base.startYear(),
+                base.endYear(), base.effectiveEndYear(), base.eventLevel(),
+                base.eventType(), base.grades());
+    }
+
+    private List<String> geographyIssueCodes(EventCompletenessService.Assessment result) {
+        return result.completeness().issues().stream()
+                .filter(issue -> "GEOGRAPHY".equals(issue.section()))
+                .map(issue -> issue.code()).toList();
     }
 
     private List<String> geographyCodes(EventCompletenessService.Assessment result) {

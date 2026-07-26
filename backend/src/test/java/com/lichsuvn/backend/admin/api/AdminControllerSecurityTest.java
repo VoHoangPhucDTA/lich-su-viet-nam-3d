@@ -6,6 +6,7 @@ import com.lichsuvn.backend.admin.application.AdminDashboardReadService;
 import com.lichsuvn.backend.admin.application.AdminEventReadService;
 import com.lichsuvn.backend.admin.application.AdminEventMutationService;
 import com.lichsuvn.backend.admin.application.AdminEventMediaMutationService;
+import com.lichsuvn.backend.admin.application.AdminEventGeographyMutationService;
 import com.lichsuvn.backend.admin.application.AdminService;
 import com.lichsuvn.backend.auth.application.AuthService;
 import com.lichsuvn.backend.auth.security.UserPrincipal;
@@ -75,6 +76,9 @@ class AdminControllerSecurityTest {
 
     @MockitoBean
     AdminEventMediaMutationService adminEventMediaMutationService;
+
+    @MockitoBean
+    AdminEventGeographyMutationService adminEventGeographyMutationService;
 
     @MockitoBean
     AuthService authService;
@@ -387,6 +391,88 @@ class AdminControllerSecurityTest {
                         .contentType("application/json")
                         .content("{\"expectedUpdatedAt\":\"2026-07-24T17:20:30.123456Z\",\"grades\":[10,12]}"))
                 .andExpect(status().isOk());
+    }
+
+    @Test
+    void geographyMutationRequiresAdminAndCsrfAndRejectsOpenJsonShapes() throws Exception {
+        var detail = new AdminEventDtos.Detail(
+                new AdminEventDtos.Core("event-1", "event-1", "Event", null),
+                null, null, null,
+                new AdminEventDtos.Publication(
+                        "draft", new AdminEventDtos.Flags(false, false, false),
+                        null, null, Instant.parse("2026-07-24T17:20:30.123456Z")),
+                null, null, null, null, List.of(), null);
+        when(adminEventGeographyMutationService.update(
+                anyString(), any(), nullable(UserPrincipal.class))).thenReturn(detail);
+        String request = """
+                {"expectedUpdatedAt":"2026-07-24T17:20:30.123456Z",
+                 "geography":{"geoType":"point",
+                   "marker":{"label":"Huế","lat":16.46,"lng":107.59},
+                   "historicalLocations":[],"focus":{"mode":"auto","zoom":8}}}
+                """;
+
+        mockMvc.perform(patch("/api/admin/events/event-1/geography")
+                        .with(csrf()).contentType("application/json").content(request))
+                .andExpect(status().isUnauthorized());
+        mockMvc.perform(patch("/api/admin/events/event-1/geography")
+                        .with(user("student").authorities(() -> "ROLE_student"))
+                        .with(csrf()).contentType("application/json").content(request))
+                .andExpect(status().isForbidden())
+                .andExpect(jsonPath("$.code").value("FORBIDDEN"));
+        mockMvc.perform(patch("/api/admin/events/event-1/geography")
+                        .with(user("teacher").authorities(() -> "ROLE_teacher"))
+                        .with(csrf()).contentType("application/json").content(request))
+                .andExpect(status().isForbidden());
+        mockMvc.perform(patch("/api/admin/events/event-1/geography")
+                        .with(user("admin").authorities(() -> "ROLE_admin"))
+                        .contentType("application/json").content(request))
+                .andExpect(status().isForbidden())
+                .andExpect(jsonPath("$.code").value("CSRF_TOKEN_INVALID"));
+        mockMvc.perform(patch("/api/admin/events/event-1/geography")
+                        .with(user("admin").authorities(() -> "ROLE_admin"))
+                        .with(csrf()).contentType("application/json").content(request))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.data.core.id").value("event-1"));
+
+        mockMvc.perform(patch("/api/admin/events/event-1/geography")
+                        .with(user("admin").authorities(() -> "ROLE_admin"))
+                        .with(csrf()).contentType("application/json").content("""
+                        {"expectedUpdatedAt":"2026-07-24T17:20:30.123456Z",
+                         "geography":{"geoType":"point",
+                           "marker":{"label":"Huế","lat":16.46,"lng":107.59},
+                           "raw_json":{"mapData":{}}}}
+                        """))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.code").value("UNSUPPORTED_JSON_PROPERTY"));
+        mockMvc.perform(patch("/api/admin/events/event-1/geography")
+                        .with(user("admin").authorities(() -> "ROLE_admin"))
+                        .with(csrf()).contentType("application/json").content("""
+                        {"expectedUpdatedAt":"2026-07-24T17:20:30.123456Z",
+                         "geography":{"geoType":"polygon"}}
+                        """))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.code").value("INVALID_GEO_TYPE"));
+        mockMvc.perform(patch("/api/admin/events/event-1/geography")
+                        .with(user("admin").authorities(() -> "ROLE_admin"))
+                        .with(csrf()).contentType("application/json").content("""
+                        {"expectedUpdatedAt":"2026-07-24T17:20:30.123456Z",
+                         "geography":{"geoType":"point",
+                           "marker":{"label":"Huế","lat":16.46,"lng":107.59},
+                           "historicalLocations":[],
+                           "focus":{"mode":"auto","center":{"lat":16.46,"lng":107.59}}}}
+                        """))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.code").value("UNSUPPORTED_JSON_PROPERTY"));
+        mockMvc.perform(patch("/api/admin/events/event-1/geography")
+                        .with(user("admin").authorities(() -> "ROLE_admin"))
+                        .with(csrf()).contentType("application/json").content("""
+                        {"expectedUpdatedAt":"2026-07-24T17:20:30.123456Z",
+                         "geography":{"geoType":"point",
+                           "marker":{"label":"Huế","lat":16.46,"lng":107.59},
+                           "historicalLocations":"not-an-array"}}
+                        """))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.code").value("INVALID_GEOGRAPHY_REQUEST"));
     }
 
     @Test

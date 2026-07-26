@@ -13,6 +13,7 @@ import {
 } from '../../services/adminApi';
 import { ApiRequestError } from '../../services/apiClient';
 import AdminEventMediaSection from '../../components/admin/AdminEventMediaSection';
+import AdminEventGeographySection from '../../components/admin/AdminEventGeographySection';
 
 type CoreForm = {
   title: string;
@@ -114,6 +115,7 @@ export default function AdminEventEditorPage() {
   const [coreSaving, setCoreSaving] = useState(false);
   const [gradeSaving, setGradeSaving] = useState(false);
   const [mediaSaving, setMediaSaving] = useState(false);
+  const [geographySaving, setGeographySaving] = useState(false);
   const [coreError, setCoreError] = useState('');
   const [gradeError, setGradeError] = useState('');
   const [coreSuccess, setCoreSuccess] = useState('');
@@ -121,6 +123,7 @@ export default function AdminEventEditorPage() {
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
   const [coreDirty, setCoreDirty] = useState(!editing);
   const [gradeDirty, setGradeDirty] = useState(!editing);
+  const [geographyDirty, setGeographyDirty] = useState(false);
 
   useEffect(() => {
     if (!id) return;
@@ -141,14 +144,14 @@ export default function AdminEventEditorPage() {
 
   useEffect(() => {
     const warn = (event: BeforeUnloadEvent) => {
-      if (coreDirty || gradeDirty) {
+      if (coreDirty || gradeDirty || geographyDirty) {
         event.preventDefault();
         event.returnValue = '';
       }
     };
     window.addEventListener('beforeunload', warn);
     return () => window.removeEventListener('beforeunload', warn);
-  }, [coreDirty, gradeDirty]);
+  }, [coreDirty, gradeDirty, geographyDirty]);
 
   const facts = useMemo(() => form.keyFacts.split('\n').map(value => value.trim()).filter(Boolean), [form.keyFacts]);
   const update = <K extends keyof CoreForm>(key: K, value: CoreForm[K]) => {
@@ -156,7 +159,7 @@ export default function AdminEventEditorPage() {
     setCoreDirty(true);
     setCoreSuccess('');
   };
-  const mutationSaving = coreSaving || gradeSaving || mediaSaving;
+  const mutationSaving = coreSaving || gradeSaving || mediaSaving || geographySaving;
 
   const saveCore = async (event: FormEvent) => {
     event.preventDefault();
@@ -231,7 +234,7 @@ export default function AdminEventEditorPage() {
 
   const reload = () => window.location.reload();
   const confirmLeave = (event: MouseEvent<HTMLAnchorElement>) => {
-    if ((coreDirty || gradeDirty) && !window.confirm('Bạn có thay đổi chưa lưu. Rời trang?')) {
+    if ((coreDirty || gradeDirty || geographyDirty) && !window.confirm('Bạn có thay đổi chưa lưu. Rời trang?')) {
       event.preventDefault();
     }
   };
@@ -241,7 +244,7 @@ export default function AdminEventEditorPage() {
   return (
     <AdminLayout title={editing ? 'Chỉnh sửa sự kiện' : 'Tạo sự kiện'}>
       <div className="mb-4"><Link to="/admin/events" onClick={confirmLeave} className="text-xs font-semibold text-[var(--text-muted)]">← Quay lại danh sách</Link></div>
-      <AdminPageHeader title={editing ? 'Chỉnh sửa sự kiện' : 'Tạo bản nháp sự kiện'} description="Chỉ nội dung lõi, khối lớp và cờ hiển thị có thể chỉnh sửa trong Phase 5." />
+      <AdminPageHeader title={editing ? 'Chỉnh sửa sự kiện' : 'Tạo bản nháp sự kiện'} description="Chỉnh sửa nội dung lõi, khối lớp, media metadata và dữ liệu địa lý có cấu trúc." />
       {coreError && <div className="mb-4 rounded-lg border border-[var(--accent)]/20 bg-[var(--danger-soft)] px-4 py-3 text-sm text-[var(--accent)]">{coreError} {coreError.includes('thay đổi') && <button type="button" onClick={reload} className="ml-2 underline">Tải lại</button>}</div>}
       <form onSubmit={saveCore} className="space-y-5">
         <AdminFormSection title="Định danh và phân loại"><div className="grid gap-4 md:grid-cols-2">
@@ -286,7 +289,17 @@ export default function AdminEventEditorPage() {
           onUpdated={updated => { setDetail(updated); setVersion(updated.publication.updatedAt); }}
           onConflict={reload}
         />
-        <AdminFormSection title="Dữ liệu chỉ đọc"><p className="text-sm text-[var(--text-secondary)]">Media, thumbnail, geography, hierarchy và nguồn được giữ nguyên hoặc chỉ cập nhật metadata an toàn; geography, hierarchy và nguồn vẫn chỉ đọc trong Phase 6 P0.</p><p className="mt-2 text-xs text-[var(--text-muted)]">Phiên bản hiện tại: {version}</p></AdminFormSection>
+        <AdminEventGeographySection
+          eventId={id!}
+          detail={detail}
+          version={version}
+          disabled={mutationSaving}
+          onBusyChange={setGeographySaving}
+          onDirtyChange={setGeographyDirty}
+          onUpdated={updated => { setDetail(updated); setVersion(updated.publication.updatedAt); }}
+          onConflict={reload}
+        />
+        <AdminFormSection title="Dữ liệu chỉ đọc"><p className="text-sm text-[var(--text-secondary)]">Hierarchy và nguồn vẫn chỉ đọc. Không có trình sửa raw JSON, GeoJSON hay công cụ vẽ Cesium.</p><p className="mt-2 text-xs text-[var(--text-muted)]">Phiên bản hiện tại: {version}</p></AdminFormSection>
       </div>}
     </AdminLayout>
   );

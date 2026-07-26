@@ -151,6 +151,41 @@ export interface AdminEventGradesRequest {
   grades: number[];
 }
 
+export interface AdminEventGeographyMarker {
+  name?: string | null;
+  label?: string | null;
+  lat: number;
+  lng: number;
+  confidence?: number | null;
+}
+
+export interface AdminEventGeographyFocus {
+  mode: 'auto' | 'bounds';
+  zoom?: number | null;
+}
+
+type GeographyBase = {
+  historicalLocations: string[];
+  focus?: AdminEventGeographyFocus | null;
+};
+
+export type AdminEventGeographyPayload =
+  | (GeographyBase & { geoType: 'no_location' })
+  | (GeographyBase & { geoType: 'nationwide' })
+  | (GeographyBase & { geoType: 'point'; marker: AdminEventGeographyMarker })
+  | (GeographyBase & { geoType: 'multi_point'; markers: AdminEventGeographyMarker[] })
+  | (GeographyBase & { geoType: 'multi_polygon'; regions: Array<{ gadmRef: string }> })
+  | (GeographyBase & {
+    geoType: 'mixed';
+    markers: AdminEventGeographyMarker[];
+    regions: Array<{ gadmRef: string }>;
+  });
+
+export interface AdminEventGeographyPatchRequest {
+  expectedUpdatedAt: string;
+  geography: AdminEventGeographyPayload;
+}
+
 export interface AdminEventMediaCreateRequest {
   expectedUpdatedAt: string;
   mediaType: 'image' | 'video' | 'document' | 'audio';
@@ -379,6 +414,18 @@ export function updateAdminEventCore(id: string, payload: AdminEventCorePatchReq
 
 export function replaceAdminEventGrades(id: string, payload: AdminEventGradesRequest, signal?: AbortSignal) {
   return apiPut<AdminEventDetail>(`/api/admin/events/${encodeURIComponent(id)}/grades`, payload, { signal });
+}
+
+export function updateAdminEventGeography(
+  id: string,
+  payload: AdminEventGeographyPatchRequest,
+  signal?: AbortSignal,
+) {
+  return apiPatch<AdminEventDetail>(
+    `/api/admin/events/${encodeURIComponent(id)}/geography`,
+    payload,
+    { signal },
+  );
 }
 
 export function addAdminEventMedia(id: string, payload: AdminEventMediaCreateRequest, signal?: AbortSignal) {

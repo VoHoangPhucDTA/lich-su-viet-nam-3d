@@ -3,13 +3,18 @@ package com.lichsuvn.backend.admin.integration;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lichsuvn.backend.admin.api.dto.AdminEventMutationDtos;
 import com.lichsuvn.backend.admin.api.dto.AdminEventMediaMutationDtos;
+import com.lichsuvn.backend.admin.api.dto.AdminEventGeographyDtos;
+import com.lichsuvn.backend.admin.application.AdminEventGeographyCanonicalizer;
+import com.lichsuvn.backend.admin.application.AdminEventGeographyMutationService;
 import com.lichsuvn.backend.admin.application.AdminEventMediaMutationService;
 import com.lichsuvn.backend.admin.application.AdminEventMutationService;
 import com.lichsuvn.backend.admin.application.AdminEventReadService;
 import com.lichsuvn.backend.admin.application.EventCompletenessService;
+import com.lichsuvn.backend.admin.application.VietnamGadmRegistry;
 import com.lichsuvn.backend.admin.infrastructure.AdminEventMutationRepository;
 import com.lichsuvn.backend.admin.infrastructure.AdminEventReadRepository;
 import com.lichsuvn.backend.admin.infrastructure.AdminEventMediaMutationRepository;
+import com.lichsuvn.backend.admin.infrastructure.AdminEventGeographyMutationRepository;
 import com.lichsuvn.backend.auth.security.UserPrincipal;
 import com.lichsuvn.backend.common.exception.ApiException;
 import com.lichsuvn.backend.common.media.MediaUrlPolicy;
@@ -29,6 +34,7 @@ import java.util.Map;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
+import java.math.BigDecimal;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 
@@ -42,8 +48,10 @@ import static org.junit.jupiter.api.Assumptions.assumeTrue;
 class AdminEventMutationIntegrationTest {
     private static MySQLContainer mysql;
     private static JdbcTemplate jdbc;
+    private static ObjectMapper mapper;
     private static AdminEventMutationService service;
     private static AdminEventMediaMutationService mediaService;
+    private static AdminEventGeographyMutationService geographyService;
     private static TransactionTemplate tx;
     private static boolean available;
     private static String unavailableReason;
@@ -67,7 +75,7 @@ class AdminEventMutationIntegrationTest {
                     .load().migrate();
             jdbc = new JdbcTemplate(dataSource);
             var named = new NamedParameterJdbcTemplate(dataSource);
-            var mapper = new ObjectMapper();
+            mapper = new ObjectMapper();
             var read = new AdminEventReadService(
                     new AdminEventReadRepository(named, mapper), new EventCompletenessService());
             var mutations = new AdminEventMutationRepository(named, mapper);
@@ -75,6 +83,13 @@ class AdminEventMutationIntegrationTest {
             mediaService = new AdminEventMediaMutationService(
                     new AdminEventMediaMutationRepository(named), mutations, read,
                     new MediaUrlPolicy(), mapper);
+            geographyService = new AdminEventGeographyMutationService(
+                    new AdminEventGeographyMutationRepository(named, mapper),
+                    mutations,
+                    new AdminEventGeographyCanonicalizer(
+                            mapper, new VietnamGadmRegistry(mapper)),
+                    read,
+                    mapper);
             tx = new TransactionTemplate(new DataSourceTransactionManager(dataSource));
             available = true;
         } catch (Exception ex) {
@@ -616,6 +631,161 @@ class AdminEventMutationIntegrationTest {
         assertEquals(version(hidden), version(serviceRead("phase6-patch")));
     }
 
+    @Test
+    void geographyMutationStoresAllCanonicalTypesAndKeepsCompletenessConsistent() {
+        assumeTrue(available, unavailableReason);
+        List<AdminEventGeographyDtos.Payload> payloads = List.of(
+                new AdminEventGeographyDtos.NoLocation(
+                        "no_location", List.of("Không xác định"), new AdminEventGeographyDtos.Focus("auto", null)),
+                new AdminEventGeographyDtos.Nationwide(
+                        "nationwide", List.of("Việt Nam"), new AdminEventGeographyDtos.Focus("auto", null)),
+                new AdminEventGeographyDtos.Point(
+                        "point", marker("Hà Nội", 21.028511, 105.804817),
+                        List.of("Thăng Long"), new AdminEventGeographyDtos.Focus("auto", 8)),
+                new AdminEventGeographyDtos.MultiPoint(
+                        "multi_point", List.of(
+                        marker("Hà Nội", 21.028511, 105.804817),
+                        marker("Huế", 16.463713, 107.590866)),
+                        List.of(), new AdminEventGeographyDtos.Focus("bounds", 6)),
+                new AdminEventGeographyDtos.MultiPolygon(
+                        "multi_polygon",
+                        List.of(new AdminEventGeographyDtos.Region("VNM.27_1")),
+                        List.of("Bắc Bộ"), new AdminEventGeographyDtos.Focus("bounds", 6)),
+                new AdminEventGeographyDtos.Mixed(
+                        "mixed", List.of(marker("Hà Nội", 21.028511, 105.804817)),
+                        List.of(new AdminEventGeographyDtos.Region("VNM.27_1")),
+                        List.of("Thăng Long"), new AdminEventGeographyDtos.Focus("bounds", 7))
+        );
+        for (int index = 0; index < payloads.size(); index++) {
+            String id = "phase7-type-" + index;
+            AdminEventGeographyDtos.Payload payload = payloads.get(index);
+            tx.executeWithoutResult(status -> service.create(create(id), ADMIN));
+            var updated = tx.execute(status -> geographyService.update(id,
+                    new AdminEventGeographyDtos.Patch(version(serviceRead(id)), payload), ADMIN));
+            assertEquals(payload.geoType(), updated.geography().canonicalGeoType());
+            assertEquals(payload.geoType(), jdbc.queryForObject(
+                    "SELECT geo_type FROM historical_events WHERE id=?", String.class, id));
+            assertEquals(payload.geoType(), jdbc.queryForObject(
+                    "SELECT JSON_UNQUOTE(JSON_EXTRACT(raw_json,'$.mapData.geoType')) "
+                            + "FROM historical_events WHERE id=?", String.class, id));
+            List<String> codes = updated.completeness().issues().stream()
+                    .map(issue -> issue.code()).toList();
+            assertTrue(codes.stream().noneMatch(code ->
+                    code.equals("MISSING_GEOGRAPHY") || code.equals("INVALID_GEOGRAPHY")
+                            || code.equals("MISSING_MAP_DATA") || code.equals("INVALID_MAP_DATA")), codes.toString());
+        }
+    }
+
+    @Test
+    void geographyMutationPreservesUnrelatedJsonIsVersionedAndNoOpSafe() throws Exception {
+        assumeTrue(available, unavailableReason);
+        tx.executeWithoutResult(status -> service.create(create("phase7-preserve"), ADMIN));
+        jdbc.update("""
+                UPDATE historical_events
+                SET raw_json=CAST('{
+                  "mapData":{"geoType":"nationwide"},
+                  "objectValue":{"nested":{"value":"kept"}},
+                  "arrayValue":[true,false,null,{"nested":"kept"}],
+                  "stringValue":"kept",
+                  "numberValue":12.50,
+                  "booleanValue":true,
+                  "nullValue":null,
+                  "importer":{"source":"local:private","rank":2},
+                  "provenance":{"package":"history-rag","verified":false},
+                  "unknownFutureProperty":{"schema":99,"enabled":true}
+                }' AS JSON),
+                geo_type='nationwide',
+                updated_at='2026-07-24 10:20:30.123456'
+                WHERE id='phase7-preserve'
+                """);
+        String outsideBeforeJson = jdbc.queryForObject("""
+                SELECT CAST(JSON_REMOVE(raw_json,'$.mapData') AS CHAR)
+                FROM historical_events WHERE id='phase7-preserve'
+                """, String.class);
+        var outsideBefore = mapper.readTree(outsideBeforeJson);
+        String exact = version(serviceRead("phase7-preserve"));
+        assertTrue(exact.endsWith(".123456Z"), exact);
+        AdminEventGeographyDtos.Point point = new AdminEventGeographyDtos.Point(
+                "point", marker("Bạch Đằng", 20.91, 106.75),
+                List.of("Sông Bạch Đằng"), new AdminEventGeographyDtos.Focus("auto", 9));
+        var updated = tx.execute(status -> geographyService.update(
+                "phase7-preserve", new AdminEventGeographyDtos.Patch(exact, point), ADMIN));
+        assertNotEquals(exact, version(updated));
+        String outsideAfterJson = jdbc.queryForObject("""
+                SELECT CAST(JSON_REMOVE(raw_json,'$.mapData') AS CHAR)
+                FROM historical_events WHERE id='phase7-preserve'
+                """, String.class);
+        var outsideAfter = mapper.readTree(outsideAfterJson);
+        assertEquals(outsideBefore, outsideAfter,
+                "JSON outside $.mapData must retain logical values and node types");
+        assertTrue(outsideAfter.path("objectValue").isObject());
+        assertTrue(outsideAfter.path("arrayValue").isArray());
+        assertTrue(outsideAfter.path("stringValue").isTextual());
+        assertTrue(outsideAfter.path("numberValue").isNumber());
+        assertTrue(outsideAfter.path("booleanValue").isBoolean());
+        assertTrue(outsideAfter.path("nullValue").isNull());
+        assertTrue(outsideAfter.path("importer").isObject());
+        assertEquals("local:private", outsideAfter.at("/importer/source").asText());
+        assertTrue(outsideAfter.path("provenance").isObject());
+        assertTrue(outsideAfter.path("unknownFutureProperty").isObject());
+        assertEquals(106.75, jdbc.queryForObject(
+                "SELECT lng FROM historical_events WHERE id='phase7-preserve'",
+                BigDecimal.class).doubleValue());
+        assertEquals("point", updated.geography().mapData().displayGeometry().geoType());
+        assertEquals(BigDecimal.valueOf(106.75),
+                updated.geography().mapData().focusGeometry().center().lng());
+
+        int audits = jdbc.queryForObject("""
+                SELECT COUNT(*) FROM admin_audit_logs
+                WHERE entity_id='phase7-preserve' AND action='event.geography_updated'
+                """, Integer.class);
+        ApiException noChanges = assertThrows(ApiException.class, () -> tx.execute(status ->
+                geographyService.update("phase7-preserve",
+                        new AdminEventGeographyDtos.Patch(version(updated), point), ADMIN)));
+        assertEquals("NO_CHANGES", noChanges.getCode());
+        assertEquals(version(updated), version(serviceRead("phase7-preserve")));
+        assertEquals(audits, jdbc.queryForObject("""
+                SELECT COUNT(*) FROM admin_audit_logs
+                WHERE entity_id='phase7-preserve' AND action='event.geography_updated'
+                """, Integer.class));
+    }
+
+    @Test
+    void staleAndAuditFailureRollBackEveryGeographyField() {
+        assumeTrue(available, unavailableReason);
+        tx.executeWithoutResult(status -> service.create(create("phase7-rollback"), ADMIN));
+        var first = tx.execute(status -> geographyService.update("phase7-rollback",
+                new AdminEventGeographyDtos.Patch(
+                        version(serviceRead("phase7-rollback")),
+                        new AdminEventGeographyDtos.Nationwide(
+                                "nationwide", List.of(), new AdminEventGeographyDtos.Focus("auto", null))),
+                ADMIN));
+        Map<String, Object> before = geographySnapshot("phase7-rollback");
+        ApiException stale = assertThrows(ApiException.class, () -> tx.execute(status ->
+                geographyService.update("phase7-rollback",
+                        new AdminEventGeographyDtos.Patch(
+                                "2020-01-01T00:00:00.000001Z",
+                                new AdminEventGeographyDtos.NoLocation(
+                                        "no_location", List.of(), new AdminEventGeographyDtos.Focus("auto", null))),
+                        ADMIN)));
+        assertEquals("EVENT_UPDATE_CONFLICT", stale.getCode());
+        assertEquals(before, geographySnapshot("phase7-rollback"));
+
+        byte[] missingUser = new byte[16];
+        missingUser[0] = 7;
+        UserPrincipal invalidActor = new UserPrincipal(
+                "missing", missingUser, "missing@test", List.of("admin"));
+        assertThrows(RuntimeException.class, () -> tx.execute(status ->
+                geographyService.update("phase7-rollback",
+                        new AdminEventGeographyDtos.Patch(
+                                version(first),
+                                new AdminEventGeographyDtos.Point(
+                                        "point", marker("Huế", 16.46, 107.59),
+                                        List.of(), new AdminEventGeographyDtos.Focus("auto", 8))),
+                        invalidActor)));
+        assertEquals(before, geographySnapshot("phase7-rollback"));
+    }
+
     private static Object selectAfterLatch(
             CountDownLatch ready, CountDownLatch start, long mediaId, String expectedVersion
     ) {
@@ -639,6 +809,23 @@ class AdminEventMutationIntegrationTest {
         return new AdminEventMediaMutationDtos.Create(
                 version, type, "https://cdn.example.org/" + fileName,
                 null, null, null, null, status);
+    }
+
+    private static AdminEventGeographyDtos.Marker marker(
+            String label, double lat, double lng
+    ) {
+        return new AdminEventGeographyDtos.Marker(
+                null, label, BigDecimal.valueOf(lat), BigDecimal.valueOf(lng), null);
+    }
+
+    private static Map<String, Object> geographySnapshot(String id) {
+        return new java.util.LinkedHashMap<>(jdbc.queryForMap("""
+                SELECT geo_type, CAST(lat AS CHAR) lat, CAST(lng AS CHAR) lng,
+                       CAST(province_names AS CHAR) province_names,
+                       CAST(historical_locations AS CHAR) historical_locations,
+                       CAST(raw_json AS CHAR) raw_json, CAST(updated_at AS CHAR) updated_at
+                FROM historical_events WHERE id=?
+                """, id));
     }
 
     private static Map<String, Object> aggregateSnapshot(String id) {
