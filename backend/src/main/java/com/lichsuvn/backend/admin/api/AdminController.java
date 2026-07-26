@@ -5,11 +5,13 @@ import com.lichsuvn.backend.admin.api.dto.AdminEventDtos;
 import com.lichsuvn.backend.admin.api.dto.AdminEventMutationDtos;
 import com.lichsuvn.backend.admin.api.dto.AdminEventMediaMutationDtos;
 import com.lichsuvn.backend.admin.api.dto.AdminEventGeographyDtos;
+import com.lichsuvn.backend.admin.api.dto.AdminEventPublicationDtos;
 import com.lichsuvn.backend.admin.application.AdminDashboardReadService;
 import com.lichsuvn.backend.admin.application.AdminEventReadService;
 import com.lichsuvn.backend.admin.application.AdminEventMutationService;
 import com.lichsuvn.backend.admin.application.AdminEventMediaMutationService;
 import com.lichsuvn.backend.admin.application.AdminEventGeographyMutationService;
+import com.lichsuvn.backend.admin.application.AdminEventPublicationService;
 import com.lichsuvn.backend.admin.application.AdminService;
 import com.lichsuvn.backend.auth.security.UserPrincipal;
 import com.lichsuvn.backend.common.api.ApiResponse;
@@ -43,6 +45,7 @@ public class AdminController {
     private final AdminEventMutationService adminEventMutationService;
     private final AdminEventMediaMutationService adminEventMediaMutationService;
     private final AdminEventGeographyMutationService adminEventGeographyMutationService;
+    private final AdminEventPublicationService adminEventPublicationService;
 
     public AdminController(
             AdminService adminService,
@@ -50,7 +53,8 @@ public class AdminController {
             AdminDashboardReadService adminDashboardReadService,
             AdminEventMutationService adminEventMutationService,
             AdminEventMediaMutationService adminEventMediaMutationService,
-            AdminEventGeographyMutationService adminEventGeographyMutationService
+            AdminEventGeographyMutationService adminEventGeographyMutationService,
+            AdminEventPublicationService adminEventPublicationService
     ) {
         this.adminService = adminService;
         this.adminEventReadService = adminEventReadService;
@@ -58,6 +62,7 @@ public class AdminController {
         this.adminEventMutationService = adminEventMutationService;
         this.adminEventMediaMutationService = adminEventMediaMutationService;
         this.adminEventGeographyMutationService = adminEventGeographyMutationService;
+        this.adminEventPublicationService = adminEventPublicationService;
     }
 
     @GetMapping("/dashboard")
@@ -249,6 +254,15 @@ public class AdminController {
             @AuthenticationPrincipal UserPrincipal principal
     ) {
         return ApiResponse.ok(adminEventGeographyMutationService.update(id, body, principal));
+    }
+
+    @PatchMapping("/events/{id}/publication")
+    public ApiResponse<AdminEventDtos.Detail> updateEventPublication(
+            @PathVariable String id,
+            @Valid @RequestBody AdminEventPublicationDtos.Patch body,
+            @AuthenticationPrincipal UserPrincipal principal
+    ) {
+        return ApiResponse.ok(adminEventPublicationService.update(id, body, principal));
     }
 
     @PatchMapping("/events/{id}/status")

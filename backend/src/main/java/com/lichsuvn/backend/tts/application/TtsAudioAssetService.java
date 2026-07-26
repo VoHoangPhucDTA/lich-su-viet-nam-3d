@@ -101,6 +101,9 @@ public class TtsAudioAssetService {
     public TtsAudioAssetResponse getAsset(String assetId) {
         TtsAudioAsset asset = assetRepository.findById(assetId)
                 .orElseThrow(() -> new NotFoundException("TTS_ASSET_NOT_FOUND", "TTS audio asset not found"));
+        if (!eventNarrationRepository.isPublished(asset.eventId())) {
+            throw new NotFoundException("TTS_ASSET_NOT_FOUND", "TTS audio asset not found");
+        }
         return toResponse(asset, false);
     }
 

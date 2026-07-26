@@ -123,6 +123,21 @@ public class AdminEventReadService {
         );
     }
 
+    public AdminEventDtos.Detail findEventAfterMutation(String id) {
+        AdminEventDtos.Detail detail = findEvent(id);
+        boolean invalidPublishedEvent = "published".equals(detail.publication().status())
+                && detail.completeness().issues().stream()
+                .anyMatch(issue -> "ERROR".equals(issue.severity()));
+        if (invalidPublishedEvent) {
+            throw new ApiException(
+                    HttpStatus.CONFLICT,
+                    "PUBLISHED_EVENT_WOULD_BECOME_INVALID",
+                    "Unpublish the event before making a change that would make it incomplete"
+            );
+        }
+        return detail;
+    }
+
     private Query normalize(
             String query, String status, String eventLevel, String eventType, Integer grade,
             String geoType, String chronology, Integer startYearFrom, Integer startYearTo,

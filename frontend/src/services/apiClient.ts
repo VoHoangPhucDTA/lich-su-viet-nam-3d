@@ -33,17 +33,32 @@ export interface StoredUser {
   createdAt?: string;
 }
 
+export interface ApiIssue {
+  code: string;
+  section: string;
+  severity: 'ERROR' | 'WARNING';
+  fields: string[];
+}
+
 export class ApiRequestError extends Error {
   code: string;
   status: number;
   violations: Array<{ field: string; message: string }>;
+  issues: ApiIssue[];
 
-  constructor(code: string, message: string, status = 0, violations: Array<{ field: string; message: string }> = []) {
+  constructor(
+    code: string,
+    message: string,
+    status = 0,
+    violations: Array<{ field: string; message: string }> = [],
+    issues: ApiIssue[] = [],
+  ) {
     super(message);
     this.name = 'ApiRequestError';
     this.code = code;
     this.status = status;
     this.violations = violations;
+    this.issues = issues;
   }
 }
 
@@ -197,16 +212,39 @@ async function apiRequest<T>(path: string, init: RequestInit, retry = true): Pro
   if (!response.ok || !payload?.success) {
     const errorData = payload?.data as unknown as {
       violations?: Array<{ field: string; message: string }>;
+      issues?: unknown;
     } | undefined;
     throw new ApiRequestError(
       payload?.code || 'API_ERROR',
       payload?.message || `API request failed: ${path}`,
       response.status,
       errorData?.violations ?? [],
+      parseIssues(errorData?.issues),
     );
   }
 
   return payload.data;
+}
+
+function parseIssues(value: unknown): ApiIssue[] {
+  if (!Array.isArray(value)) return [];
+  return value.flatMap(item => {
+    if (!item || typeof item !== 'object') return [];
+    const candidate = item as Record<string, unknown>;
+    if (
+      typeof candidate.code !== 'string'
+      || typeof candidate.section !== 'string'
+      || (candidate.severity !== 'ERROR' && candidate.severity !== 'WARNING')
+      || !Array.isArray(candidate.fields)
+      || !candidate.fields.every(field => typeof field === 'string')
+    ) return [];
+    return [{
+      code: candidate.code,
+      section: candidate.section,
+      severity: candidate.severity,
+      fields: candidate.fields,
+    }];
+  });
 }
 
 export function toQueryString(params: Record<string, string | number | boolean | undefined | null>) {

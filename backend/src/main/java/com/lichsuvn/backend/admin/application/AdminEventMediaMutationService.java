@@ -74,7 +74,7 @@ public class AdminEventMediaMutationService {
                 .max().orElse(-1) + 1;
         long mediaId = repository.insert(eventId, request.mediaType(), url, trim(request.caption()),
                 trim(request.altText()), trim(request.sourceName()), trim(request.license()), status, sort);
-        AdminEventDtos.Detail detail = readService.findEvent(eventId);
+        AdminEventDtos.Detail detail = readService.findEventAfterMutation(eventId);
         auditRepository.audit(principal.idBytes(), "event.media_added", eventId, "{}",
                 json(Map.of("mediaId", mediaId, "mediaType", request.mediaType(), "status", status)));
         return new AddResult(mediaId, detail);
@@ -122,7 +122,7 @@ public class AdminEventMediaMutationService {
                 (String) values.get("caption"), (String) values.get("alt_text"),
                 (String) values.get("source_name"), (String) values.get("license"),
                 nextStatus, thumbnail);
-        AdminEventDtos.Detail detail = readService.findEvent(eventId);
+        AdminEventDtos.Detail detail = readService.findEventAfterMutation(eventId);
         auditRepository.audit(principal.idBytes(), "event.media_updated", eventId, "{}",
                 json(Map.of("mediaId", mediaId, "fields", fields)));
         return detail;
@@ -143,7 +143,7 @@ public class AdminEventMediaMutationService {
                         .thenComparingLong(row -> ((Number) row.get("id")).longValue()))
                 .toList();
         applyOrder(remaining, selectedThumbnailId(remaining));
-        AdminEventDtos.Detail detail = readService.findEvent(eventId);
+        AdminEventDtos.Detail detail = readService.findEventAfterMutation(eventId);
         auditRepository.audit(principal.idBytes(), "event.media_removed", eventId, "{}",
                 json(Map.of("mediaId", mediaId)));
         return detail;
@@ -167,7 +167,7 @@ public class AdminEventMediaMutationService {
                 .map(row -> ((Number) row.get("id")).longValue()).toList();
         if (current.equals(effective) && normalizedSort(rows, effective, thumbnail)) bad("NO_CHANGES");
         applyOrder(orderedRows(rows, effective), thumbnail);
-        AdminEventDtos.Detail detail = readService.findEvent(eventId);
+        AdminEventDtos.Detail detail = readService.findEventAfterMutation(eventId);
         auditRepository.audit(principal.idBytes(), "event.media_reordered", eventId, "{}",
                 json(Map.of("mediaIds", requested)));
         return detail;
@@ -197,7 +197,7 @@ public class AdminEventMediaMutationService {
                 && normalizedSort(all, effectiveOrder, mediaId)) bad("NO_CHANGES");
         repository.clearThumbnails(eventId);
         applyOrder(orderedRows(all, effectiveOrder), mediaId);
-        AdminEventDtos.Detail detail = readService.findEvent(eventId);
+        AdminEventDtos.Detail detail = readService.findEventAfterMutation(eventId);
         auditRepository.audit(principal.idBytes(), "event.thumbnail_selected", eventId, "{}",
                 json(Map.of("mediaId", mediaId)));
         return detail;

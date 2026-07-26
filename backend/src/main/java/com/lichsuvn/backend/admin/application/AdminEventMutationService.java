@@ -120,7 +120,7 @@ public class AdminEventMutationService {
         } catch (DuplicateKeyException ex) {
             throw new ApiException(HttpStatus.CONFLICT, "EVENT_SLUG_EXISTS", "Slug already exists");
         }
-        AdminEventDtos.Detail result = readService.findEvent(id);
+        AdminEventDtos.Detail result = readService.findEventAfterMutation(id);
         repository.audit(principal.idBytes(), "event.core_updated", id,
                 json(Map.of("changedFields", changed, "expectedVersion", request.expectedUpdatedAt())),
                 json(Map.of("changedFields", changed,
@@ -142,7 +142,7 @@ public class AdminEventMutationService {
         repository.replaceGrades(id, grades);
         List<Integer> added = grades.stream().filter(value -> !before.contains(value)).toList();
         List<Integer> removed = before.stream().filter(value -> !grades.contains(value)).toList();
-        AdminEventDtos.Detail result = readService.findEvent(id);
+        AdminEventDtos.Detail result = readService.findEventAfterMutation(id);
         repository.audit(principal.idBytes(), "event.grades_replaced", id,
                 json(Map.of("removed", removed, "gradeCount", before.size())),
                 json(Map.of("added", added, "removed", removed, "gradeCount", grades.size(),

@@ -65,6 +65,26 @@ vi.mock('../../../services/adminApi', async () => {
   return { ...actual, getAdminEvents: vi.fn() };
 });
 
+vi.mock('../../../components/admin/AdminEventPublicationActions', () => ({
+  default: ({
+    status,
+    onUpdated,
+  }: {
+    status: AdminEvent['status'];
+    onUpdated: (detail: {
+      publication: { status: AdminEvent['status']; updatedAt: string };
+      completeness: AdminEvent['completeness'];
+    }) => void;
+  }) => (
+    <button type="button" onClick={() => onUpdated({
+      publication: { status: 'published', updatedAt: '2026-01-03T00:00:00.000001Z' },
+      completeness: item.completeness,
+    })}>
+      {status === 'draft' ? 'Xuất bản row' : 'Đổi trạng thái row'}
+    </button>
+  ),
+}));
+
 const item: AdminEvent = {
   id: 'event-1',
   slug: 'event-1',
@@ -185,12 +205,36 @@ describe('AdminEventsPage', () => {
     expect(firstSignal.aborted).toBe(true);
   });
 
-  it('links only to read detail and exposes no mutation controls', async () => {
+  it('links to detail, exposes typed publication actions and no hard-delete control', async () => {
     renderPage('/admin/events?status=draft');
     await screen.findByText('Bạch Đằng');
     expect(screen.getByRole('link', { name: 'Bạch Đằng' })).toHaveAttribute('href', '/admin/events/event-1');
-    expect(screen.getByRole('note')).toHaveTextContent('quy trình biên tập an toàn');
+    expect(screen.getByRole('button', { name: 'Xuất bản row' })).toBeInTheDocument();
+    expect(screen.getByRole('note')).toHaveTextContent('Hard delete vẫn bị khóa');
     expect(screen.queryByRole('link', { name: /Tạo sự kiện/i })).not.toBeInTheDocument();
     expect(screen.queryByRole('button', { name: /xóa sự kiện/i })).not.toBeInTheDocument();
+  });
+
+  it('refetches the URL-filtered page after publication succeeds', async () => {
+    renderPage('/admin/events?status=draft');
+    await screen.findByText('Bạch Đằng');
+    fireEvent.click(screen.getByRole('button', { name: 'Xuất bản row' }));
+    await waitFor(() => expect(getAdminEvents).toHaveBeenCalledTimes(2));
+    expect(getAdminEvents).toHaveBeenLastCalledWith(
+      expect.objectContaining({ status: 'draft', offset: 0 }),
+      expect.any(AbortSignal),
+    );
+  });
+
+  it('moves an empty out-of-range page to the nearest previous page', async () => {
+    vi.mocked(getAdminEvents)
+      .mockResolvedValueOnce({ ...page, items: [], count: 0, total: 21, offset: 40 })
+      .mockResolvedValueOnce({ ...page, total: 21, offset: 20 });
+    renderPage('/admin/events?status=draft&offset=40');
+
+    await waitFor(() => expect(getAdminEvents).toHaveBeenLastCalledWith(
+      expect.objectContaining({ status: 'draft', offset: 20 }),
+      expect.any(AbortSignal),
+    ));
   });
 });

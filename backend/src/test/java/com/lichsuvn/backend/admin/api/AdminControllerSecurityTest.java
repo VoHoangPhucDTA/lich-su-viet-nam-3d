@@ -7,6 +7,8 @@ import com.lichsuvn.backend.admin.application.AdminEventReadService;
 import com.lichsuvn.backend.admin.application.AdminEventMutationService;
 import com.lichsuvn.backend.admin.application.AdminEventMediaMutationService;
 import com.lichsuvn.backend.admin.application.AdminEventGeographyMutationService;
+import com.lichsuvn.backend.admin.application.AdminEventPublicationService;
+import com.lichsuvn.backend.admin.application.EventPublishBlockedException;
 import com.lichsuvn.backend.admin.application.AdminService;
 import com.lichsuvn.backend.auth.application.AuthService;
 import com.lichsuvn.backend.auth.security.UserPrincipal;
@@ -53,6 +55,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
         SecurityConfig.class,
         JacksonConfig.class,
         GlobalExceptionHandler.class,
+        AdminEventPublicationExceptionHandler.class,
         ApiAuthenticationEntryPoint.class,
         ApiAccessDeniedHandler.class,
         AdminControllerSecurityTest.EnableSecurity.class
@@ -79,6 +82,9 @@ class AdminControllerSecurityTest {
 
     @MockitoBean
     AdminEventGeographyMutationService adminEventGeographyMutationService;
+
+    @MockitoBean
+    AdminEventPublicationService adminEventPublicationService;
 
     @MockitoBean
     AuthService authService;
@@ -534,6 +540,88 @@ class AdminControllerSecurityTest {
                         .with(csrf()))
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.code").value("INVALID_EXPECTED_VERSION"));
+    }
+
+    @Test
+    void publicationEndpointPreservesAuthenticationCsrfRoleAndTypedSuccessContracts() throws Exception {
+        var detail = new AdminEventDtos.Detail(
+                new AdminEventDtos.Core("event-1", "event-1", "Event", null),
+                null, null, null,
+                new AdminEventDtos.Publication(
+                        "published", new AdminEventDtos.Flags(false, false, false),
+                        Instant.parse("2026-07-26T03:00:00Z"), null,
+                        Instant.parse("2026-07-26T03:00:01.123456Z")),
+                null, null, null, null, List.of(),
+                new AdminEventDtos.Completeness(true, 0, List.of()));
+        when(adminEventPublicationService.update(
+                anyString(), any(), nullable(UserPrincipal.class))).thenReturn(detail);
+        String request = """
+                {"expectedUpdatedAt":"2026-07-26T02:59:59.123456Z","action":"publish"}
+                """;
+
+        mockMvc.perform(patch("/api/admin/events/event-1/publication")
+                        .with(csrf()).contentType("application/json").content(request))
+                .andExpect(status().isUnauthorized())
+                .andExpect(jsonPath("$.code").value("UNAUTHENTICATED"));
+        mockMvc.perform(patch("/api/admin/events/event-1/publication")
+                        .with(user("student").authorities(() -> "ROLE_student"))
+                        .with(csrf()).contentType("application/json").content(request))
+                .andExpect(status().isForbidden())
+                .andExpect(jsonPath("$.code").value("FORBIDDEN"));
+        mockMvc.perform(patch("/api/admin/events/event-1/publication")
+                        .with(user("teacher").authorities(() -> "ROLE_teacher"))
+                        .with(csrf()).contentType("application/json").content(request))
+                .andExpect(status().isForbidden())
+                .andExpect(jsonPath("$.code").value("FORBIDDEN"));
+        mockMvc.perform(patch("/api/admin/events/event-1/publication")
+                        .with(user("admin").authorities(() -> "ROLE_admin"))
+                        .contentType("application/json").content(request))
+                .andExpect(status().isForbidden())
+                .andExpect(jsonPath("$.code").value("CSRF_TOKEN_INVALID"));
+        mockMvc.perform(patch("/api/admin/events/event-1/publication")
+                        .with(user("admin").authorities(() -> "ROLE_admin"))
+                        .with(csrf()).contentType("application/json").content(request))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.data.publication.status").value("published"))
+                .andExpect(jsonPath("$.data.publication.updatedAt")
+                        .value("2026-07-26T03:00:01.123456Z"));
+    }
+
+    @Test
+    void publicationEndpointRejectsStatusInjectionAndSerializesOnlyBoundedBlockers() throws Exception {
+        var admin = user("admin").authorities(() -> "ROLE_admin");
+        String version = "2026-07-26T02:59:59.123456Z";
+        mockMvc.perform(patch("/api/admin/events/event-1/publication")
+                        .with(admin).with(csrf()).contentType("application/json")
+                        .content("""
+                                {"expectedUpdatedAt":"%s","action":"publish","status":"published"}
+                                """.formatted(version)))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.code").value("UNSUPPORTED_JSON_PROPERTY"));
+
+        when(adminEventPublicationService.update(
+                anyString(), any(), nullable(UserPrincipal.class)))
+                .thenThrow(new EventPublishBlockedException(List.of(
+                        new AdminEventDtos.CompletenessIssue(
+                                "MISSING_CORE_CONTENT", "CONTENT", "ERROR",
+                                List.of("canonicalSummary")))));
+        String response = mockMvc.perform(patch("/api/admin/events/event-1/publication")
+                        .with(admin).with(csrf()).contentType("application/json")
+                        .content("""
+                                {"expectedUpdatedAt":"%s","action":"publish"}
+                                """.formatted(version)))
+                .andExpect(status().isConflict())
+                .andExpect(jsonPath("$.code").value("EVENT_PUBLISH_BLOCKED"))
+                .andExpect(jsonPath("$.data.issues[0].code").value("MISSING_CORE_CONTENT"))
+                .andExpect(jsonPath("$.data.issues[0].section").value("CONTENT"))
+                .andExpect(jsonPath("$.data.issues[0].severity").value("ERROR"))
+                .andExpect(jsonPath("$.data.issues[0].fields[0]").value("canonicalSummary"))
+                .andReturn().getResponse().getContentAsString();
+        for (String forbidden : List.of(
+                "rawJson", "sourceJson", "mapData", "keyFacts", "mediaUrls",
+                "provenance", "local:")) {
+            org.junit.jupiter.api.Assertions.assertFalse(response.contains(forbidden), forbidden);
+        }
     }
 
     @TestConfiguration

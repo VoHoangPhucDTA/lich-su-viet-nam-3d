@@ -8,6 +8,7 @@ import {
   type AdminEventGeographyPayload,
 } from '../../services/adminApi';
 import { ApiRequestError } from '../../services/apiClient';
+import { publishedEventMutationError } from './adminEventPublication';
 
 type Props = {
   eventId: string;
@@ -242,7 +243,8 @@ export default function AdminEventGeographySection({
       setMessage('Đã lưu dữ liệu địa lý.');
     } catch (cause) {
       if (cause instanceof ApiRequestError && cause.code === 'EVENT_UPDATE_CONFLICT') onConflict();
-      setError(cause instanceof Error ? cause.message : 'Không thể cập nhật dữ liệu địa lý.');
+      setError(publishedEventMutationError(cause)
+        ?? (cause instanceof Error ? cause.message : 'Không thể cập nhật dữ liệu địa lý.'));
     } finally {
       setBusy(false);
       onBusyChange?.(false);
@@ -252,7 +254,7 @@ export default function AdminEventGeographySection({
   const labels = regions.map(ref => options.find(option => option.gadmRef === ref)?.label
     ?? detail.geography.provinceNames[regions.indexOf(ref)] ?? ref);
   return (
-    <section className="rounded-xl border border-[var(--border)] bg-[var(--bg-card)] p-5" aria-labelledby="admin-geography-title">
+    <section id="admin-event-geography" className="rounded-xl border border-[var(--border)] bg-[var(--bg-card)] p-5" aria-labelledby="admin-geography-title">
       <h2 id="admin-geography-title" className="text-lg font-bold text-[var(--text-primary)]">Địa lý và mapData</h2>
       <p className="mt-1 text-sm text-[var(--text-muted)]">
         Chỉnh sửa cấu trúc an toàn; backend tự tạo mapData và hình học hiển thị.

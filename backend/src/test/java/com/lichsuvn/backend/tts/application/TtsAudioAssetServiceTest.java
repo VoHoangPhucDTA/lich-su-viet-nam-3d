@@ -163,6 +163,7 @@ class TtsAudioAssetServiceTest {
     void failedAssetReportsRetryEligibleWithoutMutation() {
         TtsAudioAsset failed = asset(TtsAudioAssetStatus.FAILED, 1, LocalDateTime.now().minusMinutes(5), null, "PROVIDER_FAILED");
         when(assetRepository.findById("asset-1")).thenReturn(Optional.of(failed));
+        when(eventRepository.isPublished("event-1")).thenReturn(true);
 
         var response = service.getAsset("asset-1");
 
@@ -177,6 +178,20 @@ class TtsAudioAssetServiceTest {
         when(assetRepository.findById("missing")).thenReturn(Optional.empty());
 
         assertThrows(NotFoundException.class, () -> service.getAsset("missing"));
+    }
+
+    @Test
+    void archivedEventHidesExistingAssetMetadataWithoutDeletingIt() {
+        when(assetRepository.findById("asset-1")).thenReturn(Optional.of(
+                asset(TtsAudioAssetStatus.READY, 1, LocalDateTime.now(),
+                        "https://cdn.example.test/private.mp3", null)));
+        when(eventRepository.isPublished("event-1")).thenReturn(false);
+
+        NotFoundException error = assertThrows(
+                NotFoundException.class, () -> service.getAsset("asset-1"));
+
+        assertEquals("TTS_ASSET_NOT_FOUND", error.getCode());
+        verify(assetRepository).findById("asset-1");
     }
 
     private EventNarrationData event() {

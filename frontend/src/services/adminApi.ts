@@ -151,6 +151,13 @@ export interface AdminEventGradesRequest {
   grades: number[];
 }
 
+export type AdminEventPublicationAction = 'publish' | 'unpublish' | 'archive' | 'restore';
+
+export interface AdminEventPublicationRequest {
+  expectedUpdatedAt: string;
+  action: AdminEventPublicationAction;
+}
+
 export interface AdminEventGeographyMarker {
   name?: string | null;
   label?: string | null;
@@ -428,6 +435,18 @@ export function updateAdminEventGeography(
   );
 }
 
+export function updateAdminEventPublication(
+  id: string,
+  payload: AdminEventPublicationRequest,
+  signal?: AbortSignal,
+) {
+  return apiPatch<AdminEventDetail>(
+    `/api/admin/events/${encodeURIComponent(id)}/publication`,
+    payload,
+    { signal },
+  );
+}
+
 export function addAdminEventMedia(id: string, payload: AdminEventMediaCreateRequest, signal?: AbortSignal) {
   return apiPost<AdminEventDetail>(`/api/admin/events/${encodeURIComponent(id)}/media`, payload, { signal });
 }
@@ -475,10 +494,6 @@ export function getAdminEvent(id: string) {
 
 export function updateAdminEvent(id: string, payload: AdminEventPayload) {
   return apiPut<AdminEventPayload>(`/api/admin/events/${id}`, payload);
-}
-
-export function setAdminEventStatus(id: string, status: AdminEvent['status']) {
-  return apiPatch<AdminEventPayload>(`/api/admin/events/${id}/status`, { status });
 }
 
 export function deleteAdminEvent(id: string) {

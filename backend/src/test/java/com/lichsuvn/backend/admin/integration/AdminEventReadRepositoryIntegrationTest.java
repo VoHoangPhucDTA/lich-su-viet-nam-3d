@@ -303,6 +303,75 @@ class AdminEventReadRepositoryIntegrationTest {
         }
     }
 
+    @Test
+    void publicHierarchyAndRelationsRequireBothPublishedSourceAndTarget() {
+        assumeTrue(available, unavailableReason);
+        jdbc.update("""
+                INSERT INTO historical_events(
+                    id,slug,title,event_level,event_type,start_year,effective_end_year,
+                    geo_type,province_names,historical_locations,card_summary,
+                    canonical_summary,detailed_narrative,significance,key_facts,raw_json,status,
+                    parent_id,root_id)
+                VALUES(
+                    'phase8-child','phase8-child','Phase 8 child','atomic','political',939,939,
+                    'no_location',JSON_ARRAY(),JSON_ARRAY(),'Card',
+                    'Canonical','Narrative','Significance',JSON_ARRAY('Fact'),JSON_OBJECT(),
+                    'published','complete-point','complete-point')
+                """);
+        jdbc.update("""
+                INSERT INTO event_relations(
+                    source_event_id,target_event_id,association_type,relation_type,sort_order)
+                VALUES('complete-point','phase8-child','related','related',0)
+                """);
+        try {
+            assertEquals(List.of("phase8-child"), publicRepository.findChildren("complete-point")
+                    .stream().map(item -> item.id()).toList());
+            assertEquals(List.of("phase8-child"), publicRepository.findRelations("complete-point")
+                    .stream().map(item -> item.event().id()).toList());
+            assertEquals(List.of("phase8-child"),
+                    publicRepository.findRelatedEvents("complete-point").related()
+                            .stream().map(item -> item.id()).toList());
+
+            jdbc.update("UPDATE historical_events SET status='draft' WHERE id='complete-point'");
+            var visibleChild = publicRepository.findDetailByIdOrSlug("phase8-child").orElseThrow();
+            assertNull(visibleChild.parentId());
+            assertNull(visibleChild.rootId());
+            assertTrue(publicRepository.findChildren("complete-point").isEmpty());
+            assertTrue(publicRepository.findRelations("complete-point").isEmpty());
+            assertTrue(publicRepository.findRelatedEvents("complete-point").related().isEmpty());
+            assertTrue(publicRepository.findDetailByIdOrSlug("complete-point").isEmpty());
+
+            jdbc.update("UPDATE historical_events SET status='published' WHERE id='complete-point'");
+            jdbc.update("UPDATE historical_events SET status='archived' WHERE id='phase8-child'");
+            assertTrue(publicRepository.findChildren("complete-point").isEmpty());
+            assertTrue(publicRepository.findRelations("complete-point").isEmpty());
+            assertTrue(publicRepository.findRelatedEvents("complete-point").related().isEmpty());
+            assertTrue(publicRepository.findDetailByIdOrSlug("phase8-child").isEmpty());
+        } finally {
+            jdbc.update("UPDATE historical_events SET status='published' WHERE id='complete-point'");
+            jdbc.update("DELETE FROM event_relations WHERE target_event_id='phase8-child'");
+            jdbc.update("DELETE FROM historical_events WHERE id='phase8-child'");
+        }
+    }
+
+    @Test
+    void publicBrowseCountTimelineAndDetailExcludeDraftAndArchivedEvents() {
+        assumeTrue(available, unavailableReason);
+
+        var items = publicRepository.findEvents(
+                null, null, null, null, null, null, null, 100, 0);
+        assertEquals(List.of("complete-point"),
+                items.stream().map(item -> item.id()).toList());
+        assertEquals(1, publicRepository.countEvents(
+                null, null, null, null, null, null, null,
+                null, null, null));
+        assertEquals(List.of("complete-point"),
+                publicRepository.findTimeline(null, null, null, null)
+                        .stream().map(item -> item.id()).toList());
+        assertTrue(publicRepository.findDetailByIdOrSlug("unknown-event").isEmpty());
+        assertTrue(publicRepository.findDetailByIdOrSlug("tied-nationwide").isEmpty());
+    }
+
     private static void assertSingle(
             String id, com.lichsuvn.backend.admin.api.dto.AdminEventDtos.Page page
     ) {

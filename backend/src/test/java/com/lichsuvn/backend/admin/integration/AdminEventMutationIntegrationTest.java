@@ -786,6 +786,84 @@ class AdminEventMutationIntegrationTest {
         assertEquals(before, geographySnapshot("phase7-rollback"));
     }
 
+    @Test
+    void publishedCoreMutationIntroducingErrorRollsBackTheWholeAggregate() {
+        assumeTrue(available, unavailableReason);
+        tx.executeWithoutResult(status -> service.create(create("phase8-published-core"), ADMIN));
+        publishFixture("phase8-published-core");
+        Map<String, Object> before = fullAggregateSnapshot("phase8-published-core");
+        String exactVersion = version(serviceRead("phase8-published-core"));
+
+        var patch = new AdminEventMutationDtos.CorePatch();
+        patch.setExpectedUpdatedAt(exactVersion);
+        patch.setCanonicalSummary(null);
+        ApiException rejected = assertThrows(ApiException.class, () -> tx.execute(status ->
+                service.updateCore("phase8-published-core", patch, ADMIN)));
+
+        assertEquals("PUBLISHED_EVENT_WOULD_BECOME_INVALID", rejected.getCode());
+        assertEquals(before, fullAggregateSnapshot("phase8-published-core"));
+        assertEquals(exactVersion, version(serviceRead("phase8-published-core")));
+    }
+
+    @Test
+    void publishedGeographyMutationCannotCommitWhenResultingAggregateHasError() {
+        assumeTrue(available, unavailableReason);
+        tx.executeWithoutResult(status -> service.create(create("phase8-published-geography"), ADMIN));
+        publishFixture("phase8-published-geography");
+        jdbc.update("""
+                UPDATE historical_events
+                SET canonical_summary=NULL
+                WHERE id='phase8-published-geography'
+                """);
+        Map<String, Object> before = fullAggregateSnapshot("phase8-published-geography");
+        String exactVersion = version(serviceRead("phase8-published-geography"));
+        var point = new AdminEventGeographyDtos.Point(
+                "point", marker("Huế", 16.46, 107.59),
+                List.of("Thuận Hóa"), new AdminEventGeographyDtos.Focus("auto", 8));
+
+        ApiException rejected = assertThrows(ApiException.class, () -> tx.execute(status ->
+                geographyService.update(
+                        "phase8-published-geography",
+                        new AdminEventGeographyDtos.Patch(exactVersion, point),
+                        ADMIN)));
+
+        assertEquals("PUBLISHED_EVENT_WOULD_BECOME_INVALID", rejected.getCode());
+        assertEquals(before, fullAggregateSnapshot("phase8-published-geography"));
+        assertEquals(exactVersion, version(serviceRead("phase8-published-geography")));
+    }
+
+    @Test
+    void warningOnlyPublishedMediaAndInvalidDraftCoreMutationsRemainAllowed() {
+        assumeTrue(available, unavailableReason);
+        tx.executeWithoutResult(status -> service.create(create("phase8-published-warning"), ADMIN));
+        publishFixture("phase8-published-warning");
+        var beforeMedia = serviceRead("phase8-published-warning");
+
+        var added = tx.execute(status -> mediaService.add(
+                "phase8-published-warning",
+                media(version(beforeMedia), "image", "hidden.jpg", "hidden"),
+                ADMIN));
+
+        assertEquals("published", added.detail().publication().status());
+        assertNotEquals(version(beforeMedia), version(added.detail()));
+        assertTrue(added.detail().completeness().issues().stream()
+                .allMatch(issue -> !"ERROR".equals(issue.severity())));
+        assertTrue(added.detail().completeness().issues().stream()
+                .anyMatch(issue -> "WARNING".equals(issue.severity())));
+
+        tx.executeWithoutResult(status -> service.create(create("phase8-draft-error"), ADMIN));
+        var draft = serviceRead("phase8-draft-error");
+        var patch = new AdminEventMutationDtos.CorePatch();
+        patch.setExpectedUpdatedAt(version(draft));
+        patch.setCanonicalSummary(null);
+        var updatedDraft = tx.execute(status ->
+                service.updateCore("phase8-draft-error", patch, ADMIN));
+
+        assertEquals("draft", updatedDraft.publication().status());
+        assertTrue(updatedDraft.completeness().issues().stream()
+                .anyMatch(issue -> "ERROR".equals(issue.severity())));
+    }
+
     private static Object selectAfterLatch(
             CountDownLatch ready, CountDownLatch start, long mediaId, String expectedVersion
     ) {
@@ -843,6 +921,40 @@ class AdminEventMutationIntegrationTest {
                 FROM historical_events e WHERE id=?
                 """, id);
         return Map.copyOf(snapshot);
+    }
+
+    private static Map<String, Object> fullAggregateSnapshot(String id) {
+        Map<String, Object> snapshot = new java.util.LinkedHashMap<>();
+        snapshot.put("event", new java.util.LinkedHashMap<>(
+                jdbc.queryForMap("SELECT * FROM historical_events WHERE id=?", id)));
+        snapshot.put("grades", jdbc.queryForList(
+                "SELECT grade FROM event_grades WHERE event_id=? ORDER BY grade", Integer.class, id));
+        snapshot.put("media", jdbc.queryForList(
+                "SELECT * FROM event_media WHERE event_id=? ORDER BY id", id));
+        snapshot.put("provinces", jdbc.queryForList(
+                "SELECT * FROM event_provinces WHERE event_id=? "
+                        + "ORDER BY province_name, role, sort_order", id));
+        snapshot.put("relations", jdbc.queryForList("""
+                SELECT * FROM event_relations
+                WHERE source_event_id=? OR target_event_id=?
+                ORDER BY source_event_id, target_event_id, relation_type
+                """, id, id));
+        snapshot.put("textbookRefs", jdbc.queryForList(
+                "SELECT * FROM event_textbook_refs WHERE event_id=? ORDER BY id", id));
+        snapshot.put("externalSources", jdbc.queryForList(
+                "SELECT * FROM event_external_sources WHERE event_id=? "
+                        + "ORDER BY source_id, match_type", id));
+        snapshot.put("auditCount", jdbc.queryForObject(
+                "SELECT COUNT(*) FROM admin_audit_logs WHERE entity_id=?", Integer.class, id));
+        return snapshot;
+    }
+
+    private static void publishFixture(String id) {
+        jdbc.update("""
+                UPDATE historical_events
+                SET status='published', published_at='2026-07-24 10:00:00.000000'
+                WHERE id=?
+                """, id);
     }
 
     private static com.lichsuvn.backend.admin.api.dto.AdminEventDtos.Detail serviceRead(String id) {

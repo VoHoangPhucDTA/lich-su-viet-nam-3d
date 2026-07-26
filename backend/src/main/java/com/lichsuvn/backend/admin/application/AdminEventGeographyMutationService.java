@@ -82,6 +82,7 @@ public class AdminEventGeographyMutationService {
         String resultingVersion = VERSION_FORMATTER.format(
                 repository.currentVersion(id).atZone(DATABASE_ZONE).toInstant());
         List<String> changedFields = changedFields(current, next);
+        AdminEventDtos.Detail detail = readService.findEventAfterMutation(id);
         auditRepository.audit(principal.idBytes(), "event.geography_updated", id,
                 json(Map.of(
                         "geoType", current.geoType(),
@@ -96,7 +97,7 @@ public class AdminEventGeographyMutationService {
                         "changedFields", changedFields,
                         "resultingVersion", resultingVersion
                 )));
-        return readService.findEvent(id);
+        return detail;
     }
 
     private boolean logicallySame(

@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { Link, useLocation, useSearchParams } from 'react-router-dom';
+import { Link, useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import AdminLayout from '../../layouts/AdminLayout';
 import {
   AdminDataTable,
@@ -13,6 +13,8 @@ import {
 import { getAdminEvents, type AdminEvent } from '../../services/adminApi';
 import { ApiRequestError } from '../../services/apiClient';
 import { formatChronologyLabel } from '../../utils/chronology';
+import AdminEventPublicationActions from '../../components/admin/AdminEventPublicationActions';
+import { publicationIssueTargetId } from '../../components/admin/adminEventPublication';
 
 const LIMIT = 20;
 const SEARCH_DEBOUNCE_MS = 300;
@@ -88,12 +90,14 @@ function errorMessage(cause: unknown) {
 
 export default function AdminEventsPage() {
   const location = useLocation();
+  const navigate = useNavigate();
   const [params, setParams] = useSearchParams();
   const [items, setItems] = useState<AdminEvent[]>([]);
   const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [retry, setRetry] = useState(0);
+  const [publicationBusyId, setPublicationBusyId] = useState<string | null>(null);
   const urlQuery = params.get('q') ?? '';
   const [search, setSearch] = useState(urlQuery);
 
@@ -148,6 +152,19 @@ export default function AdminEventsPage() {
           ...state,
           startYearTo: state.startYearTo == null ? undefined : state.startYearTo + 1,
         }, controller.signal);
+        if (response.items.length === 0 && state.offset > 0 && state.offset >= response.total) {
+          const nearestOffset = Math.max(
+            0,
+            Math.floor(Math.max(response.total - 1, 0) / LIMIT) * LIMIT,
+          );
+          setParams(previous => {
+            const next = new URLSearchParams(previous);
+            if (nearestOffset > 0) next.set('offset', String(nearestOffset));
+            else next.delete('offset');
+            return next;
+          }, { replace: true });
+          return;
+        }
         setItems(response.items);
         setTotal(response.total);
       } catch (cause) {
@@ -159,7 +176,7 @@ export default function AdminEventsPage() {
     };
     void load();
     return () => controller.abort();
-  }, [state, retry]);
+  }, [state, retry, setParams]);
 
   const setValue = (key: string, value: string, resetOffset = true) => {
     setParams(previous => {
@@ -194,13 +211,40 @@ export default function AdminEventsPage() {
       : <AdminStatusBadge status="draft" label={`${event.completeness.issueCount} vấn đề`} /> },
     { key: 'status', header: 'Trạng thái', render: event => <AdminStatusBadge status={event.status} /> },
     { key: 'updatedAt', header: 'Cập nhật', render: event => <time dateTime={event.updatedAt}>{new Date(event.updatedAt).toLocaleDateString('vi-VN')}</time> },
+    {
+      key: 'actions',
+      header: 'Xuất bản',
+      render: event => (
+        <AdminEventPublicationActions
+          compact
+          eventId={event.id}
+          status={event.status}
+          version={event.updatedAt}
+          disabled={publicationBusyId !== null && publicationBusyId !== event.id}
+          onBusyChange={busy => setPublicationBusyId(busy ? event.id : null)}
+          onUpdated={detail => {
+            setItems(previous => previous.map(item => item.id === event.id ? {
+              ...item,
+              status: detail.publication.status,
+              updatedAt: detail.publication.updatedAt,
+              completeness: detail.completeness,
+            } : item));
+            setRetry(value => value + 1);
+          }}
+          onReload={() => setRetry(value => value + 1)}
+          onIssueSelect={issue => navigate(
+            `/admin/events/${encodeURIComponent(event.id)}/edit#${publicationIssueTargetId(issue.section)}`,
+          )}
+        />
+      ),
+    },
   ];
 
   return <AdminLayout title="Sự kiện lịch sử">
-    <AdminPageHeader title="Sự kiện lịch sử" description="Tìm kiếm và rà soát dữ liệu sự kiện ở chế độ chỉ đọc." />
+    <AdminPageHeader title="Sự kiện lịch sử" description="Tìm kiếm, rà soát và quản lý trạng thái xuất bản an toàn." />
     <section className="overflow-hidden rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
       <p role="note" className="border-b border-[var(--border)] bg-[var(--bg-secondary)] px-4 py-3 text-sm text-[var(--text-secondary)]">
-        Tạo, chỉnh sửa và xóa sự kiện vẫn tạm khóa trong quy trình biên tập an toàn.
+        Hard delete vẫn bị khóa. Mọi thay đổi trạng thái dùng version chính xác và quy tắc độ đầy đủ dùng chung.
       </p>
       <div className="space-y-3 border-b border-[var(--border)] p-4">
         <AdminSearchInput value={search} onChange={event => setSearch(event.target.value)} placeholder="Tìm tên, slug hoặc tóm tắt…" />
@@ -222,7 +266,7 @@ export default function AdminEventsPage() {
         </div>
       </div>
       <AdminDataTable
-        columns={columns} rows={items} getKey={event => event.id} minWidth="1050px"
+        columns={columns} rows={items} getKey={event => event.id} minWidth="1280px"
         loading={loading && items.length === 0} error={error || undefined}
         onRetry={() => setRetry(value => value + 1)}
         emptyTitle="Không có sự kiện phù hợp"

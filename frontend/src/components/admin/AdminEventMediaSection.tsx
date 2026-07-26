@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   addAdminEventMedia,
   removeAdminEventMedia,
@@ -10,6 +10,7 @@ import {
   type AdminEventMediaPatchRequest,
 } from '../../services/adminApi';
 import { ApiRequestError } from '../../services/apiClient';
+import { publishedEventMutationError } from './adminEventPublication';
 
 type Props = {
   eventId: string;
@@ -19,13 +20,16 @@ type Props = {
   onUpdated: (detail: AdminEventDetail) => void;
   onConflict: () => void;
   onBusyChange?: (busy: boolean) => void;
+  onDirtyChange?: (dirty: boolean) => void;
 };
 
 const initialForm: Omit<AdminEventMediaCreateRequest, 'expectedUpdatedAt'> =
   { mediaType: 'image', url: '', status: 'active' };
 type EditableMedia = Omit<AdminEventMediaPatchRequest, 'expectedUpdatedAt'>;
 
-export default function AdminEventMediaSection({ eventId, detail, version, disabled, onUpdated, onConflict, onBusyChange }: Props) {
+export default function AdminEventMediaSection({
+  eventId, detail, version, disabled, onUpdated, onConflict, onBusyChange, onDirtyChange,
+}: Props) {
   const [form, setForm] = useState(initialForm);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
@@ -33,6 +37,11 @@ export default function AdminEventMediaSection({ eventId, detail, version, disab
   const [editingId, setEditingId] = useState<number | null>(null);
   const [editing, setEditing] = useState<EditableMedia | null>(null);
   const media = detail.media.items;
+  const dirty = editingId !== null || form.url.trim() !== '';
+
+  useEffect(() => {
+    onDirtyChange?.(dirty);
+  }, [dirty, onDirtyChange]);
 
   const run = async (operation: () => Promise<AdminEventDetail>) => {
     if (disabled || busy) return;
@@ -42,7 +51,8 @@ export default function AdminEventMediaSection({ eventId, detail, version, disab
       setMessage('Đã cập nhật media.');
     } catch (cause) {
       if (cause instanceof ApiRequestError && cause.code === 'EVENT_UPDATE_CONFLICT') onConflict();
-      setError(cause instanceof Error ? cause.message : 'Không thể cập nhật media.');
+      setError(publishedEventMutationError(cause)
+        ?? (cause instanceof Error ? cause.message : 'Không thể cập nhật media.'));
     } finally { setBusy(false); onBusyChange?.(false); }
   };
 
@@ -55,7 +65,7 @@ export default function AdminEventMediaSection({ eventId, detail, version, disab
   };
 
   return (
-    <section className="rounded-xl border border-[var(--border)] bg-[var(--bg-card)] p-5" aria-labelledby="admin-media-title">
+    <section id="admin-event-media" className="rounded-xl border border-[var(--border)] bg-[var(--bg-card)] p-5" aria-labelledby="admin-media-title">
       <h2 id="admin-media-title" className="text-lg font-bold text-[var(--text-primary)]">Media và thumbnail</h2>
       <p className="mt-1 text-sm text-[var(--text-muted)]">Chỉ quản lý metadata và URL HTTP(S); không upload file hay sửa dữ liệu bản đồ.</p>
       {error && <p role="alert" className="mt-3 text-sm text-[var(--accent)]">{error}</p>}

@@ -7,6 +7,7 @@ import {
   getAdminEventDetail,
   replaceAdminEventGrades,
   updateAdminEventCore,
+  updateAdminEventPublication,
   type AdminEventDetail,
 } from '../../../services/adminApi';
 import { ApiRequestError } from '../../../services/apiClient';
@@ -24,6 +25,7 @@ vi.mock('../../../services/adminApi', async () => {
     replaceAdminEventGrades: vi.fn(),
     createAdminEvent: vi.fn(),
     addAdminEventMedia: vi.fn(),
+    updateAdminEventPublication: vi.fn(),
   };
 });
 
@@ -69,6 +71,15 @@ describe('AdminEventEditorPage', () => {
       publication: { ...detail.publication, updatedAt: nextVersion },
     });
     vi.mocked(replaceAdminEventGrades).mockResolvedValue(detail);
+    vi.mocked(updateAdminEventPublication).mockResolvedValue({
+      ...detail,
+      publication: {
+        ...detail.publication,
+        status: 'published',
+        publishedAt: '2026-07-24T17:30:00Z',
+        updatedAt: nextVersion,
+      },
+    });
   });
 
   it('preserves the six-digit opaque version and keeps core and grade saves independent', async () => {
@@ -128,12 +139,66 @@ describe('AdminEventEditorPage', () => {
     expect(updateAdminEventCore).toHaveBeenCalledTimes(1);
   });
 
-  it('renders unknown chronology as empty fields and no status mutation control', async () => {
+  it('asks the admin to unpublish before a mutation that would invalidate a published event', async () => {
+    vi.mocked(updateAdminEventCore).mockRejectedValue(
+      new ApiRequestError(
+        'PUBLISHED_EVENT_WOULD_BECOME_INVALID',
+        'Backend detail must not be the only actionable guidance',
+        409,
+      ),
+    );
+    renderEditor();
+    await screen.findByDisplayValue('Sự kiện');
+    fireEvent.change(screen.getByDisplayValue('Sự kiện'), { target: { value: 'Changed' } });
+    fireEvent.click(screen.getByRole('button', { name: 'Lưu nội dung' }));
+
+    expect(await screen.findByText(/gỡ xuất bản trước khi thực hiện thay đổi/i))
+      .toBeInTheDocument();
+    expect(updateAdminEventCore).toHaveBeenCalledTimes(1);
+  });
+
+  it('renders unknown chronology, typed publication actions and no hard-delete control', async () => {
     renderEditor();
     await screen.findByDisplayValue('Sự kiện');
     expect(screen.getByLabelText('Năm bắt đầu')).toHaveValue(null);
-    expect(screen.queryByLabelText(/trạng thái/i)).not.toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Xuất bản' })).toBeEnabled();
+    expect(screen.getByRole('button', { name: 'Lưu trữ' })).toBeEnabled();
+    expect(screen.queryByRole('button', { name: /xóa sự kiện/i })).not.toBeInTheDocument();
     expect(screen.getByText(/Không có trình sửa raw JSON/i)).toBeInTheDocument();
+  });
+
+  it('disables publication for dirty core, grades, media or geography forms', async () => {
+    renderEditor();
+    await screen.findByDisplayValue('Sự kiện');
+    const publish = screen.getByRole('button', { name: 'Xuất bản' });
+    expect(publish).toBeEnabled();
+
+    fireEvent.change(screen.getByDisplayValue('Sự kiện'), { target: { value: 'Changed' } });
+    expect(publish).toBeDisabled();
+    expect(screen.getByText(/Hãy lưu hoặc hủy mọi thay đổi/i)).toBeInTheDocument();
+  });
+
+  it('includes publication in the shared page-level mutation lock and replaces the exact version', async () => {
+    let releasePublication!: (value: AdminEventDetail) => void;
+    vi.mocked(updateAdminEventPublication).mockImplementation(
+      () => new Promise(resolve => { releasePublication = resolve; }),
+    );
+    renderEditor();
+    await screen.findByDisplayValue('Sự kiện');
+    fireEvent.click(screen.getByRole('button', { name: 'Xuất bản' }));
+    fireEvent.change(screen.getByDisplayValue('Sự kiện'), { target: { value: 'Changed while publishing' } });
+    expect(screen.getByRole('button', { name: 'Lưu nội dung' })).toBeDisabled();
+    expect(updateAdminEventPublication).toHaveBeenCalledWith(
+      'event-1',
+      { expectedUpdatedAt: version, action: 'publish' },
+      expect.any(AbortSignal),
+    );
+
+    releasePublication({
+      ...detail,
+      publication: { ...detail.publication, status: 'published', updatedAt: nextVersion },
+    });
+    await waitFor(() => expect(screen.getByText(/Trạng thái hiện tại: published/)).toBeInTheDocument());
   });
 
   it('shares the page mutation lock while a media save is in flight', async () => {

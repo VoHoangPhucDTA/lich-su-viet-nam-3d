@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState, type FormEvent, type MouseEvent } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 import AdminLayout from '../../layouts/AdminLayout';
 import { AdminErrorState, AdminFormSection, AdminPageHeader } from '../../components/admin/AdminUI';
 import {
@@ -14,6 +14,11 @@ import {
 import { ApiRequestError } from '../../services/apiClient';
 import AdminEventMediaSection from '../../components/admin/AdminEventMediaSection';
 import AdminEventGeographySection from '../../components/admin/AdminEventGeographySection';
+import AdminEventPublicationActions from '../../components/admin/AdminEventPublicationActions';
+import {
+  publicationIssueTargetId,
+  publishedEventMutationError,
+} from '../../components/admin/adminEventPublication';
 
 type CoreForm = {
   title: string;
@@ -97,6 +102,8 @@ function TextArea({ label, value, onChange, rows = 4 }: {
 }
 
 function errorMessage(error: unknown): string {
+  const publishedMutationMessage = publishedEventMutationError(error);
+  if (publishedMutationMessage) return publishedMutationMessage;
   if (error instanceof ApiRequestError && error.code === 'EVENT_UPDATE_CONFLICT') {
     return 'Sự kiện đã được thay đổi ở nơi khác. Hãy tải lại để xem phiên bản mới trước khi lưu.';
   }
@@ -106,6 +113,7 @@ function errorMessage(error: unknown): string {
 export default function AdminEventEditorPage() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const location = useLocation();
   const editing = Boolean(id);
   const [detail, setDetail] = useState<AdminEventDetail | null>(null);
   const [form, setForm] = useState<CoreForm>(emptyForm);
@@ -116,6 +124,7 @@ export default function AdminEventEditorPage() {
   const [gradeSaving, setGradeSaving] = useState(false);
   const [mediaSaving, setMediaSaving] = useState(false);
   const [geographySaving, setGeographySaving] = useState(false);
+  const [publicationSaving, setPublicationSaving] = useState(false);
   const [coreError, setCoreError] = useState('');
   const [gradeError, setGradeError] = useState('');
   const [coreSuccess, setCoreSuccess] = useState('');
@@ -124,6 +133,7 @@ export default function AdminEventEditorPage() {
   const [coreDirty, setCoreDirty] = useState(!editing);
   const [gradeDirty, setGradeDirty] = useState(!editing);
   const [geographyDirty, setGeographyDirty] = useState(false);
+  const [mediaDirty, setMediaDirty] = useState(false);
 
   useEffect(() => {
     if (!id) return;
@@ -144,14 +154,23 @@ export default function AdminEventEditorPage() {
 
   useEffect(() => {
     const warn = (event: BeforeUnloadEvent) => {
-      if (coreDirty || gradeDirty || geographyDirty) {
+      if (coreDirty || gradeDirty || mediaDirty || geographyDirty) {
         event.preventDefault();
         event.returnValue = '';
       }
     };
     window.addEventListener('beforeunload', warn);
     return () => window.removeEventListener('beforeunload', warn);
-  }, [coreDirty, gradeDirty, geographyDirty]);
+  }, [coreDirty, gradeDirty, mediaDirty, geographyDirty]);
+
+  useEffect(() => {
+    if (!detail || !location.hash.startsWith('#admin-event-')) return;
+    const timer = window.setTimeout(() => {
+      document.getElementById(location.hash.slice(1))
+        ?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 0);
+    return () => window.clearTimeout(timer);
+  }, [detail, location.hash]);
 
   const facts = useMemo(() => form.keyFacts.split('\n').map(value => value.trim()).filter(Boolean), [form.keyFacts]);
   const update = <K extends keyof CoreForm>(key: K, value: CoreForm[K]) => {
@@ -159,7 +178,9 @@ export default function AdminEventEditorPage() {
     setCoreDirty(true);
     setCoreSuccess('');
   };
-  const mutationSaving = coreSaving || gradeSaving || mediaSaving || geographySaving;
+  const mutationSaving = coreSaving || gradeSaving || mediaSaving
+    || geographySaving || publicationSaving;
+  const mutableSectionDirty = coreDirty || gradeDirty || mediaDirty || geographyDirty;
 
   const saveCore = async (event: FormEvent) => {
     event.preventDefault();
@@ -234,7 +255,7 @@ export default function AdminEventEditorPage() {
 
   const reload = () => window.location.reload();
   const confirmLeave = (event: MouseEvent<HTMLAnchorElement>) => {
-    if ((coreDirty || gradeDirty || geographyDirty) && !window.confirm('Bạn có thay đổi chưa lưu. Rời trang?')) {
+    if (mutableSectionDirty && !window.confirm('Bạn có thay đổi chưa lưu. Rời trang?')) {
       event.preventDefault();
     }
   };
@@ -245,9 +266,29 @@ export default function AdminEventEditorPage() {
     <AdminLayout title={editing ? 'Chỉnh sửa sự kiện' : 'Tạo sự kiện'}>
       <div className="mb-4"><Link to="/admin/events" onClick={confirmLeave} className="text-xs font-semibold text-[var(--text-muted)]">← Quay lại danh sách</Link></div>
       <AdminPageHeader title={editing ? 'Chỉnh sửa sự kiện' : 'Tạo bản nháp sự kiện'} description="Chỉnh sửa nội dung lõi, khối lớp, media metadata và dữ liệu địa lý có cấu trúc." />
+      {editing && detail && <AdminFormSection id="admin-event-publication" title="Trạng thái xuất bản" description={`Trạng thái hiện tại: ${detail.publication.status}`}>
+        <AdminEventPublicationActions
+          eventId={id!}
+          status={detail.publication.status}
+          version={version}
+          disabled={mutationSaving || mutableSectionDirty}
+          disabledReason={mutableSectionDirty
+            ? 'Hãy lưu hoặc hủy mọi thay đổi ở nội dung, khối lớp, media và địa lý trước khi đổi trạng thái.'
+            : undefined}
+          onBusyChange={setPublicationSaving}
+          onUpdated={updated => {
+            setDetail(updated);
+            setVersion(updated.publication.updatedAt);
+          }}
+          onReload={reload}
+          onIssueSelect={issue => document
+            .getElementById(publicationIssueTargetId(issue.section))
+            ?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
+        />
+      </AdminFormSection>}
       {coreError && <div className="mb-4 rounded-lg border border-[var(--accent)]/20 bg-[var(--danger-soft)] px-4 py-3 text-sm text-[var(--accent)]">{coreError} {coreError.includes('thay đổi') && <button type="button" onClick={reload} className="ml-2 underline">Tải lại</button>}</div>}
       <form onSubmit={saveCore} className="space-y-5">
-        <AdminFormSection title="Định danh và phân loại"><div className="grid gap-4 md:grid-cols-2">
+        <AdminFormSection id="admin-event-classification" title="Định danh và phân loại"><div className="grid gap-4 md:grid-cols-2">
           <Field label="Tên sự kiện" value={form.title} onChange={value => update('title', value)} required error={fieldErrors.title} />
           <Field label="Slug" value={form.slug} onChange={value => update('slug', value.toLowerCase().replace(/[^a-z0-9-]/g, '-').replace(/-+/g, '-'))} required error={fieldErrors.slug} />
           <Field label="Tên ngắn" value={form.shortTitle} onChange={value => update('shortTitle', value)} />
@@ -255,14 +296,14 @@ export default function AdminEventEditorPage() {
           <label className="text-sm font-semibold text-[var(--text-secondary)]">Loại<select value={form.eventType} onChange={event => update('eventType', event.target.value as CoreForm['eventType'])} className={fieldClass}><option value="political">Chính trị</option><option value="military">Quân sự</option><option value="economic">Kinh tế</option><option value="cultural">Văn hóa</option></select></label>
           <Field label="Phân loại phụ" value={form.eventSubtype} onChange={value => update('eventSubtype', value)} />
         </div></AdminFormSection>
-        <AdminFormSection title="Thời gian"><div className="grid gap-4 md:grid-cols-3">
+        <AdminFormSection id="admin-event-chronology" title="Thời gian"><div className="grid gap-4 md:grid-cols-3">
           <Field label="Năm bắt đầu" value={form.startYear} onChange={value => update('startYear', value)} type="number" />
           <Field label="Năm kết thúc" value={form.endYear} onChange={value => update('endYear', value)} type="number" />
           <Field label="Năm kết thúc hiệu lực" value={form.effectiveEndYear} onChange={value => update('effectiveEndYear', value)} type="number" />
           <Field label="Ngày hiển thị" value={form.displayDate} onChange={value => update('displayDate', value)} />
           <Field label="Độ chính xác" value={form.datePrecision} onChange={value => update('datePrecision', value)} />
         </div></AdminFormSection>
-        <AdminFormSection title="Nội dung lịch sử"><div className="space-y-4">
+        <AdminFormSection id="admin-event-content" title="Nội dung lịch sử"><div className="space-y-4">
           <TextArea label="Tóm tắt thẻ" value={form.cardSummary} onChange={value => update('cardSummary', value)} rows={3} />
           <TextArea label="Tóm tắt chính" value={form.canonicalSummary} onChange={value => update('canonicalSummary', value)} />
           <TextArea label="Nội dung chi tiết" value={form.detailedNarrative} onChange={value => update('detailedNarrative', value)} rows={8} />
@@ -286,6 +327,7 @@ export default function AdminEventEditorPage() {
           version={version}
           disabled={mutationSaving}
           onBusyChange={setMediaSaving}
+          onDirtyChange={setMediaDirty}
           onUpdated={updated => { setDetail(updated); setVersion(updated.publication.updatedAt); }}
           onConflict={reload}
         />

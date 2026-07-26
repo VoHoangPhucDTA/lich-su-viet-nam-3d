@@ -43,6 +43,30 @@ import java.util.Set;
 public class EventReadRepository {
     static final String NUMERIC_CHRONOLOGY_REQUIRED =
             "e.start_year IS NOT NULL AND e.effective_end_year IS NOT NULL";
+    static final String PUBLIC_PARENT_ID = """
+            CASE
+                WHEN EXISTS (
+                    SELECT 1
+                    FROM historical_events visible_parent
+                    WHERE visible_parent.id = e.parent_id
+                      AND visible_parent.status = 'published'
+                )
+                THEN e.parent_id
+                ELSE NULL
+            END AS parent_id
+            """;
+    static final String PUBLIC_ROOT_ID = """
+            CASE
+                WHEN EXISTS (
+                    SELECT 1
+                    FROM historical_events visible_root
+                    WHERE visible_root.id = e.root_id
+                      AND visible_root.status = 'published'
+                )
+                THEN e.root_id
+                ELSE NULL
+            END AS root_id
+            """;
     static final String CHRONOLOGY_NULL_LAST_ORDER = """
             CASE WHEN e.start_year IS NULL THEN 1 ELSE 0 END,
             e.start_year ASC,
@@ -117,7 +141,7 @@ public class EventReadRepository {
         String sql = """
                 SELECT e.id, e.slug, e.title, e.short_title, e.event_level, e.event_type,
                        e.event_subtype, e.start_year, e.end_year, e.display_date, e.geo_type,
-                       e.lat, e.lng, e.province_names, e.parent_id, e.root_id, e.level,
+                       e.lat, e.lng, e.province_names, %s, %s, e.level,
                        e.order_in_parent, e.card_summary, e.featured,
                        (
                            SELECT em.url
@@ -136,7 +160,8 @@ public class EventReadRepository {
                        ) AS child_count
                 FROM historical_events e
                 WHERE e.status = 'published'
-                """ + parts.whereSql + buildOrderBy(sortBy, sortDir) + """
+                """.formatted(PUBLIC_PARENT_ID, PUBLIC_ROOT_ID)
+                + parts.whereSql + buildOrderBy(sortBy, sortDir) + """
                 LIMIT :limit OFFSET :offset
                 """;
 
@@ -201,11 +226,11 @@ public class EventReadRepository {
 
         String sql = """
                 SELECT e.id, e.slug, e.title, e.short_title, e.event_type,
-                       e.start_year, e.end_year, e.display_date, e.parent_id, e.level, e.featured
+                       e.start_year, e.end_year, e.display_date, %s, e.level, e.featured
                 FROM historical_events e
                 WHERE e.status = 'published'
                   AND e.show_on_timeline = TRUE
-                """ + toWhere(filters)
+                """.formatted(PUBLIC_PARENT_ID) + toWhere(filters)
                 + " ORDER BY " + CHRONOLOGY_NULL_LAST_ORDER + """
                 """;
 
@@ -218,7 +243,7 @@ public class EventReadRepository {
                 SELECT e.id, e.slug, e.title, e.short_title, e.event_level, e.event_type,
                        e.event_subtype, e.start_year, e.end_year, e.effective_end_year,
                        e.display_date, e.date_precision, e.geo_type, e.lat, e.lng,
-                       e.province_names, e.historical_locations, e.parent_id, e.root_id,
+                       e.province_names, e.historical_locations, %s, %s,
                        e.level, e.order_in_parent, e.card_summary, e.canonical_summary,
                        e.detailed_narrative, e.significance, e.key_facts, e.show_on_homepage,
                        e.show_on_timeline, e.featured,
@@ -233,7 +258,7 @@ public class EventReadRepository {
                 WHERE e.status = 'published'
                   AND (e.id = :idOrSlug OR e.slug = :idOrSlug)
                 LIMIT 1
-                """;
+                """.formatted(PUBLIC_PARENT_ID, PUBLIC_ROOT_ID);
 
         List<EventDetailDto> results = jdbc.query(sql, params, detailMapper());
         if (results.isEmpty()) {
@@ -288,7 +313,7 @@ public class EventReadRepository {
         String sql = """
                 SELECT e.id, e.slug, e.title, e.short_title, e.event_level, e.event_type,
                        e.event_subtype, e.start_year, e.end_year, e.display_date, e.geo_type,
-                       e.lat, e.lng, e.province_names, e.parent_id, e.root_id, e.level,
+                       e.lat, e.lng, e.province_names, %s, %s, e.level,
                        e.order_in_parent, e.card_summary, e.featured,
                        (
                            SELECT em.url
@@ -308,12 +333,17 @@ public class EventReadRepository {
                 FROM historical_events e
                 WHERE e.status = 'published'
                   AND e.parent_id = :eventId
+                  AND EXISTS (
+                      SELECT 1 FROM historical_events source_event
+                      WHERE source_event.id=:eventId
+                        AND source_event.status='published'
+                  )
                 ORDER BY e.order_in_parent ASC,
                          CASE WHEN e.start_year IS NULL THEN 1 ELSE 0 END,
                          e.start_year ASC,
                          e.title ASC,
                          e.id ASC
-                """;
+                """.formatted(PUBLIC_PARENT_ID, PUBLIC_ROOT_ID);
 
         return jdbc.query(sql, new MapSqlParameterSource("eventId", eventId), summaryMapper());
     }
@@ -324,7 +354,7 @@ public class EventReadRepository {
                 SELECT %s AS association_type, r.relation_type, r.sort_order,
                        e.id, e.slug, e.title, e.short_title, e.event_level, e.event_type,
                        e.event_subtype, e.start_year, e.end_year, e.display_date, e.geo_type,
-                       e.lat, e.lng, e.province_names, e.parent_id, e.root_id, e.level,
+                       e.lat, e.lng, e.province_names, %s, %s, e.level,
                        e.order_in_parent, e.card_summary, e.featured,
                        (
                            SELECT em.url
@@ -345,6 +375,11 @@ public class EventReadRepository {
                 JOIN historical_events e ON e.id = r.target_event_id
                 WHERE r.source_event_id = :eventId
                   AND e.status = 'published'
+                  AND EXISTS (
+                      SELECT 1 FROM historical_events source_event
+                      WHERE source_event.id=:eventId
+                        AND source_event.status='published'
+                  )
                   AND e.id <> :eventId
                 ORDER BY FIELD(%s, 'predecessor', 'successor', 'related'),
                          r.sort_order ASC,
@@ -353,7 +388,12 @@ public class EventReadRepository {
                          e.start_year ASC,
                          e.title ASC,
                          e.id ASC
-                """.formatted(associationTypeSql, associationTypeSql);
+                """.formatted(
+                associationTypeSql,
+                PUBLIC_PARENT_ID,
+                PUBLIC_ROOT_ID,
+                associationTypeSql
+        );
 
         return jdbc.query(sql, new MapSqlParameterSource("eventId", eventId), (rs, rowNum) ->
                 new EventRelationDto(
@@ -385,6 +425,11 @@ public class EventReadRepository {
                 JOIN historical_events e ON e.id = r.target_event_id
                 WHERE r.source_event_id = :eventId
                   AND e.status = 'published'
+                  AND EXISTS (
+                      SELECT 1 FROM historical_events source_event
+                      WHERE source_event.id=:eventId
+                        AND source_event.status='published'
+                  )
                   AND e.id <> :eventId
                 ORDER BY FIELD(%s, 'predecessor', 'successor', 'related'),
                          r.sort_order ASC,

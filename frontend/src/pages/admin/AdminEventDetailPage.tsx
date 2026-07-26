@@ -10,10 +10,12 @@ import {
 import { getAdminEventDetail, type AdminEventDetail } from '../../services/adminApi';
 import { ApiRequestError } from '../../services/apiClient';
 import { formatChronologyLabel } from '../../utils/chronology';
+import AdminEventPublicationActions from '../../components/admin/AdminEventPublicationActions';
+import { publicationIssueTargetId } from '../../components/admin/adminEventPublication';
 
-function DetailSection({ title, children }: { title: string; children: ReactNode }) {
+function DetailSection({ id, title, children }: { id?: string; title: string; children: ReactNode }) {
   return (
-    <section className="rounded-xl border border-[var(--border)] bg-[var(--bg-card)] p-5">
+    <section id={id} className="rounded-xl border border-[var(--border)] bg-[var(--bg-card)] p-5">
       <h2 className="mb-4 text-lg font-semibold text-[var(--text-primary)]">{title}</h2>
       {children}
     </section>
@@ -83,18 +85,30 @@ export default function AdminEventDetailPage() {
       {!loading && !error && event && (
         <>
           <AdminPageHeader
-            eyebrow="Chế độ chỉ đọc"
+            eyebrow="Chi tiết quản trị"
             title={event.core.title}
             description={`ID: ${event.core.id} · Cập nhật ${new Date(event.publication.updatedAt).toLocaleString('vi-VN')}`}
             actions={<AdminStatusBadge status={event.publication.status} />}
           />
+          <div className="mb-5 rounded-xl border border-[var(--border)] bg-[var(--bg-card)] p-4">
+            <AdminEventPublicationActions
+              eventId={event.core.id}
+              status={event.publication.status}
+              version={event.publication.updatedAt}
+              onUpdated={setEvent}
+              onReload={() => setRetry(value => value + 1)}
+              onIssueSelect={issue => document
+                .getElementById(publicationIssueTargetId(issue.section))
+                ?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
+            />
+          </div>
           <p role="note" className="mb-5 rounded-xl border border-[var(--border)] bg-[var(--bg-secondary)] px-4 py-3 text-sm text-[var(--text-secondary)]">
-            Tạo, chỉnh sửa và xóa sự kiện vẫn tạm khóa trong quy trình biên tập an toàn.
+            Hard delete vẫn bị khóa. Nội dung aggregate chỉ thay đổi qua các workflow typed riêng.
           </p>
 
           <div className="grid gap-5 xl:grid-cols-2">
-            <DetailSection title="Thông tin cốt lõi">
-              <dl className="grid gap-4 sm:grid-cols-2">
+            <DetailSection id="admin-event-classification" title="Thông tin cốt lõi">
+              <dl id="admin-event-chronology" className="grid gap-4 sm:grid-cols-2">
                 <Field label="Slug">{event.core.slug}</Field>
                 <Field label="Tên ngắn">{event.core.shortTitle}</Field>
                 <Field label="Niên đại">{formatChronologyLabel(event.chronology)}</Field>
@@ -106,7 +120,7 @@ export default function AdminEventDetailPage() {
               </dl>
             </DetailSection>
 
-            <DetailSection title="Chẩn đoán độ đầy đủ">
+            <DetailSection id="admin-event-completeness" title="Chẩn đoán độ đầy đủ">
               {event.completeness.complete ? (
                 <AdminStatusBadge status="active" label="Dữ liệu đầy đủ" />
               ) : (
@@ -121,7 +135,7 @@ export default function AdminEventDetailPage() {
               )}
             </DetailSection>
 
-            <DetailSection title="Nội dung">
+            <DetailSection id="admin-event-content" title="Nội dung">
               <dl className="space-y-4">
                 <Field label="Tóm tắt thẻ">{event.content.cardSummary}</Field>
                 <Field label="Tóm tắt chuẩn">{event.content.canonicalSummary}</Field>
@@ -142,7 +156,7 @@ export default function AdminEventDetailPage() {
               </dl>
             </DetailSection>
 
-            <DetailSection title="Ảnh đại diện và media">
+            <DetailSection id="admin-event-media" title="Ảnh đại diện và media">
               {event.media.thumbnail && (
                 <img
                   src={event.media.thumbnail.url}
@@ -169,7 +183,7 @@ export default function AdminEventDetailPage() {
               )}
             </DetailSection>
 
-            <DetailSection title="Địa lý và dữ liệu bản đồ">
+            <DetailSection id="admin-event-geography" title="Địa lý và dữ liệu bản đồ">
               <dl className="grid gap-4 sm:grid-cols-2">
                 <Field label="Geo type lưu trữ">{event.geography.normalizedGeoType}</Field>
                 <Field label="Geo type chuẩn">{event.geography.canonicalGeoType}</Field>

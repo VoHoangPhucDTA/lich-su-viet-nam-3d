@@ -17,6 +17,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.LinkedHashMap;
@@ -26,6 +28,7 @@ import java.util.Optional;
 
 @Repository
 public class AdminEventReadRepository {
+    private static final ZoneId DATABASE_ZONE = ZoneId.of("Asia/Ho_Chi_Minh");
     private static final String MAP_DATA = "JSON_EXTRACT(e.raw_json, '$.mapData')";
     private static final String CANONICAL_GEO = """
             CASE
@@ -228,6 +231,51 @@ public class AdminEventReadRepository {
                     .add(rs.getInt("grade"));
         });
         return result;
+    }
+
+    /**
+     * Bounded single-event projection for publication readiness. Long content values are
+     * represented only by presence predicates and are never loaded into the application.
+     */
+    public Optional<EventCompletenessFacts> findCompletenessFacts(String id) {
+        String sql = """
+                SELECT e.key_facts, e.geo_type, e.lat, e.lng, e.province_names,
+                       e.historical_locations, e.start_year, e.end_year,
+                       e.effective_end_year, e.event_level, e.event_type,
+                       (TRIM(e.title) <> '') AS title_present,
+                       (TRIM(e.slug) <> '') AS slug_present,
+                       (e.card_summary IS NOT NULL AND TRIM(e.card_summary) <> '') AS card_present,
+                       (e.canonical_summary IS NOT NULL AND TRIM(e.canonical_summary) <> '') AS canonical_present,
+                       (e.detailed_narrative IS NOT NULL AND TRIM(e.detailed_narrative) <> '') AS narrative_present,
+                       (e.significance IS NOT NULL AND TRIM(e.significance) <> '') AS significance_present,
+                       JSON_TYPE(%s) AS map_data_type,
+                       %s AS map_data_json,
+                       (SELECT COUNT(*) FROM event_media am
+                        WHERE am.event_id=e.id AND am.status='active' AND TRIM(am.url)<>''
+                          AND LOWER(TRIM(am.url)) NOT LIKE 'local:%%') AS active_media_count,
+                       (SELECT COUNT(*) FROM event_media tm
+                        WHERE tm.event_id=e.id AND tm.status='active'
+                          AND tm.is_thumbnail=TRUE AND tm.media_type='image' AND TRIM(tm.url)<>''
+                          AND LOWER(TRIM(tm.url)) NOT LIKE 'local:%%') AS active_thumbnail_count
+                FROM historical_events e
+                WHERE e.id=:id
+                """.formatted(MAP_DATA, MAP_DATA);
+        List<EventCompletenessFacts> rows = jdbc.query(
+                sql,
+                new MapSqlParameterSource("id", id),
+                (rs, row) -> {
+                    JsonNode mapData = PublicMapDataSanitizer.fromMapDataJson(
+                            objectMapper, rs.getString("map_data_json"));
+                    return facts(
+                            rs,
+                            mapData,
+                            List.of(),
+                            new MediaProjection(
+                                    null,
+                                    rs.getInt("active_media_count"),
+                                    rs.getInt("active_thumbnail_count")));
+                });
+        return rows.stream().findFirst();
     }
 
     public Optional<DetailRow> findCore(String id) {
@@ -660,12 +708,17 @@ public class AdminEventReadRepository {
     }
 
     private static Instant instant(ResultSet rs, String name) throws SQLException {
-        return rs.getTimestamp(name).toInstant();
+        return databaseInstant(rs.getTimestamp(name));
     }
 
     private static Instant instantNullable(ResultSet rs, String name) throws SQLException {
         Timestamp value = rs.getTimestamp(name);
-        return value == null ? null : value.toInstant();
+        return value == null ? null : databaseInstant(value);
+    }
+
+    private static Instant databaseInstant(Timestamp value) {
+        LocalDateTime local = value.toLocalDateTime();
+        return local.atZone(DATABASE_ZONE).toInstant();
     }
 
     private static BigDecimal decimal(JsonNode value) {

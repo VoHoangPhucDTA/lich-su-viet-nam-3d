@@ -123,4 +123,34 @@ describe('apiClient CSRF integration', () => {
     expect(fetchMock).toHaveBeenCalledTimes(3);
     expect(String(fetchMock.mock.calls[2][0])).toMatch(/\/api\/auth\/refresh$/);
   });
+
+  it('parses only bounded structured publication issues from an error response', async () => {
+    vi.spyOn(globalThis, 'fetch').mockResolvedValue(new Response(JSON.stringify({
+      success: false,
+      code: 'EVENT_PUBLISH_BLOCKED',
+      message: 'blocked',
+      data: {
+        issues: [
+          {
+            code: 'MISSING_CORE_CONTENT',
+            section: 'CONTENT',
+            severity: 'ERROR',
+            fields: ['canonicalSummary'],
+            rawJson: { hidden: true },
+          },
+          { code: 'INVALID', section: 7, severity: 'ERROR', fields: [] },
+        ],
+      },
+    }), { status: 409, headers: { 'Content-Type': 'application/json' } }));
+
+    await expect(apiGet('/api/admin/events/event-1/publication')).rejects.toMatchObject({
+      code: 'EVENT_PUBLISH_BLOCKED',
+      issues: [{
+        code: 'MISSING_CORE_CONTENT',
+        section: 'CONTENT',
+        severity: 'ERROR',
+        fields: ['canonicalSummary'],
+      }],
+    });
+  });
 });

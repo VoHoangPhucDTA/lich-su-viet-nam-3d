@@ -376,16 +376,19 @@ export function AdminConfirmDialog({
 // --- AdminFormSection --------------------------------------------------------
 
 export function AdminFormSection({
+  id,
   title,
   description,
   children,
 }: {
+  id?: string;
   title: string;
   description?: string;
   children: ReactNode;
 }) {
   return (
     <section
+      id={id}
       className="admin-form-section p-5 sm:p-6"
       style={{
         borderRadius: 'var(--admin-radius)',
