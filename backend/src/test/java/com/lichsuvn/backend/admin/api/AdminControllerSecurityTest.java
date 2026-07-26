@@ -3,6 +3,7 @@ package com.lichsuvn.backend.admin.api;
 import com.lichsuvn.backend.admin.api.dto.AdminDashboardDtos;
 import com.lichsuvn.backend.admin.api.dto.AdminEventDtos;
 import com.lichsuvn.backend.admin.api.dto.AdminUserDtos;
+import com.lichsuvn.backend.admin.api.dto.AdminUserMutationDtos;
 import com.lichsuvn.backend.admin.application.AdminDashboardReadService;
 import com.lichsuvn.backend.admin.application.AdminEventReadService;
 import com.lichsuvn.backend.admin.application.AdminEventMutationService;
@@ -10,6 +11,7 @@ import com.lichsuvn.backend.admin.application.AdminEventMediaMutationService;
 import com.lichsuvn.backend.admin.application.AdminEventGeographyMutationService;
 import com.lichsuvn.backend.admin.application.AdminEventPublicationService;
 import com.lichsuvn.backend.admin.application.AdminUserReadService;
+import com.lichsuvn.backend.admin.application.AdminUserMutationService;
 import com.lichsuvn.backend.admin.application.EventPublishBlockedException;
 import com.lichsuvn.backend.admin.application.AdminService;
 import com.lichsuvn.backend.auth.application.AuthService;
@@ -90,6 +92,9 @@ class AdminControllerSecurityTest {
 
     @MockitoBean
     AdminUserReadService adminUserReadService;
+
+    @MockitoBean
+    AdminUserMutationService adminUserMutationService;
 
     @MockitoBean
     AuthService authService;
@@ -379,32 +384,105 @@ class AdminControllerSecurityTest {
     }
 
     @Test
-    void adminCanReachMutationEndpointWithoutWeakeningAuthorization() throws Exception {
-        when(adminService.updateUserStatus(
-                anyString(), anyMap(), nullable(UserPrincipal.class)))
-                .thenReturn(Map.of("id", "user-1", "status", "disabled"));
+    void typedUserMutationsPreserveAuthorizationAndCsrfBoundaries() throws Exception {
+        String id = "00000000-0000-0000-0000-000000000010";
+        when(adminUserMutationService.updateStatus(
+                anyString(), any(AdminUserMutationDtos.ChangeStatus.class),
+                nullable(UserPrincipal.class)))
+                .thenReturn(userDetail(id));
+        when(adminUserMutationService.replaceRoles(
+                anyString(), any(AdminUserMutationDtos.ReplaceRoles.class),
+                nullable(UserPrincipal.class)))
+                .thenReturn(userDetail(id));
+        String statusBody = """
+                {"expectedUpdatedAt":"2026-01-02T00:00:00.123456Z","status":"disabled"}
+                """;
+        String rolesBody = """
+                {"expectedUpdatedAt":"2026-01-02T00:00:00.123456Z","roles":["teacher","student"]}
+                """;
 
-        mockMvc.perform(patch("/api/admin/users/user-1/status")
+        mockMvc.perform(patch("/api/admin/users/" + id + "/status")
                         .with(user("admin").authorities(() -> "ROLE_admin"))
                         .with(csrf())
                         .contentType("application/json")
-                        .content("{\"status\":\"disabled\"}"))
+                        .content(statusBody))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.success").value(true));
+                .andExpect(jsonPath("$.data.account.id").value(id));
 
-        mockMvc.perform(patch("/api/admin/users/user-1/status")
-                        .with(user("student").authorities(() -> "ROLE_student"))
+        mockMvc.perform(put("/api/admin/users/" + id + "/roles")
+                        .with(user("admin").authorities(() -> "ROLE_admin"))
                         .with(csrf())
                         .contentType("application/json")
-                        .content("{\"status\":\"disabled\"}"))
-                .andExpect(status().isForbidden());
+                        .content(rolesBody))
+                .andExpect(status().isOk());
 
-        mockMvc.perform(patch("/api/admin/users/user-1/status")
-                        .with(user("teacher").authorities(() -> "ROLE_teacher"))
+        for (String role : List.of("student", "teacher")) {
+            mockMvc.perform(patch("/api/admin/users/" + id + "/status")
+                            .with(user(role).authorities(() -> "ROLE_" + role))
+                            .with(csrf())
+                            .contentType("application/json")
+                            .content(statusBody))
+                    .andExpect(status().isForbidden());
+            mockMvc.perform(put("/api/admin/users/" + id + "/roles")
+                            .with(user(role).authorities(() -> "ROLE_" + role))
+                            .with(csrf())
+                            .contentType("application/json")
+                            .content(rolesBody))
+                    .andExpect(status().isForbidden());
+        }
+
+        mockMvc.perform(patch("/api/admin/users/" + id + "/status")
                         .with(csrf())
                         .contentType("application/json")
-                        .content("{\"status\":\"disabled\"}"))
-                .andExpect(status().isForbidden());
+                        .content(statusBody))
+                .andExpect(status().isUnauthorized());
+        mockMvc.perform(put("/api/admin/users/" + id + "/roles")
+                        .with(csrf())
+                        .contentType("application/json")
+                        .content(rolesBody))
+                .andExpect(status().isUnauthorized());
+
+        mockMvc.perform(put("/api/admin/users/" + id + "/roles")
+                        .with(user("admin").authorities(() -> "ROLE_admin"))
+                        .contentType("application/json")
+                        .content(rolesBody))
+                .andExpect(status().isForbidden())
+                .andExpect(jsonPath("$.code").value("CSRF_TOKEN_INVALID"));
+        mockMvc.perform(patch("/api/admin/users/" + id + "/status")
+                        .with(user("admin").authorities(() -> "ROLE_admin"))
+                        .contentType("application/json")
+                        .content(statusBody))
+                .andExpect(status().isForbidden())
+                .andExpect(jsonPath("$.code").value("CSRF_TOKEN_INVALID"));
+
+        mockMvc.perform(patch("/api/admin/users/" + id + "/status")
+                        .with(user("admin").authorities(() -> "ROLE_admin"))
+                        .with(csrf().useInvalidToken())
+                        .contentType("application/json")
+                        .content(statusBody))
+                .andExpect(status().isForbidden())
+                .andExpect(jsonPath("$.code").value("CSRF_TOKEN_INVALID"));
+        mockMvc.perform(put("/api/admin/users/" + id + "/roles")
+                        .with(user("admin").authorities(() -> "ROLE_admin"))
+                        .with(csrf().useInvalidToken())
+                        .contentType("application/json")
+                        .content(rolesBody))
+                .andExpect(status().isForbidden())
+                .andExpect(jsonPath("$.code").value("CSRF_TOKEN_INVALID"));
+    }
+
+    @Test
+    void legacyUserMutationEndpointsAreQuarantinedWithoutCallingTypedService() throws Exception {
+        var admin = user("admin").authorities(() -> "ROLE_admin");
+        mockMvc.perform(patch("/api/admin/users/user-1/role")
+                        .with(admin).with(csrf()).contentType("application/json")
+                        .content("{\"role\":\"student\"}"))
+                .andExpect(status().isConflict())
+                .andExpect(jsonPath("$.code").value("ADMIN_USER_ROLE_ENDPOINT_RETIRED"));
+        mockMvc.perform(delete("/api/admin/users/user-1").with(admin).with(csrf()))
+                .andExpect(status().isConflict())
+                .andExpect(jsonPath("$.code").value("ADMIN_USER_DELETE_DISABLED"));
+        verifyNoInteractions(adminUserMutationService);
     }
 
     @Test
@@ -749,7 +827,8 @@ class AdminControllerSecurityTest {
                         List.of(AdminUserDtos.Role.TEACHER),
                         AdminUserDtos.Status.ACTIVE,
                         true, created, "other", "School",
-                        "https://cdn.example.test/avatar.png", created, created),
+                        "https://cdn.example.test/avatar.png", created,
+                        "2026-01-02T00:00:00.123456Z"),
                 new AdminUserDtos.SessionTracking(
                         AdminUserDtos.TrackingMode.STATELESS_JWT, false, null),
                 new AdminUserDtos.Learning(

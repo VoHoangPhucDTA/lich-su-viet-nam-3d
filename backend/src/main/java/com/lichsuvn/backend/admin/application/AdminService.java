@@ -4,12 +4,6 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.lichsuvn.backend.auth.domain.RoleEntity;
-import com.lichsuvn.backend.auth.domain.UserEntity;
-import com.lichsuvn.backend.auth.domain.UserStatus;
-import com.lichsuvn.backend.auth.infrastructure.RoleRepository;
-import com.lichsuvn.backend.auth.infrastructure.UserRepository;
-import com.lichsuvn.backend.auth.infrastructure.UuidBytes;
 import com.lichsuvn.backend.auth.security.UserPrincipal;
 import com.lichsuvn.backend.common.exception.ApiException;
 import com.lichsuvn.backend.common.exception.NotFoundException;
@@ -32,7 +26,6 @@ import java.util.Set;
 /** Service quản trị cho dữ liệu user và historical_events. */
 @Service
 public class AdminService {
-    private static final Set<String> USER_STATUSES = Set.of("active", "pending", "disabled");
     private static final Set<String> EVENT_STATUSES = Set.of("draft", "published", "archived");
     private static final Set<String> EVENT_LEVELS = Set.of("atomic", "collection");
     private static final Set<String> EVENT_TYPES = Set.of("military", "political", "economic", "cultural");
@@ -40,53 +33,10 @@ public class AdminService {
 
     private final NamedParameterJdbcTemplate jdbc;
     private final ObjectMapper objectMapper;
-    private final UserRepository userRepository;
-    private final RoleRepository roleRepository;
 
-    public AdminService(NamedParameterJdbcTemplate jdbc, ObjectMapper objectMapper, UserRepository userRepository, RoleRepository roleRepository) {
+    public AdminService(NamedParameterJdbcTemplate jdbc, ObjectMapper objectMapper) {
         this.jdbc = jdbc;
         this.objectMapper = objectMapper;
-        this.userRepository = userRepository;
-        this.roleRepository = roleRepository;
-    }
-
-    @Transactional
-    public Map<String, Object> updateUserStatus(String id, Map<String, Object> body, UserPrincipal principal) {
-        String next = requiredText(body, "status"); validate("status", next, USER_STATUSES);
-        UserEntity target = user(id);
-        if (principal.id().equals(id) && !UserStatus.ACTIVE.matches(next)) throw forbidden("Không thể tự vô hiệu hóa tài khoản quản trị.");
-        if (isActiveAdmin(target) && !UserStatus.ACTIVE.matches(next) && activeAdminCount() <= 1) throw forbidden("Phải còn ít nhất một admin đang hoạt động.");
-        String before = target.getStatus(); target.setStatus(next); userRepository.save(target);
-        audit(principal, "user.status_updated", "user", id, Map.of("status", before), Map.of("status", next));
-        return Map.of("id", id, "status", next);
-    }
-
-    @Transactional
-    public Map<String, Object> updateUserRole(String id, Map<String, Object> body, UserPrincipal principal) {
-        String role = requiredText(body, "role"); validate("role", role, Set.of("student", "admin"));
-        UserEntity target = user(id);
-        boolean admin = target.primaryRole().equals("admin");
-        if (principal.id().equals(id) && !"admin".equals(role)) throw forbidden("Không thể tự gỡ quyền admin.");
-        if (admin && "student".equals(role) && UserStatus.ACTIVE.matches(target.getStatus()) && activeAdminCount() <= 1) throw forbidden("Phải còn ít nhất một admin đang hoạt động.");
-        RoleEntity student = roleRepository.findByCode("student").orElseThrow(() -> new ApiException(HttpStatus.INTERNAL_SERVER_ERROR, "ROLE_SEED_MISSING", "Student role is missing"));
-        RoleEntity administrator = roleRepository.findByCode("admin").orElseThrow(() -> new ApiException(HttpStatus.INTERNAL_SERVER_ERROR, "ROLE_SEED_MISSING", "Admin role is missing"));
-        Set<RoleEntity> roles = new java.util.HashSet<>(target.getRoles());
-        if ("admin".equals(role)) roles.add(administrator); else { roles.removeIf(value -> "admin".equals(value.getCode())); roles.add(student); }
-        target.setRoles(roles); userRepository.save(target);
-        audit(principal, "user.role_updated", "user", id, Map.of("role", admin ? "admin" : "student"), Map.of("role", role));
-        return Map.of("id", id, "role", role);
-    }
-
-    @Transactional
-    public Map<String, Object> deleteUser(String id, UserPrincipal principal) {
-        UserEntity target = user(id);
-        if (principal.id().equals(id)) throw forbidden("An administrator cannot disable their own account.");
-        if (isActiveAdmin(target) && activeAdminCount() <= 1) throw forbidden("At least one active administrator must remain.");
-        String before = target.getStatus();
-        target.setStatus("disabled");
-        userRepository.save(target);
-        audit(principal, "user.disabled", "user", id, Map.of("status", before), Map.of("status", "disabled"));
-        return Map.of("id", id, "status", "disabled");
     }
 
     public Map<String, Object> events(String query, String status, String eventLevel, String eventType, Integer from, Integer to, Integer limit, Integer offset) {
@@ -212,10 +162,6 @@ public class AdminService {
         raw.with("hierarchy").put("parentId", parent == null ? "" : parent).put("rootId", root == null ? id : root).put("level", hierarchyLevel).put("orderInParent", nullableInt(body, "orderInParent")); raw.with("display").put("showOnHomepage", bool(body, "showOnHomepage", true)).put("showOnTimeline", bool(body, "showOnTimeline", true)).put("featured", bool(body, "featured", false));
     }
     private Map<String, Object> page(List<Map<String, Object>> items, int total, int limit, int offset) { return Map.of("items", items, "count", items.size(), "total", total, "limit", limit, "offset", offset); }
-    private int count(String sql, MapSqlParameterSource params) { Integer value = jdbc.queryForObject(sql, params, Integer.class); return value == null ? 0 : value; }
-    private UserEntity user(String id) { try { return userRepository.findById(UuidBytes.fromUuid(java.util.UUID.fromString(id))).orElseThrow(() -> new NotFoundException("USER_NOT_FOUND", "User not found")); } catch (IllegalArgumentException ex) { throw new NotFoundException("USER_NOT_FOUND", "User not found"); } }
-    private boolean isActiveAdmin(UserEntity user) { return UserStatus.ACTIVE.matches(user.getStatus()) && "admin".equals(user.primaryRole()); }
-    private int activeAdminCount() { return count("SELECT COUNT(DISTINCT u.id) FROM users u JOIN user_roles ur ON ur.user_id=u.id JOIN roles r ON r.id=ur.role_id WHERE u.status='active' AND r.code='admin'", new MapSqlParameterSource()); }
     private void audit(UserPrincipal principal, String action, String entityType, String entityId, Object before, Object after) { jdbc.update("INSERT INTO admin_audit_logs (user_id, action, entity_type, entity_id, before_json, after_json) VALUES (:userId,:action,:entityType,:entityId,CAST(:before AS JSON),CAST(:after AS JSON))", new MapSqlParameterSource().addValue("userId", principal.idBytes()).addValue("action", action).addValue("entityType", entityType).addValue("entityId", entityId).addValue("before", writeJson(before)).addValue("after", writeJson(after))); }
     private String requiredText(Map<String, Object> body, String key) { String value = nullableText(body, key); if (!StringUtils.hasText(value)) throw new ApiException(HttpStatus.BAD_REQUEST, "MISSING_" + key.toUpperCase(), key + " is required"); return value; }
     private String nullableText(Map<String, Object> body, String key) { Object value = body.get(key); return value == null || String.valueOf(value).isBlank() ? null : String.valueOf(value).trim(); }
@@ -226,7 +172,6 @@ public class AdminService {
     private boolean bool(Map<String, Object> body, String key, boolean fallback) { Object value = body.get(key); return value == null ? fallback : Boolean.parseBoolean(String.valueOf(value)); }
     private void validate(String name, String value, Set<String> allowed) { if (!allowed.contains(value)) throw new ApiException(HttpStatus.BAD_REQUEST, "INVALID_" + name.toUpperCase(), name + " has unsupported value"); }
     private void validateSlug(String value) { if (!value.matches("[a-z0-9]+(?:-[a-z0-9]+)*")) throw new ApiException(HttpStatus.BAD_REQUEST, "INVALID_SLUG", "slug must use lowercase letters, digits and hyphens"); }
-    private ApiException forbidden(String message) { return new ApiException(HttpStatus.FORBIDDEN, "ADMIN_GUARDRAIL", message); }
     private String writeJson(Object value) { try { return objectMapper.writeValueAsString(value); } catch (Exception ex) { throw new ApiException(HttpStatus.BAD_REQUEST, "INVALID_JSON", "Could not serialize payload"); } }
     private Object readJson(String value) { try { return StringUtils.hasText(value) ? objectMapper.readValue(value, Object.class) : List.of(); } catch (Exception ex) { return List.of(); } }
     private String hash(String value) { try { byte[] bytes = MessageDigest.getInstance("SHA-256").digest(value.getBytes(StandardCharsets.UTF_8)); StringBuilder result = new StringBuilder(); for (byte item : bytes) result.append(String.format("%02x", item)); return result.toString(); } catch (Exception ex) { throw new ApiException(HttpStatus.INTERNAL_SERVER_ERROR, "HASH_FAILED", "Could not hash content"); } }

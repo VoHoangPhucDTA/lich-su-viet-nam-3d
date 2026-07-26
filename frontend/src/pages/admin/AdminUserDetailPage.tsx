@@ -1,8 +1,9 @@
-import { useEffect, useState, type ReactNode } from 'react';
+import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { Link, useLocation, useParams } from 'react-router-dom';
 import AdminLayout from '../../layouts/AdminLayout';
 import {
   AdminEmptyState,
+  AdminConfirmDialog,
   AdminErrorState,
   AdminLoadingState,
   AdminPageHeader,
@@ -10,11 +11,15 @@ import {
 } from '../../components/admin/AdminUI';
 import {
   getAdminUserDetail,
+  replaceAdminUserRoles,
+  updateAdminUserStatus,
   type AdminUserActivityItem,
   type AdminUserDetail,
   type AdminUserRole,
+  type AdminUserStatus,
 } from '../../services/adminApi';
 import { ApiRequestError } from '../../services/apiClient';
+import { useAuth } from '../../auth/AuthContext';
 import { safeAdminUsersReturnLocation } from './adminUserNavigation';
 
 function DetailSection({ title, children }: { title: string; children: ReactNode }) {
@@ -63,14 +68,42 @@ function errorMessage(cause: unknown) {
   return cause instanceof Error ? cause.message : 'Không thể tải chi tiết người dùng.';
 }
 
+type Confirmation =
+  | { kind: 'roles'; roles: AdminUserRole[]; danger: boolean }
+  | { kind: 'status'; status: Exclude<AdminUserStatus, 'deleted'>; danger: boolean };
+
+const canonicalRoles: AdminUserRole[] = ['admin', 'teacher', 'student'];
+
+function nextStatuses(status: AdminUserStatus): Array<Exclude<AdminUserStatus, 'deleted'>> {
+  if (status === 'active') return ['disabled'];
+  if (status === 'pending') return ['active', 'disabled'];
+  if (status === 'disabled') return ['active', 'pending'];
+  return [];
+}
+
+function statusActionLabel(status: Exclude<AdminUserStatus, 'deleted'>) {
+  if (status === 'active') return 'Kích hoạt';
+  if (status === 'pending') return 'Chuyển về chờ xác thực';
+  return 'Vô hiệu hóa';
+}
+
 export default function AdminUserDetailPage() {
   const { id } = useParams<{ id: string }>();
   const location = useLocation();
+  const { currentUser } = useAuth();
   const [detail, setDetail] = useState<AdminUserDetail | null>(null);
+  const [selectedRoles, setSelectedRoles] = useState<AdminUserRole[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [retry, setRetry] = useState(0);
+  const [mutating, setMutating] = useState(false);
+  const [mutationError, setMutationError] = useState('');
+  const [mutationSuccess, setMutationSuccess] = useState('');
+  const [confirmation, setConfirmation] = useState<Confirmation | null>(null);
+  const mutationController = useRef<AbortController | null>(null);
   const returnTo = safeAdminUsersReturnLocation(location.state);
+
+  useEffect(() => () => mutationController.current?.abort(), []);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -83,7 +116,9 @@ export default function AdminUserDetailPage() {
       setLoading(true);
       setError('');
       try {
-        setDetail(await getAdminUserDetail(id, controller.signal));
+        const loaded = await getAdminUserDetail(id, controller.signal);
+        setDetail(loaded);
+        setSelectedRoles(loaded.account.roles);
       } catch (cause) {
         if (cause instanceof DOMException && cause.name === 'AbortError') return;
         setError(errorMessage(cause));
@@ -94,6 +129,69 @@ export default function AdminUserDetailPage() {
     void load();
     return () => controller.abort();
   }, [id, retry]);
+
+  const applyDetail = (updated: AdminUserDetail, message: string) => {
+    setDetail(updated);
+    setSelectedRoles(updated.account.roles);
+    setMutationSuccess(message);
+  };
+
+  const handleMutationError = (cause: unknown) => {
+    if (cause instanceof DOMException && cause.name === 'AbortError') return;
+    if (cause instanceof ApiRequestError && cause.code === 'USER_UPDATE_CONFLICT') {
+      setMutationError('Tài khoản đã thay đổi ở nơi khác. Dữ liệu mới đang được tải lại; hãy kiểm tra trước khi tiếp tục.');
+      setRetry(value => value + 1);
+      return;
+    }
+    setMutationError(errorMessage(cause));
+  };
+
+  const executeConfirmation = async () => {
+    if (!detail || !id || !confirmation || mutating) return;
+    const action = confirmation;
+    setConfirmation(null);
+    setMutating(true);
+    setMutationError('');
+    setMutationSuccess('');
+    const controller = new AbortController();
+    mutationController.current = controller;
+    try {
+      if (action.kind === 'roles') {
+        const updated = await replaceAdminUserRoles(id, {
+          expectedUpdatedAt: detail.account.updatedAt,
+          roles: action.roles,
+        }, controller.signal);
+        applyDetail(updated, 'Đã cập nhật quyền và vô hiệu hóa các thông tin xác thực cũ.');
+      } else {
+        const updated = await updateAdminUserStatus(id, {
+          expectedUpdatedAt: detail.account.updatedAt,
+          status: action.status,
+        }, controller.signal);
+        applyDetail(updated, 'Đã cập nhật trạng thái và vô hiệu hóa các thông tin xác thực cũ.');
+      }
+    } catch (cause) {
+      handleMutationError(cause);
+    } finally {
+      mutationController.current = null;
+      setMutating(false);
+    }
+  };
+
+  const toggleRole = (role: AdminUserRole) => {
+    if (mutating) return;
+    setSelectedRoles(current => current.includes(role)
+      ? current.filter(value => value !== role)
+      : canonicalRoles.filter(value => value === role || current.includes(value)));
+  };
+
+  const canMutate = detail != null
+    && currentUser != null
+    && detail.account.status !== 'deleted'
+    && currentUser.id !== detail.account.id;
+  const roleChanged = detail != null
+    && canonicalRoles.some(role => selectedRoles.includes(role) !== detail.account.roles.includes(role));
+  const roleReduction = detail != null
+    && detail.account.roles.some(role => !selectedRoles.includes(role));
 
   return (
     <AdminLayout title="Chi tiết người dùng">
@@ -134,6 +232,84 @@ export default function AdminUserDetailPage() {
                 </Field>
               </dl>
             </DetailSection>
+
+            {canMutate && (
+              <DetailSection title="Quản lý quyền và trạng thái">
+                <div className="space-y-5">
+                  <fieldset disabled={mutating}>
+                    <legend className="text-sm font-semibold text-[var(--text-primary)]">
+                      Gán quyền đầy đủ
+                    </legend>
+                    <p className="mt-1 text-xs text-[var(--text-muted)]">
+                      Lưu sẽ thay thế toàn bộ tập quyền hiện tại của người dùng.
+                    </p>
+                    <div className="mt-3 flex flex-wrap gap-4">
+                      {canonicalRoles.map(role => (
+                        <label key={role} className="inline-flex items-center gap-2 text-sm">
+                          <input
+                            type="checkbox"
+                            checked={selectedRoles.includes(role)}
+                            onChange={() => toggleRole(role)}
+                          />
+                          {roleLabel(role)}
+                        </label>
+                      ))}
+                    </div>
+                    <button
+                      type="button"
+                      className={`${roleReduction ? 'admin-danger-button' : 'admin-primary-button'} mt-4 disabled:cursor-not-allowed disabled:opacity-50`}
+                      disabled={mutating || !roleChanged || selectedRoles.length === 0}
+                      onClick={() => setConfirmation({
+                        kind: 'roles',
+                        roles: [...selectedRoles],
+                        danger: roleReduction,
+                      })}
+                    >
+                      {mutating ? 'Đang xử lý…' : 'Lưu tập quyền'}
+                    </button>
+                    {selectedRoles.length === 0 && (
+                      <p role="alert" className="mt-2 text-xs text-[var(--accent)]">
+                        Phải chọn ít nhất một quyền.
+                      </p>
+                    )}
+                  </fieldset>
+
+                  <div>
+                    <h3 className="text-sm font-semibold text-[var(--text-primary)]">
+                      Chuyển trạng thái
+                    </h3>
+                    <div className="mt-3 flex flex-wrap gap-2">
+                      {nextStatuses(detail.account.status).map(status => (
+                        <button
+                          key={status}
+                          type="button"
+                          disabled={mutating}
+                          className={`${status === 'disabled' ? 'admin-danger-button' : 'admin-secondary-button'} disabled:cursor-not-allowed disabled:opacity-50`}
+                          onClick={() => setConfirmation({
+                            kind: 'status',
+                            status,
+                            danger: status === 'disabled',
+                          })}
+                        >
+                          {statusActionLabel(status)}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  {mutationError && (
+                    <p role="alert" className="rounded-lg border border-[var(--accent)]/20 bg-[var(--danger-soft)] p-3 text-sm text-[var(--accent)]">
+                      {mutationError}
+                    </p>
+                  )}
+                  {mutationSuccess && (
+                    <p role="status" className="rounded-lg border border-green-600/20 bg-green-600/10 p-3 text-sm text-green-700">
+                      {mutationSuccess}
+                    </p>
+                  )}
+                </div>
+              </DetailSection>
+            )}
 
             <DetailSection title="Xác thực và phiên">
               <dl className="grid gap-4 sm:grid-cols-2">
@@ -199,6 +375,19 @@ export default function AdminUserDetailPage() {
               )}
             </DetailSection>
           </div>
+          <AdminConfirmDialog
+            open={confirmation !== null}
+            title={confirmation?.kind === 'roles'
+              ? 'Xác nhận thay thế tập quyền?'
+              : `Xác nhận ${confirmation ? statusActionLabel(confirmation.status).toLowerCase() : ''} tài khoản?`}
+            description={confirmation?.kind === 'roles'
+              ? 'Thao tác thay thế toàn bộ quyền đã gán và làm mất hiệu lực mọi access/refresh token hiện có.'
+              : 'Thao tác thay đổi trạng thái và làm mất hiệu lực mọi access/refresh token hiện có.'}
+            confirmLabel="Xác nhận"
+            danger={confirmation?.danger ?? false}
+            onCancel={() => setConfirmation(null)}
+            onConfirm={() => void executeConfirmation()}
+          />
         </>
       )}
     </AdminLayout>

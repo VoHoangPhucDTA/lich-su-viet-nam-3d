@@ -48,78 +48,7 @@ class AdminServiceSafetyTest {
         jdbc = mock(NamedParameterJdbcTemplate.class);
         userRepository = mock(UserRepository.class);
         roleRepository = mock(RoleRepository.class);
-        service = new AdminService(jdbc, new ObjectMapper(), userRepository, roleRepository);
-    }
-
-    @Test
-    void administratorCannotDisableTheirOwnAccount() {
-        String id = UUID.randomUUID().toString();
-        UserEntity target = user(id, "active", "admin");
-        when(userRepository.findById(any(byte[].class))).thenReturn(Optional.of(target));
-
-        ApiException error = assertThrows(ApiException.class, () ->
-                service.updateUserStatus(id, Map.of("status", "disabled"), principal(id)));
-
-        assertEquals("ADMIN_GUARDRAIL", error.getCode());
-        verify(userRepository).findById(any(byte[].class));
-    }
-
-    @Test
-    void administratorCannotDemoteTheirOwnAccount() {
-        String id = UUID.randomUUID().toString();
-        UserEntity target = user(id, "active", "admin");
-        when(userRepository.findById(any(byte[].class))).thenReturn(Optional.of(target));
-
-        ApiException error = assertThrows(ApiException.class, () ->
-                service.updateUserRole(id, Map.of("role", "student"), principal(id)));
-
-        assertEquals("ADMIN_GUARDRAIL", error.getCode());
-    }
-
-    @Test
-    void lastActiveAdministratorCannotBeDisabled() {
-        String targetId = UUID.randomUUID().toString();
-        String actorId = UUID.randomUUID().toString();
-        UserEntity target = user(targetId, "active", "admin");
-        when(userRepository.findById(any(byte[].class))).thenReturn(Optional.of(target));
-        when(jdbc.queryForObject(
-                anyString(), any(MapSqlParameterSource.class), eq(Integer.class)))
-                .thenReturn(1);
-
-        ApiException error = assertThrows(ApiException.class, () ->
-                service.updateUserStatus(targetId, Map.of("status", "disabled"), principal(actorId)));
-
-        assertEquals("ADMIN_GUARDRAIL", error.getCode());
-    }
-
-    @Test
-    void lastActiveAdministratorCannotBeDemoted() {
-        String targetId = UUID.randomUUID().toString();
-        String actorId = UUID.randomUUID().toString();
-        UserEntity target = user(targetId, "active", "admin");
-        when(userRepository.findById(any(byte[].class))).thenReturn(Optional.of(target));
-        when(jdbc.queryForObject(
-                anyString(), any(MapSqlParameterSource.class), eq(Integer.class)))
-                .thenReturn(1);
-
-        ApiException error = assertThrows(ApiException.class, () ->
-                service.updateUserRole(targetId, Map.of("role", "student"), principal(actorId)));
-
-        assertEquals("ADMIN_GUARDRAIL", error.getCode());
-    }
-
-    @Test
-    void teacherRoleIsCurrentlyRejectedByAdminMutationContract() {
-        String targetId = UUID.randomUUID().toString();
-        String actorId = UUID.randomUUID().toString();
-        UserEntity target = user(targetId, "active", "student");
-        when(userRepository.findById(any(byte[].class)))
-                .thenReturn(Optional.of(target));
-
-        ApiException error = assertThrows(ApiException.class, () ->
-                service.updateUserRole(targetId, Map.of("role", "teacher"), principal(actorId)));
-
-        assertEquals("INVALID_ROLE", error.getCode());
+        service = new AdminService(jdbc, new ObjectMapper());
     }
 
     @Test

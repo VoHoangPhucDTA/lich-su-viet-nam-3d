@@ -259,6 +259,7 @@ public class AuthService {
         UserEntity user = userRepository.findById(UuidBytes.fromUuid(UUID.fromString(claims.subject())))
                 .filter(item -> UserStatus.ACTIVE.matches(item.getStatus()))
                 .orElseThrow(() -> new ApiException(HttpStatus.UNAUTHORIZED, "INVALID_TOKEN", "Invalid token"));
+        requireCurrentAuthVersion(claims, user);
         return toAuthSession(user);
     }
 
@@ -267,6 +268,7 @@ public class AuthService {
         UserEntity user = userRepository.findById(UuidBytes.fromUuid(UUID.fromString(claims.subject())))
                 .filter(item -> UserStatus.ACTIVE.matches(item.getStatus()))
                 .orElseThrow(() -> new ApiException(HttpStatus.UNAUTHORIZED, "INVALID_TOKEN", "Invalid token"));
+        requireCurrentAuthVersion(claims, user);
         return new UserPrincipal(
                 UuidBytes.toString(user.getId()),
                 user.getId(),
@@ -309,6 +311,10 @@ public class AuthService {
                 .filter(u -> UserStatus.ACTIVE.matches(u.getStatus()))
                 .orElseThrow(() -> new ApiException(HttpStatus.UNAUTHORIZED, "UNAUTHENTICATED",
                         "Authentication required"));
+        if (principal.roles().contains("admin") || roleCodes(user).contains("admin")) {
+            throw new ApiException(HttpStatus.FORBIDDEN, "ADMIN_SELF_MUTATION_FORBIDDEN",
+                    "Administrators cannot delete their own account");
+        }
 
         user.setStatus(UserStatus.DELETED.value());
         // Xoá avatar trên Cloudinary nếu có
@@ -341,10 +347,16 @@ public class AuthService {
         String userIdStr = UuidBytes.toString(user.getId());
         // Bước 6B.1.7: AuthService.java: tạo JWT Token và trả về cho AuthController.java
         return new AuthSession(
-                jwtService.createAccessToken(userIdStr, user.getEmail(), roles),
-                jwtService.createRefreshToken(userIdStr, user.getEmail(), roles),
+                jwtService.createAccessToken(userIdStr, user.getEmail(), roles, user.getAuthVersion()),
+                jwtService.createRefreshToken(userIdStr, user.getEmail(), roles, user.getAuthVersion()),
                 user.toDto()
         );
+    }
+
+    private void requireCurrentAuthVersion(JwtClaims claims, UserEntity user) {
+        if (claims.authVersion() != user.getAuthVersion()) {
+            throw new ApiException(HttpStatus.UNAUTHORIZED, "INVALID_TOKEN", "Invalid token");
+        }
     }
 
     private List<String> roleCodes(UserEntity user) {

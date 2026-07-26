@@ -59,6 +59,9 @@ public class UserEntity {
     @Column(name = "created_at", insertable = false, updatable = false)
     private Instant createdAt;
 
+    @Column(name = "auth_version", nullable = false)
+    private long authVersion;
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "user_roles",
@@ -182,6 +185,14 @@ public class UserEntity {
 
     public Instant getCreatedAt() {
         return createdAt;
+    }
+
+    public long getAuthVersion() {
+        return authVersion;
+    }
+
+    public void setAuthVersion(long authVersion) {
+        this.authVersion = authVersion;
     }
 
     public Set<RoleEntity> getRoles() {

@@ -476,8 +476,10 @@ public class SocialAuthService {
                 .toList();
         // Bước 6B.2.10 / 6B.3.10: SocialAuthService.java: Tạo JWT Token và trả về
         return new AuthSession(
-                jwtService.createAccessToken(UuidBytes.toString(user.getId()), user.getEmail(), roles),
-                jwtService.createRefreshToken(UuidBytes.toString(user.getId()), user.getEmail(), roles),
+                jwtService.createAccessToken(
+                        UuidBytes.toString(user.getId()), user.getEmail(), roles, user.getAuthVersion()),
+                jwtService.createRefreshToken(
+                        UuidBytes.toString(user.getId()), user.getEmail(), roles, user.getAuthVersion()),
                 user.toDto()
         );
     }

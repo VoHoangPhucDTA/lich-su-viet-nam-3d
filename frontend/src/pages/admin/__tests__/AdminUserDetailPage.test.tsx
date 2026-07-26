@@ -4,16 +4,39 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import AdminUserDetailPage from '../AdminUserDetailPage';
 import { safeAdminUsersReturnLocation } from '../adminUserNavigation';
-import { getAdminUserDetail, type AdminUserDetail } from '../../../services/adminApi';
+import {
+  getAdminUserDetail,
+  replaceAdminUserRoles,
+  updateAdminUserStatus,
+  type AdminUserDetail,
+} from '../../../services/adminApi';
 import { ApiRequestError } from '../../../services/apiClient';
 
 vi.mock('../../../layouts/AdminLayout', () => ({
   default: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
 }));
 
+let currentUserId = 'user-1';
+vi.mock('../../../auth/AuthContext', () => ({
+  useAuth: () => ({
+    currentUser: {
+      id: currentUserId,
+      fullName: 'Current admin',
+      email: 'current-admin@example.test',
+      role: 'admin',
+      roles: ['admin'],
+    },
+  }),
+}));
+
 vi.mock('../../../services/adminApi', async () => {
   const actual = await vi.importActual<typeof import('../../../services/adminApi')>('../../../services/adminApi');
-  return { ...actual, getAdminUserDetail: vi.fn() };
+  return {
+    ...actual,
+    getAdminUserDetail: vi.fn(),
+    replaceAdminUserRoles: vi.fn(),
+    updateAdminUserStatus: vi.fn(),
+  };
 });
 
 const detail: AdminUserDetail = {
@@ -30,7 +53,7 @@ const detail: AdminUserDetail = {
     school: 'Trường thử nghiệm',
     avatarUrl: 'https://cdn.example.test/avatar.png',
     createdAt: '2025-01-01T00:00:00Z',
-    updatedAt: '2026-01-02T00:00:00Z',
+    updatedAt: '2026-01-02T00:00:00.123456Z',
   },
   sessions: {
     trackingMode: 'STATELESS_JWT',
@@ -87,6 +110,7 @@ function renderPage(state: unknown = { from: '/admin/users?role=teacher&status=a
 describe('AdminUserDetailPage', () => {
   beforeEach(() => {
     vi.clearAllMocks();
+    currentUserId = 'user-1';
     vi.mocked(getAdminUserDetail).mockResolvedValue(detail);
   });
 
@@ -166,6 +190,109 @@ describe('AdminUserDetailPage', () => {
     await waitFor(() => expect(signal).toBeDefined());
     view.unmount();
     expect(signal?.aborted).toBe(true);
+  });
+
+  it('replaces the complete canonical role set after confirmation using the opaque version', async () => {
+    currentUserId = 'current-admin';
+    const updated: AdminUserDetail = {
+      ...detail,
+      account: {
+        ...detail.account,
+        primaryRole: 'teacher' as const,
+        roles: ['teacher', 'student'],
+        updatedAt: '2026-01-02T00:00:00.654321Z',
+      },
+    };
+    vi.mocked(replaceAdminUserRoles).mockResolvedValue(updated);
+    renderPage();
+    await screen.findByRole('heading', { name: 'Quản lý quyền và trạng thái' });
+
+    fireEvent.click(screen.getByRole('checkbox', { name: 'Quản trị' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Lưu tập quyền' }));
+    expect(screen.getByRole('dialog')).toHaveTextContent('thay thế tập quyền');
+    fireEvent.click(screen.getByRole('button', { name: 'Xác nhận' }));
+
+    await waitFor(() => expect(replaceAdminUserRoles).toHaveBeenCalledWith(
+      'user-1',
+      {
+        expectedUpdatedAt: '2026-01-02T00:00:00.123456Z',
+        roles: ['teacher', 'student'],
+      },
+      expect.any(AbortSignal),
+    ));
+    expect(await screen.findByText(/Đã cập nhật quyền/)).toBeInTheDocument();
+    expect(updateAdminUserStatus).not.toHaveBeenCalled();
+  });
+
+  it('shows only valid next statuses, confirms disable and replaces the detail on success', async () => {
+    currentUserId = 'current-admin';
+    const updated = {
+      ...detail,
+      account: {
+        ...detail.account,
+        status: 'disabled' as const,
+        updatedAt: '2026-01-02T00:00:00.223456Z',
+      },
+    };
+    vi.mocked(updateAdminUserStatus).mockResolvedValue(updated);
+    renderPage();
+    await screen.findByRole('button', { name: 'Vô hiệu hóa' });
+    expect(screen.queryByRole('button', { name: 'Kích hoạt' })).not.toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: /chờ xác thực/i })).not.toBeInTheDocument();
+
+    fireEvent.click(screen.getByRole('button', { name: 'Vô hiệu hóa' }));
+    expect(screen.getByRole('dialog')).toBeInTheDocument();
+    fireEvent.click(screen.getByRole('button', { name: 'Xác nhận' }));
+
+    await waitFor(() => expect(updateAdminUserStatus).toHaveBeenCalledWith(
+      'user-1',
+      {
+        expectedUpdatedAt: '2026-01-02T00:00:00.123456Z',
+        status: 'disabled',
+      },
+      expect.any(AbortSignal),
+    ));
+    expect(await screen.findByText(/Đã cập nhật trạng thái/)).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Kích hoạt' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Chuyển về chờ xác thực' })).toBeInTheDocument();
+  });
+
+  it('uses one shared mutation lock and reloads conflicts without replaying', async () => {
+    currentUserId = 'current-admin';
+    let rejectMutation: ((reason: unknown) => void) | undefined;
+    vi.mocked(updateAdminUserStatus).mockImplementation(() => new Promise((_resolve, reject) => {
+      rejectMutation = reject;
+    }));
+    renderPage();
+    fireEvent.click(await screen.findByRole('button', { name: 'Vô hiệu hóa' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Xác nhận' }));
+
+    await waitFor(() => expect(updateAdminUserStatus).toHaveBeenCalledTimes(1));
+    expect(screen.getByRole('button', { name: 'Đang xử lý…' })).toBeDisabled();
+    for (const checkbox of screen.getAllByRole('checkbox')) expect(checkbox).toBeDisabled();
+
+    rejectMutation?.(new ApiRequestError('USER_UPDATE_CONFLICT', 'conflict', 409));
+    expect(await screen.findByRole('alert')).toHaveTextContent('đã thay đổi ở nơi khác');
+    await waitFor(() => expect(getAdminUserDetail).toHaveBeenCalledTimes(2));
+    expect(updateAdminUserStatus).toHaveBeenCalledTimes(1);
+  });
+
+  it('hides all mutation controls for self and deleted users', async () => {
+    const self = renderPage();
+    await screen.findByRole('heading', { name: 'Nguyễn Quản trị' });
+    expect(screen.queryByRole('heading', { name: 'Quản lý quyền và trạng thái' }))
+      .not.toBeInTheDocument();
+    self.unmount();
+
+    currentUserId = 'current-admin';
+    vi.mocked(getAdminUserDetail).mockResolvedValue({
+      ...detail,
+      account: { ...detail.account, status: 'deleted' },
+    });
+    renderPage();
+    await screen.findByText('Đã xóa (trạng thái DB)');
+    expect(screen.queryByRole('heading', { name: 'Quản lý quyền và trạng thái' }))
+      .not.toBeInTheDocument();
   });
 });
 

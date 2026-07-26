@@ -7,6 +7,7 @@ import com.lichsuvn.backend.admin.api.dto.AdminEventMediaMutationDtos;
 import com.lichsuvn.backend.admin.api.dto.AdminEventGeographyDtos;
 import com.lichsuvn.backend.admin.api.dto.AdminEventPublicationDtos;
 import com.lichsuvn.backend.admin.api.dto.AdminUserDtos;
+import com.lichsuvn.backend.admin.api.dto.AdminUserMutationDtos;
 import com.lichsuvn.backend.admin.application.AdminDashboardReadService;
 import com.lichsuvn.backend.admin.application.AdminEventReadService;
 import com.lichsuvn.backend.admin.application.AdminEventMutationService;
@@ -14,7 +15,7 @@ import com.lichsuvn.backend.admin.application.AdminEventMediaMutationService;
 import com.lichsuvn.backend.admin.application.AdminEventGeographyMutationService;
 import com.lichsuvn.backend.admin.application.AdminEventPublicationService;
 import com.lichsuvn.backend.admin.application.AdminUserReadService;
-import com.lichsuvn.backend.admin.application.AdminService;
+import com.lichsuvn.backend.admin.application.AdminUserMutationService;
 import com.lichsuvn.backend.auth.security.UserPrincipal;
 import com.lichsuvn.backend.common.api.ApiResponse;
 import com.lichsuvn.backend.common.exception.ApiException;
@@ -41,7 +42,6 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/admin")
 public class AdminController {
-    private final AdminService adminService;
     private final AdminEventReadService adminEventReadService;
     private final AdminDashboardReadService adminDashboardReadService;
     private final AdminEventMutationService adminEventMutationService;
@@ -49,18 +49,18 @@ public class AdminController {
     private final AdminEventGeographyMutationService adminEventGeographyMutationService;
     private final AdminEventPublicationService adminEventPublicationService;
     private final AdminUserReadService adminUserReadService;
+    private final AdminUserMutationService adminUserMutationService;
 
     public AdminController(
-            AdminService adminService,
             AdminEventReadService adminEventReadService,
             AdminDashboardReadService adminDashboardReadService,
             AdminEventMutationService adminEventMutationService,
             AdminEventMediaMutationService adminEventMediaMutationService,
             AdminEventGeographyMutationService adminEventGeographyMutationService,
             AdminEventPublicationService adminEventPublicationService,
-            AdminUserReadService adminUserReadService
+            AdminUserReadService adminUserReadService,
+            AdminUserMutationService adminUserMutationService
     ) {
-        this.adminService = adminService;
         this.adminEventReadService = adminEventReadService;
         this.adminDashboardReadService = adminDashboardReadService;
         this.adminEventMutationService = adminEventMutationService;
@@ -68,6 +68,7 @@ public class AdminController {
         this.adminEventGeographyMutationService = adminEventGeographyMutationService;
         this.adminEventPublicationService = adminEventPublicationService;
         this.adminUserReadService = adminUserReadService;
+        this.adminUserMutationService = adminUserMutationService;
     }
 
     @GetMapping("/dashboard")
@@ -111,12 +112,21 @@ public class AdminController {
     }
 
     @PatchMapping("/users/{id}/status")
-    public ApiResponse<Map<String, Object>> updateUserStatus(
+    public ApiResponse<AdminUserDtos.Detail> updateUserStatus(
             @PathVariable String id,
-            @RequestBody Map<String, Object> body,
+            @RequestBody AdminUserMutationDtos.ChangeStatus body,
             @AuthenticationPrincipal UserPrincipal principal
     ) {
-        return ApiResponse.ok(adminService.updateUserStatus(id, body, principal));
+        return ApiResponse.ok(adminUserMutationService.updateStatus(id, body, principal));
+    }
+
+    @PutMapping("/users/{id}/roles")
+    public ApiResponse<AdminUserDtos.Detail> replaceUserRoles(
+            @PathVariable String id,
+            @RequestBody AdminUserMutationDtos.ReplaceRoles body,
+            @AuthenticationPrincipal UserPrincipal principal
+    ) {
+        return ApiResponse.ok(adminUserMutationService.replaceRoles(id, body, principal));
     }
 
     @PatchMapping("/users/{id}/role")
@@ -125,7 +135,9 @@ public class AdminController {
             @RequestBody Map<String, Object> body,
             @AuthenticationPrincipal UserPrincipal principal
     ) {
-        return ApiResponse.ok(adminService.updateUserRole(id, body, principal));
+        throw mutationDisabled(
+                "ADMIN_USER_ROLE_ENDPOINT_RETIRED",
+                "The legacy single-role endpoint is retired");
     }
 
     @DeleteMapping("/users/{id}")
@@ -133,7 +145,9 @@ public class AdminController {
             @PathVariable String id,
             @AuthenticationPrincipal UserPrincipal principal
     ) {
-        return ApiResponse.ok(adminService.deleteUser(id, principal));
+        throw mutationDisabled(
+                "ADMIN_USER_DELETE_DISABLED",
+                "Admin user deletion is disabled");
     }
 
     @GetMapping("/events")

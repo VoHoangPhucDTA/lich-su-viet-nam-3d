@@ -76,7 +76,7 @@ public class AdminUserReadService {
                 account.primaryRole(), account.roles(), account.status(),
                 account.emailVerifiedAt() != null, account.emailVerifiedAt(),
                 account.grade(), account.school(), account.avatarUrl(),
-                account.createdAt(), account.updatedAt()
+                account.createdAt(), AdminUserVersionCodec.format(account.updatedAt())
         );
         return new AdminUserDtos.Detail(
                 accountDto,

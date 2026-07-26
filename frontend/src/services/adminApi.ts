@@ -454,16 +454,38 @@ export function getAdminUserDetail(id: string, signal?: AbortSignal) {
   return apiGet<AdminUserDetail>(`/api/admin/users/${encodeURIComponent(id)}`, { signal });
 }
 
-export function setAdminUserStatus(id: string, status: 'active' | 'pending' | 'disabled') {
-  return apiPatch<{ id: string; status: 'active' | 'pending' | 'disabled' }>(`/api/admin/users/${id}/status`, { status });
+export interface AdminUserRoleMutationRequest {
+  expectedUpdatedAt: string;
+  roles: AdminUserRole[];
 }
 
-export function setAdminUserRole(id: string, role: 'student' | 'admin') {
-  return apiPatch<{ id: string; role: 'student' | 'admin' }>(`/api/admin/users/${id}/role`, { role });
+export interface AdminUserStatusMutationRequest {
+  expectedUpdatedAt: string;
+  status: Exclude<AdminUserStatus, 'deleted'>;
 }
 
-export function deleteAdminUser(id: string) {
-  return apiDelete<{ id: string }>(`/api/admin/users/${id}`);
+export function replaceAdminUserRoles(
+  id: string,
+  payload: AdminUserRoleMutationRequest,
+  signal?: AbortSignal,
+) {
+  return apiPut<AdminUserDetail>(
+    `/api/admin/users/${encodeURIComponent(id)}/roles`,
+    payload,
+    { signal },
+  );
+}
+
+export function updateAdminUserStatus(
+  id: string,
+  payload: AdminUserStatusMutationRequest,
+  signal?: AbortSignal,
+) {
+  return apiPatch<AdminUserDetail>(
+    `/api/admin/users/${encodeURIComponent(id)}/status`,
+    payload,
+    { signal },
+  );
 }
 
 export interface AdminEventListParams {

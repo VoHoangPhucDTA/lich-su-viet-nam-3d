@@ -84,6 +84,7 @@ class AuthServiceDisabledUserTokenTest {
                 "disabled@example.test",
                 List.of("student"),
                 tokenType,
+                0,
                 Instant.now().plusSeconds(300)
         );
     }

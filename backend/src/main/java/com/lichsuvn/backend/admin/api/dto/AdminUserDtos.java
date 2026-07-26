@@ -49,7 +49,7 @@ public final class AdminUserDtos {
             String school,
             String avatarUrl,
             Instant createdAt,
-            Instant updatedAt
+            String updatedAt
     ) {
     }
 
