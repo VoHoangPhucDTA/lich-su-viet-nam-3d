@@ -34,7 +34,7 @@
       "type": "object", "additionalProperties": false,
       "required": ["source", "range", "timezone", "isAuthenticated", "fromDate", "toDateExclusive"],
       "properties": {
-        "source": { "enum": ["local", "backend", "merged", "local-fallback"] },
+        "source": { "enum": ["local", "backend", "local-fallback"] },
         "range": { "enum": ["7d", "30d", "90d", "all"] },
         "timezone": { "const": "Asia/Ho_Chi_Minh" },
         "isAuthenticated": { "type": "boolean" },

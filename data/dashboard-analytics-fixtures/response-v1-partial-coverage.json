@@ -1,0 +1,126 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-07-20T03:00:00Z",
+  "scope": {
+    "range": "30d",
+    "timezone": "Asia/Ho_Chi_Minh",
+    "fromDate": "2026-06-20",
+    "toDateExclusive": "2026-07-20",
+    "attemptModes": ["TIMED_ORIGINAL", "CUSTOM_MOCK"],
+    "policyVersion": "dashboard-v1"
+  },
+  "summary": {
+    "totalAttempts": 5,
+    "officialAttemptCount": 5,
+    "recoveredAttemptCount": 0,
+    "legacyAttemptCount": 0,
+    "averageScore": 6.8,
+    "highestScore": 8,
+    "latestScore": 7.2,
+    "totalDurationSeconds": 13200,
+    "activeDays": 5,
+    "mcqAccuracy": 67,
+    "tfStatementAccuracy": 61,
+    "blankRate": 12,
+    "tfPartialRate": 25
+  },
+  "trend": [
+    {
+      "attemptId": "partial-attempt-001",
+      "submittedAt": "2026-07-02T04:00:00Z",
+      "score": 6.1,
+      "mode": "TIMED_ORIGINAL",
+      "title": "Đề nguồn một"
+    },
+    {
+      "attemptId": "partial-attempt-002",
+      "submittedAt": "2026-07-09T04:00:00Z",
+      "score": 7.1,
+      "mode": "CUSTOM_MOCK",
+      "title": "Đề nguồn hai"
+    },
+    {
+      "attemptId": "partial-attempt-003",
+      "submittedAt": "2026-07-16T04:00:00Z",
+      "score": 7.2,
+      "mode": "TIMED_ORIGINAL",
+      "title": "Đề nguồn ba"
+    }
+  ],
+  "topics": [
+    {
+      "topicKey": "viet-nam-1954-1975",
+      "topicLabel": "Việt Nam từ năm 1954 đến năm 1975",
+      "accuracy": 58,
+      "correctUnits": 29,
+      "totalUnits": 50,
+      "attemptCount": 3,
+      "confidence": "medium",
+      "status": "weakness"
+    }
+  ],
+  "cognitiveLevels": [
+    {
+      "level": "knowledge",
+      "accuracy": 70,
+      "correctUnits": 21,
+      "totalUnits": 30,
+      "attemptCount": 3,
+      "confidence": "medium",
+      "status": "developing"
+    }
+  ],
+  "questionTypes": [
+    {
+      "type": "mcq",
+      "accuracy": 67,
+      "correctUnits": 20,
+      "answeredUnits": 27,
+      "blankUnits": 3,
+      "totalUnits": 30,
+      "partialQuestionCount": 0,
+      "totalQuestionCount": 30
+    }
+  ],
+  "recentAttempts": [
+    {
+      "attemptId": "partial-attempt-003",
+      "title": "Đề nguồn ba",
+      "mode": "TIMED_ORIGINAL",
+      "score": 7.2,
+      "durationSeconds": 2700,
+      "submittedAt": "2026-07-16T04:00:00Z",
+      "totalQuestions": 40,
+      "detailStatus": "full",
+      "scoreAuthority": "BACKEND",
+      "timingAuthority": "SERVER",
+      "submissionOrigin": "SERVER_ON_TIME"
+    }
+  ],
+  "coverage": {
+    "totalKnownAttempts": 8,
+    "fetchedAttemptCount": 5,
+    "summaryAttemptCount": 5,
+    "detailedAttemptCount": 3,
+    "unsupportedSnapshotCount": 1,
+    "malformedDetailCount": 1,
+    "legacySummaryCount": 0,
+    "fetchLimit": 5,
+    "isComplete": false
+  },
+  "authorityBreakdown": {
+    "backendOnTime": 5,
+    "backendLate": 0,
+    "backendFallback": 0,
+    "frontendLegacy": 0
+  },
+  "diagnostics": {
+    "snapshotVersionCounts": {
+      "2": 3,
+      "unsupported": 1,
+      "malformed": 1
+    },
+    "excludedModeCount": 2,
+    "excludedInvalidSummaryCount": 1
+  }
+}

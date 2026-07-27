@@ -1,0 +1,202 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-07-20T03:00:00Z",
+  "scope": {
+    "range": "30d",
+    "timezone": "Asia/Ho_Chi_Minh",
+    "fromDate": "2026-06-20",
+    "toDateExclusive": "2026-07-20",
+    "attemptModes": ["TIMED_ORIGINAL", "CUSTOM_MOCK"],
+    "policyVersion": "dashboard-v1"
+  },
+  "summary": {
+    "totalAttempts": 4,
+    "officialAttemptCount": 4,
+    "recoveredAttemptCount": 0,
+    "legacyAttemptCount": 0,
+    "averageScore": 7.45,
+    "highestScore": 8.4,
+    "latestScore": 8.1,
+    "totalDurationSeconds": 10800,
+    "activeDays": 4,
+    "mcqAccuracy": 76,
+    "tfStatementAccuracy": 70,
+    "blankRate": 9.23,
+    "tfPartialRate": 20
+  },
+  "trend": [
+    {
+      "attemptId": "golden-attempt-001",
+      "submittedAt": "2026-06-24T08:15:00Z",
+      "score": 6.9,
+      "mode": "CUSTOM_MOCK",
+      "title": "Đề tùy chọn tổng hợp số 1"
+    },
+    {
+      "attemptId": "golden-attempt-002",
+      "submittedAt": "2026-06-30T14:05:00Z",
+      "score": 6.4,
+      "mode": "TIMED_ORIGINAL",
+      "title": "Đề tham khảo số 1"
+    },
+    {
+      "attemptId": "golden-attempt-003",
+      "submittedAt": "2026-07-08T09:30:00Z",
+      "score": 8.4,
+      "mode": "CUSTOM_MOCK",
+      "title": "Đề tùy chọn tổng hợp số 2"
+    },
+    {
+      "attemptId": "golden-attempt-004",
+      "submittedAt": "2026-07-15T12:40:00Z",
+      "score": 8.1,
+      "mode": "TIMED_ORIGINAL",
+      "title": "Đề tham khảo số 2"
+    }
+  ],
+  "topics": [
+    {
+      "topicKey": "viet-nam-1945-1954",
+      "topicLabel": "Việt Nam từ năm 1945 đến năm 1954",
+      "accuracy": 52.5,
+      "correctUnits": 21,
+      "totalUnits": 40,
+      "attemptCount": 4,
+      "confidence": "medium",
+      "status": "weakness"
+    },
+    {
+      "topicKey": "cach-mang-thang-tam-1945",
+      "topicLabel": "Cách mạng tháng Tám năm 1945",
+      "accuracy": 85,
+      "correctUnits": 34,
+      "totalUnits": 40,
+      "attemptCount": 4,
+      "confidence": "medium",
+      "status": "strength"
+    },
+    {
+      "topicKey": "quan-he-quoc-te",
+      "topicLabel": "Quan hệ quốc tế sau năm 1945",
+      "accuracy": 68,
+      "correctUnits": 17,
+      "totalUnits": 25,
+      "attemptCount": 3,
+      "confidence": "medium",
+      "status": "developing"
+    },
+    {
+      "topicKey": "asean",
+      "topicLabel": "Hiệp hội các quốc gia Đông Nam Á",
+      "accuracy": 87.5,
+      "correctUnits": 7,
+      "totalUnits": 8,
+      "attemptCount": 1,
+      "confidence": "low",
+      "status": "insufficient-data"
+    }
+  ],
+  "cognitiveLevels": [
+    {
+      "level": "knowledge",
+      "accuracy": 82.5,
+      "correctUnits": 33,
+      "totalUnits": 40,
+      "attemptCount": 4,
+      "confidence": "medium",
+      "status": "strength"
+    },
+    {
+      "level": "comprehension",
+      "accuracy": 65,
+      "correctUnits": 26,
+      "totalUnits": 40,
+      "attemptCount": 4,
+      "confidence": "medium",
+      "status": "developing"
+    },
+    {
+      "level": "application",
+      "accuracy": 55,
+      "correctUnits": 11,
+      "totalUnits": 20,
+      "attemptCount": 3,
+      "confidence": "medium",
+      "status": "weakness"
+    }
+  ],
+  "questionTypes": [
+    {
+      "type": "mcq",
+      "accuracy": 76,
+      "correctUnits": 38,
+      "answeredUnits": 45,
+      "blankUnits": 5,
+      "totalUnits": 50,
+      "partialQuestionCount": 0,
+      "totalQuestionCount": 50
+    },
+    {
+      "type": "true_false",
+      "accuracy": 70,
+      "correctUnits": 56,
+      "answeredUnits": 72,
+      "blankUnits": 8,
+      "totalUnits": 80,
+      "partialQuestionCount": 4,
+      "totalQuestionCount": 20
+    }
+  ],
+  "recentAttempts": [
+    {
+      "attemptId": "golden-attempt-004",
+      "title": "Đề tham khảo số 2",
+      "mode": "TIMED_ORIGINAL",
+      "score": 8.1,
+      "durationSeconds": 2940,
+      "submittedAt": "2026-07-15T12:40:00Z",
+      "totalQuestions": 40,
+      "detailStatus": "full",
+      "scoreAuthority": "BACKEND",
+      "timingAuthority": "SERVER",
+      "submissionOrigin": "SERVER_ON_TIME"
+    },
+    {
+      "attemptId": "golden-attempt-003",
+      "title": "Đề tùy chọn tổng hợp số 2",
+      "mode": "CUSTOM_MOCK",
+      "score": 8.4,
+      "durationSeconds": 2460,
+      "submittedAt": "2026-07-08T09:30:00Z",
+      "totalQuestions": 40,
+      "detailStatus": "full",
+      "scoreAuthority": "BACKEND",
+      "timingAuthority": "SERVER",
+      "submissionOrigin": "SERVER_ON_TIME"
+    }
+  ],
+  "coverage": {
+    "totalKnownAttempts": 4,
+    "fetchedAttemptCount": 4,
+    "summaryAttemptCount": 4,
+    "detailedAttemptCount": 4,
+    "unsupportedSnapshotCount": 0,
+    "malformedDetailCount": 0,
+    "legacySummaryCount": 0,
+    "fetchLimit": 100,
+    "isComplete": true
+  },
+  "authorityBreakdown": {
+    "backendOnTime": 4,
+    "backendLate": 0,
+    "backendFallback": 0,
+    "frontendLegacy": 0
+  },
+  "diagnostics": {
+    "snapshotVersionCounts": {
+      "2": 4
+    },
+    "excludedModeCount": 0,
+    "excludedInvalidSummaryCount": 0
+  }
+}

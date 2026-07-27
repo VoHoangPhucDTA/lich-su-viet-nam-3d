@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { useAuth } from '@/auth/AuthContext';
+import type { DashboardAnalyticsRequest } from '@/services/dashboardAnalyticsApi';
 import {
   Activity,
   AlertTriangle,
@@ -30,7 +31,10 @@ import {
   XAxis,
   YAxis,
 } from 'recharts';
-import { DASHBOARD_FIXTURES, resolveDashboardFixture } from './dashboardFixtures';
+import type { DashboardDevelopmentFixtureLoader } from './dashboardFixtures';
+import { formatDashboardDuration, formatDashboardScore } from './dashboardFormatters';
+import type { DashboardLocalStorageProvider } from './localAnalytics/localDashboardSource';
+import { usePersonalLearningDashboard } from './usePersonalLearningDashboard';
 import type {
   CognitivePerformance,
   DashboardNotice,
@@ -84,19 +88,6 @@ function insightCaution(item: LearningInsight) {
   return null;
 }
 
-function formatScore(value: number | null) {
-  return value === null
-    ? '—'
-    : value.toLocaleString('vi-VN', { minimumFractionDigits: 1, maximumFractionDigits: 2 });
-}
-
-function formatDuration(seconds: number) {
-  const hours = Math.floor(seconds / 3600);
-  const minutes = Math.floor((seconds % 3600) / 60);
-  if (hours === 0) return `${minutes} phút`;
-  return `${hours} giờ ${minutes.toString().padStart(2, '0')} phút`;
-}
-
 function sourceLabel(source: PersonalLearningDashboardViewModel['scope']['source']) {
   if (source === 'local') return 'Thiết bị này';
   if (source === 'backend') return 'Máy chủ';
@@ -127,13 +118,15 @@ function DashboardPageHeader({ vm, range, onRangeChange }: {
   onRangeChange: (range: DashboardRange) => void;
 }) {
   const from = vm.scope.fromDate ? `Từ ${vm.scope.fromDate}` : 'Toàn bộ thời gian';
+  const showScope = vm.state !== 'loading'
+    && !vm.notices.some((notice) => notice.id === 'authentication-required');
   return (
     <header className="dashboard-page-header">
       <div className="dashboard-heading-copy">
         <p className="dashboard-eyebrow">Luyện thi THPT</p>
         <h1>Tổng quan học tập</h1>
         <p>Nhìn lại kết quả, hiểu phần cần cải thiện và chọn bước ôn tập tiếp theo.</p>
-        {vm.state !== 'loading' && (
+        {showScope && (
           <p className="dashboard-scope-line">
             {from} · đến trước {vm.scope.toDateExclusive} · {sourceLabel(vm.scope.source)}
           </p>
@@ -170,11 +163,11 @@ function readyNotices(vm: PersonalLearningDashboardViewModel) {
   if (hasNotice(vm, 'backend-unavailable')) {
     return vm.notices.filter((notice) => notice.id === 'backend-unavailable');
   }
-  if (hasNotice(vm, 'partial-detail')) {
-    return vm.notices.filter((notice) => notice.id === 'partial-detail');
-  }
-  if (hasNotice(vm, 'fetch-cap') || hasNotice(vm, 'dense-chart')) return [];
-  return vm.notices.filter((notice) => notice.id !== 'coverage-partial');
+  return vm.notices.filter((notice) => (
+    notice.id !== 'coverage-partial'
+    && notice.id !== 'fetch-cap'
+    && notice.id !== 'dense-chart'
+  ));
 }
 
 function DashboardRecommendationCard({ vm }: { vm: PersonalLearningDashboardViewModel }) {
@@ -205,9 +198,9 @@ function DashboardRecommendationCard({ vm }: { vm: PersonalLearningDashboardView
 function DashboardKpiGrid({ vm }: { vm: PersonalLearningDashboardViewModel }) {
   const items = [
     { label: 'Số bài đã làm', value: vm.summary.totalAttempts.toLocaleString('vi-VN'), suffix: 'bài', icon: <ListChecks aria-hidden="true" /> },
-    { label: 'Điểm trung bình', value: formatScore(vm.summary.averageScore), suffix: '/10', icon: <Gauge aria-hidden="true" /> },
-    { label: 'Điểm cao nhất', value: formatScore(vm.summary.highestScore), suffix: '/10', icon: <Trophy aria-hidden="true" /> },
-    { label: 'Điểm gần nhất', value: formatScore(vm.summary.latestScore), suffix: '/10', icon: <Clock3 aria-hidden="true" /> },
+    { label: 'Điểm trung bình', value: formatDashboardScore(vm.summary.averageScore), suffix: '/10', icon: <Gauge aria-hidden="true" /> },
+    { label: 'Điểm cao nhất', value: formatDashboardScore(vm.summary.highestScore), suffix: '/10', icon: <Trophy aria-hidden="true" /> },
+    { label: 'Điểm gần nhất', value: formatDashboardScore(vm.summary.latestScore), suffix: '/10', icon: <Clock3 aria-hidden="true" /> },
   ];
   return (
     <section className="dashboard-card dashboard-kpi-surface" aria-labelledby="dashboard-kpi-title">
@@ -233,8 +226,8 @@ function DashboardScoreTrend({ vm }: { vm: PersonalLearningDashboardViewModel })
   const summary = points.length === 0
     ? 'Chưa có điểm để hiển thị.'
     : points.length === 1
-      ? `Một điểm ${formatScore(points[0].score)} trên 10; chưa đủ dữ liệu để nhận xét xu hướng.`
-      : `${points.length} điểm biểu diễn ${sourceAttemptCount} bài nguồn, từ ${formatScore(points[0].score)} đến ${formatScore(points.at(-1)?.score ?? null)} trên 10.`;
+      ? `Một điểm ${formatDashboardScore(points[0].score)} trên 10; chưa đủ dữ liệu để nhận xét xu hướng.`
+      : `${points.length} điểm biểu diễn ${sourceAttemptCount} bài nguồn, từ ${formatDashboardScore(points[0].score)} đến ${formatDashboardScore(points.at(-1)?.score ?? null)} trên 10.`;
   return (
     <section className="dashboard-card dashboard-chart-card" aria-labelledby="dashboard-trend-title">
       <div className="dashboard-section-heading">
@@ -247,8 +240,8 @@ function DashboardScoreTrend({ vm }: { vm: PersonalLearningDashboardViewModel })
         </div>
         {points.length > 1 && (
           <div className="dashboard-chart-highlights" aria-label="Điểm nổi bật trên biểu đồ">
-            <span><small>Cao nhất</small><strong>{formatScore(highestPoint?.score ?? null)}</strong></span>
-            <span><small>Gần nhất</small><strong>{formatScore(latestPoint?.score ?? null)}</strong></span>
+            <span><small>Cao nhất</small><strong>{formatDashboardScore(highestPoint?.score ?? null)}</strong></span>
+            <span><small>Gần nhất</small><strong>{formatDashboardScore(latestPoint?.score ?? null)}</strong></span>
           </div>
         )}
       </div>
@@ -260,7 +253,7 @@ function DashboardScoreTrend({ vm }: { vm: PersonalLearningDashboardViewModel })
       ) : points.length === 1 ? (
         <div className="dashboard-one-point" aria-label={summary}>
           <span aria-hidden="true" />
-          <strong>{formatScore(points[0].score)}/10</strong>
+          <strong>{formatDashboardScore(points[0].score)}/10</strong>
           <p>Chưa đủ dữ liệu để nhận xét xu hướng.</p>
         </div>
       ) : (
@@ -271,7 +264,7 @@ function DashboardScoreTrend({ vm }: { vm: PersonalLearningDashboardViewModel })
               <XAxis dataKey="dateLabel" interval="preserveStartEnd" minTickGap={32} tick={{ fill: 'var(--dashboard-muted)', fontSize: 12 }} />
               <YAxis domain={[0, 10]} ticks={[0, 2, 4, 6, 8, 10]} tick={{ fill: 'var(--dashboard-muted)', fontSize: 12 }} />
               <Tooltip
-                formatter={(value) => [`${formatScore(Number(value))}/10`, 'Điểm']}
+                formatter={(value) => [`${formatDashboardScore(Number(value))}/10`, 'Điểm']}
                 labelFormatter={(label) => `Ngày ${String(label)}`}
                 contentStyle={{ background: 'var(--dashboard-card)', borderColor: 'var(--dashboard-border)', borderRadius: 10 }}
               />
@@ -298,7 +291,7 @@ function DashboardScoreTrend({ vm }: { vm: PersonalLearningDashboardViewModel })
           <ol>
             {points.map((point) => (
               <li key={point.attemptId}>
-                <time dateTime={point.submittedAt}>{point.dateLabel}</time>: {point.title} — {formatScore(point.score)}/10
+                <time dateTime={point.submittedAt}>{point.dateLabel}</time>: {point.title} — {formatDashboardScore(point.score)}/10
               </li>
             ))}
           </ol>
@@ -476,13 +469,15 @@ function DashboardRecentAttemptItem({ attempt }: { attempt: RecentAttemptItem })
   return (
     <li>
       <article className="dashboard-attempt-row">
-        <strong className="dashboard-attempt-score">{formatScore(attempt.score)}<small>/10</small></strong>
+        <strong className="dashboard-attempt-score">{formatDashboardScore(attempt.score)}<small>/10</small></strong>
         <div className="dashboard-attempt-copy">
           <h3>{attempt.title}</h3>
           <p>{attempt.modeLabel} · <time dateTime={attempt.submittedAt}>{attempt.submittedLabel}</time></p>
-          <p>{formatDuration(attempt.durationSeconds)} · {attempt.totalQuestions} câu · {detailStatusLabel(attempt.detailStatus)}</p>
+          <p>{formatDashboardDuration(attempt.durationSeconds)} · {attempt.totalQuestions} câu · {detailStatusLabel(attempt.detailStatus)}</p>
         </div>
-        <Link className="dashboard-attempt-action" aria-label={`Xem lại bài làm: ${attempt.title}`} to={attempt.resultRoute}>Xem lại<ArrowRight aria-hidden="true" /></Link>
+        {attempt.resultRoute
+          ? <Link className="dashboard-attempt-action" aria-label={`Xem lại bài làm: ${attempt.title}`} to={attempt.resultRoute}>Xem lại<ArrowRight aria-hidden="true" /></Link>
+          : <span className="dashboard-attempt-action dashboard-attempt-action-disabled" aria-label="Không có dữ liệu xem lại an toàn">Chỉ tổng quan</span>}
       </article>
     </li>
   );
@@ -546,7 +541,7 @@ function DashboardUtilityRail({ vm }: { vm: PersonalLearningDashboardViewModel }
         </div>
         <div className="dashboard-activity-stats">
           <article><CalendarDays aria-hidden="true" /><strong>{vm.summary.activeDays}</strong><span>ngày hoạt động</span></article>
-          <article><Clock3 aria-hidden="true" /><strong>{formatDuration(vm.summary.totalDurationSeconds)}</strong><span>tổng thời gian</span></article>
+          <article><Clock3 aria-hidden="true" /><strong>{formatDashboardDuration(vm.summary.totalDurationSeconds)}</strong><span>tổng thời gian</span></article>
         </div>
         <p className="dashboard-rail-note">Số ngày có bài thi trong kỳ đã chọn.</p>
       </section>
@@ -598,11 +593,13 @@ function DashboardErrorState({ vm, onRetry }: { vm: PersonalLearningDashboardVie
   return (
     <main className="dashboard-content dashboard-state-content">
       <section className="dashboard-card dashboard-state-card dashboard-error-state" role="alert" aria-labelledby="dashboard-error-title">
-        <h2 id="dashboard-error-title">Không thể tải thống kê học tập</h2>
+        <h2 id="dashboard-error-title">{notice?.title ?? 'Không thể tải thống kê học tập'}</h2>
         <p>{notice?.message ?? 'Dữ liệu thống kê hiện không khả dụng. Hãy thử tải lại hoặc tiếp tục với một đề thi mới.'}</p>
         <div className="dashboard-state-actions">
           <button className="dashboard-primary-action" type="button" onClick={onRetry}>Thử lại</button>
-          <Link className="dashboard-secondary-action" to="/exams/browse">Duyệt kho đề</Link>
+          <Link className="dashboard-secondary-action" to={notice?.actionRoute ?? '/exams/browse'}>
+            {notice?.actionLabel ?? 'Duyệt kho đề'}
+          </Link>
         </div>
       </section>
     </main>
@@ -611,13 +608,20 @@ function DashboardErrorState({ vm, onRetry }: { vm: PersonalLearningDashboardVie
 
 function DashboardEmptyState({ vm }: { vm: PersonalLearningDashboardViewModel }) {
   const recommendation = vm.recommendations[0];
-  const nonDuplicateNotices = vm.notices.filter((notice) => notice.id !== 'empty-state');
+  const isAnonymous = vm.notices.some((notice) => notice.id === 'authentication-required');
+  const nonDuplicateNotices = vm.notices.filter((notice) => (
+    notice.id !== 'empty-state' && notice.id !== 'authentication-required'
+  ));
   return (
     <main className="dashboard-content dashboard-state-content">
       {nonDuplicateNotices.map((notice) => <DashboardNoticeBanner key={notice.id} notice={notice} />)}
       <section className="dashboard-card dashboard-state-card" aria-labelledby="dashboard-empty-title">
-        <h2 id="dashboard-empty-title">Chưa có bài thi nào</h2>
-        <p>Hoàn thành một đề thi thử để bắt đầu theo dõi kết quả học tập.</p>
+        <h2 id="dashboard-empty-title">
+          {isAnonymous ? 'Đăng nhập để xem thống kê học tập' : 'Chưa có bài thi nào'}
+        </h2>
+        <p>{isAnonymous
+          ? 'Không có kết quả anonymous đã được xác nhận trên thiết bị này. Đăng nhập để xem dữ liệu đã lưu trên máy chủ.'
+          : 'Hoàn thành một đề thi thử để bắt đầu theo dõi kết quả học tập.'}</p>
         {recommendation && <Link className="dashboard-primary-action" to={recommendation.actionRoute}>{recommendation.actionLabel}</Link>}
       </section>
       <DashboardQuickActions vm={vm} />
@@ -625,11 +629,22 @@ function DashboardEmptyState({ vm }: { vm: PersonalLearningDashboardViewModel })
   );
 }
 
-function DashboardReadyState({ vm }: { vm: PersonalLearningDashboardViewModel }) {
+function DashboardReadyState({ vm, onRetry }: {
+  vm: PersonalLearningDashboardViewModel;
+  onRetry: () => void;
+}) {
   const notices = readyNotices(vm);
+  const isLocalFallback = vm.scope.source === 'local-fallback';
   return (
     <main className="dashboard-content">
       {notices.length > 0 && <div className="dashboard-notice-stack">{notices.map((notice) => <DashboardNoticeBanner key={notice.id} notice={notice} />)}</div>}
+      {isLocalFallback && (
+        <div className="dashboard-fallback-actions">
+          <button className="dashboard-secondary-action" type="button" onClick={onRetry}>
+            Thử kết nối máy chủ lại
+          </button>
+        </div>
+      )}
       <div className="dashboard-layout">
         <div className="dashboard-main-column">
           <DashboardRecommendationCard vm={vm} />
@@ -645,43 +660,43 @@ function DashboardReadyState({ vm }: { vm: PersonalLearningDashboardViewModel })
   );
 }
 
-export default function PersonalLearningDashboardPage() {
+interface PersonalLearningDashboardPageProps {
+  initialViewModel?: PersonalLearningDashboardViewModel;
+  requestDashboard?: DashboardAnalyticsRequest;
+  fixtureLoader?: DashboardDevelopmentFixtureLoader | null;
+  localStorageProvider?: DashboardLocalStorageProvider;
+}
+
+export default function PersonalLearningDashboardPage({
+  initialViewModel,
+  requestDashboard,
+  fixtureLoader,
+  localStorageProvider,
+}: PersonalLearningDashboardPageProps = {}) {
   const location = useLocation();
+  const { currentUser, isAuthenticated, isLoading } = useAuth();
   const isDarkPreview = import.meta.env.DEV && new URLSearchParams(location.search).get('theme') === 'dark';
-  const fixtureFromUrl = resolveDashboardFixture(location.search);
-  const [vm, setVm] = useState(fixtureFromUrl);
-  const [range, setRange] = useState<DashboardRange>(fixtureFromUrl.scope.range);
-  const [announcement, setAnnouncement] = useState('');
-
-  useEffect(() => {
-    setVm(fixtureFromUrl);
-    setRange(fixtureFromUrl.scope.range);
-  }, [fixtureFromUrl]);
-
-  const handleRangeChange = (nextRange: DashboardRange) => {
-    setRange(nextRange);
-    const label = RANGE_OPTIONS.find((item) => item.value === nextRange)?.label ?? nextRange;
-    setAnnouncement(`Đã chuyển khoảng thời gian sang ${label}. Dữ liệu mock hiện tại được giữ nguyên.`);
-  };
-
-  const handleRetry = () => {
-    setVm(DASHBOARD_FIXTURES.loading);
-    setAnnouncement('Đang thử tải lại thống kê học tập.');
-    window.setTimeout(() => {
-      setVm(DASHBOARD_FIXTURES.default);
-      setRange(DASHBOARD_FIXTURES.default.scope.range);
-      setAnnouncement('Đã tải lại thống kê học tập.');
-    }, 300);
-  };
+  const { viewModel: vm, range, setRange, retry, announcement } = usePersonalLearningDashboard({
+    auth: {
+      isLoading,
+      isAuthenticated,
+      ownerKey: currentUser?.id ?? null,
+    },
+    search: location.search,
+    initialViewModel,
+    requestDashboard,
+    fixtureLoader,
+    localStorageProvider,
+  });
 
   return (
     <div className={`dashboard-page${isDarkPreview ? ' dashboard-theme-dark' : ''}`}>
-      <DashboardPageHeader vm={vm} range={range} onRangeChange={handleRangeChange} />
+      <DashboardPageHeader vm={vm} range={range} onRangeChange={setRange} />
       <p className="dashboard-visually-hidden" aria-live="polite">{announcement}</p>
       {vm.state === 'loading' && <DashboardLoadingState />}
-      {vm.state === 'error' && <DashboardErrorState vm={vm} onRetry={handleRetry} />}
+      {vm.state === 'error' && <DashboardErrorState vm={vm} onRetry={retry} />}
       {vm.state === 'empty' && <DashboardEmptyState vm={vm} />}
-      {vm.state === 'ready' && <DashboardReadyState vm={vm} />}
+      {vm.state === 'ready' && <DashboardReadyState vm={vm} onRetry={retry} />}
     </div>
   );
 }

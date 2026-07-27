@@ -89,7 +89,7 @@ Dùng Tailwind v4 (`@import "tailwindcss"`). Thêm toàn bộ block này vào fi
 
 ```ts
 export type DashboardState = "loading" | "ready" | "error" | "empty"
-export type DataSource = "backend" | "local" | "local-fallback" | "merged"
+export type DataSource = "backend" | "local" | "local-fallback"
 export type NoticeType = "info" | "warning" | "error"
 export type ConfidenceLevel = "high" | "medium" | "low"
 export type TopicStatus = "strength" | "weakness" | "developing" | "insufficient-data"
@@ -397,7 +397,6 @@ export function sourceLabel(source: string): string {
   if (source === "backend") return "Máy chủ"
   if (source === "local") return "Thiết bị"
   if (source === "local-fallback") return "Thiết bị (dự phòng)"
-  if (source === "merged") return "Kết hợp"
   return source
 }
 

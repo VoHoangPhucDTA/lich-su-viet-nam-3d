@@ -1,7 +1,7 @@
 {
   "state": "ready",
   "scope": {
-    "source": "merged",
+    "source": "backend",
     "range": "30d",
     "timezone": "Asia/Ho_Chi_Minh",
     "isAuthenticated": true,
@@ -9,12 +9,12 @@
     "toDateExclusive": "2026-07-16"
   },
   "summary": {
-    "totalAttempts": 12,
-    "averageScore": 7.32,
+    "totalAttempts": 7,
+    "averageScore": 7.21,
     "highestScore": 8.9,
-    "latestScore": 7.8,
-    "totalDurationSeconds": 19860,
-    "activeDays": 8,
+    "latestScore": 7.6,
+    "totalDurationSeconds": 12840,
+    "activeDays": 6,
     "mcqAccuracy": 77,
     "tfStatementAccuracy": 78.75,
     "blankRate": 6.54,
@@ -22,18 +22,18 @@
   },
   "recommendations": [
     {
-      "id": "rec-viet-nam-1945",
-      "title": "Ôn lại Việt Nam từ 1945 đến 1954",
-      "reason": "Độ chính xác 52,5% trên 40 ý trả lời qua 5 bài; đây là chủ đề yếu có đủ mẫu.",
-      "actionLabel": "Ôn chủ đề này",
-      "actionRoute": "/exams/on-chu-de/viet-nam-1945-1954",
+      "id": "rec-long",
+      "title": "Ưu tiên ôn tập chuyên đề về quá trình đấu tranh bảo vệ, xây dựng chính quyền cách mạng và giải quyết những khó khăn của nước Việt Nam Dân chủ Cộng hòa sau ngày 2 tháng 9 năm 1945",
+      "reason": "Độ chính xác hiện là 54,17% trên 24 ý trả lời thuộc 3 bài có đủ chi tiết. Tên dài này dùng để kiểm tra khả năng xuống dòng mà không che mất bằng chứng hoặc nút hành động.",
+      "actionLabel": "Mở chuyên đề và bắt đầu ôn tập",
+      "actionRoute": "/exams/on-chu-de/xay-dung-va-bao-ve-chinh-quyen-cach-mang-1945-1946",
       "priority": "primary",
-      "topicKey": "viet-nam-1945-1954",
+      "topicKey": "xay-dung-va-bao-ve-chinh-quyen-cach-mang-1945-1946",
       "evidence": {
-        "accuracy": 52.5,
-        "correctUnits": 21,
-        "totalUnits": 40,
-        "attemptCount": 5,
+        "accuracy": 54.17,
+        "correctUnits": 13,
+        "totalUnits": 24,
+        "attemptCount": 3,
         "confidence": "medium"
       }
     }
@@ -41,7 +41,7 @@
   "scoreTrend": {
     "granularity": "attempt",
     "isComplete": false,
-    "sourceAttemptCount": 12,
+    "sourceAttemptCount": 7,
     "points": [
       {
         "attemptId": "mock-session-007",
@@ -84,77 +84,41 @@
         "title": "Đề tùy chọn: Lịch sử thế giới"
       },
       {
-        "attemptId": "mock-session-012",
-        "submittedAt": "2026-07-15T12:40:00Z",
+        "attemptId": "mock-long-007",
+        "submittedAt": "2026-07-15T11:05:00Z",
         "dateLabel": "15/07",
-        "score": 7.8,
+        "score": 7.6,
         "mode": "thi_thu",
-        "title": "Đề tham khảo tốt nghiệp THPT 2026"
+        "title": "Đề kiểm tra nội dung dài về lịch sử Việt Nam"
       }
     ]
   },
   "strengths": [
     {
-      "key": "cach-mang-thang-tam",
-      "label": "Cách mạng tháng Tám năm 1945",
+      "key": "duong-loi-doi-moi",
+      "label": "Đường lối đổi mới toàn diện đất nước và những thành tựu tiêu biểu trong công cuộc xây dựng, phát triển, hội nhập quốc tế từ năm 1986 đến nay",
       "status": "strength",
-      "accuracy": 84.38,
-      "correctUnits": 27,
-      "totalUnits": 32,
+      "accuracy": 83.33,
+      "correctUnits": 25,
+      "totalUnits": 30,
       "attemptCount": 4,
       "confidence": "medium",
-      "practiceRoute": "/exams/on-chu-de/cach-mang-thang-tam",
-      "summary": "84,38% qua 32 ý trả lời trong 4 bài."
-    },
-    {
-      "key": "quan-he-quoc-te",
-      "label": "Quan hệ quốc tế sau năm 1945",
-      "status": "strength",
-      "accuracy": 82.76,
-      "correctUnits": 24,
-      "totalUnits": 29,
-      "attemptCount": 3,
-      "confidence": "medium",
-      "practiceRoute": "/exams/on-chu-de/quan-he-quoc-te-sau-1945",
-      "summary": "82,76% qua 29 ý trả lời trong 3 bài."
+      "practiceRoute": "/exams/on-chu-de/duong-loi-doi-moi-va-hoi-nhap-quoc-te",
+      "summary": "83,33% qua 30 ý trả lời trong 4 bài; kiểm tra nhãn dài 2–3 dòng."
     }
   ],
   "weaknesses": [
     {
-      "key": "viet-nam-1945-1954",
-      "label": "Việt Nam từ năm 1945 đến năm 1954",
+      "key": "chinh-quyen-cach-mang-1945-1946",
+      "label": "Quá trình đấu tranh bảo vệ, xây dựng chính quyền cách mạng và giải quyết khó khăn của nước Việt Nam Dân chủ Cộng hòa sau ngày 2 tháng 9 năm 1945",
       "status": "weakness",
-      "accuracy": 52.5,
-      "correctUnits": 21,
-      "totalUnits": 40,
-      "attemptCount": 5,
-      "confidence": "medium",
-      "practiceRoute": "/exams/on-chu-de/viet-nam-1945-1954",
-      "summary": "52,5% qua 40 ý trả lời trong 5 bài."
-    },
-    {
-      "key": "phong-trao-cong-nhan",
-      "label": "Phong trào công nhân và phong trào yêu nước đầu thế kỷ XX",
-      "status": "weakness",
-      "accuracy": 52.63,
-      "correctUnits": 10,
-      "totalUnits": 19,
+      "accuracy": 54.17,
+      "correctUnits": 13,
+      "totalUnits": 24,
       "attemptCount": 3,
       "confidence": "medium",
-      "practiceRoute": "/exams/on-chu-de/phong-trao-cong-nhan-va-yeu-nuoc",
-      "summary": "52,63% qua 19 ý trả lời trong 3 bài."
-    },
-    {
-      "key": "asean",
-      "label": "ASEAN và quá trình hội nhập khu vực",
-      "status": "weakness",
-      "accuracy": 50,
-      "correctUnits": 8,
-      "totalUnits": 16,
-      "attemptCount": 2,
-      "confidence": "low",
-      "practiceRoute": "/exams/on-chu-de/asean",
-      "summary": "50% qua 16 ý trả lời trong 2 bài; mẫu còn ít."
+      "practiceRoute": "/exams/on-chu-de/xay-dung-va-bao-ve-chinh-quyen-cach-mang-1945-1946",
+      "summary": "54,17% qua 24 ý trả lời trong 3 bài."
     }
   ],
   "questionTypePerformance": [
@@ -220,16 +184,16 @@
   ],
   "recentAttempts": [
     {
-      "attemptId": "mock-session-012",
-      "title": "Đề tham khảo tốt nghiệp THPT 2026",
+      "attemptId": "mock-long-007",
+      "title": "Đề thi thử tốt nghiệp Trung học phổ thông môn Lịch sử năm 2026 — chuyên đề Việt Nam trong tiến trình đấu tranh giành độc lập dân tộc, xây dựng và bảo vệ Tổ quốc từ đầu thế kỷ XX đến nay",
       "mode": "thi_thu",
       "modeLabel": "Thi thử nguyên đề",
-      "score": 7.8,
-      "durationSeconds": 2940,
-      "submittedAt": "2026-07-15T12:40:00Z",
-      "submittedLabel": "19:40, 15/07/2026",
+      "score": 7.6,
+      "durationSeconds": 3360,
+      "submittedAt": "2026-07-15T11:05:00Z",
+      "submittedLabel": "18:05, 15/07/2026",
       "totalQuestions": 28,
-      "resultRoute": "/exams/ket-qua/mock-session-012",
+      "resultRoute": "/exams/ket-qua/mock-long-007",
       "detailStatus": "full"
     },
     {
@@ -286,23 +250,23 @@
     }
   ],
   "coverage": {
-    "summaryAttemptCount": 12,
-    "detailedAttemptCount": 10,
-    "totalKnownAttempts": 12,
+    "summaryAttemptCount": 7,
+    "detailedAttemptCount": 6,
+    "totalKnownAttempts": 7,
     "fetchLimit": 100,
     "isComplete": false,
     "capturesTimedOriginal": true,
     "capturesCustomMock": true,
     "capturesPractice": false,
     "capturesRetry": false,
-    "message": "Có dữ liệu tổng quan cho 12 bài và dữ liệu chi tiết cho 10 bài. Chỉ thi thử nguyên đề và thi thử tùy chọn được ghi nhận; số liệu sâu chưa bao phủ toàn bộ."
+    "message": "Nội dung dài là dữ liệu hư cấu để kiểm tra xuống dòng; phạm vi dữ liệu dữ liệu chi tiết 6/7 bài."
   },
   "notices": [
     {
-      "id": "coverage-partial",
+      "id": "long-copy",
       "type": "info",
-      "title": "Phạm vi dữ liệu",
-      "message": "Các chỉ số chủ đề và dạng câu dựa trên 10/12 bài có dữ liệu chi tiết. Điểm chỉ phục vụ học tập, chưa được máy chủ chấm lại.",
+      "title": "Thông báo kiểm tra nội dung tiếng Việt dài",
+      "message": "Một số tên đề và tên chủ đề có thể dài ba dòng trên màn hình 320px. Thiết kế phải giữ nguyên khả năng đọc, không dùng ellipsis nếu không có bản đầy đủ gần đó.",
       "actionLabel": null,
       "actionRoute": null
     }
