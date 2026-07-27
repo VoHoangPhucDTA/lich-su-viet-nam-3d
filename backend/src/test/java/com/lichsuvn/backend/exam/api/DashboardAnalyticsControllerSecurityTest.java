@@ -42,6 +42,7 @@ import static org.mockito.Mockito.when;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.authentication;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(DashboardAnalyticsController.class)
@@ -96,6 +97,8 @@ class DashboardAnalyticsControllerSecurityTest {
         UserPrincipal owner = principal((byte) 2);
         mockMvc.perform(get(PATH).with(auth(owner)))
                 .andExpect(status().isOk())
+                .andExpect(header().string("Cache-Control", org.hamcrest.Matchers.containsString("no-store")))
+                .andExpect(header().string("Cache-Control", org.hamcrest.Matchers.containsString("private")))
                 .andExpect(jsonPath("$.success").value(true))
                 .andExpect(jsonPath("$.data.schemaVersion").value(1))
                 .andExpect(jsonPath("$.data.scope.policyVersion").value("dashboard-v1"))

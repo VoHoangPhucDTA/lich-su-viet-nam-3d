@@ -8,6 +8,8 @@ import com.lichsuvn.backend.exam.application.DashboardSnapshotV2Parser.TopicRef;
 import com.lichsuvn.backend.exam.application.model.DashboardAnalyzedAttempt;
 import com.lichsuvn.backend.exam.application.model.DashboardAttemptRecord;
 import org.springframework.stereotype.Component;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -26,7 +28,9 @@ import java.util.TreeMap;
 
 @Component
 public class DashboardAnalyticsAggregator {
+    private static final Logger log = LoggerFactory.getLogger(DashboardAnalyticsAggregator.class);
     public static final ZoneId DASHBOARD_ZONE = ZoneId.of("Asia/Ho_Chi_Minh");
+    // Mirror ở frontend: dashboardAnalyticsPolicy.ts DASHBOARD_TREND_LIMIT.
     public static final int TREND_LIMIT = 50;
 
     public record Input(
@@ -65,6 +69,9 @@ public class DashboardAnalyticsAggregator {
                 .filter(item -> item.detail() != null && item.detail().status() == DetailStatus.MALFORMED)
                 .count();
         long excludedInvalid = input.attempts().size() - summaryAttempts.size();
+        if (excludedInvalid > 0) {
+            log.warn("Dashboard analytics excluded {} attempt(s) with unsupported authority triples", excludedInvalid);
+        }
 
         DeepAccumulator deep = new DeepAccumulator();
         for (DashboardAnalyzedAttempt analyzed : summaryAttempts) {

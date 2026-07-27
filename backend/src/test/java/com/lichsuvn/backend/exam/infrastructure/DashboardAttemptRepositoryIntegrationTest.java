@@ -95,6 +95,23 @@ class DashboardAttemptRepositoryIntegrationTest {
                         Instant.parse("2026-07-22T17:00:00Z")
                 )
         );
+        var rows = repository.findDashboardAttempts(
+                owner,
+                MODES,
+                null,
+                Instant.parse("2026-07-22T17:00:00Z"),
+                PageRequest.of(0, 10)
+        );
+        assertEquals(4, rows.size());
+        assertEquals("upper-bound", rows.getFirst().getSessionId());
+    }
+
+    @Test
+    void dashboardVersionTracksOwnerIncludedModesAndLatestMutation() {
+        var version = repository.findDashboardVersion(owner, MODES);
+        assertEquals(4, version.getTotal());
+        assertEquals(Instant.parse("2026-07-21T17:00:00Z"), version.getLastSubmittedAt());
+        assertEquals(Instant.parse("2026-07-21T17:00:00Z"), version.getLastUpdatedAt());
     }
 
     private void insert(byte[] userId, String sessionId, String mode, String submitted, String created) {

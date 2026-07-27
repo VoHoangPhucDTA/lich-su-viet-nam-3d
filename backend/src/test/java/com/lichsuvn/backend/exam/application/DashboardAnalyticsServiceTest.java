@@ -1,5 +1,6 @@
 package com.lichsuvn.backend.exam.application;
 
+import com.github.benmanes.caffeine.cache.Caffeine;
 import com.lichsuvn.backend.auth.security.UserPrincipal;
 import com.lichsuvn.backend.common.exception.ApiException;
 import com.lichsuvn.backend.exam.infrastructure.ExamAttemptRepository;
@@ -27,6 +28,7 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.nullable;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
@@ -44,6 +46,7 @@ class DashboardAnalyticsServiceTest {
                 repository,
                 parser,
                 new DashboardAnalyticsAggregator(),
+                Caffeine.newBuilder().build(),
                 Clock.fixed(NOW, ZoneOffset.UTC),
                 500
         );
@@ -97,6 +100,7 @@ class DashboardAnalyticsServiceTest {
                 repository,
                 new DashboardSnapshotV2Parser(DashboardTestFixtures.JSON),
                 new DashboardAnalyticsAggregator(),
+                Caffeine.newBuilder().build(),
                 Clock.fixed(NOW, ZoneOffset.UTC),
                 500
         );
@@ -106,7 +110,7 @@ class DashboardAnalyticsServiceTest {
     }
 
     @Test
-    void usesExactlyThreeBoundedOwnerScopedRepositoryQueries() {
+    void usesVersionAndThreeBoundedOwnerScopedRepositoryQueries() {
         when(repository.countDashboardAttempts(any(), any(), any(), any())).thenReturn(0L);
         when(repository.countDashboardExcludedModes(any(), any(), any(), any())).thenReturn(3L);
         service.getDashboard(principal, "30d", 5);
@@ -124,8 +128,40 @@ class DashboardAnalyticsServiceTest {
                 eq(principal.idBytes()), eq(DashboardAnalyticsPolicy.INCLUDED_MODES),
                 any(Instant.class), any(Instant.class), pageable.capture()
         );
+        verify(repository).findDashboardVersion(
+                eq(principal.idBytes()), eq(DashboardAnalyticsPolicy.INCLUDED_MODES)
+        );
         assertEquals(500, pageable.getValue().getPageSize());
         verifyNoMoreInteractions(repository);
+    }
+
+    @Test
+    void reusesComputedDashboardWhileTheDataVersionIsUnchanged() {
+        var version = version(1, "2026-07-20T00:00:00Z", "2026-07-20T00:01:00Z");
+        when(repository.findDashboardVersion(any(), any())).thenReturn(version);
+
+        service.getDashboard(principal, "30d", 5);
+        service.getDashboard(principal, "30d", 5);
+
+        verify(repository, times(2)).findDashboardVersion(any(), any());
+        verify(repository, times(1)).findDashboardAttempts(any(), any(), any(), any(), any(Pageable.class));
+        verify(repository, times(1)).countDashboardAttempts(any(), any(), any(), any());
+    }
+
+    @Test
+    void recomputesDashboardWhenTheDataVersionChanges() {
+        var firstVersion = version(1, "2026-07-20T00:00:00Z", "2026-07-20T00:01:00Z");
+        var secondVersion = version(2, "2026-07-21T00:00:00Z", "2026-07-21T00:01:00Z");
+        when(repository.findDashboardVersion(any(), any())).thenReturn(
+                firstVersion,
+                secondVersion
+        );
+
+        service.getDashboard(principal, "30d", 5);
+        service.getDashboard(principal, "30d", 5);
+
+        verify(repository, times(2)).findDashboardAttempts(any(), any(), any(), any(), any(Pageable.class));
+        verify(repository, times(2)).countDashboardAttempts(any(), any(), any(), any());
     }
 
     @Test
@@ -205,5 +241,17 @@ class DashboardAnalyticsServiceTest {
         when(row.getDatasetVersion()).thenReturn("dataset");
         when(row.getResultJson()).thenReturn("{}");
         return row;
+    }
+
+    private ExamAttemptRepository.DashboardVersionView version(
+            long total,
+            String lastSubmittedAt,
+            String lastUpdatedAt
+    ) {
+        var version = mock(ExamAttemptRepository.DashboardVersionView.class);
+        when(version.getTotal()).thenReturn(total);
+        when(version.getLastSubmittedAt()).thenReturn(Instant.parse(lastSubmittedAt));
+        when(version.getLastUpdatedAt()).thenReturn(Instant.parse(lastUpdatedAt));
+        return version;
     }
 }
