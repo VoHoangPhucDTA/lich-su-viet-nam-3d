@@ -2,6 +2,16 @@ import type { DashboardAnalyticsRange } from '../dashboardAnalyticsTypes';
 
 export const LOCAL_DASHBOARD_POLICY_VERSION = 'dashboard-v1' as const;
 
+/** Độ tin cậy của nguồn dữ liệu; số lớn hơn thắng khi dedupe. */
+export const LOCAL_SOURCE_PRIORITY = {
+  API_SNAPSHOT_V2: 600,
+  V2_RESULT: 500,
+  RECOVERY: 400,
+  V2_LEGACY: 300,
+  LEGACY_EXAM_RESULT: 150,
+  LEGACY_EXAM_HISTORY: 100,
+} as const;
+
 export type LocalDashboardSourceKind =
   | 'api-snapshot-v2-cache'
   | 'v2-result'

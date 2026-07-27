@@ -11,10 +11,8 @@ import type {
   LocalDashboardTimingAuthority,
   LocalDashboardTopicRef,
 } from './localDashboardTypes';
-
-function isRecord(value: unknown): value is Record<string, unknown> {
-  return typeof value === 'object' && value !== null && !Array.isArray(value);
-}
+import { LOCAL_SOURCE_PRIORITY } from './localDashboardTypes';
+import { isRecord } from './localDashboardGuards';
 
 function nonEmptyString(value: unknown): string | null {
   if (typeof value !== 'string') return null;
@@ -253,7 +251,7 @@ export function adaptApiSnapshotV2LocalResult(
     attempt: {
       stableId,
       sourceKind: 'api-snapshot-v2-cache',
-      sourcePriority: 600,
+      sourcePriority: LOCAL_SOURCE_PRIORITY.API_SNAPSHOT_V2,
       sessionId: summary.sessionId,
       localSessionId: null,
       serverSessionId: summary.sessionId,
@@ -357,7 +355,7 @@ export function adaptV2LegacyLocalResult(value: unknown, stableId: string): Loca
     attempt: {
       stableId,
       sourceKind: 'v2-result',
-      sourcePriority: 300,
+      sourcePriority: LOCAL_SOURCE_PRIORITY.V2_LEGACY,
       sessionId: summary.sessionId,
       localSessionId: summary.sessionId,
       serverSessionId: nonEmptyString(value.serverSessionId),
@@ -403,7 +401,7 @@ export function adaptRecoveryLocalResult(
       ...attempt,
       stableId,
       sourceKind: 'recovery-local-result',
-      sourcePriority: Math.max(attempt.sourcePriority, 400),
+      sourcePriority: Math.max(attempt.sourcePriority, LOCAL_SOURCE_PRIORITY.RECOVERY),
       localSessionId: metadata.localSessionId ?? attempt.localSessionId,
       serverSessionId: metadata.serverSessionId ?? attempt.serverSessionId,
       clientSubmissionId: metadata.clientSubmissionId,

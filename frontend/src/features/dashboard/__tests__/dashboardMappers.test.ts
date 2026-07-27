@@ -44,6 +44,7 @@ describe('DashboardAnalyticsResponseV1 to ViewModel mapper', () => {
     expect(viewModel.notices.map((notice) => notice.id)).toEqual([
       'partial-detail',
       'unsupported-detail',
+      'excluded-invalid-attempts',
     ]);
   });
 

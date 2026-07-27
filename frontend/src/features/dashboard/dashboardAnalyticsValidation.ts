@@ -370,7 +370,7 @@ function parseSnapshotVersionCounts(value: unknown): Record<string, number> | nu
   return result;
 }
 
-function parseResponse(value: unknown): DashboardAnalyticsResponseV1 | null {
+function parseResponse(value: unknown, issues: string[] = []): DashboardAnalyticsResponseV1 | null {
   if (
     !isRecord(value)
     || !hasExactKeys(value, [
@@ -390,6 +390,7 @@ function parseResponse(value: unknown): DashboardAnalyticsResponseV1 | null {
     || value.schemaVersion !== 1
     || !isIsoTimestamp(value.generatedAt)
   ) {
+    issues.push('response: không khớp shape hoặc schemaVersion V1');
     return null;
   }
   if (
@@ -444,11 +445,27 @@ function parseResponse(value: unknown): DashboardAnalyticsResponseV1 | null {
       'excludedInvalidSummaryCount',
     ])
   ) {
+    issues.push('response: object lồng nhau có field thiếu hoặc thừa');
     return null;
   }
 
   const range = parseRange(value.scope.range);
   const attemptModes = parseArray(value.scope.attemptModes, parseMode);
+  if (!range) issues.push('scope.range: giá trị không được hỗ trợ');
+  if (value.scope.timezone !== 'Asia/Ho_Chi_Minh') {
+    issues.push('scope.timezone: mong đợi Asia/Ho_Chi_Minh');
+  }
+  if (value.scope.policyVersion !== DASHBOARD_ANALYTICS_POLICY_VERSION) {
+    issues.push(`scope.policyVersion: mong đợi ${DASHBOARD_ANALYTICS_POLICY_VERSION}`);
+  }
+  if (
+    !attemptModes
+    || attemptModes.length !== DASHBOARD_ANALYTICS_MODES.length
+    || new Set(attemptModes).size !== DASHBOARD_ANALYTICS_MODES.length
+    || !DASHBOARD_ANALYTICS_MODES.every(mode => attemptModes.includes(mode))
+  ) {
+    issues.push('scope.attemptModes: phải chứa đúng hai mode duy nhất');
+  }
   if (
     !range
     || value.scope.timezone !== 'Asia/Ho_Chi_Minh'
@@ -460,6 +477,7 @@ function parseResponse(value: unknown): DashboardAnalyticsResponseV1 | null {
     || new Set(attemptModes).size !== DASHBOARD_ANALYTICS_MODES.length
     || !DASHBOARD_ANALYTICS_MODES.every((mode) => attemptModes.includes(mode))
   ) {
+    if (issues.length === 0) issues.push('scope: dữ liệu không hợp lệ');
     return null;
   }
 
@@ -480,6 +498,7 @@ function parseResponse(value: unknown): DashboardAnalyticsResponseV1 | null {
     || !isNullableBoundedNumber(summary.blankRate, 0, 100)
     || !isNullableBoundedNumber(summary.tfPartialRate, 0, 100)
   ) {
+    issues.push('summary: số liệu hoặc tổng authority không hợp lệ');
     return null;
   }
 
@@ -488,7 +507,10 @@ function parseResponse(value: unknown): DashboardAnalyticsResponseV1 | null {
   const cognitiveLevels = parseArray(value.cognitiveLevels, parseCognitive);
   const questionTypes = parseArray(value.questionTypes, parseQuestionTypeAnalytics);
   const recentAttempts = parseArray(value.recentAttempts, parseRecentAttempt);
-  if (!trend || !topics || !cognitiveLevels || !questionTypes || !recentAttempts) return null;
+  if (!trend || !topics || !cognitiveLevels || !questionTypes || !recentAttempts) {
+    issues.push('analytics arrays: phần tử hoặc field lồng nhau không hợp lệ');
+    return null;
+  }
 
   const coverage = value.coverage;
   if (
@@ -500,14 +522,21 @@ function parseResponse(value: unknown): DashboardAnalyticsResponseV1 | null {
     || !isCount(coverage.malformedDetailCount)
     || !isCount(coverage.legacySummaryCount)
     || !isCount(coverage.fetchLimit)
+    || coverage.fetchLimit < 1
     || typeof coverage.isComplete !== 'boolean'
     || coverage.fetchedAttemptCount > coverage.totalKnownAttempts
+    || coverage.fetchedAttemptCount > coverage.fetchLimit
     || coverage.summaryAttemptCount > coverage.fetchedAttemptCount
     || coverage.detailedAttemptCount > coverage.summaryAttemptCount
+    || coverage.detailedAttemptCount
+      + coverage.unsupportedSnapshotCount
+      + coverage.malformedDetailCount
+      + coverage.legacySummaryCount > coverage.summaryAttemptCount
     || coverage.summaryAttemptCount !== summary.totalAttempts
     || coverage.legacySummaryCount !== summary.legacyAttemptCount
     || (coverage.isComplete && coverage.fetchedAttemptCount !== coverage.totalKnownAttempts)
   ) {
+    issues.push('coverage: count hoặc invariant bao phủ không hợp lệ');
     return null;
   }
 
@@ -522,6 +551,7 @@ function parseResponse(value: unknown): DashboardAnalyticsResponseV1 | null {
     || authority.frontendLegacy !== summary.legacyAttemptCount
     || authority.backendOnTime + authority.backendLate + authority.backendFallback + authority.frontendLegacy !== summary.totalAttempts
   ) {
+    issues.push('authorityBreakdown: không khớp các bộ đếm summary');
     return null;
   }
 
@@ -531,6 +561,7 @@ function parseResponse(value: unknown): DashboardAnalyticsResponseV1 | null {
     || !isCount(value.diagnostics.excludedModeCount)
     || !isCount(value.diagnostics.excludedInvalidSummaryCount)
   ) {
+    issues.push('diagnostics: bộ đếm không hợp lệ');
     return null;
   }
 
@@ -591,10 +622,13 @@ function parseResponse(value: unknown): DashboardAnalyticsResponseV1 | null {
 }
 
 export function validateDashboardAnalyticsResponseV1(value: unknown): DashboardAnalyticsValidationResult {
-  const data = parseResponse(value);
+  const issues: string[] = [];
+  const data = parseResponse(value, issues);
   return data
     ? { success: true, data }
-    : { success: false, issues: ['Response không khớp Dashboard Analytics API contract V1.'] };
+    : { success: false, issues: issues.length > 0
+      ? issues
+      : ['Response không khớp Dashboard Analytics API contract V1.'] };
 }
 
 export function isDashboardAnalyticsResponseV1(value: unknown): value is DashboardAnalyticsResponseV1 {

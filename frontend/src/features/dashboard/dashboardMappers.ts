@@ -309,6 +309,16 @@ function createNotices(response: DashboardAnalyticsResponseV1): DashboardNotice[
       actionRoute: null,
     });
   }
+  if (response.diagnostics.excludedInvalidSummaryCount > 0) {
+    notices.push({
+      id: 'excluded-invalid-attempts',
+      type: 'warning',
+      title: 'Một số bài chưa được tính vào thống kê',
+      message: `${response.diagnostics.excludedInvalidSummaryCount} bài có dữ liệu chấm điểm không hợp lệ nên đã bị loại khỏi toàn bộ thống kê. Nếu số này tăng dần, hãy báo cho quản trị viên.`,
+      actionLabel: null,
+      actionRoute: null,
+    });
+  }
   return notices;
 }
 

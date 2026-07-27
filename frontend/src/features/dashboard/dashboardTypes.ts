@@ -141,6 +141,7 @@ export const DASHBOARD_NOTICE_IDS = [
   'recovered-attempts',
   'legacy-summary',
   'no-detailed-analytics',
+  'excluded-invalid-attempts',
   // localAnalytics/localDashboardMappers.ts (nguồn cục bộ)
   'backend-unavailable-local-fallback',
   'device-only-local-analytics',

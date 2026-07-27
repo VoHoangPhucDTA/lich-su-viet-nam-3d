@@ -7,6 +7,7 @@ import {
   dashboardTopicRoute,
   selectRecommendationCandidate,
 } from '../dashboardRecommendation';
+import { createDeviceUnscopedExcludedNotice } from '../dashboardNoticeFactories';
 import type {
   LearningRecommendation,
   PersonalLearningDashboardViewModel,
@@ -99,35 +100,10 @@ function createLocalRecommendation(facts: LocalDashboardAnalyticsResultV1): Lear
   };
 }
 
-export function mapLocalDashboardAnalyticsToViewModel(
+function buildLocalNotices(
   facts: LocalDashboardAnalyticsResultV1,
-  options: LocalDashboardViewModelOptions = {},
-): PersonalLearningDashboardViewModel {
-  const source = options.source ?? 'local';
-  const strengths = facts.topics.filter((topic) => topic.status === 'strength').map((topic) => ({
-    key: topic.key,
-    label: topic.label,
-    status: topic.status,
-    accuracy: topic.accuracy,
-    correctUnits: topic.correctUnits,
-    totalUnits: topic.totalUnits,
-    attemptCount: topic.attemptCount,
-    confidence: topic.confidence,
-    practiceRoute: null,
-    summary: 'Kết quả cục bộ đạt ngưỡng điểm mạnh theo policy dashboard-v1.',
-  }));
-  const weaknesses = facts.topics.filter((topic) => topic.status === 'weakness').map((topic) => ({
-    key: topic.key,
-    label: topic.label,
-    status: topic.status,
-    accuracy: topic.accuracy,
-    correctUnits: topic.correctUnits,
-    totalUnits: topic.totalUnits,
-    attemptCount: topic.attemptCount,
-    confidence: topic.confidence,
-    practiceRoute: dashboardTopicRoute(topic.key),
-    summary: 'Kết quả cục bộ cho thấy chủ đề này cần được ưu tiên ôn lại.',
-  }));
+  source: 'local' | 'local-fallback',
+): PersonalLearningDashboardViewModel['notices'] {
   const notices: PersonalLearningDashboardViewModel['notices'] = [];
   if (source === 'local-fallback') {
     notices.push({
@@ -148,14 +124,7 @@ export function mapLocalDashboardAnalyticsToViewModel(
     actionRoute: source === 'local' ? '/login' : null,
   });
   if (facts.excludedOwnerScopeBreakdown['device-legacy-unscoped'] > 0) {
-    notices.push({
-      id: 'device-unscoped-excluded',
-      type: 'info',
-      title: 'Một số dữ liệu cũ không được tính',
-      message: 'Một số kết quả cũ trên thiết bị đã bị loại khỏi thống kê vì không xác định được chủ sở hữu.',
-      actionLabel: null,
-      actionRoute: null,
-    });
+    notices.push(createDeviceUnscopedExcludedNotice());
   }
   if (!facts.coverage.isComplete || facts.coverage.detailedAttemptCount < facts.coverage.summaryAttemptCount) {
     notices.push({
@@ -187,6 +156,39 @@ export function mapLocalDashboardAnalyticsToViewModel(
       actionRoute: null,
     });
   }
+  return notices;
+}
+
+export function mapLocalDashboardAnalyticsToViewModel(
+  facts: LocalDashboardAnalyticsResultV1,
+  options: LocalDashboardViewModelOptions = {},
+): PersonalLearningDashboardViewModel {
+  const source = options.source ?? 'local';
+  const strengths = facts.topics.filter((topic) => topic.status === 'strength').map((topic) => ({
+    key: topic.key,
+    label: topic.label,
+    status: topic.status,
+    accuracy: topic.accuracy,
+    correctUnits: topic.correctUnits,
+    totalUnits: topic.totalUnits,
+    attemptCount: topic.attemptCount,
+    confidence: topic.confidence,
+    practiceRoute: null,
+    summary: 'Kết quả cục bộ đạt ngưỡng điểm mạnh theo policy dashboard-v1.',
+  }));
+  const weaknesses = facts.topics.filter((topic) => topic.status === 'weakness').map((topic) => ({
+    key: topic.key,
+    label: topic.label,
+    status: topic.status,
+    accuracy: topic.accuracy,
+    correctUnits: topic.correctUnits,
+    totalUnits: topic.totalUnits,
+    attemptCount: topic.attemptCount,
+    confidence: topic.confidence,
+    practiceRoute: dashboardTopicRoute(topic.key),
+    summary: 'Kết quả cục bộ cho thấy chủ đề này cần được ưu tiên ôn lại.',
+  }));
+  const notices = buildLocalNotices(facts, source);
 
   return {
     state: facts.summary.totalAttempts === 0 ? 'empty' : 'ready',

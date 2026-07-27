@@ -50,6 +50,11 @@ class MutableFakeStorage implements LocalDashboardStorage {
   }
 }
 
+const blockedStorageProvider = () => {
+  throw new DOMException('blocked', 'SecurityError');
+};
+const emptyStorageProvider = () => new MutableFakeStorage();
+
 function provider(storage: LocalDashboardStorage | null) {
   return () => storage;
 }
@@ -129,6 +134,7 @@ describe('usePersonalLearningDashboard orchestration', () => {
     expect(result.current.viewModel.summary.totalAttempts).toBe(1);
     expect(result.current.viewModel.recentAttempts[0]?.attemptId).toBe('anonymous-result');
     expect(result.current.viewModel.notices.map((notice) => notice.id)).toContain('device-unscoped-excluded');
+    expect(result.current.announcement).toBe('Đã tải thống kê cục bộ anonymous trên thiết bị này.');
     expect(request).not.toHaveBeenCalled();
   });
 
@@ -137,9 +143,7 @@ describe('usePersonalLearningDashboard orchestration', () => {
       auth: anonymous,
       search: '',
       fixtureLoader: null,
-      localStorageProvider: () => {
-        throw new DOMException('blocked', 'SecurityError');
-      },
+      localStorageProvider: blockedStorageProvider,
     }));
     await waitFor(() => expect(result.current.viewModel.notices.map((notice) => notice.id))
       .toContain('local-storage-unavailable'));
@@ -162,6 +166,9 @@ describe('usePersonalLearningDashboard orchestration', () => {
     }));
     expect(result.current.viewModel.state).toBe('loading');
     await waitFor(() => expect(result.current.viewModel.state).toBe(expectedState));
+    expect(result.current.range).toBe('30d');
+    expect(result.current.source).toBe('backend');
+    expect(result.current.announcement).toBe('Đã tải thống kê học tập từ máy chủ.');
     expect(request).toHaveBeenCalledTimes(1);
     expect(localStorageProvider).not.toHaveBeenCalled();
   });
@@ -249,6 +256,8 @@ describe('usePersonalLearningDashboard orchestration', () => {
     expect(result.current.viewModel.recentAttempts[0]?.attemptId).toBe('owner-a-local');
     expect(result.current.viewModel.notices.map((notice) => notice.id))
       .toContain('backend-unavailable-local-fallback');
+    expect(result.current.announcement)
+      .toBe('Máy chủ không khả dụng. Đang hiển thị riêng dữ liệu cục bộ của tài khoản hiện tại.');
   });
 
   it.each([
@@ -298,6 +307,8 @@ describe('usePersonalLearningDashboard orchestration', () => {
     await waitFor(() => expect(result.current.viewModel.state).toBe('error'));
     expect(result.current.viewModel.summary.totalAttempts).toBe(0);
     expect(result.current.viewModel.scope.source).toBe('backend');
+    expect(result.current.announcement)
+      .toBe('Không thể tải thống kê học tập từ máy chủ và không có dữ liệu cục bộ phù hợp.');
   });
 
   it('keeps backend error and reports unavailable local storage safely', async () => {
@@ -307,9 +318,7 @@ describe('usePersonalLearningDashboard orchestration', () => {
       search: '',
       requestDashboard: request,
       fixtureLoader: null,
-      localStorageProvider: () => {
-        throw new DOMException('blocked', 'SecurityError');
-      },
+      localStorageProvider: blockedStorageProvider,
     }));
     await waitFor(() => expect(result.current.viewModel.state).toBe('error'));
     expect(result.current.viewModel.notices.map((notice) => notice.id)).toContain('local-storage-unavailable');
@@ -337,6 +346,7 @@ describe('usePersonalLearningDashboard orchestration', () => {
 
     act(() => result.current.retry());
     expect(result.current.viewModel.state).toBe('loading');
+    expect(result.current.announcement).toBe('Đang thử tải lại thống kê học tập.');
     await waitFor(() => expect(result.current.viewModel.state).toBe('ready'));
     expect(result.current.viewModel.scope.source).toBe('backend');
     expect(result.current.viewModel.summary.totalAttempts).toBe(readyResponse.summary.totalAttempts);
@@ -365,7 +375,7 @@ describe('usePersonalLearningDashboard orchestration', () => {
       localStorageProvider,
       now,
     }));
-    await waitFor(() => expect(result.current.viewModel.summary.totalAttempts).toBe(2));
+    await vi.waitFor(() => expect(result.current.viewModel.summary.totalAttempts).toBe(2));
     act(() => result.current.setRange('7d'));
     await waitFor(() => expect(result.current.viewModel.summary.totalAttempts).toBe(1));
 
@@ -408,12 +418,8 @@ describe('usePersonalLearningDashboard orchestration', () => {
       vi.advanceTimersByTime(299);
     });
     expect(localStorageProvider).toHaveBeenCalledTimes(1);
-    await act(async () => {
-      vi.advanceTimersByTime(1);
-      await Promise.resolve();
-      await Promise.resolve();
-    });
-    expect(result.current.viewModel.summary.totalAttempts).toBe(2);
+    act(() => vi.advanceTimersByTime(1));
+    await vi.waitFor(() => expect(result.current.viewModel.summary.totalAttempts).toBe(2));
     expect(localStorageProvider).toHaveBeenCalledTimes(2);
   });
 
@@ -431,11 +437,7 @@ describe('usePersonalLearningDashboard orchestration', () => {
       dispatchStorage('v2_result_owner-a');
       vi.advanceTimersByTime(300);
     });
-    await act(async () => {
-      await Promise.resolve();
-      await Promise.resolve();
-    });
-    expect(request).toHaveBeenCalledTimes(2);
+    await vi.waitFor(() => expect(request).toHaveBeenCalledTimes(2));
     expect(result.current.viewModel.scope.source).toBe('backend');
   });
 
@@ -461,13 +463,8 @@ describe('usePersonalLearningDashboard orchestration', () => {
       dispatchStorage('v2_result_owner-a-new');
       vi.advanceTimersByTime(300);
     });
-    await act(async () => {
-      await Promise.resolve();
-      await Promise.resolve();
-      await Promise.resolve();
-    });
-    expect(request).toHaveBeenCalledTimes(2);
-    expect(localStorageProvider).toHaveBeenCalledTimes(2);
+    await vi.waitFor(() => expect(request).toHaveBeenCalledTimes(2));
+    await vi.waitFor(() => expect(localStorageProvider).toHaveBeenCalledTimes(2));
     expect(result.current.viewModel.scope.source).toBe('local-fallback');
     expect(result.current.viewModel.summary.totalAttempts).toBe(2);
   });
@@ -562,12 +559,8 @@ describe('usePersonalLearningDashboard orchestration', () => {
     await waitFor(() => expect(result.current.viewModel.state).toBe('ready'));
     vi.useFakeTimers();
     act(() => dispatchStorage('v2_result_owner-a'));
-    await act(async () => {
-      rerender({ auth: { ...authenticated, ownerKey: 'owner-b' } });
-      await Promise.resolve();
-      await Promise.resolve();
-    });
-    expect(request).toHaveBeenCalledTimes(2);
+    act(() => rerender({ auth: { ...authenticated, ownerKey: 'owner-b' } }));
+    await vi.waitFor(() => expect(request).toHaveBeenCalledTimes(2));
     act(() => vi.advanceTimersByTime(500));
     expect(request).toHaveBeenCalledTimes(2);
   });
@@ -592,11 +585,7 @@ describe('usePersonalLearningDashboard orchestration', () => {
       dispatchStorage('v2_result_owner-a');
       result.current.setRange('7d');
     });
-    await act(async () => {
-      await Promise.resolve();
-      await Promise.resolve();
-    });
-    expect(request).toHaveBeenCalledTimes(2);
+    await vi.waitFor(() => expect(request).toHaveBeenCalledTimes(2));
     expect(request.mock.calls[1]?.[0]).toBe('7d');
     expect(result.current.viewModel.scope.range).toBe('7d');
     act(() => vi.advanceTimersByTime(500));
@@ -650,10 +639,7 @@ describe('usePersonalLearningDashboard orchestration', () => {
       window.dispatchEvent(event);
       vi.advanceTimersByTime(300);
     });
-    await act(async () => {
-      await Promise.resolve();
-      await Promise.resolve();
-    });
+    await vi.waitFor(() => expect(localStorageProvider).toHaveBeenCalledTimes(2));
     expect(valueGetter).not.toHaveBeenCalled();
     expect(consoleError).not.toHaveBeenCalled();
   });
@@ -786,6 +772,111 @@ describe('usePersonalLearningDashboard orchestration', () => {
     expect(result.current.viewModel.recentAttempts.some((attempt) => attempt.attemptId === 'owner-a-local')).toBe(false);
   });
 
+  it('does not request again when only the auth object identity changes', async () => {
+    const request = vi.fn().mockResolvedValue(readyResponse);
+    const { result, rerender } = renderHook(
+      ({ auth }) => usePersonalLearningDashboard({
+        auth,
+        search: '',
+        requestDashboard: request,
+        fixtureLoader: null,
+        localStorageProvider: emptyStorageProvider,
+      }),
+      { initialProps: { auth: authenticated } },
+    );
+    await waitFor(() => expect(result.current.viewModel.state).toBe('ready'));
+    rerender({ auth: { ...authenticated } });
+    await act(async () => Promise.resolve());
+    expect(request).toHaveBeenCalledTimes(1);
+  });
+
+  it('does not announce or request when setRange receives the current range', async () => {
+    const request = vi.fn().mockResolvedValue(readyResponse);
+    const { result } = renderHook(() => usePersonalLearningDashboard({
+      auth: authenticated,
+      search: '',
+      requestDashboard: request,
+      fixtureLoader: null,
+    }));
+    await waitFor(() => expect(result.current.source).toBe('backend'));
+    const announcement = result.current.announcement;
+    act(() => result.current.setRange('30d'));
+    expect(request).toHaveBeenCalledTimes(1);
+    expect(result.current.announcement).toBe(announcement);
+  });
+
+  describe('request timeout', () => {
+    it('aborts with TimeoutError and surfaces the timeout error after 15 seconds', async () => {
+      vi.useFakeTimers();
+      let capturedSignal: AbortSignal | undefined;
+      const request = vi.fn((_range: string, signal?: AbortSignal) => {
+        capturedSignal = signal;
+        return new Promise<never>(() => undefined);
+      });
+      const { result } = renderHook(() => usePersonalLearningDashboard({
+        auth: authenticated,
+        search: '',
+        requestDashboard: request,
+        fixtureLoader: null,
+        localStorageProvider: emptyStorageProvider,
+      }));
+
+      await act(async () => vi.advanceTimersByTimeAsync(15_000));
+
+      expect(capturedSignal?.aborted).toBe(true);
+      expect((capturedSignal?.reason as DOMException).name).toBe('TimeoutError');
+      await vi.waitFor(() => expect(result.current.viewModel.state).toBe('error'));
+      expect(result.current.viewModel.notices[0]?.title).toBe('Tải thống kê quá thời gian chờ');
+    });
+
+    it('falls back to exact-owner local data when the request times out', async () => {
+      vi.useFakeTimers();
+      const storage = new MutableFakeStorage({
+        'v2_result_owner-a': v2DetailedFixture({ sessionId: 'timeout-local', userId: 'owner-a' }),
+      });
+      const { result } = renderHook(() => usePersonalLearningDashboard({
+        auth: authenticated,
+        search: '',
+        requestDashboard: vi.fn(() => new Promise<never>(() => undefined)),
+        fixtureLoader: null,
+        localStorageProvider: provider(storage),
+        now,
+      }));
+
+      await act(async () => vi.advanceTimersByTimeAsync(15_000));
+
+      await vi.waitFor(() => expect(result.current.viewModel.scope.source).toBe('local-fallback'));
+      expect(result.current.viewModel.recentAttempts[0]?.attemptId).toBe('timeout-local');
+    });
+
+    it('clears the timeout after a successful response', async () => {
+      const clearSpy = vi.spyOn(window, 'clearTimeout');
+      const { result } = renderHook(() => usePersonalLearningDashboard({
+        auth: authenticated,
+        search: '',
+        requestDashboard: vi.fn().mockResolvedValue(readyResponse),
+        fixtureLoader: null,
+      }));
+      await waitFor(() => expect(result.current.viewModel.state).toBe('ready'));
+      expect(clearSpy).toHaveBeenCalled();
+      expect(result.current.viewModel.state).toBe('ready');
+    });
+
+    it('cancels the pending timeout on unmount', async () => {
+      vi.useFakeTimers();
+      const clearSpy = vi.spyOn(window, 'clearTimeout');
+      const { unmount } = renderHook(() => usePersonalLearningDashboard({
+        auth: authenticated,
+        search: '',
+        requestDashboard: vi.fn(() => new Promise<never>(() => undefined)),
+        fixtureLoader: null,
+      }));
+      unmount();
+      expect(clearSpy).toHaveBeenCalled();
+      await act(async () => vi.advanceTimersByTimeAsync(20_000));
+    });
+  });
+
   it.each([
     ['unauthenticated', 'Phiên đăng nhập đã hết hạn'],
     ['forbidden', 'Không có quyền xem thống kê'],
@@ -804,6 +895,11 @@ describe('usePersonalLearningDashboard orchestration', () => {
     await waitFor(() => expect(result.current.viewModel.state).toBe('error'));
     expect(result.current.viewModel.scope.source).toBe('backend');
     expect(result.current.viewModel.notices[0]?.title).toBe(title);
+    expect(result.current.announcement).toBe(
+      kind === 'transport' || kind === 'timeout'
+        ? 'Không thể tải thống kê học tập từ máy chủ và không có dữ liệu cục bộ phù hợp.'
+        : 'Không thể tải thống kê học tập.',
+    );
   });
 
   it('uses an explicit DEV fixture without making an HTTP request', async () => {

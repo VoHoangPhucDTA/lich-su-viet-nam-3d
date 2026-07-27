@@ -157,10 +157,20 @@
   color: var(--dashboard-primary);
 }
 
-.dashboard-range button[aria-pressed='true'] {
+.dashboard-range button[aria-checked='true'] {
   background: var(--dashboard-card);
   color: var(--dashboard-primary);
   box-shadow: 0 3px 10px rgba(73, 48, 40, .08);
+}
+
+.dashboard-focus-target:focus {
+  outline: none;
+}
+
+.dashboard-focus-target:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--dashboard-primary) 36%, transparent);
+  outline-offset: 4px;
+  border-radius: 12px;
 }
 
 .dashboard-range button:focus-visible,

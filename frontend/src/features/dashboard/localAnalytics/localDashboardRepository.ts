@@ -14,6 +14,7 @@ import type {
   LocalDashboardScanResult,
   LocalDashboardSourceKind,
 } from './localDashboardTypes';
+import { isRecord } from './localDashboardGuards';
 
 export const LOCAL_DASHBOARD_MAX_MATCHING_KEYS = 1_000;
 export const LOCAL_DASHBOARD_MAX_NORMALIZED_ATTEMPTS = 500;
@@ -39,10 +40,7 @@ const TERMINAL_RECOVERY_STATES = new Set([
 ]);
 
 export type LocalDashboardStorage = Pick<Storage, 'length' | 'key' | 'getItem'>;
-
-function isRecord(value: unknown): value is Record<string, unknown> {
-  return typeof value === 'object' && value !== null && !Array.isArray(value);
-}
+type LocalDashboardStoredEntry = { key: string; value: unknown };
 
 function isAllowedKey(key: string): boolean {
   return EXACT_KEYS.has(key) || PREFIXES.some((prefix) => key.startsWith(prefix));
@@ -72,13 +70,13 @@ function safeParse(raw: string): { ok: true; value: unknown } | { ok: false } {
   }
 }
 
-function readAllowedEntries(
+function readEntries(
   storage: LocalDashboardStorage,
   maxMatchingKeys: number,
   maxPayloadCharacters: number,
   diagnostics: LocalDashboardScanDiagnostics,
   includeRecovery: boolean,
-): Array<{ key: string; value: unknown }> {
+): LocalDashboardStoredEntry[] {
   const keys: string[] = [];
   let length = 0;
   try {
@@ -101,7 +99,7 @@ function readAllowedEntries(
   diagnostics.matchingKeyCount = keys.length;
   if (keys.length > maxMatchingKeys) diagnostics.matchingKeyLimitReached = true;
 
-  const entries: Array<{ key: string; value: unknown }> = [];
+  const entries: LocalDashboardStoredEntry[] = [];
   for (const key of keys.slice(0, maxMatchingKeys)) {
     diagnostics.scannedKeyCount += 1;
     let raw: string | null = null;
@@ -319,6 +317,84 @@ function emptyDiagnostics(): LocalDashboardScanDiagnostics {
   };
 }
 
+function adaptEntries(
+  entries: LocalDashboardStoredEntry[],
+  recoveryMetadata: LocalDashboardRecoveryMetadata[],
+  materializeRecoveryAttempts: boolean,
+  diagnostics: LocalDashboardScanDiagnostics,
+): LocalDashboardAttemptV1[] {
+  const attempts: LocalDashboardAttemptV1[] = [];
+  for (const entry of entries) {
+    if (entry.key === RECOVERY_KEY) {
+      if (!materializeRecoveryAttempts) continue;
+      for (const [index, metadata] of recoveryMetadata.entries()) {
+        if (metadata.localResult === null) continue;
+        diagnostics.scannedRecordCount += 1;
+        pushAdapted(
+          adaptRecoveryLocalResult(metadata, `recovery:${index}:${metadata.clientSubmissionId}`),
+          attempts,
+          diagnostics,
+        );
+      }
+      continue;
+    }
+    diagnostics.scannedRecordCount += 1;
+    if (entry.key.startsWith('exam_api_result_')) {
+      pushAdapted(adaptApiSnapshotV2LocalResult(entry.value, entry.key), attempts, diagnostics);
+    } else if (entry.key.startsWith('v2_result_')) {
+      const snapshot = adaptApiSnapshotV2LocalResult(entry.value, entry.key);
+      pushAdapted(
+        snapshot.status === 'unsupported'
+          ? adaptV2LegacyLocalResult(entry.value, entry.key)
+          : snapshot,
+        attempts,
+        diagnostics,
+      );
+    }
+  }
+  return attempts;
+}
+
+function resolveOwners(
+  attempts: LocalDashboardAttemptV1[],
+  recoveryMetadata: LocalDashboardRecoveryMetadata[],
+  diagnostics: LocalDashboardScanDiagnostics,
+): LocalDashboardAttemptV1[] {
+  const annotated = attempts.map((attempt) => annotateRecovery(attempt, recoveryMetadata));
+  return dedupeAttempts(annotated, diagnostics);
+}
+
+function buildBreakdowns(
+  deduped: LocalDashboardAttemptV1[],
+  filtered: LocalDashboardAttemptV1[],
+  ownerConflictCount: number,
+) {
+  const ownerScopeBreakdown: Record<LocalDashboardOwnerScope, number> = {
+    anonymous: 0,
+    'authenticated-owner': 0,
+    'device-legacy-unscoped': 0,
+    unknown: 0,
+    conflicting: 0,
+  };
+  const excludedOwnerScopeBreakdown: Record<LocalDashboardOwnerScope, number> = {
+    anonymous: 0,
+    'authenticated-owner': 0,
+    'device-legacy-unscoped': 0,
+    unknown: 0,
+    conflicting: ownerConflictCount,
+  };
+  const sourceBreakdown: Partial<Record<LocalDashboardSourceKind, number>> = {};
+  const filteredAttempts = new Set(filtered);
+  for (const attempt of deduped) {
+    if (!filteredAttempts.has(attempt)) excludedOwnerScopeBreakdown[attempt.ownerScope] += 1;
+  }
+  for (const attempt of filtered) {
+    ownerScopeBreakdown[attempt.ownerScope] += 1;
+    sourceBreakdown[attempt.sourceKind] = (sourceBreakdown[attempt.sourceKind] ?? 0) + 1;
+  }
+  return { ownerScopeBreakdown, excludedOwnerScopeBreakdown, sourceBreakdown };
+}
+
 export function scanLocalDashboardAttempts(
   storage: LocalDashboardStorage,
   options: LocalDashboardScanOptions,
@@ -336,7 +412,7 @@ export function scanLocalDashboardAttempts(
     LOCAL_DASHBOARD_MAX_PAYLOAD_CHARACTERS,
   ));
   const diagnostics = emptyDiagnostics();
-  const entries = readAllowedEntries(
+  const entries = readEntries(
     storage,
     maxMatchingKeys,
     maxPayloadCharacters,
@@ -346,63 +422,22 @@ export function scanLocalDashboardAttempts(
   const recoveryMetadata = entries
     .filter((entry) => entry.key === RECOVERY_KEY)
     .flatMap((entry) => parseRecoveryMetadata(entry.value));
-  const attempts: LocalDashboardAttemptV1[] = [];
-  const materializeRecoveryAttempts = options.ownerFilter.kind !== 'anonymous';
-
-  for (const entry of entries) {
-    if (entry.key === RECOVERY_KEY) {
-      if (!materializeRecoveryAttempts) continue;
-      for (const [index, metadata] of recoveryMetadata.entries()) {
-        if (metadata.localResult === null) continue;
-        diagnostics.scannedRecordCount += 1;
-        pushAdapted(adaptRecoveryLocalResult(metadata, `recovery:${index}:${metadata.clientSubmissionId}`), attempts, diagnostics);
-      }
-      continue;
-    }
-    diagnostics.scannedRecordCount += 1;
-    if (entry.key.startsWith('exam_api_result_')) {
-      pushAdapted(adaptApiSnapshotV2LocalResult(entry.value, entry.key), attempts, diagnostics);
-    } else if (entry.key.startsWith('v2_result_')) {
-      const snapshot = adaptApiSnapshotV2LocalResult(entry.value, entry.key);
-      pushAdapted(snapshot.status === 'unsupported' ? adaptV2LegacyLocalResult(entry.value, entry.key) : snapshot, attempts, diagnostics);
-    }
-  }
-
-  const annotated = attempts.map((attempt) => annotateRecovery(attempt, recoveryMetadata));
-  const deduped = dedupeAttempts(annotated, diagnostics);
+  const attempts = adaptEntries(
+    entries,
+    recoveryMetadata,
+    options.ownerFilter.kind !== 'anonymous',
+    diagnostics,
+  );
+  const deduped = resolveOwners(attempts, recoveryMetadata, diagnostics);
   const ownerMatched = deduped.filter((attempt) => matchesOwnerFilter(attempt, options.ownerFilter));
   // Phản ánh dữ liệu của chính owner đang xem, không phải tổng mọi owner trên thiết bị.
   if (ownerMatched.length > maxNormalizedAttempts) diagnostics.normalizedAttemptLimitReached = true;
   const filtered = ownerMatched.slice(0, maxNormalizedAttempts);
-  const ownerScopeBreakdown: Record<LocalDashboardOwnerScope, number> = {
-    anonymous: 0,
-    'authenticated-owner': 0,
-    'device-legacy-unscoped': 0,
-    unknown: 0,
-    conflicting: 0,
-  };
-  const excludedOwnerScopeBreakdown: Record<LocalDashboardOwnerScope, number> = {
-    anonymous: 0,
-    'authenticated-owner': 0,
-    'device-legacy-unscoped': 0,
-    unknown: 0,
-    conflicting: diagnostics.ownerConflictCount,
-  };
-  const sourceBreakdown: Partial<Record<LocalDashboardSourceKind, number>> = {};
-  const filteredAttempts = new Set(filtered);
-  for (const attempt of deduped) {
-    if (!filteredAttempts.has(attempt)) excludedOwnerScopeBreakdown[attempt.ownerScope] += 1;
-  }
-  for (const attempt of filtered) {
-    ownerScopeBreakdown[attempt.ownerScope] += 1;
-    sourceBreakdown[attempt.sourceKind] = (sourceBreakdown[attempt.sourceKind] ?? 0) + 1;
-  }
+  const breakdowns = buildBreakdowns(deduped, filtered, diagnostics.ownerConflictCount);
   return {
     attempts: filtered,
     diagnostics: { ...diagnostics },
     pendingRecoveryCount: pendingCountForFilter(recoveryMetadata, options.ownerFilter),
-    ownerScopeBreakdown,
-    excludedOwnerScopeBreakdown,
-    sourceBreakdown,
+    ...breakdowns,
   };
 }
