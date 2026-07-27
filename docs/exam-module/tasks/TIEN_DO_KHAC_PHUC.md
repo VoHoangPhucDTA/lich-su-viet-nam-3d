@@ -29,20 +29,30 @@ Các KPI không có nguồn đáng tin cậy (`rankPercentile`, `progressByGrade
 đã được loại khỏi luồng chính. Chi tiết contract và tiêu chí nghiệm thu nằm ở
 [`TASK-09-C-IMPLEMENTATION.md`](TASK-09-C-IMPLEMENTATION.md).
 
+## Cập nhật sau TASK-30 (27/07/2026)
+
+TASK-10 đến TASK-30 đã hoàn tất trên hai commit:
+`f2aaec2e` (cache/backend analytics, migration V38, diagnostics) và
+`4e90d063` (a11y, test hardening, page split và local analytics refactor).
+Dashboard: 281/281 test, TypeScript, encoding và production build đều PASS.
+Toàn bộ frontend có một test admin AI timeout chập chờn khi chạy song song
+(chạy riêng 10/10 PASS). Full backend có 252 test, 15 skipped và một lỗi môi trường
+ở `HistoryRagPackageReaderTest` vì thiếu `data/history-rag/v1`; không thuộc module Dashboard.
+
 ## Tổng quan
 
 | | Số task | Xong | Còn lại |
 |---|---:|---:|---:|
 | **PR-1** Quick wins | 8 | 8 | 0 |
 | **PR-2** ProfileDashboard mock data | 1 | 1 | 0 |
-| **PR-3** Đồng bộ local ↔ backend | 4 | 0 | 4 |
-| **PR-4** Củng cố local analytics | 4 | 0 | 4 |
-| **PR-5** Siết phân quyền owner | 3 | 0 | 3 |
-| **PR-6** Backend | 2 | 0 | 2 |
-| **PR-7** Accessibility & UI | 2 | 0 | 2 |
-| **PR-8** Củng cố test | 4 | 0 | 4 |
-| **PR-9** Nợ kỹ thuật | 2 | 0 | 2 |
-| **TỔNG** | **30** | **9** | **21** |
+| **PR-3** Đồng bộ local ↔ backend | 4 | 4 | 0 |
+| **PR-4** Củng cố local analytics | 4 | 4 | 0 |
+| **PR-5** Siết phân quyền owner | 3 | 3 | 0 |
+| **PR-6** Backend | 2 | 2 | 0 |
+| **PR-7** Accessibility & UI | 2 | 2 | 0 |
+| **PR-8** Củng cố test | 4 | 4 | 0 |
+| **PR-9** Nợ kỹ thuật | 2 | 2 | 0 |
+| **TỔNG** | **30** | **30** | **0** |
 
 **Điểm module:** 7.4/10 → mục tiêu 8.8/10 · **Lỗi đang mở:** 1 P0 · 11 P1 · ~34 P2
 
@@ -96,10 +106,10 @@ Tám task độc lập, rủi ro thấp, không phụ thuộc nhau. Có thể l�
 
 | ✔ | Task | Issue | Nội dung | Phụ thuộc | Ước tính | Commit |
 |:---:|---|---|---|---|---:|---|
-| ⬜ | TASK-13 | T-9 | Bộ test đối chiếu hai đường (`dashboardParity.test.ts`) | — | 3h | |
-| ⬜ | TASK-10 | LA-3 | Bỏ topicRefs khỏi adapter legacy | TASK-13 | 1h | |
-| ⬜ | TASK-11 | LA-2 | Tách `dashboardRecommendation.ts` dùng chung | TASK-13 | 2h | |
-| ⬜ | TASK-12 | LA-4, LA-15 | Sửa `detailStatus` + `totalKnownAttempts` | TASK-13 | 30p | |
+| ✅ | TASK-13 | T-9 | Bộ test đối chiếu hai đường (`dashboardParity.test.ts`) | — | 3h | `3b4cfdfb` |
+| ✅ | TASK-10 | LA-3 | Bỏ topicRefs khỏi adapter legacy | TASK-13 | 1h | `3b4cfdfb` |
+| ✅ | TASK-11 | LA-2 | Tách `dashboardRecommendation.ts` dùng chung | TASK-13 | 2h | `3b4cfdfb` |
+| ✅ | TASK-12 | LA-4, LA-15 | Sửa `detailStatus` + `totalKnownAttempts` | TASK-13 | 30p | `3b4cfdfb` |
 
 Sau PR-3, 3 case đỏ trong `dashboardParity.test.ts` phải chuyển sang xanh.
 
@@ -109,10 +119,10 @@ Sau PR-3, 3 case đỏ trong `dashboardParity.test.ts` phải chuyển sang xanh
 
 | ✔ | Task | Issue | Nội dung | Ước tính | Commit |
 |:---:|---|---|---|---:|---|
-| ⬜ | TASK-14 | LA-5 | Gỡ `custom_exam_session_` khỏi allow-list | 45p | |
-| ⬜ | TASK-15 | LA-7 | Dung sai lệch đồng hồ + diagnostics | 45p | |
-| ⬜ | TASK-16 | LA-8 | Siết `parseTimestamp` | 1h | |
-| ⬜ | TASK-17 | LA-11/12/13/17 | 4 sửa nhỏ về an toàn dữ liệu | 1h | |
+| ✅ | TASK-14 | LA-5 | Gỡ `custom_exam_session_` khỏi allow-list | 45p | `3b4cfdfb` |
+| ✅ | TASK-15 | LA-7 | Dung sai lệch đồng hồ + diagnostics | 45p | `3b4cfdfb` |
+| ✅ | TASK-16 | LA-8 | Siết `parseTimestamp` | 1h | `3b4cfdfb` |
+| ✅ | TASK-17 | LA-11/12/13/17 | 4 sửa nhỏ về an toàn dữ liệu | 1h | `3b4cfdfb` |
 
 ---
 
@@ -120,9 +130,9 @@ Sau PR-3, 3 case đỏ trong `dashboardParity.test.ts` phải chuyển sang xanh
 
 | ✔ | Task | Issue | Nội dung | Ước tính | Commit |
 |:---:|---|---|---|---:|---|
-| ⬜ | TASK-18 | LA-10 | Luôn đọc recovery queue để phân loại | 1h | |
-| ⬜ | TASK-19 | LA-19/20/21/22 | Dọn chẩn đoán | 1.5h | |
-| ⬜ | TASK-20 | LA-18 | Quyết định số phận nhánh legacy (**điều tra trước**) | 1h | |
+| ✅ | TASK-18 | LA-10 | Luôn đọc recovery queue để phân loại | 1h | `3b4cfdfb` |
+| ✅ | TASK-19 | LA-19/20/21/22 | Dọn chẩn đoán | 1.5h | `3b4cfdfb` |
+| ✅ | TASK-20 | LA-18 | Quyết định số phận nhánh legacy (**điều tra trước**) | 1h | `3b4cfdfb` |
 
 ---
 
@@ -130,8 +140,8 @@ Sau PR-3, 3 case đỏ trong `dashboardParity.test.ts` phải chuyển sang xanh
 
 | ✔ | Task | Issue | Nội dung | Ước tính | Commit |
 |:---:|---|---|---|---:|---|
-| ⬜ | TASK-21 | BE-1 | Cache Caffeine + query version | 4h | |
-| ⬜ | TASK-22 | BE-3/4/5/6 | 4 cải thiện nhỏ | 2h | |
+| ✅ | TASK-21 | BE-1 | Cache Caffeine + query version | 4h | `f2aaec2e` |
+| ✅ | TASK-22 | BE-3/4/5/6 | 4 cải thiện nhỏ | 2h | `f2aaec2e`, `4e90d063` |
 
 ---
 
@@ -139,8 +149,8 @@ Sau PR-3, 3 case đỏ trong `dashboardParity.test.ts` phải chuyển sang xanh
 
 | ✔ | Task | Issue | Nội dung | Ước tính | Commit |
 |:---:|---|---|---|---:|---|
-| ⬜ | TASK-23 | UI-1 | Quản lý focus sau retry/đổi range | 1h | |
-| ⬜ | TASK-24 | UI-2/4/5, FE-3 | 4 sửa a11y/UI | 2h | |
+| ✅ | TASK-23 | UI-1 | Quản lý focus sau retry/đổi range | 1h | `4e90d063` |
+| ✅ | TASK-24 | UI-2/4/5, FE-3 | 4 sửa a11y/UI | 2h | `4e90d063` |
 
 ---
 
@@ -148,10 +158,10 @@ Sau PR-3, 3 case đỏ trong `dashboardParity.test.ts` phải chuyển sang xanh
 
 | ✔ | Task | Issue | Nội dung | Phụ thuộc | Ước tính | Commit |
 |:---:|---|---|---|---|---:|---|
-| ⬜ | TASK-25 | T-1 | Test timeout 15 s thật | | 1.5h | |
-| ⬜ | TASK-26 | T-2 | Chặn request storm | | 1h | |
-| ⬜ | TASK-27 | T-3 | Test accessibility + announcement | TASK-23 | 2h | |
-| ⬜ | TASK-28 | T-4/5/8, FE-6 | Public API, validation, `now` prop, `waitFor` | | 3h | |
+| ✅ | TASK-25 | T-1 | Test timeout 15 s thật | | 1.5h | `4e90d063` |
+| ✅ | TASK-26 | T-2 | Chặn request storm | | 1h | `4e90d063` |
+| ✅ | TASK-27 | T-3 | Test accessibility + announcement | TASK-23 | 2h | `4e90d063` |
+| ✅ | TASK-28 | T-4/5/8, FE-6 | Public API, validation, `now` prop, `waitFor` | | 3h | `4e90d063` |
 
 ---
 
@@ -159,8 +169,8 @@ Sau PR-3, 3 case đỏ trong `dashboardParity.test.ts` phải chuyển sang xanh
 
 | ✔ | Task | Issue | Nội dung | Phụ thuộc | Ước tính | Commit |
 |:---:|---|---|---|---|---:|---|
-| ⬜ | TASK-29 | UI-3 | Tách `PersonalLearningDashboardPage.tsx` thành 13 file | TASK-24 | 3h | |
-| ⬜ | TASK-30 | LA-23/24/25 | Dọn trùng lặp, hàm dài, magic number | PR-4, PR-5 | 3h | |
+| ✅ | TASK-29 | UI-3 | Tách `PersonalLearningDashboardPage.tsx` thành 13 file | TASK-24 | 3h | `4e90d063` |
+| ✅ | TASK-30 | LA-23/24/25 | Dọn trùng lặp, hàm dài, magic number | PR-4, PR-5 | 3h | `4e90d063` |
 
 ---
 
@@ -180,15 +190,28 @@ lint còn đúng 19 lỗi + 5 cảnh báo baseline ngoài module dashboard.
 
 ### TASK-09 (2026-07-27)
 
-**Chờ quyết định sản phẩm.** Đặc tả yêu cầu chọn phương án A (gắn nhãn dữ liệu minh họa),
-B (chuyển hướng `/profile` và `/profile/dashboard` sang `/exams/thong-ke`, khuyến nghị),
-hoặc C (nối dữ liệu thật). Chưa tự chọn vì thay đổi này ảnh hưởng trực tiếp điều hướng và
-phạm vi sản phẩm.
+Đã chọn và hoàn tất **phương án C — nối dữ liệu thật** trong commit `286e16c6`.
 
 ### TASK-10 (2026-07-27)
 
-**Chưa bắt đầu — phụ thuộc TASK-13.** Plan yêu cầu xây parity test trước để phát hiện và
-khóa khác biệt local/backend; sẽ tiếp tục sau khi dependency này được thực hiện.
+Đã hoàn tất cùng TASK-10 đến TASK-20 trong commit `3b4cfdfb`; parity và các invariant
+local/backend đều đã được khóa bằng test.
+
+### TASK-21→22 (2026-07-27)
+
+Backend dùng Caffeine cache có khóa phiên bản từ query nhẹ, thêm index V38, cache-control
+`no-store/private`, diagnostics authority và notice frontend cho các bài bị loại.
+
+### TASK-23→28 (2026-07-27)
+
+Đã bổ sung focus sau retry/range, radiogroup keyboard interaction, semantics meter/live region,
+timeout thật, request-storm guard, public API assertions và validator tích lũy issues.
+
+### TASK-29→30 (2026-07-27)
+
+Trang 702 dòng được tách thành 13 component; local analytics được chia read/adapt/resolve,
+filter/accumulate/facts và notices/recommendation. Đồng thời dùng chung authority predicates,
+`isRecord`, source priorities và round2 không còn `Number.EPSILON`.
 
 ---
 
