@@ -15,6 +15,7 @@ from app.retrieval.context_builder import build_fact_context
 from app.retrieval.filters import build_chroma_where, candidate_matches_filters
 from app.retrieval.models import (
     RawChromaCandidate,
+    RetrievalEvaluationTrace,
     RetrievalFilters,
     RetrievalNotReadyError,
     RetrievalRequest,
@@ -160,7 +161,7 @@ def test_retrieval_validates_query_length_top_k_and_vector(tmp_path: Path) -> No
         service.retrieve(RetrievalRequest(query="ok"))
 
 
-def test_raw_candidate_parser_rejects_pending_and_supports_nullable_pages() -> None:
+def test_raw_candidate_parser_preserves_pending_for_internal_evaluation() -> None:
     metadata = {
         "documentId": "doc",
         "grade": 12,
@@ -176,8 +177,88 @@ def test_raw_candidate_parser_rejects_pending_and_supports_nullable_pages() -> N
     assert parsed is not None
     assert parsed.page_start is None and parsed.page_end is None
     pending = dict(metadata, containsPendingReview=True)
-    assert ChromaRetriever._parse_candidate("chunk", "text", pending, 0.2) is None
+    parsed_pending = ChromaRetriever._parse_candidate(
+        "chunk", "text", pending, 0.2
+    )
+    assert parsed_pending is not None
+    assert parsed_pending.contains_pending_review is True
     assert ChromaRetriever._parse_candidate("chunk", "text", metadata, math.nan) is None
+
+
+def test_retriever_traces_pending_candidate_but_excludes_it_publicly(
+    tmp_path: Path,
+    monkeypatch,
+) -> None:
+    metadata = {
+        "documentId": "doc",
+        "grade": 12,
+        "lessonNumber": 6,
+        "lessonTitle": "Bài 6",
+        "sectionTitle": "Mục",
+        "sectionPath": "Mục",
+        "contentTypes": "knowledge",
+        "chunkHash": "a" * 64,
+    }
+
+    class Collection:
+        name = "collection"
+        metadata = {
+            "embeddingModel": "model",
+            "embeddingDimension": 3,
+        }
+        configuration = {"hnsw": {"space": "cosine"}}
+
+        def count(self):
+            return 2
+
+        def query(self, **_):
+            return {
+                "ids": [["pending", "safe"]],
+                "documents": [["pending text", "safe text"]],
+                "metadatas": [[
+                    dict(metadata, containsPendingReview=True),
+                    dict(metadata, containsPendingReview=False),
+                ]],
+                "distances": [[0.1, 0.2]],
+            }
+
+    class Client:
+        def list_collections(self):
+            return [Collection()]
+
+        def get_collection(self, name):
+            assert name == "collection"
+            return Collection()
+
+    persist = tmp_path / "chroma"
+    persist.mkdir()
+    (persist / "chroma.sqlite3").touch()
+    monkeypatch.setattr(
+        "app.retrieval.retriever.close_persistent_client",
+        lambda _: None,
+    )
+    trace = RetrievalEvaluationTrace()
+    retriever = ChromaRetriever(
+        persist_dir=persist,
+        collection_name="collection",
+        expected_metadata={
+            "embeddingModel": "model",
+            "embeddingDimension": 3,
+        },
+        distance_metric="cosine",
+        client_factory=lambda _: Client(),
+    )
+    candidates = retriever.retrieve(
+        [1.0, 0.0, 0.0],
+        RetrievalFilters(),
+        2,
+        evaluation_trace=trace,
+    )
+    assert [candidate.chunk_id for candidate in candidates] == ["safe"]
+    assert trace.raw_candidate_chunk_ids == ["pending", "safe"]
+    assert trace.pending_review_candidate_ids == ["pending"]
+    assert trace.collection_metadata_matched is True
+    assert trace.collection_distance_metric_matched is True
 
 
 def test_deduplicate_diversity_and_stable_distance_order() -> None:

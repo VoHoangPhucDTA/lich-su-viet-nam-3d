@@ -12,6 +12,7 @@ from app.embedding.gemini import GeminiEmbeddingProvider
 from app.retrieval.context_builder import build_fact_context
 from app.retrieval.models import (
     RawChromaCandidate,
+    RetrievalEvaluationTrace,
     RetrievalMetadata,
     RetrievalNotReadyError,
     RetrievalProviderError,
@@ -89,8 +90,14 @@ class RetrievalService:
         self.collection_metadata = _expected_collection_metadata(settings)
 
     def retrieve(
-        self, request: RetrievalRequest, *, query_vector: list[float] | None = None
+        self,
+        request: RetrievalRequest,
+        *,
+        query_vector: list[float] | None = None,
+        evaluation_trace: RetrievalEvaluationTrace | None = None,
     ) -> RetrievalResponse:
+        if evaluation_trace is not None:
+            evaluation_trace.reset()
         if len(request.query) > self.settings.rag_query_max_length:
             raise ValueError(
                 f"query exceeds maximum length {self.settings.rag_query_max_length}"
@@ -100,20 +107,44 @@ class RetrievalService:
             raise ValueError(f"topK must be <= {self.settings.rag_max_top_k}")
         started = time.monotonic()
         if query_vector is None:
+            embedding_started = time.perf_counter()
             try:
                 query_vector = self.provider.embed_query(request.query)
             except Exception as exc:
                 raise RetrievalProviderError("Query embedding failed") from exc
-        vector = validate_vectors(
-            [query_vector], 1, self.settings.gemini_embedding_dimension
-        )[0]
+            finally:
+                if evaluation_trace is not None:
+                    evaluation_trace.query_embedding_latency_ms = (
+                        time.perf_counter() - embedding_started
+                    ) * 1000
+        try:
+            vector = validate_vectors(
+                [query_vector], 1, self.settings.gemini_embedding_dimension
+            )[0]
+            if evaluation_trace is not None:
+                evaluation_trace.embedding_contract_matched = True
+        except Exception:
+            if evaluation_trace is not None:
+                evaluation_trace.embedding_contract_matched = False
+            raise
         candidate_count = min(
             self.settings.rag_max_candidates,
             max(top_k, top_k * self.settings.rag_candidate_multiplier),
         )
-        candidates = self.retriever.retrieve(
-            vector, request.filters(), candidate_count
-        )
+        if evaluation_trace is None:
+            candidates = self.retriever.retrieve(
+                vector,
+                request.filters(),
+                candidate_count,
+            )
+        else:
+            candidates = self.retriever.retrieve(
+                vector,
+                request.filters(),
+                candidate_count,
+                evaluation_trace=evaluation_trace,
+            )
+        post_processing_started = time.perf_counter()
         selected = diversify_candidates(
             candidates,
             top_k=top_k,
@@ -128,6 +159,10 @@ class RetrievalService:
             max_chars=self.settings.rag_context_max_chars,
             max_chunks=self.settings.rag_context_max_chunks,
         )
+        if evaluation_trace is not None:
+            evaluation_trace.post_processing_latency_ms = (
+                time.perf_counter() - post_processing_started
+            ) * 1000
         if time.monotonic() - started > self.settings.rag_retrieval_timeout_seconds:
             raise RetrievalProviderError("Retrieval exceeded configured timeout")
         return RetrievalResponse(

@@ -1,0 +1,72 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "retrieval-held-out-v1",
+  "title": "Externally authored held-out retrieval benchmark record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "benchmarkCaseId",
+    "query",
+    "grade",
+    "lessonNumber",
+    "category",
+    "relevantChunkIds",
+    "relevanceJudgmentVersion",
+    "queryAuthorPseudonym",
+    "relevanceReviewerPseudonym",
+    "queryAuthorViewedChunkContent",
+    "benchmarkRole"
+  ],
+  "properties": {
+    "benchmarkCaseId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "query": {
+      "type": "string",
+      "minLength": 1
+    },
+    "grade": {
+      "enum": [10, 11, 12]
+    },
+    "lessonNumber": {
+      "type": ["integer", "null"],
+      "minimum": 1
+    },
+    "category": {
+      "type": "string",
+      "minLength": 1
+    },
+    "relevantChunkIds": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "relevanceJudgmentVersion": {
+      "type": "string",
+      "minLength": 1
+    },
+    "queryAuthorPseudonym": {
+      "type": "string",
+      "minLength": 1
+    },
+    "relevanceReviewerPseudonym": {
+      "type": "string",
+      "minLength": 1
+    },
+    "queryAuthorViewedChunkContent": {
+      "const": false
+    },
+    "benchmarkRole": {
+      "const": "HELD_OUT_EXTERNAL"
+    },
+    "syntheticSchemaExample": {
+      "type": "boolean",
+      "default": false
+    }
+  }
+}
