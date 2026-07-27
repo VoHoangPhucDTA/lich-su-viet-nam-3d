@@ -6,8 +6,6 @@ import {
 } from '../localDashboardRepository';
 import {
   apiSnapshotFixture,
-  customSessionFixture,
-  oldExamResultFixture,
   recoveryQueueItemFixture,
   v2DetailedFixture,
   v2SummaryFixture,
@@ -121,9 +119,10 @@ describe('local dashboard allowlisted scanner', () => {
   });
 
   it('returns deterministic output independent of storage insertion order', () => {
+    const submittedAt = Date.parse('2026-07-20T03:00:00Z');
     const entriesA = {
-      'v2_result_b': v2SummaryFixture({ sessionId: 'b', submittedAt: 100 }),
-      'v2_result_a': v2SummaryFixture({ sessionId: 'a', submittedAt: 100 }),
+      'v2_result_b': v2SummaryFixture({ sessionId: 'b', submittedAt }),
+      'v2_result_a': v2SummaryFixture({ sessionId: 'a', submittedAt }),
     };
     const entriesB = Object.fromEntries(Object.entries(entriesA).reverse());
     const first = scanLocalDashboardAttempts(new FakeStorage(entriesA), all);
@@ -131,19 +130,26 @@ describe('local dashboard allowlisted scanner', () => {
     expect(first.attempts.map((item) => item.stableId)).toEqual(second.attempts.map((item) => item.stableId));
   });
 
-  it('classifies standalone custom session and old practice history as unsupported', () => {
+  it('ignores retired custom-session and old history namespaces entirely', () => {
     const storage = new FakeStorage({
-      'custom_exam_session_custom-local-1': customSessionFixture(),
-      exam_history: [oldExamResultFixture({ config: { mode: 'practice' } })],
+      'custom_exam_session_custom-local-1': { sessionId: 'custom-local-1' },
+      exam_history: [{ sessionId: 'old-history-1' }],
+      'exam_result_old-exam-1': { id: 'old-exam-1' },
     });
     const result = scanLocalDashboardAttempts(storage, all);
     expect(result.attempts).toEqual([]);
-    expect(result.diagnostics.unsupportedCount).toBe(2);
+    expect(result.diagnostics).toMatchObject({
+      matchingKeyCount: 0,
+      scannedKeyCount: 0,
+      scannedRecordCount: 0,
+      unsupportedCount: 0,
+    });
+    expect(storage.reads).toEqual([]);
   });
 });
 
 describe('local dashboard owner scope and conservative filters', () => {
-  it('selects explicit anonymous, authenticated owner and device-unscoped records separately', () => {
+  it('selects explicit anonymous and authenticated owner records without exposing unscoped records', () => {
     const storage = new FakeStorage({
       'v2_result_anonymous': v2SummaryFixture({ sessionId: 'anonymous', ownerScope: 'anonymous' }),
       'v2_result_owner-a': v2SummaryFixture({ sessionId: 'owner-a-result', userId: 'owner-a' }),
@@ -153,8 +159,8 @@ describe('local dashboard owner scope and conservative filters', () => {
       .toEqual(['anonymous']);
     expect(scanLocalDashboardAttempts(storage, { ownerFilter: { kind: 'authenticated-owner', ownerKey: 'owner-a' } }).attempts.map((item) => item.sessionId))
       .toEqual(['owner-a-result']);
-    expect(scanLocalDashboardAttempts(storage, { ownerFilter: { kind: 'device-local' } }).attempts.map((item) => item.sessionId))
-      .toEqual(['device-result']);
+    expect(scanLocalDashboardAttempts(storage, all).attempts.map((item) => item.sessionId))
+      .toEqual(expect.arrayContaining(['anonymous', 'owner-a-result', 'device-result']));
   });
 
   it('does not let current owner B claim owner A or unscoped data', () => {
@@ -168,13 +174,12 @@ describe('local dashboard owner scope and conservative filters', () => {
     expect(ownerB.attempts).toEqual([]);
   });
 
-  it('keeps explicit unknown out of anonymous, owner, and device-local filters', () => {
+  it('keeps explicit unknown out of anonymous and authenticated-owner filters', () => {
     const storage = new FakeStorage({
       'v2_result_unknown-owner': v2SummaryFixture({ sessionId: 'unknown-owner', ownerScope: 'unknown' }),
     });
     expect(scanLocalDashboardAttempts(storage, all).attempts[0]?.ownerScope).toBe('unknown');
     expect(scanLocalDashboardAttempts(storage, { ownerFilter: { kind: 'anonymous' } }).attempts).toEqual([]);
-    expect(scanLocalDashboardAttempts(storage, { ownerFilter: { kind: 'device-local' } }).attempts).toEqual([]);
     expect(scanLocalDashboardAttempts(storage, {
       ownerFilter: { kind: 'authenticated-owner', ownerKey: 'owner-a' },
     }).attempts).toEqual([]);
@@ -196,6 +201,21 @@ describe('local dashboard owner scope and conservative filters', () => {
     expect(result.diagnostics.ownerConflictCount).toBe(1);
   });
 
+  it('counts both records when a strong dedupe identity conflicts across owners', () => {
+    const storage = new FakeStorage({
+      'v2_result_owner-a': v2SummaryFixture({
+        sessionId: 'owner-a-result', serverSessionId: 'shared-server-session', userId: 'owner-a',
+      }),
+      'v2_result_owner-b': v2SummaryFixture({
+        sessionId: 'owner-b-result', serverSessionId: 'shared-server-session', userId: 'owner-b',
+      }),
+    });
+    const result = scanLocalDashboardAttempts(storage, all);
+    expect(result.attempts).toEqual([]);
+    expect(result.diagnostics.ownerConflictCount).toBe(2);
+    expect(result.excludedOwnerScopeBreakdown.conflicting).toBe(2);
+  });
+
   it('does not infer ownership from title, timestamp or session prefix', () => {
     const storage = new FakeStorage({
       'v2_result_owner-b-looking': v2SummaryFixture({
@@ -210,6 +230,24 @@ describe('local dashboard owner scope and conservative filters', () => {
 });
 
 describe('local dashboard deterministic dedupe and recovery annotation', () => {
+  it('reads higher-priority recovery and API keys before v2 cache keys', () => {
+    const storage = new FakeStorage({
+      'v2_result_summary': v2SummaryFixture({ sessionId: 'summary' }),
+      'exam_api_result_api-session-1': apiSnapshotFixture(),
+      exam_submission_recovery_queue_v1: [recoveryQueueItemFixture()],
+    });
+    const result = scanLocalDashboardAttempts(storage, { ...all, maxMatchingKeys: 2 });
+    expect(storage.reads).toEqual([
+      'exam_submission_recovery_queue_v1',
+      'exam_api_result_api-session-1',
+    ]);
+    expect(result.diagnostics).toMatchObject({
+      matchingKeyCount: 3,
+      scannedKeyCount: 2,
+      matchingKeyLimitReached: true,
+    });
+  });
+
   it('dedupes by serverSessionId and prefers immutable API snapshot over summary-only', () => {
     const storage = new FakeStorage({
       'exam_api_result_api-session-1': apiSnapshotFixture(),
@@ -290,6 +328,48 @@ describe('local dashboard deterministic dedupe and recovery annotation', () => {
     expect(result.attempts[0]).toMatchObject({ ownerKey: 'synthetic-owner-a', pendingRecovery: true });
     expect(result.pendingRecoveryCount).toBe(1);
     expect(result.diagnostics.deduplicatedRecordCount).toBe(1);
+  });
+
+  it('reads recovery metadata for anonymous scans without materializing authenticated attempts', () => {
+    const localResult = v2DetailedFixture({
+      sessionId: 's1',
+      localSessionId: 's1',
+      ownerScope: 'anonymous',
+      isAnonymous: true,
+    });
+    const storage = new FakeStorage({
+      'v2_result_s1': localResult,
+      exam_submission_recovery_queue_v1: [recoveryQueueItemFixture({
+        ownerId: 'user-b',
+        request: {
+          clientSubmissionId: 'client-s1',
+          localSessionId: 's1',
+          mode: 'TIMED_ORIGINAL',
+          datasetVersion: 'synthetic-dataset-v1',
+          clientTiming: {},
+          questionRefs: [],
+          answers: [],
+        },
+        localResult,
+      })],
+    });
+
+    const anonymous = scanLocalDashboardAttempts(storage, {
+      ownerFilter: { kind: 'anonymous' },
+    });
+    expect(storage.reads).toContain('exam_submission_recovery_queue_v1');
+    expect(anonymous.attempts).toEqual([]);
+    expect(anonymous.excludedOwnerScopeBreakdown['authenticated-owner']).toBe(1);
+
+    const owner = scanLocalDashboardAttempts(storage, {
+      ownerFilter: { kind: 'authenticated-owner', ownerKey: 'user-b' },
+    });
+    expect(owner.attempts).toHaveLength(1);
+    expect(owner.attempts[0]).toMatchObject({
+      ownerScope: 'authenticated-owner',
+      ownerKey: 'user-b',
+      pendingRecovery: true,
+    });
   });
 
   it('does not count terminal recovery as pending', () => {

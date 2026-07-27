@@ -162,6 +162,7 @@ const SECONDARY_NOTICE_IDS = new Set<DashboardNoticeId>([
   'device-unscoped-excluded',
   'local-coverage-partial',
   'pending-recovery',
+  'future-timestamp-dropped',
   'partial-detail',
   'unsupported-detail',
   'legacy-summary',

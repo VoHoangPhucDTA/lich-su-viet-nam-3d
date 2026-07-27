@@ -147,6 +147,7 @@ export const DASHBOARD_NOTICE_IDS = [
   'device-unscoped-excluded',
   'local-coverage-partial',
   'pending-recovery',
+  'future-timestamp-dropped',
   // usePersonalLearningDashboard.ts
   'local-storage-unavailable',
   // dashboardFixtures.ts

@@ -17,7 +17,9 @@ function isRecord(value: unknown): value is Record<string, unknown> {
 }
 
 function nonEmptyString(value: unknown): string | null {
-  return typeof value === 'string' && value.trim() ? value : null;
+  if (typeof value !== 'string') return null;
+  const trimmed = value.trim();
+  return trimmed || null;
 }
 
 function finiteNumber(value: unknown): number | null {
@@ -29,9 +31,20 @@ function nonNegativeInteger(value: unknown): number | null {
   return number !== null && Number.isInteger(number) && number >= 0 ? number : null;
 }
 
-function parseTimestamp(value: unknown): number | null {
-  if (typeof value === 'number' && Number.isFinite(value) && value >= 0) return value;
-  if (typeof value === 'string') {
+const MIN_EPOCH_MS = Date.UTC(2000, 0, 1);
+const MAX_EPOCH_MS = Date.UTC(2100, 0, 1);
+const ISO_WITH_OFFSET = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}(:\d{2}(\.\d{1,9})?)?(Z|[+-]\d{2}:\d{2})$/;
+const MAX_DURATION_SECONDS = 24 * 60 * 60;
+const MAX_TOTAL_QUESTIONS = 200;
+const RESERVED_STATEMENT_KEYS = new Set(['__proto__', 'constructor', 'prototype']);
+
+/** Chỉ nhận epoch mili-giây hợp lý hoặc ISO-8601 có offset tường minh. */
+export function parseLocalDashboardTimestamp(value: unknown): number | null {
+  if (typeof value === 'number') {
+    if (!Number.isFinite(value)) return null;
+    return value >= MIN_EPOCH_MS && value <= MAX_EPOCH_MS ? value : null;
+  }
+  if (typeof value === 'string' && ISO_WITH_OFFSET.test(value)) {
     const parsed = Date.parse(value);
     return Number.isFinite(parsed) ? parsed : null;
   }
@@ -75,15 +88,6 @@ function classifyOwner(value: Record<string, unknown>): { scope: LocalDashboardO
   return { scope: 'device-legacy-unscoped', key: null };
 }
 
-function slugify(value: string): string {
-  return value.normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '')
-    .toLocaleLowerCase('vi-VN')
-    .replace(/đ/g, 'd')
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/^-|-$/g, '') || 'khac-chua-phan-loai';
-}
-
 function parseCognitiveLevel(value: unknown): LocalDashboardCognitiveLevel | null {
   return value === 'knowledge' || value === 'comprehension' || value === 'application' ? value : null;
 }
@@ -118,8 +122,9 @@ function parseStatementMap(
   if (!isRecord(value)) return null;
   const valueIds = Object.keys(value);
   if (valueIds.length !== statementIds.length || valueIds.some((id) => !statementIds.includes(id))) return null;
-  const result: Record<string, boolean | null> = {};
+  const result: Record<string, boolean | null> = Object.create(null);
   for (const id of statementIds) {
+    if (RESERVED_STATEMENT_KEYS.has(id)) return null;
     const selected = value[id];
     if (typeof selected !== 'boolean' && !(allowNull && selected === null)) return null;
     result[id] = selected;
@@ -201,17 +206,17 @@ function validateSummaryFields(value: Record<string, unknown>) {
   const totalScore = finiteNumber(value.totalScore);
   if (totalScore === null) return { failure: { status: 'malformed', reason: 'missing-score' } as LocalDashboardAdapterResult };
   if (totalScore < 0 || totalScore > 10) return { failure: { status: 'malformed', reason: 'invalid-score' } as LocalDashboardAdapterResult };
-  const submittedAt = parseTimestamp(value.submittedAt ?? value.submittedAtServer);
+  const submittedAt = parseLocalDashboardTimestamp(value.submittedAt ?? value.submittedAtServer);
   if (submittedAt === null) return { failure: { status: 'malformed', reason: 'missing-timestamp' } as LocalDashboardAdapterResult };
   const durationValue = value.durationSeconds;
   const durationSeconds = durationValue === undefined
-    ? Math.max(0, Math.floor((submittedAt - (parseTimestamp(value.startedAtServer) ?? submittedAt)) / 1000))
+    ? Math.max(0, Math.floor((submittedAt - (parseLocalDashboardTimestamp(value.startedAtServer) ?? submittedAt)) / 1000))
     : finiteNumber(durationValue);
-  if (durationSeconds === null || durationSeconds < 0) {
+  if (durationSeconds === null || durationSeconds < 0 || durationSeconds > MAX_DURATION_SECONDS) {
     return { failure: { status: 'malformed', reason: 'invalid-duration' } as LocalDashboardAdapterResult };
   }
   const totalQuestions = nonNegativeInteger(value.totalQuestions);
-  if (totalQuestions === null) {
+  if (totalQuestions === null || totalQuestions > MAX_TOTAL_QUESTIONS) {
     return { failure: { status: 'malformed', reason: 'invalid-total-questions' } as LocalDashboardAdapterResult };
   }
   return { mode, sessionId, totalScore, submittedAt, durationSeconds, totalQuestions };
@@ -230,8 +235,8 @@ export function adaptApiSnapshotV2LocalResult(
   }
   const summaryInput = {
     ...value,
-    totalScore: value.summary.totalScore,
-    totalQuestions: value.summary.totalQuestions,
+    totalScore: value.summary.totalScore ?? value.totalScore,
+    totalQuestions: value.summary.totalQuestions ?? value.totalQuestions,
   };
   const summary = validateSummaryFields(summaryInput);
   if ('failure' in summary) return summary.failure!;
@@ -274,19 +279,15 @@ export function adaptApiSnapshotV2LocalResult(
   };
 }
 
-function legacyQuestionEvidence(
-  value: unknown,
-  snapshot: Record<string, unknown> | undefined,
-): LocalDashboardQuestionEvidence | null {
+function legacyQuestionEvidence(value: unknown): LocalDashboardQuestionEvidence | null {
   if (!isRecord(value)) return null;
   const questionId = nonEmptyString(value.questionId);
   const questionType = value.questionType;
   if (!questionId || (questionType !== 'mcq' && questionType !== 'true_false')) return null;
-  const topic = snapshot ? nonEmptyString(snapshot.topic) : null;
-  const topicRefs: LocalDashboardTopicRef[] = topic ? [{
-    key: slugify(topic), label: topic, periodKey: null, periodLabel: null,
-  }] : [];
-  const cognitiveLevel = snapshot ? parseCognitiveLevel(snapshot.cognitiveLevel) : null;
+  // Legacy không có slug backend-authoritative. Giữ phân tích dạng câu, nhưng
+  // không tự chế topic key/cognitive metadata khác policy backend.
+  const topicRefs: LocalDashboardTopicRef[] = [];
+  const cognitiveLevel = null;
   if (questionType === 'mcq') {
     if (!isRecord(value.mcq)) return null;
     const selected = value.mcq.selected;
@@ -343,30 +344,20 @@ export function adaptV2LegacyLocalResult(value: unknown, stableId: string): Loca
   let normalizedQuestions: LocalDashboardQuestionEvidence[] | null = null;
   if (rawQuestions !== undefined) {
     if (!Array.isArray(rawQuestions)) return { status: 'malformed', reason: 'invalid-question-detail' };
-    const snapshots = new Map<string, Record<string, unknown>>();
-    if (Array.isArray(value.questionSnapshots)) {
-      for (const snapshot of value.questionSnapshots) {
-        if (isRecord(snapshot) && nonEmptyString(snapshot.id)) snapshots.set(snapshot.id as string, snapshot);
-      }
-    }
     normalizedQuestions = [];
     for (const question of rawQuestions) {
-      const questionId = isRecord(question) ? nonEmptyString(question.questionId) : null;
-      const parsed = legacyQuestionEvidence(question, questionId ? snapshots.get(questionId) : undefined);
+      const parsed = legacyQuestionEvidence(question);
       if (!parsed) return { status: 'malformed', reason: 'invalid-question-detail' };
       normalizedQuestions.push(parsed);
     }
   }
   const owner = classifyOwner(value);
-  const hasMetadata = normalizedQuestions?.some((question) => (
-    question.topicRefs.length > 0 || question.cognitiveLevel !== null
-  )) ?? false;
   return {
     status: 'success',
     attempt: {
       stableId,
       sourceKind: 'v2-result',
-      sourcePriority: hasMetadata ? 500 : 300,
+      sourcePriority: 300,
       sessionId: summary.sessionId,
       localSessionId: summary.sessionId,
       serverSessionId: nonEmptyString(value.serverSessionId),
@@ -384,72 +375,8 @@ export function adaptV2LegacyLocalResult(value: unknown, stableId: string): Loca
       submissionOrigin: submissionOrigin(value.submissionOrigin),
       datasetVersion: nonEmptyString(value.datasetVersion),
       examContentHash: nonEmptyString(value.examContentHash),
-      detailStatus: normalizedQuestions
-        ? hasMetadata ? 'full' : 'question-type-only'
-        : 'summary-only',
+      detailStatus: normalizedQuestions ? 'question-type-only' : 'summary-only',
       normalizedQuestions,
-      pendingRecovery: false,
-      malformedReason: null,
-    },
-  };
-}
-
-export function adaptCustomLocalSession(value: unknown): LocalDashboardAdapterResult {
-  if (!isRecord(value) || !nonEmptyString(value.sessionId) || !Array.isArray(value.questionSnapshots)) {
-    return { status: 'malformed', reason: 'unknown-schema' };
-  }
-  if (value.mode !== 'custom_mock') return { status: 'unsupported', reason: 'unsupported-mode' };
-  if (value.status !== 'submitted') return { status: 'unsupported', reason: 'in-progress-session' };
-  return { status: 'unsupported', reason: 'standalone-session-has-no-score' };
-}
-
-export function adaptOldExamHistoryResult(
-  value: unknown,
-  stableId: string,
-  sourceKind: 'legacy-exam-result' | 'legacy-exam-history',
-): LocalDashboardAdapterResult {
-  if (!isRecord(value) || !isRecord(value.config)) {
-    return { status: 'unsupported', reason: 'unsupported-history-shape' };
-  }
-  const mode = mapMode(value.config.mode);
-  if (!mode) return { status: 'unsupported', reason: 'unsupported-mode' };
-  const examId = nonEmptyString(value.examId);
-  if (!examId) return { status: 'malformed', reason: 'missing-identity' };
-  const score = finiteNumber(value.score10);
-  if (score === null) return { status: 'malformed', reason: 'missing-score' };
-  if (score < 0 || score > 10) return { status: 'malformed', reason: 'invalid-score' };
-  const submittedAt = parseTimestamp(value.submittedAt);
-  if (submittedAt === null) return { status: 'malformed', reason: 'missing-timestamp' };
-  const duration = finiteNumber(value.durationSeconds);
-  if (duration === null || duration < 0) return { status: 'malformed', reason: 'invalid-duration' };
-  const totalQuestions = nonNegativeInteger(value.totalQuestions);
-  if (totalQuestions === null) return { status: 'malformed', reason: 'invalid-total-questions' };
-  const owner = classifyOwner(value);
-  return {
-    status: 'success',
-    attempt: {
-      stableId,
-      sourceKind,
-      sourcePriority: sourceKind === 'legacy-exam-result' ? 150 : 100,
-      sessionId: examId,
-      localSessionId: examId,
-      serverSessionId: null,
-      clientSubmissionId: null,
-      ownerScope: owner.scope,
-      ownerKey: owner.key,
-      mode,
-      title: nonEmptyString(value.config.title) ?? 'Kết quả phiên bản cũ',
-      totalScore: score,
-      durationSeconds: Math.floor(duration),
-      submittedAt,
-      totalQuestions,
-      scoreAuthority: 'FRONTEND_LEGACY',
-      timingAuthority: 'LOCAL',
-      submissionOrigin: 'LOCAL_FALLBACK',
-      datasetVersion: null,
-      examContentHash: null,
-      detailStatus: 'summary-only',
-      normalizedQuestions: null,
       pendingRecovery: false,
       malformedReason: null,
     },

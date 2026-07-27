@@ -11,8 +11,10 @@ import type {
   LocalDashboardScanResult,
 } from './localDashboardTypes';
 import { LOCAL_DASHBOARD_POLICY_VERSION } from './localDashboardTypes';
+import { LOCAL_DASHBOARD_MAX_NORMALIZED_ATTEMPTS } from './localDashboardRepository';
 
 const TIMEZONE = 'Asia/Ho_Chi_Minh' as const;
+const CLOCK_SKEW_TOLERANCE_MS = 5 * 60 * 1000;
 /** Intl.DateTimeFormat là constructor đắt; tạo một lần ở module scope. */
 const VIETNAM_DATE_FORMATTER = new Intl.DateTimeFormat('en-US', {
   timeZone: TIMEZONE,
@@ -108,15 +110,18 @@ export function buildLocalDashboardAnalytics(
   const now = options.now ?? new Date();
   const trendLimit = Math.max(1, Math.min(options.trendLimit ?? 50, 50));
   const recentLimit = Math.max(1, Math.min(options.recentLimit ?? 5, 5));
-  const scanLimit = options.scanLimit ?? 500;
+  const scanLimit = options.scanLimit ?? LOCAL_DASHBOARD_MAX_NORMALIZED_ATTEMPTS;
   const boundary = rangeBoundary(range, now);
+  let futureTimestampDroppedCount = 0;
   const attempts = scanResult.attempts
-    .filter((attempt) => (
-      attempt.submittedAt <= now.getTime()
-      &&
-      attempt.submittedAt < boundary.toMs
-      && (boundary.fromMs === null || attempt.submittedAt >= boundary.fromMs)
-    ))
+    .filter((attempt) => {
+      if (attempt.submittedAt > now.getTime() + CLOCK_SKEW_TOLERANCE_MS) {
+        futureTimestampDroppedCount += 1;
+        return false;
+      }
+      return attempt.submittedAt < boundary.toMs
+        && (boundary.fromMs === null || attempt.submittedAt >= boundary.fromMs);
+    })
     .sort((left, right) => left.submittedAt - right.submittedAt || left.stableId.localeCompare(right.stableId));
 
   const topicGroups = new Map<string, GroupAccumulator>();
@@ -223,7 +228,12 @@ export function buildLocalDashboardAnalytics(
     && scanResult.diagnostics.unsupportedCount === 0
     && scanResult.diagnostics.ownerConflictCount === 0
     && scanResult.diagnostics.oversizedCount === 0
-    && scanResult.diagnostics.storageReadErrorCount === 0;
+    && scanResult.diagnostics.storageReadErrorCount === 0
+    && futureTimestampDroppedCount === 0;
+  const diagnostics = {
+    ...scanResult.diagnostics,
+    futureTimestampDroppedCount,
+  };
 
   return {
     policyVersion: LOCAL_DASHBOARD_POLICY_VERSION,
@@ -233,7 +243,7 @@ export function buildLocalDashboardAnalytics(
       timezone: TIMEZONE,
       fromDate: boundary.fromDate,
       toDateExclusive: boundary.toDateExclusive,
-      ownerFilter: options.ownerFilterKind ?? 'all-for-diagnostics',
+      ownerFilter: options.ownerFilterKind ?? 'anonymous',
     },
     summary: {
       totalAttempts: attempts.length,
@@ -277,12 +287,12 @@ export function buildLocalDashboardAnalytics(
       questionTypeAttemptCount,
       topicAttemptCount,
       cognitiveAttemptCount,
-      totalKnownAttempts: attempts.length,
+      totalKnownAttempts: scanResult.attempts.length,
       scanLimit,
       isComplete,
     },
     authorityBreakdown,
-    diagnostics: { ...scanResult.diagnostics },
+    diagnostics,
     pendingRecoveryCount: scanResult.pendingRecoveryCount,
     ownerScopeBreakdown: { ...scanResult.ownerScopeBreakdown },
     excludedOwnerScopeBreakdown: { ...scanResult.excludedOwnerScopeBreakdown },

@@ -8,7 +8,6 @@ import {
 import type { LocalDashboardStorage } from '../localDashboardRepository';
 import {
   apiSnapshotFixture,
-  oldExamResultFixture,
   recoveryQueueItemFixture,
   v2DetailedFixture,
   v2SummaryFixture,
@@ -70,9 +69,9 @@ describe('dashboard local storage-event allowlist', () => {
   it.each([
     ['exam_api_result_session', true],
     ['v2_result_session', true],
-    ['custom_exam_session_session', true],
-    ['exam_result_exam', true],
-    ['exam_history', true],
+    ['custom_exam_session_session', false],
+    ['exam_result_exam', false],
+    ['exam_history', false],
     ['exam_submission_recovery_queue_v1', true],
     [null, true],
     ['exam_session_token_secret', false],
@@ -94,7 +93,7 @@ describe('dashboard local storage-event allowlist', () => {
 });
 
 describe('local dashboard source resolution', () => {
-  it('uses only explicit anonymous attempts and never reads authenticated recovery metadata', () => {
+  it('uses only explicit anonymous attempts while safely reading recovery metadata', () => {
     const storage = new FakeStorage({
       'v2_result_anonymous': v2DetailedFixture({
         sessionId: 'anonymous-result',
@@ -117,7 +116,7 @@ describe('local dashboard source resolution', () => {
     expect(result.viewModel.summary.totalAttempts).toBe(1);
     expect(result.viewModel.recentAttempts.map((attempt) => attempt.attemptId)).toEqual(['anonymous-result']);
     expect(result.viewModel.notices.map((notice) => notice.id)).toContain('device-unscoped-excluded');
-    expect(storage.reads).not.toContain('exam_submission_recovery_queue_v1');
+    expect(storage.reads).toContain('exam_submission_recovery_queue_v1');
   });
 
   it('returns no-data instead of zero KPI when no explicit anonymous result exists', () => {
@@ -190,18 +189,38 @@ describe('local dashboard source resolution', () => {
     expect(result.viewModel.recentAttempts.every((attempt) => attempt.resultRoute !== null)).toBe(true);
   });
 
-  it('does not create a review route for legacy summary-only history', () => {
+  it('ignores custom session payloads without degrading local coverage', () => {
     const result = loadLocalDashboard({
       storage: new FakeStorage({
-        'exam_result_old-exam-1': oldExamResultFixture({ userId: 'owner-a' }),
+        'custom_exam_session_large-draft': {
+          sessionId: 'large-draft',
+          mode: 'custom_mock',
+          status: 'submitted',
+          questionSnapshots: [{ id: 'q1', questionType: 'mcq' }],
+        },
+        'exam_api_result_api-session-1': apiSnapshotFixture({ ownerScope: 'anonymous' }),
+      }),
+      ownerFilter: { kind: 'anonymous' },
+      range: 'all',
+      source: 'local',
+      now: NOW,
+    });
+    expect(result.kind).toBe('ready');
+    if (result.kind !== 'ready') return;
+    expect(result.viewModel.coverage.isComplete).toBe(true);
+    expect(result.viewModel.notices.map(notice => notice.id)).not.toContain('local-coverage-partial');
+  });
+
+  it('ignores retired legacy history keys instead of exposing stale attempts', () => {
+    const result = loadLocalDashboard({
+      storage: new FakeStorage({
+        'exam_result_old-exam-1': { sessionId: 'old-exam-1', userId: 'owner-a' },
       }),
       ownerFilter: { kind: 'authenticated-owner', ownerKey: 'owner-a' },
       range: 'all',
       source: 'local-fallback',
       now: NOW,
     });
-    expect(result.kind).toBe('ready');
-    if (result.kind !== 'ready') return;
-    expect(result.viewModel.recentAttempts[0]?.resultRoute).toBeNull();
+    expect(result).toMatchObject({ kind: 'no-data', storageUnavailable: false });
   });
 });
