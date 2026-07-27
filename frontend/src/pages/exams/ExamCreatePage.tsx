@@ -80,7 +80,7 @@ export default function ExamCreatePage() {
   };
 
   return (
-    <div style={{ minHeight: '100vh', background: 'var(--bg-app)', color: 'var(--text-primary)', fontFamily: 'Inter, sans-serif' }}>
+    <div style={{ minHeight: '100vh', background: 'var(--bg-app)', color: 'var(--text-primary)', fontFamily: 'var(--font-body)' }}>
       
       {/* ── Topbar ── */}
       <header style={{ height: '3.5rem', background: 'var(--bg-app)', borderBottom: '1px solid var(--border)', display: 'flex', alignItems: 'center', padding: '0 1.5rem', position: 'sticky', top: 0, zIndex: 10 }}>

@@ -28,6 +28,7 @@ export default function TextInput({
   disabled,
 }: TextInputProps) {
   const hasIcon = Boolean(Icon);
+  const hintId = hint ? `${id}-hint` : undefined;
 
   return (
     <div className="auth-field">
@@ -51,9 +52,10 @@ export default function TextInput({
           required={required}
           autoComplete={autoComplete}
           disabled={disabled}
+          aria-describedby={hintId}
         />
       </div>
-      {hint && <p className="auth-field-hint">{hint}</p>}
+      {hint && <p id={hintId} className="auth-field-hint">{hint}</p>}
     </div>
   );
 }

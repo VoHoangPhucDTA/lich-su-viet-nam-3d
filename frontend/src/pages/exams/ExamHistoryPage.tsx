@@ -21,7 +21,7 @@ export default function ExamHistoryPage() {
   }, [currentUser]);
 
   return (
-    <div style={{ minHeight: '100vh', padding: '2rem', background: 'var(--bg-app)', color: 'var(--text-primary)', fontFamily: 'Inter, sans-serif' }}>
+    <div style={{ minHeight: '100vh', padding: '2rem', background: 'var(--bg-app)', color: 'var(--text-primary)', fontFamily: 'var(--font-body)' }}>
       <div style={{ maxWidth: '1000px', margin: '0 auto' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '2rem' }}>
              <Link to="/exams" style={{ color: 'var(--text-muted)', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { LogIn, Mail, RefreshCw } from 'lucide-react';
+import { Mail, RefreshCw } from 'lucide-react';
 import { useAuth } from '../../auth/AuthContext';
 import AuthLayout from '../../components/auth/AuthLayout';
 import AuthFormMessage from '../../components/auth/AuthFormMessage';
@@ -43,11 +43,7 @@ function SubmitButton({ loading }: { loading: boolean }) {
         }
       }}
     >
-      {loading ? (
-        <RefreshCw size={18} strokeWidth={2} style={{ animation: 'spin 0.7s linear infinite' }} />
-      ) : (
-        <LogIn size={18} strokeWidth={2} />
-      )}
+      {loading && <RefreshCw size={18} strokeWidth={2} aria-hidden="true" style={{ animation: 'spin 0.7s linear infinite' }} />}
       {loading ? 'Đang xử lý...' : 'Đăng nhập'}
       <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
     </button>
@@ -92,7 +88,7 @@ export default function LoginPage() {
       {/* Heading */}
       <div style={{ marginBottom: '1.75rem' }}>
         <h1
-          className="font-serif text-2xl font-bold text-stone-900"
+          className="font-sans text-2xl font-bold text-stone-900"
           style={{ marginBottom: '0.25rem', letterSpacing: '-0.01em' }}
         >
           Đăng nhập

@@ -172,10 +172,15 @@ export function GradeProgressChart({ data }: { data: ProgressByGrade[] }) {
               </div>
             </div>
             <div
+              aria-label={`Tiến độ lớp ${g.grade}: ${g.eventsViewed} trên ${g.eventsTotal} sự kiện, ${pct}%`}
+              aria-valuemax={100}
+              aria-valuemin={0}
+              aria-valuenow={pct}
+              role="progressbar"
               style={{
                 height: '0.6rem',
-              background: 'var(--bg-surface)',
-              border: '1px solid var(--border)',
+                background: 'var(--bg-surface)',
+                border: '1px solid var(--border)',
                 borderRadius: '9999px',
                 overflow: 'hidden',
               }}
@@ -184,15 +189,12 @@ export function GradeProgressChart({ data }: { data: ProgressByGrade[] }) {
                 style={{
                   height: '100%',
                   width: `${pct}%`,
-                background: `linear-gradient(90deg, ${color} 0%, color-mix(in srgb, ${color} 73%, transparent) 100%)`,
-                borderRadius: '9999px',
-                transition: 'width 0.7s ease',
-                boxShadow: `0 0 6px color-mix(in srgb, ${color} 33%, transparent)`,
+                  background: `linear-gradient(90deg, ${color} 0%, color-mix(in srgb, ${color} 73%, transparent) 100%)`,
+                  borderRadius: '9999px',
+                  transition: 'width 0.7s ease',
+                  boxShadow: `0 0 6px color-mix(in srgb, ${color} 33%, transparent)`,
                 }}
               />
-            </div>
-            <div style={{ fontSize: '0.68rem', color: 'var(--text-muted)', marginTop: '0.25rem', opacity: 0.9 }}>
-              Điểm TB: {g.averageScore.toFixed(1)}
             </div>
           </div>
         );

@@ -1,0 +1,281 @@
+{
+  "state": "ready",
+  "scope": {
+    "source": "local",
+    "range": "30d",
+    "timezone": "Asia/Ho_Chi_Minh",
+    "isAuthenticated": false,
+    "fromDate": "2026-06-16",
+    "toDateExclusive": "2026-07-16"
+  },
+  "summary": {
+    "totalAttempts": 4,
+    "averageScore": 8.0,
+    "highestScore": 8.9,
+    "latestScore": 7.8,
+    "totalDurationSeconds": 10380,
+    "activeDays": 4,
+    "mcqAccuracy": 76.47,
+    "tfStatementAccuracy": 73.44,
+    "blankRate": 6.06,
+    "tfPartialRate": 18.75
+  },
+  "recommendations": [
+    {
+      "id": "rec-viet-nam-1945",
+      "title": "Ôn lại Việt Nam từ 1945 đến 1954",
+      "reason": "Độ chính xác 52,5% trên 40 ý trả lời qua 4 bài; đây là chủ đề yếu có đủ mẫu.",
+      "actionLabel": "Ôn chủ đề này",
+      "actionRoute": "/exams/on-chu-de/viet-nam-1945-1954",
+      "priority": "primary",
+      "topicKey": "viet-nam-1945-1954",
+      "evidence": {
+        "accuracy": 52.5,
+        "correctUnits": 21,
+        "totalUnits": 40,
+        "attemptCount": 4,
+        "confidence": "medium"
+      }
+    }
+  ],
+  "scoreTrend": {
+    "granularity": "attempt",
+    "isComplete": true,
+    "sourceAttemptCount": 4,
+    "points": [
+      {
+        "attemptId": "mock-session-009",
+        "submittedAt": "2026-06-30T14:05:00Z",
+        "dateLabel": "30/06",
+        "score": 7.2,
+        "mode": "thi_thu",
+        "title": "Đề luyện tập tổng hợp số 3"
+      },
+      {
+        "attemptId": "mock-session-010",
+        "submittedAt": "2026-07-05T09:20:00Z",
+        "dateLabel": "05/07",
+        "score": 8.1,
+        "mode": "thi_thu",
+        "title": "Đề luyện tập tổng hợp số 4"
+      },
+      {
+        "attemptId": "mock-session-011",
+        "submittedAt": "2026-07-11T15:10:00Z",
+        "dateLabel": "11/07",
+        "score": 8.9,
+        "mode": "custom_mock",
+        "title": "Đề tùy chọn: Lịch sử thế giới"
+      },
+      {
+        "attemptId": "mock-session-012",
+        "submittedAt": "2026-07-15T12:40:00Z",
+        "dateLabel": "15/07",
+        "score": 7.8,
+        "mode": "thi_thu",
+        "title": "Đề tham khảo tốt nghiệp THPT 2026"
+      }
+    ]
+  },
+  "strengths": [
+    {
+      "key": "cach-mang-thang-tam",
+      "label": "Cách mạng tháng Tám năm 1945",
+      "status": "strength",
+      "accuracy": 84.38,
+      "correctUnits": 27,
+      "totalUnits": 32,
+      "attemptCount": 4,
+      "confidence": "medium",
+      "practiceRoute": "/exams/on-chu-de/cach-mang-thang-tam",
+      "summary": "84,38% qua 32 ý trả lời trong 4 bài."
+    },
+    {
+      "key": "quan-he-quoc-te",
+      "label": "Quan hệ quốc tế sau năm 1945",
+      "status": "strength",
+      "accuracy": 82.76,
+      "correctUnits": 24,
+      "totalUnits": 29,
+      "attemptCount": 3,
+      "confidence": "medium",
+      "practiceRoute": "/exams/on-chu-de/quan-he-quoc-te-sau-1945",
+      "summary": "82,76% qua 29 ý trả lời trong 3 bài."
+    }
+  ],
+  "weaknesses": [
+    {
+      "key": "viet-nam-1945-1954",
+      "label": "Việt Nam từ năm 1945 đến năm 1954",
+      "status": "weakness",
+      "accuracy": 52.5,
+      "correctUnits": 21,
+      "totalUnits": 40,
+      "attemptCount": 4,
+      "confidence": "medium",
+      "practiceRoute": "/exams/on-chu-de/viet-nam-1945-1954",
+      "summary": "52,5% qua 40 ý trả lời trong 4 bài."
+    },
+    {
+      "key": "phong-trao-cong-nhan",
+      "label": "Phong trào công nhân và phong trào yêu nước đầu thế kỷ XX",
+      "status": "weakness",
+      "accuracy": 52.63,
+      "correctUnits": 10,
+      "totalUnits": 19,
+      "attemptCount": 3,
+      "confidence": "medium",
+      "practiceRoute": "/exams/on-chu-de/phong-trao-cong-nhan-va-yeu-nuoc",
+      "summary": "52,63% qua 19 ý trả lời trong 3 bài."
+    },
+    {
+      "key": "asean",
+      "label": "ASEAN và quá trình hội nhập khu vực",
+      "status": "weakness",
+      "accuracy": 50,
+      "correctUnits": 8,
+      "totalUnits": 16,
+      "attemptCount": 2,
+      "confidence": "low",
+      "practiceRoute": "/exams/on-chu-de/asean",
+      "summary": "50% qua 16 ý trả lời trong 2 bài; mẫu còn ít."
+    }
+  ],
+  "questionTypePerformance": [
+    {
+      "type": "mcq",
+      "label": "Trắc nghiệm",
+      "accuracy": 76.47,
+      "correctUnits": 52,
+      "answeredUnits": 64,
+      "blankUnits": 4,
+      "totalUnits": 68,
+      "partialQuestionCount": 0,
+      "totalQuestionCount": 68,
+      "textualSummary": "Đúng 52/68 câu trắc nghiệm; 4 câu bỏ trống."
+    },
+    {
+      "type": "true_false",
+      "label": "Đúng/Sai theo mệnh đề",
+      "accuracy": 73.44,
+      "correctUnits": 47,
+      "answeredUnits": 60,
+      "blankUnits": 4,
+      "totalUnits": 64,
+      "partialQuestionCount": 3,
+      "totalQuestionCount": 16,
+      "textualSummary": "Đúng 47/64 mệnh đề; 4 mệnh đề bỏ trống; 3/16 câu làm dở."
+    }
+  ],
+  "cognitivePerformance": [
+    {
+      "level": "knowledge",
+      "label": "Nhận biết",
+      "accuracy": 82.69,
+      "correctUnits": 43,
+      "totalUnits": 52,
+      "attemptCount": 4,
+      "confidence": "medium",
+      "status": "strength",
+      "textualSummary": "Đúng 43/52 ý trả lời trong 4 bài."
+    },
+    {
+      "level": "comprehension",
+      "label": "Thông hiểu",
+      "accuracy": 73.21,
+      "correctUnits": 41,
+      "totalUnits": 56,
+      "attemptCount": 4,
+      "confidence": "medium",
+      "status": "developing",
+      "textualSummary": "Đúng 41/56 ý trả lời trong 4 bài."
+    },
+    {
+      "level": "application",
+      "label": "Vận dụng",
+      "accuracy": 62.5,
+      "correctUnits": 15,
+      "totalUnits": 24,
+      "attemptCount": 3,
+      "confidence": "medium",
+      "status": "developing",
+      "textualSummary": "Đúng 15/24 ý trả lời trong 3 bài; mẫu nhỏ hơn hai nhóm còn lại."
+    }
+  ],
+  "recentAttempts": [
+    {
+      "attemptId": "mock-session-012",
+      "title": "Đề tham khảo tốt nghiệp THPT 2026",
+      "mode": "thi_thu",
+      "modeLabel": "Thi thử nguyên đề",
+      "score": 7.8,
+      "durationSeconds": 2940,
+      "submittedAt": "2026-07-15T12:40:00Z",
+      "submittedLabel": "19:40, 15/07/2026",
+      "totalQuestions": 28,
+      "resultRoute": "/exams/ket-qua/mock-session-012",
+      "detailStatus": "full"
+    },
+    {
+      "attemptId": "mock-session-011",
+      "title": "Đề tùy chọn: Lịch sử thế giới",
+      "mode": "custom_mock",
+      "modeLabel": "Thi thử tùy chọn",
+      "score": 8.9,
+      "durationSeconds": 1800,
+      "submittedAt": "2026-07-11T15:10:00Z",
+      "submittedLabel": "22:10, 11/07/2026",
+      "totalQuestions": 20,
+      "resultRoute": "/exams/ket-qua/mock-session-011",
+      "detailStatus": "full"
+    },
+    {
+      "attemptId": "mock-session-010",
+      "title": "Đề luyện tập tổng hợp số 4",
+      "mode": "thi_thu",
+      "modeLabel": "Thi thử nguyên đề",
+      "score": 8.1,
+      "durationSeconds": 2760,
+      "submittedAt": "2026-07-05T09:20:00Z",
+      "submittedLabel": "16:20, 05/07/2026",
+      "totalQuestions": 28,
+      "resultRoute": "/exams/ket-qua/mock-session-010",
+      "detailStatus": "full"
+    },
+    {
+      "attemptId": "mock-session-009",
+      "title": "Đề luyện tập tổng hợp số 3",
+      "mode": "thi_thu",
+      "modeLabel": "Thi thử nguyên đề",
+      "score": 7.2,
+      "durationSeconds": 3060,
+      "submittedAt": "2026-06-30T14:05:00Z",
+      "submittedLabel": "21:05, 30/06/2026",
+      "totalQuestions": 28,
+      "resultRoute": "/exams/ket-qua/mock-session-009",
+      "detailStatus": "full"
+    }
+  ],
+  "coverage": {
+    "summaryAttemptCount": 4,
+    "detailedAttemptCount": 4,
+    "totalKnownAttempts": 4,
+    "fetchLimit": null,
+    "isComplete": true,
+    "capturesTimedOriginal": true,
+    "capturesCustomMock": true,
+    "capturesPractice": false,
+    "capturesRetry": false,
+    "message": "Bốn bài thi thử được lưu cục bộ trên thiết bị này; không có dữ liệu máy chủ."
+  },
+  "notices": [
+    {
+      "id": "device-only-local-analytics",
+      "type": "info",
+      "title": "Dữ liệu chỉ lưu trên thiết bị này",
+      "message": "Xóa dữ liệu trình duyệt hoặc đổi thiết bị có thể làm mất lịch sử local. Điểm được tính ở ứng dụng và chưa được máy chủ chấm lại.",
+      "actionLabel": "Đăng nhập",
+      "actionRoute": "/login"
+    }
+  ]
+}

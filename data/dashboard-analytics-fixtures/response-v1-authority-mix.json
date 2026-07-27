@@ -1,0 +1,200 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-07-20T03:00:00Z",
+  "scope": {
+    "range": "all",
+    "timezone": "Asia/Ho_Chi_Minh",
+    "fromDate": null,
+    "toDateExclusive": "2026-07-20",
+    "attemptModes": ["TIMED_ORIGINAL", "CUSTOM_MOCK"],
+    "policyVersion": "dashboard-v1"
+  },
+  "summary": {
+    "totalAttempts": 4,
+    "officialAttemptCount": 1,
+    "recoveredAttemptCount": 2,
+    "legacyAttemptCount": 1,
+    "averageScore": 7,
+    "highestScore": 8,
+    "latestScore": 7.5,
+    "totalDurationSeconds": 9600,
+    "activeDays": 4,
+    "mcqAccuracy": 72,
+    "tfStatementAccuracy": 64,
+    "blankRate": 10,
+    "tfPartialRate": 15
+  },
+  "trend": [
+    {
+      "attemptId": "authority-official",
+      "submittedAt": "2026-06-01T03:00:00Z",
+      "score": 6,
+      "mode": "TIMED_ORIGINAL",
+      "title": "Kết quả đúng hạn"
+    },
+    {
+      "attemptId": "authority-late",
+      "submittedAt": "2026-06-08T03:00:00Z",
+      "score": 6.5,
+      "mode": "TIMED_ORIGINAL",
+      "title": "Kết quả nộp muộn"
+    },
+    {
+      "attemptId": "authority-fallback",
+      "submittedAt": "2026-06-15T03:00:00Z",
+      "score": 8,
+      "mode": "CUSTOM_MOCK",
+      "title": "Kết quả fallback"
+    },
+    {
+      "attemptId": "authority-legacy",
+      "submittedAt": "2026-06-22T03:00:00Z",
+      "score": 7.5,
+      "mode": "CUSTOM_MOCK",
+      "title": "Kết quả legacy"
+    }
+  ],
+  "topics": [
+    {
+      "topicKey": "the-gioi-sau-1945",
+      "topicLabel": "Thế giới sau năm 1945",
+      "accuracy": 57.5,
+      "correctUnits": 23,
+      "totalUnits": 40,
+      "attemptCount": 3,
+      "confidence": "medium",
+      "status": "weakness"
+    },
+    {
+      "topicKey": "viet-nam-1930-1945",
+      "topicLabel": "Việt Nam từ năm 1930 đến năm 1945",
+      "accuracy": 82.5,
+      "correctUnits": 33,
+      "totalUnits": 40,
+      "attemptCount": 3,
+      "confidence": "medium",
+      "status": "strength"
+    }
+  ],
+  "cognitiveLevels": [
+    {
+      "level": "knowledge",
+      "accuracy": 80,
+      "correctUnits": 24,
+      "totalUnits": 30,
+      "attemptCount": 3,
+      "confidence": "medium",
+      "status": "strength"
+    },
+    {
+      "level": "application",
+      "accuracy": 50,
+      "correctUnits": 10,
+      "totalUnits": 20,
+      "attemptCount": 3,
+      "confidence": "medium",
+      "status": "weakness"
+    }
+  ],
+  "questionTypes": [
+    {
+      "type": "mcq",
+      "accuracy": 72,
+      "correctUnits": 36,
+      "answeredUnits": 45,
+      "blankUnits": 5,
+      "totalUnits": 50,
+      "partialQuestionCount": 0,
+      "totalQuestionCount": 50
+    },
+    {
+      "type": "true_false",
+      "accuracy": 64,
+      "correctUnits": 32,
+      "answeredUnits": 45,
+      "blankUnits": 5,
+      "totalUnits": 50,
+      "partialQuestionCount": 3,
+      "totalQuestionCount": 13
+    }
+  ],
+  "recentAttempts": [
+    {
+      "attemptId": "authority-legacy",
+      "title": "Kết quả legacy",
+      "mode": "CUSTOM_MOCK",
+      "score": 7.5,
+      "durationSeconds": 2400,
+      "submittedAt": "2026-06-22T03:00:00Z",
+      "totalQuestions": 40,
+      "detailStatus": "summary-only",
+      "scoreAuthority": "FRONTEND_LEGACY",
+      "timingAuthority": "LOCAL",
+      "submissionOrigin": "LOCAL_FALLBACK"
+    },
+    {
+      "attemptId": "authority-fallback",
+      "title": "Kết quả fallback",
+      "mode": "CUSTOM_MOCK",
+      "score": 8,
+      "durationSeconds": 2500,
+      "submittedAt": "2026-06-15T03:00:00Z",
+      "totalQuestions": 40,
+      "detailStatus": "full",
+      "scoreAuthority": "BACKEND",
+      "timingAuthority": "CLIENT_UNVERIFIED",
+      "submissionOrigin": "CLIENT_FALLBACK"
+    },
+    {
+      "attemptId": "authority-late",
+      "title": "Kết quả nộp muộn",
+      "mode": "TIMED_ORIGINAL",
+      "score": 6.5,
+      "durationSeconds": 2600,
+      "submittedAt": "2026-06-08T03:00:00Z",
+      "totalQuestions": 40,
+      "detailStatus": "full",
+      "scoreAuthority": "BACKEND",
+      "timingAuthority": "CLIENT_UNVERIFIED",
+      "submissionOrigin": "SERVER_ISSUED_LATE"
+    },
+    {
+      "attemptId": "authority-official",
+      "title": "Kết quả đúng hạn",
+      "mode": "TIMED_ORIGINAL",
+      "score": 6,
+      "durationSeconds": 2100,
+      "submittedAt": "2026-06-01T03:00:00Z",
+      "totalQuestions": 40,
+      "detailStatus": "full",
+      "scoreAuthority": "BACKEND",
+      "timingAuthority": "SERVER",
+      "submissionOrigin": "SERVER_ON_TIME"
+    }
+  ],
+  "coverage": {
+    "totalKnownAttempts": 4,
+    "fetchedAttemptCount": 4,
+    "summaryAttemptCount": 4,
+    "detailedAttemptCount": 3,
+    "unsupportedSnapshotCount": 0,
+    "malformedDetailCount": 0,
+    "legacySummaryCount": 1,
+    "fetchLimit": 100,
+    "isComplete": true
+  },
+  "authorityBreakdown": {
+    "backendOnTime": 1,
+    "backendLate": 1,
+    "backendFallback": 1,
+    "frontendLegacy": 1
+  },
+  "diagnostics": {
+    "snapshotVersionCounts": {
+      "2": 3,
+      "legacy": 1
+    },
+    "excludedModeCount": 0,
+    "excludedInvalidSummaryCount": 0
+  }
+}

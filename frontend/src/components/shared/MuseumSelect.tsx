@@ -13,6 +13,7 @@ interface MuseumSelectProps<T extends string = string> {
   label: string;
   disabled?: boolean;
   className?: string;
+  textOnly?: boolean;
 }
 
 export default function MuseumSelect<T extends string = string>({
@@ -22,6 +23,7 @@ export default function MuseumSelect<T extends string = string>({
   label,
   disabled = false,
   className = '',
+  textOnly = false,
 }: MuseumSelectProps<T>) {
   const [open, setOpen] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
@@ -78,7 +80,7 @@ export default function MuseumSelect<T extends string = string>({
         }}
       >
         <span className="truncate">{selected?.label ?? label}</span>
-        <ChevronDown size={15} aria-hidden="true" className={`shrink-0 transition-transform ${open ? 'rotate-180' : ''}`} />
+        {!textOnly && <ChevronDown size={15} aria-hidden="true" className={`shrink-0 transition-transform ${open ? 'rotate-180' : ''}`} />}
       </button>
 
       {open && (
@@ -122,7 +124,7 @@ export default function MuseumSelect<T extends string = string>({
                 }}
               >
                 <span>{option.label}</span>
-                {isSelected && <Check size={14} aria-hidden="true" />}
+                {isSelected && (textOnly ? <span className="text-xs font-semibold">Đã chọn</span> : <Check size={14} aria-hidden="true" />)}
               </button>
             );
           })}

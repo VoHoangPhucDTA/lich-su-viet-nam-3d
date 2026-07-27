@@ -52,12 +52,7 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
             border: '1px solid color-mix(in srgb, var(--warning) 40%, transparent)',
           }}
         >
-          <div className="flex items-start gap-3">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"
-              className="flex-shrink-0 mt-0.5" style={{ color: 'var(--warning)' }} aria-hidden="true">
-              <circle cx="12" cy="12" r="10" />
-              <path d="M12 8v4M12 16h.01" />
-            </svg>
+          <div>
             <div className="flex-1 min-w-0">
               <div className="text-sm font-semibold" style={{ color: 'var(--text-primary)' }}>
                 Đã xảy ra lỗi hiển thị

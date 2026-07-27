@@ -192,7 +192,7 @@ function MCQBreakdown({ result }: { result: ExamResultV2 }) {
   return (
     <section style={{ background: 'var(--bg-card)', borderRadius: '1rem', padding: '1.25rem', border: '1px solid var(--border)' }}>
       <header style={{ display: 'flex', alignItems: 'baseline', gap: '0.75rem', marginBottom: '1.25rem' }}>
-        <span style={{ fontFamily: 'monospace', fontSize: '0.8rem', color: 'var(--admin-accent)' }}>01</span>
+        <span style={{ fontFamily: 'var(--font-label)', fontSize: '0.8rem', color: 'var(--admin-accent)' }}>01</span>
         <h2 style={{ margin: 0, fontSize: '1.05rem', fontWeight: 800, color: 'var(--text-primary)' }}>Phần I - Trắc nghiệm</h2>
         <span style={{ flex: 1, height: '1px', background: 'var(--border)' }} />
         <span style={{ fontWeight: 800, color: 'var(--accent)', fontSize: '1.05rem' }}>{result.mcqScore.toFixed(2)}đ</span>
@@ -213,7 +213,7 @@ function TFBreakdown({ result }: { result: ExamResultV2 }) {
   return (
     <section style={{ background: 'var(--bg-card)', borderRadius: '1rem', padding: '1.25rem', border: '1px solid var(--border)' }}>
       <header style={{ display: 'flex', alignItems: 'baseline', gap: '0.75rem', marginBottom: '1.25rem' }}>
-        <span style={{ fontFamily: 'monospace', fontSize: '0.8rem', color: 'var(--admin-accent)' }}>02</span>
+        <span style={{ fontFamily: 'var(--font-label)', fontSize: '0.8rem', color: 'var(--admin-accent)' }}>02</span>
         <h2 style={{ margin: 0, fontSize: '1.05rem', fontWeight: 800, color: 'var(--text-primary)' }}>Phần II - Đúng / Sai</h2>
         <span style={{ flex: 1, height: '1px', background: 'var(--border)' }} />
         <span style={{ fontWeight: 800, color: 'var(--admin-accent)', fontSize: '1.05rem' }}>{result.tfScore.toFixed(2)}đ</span>

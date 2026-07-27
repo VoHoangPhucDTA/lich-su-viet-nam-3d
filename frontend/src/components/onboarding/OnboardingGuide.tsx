@@ -171,7 +171,7 @@ export default function OnboardingGuide({
                 />
               </div>
               <h3
-                className="serif-heading"
+                className="app-heading"
                 style={{
                   fontSize: '15px',
                   fontWeight: 700,
@@ -297,7 +297,7 @@ export default function OnboardingGuide({
                       color: '#ffffff',
                       fontSize: '10px',
                       fontWeight: 700,
-                      fontFamily: 'var(--font-mono)',
+                      fontFamily: 'var(--font-label)',
                     }}
                   >
                     {String(i + 1).padStart(2, '0')}

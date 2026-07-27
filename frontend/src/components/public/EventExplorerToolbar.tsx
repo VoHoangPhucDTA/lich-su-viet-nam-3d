@@ -1,6 +1,6 @@
-import { Search, SlidersHorizontal, X } from 'lucide-react';
 import { useState } from 'react';
-import { EVENT_TYPE_COLORS, EVENT_TYPE_LABELS, type EventType } from '../../types/event';
+import { Search, X } from 'lucide-react';
+import { EVENT_TYPE_COLORS, EVENT_TYPE_LABELS, type EventGrade, type EventType } from '../../types/event';
 import MuseumSelect, { type MuseumSelectOption } from '../shared/MuseumSelect';
 
 type SortValue = 'year-asc' | 'year-desc' | 'name-asc' | 'name-desc';
@@ -16,6 +16,8 @@ interface EventExplorerToolbarProps {
   onYearToChange: (value: string) => void;
   activeType?: EventType | null;
   onTypeChange?: (value: EventType | null) => void;
+  activeGrade?: EventGrade | null;
+  onGradeChange?: (value: EventGrade | null) => void;
   onReset: () => void;
   rangeError?: string | null;
   searchPlaceholder?: string;
@@ -29,6 +31,13 @@ const SORT_OPTIONS: MuseumSelectOption<SortValue>[] = [
 ];
 
 const EVENT_TYPES: EventType[] = ['military', 'political', 'economic', 'cultural'];
+type GradeSelectValue = 'all' | '10' | '11' | '12';
+const GRADE_OPTIONS: MuseumSelectOption<GradeSelectValue>[] = [
+  { value: 'all', label: 'Tất cả lớp' },
+  { value: '10', label: 'Lớp 10' },
+  { value: '11', label: 'Lớp 11' },
+  { value: '12', label: 'Lớp 12' },
+];
 
 export default function EventExplorerToolbar({
   query,
@@ -41,15 +50,18 @@ export default function EventExplorerToolbar({
   onYearToChange,
   activeType,
   onTypeChange,
+  activeGrade,
+  onGradeChange,
   onReset,
   rangeError,
   searchPlaceholder = 'Tìm kiếm sự kiện, địa danh...',
 }: EventExplorerToolbarProps) {
   const [expanded, setExpanded] = useState(false);
-  const activeFilterCount = Number(Boolean(activeType)) + Number(Boolean(yearFrom || yearTo));
+  const activeFilterCount = Number(Boolean(activeType)) + Number(Boolean(activeGrade)) + Number(Boolean(yearFrom || yearTo));
+  const gradeValue = activeGrade ? String(activeGrade) as GradeSelectValue : 'all';
 
   return (
-    <section className="public-toolbar" aria-label="Tìm kiếm và lọc sự kiện">
+    <section className="public-toolbar public-toolbar-borderless" aria-label="Tìm kiếm và lọc sự kiện">
       <div className="flex flex-col gap-3 lg:flex-row">
         <label className="public-search-control">
           <span className="sr-only">Tìm kiếm sự kiện</span>
@@ -73,6 +85,7 @@ export default function EventExplorerToolbar({
             onValueChange={onSortChange}
             label="Sắp xếp sự kiện"
             className="min-w-0 sm:w-44"
+            textOnly
           />
           <button
             type="button"
@@ -80,7 +93,6 @@ export default function EventExplorerToolbar({
             className={`public-filter-button ${expanded || activeFilterCount > 0 ? 'public-filter-button-active' : ''}`}
             aria-expanded={expanded}
           >
-            <SlidersHorizontal size={16} aria-hidden="true" />
             Bộ lọc
             {activeFilterCount > 0 && <span aria-label={`${activeFilterCount} bộ lọc đang dùng`}>({activeFilterCount})</span>}
           </button>
@@ -90,6 +102,16 @@ export default function EventExplorerToolbar({
       {expanded && (
         <div className="mt-4 border-t border-[var(--border)] pt-4">
           <div className="flex flex-wrap items-end gap-3">
+            {onGradeChange && (
+              <MuseumSelect
+                value={gradeValue}
+                options={GRADE_OPTIONS}
+                onValueChange={value => onGradeChange(value === 'all' ? null : Number(value) as EventGrade)}
+                label="Lọc theo lớp"
+                className="w-36"
+                textOnly
+              />
+            )}
             <label className="public-field">
               <span className="public-field-label">Năm từ</span>
               <input value={yearFrom} onChange={event => onYearFromChange(event.target.value)} inputMode="numeric" placeholder="938" />

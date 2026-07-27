@@ -1,5 +1,5 @@
 export type DashboardState = 'ready' | 'empty' | 'loading' | 'error';
-export type DashboardSource = 'local' | 'backend' | 'merged' | 'local-fallback';
+export type DashboardSource = 'local' | 'backend' | 'local-fallback';
 export type DashboardRange = '7d' | '30d' | '90d' | 'all';
 export type Confidence = 'low' | 'medium' | 'high';
 export type InsightStatus = 'strength' | 'developing' | 'weakness' | 'insufficient-data';
@@ -110,7 +110,7 @@ export interface RecentAttemptItem {
   submittedAt: string;
   submittedLabel: string;
   totalQuestions: number;
-  resultRoute: string;
+  resultRoute: string | null;
   detailStatus: 'full' | 'summary-only' | 'unavailable';
 }
 
@@ -127,8 +127,47 @@ export interface DashboardCoverage {
   message: string;
 }
 
+/**
+ * Tập ID notice hợp lệ. Mọi nơi sinh notice PHẢI dùng một trong các giá trị này.
+ * Union type khiến việc đổi tên ID mà quên cập nhật nơi tiêu thụ trở thành lỗi biên dịch.
+ * Mảng hằng là nguồn chân lý để test duyệt fixture JSON đối chiếu (fixture nạp qua cast
+ * nên tsc không tự bắt được ID lệch trong JSON).
+ */
+export const DASHBOARD_NOTICE_IDS = [
+  // dashboardMappers.ts (nguồn backend)
+  'empty-state',
+  'partial-detail',
+  'unsupported-detail',
+  'recovered-attempts',
+  'legacy-summary',
+  'no-detailed-analytics',
+  'excluded-invalid-attempts',
+  // localAnalytics/localDashboardMappers.ts (nguồn cục bộ)
+  'backend-unavailable-local-fallback',
+  'device-only-local-analytics',
+  'device-unscoped-excluded',
+  'local-coverage-partial',
+  'pending-recovery',
+  'future-timestamp-dropped',
+  // usePersonalLearningDashboard.ts
+  'local-storage-unavailable',
+  // dashboardFixtures.ts
+  'dashboard-not-connected',
+  'authentication-required',
+  'dashboard-unauthenticated',
+  'dashboard-forbidden',
+  'dashboard-invalid-request',
+  'dashboard-contract',
+  'dashboard-transport',
+  'dashboard-timeout',
+  'dashboard-server',
+  'dashboard-unknown',
+] as const;
+
+export type DashboardNoticeId = (typeof DASHBOARD_NOTICE_IDS)[number];
+
 export interface DashboardNotice {
-  id: string;
+  id: DashboardNoticeId;
   type: 'info' | 'warning' | 'error' | 'success';
   title: string;
   message: string;

@@ -7,7 +7,6 @@ export type GradeLevel = 10 | 11 | 12;
 export interface LearningStats {
   eventsViewed: number;
   quizzesCompleted: number;
-  averageScore: number;
   streakDays: number;
   weeklyMinutes: number;
   totalMinutes: number;
@@ -69,7 +68,6 @@ export interface ProgressByGrade {
   grade: GradeLevel;
   eventsTotal: number;
   eventsViewed: number;
-  averageScore: number;
 }
 
 // ─── Mock Stats ───────────────────────────────────────────────────────────────
@@ -77,7 +75,6 @@ export interface ProgressByGrade {
 export const mockStats: LearningStats = {
   eventsViewed: 34,
   quizzesCompleted: 18,
-  averageScore: 7.8,
   streakDays: 6,
   weeklyMinutes: 245,
   totalMinutes: 1820,
@@ -356,9 +353,9 @@ export const mockCategoryScores: CategoryScore[] = [
 // ─── Progress by Grade ────────────────────────────────────────────────────────
 
 export const mockProgressByGrade: ProgressByGrade[] = [
-  { grade: 10, eventsTotal: 28, eventsViewed: 10, averageScore: 8.2 },
-  { grade: 11, eventsTotal: 35, eventsViewed: 14, averageScore: 7.0 },
-  { grade: 12, eventsTotal: 30, eventsViewed: 10, averageScore: 7.5 },
+  { grade: 10, eventsTotal: 28, eventsViewed: 10 },
+  { grade: 11, eventsTotal: 35, eventsViewed: 14 },
+  { grade: 12, eventsTotal: 30, eventsViewed: 10 },
 ];
 
 // ─── Recommendations ──────────────────────────────────────────────────────────
@@ -366,29 +363,29 @@ export const mockProgressByGrade: ProgressByGrade[] = [
 export const mockRecommendations: RecommendationItem[] = [
   {
     id: 'r1',
-    title: 'Ôn tập: Kinh tế thời Nguyễn',
-    reason: 'Điểm chủ đề Kinh tế còn thấp (55%). Ôn lại để tăng điểm.',
+    title: 'Tiếp tục: Nhà Trần và ba lần kháng Nguyên Mông',
+    reason: 'Bạn đang học dở nội dung này. Tiếp tục để hoàn thành hành trình.',
     type: 'review',
-    topic: 'Triều Nguyễn',
+    topic: 'Nhà Trần',
     estimatedMinutes: 20,
-    icon: 'money',
+    icon: 'book',
   },
   {
     id: 'r2',
-    title: 'Ôn tập: Chính sách đối ngoại nhà Nguyễn',
-    reason: 'Chủ đề Chính trị cần cải thiện (68%). Học sâu hơn về ngoại giao.',
-    type: 'review',
-    topic: 'Triều Nguyễn',
+    title: 'Khám phá: Cách mạng tháng Tám 1945',
+    reason: 'Tìm hiểu diễn biến và ý nghĩa của một dấu mốc quan trọng trong lịch sử hiện đại.',
+    type: 'new',
+    topic: 'Cách mạng Việt Nam',
     estimatedMinutes: 15,
-    icon: 'government',
+    icon: 'book',
   },
   {
     id: 'r3',
-    title: 'Thử thách: Đề thi THPT Quốc gia 2024',
-    reason: 'Bạn đã đạt điểm TB 7.8 — sẵn sàng thử sức với đề khó!',
+    title: 'Thử thách: Trắc nghiệm kiến thức tổng hợp',
+    reason: 'Ôn lại các sự kiện đã xem bằng một lượt câu hỏi ngắn.',
     type: 'challenge',
-    topic: 'Ôn thi THPT',
-    estimatedMinutes: 50,
+    topic: 'Lịch sử Việt Nam',
+    estimatedMinutes: 10,
     icon: 'trophy',
   },
 ];

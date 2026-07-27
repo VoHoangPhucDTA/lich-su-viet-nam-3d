@@ -77,7 +77,7 @@ export default function ExamResultPage() {
   }
 
   return (
-    <div style={{ minHeight: '100vh', padding: '2rem', background: 'var(--bg-app)', color: 'var(--text-primary)', fontFamily: 'Inter, sans-serif' }}>
+    <div style={{ minHeight: '100vh', padding: '2rem', background: 'var(--bg-app)', color: 'var(--text-primary)', fontFamily: 'var(--font-body)' }}>
        <div style={{ maxWidth: '1000px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '2rem' }}>
           
           <ExamResultSummary result={resultData.result} />
