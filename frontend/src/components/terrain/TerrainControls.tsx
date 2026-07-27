@@ -55,7 +55,7 @@ export default function TerrainControls({
       <button
         type="button"
         onClick={onOpen}
-        className="terrain-action flex items-center justify-center"
+        className="terrain-action flex items-center justify-center gap-2"
         style={{ ...buttonStyle, borderColor: '#8b1e1e', color: '#8b1e1e' }}
       >
         <Mountain size={16} aria-hidden="true" />
