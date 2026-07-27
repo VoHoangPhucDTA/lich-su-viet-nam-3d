@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useId, useRef, useState } from 'react';
 import {
   updateAdminEventPublication,
   type AdminEvent,
@@ -66,6 +66,7 @@ export default function AdminEventPublicationActions({
   const [confirmation, setConfirmation] =
     useState<AdminEventPublicationAction | null>(null);
   const controllerRef = useRef<AbortController | null>(null);
+  const disabledReasonId = useId();
 
   useEffect(() => () => controllerRef.current?.abort(), []);
 
@@ -123,6 +124,7 @@ export default function AdminEventPublicationActions({
             key={action}
             type="button"
             disabled={disabled || busy}
+            aria-describedby={disabled && disabledReason ? disabledReasonId : undefined}
             onClick={() => requestAction(action)}
             className={
               action === 'archive'
@@ -135,7 +137,9 @@ export default function AdminEventPublicationActions({
         ))}
       </div>
       {disabled && disabledReason && (
-        <p className="mt-2 text-xs text-[var(--text-muted)]">{disabledReason}</p>
+        <p id={disabledReasonId} className="mt-2 text-xs text-[var(--text-muted)]">
+          {disabledReason}
+        </p>
       )}
       {error && (
         <div role="alert" className="mt-2 rounded-lg border border-[var(--accent)]/20 bg-[var(--danger-soft)] p-3 text-xs text-[var(--accent)]">

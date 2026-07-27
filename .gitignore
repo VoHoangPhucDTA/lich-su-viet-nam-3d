@@ -1,4 +1,6 @@
 artifacts/e2e/
+frontend/artifacts/admin-e2e/
 artifacts/teacher-evaluation/
 .env.ai-e2e
+.env.admin-e2e
 **/__pycache__/

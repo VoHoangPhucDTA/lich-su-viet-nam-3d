@@ -6,6 +6,7 @@ import com.lichsuvn.backend.auth.infrastructure.UuidBytes;
 import com.lichsuvn.backend.common.exception.ApiException;
 import com.lichsuvn.backend.common.exception.NotFoundException;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -19,6 +20,7 @@ import java.util.Set;
 import java.util.UUID;
 
 @Service
+@PreAuthorize("hasAuthority('ROLE_admin')")
 public class AdminUserReadService {
     private static final Set<String> ROLES = Set.of("student", "teacher", "admin");
     private static final Set<String> STATUSES = Set.of("active", "pending", "disabled", "deleted");

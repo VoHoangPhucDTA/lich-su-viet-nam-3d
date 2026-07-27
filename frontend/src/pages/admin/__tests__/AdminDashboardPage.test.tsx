@@ -1,9 +1,11 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
+import { StrictMode } from 'react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import AdminDashboardPage from '../AdminDashboardPage';
 import {
+  getAdminDashboard,
   getAdminDashboardAttention,
   getAdminDashboardAudit,
   getAdminDashboardMetrics,
@@ -31,6 +33,7 @@ vi.mock('../../../services/adminApi', async () => {
   );
   return {
     ...actual,
+    getAdminDashboard: vi.fn(),
     getAdminDashboardMetrics: vi.fn(),
     getAdminDashboardAttention: vi.fn(),
     getAdminDashboardAudit: vi.fn(),
@@ -87,6 +90,11 @@ const audit = [{
 describe('AdminDashboardPage', () => {
   beforeEach(() => {
     vi.clearAllMocks();
+    vi.mocked(getAdminDashboard).mockResolvedValue({
+      metrics,
+      attention,
+      recentAudit: audit,
+    });
     vi.mocked(getAdminDashboardMetrics).mockResolvedValue(metrics);
     vi.mocked(getAdminDashboardAttention).mockResolvedValue(attention);
     vi.mocked(getAdminDashboardAudit).mockResolvedValue(audit);
@@ -99,9 +107,7 @@ describe('AdminDashboardPage', () => {
   );
 
   it('keeps metrics, attention and audit loading states independent from empty states', () => {
-    vi.mocked(getAdminDashboardMetrics).mockReturnValue(new Promise(() => undefined));
-    vi.mocked(getAdminDashboardAttention).mockReturnValue(new Promise(() => undefined));
-    vi.mocked(getAdminDashboardAudit).mockReturnValue(new Promise(() => undefined));
+    vi.mocked(getAdminDashboard).mockReturnValue(new Promise(() => undefined));
 
     renderPage();
 
@@ -139,9 +145,10 @@ describe('AdminDashboardPage', () => {
       'href', '/admin/events/event-needs-review',
     );
     expect(screen.getByText('Quản trị viên')).toBeInTheDocument();
-    expect(getAdminDashboardMetrics).toHaveBeenCalledTimes(1);
-    expect(getAdminDashboardAttention).toHaveBeenCalledTimes(1);
-    expect(getAdminDashboardAudit).toHaveBeenCalledTimes(1);
+    expect(getAdminDashboard).toHaveBeenCalledTimes(1);
+    expect(getAdminDashboardMetrics).not.toHaveBeenCalled();
+    expect(getAdminDashboardAttention).not.toHaveBeenCalled();
+    expect(getAdminDashboardAudit).not.toHaveBeenCalled();
     expect(screen.queryByTestId('event-table')).not.toBeInTheDocument();
     expect(screen.queryByRole('button', { name: /tạo sự kiện|sửa sự kiện|xóa sự kiện/i }))
       .not.toBeInTheDocument();
@@ -149,9 +156,25 @@ describe('AdminDashboardPage', () => {
       .not.toBeInTheDocument();
   });
 
+  it('starts one aggregate request under React Strict Mode', async () => {
+    render(
+      <StrictMode>
+        <MemoryRouter>
+          <AdminDashboardPage />
+        </MemoryRouter>
+      </StrictMode>,
+    );
+
+    await waitFor(() => expect(screen.getByTestId('stat-Tổng sự kiện')).toBeInTheDocument());
+    expect(getAdminDashboard).toHaveBeenCalledTimes(1);
+  });
+
   it('renders explicit attention and audit empty states only after loading succeeds', async () => {
-    vi.mocked(getAdminDashboardAttention).mockResolvedValue([]);
-    vi.mocked(getAdminDashboardAudit).mockResolvedValue([]);
+    vi.mocked(getAdminDashboard).mockResolvedValue({
+      metrics,
+      attention: [],
+      recentAudit: [],
+    });
 
     renderPage();
 
@@ -161,20 +184,20 @@ describe('AdminDashboardPage', () => {
   });
 
   it('shows a partial audit error and clears it after a successful retry', async () => {
-    vi.mocked(getAdminDashboardAudit)
-      .mockRejectedValueOnce(new Error('Lỗi audit tạm thời'))
-      .mockResolvedValueOnce(audit);
+    vi.mocked(getAdminDashboard)
+      .mockRejectedValueOnce(new Error('Lỗi tổng quan tạm thời'));
+    vi.mocked(getAdminDashboardAudit).mockResolvedValueOnce(audit);
 
     renderPage();
 
-    await waitFor(() => expect(screen.getByRole('alert')).toHaveTextContent('Lỗi audit tạm thời'));
-    expect(screen.getByTestId('stat-Tổng sự kiện')).toBeInTheDocument();
-    expect(screen.getByText('Sự kiện cần rà soát')).toBeInTheDocument();
+    await waitFor(() => expect(screen.getAllByRole('alert')).toHaveLength(4));
 
-    fireEvent.click(screen.getByRole('button', { name: 'Thử lại' }));
+    fireEvent.click(screen.getAllByRole('button', { name: 'Thử lại' })[3]);
 
     await waitFor(() => expect(screen.getByText('Quản trị viên')).toBeInTheDocument());
-    expect(screen.queryByRole('alert')).not.toBeInTheDocument();
-    expect(getAdminDashboardAudit).toHaveBeenCalledTimes(2);
+    expect(screen.getAllByRole('alert')).toHaveLength(3);
+    expect(getAdminDashboardAudit).toHaveBeenCalledTimes(1);
+    expect(getAdminDashboardMetrics).not.toHaveBeenCalled();
+    expect(getAdminDashboardAttention).not.toHaveBeenCalled();
   });
 });

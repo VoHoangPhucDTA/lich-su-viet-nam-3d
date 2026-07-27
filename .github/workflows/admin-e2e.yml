@@ -1,0 +1,49 @@
+name: Admin isolated browser E2E
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - "backend/**"
+      - "frontend/**"
+      - "scripts/e2e/run_admin_e2e.py"
+      - "compose.admin-e2e.yml"
+      - ".github/workflows/admin-e2e.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  admin-e2e:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install browser test dependencies
+        working-directory: frontend
+        run: |
+          npm ci
+          npx playwright install --with-deps chromium
+
+      - name: Run isolated Admin browser E2E
+        run: python scripts/e2e/run_admin_e2e.py
+
+      - name: Retain sensitive failure artifacts briefly
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: admin-e2e-sensitive-failure-artifacts
+          path: frontend/artifacts/admin-e2e
+          if-no-files-found: ignore
+          retention-days: 2

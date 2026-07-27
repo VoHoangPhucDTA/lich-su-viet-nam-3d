@@ -4,6 +4,7 @@ import com.lichsuvn.backend.admin.api.dto.AdminDashboardDtos;
 import com.lichsuvn.backend.admin.api.dto.AdminEventDtos;
 import com.lichsuvn.backend.admin.infrastructure.AdminDashboardReadRepository;
 import com.lichsuvn.backend.admin.infrastructure.AdminEventReadRepository;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
@@ -14,6 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service
+@PreAuthorize("hasAuthority('ROLE_admin')")
 public class AdminDashboardReadService {
     private static final int ATTENTION_LIMIT = 10;
     private static final int AUDIT_LIMIT = 10;

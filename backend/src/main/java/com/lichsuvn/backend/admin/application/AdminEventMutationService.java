@@ -9,6 +9,7 @@ import com.lichsuvn.backend.auth.security.UserPrincipal;
 import com.lichsuvn.backend.common.exception.ApiException;
 import org.springframework.http.HttpStatus;
 import org.springframework.dao.DuplicateKeyException;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
@@ -28,6 +29,7 @@ import java.util.Map;
 import java.util.Set;
 
 @Service
+@PreAuthorize("hasAuthority('ROLE_admin')")
 public class AdminEventMutationService {
     private static final ZoneId DATABASE_ZONE = ZoneId.of("Asia/Ho_Chi_Minh");
     private static final DateTimeFormatter VERSION_FORMATTER =
@@ -144,7 +146,10 @@ public class AdminEventMutationService {
         List<Integer> removed = before.stream().filter(value -> !grades.contains(value)).toList();
         AdminEventDtos.Detail result = readService.findEventAfterMutation(id);
         repository.audit(principal.idBytes(), "event.grades_replaced", id,
-                json(Map.of("removed", removed, "gradeCount", before.size())),
+                json(Map.of(
+                        "removed", removed,
+                        "gradeCount", before.size(),
+                        "expectedVersion", request.expectedUpdatedAt())),
                 json(Map.of("added", added, "removed", removed, "gradeCount", grades.size(),
                         "resultingVersion", formatVersion(result.publication().updatedAt()))));
         return result;

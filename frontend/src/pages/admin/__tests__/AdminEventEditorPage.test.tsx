@@ -1,5 +1,5 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
-import { MemoryRouter, Route, Routes } from 'react-router-dom';
+import { createMemoryRouter, RouterProvider } from 'react-router-dom';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import AdminEventEditorPage from '../AdminEventEditorPage';
 import {
@@ -55,11 +55,11 @@ const detail: AdminEventDetail = {
 };
 
 function renderEditor() {
-  return render(
-    <MemoryRouter initialEntries={['/admin/events/event-1/edit']}>
-      <Routes><Route path="/admin/events/:id/edit" element={<AdminEventEditorPage />} /></Routes>
-    </MemoryRouter>,
+  const router = createMemoryRouter(
+    [{ path: '/admin/events/:id/edit', element: <AdminEventEditorPage /> }],
+    { initialEntries: ['/admin/events/event-1/edit'] },
   );
+  return render(<RouterProvider router={router} />);
 }
 
 describe('AdminEventEditorPage', () => {
@@ -135,7 +135,7 @@ describe('AdminEventEditorPage', () => {
     fireEvent.change(screen.getByDisplayValue('Sự kiện'), { target: { value: 'Changed' } });
     fireEvent.click(screen.getByRole('button', { name: 'Lưu nội dung' }));
 
-    expect(await screen.findByText(/được thay đổi ở nơi khác/i)).toBeInTheDocument();
+    expect(await screen.findByText(/đã thay đổi ở nơi khác/i)).toBeInTheDocument();
     expect(updateAdminEventCore).toHaveBeenCalledTimes(1);
   });
 

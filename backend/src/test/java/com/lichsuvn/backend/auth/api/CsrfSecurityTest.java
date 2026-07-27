@@ -217,6 +217,23 @@ class CsrfSecurityTest {
     }
 
     @Test
+    void authenticatedSafeRequestDoesNotDiscardTheSpaCsrfCookie() throws Exception {
+        CsrfContract csrf = csrf();
+
+        mockMvc.perform(get("/api/auth/me")
+                        .cookie(csrf.cookie())
+                        .with(user("admin").authorities(() -> "ROLE_admin")))
+                .andExpect(status().isOk())
+                .andExpect(cookie().doesNotExist("CSRF-TOKEN"));
+
+        mockMvc.perform(post("/api/auth/logout")
+                        .cookie(csrf.cookie())
+                        .header(csrf.headerName(), csrf.token())
+                        .with(user("admin").authorities(() -> "ROLE_admin")))
+                .andExpect(status().isOk());
+    }
+
+    @Test
     void approvedCredentialedCorsAndPreflightAllowCsrfAndEventVersionHeaders() throws Exception {
         mockMvc.perform(options("/api/auth/login")
                         .header("Origin", "http://localhost:5173")
@@ -246,6 +263,20 @@ class CsrfSecurityTest {
                         org.hamcrest.Matchers.allOf(
                                 org.hamcrest.Matchers.containsStringIgnoringCase("x-csrf-token"),
                                 org.hamcrest.Matchers.containsStringIgnoringCase("x-event-version"))));
+    }
+
+    @Test
+    void browserCorsNoLongerAcceptsAuthorizationAndActuatorWildcardIsDenied() throws Exception {
+        mockMvc.perform(options("/api/admin/dashboard")
+                        .header("Origin", "http://localhost:5173")
+                        .header("Access-Control-Request-Method", "GET")
+                        .header("Access-Control-Request-Headers", "authorization"))
+                .andExpect(status().isForbidden())
+                .andExpect(header().doesNotExist("Access-Control-Allow-Headers"));
+
+        mockMvc.perform(get("/actuator/env")
+                        .with(user("admin").authorities(() -> "ROLE_admin")))
+                .andExpect(status().isForbidden());
     }
 
     @Test

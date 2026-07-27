@@ -180,10 +180,10 @@ public class SocialAuthService {
                     .body(String.class);
             response = new ObjectMapper().readValue(raw, new TypeReference<>() {});
         } catch (RestClientException ex) {
-            log.warn("Facebook debug_token call failed: {}", ex.getMessage());
+            log.warn("Facebook token verification request failed");
             throw invalidFacebookToken();
         } catch (Exception ex) {
-            log.warn("Facebook debug_token JSON parse failed: {}", ex.getMessage());
+            log.warn("Facebook token verification response was invalid");
             throw invalidFacebookToken();
         }
 
@@ -208,7 +208,7 @@ public class SocialAuthService {
         // Check app_id matches our configured app (prevents token substitution)
         String tokenAppId = String.valueOf(data.getOrDefault("app_id", ""));
         if (!facebookAppId.equals(tokenAppId)) {
-            log.warn("Facebook token app_id mismatch: expected={} got={}", facebookAppId, tokenAppId);
+            log.warn("Facebook token application mismatch");
             throw invalidFacebookToken();
         }
 
@@ -222,7 +222,7 @@ public class SocialAuthService {
             }
         }
 
-        log.debug("Facebook token verified successfully via debug_token app_id={}", facebookAppId);
+        log.debug("Facebook token verified successfully");
     }
 
     /**
@@ -248,10 +248,10 @@ public class SocialAuthService {
                     .body(String.class);
             data = new ObjectMapper().readValue(raw, new TypeReference<>() {});
         } catch (RestClientException ex) {
-            log.warn("Facebook /me call failed: {}", ex.getMessage());
+            log.warn("Facebook profile request failed");
             throw invalidFacebookToken();
         } catch (Exception ex) {
-            log.warn("Facebook /me JSON parse failed: {}", ex.getMessage());
+            log.warn("Facebook profile response was invalid");
             throw invalidFacebookToken();
         }
 
@@ -318,7 +318,7 @@ public class SocialAuthService {
                     .retrieve()
                     .body(Map.class);
         } catch (RestClientException ex) {
-            log.warn("Google tokeninfo call failed: {}", ex.getMessage());
+            log.warn("Google token verification request failed");
             throw new ApiException(HttpStatus.BAD_REQUEST,
                     "INVALID_SOCIAL_TOKEN", "Google token verification failed.");
         }
@@ -331,14 +331,14 @@ public class SocialAuthService {
         // Protects against token substitution: token issued for another app cannot be used here.
         String aud = stringField(payload, "aud");
         if (!googleClientId.equals(aud)) {
-            log.warn("Google token aud mismatch: expected={} got={}", googleClientId, aud);
+            log.warn("Google token audience mismatch");
             throw invalidToken();
         }
 
         // ── Verify iss (issuer) ───────────────────────────────────────────
         String iss = stringField(payload, "iss");
         if (!VALID_GOOGLE_ISSUERS.contains(iss)) {
-            log.warn("Google token invalid iss: {}", iss);
+            log.warn("Google token issuer rejected");
             throw invalidToken();
         }
 
@@ -401,8 +401,8 @@ public class SocialAuthService {
             if (UserStatus.PENDING.matches(user.getStatus())) {
                 user.setStatus(UserStatus.ACTIVE.value());
                 user.setEmailVerifiedAt(java.time.Instant.now());
-                log.info("Social login C2 (pending->active via social): provider={} email={} userId={}",
-                        provider, email, UuidBytes.toString(user.getId()));
+                log.info("Social login C2 (pending->active via social): provider={} userId={}",
+                        provider, UuidBytes.toString(user.getId()));
             }
             linkProvider(user, provider, providerId, email, displayName, avatarUrl);
             // Update avatarUrl if the local account has none — use Cloudinary URL
@@ -410,16 +410,16 @@ public class SocialAuthService {
                     && finalAvatarUrl != null && !finalAvatarUrl.isBlank()) {
                 user.setAvatarUrl(finalAvatarUrl);
             }
-            log.info("Social login C2 (email merge): provider={} email={} userId={}", provider,
-                    email, UuidBytes.toString(user.getId()));
+            log.info("Social login C2 (email merge): provider={} userId={}", provider,
+                    UuidBytes.toString(user.getId()));
             return toAuthSession(user);
         }
 
         // C1: Brand new user — create active account (no password needed)
         UserEntity newUser = createSocialUser(email, displayName, finalAvatarUrl);
         linkProvider(newUser, provider, providerId, email, displayName, avatarUrl);
-        log.info("Social login C1 (new user): provider={} email={} userId={}", provider,
-                email, UuidBytes.toString(newUser.getId()));
+        log.info("Social login C1 (new user): provider={} userId={}", provider,
+                UuidBytes.toString(newUser.getId()));
         return toAuthSession(newUser);
     }
 

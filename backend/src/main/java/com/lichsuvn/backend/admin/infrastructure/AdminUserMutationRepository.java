@@ -1,6 +1,5 @@
 package com.lichsuvn.backend.admin.infrastructure;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lichsuvn.backend.auth.infrastructure.UuidBytes;
 import com.lichsuvn.backend.auth.security.UserPrincipal;
@@ -185,14 +184,7 @@ public class AdminUserMutationRepository {
     }
 
     private String json(Map<String, Object> value) {
-        try {
-            return objectMapper.writeValueAsString(value);
-        } catch (JsonProcessingException exception) {
-            throw new ApiException(
-                    HttpStatus.INTERNAL_SERVER_ERROR,
-                    "AUDIT_SERIALIZATION_FAILED",
-                    "Could not serialize bounded audit metadata");
-        }
+        return AdminAuditMetadataPolicy.requireBoundedObject(objectMapper, value);
     }
 
     public record RoleRow(long id, String code) {

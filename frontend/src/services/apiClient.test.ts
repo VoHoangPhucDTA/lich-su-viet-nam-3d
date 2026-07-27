@@ -107,6 +107,21 @@ describe('apiClient CSRF integration', () => {
     expect(fetchMock).toHaveBeenCalledTimes(1);
   });
 
+  it('does not turn a response-body abort into an API error', async () => {
+    const controller = new AbortController();
+    const abortedResponse = response({ id: 'event-1' });
+    vi.spyOn(abortedResponse, 'json').mockImplementation(async () => {
+      controller.abort();
+      throw new DOMException('aborted', 'AbortError');
+    });
+    const fetchMock = vi.spyOn(globalThis, 'fetch').mockResolvedValue(abortedResponse);
+
+    await expect(apiGet('/api/admin/users', { signal: controller.signal }))
+      .rejects.toMatchObject({ name: 'AbortError' });
+
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+  });
+
   it('does not replay when a safe request is aborted during refresh', async () => {
     const controller = new AbortController();
     const fetchMock = vi.spyOn(globalThis, 'fetch')

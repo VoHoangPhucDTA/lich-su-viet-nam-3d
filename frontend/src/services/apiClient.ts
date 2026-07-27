@@ -206,9 +206,14 @@ async function apiRequest<T>(path: string, init: RequestInit, retry = true): Pro
   let payload: ApiResponse<T> | null = null;
   try {
     payload = (await response.json()) as ApiResponse<T>;
-  } catch {
+  } catch (cause) {
+    if (cause instanceof DOMException && cause.name === 'AbortError') {
+      throw cause;
+    }
+    throwIfAborted(init.signal);
     // A proxy or unavailable backend can return a non-JSON error body.
   }
+  throwIfAborted(init.signal);
   if (!response.ok || !payload?.success) {
     const errorData = payload?.data as unknown as {
       violations?: Array<{ field: string; message: string }>;

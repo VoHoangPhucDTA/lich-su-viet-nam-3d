@@ -1,4 +1,12 @@
-import { BrowserRouter as Router, Routes, Route, Navigate, useLocation, useParams } from 'react-router-dom';
+import {
+  createBrowserRouter,
+  Navigate,
+  Route,
+  RouterProvider,
+  Routes,
+  useLocation,
+  useParams,
+} from 'react-router-dom';
 import { lazy, Suspense } from 'react';
 import { AuthProvider } from './auth/AuthContext';
 import ProtectedRoute from './auth/ProtectedRoute';
@@ -29,14 +37,6 @@ import LearningHistoryPage from './pages/profile/LearningHistoryPage';
 import ScoresPage from './pages/profile/ScoresPage';
 import ProfileSettingsPage from './pages/profile/ProfileSettingsPage';
 
-// Admin pages
-import AdminDashboardPage from './pages/admin/AdminDashboardPage';
-import AdminUsersPage from './pages/admin/AdminUsersPage';
-import AdminUserDetailPage from './pages/admin/AdminUserDetailPage';
-import AdminEventsPage from './pages/admin/AdminEventsPage';
-import AdminEventDetailPage from './pages/admin/AdminEventDetailPage';
-import AdminEventEditorPage from './pages/admin/AdminEventEditorPage';
-
 // Quiz pages
 import QuizHomePage from './pages/quiz/QuizHomePage';
 import QuizGeneratePage from './pages/quiz/QuizGeneratePage';
@@ -60,6 +60,12 @@ const ApiCustomPracticeSessionRoutePage = lazy(() => import('./pages/exams/ApiCu
 const ApiFreePracticeRoutePage = lazy(() => import('./pages/exams/ApiPracticeRoutePages').then((module) => ({ default: module.ApiFreePracticeRoutePage })));
 const ApiRetryWrongRoutePage = lazy(() => import('./pages/exams/ApiPracticeRoutePages').then((module) => ({ default: module.ApiRetryWrongRoutePage })));
 const ApiTopicPracticeRoutePage = lazy(() => import('./pages/exams/ApiPracticeRoutePages').then((module) => ({ default: module.ApiTopicPracticeRoutePage })));
+const AdminDashboardPage = lazy(() => import('./pages/admin/AdminDashboardPage'));
+const AdminUsersPage = lazy(() => import('./pages/admin/AdminUsersPage'));
+const AdminUserDetailPage = lazy(() => import('./pages/admin/AdminUserDetailPage'));
+const AdminEventsPage = lazy(() => import('./pages/admin/AdminEventsPage'));
+const AdminEventDetailPage = lazy(() => import('./pages/admin/AdminEventDetailPage'));
+const AdminEventEditorPage = lazy(() => import('./pages/admin/AdminEventEditorPage'));
 const AdminAiCandidatesPage = lazy(() => import('./pages/admin/AdminAiCandidatesPage'));
 const AdminAiCandidateDetailPage = lazy(() => import('./pages/admin/AdminAiCandidateDetailPage'));
 
@@ -169,18 +175,27 @@ function LegacyExamSessionRedirect() {
   return <Navigate to={legacyExamSessionPath(examId)} replace />;
 }
 
-function App() {
+function AppProviders() {
   return (
-    <Router>
-      <ThemeProvider>
-        <AuthProvider>
-          <HeaderProvider>
-            <AppContent />
-          </HeaderProvider>
-        </AuthProvider>
-      </ThemeProvider>
-    </Router>
+    <ThemeProvider>
+      <AuthProvider>
+        <HeaderProvider>
+          <AppContent />
+        </HeaderProvider>
+      </AuthProvider>
+    </ThemeProvider>
   );
+}
+
+const router = createBrowserRouter([
+  {
+    path: '*',
+    element: <AppProviders />,
+  },
+]);
+
+function App() {
+  return <RouterProvider router={router} />;
 }
 
 export default App;

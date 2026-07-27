@@ -5,6 +5,7 @@ import com.lichsuvn.backend.admin.infrastructure.AdminEventReadRepository;
 import com.lichsuvn.backend.common.exception.ApiException;
 import com.lichsuvn.backend.common.exception.NotFoundException;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -13,6 +14,7 @@ import java.util.Map;
 import java.util.Set;
 
 @Service
+@PreAuthorize("hasAuthority('ROLE_admin')")
 public class AdminEventReadService {
     private static final Set<String> STATUSES = Set.of("draft", "published", "archived");
     private static final Set<String> LEVELS = Set.of("atomic", "collection");

@@ -1,7 +1,12 @@
-import { useEffect, useMemo, useState, type FormEvent, type MouseEvent } from 'react';
-import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useEffect, useId, useMemo, useRef, useState, type FormEvent } from 'react';
+import { Link, useBlocker, useLocation, useNavigate, useParams } from 'react-router-dom';
 import AdminLayout from '../../layouts/AdminLayout';
-import { AdminErrorState, AdminFormSection, AdminPageHeader } from '../../components/admin/AdminUI';
+import {
+  AdminConfirmDialog,
+  AdminErrorState,
+  AdminFormSection,
+  AdminPageHeader,
+} from '../../components/admin/AdminUI';
 import {
   createAdminEvent,
   getAdminEventDetail,
@@ -81,23 +86,40 @@ function toNullableNumber(value: string): number | null {
 function Field({ label, value, onChange, required = false, type = 'text', error }: {
   label: string; value: string; onChange: (value: string) => void; required?: boolean; type?: string; error?: string;
 }) {
+  const id = useId();
+  const errorId = `${id}-error`;
   return (
-    <label className="block text-sm font-semibold text-[var(--text-secondary)]">
-      {label}{required && <span className="ml-1 text-[var(--accent)]">*</span>}
-      <input required={required} type={type} value={value} onChange={event => onChange(event.target.value)} className={fieldClass} />
-      {error && <span className="mt-1 block text-xs text-[var(--accent)]">{error}</span>}
-    </label>
+    <div>
+      <label htmlFor={id} className="block text-sm font-semibold text-[var(--text-secondary)]">
+        {label}{required && <span className="ml-1 text-[var(--accent)]" aria-hidden="true">*</span>}
+      </label>
+      <input
+        id={id}
+        required={required}
+        aria-required={required || undefined}
+        aria-invalid={Boolean(error)}
+        aria-describedby={error ? errorId : undefined}
+        type={type}
+        value={value}
+        onChange={event => onChange(event.target.value)}
+        className={fieldClass}
+      />
+      {error && <span id={errorId} role="alert" className="mt-1 block text-xs text-[var(--accent)]">{error}</span>}
+    </div>
   );
 }
 
 function TextArea({ label, value, onChange, rows = 4 }: {
   label: string; value: string; onChange: (value: string) => void; rows?: number;
 }) {
+  const id = useId();
   return (
-    <label className="block text-sm font-semibold text-[var(--text-secondary)]">
-      {label}
-      <textarea value={value} onChange={event => onChange(event.target.value)} rows={rows} className={`${fieldClass} resize-y py-3`} />
-    </label>
+    <div>
+      <label htmlFor={id} className="block text-sm font-semibold text-[var(--text-secondary)]">
+        {label}
+      </label>
+      <textarea id={id} value={value} onChange={event => onChange(event.target.value)} rows={rows} className={`${fieldClass} resize-y py-3`} />
+    </div>
   );
 }
 
@@ -134,6 +156,9 @@ export default function AdminEventEditorPage() {
   const [gradeDirty, setGradeDirty] = useState(!editing);
   const [geographyDirty, setGeographyDirty] = useState(false);
   const [mediaDirty, setMediaDirty] = useState(false);
+  const [conflict, setConflict] = useState('');
+  const [confirmConflictReload, setConfirmConflictReload] = useState(false);
+  const allowSuccessfulCreateNavigation = useRef(false);
 
   useEffect(() => {
     if (!id) return;
@@ -181,10 +206,17 @@ export default function AdminEventEditorPage() {
   const mutationSaving = coreSaving || gradeSaving || mediaSaving
     || geographySaving || publicationSaving;
   const mutableSectionDirty = coreDirty || gradeDirty || mediaDirty || geographyDirty;
+  const blocker = useBlocker(
+    () => mutableSectionDirty && !allowSuccessfulCreateNavigation.current,
+  );
+  const mutationsBlocked = mutationSaving || Boolean(conflict);
+  const markConflict = () => {
+    setConflict('Sự kiện đã thay đổi ở nơi khác. Các thao tác lưu đã bị khóa để tránh ghi đè dữ liệu.');
+  };
 
   const saveCore = async (event: FormEvent) => {
     event.preventDefault();
-    if (mutationSaving) return;
+    if (mutationsBlocked) return;
     setCoreSaving(true);
     setCoreError('');
     setCoreSuccess('');
@@ -202,6 +234,9 @@ export default function AdminEventEditorPage() {
           showOnHomepage: form.showOnHomepage, showOnTimeline: form.showOnTimeline, featured: form.featured,
         };
         const created = await createAdminEvent(payload);
+        setCoreDirty(false);
+        setGradeDirty(false);
+        allowSuccessfulCreateNavigation.current = true;
         navigate(`/admin/events/${created.core.id}/edit`, { replace: true });
         return;
       }
@@ -228,14 +263,18 @@ export default function AdminEventEditorPage() {
       if (error instanceof ApiRequestError && error.violations.length) {
         setFieldErrors(Object.fromEntries(error.violations.map(item => [item.field, item.message])));
       }
-      setCoreError(errorMessage(error));
+      if (error instanceof ApiRequestError && error.code === 'EVENT_UPDATE_CONFLICT') {
+        markConflict();
+      } else {
+        setCoreError(errorMessage(error));
+      }
     } finally {
       setCoreSaving(false);
     }
   };
 
   const saveGrades = async () => {
-    if (!id || mutationSaving) return;
+    if (!id || mutationsBlocked) return;
     setGradeSaving(true);
     setGradeError('');
     setGradeSuccess('');
@@ -247,31 +286,30 @@ export default function AdminEventEditorPage() {
       setGradeDirty(false);
       setGradeSuccess('Đã lưu khối lớp.');
     } catch (error) {
-      setGradeError(errorMessage(error));
+      if (error instanceof ApiRequestError && error.code === 'EVENT_UPDATE_CONFLICT') {
+        markConflict();
+      } else {
+        setGradeError(errorMessage(error));
+      }
     } finally {
       setGradeSaving(false);
     }
   };
 
   const reload = () => window.location.reload();
-  const confirmLeave = (event: MouseEvent<HTMLAnchorElement>) => {
-    if (mutableSectionDirty && !window.confirm('Bạn có thay đổi chưa lưu. Rời trang?')) {
-      event.preventDefault();
-    }
-  };
-  if (loading) return <AdminLayout title="Chỉnh sửa sự kiện"><div className="flex min-h-48 items-center justify-center text-sm text-[var(--text-muted)]">Đang tải sự kiện…</div></AdminLayout>;
+  if (loading) return <AdminLayout title="Chỉnh sửa sự kiện"><div role="status" aria-live="polite" className="flex min-h-48 items-center justify-center text-sm text-[var(--text-muted)]">Đang tải sự kiện…</div></AdminLayout>;
   if (coreError && editing && !detail) return <AdminLayout title="Chỉnh sửa sự kiện"><AdminErrorState message={coreError} onRetry={reload} /></AdminLayout>;
 
   return (
     <AdminLayout title={editing ? 'Chỉnh sửa sự kiện' : 'Tạo sự kiện'}>
-      <div className="mb-4"><Link to="/admin/events" onClick={confirmLeave} className="text-xs font-semibold text-[var(--text-muted)]">← Quay lại danh sách</Link></div>
+      <div className="mb-4"><Link to="/admin/events" className="text-xs font-semibold text-[var(--text-muted)]">← Quay lại danh sách</Link></div>
       <AdminPageHeader title={editing ? 'Chỉnh sửa sự kiện' : 'Tạo bản nháp sự kiện'} description="Chỉnh sửa nội dung lõi, khối lớp, media metadata và dữ liệu địa lý có cấu trúc." />
       {editing && detail && <AdminFormSection id="admin-event-publication" title="Trạng thái xuất bản" description={`Trạng thái hiện tại: ${detail.publication.status}`}>
         <AdminEventPublicationActions
           eventId={id!}
           status={detail.publication.status}
           version={version}
-          disabled={mutationSaving || mutableSectionDirty}
+          disabled={mutationsBlocked || mutableSectionDirty}
           disabledReason={mutableSectionDirty
             ? 'Hãy lưu hoặc hủy mọi thay đổi ở nội dung, khối lớp, media và địa lý trước khi đổi trạng thái.'
             : undefined}
@@ -280,13 +318,21 @@ export default function AdminEventEditorPage() {
             setDetail(updated);
             setVersion(updated.publication.updatedAt);
           }}
-          onReload={reload}
+          onReload={markConflict}
           onIssueSelect={issue => document
             .getElementById(publicationIssueTargetId(issue.section))
             ?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
         />
       </AdminFormSection>}
-      {coreError && <div className="mb-4 rounded-lg border border-[var(--accent)]/20 bg-[var(--danger-soft)] px-4 py-3 text-sm text-[var(--accent)]">{coreError} {coreError.includes('thay đổi') && <button type="button" onClick={reload} className="ml-2 underline">Tải lại</button>}</div>}
+      {conflict && (
+        <div role="alert" className="mb-4 rounded-lg border border-[var(--accent)]/20 bg-[var(--danger-soft)] px-4 py-3 text-sm text-[var(--accent)]">
+          {conflict}
+          <button type="button" onClick={() => setConfirmConflictReload(true)} className="ml-2 underline">
+            Tải dữ liệu mới nhất
+          </button>
+        </div>
+      )}
+      {coreError && <div role="alert" className="mb-4 rounded-lg border border-[var(--accent)]/20 bg-[var(--danger-soft)] px-4 py-3 text-sm text-[var(--accent)]">{coreError}</div>}
       <form onSubmit={saveCore} className="space-y-5">
         <AdminFormSection id="admin-event-classification" title="Định danh và phân loại"><div className="grid gap-4 md:grid-cols-2">
           <Field label="Tên sự kiện" value={form.title} onChange={value => update('title', value)} required error={fieldErrors.title} />
@@ -313,36 +359,54 @@ export default function AdminEventEditorPage() {
         <AdminFormSection title="Cờ hiển thị"><div className="flex flex-wrap gap-5 text-sm text-[var(--text-secondary)]">
           {(['showOnHomepage', 'showOnTimeline', 'featured'] as const).map(key => <label key={key} className="flex items-center gap-2"><input type="checkbox" checked={form[key]} onChange={event => update(key, event.target.checked)} />{key}</label>)}
         </div></AdminFormSection>
-        <div className="flex items-center justify-between"><span className="text-xs text-[var(--text-muted)]">{coreSuccess}</span><button type="submit" disabled={mutationSaving || !coreDirty} className="admin-primary-button disabled:cursor-not-allowed disabled:opacity-50">{coreSaving ? 'Đang lưu…' : 'Lưu nội dung'}</button></div>
+        <div className="flex items-center justify-between"><span role="status" aria-live="polite" className="text-xs text-[var(--text-muted)]">{coreSuccess}</span><button type="submit" disabled={mutationsBlocked || !coreDirty} className="admin-primary-button disabled:cursor-not-allowed disabled:opacity-50">{coreSaving ? 'Đang lưu…' : 'Lưu nội dung'}</button></div>
       </form>
       <AdminFormSection title="Khối lớp" description={editing ? 'Thay thế toàn bộ danh sách trong một request độc lập.' : 'Khối lớp được tạo cùng bản nháp trong một transaction.'}>
         <div className="flex gap-5 text-sm text-[var(--text-secondary)]">{[10, 11, 12].map(grade => <label key={grade} className="flex items-center gap-2"><input type="checkbox" checked={grades.includes(grade)} onChange={event => { setGrades(previous => event.target.checked ? [...previous, grade].sort() : previous.filter(value => value !== grade)); setGradeDirty(true); setGradeSuccess(''); }} />Lớp {grade}</label>)}</div>
-        {gradeError && <p className="mt-3 text-sm text-[var(--accent)]">{gradeError} {gradeError.includes('thay đổi') && <button type="button" onClick={reload} className="underline">Tải lại</button>}</p>}
-        {editing && <div className="mt-4 flex items-center justify-between"><span className="text-xs text-[var(--text-muted)]">{gradeSuccess}</span><button type="button" disabled={mutationSaving || !gradeDirty} onClick={saveGrades} className="admin-primary-button disabled:cursor-not-allowed disabled:opacity-50">{gradeSaving ? 'Đang lưu…' : 'Lưu khối lớp'}</button></div>}
+        {gradeError && <p role="alert" className="mt-3 text-sm text-[var(--accent)]">{gradeError}</p>}
+        {editing && <div className="mt-4 flex items-center justify-between"><span role="status" aria-live="polite" className="text-xs text-[var(--text-muted)]">{gradeSuccess}</span><button type="button" disabled={mutationsBlocked || !gradeDirty} onClick={saveGrades} className="admin-primary-button disabled:cursor-not-allowed disabled:opacity-50">{gradeSaving ? 'Đang lưu…' : 'Lưu khối lớp'}</button></div>}
       </AdminFormSection>
       {editing && detail && <div className="mt-5 space-y-5">
         <AdminEventMediaSection
           eventId={id!}
           detail={detail}
           version={version}
-          disabled={mutationSaving}
+          disabled={mutationsBlocked}
           onBusyChange={setMediaSaving}
           onDirtyChange={setMediaDirty}
           onUpdated={updated => { setDetail(updated); setVersion(updated.publication.updatedAt); }}
-          onConflict={reload}
+          onConflict={markConflict}
         />
         <AdminEventGeographySection
           eventId={id!}
           detail={detail}
           version={version}
-          disabled={mutationSaving}
+          disabled={mutationsBlocked}
           onBusyChange={setGeographySaving}
           onDirtyChange={setGeographyDirty}
           onUpdated={updated => { setDetail(updated); setVersion(updated.publication.updatedAt); }}
-          onConflict={reload}
+          onConflict={markConflict}
         />
         <AdminFormSection title="Dữ liệu chỉ đọc"><p className="text-sm text-[var(--text-secondary)]">Hierarchy và nguồn vẫn chỉ đọc. Không có trình sửa raw JSON, GeoJSON hay công cụ vẽ Cesium.</p><p className="mt-2 text-xs text-[var(--text-muted)]">Phiên bản hiện tại: {version}</p></AdminFormSection>
       </div>}
+      <AdminConfirmDialog
+        open={blocker.state === 'blocked'}
+        title="Rời trang khi chưa lưu?"
+        description="Các thay đổi chưa lưu sẽ bị mất."
+        confirmLabel="Rời trang"
+        danger
+        onConfirm={() => blocker.proceed?.()}
+        onCancel={() => blocker.reset?.()}
+      />
+      <AdminConfirmDialog
+        open={confirmConflictReload}
+        title="Tải dữ liệu mới nhất?"
+        description="Mọi giá trị chưa lưu trên trang sẽ bị mất. Hệ thống sẽ không tự động gửi lại thao tác trước đó."
+        confirmLabel="Tải lại"
+        danger
+        onConfirm={reload}
+        onCancel={() => setConfirmConflictReload(false)}
+      />
     </AdminLayout>
   );
 }

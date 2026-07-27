@@ -11,6 +11,7 @@ import {
 } from '../../services/adminApi';
 import { ApiRequestError } from '../../services/apiClient';
 import { publishedEventMutationError } from './adminEventPublication';
+import { AdminConfirmDialog } from './AdminUI';
 
 type Props = {
   eventId: string;
@@ -36,6 +37,7 @@ export default function AdminEventMediaSection({
   const [message, setMessage] = useState('');
   const [editingId, setEditingId] = useState<number | null>(null);
   const [editing, setEditing] = useState<EditableMedia | null>(null);
+  const [pendingRemoveId, setPendingRemoveId] = useState<number | null>(null);
   const media = detail.media.items;
   const dirty = editingId !== null || form.url.trim() !== '';
 
@@ -165,9 +167,13 @@ export default function AdminEventMediaSection({
               onClick={() => void run(() => selectAdminEventThumbnail(eventId, item.id, version))}>
               Chọn thumbnail
             </button>
-            <button type="button" disabled={disabled || busy} onClick={() => {
-              if (window.confirm('Xóa media khỏi sự kiện?')) void run(() => removeAdminEventMedia(eventId, item.id, version));
-            }}>Xóa khỏi sự kiện</button>
+            <button
+              type="button"
+              disabled={disabled || busy}
+              onClick={() => setPendingRemoveId(item.id)}
+            >
+              Xóa khỏi sự kiện
+            </button>
           </div>
         ))}
       </div>
@@ -185,6 +191,21 @@ export default function AdminEventMediaSection({
         <input required type="url" value={form.url} onChange={event => setForm(previous => ({ ...previous, url: event.target.value }))} disabled={disabled || busy} placeholder="https://..." aria-label="URL media" />
         <button type="submit" disabled={disabled || busy || media.length >= 200}>Thêm media</button>
       </form>
+      <AdminConfirmDialog
+        open={pendingRemoveId !== null}
+        title="Xóa media khỏi sự kiện?"
+        description="Chỉ bản ghi media của sự kiện bị xóa; thao tác không xóa tệp trên dịch vụ lưu trữ."
+        confirmLabel="Xóa khỏi sự kiện"
+        danger
+        onCancel={() => setPendingRemoveId(null)}
+        onConfirm={() => {
+          const mediaId = pendingRemoveId;
+          setPendingRemoveId(null);
+          if (mediaId !== null) {
+            void run(() => removeAdminEventMedia(eventId, mediaId, version));
+          }
+        }}
+      />
     </section>
   );
 }

@@ -9,11 +9,14 @@ import com.lichsuvn.backend.auth.security.UserPrincipal;
 import com.lichsuvn.backend.common.exception.ApiException;
 import com.lichsuvn.backend.common.media.MediaUrlPolicy;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import java.sql.Timestamp;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -23,11 +26,13 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.HexFormat;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 @Service
+@PreAuthorize("hasAuthority('ROLE_admin')")
 public class AdminEventMediaMutationService {
     public static final int MAX_MEDIA_PER_EVENT = 200;
     private static final Set<String> MEDIA_TYPES = Set.of("image", "video", "document", "audio");
@@ -75,8 +80,14 @@ public class AdminEventMediaMutationService {
         long mediaId = repository.insert(eventId, request.mediaType(), url, trim(request.caption()),
                 trim(request.altText()), trim(request.sourceName()), trim(request.license()), status, sort);
         AdminEventDtos.Detail detail = readService.findEventAfterMutation(eventId);
-        auditRepository.audit(principal.idBytes(), "event.media_added", eventId, "{}",
-                json(Map.of("mediaId", mediaId, "mediaType", request.mediaType(), "status", status)));
+        auditRepository.audit(principal.idBytes(), "event.media_added", eventId,
+                json(Map.of("expectedVersion", request.expectedUpdatedAt(), "mediaCount", current.size())),
+                json(Map.of(
+                        "mediaId", mediaId,
+                        "mediaType", request.mediaType(),
+                        "status", status,
+                        "mediaCount", current.size() + 1,
+                        "resultingVersion", version(detail))));
         return new AddResult(mediaId, detail);
     }
 
@@ -123,8 +134,12 @@ public class AdminEventMediaMutationService {
                 (String) values.get("source_name"), (String) values.get("license"),
                 nextStatus, thumbnail);
         AdminEventDtos.Detail detail = readService.findEventAfterMutation(eventId);
-        auditRepository.audit(principal.idBytes(), "event.media_updated", eventId, "{}",
-                json(Map.of("mediaId", mediaId, "fields", fields)));
+        auditRepository.audit(principal.idBytes(), "event.media_updated", eventId,
+                json(Map.of("mediaId", mediaId, "expectedVersion", request.expectedUpdatedAt())),
+                json(Map.of(
+                        "mediaId", mediaId,
+                        "fields", fields,
+                        "resultingVersion", version(detail))));
         return detail;
     }
 
@@ -144,8 +159,15 @@ public class AdminEventMediaMutationService {
                 .toList();
         applyOrder(remaining, selectedThumbnailId(remaining));
         AdminEventDtos.Detail detail = readService.findEventAfterMutation(eventId);
-        auditRepository.audit(principal.idBytes(), "event.media_removed", eventId, "{}",
-                json(Map.of("mediaId", mediaId)));
+        auditRepository.audit(principal.idBytes(), "event.media_removed", eventId,
+                json(Map.of(
+                        "mediaId", mediaId,
+                        "mediaCount", locked.size(),
+                        "expectedVersion", expectedVersion)),
+                json(Map.of(
+                        "mediaId", mediaId,
+                        "mediaCount", remaining.size(),
+                        "resultingVersion", version(detail))));
         return detail;
     }
 
@@ -166,10 +188,19 @@ public class AdminEventMediaMutationService {
                         .thenComparingLong(row -> ((Number) row.get("id")).longValue()))
                 .map(row -> ((Number) row.get("id")).longValue()).toList();
         if (current.equals(effective) && normalizedSort(rows, effective, thumbnail)) bad("NO_CHANGES");
+        long movedCount = movedCount(current, effective);
         applyOrder(orderedRows(rows, effective), thumbnail);
         AdminEventDtos.Detail detail = readService.findEventAfterMutation(eventId);
-        auditRepository.audit(principal.idBytes(), "event.media_reordered", eventId, "{}",
-                json(Map.of("mediaIds", requested)));
+        auditRepository.audit(principal.idBytes(), "event.media_reordered", eventId,
+                json(Map.of(
+                        "mediaCount", current.size(),
+                        "orderDigest", orderDigest(current),
+                        "expectedVersion", request.expectedUpdatedAt())),
+                json(Map.of(
+                        "mediaCount", effective.size(),
+                        "movedCount", movedCount,
+                        "orderDigest", orderDigest(effective),
+                        "resultingVersion", version(detail))));
         return detail;
     }
 
@@ -187,6 +218,7 @@ public class AdminEventMediaMutationService {
             bad("INVALID_THUMBNAIL");
         }
         long thumbnailCount = all.stream().filter(row -> Boolean.TRUE.equals(row.get("is_thumbnail"))).count();
+        Long previousThumbnailId = selectedThumbnailId(all);
         List<Long> currentOrder = all.stream()
                 .sorted(Comparator.comparingInt((Map<String, Object> item) ->
                                 ((Number) item.get("sort_order")).intValue())
@@ -198,8 +230,13 @@ public class AdminEventMediaMutationService {
         repository.clearThumbnails(eventId);
         applyOrder(orderedRows(all, effectiveOrder), mediaId);
         AdminEventDtos.Detail detail = readService.findEventAfterMutation(eventId);
-        auditRepository.audit(principal.idBytes(), "event.thumbnail_selected", eventId, "{}",
-                json(Map.of("mediaId", mediaId)));
+        auditRepository.audit(principal.idBytes(), "event.thumbnail_selected", eventId,
+                json(Map.of(
+                        "previousThumbnailId", previousThumbnailId == null ? "none" : previousThumbnailId,
+                        "expectedVersion", request.expectedUpdatedAt())),
+                json(Map.of(
+                        "mediaId", mediaId,
+                        "resultingVersion", version(detail))));
         return detail;
     }
 
@@ -303,6 +340,30 @@ public class AdminEventMediaMutationService {
     }
 
     private String trim(String value) { return value == null || value.isBlank() ? null : value.trim(); }
+
+    private String version(AdminEventDtos.Detail detail) {
+        return VERSION_FORMATTER.format(detail.publication().updatedAt());
+    }
+
+    private long movedCount(List<Long> before, List<Long> after) {
+        long moved = 0;
+        for (int index = 0; index < before.size(); index++) {
+            if (!before.get(index).equals(after.get(index))) {
+                moved++;
+            }
+        }
+        return moved;
+    }
+
+    private String orderDigest(List<Long> ids) {
+        try {
+            byte[] digest = MessageDigest.getInstance("SHA-256")
+                    .digest(ids.toString().getBytes(StandardCharsets.UTF_8));
+            return HexFormat.of().formatHex(digest, 0, 12);
+        } catch (Exception exception) {
+            throw new IllegalStateException("SHA-256 is unavailable", exception);
+        }
+    }
 
     private ApiException conflict() {
         return new ApiException(HttpStatus.CONFLICT, "EVENT_UPDATE_CONFLICT", "The event changed after it was loaded");

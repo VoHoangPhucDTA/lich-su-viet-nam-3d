@@ -8,6 +8,7 @@ import com.lichsuvn.backend.admin.infrastructure.AdminEventMutationRepository;
 import com.lichsuvn.backend.auth.security.UserPrincipal;
 import com.lichsuvn.backend.common.exception.ApiException;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,6 +26,7 @@ import java.util.Iterator;
 import com.fasterxml.jackson.databind.JsonNode;
 
 @Service
+@PreAuthorize("hasAuthority('ROLE_admin')")
 public class AdminEventGeographyMutationService {
     private static final ZoneId DATABASE_ZONE = ZoneId.of("Asia/Ho_Chi_Minh");
     private static final DateTimeFormatter VERSION_FORMATTER =

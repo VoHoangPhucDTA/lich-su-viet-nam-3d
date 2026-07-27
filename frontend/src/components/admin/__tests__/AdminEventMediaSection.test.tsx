@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import AdminEventMediaSection from '../AdminEventMediaSection';
@@ -79,10 +79,11 @@ describe('AdminEventMediaSection', () => {
   });
 
   it('requires confirmation before removing the database row', async () => {
-    vi.spyOn(window, 'confirm').mockReturnValue(false);
     render(<AdminEventMediaSection eventId="event-1" detail={detail}
       version="2026-07-25T01:02:03.123456Z" onUpdated={vi.fn()} onConflict={vi.fn()} />);
     await userEvent.click(screen.getByRole('button', { name: 'Xóa khỏi sự kiện' }));
+    const dialog = screen.getByRole('dialog', { name: 'Xóa media khỏi sự kiện?' });
+    await userEvent.click(within(dialog).getByRole('button', { name: 'Hủy' }));
     expect(removeAdminEventMedia).not.toHaveBeenCalled();
   });
 
@@ -131,7 +132,6 @@ describe('AdminEventMediaSection', () => {
     vi.mocked(reorderAdminEventMedia).mockResolvedValue(safeDetail);
     vi.mocked(selectAdminEventThumbnail).mockResolvedValue(safeDetail);
     vi.mocked(removeAdminEventMedia).mockResolvedValue(safeDetail);
-    vi.spyOn(window, 'confirm').mockReturnValue(true);
     render(<AdminEventMediaSection eventId="event-1" detail={safeDetail}
       version="2026-07-25T01:02:03.123456Z" onUpdated={vi.fn()} onConflict={vi.fn()} />);
 
@@ -146,6 +146,9 @@ describe('AdminEventMediaSection', () => {
     );
 
     await userEvent.click(screen.getAllByRole('button', { name: 'Xóa khỏi sự kiện' })[0]);
+    await userEvent.click(within(screen.getByRole('dialog', {
+      name: 'Xóa media khỏi sự kiện?',
+    })).getByRole('button', { name: 'Xóa khỏi sự kiện' }));
     expect(removeAdminEventMedia).toHaveBeenCalledWith(
       'event-1', 1, '2026-07-25T01:02:03.123456Z',
     );

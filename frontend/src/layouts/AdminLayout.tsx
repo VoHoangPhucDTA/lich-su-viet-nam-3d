@@ -1,4 +1,4 @@
-import { useState, type ReactNode } from 'react';
+import { useEffect, useRef, useState, type ReactNode, type RefObject } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import {
   CalendarDays,
@@ -26,10 +26,52 @@ const NAV_ITEMS: AdminNavItem[] = [
   { to: '/admin/exams/ai-candidates', label: 'Duyệt câu hỏi AI', icon: Sparkles, permission: 'AI_CANDIDATE_VIEW' },
 ];
 
-function AdminSidebar({ open, onClose }: { open: boolean; onClose: () => void }) {
+function AdminSidebar({
+  open,
+  onClose,
+  invokerRef,
+}: {
+  open: boolean;
+  onClose: () => void;
+  invokerRef: RefObject<HTMLButtonElement | null>;
+}) {
   const { currentUser, logout } = useAuth();
   const navigate = useNavigate();
   const name = currentUser?.fullName ?? 'Admin';
+  const sidebarRef = useRef<HTMLElement>(null);
+  const closeRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    if (!open) return;
+    const invoker = invokerRef.current;
+    closeRef.current?.focus();
+    const handleKey = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        event.preventDefault();
+        onClose();
+        return;
+      }
+      if (event.key !== 'Tab') return;
+      const focusable = Array.from(sidebarRef.current?.querySelectorAll<HTMLElement>(
+        'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])',
+      ) ?? []);
+      if (focusable.length === 0) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    };
+    document.addEventListener('keydown', handleKey);
+    return () => {
+      document.removeEventListener('keydown', handleKey);
+      invoker?.focus();
+    };
+  }, [invokerRef, onClose, open]);
 
   const handleLogout = async () => {
     await logout();
@@ -41,13 +83,16 @@ function AdminSidebar({ open, onClose }: { open: boolean; onClose: () => void })
       {open && (
         <button
           type="button"
-          aria-label="Đóng menu quản trị"
+          aria-hidden="true"
+          tabIndex={-1}
           onClick={onClose}
           style={{ position: 'fixed', inset: 0, zIndex: 40, background: 'rgba(28,25,23,0.3)' }}
           className="lg:hidden"
         />
       )}
       <aside
+        ref={sidebarRef}
+        aria-label="Menu quản trị"
         style={{
           width: 'var(--admin-sidebar-width)',
           borderRight: '1px solid var(--border)',
@@ -63,7 +108,7 @@ function AdminSidebar({ open, onClose }: { open: boolean; onClose: () => void })
       >
         <div className="flex h-16 items-center justify-between px-5 lg:hidden" style={{ borderBottom: '1px solid var(--border)' }}>
           <span className="text-xl font-semibold" style={{ color: 'var(--text-primary)' }}>Quản trị</span>
-          <button type="button" onClick={onClose} aria-label="Đóng menu quản trị" className="admin-icon-button">
+          <button ref={closeRef} type="button" onClick={onClose} aria-label="Đóng menu quản trị" className="admin-icon-button">
             <X size={18} aria-hidden="true" />
           </button>
         </div>
@@ -109,12 +154,22 @@ function AdminSidebar({ open, onClose }: { open: boolean; onClose: () => void })
 
 export default function AdminLayout({ children }: { children: ReactNode; title?: string }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
   return (
     <div className="admin-shell" style={{ display: 'flex', flexDirection: 'column', minHeight: '100dvh', background: 'var(--bg-app)', color: 'var(--text-primary)', fontFamily: 'var(--font-body)' }}>
       <div style={{ display: 'flex', flex: 1, minHeight: 0, position: 'relative' }}>
-        <AdminSidebar open={sidebarOpen} onClose={() => setSidebarOpen(false)} />
-        <main id="admin-main-content" className="admin-main-offset" style={{ flex: 1, minWidth: 0, overflowY: 'auto' }}>
-          <button type="button" aria-label="Mở menu quản trị" onClick={() => setSidebarOpen(true)} className="admin-mobile-menu-toggle admin-icon-button lg:hidden">
+        <AdminSidebar
+          open={sidebarOpen}
+          onClose={() => setSidebarOpen(false)}
+          invokerRef={menuButtonRef}
+        />
+        <main
+          id="admin-main-content"
+          className="admin-main-offset"
+          inert={sidebarOpen}
+          style={{ flex: 1, minWidth: 0, overflowY: 'auto' }}
+        >
+          <button ref={menuButtonRef} type="button" aria-label="Mở menu quản trị" onClick={() => setSidebarOpen(true)} className="admin-mobile-menu-toggle admin-icon-button lg:hidden">
             <Menu size={20} aria-hidden="true" />
           </button>
           <div className="admin-content-wrapper">{children}</div>

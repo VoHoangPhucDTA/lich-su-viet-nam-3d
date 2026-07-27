@@ -9,6 +9,7 @@ import com.lichsuvn.backend.auth.infrastructure.UuidBytes;
 import com.lichsuvn.backend.auth.security.UserPrincipal;
 import com.lichsuvn.backend.common.exception.ApiException;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,6 +24,7 @@ import java.util.Set;
 import java.util.UUID;
 
 @Service
+@PreAuthorize("hasAuthority('ROLE_admin')")
 public class AdminUserMutationService {
     private static final ZoneId DATABASE_ZONE = ZoneId.of("Asia/Ho_Chi_Minh");
     private static final List<String> CANONICAL_ROLES = List.of("admin", "teacher", "student");

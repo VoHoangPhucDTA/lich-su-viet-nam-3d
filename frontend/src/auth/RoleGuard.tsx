@@ -11,6 +11,8 @@ interface RoleGuardProps {
 function Spinner() {
   return (
     <div
+      role="status"
+      aria-live="polite"
       style={{
         display: 'flex',
         alignItems: 'center',
@@ -20,16 +22,24 @@ function Spinner() {
       }}
     >
       <div
+        className="rg-spin-indicator"
+        aria-hidden="true"
         style={{
           width: '2.5rem',
           height: '2.5rem',
           border: '3px solid rgba(30,58,95,0.2)',
           borderTopColor: '#4f6f95',
           borderRadius: '50%',
-          animation: 'rg-spin 0.7s linear infinite',
         }}
       />
-      <style>{`@keyframes rg-spin { to { transform: rotate(360deg); } }`}</style>
+      <span className="sr-only">Đang kiểm tra quyền truy cập…</span>
+      <style>{`
+        .rg-spin-indicator { animation: rg-spin 0.7s linear infinite; }
+        @keyframes rg-spin { to { transform: rotate(360deg); } }
+        @media (prefers-reduced-motion: reduce) {
+          .rg-spin-indicator { animation: none; }
+        }
+      `}</style>
     </div>
   );
 }
@@ -164,6 +174,9 @@ function ForbiddenPage() {
         @keyframes rg-fadein {
           from { opacity: 0; transform: translateY(16px); }
           to   { opacity: 1; transform: translateY(0); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          [style*="rg-fadein"] { animation: none !important; }
         }
       `}</style>
     </div>

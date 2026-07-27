@@ -115,6 +115,8 @@ public class AdminEventMutationRepository {
     }
 
     public void audit(byte[] userId, String action, String id, String before, String after) {
+        String boundedBefore = AdminAuditMetadataPolicy.requireBoundedObject(objectMapper, before);
+        String boundedAfter = AdminAuditMetadataPolicy.requireBoundedObject(objectMapper, after);
         jdbc.update("""
                 INSERT INTO admin_audit_logs
                     (user_id, action, entity_type, entity_id, before_json, after_json)
@@ -124,8 +126,8 @@ public class AdminEventMutationRepository {
                 .addValue("userId", userId)
                 .addValue("action", action)
                 .addValue("id", id)
-                .addValue("beforeJson", before)
-                .addValue("afterJson", after));
+                .addValue("beforeJson", boundedBefore)
+                .addValue("afterJson", boundedAfter));
     }
 
     public boolean exists(String id) {

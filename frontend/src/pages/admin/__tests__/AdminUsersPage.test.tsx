@@ -90,7 +90,7 @@ describe('AdminUsersPage', () => {
     expect(await screen.findByText('Nguyễn Quản trị')).toBeInTheDocument();
     expect(screen.getAllByText('Giáo viên').length).toBeGreaterThan(0);
     expect(screen.getByText('Chưa có quyền')).toBeInTheDocument();
-    expect(screen.getByText('Đã xóa (trạng thái DB)')).toBeInTheDocument();
+    expect(screen.getAllByText('Đã xóa (trạng thái DB)').length).toBeGreaterThan(0);
     expect(screen.getAllByText('Chưa có hoạt động').length).toBeGreaterThan(0);
     expect(screen.getByRole('link', { name: 'Nguyễn Quản trị' }))
       .toHaveAttribute('href', '/admin/users/user-1');

@@ -1,5 +1,6 @@
-import { type CSSProperties, type ChangeEvent, type ReactNode, useEffect, useRef, useState } from 'react';
-import { ChevronDown, ChevronLeft, ChevronRight, Search } from 'lucide-react';
+import { type CSSProperties, type ChangeEvent, type ReactNode, useEffect, useId, useRef } from 'react';
+import { createPortal } from 'react-dom';
+import { ChevronLeft, ChevronRight, Search } from 'lucide-react';
 
 // --- AdminPageHeader ---------------------------------------------------------
 
@@ -20,7 +21,7 @@ export function AdminPageHeader({ eyebrow, title, description, actions }: AdminP
         {eyebrow && (
           <p
             className="mb-2 text-[10px] font-semibold uppercase tracking-[0.16em]"
-            style={{ color: 'var(--admin-accent)' }}
+            style={{ color: 'var(--text-secondary)' }}
           >
             {eyebrow}
           </p>
@@ -98,62 +99,21 @@ interface AdminSelectProps {
 }
 
 export function AdminSelect({ value, onValueChange, options, label, compact = false, disabled = false }: AdminSelectProps) {
-  const [open, setOpen] = useState(false);
-  const rootRef = useRef<HTMLDivElement>(null);
-  const selected = options.find(option => option.value === value) ?? options[0];
-
-  useEffect(() => {
-    if (!open) return;
-    const closeOnOutsidePointer = (event: MouseEvent) => {
-      if (!rootRef.current?.contains(event.target as Node)) setOpen(false);
-    };
-    const closeOnEscape = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') setOpen(false);
-    };
-    document.addEventListener('mousedown', closeOnOutsidePointer);
-    document.addEventListener('keydown', closeOnEscape);
-    return () => {
-      document.removeEventListener('mousedown', closeOnOutsidePointer);
-      document.removeEventListener('keydown', closeOnEscape);
-    };
-  }, [open]);
-
   return (
-    <div ref={rootRef} className={`admin-dropdown ${compact ? 'admin-dropdown-compact' : ''}`}>
-      <button
-        type="button"
+    <div className={`admin-dropdown ${compact ? 'admin-dropdown-compact' : ''}`}>
+      <select
         className="admin-dropdown-trigger"
         aria-label={label}
-        aria-haspopup="listbox"
-        aria-expanded={open}
         disabled={disabled}
-        onClick={() => setOpen(previous => !previous)}
+        value={value}
+        onChange={event => onValueChange(event.target.value)}
       >
-        <span className="truncate">{selected?.label ?? ''}</span>
-        <ChevronDown size={compact ? 12 : 14} aria-hidden="true" className={`shrink-0 transition-transform ${open ? 'rotate-180' : ''}`} />
-      </button>
-      {open && (
-        <div className="admin-dropdown-menu" role="listbox" aria-label={label}>
-          {options.map(option => {
-            const selectedOption = option.value === value;
-            return (
-              <button
-                key={option.value}
-                type="button"
-                role="option"
-                aria-selected={selectedOption}
-                className={`admin-dropdown-option ${selectedOption ? 'admin-dropdown-option-selected' : ''}`}
-                onClick={() => {
-                  onValueChange(option.value);
-                  setOpen(false);
-                }}
-              >
-                {option.label}
-              </button>
-            );
-          })}
-        </div>
-      )}
+        {options.map(option => (
+          <option key={option.value} value={option.value}>
+            {option.label}
+          </option>
+        ))}
+      </select>
     </div>
   );
 }
@@ -303,20 +263,53 @@ export function AdminConfirmDialog({
   danger?: boolean;
 }) {
   const cancelRef = useRef<HTMLButtonElement>(null);
+  const dialogRef = useRef<HTMLDivElement>(null);
+  const invokerRef = useRef<HTMLElement | null>(null);
+  const titleId = useId();
+  const descriptionId = useId();
 
-  // Focus cancel button when dialog opens
   useEffect(() => {
-    if (open) {
-      const timer = window.setTimeout(() => cancelRef.current?.focus(), 20);
-      return () => window.clearTimeout(timer);
-    }
+    if (!open) return;
+    invokerRef.current = document.activeElement instanceof HTMLElement
+      ? document.activeElement
+      : null;
+    const appRoot = document.getElementById('root');
+    const wasInert = appRoot?.hasAttribute('inert') ?? false;
+    appRoot?.setAttribute('inert', '');
+    const timer = window.setTimeout(() => cancelRef.current?.focus(), 20);
+    return () => {
+      window.clearTimeout(timer);
+      if (!wasInert) appRoot?.removeAttribute('inert');
+      invokerRef.current?.focus();
+    };
   }, [open]);
 
-  // ESC key closes dialog
   useEffect(() => {
     if (!open) return;
     const handleKey = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') onCancel();
+      if (event.key === 'Escape') {
+        event.preventDefault();
+        onCancel();
+        return;
+      }
+      if (event.key !== 'Tab') return;
+      const focusable = Array.from(dialogRef.current?.querySelectorAll<HTMLElement>(
+        'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])',
+      ) ?? []);
+      if (focusable.length === 0) {
+        event.preventDefault();
+        dialogRef.current?.focus();
+        return;
+      }
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
     };
     document.addEventListener('keydown', handleKey);
     return () => document.removeEventListener('keydown', handleKey);
@@ -324,7 +317,7 @@ export function AdminConfirmDialog({
 
   if (!open) return null;
 
-  return (
+  return createPortal(
     <div
       className="fixed inset-0 z-[100] flex items-center justify-center p-4"
       role="presentation"
@@ -332,10 +325,12 @@ export function AdminConfirmDialog({
       onMouseDown={event => event.target === event.currentTarget && onCancel()}
     >
       <div
+        ref={dialogRef}
         role="dialog"
+        tabIndex={-1}
         aria-modal="true"
-        aria-labelledby="admin-confirm-title"
-        aria-describedby={description ? 'admin-confirm-description' : undefined}
+        aria-labelledby={titleId}
+        aria-describedby={description ? descriptionId : undefined}
         className="admin-dialog w-full max-w-md p-5"
         style={{
           borderRadius: 'var(--admin-radius)',
@@ -345,14 +340,14 @@ export function AdminConfirmDialog({
         }}
       >
         <h2
-          id="admin-confirm-title"
+          id={titleId}
           className="text-2xl font-semibold"
           style={{ color: 'var(--text-primary)' }}
         >
           {title}
         </h2>
         {description && (
-          <p id="admin-confirm-description" className="mt-2 text-sm leading-6" style={{ color: 'var(--text-secondary)' }}>
+          <p id={descriptionId} className="mt-2 text-sm leading-6" style={{ color: 'var(--text-secondary)' }}>
             {description}
           </p>
         )}
@@ -369,7 +364,8 @@ export function AdminConfirmDialog({
           </button>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body,
   );
 }
 
@@ -439,6 +435,7 @@ export interface AdminDataTableProps<T> {
   emptyTitle?: string;
   emptyDescription?: string;
   footer?: ReactNode;
+  caption?: string;
 }
 
 export function AdminDataTable<T>({
@@ -452,6 +449,7 @@ export function AdminDataTable<T>({
   emptyTitle,
   emptyDescription,
   footer,
+  caption = 'Bảng dữ liệu quản trị',
 }: AdminDataTableProps<T>) {
   if (loading) return <AdminLoadingState />;
   if (error) return <AdminErrorState message={error} onRetry={onRetry} />;
@@ -460,7 +458,12 @@ export function AdminDataTable<T>({
 
   return (
     <>
-      <div style={{ overflowX: 'auto' }}>
+      <div
+        role="region"
+        aria-label={caption}
+        tabIndex={0}
+        style={{ overflowX: 'auto' }}
+      >
         <table
           className="admin-data-table"
           style={{
@@ -470,11 +473,13 @@ export function AdminDataTable<T>({
             minWidth,
           }}
         >
+          <caption className="sr-only">{caption}</caption>
           <thead>
             <tr style={{ borderBottom: '2px solid var(--border)', background: 'var(--bg-app)' }}>
               {columns.map(col => (
                 <th
                   key={col.key}
+                  scope="col"
                   style={{
                     padding: '0.75rem 1rem',
                     textAlign: 'left',

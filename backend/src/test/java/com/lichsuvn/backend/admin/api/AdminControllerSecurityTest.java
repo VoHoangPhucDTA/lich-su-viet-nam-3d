@@ -13,7 +13,6 @@ import com.lichsuvn.backend.admin.application.AdminEventPublicationService;
 import com.lichsuvn.backend.admin.application.AdminUserReadService;
 import com.lichsuvn.backend.admin.application.AdminUserMutationService;
 import com.lichsuvn.backend.admin.application.EventPublishBlockedException;
-import com.lichsuvn.backend.admin.application.AdminService;
 import com.lichsuvn.backend.auth.application.AuthService;
 import com.lichsuvn.backend.auth.security.UserPrincipal;
 import com.lichsuvn.backend.common.config.JacksonConfig;
@@ -41,6 +40,7 @@ import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.anyMap;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.nullable;
+import static org.mockito.Mockito.clearInvocations;
 import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.verifyNoInteractions;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
@@ -68,9 +68,6 @@ class AdminControllerSecurityTest {
 
     @Autowired
     MockMvc mockMvc;
-
-    @MockitoBean
-    AdminService adminService;
 
     @MockitoBean
     AdminEventReadService adminEventReadService;
@@ -500,8 +497,9 @@ class AdminControllerSecurityTest {
                         .content("""
                                 {"title":"Draft event","slug":"draft-event","eventLevel":"atomic",
                                  "eventType":"political","keyFacts":[],"grades":[]}
-                                """))
+                """))
                 .andExpect(status().isCreated());
+        clearInvocations(adminEventMutationService);
 
         mockMvc.perform(put("/api/admin/events/event-1")
                         .with(admin)
@@ -521,7 +519,11 @@ class AdminControllerSecurityTest {
                 .andExpect(status().isConflict())
                 .andExpect(jsonPath("$.code").value("ADMIN_EVENT_STATUS_DISABLED"));
 
-        verifyNoInteractions(adminService);
+        verifyNoInteractions(
+                adminEventMutationService,
+                adminEventMediaMutationService,
+                adminEventGeographyMutationService,
+                adminEventPublicationService);
     }
 
     @Test
@@ -560,7 +562,11 @@ class AdminControllerSecurityTest {
                         .content("{\"expectedUpdatedAt\":\"2026-07-24T17:20:30.123456Z\",\"grades\":[]}"))
                 .andExpect(status().isForbidden());
 
-        verifyNoInteractions(adminService);
+        verifyNoInteractions(
+                adminEventMutationService,
+                adminEventMediaMutationService,
+                adminEventGeographyMutationService,
+                adminEventPublicationService);
     }
 
     @Test

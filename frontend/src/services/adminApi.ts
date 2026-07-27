@@ -418,7 +418,15 @@ export interface AdminDashboardAuditEntry {
   timestamp: string;
 }
 
-export type AdminEventPayload = Record<string, unknown>;
+export interface AdminDashboard {
+  metrics: AdminDashboardMetrics;
+  attention: AdminDashboardAttentionEvent[];
+  recentAudit: AdminDashboardAuditEntry[];
+}
+
+export function getAdminDashboard(signal?: AbortSignal) {
+  return apiGet<AdminDashboard>('/api/admin/dashboard', { signal });
+}
 
 export function getAdminDashboardMetrics(signal?: AbortSignal) {
   return apiGet<AdminDashboardMetrics>('/api/admin/dashboard/metrics', { signal });
@@ -589,17 +597,4 @@ export function selectAdminEventThumbnail(id: string, mediaId: number, expectedU
     { expectedUpdatedAt },
     { signal },
   );
-}
-
-/** Kept only for the currently unreachable legacy editor module. */
-export function getAdminEvent(id: string) {
-  return apiGet<AdminEventPayload>(`/api/admin/events/${encodeURIComponent(id)}`);
-}
-
-export function updateAdminEvent(id: string, payload: AdminEventPayload) {
-  return apiPut<AdminEventPayload>(`/api/admin/events/${id}`, payload);
-}
-
-export function deleteAdminEvent(id: string) {
-  return apiDelete<{ id: string }>(`/api/admin/events/${id}`);
 }

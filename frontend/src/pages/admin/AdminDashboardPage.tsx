@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState, type ReactNode } from 'react';
+import { useCallback, useEffect, useRef, useState, type ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import {
   Archive,
@@ -22,6 +22,7 @@ import {
   AdminStatusBadge,
 } from '../../components/admin/AdminUI';
 import {
+  getAdminDashboard,
   getAdminDashboardAttention,
   getAdminDashboardAudit,
   getAdminDashboardMetrics,
@@ -120,10 +121,42 @@ function formatAuditAction(action: string) {
 }
 
 export default function AdminDashboardPage() {
+  const mountedRef = useRef(false);
+  const initialRequestStartedRef = useRef(false);
   const [metrics, setMetrics] = useState<SectionState<AdminDashboardMetrics>>(initialState);
   const [attention, setAttention] =
     useState<SectionState<AdminDashboardAttentionEvent[]>>(initialState);
   const [audit, setAudit] = useState<SectionState<AdminDashboardAuditEntry[]>>(initialState);
+
+  const loadDashboard = useCallback(async () => {
+    setMetrics(initialState());
+    setAttention(initialState());
+    setAudit(initialState());
+    try {
+      const data = await getAdminDashboard();
+      if (!mountedRef.current) return;
+      setMetrics({ data: data.metrics, loading: false, error: '' });
+      setAttention({ data: data.attention, loading: false, error: '' });
+      setAudit({ data: data.recentAudit, loading: false, error: '' });
+    } catch (cause) {
+      if (!mountedRef.current || isAbort(cause)) return;
+      setMetrics(previous => ({
+        ...previous,
+        loading: false,
+        error: errorMessage(cause, 'Không thể tải số liệu tổng quan.'),
+      }));
+      setAttention(previous => ({
+        ...previous,
+        loading: false,
+        error: errorMessage(cause, 'Không thể tải danh sách cần xử lý.'),
+      }));
+      setAudit(previous => ({
+        ...previous,
+        loading: false,
+        error: errorMessage(cause, 'Không thể tải hoạt động quản trị.'),
+      }));
+    }
+  }, []);
 
   const loadMetrics = useCallback(async (signal?: AbortSignal) => {
     setMetrics(previous => ({ ...previous, loading: true, error: '' }));
@@ -171,18 +204,15 @@ export default function AdminDashboardPage() {
   }, []);
 
   useEffect(() => {
-    const metricsController = new AbortController();
-    const attentionController = new AbortController();
-    const auditController = new AbortController();
-    void loadMetrics(metricsController.signal);
-    void loadAttention(attentionController.signal);
-    void loadAudit(auditController.signal);
+    mountedRef.current = true;
+    if (!initialRequestStartedRef.current) {
+      initialRequestStartedRef.current = true;
+      void loadDashboard();
+    }
     return () => {
-      metricsController.abort();
-      attentionController.abort();
-      auditController.abort();
+      mountedRef.current = false;
     };
-  }, [loadAttention, loadAudit, loadMetrics]);
+  }, [loadDashboard]);
 
   const eventMetrics = metrics.data?.events;
   const userMetrics = metrics.data?.users;

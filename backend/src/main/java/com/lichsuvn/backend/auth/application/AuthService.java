@@ -4,7 +4,6 @@ import com.lichsuvn.backend.auth.api.dto.AuthUserDto;
 import com.lichsuvn.backend.auth.api.dto.ChangePasswordRequest;
 import com.lichsuvn.backend.auth.api.dto.ForgotPasswordRequest;
 import com.lichsuvn.backend.auth.api.dto.LoginRequest;
-import com.lichsuvn.backend.auth.api.dto.RefreshRequest;
 import com.lichsuvn.backend.auth.api.dto.RegisterResponseDto;
 import com.lichsuvn.backend.auth.api.dto.RegisterRequest;
 import com.lichsuvn.backend.auth.api.dto.ResendVerificationRequest;
@@ -124,7 +123,7 @@ public class AuthService {
         String link = verificationLink(rawToken);
         // Bước 6A.1.7: AuthService.java: gửi email kích hoạt qua SMTP
         emailService.sendVerificationEmail(email, link, emailVerificationTtl.toMinutes());
-        log.info("Registered pending student email={} userId={}", email, UuidBytes.toString(saved.getId()));
+        log.info("Registered pending student userId={}", UuidBytes.toString(saved.getId()));
         // Bước 6A.1.8: AuthService.java: trả kết quả cho AuthController.java
         return toRegisterResponse(saved, link);
     }
@@ -237,21 +236,9 @@ public class AuthService {
         return user.toDto();
     }
 
-    @Transactional
-    /**
-     * @deprecated AuthController đọc refresh_token trực tiếp từ HttpOnly Cookie
-     *             và gọi {@link #refreshByToken(String)}. Phương thức này giữ lại
-     *             để tương thích ngược với các client cũ gửi RefreshRequest body.
-     */
-    @Deprecated
-    public AuthSession refresh(RefreshRequest request) {
-        return refreshByToken(request.refreshToken());
-    }
-
     /**
      * Làm mới Access Token bằng refresh token string (đọc từ HttpOnly Cookie).
      * AuthController gọi method này sau khi tự đọc cookie — không cần DTO nữa.
-     * Phương thức {@link #refresh(RefreshRequest)} được giữ lại để tương thích ngược.
      */
     @Transactional
     public AuthSession refreshByToken(String refreshToken) {
