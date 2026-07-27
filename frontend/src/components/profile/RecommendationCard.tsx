@@ -31,7 +31,7 @@ export default function RecommendationCard({ item }: { item: RecommendationItem 
       </div>
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-2.5 mb-1 flex-wrap">
-          <h4 className="font-sans text-base font-bold text-stone-900">{item.title}</h4>
+          <h3 className="font-sans text-base font-bold text-stone-900">{item.title}</h3>
           <span className="font-sans text-[9px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider"
             style={{ background: `${cfg.color}10`, color: cfg.color, border: `1px solid ${cfg.color}18` }}>
             {cfg.label}
