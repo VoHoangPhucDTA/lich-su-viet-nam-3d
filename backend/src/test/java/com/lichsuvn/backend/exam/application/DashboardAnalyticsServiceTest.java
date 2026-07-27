@@ -21,6 +21,7 @@ import java.util.stream.Stream;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.nullable;
@@ -125,6 +126,21 @@ class DashboardAnalyticsServiceTest {
         );
         assertEquals(500, pageable.getValue().getPageSize());
         verifyNoMoreInteractions(repository);
+    }
+
+    @Test
+    void reconcilesTotalKnownWhenCountLagsBehindFetchedRows() {
+        when(repository.countDashboardAttempts(any(), any(), any(), any())).thenReturn(2L);
+        var first = row("one", BigDecimal.valueOf(6), 60, "BACKEND", "SERVER", "SERVER_ON_TIME", 1);
+        var second = row("two", BigDecimal.valueOf(7), 60, "BACKEND", "SERVER", "SERVER_ON_TIME", 1);
+        var third = row("three", BigDecimal.valueOf(8), 60, "BACKEND", "SERVER", "SERVER_ON_TIME", 1);
+        when(repository.findDashboardAttempts(any(), any(), any(), any(), any(Pageable.class)))
+                .thenReturn(List.of(first, second, third));
+
+        var response = service.getDashboard(principal, "30d", 5);
+
+        assertEquals(3, response.coverage().totalKnownAttempts());
+        assertTrue(response.coverage().fetchedAttemptCount() <= response.coverage().totalKnownAttempts());
     }
 
     @Test

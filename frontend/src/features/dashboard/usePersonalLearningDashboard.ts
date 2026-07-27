@@ -9,7 +9,6 @@ import {
   createDashboardApiErrorViewModel,
   createDashboardLoadingViewModel,
   type DashboardDevelopmentFixtureLoader,
-  type DashboardErrorKind,
 } from './dashboardFixtures';
 import { mapDashboardAnalyticsToViewModel } from './dashboardMappers';
 import {
@@ -263,7 +262,7 @@ export function usePersonalLearningDashboard({
             return;
           }
           const errorViewModel = createDashboardApiErrorViewModel(
-            dashboardErrorKind(effectiveError) as DashboardErrorKind,
+            dashboardErrorKind(effectiveError),
             backendRange,
           );
           setRuntime({
@@ -280,7 +279,7 @@ export function usePersonalLearningDashboard({
           range: backendRange,
           source: 'error',
           viewModel: createDashboardApiErrorViewModel(
-            dashboardErrorKind(effectiveError) as DashboardErrorKind,
+            dashboardErrorKind(effectiveError),
             backendRange,
           ),
         });

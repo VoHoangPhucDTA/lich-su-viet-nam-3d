@@ -372,10 +372,10 @@ export function scanLocalDashboardAttempts(
 
   const annotated = attempts.map((attempt) => annotateRecovery(attempt, recoveryMetadata));
   const deduped = dedupeAttempts(annotated, diagnostics);
-  if (deduped.length > maxNormalizedAttempts) diagnostics.normalizedAttemptLimitReached = true;
-  const filtered = deduped
-    .filter((attempt) => matchesOwnerFilter(attempt, options.ownerFilter))
-    .slice(0, maxNormalizedAttempts);
+  const ownerMatched = deduped.filter((attempt) => matchesOwnerFilter(attempt, options.ownerFilter));
+  // Phản ánh dữ liệu của chính owner đang xem, không phải tổng mọi owner trên thiết bị.
+  if (ownerMatched.length > maxNormalizedAttempts) diagnostics.normalizedAttemptLimitReached = true;
+  const filtered = ownerMatched.slice(0, maxNormalizedAttempts);
   const ownerScopeBreakdown: Record<LocalDashboardOwnerScope, number> = {
     anonymous: 0,
     'authenticated-owner': 0,

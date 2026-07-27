@@ -91,6 +91,10 @@ public class DashboardAnalyticsService {
             analyzed.add(new DashboardAnalyzedAttempt(attempt, summaryEligible, authority, detail));
         }
 
+        // Bảo vệ bất biến fetchedAttemptCount <= totalKnownAttempts mà frontend validator
+        // bắt buộc: count/find có thể thấy snapshot khác nhau giữa hai câu lệnh.
+        long reconciledTotalKnown = Math.max(totalKnown, analyzed.size());
+
         return aggregator.aggregate(new DashboardAnalyticsAggregator.Input(
                 range.value,
                 fromDate,
@@ -98,7 +102,7 @@ public class DashboardAnalyticsService {
                 generatedAt,
                 recentLimit,
                 fetchLimit,
-                totalKnown,
+                reconciledTotalKnown,
                 excludedModes,
                 analyzed
         ));

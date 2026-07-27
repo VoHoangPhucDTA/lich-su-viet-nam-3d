@@ -532,6 +532,16 @@ function DashboardQuickActions({ vm, embedded = false }: { vm: PersonalLearningD
   );
 }
 
+function coverageNote(source: PersonalLearningDashboardViewModel['scope']['source']): string {
+  if (source === 'backend') {
+    return 'Điểm do máy chủ chấm và lưu cùng bản ghi bài làm.';
+  }
+  if (source === 'local-fallback') {
+    return 'Điểm đọc từ bản lưu dự phòng trên thiết bị, chưa được máy chủ xác nhận lại.';
+  }
+  return 'Điểm tính từ dữ liệu trên thiết bị này, chỉ phục vụ mục đích học tập.';
+}
+
 function DashboardUtilityRail({ vm }: { vm: PersonalLearningDashboardViewModel }) {
   const coverage = vm.coverage;
   return (
@@ -564,7 +574,7 @@ function DashboardUtilityRail({ vm }: { vm: PersonalLearningDashboardViewModel }
           <div><dt>Bài nguồn biểu đồ</dt><dd>{vm.scoreTrend.sourceAttemptCount}</dd></div>
           <div><dt>Điểm trên biểu đồ</dt><dd>{vm.scoreTrend.points.length}</dd></div>
         </dl>
-        <p className="dashboard-coverage-note">Điểm phục vụ mục đích học tập, chưa được máy chủ chấm lại.</p>
+        <p className="dashboard-coverage-note">{coverageNote(vm.scope.source)}</p>
       </section>
       <DashboardQuickActions vm={vm} embedded />
     </aside>

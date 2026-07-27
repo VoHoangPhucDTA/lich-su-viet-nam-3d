@@ -88,6 +88,24 @@ describe('local dashboard allowlisted scanner', () => {
     expect(attemptLimited.diagnostics.normalizedAttemptLimitReached).toBe(true);
   });
 
+  it('does not flag the normalized-attempt limit for an owner whose own data fits', () => {
+    const ownerBEntries = Object.fromEntries(Array.from({ length: 520 }, (_, index) => [
+      `v2_result_owner-b-${index}`,
+      v2SummaryFixture({ sessionId: `owner-b-${index}`, userId: 'owner-b' }),
+    ]));
+    const storage = new FakeStorage({
+      ...ownerBEntries,
+      'v2_result_owner-a-1': v2SummaryFixture({ sessionId: 'owner-a-1', userId: 'owner-a' }),
+      'v2_result_owner-a-2': v2SummaryFixture({ sessionId: 'owner-a-2', userId: 'owner-a' }),
+      'v2_result_owner-a-3': v2SummaryFixture({ sessionId: 'owner-a-3', userId: 'owner-a' }),
+    });
+    const result = scanLocalDashboardAttempts(storage, {
+      ownerFilter: { kind: 'authenticated-owner', ownerKey: 'owner-a' },
+    });
+    expect(result.attempts).toHaveLength(3);
+    expect(result.diagnostics.normalizedAttemptLimitReached).toBe(false);
+  });
+
   it('does not let caller options raise the hard scanner caps', () => {
     const storage = new FakeStorage({
       'v2_result_1': v2SummaryFixture({ sessionId: 'one' }),

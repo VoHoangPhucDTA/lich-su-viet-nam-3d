@@ -13,6 +13,14 @@ import type {
 import { LOCAL_DASHBOARD_POLICY_VERSION } from './localDashboardTypes';
 
 const TIMEZONE = 'Asia/Ho_Chi_Minh' as const;
+/** Intl.DateTimeFormat là constructor đắt; tạo một lần ở module scope. */
+const VIETNAM_DATE_FORMATTER = new Intl.DateTimeFormat('en-US', {
+  timeZone: TIMEZONE,
+  year: 'numeric',
+  month: '2-digit',
+  day: '2-digit',
+});
+
 function round2(value: number): number {
   return Math.round((value + Number.EPSILON) * 100) / 100;
 }
@@ -22,12 +30,7 @@ function percent(correct: number, total: number): number | null {
 }
 
 function vietnamDate(value: Date | number): string {
-  const parts = new Intl.DateTimeFormat('en-US', {
-    timeZone: TIMEZONE,
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit',
-  }).formatToParts(new Date(value));
+  const parts = VIETNAM_DATE_FORMATTER.formatToParts(new Date(value));
   const part = (type: Intl.DateTimeFormatPartTypes) => parts.find((item) => item.type === type)?.value ?? '';
   return `${part('year')}-${part('month')}-${part('day')}`;
 }

@@ -139,11 +139,15 @@ function snapshotQuestionEvidence(value: unknown): LocalDashboardQuestionEvidenc
     const userAnswer = value.userAnswer;
     if (!(userAnswer === null || typeof userAnswer === 'string') || typeof value.correctAnswer !== 'string') return null;
     const blank = userAnswer === null;
+    // Chấm từ đáp án, giống DashboardSnapshotV2Parser.parseMcq(). Cờ `correctness`
+    // chỉ dùng để đối chiếu — không bao giờ là nguồn chân lý. Local không reject khi
+    // cờ lệch vì localStorage còn dữ liệu từ nhiều phiên bản writer cũ.
+    const derivedCorrect = !blank && userAnswer === value.correctAnswer;
     return {
       questionId,
       questionType,
       completionState: blank ? 'BLANK' : 'COMPLETE',
-      correctUnits: value.correctness === true ? 1 : 0,
+      correctUnits: derivedCorrect ? 1 : 0,
       answeredUnits: blank ? 0 : 1,
       blankUnits: blank ? 1 : 0,
       totalUnits: 1,
@@ -288,11 +292,14 @@ function legacyQuestionEvidence(
     const selected = value.mcq.selected;
     if (!(selected === null || typeof selected === 'string') || typeof value.mcq.correct !== 'string') return null;
     const blank = selected === null;
+    // `isCorrect` của writer legacy chỉ dùng để đối chiếu. Không reject bản ghi khi
+    // cờ lệch; chấm từ đáp án để giữ dữ liệu local cũ dùng được mà không tin cờ sai.
+    const derivedCorrect = !blank && selected === value.mcq.correct;
     return {
       questionId,
       questionType,
       completionState: blank ? 'BLANK' : 'COMPLETE',
-      correctUnits: value.isCorrect === true ? 1 : 0,
+      correctUnits: derivedCorrect ? 1 : 0,
       answeredUnits: blank ? 0 : 1,
       blankUnits: blank ? 1 : 0,
       totalUnits: 1,

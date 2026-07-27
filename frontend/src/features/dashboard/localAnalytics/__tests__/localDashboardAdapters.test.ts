@@ -38,6 +38,63 @@ describe('local dashboard source adapters', () => {
     expect(safeOutput).not.toContain('selected');
   });
 
+  it('scores mcq from the answer key, not the correctness flag', () => {
+    const snapshot = apiSnapshotFixture();
+    const snapshotAttempt = successAttempt(adaptApiSnapshotV2LocalResult({
+      ...snapshot,
+      questions: [
+        {
+          ...snapshot.questions[0]!,
+          userAnswer: 'A',
+          correctAnswer: 'B',
+          correctness: true,
+        },
+        snapshot.questions[1]!,
+      ],
+    }, 'snapshot-mismatched-correctness'));
+    expect(snapshotAttempt.normalizedQuestions?.[0]?.correctUnits).toBe(0);
+
+    const legacy = v2DetailedFixture();
+    const legacyAttempt = successAttempt(adaptV2LegacyLocalResult({
+      ...legacy,
+      questions: [
+        {
+          ...legacy.questions[0]!,
+          isCorrect: true,
+          mcq: { selected: 'A', correct: 'B' },
+        },
+        legacy.questions[1]!,
+      ],
+    }, 'legacy-mismatched-correctness'));
+    expect(legacyAttempt.normalizedQuestions?.[0]?.correctUnits).toBe(0);
+  });
+
+  it('scores mcq correctly when the correctness flag is missing entirely', () => {
+    const snapshot = apiSnapshotFixture();
+    const snapshotMcqWithoutFlag: Record<string, unknown> = { ...snapshot.questions[0]! };
+    delete snapshotMcqWithoutFlag.correctness;
+    const snapshotAttempt = successAttempt(adaptApiSnapshotV2LocalResult({
+      ...snapshot,
+      questions: [
+        { ...snapshotMcqWithoutFlag, userAnswer: 'A', correctAnswer: 'A' },
+        snapshot.questions[1]!,
+      ],
+    }, 'snapshot-missing-correctness'));
+    expect(snapshotAttempt.normalizedQuestions?.[0]?.correctUnits).toBe(1);
+
+    const legacy = v2DetailedFixture();
+    const legacyMcqWithoutFlag: Record<string, unknown> = { ...legacy.questions[0]! };
+    delete legacyMcqWithoutFlag.isCorrect;
+    const legacyAttempt = successAttempt(adaptV2LegacyLocalResult({
+      ...legacy,
+      questions: [
+        { ...legacyMcqWithoutFlag, mcq: { selected: 'A', correct: 'A' } },
+        legacy.questions[1]!,
+      ],
+    }, 'legacy-missing-correctness'));
+    expect(legacyAttempt.normalizedQuestions?.[0]?.correctUnits).toBe(1);
+  });
+
   it('rejects snapshot version mismatch as unsupported', () => {
     expect(adaptApiSnapshotV2LocalResult(apiSnapshotFixture({ snapshotSchemaVersion: 3 }), 'key'))
       .toEqual({ status: 'unsupported', reason: 'snapshot-version-mismatch' });

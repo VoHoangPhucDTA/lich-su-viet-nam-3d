@@ -1,3 +1,4 @@
+import type { DashboardAnalyticsErrorKind } from '@/services/dashboardAnalyticsApi';
 import type { DashboardRange, PersonalLearningDashboardViewModel } from './dashboardTypes';
 
 export const DASHBOARD_FIXTURE_KEYS = [
@@ -31,13 +32,15 @@ const developmentFixtureLoader: DashboardDevelopmentFixtureLoader | null = impor
   ? () => import('./dashboardDevelopmentFixtures')
   : null;
 
+const VIETNAM_CALENDAR_DATE_FORMATTER = new Intl.DateTimeFormat('en-US', {
+  timeZone: 'Asia/Ho_Chi_Minh',
+  year: 'numeric',
+  month: '2-digit',
+  day: '2-digit',
+});
+
 function calendarDateInVietnam(now: Date): string {
-  const parts = new Intl.DateTimeFormat('en-US', {
-    timeZone: 'Asia/Ho_Chi_Minh',
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit',
-  }).formatToParts(now);
+  const parts = VIETNAM_CALENDAR_DATE_FORMATTER.formatToParts(now);
   const value = (type: Intl.DateTimeFormatPartTypes) => parts.find((part) => part.type === type)?.value ?? '';
   return `${value('year')}-${value('month')}-${value('day')}`;
 }
@@ -155,15 +158,8 @@ export function createDashboardAnonymousViewModel(
   };
 }
 
-export type DashboardErrorKind =
-  | 'unauthenticated'
-  | 'forbidden'
-  | 'invalid-request'
-  | 'contract'
-  | 'transport'
-  | 'timeout'
-  | 'server'
-  | 'unknown';
+/** Mọi kind lỗi API trừ 'aborted' (abort không hiển thị cho người dùng). */
+export type DashboardErrorKind = Exclude<DashboardAnalyticsErrorKind, 'aborted'>;
 
 const DASHBOARD_ERROR_COPY: Record<DashboardErrorKind, { title: string; message: string }> = {
   unauthenticated: {
