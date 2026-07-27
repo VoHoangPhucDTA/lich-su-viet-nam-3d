@@ -233,7 +233,7 @@ export default function QuizSessionPage() {
     return (
       <div className="quiz-session-state">
         <CircleAlert size={34} aria-hidden="true" className="text-[var(--danger)]" />
-        <h1 className="serif-heading text-2xl font-bold">{error || 'Lỗi dữ liệu'}</h1>
+        <h1 className="app-heading text-2xl font-bold">{error || 'Lỗi dữ liệu'}</h1>
         <button type="button" onClick={() => navigate('/quiz/generate')} className="public-primary-button">Tạo bài tập mới</button>
       </div>
     );
@@ -275,7 +275,7 @@ export default function QuizSessionPage() {
             <div className="flex flex-wrap items-start justify-between gap-3">
               <div>
                 <p className="public-eyebrow">Câu hỏi</p>
-                <h2 className="serif-heading mt-1 text-3xl font-bold">
+                <h2 className="app-heading mt-1 text-3xl font-bold">
                   {session.currentQuestionIndex + 1}<span className="text-lg text-[var(--text-muted)]">/{session.questions.length}</span>
                 </h2>
               </div>
@@ -363,7 +363,7 @@ export default function QuizSessionPage() {
         <div className="quiz-dialog-backdrop" role="presentation">
           <section className="quiz-confirm-dialog" role="dialog" aria-modal="true" aria-labelledby="quiz-submit-title">
             <span className="quiz-loading-icon"><Send size={21} aria-hidden="true" /></span>
-            <h2 id="quiz-submit-title" className="serif-heading text-2xl font-bold">Nộp bài ngay?</h2>
+            <h2 id="quiz-submit-title" className="app-heading text-2xl font-bold">Nộp bài ngay?</h2>
             <p>
               Bạn còn <strong>{session.answers.filter(answer => answer.selectedOptionId === null).length}</strong> câu chưa trả lời.
               Bạn vẫn có thể nộp bài hoặc quay lại kiểm tra.

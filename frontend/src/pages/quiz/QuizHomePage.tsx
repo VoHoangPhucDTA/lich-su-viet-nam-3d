@@ -27,7 +27,7 @@ function StatCard({
     <div className="quiz-stat-card">
       <span className="quiz-preview-icon"><Icon size={19} aria-hidden="true" /></span>
       <div>
-        <strong className="serif-heading">{value}</strong>
+        <strong className="app-heading">{value}</strong>
         <span>{label}</span>
       </div>
     </div>
@@ -48,7 +48,7 @@ function ActionCard({
   return (
     <Link to={to} className="public-card group block p-5 no-underline transition hover:-translate-y-0.5 hover:shadow-[var(--shadow)]">
       <span className="quiz-preview-icon"><Icon size={20} aria-hidden="true" /></span>
-      <h3 className="serif-heading mt-4 text-2xl font-bold text-[var(--text-primary)] group-hover:text-[var(--accent)]">{title}</h3>
+      <h3 className="app-heading mt-4 text-2xl font-bold text-[var(--text-primary)] group-hover:text-[var(--accent)]">{title}</h3>
       <p className="mt-2 text-sm leading-6 text-[var(--text-muted)]">{description}</p>
       <span className="mt-4 inline-flex items-center gap-2 text-sm font-bold text-[var(--accent)]">
         Khám phá <ArrowRight size={15} aria-hidden="true" />
@@ -96,7 +96,7 @@ export default function QuizHomePage() {
 
         <section className="quiz-hero">
           <div className="relative z-10 max-w-2xl">
-            <h2 className="serif-heading mt-2 text-4xl font-bold text-[var(--text-primary)] sm:text-5xl">
+            <h2 className="app-heading mt-2 text-4xl font-bold text-[var(--text-primary)] sm:text-5xl">
               Luyện đúng trọng tâm, hiểu rõ từng đáp án
             </h2>
             <p className="mt-4 max-w-xl text-sm leading-7 text-[var(--text-secondary)] sm:text-base">
@@ -117,7 +117,7 @@ export default function QuizHomePage() {
         <section>
           <div className="mb-5">
             <p className="public-eyebrow">Tiến độ thực tế</p>
-            <h2 className="serif-heading mt-2 text-3xl font-bold">Kết quả học tập của bạn</h2>
+            <h2 className="app-heading mt-2 text-3xl font-bold">Kết quả học tập của bạn</h2>
           </div>
           <div className="grid gap-4 sm:grid-cols-3">
             <StatCard label="Bài đã hoàn thành" value={attemptCount} icon={ClipboardList} />
@@ -129,7 +129,7 @@ export default function QuizHomePage() {
         <section>
           <div className="mb-5">
             <p className="public-eyebrow">Không gian học tập</p>
-            <h2 className="serif-heading mt-2 text-3xl font-bold">Chọn hoạt động</h2>
+            <h2 className="app-heading mt-2 text-3xl font-bold">Chọn hoạt động</h2>
           </div>
           <div className="grid gap-5 md:grid-cols-3">
             <ActionCard

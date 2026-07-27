@@ -16,7 +16,7 @@ export default function StatsCard({
   color = 'var(--accent)',
 }: StatsCardProps) {
   return (
-    <div className="group relative overflow-hidden rounded-2xl bg-white border border-stone-200/60 p-4 transition-all duration-200 hover:shadow-sm hover:-translate-y-0.5">
+    <div className="relative overflow-hidden rounded-2xl bg-white border border-stone-200/60 p-4">
       <div className="absolute top-0 left-0 right-0 h-0.5 rounded-t-2xl opacity-60"
         style={{ background: `linear-gradient(to right, ${color}, transparent)` }} />
       <div className="flex items-center gap-2.5 mb-2.5">
@@ -24,9 +24,9 @@ export default function StatsCard({
           style={{ background: `color-mix(in srgb, ${color} 6%, transparent)`, color }}>
           {icon}
         </div>
-        <span className="text-[9px] font-mono font-bold uppercase tracking-wider text-stone-400">{label}</span>
+        <span className="text-[9px] font-sans font-bold uppercase tracking-wider text-stone-400">{label}</span>
       </div>
-      <div className="font-serif text-xl sm:text-2xl font-black leading-none tracking-tight mb-1" style={{ color }}>
+      <div className="font-sans text-xl sm:text-2xl font-black leading-none tracking-tight mb-1" style={{ color }}>
         {value}
       </div>
       {sub && <span className="text-xs text-stone-400">{sub}</span>}

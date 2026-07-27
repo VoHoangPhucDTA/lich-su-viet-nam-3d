@@ -28,7 +28,10 @@ export default function AuthFormMessage({ type, message }: AuthFormMessageProps)
 
   return (
     <div
-      className={`animate-fade-in ${v.className}`}
+      className={`auth-form-message animate-fade-in ${v.className}`}
+      role={type === 'error' ? 'alert' : 'status'}
+      aria-live={type === 'error' ? 'assertive' : 'polite'}
+      aria-atomic="true"
       style={{
         display: 'flex',
         alignItems: 'flex-start',

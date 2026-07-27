@@ -37,10 +37,10 @@ function WelcomeHero({ firstName }: { firstName: string }) {
           </div>
           <div>
             <div className="flex items-center gap-3 flex-wrap">
-              <h1 className="font-serif text-2xl sm:text-3xl font-black text-stone-900 tracking-tight">
+              <h1 className="font-sans text-2xl sm:text-3xl font-black text-stone-900 tracking-tight">
                 Xin chào, {firstName}!
               </h1>
-              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[9px] font-mono font-bold uppercase tracking-wider bg-red-50 text-red-900 border border-red-200/60">
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[9px] font-sans font-bold uppercase tracking-wider bg-red-50 text-red-900 border border-red-200/60">
                 <Star size={10} strokeWidth={2} className="text-amber-500" />
                 Top {mockStats.rankPercentile}%
               </span>
@@ -54,24 +54,24 @@ function WelcomeHero({ firstName }: { firstName: string }) {
         <div className="shrink-0 flex items-center gap-3 px-4 py-3 rounded-xl bg-amber-50 border border-amber-200/60">
           <Flame size={22} strokeWidth={1.5} className="text-amber-600" />
           <div className="text-right">
-            <div className="font-serif text-2xl font-bold text-amber-600">{mockStats.streakDays}</div>
-            <div className="text-[8px] font-mono font-bold uppercase tracking-wider text-stone-400">Ngày liên tiếp</div>
+            <div className="font-sans text-2xl font-bold text-amber-600">{mockStats.streakDays}</div>
+            <div className="text-[8px] font-sans font-bold uppercase tracking-wider text-stone-400">Ngày liên tiếp</div>
           </div>
         </div>
       </div>
 
       <div className="mt-6 pt-5 border-t border-stone-100 grid grid-cols-3 gap-6">
         <div className="space-y-0.5">
-          <span className="block font-serif text-2xl font-bold text-red-900">{mockStats.eventsViewed}</span>
-          <span className="text-[9px] font-mono font-bold uppercase tracking-wider text-stone-400">Sự kiện đã xem</span>
+          <span className="block font-sans text-2xl font-bold text-red-900">{mockStats.eventsViewed}</span>
+          <span className="text-[9px] font-sans font-bold uppercase tracking-wider text-stone-400">Sự kiện đã xem</span>
         </div>
         <div className="space-y-0.5">
-          <span className="block font-serif text-2xl font-bold text-amber-600">{mockStats.quizzesCompleted}</span>
-          <span className="text-[9px] font-mono font-bold uppercase tracking-wider text-stone-400">Bài trắc nghiệm</span>
+          <span className="block font-sans text-2xl font-bold text-amber-600">{mockStats.quizzesCompleted}</span>
+          <span className="text-[9px] font-sans font-bold uppercase tracking-wider text-stone-400">Bài trắc nghiệm</span>
         </div>
         <div className="space-y-0.5">
-          <span className="block font-serif text-2xl font-bold text-emerald-600">{mockStats.weeklyMinutes}'</span>
-          <span className="text-[9px] font-mono font-bold uppercase tracking-wider text-stone-400">Phút tuần này</span>
+          <span className="block font-sans text-2xl font-bold text-emerald-600">{mockStats.weeklyMinutes}'</span>
+          <span className="text-[9px] font-sans font-bold uppercase tracking-wider text-stone-400">Phút tuần này</span>
         </div>
       </div>
     </section>
@@ -103,10 +103,10 @@ function GradeProgressSection() {
       aria-labelledby="grade-progress-heading"
       className="rounded-2xl bg-white border border-stone-200/60 p-5 sm:p-6 relative"
     >
-      <span aria-hidden="true" className="absolute top-3 right-3 text-[9px] font-mono text-stone-300 font-bold">01</span>
+      <span aria-hidden="true" className="absolute top-3 right-3 text-[9px] font-sans text-stone-300 font-bold">01</span>
       <div className="space-y-1 mb-5">
-        <span className="font-mono text-[9px] font-bold uppercase tracking-wider text-red-900">Tiến độ</span>
-        <h2 id="grade-progress-heading" className="font-serif text-lg font-bold text-stone-900">Tiến độ theo lớp</h2>
+        <span className="font-sans text-[9px] font-bold uppercase tracking-wider text-red-900">Tiến độ</span>
+        <h2 id="grade-progress-heading" className="font-sans text-lg font-bold text-stone-900">Tiến độ theo lớp</h2>
       </div>
       <div className="max-w-2xl">
         <GradeProgressChart data={mockProgressByGrade} />
@@ -125,20 +125,20 @@ const eventIcons: Record<string, React.ReactNode> = {
 function ContinueLearning() {
   return (
     <section aria-labelledby="continue-learning-heading" className="rounded-2xl bg-white border border-stone-200/60 p-5 relative">
-      <span aria-hidden="true" className="absolute top-3 right-3 text-[9px] font-mono text-stone-300 font-bold">02</span>
+      <span aria-hidden="true" className="absolute top-3 right-3 text-[9px] font-sans text-stone-300 font-bold">02</span>
       <div className="space-y-1 mb-4">
-        <span className="font-mono text-[9px] font-bold uppercase tracking-wider text-red-900">Học tập</span>
-        <h2 id="continue-learning-heading" className="font-serif text-lg font-bold text-stone-900">Tiếp tục học</h2>
+        <span className="font-sans text-[9px] font-bold uppercase tracking-wider text-red-900">Học tập</span>
+        <h2 id="continue-learning-heading" className="font-sans text-lg font-bold text-stone-900">Tiếp tục học</h2>
       </div>
       <div className="flex flex-col gap-2.5">
         {mockRecentEvents.map(ev => {
           return (
-            <div key={ev.id} className="group rounded-xl transition-all duration-200 flex items-center gap-3.5 p-3.5 bg-stone-50 border border-stone-200/60 hover:bg-white hover:shadow-sm">
+            <div key={ev.id} className="rounded-xl flex items-center gap-3.5 p-3.5 bg-stone-50 border border-stone-200/60">
               <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 bg-red-50 text-red-900">
                 {eventIcons[ev.title] ?? <BookOpenText size={20} strokeWidth={1.5} />}
               </div>
               <div className="flex-1 min-w-0">
-                <div className="font-serif text-sm font-bold text-stone-900 truncate">{ev.title}</div>
+                <div className="font-sans text-sm font-bold text-stone-900 truncate">{ev.title}</div>
                 <div className="flex gap-3 text-xs text-stone-400 mt-0.5">
                   <span>{ev.topic}</span>
                   <span>Lớp {ev.grade}</span>
@@ -149,11 +149,11 @@ function ContinueLearning() {
                   <span>{ev.progress}%</span>
                 </div>
                 <div className="h-1.5 rounded-full overflow-hidden bg-stone-200">
-                  <div className="h-full rounded-full transition-all duration-500"
+                  <div className="h-full rounded-full transition-[width] duration-500"
                     style={{ width: `${ev.progress}%`, background: ev.progress === 100 ? '#3D8361' : '#8b1e1e' }} />
                 </div>
               </div>
-              <button className="shrink-0 rounded-lg px-3 py-1.5 text-xs font-mono font-bold uppercase tracking-wider transition-all bg-red-50 text-red-900 border border-red-200/60 hover:bg-red-100">
+              <button type="button" className="profile-action shrink-0 rounded-lg px-3 py-1.5 text-xs font-sans font-bold uppercase tracking-wider bg-red-50 text-red-900 border border-red-200/60 hover:bg-red-100">
                 <span className="flex items-center gap-1">
                   {ev.progress === 100 ? 'Ôn lại' : 'Tiếp tục'}
                   <ArrowRight size={12} strokeWidth={2.5} />
@@ -164,7 +164,7 @@ function ContinueLearning() {
         })}
       </div>
       <div className="mt-3 text-right">
-        <Link to="/profile/history" className="inline-flex items-center gap-1 text-xs font-mono font-bold uppercase tracking-wider text-red-900 hover:text-red-700 transition-colors">
+        <Link to="/profile/history" className="profile-action inline-flex items-center gap-1 rounded text-xs font-sans font-bold uppercase tracking-wider text-red-900 hover:text-red-700">
           Xem lịch sử
           <ChevronRight size={13} strokeWidth={2.5} />
         </Link>
@@ -189,10 +189,10 @@ export default function ProfileDashboardPage() {
         <ContinueLearning />
 
         <section aria-labelledby="general-recommendations-heading" className="rounded-2xl bg-white border border-stone-200/60 p-5 relative">
-          <span aria-hidden="true" className="absolute top-3 right-3 text-[9px] font-mono text-stone-300 font-bold">03</span>
+          <span aria-hidden="true" className="absolute top-3 right-3 text-[9px] font-sans text-stone-300 font-bold">03</span>
           <div className="space-y-1 mb-4">
-            <span className="font-mono text-[9px] font-bold uppercase tracking-wider text-red-900">Đề xuất</span>
-            <h2 id="general-recommendations-heading" className="font-serif text-lg font-bold text-stone-900">Gợi ý học tập</h2>
+            <span className="font-sans text-[9px] font-bold uppercase tracking-wider text-red-900">Đề xuất</span>
+            <h2 id="general-recommendations-heading" className="font-sans text-lg font-bold text-stone-900">Gợi ý học tập</h2>
           </div>
           <div className="flex flex-col gap-3">
             {mockRecommendations.map(r => (

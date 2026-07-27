@@ -21,7 +21,7 @@ export default function SectionHeader({
     <div className="space-y-2.5">
       <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
         <span
-          className="font-mono text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em] shrink-0"
+          className="font-sans text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em] shrink-0"
           style={{ color: 'var(--danger)' }}
         >
           {eyebrow}
@@ -35,7 +35,7 @@ export default function SectionHeader({
         )}
       </div>
       <h2
-        className="font-serif text-xl sm:text-2xl lg:text-3xl font-black leading-tight tracking-[-0.01em]"
+        className="font-sans text-xl sm:text-2xl lg:text-3xl font-black leading-tight tracking-[-0.01em]"
         style={{ color: 'var(--text-primary)' }}
       >
         {title}

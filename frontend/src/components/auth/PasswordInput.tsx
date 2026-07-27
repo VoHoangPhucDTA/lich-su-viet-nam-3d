@@ -29,6 +29,7 @@ export default function PasswordInput({
   onFocus,
 }: PasswordInputProps) {
   const [visible, setVisible] = useState(false);
+  const descriptionId = error ? `${id}-error` : hint ? `${id}-hint` : undefined;
 
   return (
     <div className="auth-field">
@@ -50,6 +51,8 @@ export default function PasswordInput({
           required={required}
           autoComplete={autoComplete}
           onFocus={onFocus}
+          aria-describedby={descriptionId}
+          aria-invalid={Boolean(error)}
         />
 
         <button
@@ -62,9 +65,9 @@ export default function PasswordInput({
         </button>
       </div>
       {error ? (
-        <p className="auth-field-error">{error}</p>
+        <p id={`${id}-error`} className="auth-field-error" role="alert">{error}</p>
       ) : hint ? (
-        <p className="auth-field-hint">{hint}</p>
+        <p id={`${id}-hint`} className="auth-field-hint">{hint}</p>
       ) : null}
     </div>
   );
