@@ -271,7 +271,7 @@
       "actionRoute": null
     },
     {
-      "id": "learning-only",
+      "id": "legacy-summary",
       "type": "info",
       "title": "Không phải thành tích xác minh",
       "message": "máy chủ hiện lưu điểm ứng dụng gửi lên và chưa chấm lại.",

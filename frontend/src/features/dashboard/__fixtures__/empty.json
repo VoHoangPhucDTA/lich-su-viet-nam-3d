@@ -57,7 +57,7 @@
   },
   "notices": [
     {
-      "id": "device-only",
+      "id": "device-only-local-analytics",
       "type": "info",
       "title": "Dữ liệu chỉ lưu trên thiết bị này",
       "message": "Đăng nhập để dùng lịch sử máy chủ trong tương lai.",

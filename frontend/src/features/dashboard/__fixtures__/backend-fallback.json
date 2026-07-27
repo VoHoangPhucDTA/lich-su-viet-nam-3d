@@ -291,7 +291,7 @@
   },
   "notices": [
     {
-      "id": "backend-unavailable",
+      "id": "backend-unavailable-local-fallback",
       "type": "warning",
       "title": "Không thể đồng bộ với máy chủ",
       "message": "Dashboard vẫn dùng được bằng dữ liệu lưu trên thiết bị. Phạm vi có thể khác lịch sử tài khoản.",
@@ -299,7 +299,7 @@
       "actionRoute": "/exams/thong-ke"
     },
     {
-      "id": "learning-only",
+      "id": "device-only-local-analytics",
       "type": "info",
       "title": "Điểm dùng cho học tập",
       "message": "Điểm chưa được máy chủ chấm lại.",

@@ -46,7 +46,7 @@
   },
   "notices": [
     {
-      "id": "dashboard-unavailable",
+      "id": "dashboard-not-connected",
       "type": "error",
       "title": "Không thể tải thống kê học tập",
       "message": "Máy chủ đang gặp lỗi và không có dữ liệu cục bộ. Hãy thử lại trên màn hình hoặc chọn một đề thi để tiếp tục học.",

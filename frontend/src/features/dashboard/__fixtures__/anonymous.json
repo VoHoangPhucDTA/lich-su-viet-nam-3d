@@ -270,20 +270,12 @@
   },
   "notices": [
     {
-      "id": "device-only",
+      "id": "device-only-local-analytics",
       "type": "info",
       "title": "Dữ liệu chỉ lưu trên thiết bị này",
-      "message": "Xóa dữ liệu trình duyệt hoặc đổi thiết bị có thể làm mất lịch sử local.",
+      "message": "Xóa dữ liệu trình duyệt hoặc đổi thiết bị có thể làm mất lịch sử local. Điểm được tính ở ứng dụng và chưa được máy chủ chấm lại.",
       "actionLabel": "Đăng nhập",
       "actionRoute": "/login"
-    },
-    {
-      "id": "learning-only",
-      "type": "info",
-      "title": "Điểm dùng cho học tập",
-      "message": "Điểm được tính ở ứng dụng và chưa được máy chủ chấm lại.",
-      "actionLabel": null,
-      "actionRoute": null
     }
   ]
 }

@@ -38,6 +38,7 @@ import { usePersonalLearningDashboard } from './usePersonalLearningDashboard';
 import type {
   CognitivePerformance,
   DashboardNotice,
+  DashboardNoticeId,
   DashboardRange,
   InsightStatus,
   LearningInsight,
@@ -155,19 +156,25 @@ function DashboardNoticeBanner({ notice }: { notice: DashboardNotice }) {
   );
 }
 
-function hasNotice(vm: PersonalLearningDashboardViewModel, id: string) {
-  return vm.notices.some((notice) => notice.id === id);
-}
+/** Notice phụ trợ: vẫn hữu ích nhưng không nên chiếm chỗ phía trên nội dung chính. */
+const SECONDARY_NOTICE_IDS = new Set<DashboardNoticeId>([
+  'device-only-local-analytics',
+  'device-unscoped-excluded',
+  'local-coverage-partial',
+  'pending-recovery',
+  'partial-detail',
+  'unsupported-detail',
+  'legacy-summary',
+  'no-detailed-analytics',
+]);
 
-function readyNotices(vm: PersonalLearningDashboardViewModel) {
-  if (hasNotice(vm, 'backend-unavailable')) {
-    return vm.notices.filter((notice) => notice.id === 'backend-unavailable');
+function splitReadyNotices(vm: PersonalLearningDashboardViewModel) {
+  const primary: DashboardNotice[] = [];
+  const secondary: DashboardNotice[] = [];
+  for (const notice of vm.notices) {
+    (SECONDARY_NOTICE_IDS.has(notice.id) ? secondary : primary).push(notice);
   }
-  return vm.notices.filter((notice) => (
-    notice.id !== 'coverage-partial'
-    && notice.id !== 'fetch-cap'
-    && notice.id !== 'dense-chart'
-  ));
+  return { primary, secondary };
 }
 
 function DashboardRecommendationCard({ vm }: { vm: PersonalLearningDashboardViewModel }) {
@@ -633,11 +640,23 @@ function DashboardReadyState({ vm, onRetry }: {
   vm: PersonalLearningDashboardViewModel;
   onRetry: () => void;
 }) {
-  const notices = readyNotices(vm);
+  const { primary, secondary } = splitReadyNotices(vm);
   const isLocalFallback = vm.scope.source === 'local-fallback';
   return (
     <main className="dashboard-content">
-      {notices.length > 0 && <div className="dashboard-notice-stack">{notices.map((notice) => <DashboardNoticeBanner key={notice.id} notice={notice} />)}</div>}
+      {primary.length > 0 && (
+        <div className="dashboard-notice-stack">
+          {primary.map((notice) => <DashboardNoticeBanner key={notice.id} notice={notice} />)}
+        </div>
+      )}
+      {secondary.length > 0 && (
+        <details className="dashboard-notice-details">
+          <summary>Chi tiết về nguồn dữ liệu ({secondary.length})</summary>
+          <div className="dashboard-notice-stack">
+            {secondary.map((notice) => <DashboardNoticeBanner key={notice.id} notice={notice} />)}
+          </div>
+        </details>
+      )}
       {isLocalFallback && (
         <div className="dashboard-fallback-actions">
           <button className="dashboard-secondary-action" type="button" onClick={onRetry}>

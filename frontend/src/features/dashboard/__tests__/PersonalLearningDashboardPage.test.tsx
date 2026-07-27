@@ -86,13 +86,28 @@ afterEach(() => {
 
 describe('PersonalLearningDashboardPage fixtures', () => {
   it('renders the default dashboard with the exact KPI set and one question-type section', () => {
-    renderFixture('default');
+    const { container } = renderFixture('default');
 
     for (const label of ['Số bài đã làm', 'Điểm trung bình', 'Điểm cao nhất', 'Điểm gần nhất']) {
       expect(screen.getByText(label)).toBeInTheDocument();
     }
     expect(screen.queryByText('Ngày hoạt động', { selector: '.dashboard-kpi-card p' })).not.toBeInTheDocument();
     expect(screen.getAllByRole('heading', { name: 'Hiệu suất theo dạng câu' })).toHaveLength(1);
+    // TASK-02: notice phụ (partial-detail) không còn bị lọc bỏ khỏi UI — hành vi cũ giấu hẳn
+    // thông tin phạm vi dữ liệu. Hành vi đúng mới: notice nằm trong <details> "Chi tiết về
+    // nguồn dữ liệu", không chiếm chỗ banner primary phía trên nội dung chính.
+    expect(container.querySelector('.dashboard-content > .dashboard-notice-stack')).toBeNull();
+    const noticeDetails = container.querySelector('.dashboard-notice-details');
+    expect(noticeDetails).toHaveTextContent('Chi tiết về nguồn dữ liệu (1)');
+    const secondaryNotice = noticeDetails?.querySelector('.dashboard-notice') as HTMLElement;
+    expect(secondaryNotice).toHaveTextContent('Phân tích chưa bao phủ toàn bộ lịch sử');
+    // <details> phải đóng lúc đầu và mở được bằng bàn phím/chuột — đây là hành vi cốt lõi
+    // của TASK-02, không chỉ là sự tồn tại của phần tử trong DOM.
+    expect(secondaryNotice).not.toBeVisible();
+    fireEvent.click(screen.getByText('Chi tiết về nguồn dữ liệu (1)'));
+    expect(secondaryNotice).toBeVisible();
+    // Thẻ "Phạm vi dữ liệu" phải là landmark region duy nhất mang tên này. Notice phụ dùng
+    // aria-label = title nên title fixture không được trùng tiêu đề thẻ phạm vi dữ liệu.
     const coveragePresentations = screen.getAllByRole('region', { name: 'Phạm vi dữ liệu' });
     expect(coveragePresentations).toHaveLength(1);
     expect(coveragePresentations[0]).toHaveClass('dashboard-coverage');
@@ -162,12 +177,21 @@ describe('PersonalLearningDashboardPage fixtures', () => {
   });
 
   it('distinguishes many-attempt coverage counts and limits recent history to five items', () => {
-    renderFixture('many-attempts');
+    const { container } = renderFixture('many-attempts');
     expect(screen.getByText('Tổng bài').nextElementSibling).toHaveTextContent('108');
     expect(screen.getByText('Đủ dữ liệu chi tiết').nextElementSibling).toHaveTextContent('92');
     expect(screen.getByText('Bài nguồn biểu đồ').nextElementSibling).toHaveTextContent('100');
     expect(screen.getByText('Điểm trên biểu đồ').nextElementSibling).toHaveTextContent(String(DASHBOARD_FIXTURES['many-attempts'].scoreTrend.points.length));
-    expect(screen.queryByText('Lịch sử vượt giới hạn hiện tại')).not.toBeInTheDocument();
+    // TASK-02: notice vượt giới hạn fetch (partial-detail) không còn bị giấu hẳn — hành vi
+    // đúng mới là nằm trong <details> phụ thay vì hiển thị như banner primary.
+    expect(container.querySelector('.dashboard-content > .dashboard-notice-stack')).toBeNull();
+    const noticeDetails = container.querySelector('.dashboard-notice-details');
+    expect(noticeDetails).toHaveTextContent('Chi tiết về nguồn dữ liệu (1)');
+    const secondaryNotice = noticeDetails?.querySelector('.dashboard-notice') as HTMLElement;
+    expect(secondaryNotice).toHaveTextContent('Lịch sử vượt giới hạn hiện tại');
+    expect(secondaryNotice).not.toBeVisible();
+    // Notice 'dense-chart' đã bị xóa khỏi fixture: không mapper nào sinh notice cho chart dày,
+    // page xử lý bằng dòng cảnh báo inline của biểu đồ.
     expect(screen.queryByText('Dữ liệu xu hướng dày')).not.toBeInTheDocument();
     expect(screen.getAllByRole('link', { name: /^Xem lại bài làm:/ })).toHaveLength(5);
   });
@@ -404,7 +428,7 @@ describe('authenticated dashboard integration', () => {
     const requestDashboard = vi.fn()
       .mockRejectedValueOnce(new DashboardAnalyticsApiError('server', 'safe', 503))
       .mockResolvedValueOnce(readyAnalyticsResponse);
-    render(
+    const { container } = render(
       <MemoryRouter initialEntries={['/exams/thong-ke']}>
         <PersonalLearningDashboardPage
           requestDashboard={requestDashboard}
@@ -415,6 +439,19 @@ describe('authenticated dashboard integration', () => {
     );
     expect(await screen.findByText('Máy chủ thống kê đang tạm thời không khả dụng')).toBeInTheDocument();
     expect(screen.getByText('Có bài đang chờ đồng bộ')).toBeInTheDocument();
+    const primaryNotices = container.querySelectorAll(
+      '.dashboard-content > .dashboard-notice-stack > .dashboard-notice',
+    );
+    expect(primaryNotices).toHaveLength(1);
+    expect(primaryNotices[0]).toHaveTextContent('Máy chủ thống kê đang tạm thời không khả dụng');
+    const secondaryNotices = container.querySelectorAll(
+      '.dashboard-notice-details .dashboard-notice',
+    );
+    expect(secondaryNotices).toHaveLength(2);
+    expect([...secondaryNotices].map((notice) => notice.textContent)).toEqual(expect.arrayContaining([
+      expect.stringContaining('Đang xem dữ liệu dự phòng trên thiết bị'),
+      expect.stringContaining('Có bài đang chờ đồng bộ'),
+    ]));
     expect(screen.getByRole('button', { name: 'Thử kết nối máy chủ lại' })).toBeInTheDocument();
     expect(screen.queryByText('test-owner')).not.toBeInTheDocument();
 
