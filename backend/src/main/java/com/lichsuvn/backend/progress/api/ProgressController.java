@@ -6,6 +6,7 @@ import com.lichsuvn.backend.progress.api.dto.EventProgressResponse;
 import com.lichsuvn.backend.progress.api.dto.EventViewRequest;
 import com.lichsuvn.backend.progress.api.dto.EventViewResponse;
 import com.lichsuvn.backend.progress.api.dto.ProgressDto;
+import com.lichsuvn.backend.progress.api.dto.ProfileLearningSummaryDto;
 import com.lichsuvn.backend.progress.application.ProgressService;
 import jakarta.validation.Valid;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -48,5 +49,13 @@ public class ProgressController {
     @GetMapping("/progress/me")
     public ApiResponse<ProgressDto> findMyProgress(@AuthenticationPrincipal UserPrincipal principal) {
         return ApiResponse.ok(progressService.findMyProgress(principal));
+    }
+
+    // Versioned, privacy-safe KPI summary for the profile overview.
+    @GetMapping("/progress/me/learning-summary")
+    public ApiResponse<ProfileLearningSummaryDto> findMyLearningSummary(
+            @AuthenticationPrincipal UserPrincipal principal
+    ) {
+        return ApiResponse.ok(progressService.findMyLearningSummary(principal));
     }
 }

@@ -17,8 +17,8 @@ import {
 /* ─── Nav items ─────────────────────────────────────────────────────────────── */
 const NAV_ITEMS = [
   { to: '/profile/dashboard', icon: LayoutDashboard, label: 'Tổng quan' },
-  { to: '/profile/history', icon: ScrollText, label: 'Lịch sử học tập' },
-  { to: '/profile/scores', icon: Award, label: 'Điểm số' },
+  { to: '/exams/lich-su', icon: ScrollText, label: 'Lịch sử học tập' },
+  { to: '/exams/thong-ke', icon: Award, label: 'Điểm số & phân tích' },
   { to: '/quiz', icon: Bot, label: 'Trắc nghiệm AI' },
   { to: '/exams', icon: FileText, label: 'Đề thi THPT' },
   { to: '/profile/settings', icon: Settings, label: 'Cài đặt' },

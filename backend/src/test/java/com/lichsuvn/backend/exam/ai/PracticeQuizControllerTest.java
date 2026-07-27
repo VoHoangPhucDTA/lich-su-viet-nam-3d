@@ -9,7 +9,9 @@ import com.lichsuvn.backend.common.security.ApiAuthenticationEntryPoint;
 import com.lichsuvn.backend.exam.ai.api.PracticeQuizController;
 import com.lichsuvn.backend.exam.ai.api.dto.AiQuizGenerateResponse;
 import com.lichsuvn.backend.exam.ai.api.dto.PracticeQuizGenerateResponse;
+import com.lichsuvn.backend.exam.ai.api.dto.PracticeQuizCompletionResponse;
 import com.lichsuvn.backend.exam.ai.application.AiQuizGenerationService;
+import com.lichsuvn.backend.exam.ai.application.PracticeQuizCompletionService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.TestConfiguration;
@@ -35,6 +37,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class PracticeQuizControllerTest {
     @Autowired MockMvc mockMvc;
     @MockitoBean AiQuizGenerationService service;
+    @MockitoBean PracticeQuizCompletionService completionService;
     @MockitoBean AuthService authService;
 
     @Test
@@ -69,6 +72,51 @@ class PracticeQuizControllerTest {
                                 {"query":" ","difficulty":"UNKNOWN","count":11}
                                 """))
                 .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    void recordsAnAuthenticatedCompletionReceipt() throws Exception {
+        when(completionService.record(any(), any())).thenReturn(
+                new PracticeQuizCompletionResponse(
+                        1,
+                        "550e8400-e29b-41d4-a716-446655440000",
+                        "recorded"
+                )
+        );
+
+        mockMvc.perform(post("/api/quiz/attempts")
+                        .with(user("student").authorities(() -> "ROLE_student"))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {
+                                  "clientSessionId":"session-123",
+                                  "topic":"Cách mạng tháng Tám",
+                                  "difficulty":"medium",
+                                  "totalQuestions":5,
+                                  "durationMs":90000
+                                }
+                                """))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.data.schemaVersion").value(1))
+                .andExpect(jsonPath("$.data.status").value("recorded"));
+    }
+
+    @Test
+    void rejectsInvalidCompletionMetadata() throws Exception {
+        mockMvc.perform(post("/api/quiz/attempts")
+                        .with(user("student").authorities(() -> "ROLE_student"))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {
+                                  "clientSessionId":"bad session id",
+                                  "topic":" ",
+                                  "difficulty":"unknown",
+                                  "totalQuestions":0,
+                                  "durationMs":-1
+                                }
+                                """))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.code").value("VALIDATION_ERROR"));
     }
 
     private static String validRequest() {
