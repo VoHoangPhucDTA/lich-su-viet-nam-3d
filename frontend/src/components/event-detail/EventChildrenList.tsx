@@ -167,7 +167,7 @@ function RelatedEventCard({
             />
           ) : (
             <div
-              className="w-full h-full flex items-center justify-center font-serif font-bold text-xl"
+              className="w-full h-full flex items-center justify-center font-sans font-bold text-xl"
               style={{ color: typeColor, opacity: 0.7 }}
             >
               •
@@ -183,17 +183,17 @@ function RelatedEventCard({
             >
               {child.relationLabel}
             </span>
-            <span className="text-[10px] font-bold uppercase tracking-[0.14em] font-mono" style={{ color: typeColor }}>
+            <span className="text-[10px] font-bold uppercase tracking-[0.14em] font-sans" style={{ color: typeColor }}>
               {typeLabel}
             </span>
             {child.displayDate && (
-              <span className="text-[10px] font-bold uppercase tracking-[0.14em] font-mono" style={{ color: 'var(--text-muted)' }}>
+              <span className="text-[10px] font-bold uppercase tracking-[0.14em] font-sans" style={{ color: 'var(--text-muted)' }}>
                 {child.displayDate}
               </span>
             )}
           </div>
           <h3
-            className="line-clamp-2 text-base font-bold leading-snug mb-1.5 font-serif"
+            className="line-clamp-2 text-base font-bold leading-snug mb-1.5 font-sans"
             style={{ color: 'var(--text-primary)' }}
           >
             {child.name}
@@ -203,14 +203,9 @@ function RelatedEventCard({
           </p>
         </div>
 
-        <div
-          className="flex-shrink-0 self-center transition-all duration-300 opacity-0 group-hover:opacity-100 group-hover:translate-x-1"
-          style={{ color: typeColor }}
-        >
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <path d="M5 12h14M13 5l7 7-7 7" />
-          </svg>
-        </div>
+        <span className="flex-shrink-0 self-center text-xs font-semibold" style={{ color: typeColor }}>
+          Xem chi tiết
+        </span>
       </div>
     </button>
   );

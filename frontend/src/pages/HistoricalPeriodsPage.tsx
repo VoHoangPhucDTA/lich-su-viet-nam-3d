@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
-import { LoaderCircle } from 'lucide-react';
 import {
   getHistoricalPeriodById,
   getPeriodQueryRange,
@@ -14,10 +13,15 @@ import PublicPageHeader from '../components/public/PublicPageHeader';
 import HistoricalPeriodCard from '../components/public/HistoricalPeriodCard';
 import EventExplorerToolbar from '../components/public/EventExplorerToolbar';
 import { useInfiniteEvents } from '../hooks/useInfiniteEvents';
-import type { EventType } from '../types/event';
+import type { EventGrade, EventType } from '../types/event';
 
 function parseYear(value: string): number | undefined {
   return value.trim() && /^-?\d+$/.test(value.trim()) ? Number(value) : undefined;
+}
+
+function parseGrade(value: string | null): EventGrade | null {
+  const grade = Number(value);
+  return grade === 10 || grade === 11 || grade === 12 ? grade : null;
 }
 
 export default function HistoricalPeriodsPage() {
@@ -36,6 +40,7 @@ export default function HistoricalPeriodsPage() {
       ? initialType
       : null,
   );
+  const [activeGrade, setActiveGrade] = useState<EventGrade | null>(parseGrade(searchParams.get('grade')));
   const sentinelRef = useRef<HTMLDivElement>(null);
   const baseRange = getPeriodQueryRange(activePeriod?.id);
   const from = parseYear(yearFrom);
@@ -64,15 +69,17 @@ export default function HistoricalPeriodsPage() {
     if (yearFrom.trim()) next.set('from', yearFrom.trim());
     if (yearTo.trim()) next.set('to', yearTo.trim());
     if (eventType) next.set('type', eventType);
+    if (activeGrade) next.set('grade', String(activeGrade));
     if (sortBy !== 'year') next.set('sortBy', sortBy);
     if (sortDir !== 'asc') next.set('sortDir', sortDir);
     if (next.toString() !== searchParams.toString()) setSearchParams(next, { replace: true });
-  }, [activePeriod, eventType, query, searchParams, setSearchParams, sortBy, sortDir, yearFrom, yearTo]);
+  }, [activeGrade, activePeriod, eventType, query, searchParams, setSearchParams, sortBy, sortDir, yearFrom, yearTo]);
 
   const { events, total, hasMore, isInitialLoading, isLoadingMore, error, loadMore, retry } = useInfiniteEvents({
     q: debouncedQuery || undefined,
     eventLevel: 'atomic',
     eventType: eventType ?? undefined,
+    grade: activeGrade ?? undefined,
     sortBy,
     sortDir,
     ...finalRange,
@@ -96,7 +103,7 @@ export default function HistoricalPeriodsPage() {
       <div className="public-shell">
         <main className="public-content-narrow">
           <div className="public-card">
-            <EmptyState title="Thời kỳ không tồn tại" description="Đường dẫn thời kỳ không hợp lệ hoặc đã được thay đổi." />
+            <EmptyState textOnly title="Thời kỳ không tồn tại" description="Đường dẫn thời kỳ không hợp lệ hoặc đã được thay đổi." />
             <div className="-mt-10 flex justify-center pb-10">
               <Link to="/periods" className="public-primary-button no-underline">Quay lại các thời kỳ</Link>
             </div>
@@ -153,10 +160,13 @@ export default function HistoricalPeriodsPage() {
           onYearToChange={setYearTo}
           activeType={eventType}
           onTypeChange={setEventType}
+          activeGrade={activeGrade}
+          onGradeChange={setActiveGrade}
           onReset={() => {
             setYearFrom('');
             setYearTo('');
             setEventType(null);
+            setActiveGrade(null);
           }}
           rangeError={invalidInput ? 'Khoảng năm không hợp lệ.' : null}
           searchPlaceholder={`Tìm trong ${activePeriod.shortLabel.toLowerCase()}...`}
@@ -177,6 +187,7 @@ export default function HistoricalPeriodsPage() {
         {hasError && <ErrorState onRetry={retry} />}
         {!isInitialLoading && !hasError && (emptyRange || (!invalidInput && events.length === 0)) && (
           <EmptyState
+            textOnly
             title="Chưa có sự kiện phù hợp"
             description={emptyRange ? 'Khoảng năm đã chọn nằm ngoài thời kỳ này.' : 'Hãy thử từ khóa khác hoặc xóa bộ lọc năm.'}
           />
@@ -187,7 +198,7 @@ export default function HistoricalPeriodsPage() {
           </div>
         )}
         <div ref={sentinelRef} className="flex min-h-14 items-center justify-center">
-          {isLoadingMore && <LoaderCircle size={22} aria-hidden="true" className="animate-spin text-[var(--accent)]" />}
+          {isLoadingMore && <span className="text-sm font-medium text-[var(--text-muted)]" role="status">Đang tải thêm…</span>}
           {hasError && events.length > 0 && (
             <button type="button" onClick={retry} className="public-secondary-button">Tải lại phần tiếp theo</button>
           )}

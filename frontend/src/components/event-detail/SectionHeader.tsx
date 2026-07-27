@@ -15,7 +15,7 @@ export default function SectionHeader({ index, title, subtitle }: SectionHeaderP
         <span
           className="flex-shrink-0 text-sm font-bold tracking-[0.2em]"
           style={{
-            fontFamily: 'var(--font-mono)',
+            fontFamily: 'var(--font-label)',
             color: 'var(--admin-accent)',
           }}
         >
@@ -24,7 +24,7 @@ export default function SectionHeader({ index, title, subtitle }: SectionHeaderP
         <h2
           className="text-[1.5rem] md:text-[1.75rem] font-bold leading-tight tracking-[-0.01em]"
           style={{
-            fontFamily: 'var(--font-serif)',
+            fontFamily: 'var(--font-heading)',
             color: 'var(--text-primary)',
           }}
         >

@@ -59,26 +59,7 @@ function Sidebar({ onClose }: { onClose?: () => void }) {
             key={item.to}
             to={item.to}
             onClick={onClose}
-            className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-150 no-underline"
-            style={({ isActive }) => ({
-              color: isActive ? '#fff' : '#57534e',
-              background: isActive ? '#8b1e1e' : 'transparent',
-              border: isActive ? '1px solid #8b1e1e' : '1px solid transparent',
-            })}
-            onMouseEnter={e => {
-              const el = e.currentTarget as HTMLAnchorElement;
-              if (!el.href.includes(window.location.pathname)) {
-                el.style.background = '#f5f5f4';
-                el.style.color = '#1c1917';
-              }
-            }}
-            onMouseLeave={e => {
-              const el = e.currentTarget as HTMLAnchorElement;
-              if (!el.href.includes(window.location.pathname)) {
-                el.style.background = 'transparent';
-                el.style.color = '#57534e';
-              }
-            }}
+            className="profile-nav-link flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium no-underline"
           >
             <Icon size={16} strokeWidth={1.8} className="shrink-0" />
             <span>{item.label}</span>
@@ -95,7 +76,7 @@ function Sidebar({ onClose }: { onClose?: () => void }) {
           try { await logout(); } catch { /* ignore */ }
           window.location.href = '/login';
         }}
-        className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-stone-400 hover:text-red-900 hover:bg-red-50 transition-all duration-150 cursor-pointer"
+        className="profile-action flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-stone-500 hover:text-red-900 hover:bg-red-50 cursor-pointer"
         style={{ background: 'transparent', border: 'none', fontFamily: 'inherit' }}
       >
         <LogOut size={16} strokeWidth={1.8} />
@@ -111,19 +92,22 @@ export default function ProfileLayout({ children }: { children: ReactNode }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-[#fafaf9]" style={{ display: 'flex', flexDirection: 'column' }}>
+    <div className="profile-shell min-h-screen bg-[#fafaf9]" style={{ display: 'flex', flexDirection: 'column' }}>
       {/* Body */}
       <div className="flex flex-1 overflow-hidden relative">
         {/* Mobile sidebar overlay */}
         {sidebarOpen && (
-          <div
+          <button
+            type="button"
+            aria-label="Đóng menu hồ sơ"
             onClick={() => setSidebarOpen(false)}
-            className="fixed inset-0 bg-black/30 z-40 lg:hidden"
+            className="fixed inset-0 bg-black/30 z-40 lg:hidden border-0"
           />
         )}
 
         {/* Sidebar */}
         <div
+          id="profile-navigation"
           className={`fixed lg:static inset-y-0 left-0 z-50 transform transition-transform duration-300 ${
             sidebarOpen ? 'translate-x-0' : '-translate-x-full'
           } lg:translate-x-0`}
@@ -136,8 +120,10 @@ export default function ProfileLayout({ children }: { children: ReactNode }) {
           {/* Mobile hamburger - floating */}
           <button
             onClick={() => setSidebarOpen(p => !p)}
-            className="fixed bottom-4 left-4 z-30 lg:hidden w-11 h-11 rounded-xl bg-white border border-stone-200 shadow-md flex items-center justify-center transition-all active:scale-95"
+            className="profile-action fixed bottom-4 left-4 z-30 lg:hidden w-11 h-11 rounded-xl bg-white border border-stone-200 shadow-md flex items-center justify-center"
             aria-label="Menu"
+            aria-expanded={sidebarOpen}
+            aria-controls="profile-navigation"
           >
             {sidebarOpen ? (
               <X size={18} strokeWidth={2} className="text-stone-600" />

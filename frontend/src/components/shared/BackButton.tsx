@@ -1,4 +1,3 @@
-import { ArrowLeft } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 interface BackButtonProps {
@@ -34,9 +33,8 @@ export default function BackButton({ fallback = '/home', label = 'Quay lại', c
   return (
     <button
       onClick={handleClick}
-      className={`inline-flex items-center gap-1.5 text-xs font-sans font-bold uppercase tracking-wider text-stone-400 hover:text-red-900 transition-colors ${className}`}
+      className={`inline-flex items-center text-xs font-sans font-bold uppercase tracking-wider text-stone-400 hover:text-red-900 transition-colors ${className}`}
     >
-      <ArrowLeft className="h-3 w-3" />
       {label}
     </button>
   );

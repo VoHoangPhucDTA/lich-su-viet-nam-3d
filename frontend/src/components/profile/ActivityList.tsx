@@ -28,7 +28,7 @@ export default function ActivityList({ activities }: { activities: LearningActiv
         <div className="w-14 h-14 rounded-2xl bg-stone-100 flex items-center justify-center mb-4">
           <Clock size={24} strokeWidth={1.5} className="text-stone-400" />
         </div>
-        <p className="font-serif text-base font-bold text-stone-900">Chưa có hoạt động nào</p>
+        <p className="font-sans text-base font-bold text-stone-900">Chưa có hoạt động nào</p>
         <p className="text-sm text-stone-400 mt-1.5 max-w-xs">Hãy bắt đầu học để theo dõi tiến trình của bạn!</p>
       </div>
     );
@@ -41,15 +41,15 @@ export default function ActivityList({ activities }: { activities: LearningActiv
         const Icon = cfg.icon;
 
         return (
-          <div key={a.id} className="group rounded-xl transition-all duration-200 flex items-center gap-3.5 p-3.5 bg-stone-50 border border-stone-200/60 hover:bg-white hover:shadow-sm">
+          <div key={a.id} className="rounded-xl flex items-center gap-3.5 p-3.5 bg-stone-50 border border-stone-200/60">
             <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0"
               style={{ background: `${cfg.color}10`, color: cfg.color }}>
               <Icon size={17} strokeWidth={1.5} />
             </div>
             <div className="flex-1 min-w-0">
-              <div className="font-serif text-sm font-bold text-stone-900 truncate">{a.title}</div>
+              <div className="font-sans text-sm font-bold text-stone-900 truncate">{a.title}</div>
               <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-stone-400 mt-0.5">
-                <span className="font-mono text-[9px] font-bold uppercase tracking-wider"
+                <span className="font-sans text-[9px] font-bold uppercase tracking-wider"
                   style={{ color: cfg.color }}>{cfg.label}</span>
                 <span className="flex items-center gap-1">
                   <BookOpen size={11} strokeWidth={1.5} />

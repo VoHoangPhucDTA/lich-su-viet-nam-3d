@@ -55,7 +55,7 @@ function WelcomeHero({
             <User size={24} strokeWidth={1.5} />
           </div>
           <div>
-            <h1 className="font-serif text-2xl sm:text-3xl font-black text-stone-900 tracking-tight">
+            <h1 className="font-sans text-2xl sm:text-3xl font-black text-stone-900 tracking-tight">
               Xin chào, {firstName}!
             </h1>
             <p className="text-sm text-stone-500 mt-1">
@@ -67,10 +67,10 @@ function WelcomeHero({
         <div className="shrink-0 flex items-center gap-3 px-4 py-3 rounded-xl bg-amber-50 border border-amber-200/60">
           <Flame size={22} strokeWidth={1.5} className="text-amber-600" />
           <div className="text-right">
-            <div className="font-serif text-2xl font-bold text-amber-600">
+            <div className="font-sans text-2xl font-bold text-amber-600">
               {streakDays ?? '—'}
             </div>
-            <div className="text-[8px] font-mono font-bold uppercase tracking-wider text-stone-400">
+            <div className="text-[8px] font-sans font-bold uppercase tracking-wider text-stone-400">
               Ngày liên tiếp
             </div>
           </div>
@@ -158,16 +158,16 @@ function RecentAttempts({
     >
       <div className="flex items-start justify-between gap-4 mb-4">
         <div className="space-y-1">
-          <span className="font-mono text-[9px] font-bold uppercase tracking-wider text-red-900">
+          <span className="font-sans text-[9px] font-bold uppercase tracking-wider text-red-900">
             Hoạt động thật
           </span>
-          <h2 id="recent-attempts-heading" className="font-serif text-lg font-bold text-stone-900">
+          <h2 id="recent-attempts-heading" className="font-sans text-lg font-bold text-stone-900">
             Bài thi gần đây
           </h2>
         </div>
         <Link
           to="/exams/lich-su"
-          className="inline-flex items-center gap-1 text-xs font-mono font-bold uppercase tracking-wider text-red-900 hover:text-red-700"
+          className="inline-flex items-center gap-1 text-xs font-sans font-bold uppercase tracking-wider text-red-900 hover:text-red-700"
         >
           Xem lịch sử
           <ArrowRight size={13} strokeWidth={2.5} />
@@ -185,7 +185,7 @@ function RecentAttempts({
           <p className="text-sm font-medium text-stone-700">Bạn chưa có bài thi đã nộp.</p>
           <Link
             to="/exams/browse"
-            className="inline-flex items-center gap-1 mt-2 text-xs font-mono font-bold uppercase tracking-wider text-red-900"
+            className="inline-flex items-center gap-1 mt-2 text-xs font-sans font-bold uppercase tracking-wider text-red-900"
           >
             Chọn đề để bắt đầu
             <ArrowRight size={12} />
@@ -204,7 +204,7 @@ function RecentAttempts({
                 <History size={19} strokeWidth={1.5} />
               </div>
               <div className="min-w-0 flex-1">
-                <div className="font-serif text-sm font-bold text-stone-900 truncate">
+                <div className="font-sans text-sm font-bold text-stone-900 truncate">
                   {attempt.title}
                 </div>
                 <div className="text-xs text-stone-400 mt-0.5">
@@ -212,10 +212,10 @@ function RecentAttempts({
                 </div>
               </div>
               <div className="text-right shrink-0">
-                <div className="font-serif text-lg font-bold text-red-900">
+                <div className="font-sans text-lg font-bold text-red-900">
                   {attempt.score.toFixed(2)}
                 </div>
-                <div className="text-[9px] font-mono uppercase tracking-wider text-stone-400">
+                <div className="text-[9px] font-sans uppercase tracking-wider text-stone-400">
                   điểm
                 </div>
               </div>
@@ -307,7 +307,7 @@ export default function ProfileDashboardPage({
         />
 
         <section className="rounded-2xl border border-stone-200/60 bg-white p-5 sm:p-6">
-          <h2 className="font-serif text-lg font-bold text-stone-900">Bước học tiếp theo</h2>
+          <h2 className="font-sans text-lg font-bold text-stone-900">Bước học tiếp theo</h2>
           <p className="mt-1 text-sm text-stone-500">
             Luyện một bộ câu hỏi AI hoặc làm đề thi để cập nhật các chỉ số bằng hoạt động thực tế.
           </p>

@@ -1,5 +1,3 @@
-import { CircleAlert, RefreshCw } from 'lucide-react';
-
 interface ErrorStateProps {
   title?: string;
   description?: string;
@@ -13,14 +11,10 @@ export default function ErrorState({
 }: ErrorStateProps) {
   return (
     <div className="public-state" role="alert">
-      <span className="public-state-icon">
-        <CircleAlert size={24} aria-hidden="true" />
-      </span>
       <h2>{title}</h2>
       <p>{description}</p>
       {onRetry && (
         <button type="button" onClick={onRetry} className="public-secondary-button mt-2">
-          <RefreshCw size={15} aria-hidden="true" />
           Thử lại
         </button>
       )}
