@@ -95,29 +95,65 @@ def test_provider_rotates_only_credential_failure() -> None:
     assert clients[0].closed
 
 
-def test_generation_cache_identity_invalidates_all_semantic_inputs(tmp_path: Path) -> None:
+def test_generation_cache_identity_covers_declared_semantic_inputs(
+    tmp_path: Path,
+) -> None:
     retrieval = retrieval_response()
     base_request = GenerationRequest(query="query", count=1)
-    base = GenerationCache.identity(
-        base_request, retrieval, model="model", temperature=0.3
+
+    def identity(
+        request=base_request,
+        retrieved=retrieval,
+        **overrides,
+    ):
+        values = {
+            "model": "model",
+            "temperature": 0.3,
+            "max_output_tokens": 8192,
+            "repair_attempts": 1,
+            "provider_mode": "production",
+            "prompt_version": "prompt-v1",
+            "schema_version": "schema-v1",
+        }
+        values.update(overrides)
+        return GenerationCache.identity(request, retrieved, **values)
+
+    base = identity()
+    assert base != identity(request=GenerationRequest(query="changed", count=1))
+    assert base != identity(model="other")
+    assert base != identity(temperature=0.4)
+    assert base != identity(max_output_tokens=4096)
+    assert base != identity(repair_attempts=2)
+    assert base != identity(provider_mode="deterministic")
+    assert base != identity(prompt_version="prompt-v2")
+    assert base != identity(schema_version="schema-v2")
+    with_style = GenerationRequest(
+        query="query",
+        count=1,
+        styleExamples=[
+            {
+                "question": "Mẫu khác",
+                "options": [
+                    {"id": "A", "text": "A"},
+                    {"id": "B", "text": "B"},
+                    {"id": "C", "text": "C"},
+                    {"id": "D", "text": "D"},
+                ],
+                "correctOptionId": "A",
+                "explanation": "Giải thích",
+                "difficulty": "MEDIUM",
+            }
+        ],
     )
-    assert base != GenerationCache.identity(
-        GenerationRequest(query="changed", count=1),
-        retrieval,
-        model="model",
-        temperature=0.3,
-    )
-    assert base != GenerationCache.identity(
-        base_request, retrieval, model="other", temperature=0.3
-    )
-    assert base != GenerationCache.identity(
-        base_request, retrieval, model="model", temperature=0.4
-    )
+    assert base != identity(request=with_style)
     changed = retrieval.model_copy(deep=True)
     changed.results[0].chunk_hash = "b" * 64
-    assert base != GenerationCache.identity(
-        base_request, changed, model="model", temperature=0.3
-    )
+    assert base != identity(retrieved=changed)
+    changed_context = retrieval.model_copy(deep=True)
+    changed_context.fact_context.text += "\nchanged"
+    assert base != identity(retrieved=changed_context)
+    # Correlation IDs, log level, and secrets are intentionally not inputs.
+    assert base == identity()
     service = GenerationService(
         settings=configured(tmp_path),
         retrieval_service=StubRetrieval(retrieval),  # type: ignore[arg-type]

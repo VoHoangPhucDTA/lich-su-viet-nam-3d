@@ -11,8 +11,13 @@ from pydantic import TypeAdapter
 
 from app.config import SERVICE_ROOT, get_settings
 from app.generation.evaluation import (
+    EVALUATION_REPORT_VERSION,
     GenerationCache,
-    latency_metrics,
+    build_source_excerpt_map,
+    calculate_generation_metrics,
+    classify_cache_mode,
+    classify_live_latency_status,
+    missing_excerpt_metadata,
     render_generation_markdown,
 )
 from app.generation.models import (
@@ -23,7 +28,11 @@ from app.generation.models import (
     SCHEMA_VERSION,
     StyleExample,
 )
-from app.generation.service import create_generation_service
+from app.generation.service import (
+    GenerationEvaluationTrace,
+    create_generation_service,
+)
+from app.generation.validators import validate_questions
 from app.retrieval.models import RetrievalRequest
 
 
@@ -100,11 +109,19 @@ def main() -> int:
     manual_review: list[dict] = []
     cache_hits = 0
     cache_misses = 0
+    provider_mode = (
+        "deterministic" if settings.deterministic_e2e_provider else "production"
+    )
     try:
         for case in cases:
-            started = time.monotonic()
+            started = time.perf_counter()
             request = _case_request(case)
+            trace = GenerationEvaluationTrace()
+            retrieval_latency_ms: float | None = None
+            cache_lookup_latency_ms: float | None = None
+            provider_latency_ms: float | None = None
             try:
+                retrieval_started = time.perf_counter()
                 retrieval = service.retrieval_service.retrieve(
                     RetrievalRequest(
                         query=request.query,
@@ -114,22 +131,48 @@ def main() -> int:
                         topK=request.top_k,
                     )
                 )
+                retrieval_latency_ms = round(
+                    (time.perf_counter() - retrieval_started) * 1000, 3
+                )
                 cache_key = cache.identity(
                     request,
                     retrieval,
                     model=settings.gemini_generation_model,
                     temperature=settings.gemini_generation_temperature,
+                    max_output_tokens=settings.gemini_generation_max_output_tokens,
+                    repair_attempts=settings.gemini_generation_repair_attempts,
+                    provider_mode=provider_mode,
                 )
+                cache_started = time.perf_counter()
                 response = cache.get(cache_key)
+                cache_lookup_latency_ms = round(
+                    (time.perf_counter() - cache_started) * 1000, 3
+                )
                 if response is None:
                     cache_misses += 1
                     response = service.generate(
-                        request, retrieval_response=retrieval
+                        request,
+                        retrieval_response=retrieval,
+                        evaluation_trace=trace,
                     )
+                    provider_latency_ms = round(trace.provider_latency_ms, 3)
                     cache.set(cache_key, response)
                 else:
                     cache_hits += 1
-                elapsed = round((time.monotonic() - started) * 1000, 3)
+                    trace.repair_attempt_count = response.metadata.repair_attempts
+                    if trace.repair_attempt_count:
+                        trace.repair_success_count = 1
+                        trace.repair_failure_count = max(
+                            0, trace.repair_attempt_count - 1
+                        )
+                    _, cached_summary = validate_questions(
+                        response.questions,
+                        request,
+                        retrieval.results,
+                        settings,
+                    )
+                    trace.validation_issues.extend(cached_summary.issues)
+                elapsed = round((time.perf_counter() - started) * 1000, 3)
                 required_documents = set(
                     case.expected.get("requiredSourceDocumentIds", [])
                 )
@@ -143,41 +186,71 @@ def main() -> int:
                     "success": True,
                     "requestedCount": case.count,
                     "generatedCount": len(response.questions),
-                    "repairAttempts": response.metadata.repair_attempts,
+                    "repairAttemptCount": trace.repair_attempt_count,
+                    "repairSuccessCount": trace.repair_success_count,
+                    "repairFailureCount": trace.repair_failure_count,
+                    "validationIssues": [
+                        issue.model_dump(by_alias=True)
+                        for issue in trace.validation_issues
+                    ],
                     "warnings": response.warnings,
-                    "latencyMs": elapsed,
+                    "timings": {
+                        "cacheLookupLatencyMs": cache_lookup_latency_ms,
+                        "retrievalLatencyMs": retrieval_latency_ms,
+                        "providerLatencyMs": provider_latency_ms,
+                        "totalLatencyMs": elapsed,
+                    },
                     "questionCount": len(response.questions),
                     "evidenceDocumentsPresent": evidence_documents_present,
                     "questions": question_values,
                 }
                 case_results.append(result)
-                source_map = {
-                    item.chunk_id: retrieval.results[index].text[:600]
-                    for index, item in enumerate(response.sources)
-                    if index < len(retrieval.results)
-                }
+                source_map, source_diagnostics = build_source_excerpt_map(
+                    response.sources,
+                    retrieval.results,
+                )
                 for question in response.questions:
                     manual_review.append(
                         {
                             "caseId": case.case_id,
                             **question.model_dump(by_alias=True),
                             "sourceExcerpts": {
-                                source_id: source_map.get(source_id, "")
+                                source_id: source_map.get(
+                                    source_id,
+                                    missing_excerpt_metadata(source_id),
+                                )
                                 for source_id in question.source_chunk_ids
                             },
+                            "sourceDiagnostics": source_diagnostics,
                             "validationWarnings": response.warnings,
                         }
                     )
             except Exception as exc:
+                elapsed = round((time.perf_counter() - started) * 1000, 3)
                 case_results.append(
                     {
                         "caseId": case.case_id,
                         "success": False,
                         "requestedCount": case.count,
                         "generatedCount": 0,
-                        "repairAttempts": 0,
+                        "repairAttemptCount": trace.repair_attempt_count,
+                        "repairSuccessCount": trace.repair_success_count,
+                        "repairFailureCount": trace.repair_failure_count,
+                        "validationIssues": [
+                            issue.model_dump(by_alias=True)
+                            for issue in trace.validation_issues
+                        ],
                         "warnings": [],
-                        "latencyMs": round((time.monotonic() - started) * 1000, 3),
+                        "timings": {
+                            "cacheLookupLatencyMs": cache_lookup_latency_ms,
+                            "retrievalLatencyMs": retrieval_latency_ms,
+                            "providerLatencyMs": (
+                                round(trace.provider_latency_ms, 3)
+                                if trace.provider_latency_ms
+                                else None
+                            ),
+                            "totalLatencyMs": elapsed,
+                        },
                         "questionCount": 0,
                         "evidenceDocumentsPresent": False,
                         "error": type(exc).__name__,
@@ -187,11 +260,9 @@ def main() -> int:
         service.close()
 
     successful = [item for item in case_results if item["success"]]
-    questions = [
-        question for item in successful for question in item.get("questions", [])
+    repairs = [
+        item for item in case_results if item["repairAttemptCount"] > 0
     ]
-    total_questions = max(1, len(questions))
-    repairs = [item for item in successful if item["repairAttempts"] > 0]
     partial = [
         item
         for item in successful
@@ -203,28 +274,20 @@ def main() -> int:
     duplicate_cases = [
         item
         for item in case_results
-        if any("DUPLICATE" in warning for warning in item.get("warnings", []))
+        if any(
+            str(issue.get("code", "")).startswith("DUPLICATE_")
+            for issue in item.get("validationIssues", [])
+        )
     ]
-    metrics = {
-        "requestSuccessRate": round(len(successful) / len(cases), 6),
-        "structuredOutputParseRate": round(len(successful) / len(cases), 6),
-        "schemaValidQuestionRate": 1.0 if questions else 0.0,
-        "exactlyFourOptionsRate": round(sum(len(q["options"]) == 4 for q in questions) / total_questions, 6),
-        "singleCorrectAnswerRate": round(sum(q["correctOptionId"] in {"A", "B", "C", "D"} for q in questions) / total_questions, 6),
-        "validSourceIdRate": round(sum(bool(q["sourceChunkIds"]) for q in questions) / total_questions, 6),
-        "nonemptyExplanationRate": round(sum(bool(q["explanation"].strip()) for q in questions) / total_questions, 6),
-        "withinBatchDuplicateRate": round(len(duplicate_cases) / len(cases), 6),
-        "styleExampleDuplicateRate": round(sum("DUPLICATE_STYLE_EXAMPLE" in item.get("warnings", []) for item in case_results) / len(cases), 6),
-        "dateEvidenceWarningRate": round(sum("DATE_EVIDENCE_WARNING" in item.get("warnings", []) for item in successful) / max(1, len(successful)), 6),
-        "properNameEvidenceWarningRate": round(sum("PROPER_NAME_EVIDENCE_WARNING" in item.get("warnings", []) for item in successful) / max(1, len(successful)), 6),
-        "repairAttemptRate": round(len(repairs) / len(cases), 6),
-        "repairSuccessRate": round(len(repairs) / max(1, len(repairs)), 6),
-        "partialGenerationRate": round(len(partial) / len(cases), 6),
-        "insufficientContextRate": round(len(insufficient) / len(cases), 6),
-        **latency_metrics([item["latencyMs"] for item in case_results]),
-    }
+    metrics = calculate_generation_metrics(case_results)
     failures = [item["caseId"] for item in case_results if not item["success"]]
+    cache_mode = classify_cache_mode(cache_hits, cache_misses)
+    live_latency_status = classify_live_latency_status(
+        cache_misses,
+        provider_mode,
+    )
     report = {
+        "reportVersion": EVALUATION_REPORT_VERSION,
         "status": "COMPLETED_WITH_ERRORS" if failures else "COMPLETED",
         "caseCount": len(cases),
         "configuration": {
@@ -233,6 +296,7 @@ def main() -> int:
             "maxOutputTokens": settings.gemini_generation_max_output_tokens,
             "promptVersion": PROMPT_VERSION,
             "schemaVersion": SCHEMA_VERSION,
+            "providerMode": provider_mode,
         },
         "distribution": {
             "byGrade": dict(Counter(str(case.grade) for case in cases)),
@@ -242,6 +306,20 @@ def main() -> int:
         },
         "cacheHits": cache_hits,
         "cacheMisses": cache_misses,
+        "cacheProvenance": {
+            "cacheHits": cache_hits,
+            "cacheMisses": cache_misses,
+            "cacheMode": cache_mode,
+            "liveLatencyStatus": live_latency_status,
+            "timingSemantics": {
+                "cacheLookupLatencyMs": "cache lookup only",
+                "retrievalLatencyMs": "retrieval service call only",
+                "providerLatencyMs": (
+                    "sum of provider calls; null when provider was not called"
+                ),
+                "totalLatencyMs": "complete evaluator case wall time",
+            },
+        },
         "metrics": metrics,
         "validationFailures": failures,
         "repairCases": [item["caseId"] for item in repairs],
@@ -266,6 +344,8 @@ def main() -> int:
                 "caseCount": len(cases),
                 "cacheHits": cache_hits,
                 "cacheMisses": cache_misses,
+                "cacheMode": cache_mode,
+                "liveLatencyStatus": live_latency_status,
                 "metrics": metrics,
                 "manualReviewRequired": len(manual_review),
                 "reportDirectory": str(REPORT_ROOT),

@@ -9,18 +9,24 @@ from app.config import Settings
 from app.generation.duplicate_checker import token_jaccard
 from app.generation.fake import FakeGenerationProvider
 from app.generation.models import (
+    Difficulty,
     GeneratedQuestion,
     GenerationOutputError,
     GenerationRequest,
     InsufficientContextError,
     QuizOption,
     StyleExample,
+    ValidationIssue,
 )
 from app.generation.parser import parse_generation_json
 from app.generation.prompt_builder import build_generation_prompt
+from app.generation.repair import build_repair_prompt
 from app.generation.schemas import GeneratedQuestionBatch
-from app.generation.service import GenerationService
-from app.generation.validators import validate_questions
+from app.generation.service import GenerationEvaluationTrace, GenerationService
+from app.generation.validators import (
+    find_prompt_scaffolding_markers,
+    validate_questions,
+)
 from app.main import create_app
 from app.retrieval.models import (
     FactContext,
@@ -156,8 +162,9 @@ def test_prompt_sections_isolate_style_and_mark_sources() -> None:
     assert "STYLE EXAMPLES" in prompt
     assert "STYLE ONLY — NOT A FACT SOURCE" in prompt
     assert "GENERATION REQUEST" in prompt
-    assert "PROMPT VERSION: grounded-mcq-v1" in prompt
+    assert "PROMPT VERSION: grounded-mcq-v2" in prompt
     assert "[SOURCE chunkId=chunk-1]" in prompt
+    assert "Học sinh không nhìn thấy prompt" in prompt
 
 
 def test_parser_rejects_fences_and_unknown_fields() -> None:
@@ -195,6 +202,77 @@ def test_structural_source_date_and_duplicate_validation(tmp_path: Path) -> None
     assert token_jaccard("Vai trò của lịch sử?", "Vai trò lịch sử là gì?") > 0.5
 
 
+@pytest.mark.parametrize(
+    ("field", "value"),
+    [
+        ("question", "FACT   CONTEXT cho biết sự kiện nào?"),
+        ("explanation", "Theo đoạn trích trên, đáp án A là đúng."),
+        ("option", "The provided context"),
+        ("question", "Theo đoạn trích, được cung cấp: sự kiện nào?"),
+    ],
+)
+def test_scaffolding_marker_is_error_in_every_visible_field(
+    tmp_path: Path, field: str, value: str
+) -> None:
+    overrides = {}
+    if field == "option":
+        options = question().model_dump(by_alias=True)["options"]
+        options[1]["text"] = value
+        overrides["options"] = options
+    else:
+        overrides[field] = value
+    valid, summary = validate_questions(
+        [question(**overrides)],
+        GenerationRequest(query="x"),
+        [source()],
+        configured(tmp_path),
+    )
+    assert not valid
+    issue = next(
+        item for item in summary.issues if item.code == "PROMPT_SCAFFOLDING_LEAK"
+    )
+    assert issue.severity == "ERROR"
+
+
+def test_scaffolding_detection_avoids_legitimate_historical_terms(
+    tmp_path: Path,
+) -> None:
+    legitimate = question(
+        question="Nguồn sử liệu nào phản ánh vai trò của tư liệu lịch sử?"
+    )
+    valid, summary = validate_questions(
+        [legitimate],
+        GenerationRequest(query="x"),
+        [source()],
+        configured(tmp_path),
+    )
+    assert valid == [legitimate]
+    assert "PROMPT_SCAFFOLDING_LEAK" not in {
+        issue.code for issue in summary.issues
+    }
+    assert not find_prompt_scaffolding_markers(legitimate.question)
+
+
+def test_difficulty_mismatch_is_warning_and_normalized_without_repair(
+    tmp_path: Path,
+) -> None:
+    provider = FakeGenerationProvider(
+        [GeneratedQuestionBatch(questions=[question(difficulty="HARD")])]
+    )
+    service = GenerationService(
+        settings=configured(tmp_path),
+        retrieval_service=StubRetrieval(retrieval_response()),  # type: ignore[arg-type]
+        provider=provider,
+    )
+    response = service.generate(
+        GenerationRequest(query="x", count=1, difficulty="MEDIUM")
+    )
+    assert response.questions[0].difficulty == Difficulty.MEDIUM
+    assert response.metadata.repair_attempts == 0
+    assert response.warnings == ["DIFFICULTY_MISMATCH"]
+    assert len(provider.prompts) == 1
+
+
 def test_service_valid_response_and_partial_policy(tmp_path: Path) -> None:
     provider = FakeGenerationProvider([GeneratedQuestionBatch(questions=[question()])])
     retrieval = StubRetrieval(retrieval_response())
@@ -223,6 +301,93 @@ def test_invalid_first_generation_repair_succeeds(tmp_path: Path) -> None:
     assert response.metadata.repair_attempts == 1
     assert len(provider.prompts) == 2
     assert "REPAIR RULES" in provider.prompts[1]
+
+
+def test_scaffolding_repair_receives_issue_and_returns_clean_question(
+    tmp_path: Path,
+) -> None:
+    invalid = question(explanation="Theo FACT CONTEXT, đáp án A đúng.")
+    provider = FakeGenerationProvider(
+        [
+            GeneratedQuestionBatch(questions=[invalid]),
+            GeneratedQuestionBatch(questions=[question()]),
+        ]
+    )
+    trace = GenerationEvaluationTrace()
+    service = GenerationService(
+        settings=configured(tmp_path),
+        retrieval_service=StubRetrieval(retrieval_response()),  # type: ignore[arg-type]
+        provider=provider,
+    )
+    response = service.generate(
+        GenerationRequest(query="x", count=1),
+        evaluation_trace=trace,
+    )
+    assert len(provider.prompts) == 2
+    assert "PROMPT_SCAFFOLDING_LEAK" in provider.prompts[1]
+    assert "nội dung tự chứa" in provider.prompts[1]
+    assert not find_prompt_scaffolding_markers(response.questions[0].question)
+    assert not find_prompt_scaffolding_markers(response.questions[0].explanation)
+    assert trace.repair_attempt_count == trace.repair_success_count == 1
+    assert trace.repair_failure_count == 0
+
+
+@pytest.mark.parametrize(
+    ("kind", "expected_code"),
+    [
+        ("within", "DUPLICATE_WITHIN_BATCH"),
+        ("style", "DUPLICATE_STYLE_EXAMPLE"),
+    ],
+)
+def test_duplicate_errors_are_traced_but_invalid_questions_are_not_public(
+    tmp_path: Path, kind: str, expected_code: str
+) -> None:
+    initial_questions = (
+        [question(), question()]
+        if kind == "within"
+        else [question()]
+    )
+    repaired = question(
+        question="Nguyên nhân trực tiếp của thắng lợi năm 1945 là gì?"
+    )
+    provider = FakeGenerationProvider(
+        [
+            GeneratedQuestionBatch(questions=initial_questions),
+            GeneratedQuestionBatch(questions=[repaired]),
+        ]
+    )
+    trace = GenerationEvaluationTrace()
+    service = GenerationService(
+        settings=configured(tmp_path),
+        retrieval_service=StubRetrieval(retrieval_response()),  # type: ignore[arg-type]
+        provider=provider,
+    )
+    request = GenerationRequest(
+        query="x",
+        count=1,
+        styleExamples=[style()] if kind == "style" else [],
+    )
+    response = service.generate(request, evaluation_trace=trace)
+    assert expected_code in {issue.code for issue in trace.validation_issues}
+    assert [item.question for item in response.questions] == [repaired.question]
+    assert expected_code not in response.warnings
+
+
+def test_repair_prompt_preserves_source_contract_instruction() -> None:
+    prompt = build_repair_prompt(
+        "original",
+        "{}",
+        [
+            ValidationIssue(
+                code="PROMPT_SCAFFOLDING_LEAK",
+                message="hidden context",
+                questionIndex=0,
+            )
+        ],
+        retrieval_response().fact_context,
+    )
+    assert "PROMPT_SCAFFOLDING_LEAK" in prompt
+    assert "sourceChunkIds hợp lệ" in prompt
 
 
 def test_invalid_repair_is_rejected_and_empty_context_fails(tmp_path: Path) -> None:

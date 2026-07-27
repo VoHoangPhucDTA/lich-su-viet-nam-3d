@@ -1,5 +1,6 @@
 """Retrieval-grounded MCQ generation orchestration."""
 
+from dataclasses import dataclass, field
 import time
 
 from app.config import Settings
@@ -20,6 +21,24 @@ from app.generation.repair import build_repair_prompt
 from app.generation.validators import validate_questions
 from app.retrieval.models import RetrievalRequest, RetrievalResponse
 from app.retrieval.service import RetrievalService, create_retrieval_service
+
+
+@dataclass
+class GenerationEvaluationTrace:
+    """Internal evaluator data that is never serialized in the public API."""
+
+    validation_issues: list[ValidationIssue] = field(default_factory=list)
+    repair_attempt_count: int = 0
+    repair_success_count: int = 0
+    repair_failure_count: int = 0
+    provider_latency_ms: float = 0.0
+
+    def reset(self) -> None:
+        self.validation_issues.clear()
+        self.repair_attempt_count = 0
+        self.repair_success_count = 0
+        self.repair_failure_count = 0
+        self.provider_latency_ms = 0.0
 
 
 class GenerationService:
@@ -68,7 +87,10 @@ class GenerationService:
         request: GenerationRequest,
         *,
         retrieval_response: RetrievalResponse | None = None,
+        evaluation_trace: GenerationEvaluationTrace | None = None,
     ) -> GenerationResponse:
+        if evaluation_trace is not None:
+            evaluation_trace.reset()
         started = time.monotonic()
         count = self._validate_request_limits(request)
         retrieval = retrieval_response or self.retrieval_service.retrieve(
@@ -91,6 +113,7 @@ class GenerationService:
         valid: list[GeneratedQuestion] = []
         current_prompt = prompt
         for attempt in range(self.settings.gemini_generation_repair_attempts + 1):
+            provider_started = time.monotonic()
             try:
                 batch = self.provider.generate_structured(current_prompt)
             except GenerationOutputError as exc:
@@ -98,9 +121,15 @@ class GenerationService:
                 last_issues = [
                     ValidationIssue(code=str(exc), message="structured output is invalid")
                 ]
+                if evaluation_trace is not None:
+                    evaluation_trace.validation_issues.extend(last_issues)
+                    if attempt > 0:
+                        evaluation_trace.repair_failure_count += 1
                 if attempt >= self.settings.gemini_generation_repair_attempts:
                     raise
                 repair_attempts += 1
+                if evaluation_trace is not None:
+                    evaluation_trace.repair_attempt_count = repair_attempts
                 current_prompt = build_repair_prompt(
                     prompt,
                     raw_output,
@@ -108,6 +137,11 @@ class GenerationService:
                     retrieval.fact_context,
                 )
                 continue
+            finally:
+                if evaluation_trace is not None:
+                    evaluation_trace.provider_latency_ms += (
+                        time.monotonic() - provider_started
+                    ) * 1000
             valid, summary = validate_questions(
                 batch.questions,
                 request,
@@ -115,14 +149,27 @@ class GenerationService:
                 self.settings,
             )
             last_issues = summary.issues
+            if evaluation_trace is not None:
+                evaluation_trace.validation_issues.extend(summary.issues)
             if len(valid) >= count and not any(
                 issue.severity == "ERROR" for issue in summary.issues
             ):
+                if evaluation_trace is not None and attempt > 0:
+                    evaluation_trace.repair_success_count += 1
                 valid = valid[:count]
                 break
             if attempt >= self.settings.gemini_generation_repair_attempts:
+                if evaluation_trace is not None and attempt > 0:
+                    if valid:
+                        evaluation_trace.repair_success_count += 1
+                    else:
+                        evaluation_trace.repair_failure_count += 1
                 break
+            if evaluation_trace is not None and attempt > 0:
+                evaluation_trace.repair_failure_count += 1
             repair_attempts += 1
+            if evaluation_trace is not None:
+                evaluation_trace.repair_attempt_count = repair_attempts
             current_prompt = build_repair_prompt(
                 prompt,
                 batch.model_dump_json(by_alias=True),
@@ -131,6 +178,11 @@ class GenerationService:
                 retrieval.fact_context,
             )
         if not valid:
+            if evaluation_trace is not None:
+                evaluation_trace.repair_failure_count = max(
+                    evaluation_trace.repair_failure_count,
+                    evaluation_trace.repair_attempt_count,
+                )
             raise GenerationOutputError("NO_VALID_QUESTIONS_AFTER_REPAIR")
         warnings = sorted(
             {

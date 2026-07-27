@@ -19,6 +19,37 @@ FORBIDDEN_CHOICES = (
     "không có đáp án",
 )
 
+PROMPT_SCAFFOLDING_MARKERS = (
+    "fact context",
+    "style example",
+    "style examples",
+    "source chunk",
+    "source id",
+    "chunk id",
+    "the provided context",
+    "the context above",
+    "the passage above",
+    "theo fact context",
+    "theo đoạn trích trên",
+    "theo đoạn trích được cung cấp",
+    "theo đoạn văn trên",
+    "theo tư liệu trên",
+    "theo nội dung được cung cấp",
+    "đoạn văn chỉ rõ",
+    "tư liệu trên cho biết",
+)
+
+
+def find_prompt_scaffolding_markers(value: str) -> set[str]:
+    """Return precise normalized prompt references in student-visible text."""
+
+    normalized = normalize_text(value)
+    return {
+        marker
+        for marker in PROMPT_SCAFFOLDING_MARKERS
+        if normalize_text(marker) in normalized
+    }
+
 
 def validate_questions(
     questions: list[GeneratedQuestion],
@@ -29,6 +60,7 @@ def validate_questions(
     source_map = {source.chunk_id: source for source in sources}
     issues: list[ValidationIssue] = []
     invalid_indexes: set[int] = set()
+    normalized_questions = list(questions)
     for index, question in enumerate(questions):
         errors: list[ValidationIssue] = []
         ids = [option.id for option in question.options]
@@ -44,7 +76,41 @@ def validate_questions(
         if len(question.explanation) > settings.quiz_max_explanation_length:
             errors.append(ValidationIssue(code="EXPLANATION_TOO_LONG", message="explanation exceeds limit", questionIndex=index))
         if question.difficulty != request.difficulty:
-            errors.append(ValidationIssue(code="DIFFICULTY_MISMATCH", message="question difficulty differs from request", questionIndex=index))
+            issues.append(
+                ValidationIssue(
+                    code="DIFFICULTY_MISMATCH",
+                    message="question difficulty was normalized to the request",
+                    questionIndex=index,
+                    severity="WARNING",
+                )
+            )
+            normalized_questions[index] = question.model_copy(
+                update={"difficulty": request.difficulty}
+            )
+        visible_fields = {
+            "question": question.question,
+            "explanation": question.explanation,
+            **{
+                f"option.{option.id}": option.text
+                for option in question.options
+            },
+        }
+        scaffold_hits = {
+            field: sorted(find_prompt_scaffolding_markers(value))
+            for field, value in visible_fields.items()
+            if find_prompt_scaffolding_markers(value)
+        }
+        if scaffold_hits:
+            errors.append(
+                ValidationIssue(
+                    code="PROMPT_SCAFFOLDING_LEAK",
+                    message=(
+                        "student-visible content references hidden prompt structure: "
+                        + ", ".join(sorted(scaffold_hits))
+                    ),
+                    questionIndex=index,
+                )
+            )
         if "```" in question.question or "```" in question.explanation or any("```" in option.text for option in question.options):
             errors.append(ValidationIssue(code="MARKDOWN_FENCE_NOT_ALLOWED", message="fields must not contain code fences", questionIndex=index))
         if any(phrase in normalize_text(" ".join(option.text for option in question.options)) for phrase in FORBIDDEN_CHOICES):
@@ -77,7 +143,7 @@ def validate_questions(
             invalid_indexes.add(index)
             issues.extend(errors)
     duplicate_errors = duplicate_issues(
-        questions,
+        normalized_questions,
         request.style_examples,
         settings.quiz_duplicate_similarity_threshold,
     )
@@ -87,7 +153,11 @@ def validate_questions(
         for issue in duplicate_errors
         if issue.question_index is not None
     )
-    valid = [question for index, question in enumerate(questions) if index not in invalid_indexes]
+    valid = [
+        question
+        for index, question in enumerate(normalized_questions)
+        if index not in invalid_indexes
+    ]
     has_errors = any(issue.severity == "ERROR" for issue in issues)
     has_warnings = any(issue.severity == "WARNING" for issue in issues)
     status = "FAILED" if has_errors and not valid else "PASSED_WITH_WARNINGS" if issues else "PASSED"
