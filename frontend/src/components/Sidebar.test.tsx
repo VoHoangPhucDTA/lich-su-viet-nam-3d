@@ -1,4 +1,5 @@
 import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
 import type { HistoricalEvent } from '../types/event';
 import Sidebar from './Sidebar';
@@ -38,5 +39,30 @@ describe('Sidebar event rows', () => {
     expect(chronology).toHaveClass('map-event-chronology');
     expect(parentTitle.compareDocumentPosition(chronology) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
     expect(chronology.compareDocumentPosition(childTitle) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+  });
+
+  it('lets keyboard users select an event from the sidebar', async () => {
+    const user = userEvent.setup();
+    const onSelectEvent = vi.fn();
+    const onHoverEvent = vi.fn();
+
+    render(
+      <Sidebar
+        events={[parent]}
+        selectedEvent={null}
+        onSelectEvent={onSelectEvent}
+        onHoverEvent={onHoverEvent}
+        searchQuery=""
+        onSearchQueryChange={vi.fn()}
+      />,
+    );
+
+    const selectEvent = screen.getByRole('button', { name: `Chọn sự kiện ${longTitle.trim()}` });
+    selectEvent.focus();
+    expect(selectEvent).toHaveFocus();
+    await user.keyboard('{Enter}');
+
+    expect(onSelectEvent).toHaveBeenCalledWith(parent);
+    expect(onHoverEvent).toHaveBeenCalledWith(parent.id);
   });
 });

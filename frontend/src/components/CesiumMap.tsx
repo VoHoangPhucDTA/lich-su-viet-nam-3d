@@ -60,6 +60,7 @@ import {
 // ─── SAFE MODE ────────────────────────────────────────────────────────────────
 // Set to false when globe is confirmed stable to re-enable markers + polygon.
 const CESIUM_SAFE_MODE = false;
+const VIETNAM_BOUNDARY_OUTLINE = Color.fromCssColorString('#f0c96f').withAlpha(0.95);
 const TERRAIN_REGION_FILL = Color.fromCssColorString('#c49a45').withAlpha(0.24);
 const TERRAIN_REGION_SELECTED_FILL = Color.fromCssColorString('#8b1e1e').withAlpha(0.46);
 const TERRAIN_REGION_OUTLINE = Color.fromCssColorString('#6f4e22').withAlpha(0.9);
@@ -358,9 +359,9 @@ export default function CesiumMap({
               regionGeometryIndexRef.current = index;
               onRegionGeometryStatusRef.current('ready');
               const dataSource = await GeoJsonDataSource.load(raw, {
-                stroke: Color.fromCssColorString('#8b7355').withAlpha(0.45),
+                stroke: VIETNAM_BOUNDARY_OUTLINE,
                 fill: Color.TRANSPARENT,
-                strokeWidth: 2,
+                strokeWidth: 3,
               });
               if (
                 !mountedRef.current
@@ -722,18 +723,19 @@ export default function CesiumMap({
             },
             label: {
               text: event.name,
-              font: 'bold 14px Inter, sans-serif',
+              font: '700 15px Inter, sans-serif',
               fillColor: Color.WHITE,
-              outlineColor: Color.fromCssColorString('#8b1e1e'),
-              outlineWidth: 3,
+              outlineColor: Color.fromCssColorString('#0c0a09'),
+              outlineWidth: 4,
               style: LabelStyle.FILL_AND_OUTLINE,
               verticalOrigin: VerticalOrigin.BOTTOM,
-              pixelOffset: new Cartesian2(0, -22),
+              pixelOffset: new Cartesian2(0, -24),
               heightReference: HeightReference.CLAMP_TO_GROUND,
+              disableDepthTestDistance: Number.POSITIVE_INFINITY,
               distanceDisplayCondition: new DistanceDisplayCondition(0, 2000000),
               showBackground: true,
-              backgroundColor: Color.fromCssColorString('rgba(28, 25, 23, 0.9)'),
-              backgroundPadding: new Cartesian2(10, 6),
+              backgroundColor: Color.fromCssColorString('rgba(12, 10, 9, 0.97)'),
+              backgroundPadding: new Cartesian2(12, 7),
             },
           });
 
@@ -813,9 +815,8 @@ export default function CesiumMap({
           entity.polygon.outlineWidth = new ConstantProperty(1.5);
         } else {
           entity.polygon.material = defaultMaterial;
-          entity.polygon.outlineColor = new ConstantProperty(
-            Color.fromCssColorString('#8b7355').withAlpha(0.45),
-          );
+          entity.polygon.outlineColor = new ConstantProperty(VIETNAM_BOUNDARY_OUTLINE);
+          entity.polygon.outlineWidth = new ConstantProperty(3);
         }
       }
     },

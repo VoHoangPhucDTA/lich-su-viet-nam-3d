@@ -40,7 +40,7 @@ export default function EventKeyFacts({ keyFacts, index = '04' }: EventKeyFactsP
             }}
           >
             <div
-              className="flex-shrink-0 font-serif font-bold text-3xl leading-none mt-1 tracking-[-0.02em]"
+              className="flex-shrink-0 font-sans font-bold text-3xl leading-none mt-1 tracking-[-0.02em]"
               style={{ color: 'var(--accent)', opacity: 0.85 }}
             >
               {String(idx + 1).padStart(2, '0')}

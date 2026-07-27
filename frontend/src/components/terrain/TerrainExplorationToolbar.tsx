@@ -254,7 +254,7 @@ export default function TerrainExplorationToolbar({
         >
           <div className="map-exploration-panel__header">
             <div className="map-exploration-panel__title-row">
-              <h2 id={panelTitleId} className="map-exploration-panel__title serif-heading">
+              <h2 id={panelTitleId} className="map-exploration-panel__title app-heading">
                 Công cụ khám phá
               </h2>
               <button

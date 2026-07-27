@@ -13,7 +13,7 @@ interface AdminPageHeaderProps {
 export function AdminPageHeader({ eyebrow, title, description, actions }: AdminPageHeaderProps) {
   return (
     <div
-      className="mb-7 flex flex-col gap-4 pb-6 sm:flex-row sm:items-end sm:justify-between"
+      className="admin-page-header mb-7 flex flex-col gap-4 pb-6 sm:flex-row sm:items-end sm:justify-between"
       style={{ borderBottom: '1px solid var(--border)' }}
     >
       <div className="min-w-0">
@@ -26,7 +26,7 @@ export function AdminPageHeader({ eyebrow, title, description, actions }: AdminP
           </p>
         )}
         <h1
-          className="text-3xl font-semibold leading-tight tracking-tight sm:text-4xl"
+          className="admin-page-title text-3xl font-semibold leading-tight tracking-tight sm:text-4xl"
           style={{ color: 'var(--text-primary)' }}
         >
           {title}
@@ -73,6 +73,7 @@ export function AdminSearchInput({
         onChange={onChange}
         onKeyDown={event => event.key === 'Enter' && onSubmit?.()}
         placeholder={placeholder}
+        aria-label={placeholder}
         className="min-w-0 flex-1 bg-transparent outline-none"
         style={{ color: 'var(--text-primary)' }}
       />
@@ -197,7 +198,7 @@ export function AdminStatusBadge({ status, label }: { status: string; label?: st
   };
   return (
     <span
-      className="inline-flex items-center rounded-full border px-2.5 py-1 text-[11px] font-semibold"
+      className="admin-status-badge inline-flex items-center rounded-full border px-2.5 py-1 text-[11px] font-semibold"
       style={style}
     >
       {label ?? STATUS_LABELS[status] ?? status}
@@ -223,7 +224,9 @@ export function AdminPagination({ total, offset, limit, loading, onChange }: { t
 }export function AdminLoadingState({ label = 'Đang tải dữ liệu…' }: { label?: string }) {
   return (
     <div
-      className="flex min-h-48 items-center justify-center gap-3 text-sm"
+      className="admin-state admin-state-loading flex min-h-48 items-center justify-center gap-3 text-sm"
+      role="status"
+      aria-live="polite"
       style={{ color: 'var(--text-muted)' }}
     >
       <span
@@ -246,10 +249,10 @@ export function AdminEmptyState({
   description?: string;
 }) {
   return (
-    <div className="flex min-h-48 flex-col items-center justify-center px-5 text-center">
-      <p className="text-sm font-semibold" style={{ color: 'var(--text-primary)' }}>
+    <div className="admin-state admin-state-empty flex min-h-48 flex-col items-center justify-center px-5 text-center" role="status">
+      <h2 className="text-sm font-semibold" style={{ color: 'var(--text-primary)' }}>
         {title}
-      </p>
+      </h2>
       <p className="mt-1 max-w-md text-xs leading-5" style={{ color: 'var(--text-muted)' }}>
         {description}
       </p>
@@ -267,10 +270,10 @@ export function AdminErrorState({
   onRetry?: () => void;
 }) {
   return (
-    <div className="flex min-h-48 flex-col items-center justify-center px-5 text-center">
-      <p className="text-sm font-semibold" style={{ color: 'var(--accent)' }}>
+    <div className="admin-state admin-state-error flex min-h-48 flex-col items-center justify-center px-5 text-center" role="alert">
+      <h2 className="text-sm font-semibold" style={{ color: 'var(--accent)' }}>
         {message}
-      </p>
+      </h2>
       {onRetry && (
         <button type="button" onClick={onRetry} className="admin-text-button mt-3">
           Thử lại
@@ -332,7 +335,8 @@ export function AdminConfirmDialog({
         role="dialog"
         aria-modal="true"
         aria-labelledby="admin-confirm-title"
-        className="w-full max-w-md p-5"
+        aria-describedby={description ? 'admin-confirm-description' : undefined}
+        className="admin-dialog w-full max-w-md p-5"
         style={{
           borderRadius: 'var(--admin-radius)',
           border: '1px solid var(--border)',
@@ -348,7 +352,7 @@ export function AdminConfirmDialog({
           {title}
         </h2>
         {description && (
-          <p className="mt-2 text-sm leading-6" style={{ color: 'var(--text-secondary)' }}>
+          <p id="admin-confirm-description" className="mt-2 text-sm leading-6" style={{ color: 'var(--text-secondary)' }}>
             {description}
           </p>
         )}
@@ -382,7 +386,7 @@ export function AdminFormSection({
 }) {
   return (
     <section
-      className="p-5 sm:p-6"
+      className="admin-form-section p-5 sm:p-6"
       style={{
         borderRadius: 'var(--admin-radius)',
         border: '1px solid var(--border)',
@@ -455,6 +459,7 @@ export function AdminDataTable<T>({
     <>
       <div style={{ overflowX: 'auto' }}>
         <table
+          className="admin-data-table"
           style={{
             width: '100%',
             borderCollapse: 'collapse',

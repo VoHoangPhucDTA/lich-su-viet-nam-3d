@@ -29,7 +29,7 @@ function ScoreCircle({ score }: { score: number }) {
           strokeDasharray={`${(pct / 360) * 106.8} 106.8`} strokeLinecap="round" transform="rotate(-90 21 21)"
           style={{ transition: 'stroke-dasharray 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)' }} />
         <text x="21" y="21" textAnchor="middle" dominantBaseline="central" fill={color}
-          fontSize="10" fontWeight="800" fontFamily="Inter, sans-serif">{score.toFixed(1)}</text>
+          fontSize="10" fontWeight="800" fontFamily="var(--font-ui)">{score.toFixed(1)}</text>
       </svg>
     </div>
   );
@@ -42,7 +42,7 @@ export default function ScoreTable({ scores }: { scores: ScoreRecord[] }) {
         <div className="w-14 h-14 rounded-2xl bg-stone-100 flex items-center justify-center mb-4">
           <Timer size={24} strokeWidth={1.5} className="text-stone-400" />
         </div>
-        <p className="font-serif text-base font-bold text-stone-900">Chưa có bài thi nào</p>
+        <p className="font-sans text-base font-bold text-stone-900">Chưa có bài thi nào</p>
         <p className="text-sm text-stone-400 mt-1.5 max-w-xs">Hoàn thành bài kiểm tra để theo dõi kết quả.</p>
       </div>
     );
@@ -57,12 +57,12 @@ export default function ScoreTable({ scores }: { scores: ScoreRecord[] }) {
         const pct = Math.round((s.correct / s.total) * 100);
 
         return (
-          <div key={s.id} className="group rounded-xl transition-all duration-200 flex items-center gap-4 p-3.5 bg-stone-50 border border-stone-200/60 hover:bg-white hover:shadow-sm">
+          <div key={s.id} className="rounded-xl flex items-center gap-4 p-3.5 bg-stone-50 border border-stone-200/60">
             <ScoreCircle score={s.score} />
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2.5 flex-wrap mb-1">
-                <h4 className="font-serif text-sm font-bold text-stone-900 truncate">{s.title}</h4>
-                <span className="font-mono text-[9px] font-bold px-1.5 py-0.5 rounded uppercase tracking-wider"
+                <h4 className="font-sans text-sm font-bold text-stone-900 truncate">{s.title}</h4>
+                <span className="font-sans text-[9px] font-bold px-1.5 py-0.5 rounded uppercase tracking-wider"
                   style={{
                     background: s.type === 'exam' ? 'rgba(197,160,89,0.1)' : 'rgba(139,30,30,0.08)',
                     color: s.type === 'exam' ? '#c5a059' : '#8b1e1e',
@@ -86,13 +86,13 @@ export default function ScoreTable({ scores }: { scores: ScoreRecord[] }) {
                   {s.durationMinutes} phút
                 </span>
                 <span>{formatDate(s.date)}</span>
-                <span className="font-mono text-[9px] font-bold px-1.5 py-0.5 rounded"
+                <span className="font-sans text-[9px] font-bold px-1.5 py-0.5 rounded"
                   style={{ background: `${diff.color}10`, color: diff.color, border: `1px solid ${diff.color}18` }}>
                   {diff.label}
                 </span>
               </div>
             </div>
-            <button className="shrink-0 rounded-lg px-3 py-1.5 text-xs font-bold transition-all duration-200 flex items-center gap-1.5 bg-white border border-stone-200/60 text-stone-500 hover:bg-stone-50 hover:text-red-900 hover:border-red-200/60">
+            <button type="button" className="profile-action shrink-0 rounded-lg px-3 py-1.5 text-xs font-bold flex items-center gap-1.5 bg-white border border-stone-200/60 text-stone-500 hover:bg-stone-50 hover:text-red-900 hover:border-red-200/60">
               <Eye size={13} strokeWidth={1.5} />
               <span className="hidden sm:inline">Chi tiết</span>
             </button>

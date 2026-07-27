@@ -148,7 +148,7 @@ function OAuthButton({
           cursor: disabled ? 'not-allowed' : loading ? 'wait' : 'pointer',
           opacity: disabled ? 0.6 : 1,
           transition: 'background-color 0.2s',
-          fontFamily: '"Google Sans", Roboto, Arial, sans-serif',
+          fontFamily: 'var(--font-body)',
           whiteSpace: 'nowrap',
           minWidth: 0,
         }}

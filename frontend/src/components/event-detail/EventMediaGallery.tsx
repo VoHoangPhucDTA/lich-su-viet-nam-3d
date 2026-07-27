@@ -34,18 +34,13 @@ export default function EventMediaGallery({ media, index = '07' }: EventMediaGal
       <section id="media" className="scroll-mt-28 w-full">
         <SectionHeader index={index} title="Tư liệu hình ảnh & video" />
         <div
-          className="rounded-2xl p-10 flex flex-col items-center justify-center gap-3"
+          className="rounded-2xl p-10 text-center"
           style={{
             background: 'var(--bg-card)',
             border: '1px dashed var(--border)',
             color: 'var(--text-muted)',
           }}
         >
-          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4">
-            <rect x="3" y="3" width="18" height="18" rx="2" />
-            <circle cx="8.5" cy="8.5" r="1.5" />
-            <path d="M21 15l-5-5L5 21" />
-          </svg>
           <span className="text-sm">Chưa có tư liệu hình ảnh hoặc video cho sự kiện này.</span>
         </div>
       </section>
@@ -96,17 +91,7 @@ export default function EventMediaGallery({ media, index = '07' }: EventMediaGal
                   className="w-full h-full object-cover"
                 />
               ) : (
-                <div className="w-full h-full flex flex-col items-center justify-center gap-3" style={{ color: 'var(--text-muted)' }}>
-                  <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                    {item.type === 'video' ? (
-                      <polygon points="7,4 19,12 7,20" />
-                    ) : (
-                      <>
-                        <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" />
-                        <path d="M14 2v6h6" />
-                      </>
-                    )}
-                  </svg>
+                <div className="w-full h-full flex flex-col items-center justify-center" style={{ color: 'var(--text-muted)' }}>
                   <span className="text-sm font-medium">
                     {item.type === 'video' ? 'Mở video' : 'Mở tư liệu'}
                   </span>

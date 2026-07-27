@@ -1,7 +1,8 @@
 import type { ReactNode } from 'react';
-import { ArrowLeft, BookOpenCheck } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import authBanner from '../../assets/banner.png';
+import appLogo from '../../assets/lich-su-viet-nam-3d-logo-header-transparent.webp';
 
 interface AuthLayoutProps {
   children: ReactNode;
@@ -22,14 +23,18 @@ export default function AuthLayout({ children }: AuthLayoutProps) {
 
       <section className="auth-form-region">
         <div className="auth-mobile-brand">
-          <Link to="/home" className="auth-brand">
-            <span className="auth-brand-mark" aria-hidden="true">
-              <BookOpenCheck size={22} strokeWidth={1.6} />
-            </span>
-            <span>
-              <strong className="serif-heading">Lịch Sử Việt Nam</strong>
-              <small>Bảo tàng số học đường THPT</small>
-            </span>
+          <Link
+            to="/home"
+            className="auth-brand"
+            aria-label="Lịch Sử Việt Nam 3D - Trang chủ"
+          >
+            <img
+              src={appLogo}
+              alt="Lịch Sử Việt Nam 3D"
+              width={1215}
+              height={534}
+              className="auth-brand-logo"
+            />
           </Link>
         </div>
 

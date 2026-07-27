@@ -110,7 +110,7 @@ function AdminSidebar({ open, onClose }: { open: boolean; onClose: () => void })
 export default function AdminLayout({ children }: { children: ReactNode; title?: string }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   return (
-    <div className="admin-shell" style={{ display: 'flex', flexDirection: 'column', minHeight: '100dvh', background: 'var(--bg-app)', color: 'var(--text-primary)', fontFamily: 'var(--font-sans)' }}>
+    <div className="admin-shell" style={{ display: 'flex', flexDirection: 'column', minHeight: '100dvh', background: 'var(--bg-app)', color: 'var(--text-primary)', fontFamily: 'var(--font-body)' }}>
       <div style={{ display: 'flex', flex: 1, minHeight: 0, position: 'relative' }}>
         <AdminSidebar open={sidebarOpen} onClose={() => setSidebarOpen(false)} />
         <main id="admin-main-content" className="admin-main-offset" style={{ flex: 1, minWidth: 0, overflowY: 'auto' }}>

@@ -107,7 +107,7 @@ export default function QuizHistoryPage() {
                     <span aria-hidden="true">·</span>
                     <span className="inline-flex items-center gap-1"><Clock3 size={13} aria-hidden="true" />{formatTime(item.totalTimeMs)}</span>
                   </div>
-                  <h2 className="serif-heading mt-2 text-xl font-bold text-[var(--text-primary)]">
+                  <h2 className="app-heading mt-2 text-xl font-bold text-[var(--text-primary)]">
                     {item.config.query || 'Bài luyện tập tổng hợp'}
                   </h2>
                   <div className="mt-2 flex flex-wrap gap-2">
@@ -116,7 +116,7 @@ export default function QuizHistoryPage() {
                   </div>
                 </div>
                 <div className="quiz-history-score">
-                  <strong className="serif-heading">{item.score10}</strong>
+                  <strong className="app-heading">{item.score10}</strong>
                   <span>điểm</span>
                 </div>
                 <div className="quiz-history-correct">
