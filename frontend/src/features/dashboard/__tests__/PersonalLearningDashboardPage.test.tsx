@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import { fireEvent, render, screen } from '@testing-library/react';
+import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import defaultAnalyticsFixture from '../../../../../data/dashboard-analytics-fixtures/response-v1-default.json';
@@ -39,6 +39,7 @@ function validated(value: unknown): DashboardAnalyticsResponseV1 {
 const readyAnalyticsResponse = validated(defaultAnalyticsFixture);
 const emptyAnalyticsResponse = validated(emptyAnalyticsFixture);
 const partialAnalyticsResponse = validated(partialAnalyticsFixture);
+const fixedNow = () => new Date('2026-07-24T05:00:00.000Z');
 
 function localStorageWith(entries: Record<string, unknown>): LocalDashboardStorage {
   const values = new Map(
@@ -86,13 +87,28 @@ afterEach(() => {
 
 describe('PersonalLearningDashboardPage fixtures', () => {
   it('renders the default dashboard with the exact KPI set and one question-type section', () => {
-    renderFixture('default');
+    const { container } = renderFixture('default');
 
     for (const label of ['Số bài đã làm', 'Điểm trung bình', 'Điểm cao nhất', 'Điểm gần nhất']) {
       expect(screen.getByText(label)).toBeInTheDocument();
     }
     expect(screen.queryByText('Ngày hoạt động', { selector: '.dashboard-kpi-card p' })).not.toBeInTheDocument();
     expect(screen.getAllByRole('heading', { name: 'Hiệu suất theo dạng câu' })).toHaveLength(1);
+    // TASK-02: notice phụ (partial-detail) không còn bị lọc bỏ khỏi UI — hành vi cũ giấu hẳn
+    // thông tin phạm vi dữ liệu. Hành vi đúng mới: notice nằm trong <details> "Chi tiết về
+    // nguồn dữ liệu", không chiếm chỗ banner primary phía trên nội dung chính.
+    expect(container.querySelector('.dashboard-content > .dashboard-notice-stack')).toBeNull();
+    const noticeDetails = container.querySelector('.dashboard-notice-details');
+    expect(noticeDetails).toHaveTextContent('Chi tiết về nguồn dữ liệu (1)');
+    const secondaryNotice = noticeDetails?.querySelector('.dashboard-notice') as HTMLElement;
+    expect(secondaryNotice).toHaveTextContent('Phân tích chưa bao phủ toàn bộ lịch sử');
+    // <details> phải đóng lúc đầu và mở được bằng bàn phím/chuột — đây là hành vi cốt lõi
+    // của TASK-02, không chỉ là sự tồn tại của phần tử trong DOM.
+    expect(secondaryNotice).not.toBeVisible();
+    fireEvent.click(screen.getByText('Chi tiết về nguồn dữ liệu (1)'));
+    expect(secondaryNotice).toBeVisible();
+    // Thẻ "Phạm vi dữ liệu" phải là landmark region duy nhất mang tên này. Notice phụ dùng
+    // aria-label = title nên title fixture không được trùng tiêu đề thẻ phạm vi dữ liệu.
     const coveragePresentations = screen.getAllByRole('region', { name: 'Phạm vi dữ liệu' });
     expect(coveragePresentations).toHaveLength(1);
     expect(coveragePresentations[0]).toHaveClass('dashboard-coverage');
@@ -114,7 +130,7 @@ describe('PersonalLearningDashboardPage fixtures', () => {
   });
 
   it('renders error and the retry callback transitions through loading to default', async () => {
-    renderFixture('error');
+    const { container } = renderFixture('error');
     expect(screen.getAllByRole('alert')).toHaveLength(1);
     expect(screen.getByRole('alert')).toHaveTextContent('Không thể tải thống kê học tập');
     expect(screen.getAllByRole('heading', { name: 'Không thể tải thống kê học tập' })).toHaveLength(1);
@@ -122,6 +138,14 @@ describe('PersonalLearningDashboardPage fixtures', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Thử lại' }));
     expect(screen.getByRole('status')).toHaveTextContent('Đang tải thống kê học tập');
     expect(await screen.findByText('Số bài đã làm')).toBeInTheDocument();
+    expect(container.querySelector('.dashboard-focus-target')).toHaveFocus();
+  });
+
+  it('exposes one polite atomic live region', () => {
+    const { container } = renderFixture('default');
+    const live = container.querySelector('[aria-live]');
+    expect(live).toHaveAttribute('aria-live', 'polite');
+    expect(live).toHaveAttribute('aria-atomic', 'true');
   });
 
   it('renders one concise empty state with a start action', () => {
@@ -162,12 +186,21 @@ describe('PersonalLearningDashboardPage fixtures', () => {
   });
 
   it('distinguishes many-attempt coverage counts and limits recent history to five items', () => {
-    renderFixture('many-attempts');
+    const { container } = renderFixture('many-attempts');
     expect(screen.getByText('Tổng bài').nextElementSibling).toHaveTextContent('108');
     expect(screen.getByText('Đủ dữ liệu chi tiết').nextElementSibling).toHaveTextContent('92');
     expect(screen.getByText('Bài nguồn biểu đồ').nextElementSibling).toHaveTextContent('100');
     expect(screen.getByText('Điểm trên biểu đồ').nextElementSibling).toHaveTextContent(String(DASHBOARD_FIXTURES['many-attempts'].scoreTrend.points.length));
-    expect(screen.queryByText('Lịch sử vượt giới hạn hiện tại')).not.toBeInTheDocument();
+    // TASK-02: notice vượt giới hạn fetch (partial-detail) không còn bị giấu hẳn — hành vi
+    // đúng mới là nằm trong <details> phụ thay vì hiển thị như banner primary.
+    expect(container.querySelector('.dashboard-content > .dashboard-notice-stack')).toBeNull();
+    const noticeDetails = container.querySelector('.dashboard-notice-details');
+    expect(noticeDetails).toHaveTextContent('Chi tiết về nguồn dữ liệu (1)');
+    const secondaryNotice = noticeDetails?.querySelector('.dashboard-notice') as HTMLElement;
+    expect(secondaryNotice).toHaveTextContent('Lịch sử vượt giới hạn hiện tại');
+    expect(secondaryNotice).not.toBeVisible();
+    // Notice 'dense-chart' đã bị xóa khỏi fixture: không mapper nào sinh notice cho chart dày,
+    // page xử lý bằng dòng cảnh báo inline của biểu đồ.
     expect(screen.queryByText('Dữ liệu xu hướng dày')).not.toBeInTheDocument();
     expect(screen.getAllByRole('link', { name: /^Xem lại bài làm:/ })).toHaveLength(5);
   });
@@ -180,6 +213,21 @@ describe('PersonalLearningDashboardPage fixtures', () => {
     expect(screen.getByRole('progressbar', { name: 'Độ chính xác Đúng/Sai theo mệnh đề' })).toHaveClass('dashboard-meter-developing');
     expect(screen.getByText('77/100 câu đúng · 8 câu bỏ trống')).toBeInTheDocument();
     expect(screen.getByText('126/160 mệnh đề đúng · 9 bỏ trống · 7/40 câu làm dở')).toBeInTheDocument();
+  });
+
+  it('uses an image description instead of an indeterminate progressbar for null accuracy', () => {
+    const model = structuredClone(DASHBOARD_FIXTURES.default);
+    model.questionTypePerformance[0]!.accuracy = null;
+    model.questionTypePerformance[0]!.totalUnits = 0;
+    render(
+      <MemoryRouter>
+        <PersonalLearningDashboardPage initialViewModel={model} />
+      </MemoryRouter>,
+    );
+    expect(screen.getByRole('img', {
+      name: 'Trắc nghiệm: chưa có đủ dữ liệu để tính độ chính xác',
+    })).toBeInTheDocument();
+    expect(screen.queryByRole('progressbar', { name: 'Độ chính xác Trắc nghiệm' })).not.toBeInTheDocument();
   });
 
   it('rebuilds the ready dashboard into a main narrative and four-card utility rail', () => {
@@ -204,10 +252,17 @@ describe('PersonalLearningDashboardPage fixtures', () => {
 describe('dashboard interactions and adapter boundaries', () => {
   it('updates the pressed time range and announces the mock-only change', () => {
     renderFixture('default');
-    const sevenDays = screen.getByRole('button', { name: '7 ngày' });
+    const sevenDays = screen.getByRole('radio', { name: '7 ngày' });
     fireEvent.click(sevenDays);
-    expect(sevenDays).toHaveAttribute('aria-pressed', 'true');
+    expect(sevenDays).toHaveAttribute('aria-checked', 'true');
     expect(screen.getByText(/Đã chuyển khoảng thời gian sang 7 ngày/)).toBeInTheDocument();
+  });
+
+  it('supports arrow-key navigation for the range radiogroup', () => {
+    renderFixture('default');
+    const thirtyDays = screen.getByRole('radio', { name: '30 ngày' });
+    fireEvent.keyDown(thirtyDays, { key: 'ArrowRight' });
+    expect(screen.getByRole('radio', { name: '90 ngày' })).toHaveAttribute('aria-checked', 'true');
   });
 
   it('resolves fixture query parameters only inside the development fixture module', () => {
@@ -218,7 +273,7 @@ describe('dashboard interactions and adapter boundaries', () => {
   it('renders an anonymous sign-in state without returning a fake default fixture', async () => {
     render(
       <MemoryRouter initialEntries={['/exams/thong-ke']}>
-        <PersonalLearningDashboardPage localStorageProvider={() => localStorageWith({})} />
+        <PersonalLearningDashboardPage localStorageProvider={() => localStorageWith({})} now={fixedNow} />
       </MemoryRouter>,
     );
     expect(await screen.findByRole('heading', { name: 'Đăng nhập để xem thống kê học tập' })).toBeInTheDocument();
@@ -241,7 +296,7 @@ describe('dashboard interactions and adapter boundaries', () => {
     });
     render(
       <MemoryRouter initialEntries={['/exams/thong-ke']}>
-        <PersonalLearningDashboardPage localStorageProvider={() => storage} fixtureLoader={null} />
+        <PersonalLearningDashboardPage localStorageProvider={() => storage} fixtureLoader={null} now={fixedNow} />
       </MemoryRouter>,
     );
     expect(await screen.findByText('Số bài đã làm')).toBeInTheDocument();
@@ -260,7 +315,7 @@ describe('dashboard interactions and adapter boundaries', () => {
     });
     render(
       <MemoryRouter initialEntries={['/exams/thong-ke']}>
-        <PersonalLearningDashboardPage localStorageProvider={() => storage} fixtureLoader={null} />
+        <PersonalLearningDashboardPage localStorageProvider={() => storage} fixtureLoader={null} now={fixedNow} />
       </MemoryRouter>,
     );
     expect(await screen.findByText('Phân tích cục bộ chưa đầy đủ')).toBeInTheDocument();
@@ -270,9 +325,10 @@ describe('dashboard interactions and adapter boundaries', () => {
   it('keeps the utility rail in natural flow without equal-height stretch or nested scrolling', () => {
     renderFixture('default');
     const utility = screen.getByRole('complementary', { name: 'Tóm tắt và hành động nhanh' });
-    expect(utility).toHaveAttribute('data-scroll-behavior', 'document-flow');
-    expect(utility).toHaveAttribute('data-scroll-owner', 'app-scroll-container');
-    expect(document.querySelector('.dashboard-insight-grid')).toHaveAttribute('data-card-alignment', 'start');
+    expect(utility).toHaveClass('dashboard-utility-surface');
+    expect(utility).not.toHaveAttribute('data-scroll-behavior');
+    expect(utility).not.toHaveAttribute('data-scroll-owner');
+    expect(document.querySelector('.dashboard-insight-grid')).not.toHaveAttribute('data-card-alignment');
   });
 });
 
@@ -329,23 +385,25 @@ describe('authenticated dashboard integration', () => {
 
   it('requests a real new range and announces the request', async () => {
     authenticate();
-    const requestDashboard = vi.fn().mockImplementation(async (range: DashboardAnalyticsResponseV1['scope']['range']) => ({
-      ...readyAnalyticsResponse,
-      scope: {
-        ...readyAnalyticsResponse.scope,
-        range,
-        fromDate: range === 'all' ? null : readyAnalyticsResponse.scope.fromDate,
-      },
-    }));
+    let resolveAll!: (value: DashboardAnalyticsResponseV1) => void;
+    const allResponse = new Promise<DashboardAnalyticsResponseV1>((resolve) => { resolveAll = resolve; });
+    const requestDashboard = vi.fn()
+      .mockResolvedValueOnce(readyAnalyticsResponse)
+      .mockReturnValueOnce(allResponse);
     render(
       <MemoryRouter initialEntries={['/exams/thong-ke']}>
         <PersonalLearningDashboardPage requestDashboard={requestDashboard} fixtureLoader={null} />
       </MemoryRouter>,
     );
     await screen.findByText('Số bài đã làm');
-    fireEvent.click(screen.getByRole('button', { name: 'Tất cả' }));
-    expect(await screen.findByText(/Đang tải thống kê cho khoảng Tất cả|Đã tải thống kê học tập từ máy chủ/)).toBeInTheDocument();
-    await vi.waitFor(() => expect(requestDashboard).toHaveBeenLastCalledWith('all', expect.any(AbortSignal)));
+    fireEvent.click(screen.getByRole('radio', { name: 'Tất cả' }));
+    await waitFor(() => expect(screen.getByText('Đang tải thống kê cho khoảng Tất cả.')).toBeInTheDocument());
+    await act(async () => resolveAll({
+      ...readyAnalyticsResponse,
+      scope: { ...readyAnalyticsResponse.scope, range: 'all', fromDate: null },
+    }));
+    await waitFor(() => expect(screen.getByText('Đã tải thống kê học tập từ máy chủ.')).toBeInTheDocument());
+    expect(requestDashboard).toHaveBeenLastCalledWith('all', expect.any(AbortSignal));
   });
 
   it('shows mapper partial coverage notice without hiding data', async () => {
@@ -367,7 +425,7 @@ describe('authenticated dashboard integration', () => {
     const requestDashboard = vi.fn()
       .mockRejectedValueOnce(new DashboardAnalyticsApiError('unauthenticated', 'safe', 401))
       .mockResolvedValueOnce(readyAnalyticsResponse);
-    render(
+    const { container } = render(
       <MemoryRouter initialEntries={['/exams/thong-ke']}>
         <PersonalLearningDashboardPage requestDashboard={requestDashboard} fixtureLoader={null} />
       </MemoryRouter>,
@@ -376,6 +434,7 @@ describe('authenticated dashboard integration', () => {
     expect(screen.getByRole('link', { name: 'Đăng nhập lại' })).toHaveAttribute('href', '/login');
     fireEvent.click(screen.getByRole('button', { name: 'Thử lại' }));
     expect(await screen.findByText('Số bài đã làm')).toBeInTheDocument();
+    expect(container.querySelector('.dashboard-focus-target')).toHaveFocus();
     expect(requestDashboard).toHaveBeenCalledTimes(2);
   });
 
@@ -404,7 +463,7 @@ describe('authenticated dashboard integration', () => {
     const requestDashboard = vi.fn()
       .mockRejectedValueOnce(new DashboardAnalyticsApiError('server', 'safe', 503))
       .mockResolvedValueOnce(readyAnalyticsResponse);
-    render(
+    const { container } = render(
       <MemoryRouter initialEntries={['/exams/thong-ke']}>
         <PersonalLearningDashboardPage
           requestDashboard={requestDashboard}
@@ -415,6 +474,19 @@ describe('authenticated dashboard integration', () => {
     );
     expect(await screen.findByText('Máy chủ thống kê đang tạm thời không khả dụng')).toBeInTheDocument();
     expect(screen.getByText('Có bài đang chờ đồng bộ')).toBeInTheDocument();
+    const primaryNotices = container.querySelectorAll(
+      '.dashboard-content > .dashboard-notice-stack > .dashboard-notice',
+    );
+    expect(primaryNotices).toHaveLength(1);
+    expect(primaryNotices[0]).toHaveTextContent('Máy chủ thống kê đang tạm thời không khả dụng');
+    const secondaryNotices = container.querySelectorAll(
+      '.dashboard-notice-details .dashboard-notice',
+    );
+    expect(secondaryNotices).toHaveLength(2);
+    expect([...secondaryNotices].map((notice) => notice.textContent)).toEqual(expect.arrayContaining([
+      expect.stringContaining('Đang xem dữ liệu dự phòng trên thiết bị'),
+      expect.stringContaining('Có bài đang chờ đồng bộ'),
+    ]));
     expect(screen.getByRole('button', { name: 'Thử kết nối máy chủ lại' })).toBeInTheDocument();
     expect(screen.queryByText('test-owner')).not.toBeInTheDocument();
 

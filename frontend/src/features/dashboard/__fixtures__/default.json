@@ -299,9 +299,9 @@
   },
   "notices": [
     {
-      "id": "coverage-partial",
+      "id": "partial-detail",
       "type": "info",
-      "title": "Phạm vi dữ liệu",
+      "title": "Phân tích chưa bao phủ toàn bộ lịch sử",
       "message": "Các chỉ số chủ đề và dạng câu dựa trên 10/12 bài có dữ liệu chi tiết. Điểm chỉ phục vụ học tập, chưa được máy chủ chấm lại.",
       "actionLabel": null,
       "actionRoute": null

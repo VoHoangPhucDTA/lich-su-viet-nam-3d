@@ -263,7 +263,7 @@
   },
   "notices": [
     {
-      "id": "long-copy",
+      "id": "legacy-summary",
       "type": "info",
       "title": "Thông báo kiểm tra nội dung tiếng Việt dài",
       "message": "Một số tên đề và tên chủ đề có thể dài ba dòng trên màn hình 320px. Thiết kế phải giữ nguyên khả năng đọc, không dùng ellipsis nếu không có bản đầy đủ gần đó.",

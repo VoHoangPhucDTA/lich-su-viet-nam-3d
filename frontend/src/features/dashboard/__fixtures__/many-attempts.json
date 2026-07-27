@@ -652,18 +652,10 @@
   },
   "notices": [
     {
-      "id": "fetch-cap",
+      "id": "partial-detail",
       "type": "warning",
       "title": "Lịch sử vượt giới hạn hiện tại",
       "message": "máy chủ list tối đa 100 bài thi trong khi tổng đã biết là 108. Prototype phải thể hiện phạm vi dữ liệu và khái niệm pagination, không giả vờ đủ lifetime.",
-      "actionLabel": null,
-      "actionRoute": null
-    },
-    {
-      "id": "dense-chart",
-      "type": "info",
-      "title": "Dữ liệu xu hướng dày",
-      "message": "42 điểm đại diện dùng để kiểm tra mật độ nhãn, focus tooltip và textual access.",
       "actionLabel": null,
       "actionRoute": null
     }

@@ -9,9 +9,9 @@ import {
   createDashboardApiErrorViewModel,
   createDashboardLoadingViewModel,
   type DashboardDevelopmentFixtureLoader,
-  type DashboardErrorKind,
 } from './dashboardFixtures';
 import { mapDashboardAnalyticsToViewModel } from './dashboardMappers';
+import { createDeviceUnscopedExcludedNotice } from './dashboardNoticeFactories';
 import {
   dashboardErrorKind,
   getBrowserLocalDashboardStorage,
@@ -75,14 +75,7 @@ function withAnonymousLocalDiagnostics(
   const viewModel = createDashboardAnonymousViewModel(range);
   const notices = [...viewModel.notices];
   if (result.excludedDeviceLegacyCount > 0) {
-    notices.push({
-      id: 'device-unscoped-excluded',
-      type: 'info',
-      title: 'Một số dữ liệu cũ không được tính',
-      message: 'Một số kết quả cũ trên thiết bị đã bị loại vì không xác định được chủ sở hữu.',
-      actionLabel: null,
-      actionRoute: null,
-    });
+    notices.push(createDeviceUnscopedExcludedNotice());
   }
   if (result.storageUnavailable) {
     notices.push({
@@ -221,11 +214,15 @@ export function usePersonalLearningDashboard({
     }
 
     const ownerKey = auth.ownerKey;
-    timeoutId = window.setTimeout(() => {
-      controller.abort(new DOMException('Dashboard request timed out', 'TimeoutError'));
-    }, DASHBOARD_REQUEST_TIMEOUT_MS);
+    const timeoutPromise = new Promise<never>((_resolve, reject) => {
+      timeoutId = window.setTimeout(() => {
+        const reason = new DOMException('Dashboard request timed out', 'TimeoutError');
+        controller.abort(reason);
+        reject(reason);
+      }, DASHBOARD_REQUEST_TIMEOUT_MS);
+    });
 
-    void requestDashboard(backendRange, controller.signal)
+    void Promise.race([requestDashboard(backendRange, controller.signal), timeoutPromise])
       .then((response) => {
         if (controller.signal.aborted || requestVersion.current !== version) return;
         setRuntime({
@@ -251,7 +248,7 @@ export function usePersonalLearningDashboard({
             source: 'local-fallback',
             now: now(),
           });
-          if (controller.signal.aborted || requestVersion.current !== version) return;
+          if ((controller.signal.aborted && !timedOut) || requestVersion.current !== version) return;
           if (localResult.kind === 'ready') {
             setRuntime({
               ownerKey,
@@ -263,7 +260,7 @@ export function usePersonalLearningDashboard({
             return;
           }
           const errorViewModel = createDashboardApiErrorViewModel(
-            dashboardErrorKind(effectiveError) as DashboardErrorKind,
+            dashboardErrorKind(effectiveError),
             backendRange,
           );
           setRuntime({
@@ -280,7 +277,7 @@ export function usePersonalLearningDashboard({
           range: backendRange,
           source: 'error',
           viewModel: createDashboardApiErrorViewModel(
-            dashboardErrorKind(effectiveError) as DashboardErrorKind,
+            dashboardErrorKind(effectiveError),
             backendRange,
           ),
         });
@@ -311,6 +308,7 @@ export function usePersonalLearningDashboard({
   ]);
 
   const setRange = useCallback((nextRange: DashboardRange) => {
+    if (nextRange === range) return;
     setRangeState(nextRange);
     const rangeLabel = nextRange === 'all' ? 'Tất cả' : nextRange.replace('d', ' ngày');
     setAnnouncement(fixtureMode
@@ -326,7 +324,7 @@ export function usePersonalLearningDashboard({
         },
       }));
     }
-  }, [fixtureMode]);
+  }, [fixtureMode, range]);
 
   const retry = useCallback(() => {
     setAnnouncement('Đang thử tải lại thống kê học tập.');

@@ -8,6 +8,7 @@ import {
   DASHBOARD_NOT_CONNECTED_MESSAGE,
   loadDashboardPresentationState,
 } from '../dashboardFixtures';
+import { DASHBOARD_NOTICE_IDS } from '../dashboardTypes';
 
 const ROOT_FIELDS = [
   'state',
@@ -33,6 +34,22 @@ describe('dashboard development fixtures', () => {
       expect(Object.keys(fixture).sort()).toEqual([...ROOT_FIELDS].sort());
       expect(['ready', 'empty', 'loading', 'error']).toContain(fixture.state);
       expect(fixture.scope.timezone).toBe('Asia/Ho_Chi_Minh');
+    }
+  });
+
+  it('keeps every fixture notice id inside the DashboardNoticeId union', () => {
+    // Fixture JSON được nạp qua ép kiểu `as PersonalLearningDashboardViewModel`
+    // (dashboardDevelopmentFixtures.ts) nên tsc không kiểm tra được `id` trong JSON.
+    // Test này bịt kẽ hở đó: mọi notice.id của cả 10 fixture phải thuộc union,
+    // và không fixture nào chứa hai notice trùng id (trùng id gây trùng React key).
+    const validIds = new Set<string>(DASHBOARD_NOTICE_IDS);
+    for (const key of DASHBOARD_FIXTURE_KEYS) {
+      const seen = new Set<string>();
+      for (const notice of DASHBOARD_FIXTURES[key].notices) {
+        expect(validIds.has(notice.id), `fixture "${key}" có notice id lạ "${notice.id}"`).toBe(true);
+        expect(seen.has(notice.id), `fixture "${key}" lặp notice id "${notice.id}"`).toBe(false);
+        seen.add(notice.id);
+      }
     }
   });
 

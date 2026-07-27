@@ -4,6 +4,8 @@ import com.lichsuvn.backend.auth.security.UserPrincipal;
 import com.lichsuvn.backend.common.api.ApiResponse;
 import com.lichsuvn.backend.exam.api.dto.DashboardAnalyticsResponse;
 import com.lichsuvn.backend.exam.application.DashboardAnalyticsService;
+import org.springframework.http.CacheControl;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,11 +22,14 @@ public class DashboardAnalyticsController {
     }
 
     @GetMapping("/dashboard-analytics")
-    public ApiResponse<DashboardAnalyticsResponse> dashboard(
+    public ResponseEntity<ApiResponse<DashboardAnalyticsResponse>> dashboard(
             @RequestParam(required = false) String range,
             @RequestParam(required = false) Integer recentLimit,
             @AuthenticationPrincipal UserPrincipal principal
     ) {
-        return ApiResponse.ok(service.getDashboard(principal, range, recentLimit));
+        var body = ApiResponse.ok(service.getDashboard(principal, range, recentLimit));
+        return ResponseEntity.ok()
+                .cacheControl(CacheControl.noStore().cachePrivate())
+                .body(body);
     }
 }

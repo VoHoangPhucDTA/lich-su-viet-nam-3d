@@ -1,3 +1,19 @@
+const DASHBOARD_DATE_LABEL_FORMATTER = new Intl.DateTimeFormat('en-US', {
+  timeZone: 'Asia/Ho_Chi_Minh',
+  day: '2-digit',
+  month: '2-digit',
+});
+
+const DASHBOARD_SUBMITTED_LABEL_FORMATTER = new Intl.DateTimeFormat('en-US', {
+  timeZone: 'Asia/Ho_Chi_Minh',
+  hour: '2-digit',
+  minute: '2-digit',
+  day: '2-digit',
+  month: '2-digit',
+  year: 'numeric',
+  hour12: false,
+});
+
 export function formatDashboardScore(value: number | null): string {
   return value === null
     ? '—'
@@ -12,25 +28,13 @@ export function formatDashboardDuration(seconds: number): string {
 }
 
 export function formatDashboardDateLabel(timestamp: string): string {
-  const parts = new Intl.DateTimeFormat('en-US', {
-    timeZone: 'Asia/Ho_Chi_Minh',
-    day: '2-digit',
-    month: '2-digit',
-  }).formatToParts(new Date(timestamp));
+  const parts = DASHBOARD_DATE_LABEL_FORMATTER.formatToParts(new Date(timestamp));
   const value = (type: Intl.DateTimeFormatPartTypes) => parts.find((part) => part.type === type)?.value ?? '';
   return `${value('day')}/${value('month')}`;
 }
 
 export function formatDashboardSubmittedLabel(timestamp: string): string {
-  const parts = new Intl.DateTimeFormat('en-US', {
-    timeZone: 'Asia/Ho_Chi_Minh',
-    hour: '2-digit',
-    minute: '2-digit',
-    day: '2-digit',
-    month: '2-digit',
-    year: 'numeric',
-    hour12: false,
-  }).formatToParts(new Date(timestamp));
+  const parts = DASHBOARD_SUBMITTED_LABEL_FORMATTER.formatToParts(new Date(timestamp));
   const value = (type: Intl.DateTimeFormatPartTypes) => parts.find((part) => part.type === type)?.value ?? '';
   return `${value('hour')}:${value('minute')}, ${value('day')}/${value('month')}/${value('year')}`;
 }

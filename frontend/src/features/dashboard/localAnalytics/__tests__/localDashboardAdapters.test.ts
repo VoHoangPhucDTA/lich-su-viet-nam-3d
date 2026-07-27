@@ -1,16 +1,13 @@
 import { describe, expect, it } from 'vitest';
 import {
   adaptApiSnapshotV2LocalResult,
-  adaptCustomLocalSession,
-  adaptOldExamHistoryResult,
   adaptRecoveryLocalResult,
   adaptV2LegacyLocalResult,
+  parseLocalDashboardTimestamp,
 } from '../localDashboardAdapters';
 import {
   apiSnapshotFixture,
   customLocalResultFixture,
-  customSessionFixture,
-  oldExamResultFixture,
   recoveryQueueItemFixture,
   v2DetailedFixture,
   v2SummaryFixture,
@@ -36,6 +33,63 @@ describe('local dashboard source adapters', () => {
     expect(safeOutput).not.toContain('correctAnswer');
     expect(safeOutput).not.toContain('userAnswer');
     expect(safeOutput).not.toContain('selected');
+  });
+
+  it('scores mcq from the answer key, not the correctness flag', () => {
+    const snapshot = apiSnapshotFixture();
+    const snapshotAttempt = successAttempt(adaptApiSnapshotV2LocalResult({
+      ...snapshot,
+      questions: [
+        {
+          ...snapshot.questions[0]!,
+          userAnswer: 'A',
+          correctAnswer: 'B',
+          correctness: true,
+        },
+        snapshot.questions[1]!,
+      ],
+    }, 'snapshot-mismatched-correctness'));
+    expect(snapshotAttempt.normalizedQuestions?.[0]?.correctUnits).toBe(0);
+
+    const legacy = v2DetailedFixture();
+    const legacyAttempt = successAttempt(adaptV2LegacyLocalResult({
+      ...legacy,
+      questions: [
+        {
+          ...legacy.questions[0]!,
+          isCorrect: true,
+          mcq: { selected: 'A', correct: 'B' },
+        },
+        legacy.questions[1]!,
+      ],
+    }, 'legacy-mismatched-correctness'));
+    expect(legacyAttempt.normalizedQuestions?.[0]?.correctUnits).toBe(0);
+  });
+
+  it('scores mcq correctly when the correctness flag is missing entirely', () => {
+    const snapshot = apiSnapshotFixture();
+    const snapshotMcqWithoutFlag: Record<string, unknown> = { ...snapshot.questions[0]! };
+    delete snapshotMcqWithoutFlag.correctness;
+    const snapshotAttempt = successAttempt(adaptApiSnapshotV2LocalResult({
+      ...snapshot,
+      questions: [
+        { ...snapshotMcqWithoutFlag, userAnswer: 'A', correctAnswer: 'A' },
+        snapshot.questions[1]!,
+      ],
+    }, 'snapshot-missing-correctness'));
+    expect(snapshotAttempt.normalizedQuestions?.[0]?.correctUnits).toBe(1);
+
+    const legacy = v2DetailedFixture();
+    const legacyMcqWithoutFlag: Record<string, unknown> = { ...legacy.questions[0]! };
+    delete legacyMcqWithoutFlag.isCorrect;
+    const legacyAttempt = successAttempt(adaptV2LegacyLocalResult({
+      ...legacy,
+      questions: [
+        { ...legacyMcqWithoutFlag, mcq: { selected: 'A', correct: 'A' } },
+        legacy.questions[1]!,
+      ],
+    }, 'legacy-missing-correctness'));
+    expect(legacyAttempt.normalizedQuestions?.[0]?.correctUnits).toBe(1);
   });
 
   it('rejects snapshot version mismatch as unsupported', () => {
@@ -71,7 +125,12 @@ describe('local dashboard source adapters', () => {
   });
 
   it('keeps question-type analytics when topic and cognitive metadata are absent', () => {
-    const attempt = successAttempt(adaptV2LegacyLocalResult(v2DetailedFixture(), 'v2_result_legacy-detail-1'));
+    const attempt = successAttempt(adaptV2LegacyLocalResult({
+      ...v2DetailedFixture(),
+      questionSnapshots: [
+        { id: 'legacy-mcq', topic: 'Cách mạng tháng Tám', cognitiveLevel: 'knowledge' },
+      ],
+    }, 'v2_result_legacy-detail-1'));
     expect(attempt.detailStatus).toBe('question-type-only');
     expect(attempt.normalizedQuestions).toHaveLength(2);
     expect(attempt.normalizedQuestions?.every((question) => (
@@ -81,39 +140,61 @@ describe('local dashboard source adapters', () => {
 
   it('adapts custom local result detail only from immutable embedded snapshots', () => {
     const attempt = successAttempt(adaptV2LegacyLocalResult(customLocalResultFixture(), 'v2_result_custom-local-1'));
-    expect(attempt).toMatchObject({ mode: 'CUSTOM_MOCK', detailStatus: 'full', scoreAuthority: 'LOCAL_FALLBACK' });
-    expect(attempt.normalizedQuestions?.map((question) => question.topicRefs[0]?.label)).toEqual([
-      'Synthetic Topic A', 'Synthetic Topic B',
-    ]);
-  });
-
-  it('does not rescore standalone custom session storage', () => {
-    expect(adaptCustomLocalSession(customSessionFixture()))
-      .toEqual({ status: 'unsupported', reason: 'standalone-session-has-no-score' });
-    expect(adaptCustomLocalSession(customSessionFixture({ status: 'in_progress' })))
-      .toEqual({ status: 'unsupported', reason: 'in-progress-session' });
-  });
-
-  it('supports old exam result as summary-only when its writer shape is exact', () => {
-    const result = adaptOldExamHistoryResult(oldExamResultFixture(), 'exam_result_old-exam-1', 'legacy-exam-result');
-    expect(result.status).toBe('success');
-    if (result.status !== 'success') return;
-    expect(result.attempt).toMatchObject({
-      mode: 'TIMED_ORIGINAL', detailStatus: 'summary-only', ownerScope: 'device-legacy-unscoped',
+    expect(attempt).toMatchObject({
+      mode: 'CUSTOM_MOCK',
+      detailStatus: 'question-type-only',
+      scoreAuthority: 'LOCAL_FALLBACK',
     });
+    expect(attempt.normalizedQuestions?.every(question => (
+      question.topicRefs.length === 0 && question.cognitiveLevel === null
+    ))).toBe(true);
   });
 
-  it('excludes old practice history and unknown history shapes', () => {
-    expect(adaptOldExamHistoryResult(oldExamResultFixture({ config: { mode: 'practice' } }), 'history:0', 'legacy-exam-history'))
-      .toEqual({ status: 'unsupported', reason: 'unsupported-mode' });
-    expect(adaptOldExamHistoryResult({ examId: 'x' }, 'history:0', 'legacy-exam-history'))
-      .toEqual({ status: 'unsupported', reason: 'unsupported-history-shape' });
+  it.each([
+    [1785000000000, true],
+    [1785000000, false],
+    ['2026-07-20T23:30:00+07:00', true],
+    ['2026-07-20T16:30:00Z', true],
+    ['2026-07-20T23:30:00', false],
+    ['2026-07-20', false],
+  ])('parses strict timestamp %s', (value, accepted) => {
+    expect(parseLocalDashboardTimestamp(value) !== null).toBe(accepted);
+  });
+
+  it('rejects reserved statement ids instead of touching Object.prototype', () => {
+    const snapshot = apiSnapshotFixture();
+    const tf = structuredClone(snapshot.questions[1]!);
+    tf.question.statements = [{ id: '__proto__', text: 'unsafe' }] as never;
+    tf.userAnswer = JSON.parse('{"__proto__":true}') as never;
+    tf.correctAnswer = JSON.parse('{"__proto__":true}') as never;
+    expect(adaptApiSnapshotV2LocalResult({
+      ...snapshot,
+      questions: [snapshot.questions[0]!, tf],
+    }, 'reserved-key')).toMatchObject({ status: 'malformed', reason: 'invalid-question-detail' });
+  });
+
+  it('bounds duration and total question count', () => {
+    expect(adaptV2LegacyLocalResult(v2SummaryFixture({ durationSeconds: 86_401 }), 'duration'))
+      .toMatchObject({ status: 'malformed', reason: 'invalid-duration' });
+    expect(adaptV2LegacyLocalResult(v2SummaryFixture({ totalQuestions: 201 }), 'questions'))
+      .toMatchObject({ status: 'malformed', reason: 'invalid-total-questions' });
+  });
+
+  it('uses top-level valid summary fields when nested snapshot summary omits them', () => {
+    const snapshot = apiSnapshotFixture({
+      totalScore: 7.5,
+      totalQuestions: 2,
+      summary: { ...apiSnapshotFixture().summary, totalScore: undefined, totalQuestions: undefined },
+    });
+    expect(adaptApiSnapshotV2LocalResult(snapshot, 'fallback').status).toBe('success');
   });
 
   it('classifies explicit anonymous, authenticated, unscoped, unknown and conflicting ownership', () => {
     expect(successAttempt(adaptV2LegacyLocalResult(v2SummaryFixture({ ownerScope: 'anonymous' }), 'a')).ownerScope)
       .toBe('anonymous');
     expect(successAttempt(adaptV2LegacyLocalResult(v2SummaryFixture({ userId: 'owner-a' }), 'b')))
+      .toMatchObject({ ownerScope: 'authenticated-owner', ownerKey: 'owner-a' });
+    expect(successAttempt(adaptV2LegacyLocalResult(v2SummaryFixture({ userId: ' owner-a ' }), 'trimmed')))
       .toMatchObject({ ownerScope: 'authenticated-owner', ownerKey: 'owner-a' });
     expect(successAttempt(adaptV2LegacyLocalResult(v2SummaryFixture(), 'c')).ownerScope)
       .toBe('device-legacy-unscoped');

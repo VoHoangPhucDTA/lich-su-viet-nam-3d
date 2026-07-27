@@ -139,7 +139,7 @@
   },
   "notices": [
     {
-      "id": "insufficient-sample",
+      "id": "local-coverage-partial",
       "type": "info",
       "title": "Chưa đủ dữ liệu",
       "message": "Cần ít nhất 8 ý trả lời trong ít nhất 2 bài trước khi gắn nhãn mạnh/yếu.",
@@ -147,7 +147,7 @@
       "actionRoute": null
     },
     {
-      "id": "device-only",
+      "id": "device-only-local-analytics",
       "type": "info",
       "title": "Dữ liệu chỉ lưu trên thiết bị này",
       "message": "Bài làm này đang được đọc từ localStorage.",

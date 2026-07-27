@@ -58,6 +58,19 @@ public interface ExamAttemptRepository extends JpaRepository<ExamAttemptEntity, 
     );
 
     @Query("""
+            SELECT COUNT(a) AS total,
+                   MAX(a.submittedAt) AS lastSubmittedAt,
+                   MAX(a.updatedAt) AS lastUpdatedAt
+            FROM ExamAttemptEntity a
+            WHERE a.userId = :userId
+              AND a.mode IN :modes
+            """)
+    DashboardVersionView findDashboardVersion(
+            @Param("userId") byte[] userId,
+            @Param("modes") List<String> modes
+    );
+
+    @Query("""
             SELECT a.sessionId AS sessionId, a.mode AS mode, a.title AS title,
                    a.totalScore AS totalScore, a.mcqScore AS mcqScore, a.tfScore AS tfScore,
                    a.totalQuestions AS totalQuestions, a.durationSeconds AS durationSeconds,
@@ -120,5 +133,11 @@ public interface ExamAttemptRepository extends JpaRepository<ExamAttemptEntity, 
         String getDatasetVersion();
         String getExamContentHash();
         String getResultJson();
+    }
+
+    interface DashboardVersionView {
+        long getTotal();
+        Instant getLastSubmittedAt();
+        Instant getLastUpdatedAt();
     }
 }

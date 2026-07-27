@@ -1,5 +1,6 @@
 package com.lichsuvn.backend.exam.application;
 
+import com.github.benmanes.caffeine.cache.Cache;
 import com.lichsuvn.backend.auth.security.UserPrincipal;
 import com.lichsuvn.backend.common.exception.ApiException;
 import com.lichsuvn.backend.exam.api.dto.DashboardAnalyticsResponse;
@@ -19,6 +20,7 @@ import java.time.Clock;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HexFormat;
 import java.util.List;
 
 @Service
@@ -30,6 +32,7 @@ public class DashboardAnalyticsService {
     private final ExamAttemptRepository repository;
     private final DashboardSnapshotV2Parser parser;
     private final DashboardAnalyticsAggregator aggregator;
+    private final Cache<String, DashboardAnalyticsResponse> cache;
     private final Clock clock;
     private final int fetchLimit;
 
@@ -37,12 +40,14 @@ public class DashboardAnalyticsService {
             ExamAttemptRepository repository,
             DashboardSnapshotV2Parser parser,
             DashboardAnalyticsAggregator aggregator,
+            Cache<String, DashboardAnalyticsResponse> cache,
             Clock clock,
             @Value("${exam.dashboard.fetch-limit:500}") int configuredFetchLimit
     ) {
         this.repository = repository;
         this.parser = parser;
         this.aggregator = aggregator;
+        this.cache = cache;
         this.clock = clock;
         this.fetchLimit = Math.max(1, Math.min(configuredFetchLimit, MAX_FETCH_LIMIT));
     }
@@ -57,6 +62,31 @@ public class DashboardAnalyticsService {
         Range range = Range.parse(requestedRange);
         int recentLimit = validateRecentLimit(requestedRecentLimit);
         Instant generatedAt = clock.instant();
+        ExamAttemptRepository.DashboardVersionView version = repository.findDashboardVersion(
+                userId,
+                DashboardAnalyticsPolicy.INCLUDED_MODES
+        );
+        String cacheKey = cacheKey(userId, range, recentLimit, version);
+        DashboardAnalyticsResponse cached = cache.getIfPresent(cacheKey);
+        if (cached != null) return cached;
+
+        DashboardAnalyticsResponse computed = computeDashboard(
+                userId,
+                range,
+                recentLimit,
+                generatedAt
+        );
+        // generatedAt được cache cùng response và có thể cũ tối đa bằng TTL cấu hình.
+        cache.put(cacheKey, computed);
+        return computed;
+    }
+
+    private DashboardAnalyticsResponse computeDashboard(
+            byte[] userId,
+            Range range,
+            int recentLimit,
+            Instant generatedAt
+    ) {
         LocalDate today = generatedAt.atZone(DashboardAnalyticsAggregator.DASHBOARD_ZONE).toLocalDate();
         LocalDate fromDate = range.fromDate(today);
         LocalDate toDateExclusive = today.plusDays(1);
@@ -91,6 +121,10 @@ public class DashboardAnalyticsService {
             analyzed.add(new DashboardAnalyzedAttempt(attempt, summaryEligible, authority, detail));
         }
 
+        // Bảo vệ bất biến fetchedAttemptCount <= totalKnownAttempts mà frontend validator
+        // bắt buộc: count/find có thể thấy snapshot khác nhau giữa hai câu lệnh.
+        long reconciledTotalKnown = Math.max(totalKnown, analyzed.size());
+
         return aggregator.aggregate(new DashboardAnalyticsAggregator.Input(
                 range.value,
                 fromDate,
@@ -98,10 +132,26 @@ public class DashboardAnalyticsService {
                 generatedAt,
                 recentLimit,
                 fetchLimit,
-                totalKnown,
+                reconciledTotalKnown,
                 excludedModes,
                 analyzed
         ));
+    }
+
+    private String cacheKey(
+            byte[] userId,
+            Range range,
+            int recentLimit,
+            ExamAttemptRepository.DashboardVersionView version
+    ) {
+        long total = version == null ? 0 : version.getTotal();
+        Instant lastSubmittedAt = version == null ? null : version.getLastSubmittedAt();
+        Instant lastUpdatedAt = version == null ? null : version.getLastUpdatedAt();
+        return HexFormat.of().formatHex(userId)
+                + '|' + range.value + '|' + recentLimit
+                + '|' + total
+                + '|' + (lastSubmittedAt == null ? "-" : lastSubmittedAt.toEpochMilli())
+                + '|' + (lastUpdatedAt == null ? "-" : lastUpdatedAt.toEpochMilli());
     }
 
     private boolean basicSummaryEligible(DashboardAttemptRecord attempt) {

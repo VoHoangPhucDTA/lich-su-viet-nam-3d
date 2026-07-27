@@ -3,15 +3,160 @@ import {
   formatDashboardDateLabel,
   formatDashboardSubmittedLabel,
 } from '../dashboardFormatters';
-import type { PersonalLearningDashboardViewModel } from '../dashboardTypes';
+import {
+  dashboardTopicRoute,
+  selectRecommendationCandidate,
+} from '../dashboardRecommendation';
+import { createDeviceUnscopedExcludedNotice } from '../dashboardNoticeFactories';
+import type {
+  LearningRecommendation,
+  PersonalLearningDashboardViewModel,
+} from '../dashboardTypes';
 import type { LocalDashboardAnalyticsResultV1 } from './localDashboardTypes';
 
 export interface LocalDashboardViewModelOptions {
   source?: 'local' | 'local-fallback';
 }
 
-function topicRoute(topicKey: string): string {
-  return `/exams/on-chu-de/${encodeURIComponent(topicKey)}`;
+function createLocalRecommendation(facts: LocalDashboardAnalyticsResultV1): LearningRecommendation {
+  if (facts.summary.totalAttempts === 0) {
+    return {
+      id: 'start-local-exam',
+      title: 'Làm một đề thi để bắt đầu',
+      reason: 'Thiết bị này chưa có kết quả phù hợp với dashboard policy V1.',
+      actionLabel: 'Duyệt kho đề',
+      actionRoute: '/exams/browse',
+      priority: 'primary',
+      topicKey: null,
+      evidence: null,
+    };
+  }
+  const selection = selectRecommendationCandidate(facts.topics);
+  if (!selection) {
+    return {
+      id: 'continue-local-exams',
+      title: 'Làm thêm đề để mở rộng phân tích',
+      reason: 'Các kết quả cục bộ hiện chưa có đủ chi tiết chủ đề.',
+      actionLabel: 'Duyệt kho đề',
+      actionRoute: '/exams/browse',
+      priority: 'primary',
+      topicKey: null,
+      evidence: null,
+    };
+  }
+  const topic = selection.candidate;
+  const evidence = {
+    accuracy: topic.accuracy,
+    correctUnits: topic.correctUnits,
+    totalUnits: topic.totalUnits,
+    attemptCount: topic.attemptCount,
+    confidence: topic.confidence,
+  };
+  if (selection.tier === 'weakness') {
+    return {
+      id: `local-weakness-${topic.key}`,
+      title: `Ôn lại ${topic.label}`,
+      reason: `Dữ liệu cục bộ ghi nhận độ chính xác ${topic.accuracy.toLocaleString('vi-VN')}% qua ${topic.attemptCount} bài.`,
+      actionLabel: 'Ôn chủ đề này',
+      actionRoute: dashboardTopicRoute(topic.key),
+      priority: 'primary',
+      topicKey: topic.key,
+      evidence,
+    };
+  }
+  if (selection.tier === 'developing') {
+    return {
+      id: `local-developing-${topic.key}`,
+      title: `Tiếp tục củng cố ${topic.label}`,
+      reason: `Độ chính xác cục bộ hiện tại là ${topic.accuracy.toLocaleString('vi-VN')}%.`,
+      actionLabel: 'Tiếp tục ôn chủ đề',
+      actionRoute: dashboardTopicRoute(topic.key),
+      priority: 'primary',
+      topicKey: topic.key,
+      evidence,
+    };
+  }
+  if (selection.tier === 'insufficient-data') {
+    return {
+      id: `local-insufficient-${topic.key}`,
+      title: `Làm thêm đề để hiểu rõ ${topic.label}`,
+      reason: `Chủ đề này mới có ${topic.totalUnits} ý qua ${topic.attemptCount} bài, chưa đủ mẫu để kết luận.`,
+      actionLabel: 'Làm thêm một đề',
+      actionRoute: '/exams/browse',
+      priority: 'primary',
+      topicKey: topic.key,
+      evidence,
+    };
+  }
+  return {
+    id: 'continue-local-custom-mock',
+    title: 'Duy trì phong độ với một đề tùy chọn',
+    reason: `Các nhóm đã phân tích đều đạt kết quả tốt. Hãy tiếp tục luyện đề, ưu tiên ${topic.label}.`,
+    actionLabel: 'Tạo đề tùy chọn',
+    actionRoute: '/exams/tao-de',
+    priority: 'primary',
+    topicKey: null,
+    evidence,
+  };
+}
+
+function buildLocalNotices(
+  facts: LocalDashboardAnalyticsResultV1,
+  source: 'local' | 'local-fallback',
+): PersonalLearningDashboardViewModel['notices'] {
+  const notices: PersonalLearningDashboardViewModel['notices'] = [];
+  if (source === 'local-fallback') {
+    notices.push({
+      id: 'backend-unavailable-local-fallback',
+      type: 'warning',
+      title: 'Máy chủ thống kê đang tạm thời không khả dụng',
+      message: 'Dashboard đang hiển thị riêng dữ liệu cục bộ thuộc đúng tài khoản hiện tại trên thiết bị này. Đây không phải toàn bộ lịch sử tài khoản.',
+      actionLabel: null,
+      actionRoute: null,
+    });
+  }
+  notices.push({
+    id: 'device-only-local-analytics',
+    type: 'info',
+    title: source === 'local-fallback' ? 'Đang xem dữ liệu dự phòng trên thiết bị' : 'Dữ liệu chỉ có trên thiết bị này',
+    message: 'Các thống kê này không đại diện cho toàn bộ lịch sử tài khoản và không được tự động gộp với backend.',
+    actionLabel: source === 'local' ? 'Đăng nhập' : null,
+    actionRoute: source === 'local' ? '/login' : null,
+  });
+  if (facts.excludedOwnerScopeBreakdown['device-legacy-unscoped'] > 0) {
+    notices.push(createDeviceUnscopedExcludedNotice());
+  }
+  if (!facts.coverage.isComplete || facts.coverage.detailedAttemptCount < facts.coverage.summaryAttemptCount) {
+    notices.push({
+      id: 'local-coverage-partial',
+      type: 'warning',
+      title: 'Phân tích cục bộ chưa đầy đủ',
+      message: `${facts.coverage.detailedAttemptCount}/${facts.coverage.summaryAttemptCount} bài có chi tiết bất biến dùng được.`,
+      actionLabel: null,
+      actionRoute: null,
+    });
+  }
+  if (facts.pendingRecoveryCount > 0) {
+    notices.push({
+      id: 'pending-recovery',
+      type: 'info',
+      title: 'Có bài đang chờ đồng bộ',
+      message: `${facts.pendingRecoveryCount} bài đang chờ quy trình khôi phục hiện có; queue item không được tính thành bài thứ hai.`,
+      actionLabel: null,
+      actionRoute: null,
+    });
+  }
+  if (facts.diagnostics.futureTimestampDroppedCount > 0) {
+    notices.push({
+      id: 'future-timestamp-dropped',
+      type: 'warning',
+      title: 'Một số bài có mốc thời gian bất thường',
+      message: `${facts.diagnostics.futureTimestampDroppedCount} bài có thời điểm nộp nằm quá xa trong tương lai nên chưa được tính. Hãy kiểm tra ngày giờ của thiết bị.`,
+      actionLabel: null,
+      actionRoute: null,
+    });
+  }
+  return notices;
 }
 
 export function mapLocalDashboardAnalyticsToViewModel(
@@ -40,59 +185,10 @@ export function mapLocalDashboardAnalyticsToViewModel(
     totalUnits: topic.totalUnits,
     attemptCount: topic.attemptCount,
     confidence: topic.confidence,
-    practiceRoute: topicRoute(topic.key),
+    practiceRoute: dashboardTopicRoute(topic.key),
     summary: 'Kết quả cục bộ cho thấy chủ đề này cần được ưu tiên ôn lại.',
   }));
-  const priority = weaknesses[0] ?? null;
-  const notices: PersonalLearningDashboardViewModel['notices'] = [];
-  if (source === 'local-fallback') {
-    notices.push({
-      id: 'backend-unavailable-local-fallback',
-      type: 'warning',
-      title: 'Máy chủ thống kê đang tạm thời không khả dụng',
-      message: 'Dashboard đang hiển thị riêng dữ liệu cục bộ thuộc đúng tài khoản hiện tại trên thiết bị này. Đây không phải toàn bộ lịch sử tài khoản.',
-      actionLabel: null,
-      actionRoute: null,
-    });
-  }
-  notices.push({
-    id: 'device-only-local-analytics',
-    type: 'info',
-    title: source === 'local-fallback' ? 'Đang xem dữ liệu dự phòng trên thiết bị' : 'Dữ liệu chỉ có trên thiết bị này',
-    message: 'Các thống kê này không đại diện cho toàn bộ lịch sử tài khoản và không được tự động gộp với backend.',
-    actionLabel: source === 'local' ? 'Đăng nhập' : null,
-    actionRoute: source === 'local' ? '/login' : null,
-  });
-  if (facts.excludedOwnerScopeBreakdown['device-legacy-unscoped'] > 0) {
-    notices.push({
-      id: 'device-unscoped-excluded',
-      type: 'info',
-      title: 'Một số dữ liệu cũ không được tính',
-      message: 'Một số kết quả cũ trên thiết bị đã bị loại khỏi thống kê vì không xác định được chủ sở hữu.',
-      actionLabel: null,
-      actionRoute: null,
-    });
-  }
-  if (!facts.coverage.isComplete || facts.coverage.detailedAttemptCount < facts.coverage.summaryAttemptCount) {
-    notices.push({
-      id: 'local-coverage-partial',
-      type: 'warning',
-      title: 'Phân tích cục bộ chưa đầy đủ',
-      message: `${facts.coverage.detailedAttemptCount}/${facts.coverage.summaryAttemptCount} bài có chi tiết bất biến dùng được.`,
-      actionLabel: null,
-      actionRoute: null,
-    });
-  }
-  if (facts.pendingRecoveryCount > 0) {
-    notices.push({
-      id: 'pending-recovery',
-      type: 'info',
-      title: 'Có bài đang chờ đồng bộ',
-      message: `${facts.pendingRecoveryCount} bài đang chờ quy trình khôi phục hiện có; queue item không được tính thành bài thứ hai.`,
-      actionLabel: null,
-      actionRoute: null,
-    });
-  }
+  const notices = buildLocalNotices(facts, source);
 
   return {
     state: facts.summary.totalAttempts === 0 ? 'empty' : 'ready',
@@ -105,40 +201,7 @@ export function mapLocalDashboardAnalyticsToViewModel(
       toDateExclusive: facts.scope.toDateExclusive,
     },
     summary: { ...facts.summary },
-    recommendations: facts.summary.totalAttempts === 0 ? [{
-      id: 'start-local-exam',
-      title: 'Làm một đề thi để bắt đầu',
-      reason: 'Thiết bị này chưa có kết quả phù hợp với dashboard policy V1.',
-      actionLabel: 'Duyệt kho đề',
-      actionRoute: '/exams/browse',
-      priority: 'primary',
-      topicKey: null,
-      evidence: null,
-    }] : priority ? [{
-      id: `local-weakness-${priority.key}`,
-      title: `Ôn lại ${priority.label}`,
-      reason: `Dữ liệu cục bộ ghi nhận độ chính xác ${priority.accuracy.toLocaleString('vi-VN')}% qua ${priority.attemptCount} bài.`,
-      actionLabel: 'Ôn chủ đề này',
-      actionRoute: topicRoute(priority.key),
-      priority: 'primary',
-      topicKey: priority.key,
-      evidence: {
-        accuracy: priority.accuracy,
-        correctUnits: priority.correctUnits,
-        totalUnits: priority.totalUnits,
-        attemptCount: priority.attemptCount,
-        confidence: priority.confidence,
-      },
-    }] : [{
-      id: 'continue-local-exams',
-      title: 'Làm thêm đề để mở rộng phân tích',
-      reason: 'Các kết quả cục bộ hiện chưa xác định được chủ đề yếu có đủ mẫu.',
-      actionLabel: 'Duyệt kho đề',
-      actionRoute: '/exams/browse',
-      priority: 'primary',
-      topicKey: null,
-      evidence: null,
-    }],
+    recommendations: [createLocalRecommendation(facts)],
     scoreTrend: {
       granularity: 'attempt',
       isComplete: facts.coverage.isComplete && facts.trend.length === facts.coverage.summaryAttemptCount,
@@ -184,7 +247,9 @@ export function mapLocalDashboardAnalyticsToViewModel(
         ? `/exams/ket-qua/${encodeURIComponent(attempt.resultRouteId)}`
         : null,
       detailStatus: attempt.detailStatus === 'full' ? 'full'
-        : attempt.detailStatus === 'summary-only' ? 'summary-only' : 'unavailable',
+        : attempt.detailStatus === 'summary-only' || attempt.detailStatus === 'question-type-only'
+          ? 'summary-only'
+          : 'unavailable',
     })),
     coverage: {
       summaryAttemptCount: facts.coverage.summaryAttemptCount,

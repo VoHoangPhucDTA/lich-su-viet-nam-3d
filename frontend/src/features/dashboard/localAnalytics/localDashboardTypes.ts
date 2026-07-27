@@ -2,13 +2,20 @@ import type { DashboardAnalyticsRange } from '../dashboardAnalyticsTypes';
 
 export const LOCAL_DASHBOARD_POLICY_VERSION = 'dashboard-v1' as const;
 
+/** Độ tin cậy của nguồn dữ liệu; số lớn hơn thắng khi dedupe. */
+export const LOCAL_SOURCE_PRIORITY = {
+  API_SNAPSHOT_V2: 600,
+  V2_RESULT: 500,
+  RECOVERY: 400,
+  V2_LEGACY: 300,
+  LEGACY_EXAM_RESULT: 150,
+  LEGACY_EXAM_HISTORY: 100,
+} as const;
+
 export type LocalDashboardSourceKind =
   | 'api-snapshot-v2-cache'
   | 'v2-result'
-  | 'custom-session'
-  | 'recovery-local-result'
-  | 'legacy-exam-result'
-  | 'legacy-exam-history';
+  | 'recovery-local-result';
 
 export type LocalDashboardOwnerScope =
   | 'anonymous'
@@ -87,10 +94,7 @@ export type LocalDashboardAdapterFailureReason =
   | 'invalid-duration'
   | 'invalid-total-questions'
   | 'snapshot-version-mismatch'
-  | 'invalid-question-detail'
-  | 'standalone-session-has-no-score'
-  | 'in-progress-session'
-  | 'unsupported-history-shape';
+  | 'invalid-question-detail';
 
 export type LocalDashboardAdapterResult =
   | { status: 'success'; attempt: LocalDashboardAttemptV1 }
@@ -107,6 +111,9 @@ export interface LocalDashboardRecoveryMetadata {
 }
 
 export interface LocalDashboardScanDiagnostics {
+  /** Số key localStorage thực sự đã đọc sau allow-list và giới hạn. */
+  scannedKeyCount: number;
+  /** Số record đã được đưa qua adapter; array key có thể đóng góp nhiều record. */
   scannedRecordCount: number;
   matchingKeyCount: number;
   supportedRecordCount: number;
@@ -119,12 +126,13 @@ export interface LocalDashboardScanDiagnostics {
   storageReadErrorCount: number;
   matchingKeyLimitReached: boolean;
   normalizedAttemptLimitReached: boolean;
+  /** Số bài bị loại vì timestamp vượt quá dung sai lệch đồng hồ. */
+  futureTimestampDroppedCount: number;
 }
 
 export type LocalDashboardOwnerFilter =
   | { kind: 'anonymous' }
   | { kind: 'authenticated-owner'; ownerKey: string }
-  | { kind: 'device-local' }
   | { kind: 'all-for-diagnostics' };
 
 export interface LocalDashboardScanOptions {

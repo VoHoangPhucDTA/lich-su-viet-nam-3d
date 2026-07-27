@@ -11,7 +11,7 @@ function facts(overrides: Partial<LocalDashboardAnalyticsResultV1> = {}): LocalD
       timezone: 'Asia/Ho_Chi_Minh',
       fromDate: '2026-06-25',
       toDateExclusive: '2026-07-25',
-      ownerFilter: 'device-local',
+      ownerFilter: 'anonymous',
     },
     summary: {
       totalAttempts: 1,
@@ -70,6 +70,7 @@ function facts(overrides: Partial<LocalDashboardAnalyticsResultV1> = {}): LocalD
     },
     authorityBreakdown: { backendOfficial: 0, backendRecovered: 0, localFallback: 1, frontendLegacy: 0 },
     diagnostics: {
+      scannedKeyCount: 1,
       scannedRecordCount: 1,
       matchingKeyCount: 1,
       supportedRecordCount: 1,
@@ -82,6 +83,7 @@ function facts(overrides: Partial<LocalDashboardAnalyticsResultV1> = {}): LocalD
       storageReadErrorCount: 0,
       matchingKeyLimitReached: false,
       normalizedAttemptLimitReached: false,
+      futureTimestampDroppedCount: 0,
     },
     pendingRecoveryCount: 0,
     ownerScopeBreakdown: {
@@ -104,7 +106,7 @@ function facts(overrides: Partial<LocalDashboardAnalyticsResultV1> = {}): LocalD
 }
 
 describe('local dashboard ViewModel mapper', () => {
-  it('marks device-local facts and local fallback as device-only sources', () => {
+  it('marks anonymous local facts and authenticated fallback as device-only sources', () => {
     const local = mapLocalDashboardAnalyticsToViewModel(facts());
     const fallback = mapLocalDashboardAnalyticsToViewModel(facts({
       scope: { ...facts().scope, ownerFilter: 'authenticated-owner' },
@@ -129,6 +131,14 @@ describe('local dashboard ViewModel mapper', () => {
     ]);
   });
 
+  it('adds a notice when implausible future timestamps were excluded', () => {
+    const viewModel = mapLocalDashboardAnalyticsToViewModel(facts({
+      diagnostics: { ...facts().diagnostics, futureTimestampDroppedCount: 2 },
+      coverage: { ...facts().coverage, isComplete: false },
+    }));
+    expect(viewModel.notices.map((notice) => notice.id)).toContain('future-timestamp-dropped');
+  });
+
   it('returns the empty local state without inventing attempts', () => {
     const empty = facts({
       summary: { ...facts().summary, totalAttempts: 0, averageScore: null, highestScore: null, latestScore: null },
@@ -148,6 +158,7 @@ describe('local dashboard ViewModel mapper', () => {
     expect(viewModel.weaknesses.map((topic) => topic.key)).toEqual(['needs-review']);
     expect(viewModel.recommendations[0]?.actionRoute).toBe('/exams/on-chu-de/needs-review');
     expect(viewModel.recentAttempts[0]?.resultRoute).toBe('/exams/ket-qua/local%2Fattempt%201');
+    expect(viewModel.recentAttempts[0]?.detailStatus).toBe('summary-only');
   });
 
   it('does not leak raw local enums or label local authority as official', () => {

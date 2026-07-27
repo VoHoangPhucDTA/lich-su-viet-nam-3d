@@ -57,6 +57,7 @@ function scan(attempts: LocalDashboardAttemptV1[], overrides: Partial<LocalDashb
   return {
     attempts,
     diagnostics: {
+      scannedKeyCount: attempts.length,
       scannedRecordCount: attempts.length,
       matchingKeyCount: attempts.length,
       supportedRecordCount: attempts.length,
@@ -69,6 +70,7 @@ function scan(attempts: LocalDashboardAttemptV1[], overrides: Partial<LocalDashb
       storageReadErrorCount: 0,
       matchingKeyLimitReached: false,
       normalizedAttemptLimitReached: false,
+      futureTimestampDroppedCount: 0,
     },
     pendingRecoveryCount: 0,
     ownerScopeBreakdown: {
@@ -220,10 +222,27 @@ describe('local dashboard analytics aggregation', () => {
     const result = buildLocalDashboardAnalytics(scan([
       attempt('historical', { submittedAt: Date.parse('2010-01-01T00:00:00Z') }),
       attempt('now', { submittedAt: NOW.getTime() }),
-      attempt('future-today', { submittedAt: NOW.getTime() + 60_000 }),
-      attempt('tomorrow', { submittedAt: Date.parse('2026-07-24T17:00:00Z') }),
+      attempt('future-today', { submittedAt: NOW.getTime() + 90_000 }),
+      attempt('too-far-future', { submittedAt: NOW.getTime() + 10 * 60_000 }),
     ]), { range: 'all', now: NOW });
-    expect(result.recentAttempts.map((item) => item.attemptId)).toEqual(['now', 'historical']);
+    expect(result.recentAttempts.map((item) => item.attemptId)).toEqual(['future-today', 'now', 'historical']);
+    expect(result.diagnostics.futureTimestampDroppedCount).toBe(1);
+    expect(result.coverage.isComplete).toBe(false);
+  });
+
+  it('counts valid attempts outside the selected range in totalKnownAttempts', () => {
+    const result = buildLocalDashboardAnalytics(scan([
+      attempt('inside', { submittedAt: Date.parse('2026-07-20T03:00:00Z') }),
+      attempt('outside', { submittedAt: Date.parse('2026-01-01T03:00:00Z') }),
+    ]), { range: '30d', now: NOW });
+    expect(result.summary.totalAttempts).toBe(1);
+    expect(result.coverage.totalKnownAttempts).toBe(2);
+  });
+
+  it('defaults to the conservative anonymous owner filter and scanner limit', () => {
+    const result = buildLocalDashboardAnalytics(scan([]), { now: NOW });
+    expect(result.scope.ownerFilter).toBe('anonymous');
+    expect(result.coverage.scanLimit).toBe(500);
   });
 
   it('calculates active days and ordering in Asia/Ho_Chi_Minh after range filtering', () => {
@@ -252,15 +271,15 @@ describe('local dashboard analytics aggregation', () => {
   it('preserves mixed-source and owner-scope scan breakdowns as diagnostics', () => {
     const source = scan([
       attempt('api', { sourceKind: 'api-snapshot-v2-cache', sourcePriority: 600 }),
-      attempt('legacy', { sourceKind: 'legacy-exam-history', sourcePriority: 100 }),
+      attempt('v2', { sourceKind: 'v2-result', sourcePriority: 500 }),
     ], {
       ownerScopeBreakdown: {
         anonymous: 1, 'authenticated-owner': 0, 'device-legacy-unscoped': 1, unknown: 0, conflicting: 0,
       },
-      sourceBreakdown: { 'api-snapshot-v2-cache': 1, 'legacy-exam-history': 1 },
+      sourceBreakdown: { 'api-snapshot-v2-cache': 1, 'v2-result': 1 },
     });
     const result = buildLocalDashboardAnalytics(source, { now: NOW });
-    expect(result.sourceBreakdown).toEqual({ 'api-snapshot-v2-cache': 1, 'legacy-exam-history': 1 });
+    expect(result.sourceBreakdown).toEqual({ 'api-snapshot-v2-cache': 1, 'v2-result': 1 });
     expect(result.ownerScopeBreakdown).toMatchObject({ anonymous: 1, 'device-legacy-unscoped': 1 });
     expect(result.summary.totalAttempts).toBe(2);
   });

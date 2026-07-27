@@ -1,12 +1,12 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { MemoryRouter } from 'react-router-dom';
-import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import ProfileDashboardPage from '../ProfileDashboardPage';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+import defaultFixture from '../../../../../data/dashboard-analytics-fixtures/response-v1-default.json';
+import type { DashboardAnalyticsResponseV1 } from '@/features/dashboard/dashboardAnalyticsTypes';
 import { PERSONAL_LEARNING_DASHBOARD_ROUTE } from '@/features/dashboard/dashboardRoute';
-
-const getDashboardAnalytics = vi.hoisted(() => vi.fn());
-const usePersonalLearningDashboard = vi.hoisted(() => vi.fn());
-const renderPersonalLearningDashboard = vi.hoisted(() => vi.fn());
+import type { ProfileLearningSummaryV1 } from '@/services/profileLearningSummaryApi';
+import ProfileDashboardPage from '../ProfileDashboardPage';
 
 vi.mock('@/auth/AuthContext', () => ({
   useAuth: () => ({
@@ -20,103 +20,125 @@ vi.mock('@/auth/AuthContext', () => ({
   }),
 }));
 
-vi.mock('@/services/dashboardAnalyticsApi', () => ({
-  getDashboardAnalytics,
-}));
+const summary: ProfileLearningSummaryV1 = {
+  schemaVersion: 1,
+  generatedAt: '2026-07-27T03:00:00Z',
+  timezone: 'Asia/Ho_Chi_Minh',
+  eventsViewed: 12,
+  quizzesCompleted: 4,
+  totalMinutes: 61,
+  streakDays: 3,
+};
 
-vi.mock('@/features/dashboard/usePersonalLearningDashboard', () => ({
-  usePersonalLearningDashboard,
-}));
+const dashboard = {
+  ...(defaultFixture as unknown as DashboardAnalyticsResponseV1),
+  recentAttempts: [{
+    attemptId: 'attempt-1',
+    title: 'Đề thi thử Lịch sử số 1',
+    mode: 'TIMED_ORIGINAL',
+    score: 8.25,
+    durationSeconds: 1_800,
+    submittedAt: '2026-07-26T03:00:00Z',
+    totalQuestions: 40,
+    detailStatus: 'full',
+    scoreAuthority: 'BACKEND',
+    timingAuthority: 'SERVER',
+    submissionOrigin: 'SERVER_ON_TIME',
+  }],
+} satisfies DashboardAnalyticsResponseV1;
 
-vi.mock('@/features/dashboard/PersonalLearningDashboardPage', () => ({
-  default: () => {
-    renderPersonalLearningDashboard();
-    return null;
-  },
-}));
+describe('ProfileDashboard real-data overview', () => {
+  const requestSummary = vi.fn();
+  const requestDashboard = vi.fn();
 
-describe('ProfileDashboard analytics discoverability', () => {
   beforeEach(() => {
-    getDashboardAnalytics.mockReset();
-    usePersonalLearningDashboard.mockReset();
-    renderPersonalLearningDashboard.mockReset();
+    requestSummary.mockReset().mockResolvedValue(summary);
+    requestDashboard.mockReset().mockResolvedValue(dashboard);
   });
 
-  afterEach(() => {
-    vi.restoreAllMocks();
-  });
-
-  it('places the link-only analytics card after the welcome hero without fetching data', () => {
-    const localStorageRead = vi.spyOn(Storage.prototype, 'getItem');
-
+  it('loads four truthful KPIs and recent attempts from backend contracts', async () => {
     render(
       <MemoryRouter initialEntries={['/profile/dashboard']}>
-        <ProfileDashboardPage />
-      </MemoryRouter>,
-    );
-
-    const welcome = screen.getByRole('heading', { level: 1 });
-    const link = screen.getByRole('link', { name: 'Xem thống kê luyện thi' });
-    const profileMain = link.closest('main');
-
-    expect(link).toHaveAttribute('href', PERSONAL_LEARNING_DASHBOARD_ROUTE);
-    expect(welcome.compareDocumentPosition(link) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
-    expect(profileMain).toHaveClass('overflow-y-auto');
-    expect(link).not.toHaveClass('overflow-y-auto');
-    expect(getDashboardAnalytics).not.toHaveBeenCalled();
-    expect(usePersonalLearningDashboard).not.toHaveBeenCalled();
-    expect(renderPersonalLearningDashboard).not.toHaveBeenCalled();
-    expect(localStorageRead).not.toHaveBeenCalled();
-  });
-
-  it('removes duplicated exam analytics from the profile render tree', () => {
-    render(
-      <MemoryRouter initialEntries={['/profile/dashboard']}>
-        <ProfileDashboardPage />
-      </MemoryRouter>,
-    );
-
-    expect(screen.queryByRole('heading', { name: 'Điểm theo tuần' })).not.toBeInTheDocument();
-    expect(screen.queryByRole('heading', { name: 'Tỉ lệ đúng theo chủ đề' })).not.toBeInTheDocument();
-    expect(screen.queryByRole('heading', { name: 'Chủ đề làm tốt nhất' })).not.toBeInTheDocument();
-    expect(screen.queryByRole('heading', { name: 'Chủ đề cần ôn luyện' })).not.toBeInTheDocument();
-    expect(screen.queryByText('Điểm TB')).not.toBeInTheDocument();
-    expect(screen.queryByText(/Điểm chủ đề/)).not.toBeInTheDocument();
-    expect(screen.queryByText(/đạt điểm TB/)).not.toBeInTheDocument();
-  });
-
-  it('keeps the general overview, grade progress, continuation and recommendations accessible', () => {
-    render(
-      <MemoryRouter initialEntries={['/profile/dashboard']}>
-        <ProfileDashboardPage />
+        <ProfileDashboardPage
+          requestSummary={requestSummary}
+          requestDashboard={requestDashboard}
+        />
       </MemoryRouter>,
     );
 
     expect(screen.getByRole('heading', { level: 1, name: 'Xin chào, An!' })).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: 'Xem thống kê luyện thi' })).toHaveAttribute(
+    expect(await screen.findByText('12')).toBeInTheDocument();
+    expect(screen.getByText('4')).toBeInTheDocument();
+    expect(screen.getByText('61 phút')).toBeInTheDocument();
+    expect(screen.getByText('3 ngày')).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: /Đề thi thử Lịch sử số 1/ })).toHaveAttribute(
+      'href',
+      '/exams/ket-qua/attempt-1',
+    );
+    expect(requestSummary).toHaveBeenCalledTimes(1);
+    expect(requestDashboard).toHaveBeenCalledWith('30d', expect.any(AbortSignal));
+  });
+
+  it('removes unsupported rank, grade progress and mocked continuation sections', async () => {
+    render(
+      <MemoryRouter>
+        <ProfileDashboardPage
+          requestSummary={requestSummary}
+          requestDashboard={requestDashboard}
+        />
+      </MemoryRouter>,
+    );
+
+    await screen.findByText('61 phút');
+    expect(screen.queryByText(/Top \d+%/)).not.toBeInTheDocument();
+    expect(screen.queryByRole('heading', { name: 'Tiến độ theo lớp' })).not.toBeInTheDocument();
+    expect(screen.queryByRole('heading', { name: 'Tiếp tục học' })).not.toBeInTheDocument();
+    expect(screen.queryByRole('heading', { name: 'Gợi ý học tập' })).not.toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'Bài thi gần đây' })).toBeInTheDocument();
+  });
+
+  it('keeps real analytics and history discoverable from profile navigation', async () => {
+    render(
+      <MemoryRouter>
+        <ProfileDashboardPage
+          requestSummary={requestSummary}
+          requestDashboard={requestDashboard}
+        />
+      </MemoryRouter>,
+    );
+
+    expect(await screen.findByRole('link', { name: 'Xem thống kê luyện thi' })).toHaveAttribute(
       'href',
       PERSONAL_LEARNING_DASHBOARD_ROUTE,
     );
-    expect(screen.getByLabelText('Tổng quan học tập chung')).toBeInTheDocument();
-    expect(screen.getByText('Sự kiện')).toBeInTheDocument();
-    expect(screen.getByText('Trắc nghiệm')).toBeInTheDocument();
-    expect(screen.getByText('Chuỗi học')).toBeInTheDocument();
-    expect(screen.getByText('Tuần này')).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'Lịch sử học tập' })).toHaveAttribute(
+      'href',
+      '/exams/lich-su',
+    );
+    expect(screen.getByRole('link', { name: 'Điểm số & phân tích' })).toHaveAttribute(
+      'href',
+      '/exams/thong-ke',
+    );
+  });
 
-    expect(screen.getByRole('heading', { level: 2, name: 'Tiến độ theo lớp' })).toBeInTheDocument();
-    expect(screen.getByRole('progressbar', { name: /Tiến độ lớp 10/ })).toBeInTheDocument();
-    expect(screen.getByRole('progressbar', { name: /Tiến độ lớp 11/ })).toBeInTheDocument();
-    expect(screen.getByRole('progressbar', { name: /Tiến độ lớp 12/ })).toBeInTheDocument();
-    expect(screen.getByRole('heading', { level: 2, name: 'Tiếp tục học' })).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: 'Ôn lại' })).toBeInTheDocument();
-    expect(screen.getAllByRole('button', { name: 'Tiếp tục' })).toHaveLength(2);
-    expect(screen.getByRole('heading', { level: 2, name: 'Gợi ý học tập' })).toBeInTheDocument();
-    expect(screen.getByRole('heading', {
-      level: 3,
-      name: 'Thử thách: Trắc nghiệm kiến thức tổng hợp',
-    })).toBeInTheDocument();
+  it('shows a retry action when the KPI endpoint fails', async () => {
+    const user = userEvent.setup();
+    requestSummary
+      .mockRejectedValueOnce(new Error('offline'))
+      .mockResolvedValueOnce(summary);
 
-    expect(screen.getByRole('link', { name: 'Tổng quan' })).toHaveAttribute('href', '/profile/dashboard');
-    expect(screen.getByRole('button', { name: 'Đăng xuất' })).toBeInTheDocument();
+    render(
+      <MemoryRouter>
+        <ProfileDashboardPage
+          requestSummary={requestSummary}
+          requestDashboard={requestDashboard}
+        />
+      </MemoryRouter>,
+    );
+
+    expect(await screen.findByRole('alert')).toHaveTextContent('Không thể tải các chỉ số học tập');
+    await user.click(screen.getByRole('button', { name: 'Thử lại' }));
+    await waitFor(() => expect(requestSummary).toHaveBeenCalledTimes(2));
+    expect(await screen.findByText('61 phút')).toBeInTheDocument();
   });
 });

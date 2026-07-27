@@ -14,6 +14,10 @@ import {
   formatDashboardDateLabel,
   formatDashboardSubmittedLabel,
 } from './dashboardFormatters';
+import {
+  dashboardTopicRoute,
+  selectRecommendationCandidate,
+} from './dashboardRecommendation';
 import type {
   CognitivePerformance,
   DashboardNotice,
@@ -54,10 +58,6 @@ function normalizeCognitive(item: DashboardCognitiveAnalyticsV1): NormalizedCogn
   };
 }
 
-function topicRoute(topicKey: string): string {
-  return `/exams/on-chu-de/${encodeURIComponent(topicKey)}`;
-}
-
 function topicEvidence(topic: NormalizedTopic): MetricEvidence {
   return {
     accuracy: topic.accuracy,
@@ -66,12 +66,6 @@ function topicEvidence(topic: NormalizedTopic): MetricEvidence {
     attemptCount: topic.attemptCount,
     confidence: topic.confidence,
   };
-}
-
-function comparePriorityCandidates(left: NormalizedTopic, right: NormalizedTopic): number {
-  return left.accuracy - right.accuracy
-    || right.totalUnits - left.totalUnits
-    || left.topicKey.localeCompare(right.topicKey, 'vi');
 }
 
 function createRecommendation(
@@ -91,46 +85,46 @@ function createRecommendation(
     };
   }
 
-  const weakness = topics
-    .filter((topic) => topic.status === 'weakness')
-    .sort(comparePriorityCandidates)[0];
-  if (weakness) {
+  const selection = selectRecommendationCandidate(topics.map(topic => ({
+    key: topic.topicKey,
+    label: topic.topicLabel,
+    accuracy: topic.accuracy,
+    correctUnits: topic.correctUnits,
+    totalUnits: topic.totalUnits,
+    attemptCount: topic.attemptCount,
+    confidence: topic.confidence,
+    status: topic.status,
+  })));
+  if (selection?.tier === 'weakness') {
+    const weakness = topics.find(topic => topic.topicKey === selection.candidate.key)!;
     return {
       id: `weakness-${weakness.topicKey}`,
       title: `Ôn lại ${weakness.topicLabel}`,
       reason: `Độ chính xác ${weakness.accuracy.toLocaleString('vi-VN')}% trên ${weakness.totalUnits} ý qua ${weakness.attemptCount} bài; đây là chủ đề yếu có đủ mẫu.`,
       actionLabel: 'Ôn chủ đề này',
-      actionRoute: topicRoute(weakness.topicKey),
+      actionRoute: dashboardTopicRoute(weakness.topicKey),
       priority: 'primary',
       topicKey: weakness.topicKey,
       evidence: topicEvidence(weakness),
     };
   }
 
-  const developing = topics
-    .filter((topic) => topic.status === 'developing')
-    .sort(comparePriorityCandidates)[0];
-  if (developing) {
+  if (selection?.tier === 'developing') {
+    const developing = topics.find(topic => topic.topicKey === selection.candidate.key)!;
     return {
       id: `developing-${developing.topicKey}`,
       title: `Tiếp tục củng cố ${developing.topicLabel}`,
       reason: `Độ chính xác hiện tại là ${developing.accuracy.toLocaleString('vi-VN')}%; thêm một lượt ôn có trọng tâm sẽ giúp cải thiện nhóm kiến thức này.`,
       actionLabel: 'Tiếp tục ôn chủ đề',
-      actionRoute: topicRoute(developing.topicKey),
+      actionRoute: dashboardTopicRoute(developing.topicKey),
       priority: 'primary',
       topicKey: developing.topicKey,
       evidence: topicEvidence(developing),
     };
   }
 
-  const insufficient = topics
-    .filter((topic) => topic.status === 'insufficient-data')
-    .sort((left, right) => (
-      right.totalUnits - left.totalUnits
-      || left.accuracy - right.accuracy
-      || left.topicKey.localeCompare(right.topicKey, 'vi')
-    ))[0];
-  if (insufficient) {
+  if (selection?.tier === 'insufficient-data') {
+    const insufficient = topics.find(topic => topic.topicKey === selection.candidate.key)!;
     return {
       id: `insufficient-${insufficient.topicKey}`,
       title: `Làm thêm đề để hiểu rõ ${insufficient.topicLabel}`,
@@ -143,12 +137,9 @@ function createRecommendation(
     };
   }
 
-  const confidenceRank = { low: 0, medium: 1, high: 2 } as const;
-  const lowestConfidence = [...topics].sort((left, right) => (
-    confidenceRank[left.confidence] - confidenceRank[right.confidence]
-    || left.accuracy - right.accuracy
-    || left.topicKey.localeCompare(right.topicKey, 'vi')
-  ))[0];
+  const lowestConfidence = selection
+    ? topics.find(topic => topic.topicKey === selection.candidate.key) ?? null
+    : null;
   return {
     id: 'continue-custom-mock',
     title: lowestConfidence
@@ -182,7 +173,7 @@ function mapLearningInsight(topic: NormalizedTopic): LearningInsight {
     totalUnits: topic.totalUnits,
     attemptCount: topic.attemptCount,
     confidence: topic.confidence,
-    practiceRoute: topic.status === 'weakness' ? topicRoute(topic.topicKey) : null,
+    practiceRoute: topic.status === 'weakness' ? dashboardTopicRoute(topic.topicKey) : null,
     summary: statusSummary,
   };
 }
@@ -314,6 +305,16 @@ function createNotices(response: DashboardAnalyticsResponseV1): DashboardNotice[
       type: 'info',
       title: 'Chưa có dữ liệu phân tích chi tiết',
       message: 'Điểm tổng quan vẫn được hiển thị, nhưng chưa có immutable detail phù hợp để phân tích chủ đề và mức nhận thức.',
+      actionLabel: null,
+      actionRoute: null,
+    });
+  }
+  if (response.diagnostics.excludedInvalidSummaryCount > 0) {
+    notices.push({
+      id: 'excluded-invalid-attempts',
+      type: 'warning',
+      title: 'Một số bài chưa được tính vào thống kê',
+      message: `${response.diagnostics.excludedInvalidSummaryCount} bài có dữ liệu chấm điểm không hợp lệ nên đã bị loại khỏi toàn bộ thống kê. Nếu số này tăng dần, hãy báo cho quản trị viên.`,
       actionLabel: null,
       actionRoute: null,
     });
