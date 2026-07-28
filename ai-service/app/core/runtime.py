@@ -8,12 +8,18 @@ from enum import Enum
 from typing import Any
 
 from app.config import Settings
+from app.embedding.base import EmbeddingProvider
 from app.embedding.gemini import GeminiEmbeddingProvider
+from app.generation.base import GenerationProvider
 from app.generation.gemini import GeminiGenerationProvider
 from app.generation.service import GenerationService
 from app.retrieval.models import RetrievalNotReadyError
 from app.retrieval.retriever import ChromaRetriever
-from app.retrieval.service import RetrievalService, _expected_collection_metadata
+from app.retrieval.service import (
+    RetrievalService,
+    RetrievalServiceContract,
+    _expected_collection_metadata,
+)
 from app.vectorstore.chroma_client import (
     close_persistent_client,
     collection_exists,
@@ -50,8 +56,8 @@ class RuntimeCounters:
 class RuntimeFactories:
     client_factory: Callable[[Any], Any] = create_persistent_client
     client_closer: Callable[[Any], None] = close_persistent_client
-    embedding_provider_factory: Callable[[Settings], Any] | None = None
-    generation_provider_factory: Callable[[Settings], Any] | None = None
+    embedding_provider_factory: Callable[[Settings], EmbeddingProvider] | None = None
+    generation_provider_factory: Callable[[Settings], GenerationProvider] | None = None
 
 
 def _default_embedding_provider(settings: Settings) -> GeminiEmbeddingProvider:
@@ -159,11 +165,13 @@ class AiRuntimeResources:
         self.factories = factories or RuntimeFactories()
         self.state = RuntimeState.INITIALIZING
         self.error_code: str | None = None
-        self.expected_collection_metadata: dict[str, Any] | None = None
+        self.expected_collection_metadata: (
+            dict[str, str | int | float | bool] | None
+        ) = None
         self.chroma_client: Any | None = None
         self.collection: Any | None = None
-        self.retrieval_service: Any | None = None
-        self.generation_service: Any | None = None
+        self.retrieval_service: RetrievalServiceContract | None = None
+        self.generation_service: GenerationService | None = None
         self.counters = RuntimeCounters()
         self._state_lock = threading.RLock()
         self._shutdown_complete = False
@@ -190,14 +198,14 @@ class AiRuntimeResources:
                     DeterministicRetrievalService,
                 )
 
-                retrieval = DeterministicRetrievalService()
-                generation = GenerationService(
+                deterministic_retrieval = DeterministicRetrievalService()
+                deterministic_generation = GenerationService(
                     settings=self.settings,
-                    retrieval_service=retrieval,  # type: ignore[arg-type]
+                    retrieval_service=deterministic_retrieval,
                     provider=DeterministicGenerationProvider(),
                 )
-                self.retrieval_service = retrieval
-                self.generation_service = generation
+                self.retrieval_service = deterministic_retrieval
+                self.generation_service = deterministic_generation
                 self.counters.service_graph_constructions = 1
             else:
                 self.counters.manifest_reads += 1
@@ -309,6 +317,20 @@ class AiRuntimeResources:
     def require_ready(self) -> None:
         if not self.ready:
             raise RetrievalNotReadyError(self.error_code or "AI_RUNTIME_NOT_READY")
+
+    def require_retrieval_service(self) -> RetrievalServiceContract:
+        self.require_ready()
+        service = self.retrieval_service
+        if service is None:
+            raise RetrievalNotReadyError("AI_RUNTIME_NOT_READY")
+        return service
+
+    def require_generation_service(self) -> GenerationService:
+        self.require_ready()
+        service = self.generation_service
+        if service is None:
+            raise RetrievalNotReadyError("AI_RUNTIME_NOT_READY")
+        return service
 
     def deep_readiness(self) -> tuple[bool, int | None, str | None]:
         if self.settings.deterministic_e2e_provider and self.ready:

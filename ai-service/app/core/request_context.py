@@ -2,6 +2,7 @@
 
 import re
 import time
+from collections.abc import Awaitable, Callable
 from contextvars import ContextVar
 from uuid import uuid4
 
@@ -26,7 +27,7 @@ def _validated_request_id(value: str | None) -> str:
 
 async def request_context_middleware(
     request: Request,
-    call_next,
+    call_next: Callable[[Request], Awaitable[Response]],
 ) -> Response:
     request_id = _validated_request_id(request.headers.get(REQUEST_ID_HEADER))
     request.state.request_id = request_id
@@ -35,8 +36,9 @@ async def request_context_middleware(
     response: Response | None = None
     exception_class: str | None = None
     try:
-        response = await call_next(request)
-        return response
+        completed_response = await call_next(request)
+        response = completed_response
+        return completed_response
     except Exception as exc:
         exception_class = type(exc).__name__
         raise

@@ -159,6 +159,31 @@ def test_lifespan_owns_one_graph_and_shutdown_is_idempotent(tmp_path: Path, monk
     assert clients[0].closed
 
 
+def test_require_service_helpers_fail_closed_and_return_ready_services(
+    tmp_path: Path,
+) -> None:
+    configured = settings(
+        tmp_path,
+        app_env="test",
+        deterministic_e2e_provider=True,
+        gemini_generation_model="deterministic-e2e-generation-v1",
+    )
+    resources = AiRuntimeResources(configured)
+
+    with pytest.raises(RetrievalNotReadyError, match="AI_RUNTIME_NOT_READY"):
+        resources.require_retrieval_service()
+    with pytest.raises(RetrievalNotReadyError, match="AI_RUNTIME_NOT_READY"):
+        resources.require_generation_service()
+
+    resources.start()
+    assert resources.require_retrieval_service() is resources.retrieval_service
+    assert resources.require_generation_service() is resources.generation_service
+
+    resources.shutdown()
+    with pytest.raises(RetrievalNotReadyError, match="AI_RUNTIME_NOT_READY"):
+        resources.require_retrieval_service()
+
+
 def test_one_shared_graph_handles_100_sequential_requests(tmp_path: Path, monkeypatch) -> None:
     configured, resources, counters, _clients, collection = make_runtime(tmp_path, monkeypatch)
     resources.start()

@@ -314,3 +314,52 @@ Coverage increased by 43 covered statements and 0.43 percentage points from
 the WP2 baseline (88.82%); missed statements decreased by 13. Runtime resource
 lifecycle/request-context typing is deferred to Goal 15E / WP4. API route and
 CLI boundary typing remains deferred to WP5.
+
+## Goal 15E / WP4 — core runtime and request-context typing
+
+Scope locked before implementation:
+
+```text
+app/core/request_context.py
+app/core/runtime.py
+```
+
+The comparable `python -m mypy app` baseline was `31 errors in 6 files`: three
+core errors (`return-value`, `unused-ignore`, and `assignment`) plus 28 API-route
+errors. After WP4, the explicit core scope reports no issues and full-app Mypy
+reports `28 errors in 4 files`, all under `app/api/routes`.
+
+The request correlation `ContextVar[str]` retains its empty-string default and
+UUID/request-header policy. The middleware callback and response are now typed
+without changing the `finally`-based token reset or response-header mutation.
+Regression tests prove reset after success and exception, nested restoration,
+and isolation across concurrent asyncio tasks and worker threads.
+
+Runtime service resources and provider factory callbacks now use their existing
+domain Protocols instead of propagating `Any`. Optional resources have typed,
+fail-closed require helpers. Startup state transitions, partial-client cleanup,
+app-state keys, provider thread-local ownership, service construction counters,
+deep readiness, and idempotent shutdown remain unchanged.
+
+No `Any`, `cast`, or `type: ignore` was added. Existing `Any` remains only at
+the Chroma client/collection and thread-local SDK wrapper boundaries. One stale
+`type: ignore[arg-type]` was removed after the deterministic retrieval service
+conformed to the WP3 Protocol.
+
+Verification:
+
+```text
+request-context and health tests: 11 passed
+runtime lifecycle and resilience tests: 38 passed
+scoped Mypy: 0 errors in 2 files
+full app Mypy: 28 errors in 4 API-route files
+Ruff: 0 errors
+pytest: 242 passed, 3 skipped
+coverage app: 3471 covered / 3884 statements, 413 missed, 89.37%
+compileall app scripts: passed
+production Chroma: 414 records, gemini-embedding-2, 768 dimensions, cosine
+```
+
+Coverage increased by 19 covered statements and 0.12 percentage points from
+the WP3 baseline (89.25%); missed statements decreased by three. The remaining
+28 API-route errors are deferred to Goal 15F / WP5.
