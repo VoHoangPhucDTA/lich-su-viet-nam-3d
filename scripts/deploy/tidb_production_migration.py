@@ -369,6 +369,7 @@ cat > "$c"
         "-connectRetries=0",
         "-outputType=json",
         "-outputQueryResults=false",
+        *( ["-ignoreMigrationPatterns=*:pending"] if operation == "validate" else [] ),
         operation,
     ]
 

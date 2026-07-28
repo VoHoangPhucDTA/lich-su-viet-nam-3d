@@ -217,6 +217,11 @@ class FlywayCommandAndSecretTest(unittest.TestCase):
         with self.assertRaises(runner.MigrationGuardError):
             runner.build_flyway_command(Path("migrations"), "repair")
 
+    def test_pre_migration_validate_ignores_only_pending_migrations(self) -> None:
+        command = runner.build_flyway_command(Path("migrations"), "validate")
+        self.assertIn("-ignoreMigrationPatterns=*:pending", command)
+        self.assertEqual("validate", command[-1])
+
     def test_execution_can_use_an_immutable_digest_reference(self) -> None:
         digest = "sha256:" + ("a" * 64)
         flyway_command = runner.build_flyway_command(
