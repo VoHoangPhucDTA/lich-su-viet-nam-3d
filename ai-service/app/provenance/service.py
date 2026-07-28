@@ -3,13 +3,13 @@
 from typing import Any
 
 from app.config import Settings
-from app.retrieval.models import RetrievalNotReadyError
-from app.retrieval.service import _expected_collection_metadata
 from app.provenance.models import (
     ProvenanceValidationRequest,
     ProvenanceValidationResponse,
     SourceValidationResult,
 )
+from app.retrieval.models import RetrievalNotReadyError
+from app.retrieval.service import _expected_collection_metadata
 from app.vectorstore.chroma_client import (
     close_persistent_client,
     collection_exists,
@@ -68,7 +68,7 @@ def validate_provenance(
 
     metadata_by_id = {
         str(chunk_id): metadata
-        for chunk_id, metadata in zip(raw.get("ids") or [], raw.get("metadatas") or [])
+        for chunk_id, metadata in zip(raw.get("ids") or [], raw.get("metadatas") or [], strict=False)
         if isinstance(metadata, dict)
     }
     source_results: list[SourceValidationResult] = []

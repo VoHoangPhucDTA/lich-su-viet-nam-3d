@@ -7,7 +7,6 @@ from pydantic import BaseModel, Field, field_validator
 
 from app.schemas.common import CamelModel
 
-
 FilterMode = Literal["GRADE_AND_LESSON", "GRADE_ONLY", "FILTER_OFF"]
 BenchmarkRole = Literal["DEVELOPMENT_AUTHORED", "HELD_OUT_EXTERNAL"]
 

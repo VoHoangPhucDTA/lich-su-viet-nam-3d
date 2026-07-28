@@ -1,9 +1,9 @@
 """Retrieval-grounded MCQ generation orchestration."""
 
-from dataclasses import dataclass, field
 import inspect
 import time
 from collections.abc import Callable
+from dataclasses import dataclass, field
 
 from app.config import Settings
 from app.core.deadline import OperationDeadline

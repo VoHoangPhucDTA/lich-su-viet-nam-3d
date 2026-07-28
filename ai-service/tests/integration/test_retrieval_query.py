@@ -9,7 +9,6 @@ from app.vectorstore.chroma_client import (
 )
 from tests.chroma_utils import reset_chroma_system_cache_for_tests
 
-
 COLLECTION_METADATA = {
     "corpusSha256": "a" * 64,
     "embeddingModel": "fake-embedding-model",

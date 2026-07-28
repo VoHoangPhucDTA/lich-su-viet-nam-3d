@@ -4,14 +4,13 @@ from types import SimpleNamespace
 import pytest
 from google.genai import errors
 
-from app.config import Settings
 from app.generation.evaluation import GenerationCache
+from app.generation.fake import FakeGenerationProvider
 from app.generation.gemini import GeminiGenerationProvider
 from app.generation.models import GenerationRequest, GenerationSafetyError
-from app.generation.service import GenerationService
 from app.generation.schemas import GeneratedQuestionBatch
+from app.generation.service import GenerationService
 from tests.unit.test_generation import StubRetrieval, configured, question, retrieval_response
-from app.generation.fake import FakeGenerationProvider
 
 
 class FakeModels:

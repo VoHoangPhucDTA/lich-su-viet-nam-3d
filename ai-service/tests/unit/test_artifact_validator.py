@@ -119,7 +119,7 @@ def test_extra_embedding_record_is_rejected(
     values = read_jsonl(path)
     extra = dict(values[0])
     extra["chunkId"] = "not-in-corpus"
-    write_jsonl(path, values + [extra])
+    write_jsonl(path, [*values, extra])
     with pytest.raises(ArtifactValidationError, match="extra or pending-review"):
         make_validator(corpus_path, artifact_dir).validate()
 

@@ -7,7 +7,6 @@ from pathlib import Path
 
 import pytest
 
-
 REPOSITORY_ROOT = Path(__file__).resolve().parents[3]
 SERVICE_ROOT = REPOSITORY_ROOT / "ai-service"
 TOOLING_PATH = REPOSITORY_ROOT / "scripts" / "evaluation" / "teacher_evaluation.py"
@@ -69,7 +68,9 @@ def test_randomization_is_stable_and_evaluator_specific(sample_rows: list[dict])
         tooling.randomized_items(sample_rows, "Teacher Name", "locked-seed")
 
 
-def test_sample_validation_checks_hash_and_source_identity(sample_rows: list[dict], manifest_rows: list[dict]) -> None:
+def test_sample_validation_checks_hash_and_source_identity(
+    sample_rows: list[dict], manifest_rows: list[dict]
+) -> None:
     assert tooling.validate_sample(sample_rows, manifest_rows) == {"sampleItems": 3, "generated": 3}
     invalid = [dict(row) for row in sample_rows]
     invalid[0]["sourceChunkHashes"] = []
@@ -95,11 +96,17 @@ def test_export_is_blinded_bom_encoded_and_html_escaped(tmp_path: Path, sample_r
     assert "locked-seed" not in json.dumps(mapping)
 
 
-def test_import_accepts_locked_synthetic_fixture_and_preserves_no_pii(tmp_path: Path, sample_rows: list[dict]) -> None:
+def test_import_accepts_locked_synthetic_fixture_and_preserves_no_pii(
+    tmp_path: Path, sample_rows: list[dict]
+) -> None:
     reviews, report = tooling.import_reviews(FIXTURE_ROOT / "reviews.csv", sample_rows, tmp_path)
     assert report == {
-        "status": "PASSED", "inputRows": 6, "validRows": 6,
-        "invalidRows": 0, "errors": [], "containsPii": False,
+        "status": "PASSED",
+        "inputRows": 6,
+        "validRows": 6,
+        "invalidRows": 0,
+        "errors": [],
+        "containsPii": False,
     }
     assert all(row["syntheticTestData"] for row in reviews)
     persisted = tooling.load_jsonl(tmp_path / "results" / "teacher-reviews.jsonl")
@@ -139,7 +146,7 @@ def test_import_rejects_duplicate_pair_and_pii_column(tmp_path: Path, sample_row
     assert "DUPLICATE_EVALUATOR_ITEM" in report["errors"][0 if len(report["errors"]) == 1 else 1]["errors"]
 
     pii = tmp_path / "pii.csv"
-    _write_csv(pii, fields + ["email"], [rows[0] | {"email": "forbidden@example.test"}])
+    _write_csv(pii, [*fields, "email"], [rows[0] | {"email": "forbidden@example.test"}])
     with pytest.raises(tooling.EvaluationValidationError, match="PII columns are forbidden"):
         tooling.import_reviews(pii, sample_rows, tmp_path / "pii-out")
 
@@ -168,9 +175,15 @@ def test_synthetic_pipeline_writes_all_reproducible_tables(tmp_path: Path, sampl
     assert report["status"] == "COMPLETED_WITH_SYNTHETIC_DATA"
     assert "absolute factual correctness" in report["teacherEvaluationClaim"]
     expected_tables = {
-        "overall-rubric-summary.csv", "overall-decisions.csv", "critical-issue-frequencies.csv",
-        "summary-by-grade.csv", "summary-by-difficulty.csv", "summary-by-category.csv",
-        "summary-by-evaluator.csv", "inter-rater-agreement.csv", "warning-vs-teacher-matrix.csv",
+        "overall-rubric-summary.csv",
+        "overall-decisions.csv",
+        "critical-issue-frequencies.csv",
+        "summary-by-grade.csv",
+        "summary-by-difficulty.csv",
+        "summary-by-category.csv",
+        "summary-by-evaluator.csv",
+        "inter-rater-agreement.csv",
+        "warning-vs-teacher-matrix.csv",
     }
     assert expected_tables <= {path.name for path in (tmp_path / "tables").iterdir()}
     rendered = (tmp_path / "analysis.md").read_text(encoding="utf-8")

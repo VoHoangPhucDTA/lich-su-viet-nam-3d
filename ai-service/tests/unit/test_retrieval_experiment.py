@@ -100,7 +100,9 @@ def test_bm25_tokenization_ranking_filter_and_tie_breaking() -> None:
     )
     assert experiment.tokenize_whitespace("CẦU Long-Biên") == ["cầu", "long", "biên"]
     assert [item.chunkId for item in index.search("1898", grade=10, lesson_number=1, top_k=2)] == ["c1", "c2"]
-    assert [item.chunkId for item in index.search("không tồn tại", grade=None, lesson_number=None, top_k=3)] == ["c1", "c2", "c3"]
+    assert [
+        item.chunkId for item in index.search("không tồn tại", grade=None, lesson_number=None, top_k=3)
+    ] == ["c1", "c2", "c3"]
     assert index.corpus_count == 3
 
 
@@ -114,20 +116,27 @@ def test_bm25_edge_cases_unicode_filters_and_eligibility() -> None:
         ]
     )
     assert index.corpus_count == 2
-    assert experiment.tokenize_whitespace("ＣÁCH  MẠNG") == ["cách", "mạng"]
-    assert [item.chunkId for item in index.search("cách cách mạng", grade=10, lesson_number=1, top_k=5)] == ["c1"]
-    assert {item.chunkId for item in index.search("cách mạng", grade=None, lesson_number=None, top_k=5)} == {"c1", "c2"}
-    assert [item.chunkId for item in index.search("", grade=None, lesson_number=None, top_k=2)] == ["c1", "c2"]
-    assert [item.chunkId for item in index.search("không-có", grade=None, lesson_number=None, top_k=2)] == ["c1", "c2"]
+    assert experiment.tokenize_whitespace("\uff23ÁCH  MẠNG") == ["cách", "mạng"]
+    assert [item.chunkId for item in index.search("cách cách mạng", grade=10, lesson_number=1, top_k=5)] == [
+        "c1"
+    ]
+    assert {item.chunkId for item in index.search("cách mạng", grade=None, lesson_number=None, top_k=5)} == {
+        "c1",
+        "c2",
+    }
+    assert [item.chunkId for item in index.search("", grade=None, lesson_number=None, top_k=2)] == [
+        "c1",
+        "c2",
+    ]
+    assert [item.chunkId for item in index.search("không-có", grade=None, lesson_number=None, top_k=2)] == [
+        "c1",
+        "c2",
+    ]
 
 
-def test_run_experiment_shares_one_live_embedding_across_dense_strata(
-    tmp_path: Path, monkeypatch
-) -> None:
+def test_run_experiment_shares_one_live_embedding_across_dense_strata(tmp_path: Path, monkeypatch) -> None:
     settings = Settings(_env_file=None, gemini_embedding_dimension=3)
-    monkeypatch.setattr(
-        experiment, "run_preflight", lambda *_args, **_kwargs: make_preflight(settings)
-    )
+    monkeypatch.setattr(experiment, "run_preflight", lambda *_args, **_kwargs: make_preflight(settings))
     calls: list[str] = []
 
     class Provider:
@@ -178,7 +187,10 @@ def test_run_experiment_shares_one_live_embedding_across_dense_strata(
     assert aggregate["cacheMisses"] == 1
     assert aggregate["cacheProvenance"] == "VALID_LIVE_RUN"
     assert aggregate["queryEmbeddingSharedAcrossDenseStrata"] is True
-    rows = [json.loads(line) for line in (output / "per-query-results.jsonl").read_text(encoding="utf-8").splitlines()]
+    rows = [
+        json.loads(line)
+        for line in (output / "per-query-results.jsonl").read_text(encoding="utf-8").splitlines()
+    ]
     assert {row["method"] for row in rows} == set(experiment.EXPERIMENT_METHODS)
     assert all(row["queryEmbeddingLatencyMs"] is None for row in rows if row["method"].startswith("BM25"))
     assert len(aggregate["pairedComparison"]) == 28
@@ -204,9 +216,7 @@ def test_provider_is_blocked_without_explicit_flag_and_run_ids_do_not_overwrite(
     tmp_path: Path, monkeypatch
 ) -> None:
     settings = Settings(_env_file=None, gemini_embedding_dimension=3)
-    monkeypatch.setattr(
-        experiment, "run_preflight", lambda *_args, **_kwargs: make_preflight(settings)
-    )
+    monkeypatch.setattr(experiment, "run_preflight", lambda *_args, **_kwargs: make_preflight(settings))
     factory_calls = 0
 
     def forbidden_factory(_settings):
@@ -232,9 +242,7 @@ def test_provider_is_blocked_without_explicit_flag_and_run_ids_do_not_overwrite(
 
 def test_failed_provider_case_is_preserved(tmp_path: Path, monkeypatch) -> None:
     settings = Settings(_env_file=None, gemini_embedding_dimension=3)
-    monkeypatch.setattr(
-        experiment, "run_preflight", lambda *_args, **_kwargs: make_preflight(settings)
-    )
+    monkeypatch.setattr(experiment, "run_preflight", lambda *_args, **_kwargs: make_preflight(settings))
 
     class Provider:
         def embed_query(self, _query: str):
@@ -263,23 +271,19 @@ def test_failed_provider_case_is_preserved(tmp_path: Path, monkeypatch) -> None:
         .splitlines()
     ]
     assert len(rows) == 4
-    assert all(
-        row["error"] == "TimeoutError"
-        for row in rows
-        if row["method"].startswith("DENSE")
-    )
-    assert all(
-        row["error"] is None for row in rows if row["method"].startswith("BM25")
-    )
+    assert all(row["error"] == "TimeoutError" for row in rows if row["method"].startswith("DENSE"))
+    assert all(row["error"] is None for row in rows if row["method"].startswith("BM25"))
 
 
 def test_cache_gate_and_paired_bootstrap_are_deterministic() -> None:
-    assert experiment.validate_live_cache_provenance(
-        cache_hits=1, cache_misses=0, distinct_queries=1
-    ) == "INVALID_LIVE_RUN"
-    assert experiment.validate_live_cache_provenance(
-        cache_hits=0, cache_misses=1, distinct_queries=1
-    ) == "VALID_LIVE_RUN"
+    assert (
+        experiment.validate_live_cache_provenance(cache_hits=1, cache_misses=0, distinct_queries=1)
+        == "INVALID_LIVE_RUN"
+    )
+    assert (
+        experiment.validate_live_cache_provenance(cache_hits=0, cache_misses=1, distinct_queries=1)
+        == "VALID_LIVE_RUN"
+    )
     first = experiment.paired_bootstrap_ci([1.0, 0.0, -1.0], iterations=250, seed=1406)
     second = experiment.paired_bootstrap_ci([1.0, 0.0, -1.0], iterations=250, seed=1406)
     assert first == second
@@ -323,12 +327,8 @@ def test_development_and_held_out_populations_remain_separate() -> None:
         row["eligiblePoolSizeBeforeTopK"] = 1
         row["effectivePoolSizeAfterFilters"] = 1
         row["sectionKeywordCoverageAtK"] = None
-    assert experiment._method_report(
-        [development], development_rows, "DENSE_FILTER_ON"
-    )["attempted"] == 1
-    comparison = experiment._paired_comparison(
-        [held_out], held_out_rows, bootstrap=True
-    )
+    assert experiment._method_report([development], development_rows, "DENSE_FILTER_ON")["attempted"] == 1
+    comparison = experiment._paired_comparison([held_out], held_out_rows, bootstrap=True)
     assert len(comparison) == 28
     assert all(item["commonN"] == 1 for item in comparison)
     assert all(item["pairedBootstrap95"]["N"] == 1 for item in comparison)

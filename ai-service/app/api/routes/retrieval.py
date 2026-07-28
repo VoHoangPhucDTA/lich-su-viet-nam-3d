@@ -21,9 +21,9 @@ from app.retrieval.models import (
     RetrievalError,
     RetrievalNotReadyError,
     RetrievalProviderError,
-    RetrievalSafetyError,
     RetrievalRequest,
     RetrievalResponse,
+    RetrievalSafetyError,
 )
 from app.retrieval.service import RetrievalService
 

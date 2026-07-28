@@ -94,19 +94,31 @@ class DeterministicGenerationProvider:
         ]
         for index in range(count):
             variant = index + 1
-            questions.append({
-                "question": stems[index % len(stems)] + (f" Mẫu {index + 1}." if index >= len(stems) else ""),
-                "options": [
-                    {"id": "A", "text": f"Nhân dân Việt Nam giành chính quyền trên phạm vi cả nước (dữ kiện {variant})"},
-                    {"id": "B", "text": f"Việt Nam gia nhập ASEAN (phương án nhiễu {variant})"},
-                    {"id": "C", "text": f"Công cuộc Đổi mới bắt đầu (phương án nhiễu {variant})"},
-                    {"id": "D", "text": f"Hiệp định Giơ-ne-vơ được ký kết (phương án nhiễu {variant})"},
-                ],
-                "correctOptionId": "A",
-                "explanation": "Tư liệu nêu rõ nhân dân Việt Nam đã giành chính quyền trên phạm vi cả nước.",
-                "difficulty": difficulty,
-                "sourceChunkIds": [source_id],
-            })
+            questions.append(
+                {
+                    "question": stems[index % len(stems)]
+                    + (f" Mẫu {index + 1}." if index >= len(stems) else ""),
+                    "options": [
+                        {
+                            "id": "A",
+                            "text": (
+                                "Nhân dân Việt Nam giành chính quyền trên phạm vi "
+                                f"cả nước (dữ kiện {variant})"
+                            ),
+                        },
+                        {"id": "B", "text": f"Việt Nam gia nhập ASEAN (phương án nhiễu {variant})"},
+                        {"id": "C", "text": f"Công cuộc Đổi mới bắt đầu (phương án nhiễu {variant})"},
+                        {"id": "D", "text": f"Hiệp định Giơ-ne-vơ được ký kết (phương án nhiễu {variant})"},
+                    ],
+                    "correctOptionId": "A",
+                    "explanation": (
+                        "Tư liệu nêu rõ nhân dân Việt Nam đã giành chính quyền "
+                        "trên phạm vi cả nước."
+                    ),
+                    "difficulty": difficulty,
+                    "sourceChunkIds": [source_id],
+                }
+            )
         # Exercise the same strict JSON parser/schema used for provider output.
         return parse_generation_json(json.dumps({"questions": questions}, ensure_ascii=False))
 
@@ -138,20 +150,22 @@ def validate_deterministic_provenance(
             errors.append("SOURCE_MISSING")
         elif not hash_matches:
             errors.append("SOURCE_CHANGED")
-        results.append(SourceValidationResult(
-            chunkId=source.chunk_id,
-            chunkHash=E2E_CHUNK_HASH if exists else None,
-            exists=exists,
-            hashMatches=hash_matches,
-            pendingReview=False,
-            documentId="e2e-document-001" if exists else None,
-            grade=12 if exists else None,
-            lessonNumber=6 if exists else None,
-            lessonTitle="Cách mạng tháng Tám năm 1945" if exists else None,
-            sectionTitle="Kết quả" if exists else None,
-            pageStart=42 if exists else None,
-            pageEnd=42 if exists else None,
-        ))
+        results.append(
+            SourceValidationResult(
+                chunkId=source.chunk_id,
+                chunkHash=E2E_CHUNK_HASH if exists else None,
+                exists=exists,
+                hashMatches=hash_matches,
+                pendingReview=False,
+                documentId="e2e-document-001" if exists else None,
+                grade=12 if exists else None,
+                lessonNumber=6 if exists else None,
+                lessonTitle="Cách mạng tháng Tám năm 1945" if exists else None,
+                sectionTitle="Kết quả" if exists else None,
+                pageStart=42 if exists else None,
+                pageEnd=42 if exists else None,
+            )
+        )
     return ProvenanceValidationResponse(
         valid=not errors,
         corpusMatches=corpus_matches,

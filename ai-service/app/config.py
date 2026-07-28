@@ -1,13 +1,12 @@
 """Typed environment configuration for the AI service."""
 
+import re
 from functools import lru_cache
 from pathlib import Path
-import re
 from typing import Literal
 
 from pydantic import Field, SecretStr, field_validator, model_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
-
 
 SERVICE_ROOT = Path(__file__).resolve().parent.parent
 

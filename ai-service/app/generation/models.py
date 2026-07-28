@@ -7,7 +7,6 @@ from pydantic import ConfigDict, Field, field_validator
 
 from app.schemas.common import CamelModel, to_camel
 
-
 PROMPT_VERSION = "grounded-mcq-v2"
 SCHEMA_VERSION = "grounded-mcq-schema-v1"
 

@@ -6,6 +6,7 @@ from fastapi.testclient import TestClient
 from pydantic import ValidationError
 
 from app.config import Settings
+from app.dependencies import get_generation_service
 from app.generation.duplicate_checker import token_jaccard
 from app.generation.fake import FakeGenerationProvider
 from app.generation.models import (
@@ -14,7 +15,6 @@ from app.generation.models import (
     GenerationOutputError,
     GenerationRequest,
     InsufficientContextError,
-    QuizOption,
     StyleExample,
     ValidationIssue,
 )
@@ -28,7 +28,6 @@ from app.generation.validators import (
     validate_questions,
 )
 from app.main import create_app
-from app.dependencies import get_generation_service
 from app.retrieval.models import (
     FactContext,
     RetrievalFilters,
@@ -50,7 +49,9 @@ def configured(tmp_path: Path, **overrides) -> Settings:
     return Settings(_env_file=None, **values)
 
 
-def source(chunk_id: str = "chunk-1", text: str = "Năm 1945, Cách mạng tháng Tám giành thắng lợi.") -> RetrievalResult:
+def source(
+    chunk_id: str = "chunk-1", text: str = "Năm 1945, Cách mạng tháng Tám giành thắng lợi."
+) -> RetrievalResult:
     return RetrievalResult(
         rank=1,
         chunkId=chunk_id,
@@ -190,9 +191,7 @@ def test_structural_source_date_and_duplicate_validation(tmp_path: Path) -> None
         ],
         sourceChunkIds=["unknown"],
     )
-    valid, summary = validate_questions(
-        [bad], GenerationRequest(query="x"), [source()], configured(tmp_path)
-    )
+    valid, summary = validate_questions([bad], GenerationRequest(query="x"), [source()], configured(tmp_path))
     assert not valid
     codes = {issue.code for issue in summary.issues}
     assert {"DUPLICATE_OPTION", "UNKNOWN_SOURCE_ID"} <= codes
@@ -213,9 +212,7 @@ def test_structural_source_date_and_duplicate_validation(tmp_path: Path) -> None
         ("question", "Theo đoạn trích, được cung cấp: sự kiện nào?"),
     ],
 )
-def test_scaffolding_marker_is_error_in_every_visible_field(
-    tmp_path: Path, field: str, value: str
-) -> None:
+def test_scaffolding_marker_is_error_in_every_visible_field(tmp_path: Path, field: str, value: str) -> None:
     overrides = {}
     if field == "option":
         options = question().model_dump(by_alias=True)["options"]
@@ -230,18 +227,14 @@ def test_scaffolding_marker_is_error_in_every_visible_field(
         configured(tmp_path),
     )
     assert not valid
-    issue = next(
-        item for item in summary.issues if item.code == "PROMPT_SCAFFOLDING_LEAK"
-    )
+    issue = next(item for item in summary.issues if item.code == "PROMPT_SCAFFOLDING_LEAK")
     assert issue.severity == "ERROR"
 
 
 def test_scaffolding_detection_avoids_legitimate_historical_terms(
     tmp_path: Path,
 ) -> None:
-    legitimate = question(
-        question="Nguồn sử liệu nào phản ánh vai trò của tư liệu lịch sử?"
-    )
+    legitimate = question(question="Nguồn sử liệu nào phản ánh vai trò của tư liệu lịch sử?")
     valid, summary = validate_questions(
         [legitimate],
         GenerationRequest(query="x"),
@@ -249,26 +242,20 @@ def test_scaffolding_detection_avoids_legitimate_historical_terms(
         configured(tmp_path),
     )
     assert valid == [legitimate]
-    assert "PROMPT_SCAFFOLDING_LEAK" not in {
-        issue.code for issue in summary.issues
-    }
+    assert "PROMPT_SCAFFOLDING_LEAK" not in {issue.code for issue in summary.issues}
     assert not find_prompt_scaffolding_markers(legitimate.question)
 
 
 def test_difficulty_mismatch_is_warning_and_normalized_without_repair(
     tmp_path: Path,
 ) -> None:
-    provider = FakeGenerationProvider(
-        [GeneratedQuestionBatch(questions=[question(difficulty="HARD")])]
-    )
+    provider = FakeGenerationProvider([GeneratedQuestionBatch(questions=[question(difficulty="HARD")])])
     service = GenerationService(
         settings=configured(tmp_path),
         retrieval_service=StubRetrieval(retrieval_response()),  # type: ignore[arg-type]
         provider=provider,
     )
-    response = service.generate(
-        GenerationRequest(query="x", count=1, difficulty="MEDIUM")
-    )
+    response = service.generate(GenerationRequest(query="x", count=1, difficulty="MEDIUM"))
     assert response.questions[0].difficulty == Difficulty.MEDIUM
     assert response.metadata.repair_attempts == 0
     assert response.warnings == ["DIFFICULTY_MISMATCH"]
@@ -344,14 +331,8 @@ def test_scaffolding_repair_receives_issue_and_returns_clean_question(
 def test_duplicate_errors_are_traced_but_invalid_questions_are_not_public(
     tmp_path: Path, kind: str, expected_code: str
 ) -> None:
-    initial_questions = (
-        [question(), question()]
-        if kind == "within"
-        else [question()]
-    )
-    repaired = question(
-        question="Nguyên nhân trực tiếp của thắng lợi năm 1945 là gì?"
-    )
+    initial_questions = [question(), question()] if kind == "within" else [question()]
+    repaired = question(question="Nguyên nhân trực tiếp của thắng lợi năm 1945 là gì?")
     provider = FakeGenerationProvider(
         [
             GeneratedQuestionBatch(questions=initial_questions),
@@ -415,8 +396,10 @@ def test_api_safe_error_mapping(tmp_path: Path, monkeypatch) -> None:
     class BrokenService:
         def generate(self, request):
             raise GenerationOutputError("AIza-hidden-secret")
+
         def close(self):
             return None
+
     app = create_app(configured(tmp_path))
     app.dependency_overrides[get_generation_service] = lambda: BrokenService()
     with TestClient(app) as client:
@@ -434,11 +417,14 @@ def test_generation_route_requires_internal_token(tmp_path: Path) -> None:
     client = TestClient(create_app(configured(tmp_path)))
     path = "/ai/quiz/generate"
     assert client.post(path, json={"query": "valid"}).status_code == 401
-    assert client.post(
-        path,
-        json={"query": "valid"},
-        headers={"X-Internal-Service-Token": "wrong"},
-    ).status_code == 401
+    assert (
+        client.post(
+            path,
+            json={"query": "valid"},
+            headers={"X-Internal-Service-Token": "wrong"},
+        ).status_code
+        == 401
+    )
 
 
 def test_generation_route_fails_closed_when_internal_token_is_unconfigured(

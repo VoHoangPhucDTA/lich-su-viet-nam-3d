@@ -2,8 +2,8 @@
 
 import argparse
 import json
-from pathlib import Path
 import sys
+from pathlib import Path
 
 from pydantic import TypeAdapter, ValidationError
 
@@ -55,7 +55,14 @@ def main(argv: list[str] | None = None) -> int:
             response = service.generate(request)
         finally:
             service.close()
-    except (OSError, json.JSONDecodeError, ValidationError, ValueError, GenerationError, RetrievalError) as exc:
+    except (
+        OSError,
+        json.JSONDecodeError,
+        ValidationError,
+        ValueError,
+        GenerationError,
+        RetrievalError,
+    ) as exc:
         print(f"Generation FAILED: {type(exc).__name__}: {exc}")
         return 2
     payload = response.model_dump(by_alias=True)

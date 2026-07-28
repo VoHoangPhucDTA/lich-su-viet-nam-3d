@@ -29,7 +29,6 @@ from app.generation.models import (
 from app.generation.parser import parse_generation_json
 from app.generation.schemas import GeneratedQuestionBatch
 
-
 SAFETY_FINISH_REASONS = {
     "SAFETY",
     "RECITATION",

@@ -6,9 +6,10 @@ import math
 import os
 import unicodedata
 from collections import Counter
+from collections.abc import Iterable
 from pathlib import Path
 from statistics import mean, median
-from typing import Any, Iterable
+from typing import Any
 
 from pydantic import ValidationError
 
@@ -20,7 +21,6 @@ from app.retrieval.models import (
     BenchmarkRecord,
     EvaluationQueryResult,
     EvaluationReport,
-    FilterMode,
     HeldOutBenchmarkRecord,
 )
 
@@ -215,7 +215,7 @@ def validate_held_out_benchmark(
     development = {
         normalize_benchmark_query(query) for query in development_queries
     }
-    for record, normalized_query in zip(records, normalized_queries):
+    for record, normalized_query in zip(records, normalized_queries, strict=False):
         if record.synthetic_schema_example:
             raise ValueError(
                 "Synthetic schema examples are not evaluation data"

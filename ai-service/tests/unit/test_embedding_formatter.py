@@ -1,6 +1,6 @@
-from app.corpus.models import CorpusChunk
 import pytest
 
+from app.corpus.models import CorpusChunk
 from app.embedding.formatter import (
     FORMATTER_VERSION,
     RetrievalFormatter,

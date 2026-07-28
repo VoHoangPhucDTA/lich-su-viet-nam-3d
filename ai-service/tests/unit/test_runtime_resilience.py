@@ -1,19 +1,19 @@
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 from types import SimpleNamespace
+from typing import ClassVar
 
 import httpx
 import pytest
 from fastapi.testclient import TestClient
 
-from app.config import Settings
 from app.core.deadline import (
     ClientDisconnectedError,
     OperationDeadline,
     OperationDeadlineExceeded,
 )
-from app.generation.gemini import GeminiGenerationProvider
 from app.embedding.gemini import GeminiEmbeddingProvider
+from app.generation.gemini import GeminiGenerationProvider
 from app.generation.models import GenerationOutputError, GenerationRequest
 from app.generation.service import GenerationService
 from app.main import create_app
@@ -247,8 +247,10 @@ def _retriever(tmp_path: Path, collection) -> ChromaRetriever:
 def test_empty_collection_never_calls_query(tmp_path: Path, monkeypatch) -> None:
     class Collection:
         name = "collection"
-        metadata = {"embeddingModel": "model"}
-        configuration = {"hnsw": {"space": "cosine"}}
+        metadata: ClassVar[dict[str, object]] = {"embeddingModel": "model"}
+        configuration: ClassVar[dict[str, object]] = {
+            "hnsw": {"space": "cosine"}
+        }
 
         def count(self):
             return 0
@@ -269,8 +271,10 @@ def test_collection_count_failure_is_sanitized_not_ready(
 ) -> None:
     class Collection:
         name = "collection"
-        metadata = {"embeddingModel": "model"}
-        configuration = {"hnsw": {"space": "cosine"}}
+        metadata: ClassVar[dict[str, object]] = {"embeddingModel": "model"}
+        configuration: ClassVar[dict[str, object]] = {
+            "hnsw": {"space": "cosine"}
+        }
 
         def count(self):
             raise RuntimeError("secret database path")
@@ -588,8 +592,10 @@ def test_chroma_lifecycle_global_cache_risk_is_deterministically_instrumented(
 
     class Collection:
         name = "collection"
-        metadata = {"embeddingModel": "model"}
-        configuration = {"hnsw": {"space": "cosine"}}
+        metadata: ClassVar[dict[str, object]] = {"embeddingModel": "model"}
+        configuration: ClassVar[dict[str, object]] = {
+            "hnsw": {"space": "cosine"}
+        }
 
         def __init__(self, identity: int):
             self.identity = identity

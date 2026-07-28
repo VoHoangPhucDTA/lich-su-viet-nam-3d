@@ -1,17 +1,17 @@
-import math
 import json
+import math
 from pathlib import Path
-from typing import Any
+from typing import Any, ClassVar
 
 import pytest
 from fastapi.testclient import TestClient
 from pydantic import ValidationError
 
 from app.config import Settings
-from app.embedding.formatter import QUERY_FORMATTER_VERSION, RetrievalFormatter
-from app.embedding.checkpoint import sanitize_artifact_name
-from app.main import create_app
 from app.dependencies import get_retrieval_service
+from app.embedding.checkpoint import sanitize_artifact_name
+from app.embedding.formatter import QUERY_FORMATTER_VERSION, RetrievalFormatter
+from app.main import create_app
 from app.retrieval.context_builder import build_fact_context
 from app.retrieval.filters import build_chroma_where, candidate_matches_filters
 from app.retrieval.models import (
@@ -206,11 +206,13 @@ def test_retriever_traces_pending_candidate_but_excludes_it_publicly(
 
     class Collection:
         name = "collection"
-        metadata = {
+        metadata: ClassVar[dict[str, object]] = {
             "embeddingModel": "model",
             "embeddingDimension": 3,
         }
-        configuration = {"hnsw": {"space": "cosine"}}
+        configuration: ClassVar[dict[str, object]] = {
+            "hnsw": {"space": "cosine"}
+        }
 
         def count(self):
             return 2

@@ -1,10 +1,9 @@
 from dataclasses import dataclass
+from types import SimpleNamespace
 
 from google.genai import errors
 
 from app.config import get_settings
-from types import SimpleNamespace
-
 from scripts.diagnose_gemini_embedding import _request_input, main
 
 

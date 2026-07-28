@@ -1,10 +1,9 @@
 """Orchestration for query embedding, retrieval, diversity, and context."""
 
-import json
 import inspect
+import json
 import time
 from collections.abc import Callable
-from pathlib import Path
 
 from app.config import Settings
 from app.core.deadline import OperationDeadline, OperationDeadlineExceeded
@@ -20,10 +19,10 @@ from app.retrieval.models import (
     RetrievalMetadata,
     RetrievalNotReadyError,
     RetrievalProviderError,
-    RetrievalSafetyError,
     RetrievalRequest,
     RetrievalResponse,
     RetrievalResult,
+    RetrievalSafetyError,
 )
 from app.retrieval.retriever import ChromaRetriever
 

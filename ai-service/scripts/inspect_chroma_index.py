@@ -2,8 +2,8 @@
 
 import json
 
-from scripts.build_chroma_index import create_service
 from app.vectorstore.models import VectorstoreError
+from scripts.build_chroma_index import create_service
 
 
 def main() -> int:

@@ -1,6 +1,7 @@
+import threading
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
-import threading
+from typing import ClassVar
 
 import pytest
 from fastapi.testclient import TestClient
@@ -19,8 +20,8 @@ from tests.unit.test_retrieval import candidate, settings
 
 class FakeCollection:
     name = "sgk_kntt_history_gemini_v1"
-    metadata = {}
-    configuration = {"hnsw": {"space": "cosine"}}
+    metadata: ClassVar[dict[str, object]] = {}
+    configuration: ClassVar[dict[str, object]] = {"hnsw": {"space": "cosine"}}
 
     def __init__(self) -> None:
         self.query_calls = 0
@@ -136,8 +137,7 @@ def make_runtime(tmp_path: Path, monkeypatch, *, collection_present: bool = True
         runtime,
         "get_collection",
         lambda client, name: (
-            counters.__setitem__("opens", counters["opens"] + 1)
-            or client.get_collection(name)
+            counters.__setitem__("opens", counters["opens"] + 1) or client.get_collection(name)
         ),
     )
     monkeypatch.setattr(runtime, "validate_collection_contract", lambda *_args: None)
@@ -186,9 +186,7 @@ def test_one_shared_graph_handles_100_sequential_requests(tmp_path: Path, monkey
 def test_parallel_retrieval_has_deterministic_isolated_responses(
     tmp_path: Path, monkeypatch, workers: int
 ) -> None:
-    _configured, resources, counters, _clients, collection = make_runtime(
-        tmp_path, monkeypatch
-    )
+    _configured, resources, counters, _clients, collection = make_runtime(tmp_path, monkeypatch)
     resources.start()
 
     def run(index: int):
@@ -199,10 +197,7 @@ def test_parallel_retrieval_has_deterministic_isolated_responses(
 
     with ThreadPoolExecutor(max_workers=workers) as executor:
         results = list(executor.map(run, range(workers)))
-    assert results == [
-        (f"parallel-{workers}-{index}", "chunk-shared")
-        for index in range(workers)
-    ]
+    assert results == [(f"parallel-{workers}-{index}", "chunk-shared") for index in range(workers)]
     assert resources.counters.persistent_client_constructions == 1
     assert resources.counters.collection_opens == 1
     assert resources.counters.global_cache_clears == 0
@@ -242,9 +237,7 @@ def test_startup_failure_matrix_is_fail_closed(
 ) -> None:
     import app.core.runtime as runtime
 
-    _configured, resources, counters, _clients, _collection = make_runtime(
-        tmp_path, monkeypatch
-    )
+    _configured, resources, counters, _clients, _collection = make_runtime(tmp_path, monkeypatch)
     if failure.startswith("manifest"):
         monkeypatch.setattr(
             runtime,
@@ -255,9 +248,7 @@ def test_startup_failure_matrix_is_fail_closed(
         )
     elif failure == "client_factory":
         resources.factories = RuntimeFactories(
-            client_factory=lambda _path: (_ for _ in ()).throw(
-                RuntimeError("client unavailable")
-            ),
+            client_factory=lambda _path: (_ for _ in ()).throw(RuntimeError("client unavailable")),
             client_closer=resources.factories.client_closer,
         )
     elif failure == "collection_open":
@@ -281,8 +272,12 @@ def test_startup_failure_matrix_is_fail_closed(
 
 
 def test_two_app_resources_shutdown_without_cross_instance_invalidation(tmp_path: Path, monkeypatch) -> None:
-    configured_a, resources_a, counters_a, _clients_a, _collection_a = make_runtime(tmp_path / "a", monkeypatch)
-    configured_b, resources_b, counters_b, _clients_b, _collection_b = make_runtime(tmp_path / "b", monkeypatch)
+    configured_a, resources_a, counters_a, _clients_a, _collection_a = make_runtime(
+        tmp_path / "a", monkeypatch
+    )
+    configured_b, resources_b, counters_b, _clients_b, _collection_b = make_runtime(
+        tmp_path / "b", monkeypatch
+    )
     resources_a.start()
     resources_b.start()
     resources_a.shutdown()
@@ -364,30 +359,22 @@ def test_readiness_retrieval_and_generation_can_run_concurrently(tmp_path: Path)
     resources.shutdown()
 
 
-def test_transient_query_failure_does_not_close_shared_runtime(
-    tmp_path: Path, monkeypatch
-) -> None:
-    _configured, resources, counters, _clients, collection = make_runtime(
-        tmp_path, monkeypatch
-    )
+def test_transient_query_failure_does_not_close_shared_runtime(tmp_path: Path, monkeypatch) -> None:
+    _configured, resources, counters, _clients, collection = make_runtime(tmp_path, monkeypatch)
     resources.start()
     collection.fail_next_query = True
     with pytest.raises(RuntimeError, match="transient query failure"):
         resources.retrieval_service.retrieve(RetrievalRequest(query="first", topK=1))
     assert resources.ready
     assert counters["closes"] == 0
-    assert resources.retrieval_service.retrieve(
-        RetrievalRequest(query="second", topK=1)
-    ).result_count == 1
+    assert resources.retrieval_service.retrieve(RetrievalRequest(query="second", topK=1)).result_count == 1
     resources.shutdown()
 
 
 def test_deep_readiness_failure_marks_runtime_not_ready_and_closed_route_is_503(
     tmp_path: Path, monkeypatch
 ) -> None:
-    configured, resources, _counters, _clients, collection = make_runtime(
-        tmp_path, monkeypatch
-    )
+    configured, resources, _counters, _clients, collection = make_runtime(tmp_path, monkeypatch)
     resources.start()
     collection.fail_count = True
     assert resources.deep_readiness() == (False, None, "AI_RUNTIME_NOT_READY")
@@ -408,6 +395,5 @@ def test_deep_readiness_failure_marks_runtime_not_ready_and_closed_route_is_503(
 def test_production_code_has_no_test_cache_reset_caller() -> None:
     app_root = Path(__file__).resolve().parents[2] / "app"
     assert all(
-        "clear_system_cache" not in path.read_text(encoding="utf-8")
-        for path in app_root.rglob("*.py")
+        "clear_system_cache" not in path.read_text(encoding="utf-8") for path in app_root.rglob("*.py")
     )

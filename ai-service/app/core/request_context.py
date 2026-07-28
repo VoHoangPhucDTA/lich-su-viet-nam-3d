@@ -1,8 +1,8 @@
 """Request correlation context and sanitized completion logging."""
 
-from contextvars import ContextVar
 import re
 import time
+from contextvars import ContextVar
 from uuid import uuid4
 
 from fastapi import Request, Response

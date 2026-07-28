@@ -1,10 +1,10 @@
 """Application-owned AI service graph and controlled resource lifecycle."""
 
+import logging
+import threading
 from collections.abc import Callable
 from dataclasses import dataclass
 from enum import Enum
-import logging
-import threading
 from typing import Any
 
 from app.config import Settings
@@ -21,7 +21,6 @@ from app.vectorstore.chroma_client import (
     get_collection,
     validate_collection_contract,
 )
-
 
 runtime_logger = logging.getLogger("app.runtime")
 

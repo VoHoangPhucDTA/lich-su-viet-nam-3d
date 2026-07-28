@@ -9,23 +9,24 @@ from __future__ import annotations
 
 import csv
 import hashlib
-from importlib.metadata import PackageNotFoundError, version
 import inspect
 import json
 import math
 import os
 import platform
-import re
 import random
+import re
 import subprocess
 import time
 import unicodedata
 from collections import Counter
+from collections.abc import Callable, Iterable, Sequence
 from dataclasses import dataclass
 from datetime import datetime, timezone
+from importlib.metadata import PackageNotFoundError, version
 from pathlib import Path
 from statistics import mean, median, stdev
-from typing import Any, Callable, Iterable, Sequence
+from typing import Any
 
 from app.config import SERVICE_ROOT, Settings
 from app.corpus.loader import iter_corpus
@@ -42,10 +43,9 @@ from app.retrieval.evaluation import (
 from app.retrieval.models import (
     BenchmarkRecord,
     RetrievalEvaluationTrace,
-    RetrievalFilters,
     RetrievalRequest,
 )
-from app.retrieval.service import _expected_collection_metadata, create_retrieval_service
+from app.retrieval.service import create_retrieval_service
 from app.vectorstore.chroma_client import (
     close_persistent_client,
     collection_exists,
@@ -53,7 +53,6 @@ from app.vectorstore.chroma_client import (
     get_collection,
     validate_collection_contract,
 )
-
 
 EXPERIMENT_SCHEMA_VERSION = "retrieval-experiment-v2"
 BM25_INDEX_VERSION = "BM25_WHITESPACE_V1"
@@ -66,9 +65,7 @@ EXPERIMENT_METHODS = (
 )
 TOP_K_VALUES = (1, 3, 5)
 EXPECTED_COLLECTION = "sgk_kntt_history_gemini_v1"
-EXPECTED_CORPUS_SHA256 = (
-    "a4bd330be7b4b43ac9da25966877fef51c66c0e14cc68baa7eccf46a63e15ab2"
-)
+EXPECTED_CORPUS_SHA256 = "a4bd330be7b4b43ac9da25966877fef51c66c0e14cc68baa7eccf46a63e15ab2"
 EXPECTED_ELIGIBLE_COUNT = 414
 
 
@@ -118,9 +115,7 @@ class BM25Index:
         if k1 <= 0 or not 0 <= b <= 1:
             raise ValueError("invalid BM25 parameters")
         self.chunks = tuple(
-            chunk
-            for chunk in chunks
-            if chunk.ragEligible and not chunk.containsPendingReview
+            chunk for chunk in chunks if chunk.ragEligible and not chunk.containsPendingReview
         )
         self.k1 = k1
         self.b = b
@@ -193,9 +188,7 @@ def _p95(values: Sequence[float]) -> float | None:
     return ordered[max(0, math.ceil(0.95 * len(ordered)) - 1)]
 
 
-def validate_live_cache_provenance(
-    *, cache_hits: int, cache_misses: int, distinct_queries: int
-) -> str:
+def validate_live_cache_provenance(*, cache_hits: int, cache_misses: int, distinct_queries: int) -> str:
     if cache_hits != 0 or cache_misses != distinct_queries:
         return "INVALID_LIVE_RUN"
     return "VALID_LIVE_RUN"
@@ -209,10 +202,7 @@ def paired_bootstrap_ci(
     if iterations <= 0 or not deltas:
         raise ValueError("bootstrap requires observations and positive iterations")
     generator = random.Random(seed)
-    samples = sorted(
-        mean(generator.choice(deltas) for _ in deltas)
-        for _ in range(iterations)
-    )
+    samples = sorted(mean(generator.choice(deltas) for _ in deltas) for _ in range(iterations))
     lower = samples[max(0, math.floor(0.025 * iterations))]
     upper = samples[min(iterations - 1, math.ceil(0.975 * iterations) - 1)]
     return {
@@ -227,7 +217,15 @@ def paired_bootstrap_ci(
 def _latency(values: Iterable[float | None]) -> dict[str, Any]:
     measured = [float(value) for value in values if value is not None]
     if not measured:
-        return {"N": 0, "minMs": None, "medianMs": None, "p95Ms": None, "maxMs": None, "meanMs": None, "stddevMs": None}
+        return {
+            "N": 0,
+            "minMs": None,
+            "medianMs": None,
+            "p95Ms": None,
+            "maxMs": None,
+            "meanMs": None,
+            "stddevMs": None,
+        }
     return {
         "N": len(measured),
         "minMs": round(min(measured), 6),
@@ -352,10 +350,7 @@ def run_preflight(
                     lesson_number=record.lesson_number,
                     expected_chunk_ids=list(record.relevant_chunk_ids),
                     expected_document_ids=sorted(
-                        {
-                            chunks_by_id[chunk_id].documentId
-                            for chunk_id in record.relevant_chunk_ids
-                        }
+                        {chunks_by_id[chunk_id].documentId for chunk_id in record.relevant_chunk_ids}
                     ),
                     expected_section_keywords=[],
                 )
@@ -436,9 +431,19 @@ def _result_row(
     }
 
 
-def _apply_pool_and_filter_diagnostics(row: dict[str, Any], record: BenchmarkRecord | ExperimentRecord, all_chunks: Sequence[CorpusChunk], grade: int | None, lesson: int | None) -> None:
+def _apply_pool_and_filter_diagnostics(
+    row: dict[str, Any],
+    record: BenchmarkRecord | ExperimentRecord,
+    all_chunks: Sequence[CorpusChunk],
+    grade: int | None,
+    lesson: int | None,
+) -> None:
     eligible, _ = _eligible_chunks(all_chunks)
-    filtered = [chunk for chunk in eligible if (grade is None or chunk.grade == grade) and (lesson is None or chunk.lessonNumber == lesson)]
+    filtered = [
+        chunk
+        for chunk in eligible
+        if (grade is None or chunk.grade == grade) and (lesson is None or chunk.lessonNumber == lesson)
+    ]
     row["eligiblePoolSizeBeforeTopK"] = len(eligible)
     row["effectivePoolSizeAfterFilters"] = len(filtered)
     row["filterCompliant"] = all(
@@ -456,7 +461,9 @@ def _apply_pool_and_filter_diagnostics(row: dict[str, Any], record: BenchmarkRec
         row["sectionKeywordCoverageAtK"] = None
 
 
-def _metric_for_row(record: BenchmarkRecord | ExperimentRecord, row: dict[str, Any], k: int) -> tuple[float, float, float]:
+def _metric_for_row(
+    record: BenchmarkRecord | ExperimentRecord, row: dict[str, Any], k: int
+) -> tuple[float, float, float]:
     relevant = set(record.expected_chunk_ids)
     ranked = row["resultChunkIds"]
     if row["error"] is not None:
@@ -468,7 +475,9 @@ def _metric_for_row(record: BenchmarkRecord | ExperimentRecord, row: dict[str, A
     )
 
 
-def _method_report(benchmark: Sequence[BenchmarkRecord | ExperimentRecord], rows: Sequence[dict[str, Any]], method: str) -> dict[str, Any]:
+def _method_report(
+    benchmark: Sequence[BenchmarkRecord | ExperimentRecord], rows: Sequence[dict[str, Any]], method: str
+) -> dict[str, Any]:
     by_id = {row["queryId"]: row for row in rows if row["method"] == method}
     failed = sum(row["error"] is not None for row in by_id.values())
     completed = len(benchmark) - failed
@@ -480,11 +489,29 @@ def _method_report(benchmark: Sequence[BenchmarkRecord | ExperimentRecord], rows
             for record in benchmark
             if by_id[record.query_id]["error"] is None
         ]
+
         def avg(values: Sequence[tuple[float, float, float]], index: int) -> float | None:
             return round(mean(value[index] for value in values), 6) if values else None
+
         effectiveness[str(k)] = {
-            "attempted": {"N": len(attempted_values), "Recall": avg(attempted_values, 0), "Precision": avg(attempted_values, 1), "Hit": round(mean(float(value[0] > 0) for value in attempted_values), 6) if attempted_values else None, "MRR": avg(attempted_values, 2)},
-            "completed": {"N": len(completed_values), "Recall": avg(completed_values, 0), "Precision": avg(completed_values, 1), "Hit": round(mean(float(value[0] > 0) for value in completed_values), 6) if completed_values else None, "MRR": avg(completed_values, 2)},
+            "attempted": {
+                "N": len(attempted_values),
+                "Recall": avg(attempted_values, 0),
+                "Precision": avg(attempted_values, 1),
+                "Hit": round(mean(float(value[0] > 0) for value in attempted_values), 6)
+                if attempted_values
+                else None,
+                "MRR": avg(attempted_values, 2),
+            },
+            "completed": {
+                "N": len(completed_values),
+                "Recall": avg(completed_values, 0),
+                "Precision": avg(completed_values, 1),
+                "Hit": round(mean(float(value[0] > 0) for value in completed_values), 6)
+                if completed_values
+                else None,
+                "MRR": avg(completed_values, 2),
+            },
         }
     mode_rows = list(by_id.values())
     pools = [row["effectivePoolSizeAfterFilters"] for row in mode_rows]
@@ -499,12 +526,59 @@ def _method_report(benchmark: Sequence[BenchmarkRecord | ExperimentRecord], rows
             "poolLe3": sum(value <= 3 for value in pools),
             "poolLe5": sum(value <= 5 for value in pools),
         },
-        "returnedCount": {"min": min(returned) if returned else None, "median": median(returned) if returned else None, "mean": round(mean(returned), 6) if returned else None, "p95": _p95(returned) if returned else None, "max": max(returned) if returned else None},
-        "effectiveK": {"min": min(returned) if returned else None, "median": median(returned) if returned else None, "mean": round(mean(returned), 6) if returned else None, "p95": _p95(returned) if returned else None, "max": max(returned) if returned else None},
-        "emptyResultRate": round(sum(not value for value in returned) / len(returned), 6) if returned else None,
-        "documentComplianceAt5": round(mean(float(bool(set(record.expected_document_ids) & set(by_id[record.query_id]["resultDocumentIds"][:5]))) for record in benchmark if by_id[record.query_id]["error"] is None), 6) if completed else None,
-        "lessonComplianceAt5": round(mean(float(record.lesson_number in by_id[record.query_id]["resultLessons"][:5]) for record in benchmark if by_id[record.query_id]["error"] is None), 6) if completed else None,
-        "sectionKeywordCoverageAt5": round(mean(by_id[record.query_id]["sectionKeywordCoverageAtK"] for record in benchmark if by_id[record.query_id]["error"] is None and by_id[record.query_id]["sectionKeywordCoverageAtK"] is not None), 6) if any(row["sectionKeywordCoverageAtK"] is not None for row in mode_rows if row["error"] is None) else None,
+        "returnedCount": {
+            "min": min(returned) if returned else None,
+            "median": median(returned) if returned else None,
+            "mean": round(mean(returned), 6) if returned else None,
+            "p95": _p95(returned) if returned else None,
+            "max": max(returned) if returned else None,
+        },
+        "effectiveK": {
+            "min": min(returned) if returned else None,
+            "median": median(returned) if returned else None,
+            "mean": round(mean(returned), 6) if returned else None,
+            "p95": _p95(returned) if returned else None,
+            "max": max(returned) if returned else None,
+        },
+        "emptyResultRate": round(sum(not value for value in returned) / len(returned), 6)
+        if returned
+        else None,
+        "documentComplianceAt5": round(
+            mean(
+                float(
+                    bool(
+                        set(record.expected_document_ids)
+                        & set(by_id[record.query_id]["resultDocumentIds"][:5])
+                    )
+                )
+                for record in benchmark
+                if by_id[record.query_id]["error"] is None
+            ),
+            6,
+        )
+        if completed
+        else None,
+        "lessonComplianceAt5": round(
+            mean(
+                float(record.lesson_number in by_id[record.query_id]["resultLessons"][:5])
+                for record in benchmark
+                if by_id[record.query_id]["error"] is None
+            ),
+            6,
+        )
+        if completed
+        else None,
+        "sectionKeywordCoverageAt5": round(
+            mean(
+                by_id[record.query_id]["sectionKeywordCoverageAtK"]
+                for record in benchmark
+                if by_id[record.query_id]["error"] is None
+                and by_id[record.query_id]["sectionKeywordCoverageAtK"] is not None
+            ),
+            6,
+        )
+        if any(row["sectionKeywordCoverageAtK"] is not None for row in mode_rows if row["error"] is None)
+        else None,
         "pendingReviewLeakage": sum(row["pendingReviewLeakage"] for row in mode_rows),
         "filterViolations": sum(not row["filterCompliant"] for row in mode_rows if row["error"] is None),
         "duplicateResultCount": sum(row["duplicateResults"] for row in mode_rows if row["error"] is None),
@@ -518,7 +592,26 @@ def _method_report(benchmark: Sequence[BenchmarkRecord | ExperimentRecord], rows
         "composedTotal": _latency(row["latencyMs"] for row in mode_rows),
     }
     contracts = [row for row in mode_rows if row["error"] is None]
-    return {"method": method, "attempted": len(benchmark), "completed": completed, "failed": failed, "effectiveness": effectiveness, "diagnostics": diagnostics, "latency": latency, "contractChecks": {"embedding": all(row["embeddingContractMatched"] is not False for row in contracts) if contracts else None, "collection": all(row["collectionMetadataMatched"] is not False for row in contracts) if contracts else None, "distance": all(row["collectionDistanceMetricMatched"] is not False for row in contracts) if contracts else None}}
+    return {
+        "method": method,
+        "attempted": len(benchmark),
+        "completed": completed,
+        "failed": failed,
+        "effectiveness": effectiveness,
+        "diagnostics": diagnostics,
+        "latency": latency,
+        "contractChecks": {
+            "embedding": all(row["embeddingContractMatched"] is not False for row in contracts)
+            if contracts
+            else None,
+            "collection": all(row["collectionMetadataMatched"] is not False for row in contracts)
+            if contracts
+            else None,
+            "distance": all(row["collectionDistanceMetricMatched"] is not False for row in contracts)
+            if contracts
+            else None,
+        },
+    }
 
 
 def _paired_comparison(
@@ -528,7 +621,10 @@ def _paired_comparison(
     bootstrap: bool = False,
 ) -> list[dict[str, Any]]:
     reports: list[dict[str, Any]] = []
-    by_method = {method: {row["queryId"]: row for row in rows if row["method"] == method} for method in EXPERIMENT_METHODS}
+    by_method = {
+        method: {row["queryId"]: row for row in rows if row["method"] == method}
+        for method in EXPERIMENT_METHODS
+    }
     pairs = (
         ("DENSE_FILTER_ON", "DENSE_FILTER_OFF"),
         ("BM25_FILTER_ON", "BM25_FILTER_OFF"),
@@ -536,11 +632,24 @@ def _paired_comparison(
         ("DENSE_FILTER_OFF", "BM25_FILTER_OFF"),
     )
 
-    def append_metric(left: str, right: str, metric: str, left_values: list[float], right_values: list[float]) -> None:
-        report = {"left": left, "right": right, "metric": metric, "commonN": len(left_values), "leftMean": round(mean(left_values), 6) if left_values else None, "rightMean": round(mean(right_values), 6) if right_values else None, "delta": round(mean(left_values) - mean(right_values), 6) if left_values else None, "wins": sum(a > b for a, b in zip(left_values, right_values)), "ties": sum(a == b for a, b in zip(left_values, right_values)), "losses": sum(a < b for a, b in zip(left_values, right_values))}
+    def append_metric(
+        left: str, right: str, metric: str, left_values: list[float], right_values: list[float]
+    ) -> None:
+        report = {
+            "left": left,
+            "right": right,
+            "metric": metric,
+            "commonN": len(left_values),
+            "leftMean": round(mean(left_values), 6) if left_values else None,
+            "rightMean": round(mean(right_values), 6) if right_values else None,
+            "delta": round(mean(left_values) - mean(right_values), 6) if left_values else None,
+            "wins": sum(a > b for a, b in zip(left_values, right_values, strict=False)),
+            "ties": sum(a == b for a, b in zip(left_values, right_values, strict=False)),
+            "losses": sum(a < b for a, b in zip(left_values, right_values, strict=False)),
+        }
         if bootstrap and left_values:
             report["pairedBootstrap95"] = paired_bootstrap_ci(
-                [a - b for a, b in zip(left_values, right_values)]
+                [a - b for a, b in zip(left_values, right_values, strict=False)]
             )
             if len(left_values) < 30:
                 report["statisticalLimitation"] = "SMALL_SAMPLE_INTERPRET_CAUTIOUSLY"
@@ -557,9 +666,23 @@ def _paired_comparison(
         ]
         for k in TOP_K_VALUES:
             left_metrics = [_metric_for_row(record, by_method[left][record.query_id], k) for record in common]
-            right_metrics = [_metric_for_row(record, by_method[right][record.query_id], k) for record in common]
-            append_metric(left, right, f"Recall@{k}", [value[0] for value in left_metrics], [value[0] for value in right_metrics])
-            append_metric(left, right, f"Precision@{k}", [value[1] for value in left_metrics], [value[1] for value in right_metrics])
+            right_metrics = [
+                _metric_for_row(record, by_method[right][record.query_id], k) for record in common
+            ]
+            append_metric(
+                left,
+                right,
+                f"Recall@{k}",
+                [value[0] for value in left_metrics],
+                [value[0] for value in right_metrics],
+            )
+            append_metric(
+                left,
+                right,
+                f"Precision@{k}",
+                [value[1] for value in left_metrics],
+                [value[1] for value in right_metrics],
+            )
         left_mrr = [_metric_for_row(record, by_method[left][record.query_id], 5)[2] for record in common]
         right_mrr = [_metric_for_row(record, by_method[right][record.query_id], 5)[2] for record in common]
         append_metric(left, right, "MRR", left_mrr, right_mrr)
@@ -575,7 +698,9 @@ def _write_checksums(output_dir: Path) -> None:
     _atomic_write(output_dir / "checksums.sha256", "\n".join(entries) + "\n")
 
 
-def _manifest(preflight: Preflight, *, run_id: str, allow_provider_call: bool, no_cache: bool) -> dict[str, Any]:
+def _manifest(
+    preflight: Preflight, *, run_id: str, allow_provider_call: bool, no_cache: bool
+) -> dict[str, Any]:
     config = dict(preflight.configuration)
     config["configSha256"] = _json_hash(config)
     return {
@@ -594,11 +719,18 @@ def _manifest(preflight: Preflight, *, run_id: str, allow_provider_call: bool, n
         "bm25Version": BM25_INDEX_VERSION,
         "bm25DocumentFormatterVersion": BM25_DOCUMENT_FORMATTER_VERSION,
         "bm25DocumentFormatter": "embeddingTitle + sectionTitle + canonical chunk text",
-        "bm25Limitation": "Simple deterministic Unicode whitespace/punctuation baseline for Vietnamese; not semantic search.",
+        "bm25Limitation": (
+            "Simple deterministic Unicode whitespace/punctuation baseline for "
+            "Vietnamese; not semantic search."
+        ),
         "configuration": config,
         "identity": {
-            "branch": subprocess.check_output(["git", "branch", "--show-current"], cwd=SERVICE_ROOT.parent, text=True).strip(),
-            "commit": subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=SERVICE_ROOT.parent, text=True).strip(),
+            "branch": subprocess.check_output(
+                ["git", "branch", "--show-current"], cwd=SERVICE_ROOT.parent, text=True
+            ).strip(),
+            "commit": subprocess.check_output(
+                ["git", "rev-parse", "HEAD"], cwd=SERVICE_ROOT.parent, text=True
+            ).strip(),
             "workingTreeState": subprocess.check_output(
                 ["git", "status", "--short"], cwd=SERVICE_ROOT.parent, text=True
             ).splitlines(),
@@ -670,13 +802,15 @@ def run_experiment(
         output_dir = output_root / f"{run_id}-{suffix}"
         suffix += 1
     output_dir.mkdir(parents=True)
-    manifest = _manifest(preflight, run_id=output_dir.name, allow_provider_call=allow_provider_call, no_cache=no_cache)
-    _atomic_write(output_dir / "experiment-manifest.json", json.dumps(manifest, ensure_ascii=False, indent=2) + "\n")
+    manifest = _manifest(
+        preflight, run_id=output_dir.name, allow_provider_call=allow_provider_call, no_cache=no_cache
+    )
+    _atomic_write(
+        output_dir / "experiment-manifest.json", json.dumps(manifest, ensure_ascii=False, indent=2) + "\n"
+    )
     experiment_records: list[tuple[str, BenchmarkRecord | ExperimentRecord]] = [
         ("DEVELOPMENT_AUTHORED", record) for record in preflight.benchmark
-    ] + [
-        ("HELD_OUT_EXTERNAL", record) for record in preflight.held_out_benchmark
-    ]
+    ] + [("HELD_OUT_EXTERNAL", record) for record in preflight.held_out_benchmark]
     planned_calls = len({record.query for _role, record in experiment_records})
     preflight_payload = {
         "status": "PASS",
@@ -698,12 +832,22 @@ def run_experiment(
         "startupLatencyMs": startup_latency_ms,
         "outputDirectory": str(output_dir),
     }
-    _atomic_write(output_dir / "preflight-report.json", json.dumps(preflight_payload, ensure_ascii=False, indent=2) + "\n")
+    _atomic_write(
+        output_dir / "preflight-report.json",
+        json.dumps(preflight_payload, ensure_ascii=False, indent=2) + "\n",
+    )
     if not allow_provider_call:
         preflight_payload["runStatus"] = "PREFLIGHT_ONLY_PROVIDER_CALL_NOT_ALLOWED"
-        _atomic_write(output_dir / "preflight-report.json", json.dumps(preflight_payload, ensure_ascii=False, indent=2) + "\n")
+        _atomic_write(
+            output_dir / "preflight-report.json",
+            json.dumps(preflight_payload, ensure_ascii=False, indent=2) + "\n",
+        )
         _write_checksums(output_dir)
-        return {"status": preflight_payload["runStatus"], "outputDirectory": str(output_dir), "preflight": preflight_payload}
+        return {
+            "status": preflight_payload["runStatus"],
+            "outputDirectory": str(output_dir),
+            "preflight": preflight_payload,
+        }
     print(json.dumps({"providerPreflight": preflight_payload}, ensure_ascii=False, indent=2))
     bm25 = BM25Index(preflight.chunks)
     experiment_settings = settings.model_copy(
@@ -791,9 +935,7 @@ def run_experiment(
                     warmup["chromaCompleted"] = True
                 except Exception as exc:
                     warmup["chromaError"] = f"{type(exc).__name__}: {str(exc)[:160]}".strip()
-            warmup["completed"] = bool(
-                warmup["bm25Completed"] and warmup["chromaCompleted"]
-            )
+            warmup["completed"] = bool(warmup["bm25Completed"] and warmup["chromaCompleted"])
             for method in methods:
                 grade, lesson = _method_filter(record, method)
                 started = time.perf_counter()
@@ -812,19 +954,25 @@ def run_experiment(
                         latency={"total": embedding_ms, "embedding": embedding_ms},
                         error=embedding_error,
                     )
-                    _apply_pool_and_filter_diagnostics(
-                        row, record, preflight.chunks, grade, lesson
-                    )
+                    _apply_pool_and_filter_diagnostics(row, record, preflight.chunks, grade, lesson)
                     rows.append(row)
                     continue
                 try:
                     if method.startswith("DENSE"):
                         trace = RetrievalEvaluationTrace()
-                        response = service.retrieve(RetrievalRequest(query=record.query, grade=grade, lessonNumber=lesson, topK=5), query_vector=vectors[record.query], evaluation_trace=trace)
+                        response = service.retrieve(
+                            RetrievalRequest(query=record.query, grade=grade, lessonNumber=lesson, topK=5),
+                            query_vector=vectors[record.query],
+                            evaluation_trace=trace,
+                        )
                         selected = [chunks_by_id[result.chunk_id] for result in response.results]
                         latency["chroma"] = trace.chroma_query_latency_ms
                         latency["postProcessing"] = trace.post_processing_latency_ms
-                        contract = (trace.embedding_contract_matched, trace.collection_metadata_matched, trace.collection_distance_metric_matched)
+                        contract = (
+                            trace.embedding_contract_matched,
+                            trace.collection_metadata_matched,
+                            trace.collection_distance_metric_matched,
+                        )
                     else:
                         bm25_started = time.perf_counter()
                         selected = bm25.search(record.query, grade=grade, lesson_number=lesson, top_k=5)
@@ -833,27 +981,31 @@ def run_experiment(
                     error = f"{type(exc).__name__}: {str(exc)[:160]}".strip()
                 retrieval_ms = (time.perf_counter() - started) * 1000
                 latency["total"] = embedding_ms + retrieval_ms if method.startswith("DENSE") else retrieval_ms
-                row = _result_row(record, method, selected, benchmark_role=benchmark_role, latency=latency, error=error, contract=contract)
+                row = _result_row(
+                    record,
+                    method,
+                    selected,
+                    benchmark_role=benchmark_role,
+                    latency=latency,
+                    error=error,
+                    contract=contract,
+                )
                 _apply_pool_and_filter_diagnostics(row, record, preflight.chunks, grade, lesson)
                 rows.append(row)
     finally:
         service.close()
         if preflight.chroma_client is not None:
             close_persistent_client(preflight.chroma_client)
-    development_rows = [
-        row for row in rows if row["benchmarkRole"] == "DEVELOPMENT_AUTHORED"
-    ]
-    held_out_rows = [
-        row for row in rows if row["benchmarkRole"] == "HELD_OUT_EXTERNAL"
-    ]
+    development_rows = [row for row in rows if row["benchmarkRole"] == "DEVELOPMENT_AUTHORED"]
+    held_out_rows = [row for row in rows if row["benchmarkRole"] == "HELD_OUT_EXTERNAL"]
     method_reports = {
-        method: _method_report(preflight.benchmark, development_rows, method)
-        for method in methods
+        method: _method_report(preflight.benchmark, development_rows, method) for method in methods
     }
-    held_out_method_reports = {
-        method: _method_report(preflight.held_out_benchmark, held_out_rows, method)
-        for method in methods
-    } if preflight.held_out_benchmark else {}
+    held_out_method_reports = (
+        {method: _method_report(preflight.held_out_benchmark, held_out_rows, method) for method in methods}
+        if preflight.held_out_benchmark
+        else {}
+    )
     cache_provenance = validate_live_cache_provenance(
         cache_hits=cache_hits,
         cache_misses=cache_misses,
@@ -867,18 +1019,103 @@ def run_experiment(
         run_status = "COMPLETED"
     held_out_executed = bool(preflight.held_out_benchmark)
     final_held_out_status = "VALID_AND_RUN" if held_out_executed else preflight.held_out_status
-    aggregate = {"schemaVersion": EXPERIMENT_SCHEMA_VERSION, "status": run_status, "benchmarkRole": "DEVELOPMENT_AUTHORED", "heldOutStatus": final_held_out_status, "providerCallCount": provider_calls, "plannedProviderCalls": planned_calls, "providerFailures": provider_failures, "cacheHits": cache_hits, "cacheMisses": cache_misses, "cacheMode": "LIVE", "cacheProvenance": cache_provenance, "queryEmbeddingSharedAcrossDenseStrata": True, "embeddingLatencyAttribution": "ONE_SHARED_PROVIDER_CALL_PER_DISTINCT_QUERY; DENSE_TOTALS_ARE_HYPOTHETICAL_COMPOSITIONS", "methods": method_reports, "pairedComparison": _paired_comparison(preflight.benchmark, development_rows), "statisticalPolicy": {"development": "DESCRIPTIVE_ONLY_NO_GENERALIZATION_CI", "heldOut": "PAIRED_BOOTSTRAP_95_FIXED_SEED_IF_VALID_AND_RUN", "bootstrapSeed": 1406, "bootstrapIterations": 10000, "heldOutExecuted": held_out_executed}, "claimGuard": {"supports": ["engineering comparison under authored benchmark", "filter ablation", "baseline comparison", "local runtime measurement"], "doesNotSupport": ["independent generalization", "generated-question factual correctness", "teacher acceptance", "production SLO"]}}
-    _atomic_write(output_dir / "per-query-results.jsonl", "".join(json.dumps(row, ensure_ascii=False, sort_keys=True) + "\n" for row in rows))
-    _atomic_write(output_dir / "aggregate-report.json", json.dumps(aggregate, ensure_ascii=False, indent=2) + "\n")
-    markdown = "# Retrieval Experiment v2\n\n## What this experiment supports\n\n- Engineering comparison under the development-authored benchmark.\n- Dense filter ablation and BM25 baseline comparison.\n- Local stage latency measurement.\n\n## What this experiment does not support\n\n- Independent generalization, factual correctness, teacher acceptance or production SLO.\n\n"
-    markdown += f"- Status: `{aggregate['status']}`\n- Cache: `LIVE`, hits={aggregate['cacheHits']}, misses={aggregate['cacheMisses']}\n- Provider calls: {provider_calls}/{aggregate['plannedProviderCalls']}\n- Held-out: `{final_held_out_status}`\n\n"
+    aggregate = {
+        "schemaVersion": EXPERIMENT_SCHEMA_VERSION,
+        "status": run_status,
+        "benchmarkRole": "DEVELOPMENT_AUTHORED",
+        "heldOutStatus": final_held_out_status,
+        "providerCallCount": provider_calls,
+        "plannedProviderCalls": planned_calls,
+        "providerFailures": provider_failures,
+        "cacheHits": cache_hits,
+        "cacheMisses": cache_misses,
+        "cacheMode": "LIVE",
+        "cacheProvenance": cache_provenance,
+        "queryEmbeddingSharedAcrossDenseStrata": True,
+        "embeddingLatencyAttribution": (
+            "ONE_SHARED_PROVIDER_CALL_PER_DISTINCT_QUERY; "
+            "DENSE_TOTALS_ARE_HYPOTHETICAL_COMPOSITIONS"
+        ),
+        "methods": method_reports,
+        "pairedComparison": _paired_comparison(preflight.benchmark, development_rows),
+        "statisticalPolicy": {
+            "development": "DESCRIPTIVE_ONLY_NO_GENERALIZATION_CI",
+            "heldOut": "PAIRED_BOOTSTRAP_95_FIXED_SEED_IF_VALID_AND_RUN",
+            "bootstrapSeed": 1406,
+            "bootstrapIterations": 10000,
+            "heldOutExecuted": held_out_executed,
+        },
+        "claimGuard": {
+            "supports": [
+                "engineering comparison under authored benchmark",
+                "filter ablation",
+                "baseline comparison",
+                "local runtime measurement",
+            ],
+            "doesNotSupport": [
+                "independent generalization",
+                "generated-question factual correctness",
+                "teacher acceptance",
+                "production SLO",
+            ],
+        },
+    }
+    _atomic_write(
+        output_dir / "per-query-results.jsonl",
+        "".join(json.dumps(row, ensure_ascii=False, sort_keys=True) + "\n" for row in rows),
+    )
+    _atomic_write(
+        output_dir / "aggregate-report.json", json.dumps(aggregate, ensure_ascii=False, indent=2) + "\n"
+    )
+    markdown = (
+        "# Retrieval Experiment v2\n\n"
+        "## What this experiment supports\n\n"
+        "- Engineering comparison under the development-authored benchmark.\n"
+        "- Dense filter ablation and BM25 baseline comparison.\n"
+        "- Local stage latency measurement.\n\n"
+        "## What this experiment does not support\n\n"
+        "- Independent generalization, factual correctness, teacher acceptance "
+        "or production SLO.\n\n"
+    )
+    markdown += (
+        f"- Status: `{aggregate['status']}`\n"
+        f"- Cache: `LIVE`, hits={aggregate['cacheHits']}, "
+        f"misses={aggregate['cacheMisses']}\n"
+        f"- Provider calls: {provider_calls}/{aggregate['plannedProviderCalls']}\n"
+        f"- Held-out: `{final_held_out_status}`\n\n"
+    )
     if not held_out_executed:
         markdown += "Held-out experiment: **NOT RUN — external data not provided**.\n\n"
     for method, report in method_reports.items():
-        markdown += f"## {method}\n\n- Attempted/completed/failed: {report['attempted']}/{report['completed']}/{report['failed']}\n- Recall@1/3/5: " + ", ".join(str(report['effectiveness'][str(k)]['attempted']['Recall']) for k in TOP_K_VALUES) + "\n- Precision@1/3/5: " + ", ".join(str(report['effectiveness'][str(k)]['attempted']['Precision']) for k in TOP_K_VALUES) + f"\n- MRR: {report['effectiveness']['5']['attempted']['MRR']}\n- Latency: " + json.dumps(report['latency'], ensure_ascii=False) + "\n\n"
+        markdown += (
+            f"## {method}\n\n"
+            f"- Attempted/completed/failed: {report['attempted']}/"
+            f"{report['completed']}/{report['failed']}\n"
+            "- Recall@1/3/5: "
+            + ", ".join(str(report["effectiveness"][str(k)]["attempted"]["Recall"]) for k in TOP_K_VALUES)
+            + "\n- Precision@1/3/5: "
+            + ", ".join(str(report["effectiveness"][str(k)]["attempted"]["Precision"]) for k in TOP_K_VALUES)
+            + f"\n- MRR: {report['effectiveness']['5']['attempted']['MRR']}\n- Latency: "
+            + json.dumps(report["latency"], ensure_ascii=False)
+            + "\n\n"
+        )
     _atomic_write(output_dir / "aggregate-report.md", markdown)
     with (output_dir / "method-comparison.csv").open("w", encoding="utf-8", newline="") as output:
-        writer = csv.DictWriter(output, fieldnames=["left", "right", "metric", "commonN", "leftMean", "rightMean", "delta", "wins", "ties", "losses"])
+        writer = csv.DictWriter(
+            output,
+            fieldnames=[
+                "left",
+                "right",
+                "metric",
+                "commonN",
+                "leftMean",
+                "rightMean",
+                "delta",
+                "wins",
+                "ties",
+                "losses",
+            ],
+        )
         writer.writeheader()
         writer.writerows(aggregate["pairedComparison"])
     if held_out_executed:
@@ -903,9 +1140,7 @@ def run_experiment(
                 "smallSampleLimitationThreshold": 30,
             },
             "claimGuard": {
-                "supports": [
-                    "retrieval effectiveness on this externally authored held-out sample"
-                ],
+                "supports": ["retrieval effectiveness on this externally authored held-out sample"],
                 "doesNotSupport": [
                     "generated-question factual correctness",
                     "teacher acceptance",
@@ -935,8 +1170,17 @@ def run_experiment(
             json.dumps(held_out_aggregate, ensure_ascii=False, indent=2) + "\n",
         )
         held_out_fields = [
-            "left", "right", "metric", "commonN", "leftMean", "rightMean",
-            "delta", "wins", "ties", "losses", "pairedBootstrap95",
+            "left",
+            "right",
+            "metric",
+            "commonN",
+            "leftMean",
+            "rightMean",
+            "delta",
+            "wins",
+            "ties",
+            "losses",
+            "pairedBootstrap95",
             "statisticalLimitation",
         ]
         with (output_dir / "held-out-method-comparison.csv").open(
@@ -946,32 +1190,39 @@ def run_experiment(
             writer.writeheader()
             writer.writerows(held_out_comparison)
     latency_report = {
-        "publicationStatus": "PUBLISHED" if cache_provenance == "VALID_LIVE_RUN" else "SUPPRESSED_INVALID_LIVE_RUN",
+        "publicationStatus": "PUBLISHED"
+        if cache_provenance == "VALID_LIVE_RUN"
+        else "SUPPRESSED_INVALID_LIVE_RUN",
         "queryEmbeddingProviderShared": _latency(embedding_latencies.values()),
-        "denseTotalLatencySemantics": "Hypothetical composition of the one shared query-embedding call plus each dense stratum's retrieval stages.",
+        "denseTotalLatencySemantics": (
+            "Hypothetical composition of the one shared query-embedding call plus "
+            "each dense stratum's retrieval stages."
+        ),
         "runTiming": {
             "startupLatencyMs": startup_latency_ms,
             "warmup": warmup,
             "firstMeasuredComposedMs": {
-                method: next(
-                    row["latencyMs"]
-                    for row in rows
-                    if row["method"] == method
-                )
+                method: next(row["latencyMs"] for row in rows if row["method"] == method)
                 for method in methods
             },
         },
-        "methods": {
-            method: report["latency"]
-            for method, report in method_reports.items()
-        },
+        "methods": {method: report["latency"] for method, report in method_reports.items()},
     }
     if cache_provenance != "VALID_LIVE_RUN":
         latency_report = {
             "publicationStatus": "SUPPRESSED_INVALID_LIVE_RUN",
             "reason": "Live cache provenance gate failed; latency samples are intentionally not published.",
         }
-    _atomic_write(output_dir / "latency-report.json", json.dumps(latency_report, ensure_ascii=False, indent=2) + "\n")
-    _atomic_write(output_dir / "run.log", f"runId={output_dir.name}\nstatus={aggregate['status']}\nproviderCalls={provider_calls}\ncacheHits={cache_hits}\ncacheMisses={aggregate['cacheMisses']}\n")
+    _atomic_write(
+        output_dir / "latency-report.json", json.dumps(latency_report, ensure_ascii=False, indent=2) + "\n"
+    )
+    _atomic_write(
+        output_dir / "run.log",
+        f"runId={output_dir.name}\n"
+        f"status={aggregate['status']}\n"
+        f"providerCalls={provider_calls}\n"
+        f"cacheHits={cache_hits}\n"
+        f"cacheMisses={aggregate['cacheMisses']}\n",
+    )
     _write_checksums(output_dir)
     return {"status": aggregate["status"], "outputDirectory": str(output_dir), "aggregate": aggregate}

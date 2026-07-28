@@ -53,7 +53,8 @@ def _filters_for_mode(record, mode: FilterMode) -> RetrievalFilters:
 def _eligible_pool_sizes(chunks, filters: RetrievalFilters) -> tuple[int, int]:
     eligible = [chunk for chunk in chunks if chunk.ragEligible and not chunk.containsPendingReview]
     filtered = [
-        chunk for chunk in eligible
+        chunk
+        for chunk in eligible
         if (filters.grade is None or chunk.grade == filters.grade)
         and (filters.lesson_number is None or chunk.lessonNumber == filters.lesson_number)
         and (filters.document_id is None or chunk.documentId == filters.document_id)
@@ -98,7 +99,12 @@ def main() -> int:
     try:
         for record in benchmark:
             cache_started = time.perf_counter()
-            cache_key = cache.identity(record.query, settings.gemini_embedding_model, settings.gemini_embedding_dimension, QUERY_FORMATTER_VERSION)
+            cache_key = cache.identity(
+                record.query,
+                settings.gemini_embedding_model,
+                settings.gemini_embedding_dimension,
+                QUERY_FORMATTER_VERSION,
+            )
             vector = cache.get(cache_key, settings.gemini_embedding_dimension)
             cache_lookup_latency_ms = (time.perf_counter() - cache_started) * 1000
             query_embedding_latency_ms: float | None = None
@@ -116,7 +122,33 @@ def main() -> int:
                         typed_mode: FilterMode = mode
                         filters = _filters_for_mode(record, typed_mode)
                         eligible_pool, filtered_pool = _eligible_pool_sizes(corpus_chunks, filters)
-                        results.append(EvaluationQueryResult(queryId=record.query_id, grade=record.grade, category=record.category, expectedChunkIds=record.expected_chunk_ids, expectedDocumentIds=record.expected_document_ids, resultChunkIds=[], resultDocumentIds=[], resultLessons=[], resultSections=[], distances=[], filterCompliant=False, pendingReviewLeakage=False, duplicateResults=False, latencyMs=cache_lookup_latency_ms + query_embedding_latency_ms, filterMode=typed_mode, requestedTopK=5, returnedResultCount=0, effectiveK=0, eligiblePoolSizeBeforeTopK=eligible_pool, effectivePoolSizeAfterFilters=filtered_pool, cacheLookupLatencyMs=cache_lookup_latency_ms, queryEmbeddingLatencyMs=query_embedding_latency_ms, error=type(exc).__name__))
+                        results.append(
+                            EvaluationQueryResult(
+                                queryId=record.query_id,
+                                grade=record.grade,
+                                category=record.category,
+                                expectedChunkIds=record.expected_chunk_ids,
+                                expectedDocumentIds=record.expected_document_ids,
+                                resultChunkIds=[],
+                                resultDocumentIds=[],
+                                resultLessons=[],
+                                resultSections=[],
+                                distances=[],
+                                filterCompliant=False,
+                                pendingReviewLeakage=False,
+                                duplicateResults=False,
+                                latencyMs=cache_lookup_latency_ms + query_embedding_latency_ms,
+                                filterMode=typed_mode,
+                                requestedTopK=5,
+                                returnedResultCount=0,
+                                effectiveK=0,
+                                eligiblePoolSizeBeforeTopK=eligible_pool,
+                                effectivePoolSizeAfterFilters=filtered_pool,
+                                cacheLookupLatencyMs=cache_lookup_latency_ms,
+                                queryEmbeddingLatencyMs=query_embedding_latency_ms,
+                                error=type(exc).__name__,
+                            )
+                        )
                     continue
             else:
                 cache_hits += 1
@@ -127,20 +159,137 @@ def main() -> int:
                 trace = RetrievalEvaluationTrace()
                 started = time.perf_counter()
                 try:
-                    request = RetrievalRequest(query=record.query, grade=filters.grade, lessonNumber=filters.lesson_number, documentId=filters.document_id, topK=5)
+                    request = RetrievalRequest(
+                        query=record.query,
+                        grade=filters.grade,
+                        lessonNumber=filters.lesson_number,
+                        documentId=filters.document_id,
+                        topK=5,
+                    )
                     response = service.retrieve(request, query_vector=vector, evaluation_trace=trace)
                     chunk_ids = [item.chunk_id for item in response.results]
                     retrieval_latency_ms = (time.perf_counter() - started) * 1000
-                    results.append(EvaluationQueryResult(queryId=record.query_id, grade=record.grade, category=record.category, expectedChunkIds=record.expected_chunk_ids, expectedDocumentIds=record.expected_document_ids, resultChunkIds=chunk_ids, resultDocumentIds=[item.document_id for item in response.results], resultLessons=[item.lesson_number for item in response.results], resultSections=[item.section_title for item in response.results], distances=[item.distance for item in response.results], filterCompliant=_filter_compliant(response, filters), pendingReviewLeakage=bool(trace.pending_review_candidate_ids), duplicateResults=len(chunk_ids) != len(set(chunk_ids)), latencyMs=cache_lookup_latency_ms + (query_embedding_latency_ms or 0.0) + retrieval_latency_ms, filterMode=typed_mode, requestedTopK=5, returnedResultCount=len(chunk_ids), effectiveK=min(5, len(chunk_ids)), eligiblePoolSizeBeforeTopK=eligible_pool, effectivePoolSizeAfterFilters=filtered_pool, cacheLookupLatencyMs=cache_lookup_latency_ms, queryEmbeddingLatencyMs=query_embedding_latency_ms, chromaQueryLatencyMs=trace.chroma_query_latency_ms, postProcessingLatencyMs=trace.post_processing_latency_ms, embeddingContractMatched=trace.embedding_contract_matched, collectionMetadataMatched=trace.collection_metadata_matched, collectionDistanceMetricMatched=trace.collection_distance_metric_matched))
+                    results.append(
+                        EvaluationQueryResult(
+                            queryId=record.query_id,
+                            grade=record.grade,
+                            category=record.category,
+                            expectedChunkIds=record.expected_chunk_ids,
+                            expectedDocumentIds=record.expected_document_ids,
+                            resultChunkIds=chunk_ids,
+                            resultDocumentIds=[item.document_id for item in response.results],
+                            resultLessons=[item.lesson_number for item in response.results],
+                            resultSections=[item.section_title for item in response.results],
+                            distances=[item.distance for item in response.results],
+                            filterCompliant=_filter_compliant(response, filters),
+                            pendingReviewLeakage=bool(trace.pending_review_candidate_ids),
+                            duplicateResults=len(chunk_ids) != len(set(chunk_ids)),
+                            latencyMs=cache_lookup_latency_ms
+                            + (query_embedding_latency_ms or 0.0)
+                            + retrieval_latency_ms,
+                            filterMode=typed_mode,
+                            requestedTopK=5,
+                            returnedResultCount=len(chunk_ids),
+                            effectiveK=min(5, len(chunk_ids)),
+                            eligiblePoolSizeBeforeTopK=eligible_pool,
+                            effectivePoolSizeAfterFilters=filtered_pool,
+                            cacheLookupLatencyMs=cache_lookup_latency_ms,
+                            queryEmbeddingLatencyMs=query_embedding_latency_ms,
+                            chromaQueryLatencyMs=trace.chroma_query_latency_ms,
+                            postProcessingLatencyMs=trace.post_processing_latency_ms,
+                            embeddingContractMatched=trace.embedding_contract_matched,
+                            collectionMetadataMatched=trace.collection_metadata_matched,
+                            collectionDistanceMetricMatched=trace.collection_distance_metric_matched,
+                        )
+                    )
                 except Exception as exc:
                     retrieval_latency_ms = (time.perf_counter() - started) * 1000
-                    results.append(EvaluationQueryResult(queryId=record.query_id, grade=record.grade, category=record.category, expectedChunkIds=record.expected_chunk_ids, expectedDocumentIds=record.expected_document_ids, resultChunkIds=[], resultDocumentIds=[], resultLessons=[], resultSections=[], distances=[], filterCompliant=False, pendingReviewLeakage=bool(trace.pending_review_candidate_ids), duplicateResults=False, latencyMs=cache_lookup_latency_ms + (query_embedding_latency_ms or 0.0) + retrieval_latency_ms, filterMode=typed_mode, requestedTopK=5, returnedResultCount=0, effectiveK=0, eligiblePoolSizeBeforeTopK=eligible_pool, effectivePoolSizeAfterFilters=filtered_pool, cacheLookupLatencyMs=cache_lookup_latency_ms, queryEmbeddingLatencyMs=query_embedding_latency_ms, chromaQueryLatencyMs=trace.chroma_query_latency_ms, postProcessingLatencyMs=trace.post_processing_latency_ms, embeddingContractMatched=trace.embedding_contract_matched, collectionMetadataMatched=trace.collection_metadata_matched, collectionDistanceMetricMatched=trace.collection_distance_metric_matched, error=type(exc).__name__))
+                    results.append(
+                        EvaluationQueryResult(
+                            queryId=record.query_id,
+                            grade=record.grade,
+                            category=record.category,
+                            expectedChunkIds=record.expected_chunk_ids,
+                            expectedDocumentIds=record.expected_document_ids,
+                            resultChunkIds=[],
+                            resultDocumentIds=[],
+                            resultLessons=[],
+                            resultSections=[],
+                            distances=[],
+                            filterCompliant=False,
+                            pendingReviewLeakage=bool(trace.pending_review_candidate_ids),
+                            duplicateResults=False,
+                            latencyMs=cache_lookup_latency_ms
+                            + (query_embedding_latency_ms or 0.0)
+                            + retrieval_latency_ms,
+                            filterMode=typed_mode,
+                            requestedTopK=5,
+                            returnedResultCount=0,
+                            effectiveK=0,
+                            eligiblePoolSizeBeforeTopK=eligible_pool,
+                            effectivePoolSizeAfterFilters=filtered_pool,
+                            cacheLookupLatencyMs=cache_lookup_latency_ms,
+                            queryEmbeddingLatencyMs=query_embedding_latency_ms,
+                            chromaQueryLatencyMs=trace.chroma_query_latency_ms,
+                            postProcessingLatencyMs=trace.post_processing_latency_ms,
+                            embeddingContractMatched=trace.embedding_contract_matched,
+                            collectionMetadataMatched=trace.collection_metadata_matched,
+                            collectionDistanceMetricMatched=trace.collection_distance_metric_matched,
+                            error=type(exc).__name__,
+                        )
+                    )
     finally:
         service.close()
-    report = build_evaluation_report(benchmark, results, cache_hits=cache_hits, cache_misses=cache_misses, evaluation_mode=_evaluation_mode(cache_hits, cache_misses), configuration={"model": settings.gemini_embedding_model, "dimension": settings.gemini_embedding_dimension, "queryFormatterVersion": QUERY_FORMATTER_VERSION, "topK": 5, "candidateMultiplier": settings.rag_candidate_multiplier, "maxChunksPerDocument": settings.rag_max_chunks_per_document, "filterModes": ["GRADE_AND_LESSON", "FILTER_OFF"]}, corpus_identity={"corpusSha256": manifest.get("corpusSha256"), "embeddingModel": settings.gemini_embedding_model, "embeddingDimension": settings.gemini_embedding_dimension, "documentFormatterVersion": manifest.get("formatterVersion"), "queryFormatterVersion": QUERY_FORMATTER_VERSION, "collection": settings.chroma_collection_name, "distanceMetric": settings.chroma_distance_metric, "eligibleRecords": manifest.get("eligibleRecords"), "embeddingStatus": manifest.get("status")})
-    _atomic_write(REPORT_ROOT / "retrieval-evaluation.json", json.dumps(report.model_dump(by_alias=True), ensure_ascii=False, indent=2) + "\n")
+    report = build_evaluation_report(
+        benchmark,
+        results,
+        cache_hits=cache_hits,
+        cache_misses=cache_misses,
+        evaluation_mode=_evaluation_mode(cache_hits, cache_misses),
+        configuration={
+            "model": settings.gemini_embedding_model,
+            "dimension": settings.gemini_embedding_dimension,
+            "queryFormatterVersion": QUERY_FORMATTER_VERSION,
+            "topK": 5,
+            "candidateMultiplier": settings.rag_candidate_multiplier,
+            "maxChunksPerDocument": settings.rag_max_chunks_per_document,
+            "filterModes": ["GRADE_AND_LESSON", "FILTER_OFF"],
+        },
+        corpus_identity={
+            "corpusSha256": manifest.get("corpusSha256"),
+            "embeddingModel": settings.gemini_embedding_model,
+            "embeddingDimension": settings.gemini_embedding_dimension,
+            "documentFormatterVersion": manifest.get("formatterVersion"),
+            "queryFormatterVersion": QUERY_FORMATTER_VERSION,
+            "collection": settings.chroma_collection_name,
+            "distanceMetric": settings.chroma_distance_metric,
+            "eligibleRecords": manifest.get("eligibleRecords"),
+            "embeddingStatus": manifest.get("status"),
+        },
+    )
+    _atomic_write(
+        REPORT_ROOT / "retrieval-evaluation.json",
+        json.dumps(report.model_dump(by_alias=True), ensure_ascii=False, indent=2) + "\n",
+    )
     _atomic_write(REPORT_ROOT / "retrieval-evaluation.md", render_markdown(report))
-    print(json.dumps({"status": report.status, "queryCount": report.query_count, "completedQueries": report.completed_queries, "failedQueries": report.failed_queries, "cacheHits": report.cache_hits, "cacheMisses": report.cache_misses, "cacheMode": report.cache_mode, "evaluationMode": report.evaluation_mode, "strata": list(report.strata), "reportDirectory": str(REPORT_ROOT)}, ensure_ascii=False, indent=2))
+    print(
+        json.dumps(
+            {
+                "status": report.status,
+                "queryCount": report.query_count,
+                "completedQueries": report.completed_queries,
+                "failedQueries": report.failed_queries,
+                "cacheHits": report.cache_hits,
+                "cacheMisses": report.cache_misses,
+                "cacheMode": report.cache_mode,
+                "evaluationMode": report.evaluation_mode,
+                "strata": list(report.strata),
+                "reportDirectory": str(REPORT_ROOT),
+            },
+            ensure_ascii=False,
+            indent=2,
+        )
+    )
     return 1 if report.failed_queries else 0
 
 

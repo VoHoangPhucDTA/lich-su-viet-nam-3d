@@ -93,7 +93,7 @@ class ChromaRetriever:
     ) -> RawChromaCandidate | None:
         if not isinstance(chunk_id, str) or not isinstance(document, str):
             return None
-        if not isinstance(metadata, dict) or not isinstance(distance, (int, float)):
+        if not isinstance(metadata, dict) or not isinstance(distance, int | float):
             return None
         if not math.isfinite(float(distance)):
             return None
@@ -183,7 +183,7 @@ class ChromaRetriever:
         metadatas = (raw.get("metadatas") or [[]])[0]
         distances = (raw.get("distances") or [[]])[0]
         candidates: list[RawChromaCandidate] = []
-        for values in zip(ids, documents, metadatas, distances):
+        for values in zip(ids, documents, metadatas, distances, strict=False):
             if deadline is not None:
                 deadline.checkpoint("retrieval_post_processing", is_cancelled)
             candidate = self._parse_candidate(*values)

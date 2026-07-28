@@ -1,12 +1,11 @@
 """Monotonic request budgets and cooperative cancellation primitives."""
 
-from collections.abc import Callable
-from dataclasses import dataclass, field
 import logging
 import time
+from collections.abc import Callable
+from dataclasses import dataclass, field
 
 from app.core.request_context import current_request_id
-
 
 _ERROR_CODES = {
     "query_embedding": "EMBEDDING_TIMEOUT",

@@ -13,7 +13,6 @@ from app.evaluation.retrieval_experiment import (
     run_experiment,
 )
 
-
 DEFAULT_BENCHMARK = SERVICE_ROOT / "data" / "evaluation" / "retrieval_benchmark.jsonl"
 DEFAULT_HELD_OUT = SERVICE_ROOT / "data" / "evaluation" / "retrieval_held_out_v1.jsonl"
 DEFAULT_OUTPUT = SERVICE_ROOT.parent / "artifacts" / "ai-service" / "goal14f"
@@ -52,10 +51,21 @@ def create_parser() -> argparse.ArgumentParser:
 
 def main(argv: list[str] | None = None) -> int:
     args = create_parser().parse_args(argv)
-    if args.legacy or not any(
-        value is not None
-        for value in (args.benchmark, args.held_out, args.output_root, args.benchmark_role, args.methods, args.top_k)
-    ) and not args.allow_provider_call and not args.no_cache:
+    if args.legacy or (
+        not any(
+            value is not None
+            for value in (
+                args.benchmark,
+                args.held_out,
+                args.output_root,
+                args.benchmark_role,
+                args.methods,
+                args.top_k,
+            )
+        )
+        and not args.allow_provider_call
+        and not args.no_cache
+    ):
         from scripts.evaluate_retrieval_legacy import main as legacy_main
 
         return legacy_main()
@@ -65,13 +75,13 @@ def main(argv: list[str] | None = None) -> int:
             method.lower().replace("_", "-") for method in EXPERIMENT_METHODS
         )
         top_k_arg = args.top_k or "1,3,5"
-        methods = tuple(method.strip().upper().replace("-", "_") for method in methods_arg.split(",") if method.strip())
+        methods = tuple(
+            method.strip().upper().replace("-", "_") for method in methods_arg.split(",") if method.strip()
+        )
         top_k = tuple(int(value.strip()) for value in top_k_arg.split(",") if value.strip())
         benchmark_arg = args.benchmark or "development"
         benchmark_path = (
-            DEFAULT_BENCHMARK
-            if str(benchmark_arg).casefold() == "development"
-            else Path(benchmark_arg)
+            DEFAULT_BENCHMARK if str(benchmark_arg).casefold() == "development" else Path(benchmark_arg)
         )
         result = run_experiment(
             settings,
@@ -87,10 +97,15 @@ def main(argv: list[str] | None = None) -> int:
         print(json.dumps({"status": "PREFLIGHT_FAILED", "error": str(exc)}, ensure_ascii=False, indent=2))
         return 2
     print(json.dumps(result, ensure_ascii=False, indent=2, default=str))
-    return 0 if result.get("status") in {
-        "COMPLETED",
-        "PREFLIGHT_ONLY_PROVIDER_CALL_NOT_ALLOWED",
-    } else 1
+    return (
+        0
+        if result.get("status")
+        in {
+            "COMPLETED",
+            "PREFLIGHT_ONLY_PROVIDER_CALL_NOT_ALLOWED",
+        }
+        else 1
+    )
 
 
 if __name__ == "__main__":

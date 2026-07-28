@@ -1,11 +1,11 @@
 """Run the evidence-backed generation benchmark with resumable output cache."""
 
-from collections import Counter
 import json
 import os
-from pathlib import Path
 import sys
 import time
+from collections import Counter
+from pathlib import Path
 
 from pydantic import TypeAdapter
 
@@ -21,11 +21,10 @@ from app.generation.evaluation import (
     render_generation_markdown,
 )
 from app.generation.models import (
-    GenerationBenchmarkCase,
-    GenerationRequest,
-    GenerationResponse,
     PROMPT_VERSION,
     SCHEMA_VERSION,
+    GenerationBenchmarkCase,
+    GenerationRequest,
     StyleExample,
 )
 from app.generation.service import (
@@ -34,7 +33,6 @@ from app.generation.service import (
 )
 from app.generation.validators import validate_questions
 from app.retrieval.models import RetrievalRequest
-
 
 BENCHMARK_PATH = SERVICE_ROOT / "data" / "evaluation" / "generation_benchmark.jsonl"
 CACHE_ROOT = SERVICE_ROOT / "storage" / "generation-cache"

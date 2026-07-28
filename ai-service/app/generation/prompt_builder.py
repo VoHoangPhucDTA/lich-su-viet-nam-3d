@@ -2,9 +2,8 @@
 
 import json
 
-from app.generation.models import GenerationRequest, PROMPT_VERSION
+from app.generation.models import PROMPT_VERSION, GenerationRequest
 from app.retrieval.models import FactContext
-
 
 SYSTEM_RULES = """SYSTEM RULES
 1. Chỉ sử dụng dữ kiện trong FACT CONTEXT làm nguồn kiến thức.

@@ -1,7 +1,7 @@
 """Google Gen AI SDK provider for Gemini Embedding 2."""
 
-from collections.abc import Callable
 import re
+from collections.abc import Callable
 from typing import Any
 
 import httpx
@@ -9,12 +9,12 @@ from google import genai
 from google.genai import errors, types
 from tenacity import Retrying, retry_if_exception, stop_after_attempt, wait_random_exponential
 
-from app.embedding.base import validate_vectors
 from app.core.deadline import (
     OperationDeadline,
     OperationDeadlineExceeded,
     log_deadline_event,
 )
+from app.embedding.base import validate_vectors
 from app.embedding.formatter import RetrievalFormatter
 from app.embedding.models import MissingGeminiApiKeyError, PermanentEmbeddingError
 
@@ -40,11 +40,11 @@ def sanitize_error_value(value: Any, api_key: str = "") -> Any:
             )
             for key, item in value.items()
         }
-    if isinstance(value, (list, tuple)):
+    if isinstance(value, list | tuple):
         return [sanitize_error_value(item, api_key) for item in value]
     if isinstance(value, str):
         return _redact_string(value, api_key)
-    if value is None or isinstance(value, (bool, int, float)):
+    if value is None or isinstance(value, bool | int | float):
         return value
     return _redact_string(str(value), api_key)
 
@@ -99,7 +99,7 @@ def is_retryable_gemini_error(exc: BaseException) -> bool:
         return exc.code == 429 or (
             isinstance(exc.code, int) and 500 <= exc.code <= 599
         )
-    return isinstance(exc, (httpx.TimeoutException, httpx.TransportError))
+    return isinstance(exc, httpx.TimeoutException | httpx.TransportError)
 
 
 def is_api_key_failover_error(exc: BaseException) -> bool:
