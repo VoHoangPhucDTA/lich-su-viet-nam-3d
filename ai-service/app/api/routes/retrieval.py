@@ -5,7 +5,7 @@ from typing import Annotated
 from fastapi import APIRouter, Depends, HTTPException, status
 
 from app.config import Settings
-from app.dependencies import get_request_settings
+from app.dependencies import get_request_settings, require_internal_token
 from app.retrieval.models import (
     RetrievalError,
     RetrievalNotReadyError,
@@ -18,7 +18,11 @@ from app.retrieval.service import create_retrieval_service
 router = APIRouter(prefix="/retrieval", tags=["retrieval"])
 
 
-@router.post("/debug", response_model=RetrievalResponse)
+@router.post(
+    "/debug",
+    response_model=RetrievalResponse,
+    dependencies=[Depends(require_internal_token)],
+)
 def retrieval_debug(
     request: RetrievalRequest,
     settings: Annotated[Settings, Depends(get_request_settings)],

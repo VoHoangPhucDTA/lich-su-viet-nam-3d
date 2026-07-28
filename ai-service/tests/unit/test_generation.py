@@ -39,6 +39,7 @@ from app.retrieval.models import (
 
 def configured(tmp_path: Path, **overrides) -> Settings:
     values = {
+        "ai_service_internal_token": "internal-test-token",
         "gemini_generation_model": "fake-generation-model",
         "chroma_persist_dir": tmp_path / "chroma",
         "chroma_report_dir": tmp_path / "reports",
@@ -417,8 +418,30 @@ def test_api_safe_error_mapping(tmp_path: Path, monkeypatch) -> None:
             return None
     monkeypatch.setattr("app.api.routes.generation.create_generation_service", lambda _: BrokenService())
     response = TestClient(create_app(configured(tmp_path))).post(
-        "/ai/quiz/generate", json={"query": "valid"}
+        "/ai/quiz/generate",
+        json={"query": "valid"},
+        headers={"X-Internal-Service-Token": "internal-test-token"},
     )
     assert response.status_code == 502
     assert response.json() == {"detail": "Generated output is invalid"}
     assert "AIza-hidden-secret" not in response.text
+
+
+def test_generation_route_requires_internal_token(tmp_path: Path) -> None:
+    client = TestClient(create_app(configured(tmp_path)))
+    path = "/ai/quiz/generate"
+    assert client.post(path, json={"query": "valid"}).status_code == 401
+    assert client.post(
+        path,
+        json={"query": "valid"},
+        headers={"X-Internal-Service-Token": "wrong"},
+    ).status_code == 401
+
+
+def test_generation_route_fails_closed_when_internal_token_is_unconfigured(
+    tmp_path: Path,
+) -> None:
+    client = TestClient(create_app(configured(tmp_path, ai_service_internal_token="")))
+    response = client.post("/ai/quiz/generate", json={"query": "valid"})
+    assert response.status_code == 503
+    assert response.json() == {"detail": "Internal authentication is not configured"}

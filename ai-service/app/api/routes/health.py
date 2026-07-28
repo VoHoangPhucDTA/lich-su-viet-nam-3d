@@ -3,12 +3,22 @@
 import json
 from typing import Annotated
 
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, Response, status
 
 from app.config import Settings
 from app.dependencies import get_request_settings
 from app.embedding.checkpoint import sanitize_artifact_name
 from app.schemas.common import HealthResponse
+from app.retrieval.models import RetrievalNotReadyError
+from app.retrieval.service import _expected_collection_metadata
+from app.vectorstore.chroma_client import (
+    close_persistent_client,
+    collection_exists,
+    create_persistent_client,
+    get_collection,
+    validate_collection_contract,
+)
+from app.vectorstore.models import CollectionCompatibilityError
 
 router = APIRouter(tags=["health"])
 
@@ -63,10 +73,94 @@ def _retrieval_ready(settings: Settings, chroma_ready: bool) -> bool:
         and len(corpus_sha) == 64
         and bool(str(manifest.get("formatterVersion", "")).strip())
     )
-@router.get("/health", response_model=HealthResponse)
+
+
+def _deep_readiness(settings: Settings) -> tuple[bool, int | None, str | None]:
+    """Open and validate the real collection without calling Gemini."""
+
+    client = None
+    try:
+        manifest_path = (
+            settings.embedding_output_dir
+            / sanitize_artifact_name(
+                settings.gemini_embedding_model,
+                settings.gemini_embedding_dimension,
+            )
+            / "embedding_manifest.json"
+        )
+        manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+        if (
+            manifest.get("status") != "COMPLETED"
+            or manifest.get("embeddingModel")
+            != settings.gemini_embedding_model
+            or manifest.get("dimension")
+            != settings.gemini_embedding_dimension
+            or not isinstance(manifest.get("corpusSha256"), str)
+        ):
+            return False, None, "AI_EMBEDDING_CONTRACT_MISMATCH"
+        expected = _expected_collection_metadata(settings)
+        client = create_persistent_client(settings.chroma_persist_dir)
+        if not collection_exists(client, settings.chroma_collection_name):
+            return False, None, "AI_COLLECTION_NOT_FOUND"
+        collection = get_collection(client, settings.chroma_collection_name)
+        validate_collection_contract(
+            collection,
+            expected,
+            settings.chroma_distance_metric,
+        )
+        count = collection.count()
+        if count <= 0:
+            return False, count, "AI_COLLECTION_EMPTY"
+        return True, count, None
+    except (RetrievalNotReadyError, CollectionCompatibilityError):
+        return False, None, "AI_COLLECTION_CONTRACT_MISMATCH"
+    except (OSError, ValueError, KeyError, json.JSONDecodeError):
+        return False, None, "AI_READINESS_NOT_READY"
+    except Exception:
+        return False, None, "AI_READINESS_NOT_READY"
+    finally:
+        if client is not None:
+            close_persistent_client(client)
+
+
+@router.get(
+    "/health",
+    response_model=HealthResponse,
+    response_model_exclude_none=True,
+)
 def health(
+    response: Response,
     settings: Annotated[Settings, Depends(get_request_settings)],
+    deep: bool = False,
 ) -> HealthResponse:
+    if deep:
+        if settings.deterministic_e2e_provider:
+            return HealthResponse(
+                status="READY",
+                service="history-rag-ai-service",
+                environment=settings.app_env,
+                chromaReady=True,
+                retrievalReady=True,
+                generationReady=True,
+                geminiConfigured=False,
+                recordCount=1,
+                contractReady=True,
+            )
+        ready, record_count, error_code = _deep_readiness(settings)
+        if not ready:
+            response.status_code = status.HTTP_503_SERVICE_UNAVAILABLE
+        return HealthResponse(
+            status="READY" if ready else "NOT_READY",
+            service="history-rag-ai-service",
+            environment=settings.app_env,
+            chromaReady=ready,
+            retrievalReady=ready,
+            generationReady=False,
+            geminiConfigured=False,
+            recordCount=record_count,
+            contractReady=ready,
+            errorCode=error_code,
+        )
     if settings.deterministic_e2e_provider:
         return HealthResponse(
             status="ok",

@@ -40,6 +40,11 @@ public class HttpAiQuizClient implements AiQuizClient {
 
     @Override
     public AiQuizGenerationResponse generate(AiQuizGenerationRequest request, String requestId) {
+        if (properties.internalToken().isBlank()) {
+            throw new ApiException(HttpStatus.SERVICE_UNAVAILABLE,
+                    "AI_SERVICE_UNAVAILABLE",
+                    "AI Service internal authentication is not configured");
+        }
         byte[] body;
         try {
             body = objectMapper.writeValueAsBytes(request);
@@ -70,7 +75,8 @@ public class HttpAiQuizClient implements AiQuizClient {
         return HttpRequest.newBuilder(resolve(path))
                 .timeout(properties.readTimeout())
                 .header("Accept", "application/json")
-                .header("X-Request-ID", requestId);
+                .header("X-Request-ID", requestId)
+                .header("X-Internal-Service-Token", properties.internalToken());
     }
 
     private URI resolve(String path) {
@@ -109,6 +115,8 @@ public class HttpAiQuizClient implements AiQuizClient {
             return new ApiException(HttpStatus.BAD_GATEWAY, "AI_SERVICE_INVALID_RESPONSE", "AI Service returned an unexpected conflict");
         }
         return switch (status) {
+            case 401, 403 -> new ApiException(HttpStatus.SERVICE_UNAVAILABLE,
+                    "AI_SERVICE_UNAVAILABLE", "AI Service is unavailable");
             case 409 -> new ApiException(HttpStatus.CONFLICT, "AI_INSUFFICIENT_CONTEXT", "AI Service could not find sufficient context");
             case 422 -> new ApiException(HttpStatus.valueOf(422), "AI_SERVICE_CONTRACT_REJECTED", "AI Service rejected the request contract");
             case 502 -> new ApiException(HttpStatus.BAD_GATEWAY, "AI_GENERATION_FAILED", "AI Service returned invalid generated output");

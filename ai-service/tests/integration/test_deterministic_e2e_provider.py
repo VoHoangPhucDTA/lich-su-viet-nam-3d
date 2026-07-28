@@ -23,7 +23,7 @@ def test_deterministic_provider_exercises_generation_and_provenance_contract() -
     client = TestClient(create_app(settings))
     generated = client.post("/ai/quiz/generate", json={
         "query": "Cách mạng tháng Tám", "grade": 12, "lessonNumber": 6, "count": 3
-    })
+    }, headers={"X-Internal-Service-Token": "test-internal-token"})
     assert generated.status_code == 200
     body = generated.json()
     assert len(body["questions"]) == 3

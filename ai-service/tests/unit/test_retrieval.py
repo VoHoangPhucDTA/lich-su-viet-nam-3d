@@ -24,6 +24,8 @@ from app.retrieval.models import (
 from app.retrieval.retriever import ChromaRetriever
 from app.retrieval.service import RetrievalService, diversify_candidates
 
+INTERNAL_HEADERS = {"X-Internal-Service-Token": "internal-test-token"}
+
 
 class FakeProvider:
     def __init__(self, vector: list[float]) -> None:
@@ -89,6 +91,7 @@ def candidate(
 
 def settings(tmp_path: Path, **overrides: Any) -> Settings:
     values: dict[str, Any] = {
+        "ai_service_internal_token": "internal-test-token",
         "gemini_embedding_dimension": 3,
         "chroma_persist_dir": tmp_path / "chroma",
         "chroma_report_dir": tmp_path / "reports",
@@ -325,11 +328,30 @@ def test_debug_api_validation_and_safe_not_ready_mapping(
     app = create_app(settings(tmp_path))
     client = TestClient(app)
 
-    assert client.post("/ai/retrieval/debug", json={"query": ""}).status_code == 422
-    response = client.post("/ai/retrieval/debug", json={"query": "valid"})
+    assert client.post(
+        "/ai/retrieval/debug",
+        json={"query": ""},
+        headers=INTERNAL_HEADERS,
+    ).status_code == 422
+    response = client.post(
+        "/ai/retrieval/debug",
+        json={"query": "valid"},
+        headers=INTERNAL_HEADERS,
+    )
     assert response.status_code == 503
     assert response.json() == {"detail": "Retrieval index is not ready"}
     assert "secret internal path" not in response.text
+
+
+def test_retrieval_debug_route_requires_internal_token(tmp_path: Path) -> None:
+    client = TestClient(create_app(settings(tmp_path)))
+    path = "/ai/retrieval/debug"
+    assert client.post(path, json={"query": "valid"}).status_code == 401
+    assert client.post(
+        path,
+        json={"query": "valid"},
+        headers={"X-Internal-Service-Token": "wrong"},
+    ).status_code == 401
 
 
 def test_debug_api_hides_unexpected_errors(tmp_path: Path, monkeypatch) -> None:
@@ -345,7 +367,9 @@ def test_debug_api_hides_unexpected_errors(tmp_path: Path, monkeypatch) -> None:
         lambda _: BrokenService(),
     )
     response = TestClient(create_app(settings(tmp_path))).post(
-        "/ai/retrieval/debug", json={"query": "valid"}
+        "/ai/retrieval/debug",
+        json={"query": "valid"},
+        headers=INTERNAL_HEADERS,
     )
     assert response.status_code == 500
     assert response.json() == {"detail": "Unexpected retrieval failure"}

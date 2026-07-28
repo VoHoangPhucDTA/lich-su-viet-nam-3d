@@ -5,7 +5,7 @@ from typing import Annotated
 from fastapi import APIRouter, Depends, HTTPException
 
 from app.config import Settings
-from app.dependencies import get_request_settings
+from app.dependencies import get_request_settings, require_internal_token
 from app.generation.models import (
     GenerationNotConfiguredError,
     GenerationOutputError,
@@ -22,7 +22,11 @@ from app.retrieval.models import RetrievalNotReadyError, RetrievalProviderError
 router = APIRouter(prefix="/quiz", tags=["generation"])
 
 
-@router.post("/generate", response_model=GenerationResponse)
+@router.post(
+    "/generate",
+    response_model=GenerationResponse,
+    dependencies=[Depends(require_internal_token)],
+)
 def generate_quiz(
     request: GenerationRequest,
     settings: Annotated[Settings, Depends(get_request_settings)],

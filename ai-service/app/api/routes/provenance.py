@@ -1,12 +1,11 @@
 """Protected, read-only internal provenance validation endpoint."""
 
-import secrets
 from typing import Annotated
 
-from fastapi import APIRouter, Depends, Header, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, status
 
 from app.config import Settings
-from app.dependencies import get_request_settings
+from app.dependencies import get_request_settings, require_internal_token
 from app.provenance.models import (
     CanonicalSourceSearchRequest,
     CanonicalSourceSearchResponse,
@@ -20,19 +19,11 @@ from app.retrieval.service import create_retrieval_service
 
 router = APIRouter(prefix="/provenance", tags=["internal-provenance"])
 
-
-def require_internal_token(
-    settings: Annotated[Settings, Depends(get_request_settings)],
-    token: Annotated[str | None, Header(alias="X-Internal-Service-Token")] = None,
-) -> None:
-    expected = settings.ai_service_internal_token.get_secret_value()
-    if not expected:
-        raise HTTPException(status_code=status.HTTP_503_SERVICE_UNAVAILABLE, detail="Internal authentication is not configured")
-    if token is None or not secrets.compare_digest(token, expected):
-        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Internal authentication required")
-
-
-@router.post("/validate", response_model=ProvenanceValidationResponse, dependencies=[Depends(require_internal_token)])
+@router.post(
+    "/validate",
+    response_model=ProvenanceValidationResponse,
+    dependencies=[Depends(require_internal_token)],
+)
 def provenance_validate(
     request: ProvenanceValidationRequest,
     settings: Annotated[Settings, Depends(get_request_settings)],

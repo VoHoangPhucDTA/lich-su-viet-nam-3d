@@ -20,3 +20,6 @@ class HealthResponse(CamelModel):
     retrieval_ready: bool
     generation_ready: bool
     gemini_configured: bool
+    record_count: int | None = None
+    contract_ready: bool | None = None
+    error_code: str | None = None
