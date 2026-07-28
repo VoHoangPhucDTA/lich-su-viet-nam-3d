@@ -20,7 +20,9 @@ def test_deterministic_provider_exercises_generation_and_provenance_contract() -
         ai_service_internal_token="test-internal-token",
         quiz_default_count=1,
     )
-    client = TestClient(create_app(settings))
+    app = create_app(settings)
+    app.state.runtime_resources.start()
+    client = TestClient(app)
     generated = client.post("/ai/quiz/generate", json={
         "query": "Cách mạng tháng Tám", "grade": 12, "lessonNumber": 6, "count": 3
     }, headers={"X-Internal-Service-Token": "test-internal-token"})
@@ -43,3 +45,4 @@ def test_deterministic_provider_exercises_generation_and_provenance_contract() -
     )
     assert validated.status_code == 200
     assert validated.json()["valid"] is True
+    app.state.runtime_resources.shutdown()

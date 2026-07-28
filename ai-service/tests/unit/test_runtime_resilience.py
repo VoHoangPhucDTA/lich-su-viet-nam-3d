@@ -529,18 +529,19 @@ def test_fastapi_maps_deadline_to_sanitized_504(
         def close(self):
             return None
 
-    monkeypatch.setattr(
-        "app.api.routes.generation.create_generation_service",
-        lambda _: TimedOutService(),
-    )
-    response = TestClient(create_app(configured(tmp_path))).post(
-        "/ai/quiz/generate",
-        json={"query": "valid"},
-        headers={
-            "X-Internal-Service-Token": "internal-test-token",
-            "X-Request-ID": "deadline-test",
-        },
-    )
+    from app.dependencies import get_generation_service
+
+    app = create_app(configured(tmp_path))
+    app.dependency_overrides[get_generation_service] = lambda: TimedOutService()
+    with TestClient(app) as client:
+        response = client.post(
+            "/ai/quiz/generate",
+            json={"query": "valid"},
+            headers={
+                "X-Internal-Service-Token": "internal-test-token",
+                "X-Request-ID": "deadline-test",
+            },
+        )
     assert response.status_code == 504
     assert response.json() == {"detail": "GENERATION_TIMEOUT"}
     assert response.headers["X-Request-ID"] == "deadline-test"
@@ -560,15 +561,16 @@ def test_retrieval_debug_maps_deadline_to_sanitized_504(
         def close(self):
             return None
 
-    monkeypatch.setattr(
-        "app.api.routes.retrieval.create_retrieval_service",
-        lambda _: TimedOutService(),
-    )
-    response = TestClient(create_app(settings(tmp_path))).post(
-        "/ai/retrieval/debug",
-        json={"query": "valid"},
-        headers={"X-Internal-Service-Token": "internal-test-token"},
-    )
+    from app.dependencies import get_retrieval_service
+
+    app = create_app(settings(tmp_path))
+    app.dependency_overrides[get_retrieval_service] = lambda: TimedOutService()
+    with TestClient(app) as client:
+        response = client.post(
+            "/ai/retrieval/debug",
+            json={"query": "valid"},
+            headers={"X-Internal-Service-Token": "internal-test-token"},
+        )
     assert response.status_code == 504
     assert response.json() == {"detail": "EMBEDDING_TIMEOUT"}
 
@@ -576,13 +578,12 @@ def test_retrieval_debug_maps_deadline_to_sanitized_504(
 def test_chroma_lifecycle_global_cache_risk_is_deterministically_instrumented(
     tmp_path: Path, monkeypatch
 ) -> None:
-    """Goal 14D reproduction: RISK_CONFIRMED_BY_GLOBAL_STATE, not race fixed."""
+    """Peer retrievers may stop their own clients without global invalidation."""
 
     import threading
 
     barrier = threading.Barrier(2)
     peer_closed = threading.Event()
-    cache_clear_calls: list[int] = []
     stopped: list[int] = []
 
     class Collection:
@@ -634,10 +635,6 @@ def test_chroma_lifecycle_global_cache_risk_is_deterministically_instrumented(
             return Collection(self.identity)
 
     next_id = iter((1, 2))
-    monkeypatch.setattr(
-        "app.vectorstore.chroma_client.SharedSystemClient.clear_system_cache",
-        lambda: cache_clear_calls.append(1),
-    )
     persist = tmp_path / "chroma-race-reproduction"
     persist.mkdir()
     (persist / "chroma.sqlite3").touch()
@@ -650,10 +647,21 @@ def test_chroma_lifecycle_global_cache_risk_is_deterministically_instrumented(
             distance_metric="cosine",
             client_factory=lambda _: Client(next(next_id)),
         )
-        return retriever.retrieve([1.0, 0.0, 0.0], RetrievalFilters(), 1)
+        result = retriever.retrieve([1.0, 0.0, 0.0], RetrievalFilters(), 1)
+        retriever.close()
+        return result
 
     with ThreadPoolExecutor(max_workers=2) as executor:
         results = list(executor.map(lambda _: run_one(), range(2)))
     assert [len(result) for result in results] == [1, 1]
     assert len(stopped) == 2
-    assert len(cache_clear_calls) == 2
+    chroma_client_source = (
+        Path(__file__).resolve().parents[2]
+        / "app"
+        / "vectorstore"
+        / "chroma_client.py"
+    )
+    assert not any(
+        "clear_system_cache" in line
+        for line in chroma_client_source.read_text(encoding="utf-8").splitlines()
+    )

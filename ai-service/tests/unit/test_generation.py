@@ -28,6 +28,7 @@ from app.generation.validators import (
     validate_questions,
 )
 from app.main import create_app
+from app.dependencies import get_generation_service
 from app.retrieval.models import (
     FactContext,
     RetrievalFilters,
@@ -416,12 +417,14 @@ def test_api_safe_error_mapping(tmp_path: Path, monkeypatch) -> None:
             raise GenerationOutputError("AIza-hidden-secret")
         def close(self):
             return None
-    monkeypatch.setattr("app.api.routes.generation.create_generation_service", lambda _: BrokenService())
-    response = TestClient(create_app(configured(tmp_path))).post(
-        "/ai/quiz/generate",
-        json={"query": "valid"},
-        headers={"X-Internal-Service-Token": "internal-test-token"},
-    )
+    app = create_app(configured(tmp_path))
+    app.dependency_overrides[get_generation_service] = lambda: BrokenService()
+    with TestClient(app) as client:
+        response = client.post(
+            "/ai/quiz/generate",
+            json={"query": "valid"},
+            headers={"X-Internal-Service-Token": "internal-test-token"},
+        )
     assert response.status_code == 502
     assert response.json() == {"detail": "Generated output is invalid"}
     assert "AIza-hidden-secret" not in response.text

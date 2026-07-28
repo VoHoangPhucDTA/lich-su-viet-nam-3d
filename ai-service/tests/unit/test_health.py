@@ -6,7 +6,6 @@ from fastapi.testclient import TestClient
 from app.config import Settings
 from app.embedding.checkpoint import sanitize_artifact_name
 from app.main import create_app
-from app.api.routes import health as health_route
 
 
 def test_health_endpoint_without_external_clients(tmp_path) -> None:
@@ -88,29 +87,19 @@ def test_deep_readiness_checks_collection_without_gemini(
         encoding="utf-8",
     )
 
-    class Collection:
-        metadata = {}
-        configuration = {"hnsw": {"space": "cosine"}}
+    class Resources:
+        ready = True
+        def start(self):
+            return None
+        def shutdown(self):
+            return None
+        def deep_readiness(self):
+            return True, 414, None
 
-        def count(self):
-            return 414
-
-    class Client:
-        def get_collection(self, name):
-            return Collection()
-
-    monkeypatch.setattr(
-        health_route,
-        "_expected_collection_metadata",
-        lambda _: {},
-    )
-    monkeypatch.setattr(health_route, "create_persistent_client", lambda _: Client())
-    monkeypatch.setattr(health_route, "collection_exists", lambda *_: True)
-    monkeypatch.setattr(health_route, "get_collection", lambda client, name: client.get_collection(name))
-    monkeypatch.setattr(health_route, "validate_collection_contract", lambda *args: None)
-    monkeypatch.setattr(health_route, "close_persistent_client", lambda _: None)
-
-    response = TestClient(create_app(settings)).get("/ai/health?deep=true")
+    with TestClient(
+        create_app(settings, runtime_factory=lambda _: Resources())
+    ) as client:
+        response = client.get("/ai/health?deep=true")
     assert response.status_code == 200
     assert response.json()["status"] == "READY"
     assert response.json()["recordCount"] == 414
@@ -143,23 +132,22 @@ def test_deep_readiness_returns_sanitized_503_when_collection_missing(
         ),
         encoding="utf-8",
     )
-    monkeypatch.setattr(
-        health_route,
-        "_expected_collection_metadata",
-        lambda _: {},
-    )
-    monkeypatch.setattr(
-        health_route,
-        "create_persistent_client",
-        lambda _: object(),
-    )
-    monkeypatch.setattr(health_route, "collection_exists", lambda *_: False)
-    monkeypatch.setattr(health_route, "close_persistent_client", lambda _: None)
+    class Resources:
+        ready = False
+        def start(self):
+            return None
+        def shutdown(self):
+            return None
+        def deep_readiness(self):
+            return False, None, "AI_COLLECTION_NOT_READY"
 
-    response = TestClient(create_app(settings)).get("/ai/health?deep=true")
+    with TestClient(
+        create_app(settings, runtime_factory=lambda _: Resources())
+    ) as client:
+        response = client.get("/ai/health?deep=true")
     assert response.status_code == 503
     assert response.json()["status"] == "NOT_READY"
-    assert response.json()["errorCode"] == "AI_COLLECTION_NOT_FOUND"
+    assert response.json()["errorCode"] == "AI_COLLECTION_NOT_READY"
     assert "path" not in response.text.lower()
 
 

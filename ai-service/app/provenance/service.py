@@ -1,5 +1,7 @@
 """Validate stored source identities against the active production Chroma collection."""
 
+from typing import Any
+
 from app.config import Settings
 from app.retrieval.models import RetrievalNotReadyError
 from app.retrieval.service import _expected_collection_metadata
@@ -19,9 +21,13 @@ from app.vectorstore.models import CollectionCompatibilityError
 
 
 def validate_provenance(
-    request: ProvenanceValidationRequest, settings: Settings
+    request: ProvenanceValidationRequest,
+    settings: Settings,
+    *,
+    expected_metadata: dict[str, Any] | None = None,
+    collection: Any | None = None,
 ) -> ProvenanceValidationResponse:
-    expected = _expected_collection_metadata(settings)
+    expected = expected_metadata or _expected_collection_metadata(settings)
     corpus_matches = request.corpus_sha256 == expected.get("corpusSha256")
     collection_matches = request.collection_name == settings.chroma_collection_name
     embedding_matches = (
@@ -40,13 +46,15 @@ def validate_provenance(
     if len(set(requested_ids)) != len(requested_ids):
         errors.append("DUPLICATE_SOURCE_ID")
 
-    if not (settings.chroma_persist_dir / "chroma.sqlite3").is_file():
-        raise RetrievalNotReadyError("Chroma persistence is not ready")
-    client = create_persistent_client(settings.chroma_persist_dir)
-    try:
+    client = None
+    if collection is None:
+        if not (settings.chroma_persist_dir / "chroma.sqlite3").is_file():
+            raise RetrievalNotReadyError("Chroma persistence is not ready")
+        client = create_persistent_client(settings.chroma_persist_dir)
         if not collection_exists(client, settings.chroma_collection_name):
             raise RetrievalNotReadyError("Retrieval collection does not exist")
         collection = get_collection(client, settings.chroma_collection_name)
+    try:
         try:
             validate_collection_contract(
                 collection, expected, settings.chroma_distance_metric
@@ -55,7 +63,8 @@ def validate_provenance(
             raise RetrievalNotReadyError("Retrieval collection contract is incompatible") from exc
         raw = collection.get(ids=list(dict.fromkeys(requested_ids)), include=["metadatas"])
     finally:
-        close_persistent_client(client)
+        if client is not None:
+            close_persistent_client(client)
 
     metadata_by_id = {
         str(chunk_id): metadata

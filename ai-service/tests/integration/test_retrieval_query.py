@@ -7,6 +7,7 @@ from app.vectorstore.chroma_client import (
     create_collection,
     create_persistent_client,
 )
+from tests.chroma_utils import reset_chroma_system_cache_for_tests
 
 
 COLLECTION_METADATA = {
@@ -60,6 +61,7 @@ def test_fake_768_query_filters_orders_and_reopens_persistent_chroma(
         ],
     )
     close_persistent_client(client)
+    reset_chroma_system_cache_for_tests()
 
     retriever = ChromaRetriever(
         persist_dir=persist_dir,
@@ -77,3 +79,5 @@ def test_fake_768_query_filters_orders_and_reopens_persistent_chroma(
     assert all(result.grade == 12 and result.lesson_number == 6 for result in results)
     assert results[0].distance < results[1].distance
     assert (persist_dir / "chroma.sqlite3").is_file()
+    retriever.close()
+    reset_chroma_system_cache_for_tests()

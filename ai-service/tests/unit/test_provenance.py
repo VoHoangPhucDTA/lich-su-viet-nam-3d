@@ -7,8 +7,10 @@ from fastapi.testclient import TestClient
 from app.config import Settings
 from app.embedding.checkpoint import sanitize_artifact_name
 from app.main import create_app
+from app.dependencies import get_retrieval_service
 from app.retrieval.service import _expected_collection_metadata
 from app.vectorstore.chroma_client import close_persistent_client, create_collection, create_persistent_client
+from tests.chroma_utils import reset_chroma_system_cache_for_tests
 
 
 TOKEN = "internal-test-token-with-enough-entropy"
@@ -49,6 +51,7 @@ def configured_settings(tmp_path: Path) -> Settings:
         ],
     )
     close_persistent_client(client)
+    reset_chroma_system_cache_for_tests()
     return settings
 
 
@@ -71,8 +74,8 @@ def test_internal_auth_is_required_and_invalid_token_is_rejected(tmp_path: Path)
 
 
 def test_valid_identity_returns_only_metadata_flags(tmp_path: Path) -> None:
-    client = TestClient(create_app(configured_settings(tmp_path)))
-    response = client.post("/ai/provenance/validate", json=payload(), headers={"X-Internal-Service-Token": TOKEN})
+    with TestClient(create_app(configured_settings(tmp_path))) as client:
+        response = client.post("/ai/provenance/validate", json=payload(), headers={"X-Internal-Service-Token": TOKEN})
     assert response.status_code == 200
     assert response.json()["valid"] is True
     source = response.json()["sources"][0]
@@ -84,7 +87,7 @@ def test_valid_identity_returns_only_metadata_flags(tmp_path: Path) -> None:
 
 
 def test_missing_changed_pending_duplicate_and_identity_mismatches_fail(tmp_path: Path) -> None:
-    client = TestClient(create_app(configured_settings(tmp_path)))
+    app = create_app(configured_settings(tmp_path))
     headers = {"X-Internal-Service-Token": TOKEN}
     sources = [
         {"chunkId": "missing", "chunkHash": "d" * 64},
@@ -92,9 +95,10 @@ def test_missing_changed_pending_duplicate_and_identity_mismatches_fail(tmp_path
         {"chunkId": "chunk-pending", "chunkHash": "c" * 64},
         {"chunkId": "chunk-pending", "chunkHash": "c" * 64},
     ]
-    response = client.post("/ai/provenance/validate", json=payload(
-        corpusSha256="f" * 64, collectionName="other_collection", embeddingDimension=768, sources=sources,
-    ), headers=headers)
+    with TestClient(app) as client:
+        response = client.post("/ai/provenance/validate", json=payload(
+            corpusSha256="f" * 64, collectionName="other_collection", embeddingDimension=768, sources=sources,
+        ), headers=headers)
     assert response.status_code == 200
     body = response.json()
     assert body["valid"] is False
@@ -119,15 +123,16 @@ def test_canonical_source_search_is_internal_bounded_and_metadata_only(tmp_path:
         def close(self):
             captured["closed"] = True
 
-    monkeypatch.setattr("app.api.routes.provenance.create_retrieval_service", lambda _: FakeService())
-    client = TestClient(create_app(settings))
+    app = create_app(settings)
+    app.dependency_overrides[get_retrieval_service] = lambda: FakeService()
     path = "/ai/provenance/sources/search"
-    assert client.post(path, json={"query": "event", "grade": 12, "lessonNumber": 6}).status_code == 401
-    response = client.post(path, json={"query": " event ", "grade": 12, "lessonNumber": 6, "topK": 10},
-                           headers={"X-Internal-Service-Token": TOKEN})
+    with TestClient(app) as client:
+        assert client.post(path, json={"query": "event", "grade": 12, "lessonNumber": 6}).status_code == 401
+        response = client.post(path, json={"query": " event ", "grade": 12, "lessonNumber": 6, "topK": 10},
+                               headers={"X-Internal-Service-Token": TOKEN})
     assert response.status_code == 200
     result = response.json()["results"][0]
     assert len(result["excerpt"]) == 600 and result["pendingReview"] is False
     assert "vector" not in response.text.lower() and "path" not in response.text.lower()
     assert captured["request"].grade == 12 and captured["request"].lesson_number == 6
-    assert captured["closed"] is True
+    assert "closed" not in captured

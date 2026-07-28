@@ -6,10 +6,33 @@ from typing import Annotated
 from fastapi import Depends, Header, HTTPException, Request, status
 
 from app.config import Settings
+from app.core.runtime import AiRuntimeResources
 
 
 def get_request_settings(request: Request) -> Settings:
     return request.app.state.settings
+
+
+def get_runtime_resources(request: Request) -> AiRuntimeResources:
+    resources: AiRuntimeResources = request.app.state.runtime_resources
+    if not resources.ready:
+        raise HTTPException(
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            detail="AI runtime is not ready",
+        )
+    return resources
+
+
+def get_retrieval_service(
+    resources: Annotated[AiRuntimeResources, Depends(get_runtime_resources)],
+):
+    return resources.retrieval_service
+
+
+def get_generation_service(
+    resources: Annotated[AiRuntimeResources, Depends(get_runtime_resources)],
+):
+    return resources.generation_service
 
 
 def require_internal_token(

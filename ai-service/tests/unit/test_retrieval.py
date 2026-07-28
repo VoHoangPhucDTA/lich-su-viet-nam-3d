@@ -11,6 +11,7 @@ from app.config import Settings
 from app.embedding.formatter import QUERY_FORMATTER_VERSION, RetrievalFormatter
 from app.embedding.checkpoint import sanitize_artifact_name
 from app.main import create_app
+from app.dependencies import get_retrieval_service
 from app.retrieval.context_builder import build_fact_context
 from app.retrieval.filters import build_chroma_where, candidate_matches_filters
 from app.retrieval.models import (
@@ -321,23 +322,20 @@ def test_debug_api_validation_and_safe_not_ready_mapping(
         def close(self) -> None:
             return None
 
-    monkeypatch.setattr(
-        "app.api.routes.retrieval.create_retrieval_service",
-        lambda _: NotReadyService(),
-    )
     app = create_app(settings(tmp_path))
-    client = TestClient(app)
+    app.dependency_overrides[get_retrieval_service] = lambda: NotReadyService()
 
-    assert client.post(
-        "/ai/retrieval/debug",
-        json={"query": ""},
-        headers=INTERNAL_HEADERS,
-    ).status_code == 422
-    response = client.post(
-        "/ai/retrieval/debug",
-        json={"query": "valid"},
-        headers=INTERNAL_HEADERS,
-    )
+    with TestClient(app) as client:
+        assert client.post(
+            "/ai/retrieval/debug",
+            json={"query": ""},
+            headers=INTERNAL_HEADERS,
+        ).status_code == 422
+        response = client.post(
+            "/ai/retrieval/debug",
+            json={"query": "valid"},
+            headers=INTERNAL_HEADERS,
+        )
     assert response.status_code == 503
     assert response.json() == {"detail": "Retrieval index is not ready"}
     assert "secret internal path" not in response.text
@@ -362,15 +360,14 @@ def test_debug_api_hides_unexpected_errors(tmp_path: Path, monkeypatch) -> None:
         def close(self) -> None:
             return None
 
-    monkeypatch.setattr(
-        "app.api.routes.retrieval.create_retrieval_service",
-        lambda _: BrokenService(),
-    )
-    response = TestClient(create_app(settings(tmp_path))).post(
-        "/ai/retrieval/debug",
-        json={"query": "valid"},
-        headers=INTERNAL_HEADERS,
-    )
+    app = create_app(settings(tmp_path))
+    app.dependency_overrides[get_retrieval_service] = lambda: BrokenService()
+    with TestClient(app) as client:
+        response = client.post(
+            "/ai/retrieval/debug",
+            json={"query": "valid"},
+            headers=INTERNAL_HEADERS,
+        )
     assert response.status_code == 500
     assert response.json() == {"detail": "Unexpected retrieval failure"}
     assert "AIza-hidden-secret" not in response.text

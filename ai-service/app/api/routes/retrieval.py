@@ -12,7 +12,11 @@ from app.core.deadline import (
     OperationDeadline,
     OperationDeadlineExceeded,
 )
-from app.dependencies import get_request_settings, require_internal_token
+from app.dependencies import (
+    get_request_settings,
+    get_retrieval_service,
+    require_internal_token,
+)
 from app.retrieval.models import (
     RetrievalError,
     RetrievalNotReadyError,
@@ -21,7 +25,7 @@ from app.retrieval.models import (
     RetrievalRequest,
     RetrievalResponse,
 )
-from app.retrieval.service import create_retrieval_service
+from app.retrieval.service import RetrievalService
 
 router = APIRouter(prefix="/retrieval", tags=["retrieval"])
 
@@ -35,13 +39,12 @@ async def retrieval_debug(
     request: RetrievalRequest,
     http_request: Request,
     settings: Annotated[Settings, Depends(get_request_settings)],
+    service: Annotated[RetrievalService, Depends(get_retrieval_service)],
 ) -> RetrievalResponse:
-    service = None
     deadline = OperationDeadline(settings.ai_request_deadline_seconds)
     try:
         if await http_request.is_disconnected():
             raise ClientDisconnectedError("retrieval")
-        service = create_retrieval_service(settings)
         method = service.retrieve
         parameters = inspect.signature(method).parameters
 
@@ -99,6 +102,3 @@ async def retrieval_debug(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail="Unexpected retrieval failure",
         ) from exc
-    finally:
-        if service is not None:
-            await anyio.to_thread.run_sync(service.close)

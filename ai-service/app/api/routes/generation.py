@@ -12,7 +12,11 @@ from app.core.deadline import (
     OperationDeadline,
     OperationDeadlineExceeded,
 )
-from app.dependencies import get_request_settings, require_internal_token
+from app.dependencies import (
+    get_generation_service,
+    get_request_settings,
+    require_internal_token,
+)
 from app.generation.models import (
     GenerationNotConfiguredError,
     GenerationOutputError,
@@ -23,7 +27,7 @@ from app.generation.models import (
     GenerationTransientError,
     InsufficientContextError,
 )
-from app.generation.service import create_generation_service
+from app.generation.service import GenerationService
 from app.retrieval.models import (
     RetrievalNotReadyError,
     RetrievalProviderError,
@@ -42,13 +46,12 @@ async def generate_quiz(
     request: GenerationRequest,
     http_request: Request,
     settings: Annotated[Settings, Depends(get_request_settings)],
+    service: Annotated[GenerationService, Depends(get_generation_service)],
 ) -> GenerationResponse:
-    service = None
     deadline = OperationDeadline(settings.ai_request_deadline_seconds)
     try:
         if await http_request.is_disconnected():
             raise ClientDisconnectedError("generation")
-        service = create_generation_service(settings)
         method = service.generate
         parameters = inspect.signature(method).parameters
 
@@ -84,6 +87,3 @@ async def generate_quiz(
         raise HTTPException(status_code=502, detail="Generated output is invalid") from exc
     except Exception as exc:
         raise HTTPException(status_code=500, detail="Unexpected generation failure") from exc
-    finally:
-        if service is not None:
-            await anyio.to_thread.run_sync(service.close)

@@ -95,11 +95,14 @@ class RetrievalService:
         settings: Settings,
         provider: EmbeddingProvider,
         retriever: ChromaRetriever,
+        collection_metadata: dict[str, str | int | float | bool] | None = None,
     ) -> None:
         self.settings = settings
         self.provider = provider
         self.retriever = retriever
-        self.collection_metadata = _expected_collection_metadata(settings)
+        self.collection_metadata = (
+            collection_metadata or _expected_collection_metadata(settings)
+        )
 
     def retrieve(
         self,
@@ -241,6 +244,7 @@ class RetrievalService:
 
     def close(self) -> None:
         self.provider.close()
+        self.retriever.close()
 
 
 def create_retrieval_service(settings: Settings) -> RetrievalService:

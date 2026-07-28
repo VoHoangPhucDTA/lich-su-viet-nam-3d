@@ -5,7 +5,13 @@ from typing import Annotated
 from fastapi import APIRouter, Depends, HTTPException, status
 
 from app.config import Settings
-from app.dependencies import get_request_settings, require_internal_token
+from app.core.runtime import AiRuntimeResources
+from app.dependencies import (
+    get_request_settings,
+    get_retrieval_service,
+    get_runtime_resources,
+    require_internal_token,
+)
 from app.provenance.models import (
     CanonicalSourceSearchRequest,
     CanonicalSourceSearchResponse,
@@ -15,7 +21,7 @@ from app.provenance.models import (
 )
 from app.provenance.service import validate_provenance
 from app.retrieval.models import RetrievalNotReadyError, RetrievalProviderError, RetrievalRequest
-from app.retrieval.service import create_retrieval_service
+from app.retrieval.service import RetrievalService
 
 router = APIRouter(prefix="/provenance", tags=["internal-provenance"])
 
@@ -27,13 +33,19 @@ router = APIRouter(prefix="/provenance", tags=["internal-provenance"])
 def provenance_validate(
     request: ProvenanceValidationRequest,
     settings: Annotated[Settings, Depends(get_request_settings)],
+    resources: Annotated[AiRuntimeResources, Depends(get_runtime_resources)],
 ) -> ProvenanceValidationResponse:
     try:
         if settings.deterministic_e2e_provider:
             from app.e2e.deterministic import validate_deterministic_provenance
 
             return validate_deterministic_provenance(request)
-        return validate_provenance(request, settings)
+        return validate_provenance(
+            request,
+            settings,
+            expected_metadata=resources.expected_collection_metadata,
+            collection=resources.collection,
+        )
     except RetrievalNotReadyError as exc:
         raise HTTPException(status_code=status.HTTP_503_SERVICE_UNAVAILABLE, detail="Provenance index is unavailable") from exc
     except Exception as exc:
@@ -48,15 +60,9 @@ def provenance_validate(
 def canonical_source_search(
     request: CanonicalSourceSearchRequest,
     settings: Annotated[Settings, Depends(get_request_settings)],
+    service: Annotated[RetrievalService, Depends(get_retrieval_service)],
 ) -> CanonicalSourceSearchResponse:
-    service = None
     try:
-        if settings.deterministic_e2e_provider:
-            from app.e2e.deterministic import DeterministicRetrievalService
-
-            service = DeterministicRetrievalService()
-        else:
-            service = create_retrieval_service(settings)
         response = service.retrieve(RetrievalRequest(
             query=request.query,
             grade=request.grade,
@@ -84,6 +90,3 @@ def canonical_source_search(
         raise HTTPException(status_code=status.HTTP_503_SERVICE_UNAVAILABLE, detail="Canonical source search is unavailable") from exc
     except Exception as exc:
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Canonical source search failed") from exc
-    finally:
-        if service is not None:
-            service.close()
