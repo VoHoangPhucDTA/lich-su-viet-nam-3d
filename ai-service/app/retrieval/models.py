@@ -9,6 +9,14 @@ from app.schemas.common import CamelModel
 
 FilterMode = Literal["GRADE_AND_LESSON", "GRADE_ONLY", "FILTER_OFF"]
 BenchmarkRole = Literal["DEVELOPMENT_AUTHORED", "HELD_OUT_EXTERNAL"]
+EvaluationMode = Literal[
+    "OFFLINE_CACHE_REPLAY",
+    "LIVE_NO_CACHE",
+    "LIVE_CACHE_FILL",
+    "MIXED",
+    "SYNTHETIC_TEST_DATA",
+]
+RetrievalCacheMode = Literal["CACHE_REPLAY", "LIVE", "MIXED", "UNKNOWN"]
 
 
 class RetrievalError(Exception):
@@ -70,8 +78,8 @@ class RetrievalRequest(CamelModel):
     def filters(self) -> RetrievalFilters:
         return RetrievalFilters(
             grade=self.grade,
-            lessonNumber=self.lesson_number,
-            documentId=self.document_id,
+            lesson_number=self.lesson_number,
+            document_id=self.document_id,
         )
 
 
@@ -280,13 +288,7 @@ class EvaluationQueryResult(CamelModel):
 class EvaluationReport(CamelModel):
     report_schema_version: Literal["retrieval-evaluation-v2"]
     status: Literal["COMPLETED", "COMPLETED_WITH_ERRORS"]
-    evaluation_mode: Literal[
-        "OFFLINE_CACHE_REPLAY",
-        "LIVE_NO_CACHE",
-        "LIVE_CACHE_FILL",
-        "MIXED",
-        "SYNTHETIC_TEST_DATA",
-    ]
+    evaluation_mode: EvaluationMode
     benchmark_role: BenchmarkRole
     authoring_protocol: str
     independent_ground_truth: bool
@@ -297,7 +299,7 @@ class EvaluationReport(CamelModel):
     failed_queries: int
     cache_hits: int
     cache_misses: int
-    cache_mode: Literal["CACHE_REPLAY", "LIVE", "MIXED", "UNKNOWN"]
+    cache_mode: RetrievalCacheMode
     configuration: dict[str, Any]
     corpus_identity: dict[str, Any]
     distribution_by_grade: dict[str, int]

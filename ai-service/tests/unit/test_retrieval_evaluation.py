@@ -247,6 +247,13 @@ def test_cache_modes_and_timing_not_instrumented_contract() -> None:
         == "NOT_INSTRUMENTED"
     )
     assert report.cache_mode == "CACHE_REPLAY"
+    serialized = report.model_dump(by_alias=True, mode="json")
+    assert serialized["reportSchemaVersion"] == "retrieval-evaluation-v2"
+    assert serialized["evaluationMode"] == "OFFLINE_CACHE_REPLAY"
+    assert serialized["cacheMode"] == "CACHE_REPLAY"
+    assert [item["queryId"] for item in serialized["queryResults"]] == ["q1"]
+    assert "report_schema_version" not in serialized
+    assert report.__class__.model_validate(serialized) == report
 
 
 def test_flat_metrics_keep_compatibility_but_remove_literals() -> None:

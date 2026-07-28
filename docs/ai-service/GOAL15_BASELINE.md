@@ -220,3 +220,41 @@ plus the pre-existing dirty baseline outside that scope.
 Tooling is installed and reproducible, coverage is now measurable, and the full
 regression remains `223 passed, 3 skipped`. Ruff and Mypy findings are intentionally
 left for later work packages; Goal 15A does not claim lint/type cleanliness.
+
+## Goal 15C / WP2 — typed contracts and pure evaluation helpers
+
+Scope locked before implementation:
+
+```text
+app/retrieval/models.py
+app/retrieval/context_builder.py
+app/retrieval/evaluation.py
+app/generation/evaluation.py
+app/generation/validators.py
+app/generation/duplicate_checker.py
+```
+
+The comparable `python -m mypy app` baseline was `202 errors in 20 files`.
+After WP2 it is `162 errors in 14 files`, a reduction of 40 errors (19.80%).
+The exact WP2 scope reports no Mypy issues when checked as the explicit target
+set. No Mypy configuration, suppression, `Any`, `cast`, or `type: ignore` was
+added.
+
+WP2 cleaned internal model construction by using Python field names while
+preserving the existing camelCase aliases at serialization boundaries. It also
+introduced explicit evaluation/cache-mode Literal aliases and narrowed one
+optional retrieval lookup without changing metric formulas, ordering, default
+values, validators, or report keys.
+
+Verification:
+
+```text
+Ruff: 0 errors
+pytest: 223 passed, 3 skipped
+coverage app: 3409 covered / 3838 statements, 429 missed, 88.82%
+compileall app scripts: passed
+production Chroma: 414 records, gemini-embedding-2, 768 dimensions, cosine
+```
+
+Remaining typing debt is intentionally deferred: provider/external adapters to
+WP3, runtime/deadline/lifecycle to WP4, and route/CLI boundaries to WP5.

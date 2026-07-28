@@ -66,8 +66,8 @@ def build_fact_context(
     text = "\n\n".join(blocks)
     return FactContext(
         text=text,
-        sourceChunkIds=source_ids,
-        includedChunks=len(source_ids),
+        source_chunk_ids=source_ids,
+        included_chunks=len(source_ids),
         truncated=truncated,
-        characterCount=len(text),
+        character_count=len(text),
     )

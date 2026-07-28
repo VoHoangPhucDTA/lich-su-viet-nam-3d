@@ -1,6 +1,7 @@
 """Deterministic structural, source, and grounding heuristics."""
 
 import re
+from typing import Literal
 
 from app.config import Settings
 from app.generation.duplicate_checker import duplicate_issues, normalize_text
@@ -63,29 +64,39 @@ def validate_questions(
         if ids != ["A", "B", "C", "D"]:
             errors.append(
                 ValidationIssue(
-                    code="OPTION_IDS_INVALID", message="options must be ordered A-D", questionIndex=index
+                    code="OPTION_IDS_INVALID",
+                    message="options must be ordered A-D",
+                    question_index=index,
                 )
             )
         if len(set(texts)) != 4:
             errors.append(
                 ValidationIssue(
-                    code="DUPLICATE_OPTION", message="option text must be distinct", questionIndex=index
+                    code="DUPLICATE_OPTION",
+                    message="option text must be distinct",
+                    question_index=index,
                 )
             )
         if len(question.question) > settings.quiz_max_question_length:
             errors.append(
                 ValidationIssue(
-                    code="QUESTION_TOO_LONG", message="question exceeds limit", questionIndex=index
+                    code="QUESTION_TOO_LONG",
+                    message="question exceeds limit",
+                    question_index=index,
                 )
             )
         if any(len(option.text) > settings.quiz_max_option_length for option in question.options):
             errors.append(
-                ValidationIssue(code="OPTION_TOO_LONG", message="option exceeds limit", questionIndex=index)
+                ValidationIssue(
+                    code="OPTION_TOO_LONG", message="option exceeds limit", question_index=index
+                )
             )
         if len(question.explanation) > settings.quiz_max_explanation_length:
             errors.append(
                 ValidationIssue(
-                    code="EXPLANATION_TOO_LONG", message="explanation exceeds limit", questionIndex=index
+                    code="EXPLANATION_TOO_LONG",
+                    message="explanation exceeds limit",
+                    question_index=index,
                 )
             )
         if question.difficulty != request.difficulty:
@@ -93,7 +104,7 @@ def validate_questions(
                 ValidationIssue(
                     code="DIFFICULTY_MISMATCH",
                     message="question difficulty was normalized to the request",
-                    questionIndex=index,
+                    question_index=index,
                     severity="WARNING",
                 )
             )
@@ -116,7 +127,7 @@ def validate_questions(
                         "student-visible content references hidden prompt structure: "
                         + ", ".join(sorted(scaffold_hits))
                     ),
-                    questionIndex=index,
+                    question_index=index,
                 )
             )
         if (
@@ -128,7 +139,7 @@ def validate_questions(
                 ValidationIssue(
                     code="MARKDOWN_FENCE_NOT_ALLOWED",
                     message="fields must not contain code fences",
-                    questionIndex=index,
+                    question_index=index,
                 )
             )
         if any(
@@ -139,19 +150,23 @@ def validate_questions(
                 ValidationIssue(
                     code="FORBIDDEN_OPTION",
                     message="composite/all/none option is forbidden",
-                    questionIndex=index,
+                    question_index=index,
                 )
             )
         if len(set(question.source_chunk_ids)) != len(question.source_chunk_ids):
             errors.append(
                 ValidationIssue(
-                    code="DUPLICATE_SOURCE_ID", message="source IDs must be unique", questionIndex=index
+                    code="DUPLICATE_SOURCE_ID",
+                    message="source IDs must be unique",
+                    question_index=index,
                 )
             )
         if not set(question.source_chunk_ids) <= set(source_map):
             errors.append(
                 ValidationIssue(
-                    code="UNKNOWN_SOURCE_ID", message="source ID is outside Fact Context", questionIndex=index
+                    code="UNKNOWN_SOURCE_ID",
+                    message="source ID is outside Fact Context",
+                    question_index=index,
                 )
             )
         cited_text = "\n".join(
@@ -175,7 +190,7 @@ def validate_questions(
                     ValidationIssue(
                         code="DATE_EVIDENCE_WARNING",
                         message=f"year {year} is absent from cited source",
-                        questionIndex=index,
+                        question_index=index,
                         severity="WARNING",
                     )
                 )
@@ -186,7 +201,7 @@ def validate_questions(
                     ValidationIssue(
                         code="PROPER_NAME_EVIDENCE_WARNING",
                         message=f"name '{name}' is absent from cited source",
-                        questionIndex=index,
+                        question_index=index,
                         severity="WARNING",
                     )
                 )
@@ -204,7 +219,9 @@ def validate_questions(
     )
     valid = [question for index, question in enumerate(normalized_questions) if index not in invalid_indexes]
     has_errors = any(issue.severity == "ERROR" for issue in issues)
-    status = "FAILED" if has_errors and not valid else "PASSED_WITH_WARNINGS" if issues else "PASSED"
+    status: Literal["PASSED", "PASSED_WITH_WARNINGS", "FAILED"] = (
+        "FAILED" if has_errors and not valid else "PASSED_WITH_WARNINGS" if issues else "PASSED"
+    )
     if valid and has_errors:
         status = "PASSED_WITH_WARNINGS"
     return valid, ValidationSummary(status=status, issues=issues)

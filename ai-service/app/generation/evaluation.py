@@ -297,13 +297,13 @@ def build_source_excerpt_map(
         if source.chunk_id in excerpt_map:
             diagnostics.append({"code": "DUPLICATE_RESPONSE_SOURCE_ID", "chunkId": source.chunk_id})
             continue
-        result = retrieval_by_id.get(source.chunk_id)
+        retrieval_result = retrieval_by_id.get(source.chunk_id)
         excerpt_map[source.chunk_id] = build_excerpt_metadata(
             source,
-            result,
+            retrieval_result,
             max_length=max_length,
         )
-        if result is None:
+        if retrieval_result is None:
             diagnostics.append({"code": "MISSING_RETRIEVAL_RESULT", "chunkId": source.chunk_id})
     return excerpt_map, diagnostics
 

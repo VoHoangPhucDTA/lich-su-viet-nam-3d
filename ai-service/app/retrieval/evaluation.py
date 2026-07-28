@@ -9,7 +9,7 @@ from collections import Counter
 from collections.abc import Iterable
 from pathlib import Path
 from statistics import mean, median
-from typing import Any
+from typing import Any, Literal
 
 from pydantic import ValidationError
 
@@ -19,12 +19,14 @@ from app.embedding.base import validate_vectors
 from app.embedding.models import EmbeddingResponseError
 from app.retrieval.models import (
     BenchmarkRecord,
+    EvaluationMode,
     EvaluationQueryResult,
     EvaluationReport,
     HeldOutBenchmarkRecord,
+    RetrievalCacheMode,
 )
 
-RETRIEVAL_REPORT_SCHEMA_VERSION = "retrieval-evaluation-v2"
+RETRIEVAL_REPORT_SCHEMA_VERSION: Literal["retrieval-evaluation-v2"] = "retrieval-evaluation-v2"
 DEVELOPMENT_AUTHORING_PROTOCOL = (
     "ENGINEERING_AUTHORED_FROM_CANONICAL_EVIDENCE"
 )
@@ -283,7 +285,7 @@ def calculate_reciprocal_rank(
 
 def classify_retrieval_cache_mode(
     cache_hits: int, cache_misses: int
-) -> str:
+) -> RetrievalCacheMode:
     if cache_hits < 0 or cache_misses < 0:
         raise ValueError("cache counters must not be negative")
     if cache_hits and cache_misses:
@@ -668,7 +670,7 @@ def build_evaluation_report(
     corpus_identity: dict[str, Any],
     cache_hits: int = 0,
     cache_misses: int = 0,
-    evaluation_mode: str = "SYNTHETIC_TEST_DATA",
+    evaluation_mode: EvaluationMode = "SYNTHETIC_TEST_DATA",
 ) -> EvaluationReport:
     failed_query_ids = {
         result.query_id for result in results if result.error is not None
@@ -689,14 +691,14 @@ def build_evaluation_report(
             }
         )
     return EvaluationReport(
-        reportSchemaVersion=RETRIEVAL_REPORT_SCHEMA_VERSION,
+        report_schema_version=RETRIEVAL_REPORT_SCHEMA_VERSION,
         status="COMPLETED_WITH_ERRORS" if failed else "COMPLETED",
-        evaluationMode=evaluation_mode,
-        benchmarkRole="DEVELOPMENT_AUTHORED",
-        authoringProtocol=DEVELOPMENT_AUTHORING_PROTOCOL,
-        independentGroundTruth=False,
-        filterMode="MULTI_STRATUM",
-        metricPopulation={
+        evaluation_mode=evaluation_mode,
+        benchmark_role="DEVELOPMENT_AUTHORED",
+        authoring_protocol=DEVELOPMENT_AUTHORING_PROTOCOL,
+        independent_ground_truth=False,
+        filter_mode="MULTI_STRATUM",
+        metric_population={
             "effectivenessAttempted": (
                 "all benchmark queries; failures count as retrieval misses"
             ),
@@ -705,30 +707,30 @@ def build_evaluation_report(
             ),
             "safetyAndDiagnostics": "completed retrieval responses only",
         },
-        queryCount=len(benchmark),
-        completedQueries=len(benchmark) - failed,
-        failedQueries=failed,
-        cacheHits=cache_hits,
-        cacheMisses=cache_misses,
-        cacheMode=cache_mode,
+        query_count=len(benchmark),
+        completed_queries=len(benchmark) - failed,
+        failed_queries=failed,
+        cache_hits=cache_hits,
+        cache_misses=cache_misses,
+        cache_mode=cache_mode,
         configuration=configuration,
-        corpusIdentity=corpus_identity,
-        distributionByGrade={
+        corpus_identity=corpus_identity,
+        distribution_by_grade={
             str(key): value
             for key, value in Counter(r.grade for r in benchmark).items()
         },
-        distributionByCategory=dict(
+        distribution_by_category=dict(
             Counter(r.category for r in benchmark)
         ),
         metrics=calculate_metrics(benchmark, results),
         strata=strata,
-        metricAvailability={
+        metric_availability={
             "MAP": (
                 "MAP_NOT_REPORTED_REDUNDANT_WITH_MRR_FOR_SINGLE_RELEVANT_ITEM"
             ),
             "nDCG": "NDCG_NOT_AVAILABLE_NO_GRADED_RELEVANCE",
         },
-        queryResults=results,
+        query_results=results,
     )
 
 
