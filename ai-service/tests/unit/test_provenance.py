@@ -186,6 +186,11 @@ def test_canonical_source_search_is_internal_bounded_and_metadata_only(tmp_path:
     path = "/ai/provenance/sources/search"
     with TestClient(app) as client:
         assert client.post(path, json={"query": "event", "grade": 12, "lessonNumber": 6}).status_code == 401
+        assert client.post(
+            path,
+            json={"query": "event", "grade": 12, "lessonNumber": 6},
+            headers={"X-Internal-Service-Token": "wrong"},
+        ).status_code == 401
         response = client.post(
             path,
             json={"query": " event ", "grade": 12, "lessonNumber": 6, "topK": 10},

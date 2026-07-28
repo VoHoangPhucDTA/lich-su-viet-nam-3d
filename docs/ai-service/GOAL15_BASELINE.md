@@ -363,3 +363,63 @@ production Chroma: 414 records, gemini-embedding-2, 768 dimensions, cosine
 Coverage increased by 19 covered statements and 0.12 percentage points from
 the WP3 baseline (89.25%); missed statements decreased by three. The remaining
 28 API-route errors are deferred to Goal 15F / WP5.
+
+## Goal 15F / WP5 — FastAPI route typing and contract preservation
+
+Scope locked before implementation:
+
+```text
+app/api/routes/generation.py
+app/api/routes/retrieval.py
+app/api/routes/provenance.py
+app/api/routes/health.py
+```
+
+The comparable `python -m mypy app` baseline was `28 errors in 4 files`:
+four in generation, four in retrieval, thirteen in provenance, and seven in
+health (`call-arg`: 19, `arg-type`: 7, `assignment`: 2). After WP5, both the
+explicit route scope and the full `app` target report no Mypy issues, a
+reduction of 28 errors (100%). Mypy configuration was not changed.
+
+Internal Pydantic construction now uses snake_case Python field names while
+the existing aliases continue to serialize camelCase JSON. Generation and
+retrieval routes use explicitly typed service callables and keyword argument
+maps at the dynamic signature-compatibility boundary. Their synchronous
+cancellation adapters still call Starlette's asynchronous
+`Request.is_disconnected` from the AnyIO worker thread, and regression tests
+prove that the deadline and fail-closed disconnect signal reach both services.
+Provenance narrows the already validated grade to its `Literal[10, 11, 12]`
+domain type. Deep health narrows the app-scoped runtime resource without
+creating a new service or client.
+
+No `Any`, `cast`, or `type: ignore` was added. Route paths and methods,
+dependency injection and internal-token authentication, request-ID behavior,
+request defaults, response models and aliases, status/error mappings,
+readiness semantics, retrieval/provenance ordering, and generation output
+remain unchanged. Contract tests cover snake_case construction with camelCase
+wire aliases, OpenAPI path/method/response references, auth, closed-runtime
+responses, shallow/deep health behavior, and deadline/cancellation propagation.
+
+Verification:
+
+```text
+scoped Mypy: 0 errors in 4 files
+full app Mypy: 0 errors in 65 source files
+Ruff: 0 errors
+pytest: 247 passed, 3 skipped
+coverage app: 3489 covered / 3897 statements, 408 missed, 89.53%
+compileall app scripts: passed
+production Chroma: 414 records, gemini-embedding-2, 768 dimensions, cosine
+```
+
+Coverage increased by 18 covered statements and 0.16 percentage points from
+the WP4 baseline (89.37%); missed statements decreased by five.
+
+The measurement-only `python -m mypy app scripts --show-error-codes` baseline
+for Goal 15G is `90 errors in 5 script files`: 88 `call-arg`, one `arg-type`,
+and one `no-redef`. The affected files are `scripts/query_retrieval.py` (3),
+`scripts/evaluate_retrieval_legacy.py` (73), `scripts/generate_quiz.py` (4),
+`scripts/evaluate_generation.py` (6), and
+`scripts/build_teacher_evaluation_sample.py` (4). No script was modified in
+WP5. Goal 15G / WP6 should eliminate this remaining CLI/script typing debt
+without changing command-line contracts or evaluation behavior.

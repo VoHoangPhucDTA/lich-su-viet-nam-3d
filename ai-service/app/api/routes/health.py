@@ -6,6 +6,7 @@ from typing import Annotated
 from fastapi import APIRouter, Depends, Request, Response, status
 
 from app.config import Settings
+from app.core.runtime import AiRuntimeResources
 from app.dependencies import get_request_settings
 from app.embedding.checkpoint import sanitize_artifact_name
 from app.schemas.common import HealthResponse
@@ -77,7 +78,7 @@ def health(
     deep: bool = False,
 ) -> HealthResponse:
     if deep:
-        resources = request.app.state.runtime_resources
+        resources: AiRuntimeResources = request.app.state.runtime_resources
         ready, record_count, error_code = resources.deep_readiness()
         if not ready:
             response.status_code = status.HTTP_503_SERVICE_UNAVAILABLE
@@ -85,9 +86,9 @@ def health(
             status="READY" if ready else "NOT_READY",
             service="history-rag-ai-service",
             environment=settings.app_env,
-            chromaReady=ready,
-            retrievalReady=ready,
-            generationReady=(
+            chroma_ready=ready,
+            retrieval_ready=ready,
+            generation_ready=(
                 ready
                 and (
                     settings.deterministic_e2e_provider
@@ -97,10 +98,10 @@ def health(
                     )
                 )
             ),
-            geminiConfigured=settings.gemini_configured,
-            recordCount=record_count,
-            contractReady=ready,
-            errorCode=error_code,
+            gemini_configured=settings.gemini_configured,
+            record_count=record_count,
+            contract_ready=ready,
+            error_code=error_code,
         )
     if settings.deterministic_e2e_provider:
         return HealthResponse(

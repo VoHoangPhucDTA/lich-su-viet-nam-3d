@@ -1,6 +1,6 @@
 """Protected, read-only internal provenance validation endpoint."""
 
-from typing import Annotated
+from typing import Annotated, Literal
 
 from fastapi import APIRouter, Depends, HTTPException, status
 
@@ -24,6 +24,18 @@ from app.retrieval.models import RetrievalNotReadyError, RetrievalProviderError,
 from app.retrieval.service import RetrievalService
 
 router = APIRouter(prefix="/provenance", tags=["internal-provenance"])
+
+
+def _retrieval_grade(value: int | None) -> Literal[10, 11, 12] | None:
+    if value is None:
+        return None
+    if value == 10:
+        return 10
+    if value == 11:
+        return 11
+    if value == 12:
+        return 12
+    raise ValueError("grade must be between 10 and 12")
 
 
 @router.post(
@@ -71,27 +83,27 @@ def canonical_source_search(
         response = service.retrieve(
             RetrievalRequest(
                 query=request.query,
-                grade=request.grade,
-                lessonNumber=request.lesson_number,
-                documentId=request.document_id,
-                topK=request.top_k,
+                grade=_retrieval_grade(request.grade),
+                lesson_number=request.lesson_number,
+                document_id=request.document_id,
+                top_k=request.top_k,
             )
         )
         return CanonicalSourceSearchResponse(
             results=[
                 CanonicalSourceSearchResult(
-                    chunkId=result.chunk_id,
-                    chunkHash=result.chunk_hash,
-                    documentId=result.document_id,
+                    chunk_id=result.chunk_id,
+                    chunk_hash=result.chunk_hash,
+                    document_id=result.document_id,
                     grade=result.grade,
-                    lessonNumber=result.lesson_number,
-                    lessonTitle=result.lesson_title,
-                    sectionTitle=result.section_title,
-                    pageStart=result.page_start,
-                    pageEnd=result.page_end,
+                    lesson_number=result.lesson_number,
+                    lesson_title=result.lesson_title,
+                    section_title=result.section_title,
+                    page_start=result.page_start,
+                    page_end=result.page_end,
                     excerpt=result.text[:600],
                     distance=result.distance,
-                    pendingReview=False,
+                    pending_review=False,
                 )
                 for result in response.results
             ]

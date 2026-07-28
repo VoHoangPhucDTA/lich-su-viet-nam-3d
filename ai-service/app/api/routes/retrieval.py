@@ -1,6 +1,7 @@
 """Internal retrieval debug endpoint; never calls a generation model."""
 
 import inspect
+from collections.abc import Callable
 from typing import Annotated
 
 import anyio
@@ -45,19 +46,19 @@ async def retrieval_debug(
     try:
         if await http_request.is_disconnected():
             raise ClientDisconnectedError("retrieval")
-        method = service.retrieve
-        parameters = inspect.signature(method).parameters
+        retrieval_method: Callable[..., RetrievalResponse] = service.retrieve
+        parameters = inspect.signature(retrieval_method).parameters
 
         def is_cancelled() -> bool:
             return anyio.from_thread.run(http_request.is_disconnected)
 
-        kwargs = {}
+        retrieval_kwargs: dict[str, object] = {}
         if "deadline" in parameters:
-            kwargs["deadline"] = deadline
+            retrieval_kwargs["deadline"] = deadline
         if "is_cancelled" in parameters:
-            kwargs["is_cancelled"] = is_cancelled
+            retrieval_kwargs["is_cancelled"] = is_cancelled
         return await anyio.to_thread.run_sync(
-            lambda: method(request, **kwargs)
+            lambda: retrieval_method(request, **retrieval_kwargs)
         )
     except OperationDeadlineExceeded as exc:
         http_request.state.error_code = exc.code

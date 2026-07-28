@@ -1,6 +1,7 @@
 """Internal grounded MCQ generation endpoint; never persists questions."""
 
 import inspect
+from collections.abc import Callable
 from typing import Annotated
 
 import anyio
@@ -52,19 +53,19 @@ async def generate_quiz(
     try:
         if await http_request.is_disconnected():
             raise ClientDisconnectedError("generation")
-        method = service.generate
-        parameters = inspect.signature(method).parameters
+        generation_method: Callable[..., GenerationResponse] = service.generate
+        parameters = inspect.signature(generation_method).parameters
 
         def is_cancelled() -> bool:
             return anyio.from_thread.run(http_request.is_disconnected)
 
-        kwargs = {}
+        generation_kwargs: dict[str, object] = {}
         if "deadline" in parameters:
-            kwargs["deadline"] = deadline
+            generation_kwargs["deadline"] = deadline
         if "is_cancelled" in parameters:
-            kwargs["is_cancelled"] = is_cancelled
+            generation_kwargs["is_cancelled"] = is_cancelled
         return await anyio.to_thread.run_sync(
-            lambda: method(request, **kwargs)
+            lambda: generation_method(request, **generation_kwargs)
         )
     except OperationDeadlineExceeded as exc:
         http_request.state.error_code = exc.code

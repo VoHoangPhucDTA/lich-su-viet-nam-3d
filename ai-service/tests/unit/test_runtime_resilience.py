@@ -5,6 +5,7 @@ from typing import ClassVar
 
 import httpx
 import pytest
+from fastapi import Request
 from fastapi.testclient import TestClient
 
 from app.core.deadline import (
@@ -577,6 +578,98 @@ def test_retrieval_debug_maps_deadline_to_sanitized_504(
         )
     assert response.status_code == 504
     assert response.json() == {"detail": "EMBEDDING_TIMEOUT"}
+
+
+def test_generation_route_passes_deadline_and_sync_disconnect_adapter(
+    tmp_path: Path,
+    monkeypatch,
+) -> None:
+    disconnect_checks = 0
+    captured: dict[str, object] = {}
+
+    async def is_disconnected(_request: Request) -> bool:
+        nonlocal disconnect_checks
+        disconnect_checks += 1
+        return disconnect_checks >= 2
+
+    class DisconnectingService:
+        def generate(
+            self,
+            _request: GenerationRequest,
+            *,
+            deadline: OperationDeadline,
+            is_cancelled,
+        ):
+            captured["deadline"] = deadline
+            captured["cancelled"] = is_cancelled()
+            raise ClientDisconnectedError("generation")
+
+        def close(self):
+            return None
+
+    from app.dependencies import get_generation_service
+
+    monkeypatch.setattr(Request, "is_disconnected", is_disconnected)
+    app = create_app(configured(tmp_path))
+    app.dependency_overrides[get_generation_service] = lambda: DisconnectingService()
+    with TestClient(app) as client:
+        response = client.post(
+            "/ai/quiz/generate",
+            json={"query": "valid"},
+            headers={"X-Internal-Service-Token": "internal-test-token"},
+        )
+
+    assert response.status_code == 503
+    assert response.json() == {"detail": "AI_CLIENT_DISCONNECTED"}
+    assert isinstance(captured["deadline"], OperationDeadline)
+    assert captured["cancelled"] is True
+    assert disconnect_checks >= 2
+
+
+def test_retrieval_route_passes_deadline_and_sync_disconnect_adapter(
+    tmp_path: Path,
+    monkeypatch,
+) -> None:
+    disconnect_checks = 0
+    captured: dict[str, object] = {}
+
+    async def is_disconnected(_request: Request) -> bool:
+        nonlocal disconnect_checks
+        disconnect_checks += 1
+        return disconnect_checks >= 2
+
+    class DisconnectingService:
+        def retrieve(
+            self,
+            _request: RetrievalRequest,
+            *,
+            deadline: OperationDeadline,
+            is_cancelled,
+        ):
+            captured["deadline"] = deadline
+            captured["cancelled"] = is_cancelled()
+            raise ClientDisconnectedError("retrieval")
+
+        def close(self):
+            return None
+
+    from app.dependencies import get_retrieval_service
+
+    monkeypatch.setattr(Request, "is_disconnected", is_disconnected)
+    app = create_app(settings(tmp_path))
+    app.dependency_overrides[get_retrieval_service] = lambda: DisconnectingService()
+    with TestClient(app) as client:
+        response = client.post(
+            "/ai/retrieval/debug",
+            json={"query": "valid"},
+            headers={"X-Internal-Service-Token": "internal-test-token"},
+        )
+
+    assert response.status_code == 503
+    assert response.json() == {"detail": "AI_CLIENT_DISCONNECTED"}
+    assert isinstance(captured["deadline"], OperationDeadline)
+    assert captured["cancelled"] is True
+    assert disconnect_checks >= 2
 
 
 def test_chroma_lifecycle_global_cache_risk_is_deterministically_instrumented(
