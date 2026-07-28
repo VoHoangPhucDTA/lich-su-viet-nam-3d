@@ -617,6 +617,22 @@ class FlywayStateValidationTest(unittest.TestCase):
                 }
             )
 
+    def test_invalid_migration_diagnostic_is_reported_without_secret(self) -> None:
+        with self.assertRaisesRegex(
+            runner.MigrationGuardError,
+            r"validation did not succeed.*38",
+        ):
+            runner.validate_flyway_validate(
+                {
+                    "validationSuccessful": False,
+                    "invalidMigrations": [{"version": "38", "errorDetails": "checksum mismatch"}],
+                    "database": "lichsuvn",
+                    "flywayVersion": "11.14.1",
+                    "operation": "validate",
+                    "warnings": [],
+                }
+            )
+
     def test_warning_message_is_sanitized_for_operator_diagnosis(self) -> None:
         with self.assertRaisesRegex(
             runner.MigrationGuardError,

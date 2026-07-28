@@ -830,11 +830,13 @@ def validate_flyway_validate(
         expected_database=expected_database,
         expected_flyway_version=expected_flyway_version,
     )
-    if result.get("validationSuccessful") is not True:
-        raise MigrationGuardError("Flyway validation did not succeed")
     invalid_migrations = result.get("invalidMigrations")
+    if result.get("validationSuccessful") is not True:
+        detail = redact_output(json.dumps(invalid_migrations, ensure_ascii=False))[:600]
+        raise MigrationGuardError(f"Flyway validation did not succeed: {detail}")
     if not isinstance(invalid_migrations, list) or invalid_migrations:
-        raise MigrationGuardError("Flyway reported invalid migrations")
+        detail = redact_output(json.dumps(invalid_migrations, ensure_ascii=False))[:600]
+        raise MigrationGuardError(f"Flyway reported invalid migrations: {detail}")
 def validate_flyway_migrate(
     result: Mapping[str, Any],
     *,
