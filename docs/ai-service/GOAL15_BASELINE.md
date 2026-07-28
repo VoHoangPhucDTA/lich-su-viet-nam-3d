@@ -423,3 +423,73 @@ and one `no-redef`. The affected files are `scripts/query_retrieval.py` (3),
 `scripts/build_teacher_evaluation_sample.py` (4). No script was modified in
 WP5. Goal 15G / WP6 should eliminate this remaining CLI/script typing debt
 without changing command-line contracts or evaluation behavior.
+
+## Goal 15G / WP6 — CLI and evaluation script typing
+
+Scope locked before implementation:
+
+```text
+Evaluation scripts:
+- scripts/evaluate_generation.py
+- scripts/evaluate_retrieval_legacy.py
+- scripts/build_teacher_evaluation_sample.py
+
+Inspection/maintenance scripts:
+- scripts/query_retrieval.py
+- scripts/generate_quiz.py
+
+Experiment scripts: none
+Direct typed helper dependencies: none
+```
+
+The comparable `python -m mypy app scripts` baseline was `90 errors in 5
+script files`: 88 `call-arg`, one `arg-type`, and one `no-redef`. After WP6,
+the explicit five-script scope and the full `app scripts` target report no
+Mypy issues. `python -m mypy app` remains clean. This is a reduction of 90
+errors (100%) without changing Mypy configuration.
+
+The two manual CLIs continue to parse their existing `argparse.Namespace`
+inside `main`, then immediately construct typed request models; the namespace
+does not escape into evaluation or service logic, so no additional CLI-config
+framework was introduced. Internal Pydantic constructors now use snake_case
+Python field names, while `model_dump(by_alias=True)` and all existing JSON
+keys remain camelCase. JSON input continues to be validated by the existing
+Pydantic/type-adapter/tooling boundaries, and artifact serialization, paths,
+indentation, UTF-8 behavior, schema versions, checksums, and overwrite behavior
+remain unchanged.
+
+Legacy retrieval evaluation now types its fixed filter-mode tuple and its
+cache-mode-to-evaluation-mode mapping with the existing Literal contracts. The
+renamed failure/retrieval loop variables remove the `no-redef` finding without
+changing iteration order. No metric formula, denominator, rounding rule,
+benchmark role, cache/filter mode, failure preservation, or exit-code decision
+was changed. No `Any`, `cast`, or `type: ignore` was added.
+
+CLI regression tests cover help and required-argument exit codes, defaults,
+choices, explicit argv, UTF-8/Windows-style paths, validation before service
+creation, snake_case construction with camelCase wire aliases, all legacy
+evaluation-mode mappings, offline teacher-sample preflight, and fail-closed
+provider approval on cache miss. No test or verification command called Gemini.
+
+Verification:
+
+```text
+five-script scoped Mypy: 0 errors in 5 files
+full app Mypy: 0 errors in 65 source files
+full app + scripts Mypy: 0 errors in 77 source files
+direct CLI contract tests: 12 passed
+direct evaluation/tooling tests: 49 passed
+Ruff: 0 errors
+pytest: 259 passed, 3 skipped
+app-only coverage: 3491 covered / 3897 statements, 406 missed, 89.58%
+app + scripts coverage: 3753 covered / 4526 statements, 773 missed, 82.92%
+compileall app scripts: passed
+offline teacher preflight: 36 items, providerCalled=false
+production Chroma: 414 records, gemini-embedding-2, 768 dimensions, cosine
+```
+
+App-only coverage increased by two covered statements and 0.05 percentage
+points from the WP5 baseline (89.53%); missed statements decreased by two.
+Goal 15H / WP7 is the next action: wire the now-clean Ruff, full Mypy, pytest,
+and coverage requirements into CI without weakening local configuration or
+uploading secrets/runtime artifacts.

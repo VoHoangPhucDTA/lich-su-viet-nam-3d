@@ -19,8 +19,10 @@ from app.retrieval.evaluation import (
     render_markdown,
 )
 from app.retrieval.models import (
+    EvaluationMode,
     EvaluationQueryResult,
     FilterMode,
+    RetrievalCacheMode,
     RetrievalEvaluationTrace,
     RetrievalFilters,
     RetrievalRequest,
@@ -30,6 +32,10 @@ from app.retrieval.service import create_retrieval_service
 BENCHMARK_PATH = SERVICE_ROOT / "data" / "evaluation" / "retrieval_benchmark.jsonl"
 CACHE_ROOT = SERVICE_ROOT / "storage" / "evaluation-cache"
 REPORT_ROOT = SERVICE_ROOT / "storage" / "evaluation-reports"
+EVALUATION_FILTER_MODES: tuple[FilterMode, FilterMode] = (
+    "GRADE_AND_LESSON",
+    "FILTER_OFF",
+)
 
 
 def _atomic_write(path: Path, content: str) -> None:
@@ -44,7 +50,7 @@ def _atomic_write(path: Path, content: str) -> None:
 
 def _filters_for_mode(record, mode: FilterMode) -> RetrievalFilters:
     if mode == "GRADE_AND_LESSON":
-        return RetrievalFilters(grade=record.grade, lessonNumber=record.lesson_number)
+        return RetrievalFilters(grade=record.grade, lesson_number=record.lesson_number)
     if mode == "GRADE_ONLY":
         return RetrievalFilters(grade=record.grade)
     return RetrievalFilters()
@@ -71,14 +77,15 @@ def _filter_compliant(response, filters: RetrievalFilters) -> bool:
     )
 
 
-def _evaluation_mode(cache_hits: int, cache_misses: int) -> str:
+def _evaluation_mode(cache_hits: int, cache_misses: int) -> EvaluationMode:
     cache_mode = classify_retrieval_cache_mode(cache_hits, cache_misses)
-    return {
+    evaluation_modes: dict[RetrievalCacheMode, EvaluationMode] = {
         "CACHE_REPLAY": "OFFLINE_CACHE_REPLAY",
         "LIVE": "LIVE_CACHE_FILL",
         "MIXED": "MIXED",
         "UNKNOWN": "SYNTHETIC_TEST_DATA",
-    }[cache_mode]
+    }
+    return evaluation_modes[cache_mode]
 
 
 def main() -> int:
@@ -118,43 +125,41 @@ def main() -> int:
                     cache.set(cache_key, vector, settings.gemini_embedding_dimension)
                 except Exception as exc:
                     query_embedding_latency_ms = (time.perf_counter() - embedding_started) * 1000
-                    for mode in ("GRADE_AND_LESSON", "FILTER_OFF"):
-                        typed_mode: FilterMode = mode
-                        filters = _filters_for_mode(record, typed_mode)
+                    for failed_mode in EVALUATION_FILTER_MODES:
+                        filters = _filters_for_mode(record, failed_mode)
                         eligible_pool, filtered_pool = _eligible_pool_sizes(corpus_chunks, filters)
                         results.append(
                             EvaluationQueryResult(
-                                queryId=record.query_id,
+                                query_id=record.query_id,
                                 grade=record.grade,
                                 category=record.category,
-                                expectedChunkIds=record.expected_chunk_ids,
-                                expectedDocumentIds=record.expected_document_ids,
-                                resultChunkIds=[],
-                                resultDocumentIds=[],
-                                resultLessons=[],
-                                resultSections=[],
+                                expected_chunk_ids=record.expected_chunk_ids,
+                                expected_document_ids=record.expected_document_ids,
+                                result_chunk_ids=[],
+                                result_document_ids=[],
+                                result_lessons=[],
+                                result_sections=[],
                                 distances=[],
-                                filterCompliant=False,
-                                pendingReviewLeakage=False,
-                                duplicateResults=False,
-                                latencyMs=cache_lookup_latency_ms + query_embedding_latency_ms,
-                                filterMode=typed_mode,
-                                requestedTopK=5,
-                                returnedResultCount=0,
-                                effectiveK=0,
-                                eligiblePoolSizeBeforeTopK=eligible_pool,
-                                effectivePoolSizeAfterFilters=filtered_pool,
-                                cacheLookupLatencyMs=cache_lookup_latency_ms,
-                                queryEmbeddingLatencyMs=query_embedding_latency_ms,
+                                filter_compliant=False,
+                                pending_review_leakage=False,
+                                duplicate_results=False,
+                                latency_ms=cache_lookup_latency_ms + query_embedding_latency_ms,
+                                filter_mode=failed_mode,
+                                requested_top_k=5,
+                                returned_result_count=0,
+                                effective_k=0,
+                                eligible_pool_size_before_top_k=eligible_pool,
+                                effective_pool_size_after_filters=filtered_pool,
+                                cache_lookup_latency_ms=cache_lookup_latency_ms,
+                                query_embedding_latency_ms=query_embedding_latency_ms,
                                 error=type(exc).__name__,
                             )
                         )
                     continue
             else:
                 cache_hits += 1
-            for mode in ("GRADE_AND_LESSON", "FILTER_OFF"):
-                typed_mode: FilterMode = mode
-                filters = _filters_for_mode(record, typed_mode)
+            for retrieval_mode in EVALUATION_FILTER_MODES:
+                filters = _filters_for_mode(record, retrieval_mode)
                 eligible_pool, filtered_pool = _eligible_pool_sizes(corpus_chunks, filters)
                 trace = RetrievalEvaluationTrace()
                 started = time.perf_counter()
@@ -162,79 +167,79 @@ def main() -> int:
                     request = RetrievalRequest(
                         query=record.query,
                         grade=filters.grade,
-                        lessonNumber=filters.lesson_number,
-                        documentId=filters.document_id,
-                        topK=5,
+                        lesson_number=filters.lesson_number,
+                        document_id=filters.document_id,
+                        top_k=5,
                     )
                     response = service.retrieve(request, query_vector=vector, evaluation_trace=trace)
                     chunk_ids = [item.chunk_id for item in response.results]
                     retrieval_latency_ms = (time.perf_counter() - started) * 1000
                     results.append(
                         EvaluationQueryResult(
-                            queryId=record.query_id,
+                            query_id=record.query_id,
                             grade=record.grade,
                             category=record.category,
-                            expectedChunkIds=record.expected_chunk_ids,
-                            expectedDocumentIds=record.expected_document_ids,
-                            resultChunkIds=chunk_ids,
-                            resultDocumentIds=[item.document_id for item in response.results],
-                            resultLessons=[item.lesson_number for item in response.results],
-                            resultSections=[item.section_title for item in response.results],
+                            expected_chunk_ids=record.expected_chunk_ids,
+                            expected_document_ids=record.expected_document_ids,
+                            result_chunk_ids=chunk_ids,
+                            result_document_ids=[item.document_id for item in response.results],
+                            result_lessons=[item.lesson_number for item in response.results],
+                            result_sections=[item.section_title for item in response.results],
                             distances=[item.distance for item in response.results],
-                            filterCompliant=_filter_compliant(response, filters),
-                            pendingReviewLeakage=bool(trace.pending_review_candidate_ids),
-                            duplicateResults=len(chunk_ids) != len(set(chunk_ids)),
-                            latencyMs=cache_lookup_latency_ms
+                            filter_compliant=_filter_compliant(response, filters),
+                            pending_review_leakage=bool(trace.pending_review_candidate_ids),
+                            duplicate_results=len(chunk_ids) != len(set(chunk_ids)),
+                            latency_ms=cache_lookup_latency_ms
                             + (query_embedding_latency_ms or 0.0)
                             + retrieval_latency_ms,
-                            filterMode=typed_mode,
-                            requestedTopK=5,
-                            returnedResultCount=len(chunk_ids),
-                            effectiveK=min(5, len(chunk_ids)),
-                            eligiblePoolSizeBeforeTopK=eligible_pool,
-                            effectivePoolSizeAfterFilters=filtered_pool,
-                            cacheLookupLatencyMs=cache_lookup_latency_ms,
-                            queryEmbeddingLatencyMs=query_embedding_latency_ms,
-                            chromaQueryLatencyMs=trace.chroma_query_latency_ms,
-                            postProcessingLatencyMs=trace.post_processing_latency_ms,
-                            embeddingContractMatched=trace.embedding_contract_matched,
-                            collectionMetadataMatched=trace.collection_metadata_matched,
-                            collectionDistanceMetricMatched=trace.collection_distance_metric_matched,
+                            filter_mode=retrieval_mode,
+                            requested_top_k=5,
+                            returned_result_count=len(chunk_ids),
+                            effective_k=min(5, len(chunk_ids)),
+                            eligible_pool_size_before_top_k=eligible_pool,
+                            effective_pool_size_after_filters=filtered_pool,
+                            cache_lookup_latency_ms=cache_lookup_latency_ms,
+                            query_embedding_latency_ms=query_embedding_latency_ms,
+                            chroma_query_latency_ms=trace.chroma_query_latency_ms,
+                            post_processing_latency_ms=trace.post_processing_latency_ms,
+                            embedding_contract_matched=trace.embedding_contract_matched,
+                            collection_metadata_matched=trace.collection_metadata_matched,
+                            collection_distance_metric_matched=trace.collection_distance_metric_matched,
                         )
                     )
                 except Exception as exc:
                     retrieval_latency_ms = (time.perf_counter() - started) * 1000
                     results.append(
                         EvaluationQueryResult(
-                            queryId=record.query_id,
+                            query_id=record.query_id,
                             grade=record.grade,
                             category=record.category,
-                            expectedChunkIds=record.expected_chunk_ids,
-                            expectedDocumentIds=record.expected_document_ids,
-                            resultChunkIds=[],
-                            resultDocumentIds=[],
-                            resultLessons=[],
-                            resultSections=[],
+                            expected_chunk_ids=record.expected_chunk_ids,
+                            expected_document_ids=record.expected_document_ids,
+                            result_chunk_ids=[],
+                            result_document_ids=[],
+                            result_lessons=[],
+                            result_sections=[],
                             distances=[],
-                            filterCompliant=False,
-                            pendingReviewLeakage=bool(trace.pending_review_candidate_ids),
-                            duplicateResults=False,
-                            latencyMs=cache_lookup_latency_ms
+                            filter_compliant=False,
+                            pending_review_leakage=bool(trace.pending_review_candidate_ids),
+                            duplicate_results=False,
+                            latency_ms=cache_lookup_latency_ms
                             + (query_embedding_latency_ms or 0.0)
                             + retrieval_latency_ms,
-                            filterMode=typed_mode,
-                            requestedTopK=5,
-                            returnedResultCount=0,
-                            effectiveK=0,
-                            eligiblePoolSizeBeforeTopK=eligible_pool,
-                            effectivePoolSizeAfterFilters=filtered_pool,
-                            cacheLookupLatencyMs=cache_lookup_latency_ms,
-                            queryEmbeddingLatencyMs=query_embedding_latency_ms,
-                            chromaQueryLatencyMs=trace.chroma_query_latency_ms,
-                            postProcessingLatencyMs=trace.post_processing_latency_ms,
-                            embeddingContractMatched=trace.embedding_contract_matched,
-                            collectionMetadataMatched=trace.collection_metadata_matched,
-                            collectionDistanceMetricMatched=trace.collection_distance_metric_matched,
+                            filter_mode=retrieval_mode,
+                            requested_top_k=5,
+                            returned_result_count=0,
+                            effective_k=0,
+                            eligible_pool_size_before_top_k=eligible_pool,
+                            effective_pool_size_after_filters=filtered_pool,
+                            cache_lookup_latency_ms=cache_lookup_latency_ms,
+                            query_embedding_latency_ms=query_embedding_latency_ms,
+                            chroma_query_latency_ms=trace.chroma_query_latency_ms,
+                            post_processing_latency_ms=trace.post_processing_latency_ms,
+                            embedding_contract_matched=trace.embedding_contract_matched,
+                            collection_metadata_matched=trace.collection_metadata_matched,
+                            collection_distance_metric_matched=trace.collection_distance_metric_matched,
                             error=type(exc).__name__,
                         )
                     )

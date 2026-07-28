@@ -87,17 +87,17 @@ def main() -> int:
                 request = GenerationRequest(
                     query=item["query"],
                     grade=item["grade"],
-                    lessonNumber=item["lessonNumber"],
+                    lesson_number=item["lessonNumber"],
                     difficulty=item["difficulty"],
                     count=1,
-                    topK=item["topK"],
+                    top_k=item["topK"],
                 )
                 retrieval = service.retrieval_service.retrieve(
                     RetrievalRequest(
                         query=request.query,
                         grade=request.grade,
-                        lessonNumber=request.lesson_number,
-                        topK=request.top_k,
+                        lesson_number=request.lesson_number,
+                        top_k=request.top_k,
                     )
                 )
                 cache_identity = cache.identity(

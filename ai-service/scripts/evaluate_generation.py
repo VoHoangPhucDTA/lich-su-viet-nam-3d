@@ -88,11 +88,11 @@ def _case_request(case: GenerationBenchmarkCase) -> GenerationRequest:
     return GenerationRequest(
         query=case.query,
         grade=case.grade,
-        lessonNumber=case.lesson_number,
+        lesson_number=case.lesson_number,
         difficulty=case.difficulty,
         count=case.count,
-        topK=case.top_k,
-        styleExamples=_load_styles(case.style_examples_fixture),
+        top_k=case.top_k,
+        style_examples=_load_styles(case.style_examples_fixture),
     )
 
 
@@ -124,9 +124,9 @@ def main() -> int:
                     RetrievalRequest(
                         query=request.query,
                         grade=request.grade,
-                        lessonNumber=request.lesson_number,
-                        documentId=request.document_id,
-                        topK=request.top_k,
+                        lesson_number=request.lesson_number,
+                        document_id=request.document_id,
+                        top_k=request.top_k,
                     )
                 )
                 retrieval_latency_ms = round(

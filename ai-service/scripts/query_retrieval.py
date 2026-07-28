@@ -31,9 +31,9 @@ def main(argv: list[str] | None = None) -> int:
         request = RetrievalRequest(
             query=args.query,
             grade=args.grade,
-            lessonNumber=args.lesson_number,
-            documentId=args.document_id,
-            topK=args.top_k,
+            lesson_number=args.lesson_number,
+            document_id=args.document_id,
+            top_k=args.top_k,
         )
         service = create_retrieval_service(get_settings())
         try:

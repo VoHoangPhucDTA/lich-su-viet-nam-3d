@@ -43,12 +43,12 @@ def main(argv: list[str] | None = None) -> int:
         request = GenerationRequest(
             query=args.query,
             grade=args.grade,
-            lessonNumber=args.lesson_number,
-            documentId=args.document_id,
+            lesson_number=args.lesson_number,
+            document_id=args.document_id,
             difficulty=args.difficulty,
             count=args.count,
-            topK=args.top_k,
-            styleExamples=_load_styles(args.style_examples_file),
+            top_k=args.top_k,
+            style_examples=_load_styles(args.style_examples_file),
         )
         service = create_generation_service(get_settings())
         try:
