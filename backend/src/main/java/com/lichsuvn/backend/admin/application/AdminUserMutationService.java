@@ -11,7 +11,6 @@ import com.lichsuvn.backend.common.exception.ApiException;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -33,22 +32,31 @@ public class AdminUserMutationService {
 
     private final AdminUserMutationRepository repository;
     private final AdminUserReadService readService;
+    private final AdminUserMutationTransactionRunner transactionRunner;
 
     public AdminUserMutationService(
             AdminUserMutationRepository repository,
-            AdminUserReadService readService
+            AdminUserReadService readService,
+            AdminUserMutationTransactionRunner transactionRunner
     ) {
         this.repository = repository;
         this.readService = readService;
+        this.transactionRunner = transactionRunner;
     }
 
-    @Transactional
     public AdminUserDtos.Detail replaceRoles(
             String rawId,
             AdminUserMutationDtos.ReplaceRoles request,
             UserPrincipal principal
     ) {
-        repository.lockAdminRoleMutex();
+        return transactionRunner.execute(() -> replaceRolesInTransaction(rawId, request, principal));
+    }
+
+    private AdminUserDtos.Detail replaceRolesInTransaction(
+            String rawId,
+            AdminUserMutationDtos.ReplaceRoles request,
+            UserPrincipal principal
+    ) {
         byte[] targetId = userId(rawId);
         LockedUser target = lockedUser(targetId);
         List<RoleRow> storedRows = repository.lockUserRoles(targetId);
@@ -66,14 +74,9 @@ public class AdminUserMutationService {
             throw conflict("NO_CHANGES", "The requested roles already match the user");
         }
         rejectSelf(selfAction);
-        if ("active".equals(target.status())
-                && storedRoles.contains("admin")
-                && !nextRoles.contains("admin")
-                && repository.countActiveAdmins() <= 1) {
-            throw conflict(
-                    "LAST_ACTIVE_ADMIN_REQUIRED",
-                    "At least one active administrator must remain");
-        }
+        adjustActiveAdminMembership(
+                isActiveAdmin(target.status(), storedRoles),
+                isActiveAdmin(target.status(), nextRoles));
 
         Map<String, Long> roleIds = repository.supportedRoleIds();
         if (!roleIds.keySet().containsAll(SUPPORTED_ROLES)) {
@@ -100,13 +103,19 @@ public class AdminUserMutationService {
         return readService.findUser(target.idString());
     }
 
-    @Transactional
     public AdminUserDtos.Detail updateStatus(
             String rawId,
             AdminUserMutationDtos.ChangeStatus request,
             UserPrincipal principal
     ) {
-        repository.lockAdminRoleMutex();
+        return transactionRunner.execute(() -> updateStatusInTransaction(rawId, request, principal));
+    }
+
+    private AdminUserDtos.Detail updateStatusInTransaction(
+            String rawId,
+            AdminUserMutationDtos.ChangeStatus request,
+            UserPrincipal principal
+    ) {
         byte[] targetId = userId(rawId);
         LockedUser target = lockedUser(targetId);
         List<RoleRow> storedRows = repository.lockUserRoles(targetId);
@@ -129,14 +138,9 @@ public class AdminUserMutationService {
                     "INVALID_USER_STATUS_TRANSITION",
                     "The requested user status transition is not allowed");
         }
-        if ("active".equals(target.status())
-                && storedRoles.contains("admin")
-                && !"active".equals(nextStatus)
-                && repository.countActiveAdmins() <= 1) {
-            throw conflict(
-                    "LAST_ACTIVE_ADMIN_REQUIRED",
-                    "At least one active administrator must remain");
-        }
+        adjustActiveAdminMembership(
+                isActiveAdmin(target.status(), storedRoles),
+                isActiveAdmin(nextStatus, storedRoles));
         if (!repository.claimVersionAndStatus(targetId, expected, nextStatus)) {
             throw conflict("USER_UPDATE_CONFLICT", "User version changed");
         }
@@ -213,6 +217,22 @@ public class AdminUserMutationService {
             case "disabled" -> "active".equals(next) || "pending".equals(next);
             default -> false;
         };
+    }
+
+    private void adjustActiveAdminMembership(boolean wasActiveAdmin, boolean becomesActiveAdmin) {
+        if (wasActiveAdmin && !becomesActiveAdmin
+                && !repository.tryRemoveActiveAdmin()) {
+            throw conflict(
+                    "LAST_ACTIVE_ADMIN_REQUIRED",
+                    "At least one active administrator must remain");
+        }
+        if (!wasActiveAdmin && becomesActiveAdmin) {
+            repository.addActiveAdmin();
+        }
+    }
+
+    private boolean isActiveAdmin(String status, List<String> roles) {
+        return "active".equals(status) && roles.contains("admin");
     }
 
     private void requireExpectedVersion(LockedUser target, LocalDateTime expected) {

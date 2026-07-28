@@ -1,5 +1,6 @@
 package com.lichsuvn.backend.importer;
 
+import com.lichsuvn.backend.testsupport.LocalMySqlContainer;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.flywaydb.core.Flyway;
 import org.junit.jupiter.api.AfterAll;
@@ -31,7 +32,7 @@ class HistoryRagDryRunIntegrationTest {
     static void setupDisposableDatabase() {
         boolean containerStarted = false;
         try {
-            mysql = new MySQLContainer("mysql:8.0.36")
+            mysql = new LocalMySqlContainer("mysql:8.0.36")
                     .withDatabaseName("history_rag_dry_run_test")
                     .withUsername("test")
                     .withPassword("test");

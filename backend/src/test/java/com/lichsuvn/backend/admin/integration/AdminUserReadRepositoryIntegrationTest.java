@@ -4,6 +4,7 @@ import com.lichsuvn.backend.admin.api.dto.AdminUserDtos;
 import com.lichsuvn.backend.admin.application.AdminUserReadService;
 import com.lichsuvn.backend.admin.infrastructure.AdminUserReadRepository;
 import com.lichsuvn.backend.common.media.MediaUrlPolicy;
+import com.lichsuvn.backend.testsupport.LocalMySqlContainer;
 import org.flywaydb.core.Flyway;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -39,7 +40,7 @@ class AdminUserReadRepositoryIntegrationTest {
     @BeforeAll
     static void startDatabase() {
         try {
-            mysql = new MySQLContainer("mysql:8.0.36")
+            mysql = new LocalMySqlContainer("mysql:8.0.36")
                     .withDatabaseName("admin_phase9_test")
                     .withUsername("test")
                     .withPassword("test");

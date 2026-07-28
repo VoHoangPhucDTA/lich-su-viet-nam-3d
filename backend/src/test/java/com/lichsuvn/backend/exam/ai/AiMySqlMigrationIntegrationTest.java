@@ -1,5 +1,6 @@
 package com.lichsuvn.backend.exam.ai;
 
+import com.lichsuvn.backend.testsupport.LocalMySqlContainer;
 import org.flywaydb.core.Flyway;
 import org.junit.jupiter.api.Test;
 import org.testcontainers.mysql.MySQLContainer;
@@ -20,7 +21,7 @@ class AiMySqlMigrationIntegrationTest {
     private static final String TEST_PASSWORD = UUID.randomUUID().toString();
 
     @Container
-    private static final MySQLContainer MYSQL = new MySQLContainer("mysql:8.4.6")
+    private static final MySQLContainer MYSQL = new LocalMySqlContainer("mysql:8.4.6")
             .withDatabaseName("lichsuvn_ai_e2e")
             .withUsername("ai_e2e")
             .withPassword(TEST_PASSWORD);

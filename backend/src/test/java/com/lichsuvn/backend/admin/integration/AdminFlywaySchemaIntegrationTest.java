@@ -1,5 +1,7 @@
 package com.lichsuvn.backend.admin.integration;
 
+import com.lichsuvn.backend.testsupport.LocalMySqlContainer;
+
 import org.flywaydb.core.Flyway;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -31,7 +33,7 @@ class AdminFlywaySchemaIntegrationTest {
     @BeforeAll
     static void migrateDisposableSchema() {
         try {
-            mysql = new MySQLContainer("mysql:8.0.36")
+            mysql = new LocalMySqlContainer("mysql:8.0.36")
                     .withDatabaseName("admin_phase1_test")
                     .withUsername("test")
                     .withPassword("test");
@@ -43,6 +45,31 @@ class AdminFlywaySchemaIntegrationTest {
             Flyway.configure()
                     .dataSource(mysql.getJdbcUrl(), mysql.getUsername(), mysql.getPassword())
                     .locations("filesystem:src/main/resources/db/migration")
+                    .target("40")
+                    .load()
+                    .migrate();
+            jdbc.update("""
+                    INSERT INTO users (id, email, password_hash, full_name, status)
+                    VALUES
+                        (UUID_TO_BIN('00000000-0000-4000-8000-000000004001'),
+                         'v41-backfill-a@example.test', 'hash', 'V41 Admin A', 'active'),
+                        (UUID_TO_BIN('00000000-0000-4000-8000-000000004002'),
+                         'v41-backfill-b@example.test', 'hash', 'V41 Admin B', 'active')
+                    """);
+            jdbc.update("""
+                    INSERT INTO user_roles (user_id, role_id)
+                    SELECT UUID_TO_BIN('00000000-0000-4000-8000-000000004001'), id
+                    FROM roles WHERE code='admin'
+                    """);
+            jdbc.update("""
+                    INSERT INTO user_roles (user_id, role_id)
+                    SELECT UUID_TO_BIN('00000000-0000-4000-8000-000000004002'), id
+                    FROM roles WHERE code='admin'
+                    """);
+            Flyway.configure()
+                    .dataSource(mysql.getJdbcUrl(), mysql.getUsername(), mysql.getPassword())
+                    .locations("filesystem:src/main/resources/db/migration")
+                    .target("41")
                     .load()
                     .migrate();
             available = true;
@@ -85,6 +112,24 @@ class AdminFlywaySchemaIntegrationTest {
                 SELECT COUNT(*) FROM information_schema.tables
                 WHERE table_schema = DATABASE() AND table_name = 'event_textbook_contents'
                 """, Integer.class));
+    }
+
+    @Test
+    void flywayV41BackfillsTheActiveAdminGuardFromExistingRows() {
+        assumeTrue(available, unavailableReason);
+
+        assertEquals(2L, jdbc.queryForObject("""
+                SELECT active_admin_count
+                FROM admin_mutation_guards
+                WHERE guard_key='last_active_admin'
+                """, Long.class));
+        assertEquals(2L, jdbc.queryForObject("""
+                SELECT COUNT(DISTINCT u.id)
+                FROM users u
+                JOIN user_roles ur ON ur.user_id=u.id
+                JOIN roles r ON r.id=ur.role_id
+                WHERE u.status='active' AND r.code='admin'
+                """, Long.class));
     }
 
     @Test

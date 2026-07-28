@@ -26,21 +26,65 @@ public class AdminUserMutationRepository {
         this.objectMapper = objectMapper;
     }
 
-    public long lockAdminRoleMutex() {
-        List<RoleRow> rows = jdbc.query("""
-                SELECT id, code
-                FROM roles
-                WHERE code='admin'
+    public boolean tryRemoveActiveAdmin() {
+        int updated = jdbc.update("""
+                UPDATE admin_mutation_guards
+                SET active_admin_count=(
+                        SELECT COUNT(DISTINCT u.id)
+                        FROM users u
+                        JOIN user_roles ur ON ur.user_id=u.id
+                        JOIN roles r ON r.id=ur.role_id
+                        WHERE u.status='active' AND r.code='admin'
+                    ) - 1,
+                    revision=revision + 1
+                WHERE guard_key='last_active_admin'
+                  AND (
+                        SELECT COUNT(DISTINCT u.id)
+                        FROM users u
+                        JOIN user_roles ur ON ur.user_id=u.id
+                        JOIN roles r ON r.id=ur.role_id
+                        WHERE u.status='active' AND r.code='admin'
+                    ) > 1
+                """, new MapSqlParameterSource());
+        if (updated == 1) {
+            return true;
+        }
+        requireLastActiveAdminGuard();
+        return false;
+    }
+
+    public void addActiveAdmin() {
+        int updated = jdbc.update("""
+                UPDATE admin_mutation_guards
+                SET active_admin_count=(
+                        SELECT COUNT(DISTINCT u.id)
+                        FROM users u
+                        JOIN user_roles ur ON ur.user_id=u.id
+                        JOIN roles r ON r.id=ur.role_id
+                        WHERE u.status='active' AND r.code='admin'
+                    ) + 1,
+                    revision=revision + 1
+                WHERE guard_key='last_active_admin'
+                """, new MapSqlParameterSource());
+        if (updated != 1) {
+            requireLastActiveAdminGuard();
+            throw new IllegalStateException("Last active administrator guard update did not affect one row");
+        }
+    }
+
+    private void requireLastActiveAdminGuard() {
+        List<Long> counts = jdbc.query("""
+                SELECT active_admin_count
+                FROM admin_mutation_guards
+                WHERE guard_key='last_active_admin'
                 FOR UPDATE
-                """, new MapSqlParameterSource(), (rs, row) ->
-                new RoleRow(rs.getLong("id"), rs.getString("code")));
-        if (rows.size() != 1 || rows.getFirst().id() <= 0 || !"admin".equals(rows.getFirst().code())) {
+                """, new MapSqlParameterSource(), (rs, row) -> rs.getLong("active_admin_count"));
+        if (counts.size() != 1) {
             throw new ApiException(
                     HttpStatus.INTERNAL_SERVER_ERROR,
-                    "ROLE_SEED_MISSING",
-                    "The immutable admin role seed is missing or inconsistent");
+                    "ADMIN_MUTATION_GUARD_MISSING",
+                    "The last active administrator guard is missing or inconsistent");
         }
-        return rows.getFirst().id();
     }
 
     public Optional<LockedUser> lockUser(byte[] userId) {
@@ -80,17 +124,6 @@ public class AdminUserMutationRepository {
                 new RoleRow(rs.getLong("id"), rs.getString("code")));
         rows.forEach(role -> result.put(role.code(), role.id()));
         return Map.copyOf(result);
-    }
-
-    public long countActiveAdmins() {
-        Long count = jdbc.queryForObject("""
-                SELECT COUNT(DISTINCT u.id)
-                FROM users u
-                JOIN user_roles ur ON ur.user_id=u.id
-                JOIN roles r ON r.id=ur.role_id
-                WHERE u.status='active' AND r.code='admin'
-                """, new MapSqlParameterSource(), Long.class);
-        return count == null ? 0 : count;
     }
 
     public boolean claimVersion(byte[] userId, LocalDateTime expectedUpdatedAt) {

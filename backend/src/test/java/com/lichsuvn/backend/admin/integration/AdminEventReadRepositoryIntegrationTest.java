@@ -7,6 +7,7 @@ import com.lichsuvn.backend.admin.application.EventCompletenessService;
 import com.lichsuvn.backend.admin.infrastructure.AdminDashboardReadRepository;
 import com.lichsuvn.backend.admin.infrastructure.AdminEventReadRepository;
 import com.lichsuvn.backend.event.infrastructure.EventReadRepository;
+import com.lichsuvn.backend.testsupport.LocalMySqlContainer;
 import org.flywaydb.core.Flyway;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -36,7 +37,7 @@ class AdminEventReadRepositoryIntegrationTest {
     @BeforeAll
     static void startDatabase() {
         try {
-            mysql = new MySQLContainer("mysql:8.0.36")
+            mysql = new LocalMySqlContainer("mysql:8.0.36")
                     .withDatabaseName("admin_phase3_test")
                     .withUsername("test")
                     .withPassword("test");

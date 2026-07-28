@@ -3,6 +3,7 @@ package com.lichsuvn.backend.tts.infrastructure;
 import com.lichsuvn.backend.tts.application.TtsCacheKeyBuilder;
 import com.lichsuvn.backend.tts.domain.TtsAudioAssetClaimResult;
 import com.lichsuvn.backend.tts.domain.TtsAudioAssetStatus;
+import com.lichsuvn.backend.testsupport.LocalMySqlContainer;
 import org.flywaydb.core.Flyway;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -533,7 +534,7 @@ class TtsAudioAssetRepositoryIntegrationTest {
         }
 
         try {
-            mysqlContainer = new MySQLContainer("mysql:8.0.36")
+            mysqlContainer = new LocalMySqlContainer("mysql:8.0.36")
                     .withDatabaseName("lichsuvn_test");
             mysqlContainer.start();
             jdbcUrl = mysqlContainer.getJdbcUrl();

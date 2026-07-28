@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lichsuvn.backend.admin.api.dto.AdminUserDtos;
 import com.lichsuvn.backend.admin.api.dto.AdminUserMutationDtos;
 import com.lichsuvn.backend.admin.application.AdminUserMutationService;
+import com.lichsuvn.backend.admin.application.AdminUserMutationTransactionRunner;
 import com.lichsuvn.backend.admin.application.AdminUserReadService;
 import com.lichsuvn.backend.admin.infrastructure.AdminUserMutationRepository;
 import com.lichsuvn.backend.admin.infrastructure.AdminUserReadRepository;
@@ -11,6 +12,7 @@ import com.lichsuvn.backend.auth.infrastructure.UuidBytes;
 import com.lichsuvn.backend.auth.security.UserPrincipal;
 import com.lichsuvn.backend.common.exception.ApiException;
 import com.lichsuvn.backend.common.media.MediaUrlPolicy;
+import com.lichsuvn.backend.testsupport.LocalMySqlContainer;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import org.flywaydb.core.Flyway;
@@ -44,6 +46,7 @@ class AdminUserMutationIntegrationTest {
     private static JdbcTemplate jdbc;
     private static NamedParameterJdbcTemplate named;
     private static TransactionTemplate tx;
+    private static AdminUserMutationTransactionRunner mutationTransactions;
     private static AdminUserReadService reads;
     private static AdminUserMutationService mutations;
     private static UserPrincipal actor;
@@ -53,7 +56,7 @@ class AdminUserMutationIntegrationTest {
     @BeforeAll
     static void startDatabase() {
         try {
-            mysql = new MySQLContainer("mysql:8.0.36")
+            mysql = new LocalMySqlContainer("mysql:8.0.36")
                     .withDatabaseName("admin_phase10_test")
                     .withUsername("test")
                     .withPassword("test");
@@ -77,9 +80,11 @@ class AdminUserMutationIntegrationTest {
             named = new NamedParameterJdbcTemplate(dataSource);
             reads = new AdminUserReadService(
                     new AdminUserReadRepository(named, new MediaUrlPolicy()));
+            var transactionManager = new DataSourceTransactionManager(dataSource);
+            tx = new TransactionTemplate(transactionManager);
+            mutationTransactions = new AdminUserMutationTransactionRunner(transactionManager);
             mutations = new AdminUserMutationService(
-                    new AdminUserMutationRepository(named, new ObjectMapper()), reads);
-            tx = new TransactionTemplate(new DataSourceTransactionManager(dataSource));
+                    new AdminUserMutationRepository(named, new ObjectMapper()), reads, mutationTransactions);
             seed(ACTOR, "phase10-actor@example.test", "active", List.of("teacher"));
             actor = principal(ACTOR);
             available = true;
@@ -107,11 +112,11 @@ class AdminUserMutationIntegrationTest {
                 WHERE table_schema=DATABASE() AND table_name='users'
                   AND column_name='auth_version'
                 """, String.class));
-        assertEquals(39, jdbc.queryForObject("""
-                SELECT MAX(CAST(version AS UNSIGNED))
+        assertEquals(1L, jdbc.queryForObject("""
+                SELECT COUNT(*)
                 FROM flyway_schema_history
-                WHERE success=1
-                """, Integer.class));
+                WHERE version='39' AND success=1
+                """, Long.class));
 
         String id = id(10);
         seed(id, "phase10-version@example.test", "active", List.of("student"));
@@ -120,6 +125,32 @@ class AdminUserMutationIntegrationTest {
                 "2026-07-26T03:20:30.123456Z",
                 reads.findUser(id).account().updatedAt());
         assertEquals(0L, authVersion(id));
+    }
+
+    @Test
+    void flywayV40ProvidesOneDurableLastActiveAdminGuard() {
+        assumeTrue(available, unavailableReason);
+        assertEquals(1L, jdbc.queryForObject("""
+                SELECT COUNT(*)
+                FROM flyway_schema_history
+                WHERE version='40' AND success=1
+                """, Long.class));
+        assertEquals(1L, jdbc.queryForObject("""
+                SELECT COUNT(*)
+                FROM admin_mutation_guards
+                WHERE guard_key='last_active_admin'
+                """, Long.class));
+    }
+
+    @Test
+    void flywayV41ProvidesAtomicActiveAdminCounter() {
+        assumeTrue(available, unavailableReason);
+        assertEquals(41, jdbc.queryForObject("""
+                SELECT MAX(CAST(version AS UNSIGNED))
+                FROM flyway_schema_history
+                WHERE success=1
+                """, Integer.class));
+        assertEquals(activeAdminCount(), guardActiveAdminCount());
     }
 
     @Test
@@ -279,7 +310,7 @@ class AdminUserMutationIntegrationTest {
     }
 
     @Test
-    void sameVersionHasOneWinnerAndGlobalMutexProtectsFinalTwoAdmins() throws Exception {
+    void sameVersionHasOneWinnerAndDurableGuardProtectsFinalTwoAdmins() throws Exception {
         assumeTrue(available, unavailableReason);
         String sameTarget = id(18);
         seed(sameTarget, "phase10-race@example.test", "pending", List.of("student"));
@@ -305,6 +336,8 @@ class AdminUserMutationIntegrationTest {
                 """);
         seed(firstAdmin, "phase10-admin-a@example.test", "active", List.of("admin"));
         seed(secondAdmin, "phase10-admin-b@example.test", "active", List.of("admin"));
+        syncActiveAdminGuard();
+        long guardRevisionBefore = guardRevision();
         List<Object> lastAdminResults = race(
                 () -> mutateStatus(
                         firstAdmin, reads.findUser(firstAdmin).account().updatedAt(), "disabled"),
@@ -322,6 +355,33 @@ class AdminUserMutationIntegrationTest {
                 JOIN roles r ON r.id=ur.role_id
                 WHERE u.status='active' AND r.code='admin'
                 """, Long.class));
+        assertEquals(guardRevisionBefore + 1, guardRevision());
+        assertEquals(1L, guardActiveAdminCount());
+    }
+
+    @Test
+    void durableGuardReconcilesAnUndercountBeforeRemovingAnActiveAdmin() {
+        assumeTrue(available, unavailableReason);
+        String firstAdmin = id(23);
+        String secondAdmin = id(24);
+        seed(firstAdmin, "phase10-drift-admin-a@example.test", "active", List.of("admin"));
+        seed(secondAdmin, "phase10-drift-admin-b@example.test", "active", List.of("admin"));
+        long activeBefore = activeAdminCount();
+        jdbc.update("""
+                UPDATE admin_mutation_guards
+                SET active_admin_count=1
+                WHERE guard_key='last_active_admin'
+                """);
+
+        AdminUserDtos.Detail disabled = mutations.updateStatus(
+                firstAdmin,
+                new AdminUserMutationDtos.ChangeStatus(
+                        reads.findUser(firstAdmin).account().updatedAt(), "disabled"),
+                actor);
+
+        assertEquals(AdminUserDtos.Status.DISABLED, disabled.account().status());
+        assertEquals(activeBefore - 1, activeAdminCount());
+        assertEquals(activeAdminCount(), guardActiveAdminCount());
     }
 
     @Test
@@ -353,7 +413,7 @@ class AdminUserMutationIntegrationTest {
                 throw new IllegalStateException("phase10 forced role persistence failure");
             }
         };
-        var failingService = new AdminUserMutationService(failingRepository, reads);
+        var failingService = new AdminUserMutationService(failingRepository, reads, mutationTransactions);
         assertThrows(RuntimeException.class, () -> tx.execute(status ->
                 failingService.replaceRoles(
                         insertFailure,
@@ -363,6 +423,23 @@ class AdminUserMutationIntegrationTest {
                         actor)));
         assertEquals(roleBefore, snapshot(insertFailure));
         assertEquals(0, auditCount(insertFailure));
+
+        String guardedAdmin = id(25);
+        String survivingAdmin = id(26);
+        seed(guardedAdmin, "phase10-guard-rollback-a@example.test", "active", List.of("admin"));
+        seed(survivingAdmin, "phase10-guard-rollback-b@example.test", "active", List.of("admin"));
+        Map<String, Object> guardedBefore = snapshot(guardedAdmin);
+        long guardCountBefore = guardActiveAdminCount();
+        long guardRevisionBefore = guardRevision();
+        assertThrows(RuntimeException.class, () -> mutations.updateStatus(
+                guardedAdmin,
+                new AdminUserMutationDtos.ChangeStatus(
+                        reads.findUser(guardedAdmin).account().updatedAt(), "disabled"),
+                missingActor));
+        assertEquals(guardedBefore, snapshot(guardedAdmin));
+        assertEquals(guardCountBefore, guardActiveAdminCount());
+        assertEquals(guardRevisionBefore, guardRevision());
+        assertEquals(0, auditCount(guardedAdmin));
     }
 
     private static Object mutateStatus(String id, String version, String status) {
@@ -424,6 +501,10 @@ class AdminUserMutationIntegrationTest {
                     SELECT UUID_TO_BIN(?),id FROM roles WHERE code=?
                     """, id, role);
         }
+        if ("active".equals(status) && roles.contains("admin")) {
+            // Fixture DML bypasses the service that maintains the durable guard in production.
+            syncActiveAdminGuard();
+        }
     }
 
     private static Map<String, Object> snapshot(String id) {
@@ -445,6 +526,46 @@ class AdminUserMutationIntegrationTest {
         return jdbc.queryForObject(
                 "SELECT auth_version FROM users WHERE id=UUID_TO_BIN(?)",
                 Long.class, id);
+    }
+
+    private static long guardRevision() {
+        return jdbc.queryForObject("""
+                SELECT revision
+                FROM admin_mutation_guards
+                WHERE guard_key='last_active_admin'
+                """, Long.class);
+    }
+
+    private static long guardActiveAdminCount() {
+        return jdbc.queryForObject("""
+                SELECT active_admin_count
+                FROM admin_mutation_guards
+                WHERE guard_key='last_active_admin'
+                """, Long.class);
+    }
+
+    private static long activeAdminCount() {
+        return jdbc.queryForObject("""
+                SELECT COUNT(DISTINCT u.id)
+                FROM users u
+                JOIN user_roles ur ON ur.user_id=u.id
+                JOIN roles r ON r.id=ur.role_id
+                WHERE u.status='active' AND r.code='admin'
+                """, Long.class);
+    }
+
+    private static void syncActiveAdminGuard() {
+        jdbc.update("""
+                UPDATE admin_mutation_guards
+                SET active_admin_count=(
+                    SELECT COUNT(DISTINCT u.id)
+                    FROM users u
+                    JOIN user_roles ur ON ur.user_id=u.id
+                    JOIN roles r ON r.id=ur.role_id
+                    WHERE u.status='active' AND r.code='admin'
+                )
+                WHERE guard_key='last_active_admin'
+                """);
     }
 
     private static int auditCount(String id) {

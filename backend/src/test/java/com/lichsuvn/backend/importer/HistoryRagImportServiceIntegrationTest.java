@@ -2,6 +2,7 @@ package com.lichsuvn.backend.importer;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lichsuvn.backend.event.infrastructure.EventReadRepository;
+import com.lichsuvn.backend.testsupport.LocalMySqlContainer;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import org.flywaydb.core.Flyway;
@@ -37,7 +38,7 @@ class HistoryRagImportServiceIntegrationTest {
     static void setupDatabase() {
         boolean containerStarted = false;
         try {
-            mysql = new MySQLContainer("mysql:8.0.36")
+            mysql = new LocalMySqlContainer("mysql:8.0.36")
                     .withDatabaseName("history_rag_apply_test")
                     .withUsername("test")
                     .withPassword("test");

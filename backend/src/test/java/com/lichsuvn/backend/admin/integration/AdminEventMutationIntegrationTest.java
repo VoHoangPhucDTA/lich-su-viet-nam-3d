@@ -18,6 +18,7 @@ import com.lichsuvn.backend.admin.infrastructure.AdminEventGeographyMutationRepo
 import com.lichsuvn.backend.auth.security.UserPrincipal;
 import com.lichsuvn.backend.common.exception.ApiException;
 import com.lichsuvn.backend.common.media.MediaUrlPolicy;
+import com.lichsuvn.backend.testsupport.LocalMySqlContainer;
 import org.flywaydb.core.Flyway;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -62,7 +63,7 @@ class AdminEventMutationIntegrationTest {
     @BeforeAll
     static void startDatabase() {
         try {
-            mysql = new MySQLContainer("mysql:8.0.36")
+            mysql = new LocalMySqlContainer("mysql:8.0.36")
                     .withDatabaseName("admin_phase5_test")
                     .withUsername("test")
                     .withPassword("test");

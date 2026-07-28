@@ -11,6 +11,7 @@ import com.lichsuvn.backend.admin.infrastructure.AdminEventPublicationRepository
 import com.lichsuvn.backend.admin.infrastructure.AdminEventReadRepository;
 import com.lichsuvn.backend.auth.security.UserPrincipal;
 import com.lichsuvn.backend.common.exception.ApiException;
+import com.lichsuvn.backend.testsupport.LocalMySqlContainer;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import org.flywaydb.core.Flyway;
@@ -63,7 +64,7 @@ class AdminEventPublicationIntegrationTest {
     @BeforeAll
     static void startDatabase() {
         try {
-            mysql = new MySQLContainer("mysql:8.0.36")
+            mysql = new LocalMySqlContainer("mysql:8.0.36")
                     .withDatabaseName("admin_phase8_test")
                     .withUsername("test")
                     .withPassword("test");
