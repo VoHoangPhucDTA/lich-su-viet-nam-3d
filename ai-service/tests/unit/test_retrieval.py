@@ -187,6 +187,25 @@ def test_raw_candidate_parser_preserves_pending_for_internal_evaluation() -> Non
     assert parsed_pending is not None
     assert parsed_pending.contains_pending_review is True
     assert ChromaRetriever._parse_candidate("chunk", "text", metadata, math.nan) is None
+    assert ChromaRetriever._parse_candidate("chunk", "text", "invalid", 0.2) is None
+
+
+@pytest.mark.parametrize(
+    ("raw", "key"),
+    [
+        ({"documents": None}, "documents"),
+        ({"metadatas": None}, "metadatas"),
+        ({"distances": None}, "distances"),
+        ({"documents": []}, "documents"),
+        ({"documents": [[]]}, "documents"),
+        ({"documents": [None]}, "documents"),
+    ],
+)
+def test_chroma_result_boundary_fails_closed_for_missing_nested_lists(
+    raw: object,
+    key: str,
+) -> None:
+    assert ChromaRetriever._first_result_list(raw, key) == []
 
 
 def test_retriever_traces_pending_candidate_but_excludes_it_publicly(

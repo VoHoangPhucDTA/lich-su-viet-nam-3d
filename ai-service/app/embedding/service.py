@@ -15,6 +15,7 @@ from app.embedding.gemini import error_context
 from app.embedding.models import (
     EmbeddingFailure,
     EmbeddingManifest,
+    EmbeddingManifestStatus,
     EmbeddingRecord,
     EmbeddingResponseError,
     MissingGeminiApiKeyError,
@@ -122,7 +123,7 @@ class EmbeddingService:
         self.store.write_manifest(manifest)
 
     @staticmethod
-    def _completion_status(manifest: EmbeddingManifest) -> str:
+    def _completion_status(manifest: EmbeddingManifest) -> EmbeddingManifestStatus:
         if manifest.remainingRecords == 0 and manifest.unresolvedFailedRecords == 0:
             return "COMPLETED"
         if manifest.unattemptedRecords == 0 and manifest.unresolvedFailedRecords:

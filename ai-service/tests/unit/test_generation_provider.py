@@ -7,7 +7,12 @@ from google.genai import errors
 from app.generation.evaluation import GenerationCache
 from app.generation.fake import FakeGenerationProvider
 from app.generation.gemini import GeminiGenerationProvider
-from app.generation.models import GenerationRequest, GenerationSafetyError
+from app.generation.models import (
+    GenerationOutputError,
+    GenerationPermanentError,
+    GenerationRequest,
+    GenerationSafetyError,
+)
 from app.generation.schemas import GeneratedQuestionBatch
 from app.generation.service import GenerationService
 from tests.unit.test_generation import StubRetrieval, configured, question, retrieval_response
@@ -72,6 +77,43 @@ def test_provider_maps_safety_finish_reason() -> None:
         provider(lambda **_: client).generate_structured("prompt")
 
 
+def test_provider_rejects_response_without_candidate() -> None:
+    client = FakeClient(
+        SimpleNamespace(text=None, candidates=[], prompt_feedback=None)
+    )
+
+    with pytest.raises(GenerationOutputError, match="GENERATION_FINISH_NO_CANDIDATE"):
+        provider(lambda **_: client).generate_structured("prompt")
+
+
+def test_provider_rejects_response_without_text_and_keeps_typed_raw_output() -> None:
+    client = FakeClient(
+        SimpleNamespace(
+            text=None,
+            candidates=[SimpleNamespace(finish_reason="STOP")],
+            prompt_feedback=None,
+        )
+    )
+
+    with pytest.raises(GenerationOutputError) as caught:
+        provider(lambda **_: client).generate_structured("prompt")
+
+    assert caught.value.raw_output == ""
+
+
+def test_provider_passes_timeout_to_sdk_in_milliseconds() -> None:
+    client = FakeClient(response())
+    factory_kwargs = {}
+
+    def factory(**kwargs):
+        factory_kwargs.update(kwargs)
+        return client
+
+    provider(factory).generate_structured("prompt", timeout_seconds=1.25)
+
+    assert factory_kwargs["http_options"].timeout == 1250
+
+
 def test_provider_rotates_only_credential_failure() -> None:
     clients = [
         FakeClient(
@@ -92,6 +134,21 @@ def test_provider_rotates_only_credential_failure() -> None:
     assert value.questions
     assert used_keys == ["key-one", "key-two"]
     assert clients[0].closed
+
+
+def test_generation_error_does_not_expose_api_key() -> None:
+    secret = "AIza" + "x" * 32
+    client = FakeClient(
+        errors.ClientError(
+            400,
+            {"error": {"message": f"bad request for {secret}"}},
+        )
+    )
+
+    with pytest.raises(GenerationPermanentError) as caught:
+        provider(lambda **_: client, secret).generate_structured("prompt")
+
+    assert secret not in str(caught.value)
 
 
 def test_generation_cache_identity_covers_declared_semantic_inputs(

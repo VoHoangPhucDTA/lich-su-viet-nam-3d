@@ -26,7 +26,7 @@ from datetime import datetime, timezone
 from importlib.metadata import PackageNotFoundError, version
 from pathlib import Path
 from statistics import mean, median, stdev
-from typing import Any
+from typing import Any, Literal
 
 from app.config import SERVICE_ROOT, Settings
 from app.corpus.loader import iter_corpus
@@ -248,7 +248,7 @@ class ExperimentRecord:
     query_id: str
     query: str
     category: str
-    grade: int
+    grade: Literal[10, 11, 12]
     lesson_number: int | None
     expected_chunk_ids: list[str]
     expected_document_ids: list[str]
@@ -381,7 +381,9 @@ def run_preflight(
     )
 
 
-def _method_filter(record: BenchmarkRecord | ExperimentRecord, method: str) -> tuple[int | None, int | None]:
+def _method_filter(
+    record: BenchmarkRecord | ExperimentRecord, method: str
+) -> tuple[Literal[10, 11, 12] | None, int | None]:
     if method.endswith("FILTER_ON"):
         return record.grade, record.lesson_number
     return None, None
@@ -850,8 +852,11 @@ def run_experiment(
         }
     print(json.dumps({"providerPreflight": preflight_payload}, ensure_ascii=False, indent=2))
     bm25 = BM25Index(preflight.chunks)
+    candidate_multiplier = configuration["candidateMultiplier"]
+    if not isinstance(candidate_multiplier, int):
+        raise ExperimentPreflightError("candidate multiplier must be an integer")
     experiment_settings = settings.model_copy(
-        update={"rag_candidate_multiplier": int(configuration["candidateMultiplier"])}
+        update={"rag_candidate_multiplier": candidate_multiplier}
     )
     service_kwargs = {
         "client": preflight.chroma_client,
@@ -927,7 +932,7 @@ def run_experiment(
                 try:
                     warm_started = time.perf_counter()
                     service.retrieve(
-                        RetrievalRequest(query=record.query, topK=1),
+                        RetrievalRequest(query=record.query, top_k=1),
                         query_vector=vectors[record.query],
                         evaluation_trace=RetrievalEvaluationTrace(),
                     )
@@ -940,7 +945,7 @@ def run_experiment(
                 grade, lesson = _method_filter(record, method)
                 started = time.perf_counter()
                 error = None
-                contract = (None, None, None)
+                contract: tuple[bool | None, bool | None, bool | None] = (None, None, None)
                 selected: list[CorpusChunk] = []
                 latency: dict[str, float | None] = {
                     "embedding": embedding_ms if method.startswith("DENSE") else None
@@ -961,7 +966,12 @@ def run_experiment(
                     if method.startswith("DENSE"):
                         trace = RetrievalEvaluationTrace()
                         response = service.retrieve(
-                            RetrievalRequest(query=record.query, grade=grade, lessonNumber=lesson, topK=5),
+                            RetrievalRequest(
+                                query=record.query,
+                                grade=grade,
+                                lesson_number=lesson,
+                                top_k=5,
+                            ),
                             query_vector=vectors[record.query],
                             evaluation_trace=trace,
                         )
@@ -1019,6 +1029,7 @@ def run_experiment(
         run_status = "COMPLETED"
     held_out_executed = bool(preflight.held_out_benchmark)
     final_held_out_status = "VALID_AND_RUN" if held_out_executed else preflight.held_out_status
+    paired_comparison = _paired_comparison(preflight.benchmark, development_rows)
     aggregate = {
         "schemaVersion": EXPERIMENT_SCHEMA_VERSION,
         "status": run_status,
@@ -1037,7 +1048,7 @@ def run_experiment(
             "DENSE_TOTALS_ARE_HYPOTHETICAL_COMPOSITIONS"
         ),
         "methods": method_reports,
-        "pairedComparison": _paired_comparison(preflight.benchmark, development_rows),
+        "pairedComparison": paired_comparison,
         "statisticalPolicy": {
             "development": "DESCRIPTIVE_ONLY_NO_GENERALIZATION_CI",
             "heldOut": "PAIRED_BOOTSTRAP_95_FIXED_SEED_IF_VALID_AND_RUN",
@@ -1117,7 +1128,7 @@ def run_experiment(
             ],
         )
         writer.writeheader()
-        writer.writerows(aggregate["pairedComparison"])
+        writer.writerows(paired_comparison)
     if held_out_executed:
         held_out_comparison = _paired_comparison(
             preflight.held_out_benchmark,

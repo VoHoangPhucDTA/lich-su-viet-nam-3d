@@ -2,7 +2,7 @@
 
 import inspect
 import time
-from collections.abc import Callable
+from collections.abc import Callable, Mapping
 from dataclasses import dataclass, field
 
 from app.config import Settings
@@ -21,12 +21,13 @@ from app.generation.models import (
 )
 from app.generation.prompt_builder import build_generation_prompt
 from app.generation.repair import build_repair_prompt
+from app.generation.schemas import GeneratedQuestionBatch
 from app.generation.validators import validate_questions
 from app.retrieval.models import RetrievalRequest, RetrievalResponse
-from app.retrieval.service import RetrievalService, create_retrieval_service
+from app.retrieval.service import RetrievalServiceContract, create_retrieval_service
 
 
-def _accepts_keyword(parameters: dict, name: str) -> bool:
+def _accepts_keyword(parameters: Mapping[str, inspect.Parameter], name: str) -> bool:
     return name in parameters or any(
         parameter.kind == inspect.Parameter.VAR_KEYWORD
         for parameter in parameters.values()
@@ -56,7 +57,7 @@ class GenerationService:
         self,
         *,
         settings: Settings,
-        retrieval_service: RetrievalService,
+        retrieval_service: RetrievalServiceContract,
         provider: GenerationProvider,
     ) -> None:
         self.settings = settings
@@ -110,23 +111,23 @@ class GenerationService:
         started = time.monotonic()
         count = self._validate_request_limits(request)
         retrieval_request = RetrievalRequest(
-                query=request.query,
-                grade=request.grade,
-                lessonNumber=request.lesson_number,
-                documentId=request.document_id,
-                topK=request.top_k,
-            )
+            query=request.query,
+            grade=request.grade,
+            lesson_number=request.lesson_number,
+            document_id=request.document_id,
+            top_k=request.top_k,
+        )
         if retrieval_response is not None:
             retrieval = retrieval_response
         else:
-            method = self.retrieval_service.retrieve
-            kwargs = {}
-            parameters = inspect.signature(method).parameters
+            retrieval_method: Callable[..., RetrievalResponse] = self.retrieval_service.retrieve
+            retrieval_kwargs: dict[str, object] = {}
+            parameters = inspect.signature(retrieval_method).parameters
             if _accepts_keyword(parameters, "deadline"):
-                kwargs["deadline"] = deadline
+                retrieval_kwargs["deadline"] = deadline
             if _accepts_keyword(parameters, "is_cancelled"):
-                kwargs["is_cancelled"] = is_cancelled
-            retrieval = method(retrieval_request, **kwargs)
+                retrieval_kwargs["is_cancelled"] = is_cancelled
+            retrieval = retrieval_method(retrieval_request, **retrieval_kwargs)
         deadline.checkpoint("retrieval", is_cancelled)
         if not retrieval.results or not retrieval.fact_context.text.strip():
             raise InsufficientContextError("INSUFFICIENT_CONTEXT")
@@ -143,28 +144,30 @@ class GenerationService:
             deadline.checkpoint(stage, is_cancelled)
             provider_started = time.monotonic()
             try:
-                method = self.provider.generate_structured
-                kwargs = {}
-                parameters = inspect.signature(method).parameters
+                provider_method: Callable[..., GeneratedQuestionBatch] = (
+                    self.provider.generate_structured
+                )
+                provider_kwargs: dict[str, object] = {}
+                parameters = inspect.signature(provider_method).parameters
                 if _accepts_keyword(parameters, "deadline"):
-                    kwargs["deadline"] = deadline
+                    provider_kwargs["deadline"] = deadline
                 if _accepts_keyword(parameters, "timeout_seconds"):
-                    kwargs["timeout_seconds"] = deadline.clamp_timeout(
+                    provider_kwargs["timeout_seconds"] = deadline.clamp_timeout(
                         self.settings.gemini_generation_timeout_seconds,
                         stage=stage,
                         minimum_seconds=self.settings.ai_min_provider_timeout_seconds,
                     )
                 if _accepts_keyword(parameters, "is_cancelled"):
-                    kwargs["is_cancelled"] = is_cancelled
+                    provider_kwargs["is_cancelled"] = is_cancelled
                 if _accepts_keyword(parameters, "stage"):
-                    kwargs["stage"] = stage
+                    provider_kwargs["stage"] = stage
                 if _accepts_keyword(parameters, "minimum_timeout_seconds"):
-                    kwargs["minimum_timeout_seconds"] = (
+                    provider_kwargs["minimum_timeout_seconds"] = (
                         self.settings.ai_min_provider_timeout_seconds
                     )
-                batch = method(current_prompt, **kwargs)
+                batch = provider_method(current_prompt, **provider_kwargs)
             except GenerationOutputError as exc:
-                raw_output = getattr(exc, "raw_output", "")
+                raw_output = exc.raw_output
                 last_issues = [
                     ValidationIssue(code=str(exc), message="structured output is invalid")
                 ]
@@ -244,15 +247,15 @@ class GenerationService:
             warnings.append("INSUFFICIENT_VALID_QUESTIONS")
         sources = [
             GenerationSource(
-                chunkId=item.chunk_id,
-                documentId=item.document_id,
+                chunk_id=item.chunk_id,
+                document_id=item.document_id,
                 grade=item.grade,
-                lessonNumber=item.lesson_number,
-                lessonTitle=item.lesson_title,
-                sectionTitle=item.section_title,
-                pageStart=item.page_start,
-                pageEnd=item.page_end,
-                chunkHash=item.chunk_hash,
+                lesson_number=item.lesson_number,
+                lesson_title=item.lesson_title,
+                section_title=item.section_title,
+                page_start=item.page_start,
+                page_end=item.page_end,
+                chunk_hash=item.chunk_hash,
             )
             for item in retrieval.results
         ]
@@ -260,16 +263,16 @@ class GenerationService:
             questions=valid[:count],
             sources=sources,
             metadata=GenerationMetadata(
-                requestedCount=count,
-                generatedCount=min(len(valid), count),
-                retrievedChunkCount=len(retrieval.results),
-                generationModel=self.provider.model,
-                embeddingModel=retrieval.metadata.embedding_model,
-                embeddingDimension=retrieval.metadata.embedding_dimension,
-                corpusSha256=retrieval.metadata.corpus_sha256,
-                collectionName=retrieval.metadata.collection_name,
-                repairAttempts=repair_attempts,
-                latencyMs=round((time.monotonic() - started) * 1000, 3),
+                requested_count=count,
+                generated_count=min(len(valid), count),
+                retrieved_chunk_count=len(retrieval.results),
+                generation_model=self.provider.model,
+                embedding_model=retrieval.metadata.embedding_model,
+                embedding_dimension=retrieval.metadata.embedding_dimension,
+                corpus_sha256=retrieval.metadata.corpus_sha256,
+                collection_name=retrieval.metadata.collection_name,
+                repair_attempts=repair_attempts,
+                latency_ms=round((time.monotonic() - started) * 1000, 3),
             ),
             warnings=warnings,
         )
@@ -288,7 +291,7 @@ def create_generation_service(settings: Settings) -> GenerationService:
 
         return GenerationService(
             settings=settings,
-            retrieval_service=DeterministicRetrievalService(),  # type: ignore[arg-type]
+            retrieval_service=DeterministicRetrievalService(),
             provider=DeterministicGenerationProvider(),
         )
     retrieval = create_retrieval_service(settings)

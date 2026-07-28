@@ -32,7 +32,9 @@ class GenerationSafetyError(GenerationError):
 
 
 class GenerationOutputError(GenerationError):
-    pass
+    def __init__(self, message: str, *, raw_output: str = "") -> None:
+        super().__init__(message)
+        self.raw_output = raw_output
 
 
 class InsufficientContextError(GenerationError):

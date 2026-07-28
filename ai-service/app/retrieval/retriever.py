@@ -98,27 +98,39 @@ class ChromaRetriever:
         if not math.isfinite(float(distance)):
             return None
         try:
-            candidate = RawChromaCandidate(
-                chunk_id=chunk_id,
-                document_id=metadata.get("documentId"),
-                grade=metadata.get("grade"),
-                lesson_number=metadata.get("lessonNumber"),
-                lesson_title=metadata.get("lessonTitle"),
-                section_title=metadata.get("sectionTitle"),
-                section_path=metadata.get("sectionPath", ""),
-                page_start=metadata.get("pageStart"),
-                page_end=metadata.get("pageEnd"),
-                content_types=metadata.get("contentTypes", ""),
-                text=document,
-                distance=float(distance),
-                chunk_hash=metadata.get("chunkHash"),
-                contains_pending_review=metadata.get(
-                    "containsPendingReview", False
-                ),
+            candidate = RawChromaCandidate.model_validate(
+                {
+                    "chunk_id": chunk_id,
+                    "document_id": metadata.get("documentId"),
+                    "grade": metadata.get("grade"),
+                    "lesson_number": metadata.get("lessonNumber"),
+                    "lesson_title": metadata.get("lessonTitle"),
+                    "section_title": metadata.get("sectionTitle"),
+                    "section_path": metadata.get("sectionPath", ""),
+                    "page_start": metadata.get("pageStart"),
+                    "page_end": metadata.get("pageEnd"),
+                    "content_types": metadata.get("contentTypes", ""),
+                    "text": document,
+                    "distance": float(distance),
+                    "chunk_hash": metadata.get("chunkHash"),
+                    "contains_pending_review": metadata.get(
+                        "containsPendingReview", False
+                    ),
+                }
             )
         except ValidationError:
             return None
         return candidate
+
+    @staticmethod
+    def _first_result_list(raw: object, key: str) -> list[object]:
+        if not isinstance(raw, dict):
+            return []
+        nested = raw.get(key)
+        if not isinstance(nested, list) or not nested:
+            return []
+        first = nested[0]
+        return first if isinstance(first, list) else []
 
     def retrieve(
         self,
@@ -178,10 +190,10 @@ class ChromaRetriever:
         except RetrievalNotReadyError:
             raise
 
-        ids = (raw.get("ids") or [[]])[0]
-        documents = (raw.get("documents") or [[]])[0]
-        metadatas = (raw.get("metadatas") or [[]])[0]
-        distances = (raw.get("distances") or [[]])[0]
+        ids = self._first_result_list(raw, "ids")
+        documents = self._first_result_list(raw, "documents")
+        metadatas = self._first_result_list(raw, "metadatas")
+        distances = self._first_result_list(raw, "distances")
         candidates: list[RawChromaCandidate] = []
         for values in zip(ids, documents, metadatas, distances, strict=False):
             if deadline is not None:

@@ -258,3 +258,59 @@ production Chroma: 414 records, gemini-embedding-2, 768 dimensions, cosine
 
 Remaining typing debt is intentionally deferred: provider/external adapters to
 WP3, runtime/deadline/lifecycle to WP4, and route/CLI boundaries to WP5.
+
+## Goal 15D / WP3 — provider boundaries and orchestration services
+
+Scope locked before implementation:
+
+```text
+app/embedding/models.py
+app/embedding/service.py
+app/generation/models.py
+app/generation/gemini.py
+app/retrieval/retriever.py
+app/evaluation/retrieval_experiment.py
+app/generation/service.py
+app/retrieval/service.py
+app/provenance/service.py
+app/e2e/deterministic.py
+```
+
+The comparable `python -m mypy app` baseline was `162 errors in 14 files`.
+After WP3 it is `31 errors in 6 files`, a reduction of 131 errors (80.86%).
+The remaining errors are confined to `app/core` (3, WP4) and `app/api` (28,
+WP5). The explicit WP3 scope reports zero Mypy issues.
+
+External SDK and Chroma values are kept untrusted at their adapter boundaries,
+narrowed with guarded access, and converted to validated domain models before
+entering orchestration services. Minimal service/collection Protocols describe
+only the operations consumed by those services. Provider retry, key rotation,
+deadline clamp, timeout units, Chroma ranking, pending-review filtering, prompt,
+and public aliases remain unchanged.
+
+WP3 added no `Any`, `cast`, or `type: ignore`. Existing boundary-local `Any`
+remains in the Google SDK/Chroma adapters and the retrieval experiment's JSON
+boundary; it is not returned into domain services. `GenerationOutputError` now
+always exposes typed `raw_output`, malformed Chroma nested result lists fail
+closed, and the deterministic generation provider accepts the same optional
+deadline/timeout call contract used by orchestration.
+
+Verification:
+
+```text
+provider/model tests: 42 passed
+Chroma/retrieval/runtime tests: 54 passed
+orchestration/provenance tests: 42 passed
+retrieval experiment tests: 8 passed
+deterministic E2E tests: 2 passed
+Ruff: 0 errors
+pytest: 236 passed, 3 skipped
+coverage app: 3452 covered / 3868 statements, 416 missed, 89.25%
+compileall app scripts: passed
+production Chroma: 414 records, gemini-embedding-2, 768 dimensions, cosine
+```
+
+Coverage increased by 43 covered statements and 0.43 percentage points from
+the WP2 baseline (88.82%); missed statements decreased by 13. Runtime resource
+lifecycle/request-context typing is deferred to Goal 15E / WP4. API route and
+CLI boundary typing remains deferred to WP5.

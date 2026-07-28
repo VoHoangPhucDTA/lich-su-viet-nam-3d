@@ -3,7 +3,8 @@
 import inspect
 import json
 import time
-from collections.abc import Callable
+from collections.abc import Callable, Mapping
+from typing import Protocol
 
 from app.config import Settings
 from app.core.deadline import OperationDeadline, OperationDeadlineExceeded
@@ -27,11 +28,17 @@ from app.retrieval.models import (
 from app.retrieval.retriever import ChromaRetriever
 
 
-def _accepts_keyword(parameters: dict, name: str) -> bool:
+def _accepts_keyword(parameters: Mapping[str, inspect.Parameter], name: str) -> bool:
     return name in parameters or any(
         parameter.kind == inspect.Parameter.VAR_KEYWORD
         for parameter in parameters.values()
     )
+
+
+class RetrievalServiceContract(Protocol):
+    def retrieve(self, request: RetrievalRequest) -> RetrievalResponse: ...
+
+    def close(self) -> None: ...
 
 
 def _expected_collection_metadata(settings: Settings) -> dict[str, str | int | float | bool]:
@@ -135,13 +142,13 @@ class RetrievalService:
         if query_vector is None:
             embedding_started = time.perf_counter()
             try:
-                method = self.provider.embed_query
-                kwargs = {}
-                parameters = inspect.signature(method).parameters
+                embedding_method: Callable[..., list[float]] = self.provider.embed_query
+                embedding_kwargs: dict[str, object] = {}
+                parameters = inspect.signature(embedding_method).parameters
                 if _accepts_keyword(parameters, "deadline"):
-                    kwargs["deadline"] = deadline
+                    embedding_kwargs["deadline"] = deadline
                 if _accepts_keyword(parameters, "timeout_seconds"):
-                    kwargs["timeout_seconds"] = deadline.clamp_timeout(
+                    embedding_kwargs["timeout_seconds"] = deadline.clamp_timeout(
                         min(
                             self.settings.gemini_embedding_timeout_seconds,
                             self.settings.rag_retrieval_timeout_seconds,
@@ -150,12 +157,12 @@ class RetrievalService:
                         minimum_seconds=self.settings.ai_min_provider_timeout_seconds,
                     )
                 if _accepts_keyword(parameters, "is_cancelled"):
-                    kwargs["is_cancelled"] = is_cancelled
+                    embedding_kwargs["is_cancelled"] = is_cancelled
                 if _accepts_keyword(parameters, "minimum_timeout_seconds"):
-                    kwargs["minimum_timeout_seconds"] = (
+                    embedding_kwargs["minimum_timeout_seconds"] = (
                         self.settings.ai_min_provider_timeout_seconds
                     )
-                query_vector = method(request.query, **kwargs)
+                query_vector = embedding_method(request.query, **embedding_kwargs)
             except OperationDeadlineExceeded:
                 raise
             except Exception as exc:
@@ -181,8 +188,8 @@ class RetrievalService:
             max(top_k, top_k * self.settings.rag_candidate_multiplier),
         )
         checkpoint("chroma_query")
-        retrieve_method = self.retriever.retrieve
-        retrieve_kwargs = {}
+        retrieve_method: Callable[..., list[RawChromaCandidate]] = self.retriever.retrieve
+        retrieve_kwargs: dict[str, object] = {}
         parameters = inspect.signature(retrieve_method).parameters
         if evaluation_trace is not None and _accepts_keyword(parameters, "evaluation_trace"):
             retrieve_kwargs["evaluation_trace"] = evaluation_trace
@@ -226,18 +233,18 @@ class RetrievalService:
         return RetrievalResponse(
             query=request.query,
             filters=request.filters(),
-            topK=top_k,
-            candidateCount=candidate_count,
-            resultCount=len(results),
+            top_k=top_k,
+            candidate_count=candidate_count,
+            result_count=len(results),
             results=results,
-            factContext=fact_context,
+            fact_context=fact_context,
             metadata=RetrievalMetadata(
-                embeddingModel=self.settings.gemini_embedding_model,
-                embeddingDimension=self.settings.gemini_embedding_dimension,
-                corpusSha256=str(self.collection_metadata["corpusSha256"]),
-                queryFormatterVersion=QUERY_FORMATTER_VERSION,
-                collectionName=self.settings.chroma_collection_name,
-                distanceMetric=self.settings.chroma_distance_metric,
+                embedding_model=self.settings.gemini_embedding_model,
+                embedding_dimension=self.settings.gemini_embedding_dimension,
+                corpus_sha256=str(self.collection_metadata["corpusSha256"]),
+                query_formatter_version=QUERY_FORMATTER_VERSION,
+                collection_name=self.settings.chroma_collection_name,
+                distance_metric=self.settings.chroma_distance_metric,
             ),
         )
 

@@ -1,6 +1,7 @@
 from fastapi.testclient import TestClient
 
 from app.config import Settings
+from app.core.deadline import OperationDeadline
 from app.e2e.deterministic import (
     E2E_CHUNK_HASH,
     E2E_CHUNK_ID,
@@ -8,7 +9,10 @@ from app.e2e.deterministic import (
     E2E_CORPUS_SHA256,
     E2E_EMBEDDING_DIMENSION,
     E2E_EMBEDDING_MODEL,
+    DeterministicGenerationProvider,
 )
+from app.embedding.fake import FakeEmbeddingProvider
+from app.generation.schemas import GeneratedQuestionBatch
 from app.main import create_app
 
 
@@ -17,6 +21,7 @@ def test_deterministic_provider_exercises_generation_and_provenance_contract() -
         _env_file=None,
         app_env="e2e",
         deterministic_e2e_provider=True,
+        gemini_api_key="",
         ai_service_internal_token="test-internal-token",
         quiz_default_count=1,
     )
@@ -46,3 +51,17 @@ def test_deterministic_provider_exercises_generation_and_provenance_contract() -
     assert validated.status_code == 200
     assert validated.json()["valid"] is True
     app.state.runtime_resources.shutdown()
+
+
+def test_deterministic_providers_accept_typed_contract_without_gemini() -> None:
+    embedding_provider = FakeEmbeddingProvider(dimension=8)
+    assert len(embedding_provider.embed_query("query")) == 8
+
+    generated = DeterministicGenerationProvider().generate_structured(
+        "GENERATION REQUEST\ncount: 1\ndifficulty: MEDIUM",
+        deadline=OperationDeadline(5),
+        timeout_seconds=1.25,
+    )
+
+    assert isinstance(generated, GeneratedQuestionBatch)
+    assert len(generated.questions) == 1

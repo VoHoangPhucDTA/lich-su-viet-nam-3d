@@ -2,8 +2,11 @@
 
 import json
 import re
+from collections.abc import Callable
 
+from app.core.deadline import OperationDeadline
 from app.generation.parser import parse_generation_json
+from app.generation.schemas import GeneratedQuestionBatch
 from app.provenance.models import (
     ProvenanceValidationRequest,
     ProvenanceValidationResponse,
@@ -29,19 +32,19 @@ E2E_EMBEDDING_DIMENSION = 8
 def _result() -> RetrievalResult:
     return RetrievalResult(
         rank=1,
-        chunkId=E2E_CHUNK_ID,
-        documentId="e2e-document-001",
+        chunk_id=E2E_CHUNK_ID,
+        document_id="e2e-document-001",
         grade=12,
-        lessonNumber=6,
-        lessonTitle="Cách mạng tháng Tám năm 1945",
-        sectionTitle="Kết quả",
-        sectionPath="Bài 6 > Kết quả",
-        pageStart=42,
-        pageEnd=42,
-        contentTypes="knowledge",
+        lesson_number=6,
+        lesson_title="Cách mạng tháng Tám năm 1945",
+        section_title="Kết quả",
+        section_path="Bài 6 > Kết quả",
+        page_start=42,
+        page_end=42,
+        content_types="knowledge",
         text="Tháng Tám năm 1945, nhân dân Việt Nam giành chính quyền trên phạm vi cả nước.",
         distance=0.0,
-        chunkHash=E2E_CHUNK_HASH,
+        chunk_hash=E2E_CHUNK_HASH,
     )
 
 
@@ -52,20 +55,22 @@ class DeterministicRetrievalService:
         return RetrievalResponse(
             query=request.query,
             filters=RetrievalFilters(
-                grade=request.grade, lessonNumber=request.lesson_number, documentId=request.document_id
+                grade=request.grade,
+                lesson_number=request.lesson_number,
+                document_id=request.document_id,
             ),
-            topK=request.top_k or 1,
-            candidateCount=1,
-            resultCount=1,
+            top_k=request.top_k or 1,
+            candidate_count=1,
+            result_count=1,
             results=[result],
-            factContext=context,
+            fact_context=context,
             metadata=RetrievalMetadata(
-                embeddingModel=E2E_EMBEDDING_MODEL,
-                embeddingDimension=E2E_EMBEDDING_DIMENSION,
-                corpusSha256=E2E_CORPUS_SHA256,
-                queryFormatterVersion="deterministic-e2e-query-v1",
-                collectionName=E2E_COLLECTION,
-                distanceMetric="cosine",
+                embedding_model=E2E_EMBEDDING_MODEL,
+                embedding_dimension=E2E_EMBEDDING_DIMENSION,
+                corpus_sha256=E2E_CORPUS_SHA256,
+                query_formatter_version="deterministic-e2e-query-v1",
+                collection_name=E2E_COLLECTION,
+                distance_metric="cosine",
             ),
         )
 
@@ -76,7 +81,18 @@ class DeterministicRetrievalService:
 class DeterministicGenerationProvider:
     model = "deterministic-e2e-generation-v1"
 
-    def generate_structured(self, prompt: str):
+    def generate_structured(
+        self,
+        prompt: str,
+        *,
+        deadline: OperationDeadline | None = None,
+        timeout_seconds: float | None = None,
+        is_cancelled: Callable[[], bool] | None = None,
+        stage: str = "generation",
+        minimum_timeout_seconds: float = 0.001,
+    ) -> GeneratedQuestionBatch:
+        if deadline is not None:
+            deadline.checkpoint(stage, is_cancelled)
         source_match = re.search(r"chunkId=([^\]\s]+)", prompt)
         source_id = source_match.group(1) if source_match else E2E_CHUNK_ID
         request_section = prompt.rsplit("GENERATION REQUEST", 1)[-1]
@@ -84,7 +100,7 @@ class DeterministicGenerationProvider:
         count = int(numeric_fields[0]) if numeric_fields else 1
         difficulty_match = re.search(r"\b(EASY|MEDIUM|HARD)\b", request_section)
         difficulty = difficulty_match.group(1) if difficulty_match else "MEDIUM"
-        questions = []
+        questions: list[dict[str, object]] = []
         stems = [
             "Theo tư liệu, kết quả nào diễn ra trong tháng Tám năm 1945?",
             "Tư liệu xác định phạm vi giành chính quyền của nhân dân Việt Nam như thế nào?",
@@ -135,14 +151,14 @@ def validate_deterministic_provenance(
         request.embedding_model == E2E_EMBEDDING_MODEL
         and request.embedding_dimension == E2E_EMBEDDING_DIMENSION
     )
-    errors = []
+    errors: list[str] = []
     if not corpus_matches:
         errors.append("CORPUS_MISMATCH")
     if not collection_matches:
         errors.append("COLLECTION_MISMATCH")
     if not embedding_matches:
         errors.append("EMBEDDING_CONTRACT_MISMATCH")
-    results = []
+    results: list[SourceValidationResult] = []
     for source in request.sources:
         exists = source.chunk_id == E2E_CHUNK_ID
         hash_matches = exists and source.chunk_hash == E2E_CHUNK_HASH
@@ -152,25 +168,25 @@ def validate_deterministic_provenance(
             errors.append("SOURCE_CHANGED")
         results.append(
             SourceValidationResult(
-                chunkId=source.chunk_id,
-                chunkHash=E2E_CHUNK_HASH if exists else None,
+                chunk_id=source.chunk_id,
+                chunk_hash=E2E_CHUNK_HASH if exists else None,
                 exists=exists,
-                hashMatches=hash_matches,
-                pendingReview=False,
-                documentId="e2e-document-001" if exists else None,
+                hash_matches=hash_matches,
+                pending_review=False,
+                document_id="e2e-document-001" if exists else None,
                 grade=12 if exists else None,
-                lessonNumber=6 if exists else None,
-                lessonTitle="Cách mạng tháng Tám năm 1945" if exists else None,
-                sectionTitle="Kết quả" if exists else None,
-                pageStart=42 if exists else None,
-                pageEnd=42 if exists else None,
+                lesson_number=6 if exists else None,
+                lesson_title="Cách mạng tháng Tám năm 1945" if exists else None,
+                section_title="Kết quả" if exists else None,
+                page_start=42 if exists else None,
+                page_end=42 if exists else None,
             )
         )
     return ProvenanceValidationResponse(
         valid=not errors,
-        corpusMatches=corpus_matches,
-        collectionMatches=collection_matches,
-        embeddingContractMatches=embedding_matches,
+        corpus_matches=corpus_matches,
+        collection_matches=collection_matches,
+        embedding_contract_matches=embedding_matches,
         sources=results,
         errors=sorted(set(errors)),
     )

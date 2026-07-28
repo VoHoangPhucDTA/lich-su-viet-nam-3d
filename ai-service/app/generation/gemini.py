@@ -95,8 +95,9 @@ class GeminiGenerationProvider:
         candidates = getattr(response, "candidates", None) or []
         if not candidates:
             feedback = getattr(response, "prompt_feedback", None)
-            if getattr(feedback, "block_reason", None):
-                return str(feedback.block_reason).split(".")[-1]
+            block_reason = getattr(feedback, "block_reason", None)
+            if block_reason:
+                return str(block_reason).split(".")[-1]
             return "NO_CANDIDATE"
         reason = getattr(candidates[0], "finish_reason", None)
         return str(reason).split(".")[-1] if reason is not None else "UNKNOWN"
