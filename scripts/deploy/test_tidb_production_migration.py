@@ -617,6 +617,22 @@ class FlywayStateValidationTest(unittest.TestCase):
                 }
             )
 
+    def test_warning_message_is_sanitized_for_operator_diagnosis(self) -> None:
+        with self.assertRaisesRegex(
+            runner.MigrationGuardError,
+            r"unexpected warnings.*\[REDACTED\]",
+        ):
+            runner.validate_flyway_validate(
+                {
+                    "validationSuccessful": True,
+                    "invalidMigrations": [],
+                    "database": "lichsuvn",
+                    "flywayVersion": "11.14.1",
+                    "operation": "validate",
+                    "warnings": [{"message": "password=not-a-secret"}],
+                }
+            )
+
         runner.validate_flyway_migrate(
             {
                 "initialSchemaVersion": "37",

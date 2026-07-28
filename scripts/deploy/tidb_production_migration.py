@@ -693,9 +693,21 @@ def _validate_flyway_envelope(
             f"Flyway response operation is not {operation!r}"
         )
     warnings = payload.get("warnings")
-    if not isinstance(warnings, list) or warnings:
+    if not isinstance(warnings, list):
+        raise MigrationGuardError(f"Flyway {operation} warnings payload is invalid")
+    if warnings:
+        summaries: list[str] = []
+        for warning in warnings[:3]:
+            if isinstance(warning, Mapping):
+                raw = str(warning.get("message") or warning.get("code") or "warning")
+            else:
+                raw = str(warning)
+            safe = redact_output(raw)
+            safe = re.sub(r"(?i)(password|secret|token)=[^\s,;]+", r"\1=[REDACTED]", safe)
+            summaries.append(safe[:240])
         raise MigrationGuardError(
-            f"Flyway returned unexpected warnings for {operation}"
+            f"Flyway returned unexpected warnings for {operation}: "
+            + " | ".join(summaries)
         )
     if str(payload.get("database") or "") != expected_database:
         raise MigrationGuardError(
