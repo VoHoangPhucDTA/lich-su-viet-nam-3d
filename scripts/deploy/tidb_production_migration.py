@@ -692,7 +692,9 @@ def _validate_flyway_envelope(
         raise MigrationGuardError(
             f"Flyway response operation is not {operation!r}"
         )
-    warnings = payload.get("warnings")
+    warnings = payload.get("warnings", [])
+    if warnings is None:
+        warnings = []
     if not isinstance(warnings, list):
         raise MigrationGuardError(f"Flyway {operation} warnings payload is invalid")
     if warnings:

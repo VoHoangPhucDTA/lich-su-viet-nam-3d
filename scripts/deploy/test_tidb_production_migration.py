@@ -633,6 +633,15 @@ class FlywayStateValidationTest(unittest.TestCase):
                 }
             )
 
+    def test_absent_or_null_warnings_are_treated_as_empty(self) -> None:
+        for warnings in (None,):
+            payload = info_payload()
+            payload["warnings"] = warnings
+            runner.validate_flyway_info(payload)
+        payload = info_payload()
+        del payload["warnings"]
+        runner.validate_flyway_info(payload)
+
         runner.validate_flyway_migrate(
             {
                 "initialSchemaVersion": "37",
