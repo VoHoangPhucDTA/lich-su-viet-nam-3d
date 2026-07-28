@@ -43,12 +43,16 @@ class Settings(BaseSettings):
     gemini_embedding_max_retries: int = Field(default=5, ge=0)
     gemini_embedding_retry_min_seconds: float = Field(default=1, ge=0)
     gemini_embedding_retry_max_seconds: float = Field(default=30, ge=0)
+    gemini_embedding_timeout_seconds: float = Field(default=30, gt=0)
     gemini_generation_model: str = ""
     gemini_generation_temperature: float = Field(default=0.3, ge=0, le=2)
     gemini_generation_max_output_tokens: int = Field(default=8192, gt=0)
     gemini_generation_max_retries: int = Field(default=3, ge=0)
     gemini_generation_repair_attempts: int = Field(default=1, ge=0)
     gemini_generation_timeout_seconds: float = Field(default=60, gt=0)
+    ai_request_deadline_seconds: float = Field(default=80, gt=0)
+    ai_gateway_read_timeout_seconds: float = Field(default=90, gt=0)
+    ai_min_provider_timeout_seconds: float = Field(default=0.05, gt=0)
 
     embedding_output_dir: Path = Path("./storage/embeddings")
     embedding_checkpoint_dir: Path = Path("./storage/checkpoints")
@@ -122,6 +126,20 @@ class Settings(BaseSettings):
             raise ValueError(
                 "GEMINI_EMBEDDING_RETRY_MAX_SECONDS must be greater than or equal "
                 "to GEMINI_EMBEDDING_RETRY_MIN_SECONDS"
+            )
+        return self
+
+    @model_validator(mode="after")
+    def validate_runtime_budget(self) -> "Settings":
+        if self.ai_request_deadline_seconds >= self.ai_gateway_read_timeout_seconds:
+            raise ValueError(
+                "AI_REQUEST_DEADLINE_SECONDS must be less than "
+                "AI_GATEWAY_READ_TIMEOUT_SECONDS"
+            )
+        if self.ai_min_provider_timeout_seconds >= self.ai_request_deadline_seconds:
+            raise ValueError(
+                "AI_MIN_PROVIDER_TIMEOUT_SECONDS must be less than "
+                "AI_REQUEST_DEADLINE_SECONDS"
             )
         return self
 

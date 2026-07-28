@@ -121,6 +121,7 @@ public class HttpAiQuizClient implements AiQuizClient {
             case 422 -> new ApiException(HttpStatus.valueOf(422), "AI_SERVICE_CONTRACT_REJECTED", "AI Service rejected the request contract");
             case 502 -> new ApiException(HttpStatus.BAD_GATEWAY, "AI_GENERATION_FAILED", "AI Service returned invalid generated output");
             case 503 -> new ApiException(HttpStatus.SERVICE_UNAVAILABLE, "AI_SERVICE_UNAVAILABLE", "AI Service is temporarily unavailable");
+            case 504 -> new ApiException(HttpStatus.GATEWAY_TIMEOUT, "AI_SERVICE_TIMEOUT", "AI Service timed out");
             default -> new ApiException(HttpStatus.BAD_GATEWAY, "AI_SERVICE_INVALID_RESPONSE", "AI Service returned an unexpected response");
         };
     }

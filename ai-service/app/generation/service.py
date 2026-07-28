@@ -1,9 +1,12 @@
 """Retrieval-grounded MCQ generation orchestration."""
 
 from dataclasses import dataclass, field
+import inspect
 import time
+from collections.abc import Callable
 
 from app.config import Settings
+from app.core.deadline import OperationDeadline
 from app.generation.base import GenerationProvider
 from app.generation.gemini import GeminiGenerationProvider
 from app.generation.models import (
@@ -21,6 +24,13 @@ from app.generation.repair import build_repair_prompt
 from app.generation.validators import validate_questions
 from app.retrieval.models import RetrievalRequest, RetrievalResponse
 from app.retrieval.service import RetrievalService, create_retrieval_service
+
+
+def _accepts_keyword(parameters: dict, name: str) -> bool:
+    return name in parameters or any(
+        parameter.kind == inspect.Parameter.VAR_KEYWORD
+        for parameter in parameters.values()
+    )
 
 
 @dataclass
@@ -88,20 +98,36 @@ class GenerationService:
         *,
         retrieval_response: RetrievalResponse | None = None,
         evaluation_trace: GenerationEvaluationTrace | None = None,
+        deadline: OperationDeadline | None = None,
+        is_cancelled: Callable[[], bool] | None = None,
     ) -> GenerationResponse:
+        deadline = deadline or OperationDeadline(
+            self.settings.ai_request_deadline_seconds
+        )
+        deadline.checkpoint("retrieval", is_cancelled)
         if evaluation_trace is not None:
             evaluation_trace.reset()
         started = time.monotonic()
         count = self._validate_request_limits(request)
-        retrieval = retrieval_response or self.retrieval_service.retrieve(
-            RetrievalRequest(
+        retrieval_request = RetrievalRequest(
                 query=request.query,
                 grade=request.grade,
                 lessonNumber=request.lesson_number,
                 documentId=request.document_id,
                 topK=request.top_k,
             )
-        )
+        if retrieval_response is not None:
+            retrieval = retrieval_response
+        else:
+            method = self.retrieval_service.retrieve
+            kwargs = {}
+            parameters = inspect.signature(method).parameters
+            if _accepts_keyword(parameters, "deadline"):
+                kwargs["deadline"] = deadline
+            if _accepts_keyword(parameters, "is_cancelled"):
+                kwargs["is_cancelled"] = is_cancelled
+            retrieval = method(retrieval_request, **kwargs)
+        deadline.checkpoint("retrieval", is_cancelled)
         if not retrieval.results or not retrieval.fact_context.text.strip():
             raise InsufficientContextError("INSUFFICIENT_CONTEXT")
         prompt = build_generation_prompt(
@@ -113,9 +139,30 @@ class GenerationService:
         valid: list[GeneratedQuestion] = []
         current_prompt = prompt
         for attempt in range(self.settings.gemini_generation_repair_attempts + 1):
+            stage = "generation" if attempt == 0 else "repair"
+            deadline.checkpoint(stage, is_cancelled)
             provider_started = time.monotonic()
             try:
-                batch = self.provider.generate_structured(current_prompt)
+                method = self.provider.generate_structured
+                kwargs = {}
+                parameters = inspect.signature(method).parameters
+                if _accepts_keyword(parameters, "deadline"):
+                    kwargs["deadline"] = deadline
+                if _accepts_keyword(parameters, "timeout_seconds"):
+                    kwargs["timeout_seconds"] = deadline.clamp_timeout(
+                        self.settings.gemini_generation_timeout_seconds,
+                        stage=stage,
+                        minimum_seconds=self.settings.ai_min_provider_timeout_seconds,
+                    )
+                if _accepts_keyword(parameters, "is_cancelled"):
+                    kwargs["is_cancelled"] = is_cancelled
+                if _accepts_keyword(parameters, "stage"):
+                    kwargs["stage"] = stage
+                if _accepts_keyword(parameters, "minimum_timeout_seconds"):
+                    kwargs["minimum_timeout_seconds"] = (
+                        self.settings.ai_min_provider_timeout_seconds
+                    )
+                batch = method(current_prompt, **kwargs)
             except GenerationOutputError as exc:
                 raw_output = getattr(exc, "raw_output", "")
                 last_issues = [
@@ -127,6 +174,7 @@ class GenerationService:
                         evaluation_trace.repair_failure_count += 1
                 if attempt >= self.settings.gemini_generation_repair_attempts:
                     raise
+                deadline.checkpoint("repair", is_cancelled)
                 repair_attempts += 1
                 if evaluation_trace is not None:
                     evaluation_trace.repair_attempt_count = repair_attempts
@@ -167,6 +215,7 @@ class GenerationService:
                 break
             if evaluation_trace is not None and attempt > 0:
                 evaluation_trace.repair_failure_count += 1
+            deadline.checkpoint("repair", is_cancelled)
             repair_attempts += 1
             if evaluation_trace is not None:
                 evaluation_trace.repair_attempt_count = repair_attempts

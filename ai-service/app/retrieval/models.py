@@ -24,6 +24,14 @@ class RetrievalProviderError(RetrievalError):
     """Raised when query embedding cannot be produced."""
 
 
+class RetrievalSafetyError(RetrievalError):
+    """Raised when a production-selection invariant is violated."""
+
+    def __init__(self, code: str = "RETRIEVAL_SAFETY_VIOLATION") -> None:
+        self.code = code
+        super().__init__(code)
+
+
 class RetrievalFilters(CamelModel):
     grade: Literal[10, 11, 12] | None = None
     lesson_number: int | None = Field(default=None, gt=0)

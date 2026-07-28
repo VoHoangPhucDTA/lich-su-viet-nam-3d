@@ -48,6 +48,7 @@ class HttpAiQuizClientTest {
                 new StatusCase(422, "{\"detail\":[]}", "AI_SERVICE_CONTRACT_REJECTED"),
                 new StatusCase(502, "{\"detail\":\"provider secret\"}", "AI_GENERATION_FAILED"),
                 new StatusCase(503, "{\"detail\":\"provider secret\"}", "AI_SERVICE_UNAVAILABLE"),
+                new StatusCase(504, "{\"detail\":\"GENERATION_TIMEOUT\"}", "AI_SERVICE_TIMEOUT"),
                 new StatusCase(401, "{\"detail\":\"auth detail\"}", "AI_SERVICE_UNAVAILABLE")
         )) {
             if (server != null) server.stop(0);

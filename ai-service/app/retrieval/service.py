@@ -1,26 +1,38 @@
 """Orchestration for query embedding, retrieval, diversity, and context."""
 
 import json
+import inspect
 import time
+from collections.abc import Callable
 from pathlib import Path
 
 from app.config import Settings
+from app.core.deadline import OperationDeadline, OperationDeadlineExceeded
 from app.embedding.base import EmbeddingProvider, validate_vectors
 from app.embedding.checkpoint import sanitize_artifact_name
 from app.embedding.formatter import QUERY_FORMATTER_VERSION
 from app.embedding.gemini import GeminiEmbeddingProvider
 from app.retrieval.context_builder import build_fact_context
+from app.retrieval.filters import candidate_matches_filters
 from app.retrieval.models import (
     RawChromaCandidate,
     RetrievalEvaluationTrace,
     RetrievalMetadata,
     RetrievalNotReadyError,
     RetrievalProviderError,
+    RetrievalSafetyError,
     RetrievalRequest,
     RetrievalResponse,
     RetrievalResult,
 )
 from app.retrieval.retriever import ChromaRetriever
+
+
+def _accepts_keyword(parameters: dict, name: str) -> bool:
+    return name in parameters or any(
+        parameter.kind == inspect.Parameter.VAR_KEYWORD
+        for parameter in parameters.values()
+    )
 
 
 def _expected_collection_metadata(settings: Settings) -> dict[str, str | int | float | bool]:
@@ -95,7 +107,12 @@ class RetrievalService:
         *,
         query_vector: list[float] | None = None,
         evaluation_trace: RetrievalEvaluationTrace | None = None,
+        deadline: OperationDeadline | None = None,
+        is_cancelled: Callable[[], bool] | None = None,
     ) -> RetrievalResponse:
+        deadline = deadline or OperationDeadline(
+            self.settings.ai_request_deadline_seconds
+        )
         if evaluation_trace is not None:
             evaluation_trace.reset()
         if len(request.query) > self.settings.rag_query_max_length:
@@ -105,11 +122,40 @@ class RetrievalService:
         top_k = request.top_k or self.settings.rag_default_top_k
         if top_k > self.settings.rag_max_top_k:
             raise ValueError(f"topK must be <= {self.settings.rag_max_top_k}")
-        started = time.monotonic()
+        started = deadline.clock()
+
+        def checkpoint(stage: str) -> None:
+            deadline.checkpoint(stage, is_cancelled)
+            if deadline.clock() - started >= self.settings.rag_retrieval_timeout_seconds:
+                raise OperationDeadlineExceeded(stage, "RETRIEVAL_TIMEOUT")
+
+        checkpoint("query_embedding")
         if query_vector is None:
             embedding_started = time.perf_counter()
             try:
-                query_vector = self.provider.embed_query(request.query)
+                method = self.provider.embed_query
+                kwargs = {}
+                parameters = inspect.signature(method).parameters
+                if _accepts_keyword(parameters, "deadline"):
+                    kwargs["deadline"] = deadline
+                if _accepts_keyword(parameters, "timeout_seconds"):
+                    kwargs["timeout_seconds"] = deadline.clamp_timeout(
+                        min(
+                            self.settings.gemini_embedding_timeout_seconds,
+                            self.settings.rag_retrieval_timeout_seconds,
+                        ),
+                        stage="query_embedding",
+                        minimum_seconds=self.settings.ai_min_provider_timeout_seconds,
+                    )
+                if _accepts_keyword(parameters, "is_cancelled"):
+                    kwargs["is_cancelled"] = is_cancelled
+                if _accepts_keyword(parameters, "minimum_timeout_seconds"):
+                    kwargs["minimum_timeout_seconds"] = (
+                        self.settings.ai_min_provider_timeout_seconds
+                    )
+                query_vector = method(request.query, **kwargs)
+            except OperationDeadlineExceeded:
+                raise
             except Exception as exc:
                 raise RetrievalProviderError("Query embedding failed") from exc
             finally:
@@ -117,6 +163,7 @@ class RetrievalService:
                     evaluation_trace.query_embedding_latency_ms = (
                         time.perf_counter() - embedding_started
                     ) * 1000
+        checkpoint("query_embedding")
         try:
             vector = validate_vectors(
                 [query_vector], 1, self.settings.gemini_embedding_dimension
@@ -131,25 +178,35 @@ class RetrievalService:
             self.settings.rag_max_candidates,
             max(top_k, top_k * self.settings.rag_candidate_multiplier),
         )
-        if evaluation_trace is None:
-            candidates = self.retriever.retrieve(
-                vector,
-                request.filters(),
-                candidate_count,
-            )
-        else:
-            candidates = self.retriever.retrieve(
-                vector,
-                request.filters(),
-                candidate_count,
-                evaluation_trace=evaluation_trace,
-            )
+        checkpoint("chroma_query")
+        retrieve_method = self.retriever.retrieve
+        retrieve_kwargs = {}
+        parameters = inspect.signature(retrieve_method).parameters
+        if evaluation_trace is not None and _accepts_keyword(parameters, "evaluation_trace"):
+            retrieve_kwargs["evaluation_trace"] = evaluation_trace
+        if _accepts_keyword(parameters, "deadline"):
+            retrieve_kwargs["deadline"] = deadline
+        if _accepts_keyword(parameters, "is_cancelled"):
+            retrieve_kwargs["is_cancelled"] = is_cancelled
+        candidates = retrieve_method(
+            vector,
+            request.filters(),
+            candidate_count,
+            **retrieve_kwargs,
+        )
+        checkpoint("chroma_query")
         post_processing_started = time.perf_counter()
         selected = diversify_candidates(
             candidates,
             top_k=top_k,
             max_per_document=self.settings.rag_max_chunks_per_document,
         )
+        if any(candidate.contains_pending_review for candidate in selected):
+            raise RetrievalSafetyError("PENDING_REVIEW_SELECTION_VIOLATION")
+        filters = request.filters()
+        if any(not candidate_matches_filters(candidate, filters) for candidate in selected):
+            raise RetrievalSafetyError("PRODUCTION_ELIGIBILITY_VIOLATION")
+        checkpoint("retrieval_post_processing")
         results = [
             RetrievalResult(rank=index, **candidate.model_dump())
             for index, candidate in enumerate(selected, start=1)
@@ -163,8 +220,7 @@ class RetrievalService:
             evaluation_trace.post_processing_latency_ms = (
                 time.perf_counter() - post_processing_started
             ) * 1000
-        if time.monotonic() - started > self.settings.rag_retrieval_timeout_seconds:
-            raise RetrievalProviderError("Retrieval exceeded configured timeout")
+        checkpoint("retrieval_post_processing")
         return RetrievalResponse(
             query=request.query,
             filters=request.filters(),
@@ -195,6 +251,7 @@ def create_retrieval_service(settings: Settings) -> RetrievalService:
         max_retries=settings.gemini_embedding_max_retries,
         retry_min_seconds=settings.gemini_embedding_retry_min_seconds,
         retry_max_seconds=settings.gemini_embedding_retry_max_seconds,
+        timeout_seconds=settings.gemini_embedding_timeout_seconds,
     )
     retriever = ChromaRetriever(
         persist_dir=settings.chroma_persist_dir,

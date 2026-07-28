@@ -8,6 +8,7 @@ from typing import Any
 
 from pydantic import ValidationError
 
+from app.core.deadline import OperationDeadline
 from app.retrieval.filters import build_chroma_where, candidate_matches_filters
 from app.retrieval.models import (
     RawChromaCandidate,
@@ -83,7 +84,11 @@ class ChromaRetriever:
         filters: RetrievalFilters,
         candidate_count: int,
         evaluation_trace: RetrievalEvaluationTrace | None = None,
+        deadline: OperationDeadline | None = None,
+        is_cancelled: Callable[[], bool] | None = None,
     ) -> list[RawChromaCandidate]:
+        if deadline is not None:
+            deadline.checkpoint("chroma_query", is_cancelled)
         if not (self.persist_dir / "chroma.sqlite3").is_file():
             raise RetrievalNotReadyError("Chroma persistence is not ready")
         client = self.client_factory(self.persist_dir)
@@ -115,9 +120,18 @@ class ChromaRetriever:
                     "Retrieval collection contract is incompatible"
                 ) from exc
             where = build_chroma_where(filters)
-            collection_count = collection.count()
+            if deadline is not None:
+                deadline.checkpoint("chroma_query", is_cancelled)
+            try:
+                collection_count = collection.count()
+            except Exception as exc:
+                raise RetrievalNotReadyError(
+                    "Retrieval collection count is unavailable"
+                ) from exc
             if collection_count == 0:
                 return []
+            if deadline is not None:
+                deadline.checkpoint("chroma_query", is_cancelled)
             kwargs: dict[str, Any] = {
                 "query_embeddings": [query_vector],
                 "n_results": min(candidate_count, collection_count),
@@ -127,6 +141,10 @@ class ChromaRetriever:
                 kwargs["where"] = where
             query_started = time.perf_counter()
             raw = collection.query(**kwargs)
+            if deadline is not None:
+                # Chroma's synchronous query is not force-cancellable. This
+                # checkpoint prevents any post-processing after its budget.
+                deadline.checkpoint("chroma_query", is_cancelled)
             if evaluation_trace is not None:
                 evaluation_trace.chroma_query_latency_ms = (
                     time.perf_counter() - query_started
@@ -140,6 +158,8 @@ class ChromaRetriever:
         distances = (raw.get("distances") or [[]])[0]
         candidates: list[RawChromaCandidate] = []
         for values in zip(ids, documents, metadatas, distances):
+            if deadline is not None:
+                deadline.checkpoint("retrieval_post_processing", is_cancelled)
             candidate = self._parse_candidate(*values)
             if candidate is None:
                 continue

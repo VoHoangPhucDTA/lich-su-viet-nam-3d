@@ -26,6 +26,9 @@ def test_config_loads_defaults_without_api_key() -> None:
     assert settings.rag_context_max_chunks == 5
     assert settings.rag_query_max_length == 1000
     assert settings.rag_retrieval_timeout_seconds == 30
+    assert settings.gemini_embedding_timeout_seconds == 30
+    assert settings.ai_request_deadline_seconds == 80
+    assert settings.ai_gateway_read_timeout_seconds == 90
     assert settings.gemini_generation_temperature == 0.3
     assert settings.gemini_generation_max_output_tokens == 8192
     assert settings.gemini_generation_repair_attempts == 1
@@ -48,6 +51,10 @@ def test_config_loads_defaults_without_api_key() -> None:
         {"rag_context_max_chars": 0},
         {"rag_query_max_length": 0},
         {"rag_retrieval_timeout_seconds": 0},
+        {"gemini_embedding_timeout_seconds": 0},
+        {"ai_request_deadline_seconds": 0},
+        {"ai_request_deadline_seconds": 90, "ai_gateway_read_timeout_seconds": 90},
+        {"ai_min_provider_timeout_seconds": 80, "ai_request_deadline_seconds": 80},
         {"rag_default_top_k": 5, "rag_max_top_k": 4},
         {"rag_max_top_k": 10, "rag_max_candidates": 9},
         {

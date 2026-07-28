@@ -43,7 +43,9 @@ async def request_context_middleware(
     finally:
         duration_ms = (time.perf_counter() - started) * 1000
         status_code = response.status_code if response is not None else 500
-        error_code = f"HTTP_{status_code}" if status_code >= 400 else "NONE"
+        error_code = getattr(request.state, "error_code", None) or (
+            f"HTTP_{status_code}" if status_code >= 400 else "NONE"
+        )
         request_logger.info(
             "event=request.completed requestId=%s route=%s method=%s "
             "statusCode=%s durationMs=%.2f outcome=%s errorCode=%s "

@@ -1,15 +1,23 @@
 """Internal retrieval debug endpoint; never calls a generation model."""
 
+import inspect
 from typing import Annotated
 
-from fastapi import APIRouter, Depends, HTTPException, status
+import anyio
+from fastapi import APIRouter, Depends, HTTPException, Request, status
 
 from app.config import Settings
+from app.core.deadline import (
+    ClientDisconnectedError,
+    OperationDeadline,
+    OperationDeadlineExceeded,
+)
 from app.dependencies import get_request_settings, require_internal_token
 from app.retrieval.models import (
     RetrievalError,
     RetrievalNotReadyError,
     RetrievalProviderError,
+    RetrievalSafetyError,
     RetrievalRequest,
     RetrievalResponse,
 )
@@ -23,14 +31,43 @@ router = APIRouter(prefix="/retrieval", tags=["retrieval"])
     response_model=RetrievalResponse,
     dependencies=[Depends(require_internal_token)],
 )
-def retrieval_debug(
+async def retrieval_debug(
     request: RetrievalRequest,
+    http_request: Request,
     settings: Annotated[Settings, Depends(get_request_settings)],
 ) -> RetrievalResponse:
     service = None
+    deadline = OperationDeadline(settings.ai_request_deadline_seconds)
     try:
+        if await http_request.is_disconnected():
+            raise ClientDisconnectedError("retrieval")
         service = create_retrieval_service(settings)
-        return service.retrieve(request)
+        method = service.retrieve
+        parameters = inspect.signature(method).parameters
+
+        def is_cancelled() -> bool:
+            return anyio.from_thread.run(http_request.is_disconnected)
+
+        kwargs = {}
+        if "deadline" in parameters:
+            kwargs["deadline"] = deadline
+        if "is_cancelled" in parameters:
+            kwargs["is_cancelled"] = is_cancelled
+        return await anyio.to_thread.run_sync(
+            lambda: method(request, **kwargs)
+        )
+    except OperationDeadlineExceeded as exc:
+        http_request.state.error_code = exc.code
+        raise HTTPException(
+            status_code=status.HTTP_504_GATEWAY_TIMEOUT,
+            detail=exc.code,
+        ) from exc
+    except ClientDisconnectedError as exc:
+        http_request.state.error_code = exc.code
+        raise HTTPException(
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            detail=exc.code,
+        ) from exc
     except ValueError as exc:
         raise HTTPException(
             status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
@@ -46,6 +83,12 @@ def retrieval_debug(
             status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
             detail="Query embedding service is unavailable",
         ) from exc
+    except RetrievalSafetyError as exc:
+        http_request.state.error_code = exc.code
+        raise HTTPException(
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            detail=exc.code,
+        ) from exc
     except RetrievalError as exc:
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
@@ -58,4 +101,4 @@ def retrieval_debug(
         ) from exc
     finally:
         if service is not None:
-            service.close()
+            await anyio.to_thread.run_sync(service.close)
