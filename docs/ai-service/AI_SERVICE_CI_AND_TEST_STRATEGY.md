@@ -8,14 +8,41 @@ Goal 13E hardens the existing generation/review/revision system without changing
 
 | Job | Required checks |
 |---|---|
-| `static` | diff whitespace, Python compileall, backend compile, frontend TypeScript/build, scoped AI frontend lint, tracked-file secret scan |
-| `unit` | AI unit plus deterministic contract, Spring `Ai*`/HTTP client tests, frontend Vitest; no Gemini |
+| `static` | diff whitespace, pinned Python tooling, Ruff, full `app scripts` Mypy, Python compileall, backend compile, frontend TypeScript/build, scoped AI frontend lint, tracked-file secret scan |
+| `unit` | full offline AI pytest with app/scripts coverage floors, Spring `Ai*`/HTTP client tests, frontend Vitest; no Gemini |
 | `mysql-integration` | Testcontainers MySQL 8.4.6, all 37 Flyway migrations, schema assertions, receipt/revision repository and rollback semantics |
 | `compose-e2e` | four containers, deterministic provider, auth, count 1/3, receipt, four-eyes, five original and five revision HTTP races, SQL invariants, repeat twice and cleanup |
 | real Gemini | protected manual `workflow_dispatch`, non-fork only, secret required, count-one smoke |
 | History RAG package | protected manual artifact download, fixed checksum preflight, package reader test |
 
 The repository has unrelated ESLint baseline failures, so Goal 13E uses scoped lint for the AI quiz/candidate pages, services, and types. TypeScript and the complete production build remain full-project gates.
+
+## Goal 15H Python quality gates
+
+The static job installs the pinned `requirements-dev.txt` toolchain, then runs:
+
+```text
+python -m ruff check .
+python -m mypy app scripts --show-error-codes
+python -m compileall -q app scripts
+```
+
+The unit job runs the complete offline-capable AI Service suite once with both
+coverage sources enabled. It then reports the same coverage database twice so
+an improvement in script coverage cannot hide an app regression:
+
+```text
+python -m pytest --cov=app --cov=scripts --cov-report=term-missing
+python -m coverage report --include='app/*' --fail-under=89
+python -m coverage report --include='app/*,scripts/*' --fail-under=82
+```
+
+The floors are deliberately below the measured WP7 values of 89.56% for app
+and 82.94% for app plus scripts, while still failing a material regression.
+Coverage 7.15.2 is directly pinned alongside Ruff, Mypy, pytest, and pytest-cov.
+The job uploads only its sanitized JUnit XML through the existing seven-day
+artifact policy; `.coverage`, source reports, runtime storage, Chroma, corpus,
+provider responses, and secrets are not uploaded.
 
 ## Deterministic provider
 
@@ -60,4 +87,10 @@ The runner creates temporary secrets outside Git, builds, waits for health, seed
 
 ## Security and limitations
 
-Only sanitized JUnit and E2E summaries are retained for seven days. No env, key, token, password, full response/context/chunk, vector, or production Chroma storage is uploaded. The frontend bundle contains no internal FastAPI URL/token. GitHub-hosted results become observable after review/push; local evidence is recorded now. The canonical History RAG package remains an explicit external-provisioning blocker.
+Only sanitized JUnit and E2E summaries are retained for seven days. Coverage is
+enforced from the local runner database but is not uploaded. No env, key,
+token, password, full response/context/chunk, vector, or production Chroma
+storage is uploaded. The frontend bundle contains no internal FastAPI
+URL/token. GitHub-hosted results become observable after review/push; local
+evidence is recorded now. The canonical History RAG package remains an
+explicit external-provisioning blocker.

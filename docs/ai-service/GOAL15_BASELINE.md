@@ -493,3 +493,56 @@ points from the WP5 baseline (89.53%); missed statements decreased by two.
 Goal 15H / WP7 is the next action: wire the now-clean Ruff, full Mypy, pytest,
 and coverage requirements into CI without weakening local configuration or
 uploading secrets/runtime artifacts.
+
+## Goal 15H / WP7 — enforce Python quality gates in CI
+
+Scope locked before implementation:
+
+```text
+.github/workflows/ai-service-ci.yml
+ai-service/requirements-dev.txt
+ai-service/tests/unit/test_ci_quality_workflow.py
+docs/ai-service/AI_SERVICE_CI_AND_TEST_STRATEGY.md
+docs/ai-service/GOAL15_BASELINE.md
+```
+
+Before WP7, the static job compiled Python but did not install or run Ruff and
+Mypy. The unit job ran only `tests/unit` plus the deterministic provider test,
+and no coverage threshold was enforced. WP7 installs the pinned development
+toolchain in the static job, runs Ruff and full `app scripts` Mypy before
+compileall, and changes the AI test step to the complete offline-capable pytest
+suite with app and scripts coverage collection.
+
+The single pytest coverage database is checked with two independent floors:
+89% for `app/*` and 82% for `app/*,scripts/*`. This preserves app quality even
+if script coverage changes. Coverage 7.15.2 is now a direct dependency pin.
+The workflow emits terminal coverage only and uploads neither `.coverage` nor
+XML/JSON coverage, source, storage, Chroma, corpus, provider output, environment,
+or secrets. The existing sanitized JUnit-only artifact policy remains intact.
+
+Workflow regression tests assert the exact fail-closed Ruff, Mypy, full pytest,
+and dual coverage commands, fetch depth required by `git diff --check HEAD^`,
+direct tool pins, absence of `continue-on-error`, and exclusion of provider
+secrets and runtime/coverage artifacts. YAML parsing and a local execution of
+the exact Python quality commands both pass.
+
+Verification:
+
+```text
+workflow contract tests: 4 passed
+workflow YAML parse: passed
+Ruff: 0 errors
+Mypy app + scripts: 0 errors in 77 source files
+compileall app scripts: passed
+pytest with combined coverage: 263 passed, 3 skipped
+app coverage gate: 3490 / 3897 covered, 407 missed, 89.56% (floor 89%)
+app + scripts gate: 3754 / 4526 covered, 772 missed, 82.94% (floor 82%)
+requirements dry-run: resolved with all direct quality pins satisfied
+secret scan: 5387 files, 0 findings
+production Chroma: 414 records, gemini-embedding-2, 768 dimensions, cosine
+```
+
+No application, script, provider, benchmark, corpus, Chroma, backend, or
+frontend source was changed. The remaining verification boundary is the
+GitHub-hosted run itself, which becomes observable only after commit/push or a
+pull request; local evidence does not claim a remote CI result.
