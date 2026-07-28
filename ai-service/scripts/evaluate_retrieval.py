@@ -1,428 +1,96 @@
-"""Evaluate retrieval under separate filter-on/filter-off strata."""
+"""Run the controlled Goal 14F retrieval experiment."""
 
+from __future__ import annotations
+
+import argparse
 import json
-import os
-import sys
-import time
 from pathlib import Path
 
 from app.config import SERVICE_ROOT, get_settings
-from app.corpus.loader import iter_corpus
-from app.embedding.base import validate_vectors
-from app.embedding.checkpoint import sanitize_artifact_name
-from app.embedding.formatter import QUERY_FORMATTER_VERSION
-from app.retrieval.evaluation import (
-    EvaluationCache,
-    build_evaluation_report,
-    classify_retrieval_cache_mode,
-    load_benchmark,
-    render_markdown,
+from app.evaluation.retrieval_experiment import (
+    EXPERIMENT_METHODS,
+    ExperimentPreflightError,
+    run_experiment,
 )
-from app.retrieval.models import (
-    EvaluationQueryResult,
-    FilterMode,
-    RetrievalEvaluationTrace,
-    RetrievalFilters,
-    RetrievalRequest,
-)
-from app.retrieval.service import create_retrieval_service
-
-BENCHMARK_PATH = (
-    SERVICE_ROOT / "data" / "evaluation" / "retrieval_benchmark.jsonl"
-)
-CACHE_ROOT = SERVICE_ROOT / "storage" / "evaluation-cache"
-REPORT_ROOT = SERVICE_ROOT / "storage" / "evaluation-reports"
 
 
-def _atomic_write(path: Path, content: str) -> None:
-    path.parent.mkdir(parents=True, exist_ok=True)
-    temporary = path.with_name(f".{path.name}.tmp")
-    with temporary.open("w", encoding="utf-8", newline="\n") as output:
-        output.write(content)
-        output.flush()
-        os.fsync(output.fileno())
-    os.replace(temporary, path)
+DEFAULT_BENCHMARK = SERVICE_ROOT / "data" / "evaluation" / "retrieval_benchmark.jsonl"
+DEFAULT_HELD_OUT = SERVICE_ROOT / "data" / "evaluation" / "retrieval_held_out_v1.jsonl"
+DEFAULT_OUTPUT = SERVICE_ROOT.parent / "artifacts" / "ai-service" / "goal14f"
 
 
-def _filters_for_mode(record, mode: FilterMode) -> RetrievalFilters:
-    if mode == "GRADE_AND_LESSON":
-        return RetrievalFilters(
-            grade=record.grade,
-            lessonNumber=record.lesson_number,
-        )
-    if mode == "GRADE_ONLY":
-        return RetrievalFilters(grade=record.grade)
-    return RetrievalFilters()
-
-
-def _eligible_pool_sizes(chunks, filters: RetrievalFilters) -> tuple[int, int]:
-    eligible = [
-        chunk
-        for chunk in chunks
-        if chunk.ragEligible and not chunk.containsPendingReview
-    ]
-    filtered = [
-        chunk
-        for chunk in eligible
-        if (filters.grade is None or chunk.grade == filters.grade)
-        and (
-            filters.lesson_number is None
-            or chunk.lessonNumber == filters.lesson_number
-        )
-        and (
-            filters.document_id is None
-            or chunk.documentId == filters.document_id
-        )
-    ]
-    return len(eligible), len(filtered)
-
-
-def _filter_compliant(response, filters: RetrievalFilters) -> bool:
-    return all(
-        (filters.grade is None or result.grade == filters.grade)
-        and (
-            filters.lesson_number is None
-            or result.lesson_number == filters.lesson_number
-        )
-        and (
-            filters.document_id is None
-            or result.document_id == filters.document_id
-        )
-        for result in response.results
+def create_parser() -> argparse.ArgumentParser:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(
+        "--benchmark",
+        default=None,
+        help="development or an explicit benchmark JSONL path",
     )
+    parser.add_argument("--held-out", type=Path, default=None)
+    parser.add_argument("--output-root", type=Path, default=None)
+    parser.add_argument(
+        "--benchmark-role",
+        choices=["development"],
+        default=None,
+        help="Only the development-authored benchmark is available in this repository.",
+    )
+    parser.add_argument(
+        "--methods",
+        default=None,
+        help="Must contain all four Goal 14F strata; accepted for explicit run manifests.",
+    )
+    parser.add_argument("--top-k", default=None)
+    parser.add_argument("--allow-provider-call", action="store_true")
+    parser.add_argument("--no-cache", action="store_true")
+    parser.add_argument(
+        "--legacy",
+        action="store_true",
+        help="Run the preserved Goal 14B retrieval-evaluation-v2 contract.",
+    )
+    return parser
 
 
-def _evaluation_mode(cache_hits: int, cache_misses: int) -> str:
-    cache_mode = classify_retrieval_cache_mode(cache_hits, cache_misses)
-    return {
-        "CACHE_REPLAY": "OFFLINE_CACHE_REPLAY",
-        "LIVE": "LIVE_CACHE_FILL",
-        "MIXED": "MIXED",
-        "UNKNOWN": "SYNTHETIC_TEST_DATA",
-    }[cache_mode]
+def main(argv: list[str] | None = None) -> int:
+    args = create_parser().parse_args(argv)
+    if args.legacy or not any(
+        value is not None
+        for value in (args.benchmark, args.held_out, args.output_root, args.benchmark_role, args.methods, args.top_k)
+    ) and not args.allow_provider_call and not args.no_cache:
+        from scripts.evaluate_retrieval_legacy import main as legacy_main
 
-
-def main() -> int:
-    if hasattr(sys.stdout, "reconfigure"):
-        sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+        return legacy_main()
     settings = get_settings()
-    artifact_dir = settings.embedding_output_dir / sanitize_artifact_name(
-        settings.gemini_embedding_model,
-        settings.gemini_embedding_dimension,
-    )
-    manifest = json.loads(
-        (artifact_dir / "embedding_manifest.json").read_text(encoding="utf-8")
-    )
-    benchmark = load_benchmark(BENCHMARK_PATH, settings.sgk_chunks_path)
-    corpus_chunks = list(iter_corpus(settings.sgk_chunks_path))
-    cache = EvaluationCache(CACHE_ROOT)
-    service = create_retrieval_service(settings)
-    results: list[EvaluationQueryResult] = []
-    cache_hits = 0
-    cache_misses = 0
     try:
-        for record in benchmark:
-            cache_started = time.perf_counter()
-            cache_key = cache.identity(
-                record.query,
-                settings.gemini_embedding_model,
-                settings.gemini_embedding_dimension,
-                QUERY_FORMATTER_VERSION,
-            )
-            vector = cache.get(
-                cache_key,
-                settings.gemini_embedding_dimension,
-            )
-            cache_lookup_latency_ms = (
-                time.perf_counter() - cache_started
-            ) * 1000
-            query_embedding_latency_ms: float | None = None
-            if vector is None:
-                cache_misses += 1
-                embedding_started = time.perf_counter()
-                try:
-                    vector = service.provider.embed_query(record.query)
-                    query_embedding_latency_ms = (
-                        time.perf_counter() - embedding_started
-                    ) * 1000
-                    vector = validate_vectors(
-                        [vector],
-                        1,
-                        settings.gemini_embedding_dimension,
-                    )[0]
-                    cache.set(
-                        cache_key,
-                        vector,
-                        settings.gemini_embedding_dimension,
-                    )
-                except Exception as exc:
-                    query_embedding_latency_ms = (
-                        time.perf_counter() - embedding_started
-                    ) * 1000
-                    for mode in ("GRADE_AND_LESSON", "FILTER_OFF"):
-                        typed_mode: FilterMode = mode
-                        filters = _filters_for_mode(record, typed_mode)
-                        eligible_pool, filtered_pool = (
-                            _eligible_pool_sizes(corpus_chunks, filters)
-                        )
-                        results.append(
-                            EvaluationQueryResult(
-                                queryId=record.query_id,
-                                grade=record.grade,
-                                category=record.category,
-                                expectedChunkIds=(
-                                    record.expected_chunk_ids
-                                ),
-                                expectedDocumentIds=(
-                                    record.expected_document_ids
-                                ),
-                                resultChunkIds=[],
-                                resultDocumentIds=[],
-                                resultLessons=[],
-                                resultSections=[],
-                                distances=[],
-                                filterCompliant=False,
-                                pendingReviewLeakage=False,
-                                duplicateResults=False,
-                                latencyMs=(
-                                    cache_lookup_latency_ms
-                                    + query_embedding_latency_ms
-                                ),
-                                filterMode=typed_mode,
-                                requestedTopK=5,
-                                returnedResultCount=0,
-                                effectiveK=0,
-                                eligiblePoolSizeBeforeTopK=(
-                                    eligible_pool
-                                ),
-                                effectivePoolSizeAfterFilters=(
-                                    filtered_pool
-                                ),
-                                cacheLookupLatencyMs=(
-                                    cache_lookup_latency_ms
-                                ),
-                                queryEmbeddingLatencyMs=(
-                                    query_embedding_latency_ms
-                                ),
-                                error=type(exc).__name__,
-                            )
-                        )
-                    continue
-            else:
-                cache_hits += 1
-
-            for mode in ("GRADE_AND_LESSON", "FILTER_OFF"):
-                typed_mode: FilterMode = mode
-                filters = _filters_for_mode(record, typed_mode)
-                eligible_pool, filtered_pool = _eligible_pool_sizes(
-                    corpus_chunks,
-                    filters,
-                )
-                trace = RetrievalEvaluationTrace()
-                started = time.perf_counter()
-                try:
-                    request = RetrievalRequest(
-                        query=record.query,
-                        grade=filters.grade,
-                        lessonNumber=filters.lesson_number,
-                        documentId=filters.document_id,
-                        topK=5,
-                    )
-                    response = service.retrieve(
-                        request,
-                        query_vector=vector,
-                        evaluation_trace=trace,
-                    )
-                    chunk_ids = [
-                        item.chunk_id for item in response.results
-                    ]
-                    returned_count = len(chunk_ids)
-                    retrieval_latency_ms = (
-                        time.perf_counter() - started
-                    ) * 1000
-                    results.append(
-                        EvaluationQueryResult(
-                            queryId=record.query_id,
-                            grade=record.grade,
-                            category=record.category,
-                            expectedChunkIds=record.expected_chunk_ids,
-                            expectedDocumentIds=record.expected_document_ids,
-                            resultChunkIds=chunk_ids,
-                            resultDocumentIds=[
-                                item.document_id
-                                for item in response.results
-                            ],
-                            resultLessons=[
-                                item.lesson_number
-                                for item in response.results
-                            ],
-                            resultSections=[
-                                item.section_title
-                                for item in response.results
-                            ],
-                            distances=[
-                                item.distance for item in response.results
-                            ],
-                            filterCompliant=_filter_compliant(
-                                response,
-                                filters,
-                            ),
-                            pendingReviewLeakage=bool(
-                                trace.pending_review_candidate_ids
-                            ),
-                            duplicateResults=(
-                                len(chunk_ids) != len(set(chunk_ids))
-                            ),
-                            latencyMs=(
-                                cache_lookup_latency_ms
-                                + (query_embedding_latency_ms or 0.0)
-                                + retrieval_latency_ms
-                            ),
-                            filterMode=typed_mode,
-                            requestedTopK=5,
-                            returnedResultCount=returned_count,
-                            effectiveK=min(5, returned_count),
-                            eligiblePoolSizeBeforeTopK=eligible_pool,
-                            effectivePoolSizeAfterFilters=filtered_pool,
-                            cacheLookupLatencyMs=cache_lookup_latency_ms,
-                            queryEmbeddingLatencyMs=(
-                                query_embedding_latency_ms
-                            ),
-                            chromaQueryLatencyMs=(
-                                trace.chroma_query_latency_ms
-                            ),
-                            postProcessingLatencyMs=(
-                                trace.post_processing_latency_ms
-                            ),
-                            embeddingContractMatched=(
-                                trace.embedding_contract_matched
-                            ),
-                            collectionMetadataMatched=(
-                                trace.collection_metadata_matched
-                            ),
-                            collectionDistanceMetricMatched=(
-                                trace.collection_distance_metric_matched
-                            ),
-                        )
-                    )
-                except Exception as exc:
-                    retrieval_latency_ms = (
-                        time.perf_counter() - started
-                    ) * 1000
-                    results.append(
-                        EvaluationQueryResult(
-                            queryId=record.query_id,
-                            grade=record.grade,
-                            category=record.category,
-                            expectedChunkIds=record.expected_chunk_ids,
-                            expectedDocumentIds=record.expected_document_ids,
-                            resultChunkIds=[],
-                            resultDocumentIds=[],
-                            resultLessons=[],
-                            resultSections=[],
-                            distances=[],
-                            filterCompliant=False,
-                            pendingReviewLeakage=bool(
-                                trace.pending_review_candidate_ids
-                            ),
-                            duplicateResults=False,
-                            latencyMs=(
-                                cache_lookup_latency_ms
-                                + (query_embedding_latency_ms or 0.0)
-                                + retrieval_latency_ms
-                            ),
-                            filterMode=typed_mode,
-                            requestedTopK=5,
-                            returnedResultCount=0,
-                            effectiveK=0,
-                            eligiblePoolSizeBeforeTopK=eligible_pool,
-                            effectivePoolSizeAfterFilters=filtered_pool,
-                            cacheLookupLatencyMs=cache_lookup_latency_ms,
-                            queryEmbeddingLatencyMs=(
-                                query_embedding_latency_ms
-                            ),
-                            chromaQueryLatencyMs=(
-                                trace.chroma_query_latency_ms
-                            ),
-                            postProcessingLatencyMs=(
-                                trace.post_processing_latency_ms
-                            ),
-                            embeddingContractMatched=(
-                                trace.embedding_contract_matched
-                            ),
-                            collectionMetadataMatched=(
-                                trace.collection_metadata_matched
-                            ),
-                            collectionDistanceMetricMatched=(
-                                trace.collection_distance_metric_matched
-                            ),
-                            error=type(exc).__name__,
-                        )
-                    )
-    finally:
-        service.close()
-
-    report = build_evaluation_report(
-        benchmark,
-        results,
-        cache_hits=cache_hits,
-        cache_misses=cache_misses,
-        evaluation_mode=_evaluation_mode(cache_hits, cache_misses),
-        configuration={
-            "model": settings.gemini_embedding_model,
-            "dimension": settings.gemini_embedding_dimension,
-            "queryFormatterVersion": QUERY_FORMATTER_VERSION,
-            "topK": 5,
-            "candidateMultiplier": settings.rag_candidate_multiplier,
-            "maxChunksPerDocument": (
-                settings.rag_max_chunks_per_document
-            ),
-            "filterModes": ["GRADE_AND_LESSON", "FILTER_OFF"],
-        },
-        corpus_identity={
-            "corpusSha256": manifest.get("corpusSha256"),
-            "embeddingModel": settings.gemini_embedding_model,
-            "embeddingDimension": settings.gemini_embedding_dimension,
-            "documentFormatterVersion": manifest.get("formatterVersion"),
-            "queryFormatterVersion": QUERY_FORMATTER_VERSION,
-            "collection": settings.chroma_collection_name,
-            "distanceMetric": settings.chroma_distance_metric,
-            "eligibleRecords": manifest.get("eligibleRecords"),
-            "embeddingStatus": manifest.get("status"),
-        },
-    )
-    _atomic_write(
-        REPORT_ROOT / "retrieval-evaluation.json",
-        json.dumps(
-            report.model_dump(by_alias=True),
-            ensure_ascii=False,
-            indent=2,
+        methods_arg = args.methods or ",".join(
+            method.lower().replace("_", "-") for method in EXPERIMENT_METHODS
         )
-        + "\n",
-    )
-    _atomic_write(
-        REPORT_ROOT / "retrieval-evaluation.md",
-        render_markdown(report),
-    )
-    print(
-        json.dumps(
-            {
-                "status": report.status,
-                "queryCount": report.query_count,
-                "completedQueries": report.completed_queries,
-                "failedQueries": report.failed_queries,
-                "cacheHits": report.cache_hits,
-                "cacheMisses": report.cache_misses,
-                "cacheMode": report.cache_mode,
-                "evaluationMode": report.evaluation_mode,
-                "strata": list(report.strata),
-                "reportDirectory": str(REPORT_ROOT),
-            },
-            ensure_ascii=False,
-            indent=2,
+        top_k_arg = args.top_k or "1,3,5"
+        methods = tuple(method.strip().upper().replace("-", "_") for method in methods_arg.split(",") if method.strip())
+        top_k = tuple(int(value.strip()) for value in top_k_arg.split(",") if value.strip())
+        benchmark_arg = args.benchmark or "development"
+        benchmark_path = (
+            DEFAULT_BENCHMARK
+            if str(benchmark_arg).casefold() == "development"
+            else Path(benchmark_arg)
         )
-    )
-    return 1 if report.failed_queries else 0
+        result = run_experiment(
+            settings,
+            benchmark_path=benchmark_path,
+            held_out_path=args.held_out or DEFAULT_HELD_OUT,
+            output_root=args.output_root or DEFAULT_OUTPUT,
+            allow_provider_call=args.allow_provider_call,
+            no_cache=args.no_cache,
+            methods=methods,
+            top_k=top_k,
+        )
+    except (ExperimentPreflightError, OSError, ValueError) as exc:
+        print(json.dumps({"status": "PREFLIGHT_FAILED", "error": str(exc)}, ensure_ascii=False, indent=2))
+        return 2
+    print(json.dumps(result, ensure_ascii=False, indent=2, default=str))
+    return 0 if result.get("status") in {
+        "COMPLETED",
+        "PREFLIGHT_ONLY_PROVIDER_CALL_NOT_ALLOWED",
+    } else 1
 
 
 if __name__ == "__main__":

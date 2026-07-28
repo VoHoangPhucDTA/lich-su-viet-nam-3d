@@ -247,7 +247,13 @@ class RetrievalService:
         self.retriever.close()
 
 
-def create_retrieval_service(settings: Settings) -> RetrievalService:
+def create_retrieval_service(
+    settings: Settings,
+    *,
+    client=None,
+    collection=None,
+    collection_metadata: dict[str, str | int | float | bool] | None = None,
+) -> RetrievalService:
     provider = GeminiEmbeddingProvider(
         api_key=settings.gemini_api_key,
         model=settings.gemini_embedding_model,
@@ -257,10 +263,19 @@ def create_retrieval_service(settings: Settings) -> RetrievalService:
         retry_max_seconds=settings.gemini_embedding_retry_max_seconds,
         timeout_seconds=settings.gemini_embedding_timeout_seconds,
     )
+    expected_metadata = collection_metadata or _expected_collection_metadata(settings)
     retriever = ChromaRetriever(
         persist_dir=settings.chroma_persist_dir,
         collection_name=settings.chroma_collection_name,
-        expected_metadata=_expected_collection_metadata(settings),
+        expected_metadata=expected_metadata,
         distance_metric=settings.chroma_distance_metric,
+        client=client,
+        collection=collection,
+        owns_client=client is None,
     )
-    return RetrievalService(settings=settings, provider=provider, retriever=retriever)
+    return RetrievalService(
+        settings=settings,
+        provider=provider,
+        retriever=retriever,
+        collection_metadata=collection_metadata,
+    )
