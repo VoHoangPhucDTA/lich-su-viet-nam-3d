@@ -32,6 +32,10 @@ def test_config_loads_defaults_without_api_key() -> None:
     assert settings.gemini_generation_temperature == 0.3
     assert settings.gemini_generation_max_output_tokens == 8192
     assert settings.gemini_generation_repair_attempts == 1
+    assert settings.self_practice_model_enabled is False
+    assert settings.self_practice_model == "gemini-3.5-flash-lite"
+    assert settings.self_practice_model_rollout_percent == 0
+    assert settings.self_practice_model_fallback_enabled is False
     assert settings.quiz_default_count == 5
     assert settings.quiz_max_count == 10
     assert settings.quiz_duplicate_similarity_threshold == 0.9
@@ -96,3 +100,29 @@ def test_deterministic_provider_is_rejected_outside_test_or_e2e() -> None:
     assert Settings(
         _env_file=None, app_env="e2e", deterministic_e2e_provider=True
     ).deterministic_e2e_provider
+
+
+@pytest.mark.parametrize(
+    "overrides",
+    [
+        {"self_practice_model_rollout_percent": -1},
+        {"self_practice_model_rollout_percent": 101},
+        {
+            "self_practice_model_enabled": True,
+            "self_practice_model_rollout_percent": 6,
+        },
+        {"self_practice_model_rollout_percent": 5},
+        {"self_practice_model_enabled": True, "self_practice_model": " "},
+        {"self_practice_model_fallback_enabled": True},
+        {
+            "self_practice_model_enabled": True,
+            "self_practice_model_rollout_percent": 5,
+            "self_practice_rollout_salt": " ",
+        },
+    ],
+)
+def test_config_rejects_unsafe_self_practice_rollout(
+    overrides: dict[str, object],
+) -> None:
+    with pytest.raises(ValidationError):
+        Settings(_env_file=None, **overrides)

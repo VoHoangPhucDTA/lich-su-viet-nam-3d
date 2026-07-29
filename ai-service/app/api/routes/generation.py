@@ -28,7 +28,7 @@ from app.generation.models import (
     GenerationTransientError,
     InsufficientContextError,
 )
-from app.generation.service import GenerationService
+from app.generation.service import GenerationServiceContract
 from app.retrieval.models import (
     RetrievalNotReadyError,
     RetrievalProviderError,
@@ -47,7 +47,7 @@ async def generate_quiz(
     request: GenerationRequest,
     http_request: Request,
     settings: Annotated[Settings, Depends(get_request_settings)],
-    service: Annotated[GenerationService, Depends(get_generation_service)],
+    service: Annotated[GenerationServiceContract, Depends(get_generation_service)],
 ) -> GenerationResponse:
     deadline = OperationDeadline(settings.ai_request_deadline_seconds)
     try:

@@ -1,10 +1,13 @@
 """Retrieval-grounded MCQ generation orchestration."""
 
+import hashlib
 import inspect
 import logging
 import time
 from collections.abc import Callable, Mapping
 from dataclasses import dataclass, field
+from enum import Enum
+from typing import Protocol
 
 from app.config import Settings
 from app.core.deadline import OperationDeadline
@@ -22,6 +25,7 @@ from app.generation.models import (
     GenerationRequest,
     GenerationResponse,
     GenerationSource,
+    GenerationUseCase,
     InsufficientContextError,
     ValidationIssue,
 )
@@ -33,6 +37,69 @@ from app.retrieval.models import RetrievalRequest, RetrievalResponse
 from app.retrieval.service import RetrievalServiceContract, create_retrieval_service
 
 generation_logger = logging.getLogger("app.generation")
+
+
+class GenerationModelClass(str, Enum):
+    CURRENT = "CURRENT"
+    CANDIDATE = "CANDIDATE"
+
+
+@dataclass(frozen=True)
+class GenerationRoutingDecision:
+    model_class: GenerationModelClass
+    canary_assigned: bool
+    bucket: int | None
+    reason: str
+
+
+def self_practice_canary_bucket(subject: str, salt: str) -> int:
+    digest = hashlib.sha256(f"{salt}:{subject}".encode()).digest()
+    return int.from_bytes(digest[:8], "big") % 100
+
+
+def select_generation_route(
+    request: GenerationRequest, settings: Settings
+) -> GenerationRoutingDecision:
+    if request.generation_use_case != GenerationUseCase.SELF_PRACTICE:
+        return GenerationRoutingDecision(
+            GenerationModelClass.CURRENT, False, None, "USE_CASE_NOT_ELIGIBLE"
+        )
+    if not settings.self_practice_model_enabled:
+        return GenerationRoutingDecision(
+            GenerationModelClass.CURRENT, False, None, "FEATURE_DISABLED"
+        )
+    if settings.self_practice_model_rollout_percent == 0:
+        return GenerationRoutingDecision(
+            GenerationModelClass.CURRENT, False, None, "ROLLOUT_ZERO"
+        )
+    if request.canary_subject is None:
+        return GenerationRoutingDecision(
+            GenerationModelClass.CURRENT, False, None, "MISSING_CANARY_SUBJECT"
+        )
+    bucket = self_practice_canary_bucket(
+        request.canary_subject, settings.self_practice_rollout_salt
+    )
+    assigned = bucket < settings.self_practice_model_rollout_percent
+    return GenerationRoutingDecision(
+        GenerationModelClass.CANDIDATE if assigned else GenerationModelClass.CURRENT,
+        assigned,
+        bucket,
+        "CANARY_ASSIGNED" if assigned else "OUTSIDE_ROLLOUT",
+    )
+
+
+class GenerationServiceContract(Protocol):
+    def generate(
+        self,
+        request: GenerationRequest,
+        *,
+        retrieval_response: RetrievalResponse | None = None,
+        evaluation_trace: "GenerationEvaluationTrace | None" = None,
+        deadline: OperationDeadline | None = None,
+        is_cancelled: Callable[[], bool] | None = None,
+    ) -> GenerationResponse: ...
+
+    def close(self) -> None: ...
 
 
 def _accepts_keyword(parameters: Mapping[str, inspect.Parameter], name: str) -> bool:
@@ -67,10 +134,12 @@ class GenerationService:
         settings: Settings,
         retrieval_service: RetrievalServiceContract,
         provider: GenerationProvider,
+        owns_retrieval_service: bool = True,
     ) -> None:
         self.settings = settings
         self.retrieval_service = retrieval_service
         self.provider = provider
+        self.owns_retrieval_service = owns_retrieval_service
 
     def _validate_request_limits(self, request: GenerationRequest) -> int:
         count = request.count or self.settings.quiz_default_count
@@ -361,6 +430,70 @@ class GenerationService:
 
     def close(self) -> None:
         self.provider.close()
+        if self.owns_retrieval_service:
+            self.retrieval_service.close()
+
+
+class RoutedGenerationService:
+    """Selects one isolated model pool without cross-model fallback."""
+
+    def __init__(
+        self,
+        *,
+        settings: Settings,
+        current_service: GenerationServiceContract,
+        candidate_service: GenerationServiceContract,
+        retrieval_service: RetrievalServiceContract,
+    ) -> None:
+        self.settings = settings
+        self.current_service = current_service
+        self.candidate_service = candidate_service
+        self.retrieval_service = retrieval_service
+        self._closed = False
+
+    def generate(
+        self,
+        request: GenerationRequest,
+        *,
+        retrieval_response: RetrievalResponse | None = None,
+        evaluation_trace: GenerationEvaluationTrace | None = None,
+        deadline: OperationDeadline | None = None,
+        is_cancelled: Callable[[], bool] | None = None,
+    ) -> GenerationResponse:
+        decision = select_generation_route(request, self.settings)
+        bucket_group = "NONE"
+        if decision.bucket is not None:
+            lower = (decision.bucket // 5) * 5
+            bucket_group = f"{lower:02d}-{lower + 4:02d}"
+        generation_logger.info(
+            "event=generation.routing requestId=%s generationUseCase=%s "
+            "modelClass=%s canaryAssigned=%s bucketGroup=%s routingReason=%s",
+            current_request_id() or "unknown",
+            request.generation_use_case.value,
+            decision.model_class.value,
+            str(decision.canary_assigned).lower(),
+            bucket_group,
+            decision.reason,
+        )
+        service = (
+            self.candidate_service
+            if decision.model_class == GenerationModelClass.CANDIDATE
+            else self.current_service
+        )
+        return service.generate(
+            request,
+            retrieval_response=retrieval_response,
+            evaluation_trace=evaluation_trace,
+            deadline=deadline,
+            is_cancelled=is_cancelled,
+        )
+
+    def close(self) -> None:
+        if self._closed:
+            return
+        self._closed = True
+        self.current_service.close()
+        self.candidate_service.close()
         self.retrieval_service.close()
 
 

@@ -49,6 +49,27 @@ class Settings(BaseSettings):
     gemini_generation_max_retries: int = Field(default=3, ge=0)
     gemini_generation_repair_attempts: int = Field(default=1, ge=0)
     gemini_generation_timeout_seconds: float = Field(default=60, gt=0)
+    self_practice_model_enabled: bool = Field(
+        default=False, validation_alias="AI_SELF_PRACTICE_MODEL_ENABLED"
+    )
+    self_practice_model: str = Field(
+        default="gemini-3.5-flash-lite",
+        validation_alias="AI_SELF_PRACTICE_MODEL",
+    )
+    self_practice_model_rollout_percent: int = Field(
+        default=0,
+        ge=0,
+        le=100,
+        validation_alias="AI_SELF_PRACTICE_MODEL_ROLLOUT_PERCENT",
+    )
+    self_practice_model_fallback_enabled: bool = Field(
+        default=False,
+        validation_alias="AI_SELF_PRACTICE_MODEL_FALLBACK_ENABLED",
+    )
+    self_practice_rollout_salt: str = Field(
+        default="self-practice-v1",
+        validation_alias="AI_SELF_PRACTICE_ROLLOUT_SALT",
+    )
     ai_request_deadline_seconds: float = Field(default=80, gt=0)
     ai_gateway_read_timeout_seconds: float = Field(default=90, gt=0)
     ai_min_provider_timeout_seconds: float = Field(default=0.05, gt=0)
@@ -140,6 +161,34 @@ class Settings(BaseSettings):
                 "AI_MIN_PROVIDER_TIMEOUT_SECONDS must be less than "
                 "AI_REQUEST_DEADLINE_SECONDS"
             )
+        return self
+
+    @model_validator(mode="after")
+    def validate_self_practice_rollout(self) -> "Settings":
+        candidate_model = self.self_practice_model.strip()
+        rollout_salt = self.self_practice_rollout_salt.strip()
+        if self.self_practice_model_rollout_percent not in {0, 5, 25, 50, 100}:
+            raise ValueError(
+                "AI_SELF_PRACTICE_MODEL_ROLLOUT_PERCENT must be one of 0, 5, 25, 50, 100"
+            )
+        if self.self_practice_model_rollout_percent > 0 and not self.self_practice_model_enabled:
+            raise ValueError(
+                "AI_SELF_PRACTICE_MODEL_ENABLED must be true when rollout is greater than 0"
+            )
+        if self.self_practice_model_enabled and not candidate_model:
+            raise ValueError("AI_SELF_PRACTICE_MODEL must not be blank when enabled")
+        if self.self_practice_model_fallback_enabled:
+            raise ValueError(
+                "AI_SELF_PRACTICE_MODEL_FALLBACK_ENABLED is not supported during initial rollout"
+            )
+        if (
+            self.self_practice_model_enabled
+            and self.self_practice_model_rollout_percent > 0
+            and not rollout_salt
+        ):
+            raise ValueError("AI_SELF_PRACTICE_ROLLOUT_SALT must not be blank during rollout")
+        self.self_practice_model = candidate_model
+        self.self_practice_rollout_salt = rollout_salt
         return self
 
     @model_validator(mode="after")

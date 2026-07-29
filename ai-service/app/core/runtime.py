@@ -12,7 +12,11 @@ from app.embedding.base import EmbeddingProvider
 from app.embedding.gemini import GeminiEmbeddingProvider
 from app.generation.base import GenerationProvider
 from app.generation.gemini import GeminiGenerationProvider
-from app.generation.service import GenerationService
+from app.generation.service import (
+    GenerationService,
+    GenerationServiceContract,
+    RoutedGenerationService,
+)
 from app.retrieval.models import RetrievalNotReadyError
 from app.retrieval.retriever import ChromaRetriever
 from app.retrieval.service import (
@@ -47,6 +51,8 @@ class RuntimeCounters:
     collection_opens: int = 0
     embedding_provider_constructions: int = 0
     generation_provider_constructions: int = 0
+    current_generation_provider_constructions: int = 0
+    candidate_generation_provider_constructions: int = 0
     service_graph_constructions: int = 0
     shutdowns: int = 0
     global_cache_clears: int = 0
@@ -58,6 +64,9 @@ class RuntimeFactories:
     client_closer: Callable[[Any], None] = close_persistent_client
     embedding_provider_factory: Callable[[Settings], EmbeddingProvider] | None = None
     generation_provider_factory: Callable[[Settings], GenerationProvider] | None = None
+    candidate_generation_provider_factory: (
+        Callable[[Settings], GenerationProvider] | None
+    ) = None
 
 
 def _default_embedding_provider(settings: Settings) -> GeminiEmbeddingProvider:
@@ -76,6 +85,19 @@ def _default_generation_provider(settings: Settings) -> GeminiGenerationProvider
     return GeminiGenerationProvider(
         api_key=settings.gemini_api_key,
         model=settings.gemini_generation_model,
+        temperature=settings.gemini_generation_temperature,
+        max_output_tokens=settings.gemini_generation_max_output_tokens,
+        max_retries=settings.gemini_generation_max_retries,
+        timeout_seconds=settings.gemini_generation_timeout_seconds,
+    )
+
+
+def _default_candidate_generation_provider(
+    settings: Settings,
+) -> GeminiGenerationProvider:
+    return GeminiGenerationProvider(
+        api_key=settings.gemini_api_key,
+        model=settings.self_practice_model,
         temperature=settings.gemini_generation_temperature,
         max_output_tokens=settings.gemini_generation_max_output_tokens,
         max_retries=settings.gemini_generation_max_retries,
@@ -171,7 +193,7 @@ class AiRuntimeResources:
         self.chroma_client: Any | None = None
         self.collection: Any | None = None
         self.retrieval_service: RetrievalServiceContract | None = None
-        self.generation_service: GenerationService | None = None
+        self.generation_service: GenerationServiceContract | None = None
         self.counters = RuntimeCounters()
         self._state_lock = threading.RLock()
         self._shutdown_complete = False
@@ -186,6 +208,10 @@ class AiRuntimeResources:
                 self.counters.embedding_provider_constructions += 1
             else:
                 self.counters.generation_provider_constructions += 1
+                if kind == "generation-current":
+                    self.counters.current_generation_provider_constructions += 1
+                elif kind == "generation-candidate":
+                    self.counters.candidate_generation_provider_constructions += 1
 
     def start(self) -> None:
         with self._state_lock:
@@ -199,10 +225,23 @@ class AiRuntimeResources:
                 )
 
                 deterministic_retrieval = DeterministicRetrievalService()
-                deterministic_generation = GenerationService(
+                deterministic_current = GenerationService(
                     settings=self.settings,
                     retrieval_service=deterministic_retrieval,
                     provider=DeterministicGenerationProvider(),
+                    owns_retrieval_service=False,
+                )
+                deterministic_candidate = GenerationService(
+                    settings=self.settings,
+                    retrieval_service=deterministic_retrieval,
+                    provider=DeterministicGenerationProvider(),
+                    owns_retrieval_service=False,
+                )
+                deterministic_generation = RoutedGenerationService(
+                    settings=self.settings,
+                    current_service=deterministic_current,
+                    candidate_service=deterministic_candidate,
+                    retrieval_service=deterministic_retrieval,
                 )
                 self.retrieval_service = deterministic_retrieval
                 self.generation_service = deterministic_generation
@@ -239,6 +278,10 @@ class AiRuntimeResources:
                     self.factories.generation_provider_factory
                     or _default_generation_provider
                 )
+                candidate_generation_factory = (
+                    self.factories.candidate_generation_provider_factory
+                    or _default_candidate_generation_provider
+                )
                 embedding_pool = _ThreadLocalProviderPool(
                     embedding_factory,
                     self.settings,
@@ -247,7 +290,12 @@ class AiRuntimeResources:
                 generation_pool = _ThreadLocalProviderPool(
                     generation_factory,
                     self.settings,
-                    lambda: self._mark_provider("generation"),
+                    lambda: self._mark_provider("generation-current"),
+                )
+                candidate_generation_pool = _ThreadLocalProviderPool(
+                    candidate_generation_factory,
+                    self.settings,
+                    lambda: self._mark_provider("generation-candidate"),
                 )
                 retriever = ChromaRetriever(
                     persist_dir=self.settings.chroma_persist_dir,
@@ -264,12 +312,27 @@ class AiRuntimeResources:
                     retriever=retriever,
                     collection_metadata=expected,
                 )
-                generation = GenerationService(
+                current_generation = GenerationService(
                     settings=self.settings,
                     retrieval_service=retrieval,
                     provider=ThreadLocalGenerationProvider(
                         generation_pool, self.settings.gemini_generation_model
                     ),
+                    owns_retrieval_service=False,
+                )
+                candidate_generation = GenerationService(
+                    settings=self.settings,
+                    retrieval_service=retrieval,
+                    provider=ThreadLocalGenerationProvider(
+                        candidate_generation_pool, self.settings.self_practice_model
+                    ),
+                    owns_retrieval_service=False,
+                )
+                generation = RoutedGenerationService(
+                    settings=self.settings,
+                    current_service=current_generation,
+                    candidate_service=candidate_generation,
+                    retrieval_service=retrieval,
                 )
                 self.retrieval_service = retrieval
                 self.generation_service = generation
@@ -325,7 +388,7 @@ class AiRuntimeResources:
             raise RetrievalNotReadyError("AI_RUNTIME_NOT_READY")
         return service
 
-    def require_generation_service(self) -> GenerationService:
+    def require_generation_service(self) -> GenerationServiceContract:
         self.require_ready()
         service = self.generation_service
         if service is None:

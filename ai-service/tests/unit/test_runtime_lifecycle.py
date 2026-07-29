@@ -12,6 +12,7 @@ from app.core.runtime import (
     RuntimeState,
 )
 from app.generation.models import GenerationRequest
+from app.generation.service import RoutedGenerationService
 from app.main import create_app
 from app.retrieval.models import RetrievalNotReadyError, RetrievalRequest
 from app.vectorstore.models import CollectionCompatibilityError
@@ -157,6 +158,36 @@ def test_lifespan_owns_one_graph_and_shutdown_is_idempotent(tmp_path: Path, monk
     assert resources.counters.shutdowns == 1
     assert counters["closes"] == 1
     assert clients[0].closed
+
+
+def test_runtime_owns_independent_current_and_candidate_provider_pools(
+    tmp_path: Path, monkeypatch
+) -> None:
+    _configured, resources, counters, _clients, _collection = make_runtime(
+        tmp_path, monkeypatch
+    )
+    resources.factories = RuntimeFactories(
+        client_factory=resources.factories.client_factory,
+        client_closer=resources.factories.client_closer,
+        embedding_provider_factory=resources.factories.embedding_provider_factory,
+        generation_provider_factory=lambda _settings: FakeProvider("current", counters),
+        candidate_generation_provider_factory=lambda _settings: FakeProvider(
+            "candidate", counters
+        ),
+    )
+
+    resources.start()
+
+    router = resources.require_generation_service()
+    assert isinstance(router, RoutedGenerationService)
+    with pytest.raises(AssertionError):
+        router.current_service.provider.generate_structured("prompt")
+    with pytest.raises(AssertionError):
+        router.candidate_service.provider.generate_structured("prompt")
+    assert resources.counters.current_generation_provider_constructions == 1
+    assert resources.counters.candidate_generation_provider_constructions == 1
+    assert resources.counters.generation_provider_constructions == 2
+    resources.shutdown()
 
 
 def test_require_service_helpers_fail_closed_and_return_ready_services(

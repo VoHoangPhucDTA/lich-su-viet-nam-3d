@@ -55,6 +55,13 @@ class Difficulty(str, Enum):
     HARD = "HARD"
 
 
+class GenerationUseCase(str, Enum):
+    SELF_PRACTICE = "SELF_PRACTICE"
+    ADMIN_REVIEW = "ADMIN_REVIEW"
+    EVALUATION = "EVALUATION"
+    OTHER_INTERNAL = "OTHER_INTERNAL"
+
+
 class QuizOption(StrictCamelModel):
     id: Literal["A", "B", "C", "D"]
     text: str = Field(min_length=1)
@@ -93,6 +100,8 @@ class GenerationRequest(StrictCamelModel):
     count: int | None = Field(default=None, gt=0)
     top_k: int | None = Field(default=None, gt=0)
     style_examples: list[StyleExample] = Field(default_factory=list)
+    generation_use_case: GenerationUseCase = GenerationUseCase.OTHER_INTERNAL
+    canary_subject: str | None = Field(default=None, max_length=256)
 
     @field_validator("query")
     @classmethod
@@ -111,6 +120,14 @@ class GenerationRequest(StrictCamelModel):
         if not value:
             raise ValueError("documentId must not be blank")
         return value
+
+    @field_validator("canary_subject")
+    @classmethod
+    def normalize_canary_subject(cls, value: str | None) -> str | None:
+        if value is None:
+            return None
+        value = value.strip()
+        return value or None
 
 
 class GeneratedQuestion(StrictCamelModel):

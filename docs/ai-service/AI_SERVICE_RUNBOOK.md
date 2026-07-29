@@ -34,6 +34,11 @@ GEMINI_GENERATION_MAX_OUTPUT_TOKENS=8192
 GEMINI_GENERATION_MAX_RETRIES=3
 GEMINI_GENERATION_REPAIR_ATTEMPTS=1
 GEMINI_GENERATION_TIMEOUT_SECONDS=60
+AI_SELF_PRACTICE_MODEL_ENABLED=false
+AI_SELF_PRACTICE_MODEL=gemini-3.5-flash-lite
+AI_SELF_PRACTICE_MODEL_ROLLOUT_PERCENT=0
+AI_SELF_PRACTICE_MODEL_FALLBACK_ENABLED=false
+AI_SELF_PRACTICE_ROLLOUT_SALT=self-practice-v1
 EMBEDDING_OUTPUT_DIR=./storage/embeddings
 EMBEDDING_CHECKPOINT_DIR=./storage/checkpoints
 CHROMA_PERSIST_DIR=./storage/chroma
@@ -56,6 +61,40 @@ QUIZ_DUPLICATE_SIMILARITY_THRESHOLD=0.9
 QUIZ_ALLOW_PENDING_REVIEW=false
 LOG_LEVEL=INFO
 ```
+
+### Self-practice model canary
+
+Candidate routing is internal and applies only to authenticated `SELF_PRACTICE`
+requests. Assignment is deterministic from a pseudonymous user identifier and the
+rollout salt. Admin review, evaluation, and other internal generation always remain
+on the current model. Current and candidate use independent provider pools; the
+initial rollout intentionally has no cross-model fallback.
+
+The Spring backend derives the internal canary subject with HMAC-SHA256. Configure a
+dedicated `AI_SELF_PRACTICE_CANARY_SECRET`; never reuse the JWT secret, internal
+service token, or Gemini API key. If the authenticated principal or this secret is
+missing, the subject is omitted and routing fails closed to the current model. The
+raw user identifier, HMAC subject, and secret are never routing-log fields.
+
+The safe deployment defaults are `AI_SELF_PRACTICE_MODEL_ENABLED=false` and
+`AI_SELF_PRACTICE_MODEL_ROLLOUT_PERCENT=0`. Do not enable the candidate merely by
+setting its model name. After separate approval and monitoring at each stage, use
+the sequence `0 -> 5 -> 25 -> 50 -> 100`; rollback is setting the percentage to `0`
+and then disabling the feature. Keep the rollout salt stable during an experiment,
+and rotate it only when intentionally creating a new cohort.
+
+Before any staging activation, run the offline rehearsal from `ai-service/`:
+
+```powershell
+python -m scripts.rehearse_self_practice_rollout `
+  --output-root ../artifacts/ai-service/goal15p `
+  --run-id <sanitized-run-id>
+```
+
+The expected status is `LOCAL_STAGING_ACTIVATION_REHEARSAL_PASS`. The harness uses
+deterministic recording services only, performs no Gemini calls, and writes
+content-free artifacts outside the commit. A 100% to 0% rehearsal is only a local
+configuration/restart-cycle measurement, not a production recovery-time claim.
 
 `GEMINI_API_KEY` chấp nhận một key hoặc nhiều key phân cách bằng dấu phẩy. Không thêm dấu ngoặc/quote vào từng key. CLI chỉ báo count/position, không in giá trị. Nếu dùng pool, provider failover cho `API_KEY_INVALID`/401/403; key position 1 hiện bị project denial và position 2 đã pass.
 

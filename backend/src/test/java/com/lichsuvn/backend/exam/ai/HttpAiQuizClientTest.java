@@ -3,6 +3,7 @@ package com.lichsuvn.backend.exam.ai;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lichsuvn.backend.common.exception.ApiException;
 import com.lichsuvn.backend.exam.ai.client.HttpAiQuizClient;
+import com.lichsuvn.backend.exam.ai.client.dto.AiGenerationUseCase;
 import com.lichsuvn.backend.exam.ai.client.dto.AiQuizGenerationRequest;
 import com.lichsuvn.backend.exam.ai.config.AiServiceProperties;
 import com.sun.net.httpserver.HttpExchange;
@@ -18,6 +19,7 @@ import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 import java.util.List;
 import java.util.concurrent.Executors;
+import java.util.concurrent.atomic.AtomicReference;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -39,6 +41,25 @@ class HttpAiQuizClientTest {
         var result = client.generate(request(), "request-123");
 
         assertEquals(1, result.metadata().generatedCount());
+    }
+
+    @Test
+    void serializesInternalUseCaseAndPseudonymousCanarySubject() throws Exception {
+        AtomicReference<String> body = new AtomicReference<>();
+        server = server(exchange -> {
+            body.set(new String(exchange.getRequestBody().readAllBytes(), StandardCharsets.UTF_8));
+            respond(exchange, 200, validJson());
+        });
+        HttpAiQuizClient client = client(Duration.ofSeconds(2));
+        AiQuizGenerationRequest internal = new AiQuizGenerationRequest(
+                "query", null, null, null, "MEDIUM", 1, 5, List.of(),
+                AiGenerationUseCase.SELF_PRACTICE, "user-1"
+        );
+
+        client.generate(internal, "request-123");
+
+        assertTrue(body.get().contains("\"generationUseCase\":\"SELF_PRACTICE\""));
+        assertTrue(body.get().contains("\"canarySubject\":\"user-1\""));
     }
 
     @Test

@@ -16,6 +16,7 @@ from app.generation.models import (
     GeneratedQuestion,
     GenerationOutputError,
     GenerationRequest,
+    GenerationUseCase,
     InsufficientContextError,
     StyleExample,
     ValidationIssue,
@@ -147,9 +148,26 @@ def test_request_schema_difficulty_and_strict_fields() -> None:
         GenerationRequest(query="x", difficulty="UNKNOWN")
     with pytest.raises(ValidationError):
         GenerationRequest(query="x", rawFactContext="forbidden")
+    with pytest.raises(ValidationError):
+        GenerationRequest(query="x", generationModel="arbitrary-model")
     request = GenerationRequest(query="  lịch sử ", difficulty="HARD")
     assert request.query == "lịch sử"
     assert request.difficulty.value == "HARD"
+    assert request.generation_use_case == GenerationUseCase.OTHER_INTERNAL
+    assert request.canary_subject is None
+
+
+def test_internal_routing_fields_use_closed_contract_and_normalize_subject() -> None:
+    request = GenerationRequest(
+        query="history",
+        generationUseCase="SELF_PRACTICE",
+        canarySubject="  user-1  ",
+    )
+
+    assert request.generation_use_case == GenerationUseCase.SELF_PRACTICE
+    assert request.canary_subject == "user-1"
+    with pytest.raises(ValidationError):
+        GenerationRequest(query="history", generationUseCase="UNKNOWN")
 
 
 def test_style_schema_requires_exact_four_options() -> None:

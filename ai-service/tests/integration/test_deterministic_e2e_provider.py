@@ -1,3 +1,5 @@
+import logging
+
 from fastapi.testclient import TestClient
 
 from app.config import Settings
@@ -65,3 +67,52 @@ def test_deterministic_providers_accept_typed_contract_without_gemini() -> None:
 
     assert isinstance(generated, GeneratedQuestionBatch)
     assert len(generated.questions) == 1
+
+
+def test_deterministic_app_rehearses_candidate_current_and_rollback_without_gemini(
+    caplog,
+) -> None:
+    def invoke(rollout: int, payload: dict[str, object]) -> tuple[dict, str]:
+        configured = Settings(
+            _env_file=None,
+            app_env="e2e",
+            deterministic_e2e_provider=True,
+            ai_service_internal_token="test-internal-token",
+            self_practice_model_enabled=True,
+            self_practice_model_rollout_percent=rollout,
+        )
+        app = create_app(configured)
+        with (
+            caplog.at_level(logging.INFO, logger="app.generation"),
+            TestClient(app) as client,
+        ):
+            response = client.post(
+                "/ai/quiz/generate",
+                json=payload,
+                headers={"X-Internal-Service-Token": "test-internal-token"},
+            )
+        assert response.status_code == 200
+        assert "modelClass" not in response.json()
+        routing_log = next(
+            record.message
+            for record in reversed(caplog.records)
+            if "event=generation.routing" in record.message
+        )
+        caplog.clear()
+        return response.json(), routing_log
+
+    base: dict[str, object] = {
+        "query": "Cách mạng tháng Tám",
+        "count": 1,
+        "generationUseCase": "SELF_PRACTICE",
+        "canarySubject": "synthetic-subject",
+    }
+    _candidate_body, candidate_log = invoke(100, base)
+    _admin_body, admin_log = invoke(100, {**base, "generationUseCase": "ADMIN_REVIEW"})
+    _missing_body, missing_log = invoke(100, {**base, "canarySubject": None})
+    _rollback_body, rollback_log = invoke(0, base)
+
+    assert "modelClass=CANDIDATE" in candidate_log
+    assert "modelClass=CURRENT" in admin_log
+    assert "routingReason=MISSING_CANARY_SUBJECT" in missing_log
+    assert "routingReason=ROLLOUT_ZERO" in rollback_log
