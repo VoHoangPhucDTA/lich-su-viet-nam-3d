@@ -11,3 +11,11 @@ warn_unused_ignores = true
 warn_redundant_casts = true
 disallow_untyped_defs = false
 ignore_missing_imports = true
+
+[tool.coverage.run]
+# WP9 harness is a bounded live-Gemini diagnostic and is never imported by the
+# offline CI suite as executable production code.
+omit = ["scripts/diagnose_generation_latency.py"]
+
+[tool.coverage.report]
+omit = ["scripts/diagnose_generation_latency.py"]
