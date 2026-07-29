@@ -71,11 +71,20 @@ public class AiQuizGenerationService {
         long started = System.nanoTime();
         metrics.request();
         try {
+            long styleStarted = System.nanoTime();
             List<AiStyleExample> selectedStyles = styleExamples.select(request.query(), request.difficulty().name());
+            long styleDurationMs = (System.nanoTime() - styleStarted) / 1_000_000;
+            int styleChars = selectedStyles.stream().mapToInt(style ->
+                    style.question().length()
+                            + style.explanation().length()
+                            + style.options().stream().mapToInt(option -> option.text().length()).sum()
+            ).sum();
+            long clientStarted = System.nanoTime();
             AiQuizGenerationResponse response = client.generate(new AiQuizGenerationRequest(
                     request.query().trim(), request.grade(), request.lessonNumber(), normalize(request.documentId()),
                     request.difficulty().name(), request.count(), request.topK(), selectedStyles
             ), requestId);
+            long clientDurationMs = (System.nanoTime() - clientStarted) / 1_000_000;
             AiQuizGenerateResponse mapped = validateAndMap(response, request.difficulty().name());
             if (issueReceipt) {
                 AiGenerationReceiptRepository.Issued receipt;
@@ -90,10 +99,10 @@ public class AiQuizGenerationService {
             }
             metrics.success(mapped.generation().partial());
             log.info(
-                    "AI quiz generated requestId={} userId={} grade={} lessonNumber={} difficulty={} requestedCount={} styleExampleCount={} generatedCount={} partial={}",
+                    "AI quiz generated requestId={} userId={} grade={} lessonNumber={} difficulty={} requestedCount={} styleExampleCount={} styleExampleChars={} styleSelectMs={} clientMs={} generatedCount={} partial={}",
                     requestId, principal == null ? "unknown" : principal.id(), request.grade(), request.lessonNumber(),
-                    request.difficulty(), mapped.generation().requestedCount(), selectedStyles.size(),
-                    mapped.generation().generatedCount(), mapped.generation().partial()
+                    request.difficulty(), mapped.generation().requestedCount(), selectedStyles.size(), styleChars,
+                    styleDurationMs, clientDurationMs, mapped.generation().generatedCount(), mapped.generation().partial()
             );
             return mapped;
         } catch (ApiException ex) {

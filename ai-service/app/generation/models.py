@@ -172,11 +172,42 @@ class GenerationResponse(StrictCamelModel):
     warnings: list[str] = Field(default_factory=list)
 
 
+class DiagnosticOutputField(str, Enum):
+    QUESTION = "QUESTION"
+    OPTION = "OPTION"
+    EXPLANATION = "EXPLANATION"
+    ANSWER = "ANSWER"
+    SOURCE = "SOURCE"
+    ROOT = "ROOT"
+    UNKNOWN = "UNKNOWN"
+
+
+class DiagnosticMarkerCategory(str, Enum):
+    FACT_CONTEXT_LABEL = "FACT_CONTEXT_LABEL"
+    SOURCE_LABEL = "SOURCE_LABEL"
+    STYLE_EXAMPLE_LABEL = "STYLE_EXAMPLE_LABEL"
+    CHUNK_IDENTIFIER = "CHUNK_IDENTIFIER"
+    INSTRUCTION_REFERENCE = "INSTRUCTION_REFERENCE"
+    PASSAGE_REFERENCE = "PASSAGE_REFERENCE"
+    OTHER = "OTHER"
+    UNKNOWN = "UNKNOWN"
+
+
+class ValidationIssueLocation(StrictCamelModel):
+    output_field: DiagnosticOutputField
+    option_index: int | None = Field(default=None, ge=0, le=3)
+    marker_category: DiagnosticMarkerCategory = DiagnosticMarkerCategory.UNKNOWN
+
+
 class ValidationIssue(StrictCamelModel):
     code: str
     message: str
     question_index: int | None = None
     severity: Literal["ERROR", "WARNING"] = "ERROR"
+    diagnostic_locations: list[ValidationIssueLocation] = Field(
+        default_factory=list,
+        exclude=True,
+    )
 
 
 class ValidationSummary(StrictCamelModel):

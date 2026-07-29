@@ -1,4 +1,5 @@
 import json
+import logging
 from pathlib import Path
 
 import pytest
@@ -7,6 +8,7 @@ from pydantic import ValidationError
 
 from app.config import Settings
 from app.dependencies import get_generation_service
+from app.generation.diagnostics import DIAGNOSTICS_ENV
 from app.generation.duplicate_checker import token_jaccard
 from app.generation.fake import FakeGenerationProvider
 from app.generation.models import (
@@ -319,6 +321,187 @@ def test_scaffolding_repair_receives_issue_and_returns_clean_question(
     assert not find_prompt_scaffolding_markers(response.questions[0].explanation)
     assert trace.repair_attempt_count == trace.repair_success_count == 1
     assert trace.repair_failure_count == 0
+
+
+def _diagnostic_payloads(caplog: pytest.LogCaptureFixture, event: str) -> list[dict]:
+    return [
+        json.loads(record.getMessage().split("payload=", 1)[1])
+        for record in caplog.records
+        if f"event={event} payload=" in record.getMessage()
+    ]
+
+
+@pytest.mark.parametrize(
+    ("field", "expected_field", "expected_option", "expected_category"),
+    [
+        ("question", "QUESTION", None, "FACT_CONTEXT_LABEL"),
+        ("option", "OPTION", 1, "INSTRUCTION_REFERENCE"),
+        ("explanation", "EXPLANATION", None, "PASSAGE_REFERENCE"),
+    ],
+)
+def test_diagnostics_trace_scaffolding_field_without_content(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    caplog: pytest.LogCaptureFixture,
+    field: str,
+    expected_field: str,
+    expected_option: int | None,
+    expected_category: str,
+) -> None:
+    overrides: dict[str, object] = {}
+    leaked_text = ""
+    if field == "question":
+        leaked_text = "FACT CONTEXT cho biết sự kiện nào?"
+        overrides["question"] = leaked_text
+    elif field == "explanation":
+        leaked_text = "Theo đoạn trích trên, đáp án A đúng."
+        overrides["explanation"] = leaked_text
+    else:
+        leaked_text = "The provided context"
+        options = question().model_dump(by_alias=True)["options"]
+        options[1]["text"] = leaked_text
+        overrides["options"] = options
+    provider = FakeGenerationProvider(
+        [
+            GeneratedQuestionBatch(questions=[question(**overrides)]),
+            GeneratedQuestionBatch(questions=[question()]),
+        ]
+    )
+    monkeypatch.setenv(DIAGNOSTICS_ENV, "true")
+    caplog.set_level(logging.INFO, logger="app.generation.diagnostics")
+    service = GenerationService(
+        settings=configured(tmp_path),
+        retrieval_service=StubRetrieval(retrieval_response()),  # type: ignore[arg-type]
+        provider=provider,
+    )
+
+    response = service.generate(GenerationRequest(query="x", count=1))
+
+    traces = _diagnostic_payloads(caplog, "generation.repair_trace")
+    matching = next(item for item in traces if item["outputField"] == expected_field)
+    assert matching["issueCode"] == "PROMPT_SCAFFOLDING_LEAK"
+    assert matching["issueSeverity"] == "ERROR"
+    assert matching["optionIndex"] == expected_option
+    assert matching["markerCategory"] == expected_category
+    assert matching["repairAttemptNumber"] == 1
+    assert len(provider.prompts) == 2
+    assert response.metadata.repair_attempts == 1
+    assert leaked_text not in caplog.text
+    assert "REPAIR RULES" not in caplog.text
+
+
+def test_warning_does_not_trigger_repair_diagnostics(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    caplog: pytest.LogCaptureFixture,
+) -> None:
+    monkeypatch.setenv(DIAGNOSTICS_ENV, "true")
+    caplog.set_level(logging.INFO, logger="app.generation.diagnostics")
+    provider = FakeGenerationProvider(
+        [GeneratedQuestionBatch(questions=[question(difficulty="HARD")])]
+    )
+    service = GenerationService(
+        settings=configured(tmp_path),
+        retrieval_service=StubRetrieval(retrieval_response()),  # type: ignore[arg-type]
+        provider=provider,
+    )
+
+    response = service.generate(
+        GenerationRequest(query="x", count=1, difficulty="MEDIUM")
+    )
+
+    assert response.metadata.repair_attempts == 0
+    assert len(provider.prompts) == 1
+    assert not _diagnostic_payloads(caplog, "generation.repair_trace")
+    decision = _diagnostic_payloads(caplog, "generation.repair_decision")[0]
+    assert decision["initialValidationIssueCount"] == 1
+    assert decision["repairEligibleIssueCount"] == 0
+    assert decision["repairTriggered"] is False
+    assert decision["repairProviderCalled"] is False
+    assert decision["finalValid"] is True
+
+
+def test_diagnostic_issue_order_and_default_off_public_contract(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    caplog: pytest.LogCaptureFixture,
+) -> None:
+    monkeypatch.setenv(DIAGNOSTICS_ENV, "true")
+    caplog.set_level(logging.INFO, logger="app.generation.diagnostics")
+    invalid = question(
+        question="FACT CONTEXT cho biết sự kiện nào?",
+        sourceChunkIds=["unknown"],
+    )
+    provider = FakeGenerationProvider(
+        [
+            GeneratedQuestionBatch(questions=[invalid]),
+            GeneratedQuestionBatch(questions=[question()]),
+        ]
+    )
+    service = GenerationService(
+        settings=configured(tmp_path),
+        retrieval_service=StubRetrieval(retrieval_response()),  # type: ignore[arg-type]
+        provider=provider,
+    )
+    response = service.generate(GenerationRequest(query="x", count=1))
+    codes = [
+        item["issueCode"]
+        for item in _diagnostic_payloads(caplog, "generation.repair_trace")
+    ]
+    assert codes == ["PROMPT_SCAFFOLDING_LEAK", "UNKNOWN_SOURCE_ID"]
+    assert set(response.model_dump(by_alias=True)) == {
+        "questions",
+        "sources",
+        "metadata",
+        "warnings",
+    }
+
+    caplog.clear()
+    monkeypatch.delenv(DIAGNOSTICS_ENV)
+    disabled_provider = FakeGenerationProvider(
+        [
+            GeneratedQuestionBatch(questions=[invalid]),
+            GeneratedQuestionBatch(questions=[question()]),
+        ]
+    )
+    disabled_service = GenerationService(
+        settings=configured(tmp_path),
+        retrieval_service=StubRetrieval(retrieval_response()),  # type: ignore[arg-type]
+        provider=disabled_provider,
+    )
+    disabled_service.generate(GenerationRequest(query="x", count=1))
+    assert not _diagnostic_payloads(caplog, "generation.repair_trace")
+    assert not _diagnostic_payloads(caplog, "generation.repair_decision")
+
+
+def test_parse_failure_trace_uses_stable_code_and_one_repair(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    caplog: pytest.LogCaptureFixture,
+) -> None:
+    monkeypatch.setenv(DIAGNOSTICS_ENV, "true")
+    caplog.set_level(logging.INFO, logger="app.generation.diagnostics")
+    provider = FakeGenerationProvider(
+        [
+            GenerationOutputError("AIza-hidden-secret", raw_output="private output"),
+            GeneratedQuestionBatch(questions=[question()]),
+        ]
+    )
+    service = GenerationService(
+        settings=configured(tmp_path),
+        retrieval_service=StubRetrieval(retrieval_response()),  # type: ignore[arg-type]
+        provider=provider,
+    )
+
+    response = service.generate(GenerationRequest(query="x", count=1))
+
+    traces = _diagnostic_payloads(caplog, "generation.repair_trace")
+    assert [item["issueCode"] for item in traces] == ["STRUCTURED_OUTPUT_FAILURE"]
+    assert traces[0]["outputField"] == "ROOT"
+    assert response.metadata.repair_attempts == 1
+    assert len(provider.prompts) == 2
+    assert "AIza-hidden-secret" not in caplog.text
+    assert "private output" not in caplog.text
 
 
 @pytest.mark.parametrize(

@@ -6,9 +6,12 @@ from typing import Literal
 from app.config import Settings
 from app.generation.duplicate_checker import duplicate_issues, normalize_text
 from app.generation.models import (
+    DiagnosticMarkerCategory,
+    DiagnosticOutputField,
     GeneratedQuestion,
     GenerationRequest,
     ValidationIssue,
+    ValidationIssueLocation,
     ValidationSummary,
 )
 from app.retrieval.models import RetrievalResult
@@ -45,6 +48,70 @@ def find_prompt_scaffolding_markers(value: str) -> set[str]:
 
     normalized = normalize_text(value)
     return {marker for marker in PROMPT_SCAFFOLDING_MARKERS if normalize_text(marker) in normalized}
+
+
+def prompt_scaffolding_marker_category(marker: str) -> DiagnosticMarkerCategory:
+    """Map a stable validator marker to a content-free diagnostic category."""
+
+    normalized = normalize_text(marker)
+    if normalized in {normalize_text("fact context"), normalize_text("theo fact context")}:
+        return DiagnosticMarkerCategory.FACT_CONTEXT_LABEL
+    if normalized in {normalize_text("style example"), normalize_text("style examples")}:
+        return DiagnosticMarkerCategory.STYLE_EXAMPLE_LABEL
+    if normalized in {normalize_text("source chunk"), normalize_text("source id")}:
+        return DiagnosticMarkerCategory.SOURCE_LABEL
+    if normalized == normalize_text("chunk id"):
+        return DiagnosticMarkerCategory.CHUNK_IDENTIFIER
+    if normalized in {
+        normalize_text("the provided context"),
+        normalize_text("the context above"),
+        normalize_text("theo nội dung được cung cấp"),
+    }:
+        return DiagnosticMarkerCategory.INSTRUCTION_REFERENCE
+    if normalized in {
+        normalize_text("the passage above"),
+        normalize_text("theo đoạn trích trên"),
+        normalize_text("theo đoạn trích được cung cấp"),
+        normalize_text("theo đoạn văn trên"),
+        normalize_text("theo tư liệu trên"),
+        normalize_text("đoạn văn chỉ rõ"),
+        normalize_text("tư liệu trên cho biết"),
+    }:
+        return DiagnosticMarkerCategory.PASSAGE_REFERENCE
+    return DiagnosticMarkerCategory.OTHER
+
+
+def _scaffolding_locations(
+    scaffold_hits: dict[str, list[str]],
+) -> list[ValidationIssueLocation]:
+    locations: list[ValidationIssueLocation] = []
+    seen: set[tuple[str, int | None, str]] = set()
+    for field_name, markers in scaffold_hits.items():
+        option_index: int | None = None
+        if field_name == "question":
+            output_field = DiagnosticOutputField.QUESTION
+        elif field_name == "explanation":
+            output_field = DiagnosticOutputField.EXPLANATION
+        elif field_name.startswith("option."):
+            output_field = DiagnosticOutputField.OPTION
+            option_id = field_name.removeprefix("option.")
+            option_index = ord(option_id) - ord("A") if option_id in "ABCD" else None
+        else:
+            output_field = DiagnosticOutputField.UNKNOWN
+        for marker in markers:
+            category = prompt_scaffolding_marker_category(marker)
+            key = (output_field.value, option_index, category.value)
+            if key in seen:
+                continue
+            seen.add(key)
+            locations.append(
+                ValidationIssueLocation(
+                    output_field=output_field,
+                    option_index=option_index,
+                    marker_category=category,
+                )
+            )
+    return locations
 
 
 def validate_questions(
@@ -128,6 +195,7 @@ def validate_questions(
                         + ", ".join(sorted(scaffold_hits))
                     ),
                     question_index=index,
+                    diagnostic_locations=_scaffolding_locations(scaffold_hits),
                 )
             )
         if (

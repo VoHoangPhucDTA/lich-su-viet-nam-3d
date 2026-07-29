@@ -1,13 +1,19 @@
 """Retrieval-grounded MCQ generation orchestration."""
 
 import inspect
+import logging
 import time
 from collections.abc import Callable, Mapping
 from dataclasses import dataclass, field
 
 from app.config import Settings
 from app.core.deadline import OperationDeadline
+from app.core.request_context import current_request_id
 from app.generation.base import GenerationProvider
+from app.generation.diagnostics import (
+    GenerationDiagnosticRecorder,
+    stable_output_error_code,
+)
 from app.generation.gemini import GeminiGenerationProvider
 from app.generation.models import (
     GeneratedQuestion,
@@ -25,6 +31,8 @@ from app.generation.schemas import GeneratedQuestionBatch
 from app.generation.validators import validate_questions
 from app.retrieval.models import RetrievalRequest, RetrievalResponse
 from app.retrieval.service import RetrievalServiceContract, create_retrieval_service
+
+generation_logger = logging.getLogger("app.generation")
 
 
 def _accepts_keyword(parameters: Mapping[str, inspect.Parameter], name: str) -> bool:
@@ -110,6 +118,10 @@ class GenerationService:
             evaluation_trace.reset()
         started = time.monotonic()
         count = self._validate_request_limits(request)
+        diagnostic_recorder = GenerationDiagnosticRecorder(
+            current_request_id() or "unknown"
+        )
+        retrieval_started = time.monotonic()
         retrieval_request = RetrievalRequest(
             query=request.query,
             grade=request.grade,
@@ -128,20 +140,29 @@ class GenerationService:
             if _accepts_keyword(parameters, "is_cancelled"):
                 retrieval_kwargs["is_cancelled"] = is_cancelled
             retrieval = retrieval_method(retrieval_request, **retrieval_kwargs)
+        retrieval_ms = (time.monotonic() - retrieval_started) * 1000
         deadline.checkpoint("retrieval", is_cancelled)
         if not retrieval.results or not retrieval.fact_context.text.strip():
             raise InsufficientContextError("INSUFFICIENT_CONTEXT")
+        prompt_started = time.monotonic()
         prompt = build_generation_prompt(
             request, retrieval.fact_context, count=count
         )
+        prompt_ms = (time.monotonic() - prompt_started) * 1000
+        style_chars = sum(len(item.model_dump_json(by_alias=True)) for item in request.style_examples)
         repair_attempts = 0
         last_issues: list[ValidationIssue] = []
         raw_output = ""
         valid: list[GeneratedQuestion] = []
         current_prompt = prompt
+        provider_initial_ms = 0.0
+        repair_provider_ms = 0.0
+        validation_issue_count = 0
         for attempt in range(self.settings.gemini_generation_repair_attempts + 1):
             stage = "generation" if attempt == 0 else "repair"
             deadline.checkpoint(stage, is_cancelled)
+            if attempt > 0:
+                diagnostic_recorder.record_repair_provider_call()
             provider_started = time.monotonic()
             try:
                 provider_method: Callable[..., GeneratedQuestionBatch] = (
@@ -169,15 +190,27 @@ class GenerationService:
             except GenerationOutputError as exc:
                 raw_output = exc.raw_output
                 last_issues = [
-                    ValidationIssue(code=str(exc), message="structured output is invalid")
+                    ValidationIssue(
+                        code=stable_output_error_code(str(exc)),
+                        message="structured output is invalid",
+                    )
                 ]
+                if attempt == 0:
+                    diagnostic_recorder.record_initial(last_issues)
                 if evaluation_trace is not None:
                     evaluation_trace.validation_issues.extend(last_issues)
                     if attempt > 0:
                         evaluation_trace.repair_failure_count += 1
                 if attempt >= self.settings.gemini_generation_repair_attempts:
+                    diagnostic_recorder.record_final(last_issues, valid=False)
+                    diagnostic_recorder.emit_decision()
                     raise
                 deadline.checkpoint("repair", is_cancelled)
+                diagnostic_recorder.record_repair_trigger(
+                    last_issues,
+                    attempt_number=attempt + 1,
+                    repair_attempt_number=repair_attempts + 1,
+                )
                 repair_attempts += 1
                 if evaluation_trace is not None:
                     evaluation_trace.repair_attempt_count = repair_attempts
@@ -189,10 +222,13 @@ class GenerationService:
                 )
                 continue
             finally:
+                provider_ms = (time.monotonic() - provider_started) * 1000
+                if attempt == 0:
+                    provider_initial_ms = provider_ms
+                else:
+                    repair_provider_ms += provider_ms
                 if evaluation_trace is not None:
-                    evaluation_trace.provider_latency_ms += (
-                        time.monotonic() - provider_started
-                    ) * 1000
+                    evaluation_trace.provider_latency_ms += provider_ms
             valid, summary = validate_questions(
                 batch.questions,
                 request,
@@ -200,6 +236,9 @@ class GenerationService:
                 self.settings,
             )
             last_issues = summary.issues
+            validation_issue_count += len(summary.issues)
+            if attempt == 0:
+                diagnostic_recorder.record_initial(summary.issues)
             if evaluation_trace is not None:
                 evaluation_trace.validation_issues.extend(summary.issues)
             if len(valid) >= count and not any(
@@ -207,6 +246,7 @@ class GenerationService:
             ):
                 if evaluation_trace is not None and attempt > 0:
                     evaluation_trace.repair_success_count += 1
+                diagnostic_recorder.record_final(summary.issues, valid=True)
                 valid = valid[:count]
                 break
             if attempt >= self.settings.gemini_generation_repair_attempts:
@@ -219,6 +259,21 @@ class GenerationService:
             if evaluation_trace is not None and attempt > 0:
                 evaluation_trace.repair_failure_count += 1
             deadline.checkpoint("repair", is_cancelled)
+            repair_issues = [
+                issue for issue in summary.issues if issue.severity == "ERROR"
+            ]
+            if not repair_issues:
+                repair_issues = [
+                    ValidationIssue(
+                        code="COUNT_MISMATCH",
+                        message="generated count differs from requested",
+                    )
+                ]
+            diagnostic_recorder.record_repair_trigger(
+                repair_issues,
+                attempt_number=attempt + 1,
+                repair_attempt_number=repair_attempts + 1,
+            )
             repair_attempts += 1
             if evaluation_trace is not None:
                 evaluation_trace.repair_attempt_count = repair_attempts
@@ -230,12 +285,16 @@ class GenerationService:
                 retrieval.fact_context,
             )
         if not valid:
+            diagnostic_recorder.record_final(last_issues, valid=False)
+            diagnostic_recorder.emit_decision()
             if evaluation_trace is not None:
                 evaluation_trace.repair_failure_count = max(
                     evaluation_trace.repair_failure_count,
                     evaluation_trace.repair_attempt_count,
                 )
             raise GenerationOutputError("NO_VALID_QUESTIONS_AFTER_REPAIR")
+        diagnostic_recorder.record_final(last_issues, valid=True)
+        diagnostic_recorder.emit_decision()
         warnings = sorted(
             {
                 issue.code
@@ -259,7 +318,7 @@ class GenerationService:
             )
             for item in retrieval.results
         ]
-        return GenerationResponse(
+        response = GenerationResponse(
             questions=valid[:count],
             sources=sources,
             metadata=GenerationMetadata(
@@ -276,6 +335,29 @@ class GenerationService:
             ),
             warnings=warnings,
         )
+        if diagnostic_recorder.enabled:
+            generation_logger.info(
+                "event=generation.diagnostic requestId=%s status=success requestedCount=%s "
+                "generatedCount=%s retrievalMs=%.2f contextChars=%s promptMs=%.2f promptChars=%s "
+                "styleExampleCount=%s styleExampleChars=%s providerInitialMs=%.2f repairProviderMs=%.2f "
+                "repairAttempts=%s repairTriggerCodes=%s validationIssueCount=%s totalMs=%.2f",
+                current_request_id() or "unknown",
+                count,
+                response.metadata.generated_count,
+                retrieval_ms,
+                len(retrieval.fact_context.text),
+                prompt_ms,
+                len(prompt),
+                len(request.style_examples),
+                style_chars,
+                provider_initial_ms,
+                repair_provider_ms,
+                repair_attempts,
+                ",".join(diagnostic_recorder.repair_trigger_codes) or "NONE",
+                validation_issue_count,
+                (time.monotonic() - started) * 1000,
+            )
+        return response
 
     def close(self) -> None:
         self.provider.close()
