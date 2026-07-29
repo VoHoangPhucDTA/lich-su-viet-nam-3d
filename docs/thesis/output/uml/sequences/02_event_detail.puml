@@ -1,0 +1,13 @@
+@startuml
+skinparam shadowing false
+skinparam monochrome true
+title 02 event detail
+actor Visitor
+participant EventPage
+participant API
+Visitor -> EventPage: select event
+EventPage -> API: GET /api/events/{idOrSlug}
+API --> EventPage: detail + sources
+EventPage -> API: GET children/related
+API --> EventPage: hierarchy data
+@enduml

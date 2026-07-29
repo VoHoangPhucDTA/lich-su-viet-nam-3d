@@ -11,8 +11,8 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { ChevronRight, CircleAlert, Clock, List, MapPin, X, Compass } from 'lucide-react';
 import CesiumMap, {
   type CesiumMapHandle,
-  type TerrainExplorationMode,
   type TerrainInspectionPayload,
+  type TerrainMeasurementPayload,
 } from '../components/CesiumMap';
 import Timeline from '../components/Timeline';
 import Sidebar from '../components/Sidebar';
@@ -27,6 +27,8 @@ import {
 import type { HistoricalEvent } from '../types/event';
 import type {
   RegionGeometryStatus,
+  TerrainDataSourceStatus,
+  TerrainExplorationMode,
   TerrainRuntimeError,
   TerrainSessionCommand,
   TerrainViewModel,
@@ -43,6 +45,10 @@ import {
 } from '../services/eventApi';
 import { normalizeTerrainTargets } from '../utils/terrainTargets';
 import { INITIAL_TERRAIN_STATE, terrainReducer } from '../utils/terrainState';
+import {
+  INITIAL_TERRAIN_DISTANCE_MEASUREMENT,
+  terrainDistanceMeasurementReducer,
+} from '../utils/terrainMeasurement';
 
 function replaceEventInTree(
   events: HistoricalEvent[],
@@ -161,13 +167,19 @@ export default function MapPage() {
   const [mapError, setMapError] = useState<string | null>(null);
   // ─── Terrain exploration toolbar (Task C) ─────────────────────────────────
   const cesiumApiRef = useRef<CesiumMapHandle | null>(null);
-  const [inspectMode, setInspectMode] = useState<TerrainExplorationMode>('none');
+  const [explorationMode, setExplorationMode] = useState<TerrainExplorationMode>('none');
   const [inspectSessionId, setInspectSessionId] = useState(0);
   const [inspection, setInspection] = useState<TerrainExplorationInspectorState>({
     result: null,
     loading: false,
     error: null,
   });
+  const [measurementSessionId, setMeasurementSessionId] = useState(0);
+  const measurementSessionCounterRef = useRef(0);
+  const [measurement, measurementDispatch] = useReducer(
+    terrainDistanceMeasurementReducer,
+    INITIAL_TERRAIN_DISTANCE_MEASUREMENT,
+  );
   const { setCenterContent } = useHeader();
   const requestedEventKey = useMemo(
     () => new URLSearchParams(location.search).get('event')?.trim() ?? '',
@@ -544,23 +556,40 @@ export default function MapPage() {
   }, []);
 
   // ─── Terrain Exploration toolbar wiring (Task C) ───────────────────────────
-  const clearInspection = useCallback(() => {
-    setInspectMode('none');
+  const clearExploration = useCallback(() => {
+    setExplorationMode('none');
+    setInspectSessionId((prev) => prev + 1);
     setInspection({ result: null, loading: false, error: null });
     cesiumApiRef.current?.clearInspectionMarker();
+    const measurementId = ++measurementSessionCounterRef.current;
+    setMeasurementSessionId(measurementId);
+    measurementDispatch({ type: 'DEACTIVATE' });
+    cesiumApiRef.current?.clearDistanceMeasurement();
   }, []);
 
-  const handleToggleInspect = useCallback((next: TerrainExplorationMode) => {
-    // Always bump session id on every transition so cross-cancel inside CesiumMap
-    // remains deterministic even on rapid ON→OFF→ON toggles.
+  const handleToggleExplorationMode = useCallback((next: TerrainExplorationMode) => {
     setInspectSessionId((prev) => prev + 1);
-    if (next === 'inspect-location') {
-      setInspection({ result: null, loading: false, error: null });
-      setInspectMode(next);
+    setInspection({ result: null, loading: false, error: null });
+    cesiumApiRef.current?.clearInspectionMarker();
+
+    const measurementId = ++measurementSessionCounterRef.current;
+    setMeasurementSessionId(measurementId);
+    cesiumApiRef.current?.clearDistanceMeasurement();
+    if (next === 'measure-distance') {
+      measurementDispatch({ type: 'ACTIVATE', sessionId: measurementId });
     } else {
-      clearInspection();
+      measurementDispatch({ type: 'DEACTIVATE' });
     }
-  }, [clearInspection]);
+    setExplorationMode(next);
+  }, []);
+
+  const resetMeasurement = useCallback(() => {
+    if (explorationMode !== 'measure-distance') return;
+    const measurementId = ++measurementSessionCounterRef.current;
+    setMeasurementSessionId(measurementId);
+    cesiumApiRef.current?.clearDistanceMeasurement();
+    measurementDispatch({ type: 'RESET', sessionId: measurementId });
+  }, [explorationMode]);
 
   const handleZoomIn = useCallback(() => {
     cesiumApiRef.current?.zoomByFactor(0.3);
@@ -584,6 +613,23 @@ export default function MapPage() {
     },
     [],
   );
+
+  const handleMeasurementPointChange = useCallback((payload: TerrainMeasurementPayload) => {
+    if (payload.sessionId !== measurementSessionCounterRef.current) return;
+    if (payload.point) {
+      measurementDispatch({
+        type: 'CAPTURE_POINT',
+        sessionId: payload.sessionId,
+        point: payload.point,
+      });
+    } else if (payload.error) {
+      measurementDispatch({
+        type: 'SET_ERROR',
+        sessionId: payload.sessionId,
+        error: payload.error,
+      });
+    }
+  }, []);
 
   const handleTerrainReady = useCallback((sessionId: number) => {
     terrainDispatch({ type: 'ENTER_READY', sessionId });
@@ -686,6 +732,15 @@ export default function MapPage() {
     };
   }, [terrainState, terrainTargetResult]);
 
+  const terrainDataSourceStatus = useMemo<TerrainDataSourceStatus>(() => {
+    if (terrainViewModel.mode === 'active' && terrainViewModel.providerStatus === 'ready') {
+      return 'world-terrain';
+    }
+    if (terrainViewModel.mode === 'entering') return 'loading';
+    if (terrainViewModel.mode === 'error') return 'ellipsoid-fallback';
+    return 'unavailable';
+  }, [terrainViewModel.mode, terrainViewModel.providerStatus]);
+
   useEffect(() => {
     const closePanelsOnEscape = (event: KeyboardEvent) => {
       if (event.key !== 'Escape') return;
@@ -696,16 +751,14 @@ export default function MapPage() {
     return () => document.removeEventListener('keydown', closePanelsOnEscape);
   }, [handleClosePopup, selectedEvent, sidebarOpen]);
 
-  // ─── Clear inspection whenever the terrain session leaves "active" ───────────
-  // This catches Close popup, View details, change event, change year/grade,
-  // Route change (unmount), and any other path that funnels through EXIT.
+  // Clear all exploration data whenever the terrain session leaves "active".
   useEffect(() => {
-    if (terrainViewModel.mode !== 'active') clearInspection();
-  }, [clearInspection, terrainViewModel.mode]);
+    if (terrainViewModel.mode !== 'active') clearExploration();
+  }, [clearExploration, terrainViewModel.mode]);
 
   // ─── Also clear whenever the selected event id changes mid-session. ───────
   useEffect(() => {
-    if (inspectMode === 'inspect-location') clearInspection();
+    if (explorationMode !== 'none') clearExploration();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedEvent?.id]);
 
@@ -716,7 +769,7 @@ export default function MapPage() {
       ++selectionRequest.current;
       pendingAfterTerrainExitRef.current = null;
       setCenterContent(null);
-      clearInspection();
+      clearExploration();
       cesiumApiRef.current = null;
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -879,9 +932,13 @@ export default function MapPage() {
               onTerrainExitComplete={handleTerrainExitComplete}
               onTerrainTargetSelect={handleTerrainTargetSelect}
               onRegionGeometryStatus={handleRegionGeometryStatus}
-              inspectMode={inspectMode}
+              explorationMode={explorationMode}
               inspectionSessionId={inspectSessionId}
               onInspectionResultChange={handleInspectionResultChange}
+              measurementSessionId={measurementSessionId}
+              measurementPhase={measurement.phase}
+              measurementState={measurement}
+              onMeasurementPointChange={handleMeasurementPointChange}
               apiRef={cesiumApiRef}
             />
 
@@ -1036,13 +1093,17 @@ export default function MapPage() {
             {terrainViewModel.mode === 'active' && (
               <TerrainExplorationToolbar
                 isVisible
-                inspectMode={inspectMode}
-                onToggleInspect={handleToggleInspect}
+                terrainDataSourceStatus={terrainDataSourceStatus}
+                explorationMode={explorationMode}
+                onToggleMode={handleToggleExplorationMode}
                 inspectionState={inspection}
+                measurementState={measurement}
+                onResetMeasurement={resetMeasurement}
+                onClearMeasurement={resetMeasurement}
                 onZoomIn={handleZoomIn}
                 onZoomOut={handleZoomOut}
                 zoomDisabled={terrainViewModel.mode !== 'active'}
-                inspectDisabled={terrainViewModel.mode !== 'active'}
+                explorationDisabled={terrainViewModel.mode !== 'active'}
               />
             )}
           </div>
@@ -1071,19 +1132,19 @@ export default function MapPage() {
             onSelectTerrainTarget={(targetId) => {
               const sessionId = terrainStateRef.current.sessionId;
               if (sessionId !== null) handleTerrainTargetSelect(sessionId, targetId);
-              clearInspection();
+              clearExploration();
             }}
             onShowTerrainOverview={() => {
               handleShowTerrainOverview();
-              clearInspection();
+              clearExploration();
             }}
             onExitTerrain={() => {
               handleExitTerrain();
-              clearInspection();
+              clearExploration();
             }}
             onViewDetails={() => {
               handleViewEventDetails();
-              clearInspection();
+              clearExploration();
             }}
           />
         )}

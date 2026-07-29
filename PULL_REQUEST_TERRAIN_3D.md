@@ -322,3 +322,106 @@ detail: |
   - 300 là default page size của API, không phải tổng DB.
 
   Không tự đề xuất hoặc triển khai P1/P2 trong branch này.
+
+  Task D0 — Academic Integrity & Learning Alignment
+
+  Tóm tắt
+
+  - Đổi CTA mở Terrain thành "Khám phá địa hình khu vực" và chỉ hiển thị
+    disclaimer khi Terrain đang active: mô hình địa hình là tham chiếu
+    hiện đại; sông, bờ biển và cảnh quan có thể khác thời điểm lịch sử.
+  - Toolbar công bố nguồn dữ liệu, phạm vi dùng/không dùng và ba gợi ý
+    khám phá; không bổ sung công cụ P1/P2.
+
+  Liên kết học tập và dữ liệu
+
+  - Terrain là Cesium World Terrain được tải theo phiên Terrain. UI dùng
+    trạng thái serializable (`world-terrain`, `ellipsoid-fallback`,
+    `loading`, `unavailable`), không đưa Viewer hay provider vào React state.
+  - Không cấu hình imagery provider riêng; Viewer sử dụng base layer mặc
+    định theo cấu hình hiện tại. Source không tải Cesium OSM Buildings,
+    Google Photorealistic 3D Tiles hoặc custom 3D Tiles.
+  - Ellipsoid fallback không được hiển thị như phép đo độ cao địa hình:
+    kết quả dùng dấu "—" cùng thông báo không có dữ liệu độ cao chi tiết.
+
+  Giới hạn học thuật
+
+  - Có thể dùng để đọc địa thế tổng quát, vị trí tương đối, độ cao tham
+    khảo và phạm vi phân bố target.
+  - Không dùng để chứng minh tuyến hành quân, dòng chảy, đường bờ hoặc
+    ranh giới lịch sử chính xác; không phục dựng cảnh quan quá khứ.
+  - Tài liệu đầy đủ: `docs/terrain-academic-alignment/TERRAIN_ACADEMIC_ALIGNMENT.md`.
+
+  Kiểm thử Task D0
+
+  - TypeScript: PASS (`npx tsc --noEmit -p tsconfig.app.json`).
+  - Targeted tests: PASS — 2 files, 12 tests.
+  - Scoped ESLint: PASS — 6 TypeScript/test files.
+  - Production build: PASS (`npx vite build`).
+  - Full test suite: 178/179 PASS; một lỗi timeout 5 giây có sẵn ngoài
+    phạm vi D0 tại `src/pages/admin/__tests__/AdminAiCandidateDetailPage.test.tsx`.
+  - Manual Cesium browser smoke: chưa chạy trong phiên này.
+
+  Checklist / known limitations
+
+  - [x] Nội dung D0, accessibility test (Escape/focus restore) và fallback
+    height đã được kiểm thử tự động.
+  - [x] Chỉ commit 8 file D0 trong `a8e4725`.
+  - [ ] Manual smoke cần xác nhận với Cesium Ion token hợp lệ và dữ liệu event.
+  - [ ] Không push/deploy, không database/migration, không P1/P2.
+
+  Files Task D0
+
+  - `frontend/src/types/terrain.ts`
+  - `frontend/src/pages/MapPage.tsx`
+  - `frontend/src/components/terrain/TerrainControls.tsx`
+  - `frontend/src/components/terrain/TerrainControls.test.tsx`
+  - `frontend/src/components/terrain/TerrainExplorationToolbar.tsx`
+  - `frontend/src/components/terrain/TerrainExplorationToolbar.test.tsx`
+  - `frontend/src/index.css`
+  - `docs/terrain-academic-alignment/TERRAIN_ACADEMIC_ALIGNMENT.md`
+
+  Task D1 — Optional Distance Comparison
+
+  Tóm tắt
+
+  - Bổ sung “So sánh khoảng cách” vào nhóm “Công cụ bổ sung” cùng công
+    cụ xem tọa độ và độ cao. Đây là công cụ tùy chọn, không phải nhiệm vụ
+    bắt buộc và không ảnh hưởng các event `nationwide` hoặc `no_location`.
+  - Kết quả là khoảng cách geodesic tham chiếu trên ellipsoid giữa hai vị
+    trí, không dùng độ cao và không phải terrain-following distance.
+  - UI học sinh chỉ trình bày khoảng cách gần đúng giữa hai vị trí trên bản
+    đồ, đồng thời nêu rõ kết quả không phải đường đi hoặc tuyến hành quân
+    lịch sử.
+
+  Hành vi kỹ thuật và lifecycle
+
+  - Chỉ một exploration mode được active tại một thời điểm: inspect hoặc
+    measure. Shared `LEFT_CLICK` handler giữ thứ tự ưu tiên
+    measure → inspect → target; không tạo thêm `ScreenSpaceEventHandler`.
+  - Measurement dùng datasource riêng với marker A/B và polyline geodesic.
+  - Session/latest-operation guards chặn kết quả async stale; datasource và
+    marker được cleanup khi tắt mode, đổi/thoát phiên Terrain, đổi event và
+    unmount.
+  - Escape/focus restore, `aria-pressed`, touch target và responsive panel
+    được giữ nguyên; panel vẫn cuộn trong viewport hẹp.
+
+  Kiểm thử Task D1
+
+  - TypeScript: PASS (`npx tsc --noEmit -p tsconfig.app.json`).
+  - Targeted tests: PASS — 3 files, 37/37 tests.
+  - Full frontend tests: PASS — 38 files, 204/204 tests.
+  - Scoped ESLint: PASS — 7 TypeScript/TSX files thuộc phạm vi D1.
+  - Production build: PASS (`npx vite build`, 4167 modules transformed).
+  - `git diff --check`: PASS trước khi commit.
+  - Manual Cesium browser smoke: `MANUAL_D1_SMOKE_UNVERIFIED`.
+
+  Checklist / known limitations
+
+  - [x] Distance helper và reducer có unit tests, bao gồm stale-session guard.
+  - [x] Toolbar có component tests cho wording học sinh, optional framing,
+    Escape/focus restore và `aria-pressed`.
+  - [x] D1 được commit riêng trong `34a505e` với đúng 8 file.
+  - [ ] Manual smoke cần xác nhận click A/B, reset/clear, đổi exploration mode,
+    đổi event, thoát Terrain và layout 320 px trước khi phát hành.
+  - [ ] Không push/deploy và không bắt đầu Task D2 trong lượt này.

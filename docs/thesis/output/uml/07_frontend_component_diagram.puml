@@ -1,0 +1,15 @@
+@startuml
+skinparam shadowing false
+skinparam monochrome true
+[App.tsx] --> [MapPage]
+[App.tsx] --> [AllEventsPage]
+[App.tsx] --> [EventDetailPage]
+[MapPage] --> [CesiumMap]
+[MapPage] --> [TerrainExplorationToolbar]
+[MapPage] --> [Timeline]
+[CesiumMap] --> [terrainTargets.ts]
+[EventDetailPage] --> [EventTTSPlayer]
+[AllEventsPage] --> [eventService]
+[Quiz pages] --> [aiQuizApi]
+[Exam pages] --> [examApi]
+@enduml

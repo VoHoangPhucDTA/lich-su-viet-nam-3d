@@ -1,0 +1,3 @@
+Audit rules: repository is the source of truth; claims are classified as IMPLEMENTED_AND_VERIFIED, IMPLEMENTED_NOT_RUNTIME_VERIFIED, PARTIALLY_IMPLEMENTED, UI_ONLY, PLANNED/NOT_FOUND, or BLOCKED.
+Original thesis Word file was not edited. LibreOffice/soffice was unavailable, so visual DOCX rendering was not performed; OOXML structure extraction was used instead.
+No .env files, tokens, passwords, API keys, or generated credentials are included in this package.

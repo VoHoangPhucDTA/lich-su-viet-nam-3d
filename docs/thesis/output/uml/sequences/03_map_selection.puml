@@ -1,0 +1,12 @@
+@startuml
+skinparam shadowing false
+skinparam monochrome true
+title 03 map selection
+actor Visitor
+participant MapPage
+participant CesiumMap
+Visitor -> MapPage: click marker/polygon
+MapPage -> CesiumMap: select event
+CesiumMap --> MapPage: popup target
+MapPage --> Visitor: detail/terrain actions
+@enduml

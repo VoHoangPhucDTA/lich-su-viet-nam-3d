@@ -1,0 +1,11 @@
+@startuml
+skinparam shadowing false
+skinparam monochrome true
+title 05 terrain exit restore
+actor Visitor
+participant Toolbar
+participant MapPage
+Visitor -> Toolbar: Escape/Exit
+Toolbar -> MapPage: close terrain + restore
+MapPage --> Visitor: overview map
+@enduml

@@ -1,0 +1,14 @@
+@startuml
+skinparam shadowing false
+skinparam monochrome true
+title 07 tts narration
+actor Student
+participant DetailPage
+participant NarrationAPI
+participant Viettel
+Student -> DetailPage: press listen
+DetailPage -> NarrationAPI: POST /api/tts/events/{eventId}/audio
+NarrationAPI -> Viettel: synthesize (token configured)
+Viettel --> NarrationAPI: audio
+NarrationAPI --> DetailPage: audio URL/stream
+@enduml

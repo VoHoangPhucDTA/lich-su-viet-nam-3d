@@ -1,0 +1,1987 @@
+﻿THESIS TECHNICAL AUDIT - RAW REPOSITORY SNAPSHOT
+AUDIT_TIME=2026-07-21T02:35:53+07:00
+OS=Microsoft Windows NT 10.0.19045.0
+REPOSITORY_ROOT=C:\Users\CITY\Desktop\CLASS\KLTN\lich-su-viet-nam-3d
+--- git status --short ---
+ D MVP_KLTN/.gitignore
+ D MVP_KLTN/README.md
+ D MVP_KLTN/eslint.config.js
+ D MVP_KLTN/index.html
+ D MVP_KLTN/package-lock.json
+ D MVP_KLTN/package.json
+ D MVP_KLTN/public/geojson/vietnam-provinces.json
+ D MVP_KLTN/public/vite.svg
+ D MVP_KLTN/scripts/build-exams-manifest.mjs
+ D MVP_KLTN/scripts/build-topic-index.mjs
+ D MVP_KLTN/scripts/lib/topicTaxonomy.mjs
+ D MVP_KLTN/src/App.tsx
+ D MVP_KLTN/src/assets/react.svg
+ D MVP_KLTN/src/auth/AuthContext.tsx
+ D MVP_KLTN/src/auth/ProtectedRoute.tsx
+ D MVP_KLTN/src/auth/RoleGuard.tsx
+ D MVP_KLTN/src/components/CesiumMap.tsx
+ D MVP_KLTN/src/components/EventPopup.tsx
+ D MVP_KLTN/src/components/Sidebar.tsx
+ D MVP_KLTN/src/components/Timeline.tsx
+ D MVP_KLTN/src/components/admin/AdminStatsCard.tsx
+ D MVP_KLTN/src/components/admin/AdminTable.tsx
+ D MVP_KLTN/src/components/admin/UserStatusBadge.tsx
+ D MVP_KLTN/src/components/auth/AuthFormMessage.tsx
+ D MVP_KLTN/src/components/auth/AuthLayout.tsx
+ D MVP_KLTN/src/components/auth/OAuthButtons.tsx
+ D MVP_KLTN/src/components/auth/PasswordInput.tsx
+ D MVP_KLTN/src/components/auth/TextInput.tsx
+ D MVP_KLTN/src/components/event-detail/EventChildrenList.tsx
+ D MVP_KLTN/src/components/event-detail/EventDetailSidebar.tsx
+ D MVP_KLTN/src/components/event-detail/EventHero.tsx
+ D MVP_KLTN/src/components/event-detail/EventKeyFacts.tsx
+ D MVP_KLTN/src/components/event-detail/EventLocationCard.tsx
+ D MVP_KLTN/src/components/event-detail/EventMediaGallery.tsx
+ D MVP_KLTN/src/components/event-detail/EventSources.tsx
+ D MVP_KLTN/src/components/event-detail/EventTTSPlayer.tsx
+ D MVP_KLTN/src/components/event-detail/EventTextbookContent.tsx
+ D MVP_KLTN/src/components/event-detail/SectionHeader.tsx
+ D MVP_KLTN/src/components/exams/ExamAnalysisPanel.tsx
+ D MVP_KLTN/src/components/exams/ExamAnswerReview.tsx
+ D MVP_KLTN/src/components/exams/ExamConfigPreview.tsx
+ D MVP_KLTN/src/components/exams/ExamCreateForm.tsx
+ D MVP_KLTN/src/components/exams/ExamGenerationLoading.tsx
+ D MVP_KLTN/src/components/exams/ExamHeader.tsx
+ D MVP_KLTN/src/components/exams/ExamHero.tsx
+ D MVP_KLTN/src/components/exams/ExamHistoryTable.tsx
+ D MVP_KLTN/src/components/exams/ExamModeSelector.tsx
+ D MVP_KLTN/src/components/exams/ExamNavigation.tsx
+ D MVP_KLTN/src/components/exams/ExamOptionCard.tsx
+ D MVP_KLTN/src/components/exams/ExamPresetCards.tsx
+ D MVP_KLTN/src/components/exams/ExamProgressSidebar.tsx
+ D MVP_KLTN/src/components/exams/ExamQuestionCard.tsx
+ D MVP_KLTN/src/components/exams/ExamResultActions.tsx
+ D MVP_KLTN/src/components/exams/ExamResultSummary.tsx
+ D MVP_KLTN/src/components/exams/ExamSourceBadge.tsx
+ D MVP_KLTN/src/components/exams/ExamSubmitDialog.tsx
+ D MVP_KLTN/src/components/exams/ExamTimer.tsx
+ D MVP_KLTN/src/components/exams/MCQQuestionCardV2.tsx
+ D MVP_KLTN/src/components/exams/TFQuestionCard.tsx
+ D MVP_KLTN/src/components/layout/AppHeader.tsx
+ D MVP_KLTN/src/components/layout/HeaderContext.tsx
+ D MVP_KLTN/src/components/profile/ActivityList.tsx
+ D MVP_KLTN/src/components/profile/ProgressChart.tsx
+ D MVP_KLTN/src/components/profile/RecommendationCard.tsx
+ D MVP_KLTN/src/components/profile/ScoreTable.tsx
+ D MVP_KLTN/src/components/profile/StatsCard.tsx
+ D MVP_KLTN/src/components/profile/UserAvatar.tsx
+ D MVP_KLTN/src/components/shared/EmptyState.tsx
+ D MVP_KLTN/src/components/shared/LoadingState.tsx
+ D MVP_KLTN/src/components/shared/RoleBadge.tsx
+ D MVP_KLTN/src/components/theme/ThemeToggle.tsx
+ D MVP_KLTN/src/data/eventAdapter.ts
+ D MVP_KLTN/src/data/eventRegistry.ts
+ D MVP_KLTN/src/data/events.ts
+ D MVP_KLTN/src/data/history_events/json10/bach-dang-938-ngo-quyen-xung-vuong.json
+ D MVP_KLTN/src/data/history_events/json10/binh-ngo-dai-cao-1428.json
+ D MVP_KLTN/src/data/history_events/json10/cach-mang-thang-tam-1945.json
+ D MVP_KLTN/src/data/history_events/json10/cai-cach-le-thanh-tong.json
+ D MVP_KLTN/src/data/history_events/json10/cai-cach-ltt-to-chuc-chinh-quyen.json
+ D MVP_KLTN/src/data/history_events/json10/chong-nguyen-1287-1288.json
+ D MVP_KLTN/src/data/history_events/json10/chu-nom-ra-doi.json
+ D MVP_KLTN/src/data/history_events/json10/chu-quoc-ngu-hinh-thanh.json
+ D MVP_KLTN/src/data/history_events/json10/chu-viet-cham-co.json
+ D MVP_KLTN/src/data/history_events/json10/dai-viet-su-ky-le-van-huu.json
+ D MVP_KLTN/src/data/history_events/json10/dan-ca-quan-ho-unesco-2009.json
+ D MVP_KLTN/src/data/history_events/json10/dap-de-quai-vac-tran.json
+ D MVP_KLTN/src/data/history_events/json10/dat-danh-hieu-tam-khoi.json
+ D MVP_KLTN/src/data/history_events/json10/di-tich-tra-kieu.json
+ D MVP_KLTN/src/data/history_events/json10/doi-do-thang-long.json
+ D MVP_KLTN/src/data/history_events/json10/doi-quoc-hieu-dai-viet.json
+ D MVP_KLTN/src/data/history_events/json10/dung-bia-tien-si.json
+ D MVP_KLTN/src/data/history_events/json10/dung-van-mieu.json
+ D MVP_KLTN/src/data/history_events/json10/giai-doan-dinh-hinh-van-minh-dai-viet.json
+ D MVP_KLTN/src/data/history_events/json10/giai-doan-dinh-tre-dau-tk18-giua-tk19.json
+ D MVP_KLTN/src/data/history_events/json10/giai-doan-le-so-mac-le-trung-hung.json
+ D MVP_KLTN/src/data/history_events/json10/giai-doan-phat-trien-ly-tran-ho.json
+ D MVP_KLTN/src/data/history_events/json10/gom-bat-trang.json
+ D MVP_KLTN/src/data/history_events/json10/gom-chu-dau.json
+ D MVP_KLTN/src/data/history_events/json10/hinh-thu-ly-thai-tong.json
+ D MVP_KLTN/src/data/history_events/json10/hoang-thanh-thang-long.json
+ D MVP_KLTN/src/data/history_events/json10/hoang-viet-luat-le.json
+ D MVP_KLTN/src/data/history_events/json10/hoi-an-cang-thi.json
+ D MVP_KLTN/src/data/history_events/json10/hoi-nghi-dien-hong.json
+ D MVP_KLTN/src/data/history_events/json10/khang-chien-chong-tong-981.json
+ D MVP_KLTN/src/data/history_events/json10/khoa-thi-dau-tien.json
+ D MVP_KLTN/src/data/history_events/json10/khoi-nghia-lam-son-1418-1427.json
+ D MVP_KLTN/src/data/history_events/json10/khuc-thua-du-tu-chu.json
+ D MVP_KLTN/src/data/history_events/json10/kien-truc-thap-cham.json
+ D MVP_KLTN/src/data/history_events/json10/le-tich-dien-ly-thai-tong.json
+ D MVP_KLTN/src/data/history_events/json10/mat-tran-dan-toc-giai-phong-mien-nam-1960.json
+ D MVP_KLTN/src/data/history_events/json10/mat-tran-viet-minh.json
+ D MVP_KLTN/src/data/history_events/json10/mo-quoc-tu-giam.json
+ D MVP_KLTN/src/data/history_events/json10/ngay-di-san-van-hoa-viet-nam-2005.json
+ D MVP_KLTN/src/data/history_events/json10/nha-ly-thanh-lap.json
+ D MVP_KLTN/src/data/history_events/json10/nha-nuoc-cham-pa-ra-doi.json
+ D MVP_KLTN/src/data/history_events/json10/nha-nuoc-phu-nam-ra-doi.json
+ D MVP_KLTN/src/data/history_events/json10/nuoc-au-lac-ra-doi.json
+ D MVP_KLTN/src/data/history_events/json10/nuoc-van-lang-ra-doi.json
+ D MVP_KLTN/src/data/history_events/json10/pham-su-man-mo-rong-phu-nam.json
+ D MVP_KLTN/src/data/history_events/json10/phat-giao-quoc-giao-ly-tran.json
+ D MVP_KLTN/src/data/history_events/json10/pho-hien-hung-yen.json
+ D MVP_KLTN/src/data/history_events/json10/quoc-trieu-hinh-luat.json
+ D MVP_KLTN/src/data/history_events/json10/sac-lenh-65sl-1945.json
+ D MVP_KLTN/src/data/history_events/json10/thang-long-36-pho-phuong.json
+ D MVP_KLTN/src/data/history_events/json10/thanh-nha-ho.json
+ D MVP_KLTN/src/data/history_events/json10/thuong-cang-van-don.json
+ D MVP_KLTN/src/data/history_events/json10/tin-nguong-tho-hung-vuong.json
+ D MVP_KLTN/src/data/history_events/json10/to-chuc-nha-nuoc-van-lang.json
+ D MVP_KLTN/src/data/history_events/json10/tong-tuyen-cu-1976.json
+ D MVP_KLTN/src/data/history_events/json10/tuyen-ngon-doc-lap-1945.json
+ D MVP_KLTN/src/data/history_events/json10/van-hoa-dong-son.json
+ D MVP_KLTN/src/data/history_events/json10/van-hoa-oc-eo.json
+ D MVP_KLTN/src/data/history_events/json10/van-hoa-sa-huynh.json
+ D MVP_KLTN/src/data/history_events/json10/vm-cham-pa.json
+ D MVP_KLTN/src/data/history_events/json10/vm-dai-viet.json
+ D MVP_KLTN/src/data/history_events/json10/vm-phu-nam.json
+ D MVP_KLTN/src/data/history_events/json10/vm-van-lang-au-lac.json
+ D MVP_KLTN/src/data/history_events/json10/xay-dung-chua-mot-cot.json
+ D MVP_KLTN/src/data/history_events/json10/xay-dung-thanh-co-loa.json
+ D MVP_KLTN/src/data/history_events/json11/ba-lan-chong-mong-nguyen.json
+ D MVP_KLTN/src/data/history_events/json11/bach-dang-938-ngo-quyen-xung-vuong.json
+ D MVP_KLTN/src/data/history_events/json11/bai-hoc-khoi-nghia-giai-phong.json
+ D MVP_KLTN/src/data/history_events/json11/bao-ve-chu-quyen-bien-dong-sau-1975.json
+ D MVP_KLTN/src/data/history_events/json11/bo-dao-nha-chiem-malacca-1511.json
+ D MVP_KLTN/src/data/history_events/json11/cach-mang-cuba-1959.json
+ D MVP_KLTN/src/data/history_events/json11/cach-mang-phap-1789.json
+ D MVP_KLTN/src/data/history_events/json11/cach-mang-thang-muoi-nga-1917.json
+ D MVP_KLTN/src/data/history_events/json11/cai-cach-ho-quy-ly.json
+ D MVP_KLTN/src/data/history_events/json11/cai-cach-hql-chinh-tri.json
+ D MVP_KLTN/src/data/history_events/json11/cai-cach-hql-kinh-te-xa-hoi.json
+ D MVP_KLTN/src/data/history_events/json11/cai-cach-hql-van-hoa.json
+ D MVP_KLTN/src/data/history_events/json11/cai-cach-le-thanh-tong.json
+ D MVP_KLTN/src/data/history_events/json11/cai-cach-ltt-kinh-te-van-hoa.json
+ D MVP_KLTN/src/data/history_events/json11/cai-cach-ltt-to-chuc-chinh-quyen.json
+ D MVP_KLTN/src/data/history_events/json11/cai-cach-minh-mang.json
+ D MVP_KLTN/src/data/history_events/json11/cai-cach-mm-dia-phuong.json
+ D MVP_KLTN/src/data/history_events/json11/cai-cach-mm-trung-uong.json
+ D MVP_KLTN/src/data/history_events/json11/cai-cach-xiem-rama-iv-v.json
+ D MVP_KLTN/src/data/history_events/json11/chien-tranh-doc-lap-my-1775-1783.json
+ D MVP_KLTN/src/data/history_events/json11/chong-mong-co-1258.json
+ D MVP_KLTN/src/data/history_events/json11/chong-nguyen-1285.json
+ D MVP_KLTN/src/data/history_events/json11/chong-nguyen-1287-1288.json
+ D MVP_KLTN/src/data/history_events/json11/cmts-anh-1642-1689.json
+ D MVP_KLTN/src/data/history_events/json11/dai-nam-nhat-thong-toan-do-1838.json
+ D MVP_KLTN/src/data/history_events/json11/doc-bien-dong-2002.json
+ D MVP_KLTN/src/data/history_events/json11/doi-bac-hai-the-ky-18.json
+ D MVP_KLTN/src/data/history_events/json11/doi-hoang-sa-the-ky-17.json
+ D MVP_KLTN/src/data/history_events/json11/doi-moi-1986-collection.json
+ D MVP_KLTN/src/data/history_events/json11/giai-phong-truong-sa-1975.json
+ D MVP_KLTN/src/data/history_events/json11/hiep-dinh-elysee-1949-chuyen-giao-hoang-sa-truong-sa.json
+ D MVP_KLTN/src/data/history_events/json11/hiep-dinh-vinh-bac-bo-2000.json
+ D MVP_KLTN/src/data/history_events/json11/hiep-uoc-hac-mang-1883.json
+ D MVP_KLTN/src/data/history_events/json11/hiep-uoc-pa-to-not-1884.json
+ D MVP_KLTN/src/data/history_events/json11/ho-quy-ly-len-ngoi-1400.json
+ D MVP_KLTN/src/data/history_events/json11/indonesia-tuyen-bo-doc-lap-1945.json
+ D MVP_KLTN/src/data/history_events/json11/khang-chien-chong-minh-1406-1407.json
+ D MVP_KLTN/src/data/history_events/json11/khang-chien-chong-phap-1858-1884.json
+ D MVP_KLTN/src/data/history_events/json11/khang-chien-chong-phap-dong-duong.json
+ D MVP_KLTN/src/data/history_events/json11/khang-chien-chong-thanh-1789.json
+ D MVP_KLTN/src/data/history_events/json11/khang-chien-chong-tong-1075-1077.json
+ D MVP_KLTN/src/data/history_events/json11/khang-chien-chong-tong-981.json
+ D MVP_KLTN/src/data/history_events/json11/khang-chien-chong-trieu-tk2-tcn.json
+ D MVP_KLTN/src/data/history_events/json11/khang-chien-chong-xiem-1785.json
+ D MVP_KLTN/src/data/history_events/json11/khoi-nghia-ba-trieu.json
+ D MVP_KLTN/src/data/history_events/json11/khoi-nghia-hai-ba-trung.json
+ D MVP_KLTN/src/data/history_events/json11/khoi-nghia-lam-son-1418-1427.json
+ D MVP_KLTN/src/data/history_events/json11/khoi-nghia-ly-bi.json
+ D MVP_KLTN/src/data/history_events/json11/khoi-nghia-phung-hung.json
+ D MVP_KLTN/src/data/history_events/json11/lam-son-gd1-1418-1423.json
+ D MVP_KLTN/src/data/history_events/json11/lam-son-gd2-1424-1426.json
+ D MVP_KLTN/src/data/history_events/json11/lam-son-gd3-1426-1427.json
+ D MVP_KLTN/src/data/history_events/json11/lien-bang-dong-duong.json
+ D MVP_KLTN/src/data/history_events/json11/lien-xo-sup-do-1991.json
+ D MVP_KLTN/src/data/history_events/json11/lien-xo-thanh-lap-1922.json
+ D MVP_KLTN/src/data/history_events/json11/luat-bien-viet-nam-2012.json
+ D MVP_KLTN/src/data/history_events/json11/nguyen-nhan-thang-loi-khang-chien.json
+ D MVP_KLTN/src/data/history_events/json11/nguyen-nhan-that-bai-khang-chien.json
+ D MVP_KLTN/src/data/history_events/json11/nuoc-van-xuan-thanh-lap-544.json
+ D MVP_KLTN/src/data/history_events/json11/phap-bao-ho-campuchia-1863.json
+ D MVP_KLTN/src/data/history_events/json11/phap-bao-ho-lao-1893.json
+ D MVP_KLTN/src/data/history_events/json11/phap-chiem-nam-bo-1862-1867.json
+ D MVP_KLTN/src/data/history_events/json11/phap-xam-luoc-vn-1858.json
+ D MVP_KLTN/src/data/history_events/json11/phat-hanh-tien-giay-1396.json
+ D MVP_KLTN/src/data/history_events/json11/phong-trao-tay-son.json
+ D MVP_KLTN/src/data/history_events/json11/quan-ly-hoang-sa-truong-sa-nguyen.json
+ D MVP_KLTN/src/data/history_events/json11/quoc-trieu-hinh-luat.json
+ D MVP_KLTN/src/data/history_events/json11/sach-trang-hoang-sa-truong-sa-1979-1988.json
+ D MVP_KLTN/src/data/history_events/json11/su-kien-gac-ma-1988.json
+ D MVP_KLTN/src/data/history_events/json11/tay-son-gd1-1771-1777.json
+ D MVP_KLTN/src/data/history_events/json11/tay-son-gd2-rach-gam-1785.json
+ D MVP_KLTN/src/data/history_events/json11/tay-son-gd3-1786-1789.json
+ D MVP_KLTN/src/data/history_events/json11/tay-son-gd4-1789-1802.json
+ D MVP_KLTN/src/data/history_events/json11/thanh-lap-huyen-dao-1982.json
+ D MVP_KLTN/src/data/history_events/json11/thanh-nha-ho.json
+ D MVP_KLTN/src/data/history_events/json11/tran-chi-lang-xuong-giang-1427.json
+ D MVP_KLTN/src/data/history_events/json11/tran-tot-dong-chuc-dong-1426.json
+ D MVP_KLTN/src/data/history_events/json11/trung-quoc-cai-cach-mo-cua-1978.json
+ D MVP_KLTN/src/data/history_events/json11/trung-quoc-chiem-hoang-sa-1974.json
+ D MVP_KLTN/src/data/history_events/json11/vi-tri-dia-chien-luoc-vn.json
+ D MVP_KLTN/src/data/history_events/json11/viet-nam-tham-gia-unclos-1982.json
+ D MVP_KLTN/src/data/history_events/json11/vm-chien-tranh-bao-ve-to-quoc.json
+ D MVP_KLTN/src/data/history_events/json11/vm-chu-quyen-bien-dong.json
+ D MVP_KLTN/src/data/history_events/json11/vm-khoi-nghia-va-giai-phong.json
+ D MVP_KLTN/src/data/history_events/json11/vnch-tiep-quan-hoang-sa-truong-sa-1954.json
+ D MVP_KLTN/src/data/history_events/json12/bai-hoc-khang-chien-1945-nay.json
+ D MVP_KLTN/src/data/history_events/json12/bao-dai-thoai-vi-30-8-1945.json
+ D MVP_KLTN/src/data/history_events/json12/bao-ve-chu-quyen-bien-dong-sau-1975.json
+ D MVP_KLTN/src/data/history_events/json12/bao-ve-to-quoc-sau-1975-collection.json
+ D MVP_KLTN/src/data/history_events/json12/binh-thuong-hoa-vn-my-1995.json
+ D MVP_KLTN/src/data/history_events/json12/binh-thuong-hoa-vn-tq-1991.json
+ D MVP_KLTN/src/data/history_events/json12/cach-mang-thang-tam-1945.json
+ D MVP_KLTN/src/data/history_events/json12/chi-thi-05-ct-tw-2016.json
+ D MVP_KLTN/src/data/history_events/json12/chien-dich-bien-gioi-thu-dong-1950.json
+ D MVP_KLTN/src/data/history_events/json12/chien-dich-cq88-1988.json
+ D MVP_KLTN/src/data/history_events/json12/chien-dich-dien-bien-phu-1954.json
+ D MVP_KLTN/src/data/history_events/json12/chien-dich-ho-chi-minh-1975.json
+ D MVP_KLTN/src/data/history_events/json12/chien-dich-hue-da-nang-1975.json
+ D MVP_KLTN/src/data/history_events/json12/chien-dich-tay-nguyen-1975.json
+ D MVP_KLTN/src/data/history_events/json12/chien-dich-viet-bac-thu-dong-1947.json
+ D MVP_KLTN/src/data/history_events/json12/chien-su-vi-xuyen-1984-1989.json
+ D MVP_KLTN/src/data/history_events/json12/chien-thang-ap-bac-1963.json
+ D MVP_KLTN/src/data/history_events/json12/chien-thang-nui-thanh-1965.json
+ D MVP_KLTN/src/data/history_events/json12/chien-thang-phuoc-long-1975.json
+ D MVP_KLTN/src/data/history_events/json12/chien-thang-van-tuong-1965.json
+ D MVP_KLTN/src/data/history_events/json12/chien-tranh-bien-gioi-phia-bac-1979.json
+ D MVP_KLTN/src/data/history_events/json12/chien-tranh-bien-gioi-tay-nam.json
+ D MVP_KLTN/src/data/history_events/json12/chien-tranh-cuc-bo-1965-1968.json
+ D MVP_KLTN/src/data/history_events/json12/chien-tranh-dac-biet-1961-1965.json
+ D MVP_KLTN/src/data/history_events/json12/chien-tranh-lanh-1947-1989.json
+ D MVP_KLTN/src/data/history_events/json12/chinh-phu-cach-mang-lam-thoi-1969.json
+ D MVP_KLTN/src/data/history_events/json12/cong-dong-asean-2015.json
+ D MVP_KLTN/src/data/history_events/json12/dai-hoi-iii-dang-lao-dong-1960.json
+ D MVP_KLTN/src/data/history_events/json12/dai-hoi-quoc-dan-tan-trao.json
+ D MVP_KLTN/src/data/history_events/json12/dai-hoi-vi-1986.json
+ D MVP_KLTN/src/data/history_events/json12/dien-bien-phu-tren-khong-1972.json
+ D MVP_KLTN/src/data/history_events/json12/doi-moi-1986-collection.json
+ D MVP_KLTN/src/data/history_events/json12/doi-moi-gd1-1986-1995.json
+ D MVP_KLTN/src/data/history_events/json12/doi-moi-gd2-1996-2006.json
+ D MVP_KLTN/src/data/history_events/json12/doi-moi-gd3-2006-nay.json
+ D MVP_KLTN/src/data/history_events/json12/doi-ngoai-1975-1985.json
+ D MVP_KLTN/src/data/history_events/json12/doi-ngoai-dau-tk20-1945.json
+ D MVP_KLTN/src/data/history_events/json12/doi-ngoai-khang-chien-my.json
+ D MVP_KLTN/src/data/history_events/json12/doi-ngoai-khang-chien-phap.json
+ D MVP_KLTN/src/data/history_events/json12/doi-ngoai-viet-nam-1900-nay-collection.json
+ D MVP_KLTN/src/data/history_events/json12/giai-doan-1954-1960.json
+ D MVP_KLTN/src/data/history_events/json12/giai-phong-mien-nam-30-4-1975.json
+ D MVP_KLTN/src/data/history_events/json12/giai-phong-phnom-penh-7-1-1979.json
+ D MVP_KLTN/src/data/history_events/json12/gian-khoan-hd981-2014.json
+ D MVP_KLTN/src/data/history_events/json12/hcm-qua-doi-2-9-1969.json
+ D MVP_KLTN/src/data/history_events/json12/hcm-ra-di-tim-duong-1911.json
+ D MVP_KLTN/src/data/history_events/json12/hcm-sang-lap-dcs-phap-1920.json
+ D MVP_KLTN/src/data/history_events/json12/hcm-tim-ra-con-duong-1920.json
+ D MVP_KLTN/src/data/history_events/json12/hien-chuong-asean-2007.json
+ D MVP_KLTN/src/data/history_events/json12/hiep-dinh-gio-ne-vo-1954.json
+ D MVP_KLTN/src/data/history_events/json12/hiep-dinh-paris-1973.json
+ D MVP_KLTN/src/data/history_events/json12/hiep-dinh-so-bo-6-3-1946.json
+ D MVP_KLTN/src/data/history_events/json12/ho-chi-minh-cuoc-doi-su-nghiep-collection.json
+ D MVP_KLTN/src/data/history_events/json12/hoi-nghi-ianta-2-1945.json
+ D MVP_KLTN/src/data/history_events/json12/hoi-nghi-tan-trao-8-1945.json
+ D MVP_KLTN/src/data/history_events/json12/ke-hoach-nava-1953.json
+ D MVP_KLTN/src/data/history_events/json12/ket-thuc-chien-tranh-lanh-1989.json
+ D MVP_KLTN/src/data/history_events/json12/khang-chien-chong-my-collection.json
+ D MVP_KLTN/src/data/history_events/json12/khang-chien-chong-phap-1945-1954-collection.json
+ D MVP_KLTN/src/data/history_events/json12/khang-chien-chong-phap-1946-1950.json
+ D MVP_KLTN/src/data/history_events/json12/khang-chien-chong-phap-1951-1953.json
+ D MVP_KLTN/src/data/history_events/json12/khang-chien-nam-bo-1945.json
+ D MVP_KLTN/src/data/history_events/json12/khoi-nghia-ha-noi-19-8-1945.json
+ D MVP_KLTN/src/data/history_events/json12/khoi-nghia-hue-23-8-1945.json
+ D MVP_KLTN/src/data/history_events/json12/khoi-nghia-sai-gon-25-8-1945.json
+ D MVP_KLTN/src/data/history_events/json12/mat-tran-dan-toc-giai-phong-mien-nam-1960.json
+ D MVP_KLTN/src/data/history_events/json12/mat-tran-viet-minh.json
+ D MVP_KLTN/src/data/history_events/json12/my-pha-hoai-mien-bac-lan-1.json
+ D MVP_KLTN/src/data/history_events/json12/my-pha-hoai-mien-bac-lan-2-1972.json
+ D MVP_KLTN/src/data/history_events/json12/nato-1949.json
+ D MVP_KLTN/src/data/history_events/json12/nghi-quyet-15-tw-dang-1959.json
+ D MVP_KLTN/src/data/history_events/json12/nguyen-ai-quoc-gui-yeu-sach-1919.json
+ D MVP_KLTN/src/data/history_events/json12/nguyen-nhan-y-nghia-chong-my.json
+ D MVP_KLTN/src/data/history_events/json12/nguyen-nhan-y-nghia-chong-phap.json
+ D MVP_KLTN/src/data/history_events/json12/nguyen-nhan-y-nghia-cm-thang-tam.json
+ D MVP_KLTN/src/data/history_events/json12/phap-xam-luoc-nam-bo-23-9-1945.json
+ D MVP_KLTN/src/data/history_events/json12/phong-trao-dong-khoi-1960.json
+ D MVP_KLTN/src/data/history_events/json12/su-kien-gac-ma-1988.json
+ D MVP_KLTN/src/data/history_events/json12/su-kien-vinh-bac-bo-1964.json
+ D MVP_KLTN/src/data/history_events/json12/thanh-lap-asean-1967.json
+ D MVP_KLTN/src/data/history_events/json12/thanh-lap-dang-csvn-1930.json
+ D MVP_KLTN/src/data/history_events/json12/thanh-lap-hoi-vn-cach-mang-thanh-nien-1925.json
+ D MVP_KLTN/src/data/history_events/json12/thanh-lap-lien-hop-quoc-1945.json
+ D MVP_KLTN/src/data/history_events/json12/thanh-lap-vn-tuyen-truyen-giai-phong-quan.json
+ D MVP_KLTN/src/data/history_events/json12/thanh-tuu-doi-moi.json
+ D MVP_KLTN/src/data/history_events/json12/tien-cong-chien-luoc-1972.json
+ D MVP_KLTN/src/data/history_events/json12/tien-cong-dong-xuan-1953-1954.json
+ D MVP_KLTN/src/data/history_events/json12/toan-quoc-khang-chien-19-12-1946.json
+ D MVP_KLTN/src/data/history_events/json12/tong-tien-cong-mau-than-1968.json
+ D MVP_KLTN/src/data/history_events/json12/trat-tu-hai-cuc-ianta.json
+ D MVP_KLTN/src/data/history_events/json12/trung-quoc-thanh-lap-tam-sa-2012.json
+ D MVP_KLTN/src/data/history_events/json12/tuyen-bo-hoa-binh-tu-do-trung-lap-1971.json
+ D MVP_KLTN/src/data/history_events/json12/tuyen-ngon-doc-lap-1945.json
+ D MVP_KLTN/src/data/history_events/json12/unesco-vinh-danh-hcm-1987.json
+ D MVP_KLTN/src/data/history_events/json12/uy-ban-khoi-nghia-13-8-1945.json
+ D MVP_KLTN/src/data/history_events/json12/vac-sa-va-1955.json
+ D MVP_KLTN/src/data/history_events/json12/viet-nam-hoa-chien-tranh-1969-1973.json
+ D MVP_KLTN/src/data/history_events/json12/vn-gia-nhap-asean-1995.json
+ D MVP_KLTN/src/data/history_events/json12/vn-gia-nhap-lien-hop-quoc-1977.json
+ D MVP_KLTN/src/data/history_events/json12/vn-gia-nhap-wto-2007.json
+ D MVP_KLTN/src/data/history_events/json12/xu-the-da-cuc-sau-1991.json
+ D MVP_KLTN/src/data/mockAdminData.ts
+ D MVP_KLTN/src/data/mockEventDetails.ts
+ D MVP_KLTN/src/data/mockExamQuestions.ts
+ D MVP_KLTN/src/data/mockLearningStats.ts
+ D MVP_KLTN/src/data/mockQuizQuestions.ts
+ D MVP_KLTN/src/data/mockUsers.ts
+ D MVP_KLTN/src/data/vietnamProvinceCentroids.ts
+ D MVP_KLTN/src/index.css
+ D MVP_KLTN/src/layouts/AdminLayout.tsx
+ D MVP_KLTN/src/layouts/ProfileLayout.tsx
+ D MVP_KLTN/src/lib/cesium.ts
+ D MVP_KLTN/src/lib/exam/__tests__/scoring.test.ts
+ D MVP_KLTN/src/lib/exam/examConstants.ts
+ D MVP_KLTN/src/lib/exam/examLoader.ts
+ D MVP_KLTN/src/lib/exam/manifestLoader.ts
+ D MVP_KLTN/src/lib/exam/scoring.ts
+ D MVP_KLTN/src/lib/exam/topicIndexLoader.ts
+ D MVP_KLTN/src/lib/exam/useSessionV2.ts
+ D MVP_KLTN/src/lib/exam/v2History.ts
+ D MVP_KLTN/src/main.tsx
+ D MVP_KLTN/src/pages/EventDetailPage.tsx
+ D MVP_KLTN/src/pages/MapPage.tsx
+ D MVP_KLTN/src/pages/admin/AdminDashboardPage.tsx
+ D MVP_KLTN/src/pages/admin/AdminEventsPage.tsx
+ D MVP_KLTN/src/pages/admin/AdminPlaceholderPage.tsx
+ D MVP_KLTN/src/pages/admin/AdminQuestionsPage.tsx
+ D MVP_KLTN/src/pages/admin/AdminUsersPage.tsx
+ D MVP_KLTN/src/pages/auth/ForgotPasswordPage.tsx
+ D MVP_KLTN/src/pages/auth/LoginPage.tsx
+ D MVP_KLTN/src/pages/auth/RegisterPage.tsx
+ D MVP_KLTN/src/pages/auth/ResetPasswordPage.tsx
+ D MVP_KLTN/src/pages/exams/ExamBrowsePage.tsx
+ D MVP_KLTN/src/pages/exams/ExamCreatePage.tsx
+ D MVP_KLTN/src/pages/exams/ExamHistoryPage.tsx
+ D MVP_KLTN/src/pages/exams/ExamHomePage.tsx
+ D MVP_KLTN/src/pages/exams/ExamOnChuDePage.tsx
+ D MVP_KLTN/src/pages/exams/ExamResultPage.tsx
+ D MVP_KLTN/src/pages/exams/ExamSessionPage.tsx
+ D MVP_KLTN/src/pages/exams/ExamTopicPracticePage.tsx
+ D MVP_KLTN/src/pages/exams/ExamV2HistoryPage.tsx
+ D MVP_KLTN/src/pages/exams/ExamV2ResultPage.tsx
+ D MVP_KLTN/src/pages/exams/ExamV2SessionPage.tsx
+ D MVP_KLTN/src/pages/profile/LearningHistoryPage.tsx
+ D MVP_KLTN/src/pages/profile/ProfileDashboardPage.tsx
+ D MVP_KLTN/src/pages/profile/ProfilePlaceholderPage.tsx
+ D MVP_KLTN/src/pages/profile/ProfileSettingsPage.tsx
+ D MVP_KLTN/src/pages/profile/ScoresPage.tsx
+ D MVP_KLTN/src/pages/quiz/QuizGeneratePage.tsx
+ D MVP_KLTN/src/pages/quiz/QuizHistoryPage.tsx
+ D MVP_KLTN/src/pages/quiz/QuizHomePage.tsx
+ D MVP_KLTN/src/pages/quiz/QuizResultPage.tsx
+ D MVP_KLTN/src/pages/quiz/QuizSessionPage.tsx
+ D MVP_KLTN/src/services/authService.ts
+ D MVP_KLTN/src/services/eventDetailService.ts
+ D MVP_KLTN/src/services/examApiContract.ts
+ D MVP_KLTN/src/services/examService.ts
+ D MVP_KLTN/src/services/quizService.ts
+ D MVP_KLTN/src/services/ragQuizApiContract.ts
+ D MVP_KLTN/src/theme/ThemeContext.tsx
+ D MVP_KLTN/src/types/auth.ts
+ D MVP_KLTN/src/types/event.ts
+ D MVP_KLTN/src/types/exam.ts
+ D MVP_KLTN/src/types/quiz.ts
+ D MVP_KLTN/tsconfig.app.json
+ D MVP_KLTN/tsconfig.json
+ D MVP_KLTN/tsconfig.node.json
+ D MVP_KLTN/vite.config.ts
+ D MVP_KLTN/vitest.config.ts
+ D history_events_export_2026-04-24T14-28-46-607Z/json10/bach-dang-938-ngo-quyen-xung-vuong.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json10/binh-ngo-dai-cao-1428.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json10/cach-mang-thang-tam-1945.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json10/cai-cach-le-thanh-tong.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json10/cai-cach-ltt-to-chuc-chinh-quyen.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json10/chong-nguyen-1287-1288.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json10/chu-nom-ra-doi.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json10/chu-quoc-ngu-hinh-thanh.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json10/chu-viet-cham-co.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json10/dai-viet-su-ky-le-van-huu.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json10/dan-ca-quan-ho-unesco-2009.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json10/dap-de-quai-vac-tran.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json10/dat-danh-hieu-tam-khoi.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json10/di-tich-tra-kieu.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json10/doi-do-thang-long.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json10/doi-quoc-hieu-dai-viet.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json10/dung-bia-tien-si.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json10/dung-van-mieu.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json10/giai-doan-dinh-hinh-van-minh-dai-viet.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json10/giai-doan-dinh-tre-dau-tk18-giua-tk19.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json10/giai-doan-le-so-mac-le-trung-hung.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json10/giai-doan-phat-trien-ly-tran-ho.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json10/gom-bat-trang.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json10/gom-chu-dau.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json10/hinh-thu-ly-thai-tong.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json10/hoang-thanh-thang-long.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json10/hoang-viet-luat-le.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json10/hoi-an-cang-thi.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json10/hoi-nghi-dien-hong.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json10/khang-chien-chong-tong-981.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json10/khoa-thi-dau-tien.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json10/khoi-nghia-lam-son-1418-1427.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json10/khuc-thua-du-tu-chu.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json10/kien-truc-thap-cham.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json10/le-tich-dien-ly-thai-tong.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json10/mat-tran-dan-toc-giai-phong-mien-nam-1960.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json10/mat-tran-viet-minh.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json10/mo-quoc-tu-giam.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json10/ngay-di-san-van-hoa-viet-nam-2005.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json10/nha-ly-thanh-lap.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json10/nha-nuoc-cham-pa-ra-doi.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json10/nha-nuoc-phu-nam-ra-doi.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json10/nuoc-au-lac-ra-doi.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json10/nuoc-van-lang-ra-doi.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json10/pham-su-man-mo-rong-phu-nam.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json10/phat-giao-quoc-giao-ly-tran.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json10/pho-hien-hung-yen.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json10/quoc-trieu-hinh-luat.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json10/sac-lenh-65sl-1945.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json10/thang-long-36-pho-phuong.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json10/thanh-nha-ho.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json10/thuong-cang-van-don.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json10/tin-nguong-tho-hung-vuong.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json10/to-chuc-nha-nuoc-van-lang.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json10/tong-tuyen-cu-1976.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json10/tuyen-ngon-doc-lap-1945.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json10/van-hoa-dong-son.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json10/van-hoa-oc-eo.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json10/van-hoa-sa-huynh.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json10/vm-cham-pa.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json10/vm-dai-viet.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json10/vm-phu-nam.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json10/vm-van-lang-au-lac.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json10/xay-dung-chua-mot-cot.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json10/xay-dung-thanh-co-loa.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json11/ba-lan-chong-mong-nguyen.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json11/bach-dang-938-ngo-quyen-xung-vuong.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json11/bai-hoc-khoi-nghia-giai-phong.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json11/bao-ve-chu-quyen-bien-dong-sau-1975.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json11/bo-dao-nha-chiem-malacca-1511.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json11/cach-mang-cuba-1959.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json11/cach-mang-phap-1789.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json11/cach-mang-thang-muoi-nga-1917.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json11/cai-cach-ho-quy-ly.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json11/cai-cach-hql-chinh-tri.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json11/cai-cach-hql-kinh-te-xa-hoi.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json11/cai-cach-hql-van-hoa.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json11/cai-cach-le-thanh-tong.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json11/cai-cach-ltt-kinh-te-van-hoa.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json11/cai-cach-ltt-to-chuc-chinh-quyen.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json11/cai-cach-minh-mang.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json11/cai-cach-mm-dia-phuong.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json11/cai-cach-mm-trung-uong.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json11/cai-cach-xiem-rama-iv-v.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json11/chien-tranh-doc-lap-my-1775-1783.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json11/chong-mong-co-1258.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json11/chong-nguyen-1285.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json11/chong-nguyen-1287-1288.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json11/cmts-anh-1642-1689.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json11/dai-nam-nhat-thong-toan-do-1838.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json11/doc-bien-dong-2002.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json11/doi-bac-hai-the-ky-18.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json11/doi-hoang-sa-the-ky-17.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json11/doi-moi-1986-collection.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json11/giai-phong-truong-sa-1975.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json11/hiep-dinh-elysee-1949-chuyen-giao-hoang-sa-truong-sa.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json11/hiep-dinh-vinh-bac-bo-2000.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json11/hiep-uoc-hac-mang-1883.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json11/hiep-uoc-pa-to-not-1884.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json11/ho-quy-ly-len-ngoi-1400.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json11/indonesia-tuyen-bo-doc-lap-1945.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json11/khang-chien-chong-minh-1406-1407.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json11/khang-chien-chong-phap-1858-1884.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json11/khang-chien-chong-phap-dong-duong.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json11/khang-chien-chong-thanh-1789.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json11/khang-chien-chong-tong-1075-1077.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json11/khang-chien-chong-tong-981.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json11/khang-chien-chong-trieu-tk2-tcn.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json11/khang-chien-chong-xiem-1785.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json11/khoi-nghia-ba-trieu.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json11/khoi-nghia-hai-ba-trung.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json11/khoi-nghia-lam-son-1418-1427.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json11/khoi-nghia-ly-bi.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json11/khoi-nghia-phung-hung.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json11/lam-son-gd1-1418-1423.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json11/lam-son-gd2-1424-1426.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json11/lam-son-gd3-1426-1427.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json11/lien-bang-dong-duong.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json11/lien-xo-sup-do-1991.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json11/lien-xo-thanh-lap-1922.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json11/luat-bien-viet-nam-2012.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json11/nguyen-nhan-thang-loi-khang-chien.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json11/nguyen-nhan-that-bai-khang-chien.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json11/nuoc-van-xuan-thanh-lap-544.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json11/phap-bao-ho-campuchia-1863.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json11/phap-bao-ho-lao-1893.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json11/phap-chiem-nam-bo-1862-1867.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json11/phap-xam-luoc-vn-1858.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json11/phat-hanh-tien-giay-1396.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json11/phong-trao-tay-son.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json11/quan-ly-hoang-sa-truong-sa-nguyen.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json11/quoc-trieu-hinh-luat.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json11/sach-trang-hoang-sa-truong-sa-1979-1988.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json11/su-kien-gac-ma-1988.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json11/tay-son-gd1-1771-1777.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json11/tay-son-gd2-rach-gam-1785.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json11/tay-son-gd3-1786-1789.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json11/tay-son-gd4-1789-1802.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json11/thanh-lap-huyen-dao-1982.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json11/thanh-nha-ho.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json11/tran-chi-lang-xuong-giang-1427.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json11/tran-tot-dong-chuc-dong-1426.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json11/trung-quoc-cai-cach-mo-cua-1978.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json11/trung-quoc-chiem-hoang-sa-1974.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json11/vi-tri-dia-chien-luoc-vn.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json11/viet-nam-tham-gia-unclos-1982.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json11/vm-chien-tranh-bao-ve-to-quoc.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json11/vm-chu-quyen-bien-dong.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json11/vm-khoi-nghia-va-giai-phong.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json11/vnch-tiep-quan-hoang-sa-truong-sa-1954.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json12/bai-hoc-khang-chien-1945-nay.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json12/bao-dai-thoai-vi-30-8-1945.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json12/bao-ve-chu-quyen-bien-dong-sau-1975.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json12/bao-ve-to-quoc-sau-1975-collection.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json12/binh-thuong-hoa-vn-my-1995.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json12/binh-thuong-hoa-vn-tq-1991.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json12/cach-mang-thang-tam-1945.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json12/chi-thi-05-ct-tw-2016.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json12/chien-dich-bien-gioi-thu-dong-1950.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json12/chien-dich-cq88-1988.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json12/chien-dich-dien-bien-phu-1954.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json12/chien-dich-ho-chi-minh-1975.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json12/chien-dich-hue-da-nang-1975.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json12/chien-dich-tay-nguyen-1975.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json12/chien-dich-viet-bac-thu-dong-1947.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json12/chien-su-vi-xuyen-1984-1989.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json12/chien-thang-ap-bac-1963.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json12/chien-thang-nui-thanh-1965.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json12/chien-thang-phuoc-long-1975.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json12/chien-thang-van-tuong-1965.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json12/chien-tranh-bien-gioi-phia-bac-1979.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json12/chien-tranh-bien-gioi-tay-nam.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json12/chien-tranh-cuc-bo-1965-1968.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json12/chien-tranh-dac-biet-1961-1965.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json12/chien-tranh-lanh-1947-1989.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json12/chinh-phu-cach-mang-lam-thoi-1969.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json12/cong-dong-asean-2015.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json12/dai-hoi-iii-dang-lao-dong-1960.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json12/dai-hoi-quoc-dan-tan-trao.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json12/dai-hoi-vi-1986.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json12/dien-bien-phu-tren-khong-1972.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json12/doi-moi-1986-collection.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json12/doi-moi-gd1-1986-1995.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json12/doi-moi-gd2-1996-2006.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json12/doi-moi-gd3-2006-nay.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json12/doi-ngoai-1975-1985.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json12/doi-ngoai-dau-tk20-1945.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json12/doi-ngoai-khang-chien-my.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json12/doi-ngoai-khang-chien-phap.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json12/doi-ngoai-viet-nam-1900-nay-collection.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json12/giai-doan-1954-1960.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json12/giai-phong-mien-nam-30-4-1975.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json12/giai-phong-phnom-penh-7-1-1979.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json12/gian-khoan-hd981-2014.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json12/hcm-qua-doi-2-9-1969.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json12/hcm-ra-di-tim-duong-1911.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json12/hcm-sang-lap-dcs-phap-1920.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json12/hcm-tim-ra-con-duong-1920.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json12/hien-chuong-asean-2007.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json12/hiep-dinh-gio-ne-vo-1954.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json12/hiep-dinh-paris-1973.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json12/hiep-dinh-so-bo-6-3-1946.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json12/ho-chi-minh-cuoc-doi-su-nghiep-collection.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json12/hoi-nghi-ianta-2-1945.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json12/hoi-nghi-tan-trao-8-1945.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json12/ke-hoach-nava-1953.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json12/ket-thuc-chien-tranh-lanh-1989.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json12/khang-chien-chong-my-collection.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json12/khang-chien-chong-phap-1945-1954-collection.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json12/khang-chien-chong-phap-1946-1950.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json12/khang-chien-chong-phap-1951-1953.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json12/khang-chien-nam-bo-1945.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json12/khoi-nghia-ha-noi-19-8-1945.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json12/khoi-nghia-hue-23-8-1945.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json12/khoi-nghia-sai-gon-25-8-1945.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json12/mat-tran-dan-toc-giai-phong-mien-nam-1960.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json12/mat-tran-viet-minh.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json12/my-pha-hoai-mien-bac-lan-1.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json12/my-pha-hoai-mien-bac-lan-2-1972.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json12/nato-1949.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json12/nghi-quyet-15-tw-dang-1959.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json12/nguyen-ai-quoc-gui-yeu-sach-1919.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json12/nguyen-nhan-y-nghia-chong-my.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json12/nguyen-nhan-y-nghia-chong-phap.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json12/nguyen-nhan-y-nghia-cm-thang-tam.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json12/phap-xam-luoc-nam-bo-23-9-1945.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json12/phong-trao-dong-khoi-1960.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json12/su-kien-gac-ma-1988.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json12/su-kien-vinh-bac-bo-1964.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json12/thanh-lap-asean-1967.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json12/thanh-lap-dang-csvn-1930.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json12/thanh-lap-hoi-vn-cach-mang-thanh-nien-1925.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json12/thanh-lap-lien-hop-quoc-1945.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json12/thanh-lap-vn-tuyen-truyen-giai-phong-quan.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json12/thanh-tuu-doi-moi.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json12/tien-cong-chien-luoc-1972.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json12/tien-cong-dong-xuan-1953-1954.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json12/toan-quoc-khang-chien-19-12-1946.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json12/tong-tien-cong-mau-than-1968.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json12/trat-tu-hai-cuc-ianta.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json12/trung-quoc-thanh-lap-tam-sa-2012.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json12/tuyen-bo-hoa-binh-tu-do-trung-lap-1971.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json12/tuyen-ngon-doc-lap-1945.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json12/unesco-vinh-danh-hcm-1987.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json12/uy-ban-khoi-nghia-13-8-1945.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json12/vac-sa-va-1955.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json12/viet-nam-hoa-chien-tranh-1969-1973.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json12/vn-gia-nhap-asean-1995.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json12/vn-gia-nhap-lien-hop-quoc-1977.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json12/vn-gia-nhap-wto-2007.json
+ D history_events_export_2026-04-24T14-28-46-607Z/json12/xu-the-da-cuc-sau-1991.json
+?? .editorconfig
+?? PULL_REQUEST_UI_REFACTOR.md
+?? TERRAIN_3D_IMPLEMENTATION_REPORT.md
+?? docs/map-terrain-improvement-analysis/
+?? docs/thesis/input/
+?? docs/thesis/output/
+?? docs/ui-refactor/
+?? terrain-3d-implementation-patch.zip
+?? terrain-3d-implementation-source.zip
+?? terrain-3d-implementation.patch
+--- git branch --show-current ---
+main
+--- git rev-parse HEAD ---
+5a8a8323bfbd7b5119add79f5c575509cb7fcd72
+--- git log -1 --format=fuller ---
+commit 5a8a8323bfbd7b5119add79f5c575509cb7fcd72
+Merge: 6826856 fcf5d50
+Author:     Võ Hoàng Phúc <145906481+VoHoangPhucDTA@users.noreply.github.com>
+AuthorDate: Tue Jul 21 01:59:21 2026 +0700
+Commit:     GitHub <noreply@github.com>
+CommitDate: Tue Jul 21 01:59:21 2026 +0700
+
+    Merge pull request #25 from VoHoangPhucDTA/terrain_3d_update_sync_origin_main_20260720
+
+    [Terrain 3D] Địa hình Cesium theo sự kiện và bộ công cụ khám phá
+--- git remote -v (credential-redacted) ---
+origin	https://github.com/VoHoangPhucDTA/lich-su-viet-nam-3d.git (fetch)
+origin	https://github.com/VoHoangPhucDTA/lich-su-viet-nam-3d.git (push)
+--- git diff --stat ---
+ MVP_KLTN/.gitignore                                |   27 -
+ MVP_KLTN/README.md                                 |   73 -
+ MVP_KLTN/eslint.config.js                          |   23 -
+ MVP_KLTN/index.html                                |   14 -
+ MVP_KLTN/package-lock.json                         | 5380 --------------------
+ MVP_KLTN/package.json                              |   51 -
+ MVP_KLTN/public/geojson/vietnam-provinces.json     |    1 -
+ MVP_KLTN/public/vite.svg                           |    1 -
+ MVP_KLTN/scripts/build-exams-manifest.mjs          |  101 -
+ MVP_KLTN/scripts/build-topic-index.mjs             |  131 -
+ MVP_KLTN/scripts/lib/topicTaxonomy.mjs             |  551 --
+ MVP_KLTN/src/App.tsx                               |  152 -
+ MVP_KLTN/src/assets/react.svg                      |    1 -
+ MVP_KLTN/src/auth/AuthContext.tsx                  |   99 -
+ MVP_KLTN/src/auth/ProtectedRoute.tsx               |   26 -
+ MVP_KLTN/src/auth/RoleGuard.tsx                    |  191 -
+ MVP_KLTN/src/components/CesiumMap.tsx              |  397 --
+ MVP_KLTN/src/components/EventPopup.tsx             |  451 --
+ MVP_KLTN/src/components/Sidebar.tsx                |  414 --
+ MVP_KLTN/src/components/Timeline.tsx               |  313 --
+ MVP_KLTN/src/components/admin/AdminStatsCard.tsx   |  118 -
+ MVP_KLTN/src/components/admin/AdminTable.tsx       |  102 -
+ MVP_KLTN/src/components/admin/UserStatusBadge.tsx  |   42 -
+ MVP_KLTN/src/components/auth/AuthFormMessage.tsx   |   53 -
+ MVP_KLTN/src/components/auth/AuthLayout.tsx        |  226 -
+ MVP_KLTN/src/components/auth/OAuthButtons.tsx      |  158 -
+ MVP_KLTN/src/components/auth/PasswordInput.tsx     |  120 -
+ MVP_KLTN/src/components/auth/TextInput.tsx         |   99 -
+ .../components/event-detail/EventChildrenList.tsx  |  137 -
+ .../components/event-detail/EventDetailSidebar.tsx |  205 -
+ MVP_KLTN/src/components/event-detail/EventHero.tsx |  324 --
+ .../src/components/event-detail/EventKeyFacts.tsx  |   58 -
+ .../components/event-detail/EventLocationCard.tsx  |  183 -
+ .../components/event-detail/EventMediaGallery.tsx  |  164 -
+ .../src/components/event-detail/EventSources.tsx   |  246 -
+ .../src/components/event-detail/EventTTSPlayer.tsx |  361 --
+ .../event-detail/EventTextbookContent.tsx          |  110 -
+ .../src/components/event-detail/SectionHeader.tsx  |   46 -
+ .../src/components/exams/ExamAnalysisPanel.tsx     |  118 -
+ MVP_KLTN/src/components/exams/ExamAnswerReview.tsx |  161 -
+ .../src/components/exams/ExamConfigPreview.tsx     |   58 -
+ MVP_KLTN/src/components/exams/ExamCreateForm.tsx   |  128 -
+ .../src/components/exams/ExamGenerationLoading.tsx |    9 -
+ MVP_KLTN/src/components/exams/ExamHeader.tsx       |   42 -
+ MVP_KLTN/src/components/exams/ExamHero.tsx         |   35 -
+ MVP_KLTN/src/components/exams/ExamHistoryTable.tsx |  108 -
+ MVP_KLTN/src/components/exams/ExamModeSelector.tsx |   45 -
+ MVP_KLTN/src/components/exams/ExamNavigation.tsx   |   52 -
+ MVP_KLTN/src/components/exams/ExamOptionCard.tsx   |   61 -
+ MVP_KLTN/src/components/exams/ExamPresetCards.tsx  |   43 -
+ .../src/components/exams/ExamProgressSidebar.tsx   |  105 -
+ MVP_KLTN/src/components/exams/ExamQuestionCard.tsx |   52 -
+ .../src/components/exams/ExamResultActions.tsx     |  116 -
+ .../src/components/exams/ExamResultSummary.tsx     |  100 -
+ MVP_KLTN/src/components/exams/ExamSourceBadge.tsx  |   27 -
+ MVP_KLTN/src/components/exams/ExamSubmitDialog.tsx |   51 -
+ MVP_KLTN/src/components/exams/ExamTimer.tsx        |   57 -
+ .../src/components/exams/MCQQuestionCardV2.tsx     |  226 -
+ MVP_KLTN/src/components/exams/TFQuestionCard.tsx   |  322 --
+ MVP_KLTN/src/components/layout/AppHeader.tsx       |  272 -
+ MVP_KLTN/src/components/layout/HeaderContext.tsx   |   27 -
+ MVP_KLTN/src/components/profile/ActivityList.tsx   |  140 -
+ MVP_KLTN/src/components/profile/ProgressChart.tsx  |  205 -
+ .../src/components/profile/RecommendationCard.tsx  |   97 -
+ MVP_KLTN/src/components/profile/ScoreTable.tsx     |  168 -
+ MVP_KLTN/src/components/profile/StatsCard.tsx      |   73 -
+ MVP_KLTN/src/components/profile/UserAvatar.tsx     |   79 -
+ MVP_KLTN/src/components/shared/EmptyState.tsx      |   32 -
+ MVP_KLTN/src/components/shared/LoadingState.tsx    |   30 -
+ MVP_KLTN/src/components/shared/RoleBadge.tsx       |   32 -
+ MVP_KLTN/src/components/theme/ThemeToggle.tsx      |   31 -
+ MVP_KLTN/src/data/eventAdapter.ts                  |  237 -
+ MVP_KLTN/src/data/eventRegistry.ts                 |  307 --
+ MVP_KLTN/src/data/events.ts                        |  124 -
+ .../json10/bach-dang-938-ngo-quyen-xung-vuong.json |  154 -
+ .../json10/binh-ngo-dai-cao-1428.json              |   92 -
+ .../json10/cach-mang-thang-tam-1945.json           |  119 -
+ .../json10/cai-cach-le-thanh-tong.json             |  107 -
+ .../json10/cai-cach-ltt-to-chuc-chinh-quyen.json   |  125 -
+ .../json10/chong-nguyen-1287-1288.json             |  152 -
+ .../data/history_events/json10/chu-nom-ra-doi.json |   90 -
+ .../json10/chu-quoc-ngu-hinh-thanh.json            |   90 -
+ .../history_events/json10/chu-viet-cham-co.json    |   91 -
+ .../json10/dai-viet-su-ky-le-van-huu.json          |   91 -
+ .../json10/dan-ca-quan-ho-unesco-2009.json         |  114 -
+ .../json10/dap-de-quai-vac-tran.json               |   93 -
+ .../json10/dat-danh-hieu-tam-khoi.json             |   93 -
+ .../history_events/json10/di-tich-tra-kieu.json    |  113 -
+ .../history_events/json10/doi-do-thang-long.json   |  118 -
+ .../json10/doi-quoc-hieu-dai-viet.json             |   91 -
+ .../history_events/json10/dung-bia-tien-si.json    |  111 -
+ .../data/history_events/json10/dung-van-mieu.json  |  111 -
+ .../giai-doan-dinh-hinh-van-minh-dai-viet.json     |   94 -
+ .../giai-doan-dinh-tre-dau-tk18-giua-tk19.json     |   94 -
+ .../json10/giai-doan-le-so-mac-le-trung-hung.json  |   96 -
+ .../json10/giai-doan-phat-trien-ly-tran-ho.json    |   95 -
+ .../data/history_events/json10/gom-bat-trang.json  |  111 -
+ .../data/history_events/json10/gom-chu-dau.json    |  114 -
+ .../json10/hinh-thu-ly-thai-tong.json              |   91 -
+ .../json10/hoang-thanh-thang-long.json             |  111 -
+ .../history_events/json10/hoang-viet-luat-le.json  |   91 -
+ .../history_events/json10/hoi-an-cang-thi.json     |  113 -
+ .../history_events/json10/hoi-nghi-dien-hong.json  |  118 -
+ .../json10/khang-chien-chong-tong-981.json         |  151 -
+ .../history_events/json10/khoa-thi-dau-tien.json   |   91 -
+ .../json10/khoi-nghia-lam-son-1418-1427.json       |  166 -
+ .../history_events/json10/khuc-thua-du-tu-chu.json |  110 -
+ .../history_events/json10/kien-truc-thap-cham.json |  120 -
+ .../json10/le-tich-dien-ly-thai-tong.json          |  109 -
+ .../mat-tran-dan-toc-giai-phong-mien-nam-1960.json |  139 -
+ .../history_events/json10/mat-tran-viet-minh.json  |  125 -
+ .../history_events/json10/mo-quoc-tu-giam.json     |  111 -
+ .../json10/ngay-di-san-van-hoa-viet-nam-2005.json  |   93 -
+ .../history_events/json10/nha-ly-thanh-lap.json    |  113 -
+ .../json10/nha-nuoc-cham-pa-ra-doi.json            |  106 -
+ .../json10/nha-nuoc-phu-nam-ra-doi.json            |  105 -
+ .../history_events/json10/nuoc-au-lac-ra-doi.json  |  114 -
+ .../json10/nuoc-van-lang-ra-doi.json               |  111 -
+ .../json10/pham-su-man-mo-rong-phu-nam.json        |  109 -
+ .../json10/phat-giao-quoc-giao-ly-tran.json        |   94 -
+ .../history_events/json10/pho-hien-hung-yen.json   |  114 -
+ .../json10/quoc-trieu-hinh-luat.json               |  118 -
+ .../history_events/json10/sac-lenh-65sl-1945.json  |   93 -
+ .../json10/thang-long-36-pho-phuong.json           |  114 -
+ .../data/history_events/json10/thanh-nha-ho.json   |  143 -
+ .../history_events/json10/thuong-cang-van-don.json |  110 -
+ .../json10/tin-nguong-tho-hung-vuong.json          |  112 -
+ .../json10/to-chuc-nha-nuoc-van-lang.json          |   93 -
+ .../history_events/json10/tong-tuyen-cu-1976.json  |   99 -
+ .../json10/tuyen-ngon-doc-lap-1945.json            |  144 -
+ .../history_events/json10/van-hoa-dong-son.json    |  112 -
+ .../data/history_events/json10/van-hoa-oc-eo.json  |  104 -
+ .../history_events/json10/van-hoa-sa-huynh.json    |  107 -
+ .../src/data/history_events/json10/vm-cham-pa.json |  118 -
+ .../data/history_events/json10/vm-dai-viet.json    |  140 -
+ .../src/data/history_events/json10/vm-phu-nam.json |  116 -
+ .../history_events/json10/vm-van-lang-au-lac.json  |  124 -
+ .../json10/xay-dung-chua-mot-cot.json              |  112 -
+ .../json10/xay-dung-thanh-co-loa.json              |  120 -
+ .../json11/ba-lan-chong-mong-nguyen.json           |  122 -
+ .../json11/bach-dang-938-ngo-quyen-xung-vuong.json |  154 -
+ .../json11/bai-hoc-khoi-nghia-giai-phong.json      |   93 -
+ .../bao-ve-chu-quyen-bien-dong-sau-1975.json       |  128 -
+ .../json11/bo-dao-nha-chiem-malacca-1511.json      |   93 -
+ .../history_events/json11/cach-mang-cuba-1959.json |   93 -
+ .../history_events/json11/cach-mang-phap-1789.json |   93 -
+ .../json11/cach-mang-thang-muoi-nga-1917.json      |   93 -
+ .../history_events/json11/cai-cach-ho-quy-ly.json  |  120 -
+ .../json11/cai-cach-hql-chinh-tri.json             |  122 -
+ .../json11/cai-cach-hql-kinh-te-xa-hoi.json        |  118 -
+ .../json11/cai-cach-hql-van-hoa.json               |  118 -
+ .../json11/cai-cach-le-thanh-tong.json             |  107 -
+ .../json11/cai-cach-ltt-kinh-te-van-hoa.json       |  113 -
+ .../json11/cai-cach-ltt-to-chuc-chinh-quyen.json   |  125 -
+ .../history_events/json11/cai-cach-minh-mang.json  |  100 -
+ .../json11/cai-cach-mm-dia-phuong.json             |  110 -
+ .../json11/cai-cach-mm-trung-uong.json             |  121 -
+ .../json11/cai-cach-xiem-rama-iv-v.json            |   96 -
+ .../json11/chien-tranh-doc-lap-my-1775-1783.json   |   96 -
+ .../history_events/json11/chong-mong-co-1258.json  |  125 -
+ .../history_events/json11/chong-nguyen-1285.json   |  133 -
+ .../json11/chong-nguyen-1287-1288.json             |  152 -
+ .../history_events/json11/cmts-anh-1642-1689.json  |   96 -
+ .../json11/dai-nam-nhat-thong-toan-do-1838.json    |   99 -
+ .../history_events/json11/doc-bien-dong-2002.json  |  120 -
+ .../json11/doi-bac-hai-the-ky-18.json              |  142 -
+ .../json11/doi-hoang-sa-the-ky-17.json             |  124 -
+ .../json11/doi-moi-1986-collection.json            |  115 -
+ .../json11/giai-phong-truong-sa-1975.json          |  127 -
+ ...elysee-1949-chuyen-giao-hoang-sa-truong-sa.json |  120 -
+ .../json11/hiep-dinh-vinh-bac-bo-2000.json         |  115 -
+ .../json11/hiep-uoc-hac-mang-1883.json             |  104 -
+ .../json11/hiep-uoc-pa-to-not-1884.json            |  104 -
+ .../json11/ho-quy-ly-len-ngoi-1400.json            |  118 -
+ .../json11/indonesia-tuyen-bo-doc-lap-1945.json    |   93 -
+ .../json11/khang-chien-chong-minh-1406-1407.json   |  141 -
+ .../json11/khang-chien-chong-phap-1858-1884.json   |  142 -
+ .../json11/khang-chien-chong-phap-dong-duong.json  |   98 -
+ .../json11/khang-chien-chong-thanh-1789.json       |  128 -
+ .../json11/khang-chien-chong-tong-1075-1077.json   |  138 -
+ .../json11/khang-chien-chong-tong-981.json         |  151 -
+ .../json11/khang-chien-chong-trieu-tk2-tcn.json    |  122 -
+ .../json11/khang-chien-chong-xiem-1785.json        |  125 -
+ .../history_events/json11/khoi-nghia-ba-trieu.json |  119 -
+ .../json11/khoi-nghia-hai-ba-trung.json            |  131 -
+ .../json11/khoi-nghia-lam-son-1418-1427.json       |  166 -
+ .../history_events/json11/khoi-nghia-ly-bi.json    |  131 -
+ .../json11/khoi-nghia-phung-hung.json              |  124 -
+ .../json11/lam-son-gd1-1418-1423.json              |  120 -
+ .../json11/lam-son-gd2-1424-1426.json              |  134 -
+ .../json11/lam-son-gd3-1426-1427.json              |  139 -
+ .../json11/lien-bang-dong-duong.json               |  102 -
+ .../history_events/json11/lien-xo-sup-do-1991.json |   93 -
+ .../json11/lien-xo-thanh-lap-1922.json             |   93 -
+ .../json11/luat-bien-viet-nam-2012.json            |  120 -
+ .../json11/nguyen-nhan-thang-loi-khang-chien.json  |   94 -
+ .../json11/nguyen-nhan-that-bai-khang-chien.json   |   94 -
+ .../json11/nuoc-van-xuan-thanh-lap-544.json        |  112 -
+ .../json11/phap-bao-ho-campuchia-1863.json         |  100 -
+ .../json11/phap-bao-ho-lao-1893.json               |  100 -
+ .../json11/phap-chiem-nam-bo-1862-1867.json        |  126 -
+ .../json11/phap-xam-luoc-vn-1858.json              |  113 -
+ .../json11/phat-hanh-tien-giay-1396.json           |  109 -
+ .../history_events/json11/phong-trao-tay-son.json  |  125 -
+ .../json11/quan-ly-hoang-sa-truong-sa-nguyen.json  |  144 -
+ .../json11/quoc-trieu-hinh-luat.json               |  118 -
+ .../sach-trang-hoang-sa-truong-sa-1979-1988.json   |  121 -
+ .../history_events/json11/su-kien-gac-ma-1988.json |  142 -
+ .../json11/tay-son-gd1-1771-1777.json              |  127 -
+ .../json11/tay-son-gd2-rach-gam-1785.json          |  121 -
+ .../json11/tay-son-gd3-1786-1789.json              |  131 -
+ .../json11/tay-son-gd4-1789-1802.json              |  120 -
+ .../json11/thanh-lap-huyen-dao-1982.json           |  137 -
+ .../data/history_events/json11/thanh-nha-ho.json   |  143 -
+ .../json11/tran-chi-lang-xuong-giang-1427.json     |  122 -
+ .../json11/tran-tot-dong-chuc-dong-1426.json       |  114 -
+ .../json11/trung-quoc-cai-cach-mo-cua-1978.json    |   93 -
+ .../json11/trung-quoc-chiem-hoang-sa-1974.json     |  127 -
+ .../json11/vi-tri-dia-chien-luoc-vn.json           |  101 -
+ .../json11/viet-nam-tham-gia-unclos-1982.json      |  118 -
+ .../json11/vm-chien-tranh-bao-ve-to-quoc.json      |  109 -
+ .../json11/vm-chu-quyen-bien-dong.json             |  139 -
+ .../json11/vm-khoi-nghia-va-giai-phong.json        |  105 -
+ .../vnch-tiep-quan-hoang-sa-truong-sa-1954.json    |  137 -
+ .../json12/bai-hoc-khang-chien-1945-nay.json       |   90 -
+ .../json12/bao-dai-thoai-vi-30-8-1945.json         |  119 -
+ .../bao-ve-chu-quyen-bien-dong-sau-1975.json       |  128 -
+ .../json12/bao-ve-to-quoc-sau-1975-collection.json |   96 -
+ .../json12/binh-thuong-hoa-vn-my-1995.json         |  101 -
+ .../json12/binh-thuong-hoa-vn-tq-1991.json         |  101 -
+ .../json12/cach-mang-thang-tam-1945.json           |  119 -
+ .../json12/chi-thi-05-ct-tw-2016.json              |  102 -
+ .../json12/chien-dich-bien-gioi-thu-dong-1950.json |   99 -
+ .../json12/chien-dich-cq88-1988.json               |  117 -
+ .../json12/chien-dich-dien-bien-phu-1954.json      |  122 -
+ .../json12/chien-dich-ho-chi-minh-1975.json        |  119 -
+ .../json12/chien-dich-hue-da-nang-1975.json        |  102 -
+ .../json12/chien-dich-tay-nguyen-1975.json         |  124 -
+ .../json12/chien-dich-viet-bac-thu-dong-1947.json  |   99 -
+ .../json12/chien-su-vi-xuyen-1984-1989.json        |  111 -
+ .../json12/chien-thang-ap-bac-1963.json            |  119 -
+ .../json12/chien-thang-nui-thanh-1965.json         |  119 -
+ .../json12/chien-thang-phuoc-long-1975.json        |  119 -
+ .../json12/chien-thang-van-tuong-1965.json         |  119 -
+ .../chien-tranh-bien-gioi-phia-bac-1979.json       |  130 -
+ .../json12/chien-tranh-bien-gioi-tay-nam.json      |  124 -
+ .../json12/chien-tranh-cuc-bo-1965-1968.json       |  109 -
+ .../json12/chien-tranh-dac-biet-1961-1965.json     |  101 -
+ .../json12/chien-tranh-lanh-1947-1989.json         |   92 -
+ .../json12/chinh-phu-cach-mang-lam-thoi-1969.json  |  100 -
+ .../json12/cong-dong-asean-2015.json               |   92 -
+ .../json12/dai-hoi-iii-dang-lao-dong-1960.json     |  103 -
+ .../json12/dai-hoi-quoc-dan-tan-trao.json          |  121 -
+ .../history_events/json12/dai-hoi-vi-1986.json     |  120 -
+ .../json12/dien-bien-phu-tren-khong-1972.json      |  119 -
+ .../json12/doi-moi-1986-collection.json            |  115 -
+ .../json12/doi-moi-gd1-1986-1995.json              |  102 -
+ .../json12/doi-moi-gd2-1996-2006.json              |  104 -
+ .../json12/doi-moi-gd3-2006-nay.json               |  101 -
+ .../history_events/json12/doi-ngoai-1975-1985.json |  105 -
+ .../json12/doi-ngoai-dau-tk20-1945.json            |  102 -
+ .../json12/doi-ngoai-khang-chien-my.json           |  102 -
+ .../json12/doi-ngoai-khang-chien-phap.json         |  102 -
+ .../doi-ngoai-viet-nam-1900-nay-collection.json    |  100 -
+ .../history_events/json12/giai-doan-1954-1960.json |  107 -
+ .../json12/giai-phong-mien-nam-30-4-1975.json      |  107 -
+ .../json12/giai-phong-phnom-penh-7-1-1979.json     |   95 -
+ .../json12/gian-khoan-hd981-2014.json              |  102 -
+ .../json12/hcm-qua-doi-2-9-1969.json               |  119 -
+ .../json12/hcm-ra-di-tim-duong-1911.json           |  116 -
+ .../json12/hcm-sang-lap-dcs-phap-1920.json         |  101 -
+ .../json12/hcm-tim-ra-con-duong-1920.json          |  101 -
+ .../json12/hien-chuong-asean-2007.json             |   92 -
+ .../json12/hiep-dinh-gio-ne-vo-1954.json           |  101 -
+ .../json12/hiep-dinh-paris-1973.json               |   98 -
+ .../json12/hiep-dinh-so-bo-6-3-1946.json           |  101 -
+ .../ho-chi-minh-cuoc-doi-su-nghiep-collection.json |  107 -
+ .../json12/hoi-nghi-ianta-2-1945.json              |   92 -
+ .../json12/hoi-nghi-tan-trao-8-1945.json           |  121 -
+ .../history_events/json12/ke-hoach-nava-1953.json  |  101 -
+ .../json12/ket-thuc-chien-tranh-lanh-1989.json     |   92 -
+ .../json12/khang-chien-chong-my-collection.json    |  108 -
+ ...hang-chien-chong-phap-1945-1954-collection.json |  105 -
+ .../json12/khang-chien-chong-phap-1946-1950.json   |  106 -
+ .../json12/khang-chien-chong-phap-1951-1953.json   |  102 -
+ .../json12/khang-chien-nam-bo-1945.json            |  105 -
+ .../json12/khoi-nghia-ha-noi-19-8-1945.json        |  119 -
+ .../json12/khoi-nghia-hue-23-8-1945.json           |  123 -
+ .../json12/khoi-nghia-sai-gon-25-8-1945.json       |  123 -
+ .../mat-tran-dan-toc-giai-phong-mien-nam-1960.json |  139 -
+ .../history_events/json12/mat-tran-viet-minh.json  |  125 -
+ .../json12/my-pha-hoai-mien-bac-lan-1.json         |  101 -
+ .../json12/my-pha-hoai-mien-bac-lan-2-1972.json    |  103 -
+ .../src/data/history_events/json12/nato-1949.json  |   92 -
+ .../json12/nghi-quyet-15-tw-dang-1959.json         |  100 -
+ .../json12/nguyen-ai-quoc-gui-yeu-sach-1919.json   |   93 -
+ .../json12/nguyen-nhan-y-nghia-chong-my.json       |   92 -
+ .../json12/nguyen-nhan-y-nghia-chong-phap.json     |   92 -
+ .../json12/nguyen-nhan-y-nghia-cm-thang-tam.json   |   94 -
+ .../json12/phap-xam-luoc-nam-bo-23-9-1945.json     |  118 -
+ .../json12/phong-trao-dong-khoi-1960.json          |  114 -
+ .../history_events/json12/su-kien-gac-ma-1988.json |  142 -
+ .../json12/su-kien-vinh-bac-bo-1964.json           |  102 -
+ .../json12/thanh-lap-asean-1967.json               |   95 -
+ .../json12/thanh-lap-dang-csvn-1930.json           |  101 -
+ ...thanh-lap-hoi-vn-cach-mang-thanh-nien-1925.json |  103 -
+ .../json12/thanh-lap-lien-hop-quoc-1945.json       |   95 -
+ .../thanh-lap-vn-tuyen-truyen-giai-phong-quan.json |  119 -
+ .../history_events/json12/thanh-tuu-doi-moi.json   |   90 -
+ .../json12/tien-cong-chien-luoc-1972.json          |  102 -
+ .../json12/tien-cong-dong-xuan-1953-1954.json      |  102 -
+ .../json12/toan-quoc-khang-chien-19-12-1946.json   |  119 -
+ .../json12/tong-tien-cong-mau-than-1968.json       |   98 -
+ .../json12/trat-tu-hai-cuc-ianta.json              |   92 -
+ .../json12/trung-quoc-thanh-lap-tam-sa-2012.json   |  109 -
+ .../tuyen-bo-hoa-binh-tu-do-trung-lap-1971.json    |   96 -
+ .../json12/tuyen-ngon-doc-lap-1945.json            |  144 -
+ .../json12/unesco-vinh-danh-hcm-1987.json          |  101 -
+ .../json12/uy-ban-khoi-nghia-13-8-1945.json        |  120 -
+ .../data/history_events/json12/vac-sa-va-1955.json |   92 -
+ .../json12/viet-nam-hoa-chien-tranh-1969-1973.json |  109 -
+ .../json12/vn-gia-nhap-asean-1995.json             |  101 -
+ .../json12/vn-gia-nhap-lien-hop-quoc-1977.json     |   93 -
+ .../json12/vn-gia-nhap-wto-2007.json               |   98 -
+ .../json12/xu-the-da-cuc-sau-1991.json             |   89 -
+ MVP_KLTN/src/data/mockAdminData.ts                 |  237 -
+ MVP_KLTN/src/data/mockEventDetails.ts              |  127 -
+ MVP_KLTN/src/data/mockExamQuestions.ts             |   31 -
+ MVP_KLTN/src/data/mockLearningStats.ts             |  422 --
+ MVP_KLTN/src/data/mockQuizQuestions.ts             |  554 --
+ MVP_KLTN/src/data/mockUsers.ts                     |   35 -
+ MVP_KLTN/src/data/vietnamProvinceCentroids.ts      |  190 -
+ MVP_KLTN/src/index.css                             |  393 --
+ MVP_KLTN/src/layouts/AdminLayout.tsx               |  457 --
+ MVP_KLTN/src/layouts/ProfileLayout.tsx             |  439 --
+ MVP_KLTN/src/lib/cesium.ts                         |   61 -
+ MVP_KLTN/src/lib/exam/__tests__/scoring.test.ts    |  475 --
+ MVP_KLTN/src/lib/exam/examConstants.ts             |   42 -
+ MVP_KLTN/src/lib/exam/examLoader.ts                |   96 -
+ MVP_KLTN/src/lib/exam/manifestLoader.ts            |   69 -
+ MVP_KLTN/src/lib/exam/scoring.ts                   |  253 -
+ MVP_KLTN/src/lib/exam/topicIndexLoader.ts          |   72 -
+ MVP_KLTN/src/lib/exam/useSessionV2.ts              |  322 --
+ MVP_KLTN/src/lib/exam/v2History.ts                 |   63 -
+ MVP_KLTN/src/main.tsx                              |   10 -
+ MVP_KLTN/src/pages/EventDetailPage.tsx             |  357 --
+ MVP_KLTN/src/pages/MapPage.tsx                     |  251 -
+ MVP_KLTN/src/pages/admin/AdminDashboardPage.tsx    |  230 -
+ MVP_KLTN/src/pages/admin/AdminEventsPage.tsx       |  243 -
+ MVP_KLTN/src/pages/admin/AdminPlaceholderPage.tsx  |   46 -
+ MVP_KLTN/src/pages/admin/AdminQuestionsPage.tsx    |  302 --
+ MVP_KLTN/src/pages/admin/AdminUsersPage.tsx        |  246 -
+ MVP_KLTN/src/pages/auth/ForgotPasswordPage.tsx     |  201 -
+ MVP_KLTN/src/pages/auth/LoginPage.tsx              |  222 -
+ MVP_KLTN/src/pages/auth/RegisterPage.tsx           |  331 --
+ MVP_KLTN/src/pages/auth/ResetPasswordPage.tsx      |  290 --
+ MVP_KLTN/src/pages/exams/ExamBrowsePage.tsx        |  299 --
+ MVP_KLTN/src/pages/exams/ExamCreatePage.tsx        |  135 -
+ MVP_KLTN/src/pages/exams/ExamHistoryPage.tsx       |   51 -
+ MVP_KLTN/src/pages/exams/ExamHomePage.tsx          |  128 -
+ MVP_KLTN/src/pages/exams/ExamOnChuDePage.tsx       |  260 -
+ MVP_KLTN/src/pages/exams/ExamResultPage.tsx        |   94 -
+ MVP_KLTN/src/pages/exams/ExamSessionPage.tsx       |  255 -
+ MVP_KLTN/src/pages/exams/ExamTopicPracticePage.tsx |  433 --
+ MVP_KLTN/src/pages/exams/ExamV2HistoryPage.tsx     |  316 --
+ MVP_KLTN/src/pages/exams/ExamV2ResultPage.tsx      |  399 --
+ MVP_KLTN/src/pages/exams/ExamV2SessionPage.tsx     |  412 --
+ MVP_KLTN/src/pages/profile/LearningHistoryPage.tsx |  143 -
+ .../src/pages/profile/ProfileDashboardPage.tsx     |  309 --
+ .../src/pages/profile/ProfilePlaceholderPage.tsx   |   17 -
+ MVP_KLTN/src/pages/profile/ProfileSettingsPage.tsx |  594 ---
+ MVP_KLTN/src/pages/profile/ScoresPage.tsx          |  112 -
+ MVP_KLTN/src/pages/quiz/QuizGeneratePage.tsx       |  411 --
+ MVP_KLTN/src/pages/quiz/QuizHistoryPage.tsx        |  174 -
+ MVP_KLTN/src/pages/quiz/QuizHomePage.tsx           |  369 --
+ MVP_KLTN/src/pages/quiz/QuizResultPage.tsx         |  309 --
+ MVP_KLTN/src/pages/quiz/QuizSessionPage.tsx        |  521 --
+ MVP_KLTN/src/services/authService.ts               |  174 -
+ MVP_KLTN/src/services/eventDetailService.ts        |   48 -
+ MVP_KLTN/src/services/examApiContract.ts           |   39 -
+ MVP_KLTN/src/services/examService.ts               |  195 -
+ MVP_KLTN/src/services/quizService.ts               |  273 -
+ MVP_KLTN/src/services/ragQuizApiContract.ts        |   69 -
+ MVP_KLTN/src/theme/ThemeContext.tsx                |   69 -
+ MVP_KLTN/src/types/auth.ts                         |   43 -
+ MVP_KLTN/src/types/event.ts                        |   76 -
+ MVP_KLTN/src/types/exam.ts                         |  351 --
+ MVP_KLTN/src/types/quiz.ts                         |  139 -
+ MVP_KLTN/tsconfig.app.json                         |   34 -
+ MVP_KLTN/tsconfig.json                             |    7 -
+ MVP_KLTN/tsconfig.node.json                        |   26 -
+ MVP_KLTN/vite.config.ts                            |   35 -
+ MVP_KLTN/vitest.config.ts                          |   20 -
+ .../json10/bach-dang-938-ngo-quyen-xung-vuong.json |  154 -
+ .../json10/binh-ngo-dai-cao-1428.json              |   92 -
+ .../json10/cach-mang-thang-tam-1945.json           |  119 -
+ .../json10/cai-cach-le-thanh-tong.json             |  107 -
+ .../json10/cai-cach-ltt-to-chuc-chinh-quyen.json   |  125 -
+ .../json10/chong-nguyen-1287-1288.json             |  152 -
+ .../json10/chu-nom-ra-doi.json                     |   90 -
+ .../json10/chu-quoc-ngu-hinh-thanh.json            |   90 -
+ .../json10/chu-viet-cham-co.json                   |   91 -
+ .../json10/dai-viet-su-ky-le-van-huu.json          |   91 -
+ .../json10/dan-ca-quan-ho-unesco-2009.json         |  114 -
+ .../json10/dap-de-quai-vac-tran.json               |   93 -
+ .../json10/dat-danh-hieu-tam-khoi.json             |   93 -
+ .../json10/di-tich-tra-kieu.json                   |  113 -
+ .../json10/doi-do-thang-long.json                  |  118 -
+ .../json10/doi-quoc-hieu-dai-viet.json             |   91 -
+ .../json10/dung-bia-tien-si.json                   |  111 -
+ .../json10/dung-van-mieu.json                      |  111 -
+ .../giai-doan-dinh-hinh-van-minh-dai-viet.json     |   94 -
+ .../giai-doan-dinh-tre-dau-tk18-giua-tk19.json     |   94 -
+ .../json10/giai-doan-le-so-mac-le-trung-hung.json  |   96 -
+ .../json10/giai-doan-phat-trien-ly-tran-ho.json    |   95 -
+ .../json10/gom-bat-trang.json                      |  111 -
+ .../json10/gom-chu-dau.json                        |  114 -
+ .../json10/hinh-thu-ly-thai-tong.json              |   91 -
+ .../json10/hoang-thanh-thang-long.json             |  111 -
+ .../json10/hoang-viet-luat-le.json                 |   91 -
+ .../json10/hoi-an-cang-thi.json                    |  113 -
+ .../json10/hoi-nghi-dien-hong.json                 |  118 -
+ .../json10/khang-chien-chong-tong-981.json         |  151 -
+ .../json10/khoa-thi-dau-tien.json                  |   91 -
+ .../json10/khoi-nghia-lam-son-1418-1427.json       |  166 -
+ .../json10/khuc-thua-du-tu-chu.json                |  110 -
+ .../json10/kien-truc-thap-cham.json                |  120 -
+ .../json10/le-tich-dien-ly-thai-tong.json          |  109 -
+ .../mat-tran-dan-toc-giai-phong-mien-nam-1960.json |  139 -
+ .../json10/mat-tran-viet-minh.json                 |  125 -
+ .../json10/mo-quoc-tu-giam.json                    |  111 -
+ .../json10/ngay-di-san-van-hoa-viet-nam-2005.json  |   93 -
+ .../json10/nha-ly-thanh-lap.json                   |  113 -
+ .../json10/nha-nuoc-cham-pa-ra-doi.json            |  106 -
+ .../json10/nha-nuoc-phu-nam-ra-doi.json            |  105 -
+ .../json10/nuoc-au-lac-ra-doi.json                 |  114 -
+ .../json10/nuoc-van-lang-ra-doi.json               |  111 -
+ .../json10/pham-su-man-mo-rong-phu-nam.json        |  109 -
+ .../json10/phat-giao-quoc-giao-ly-tran.json        |   94 -
+ .../json10/pho-hien-hung-yen.json                  |  114 -
+ .../json10/quoc-trieu-hinh-luat.json               |  118 -
+ .../json10/sac-lenh-65sl-1945.json                 |   93 -
+ .../json10/thang-long-36-pho-phuong.json           |  114 -
+ .../json10/thanh-nha-ho.json                       |  143 -
+ .../json10/thuong-cang-van-don.json                |  110 -
+ .../json10/tin-nguong-tho-hung-vuong.json          |  112 -
+ .../json10/to-chuc-nha-nuoc-van-lang.json          |   93 -
+ .../json10/tong-tuyen-cu-1976.json                 |   99 -
+ .../json10/tuyen-ngon-doc-lap-1945.json            |  144 -
+ .../json10/van-hoa-dong-son.json                   |  112 -
+ .../json10/van-hoa-oc-eo.json                      |  104 -
+ .../json10/van-hoa-sa-huynh.json                   |  107 -
+ .../json10/vm-cham-pa.json                         |  118 -
+ .../json10/vm-dai-viet.json                        |  140 -
+ .../json10/vm-phu-nam.json                         |  116 -
+ .../json10/vm-van-lang-au-lac.json                 |  124 -
+ .../json10/xay-dung-chua-mot-cot.json              |  112 -
+ .../json10/xay-dung-thanh-co-loa.json              |  120 -
+ .../json11/ba-lan-chong-mong-nguyen.json           |  122 -
+ .../json11/bach-dang-938-ngo-quyen-xung-vuong.json |  154 -
+ .../json11/bai-hoc-khoi-nghia-giai-phong.json      |   93 -
+ .../bao-ve-chu-quyen-bien-dong-sau-1975.json       |  128 -
+ .../json11/bo-dao-nha-chiem-malacca-1511.json      |   93 -
+ .../json11/cach-mang-cuba-1959.json                |   93 -
+ .../json11/cach-mang-phap-1789.json                |   93 -
+ .../json11/cach-mang-thang-muoi-nga-1917.json      |   93 -
+ .../json11/cai-cach-ho-quy-ly.json                 |  120 -
+ .../json11/cai-cach-hql-chinh-tri.json             |  122 -
+ .../json11/cai-cach-hql-kinh-te-xa-hoi.json        |  118 -
+ .../json11/cai-cach-hql-van-hoa.json               |  118 -
+ .../json11/cai-cach-le-thanh-tong.json             |  107 -
+ .../json11/cai-cach-ltt-kinh-te-van-hoa.json       |  113 -
+ .../json11/cai-cach-ltt-to-chuc-chinh-quyen.json   |  125 -
+ .../json11/cai-cach-minh-mang.json                 |  100 -
+ .../json11/cai-cach-mm-dia-phuong.json             |  110 -
+ .../json11/cai-cach-mm-trung-uong.json             |  121 -
+ .../json11/cai-cach-xiem-rama-iv-v.json            |   96 -
+ .../json11/chien-tranh-doc-lap-my-1775-1783.json   |   96 -
+ .../json11/chong-mong-co-1258.json                 |  125 -
+ .../json11/chong-nguyen-1285.json                  |  133 -
+ .../json11/chong-nguyen-1287-1288.json             |  152 -
+ .../json11/cmts-anh-1642-1689.json                 |   96 -
+ .../json11/dai-nam-nhat-thong-toan-do-1838.json    |   99 -
+ .../json11/doc-bien-dong-2002.json                 |  120 -
+ .../json11/doi-bac-hai-the-ky-18.json              |  142 -
+ .../json11/doi-hoang-sa-the-ky-17.json             |  124 -
+ .../json11/doi-moi-1986-collection.json            |  115 -
+ .../json11/giai-phong-truong-sa-1975.json          |  127 -
+ ...elysee-1949-chuyen-giao-hoang-sa-truong-sa.json |  120 -
+ .../json11/hiep-dinh-vinh-bac-bo-2000.json         |  115 -
+ .../json11/hiep-uoc-hac-mang-1883.json             |  104 -
+ .../json11/hiep-uoc-pa-to-not-1884.json            |  104 -
+ .../json11/ho-quy-ly-len-ngoi-1400.json            |  118 -
+ .../json11/indonesia-tuyen-bo-doc-lap-1945.json    |   93 -
+ .../json11/khang-chien-chong-minh-1406-1407.json   |  141 -
+ .../json11/khang-chien-chong-phap-1858-1884.json   |  142 -
+ .../json11/khang-chien-chong-phap-dong-duong.json  |   98 -
+ .../json11/khang-chien-chong-thanh-1789.json       |  128 -
+ .../json11/khang-chien-chong-tong-1075-1077.json   |  138 -
+ .../json11/khang-chien-chong-tong-981.json         |  151 -
+ .../json11/khang-chien-chong-trieu-tk2-tcn.json    |  122 -
+ .../json11/khang-chien-chong-xiem-1785.json        |  125 -
+ .../json11/khoi-nghia-ba-trieu.json                |  119 -
+ .../json11/khoi-nghia-hai-ba-trung.json            |  131 -
+ .../json11/khoi-nghia-lam-son-1418-1427.json       |  166 -
+ .../json11/khoi-nghia-ly-bi.json                   |  131 -
+ .../json11/khoi-nghia-phung-hung.json              |  124 -
+ .../json11/lam-son-gd1-1418-1423.json              |  120 -
+ .../json11/lam-son-gd2-1424-1426.json              |  134 -
+ .../json11/lam-son-gd3-1426-1427.json              |  139 -
+ .../json11/lien-bang-dong-duong.json               |  102 -
+ .../json11/lien-xo-sup-do-1991.json                |   93 -
+ .../json11/lien-xo-thanh-lap-1922.json             |   93 -
+ .../json11/luat-bien-viet-nam-2012.json            |  120 -
+ .../json11/nguyen-nhan-thang-loi-khang-chien.json  |   94 -
+ .../json11/nguyen-nhan-that-bai-khang-chien.json   |   94 -
+ .../json11/nuoc-van-xuan-thanh-lap-544.json        |  112 -
+ .../json11/phap-bao-ho-campuchia-1863.json         |  100 -
+ .../json11/phap-bao-ho-lao-1893.json               |  100 -
+ .../json11/phap-chiem-nam-bo-1862-1867.json        |  126 -
+ .../json11/phap-xam-luoc-vn-1858.json              |  113 -
+ .../json11/phat-hanh-tien-giay-1396.json           |  109 -
+ .../json11/phong-trao-tay-son.json                 |  125 -
+ .../json11/quan-ly-hoang-sa-truong-sa-nguyen.json  |  144 -
+ .../json11/quoc-trieu-hinh-luat.json               |  118 -
+ .../sach-trang-hoang-sa-truong-sa-1979-1988.json   |  121 -
+ .../json11/su-kien-gac-ma-1988.json                |  142 -
+ .../json11/tay-son-gd1-1771-1777.json              |  127 -
+ .../json11/tay-son-gd2-rach-gam-1785.json          |  121 -
+ .../json11/tay-son-gd3-1786-1789.json              |  131 -
+ .../json11/tay-son-gd4-1789-1802.json              |  120 -
+ .../json11/thanh-lap-huyen-dao-1982.json           |  137 -
+ .../json11/thanh-nha-ho.json                       |  143 -
+ .../json11/tran-chi-lang-xuong-giang-1427.json     |  122 -
+ .../json11/tran-tot-dong-chuc-dong-1426.json       |  114 -
+ .../json11/trung-quoc-cai-cach-mo-cua-1978.json    |   93 -
+ .../json11/trung-quoc-chiem-hoang-sa-1974.json     |  127 -
+ .../json11/vi-tri-dia-chien-luoc-vn.json           |  101 -
+ .../json11/viet-nam-tham-gia-unclos-1982.json      |  118 -
+ .../json11/vm-chien-tranh-bao-ve-to-quoc.json      |  109 -
+ .../json11/vm-chu-quyen-bien-dong.json             |  139 -
+ .../json11/vm-khoi-nghia-va-giai-phong.json        |  105 -
+ .../vnch-tiep-quan-hoang-sa-truong-sa-1954.json    |  137 -
+ .../json12/bai-hoc-khang-chien-1945-nay.json       |   90 -
+ .../json12/bao-dai-thoai-vi-30-8-1945.json         |  119 -
+ .../bao-ve-chu-quyen-bien-dong-sau-1975.json       |  128 -
+ .../json12/bao-ve-to-quoc-sau-1975-collection.json |   96 -
+ .../json12/binh-thuong-hoa-vn-my-1995.json         |  101 -
+ .../json12/binh-thuong-hoa-vn-tq-1991.json         |  101 -
+ .../json12/cach-mang-thang-tam-1945.json           |  119 -
+ .../json12/chi-thi-05-ct-tw-2016.json              |  102 -
+ .../json12/chien-dich-bien-gioi-thu-dong-1950.json |   99 -
+ .../json12/chien-dich-cq88-1988.json               |  117 -
+ .../json12/chien-dich-dien-bien-phu-1954.json      |  122 -
+ .../json12/chien-dich-ho-chi-minh-1975.json        |  119 -
+ .../json12/chien-dich-hue-da-nang-1975.json        |  102 -
+ .../json12/chien-dich-tay-nguyen-1975.json         |  124 -
+ .../json12/chien-dich-viet-bac-thu-dong-1947.json  |   99 -
+ .../json12/chien-su-vi-xuyen-1984-1989.json        |  111 -
+ .../json12/chien-thang-ap-bac-1963.json            |  119 -
+ .../json12/chien-thang-nui-thanh-1965.json         |  119 -
+ .../json12/chien-thang-phuoc-long-1975.json        |  119 -
+ .../json12/chien-thang-van-tuong-1965.json         |  119 -
+ .../chien-tranh-bien-gioi-phia-bac-1979.json       |  130 -
+ .../json12/chien-tranh-bien-gioi-tay-nam.json      |  124 -
+ .../json12/chien-tranh-cuc-bo-1965-1968.json       |  109 -
+ .../json12/chien-tranh-dac-biet-1961-1965.json     |  101 -
+ .../json12/chien-tranh-lanh-1947-1989.json         |   92 -
+ .../json12/chinh-phu-cach-mang-lam-thoi-1969.json  |  100 -
+ .../json12/cong-dong-asean-2015.json               |   92 -
+ .../json12/dai-hoi-iii-dang-lao-dong-1960.json     |  103 -
+ .../json12/dai-hoi-quoc-dan-tan-trao.json          |  121 -
+ .../json12/dai-hoi-vi-1986.json                    |  120 -
+ .../json12/dien-bien-phu-tren-khong-1972.json      |  119 -
+ .../json12/doi-moi-1986-collection.json            |  115 -
+ .../json12/doi-moi-gd1-1986-1995.json              |  102 -
+ .../json12/doi-moi-gd2-1996-2006.json              |  104 -
+ .../json12/doi-moi-gd3-2006-nay.json               |  101 -
+ .../json12/doi-ngoai-1975-1985.json                |  105 -
+ .../json12/doi-ngoai-dau-tk20-1945.json            |  102 -
+ .../json12/doi-ngoai-khang-chien-my.json           |  102 -
+ .../json12/doi-ngoai-khang-chien-phap.json         |  102 -
+ .../doi-ngoai-viet-nam-1900-nay-collection.json    |  100 -
+ .../json12/giai-doan-1954-1960.json                |  107 -
+ .../json12/giai-phong-mien-nam-30-4-1975.json      |  107 -
+ .../json12/giai-phong-phnom-penh-7-1-1979.json     |   95 -
+ .../json12/gian-khoan-hd981-2014.json              |  102 -
+ .../json12/hcm-qua-doi-2-9-1969.json               |  119 -
+ .../json12/hcm-ra-di-tim-duong-1911.json           |  116 -
+ .../json12/hcm-sang-lap-dcs-phap-1920.json         |  101 -
+ .../json12/hcm-tim-ra-con-duong-1920.json          |  101 -
+ .../json12/hien-chuong-asean-2007.json             |   92 -
+ .../json12/hiep-dinh-gio-ne-vo-1954.json           |  101 -
+ .../json12/hiep-dinh-paris-1973.json               |   98 -
+ .../json12/hiep-dinh-so-bo-6-3-1946.json           |  101 -
+ .../ho-chi-minh-cuoc-doi-su-nghiep-collection.json |  107 -
+ .../json12/hoi-nghi-ianta-2-1945.json              |   92 -
+ .../json12/hoi-nghi-tan-trao-8-1945.json           |  121 -
+ .../json12/ke-hoach-nava-1953.json                 |  101 -
+ .../json12/ket-thuc-chien-tranh-lanh-1989.json     |   92 -
+ .../json12/khang-chien-chong-my-collection.json    |  108 -
+ ...hang-chien-chong-phap-1945-1954-collection.json |  105 -
+ .../json12/khang-chien-chong-phap-1946-1950.json   |  106 -
+ .../json12/khang-chien-chong-phap-1951-1953.json   |  102 -
+ .../json12/khang-chien-nam-bo-1945.json            |  105 -
+ .../json12/khoi-nghia-ha-noi-19-8-1945.json        |  119 -
+ .../json12/khoi-nghia-hue-23-8-1945.json           |  123 -
+ .../json12/khoi-nghia-sai-gon-25-8-1945.json       |  123 -
+ .../mat-tran-dan-toc-giai-phong-mien-nam-1960.json |  139 -
+ .../json12/mat-tran-viet-minh.json                 |  125 -
+ .../json12/my-pha-hoai-mien-bac-lan-1.json         |  101 -
+ .../json12/my-pha-hoai-mien-bac-lan-2-1972.json    |  103 -
+ .../json12/nato-1949.json                          |   92 -
+ .../json12/nghi-quyet-15-tw-dang-1959.json         |  100 -
+ .../json12/nguyen-ai-quoc-gui-yeu-sach-1919.json   |   93 -
+ .../json12/nguyen-nhan-y-nghia-chong-my.json       |   92 -
+ .../json12/nguyen-nhan-y-nghia-chong-phap.json     |   92 -
+ .../json12/nguyen-nhan-y-nghia-cm-thang-tam.json   |   94 -
+ .../json12/phap-xam-luoc-nam-bo-23-9-1945.json     |  118 -
+ .../json12/phong-trao-dong-khoi-1960.json          |  114 -
+ .../json12/su-kien-gac-ma-1988.json                |  142 -
+ .../json12/su-kien-vinh-bac-bo-1964.json           |  102 -
+ .../json12/thanh-lap-asean-1967.json               |   95 -
+ .../json12/thanh-lap-dang-csvn-1930.json           |  101 -
+ ...thanh-lap-hoi-vn-cach-mang-thanh-nien-1925.json |  103 -
+ .../json12/thanh-lap-lien-hop-quoc-1945.json       |   95 -
+ .../thanh-lap-vn-tuyen-truyen-giai-phong-quan.json |  119 -
+ .../json12/thanh-tuu-doi-moi.json                  |   90 -
+ .../json12/tien-cong-chien-luoc-1972.json          |  102 -
+ .../json12/tien-cong-dong-xuan-1953-1954.json      |  102 -
+ .../json12/toan-quoc-khang-chien-19-12-1946.json   |  119 -
+ .../json12/tong-tien-cong-mau-than-1968.json       |   98 -
+ .../json12/trat-tu-hai-cuc-ianta.json              |   92 -
+ .../json12/trung-quoc-thanh-lap-tam-sa-2012.json   |  109 -
+ .../tuyen-bo-hoa-binh-tu-do-trung-lap-1971.json    |   96 -
+ .../json12/tuyen-ngon-doc-lap-1945.json            |  144 -
+ .../json12/unesco-vinh-danh-hcm-1987.json          |  101 -
+ .../json12/uy-ban-khoi-nghia-13-8-1945.json        |  120 -
+ .../json12/vac-sa-va-1955.json                     |   92 -
+ .../json12/viet-nam-hoa-chien-tranh-1969-1973.json |  109 -
+ .../json12/vn-gia-nhap-asean-1995.json             |  101 -
+ .../json12/vn-gia-nhap-lien-hop-quoc-1977.json     |   93 -
+ .../json12/vn-gia-nhap-wto-2007.json               |   98 -
+ .../json12/xu-the-da-cuc-sau-1991.json             |   89 -
+ 644 files changed, 85509 deletions(-)
+--- git diff --name-only ---
+MVP_KLTN/.gitignore
+MVP_KLTN/README.md
+MVP_KLTN/eslint.config.js
+MVP_KLTN/index.html
+MVP_KLTN/package-lock.json
+MVP_KLTN/package.json
+MVP_KLTN/public/geojson/vietnam-provinces.json
+MVP_KLTN/public/vite.svg
+MVP_KLTN/scripts/build-exams-manifest.mjs
+MVP_KLTN/scripts/build-topic-index.mjs
+MVP_KLTN/scripts/lib/topicTaxonomy.mjs
+MVP_KLTN/src/App.tsx
+MVP_KLTN/src/assets/react.svg
+MVP_KLTN/src/auth/AuthContext.tsx
+MVP_KLTN/src/auth/ProtectedRoute.tsx
+MVP_KLTN/src/auth/RoleGuard.tsx
+MVP_KLTN/src/components/CesiumMap.tsx
+MVP_KLTN/src/components/EventPopup.tsx
+MVP_KLTN/src/components/Sidebar.tsx
+MVP_KLTN/src/components/Timeline.tsx
+MVP_KLTN/src/components/admin/AdminStatsCard.tsx
+MVP_KLTN/src/components/admin/AdminTable.tsx
+MVP_KLTN/src/components/admin/UserStatusBadge.tsx
+MVP_KLTN/src/components/auth/AuthFormMessage.tsx
+MVP_KLTN/src/components/auth/AuthLayout.tsx
+MVP_KLTN/src/components/auth/OAuthButtons.tsx
+MVP_KLTN/src/components/auth/PasswordInput.tsx
+MVP_KLTN/src/components/auth/TextInput.tsx
+MVP_KLTN/src/components/event-detail/EventChildrenList.tsx
+MVP_KLTN/src/components/event-detail/EventDetailSidebar.tsx
+MVP_KLTN/src/components/event-detail/EventHero.tsx
+MVP_KLTN/src/components/event-detail/EventKeyFacts.tsx
+MVP_KLTN/src/components/event-detail/EventLocationCard.tsx
+MVP_KLTN/src/components/event-detail/EventMediaGallery.tsx
+MVP_KLTN/src/components/event-detail/EventSources.tsx
+MVP_KLTN/src/components/event-detail/EventTTSPlayer.tsx
+MVP_KLTN/src/components/event-detail/EventTextbookContent.tsx
+MVP_KLTN/src/components/event-detail/SectionHeader.tsx
+MVP_KLTN/src/components/exams/ExamAnalysisPanel.tsx
+MVP_KLTN/src/components/exams/ExamAnswerReview.tsx
+MVP_KLTN/src/components/exams/ExamConfigPreview.tsx
+MVP_KLTN/src/components/exams/ExamCreateForm.tsx
+MVP_KLTN/src/components/exams/ExamGenerationLoading.tsx
+MVP_KLTN/src/components/exams/ExamHeader.tsx
+MVP_KLTN/src/components/exams/ExamHero.tsx
+MVP_KLTN/src/components/exams/ExamHistoryTable.tsx
+MVP_KLTN/src/components/exams/ExamModeSelector.tsx
+MVP_KLTN/src/components/exams/ExamNavigation.tsx
+MVP_KLTN/src/components/exams/ExamOptionCard.tsx
+MVP_KLTN/src/components/exams/ExamPresetCards.tsx
+MVP_KLTN/src/components/exams/ExamProgressSidebar.tsx
+MVP_KLTN/src/components/exams/ExamQuestionCard.tsx
+MVP_KLTN/src/components/exams/ExamResultActions.tsx
+MVP_KLTN/src/components/exams/ExamResultSummary.tsx
+MVP_KLTN/src/components/exams/ExamSourceBadge.tsx
+MVP_KLTN/src/components/exams/ExamSubmitDialog.tsx
+MVP_KLTN/src/components/exams/ExamTimer.tsx
+MVP_KLTN/src/components/exams/MCQQuestionCardV2.tsx
+MVP_KLTN/src/components/exams/TFQuestionCard.tsx
+MVP_KLTN/src/components/layout/AppHeader.tsx
+MVP_KLTN/src/components/layout/HeaderContext.tsx
+MVP_KLTN/src/components/profile/ActivityList.tsx
+MVP_KLTN/src/components/profile/ProgressChart.tsx
+MVP_KLTN/src/components/profile/RecommendationCard.tsx
+MVP_KLTN/src/components/profile/ScoreTable.tsx
+MVP_KLTN/src/components/profile/StatsCard.tsx
+MVP_KLTN/src/components/profile/UserAvatar.tsx
+MVP_KLTN/src/components/shared/EmptyState.tsx
+MVP_KLTN/src/components/shared/LoadingState.tsx
+MVP_KLTN/src/components/shared/RoleBadge.tsx
+MVP_KLTN/src/components/theme/ThemeToggle.tsx
+MVP_KLTN/src/data/eventAdapter.ts
+MVP_KLTN/src/data/eventRegistry.ts
+MVP_KLTN/src/data/events.ts
+MVP_KLTN/src/data/history_events/json10/bach-dang-938-ngo-quyen-xung-vuong.json
+MVP_KLTN/src/data/history_events/json10/binh-ngo-dai-cao-1428.json
+MVP_KLTN/src/data/history_events/json10/cach-mang-thang-tam-1945.json
+MVP_KLTN/src/data/history_events/json10/cai-cach-le-thanh-tong.json
+MVP_KLTN/src/data/history_events/json10/cai-cach-ltt-to-chuc-chinh-quyen.json
+MVP_KLTN/src/data/history_events/json10/chong-nguyen-1287-1288.json
+MVP_KLTN/src/data/history_events/json10/chu-nom-ra-doi.json
+MVP_KLTN/src/data/history_events/json10/chu-quoc-ngu-hinh-thanh.json
+MVP_KLTN/src/data/history_events/json10/chu-viet-cham-co.json
+MVP_KLTN/src/data/history_events/json10/dai-viet-su-ky-le-van-huu.json
+MVP_KLTN/src/data/history_events/json10/dan-ca-quan-ho-unesco-2009.json
+MVP_KLTN/src/data/history_events/json10/dap-de-quai-vac-tran.json
+MVP_KLTN/src/data/history_events/json10/dat-danh-hieu-tam-khoi.json
+MVP_KLTN/src/data/history_events/json10/di-tich-tra-kieu.json
+MVP_KLTN/src/data/history_events/json10/doi-do-thang-long.json
+MVP_KLTN/src/data/history_events/json10/doi-quoc-hieu-dai-viet.json
+MVP_KLTN/src/data/history_events/json10/dung-bia-tien-si.json
+MVP_KLTN/src/data/history_events/json10/dung-van-mieu.json
+MVP_KLTN/src/data/history_events/json10/giai-doan-dinh-hinh-van-minh-dai-viet.json
+MVP_KLTN/src/data/history_events/json10/giai-doan-dinh-tre-dau-tk18-giua-tk19.json
+MVP_KLTN/src/data/history_events/json10/giai-doan-le-so-mac-le-trung-hung.json
+MVP_KLTN/src/data/history_events/json10/giai-doan-phat-trien-ly-tran-ho.json
+MVP_KLTN/src/data/history_events/json10/gom-bat-trang.json
+MVP_KLTN/src/data/history_events/json10/gom-chu-dau.json
+MVP_KLTN/src/data/history_events/json10/hinh-thu-ly-thai-tong.json
+MVP_KLTN/src/data/history_events/json10/hoang-thanh-thang-long.json
+MVP_KLTN/src/data/history_events/json10/hoang-viet-luat-le.json
+MVP_KLTN/src/data/history_events/json10/hoi-an-cang-thi.json
+MVP_KLTN/src/data/history_events/json10/hoi-nghi-dien-hong.json
+MVP_KLTN/src/data/history_events/json10/khang-chien-chong-tong-981.json
+MVP_KLTN/src/data/history_events/json10/khoa-thi-dau-tien.json
+MVP_KLTN/src/data/history_events/json10/khoi-nghia-lam-son-1418-1427.json
+MVP_KLTN/src/data/history_events/json10/khuc-thua-du-tu-chu.json
+MVP_KLTN/src/data/history_events/json10/kien-truc-thap-cham.json
+MVP_KLTN/src/data/history_events/json10/le-tich-dien-ly-thai-tong.json
+MVP_KLTN/src/data/history_events/json10/mat-tran-dan-toc-giai-phong-mien-nam-1960.json
+MVP_KLTN/src/data/history_events/json10/mat-tran-viet-minh.json
+MVP_KLTN/src/data/history_events/json10/mo-quoc-tu-giam.json
+MVP_KLTN/src/data/history_events/json10/ngay-di-san-van-hoa-viet-nam-2005.json
+MVP_KLTN/src/data/history_events/json10/nha-ly-thanh-lap.json
+MVP_KLTN/src/data/history_events/json10/nha-nuoc-cham-pa-ra-doi.json
+MVP_KLTN/src/data/history_events/json10/nha-nuoc-phu-nam-ra-doi.json
+MVP_KLTN/src/data/history_events/json10/nuoc-au-lac-ra-doi.json
+MVP_KLTN/src/data/history_events/json10/nuoc-van-lang-ra-doi.json
+MVP_KLTN/src/data/history_events/json10/pham-su-man-mo-rong-phu-nam.json
+MVP_KLTN/src/data/history_events/json10/phat-giao-quoc-giao-ly-tran.json
+MVP_KLTN/src/data/history_events/json10/pho-hien-hung-yen.json
+MVP_KLTN/src/data/history_events/json10/quoc-trieu-hinh-luat.json
+MVP_KLTN/src/data/history_events/json10/sac-lenh-65sl-1945.json
+MVP_KLTN/src/data/history_events/json10/thang-long-36-pho-phuong.json
+MVP_KLTN/src/data/history_events/json10/thanh-nha-ho.json
+MVP_KLTN/src/data/history_events/json10/thuong-cang-van-don.json
+MVP_KLTN/src/data/history_events/json10/tin-nguong-tho-hung-vuong.json
+MVP_KLTN/src/data/history_events/json10/to-chuc-nha-nuoc-van-lang.json
+MVP_KLTN/src/data/history_events/json10/tong-tuyen-cu-1976.json
+MVP_KLTN/src/data/history_events/json10/tuyen-ngon-doc-lap-1945.json
+MVP_KLTN/src/data/history_events/json10/van-hoa-dong-son.json
+MVP_KLTN/src/data/history_events/json10/van-hoa-oc-eo.json
+MVP_KLTN/src/data/history_events/json10/van-hoa-sa-huynh.json
+MVP_KLTN/src/data/history_events/json10/vm-cham-pa.json
+MVP_KLTN/src/data/history_events/json10/vm-dai-viet.json
+MVP_KLTN/src/data/history_events/json10/vm-phu-nam.json
+MVP_KLTN/src/data/history_events/json10/vm-van-lang-au-lac.json
+MVP_KLTN/src/data/history_events/json10/xay-dung-chua-mot-cot.json
+MVP_KLTN/src/data/history_events/json10/xay-dung-thanh-co-loa.json
+MVP_KLTN/src/data/history_events/json11/ba-lan-chong-mong-nguyen.json
+MVP_KLTN/src/data/history_events/json11/bach-dang-938-ngo-quyen-xung-vuong.json
+MVP_KLTN/src/data/history_events/json11/bai-hoc-khoi-nghia-giai-phong.json
+MVP_KLTN/src/data/history_events/json11/bao-ve-chu-quyen-bien-dong-sau-1975.json
+MVP_KLTN/src/data/history_events/json11/bo-dao-nha-chiem-malacca-1511.json
+MVP_KLTN/src/data/history_events/json11/cach-mang-cuba-1959.json
+MVP_KLTN/src/data/history_events/json11/cach-mang-phap-1789.json
+MVP_KLTN/src/data/history_events/json11/cach-mang-thang-muoi-nga-1917.json
+MVP_KLTN/src/data/history_events/json11/cai-cach-ho-quy-ly.json
+MVP_KLTN/src/data/history_events/json11/cai-cach-hql-chinh-tri.json
+MVP_KLTN/src/data/history_events/json11/cai-cach-hql-kinh-te-xa-hoi.json
+MVP_KLTN/src/data/history_events/json11/cai-cach-hql-van-hoa.json
+MVP_KLTN/src/data/history_events/json11/cai-cach-le-thanh-tong.json
+MVP_KLTN/src/data/history_events/json11/cai-cach-ltt-kinh-te-van-hoa.json
+MVP_KLTN/src/data/history_events/json11/cai-cach-ltt-to-chuc-chinh-quyen.json
+MVP_KLTN/src/data/history_events/json11/cai-cach-minh-mang.json
+MVP_KLTN/src/data/history_events/json11/cai-cach-mm-dia-phuong.json
+MVP_KLTN/src/data/history_events/json11/cai-cach-mm-trung-uong.json
+MVP_KLTN/src/data/history_events/json11/cai-cach-xiem-rama-iv-v.json
+MVP_KLTN/src/data/history_events/json11/chien-tranh-doc-lap-my-1775-1783.json
+MVP_KLTN/src/data/history_events/json11/chong-mong-co-1258.json
+MVP_KLTN/src/data/history_events/json11/chong-nguyen-1285.json
+MVP_KLTN/src/data/history_events/json11/chong-nguyen-1287-1288.json
+MVP_KLTN/src/data/history_events/json11/cmts-anh-1642-1689.json
+MVP_KLTN/src/data/history_events/json11/dai-nam-nhat-thong-toan-do-1838.json
+MVP_KLTN/src/data/history_events/json11/doc-bien-dong-2002.json
+MVP_KLTN/src/data/history_events/json11/doi-bac-hai-the-ky-18.json
+MVP_KLTN/src/data/history_events/json11/doi-hoang-sa-the-ky-17.json
+MVP_KLTN/src/data/history_events/json11/doi-moi-1986-collection.json
+MVP_KLTN/src/data/history_events/json11/giai-phong-truong-sa-1975.json
+MVP_KLTN/src/data/history_events/json11/hiep-dinh-elysee-1949-chuyen-giao-hoang-sa-truong-sa.json
+MVP_KLTN/src/data/history_events/json11/hiep-dinh-vinh-bac-bo-2000.json
+MVP_KLTN/src/data/history_events/json11/hiep-uoc-hac-mang-1883.json
+MVP_KLTN/src/data/history_events/json11/hiep-uoc-pa-to-not-1884.json
+MVP_KLTN/src/data/history_events/json11/ho-quy-ly-len-ngoi-1400.json
+MVP_KLTN/src/data/history_events/json11/indonesia-tuyen-bo-doc-lap-1945.json
+MVP_KLTN/src/data/history_events/json11/khang-chien-chong-minh-1406-1407.json
+MVP_KLTN/src/data/history_events/json11/khang-chien-chong-phap-1858-1884.json
+MVP_KLTN/src/data/history_events/json11/khang-chien-chong-phap-dong-duong.json
+MVP_KLTN/src/data/history_events/json11/khang-chien-chong-thanh-1789.json
+MVP_KLTN/src/data/history_events/json11/khang-chien-chong-tong-1075-1077.json
+MVP_KLTN/src/data/history_events/json11/khang-chien-chong-tong-981.json
+MVP_KLTN/src/data/history_events/json11/khang-chien-chong-trieu-tk2-tcn.json
+MVP_KLTN/src/data/history_events/json11/khang-chien-chong-xiem-1785.json
+MVP_KLTN/src/data/history_events/json11/khoi-nghia-ba-trieu.json
+MVP_KLTN/src/data/history_events/json11/khoi-nghia-hai-ba-trung.json
+MVP_KLTN/src/data/history_events/json11/khoi-nghia-lam-son-1418-1427.json
+MVP_KLTN/src/data/history_events/json11/khoi-nghia-ly-bi.json
+MVP_KLTN/src/data/history_events/json11/khoi-nghia-phung-hung.json
+MVP_KLTN/src/data/history_events/json11/lam-son-gd1-1418-1423.json
+MVP_KLTN/src/data/history_events/json11/lam-son-gd2-1424-1426.json
+MVP_KLTN/src/data/history_events/json11/lam-son-gd3-1426-1427.json
+MVP_KLTN/src/data/history_events/json11/lien-bang-dong-duong.json
+MVP_KLTN/src/data/history_events/json11/lien-xo-sup-do-1991.json
+MVP_KLTN/src/data/history_events/json11/lien-xo-thanh-lap-1922.json
+MVP_KLTN/src/data/history_events/json11/luat-bien-viet-nam-2012.json
+MVP_KLTN/src/data/history_events/json11/nguyen-nhan-thang-loi-khang-chien.json
+MVP_KLTN/src/data/history_events/json11/nguyen-nhan-that-bai-khang-chien.json
+MVP_KLTN/src/data/history_events/json11/nuoc-van-xuan-thanh-lap-544.json
+MVP_KLTN/src/data/history_events/json11/phap-bao-ho-campuchia-1863.json
+MVP_KLTN/src/data/history_events/json11/phap-bao-ho-lao-1893.json
+MVP_KLTN/src/data/history_events/json11/phap-chiem-nam-bo-1862-1867.json
+MVP_KLTN/src/data/history_events/json11/phap-xam-luoc-vn-1858.json
+MVP_KLTN/src/data/history_events/json11/phat-hanh-tien-giay-1396.json
+MVP_KLTN/src/data/history_events/json11/phong-trao-tay-son.json
+MVP_KLTN/src/data/history_events/json11/quan-ly-hoang-sa-truong-sa-nguyen.json
+MVP_KLTN/src/data/history_events/json11/quoc-trieu-hinh-luat.json
+MVP_KLTN/src/data/history_events/json11/sach-trang-hoang-sa-truong-sa-1979-1988.json
+MVP_KLTN/src/data/history_events/json11/su-kien-gac-ma-1988.json
+MVP_KLTN/src/data/history_events/json11/tay-son-gd1-1771-1777.json
+MVP_KLTN/src/data/history_events/json11/tay-son-gd2-rach-gam-1785.json
+MVP_KLTN/src/data/history_events/json11/tay-son-gd3-1786-1789.json
+MVP_KLTN/src/data/history_events/json11/tay-son-gd4-1789-1802.json
+MVP_KLTN/src/data/history_events/json11/thanh-lap-huyen-dao-1982.json
+MVP_KLTN/src/data/history_events/json11/thanh-nha-ho.json
+MVP_KLTN/src/data/history_events/json11/tran-chi-lang-xuong-giang-1427.json
+MVP_KLTN/src/data/history_events/json11/tran-tot-dong-chuc-dong-1426.json
+MVP_KLTN/src/data/history_events/json11/trung-quoc-cai-cach-mo-cua-1978.json
+MVP_KLTN/src/data/history_events/json11/trung-quoc-chiem-hoang-sa-1974.json
+MVP_KLTN/src/data/history_events/json11/vi-tri-dia-chien-luoc-vn.json
+MVP_KLTN/src/data/history_events/json11/viet-nam-tham-gia-unclos-1982.json
+MVP_KLTN/src/data/history_events/json11/vm-chien-tranh-bao-ve-to-quoc.json
+MVP_KLTN/src/data/history_events/json11/vm-chu-quyen-bien-dong.json
+MVP_KLTN/src/data/history_events/json11/vm-khoi-nghia-va-giai-phong.json
+MVP_KLTN/src/data/history_events/json11/vnch-tiep-quan-hoang-sa-truong-sa-1954.json
+MVP_KLTN/src/data/history_events/json12/bai-hoc-khang-chien-1945-nay.json
+MVP_KLTN/src/data/history_events/json12/bao-dai-thoai-vi-30-8-1945.json
+MVP_KLTN/src/data/history_events/json12/bao-ve-chu-quyen-bien-dong-sau-1975.json
+MVP_KLTN/src/data/history_events/json12/bao-ve-to-quoc-sau-1975-collection.json
+MVP_KLTN/src/data/history_events/json12/binh-thuong-hoa-vn-my-1995.json
+MVP_KLTN/src/data/history_events/json12/binh-thuong-hoa-vn-tq-1991.json
+MVP_KLTN/src/data/history_events/json12/cach-mang-thang-tam-1945.json
+MVP_KLTN/src/data/history_events/json12/chi-thi-05-ct-tw-2016.json
+MVP_KLTN/src/data/history_events/json12/chien-dich-bien-gioi-thu-dong-1950.json
+MVP_KLTN/src/data/history_events/json12/chien-dich-cq88-1988.json
+MVP_KLTN/src/data/history_events/json12/chien-dich-dien-bien-phu-1954.json
+MVP_KLTN/src/data/history_events/json12/chien-dich-ho-chi-minh-1975.json
+MVP_KLTN/src/data/history_events/json12/chien-dich-hue-da-nang-1975.json
+MVP_KLTN/src/data/history_events/json12/chien-dich-tay-nguyen-1975.json
+MVP_KLTN/src/data/history_events/json12/chien-dich-viet-bac-thu-dong-1947.json
+MVP_KLTN/src/data/history_events/json12/chien-su-vi-xuyen-1984-1989.json
+MVP_KLTN/src/data/history_events/json12/chien-thang-ap-bac-1963.json
+MVP_KLTN/src/data/history_events/json12/chien-thang-nui-thanh-1965.json
+MVP_KLTN/src/data/history_events/json12/chien-thang-phuoc-long-1975.json
+MVP_KLTN/src/data/history_events/json12/chien-thang-van-tuong-1965.json
+MVP_KLTN/src/data/history_events/json12/chien-tranh-bien-gioi-phia-bac-1979.json
+MVP_KLTN/src/data/history_events/json12/chien-tranh-bien-gioi-tay-nam.json
+MVP_KLTN/src/data/history_events/json12/chien-tranh-cuc-bo-1965-1968.json
+MVP_KLTN/src/data/history_events/json12/chien-tranh-dac-biet-1961-1965.json
+MVP_KLTN/src/data/history_events/json12/chien-tranh-lanh-1947-1989.json
+MVP_KLTN/src/data/history_events/json12/chinh-phu-cach-mang-lam-thoi-1969.json
+MVP_KLTN/src/data/history_events/json12/cong-dong-asean-2015.json
+MVP_KLTN/src/data/history_events/json12/dai-hoi-iii-dang-lao-dong-1960.json
+MVP_KLTN/src/data/history_events/json12/dai-hoi-quoc-dan-tan-trao.json
+MVP_KLTN/src/data/history_events/json12/dai-hoi-vi-1986.json
+MVP_KLTN/src/data/history_events/json12/dien-bien-phu-tren-khong-1972.json
+MVP_KLTN/src/data/history_events/json12/doi-moi-1986-collection.json
+MVP_KLTN/src/data/history_events/json12/doi-moi-gd1-1986-1995.json
+MVP_KLTN/src/data/history_events/json12/doi-moi-gd2-1996-2006.json
+MVP_KLTN/src/data/history_events/json12/doi-moi-gd3-2006-nay.json
+MVP_KLTN/src/data/history_events/json12/doi-ngoai-1975-1985.json
+MVP_KLTN/src/data/history_events/json12/doi-ngoai-dau-tk20-1945.json
+MVP_KLTN/src/data/history_events/json12/doi-ngoai-khang-chien-my.json
+MVP_KLTN/src/data/history_events/json12/doi-ngoai-khang-chien-phap.json
+MVP_KLTN/src/data/history_events/json12/doi-ngoai-viet-nam-1900-nay-collection.json
+MVP_KLTN/src/data/history_events/json12/giai-doan-1954-1960.json
+MVP_KLTN/src/data/history_events/json12/giai-phong-mien-nam-30-4-1975.json
+MVP_KLTN/src/data/history_events/json12/giai-phong-phnom-penh-7-1-1979.json
+MVP_KLTN/src/data/history_events/json12/gian-khoan-hd981-2014.json
+MVP_KLTN/src/data/history_events/json12/hcm-qua-doi-2-9-1969.json
+MVP_KLTN/src/data/history_events/json12/hcm-ra-di-tim-duong-1911.json
+MVP_KLTN/src/data/history_events/json12/hcm-sang-lap-dcs-phap-1920.json
+MVP_KLTN/src/data/history_events/json12/hcm-tim-ra-con-duong-1920.json
+MVP_KLTN/src/data/history_events/json12/hien-chuong-asean-2007.json
+MVP_KLTN/src/data/history_events/json12/hiep-dinh-gio-ne-vo-1954.json
+MVP_KLTN/src/data/history_events/json12/hiep-dinh-paris-1973.json
+MVP_KLTN/src/data/history_events/json12/hiep-dinh-so-bo-6-3-1946.json
+MVP_KLTN/src/data/history_events/json12/ho-chi-minh-cuoc-doi-su-nghiep-collection.json
+MVP_KLTN/src/data/history_events/json12/hoi-nghi-ianta-2-1945.json
+MVP_KLTN/src/data/history_events/json12/hoi-nghi-tan-trao-8-1945.json
+MVP_KLTN/src/data/history_events/json12/ke-hoach-nava-1953.json
+MVP_KLTN/src/data/history_events/json12/ket-thuc-chien-tranh-lanh-1989.json
+MVP_KLTN/src/data/history_events/json12/khang-chien-chong-my-collection.json
+MVP_KLTN/src/data/history_events/json12/khang-chien-chong-phap-1945-1954-collection.json
+MVP_KLTN/src/data/history_events/json12/khang-chien-chong-phap-1946-1950.json
+MVP_KLTN/src/data/history_events/json12/khang-chien-chong-phap-1951-1953.json
+MVP_KLTN/src/data/history_events/json12/khang-chien-nam-bo-1945.json
+MVP_KLTN/src/data/history_events/json12/khoi-nghia-ha-noi-19-8-1945.json
+MVP_KLTN/src/data/history_events/json12/khoi-nghia-hue-23-8-1945.json
+MVP_KLTN/src/data/history_events/json12/khoi-nghia-sai-gon-25-8-1945.json
+MVP_KLTN/src/data/history_events/json12/mat-tran-dan-toc-giai-phong-mien-nam-1960.json
+MVP_KLTN/src/data/history_events/json12/mat-tran-viet-minh.json
+MVP_KLTN/src/data/history_events/json12/my-pha-hoai-mien-bac-lan-1.json
+MVP_KLTN/src/data/history_events/json12/my-pha-hoai-mien-bac-lan-2-1972.json
+MVP_KLTN/src/data/history_events/json12/nato-1949.json
+MVP_KLTN/src/data/history_events/json12/nghi-quyet-15-tw-dang-1959.json
+MVP_KLTN/src/data/history_events/json12/nguyen-ai-quoc-gui-yeu-sach-1919.json
+MVP_KLTN/src/data/history_events/json12/nguyen-nhan-y-nghia-chong-my.json
+MVP_KLTN/src/data/history_events/json12/nguyen-nhan-y-nghia-chong-phap.json
+MVP_KLTN/src/data/history_events/json12/nguyen-nhan-y-nghia-cm-thang-tam.json
+MVP_KLTN/src/data/history_events/json12/phap-xam-luoc-nam-bo-23-9-1945.json
+MVP_KLTN/src/data/history_events/json12/phong-trao-dong-khoi-1960.json
+MVP_KLTN/src/data/history_events/json12/su-kien-gac-ma-1988.json
+MVP_KLTN/src/data/history_events/json12/su-kien-vinh-bac-bo-1964.json
+MVP_KLTN/src/data/history_events/json12/thanh-lap-asean-1967.json
+MVP_KLTN/src/data/history_events/json12/thanh-lap-dang-csvn-1930.json
+MVP_KLTN/src/data/history_events/json12/thanh-lap-hoi-vn-cach-mang-thanh-nien-1925.json
+MVP_KLTN/src/data/history_events/json12/thanh-lap-lien-hop-quoc-1945.json
+MVP_KLTN/src/data/history_events/json12/thanh-lap-vn-tuyen-truyen-giai-phong-quan.json
+MVP_KLTN/src/data/history_events/json12/thanh-tuu-doi-moi.json
+MVP_KLTN/src/data/history_events/json12/tien-cong-chien-luoc-1972.json
+MVP_KLTN/src/data/history_events/json12/tien-cong-dong-xuan-1953-1954.json
+MVP_KLTN/src/data/history_events/json12/toan-quoc-khang-chien-19-12-1946.json
+MVP_KLTN/src/data/history_events/json12/tong-tien-cong-mau-than-1968.json
+MVP_KLTN/src/data/history_events/json12/trat-tu-hai-cuc-ianta.json
+MVP_KLTN/src/data/history_events/json12/trung-quoc-thanh-lap-tam-sa-2012.json
+MVP_KLTN/src/data/history_events/json12/tuyen-bo-hoa-binh-tu-do-trung-lap-1971.json
+MVP_KLTN/src/data/history_events/json12/tuyen-ngon-doc-lap-1945.json
+MVP_KLTN/src/data/history_events/json12/unesco-vinh-danh-hcm-1987.json
+MVP_KLTN/src/data/history_events/json12/uy-ban-khoi-nghia-13-8-1945.json
+MVP_KLTN/src/data/history_events/json12/vac-sa-va-1955.json
+MVP_KLTN/src/data/history_events/json12/viet-nam-hoa-chien-tranh-1969-1973.json
+MVP_KLTN/src/data/history_events/json12/vn-gia-nhap-asean-1995.json
+MVP_KLTN/src/data/history_events/json12/vn-gia-nhap-lien-hop-quoc-1977.json
+MVP_KLTN/src/data/history_events/json12/vn-gia-nhap-wto-2007.json
+MVP_KLTN/src/data/history_events/json12/xu-the-da-cuc-sau-1991.json
+MVP_KLTN/src/data/mockAdminData.ts
+MVP_KLTN/src/data/mockEventDetails.ts
+MVP_KLTN/src/data/mockExamQuestions.ts
+MVP_KLTN/src/data/mockLearningStats.ts
+MVP_KLTN/src/data/mockQuizQuestions.ts
+MVP_KLTN/src/data/mockUsers.ts
+MVP_KLTN/src/data/vietnamProvinceCentroids.ts
+MVP_KLTN/src/index.css
+MVP_KLTN/src/layouts/AdminLayout.tsx
+MVP_KLTN/src/layouts/ProfileLayout.tsx
+MVP_KLTN/src/lib/cesium.ts
+MVP_KLTN/src/lib/exam/__tests__/scoring.test.ts
+MVP_KLTN/src/lib/exam/examConstants.ts
+MVP_KLTN/src/lib/exam/examLoader.ts
+MVP_KLTN/src/lib/exam/manifestLoader.ts
+MVP_KLTN/src/lib/exam/scoring.ts
+MVP_KLTN/src/lib/exam/topicIndexLoader.ts
+MVP_KLTN/src/lib/exam/useSessionV2.ts
+MVP_KLTN/src/lib/exam/v2History.ts
+MVP_KLTN/src/main.tsx
+MVP_KLTN/src/pages/EventDetailPage.tsx
+MVP_KLTN/src/pages/MapPage.tsx
+MVP_KLTN/src/pages/admin/AdminDashboardPage.tsx
+MVP_KLTN/src/pages/admin/AdminEventsPage.tsx
+MVP_KLTN/src/pages/admin/AdminPlaceholderPage.tsx
+MVP_KLTN/src/pages/admin/AdminQuestionsPage.tsx
+MVP_KLTN/src/pages/admin/AdminUsersPage.tsx
+MVP_KLTN/src/pages/auth/ForgotPasswordPage.tsx
+MVP_KLTN/src/pages/auth/LoginPage.tsx
+MVP_KLTN/src/pages/auth/RegisterPage.tsx
+MVP_KLTN/src/pages/auth/ResetPasswordPage.tsx
+MVP_KLTN/src/pages/exams/ExamBrowsePage.tsx
+MVP_KLTN/src/pages/exams/ExamCreatePage.tsx
+MVP_KLTN/src/pages/exams/ExamHistoryPage.tsx
+MVP_KLTN/src/pages/exams/ExamHomePage.tsx
+MVP_KLTN/src/pages/exams/ExamOnChuDePage.tsx
+MVP_KLTN/src/pages/exams/ExamResultPage.tsx
+MVP_KLTN/src/pages/exams/ExamSessionPage.tsx
+MVP_KLTN/src/pages/exams/ExamTopicPracticePage.tsx
+MVP_KLTN/src/pages/exams/ExamV2HistoryPage.tsx
+MVP_KLTN/src/pages/exams/ExamV2ResultPage.tsx
+MVP_KLTN/src/pages/exams/ExamV2SessionPage.tsx
+MVP_KLTN/src/pages/profile/LearningHistoryPage.tsx
+MVP_KLTN/src/pages/profile/ProfileDashboardPage.tsx
+MVP_KLTN/src/pages/profile/ProfilePlaceholderPage.tsx
+MVP_KLTN/src/pages/profile/ProfileSettingsPage.tsx
+MVP_KLTN/src/pages/profile/ScoresPage.tsx
+MVP_KLTN/src/pages/quiz/QuizGeneratePage.tsx
+MVP_KLTN/src/pages/quiz/QuizHistoryPage.tsx
+MVP_KLTN/src/pages/quiz/QuizHomePage.tsx
+MVP_KLTN/src/pages/quiz/QuizResultPage.tsx
+MVP_KLTN/src/pages/quiz/QuizSessionPage.tsx
+MVP_KLTN/src/services/authService.ts
+MVP_KLTN/src/services/eventDetailService.ts
+MVP_KLTN/src/services/examApiContract.ts
+MVP_KLTN/src/services/examService.ts
+MVP_KLTN/src/services/quizService.ts
+MVP_KLTN/src/services/ragQuizApiContract.ts
+MVP_KLTN/src/theme/ThemeContext.tsx
+MVP_KLTN/src/types/auth.ts
+MVP_KLTN/src/types/event.ts
+MVP_KLTN/src/types/exam.ts
+MVP_KLTN/src/types/quiz.ts
+MVP_KLTN/tsconfig.app.json
+MVP_KLTN/tsconfig.json
+MVP_KLTN/tsconfig.node.json
+MVP_KLTN/vite.config.ts
+MVP_KLTN/vitest.config.ts
+history_events_export_2026-04-24T14-28-46-607Z/json10/bach-dang-938-ngo-quyen-xung-vuong.json
+history_events_export_2026-04-24T14-28-46-607Z/json10/binh-ngo-dai-cao-1428.json
+history_events_export_2026-04-24T14-28-46-607Z/json10/cach-mang-thang-tam-1945.json
+history_events_export_2026-04-24T14-28-46-607Z/json10/cai-cach-le-thanh-tong.json
+history_events_export_2026-04-24T14-28-46-607Z/json10/cai-cach-ltt-to-chuc-chinh-quyen.json
+history_events_export_2026-04-24T14-28-46-607Z/json10/chong-nguyen-1287-1288.json
+history_events_export_2026-04-24T14-28-46-607Z/json10/chu-nom-ra-doi.json
+history_events_export_2026-04-24T14-28-46-607Z/json10/chu-quoc-ngu-hinh-thanh.json
+history_events_export_2026-04-24T14-28-46-607Z/json10/chu-viet-cham-co.json
+history_events_export_2026-04-24T14-28-46-607Z/json10/dai-viet-su-ky-le-van-huu.json
+history_events_export_2026-04-24T14-28-46-607Z/json10/dan-ca-quan-ho-unesco-2009.json
+history_events_export_2026-04-24T14-28-46-607Z/json10/dap-de-quai-vac-tran.json
+history_events_export_2026-04-24T14-28-46-607Z/json10/dat-danh-hieu-tam-khoi.json
+history_events_export_2026-04-24T14-28-46-607Z/json10/di-tich-tra-kieu.json
+history_events_export_2026-04-24T14-28-46-607Z/json10/doi-do-thang-long.json
+history_events_export_2026-04-24T14-28-46-607Z/json10/doi-quoc-hieu-dai-viet.json
+history_events_export_2026-04-24T14-28-46-607Z/json10/dung-bia-tien-si.json
+history_events_export_2026-04-24T14-28-46-607Z/json10/dung-van-mieu.json
+history_events_export_2026-04-24T14-28-46-607Z/json10/giai-doan-dinh-hinh-van-minh-dai-viet.json
+history_events_export_2026-04-24T14-28-46-607Z/json10/giai-doan-dinh-tre-dau-tk18-giua-tk19.json
+history_events_export_2026-04-24T14-28-46-607Z/json10/giai-doan-le-so-mac-le-trung-hung.json
+history_events_export_2026-04-24T14-28-46-607Z/json10/giai-doan-phat-trien-ly-tran-ho.json
+history_events_export_2026-04-24T14-28-46-607Z/json10/gom-bat-trang.json
+history_events_export_2026-04-24T14-28-46-607Z/json10/gom-chu-dau.json
+history_events_export_2026-04-24T14-28-46-607Z/json10/hinh-thu-ly-thai-tong.json
+history_events_export_2026-04-24T14-28-46-607Z/json10/hoang-thanh-thang-long.json
+history_events_export_2026-04-24T14-28-46-607Z/json10/hoang-viet-luat-le.json
+history_events_export_2026-04-24T14-28-46-607Z/json10/hoi-an-cang-thi.json
+history_events_export_2026-04-24T14-28-46-607Z/json10/hoi-nghi-dien-hong.json
+history_events_export_2026-04-24T14-28-46-607Z/json10/khang-chien-chong-tong-981.json
+history_events_export_2026-04-24T14-28-46-607Z/json10/khoa-thi-dau-tien.json
+history_events_export_2026-04-24T14-28-46-607Z/json10/khoi-nghia-lam-son-1418-1427.json
+history_events_export_2026-04-24T14-28-46-607Z/json10/khuc-thua-du-tu-chu.json
+history_events_export_2026-04-24T14-28-46-607Z/json10/kien-truc-thap-cham.json
+history_events_export_2026-04-24T14-28-46-607Z/json10/le-tich-dien-ly-thai-tong.json
+history_events_export_2026-04-24T14-28-46-607Z/json10/mat-tran-dan-toc-giai-phong-mien-nam-1960.json
+history_events_export_2026-04-24T14-28-46-607Z/json10/mat-tran-viet-minh.json
+history_events_export_2026-04-24T14-28-46-607Z/json10/mo-quoc-tu-giam.json
+history_events_export_2026-04-24T14-28-46-607Z/json10/ngay-di-san-van-hoa-viet-nam-2005.json
+history_events_export_2026-04-24T14-28-46-607Z/json10/nha-ly-thanh-lap.json
+history_events_export_2026-04-24T14-28-46-607Z/json10/nha-nuoc-cham-pa-ra-doi.json
+history_events_export_2026-04-24T14-28-46-607Z/json10/nha-nuoc-phu-nam-ra-doi.json
+history_events_export_2026-04-24T14-28-46-607Z/json10/nuoc-au-lac-ra-doi.json
+history_events_export_2026-04-24T14-28-46-607Z/json10/nuoc-van-lang-ra-doi.json
+history_events_export_2026-04-24T14-28-46-607Z/json10/pham-su-man-mo-rong-phu-nam.json
+history_events_export_2026-04-24T14-28-46-607Z/json10/phat-giao-quoc-giao-ly-tran.json
+history_events_export_2026-04-24T14-28-46-607Z/json10/pho-hien-hung-yen.json
+history_events_export_2026-04-24T14-28-46-607Z/json10/quoc-trieu-hinh-luat.json
+history_events_export_2026-04-24T14-28-46-607Z/json10/sac-lenh-65sl-1945.json
+history_events_export_2026-04-24T14-28-46-607Z/json10/thang-long-36-pho-phuong.json
+history_events_export_2026-04-24T14-28-46-607Z/json10/thanh-nha-ho.json
+history_events_export_2026-04-24T14-28-46-607Z/json10/thuong-cang-van-don.json
+history_events_export_2026-04-24T14-28-46-607Z/json10/tin-nguong-tho-hung-vuong.json
+history_events_export_2026-04-24T14-28-46-607Z/json10/to-chuc-nha-nuoc-van-lang.json
+history_events_export_2026-04-24T14-28-46-607Z/json10/tong-tuyen-cu-1976.json
+history_events_export_2026-04-24T14-28-46-607Z/json10/tuyen-ngon-doc-lap-1945.json
+history_events_export_2026-04-24T14-28-46-607Z/json10/van-hoa-dong-son.json
+history_events_export_2026-04-24T14-28-46-607Z/json10/van-hoa-oc-eo.json
+history_events_export_2026-04-24T14-28-46-607Z/json10/van-hoa-sa-huynh.json
+history_events_export_2026-04-24T14-28-46-607Z/json10/vm-cham-pa.json
+history_events_export_2026-04-24T14-28-46-607Z/json10/vm-dai-viet.json
+history_events_export_2026-04-24T14-28-46-607Z/json10/vm-phu-nam.json
+history_events_export_2026-04-24T14-28-46-607Z/json10/vm-van-lang-au-lac.json
+history_events_export_2026-04-24T14-28-46-607Z/json10/xay-dung-chua-mot-cot.json
+history_events_export_2026-04-24T14-28-46-607Z/json10/xay-dung-thanh-co-loa.json
+history_events_export_2026-04-24T14-28-46-607Z/json11/ba-lan-chong-mong-nguyen.json
+history_events_export_2026-04-24T14-28-46-607Z/json11/bach-dang-938-ngo-quyen-xung-vuong.json
+history_events_export_2026-04-24T14-28-46-607Z/json11/bai-hoc-khoi-nghia-giai-phong.json
+history_events_export_2026-04-24T14-28-46-607Z/json11/bao-ve-chu-quyen-bien-dong-sau-1975.json
+history_events_export_2026-04-24T14-28-46-607Z/json11/bo-dao-nha-chiem-malacca-1511.json
+history_events_export_2026-04-24T14-28-46-607Z/json11/cach-mang-cuba-1959.json
+history_events_export_2026-04-24T14-28-46-607Z/json11/cach-mang-phap-1789.json
+history_events_export_2026-04-24T14-28-46-607Z/json11/cach-mang-thang-muoi-nga-1917.json
+history_events_export_2026-04-24T14-28-46-607Z/json11/cai-cach-ho-quy-ly.json
+history_events_export_2026-04-24T14-28-46-607Z/json11/cai-cach-hql-chinh-tri.json
+history_events_export_2026-04-24T14-28-46-607Z/json11/cai-cach-hql-kinh-te-xa-hoi.json
+history_events_export_2026-04-24T14-28-46-607Z/json11/cai-cach-hql-van-hoa.json
+history_events_export_2026-04-24T14-28-46-607Z/json11/cai-cach-le-thanh-tong.json
+history_events_export_2026-04-24T14-28-46-607Z/json11/cai-cach-ltt-kinh-te-van-hoa.json
+history_events_export_2026-04-24T14-28-46-607Z/json11/cai-cach-ltt-to-chuc-chinh-quyen.json
+history_events_export_2026-04-24T14-28-46-607Z/json11/cai-cach-minh-mang.json
+history_events_export_2026-04-24T14-28-46-607Z/json11/cai-cach-mm-dia-phuong.json
+history_events_export_2026-04-24T14-28-46-607Z/json11/cai-cach-mm-trung-uong.json
+history_events_export_2026-04-24T14-28-46-607Z/json11/cai-cach-xiem-rama-iv-v.json
+history_events_export_2026-04-24T14-28-46-607Z/json11/chien-tranh-doc-lap-my-1775-1783.json
+history_events_export_2026-04-24T14-28-46-607Z/json11/chong-mong-co-1258.json
+history_events_export_2026-04-24T14-28-46-607Z/json11/chong-nguyen-1285.json
+history_events_export_2026-04-24T14-28-46-607Z/json11/chong-nguyen-1287-1288.json
+history_events_export_2026-04-24T14-28-46-607Z/json11/cmts-anh-1642-1689.json
+history_events_export_2026-04-24T14-28-46-607Z/json11/dai-nam-nhat-thong-toan-do-1838.json
+history_events_export_2026-04-24T14-28-46-607Z/json11/doc-bien-dong-2002.json
+history_events_export_2026-04-24T14-28-46-607Z/json11/doi-bac-hai-the-ky-18.json
+history_events_export_2026-04-24T14-28-46-607Z/json11/doi-hoang-sa-the-ky-17.json
+history_events_export_2026-04-24T14-28-46-607Z/json11/doi-moi-1986-collection.json
+history_events_export_2026-04-24T14-28-46-607Z/json11/giai-phong-truong-sa-1975.json
+history_events_export_2026-04-24T14-28-46-607Z/json11/hiep-dinh-elysee-1949-chuyen-giao-hoang-sa-truong-sa.json
+history_events_export_2026-04-24T14-28-46-607Z/json11/hiep-dinh-vinh-bac-bo-2000.json
+history_events_export_2026-04-24T14-28-46-607Z/json11/hiep-uoc-hac-mang-1883.json
+history_events_export_2026-04-24T14-28-46-607Z/json11/hiep-uoc-pa-to-not-1884.json
+history_events_export_2026-04-24T14-28-46-607Z/json11/ho-quy-ly-len-ngoi-1400.json
+history_events_export_2026-04-24T14-28-46-607Z/json11/indonesia-tuyen-bo-doc-lap-1945.json
+history_events_export_2026-04-24T14-28-46-607Z/json11/khang-chien-chong-minh-1406-1407.json
+history_events_export_2026-04-24T14-28-46-607Z/json11/khang-chien-chong-phap-1858-1884.json
+history_events_export_2026-04-24T14-28-46-607Z/json11/khang-chien-chong-phap-dong-duong.json
+history_events_export_2026-04-24T14-28-46-607Z/json11/khang-chien-chong-thanh-1789.json
+history_events_export_2026-04-24T14-28-46-607Z/json11/khang-chien-chong-tong-1075-1077.json
+history_events_export_2026-04-24T14-28-46-607Z/json11/khang-chien-chong-tong-981.json
+history_events_export_2026-04-24T14-28-46-607Z/json11/khang-chien-chong-trieu-tk2-tcn.json
+history_events_export_2026-04-24T14-28-46-607Z/json11/khang-chien-chong-xiem-1785.json
+history_events_export_2026-04-24T14-28-46-607Z/json11/khoi-nghia-ba-trieu.json
+history_events_export_2026-04-24T14-28-46-607Z/json11/khoi-nghia-hai-ba-trung.json
+history_events_export_2026-04-24T14-28-46-607Z/json11/khoi-nghia-lam-son-1418-1427.json
+history_events_export_2026-04-24T14-28-46-607Z/json11/khoi-nghia-ly-bi.json
+history_events_export_2026-04-24T14-28-46-607Z/json11/khoi-nghia-phung-hung.json
+history_events_export_2026-04-24T14-28-46-607Z/json11/lam-son-gd1-1418-1423.json
+history_events_export_2026-04-24T14-28-46-607Z/json11/lam-son-gd2-1424-1426.json
+history_events_export_2026-04-24T14-28-46-607Z/json11/lam-son-gd3-1426-1427.json
+history_events_export_2026-04-24T14-28-46-607Z/json11/lien-bang-dong-duong.json
+history_events_export_2026-04-24T14-28-46-607Z/json11/lien-xo-sup-do-1991.json
+history_events_export_2026-04-24T14-28-46-607Z/json11/lien-xo-thanh-lap-1922.json
+history_events_export_2026-04-24T14-28-46-607Z/json11/luat-bien-viet-nam-2012.json
+history_events_export_2026-04-24T14-28-46-607Z/json11/nguyen-nhan-thang-loi-khang-chien.json
+history_events_export_2026-04-24T14-28-46-607Z/json11/nguyen-nhan-that-bai-khang-chien.json
+history_events_export_2026-04-24T14-28-46-607Z/json11/nuoc-van-xuan-thanh-lap-544.json
+history_events_export_2026-04-24T14-28-46-607Z/json11/phap-bao-ho-campuchia-1863.json
+history_events_export_2026-04-24T14-28-46-607Z/json11/phap-bao-ho-lao-1893.json
+history_events_export_2026-04-24T14-28-46-607Z/json11/phap-chiem-nam-bo-1862-1867.json
+history_events_export_2026-04-24T14-28-46-607Z/json11/phap-xam-luoc-vn-1858.json
+history_events_export_2026-04-24T14-28-46-607Z/json11/phat-hanh-tien-giay-1396.json
+history_events_export_2026-04-24T14-28-46-607Z/json11/phong-trao-tay-son.json
+history_events_export_2026-04-24T14-28-46-607Z/json11/quan-ly-hoang-sa-truong-sa-nguyen.json
+history_events_export_2026-04-24T14-28-46-607Z/json11/quoc-trieu-hinh-luat.json
+history_events_export_2026-04-24T14-28-46-607Z/json11/sach-trang-hoang-sa-truong-sa-1979-1988.json
+history_events_export_2026-04-24T14-28-46-607Z/json11/su-kien-gac-ma-1988.json
+history_events_export_2026-04-24T14-28-46-607Z/json11/tay-son-gd1-1771-1777.json
+history_events_export_2026-04-24T14-28-46-607Z/json11/tay-son-gd2-rach-gam-1785.json
+history_events_export_2026-04-24T14-28-46-607Z/json11/tay-son-gd3-1786-1789.json
+history_events_export_2026-04-24T14-28-46-607Z/json11/tay-son-gd4-1789-1802.json
+history_events_export_2026-04-24T14-28-46-607Z/json11/thanh-lap-huyen-dao-1982.json
+history_events_export_2026-04-24T14-28-46-607Z/json11/thanh-nha-ho.json
+history_events_export_2026-04-24T14-28-46-607Z/json11/tran-chi-lang-xuong-giang-1427.json
+history_events_export_2026-04-24T14-28-46-607Z/json11/tran-tot-dong-chuc-dong-1426.json
+history_events_export_2026-04-24T14-28-46-607Z/json11/trung-quoc-cai-cach-mo-cua-1978.json
+history_events_export_2026-04-24T14-28-46-607Z/json11/trung-quoc-chiem-hoang-sa-1974.json
+history_events_export_2026-04-24T14-28-46-607Z/json11/vi-tri-dia-chien-luoc-vn.json
+history_events_export_2026-04-24T14-28-46-607Z/json11/viet-nam-tham-gia-unclos-1982.json
+history_events_export_2026-04-24T14-28-46-607Z/json11/vm-chien-tranh-bao-ve-to-quoc.json
+history_events_export_2026-04-24T14-28-46-607Z/json11/vm-chu-quyen-bien-dong.json
+history_events_export_2026-04-24T14-28-46-607Z/json11/vm-khoi-nghia-va-giai-phong.json
+history_events_export_2026-04-24T14-28-46-607Z/json11/vnch-tiep-quan-hoang-sa-truong-sa-1954.json
+history_events_export_2026-04-24T14-28-46-607Z/json12/bai-hoc-khang-chien-1945-nay.json
+history_events_export_2026-04-24T14-28-46-607Z/json12/bao-dai-thoai-vi-30-8-1945.json
+history_events_export_2026-04-24T14-28-46-607Z/json12/bao-ve-chu-quyen-bien-dong-sau-1975.json
+history_events_export_2026-04-24T14-28-46-607Z/json12/bao-ve-to-quoc-sau-1975-collection.json
+history_events_export_2026-04-24T14-28-46-607Z/json12/binh-thuong-hoa-vn-my-1995.json
+history_events_export_2026-04-24T14-28-46-607Z/json12/binh-thuong-hoa-vn-tq-1991.json
+history_events_export_2026-04-24T14-28-46-607Z/json12/cach-mang-thang-tam-1945.json
+history_events_export_2026-04-24T14-28-46-607Z/json12/chi-thi-05-ct-tw-2016.json
+history_events_export_2026-04-24T14-28-46-607Z/json12/chien-dich-bien-gioi-thu-dong-1950.json
+history_events_export_2026-04-24T14-28-46-607Z/json12/chien-dich-cq88-1988.json
+history_events_export_2026-04-24T14-28-46-607Z/json12/chien-dich-dien-bien-phu-1954.json
+history_events_export_2026-04-24T14-28-46-607Z/json12/chien-dich-ho-chi-minh-1975.json
+history_events_export_2026-04-24T14-28-46-607Z/json12/chien-dich-hue-da-nang-1975.json
+history_events_export_2026-04-24T14-28-46-607Z/json12/chien-dich-tay-nguyen-1975.json
+history_events_export_2026-04-24T14-28-46-607Z/json12/chien-dich-viet-bac-thu-dong-1947.json
+history_events_export_2026-04-24T14-28-46-607Z/json12/chien-su-vi-xuyen-1984-1989.json
+history_events_export_2026-04-24T14-28-46-607Z/json12/chien-thang-ap-bac-1963.json
+history_events_export_2026-04-24T14-28-46-607Z/json12/chien-thang-nui-thanh-1965.json
+history_events_export_2026-04-24T14-28-46-607Z/json12/chien-thang-phuoc-long-1975.json
+history_events_export_2026-04-24T14-28-46-607Z/json12/chien-thang-van-tuong-1965.json
+history_events_export_2026-04-24T14-28-46-607Z/json12/chien-tranh-bien-gioi-phia-bac-1979.json
+history_events_export_2026-04-24T14-28-46-607Z/json12/chien-tranh-bien-gioi-tay-nam.json
+history_events_export_2026-04-24T14-28-46-607Z/json12/chien-tranh-cuc-bo-1965-1968.json
+history_events_export_2026-04-24T14-28-46-607Z/json12/chien-tranh-dac-biet-1961-1965.json
+history_events_export_2026-04-24T14-28-46-607Z/json12/chien-tranh-lanh-1947-1989.json
+history_events_export_2026-04-24T14-28-46-607Z/json12/chinh-phu-cach-mang-lam-thoi-1969.json
+history_events_export_2026-04-24T14-28-46-607Z/json12/cong-dong-asean-2015.json
+history_events_export_2026-04-24T14-28-46-607Z/json12/dai-hoi-iii-dang-lao-dong-1960.json
+history_events_export_2026-04-24T14-28-46-607Z/json12/dai-hoi-quoc-dan-tan-trao.json
+history_events_export_2026-04-24T14-28-46-607Z/json12/dai-hoi-vi-1986.json
+history_events_export_2026-04-24T14-28-46-607Z/json12/dien-bien-phu-tren-khong-1972.json
+history_events_export_2026-04-24T14-28-46-607Z/json12/doi-moi-1986-collection.json
+history_events_export_2026-04-24T14-28-46-607Z/json12/doi-moi-gd1-1986-1995.json
+history_events_export_2026-04-24T14-28-46-607Z/json12/doi-moi-gd2-1996-2006.json
+history_events_export_2026-04-24T14-28-46-607Z/json12/doi-moi-gd3-2006-nay.json
+history_events_export_2026-04-24T14-28-46-607Z/json12/doi-ngoai-1975-1985.json
+history_events_export_2026-04-24T14-28-46-607Z/json12/doi-ngoai-dau-tk20-1945.json
+history_events_export_2026-04-24T14-28-46-607Z/json12/doi-ngoai-khang-chien-my.json
+history_events_export_2026-04-24T14-28-46-607Z/json12/doi-ngoai-khang-chien-phap.json
+history_events_export_2026-04-24T14-28-46-607Z/json12/doi-ngoai-viet-nam-1900-nay-collection.json
+history_events_export_2026-04-24T14-28-46-607Z/json12/giai-doan-1954-1960.json
+history_events_export_2026-04-24T14-28-46-607Z/json12/giai-phong-mien-nam-30-4-1975.json
+history_events_export_2026-04-24T14-28-46-607Z/json12/giai-phong-phnom-penh-7-1-1979.json
+history_events_export_2026-04-24T14-28-46-607Z/json12/gian-khoan-hd981-2014.json
+history_events_export_2026-04-24T14-28-46-607Z/json12/hcm-qua-doi-2-9-1969.json
+history_events_export_2026-04-24T14-28-46-607Z/json12/hcm-ra-di-tim-duong-1911.json
+history_events_export_2026-04-24T14-28-46-607Z/json12/hcm-sang-lap-dcs-phap-1920.json
+history_events_export_2026-04-24T14-28-46-607Z/json12/hcm-tim-ra-con-duong-1920.json
+history_events_export_2026-04-24T14-28-46-607Z/json12/hien-chuong-asean-2007.json
+history_events_export_2026-04-24T14-28-46-607Z/json12/hiep-dinh-gio-ne-vo-1954.json
+history_events_export_2026-04-24T14-28-46-607Z/json12/hiep-dinh-paris-1973.json
+history_events_export_2026-04-24T14-28-46-607Z/json12/hiep-dinh-so-bo-6-3-1946.json
+history_events_export_2026-04-24T14-28-46-607Z/json12/ho-chi-minh-cuoc-doi-su-nghiep-collection.json
+history_events_export_2026-04-24T14-28-46-607Z/json12/hoi-nghi-ianta-2-1945.json
+history_events_export_2026-04-24T14-28-46-607Z/json12/hoi-nghi-tan-trao-8-1945.json
+history_events_export_2026-04-24T14-28-46-607Z/json12/ke-hoach-nava-1953.json
+history_events_export_2026-04-24T14-28-46-607Z/json12/ket-thuc-chien-tranh-lanh-1989.json
+history_events_export_2026-04-24T14-28-46-607Z/json12/khang-chien-chong-my-collection.json
+history_events_export_2026-04-24T14-28-46-607Z/json12/khang-chien-chong-phap-1945-1954-collection.json
+history_events_export_2026-04-24T14-28-46-607Z/json12/khang-chien-chong-phap-1946-1950.json
+history_events_export_2026-04-24T14-28-46-607Z/json12/khang-chien-chong-phap-1951-1953.json
+history_events_export_2026-04-24T14-28-46-607Z/json12/khang-chien-nam-bo-1945.json
+history_events_export_2026-04-24T14-28-46-607Z/json12/khoi-nghia-ha-noi-19-8-1945.json
+history_events_export_2026-04-24T14-28-46-607Z/json12/khoi-nghia-hue-23-8-1945.json
+history_events_export_2026-04-24T14-28-46-607Z/json12/khoi-nghia-sai-gon-25-8-1945.json
+history_events_export_2026-04-24T14-28-46-607Z/json12/mat-tran-dan-toc-giai-phong-mien-nam-1960.json
+history_events_export_2026-04-24T14-28-46-607Z/json12/mat-tran-viet-minh.json
+history_events_export_2026-04-24T14-28-46-607Z/json12/my-pha-hoai-mien-bac-lan-1.json
+history_events_export_2026-04-24T14-28-46-607Z/json12/my-pha-hoai-mien-bac-lan-2-1972.json
+history_events_export_2026-04-24T14-28-46-607Z/json12/nato-1949.json
+history_events_export_2026-04-24T14-28-46-607Z/json12/nghi-quyet-15-tw-dang-1959.json
+history_events_export_2026-04-24T14-28-46-607Z/json12/nguyen-ai-quoc-gui-yeu-sach-1919.json
+history_events_export_2026-04-24T14-28-46-607Z/json12/nguyen-nhan-y-nghia-chong-my.json
+history_events_export_2026-04-24T14-28-46-607Z/json12/nguyen-nhan-y-nghia-chong-phap.json
+history_events_export_2026-04-24T14-28-46-607Z/json12/nguyen-nhan-y-nghia-cm-thang-tam.json
+history_events_export_2026-04-24T14-28-46-607Z/json12/phap-xam-luoc-nam-bo-23-9-1945.json
+history_events_export_2026-04-24T14-28-46-607Z/json12/phong-trao-dong-khoi-1960.json
+history_events_export_2026-04-24T14-28-46-607Z/json12/su-kien-gac-ma-1988.json
+history_events_export_2026-04-24T14-28-46-607Z/json12/su-kien-vinh-bac-bo-1964.json
+history_events_export_2026-04-24T14-28-46-607Z/json12/thanh-lap-asean-1967.json
+history_events_export_2026-04-24T14-28-46-607Z/json12/thanh-lap-dang-csvn-1930.json
+history_events_export_2026-04-24T14-28-46-607Z/json12/thanh-lap-hoi-vn-cach-mang-thanh-nien-1925.json
+history_events_export_2026-04-24T14-28-46-607Z/json12/thanh-lap-lien-hop-quoc-1945.json
+history_events_export_2026-04-24T14-28-46-607Z/json12/thanh-lap-vn-tuyen-truyen-giai-phong-quan.json
+history_events_export_2026-04-24T14-28-46-607Z/json12/thanh-tuu-doi-moi.json
+history_events_export_2026-04-24T14-28-46-607Z/json12/tien-cong-chien-luoc-1972.json
+history_events_export_2026-04-24T14-28-46-607Z/json12/tien-cong-dong-xuan-1953-1954.json
+history_events_export_2026-04-24T14-28-46-607Z/json12/toan-quoc-khang-chien-19-12-1946.json
+history_events_export_2026-04-24T14-28-46-607Z/json12/tong-tien-cong-mau-than-1968.json
+history_events_export_2026-04-24T14-28-46-607Z/json12/trat-tu-hai-cuc-ianta.json
+history_events_export_2026-04-24T14-28-46-607Z/json12/trung-quoc-thanh-lap-tam-sa-2012.json
+history_events_export_2026-04-24T14-28-46-607Z/json12/tuyen-bo-hoa-binh-tu-do-trung-lap-1971.json
+history_events_export_2026-04-24T14-28-46-607Z/json12/tuyen-ngon-doc-lap-1945.json
+history_events_export_2026-04-24T14-28-46-607Z/json12/unesco-vinh-danh-hcm-1987.json
+history_events_export_2026-04-24T14-28-46-607Z/json12/uy-ban-khoi-nghia-13-8-1945.json
+history_events_export_2026-04-24T14-28-46-607Z/json12/vac-sa-va-1955.json
+history_events_export_2026-04-24T14-28-46-607Z/json12/viet-nam-hoa-chien-tranh-1969-1973.json
+history_events_export_2026-04-24T14-28-46-607Z/json12/vn-gia-nhap-asean-1995.json
+history_events_export_2026-04-24T14-28-46-607Z/json12/vn-gia-nhap-lien-hop-quoc-1977.json
+history_events_export_2026-04-24T14-28-46-607Z/json12/vn-gia-nhap-wto-2007.json
+history_events_export_2026-04-24T14-28-46-607Z/json12/xu-the-da-cuc-sau-1991.json
+--- java -version ---
+java : openjdk version "23.0.1" 2024-10-15
+At line:23 char:1
++ java -version 2>&1
++ ~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (openjdk version "23.0.1" 2024-10-15:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+
+OpenJDK Runtime Environment (build 23.0.1+11-39)
+OpenJDK 64-Bit Server VM (build 23.0.1+11-39, mixed mode, sharing)
+--- node --version ---
+v22.14.0
+--- npm --version ---
+11.3.0
+--- python --version ---
+--- docker --version ---
+Docker version 29.2.1, build a5c7197
+--- docker compose version ---
+Docker Compose version v5.0.2

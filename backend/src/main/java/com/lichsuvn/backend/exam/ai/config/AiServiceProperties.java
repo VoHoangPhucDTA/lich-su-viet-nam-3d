@@ -5,6 +5,7 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.context.properties.bind.ConstructorBinding;
 import org.springframework.validation.annotation.Validated;
 
 import java.net.URI;
@@ -24,6 +25,7 @@ public record AiServiceProperties(
         @Min(0) @Max(3) int maxStyleExamples,
         String selfPracticeCanarySecret
 ) {
+    @ConstructorBinding
     public AiServiceProperties {
         selfPracticeCanarySecret = selfPracticeCanarySecret == null ? "" : selfPracticeCanarySecret;
     }

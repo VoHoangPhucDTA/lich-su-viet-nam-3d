@@ -1,0 +1,11 @@
+@startuml
+skinparam shadowing false
+skinparam monochrome true
+title 08 import event data
+actor Operator
+participant Importer
+participant MySQL
+Operator -> Importer: run approved JSONL import
+Importer -> MySQL: write historical_events + sourceJson
+MySQL --> Importer: import run/idempotency result
+@enduml

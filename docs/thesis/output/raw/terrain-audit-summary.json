@@ -1,0 +1,183 @@
+{
+  "audit": {
+    "timestamp": "2026-07-20T19:41:14.206Z",
+    "command": "node scripts/terrain-audit/audit.mjs",
+    "mode": "READ_ONLY_INPUTS",
+    "databaseLiveStatus": "DB_LIVE_UNVERIFIED"
+  },
+  "sources": {
+    "events": {
+      "kind": "canonical_jsonl_used_by_importer",
+      "path": "crawData/stage4b_curate_tree/output/phase2/core_events.jsonl",
+      "sha256": "4674284bed8be87e01045df88db90b8c4898fe0cc8a1c63baaaae5d1a3c1f1f9"
+    },
+    "geojson": {
+      "kind": "gadm_level_1_feature_collection",
+      "path": "frontend/public/geojson/vietnam-provinces.json",
+      "sha256": "54275398c7054a9d035fc6adf657a6fdc4e11ba0492e942ca11b662a88da132f",
+      "featureCount": 63,
+      "gidCount": 63
+    }
+  },
+  "records": {
+    "totalInput": 361,
+    "parseSuccess": 361,
+    "parseErrors": 0
+  },
+  "sourceJson": {
+    "validCanonicalSourceJson": 361,
+    "invalidCanonicalSourceJson": 0,
+    "databaseRawJsonRows": null,
+    "databaseRawJsonParseable": null,
+    "databaseSourceJsonMapData": null,
+    "normalizedDatabaseColumnComparison": "DB_LIVE_UNVERIFIED"
+  },
+  "mapData": {
+    "present": 361,
+    "missing": 0,
+    "validGeoType": 361,
+    "invalidOrMissingGeoType": 0
+  },
+  "geoTypes": {
+    "canonical": {
+      "point": 23,
+      "multi_point": 4,
+      "multi_polygon": 2,
+      "mixed": 107,
+      "nationwide": 56,
+      "no_location": 169
+    },
+    "legacy": {
+      "single_point": 0,
+      "multi_region": 0
+    },
+    "unknownOrMissing": 0
+  },
+  "points": {
+    "single": {
+      "total": 146,
+      "valid": 146,
+      "invalid": 0
+    },
+    "array": {
+      "total": 327,
+      "valid": 327,
+      "invalid": 0
+    },
+    "duplicates": {
+      "coordinateOccurrences": 134,
+      "differentLabelOccurrences": 23,
+      "scope": "within_event_across_marker_and_markers_array"
+    },
+    "canonicalPointTypeWithoutTarget": 0
+  },
+  "regions": {
+    "totalRefs": 380,
+    "resolvedRefs": 380,
+    "unresolvedRefs": 0,
+    "resolutionRatePercent": 100,
+    "duplicateRefs": 0,
+    "arrayLengthMismatchEvents": 0,
+    "resolvedGeometry": {
+      "Polygon": 0,
+      "MultiPolygon": 380,
+      "Other": 0
+    },
+    "canonicalRegionTypeWithoutTarget": 0,
+    "lookupPolicy": "exact_GID_1_only"
+  },
+  "eligibility": {
+    "eligibleTotal": 136,
+    "ineligibleTotal": 225,
+    "supportedTotal": 136,
+    "supportedEligible": 136,
+    "coverageAllPercent": 37.67,
+    "coverageSupportedPercent": 100,
+    "byGeoType": {
+      "mixed": {
+        "total": 107,
+        "eligible": 107,
+        "ineligible": 0
+      },
+      "multi_point": {
+        "total": 4,
+        "eligible": 4,
+        "ineligible": 0
+      },
+      "multi_polygon": {
+        "total": 2,
+        "eligible": 2,
+        "ineligible": 0
+      },
+      "nationwide": {
+        "total": 56,
+        "eligible": 0,
+        "ineligible": 56
+      },
+      "no_location": {
+        "total": 169,
+        "eligible": 0,
+        "ineligible": 169
+      },
+      "point": {
+        "total": 23,
+        "eligible": 23,
+        "ineligible": 0
+      }
+    },
+    "ineligibleReasons": {
+      "UNSUPPORTED_NATIONWIDE": 56,
+      "UNSUPPORTED_NO_LOCATION": 169
+    },
+    "byGrade": {
+      "10": {
+        "total": 57,
+        "eligible": 27,
+        "coveragePercent": 47.37
+      },
+      "11": {
+        "total": 125,
+        "eligible": 63,
+        "coveragePercent": 50.4
+      },
+      "12": {
+        "total": 177,
+        "eligible": 53,
+        "coveragePercent": 29.94
+      }
+    },
+    "byPeriod": null,
+    "byPeriodReason": "No stable period taxonomy audited; chronology was not inferred."
+  },
+  "issues": {
+    "totalDiagnostics": 359,
+    "byCode": {
+      "DUPLICATE_COORDINATE": 111,
+      "DUPLICATE_COORDINATE_DIFFERENT_LABEL": 23,
+      "UNSUPPORTED_NATIONWIDE": 56,
+      "UNSUPPORTED_NO_LOCATION": 169
+    }
+  },
+  "qualityGates": {
+    "Mọi input được parse an toàn": "PASS",
+    "Mọi coordinate được validate": "PASS",
+    "Mọi region được hiển thị đều resolve bằng GID": "PASS",
+    "Event lỗi không gây crash audit": "PASS",
+    "Eligibility có thể xác định deterministic": "PASS",
+    "Không sửa input/database": "PASS",
+    "Coverage đủ cho demo khóa luận": "NEEDS_DECISION",
+    "Frontend-only có khả thi": "CONDITIONAL"
+  },
+  "decision": {
+    "code": "B — FRONTEND_ONLY_CONDITIONAL",
+    "rationale": "Nguồn canonical giữ đầy đủ mapData và cho phép xác định target deterministic, nhưng độ tương đồng raw_json/sourceJson của database live chưa được xác minh; target lỗi hoặc không resolve phải bị loại an toàn.",
+    "backendChangeRequiredNow": false,
+    "migrationRequiredNow": false,
+    "conditions": [
+      "Audit snapshot DB/staging read-only được phép để xác nhận raw_json và sourceJson.mapData tương đồng với nguồn canonical.",
+      "Giữ sourceJson.mapData trong frontend detail mapper và validate mọi target trước khi bật CTA.",
+      "Loại coordinate lỗi và GADM ref không resolve kèm diagnostic; không suy ranh giới lịch sử bằng fuzzy matching.",
+      "Chọn các event eligible đại diện và duyệt ngưỡng coverage demo trước Phase 1."
+    ]
+  }
+}

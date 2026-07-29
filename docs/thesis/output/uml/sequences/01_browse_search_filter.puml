@@ -1,0 +1,12 @@
+@startuml
+skinparam shadowing false
+skinparam monochrome true
+title 01 browse search filter
+actor Visitor
+participant Browser
+participant API
+Visitor -> Browser: open /browse
+Browser -> API: GET /api/events or /api/timeline
+API --> Browser: event list/timeline
+Browser --> Visitor: render filtered list
+@enduml

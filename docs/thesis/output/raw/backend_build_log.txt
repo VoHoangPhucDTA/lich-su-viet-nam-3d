@@ -1,0 +1,4 @@
+Command: backend\mvnw.cmd -DskipTests package
+Exit: 0
+Result: PASS; Spring Boot 4.0.3 executable jar produced as backend/target/backend-0.0.1-SNAPSHOT.jar.
+Runtime tokens, passwords and external service responses intentionally omitted.
