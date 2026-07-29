@@ -6,6 +6,7 @@ import {
   AdminFilterSelect,
   AdminPageHeader,
   AdminPagination,
+  AdminRowActions,
   AdminSearchInput,
   AdminStatusBadge,
   type AdminDataColumn,
@@ -188,9 +189,19 @@ export default function AdminEventsPage() {
   };
   const clearFilters = () => {
     setSearch('');
-    setParams({});
+    setParams(previous => {
+      const next = new URLSearchParams(previous);
+      ['q', 'status', 'eventLevel', 'eventType', 'grade', 'geoType', 'chronology',
+        'quality', 'yearFrom', 'yearTo', 'offset'].forEach(key => next.delete(key));
+      return next;
+    });
   };
-  const hasFilters = Array.from(params.keys()).some(key => key !== 'offset');
+  const activeFilterCount = [
+    'q', 'status', 'eventLevel', 'eventType', 'grade', 'geoType', 'chronology',
+    'quality', 'yearFrom', 'yearTo',
+  ].filter(key => Boolean(params.get(key))).length;
+  const hasFilters = activeFilterCount > 0;
+  const returnTo = `${location.pathname}${location.search}`;
 
   const columns: AdminDataColumn<AdminEvent>[] = [
     {
@@ -211,6 +222,30 @@ export default function AdminEventsPage() {
       : <AdminStatusBadge status="draft" label={`${event.completeness.issueCount} vấn đề`} /> },
     { key: 'status', header: 'Trạng thái', render: event => <AdminStatusBadge status={event.status} /> },
     { key: 'updatedAt', header: 'Cập nhật', render: event => <time dateTime={event.updatedAt}>{new Date(event.updatedAt).toLocaleDateString('vi-VN')}</time> },
+    {
+      key: 'navigation',
+      header: 'Thao tác',
+      render: event => (
+        <AdminRowActions>
+          <Link
+            to={`/admin/events/${encodeURIComponent(event.id)}`}
+            state={{ from: returnTo }}
+            className="admin-secondary-button no-underline"
+            aria-label={`Xem ${event.title}`}
+          >
+            Xem
+          </Link>
+          <Link
+            to={`/admin/events/${encodeURIComponent(event.id)}/edit`}
+            state={{ from: returnTo }}
+            className="admin-primary-button no-underline"
+            aria-label={`Chỉnh sửa ${event.title}`}
+          >
+            Chỉnh sửa
+          </Link>
+        </AdminRowActions>
+      ),
+    },
     {
       key: 'actions',
       header: 'Xuất bản',
@@ -241,7 +276,19 @@ export default function AdminEventsPage() {
   ];
 
   return <AdminLayout title="Sự kiện lịch sử">
-    <AdminPageHeader title="Sự kiện lịch sử" description="Tìm kiếm, rà soát và quản lý trạng thái xuất bản an toàn." />
+    <AdminPageHeader
+      title="Sự kiện lịch sử"
+      description="Tìm kiếm, rà soát và quản lý trạng thái xuất bản an toàn."
+      actions={(
+        <Link
+          to="/admin/events/new"
+          state={{ from: returnTo }}
+          className="admin-primary-button no-underline"
+        >
+          Tạo sự kiện
+        </Link>
+      )}
+    />
     <section className="overflow-hidden rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
       <p role="note" className="border-b border-[var(--border)] bg-[var(--bg-secondary)] px-4 py-3 text-sm text-[var(--text-secondary)]">
         Hard delete vẫn bị khóa. Mọi thay đổi trạng thái dùng version chính xác và quy tắc độ đầy đủ dùng chung.
@@ -261,6 +308,9 @@ export default function AdminEventsPage() {
         <div className="flex flex-wrap items-center gap-2">
           <input aria-label="Năm bắt đầu" inputMode="numeric" placeholder="Năm từ" value={params.get('yearFrom') ?? ''} onChange={event => setValue('yearFrom', event.target.value)} className="admin-input w-28" />
           <input aria-label="Năm kết thúc" inputMode="numeric" placeholder="Năm đến" value={params.get('yearTo') ?? ''} onChange={event => setValue('yearTo', event.target.value)} className="admin-input w-28" />
+          <span className="text-xs text-[var(--text-muted)]" aria-live="polite">
+            {activeFilterCount > 0 ? `${activeFilterCount} bộ lọc đang dùng` : 'Chưa áp dụng bộ lọc'}
+          </span>
           <span className="ml-auto text-xs text-[var(--text-muted)]">{total} sự kiện</span>
           {hasFilters && <button type="button" className="admin-text-button" onClick={clearFilters}>Xóa bộ lọc</button>}
         </div>

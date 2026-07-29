@@ -45,6 +45,11 @@ export default function AdminAiCandidatesPage() {
 
   return <AdminLayout>
     <AdminPageHeader title="Duyệt câu hỏi AI" description="Đối chiếu provenance, chỉnh sửa, phê duyệt và xuất bản tường minh. Không có câu nào được tự động xuất bản." />
+    <p role="note" className="mb-4 rounded-xl border border-[var(--border)] bg-[var(--bg-secondary)] px-4 py-3 text-sm leading-6 text-[var(--text-secondary)]">
+      Candidate là câu hỏi nháp do quy trình AI tạo ra để người có quyền kiểm tra nguồn,
+      nội dung và đáp án trước khi phê duyệt. Phase này chỉ hỗ trợ hàng chờ duyệt hiện có;
+      chức năng sinh candidate chưa được mở trong Admin.
+    </p>
     <section className="overflow-hidden rounded-xl border border-[var(--border)] bg-[var(--bg-card)] shadow-[var(--admin-shadow)]">
       <div className="space-y-3 border-b border-[var(--border)] p-4">
         <AdminSearchInput value={query} onChange={event => setQuery(event.target.value)} onSubmit={() => { setOffset(0); setAppliedQuery(query.trim()); }} placeholder="Tìm nội dung câu hỏi..." />
@@ -53,7 +58,7 @@ export default function AdminAiCandidatesPage() {
           <AdminFilterSelect label="Độ khó" value={difficulty} onValueChange={value => { setDifficulty(value); setOffset(0); }} options={[{ value: '', label: 'Tất cả độ khó' }, ...['EASY', 'MEDIUM', 'HARD'].map(value => ({ value, label: value }))]} />
         </div>
       </div>
-      <AdminDataTable columns={columns} rows={items} getKey={item => item.id} minWidth="850px" loading={loading} error={error || undefined} onRetry={() => void load()} emptyTitle="Chưa có câu hỏi AI" emptyDescription="Admin có thể tạo quiz AI và chọn câu để lưu dưới dạng nháp." footer={<AdminPagination total={total} offset={offset} limit={LIMIT} loading={loading} onChange={setOffset} />} />
+      <AdminDataTable columns={columns} rows={items} getKey={item => item.id} minWidth="850px" loading={loading} error={error || undefined} onRetry={() => void load()} emptyTitle="Chưa có candidate cần duyệt" emptyDescription="Hàng chờ hiện đang trống. Chức năng sinh candidate chưa được mở trong Admin ở phase này." footer={<AdminPagination total={total} offset={offset} limit={LIMIT} loading={loading} onChange={setOffset} />} />
     </section>
   </AdminLayout>;
 }

@@ -1,9 +1,10 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
-import { createMemoryRouter, RouterProvider } from 'react-router-dom';
+import { createMemoryRouter, RouterProvider, useLocation } from 'react-router-dom';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import AdminEventEditorPage from '../AdminEventEditorPage';
 import {
   addAdminEventMedia,
+  createAdminEvent,
   getAdminEventDetail,
   replaceAdminEventGrades,
   updateAdminEventCore,
@@ -54,10 +55,36 @@ const detail: AdminEventDetail = {
   completeness: { complete: false, issueCount: 1, issues: [] },
 };
 
-function renderEditor() {
+function renderEditor(from?: string) {
   const router = createMemoryRouter(
     [{ path: '/admin/events/:id/edit', element: <AdminEventEditorPage /> }],
-    { initialEntries: ['/admin/events/event-1/edit'] },
+    {
+      initialEntries: [{
+        pathname: '/admin/events/event-1/edit',
+        state: from ? { from } : undefined,
+      }],
+    },
+  );
+  return render(<RouterProvider router={router} />);
+}
+
+function EditLocationProbe() {
+  const location = useLocation();
+  return <p data-testid="create-return">{(location.state as { from?: string } | null)?.from}</p>;
+}
+
+function renderCreateEditor(from: string) {
+  const router = createMemoryRouter(
+    [
+      { path: '/admin/events/new', element: <AdminEventEditorPage /> },
+      { path: '/admin/events/:id/edit', element: <EditLocationProbe /> },
+    ],
+    {
+      initialEntries: [{
+        pathname: '/admin/events/new',
+        state: { from },
+      }],
+    },
   );
   return render(<RouterProvider router={router} />);
 }
@@ -71,6 +98,7 @@ describe('AdminEventEditorPage', () => {
       publication: { ...detail.publication, updatedAt: nextVersion },
     });
     vi.mocked(replaceAdminEventGrades).mockResolvedValue(detail);
+    vi.mocked(createAdminEvent).mockResolvedValue(detail);
     vi.mocked(updateAdminEventPublication).mockResolvedValue({
       ...detail,
       publication: {
@@ -80,6 +108,17 @@ describe('AdminEventEditorPage', () => {
         updatedAt: nextVersion,
       },
     });
+  });
+
+  it('preserves list state after a successful create redirects to the editor', async () => {
+    renderCreateEditor('/admin/events?status=draft&sort=title%3Aasc&offset=20');
+    fireEvent.change(screen.getByRole('textbox', { name: /Tên sự kiện/ }), { target: { value: 'Sự kiện mới' } });
+    fireEvent.change(screen.getByRole('textbox', { name: /Slug/ }), { target: { value: 'su-kien-moi' } });
+    fireEvent.click(screen.getByRole('button', { name: 'Lưu nội dung' }));
+
+    expect(await screen.findByTestId('create-return'))
+      .toHaveTextContent('/admin/events?status=draft&sort=title%3Aasc&offset=20');
+    expect(createAdminEvent).toHaveBeenCalledTimes(1);
   });
 
   it('preserves the six-digit opaque version and keeps core and grade saves independent', async () => {
@@ -158,8 +197,10 @@ describe('AdminEventEditorPage', () => {
   });
 
   it('renders unknown chronology, typed publication actions and no hard-delete control', async () => {
-    renderEditor();
+    renderEditor('/admin/events?status=draft&grade=10');
     await screen.findByDisplayValue('Sự kiện');
+    expect(screen.getByRole('link', { name: '← Quay lại danh sách' }))
+      .toHaveAttribute('href', '/admin/events?status=draft&grade=10');
     expect(screen.getByLabelText('Năm bắt đầu')).toHaveValue(null);
     expect(screen.getByRole('button', { name: 'Xuất bản' })).toBeEnabled();
     expect(screen.getByRole('button', { name: 'Lưu trữ' })).toBeEnabled();

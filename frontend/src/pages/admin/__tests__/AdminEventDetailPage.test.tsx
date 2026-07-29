@@ -1,5 +1,5 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
-import { MemoryRouter, Route, Routes } from 'react-router-dom';
+import { MemoryRouter, Route, Routes, useLocation } from 'react-router-dom';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import AdminEventDetailPage from '../AdminEventDetailPage';
 import { getAdminEventDetail, type AdminEventDetail } from '../../../services/adminApi';
@@ -111,10 +111,16 @@ describe('AdminEventDetailPage', () => {
     vi.mocked(getAdminEventDetail).mockResolvedValue(detail);
   });
 
+  function EditLocationProbe() {
+    const location = useLocation();
+    return <p data-testid="edit-return">{(location.state as { from?: string } | null)?.from}</p>;
+  }
+
   const renderPage = () => render(
     <MemoryRouter initialEntries={[{ pathname: '/admin/events/event-1', state: { from: '/admin/events?status=draft' } }]}>
       <Routes>
         <Route path="/admin/events/:id" element={<AdminEventDetailPage />} />
+        <Route path="/admin/events/:id/edit" element={<EditLocationProbe />} />
       </Routes>
     </MemoryRouter>,
   );
@@ -140,6 +146,10 @@ describe('AdminEventDetailPage', () => {
     expect(screen.getByText(/1\/2 tham chiếu hiển thị/)).toBeInTheDocument();
     expect(screen.getByRole('link', { name: '← Quay lại danh sách' }))
       .toHaveAttribute('href', '/admin/events?status=draft');
+    expect(screen.getByRole('link', { name: 'Chỉnh sửa' }))
+      .toHaveAttribute('href', '/admin/events/event-1/edit');
+    fireEvent.click(screen.getByRole('link', { name: 'Chỉnh sửa' }));
+    expect(screen.getByTestId('edit-return')).toHaveTextContent('/admin/events?status=draft');
     expect(getAdminEventDetail).toHaveBeenCalledWith('event-1', expect.any(AbortSignal));
   });
 

@@ -11,12 +11,29 @@ vi.mock('../auth/AuthContext', () => ({
       fullName: 'Admin kiểm thử',
       email: 'admin@example.invalid',
       role: 'admin',
+      permissions: ['AI_CANDIDATE_VIEW'],
     },
     logout: vi.fn(),
   }),
 }));
 
 describe('AdminLayout mobile navigation accessibility', () => {
+  it('shows only Admin destinations and omits public Learning and Map links', () => {
+    render(
+      <MemoryRouter>
+        <AdminLayout><p>Nội dung</p></AdminLayout>
+      </MemoryRouter>,
+    );
+
+    expect(screen.getByRole('link', { name: 'Tổng quan' })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'Sự kiện lịch sử' })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'Người dùng' })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'Duyệt câu hỏi AI' })).toBeInTheDocument();
+    expect(screen.queryByRole('link', { name: 'Trang học tập' })).not.toBeInTheDocument();
+    expect(screen.queryByRole('link', { name: 'Bản đồ' })).not.toBeInTheDocument();
+    expect(screen.queryByText('Liên kết')).not.toBeInTheDocument();
+  });
+
   it('traps focus, makes the background inert, closes on Escape and restores focus', async () => {
     const user = userEvent.setup();
     render(

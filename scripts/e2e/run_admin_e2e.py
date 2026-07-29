@@ -21,6 +21,7 @@ COMPOSE = ROOT / "compose.admin-e2e.yml"
 FRONTEND = ROOT / "frontend"
 BASE_URL = "http://127.0.0.1:15174"
 MYSQL_IMAGE = "mysql:8.0.36"
+MIGRATIONS = ROOT / "backend" / "src" / "main" / "resources" / "db" / "migration"
 
 ACCOUNTS = {
     "ADMIN_ONE": ("Phase11 Admin One", ("admin",), "active"),
@@ -209,15 +210,30 @@ def prepare_fixtures(
     return {key: by_email[email] for key, email in emails.items()}
 
 
-def verify_flyway(env_file: Path) -> None:
+def expected_flyway_history() -> tuple[int, int]:
+    versions = sorted(
+        int(match.group(1))
+        for path in MIGRATIONS.glob("V*__*.sql")
+        if (match := re.match(r"V(\d+)__", path.name))
+    )
+    if not versions or versions != list(range(1, versions[-1] + 1)):
+        raise RuntimeError("Repository Flyway migration versions are not contiguous")
+    return len(versions), versions[-1]
+
+
+def verify_flyway(env_file: Path) -> int:
+    expected_count, expected_maximum = expected_flyway_history()
     result = mysql(
         env_file,
         "SELECT CONCAT(COUNT(*),':',COALESCE(MAX(CAST(version AS UNSIGNED)),0),':',"
         "SUM(CASE WHEN success=0 THEN 1 ELSE 0 END)) FROM flyway_schema_history;",
     )
     count, maximum, failed = (int(value) for value in result.split(":"))
-    if maximum != 39 or failed != 0 or count < 39:
-        raise RuntimeError("Disposable database did not complete Flyway V1-V39")
+    if maximum != expected_maximum or failed != 0 or count != expected_count:
+        raise RuntimeError(
+            "Disposable database Flyway history does not match repository migrations"
+        )
+    return expected_maximum
 
 
 def main() -> int:
@@ -247,8 +263,11 @@ def main() -> int:
             compose(env_file, "down", "-v", "--remove-orphans", capture=True)
             compose(env_file, "up", "--build", "-d")
             wait_frontend()
-            verify_flyway(env_file)
-            print("[admin-e2e] Flyway V1-V39 complete on disposable MySQL", flush=True)
+            flyway_version = verify_flyway(env_file)
+            print(
+                f"[admin-e2e] Flyway V1-V{flyway_version} complete on disposable MySQL",
+                flush=True,
+            )
 
             for key, (full_name, _, _) in ACCOUNTS.items():
                 register(emails[key], password, full_name)

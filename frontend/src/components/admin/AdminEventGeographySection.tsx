@@ -9,6 +9,7 @@ import {
 } from '../../services/adminApi';
 import { ApiRequestError } from '../../services/apiClient';
 import { publishedEventMutationError } from './adminEventPublication';
+import { AdminSelect, AdminStatusBadge } from './AdminUI';
 
 type Props = {
   eventId: string;
@@ -254,8 +255,14 @@ export default function AdminEventGeographySection({
   const labels = regions.map(ref => options.find(option => option.gadmRef === ref)?.label
     ?? detail.geography.provinceNames[regions.indexOf(ref)] ?? ref);
   return (
-    <section id="admin-event-geography" className="rounded-xl border border-[var(--border)] bg-[var(--bg-card)] p-5" aria-labelledby="admin-geography-title">
-      <h2 id="admin-geography-title" className="text-lg font-bold text-[var(--text-primary)]">Địa lý và mapData</h2>
+    <section id="admin-event-geography" className="admin-form-section rounded-xl border border-[var(--border)] bg-[var(--bg-card)] p-5" aria-labelledby="admin-geography-title">
+      <div className="flex flex-wrap items-start justify-between gap-3">
+        <h2 id="admin-geography-title" className="text-lg font-bold text-[var(--text-primary)]">Địa lý và mapData</h2>
+        <AdminStatusBadge
+          status={busy ? 'pending' : error ? 'disabled' : message ? 'active' : dirty ? 'draft' : 'active'}
+          label={busy ? 'Đang lưu' : error ? 'Có lỗi' : message ? 'Đã lưu' : dirty ? 'Chưa lưu' : 'Đã đồng bộ'}
+        />
+      </div>
       <p className="mt-1 text-sm text-[var(--text-muted)]">
         Chỉnh sửa cấu trúc an toàn; backend tự tạo mapData và hình học hiển thị.
       </p>
@@ -263,13 +270,10 @@ export default function AdminEventGeographySection({
       {message && <p role="status" className="mt-3 text-sm text-emerald-600">{message}</p>}
       {transitionWarning && <p className="mt-3 rounded-lg bg-amber-50 p-3 text-sm text-amber-800">{transitionWarning}</p>}
       <div className="mt-4 grid gap-4">
-        <label className="text-sm font-semibold">Loại địa lý
-          <select aria-label="Loại địa lý" value={geoType}
-            disabled={disabled || busy}
-            onChange={event => changeType(event.target.value as AdminCanonicalGeoType)}>
-            {TYPES.map(type => <option key={type.value} value={type.value}>{type.label}</option>)}
-          </select>
-        </label>
+        <AdminSelect visibleLabel label="Loại địa lý" value={geoType}
+          disabled={disabled || busy}
+          onValueChange={value => changeType(value as AdminCanonicalGeoType)}
+          options={TYPES} />
         {usesMarkers && <div className="space-y-3" aria-label="Danh sách marker">
           {markers.map((marker, index) => (
             <fieldset key={index} className="grid gap-2 rounded-lg border border-[var(--border)] p-3 md:grid-cols-2">
@@ -290,13 +294,15 @@ export default function AdminEventGeographySection({
             onClick={() => { setMarkers(previous => [...previous, emptyMarker()]); markDirty(); }}>Thêm marker</button>}
         </div>}
         {usesRegions && <div>
-          <label className="text-sm font-semibold">Vùng được duyệt
-            <select aria-label="Thêm vùng" value={selectedRegion} onChange={event => setSelectedRegion(event.target.value)}>
-              <option value="">Chọn vùng…</option>
-              {options.filter(option => !regions.includes(option.gadmRef)).map(option =>
-                <option key={option.gadmRef} value={option.gadmRef}>{option.label} ({option.gadmRef})</option>)}
-            </select>
-          </label>
+          <AdminSelect visibleLabel label="Thêm vùng" value={selectedRegion}
+            onValueChange={setSelectedRegion}
+            options={[
+              { value: '', label: 'Chọn vùng…' },
+              ...options.filter(option => !regions.includes(option.gadmRef)).map(option => ({
+                value: option.gadmRef,
+                label: `${option.label} (${option.gadmRef})`,
+              })),
+            ]} />
           <button type="button" disabled={!selectedRegion || disabled || busy} onClick={() => {
             setRegions(previous => [...previous, selectedRegion]);
             setSelectedRegion('');
@@ -315,12 +321,9 @@ export default function AdminEventGeographySection({
             onChange={event => { setHistoricalText(event.target.value); markDirty(); }} />
         </label>
         {(usesBounds || geoType === 'point') && <div className="grid gap-3 md:grid-cols-2">
-          {usesBounds && <label className="text-sm font-semibold">Chế độ focus
-            <select aria-label="Chế độ focus" value={focusMode}
-              onChange={event => { setFocusMode(event.target.value as 'auto' | 'bounds'); markDirty(); }}>
-              <option value="auto">Tự động</option><option value="bounds">Theo vùng bao</option>
-            </select>
-          </label>}
+          {usesBounds && <AdminSelect visibleLabel label="Chế độ focus" value={focusMode}
+            onValueChange={value => { setFocusMode(value as 'auto' | 'bounds'); markDirty(); }}
+            options={[{ value: 'auto', label: 'Tự động' }, { value: 'bounds', label: 'Theo vùng bao' }]} />}
           <label className="text-sm font-semibold">Zoom tùy chọn
             <input aria-label="Zoom tùy chọn" type="number" min="1" max="20" value={zoom}
               onChange={event => { setZoom(event.target.value); markDirty(); }} />

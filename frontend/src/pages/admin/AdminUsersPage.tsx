@@ -174,9 +174,15 @@ export default function AdminUsersPage() {
 
   const clearFilters = () => {
     setSearch('');
-    setParams({});
+    setParams(previous => {
+      const next = new URLSearchParams(previous);
+      ['q', 'status', 'role', 'verified', 'offset'].forEach(key => next.delete(key));
+      return next;
+    });
   };
-  const hasFilters = Array.from(params.keys()).some(key => key !== 'offset' && key !== 'limit');
+  const activeFilterCount = ['q', 'status', 'role', 'verified']
+    .filter(key => Boolean(params.get(key))).length;
+  const hasFilters = activeFilterCount > 0;
 
   const columns: AdminDataColumn<AdminUserListItem>[] = [
     {
@@ -289,8 +295,11 @@ export default function AdminUsersPage() {
             <AdminFilterSelect value={params.get('verified') ?? ''} onValueChange={value => setValue('verified', value)} label="Xác thực email" options={options.verified} />
             <AdminFilterSelect value={sortValue} onValueChange={setSort} label="Sắp xếp" options={options.sort} />
           </div>
-          <div className="flex items-center justify-between gap-3 text-xs text-[var(--text-muted)]">
+          <div className="flex flex-wrap items-center justify-between gap-3 text-xs text-[var(--text-muted)]">
             <span>{search.trim() !== urlQuery ? 'Đang tìm…' : `${total} tài khoản`}</span>
+            <span aria-live="polite">
+              {activeFilterCount > 0 ? `${activeFilterCount} bộ lọc đang dùng` : 'Chưa áp dụng bộ lọc'}
+            </span>
             {hasFilters && <button type="button" onClick={clearFilters} className="admin-text-button">Xóa bộ lọc</button>}
           </div>
         </div>

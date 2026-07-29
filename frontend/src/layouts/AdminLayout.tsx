@@ -1,11 +1,9 @@
 import { useEffect, useRef, useState, type ReactNode, type RefObject } from 'react';
-import { Link, NavLink, useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import {
   CalendarDays,
-  GraduationCap,
   LayoutDashboard,
   LogOut,
-  Map,
   Menu,
   Sparkles,
   Users,
@@ -130,16 +128,6 @@ function AdminSidebar({
                 <span>{label}</span>
               </NavLink>
             ))}
-          </div>
-          <div className="my-5" style={{ borderTop: '1px solid var(--border)' }} />
-          <p className="mb-2 px-3 text-[10px] font-semibold uppercase tracking-[0.16em]" style={{ color: 'var(--text-muted)' }}>Liên kết</p>
-          <div className="space-y-1">
-            <Link to="/profile/dashboard" onClick={onClose} className="admin-nav-item">
-              <GraduationCap size={17} strokeWidth={1.8} aria-hidden="true" /><span>Trang học tập</span>
-            </Link>
-            <Link to="/map" onClick={onClose} className="admin-nav-item">
-              <Map size={17} strokeWidth={1.8} aria-hidden="true" /><span>Bản đồ</span>
-            </Link>
           </div>
         </nav>
         <div className="p-3" style={{ borderTop: '1px solid var(--border)' }}>

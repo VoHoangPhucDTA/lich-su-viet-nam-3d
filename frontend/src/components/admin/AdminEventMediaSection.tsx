@@ -11,7 +11,7 @@ import {
 } from '../../services/adminApi';
 import { ApiRequestError } from '../../services/apiClient';
 import { publishedEventMutationError } from './adminEventPublication';
-import { AdminConfirmDialog } from './AdminUI';
+import { AdminConfirmDialog, AdminSelect, AdminStatusBadge } from './AdminUI';
 
 type Props = {
   eventId: string;
@@ -67,8 +67,14 @@ export default function AdminEventMediaSection({
   };
 
   return (
-    <section id="admin-event-media" className="rounded-xl border border-[var(--border)] bg-[var(--bg-card)] p-5" aria-labelledby="admin-media-title">
-      <h2 id="admin-media-title" className="text-lg font-bold text-[var(--text-primary)]">Media và thumbnail</h2>
+    <section id="admin-event-media" className="admin-form-section rounded-xl border border-[var(--border)] bg-[var(--bg-card)] p-5" aria-labelledby="admin-media-title">
+      <div className="flex flex-wrap items-start justify-between gap-3">
+        <h2 id="admin-media-title" className="text-lg font-bold text-[var(--text-primary)]">Media và thumbnail</h2>
+        <AdminStatusBadge
+          status={busy ? 'pending' : error ? 'disabled' : message ? 'active' : dirty ? 'draft' : 'active'}
+          label={busy ? 'Đang lưu' : error ? 'Có lỗi' : message ? 'Đã lưu' : dirty ? 'Chưa lưu' : 'Đã đồng bộ'}
+        />
+      </div>
       <p className="mt-1 text-sm text-[var(--text-muted)]">Chỉ quản lý metadata và URL HTTP(S); không upload file hay sửa dữ liệu bản đồ.</p>
       {error && <p role="alert" className="mt-3 text-sm text-[var(--accent)]">{error}</p>}
       {message && <p role="status" className="mt-3 text-sm text-emerald-600">{message}</p>}
@@ -92,20 +98,12 @@ export default function AdminEventMediaSection({
             <button type="button" disabled={disabled || busy || index === media.length - 1} onClick={() => move(index, 1)} aria-label="Di chuyển xuống">↓</button>
             {editingId === item.id ? (
               <div className="grid w-full gap-2 rounded-lg bg-[var(--bg-secondary)] p-3 md:grid-cols-2">
-                <label className="text-xs">Loại media
-                  <select aria-label={`Loại media ${item.id}`} value={editing?.mediaType ?? item.mediaType}
-                    onChange={event => setEditing(previous => ({ ...previous, mediaType: event.target.value as AdminEventMediaCreateRequest['mediaType'] }))}>
-                    <option value="image">image</option><option value="video">video</option>
-                    <option value="document">document</option><option value="audio">audio</option>
-                  </select>
-                </label>
-                <label className="text-xs">Trạng thái
-                  <select aria-label={`Trạng thái media ${item.id}`} value={editing?.status ?? item.status}
-                    onChange={event => setEditing(previous => ({ ...previous, status: event.target.value as 'active' | 'hidden' | 'missing' }))}>
-                    <option value="active">active</option><option value="hidden">hidden</option>
-                    <option value="missing">missing</option>
-                  </select>
-                </label>
+                <AdminSelect visibleLabel label={`Loại media ${item.id}`} value={editing?.mediaType ?? item.mediaType}
+                  onValueChange={value => setEditing(previous => ({ ...previous, mediaType: value as AdminEventMediaCreateRequest['mediaType'] }))}
+                  options={['image', 'video', 'document', 'audio'].map(value => ({ value, label: value }))} />
+                <AdminSelect visibleLabel label={`Trạng thái media ${item.id}`} value={editing?.status ?? item.status}
+                  onValueChange={value => setEditing(previous => ({ ...previous, status: value as 'active' | 'hidden' | 'missing' }))}
+                  options={['active', 'hidden', 'missing'].map(value => ({ value, label: value }))} />
                 <label className="text-xs md:col-span-2">URL
                   <input type="url" aria-label={`URL media ${item.id}`} value={editing?.url ?? ''}
                     placeholder={item.urlSafe ? 'https://...' : 'Nhập URL HTTP(S) an toàn để thay thế'}
@@ -185,9 +183,8 @@ export default function AdminEventMediaSection({
           return updated;
         });
       }}>
-        <select value={form.mediaType} onChange={event => setForm(previous => ({ ...previous, mediaType: event.target.value as AdminEventMediaCreateRequest['mediaType'] }))} disabled={disabled || busy} aria-label="Loại media">
-          <option value="image">image</option><option value="video">video</option><option value="document">document</option><option value="audio">audio</option>
-        </select>
+        <AdminSelect value={form.mediaType} onValueChange={value => setForm(previous => ({ ...previous, mediaType: value as AdminEventMediaCreateRequest['mediaType'] }))} disabled={disabled || busy} label="Loại media"
+          options={['image', 'video', 'document', 'audio'].map(value => ({ value, label: value }))} />
         <input required type="url" value={form.url} onChange={event => setForm(previous => ({ ...previous, url: event.target.value }))} disabled={disabled || busy} placeholder="https://..." aria-label="URL media" />
         <button type="submit" disabled={disabled || busy || media.length >= 200}>Thêm media</button>
       </form>

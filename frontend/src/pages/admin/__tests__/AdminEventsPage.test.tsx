@@ -1,5 +1,5 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
-import { MemoryRouter } from 'react-router-dom';
+import { MemoryRouter, Route, Routes, useLocation } from 'react-router-dom';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import AdminEventsPage from '../AdminEventsPage';
@@ -11,7 +11,7 @@ vi.mock('../../../layouts/AdminLayout', () => ({
 }));
 
 vi.mock('../../../components/admin/AdminUI', () => ({
-  AdminPageHeader: ({ title }: { title: string }) => <h1>{title}</h1>,
+  AdminPageHeader: ({ title, actions }: { title: string; actions?: React.ReactNode }) => <><h1>{title}</h1>{actions}</>,
   AdminSearchInput: (props: React.InputHTMLAttributes<HTMLInputElement>) => (
     <input {...props} aria-label="event-search" />
   ),
@@ -31,6 +31,7 @@ vi.mock('../../../components/admin/AdminUI', () => ({
     </select></label>
   ),
   AdminStatusBadge: ({ label, status }: { label?: string; status: string }) => <span>{label ?? status}</span>,
+  AdminRowActions: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
   AdminDataTable: ({
     columns,
     rows,
@@ -128,9 +129,19 @@ describe('AdminEventsPage', () => {
     vi.mocked(getAdminEvents).mockResolvedValue(page);
   });
 
+  function DestinationProbe() {
+    const location = useLocation();
+    return <p data-testid="event-return">{(location.state as { from?: string } | null)?.from}</p>;
+  }
+
   const renderPage = (initialEntry = '/admin/events') => render(
     <MemoryRouter initialEntries={[initialEntry]}>
-      <AdminEventsPage />
+      <Routes>
+        <Route path="/admin/events" element={<AdminEventsPage />} />
+        <Route path="/admin/events/new" element={<DestinationProbe />} />
+        <Route path="/admin/events/:id" element={<DestinationProbe />} />
+        <Route path="/admin/events/:id/edit" element={<DestinationProbe />} />
+      </Routes>
     </MemoryRouter>,
   );
 
@@ -205,14 +216,29 @@ describe('AdminEventsPage', () => {
     expect(firstSignal.aborted).toBe(true);
   });
 
-  it('links to detail, exposes typed publication actions and no hard-delete control', async () => {
+  it('exposes create, view and edit routes while keeping typed publication actions', async () => {
     renderPage('/admin/events?status=draft');
     await screen.findByText('Bạch Đằng');
     expect(screen.getByRole('link', { name: 'Bạch Đằng' })).toHaveAttribute('href', '/admin/events/event-1');
+    expect(screen.getByRole('link', { name: 'Tạo sự kiện' })).toHaveAttribute('href', '/admin/events/new');
+    expect(screen.getByRole('link', { name: 'Xem Bạch Đằng' })).toHaveAttribute('href', '/admin/events/event-1');
+    expect(screen.getByRole('link', { name: 'Chỉnh sửa Bạch Đằng' })).toHaveAttribute('href', '/admin/events/event-1/edit');
     expect(screen.getByRole('button', { name: 'Xuất bản row' })).toBeInTheDocument();
     expect(screen.getByRole('note')).toHaveTextContent('Hard delete vẫn bị khóa');
-    expect(screen.queryByRole('link', { name: /Tạo sự kiện/i })).not.toBeInTheDocument();
     expect(screen.queryByRole('button', { name: /xóa sự kiện/i })).not.toBeInTheDocument();
+    fireEvent.click(screen.getByRole('link', { name: 'Chỉnh sửa Bạch Đằng' }));
+    expect(screen.getByTestId('event-return')).toHaveTextContent('/admin/events?status=draft');
+  });
+
+  it('shows the active-filter count and clears filters without dropping sort', async () => {
+    renderPage('/admin/events?status=draft&grade=10&sort=title%3Aasc');
+    await screen.findByText('Bạch Đằng');
+    expect(screen.getByText('2 bộ lọc đang dùng')).toBeInTheDocument();
+    fireEvent.click(screen.getByRole('button', { name: 'Xóa bộ lọc' }));
+    await waitFor(() => expect(getAdminEvents).toHaveBeenLastCalledWith(
+      expect.objectContaining({ status: undefined, grade: undefined, sortBy: 'title', sortDir: 'asc' }),
+      expect.any(AbortSignal),
+    ));
   });
 
   it('refetches the URL-filtered page after publication succeeds', async () => {

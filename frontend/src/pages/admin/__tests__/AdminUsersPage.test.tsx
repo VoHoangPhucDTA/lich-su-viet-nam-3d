@@ -94,11 +94,24 @@ describe('AdminUsersPage', () => {
     expect(screen.getAllByText('Chưa có hoạt động').length).toBeGreaterThan(0);
     expect(screen.getByRole('link', { name: 'Nguyễn Quản trị' }))
       .toHaveAttribute('href', '/admin/users/user-1');
+    expect(screen.getByRole('link', { name: 'Nguyễn Quản trị' }).closest('td'))
+      .toHaveAttribute('data-label', 'Người dùng');
     expect(screen.queryByRole('button', { name: /sửa|xóa|khóa/i })).not.toBeInTheDocument();
     expect(getAdminUsers).toHaveBeenCalledWith(
       expect.objectContaining({ sortBy: 'createdAt', sortDir: 'desc', limit: 20, offset: 0 }),
       expect.any(AbortSignal),
     );
+  });
+
+  it('shows active filters and clears them while preserving sort state', async () => {
+    renderPage('/admin/users?role=teacher&status=active&sortBy=email&sortDir=asc');
+    await screen.findByText('Nguyễn Quản trị');
+    expect(screen.getByText('2 bộ lọc đang dùng')).toBeInTheDocument();
+    fireEvent.click(screen.getByRole('button', { name: 'Xóa bộ lọc' }));
+    await waitFor(() => expect(getAdminUsers).toHaveBeenLastCalledWith(
+      expect.objectContaining({ role: undefined, status: undefined, sortBy: 'email', sortDir: 'asc' }),
+      expect.any(AbortSignal),
+    ));
   });
 
   it('drives filters, sort and pagination from the URL contract', async () => {

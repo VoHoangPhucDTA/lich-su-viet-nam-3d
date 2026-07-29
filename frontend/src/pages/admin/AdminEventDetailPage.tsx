@@ -88,7 +88,18 @@ export default function AdminEventDetailPage() {
             eyebrow="Chi tiết quản trị"
             title={event.core.title}
             description={`ID: ${event.core.id} · Cập nhật ${new Date(event.publication.updatedAt).toLocaleString('vi-VN')}`}
-            actions={<AdminStatusBadge status={event.publication.status} />}
+            actions={(
+              <>
+                <AdminStatusBadge status={event.publication.status} />
+                <Link
+                  to={`/admin/events/${encodeURIComponent(event.core.id)}/edit`}
+                  state={{ from: returnTo }}
+                  className="admin-primary-button no-underline"
+                >
+                  Chỉnh sửa
+                </Link>
+              </>
+            )}
           />
           <div className="mb-5 rounded-xl border border-[var(--border)] bg-[var(--bg-card)] p-4">
             <AdminEventPublicationActions

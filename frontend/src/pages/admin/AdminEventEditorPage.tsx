@@ -1,11 +1,16 @@
-import { useEffect, useId, useMemo, useRef, useState, type FormEvent } from 'react';
+import { useEffect, useMemo, useRef, useState, type FormEvent } from 'react';
 import { Link, useBlocker, useLocation, useNavigate, useParams } from 'react-router-dom';
 import AdminLayout from '../../layouts/AdminLayout';
 import {
+  AdminCheckbox,
   AdminConfirmDialog,
   AdminErrorState,
+  AdminField,
   AdminFormSection,
   AdminPageHeader,
+  AdminSelect,
+  AdminStatusBadge,
+  AdminTextArea,
 } from '../../components/admin/AdminUI';
 import {
   createAdminEvent,
@@ -54,8 +59,6 @@ const emptyForm: CoreForm = {
   significance: '', keyFacts: '', showOnHomepage: false, showOnTimeline: false, featured: false,
 };
 
-const fieldClass = 'mt-1.5 min-h-11 w-full rounded-[var(--admin-radius)] border border-[var(--border)] bg-[var(--bg-card)] px-3 text-sm text-[var(--text-primary)] outline-none transition focus:border-[var(--admin-accent)]';
-
 function fromDetail(detail: AdminEventDetail): CoreForm {
   const chronology = detail.chronology;
   return {
@@ -86,41 +89,47 @@ function toNullableNumber(value: string): number | null {
 function Field({ label, value, onChange, required = false, type = 'text', error }: {
   label: string; value: string; onChange: (value: string) => void; required?: boolean; type?: string; error?: string;
 }) {
-  const id = useId();
-  const errorId = `${id}-error`;
   return (
-    <div>
-      <label htmlFor={id} className="block text-sm font-semibold text-[var(--text-secondary)]">
-        {label}{required && <span className="ml-1 text-[var(--accent)]" aria-hidden="true">*</span>}
-      </label>
-      <input
-        id={id}
-        required={required}
-        aria-required={required || undefined}
-        aria-invalid={Boolean(error)}
-        aria-describedby={error ? errorId : undefined}
-        type={type}
-        value={value}
-        onChange={event => onChange(event.target.value)}
-        className={fieldClass}
-      />
-      {error && <span id={errorId} role="alert" className="mt-1 block text-xs text-[var(--accent)]">{error}</span>}
-    </div>
+    <AdminField
+      label={label}
+      required={required}
+      error={error}
+      type={type}
+      value={value}
+      onChange={event => onChange(event.target.value)}
+    />
   );
 }
 
 function TextArea({ label, value, onChange, rows = 4 }: {
   label: string; value: string; onChange: (value: string) => void; rows?: number;
 }) {
-  const id = useId();
   return (
-    <div>
-      <label htmlFor={id} className="block text-sm font-semibold text-[var(--text-secondary)]">
-        {label}
-      </label>
-      <textarea id={id} value={value} onChange={event => onChange(event.target.value)} rows={rows} className={`${fieldClass} resize-y py-3`} />
-    </div>
+    <AdminTextArea
+      label={label}
+      value={value}
+      onChange={event => onChange(event.target.value)}
+      rows={rows}
+    />
   );
+}
+
+function SectionState({
+  dirty,
+  saving,
+  success,
+  error,
+}: {
+  dirty: boolean;
+  saving: boolean;
+  success?: string;
+  error?: string;
+}) {
+  if (saving) return <AdminStatusBadge status="pending" label="Đang lưu" />;
+  if (error) return <AdminStatusBadge status="disabled" label="Có lỗi" />;
+  if (success) return <AdminStatusBadge status="active" label="Đã lưu" />;
+  if (dirty) return <AdminStatusBadge status="draft" label="Chưa lưu" />;
+  return <AdminStatusBadge status="active" label="Đã đồng bộ" />;
 }
 
 function errorMessage(error: unknown): string {
@@ -137,6 +146,13 @@ export default function AdminEventEditorPage() {
   const navigate = useNavigate();
   const location = useLocation();
   const editing = Boolean(id);
+  const returnTo = typeof location.state === 'object'
+    && location.state !== null
+    && 'from' in location.state
+    && typeof location.state.from === 'string'
+    && location.state.from.startsWith('/admin/events')
+    ? location.state.from
+    : '/admin/events';
   const [detail, setDetail] = useState<AdminEventDetail | null>(null);
   const [form, setForm] = useState<CoreForm>(emptyForm);
   const [grades, setGrades] = useState<number[]>([]);
@@ -237,7 +253,10 @@ export default function AdminEventEditorPage() {
         setCoreDirty(false);
         setGradeDirty(false);
         allowSuccessfulCreateNavigation.current = true;
-        navigate(`/admin/events/${created.core.id}/edit`, { replace: true });
+        navigate(`/admin/events/${created.core.id}/edit`, {
+          replace: true,
+          state: { from: returnTo },
+        });
         return;
       }
       const payload: AdminEventCorePatchRequest = { expectedUpdatedAt: version };
@@ -302,9 +321,14 @@ export default function AdminEventEditorPage() {
 
   return (
     <AdminLayout title={editing ? 'Chỉnh sửa sự kiện' : 'Tạo sự kiện'}>
-      <div className="mb-4"><Link to="/admin/events" className="text-xs font-semibold text-[var(--text-muted)]">← Quay lại danh sách</Link></div>
+      <div className="mb-4"><Link to={returnTo} className="text-xs font-semibold text-[var(--text-muted)]">← Quay lại danh sách</Link></div>
       <AdminPageHeader title={editing ? 'Chỉnh sửa sự kiện' : 'Tạo bản nháp sự kiện'} description="Chỉnh sửa nội dung lõi, khối lớp, media metadata và dữ liệu địa lý có cấu trúc." />
-      {editing && detail && <AdminFormSection id="admin-event-publication" title="Trạng thái xuất bản" description={`Trạng thái hiện tại: ${detail.publication.status}`}>
+      {editing && detail && <AdminFormSection
+        id="admin-event-publication"
+        title="Xuất bản"
+        description={`Trạng thái hiện tại: ${detail.publication.status}`}
+        status={<SectionState dirty={false} saving={publicationSaving} />}
+      >
         <AdminEventPublicationActions
           eventId={id!}
           status={detail.publication.status}
@@ -334,35 +358,35 @@ export default function AdminEventEditorPage() {
       )}
       {coreError && <div role="alert" className="mb-4 rounded-lg border border-[var(--accent)]/20 bg-[var(--danger-soft)] px-4 py-3 text-sm text-[var(--accent)]">{coreError}</div>}
       <form onSubmit={saveCore} className="space-y-5">
-        <AdminFormSection id="admin-event-classification" title="Định danh và phân loại"><div className="grid gap-4 md:grid-cols-2">
+        <AdminFormSection id="admin-event-classification" title="Định danh và phân loại" status={<SectionState dirty={coreDirty} saving={coreSaving} success={coreSuccess} error={coreError} />}><div className="grid gap-4 md:grid-cols-2">
           <Field label="Tên sự kiện" value={form.title} onChange={value => update('title', value)} required error={fieldErrors.title} />
           <Field label="Slug" value={form.slug} onChange={value => update('slug', value.toLowerCase().replace(/[^a-z0-9-]/g, '-').replace(/-+/g, '-'))} required error={fieldErrors.slug} />
           <Field label="Tên ngắn" value={form.shortTitle} onChange={value => update('shortTitle', value)} />
-          <label className="text-sm font-semibold text-[var(--text-secondary)]">Cấp độ<select value={form.eventLevel} onChange={event => update('eventLevel', event.target.value as CoreForm['eventLevel'])} className={fieldClass}><option value="atomic">Sự kiện đơn</option><option value="collection">Bộ sưu tập</option></select></label>
-          <label className="text-sm font-semibold text-[var(--text-secondary)]">Loại<select value={form.eventType} onChange={event => update('eventType', event.target.value as CoreForm['eventType'])} className={fieldClass}><option value="political">Chính trị</option><option value="military">Quân sự</option><option value="economic">Kinh tế</option><option value="cultural">Văn hóa</option></select></label>
+          <AdminSelect visibleLabel label="Cấp độ" value={form.eventLevel} onValueChange={value => update('eventLevel', value as CoreForm['eventLevel'])} options={[{ value: 'atomic', label: 'Sự kiện đơn' }, { value: 'collection', label: 'Bộ sưu tập' }]} />
+          <AdminSelect visibleLabel label="Loại" value={form.eventType} onValueChange={value => update('eventType', value as CoreForm['eventType'])} options={[{ value: 'political', label: 'Chính trị' }, { value: 'military', label: 'Quân sự' }, { value: 'economic', label: 'Kinh tế' }, { value: 'cultural', label: 'Văn hóa' }]} />
           <Field label="Phân loại phụ" value={form.eventSubtype} onChange={value => update('eventSubtype', value)} />
         </div></AdminFormSection>
-        <AdminFormSection id="admin-event-chronology" title="Thời gian"><div className="grid gap-4 md:grid-cols-3">
+        <AdminFormSection id="admin-event-chronology" title="Thời gian" status={<SectionState dirty={coreDirty} saving={coreSaving} success={coreSuccess} error={coreError} />}><div className="grid gap-4 md:grid-cols-3">
           <Field label="Năm bắt đầu" value={form.startYear} onChange={value => update('startYear', value)} type="number" />
           <Field label="Năm kết thúc" value={form.endYear} onChange={value => update('endYear', value)} type="number" />
           <Field label="Năm kết thúc hiệu lực" value={form.effectiveEndYear} onChange={value => update('effectiveEndYear', value)} type="number" />
           <Field label="Ngày hiển thị" value={form.displayDate} onChange={value => update('displayDate', value)} />
           <Field label="Độ chính xác" value={form.datePrecision} onChange={value => update('datePrecision', value)} />
         </div></AdminFormSection>
-        <AdminFormSection id="admin-event-content" title="Nội dung lịch sử"><div className="space-y-4">
+        <AdminFormSection id="admin-event-content" title="Nội dung" description="Nội dung lịch sử và các dữ kiện chính." status={<SectionState dirty={coreDirty} saving={coreSaving} success={coreSuccess} error={coreError} />}><div className="space-y-4">
           <TextArea label="Tóm tắt thẻ" value={form.cardSummary} onChange={value => update('cardSummary', value)} rows={3} />
           <TextArea label="Tóm tắt chính" value={form.canonicalSummary} onChange={value => update('canonicalSummary', value)} />
           <TextArea label="Nội dung chi tiết" value={form.detailedNarrative} onChange={value => update('detailedNarrative', value)} rows={8} />
           <TextArea label="Ý nghĩa lịch sử" value={form.significance} onChange={value => update('significance', value)} />
           <TextArea label="Key facts, mỗi dòng một ý" value={form.keyFacts} onChange={value => update('keyFacts', value)} />
         </div></AdminFormSection>
-        <AdminFormSection title="Cờ hiển thị"><div className="flex flex-wrap gap-5 text-sm text-[var(--text-secondary)]">
-          {(['showOnHomepage', 'showOnTimeline', 'featured'] as const).map(key => <label key={key} className="flex items-center gap-2"><input type="checkbox" checked={form[key]} onChange={event => update(key, event.target.checked)} />{key}</label>)}
+        <AdminFormSection title="Cờ hiển thị" status={<SectionState dirty={coreDirty} saving={coreSaving} success={coreSuccess} error={coreError} />}><div className="flex flex-wrap gap-5 text-sm text-[var(--text-secondary)]">
+          {(['showOnHomepage', 'showOnTimeline', 'featured'] as const).map(key => <AdminCheckbox key={key} label={key} checked={form[key]} onChange={event => update(key, event.target.checked)} />)}
         </div></AdminFormSection>
         <div className="flex items-center justify-between"><span role="status" aria-live="polite" className="text-xs text-[var(--text-muted)]">{coreSuccess}</span><button type="submit" disabled={mutationsBlocked || !coreDirty} className="admin-primary-button disabled:cursor-not-allowed disabled:opacity-50">{coreSaving ? 'Đang lưu…' : 'Lưu nội dung'}</button></div>
       </form>
-      <AdminFormSection title="Khối lớp" description={editing ? 'Thay thế toàn bộ danh sách trong một request độc lập.' : 'Khối lớp được tạo cùng bản nháp trong một transaction.'}>
-        <div className="flex gap-5 text-sm text-[var(--text-secondary)]">{[10, 11, 12].map(grade => <label key={grade} className="flex items-center gap-2"><input type="checkbox" checked={grades.includes(grade)} onChange={event => { setGrades(previous => event.target.checked ? [...previous, grade].sort() : previous.filter(value => value !== grade)); setGradeDirty(true); setGradeSuccess(''); }} />Lớp {grade}</label>)}</div>
+      <AdminFormSection title="Khối lớp" description={editing ? 'Thay thế toàn bộ danh sách trong một request độc lập.' : 'Khối lớp được tạo cùng bản nháp trong một transaction.'} status={<SectionState dirty={gradeDirty} saving={gradeSaving} success={gradeSuccess} error={gradeError} />}>
+        <div className="flex flex-wrap gap-5 text-sm text-[var(--text-secondary)]">{[10, 11, 12].map(grade => <AdminCheckbox key={grade} label={`Lớp ${grade}`} checked={grades.includes(grade)} onChange={event => { setGrades(previous => event.target.checked ? [...previous, grade].sort() : previous.filter(value => value !== grade)); setGradeDirty(true); setGradeSuccess(''); }} />)}</div>
         {gradeError && <p role="alert" className="mt-3 text-sm text-[var(--accent)]">{gradeError}</p>}
         {editing && <div className="mt-4 flex items-center justify-between"><span role="status" aria-live="polite" className="text-xs text-[var(--text-muted)]">{gradeSuccess}</span><button type="button" disabled={mutationsBlocked || !gradeDirty} onClick={saveGrades} className="admin-primary-button disabled:cursor-not-allowed disabled:opacity-50">{gradeSaving ? 'Đang lưu…' : 'Lưu khối lớp'}</button></div>}
       </AdminFormSection>

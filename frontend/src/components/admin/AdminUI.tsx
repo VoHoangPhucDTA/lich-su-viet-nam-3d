@@ -1,6 +1,16 @@
-import { type CSSProperties, type ChangeEvent, type ReactNode, useEffect, useId, useRef } from 'react';
+import {
+  type ButtonHTMLAttributes,
+  type CSSProperties,
+  type ChangeEvent,
+  type InputHTMLAttributes,
+  type ReactNode,
+  type TextareaHTMLAttributes,
+  useEffect,
+  useId,
+  useRef,
+} from 'react';
 import { createPortal } from 'react-dom';
-import { ChevronLeft, ChevronRight, Search } from 'lucide-react';
+import { ChevronDown, ChevronLeft, ChevronRight, Search } from 'lucide-react';
 
 // --- AdminPageHeader ---------------------------------------------------------
 
@@ -96,24 +106,45 @@ interface AdminSelectProps {
   label: string;
   compact?: boolean;
   disabled?: boolean;
+  error?: string;
+  describedBy?: string;
+  visibleLabel?: boolean;
 }
 
-export function AdminSelect({ value, onValueChange, options, label, compact = false, disabled = false }: AdminSelectProps) {
+export function AdminSelect({
+  value,
+  onValueChange,
+  options,
+  label,
+  compact = false,
+  disabled = false,
+  error,
+  describedBy,
+  visibleLabel = false,
+}: AdminSelectProps) {
+  const errorId = useId();
   return (
     <div className={`admin-dropdown ${compact ? 'admin-dropdown-compact' : ''}`}>
-      <select
-        className="admin-dropdown-trigger"
-        aria-label={label}
-        disabled={disabled}
-        value={value}
-        onChange={event => onValueChange(event.target.value)}
-      >
-        {options.map(option => (
-          <option key={option.value} value={option.value}>
-            {option.label}
-          </option>
-        ))}
-      </select>
+      {visibleLabel && <span className="admin-field-label">{label}</span>}
+      <div className="admin-select-control">
+        <select
+          className="admin-dropdown-trigger"
+          aria-label={label}
+          aria-invalid={Boolean(error)}
+          aria-describedby={[describedBy, error ? errorId : ''].filter(Boolean).join(' ') || undefined}
+          disabled={disabled}
+          value={value}
+          onChange={event => onValueChange(event.target.value)}
+        >
+          {options.map(option => (
+            <option key={option.value} value={option.value}>
+              {option.label}
+            </option>
+          ))}
+        </select>
+        <ChevronDown className="admin-dropdown-chevron" size={16} aria-hidden="true" />
+      </div>
+      {error && <span id={errorId} role="alert" className="mt-1 block text-xs text-[var(--accent)]">{error}</span>}
     </div>
   );
 }
@@ -127,6 +158,116 @@ interface AdminFilterSelectProps {
 
 export function AdminFilterSelect({ value, onValueChange, options, label = 'Bộ lọc' }: AdminFilterSelectProps) {
   return <AdminSelect value={value} onValueChange={onValueChange} options={options} label={label} />;
+}
+
+// --- Admin form primitives ---------------------------------------------------
+
+interface AdminFieldProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'className'> {
+  label: string;
+  error?: string;
+  hint?: string;
+}
+
+export function AdminField({ label, error, hint, id: providedId, required, ...props }: AdminFieldProps) {
+  const generatedId = useId();
+  const id = providedId ?? generatedId;
+  const errorId = `${id}-error`;
+  const hintId = `${id}-hint`;
+  const describedBy = [hint ? hintId : '', error ? errorId : ''].filter(Boolean).join(' ') || undefined;
+  return (
+    <div className="admin-field">
+      <label htmlFor={id} className="admin-field-label">
+        {label}{required && <span className="ml-1 text-[var(--accent)]" aria-hidden="true">*</span>}
+      </label>
+      <input
+        {...props}
+        id={id}
+        required={required}
+        aria-required={required || undefined}
+        aria-invalid={Boolean(error)}
+        aria-describedby={describedBy}
+        className="admin-form-input"
+      />
+      {hint && <span id={hintId} className="admin-field-hint">{hint}</span>}
+      {error && <span id={errorId} role="alert" className="admin-field-error">{error}</span>}
+    </div>
+  );
+}
+
+interface AdminTextAreaProps extends Omit<TextareaHTMLAttributes<HTMLTextAreaElement>, 'className'> {
+  label: string;
+  error?: string;
+  hint?: string;
+}
+
+export function AdminTextArea({ label, error, hint, id: providedId, required, ...props }: AdminTextAreaProps) {
+  const generatedId = useId();
+  const id = providedId ?? generatedId;
+  const errorId = `${id}-error`;
+  const hintId = `${id}-hint`;
+  const describedBy = [hint ? hintId : '', error ? errorId : ''].filter(Boolean).join(' ') || undefined;
+  return (
+    <div className="admin-field">
+      <label htmlFor={id} className="admin-field-label">
+        {label}{required && <span className="ml-1 text-[var(--accent)]" aria-hidden="true">*</span>}
+      </label>
+      <textarea
+        {...props}
+        id={id}
+        required={required}
+        aria-required={required || undefined}
+        aria-invalid={Boolean(error)}
+        aria-describedby={describedBy}
+        className="admin-form-input admin-textarea"
+      />
+      {hint && <span id={hintId} className="admin-field-hint">{hint}</span>}
+      {error && <span id={errorId} role="alert" className="admin-field-error">{error}</span>}
+    </div>
+  );
+}
+
+export function AdminCheckbox({
+  label,
+  ...props
+}: Omit<InputHTMLAttributes<HTMLInputElement>, 'type' | 'className'> & { label: string }) {
+  return (
+    <label className="admin-checkbox">
+      <input {...props} type="checkbox" />
+      <span>{label}</span>
+    </label>
+  );
+}
+
+export function AdminActionButton({
+  variant = 'primary',
+  className = '',
+  ...props
+}: ButtonHTMLAttributes<HTMLButtonElement> & {
+  variant?: 'primary' | 'secondary' | 'danger' | 'text';
+}) {
+  return (
+    <button
+      {...props}
+      className={`admin-${variant}-button ${className}`.trim()}
+    />
+  );
+}
+
+export function AdminInlineAlert({
+  tone,
+  children,
+  className = '',
+}: {
+  tone: 'success' | 'error' | 'warning' | 'info';
+  children: ReactNode;
+  className?: string;
+}) {
+  const role = tone === 'error' ? 'alert' : 'status';
+  return (
+    <div role={role} aria-live={tone === 'error' ? 'assertive' : 'polite'} className={`admin-inline-alert admin-inline-alert-${tone} ${className}`.trim()}>
+      {children}
+    </div>
+  );
 }
 // --- AdminStatusBadge --------------------------------------------------------
 
@@ -375,11 +516,13 @@ export function AdminFormSection({
   id,
   title,
   description,
+  status,
   children,
 }: {
   id?: string;
   title: string;
   description?: string;
+  status?: ReactNode;
   children: ReactNode;
 }) {
   return (
@@ -393,15 +536,18 @@ export function AdminFormSection({
         boxShadow: 'var(--admin-shadow)',
       }}
     >
-      <div className="mb-5 pb-4" style={{ borderBottom: '1px solid var(--border)' }}>
-        <h2 className="text-2xl font-semibold" style={{ color: 'var(--text-primary)' }}>
-          {title}
-        </h2>
-        {description && (
-          <p className="mt-1 text-sm" style={{ color: 'var(--text-muted)' }}>
-            {description}
-          </p>
-        )}
+      <div className="mb-5 flex flex-wrap items-start justify-between gap-3 pb-4" style={{ borderBottom: '1px solid var(--border)' }}>
+        <div>
+          <h2 className="text-2xl font-semibold" style={{ color: 'var(--text-primary)' }}>
+            {title}
+          </h2>
+          {description && (
+            <p className="mt-1 text-sm" style={{ color: 'var(--text-muted)' }}>
+              {description}
+            </p>
+          )}
+        </div>
+        {status}
       </div>
       {children}
     </section>
@@ -411,7 +557,7 @@ export function AdminFormSection({
 // --- AdminRowActions ---------------------------------------------------------
 
 export function AdminRowActions({ children }: { children: ReactNode }) {
-  return <div className="flex items-center justify-end gap-1.5">{children}</div>;
+  return <div className="flex flex-wrap items-center justify-end gap-1.5">{children}</div>;
 }
 
 // --- AdminDataTable ----------------------------------------------------------
@@ -459,10 +605,11 @@ export function AdminDataTable<T>({
   return (
     <>
       <div
+        className="admin-table-region"
         role="region"
         aria-label={caption}
         tabIndex={0}
-        style={{ overflowX: 'auto' }}
+        style={{ '--admin-table-min-width': minWidth } as CSSProperties}
       >
         <table
           className="admin-data-table"
@@ -470,7 +617,6 @@ export function AdminDataTable<T>({
             width: '100%',
             borderCollapse: 'collapse',
             fontSize: '0.875rem',
-            minWidth,
           }}
         >
           <caption className="sr-only">{caption}</caption>
@@ -512,6 +658,7 @@ export function AdminDataTable<T>({
                 {columns.map(col => (
                   <td
                     key={col.key}
+                    data-label={col.header}
                     style={{
                       padding: '0.875rem 1rem',
                       color: 'var(--text-primary)',

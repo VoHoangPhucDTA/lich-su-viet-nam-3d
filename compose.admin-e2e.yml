@@ -16,9 +16,11 @@ services:
       test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -uadmin_e2e -p$$MYSQL_PASSWORD --silent"]
       interval: 5s
       timeout: 5s
-      # A cold MySQL initialization after an image/cache cleanup can take more
-      # than two minutes on the local Docker Desktop VM. Keep the same probe,
-      # but allow the isolated suite four minutes to become ready.
+      # A cold MySQL initialization on a constrained Docker Desktop VM can
+      # spend about four minutes before its temporary server is ready. Do not
+      # consume the real readiness retries while the entrypoint is still
+      # initializing the disposable data directory.
+      start_period: 5m
       retries: 48
     networks: [internal]
 
