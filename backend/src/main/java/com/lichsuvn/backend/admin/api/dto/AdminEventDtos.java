@@ -112,6 +112,7 @@ public final class AdminEventDtos {
             String sourceName,
             String license,
             String storageType,
+            boolean managed,
             boolean thumbnail,
             int sortOrder,
             String status,

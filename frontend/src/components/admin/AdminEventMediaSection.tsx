@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import {
   addAdminEventMedia,
   removeAdminEventMedia,
@@ -12,6 +12,7 @@ import {
 import { ApiRequestError } from '../../services/apiClient';
 import { publishedEventMutationError } from './adminEventPublication';
 import { AdminConfirmDialog, AdminSelect, AdminStatusBadge } from './AdminUI';
+import AdminEventImageUploadPanel from './AdminEventImageUploadPanel';
 
 type Props = {
   eventId: string;
@@ -19,7 +20,7 @@ type Props = {
   version: string;
   disabled?: boolean;
   onUpdated: (detail: AdminEventDetail) => void;
-  onConflict: () => void;
+  onConflict: (message?: string) => void;
   onBusyChange?: (busy: boolean) => void;
   onDirtyChange?: (dirty: boolean) => void;
 };
@@ -38,18 +39,27 @@ export default function AdminEventMediaSection({
   const [editingId, setEditingId] = useState<number | null>(null);
   const [editing, setEditing] = useState<EditableMedia | null>(null);
   const [pendingRemoveId, setPendingRemoveId] = useState<number | null>(null);
+  const [uploadDirty, setUploadDirty] = useState(false);
+  const versionRef = useRef(version);
   const media = detail.media.items;
-  const dirty = editingId !== null || form.url.trim() !== '';
+  const dirty = uploadDirty || editingId !== null || form.url.trim() !== '';
+  const pendingRemove = media.find(item => item.id === pendingRemoveId);
 
   useEffect(() => {
     onDirtyChange?.(dirty);
   }, [dirty, onDirtyChange]);
 
+  useEffect(() => {
+    versionRef.current = version;
+  }, [version]);
+
   const run = async (operation: () => Promise<AdminEventDetail>) => {
     if (disabled || busy) return;
     setBusy(true); onBusyChange?.(true); setError(''); setMessage('');
     try {
-      onUpdated(await operation());
+      const updated = await operation();
+      versionRef.current = updated.publication.updatedAt;
+      onUpdated(updated);
       setMessage('Đã cập nhật media.');
     } catch (cause) {
       if (cause instanceof ApiRequestError && cause.code === 'EVENT_UPDATE_CONFLICT') onConflict();
@@ -63,7 +73,7 @@ export default function AdminEventMediaSection({
     if (next < 0 || next >= media.length) return;
     const ids = media.map(item => item.id);
     [ids[index], ids[next]] = [ids[next], ids[index]];
-    void run(() => reorderAdminEventMedia(eventId, version, ids));
+    void run(() => reorderAdminEventMedia(eventId, versionRef.current, ids));
   };
 
   return (
@@ -75,9 +85,24 @@ export default function AdminEventMediaSection({
           label={busy ? 'Đang lưu' : error ? 'Có lỗi' : message ? 'Đã lưu' : dirty ? 'Chưa lưu' : 'Đã đồng bộ'}
         />
       </div>
-      <p className="mt-1 text-sm text-[var(--text-muted)]">Chỉ quản lý metadata và URL HTTP(S); không upload file hay sửa dữ liệu bản đồ.</p>
+      <p className="mt-1 text-sm text-[var(--text-muted)]">Tải JPEG/PNG hoặc quản lý metadata và liên kết media hiện có; phần này không sửa dữ liệu bản đồ.</p>
       {error && <p role="alert" className="mt-3 text-sm text-[var(--accent)]">{error}</p>}
       {message && <p role="status" className="mt-3 text-sm text-emerald-600">{message}</p>}
+      <AdminEventImageUploadPanel
+        eventId={eventId}
+        detail={detail}
+        version={version}
+        disabled={disabled || busy}
+        onBusyChange={value => {
+          setBusy(value);
+          onBusyChange?.(value);
+        }}
+        onDirtyChange={setUploadDirty}
+        onUpdated={onUpdated}
+        onPersistentBlock={messageText => {
+          onConflict(messageText);
+        }}
+      />
       <div className="mt-4 space-y-3">
         {media.length === 0 && <p className="text-sm text-[var(--text-muted)]">Chưa có media.</p>}
         {media.map((item, index) => (
@@ -89,7 +114,11 @@ export default function AdminEventMediaSection({
             ) : <span className="text-xs text-[var(--text-muted)]">URL không an toàn đã ẩn</span>}
             <div className="min-w-48 flex-1 text-sm">
               <div className="font-semibold">
-                {item.mediaType} · {item.status} · {item.storageType}
+                {item.mediaType} · {item.status} · {
+                  item.managed
+                    ? 'Ảnh được quản lý'
+                    : item.storageType === 'external' ? 'Liên kết ngoài' : 'Media cũ'
+                }
                 {item.thumbnail ? ' · thumbnail' : ''}
               </div>
               <div className="text-xs text-[var(--text-muted)]">{item.caption ?? 'Không có chú thích'}</div>
@@ -98,17 +127,18 @@ export default function AdminEventMediaSection({
             <button type="button" disabled={disabled || busy || index === media.length - 1} onClick={() => move(index, 1)} aria-label="Di chuyển xuống">↓</button>
             {editingId === item.id ? (
               <div className="grid w-full gap-2 rounded-lg bg-[var(--bg-secondary)] p-3 md:grid-cols-2">
-                <AdminSelect visibleLabel label={`Loại media ${item.id}`} value={editing?.mediaType ?? item.mediaType}
+                {!item.managed && <AdminSelect visibleLabel label={`Loại media ${item.id}`} value={editing?.mediaType ?? item.mediaType}
                   onValueChange={value => setEditing(previous => ({ ...previous, mediaType: value as AdminEventMediaCreateRequest['mediaType'] }))}
-                  options={['image', 'video', 'document', 'audio'].map(value => ({ value, label: value }))} />
+                  options={['image', 'video', 'document', 'audio'].map(value => ({ value, label: value }))} />}
                 <AdminSelect visibleLabel label={`Trạng thái media ${item.id}`} value={editing?.status ?? item.status}
                   onValueChange={value => setEditing(previous => ({ ...previous, status: value as 'active' | 'hidden' | 'missing' }))}
-                  options={['active', 'hidden', 'missing'].map(value => ({ value, label: value }))} />
-                <label className="text-xs md:col-span-2">URL
+                  options={(item.managed ? ['active', 'hidden'] : ['active', 'hidden', 'missing'])
+                    .map(value => ({ value, label: value }))} />
+                {!item.managed && <label className="text-xs md:col-span-2">URL
                   <input type="url" aria-label={`URL media ${item.id}`} value={editing?.url ?? ''}
                     placeholder={item.urlSafe ? 'https://...' : 'Nhập URL HTTP(S) an toàn để thay thế'}
                     onChange={event => setEditing(previous => ({ ...previous, url: event.target.value }))} />
-                </label>
+                </label>}
                 <label className="text-xs">Chú thích
                   <input aria-label={`Chú thích media ${item.id}`} value={editing?.caption ?? ''}
                     onChange={event => setEditing(previous => ({ ...previous, caption: event.target.value }))} />
@@ -130,9 +160,9 @@ export default function AdminEventMediaSection({
                   const patch = editing ?? {};
                   const url = patch.url?.trim();
                   const updated = await updateAdminEventMedia(eventId, item.id, {
-                    expectedUpdatedAt: version,
-                    mediaType: patch.mediaType,
-                    ...(url ? { url } : {}),
+                    expectedUpdatedAt: versionRef.current,
+                    ...(!item.managed && patch.mediaType ? { mediaType: patch.mediaType } : {}),
+                    ...(!item.managed && url ? { url } : {}),
                     caption: patch.caption?.trim() || null,
                     altText: patch.altText?.trim() || null,
                     sourceName: patch.sourceName?.trim() || null,
@@ -162,7 +192,7 @@ export default function AdminEventMediaSection({
             )}
             <button type="button"
               disabled={disabled || busy || item.mediaType !== 'image' || item.status !== 'active' || !item.urlSafe}
-              onClick={() => void run(() => selectAdminEventThumbnail(eventId, item.id, version))}>
+              onClick={() => void run(() => selectAdminEventThumbnail(eventId, item.id, versionRef.current))}>
               Chọn thumbnail
             </button>
             <button
@@ -178,7 +208,7 @@ export default function AdminEventMediaSection({
       <form className="mt-5 grid gap-3 md:grid-cols-[8rem_1fr_auto]" onSubmit={event => {
         event.preventDefault();
         void run(async () => {
-          const updated = await addAdminEventMedia(eventId, { ...form, expectedUpdatedAt: version });
+          const updated = await addAdminEventMedia(eventId, { ...form, expectedUpdatedAt: versionRef.current });
           setForm(initialForm);
           return updated;
         });
@@ -191,7 +221,9 @@ export default function AdminEventMediaSection({
       <AdminConfirmDialog
         open={pendingRemoveId !== null}
         title="Xóa media khỏi sự kiện?"
-        description="Chỉ bản ghi media của sự kiện bị xóa; thao tác không xóa tệp trên dịch vụ lưu trữ."
+        description={pendingRemove?.managed
+          ? 'Media sẽ biến mất ngay khỏi sự kiện; việc dọn tệp trên dịch vụ lưu trữ có thể hoàn tất bất đồng bộ.'
+          : 'Chỉ bản ghi media của sự kiện bị xóa; thao tác không xóa tệp hoặc tài nguyên bên ngoài.'}
         confirmLabel="Xóa khỏi sự kiện"
         danger
         onCancel={() => setPendingRemoveId(null)}
@@ -199,7 +231,7 @@ export default function AdminEventMediaSection({
           const mediaId = pendingRemoveId;
           setPendingRemoveId(null);
           if (mediaId !== null) {
-            void run(() => removeAdminEventMedia(eventId, mediaId, version));
+            void run(() => removeAdminEventMedia(eventId, mediaId, versionRef.current));
           }
         }}
       />

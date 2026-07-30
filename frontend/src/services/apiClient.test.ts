@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
-import { apiGet, apiPost } from './apiClient';
+import { apiGet, apiPost, apiPostFormOnce } from './apiClient';
 import { clearCsrfToken } from './csrfClient';
 
 function response(data: unknown, status = 200) {
@@ -92,6 +92,35 @@ describe('apiClient CSRF integration', () => {
 
     expect(fetchMock).toHaveBeenCalledTimes(2);
     expect(String(fetchMock.mock.calls[1][0])).toMatch(/\/api\/mutation$/);
+  });
+
+  it('sends FormData once without an application Content-Type header', async () => {
+    const fetchMock = vi.spyOn(globalThis, 'fetch')
+      .mockResolvedValueOnce(csrfResponse())
+      .mockResolvedValueOnce(response({ saved: true }));
+    const form = new FormData();
+    form.append('file', new File(['png'], 'fixture.png', { type: 'image/png' }));
+
+    await expect(apiPostFormOnce('/api/admin/events/event-1/media/images', form))
+      .resolves.toEqual({ saved: true });
+
+    const request = fetchMock.mock.calls[1][1]!;
+    const headers = request.headers as Headers;
+    expect(headers.get('Content-Type')).toBeNull();
+    expect(headers.get('X-CSRF-TOKEN')).toBe('csrf-token');
+    expect(request.credentials).toBe('include');
+    expect(request.body).toBe(form);
+  });
+
+  it('does not replay a multipart mutation after 401', async () => {
+    const fetchMock = vi.spyOn(globalThis, 'fetch')
+      .mockResolvedValueOnce(csrfResponse())
+      .mockResolvedValueOnce(response(null, 401));
+
+    await expect(apiPostFormOnce('/api/admin/events/event-1/media/images', new FormData()))
+      .rejects.toMatchObject({ status: 401 });
+
+    expect(fetchMock).toHaveBeenCalledTimes(2);
   });
 
   it('does not refresh or replay a safe request aborted after its response', async () => {

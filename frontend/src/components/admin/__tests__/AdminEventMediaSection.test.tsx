@@ -32,7 +32,7 @@ const detail = {
     items: [{
       id: 7, mediaType: 'image', url: null, urlSafe: false,
       caption: 'Legacy', altText: null, sourceName: null, license: null,
-      storageType: 'local', thumbnail: false, sortOrder: 0, status: 'active',
+      storageType: 'local', managed: false, thumbnail: false, sortOrder: 0, status: 'active',
       createdAt: '2026-07-25T00:00:00Z',
     }],
   },
@@ -47,13 +47,13 @@ const safeDetail = {
       {
         id: 1, mediaType: 'image', url: 'https://cdn.example.org/one.jpg', urlSafe: true,
         caption: 'One', altText: 'One image', sourceName: 'Museum', license: 'CC BY',
-        storageType: 'external', thumbnail: false, sortOrder: 0, status: 'active',
+        storageType: 'external', managed: false, thumbnail: false, sortOrder: 0, status: 'active',
         createdAt: '2026-07-25T00:00:00Z',
       },
       {
-        id: 2, mediaType: 'video', url: 'https://cdn.example.org/two.mp4', urlSafe: true,
+        id: 2, mediaType: 'image', url: 'https://cdn.example.org/two.jpg', urlSafe: true,
         caption: null, altText: null, sourceName: null, license: null,
-        storageType: 'object_storage', thumbnail: false, sortOrder: 1, status: 'hidden',
+        storageType: 'object_storage', managed: true, thumbnail: false, sortOrder: 1, status: 'hidden',
         createdAt: '2026-07-25T00:00:00Z',
       },
     ],
@@ -87,13 +87,14 @@ describe('AdminEventMediaSection', () => {
     expect(removeAdminEventMedia).not.toHaveBeenCalled();
   });
 
-  it('renders the empty state and contains no upload, geography or raw JSON controls', () => {
+  it('renders the empty state with image upload controls but no geography or raw JSON controls', () => {
     render(<AdminEventMediaSection eventId="event-1"
       detail={{ ...detail, media: { activeCount: 0, thumbnail: null, items: [] } }}
       version="2026-07-25T01:02:03.123456Z" onUpdated={vi.fn()} onConflict={vi.fn()} />);
 
     expect(screen.getByText('Chưa có media.')).toBeInTheDocument();
-    expect(screen.queryByLabelText(/file/i)).not.toBeInTheDocument();
+    expect(screen.getByLabelText('Chọn ảnh đại diện')).toBeInTheDocument();
+    expect(screen.getByLabelText('Chọn ảnh thư viện')).toBeInTheDocument();
     expect(screen.queryByText(/raw json/i)).not.toBeInTheDocument();
     expect(screen.queryByText(/mapData/i)).not.toBeInTheDocument();
   });
@@ -128,30 +129,66 @@ describe('AdminEventMediaSection', () => {
     expect(payload).not.toHaveProperty('thumbnail');
   });
 
+  it('labels managed media and keeps its URL, type and storage identity immutable', async () => {
+    vi.mocked(updateAdminEventMedia).mockResolvedValue(safeDetail);
+    render(<AdminEventMediaSection eventId="event-1" detail={safeDetail}
+      version="2026-07-25T01:02:03.123456Z" onUpdated={vi.fn()} onConflict={vi.fn()} />);
+
+    expect(screen.getByText(/Ảnh được quản lý/)).toBeInTheDocument();
+    expect(screen.getByText(/Liên kết ngoài/)).toBeInTheDocument();
+    await userEvent.click(screen.getAllByRole('button', { name: 'Sửa' })[1]);
+    expect(screen.queryByLabelText('URL media 2')).not.toBeInTheDocument();
+    expect(screen.queryByLabelText('Loại media 2')).not.toBeInTheDocument();
+    expect(screen.getByLabelText('Trạng thái media 2')).not.toHaveTextContent('missing');
+    await userEvent.click(screen.getByRole('button', { name: 'Lưu media' }));
+
+    const payload = vi.mocked(updateAdminEventMedia).mock.calls[0][2] as unknown as Record<string, unknown>;
+    expect(payload).not.toHaveProperty('url');
+    expect(payload).not.toHaveProperty('mediaType');
+    expect(payload).not.toHaveProperty('storageType');
+  });
+
+  it('explains asynchronous cleanup before removing managed media', async () => {
+    render(<AdminEventMediaSection eventId="event-1" detail={safeDetail}
+      version="2026-07-25T01:02:03.123456Z" onUpdated={vi.fn()} onConflict={vi.fn()} />);
+
+    await userEvent.click(screen.getAllByRole('button', { name: 'Xóa khỏi sự kiện' })[1]);
+    expect(screen.getByRole('dialog', { name: 'Xóa media khỏi sự kiện?' }))
+      .toHaveTextContent(/dọn tệp trên dịch vụ lưu trữ có thể hoàn tất bất đồng bộ/);
+  });
+
   it('forwards exact versions for reorder, thumbnail selection and confirmed removal', async () => {
-    vi.mocked(reorderAdminEventMedia).mockResolvedValue(safeDetail);
-    vi.mocked(selectAdminEventThumbnail).mockResolvedValue(safeDetail);
+    const afterReorder = {
+      ...safeDetail,
+      publication: { updatedAt: '2026-07-25T01:02:04.123456Z' },
+    } as AdminEventDetail;
+    const afterThumbnail = {
+      ...safeDetail,
+      publication: { updatedAt: '2026-07-25T01:02:05.123456Z' },
+    } as AdminEventDetail;
+    vi.mocked(reorderAdminEventMedia).mockResolvedValue(afterReorder);
+    vi.mocked(selectAdminEventThumbnail).mockResolvedValue(afterThumbnail);
     vi.mocked(removeAdminEventMedia).mockResolvedValue(safeDetail);
     render(<AdminEventMediaSection eventId="event-1" detail={safeDetail}
       version="2026-07-25T01:02:03.123456Z" onUpdated={vi.fn()} onConflict={vi.fn()} />);
 
     await userEvent.click(screen.getAllByLabelText('Di chuyển xuống')[0]);
-    expect(reorderAdminEventMedia).toHaveBeenCalledWith(
+    await waitFor(() => expect(reorderAdminEventMedia).toHaveBeenCalledWith(
       'event-1', '2026-07-25T01:02:03.123456Z', [2, 1],
-    );
+    ));
 
     await userEvent.click(screen.getAllByRole('button', { name: 'Chọn thumbnail' })[0]);
-    expect(selectAdminEventThumbnail).toHaveBeenCalledWith(
-      'event-1', 1, '2026-07-25T01:02:03.123456Z',
-    );
+    await waitFor(() => expect(selectAdminEventThumbnail).toHaveBeenCalledWith(
+      'event-1', 1, '2026-07-25T01:02:04.123456Z',
+    ));
 
     await userEvent.click(screen.getAllByRole('button', { name: 'Xóa khỏi sự kiện' })[0]);
     await userEvent.click(within(screen.getByRole('dialog', {
       name: 'Xóa media khỏi sự kiện?',
     })).getByRole('button', { name: 'Xóa khỏi sự kiện' }));
-    expect(removeAdminEventMedia).toHaveBeenCalledWith(
-      'event-1', 1, '2026-07-25T01:02:03.123456Z',
-    );
+    await waitFor(() => expect(removeAdminEventMedia).toHaveBeenCalledWith(
+      'event-1', 1, '2026-07-25T01:02:05.123456Z',
+    ));
   });
 
   it('reports API errors and invokes conflict reload without replaying the mutation', async () => {
@@ -165,7 +202,7 @@ describe('AdminEventMediaSection', () => {
     await userEvent.type(screen.getByLabelText('URL media'), 'https://cdn.example.org/new.jpg');
     await userEvent.click(screen.getByRole('button', { name: 'Thêm media' }));
 
-    expect(await screen.findByRole('alert')).toHaveTextContent('Conflict');
+    expect(await screen.findByText('Conflict')).toHaveAttribute('role', 'alert');
     expect(onConflict).toHaveBeenCalledTimes(1);
     expect(addAdminEventMedia).toHaveBeenCalledTimes(1);
   });

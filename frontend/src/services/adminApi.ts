@@ -1,4 +1,12 @@
-import { apiDelete, apiGet, apiPatch, apiPost, apiPut, toQueryString } from './apiClient';
+import {
+  apiDelete,
+  apiGet,
+  apiPatch,
+  apiPost,
+  apiPostFormOnce,
+  apiPut,
+  toQueryString,
+} from './apiClient';
 
 export interface AdminPage<T> {
   items: T[];
@@ -314,6 +322,7 @@ export interface AdminEventDetail {
       sourceName?: string | null;
       license?: string | null;
       storageType: string;
+      managed: boolean;
       thumbnail: boolean;
       sortOrder: number;
       status: 'active' | 'missing' | 'hidden';
@@ -561,6 +570,50 @@ export function updateAdminEventPublication(
 
 export function addAdminEventMedia(id: string, payload: AdminEventMediaCreateRequest, signal?: AbortSignal) {
   return apiPost<AdminEventDetail>(`/api/admin/events/${encodeURIComponent(id)}/media`, payload, { signal });
+}
+
+export type AdminEventImageKind = 'thumbnail' | 'gallery';
+
+export interface AdminEventImageUploadInput {
+  file: File;
+  expectedUpdatedAt: string;
+  kind: AdminEventImageKind;
+  altText: string;
+  caption?: string;
+  sourceName?: string;
+  license?: string;
+}
+
+export interface AdminEventImageUploadResponse {
+  mediaId: number;
+  updatedAt: string;
+  event: AdminEventDetail;
+}
+
+export function uploadAdminEventImage(
+  id: string,
+  input: AdminEventImageUploadInput,
+  signal?: AbortSignal,
+) {
+  const form = new FormData();
+  form.append('file', input.file);
+  form.append('expectedUpdatedAt', input.expectedUpdatedAt);
+  form.append('kind', input.kind);
+  form.append('altText', input.altText);
+  const optional = {
+    caption: input.caption,
+    sourceName: input.sourceName,
+    license: input.license,
+  };
+  for (const [field, value] of Object.entries(optional)) {
+    const trimmed = value?.trim();
+    if (trimmed) form.append(field, trimmed);
+  }
+  return apiPostFormOnce<AdminEventImageUploadResponse>(
+    `/api/admin/events/${encodeURIComponent(id)}/media/images`,
+    form,
+    { signal },
+  );
 }
 
 export function updateAdminEventMedia(

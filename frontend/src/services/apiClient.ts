@@ -143,6 +143,22 @@ export async function apiPostOnce<T>(
   }, false);
 }
 
+/**
+ * Sends a multipart POST exactly once. The browser must own the Content-Type
+ * header so it can attach the matching multipart boundary.
+ */
+export async function apiPostFormOnce<T>(
+  path: string,
+  body: FormData,
+  init: Omit<RequestInit, 'method' | 'body'> = {},
+): Promise<T> {
+  return apiRequest<T>(path, {
+    ...init,
+    method: 'POST',
+    body,
+  }, false);
+}
+
 export async function apiPut<T>(
   path: string,
   body?: unknown,
@@ -176,7 +192,7 @@ async function apiRequest<T>(path: string, init: RequestInit, retry = true): Pro
   const headers = new Headers(init.headers);
   const method = (init.method ?? 'GET').toUpperCase();
   headers.set('Accept', 'application/json');
-  if (init.body !== undefined) {
+  if (init.body !== undefined && !(init.body instanceof FormData)) {
     headers.set('Content-Type', 'application/json');
   }
   if (['POST', 'PUT', 'PATCH', 'DELETE'].includes(method)) {

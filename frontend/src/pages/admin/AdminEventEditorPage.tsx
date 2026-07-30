@@ -226,8 +226,9 @@ export default function AdminEventEditorPage() {
     () => mutableSectionDirty && !allowSuccessfulCreateNavigation.current,
   );
   const mutationsBlocked = mutationSaving || Boolean(conflict);
-  const markConflict = () => {
-    setConflict('Sự kiện đã thay đổi ở nơi khác. Các thao tác lưu đã bị khóa để tránh ghi đè dữ liệu.');
+  const markConflict = (message?: string) => {
+    setConflict(message
+      ?? 'Sự kiện đã thay đổi ở nơi khác. Các thao tác lưu đã bị khóa để tránh ghi đè dữ liệu.');
   };
 
   const saveCore = async (event: FormEvent) => {

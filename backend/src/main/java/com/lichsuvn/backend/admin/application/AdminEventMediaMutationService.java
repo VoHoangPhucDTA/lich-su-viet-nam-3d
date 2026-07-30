@@ -240,7 +240,7 @@ public class AdminEventMediaMutationService {
         List<Map<String, Object>> all = repository.lockMedia(eventId);
         Map<String, Object> candidate = findOwned(all, eventId, mediaId);
         if (!"image".equals(candidate.get("media_type")) || !"active".equals(candidate.get("status"))
-                || !mediaUrlPolicy.isSafeAdminUrl(String.valueOf(candidate.get("url")))) {
+                || !isSelectableThumbnailUrl(candidate)) {
             bad("INVALID_THUMBNAIL");
         }
         long thumbnailCount = all.stream().filter(row -> Boolean.TRUE.equals(row.get("is_thumbnail"))).count();
@@ -333,6 +333,15 @@ public class AdminEventMediaMutationService {
                 && java.util.Objects.equals(current.get("license"), values.get("license"))
                 && java.util.Objects.equals(current.get("status"), values.get("status"))
                 && Boolean.TRUE.equals(current.get("is_thumbnail")) == thumbnail;
+    }
+
+    private boolean isSelectableThumbnailUrl(Map<String, Object> media) {
+        String url = String.valueOf(media.get("url"));
+        if (mediaUrlPolicy.isSafeAdminUrl(url)) return true;
+        return "READY".equals(media.get("storage_state"))
+                && url.startsWith("/")
+                && !url.startsWith("//")
+                && mediaUrlPolicy.isSafeDisplayUrl(url);
     }
 
     private void ensureEvent(String id) {

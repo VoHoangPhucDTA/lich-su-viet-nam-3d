@@ -18,6 +18,7 @@ import org.apache.hc.core5.http.io.entity.EntityUtils;
 import org.apache.hc.core5.util.Timeout;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
@@ -30,6 +31,7 @@ import java.util.Map;
 import java.util.Objects;
 
 @Component
+@Profile("!admin-e2e")
 public class CloudinaryEventImageStorage implements EventImageStorage {
     private static final String PROVIDER = "cloudinary";
 

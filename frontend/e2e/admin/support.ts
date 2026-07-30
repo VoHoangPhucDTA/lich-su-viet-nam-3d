@@ -10,7 +10,7 @@ export type FixtureAccount =
   | 'TARGET';
 
 const syntheticPng = Buffer.from(
-  'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M/wHwAF/gL+3cEJ6QAAAABJRU5ErkJggg==',
+  'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR4nGP4z8DwHwAFAAH/iZk9HQAAAABJRU5ErkJggg==',
   'base64',
 );
 
@@ -47,7 +47,8 @@ export async function installNetworkGuard(context: BrowserContext) {
 
 export async function login(page: Page, name: FixtureAccount) {
   const account = credentials(name);
-  await page.goto('/login');
+  await page.goto('/login', { waitUntil: 'domcontentloaded' });
+  await expect(page.getByLabel('Email')).toBeVisible();
   await page.getByLabel('Email').fill(account.email);
   await page.getByLabel('Mật khẩu', { exact: true }).fill(account.password);
   await page.getByRole('button', { name: 'Đăng nhập', exact: true }).click();

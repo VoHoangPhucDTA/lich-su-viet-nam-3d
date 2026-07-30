@@ -1067,6 +1067,26 @@ class AdminEventMutationIntegrationTest {
     }
 
     @Test
+    void readyManagedMediaCanBecomeThumbnailWithASafeRootRelativeDeliveryUrl() throws Exception {
+        assumeTrue(available, unavailableReason);
+        tx.executeWithoutResult(status -> service.create(create("phase-c-relative-thumbnail"), IMAGE_ADMIN));
+        var thumbnail = imageService.upload(
+                "phase-c-relative-thumbnail", pngFile(),
+                version(serviceRead("phase-c-relative-thumbnail")), "thumbnail", "Thumbnail", null, null, null, IMAGE_ADMIN);
+        var gallery = imageService.upload(
+                "phase-c-relative-thumbnail", pngFile(), version(thumbnail.event()),
+                "gallery", "Gallery", null, null, null, IMAGE_ADMIN);
+        jdbc.update("UPDATE event_media SET url=? WHERE id=?",
+                "/api/admin-e2e/event-images/" + "a".repeat(64), gallery.mediaId());
+
+        var selected = tx.execute(status -> mediaService.selectThumbnail(
+                "phase-c-relative-thumbnail", gallery.mediaId(),
+                new AdminEventMediaMutationDtos.Version(version(gallery.event())), IMAGE_ADMIN));
+
+        assertEquals(gallery.mediaId(), selected.media().thumbnail().id());
+    }
+
+    @Test
     void managedImageReservationIsInvisibleAndFinalizeBumpsVersionOnce() throws Exception {
         assumeTrue(available, unavailableReason);
         tx.executeWithoutResult(status ->
@@ -1103,6 +1123,7 @@ class AdminEventMutationIntegrationTest {
         assertEquals(uploadsBefore + 1, fakeImageStorage.uploads.get());
         assertNotEquals(expected, response.updatedAt());
         assertEquals(response.updatedAt(), version(response.event()));
+        assertTrue(response.event().media().items().getFirst().managed());
         assertTrue(response.event().media().thumbnail().url()
                 .startsWith("https://cdn.example.test/thumbnail/"));
         assertTrue(!response.event().media().thumbnail().url()

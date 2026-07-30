@@ -26,20 +26,60 @@ test('Admin can complete the safe event lifecycle without a hard-delete control'
   await expect(page).toHaveURL(/\/admin\/events\/[^/]+\/edit$/);
 
   const mediaSection = page.getByRole('region', { name: 'Media và thumbnail' });
-  const mediaUrl = 'https://media.admin-e2e.invalid/fixture.png';
-  await mediaSection.getByLabel('URL media').fill(mediaUrl);
-  await mediaSection.getByRole('button', { name: 'Thêm media' }).click();
-  await expect(mediaSection.getByRole('status')).toContainText('Đã cập nhật media.');
-  await mediaSection.getByLabel('URL media').fill(mediaUrl);
-  await mediaSection.getByRole('button', { name: 'Thêm media' }).click();
-  await expect(mediaSection.getByRole('status')).toContainText('Đã cập nhật media.');
+  const png = Buffer.from(
+    'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR4nGP4z8DwHwAFAAH/iZk9HQAAAABJRU5ErkJggg==',
+    'base64',
+  );
+  const uploadResponses: string[] = [];
+  page.on('response', async response => {
+    if (
+      response.request().method() === 'POST'
+      && /\/api\/admin\/events\/[^/]+\/media\/images$/.test(response.url())
+      && response.status() === 201
+    ) {
+      const payload = await response.json();
+      expect(payload.data.updatedAt).toBe(payload.data.event.publication.updatedAt);
+      uploadResponses.push(payload.data.updatedAt);
+    }
+  });
+
+  const thumbnailPanel = mediaSection.getByRole('region', { name: 'Tải ảnh đại diện' });
+  await thumbnailPanel.getByLabel('Chọn ảnh đại diện').setInputFiles({
+    name: 'thumbnail.png', mimeType: 'image/png', buffer: png,
+  });
+  await thumbnailPanel.getByLabel(/Mô tả thay thế/).fill('Ảnh đại diện E2E');
+  await thumbnailPanel.getByRole('button', { name: 'Tải lên làm ảnh đại diện' }).click();
+  await expect(mediaSection.getByRole('status').last()).toContainText('Đã tải ảnh đại diện');
+
+  const galleryPanel = mediaSection.getByRole('region', { name: 'Tải ảnh thư viện' });
+  await galleryPanel.getByLabel('Chọn ảnh thư viện').setInputFiles([
+    { name: 'gallery-a.png', mimeType: 'image/png', buffer: png },
+    { name: 'gallery-b.png', mimeType: 'image/png', buffer: png },
+  ]);
+  const galleryAlt = galleryPanel.getByLabel(/Mô tả thay thế/);
+  await galleryAlt.nth(0).fill('Ảnh thư viện A');
+  await galleryAlt.nth(1).fill('Ảnh thư viện B');
+  await galleryPanel.getByRole('button', { name: 'Tải lần lượt ảnh đang chờ' }).click();
+  await expect(galleryPanel.getByText('succeeded')).toHaveCount(2);
+  expect(uploadResponses).toHaveLength(3);
+  expect(new Set(uploadResponses).size).toBe(3);
+  for (const image of await mediaSection.locator('img').all()) {
+    await expect.poll(() => image.evaluate(node =>
+      (node as HTMLImageElement).complete && (node as HTMLImageElement).naturalWidth > 0))
+      .toBe(true);
+  }
 
   const moveDown = mediaSection.getByLabel('Di chuyển xuống');
-  await moveDown.first().click();
-  await expect(mediaSection.getByRole('status')).toContainText('Đã cập nhật media.');
+  await moveDown.nth(1).click();
+  await expect(mediaSection.getByText('Đã cập nhật media.', { exact: true })).toBeVisible();
   const thumbnails = mediaSection.getByRole('button', { name: 'Chọn thumbnail' });
   await thumbnails.nth(1).click();
-  await expect(mediaSection.getByRole('status')).toContainText('Đã cập nhật media.');
+  await expect(mediaSection.getByText('Đã cập nhật media.', { exact: true })).toBeVisible();
+
+  await mediaSection.getByRole('button', { name: 'Xóa khỏi sự kiện' }).last().click();
+  const removeDialog = page.getByRole('dialog', { name: 'Xóa media khỏi sự kiện?' });
+  await expect(removeDialog).toContainText(/dọn tệp trên dịch vụ lưu trữ có thể hoàn tất bất đồng bộ/i);
+  await removeDialog.getByRole('button', { name: 'Xóa khỏi sự kiện' }).click();
 
   const geographySection = page.getByRole('region', { name: 'Địa lý và mapData' });
   await geographySection.getByLabel('Loại địa lý').selectOption('point');

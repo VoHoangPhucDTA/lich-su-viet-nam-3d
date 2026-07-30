@@ -42,6 +42,9 @@ services:
       AI_SERVICE_ENABLED: "false"
       AI_RECEIPT_CLEANUP_ENABLED: "false"
       APP_TTS_ASSET_FLOW_ENABLED: "false"
+      SPRING_PROFILES_ACTIVE: admin-e2e
+      APP_EVENT_IMAGE_UPLOAD_ENABLED: "true"
+      APP_EVENT_IMAGE_CLEANUP_ENABLED: "true"
       CLOUDINARY_CLOUD_NAME: ""
       CLOUDINARY_API_KEY: ""
       CLOUDINARY_API_SECRET: ""
@@ -65,7 +68,7 @@ services:
       interval: 10s
       timeout: 5s
       start_period: 45s
-      # Flyway V1-V39 is intentionally exercised on a fresh database. On a
+      # Flyway V1-V42 is intentionally exercised on a fresh database. On a
       # cold local Docker VM this can exceed the original 195-second window.
       # Keep the liveness probe unchanged while allowing eight minutes.
       retries: 48

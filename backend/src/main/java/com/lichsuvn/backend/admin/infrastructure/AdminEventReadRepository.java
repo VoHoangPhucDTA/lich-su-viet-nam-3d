@@ -478,7 +478,8 @@ public class AdminEventReadRepository {
                     mediaUrlPolicy.redactMetadata(rs.getString("alt_text")),
                     mediaUrlPolicy.redactMetadata(rs.getString("source_name")),
                     mediaUrlPolicy.redactMetadata(rs.getString("license")),
-                    rs.getString("storage_type"), rs.getBoolean("is_thumbnail"),
+                    rs.getString("storage_type"), "READY".equals(rs.getString("storage_state")),
+                    rs.getBoolean("is_thumbnail"),
                     rs.getInt("sort_order"), rs.getString("status"), instant(rs, "created_at")
             );
         }).stream().filter(java.util.Objects::nonNull).toList();

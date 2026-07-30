@@ -49,6 +49,7 @@ const detail: AdminEventDetail = {
       sourceName: 'Nguồn công khai',
       license: null,
       storageType: 'external',
+      managed: false,
       thumbnail: true,
       sortOrder: 0,
       status: 'active',
