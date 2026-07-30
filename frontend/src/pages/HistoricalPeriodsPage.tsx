@@ -194,7 +194,7 @@ export default function HistoricalPeriodsPage() {
         )}
         {events.length > 0 && (
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {events.map(event => <EventCard key={event.id} event={event} imageHeight="h-36" compact />)}
+            {events.map(event => <EventCard key={event.id} event={event} imageHeight="h-36" compact imageProfile="period" />)}
           </div>
         )}
         <div ref={sentinelRef} className="flex min-h-14 items-center justify-center">

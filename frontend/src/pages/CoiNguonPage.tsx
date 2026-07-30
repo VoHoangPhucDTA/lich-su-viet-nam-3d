@@ -116,7 +116,14 @@ export default function CoiNguonPage() {
             </div>
           ) : (
             <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
-              {featuredEvents.map(event => <EventCard key={event.id} event={event} imageHeight="h-48" />)}
+              {featuredEvents.map(event => (
+                <EventCard
+                  key={event.id}
+                  event={event}
+                  imageHeight="h-48"
+                  imageProfile="home"
+                />
+              ))}
             </div>
           )}
         </section>

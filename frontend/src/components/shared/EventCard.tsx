@@ -3,15 +3,51 @@ import { Link } from 'react-router-dom';
 import type { HistoricalEvent } from '../../types/event';
 import { EVENT_TYPE_COLORS, EVENT_TYPE_LABELS } from '../../types/event';
 import { getEventTitleFallback, getEventTitleImage } from '../../data/eventTitleImages';
-import { getEventThumbnailDeliveryCandidates } from '../../services/cloudinaryService';
+import {
+  getEventThumbnailDeliveryCandidates,
+  getResponsiveCloudinaryImage,
+} from '../../services/cloudinaryService';
+
+export type EventCardImageProfile = 'home' | 'browse' | 'period';
+
+interface EventCardImageConfig {
+  widths: readonly number[];
+  sizes: string;
+}
+
+const EVENT_CARD_IMAGE_PROFILES: Record<EventCardImageProfile, EventCardImageConfig> = {
+  home: {
+    widths: [360, 480, 768],
+    sizes:
+      '(min-width: 1280px) 374px, (min-width: 1024px) calc(33.333vw - 52.667px), (min-width: 768px) calc(50vw - 52px), calc(100vw - 50px)',
+  },
+  browse: {
+    widths: [360, 480, 768],
+    sizes:
+      '(min-width: 1280px) 374px, (min-width: 1024px) calc(33.333vw - 52.667px), (min-width: 640px) calc(50vw - 52px), calc(100vw - 50px)',
+  },
+  period: {
+    widths: [360, 480, 768],
+    sizes:
+      '(min-width: 1280px) 374px, (min-width: 1024px) calc(33.333vw - 52.667px), (min-width: 640px) calc(50vw - 52px), calc(100vw - 50px)',
+  },
+};
+const EVENT_CARD_IMAGE_INTRINSIC_WIDTH = 768;
+const EVENT_CARD_IMAGE_INTRINSIC_HEIGHT = 432;
 
 interface EventCardProps {
   event: HistoricalEvent;
+  imageProfile: EventCardImageProfile;
   imageHeight?: string;
   compact?: boolean;
 }
 
-export default function EventCard({ event, imageHeight = 'h-40', compact = false }: EventCardProps) {
+export default function EventCard({
+  event,
+  imageProfile,
+  imageHeight = 'h-40',
+  compact = false,
+}: EventCardProps) {
   const [failedImageUrls, setFailedImageUrls] = useState<Set<string>>(() => new Set());
   const color = EVENT_TYPE_COLORS[event.eventType];
   const yearLabel = event.startYear == null
@@ -27,7 +63,12 @@ export default function EventCard({ event, imageHeight = 'h-40', compact = false
     return candidates;
   }, [event.id, event.thumbnailUrl, titleImage]);
   const imageUrl = imageCandidates.find((candidate) => !failedImageUrls.has(candidate));
-  const showImage = Boolean(imageUrl);
+  const imageConfig = EVENT_CARD_IMAGE_PROFILES[imageProfile];
+  const image = useMemo(() => {
+    if (!imageUrl) return undefined;
+    return getResponsiveCloudinaryImage(imageUrl, imageConfig.widths);
+  }, [imageConfig.widths, imageUrl]);
+  const showImage = Boolean(image?.src);
 
   return (
     <Link
@@ -42,9 +83,14 @@ export default function EventCard({ event, imageHeight = 'h-40', compact = false
         <div className="relative flex h-full w-full items-center justify-center overflow-hidden rounded-xl">
           {showImage ? (
             <img
-              src={imageUrl}
+              src={image!.src}
+              srcSet={image!.srcSet}
+              sizes={image!.srcSet ? imageConfig.sizes : undefined}
               alt=""
+              width={EVENT_CARD_IMAGE_INTRINSIC_WIDTH}
+              height={EVENT_CARD_IMAGE_INTRINSIC_HEIGHT}
               loading="lazy"
+              decoding="async"
               onError={() => {
                 if (!imageUrl) return;
                 setFailedImageUrls((current) => new Set(current).add(imageUrl));
