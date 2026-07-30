@@ -10,6 +10,7 @@ import com.lichsuvn.backend.event.api.dto.EventRelatedEventsDto;
 import com.lichsuvn.backend.event.api.dto.EventRelationDto;
 import com.lichsuvn.backend.event.api.dto.EventSummaryDto;
 import com.lichsuvn.backend.event.api.dto.EventTextbookRefDto;
+import com.lichsuvn.backend.event.api.dto.HomepageEventSummaryDto;
 import com.lichsuvn.backend.event.api.dto.TimelineEventDto;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -127,6 +128,29 @@ public class EventReadRepository {
 
         // 1.1.6: MySQL: Trả về danh sách Event Entity.
         return jdbc.query(sql, parts.params(), summaryMapper());
+    }
+
+    /**
+     * Fetches the compact projection for the fixed homepage curation in one SQL statement.
+     * Ordering is intentionally applied in the service from the server-owned slug catalog.
+     */
+    public List<HomepageEventSummaryDto> findHomepageSummaries(List<String> slugs) {
+        if (slugs == null || slugs.isEmpty()) {
+            return List.of();
+        }
+
+        String sql = """
+                SELECT e.id, e.slug, e.title, e.start_year, e.event_type,
+                       e.province_names, e.card_summary
+                FROM historical_events e
+                WHERE e.status = 'published'
+                  AND e.slug IN (:slugs)
+                """;
+        return jdbc.query(
+                sql,
+                new MapSqlParameterSource("slugs", slugs),
+                homepageSummaryMapper()
+        );
     }
 
     public int countEvents(
@@ -599,6 +623,18 @@ public class EventReadRepository {
 
     private RowMapper<EventSummaryDto> summaryMapper() {
         return (rs, rowNum) -> mapSummary(rs);
+    }
+
+    private RowMapper<HomepageEventSummaryDto> homepageSummaryMapper() {
+        return (rs, rowNum) -> new HomepageEventSummaryDto(
+                rs.getString("id"),
+                rs.getString("slug"),
+                rs.getString("title"),
+                getInteger(rs, "start_year"),
+                rs.getString("event_type"),
+                parseStringList(rs.getString("province_names")),
+                rs.getString("card_summary")
+        );
     }
 
     private RowMapper<TimelineEventDto> timelineMapper() {
