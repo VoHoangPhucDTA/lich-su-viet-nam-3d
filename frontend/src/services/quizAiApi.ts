@@ -32,7 +32,11 @@ export function getQuizAiErrorMessage(error: unknown): string {
   if (error instanceof DOMException && error.name === 'AbortError') return 'Yêu cầu đã được hủy.';
   if (error instanceof ApiRequestError) {
     return QUIZ_AI_ERROR_MESSAGES[error.code]
-      ?? (error.status === 401 ? 'Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.' : 'Không thể tạo bài luyện tập lúc này. Vui lòng thử lại.');
+      ?? (error.status === 401
+        ? 'Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.'
+        : error.status === 429
+          ? 'Bạn đang tạo bài quá nhanh. Hãy chờ một lúc rồi thử lại.'
+          : 'Không thể tạo bài luyện tập lúc này. Vui lòng thử lại.');
   }
   return 'Không thể tạo bài luyện tập lúc này. Vui lòng thử lại.';
 }
@@ -96,6 +100,6 @@ function parseSource(value: unknown): AiQuizSource {
   return value as unknown as AiQuizSource;
 }
 
-function record(value: unknown): value is Record<string, any> { return typeof value === 'object' && value !== null && !Array.isArray(value); }
+function record(value: unknown): value is Record<string, unknown> { return typeof value === 'object' && value !== null && !Array.isArray(value); }
 function positiveInt(value: unknown): value is number { return Number.isInteger(value) && Number(value) > 0; }
 function invalid(): never { throw new ApiRequestError('AI_SERVICE_INVALID_RESPONSE', 'Invalid practice quiz response', 502); }

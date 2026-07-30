@@ -1,4 +1,5 @@
 import {
+  ArrowLeft,
   ArrowUp,
   BookOpen,
   CircleCheck,
@@ -10,7 +11,7 @@ import {
   Target,
 } from 'lucide-react';
 import { useEffect, useState } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { useAuth } from '../../auth/AuthContext';
 import PublicPageHeader from '../../components/public/PublicPageHeader';
 import EmptyState from '../../components/shared/EmptyState';
@@ -56,6 +57,7 @@ function AnswerReviewCard({ result, index }: { result: QuizQuestionResult; index
   const statusLabel = skipped ? 'Chưa trả lời' : result.isCorrect ? 'Đúng' : 'Sai';
   const StatusIcon = skipped ? CircleMinus : result.isCorrect ? CircleCheck : CircleX;
   const statusClass = skipped ? 'quiz-review-skipped' : result.isCorrect ? 'quiz-review-correct' : 'quiz-review-wrong';
+  const difficultyLabel = { easy: 'Dễ', medium: 'Trung bình', hard: 'Khó' }[question.difficulty];
 
   return (
     <article className={`quiz-review-card ${statusClass}`}>
@@ -68,7 +70,7 @@ function AnswerReviewCard({ result, index }: { result: QuizQuestionResult; index
         </div>
         <div className="flex flex-wrap gap-2">
           {question.topic && <span className="quiz-badge">{question.topic}</span>}
-          <span className="quiz-badge">{question.difficulty}</span>
+          <span className="quiz-badge">{difficultyLabel}</span>
         </div>
       </header>
 
@@ -116,7 +118,6 @@ function AnswerReviewCard({ result, index }: { result: QuizQuestionResult; index
 export default function QuizResultPage() {
   const { currentUser } = useAuth();
   const { sessionId } = useParams<{ sessionId: string }>();
-  const navigate = useNavigate();
   const [result, setResult] = useState<QuizResult | null>(null);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState<'all' | 'correct' | 'wrong' | 'skipped'>('all');
@@ -159,9 +160,7 @@ export default function QuizResultPage() {
     );
   }
 
-  const weakTopics = Array.from(new Set(
-    result.questionResults.filter(item => !item.isCorrect).map(item => item.question.topic).filter(Boolean)
-  ));
+  const needsReview = result.questionResults.some(item => !item.isCorrect);
   const filteredQuestions = result.questionResults.filter(item => {
     if (filter === 'correct') return item.isCorrect;
     if (filter === 'wrong') return !item.isCorrect && item.selectedOptionId !== null;
@@ -173,16 +172,18 @@ export default function QuizResultPage() {
   return (
     <div className="public-shell quiz-shell">
       <main className="public-content-narrow space-y-7">
+        <Link to="/quiz" className="quiz-result-back-link" aria-label="Về trang trắc nghiệm">
+          <ArrowLeft size={16} aria-hidden="true" data-result-back-icon />
+          Về trang trắc nghiệm
+        </Link>
         <PublicPageHeader
           eyebrow="Báo cáo học tập"
           title="Kết quả bài trắc nghiệm"
           description={`Hoàn thành lúc ${formatDate(result.completedAt)} · ${formatTime(result.totalTimeMs)}`}
-          showBack
-          backFallback="/quiz"
           action={(
-            <button type="button" onClick={() => navigate('/quiz/history')} className="public-secondary-button">
+            <Link to="/quiz/history" className="public-secondary-button no-underline">
               <History size={16} aria-hidden="true" /> Xem lịch sử
-            </button>
+            </Link>
           )}
         />
 
@@ -199,6 +200,9 @@ export default function QuizResultPage() {
             <span>trên thang 10</span>
           </div>
         </section>
+        <p className="quiz-local-storage-disclosure">
+          Kết quả chi tiết của bài tự luyện hiện được lưu trên trình duyệt này.
+        </p>
 
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
           <ResultMetric label="Câu đúng" value={result.correctCount} tone="var(--success)" />
@@ -207,17 +211,18 @@ export default function QuizResultPage() {
           <ResultMetric label="Độ chính xác" value={`${result.percentageScore}%`} tone="var(--accent)" />
         </div>
 
-        {weakTopics.length > 0 && (
+        {needsReview && (
           <section className="quiz-recommendation">
             <div className="flex items-center gap-2">
               <Target size={18} aria-hidden="true" />
-              <h2 className="app-heading text-2xl font-bold">Gợi ý ôn tập</h2>
+              <h2 className="app-heading text-2xl font-bold">Ôn lại chủ đề này</h2>
             </div>
-            <p className="mt-2 text-sm leading-6">Bạn nên xem lại các chủ đề sau trước khi tạo bài mới:</p>
-            <div className="mt-3 flex flex-wrap gap-2">
-              {weakTopics.map(topic => <span key={topic} className="quiz-source-chip">{topic}</span>)}
-            </div>
-            <Link to={`/quiz/generate?q=${encodeURIComponent(weakTopics[0] ?? '')}`} className="public-primary-button mt-4 no-underline">Tạo bài ôn lại chủ đề này</Link>
+            <p className="mt-2 text-sm leading-6">
+              Bạn còn nhầm lẫn ở một số câu thuộc chủ đề: “{result.config.query}”
+            </p>
+            <Link to={`/quiz/generate?q=${encodeURIComponent(result.config.query)}`} className="public-primary-button mt-4 no-underline">
+              Tạo bài ôn lại chủ đề này
+            </Link>
           </section>
         )}
 

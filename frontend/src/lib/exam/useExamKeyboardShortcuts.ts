@@ -7,6 +7,9 @@ interface ExamKeyboardShortcutsOptions {
   onShowHelp?: () => void;
   onCheck?: () => void;
   onSelectOptionByIndex?: (index: number) => void;
+  onMoveOption?: (direction: -1 | 1) => void;
+  onClearOption?: () => void;
+  onSubmit?: () => void;
   mode?: 'timed' | 'practice';
   disabled?: boolean;
 }
@@ -31,6 +34,9 @@ export function useExamKeyboardShortcuts({
   onShowHelp,
   onCheck,
   onSelectOptionByIndex,
+  onMoveOption,
+  onClearOption,
+  onSubmit,
   mode = 'timed',
   disabled = false,
 }: ExamKeyboardShortcutsOptions) {
@@ -46,14 +52,41 @@ export function useExamKeyboardShortcuts({
       onShowHelp,
       onCheck,
       onSelectOptionByIndex,
+      onMoveOption,
+      onClearOption,
+      onSubmit,
       mode,
       disabled,
     };
-  }, [disabled, mode, onCheck, onFlag, onNext, onPrevious, onSelectOptionByIndex, onShowHelp]);
+  }, [
+    disabled,
+    mode,
+    onCheck,
+    onClearOption,
+    onFlag,
+    onMoveOption,
+    onNext,
+    onPrevious,
+    onSelectOptionByIndex,
+    onShowHelp,
+    onSubmit,
+  ]);
 
   useEffect(() => {
     function handleKeyDown(event: KeyboardEvent) {
-      const { onNext, onPrevious, onFlag, onShowHelp, onCheck, onSelectOptionByIndex, mode, disabled } = handlersRef.current;
+      const {
+        onNext,
+        onPrevious,
+        onFlag,
+        onShowHelp,
+        onCheck,
+        onSelectOptionByIndex,
+        onMoveOption,
+        onClearOption,
+        onSubmit,
+        mode,
+        disabled,
+      } = handlersRef.current;
       if (disabled) return;
       if (event.altKey || event.metaKey) return;
       if (event.repeat) return;
@@ -66,7 +99,17 @@ export function useExamKeyboardShortcuts({
         if (event.key === 'Enter' && mode === 'practice' && onCheck) {
           event.preventDefault();
           onCheck();
+        } else if (event.key === 'Enter' && mode === 'timed' && onSubmit) {
+          event.preventDefault();
+          onSubmit();
         }
+        return;
+      }
+
+      if ((event.key === 'ArrowUp' || event.key === 'ArrowDown') && onMoveOption) {
+        event.preventDefault();
+        event.stopPropagation();
+        onMoveOption(event.key === 'ArrowUp' ? -1 : 1);
         return;
       }
 
@@ -94,9 +137,27 @@ export function useExamKeyboardShortcuts({
         return;
       }
 
+      if ((event.key === 'Home' || event.key === 'End') && onSelectOptionByIndex) {
+        event.preventDefault();
+        onSelectOptionByIndex(event.key === 'Home' ? 0 : 3);
+        return;
+      }
+
+      if ((event.key === 'Backspace' || event.key === 'Delete') && onClearOption) {
+        event.preventDefault();
+        onClearOption();
+        return;
+      }
+
       if (!event.shiftKey && /^[1-4]$/.test(event.key) && onSelectOptionByIndex) {
         event.preventDefault();
         onSelectOptionByIndex(Number(event.key) - 1);
+        return;
+      }
+
+      if (/^[a-d]$/i.test(event.key) && onSelectOptionByIndex) {
+        event.preventDefault();
+        onSelectOptionByIndex(event.key.toLowerCase().charCodeAt(0) - 'a'.charCodeAt(0));
       }
     }
 
