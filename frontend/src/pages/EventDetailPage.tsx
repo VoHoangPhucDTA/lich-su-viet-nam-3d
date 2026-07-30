@@ -171,7 +171,7 @@ export default function EventDetailPage() {
     }).catch(() => {
       // Silently ignore — no saved progress
     });
-  }, [eventData, sectionsInfo]);
+  }, [eventData, sectionsInfo, setInitialProgress]);
 
   /* ─── Save progress before leaving the page ─── */
   useEffect(() => {
