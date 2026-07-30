@@ -87,7 +87,7 @@ export default function EventChildrenList({
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {group.items.map((child) => (
                   <RelatedEventCard
-                    key={`${child.associationType}-${child.id}-${child.relationType}`}
+                    key={`${child.associationType}-${child.id}-${child.relationType}-${child.thumbnailUrl ?? ''}`}
                     child={child}
                     onOpen={() => navigate(`/events/${child.slug || child.id}`, { state: { from: window.location.pathname } })}
                   />
@@ -117,11 +117,6 @@ function RelatedEventCard({
   const [thumbnailIndex, setThumbnailIndex] = useState(0);
   const [thumbnailError, setThumbnailError] = useState(false);
   const thumbnailUrl = thumbnailCandidates[thumbnailIndex];
-
-  useEffect(() => {
-    setThumbnailIndex(0);
-    setThumbnailError(false);
-  }, [thumbnailCandidates]);
 
   const handleThumbnailError = () => {
     if (thumbnailIndex < thumbnailCandidates.length - 1) {

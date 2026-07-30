@@ -33,7 +33,7 @@ import type {
   TerrainSessionCommand,
   TerrainViewModel,
 } from '../types/terrain';
-import { useHeader } from '../components/layout/HeaderContext';
+import { useHeader } from '../components/layout/useHeader';
 import {
   getChildrenFromBackend,
   getEventsByYearFromBackend,

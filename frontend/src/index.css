@@ -1506,7 +1506,7 @@
   background: var(--admin-accent-soft);
 }
 
-.quiz-progress-toggle,
+.public-secondary-button.quiz-progress-toggle,
 .quiz-progress-drawer,
 .quiz-drawer-overlay {
   display: none;
@@ -1750,7 +1750,7 @@
     display: none;
   }
 
-  .quiz-progress-toggle {
+  .public-secondary-button.quiz-progress-toggle {
     display: inline-flex;
   }
 

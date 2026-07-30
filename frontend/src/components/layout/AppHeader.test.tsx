@@ -12,7 +12,7 @@ vi.mock('../../auth/AuthContext', () => ({
   }),
 }));
 
-vi.mock('./HeaderContext', () => ({
+vi.mock('./useHeader', () => ({
   useHeader: () => ({ centerContent: null }),
 }));
 

@@ -86,25 +86,31 @@ export interface UseSessionV2Return {
 
 // ── Hook ───────────────────────────────────────────────────────────────────────
 export function useSessionV2(examId: string | undefined): UseSessionV2Return {
-  const [exam, setExam] = useState<ExamFile | null>(null);
-  const [session, setSession] = useState<SessionState | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [loadedExam, setLoadedExam] = useState<ExamFile | null>(null);
+  const [loadedSession, setLoadedSession] = useState<SessionState | null>(null);
+  const [loadError, setLoadError] = useState<{
+    examId: string;
+    message: string;
+  } | null>(null);
+  const [storedCurrentIndex, setStoredCurrentIndex] = useState(0);
   const submittingRef = useRef(false);
+
+  const exam = loadedExam?.examId === examId ? loadedExam : null;
+  const session = loadedSession?.examId === examId ? loadedSession : null;
+  const error =
+    loadError && loadError.examId === examId ? loadError.message : null;
+  const loading = Boolean(examId) && !exam && !error;
+  const currentIndex = session ? storedCurrentIndex : 0;
 
   // ── Load đề + khởi tạo / resume session ────────────────────────────────────
   useEffect(() => {
     if (!examId) return;
     let cancelled = false;
 
-    setLoading(true);
-    setError(null);
-
     loadExam(examId)
       .then((examFile) => {
         if (cancelled) return;
-        setExam(examFile);
+        setLoadedExam(examFile);
 
         // Resume nếu còn in-progress, bỏ qua nếu đã submitted
         let sess = readSessionFromLS(examId);
@@ -134,15 +140,16 @@ export function useSessionV2(examId: string | undefined): UseSessionV2Return {
           writeSessionToLS(sess);
         }
 
-        setSession(sess);
-        setCurrentIndex(sess.currentIndex);
-
-        setLoading(false);
+        setLoadedSession(sess);
+        setStoredCurrentIndex(sess.currentIndex);
+        setLoadError(null);
       })
       .catch((e: unknown) => {
         if (cancelled) return;
-        setError(e instanceof Error ? e.message : 'Lỗi tải đề thi');
-        setLoading(false);
+        setLoadError({
+          examId,
+          message: e instanceof Error ? e.message : 'Lỗi tải đề thi',
+        });
       });
 
     return () => {
@@ -176,7 +183,7 @@ export function useSessionV2(examId: string | undefined): UseSessionV2Return {
   // ── Handlers ──────────────────────────────────────────────────────────────
   const handleMCQSelect = useCallback(
     (questionId: string, optionId: 'A' | 'B' | 'C' | 'D') => {
-      setSession((prev) => {
+      setLoadedSession((prev) => {
         if (!prev) return prev;
         const next: SessionState = {
           ...prev,
@@ -202,7 +209,7 @@ export function useSessionV2(examId: string | undefined): UseSessionV2Return {
       stmtId: 'a' | 'b' | 'c' | 'd',
       value: boolean | null
     ) => {
-      setSession((prev) => {
+      setLoadedSession((prev) => {
         if (!prev) return prev;
         const existing = prev.answers[questionId];
         const prevSelected: Record<'a' | 'b' | 'c' | 'd', boolean | null> =
@@ -228,7 +235,7 @@ export function useSessionV2(examId: string | undefined): UseSessionV2Return {
   );
 
   const handleClearAnswer = useCallback((questionId: string) => {
-    setSession((prev) => {
+    setLoadedSession((prev) => {
       if (!prev) return prev;
       const nextAnswers: Record<string, MCQAnswer | TFAnswer> = {};
       for (const [k, v] of Object.entries(prev.answers)) {
@@ -241,7 +248,7 @@ export function useSessionV2(examId: string | undefined): UseSessionV2Return {
   }, []);
 
   const handleToggleFlag = useCallback((questionId: string) => {
-    setSession((prev) => {
+    setLoadedSession((prev) => {
       if (!prev) return prev;
       const isFlagged = prev.flagged.includes(questionId);
       const next: SessionState = {
@@ -256,8 +263,8 @@ export function useSessionV2(examId: string | undefined): UseSessionV2Return {
   }, []);
 
   const handleNavigate = useCallback((index: number) => {
-    setCurrentIndex(index);
-    setSession((prev) => {
+    setStoredCurrentIndex(index);
+    setLoadedSession((prev) => {
       if (!prev) return prev;
       const next: SessionState = { ...prev, currentIndex: index };
       writeSessionToLS(next);
@@ -281,7 +288,7 @@ export function useSessionV2(examId: string | undefined): UseSessionV2Return {
       submittedAt: Date.now(),
     };
     writeSessionToLS(finalSession);
-    setSession(finalSession);
+    setLoadedSession(finalSession);
     const result = scoreSession(finalSession, exam);
     writeResultToLS(result);
     return result;

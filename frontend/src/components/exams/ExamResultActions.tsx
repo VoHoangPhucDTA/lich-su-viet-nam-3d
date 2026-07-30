@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import * as examService from '../../services/examService';
-import { useAuth } from '../../auth/AuthContext';
 
 interface ExamResultActionsProps {
   examId: string;
@@ -9,7 +8,6 @@ interface ExamResultActionsProps {
 
 export default function ExamResultActions({ examId }: ExamResultActionsProps) {
   const navigate = useNavigate();
-  const { currentUser } = useAuth();
   
   const [loading, setLoading] = useState(false);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
@@ -17,7 +15,7 @@ export default function ExamResultActions({ examId }: ExamResultActionsProps) {
   const handleRetake = async () => {
     try {
       setLoading(true);
-      const newExamId = await examService.retakeExam(examId, currentUser?.id);
+      const newExamId = await examService.retakeExam(examId);
       navigate(`/exams/de/${newExamId}`);
     } catch (e) {
       alert('Không thể tạo lại đề. ' + (e as Error).message);
