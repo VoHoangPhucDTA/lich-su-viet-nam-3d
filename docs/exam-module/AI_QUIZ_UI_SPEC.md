@@ -143,8 +143,15 @@ Ngày đối chiếu code: 2026-07-30.
   ngữ nguồn SGK. Citation hiển thị title/location, không hiển thị chunk hash.
 - `/quiz` được phân loại là `QUIZ_MODULE_HOME`. Result dùng link tường minh có
   ArrowLeft “Về trang trắc nghiệm” tới `/quiz`, không dùng `navigate(-1)`.
+- `/quiz/history` dùng nút ArrowLeft “Về trang trắc nghiệm” với đích cố định
+  `/quiz`, không phụ thuộc browser history.
 - “Tạo bài luyện tập mới” tới `/quiz/generate`, “Xem lịch sử” tới
   `/quiz/history`, action ôn lại giữ query prefill.
+- “Lên đầu trang” cuộn `#app-scroll-root`, là container cuộn thật của app; chỉ
+  fallback sang `window` nếu container không tồn tại.
+- Icon chức năng: `SlidersHorizontal` cho thiết lập cấu hình, `Sparkles` cho
+  hành động tạo câu hỏi AI, `History` cho lịch sử, `BookOpen` cho nguồn SGK và
+  các status/navigation icon giữ đúng nghĩa hành động.
 
 `TARGET_BEHAVIOR`
 
@@ -170,7 +177,20 @@ Ngày đối chiếu code: 2026-07-30.
 
 ## Verification status
 
-- Unit/component characterization: primitive submit dialog, option group,
-  practice config, generation form, AI session và THPT wrapper.
-- Live runtime viewport capture: `RUNTIME_VIEWPORT_CAPTURE_NOT_AVAILABLE` trong
-  lần cập nhật này; không mô tả target responsive như thể đã được xác minh.
+- `CURRENT_IMPLEMENTATION`: authenticated runtime visual QA đã hoàn tất tại
+  1440×900, 1024×768, 768×1024 và 390×844. Không phát hiện horizontal overflow;
+  desktop giữ sidebar tiến trình, tablet/mobile ẩn sidebar và giữ trigger
+  “Tiến trình”.
+- Keyboard đã xác minh: A–D, 1–4, Arrow keys, Home/End, Delete, Shift+F,
+  Ctrl+Enter và `?`. Dialog hướng dẫn/nộp bài có focus trap, Escape và focus
+  restoration.
+- Generation đã xác minh form trống, preset, preset bị chỉnh sửa, custom count,
+  CTA enabled/disabled, loading và một lượt generation authenticated thật.
+- Result đã xác minh link `/quiz`, `/quiz/generate`, `/quiz/history`, query ôn
+  lại, difficulty tiếng Việt và wrapping source/explanation.
+- THPT shared primitive regression đã được characterization; không thay scoring,
+  timer, persistence hoặc server-authoritative behavior.
+- `OPEN_DECISION`: timeout, HTTP 429 và AI-unavailable chưa được force bằng
+  runtime production response trong visual QA; contract/component tests vẫn là
+  bằng chứng cho các state này.
+- Evidence: `artifacts/ui-review/goal16c-authenticated/`.

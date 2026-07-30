@@ -1,4 +1,5 @@
 import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import QuizResultPage from '../QuizResultPage';
@@ -81,5 +82,24 @@ describe('QuizResultPage navigation', () => {
       .toHaveAttribute('href', '/quiz/generate?q=C%C3%A1ch%20m%E1%BA%A1ng%20th%C3%A1ng%20T%C3%A1m');
     expect(screen.getAllByRole('link', { name: /Xem lịch sử/ }).every((link) => link.getAttribute('href') === '/quiz/history')).toBe(true);
     expect(container.querySelector('.public-page-back-row')).not.toBeInTheDocument();
+  });
+
+  it('scrolls the application scroll container to the top', async () => {
+    const appScrollRoot = document.createElement('div');
+    appScrollRoot.id = 'app-scroll-root';
+    appScrollRoot.scrollTo = vi.fn();
+    document.body.appendChild(appScrollRoot);
+
+    render(
+      <MemoryRouter initialEntries={['/quiz/result/session-1']}>
+        <Routes>
+          <Route path="/quiz/result/:sessionId" element={<QuizResultPage />} />
+        </Routes>
+      </MemoryRouter>,
+    );
+
+    await userEvent.click(await screen.findByRole('button', { name: 'Lên đầu trang' }));
+    expect(appScrollRoot.scrollTo).toHaveBeenCalledWith({ top: 0, left: 0, behavior: 'smooth' });
+    appScrollRoot.remove();
   });
 });

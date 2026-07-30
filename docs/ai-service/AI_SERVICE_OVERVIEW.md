@@ -4,6 +4,13 @@
 
 Xây dựng AI Service phục vụ ứng dụng học Lịch sử Việt Nam cho học sinh THPT. Phiên bản đầu tập trung vào việc sinh câu hỏi trắc nghiệm bốn lựa chọn từ nội dung SGK Lịch sử bộ **Kết nối tri thức với cuộc sống**.
 
+Delivery hiện tại tách hai use case:
+
+- Học sinh tự luyện qua `/quiz/generate` → `POST /api/quiz/generate`; không tạo
+  receipt/candidate và lưu session/result/history theo user trong localStorage.
+- Compatibility/admin generation qua `POST /api/exams/ai/generate`; receipt và
+  candidate workflow tiếp tục tách biệt, không tự động publish.
+
 Luồng chính:
 
 ```text
@@ -29,6 +36,8 @@ SGK đã làm sạch
 - Trả đáp án đúng, lời giải và nguồn chunk.
 - Kiểm tra JSON schema và các quy tắc cơ bản trước khi trả kết quả.
 - Tích hợp qua Spring Boot, không để React gọi Gemini trực tiếp.
+- Canary self-practice được gán bằng pseudonymous authenticated user; current và
+  candidate dùng provider pool độc lập, không fallback chéo model.
 
 ## 3. Ngoài phạm vi phiên bản đầu
 
@@ -88,4 +97,7 @@ AI Service không chịu trách nhiệm cho:
 - JWT nghiệp vụ chính của ứng dụng.
 - Quản lý người dùng.
 - Lưu điểm và phiên làm bài.
+
+Với luồng tự luyện, browser sở hữu local session/scoring; với candidate/publish,
+Spring/MySQL sở hữu receipt, lifecycle, provenance và official-bank transaction.
 - Quản lý đề thi chính thức.

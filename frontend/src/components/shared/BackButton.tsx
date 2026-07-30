@@ -1,9 +1,12 @@
+import { ArrowLeft } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 interface BackButtonProps {
+  /** Explicit destination. When provided, navigation never depends on browser history. */
+  to?: string;
   /** Fallback route when no browser history exists (direct URL access). Default: '/home' */
   fallback?: string;
-  /** Override button label. Default: 'Cội Nguồn' */
+  /** Visible destination-oriented label. */
   label?: string;
   /** Additional className appended to the button */
   className?: string;
@@ -19,10 +22,14 @@ interface BackButtonProps {
  * Styled as a subtle secondary navigation element matching the lsvn3d
  * museum design language.
  */
-export default function BackButton({ fallback = '/home', label = 'Quay lại', className = '' }: BackButtonProps) {
+export default function BackButton({ to, fallback = '/home', label = 'Quay lại', className = '' }: BackButtonProps) {
   const navigate = useNavigate();
 
   const handleClick = () => {
+    if (to) {
+      navigate(to);
+      return;
+    }
     if (window.history.length <= 1) {
       navigate(fallback);
     } else {
@@ -32,9 +39,11 @@ export default function BackButton({ fallback = '/home', label = 'Quay lại', c
 
   return (
     <button
+      type="button"
       onClick={handleClick}
-      className={`inline-flex items-center text-xs font-sans font-bold uppercase tracking-wider text-stone-400 hover:text-red-900 transition-colors ${className}`}
+      className={`public-back-button ${className}`}
     >
+      <ArrowLeft size={16} aria-hidden="true" />
       {label}
     </button>
   );

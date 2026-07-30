@@ -1,4 +1,4 @@
-import { BookOpen, BrainCircuit, ChevronDown } from 'lucide-react';
+import { ChevronDown, SlidersHorizontal, Sparkles } from 'lucide-react';
 import { useRef, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useAuth } from '../../auth/AuthContext';
@@ -103,7 +103,9 @@ export default function QuizGeneratePage() {
           title="Câu hỏi tạo bởi AI từ nguồn SGK"
           description="Nhập chủ đề bạn muốn ôn tập. Hệ thống sẽ tìm trong toàn bộ SGK Lịch sử lớp 10–12 và tạo câu hỏi có giải thích, trích nguồn."
           showBack
+          backTo="/quiz"
           backFallback="/quiz"
+          backLabel="Về trang trắc nghiệm"
         />
 
         {error && (
@@ -115,7 +117,9 @@ export default function QuizGeneratePage() {
 
         <section className="public-card quiz-generate-card">
           <div className="quiz-generate-section-heading">
-            <span className="quiz-preview-icon"><BookOpen size={19} aria-hidden="true" /></span>
+            <span className="quiz-preview-icon">
+              <SlidersHorizontal size={19} aria-hidden="true" data-quiz-icon="setup" />
+            </span>
             <div>
               <h2>Thiết lập bài tự luyện</h2>
               <p>Câu hỏi được tạo từ nguồn SGK và chỉ được lưu trong trình duyệt của bạn.</p>
@@ -236,7 +240,7 @@ export default function QuizGeneratePage() {
               aria-describedby={disabledReason ? 'quiz-generate-disabled-reason' : undefined}
               className="public-primary-button quiz-generate-cta"
             >
-              <BrainCircuit size={17} aria-hidden="true" />
+              <Sparkles size={17} aria-hidden="true" data-quiz-icon="generate" />
               Tạo {questionCount ?? ''} câu hỏi
             </button>
           </div>

@@ -1,5 +1,30 @@
 # AI Service RAG — Current Status
 
+## Current verified snapshot — Goal 17A, 2026-07-30
+
+Đây là snapshot authoritative hiện tại; các Goal phía dưới được giữ như lịch sử
+triển khai và có thể chứa số liệu/route tại thời điểm cũ.
+
+- Repository `D:/KLTN/lich-su-viet-nam-3d`, branch `fix/ai-service`, HEAD
+  `2c28c4c3b14aa696b1193896bb898a8a06e29b06`.
+- Student UI: `/quiz/generate`, `/quiz/session/:sessionId`,
+  `/quiz/result/:sessionId`, `/quiz/history`; `/exams/ai` chỉ redirect.
+- Student API: authenticated `POST /api/quiz/generate`, không receipt/candidate,
+  retrieval toàn corpus lớp 10–12. Compatibility/admin API giữ
+  `POST /api/exams/ai/generate`.
+- Current/candidate: `gemini-2.5-flash` /
+  `gemini-3.5-flash-lite`; candidate disabled, rollout 0%, fallback false.
+- AI Service: Ruff/Mypy/compileall pass; 308 pass, 3 live-smoke skip; coverage
+  app 90%, app/scripts 85%.
+- Backend: 260 tests, 0 failure/error, 4 design-valid skip; 13/13
+  Testcontainers tests run/pass; Flyway current v38.
+- Frontend: encoding pass, ESLint 0 errors/0 warnings, TypeScript pass,
+  536/536 tests và build pass.
+- Compose deterministic E2E: 2/2 pass, all four services healthy, cleanup pass,
+  không gọi live Gemini.
+- Chroma locked invariant: 414 records, 768 dimensions, cosine, corpus SHA-256
+  `a4bd330be7b4b43ac9da25966877fef51c66c0e14cc68baa7eccf46a63e15ab2`.
+
 ## Goal 13F — teacher evaluation tooling
 
 - Teacher evaluation tooling: **COMPLETED** (fixed `teacher-evaluation-v1` manifest, explicit-cost sample builder, deterministic blinded offline export, strict import, analysis, agreement/warning contracts, fixture, protocol, and thesis template).
@@ -24,7 +49,7 @@
 
 ### Student quiz merge (Goal 14)
 
-Completed in the working tree: `/quiz` is the only student AI entry point; `/quiz/generate` calls authenticated `POST /api/quiz/generate` without receipt persistence, searches all grade 10–12 sources, and keeps sessions/results/history user-isolated in localStorage. `/exams/ai` redirects for bookmarks. The legacy receipt/candidate workflow remains available only under its compatibility API/admin routes.
+Completed in the working tree: `/quiz` is the only student AI entry point; `/quiz/generate` calls authenticated `POST /api/quiz/generate` without receipt persistence, searches all grade 10–12 sources, and keeps sessions/results/history user-isolated in localStorage. `/exams/ai` redirects for bookmarks. The receipt/candidate workflow remains available only through its compatibility API and permission-gated teacher/admin routes.
 
 | Hạng mục | Trạng thái | Ghi chú |
 |---|---|---|
@@ -44,9 +69,9 @@ Completed in the working tree: `/quiz` is the only student AI entry point; `/qui
 | Retrieval service | DONE_PRODUCTION | `POST /ai/retrieval/debug`, Fact Context có nguồn |
 | Retrieval evaluation | DONE_PRODUCTION | 36 query; Hit@3/5 = 1.0, invariant pass |
 | Gemini question generation | DONE_PRODUCTION | `POST /ai/quiz/generate`, Gemini structured output, validator/repair/cache/evaluation |
-| Spring Boot integration | DONE_WITH_BASELINE_LIMITATION | `/api/exams/ai/generate`, authenticated, typed client/config/DTO, verified Style Examples, no persistence |
-| Frontend AI quiz | DONE_WITH_REAL_E2E_LIMITATION | Authenticated `/exams/ai`, memory-only, partial/source/error UX, mock Spring tests; real browser E2E còn bị chặn bởi local auth/MySQL |
-| React integration | NOT_STARTED | Cần audit component quiz hiện có |
+| Spring Boot integration | DONE | Student `/api/quiz/generate` không receipt; compatibility `/api/exams/ai/generate` giữ receipt/candidate |
+| Frontend AI quiz | DONE | Authenticated `/quiz/*`, local user-isolated persistence, authenticated visual QA hoàn tất |
+| React integration | DONE | Shared accessible primitives, responsive/keyboard/dialog QA và THPT regression pass |
 | Thesis evaluation | NOT_STARTED | Cần số liệu thực nghiệm |
 
 ## Artifact đầu vào đã có

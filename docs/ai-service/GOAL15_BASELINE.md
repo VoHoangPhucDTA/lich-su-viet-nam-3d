@@ -1,5 +1,9 @@
 # Goal 15A — AI Service baseline
 
+> **Historical measurement snapshot.** These values are retained for comparison
+> at the named commit and must not replace the current test, coverage, runtime,
+> or rollout state in `AI_SERVICE_STATUS.md`.
+
 Ngày đo: 2026-07-28
 
 Repository: `D:/KLTN/lich-su-viet-nam-3d`
@@ -546,3 +550,101 @@ No application, script, provider, benchmark, corpus, Chroma, backend, or
 frontend source was changed. The remaining verification boundary is the
 GitHub-hosted run itself, which becomes observable only after commit/push or a
 pull request; local evidence does not claim a remote CI result.
+
+## Goal 14–15 closure snapshot — 2026-07-30
+
+Phần này bổ sung trạng thái mới nhất có thể xác minh từ repository và artifact
+local. Các số liệu lịch sử ở những Goal phía trên được giữ nguyên.
+
+### Commit identity
+
+| Mốc | Commit đã xác minh | Subject |
+|---|---|---|
+| Goal 14–15 hiện tại / branch tip | `2c28c4c3b14aa696b1193896bb898a8a06e29b06` | `fix(frontend): complete quiz QA and ESLint remediation` |
+| WP12 benchmark candidate | `e5727d69b7458013d45a3ec2bb6e8a9f0bdd453a` | `test(ai-service): benchmark self-practice model candidate` |
+| WP14/WP15 canary routing | `63c643764aeb36b5061ca312053f46d2a81ddcda` | `feat(ai-service): add safe self-practice canary rollout` |
+| WP16 repository hygiene | `a9bafe885b088dba94115a2be01398652707af49` | `chore(repo): remove tracked bytecode and repair AI CI` |
+| WP17 merge | `8de06c01e62869aae75f73180542e1468d047906` | `merge(main): sync AI service branch and repair config binding` |
+| WP18 History RAG fixture | `10c793f7` | `test(importer): add self-contained history RAG package fixture` |
+
+WP18 đã được xác minh từ lịch sử Git tại HEAD hiện tại. Ba integration test
+History RAG cũng dùng fixture tự chứa trong `@TempDir`; canonical package ngoài
+repository chỉ còn là gate release-artifact riêng.
+
+### Current/candidate generation contract
+
+- Current model: `gemini-2.5-flash`
+  (`GEMINI_GENERATION_MODEL`).
+- Candidate self-practice model: `gemini-3.5-flash-lite`
+  (`AI_SELF_PRACTICE_MODEL`).
+- Candidate mặc định tắt:
+  `AI_SELF_PRACTICE_MODEL_ENABLED=false`.
+- Rollout mặc định: `AI_SELF_PRACTICE_MODEL_ROLLOUT_PERCENT=0`.
+- Chỉ chấp nhận các mức rollout `0`, `5`, `25`, `50`, `100`.
+- Không hỗ trợ cross-model fallback trong rollout ban đầu;
+  `AI_SELF_PRACTICE_MODEL_FALLBACK_ENABLED` bắt buộc là `false`.
+- `GEMINI_GENERATION_MODEL_SELF_PRACTICE_CANDIDATE` chỉ thuộc benchmark CLI,
+  không phải production runtime configuration.
+
+### Bounded candidate benchmark
+
+Nguồn: `artifacts/ai-service/goal15m/20260729T081440Z/`.
+
+| Variant | Model | Requests | Câu/request | Mean total latency | Final-valid | Repair |
+|---|---|---:|---:|---:|---:|---:|
+| Current | `gemini-2.5-flash` | 4 | 5 | **23.904 giây** | 3/4 | 2/4 |
+| Candidate | `gemini-3.5-flash-lite` | 4 | 5 | **5.275 giây** | **4/4** | **0/4** |
+
+Đây là bounded local sample gồm bốn request cho mỗi variant, không phải tải
+production, không đủ để suy ra P95/P99, throughput, quota behavior hoặc SLO.
+Kết quả phụ thuộc thời điểm gọi provider, mạng, quota, cache/config và bộ prompt
+cố định của benchmark. Candidate nhanh hơn trong sample này không tự động cho
+phép rollout hoặc thay current model.
+
+### Latest verified quality evidence
+
+| Gate | Kết quả có bằng chứng local |
+|---|---|
+| AI Service | Ruff pass; Mypy 81 sources pass; 308 passed, 3 live-provider smoke tests skipped; `app` coverage 90%, combined `app/scripts` coverage 85% |
+| Backend | 260 tests, 0 failures/errors, 4 design-valid skips; compile pass |
+| Testcontainers | 13 tests run and passed, 0 skipped: MySQL migration 1, History RAG 3, TTS repository 9 |
+| Frontend | encoding pass; ESLint 0 errors/0 warnings; typecheck pass; 536/536 tests pass; production build pass |
+| Deterministic Compose E2E | `artifacts/e2e/ai-e2e-report.json`: PASSED, 2/2 runs, 38 migrations, all services healthy, cleanup passed, deterministic provider, no Gemini credential |
+
+Goal 17A đã rerun container gate ngày 2026-07-30 trên Docker Desktop 4.61.0,
+Engine 29.2.1, API 1.53, Compose 5.0.2 và storage driver `overlayfs`. Lần build
+đầu phát hiện Dockerfile còn copy fixture dashboard đã bị di chuyển; sau khi bỏ
+COPY lỗi thời, cả hai lượt E2E đều pass. Full backend Testcontainers lần đầu
+phát hiện migration expectation 30 đã lỗi thời và hai integration test còn phụ
+thuộc package production; sau khi chuyển sang fixture WP18 và expectation v38,
+full suite pass với 13/13 Testcontainers tests thực sự chạy.
+
+Compose xác minh MySQL, AI Service, backend và frontend healthy; runner kiểm tra
+frontend proxy, auth matrix, deterministic generation, four-eyes workflow,
+concurrency và SQL invariant. Chroma production artifact được kiểm tra riêng,
+không rebuild và không gọi Gemini. Đây là local release evidence, không phải
+production SLO hoặc bằng chứng remote CI.
+
+### Locked Chroma invariant
+
+```text
+collection: sgk_kntt_history_gemini_v1
+records: 414
+embedding model: gemini-embedding-2
+dimensions: 768
+distance metric: cosine
+corpus SHA-256: a4bd330be7b4b43ac9da25966877fef51c66c0e14cc68baa7eccf46a63e15ab2
+```
+
+Không rebuild hoặc thay collection trong lần cập nhật tài liệu này.
+
+### Dirty baseline ngoài phạm vi
+
+Giữ nguyên:
+
+- `docs/exam-module/tasks/TIEN_DO_KHAC_PHUC.md`.
+- `frontend/public/data/exams/exam-dataset-build.json`.
+- `docs/ai-service/audits/**`.
+- Các artifact/audit/untracked file có sẵn ngoài bốn tài liệu của lần cập nhật.
+
+Dirty baseline ngoài phạm vi được giữ nguyên byte-for-byte trong Goal 17A.

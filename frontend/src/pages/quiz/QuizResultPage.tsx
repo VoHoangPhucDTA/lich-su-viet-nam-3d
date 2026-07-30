@@ -8,6 +8,7 @@ import {
   ExternalLink,
   History,
   Lightbulb,
+  Sparkles,
   Target,
 } from 'lucide-react';
 import { useEffect, useState } from 'react';
@@ -16,6 +17,7 @@ import { useAuth } from '../../auth/AuthContext';
 import PublicPageHeader from '../../components/public/PublicPageHeader';
 import EmptyState from '../../components/shared/EmptyState';
 import LoadingState from '../../components/shared/LoadingState';
+import { getAppScrollRoot } from '../../hooks/useActiveSection';
 import * as quizService from '../../services/quizService';
 import type { QuizQuestionResult, QuizResult } from '../../types/quiz';
 
@@ -169,6 +171,15 @@ export default function QuizResultPage() {
   });
   const level = result.score10 >= 8 ? 'Xuất sắc' : result.score10 >= 5 ? 'Khá' : 'Cần ôn thêm';
 
+  function scrollToPageTop() {
+    const scrollRoot = getAppScrollRoot();
+    if (scrollRoot) {
+      scrollRoot.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+      return;
+    }
+    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+  }
+
   return (
     <div className="public-shell quiz-shell">
       <main className="public-content-narrow space-y-7">
@@ -221,7 +232,7 @@ export default function QuizResultPage() {
               Bạn còn nhầm lẫn ở một số câu thuộc chủ đề: “{result.config.query}”
             </p>
             <Link to={`/quiz/generate?q=${encodeURIComponent(result.config.query)}`} className="public-primary-button mt-4 no-underline">
-              Tạo bài ôn lại chủ đề này
+              <Sparkles size={16} aria-hidden="true" /> Tạo bài ôn lại chủ đề này
             </Link>
           </section>
         )}
@@ -261,9 +272,11 @@ export default function QuizResultPage() {
         </section>
 
         <div className="flex flex-wrap justify-center gap-3 border-t border-[var(--border)] pt-6">
-          <Link to="/quiz/generate" className="public-primary-button no-underline">Tạo bài luyện tập mới</Link>
+          <Link to="/quiz/generate" className="public-primary-button no-underline">
+            <Sparkles size={15} aria-hidden="true" /> Tạo bài luyện tập mới
+          </Link>
           <Link to="/quiz/history" className="public-secondary-button no-underline"><History size={15} aria-hidden="true" /> Xem lịch sử</Link>
-          <button type="button" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="public-secondary-button">
+          <button type="button" onClick={scrollToPageTop} className="public-secondary-button">
             <ArrowUp size={15} aria-hidden="true" /> Lên đầu trang
           </button>
         </div>

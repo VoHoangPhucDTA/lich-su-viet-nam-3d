@@ -1,5 +1,18 @@
 # AI Service E2E and Deployment Readiness
 
+## Goal 17A current local release evidence — 2026-07-30
+
+- Docker Desktop 4.61.0, Engine 29.2.1/API 1.53, Compose 5.0.2.
+- Compose config pass; MySQL, AI Service, backend và frontend healthy.
+- Deterministic Compose E2E 2/2 pass; no Gemini credential; cleanup pass.
+- Backend 260 tests, 4 design-valid skip; 13/13 Testcontainers tests run/pass
+  với 0 Testcontainers skip.
+- Flyway applied and validated 38 migrations.
+- AI Service 308 pass/3 live-smoke skip; frontend 536/536 pass.
+
+Các số liệu Goal 13D phía dưới là historical evidence. Khi khác nhau, snapshot
+Goal 17A này và `GOAL15_BASELINE.md` là trạng thái hiện hành.
+
 ## Goal 13F research-evaluation readiness
 
 - [x] Versioned 36-item manifest validates grade/difficulty balance.
@@ -25,7 +38,7 @@ Goal 13D was verified on branch `ai_service` from commit `dfd757ac84af1cc770bda2
 | Component | Verified environment | Endpoint/exposure |
 | --- | --- | --- |
 | MySQL | `mysql:8.4.6`, isolated schema `lichsuvn_ai_e2e` | container network only in Compose |
-| Flyway | Spring Boot managed Flyway, 37 migrations | V35/V36/V37 successful |
+| Flyway | Spring Boot managed Flyway, 38 migrations | V35–V38 successful |
 | FastAPI | Python 3.10 image and local Python runtime | internal `:8001`; local smoke `127.0.0.1:18001` |
 | Spring | Java 21 container and local Java runtime | internal `:8080`; local smoke `127.0.0.1:18080` |
 | Frontend | Node 22 build, Nginx 1.29 runtime | `127.0.0.1:15173` |
@@ -34,13 +47,15 @@ Goal 13D was verified on branch `ai_service` from commit `dfd757ac84af1cc770bda2
 
 ## MySQL migration verification
 
-Testcontainers 1.21.3 was attempted first, but Docker Desktop Engine 29 returned HTTP 400 on the Java npipe negotiation. The fallback used direct Docker CLI with MySQL 8.4.6 and a dedicated schema, not H2 and not a shared database.
+Goal 13D initially required a Docker CLI fallback. Goal 17A subsequently ran
+Testcontainers 1.21.3 successfully on the same Docker Desktop/Engine family
+using `-Dapi.version=1.44`; no database fallback was used for the final gate.
 
-- 37 successful Flyway rows; V35, V36, and V37 each succeeded.
+- 38 successful Flyway rows in the current gate; V35–V38 succeeded.
 - V35: 552 ms; V36: 734 ms; V37: 3,348 ms in the first isolated run.
 - Total first migration execution recorded by Flyway: 12,071 ms.
-- A second clean Compose volume applied all 37 migrations in 12,812 ms.
-- Spring subsequently validated all 37 migrations and reported schema version 37 current.
+- Both current Compose runs applied/validated all 38 migrations.
+- Spring reported schema version 38 current.
 - Flyway emitted a compatibility warning because bundled verification covers MySQL through 8.1, while actual MySQL was 8.4; no migration failed.
 
 Metadata assertions verified the eight Goal 13 tables, five unique indexes, six foreign keys, and the optimistic/revision version columns. The reusable `AiMySqlMigrationIntegrationTest` performs the same assertions when Testcontainers can connect.
@@ -149,11 +164,11 @@ docker compose --env-file .env.ai-e2e.local -f compose.ai-e2e.yml down
 
 Flyway is enabled by default only for this disposable E2E schema. Set `AI_E2E_FLYWAY_ENABLED=false` when migration is managed separately. Production profiles already disable uncontrolled Flyway; this Compose file is not a production manifest.
 
-The clean Compose verification built all three application images, created a fresh MySQL volume, migrated 37 versions, and reached healthy status for all four services. Frontend `/` returned 200; unauthenticated `/api/auth/me` through Nginx/Spring returned 401. MySQL and FastAPI were not published to the host.
+The Goal 17A clean Compose verification built all three application images, created a fresh MySQL volume, migrated 38 versions, and reached healthy status for all four services in both repetitions. Frontend `/` returned 200; unauthenticated `/api/auth/me` through Nginx/Spring returned 401. MySQL and FastAPI were not published to the host.
 
 ## History RAG baseline
 
-`HistoryRagPackageReaderTest` is an integration-style artifact contract test, not a self-contained unit test. It reads `../data/history-rag/v1`. The canonical producer is `scripts/history-rag/export_workbook.py`; `backend/TESTING.md` documents the export command and import workflow. `git check-ignore` confirms this path is not ignored. The artifact directory is absent in this checkout and generated data is not silently fabricated. The test remains enabled and its missing-artifact error is reported separately from Goal 13D tests.
+The default History RAG integration tests now create a deterministic package through `HistoryRagTestPackageFixture`; they do not require an external checkout artifact. The canonical release/package producer remains `scripts/history-rag/export_workbook.py`, and validation of a real exported package is still a separate manual release check documented in `backend/TESTING.md`.
 
 ## Readiness checklist and known limitations
 
@@ -163,6 +178,7 @@ The clean Compose verification built all three application images, created a fre
 - [x] Metrics/logging/security baseline recorded.
 - [x] Four-container clean startup verified.
 - [ ] Production deployment approval: out of scope and not performed.
-- [ ] Testcontainers on this Docker Desktop version: blocked by Java npipe/API negotiation; Docker CLI fallback is verified.
-- [ ] History RAG artifact suite: requires the canonical generated `data/history-rag/v1` package.
+- [x] Testcontainers on Docker Desktop/Engine 29: 13/13 tests ran and passed with API version 1.44 configured for compatibility.
+- [x] Default History RAG integration suite: deterministic fixture, 3/3 tests run and pass.
+- [ ] Canonical exported History RAG release package: manual artifact validation remains separate from the deterministic CI fixture.
 - [ ] Local latency sample sizes are smoke-level only and must not be presented as production SLO data.

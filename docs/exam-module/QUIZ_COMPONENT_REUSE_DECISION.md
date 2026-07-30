@@ -79,3 +79,14 @@ này vì vậy ưu tiên adapter/composition nhỏ, có characterization tests.
 - Khi behavior khác nhau, giữ ở domain container thay vì nhét điều kiện vào
   primitive.
 - Shared component không import service, store hoặc domain response type.
+
+## Final Goal 17A confirmation
+
+`CURRENT_DECISION`: các shared presentational primitives hiện tại đã đủ cho AI
+self-practice và các điểm giao diện THPT đang dùng chung. Không xây shared quiz
+engine.
+
+Timer, scoring, persistence, submission authority và recovery tiếp tục thuộc
+từng domain. AI self-practice giữ local session/result/history; THPT giữ
+server-authoritative session và scoring. Chỉ cân nhắc trích xuất thêm primitive
+khi hai domain có cùng semantics và có characterization test bảo vệ.

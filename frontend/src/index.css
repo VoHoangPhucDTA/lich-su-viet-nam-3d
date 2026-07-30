@@ -2908,6 +2908,33 @@
   margin-bottom: 1.5rem;
 }
 
+.public-back-button {
+  display: inline-flex;
+  min-height: 2.75rem;
+  width: fit-content;
+  align-items: center;
+  gap: 0.45rem;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: var(--text-secondary);
+  font: inherit;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: color var(--interactive-duration) var(--interactive-ease);
+}
+
+.public-back-button:hover {
+  color: var(--accent);
+}
+
+.public-back-button:focus-visible {
+  border-radius: 0.4rem;
+  outline: 3px solid color-mix(in srgb, var(--accent) 28%, transparent);
+  outline-offset: 2px;
+}
+
 .public-eyebrow,
 .public-field-label {
   color: var(--admin-accent);

@@ -21,6 +21,7 @@ function renderPage() {
     <MemoryRouter initialEntries={['/quiz/generate']}>
       <Routes>
         <Route path="/quiz/generate" element={<QuizGeneratePage />} />
+        <Route path="/quiz" element={<p>Trang trắc nghiệm</p>} />
         <Route path="/quiz/session/:sessionId" element={<p>Phiên làm bài đã tạo</p>} />
       </Routes>
     </MemoryRouter>,
@@ -30,6 +31,12 @@ function renderPage() {
 describe('QuizGeneratePage', () => {
   beforeEach(() => {
     mocks.generateQuiz.mockReset();
+  });
+
+  it('uses a clear, deterministic back action to the quiz home', async () => {
+    renderPage();
+    await userEvent.click(screen.getByRole('button', { name: 'Về trang trắc nghiệm' }));
+    expect(screen.getByText('Trang trắc nghiệm')).toBeInTheDocument();
   });
 
   it('fills the single query from a preset and clears preset selection when edited', async () => {
@@ -85,6 +92,12 @@ describe('QuizGeneratePage', () => {
     expect(container.querySelector('.quiz-config-grid')).toContainElement(difficulty);
     expect(container.querySelector('.quiz-config-grid')).toContainElement(count);
     expect(screen.getByText('Tối đa 10 câu cho mỗi bài tự luyện.')).toBeInTheDocument();
+  });
+
+  it('uses configuration and AI-generation icons for their matching actions', () => {
+    const { container } = renderPage();
+    expect(container.querySelector('[data-quiz-icon="setup"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-quiz-icon="generate"]')).toBeInTheDocument();
   });
 
   it('submits once with trimmed query and derived time then navigates on success', async () => {

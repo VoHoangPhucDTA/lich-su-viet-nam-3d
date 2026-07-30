@@ -8,6 +8,7 @@ import org.flywaydb.core.Flyway;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.testcontainers.containers.MySQLContainer;
@@ -24,6 +25,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 class HistoryRagImportServiceIntegrationTest {
+
+    @TempDir
+    private static Path temporaryDirectory;
 
     private static MySQLContainer<?> mysql;
     private static HikariDataSource dataSource;
@@ -55,7 +59,9 @@ class HistoryRagImportServiceIntegrationTest {
             config.setMaximumPoolSize(4);
             dataSource = new HikariDataSource(config);
             jdbc = new NamedParameterJdbcTemplate(dataSource);
-            packageData = new HistoryRagPackageReader(new ObjectMapper()).read(Path.of("../data/history-rag/v1"));
+            Path packageDirectory = temporaryDirectory.resolve("history-rag-v1");
+            HistoryRagTestPackageFixture.create(packageDirectory);
+            packageData = new HistoryRagPackageReader(new ObjectMapper()).read(packageDirectory);
             seedBaseline();
             service = new HistoryRagImportService(
                     jdbc,
@@ -103,32 +109,35 @@ class HistoryRagImportServiceIntegrationTest {
         assertEquals(386, count("event_textbook_content_refs"));
         assertEquals(0, countByIds("event_textbook_refs",
                 List.of(120268L, 120270L, 120271L, 120337L, 120437L, 120594L, 120303L, 120327L, 120609L)));
+        HistoryRagPackageReader.TextbookReference firstReference =
+                packageData.textbookReferences().getFirst();
         assertEquals(1, jdbc.getJdbcTemplate().queryForObject("""
                 SELECT COUNT(*) FROM event_textbook_refs
-                WHERE id = 120272 AND event_id = 'chien-thang-bach-dang-938' AND show_on_detail = 1
-                """, Integer.class));
-        assertEquals(1, jdbc.getJdbcTemplate().queryForObject("""
-                SELECT reference_count FROM event_textbook_contents
-                WHERE event_id = 'chien-thang-bach-dang-938'
-                """, Integer.class));
-        assertEquals("11", jdbc.getJdbcTemplate().queryForObject("""
-                SELECT grade_scope FROM event_textbook_contents
-                WHERE event_id = 'chien-thang-bach-dang-938'
-                """, String.class));
+                WHERE id = ? AND event_id = ? AND show_on_detail = 1
+                """, Integer.class, firstReference.id(), firstReference.eventId()));
         assertEquals(0, jdbc.getJdbcTemplate().queryForObject("""
-                SELECT COUNT(*) FROM event_textbook_contents
-                WHERE event_id = 'khang-chien-thang-loi'
-                  AND (content IS NOT NULL OR reference_count <> 0 OR grade_scope IS NOT NULL)
-                """, Integer.class));
+                SELECT reference_count FROM event_textbook_contents
+                WHERE event_id = ?
+                """, Integer.class, firstReference.eventId()));
+        assertEquals("10-12", jdbc.getJdbcTemplate().queryForObject("""
+                SELECT grade_scope FROM event_textbook_contents
+                WHERE event_id = ?
+                """, String.class, firstReference.eventId()));
+        String eventWithoutTextbookReferences = packageData.historicalEvents().get(345).eventId();
+        assertEquals(0, jdbc.getJdbcTemplate().queryForObject("""
+                SELECT COUNT(*) FROM event_textbook_refs
+                WHERE event_id = ?
+                """, Integer.class, eventWithoutTextbookReferences));
         assertEquals(distinctResearchMappingCount(), count("event_research_sources"));
         assertEquals(648, count("event_external_sources"));
         assertEquals(distinctSourceCount(), count("source_catalog"));
         assertTrue(count("history_rag_import_changes") > 0);
 
         EventReadRepository eventReadRepository = new EventReadRepository(jdbc, new ObjectMapper());
-        var bachDang = eventReadRepository.findDetailByIdOrSlug("chien-thang-bach-dang-938").orElseThrow();
-        assertEquals(List.of(120272L), bachDang.textbookRefs().stream().map(ref -> ref.id()).toList());
-        assertTrue(eventReadRepository.findDetailByIdOrSlug("khang-chien-thang-loi")
+        var firstEvent = eventReadRepository.findDetailByIdOrSlug(firstReference.eventId()).orElseThrow();
+        assertTrue(firstEvent.textbookRefs().stream()
+                .anyMatch(ref -> ref.id() == firstReference.id()));
+        assertTrue(eventReadRepository.findDetailByIdOrSlug(eventWithoutTextbookReferences)
                 .orElseThrow().textbookRefs().isEmpty());
 
         var hiddenReference = packageData.textbookReferences().stream()

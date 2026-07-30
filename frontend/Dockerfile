@@ -4,7 +4,6 @@ COPY frontend/package.json frontend/package-lock.json ./frontend/
 RUN cd frontend && npm ci
 COPY frontend ./frontend
 COPY data ./data
-COPY docs/dashboard-design-handoff/mock-data ./docs/dashboard-design-handoff/mock-data
 RUN cd frontend && npm run build
 
 FROM nginx:1.29-alpine AS runtime

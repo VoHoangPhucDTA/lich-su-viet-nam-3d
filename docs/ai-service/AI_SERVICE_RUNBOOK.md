@@ -1,5 +1,10 @@
 # AI Service RAG — Runbook
 
+> **Current local release gate — 2026-07-30.** Backend, AI Service, frontend,
+> workflow/hygiene, deterministic Compose E2E, Testcontainers and secret
+> scanning pass. The current evidence is local and deterministic; it does not
+> call live Gemini and does not replace remote CI or production monitoring.
+
 ## Goal 13F teacher evaluation operations
 
 Run no-provider validation from `ai-service/`: `python -m scripts.build_teacher_evaluation_sample --offline-preflight`. Only after explicit cost/quota approval use `--execute --allow-provider-call`; cache hits are reused, failures remain recorded, and no unbounded retry occurs. From repository root, export one offline package per `GVxx`, then import and analyze:
@@ -12,7 +17,11 @@ python scripts/evaluation/analyze_teacher_reviews.py --sample artifacts/teacher-
 
 The HTML is static and needs no Gemini key. Keep identity mappings outside Git. Import errors are corrected in the source form, never silently repaired. Without real reviews analysis exits `Teacher evaluation: NOT YET COLLECTED`; ratings never invoke approval or publish. See `AI_TEACHER_EVALUATION_PROTOCOL.md`.
 
-> Goal 13D local stack remains available. For Goal 13E deterministic verification run `.\scripts\e2e\run-ai-e2e.ps1 -Repeat 2` (or `./scripts/e2e/run-ai-e2e.sh --repeat 2`); it creates/cleans temporary secrets and reports under ignored `artifacts/e2e/`.
+> Goal 13D remains historical evidence. For a current deterministic verification
+> run `.\scripts\e2e\run-ai-e2e.ps1 -Repeat 2` (or
+> `./scripts/e2e/run-ai-e2e.sh --repeat 2`) only after the Docker daemon is
+> healthy; the runner creates/cleans temporary secrets and writes reports under
+> ignored `artifacts/e2e/`.
 
 Các lệnh dưới đây chạy từ `D:/KLTN/lich-su-viet-nam-3d/ai-service` trên Python 3.10+.
 
@@ -62,6 +71,11 @@ QUIZ_ALLOW_PENDING_REVIEW=false
 LOG_LEVEL=INFO
 ```
 
+`GEMINI_GENERATION_MODEL_SELF_PRACTICE_CANDIDATE` is a benchmark/evaluation CLI
+input, not the runtime canary selector. Runtime self-practice routing reads
+`AI_SELF_PRACTICE_MODEL`; setting only the benchmark variable does not route
+student traffic.
+
 ### Self-practice model canary
 
 Candidate routing is internal and applies only to authenticated `SELF_PRACTICE`
@@ -82,6 +96,70 @@ setting its model name. After separate approval and monitoring at each stage, us
 the sequence `0 -> 5 -> 25 -> 50 -> 100`; rollback is setting the percentage to `0`
 and then disabling the feature. Keep the rollout salt stable during an experiment,
 and rotate it only when intentionally creating a new cohort.
+
+#### Local/staging activation
+
+Chỉ kích hoạt trên local/staging bằng tài khoản thử nghiệm đã được phê duyệt.
+Backend và AI Service đọc cấu hình lúc khởi động; thay environment mà không
+restart sẽ không đổi cohort hoặc model đang chạy.
+
+Backend:
+
+```powershell
+$env:AI_SELF_PRACTICE_CANARY_SECRET='<dedicated-random-hmac-secret>'
+```
+
+AI Service — chuẩn bị candidate ở 0% trước:
+
+```powershell
+$env:GEMINI_GENERATION_MODEL='gemini-2.5-flash'
+$env:AI_SELF_PRACTICE_MODEL='gemini-3.5-flash-lite'
+$env:AI_SELF_PRACTICE_MODEL_ENABLED='true'
+$env:AI_SELF_PRACTICE_MODEL_ROLLOUT_PERCENT='0'
+$env:AI_SELF_PRACTICE_MODEL_FALLBACK_ENABLED='false'
+$env:AI_SELF_PRACTICE_ROLLOUT_SALT='self-practice-v1'
+```
+
+Restart Spring khi thay `AI_SELF_PRACTICE_CANARY_SECRET`. Restart AI Service
+khi thay model, flag, percentage, fallback hoặc salt. Sau khi 0% pass health và
+smoke, đặt percentage thành `5`, restart AI Service, theo dõi rồi mới lần lượt
+xét `25`, `50`, `100`. Không dùng giá trị trung gian khác.
+
+`GEMINI_API_KEY` hiện cung cấp pool key cho provider runtime; current và
+candidate có provider pool/thread-local lifecycle độc lập nhưng không được
+fallback chéo model. Không đưa key vào command history dùng chung hoặc tài liệu.
+
+#### Rollback
+
+Rollback ưu tiên routing trước:
+
+```powershell
+$env:AI_SELF_PRACTICE_MODEL_ROLLOUT_PERCENT='0'
+# Restart AI Service và xác minh mọi SELF_PRACTICE request về current.
+$env:AI_SELF_PRACTICE_MODEL_ENABLED='false'
+# Restart AI Service lần nữa để khóa candidate.
+```
+
+Không đổi rollout salt trong rollback đang diễn ra. Không bật
+`AI_SELF_PRACTICE_MODEL_FALLBACK_ENABLED`; config hiện fail startup nếu giá trị
+này là `true`.
+
+#### Health, readiness và observability
+
+```powershell
+Invoke-RestMethod http://127.0.0.1:8001/ai/health
+Invoke-RestMethod 'http://127.0.0.1:8001/ai/health?deep=true'
+```
+
+Shallow health không gọi Gemini. Deep health mở runtime collection và với
+artifact production hợp lệ phải trả `status=READY`, `contractReady=true`,
+`recordCount=414`; contract không sẵn sàng trả 503 cùng error code đã sanitize.
+Health không chứng minh một live generation sẽ không gặp quota/timeout.
+
+Routing telemetry chỉ được dùng các field phân loại thấp cardinality như
+`generationUseCase`, `modelClass`, `canaryAssigned`, bucket group và reason.
+Không log raw user ID, `canarySubject`, HMAC secret/salt, API key, prompt, Fact
+Context, chunk text hoặc model ID vào public log/response.
 
 Before any staging activation, run the offline rehearsal from `ai-service/`:
 
@@ -388,12 +466,17 @@ cd D:/KLTN/lich-su-viet-nam-3d/backend
 .\mvnw.cmd spring-boot:run
 ```
 
-Public smoke cần JWT/cookie authenticated:
+Public self-practice smoke cần JWT/cookie authenticated:
 
 ```powershell
-$body = @{query='Nguyên nhân thắng lợi của Cách mạng tháng Tám năm 1945'; grade=12; lessonNumber=6; difficulty='MEDIUM'; count=1; topK=5} | ConvertTo-Json
-Invoke-RestMethod -Method Post -Uri http://127.0.0.1:8080/api/exams/ai/generate -Headers @{Authorization="Bearer <local-test-token>"} -ContentType application/json -Body $body
+$body = @{query='Nguyên nhân thắng lợi của Cách mạng tháng Tám năm 1945'; difficulty='MEDIUM'; count=1} | ConvertTo-Json
+Invoke-RestMethod -Method Post -Uri http://127.0.0.1:8080/api/quiz/generate -Headers @{Authorization="Bearer <local-test-token>"} -ContentType application/json -Body $body
 ```
+
+Spring tự đặt `topK=5`, bỏ grade/lesson/document và gửi
+`generationUseCase=SELF_PRACTICE` cùng canary subject giả danh sang FastAPI.
+Luồng này không tạo generation receipt hoặc candidate. Chỉ dùng
+`/api/exams/ai/generate` khi kiểm tra contract compatibility/admin cũ.
 
 Test offline và gated H2 → FastAPI smoke:
 
@@ -412,7 +495,8 @@ Troubleshooting:
 - `AI_SERVICE_TIMEOUT`: giữ read timeout lớn hơn Gemini timeout; không tự động resend.
 - `AI_SERVICE_INVALID_RESPONSE`: kiểm tra protocol; client phải là HTTP/1.1 với Uvicorn local.
 - `AI_STYLE_EXAMPLES_UNAVAILABLE`: kiểm tra datasource/active exam dataset; zero eligible example tự thân vẫn hợp lệ.
-- Full backend test hiện có baseline error nếu thiếu `data/history-rag/v1`; phân biệt với các suite `exam.ai`.
+- Default backend suite không phụ thuộc `data/history-rag/v1`; canonical package
+  chỉ bắt buộc cho release-artifact validation riêng.
 
 ## 14. Frontend AI quiz — Goal 11
 
@@ -437,21 +521,133 @@ npm run build
 Troubleshooting:
 
 - 401: đăng nhập lại; generation không được replay tự động sau refresh.
-- `AI_INSUFFICIENT_CONTEXT`: cụ thể hóa query hoặc đổi lớp/bài.
+- `AI_INSUFFICIENT_CONTEXT`: cụ thể hóa chủ đề/yêu cầu; retrieval của luồng này
+  tìm trên toàn bộ SGK lớp 10–12.
 - `AI_SERVICE_TIMEOUT`/`AI_SERVICE_UNAVAILABLE`: kiểm tra Spring và FastAPI; frontend không tự retry.
-- Mock smoke: chạy component test `AiQuizPage.test.tsx`; mock public Spring response, không mock FastAPI.
-- Không thêm `VITE_GEMINI_API_KEY`, FastAPI URL, local/session storage hoặc official exam submit vào flow này.
+- Component/API tests phải mock public Spring response, không mock FastAPI trong
+  browser layer.
+- Không thêm `VITE_GEMINI_API_KEY`, FastAPI URL hoặc official exam submit vào
+  flow này. Session/result/history tự học dùng localStorage có kiểm tra user.
 
 ## Goal 13 operations
 
-Assign `teacher` explicitly in `user_roles`; V36 never assigns it. Configure the same strong `AI_SERVICE_INTERNAL_TOKEN` in Spring and FastAPI, distinct from Gemini/JWT secrets, and coordinate rotation/restart; never print the header.
+Assign `teacher` explicitly in `user_roles`; migrations do not assign it to users. Configure the same strong `AI_SERVICE_INTERNAL_TOKEN` in Spring and FastAPI, distinct from Gemini/JWT secrets, and coordinate rotation/restart; never print the header.
 
 Receipt settings are `AI_RECEIPT_RETENTION_HOURS` (24), `AI_RECEIPT_CLEANUP_CRON` (`0 17 * * * *`), `AI_RECEIPT_CLEANUP_BATCH_SIZE` (100), and `AI_RECEIPT_CLEANUP_ENABLED`. Validity remains 30 minutes. Monitor `ai.receipt.cleanup.runs`, `.deleted`, and `.failures`; logs contain counts only. For provenance errors, verify identity fields, chunk hash/pending state, token parity and AI Service reachability. Never bypass validation or overwrite stored hashes; regenerate/create a new candidate. Apply V36 to a backed-up non-production MySQL database before traffic.
 
 ## Review workflow smoke run
 
-Use a non-production MySQL database and a hidden `REVIEW_REQUIRED` test definition. Log in as admin, generate one question, explicitly select “Lưu để duyệt”, edit it, submit, approve, then confirm publish. Verify four official options/one correct answer, repeat publish and confirm no duplicate, inspect the audit timeline, and verify a student receives 403 for candidate routes. Do not publish to a public definition. If MySQL or authenticated services are unavailable, run unit/mock integration suites and report real E2E as not run.
+Use a non-production MySQL database migrated through V38 and a hidden `REVIEW_REQUIRED` test definition. Exercise candidate creation through the receipt-aware compatibility API or a controlled fixture, then edit, submit, approve and confirm publish through the admin candidate UI/API. Verify four official options/one correct answer, repeat publish and confirm no duplicate, inspect the audit timeline, verify teacher permissions and admin-only publish, and confirm a student receives 403 for candidate routes. Do not publish to a public definition. If MySQL or authenticated services are unavailable, run unit/mock integration suites and report real E2E as not run.
 
 ## Revision smoke and incident checks
 
 In a non-production hidden/review-required target, open a published candidate, create revision 2, confirm the parent is unchanged, search/select/remap a canonical source with a reason, submit, approve as a different reviewer, verify teacher publish is denied, and publish as admin. Assert a new official ID/four options/one correct, old official bytes unchanged, chain/head moved, open cleared, and repeated publish creates nothing. Race two create/publish requests and expect one success plus a sanitized conflict. For stale base/head, do not merge: reload and create from the current head. Never log the internal token or full excerpts.
+
+## WP18 local release gates and History RAG package tests
+
+Run the default backend suite from `backend/`; it is independent of a checkout
+relative artifact path:
+
+```powershell
+.\mvnw.cmd clean test
+.\mvnw.cmd "-Dtest=HistoryRagPackageReaderTest" test
+```
+
+When an approved canonical package has been downloaded and passed the fixed
+hash preflight, exercise the same production reader explicitly:
+
+```powershell
+.\mvnw.cmd "-Dtest=HistoryRagPackageReaderTest" "-Dhistory.rag.package.dir=../data/history-rag/v1" test
+```
+
+The default test creates a deterministic test-only package in JUnit `@TempDir`
+and verifies the full production baseline counts, schema, checksums, and
+invariants. It must not write synthetic data into `data/history-rag/v1`.
+
+For the remaining container gate:
+
+```powershell
+docker info
+cd D:/KLTN/lich-su-viet-nam-3d
+.\scripts\e2e\run-ai-e2e.ps1 -Repeat 2
+```
+
+Runner tương đương trong CI/Linux:
+
+```powershell
+python scripts/e2e/run_ai_e2e.py --repeat 2
+```
+
+Compose dùng `APP_ENV=e2e` và
+`AI_DETERMINISTIC_E2E_PROVIDER=true`; fake provider chỉ được phép ở
+`test`/`e2e`, không được bật ở development/staging/production.
+
+Testcontainers trên Docker Desktop/Engine 29:
+
+```powershell
+cd D:/KLTN/lich-su-viet-nam-3d/backend
+.\mvnw.cmd "-Dapi.version=1.44" "-Dtest=AiMySqlMigrationIntegrationTest" test
+.\mvnw.cmd "-Dapi.version=1.44" "-Dtest=HistoryRagSchemaMigrationIntegrationTest,HistoryRagDryRunIntegrationTest,HistoryRagImportServiceIntegrationTest" test
+```
+
+Deterministic fake-provider và canary contract không cần Gemini:
+
+```powershell
+cd D:/KLTN/lich-su-viet-nam-3d/ai-service
+python -m pytest tests/integration/test_deterministic_e2e_provider.py tests/unit/test_generation_routing.py tests/unit/test_self_practice_rollout_rehearsal.py -q
+
+cd ../backend
+.\mvnw.cmd "-Dtest=AiCanarySubjectPseudonymizerTest,AiQuizGenerationServiceTest,HttpAiQuizClientTest,PracticeQuizPublicContractTest" test
+```
+
+Main CI không gọi live Gemini. Live-provider smoke phải là workflow thủ công,
+được bảo vệ, không chạy trên pull request/fork và không in response. Không đặt
+`GEMINI_GENERATION_MODEL_SELF_PRACTICE_CANDIDATE` để kích hoạt production:
+biến đó chỉ được script benchmark đọc; runtime đọc `AI_SELF_PRACTICE_MODEL`.
+
+Exact local release sequence đã chạy thành công trên Docker Desktop/Engine 29:
+
+```powershell
+cd D:/KLTN/lich-su-viet-nam-3d
+docker context show
+docker version
+docker info
+docker compose version
+
+# Set three temporary, untracked values in the current process:
+# AI_E2E_MYSQL_PASSWORD, AI_E2E_JWT_SECRET, AI_E2E_INTERNAL_TOKEN.
+docker compose -f compose.ai-e2e.yml config --quiet
+docker compose -f compose.ai-e2e.yml config --services
+docker compose -f compose.ai-e2e.yml config --networks
+docker compose -f compose.ai-e2e.yml config --volumes
+
+.\scripts\e2e\run-ai-e2e.ps1 -Repeat 2
+
+cd backend
+.\mvnw.cmd "-Dapi.version=1.44" clean test
+.\mvnw.cmd compile
+```
+
+Runner thực hiện build/up, chờ health hữu hạn, chạy E2E, rồi dùng
+`docker compose down -v --remove-orphans`. `-v` ở đây chỉ xóa volume
+`lichsuvn-ai-e2e_ai-e2e-mysql` do project test tạo; không thay bằng
+`docker system prune` hoặc lệnh prune toàn máy. Sau cleanup, xác minh:
+
+```powershell
+docker ps -a --filter "label=com.docker.compose.project=lichsuvn-ai-e2e"
+docker volume ls --filter "label=com.docker.compose.project=lichsuvn-ai-e2e"
+docker network ls --filter "label=com.docker.compose.project=lichsuvn-ai-e2e"
+```
+
+Kết quả chuẩn hiện tại: Compose config pass; `mysql`, `ai-service`, `backend`,
+`frontend` healthy; E2E 2/2 pass; 13 Testcontainers tests pass và 0 skip;
+cleanup không còn container, volume hoặc network của project. Bốn backend skip
+còn lại là FastAPI/WP10 smoke, external canonical-package variant và FFmpeg,
+không phải Testcontainers skip.
+
+Shallow Compose health không gọi Gemini. Deep readiness của production Chroma
+phải được đối chiếu với locked invariant: collection
+`sgk_kntt_history_gemini_v1`, 414 records, model `gemini-embedding-2`,
+768 dimensions, cosine và corpus SHA-256
+`a4bd330be7b4b43ac9da25966877fef51c66c0e14cc68baa7eccf46a63e15ab2`.
+Không rebuild Chroma để làm cho gate pass.

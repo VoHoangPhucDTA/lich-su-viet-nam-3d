@@ -1,5 +1,11 @@
 # AI Service RAG — Implementation Plan
 
+> **Historical plan with current closure note.** Goal 10/11 checklist entries
+> below describe their original implementation routes. The current student flow
+> is `/quiz/*` → `POST /api/quiz/generate`; `/exams/ai` is redirect-only.
+> Goal 17A final local gates pass at HEAD `2c28c4c3`: Compose E2E 2/2,
+> Testcontainers 13/13, backend 260 tests, AI 308/3 and frontend 536/536.
+
 ## Goal 13F — teacher evaluation and thesis experiment
 
 Status: tooling complete; real data collection not started; analysis not available. The v1 manifest fixes 36 requests (12 per grade, 4 per difficulty per grade) before ratings. The gate includes failure-preserving generation, deterministic blinded export, rubric/schema, strict import, Wilson intervals, missing-aware pairwise agreement, locked warning matrix, ignored runtime output, synthetic no-provider smoke, and protocol/thesis documentation. No rating changes candidate state or publishes content. Next manual phase is approved sample generation and teacher review; synthetic data is never a thesis result.

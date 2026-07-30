@@ -1,10 +1,10 @@
 import {
   ArrowRight,
   BookOpenCheck,
-  BrainCircuit,
   ChartNoAxesCombined,
   ClipboardList,
   History,
+  Sparkles,
   Target,
   UserRound,
 } from 'lucide-react';
@@ -43,7 +43,7 @@ function ActionCard({
   to: string;
   title: string;
   description: string;
-  icon: typeof BrainCircuit;
+  icon: typeof Sparkles;
 }) {
   return (
     <Link to={to} className="public-card group block p-5 no-underline transition hover:-translate-y-0.5 hover:shadow-[var(--shadow)]">
@@ -86,6 +86,8 @@ export default function QuizHomePage() {
           title="Trắc nghiệm lịch sử với AI"
           description="Tạo bài luyện tập bằng AI từ nguồn SGK Lịch sử lớp 10–12 và theo dõi tiến độ học tập của bạn."
           showBack
+          backTo="/home"
+          backLabel="Về trang chủ"
           action={(
             <span className="inline-flex items-center gap-2 rounded-[var(--admin-radius)] border border-[var(--border)] bg-[var(--bg-card)] px-3 py-2 text-xs font-semibold text-[var(--text-muted)]">
               <UserRound size={15} aria-hidden="true" />
@@ -104,7 +106,7 @@ export default function QuizHomePage() {
             </p>
             <div className="mt-7 flex flex-wrap gap-3">
               <Link to="/quiz/generate" className="public-primary-button no-underline">
-                <BrainCircuit size={17} aria-hidden="true" /> Tạo bài trắc nghiệm
+                <Sparkles size={17} aria-hidden="true" /> Tạo bài trắc nghiệm
               </Link>
               <Link to="/quiz/history" className="public-secondary-button no-underline">
                 <History size={17} aria-hidden="true" /> Xem lịch sử
@@ -136,7 +138,7 @@ export default function QuizHomePage() {
               to="/quiz/generate"
               title="Tạo bài mới"
               description="Nhập chủ đề, chọn độ khó và số lượng câu hỏi cần luyện tập."
-              icon={BrainCircuit}
+              icon={Sparkles}
             />
             <ActionCard
               to="/quiz/history"
