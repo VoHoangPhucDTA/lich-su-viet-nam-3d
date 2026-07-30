@@ -5,7 +5,16 @@ import { HISTORICAL_PERIODS } from '../data/historicalPeriods';
 import { getHomepageEvents } from '../services/eventApi';
 import EventCard from '../components/shared/EventCard';
 import HistoricalPeriodCard from '../components/public/HistoricalPeriodCard';
-import appLogo from '../assets/lich-su-viet-nam-3d-logo-header-transparent.webp';
+
+const appLogo = '/home-images/home-logo-384.webp';
+const heroAvifSrcSet =
+  '/home-images/hero-720.avif 720w, /home-images/hero-1376.avif 1376w';
+const heroWebpSrcSet =
+  '/home-images/hero-720.webp 720w, /home-images/hero-1376.webp 1376w';
+const heroPrimaryImageSizes =
+  '(min-width: 1280px) 558px, (min-width: 1024px) 441px, (min-width: 640px) calc(100vw - 50px), calc(100vw - 34px)';
+const heroQuoteImageSizes =
+  '(min-width: 1280px) 1214px, (min-width: 640px) calc(100vw - 50px), calc(100vw - 34px)';
 
 export default function CoiNguonPage() {
   const [featuredEvents, setFeaturedEvents] = useState<HistoricalEvent[]>([]);
@@ -57,7 +66,19 @@ export default function CoiNguonPage() {
             </dl>
           </div>
           <div className="relative min-h-72 bg-stone-950 lg:min-h-full">
-            <img src="/vietnam_heritage_hero.jpg" alt="Di sản văn hóa Việt Nam" className="absolute inset-0 h-full w-full object-cover opacity-90" />
+            <picture>
+              <source type="image/avif" srcSet={heroAvifSrcSet} sizes={heroPrimaryImageSizes} />
+              <source type="image/webp" srcSet={heroWebpSrcSet} sizes={heroPrimaryImageSizes} />
+              <img
+                src="/vietnam_heritage_hero.jpg"
+                alt="Di sản văn hóa Việt Nam"
+                width={1376}
+                height={768}
+                loading="eager"
+                fetchPriority="high"
+                className="absolute inset-0 h-full w-full object-cover opacity-90"
+              />
+            </picture>
             <div className="absolute inset-0 bg-gradient-to-t from-stone-950/75 via-stone-950/10 to-transparent" />
           </div>
         </section>
@@ -101,12 +122,19 @@ export default function CoiNguonPage() {
         </section>
 
         <section className="public-card relative isolate min-h-64 overflow-hidden px-6 py-12 text-center sm:px-10 sm:py-16">
-          <img
-            src="/vietnam_heritage_hero.jpg"
-            alt=""
-            loading="lazy"
-            className="absolute inset-0 -z-20 h-full w-full object-cover"
-          />
+          <picture>
+            <source type="image/avif" srcSet={heroAvifSrcSet} sizes={heroQuoteImageSizes} />
+            <source type="image/webp" srcSet={heroWebpSrcSet} sizes={heroQuoteImageSizes} />
+            <img
+              src="/vietnam_heritage_hero.jpg"
+              alt=""
+              width={1376}
+              height={768}
+              loading="lazy"
+              fetchPriority="low"
+              className="absolute inset-0 -z-20 h-full w-full object-cover"
+            />
+          </picture>
           <div className="absolute inset-0 -z-10 bg-stone-950/70" />
           <blockquote className="app-heading mx-auto max-w-4xl text-2xl font-extrabold leading-relaxed text-white drop-shadow-sm sm:text-3xl lg:text-4xl">
             “Dân ta phải biết sử ta, cho tường gốc tích nước nhà Việt Nam.”
@@ -118,9 +146,10 @@ export default function CoiNguonPage() {
           <img
             src={appLogo}
             alt="Lịch Sử Việt Nam 3D"
-            width={1215}
-            height={534}
+            width={384}
+            height={169}
             loading="lazy"
+            fetchPriority="low"
             className="app-footer-logo"
           />
           <span className="text-[11px] font-semibold uppercase tracking-[0.12em] text-[var(--text-muted)]">
