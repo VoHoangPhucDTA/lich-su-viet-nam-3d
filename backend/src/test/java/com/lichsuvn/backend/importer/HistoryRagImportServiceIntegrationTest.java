@@ -9,8 +9,12 @@ import org.flywaydb.core.Flyway;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.springframework.aop.framework.ProxyFactory;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.transaction.annotation.AnnotationTransactionAttributeSource;
+import org.springframework.transaction.interceptor.TransactionInterceptor;
 import org.testcontainers.mysql.MySQLContainer;
 
 import java.nio.file.Path;
@@ -58,10 +62,10 @@ class HistoryRagImportServiceIntegrationTest {
             jdbc = new NamedParameterJdbcTemplate(dataSource);
             packageData = new HistoryRagPackageReader(new ObjectMapper()).read(Path.of("../data/history-rag/v1"));
             seedBaseline();
-            service = new HistoryRagImportService(
+            service = transactional(new HistoryRagImportService(
                     jdbc,
                     new HistoryRagTextbookRefPreflight(jdbc),
-                    new ObjectMapper());
+                    new ObjectMapper()));
             mysqlAvailable = true;
         } catch (Exception ex) {
             if (mysql != null) {
@@ -73,6 +77,16 @@ class HistoryRagImportServiceIntegrationTest {
             unavailableReason = "Testcontainers MySQL unavailable: " + ex.getClass().getSimpleName()
                     + " - " + ex.getMessage();
         }
+    }
+
+    private static HistoryRagImportService transactional(HistoryRagImportService target) {
+        var transactionManager = new DataSourceTransactionManager(dataSource);
+        var interceptor = new TransactionInterceptor(
+                transactionManager,
+                new AnnotationTransactionAttributeSource());
+        var proxyFactory = new ProxyFactory(target);
+        proxyFactory.addAdvice(interceptor);
+        return (HistoryRagImportService) proxyFactory.getProxy();
     }
 
     @AfterAll

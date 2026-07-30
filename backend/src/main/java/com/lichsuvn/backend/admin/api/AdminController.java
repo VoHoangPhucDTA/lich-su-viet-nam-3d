@@ -4,6 +4,7 @@ import com.lichsuvn.backend.admin.api.dto.AdminDashboardDtos;
 import com.lichsuvn.backend.admin.api.dto.AdminEventDtos;
 import com.lichsuvn.backend.admin.api.dto.AdminEventMutationDtos;
 import com.lichsuvn.backend.admin.api.dto.AdminEventMediaMutationDtos;
+import com.lichsuvn.backend.admin.api.dto.AdminEventImageDtos;
 import com.lichsuvn.backend.admin.api.dto.AdminEventGeographyDtos;
 import com.lichsuvn.backend.admin.api.dto.AdminEventPublicationDtos;
 import com.lichsuvn.backend.admin.api.dto.AdminUserDtos;
@@ -12,6 +13,7 @@ import com.lichsuvn.backend.admin.application.AdminDashboardReadService;
 import com.lichsuvn.backend.admin.application.AdminEventReadService;
 import com.lichsuvn.backend.admin.application.AdminEventMutationService;
 import com.lichsuvn.backend.admin.application.AdminEventMediaMutationService;
+import com.lichsuvn.backend.admin.application.AdminEventImageUploadService;
 import com.lichsuvn.backend.admin.application.AdminEventGeographyMutationService;
 import com.lichsuvn.backend.admin.application.AdminEventPublicationService;
 import com.lichsuvn.backend.admin.application.AdminUserReadService;
@@ -33,10 +35,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import jakarta.validation.Valid;
 
 import java.util.Map;
+import java.util.Set;
 
 /** API quản trị dữ liệu lịch sử. Mọi endpoint đều yêu cầu ROLE_admin. */
 @RestController
@@ -46,6 +52,7 @@ public class AdminController {
     private final AdminDashboardReadService adminDashboardReadService;
     private final AdminEventMutationService adminEventMutationService;
     private final AdminEventMediaMutationService adminEventMediaMutationService;
+    private final AdminEventImageUploadService adminEventImageUploadService;
     private final AdminEventGeographyMutationService adminEventGeographyMutationService;
     private final AdminEventPublicationService adminEventPublicationService;
     private final AdminUserReadService adminUserReadService;
@@ -56,6 +63,7 @@ public class AdminController {
             AdminDashboardReadService adminDashboardReadService,
             AdminEventMutationService adminEventMutationService,
             AdminEventMediaMutationService adminEventMediaMutationService,
+            AdminEventImageUploadService adminEventImageUploadService,
             AdminEventGeographyMutationService adminEventGeographyMutationService,
             AdminEventPublicationService adminEventPublicationService,
             AdminUserReadService adminUserReadService,
@@ -65,6 +73,7 @@ public class AdminController {
         this.adminDashboardReadService = adminDashboardReadService;
         this.adminEventMutationService = adminEventMutationService;
         this.adminEventMediaMutationService = adminEventMediaMutationService;
+        this.adminEventImageUploadService = adminEventImageUploadService;
         this.adminEventGeographyMutationService = adminEventGeographyMutationService;
         this.adminEventPublicationService = adminEventPublicationService;
         this.adminUserReadService = adminUserReadService;
@@ -231,6 +240,29 @@ public class AdminController {
                 .body(ApiResponse.ok(result.detail()));
     }
 
+    @PostMapping(
+            path = "/events/{id}/media/images",
+            consumes = "multipart/form-data"
+    )
+    public ResponseEntity<ApiResponse<AdminEventImageDtos.UploadResponse>> uploadEventImage(
+            @PathVariable String id,
+            @RequestPart(value = "file", required = false) MultipartFile file,
+            @RequestParam(required = false) String expectedUpdatedAt,
+            @RequestParam(required = false) String kind,
+            @RequestParam(required = false) String altText,
+            @RequestParam(required = false) String caption,
+            @RequestParam(required = false) String sourceName,
+            @RequestParam(required = false) String license,
+            MultipartHttpServletRequest multipartRequest,
+            @AuthenticationPrincipal UserPrincipal principal
+    ) {
+        validateImageMultipartShape(multipartRequest);
+        var result = adminEventImageUploadService.upload(
+                id, file, expectedUpdatedAt, kind, altText,
+                caption, sourceName, license, principal);
+        return ResponseEntity.status(HttpStatus.CREATED).body(ApiResponse.ok(result));
+    }
+
     @PatchMapping("/events/{id}/media/{mediaId}")
     public ApiResponse<AdminEventDtos.Detail> updateEventMedia(
             @PathVariable String id,
@@ -252,6 +284,11 @@ public class AdminController {
             throw new ApiException(
                     HttpStatus.BAD_REQUEST, "INVALID_EXPECTED_VERSION",
                     "X-Event-Version is required");
+        }
+        var managed = adminEventImageUploadService.removeManagedIfPresent(
+                id, mediaId, version, principal);
+        if (managed.isPresent()) {
+            return ApiResponse.ok(managed.get());
         }
         return ApiResponse.ok(adminEventMediaMutationService.remove(id, mediaId, version, principal));
     }
@@ -316,5 +353,22 @@ public class AdminController {
 
     private ApiException mutationDisabled(String code, String message) {
         return new ApiException(HttpStatus.CONFLICT, code, message);
+    }
+
+    private void validateImageMultipartShape(MultipartHttpServletRequest request) {
+        Set<String> allowedParameters = Set.of(
+                "expectedUpdatedAt", "kind", "altText",
+                "caption", "sourceName", "license");
+        boolean invalidFileParts = request.getMultiFileMap().entrySet().stream()
+                .anyMatch(entry -> !"file".equals(entry.getKey()) || entry.getValue().size() != 1);
+        boolean invalidParameters = request.getParameterMap().entrySet().stream()
+                .anyMatch(entry -> !allowedParameters.contains(entry.getKey())
+                        || entry.getValue().length != 1);
+        if (invalidFileParts || invalidParameters) {
+            throw new ApiException(
+                    HttpStatus.BAD_REQUEST,
+                    "UNSUPPORTED_MULTIPART_FIELD",
+                    "Multipart request contains an unsupported or duplicate field");
+        }
     }
 }

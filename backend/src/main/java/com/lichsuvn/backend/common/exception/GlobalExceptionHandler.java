@@ -17,6 +17,7 @@ import org.springframework.http.converter.HttpMessageConversionException;
 import com.fasterxml.jackson.databind.exc.InvalidTypeIdException;
 import com.fasterxml.jackson.databind.exc.UnrecognizedPropertyException;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
 
 import java.util.List;
 
@@ -122,6 +123,18 @@ public class GlobalExceptionHandler {
                 : "AI_CANDIDATE_FORBIDDEN";
         return ResponseEntity.status(HttpStatus.FORBIDDEN)
                 .body(ApiResponse.error(code, candidatePath ? "Candidate permission is required" : "Access denied", ApiError.of(path)));
+    }
+
+    @ExceptionHandler(MaxUploadSizeExceededException.class)
+    public ResponseEntity<ApiResponse<ApiError>> handleMultipartTooLarge(
+            MaxUploadSizeExceededException ex,
+            HttpServletRequest request
+    ) {
+        return ResponseEntity.status(HttpStatus.PAYLOAD_TOO_LARGE)
+                .body(ApiResponse.error(
+                        "EVENT_IMAGE_PAYLOAD_TOO_LARGE",
+                        "Event image exceeds the upload limit",
+                        ApiError.of(request.getRequestURI())));
     }
 
     @ExceptionHandler(Exception.class)

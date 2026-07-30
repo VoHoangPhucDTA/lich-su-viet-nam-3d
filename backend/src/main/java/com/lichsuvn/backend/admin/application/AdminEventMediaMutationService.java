@@ -101,21 +101,32 @@ public class AdminEventMediaMutationService {
         claimEvent(eventId, request.expectedUpdatedAt());
         List<Map<String, Object>> locked = repository.lockMedia(eventId);
         Map<String, Object> current = findOwned(locked, eventId, mediaId);
+        boolean managed = "READY".equals(current.get("storage_state"));
         Map<String, Object> values = new HashMap<>(current);
         Set<String> fields = new HashSet<>(request.present());
         fields.remove("expectedUpdatedAt");
         for (String field : fields) {
             switch (field) {
                 case "mediaType" -> {
+                    if (managed) bad("MANAGED_MEDIA_IMMUTABLE_FIELD");
                     validateType(request.mediaType());
                     values.put("media_type", request.mediaType());
                 }
-                case "url" -> values.put("url", mediaUrlPolicy.requireAdminUrl(request.url()));
+                case "url" -> {
+                    if (managed) bad("MANAGED_MEDIA_IMMUTABLE_FIELD");
+                    values.put("url", mediaUrlPolicy.requireAdminUrl(request.url()));
+                }
                 case "caption" -> values.put("caption", trim(request.caption()));
                 case "altText" -> values.put("alt_text", trim(request.altText()));
                 case "sourceName" -> values.put("source_name", trim(request.sourceName()));
                 case "license" -> values.put("license", trim(request.license()));
-                case "status" -> values.put("status", normalizeStatus(request.status()));
+                case "status" -> {
+                    String status = normalizeStatus(request.status());
+                    if (managed && "missing".equals(status)) {
+                        bad("INVALID_MANAGED_MEDIA_STATUS");
+                    }
+                    values.put("status", status);
+                }
                 default -> bad("UNSUPPORTED_FIELD");
             }
         }
@@ -129,10 +140,25 @@ public class AdminEventMediaMutationService {
             thumbnail = false;
         }
         if (sameMedia(current, values, thumbnail)) bad("NO_CHANGES");
-        repository.update(mediaId, nextType, (String) values.get("url"),
-                (String) values.get("caption"), (String) values.get("alt_text"),
-                (String) values.get("source_name"), (String) values.get("license"),
-                nextStatus, thumbnail);
+        if (managed) {
+            String nextAlt = (String) values.get("alt_text");
+            if (nextAlt == null || nextAlt.codePoints().noneMatch(Character::isLetterOrDigit)) {
+                bad("EVENT_IMAGE_ALT_TEXT_REQUIRED");
+            }
+            repository.updateManaged(
+                    mediaId,
+                    (String) values.get("caption"),
+                    nextAlt,
+                    (String) values.get("source_name"),
+                    (String) values.get("license"),
+                    nextStatus,
+                    thumbnail);
+        } else {
+            repository.update(mediaId, nextType, (String) values.get("url"),
+                    (String) values.get("caption"), (String) values.get("alt_text"),
+                    (String) values.get("source_name"), (String) values.get("license"),
+                    nextStatus, thumbnail);
+        }
         AdminEventDtos.Detail detail = readService.findEventAfterMutation(eventId);
         auditRepository.audit(principal.idBytes(), "event.media_updated", eventId,
                 json(Map.of("mediaId", mediaId, "expectedVersion", request.expectedUpdatedAt())),

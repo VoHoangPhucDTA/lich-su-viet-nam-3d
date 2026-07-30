@@ -6,6 +6,7 @@ import com.lichsuvn.backend.admin.api.dto.AdminEventDtos;
 import com.lichsuvn.backend.admin.application.AdminEventReadService;
 import com.lichsuvn.backend.admin.application.EventCompletenessFacts;
 import com.lichsuvn.backend.common.media.MediaUrlPolicy;
+import com.lichsuvn.backend.common.media.EventMediaReadPolicy;
 import com.lichsuvn.backend.event.infrastructure.PublicMapDataSanitizer;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -53,20 +54,31 @@ public class AdminEventReadRepository {
     private final NamedParameterJdbcTemplate jdbc;
     private final ObjectMapper objectMapper;
     private final MediaUrlPolicy mediaUrlPolicy;
+    private final EventMediaReadPolicy mediaReadPolicy;
 
     public AdminEventReadRepository(NamedParameterJdbcTemplate jdbc, ObjectMapper objectMapper) {
         this(jdbc, objectMapper, new MediaUrlPolicy());
+    }
+
+    public AdminEventReadRepository(
+            NamedParameterJdbcTemplate jdbc,
+            ObjectMapper objectMapper,
+            MediaUrlPolicy mediaUrlPolicy
+    ) {
+        this(jdbc, objectMapper, mediaUrlPolicy, new EventMediaReadPolicy(mediaUrlPolicy));
     }
 
     @org.springframework.beans.factory.annotation.Autowired
     public AdminEventReadRepository(
             NamedParameterJdbcTemplate jdbc,
             ObjectMapper objectMapper,
-            MediaUrlPolicy mediaUrlPolicy
+            MediaUrlPolicy mediaUrlPolicy,
+            EventMediaReadPolicy mediaReadPolicy
     ) {
         this.jdbc = jdbc;
         this.objectMapper = objectMapper;
         this.mediaUrlPolicy = mediaUrlPolicy;
+        this.mediaReadPolicy = mediaReadPolicy;
     }
 
     public long count(AdminEventReadService.Query query) {
@@ -92,7 +104,11 @@ public class AdminEventReadRepository {
                             'id', media_fact.id, 'url', media_fact.url,
                             'mediaType', media_fact.media_type, 'status', media_fact.status,
                             'thumbnail', media_fact.is_thumbnail, 'sortOrder', media_fact.sort_order,
-                            'altText', media_fact.alt_text))
+                            'altText', media_fact.alt_text,
+                            'storageState', media_fact.storage_state,
+                            'provider', media_fact.storage_provider,
+                            'publicId', media_fact.storage_public_id,
+                            'providerVersion', media_fact.storage_version))
                         FROM event_media media_fact WHERE media_fact.event_id=e.id) AS media_facts_json,
                        (TRIM(e.title) <> '') AS title_present,
                        (TRIM(e.slug) <> '') AS slug_present,
@@ -106,12 +122,28 @@ public class AdminEventReadRepository {
                            SELECT COUNT(*) FROM event_media active_media
                            WHERE active_media.event_id = e.id
                              AND active_media.status = 'active'
+                             AND (
+                               active_media.storage_state='UNMANAGED'
+                               OR (
+                                 active_media.storage_state='READY'
+                                 AND active_media.storage_provider='cloudinary'
+                                 AND TRIM(active_media.storage_public_id)<>''
+                               )
+                             )
                              AND TRIM(active_media.url) <> ''
                              AND LOWER(TRIM(active_media.url)) NOT LIKE 'local:%%'
                        ), 0) AS active_media_count,
                        (
                            SELECT COUNT(*) FROM event_media thumb
                            WHERE thumb.event_id = e.id AND thumb.status = 'active'
+                             AND (
+                               thumb.storage_state='UNMANAGED'
+                               OR (
+                                 thumb.storage_state='READY'
+                                 AND thumb.storage_provider='cloudinary'
+                                 AND TRIM(thumb.storage_public_id)<>''
+                               )
+                             )
                              AND thumb.is_thumbnail = TRUE AND thumb.media_type = 'image'
                              AND TRIM(thumb.url) <> ''
                              AND LOWER(TRIM(thumb.url)) NOT LIKE 'local:%%'
@@ -119,6 +151,14 @@ public class AdminEventReadRepository {
                        (
                            SELECT thumb.id FROM event_media thumb
                            WHERE thumb.event_id = e.id AND thumb.status = 'active'
+                             AND (
+                               thumb.storage_state='UNMANAGED'
+                               OR (
+                                 thumb.storage_state='READY'
+                                 AND thumb.storage_provider='cloudinary'
+                                 AND TRIM(thumb.storage_public_id)<>''
+                               )
+                             )
                              AND thumb.is_thumbnail = TRUE AND thumb.media_type = 'image'
                              AND TRIM(thumb.url) <> ''
                              AND LOWER(TRIM(thumb.url)) NOT LIKE 'local:%%'
@@ -127,6 +167,14 @@ public class AdminEventReadRepository {
                        (
                            SELECT thumb.url FROM event_media thumb
                            WHERE thumb.event_id = e.id AND thumb.status = 'active'
+                             AND (
+                               thumb.storage_state='UNMANAGED'
+                               OR (
+                                 thumb.storage_state='READY'
+                                 AND thumb.storage_provider='cloudinary'
+                                 AND TRIM(thumb.storage_public_id)<>''
+                               )
+                             )
                              AND thumb.is_thumbnail = TRUE AND thumb.media_type = 'image'
                              AND TRIM(thumb.url) <> ''
                              AND LOWER(TRIM(thumb.url)) NOT LIKE 'local:%%'
@@ -135,6 +183,14 @@ public class AdminEventReadRepository {
                        (
                            SELECT thumb.alt_text FROM event_media thumb
                            WHERE thumb.event_id = e.id AND thumb.status = 'active'
+                             AND (
+                               thumb.storage_state='UNMANAGED'
+                               OR (
+                                 thumb.storage_state='READY'
+                                 AND thumb.storage_provider='cloudinary'
+                                 AND TRIM(thumb.storage_public_id)<>''
+                               )
+                             )
                              AND thumb.is_thumbnail = TRUE AND thumb.media_type = 'image'
                              AND TRIM(thumb.url) <> ''
                              AND LOWER(TRIM(thumb.url)) NOT LIKE 'local:%%'
@@ -165,7 +221,11 @@ public class AdminEventReadRepository {
                             'id', media_fact.id, 'url', media_fact.url,
                             'mediaType', media_fact.media_type, 'status', media_fact.status,
                             'thumbnail', media_fact.is_thumbnail, 'sortOrder', media_fact.sort_order,
-                            'altText', media_fact.alt_text))
+                            'altText', media_fact.alt_text,
+                            'storageState', media_fact.storage_state,
+                            'provider', media_fact.storage_provider,
+                            'publicId', media_fact.storage_public_id,
+                            'providerVersion', media_fact.storage_version))
                         FROM event_media media_fact WHERE media_fact.event_id=e.id) AS media_facts_json,
                        (TRIM(e.title) <> '') AS title_present,
                        (TRIM(e.slug) <> '') AS slug_present,
@@ -179,12 +239,28 @@ public class AdminEventReadRepository {
                            SELECT COUNT(*) FROM event_media active_media
                            WHERE active_media.event_id = e.id
                              AND active_media.status = 'active'
+                             AND (
+                               active_media.storage_state='UNMANAGED'
+                               OR (
+                                 active_media.storage_state='READY'
+                                 AND active_media.storage_provider='cloudinary'
+                                 AND TRIM(active_media.storage_public_id)<>''
+                               )
+                             )
                              AND TRIM(active_media.url) <> ''
                              AND LOWER(TRIM(active_media.url)) NOT LIKE 'local:%%'
                        ), 0) AS active_media_count,
                        (
                            SELECT COUNT(*) FROM event_media thumb
                            WHERE thumb.event_id = e.id AND thumb.status = 'active'
+                             AND (
+                               thumb.storage_state='UNMANAGED'
+                               OR (
+                                 thumb.storage_state='READY'
+                                 AND thumb.storage_provider='cloudinary'
+                                 AND TRIM(thumb.storage_public_id)<>''
+                               )
+                             )
                              AND thumb.is_thumbnail = TRUE AND thumb.media_type = 'image'
                              AND TRIM(thumb.url) <> ''
                              AND LOWER(TRIM(thumb.url)) NOT LIKE 'local:%%'
@@ -192,6 +268,14 @@ public class AdminEventReadRepository {
                        (
                            SELECT thumb.id FROM event_media thumb
                            WHERE thumb.event_id = e.id AND thumb.status = 'active'
+                             AND (
+                               thumb.storage_state='UNMANAGED'
+                               OR (
+                                 thumb.storage_state='READY'
+                                 AND thumb.storage_provider='cloudinary'
+                                 AND TRIM(thumb.storage_public_id)<>''
+                               )
+                             )
                              AND thumb.is_thumbnail = TRUE AND thumb.media_type = 'image'
                              AND TRIM(thumb.url) <> ''
                              AND LOWER(TRIM(thumb.url)) NOT LIKE 'local:%%'
@@ -200,6 +284,14 @@ public class AdminEventReadRepository {
                        (
                            SELECT thumb.url FROM event_media thumb
                            WHERE thumb.event_id = e.id AND thumb.status = 'active'
+                             AND (
+                               thumb.storage_state='UNMANAGED'
+                               OR (
+                                 thumb.storage_state='READY'
+                                 AND thumb.storage_provider='cloudinary'
+                                 AND TRIM(thumb.storage_public_id)<>''
+                               )
+                             )
                              AND thumb.is_thumbnail = TRUE AND thumb.media_type = 'image'
                              AND TRIM(thumb.url) <> ''
                              AND LOWER(TRIM(thumb.url)) NOT LIKE 'local:%%'
@@ -208,6 +300,14 @@ public class AdminEventReadRepository {
                        (
                            SELECT thumb.alt_text FROM event_media thumb
                            WHERE thumb.event_id = e.id AND thumb.status = 'active'
+                             AND (
+                               thumb.storage_state='UNMANAGED'
+                               OR (
+                                 thumb.storage_state='READY'
+                                 AND thumb.storage_provider='cloudinary'
+                                 AND TRIM(thumb.storage_public_id)<>''
+                               )
+                             )
                              AND thumb.is_thumbnail = TRUE AND thumb.media_type = 'image'
                              AND TRIM(thumb.url) <> ''
                              AND LOWER(TRIM(thumb.url)) NOT LIKE 'local:%%'
@@ -251,10 +351,19 @@ public class AdminEventReadRepository {
                        JSON_TYPE(%s) AS map_data_type,
                        %s AS map_data_json,
                        (SELECT COUNT(*) FROM event_media am
-                        WHERE am.event_id=e.id AND am.status='active' AND TRIM(am.url)<>''
+                        WHERE am.event_id=e.id AND am.status='active'
+                          AND (am.storage_state='UNMANAGED'
+                               OR (am.storage_state='READY'
+                                   AND am.storage_provider='cloudinary'
+                                   AND TRIM(am.storage_public_id)<>''))
+                          AND TRIM(am.url)<>''
                           AND LOWER(TRIM(am.url)) NOT LIKE 'local:%%') AS active_media_count,
                        (SELECT COUNT(*) FROM event_media tm
                         WHERE tm.event_id=e.id AND tm.status='active'
+                          AND (tm.storage_state='UNMANAGED'
+                               OR (tm.storage_state='READY'
+                                   AND tm.storage_provider='cloudinary'
+                                   AND TRIM(tm.storage_public_id)<>''))
                           AND tm.is_thumbnail=TRUE AND tm.media_type='image' AND TRIM(tm.url)<>''
                           AND LOWER(TRIM(tm.url)) NOT LIKE 'local:%%') AS active_thumbnail_count
                 FROM historical_events e
@@ -291,7 +400,11 @@ public class AdminEventReadRepository {
                             'id', media_fact.id, 'url', media_fact.url,
                             'mediaType', media_fact.media_type, 'status', media_fact.status,
                             'thumbnail', media_fact.is_thumbnail, 'sortOrder', media_fact.sort_order,
-                            'altText', media_fact.alt_text))
+                            'altText', media_fact.alt_text,
+                            'storageState', media_fact.storage_state,
+                            'provider', media_fact.storage_provider,
+                            'publicId', media_fact.storage_public_id,
+                            'providerVersion', media_fact.storage_version))
                         FROM event_media media_fact WHERE media_fact.event_id=e.id) AS media_facts_json,
                        JSON_TYPE(%s) AS map_data_type, %s AS map_data_json,
                        (SELECT COUNT(*) FROM event_textbook_refs tr WHERE tr.event_id=e.id) AS textbook_ref_count,
@@ -301,16 +414,29 @@ public class AdminEventReadRepository {
                            WHERE tc.event_id=e.id AND tc.content IS NOT NULL AND TRIM(tc.content) <> ''
                        ) AS has_textbook_content,
                        (SELECT COUNT(*) FROM event_media am
-                        WHERE am.event_id=e.id AND am.status='active' AND TRIM(am.url)<>''
+                        WHERE am.event_id=e.id AND am.status='active'
+                          AND (am.storage_state='UNMANAGED'
+                               OR (am.storage_state='READY'
+                                   AND am.storage_provider='cloudinary'
+                                   AND TRIM(am.storage_public_id)<>''))
+                          AND TRIM(am.url)<>''
                           AND LOWER(TRIM(am.url)) NOT LIKE 'local:%%')
                            AS active_media_count,
                        (SELECT COUNT(*) FROM event_media tm
                         WHERE tm.event_id=e.id AND tm.status='active'
+                          AND (tm.storage_state='UNMANAGED'
+                               OR (tm.storage_state='READY'
+                                   AND tm.storage_provider='cloudinary'
+                                   AND TRIM(tm.storage_public_id)<>''))
                           AND tm.is_thumbnail=TRUE AND tm.media_type='image' AND TRIM(tm.url)<>''
                           AND LOWER(TRIM(tm.url)) NOT LIKE 'local:%%'
                        ) AS active_thumbnail_count,
                        (SELECT tm.id FROM event_media tm
                         WHERE tm.event_id=e.id AND tm.status='active'
+                          AND (tm.storage_state='UNMANAGED'
+                               OR (tm.storage_state='READY'
+                                   AND tm.storage_provider='cloudinary'
+                                   AND TRIM(tm.storage_public_id)<>''))
                           AND tm.is_thumbnail=TRUE AND tm.media_type='image' AND TRIM(tm.url)<>''
                           AND LOWER(TRIM(tm.url)) NOT LIKE 'local:%%'
                         ORDER BY tm.sort_order, tm.id LIMIT 1) AS thumbnail_id,
@@ -330,11 +456,22 @@ public class AdminEventReadRepository {
     public List<AdminEventDtos.Media> findMedia(String id) {
         return jdbc.query("""
                 SELECT id, media_type, url, caption, alt_text, source_name, license,
-                       storage_type, is_thumbnail, sort_order, status, created_at
+                       storage_type, is_thumbnail, sort_order, status, created_at,
+                       storage_state,storage_provider,storage_public_id,storage_version
                 FROM event_media WHERE event_id=:id
                 ORDER BY is_thumbnail DESC, sort_order, id
         """, new MapSqlParameterSource("id", id), (rs, row) -> {
-            String url = mediaUrlPolicy.redactDisplayUrl(rs.getString("url"));
+            Long providerVersion = rs.getObject("storage_version") == null
+                    ? null : rs.getLong("storage_version");
+            String url = mediaReadPolicy.visibleUrl(new EventMediaReadPolicy.MediaDescriptor(
+                    rs.getString("storage_state"),
+                    rs.getString("status"),
+                    rs.getString("url"),
+                    rs.getString("storage_provider"),
+                    rs.getString("storage_public_id"),
+                    providerVersion,
+                    rs.getBoolean("is_thumbnail")));
+            if (url == null) return null;
             return new AdminEventDtos.Media(
                     rs.getLong("id"), rs.getString("media_type"), url, url != null,
                     mediaUrlPolicy.redactMetadata(rs.getString("caption")),
@@ -344,7 +481,7 @@ public class AdminEventReadRepository {
                     rs.getString("storage_type"), rs.getBoolean("is_thumbnail"),
                     rs.getInt("sort_order"), rs.getString("status"), instant(rs, "created_at")
             );
-        });
+        }).stream().filter(java.util.Objects::nonNull).toList();
     }
 
     public List<AdminEventDtos.TextbookReference> findVisibleTextbookReferences(String id) {
@@ -461,12 +598,20 @@ public class AdminEventReadRepository {
         missingFilter(filters, query.missingThumbnail(), """
                 EXISTS(SELECT 1 FROM event_media tm WHERE tm.event_id=e.id
                   AND tm.status='active' AND tm.is_thumbnail=TRUE
+                  AND (tm.storage_state='UNMANAGED'
+                       OR (tm.storage_state='READY'
+                           AND tm.storage_provider='cloudinary'
+                           AND TRIM(tm.storage_public_id)<>''))
                   AND tm.media_type='image' AND TRIM(tm.url)<>''
                   AND LOWER(TRIM(tm.url)) NOT LIKE 'local:%')
                 """);
         missingFilter(filters, query.missingMedia(), """
                 EXISTS(SELECT 1 FROM event_media am WHERE am.event_id=e.id
                   AND am.status='active' AND TRIM(am.url)<>''
+                  AND (am.storage_state='UNMANAGED'
+                       OR (am.storage_state='READY'
+                           AND am.storage_provider='cloudinary'
+                           AND TRIM(am.storage_public_id)<>''))
                   AND LOWER(TRIM(am.url)) NOT LIKE 'local:%')
                 """);
         if (query.missingMapData() != null) {
@@ -556,11 +701,23 @@ public class AdminEventReadRepository {
         List<JsonNode> thumbnails = new ArrayList<>();
         for (JsonNode row : rows) {
             String url = textValue(row.get("url"));
-            boolean safe = mediaUrlPolicy.isSafeDisplayUrl(url);
-            boolean active = "active".equals(textValue(row.get("status")));
-            if (active && safe) activeCount++;
-            if (active && safe && row.path("thumbnail").asBoolean()
+            String visibleUrl = mediaReadPolicy.visibleUrl(
+                    new EventMediaReadPolicy.MediaDescriptor(
+                            textValue(row.get("storageState")),
+                            textValue(row.get("status")),
+                            url,
+                            textValue(row.get("provider")),
+                            textValue(row.get("publicId")),
+                            row.get("providerVersion") != null
+                                    && row.get("providerVersion").isNumber()
+                                    ? row.get("providerVersion").longValue() : null,
+                            row.path("thumbnail").asBoolean()));
+            boolean visible = visibleUrl != null;
+            if (visible) activeCount++;
+            if (visible && row.path("thumbnail").asBoolean()
                     && "image".equals(textValue(row.get("mediaType")))) {
+                ((com.fasterxml.jackson.databind.node.ObjectNode) row)
+                        .put("visibleUrl", visibleUrl);
                 thumbnails.add(row);
             }
         }
@@ -570,7 +727,7 @@ public class AdminEventReadRepository {
         AdminEventDtos.Thumbnail thumbnail = thumbnails.isEmpty() ? null
                 : new AdminEventDtos.Thumbnail(
                 thumbnails.getFirst().path("id").asLong(),
-                mediaUrlPolicy.redactDisplayUrl(textValue(thumbnails.getFirst().get("url"))),
+                textValue(thumbnails.getFirst().get("visibleUrl")),
                 mediaUrlPolicy.redactMetadata(textValue(thumbnails.getFirst().get("altText"))));
         return new MediaProjection(thumbnail, activeCount, thumbnails.size());
     }

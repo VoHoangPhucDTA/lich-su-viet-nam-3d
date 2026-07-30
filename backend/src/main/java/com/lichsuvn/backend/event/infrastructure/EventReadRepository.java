@@ -13,6 +13,7 @@ import com.lichsuvn.backend.event.api.dto.EventRelationDto;
 import com.lichsuvn.backend.event.api.dto.EventSummaryDto;
 import com.lichsuvn.backend.event.api.dto.EventTextbookRefDto;
 import com.lichsuvn.backend.event.api.dto.TimelineEventDto;
+import com.lichsuvn.backend.common.media.EventMediaReadPolicy;
 import com.lichsuvn.backend.common.media.MediaUrlPolicy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
@@ -78,21 +79,32 @@ public class EventReadRepository {
     private final NamedParameterJdbcTemplate jdbc;
     private final ObjectMapper objectMapper;
     private final MediaUrlPolicy mediaUrlPolicy;
+    private final EventMediaReadPolicy mediaReadPolicy;
     private volatile Boolean eventRelationsHasAssociationType;
 
     public EventReadRepository(NamedParameterJdbcTemplate jdbc, ObjectMapper objectMapper) {
         this(jdbc, objectMapper, new MediaUrlPolicy());
     }
 
-    @Autowired
     public EventReadRepository(
             NamedParameterJdbcTemplate jdbc,
             ObjectMapper objectMapper,
             MediaUrlPolicy mediaUrlPolicy
     ) {
+        this(jdbc, objectMapper, mediaUrlPolicy, new EventMediaReadPolicy(mediaUrlPolicy));
+    }
+
+    @Autowired
+    public EventReadRepository(
+            NamedParameterJdbcTemplate jdbc,
+            ObjectMapper objectMapper,
+            MediaUrlPolicy mediaUrlPolicy,
+            EventMediaReadPolicy mediaReadPolicy
+    ) {
         this.jdbc = jdbc;
         this.objectMapper = objectMapper;
         this.mediaUrlPolicy = mediaUrlPolicy;
+        this.mediaReadPolicy = mediaReadPolicy;
     }
 
     /**
@@ -148,6 +160,14 @@ public class EventReadRepository {
                            FROM event_media em
                            WHERE em.event_id = e.id
                              AND em.status = 'active'
+                             AND (
+                               em.storage_state='UNMANAGED'
+                               OR (
+                                 em.storage_state='READY'
+                                 AND em.storage_provider='cloudinary'
+                                 AND TRIM(em.storage_public_id)<>''
+                               )
+                             )
                              AND em.is_thumbnail = TRUE
                            ORDER BY em.sort_order ASC, em.id ASC
                            LIMIT 1
@@ -320,6 +340,14 @@ public class EventReadRepository {
                            FROM event_media em
                            WHERE em.event_id = e.id
                              AND em.status = 'active'
+                             AND (
+                               em.storage_state='UNMANAGED'
+                               OR (
+                                 em.storage_state='READY'
+                                 AND em.storage_provider='cloudinary'
+                                 AND TRIM(em.storage_public_id)<>''
+                               )
+                             )
                              AND em.is_thumbnail = TRUE
                            ORDER BY em.sort_order ASC, em.id ASC
                            LIMIT 1
@@ -361,6 +389,14 @@ public class EventReadRepository {
                            FROM event_media em
                            WHERE em.event_id = e.id
                              AND em.status = 'active'
+                             AND (
+                               em.storage_state='UNMANAGED'
+                               OR (
+                                 em.storage_state='READY'
+                                 AND em.storage_provider='cloudinary'
+                                 AND TRIM(em.storage_public_id)<>''
+                               )
+                             )
                              AND em.is_thumbnail = TRUE
                            ORDER BY em.sort_order ASC, em.id ASC
                            LIMIT 1
@@ -417,6 +453,14 @@ public class EventReadRepository {
                            FROM event_media em
                            WHERE em.event_id = e.id
                              AND em.status = 'active'
+                             AND (
+                               em.storage_state='UNMANAGED'
+                               OR (
+                                 em.storage_state='READY'
+                                 AND em.storage_provider='cloudinary'
+                                 AND TRIM(em.storage_public_id)<>''
+                               )
+                             )
                              AND em.is_thumbnail = TRUE
                            ORDER BY em.sort_order ASC, em.id ASC
                            LIMIT 1
@@ -553,17 +597,33 @@ public class EventReadRepository {
     private List<EventMediaDto> findMedia(String eventId) {
         String sql = """
                 SELECT id, media_type, url, caption, alt_text, source_name, license,
-                       storage_type, is_thumbnail, sort_order
+                       storage_type, is_thumbnail, sort_order, status,
+                       storage_state,storage_provider,storage_public_id,storage_version
                 FROM event_media
                 WHERE event_id = :eventId
                   AND status = 'active'
                 ORDER BY is_thumbnail DESC, sort_order ASC, id ASC
                 """;
 
-        return jdbc.query(sql, new MapSqlParameterSource("eventId", eventId), (rs, rowNum) -> new EventMediaDto(
+        return jdbc.query(sql, new MapSqlParameterSource("eventId", eventId), (rs, rowNum) -> {
+            Long providerVersion = rs.getObject("storage_version") == null
+                    ? null : rs.getLong("storage_version");
+            String visibleUrl = mediaReadPolicy.visibleUrl(
+                    new EventMediaReadPolicy.MediaDescriptor(
+                            rs.getString("storage_state"),
+                            rs.getString("status"),
+                            rs.getString("url"),
+                            rs.getString("storage_provider"),
+                            rs.getString("storage_public_id"),
+                            providerVersion,
+                            rs.getBoolean("is_thumbnail")));
+            if (visibleUrl == null) {
+                return null;
+            }
+            return new EventMediaDto(
                 rs.getLong("id"),
                 rs.getString("media_type"),
-                mediaUrlPolicy.redactDisplayUrl(rs.getString("url")),
+                visibleUrl,
                 mediaUrlPolicy.redactMetadata(rs.getString("caption")),
                 mediaUrlPolicy.redactMetadata(rs.getString("alt_text")),
                 mediaUrlPolicy.redactMetadata(rs.getString("source_name")),
@@ -571,7 +631,8 @@ public class EventReadRepository {
                 rs.getString("storage_type"),
                 rs.getBoolean("is_thumbnail"),
                 rs.getInt("sort_order")
-        )).stream().filter(media -> media.url() != null).toList();
+            );
+        }).stream().filter(java.util.Objects::nonNull).toList();
     }
 
     private QueryParts buildEventFilters(

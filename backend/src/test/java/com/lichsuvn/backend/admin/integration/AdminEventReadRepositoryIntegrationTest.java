@@ -178,10 +178,9 @@ class AdminEventReadRepositoryIntegrationTest {
         var detail = service.findEvent("complete-point");
         assertEquals("Complete point", detail.core().title());
         assertEquals(1, detail.media().activeCount());
-        assertEquals(2, detail.media().items().size());
-        assertNull(detail.media().items().stream()
-                .filter(item -> item.id() != null && item.url() == null)
-                .findFirst().orElseThrow().url());
+        assertEquals(1, detail.media().items().size());
+        assertTrue(detail.media().items().stream()
+                .allMatch(item -> item.url() != null));
         assertEquals(1, detail.classification().grades().size());
         assertTrue(detail.textbook().hasTextbookContent());
         assertEquals(1, detail.textbook().totalReferenceCount());
@@ -268,12 +267,8 @@ class AdminEventReadRepositoryIntegrationTest {
                 """, Long.class);
         try {
             var detail = service.findEvent("complete-point");
-            var unsafe = detail.media().items().stream()
-                    .filter(item -> item.id().equals(unsafeId)).findFirst().orElseThrow();
-            assertNull(unsafe.url());
-            assertFalse(unsafe.urlSafe());
-            assertNull(unsafe.sourceName());
-            assertNull(unsafe.license());
+            assertTrue(detail.media().items().stream()
+                    .noneMatch(item -> item.id().equals(unsafeId)));
 
             List<String> listCodes = service.findEvents(
                     "Complete point", null, null, null, null, null, null,

@@ -3,21 +3,30 @@ package com.lichsuvn.backend.admin.integration;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lichsuvn.backend.admin.api.dto.AdminEventMutationDtos;
 import com.lichsuvn.backend.admin.api.dto.AdminEventMediaMutationDtos;
+import com.lichsuvn.backend.admin.api.dto.AdminEventImageDtos;
 import com.lichsuvn.backend.admin.api.dto.AdminEventGeographyDtos;
 import com.lichsuvn.backend.admin.application.AdminEventGeographyCanonicalizer;
 import com.lichsuvn.backend.admin.application.AdminEventGeographyMutationService;
 import com.lichsuvn.backend.admin.application.AdminEventMediaMutationService;
+import com.lichsuvn.backend.admin.application.AdminEventImageUploadService;
+import com.lichsuvn.backend.admin.application.AdminEventImageCleanupService;
 import com.lichsuvn.backend.admin.application.AdminEventMutationService;
 import com.lichsuvn.backend.admin.application.AdminEventReadService;
 import com.lichsuvn.backend.admin.application.EventCompletenessService;
+import com.lichsuvn.backend.admin.application.EventImageStorage;
+import com.lichsuvn.backend.admin.application.EventImageValidator;
 import com.lichsuvn.backend.admin.application.VietnamGadmRegistry;
 import com.lichsuvn.backend.admin.infrastructure.AdminEventMutationRepository;
 import com.lichsuvn.backend.admin.infrastructure.AdminEventReadRepository;
 import com.lichsuvn.backend.admin.infrastructure.AdminEventMediaMutationRepository;
+import com.lichsuvn.backend.admin.infrastructure.AdminEventImageRepository;
 import com.lichsuvn.backend.admin.infrastructure.AdminEventGeographyMutationRepository;
 import com.lichsuvn.backend.auth.security.UserPrincipal;
 import com.lichsuvn.backend.common.exception.ApiException;
 import com.lichsuvn.backend.common.media.MediaUrlPolicy;
+import com.lichsuvn.backend.common.media.EventMediaReadPolicy;
+import com.lichsuvn.backend.auth.infrastructure.UuidBytes;
+import com.lichsuvn.backend.event.infrastructure.EventReadRepository;
 import com.lichsuvn.backend.testsupport.LocalMySqlContainer;
 import org.flywaydb.core.Flyway;
 import org.junit.jupiter.api.AfterAll;
@@ -27,17 +36,26 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.dao.DataAccessException;
 import org.springframework.transaction.support.TransactionTemplate;
+import org.springframework.mock.web.MockMultipartFile;
 import org.testcontainers.mysql.MySQLContainer;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
+import java.util.UUID;
+import java.util.concurrent.atomic.AtomicInteger;
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.math.BigDecimal;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
+import javax.sql.DataSource;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -49,41 +67,87 @@ import static org.junit.jupiter.api.Assumptions.assumeTrue;
 class AdminEventMutationIntegrationTest {
     private static MySQLContainer mysql;
     private static JdbcTemplate jdbc;
+    private static boolean remoteRehearsal;
     private static ObjectMapper mapper;
     private static AdminEventMutationService service;
     private static AdminEventMediaMutationService mediaService;
     private static AdminEventGeographyMutationService geographyService;
+    private static AdminEventImageUploadService imageService;
+    private static AdminEventImageCleanupService imageCleanupService;
+    private static FakeEventImageStorage fakeImageStorage;
     private static TransactionTemplate tx;
     private static boolean available;
     private static String unavailableReason;
     private static final DateTimeFormatter VERSION_FORMATTER =
             new DateTimeFormatterBuilder().appendInstant(6).toFormatter();
     private static final UserPrincipal ADMIN = new UserPrincipal("admin", null, "admin@test", List.of("admin"));
+    private static final UUID IMAGE_ADMIN_ID =
+            UUID.fromString("00000000-0000-4000-8000-000000004201");
+    private static final UserPrincipal IMAGE_ADMIN = new UserPrincipal(
+            IMAGE_ADMIN_ID.toString(), UuidBytes.fromUuid(IMAGE_ADMIN_ID),
+            "phase-b-admin@example.test", List.of("admin"));
 
     @BeforeAll
     static void startDatabase() {
         try {
-            mysql = new LocalMySqlContainer("mysql:8.0.36")
-                    .withDatabaseName("admin_phase5_test")
-                    .withUsername("test")
-                    .withPassword("test");
-            mysql.start();
-            var dataSource = new DriverManagerDataSource(
-                    mysql.getJdbcUrl(), mysql.getUsername(), mysql.getPassword());
-            Flyway.configure()
-                    .dataSource(mysql.getJdbcUrl(), mysql.getUsername(), mysql.getPassword())
-                    .locations("filesystem:src/main/resources/db/migration")
-                    .load().migrate();
+            remoteRehearsal = Boolean.getBoolean("phaseb.tidb.rehearsal");
+            DataSource dataSource;
+            if (remoteRehearsal) {
+                String host = requiredEnvironment("TIDB_REHEARSAL_HOST");
+                String database = requiredEnvironment("TIDB_REHEARSAL_DATABASE");
+                String user = requiredEnvironment("TIDB_PHASEB_BRANCH_OPERATOR_USER");
+                String password = requiredEnvironment("TIDB_PHASEB_BRANCH_OPERATOR_PASSWORD");
+                String branchId = requiredEnvironment("TIDB_PHASEB_BRANCH_ID");
+                if (!"lichsuvn".equals(database)
+                        || !branchId.matches("bran-[a-z0-9]+")
+                        || !Boolean.getBoolean("phaseb.tidb.writes-approved")) {
+                    throw new IllegalStateException(
+                            "Explicit isolated TiDB rehearsal identity and write approval are required");
+                }
+                dataSource = new DriverManagerDataSource(
+                        "jdbc:mysql://" + host + ":4000/" + database
+                                + "?sslMode=VERIFY_IDENTITY"
+                                + "&tlsVersions=TLSv1.2,TLSv1.3"
+                                + "&allowPublicKeyRetrieval=false"
+                                + "&connectTimeout=15000&socketTimeout=120000",
+                        user,
+                        password);
+            } else {
+                mysql = new LocalMySqlContainer("mysql:8.0.36")
+                        .withDatabaseName("admin_phase5_test")
+                        .withUsername("test")
+                        .withPassword("test");
+                mysql.start();
+                dataSource = new DriverManagerDataSource(
+                        mysql.getJdbcUrl(), mysql.getUsername(), mysql.getPassword());
+                Flyway.configure()
+                        .dataSource(mysql.getJdbcUrl(), mysql.getUsername(), mysql.getPassword())
+                        .locations("filesystem:src/main/resources/db/migration")
+                        .load().migrate();
+            }
             jdbc = new JdbcTemplate(dataSource);
+            if (remoteRehearsal) {
+                verifyRemoteRehearsal();
+                cleanupRemoteFixtures();
+            }
             var named = new NamedParameterJdbcTemplate(dataSource);
             mapper = new ObjectMapper();
+            jdbc.update("""
+                    INSERT INTO users(id,email,password_hash,full_name,status)
+                    VALUES(UUID_TO_BIN(?),?,'hash','Phase B Admin','active')
+                    """, IMAGE_ADMIN_ID.toString(), IMAGE_ADMIN.email());
+            fakeImageStorage = new FakeEventImageStorage();
+            var mediaUrlPolicy = new MediaUrlPolicy();
             var read = new AdminEventReadService(
-                    new AdminEventReadRepository(named, mapper), new EventCompletenessService());
+                    new AdminEventReadRepository(
+                            named, mapper, mediaUrlPolicy,
+                            new EventMediaReadPolicy(mediaUrlPolicy, fakeImageStorage)),
+                    new EventCompletenessService());
             var mutations = new AdminEventMutationRepository(named, mapper);
             service = new AdminEventMutationService(mutations, read, mapper);
             mediaService = new AdminEventMediaMutationService(
                     new AdminEventMediaMutationRepository(named), mutations, read,
-                    new MediaUrlPolicy(), mapper);
+                    mediaUrlPolicy, mapper);
             geographyService = new AdminEventGeographyMutationService(
                     new AdminEventGeographyMutationRepository(named, mapper),
                     mutations,
@@ -91,9 +155,21 @@ class AdminEventMutationIntegrationTest {
                             mapper, new VietnamGadmRegistry(mapper)),
                     read,
                     mapper);
-            tx = new TransactionTemplate(new DataSourceTransactionManager(dataSource));
+            var transactionManager = new DataSourceTransactionManager(dataSource);
+            tx = new TransactionTemplate(transactionManager);
+            imageService = new AdminEventImageUploadService(
+                    new AdminEventImageRepository(named), mutations, read,
+                    new EventImageValidator(), fakeImageStorage, mapper,
+                    transactionManager, 10);
+            imageCleanupService = new AdminEventImageCleanupService(
+                    new AdminEventImageRepository(named), fakeImageStorage,
+                    transactionManager, true, 120, 3);
             available = true;
         } catch (Exception ex) {
+            if (remoteRehearsal) {
+                throw new IllegalStateException(
+                        "TiDB Phase B rehearsal setup failed", ex);
+            }
             unavailableReason = ex.getClass().getSimpleName() + ": " + ex.getMessage();
             if (mysql != null) mysql.stop();
         }
@@ -101,7 +177,49 @@ class AdminEventMutationIntegrationTest {
 
     @AfterAll
     static void stopDatabase() {
+        if (remoteRehearsal && jdbc != null) {
+            cleanupRemoteFixtures();
+        }
         if (mysql != null) mysql.stop();
+    }
+
+    private static void verifyRemoteRehearsal() {
+        String version = jdbc.queryForObject("SELECT VERSION()", String.class);
+        assertTrue(version != null && version.contains("TiDB-v8.5.3"));
+        assertEquals("lichsuvn", jdbc.queryForObject("SELECT DATABASE()", String.class));
+        assertEquals(1, jdbc.queryForObject(
+                "SELECT @@global.tidb_enable_check_constraint", Integer.class));
+        assertEquals(1, jdbc.queryForObject("""
+                SELECT COUNT(*) FROM flyway_schema_history
+                WHERE version='42' AND success=1
+                """, Integer.class));
+        assertEquals(0, jdbc.queryForObject(
+                "SELECT COUNT(*) FROM flyway_schema_history WHERE success=0",
+                Integer.class));
+    }
+
+    private static void cleanupRemoteFixtures() {
+        jdbc.update("DELETE FROM admin_audit_logs WHERE entity_id LIKE 'phase-b-%'");
+        jdbc.update("DELETE FROM historical_events WHERE id LIKE 'phase-b-%'");
+        jdbc.update("""
+                DELETE FROM event_media_storage_cleanup_tasks
+                WHERE public_id LIKE 'events/phase-b-%'
+                """);
+        jdbc.update("""
+                DELETE FROM users
+                WHERE id IN (
+                    UUID_TO_BIN('00000000-0000-4000-8000-000000004201'),
+                    UUID_TO_BIN('00000000-0000-4000-8000-000000004202')
+                )
+                """);
+    }
+
+    private static String requiredEnvironment(String name) {
+        String value = System.getenv(name);
+        if (value == null || value.isBlank()) {
+            throw new IllegalStateException(name + " is required for TiDB rehearsal");
+        }
+        return value;
     }
 
     @Test
@@ -124,6 +242,85 @@ class AdminEventMutationIntegrationTest {
         assertEquals("ARRAY", row.get("facts_type"));
         assertEquals(List.of(10, 12), detail.classification().grades());
         assertTrue(version(detail).matches(".*\\.\\d{6}Z"));
+    }
+
+    @Test
+    void v42ManagedStorageChecksExistAndRejectInvalidValues() {
+        assumeTrue(available, unavailableReason);
+        String eventId = "phase-b-v42-enforcement";
+        String cleanupId = "events/phase-b-v42-enforcement/media/check";
+        try {
+            tx.executeWithoutResult(status -> service.create(create(eventId), IMAGE_ADMIN));
+            jdbc.update("""
+                    INSERT INTO event_media(event_id,media_type,url)
+                    VALUES(?,'image','https://example.test/rehearsal.jpg')
+                    """, eventId);
+            jdbc.update("""
+                    INSERT INTO event_media_storage_cleanup_tasks(
+                        provider,public_id,operation,task_status,attempts,next_attempt_at
+                    ) VALUES('cloudinary',?,'DELETE','PENDING',0,CURRENT_TIMESTAMP(6))
+                    """, cleanupId);
+
+            assertEquals(6, jdbc.queryForObject("""
+                    SELECT COUNT(*) FROM information_schema.check_constraints
+                    WHERE constraint_schema=DATABASE()
+                      AND constraint_name IN (
+                        'chk_event_media_storage_state',
+                        'chk_event_media_storage_byte_size',
+                        'chk_event_media_storage_dimensions',
+                        'chk_event_media_cleanup_operation',
+                        'chk_event_media_cleanup_status',
+                        'chk_event_media_cleanup_attempts'
+                      )
+                    """, Integer.class));
+            if (remoteRehearsal) {
+                assertEquals(6, jdbc.queryForObject("""
+                        SELECT COUNT(*) FROM information_schema.tidb_check_constraints
+                        WHERE constraint_schema=DATABASE()
+                          AND constraint_name IN (
+                            'chk_event_media_storage_state',
+                            'chk_event_media_storage_byte_size',
+                            'chk_event_media_storage_dimensions',
+                            'chk_event_media_cleanup_operation',
+                            'chk_event_media_cleanup_status',
+                            'chk_event_media_cleanup_attempts'
+                          )
+                        """, Integer.class));
+            }
+
+            assertThrows(DataAccessException.class, () -> jdbc.update("""
+                    UPDATE event_media SET storage_state='UNKNOWN' WHERE event_id=?
+                    """, eventId));
+            assertThrows(DataAccessException.class, () -> jdbc.update("""
+                    UPDATE event_media SET storage_byte_size=0 WHERE event_id=?
+                    """, eventId));
+            assertThrows(DataAccessException.class, () -> jdbc.update("""
+                    UPDATE event_media SET storage_byte_size=-1 WHERE event_id=?
+                    """, eventId));
+            assertThrows(DataAccessException.class, () -> jdbc.update("""
+                    UPDATE event_media SET storage_width=0,storage_height=1 WHERE event_id=?
+                    """, eventId));
+            assertThrows(DataAccessException.class, () -> jdbc.update("""
+                    UPDATE event_media SET storage_width=1,storage_height=-1 WHERE event_id=?
+                    """, eventId));
+            assertThrows(DataAccessException.class, () -> jdbc.update("""
+                    UPDATE event_media_storage_cleanup_tasks
+                    SET operation='PURGE' WHERE public_id=?
+                    """, cleanupId));
+            assertThrows(DataAccessException.class, () -> jdbc.update("""
+                    UPDATE event_media_storage_cleanup_tasks
+                    SET task_status='UNKNOWN' WHERE public_id=?
+                    """, cleanupId));
+            assertThrows(DataAccessException.class, () -> jdbc.update("""
+                    UPDATE event_media_storage_cleanup_tasks
+                    SET attempts=-1 WHERE public_id=?
+                    """, cleanupId));
+        } finally {
+            jdbc.update("""
+                    DELETE FROM event_media_storage_cleanup_tasks WHERE public_id=?
+                    """, cleanupId);
+            jdbc.update("DELETE FROM historical_events WHERE id=?", eventId);
+        }
     }
 
     @Test
@@ -420,6 +617,8 @@ class AdminEventMutationIntegrationTest {
     @Test
     void mediaPatchReorderRemoveAndOwnershipUseOneVersionedAggregate() {
         assumeTrue(available, unavailableReason);
+        int storageUploadsBefore = fakeImageStorage.uploads.get();
+        int storageDeletesBefore = fakeImageStorage.deletes.get();
         tx.executeWithoutResult(status -> service.create(create("phase6-flow"), ADMIN));
         tx.executeWithoutResult(status -> service.create(create("phase6-foreign"), ADMIN));
 
@@ -479,6 +678,8 @@ class AdminEventMutationIntegrationTest {
                 ORDER BY sort_order,id
                 """, Integer.class));
         assertNotEquals(beforeOwnershipFailure, version(removed));
+        assertEquals(storageUploadsBefore, fakeImageStorage.uploads.get());
+        assertEquals(storageDeletesBefore, fakeImageStorage.deletes.get());
     }
 
     @Test
@@ -865,6 +1066,361 @@ class AdminEventMutationIntegrationTest {
                 .anyMatch(issue -> "ERROR".equals(issue.severity())));
     }
 
+    @Test
+    void managedImageReservationIsInvisibleAndFinalizeBumpsVersionOnce() throws Exception {
+        assumeTrue(available, unavailableReason);
+        tx.executeWithoutResult(status ->
+                service.create(create("phase-b-managed-thumbnail"), IMAGE_ADMIN));
+        String expected = version(serviceRead("phase-b-managed-thumbnail"));
+        int uploadsBefore = fakeImageStorage.uploads.get();
+        fakeImageStorage.onUpload = () -> {
+            assertEquals(expected, version(serviceRead("phase-b-managed-thumbnail")));
+            assertTrue(serviceRead("phase-b-managed-thumbnail").media().items().isEmpty());
+            assertTrue(!imageCleanupService.runOnce());
+            Map<String, Object> reservation = jdbc.queryForMap("""
+                    SELECT storage_state,status,url,is_thumbnail
+                    FROM event_media
+                    WHERE event_id='phase-b-managed-thumbnail'
+                    """);
+            assertEquals("UPLOADING", reservation.get("storage_state"));
+            assertEquals("hidden", reservation.get("status"));
+            assertEquals("", reservation.get("url"));
+            assertEquals(false, reservation.get("is_thumbnail"));
+        };
+
+        MockMultipartFile uploadFile = pngFile();
+        var response = imageService.upload(
+                "phase-b-managed-thumbnail",
+                uploadFile,
+                expected,
+                "thumbnail",
+                "Minh họa sự kiện",
+                "Chú thích",
+                "Nguồn kiểm thử",
+                "CC BY 4.0",
+                IMAGE_ADMIN);
+
+        assertEquals(uploadsBefore + 1, fakeImageStorage.uploads.get());
+        assertNotEquals(expected, response.updatedAt());
+        assertEquals(response.updatedAt(), version(response.event()));
+        assertTrue(response.event().media().thumbnail().url()
+                .startsWith("https://cdn.example.test/thumbnail/"));
+        assertTrue(!response.event().media().thumbnail().url()
+                .contains("provider-original"));
+        Map<String, Object> stored = jdbc.queryForMap("""
+                SELECT storage_state,status,is_thumbnail,storage_provider,
+                       storage_original_url,storage_sha256,storage_byte_size,
+                       storage_width,storage_height,
+                       upload_token,upload_expires_at
+                FROM event_media WHERE id=?
+                """, response.mediaId());
+        assertEquals("READY", stored.get("storage_state"));
+        assertEquals("active", stored.get("status"));
+        assertEquals(true, stored.get("is_thumbnail"));
+        assertEquals("cloudinary", stored.get("storage_provider"));
+        assertTrue(String.valueOf(stored.get("storage_original_url"))
+                .contains("provider-original"));
+        assertTrue(String.valueOf(stored.get("storage_sha256")).matches("[0-9a-f]{64}"));
+        assertEquals(uploadFile.getSize(),
+                ((Number) stored.get("storage_byte_size")).longValue());
+        assertEquals(20, ((Number) stored.get("storage_width")).intValue());
+        assertEquals(10, ((Number) stored.get("storage_height")).intValue());
+        assertNull(stored.get("upload_token"));
+        assertNull(stored.get("upload_expires_at"));
+        assertEquals("COMPLETED", jdbc.queryForObject("""
+                SELECT task_status FROM event_media_storage_cleanup_tasks
+                WHERE public_id=(SELECT storage_public_id FROM event_media WHERE id=?)
+                """, String.class, response.mediaId()));
+
+        Map<String, Object> audit = jdbc.queryForMap("""
+                SELECT action,CAST(before_json AS CHAR) before_json,
+                       CAST(after_json AS CHAR) after_json
+                FROM admin_audit_logs
+                WHERE entity_id='phase-b-managed-thumbnail'
+                  AND action='event.thumbnail_uploaded'
+                """);
+        String auditText = audit.toString();
+        assertTrue(auditText.contains("storageIdentityDigest"));
+        assertTrue(!auditText.contains("provider-original"));
+        assertTrue(!auditText.contains("events/phase-b-managed-thumbnail"));
+        assertTrue(!auditText.contains("http"));
+
+        jdbc.update("""
+                UPDATE historical_events
+                SET status='published',published_at=CURRENT_TIMESTAMP(6)
+                WHERE id='phase-b-managed-thumbnail'
+                """);
+        var publicDetail = new EventReadRepository(
+                new NamedParameterJdbcTemplate(jdbc.getDataSource()),
+                mapper,
+                new MediaUrlPolicy(),
+                new EventMediaReadPolicy(new MediaUrlPolicy(), fakeImageStorage))
+                .findDetailByIdOrSlug("phase-b-managed-thumbnail")
+                .orElseThrow();
+        assertEquals(1, publicDetail.media().size());
+        assertEquals(response.event().media().thumbnail().url(),
+                publicDetail.media().getFirst().url());
+        assertTrue(!publicDetail.media().getFirst().url().contains("provider-original"));
+    }
+
+    @Test
+    void finalizeConflictLeavesInvisibleReservationForDurableCleanup() throws Exception {
+        assumeTrue(available, unavailableReason);
+        tx.executeWithoutResult(status ->
+                service.create(create("phase-b-finalize-conflict"), IMAGE_ADMIN));
+        String expected = version(serviceRead("phase-b-finalize-conflict"));
+        int deletesBefore = fakeImageStorage.deletes.get();
+        fakeImageStorage.onUpload = () -> jdbc.update("""
+                UPDATE historical_events
+                SET updated_at=updated_at+INTERVAL 1 MICROSECOND
+                WHERE id='phase-b-finalize-conflict'
+                """);
+
+        ApiException conflict = assertThrows(ApiException.class, () -> imageService.upload(
+                "phase-b-finalize-conflict",
+                pngFile(),
+                expected,
+                "gallery",
+                "Ảnh minh họa",
+                null,
+                null,
+                null,
+                IMAGE_ADMIN));
+
+        assertEquals("EVENT_UPDATE_CONFLICT", conflict.getCode());
+        Map<String, Object> reservation = jdbc.queryForMap("""
+                SELECT id,storage_state,status,url,storage_public_id
+                FROM event_media WHERE event_id='phase-b-finalize-conflict'
+                """);
+        assertEquals("UPLOADING", reservation.get("storage_state"));
+        assertEquals("hidden", reservation.get("status"));
+        assertEquals("", reservation.get("url"));
+        assertTrue(serviceRead("phase-b-finalize-conflict").media().items().isEmpty());
+        assertEquals(0, jdbc.queryForObject("""
+                SELECT COUNT(*) FROM admin_audit_logs
+                WHERE entity_id='phase-b-finalize-conflict'
+                  AND action='event.media_image_uploaded'
+                """, Integer.class));
+
+        jdbc.update("""
+                UPDATE event_media
+                SET upload_expires_at=CURRENT_TIMESTAMP(6)-INTERVAL 1 SECOND
+                WHERE id=?
+                """, reservation.get("id"));
+        jdbc.update("""
+                UPDATE event_media_storage_cleanup_tasks
+                SET next_attempt_at=CURRENT_TIMESTAMP(6)-INTERVAL 1 SECOND
+                WHERE public_id=?
+                """, reservation.get("storage_public_id"));
+        var cleanupPool = Executors.newFixedThreadPool(2);
+        try {
+            var first = cleanupPool.submit(imageCleanupService::runOnce);
+            var second = cleanupPool.submit(imageCleanupService::runOnce);
+            assertEquals(1, List.of(
+                            first.get(20, TimeUnit.SECONDS),
+                            second.get(20, TimeUnit.SECONDS))
+                    .stream().filter(Boolean.TRUE::equals).count());
+        } finally {
+            cleanupPool.shutdownNow();
+        }
+        assertEquals(deletesBefore + 1, fakeImageStorage.deletes.get());
+        assertEquals(0, jdbc.queryForObject(
+                "SELECT COUNT(*) FROM event_media WHERE id=?",
+                Integer.class, reservation.get("id")));
+        assertEquals("COMPLETED", jdbc.queryForObject("""
+                SELECT task_status FROM event_media_storage_cleanup_tasks
+                WHERE public_id=?
+                """, String.class, reservation.get("storage_public_id")));
+    }
+
+    @Test
+    void finalizeAuditFailureRollsBackVersionAndReadyMetadata() throws Exception {
+        assumeTrue(available, unavailableReason);
+        UUID actorId = UUID.fromString("00000000-0000-4000-8000-000000004202");
+        UserPrincipal actor = new UserPrincipal(
+                actorId.toString(),
+                UuidBytes.fromUuid(actorId),
+                "phase-b-rollback@example.test",
+                List.of("admin"));
+        jdbc.update("""
+                INSERT INTO users(id,email,password_hash,full_name,status)
+                VALUES(UUID_TO_BIN(?),?,'hash','Rollback Admin','active')
+                """, actorId.toString(), actor.email());
+        tx.executeWithoutResult(status ->
+                service.create(create("phase-b-finalize-rollback"), actor));
+        String expected = version(serviceRead("phase-b-finalize-rollback"));
+        fakeImageStorage.onUpload = () -> jdbc.update(
+                "DELETE FROM users WHERE id=UUID_TO_BIN(?)", actorId.toString());
+
+        ApiException failure = assertThrows(ApiException.class, () -> imageService.upload(
+                "phase-b-finalize-rollback",
+                pngFile(),
+                expected,
+                "gallery",
+                "Ảnh rollback",
+                null,
+                null,
+                null,
+                actor));
+
+        assertEquals("EVENT_IMAGE_FINALIZE_FAILED", failure.getCode());
+        assertEquals(expected, version(serviceRead("phase-b-finalize-rollback")));
+        Map<String, Object> reservation = jdbc.queryForMap("""
+                SELECT id,storage_public_id,storage_state,status,url,
+                       storage_asset_id,storage_original_url,uploaded_at
+                FROM event_media WHERE event_id='phase-b-finalize-rollback'
+                """);
+        assertEquals("UPLOADING", reservation.get("storage_state"));
+        assertEquals("hidden", reservation.get("status"));
+        assertEquals("", reservation.get("url"));
+        assertNull(reservation.get("storage_asset_id"));
+        assertNull(reservation.get("storage_original_url"));
+        assertNull(reservation.get("uploaded_at"));
+        assertEquals(0, jdbc.queryForObject("""
+                SELECT COUNT(*) FROM admin_audit_logs
+                WHERE entity_id='phase-b-finalize-rollback'
+                  AND action='event.media_image_uploaded'
+                """, Integer.class));
+
+        jdbc.update("""
+                UPDATE event_media
+                SET upload_expires_at=CURRENT_TIMESTAMP(6)-INTERVAL 1 SECOND
+                WHERE id=?
+                """, reservation.get("id"));
+        jdbc.update("""
+                UPDATE event_media_storage_cleanup_tasks
+                SET next_attempt_at=CURRENT_TIMESTAMP(6)-INTERVAL 1 SECOND
+                WHERE public_id=?
+                """, reservation.get("storage_public_id"));
+        assertTrue(imageCleanupService.runOnce());
+    }
+
+    @Test
+    void concurrentManagedThumbnailFinalizeAllowsOneWinnerAndCleansLoser() throws Exception {
+        assumeTrue(available, unavailableReason);
+        tx.executeWithoutResult(status ->
+                service.create(create("phase-b-thumbnail-race"), IMAGE_ADMIN));
+        String expected = version(serviceRead("phase-b-thumbnail-race"));
+        CountDownLatch uploadsReady = new CountDownLatch(2);
+        CountDownLatch releaseUploads = new CountDownLatch(1);
+        fakeImageStorage.uploadsReady = uploadsReady;
+        fakeImageStorage.releaseUploads = releaseUploads;
+        var pool = Executors.newFixedThreadPool(2);
+        try {
+            var first = pool.submit(() -> managedUploadAfterLatch(
+                    "phase-b-thumbnail-race", expected));
+            var second = pool.submit(() -> managedUploadAfterLatch(
+                    "phase-b-thumbnail-race", expected));
+            assertTrue(uploadsReady.await(20, TimeUnit.SECONDS));
+            releaseUploads.countDown();
+            Object firstResult = first.get(30, TimeUnit.SECONDS);
+            Object secondResult = second.get(30, TimeUnit.SECONDS);
+
+            long successCount = List.of(firstResult, secondResult).stream()
+                    .filter(AdminEventImageDtos.UploadResponse.class::isInstance)
+                    .count();
+            long conflictCount = List.of(firstResult, secondResult).stream()
+                    .filter("EVENT_UPDATE_CONFLICT"::equals)
+                    .count();
+            assertEquals(1, successCount);
+            assertEquals(1, conflictCount);
+            assertEquals(1, jdbc.queryForObject("""
+                    SELECT COUNT(*) FROM event_media
+                    WHERE event_id='phase-b-thumbnail-race'
+                      AND storage_state='READY' AND status='active'
+                      AND is_thumbnail=TRUE
+                    """, Integer.class));
+            assertEquals(1, jdbc.queryForObject("""
+                    SELECT COUNT(*) FROM event_media
+                    WHERE event_id='phase-b-thumbnail-race'
+                      AND storage_state='UPLOADING' AND status='hidden'
+                    """, Integer.class));
+
+            jdbc.update("""
+                    UPDATE event_media
+                    SET upload_expires_at=CURRENT_TIMESTAMP(6)-INTERVAL 1 SECOND
+                    WHERE event_id='phase-b-thumbnail-race'
+                      AND storage_state='UPLOADING'
+                    """);
+            jdbc.update("""
+                    UPDATE event_media_storage_cleanup_tasks t
+                    JOIN event_media m ON m.storage_public_id=t.public_id
+                    SET t.next_attempt_at=CURRENT_TIMESTAMP(6)-INTERVAL 1 SECOND
+                    WHERE m.event_id='phase-b-thumbnail-race'
+                      AND m.storage_state='UPLOADING'
+                    """);
+            assertTrue(imageCleanupService.runOnce());
+            assertEquals(1, jdbc.queryForObject("""
+                    SELECT COUNT(*) FROM event_media
+                    WHERE event_id='phase-b-thumbnail-race'
+                    """, Integer.class));
+        } finally {
+            releaseUploads.countDown();
+            fakeImageStorage.uploadsReady = null;
+            fakeImageStorage.releaseUploads = null;
+            pool.shutdownNow();
+        }
+    }
+
+    @Test
+    void managedDeleteHidesBeforeCleanupAndExternalDeleteNeverCallsStorage() throws Exception {
+        assumeTrue(available, unavailableReason);
+        tx.executeWithoutResult(status ->
+                service.create(create("phase-b-managed-delete"), IMAGE_ADMIN));
+        String expected = version(serviceRead("phase-b-managed-delete"));
+        var uploaded = imageService.upload(
+                "phase-b-managed-delete",
+                pngFile(),
+                expected,
+                "gallery",
+                "Ảnh thư viện",
+                null,
+                null,
+                null,
+                IMAGE_ADMIN);
+        int deletesBefore = fakeImageStorage.deletes.get();
+
+        Optional<com.lichsuvn.backend.admin.api.dto.AdminEventDtos.Detail> hidden =
+                imageService.removeManagedIfPresent(
+                        "phase-b-managed-delete",
+                        uploaded.mediaId(),
+                        uploaded.updatedAt(),
+                        IMAGE_ADMIN);
+        assertTrue(hidden.isPresent());
+        assertTrue(hidden.orElseThrow().media().items().isEmpty());
+        assertEquals("DELETE_PENDING", jdbc.queryForObject(
+                "SELECT storage_state FROM event_media WHERE id=?",
+                String.class, uploaded.mediaId()));
+        assertEquals(deletesBefore, fakeImageStorage.deletes.get());
+
+        fakeImageStorage.deleteOutcome = EventImageStorage.DeleteOutcome.NOT_FOUND;
+        assertTrue(imageCleanupService.runOnce());
+        fakeImageStorage.deleteOutcome = EventImageStorage.DeleteOutcome.DELETED;
+        assertEquals(deletesBefore + 1, fakeImageStorage.deletes.get());
+        assertEquals(0, jdbc.queryForObject(
+                "SELECT COUNT(*) FROM event_media WHERE id=?",
+                Integer.class, uploaded.mediaId()));
+        assertTrue(!imageCleanupService.runOnce());
+
+        var external = tx.execute(status -> mediaService.add(
+                "phase-b-managed-delete",
+                media(version(serviceRead("phase-b-managed-delete")),
+                        "image", "external.jpg", "active"),
+                IMAGE_ADMIN));
+        assertTrue(imageService.removeManagedIfPresent(
+                "phase-b-managed-delete",
+                external.mediaId(),
+                version(external.detail()),
+                IMAGE_ADMIN).isEmpty());
+        assertEquals(deletesBefore + 1, fakeImageStorage.deletes.get());
+        tx.execute(status -> mediaService.remove(
+                "phase-b-managed-delete",
+                external.mediaId(),
+                version(external.detail()),
+                IMAGE_ADMIN));
+        assertEquals(deletesBefore + 1, fakeImageStorage.deletes.get());
+    }
+
     private static Object selectAfterLatch(
             CountDownLatch ready, CountDownLatch start, long mediaId, String expectedVersion
     ) {
@@ -879,6 +1435,25 @@ class AdminEventMutationIntegrationTest {
         } catch (InterruptedException ex) {
             Thread.currentThread().interrupt();
             return "INTERRUPTED";
+        }
+    }
+
+    private static Object managedUploadAfterLatch(String eventId, String expectedVersion) {
+        try {
+            return imageService.upload(
+                    eventId,
+                    pngFile(),
+                    expectedVersion,
+                    "thumbnail",
+                    "Ảnh cạnh tranh",
+                    null,
+                    null,
+                    null,
+                    IMAGE_ADMIN);
+        } catch (ApiException exception) {
+            return exception.getCode();
+        } catch (Exception exception) {
+            return exception.getClass().getSimpleName();
         }
     }
 
@@ -961,8 +1536,14 @@ class AdminEventMutationIntegrationTest {
     private static com.lichsuvn.backend.admin.api.dto.AdminEventDtos.Detail serviceRead(String id) {
         var mapper = new ObjectMapper();
         var named = new NamedParameterJdbcTemplate(jdbc.getDataSource());
+        var mediaUrlPolicy = new MediaUrlPolicy();
         return new AdminEventReadService(
-                new AdminEventReadRepository(named, mapper), new EventCompletenessService()).findEvent(id);
+                new AdminEventReadRepository(
+                        named,
+                        mapper,
+                        mediaUrlPolicy,
+                        new EventMediaReadPolicy(mediaUrlPolicy, fakeImageStorage)),
+                new EventCompletenessService()).findEvent(id);
     }
 
     private static String version(
@@ -977,5 +1558,74 @@ class AdminEventMutationIntegrationTest {
                 null, null, null, null, null, "Summary", "Canonical",
                 "Narrative", "Significance", List.of("Fact"), List.of(12, 10),
                 false, false, false);
+    }
+
+    private static MockMultipartFile pngFile() throws Exception {
+        BufferedImage image = new BufferedImage(20, 10, BufferedImage.TYPE_INT_RGB);
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
+        ImageIO.write(image, "png", output);
+        return new MockMultipartFile(
+                "file", "ignored-client-name.png", "image/png", output.toByteArray());
+    }
+
+    private static final class FakeEventImageStorage implements EventImageStorage {
+        private final AtomicInteger uploads = new AtomicInteger();
+        private final AtomicInteger deletes = new AtomicInteger();
+        private volatile Runnable onUpload;
+        private volatile CountDownLatch uploadsReady;
+        private volatile CountDownLatch releaseUploads;
+        private volatile DeleteOutcome deleteOutcome = DeleteOutcome.DELETED;
+
+        @Override
+        public boolean available() {
+            return true;
+        }
+
+        @Override
+        public StoredImage upload(UploadCommand command) {
+            uploads.incrementAndGet();
+            Runnable callback = onUpload;
+            onUpload = null;
+            if (callback != null) {
+                callback.run();
+            }
+            CountDownLatch ready = uploadsReady;
+            CountDownLatch release = releaseUploads;
+            if (ready != null && release != null) {
+                ready.countDown();
+                try {
+                    if (!release.await(20, TimeUnit.SECONDS)) {
+                        throw new IllegalStateException("Timed out waiting to release fake upload");
+                    }
+                } catch (InterruptedException exception) {
+                    Thread.currentThread().interrupt();
+                    throw new IllegalStateException("Fake upload interrupted", exception);
+                }
+            }
+            return new StoredImage(
+                    command.publicId(),
+                    "provider-asset-" + uploads.get(),
+                    42L + uploads.get(),
+                    "https://provider-original.example.test/" + command.publicId(),
+                    command.mimeType(),
+                    "png",
+                    command.bytes().length,
+                    20,
+                    10);
+        }
+
+        @Override
+        public DeleteResult delete(DeleteCommand command) {
+            deletes.incrementAndGet();
+            return new DeleteResult(deleteOutcome);
+        }
+
+        @Override
+        public String deliveryUrl(DeliveryCommand command) {
+            String variant = command.kind() == DeliveryKind.THUMBNAIL
+                    ? "thumbnail" : "gallery";
+            return "https://cdn.example.test/" + variant + "/"
+                    + command.publicId().substring(command.publicId().lastIndexOf('/') + 1);
+        }
     }
 }

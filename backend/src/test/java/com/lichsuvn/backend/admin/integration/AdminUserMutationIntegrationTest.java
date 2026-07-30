@@ -145,7 +145,7 @@ class AdminUserMutationIntegrationTest {
     @Test
     void flywayV41ProvidesAtomicActiveAdminCounter() {
         assumeTrue(available, unavailableReason);
-        assertEquals(41, jdbc.queryForObject("""
+        assertEquals(42, jdbc.queryForObject("""
                 SELECT MAX(CAST(version AS UNSIGNED))
                 FROM flyway_schema_history
                 WHERE success=1

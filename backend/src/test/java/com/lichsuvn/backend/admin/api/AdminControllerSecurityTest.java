@@ -8,6 +8,8 @@ import com.lichsuvn.backend.admin.application.AdminDashboardReadService;
 import com.lichsuvn.backend.admin.application.AdminEventReadService;
 import com.lichsuvn.backend.admin.application.AdminEventMutationService;
 import com.lichsuvn.backend.admin.application.AdminEventMediaMutationService;
+import com.lichsuvn.backend.admin.application.AdminEventImageUploadService;
+import com.lichsuvn.backend.admin.api.dto.AdminEventImageDtos;
 import com.lichsuvn.backend.admin.application.AdminEventGeographyMutationService;
 import com.lichsuvn.backend.admin.application.AdminEventPublicationService;
 import com.lichsuvn.backend.admin.application.AdminUserReadService;
@@ -30,6 +32,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.mock.web.MockMultipartFile;
 
 import java.time.Instant;
 import java.util.List;
@@ -43,11 +46,13 @@ import static org.mockito.ArgumentMatchers.nullable;
 import static org.mockito.Mockito.clearInvocations;
 import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.verifyNoInteractions;
+import static org.mockito.Mockito.verify;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.multipart;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -80,6 +85,9 @@ class AdminControllerSecurityTest {
 
     @MockitoBean
     AdminEventMediaMutationService adminEventMediaMutationService;
+
+    @MockitoBean
+    AdminEventImageUploadService adminEventImageUploadService;
 
     @MockitoBean
     AdminEventGeographyMutationService adminEventGeographyMutationService;
@@ -740,6 +748,105 @@ class AdminControllerSecurityTest {
                         .with(csrf()))
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.code").value("INVALID_EXPECTED_VERSION"));
+    }
+
+    @Test
+    void managedImageUploadRequiresAdminCsrfAndReturnsOnlyTypedResponse() throws Exception {
+        var detail = new AdminEventDtos.Detail(
+                new AdminEventDtos.Core("event-1", "event-1", "Event", null),
+                null, null, null,
+                new AdminEventDtos.Publication(
+                        "draft", new AdminEventDtos.Flags(false, false, false),
+                        null, null, Instant.parse("2026-07-24T17:20:30.123457Z")),
+                new AdminEventDtos.MediaSection(null, List.of(), 0),
+                null, null, null, List.of(), null);
+        when(adminEventImageUploadService.upload(
+                anyString(), any(), anyString(), anyString(), anyString(),
+                nullable(String.class), nullable(String.class), nullable(String.class),
+                nullable(UserPrincipal.class)))
+                .thenReturn(new AdminEventImageDtos.UploadResponse(
+                        51L, "2026-07-24T17:20:30.123457Z", detail));
+        var image = new MockMultipartFile(
+                "file", "ignored.png", "image/png", new byte[]{1, 2, 3});
+
+        mockMvc.perform(multipart("/api/admin/events/event-1/media/images")
+                        .file(image)
+                        .param("expectedUpdatedAt", "2026-07-24T17:20:30.123456Z")
+                        .param("kind", "gallery")
+                        .param("altText", "Ảnh lịch sử")
+                        .with(csrf().asHeader()))
+                .andExpect(status().isUnauthorized());
+        mockMvc.perform(multipart("/api/admin/events/event-1/media/images")
+                        .file(image)
+                        .param("expectedUpdatedAt", "2026-07-24T17:20:30.123456Z")
+                        .param("kind", "gallery")
+                        .param("altText", "Ảnh lịch sử")
+                        .with(user("student").authorities(() -> "ROLE_student"))
+                        .with(csrf().asHeader()))
+                .andExpect(status().isForbidden())
+                .andExpect(jsonPath("$.code").value("FORBIDDEN"));
+        mockMvc.perform(multipart("/api/admin/events/event-1/media/images")
+                        .file(image)
+                        .param("expectedUpdatedAt", "2026-07-24T17:20:30.123456Z")
+                        .param("kind", "gallery")
+                        .param("altText", "Ảnh lịch sử")
+                        .with(user("admin").authorities(() -> "ROLE_admin")))
+                .andExpect(status().isForbidden())
+                .andExpect(jsonPath("$.code").value("CSRF_TOKEN_INVALID"));
+        verifyNoInteractions(adminEventImageUploadService);
+
+        String response = mockMvc.perform(multipart("/api/admin/events/event-1/media/images")
+                        .file(image)
+                        .param("expectedUpdatedAt", "2026-07-24T17:20:30.123456Z")
+                        .param("kind", "gallery")
+                        .param("altText", "Ảnh lịch sử")
+                        .with(user("admin").authorities(() -> "ROLE_admin"))
+                        .with(csrf().asHeader()))
+                .andExpect(status().isCreated())
+                .andExpect(header().doesNotExist("Location"))
+                .andExpect(jsonPath("$.data.mediaId").value(51))
+                .andExpect(jsonPath("$.data.updatedAt")
+                        .value("2026-07-24T17:20:30.123457Z"))
+                .andReturn().getResponse().getContentAsString();
+        for (String forbidden : List.of(
+                "publicId", "providerAssetId", "checksum", "signature",
+                "cleanupTask", "originalUrl")) {
+            org.junit.jupiter.api.Assertions.assertFalse(response.contains(forbidden), forbidden);
+        }
+        verify(adminEventImageUploadService).upload(
+                anyString(), any(), anyString(), anyString(), anyString(),
+                nullable(String.class), nullable(String.class), nullable(String.class),
+                nullable(UserPrincipal.class));
+    }
+
+    @Test
+    void managedImageUploadRejectsUnknownOrDuplicateMultipartFieldsBeforeService() throws Exception {
+        var admin = user("admin").authorities(() -> "ROLE_admin");
+        var image = new MockMultipartFile(
+                "file", "ignored.png", "image/png", new byte[]{1});
+        var extra = new MockMultipartFile(
+                "url", "", "text/plain", "https://forbidden".getBytes());
+
+        mockMvc.perform(multipart("/api/admin/events/event-1/media/images")
+                        .file(image).file(extra)
+                        .param("expectedUpdatedAt", "2026-07-24T17:20:30.123456Z")
+                        .param("kind", "gallery")
+                        .param("altText", "Ảnh lịch sử")
+                        .with(admin).with(csrf().asHeader()))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.code").value("UNSUPPORTED_MULTIPART_FIELD"));
+
+        mockMvc.perform(multipart("/api/admin/events/event-1/media/images")
+                        .file(image)
+                        .param("expectedUpdatedAt",
+                                "2026-07-24T17:20:30.123456Z",
+                                "2026-07-24T17:20:30.123456Z")
+                        .param("kind", "gallery")
+                        .param("altText", "Ảnh lịch sử")
+                        .with(admin).with(csrf().asHeader()))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.code").value("UNSUPPORTED_MULTIPART_FIELD"));
+        verifyNoInteractions(adminEventImageUploadService);
     }
 
     @Test

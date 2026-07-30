@@ -114,7 +114,7 @@ class HistoryRagSchemaMigrationIntegrationTest {
     void flywayCreatesHistoryRagSchemaAndValidatesUtf8Defaults() {
         assumeTrue(mysqlAvailable, unavailableReason);
 
-        assertEquals(41, jdbc.queryForObject(
+        assertEquals(42, jdbc.queryForObject(
                 "SELECT MAX(CAST(version AS UNSIGNED)) FROM flyway_schema_history", Integer.class));
         for (String table : List.of(
                 "event_textbook_contents",

@@ -72,6 +72,11 @@ class AdminFlywaySchemaIntegrationTest {
                     .target("41")
                     .load()
                     .migrate();
+            Flyway.configure()
+                    .dataSource(mysql.getJdbcUrl(), mysql.getUsername(), mysql.getPassword())
+                    .locations("filesystem:src/main/resources/db/migration")
+                    .load()
+                    .migrate();
             available = true;
         } catch (Exception ex) {
             unavailableReason = "Disposable MySQL unavailable: "
@@ -130,6 +135,100 @@ class AdminFlywaySchemaIntegrationTest {
                 JOIN roles r ON r.id=ur.role_id
                 WHERE u.status='active' AND r.code='admin'
                 """, Long.class));
+    }
+
+    @Test
+    void flywayV42AddsBackwardCompatibleManagedImageStorageAndDurableCleanup() {
+        assumeTrue(available, unavailableReason);
+
+        assertEquals("unmanaged", jdbc.queryForObject("""
+                SELECT LOWER(COLUMN_DEFAULT)
+                FROM information_schema.columns
+                WHERE table_schema=DATABASE() AND table_name='event_media'
+                  AND column_name='storage_state'
+                """, String.class));
+        assertEquals("NO", columnNullable("event_media", "storage_state"));
+        assertEquals("NO", columnNullable("event_media", "url"));
+        assertEquals("char(36)", columnType("event_media", "managed_asset_id"));
+        assertEquals("datetime(6)", columnType("event_media", "upload_expires_at"));
+        assertEquals("varchar(1000)", columnType("event_media", "storage_original_url"));
+        assertEquals(1, jdbc.queryForObject("""
+                SELECT COUNT(*) FROM information_schema.tables
+                WHERE table_schema=DATABASE()
+                  AND table_name='event_media_storage_cleanup_tasks'
+                """, Integer.class));
+        assertEquals(0, foreignKeyCount(
+                "event_media_storage_cleanup_tasks", "event_media"));
+        assertEquals(1, foreignKeyCount("event_media", "users"));
+        assertEquals(4, jdbc.queryForObject("""
+                SELECT COUNT(DISTINCT index_name)
+                FROM information_schema.statistics
+                WHERE table_schema=DATABASE() AND table_name='event_media'
+                  AND index_name IN (
+                    'uk_event_media_managed_asset',
+                    'uk_event_media_storage_identity',
+                    'idx_event_media_managed_read',
+                    'idx_event_media_upload_expiry'
+                  )
+                """, Integer.class));
+        assertEquals(6, jdbc.queryForObject("""
+                SELECT COUNT(*)
+                FROM information_schema.check_constraints
+                WHERE constraint_schema=DATABASE()
+                  AND constraint_name IN (
+                    'chk_event_media_storage_state',
+                    'chk_event_media_storage_byte_size',
+                    'chk_event_media_storage_dimensions',
+                    'chk_event_media_cleanup_operation',
+                    'chk_event_media_cleanup_status',
+                    'chk_event_media_cleanup_attempts'
+                  )
+                """, Integer.class));
+
+        String eventId = "phase-b-v42-legacy";
+        jdbc.update("""
+                INSERT INTO historical_events
+                    (id,slug,title,event_level,event_type,geo_type,raw_json,key_facts)
+                VALUES(?,?,?,'atomic','political','no_location','{}','[]')
+                """, eventId, eventId, "V42 legacy");
+        jdbc.update("""
+                INSERT INTO event_media(event_id,media_type,url)
+                VALUES(?,'image','https://example.test/legacy.jpg')
+                """, eventId);
+        assertEquals("UNMANAGED", jdbc.queryForObject("""
+                SELECT storage_state FROM event_media WHERE event_id=?
+                """, String.class, eventId));
+
+        assertThrows(DataAccessException.class, () -> jdbc.update("""
+                UPDATE event_media SET storage_state='NOT_A_STATE' WHERE event_id=?
+                """, eventId));
+        assertThrows(DataAccessException.class, () -> jdbc.update("""
+                UPDATE event_media SET storage_byte_size=-1 WHERE event_id=?
+                """, eventId));
+        assertThrows(DataAccessException.class, () -> jdbc.update("""
+                UPDATE event_media SET storage_byte_size=0 WHERE event_id=?
+                """, eventId));
+        assertThrows(DataAccessException.class, () -> jdbc.update("""
+                UPDATE event_media SET storage_width=10,storage_height=NULL WHERE event_id=?
+                """, eventId));
+        assertThrows(DataAccessException.class, () -> jdbc.update("""
+                UPDATE event_media SET storage_width=0,storage_height=10 WHERE event_id=?
+                """, eventId));
+        assertThrows(DataAccessException.class, () -> jdbc.update("""
+                INSERT INTO event_media_storage_cleanup_tasks(
+                    provider,public_id,operation,task_status,attempts,next_attempt_at
+                ) VALUES('cloudinary','invalid','PURGE','PENDING',0,CURRENT_TIMESTAMP(6))
+                """));
+        assertThrows(DataAccessException.class, () -> jdbc.update("""
+                INSERT INTO event_media_storage_cleanup_tasks(
+                    provider,public_id,operation,task_status,attempts,next_attempt_at
+                ) VALUES('cloudinary','invalid-status','DELETE','UNKNOWN',0,CURRENT_TIMESTAMP(6))
+                """));
+        assertThrows(DataAccessException.class, () -> jdbc.update("""
+                INSERT INTO event_media_storage_cleanup_tasks(
+                    provider,public_id,operation,task_status,attempts,next_attempt_at
+                ) VALUES('cloudinary','invalid-attempts','DELETE','PENDING',-1,CURRENT_TIMESTAMP(6))
+                """));
     }
 
     @Test
@@ -197,11 +296,39 @@ class AdminFlywaySchemaIntegrationTest {
                 INSERT INTO event_media (event_id, media_type, url)
                 VALUES (?, 'image', 'https://example.test/phase1.jpg')
                 """, id);
+        jdbc.update("""
+                UPDATE event_media
+                SET url='',status='hidden',storage_type='object_storage',
+                    managed_asset_id='00000000-0000-4000-8000-000000004299',
+                    storage_provider='cloudinary',
+                    storage_public_id='events/phase1-media-cascade/media/'
+                        '00000000-0000-4000-8000-000000004299',
+                    storage_state='UPLOADING',
+                    upload_token='00000000-0000-4000-8000-000000004298',
+                    upload_started_at=CURRENT_TIMESTAMP(6),
+                    upload_expires_at=CURRENT_TIMESTAMP(6)
+                WHERE event_id=?
+                """, id);
+        jdbc.update("""
+                INSERT INTO event_media_storage_cleanup_tasks(
+                    provider,public_id,operation,task_status,attempts,next_attempt_at
+                ) VALUES(
+                    'cloudinary',
+                    'events/phase1-media-cascade/media/'
+                        '00000000-0000-4000-8000-000000004299',
+                    'DELETE','PENDING',0,CURRENT_TIMESTAMP(6)
+                )
+                """);
 
         jdbc.update("DELETE FROM historical_events WHERE id = ?", id);
 
         assertEquals(0, jdbc.queryForObject(
                 "SELECT COUNT(*) FROM event_media WHERE event_id = ?", Integer.class, id));
+        assertEquals(1, jdbc.queryForObject("""
+                SELECT COUNT(*) FROM event_media_storage_cleanup_tasks
+                WHERE public_id='events/phase1-media-cascade/media/'
+                    '00000000-0000-4000-8000-000000004299'
+                """, Integer.class));
     }
 
     private String columnNullable(String table, String column) {
