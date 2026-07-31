@@ -26,4 +26,16 @@ describe('Admin route characterization', () => {
     expect(appSource).not.toContain('path="/admin/events/:id/media"');
     expect(appSource).not.toContain('path="/admin/events/:id/geography"');
   });
+
+  it('does not expose the retired AI candidate routes and safely falls back for unknown Admin paths', () => {
+    expect(appSource).not.toContain('AdminAiCandidatesPage');
+    expect(appSource).not.toContain('AdminAiCandidateDetailPage');
+    expect(appSource).not.toContain('path="/admin/exams/ai-candidates"');
+    expect(appSource).not.toContain('path="/admin/exams/ai-candidates/:id"');
+    expect(appSource).toContain('path="/admin/*" element={<Navigate to="/admin/dashboard" replace />}');
+  });
+
+  it('retains the authenticated student AI practice route', () => {
+    expect(appSource).toContain('path="/quiz/generate" element={<ProtectedRoute><QuizGeneratePage /></ProtectedRoute>}');
+  });
 });

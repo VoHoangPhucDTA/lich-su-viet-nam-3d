@@ -1,5 +1,15 @@
 # Admin architecture
 
+## Phạm vi module Admin đang hỗ trợ
+
+- Dashboard;
+- sự kiện lịch sử, bao gồm quản lý thumbnail/media;
+- người dùng.
+
+Admin không còn cung cấp giao diện duyệt AI candidate. Sinh câu hỏi AI theo chủ đề
+tự do vẫn là chức năng Quiz của học sinh; backend candidate/review được giữ lại như
+một capability thử nghiệm không được expose trong phạm vi Admin khóa luận.
+
 ## Luồng chính
 
 ```mermaid

@@ -11,7 +11,7 @@ test.beforeEach(async ({ context }) => {
   await installNetworkGuard(context);
 });
 
-test('Admin navigation stays focused on four reachable destinations at representative widths', async ({ page }) => {
+test('Admin navigation stays focused on three reachable destinations at representative widths', async ({ page }) => {
   await login(page, 'ADMIN_ONE');
 
   for (const viewport of viewports) {
@@ -25,7 +25,7 @@ test('Admin navigation stays focused on four reachable destinations at represent
     await expect(navigation.getByRole('link', { name: 'Tổng quan' })).toHaveAttribute('href', '/admin/dashboard');
     await expect(navigation.getByRole('link', { name: 'Sự kiện lịch sử' })).toHaveAttribute('href', '/admin/events');
     await expect(navigation.getByRole('link', { name: 'Người dùng' })).toHaveAttribute('href', '/admin/users');
-    await expect(navigation.getByRole('link', { name: 'Duyệt câu hỏi AI' })).toHaveAttribute('href', '/admin/exams/ai-candidates');
+    await expect(navigation.getByRole('link', { name: 'Duyệt câu hỏi AI' })).toHaveCount(0);
     await expect(navigation.getByText('Liên kết', { exact: true })).toHaveCount(0);
     await expect(navigation.getByRole('link', { name: 'Trang học tập' })).toHaveCount(0);
     await expect(navigation.getByRole('link', { name: 'Bản đồ' })).toHaveCount(0);
@@ -130,7 +130,7 @@ test('Native selects, responsive filters and Admin focus styling remain usable',
   await expect(page.locator('.admin-shell')).toHaveCount(0);
 });
 
-test('User cards and AI queue remain truthful and usable on a narrow viewport', async ({ page }) => {
+test('User cards remain usable and retired Admin AI paths safely fall back on a narrow viewport', async ({ page }) => {
   await login(page, 'ADMIN_ONE');
   await page.setViewportSize({ width: 360, height: 800 });
   await page.goto('/admin/users');
@@ -147,9 +147,6 @@ test('User cards and AI queue remain truthful and usable on a narrow viewport', 
   await expect(page.getByText('Chưa áp dụng bộ lọc')).toBeVisible();
 
   await page.goto('/admin/exams/ai-candidates');
-  await expect(page.getByRole('heading', { name: 'Duyệt câu hỏi AI' })).toBeVisible();
-  await expect(page.getByRole('note')).toContainText('Candidate là câu hỏi nháp');
-  await expect(page.getByText('Chưa có candidate cần duyệt')).toBeVisible();
-  await expect(page.getByRole('button', { name: /sinh candidate/i })).toHaveCount(0);
-  await expect(page.getByRole('link', { name: /sinh candidate/i })).toHaveCount(0);
+  await expect(page).toHaveURL(/\/admin\/dashboard$/);
+  await expect(page.getByRole('heading', { name: 'Tổng quan' })).toBeVisible();
 });

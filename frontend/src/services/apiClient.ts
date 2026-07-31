@@ -26,7 +26,6 @@ export interface StoredUser {
   email: string;
   role: string;
   roles?: string[];
-  permissions?: string[];
   grade?: string;
   school?: string;
   avatarUrl?: string;

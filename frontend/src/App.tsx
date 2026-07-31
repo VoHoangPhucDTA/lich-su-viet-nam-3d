@@ -11,7 +11,6 @@ import { lazy, Suspense } from 'react';
 import { AuthProvider } from './auth/AuthContext';
 import ProtectedRoute from './auth/ProtectedRoute';
 import RoleGuard from './auth/RoleGuard';
-import PermissionGuard from './auth/PermissionGuard';
 import { HeaderProvider } from './components/layout/HeaderContext';
 import AppHeader from './components/layout/AppHeader';
 import { ThemeProvider } from './theme/ThemeContext';
@@ -66,8 +65,6 @@ const AdminUserDetailPage = lazy(() => import('./pages/admin/AdminUserDetailPage
 const AdminEventsPage = lazy(() => import('./pages/admin/AdminEventsPage'));
 const AdminEventDetailPage = lazy(() => import('./pages/admin/AdminEventDetailPage'));
 const AdminEventEditorPage = lazy(() => import('./pages/admin/AdminEventEditorPage'));
-const AdminAiCandidatesPage = lazy(() => import('./pages/admin/AdminAiCandidatesPage'));
-const AdminAiCandidateDetailPage = lazy(() => import('./pages/admin/AdminAiCandidateDetailPage'));
 
 const PersonalLearningDashboardPage = lazy(() => import('./features/dashboard/PersonalLearningDashboardPage'));
 
@@ -160,9 +157,8 @@ function AppContent() {
           <Route path="/admin/events/new" element={<ProtectedRoute><RoleGuard requiredRole="admin"><AdminEventEditorPage /></RoleGuard></ProtectedRoute>} />
           <Route path="/admin/events/:id/edit" element={<ProtectedRoute><RoleGuard requiredRole="admin"><AdminEventEditorPage /></RoleGuard></ProtectedRoute>} />
           <Route path="/admin/events/:id" element={<ProtectedRoute><RoleGuard requiredRole="admin"><AdminEventDetailPage /></RoleGuard></ProtectedRoute>} />
-          <Route path="/admin/exams/ai-candidates" element={<ProtectedRoute><PermissionGuard permission="AI_CANDIDATE_VIEW"><AdminAiCandidatesPage /></PermissionGuard></ProtectedRoute>} />
-          <Route path="/admin/exams/ai-candidates/:id" element={<ProtectedRoute><PermissionGuard permission="AI_CANDIDATE_VIEW"><AdminAiCandidateDetailPage /></PermissionGuard></ProtectedRoute>} />
           <Route path="/admin/questions" element={<Navigate to="/admin/events" replace />} />
+          <Route path="/admin/*" element={<Navigate to="/admin/dashboard" replace />} />
         </Routes>
         </Suspense>
       </div>

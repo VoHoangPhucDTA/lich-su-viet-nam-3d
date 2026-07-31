@@ -11,7 +11,6 @@ vi.mock('../auth/AuthContext', () => ({
       fullName: 'Admin kiểm thử',
       email: 'admin@example.invalid',
       role: 'admin',
-      permissions: ['AI_CANDIDATE_VIEW'],
     },
     logout: vi.fn(),
   }),
@@ -28,7 +27,7 @@ describe('AdminLayout mobile navigation accessibility', () => {
     expect(screen.getByRole('link', { name: 'Tổng quan' })).toBeInTheDocument();
     expect(screen.getByRole('link', { name: 'Sự kiện lịch sử' })).toBeInTheDocument();
     expect(screen.getByRole('link', { name: 'Người dùng' })).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: 'Duyệt câu hỏi AI' })).toBeInTheDocument();
+    expect(screen.queryByRole('link', { name: 'Duyệt câu hỏi AI' })).not.toBeInTheDocument();
     expect(screen.queryByRole('link', { name: 'Trang học tập' })).not.toBeInTheDocument();
     expect(screen.queryByRole('link', { name: 'Bản đồ' })).not.toBeInTheDocument();
     expect(screen.queryByText('Liên kết')).not.toBeInTheDocument();

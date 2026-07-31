@@ -8,7 +8,9 @@
 - Không hard-delete event; archive/restore là lifecycle được hỗ trợ.
 - Không xóa/anonymize user, reset password, revoke session UI hoặc hiển thị token.
 - Legacy full PUT/status/single-role/delete vẫn quarantine để giữ contract 409.
-- AI Candidate permissions là flow riêng, không được thay bằng Admin CRUD.
+- Không có giao diện Admin duyệt AI candidate. AI-generated practice thuộc Quiz của
+  học sinh; backend candidate/review chỉ được giữ lại như capability thử nghiệm,
+  không phải workflow Admin của khóa luận.
 
 ## Chất lượng và accessibility
 
