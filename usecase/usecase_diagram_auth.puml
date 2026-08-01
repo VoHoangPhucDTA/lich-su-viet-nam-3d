@@ -1,0 +1,60 @@
+@startuml usecase_diagram_auth
+!pragma layout smetana
+title Sơ đồ Use Case chi tiết - Xác thực & Tài khoản
+left to right direction
+skinparam packageStyle rectangle
+skinparam usecase {
+  BackgroundColor #FEFCE8
+  BorderColor #A16207
+}
+skinparam actorStyle awesome
+
+actor "Khách" as KH
+actor "Học sinh\n(đã đăng nhập)" as HS
+HS -|> KH
+actor "Google / Facebook" as OAUTH <<external>>
+actor "Email Server" as MAIL <<external>>
+actor "Cloudinary" as CLD <<external>>
+
+rectangle "Phân hệ Xác thực & Tài khoản" {
+  usecase "Đăng ký tài khoản" as UC1
+  usecase "Xác thực email\n(mã xác nhận)" as UC1a
+  usecase "Đăng nhập bằng\nEmail / Mật khẩu" as UC2
+  usecase "Đăng nhập bằng Google" as UC2a
+  usecase "Đăng nhập bằng Facebook" as UC2b
+  usecase "Lưu avatar mạng xã hội\nlên Cloudinary" as UC2c
+  usecase "Cấp JWT Token\n(HttpOnly Cookie)" as UC2d
+  usecase "Quên mật khẩu\n(gửi email khôi phục)" as UC3
+  usecase "Đặt lại mật khẩu" as UC3a
+  usecase "Đăng xuất" as UC4
+  usecase "Cập nhật hồ sơ cá nhân\n(tên, avatar)" as UC5
+  usecase "Đổi mật khẩu" as UC5a
+}
+
+' include / extend
+UC1 ..> UC1a : <<include>>
+UC2a ..> UC2 : <<extend>>
+UC2b ..> UC2 : <<extend>>
+UC2a ..> UC2c : <<include>>
+UC2b ..> UC2c : <<include>>
+UC2 ..> UC2d : <<include>>
+UC3 ..> UC3a : <<include>>
+UC5 ..> UC5a : <<extend>>
+
+' actor
+KH --> UC1
+KH --> UC2
+KH --> UC2a
+KH --> UC2b
+KH --> UC3
+HS --> UC4
+HS --> UC5
+
+' external
+UC1a --> MAIL
+UC3 --> MAIL
+UC2a --> OAUTH
+UC2b --> OAUTH
+UC2c --> CLD
+UC5 --> CLD
+@enduml

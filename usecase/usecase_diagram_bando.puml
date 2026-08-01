@@ -1,0 +1,63 @@
+@startuml usecase_diagram_bando
+!pragma layout smetana
+title Sơ đồ Use Case chi tiết - Khám phá bản đồ 3D & Sự kiện lịch sử
+left to right direction
+skinparam packageStyle rectangle
+skinparam usecase {
+  BackgroundColor #FEFCE8
+  BorderColor #A16207
+}
+skinparam actorStyle awesome
+
+actor "Người dùng\n(Khách / Học sinh)" as U
+actor "Viettel TTS" as TTS <<external>>
+actor "Cesium Ion\n(Terrain / Imagery)" as CES <<external>>
+
+rectangle "Phân hệ Bản đồ 3D & Sự kiện" {
+  usecase "Xem bản đồ Việt Nam 3D" as UC1
+  usecase "Chọn mốc thời gian\ntrên timeline" as UC1a
+  usecase "Chọn lớp học (10/11/12)" as UC1b
+  usecase "Xem hướng dẫn sử dụng\n(onboarding 4 bước)" as UC1c
+  usecase "Xem marker sự kiện\ntheo mốc thời gian" as UC2
+  usecase "Tương tác sự kiện phân cấp\n(drill-down cha - con)" as UC3
+  usecase "Xem popup thông tin sự kiện\n(tên, thời gian, loại, mô tả)" as UC3a
+  usecase "Quay lại sự kiện cha" as UC3b
+  usecase "Lọc sự kiện theo loại\n(Quân sự / Chính trị / Kinh tế / VH-XH)" as UC4
+  usecase "Tìm kiếm sự kiện" as UC4a
+  usecase "Mở rộng / thu gọn\ncây sự kiện (sidebar)" as UC4b
+  usecase "Xem chi tiết sự kiện\n(mô tả, nhân vật, ý nghĩa, media)" as UC5
+  usecase "Nghe thuyết minh sự kiện\n(TTS tiếng Việt)" as UC5a
+  usecase "Xem địa hình 3D\n(multi_region / single_point)" as UC6
+  usecase "Duyệt tất cả sự kiện" as UC7
+  usecase "Xem các thời kỳ lịch sử" as UC8
+}
+
+' include / extend
+UC1 ..> UC1a : <<include>>
+UC1b ..> UC1a : <<extend>>
+UC1c ..> UC1 : <<extend>>
+UC2 ..> UC1a : <<include>>
+UC3 ..> UC3a : <<include>>
+UC3b ..> UC3 : <<extend>>
+UC4 ..> UC2 : <<extend>>
+UC4a ..> UC2 : <<extend>>
+UC4b ..> UC3 : <<extend>>
+UC5a ..> UC5 : <<extend>>
+UC6 ..> UC3 : <<extend>>
+
+' actor
+U --> UC1
+U --> UC2
+U --> UC3
+U --> UC4
+U --> UC4a
+U --> UC5
+U --> UC6
+U --> UC7
+U --> UC8
+
+' external
+UC1 --> CES
+UC6 --> CES
+UC5a --> TTS
+@enduml

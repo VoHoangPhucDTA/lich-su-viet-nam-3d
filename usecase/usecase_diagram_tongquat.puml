@@ -1,0 +1,110 @@
+@startuml usecase_diagram_tongquat
+!pragma layout smetana
+title Sơ đồ Use Case tổng quát - Ứng dụng Web hỗ trợ học sinh THPT học Lịch sử Việt Nam
+left to right direction
+skinparam packageStyle rectangle
+skinparam usecase {
+  BackgroundColor #FEFCE8
+  BorderColor #A16207
+}
+skinparam actorStyle awesome
+
+' Ghi chú: các quan hệ <<include>>/<<extend>> và các hệ thống ngoài
+' (Google/Facebook, Email Server, Viettel TTS, AI Service)
+' được thể hiện trong các sơ đồ use case chi tiết của từng phân hệ.
+
+actor "Khách\n(chưa đăng nhập)" as KH
+actor "Học sinh\n(đã đăng nhập)" as HS
+actor "Quản trị viên" as AD
+HS -|> KH
+AD -|> HS
+
+rectangle "Ứng dụng Web học Lịch sử Việt Nam 3D" {
+
+  package "1. Khám phá bản đồ 3D" {
+    usecase "UC08. Xem bản đồ 3D\nvới timeline tương tác" as UC08
+    usecase "UC09. Tương tác sự kiện\nphân cấp cha - con" as UC09
+    usecase "UC10. Lọc & tìm kiếm sự kiện" as UC10
+    usecase "UC11. Xem chi tiết sự kiện" as UC11
+    usecase "UC12. Xem địa hình 3D" as UC12
+    usecase "UC13. Nghe thuyết minh (TTS)" as UC13
+    usecase "UC14. Duyệt sự kiện &\nthời kỳ lịch sử" as UC14
+  }
+
+  package "2. Xác thực & Tài khoản" {
+    usecase "UC01. Đăng ký tài khoản" as UC01
+    usecase "UC02. Xác thực email" as UC02
+    usecase "UC03. Đăng nhập" as UC03
+    usecase "UC04. Đăng nhập bằng\nGoogle/Facebook" as UC04
+    usecase "UC05. Quên / Đặt lại mật khẩu" as UC05
+    usecase "UC06. Đăng xuất" as UC06
+    usecase "UC07. Cập nhật hồ sơ cá nhân" as UC07
+  }
+
+  package "3. Quiz AI (RAG)" {
+    usecase "UC15. Tạo bộ câu hỏi\ntrắc nghiệm bằng AI" as UC15
+    usecase "UC16. Làm bài quiz" as UC16
+    usecase "UC17. Xem kết quả &\ngiải thích đáp án" as UC17
+    usecase "UC18. Xem lịch sử quiz" as UC18
+  }
+
+  package "4. Ôn luyện & Thi thử THPT" {
+    usecase "UC19. Duyệt & chọn đề thi" as UC19
+    usecase "UC20. Tạo đề tùy chọn" as UC20
+    usecase "UC21. Làm đề thi thử" as UC21
+    usecase "UC22. Luyện tập tự do /\ntheo chủ đề" as UC22
+    usecase "UC23. Ôn lại câu sai" as UC23
+    usecase "UC24. Xem kết quả bài thi" as UC24
+    usecase "UC25. Xem lịch sử làm bài" as UC25
+  }
+
+  package "5. Tiến độ học tập" {
+    usecase "UC26. Xem dashboard\nthống kê cá nhân" as UC26
+    usecase "UC27. Xem lịch sử học tập\n& điểm số" as UC27
+  }
+
+  package "6. Quản trị hệ thống" {
+    usecase "UC28. Xem dashboard quản trị" as UC28
+    usecase "UC29. Quản lý người dùng" as UC29
+    usecase "UC30. Quản lý sự kiện lịch sử" as UC30
+    usecase "UC31. Duyệt câu hỏi do AI sinh" as UC31
+  }
+}
+
+' ===== Khách (truy cập công khai) =====
+KH --> UC01
+KH --> UC02
+KH --> UC03
+KH --> UC05
+KH --> UC08
+KH --> UC09
+KH --> UC10
+KH --> UC11
+KH --> UC12
+KH --> UC13
+KH --> UC14
+KH --> UC19
+
+' ===== Học sinh (kế thừa Khách) =====
+HS --> UC04
+HS --> UC06
+HS --> UC07
+HS --> UC15
+HS --> UC16
+HS --> UC17
+HS --> UC18
+HS --> UC20
+HS --> UC21
+HS --> UC22
+HS --> UC23
+HS --> UC24
+HS --> UC25
+HS --> UC26
+HS --> UC27
+
+' ===== Quản trị viên (kế thừa Học sinh) =====
+AD --> UC28
+AD --> UC29
+AD --> UC30
+AD --> UC31
+@enduml

@@ -1,0 +1,44 @@
+@startuml usecase_diagram_quiz_ai
+!pragma layout smetana
+title " "
+left to right direction
+skinparam packageStyle rectangle
+skinparam usecase {
+  BackgroundColor #FEFCE8
+  BorderColor #A16207
+}
+skinparam actorStyle awesome
+
+actor "Học sinh\n(đã đăng nhập)" as HS
+actor "AI Service\n(FastAPI + LangChain)" as AI <<external>>
+
+rectangle "Phân hệ Quiz AI (RAG)" {
+  usecase "Chọn chủ đề /\ngiai đoạn lịch sử" as UC1
+  usecase "Tạo bộ câu hỏi\ntrắc nghiệm bằng AI" as UC2
+  usecase "Truy xuất ngữ liệu &\nsinh câu hỏi (RAG)" as UC2a
+  usecase "Làm bài quiz\n(4 đáp án A/B/C/D)" as UC3
+  usecase "Nộp bài & chấm điểm\ntự động" as UC4
+  usecase "Xem kết quả, đáp án đúng\n& giải thích" as UC5
+  usecase "Xem lịch sử quiz" as UC6
+  usecase "Làm lại quiz" as UC7
+}
+
+' include / extend
+UC2 ..> UC1 : <<include>>
+UC2 ..> UC2a : <<include>>
+UC3 ..> UC2 : <<include>>
+UC3 ..> UC4 : <<include>>
+UC5 ..> UC4 : <<extend>>
+UC7 ..> UC6 : <<extend>>
+
+' actor
+HS --> UC2
+HS --> UC3
+HS --> UC5
+HS --> UC6
+HS --> UC7
+
+' external
+UC2a --> AI
+caption Sơ đồ Use Case chi tiết - Quiz AI (RAG)
+@enduml

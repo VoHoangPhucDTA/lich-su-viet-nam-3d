@@ -1,0 +1,46 @@
+@startuml usecase_diagram_quantri
+!pragma layout smetana
+title Sơ đồ Use Case chi tiết - Quản trị hệ thống
+left to right direction
+skinparam packageStyle rectangle
+skinparam usecase {
+  BackgroundColor #FEFCE8
+  BorderColor #A16207
+}
+skinparam actorStyle awesome
+
+actor "Quản trị viên" as AD
+actor "AI Service\n(RAG)" as AI <<external>>
+
+rectangle "Phân hệ Quản trị" {
+  usecase "Đăng nhập trang quản trị\n(kiểm tra role admin)" as UC0
+  usecase "Xem dashboard quản trị\n(thống kê hệ thống)" as UC1
+  usecase "Quản lý người dùng\n(xem, khóa / mở khóa)" as UC2
+  usecase "Quản lý sự kiện lịch sử" as UC3
+  usecase "Thêm / sửa sự kiện\n(Event Editor)" as UC3a
+  usecase "Xóa sự kiện" as UC3b
+  usecase "Duyệt câu hỏi do AI sinh\n(AI Candidates)" as UC4
+  usecase "Xem chi tiết câu hỏi\nứng viên" as UC4a
+  usecase "Phê duyệt / Từ chối\ncâu hỏi" as UC4b
+  usecase "Kiểm tra quyền\nAI_CANDIDATE_VIEW" as UC4c
+}
+
+' include / extend
+UC1 ..> UC0 : <<include>>
+UC2 ..> UC0 : <<include>>
+UC3 ..> UC0 : <<include>>
+UC3 ..> UC3a : <<extend>>
+UC3 ..> UC3b : <<extend>>
+UC4 ..> UC4c : <<include>>
+UC4a ..> UC4 : <<extend>>
+UC4b ..> UC4a : <<extend>>
+
+' actor
+AD --> UC1
+AD --> UC2
+AD --> UC3
+AD --> UC4
+
+' external
+UC4 --> AI
+@enduml

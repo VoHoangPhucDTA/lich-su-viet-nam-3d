@@ -1,0 +1,34 @@
+@startuml usecase_diagram_tiendo
+!pragma layout smetana
+title Sơ đồ Use Case chi tiết - Tiến độ học tập & Hồ sơ cá nhân
+left to right direction
+skinparam packageStyle rectangle
+skinparam usecase {
+  BackgroundColor #FEFCE8
+  BorderColor #A16207
+}
+skinparam actorStyle awesome
+
+actor "Học sinh\n(đã đăng nhập)" as HS
+
+rectangle "Phân hệ Tiến độ học tập & Hồ sơ" {
+  usecase "Xem dashboard cá nhân" as UC1
+  usecase "Xem biểu đồ tiến độ\nhọc tập" as UC1a
+  usecase "Phân tích điểm mạnh /\nđiểm yếu theo chủ đề" as UC1b
+  usecase "Nhận gợi ý ôn tập" as UC1c
+  usecase "Xem lịch sử học tập\n(sự kiện đã xem)" as UC2
+  usecase "Xem điểm số các bài\nquiz / đề thi" as UC3
+  usecase "Cài đặt tài khoản\n(hồ sơ, mật khẩu, giao diện)" as UC4
+}
+
+' include / extend
+UC1 ..> UC1a : <<include>>
+UC1 ..> UC1b : <<include>>
+UC1c ..> UC1b : <<extend>>
+
+' actor
+HS --> UC1
+HS --> UC2
+HS --> UC3
+HS --> UC4
+@enduml
