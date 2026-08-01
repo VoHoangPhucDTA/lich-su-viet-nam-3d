@@ -334,7 +334,51 @@ asserted unchanged.
 ## 11. Postflight
 
 Production V42 has already been applied exactly once.  The authoritative
-migration column is ``upload_expires_at`` as declared by
+migration execution commit is
+``f74b7b5e51e0a5f399bac96accacaf6ebfac071e``.  The schema-checker correction
+was committed afterward; it changes the read-only checker contract and does
+not authorize another migration attempt.
+
+Standalone postflight deliberately has two separate release bindings:
+
+* ``--expected-release-commit`` is the exact lowercase 40-hex commit at the
+  current checker checkout and must equal ``git rev-parse HEAD``.
+* ``--expected-migration-release-commit`` is required only for standalone
+  postflight and must be exactly
+  ``f74b7b5e51e0a5f399bac96accacaf6ebfac071e``.  It is forbidden in preflight
+  and migrate modes; those modes retain their original same-checkout/same-
+  artifact-commit binding.
+* ``--before-evidence`` remains bound to the migration release commit, its
+  exact file SHA-256 and embedded canonical SHA-256.  The separately supplied
+  ``--failure-inspection`` is bound by its exact file SHA-256 and detached
+  SHA-256 file to that same migration release, target, single migrate attempt,
+  successful V42 history row, preflight counts and known old-checker mismatch.
+  Neither retained artifact is rewritten or inferred from its filename.
+
+The migration release must be an ancestor of the current checker checkout.
+Git inspection permits post-migration changes only in the explicit reviewed
+allowlist for the V42 checker, its focused tests, this runbook and the related
+rehearsal diagnostic.  V1-V42 SQL, the production V42 manifest and Flyway
+callbacks may not differ.  Protected runner AST contracts also reject changes
+to credentials, production identity/target constants, confirmation tokens,
+Flyway target construction or migration execution semantics.
+
+For a later read-only standalone postflight, backup/restore bytes, detached
+hashes, capture bindings and identity bindings are still verified.  Backup
+freshness is evaluated at the recorded successful V42 installation time,
+proving it was valid for the completed write; the backup need not remain
+unexpired forever merely to authorize read-only inspection.  Preflight and
+migrate continue to evaluate freshness against the current clock, including
+the final check immediately before migrate, so an expired backup can never
+authorize a new write.
+
+Standalone postflight rejects migrate-authorization flags, reads only
+``TIDB_PRODUCTION_READ_*`` credentials, and has zero ``migrate``, ``repair``,
+``baseline`` or ``clean`` calls.  It never reads
+``TIDB_PRODUCTION_MIGRATE_*``, creates a replacement preflight artifact, or
+rewrites retained evidence.
+
+The authoritative migration column is ``upload_expires_at`` as declared by
 ``V42__add_managed_event_image_storage.sql``; ``storage_expires_at`` was a
 checker-only typo and was never part of the production schema contract.  The
 checker correction permits a read-only postflight only.  The V42 migration

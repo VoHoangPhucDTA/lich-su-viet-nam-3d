@@ -22,6 +22,7 @@ Coverage layout (matches the task spec):
 from __future__ import annotations
 
 import copy
+from datetime import datetime, timezone
 import importlib.util
 from contextlib import redirect_stderr
 import io
@@ -1255,6 +1256,89 @@ def _write_v42_preflight(path: Path, payload: dict[str, object]) -> str:
     return hashlib.sha256(raw).hexdigest()
 
 
+def _failure_inspection_payload() -> dict[str, object]:
+    return {
+        "classification": "BLOCKED_PRODUCTION_POSTFLIGHT",
+        "release_commit": runner.APPROVED_V42_MIGRATION_RELEASE_COMMIT,
+        "target": {
+            "cluster_id": runner.EXPECTED_PRODUCTION_CLUSTER_ID,
+            "target_identity": runner.EXPECTED_TARGET_IDENTITY,
+            "host": _v42_preflight_target()["host"],
+            "port": 4000,
+            "database": runner.EXPECTED_DATABASE,
+        },
+        "migrate_mode": {
+            "attempt_count": 1,
+            "started_at_utc": "2026-08-01T13:18:27.6777875Z",
+            "ended_at_utc": "2026-08-01T13:25:19.0644045Z",
+            "exit_code": 2,
+            "migrate_contract_validation": "passed before postflight schema validation",
+            "applied_version": "42",
+            "description": "add managed event image storage",
+            "installed_on": "2026-08-01T13:23:42.000000",
+            "flyway_checksum": "-769202000",
+        },
+        "postflight": {
+            "database": "lichsuvn",
+            "server_version": "8.0.11-TiDB-v8.5.3-serverless",
+            "sentinel": "1",
+            "check_support": "1",
+            "flyway_current": "42",
+            "v42_success_rows": "1",
+            "failed_count": "0",
+            "above_v42_count": "0",
+            "flyway_info_and_validate": "passed before schema-contract validation",
+            "bounded_counts": {
+                key: _v42_preflight_metadata()[key]
+                for key in runner.V42_BOUNDED_COUNTS
+            },
+            "cleanup_task_total": "0",
+        },
+        "schema": {
+            "actual_event_media_managed_columns": list(
+                runner.MANAGED_STORAGE_COLUMN_CONTRACT
+            ),
+            "event_media_indexes": [
+                "uk_event_media_managed_asset", "uk_event_media_storage_identity",
+                "idx_event_media_managed_read", "idx_event_media_upload_expiry",
+            ],
+            "event_media_foreign_key": runner.V42_EVENT_MEDIA_FK,
+            "cleanup_table": runner.V42_CLEANUP_TABLE,
+            "cleanup_indexes": [
+                "PRIMARY", "uk_event_media_cleanup_identity",
+                "idx_event_media_cleanup_claim",
+            ],
+            "check_constraints": [
+                "chk_event_media_storage_state", "chk_event_media_storage_byte_size",
+                "chk_event_media_storage_dimensions",
+                "chk_event_media_cleanup_operation", "chk_event_media_cleanup_status",
+                "chk_event_media_cleanup_attempts",
+            ],
+            "check_constraints_present_in_both_tidb_metadata_views": True,
+        },
+        "postflight_blocker": {
+            "observed_sql_column": "upload_expires_at",
+            "incorrect_runner_expected_column": "storage_expires_at",
+            "message": (
+                "The committed postflight checker filters for storage_expires_at while V42 SQL "
+                "creates upload_expires_at. No retry, repair, or manual schema change was performed."
+            ),
+        },
+    }
+
+
+def _write_failure_inspection(
+    root: Path, payload: dict[str, object]
+) -> tuple[Path, str, Path]:
+    path = root / "failure-inspection.json"
+    raw = (json.dumps(payload, indent=2) + "\n").encode("utf-8")
+    path.write_bytes(raw)
+    digest = hashlib.sha256(raw).hexdigest()
+    detached = root / "failure-inspection.sha256"
+    detached.write_text(f"{digest}  {path.name}\n", encoding="utf-8")
+    return path, digest, detached
+
+
 class V42PreflightEvidenceContractTest(unittest.TestCase):
     def _assert_rejected(self, payload: dict[str, object]) -> None:
         _resign_v42_preflight(payload)
@@ -1413,6 +1497,198 @@ class V42PreflightEvidenceContractTest(unittest.TestCase):
                 )
 
 
+class StandalonePostflightBindingContractTest(unittest.TestCase):
+    def test_commits_are_exact_lowercase_full_sha(self) -> None:
+        self.assertEqual(
+            runner._require_exact_lower_commit("a" * 40, "commit"), "a" * 40
+        )
+        for value in (None, "a" * 39, "A" * 40, " " + "a" * 40, "a" * 40 + " "):
+            with self.subTest(value=value):
+                with self.assertRaises(runner.ProductionRunnerError):
+                    runner._require_exact_lower_commit(value, "commit")
+
+    def test_changed_path_allowlist_is_narrow_and_rejects_unsafe_contracts(self) -> None:
+        runner._validate_postflight_changed_paths(
+            sorted(runner.POSTFLIGHT_LINEAGE_ALLOWED_PATHS)
+        )
+        unsafe = (
+            "backend/src/main/resources/db/migration/V42__add_managed_event_image_storage.sql",
+            "scripts/deploy/tidb-production-v42.sha256",
+            "backend/src/main/resources/db/migration/afterMigrate.sql",
+            "scripts/deploy/tidb_production_migration.py",
+            "docs/admin/unrelated.md",
+        )
+        for path in unsafe:
+            with self.subTest(path=path):
+                with self.assertRaises(runner.ProductionRunnerError):
+                    runner._validate_postflight_changed_paths([path])
+
+    def test_protected_runner_contract_detects_target_confirmation_credentials_and_migrate(self) -> None:
+        source = Path(runner.__file__).read_bytes()
+        baseline = runner._python_protected_contract(source)
+        mutations = (
+            (b'EXPECTED_DATABASE = "lichsuvn"', b'EXPECTED_DATABASE = "other"'),
+            (b'def _credentials(prefix:', b'def _credentials_changed(prefix:'),
+            (b'def validate_target(', b'def validate_target_changed('),
+            (b'def run_flyway_v42(', b'def run_flyway_v42_changed('),
+            (b'def run_migrate(', b'def run_migrate_changed('),
+        )
+        for old, new in mutations:
+            with self.subTest(old=old):
+                changed = source.replace(old, new, 1)
+                try:
+                    changed_contract = runner._python_protected_contract(changed)
+                except runner.ProductionRunnerError:
+                    continue
+                self.assertNotEqual(baseline, changed_contract)
+        self.assertEqual(baseline, runner._python_protected_contract(source))
+
+    def test_unrelated_production_runner_symbol_is_not_allowlisted(self) -> None:
+        source = Path(runner.__file__).read_bytes()
+        changed = source.replace(
+            b'def local_check(repo_root: Path)',
+            b'def unrelated_local_check(repo_root: Path)',
+            1,
+        )
+        baseline = runner._python_runner_symbol_contract(source)
+        mutated = runner._python_runner_symbol_contract(changed)
+        changed_symbols = {
+            key
+            for key in set(baseline) | set(mutated)
+            if baseline.get(key) != mutated.get(key)
+        }
+        self.assertTrue(changed_symbols)
+        self.assertFalse(
+            changed_symbols <= runner.POSTFLIGHT_LINEAGE_ALLOWED_RUNNER_SYMBOLS
+        )
+
+    def test_failure_inspection_exact_bytes_commit_execution_and_preflight_binding(self) -> None:
+        preflight = _v42_preflight_payload()
+        preflight["release_commit"] = runner.APPROVED_V42_MIGRATION_RELEASE_COMMIT
+        _resign_v42_preflight(preflight)
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            path, digest, detached = _write_failure_inspection(
+                root, _failure_inspection_payload()
+            )
+            loaded = runner.load_and_validate_v42_failure_inspection(
+                path, digest, detached,
+                target=_v42_preflight_target(),
+                migration_release_commit=runner.APPROVED_V42_MIGRATION_RELEASE_COMMIT,
+                preflight_evidence=preflight,
+            )
+            self.assertEqual(loaded["artifact"]["migrate_mode"]["attempt_count"], 1)
+            self.assertEqual(
+                loaded["migration_installed_at_utc"].tzinfo, runner.timezone.utc
+            )
+
+            for mutation in ("commit", "attempt", "checker", "counts"):
+                payload = _failure_inspection_payload()
+                if mutation == "commit":
+                    payload["release_commit"] = "0" * 40
+                elif mutation == "attempt":
+                    payload["migrate_mode"]["attempt_count"] = 2
+                elif mutation == "checker":
+                    payload["postflight_blocker"]["observed_sql_column"] = "other"
+                else:
+                    payload["postflight"]["bounded_counts"]["users_total"] = "21"
+                changed, changed_sha, changed_detached = _write_failure_inspection(
+                    root, payload
+                )
+                with self.subTest(mutation=mutation):
+                    with self.assertRaises(runner.ProductionRunnerError):
+                        runner.load_and_validate_v42_failure_inspection(
+                            changed, changed_sha, changed_detached,
+                            target=_v42_preflight_target(),
+                            migration_release_commit=(
+                                runner.APPROVED_V42_MIGRATION_RELEASE_COMMIT
+                            ),
+                            preflight_evidence=preflight,
+                        )
+
+            path.write_bytes(path.read_bytes() + b"tamper")
+            with self.assertRaises(runner.ProductionRunnerError):
+                runner.load_and_validate_v42_failure_inspection(
+                    path, digest, detached,
+                    target=_v42_preflight_target(),
+                    migration_release_commit=runner.APPROVED_V42_MIGRATION_RELEASE_COMMIT,
+                    preflight_evidence=preflight,
+                )
+
+    def test_wrong_migration_commit_and_non_ancestor_are_rejected(self) -> None:
+        with self.assertRaisesRegex(runner.ProductionRunnerError, "approved V42"):
+            runner.validate_postflight_release_lineage(
+                HERE.parents[1], checkout_commit="a" * 40,
+                migration_release_commit="b" * 40,
+            )
+        completed = subprocess.CompletedProcess(["git"], 1, b"", b"")
+        with patch.object(runner, "_git_result", return_value=completed):
+            with self.assertRaisesRegex(runner.ProductionRunnerError, "not an ancestor"):
+                runner.validate_postflight_release_lineage(
+                    HERE.parents[1], checkout_commit="a" * 40,
+                    migration_release_commit=runner.APPROVED_V42_MIGRATION_RELEASE_COMMIT,
+                )
+
+    def test_postflight_only_arguments_are_required_and_rejected_by_other_modes(self) -> None:
+        stderr = io.StringIO()
+        with redirect_stderr(stderr):
+            missing = runner.main(["--mode", "postflight"])
+            preflight = runner.main([
+                "--mode", "preflight",
+                "--expected-migration-release-commit",
+                runner.APPROVED_V42_MIGRATION_RELEASE_COMMIT,
+            ])
+            migrate = runner.main([
+                "--mode", "migrate",
+                "--expected-migration-release-commit",
+                runner.APPROVED_V42_MIGRATION_RELEASE_COMMIT,
+            ])
+        self.assertEqual((missing, preflight, migrate), (2, 2, 2))
+
+    def test_postflight_backup_time_is_fixed_while_write_validator_uses_current_clock(self) -> None:
+        installed = datetime(2026, 8, 1, 13, 23, 42, tzinfo=timezone.utc)
+        with (
+            patch.object(runner, "_env", return_value="evidence"),
+            patch.object(
+                runner.release_e_evidence,
+                "validate_backup_evidence",
+                return_value={"evidence_sha256": "b" * 64},
+            ) as backup,
+            patch.object(
+                runner.release_e_evidence,
+                "verify_restore_identity_evidence",
+                return_value="c" * 64,
+            ),
+            patch.object(
+                runner.release_e_evidence,
+                "validate_restore_evidence",
+                return_value={"evidence_sha256": "d" * 64},
+            ) as restore,
+        ):
+            runner.validate_release_e_postflight_evidence(
+                production_identity_evidence_sha256="a" * 64,
+                migration_installed_at_utc=installed,
+            )
+        self.assertEqual(backup.call_args.kwargs["now_utc"], installed)
+        self.assertEqual(restore.call_args.kwargs["now_utc"], installed)
+
+        blocker = runner.release_e_evidence.EvidenceContractError(
+            "BLOCKED_PRODUCTION_BACKUP_EVIDENCE", "backup expired"
+        )
+        with (
+            patch.object(runner, "_env", return_value="evidence"),
+            patch.object(
+                runner.release_e_evidence, "validate_backup_evidence", side_effect=blocker
+            ),
+        ):
+            with self.assertRaisesRegex(
+                runner.release_e_evidence.EvidenceContractError, "backup expired"
+            ):
+                runner.validate_release_e_evidence(
+                    production_identity_evidence_sha256="a" * 64
+                )
+
+
 # ============================================================================
 # DocumentationContractTest
 # ============================================================================
@@ -1493,6 +1769,19 @@ class DocumentationContractTest(unittest.TestCase):
         self.assertIn("must not be rerun", runbook)
         self.assertIn("read-only postflight", runbook)
         self.assertIn("no manual DDL", runbook)
+
+    def test_runbook_documents_separate_postflight_release_bindings(self) -> None:
+        runbook = (
+            HERE.parents[1] / "docs" / "admin" / "TIDB_PRODUCTION_V42_RUNBOOK.md"
+        ).read_text(encoding="utf-8")
+        self.assertIn(runner.APPROVED_V42_MIGRATION_RELEASE_COMMIT, runbook)
+        self.assertIn("``--expected-release-commit``", runbook)
+        self.assertIn("``--expected-migration-release-commit``", runbook)
+        self.assertIn("migration release must be an ancestor", runbook)
+        self.assertIn("V1-V42 SQL", runbook)
+        self.assertIn("zero ``migrate``", runbook)
+        self.assertIn("``TIDB_PRODUCTION_MIGRATE_*``", runbook)
+        self.assertIn("current clock", runbook)
 
 
 # ============================================================================
@@ -1682,6 +1971,8 @@ class ReleaseEEvidenceOrderingTest(unittest.TestCase):
 
     def test_postflight_failure_uses_read_credentials_and_cannot_migrate(self) -> None:
         payload = _v42_preflight_payload()
+        payload["release_commit"] = runner.APPROVED_V42_MIGRATION_RELEASE_COMMIT
+        _resign_v42_preflight(payload)
         credential_prefixes: list[str] = []
 
         def credentials(prefix: str) -> tuple[str, str]:
@@ -1698,7 +1989,17 @@ class ReleaseEEvidenceOrderingTest(unittest.TestCase):
                 patch.object(base, "verify_release_checkout"),
                 patch.object(base, "validate_local_docker_environment"),
                 patch.object(runner, "_target_from_environment_and_evidence", return_value=_v42_preflight_target()),
-                patch.object(runner, "validate_release_e_evidence"),
+                patch.object(runner, "validate_postflight_release_lineage"),
+                patch.object(
+                    runner,
+                    "load_and_validate_v42_failure_inspection",
+                    return_value={
+                        "migration_installed_at_utc": datetime(
+                            2026, 8, 1, 13, 23, 42, tzinfo=timezone.utc
+                        )
+                    },
+                ),
+                patch.object(runner, "validate_release_e_postflight_evidence"),
                 patch.object(runner, "_credentials", side_effect=credentials),
                 patch.object(
                     runner,
@@ -1711,15 +2012,17 @@ class ReleaseEEvidenceOrderingTest(unittest.TestCase):
                 exit_code = runner.main([
                     "--mode", "postflight",
                     "--expected-release-commit", "a" * 40,
+                    "--expected-migration-release-commit",
+                    runner.APPROVED_V42_MIGRATION_RELEASE_COMMIT,
                     "--confirm-target", "main@gateway01.ap-southeast-1.prod.alicloud.tidbcloud.com/lichsuvn:41->42",
                     "--identity-evidence", str(Path(directory) / "identity.json"),
                     "--identity-evidence-sha256", "b" * 64,
                     "--before-evidence", str(path),
                     "--before-evidence-sha256", file_sha,
-                    "--two-active-admins", "--backends-drained",
-                    "--single-migration-owner", "--maintenance-window",
-                    "--rollback-owner", "--runtime-security-verified",
-                    "--execute-migrate",
+                    "--failure-inspection", str(Path(directory) / "failure.json"),
+                    "--failure-inspection-sha256", "c" * 64,
+                    "--failure-inspection-detached-sha256",
+                    str(Path(directory) / "failure.sha256"),
                 ])
         self.assertEqual(exit_code, 2)
         self.assertEqual(credential_prefixes, ["TIDB_PRODUCTION_READ"])

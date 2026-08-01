@@ -23,6 +23,8 @@ hostname is permitted but is never the sole proof of identity.
 from __future__ import annotations
 
 import argparse
+import ast
+from datetime import datetime, timezone
 import hashlib
 import hmac
 import json
@@ -89,6 +91,72 @@ EXPECTED_V42_SQL_SHA = (
     "e24949201f5d291e57b04472b3cda1d65811b26ea6a899a550f38ab70ff15a43"
 )
 EXPECTED_V42_SQL_FILE = "V42__add_managed_event_image_storage.sql"
+
+APPROVED_V42_MIGRATION_RELEASE_COMMIT = (
+    "f74b7b5e51e0a5f399bac96accacaf6ebfac071e"
+)
+POSTFLIGHT_LINEAGE_ALLOWED_PATHS = frozenset(
+    {
+        "docs/admin/TIDB_PRODUCTION_V42_RUNBOOK.md",
+        "scripts/deploy/test_tidb_production_v42_migration.py",
+        "scripts/deploy/tidb_production_v42_migration.py",
+        "scripts/deploy/tidb_rehearsal_v42_orchestrate.py",
+    }
+)
+POSTFLIGHT_LINEAGE_PROTECTED_CONSTANTS = (
+    "TARGET_VERSION",
+    "EXPECTED_CURRENT_VERSION",
+    "EXPECTED_PENDING_VERSIONS",
+    "EXPECTED_DATABASE",
+    "EXPECTED_PRODUCTION_CLUSTER_ID",
+    "EXPECTED_DISPLAY_NAME",
+    "EXPECTED_TARGET_IDENTITY",
+    "EXPECTED_FLYWAY_VERSION",
+    "APPROVED_FLYWAY_IMAGE_DIGEST",
+    "APPROVED_MYSQL_IMAGE_DIGEST",
+    "EXPECTED_V42_SQL_SHA",
+    "EXPECTED_V42_SQL_FILE",
+)
+POSTFLIGHT_LINEAGE_PROTECTED_FUNCTIONS = (
+    "_env",
+    "_credentials",
+    "validate_target",
+    "_target_from_environment_and_evidence",
+    "run_flyway_v42",
+    "validate_flyway_migrate_for_v42",
+    "run_flyway_migrate_after_evidence_gate",
+    "run_preflight",
+    "run_migrate",
+)
+POSTFLIGHT_LINEAGE_ALLOWED_RUNNER_SYMBOLS = frozenset(
+    {
+        "constant:APPROVED_V42_MIGRATION_RELEASE_COMMIT",
+        "constant:MANAGED_STORAGE_COLUMNS",
+        "constant:MANAGED_STORAGE_COLUMN_CONTRACT",
+        "constant:MANAGED_STORAGE_COLUMN_SQL",
+        "constant:POSTFLIGHT_LINEAGE_ALLOWED_PATHS",
+        "constant:POSTFLIGHT_LINEAGE_ALLOWED_RUNNER_SYMBOLS",
+        "constant:POSTFLIGHT_LINEAGE_PROTECTED_CONSTANTS",
+        "constant:POSTFLIGHT_LINEAGE_PROTECTED_FUNCTIONS",
+        "function:_git_bytes",
+        "function:_git_result",
+        "function:_load_exact_json_artifact",
+        "function:_parse_failure_timestamp",
+        "function:_parser",
+        "function:_python_protected_contract",
+        "function:_python_runner_symbol_contract",
+        "function:_require_exact_lower_commit",
+        "function:_validate_postflight_changed_paths",
+        "function:_validated_managed_storage_column_contract",
+        "function:build_standalone_postflight_evidence_payload",
+        "function:load_and_validate_v42_failure_inspection",
+        "function:main",
+        "function:metadata_sql_v42_postflight_extras",
+        "function:run_postflight",
+        "function:validate_postflight_release_lineage",
+        "function:validate_release_e_postflight_evidence",
+    }
+)
 
 
 # V42 schema footprint in the exact source order from
@@ -338,6 +406,216 @@ def _credentials(prefix: str) -> tuple[str, str]:
     return _env(f"{prefix}_USER", secret=True), _env(f"{prefix}_PASSWORD", secret=True)
 
 
+def _require_exact_lower_commit(value: Any, field: str) -> str:
+    """Require an explicit, unabbreviated lowercase Git object name."""
+    if not isinstance(value, str) or not re.fullmatch(r"[0-9a-f]{40}", value):
+        raise ProductionRunnerError(
+            f"{field} must be an exact lowercase 40-hex Git commit"
+        )
+    return value
+
+
+def _git_result(repo_root: Path, arguments: Sequence[str]) -> subprocess.CompletedProcess[bytes]:
+    try:
+        return subprocess.run(
+            ["git", "-C", str(repo_root), *arguments],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            check=False,
+            env=base._sanitized_child_environment(),
+        )
+    except OSError as exc:
+        raise ProductionRunnerError("cannot inspect postflight release lineage") from exc
+
+
+def _git_bytes(repo_root: Path, arguments: Sequence[str], label: str) -> bytes:
+    result = _git_result(repo_root, arguments)
+    if result.returncode != 0:
+        raise ProductionRunnerError(f"cannot verify {label}")
+    return result.stdout
+
+
+def _python_protected_contract(source: bytes) -> dict[str, str]:
+    try:
+        tree = ast.parse(source.decode("utf-8"))
+    except (UnicodeDecodeError, SyntaxError) as exc:
+        raise ProductionRunnerError("production V42 runner cannot be parsed") from exc
+    contract: dict[str, str] = {}
+    wanted_constants = set(POSTFLIGHT_LINEAGE_PROTECTED_CONSTANTS)
+    wanted_functions = set(POSTFLIGHT_LINEAGE_PROTECTED_FUNCTIONS)
+    for node in tree.body:
+        if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)) and node.name in wanted_functions:
+            contract[f"function:{node.name}"] = ast.dump(node, include_attributes=False)
+        elif isinstance(node, ast.Assign):
+            for target in node.targets:
+                if isinstance(target, ast.Name) and target.id in wanted_constants:
+                    contract[f"constant:{target.id}"] = ast.dump(
+                        node.value, include_attributes=False
+                    )
+        elif isinstance(node, ast.AnnAssign) and isinstance(node.target, ast.Name):
+            if node.target.id in wanted_constants and node.value is not None:
+                contract[f"constant:{node.target.id}"] = ast.dump(
+                    node.value, include_attributes=False
+                )
+    expected = {
+        *(f"constant:{name}" for name in POSTFLIGHT_LINEAGE_PROTECTED_CONSTANTS),
+        *(f"function:{name}" for name in POSTFLIGHT_LINEAGE_PROTECTED_FUNCTIONS),
+    }
+    missing = sorted(expected - set(contract))
+    if missing:
+        raise ProductionRunnerError(
+            "production V42 runner is missing protected lineage contracts: "
+            + ", ".join(missing)
+        )
+    return contract
+
+
+def _python_runner_symbol_contract(source: bytes) -> dict[str, str]:
+    """Snapshot every top-level function and uppercase contract assignment."""
+    try:
+        tree = ast.parse(source.decode("utf-8"))
+    except (UnicodeDecodeError, SyntaxError) as exc:
+        raise ProductionRunnerError("production V42 runner cannot be parsed") from exc
+    contract: dict[str, str] = {}
+    for node in tree.body:
+        if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)):
+            contract[f"function:{node.name}"] = ast.dump(node, include_attributes=False)
+        elif isinstance(node, ast.Assign):
+            for target in node.targets:
+                if isinstance(target, ast.Name) and target.id.isupper():
+                    contract[f"constant:{target.id}"] = ast.dump(
+                        node.value, include_attributes=False
+                    )
+        elif isinstance(node, ast.AnnAssign) and isinstance(node.target, ast.Name):
+            if node.target.id.isupper() and node.value is not None:
+                contract[f"constant:{node.target.id}"] = ast.dump(
+                    node.value, include_attributes=False
+                )
+    return contract
+
+
+def _validate_postflight_changed_paths(changed_paths: Sequence[str]) -> None:
+    unexpected = sorted(set(changed_paths) - POSTFLIGHT_LINEAGE_ALLOWED_PATHS)
+    if unexpected:
+        raise ProductionRunnerError(
+            "postflight lineage contains a non-allowlisted path: " + ", ".join(unexpected)
+        )
+
+
+def validate_postflight_release_lineage(
+    repo_root: Path,
+    *,
+    checkout_commit: str,
+    migration_release_commit: str,
+) -> dict[str, Any]:
+    """Prove that only reviewed checker-safe paths changed after migration."""
+    checkout_commit = _require_exact_lower_commit(checkout_commit, "checkout commit")
+    migration_release_commit = _require_exact_lower_commit(
+        migration_release_commit, "migration release commit"
+    )
+    if migration_release_commit != APPROVED_V42_MIGRATION_RELEASE_COMMIT:
+        raise ProductionRunnerError("migration release commit is not the approved V42 execution")
+
+    ancestor = _git_result(
+        repo_root,
+        ["merge-base", "--is-ancestor", migration_release_commit, checkout_commit],
+    )
+    if ancestor.returncode == 1:
+        raise ProductionRunnerError("migration release commit is not an ancestor of checkout")
+    if ancestor.returncode != 0:
+        raise ProductionRunnerError("cannot verify migration release ancestry")
+
+    changed_raw = _git_bytes(
+        repo_root,
+        [
+            "diff", "--name-only", "--diff-filter=ACDMRTUXB",
+            f"{migration_release_commit}..{checkout_commit}",
+        ],
+        "postflight changed-path allowlist",
+    )
+    try:
+        changed_paths = tuple(
+            line for line in changed_raw.decode("utf-8").splitlines() if line
+        )
+    except UnicodeDecodeError as exc:
+        raise ProductionRunnerError("postflight changed paths are not UTF-8") from exc
+    _validate_postflight_changed_paths(changed_paths)
+
+    immutable_paths = (
+        "backend/src/main/resources/db/migration/",
+        f"scripts/deploy/{MANIFEST_NAME}",
+    )
+    immutable = _git_result(
+        repo_root,
+        ["diff", "--quiet", migration_release_commit, checkout_commit, "--", *immutable_paths],
+    )
+    if immutable.returncode == 1:
+        raise ProductionRunnerError("migration SQL or V42 manifest changed after migration")
+    if immutable.returncode != 0:
+        raise ProductionRunnerError("cannot verify migration SQL and manifest immutability")
+
+    runner_path = "scripts/deploy/tidb_production_v42_migration.py"
+    migration_runner = _git_bytes(
+        repo_root, ["show", f"{migration_release_commit}:{runner_path}"],
+        "migration-release runner contract",
+    )
+    protected_contract = _python_protected_contract(migration_runner)
+    migration_symbols = _python_runner_symbol_contract(migration_runner)
+    lineage_raw = _git_bytes(
+        repo_root,
+        ["rev-list", "--parents", "--reverse", f"{migration_release_commit}..{checkout_commit}"],
+        "postflight commit lineage",
+    )
+    try:
+        lineage_rows = [line.split() for line in lineage_raw.decode("ascii").splitlines()]
+    except UnicodeDecodeError as exc:
+        raise ProductionRunnerError("postflight commit lineage is malformed") from exc
+    for row in lineage_rows:
+        if len(row) != 2 or not all(re.fullmatch(r"[0-9a-f]{40}", item) for item in row):
+            raise ProductionRunnerError("postflight lineage must be linear and full-SHA bound")
+        commit = row[0]
+        commit_paths_raw = _git_bytes(
+            repo_root,
+            ["diff-tree", "--no-commit-id", "--name-only", "-r", commit],
+            f"changed paths for postflight commit {commit}",
+        )
+        try:
+            commit_paths = tuple(
+                path for path in commit_paths_raw.decode("utf-8").splitlines() if path
+            )
+        except UnicodeDecodeError as exc:
+            raise ProductionRunnerError("postflight commit paths are not UTF-8") from exc
+        _validate_postflight_changed_paths(commit_paths)
+        if runner_path in commit_paths:
+            commit_runner = _git_bytes(
+                repo_root, ["show", f"{commit}:{runner_path}"],
+                f"protected runner contract at {commit}",
+            )
+            if _python_protected_contract(commit_runner) != protected_contract:
+                raise ProductionRunnerError(
+                    "credential, target, confirmation, or migration execution semantics changed"
+                )
+            commit_symbols = _python_runner_symbol_contract(commit_runner)
+            changed_symbols = {
+                key
+                for key in set(migration_symbols) | set(commit_symbols)
+                if migration_symbols.get(key) != commit_symbols.get(key)
+            }
+            unexpected_symbols = sorted(
+                changed_symbols - POSTFLIGHT_LINEAGE_ALLOWED_RUNNER_SYMBOLS
+            )
+            if unexpected_symbols:
+                raise ProductionRunnerError(
+                    "production runner contains a non-allowlisted postflight change: "
+                    + ", ".join(unexpected_symbols)
+                )
+    return {
+        "migration_release_commit": migration_release_commit,
+        "checkout_commit": checkout_commit,
+        "changed_paths": list(changed_paths),
+    }
+
+
 def validate_release_e_evidence(
     *, production_identity_evidence_sha256: str,
 ) -> dict[str, Any]:
@@ -364,6 +642,41 @@ def validate_release_e_evidence(
         capture_path=Path(_env("TIDB_PRODUCTION_RESTORE_CAPTURE")),
         source_backup_evidence_sha256=backup["evidence_sha256"],
         restore_identity_evidence_sha256=restore_identity_sha,
+    )
+    return {"backup": backup, "restore": restore}
+
+
+def validate_release_e_postflight_evidence(
+    *,
+    production_identity_evidence_sha256: str,
+    migration_installed_at_utc: datetime,
+) -> dict[str, Any]:
+    """Validate immutable backup/restore evidence at the completed write time.
+
+    This exception is read-only and postflight-only.  The ordinary validator
+    continues to use the current clock for preflight and migrate.
+    """
+    if migration_installed_at_utc.tzinfo is None:
+        raise ProductionRunnerError("migration installed time must be timezone-aware")
+    migration_time = migration_installed_at_utc.astimezone(timezone.utc)
+    backup = release_e_evidence.validate_backup_evidence(
+        Path(_env("TIDB_PRODUCTION_BACKUP_EVIDENCE")),
+        Path(_env("TIDB_PRODUCTION_BACKUP_EVIDENCE_SHA256")),
+        capture_path=Path(_env("TIDB_PRODUCTION_BACKUP_CAPTURE")),
+        production_identity_evidence_sha256=production_identity_evidence_sha256.lower(),
+        now_utc=migration_time,
+    )
+    restore_identity_sha = release_e_evidence.verify_restore_identity_evidence(
+        Path(_env("TIDB_PRODUCTION_RESTORE_IDENTITY_EVIDENCE")),
+        Path(_env("TIDB_PRODUCTION_RESTORE_IDENTITY_EVIDENCE_SHA256")),
+    )
+    restore = release_e_evidence.validate_restore_evidence(
+        Path(_env("TIDB_PRODUCTION_RESTORE_EVIDENCE")),
+        Path(_env("TIDB_PRODUCTION_RESTORE_EVIDENCE_SHA256")),
+        capture_path=Path(_env("TIDB_PRODUCTION_RESTORE_CAPTURE")),
+        source_backup_evidence_sha256=backup["evidence_sha256"],
+        restore_identity_evidence_sha256=restore_identity_sha,
+        now_utc=migration_time,
     )
     return {"backup": backup, "restore": restore}
 
@@ -1184,10 +1497,12 @@ def run_postflight(
     read_user: str,
     read_password: str,
     before_evidence: Mapping[str, Any],
+    migration_installed_at_utc: datetime,
     executor: Callable[[Sequence[str], str], base.CommandResult] = base._execute,
 ) -> dict[str, Any]:
-    validate_release_e_evidence(
-        production_identity_evidence_sha256=production_identity_evidence_sha256
+    validate_release_e_postflight_evidence(
+        production_identity_evidence_sha256=production_identity_evidence_sha256,
+        migration_installed_at_utc=migration_installed_at_utc,
     )
     _verify_manifest_immutable(repo_root)
     migration_dir, manifest = _migration_paths_v42(repo_root)
@@ -1280,6 +1595,35 @@ def build_evidence_payload(
         mode=mode, target=target,
         release_commit=release_commit, flyway=flyway, metadata=metadata,
     )
+
+
+def build_standalone_postflight_evidence_payload(
+    *,
+    target: Mapping[str, Any],
+    checkout_commit: str,
+    migration_release_commit: str,
+    preflight_file_sha256: str,
+    preflight_evidence_sha256: str,
+    failure_inspection_file_sha256: str,
+    flyway: Mapping[str, Any],
+    metadata: Mapping[str, str],
+) -> dict[str, Any]:
+    """Preserve the independently verified execution lineage in new evidence."""
+    payload = build_evidence_payload(
+        mode="postflight", target=target, release_commit=checkout_commit,
+        flyway=flyway, metadata=metadata,
+    )
+    payload.pop("evidence_sha256")
+    payload["release_lineage"] = {
+        "checkout_commit": checkout_commit,
+        "migration_release_commit": migration_release_commit,
+        "preflight_file_sha256": preflight_file_sha256,
+        "preflight_evidence_sha256": preflight_evidence_sha256,
+        "failure_inspection_file_sha256": failure_inspection_file_sha256,
+        "migrate_attempt_count": 1,
+    }
+    payload["evidence_sha256"] = base._evidence_sha256(payload)
+    return payload
 
 
 def _read_v42_preflight_evidence(
@@ -1417,6 +1761,204 @@ def load_and_validate_v42_preflight_evidence(
     return evidence
 
 
+def _load_exact_json_artifact(
+    path: Path,
+    expected_file_sha256: str,
+    detached_sha256_path: Path,
+    *,
+    label: str,
+) -> Mapping[str, Any]:
+    path = Path(path)
+    detached_sha256_path = Path(detached_sha256_path)
+    if path.suffix.lower() != ".json" or not path.is_file() or path.is_symlink():
+        raise ProductionRunnerError(f"{label} file is missing or invalid")
+    if not re.fullmatch(r"[0-9a-f]{64}", expected_file_sha256 or ""):
+        raise ProductionRunnerError(f"{label} SHA-256 must be exact lowercase hex")
+    if not detached_sha256_path.is_file() or detached_sha256_path.is_symlink():
+        raise ProductionRunnerError(f"{label} detached SHA-256 file is missing")
+    try:
+        raw = path.read_bytes()
+        detached = detached_sha256_path.read_text(encoding="utf-8")
+    except OSError as exc:
+        raise ProductionRunnerError(f"{label} cannot be read") from exc
+    if len(raw) > base.MAX_EVIDENCE_BYTES:
+        raise ProductionRunnerError(f"{label} is too large")
+    actual = hashlib.sha256(raw).hexdigest()
+    if not hmac.compare_digest(actual, expected_file_sha256):
+        raise ProductionRunnerError(f"{label} file SHA-256 mismatch")
+    detached_match = re.fullmatch(
+        rf"{re.escape(expected_file_sha256)}  {re.escape(path.name)}\r?\n?",
+        detached,
+    )
+    if not detached_match:
+        raise ProductionRunnerError(f"{label} detached SHA-256 mismatch")
+
+    def reject_duplicate_keys(pairs: list[tuple[str, Any]]) -> dict[str, Any]:
+        value: dict[str, Any] = {}
+        for key, item in pairs:
+            if key in value:
+                raise ProductionRunnerError(f"{label} contains duplicate keys")
+            value[key] = item
+        return value
+
+    try:
+        value = json.loads(raw.decode("utf-8"), object_pairs_hook=reject_duplicate_keys)
+    except (UnicodeDecodeError, json.JSONDecodeError) as exc:
+        raise ProductionRunnerError(f"{label} is not valid JSON") from exc
+    if not isinstance(value, Mapping):
+        raise ProductionRunnerError(f"{label} has an invalid shape")
+    return value
+
+
+def _parse_failure_timestamp(value: Any, field: str, *, flyway_local: bool = False) -> datetime:
+    if not isinstance(value, str):
+        raise ProductionRunnerError(f"failure inspection {field} is invalid")
+    try:
+        if flyway_local:
+            if not re.fullmatch(r"\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{6}", value):
+                raise ValueError
+            parsed = datetime.fromisoformat(value).replace(tzinfo=timezone.utc)
+        else:
+            if not re.fullmatch(
+                r"\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{1,7})?Z", value
+            ):
+                raise ValueError
+            parsed = datetime.fromisoformat(value[:-1] + "+00:00")
+    except ValueError as exc:
+        raise ProductionRunnerError(f"failure inspection {field} is invalid") from exc
+    return parsed.astimezone(timezone.utc)
+
+
+def load_and_validate_v42_failure_inspection(
+    path: Path,
+    expected_file_sha256: str,
+    detached_sha256_path: Path,
+    *,
+    target: Mapping[str, Any],
+    migration_release_commit: str,
+    preflight_evidence: Mapping[str, Any],
+) -> dict[str, Any]:
+    """Bind the retained no-retry inspection to the exact V42 execution."""
+    migration_release_commit = _require_exact_lower_commit(
+        migration_release_commit, "migration release commit"
+    )
+    value = _load_exact_json_artifact(
+        path, expected_file_sha256, detached_sha256_path,
+        label="V42 failure inspection",
+    )
+    if set(value) != {
+        "classification", "release_commit", "target", "migrate_mode",
+        "postflight", "schema", "postflight_blocker",
+    }:
+        raise ProductionRunnerError("V42 failure inspection top-level shape is invalid")
+    if value.get("classification") != "BLOCKED_PRODUCTION_POSTFLIGHT":
+        raise ProductionRunnerError("V42 failure inspection classification is invalid")
+    if value.get("release_commit") != migration_release_commit:
+        raise ProductionRunnerError("failure inspection release commit binding mismatch")
+
+    artifact_target = value.get("target")
+    expected_target = {
+        "cluster_id": EXPECTED_PRODUCTION_CLUSTER_ID,
+        "target_identity": EXPECTED_TARGET_IDENTITY,
+        "host": target["host"],
+        "port": int(target["port"]),
+        "database": EXPECTED_DATABASE,
+    }
+    if not isinstance(artifact_target, Mapping) or dict(artifact_target) != expected_target:
+        raise ProductionRunnerError("failure inspection production target binding mismatch")
+
+    migrate = value.get("migrate_mode")
+    expected_migrate_values = {
+        "attempt_count": 1,
+        "exit_code": 2,
+        "migrate_contract_validation": "passed before postflight schema validation",
+        "applied_version": TARGET_VERSION,
+        "description": "add managed event image storage",
+        "flyway_checksum": "-769202000",
+    }
+    if not isinstance(migrate, Mapping) or set(migrate) != {
+        *expected_migrate_values,
+        "started_at_utc", "ended_at_utc", "installed_on",
+    }:
+        raise ProductionRunnerError("failure inspection migrate execution shape is invalid")
+    for key, expected in expected_migrate_values.items():
+        if migrate.get(key) != expected:
+            raise ProductionRunnerError(f"failure inspection migrate value {key} is invalid")
+    started = _parse_failure_timestamp(migrate["started_at_utc"], "started_at_utc")
+    installed = _parse_failure_timestamp(
+        migrate["installed_on"], "installed_on", flyway_local=True
+    )
+    ended = _parse_failure_timestamp(migrate["ended_at_utc"], "ended_at_utc")
+    if not started < installed < ended:
+        raise ProductionRunnerError("failure inspection migration timestamps are unsafe")
+
+    postflight = value.get("postflight")
+    expected_postflight_scalars = {
+        "database": EXPECTED_DATABASE,
+        "server_version": "8.0.11-TiDB-v8.5.3-serverless",
+        "sentinel": "1",
+        "check_support": "1",
+        "flyway_current": TARGET_VERSION,
+        "v42_success_rows": "1",
+        "failed_count": "0",
+        "above_v42_count": "0",
+        "flyway_info_and_validate": "passed before schema-contract validation",
+        "cleanup_task_total": "0",
+    }
+    if not isinstance(postflight, Mapping) or set(postflight) != {
+        *expected_postflight_scalars, "bounded_counts"
+    }:
+        raise ProductionRunnerError("failure inspection postflight shape is invalid")
+    for key, expected in expected_postflight_scalars.items():
+        if postflight.get(key) != expected:
+            raise ProductionRunnerError(f"failure inspection postflight value {key} is invalid")
+    before_metadata = preflight_evidence.get("metadata")
+    if not isinstance(before_metadata, Mapping):
+        raise ProductionRunnerError("preflight metadata is missing from artifact binding")
+    expected_counts = {key: str(before_metadata[key]) for key in V42_BOUNDED_COUNTS}
+    if postflight.get("bounded_counts") != expected_counts:
+        raise ProductionRunnerError("failure inspection does not bind to preflight counts")
+
+    schema = value.get("schema")
+    expected_schema = {
+        "actual_event_media_managed_columns": list(MANAGED_STORAGE_COLUMN_CONTRACT),
+        "event_media_indexes": [
+            "uk_event_media_managed_asset", "uk_event_media_storage_identity",
+            "idx_event_media_managed_read", "idx_event_media_upload_expiry",
+        ],
+        "event_media_foreign_key": V42_EVENT_MEDIA_FK,
+        "cleanup_table": V42_CLEANUP_TABLE,
+        "cleanup_indexes": [
+            "PRIMARY", "uk_event_media_cleanup_identity", "idx_event_media_cleanup_claim",
+        ],
+        "check_constraints": [
+            "chk_event_media_storage_state", "chk_event_media_storage_byte_size",
+            "chk_event_media_storage_dimensions", "chk_event_media_cleanup_operation",
+            "chk_event_media_cleanup_status", "chk_event_media_cleanup_attempts",
+        ],
+        "check_constraints_present_in_both_tidb_metadata_views": True,
+    }
+    if not isinstance(schema, Mapping) or dict(schema) != expected_schema:
+        raise ProductionRunnerError("failure inspection V42 schema proof is invalid")
+    expected_blocker = {
+        "observed_sql_column": "upload_expires_at",
+        "incorrect_runner_expected_column": "storage_expires_at",
+        "message": (
+            "The committed postflight checker filters for storage_expires_at while V42 SQL "
+            "creates upload_expires_at. No retry, repair, or manual schema change was performed."
+        ),
+    }
+    if value.get("postflight_blocker") != expected_blocker:
+        raise ProductionRunnerError("failure inspection does not match the known old checker")
+    return {
+        "artifact": value,
+        "file_sha256": expected_file_sha256,
+        "migration_started_at_utc": started,
+        "migration_installed_at_utc": installed,
+        "migration_ended_at_utc": ended,
+    }
+
+
 # ============================================================================
 # Argument parser + main
 # ============================================================================
@@ -1429,6 +1971,7 @@ def _parser() -> argparse.ArgumentParser:
     parser.add_argument("--mode", choices=("local-check", "preflight", "migrate", "postflight"), default="local-check")
     parser.add_argument("--repo-root", type=Path, default=Path(__file__).resolve().parents[2])
     parser.add_argument("--expected-release-commit")
+    parser.add_argument("--expected-migration-release-commit")
     parser.add_argument("--confirm-target")
     parser.add_argument("--identity-evidence", type=Path)
     parser.add_argument("--identity-evidence-sha256")
@@ -1443,6 +1986,9 @@ def _parser() -> argparse.ArgumentParser:
     parser.add_argument("--evidence-file", type=Path)
     parser.add_argument("--before-evidence", type=Path)
     parser.add_argument("--before-evidence-sha256")
+    parser.add_argument("--failure-inspection", type=Path)
+    parser.add_argument("--failure-inspection-sha256")
+    parser.add_argument("--failure-inspection-detached-sha256", type=Path)
     return parser
 
 
@@ -1454,11 +2000,33 @@ def main(argv: Sequence[str] | None = None) -> int:
     args = _parser().parse_args(argv)
     try:
         repo_root = args.repo_root.resolve()
+        postflight_only = (
+            args.expected_migration_release_commit,
+            args.failure_inspection,
+            args.failure_inspection_sha256,
+            args.failure_inspection_detached_sha256,
+        )
+        if args.mode == "postflight":
+            if not all(postflight_only):
+                raise ProductionRunnerError(
+                    "standalone postflight requires migration-release and failure-inspection bindings"
+                )
+            if args.execute_migrate or args.risk_accepted_minimal:
+                raise ProductionRunnerError(
+                    "standalone postflight rejects migrate authorization flags"
+                )
+        elif any(value is not None for value in postflight_only):
+            raise ProductionRunnerError(
+                "postflight migration-release and failure-inspection arguments are postflight-only"
+            )
         if args.mode == "local-check":
             _print(local_check(repo_root))
             return 0
         if not args.expected_release_commit:
             raise ProductionRunnerError("--expected-release-commit is required outside local-check")
+        checkout_commit = _require_exact_lower_commit(
+            args.expected_release_commit, "checkout commit"
+        )
         if not args.identity_evidence or not args.identity_evidence_sha256:
             raise ProductionRunnerError(
                 "--identity-evidence and --identity-evidence-sha256 are required"
@@ -1466,9 +2034,9 @@ def main(argv: Sequence[str] | None = None) -> int:
         identity = load_identity_evidence(args.identity_evidence, args.identity_evidence_sha256)
         # Identity evidence is pure local input and must fail before even local
         # subprocess checks when its authenticated source value is invalid.
-        base.verify_release_checkout(repo_root, args.expected_release_commit)
+        base.verify_release_checkout(repo_root, checkout_commit)
         base.validate_local_docker_environment()
-        if args.mode in ("migrate", "postflight"):
+        if args.mode == "migrate":
             # The approved identity/backup/restore chain precedes confirmation,
             # retained-artifact consumption, and all database credentials.
             validate_release_e_evidence(
@@ -1481,31 +2049,68 @@ def main(argv: Sequence[str] | None = None) -> int:
         )
         validate_identity_to_target(identity=identity, target=target)
         before_evidence = None
+        raw: Mapping[str, Any] | None = None
+        failure_inspection: dict[str, Any] | None = None
         if args.mode in ("migrate", "postflight"):
             if not args.before_evidence or not args.before_evidence_sha256:
                 raise ProductionRunnerError(
                     f"--before-evidence and --before-evidence-sha256 are required for {args.mode}"
+                )
+            artifact_release_commit = (
+                args.expected_migration_release_commit
+                if args.mode == "postflight"
+                else checkout_commit
+            )
+            assert artifact_release_commit is not None
+            if args.mode == "postflight":
+                migration_release_commit = _require_exact_lower_commit(
+                    artifact_release_commit, "migration release commit"
+                )
+                validate_postflight_release_lineage(
+                    repo_root,
+                    checkout_commit=checkout_commit,
+                    migration_release_commit=migration_release_commit,
                 )
             raw = load_and_validate_v42_preflight_evidence(
                 args.before_evidence,
                 args.before_evidence_sha256,
                 target=target,
                 identity=identity,
-                expected_release_commit=args.expected_release_commit,
+                expected_release_commit=artifact_release_commit,
             )
-            validate_release_e_evidence(
-                production_identity_evidence_sha256=args.identity_evidence_sha256
-            )
+            if args.mode == "migrate":
+                validate_release_e_evidence(
+                    production_identity_evidence_sha256=args.identity_evidence_sha256
+                )
+            else:
+                assert args.failure_inspection is not None
+                assert args.failure_inspection_sha256 is not None
+                assert args.failure_inspection_detached_sha256 is not None
+                failure_inspection = load_and_validate_v42_failure_inspection(
+                    args.failure_inspection,
+                    args.failure_inspection_sha256,
+                    args.failure_inspection_detached_sha256,
+                    target=target,
+                    migration_release_commit=artifact_release_commit,
+                    preflight_evidence=raw,
+                )
+                validate_release_e_postflight_evidence(
+                    production_identity_evidence_sha256=args.identity_evidence_sha256,
+                    migration_installed_at_utc=failure_inspection[
+                        "migration_installed_at_utc"
+                    ],
+                )
             before_evidence = {"flyway": raw.get("flyway"), "metadata": raw.get("metadata")}
-            validate_operational_approval_gates(
-                two_active_admins=args.two_active_admins,
-                backends_drained=args.backends_drained,
-                single_migration_owner=args.single_migration_owner,
-                maintenance_window=args.maintenance_window,
-                rollback_owner=args.rollback_owner,
-                runtime_security_verified=args.runtime_security_verified,
-                execute_migrate=args.execute_migrate,
-            )
+            if args.mode == "migrate":
+                validate_operational_approval_gates(
+                    two_active_admins=args.two_active_admins,
+                    backends_drained=args.backends_drained,
+                    single_migration_owner=args.single_migration_owner,
+                    maintenance_window=args.maintenance_window,
+                    rollback_owner=args.rollback_owner,
+                    runtime_security_verified=args.runtime_security_verified,
+                    execute_migrate=args.execute_migrate,
+                )
         read_user, read_password = _credentials("TIDB_PRODUCTION_READ")
         if args.mode == "preflight":
             result = run_preflight(
@@ -1518,7 +2123,7 @@ def main(argv: Sequence[str] | None = None) -> int:
                     args.evidence_file,
                     build_evidence_payload(
                         mode="preflight", target=target,
-                        release_commit=args.expected_release_commit,
+                        release_commit=checkout_commit,
                         flyway=result["flyway"], metadata=result["metadata"],
                     ),
                 )
@@ -1568,7 +2173,7 @@ def main(argv: Sequence[str] | None = None) -> int:
                 args.before_evidence_sha256,
                 target=latest_target,
                 identity=identity,
-                expected_release_commit=args.expected_release_commit,
+                expected_release_commit=checkout_commit,
             )
             validate_release_e_evidence(
                 production_identity_evidence_sha256=args.identity_evidence_sha256
@@ -1585,7 +2190,7 @@ def main(argv: Sequence[str] | None = None) -> int:
                     args.evidence_file,
                     build_evidence_payload(
                         mode="postflight", target=target,
-                        release_commit=args.expected_release_commit,
+                        release_commit=checkout_commit,
                         flyway=result["flyway"], metadata=result["metadata"],
                     ),
                 )
@@ -1609,18 +2214,28 @@ def main(argv: Sequence[str] | None = None) -> int:
             return 0
         if args.mode == "postflight":
             assert before_evidence is not None
+            assert raw is not None
+            assert failure_inspection is not None
+            assert args.expected_migration_release_commit is not None
             result = run_postflight(
                 repo_root=repo_root, target=target, identity=identity,
                 production_identity_evidence_sha256=args.identity_evidence_sha256,
                 read_user=read_user, read_password=read_password,
                 before_evidence=before_evidence,
+                migration_installed_at_utc=failure_inspection[
+                    "migration_installed_at_utc"
+                ],
             )
             if args.evidence_file:
                 base._write_evidence(
                     args.evidence_file,
-                    build_evidence_payload(
-                        mode="postflight", target=target,
-                        release_commit=args.expected_release_commit,
+                    build_standalone_postflight_evidence_payload(
+                        target=target,
+                        checkout_commit=checkout_commit,
+                        migration_release_commit=args.expected_migration_release_commit,
+                        preflight_file_sha256=args.before_evidence_sha256,
+                        preflight_evidence_sha256=str(raw["evidence_sha256"]),
+                        failure_inspection_file_sha256=args.failure_inspection_sha256,
                         flyway=result["flyway"], metadata=result["metadata"],
                     ),
                 )
