@@ -54,7 +54,7 @@ Only canonical production variables are accepted:
 |---|---|
 | Read | ``TIDB_PRODUCTION_READ_USER``, ``TIDB_PRODUCTION_READ_PASSWORD`` |
 | Migrate | ``TIDB_PRODUCTION_MIGRATE_USER``, ``TIDB_PRODUCTION_MIGRATE_PASSWORD`` |
-| Image digests | ``TIDB_PRODUCTION_FLYWAY_IMAGE_DIGEST`` (``sha256:174513cc63...?``), ``TIDB_PRODUCTION_MYSQL_IMAGE_DIGEST`` (``sha256:a532724022...?``) |
+| Image digests | ``TIDB_PRODUCTION_FLYWAY_IMAGE_DIGEST`` (``sha256:174513cc63485ab931381b1cceb5c6adea2cf23284910770552cc8c945fb185d``), ``TIDB_PRODUCTION_MYSQL_IMAGE_DIGEST`` (``sha256:a532724022429812ec797c285c1b540a644c15e248579c6bfdf12a8fbaab4964``) |
 
 The runner refuses the migration account on the rehearsal fixture
 prefix and refuses the read account if it would re-use the migrate
@@ -63,6 +63,17 @@ account or any prefix that smells like a child branch.
 No credential value is logged, persisted, or accepted through command
 arguments.  Credentials reach the pinned ``mysql:8.0.36`` and
 ``redgate/flyway:11.14.1`` containers via stdin only.
+
+The exact immutable references passed by the runner to Docker are:
+
+* Flyway: ``redgate/flyway@sha256:174513cc63485ab931381b1cceb5c6adea2cf23284910770552cc8c945fb185d``
+* MySQL: ``mysql@sha256:a532724022429812ec797c285c1b540a644c15e248579c6bfdf12a8fbaab4964``
+
+The mutable tags ``redgate/flyway:11.14.1`` and ``mysql:8.0.36`` are
+informational version labels only; the digest-bound references above are the
+execution identities.  Production execution keeps ``--pull=never`` mandatory,
+so each exact digest-bound image must already exist locally.  No alternate
+image or mutable-tag substitution is allowed.
 
 ## 4. Operator-supplied identity-evidence file
 

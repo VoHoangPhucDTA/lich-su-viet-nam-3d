@@ -729,6 +729,68 @@ class PostflightTest(unittest.TestCase):
 
 
 # ============================================================================
+# DocumentationContractTest
+# ============================================================================
+
+
+class DocumentationContractTest(unittest.TestCase):
+    """Keep the production runbook aligned with runtime image identities."""
+
+    def test_runbook_contains_exact_runtime_image_references(self) -> None:
+        self.assertEqual(
+            runner.APPROVED_FLYWAY_IMAGE_DIGEST,
+            base.APPROVED_IMAGE_DIGESTS[base.FLYWAY_IMAGE],
+        )
+        self.assertEqual(
+            runner.APPROVED_MYSQL_IMAGE_DIGEST,
+            base.APPROVED_IMAGE_DIGESTS[base.MYSQL_CLIENT_IMAGE],
+        )
+
+        operator_digests = {
+            "TIDB_PRODUCTION_FLYWAY_IMAGE_DIGEST": runner.APPROVED_FLYWAY_IMAGE_DIGEST,
+            "TIDB_PRODUCTION_MYSQL_IMAGE_DIGEST": runner.APPROVED_MYSQL_IMAGE_DIGEST,
+        }
+        approved_by_image = {
+            base.FLYWAY_IMAGE: runner.APPROVED_FLYWAY_IMAGE_DIGEST,
+            base.MYSQL_CLIENT_IMAGE: runner.APPROVED_MYSQL_IMAGE_DIGEST,
+        }
+
+        def fake_inspect(command, **_kwargs):
+            image = command[3]
+            digest = approved_by_image[image]
+            repository = image.rsplit(":", 1)[0]
+            return subprocess.CompletedProcess(
+                command,
+                0,
+                stdout=json.dumps([f"{repository}@{digest}"]),
+                stderr="",
+            )
+
+        with (
+            patch.object(base, "_env", side_effect=operator_digests.__getitem__),
+            patch.object(base.subprocess, "run", side_effect=fake_inspect),
+        ):
+            runtime_references = base.verify_docker_images()
+
+        runbook = (
+            HERE.parents[1] / "docs" / "admin" / "TIDB_PRODUCTION_V42_RUNBOOK.md"
+        ).read_text(encoding="utf-8")
+        for image, expected_reference in runtime_references.items():
+            repository = image.rsplit(":", 1)[0]
+            documented_references = set(
+                re.findall(
+                    rf"{re.escape(repository)}(?:\:[A-Za-z0-9._-]+)?"
+                    rf"@sha256:[0-9a-f]{{64}}",
+                    runbook,
+                )
+            )
+            self.assertEqual(documented_references, {expected_reference})
+
+        self.assertNotIn("sha256:174513cc63...?", runbook)
+        self.assertNotIn("sha256:a532724022...?", runbook)
+
+
+# ============================================================================
 # SharedBaseContractTest -- narrow compatibility pins
 # ============================================================================
 
