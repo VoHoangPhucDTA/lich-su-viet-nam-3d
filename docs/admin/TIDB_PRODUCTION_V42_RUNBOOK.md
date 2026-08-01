@@ -36,7 +36,7 @@ The runner refuses anything that does not match:
 | Target identity | ``main`` |
 | Database | ``lichsuvn`` |
 | Port | ``4000`` |
-| Engine | TiDB Serverless v8.5.3 |
+| Engine | TiDB Serverless 8.5.3; authenticated Cloud metadata is exactly ``v8.5.3`` |
 | User prefix | (production base prefix from authenticated TiDB Cloud metadata; not the rehearsal fixture prefix) |
 | User account | CURRENT_USER() must be bound to the production prefix; never to the rehearsal fixture prefix ``3c7ghU483VQ9Ynn`` |
 | TLS | ``ssl-mode=VERIFY_IDENTITY`` with the Oracle-RHCSA ca bundle |
@@ -90,12 +90,21 @@ target_identity   main
 host              *.tidbcloud.com
 database          lichsuvn
 user_prefix       production base prefix
-engine_version    references TiDB v8.5.3
+engine_version    exact raw authenticated TiDB Cloud value: v8.5.3
 collected_at      ISO-8601 with timezone
 ```
 
 The runner refuses the file if the on-disk SHA-256 does not match the
 operator-supplied ``--identity-evidence-sha256`` flag.
+
+The evidence stores ``engine_version`` exactly as emitted by the authenticated
+TiDB Cloud CLI/API.  It is not rewritten into a display label.  The Cloud
+metadata validator first requires the complete raw form ``^v8\.5\.3$`` and
+only then derives semantic version ``8.5.3`` for comparison.  This is distinct
+from SQL ``VERSION()``, whose complete approved server structure is
+``<compat-semver>-TiDB-v8.5.3``; the observed production form is
+``8.0.36-TiDB-v8.5.3``.  Plain MySQL strings and arbitrary text containing
+``v8.5.3`` are rejected.
 
 ## 5. Backup evidence contract
 
@@ -158,13 +167,14 @@ Restore JSON uses schema ``lsvn3d.release-e.restore-evidence.v1`` and has
 exactly these keys:
 
 ```json
-{"active_admin_count":2,"check_support_enabled":true,"event_media_total":0,"failed_migration_count":0,"flyway_current_version":"41","flyway_validate_passed":true,"generated_at_utc":"2026-01-01T04:00:00Z","historical_events_total":361,"production_not_overwritten":true,"production_prefix_rejected":true,"rehearsal_prefix_rejected":true,"restore_capture_path_basename":"restore-active.png","restore_capture_sha256":"<lowercase-64-hex>","restore_cluster_id":"<isolated-non-production-cluster-id>","restore_created_at_utc":"2026-01-01T01:00:00Z","restore_database":"lichsuvn","restore_display_name":"<isolated-restore-name>","restore_engine_version":"TiDB Serverless v8.5.3","restore_identity_evidence_sha256":"<lowercase-64-hex>","restore_prefix_match":true,"restore_project_id":"<authenticated-project-id>","restore_region":"Singapore / ap-southeast-1","restore_state":"ACTIVE","schema":"lsvn3d.release-e.restore-evidence.v1","source_backup_evidence_sha256":"<lowercase-64-hex>","source_cluster_id":"10427158774816979902","source_database":"lichsuvn","users_total":3,"v42_history_row_count":0,"validated_at_utc":"2026-01-01T03:55:00Z"}
+{"active_admin_count":2,"check_support_enabled":true,"event_media_total":0,"failed_migration_count":0,"flyway_current_version":"41","flyway_validate_passed":true,"generated_at_utc":"2026-01-01T04:00:00Z","historical_events_total":361,"production_not_overwritten":true,"production_prefix_rejected":true,"rehearsal_prefix_rejected":true,"restore_capture_path_basename":"restore-active.png","restore_capture_sha256":"<lowercase-64-hex>","restore_cluster_id":"<isolated-non-production-cluster-id>","restore_created_at_utc":"2026-01-01T01:00:00Z","restore_database":"lichsuvn","restore_display_name":"<isolated-restore-name>","restore_engine_version":"v8.5.3","restore_identity_evidence_sha256":"<lowercase-64-hex>","restore_prefix_match":true,"restore_project_id":"<authenticated-project-id>","restore_region":"Singapore / ap-southeast-1","restore_state":"ACTIVE","schema":"lsvn3d.release-e.restore-evidence.v1","source_backup_evidence_sha256":"<lowercase-64-hex>","source_cluster_id":"10427158774816979902","source_database":"lichsuvn","users_total":3,"v42_history_row_count":0,"validated_at_utc":"2026-01-01T03:55:00Z"}
 ```
 
 The restore cluster must differ from production and must not be a ``bran-*``
-rehearsal branch.  It must be ACTIVE in ``Singapore / ap-southeast-1``, run
-TiDB v8.5.3, contain database ``lichsuvn``, match its authenticated restore
-UserPrefix, and reject both production and rehearsal prefixes.  Validation
+rehearsal branch.  It must be ACTIVE in ``Singapore / ap-southeast-1``, retain
+the exact authenticated Cloud engine value ``v8.5.3``, contain database
+``lichsuvn``, match its authenticated restore UserPrefix, and reject both
+production and rehearsal prefixes.  Validation
 must prove Flyway V41, successful validate, zero failed migrations, no V42
 history row, CHECK support enabled, non-negative bounded counts, and
 ``production_not_overwritten=true``.  Merely creating a restore target is not
@@ -227,6 +237,9 @@ Branch IDs are rejected.
 * MySQL metadata confirms engine V8.5.3, database ``lichsuvn``, TLS
   v1.2 or v1.3, no failed migration, at least two active Admins,
   bounded counts captured.
+* The SQL ``VERSION()`` value matches the strict TiDB server structure and its
+  extracted TiDB semantic version equals ``8.5.3``; Cloud metadata is never
+  passed through this SQL-specific parser.
 * ``CURRENT_USER()`` matches the production user prefix and does not
   match the rehearsal fixture prefix.
 * Bounded counts recorded for future unchanged-comparison.

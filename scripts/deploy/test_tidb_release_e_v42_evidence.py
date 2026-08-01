@@ -78,7 +78,7 @@ class EvidenceFixture(unittest.TestCase):
             "restore_project_id": "project-restore-001",
             "restore_state": evidence.EXPECTED_RESTORE_STATE,
             "restore_region": evidence.EXPECTED_RESTORE_REGION,
-            "restore_engine_version": "TiDB Serverless v8.5.3",
+            "restore_engine_version": "v8.5.3",
             "restore_database": evidence.EXPECTED_DATABASE,
             "restore_created_at_utc": "2026-08-01T02:00:00Z",
             "restore_capture_path_basename": self.restore_capture.name,
@@ -186,6 +186,24 @@ class RestoreEvidenceTest(EvidenceFixture):
             "41",
         )
 
+    def test_restore_identity_sha_and_raw_cli_engine_are_preserved(self):
+        identity = {"engine_version": "v8.5.3", "source": "ticloud"}
+        identity_path, identity_detached = self._write("restore-identity", identity)
+        identity_sha = evidence.verify_restore_identity_evidence(
+            identity_path, identity_detached
+        )
+        value = self._restore()
+        value["restore_identity_evidence_sha256"] = identity_sha
+        path, detached = self._write("restore", value)
+        result = evidence.validate_restore_evidence(
+            path, detached, capture_path=self.restore_capture,
+            source_backup_evidence_sha256="b" * 64,
+            restore_identity_evidence_sha256=identity_sha, now_utc=NOW,
+        )
+        self.assertEqual(result["evidence"]["restore_engine_version"], "v8.5.3")
+        self.assertIn(b'"restore_engine_version":"v8.5.3"', path.read_bytes())
+        self.assertNotIn(b"TiDB Serverless v8.5.3", path.read_bytes())
+
     def test_restore_identity_and_target_fail_closed(self):
         cases = (
             ("restore_cluster_id", evidence.EXPECTED_CLUSTER_ID, "equals production"),
@@ -283,6 +301,33 @@ class CanonicalAndOutputTest(EvidenceFixture):
             evidence.write_evidence(
                 self._backup(), evidence_path, detached, repo_root=repo_root,
             )
+
+
+class SourceSpecificEngineVersionTest(unittest.TestCase):
+    def test_canonical_cloud_metadata_is_accepted(self) -> None:
+        self.assertEqual(evidence.parse_tidb_cloud_engine_version("v8.5.3"), "8.5.3")
+
+    def test_noncanonical_or_wrong_cloud_metadata_is_rejected(self) -> None:
+        for value in (
+            "v8.5.2", "v8.5.4", "v8.5", "v8.5.30",
+            "prefix-v8.5.3", "v8.5.3-suffix", "TiDB Serverless v8.5.3",
+        ):
+            with self.subTest(value=value):
+                with self.assertRaises(evidence.EngineVersionContractError):
+                    evidence.parse_tidb_cloud_engine_version(value)
+
+    def test_sql_server_form_is_parsed_only_after_full_structure_match(self) -> None:
+        self.assertEqual(
+            evidence.parse_tidb_sql_server_version("8.0.36-TiDB-v8.5.3"),
+            "8.5.3",
+        )
+        for value in (
+            "8.0.36-TiDB-v8.5.2", "8.0.36-TiDB-v8.5.4", "8.0.36",
+            "arbitrary v8.5.3 text", "v8.5.3",
+        ):
+            with self.subTest(value=value):
+                with self.assertRaises(evidence.EngineVersionContractError):
+                    evidence.parse_tidb_sql_server_version(value)
 
 
 if __name__ == "__main__":

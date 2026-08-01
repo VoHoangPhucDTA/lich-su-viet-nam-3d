@@ -22,6 +22,7 @@ Coverage layout (matches the task spec):
 from __future__ import annotations
 
 import importlib.util
+from contextlib import redirect_stderr
 import io
 import json
 import hashlib
@@ -70,7 +71,7 @@ class IdentityTest(unittest.TestCase):
             "host": "gateway01.ap-southeast-1.prod.alicloud.tidbcloud.com",
             "database": runner.EXPECTED_DATABASE,
             "user_prefix": "RHVnC4pobyyHQJT",
-            "engine_version": "TiDB Server v8.5.3",
+            "engine_version": "v8.5.3",
             "collected_at": "2026-07-23T12:00:00Z",
         }
         base_evidence.update(overrides)
@@ -88,6 +89,13 @@ class IdentityTest(unittest.TestCase):
         evidence_path.write_bytes(body.encode("utf-8"))
         sha_path.write_text(sha + "\n", encoding="utf-8")
         return evidence_path, sha
+
+    def test_identity_loader_accepts_and_preserves_canonical_cli_value(self) -> None:
+        with tempfile.TemporaryDirectory() as td:
+            evidence_path, sha = self._write_evidence(Path(td))
+            loaded = runner.load_identity_evidence(evidence_path, sha)
+            self.assertEqual(hashlib.sha256(evidence_path.read_bytes()).hexdigest(), sha)
+        self.assertEqual(loaded["engine_version"], "v8.5.3")
 
     def test_exact_production_cluster_accepted(self) -> None:
         evidence = self._evidence()
@@ -259,6 +267,24 @@ class IdentityTest(unittest.TestCase):
                 "the engine-version rejection must surface explicitly",
             )
 
+    def test_invalid_cli_engine_blocks_before_any_subprocess(self) -> None:
+        import hashlib as _hashlib
+        evidence = self._evidence(engine_version="TiDB Serverless v8.5.3")
+        body = (json.dumps(evidence, separators=(",", ":"), sort_keys=True) + "\n").encode("utf-8")
+        sha = _hashlib.sha256(body).hexdigest()
+        with tempfile.TemporaryDirectory() as td:
+            evidence_path = Path(td) / "identity-evidence.json"
+            evidence_path.write_bytes(body)
+            with patch.object(base.subprocess, "run") as external, redirect_stderr(io.StringIO()):
+                exit_code = runner.main([
+                    "--mode", "preflight", "--repo-root", str(HERE.parents[1]),
+                    "--expected-release-commit", "unused",
+                    "--identity-evidence", str(evidence_path),
+                    "--identity-evidence-sha256", sha,
+                ])
+        self.assertEqual(exit_code, 2)
+        external.assert_not_called()
+
     def test_accepted_confirmation_shape(self) -> None:
         evidence = self._evidence()
         expected = (
@@ -272,6 +298,28 @@ class IdentityTest(unittest.TestCase):
             confirmation=expected,
         )
         self.assertEqual(target["confirmation"], expected)
+
+
+class EngineVersionContractTest(unittest.TestCase):
+    """Keep TiDB Cloud metadata distinct from SQL VERSION() output."""
+
+    def test_sql_version_accepts_strict_tidb_v853_server_form(self) -> None:
+        self.assertEqual(
+            runner.validate_sql_server_version("8.0.36-TiDB-v8.5.3"),
+            "8.5.3",
+        )
+
+    def test_sql_version_rejects_wrong_or_unstructured_values(self) -> None:
+        for value in (
+            "8.0.36-TiDB-v8.5.2",
+            "8.0.36-TiDB-v8.5.4",
+            "8.0.36",
+            "prefix 8.0.36-TiDB-v8.5.3 suffix",
+            "v8.5.3",
+        ):
+            with self.subTest(value=value):
+                with self.assertRaises(runner.ProductionRunnerError):
+                    runner.validate_sql_server_version(value)
 
 
 # ============================================================================
@@ -626,7 +674,7 @@ class CommandSafetyTest(unittest.TestCase):
 
 def _metadata(*, before: dict[str, str]) -> dict[str, str]:
     base_metadata = {
-        "server_version": "TiDB Server v8.5.3",
+        "server_version": "8.0.36-TiDB-v8.5.3",
         "version_comment": "TiDB Server",
         "database": "lichsuvn",
         "global_time_zone": "UTC",

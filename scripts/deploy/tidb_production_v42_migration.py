@@ -55,7 +55,7 @@ EXPECTED_PRODUCTION_CLUSTER_ID = "10427158774816979902"
 EXPECTED_DISPLAY_NAME = "lichsuvn3d"
 EXPECTED_TARGET_IDENTITY = "main"
 EXPECTED_FLYWAY_VERSION = "11.14.1"
-EXPECTED_TIDB_VERSION_REGEX = r"tidb[- ]v?8\.5\.3\b"
+EXPECTED_TIDB_SEMANTIC_VERSION = release_e_evidence.EXPECTED_TIDB_SEMANTIC_VERSION
 
 USER_PREFIX_REGEX = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._-]{1,127}$")
 TIDB_SERVERLESS_HOST_REGEX = re.compile(
@@ -379,10 +379,12 @@ def load_identity_evidence(path: Path, detached_sha256: str) -> dict[str, str]:
         )
     value["user_prefix"] = _user_prefix(value["user_prefix"])
     value["host"] = _host(value["host"])
-    if not re.search(EXPECTED_TIDB_VERSION_REGEX, value["engine_version"], re.IGNORECASE):
+    try:
+        release_e_evidence.parse_tidb_cloud_engine_version(value["engine_version"])
+    except release_e_evidence.EngineVersionContractError as exc:
         raise ProductionRunnerError(
-            "identity evidence engine_version is not TiDB v8.5.3"
-        )
+            "identity evidence engine_version is not canonical TiDB Cloud v8.5.3"
+        ) from exc
     return {key: str(value[key]) for key in IDENTITY_EVIDENCE_KEYS}
 
 
@@ -517,6 +519,27 @@ def validate_identity_to_target(
             raise ProductionRunnerError(
                 f"identity evidence does not match target {key} binding"
             )
+
+
+# ============================================================================
+# Source-specific engine version contracts
+# ============================================================================
+
+
+def validate_sql_server_version(value: Any) -> str:
+    """Validate the complete raw SQL VERSION() form for TiDB v8.5.3."""
+    try:
+        return release_e_evidence.parse_tidb_sql_server_version(value)
+    except release_e_evidence.EngineVersionContractError as exc:
+        raise ProductionRunnerError(
+            "server_version is not the approved TiDB v8.5.3 SQL VERSION() form"
+        ) from exc
+
+
+def validate_database_metadata_v42(metadata: Mapping[str, str]) -> None:
+    """Apply the strict V42 SQL engine contract before shared metadata checks."""
+    validate_sql_server_version(metadata.get("server_version", ""))
+    base.validate_database_metadata(metadata)
 
 
 # ============================================================================
@@ -847,7 +870,7 @@ def run_preflight(
         target=target, user=read_user, password=read_password,
         executor=executor, postflight=False,
     )
-    base.validate_database_metadata(metadata)
+    validate_database_metadata_v42(metadata)
     validate_user_prefix_binding(identity=identity, session_user=metadata.get("session_user", ""))
     metadata["session_user_prefix_verified"] = "1"
     metadata["v42_history_present"] = "0"
@@ -946,7 +969,7 @@ def run_migrate(
         target=target, user=read_user, password=read_password,
         executor=executor, postflight=True,
     )
-    base.validate_database_metadata(metadata)
+    validate_database_metadata_v42(metadata)
     base.validate_postflight_metadata(metadata, pre["metadata"])
     validate_v42_postflight_extras(
         metadata,
@@ -1007,7 +1030,7 @@ def run_postflight(
         target=target, user=read_user, password=read_password,
         executor=executor, postflight=True,
     )
-    base.validate_database_metadata(metadata)
+    validate_database_metadata_v42(metadata)
     base.validate_postflight_metadata(metadata, before_evidence["metadata"])
     validate_v42_postflight_extras(
         metadata,
@@ -1098,15 +1121,17 @@ def main(argv: Sequence[str] | None = None) -> int:
             return 0
         if not args.expected_release_commit:
             raise ProductionRunnerError("--expected-release-commit is required outside local-check")
-        base.verify_release_checkout(repo_root, args.expected_release_commit)
-        base.validate_local_docker_environment()
-        if not args.confirm_target:
-            raise ProductionRunnerError("--confirm-target is required")
         if not args.identity_evidence or not args.identity_evidence_sha256:
             raise ProductionRunnerError(
                 "--identity-evidence and --identity-evidence-sha256 are required"
             )
         identity = load_identity_evidence(args.identity_evidence, args.identity_evidence_sha256)
+        # Identity evidence is pure local input and must fail before even local
+        # subprocess checks when its authenticated source value is invalid.
+        base.verify_release_checkout(repo_root, args.expected_release_commit)
+        base.validate_local_docker_environment()
+        if not args.confirm_target:
+            raise ProductionRunnerError("--confirm-target is required")
         target = _target_from_environment_and_evidence(
             identity=identity, confirmation=args.confirm_target,
         )

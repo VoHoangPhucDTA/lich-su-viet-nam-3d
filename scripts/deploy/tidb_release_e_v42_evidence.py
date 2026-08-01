@@ -26,8 +26,13 @@ EXPECTED_BACKUP_TYPE = "automatic_snapshot"
 EXPECTED_BACKUP_STATE = "SUCCEEDED"
 EXPECTED_RESTORE_STATE = "ACTIVE"
 EXPECTED_RESTORE_REGION = "Singapore / ap-southeast-1"
-EXPECTED_TIDB_VERSION_REGEX = re.compile(
-    r"tidb(?:[- ](?:server|serverless))?[- ]v?8\.5\.3\b", re.I
+EXPECTED_TIDB_SEMANTIC_VERSION = "8.5.3"
+TIDB_CLOUD_ENGINE_VERSION_REGEX = re.compile(
+    r"^v(?P<version>[0-9]+\.[0-9]+\.[0-9]+)$"
+)
+TIDB_SQL_SERVER_VERSION_REGEX = re.compile(
+    r"^(?P<compat>[0-9]+\.[0-9]+\.[0-9]+)-TiDB-v"
+    r"(?P<version>[0-9]+\.[0-9]+\.[0-9]+)$"
 )
 TECHNICAL_BRANCH_ID_REGEX = re.compile(r"^bran-[A-Za-z0-9][A-Za-z0-9_-]{5,127}$")
 SHA256_REGEX = re.compile(r"^[0-9a-f]{64}$")
@@ -77,6 +82,34 @@ class EvidenceContractError(ValueError):
         self.blocker = blocker
         self.reason = reason
         super().__init__(f"{blocker}: {reason}")
+
+
+class EngineVersionContractError(ValueError):
+    """Raised when a raw engine value does not match its authenticated source."""
+
+
+def parse_tidb_cloud_engine_version(value: Any) -> str:
+    """Validate raw TiDB Cloud CLI/API metadata before semantic comparison."""
+    if not isinstance(value, str):
+        raise EngineVersionContractError("TiDB Cloud engine version must be a string")
+    match = TIDB_CLOUD_ENGINE_VERSION_REGEX.fullmatch(value)
+    if not match or match.group("version") != EXPECTED_TIDB_SEMANTIC_VERSION:
+        raise EngineVersionContractError(
+            "TiDB Cloud engine version is not canonical v8.5.3"
+        )
+    return match.group("version")
+
+
+def parse_tidb_sql_server_version(value: Any) -> str:
+    """Validate a complete SQL VERSION() TiDB server string, then compare semver."""
+    if not isinstance(value, str):
+        raise EngineVersionContractError("SQL VERSION() value must be a string")
+    match = TIDB_SQL_SERVER_VERSION_REGEX.fullmatch(value)
+    if not match or match.group("version") != EXPECTED_TIDB_SEMANTIC_VERSION:
+        raise EngineVersionContractError(
+            "SQL VERSION() is not the approved TiDB v8.5.3 server form"
+        )
+    return match.group("version")
 
 
 def _backup_error(reason: str) -> EvidenceContractError:
@@ -326,8 +359,10 @@ def validate_restore_evidence(
         raise _restore_error("restore target is not ACTIVE")
     if value["restore_region"] != EXPECTED_RESTORE_REGION:
         raise _restore_error("wrong restore region")
-    if not isinstance(value["restore_engine_version"], str) or not EXPECTED_TIDB_VERSION_REGEX.search(value["restore_engine_version"]):
-        raise _restore_error("wrong restore engine version")
+    try:
+        parse_tidb_cloud_engine_version(value["restore_engine_version"])
+    except EngineVersionContractError as exc:
+        raise _restore_error("wrong restore engine version") from exc
     if value["restore_database"] != EXPECTED_DATABASE:
         raise _restore_error("wrong restore database")
     if value["restore_capture_path_basename"] != Path(capture_path).name:
