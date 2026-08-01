@@ -791,6 +791,70 @@ class DocumentationContractTest(unittest.TestCase):
 
 
 # ============================================================================
+# ReleaseEEvidenceOrderingTest
+# ============================================================================
+
+
+class ReleaseEEvidenceOrderingTest(unittest.TestCase):
+    """Evidence must fail before info/validate and be refreshed before migrate."""
+
+    def test_preflight_evidence_gate_precedes_all_remote_commands(self) -> None:
+        calls = []
+
+        def forbidden_executor(command, payload):
+            calls.append((command, payload))
+            raise AssertionError("remote command must not execute")
+
+        blocker = runner.release_e_evidence.EvidenceContractError(
+            "BLOCKED_PRODUCTION_BACKUP_EVIDENCE", "backup expired"
+        )
+        with patch.object(runner, "validate_release_e_evidence", side_effect=blocker):
+            with self.assertRaisesRegex(
+                runner.release_e_evidence.EvidenceContractError,
+                "BLOCKED_PRODUCTION_BACKUP_EVIDENCE: backup expired",
+            ):
+                runner.run_preflight(
+                    repo_root=HERE.parents[1], target={}, identity={},
+                    production_identity_evidence_sha256="a" * 64,
+                    read_user="unused", read_password="unused",
+                    executor=forbidden_executor,
+                )
+        self.assertEqual(calls, [])
+
+    def test_expired_evidence_is_revalidated_immediately_before_migrate(self) -> None:
+        blocker = runner.release_e_evidence.EvidenceContractError(
+            "BLOCKED_PRODUCTION_BACKUP_EVIDENCE", "backup expired"
+        )
+        with (
+            patch.object(runner, "validate_release_e_evidence", side_effect=blocker),
+            patch.object(base, "run_flyway") as run_flyway,
+        ):
+            with self.assertRaisesRegex(
+                runner.release_e_evidence.EvidenceContractError, "backup expired"
+            ):
+                runner.run_flyway_migrate_after_evidence_gate(
+                    production_identity_evidence_sha256="a" * 64,
+                    migration_dir=HERE, config="stdin config", image_ref="pinned@sha256:x",
+                    secrets=("user", "password"), executor=lambda _c, _p: None,
+                )
+        run_flyway.assert_not_called()
+
+    def test_local_check_is_independent_of_live_evidence(self) -> None:
+        with patch.object(
+            runner, "validate_release_e_evidence",
+            side_effect=AssertionError("local-check touched live evidence"),
+        ):
+            result = runner.local_check(HERE.parents[1])
+        self.assertTrue(result["v42_entry_sha256_match"])
+        self.assertEqual(result["transition"], "41->42")
+
+    def test_acknowledgement_only_cli_arguments_are_removed(self) -> None:
+        options = {option for action in runner._parser()._actions for option in action.option_strings}
+        self.assertNotIn("--backup-evidence", options)
+        self.assertNotIn("--restore-evidence", options)
+
+
+# ============================================================================
 # SharedBaseContractTest -- narrow compatibility pins
 # ============================================================================
 

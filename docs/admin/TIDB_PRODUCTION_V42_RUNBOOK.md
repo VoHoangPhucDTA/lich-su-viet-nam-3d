@@ -97,7 +97,113 @@ collected_at      ISO-8601 with timezone
 The runner refuses the file if the on-disk SHA-256 does not match the
 operator-supplied ``--identity-evidence-sha256`` flag.
 
-## 5. Confirmation string
+## 5. Backup evidence contract
+
+The former acknowledgement-string gate is removed.  The following variables
+must name existing local files; arbitrary values such as ``backup complete``
+are rejected:
+
+| Variable | File |
+|---|---|
+| ``TIDB_PRODUCTION_BACKUP_EVIDENCE`` | canonical backup JSON |
+| ``TIDB_PRODUCTION_BACKUP_EVIDENCE_SHA256`` | detached SHA-256 for that JSON |
+| ``TIDB_PRODUCTION_BACKUP_CAPTURE`` | reviewed TiDB Cloud automatic-backup capture |
+| ``TIDB_PRODUCTION_RESTORE_EVIDENCE`` | canonical restore JSON |
+| ``TIDB_PRODUCTION_RESTORE_EVIDENCE_SHA256`` | detached SHA-256 for that JSON |
+| ``TIDB_PRODUCTION_RESTORE_CAPTURE`` | reviewed isolated-restore capture |
+| ``TIDB_PRODUCTION_RESTORE_IDENTITY_EVIDENCE`` | independently authenticated restore identity metadata |
+| ``TIDB_PRODUCTION_RESTORE_IDENTITY_EVIDENCE_SHA256`` | detached SHA-256 for the restore identity file |
+
+Backup JSON uses schema ``lsvn3d.release-e.backup-evidence.v1`` and has exactly
+the following keys.  This synthetic example contains no real credential or
+UserPrefix:
+
+```json
+{"backup_id_source":"deterministic_capture_binding","backup_identity":"<lowercase-64-hex>","backup_state":"SUCCEEDED","backup_time_utc":"2026-01-01T00:00:00Z","backup_type":"automatic_snapshot","capture_path_basename":"backup-source.png","capture_sha256":"<lowercase-64-hex>","database":"lichsuvn","expires_at_utc":"2026-01-02T00:00:00Z","generated_at_utc":"2026-01-01T00:05:00Z","production_identity_evidence_sha256":"<lowercase-64-hex>","schema":"lsvn3d.release-e.backup-evidence.v1","source_cluster_id":"10427158774816979902","source_display_name":"lichsuvn3d","target_identity":"main"}
+```
+
+The authenticated production identity file from section 4 must first pass the
+runner's existing identity loader.  Its exact file SHA-256 is copied into
+``production_identity_evidence_sha256``.  The capture SHA is calculated from
+the actual reviewed screenshot bytes; the capture must visibly show the
+automatic backup time, ``SUCCEEDED`` state, and expiration time.  OCR is not a
+trust input and the tool never invents a TiDB backup ID.
+
+Because the UI does not expose a technical backup ID, the sole allowed
+fallback is:
+
+```
+backup_identity = sha256(canonical_json({
+  source_cluster_id, database, backup_type, backup_time_utc,
+  expires_at_utc, capture_sha256
+}))
+backup_id_source = "deterministic_capture_binding"
+```
+
+The identity JSON above is UTF-8, sorted by key, uses compact ``,`` and ``:``
+separators, has no BOM or insignificant whitespace, and has **no** trailing
+newline.  The complete stored evidence JSON uses the same serialization plus
+exactly one final LF byte.
+
+All timestamps are strict RFC3339 UTC ending in ``Z``.  At both preflight and
+migrate, ``backup_time_utc`` must not be in the future,
+``expires_at_utc > backup_time_utc``, and ``now_utc < expires_at_utc``.  If the
+automatic backup expires after preflight, migrate stops with
+``BLOCKED_PRODUCTION_BACKUP_EVIDENCE`` and fresh backup **and restore** evidence
+must be produced.
+
+## 6. Restore evidence contract
+
+Restore JSON uses schema ``lsvn3d.release-e.restore-evidence.v1`` and has
+exactly these keys:
+
+```json
+{"active_admin_count":2,"check_support_enabled":true,"event_media_total":0,"failed_migration_count":0,"flyway_current_version":"41","flyway_validate_passed":true,"generated_at_utc":"2026-01-01T04:00:00Z","historical_events_total":361,"production_not_overwritten":true,"production_prefix_rejected":true,"rehearsal_prefix_rejected":true,"restore_capture_path_basename":"restore-active.png","restore_capture_sha256":"<lowercase-64-hex>","restore_cluster_id":"<isolated-non-production-cluster-id>","restore_created_at_utc":"2026-01-01T01:00:00Z","restore_database":"lichsuvn","restore_display_name":"<isolated-restore-name>","restore_engine_version":"TiDB Serverless v8.5.3","restore_identity_evidence_sha256":"<lowercase-64-hex>","restore_prefix_match":true,"restore_project_id":"<authenticated-project-id>","restore_region":"Singapore / ap-southeast-1","restore_state":"ACTIVE","schema":"lsvn3d.release-e.restore-evidence.v1","source_backup_evidence_sha256":"<lowercase-64-hex>","source_cluster_id":"10427158774816979902","source_database":"lichsuvn","users_total":3,"v42_history_row_count":0,"validated_at_utc":"2026-01-01T03:55:00Z"}
+```
+
+The restore cluster must differ from production and must not be a ``bran-*``
+rehearsal branch.  It must be ACTIVE in ``Singapore / ap-southeast-1``, run
+TiDB v8.5.3, contain database ``lichsuvn``, match its authenticated restore
+UserPrefix, and reject both production and rehearsal prefixes.  Validation
+must prove Flyway V41, successful validate, zero failed migrations, no V42
+history row, CHECK support enabled, non-negative bounded counts, and
+``production_not_overwritten=true``.  Merely creating a restore target is not
+evidence.  ``validated_at_utc`` cannot precede ``restore_created_at_utc``.
+
+``source_backup_evidence_sha256`` must equal the SHA-256 of the validated
+stored backup JSON.  ``restore_identity_evidence_sha256`` must equal the
+verified detached SHA of the independently authenticated restore identity
+file.  The restore screenshot hash is independently recomputed from the exact
+file named by ``TIDB_PRODUCTION_RESTORE_CAPTURE``.
+
+## 7. Canonical detached hashes and local utility
+
+Each detached file is ASCII and contains exactly one lowercase digest, in one
+of these two forms, with an optional single final LF:
+
+```
+<64-lowercase-hex>
+<64-lowercase-hex>  <evidence-basename>
+```
+
+There are exactly two spaces before the basename.  CRLF, uppercase, truncated
+hashes, an incorrect basename, extra lines, and byte mismatches are rejected.
+The digest covers the exact stored bytes, not a re-serialized object.
+
+``scripts/deploy/tidb_release_e_v42_evidence.py`` is local-only.  Its builder
+functions accept explicit operator fields, hash captures, build the canonical
+objects, and ``write_evidence`` writes a new JSON plus detached SHA using
+explicit output paths outside the repository.  It refuses repository output
+and overwrite.  Its ``validate-backup`` and ``validate-restore`` commands
+perform offline checks only.  It does not use OCR, credentials, TiDB, Flyway,
+or Docker.
+
+Keep identity, capture, JSON, and detached-SHA files in access-controlled
+temporary storage outside Git.  Retain the exact immutable set through
+preflight, migrate, postflight, and review.  Delete it only after Controlled
+Release E is formally closed under the operator's retention policy.
+
+## 8. Confirmation string
 
 The typed confirmation is constructed from the verified identity:
 
@@ -108,7 +214,7 @@ main@<host>/lichsuvn:41->42
 ``37->41`` confirmations are rejected.  Placeholders are rejected.
 Branch IDs are rejected.
 
-## 6. Preflight
+## 9. Preflight
 
 * Manifest pinned against its on-disk SHA-256.
 * No Flyway callbacks.
@@ -124,16 +230,18 @@ Branch IDs are rejected.
 * ``CURRENT_USER()`` matches the production user prefix and does not
   match the rehearsal fixture prefix.
 * Bounded counts recorded for future unchanged-comparison.
+* Backup and restore JSON, detached hashes, captures, cross-bindings, and
+  backup freshness pass before any Flyway ``info`` or ``validate`` command.
 
 Preflight evidence is written to a new ``.json`` file with a SHA-256
 over the canonical payload (excluding the digest field).
 
-## 7. Migrate
+## 10. Migrate
 
 Approval gates (all required):
 
-* Backup evidence file exists and is non-empty.
-* Restore rehearsal evidence file exists and is non-empty.
+* Backup and restore evidence contracts in sections 5-7 pass; non-empty
+  acknowledgement text is never accepted.
 * At least two active Admins.
 * All application backends drained (single-tenant, non-deployed).
 * Single migration owner.
@@ -143,9 +251,12 @@ Approval gates (all required):
   no fake-storage, no ``admin-e2e`` profile).
 * Explicit ``--execute-migrate`` confirmation.
 
-The migrate stage runs Flyway ``info`` + ``validate`` + ``migrate``
-with the migration account, then ``info`` + ``validate`` with the read
-account.  Flyway's JSON response is parsed and validated against
+The migrate stage first revalidates the evidence contract, then runs Flyway
+``info`` + ``validate``.  It re-reads both JSON files, all detached hashes and
+capture bindings, and checks backup expiration again immediately before the
+Flyway ``migrate`` command; it never relies only on a prior preflight report.
+It then runs ``migrate`` with the migration account, followed by ``info`` +
+``validate`` with the read account.  Flyway's JSON response is parsed and validated against
 ``V42 only``.
 
 Post-migration MySQL metadata is queried (read account); the V42
@@ -156,9 +267,12 @@ cleanup-task table, 6 CHECK constraints visible in
 Flyway history row count + checksum is asserted; bounded counts are
 asserted unchanged.
 
-## 8. Postflight
+## 11. Postflight
 
 Requires:
+
+* The same retained backup/restore evidence chain passes before any Flyway
+  command, preserving audit continuity.
 
 * Exactly one Flyway V42 success row.
 * Zero failed migrations.
@@ -175,7 +289,7 @@ Requires:
 * ``@@global.tidb_enable_check_constraint`` remains ``1``.
 * Bounded counts unchanged versus the preflight baseline.
 
-## 9. Failure handling
+## 12. Failure handling
 
 On any failure, the runner: stops immediately; never retries; never
 runs ``repair`` / ``baseline`` / ``clean``; never completes partial
@@ -186,7 +300,7 @@ Empty subprocess output surfaces as
 ``EMPTY_SUBPROCESS_OUTPUT: stage=<stage> outer_exit=<code>`` so the
 operator can localize the failure.
 
-## 10. Local backend / frontend run
+## 13. Local backend / frontend run
 
 After the database migration succeeds, the thesis application runs
 locally:
@@ -199,7 +313,7 @@ locally:
 * Bound smoke-test Admin account is used for a bounded browser run,
   not a destructive automation loop.
 
-## 11. Rollback limitations
+## 14. Rollback limitations
 
 V42 introduces managed-storage metadata, indexes, FK and CHECK
 constraints.  Rollback is **schema-only restore-based**: the operator
@@ -208,7 +322,7 @@ not offer ``flyway repair`` or ``flyway clean``.  The rehearsal
 branch (``lichsuvn3d-admin-v42-rehearsal``, ``bran-3uewl2rhirehfg67jczif3bet4``)
 is **not** deleted by this migration.
 
-## 12. Rehearsal branch retention
+## 15. Rehearsal branch retention
 
 The V42 rehearsal branch remains intact:
 
@@ -222,7 +336,7 @@ runner rejects any ``bran-*`` cluster ID and any rehearsal fixture
 prefix.  The two runners share the parent cluster but never share
 data; their userPrefixes must differ.
 
-## 13. Sequence vs the production V37 -> V41 runner
+## 16. Sequence vs the production V37 -> V41 runner
 
 | Concern | ``tidb_production_migration.py`` (V37->V41) | ``tidb_production_v42_migration.py`` |
 |---|---|---|
@@ -238,7 +352,7 @@ data; their userPrefixes must differ.
 | Rehearsal fixture prefix ban | n/a | required |
 | Bounded counts | ``users`` + ``events`` + roles | ``users`` + ``events`` + ``event_media`` + active_admins |
 
-## 14. Credential discipline
+## 17. Credential discipline
 
 Reference values in this runbook are intentionally non-secret.  No
 real production credential, password, or token is reproduced here.

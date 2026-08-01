@@ -37,8 +37,10 @@ from typing import Any, Callable, Mapping, Sequence
 # and kept behind narrow compatibility tests.
 if __package__:
     from . import tidb_production_migration as base  # type: ignore[attr-defined]  # noqa: E402
+    from . import tidb_release_e_v42_evidence as release_e_evidence  # noqa: E402
 else:
     import tidb_production_migration as base  # noqa: E402
+    import tidb_release_e_v42_evidence as release_e_evidence  # noqa: E402
 
 
 # ============================================================================
@@ -257,6 +259,59 @@ def _env(name: str, *, secret: bool = False) -> str:
 
 def _credentials(prefix: str) -> tuple[str, str]:
     return _env(f"{prefix}_USER", secret=True), _env(f"{prefix}_PASSWORD", secret=True)
+
+
+def validate_release_e_evidence(
+    *, production_identity_evidence_sha256: str,
+) -> dict[str, Any]:
+    """Validate the local backup/restore chain before any Flyway command.
+
+    Every environment value names an existing local file.  There is no
+    acknowledgement-string fallback.  The validator is deliberately called
+    again immediately before ``migrate`` so expiration or byte changes after
+    preflight fail closed.
+    """
+    backup = release_e_evidence.validate_backup_evidence(
+        Path(_env("TIDB_PRODUCTION_BACKUP_EVIDENCE")),
+        Path(_env("TIDB_PRODUCTION_BACKUP_EVIDENCE_SHA256")),
+        capture_path=Path(_env("TIDB_PRODUCTION_BACKUP_CAPTURE")),
+        production_identity_evidence_sha256=production_identity_evidence_sha256.lower(),
+    )
+    restore_identity_sha = release_e_evidence.verify_restore_identity_evidence(
+        Path(_env("TIDB_PRODUCTION_RESTORE_IDENTITY_EVIDENCE")),
+        Path(_env("TIDB_PRODUCTION_RESTORE_IDENTITY_EVIDENCE_SHA256")),
+    )
+    restore = release_e_evidence.validate_restore_evidence(
+        Path(_env("TIDB_PRODUCTION_RESTORE_EVIDENCE")),
+        Path(_env("TIDB_PRODUCTION_RESTORE_EVIDENCE_SHA256")),
+        capture_path=Path(_env("TIDB_PRODUCTION_RESTORE_CAPTURE")),
+        source_backup_evidence_sha256=backup["evidence_sha256"],
+        restore_identity_evidence_sha256=restore_identity_sha,
+    )
+    return {"backup": backup, "restore": restore}
+
+
+def validate_operational_approval_gates(
+    *, two_active_admins: bool, backends_drained: bool,
+    single_migration_owner: bool, maintenance_window: bool,
+    rollback_owner: bool, runtime_security_verified: bool,
+    execute_migrate: bool,
+) -> None:
+    """Validate non-evidence gates without accepting evidence acknowledgements."""
+    gates = {
+        "two active Admins": two_active_admins,
+        "backends drained": backends_drained,
+        "single migration owner": single_migration_owner,
+        "maintenance window": maintenance_window,
+        "rollback owner": rollback_owner,
+        "runtime security verified": runtime_security_verified,
+        "execute migrate": execute_migrate,
+    }
+    missing = [name for name, accepted in gates.items() if not accepted]
+    if missing:
+        raise ProductionRunnerError(
+            "required approval gates are missing: " + ", ".join(missing)
+        )
 
 
 # ============================================================================
@@ -757,10 +812,14 @@ def run_preflight(
     repo_root: Path,
     target: Mapping[str, Any],
     identity: Mapping[str, str],
+    production_identity_evidence_sha256: str,
     read_user: str,
     read_password: str,
     executor: Callable[[Sequence[str], str], base.CommandResult] = base._execute,
 ) -> dict[str, Any]:
+    validate_release_e_evidence(
+        production_identity_evidence_sha256=production_identity_evidence_sha256
+    )
     _verify_manifest_immutable(repo_root)
     migration_dir, manifest = _migration_paths_v42(repo_root)
     images = base.verify_docker_images()
@@ -795,11 +854,27 @@ def run_preflight(
     return {"flyway": info_state, "metadata": metadata}
 
 
+def run_flyway_migrate_after_evidence_gate(
+    *, production_identity_evidence_sha256: str, migration_dir: Path,
+    config: str, image_ref: str, secrets: Sequence[str],
+    executor: Callable[[Sequence[str], str], base.CommandResult],
+) -> Mapping[str, Any]:
+    """Revalidate the complete evidence chain immediately before migrate."""
+    validate_release_e_evidence(
+        production_identity_evidence_sha256=production_identity_evidence_sha256
+    )
+    return base.run_flyway(
+        migration_dir=migration_dir, operation="migrate", config=config,
+        image_ref=image_ref, secrets=secrets, executor=executor,
+    )
+
+
 def run_migrate(
     *,
     repo_root: Path,
     target: Mapping[str, Any],
     identity: Mapping[str, str],
+    production_identity_evidence_sha256: str,
     read_user: str,
     read_password: str,
     migrate_user: str,
@@ -808,6 +883,7 @@ def run_migrate(
 ) -> dict[str, Any]:
     pre = run_preflight(
         repo_root=repo_root, target=target, identity=identity,
+        production_identity_evidence_sha256=production_identity_evidence_sha256,
         read_user=read_user, read_password=read_password, executor=executor,
     )
     if migrate_user.casefold() == read_user.casefold():
@@ -842,9 +918,11 @@ def run_migrate(
                 image_ref=images[base.FLYWAY_IMAGE], secrets=migrate_secrets, executor=executor,
             )
         )
-        migrate_result = base.run_flyway(
-            migration_dir=flyway_dir, operation="migrate", config=migrate_config,
-            image_ref=images[base.FLYWAY_IMAGE], secrets=migrate_secrets, executor=executor,
+        migrate_result = run_flyway_migrate_after_evidence_gate(
+            production_identity_evidence_sha256=production_identity_evidence_sha256,
+            migration_dir=flyway_dir, config=migrate_config,
+            image_ref=images[base.FLYWAY_IMAGE], secrets=migrate_secrets,
+            executor=executor,
         )
         validate_flyway_migrate_for_v42(migrate_result)
         info_post = base.run_flyway(
@@ -887,11 +965,15 @@ def run_postflight(
     repo_root: Path,
     target: Mapping[str, Any],
     identity: Mapping[str, str],
+    production_identity_evidence_sha256: str,
     read_user: str,
     read_password: str,
     before_evidence: Mapping[str, Any],
     executor: Callable[[Sequence[str], str], base.CommandResult] = base._execute,
 ) -> dict[str, Any]:
+    validate_release_e_evidence(
+        production_identity_evidence_sha256=production_identity_evidence_sha256
+    )
     _verify_manifest_immutable(repo_root)
     migration_dir, manifest = _migration_paths_v42(repo_root)
     images = base.verify_docker_images()
@@ -989,8 +1071,6 @@ def _parser() -> argparse.ArgumentParser:
     parser.add_argument("--confirm-target")
     parser.add_argument("--identity-evidence", type=Path)
     parser.add_argument("--identity-evidence-sha256")
-    parser.add_argument("--backup-evidence")
-    parser.add_argument("--restore-evidence")
     parser.add_argument("--two-active-admins", action="store_true")
     parser.add_argument("--backends-drained", action="store_true")
     parser.add_argument("--single-migration-owner", action="store_true")
@@ -1045,9 +1125,7 @@ def main(argv: Sequence[str] | None = None) -> int:
                 expected_evidence_sha256=args.before_evidence_sha256,
             )
             before_evidence = {"flyway": raw.get("flyway"), "metadata": raw.get("metadata")}
-            base.validate_approval_gates(
-                backup_evidence=_env("TIDB_PRODUCTION_BACKUP_EVIDENCE", secret=False),
-                restore_evidence=_env("TIDB_PRODUCTION_RESTORE_EVIDENCE", secret=False),
+            validate_operational_approval_gates(
                 two_active_admins=args.two_active_admins,
                 backends_drained=args.backends_drained,
                 single_migration_owner=args.single_migration_owner,
@@ -1059,6 +1137,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         if args.mode == "preflight":
             result = run_preflight(
                 repo_root=repo_root, target=target, identity=identity,
+                production_identity_evidence_sha256=args.identity_evidence_sha256,
                 read_user=read_user, read_password=read_password,
             )
             if args.evidence_file:
@@ -1097,6 +1176,7 @@ def main(argv: Sequence[str] | None = None) -> int:
             migrate_user, migrate_password = _credentials("TIDB_PRODUCTION_MIGRATE")
             result = run_migrate(
                 repo_root=repo_root, target=target, identity=identity,
+                production_identity_evidence_sha256=args.identity_evidence_sha256,
                 read_user=read_user, read_password=read_password,
                 migrate_user=migrate_user, migrate_password=migrate_password,
             )
@@ -1131,6 +1211,7 @@ def main(argv: Sequence[str] | None = None) -> int:
             assert before_evidence is not None
             result = run_postflight(
                 repo_root=repo_root, target=target, identity=identity,
+                production_identity_evidence_sha256=args.identity_evidence_sha256,
                 read_user=read_user, read_password=read_password,
                 before_evidence=before_evidence,
             )
@@ -1161,6 +1242,9 @@ def main(argv: Sequence[str] | None = None) -> int:
             })
             return 0
         raise ProductionRunnerError(f"unsupported mode {args.mode}")
+    except release_e_evidence.EvidenceContractError as exc:
+        print(str(exc), file=sys.stderr)
+        return 2
     except (base.MigrationGuardError, ProductionRunnerError, ValueError, OSError, json.JSONDecodeError) as exc:
         print(f"BLOCKED_PRODUCTION_V42: {exc}", file=sys.stderr)
         return 2
