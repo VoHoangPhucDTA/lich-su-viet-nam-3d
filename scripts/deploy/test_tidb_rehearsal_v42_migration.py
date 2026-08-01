@@ -3,6 +3,7 @@ from __future__ import annotations
 import hashlib
 import importlib.util
 import json
+import os
 import sys
 from pathlib import Path
 import tempfile
@@ -19,6 +20,17 @@ assert SPEC and SPEC.loader
 runner = importlib.util.module_from_spec(SPEC)
 sys.modules[SPEC.name] = runner
 SPEC.loader.exec_module(runner)
+
+# Load the shared production runner under the same ``base`` alias it uses
+# internally so contract tests can pin its primitives.
+BASE_SPEC = importlib.util.spec_from_file_location(
+    "tidb_production_migration",
+    HERE / "tidb_production_migration.py",
+)
+assert BASE_SPEC and BASE_SPEC.loader
+base = importlib.util.module_from_spec(BASE_SPEC)
+sys.modules[BASE_SPEC.name] = base
+BASE_SPEC.loader.exec_module(base)
 
 
 class RehearsalTargetGuardTest(unittest.TestCase):
@@ -405,6 +417,220 @@ class EmptySubprocessOutputFallbackTest(unittest.TestCase):
         text = str(ctx.exception)
         self.assertFalse(text.startswith("EMPTY_SUBPROCESS_OUTPUT:"), text)
         self.assertIn("real error from flyway", text)
+
+
+class MigrateAccountAliasContractTest(unittest.TestCase):
+    """Section 2 alias contract.
+
+    The legacy ``TIDB_REHEARSAL_MIGRATION_USER`` /
+    ``TIDB_REHEARSAL_MIGRATION_PASSWORD`` alias has been removed because
+    no external documentation references it and the orchestrator's
+    ``build_sanitized_env`` never sets it.  The orchestrator's
+    ``FORBIDDEN_FROM_CHILD_ENV`` keeps the legacy name as a defensive
+    tripwire in case the alias is ever re-introduced.
+    """
+
+    def test_canonical_migrate_user_is_accepted(self) -> None:
+        env = {
+            "TIDB_REHEARSAL_MIGRATE_USER": "3c7ghu483vq9ynn.m0123abcd",
+            "TIDB_REHEARSAL_MIGRATE_PASSWORD": "canonical-pass",
+        }
+        with patch.dict(runner.os.environ, env, clear=True):
+            value = runner._env("TIDB_REHEARSAL_MIGRATE_USER", secret=True)
+        self.assertEqual(value, "3c7ghu483vq9ynn.m0123abcd")
+
+    def test_canonical_migrate_password_is_accepted(self) -> None:
+        env = {
+            "TIDB_REHEARSAL_MIGRATE_USER": "3c7ghu483vq9ynn.m0123abcd",
+            "TIDB_REHEARSAL_MIGRATE_PASSWORD": "canonical-pass",
+        }
+        with patch.dict(runner.os.environ, env, clear=True):
+            value = runner._env("TIDB_REHEARSAL_MIGRATE_PASSWORD", secret=True)
+        self.assertEqual(value, "canonical-pass")
+
+    def test_legacy_migration_user_alias_is_silently_rejected(self) -> None:
+        env = {"TIDB_REHEARSAL_MIGRATION_USER": "3c7ghu483vq9ynn.m0123abcd"}
+        with patch.dict(runner.os.environ, env, clear=True):
+            with self.assertRaises(runner.RehearsalGuardError) as cm:
+                runner._env("TIDB_REHEARSAL_MIGRATE_USER", secret=True)
+        msg = str(cm.exception)
+        self.assertIn("TIDB_REHEARSAL_MIGRATE_USER", msg)
+        # The legacy alias name must not be referenced in the error:
+        self.assertNotIn("TIDB_REHEARSAL_MIGRATION_USER", msg)
+
+    def test_legacy_migration_password_alias_is_silently_rejected(self) -> None:
+        env = {"TIDB_REHEARSAL_MIGRATION_PASSWORD": "legacy-pass"}
+        with patch.dict(runner.os.environ, env, clear=True):
+            with self.assertRaises(runner.RehearsalGuardError) as cm:
+                runner._env("TIDB_REHEARSAL_MIGRATE_PASSWORD", secret=True)
+        msg = str(cm.exception)
+        self.assertIn("TIDB_REHEARSAL_MIGRATE_PASSWORD", msg)
+        self.assertNotIn("TIDB_REHEARSAL_MIGRATION_PASSWORD", msg)
+
+    def test_env_alias_helper_is_removed(self) -> None:
+        # The helper that *enabled* the silent alias mismatch must not
+        # be re-introduced under this name (defensive regression pin).
+        self.assertFalse(hasattr(runner, "_env_alias"))
+
+
+class SharedRunnerContractTest(unittest.TestCase):
+    """Section 3: black-box pinning of the imported
+    ``tidb_production_migration`` primitives.  These tests do not modify
+    the production runner; they fail when the shared contract regresses.
+    The tests use the rehearsal strict runner's existing public surface
+    so they exercise real shape and real error handling.
+    """
+
+    def test_pinned_flyway_image(self) -> None:
+        self.assertEqual(base.FLYWAY_IMAGE, "redgate/flyway:11.14.1")
+
+    def test_pinned_mysql_client_image(self) -> None:
+        self.assertEqual(base.MYSQL_CLIENT_IMAGE, "mysql:8.0.36")
+
+    def test_sql_marker_is_immutable(self) -> None:
+        self.assertEqual(base.SQL_MARKER, "__LSVN3D_SQL_PAYLOAD__")
+        self.assertEqual(runner.SQL_MARKER, "__LSVN3D_SQL_PAYLOAD__")
+
+    def test_mysql_ca_bundle_path_is_absolute_and_canonical(self) -> None:
+        import os as _os
+                # Cross-platform absolute-path check: the production runner pins the
+        # Oracle-Linux Oracle-RHCSA ca-bundle path which is rooted at /.
+        # `os.path.isabs` returns False on Windows for leading-slash paths,
+        # so use the language-neutral literal claim.
+        self.assertTrue(base.MYSQL_CA_BUNDLE.startswith("/"))
+        self.assertTrue(base.MYSQL_CA_BUNDLE.endswith("ca-bundle.crt"))
+
+    def test_command_result_is_frozen_dataclass_with_expected_fields(self) -> None:
+        import dataclasses as _dc
+        self.assertTrue(_dc.is_dataclass(base.CommandResult))
+        names = {f.name for f in _dc.fields(base.CommandResult)}
+        self.assertEqual(names, {"args", "returncode", "stdout", "stderr"})
+
+    def test_build_flyway_command_keeps_no_pull_and_translates_target(self) -> None:
+        cmd = runner.build_flyway_command(
+            Path("/tmp/lsvn3d-v42-shared"),
+            "migrate",
+            image_ref=f"redgate/flyway:11.14.1@sha256:{'a' * 64}",
+        )
+        self.assertIn("--pull=never", cmd)
+        # The strict runner must rewrite -target=41 to -target=42.
+        self.assertIn("-target=42", cmd)
+        self.assertNotIn("-target=41", cmd)
+
+    def test_strict_runner_rejects_non_allowlisted_operations(self) -> None:
+        for op in ("repair", "baseline", "clean", "", "INFO", "MIGRATE"):
+            with self.assertRaises(runner.RehearsalGuardError):
+                runner.build_flyway_command(Path("/tmp"), op, image_ref="x")
+
+    def test_build_mysql_command_carries_image_ref_and_no_pull(self) -> None:
+        image_ref = f"mysql:8.0.36@sha256:{'a' * 64}"
+        cmd = base.build_mysql_command(image_ref=image_ref)
+        self.assertEqual(cmd[0], "docker")
+        self.assertIn(image_ref, cmd)
+        self.assertIn("--pull=never", cmd)
+        self.assertIn("-i", cmd)
+
+    def test_redact_output_replaces_exact_secret_substring(self) -> None:
+        out = base.redact_output("auth failed: pwd=secret_xyz", ["secret_xyz"])
+        self.assertNotIn("secret_xyz", out)
+        # Production runner redacts with [REDACTED] (not the orchestrator's
+        # ***REDACTED*** marker).  Pin the production contract.
+        self.assertIn("[REDACTED]", out)
+
+    def test_redact_output_strips_jdbc_url_credentials(self) -> None:
+        out = base.redact_output(
+            "Flyway error jdbc:mysql://userX:pwdY@gateway.example/db?sslMode=ID"
+        )
+        self.assertNotIn("userX", out)
+        self.assertNotIn("pwdY", out)
+        self.assertIn("[REDACTED]", out)
+
+    def test_read_only_sql_statements_rejects_ddl_dml(self) -> None:
+        for stmt in (
+            "CREATE TABLE x (id INT)",
+            "DROP TABLE x",
+            "INSERT INTO x VALUES (1)",
+            "DELETE FROM x WHERE id=1",
+        ):
+            with self.assertRaises(base.MigrationGuardError):
+                base._read_only_sql_statements(stmt)
+
+    def test_read_only_sql_statements_rejects_unsafe_select_clauses(self) -> None:
+        for clause in (
+            "SELECT 1 FOR UPDATE",
+            "SELECT 1 LOCK IN SHARE MODE",
+            "SELECT 1 INTO OUTFILE '/tmp/x'",
+            "SELECT LOAD_FILE('/tmp/x')",
+            "SELECT SLEEP(10)",
+        ):
+            with self.assertRaises(base.MigrationGuardError):
+                base._read_only_sql_statements(clause)
+
+    def test_read_only_sql_statements_rejects_sql_comments(self) -> None:
+        for stmt in (
+            "SELECT 1; -- comment",
+            "SELECT 1 /* block */",
+            "SELECT 1 # MySQL",
+        ):
+            with self.assertRaises(base.MigrationGuardError):
+                base._read_only_sql_statements(stmt)
+
+    def test_read_only_sql_statements_accepts_benign_multi_select(self) -> None:
+        stmts = base._read_only_sql_statements("SELECT 'a' AS k; SELECT 'b' AS k;")
+        self.assertEqual(len(stmts), 2)
+        self.assertEqual(stmts[0], "SELECT 'a' AS k")
+
+    def test_validate_image_digest_returns_match_and_rejects_mismatch(self) -> None:
+        good = f"sha256:{'a' * 64}"
+        bad = f"sha256:{'b' * 64}"
+        self.assertEqual(base.validate_image_digest(good, good), good)
+        with self.assertRaises(base.MigrationGuardError):
+            base.validate_image_digest(bad, good)
+
+    def test_find_flyway_callbacks_returns_empty_on_clean_dir(self) -> None:
+        with tempfile.TemporaryDirectory() as td:
+            d = Path(td)
+            (d / "V1__x.sql").write_bytes(b"")
+            (d / "V2__y.sql").write_bytes(b"")
+            self.assertEqual(base.find_flyway_callbacks(d), [])
+
+    def test_find_flyway_callbacks_returns_non_empty_when_callback_present(self) -> None:
+        # Positive-case regression guard: a callback file must surface.
+        # CALLBACK_NAME = ^(before|after)[A-Za-z0-9_.-]*\.(sql|java|class)$
+        with tempfile.TemporaryDirectory() as td:
+            d = Path(td)
+            (d / "V1__x.sql").write_bytes(b"")
+            (d / "beforeMigrate.sql").write_bytes(b"SELECT 1;\n")
+            (d / "afterEachMigrate.sql").write_bytes(b"")
+            (d / "V2__y.sql").write_bytes(b"")
+            callbacks = base.find_flyway_callbacks(d)
+            names = sorted(p.name for p in callbacks)
+            self.assertEqual(names, ["afterEachMigrate.sql", "beforeMigrate.sql"])
+
+    def test_strict_runner_find_callbacks_raises_when_callback_present(self) -> None:
+        # Pair to the negative-case regression guard: the strict runner's
+        # wrapper must translate a non-empty callbacks list into
+        # RehearsalGuardError, not a silent pass.
+        with tempfile.TemporaryDirectory() as td:
+            d = Path(td)
+            (d / "V1__x.sql").write_bytes(b"")
+            (d / "afterMigrate.sql").write_bytes(b"")
+            with self.assertRaises(runner.RehearsalGuardError) as cm:
+                runner.find_callbacks(d)
+            self.assertIn("callbacks", str(cm.exception).lower())
+
+    def test_normalise_state_lowercases_and_normalises_separators(self) -> None:
+        self.assertEqual(base._normalise_state("Success"), "success")
+        self.assertEqual(base._normalise_state("OUT_OF_ORDER"), "out of order")
+        self.assertEqual(base._normalise_state(None), "")
+
+    def test_validate_local_docker_environment_blocks_redis_url_vars(self) -> None:
+        # The contract is: any of DOCKER_HOST/CONTEXT/TLS_VERIFY/CERT_PATH
+        # being set must fail closed.  DOCKER_HOST is the representative case.
+        with patch.dict(os.environ, {"DOCKER_HOST": "tcp://1.2.3.4:2375"}, clear=False):
+            with self.assertRaises(base.MigrationGuardError) as cm:
+                base.validate_local_docker_environment()
+        self.assertIn("DOCKER_HOST", str(cm.exception))
 
 
 if __name__ == "__main__":

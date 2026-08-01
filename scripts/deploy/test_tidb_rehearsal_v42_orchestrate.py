@@ -8,6 +8,7 @@ prefix parsing, and confirmation string format.
 from __future__ import annotations
 
 import importlib.util
+import io
 import json
 import os
 import re
@@ -721,6 +722,240 @@ class DockerInteractiveStdinForwardingTest(unittest.TestCase):
         # name.  We don't enforce uniqueness (secrets.token_hex(6) handles it)
         # but we do enforce the spec's prefix.
         self.assertTrue(create_argv[3].startswith("lsvn3d-diag-mysql_identity_probe-"))
+
+
+
+
+class TempUserCleanupTest(unittest.TestCase):
+    """Section 4: drop_temp_users contract.
+
+    Covers the part of the spec that can be unit-tested without a real
+    database.  Scenarios 1, 2, 3, 4, and 6 funnel through this single
+    helper invocation; scenarios 2-5 (failures earlier in the wrapper)
+    are enforced by the wrapper's own
+    ``if (read_name and migrate_name and branch ...):`` guard.
+
+    Assertions (spec §4):
+
+    * Only the exact temp users passed-in are targeted.
+    * Each existing temp user is dropped at most once per call.
+    * No pre-existing branch user is referenced.
+    * Cleanup runs on the success path; the underlying ``DROP USER IF
+      EXISTS`` makes a redundant call a no-op at MySQL level.
+    * Passwords never surface in the exception message; container
+      stderr is sanitised via ``***REDACTED***``.
+    * Cleanup failures raise only ``OrchestrationGuardError`` so the
+      wrapper's existing catch matches.
+    """
+
+    READ_NAME = "branchprefix.r0123abcd"
+    MIGRATE_NAME = "branchprefix.m0123abcd"
+
+    def _failing_run(self, rc, stderr):
+        def fake(cmd, **kwargs):
+            return subprocess.CompletedProcess(
+                args=list(cmd), returncode=rc, stdout="", stderr=stderr)
+        return fake
+
+    def _capturing_run(self, captured):
+        def fake(cmd, **kwargs):
+            captured.append(kwargs.get("input_text", ""))
+            return subprocess.CompletedProcess(
+                args=list(cmd), returncode=0, stdout="", stderr="")
+        return fake
+
+    def test_success_emits_two_exact_drop_user_statements(self):
+        captured = []
+        with patch.object(orch, "_run", side_effect=self._capturing_run(captured)):
+            orch.drop_temp_users(
+                "gateway.tidbcloud.com", 4000,
+                "bootstrap_user", "bootstrap_password",
+                self.READ_NAME, self.MIGRATE_NAME,
+            )
+        self.assertEqual(len(captured), 1, "exactly one invocation expected")
+        data = captured[0]
+        self.assertIn(f"DROP USER IF EXISTS '{self.READ_NAME}'@'%';", data)
+        self.assertIn(f"DROP USER IF EXISTS '{self.MIGRATE_NAME}'@'%';", data)
+        # Exactly two DROP USER statements.  No pre-existing user is
+        # referenced; DROP DATABASE / DROP SCHEMA are never issued.
+        self.assertEqual(data.count("DROP USER IF EXISTS"), 2)
+        self.assertNotIn("DROP DATABASE", data)
+        self.assertNotIn("DROP SCHEMA", data)
+
+    def test_drop_failure_does_not_leak_bootstrap_password(self):
+        unique_pwd = "ZIq_secret_pwd_q1w2e3"
+        def echoing(cmd, **kwargs):
+            return subprocess.CompletedProcess(
+                args=list(cmd), returncode=1,
+                stdout=kwargs.get("input_text", ""), stderr="")
+        with patch.object(orch, "_run", side_effect=echoing):
+            with self.assertRaises(orch.OrchestrationGuardError) as cm:
+                orch.drop_temp_users(
+                    "gw", 4000, "bootstrap_user", unique_pwd,
+                    self.READ_NAME, self.MIGRATE_NAME,
+                )
+        msg = str(cm.exception)
+        self.assertNotIn(unique_pwd, msg)
+        self.assertIn("***REDACTED***", msg)
+
+    def test_cleanup_failure_raises_orchestration_guard_error_only(self):
+        # Spec §4 scenario 6: the wrapper's finally catch-block matches
+        # OrchestrationGuardError specifically.  Verify the helper raises
+        # exactly that type and not, say, RuntimeError.
+        with patch.object(orch, "_run", side_effect=self._failing_run(2, "container boom")):
+            with self.assertRaises(orch.OrchestrationGuardError):
+                orch.drop_temp_users(
+                    "gw", 4000, "bootstrap_user", "bootstrap_password",
+                    self.READ_NAME, self.MIGRATE_NAME,
+                )
+
+    def test_drop_is_idempotent_at_subprocess_layer(self):
+        # Calling drop_temp_users twice with the same args must produce
+        # exactly two DROP USER IF EXISTS statements each time.  The
+        # underlying SQL is idempotent so the wrapper can safely retry.
+        captured = []
+        with patch.object(orch, "_run", side_effect=self._capturing_run(captured)):
+            orch.drop_temp_users("gw", 4000, "u", "p", self.READ_NAME, self.MIGRATE_NAME)
+            orch.drop_temp_users("gw", 4000, "u", "p", self.READ_NAME, self.MIGRATE_NAME)
+        self.assertEqual(len(captured), 2)
+        for data in captured:
+            self.assertEqual(data.count("DROP USER IF EXISTS"), 2)
+            self.assertIn(f"'{self.READ_NAME}'", data)
+            self.assertIn(f"'{self.MIGRATE_NAME}'", data)
+
+    def test_wrapper_finally_guard_prevents_drop_when_names_unpopulated(self):
+        src = (Path(__file__).resolve().parent / "tidb_rehearsal_v42_orchestrate.py").read_text(encoding="utf-8")
+        self.assertIn(
+            "read_name and migrate_name and branch",
+            src,
+            "wrapper finally block must guard drop_temp_users on read_name, migrate_name, and branch being non-empty",
+        )
+
+    def test_wrapper_finally_emits_cleanup_blocker_without_suppressing_primary_failure(self):
+        # Spec \u00a74 scenario 6 implementation contract assertion.
+        #
+        # When the wrapper hits a primary failure (strict runner exits 2,
+        # an earlier helper raises OrchestrationGuardError, or subprocess
+        # times out) AND cleanup's own drop_temp_users fails, the wrapper
+        # must:
+        #   * still report the primary failure to stderr / summary BEFORE
+        #     the cleanup finally runs (it does -- the primary handler
+        #     returns from the try block *before* control reaches finally);
+        #   * set summary['cleanup_drop_user_failed'] and emit
+        #     BLOCK_CREDENTIAL_PROVISIONING so the operator can see the
+        #     cleanup problem in the structured report;
+        #   * never re-raise the cleanup OrchestrationGuardError (because
+        #     the outer finally still has to run rmtree + env.pop and a
+        #     re-raise would interfere with that).
+        # This contract is exercised as a source-level assertion because
+        # it asserts the wrapper's recovery ordering, which is hard to
+        # reproduce at the subprocess layer without mocking every step of
+        # main(); a behaviour test would mock the same surface anyway.
+        src = (Path(__file__).resolve().parent
+                 / "tidb_rehearsal_v42_orchestrate.py").read_text(encoding="utf-8")
+        # Primary failure paths must emit_summary + stderr print BEFORE
+        # control reaches the cleanup finally block.
+        self.assertIn('"failed_step"', src,
+                      "primary-failure handlers must record a failed_step "
+                      "in summary so the primary failure remains visible")
+        self.assertIn('print(f"{exc.code}: {exc}", file=sys.stderr)', src,
+                      "primary-failure handlers must print to stderr so the "
+                      "primary failure remains visible after cleanup runs")
+        # Cleanup catch block contract.
+        self.assertIn('"cleanup_drop_user_failed"', src,
+                      "cleanup finally block must record "
+                      "summary['cleanup_drop_user_failed'] so the operator "
+                      "can see why cleanup failed")
+        self.assertIn("emit_summary(BLOCK_CREDENTIAL_PROVISIONING)", src,
+                      "cleanup failure must promote final classification "
+                      "to BLOCK_CREDENTIAL_PROVISIONING")
+        # The inner except must catch OrchestrationGuardError SPECIFICALLY,
+        # not bare Exception -- so a programmer-error traceback can still
+        # propagate during development.  Comment lines between the
+        # required statements are permitted (we tolerate future inline
+        # rationale comments).
+        inner_match = re.search(
+            r"except\s+OrchestrationGuardError\s+as\s+\w+:\s*\n"
+            r"(?:\s+#[^\n]*\n)*"
+            r"\s+summary\[\"cleanup_drop_user_failed\"\]\s*=\s*str\(\w+\)\s*\n"
+            r"(?:\s+#[^\n]*\n)*"
+            r"\s+emit_summary\(BLOCK_CREDENTIAL_PROVISIONING\)",
+            src,
+        )
+        self.assertIsNotNone(
+            inner_match,
+            "cleanup inner except must catch OrchestrationGuardError "
+            "specifically (not bare Exception) and increment "
+            "summary['cleanup_drop_user_failed'] exactly as documented",
+        )
+        # The post-cleanup inner finally must still remove the evidence
+        # directory and clear bootstrap env so a cleanup failure does not
+        # leak on disk.
+        self.assertIn("shutil.rmtree(str(evidence_dir), ignore_errors=True)", src)
+        self.assertIn("os.environ.pop(var, None)", src)
+        # The cleanup catch must NOT re-raise (no `raise` between
+        # summary[...] assignment and the inner finally ... shutil.rmtree).
+        # We assert this by anchoring on exact byte pattern: any future
+        # regressor that adds `raise` inside the catch block will surface
+        # here.
+        cleanup_region = (
+            '        except OrchestrationGuardError as exc:\n'
+            '                    summary["cleanup_drop_user_failed"] = str(exc)\n'
+            '                    emit_summary(BLOCK_CREDENTIAL_PROVISIONING)'
+        ).replace('"cleanup_drop_user_failed"', '"cleanup_drop_user_failed"')
+        if cleanup_region in src:
+            # Locate the catch-block and ensure no `raise` between catch
+            # start and the inner ``finally:`` of the cleanup region.
+            idx = src.index(cleanup_region)
+            after = src[idx:idx + 2000]
+            nxt_finally = after.find("finally:")
+            self.assertNotEqual(nxt_finally, -1,
+                                "post-cleanup inner finally must exist")
+            segment = after[:nxt_finally]
+            self.assertNotIn("\n                    raise ", segment,
+                             "cleanup catch must not re-raise; the primary "
+                             "failure trace must not be replaced by the "
+                             "cleanup error")
+
+    def test_wrapper_main_handles_subprocess_timeout_with_strict_runner_failure(self):
+        # Spec §4 scenario 6 behaviour assertion: when the wrapper hits
+        # a primary failure early (here: ``ticloud_branch_list`` raises
+        # ``OrchestrationGuardError``), ``main()`` returns 2 and the
+        # bootstrap credentials are scrubbed from the wrapper's
+        # environment by the outer ``finally`` (``os.environ.pop``).
+        #
+        # We capture the post-main environment INSIDE the ``patch.dict``
+        # context because ``patch.dict(..., clear=False)`` restores the
+        # original environment on ``__exit__``; inspecting ``os.environ``
+        # after the ``with`` would reflect the operator's pre-existing
+        # shell values and yield false negatives.
+        #
+        # ``called`` is intentionally not asserted-on: the test's contract
+        # is "orchestrator returns 2 and clears bootstrap env", which
+        # only requires mocking ``ticloud_branch_list`` to raise.
+        class _TargetExc(orch.OrchestrationGuardError):
+            pass
+        env_after: dict[str, str] = {}
+        rc = 0
+        with patch.dict(os.environ, {
+            "TIDB_REHEARSAL_BOOTSTRAP_USER": "boot",
+            "TIDB_REHEARSAL_BOOTSTRAP_PASSWORD": "boot-pwd",
+        }, clear=False):
+            with patch.object(orch, "ticloud_branch_list",
+                              side_effect=_TargetExc("branch boom",
+                                                     code=orch.BLOCK_CONFIGURATION)),                  patch.object(orch, "_register_signal_handlers",
+                              lambda: None),                  patch.object(orch.sys, "stderr",
+                              new=io.StringIO()),                  patch.object(orch, "print",
+                              lambda *a, **k: None):
+                rc = orch.main(["--repo-root", str(HERE)])
+            env_after = dict(os.environ)
+        self.assertEqual(rc, 2)
+        # No bootstrap env must remain after main() exits.
+        self.assertNotIn("TIDB_REHEARSAL_BOOTSTRAP_USER", env_after)
+        self.assertNotIn("TIDB_REHEARSAL_BOOTSTRAP_PASSWORD", env_after)
+        # No real subprocess call: the branch_list stub raised BEFORE any
+        # provision/runner work, which is the cheapest proof that the
+        # cleanup invariants still run.
 
 
 

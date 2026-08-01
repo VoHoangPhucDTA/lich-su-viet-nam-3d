@@ -123,14 +123,6 @@ def _env(name: str, *, secret: bool = False) -> str:
         raise _error(str(exc)) from exc
 
 
-def _env_alias(primary: str, alias: str, *, secret: bool = False) -> str:
-    """Read the canonical variable, with a non-printing compatibility alias."""
-
-    if os.environ.get(primary, "").strip():
-        return _env(primary, secret=secret)
-    return _env(alias, secret=secret)
-
-
 def _host(value: str) -> str:
     host = value.lower()
     if not re.fullmatch(r"[a-z0-9](?:[a-z0-9.-]{0,251}[a-z0-9])?", host):
@@ -901,8 +893,8 @@ def main(argv: Sequence[str] | None = None) -> int:
             evidence = _validate_evidence(args.before_evidence, target, args.before_evidence_sha256)
             before = evidence["metadata"]
             validate_counts_unchanged(before, before_result["metadata"])
-            migrate_user = _env_alias("TIDB_REHEARSAL_MIGRATE_USER", "TIDB_REHEARSAL_MIGRATION_USER", secret=True)
-            migrate_password = _env_alias("TIDB_REHEARSAL_MIGRATE_PASSWORD", "TIDB_REHEARSAL_MIGRATION_PASSWORD", secret=True)
+            migrate_user = _env("TIDB_REHEARSAL_MIGRATE_USER", secret=True)
+            migrate_password = _env("TIDB_REHEARSAL_MIGRATE_PASSWORD", secret=True)
             if migrate_user.casefold() == read_user.casefold():
                 raise _error("read and migration accounts must be separate")
             validate_sql_user_binding(migrate_user, target["user_prefix"])
