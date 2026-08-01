@@ -453,6 +453,62 @@ class ManifestTest(unittest.TestCase):
             self.assertTrue(result["v42_entry_sha256_match"])
             self.assertEqual(result["last_migration"], v42_name)
 
+    def test_live_repository_local_check_passes(self) -> None:
+        # Real-repository regression: the committed production V42 manifest
+        # must verify against the actual checked-out V1..V42 SQL files,
+        # not only a synthetic tempdir.  On Windows ``core.autocrlf=true``
+        # checks most SQL files out with CRLF; the hasher must normalise
+        # CRLF -> LF so the manifest (LF Git-blob hashes) matches.
+        repo_root = Path(__file__).resolve().parents[2]
+        result = runner.local_check(repo_root)
+        self.assertEqual(result["migration_count"], 42)
+        self.assertEqual(result["first_migration"], "V1__users_roles.sql")
+        self.assertEqual(
+            result["last_migration"], runner.EXPECTED_V42_SQL_FILE
+        )
+        self.assertTrue(result["v42_entry_sha256_match"])
+
+    def test_crlf_working_tree_sql_matches_lf_manifest(self) -> None:
+        # Windows line-ending regression: SQL files checked out with CRLF
+        # must verify against a manifest that records LF (Git blob)
+        # hashes.  This is the exact live-mismatch scenario reported by
+        # the production V42 runner on V10..V41.
+        with tempfile.TemporaryDirectory() as td:
+            d = Path(td)
+            migration_rel = "backend/src/main/resources/db/migration"
+            (d / "scripts/deploy").mkdir(parents=True, exist_ok=True)
+            (d / migration_rel).mkdir(parents=True, exist_ok=True)
+            lines: list[str] = []
+            for i in range(1, 42):
+                name = f"V{i}__x.sql"
+                lf_body = f"-- fixture V{i}\n".encode("utf-8")
+                digest = hashlib.sha256(lf_body).hexdigest()
+                lines.append(f"{digest}  {name}")
+                # Working-tree copy carries Windows CRLF endings.
+                (d / migration_rel / name).write_bytes(
+                    lf_body.replace(b"\n", b"\r\n")
+                )
+            v42_name = runner.EXPECTED_V42_SQL_FILE
+            v42_live = (
+                Path(__file__).resolve().parents[2]
+                / "backend" / "src" / "main" / "resources" / "db" / "migration"
+                / v42_name
+            )
+            v42_body = v42_live.read_bytes()
+            self.assertEqual(
+                hashlib.sha256(v42_body).hexdigest(),
+                runner.EXPECTED_V42_SQL_SHA,
+                "live V42 SQL content must already hash to the approved sha",
+            )
+            lines.append(f"{runner.EXPECTED_V42_SQL_SHA}  {v42_name}")
+            (d / migration_rel / v42_name).write_bytes(v42_body)
+            (d / "scripts/deploy/tidb-production-v42.sha256").write_text(
+                "\n".join(lines) + "\n", encoding="utf-8"
+            )
+            result = runner.local_check(d)
+            self.assertEqual(result["migration_count"], 42)
+            self.assertTrue(result["v42_entry_sha256_match"])
+
     def test_callback_in_migration_source_rejected(self) -> None:
         with tempfile.TemporaryDirectory() as td:
             d = Path(td)

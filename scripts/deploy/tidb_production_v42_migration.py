@@ -223,7 +223,12 @@ def _parse_manifest_entries(manifest: Path) -> list[tuple[str, str]]:
 
 
 def _file_sha256(path: Path) -> str:
-    return hashlib.sha256(path.read_bytes()).hexdigest()
+    # Hash SQL independently of checkout newline conversion (CRLF -> LF),
+    # matching the established V37->V41 base contract
+    # (``base._canonical_sql_bytes``) and the V42 rehearsal runner.  The
+    # committed manifests record LF (Git blob) hashes, so hashing raw
+    # Windows working-tree bytes would drift for every CRLF checkout.
+    return hashlib.sha256(base._canonical_sql_bytes(path)).hexdigest()
 
 
 def _host(value: Any) -> str:
