@@ -324,12 +324,13 @@ It then runs ``migrate`` with the migration account, followed by ``info`` +
 ``V42 only``.
 
 Post-migration MySQL metadata is queried (read account); the V42
-schema footprint (18 managed-storage columns, 4 indexes, FK,
-cleanup-task table, 6 CHECK constraints visible in
+schema footprint (18 managed-storage columns, complete ordered index
+definitions, complete FK definition, cleanup-task table, and 6 CHECK
+constraint definitions visible in
 ``information_schema.CHECK_CONSTRAINTS`` and
-``information_schema.TIDB_CHECK_CONSTRAINTS``) is asserted; the V42
-Flyway history row count + checksum is asserted; bounded counts are
-asserted unchanged.
+``information_schema.TIDB_CHECK_CONSTRAINTS``) is asserted.  The V42 Flyway
+history version, description, script, checksum and success state are pinned;
+bounded counts are asserted unchanged.
 
 ## 11. Postflight
 
@@ -377,6 +378,88 @@ Standalone postflight rejects migrate-authorization flags, reads only
 ``baseline`` or ``clean`` calls.  It never reads
 ``TIDB_PRODUCTION_MIGRATE_*``, creates a replacement preflight artifact, or
 rewrites retained evidence.
+
+The shared TiDB gateway hostname is not sufficient identity proof.  Immediately
+after parsing the live read-only identity result, standalone postflight checks
+both ``CURRENT_USER()`` and ``USER()`` against the user prefix from the exact
+committed production identity evidence.  A rehearsal, restore, malformed or
+otherwise different prefix is rejected before Flyway or V42 schema acceptance.
+Errors do not emit the complete SQL username or a prefix-bearing connection
+string.
+
+### Complete V42 object contract
+
+The four V42 ``event_media`` indexes are verified from structured metadata by
+table, exact ordered columns, uniqueness, sequence and reported index type:
+
+* ``uk_event_media_managed_asset``: unique
+  ``(managed_asset_id)``;
+* ``uk_event_media_storage_identity``: unique
+  ``(storage_provider, storage_public_id)``;
+* ``idx_event_media_managed_read``: non-unique
+  ``(event_id, storage_state, status, is_thumbnail, sort_order, id)``;
+* ``idx_event_media_upload_expiry``: non-unique
+  ``(storage_state, upload_expires_at, id)``.
+
+Unrelated historical indexes remain outside this V42 migration delta and cannot
+satisfy a missing V42 index.  ``fk_event_media_uploaded_by`` is likewise
+verified by its full relational definition:
+``event_media(uploaded_by) -> users(id)``, default ``ON UPDATE RESTRICT`` and
+``ON DELETE SET NULL``.  Its name alone is never accepted.
+
+``event_media_storage_cleanup_tasks`` is verified as one InnoDB table with the
+exact ordered 13-column definition from V42:
+``id``, ``provider``, ``public_id``, ``provider_asset_id``, ``operation``,
+``task_status``, ``attempts``, ``next_attempt_at``, ``claim_token``,
+``claim_expires_at``, ``last_error_code``, ``created_at`` and ``updated_at``.
+The checker pins complete types, nullability, defaults, datetime precision,
+additional attributes and the migration-defined character sets/collations.  It
+also requires primary key ``(id)``, unique index
+``uk_event_media_cleanup_identity(provider, public_id, operation)``, non-unique
+index ``idx_event_media_cleanup_claim(task_status, next_attempt_at,
+claim_expires_at, id)``, exactly zero foreign keys, and initial row count zero.
+That zero-row expectation comes from the immutable V42 source containing no
+``INSERT`` into this newly created table.
+
+All six CHECK constraints are cross-bound between
+``CHECK_CONSTRAINTS`` and ``TIDB_CHECK_CONSTRAINTS`` by schema, owner table,
+name and expression.  Enforcement must be enabled where the metadata view
+exposes it.  The conservative expression normalizer removes only whitespace,
+identifier quoting, redundant outer parentheses, keyword case differences and
+TiDB's ``_utf8mb4`` literal introducer.  It never removes operators, enum/state
+values, conditions, or ``AND``/``OR`` relationships.  Duplicate, missing,
+wrong-owner, non-enforced or semantically changed constraints fail closed.
+
+The Flyway history proof requires exactly one V42 row with version ``42``,
+description ``add managed event image storage``, script
+``V42__add_managed_event_image_storage.sql``, checksum ``-769202000`` and
+success true.  It additionally requires zero failed migrations and zero rows
+above V42; an arbitrary numeric checksum is not accepted.
+
+### Standalone postflight evidence
+
+A completely successful standalone postflight must write a new canonical JSON
+artifact with schema
+``lsvn3d.release-e.v42.postflight-evidence.v1`` and a detached exact-byte
+SHA-256 file supplied through ``--evidence-detached-sha256``.  The exact-key
+schema contains only the checker/migration lineage, production identity proof,
+retained identity/backup/restore/preflight/failure hashes, one historical
+migrate attempt, zero postflight migrate calls, sanitized Flyway/schema
+verification summaries, four bounded counts and the postflight timestamp.  It
+contains no complete SQL username, credentials, raw environment, unrestricted
+SQL output or application records.
+
+The writer uses deterministic UTF-8 JSON with one trailing newline, computes
+the internal canonical evidence hash, hashes the exact bytes for the detached
+``<sha256>  <basename>`` line, and publishes complete files atomically.  The
+dedicated committed postflight loader immediately reloads the artifact and
+revalidates its exact schema/mode/keys, both hashes, checkout and migration
+commits, linear ancestry, production and retained-artifact bindings, migrate
+attempt counts, V42/Flyway/schema summaries, bounded counts and timestamp.  A
+write, validation or immediate-reload failure removes final and temporary
+outputs; success is not reported before reload passes.  This describes the
+required checker contract only: production postflight has not yet been run or
+declared successful by this correction.
 
 ### V42 managed-column migration-delta contract
 
@@ -443,10 +526,12 @@ Requires:
 * V42 checksum matches the recorded value.
 * The exact 18 V42 managed-storage column names exist on ``event_media``; no
   historical column can replace a missing V42 member.
-* All 4 V42 indexes exist.
-* ``fk_event_media_uploaded_by`` exists.
-* ``event_media_storage_cleanup_tasks`` exists.
-* All 3 cleanup-task CHECK constraints exist.
+* All 4 V42 indexes match their exact table, order, uniqueness and type.
+* ``fk_event_media_uploaded_by`` matches the complete source/reference/rule
+  contract.
+* ``event_media_storage_cleanup_tasks`` matches all 13 columns, 3 indexes,
+  zero-FK and zero-initial-row contracts.
+* All 3 cleanup-task CHECK constraints match their exact expressions.
 * All 6 CHECK constraints are visible in both
   ``information_schema.CHECK_CONSTRAINTS`` and
   ``information_schema.TIDB_CHECK_CONSTRAINTS``.

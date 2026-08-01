@@ -751,7 +751,9 @@ class BoundedMetadataContractTest(unittest.TestCase):
 
     def test_postflight_scalar_subqueries_are_closed_before_coalesce_default(self) -> None:
         sql = runner.metadata_sql_v42_postflight_extras()
-        self.assertEqual(sql.count(")), '') AS v"), 5)
+        self.assertEqual(sql.count(")), '') AS v"), 1)
+        self.assertNotIn("v42_history_checksum", sql)
+        self.assertIn("v42_history_contract", sql)
 
     def test_valid_four_metric_result_is_accepted(self) -> None:
         self.assertEqual(
@@ -1191,6 +1193,88 @@ class ManagedStorageColumnContractTest(unittest.TestCase):
 # ============================================================================
 
 
+def _structured_record(*values: object | None) -> str:
+    return ":".join(
+        ("~" if value is None else "=" + str(value)).encode("utf-8").hex().upper()
+        for value in values
+    )
+
+
+def _structured_values(value: str) -> list[str | None]:
+    result: list[str | None] = []
+    for token in value.split(":"):
+        decoded = bytes.fromhex(token).decode("utf-8")
+        result.append(None if decoded == "~" else decoded[1:])
+    return result
+
+
+def _replace_structured_field(
+    metadata: dict[str, str], key: str, index: int, value: object | None
+) -> None:
+    fields = _structured_values(metadata[key])
+    fields[index] = None if value is None else str(value)
+    metadata[key] = _structured_record(*fields)
+
+
+def _add_exact_v42_structured_metadata(metadata: dict[str, str]) -> None:
+    for name, non_unique, columns in runner.V42_EVENT_MEDIA_INDEX_CONTRACT:
+        metadata[f"v42_event_media_index_{name}"] = _structured_record(
+            len(columns), len(columns), "event_media", name,
+            1 if non_unique else 0, "BTREE",
+            ",".join(str(i) for i in range(1, len(columns) + 1)),
+            ",".join(columns),
+        )
+    name, table, source, referenced_table, referenced, update, delete = (
+        runner.V42_EVENT_MEDIA_FK_CONTRACT
+    )
+    metadata["v42_event_media_fk_uploaded_by"] = _structured_record(
+        len(source), len(source), name, table, ",".join(source), referenced_table,
+        ",".join(referenced), update, delete,
+    )
+    metadata["v42_cleanup_table_contract"] = _structured_record(
+        1, runner.V42_CLEANUP_TABLE, "BASE TABLE", "InnoDB", "utf8mb4_0900_ai_ci"
+    )
+    for ordinal, definition in enumerate(runner.V42_CLEANUP_COLUMN_CONTRACT, start=1):
+        (
+            column, data_type, column_types, nullable, default, charset, collation,
+            precision, extra,
+        ) = definition
+        metadata[f"v42_cleanup_column_{column}"] = _structured_record(
+            1, runner.V42_CLEANUP_TABLE, column, ordinal, data_type,
+            column_types[0], nullable, default, charset, collation, precision, extra,
+        )
+    metadata["v42_cleanup_column_count"] = str(
+        len(runner.V42_CLEANUP_COLUMN_CONTRACT)
+    )
+    for name, non_unique, columns in runner.V42_CLEANUP_INDEX_CONTRACT:
+        metadata[f"v42_cleanup_index_{name.lower()}"] = _structured_record(
+            len(columns), len(columns), runner.V42_CLEANUP_TABLE, name,
+            1 if non_unique else 0, "BTREE",
+            ",".join(str(i) for i in range(1, len(columns) + 1)),
+            ",".join(columns),
+        )
+    metadata["v42_cleanup_index_count"] = str(len(runner.V42_CLEANUP_INDEX_CONTRACT))
+    metadata["v42_cleanup_check_count"] = str(len(runner.V42_CLEANUP_CONSTRAINTS))
+    metadata["v42_cleanup_foreign_keys"] = "0"
+    metadata["v42_cleanup_initial_rows"] = "0"
+    for name, table, expression in runner.V42_CHECK_CONTRACT:
+        metadata[f"v42_check_{name}"] = _structured_record(
+            1, runner.EXPECTED_DATABASE, table, name, expression, "YES"
+        )
+        metadata[f"v42_tidb_check_{name}"] = _structured_record(
+            1, runner.EXPECTED_DATABASE, table, name, expression
+        )
+    metadata["v42_history_contract"] = _structured_record(
+        1,
+        runner.V42_FLYWAY_HISTORY_CONTRACT["version"],
+        runner.V42_FLYWAY_HISTORY_CONTRACT["description"],
+        runner.V42_FLYWAY_HISTORY_CONTRACT["script"],
+        runner.V42_FLYWAY_HISTORY_CONTRACT["checksum"],
+        runner.V42_FLYWAY_HISTORY_CONTRACT["success"],
+    )
+    metadata["v42_above_rows"] = "0"
+
+
 def _metadata(*, before: dict[str, str]) -> dict[str, str]:
     base_metadata = {
         "server_version": "8.0.11-TiDB-v8.5.3-serverless",
@@ -1216,22 +1300,17 @@ def _metadata(*, before: dict[str, str]) -> dict[str, str]:
         "users.auth_version": "5",
         "event_media_total": before.get("event_media_total", "0"),
         "session_user": "RHVnC4pobyyHQJT.userread@%",
+        "session_login_user": "RHVnC4pobyyHQJT.userread@%",
+        "postflight_identity_sentinel": "1",
         "session_user_prefix_verified": "1",
     }
     extra = {
         "v42_managed_columns": ",".join(sorted(runner.MANAGED_STORAGE_COLUMNS)),
-        "v42_media_indexes": ",".join(sorted(runner.V42_EVENT_MEDIA_INDEXES)),
-        "v42_fk_event_media_uploaded_by": "1",
-        "v42_cleanup_table": "1",
-        "v42_cleanup_constraints": ",".join(sorted(runner.V42_CLEANUP_CONSTRAINTS)),
-        "v42_check_constraints": ",".join(sorted(runner.ALL_V42_CHECK_CONSTRAINTS)),
-        "v42_tidb_check_constraints": ",".join(sorted(runner.ALL_V42_CHECK_CONSTRAINTS)),
         "tidb_enable_check_constraint": "1",
-        "v42_success_rows": "1",
-        "v42_history_checksum": "1234567",
         "session_user": "RHVnC4pobyyHQJT.userread@%",
     }
     base_metadata.update(extra)
+    _add_exact_v42_structured_metadata(base_metadata)
     return base_metadata
 
 
@@ -1242,7 +1321,11 @@ class PostflightTest(unittest.TestCase):
             + runner.metadata_sql_v42_postflight_extras()
         )
         keys = re.findall(r"(?m)^SELECT '([a-z][a-z0-9_]*)',", sql)
-        return {key: "0" for key in keys}
+        valid = _metadata(before={
+            "users_total": "3", "historical_events_total": "361",
+            "event_media_total": "0", "active_admin_count": "2",
+        })
+        return {key: valid.get(key, "0") for key in keys}
 
     def _run_standalone_postflight_with_metadata(
         self, metadata: dict[str, str]
@@ -1280,7 +1363,7 @@ class PostflightTest(unittest.TestCase):
             runner.run_postflight(
                 repo_root=Path("repo"),
                 target={"host": "production.invalid", "port": 4000, "database": "lichsuvn"},
-                identity={},
+                identity={"user_prefix": "RHVnC4pobyyHQJT"},
                 production_identity_evidence_sha256="a" * 64,
                 read_user="read",
                 read_password="secret",
@@ -1422,9 +1505,9 @@ class PostflightTest(unittest.TestCase):
         before = {"users_total": "3", "historical_events_total": "361",
                   "event_media_total": "0", "active_admin_count": "2"}
         metadata = _metadata(before=before)
-        cols = {c for c in metadata["v42_check_constraints"].split(",") if c}
-        cols.discard("chk_event_media_storage_state")
-        metadata["v42_check_constraints"] = metadata["v42_tidb_check_constraints"] = ",".join(cols)
+        metadata["v42_check_chk_event_media_storage_state"] = _structured_record(
+            0, None, None, None, None, None
+        )
         with self.assertRaises(runner.ProductionRunnerError):
             runner.validate_v42_postflight_extras(metadata, before=before)
 
@@ -1448,7 +1531,11 @@ class PostflightTest(unittest.TestCase):
         before = {"users_total": "3", "historical_events_total": "361",
                   "event_media_total": "0", "active_admin_count": "2"}
         metadata = _metadata(before=before)
-        metadata["v42_success_rows"] = "2"
+        metadata["v42_history_contract"] = _structured_record(
+            2, "42", runner.V42_FLYWAY_HISTORY_CONTRACT["description"],
+            runner.EXPECTED_V42_SQL_FILE,
+            runner.V42_FLYWAY_HISTORY_CONTRACT["checksum"], "1",
+        )
         with self.assertRaises(runner.ProductionRunnerError):
             runner.validate_v42_postflight_extras(metadata, before=before)
 
@@ -1464,9 +1551,248 @@ class PostflightTest(unittest.TestCase):
         before = {"users_total": "3", "historical_events_total": "361",
                   "event_media_total": "0", "active_admin_count": "2"}
         metadata = _metadata(before=before)
-        metadata["v42_history_checksum"] = ""
+        metadata["v42_history_contract"] = _structured_record(
+            1, "42", runner.V42_FLYWAY_HISTORY_CONTRACT["description"],
+            runner.EXPECTED_V42_SQL_FILE, None, "1",
+        )
         with self.assertRaises(runner.ProductionRunnerError):
             runner.validate_v42_postflight_extras(metadata, before=before)
+
+
+# ============================================================================
+# V42CompletePostflightContractTest
+# ============================================================================
+
+
+class V42CompletePostflightContractTest(unittest.TestCase):
+    BEFORE = {
+        "users_total": "3", "historical_events_total": "361",
+        "event_media_total": "0", "active_admin_count": "2",
+    }
+
+    def metadata(self) -> dict[str, str]:
+        return _metadata(before=self.BEFORE)
+
+    def test_runtime_contracts_are_derived_from_the_immutable_v42_source(self) -> None:
+        migration = (
+            HERE.parents[1] / "backend" / "src" / "main" / "resources"
+            / "db" / "migration" / runner.EXPECTED_V42_SQL_FILE
+        ).read_text(encoding="utf-8")
+        for name, non_unique, columns in runner.V42_EVENT_MEDIA_INDEX_CONTRACT:
+            match = re.search(
+                rf"CREATE\s+(UNIQUE\s+)?INDEX\s+{name}\s+ON\s+event_media\s*\(([^)]+)\)",
+                migration,
+                re.IGNORECASE | re.DOTALL,
+            )
+            self.assertIsNotNone(match, name)
+            assert match is not None
+            self.assertEqual(bool(match.group(1)), not non_unique)
+            self.assertEqual(
+                tuple(part.strip() for part in match.group(2).split(",")), columns
+            )
+        fk = runner.V42_EVENT_MEDIA_FK_CONTRACT
+        self.assertRegex(
+            re.sub(r"\s+", " ", migration),
+            rf"CONSTRAINT {fk[0]} FOREIGN KEY \({fk[2][0]}\) "
+            rf"REFERENCES {fk[3]} \({fk[4][0]}\) ON DELETE {fk[6]}",
+        )
+        cleanup_body = migration.split(
+            f"CREATE TABLE {runner.V42_CLEANUP_TABLE} (", 1
+        )[1].split(") ENGINE=", 1)[0]
+        cleanup_names = tuple(
+            re.findall(r"(?m)^\s{4}([a-z][a-z0-9_]*)\s+", cleanup_body)
+        )
+        self.assertEqual(
+            cleanup_names,
+            tuple(item[0] for item in runner.V42_CLEANUP_COLUMN_CONTRACT),
+        )
+        self.assertNotRegex(migration, rf"(?is)INSERT\s+INTO\s+{runner.V42_CLEANUP_TABLE}")
+        normalised_source = runner._normalise_check_expression(migration)
+        for name, table, expression in runner.V42_CHECK_CONTRACT:
+            self.assertIn(name, migration)
+            self.assertIn(table, migration)
+            self.assertIn(runner._normalise_check_expression(expression), normalised_source)
+        derived_description = runner.EXPECTED_V42_SQL_FILE.split("__", 1)[1][:-4].replace("_", " ")
+        self.assertEqual(
+            derived_description, runner.V42_FLYWAY_HISTORY_CONTRACT["description"]
+        )
+
+    def test_live_production_prefix_binding_is_fail_closed_and_sanitized(self) -> None:
+        identity = {"user_prefix": "RHVnC4pobyyHQJT"}
+        runner.validate_postflight_user_prefix_binding(
+            identity=identity,
+            session_user="RHVnC4pobyyHQJT.read@%",
+            login_user="RHVnC4pobyyHQJT.read@127.0.0.1",
+        )
+        rejected = (
+            "3c7ghU483VQ9Ynn.read@%",
+            "restoreBranch.read@%",
+            "wrongPrefix.read@%",
+            "malformed-current-user",
+        )
+        for account in rejected:
+            with self.subTest(account=account):
+                with self.assertRaises(runner.ProductionRunnerError) as raised:
+                    runner.validate_postflight_user_prefix_binding(
+                        identity=identity, session_user=account, login_user=account
+                    )
+                self.assertNotIn(account, str(raised.exception))
+                self.assertNotIn(account.split("@", 1)[0], str(raised.exception))
+
+    def test_prefix_validation_precedes_flyway_and_schema_acceptance(self) -> None:
+        sql = base.build_metadata_sql(postflight=True) + runner.metadata_sql_v42_postflight_extras()
+        expected_keys = re.findall(r"(?m)^SELECT '([a-z][a-z0-9_]*)',", sql)
+        valid = self.metadata()
+        raw = {key: valid.get(key, "0") for key in expected_keys}
+        order: list[str] = []
+        with (
+            patch.object(runner, "validate_release_e_postflight_evidence"),
+            patch.object(runner, "_verify_manifest_immutable"),
+            patch.object(runner, "_migration_paths_v42", return_value=(Path("m"), Path("manifest"))),
+            patch.object(runner, "run_metadata_query", side_effect=lambda **_kwargs: (order.append("metadata") or raw)),
+            patch.object(runner, "validate_postflight_user_prefix_binding", side_effect=lambda **_kwargs: order.append("prefix")),
+            patch.object(runner, "validate_database_metadata_v42"),
+            patch.object(base, "verify_docker_images", return_value={base.FLYWAY_IMAGE: "flyway@digest"}),
+            patch.object(base, "build_flyway_config", return_value="config"),
+            patch.object(base, "canonical_migration_directory") as staging,
+            patch.object(runner, "run_flyway_v42", return_value={}),
+            patch.object(base, "validate_flyway_info", side_effect=lambda *_args, **_kwargs: (order.append("flyway") or {"current_version": "42", "pending_versions": [], "database": "lichsuvn", "flyway_version": "11.14.1"})),
+            patch.object(base, "validate_flyway_validate"),
+            patch.object(base, "validate_postflight_metadata"),
+            patch.object(runner, "run_bounded_metadata_query", return_value=self.BEFORE),
+            patch.object(runner, "validate_v42_postflight_extras", side_effect=lambda *_args, **_kwargs: (order.append("schema") or runner._expected_postflight_verification_summary())),
+        ):
+            staging.return_value.__enter__.return_value = Path("staged")
+            runner.run_postflight(
+                repo_root=Path("repo"), target={"host": "prod.invalid", "port": 4000, "database": "lichsuvn"},
+                identity={"user_prefix": "RHVnC4pobyyHQJT"},
+                production_identity_evidence_sha256="a" * 64,
+                read_user="read", read_password="secret",
+                before_evidence={"metadata": self.BEFORE},
+                migration_installed_at_utc=datetime(2026, 8, 1, tzinfo=timezone.utc),
+            )
+        self.assertLess(order.index("metadata"), order.index("prefix"))
+        self.assertLess(order.index("prefix"), order.index("flyway"))
+        self.assertLess(order.index("prefix"), order.index("schema"))
+
+    def test_event_media_index_contract_rejects_definition_drift(self) -> None:
+        exact = self.metadata()
+        runner.validate_v42_postflight_extras(exact, before=self.BEFORE)
+        key = "v42_event_media_index_uk_event_media_managed_asset"
+        cases = (
+            (7, "wrong_column"),
+            (6, "2"),
+            (4, "1"),
+            (0, "2"),
+            (0, "0"),
+        )
+        for index, value in cases:
+            with self.subTest(field=index, value=value):
+                metadata = self.metadata()
+                _replace_structured_field(metadata, key, index, value)
+                with self.assertRaises(runner.ProductionRunnerError):
+                    runner.validate_v42_postflight_extras(metadata, before=self.BEFORE)
+        unrelated = self.metadata()
+        _replace_structured_field(unrelated, key, 0, "0")
+        unrelated["historical_event_media_index"] = _structured_record(
+            1, 1, "event_media", "historical_index", 0, "BTREE", "1", "managed_asset_id"
+        )
+        with self.assertRaises(runner.ProductionRunnerError):
+            runner.validate_v42_postflight_extras(unrelated, before=self.BEFORE)
+
+    def test_uploaded_by_fk_contract_rejects_relational_drift(self) -> None:
+        key = "v42_event_media_fk_uploaded_by"
+        cases = (
+            (4, "wrong_source"), (5, "roles"), (6, "role_id"),
+            (7, "CASCADE"), (8, "CASCADE"), (0, "2"), (0, "0"),
+        )
+        for index, value in cases:
+            with self.subTest(field=index, value=value):
+                metadata = self.metadata()
+                _replace_structured_field(metadata, key, index, value)
+                with self.assertRaises(runner.ProductionRunnerError):
+                    runner.validate_v42_postflight_extras(metadata, before=self.BEFORE)
+
+    def test_cleanup_table_contract_rejects_every_owned_drift_class(self) -> None:
+        cases = (
+            ("v42_cleanup_column_provider", 0, "0"),
+            ("v42_cleanup_column_provider", 5, "varchar(64)"),
+            ("v42_cleanup_column_provider", 6, "YES"),
+            ("v42_cleanup_column_task_status", 7, "READY"),
+            ("v42_cleanup_column_next_attempt_at", 10, "3"),
+            ("v42_cleanup_index_primary", 0, "0"),
+            ("v42_cleanup_index_uk_event_media_cleanup_identity", 7, "provider,operation,public_id"),
+        )
+        for key, index, value in cases:
+            with self.subTest(key=key, field=index):
+                metadata = self.metadata()
+                _replace_structured_field(metadata, key, index, value)
+                with self.assertRaises(runner.ProductionRunnerError):
+                    runner.validate_v42_postflight_extras(metadata, before=self.BEFORE)
+        for key, value in (
+            ("v42_cleanup_column_count", "14"),
+            ("v42_cleanup_index_count", "4"),
+            ("v42_cleanup_check_count", "4"),
+            ("v42_cleanup_foreign_keys", "1"),
+            ("v42_cleanup_initial_rows", "1"),
+        ):
+            metadata = self.metadata()
+            metadata[key] = value
+            with self.assertRaises(runner.ProductionRunnerError):
+                runner.validate_v42_postflight_extras(metadata, before=self.BEFORE)
+        malformed = self.metadata()
+        malformed["v42_cleanup_column_provider"] = "not-hex"
+        with self.assertRaisesRegex(runner.ProductionRunnerError, "malformed"):
+            runner.validate_v42_postflight_extras(malformed, before=self.BEFORE)
+
+    def test_check_contract_accepts_cosmetic_tidb_variants_only(self) -> None:
+        metadata = self.metadata()
+        name = "chk_event_media_storage_state"
+        cosmetic = (
+            " ( ( `storage_state` In ( _utf8mb4'UNMANAGED', 'UPLOADING', "
+            "'READY', 'DELETE_PENDING', 'DELETE_FAILED' ) ) ) "
+        )
+        _replace_structured_field(metadata, f"v42_check_{name}", 4, cosmetic)
+        _replace_structured_field(metadata, f"v42_tidb_check_{name}", 4, cosmetic)
+        runner.validate_v42_postflight_extras(metadata, before=self.BEFORE)
+
+        semantic_drifts = (
+            (f"v42_check_{name}", 2, runner.V42_CLEANUP_TABLE),
+            (f"v42_check_{name}", 4, "storage_state <> 'INVALID'"),
+            (f"v42_check_{name}", 4, "storage_state IN ('UNMANAGED','READY')"),
+            (f"v42_check_{name}", 4, "storage_state IN ('UNMANAGED','UPLOADING','READY','DELETE_PENDING','DELETE_FAILED') OR 1=1"),
+            (f"v42_check_{name}", 0, "2"),
+            (f"v42_check_{name}", 0, "0"),
+            (f"v42_check_{name}", 5, "NO"),
+            (f"v42_tidb_check_{name}", 4, "storage_state IN ('UNMANAGED','READY')"),
+        )
+        for key, index, value in semantic_drifts:
+            with self.subTest(key=key, field=index):
+                changed = self.metadata()
+                _replace_structured_field(changed, key, index, value)
+                with self.assertRaises(runner.ProductionRunnerError):
+                    runner.validate_v42_postflight_extras(changed, before=self.BEFORE)
+
+    def test_flyway_history_contract_rejects_every_drift_class(self) -> None:
+        key = "v42_history_contract"
+        cases = (
+            (4, "1234567"),
+            (4, "-769202001"),
+            (2, "wrong description"),
+            (3, "V42__wrong.sql"),
+            (0, "2"),
+            (5, "0"),
+        )
+        for index, value in cases:
+            with self.subTest(field=index, value=value):
+                metadata = self.metadata()
+                _replace_structured_field(metadata, key, index, value)
+                with self.assertRaises(runner.ProductionRunnerError):
+                    runner.validate_v42_postflight_extras(metadata, before=self.BEFORE)
+        above = self.metadata()
+        above["v42_above_rows"] = "1"
+        with self.assertRaises(runner.ProductionRunnerError):
+            runner.validate_v42_postflight_extras(above, before=self.BEFORE)
 
 
 # ============================================================================
@@ -1992,6 +2318,241 @@ class StandalonePostflightBindingContractTest(unittest.TestCase):
 
 
 # ============================================================================
+# V42PostflightEvidenceContractTest
+# ============================================================================
+
+
+class V42PostflightEvidenceContractTest(unittest.TestCase):
+    CHECKOUT = "a" * 40
+    MIGRATION = runner.APPROVED_V42_MIGRATION_RELEASE_COMMIT
+    IDENTITY_SHA = "1" * 64
+    BACKUP_SHA = "2" * 64
+    RESTORE_SHA = "3" * 64
+    PREFLIGHT_FILE_SHA = "4" * 64
+    PREFLIGHT_INTERNAL_SHA = "5" * 64
+    FAILURE_SHA = "6" * 64
+    INSTALLED = datetime(2026, 8, 1, 13, 23, 42, tzinfo=timezone.utc)
+    POSTFLIGHT_TIME = "2026-08-01T14:00:00Z"
+    COUNTS = {
+        "users_total": "3", "historical_events_total": "361",
+        "event_media_total": "0", "active_admin_count": "2",
+    }
+
+    def payload(self) -> dict[str, object]:
+        metadata = _metadata(before=self.COUNTS)
+        return runner.build_standalone_postflight_evidence_payload(
+            target=_v42_preflight_target(),
+            checkout_commit=self.CHECKOUT,
+            migration_release_commit=self.MIGRATION,
+            production_identity_evidence_sha256=self.IDENTITY_SHA,
+            backup_evidence_sha256=self.BACKUP_SHA,
+            restore_evidence_sha256=self.RESTORE_SHA,
+            preflight_file_sha256=self.PREFLIGHT_FILE_SHA,
+            preflight_evidence_sha256=self.PREFLIGHT_INTERNAL_SHA,
+            failure_inspection_file_sha256=self.FAILURE_SHA,
+            migration_installed_at_utc=self.INSTALLED,
+            flyway={
+                "current_version": "42", "pending_versions": [],
+                "database": "lichsuvn", "flyway_version": "11.14.1",
+            },
+            metadata=metadata,
+            verification=runner._expected_postflight_verification_summary(),
+            postflight_timestamp_utc=self.POSTFLIGHT_TIME,
+        )
+
+    def loader_arguments(self) -> dict[str, object]:
+        return {
+            "repo_root": HERE.parents[1],
+            "target": _v42_preflight_target(),
+            "expected_checkout_commit": self.CHECKOUT,
+            "expected_migration_release_commit": self.MIGRATION,
+            "expected_identity_evidence_sha256": self.IDENTITY_SHA,
+            "expected_backup_evidence_sha256": self.BACKUP_SHA,
+            "expected_restore_evidence_sha256": self.RESTORE_SHA,
+            "expected_preflight_file_sha256": self.PREFLIGHT_FILE_SHA,
+            "expected_preflight_evidence_sha256": self.PREFLIGHT_INTERNAL_SHA,
+            "expected_failure_inspection_file_sha256": self.FAILURE_SHA,
+            "expected_bounded_counts": self.COUNTS,
+            "expected_migration_installed_at_utc": self.INSTALLED,
+        }
+
+    @staticmethod
+    def write_fixture(directory: Path, value: dict[str, object]) -> tuple[Path, Path]:
+        evidence_path = directory / "postflight.json"
+        detached_path = directory / "postflight.sha256"
+        body = runner.release_e_evidence.canonical_json_bytes(value, trailing_newline=True)
+        evidence_path.write_bytes(body)
+        detached_path.write_text(
+            f"{hashlib.sha256(body).hexdigest()}  {evidence_path.name}\n",
+            encoding="ascii",
+            newline="",
+        )
+        return evidence_path, detached_path
+
+    @staticmethod
+    def resign(value: dict[str, object]) -> None:
+        value["evidence_sha256"] = base._evidence_sha256(value)
+
+    def test_builder_is_deterministic_bounded_and_secret_free(self) -> None:
+        first = self.payload()
+        second = self.payload()
+        self.assertEqual(first, second)
+        self.assertEqual(first["schema"], runner.V42_POSTFLIGHT_EVIDENCE_SCHEMA)
+        serialized = json.dumps(first, sort_keys=True)
+        for prohibited in (
+            "RHVnC4pobyyHQJT.read", "read-secret", "TIDB_PRODUCTION_READ_PASSWORD",
+            "mysql://", "jdbc:mysql://",
+        ):
+            self.assertNotIn(prohibited, serialized)
+        self.assertNotIn("metadata", first)
+
+    def test_atomic_writer_hashes_exact_bytes_and_immediately_reloads_once(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            evidence_path = Path(directory) / "postflight.json"
+            detached_path = Path(directory) / "postflight.sha256"
+            original_loader = runner.load_and_validate_v42_postflight_evidence
+            with (
+                patch.object(runner, "validate_postflight_release_lineage"),
+                patch.object(
+                    runner,
+                    "load_and_validate_v42_postflight_evidence",
+                    wraps=original_loader,
+                ) as loader,
+            ):
+                result = runner.write_and_reload_v42_postflight_evidence(
+                    evidence_path,
+                    detached_path,
+                    self.payload(),
+                    loader_arguments=self.loader_arguments(),
+                )
+            loader.assert_called_once()
+            raw = evidence_path.read_bytes()
+            digest = hashlib.sha256(raw).hexdigest()
+            self.assertEqual(result["file_sha256"], digest)
+            self.assertEqual(
+                detached_path.read_bytes(), f"{digest}  postflight.json\n".encode("ascii")
+            )
+            self.assertEqual(
+                raw,
+                runner.release_e_evidence.canonical_json_bytes(
+                    self.payload(), trailing_newline=True
+                ),
+            )
+            self.assertEqual(list(Path(directory).glob(".v42-postflight-*")), [])
+
+    def test_write_failure_and_reload_failure_remove_all_outputs(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            evidence_path = root / "postflight.json"
+            detached_path = root / "postflight.sha256"
+            real_link = os.link
+            calls = 0
+
+            def fail_second_link(source, destination):
+                nonlocal calls
+                calls += 1
+                if calls == 2:
+                    raise OSError("simulated detached publish failure")
+                return real_link(source, destination)
+
+            with patch.object(os, "link", side_effect=fail_second_link):
+                with self.assertRaises(OSError):
+                    runner.write_and_reload_v42_postflight_evidence(
+                        evidence_path, detached_path, self.payload(),
+                        loader_arguments=self.loader_arguments(),
+                    )
+            self.assertFalse(evidence_path.exists())
+            self.assertFalse(detached_path.exists())
+            self.assertEqual(list(root.glob(".v42-postflight-*")), [])
+
+            with patch.object(
+                runner,
+                "load_and_validate_v42_postflight_evidence",
+                side_effect=runner.ProductionRunnerError("reload failed"),
+            ):
+                with self.assertRaisesRegex(runner.ProductionRunnerError, "reload failed"):
+                    runner.write_and_reload_v42_postflight_evidence(
+                        evidence_path, detached_path, self.payload(),
+                        loader_arguments=self.loader_arguments(),
+                    )
+            self.assertFalse(evidence_path.exists())
+            self.assertFalse(detached_path.exists())
+            self.assertEqual(list(root.glob(".v42-postflight-*")), [])
+
+    def test_valid_loader_and_strict_semantic_mutations(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            path, detached = self.write_fixture(Path(directory), self.payload())
+            with patch.object(runner, "validate_postflight_release_lineage"):
+                loaded = runner.load_and_validate_v42_postflight_evidence(
+                    path, detached, **self.loader_arguments()
+                )
+            self.assertEqual(loaded["evidence"]["mode"], "postflight")
+
+        mutations = (
+            ("wrong schema", lambda value: value.__setitem__("schema", "wrong")),
+            ("wrong mode", lambda value: value.__setitem__("mode", "preflight")),
+            ("missing key", lambda value: value.pop("verification")),
+            ("unexpected key", lambda value: value.__setitem__("unexpected", True)),
+            ("checkout mismatch", lambda value: value["release_lineage"].__setitem__("checkout_commit", "b" * 40)),
+            ("migration mismatch", lambda value: value["release_lineage"].__setitem__("migration_release_commit", "c" * 40)),
+            ("artifact hash mismatch", lambda value: value["retained_evidence"].__setitem__("backup_evidence_sha256", "f" * 64)),
+            ("attempt mismatch", lambda value: value["migration_execution"].__setitem__("historical_migrate_attempt_count", 2)),
+            ("V42 state mismatch", lambda value: value["flyway"].__setitem__("state", "Pending")),
+            ("schema verification false", lambda value: value["verification"]["check_constraints"].__setitem__("enforced", False)),
+            ("count mismatch", lambda value: value["bounded_counts"].__setitem__("users_total", "4")),
+            ("timestamp malformed", lambda value: value.__setitem__("postflight_timestamp_utc", "not-a-time")),
+            ("timestamp before migrate", lambda value: value.__setitem__("postflight_timestamp_utc", "2026-08-01T13:00:00Z")),
+        )
+        for label, mutate in mutations:
+            with self.subTest(label=label), tempfile.TemporaryDirectory() as directory:
+                value = copy.deepcopy(self.payload())
+                mutate(value)
+                self.resign(value)
+                path, detached = self.write_fixture(Path(directory), value)
+                with patch.object(runner, "validate_postflight_release_lineage"):
+                    with self.assertRaises(runner.ProductionRunnerError):
+                        runner.load_and_validate_v42_postflight_evidence(
+                            path, detached, **self.loader_arguments()
+                        )
+
+    def test_detached_internal_sha_and_lineage_fail_closed(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            path, detached = self.write_fixture(Path(directory), self.payload())
+            detached.write_text("0" * 64 + "  postflight.json\n", encoding="ascii")
+            with self.assertRaisesRegex(runner.ProductionRunnerError, "detached SHA"):
+                runner.load_and_validate_v42_postflight_evidence(
+                    path, detached, **self.loader_arguments()
+                )
+        with tempfile.TemporaryDirectory() as directory:
+            value = self.payload()
+            value["evidence_sha256"] = "0" * 64
+            path, detached = self.write_fixture(Path(directory), value)
+            with self.assertRaisesRegex(runner.ProductionRunnerError, "internal evidence SHA"):
+                runner.load_and_validate_v42_postflight_evidence(
+                    path, detached, **self.loader_arguments()
+                )
+        with tempfile.TemporaryDirectory() as directory:
+            path, detached = self.write_fixture(Path(directory), self.payload())
+            with patch.object(
+                runner,
+                "validate_postflight_release_lineage",
+                side_effect=runner.ProductionRunnerError("lineage mismatch"),
+            ):
+                with self.assertRaisesRegex(runner.ProductionRunnerError, "lineage mismatch"):
+                    runner.load_and_validate_v42_postflight_evidence(
+                        path, detached, **self.loader_arguments()
+                    )
+
+    def test_main_cannot_report_postflight_success_before_writer_reload(self) -> None:
+        source = (HERE / "tidb_production_v42_migration.py").read_text(encoding="utf-8")
+        postflight_branch = source.split('if args.mode == "postflight":', 2)[-1]
+        self.assertLess(
+            postflight_branch.index("write_and_reload_v42_postflight_evidence("),
+            postflight_branch.index('_print({\n                "mode": "postflight"'),
+        )
+
+
+# ============================================================================
 # DocumentationContractTest
 # ============================================================================
 
@@ -2102,6 +2663,26 @@ class DocumentationContractTest(unittest.TestCase):
         self.assertIn("zero ``migrate``", runbook)
         self.assertIn("``TIDB_PRODUCTION_MIGRATE_*``", runbook)
         self.assertIn("current clock", runbook)
+
+    def test_runbook_documents_complete_postflight_and_evidence_contract(self) -> None:
+        runbook = (
+            HERE.parents[1] / "docs" / "admin" / "TIDB_PRODUCTION_V42_RUNBOOK.md"
+        ).read_text(encoding="utf-8")
+        for phrase in (
+            "both ``CURRENT_USER()`` and ``USER()``",
+            "shared TiDB gateway hostname is not sufficient identity proof",
+            "complete V42 object contract",
+            "default ``ON UPDATE RESTRICT``",
+            "exactly zero foreign keys",
+            "initial row count zero",
+            "checksum ``-769202000``",
+            runner.V42_POSTFLIGHT_EVIDENCE_SCHEMA,
+            "``--evidence-detached-sha256``",
+            "immediately reloads",
+            "success is not reported before reload passes",
+            "production postflight has not yet been run",
+        ):
+            self.assertIn(phrase.casefold(), runbook.casefold())
 
 
 # ============================================================================
@@ -2346,6 +2927,8 @@ class ReleaseEEvidenceOrderingTest(unittest.TestCase):
                     "--failure-inspection-detached-sha256",
                     str(Path(directory) / "failure.sha256"),
                     "--evidence-file", str(evidence_path),
+                    "--evidence-detached-sha256",
+                    str(Path(directory) / "postflight.sha256"),
                 ])
             self.assertFalse(evidence_path.exists())
         self.assertEqual(exit_code, 2)
