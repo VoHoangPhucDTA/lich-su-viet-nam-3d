@@ -5,14 +5,18 @@ import {
   ShieldCheck,
 } from 'lucide-react';
 import { useAuth } from '../../auth/AuthContext';
-import appLogo from '../../assets/lich-su-viet-nam-3d-logo-header-transparent.webp';
+import originalAppLogo from '../../assets/lich-su-viet-nam-3d-logo-header-transparent.webp';
 import { useHeader } from './useHeader';
+
+const homeAppLogo = '/home-images/home-logo-384.webp';
 
 export default function AppHeader() {
   const { currentUser, isAuthenticated, logout } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
   const { centerContent } = useHeader();
+  const isHomeRoute = location.pathname === '/home';
+  const appLogo = isHomeRoute ? homeAppLogo : originalAppLogo;
   const preserveExcludedModuleIcons = /^\/(?:quiz|exams)(?:\/|$)/.test(location.pathname);
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -70,8 +74,9 @@ export default function AppHeader() {
             <img
               src={appLogo}
               alt="Lịch Sử Việt Nam 3D"
-              width={1215}
-              height={534}
+              width={isHomeRoute ? 384 : 1215}
+              height={isHomeRoute ? 169 : 534}
+              fetchPriority={isHomeRoute ? 'low' : undefined}
               className="app-brand-logo"
             />
           </Link>
