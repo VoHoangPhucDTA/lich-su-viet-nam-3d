@@ -122,7 +122,7 @@ Ngoài trang Bản đồ tương tác, hệ thống còn cung cấp các trang s
 Nhằm tối ưu hóa hiệu năng cho các thao tác đọc (read-heavy) trên bản đồ và thanh thời gian, hệ thống <b>không sử dụng JPA Entity</b> mặc định mà dùng <b>NamedParameterJdbcTemplate</b> để thực thi SQL thuần (Native SQL). Dưới đây là các truy vấn cốt lõi và lý do sử dụng:</p>
 
 <p><b>1. Truy vấn danh sách sự kiện theo năm và bộ lọc (API: <code>GET /api/events</code>)</b><br>
-- <b>Cấu trúc Query:</b>
+- <b>Cấu trúc Query:</b> 
 <br><code>SELECT e.id, e.title, e.start_year, e.end_year, e.lat, e.lng, e.geo_type, ... </code><br>
 <code>(SELECT COUNT(*) FROM historical_events c WHERE c.parent_id = e.id AND c.status = 'published') AS child_count</code><br>
 <code>FROM historical_events e WHERE e.status = 'published' AND e.start_year <= :year AND e.effective_end_year >= :year</code><br>
@@ -132,12 +132,12 @@ Nhằm tối ưu hóa hiệu năng cho các thao tác đọc (read-heavy) trên 
   <br>+ <b>Tối ưu chỉ mục (Index Optimization):</b> Để tránh việc quét toàn bộ bảng (Table Scan), hệ thống sử dụng chỉ mục <code>idx_events_search_year</code> trên tổ hợp các trường <code>(status, start_year, effective_end_year)</code>. Điều này cho phép MySQL thực hiện quét chỉ mục dạng phạm vi (Index Range Scan) cực nhanh dựa trên năm được chọn, thay vì dùng chỉ mục timeline <code>idx_events_timeline</code> vốn bị ngắt quãng do thiếu trường <code>show_on_timeline</code> trong bộ lọc.</p>
 
 <p><b>2. Truy vấn Lazy-load các sự kiện con (API: <code>GET /api/events/{eventId}/children</code>)</b><br>
-- <b>Cấu trúc Query:</b>
+- <b>Cấu trúc Query:</b> 
 <br><code>SELECT e.id, ... (SELECT COUNT(*) ...) AS child_count FROM historical_events e WHERE e.status = 'published' AND e.parent_id = :eventId</code><br>
 - <b>Giải thích:</b> Truy vấn này áp dụng cơ chế <b>Lazy-loading</b> cho cấu trúc cây. Thay vì query đệ quy (Recursive CTE) load toàn bộ cây lịch sử làm nghẽn máy chủ, hệ thống chỉ query sự kiện con 1 tầng ứng với <code>parent_id</code> khi người dùng chủ động nhấn mở rộng sự kiện cha trên Sidebar.</p>
 
 <p><b>3. Truy vấn các mốc năm trên thanh Timeline (API: <code>GET /api/timeline</code>)</b><br>
-- <b>Cấu trúc Query:</b>
+- <b>Cấu trúc Query:</b> 
 <br><code>SELECT e.start_year FROM historical_events e WHERE e.status = 'published' AND e.show_on_timeline = TRUE</code><br>
 - <b>Giải thích:</b> Đây là một query cực kỳ nhẹ, chỉ nhắm vào những sự kiện được gắn cờ <code>show_on_timeline</code> để lấy danh sách các năm, giúp UI vẽ các điểm mốc (markers) lên thanh trượt Timeline.</p>
 

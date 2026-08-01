@@ -181,42 +181,35 @@ API, CLI và evaluator dùng chung `GenerationService`. Service chỉ chấp nh�
 ## Spring integration production — Goal 10
 
 ```text
-React /quiz/generate
-→ POST /api/quiz/generate + JWT/cookie
+React (Goal 11)
+→ POST /api/exams/ai/generate + JWT/cookie
 → Spring Security + public request validation
-→ topK=5, grade/lesson/document=null, generationUseCase=SELF_PRACTICE
-→ pseudonymous canary subject
+→ read-only verified Style Example selection từ MySQL
+→ public request + style-only DTO
 → JDK HttpClient HTTP/1.1, X-Request-ID, no retry
 → POST /ai/quiz/generate
 → FastAPI retrieval → Fact Context → Gemini → validation
 → typed Spring defensive validation
-→ response không receipt và không persistence
+→ ApiResponse<AiQuizGenerateResponse>
 ```
 
-Spring không gọi health trước mỗi generation request, không forward JWT và
-không biết Gemini key. Student response chỉ giữ questions, sources, warnings và
-generation summary. Compatibility endpoint `/api/exams/ai/generate` dùng cùng
-generation core nhưng phát opaque receipt cho candidate workflow.
+Spring không gọi health trước mỗi generation request, không forward JWT, không biết Gemini key và không persist generated questions. Public response chỉ giữ questions, sources, warnings và requested/generated/partial; model, collection, prompt/schema version và internal latency chỉ tồn tại trong internal DTO.
 
-Canary routing chỉ áp dụng `SELF_PRACTICE`, feature mặc định tắt và rollout 0%.
-Current/candidate provider pool độc lập; không cross-model fallback.
+Style query là read-only. Do schema exam bank không có grade/lesson, Spring không suy diễn các field đó; query ưu tiên exact topic/difficulty từ `raw_topic` hoặc `exam_topics`, sau đó difficulty và stable `question_id`. Grade/lesson của public request chỉ đi vào FastAPI retrieval filters.
 
 ## Frontend integration — Goal 11
 
 ```text
-React /quiz/generate (authenticated)
+React /exams/ai (authenticated)
 → shared apiPostOnce + HttpOnly cookie
-→ POST /api/quiz/generate
-→ Spring → FastAPI retrieval toàn corpus lớp 10–12
+→ POST /api/exams/ai/generate
+→ Spring → verified Style Examples → FastAPI retrieval/generation
 → Spring normalized response
-→ strict frontend parser → local QuizSession
-→ /quiz/session/:id → /quiz/result/:id → /quiz/history
+→ strict frontend parser → MCQ adapter
+→ React memory-only quiz → local scoring/source review
 ```
 
-Frontend không có FastAPI base URL, Gemini key, prompt hoặc raw filter. Abort
-chỉ dừng chờ browser và không khẳng định request upstream đã dừng. Correct
-answer, explanation và source chỉ hiện sau submit. `/exams/ai` chỉ redirect
-sang `/quiz/generate`; admin queue dùng `/admin/exams/ai-candidates/*`.
+Frontend không có FastAPI base URL, Gemini key, prompt, raw filter hoặc persistence adapter. State chuyển `IDLE → VALIDATING → GENERATING → READY → SUBMITTED`; lỗi đi tới `ERROR`. Abort chỉ dừng chờ browser và không khẳng định request upstream đã dừng. `MCQQuestionCardV2`, `ExamQuickNavigator` và `ExamPracticeHeader` được tái sử dụng; adapter giữ source mapping ngoài official exam/session schema.
 
 ## Goal 13 trust boundaries
 
@@ -228,7 +221,7 @@ Before submit, approve and publish, Spring calls protected `POST /ai/provenance/
 
 ## Student practice boundary
 
-`/quiz` uses authenticated `POST /api/quiz/generate` and a no-receipt response. Spring sends null grade/lesson/document filters and `topK=5` to FastAPI, then React stores only the self-study session locally. The receipt/candidate/revision path below remains a permission-gated teacher/admin compatibility workflow and is not reachable from the student quiz UI.
+`/quiz` uses authenticated `POST /api/quiz/generate` and a no-receipt response. Spring sends null grade/lesson/document filters and `topK=5` to FastAPI, then React stores only the self-study session locally. The receipt/candidate/revision path below remains an admin-only compatibility workflow and is not reachable from the student quiz UI.
 
 Spring persists each successful generation as a short-lived, user-bound receipt. An admin can explicitly copy selected receipt questions into isolated candidate tables; students cannot. Candidate content and immutable provenance remain outside the official bank until a separate publish transaction locks candidate and target, inserts the official MCQ/options, links it back, and audits the transition. Publish targets are restricted to hidden, review-required definitions in active/validated datasets.
 

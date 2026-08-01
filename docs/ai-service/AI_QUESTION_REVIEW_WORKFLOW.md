@@ -8,13 +8,7 @@
 
 ## Roles and lifecycle
 
-The current authorization model derives granular candidate permissions from the authenticated roles:
-
-- `student`: no candidate authority; may use the separate `/quiz` self-practice flow.
-- `teacher`: create, view, edit, submit, review, and view candidate audit.
-- `admin`: all teacher permissions plus publish and the remaining administrative permissions.
-
-Creator and approver must differ. An admin creator can use the explicit, reasoned self-review override; the override is audited separately. Approval never publishes.
+The current identity model has only `student` and `admin`; it has no teacher role or granular permissions. Students may generate and answer an in-memory quiz, but cannot persist or access review APIs. Admins may generate, select questions to save, review, and publish. Self-review remains allowed for the single-admin thesis/demo deployment and is recorded in audit; four-eyes review is a documented future hardening item.
 
 ```text
 DRAFT -> PENDING_REVIEW -> APPROVED -> PUBLISHED
@@ -40,7 +34,7 @@ Events are `CREATED`, `EDITED`, `SUBMITTED`, `APPROVED`, `REJECTED`, `PUBLISHED`
 
 ## Endpoints
 
-Candidate routes require authentication and are checked again in the service layer using the granular permission required by each command. Students receive 403; publish remains admin-only.
+All candidate routes require `ROLE_admin` in Spring Security and again in the service layer.
 
 ```http
 POST /api/exams/ai/candidates
@@ -65,13 +59,12 @@ The official question inherits the target definition's hidden/review-required wo
 
 ## UI and operations
 
-- `/exams/ai`: compatibility URL only; redirects to `/quiz/generate` and does not expose candidate creation.
-- `/quiz/generate`: authenticated student self-practice; it never creates a receipt or candidate.
+- `/exams/ai`: admins can explicitly select generated items and save drafts; students never see this control.
 - `/admin/exams/ai-candidates`: paginated/filterable queue.
 - `/admin/exams/ai-candidates/:id`: original/current content, edit controls, sources, neutral warnings, provenance, audit, and separate transition commands.
 - Publish requires a confirmation dialog and an explicit hidden target.
 
-Operational checks: verify Flyway through V38 on a non-production database, exercise candidate creation and transitions with teacher/admin test identities, publish only to a hidden test definition, repeat publish to confirm the same official link, inspect audit, and confirm a student receives 403. Do not use a public/production dataset for smoke testing.
+Operational checks: verify Flyway V35 on a non-production database, log in as admin, generate and save a test question, exercise every transition, publish only to a hidden test definition, repeat publish to confirm the same official link, inspect audit, and confirm a student receives 403. Do not use a public/production dataset for smoke testing.
 
 ## Goal 13A–13B amendment
 
@@ -81,6 +74,6 @@ Submit, approve and publish each perform live canonical validation and fail clos
 
 ## Test strategy and limitations
 
-Unit/security tests cover receipt-aware generation, invalid lifecycle, student denial, granular teacher/admin access, idempotent repeat publish, version conflict, UI provenance/warning/audit rendering, separate submit, explicit publish confirmation, and published immutability. Python generation tests retain grounded metadata. Goal 17A completed two deterministic four-service Compose E2E runs with healthy MySQL, Chroma, FastAPI and Spring; live Gemini remains excluded from CI and the deterministic pass is not evidence of provider latency or quality.
+Unit/security tests cover receipt-aware generation, invalid lifecycle, student denial/admin access, idempotent repeat publish, version conflict, UI provenance/warning/audit rendering, separate submit, explicit publish confirmation, and published immutability. Python generation tests retain grounded metadata. Full real E2E requires MySQL, AI Service, Spring, frontend, and test identities; when unavailable it must be reported as not run rather than inferred from mocks.
 
 Post-publish correction is now delegated to Goal 13C's separate candidate/official revision flow; this original review workflow still never reopens or mutates a published candidate. See `AI_QUESTION_REVISION_WORKFLOW.md` for source remapping, chain/head, conflict and new-official publish rules.

@@ -1,7 +1,5 @@
 # AI Service RAG — Decision Log
 
-> Current-state note (Goal 17A): ADR-039 and ADR-042 preserve the original Goal 10/11 history. Their `/exams/ai` and React-memory-only wording has been superseded for student self-practice by ADR-045. The compatibility generation endpoint and the candidate review workflow remain separate.
-
 > Goal 13D decision: packaging remains development/test only, containers remain non-root, health separates liveness from optional SMTP, and new metrics use fixed low-cardinality tags only. Evidence: `AI_SERVICE_E2E_AND_DEPLOYMENT_READINESS.md`.
 
 ## ADR-001 — SGK là nguồn sự thật
@@ -348,16 +346,6 @@
 - Consequences: Học sinh vẫn thấy provenance khi review nhưng không bị dẫn dắt rằng warning heuristic đồng nghĩa câu sai.
 - Verification: component tests xác nhận source ẩn trước submit, hiện sau submit và không render `MANUAL_REVIEW_RECOMMENDED`/“câu hỏi sai”.
 
-## ADR-045 — Tách self-practice `/quiz` khỏi candidate workflow
-
-- Date: 2026-07-30
-- Status: Accepted; supersedes the student-facing route and memory-only details of ADR-042.
-- Context: Học sinh cần một luồng tự luyện thống nhất với module `/quiz`, trong khi receipt/candidate/review/publish có quyền và vòng đời riêng.
-- Decision: `/quiz/generate` gọi authenticated `POST /api/quiz/generate`, sau đó dùng `/quiz/session/:sessionId`, `/quiz/result/:sessionId` và `/quiz/history`. Session/result/history được lưu localStorage, cô lập theo `userId`, tối đa 50 kết quả. `/exams/ai` chỉ redirect tương thích. Student flow không tạo receipt hoặc candidate. `POST /api/exams/ai/generate` tiếp tục phục vụ compatibility/candidate workflow.
-- Decision: thời lượng self-practice được suy ra từ số câu: 1–3 câu là 5 phút, 4–6 câu là 10 phút, 7–10 câu là 15 phút. Shared UI primitives có thể được tái sử dụng, nhưng persistence, timer, scoring và domain policy của quiz/THPT vẫn tách biệt.
-- Consequences: source/explanation chỉ hiện sau nộp; refresh có thể phục hồi dữ liệu local của đúng người dùng; dữ liệu self-practice không trở thành đề thi chính thức. Teacher có quyền create/view/edit/submit/review/audit candidate; admin có toàn bộ quyền, gồm publish.
-- Verification: authenticated visual QA trên bốn viewport, keyboard/dialog/focus checks, Vitest frontend, Spring/FastAPI tests và deterministic four-service Compose E2E Goal 17A.
-
 Mỗi quyết định phải có:
 
 ```text
@@ -383,8 +371,8 @@ Mỗi quyết định phải có:
 ## ADR — Goal 12 authorization and publishing
 
 - Date: 2026-07-20
-- Status: Superseded by Goal 13A–13B granular security and live validation.
-- Context: at Goal 12 time, the implemented model exposed only `student` and `admin`; teacher/granular permissions were added later by Goal 13A–13B.
+- Status: Accepted
+- Context: the actual user model exposes only `student` and `admin`; no teacher permission exists, and the thesis/demo may have one admin.
 - Decision: students generate and answer only; admins alone save/review/publish. Self-review is permitted but audited. Generation provenance is accepted only through a 30-minute opaque database receipt bound to the generating user. Approval and publication remain separate, and publication is allowed only into a hidden review-required target.
 - Alternatives: accept client provenance; add a fictional teacher role; force four-eyes review; publish directly to the official bank.
 - Consequences: safe first release with no auto-publish, but no granular teacher permissions or mandatory separation of duties.

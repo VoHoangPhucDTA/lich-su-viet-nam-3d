@@ -1,7 +1,5 @@
 # AI Question Revision Workflow
 
-> Current verification amendment (Goal 17A, 2026-07-30): the Goal 13C sections below preserve the implementation-time gate. Flyway now validates through V38 on MySQL 8.4, revision/concurrency paths are covered by the current backend suite, and deterministic four-service Compose E2E passed twice. No production deployment or public publication was performed.
-
 > Goal 13D real concurrency passed: one open revision, stale-save conflict, one new official revision/four options/one chain row, immutable old official content, advanced head, cleared open candidate, and idempotent repeat publish.
 
 ## Scope and invariants
@@ -16,7 +14,7 @@ The lifecycle remains `DRAFT → PENDING_REVIEW → APPROVED → PUBLISHED`, wit
 
 `ai_question_revision_heads` owns the current official head, the optional open candidate, and `next_revision_number`. The head row is locked while allocating a revision; numbering is never calculated with `COUNT(*)`. Revision 1 is the original official publication, then 2, 3, and so on. Unique constraints cover `(root_official_question_id, revision_number)` and each official/candidate chain link.
 
-`ai_question_official_revisions` is the append-only official chain. It records root, previous official, new official, candidate, revision number, actor, and time. Because the official schema has no safe active/current flag, the head table is authoritative only for this candidate/revision workflow and does not alter catalog visibility.
+`ai_question_official_revisions` is the append-only official chain. It records root, previous official, new official, candidate, revision number, actor, and time. Because the official schema has no safe active/current flag, the head table is authoritative only for this admin workflow and does not alter catalog visibility.
 
 At most one open revision exists for a root. `DRAFT`, `PENDING_REVIEW`, `APPROVED`, and editable `REJECTED` all remain open. A second create returns `AI_REVISION_ALREADY_OPEN`.
 

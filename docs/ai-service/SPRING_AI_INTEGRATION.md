@@ -70,7 +70,7 @@ Candidate authorization is authority-specific, with controller `@PreAuthorize` a
 
 ## Goal 12 persistence boundary
 
-Spring issues an opaque generation receipt after validating the compatibility generation response. Candidate creation resolves questions and provenance from that server receipt; it does not trust model/source identity supplied by the browser. `/api/exams/ai/candidates/**` requires authentication plus command-specific authority, repeated in the application layer: teacher can create/view/edit/submit/review/audit, while publish remains admin-only. Publish uses row locks and one transaction for official question/options/counts/candidate link/audit; failure rolls back and records best-effort `PUBLISH_FAILED` separately.
+Spring now issues an opaque generation receipt after validating the FastAPI response. Candidate creation resolves questions and provenance from that server receipt; it does not trust model/source identity supplied by the browser. `/api/exams/ai/candidates/**` requires `ROLE_admin`, and the application layer repeats the role check. Publish uses row locks and one transaction for official question/options/counts/candidate link/audit; failure rolls back and records best-effort `PUBLISH_FAILED` separately.
 
 ## Goal 13C orchestration
 

@@ -52,21 +52,12 @@ Không được đánh dấu `DONE` nếu chưa có bằng chứng từ build/te
 
 ## Trạng thái tóm tắt hiện tại
 
-- Goal 17A local release gate: hoàn tất trên `fix/ai-service` tại
-  `2c28c4c3`; Compose deterministic E2E 2/2 pass, 13/13 Testcontainers tests
-  chạy thật và pass, cleanup không còn project resource.
-- Quality baseline hiện tại: AI Service 308 pass/3 live-smoke skip, app coverage
-  90%, combined coverage 85%; backend 260 tests/4 design-valid skip; frontend
-  ESLint 0/0, TypeScript pass, 536/536 tests và production build pass.
 - Bước dữ liệu HTML → Markdown sạch → structured blocks: hoàn thành.
 - Bước Markdown/blocks → 459 chunks: hoàn thành.
 - Embedding local TF-IDF + Random Projection 256 chiều: hoàn thành, chỉ dùng baseline.
 - Gemini embedding production: hoàn tất 414 eligible chunks, dimension 768.
 - ChromaDB production collection: hoàn tất 414 records, cosine, idempotent và persistent.
 - Retrieval API, generation API và Spring integration: đã triển khai và smoke production pass.
-- Frontend integration: luồng học sinh đã hợp nhất vào `/quiz`; `/quiz/generate` gọi authenticated `POST /api/quiz/generate`, lưu session/result/history tự học trong localStorage và `/exams/ai` chỉ redirect. Candidate/review là luồng teacher/admin riêng với publish chỉ dành cho admin.
-- Current model là `gemini-2.5-flash`; candidate
-  `gemini-3.5-flash-lite` mặc định disabled, rollout 0% và không cross-model
-  fallback.
+- Frontend integration: luồng học sinh đã hợp nhất vào `/quiz`; `/quiz/generate` gọi authenticated `POST /api/quiz/generate`, lưu session/result/history tự học trong localStorage và `/exams/ai` chỉ redirect. Candidate/review vẫn là luồng admin riêng.
 
 Xem chi tiết tại `AI_SERVICE_STATUS.md`.

@@ -1,9 +1,6 @@
 # AI Service RAG — Data Contract
 
-> Goal 17A applied/validated all 38 migrations through deterministic Compose and
-> Testcontainers. Goal 13 candidate/revision tables, indexes, foreign keys,
-> version columns, immutable old official data and append-only revision links
-> remain verified.
+> Goal 13D applied all 37 migrations twice on empty MySQL 8.4 schemas and verified Goal 13 tables, indexes, foreign keys, version columns, immutable old official data, and one append-only revision link.
 
 ## 1. Nguồn canonical
 

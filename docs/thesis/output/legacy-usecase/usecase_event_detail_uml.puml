@@ -34,12 +34,12 @@ group Normal Flow 2.1: Xem chi tiết sự kiện và Media
     API --> EDP : 2.1.10: eventApi.ts:\nTrả dữ liệu chi tiết sự kiện
     deactivate API
     activate EDP
-
+    
     EDP -> CLD : 2.1.11: EventDetailPage.tsx:\nClient fetch ảnh trực tiếp từ URL Cloudinary
     activate CLD
     CLD --> EDP : 2.1.12: Cloudinary:\nTrả về file ảnh tối ưu hóa
     deactivate CLD
-
+    
     EDP -> EDP : 2.1.13: EventDetailPage.tsx:\nTự động Render các Section (Tổng quan, Nội dung SGK, Dữ kiện chính,\nĐịa điểm, Sự kiện liên quan, Tư liệu Media, Nguồn tham khảo).\nTại Section Tư liệu Media, hiển thị 2 Tab (Hình ảnh / Video)
     deactivate EDP
 end
@@ -55,7 +55,7 @@ group Alternative Flow 2.2: Nghe đọc văn bản (Text-to-Speech)
         activate CTR
         CTR -> SRV : 2.2.4: EventController.java:\nKiểm tra cache file Audio trong DB
         activate SRV
-
+        
         alt Chưa có file Audio trong Cache
             SRV -> TTS : 2.2.5: EventReadService.java:\nGửi Text lên API FPT.AI / ElevenLabs
             activate TTS
@@ -69,7 +69,7 @@ group Alternative Flow 2.2: Nghe đọc văn bản (Text-to-Speech)
             activate DB
             deactivate DB
         end
-
+        
         SRV --> CTR : 2.2.10: EventReadService.java:\nTrả về Audio URL
         deactivate SRV
         CTR --> API : 2.2.11: EventController.java:\nTrả HTTP 200 kèm URL
@@ -77,7 +77,7 @@ group Alternative Flow 2.2: Nghe đọc văn bản (Text-to-Speech)
         API --> EDP : 2.2.12: eventApi.ts:\nTrả URL cho Audio Player
         deactivate API
         activate EDP
-
+        
         EDP -> EDP : 2.2.13: EventDetailPage.tsx:\nTrình phát Audio tự động phát âm thanh
         deactivate EDP
     end

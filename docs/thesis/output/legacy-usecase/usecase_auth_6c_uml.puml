@@ -35,7 +35,7 @@ group Normal Flow: Yêu cầu đặt lại và Cập nhật mật khẩu (6C.1)
     activate UI
     UI -> UI : 6C.1.11: ForgotPasswordPage.tsx:\nhiển thị thông báo "Vui lòng kiểm tra hộp thư của bạn" kèm email.
     deactivate UI
-
+    
     U -> UI : 6C.1.12: ResetPasswordPage.tsx:\nNgười dùng nhấp vào link từ email, nhập mật khẩu mới và nhấn nút Đặt lại.
     activate UI
     UI -> SRV_TS : 6C.1.13: ResetPasswordPage.tsx:\ngọi hàm resetPassword trong authService.ts.

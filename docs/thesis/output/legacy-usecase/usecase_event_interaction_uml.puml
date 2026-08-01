@@ -15,14 +15,14 @@ group Normal Flow 1.1: Tương tác với sự kiện lịch sử trên bản đ
     opt Hiển thị hướng dẫn (Optional)
         U -> MP : 1.1.0: OnboardingGuide.tsx (useMapGuide hook):\nLần đầu truy cập — tự động hiển thị onboarding 4 bước dạng collapsible panel.\n(1) Chọn mốc thời gian trên Timeline\n(2) Chọn sự kiện từ sidebar bên trái\n(3) Khám phá vị trí sự kiện trên bản đồ 3D\n(4) Xem thông tin chi tiết ở EventPopup bên phải.\nTrạng thái lưu vào localStorage (lsvn3d_map_guide_seen).\nSau khi đóng, không tự động hiện lại khi đổi timeline/sự kiện/filter/map.\nNút "Hướng dẫn" (la bàn) ở góc trái để mở lại.
     end
-
+    
     U -> TL : Người dùng kéo thanh thời gian (hoặc đổi Lớp)
     activate TL
-
+    
     opt Timeline cluster (Optional)
         U -> TL : Các mốc năm gần nhau được gộp thành cụm (cluster chip gạch đứt)\nNgười dùng nhấn cụm để mở rộng, nhấn nút X để thu gọn
     end
-
+    
     TL -> API : 1.1.1: Timeline.tsx:\nKích hoạt sự kiện thay đổi, gọi hàm getEventsByYearFromBackend()
     deactivate TL
     activate API
@@ -44,11 +44,11 @@ group Normal Flow 1.1: Tương tác với sự kiện lịch sử trên bản đ
     MP -> SB : 1.1.9: Sidebar.tsx:\nNhận dữ liệu mới và hiển thị danh sách sự kiện ở bảng điều khiển bên trái
     deactivate MP
     activate SB
-
+    
     opt Lọc hiển thị trên Client (Optional)
         U -> SB : 1.1.10: Sidebar.tsx:\nNgười dùng nhấp chọn các nút filter (chấm màu phân loại) để lọc\nNhấn "Xoá lọc" để trở về trạng thái không lọc
     end
-
+    
     opt Mở rộng sự kiện cha (Optional)
         U -> SB : 1.1.11: Sidebar.tsx:\nNgười dùng nhấp vào một sự kiện cha có sự kiện con để mở rộng (expand)
         SB -> API : 1.1.12: eventApi.ts:\nGọi hàm getChildrenFromBackend(eventId)
@@ -68,7 +68,7 @@ group Normal Flow 1.1: Tương tác với sự kiện lịch sử trên bản đ
         API --> SB : 1.1.15: Sidebar.tsx:\nRender bổ sung danh sách sự kiện con nằm lồng dưới sự kiện cha (kiểu Tree Node)
         deactivate API
     end
-
+    
     U -> SB : 1.1.16: Sidebar.tsx:\nNgười dùng nhấp trực tiếp vào tiêu đề sự kiện (cha hoặc con) để xem.\nĐây là phương thức tương tác chính.
     SB -> MP : 1.1.17: MapPage.tsx:\nThiết lập trạng thái selectedEvent
     deactivate SB
@@ -86,7 +86,7 @@ group Normal Flow 1.1: Tương tác với sự kiện lịch sử trên bản đ
     deactivate MP
     activate EP
     deactivate EP
-
+    
     opt Hiển thị sự kiện tương lai trong Sidebar
         SB -> SB : 1.5.1: Sidebar.tsx - EventTreeNode:\nSự kiện có startYear > currentYear → opacity 0.5,\nbadge năm border dashed + Clock icon
     end
