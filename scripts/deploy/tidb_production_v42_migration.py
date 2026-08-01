@@ -24,6 +24,7 @@ from __future__ import annotations
 
 import argparse
 import hashlib
+import hmac
 import json
 import os
 import re
@@ -159,6 +160,58 @@ V42_BOUNDED_COUNTS = (
     "event_media_total",
     "active_admin_count",
 )
+
+V42_PREFLIGHT_METADATA_KEYS = frozenset(
+    {
+        "server_version",
+        "version_comment",
+        "database",
+        "global_time_zone",
+        "session_time_zone",
+        "character_set_database",
+        "collation_database",
+        "sql_mode",
+        "active_admin_count",
+        "failed_migration_count",
+        "users_total",
+        "events_total",
+        "user_roles_total",
+        "roles_total",
+        "role_code_counts",
+        "role_assignment_counts",
+        "admin_role_assignment_count",
+        "event_status_counts",
+        "user_status_counts",
+        "historical_events_total",
+        "event_media_total",
+        "session_user",
+        "session_user_prefix_verified",
+        "v42_managed_columns",
+        "v42_media_indexes",
+        "v42_fk_event_media_uploaded_by",
+        "v42_cleanup_table",
+        "v42_cleanup_constraints",
+        "v42_check_constraints",
+        "v42_tidb_check_constraints",
+        "tidb_enable_check_constraint",
+        "v42_success_rows",
+        "v42_history_checksum",
+        "v42_history_present",
+    }
+)
+
+V42_PREFLIGHT_ABSENT_SCHEMA_VALUES = {
+    "v42_managed_columns": "",
+    "v42_media_indexes": "",
+    "v42_fk_event_media_uploaded_by": "0",
+    "v42_cleanup_table": "0",
+    "v42_cleanup_constraints": "",
+    "v42_check_constraints": "",
+    "v42_tidb_check_constraints": "",
+    "v42_success_rows": "0",
+    "v42_history_checksum": "",
+    "v42_history_present": "0",
+}
 
 
 # ============================================================================
@@ -1212,6 +1265,141 @@ def build_evidence_payload(
     )
 
 
+def _read_v42_preflight_evidence(
+    path: Path,
+    expected_file_sha256: str,
+) -> Mapping[str, Any]:
+    """Read only the exact preflight artifact emitted by this V42 runner.
+
+    ``base._read_evidence`` intentionally remains bound to historical Release D
+    (V37 with V38-V41 pending).  Release E has a separate loader so neither
+    release can fall back to, or broaden into, the other release's state.
+    """
+    path = Path(path)
+    if path.suffix.lower() != ".json" or not path.is_file() or path.is_symlink():
+        raise ProductionRunnerError("V42 preflight evidence file is missing or invalid")
+    if not re.fullmatch(r"[0-9a-fA-F]{64}", expected_file_sha256 or ""):
+        raise ProductionRunnerError(
+            "V42 preflight evidence file SHA-256 is missing or invalid"
+        )
+    try:
+        raw = path.read_bytes()
+    except OSError as exc:
+        raise ProductionRunnerError("V42 preflight evidence cannot be read") from exc
+    if len(raw) > base.MAX_EVIDENCE_BYTES:
+        raise ProductionRunnerError("V42 preflight evidence is too large")
+    if not hmac.compare_digest(
+        hashlib.sha256(raw).hexdigest(), expected_file_sha256.lower()
+    ):
+        raise ProductionRunnerError(
+            "V42 preflight evidence file SHA-256 does not match the stored bytes"
+        )
+
+    def reject_duplicate_keys(pairs: list[tuple[str, Any]]) -> dict[str, Any]:
+        result: dict[str, Any] = {}
+        for key, value in pairs:
+            if key in result:
+                raise ProductionRunnerError(
+                    "V42 preflight evidence contains duplicate keys"
+                )
+            result[key] = value
+        return result
+
+    try:
+        value = json.loads(
+            raw.decode("utf-8"),
+            object_pairs_hook=reject_duplicate_keys,
+        )
+    except (UnicodeDecodeError, json.JSONDecodeError) as exc:
+        raise ProductionRunnerError(
+            "V42 preflight evidence is not valid JSON"
+        ) from exc
+    if not isinstance(value, Mapping):
+        raise ProductionRunnerError("V42 preflight evidence has an invalid shape")
+    expected_keys = {
+        "format_version",
+        "mode",
+        "target",
+        "release_commit",
+        "created_at",
+        "flyway",
+        "metadata",
+        "evidence_sha256",
+    }
+    if set(value) != expected_keys or value.get("mode") != "preflight":
+        raise ProductionRunnerError(
+            "V42 before evidence must be an exact preflight artifact"
+        )
+    base.validate_evidence_integrity(value)
+
+    expected_flyway = {
+        "current_version": EXPECTED_CURRENT_VERSION,
+        "pending_versions": list(EXPECTED_PENDING_VERSIONS),
+        "database": EXPECTED_DATABASE,
+        "flyway_version": EXPECTED_FLYWAY_VERSION,
+    }
+    flyway = value.get("flyway")
+    if not isinstance(flyway, Mapping) or dict(flyway) != expected_flyway:
+        raise ProductionRunnerError(
+            "V42 preflight evidence Flyway state is not exactly V41 with V42 pending"
+        )
+
+    metadata = value.get("metadata")
+    if not isinstance(metadata, Mapping) or set(metadata) != V42_PREFLIGHT_METADATA_KEYS:
+        raise ProductionRunnerError(
+            "V42 preflight evidence metadata shape is not approved"
+        )
+    validate_database_metadata_v42(metadata)
+    if not str(metadata.get("session_user", "")).strip():
+        raise ProductionRunnerError("V42 preflight evidence has no SQL session identity")
+    if metadata.get("session_user_prefix_verified") != "1":
+        raise ProductionRunnerError(
+            "V42 preflight evidence does not prove the production user prefix"
+        )
+    if metadata.get("tidb_enable_check_constraint") != "1":
+        raise ProductionRunnerError(
+            "V42 preflight evidence does not prove CHECK support"
+        )
+    for key, expected in V42_PREFLIGHT_ABSENT_SCHEMA_VALUES.items():
+        if metadata.get(key) != expected:
+            raise ProductionRunnerError(
+                f"V42 preflight evidence has an unsafe pre-migration value for {key}"
+            )
+    bounded = {key: str(metadata[key]) for key in V42_BOUNDED_COUNTS}
+    for key, count in bounded.items():
+        if not re.fullmatch(r"0|[1-9][0-9]*", count):
+            raise ProductionRunnerError(
+                f"V42 preflight evidence has an invalid bounded count for {key}"
+            )
+    merge_bounded_metadata_counts(metadata, bounded)
+    return value
+
+
+def load_and_validate_v42_preflight_evidence(
+    path: Path,
+    expected_file_sha256: str,
+    *,
+    target: Mapping[str, Any],
+    identity: Mapping[str, str],
+    expected_release_commit: str,
+) -> Mapping[str, Any]:
+    """Load and bind one Release E artifact to the verified checkout/target."""
+    evidence = _read_v42_preflight_evidence(path, expected_file_sha256)
+    validate_identity_to_target(identity=identity, target=target)
+    base.validate_evidence_binding(
+        evidence,
+        target=target,
+        expected_release_commit=expected_release_commit,
+    )
+    metadata = evidence["metadata"]
+    assert isinstance(metadata, Mapping)
+    validate_user_prefix_binding(
+        identity=identity,
+        session_user=str(metadata["session_user"]),
+    )
+    return evidence
+
+
 # ============================================================================
 # Argument parser + main
 # ============================================================================
@@ -1263,24 +1451,33 @@ def main(argv: Sequence[str] | None = None) -> int:
         # subprocess checks when its authenticated source value is invalid.
         base.verify_release_checkout(repo_root, args.expected_release_commit)
         base.validate_local_docker_environment()
+        if args.mode in ("migrate", "postflight"):
+            # The approved identity/backup/restore chain precedes confirmation,
+            # retained-artifact consumption, and all database credentials.
+            validate_release_e_evidence(
+                production_identity_evidence_sha256=args.identity_evidence_sha256
+            )
         if not args.confirm_target:
             raise ProductionRunnerError("--confirm-target is required")
         target = _target_from_environment_and_evidence(
             identity=identity, confirmation=args.confirm_target,
         )
         validate_identity_to_target(identity=identity, target=target)
-        read_user, read_password = _credentials("TIDB_PRODUCTION_READ")
         before_evidence = None
         if args.mode in ("migrate", "postflight"):
             if not args.before_evidence or not args.before_evidence_sha256:
                 raise ProductionRunnerError(
                     f"--before-evidence and --before-evidence-sha256 are required for {args.mode}"
                 )
-            raw = base._read_evidence(args.before_evidence)
-            base.validate_evidence_binding(
-                raw, target=target,
+            raw = load_and_validate_v42_preflight_evidence(
+                args.before_evidence,
+                args.before_evidence_sha256,
+                target=target,
+                identity=identity,
                 expected_release_commit=args.expected_release_commit,
-                expected_evidence_sha256=args.before_evidence_sha256,
+            )
+            validate_release_e_evidence(
+                production_identity_evidence_sha256=args.identity_evidence_sha256
             )
             before_evidence = {"flyway": raw.get("flyway"), "metadata": raw.get("metadata")}
             validate_operational_approval_gates(
@@ -1292,6 +1489,7 @@ def main(argv: Sequence[str] | None = None) -> int:
                 runtime_security_verified=args.runtime_security_verified,
                 execute_migrate=args.execute_migrate,
             )
+        read_user, read_password = _credentials("TIDB_PRODUCTION_READ")
         if args.mode == "preflight":
             result = run_preflight(
                 repo_root=repo_root, target=target, identity=identity,
@@ -1330,6 +1528,33 @@ def main(argv: Sequence[str] | None = None) -> int:
                 backends_drained=args.backends_drained,
                 runtime_security_verified=args.runtime_security_verified,
                 execute_migrate=args.execute_migrate,
+            )
+            # Complete live read-account gates before migration credentials are
+            # inspected.  run_migrate repeats preflight once more before the
+            # bounded write, so the retained artifact never substitutes for
+            # current identity, Flyway, validation, or baseline checks.
+            run_preflight(
+                repo_root=repo_root,
+                target=target,
+                identity=identity,
+                production_identity_evidence_sha256=args.identity_evidence_sha256,
+                read_user=read_user,
+                read_password=read_password,
+            )
+            latest_target = _target_from_environment_and_evidence(
+                identity=identity,
+                confirmation=args.confirm_target,
+            )
+            validate_identity_to_target(identity=identity, target=latest_target)
+            load_and_validate_v42_preflight_evidence(
+                args.before_evidence,
+                args.before_evidence_sha256,
+                target=latest_target,
+                identity=identity,
+                expected_release_commit=args.expected_release_commit,
+            )
+            validate_release_e_evidence(
+                production_identity_evidence_sha256=args.identity_evidence_sha256
             )
             migrate_user, migrate_password = _credentials("TIDB_PRODUCTION_MIGRATE")
             result = run_migrate(

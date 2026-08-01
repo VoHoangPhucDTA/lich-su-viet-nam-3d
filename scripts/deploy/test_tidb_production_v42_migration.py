@@ -21,6 +21,7 @@ Coverage layout (matches the task spec):
 
 from __future__ import annotations
 
+import copy
 import importlib.util
 from contextlib import redirect_stderr
 import io
@@ -1055,6 +1056,253 @@ class PostflightTest(unittest.TestCase):
 
 
 # ============================================================================
+# V42PreflightEvidenceContractTest
+# ============================================================================
+
+
+def _v42_preflight_identity() -> dict[str, str]:
+    return {
+        "source": "ticloud",
+        "state": "ACTIVE",
+        "cluster_id": runner.EXPECTED_PRODUCTION_CLUSTER_ID,
+        "display_name": runner.EXPECTED_DISPLAY_NAME,
+        "target_identity": runner.EXPECTED_TARGET_IDENTITY,
+        "host": "gateway01.ap-southeast-1.prod.alicloud.tidbcloud.com",
+        "database": runner.EXPECTED_DATABASE,
+        "user_prefix": "RHVnC4pobyyHQJT",
+        "engine_version": "v8.5.3",
+        "collected_at": "2026-08-01T08:00:00Z",
+    }
+
+
+def _v42_preflight_target() -> dict[str, object]:
+    identity = _v42_preflight_identity()
+    return {
+        "cluster_id": identity["cluster_id"],
+        "display_name": identity["display_name"],
+        "target_identity": identity["target_identity"],
+        "host": identity["host"],
+        "port": 4000,
+        "database": identity["database"],
+        "user_prefix": identity["user_prefix"],
+    }
+
+
+def _v42_preflight_metadata() -> dict[str, str]:
+    metadata = {
+        "server_version": "8.0.11-TiDB-v8.5.3-serverless",
+        "version_comment": "TiDB Server",
+        "database": "lichsuvn",
+        "global_time_zone": "SYSTEM",
+        "session_time_zone": "SYSTEM",
+        "character_set_database": "utf8mb4",
+        "collation_database": "utf8mb4_unicode_ci",
+        "sql_mode": "STRICT_TRANS_TABLES",
+        "active_admin_count": "2",
+        "failed_migration_count": "0",
+        "users_total": "20",
+        "events_total": "361",
+        "user_roles_total": "20",
+        "roles_total": "3",
+        "role_code_counts": "admin=1,student=1,teacher=1",
+        "role_assignment_counts": "admin=2,student=18",
+        "admin_role_assignment_count": "2",
+        "event_status_counts": "published=361",
+        "user_status_counts": "active=17,pending=3",
+        "historical_events_total": "361",
+        "event_media_total": "537",
+        "session_user": "RHVnC4pobyyHQJT.read@%",
+        "session_user_prefix_verified": "1",
+        "tidb_enable_check_constraint": "1",
+    }
+    metadata.update(runner.V42_PREFLIGHT_ABSENT_SCHEMA_VALUES)
+    return metadata
+
+
+def _v42_preflight_payload() -> dict[str, object]:
+    return runner.build_evidence_payload(
+        mode="preflight",
+        target=_v42_preflight_target(),
+        release_commit="a" * 40,
+        flyway={
+            "current_version": "41",
+            "pending_versions": ["42"],
+            "database": "lichsuvn",
+            "flyway_version": "11.14.1",
+        },
+        metadata=_v42_preflight_metadata(),
+    )
+
+
+def _resign_v42_preflight(payload: dict[str, object]) -> None:
+    payload["evidence_sha256"] = base._evidence_sha256(payload)
+
+
+def _write_v42_preflight(path: Path, payload: dict[str, object]) -> str:
+    raw = (json.dumps(payload, indent=2, sort_keys=True) + "\n").encode("utf-8")
+    path.write_bytes(raw)
+    return hashlib.sha256(raw).hexdigest()
+
+
+class V42PreflightEvidenceContractTest(unittest.TestCase):
+    def _assert_rejected(self, payload: dict[str, object]) -> None:
+        _resign_v42_preflight(payload)
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "preflight.json"
+            file_sha = _write_v42_preflight(path, payload)
+            with self.assertRaises((runner.ProductionRunnerError, base.MigrationGuardError)):
+                runner._read_v42_preflight_evidence(path, file_sha)
+
+    def test_v42_generated_artifact_is_accepted_and_bound(self) -> None:
+        payload = _v42_preflight_payload()
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "preflight.json"
+            file_sha = _write_v42_preflight(path, payload)
+            loaded = runner.load_and_validate_v42_preflight_evidence(
+                path,
+                file_sha,
+                target=_v42_preflight_target(),
+                identity=_v42_preflight_identity(),
+                expected_release_commit="a" * 40,
+            )
+        self.assertEqual(loaded["flyway"]["current_version"], "41")
+        self.assertEqual(loaded["flyway"]["pending_versions"], ["42"])
+        self.assertEqual(set(loaded["metadata"]), runner.V42_PREFLIGHT_METADATA_KEYS)
+
+    def test_historical_and_unsafe_flyway_states_are_rejected(self) -> None:
+        variants = {
+            "release-d": {
+                "current_version": "37", "pending_versions": ["38", "39", "40", "41"],
+                "database": "lichsuvn", "flyway_version": "11.14.1",
+            },
+            "current-v40": {
+                "current_version": "40", "pending_versions": ["41", "42"],
+                "database": "lichsuvn", "flyway_version": "11.14.1",
+            },
+            "already-v42": {
+                "current_version": "42", "pending_versions": [],
+                "database": "lichsuvn", "flyway_version": "11.14.1",
+            },
+            "empty-pending": {
+                "current_version": "41", "pending_versions": [],
+                "database": "lichsuvn", "flyway_version": "11.14.1",
+            },
+            "v43-also-pending": {
+                "current_version": "41", "pending_versions": ["42", "43"],
+                "database": "lichsuvn", "flyway_version": "11.14.1",
+            },
+            "target-v41": {
+                "current_version": "41", "pending_versions": ["41"],
+                "database": "lichsuvn", "flyway_version": "11.14.1",
+            },
+            "target-v43": {
+                "current_version": "41", "pending_versions": ["43"],
+                "database": "lichsuvn", "flyway_version": "11.14.1",
+            },
+            "above-target": {
+                "current_version": "41", "pending_versions": ["42"],
+                "database": "lichsuvn", "flyway_version": "11.14.1",
+                "v42_state": "Above Target",
+            },
+            "failed-validate-claim": {
+                "current_version": "41", "pending_versions": ["42"],
+                "database": "lichsuvn", "flyway_version": "11.14.1",
+                "flyway_validate_passed": False,
+            },
+        }
+        for name, flyway in variants.items():
+            with self.subTest(name=name):
+                payload = _v42_preflight_payload()
+                payload["flyway"] = flyway
+                self._assert_rejected(payload)
+
+    def test_check_support_baseline_and_exact_metadata_shape_are_required(self) -> None:
+        mutations = {
+            "check-disabled": lambda m: m.__setitem__("tidb_enable_check_constraint", "0"),
+            "missing-count": lambda m: m.pop("event_media_total"),
+            "malformed-count": lambda m: m.__setitem__("users_total", "20.0"),
+            "mismatched-count": lambda m: m.__setitem__("historical_events_total", "360"),
+            "failed-history": lambda m: m.__setitem__("failed_migration_count", "1"),
+            "v42-already-present": lambda m: m.__setitem__("v42_history_present", "1"),
+            "unexpected-key": lambda m: m.__setitem__("unexpected", "value"),
+        }
+        for name, mutate in mutations.items():
+            with self.subTest(name=name):
+                payload = _v42_preflight_payload()
+                metadata = copy.deepcopy(payload["metadata"])
+                mutate(metadata)
+                payload["metadata"] = metadata
+                self._assert_rejected(payload)
+
+    def test_file_internal_target_release_and_schema_tampering_are_rejected(self) -> None:
+        payload = _v42_preflight_payload()
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            path = root / "preflight.json"
+            file_sha = _write_v42_preflight(path, payload)
+            with self.assertRaises(runner.ProductionRunnerError):
+                runner._read_v42_preflight_evidence(path, "0" * 64)
+            path.write_bytes(path.read_bytes() + b"\n")
+            with self.assertRaises(runner.ProductionRunnerError):
+                runner._read_v42_preflight_evidence(path, file_sha)
+
+        tampered = _v42_preflight_payload()
+        tampered["metadata"]["users_total"] = "21"
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "preflight.json"
+            file_sha = _write_v42_preflight(path, tampered)
+            with self.assertRaises(base.MigrationGuardError):
+                runner._read_v42_preflight_evidence(path, file_sha)
+
+        for name, mutate in {
+            "wrong-target": lambda p: p["target"].__setitem__("target_identity", "restore"),
+            "wrong-host": lambda p: p["target"].__setitem__("host", "wrong.tidbcloud.com"),
+            "wrong-database": lambda p: p["target"].__setitem__("database", "wrong"),
+            "unexpected-schema": lambda p: p.__setitem__("schema", "release-d"),
+            "unsupported-format": lambda p: p.__setitem__("format_version", 2),
+        }.items():
+            with self.subTest(name=name):
+                changed = _v42_preflight_payload()
+                mutate(changed)
+                _resign_v42_preflight(changed)
+                with tempfile.TemporaryDirectory() as directory:
+                    path = Path(directory) / "preflight.json"
+                    file_sha = _write_v42_preflight(path, changed)
+                    with self.assertRaises((runner.ProductionRunnerError, base.MigrationGuardError)):
+                        runner.load_and_validate_v42_preflight_evidence(
+                            path,
+                            file_sha,
+                            target=_v42_preflight_target(),
+                            identity=_v42_preflight_identity(),
+                            expected_release_commit="a" * 40,
+                        )
+
+    def test_wrong_cluster_and_release_binding_are_rejected(self) -> None:
+        payload = _v42_preflight_payload()
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "preflight.json"
+            file_sha = _write_v42_preflight(path, payload)
+            wrong_cluster = _v42_preflight_target()
+            wrong_cluster["cluster_id"] = "other-cluster"
+            with self.assertRaises(runner.ProductionRunnerError):
+                runner.load_and_validate_v42_preflight_evidence(
+                    path,
+                    file_sha,
+                    target=wrong_cluster,
+                    identity=_v42_preflight_identity(),
+                    expected_release_commit="a" * 40,
+                )
+            with self.assertRaises(base.MigrationGuardError):
+                runner.load_and_validate_v42_preflight_evidence(
+                    path,
+                    file_sha,
+                    target=_v42_preflight_target(),
+                    identity=_v42_preflight_identity(),
+                    expected_release_commit="b" * 40,
+                )
+
+
+# ============================================================================
 # DocumentationContractTest
 # ============================================================================
 
@@ -1187,6 +1435,202 @@ class ReleaseEEvidenceOrderingTest(unittest.TestCase):
         options = {option for action in runner._parser()._actions for option in action.option_strings}
         self.assertNotIn("--backup-evidence", options)
         self.assertNotIn("--restore-evidence", options)
+
+    def test_invalid_v42_artifact_blocks_migration_credential_access(self) -> None:
+        payload = _v42_preflight_payload()
+        payload["flyway"] = {
+            "current_version": "37",
+            "pending_versions": ["38", "39", "40", "41"],
+            "database": "lichsuvn",
+            "flyway_version": "11.14.1",
+        }
+        _resign_v42_preflight(payload)
+        credential_prefixes: list[str] = []
+
+        def credentials(prefix: str) -> tuple[str, str]:
+            credential_prefixes.append(prefix)
+            if prefix == "TIDB_PRODUCTION_MIGRATE":
+                raise AssertionError("migration credentials were read")
+            return "read", "read-secret"
+
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "preflight.json"
+            file_sha = _write_v42_preflight(path, payload)
+            with (
+                patch.object(runner, "load_identity_evidence", return_value=_v42_preflight_identity()),
+                patch.object(base, "verify_release_checkout"),
+                patch.object(base, "validate_local_docker_environment"),
+                patch.object(runner, "_target_from_environment_and_evidence", return_value=_v42_preflight_target()),
+                patch.object(runner, "validate_release_e_evidence"),
+                patch.object(runner, "_credentials", side_effect=credentials),
+                patch.object(runner, "run_preflight") as preflight,
+                patch.object(runner, "run_migrate") as migrate,
+                redirect_stderr(io.StringIO()),
+            ):
+                exit_code = runner.main([
+                    "--mode", "migrate",
+                    "--expected-release-commit", "a" * 40,
+                    "--confirm-target", "main@gateway01.ap-southeast-1.prod.alicloud.tidbcloud.com/lichsuvn:41->42",
+                    "--identity-evidence", str(Path(directory) / "identity.json"),
+                    "--identity-evidence-sha256", "b" * 64,
+                    "--before-evidence", str(path),
+                    "--before-evidence-sha256", file_sha,
+                    "--two-active-admins", "--backends-drained",
+                    "--single-migration-owner", "--maintenance-window",
+                    "--rollback-owner", "--runtime-security-verified",
+                    "--execute-migrate", "--risk-accepted-minimal",
+                ])
+        self.assertEqual(exit_code, 2)
+        self.assertEqual(credential_prefixes, [])
+        preflight.assert_not_called()
+        migrate.assert_not_called()
+
+    def test_valid_main_path_orders_artifact_and_live_gates_before_migrate_credentials(self) -> None:
+        payload = _v42_preflight_payload()
+        calls: list[str] = []
+        original_loader = runner.load_and_validate_v42_preflight_evidence
+
+        def load_artifact(*args, **kwargs):
+            calls.append("artifact")
+            return original_loader(*args, **kwargs)
+
+        def credentials(prefix: str) -> tuple[str, str]:
+            calls.append(f"credentials:{prefix}")
+            return ("read", "read-secret") if prefix.endswith("READ") else ("migrate", "migrate-secret")
+
+        pre_result = {
+            "flyway": payload["flyway"],
+            "metadata": payload["metadata"],
+        }
+        post_result = {
+            "flyway": {
+                "current_version": "42", "pending_versions": [],
+                "database": "lichsuvn", "flyway_version": "11.14.1",
+            },
+            "metadata": payload["metadata"],
+        }
+
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "preflight.json"
+            file_sha = _write_v42_preflight(path, payload)
+            with (
+                patch.object(runner, "load_identity_evidence", return_value=_v42_preflight_identity()),
+                patch.object(base, "verify_release_checkout"),
+                patch.object(base, "validate_local_docker_environment"),
+                patch.object(runner, "_target_from_environment_and_evidence", return_value=_v42_preflight_target()),
+                patch.object(
+                    runner,
+                    "validate_release_e_evidence",
+                    side_effect=lambda **_kwargs: calls.append("release-evidence"),
+                ),
+                patch.object(runner, "load_and_validate_v42_preflight_evidence", side_effect=load_artifact),
+                patch.object(runner, "_credentials", side_effect=credentials),
+                patch.object(
+                    runner,
+                    "run_preflight",
+                    side_effect=lambda **_kwargs: calls.append("live-preflight") or pre_result,
+                ),
+                patch.object(
+                    runner,
+                    "run_migrate",
+                    side_effect=lambda **_kwargs: calls.append("migrate-workflow") or post_result,
+                ) as migrate,
+                patch.object(runner, "_print"),
+            ):
+                exit_code = runner.main([
+                    "--mode", "migrate",
+                    "--expected-release-commit", "a" * 40,
+                    "--confirm-target", "main@gateway01.ap-southeast-1.prod.alicloud.tidbcloud.com/lichsuvn:41->42",
+                    "--identity-evidence", str(Path(directory) / "identity.json"),
+                    "--identity-evidence-sha256", "b" * 64,
+                    "--before-evidence", str(path),
+                    "--before-evidence-sha256", file_sha,
+                    "--two-active-admins", "--backends-drained",
+                    "--single-migration-owner", "--maintenance-window",
+                    "--rollback-owner", "--runtime-security-verified",
+                    "--execute-migrate", "--risk-accepted-minimal",
+                ])
+        self.assertEqual(exit_code, 0)
+        migrate.assert_called_once()
+        migrate_credential = calls.index("credentials:TIDB_PRODUCTION_MIGRATE")
+        self.assertLess(calls.index("artifact"), migrate_credential)
+        self.assertLess(calls.index("live-preflight"), migrate_credential)
+        self.assertLess(calls.index("release-evidence", calls.index("artifact") + 1), migrate_credential)
+        self.assertGreater(calls.index("migrate-workflow"), migrate_credential)
+
+    def test_mocked_migrate_path_invokes_migrate_once_and_requires_postflight(self) -> None:
+        operations: list[str] = []
+        pre = {
+            "flyway": _v42_preflight_payload()["flyway"],
+            "metadata": _v42_preflight_metadata(),
+        }
+        post_metadata = _v42_preflight_metadata()
+        bounded = {key: post_metadata[key] for key in runner.V42_BOUNDED_COUNTS}
+
+        def flyway(**kwargs):
+            operation = kwargs["operation"]
+            operations.append(operation)
+            if operation == "migrate":
+                return {
+                    "operation": "migrate",
+                    "success": True,
+                    "database": "lichsuvn",
+                    "flywayVersion": "11.14.1",
+                    "initialSchemaVersion": "41",
+                    "targetSchemaVersion": "42",
+                    "migrationsExecuted": 1,
+                    "migrations": [{"version": "42"}],
+                    "warnings": [],
+                }
+            return {}
+
+        with (
+            patch.object(runner, "run_preflight", return_value=pre) as preflight,
+            patch.object(runner, "validate_user_prefix_binding"),
+            patch.object(
+                base,
+                "verify_docker_images",
+                return_value={base.FLYWAY_IMAGE: "flyway@digest"},
+            ),
+            patch.object(base, "build_flyway_config", return_value="config"),
+            patch.object(runner, "_migration_paths_v42", return_value=(Path("migrations"), Path("manifest"))),
+            patch.object(base, "canonical_migration_directory") as staging,
+            patch.object(runner, "run_flyway_v42", side_effect=flyway),
+            patch.object(runner, "validate_flyway_info_for_v42", return_value=pre["flyway"]),
+            patch.object(
+                base,
+                "validate_flyway_info",
+                return_value={
+                    "current_version": "42", "pending_versions": [],
+                    "database": "lichsuvn", "flyway_version": "11.14.1",
+                },
+            ),
+            patch.object(base, "validate_flyway_validate"),
+            patch.object(runner, "validate_release_e_evidence"),
+            patch.object(runner, "run_metadata_query", return_value=post_metadata) as metadata_query,
+            patch.object(runner, "validate_database_metadata_v42"),
+            patch.object(base, "validate_postflight_metadata"),
+            patch.object(runner, "run_bounded_metadata_query", return_value=bounded),
+            patch.object(runner, "validate_v42_postflight_extras") as postflight_extras,
+        ):
+            staging.return_value.__enter__.return_value = Path("staged")
+            result = runner.run_migrate(
+                repo_root=Path("repo"),
+                target=_v42_preflight_target(),
+                identity=_v42_preflight_identity(),
+                production_identity_evidence_sha256="a" * 64,
+                read_user="read",
+                read_password="read-secret",
+                migrate_user="migrate",
+                migrate_password="migrate-secret",
+            )
+        preflight.assert_called_once()
+        self.assertEqual(operations.count("migrate"), 1)
+        self.assertEqual(operations, ["info", "validate", "migrate", "info", "validate"])
+        metadata_query.assert_called_once()
+        postflight_extras.assert_called_once()
+        self.assertEqual(result["flyway"]["current_version"], "42")
+        self.assertTrue({"repair", "baseline", "clean"}.isdisjoint(operations))
 
 
 # ============================================================================

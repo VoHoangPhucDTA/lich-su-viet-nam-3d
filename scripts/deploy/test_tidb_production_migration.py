@@ -1033,6 +1033,33 @@ class MigrationSourceAndMetadataTest(unittest.TestCase):
             with self.assertRaises(runner.MigrationGuardError):
                 runner._read_evidence(path)
 
+    def test_historical_loader_rejects_v42_preflight_contract(self) -> None:
+        evidence = runner.build_evidence(
+            mode="preflight",
+            target={
+                "target_identity": "main",
+                "host": TargetAndApprovalGuardTest.HOST,
+                "port": 4000,
+                "database": "lichsuvn",
+            },
+            release_commit="a" * 40,
+            flyway={
+                "current_version": "41",
+                "pending_versions": ["42"],
+                "database": "lichsuvn",
+                "flyway_version": "11.14.1",
+            },
+            metadata={},
+        )
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "evidence.json"
+            path.write_text(json.dumps(evidence), encoding="utf-8")
+            with self.assertRaisesRegex(
+                runner.MigrationGuardError,
+                "not V37 with V38-V41 pending",
+            ):
+                runner._read_evidence(path)
+
 
 class OfflineWorkflowAssemblyTest(unittest.TestCase):
     HOST = TargetAndApprovalGuardTest.HOST

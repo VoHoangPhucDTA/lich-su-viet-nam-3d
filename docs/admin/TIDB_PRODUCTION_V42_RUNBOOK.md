@@ -270,6 +270,33 @@ Branch IDs are rejected.
 Preflight evidence is written to a new ``.json`` file with a SHA-256
 over the canonical payload (excluding the digest field).
 
+Release D and Release E have separate, non-interchangeable preflight-evidence
+state contracts.  The historical ``tidb_production_migration.py`` loader
+accepts only V37 with exactly V38-V41 pending.  The dedicated Release E loader
+accepts only the artifact emitted here: format version ``1``, mode
+``preflight``, the reviewed release commit and production target binding,
+current Flyway version V41, and the exact pending set ``{V42}``.  It also
+requires the exact V42 preflight metadata shape, CHECK support equal to ``1``,
+no failed or already-installed V42 history, a verified production SQL user
+prefix, and all four bounded baseline counts.
+
+For Release E, ``--before-evidence-sha256`` is the SHA-256 of the exact stored
+JSON file bytes.  The loader independently verifies the artifact's embedded
+``evidence_sha256`` over the canonical payload, so both byte-level file
+integrity and content integrity must pass.  Target, release commit, timestamp,
+and production identity binding are then checked before migration credentials
+are read.  The V42 path never calls the historical Release D
+``_read_evidence()`` and has no fallback to historical evidence.
+
+There is no separate preflight-age duration.  The retained artifact is an
+audited input, not a replacement for live gates: backup/restore evidence and
+expiration are revalidated around artifact loading, the read account repeats
+production identity, Flyway ``info``/``validate`` and bounded baseline checks,
+and the backup expiration is checked again immediately before ``migrate``.  A
+malformed, tampered, differently bound, or non-V41/``{V42}`` artifact stops
+fail-closed before migration credential access and produces zero migrate
+attempts.
+
 ## 10. Migrate
 
 Approval gates (all required):
@@ -285,10 +312,13 @@ Approval gates (all required):
   no fake-storage, no ``admin-e2e`` profile).
 * Explicit ``--execute-migrate`` confirmation.
 
-The migrate stage first revalidates the evidence contract, then runs Flyway
-``info`` + ``validate``.  It re-reads both JSON files, all detached hashes and
-capture bindings, and checks backup expiration again immediately before the
-Flyway ``migrate`` command; it never relies only on a prior preflight report.
+The migrate stage first revalidates the Release E artifact with the dedicated
+V42 loader and revalidates the identity/backup/restore evidence contract.  It
+then completes live read-account Flyway ``info`` + ``validate`` and bounded
+baseline checks before reading migration credentials.  It re-reads both
+backup/restore JSON files, all detached hashes and capture bindings, and checks
+backup expiration again immediately before the Flyway ``migrate`` command; it
+never relies only on a prior preflight report.
 It then runs ``migrate`` with the migration account, followed by ``info`` +
 ``validate`` with the read account.  Flyway's JSON response is parsed and validated against
 ``V42 only``.
@@ -380,6 +410,8 @@ data; their userPrefixes must differ.
 | Database | ``lichsuvn`` | ``lichsuvn`` |
 | Manifest | ``tidb-production-v41.sha256`` | ``tidb-production-v42.sha256`` |
 | Transition | 37 -> 41 | 41 -> 42 |
+| Preflight evidence state | V37 + exactly V38-V41 pending | V41 + exactly V42 pending |
+| Preflight evidence loader | Historical ``_read_evidence()`` only | Dedicated V42 loader only; no historical fallback |
 | Production manifest SHA pin | runtime-computed | runtime-computed |
 | V42 audit SQL via metadata_sql | n/a | required |
 | Bran-* child branch detection | n/a | required |
