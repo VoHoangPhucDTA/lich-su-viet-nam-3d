@@ -222,6 +222,19 @@ class FlywayCommandAndSecretTest(unittest.TestCase):
         self.assertIn("-ignoreMigrationPatterns=*:pending", command)
         self.assertEqual("validate", command[-1])
 
+    def test_explicit_target_override_preserves_historical_default(self) -> None:
+        default = runner.build_flyway_command(Path("migrations"), "info")
+        release_e = runner.build_flyway_command(
+            Path("migrations"), "info", target_version="42",
+        )
+        self.assertIn("-target=41", default)
+        self.assertIn("-target=42", release_e)
+        self.assertNotIn("-target=41", release_e)
+        with self.assertRaisesRegex(runner.MigrationGuardError, "must be numeric"):
+            runner.build_flyway_command(
+                Path("migrations"), "info", target_version="latest",
+            )
+
     def test_execution_can_use_an_immutable_digest_reference(self) -> None:
         digest = "sha256:" + ("a" * 64)
         flyway_command = runner.build_flyway_command(
@@ -1080,11 +1093,12 @@ class OfflineWorkflowAssemblyTest(unittest.TestCase):
             target_identity="main",
             confirmation=f"main@{self.HOST}/lichsuvn:37->41",
         )
-        with patch.dict(
-            "os.environ",
-            {},
-            clear=False,
+        with (
+            patch.dict("os.environ", {}, clear=False),
+            patch.object(runner, "local_check") as local_check,
+            patch.object(runner, "canonical_migration_directory") as staging,
         ):
+            staging.return_value.__enter__.return_value = Path("migrations")
             result = runner._run_preflight(
                 repo_root=Path(__file__).parents[2],
                 target=target,
@@ -1095,6 +1109,7 @@ class OfflineWorkflowAssemblyTest(unittest.TestCase):
                 executor=fake_executor,
             )
 
+        local_check.assert_called_once_with(Path(__file__).parents[2])
         self.assertEqual(result["flyway"]["current_version"], "37")
         self.assertEqual(len(calls), 3)
         self.assertTrue(all("read_password" not in " ".join(args) for args, _ in calls))

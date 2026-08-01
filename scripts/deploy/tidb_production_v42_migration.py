@@ -557,6 +557,27 @@ def validate_flyway_info_for_v42(info: Mapping[str, Any]) -> dict[str, Any]:
     )
 
 
+def run_flyway_v42(
+    *,
+    migration_dir: Path,
+    operation: str,
+    config: str,
+    image_ref: str,
+    secrets: Sequence[str],
+    executor: Callable[[Sequence[str], str], base.CommandResult],
+) -> Mapping[str, Any]:
+    """Run one allowlisted Flyway operation with the explicit V42 CLI target."""
+    return base.run_flyway(
+        migration_dir=migration_dir,
+        operation=operation,
+        config=config,
+        image_ref=image_ref,
+        target_version=TARGET_VERSION,
+        secrets=secrets,
+        executor=executor,
+    )
+
+
 def validate_flyway_migrate_for_v42(result: Mapping[str, Any]) -> None:
     if str(result.get("initialSchemaVersion") or "") != EXPECTED_CURRENT_VERSION:
         raise ProductionRunnerError(
@@ -855,13 +876,13 @@ def run_preflight(
         migration_dir, manifest_path=manifest,
         expected_versions=tuple(range(1, int(TARGET_VERSION) + 1)),
     ) as flyway_dir:
-        info = base.run_flyway(
+        info = run_flyway_v42(
             migration_dir=flyway_dir, operation="info", config=config,
             image_ref=images[base.FLYWAY_IMAGE], secrets=secrets, executor=executor,
         )
         info_state = validate_flyway_info_for_v42(info)
         base.validate_flyway_validate(
-            base.run_flyway(
+            run_flyway_v42(
                 migration_dir=flyway_dir, operation="validate", config=config,
                 image_ref=images[base.FLYWAY_IMAGE], secrets=secrets, executor=executor,
             )
@@ -886,7 +907,7 @@ def run_flyway_migrate_after_evidence_gate(
     validate_release_e_evidence(
         production_identity_evidence_sha256=production_identity_evidence_sha256
     )
-    return base.run_flyway(
+    return run_flyway_v42(
         migration_dir=migration_dir, operation="migrate", config=config,
         image_ref=image_ref, secrets=secrets, executor=executor,
     )
@@ -930,13 +951,13 @@ def run_migrate(
         migration_dir, manifest_path=manifest,
         expected_versions=tuple(range(1, int(TARGET_VERSION) + 1)),
     ) as flyway_dir:
-        info_pre = base.run_flyway(
+        info_pre = run_flyway_v42(
             migration_dir=flyway_dir, operation="info", config=migrate_config,
             image_ref=images[base.FLYWAY_IMAGE], secrets=migrate_secrets, executor=executor,
         )
         validate_flyway_info_for_v42(info_pre)
         base.validate_flyway_validate(
-            base.run_flyway(
+            run_flyway_v42(
                 migration_dir=flyway_dir, operation="validate", config=migrate_config,
                 image_ref=images[base.FLYWAY_IMAGE], secrets=migrate_secrets, executor=executor,
             )
@@ -948,7 +969,7 @@ def run_migrate(
             executor=executor,
         )
         validate_flyway_migrate_for_v42(migrate_result)
-        info_post = base.run_flyway(
+        info_post = run_flyway_v42(
             migration_dir=flyway_dir, operation="info", config=post_config,
             image_ref=images[base.FLYWAY_IMAGE], secrets=read_secrets, executor=executor,
         )
@@ -960,7 +981,7 @@ def run_migrate(
             expected_flyway_version=EXPECTED_FLYWAY_VERSION,
         )
         base.validate_flyway_validate(
-            base.run_flyway(
+            run_flyway_v42(
                 migration_dir=flyway_dir, operation="validate", config=post_config,
                 image_ref=images[base.FLYWAY_IMAGE], secrets=read_secrets, executor=executor,
             )
@@ -1009,7 +1030,7 @@ def run_postflight(
         migration_dir, manifest_path=manifest,
         expected_versions=tuple(range(1, int(TARGET_VERSION) + 1)),
     ) as flyway_dir:
-        info = base.run_flyway(
+        info = run_flyway_v42(
             migration_dir=flyway_dir, operation="info", config=config,
             image_ref=images[base.FLYWAY_IMAGE], secrets=secrets, executor=executor,
         )
@@ -1021,7 +1042,7 @@ def run_postflight(
             expected_flyway_version=EXPECTED_FLYWAY_VERSION,
         )
         base.validate_flyway_validate(
-            base.run_flyway(
+            run_flyway_v42(
                 migration_dir=flyway_dir, operation="validate", config=config,
                 image_ref=images[base.FLYWAY_IMAGE], secrets=secrets, executor=executor,
             )

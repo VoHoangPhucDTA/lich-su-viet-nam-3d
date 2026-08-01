@@ -603,6 +603,35 @@ class ManifestTest(unittest.TestCase):
 
 
 class CommandSafetyTest(unittest.TestCase):
+    def test_v42_flyway_wrapper_pins_target_for_every_allowed_operation(self) -> None:
+        def executor(_command, _payload):
+            return None
+
+        for operation in ("info", "validate", "migrate"):
+            with self.subTest(operation=operation):
+                with patch.object(base, "run_flyway", return_value={}) as shared:
+                    runner.run_flyway_v42(
+                        migration_dir=Path("migrations"),
+                        operation=operation,
+                        config="stdin config",
+                        image_ref="redgate/flyway@sha256:" + "a" * 64,
+                        secrets=("user", "password"),
+                        executor=executor,
+                    )
+                self.assertEqual(shared.call_args.kwargs["target_version"], "42")
+
+    def test_v42_command_never_contains_source_version_as_target(self) -> None:
+        for operation in ("info", "validate", "migrate"):
+            with self.subTest(operation=operation):
+                command = base.build_flyway_command(
+                    Path("migrations"),
+                    operation,
+                    image_ref="redgate/flyway@sha256:" + "a" * 64,
+                    target_version=runner.TARGET_VERSION,
+                )
+                self.assertIn("-target=42", command)
+                self.assertNotIn("-target=41", command)
+
     def test_flyway_allowlist_rejects_repair(self) -> None:
         with tempfile.TemporaryDirectory() as td:
             with self.assertRaises(base.MigrationGuardError):

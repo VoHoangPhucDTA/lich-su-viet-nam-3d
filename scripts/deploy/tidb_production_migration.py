@@ -321,6 +321,7 @@ def build_flyway_command(
     operation: str,
     *,
     image_ref: str = FLYWAY_IMAGE,
+    target_version: str = TARGET_VERSION,
 ) -> list[str]:
     """Build the only permitted Flyway Docker invocations."""
 
@@ -329,6 +330,9 @@ def build_flyway_command(
             f"Flyway operation {operation!r} is not allowlisted"
         )
     image_ref = _require_text(image_ref, "Flyway image reference")
+    target_version = _require_text(target_version, "Flyway target version")
+    if not re.fullmatch(r"\d+", target_version):
+        raise MigrationGuardError("Flyway target version must be numeric")
     mount = (
         f"type=bind,source={_docker_mount_source(Path(migration_dir))},"
         "target=/flyway/sql,readonly"
@@ -357,7 +361,7 @@ cat > "$c"
         shell_script,
         "lsvn3d-flyway-stdin",
         "-locations=filesystem:/flyway/sql",
-        f"-target={TARGET_VERSION}",
+        f"-target={target_version}",
         "-cleanDisabled=true",
         "-baselineOnMigrate=false",
         "-outOfOrder=false",
@@ -1246,6 +1250,7 @@ def run_flyway(
     operation: str,
     config: str,
     image_ref: str = FLYWAY_IMAGE,
+    target_version: str = TARGET_VERSION,
     secrets: Iterable[str] = (),
     executor: Callable[[Sequence[str], str], CommandResult] = _execute,
 ) -> Mapping[str, Any]:
@@ -1253,6 +1258,7 @@ def run_flyway(
         migration_dir,
         operation,
         image_ref=image_ref,
+        target_version=target_version,
     )
     result = run_external(command, config, secrets=secrets, executor=executor)
     return _parse_json_output(result, secrets)

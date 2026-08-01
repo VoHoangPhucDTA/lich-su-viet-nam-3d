@@ -16,6 +16,9 @@ production TiDB base instance (``lichsuvn3d``, parent cluster
 
 * Flyway history must be at V41.
 * Pending set must be exactly ``{V42}``.
+* The dedicated runner passes Flyway ``-target=42`` explicitly for ``info``,
+  ``validate``, and ``migrate``.  V41 is the installed source version, never
+  the Flyway CLI target for Controlled Release E.
 * Validate must pass with no invalid migrations.
 * Failed migration count must be zero.
 * Future, missing, ignored, deleted, baseline, out-of-order states are
