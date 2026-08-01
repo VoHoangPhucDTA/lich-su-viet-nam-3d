@@ -378,12 +378,59 @@ Standalone postflight rejects migrate-authorization flags, reads only
 ``TIDB_PRODUCTION_MIGRATE_*``, creates a replacement preflight artifact, or
 rewrites retained evidence.
 
-The authoritative migration column is ``upload_expires_at`` as declared by
-``V42__add_managed_event_image_storage.sql``; ``storage_expires_at`` was a
-checker-only typo and was never part of the production schema contract.  The
-checker correction permits a read-only postflight only.  The V42 migration
-must not be rerun, and no manual DDL is permitted to make production match a
-faulty checker.  Any postflight schema mismatch remains fail-closed.
+### V42 managed-column migration-delta contract
+
+``event_media.storage_type`` is a historical pre-V42 column.  It was
+introduced by ``V3__event_support_tables.sql`` as
+``ENUM('local','external','object_storage') NOT NULL DEFAULT 'external'``.
+The approved V41 restore corroborated that definition.  V4 through V41 do not
+alter it, and V42 does not add, alter, remove or reference it.
+
+V42 introduces exactly these 18 separate managed-storage columns, in migration
+source order:
+
+```text
+managed_asset_id
+storage_provider
+storage_public_id
+storage_asset_id
+storage_original_url
+storage_version
+storage_mime_type
+storage_format
+storage_byte_size
+storage_sha256
+storage_width
+storage_height
+uploaded_by
+uploaded_at
+storage_state
+upload_token
+upload_started_at
+upload_expires_at
+```
+
+The postflight column gate is a V42 migration-delta checker, not a complete
+historical ``event_media`` schema checker.  It selects columns through exact-
+name membership in the reviewed 18-column contract; broad ``storage_*`` or
+``upload_*`` matching is prohibited.  Historical or unrelated columns,
+including ``storage_type``, remain outside this selection and cannot satisfy a
+missing, substituted or malformed V42 requirement.  The immutable migration
+source and manifest preserve the reviewed declarations, and the live metadata
+gate requires all 18 exact names exactly once with their reviewed data type,
+column type, nullability and default.  Any definition drift produces a
+fail-closed schema mismatch.  ``storage_expires_at`` was a checker-only typo,
+is not part of V42 and remains invalid; the authoritative expiration column is
+``upload_expires_at``.
+
+Production V42 has already been applied exactly once.  This checker correction
+authorizes only standalone read-only postflight.  Migrate must never be rerun,
+and no manual DDL is permitted to satisfy a checker.  Any postflight schema
+mismatch remains fail-closed.
+
+The retained rehearsal read-credential identity mismatch is a separate
+operational issue.  It was not bypassed or modified for this migration-derived
+membership correction, and no new identity-bound rehearsal query was run.
 
 Requires:
 
@@ -394,7 +441,8 @@ Requires:
 * Zero failed migrations.
 * Validate passes.
 * V42 checksum matches the recorded value.
-* All 18 managed-storage columns exist on ``event_media``.
+* The exact 18 V42 managed-storage column names exist on ``event_media``; no
+  historical column can replace a missing V42 member.
 * All 4 V42 indexes exist.
 * ``fk_event_media_uploaded_by`` exists.
 * ``event_media_storage_cleanup_tasks`` exists.

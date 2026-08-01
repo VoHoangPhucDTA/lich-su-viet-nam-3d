@@ -1010,17 +1010,84 @@ def validate_flyway_migrate_for_v42(result: Mapping[str, Any]) -> None:
 
 def metadata_sql_v42_postflight_extras() -> str:
     """Extra read-only SELECTs verifying V42 schema footprint + preflight identity binding."""
+    # INFORMATION_SCHEMA may render integer display widths with or without the
+    # historical ``(20)`` / ``(11)`` suffix.  Those pairs are semantically
+    # identical; every other type, nullability or default drift is rejected.
+    definition_predicates = (
+        "LOWER(data_type)='char' AND LOWER(column_type)='char(36)' "
+        "AND is_nullable='YES' AND column_default IS NULL "
+        "AND LOWER(character_set_name)='ascii' AND LOWER(collation_name)='ascii_bin'",
+        "LOWER(data_type)='varchar' AND LOWER(column_type)='varchar(32)' "
+        "AND is_nullable='YES' AND column_default IS NULL",
+        "LOWER(data_type)='varchar' AND LOWER(column_type)='varchar(255)' "
+        "AND is_nullable='YES' AND column_default IS NULL",
+        "LOWER(data_type)='varchar' AND LOWER(column_type)='varchar(255)' "
+        "AND is_nullable='YES' AND column_default IS NULL",
+        "LOWER(data_type)='varchar' AND LOWER(column_type)='varchar(1000)' "
+        "AND is_nullable='YES' AND column_default IS NULL",
+        "LOWER(data_type)='bigint' AND LOWER(column_type) IN ('bigint','bigint(20)') "
+        "AND is_nullable='YES' AND column_default IS NULL",
+        "LOWER(data_type)='varchar' AND LOWER(column_type)='varchar(100)' "
+        "AND is_nullable='YES' AND column_default IS NULL",
+        "LOWER(data_type)='varchar' AND LOWER(column_type)='varchar(16)' "
+        "AND is_nullable='YES' AND column_default IS NULL",
+        "LOWER(data_type)='bigint' AND LOWER(column_type) IN ('bigint','bigint(20)') "
+        "AND is_nullable='YES' AND column_default IS NULL",
+        "LOWER(data_type)='char' AND LOWER(column_type)='char(64)' "
+        "AND is_nullable='YES' AND column_default IS NULL "
+        "AND LOWER(character_set_name)='ascii' AND LOWER(collation_name)='ascii_bin'",
+        "LOWER(data_type)='int' AND LOWER(column_type) IN ('int','int(11)') "
+        "AND is_nullable='YES' AND column_default IS NULL",
+        "LOWER(data_type)='int' AND LOWER(column_type) IN ('int','int(11)') "
+        "AND is_nullable='YES' AND column_default IS NULL",
+        "LOWER(data_type)='binary' AND LOWER(column_type)='binary(16)' "
+        "AND is_nullable='YES' AND column_default IS NULL",
+        "LOWER(data_type)='datetime' AND LOWER(column_type)='datetime(6)' "
+        "AND datetime_precision=6 AND is_nullable='YES' AND column_default IS NULL",
+        "LOWER(data_type)='varchar' AND LOWER(column_type)='varchar(24)' "
+        "AND is_nullable='NO' AND column_default IS NOT NULL "
+        "AND HEX(CAST(column_default AS CHAR))='554E4D414E41474544'",
+        "LOWER(data_type)='char' AND LOWER(column_type)='char(36)' "
+        "AND is_nullable='YES' AND column_default IS NULL "
+        "AND LOWER(character_set_name)='ascii' AND LOWER(collation_name)='ascii_bin'",
+        "LOWER(data_type)='datetime' AND LOWER(column_type)='datetime(6)' "
+        "AND datetime_precision=6 AND is_nullable='YES' AND column_default IS NULL",
+        "LOWER(data_type)='datetime' AND LOWER(column_type)='datetime(6)' "
+        "AND datetime_precision=6 AND is_nullable='YES' AND column_default IS NULL",
+    )
+    if len(definition_predicates) != len(MANAGED_STORAGE_COLUMN_CONTRACT):
+        raise ProductionRunnerError(
+            "V42 managed-storage definition contract does not match its name contract"
+        )
+    definition_sql = " OR ".join(
+        f"(column_name='{column}' AND {predicate})"
+        for column, predicate in zip(
+            MANAGED_STORAGE_COLUMN_CONTRACT, definition_predicates, strict=True
+        )
+    )
+    expected_count = len(MANAGED_STORAGE_COLUMN_CONTRACT)
+    expected_source_order_hex = (
+        ",".join(MANAGED_STORAGE_COLUMN_CONTRACT).encode("ascii").hex().upper()
+    )
     return (
         "SELECT 'session_user', CURRENT_USER();\n"
-        # 18 managed-storage columns on event_media.
+        # Exactly 18 managed-storage columns on event_media, with their
+        # migration-defined types, nullability and defaults.
         "SELECT 'v42_managed_columns', COALESCE("
-        "(SELECT GROUP_CONCAT(column_name ORDER BY column_name SEPARATOR ',') "
+        "(SELECT CASE WHEN COUNT(*)=0 THEN '' "
+        f"WHEN COUNT(*)<>{expected_count} "
+        f"OR COUNT(DISTINCT column_name)<>{expected_count} "
+        "OR HEX(GROUP_CONCAT(column_name ORDER BY ordinal_position SEPARATOR ','))"
+        f"<>'{expected_source_order_hex}' "
+        "OR COALESCE(SUM(CASE WHEN ("
+        f"{definition_sql}"
+        f") THEN 1 ELSE 0 END),0)<>{expected_count} "
+        "THEN '__invalid_v42_managed_column_contract__' "
+        "ELSE GROUP_CONCAT(column_name ORDER BY column_name SEPARATOR ',') END "
         "FROM information_schema.columns "
         "WHERE table_schema=DATABASE() AND table_name='event_media' "
-        "AND (column_name IN ("
-        f"{MANAGED_STORAGE_COLUMN_SQL}) "
-        "OR column_name LIKE 'storage!_%' ESCAPE '!' "
-        "OR column_name LIKE 'upload!_%' ESCAPE '!')), '') AS v;\n"
+        "AND column_name IN ("
+        f"{MANAGED_STORAGE_COLUMN_SQL})), '') AS v;\n"
         # 4 indexes on event_media.
         "SELECT 'v42_media_indexes', COALESCE("
         "(SELECT GROUP_CONCAT(index_name ORDER BY index_name SEPARATOR ',') "
@@ -1537,6 +1604,36 @@ def run_postflight(
         target=target, user=read_user, password=read_password,
         executor=executor, postflight=True,
     )
+    expected_metadata_keys = frozenset(
+        re.findall(
+            r"(?m)^SELECT '([a-z][a-z0-9_]*)',",
+            base.build_metadata_sql(postflight=True)
+            + metadata_sql_v42_postflight_extras(),
+        )
+    )
+    observed_metadata_keys = frozenset(metadata)
+    if observed_metadata_keys != expected_metadata_keys:
+        raise ProductionRunnerError(
+            "postflight metadata keys do not match the generated read-only query: "
+            f"missing={sorted(expected_metadata_keys - observed_metadata_keys)}, "
+            f"unexpected={sorted(observed_metadata_keys - expected_metadata_keys)}"
+        )
+    managed_column_rows = (
+        metadata.get("v42_managed_columns", "").split(",")
+        if metadata.get("v42_managed_columns", "")
+        else []
+    )
+    if any(
+        not re.fullmatch(r"[a-z][a-z0-9_]*", row)
+        for row in managed_column_rows
+    ):
+        raise ProductionRunnerError(
+            "V42 managed-storage metadata contains a malformed column name"
+        )
+    if len(managed_column_rows) != len(set(managed_column_rows)):
+        raise ProductionRunnerError(
+            "V42 managed-storage metadata contains a duplicate column row"
+        )
     validate_database_metadata_v42(metadata)
     base.validate_postflight_metadata(metadata, before_evidence["metadata"])
     metadata = merge_bounded_metadata_counts(

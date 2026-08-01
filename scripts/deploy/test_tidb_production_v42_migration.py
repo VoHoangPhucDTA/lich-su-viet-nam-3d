@@ -964,6 +964,87 @@ def _managed_storage_declarations(sql: str) -> list[tuple[str, str]]:
     return declarations
 
 
+EXPECTED_MANAGED_STORAGE_DECLARATIONS = (
+    ("managed_asset_id", "CHAR(36) CHARACTER SET ascii COLLATE ascii_bin NULL"),
+    ("storage_provider", "VARCHAR(32) NULL"),
+    ("storage_public_id", "VARCHAR(255) NULL"),
+    ("storage_asset_id", "VARCHAR(255) NULL"),
+    ("storage_original_url", "VARCHAR(1000) NULL"),
+    ("storage_version", "BIGINT NULL"),
+    ("storage_mime_type", "VARCHAR(100) NULL"),
+    ("storage_format", "VARCHAR(16) NULL"),
+    ("storage_byte_size", "BIGINT NULL"),
+    ("storage_sha256", "CHAR(64) CHARACTER SET ascii COLLATE ascii_bin NULL"),
+    ("storage_width", "INT NULL"),
+    ("storage_height", "INT NULL"),
+    ("uploaded_by", "BINARY(16) NULL"),
+    ("uploaded_at", "DATETIME(6) NULL"),
+    ("storage_state", "VARCHAR(24) NOT NULL DEFAULT 'UNMANAGED'"),
+    ("upload_token", "CHAR(36) CHARACTER SET ascii COLLATE ascii_bin NULL"),
+    ("upload_started_at", "DATETIME(6) NULL"),
+    ("upload_expires_at", "DATETIME(6) NULL"),
+)
+
+
+def _information_schema_predicate(declaration: str) -> str:
+    type_match = re.match(r"([A-Z]+)(?:\(([0-9]+)\))?", declaration)
+    if type_match is None:
+        raise ValueError(f"unsupported managed-storage declaration: {declaration}")
+    data_type, size = type_match.groups()
+    lowered_type = data_type.casefold()
+    parts = [f"LOWER(data_type)='{lowered_type}'"]
+    if data_type == "BIGINT":
+        parts.append("LOWER(column_type) IN ('bigint','bigint(20)')")
+    elif data_type == "INT":
+        parts.append("LOWER(column_type) IN ('int','int(11)')")
+    else:
+        column_type = lowered_type + (f"({size})" if size else "")
+        parts.append(f"LOWER(column_type)='{column_type}'")
+    if data_type == "DATETIME":
+        parts.append(f"datetime_precision={size}")
+    parts.append(
+        "is_nullable='NO'" if " NOT NULL" in declaration else "is_nullable='YES'"
+    )
+    default_match = re.search(r" DEFAULT '([^']*)'", declaration)
+    if default_match is None:
+        parts.append("column_default IS NULL")
+    else:
+        default_hex = default_match.group(1).encode("ascii").hex().upper()
+        parts.extend(
+            (
+                "column_default IS NOT NULL",
+                f"HEX(CAST(column_default AS CHAR))='{default_hex}'",
+            )
+        )
+    if " CHARACTER SET ascii COLLATE ascii_bin" in declaration:
+        parts.extend(
+            (
+                "LOWER(character_set_name)='ascii'",
+                "LOWER(collation_name)='ascii_bin'",
+            )
+        )
+    return " AND ".join(parts)
+
+
+def _v3_event_media_declarations(sql: str) -> list[tuple[str, str]]:
+    table = re.search(
+        r"CREATE TABLE event_media \(\s*(.*?)\s*\) ENGINE=",
+        sql,
+        re.DOTALL,
+    )
+    if table is None:
+        raise ValueError("V3 event_media declaration is missing")
+    declarations: list[tuple[str, str]] = []
+    for line in table.group(1).splitlines():
+        match = re.fullmatch(
+            r"\s*([a-z][a-z0-9_]*) (.+?)(?:,)?\s*",
+            line,
+        )
+        if match:
+            declarations.append((match.group(1), match.group(2)))
+    return declarations
+
+
 class ManagedStorageColumnContractTest(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
@@ -973,15 +1054,33 @@ class ManagedStorageColumnContractTest(unittest.TestCase):
             / runner.EXPECTED_V42_SQL_FILE
         )
         cls.migration_sql = cls.migration_path.read_text(encoding="utf-8")
+        cls.v3_sql = (
+            cls.migration_path.parent / "V3__event_support_tables.sql"
+        ).read_text(encoding="utf-8")
 
     def test_ordered_contract_exactly_matches_authoritative_v42_sql(self) -> None:
         declarations = _managed_storage_declarations(self.migration_sql)
         names = [name for name, _declaration in declarations]
         self.assertEqual(len(names), 18)
+        self.assertEqual(len(names), len(set(names)))
         self.assertEqual(names, list(runner.MANAGED_STORAGE_COLUMN_CONTRACT))
+        self.assertEqual(declarations, list(EXPECTED_MANAGED_STORAGE_DECLARATIONS))
         self.assertEqual(len(runner.MANAGED_STORAGE_COLUMNS), 18)
         self.assertEqual(names.count("upload_expires_at"), 1)
+        self.assertNotIn("storage_type", names)
         self.assertNotIn("storage_expires_at", names)
+
+    def test_v3_defines_the_separate_legacy_storage_type_contract(self) -> None:
+        declarations = _v3_event_media_declarations(self.v3_sql)
+        self.assertEqual(len(declarations), 13)
+        self.assertEqual(
+            declarations[8],
+            (
+                "storage_type",
+                "ENUM('local', 'external', 'object_storage') NOT NULL DEFAULT 'external'",
+            ),
+        )
+        self.assertNotIn("storage_type", self.migration_sql)
 
     def test_contract_rejects_missing_or_duplicate_names(self) -> None:
         contract = runner.MANAGED_STORAGE_COLUMN_CONTRACT
@@ -991,11 +1090,11 @@ class ManagedStorageColumnContractTest(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "duplicate"):
             runner._validated_managed_storage_column_contract(duplicate)
 
-    def test_upload_expiration_type_nullability_and_default_are_exact(self) -> None:
+    def test_all_types_nullability_and_defaults_are_exact(self) -> None:
         def require_contract(sql: str) -> None:
-            declarations = dict(_managed_storage_declarations(sql))
-            if declarations.get("upload_expires_at") != "DATETIME(6) NULL":
-                raise ValueError("upload_expires_at declaration contract mismatch")
+            declarations = _managed_storage_declarations(sql)
+            if declarations != list(EXPECTED_MANAGED_STORAGE_DECLARATIONS):
+                raise ValueError("managed-storage declaration contract mismatch")
 
         require_contract(self.migration_sql)
         declaration = "ADD COLUMN upload_expires_at DATETIME(6) NULL"
@@ -1008,14 +1107,83 @@ class ManagedStorageColumnContractTest(unittest.TestCase):
                 with self.assertRaisesRegex(ValueError, "declaration contract mismatch"):
                     require_contract(self.migration_sql.replace(declaration, wrong))
 
-    def test_generated_sql_uses_one_authoritative_contract_and_catches_extras(self) -> None:
+    def test_generated_sql_uses_only_exact_v42_membership(self) -> None:
         sql = runner.metadata_sql_v42_postflight_extras()
-        for name in runner.MANAGED_STORAGE_COLUMN_CONTRACT:
-            self.assertEqual(sql.count(f"'{name}'"), 1)
+        for name, declaration in EXPECTED_MANAGED_STORAGE_DECLARATIONS:
+            self.assertEqual(sql.count(f"'{name}'"), 2)
+            self.assertEqual(sql.count(f"column_name='{name}'"), 1)
+            self.assertIn(
+                f"(column_name='{name}' AND "
+                f"{_information_schema_predicate(declaration)})",
+                sql,
+            )
+        self.assertIn(
+            f"AND column_name IN ({runner.MANAGED_STORAGE_COLUMN_SQL}))",
+            sql,
+        )
+        self.assertIn(
+            "GROUP_CONCAT(column_name ORDER BY column_name SEPARATOR ',')",
+            sql,
+        )
         self.assertIn("'upload_expires_at'", sql)
+        self.assertNotIn("storage_type", sql)
         self.assertNotIn("storage_expires_at", sql)
-        self.assertIn("column_name LIKE 'storage!_%' ESCAPE '!'", sql)
-        self.assertIn("column_name LIKE 'upload!_%' ESCAPE '!'", sql)
+        self.assertNotIn("column_name LIKE 'storage!_%' ESCAPE '!'", sql)
+        self.assertNotIn("column_name LIKE 'upload!_%' ESCAPE '!'", sql)
+        self.assertNotRegex(sql, r"column_name\s+LIKE\s+")
+        self.assertIn("CASE WHEN COUNT(*)=0 THEN ''", sql)
+        self.assertIn("WHEN COUNT(*)<>18", sql)
+        self.assertIn("COUNT(DISTINCT column_name)<>18", sql)
+        self.assertIn(
+            "HEX(GROUP_CONCAT(column_name ORDER BY ordinal_position SEPARATOR ','))",
+            sql,
+        )
+        expected_order_hex = (
+            ",".join(runner.MANAGED_STORAGE_COLUMN_CONTRACT)
+            .encode("ascii")
+            .hex()
+            .upper()
+        )
+        self.assertIn(f"<>'{expected_order_hex}'", sql)
+        self.assertIn("__invalid_v42_managed_column_contract__", sql)
+        self.assertEqual(sql.count("LOWER(data_type)="), 18)
+        self.assertEqual(sql.count("LOWER(column_type)"), 18)
+        self.assertEqual(sql.count("is_nullable="), 18)
+        self.assertGreaterEqual(sql.count("column_default"), 18)
+        self.assertIn(
+            "column_name='storage_state' AND LOWER(data_type)='varchar' "
+            "AND LOWER(column_type)='varchar(24)' AND is_nullable='NO' "
+            "AND column_default IS NOT NULL "
+            "AND HEX(CAST(column_default AS CHAR))='554E4D414E41474544'",
+            sql,
+        )
+        self.assertIn(
+            "column_name='upload_expires_at' AND LOWER(data_type)='datetime' "
+            "AND LOWER(column_type)='datetime(6)' AND datetime_precision=6 "
+            "AND is_nullable='YES' AND column_default IS NULL",
+            sql,
+        )
+        self.assertTrue(base._read_only_sql_statements(sql))
+
+    def test_rehearsal_diagnostics_use_the_same_exact_membership(self) -> None:
+        spec = importlib.util.spec_from_file_location(
+            "tidb_rehearsal_v42_orchestrate_contract_test",
+            HERE / "tidb_rehearsal_v42_orchestrate.py",
+        )
+        assert spec and spec.loader
+        rehearsal = importlib.util.module_from_spec(spec)
+        sys.modules[spec.name] = rehearsal
+        spec.loader.exec_module(rehearsal)
+
+        sql = rehearsal._metadata_diag_sql()
+        memberships = re.findall(r"column_name IN \(([^)]*)\)", sql)
+        self.assertEqual(len(memberships), 2)
+        for membership in memberships:
+            names = tuple(re.findall(r"'([a-z][a-z0-9_]*)'", membership))
+            self.assertEqual(names, runner.MANAGED_STORAGE_COLUMN_CONTRACT)
+        self.assertNotRegex(sql, r"column_name\s+LIKE\s+")
+        self.assertNotIn("storage_type", sql)
+        self.assertNotIn("storage_expires_at", sql)
 
 
 # ============================================================================
@@ -1068,12 +1236,102 @@ def _metadata(*, before: dict[str, str]) -> dict[str, str]:
 
 
 class PostflightTest(unittest.TestCase):
+    def _raw_postflight_metadata(self) -> dict[str, str]:
+        sql = (
+            base.build_metadata_sql(postflight=True)
+            + runner.metadata_sql_v42_postflight_extras()
+        )
+        keys = re.findall(r"(?m)^SELECT '([a-z][a-z0-9_]*)',", sql)
+        return {key: "0" for key in keys}
+
+    def _run_standalone_postflight_with_metadata(
+        self, metadata: dict[str, str]
+    ) -> None:
+        with (
+            patch.object(runner, "validate_release_e_postflight_evidence"),
+            patch.object(runner, "_verify_manifest_immutable"),
+            patch.object(
+                runner,
+                "_migration_paths_v42",
+                return_value=(Path("migrations"), Path("manifest")),
+            ),
+            patch.object(
+                base,
+                "verify_docker_images",
+                return_value={base.FLYWAY_IMAGE: "flyway@digest"},
+            ),
+            patch.object(base, "build_flyway_config", return_value="config"),
+            patch.object(base, "canonical_migration_directory") as staging,
+            patch.object(runner, "run_flyway_v42", return_value={}),
+            patch.object(
+                base,
+                "validate_flyway_info",
+                return_value={
+                    "current_version": "42",
+                    "pending_versions": [],
+                    "database": "lichsuvn",
+                    "flyway_version": "11.14.1",
+                },
+            ),
+            patch.object(base, "validate_flyway_validate"),
+            patch.object(runner, "run_metadata_query", return_value=metadata),
+        ):
+            staging.return_value.__enter__.return_value = Path("staged")
+            runner.run_postflight(
+                repo_root=Path("repo"),
+                target={"host": "production.invalid", "port": 4000, "database": "lichsuvn"},
+                identity={},
+                production_identity_evidence_sha256="a" * 64,
+                read_user="read",
+                read_password="secret",
+                before_evidence={"metadata": {}},
+                migration_installed_at_utc=datetime(
+                    2026, 8, 1, 13, 23, 42, tzinfo=timezone.utc
+                ),
+            )
+
     def test_v42_postflight_extras_accepts_correct_metadata(self) -> None:
         before = {
             "users_total": "3", "historical_events_total": "361",
             "event_media_total": "0", "active_admin_count": "2",
         }
         runner.validate_v42_postflight_extras(_metadata(before=before), before=before)
+
+    def test_full_v3_plus_v42_table_selects_only_the_exact_delta(self) -> None:
+        before = {
+            "users_total": "3", "historical_events_total": "361",
+            "event_media_total": "0", "active_admin_count": "2",
+        }
+        v3_path = (
+            HERE.parents[1]
+            / "backend" / "src" / "main" / "resources" / "db" / "migration"
+            / "V3__event_support_tables.sql"
+        )
+        v3_columns = [
+            name
+            for name, _declaration in _v3_event_media_declarations(
+                v3_path.read_text(encoding="utf-8")
+            )
+        ]
+        full_table = v3_columns + list(runner.MANAGED_STORAGE_COLUMN_CONTRACT)
+        self.assertEqual(len(full_table), 31)
+        self.assertIn("storage_type", full_table)
+
+        selected = [
+            name for name in full_table if name in runner.MANAGED_STORAGE_COLUMNS
+        ]
+        self.assertEqual(selected, list(runner.MANAGED_STORAGE_COLUMN_CONTRACT))
+        metadata = _metadata(before=before)
+        metadata["v42_managed_columns"] = ",".join(sorted(selected))
+        runner.validate_v42_postflight_extras(metadata, before=before)
+
+        with_unrelated_history = full_table + ["historical_storage_note"]
+        selected_again = [
+            name
+            for name in with_unrelated_history
+            if name in runner.MANAGED_STORAGE_COLUMNS
+        ]
+        self.assertEqual(selected_again, selected)
 
     def test_missing_managed_column_rejected(self) -> None:
         before = {"users_total": "3", "historical_events_total": "361",
@@ -1084,6 +1342,50 @@ class PostflightTest(unittest.TestCase):
         metadata["v42_managed_columns"] = ",".join(cols)
         with self.assertRaises(runner.ProductionRunnerError):
             runner.validate_v42_postflight_extras(metadata, before=before)
+
+    def test_storage_type_cannot_replace_a_missing_v42_column(self) -> None:
+        before = {"users_total": "3", "historical_events_total": "361",
+                  "event_media_total": "0", "active_admin_count": "2"}
+        metadata = _metadata(before=before)
+        columns = set(runner.MANAGED_STORAGE_COLUMNS)
+        columns.remove("upload_expires_at")
+        columns.add("storage_type")
+        metadata["v42_managed_columns"] = ",".join(sorted(columns))
+        with self.assertRaises(runner.ProductionRunnerError):
+            runner.validate_v42_postflight_extras(metadata, before=before)
+
+    def test_duplicate_or_malformed_metadata_rows_are_rejected(self) -> None:
+        value = ",".join(sorted(runner.MANAGED_STORAGE_COLUMNS))
+        with self.assertRaises(base.MigrationGuardError):
+            base.parse_mysql_metadata(
+                f"v42_managed_columns\t{value}\n"
+                f"v42_managed_columns\t{value}\n"
+            )
+        with self.assertRaises(base.MigrationGuardError):
+            base.parse_mysql_metadata(f"v42_managed_columns {value}\n")
+
+        duplicate = self._raw_postflight_metadata()
+        duplicate["v42_managed_columns"] = f"{value},{next(iter(runner.MANAGED_STORAGE_COLUMNS))}"
+        with self.assertRaisesRegex(runner.ProductionRunnerError, "duplicate column row"):
+            self._run_standalone_postflight_with_metadata(duplicate)
+
+        malformed = self._raw_postflight_metadata()
+        malformed["v42_managed_columns"] = f"{value},"
+        with self.assertRaisesRegex(runner.ProductionRunnerError, "malformed column name"):
+            self._run_standalone_postflight_with_metadata(malformed)
+
+    def test_wrong_definition_sentinel_and_unexpected_key_are_rejected(self) -> None:
+        wrong_definition = self._raw_postflight_metadata()
+        wrong_definition["v42_managed_columns"] = (
+            "__invalid_v42_managed_column_contract__"
+        )
+        with self.assertRaisesRegex(runner.ProductionRunnerError, "malformed column name"):
+            self._run_standalone_postflight_with_metadata(wrong_definition)
+
+        unexpected = self._raw_postflight_metadata()
+        unexpected["unexpected_parser_key"] = "1"
+        with self.assertRaisesRegex(runner.ProductionRunnerError, "unexpected_parser_key"):
+            self._run_standalone_postflight_with_metadata(unexpected)
 
     def test_old_wrong_expiration_column_is_rejected(self) -> None:
         before = {"users_total": "3", "historical_events_total": "361",
@@ -1763,12 +2065,30 @@ class DocumentationContractTest(unittest.TestCase):
         runbook = (
             HERE.parents[1] / "docs" / "admin" / "TIDB_PRODUCTION_V42_RUNBOOK.md"
         ).read_text(encoding="utf-8")
+        section = runbook.split(
+            "### V42 managed-column migration-delta contract", 1
+        )[1].split("Requires:", 1)[0]
+        for name in runner.MANAGED_STORAGE_COLUMN_CONTRACT:
+            self.assertIn(f"\n{name}\n", section)
+        self.assertIn("``V3__event_support_tables.sql``", section)
+        self.assertIn(
+            "``ENUM('local','external','object_storage') NOT NULL DEFAULT 'external'``",
+            section,
+        )
+        self.assertIn("approved V41 restore corroborated", section)
+        self.assertIn("migration-delta checker", section)
+        self.assertIn("not a complete", section)
+        self.assertIn("broad ``storage_*`` or", section)
+        self.assertIn("``upload_*`` matching is prohibited", section)
+        self.assertIn("``storage_type``", section)
         self.assertIn("``upload_expires_at``", runbook)
         self.assertIn("``storage_expires_at``", runbook)
         self.assertIn("checker-only typo", runbook)
-        self.assertIn("must not be rerun", runbook)
+        self.assertIn("must never be rerun", runbook.casefold())
         self.assertIn("read-only postflight", runbook)
         self.assertIn("no manual DDL", runbook)
+        self.assertIn("was not bypassed or modified", section)
+        self.assertIn("no new identity-bound rehearsal query was run", section)
 
     def test_runbook_documents_separate_postflight_release_bindings(self) -> None:
         runbook = (
@@ -1983,6 +2303,7 @@ class ReleaseEEvidenceOrderingTest(unittest.TestCase):
 
         with tempfile.TemporaryDirectory() as directory:
             path = Path(directory) / "preflight.json"
+            evidence_path = Path(directory) / "postflight.json"
             file_sha = _write_v42_preflight(path, payload)
             with (
                 patch.object(runner, "load_identity_evidence", return_value=_v42_preflight_identity()),
@@ -2007,6 +2328,7 @@ class ReleaseEEvidenceOrderingTest(unittest.TestCase):
                     side_effect=runner.ProductionRunnerError("schema gate failed"),
                 ) as postflight,
                 patch.object(runner, "run_migrate") as migrate,
+                patch.object(base, "_write_evidence") as write_evidence,
                 redirect_stderr(io.StringIO()),
             ):
                 exit_code = runner.main([
@@ -2023,11 +2345,14 @@ class ReleaseEEvidenceOrderingTest(unittest.TestCase):
                     "--failure-inspection-sha256", "c" * 64,
                     "--failure-inspection-detached-sha256",
                     str(Path(directory) / "failure.sha256"),
+                    "--evidence-file", str(evidence_path),
                 ])
+            self.assertFalse(evidence_path.exists())
         self.assertEqual(exit_code, 2)
         self.assertEqual(credential_prefixes, ["TIDB_PRODUCTION_READ"])
         postflight.assert_called_once()
         migrate.assert_not_called()
+        write_evidence.assert_not_called()
 
     def test_mocked_migrate_path_invokes_migrate_once_and_requires_postflight(self) -> None:
         operations: list[str] = []
