@@ -1,4 +1,10 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import {
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+  type SetStateAction,
+} from 'react';
 import type { SectionInfo } from './useReadingProgress';
 
 export const APP_SCROLL_ROOT_ID = 'app-scroll-root';
@@ -19,9 +25,39 @@ export function useActiveSection(
   sections: SectionInfo[],
   offsetPx = EVENT_DETAIL_SECTION_OFFSET_PX
 ) {
-  const [activeSection, setActiveSection] = useState(sections[0]?.id ?? '');
+  const sectionIdentity = sections.map((section) => section.id).join('\u001f');
+  const firstSectionId = sections[0]?.id ?? '';
+  const [activeState, setActiveState] = useState(() => ({
+    sectionIdentity,
+    sectionId: firstSectionId,
+  }));
+  const activeSection =
+    activeState.sectionIdentity === sectionIdentity
+      ? activeState.sectionId
+      : firstSectionId;
   const programmaticTargetRef = useRef<ProgrammaticTarget | null>(null);
   const animationFrameRef = useRef<number | null>(null);
+
+  const setActiveSection = useCallback(
+    (next: SetStateAction<string>) => {
+      setActiveState((previous) => {
+        const current =
+          previous.sectionIdentity === sectionIdentity
+            ? previous.sectionId
+            : firstSectionId;
+        const sectionId =
+          typeof next === 'function' ? next(current) : next;
+        if (
+          previous.sectionIdentity === sectionIdentity &&
+          previous.sectionId === sectionId
+        ) {
+          return previous;
+        }
+        return { sectionIdentity, sectionId };
+      });
+    },
+    [firstSectionId, sectionIdentity],
+  );
 
   const stopMonitoring = useCallback(() => {
     if (animationFrameRef.current !== null) {
@@ -78,14 +114,14 @@ export function useActiveSection(
 
     const next = getActiveFromScrollPosition();
     setActiveSection((prev) => (prev === next ? prev : next));
-  }, [getActiveFromScrollPosition]);
+  }, [getActiveFromScrollPosition, setActiveSection]);
 
   const releaseProgrammaticTarget = useCallback(() => {
     programmaticTargetRef.current = null;
     stopMonitoring();
     const next = getActiveFromScrollPosition();
     setActiveSection((prev) => (prev === next ? prev : next));
-  }, [getActiveFromScrollPosition, stopMonitoring]);
+  }, [getActiveFromScrollPosition, setActiveSection, stopMonitoring]);
 
   const targetHasSettled = useCallback((root: HTMLElement, target: ProgrammaticTarget) => {
     if (target.top) {
@@ -142,7 +178,7 @@ export function useActiveSection(
 
     root.scrollTo({ top: Math.max(0, nextTop), behavior: 'smooth' });
     monitorProgrammaticScroll();
-  }, [monitorProgrammaticScroll, offsetPx]);
+  }, [monitorProgrammaticScroll, offsetPx, setActiveSection]);
 
   const scrollToTop = useCallback(() => {
     const root = getAppScrollRoot();
@@ -156,7 +192,7 @@ export function useActiveSection(
 
     root.scrollTo({ top: 0, behavior: 'smooth' });
     monitorProgrammaticScroll();
-  }, [monitorProgrammaticScroll, sections]);
+  }, [monitorProgrammaticScroll, sections, setActiveSection]);
 
   useEffect(() => {
     const root = getAppScrollRoot();
@@ -196,10 +232,9 @@ export function useActiveSection(
   }, [releaseProgrammaticTarget, sections.length, stopMonitoring, updateFromScrollPosition]);
 
   useEffect(() => {
-    setActiveSection(sections[0]?.id ?? '');
     programmaticTargetRef.current = null;
     stopMonitoring();
-  }, [sections, stopMonitoring]);
+  }, [sectionIdentity, stopMonitoring]);
 
   return {
     activeSection,

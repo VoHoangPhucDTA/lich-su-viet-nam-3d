@@ -1,7 +1,4 @@
-import { useState, useCallback } from 'react';
 import { Compass, X, ChevronUp, Clock, List, MapPin, BookOpen } from 'lucide-react';
-
-const STORAGE_KEY = 'lsvn3d_map_guide_seen';
 
 interface Step {
   icon: typeof Clock;
@@ -31,26 +28,6 @@ const STEPS: Step[] = [
     desc: 'Đọc mô tả, thời gian, địa điểm và các sự kiện con ở bảng bên phải. Nhấn "Xem chi tiết" để tìm hiểu sâu hơn.',
   },
 ];
-
-export function useMapGuide() {
-  // Lazy initializer: read localStorage synchronously on first render,
-  // so there's no flash between initial false → true in an effect.
-  const [isOpen, setIsOpen] = useState(() => {
-    const seen = localStorage.getItem(STORAGE_KEY);
-    return !seen; // auto-open only on first visit
-  });
-
-  const dismiss = useCallback(() => {
-    localStorage.setItem(STORAGE_KEY, 'true');
-    setIsOpen(false);
-  }, []);
-
-  const toggle = useCallback(() => {
-    setIsOpen((prev) => !prev);
-  }, []);
-
-  return { isOpen, dismiss, toggle };
-}
 
 interface OnboardingGuideProps {
   isOpen: boolean;

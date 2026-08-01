@@ -5,6 +5,7 @@ import org.flywaydb.core.Flyway;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
@@ -19,6 +20,9 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 class HistoryRagDryRunIntegrationTest {
+
+    @TempDir
+    private static Path temporaryDirectory;
 
     private static MySQLContainer<?> mysql;
     private static HistoryRagPackageReader.PackageData packageData;
@@ -46,7 +50,9 @@ class HistoryRagDryRunIntegrationTest {
             DataSource dataSource = new DriverManagerDataSource(
                     mysql.getJdbcUrl(), mysql.getUsername(), mysql.getPassword());
             jdbc = new NamedParameterJdbcTemplate(dataSource);
-            packageData = new HistoryRagPackageReader(new ObjectMapper()).read(Path.of("../data/history-rag/v1"));
+            Path packageDirectory = temporaryDirectory.resolve("history-rag-v1");
+            HistoryRagTestPackageFixture.create(packageDirectory);
+            packageData = new HistoryRagPackageReader(new ObjectMapper()).read(packageDirectory);
             seedPackageReferences();
             preflight = new HistoryRagTextbookRefPreflight(jdbc);
             mysqlAvailable = true;

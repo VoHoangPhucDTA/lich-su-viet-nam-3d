@@ -1,4 +1,4 @@
-import { ArrowRight, Clock3, History } from 'lucide-react';
+import { ArrowRight, Clock3, History, Sparkles } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../auth/AuthContext';
@@ -65,8 +65,14 @@ export default function QuizHistoryPage() {
           title="Lịch sử làm bài"
           description="Xem lại các phiên trắc nghiệm đã hoàn thành và mở báo cáo chi tiết."
           showBack
+          backTo="/quiz"
           backFallback="/quiz"
-          action={<Link to="/quiz/generate" className="public-primary-button no-underline">Tạo bài mới</Link>}
+          backLabel="Về trang trắc nghiệm"
+          action={(
+            <Link to="/quiz/generate" className="public-primary-button no-underline">
+              <Sparkles size={16} aria-hidden="true" /> Tạo bài mới
+            </Link>
+          )}
         />
 
         <section className="public-toolbar">
@@ -90,7 +96,9 @@ export default function QuizHistoryPage() {
               description="Các bài trắc nghiệm đã hoàn thành sẽ xuất hiện tại đây."
             />
             <div className="-mt-10 flex justify-center pb-10">
-              <Link to="/quiz/generate" className="public-primary-button no-underline">Tạo bài đầu tiên</Link>
+              <Link to="/quiz/generate" className="public-primary-button no-underline">
+                <Sparkles size={16} aria-hidden="true" /> Tạo bài đầu tiên
+              </Link>
             </div>
           </div>
         ) : filteredHistory.length === 0 ? (

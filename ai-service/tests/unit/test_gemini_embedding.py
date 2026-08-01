@@ -19,7 +19,7 @@ from app.embedding.models import (
 
 @dataclass
 class MockEmbedding:
-    values: list[float]
+    values: list[float] | None
 
 
 @dataclass
@@ -125,6 +125,25 @@ def test_provider_rejects_wrong_embedding_count() -> None:
     )
     with pytest.raises(EmbeddingResponseError, match="Expected 2"):
         provider.embed_documents(["first", "second"])
+
+
+def test_provider_rejects_missing_embedding_values() -> None:
+    client = MockClient(MockResponse([]))
+    client.models.response = MockResponse([MockEmbedding(None)])
+    provider = make_provider(client)
+
+    with pytest.raises(EmbeddingResponseError, match="is empty"):
+        provider.embed_documents(["first"])
+
+
+def test_provider_rejects_embedding_dimension_mismatch() -> None:
+    provider = make_provider(
+        MockClient(MockResponse([MockEmbedding([1.0, 0.0])])),
+        dimension=3,
+    )
+
+    with pytest.raises(EmbeddingResponseError, match="dimension 2, expected 3"):
+        provider.embed_documents(["first"])
 
 
 def test_provider_rejects_nan_vector() -> None:

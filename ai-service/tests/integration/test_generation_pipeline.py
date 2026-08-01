@@ -2,7 +2,7 @@ from pathlib import Path
 
 from app.config import Settings
 from app.generation.fake import FakeGenerationProvider
-from app.generation.models import GeneratedQuestion, GenerationRequest
+from app.generation.models import GenerationRequest
 from app.generation.schemas import GeneratedQuestionBatch
 from app.generation.service import GenerationService
 from tests.unit.test_generation import StubRetrieval, question, retrieval_response

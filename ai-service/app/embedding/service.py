@@ -14,9 +14,10 @@ from app.embedding.formatter import RetrievalFormatter
 from app.embedding.gemini import error_context
 from app.embedding.models import (
     EmbeddingFailure,
-    EmbeddingResponseError,
     EmbeddingManifest,
+    EmbeddingManifestStatus,
     EmbeddingRecord,
+    EmbeddingResponseError,
     MissingGeminiApiKeyError,
     PermanentEmbeddingError,
 )
@@ -122,7 +123,7 @@ class EmbeddingService:
         self.store.write_manifest(manifest)
 
     @staticmethod
-    def _completion_status(manifest: EmbeddingManifest) -> str:
+    def _completion_status(manifest: EmbeddingManifest) -> EmbeddingManifestStatus:
         if manifest.remainingRecords == 0 and manifest.unresolvedFailedRecords == 0:
             return "COMPLETED"
         if manifest.unattemptedRecords == 0 and manifest.unresolvedFailedRecords:
@@ -150,17 +151,15 @@ class EmbeddingService:
         serialized = str(context).upper()
         if code in (401, 403, 404) or "API_KEY_INVALID" in serialized:
             return True
-        if code == 400 and any(
+        return code == 400 and any(
             marker in serialized
             for marker in ("OUTPUT_DIMENSION", "OUTPUT_DIMENSIONALITY", "MODEL NOT FOUND")
-        ):
-            return True
-        return False
+        )
 
     def _should_bisect(self, exc: BaseException, batch_size: int, depth: int) -> bool:
         if batch_size <= 1 or depth >= MAX_BATCH_SPLIT_DEPTH:
             return False
-        if isinstance(exc, (TypeError, ValueError, EmbeddingResponseError)):
+        if isinstance(exc, TypeError | ValueError | EmbeddingResponseError):
             return True
         return self._context_code(exc) in (400, 413, 422)
 
@@ -243,7 +242,7 @@ class EmbeddingService:
             self._persist_progress(manifest, selected, records, failures)
             return
 
-        for chunk, vector in zip(batch, vectors):
+        for chunk, vector in zip(batch, vectors, strict=False):
             records[chunk.chunkId] = EmbeddingRecord(
                 chunkId=chunk.chunkId,
                 chunkHash=chunk.chunkHash,

@@ -2,7 +2,7 @@
  * ExamSessionPage – The actual test-taking interface.
  */
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import * as examService from '../../services/examService';
 import type { ExamSession, ExamQuestionStatus, ExamAnswer } from '../../types/exam';
@@ -26,6 +26,7 @@ export default function ExamSessionPage() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [answers, setAnswers] = useState<ExamAnswer[]>([]);
   const [questionStatuses, setQuestionStatuses] = useState<Record<string, ExamQuestionStatus>>({});
+  const remainingSecondsRef = useRef<number | undefined>(undefined);
   
   // Dialog state
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -49,6 +50,7 @@ export default function ExamSessionPage() {
       }
 
       setSession(data);
+      remainingSecondsRef.current = data.remainingSeconds;
       setCurrentIndex(data.currentQuestionIndex);
       setAnswers(data.answers);
       
@@ -77,14 +79,15 @@ export default function ExamSessionPage() {
       
       const statusesToUse = newStatuses || questionStatuses;
       const flagged = Object.entries(statusesToUse)
-         .filter(([_, status]) => status === 'flagged')
+         .filter(([, status]) => status === 'flagged')
          .map(([id]) => id);
 
       const updatedSession: ExamSession = { 
           ...session, 
           currentQuestionIndex: newIndex, 
           answers: newAnswers,
-          flaggedQuestions: flagged
+          flaggedQuestions: flagged,
+          remainingSeconds: remainingSecondsRef.current,
       };
       setSession(updatedSession);
       examService.saveExamProgress(updatedSession);
@@ -189,7 +192,9 @@ export default function ExamSessionPage() {
             {session.remainingSeconds !== undefined && session.remainingSeconds > 0 && (
                 <ExamTimer 
                    initialSeconds={session.remainingSeconds} 
-                   onTick={(sec) => { session.remainingSeconds = sec; }}
+                   onTick={(seconds) => {
+                     remainingSecondsRef.current = seconds;
+                   }}
                    onTimeUp={() => { setIsTimeUpSignal(true); setDialogOpen(true); }}
                 />
             )}

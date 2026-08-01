@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import type { MockEventDetail } from '../../data/mockEventDetails';
 import {
@@ -35,11 +35,6 @@ export default function EventHero({ event, showMapAction }: EventHeroProps) {
   const thumbnailUrl = thumbnailCandidates[thumbnailIndex];
   const hasThumbnail = Boolean(thumbnailUrl) && !thumbnailError;
   const mapUrl = `/map?event=${encodeURIComponent(event.slug || event.id)}`;
-
-  useEffect(() => {
-    setThumbnailError(false);
-    setThumbnailIndex(0);
-  }, [thumbnailCandidates]);
 
   const handleThumbnailError = () => {
     if (thumbnailIndex < thumbnailCandidates.length - 1) {

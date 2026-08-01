@@ -55,12 +55,12 @@ export default function MCQQuestionCardV2({
 
   function handleOptionKeyDown(event: KeyboardEvent<HTMLButtonElement>, optionIndex: number) {
     if (reviewMode || disabled) return;
-    const keys = ['ArrowDown', 'ArrowUp', 'Home', 'End'];
+    const keys = ['ArrowDown', 'ArrowUp', 'ArrowLeft', 'ArrowRight', 'Home', 'End'];
     if (!keys.includes(event.key)) return;
     event.preventDefault();
     event.stopPropagation();
     const nextIndex = event.key === 'Home' ? 0 : event.key === 'End' ? question.options.length - 1 :
-      (optionIndex + (event.key === 'ArrowDown' ? 1 : -1) + question.options.length) % question.options.length;
+      (optionIndex + (event.key === 'ArrowDown' || event.key === 'ArrowRight' ? 1 : -1) + question.options.length) % question.options.length;
     const next = question.options[nextIndex];
     if (next) onSelectOption(next.id);
     optionRefs.current[nextIndex]?.focus();

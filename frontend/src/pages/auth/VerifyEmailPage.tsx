@@ -10,17 +10,19 @@ export default function VerifyEmailPage() {
   const [params] = useSearchParams();
   const navigate = useNavigate();
   const { verifyEmail } = useAuth();
-  const [state, setState] = useState<VerifyState>('loading');
-  const [message, setMessage] = useState('Đang xác minh tài khoản...');
+  const token = params.get('token');
+  const [state, setState] = useState<VerifyState>(
+    token ? 'loading' : 'error',
+  );
+  const [message, setMessage] = useState(
+    token
+      ? 'Đang xác minh tài khoản...'
+      : 'Link xác minh không hợp lệ hoặc thiếu token.',
+  );
   const [redirectSeconds, setRedirectSeconds] = useState(3);
 
   useEffect(() => {
-    const token = params.get('token');
-    if (!token) {
-      setState('error');
-      setMessage('Link xác minh không hợp lệ hoặc thiếu token.');
-      return;
-    }
+    if (!token) return;
 
     let cancelled = false;
     let redirectTimer: number | undefined;
@@ -51,7 +53,7 @@ export default function VerifyEmailPage() {
       if (redirectTimer) window.clearTimeout(redirectTimer);
       if (countdownTimer) window.clearInterval(countdownTimer);
     };
-  }, [navigate, params, verifyEmail]);
+  }, [navigate, token, verifyEmail]);
 
   const isSuccess = state === 'success';
 

@@ -6,7 +6,7 @@ import {
 } from 'lucide-react';
 import { useAuth } from '../../auth/AuthContext';
 import originalAppLogo from '../../assets/lich-su-viet-nam-3d-logo-header-transparent.webp';
-import { useHeader } from './HeaderContext';
+import { useHeader } from './useHeader';
 
 const homeAppLogo = '/home-images/home-logo-384.webp';
 

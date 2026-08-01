@@ -6,9 +6,11 @@ import com.lichsuvn.backend.exam.ai.api.dto.AiQuizDifficulty;
 import com.lichsuvn.backend.exam.ai.api.dto.AiQuizGenerateRequest;
 import com.lichsuvn.backend.exam.ai.api.dto.PracticeQuizGenerateRequest;
 import com.lichsuvn.backend.exam.ai.application.AiQuizGenerationService;
+import com.lichsuvn.backend.exam.ai.application.AiCanarySubjectPseudonymizer;
 import com.lichsuvn.backend.exam.ai.application.AiQuizMetrics;
 import com.lichsuvn.backend.exam.ai.application.AiStyleExampleService;
 import com.lichsuvn.backend.exam.ai.client.AiQuizClient;
+import com.lichsuvn.backend.exam.ai.client.dto.AiGenerationUseCase;
 import com.lichsuvn.backend.exam.ai.client.dto.AiQuizGenerationRequest;
 import com.lichsuvn.backend.exam.ai.client.dto.AiQuizGenerationResponse;
 import com.lichsuvn.backend.exam.ai.config.AiServiceProperties;
@@ -40,7 +42,7 @@ class AiQuizGenerationServiceTest {
 
     @BeforeEach
     void setUp() {
-        service = new AiQuizGenerationService(client, styles, AiStyleExampleServiceTest.properties(3), metrics, receipts);
+        service = new AiQuizGenerationService(client, styles, canaryProperties("test-canary-secret"), metrics, receipts);
         when(styles.select(anyString(), anyString())).thenReturn(List.of());
         when(receipts.issue(any(), any(), any(), anyString())).thenReturn(
                 new AiGenerationReceiptRepository.Issued("receipt-1", LocalDateTime.now().plusMinutes(30)));
@@ -57,6 +59,10 @@ class AiQuizGenerationServiceTest {
         assertEquals(List.of("PROPER_NAME_EVIDENCE_WARNING"), result.warnings());
         assertFalse(result.warnings().contains("FACTUAL_ERROR"));
         verify(metrics).success(false);
+        ArgumentCaptor<AiQuizGenerationRequest> requestCaptor = ArgumentCaptor.forClass(AiQuizGenerationRequest.class);
+        verify(client).generate(requestCaptor.capture(), anyString());
+        assertEquals(AiGenerationUseCase.ADMIN_REVIEW, requestCaptor.getValue().generationUseCase());
+        assertEquals(null, requestCaptor.getValue().canarySubject());
     }
 
     @Test
@@ -88,6 +94,12 @@ class AiQuizGenerationServiceTest {
         assertEquals(null, internal.lessonNumber());
         assertEquals(null, internal.documentId());
         assertEquals(5, internal.topK());
+        assertEquals(AiGenerationUseCase.SELF_PRACTICE, internal.generationUseCase());
+        assertEquals(
+                AiCanarySubjectPseudonymizer.pseudonymize("user-1", "test-canary-secret"),
+                internal.canarySubject()
+        );
+        assertFalse("user-1".equals(internal.canarySubject()));
         assertTrue(result.generation().partial());
         assertEquals(3, result.questions().size());
         verify(receipts, never()).issue(any(), any(), any(), anyString());
@@ -140,12 +152,40 @@ class AiQuizGenerationServiceTest {
         verify(client, never()).generate(any(), anyString());
     }
 
+    @Test
+    void missingPrincipalOrCanarySecretFailsClosedToNoSubject() {
+        when(client.generate(any(), anyString())).thenReturn(response(1, 1, "B", List.of()));
+        AiQuizGenerationService noSecretService = new AiQuizGenerationService(
+                client, styles, AiStyleExampleServiceTest.properties(3), metrics, receipts
+        );
+
+        noSecretService.generatePractice(
+                new PracticeQuizGenerateRequest("History", AiQuizDifficulty.MEDIUM, 1), principal()
+        );
+        noSecretService.generatePractice(
+                new PracticeQuizGenerateRequest("History", AiQuizDifficulty.MEDIUM, 1), null
+        );
+
+        ArgumentCaptor<AiQuizGenerationRequest> requestCaptor = ArgumentCaptor.forClass(AiQuizGenerationRequest.class);
+        verify(client, org.mockito.Mockito.times(2)).generate(requestCaptor.capture(), anyString());
+        assertTrue(requestCaptor.getAllValues().stream().allMatch(value -> value.canarySubject() == null));
+    }
+
     private static AiQuizGenerateRequest request(int count) {
         return new AiQuizGenerateRequest("Nguyên nhân thắng lợi", 12, 6, null, AiQuizDifficulty.MEDIUM, count, 5);
     }
 
     private static UserPrincipal principal() {
         return new UserPrincipal("user-1", new byte[16], "student@example.test", List.of("student"));
+    }
+
+    private static AiServiceProperties canaryProperties(String secret) {
+        AiServiceProperties base = AiStyleExampleServiceTest.properties(3);
+        return new AiServiceProperties(
+                base.enabled(), base.baseUrl(), base.connectTimeout(), base.readTimeout(),
+                base.generationPath(), base.healthPath(), base.provenancePath(), base.internalToken(),
+                base.maxStyleExamples(), secret
+        );
     }
 
     private static AiQuizGenerationResponse response(int requested, int generated, String correct, List<String> warnings) {

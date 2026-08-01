@@ -4,14 +4,18 @@ from types import SimpleNamespace
 import pytest
 from google.genai import errors
 
-from app.config import Settings
 from app.generation.evaluation import GenerationCache
-from app.generation.gemini import GeminiGenerationProvider
-from app.generation.models import GenerationRequest, GenerationSafetyError
-from app.generation.service import GenerationService
-from app.generation.schemas import GeneratedQuestionBatch
-from tests.unit.test_generation import StubRetrieval, configured, question, retrieval_response
 from app.generation.fake import FakeGenerationProvider
+from app.generation.gemini import GeminiGenerationProvider
+from app.generation.models import (
+    GenerationOutputError,
+    GenerationPermanentError,
+    GenerationRequest,
+    GenerationSafetyError,
+)
+from app.generation.schemas import GeneratedQuestionBatch
+from app.generation.service import GenerationService
+from tests.unit.test_generation import StubRetrieval, configured, question, retrieval_response
 
 
 class FakeModels:
@@ -73,6 +77,44 @@ def test_provider_maps_safety_finish_reason() -> None:
         provider(lambda **_: client).generate_structured("prompt")
 
 
+def test_provider_rejects_response_without_candidate() -> None:
+    client = FakeClient(
+        SimpleNamespace(text=None, candidates=[], prompt_feedback=None)
+    )
+
+    with pytest.raises(GenerationOutputError, match="GENERATION_FINISH_NO_CANDIDATE"):
+        provider(lambda **_: client).generate_structured("prompt")
+
+
+def test_provider_rejects_response_without_text_and_keeps_typed_raw_output() -> None:
+    client = FakeClient(
+        SimpleNamespace(
+            text=None,
+            candidates=[SimpleNamespace(finish_reason="STOP")],
+            prompt_feedback=None,
+        )
+    )
+
+    with pytest.raises(GenerationOutputError) as caught:
+        provider(lambda **_: client).generate_structured("prompt")
+
+    assert caught.value.raw_output == ""
+
+
+def test_provider_passes_timeout_to_sdk_in_milliseconds() -> None:
+    client = FakeClient(response())
+    factory_kwargs = {}
+
+    def factory(**kwargs):
+        factory_kwargs.update(kwargs)
+        return client
+
+    provider(factory).generate_structured("prompt", timeout_seconds=1.25)
+
+    assert factory_kwargs["http_options"].timeout == 1250
+    assert factory_kwargs["http_options"].retry_options.attempts == 0
+
+
 def test_provider_rotates_only_credential_failure() -> None:
     clients = [
         FakeClient(
@@ -95,29 +137,80 @@ def test_provider_rotates_only_credential_failure() -> None:
     assert clients[0].closed
 
 
-def test_generation_cache_identity_invalidates_all_semantic_inputs(tmp_path: Path) -> None:
+def test_generation_error_does_not_expose_api_key() -> None:
+    secret = "AIza" + "x" * 32
+    client = FakeClient(
+        errors.ClientError(
+            400,
+            {"error": {"message": f"bad request for {secret}"}},
+        )
+    )
+
+    with pytest.raises(GenerationPermanentError) as caught:
+        provider(lambda **_: client, secret).generate_structured("prompt")
+
+    assert secret not in str(caught.value)
+
+
+def test_generation_cache_identity_covers_declared_semantic_inputs(
+    tmp_path: Path,
+) -> None:
     retrieval = retrieval_response()
     base_request = GenerationRequest(query="query", count=1)
-    base = GenerationCache.identity(
-        base_request, retrieval, model="model", temperature=0.3
+
+    def identity(
+        request=base_request,
+        retrieved=retrieval,
+        **overrides,
+    ):
+        values = {
+            "model": "model",
+            "temperature": 0.3,
+            "max_output_tokens": 8192,
+            "repair_attempts": 1,
+            "provider_mode": "production",
+            "prompt_version": "prompt-v1",
+            "schema_version": "schema-v1",
+        }
+        values.update(overrides)
+        return GenerationCache.identity(request, retrieved, **values)
+
+    base = identity()
+    assert base != identity(request=GenerationRequest(query="changed", count=1))
+    assert base != identity(model="other")
+    assert base != identity(temperature=0.4)
+    assert base != identity(max_output_tokens=4096)
+    assert base != identity(repair_attempts=2)
+    assert base != identity(provider_mode="deterministic")
+    assert base != identity(prompt_version="prompt-v2")
+    assert base != identity(schema_version="schema-v2")
+    with_style = GenerationRequest(
+        query="query",
+        count=1,
+        styleExamples=[
+            {
+                "question": "Mẫu khác",
+                "options": [
+                    {"id": "A", "text": "A"},
+                    {"id": "B", "text": "B"},
+                    {"id": "C", "text": "C"},
+                    {"id": "D", "text": "D"},
+                ],
+                "correctOptionId": "A",
+                "explanation": "Giải thích",
+                "difficulty": "MEDIUM",
+            }
+        ],
     )
-    assert base != GenerationCache.identity(
-        GenerationRequest(query="changed", count=1),
-        retrieval,
-        model="model",
-        temperature=0.3,
-    )
-    assert base != GenerationCache.identity(
-        base_request, retrieval, model="other", temperature=0.3
-    )
-    assert base != GenerationCache.identity(
-        base_request, retrieval, model="model", temperature=0.4
-    )
+    assert base != identity(request=with_style)
     changed = retrieval.model_copy(deep=True)
     changed.results[0].chunk_hash = "b" * 64
-    assert base != GenerationCache.identity(
-        base_request, changed, model="model", temperature=0.3
-    )
+    assert base != identity(retrieved=changed)
+    changed_context = retrieval.model_copy(deep=True)
+    changed_context.fact_context.text += "\nchanged"
+    assert base != identity(retrieved=changed_context)
+    # Correlation IDs, log level, and secrets are intentionally not inputs.
+    assert base == identity()
     service = GenerationService(
         settings=configured(tmp_path),
         retrieval_service=StubRetrieval(retrieval),  # type: ignore[arg-type]

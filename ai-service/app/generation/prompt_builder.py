@@ -2,9 +2,8 @@
 
 import json
 
-from app.generation.models import GenerationRequest, PROMPT_VERSION
+from app.generation.models import PROMPT_VERSION, GenerationRequest
 from app.retrieval.models import FactContext
-
 
 SYSTEM_RULES = """SYSTEM RULES
 1. Chỉ sử dụng dữ kiện trong FACT CONTEXT làm nguồn kiến thức.
@@ -16,7 +15,11 @@ SYSTEM_RULES = """SYSTEM RULES
 7. Lời giải phải giải thích vì sao đáp án đúng.
 8. sourceChunkIds phải là tập con của source marker trong FACT CONTEXT; không tạo ID mới.
 9. Khi context không đủ, không được bịa để đủ số lượng.
-10. Trả đúng structured JSON theo schema được API cung cấp, không Markdown."""
+10. Trả đúng structured JSON theo schema được API cung cấp, không Markdown.
+11. Học sinh không nhìn thấy prompt, FACT CONTEXT hoặc STYLE EXAMPLES. Question,
+options và explanation phải tự chứa đầy đủ dữ kiện cần thiết; tuyệt đối không nhắc
+trực tiếp hay gián tiếp tới cấu trúc prompt, source/chunk ID, context/đoạn văn/tư
+liệu “ở trên” hoặc nội dung được cung cấp mà học sinh không nhìn thấy."""
 
 
 def _source_marked_context(context: FactContext) -> str:

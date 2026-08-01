@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { getBrowseEvents, type BrowseEventsParams } from '../services/eventApi';
 import type { HistoricalEvent } from '../types/event';
 
@@ -9,10 +9,7 @@ interface UseInfiniteEventsOptions extends BrowseEventsParams {
 
 export function useInfiniteEvents(options: UseInfiniteEventsOptions) {
   const { enabled = true, limit = 24, ...params } = options;
-  const requestKey = useMemo(
-    () => JSON.stringify({ ...params, limit }),
-    [limit, params.q, params.eventType, params.eventLevel, params.year, params.grade, params.sortBy, params.sortDir, params.startYearFrom, params.startYearTo]
-  );
+  const requestKey = JSON.stringify({ ...params, limit });
   const [events, setEvents] = useState<HistoricalEvent[]>([]);
   const [total, setTotal] = useState(0);
   const [offset, setOffset] = useState(0);

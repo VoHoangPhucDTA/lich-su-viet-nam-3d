@@ -1,20 +1,22 @@
-import math
 import json
+import math
 from pathlib import Path
-from typing import Any
+from typing import Any, ClassVar
 
 import pytest
 from fastapi.testclient import TestClient
 from pydantic import ValidationError
 
 from app.config import Settings
-from app.embedding.formatter import QUERY_FORMATTER_VERSION, RetrievalFormatter
+from app.dependencies import get_retrieval_service
 from app.embedding.checkpoint import sanitize_artifact_name
+from app.embedding.formatter import QUERY_FORMATTER_VERSION, RetrievalFormatter
 from app.main import create_app
 from app.retrieval.context_builder import build_fact_context
 from app.retrieval.filters import build_chroma_where, candidate_matches_filters
 from app.retrieval.models import (
     RawChromaCandidate,
+    RetrievalEvaluationTrace,
     RetrievalFilters,
     RetrievalNotReadyError,
     RetrievalRequest,
@@ -22,6 +24,8 @@ from app.retrieval.models import (
 )
 from app.retrieval.retriever import ChromaRetriever
 from app.retrieval.service import RetrievalService, diversify_candidates
+
+INTERNAL_HEADERS = {"X-Internal-Service-Token": "internal-test-token"}
 
 
 class FakeProvider:
@@ -88,6 +92,7 @@ def candidate(
 
 def settings(tmp_path: Path, **overrides: Any) -> Settings:
     values: dict[str, Any] = {
+        "ai_service_internal_token": "internal-test-token",
         "gemini_embedding_dimension": 3,
         "chroma_persist_dir": tmp_path / "chroma",
         "chroma_report_dir": tmp_path / "reports",
@@ -160,7 +165,7 @@ def test_retrieval_validates_query_length_top_k_and_vector(tmp_path: Path) -> No
         service.retrieve(RetrievalRequest(query="ok"))
 
 
-def test_raw_candidate_parser_rejects_pending_and_supports_nullable_pages() -> None:
+def test_raw_candidate_parser_preserves_pending_for_internal_evaluation() -> None:
     metadata = {
         "documentId": "doc",
         "grade": 12,
@@ -176,8 +181,109 @@ def test_raw_candidate_parser_rejects_pending_and_supports_nullable_pages() -> N
     assert parsed is not None
     assert parsed.page_start is None and parsed.page_end is None
     pending = dict(metadata, containsPendingReview=True)
-    assert ChromaRetriever._parse_candidate("chunk", "text", pending, 0.2) is None
+    parsed_pending = ChromaRetriever._parse_candidate(
+        "chunk", "text", pending, 0.2
+    )
+    assert parsed_pending is not None
+    assert parsed_pending.contains_pending_review is True
     assert ChromaRetriever._parse_candidate("chunk", "text", metadata, math.nan) is None
+    assert ChromaRetriever._parse_candidate("chunk", "text", "invalid", 0.2) is None
+
+
+@pytest.mark.parametrize(
+    ("raw", "key"),
+    [
+        ({"documents": None}, "documents"),
+        ({"metadatas": None}, "metadatas"),
+        ({"distances": None}, "distances"),
+        ({"documents": []}, "documents"),
+        ({"documents": [[]]}, "documents"),
+        ({"documents": [None]}, "documents"),
+    ],
+)
+def test_chroma_result_boundary_fails_closed_for_missing_nested_lists(
+    raw: object,
+    key: str,
+) -> None:
+    assert ChromaRetriever._first_result_list(raw, key) == []
+
+
+def test_retriever_traces_pending_candidate_but_excludes_it_publicly(
+    tmp_path: Path,
+    monkeypatch,
+) -> None:
+    metadata = {
+        "documentId": "doc",
+        "grade": 12,
+        "lessonNumber": 6,
+        "lessonTitle": "Bài 6",
+        "sectionTitle": "Mục",
+        "sectionPath": "Mục",
+        "contentTypes": "knowledge",
+        "chunkHash": "a" * 64,
+    }
+
+    class Collection:
+        name = "collection"
+        metadata: ClassVar[dict[str, object]] = {
+            "embeddingModel": "model",
+            "embeddingDimension": 3,
+        }
+        configuration: ClassVar[dict[str, object]] = {
+            "hnsw": {"space": "cosine"}
+        }
+
+        def count(self):
+            return 2
+
+        def query(self, **_):
+            return {
+                "ids": [["pending", "safe"]],
+                "documents": [["pending text", "safe text"]],
+                "metadatas": [[
+                    dict(metadata, containsPendingReview=True),
+                    dict(metadata, containsPendingReview=False),
+                ]],
+                "distances": [[0.1, 0.2]],
+            }
+
+    class Client:
+        def list_collections(self):
+            return [Collection()]
+
+        def get_collection(self, name):
+            assert name == "collection"
+            return Collection()
+
+    persist = tmp_path / "chroma"
+    persist.mkdir()
+    (persist / "chroma.sqlite3").touch()
+    monkeypatch.setattr(
+        "app.retrieval.retriever.close_persistent_client",
+        lambda _: None,
+    )
+    trace = RetrievalEvaluationTrace()
+    retriever = ChromaRetriever(
+        persist_dir=persist,
+        collection_name="collection",
+        expected_metadata={
+            "embeddingModel": "model",
+            "embeddingDimension": 3,
+        },
+        distance_metric="cosine",
+        client_factory=lambda _: Client(),
+    )
+    candidates = retriever.retrieve(
+        [1.0, 0.0, 0.0],
+        RetrievalFilters(),
+        2,
+        evaluation_trace=trace,
+    )
+    assert [candidate.chunk_id for candidate in candidates] == ["safe"]
+    assert trace.raw_candidate_chunk_ids == ["pending", "safe"]
+    assert trace.pending_review_candidate_ids == ["pending"]
+    assert trace.collection_metadata_matched is True
+    assert trace.collection_distance_metric_matched is True
 
 
 def test_deduplicate_diversity_and_stable_distance_order() -> None:
@@ -237,18 +343,34 @@ def test_debug_api_validation_and_safe_not_ready_mapping(
         def close(self) -> None:
             return None
 
-    monkeypatch.setattr(
-        "app.api.routes.retrieval.create_retrieval_service",
-        lambda _: NotReadyService(),
-    )
     app = create_app(settings(tmp_path))
-    client = TestClient(app)
+    app.dependency_overrides[get_retrieval_service] = lambda: NotReadyService()
 
-    assert client.post("/ai/retrieval/debug", json={"query": ""}).status_code == 422
-    response = client.post("/ai/retrieval/debug", json={"query": "valid"})
+    with TestClient(app) as client:
+        assert client.post(
+            "/ai/retrieval/debug",
+            json={"query": ""},
+            headers=INTERNAL_HEADERS,
+        ).status_code == 422
+        response = client.post(
+            "/ai/retrieval/debug",
+            json={"query": "valid"},
+            headers=INTERNAL_HEADERS,
+        )
     assert response.status_code == 503
     assert response.json() == {"detail": "Retrieval index is not ready"}
     assert "secret internal path" not in response.text
+
+
+def test_retrieval_debug_route_requires_internal_token(tmp_path: Path) -> None:
+    client = TestClient(create_app(settings(tmp_path)))
+    path = "/ai/retrieval/debug"
+    assert client.post(path, json={"query": "valid"}).status_code == 401
+    assert client.post(
+        path,
+        json={"query": "valid"},
+        headers={"X-Internal-Service-Token": "wrong"},
+    ).status_code == 401
 
 
 def test_debug_api_hides_unexpected_errors(tmp_path: Path, monkeypatch) -> None:
@@ -259,13 +381,14 @@ def test_debug_api_hides_unexpected_errors(tmp_path: Path, monkeypatch) -> None:
         def close(self) -> None:
             return None
 
-    monkeypatch.setattr(
-        "app.api.routes.retrieval.create_retrieval_service",
-        lambda _: BrokenService(),
-    )
-    response = TestClient(create_app(settings(tmp_path))).post(
-        "/ai/retrieval/debug", json={"query": "valid"}
-    )
+    app = create_app(settings(tmp_path))
+    app.dependency_overrides[get_retrieval_service] = lambda: BrokenService()
+    with TestClient(app) as client:
+        response = client.post(
+            "/ai/retrieval/debug",
+            json={"query": "valid"},
+            headers=INTERNAL_HEADERS,
+        )
     assert response.status_code == 500
     assert response.json() == {"detail": "Unexpected retrieval failure"}
     assert "AIza-hidden-secret" not in response.text

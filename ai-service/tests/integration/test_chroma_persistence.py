@@ -1,4 +1,5 @@
 from pathlib import Path
+from types import SimpleNamespace
 from typing import Any
 
 from app.vectorstore.artifact_validator import EmbeddingArtifactValidator
@@ -77,3 +78,19 @@ def test_persistent_index_reopens_and_second_run_is_idempotent(
     assert second.collectionCountBefore == 2
     assert second.collectionCountAfter == 2
     assert service.report_path.is_file()
+    service.close()
+
+
+def test_index_service_cli_ownership_closes_client_once(
+    tmp_path: Path, corpus_record: dict[str, Any]
+) -> None:
+    service = make_service(tmp_path, corpus_record)
+    stops: list[int] = []
+    service._client = SimpleNamespace(
+        _system=SimpleNamespace(stop=lambda: stops.append(1))
+    )
+
+    service.close()
+    service.close()
+
+    assert stops == [1]

@@ -7,8 +7,7 @@ from pydantic import ConfigDict, Field, field_validator
 
 from app.schemas.common import CamelModel, to_camel
 
-
-PROMPT_VERSION = "grounded-mcq-v1"
+PROMPT_VERSION = "grounded-mcq-v2"
 SCHEMA_VERSION = "grounded-mcq-schema-v1"
 
 
@@ -21,7 +20,26 @@ class GenerationNotConfiguredError(GenerationError):
 
 
 class GenerationTransientError(GenerationError):
-    pass
+    def __init__(
+        self,
+        message: str,
+        *,
+        category: str = "UNKNOWN_TRANSIENT",
+        status_code: int | None = None,
+        retry_after_seconds: float | None = None,
+        attempt_count: int = 1,
+        retry_count: int = 0,
+        attempt_latencies_ms: tuple[float, ...] = (),
+        retry_delays_ms: tuple[float, ...] = (),
+    ) -> None:
+        super().__init__(message)
+        self.category = category
+        self.status_code = status_code
+        self.retry_after_seconds = retry_after_seconds
+        self.attempt_count = attempt_count
+        self.retry_count = retry_count
+        self.attempt_latencies_ms = attempt_latencies_ms
+        self.retry_delays_ms = retry_delays_ms
 
 
 class GenerationPermanentError(GenerationError):
@@ -33,7 +51,9 @@ class GenerationSafetyError(GenerationError):
 
 
 class GenerationOutputError(GenerationError):
-    pass
+    def __init__(self, message: str, *, raw_output: str = "") -> None:
+        super().__init__(message)
+        self.raw_output = raw_output
 
 
 class InsufficientContextError(GenerationError):
@@ -52,6 +72,13 @@ class Difficulty(str, Enum):
     EASY = "EASY"
     MEDIUM = "MEDIUM"
     HARD = "HARD"
+
+
+class GenerationUseCase(str, Enum):
+    SELF_PRACTICE = "SELF_PRACTICE"
+    ADMIN_REVIEW = "ADMIN_REVIEW"
+    EVALUATION = "EVALUATION"
+    OTHER_INTERNAL = "OTHER_INTERNAL"
 
 
 class QuizOption(StrictCamelModel):
@@ -92,6 +119,8 @@ class GenerationRequest(StrictCamelModel):
     count: int | None = Field(default=None, gt=0)
     top_k: int | None = Field(default=None, gt=0)
     style_examples: list[StyleExample] = Field(default_factory=list)
+    generation_use_case: GenerationUseCase = GenerationUseCase.OTHER_INTERNAL
+    canary_subject: str | None = Field(default=None, max_length=256)
 
     @field_validator("query")
     @classmethod
@@ -110,6 +139,14 @@ class GenerationRequest(StrictCamelModel):
         if not value:
             raise ValueError("documentId must not be blank")
         return value
+
+    @field_validator("canary_subject")
+    @classmethod
+    def normalize_canary_subject(cls, value: str | None) -> str | None:
+        if value is None:
+            return None
+        value = value.strip()
+        return value or None
 
 
 class GeneratedQuestion(StrictCamelModel):
@@ -171,11 +208,42 @@ class GenerationResponse(StrictCamelModel):
     warnings: list[str] = Field(default_factory=list)
 
 
+class DiagnosticOutputField(str, Enum):
+    QUESTION = "QUESTION"
+    OPTION = "OPTION"
+    EXPLANATION = "EXPLANATION"
+    ANSWER = "ANSWER"
+    SOURCE = "SOURCE"
+    ROOT = "ROOT"
+    UNKNOWN = "UNKNOWN"
+
+
+class DiagnosticMarkerCategory(str, Enum):
+    FACT_CONTEXT_LABEL = "FACT_CONTEXT_LABEL"
+    SOURCE_LABEL = "SOURCE_LABEL"
+    STYLE_EXAMPLE_LABEL = "STYLE_EXAMPLE_LABEL"
+    CHUNK_IDENTIFIER = "CHUNK_IDENTIFIER"
+    INSTRUCTION_REFERENCE = "INSTRUCTION_REFERENCE"
+    PASSAGE_REFERENCE = "PASSAGE_REFERENCE"
+    OTHER = "OTHER"
+    UNKNOWN = "UNKNOWN"
+
+
+class ValidationIssueLocation(StrictCamelModel):
+    output_field: DiagnosticOutputField
+    option_index: int | None = Field(default=None, ge=0, le=3)
+    marker_category: DiagnosticMarkerCategory = DiagnosticMarkerCategory.UNKNOWN
+
+
 class ValidationIssue(StrictCamelModel):
     code: str
     message: str
     question_index: int | None = None
     severity: Literal["ERROR", "WARNING"] = "ERROR"
+    diagnostic_locations: list[ValidationIssueLocation] = Field(
+        default_factory=list,
+        exclude=True,
+    )
 
 
 class ValidationSummary(StrictCamelModel):

@@ -6,7 +6,9 @@ interface PublicPageHeaderProps {
   title: string;
   description?: string;
   showBack?: boolean;
+  backTo?: string;
   backFallback?: string;
+  backLabel?: string;
   action?: ReactNode;
 }
 
@@ -15,14 +17,16 @@ export default function PublicPageHeader({
   title,
   description,
   showBack = false,
+  backTo,
   backFallback = '/home',
+  backLabel = 'Quay lại',
   action,
 }: PublicPageHeaderProps) {
   return (
     <header className="public-page-header">
       {showBack && (
         <div className="public-page-back-row">
-          <BackButton fallback={backFallback} />
+          <BackButton to={backTo} fallback={backFallback} label={backLabel} />
         </div>
       )}
       <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">

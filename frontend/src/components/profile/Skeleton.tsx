@@ -36,6 +36,8 @@ function Shimmer({ style }: { style?: React.CSSProperties }) {
   );
 }
 
+const CHART_BAR_HEIGHTS = [42, 68, 54, 86, 63, 76, 49] as const;
+
 /* ─── Stats card skeleton ────────────────────────────────────────────────── */
 
 export function StatsCardSkeleton() {
@@ -97,12 +99,12 @@ export function ChartSkeleton() {
     >
       <Shimmer style={{ width: '50%', height: '0.9rem', marginBottom: '1rem' }} />
       <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'flex-end', height: '8rem' }}>
-        {Array.from({ length: 7 }).map((_, i) => (
+        {CHART_BAR_HEIGHTS.map((height, i) => (
           <Shimmer
             key={i}
             style={{
               flex: 1,
-              height: `${30 + Math.random() * 70}%`,
+              height: `${height}%`,
               borderRadius: '0.375rem',
             }}
           />

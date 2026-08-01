@@ -2,7 +2,7 @@
  * ExamCreatePage – Form configuration for creating a new THPT exam.
  */
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useNavigate, Link, useSearchParams } from 'react-router-dom';
 import * as examService from '../../services/examService';
 import type { ExamConfig, ExamMode, ExamDifficulty } from '../../types/exam';
@@ -11,25 +11,108 @@ import ExamPresetCards from '../../components/exams/ExamPresetCards';
 import ExamCreateForm from '../../components/exams/ExamCreateForm';
 import ExamConfigPreview from '../../components/exams/ExamConfigPreview';
 import ExamGenerationLoading from '../../components/exams/ExamGenerationLoading';
-import { useAuth } from '../../auth/AuthContext';
+
+interface PresetConfig {
+  mode: ExamMode;
+  gradeScope: (10 | 11 | 12 | 'all')[];
+  questionCount: number;
+  difficulty: ExamDifficulty;
+  topicMode: 'all' | 'specific';
+  timeLimitMinutes: number;
+}
+
+function getPresetConfig(presetName: string | null): PresetConfig {
+  if (presetName === 'fast') {
+    return {
+      mode: 'practice',
+      gradeScope: ['all'],
+      questionCount: 10,
+      difficulty: 'mixed',
+      topicMode: 'all',
+      timeLimitMinutes: 10,
+    };
+  }
+  if (presetName === 'mock') {
+    return {
+      mode: 'thpt_mock',
+      gradeScope: ['all'],
+      questionCount: 40,
+      difficulty: 'mixed',
+      topicMode: 'all',
+      timeLimitMinutes: 50,
+    };
+  }
+  if (presetName === 'weakness') {
+    return {
+      mode: 'custom',
+      gradeScope: ['all'],
+      questionCount: 20,
+      difficulty: 'medium',
+      topicMode: 'specific',
+      timeLimitMinutes: 30,
+    };
+  }
+  if (presetName === 'grade12') {
+    return {
+      mode: 'practice',
+      gradeScope: [12],
+      questionCount: 30,
+      difficulty: 'hard',
+      topicMode: 'all',
+      timeLimitMinutes: 45,
+    };
+  }
+  return {
+    mode: 'practice',
+    gradeScope: ['all'],
+    questionCount: 20,
+    difficulty: 'medium',
+    topicMode: 'all',
+    timeLimitMinutes: 30,
+  };
+}
 
 export default function ExamCreatePage() {
-  const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const initialPreset = searchParams.get('preset');
-  const { currentUser } = useAuth();
+
+  return (
+    <ExamCreatePageContent
+      key={initialPreset ?? 'default'}
+      initialPreset={initialPreset}
+    />
+  );
+}
+
+function ExamCreatePageContent({
+  initialPreset,
+}: {
+  initialPreset: string | null;
+}) {
+  const navigate = useNavigate();
+  const initialConfig = getPresetConfig(initialPreset);
 
   const [loading, setLoading] = useState(false);
 
   // Form states
-  const [mode, setMode] = useState<ExamMode>('practice');
-  const [gradeScope, setGradeScope] = useState<(10 | 11 | 12 | 'all')[]>(['all']);
-  const [questionCount, setQuestionCount] = useState<number>(20);
+  const [mode, setMode] = useState<ExamMode>(initialConfig.mode);
+  const [gradeScope, setGradeScope] = useState<(10 | 11 | 12 | 'all')[]>(
+    initialConfig.gradeScope,
+  );
+  const [questionCount, setQuestionCount] = useState<number>(
+    initialConfig.questionCount,
+  );
   const [customCount, setCustomCount] = useState('');
-  const [difficulty, setDifficulty] = useState<ExamDifficulty>('medium');
-  const [topicMode, setTopicMode] = useState<'all' | 'specific'>('all');
+  const [difficulty, setDifficulty] = useState<ExamDifficulty>(
+    initialConfig.difficulty,
+  );
+  const [topicMode, setTopicMode] = useState<'all' | 'specific'>(
+    initialConfig.topicMode,
+  );
   const [selectedTopic, setSelectedTopic] = useState('Kháng chiến chống Mỹ'); 
-  const [timeLimitMinutes, setTimeLimitMinutes] = useState<number>(30);
+  const [timeLimitMinutes, setTimeLimitMinutes] = useState<number>(
+    initialConfig.timeLimitMinutes,
+  );
   const [customTime, setCustomTime] = useState('');
   
   // Options
@@ -38,20 +121,14 @@ export default function ExamCreatePage() {
 
   // Apply Presets
   const applyPreset = (presetName: string) => {
-    if (presetName === 'fast') {
-      setMode('practice'); setGradeScope(['all']); setQuestionCount(10); setDifficulty('mixed'); setTopicMode('all'); setTimeLimitMinutes(10);
-    } else if (presetName === 'mock') {
-      setMode('thpt_mock'); setGradeScope(['all']); setQuestionCount(40); setDifficulty('mixed'); setTopicMode('all'); setTimeLimitMinutes(50);
-    } else if (presetName === 'weakness') {
-      setMode('custom'); setGradeScope(['all']); setQuestionCount(20); setDifficulty('medium'); setTopicMode('specific'); setTimeLimitMinutes(30);
-    } else if (presetName === 'grade12') {
-      setMode('practice'); setGradeScope([12]); setQuestionCount(30); setDifficulty('hard'); setTopicMode('all'); setTimeLimitMinutes(45);
-    }
+    const preset = getPresetConfig(presetName);
+    setMode(preset.mode);
+    setGradeScope(preset.gradeScope);
+    setQuestionCount(preset.questionCount);
+    setDifficulty(preset.difficulty);
+    setTopicMode(preset.topicMode);
+    setTimeLimitMinutes(preset.timeLimitMinutes);
   };
-
-  useEffect(() => {
-    if (initialPreset) applyPreset(initialPreset);
-  }, [initialPreset]);
 
   const handleCreate = async () => {
     setLoading(true);
@@ -71,9 +148,9 @@ export default function ExamCreatePage() {
         shuffleOptions
       };
       
-      const session = await examService.createExam(config, currentUser?.id);
+      const session = await examService.createExam(config);
       navigate(`/exams/de/${session.examId}`);
-    } catch (err) {
+    } catch {
       alert('Có lỗi tạo đề thi. Vui lòng thử lại.');
       setLoading(false);
     }

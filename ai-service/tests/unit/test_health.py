@@ -1,8 +1,10 @@
 import json
+import re
 
 from fastapi.testclient import TestClient
 
 from app.config import Settings
+from app.embedding.checkpoint import sanitize_artifact_name
 from app.main import create_app
 
 
@@ -27,6 +29,126 @@ def test_health_endpoint_without_external_clients(tmp_path) -> None:
         "generationReady": False,
         "geminiConfigured": False,
     }
+    assert re.fullmatch(
+        r"[0-9a-f-]{36}",
+        response.headers["X-Request-ID"],
+    )
+
+
+def test_request_id_is_validated_and_echoed(tmp_path, caplog) -> None:
+    client = TestClient(
+        create_app(
+            Settings(
+                _env_file=None,
+                chroma_persist_dir=tmp_path / "chroma",
+                chroma_report_dir=tmp_path / "reports",
+            )
+        )
+    )
+    valid = client.get(
+        "/ai/health",
+        headers={"X-Request-ID": "spring-request_01"},
+    )
+    assert valid.headers["X-Request-ID"] == "spring-request_01"
+    assert "requestId=spring-request_01" in caplog.text
+    assert "X-Internal-Service-Token" not in caplog.text
+    invalid = client.get(
+        "/ai/health",
+        headers={"X-Request-ID": "x" * 129},
+    )
+    assert invalid.headers["X-Request-ID"] != "x" * 129
+    assert re.fullmatch(r"[0-9a-f-]{36}", invalid.headers["X-Request-ID"])
+
+
+def test_deep_readiness_checks_collection_without_gemini(
+    tmp_path,
+    monkeypatch,
+) -> None:
+    settings = Settings(
+        _env_file=None,
+        chroma_persist_dir=tmp_path / "chroma",
+        chroma_report_dir=tmp_path / "reports",
+        embedding_output_dir=tmp_path / "embeddings",
+    )
+    artifact = settings.embedding_output_dir / sanitize_artifact_name(
+        settings.gemini_embedding_model,
+        settings.gemini_embedding_dimension,
+    )
+    artifact.mkdir(parents=True)
+    (artifact / "embedding_manifest.json").write_text(
+        json.dumps(
+            {
+                "status": "COMPLETED",
+                "embeddingModel": settings.gemini_embedding_model,
+                "dimension": settings.gemini_embedding_dimension,
+                "corpusSha256": "a" * 64,
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    class Resources:
+        ready = True
+        def start(self):
+            return None
+        def shutdown(self):
+            return None
+        def deep_readiness(self):
+            return True, 414, None
+
+    with TestClient(
+        create_app(settings, runtime_factory=lambda _: Resources())
+    ) as client:
+        response = client.get("/ai/health?deep=true")
+    assert response.status_code == 200
+    assert response.json()["status"] == "READY"
+    assert response.json()["recordCount"] == 414
+    assert response.json()["contractReady"] is True
+
+
+def test_deep_readiness_returns_sanitized_503_when_collection_missing(
+    tmp_path,
+    monkeypatch,
+) -> None:
+    settings = Settings(
+        _env_file=None,
+        chroma_persist_dir=tmp_path / "chroma",
+        chroma_report_dir=tmp_path / "reports",
+        embedding_output_dir=tmp_path / "embeddings",
+    )
+    artifact = settings.embedding_output_dir / sanitize_artifact_name(
+        settings.gemini_embedding_model,
+        settings.gemini_embedding_dimension,
+    )
+    artifact.mkdir(parents=True)
+    (artifact / "embedding_manifest.json").write_text(
+        json.dumps(
+            {
+                "status": "COMPLETED",
+                "embeddingModel": settings.gemini_embedding_model,
+                "dimension": settings.gemini_embedding_dimension,
+                "corpusSha256": "a" * 64,
+            }
+        ),
+        encoding="utf-8",
+    )
+    class Resources:
+        ready = False
+        def start(self):
+            return None
+        def shutdown(self):
+            return None
+        def deep_readiness(self):
+            return False, None, "AI_COLLECTION_NOT_READY"
+
+    with TestClient(
+        create_app(settings, runtime_factory=lambda _: Resources())
+    ) as client:
+        response = client.get("/ai/health?deep=true")
+    assert response.status_code == 503
+    assert response.json()["status"] == "NOT_READY"
+    assert response.json()["errorCode"] == "AI_COLLECTION_NOT_READY"
+    assert "path" not in response.text.lower()
 
 
 def test_health_reports_ready_from_lightweight_persisted_artifacts(tmp_path) -> None:

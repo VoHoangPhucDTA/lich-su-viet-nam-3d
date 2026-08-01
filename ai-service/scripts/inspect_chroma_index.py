@@ -2,8 +2,8 @@
 
 import json
 
-from scripts.build_chroma_index import create_service
 from app.vectorstore.models import VectorstoreError
+from scripts.build_chroma_index import create_service
 
 
 def main() -> int:
@@ -13,6 +13,8 @@ def main() -> int:
     except (VectorstoreError, OSError, ValueError) as exc:
         print(f"Chroma index inspection FAILED: {type(exc).__name__}: {exc}")
         return 2
+    finally:
+        service.close()
     print(json.dumps(inspection.model_dump(), ensure_ascii=False, indent=2))
     return 0
 

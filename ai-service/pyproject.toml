@@ -1,0 +1,21 @@
+[tool.ruff]
+line-length = 110
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM", "RUF"]
+
+[tool.mypy]
+python_version = "3.10"
+warn_unused_ignores = true
+warn_redundant_casts = true
+disallow_untyped_defs = false
+ignore_missing_imports = true
+
+[tool.coverage.run]
+# WP9 harness is a bounded live-Gemini diagnostic and is never imported by the
+# offline CI suite as executable production code.
+omit = ["scripts/diagnose_generation_latency.py"]
+
+[tool.coverage.report]
+omit = ["scripts/diagnose_generation_latency.py"]

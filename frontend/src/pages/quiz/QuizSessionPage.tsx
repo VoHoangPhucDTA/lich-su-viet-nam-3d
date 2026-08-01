@@ -6,14 +6,21 @@ import {
   Clock3,
   Eraser,
   Flag,
+  Keyboard,
   ListChecks,
   LoaderCircle,
   Send,
   X,
 } from 'lucide-react';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useId, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useAuth } from '../../auth/AuthContext';
+import QuizMcqOptionGroup from '../../components/quiz-runner/QuizMcqOptionGroup';
+import QuizInstructionsDialog from '../../components/quiz-runner/QuizInstructionsDialog';
+import QuizSubmitDialog from '../../components/quiz-runner/QuizSubmitDialog';
+import { AI_SELF_PRACTICE_SHORTCUTS } from '../../lib/exam/quizKeyboardShortcuts';
+import { useExamKeyboardShortcuts } from '../../lib/exam/useExamKeyboardShortcuts';
+import { useQuestionNavigation } from '../../lib/exam/useQuestionNavigation';
 import * as quizService from '../../services/quizService';
 import type { QuestionStatus, QuizAnswer, QuizSession } from '../../types/quiz';
 
@@ -123,8 +130,15 @@ export default function QuizSessionPage() {
   const [error, setError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
+  const [instructionsOpen, setInstructionsOpen] = useState(false);
   const [progressOpen, setProgressOpen] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
+  const [deadlineReached, setDeadlineReached] = useState(false);
   const timeUpTriggered = useRef(false);
+  const submitInFlight = useRef(false);
+  const questionRef = useRef<HTMLDivElement>(null);
+  const instructionsTriggerRef = useRef<HTMLButtonElement>(null);
+  const instructionsId = useId();
 
   useEffect(() => {
     let cancelled = false;
@@ -150,15 +164,15 @@ export default function QuizSessionPage() {
     return () => {
       cancelled = true;
     };
-  }, [navigate, sessionId]);
+  }, [currentUser?.id, navigate, sessionId]);
 
-  const persistSession = (updatedSession: QuizSession) => {
+  const persistSession = useCallback((updatedSession: QuizSession) => {
     setSession(updatedSession);
     quizService.saveQuizProgress(updatedSession);
-  };
+  }, []);
 
   const handleUpdateAnswer = (questionId: string, optionId: 'A' | 'B' | 'C' | 'D' | null) => {
-    if (!session) return;
+    if (!session || deadlineReached || isSubmitting) return;
     const answers: QuizAnswer[] = session.answers.map(answer =>
       answer.questionId === questionId ? { ...answer, selectedOptionId: optionId } : answer
     );
@@ -168,7 +182,7 @@ export default function QuizSessionPage() {
   };
 
   const toggleFlag = (questionId: string) => {
-    if (!session) return;
+    if (!session || deadlineReached || isSubmitting) return;
     const currentStatus = session.questionStatuses[questionId];
     const answered = session.answers.some(answer => answer.questionId === questionId && answer.selectedOptionId != null);
     const nextStatus: QuestionStatus = currentStatus === 'flagged' ? (answered ? 'answered' : 'unanswered') : 'flagged';
@@ -178,47 +192,101 @@ export default function QuizSessionPage() {
     });
   };
 
-  const jumpToQuestion = (index: number) => {
-    if (!session || index < 0 || index >= session.questions.length) return;
-    persistSession({ ...session, currentQuestionIndex: index });
-  };
+  const setCurrentQuestion = useCallback((index: number) => {
+    setSession((currentSession) => {
+      if (!currentSession || index < 0 || index >= currentSession.questions.length) return currentSession;
+      const updated = { ...currentSession, currentQuestionIndex: index };
+      quizService.saveQuizProgress(updated);
+      return updated;
+    });
+  }, []);
+
+  const jumpToQuestion = useQuestionNavigation({
+    questionCount: session?.questions.length ?? 0,
+    onIndexChange: setCurrentQuestion,
+    questionRef,
+  });
 
   const handleSubmit = useCallback(async (force = false) => {
-    if (!session || isSubmitting) return;
+    if (!session || submitInFlight.current) return;
     const unanswered = session.answers.filter(answer => answer.selectedOptionId === null).length;
     if (unanswered > 0 && !force) {
       setShowConfirm(true);
       return;
     }
+    submitInFlight.current = true;
+    setSubmitError(null);
     setIsSubmitting(true);
     setShowConfirm(false);
     try {
       await quizService.submitQuiz(session.sessionId, session.answers, currentUser?.id);
       navigate(`/quiz/result/${session.sessionId}`, { replace: true });
     } catch {
-      window.alert('Có lỗi xảy ra khi nộp bài. Vui lòng thử lại.');
+      submitInFlight.current = false;
       setIsSubmitting(false);
+      setSubmitError('Không thể nộp bài lúc này. Bài làm của bạn vẫn được giữ lại.');
     }
-  }, [currentUser?.id, isSubmitting, navigate, session]);
+  }, [currentUser?.id, navigate, session]);
 
   const handleTimeUp = useCallback(() => {
     if (timeUpTriggered.current) return;
     timeUpTriggered.current = true;
-    window.alert('Đã hết thời gian làm bài! Hệ thống sẽ tự động nộp bài.');
+    setDeadlineReached(true);
+    setShowConfirm(false);
     void handleSubmit(true);
   }, [handleSubmit]);
 
-  useEffect(() => {
-    if (!showConfirm && !progressOpen) return;
-    const closeOnEscape = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') {
-        setShowConfirm(false);
-        setProgressOpen(false);
+  useExamKeyboardShortcuts({
+    onNext: () => {
+      if (session && session.currentQuestionIndex < session.questions.length - 1) {
+        jumpToQuestion(session.currentQuestionIndex + 1);
       }
+    },
+    onPrevious: () => {
+      if (session && session.currentQuestionIndex > 0) {
+        jumpToQuestion(session.currentQuestionIndex - 1);
+      }
+    },
+    onFlag: () => {
+      const question = session?.questions[session.currentQuestionIndex];
+      if (question) toggleFlag(question.id);
+    },
+    onShowHelp: () => setInstructionsOpen(true),
+    onSelectOptionByIndex: (index) => {
+      const question = session?.questions[session.currentQuestionIndex];
+      const option = question?.options[index];
+      if (question && option) handleUpdateAnswer(question.id, option.id);
+    },
+    onMoveOption: (direction) => {
+      const question = session?.questions[session.currentQuestionIndex];
+      if (!question || question.options.length === 0) return;
+      const answer = session?.answers.find((item) => item.questionId === question.id);
+      const selectedIndex = question.options.findIndex((option) => option.id === answer?.selectedOptionId);
+      const nextIndex = selectedIndex < 0
+        ? (direction > 0 ? 0 : question.options.length - 1)
+        : (selectedIndex + direction + question.options.length) % question.options.length;
+      const option = question.options[nextIndex];
+      if (option) handleUpdateAnswer(question.id, option.id);
+    },
+    onClearOption: () => {
+      const question = session?.questions[session.currentQuestionIndex];
+      if (question) handleUpdateAnswer(question.id, null);
+    },
+    onSubmit: () => {
+      void handleSubmit();
+    },
+    mode: 'timed',
+    disabled: isLoading || Boolean(error) || !session || instructionsOpen || showConfirm || progressOpen || isSubmitting || deadlineReached,
+  });
+
+  useEffect(() => {
+    if (!progressOpen) return;
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setProgressOpen(false);
     };
     document.addEventListener('keydown', closeOnEscape);
     return () => document.removeEventListener('keydown', closeOnEscape);
-  }, [progressOpen, showConfirm]);
+  }, [progressOpen]);
 
   if (isLoading) {
     return (
@@ -256,12 +324,23 @@ export default function QuizSessionPage() {
             <p className="text-xs text-[var(--text-muted)]">{session.questions.length} câu · Câu hỏi tạo bởi AI từ nguồn SGK</p>
           </div>
         </div>
-        <div className="ml-auto flex items-center gap-2">
+        <div className="quiz-session-actions ml-auto">
           <QuizTimer startedAt={session.startedAt} timeLimit={session.config.timeLimitMinutes} onTimeUp={handleTimeUp} />
+          <button
+            ref={instructionsTriggerRef}
+            id={instructionsId}
+            type="button"
+            onClick={() => setInstructionsOpen(true)}
+            aria-expanded={instructionsOpen}
+            aria-controls={`${instructionsId}-dialog`}
+            className="public-secondary-button quiz-instructions-trigger"
+          >
+            <Keyboard size={16} aria-hidden="true" /> Hướng dẫn
+          </button>
           <button type="button" onClick={() => setProgressOpen(true)} className="public-secondary-button quiz-progress-toggle">
             <ListChecks size={16} aria-hidden="true" /> Tiến trình
           </button>
-          <button type="button" onClick={() => void handleSubmit(false)} disabled={isSubmitting} className="public-primary-button">
+          <button type="button" onClick={() => void handleSubmit(false)} disabled={isSubmitting || deadlineReached} className="public-primary-button">
             {isSubmitting ? <LoaderCircle size={16} aria-hidden="true" className="animate-spin" /> : <Send size={16} aria-hidden="true" />}
             Nộp bài
           </button>
@@ -271,7 +350,26 @@ export default function QuizSessionPage() {
       <div className="quiz-session-body">
         <main className="quiz-question-area">
           {session.generation?.partial && <div className="quiz-alert mb-4" role="status">Chỉ tạo được {session.generation.generatedCount}/{session.generation.requestedCount} câu phù hợp với nguồn SGK.</div>}
-          <div className="quiz-question-container">
+          {deadlineReached && !submitError && (
+            <div className="quiz-alert mb-4" role="alert" aria-live="assertive">
+              Đã hết giờ, hệ thống đang nộp bài…
+            </div>
+          )}
+          {submitError && (
+            <div className="quiz-alert quiz-submit-error mb-4" role="alert">
+              <span>{submitError}</span>
+              <button type="button" className="public-secondary-button" onClick={() => void handleSubmit(true)} disabled={isSubmitting}>
+                Thử nộp lại
+              </button>
+            </div>
+          )}
+          <div
+            ref={questionRef}
+            tabIndex={-1}
+            className="quiz-question-container"
+            data-quiz-current-question
+            aria-label={`Câu ${session.currentQuestionIndex + 1} trên ${session.questions.length}`}
+          >
             <div className="flex flex-wrap items-start justify-between gap-3">
               <div>
                 <p className="public-eyebrow">Câu hỏi</p>
@@ -290,30 +388,27 @@ export default function QuizSessionPage() {
               <p>{currentQuestion.questionText}</p>
             </section>
 
-            <div className="quiz-option-list" role="radiogroup" aria-label={`Lựa chọn cho câu ${session.currentQuestionIndex + 1}`}>
-              {currentQuestion.options.map(option => {
-                const selected = currentAnswer?.selectedOptionId === option.id;
-                return (
-                  <button
-                    key={option.id}
-                    type="button"
-                    role="radio"
-                    aria-checked={selected}
-                    onClick={() => handleUpdateAnswer(currentQuestion.id, option.id)}
-                    className={`quiz-option ${selected ? 'quiz-option-selected' : ''}`}
-                  >
-                    <span>{option.id}</span>
-                    <strong>{option.text}</strong>
-                  </button>
-                );
-              })}
-            </div>
+            <QuizMcqOptionGroup
+              options={currentQuestion.options.map((option) => ({ id: option.id, label: option.text }))}
+              selected={currentAnswer?.selectedOptionId ?? null}
+              onSelect={(optionId) => handleUpdateAnswer(currentQuestion.id, optionId)}
+              disabled={deadlineReached || isSubmitting}
+              ariaLabel={`Lựa chọn cho câu ${session.currentQuestionIndex + 1}`}
+              className="quiz-option-list"
+              optionClassName={(_, selected) => `quiz-option ${selected ? 'quiz-option-selected' : ''}`}
+              renderOption={(option) => (
+                <>
+                  <span>{option.id}</span>
+                  <strong>{option.label}</strong>
+                </>
+              )}
+            />
 
             <div className="flex flex-wrap items-center justify-between gap-3">
               <button
                 type="button"
                 onClick={() => handleUpdateAnswer(currentQuestion.id, null)}
-                disabled={!currentAnswer?.selectedOptionId}
+                disabled={!currentAnswer?.selectedOptionId || deadlineReached || isSubmitting}
                 className="public-text-button"
               >
                 <Eraser size={15} aria-hidden="true" /> Xóa lựa chọn
@@ -321,6 +416,7 @@ export default function QuizSessionPage() {
               <button
                 type="button"
                 onClick={() => toggleFlag(currentQuestion.id)}
+                disabled={deadlineReached || isSubmitting}
                 className={`public-secondary-button ${currentStatus === 'flagged' ? 'quiz-flag-active' : ''}`}
               >
                 <Flag size={15} aria-hidden="true" /> {currentStatus === 'flagged' ? 'Đã đánh dấu' : 'Đánh dấu xem lại'}
@@ -332,7 +428,7 @@ export default function QuizSessionPage() {
                 <ChevronLeft size={16} aria-hidden="true" /> Câu trước
               </button>
               {isLast ? (
-                <button type="button" disabled={isSubmitting} onClick={() => void handleSubmit(false)} className="public-primary-button quiz-final-submit-button">
+                <button type="button" disabled={isSubmitting || deadlineReached} onClick={() => void handleSubmit(false)} className="public-primary-button quiz-final-submit-button">
                   {isSubmitting ? <LoaderCircle size={16} aria-hidden="true" className="animate-spin" /> : <Send size={16} aria-hidden="true" />}
                   Nộp bài
                 </button>
@@ -359,22 +455,27 @@ export default function QuizSessionPage() {
         </>
       )}
 
-      {showConfirm && (
-        <div className="quiz-dialog-backdrop" role="presentation">
-          <section className="quiz-confirm-dialog" role="dialog" aria-modal="true" aria-labelledby="quiz-submit-title">
-            <span className="quiz-loading-icon"><Send size={21} aria-hidden="true" /></span>
-            <h2 id="quiz-submit-title" className="app-heading text-2xl font-bold">Nộp bài ngay?</h2>
-            <p>
-              Bạn còn <strong>{session.answers.filter(answer => answer.selectedOptionId === null).length}</strong> câu chưa trả lời.
-              Bạn vẫn có thể nộp bài hoặc quay lại kiểm tra.
-            </p>
-            <div className="mt-5 grid grid-cols-2 gap-3">
-              <button type="button" className="public-secondary-button" onClick={() => setShowConfirm(false)}>Tiếp tục làm</button>
-              <button type="button" className="public-primary-button" onClick={() => void handleSubmit(true)}>Nộp bài</button>
-            </div>
-          </section>
-        </div>
-      )}
+      <QuizSubmitDialog
+        isOpen={showConfirm}
+        summary={{
+          total: session.questions.length,
+          completed: session.answers.filter((answer) => answer.selectedOptionId !== null).length,
+          unanswered: session.answers.filter((answer) => answer.selectedOptionId === null).length,
+          flagged: Object.values(session.questionStatuses).filter((status) => status === 'flagged').length,
+        }}
+        onCancel={() => setShowConfirm(false)}
+        onConfirm={() => void handleSubmit(true)}
+        isSubmitting={isSubmitting}
+      />
+      <QuizInstructionsDialog
+        id={instructionsId}
+        isOpen={instructionsOpen}
+        onClose={() => setInstructionsOpen(false)}
+        triggerRef={instructionsTriggerRef}
+        shortcuts={AI_SELF_PRACTICE_SHORTCUTS}
+        description="Chọn đáp án bằng chuột hoặc bàn phím. Các phím bên dưới hoạt động khi bạn không nhập nội dung trong ô văn bản."
+        notes="Dùng nút Nộp bài khi đã sẵn sàng. Nếu còn câu chưa trả lời, hệ thống sẽ yêu cầu bạn xác nhận."
+      />
     </div>
   );
 }
