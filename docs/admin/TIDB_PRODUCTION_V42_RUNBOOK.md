@@ -216,7 +216,7 @@ data; their userPrefixes must differ.
 | Concern | ``tidb_production_migration.py`` (V37->V41) | ``tidb_production_v42_migration.py`` |
 |---|---|---|
 | Target identity | ``main`` | ``main`` |
-| Cluster ID | ``10427158774816979902`` | ``104271587749999702`` |
+| Cluster ID | ``10427158774816979902`` | ``10427158774816979902`` |
 | Display name | ``lichsuvn3d`` | ``lichsuvn3d`` |
 | Database | ``lichsuvn`` | ``lichsuvn`` |
 | Manifest | ``tidb-production-v41.sha256`` | ``tidb-production-v42.sha256`` |

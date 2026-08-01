@@ -35,7 +35,10 @@ from typing import Any, Callable, Mapping, Sequence
 # Reuse only stable primitives from the historical V37 -> V41 production
 # runner.  Anything structural to the V41 -> V42 transition is re-defined
 # and kept behind narrow compatibility tests.
-import tidb_production_migration as base  # noqa: E402
+if __package__:
+    from . import tidb_production_migration as base  # type: ignore[attr-defined]  # noqa: E402
+else:
+    import tidb_production_migration as base  # noqa: E402
 
 
 # ============================================================================
