@@ -560,7 +560,7 @@ local. Các số liệu lịch sử ở những Goal phía trên được giữ 
 
 | Mốc | Commit đã xác minh | Subject |
 |---|---|---|
-| Goal 14–15 hiện tại / branch tip | `2c28c4c3b14aa696b1193896bb898a8a06e29b06` | `fix(frontend): complete quiz QA and ESLint remediation` |
+| Goal 14–15 hiện tại / branch tip | `fce095107e533ca6705a048a52f613b4d4bcf803` | `fix(ai-service): complete release verification and quiz UX hardening` |
 | WP12 benchmark candidate | `e5727d69b7458013d45a3ec2bb6e8a9f0bdd453a` | `test(ai-service): benchmark self-practice model candidate` |
 | WP14/WP15 canary routing | `63c643764aeb36b5061ca312053f46d2a81ddcda` | `feat(ai-service): add safe self-practice canary rollout` |
 | WP16 repository hygiene | `a9bafe885b088dba94115a2be01398652707af49` | `chore(repo): remove tracked bytecode and repair AI CI` |
@@ -583,8 +583,10 @@ repository chỉ còn là gate release-artifact riêng.
 - Chỉ chấp nhận các mức rollout `0`, `5`, `25`, `50`, `100`.
 - Không hỗ trợ cross-model fallback trong rollout ban đầu;
   `AI_SELF_PRACTICE_MODEL_FALLBACK_ENABLED` bắt buộc là `false`.
-- `GEMINI_GENERATION_MODEL_SELF_PRACTICE_CANDIDATE` chỉ thuộc benchmark CLI,
-  không phải production runtime configuration.
+- Runtime candidate provider pool đọc `AI_SELF_PRACTICE_MODEL`; đây là
+  candidate variable của production runtime.
+- `GEMINI_GENERATION_MODEL_SELF_PRACTICE_CANDIDATE` chỉ là input của benchmark
+  CLI WP12 cũ, không phải runtime alias và tự nó không route traffic.
 
 ### Bounded candidate benchmark
 
@@ -601,11 +603,81 @@ Kết quả phụ thuộc thời điểm gọi provider, mạng, quota, cache/co
 cố định của benchmark. Candidate nhanh hơn trong sample này không tự động cho
 phép rollout hoặc thay current model.
 
+### Goal 17B bounded routing/promotion decision — 2026-07-31
+
+Goal 17B dùng runtime variable thật `AI_SELF_PRACTICE_MODEL`, feature flag
+`true`, rollout `100` và fallback `false` trong process benchmark; tracked
+defaults không đổi. Matrix live là bốn mức số câu (`1`, `3`, `5`, `10`) × ba
+độ khó × hai pseudonymous topic group = 24 candidate request. Hai current
+control request được dùng, trong giới hạn tối đa sáu; tổng live request là 26,
+trong giới hạn 30.
+
+Current proof có diagnostics đầy đủ xác nhận `CURRENT` /
+`gemini-2.5-flash`, một current pool, zero candidate pool, total 13.937 giây,
+repair 1, final-valid và contract đều pass. Candidate process tạo một candidate
+pool, zero current pool; 23 response thành công đều chọn
+`gemini-3.5-flash-lite`.
+
+| Số câu | Requests | Mean | Median | P95 | Final-valid | Provider error |
+|---:|---:|---:|---:|---:|---:|---:|
+| 1 | 6 | 2.406 giây | 2.141 giây | 3.734 giây | 6/6 | 0/6 |
+| 3 | 6 | 3.604 giây | 3.492 giây | 4.265 giây | 6/6 | 0/6 |
+| 5 | 6 | 4.975 giây | 4.703 giây | 5.657 giây | 5/6 | 1/6 |
+| 10 | 6 | 8.677 giây | 8.750 giây | 9.234 giây | 6/6 | 0/6 |
+| Chung | 24 | 4.913 giây | 4.265 giây | 9.172 giây | 23/24 | 1/24 |
+
+Repair rate là 0/24. Citation và answer-key contract đạt 23/24; request lỗi
+provider không tạo response để kiểm tra contract. Candidate đạt gate latency
+5 câu (mean <= 10 giây, P95 <= 20 giây) và repair <= 10%, nhưng không đạt
+final-valid 100%, zero provider error, citation và answer-key regression gates.
+Quyết định cuối là `CANDIDATE_PROMOTION_REJECTED`.
+
+Không có promotion: old/new current self-practice đều là
+`gemini-2.5-flash`; candidate vẫn `gemini-3.5-flash-lite`, mặc định disabled,
+rollout `0`, fallback `false`. Đây là bounded local sample khác thời điểm,
+provider load, mạng và sample so với baseline cũ; không phải production SLO.
+
+Goal 17B deterministic gates: Ruff pass; Mypy 82 sources pass; AI Service
+315 passed/3 opt-in live smoke skipped; compileall pass; 24/24 selected Spring
+AI/canary/public-contract tests pass; Compose fake-provider E2E pass 2/2 và
+cleanup pass. Unit/integration/Compose gates không gọi live Gemini.
+
+### Goal 17C candidate resilience decision — 2026-07-31
+
+Goal 17B transient root cause vẫn là `UNKNOWN_TRANSIENT` vì artifact cũ không
+có status/cause/attempt diagnostics. Goal 17C tách candidate provider policy:
+một retry cùng model, 250–500 ms hoặc valid `Retry-After`, chỉ cho
+429/500/502/503/504 và transport/timeout tạm thời, dùng chung provider budget
+20 giây cho generation + schema repair. Current provider giữ policy cũ; SDK
+retry được tắt rõ, không cross-model fallback.
+
+Bounded live sample gồm 48 candidate request (24 case × hai repetition), zero
+current control mới:
+
+| Số câu | Requests | Mean | Median | P95 | Final-valid | Terminal error |
+|---:|---:|---:|---:|---:|---:|---:|
+| 1 | 12 | 2.275 giây | 2.079 giây | 3.688 giây | 12/12 | 0/12 |
+| 3 | 12 | 3.604 giây | 3.539 giây | 4.141 giây | 12/12 | 0/12 |
+| 5 | 12 | 4.967 giây | 4.891 giây | 5.547 giây | 11/12 | 1/12 |
+| 10 | 12 | 9.323 giây | 8.688 giây | 16.406 giây | 11/12 | 0/12 |
+| Chung | 48 | 5.044 giây | 4.141 giây | 9.125 giây | 46/48 | 1/48 |
+
+Raw transient 2/48 đều là HTTP 429. Hai request retry cùng candidate model; một
+thành công và một terminal 429, nên retry success là 50%, terminal error
+2,0833%. Repair 1/48; case 10 câu repair do `DUPLICATE_WITHIN_BATCH` vẫn không
+đủ final-valid. Citation/answer đạt 47/48.
+
+Candidate đạt latency/repair/retry-rate gates nhưng không đạt terminal error 0
+và final-valid 100%. Quyết định Goal 17C là
+`CANDIDATE_PROMOTION_REJECTED`; old/new current self-practice đều
+`gemini-2.5-flash`, candidate disabled, rollout `0`, fallback `false`. Sample
+bounded này không phải production SLO.
+
 ### Latest verified quality evidence
 
 | Gate | Kết quả có bằng chứng local |
 |---|---|
-| AI Service | Ruff pass; Mypy 81 sources pass; 308 passed, 3 live-provider smoke tests skipped; `app` coverage 90%, combined `app/scripts` coverage 85% |
+| AI Service | Ruff pass; Mypy 82 sources pass; 335 passed, 3 live-provider smoke tests skipped; `app` coverage 90%, combined `app/scripts` coverage 85% |
 | Backend | 260 tests, 0 failures/errors, 4 design-valid skips; compile pass |
 | Testcontainers | 13 tests run and passed, 0 skipped: MySQL migration 1, History RAG 3, TTS repository 9 |
 | Frontend | encoding pass; ESLint 0 errors/0 warnings; typecheck pass; 536/536 tests pass; production build pass |

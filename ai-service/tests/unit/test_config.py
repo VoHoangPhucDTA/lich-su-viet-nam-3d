@@ -36,6 +36,10 @@ def test_config_loads_defaults_without_api_key() -> None:
     assert settings.self_practice_model == "gemini-3.5-flash-lite"
     assert settings.self_practice_model_rollout_percent == 0
     assert settings.self_practice_model_fallback_enabled is False
+    assert settings.self_practice_provider_max_retries == 1
+    assert settings.self_practice_provider_retry_base_delay_seconds == 0.25
+    assert settings.self_practice_provider_retry_max_delay_seconds == 0.5
+    assert settings.self_practice_provider_total_budget_seconds == 20
     assert settings.quiz_default_count == 5
     assert settings.quiz_max_count == 10
     assert settings.quiz_duplicate_similarity_threshold == 0.9
@@ -114,6 +118,15 @@ def test_deterministic_provider_is_rejected_outside_test_or_e2e() -> None:
         {"self_practice_model_rollout_percent": 5},
         {"self_practice_model_enabled": True, "self_practice_model": " "},
         {"self_practice_model_fallback_enabled": True},
+        {"self_practice_provider_max_retries": 2},
+        {
+            "self_practice_provider_retry_base_delay_seconds": 0.5,
+            "self_practice_provider_retry_max_delay_seconds": 0.25,
+        },
+        {
+            "self_practice_provider_retry_max_delay_seconds": 0.5,
+            "self_practice_provider_total_budget_seconds": 0.5,
+        },
         {
             "self_practice_model_enabled": True,
             "self_practice_model_rollout_percent": 5,

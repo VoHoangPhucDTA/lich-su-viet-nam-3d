@@ -100,8 +100,18 @@ def _default_candidate_generation_provider(
         model=settings.self_practice_model,
         temperature=settings.gemini_generation_temperature,
         max_output_tokens=settings.gemini_generation_max_output_tokens,
-        max_retries=settings.gemini_generation_max_retries,
+        max_retries=settings.self_practice_provider_max_retries,
         timeout_seconds=settings.gemini_generation_timeout_seconds,
+        retry_min_seconds=(
+            settings.self_practice_provider_retry_base_delay_seconds
+        ),
+        retry_max_seconds=(
+            settings.self_practice_provider_retry_max_delay_seconds
+        ),
+        retryable_status_codes=frozenset({429, 500, 502, 503, 504}),
+        total_budget_seconds=(
+            settings.self_practice_provider_total_budget_seconds
+        ),
     )
 
 
@@ -164,9 +174,16 @@ class ThreadLocalEmbeddingProvider:
 
 
 class ThreadLocalGenerationProvider:
-    def __init__(self, pool: _ThreadLocalProviderPool, model: str) -> None:
+    def __init__(
+        self,
+        pool: _ThreadLocalProviderPool,
+        model: str,
+        *,
+        total_budget_seconds: float | None = None,
+    ) -> None:
         self._pool = pool
         self.model = model
+        self.total_budget_seconds = total_budget_seconds
 
     def generate_structured(self, prompt: str, **kwargs):
         return self._pool.instance().generate_structured(prompt, **kwargs)
@@ -324,7 +341,11 @@ class AiRuntimeResources:
                     settings=self.settings,
                     retrieval_service=retrieval,
                     provider=ThreadLocalGenerationProvider(
-                        candidate_generation_pool, self.settings.self_practice_model
+                        candidate_generation_pool,
+                        self.settings.self_practice_model,
+                        total_budget_seconds=(
+                            self.settings.self_practice_provider_total_budget_seconds
+                        ),
                     ),
                     owns_retrieval_service=False,
                 )

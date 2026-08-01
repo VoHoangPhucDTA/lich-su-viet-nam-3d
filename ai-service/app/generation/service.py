@@ -227,9 +227,21 @@ class GenerationService:
         provider_initial_ms = 0.0
         repair_provider_ms = 0.0
         validation_issue_count = 0
+        provider_deadline = deadline
+        provider_budget_seconds = getattr(
+            self.provider, "total_budget_seconds", None
+        )
+        if provider_budget_seconds is not None:
+            provider_deadline = OperationDeadline(
+                min(provider_budget_seconds, deadline.remaining_seconds()),
+                clock=deadline.clock,
+                sleeper=deadline.sleeper,
+            )
         for attempt in range(self.settings.gemini_generation_repair_attempts + 1):
             stage = "generation" if attempt == 0 else "repair"
             deadline.checkpoint(stage, is_cancelled)
+            if provider_deadline is not deadline:
+                provider_deadline.checkpoint(stage, is_cancelled)
             if attempt > 0:
                 diagnostic_recorder.record_repair_provider_call()
             provider_started = time.monotonic()
@@ -240,12 +252,21 @@ class GenerationService:
                 provider_kwargs: dict[str, object] = {}
                 parameters = inspect.signature(provider_method).parameters
                 if _accepts_keyword(parameters, "deadline"):
-                    provider_kwargs["deadline"] = deadline
+                    provider_kwargs["deadline"] = provider_deadline
                 if _accepts_keyword(parameters, "timeout_seconds"):
-                    provider_kwargs["timeout_seconds"] = deadline.clamp_timeout(
+                    request_timeout_seconds = deadline.clamp_timeout(
                         self.settings.gemini_generation_timeout_seconds,
                         stage=stage,
                         minimum_seconds=self.settings.ai_min_provider_timeout_seconds,
+                    )
+                    provider_kwargs["timeout_seconds"] = (
+                        provider_deadline.clamp_timeout(
+                            request_timeout_seconds,
+                            stage=stage,
+                            minimum_seconds=(
+                                self.settings.ai_min_provider_timeout_seconds
+                            ),
+                        )
                     )
                 if _accepts_keyword(parameters, "is_cancelled"):
                     provider_kwargs["is_cancelled"] = is_cancelled

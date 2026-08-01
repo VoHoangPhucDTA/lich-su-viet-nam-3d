@@ -47,6 +47,10 @@ AI_SELF_PRACTICE_MODEL_ENABLED=false
 AI_SELF_PRACTICE_MODEL=gemini-3.5-flash-lite
 AI_SELF_PRACTICE_MODEL_ROLLOUT_PERCENT=0
 AI_SELF_PRACTICE_MODEL_FALLBACK_ENABLED=false
+AI_SELF_PRACTICE_PROVIDER_MAX_RETRIES=1
+AI_SELF_PRACTICE_PROVIDER_RETRY_BASE_DELAY_SECONDS=0.25
+AI_SELF_PRACTICE_PROVIDER_RETRY_MAX_DELAY_SECONDS=0.5
+AI_SELF_PRACTICE_PROVIDER_TOTAL_BUDGET_SECONDS=20
 AI_SELF_PRACTICE_ROLLOUT_SALT=self-practice-v1
 EMBEDDING_OUTPUT_DIR=./storage/embeddings
 EMBEDDING_CHECKPOINT_DIR=./storage/checkpoints
@@ -71,10 +75,11 @@ QUIZ_ALLOW_PENDING_REVIEW=false
 LOG_LEVEL=INFO
 ```
 
-`GEMINI_GENERATION_MODEL_SELF_PRACTICE_CANDIDATE` is a benchmark/evaluation CLI
-input, not the runtime canary selector. Runtime self-practice routing reads
-`AI_SELF_PRACTICE_MODEL`; setting only the benchmark variable does not route
-student traffic.
+Runtime candidate provider pool đọc `AI_SELF_PRACTICE_MODEL`; đây là candidate
+variable của production runtime. Biến legacy
+`GEMINI_GENERATION_MODEL_SELF_PRACTICE_CANDIDATE` chỉ là input của benchmark
+WP12, không phải environment alias của runtime pool; setting riêng biến legacy
+không route student traffic.
 
 ### Self-practice model canary
 
@@ -97,6 +102,40 @@ the sequence `0 -> 5 -> 25 -> 50 -> 100`; rollback is setting the percentage to 
 and then disabling the feature. Keep the rollout salt stable during an experiment,
 and rotate it only when intentionally creating a new cohort.
 
+#### Goal 17B promotion status
+
+Bounded live audit ngày 2026-07-31 đã chạy 24 candidate request theo matrix
+`1/3/5/10 câu × EASY/MEDIUM/HARD × 2 topic group`, cùng hai current control.
+Candidate `gemini-3.5-flash-lite` đạt mean/P95 5 câu là 4.975/5.657 giây và
+repair 0/24, nhưng có một `GenerationTransientError`; final-valid, citation và
+answer-key chỉ đạt 23/24. Vì gate yêu cầu final-valid 100% và provider error 0,
+trạng thái là `CANDIDATE_PROMOTION_REJECTED`.
+
+Không kích hoạt candidate trên local/staging/production dựa vào benchmark này.
+Current self-practice vẫn là `gemini-2.5-flash`; safe defaults vẫn là flag
+`false`, rollout `0`, fallback `false`. Các số liệu là bounded local evidence,
+không phải production SLO.
+
+#### Goal 17C resilience status
+
+Artifact Goal 17B không đủ status/cause để phân loại lỗi cũ sâu hơn
+`UNKNOWN_TRANSIENT`. Goal 17C thêm policy candidate-only: tối đa hai provider
+attempt, 250–500 ms hoặc valid `Retry-After`, provider budget chung 20 giây,
+không SDK retry và không cross-model fallback. Retry chỉ áp dụng cho
+429/500/502/503/504, connect/reset/temporary network và read/provider timeout
+khi remaining budget còn đủ.
+
+Không retry 400/401/403/404/model unavailable, invalid key/request, safety,
+structured-output/schema/prompt validation hoặc permanent provider error.
+Current pool vẫn dùng `GEMINI_GENERATION_MAX_RETRIES`; schema repair vẫn dùng
+`GEMINI_GENERATION_REPAIR_ATTEMPTS` và không được tính là provider retry.
+
+Live sample 48 request có hai raw HTTP 429: một same-model retry thành công, một
+terminal sau retry. Terminal error 1/48, final-valid 46/48 và citation/answer
+47/48; vì vậy `CANDIDATE_PROMOTION_REJECTED`. Candidate phải tiếp tục disabled,
+rollout `0`, fallback `false`; không bật local/staging/production rollout từ
+evidence này.
+
 #### Local/staging activation
 
 Chỉ kích hoạt trên local/staging bằng tài khoản thử nghiệm đã được phê duyệt.
@@ -117,13 +156,18 @@ $env:AI_SELF_PRACTICE_MODEL='gemini-3.5-flash-lite'
 $env:AI_SELF_PRACTICE_MODEL_ENABLED='true'
 $env:AI_SELF_PRACTICE_MODEL_ROLLOUT_PERCENT='0'
 $env:AI_SELF_PRACTICE_MODEL_FALLBACK_ENABLED='false'
+$env:AI_SELF_PRACTICE_PROVIDER_MAX_RETRIES='1'
+$env:AI_SELF_PRACTICE_PROVIDER_RETRY_BASE_DELAY_SECONDS='0.25'
+$env:AI_SELF_PRACTICE_PROVIDER_RETRY_MAX_DELAY_SECONDS='0.5'
+$env:AI_SELF_PRACTICE_PROVIDER_TOTAL_BUDGET_SECONDS='20'
 $env:AI_SELF_PRACTICE_ROLLOUT_SALT='self-practice-v1'
 ```
 
 Restart Spring khi thay `AI_SELF_PRACTICE_CANARY_SECRET`. Restart AI Service
-khi thay model, flag, percentage, fallback hoặc salt. Sau khi 0% pass health và
-smoke, đặt percentage thành `5`, restart AI Service, theo dõi rồi mới lần lượt
-xét `25`, `50`, `100`. Không dùng giá trị trung gian khác.
+khi thay model, flag, percentage, fallback, retry policy/provider budget hoặc
+salt. Sau khi 0% pass health và smoke, chỉ một proposal tương lai đã đạt đủ gate
+mới được đặt percentage thành `5`, restart AI Service, theo dõi rồi mới lần
+lượt xét `25`, `50`, `100`. Không dùng giá trị trung gian khác.
 
 `GEMINI_API_KEY` hiện cung cấp pool key cho provider runtime; current và
 candidate có provider pool/thread-local lifecycle độc lập nhưng không được
@@ -134,15 +178,23 @@ fallback chéo model. Không đưa key vào command history dùng chung hoặc t
 Rollback ưu tiên routing trước:
 
 ```powershell
+$env:GEMINI_GENERATION_MODEL='gemini-2.5-flash'
+$env:AI_SELF_PRACTICE_MODEL='gemini-3.5-flash-lite'
 $env:AI_SELF_PRACTICE_MODEL_ROLLOUT_PERCENT='0'
-# Restart AI Service và xác minh mọi SELF_PRACTICE request về current.
 $env:AI_SELF_PRACTICE_MODEL_ENABLED='false'
-# Restart AI Service lần nữa để khóa candidate.
+$env:AI_SELF_PRACTICE_MODEL_FALLBACK_ENABLED='false'
+$env:AI_SELF_PRACTICE_PROVIDER_MAX_RETRIES='1'
+$env:AI_SELF_PRACTICE_PROVIDER_RETRY_BASE_DELAY_SECONDS='0.25'
+$env:AI_SELF_PRACTICE_PROVIDER_RETRY_MAX_DELAY_SECONDS='0.5'
+$env:AI_SELF_PRACTICE_PROVIDER_TOTAL_BUDGET_SECONDS='20'
+# Restart AI Service một lần sau khi đặt đủ safe-state variables.
 ```
 
 Không đổi rollout salt trong rollback đang diễn ra. Không bật
 `AI_SELF_PRACTICE_MODEL_FALLBACK_ENABLED`; config hiện fail startup nếu giá trị
-này là `true`.
+này là `true`. Sau restart, chạy shallow/deep health và một deterministic
+self-practice generation check. Chỉ restart Spring nếu
+`AI_SELF_PRACTICE_CANARY_SECRET` đã thay đổi; frontend không cần thay đổi.
 
 #### Health, readiness và observability
 
@@ -160,6 +212,14 @@ Routing telemetry chỉ được dùng các field phân loại thấp cardinalit
 `generationUseCase`, `modelClass`, `canaryAssigned`, bucket group và reason.
 Không log raw user ID, `canarySubject`, HMAC secret/salt, API key, prompt, Fact
 Context, chunk text hoặc model ID vào public log/response.
+
+Provider diagnostics nội bộ dùng
+`providerAttemptCount`, `providerRetryCount`, `providerRetryReason`,
+`providerRetryDelayMs`, `providerLatencyMs`,
+`providerAttemptLatenciesMs`, terminal category/status và bounded
+`Retry-After`. `repairAttempts` là field riêng. Không log exception message,
+prompt, Fact Context, user/canary identity, raw SGK hoặc credential. Frontend
+không nhận các diagnostics này.
 
 Before any staging activation, run the offline rehearsal from `ai-service/`:
 
@@ -601,9 +661,10 @@ cd ../backend
 ```
 
 Main CI không gọi live Gemini. Live-provider smoke phải là workflow thủ công,
-được bảo vệ, không chạy trên pull request/fork và không in response. Không đặt
-`GEMINI_GENERATION_MODEL_SELF_PRACTICE_CANDIDATE` để kích hoạt production:
-biến đó chỉ được script benchmark đọc; runtime đọc `AI_SELF_PRACTICE_MODEL`.
+được bảo vệ, không chạy trên pull request/fork và không in response. Runtime
+candidate pool đọc `AI_SELF_PRACTICE_MODEL`; biến legacy
+`GEMINI_GENERATION_MODEL_SELF_PRACTICE_CANDIDATE` chỉ được benchmark WP12 đọc
+và không kích hoạt production.
 
 Exact local release sequence đã chạy thành công trên Docker Desktop/Engine 29:
 

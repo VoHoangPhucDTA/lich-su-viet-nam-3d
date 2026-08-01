@@ -66,6 +66,28 @@ class Settings(BaseSettings):
         default=False,
         validation_alias="AI_SELF_PRACTICE_MODEL_FALLBACK_ENABLED",
     )
+    self_practice_provider_max_retries: int = Field(
+        default=1,
+        ge=0,
+        le=1,
+        validation_alias="AI_SELF_PRACTICE_PROVIDER_MAX_RETRIES",
+    )
+    self_practice_provider_retry_base_delay_seconds: float = Field(
+        default=0.25,
+        ge=0,
+        validation_alias="AI_SELF_PRACTICE_PROVIDER_RETRY_BASE_DELAY_SECONDS",
+    )
+    self_practice_provider_retry_max_delay_seconds: float = Field(
+        default=0.5,
+        ge=0,
+        validation_alias="AI_SELF_PRACTICE_PROVIDER_RETRY_MAX_DELAY_SECONDS",
+    )
+    self_practice_provider_total_budget_seconds: float = Field(
+        default=20,
+        gt=0,
+        le=20,
+        validation_alias="AI_SELF_PRACTICE_PROVIDER_TOTAL_BUDGET_SECONDS",
+    )
     self_practice_rollout_salt: str = Field(
         default="self-practice-v1",
         validation_alias="AI_SELF_PRACTICE_ROLLOUT_SALT",
@@ -180,6 +202,23 @@ class Settings(BaseSettings):
         if self.self_practice_model_fallback_enabled:
             raise ValueError(
                 "AI_SELF_PRACTICE_MODEL_FALLBACK_ENABLED is not supported during initial rollout"
+            )
+        if (
+            self.self_practice_provider_retry_max_delay_seconds
+            < self.self_practice_provider_retry_base_delay_seconds
+        ):
+            raise ValueError(
+                "AI_SELF_PRACTICE_PROVIDER_RETRY_MAX_DELAY_SECONDS must be >= "
+                "AI_SELF_PRACTICE_PROVIDER_RETRY_BASE_DELAY_SECONDS"
+            )
+        if (
+            self.self_practice_provider_total_budget_seconds
+            <= self.self_practice_provider_retry_max_delay_seconds
+            + self.ai_min_provider_timeout_seconds
+        ):
+            raise ValueError(
+                "AI_SELF_PRACTICE_PROVIDER_TOTAL_BUDGET_SECONDS must leave "
+                "time for a provider attempt after the maximum retry delay"
             )
         if (
             self.self_practice_model_enabled

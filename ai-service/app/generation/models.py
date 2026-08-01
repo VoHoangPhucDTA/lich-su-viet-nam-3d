@@ -20,7 +20,26 @@ class GenerationNotConfiguredError(GenerationError):
 
 
 class GenerationTransientError(GenerationError):
-    pass
+    def __init__(
+        self,
+        message: str,
+        *,
+        category: str = "UNKNOWN_TRANSIENT",
+        status_code: int | None = None,
+        retry_after_seconds: float | None = None,
+        attempt_count: int = 1,
+        retry_count: int = 0,
+        attempt_latencies_ms: tuple[float, ...] = (),
+        retry_delays_ms: tuple[float, ...] = (),
+    ) -> None:
+        super().__init__(message)
+        self.category = category
+        self.status_code = status_code
+        self.retry_after_seconds = retry_after_seconds
+        self.attempt_count = attempt_count
+        self.retry_count = retry_count
+        self.attempt_latencies_ms = attempt_latencies_ms
+        self.retry_delays_ms = retry_delays_ms
 
 
 class GenerationPermanentError(GenerationError):

@@ -420,7 +420,7 @@ def test_pending_retrieval_failure_never_calls_generation(tmp_path: Path) -> Non
         service.generate(GenerationRequest(query="valid", count=1))
 
 
-def test_generation_provider_timeout_is_stable_and_no_extra_retry(monkeypatch) -> None:
+def test_generation_provider_timeout_is_stable_and_no_extra_retry() -> None:
     clock = FakeClock()
     calls = 0
 
@@ -436,10 +436,6 @@ def test_generation_provider_timeout_is_stable_and_no_extra_retry(monkeypatch) -
         def close(self):
             return None
 
-    monkeypatch.setattr(
-        "app.generation.gemini.wait_random_exponential",
-        lambda **_kwargs: (lambda _state: 5),
-    )
     provider = GeminiGenerationProvider(
         api_key="test-key",
         model="model",
@@ -447,6 +443,7 @@ def test_generation_provider_timeout_is_stable_and_no_extra_retry(monkeypatch) -
         max_output_tokens=100,
         max_retries=2,
         timeout_seconds=60,
+        random_uniform=lambda _minimum, _maximum: 5,
         client_factory=lambda **_kwargs: Client(),
     )
     with pytest.raises(OperationDeadlineExceeded) as caught:
@@ -458,7 +455,7 @@ def test_generation_provider_timeout_is_stable_and_no_extra_retry(monkeypatch) -
     assert calls == 1
 
 
-def test_generation_provider_timeout_after_one_retry_is_stable(monkeypatch) -> None:
+def test_generation_provider_timeout_after_one_retry_is_stable() -> None:
     calls = 0
 
     class Models:
@@ -473,10 +470,6 @@ def test_generation_provider_timeout_after_one_retry_is_stable(monkeypatch) -> N
         def close(self):
             return None
 
-    monkeypatch.setattr(
-        "app.generation.gemini.wait_random_exponential",
-        lambda **_kwargs: (lambda _state: 0),
-    )
     provider = GeminiGenerationProvider(
         api_key="test-key",
         model="model",
@@ -484,6 +477,9 @@ def test_generation_provider_timeout_after_one_retry_is_stable(monkeypatch) -> N
         max_output_tokens=100,
         max_retries=1,
         timeout_seconds=60,
+        retry_min_seconds=0,
+        retry_max_seconds=0,
+        random_uniform=lambda _minimum, _maximum: 0,
         client_factory=lambda **_kwargs: Client(),
     )
     with pytest.raises(OperationDeadlineExceeded) as caught:

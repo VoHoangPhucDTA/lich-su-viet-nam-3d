@@ -112,6 +112,7 @@ def test_provider_passes_timeout_to_sdk_in_milliseconds() -> None:
     provider(factory).generate_structured("prompt", timeout_seconds=1.25)
 
     assert factory_kwargs["http_options"].timeout == 1250
+    assert factory_kwargs["http_options"].retry_options.attempts == 0
 
 
 def test_provider_rotates_only_credential_failure() -> None:

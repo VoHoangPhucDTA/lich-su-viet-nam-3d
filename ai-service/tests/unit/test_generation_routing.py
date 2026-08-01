@@ -3,7 +3,11 @@ from unittest.mock import Mock
 import pytest
 
 from app.config import Settings
-from app.generation.models import GenerationRequest, GenerationUseCase
+from app.generation.models import (
+    GenerationRequest,
+    GenerationTransientError,
+    GenerationUseCase,
+)
 from app.generation.service import (
     GenerationModelClass,
     RoutedGenerationService,
@@ -110,6 +114,35 @@ def test_router_uses_one_pool_and_never_cross_model_fallback() -> None:
     )
 
     with pytest.raises(RuntimeError, match="candidate failed"):
+        router.generate(request())
+
+    candidate.generate.assert_called_once()
+    current.generate.assert_not_called()
+
+
+def test_candidate_terminal_transient_never_calls_current_pool() -> None:
+    configured = settings(
+        self_practice_model_enabled=True,
+        self_practice_model_rollout_percent=100,
+    )
+    current = Mock()
+    candidate = Mock()
+    retrieval = Mock()
+    candidate.generate.side_effect = GenerationTransientError(
+        "candidate exhausted same-model retry",
+        category="HTTP_503",
+        status_code=503,
+        attempt_count=2,
+        retry_count=1,
+    )
+    router = RoutedGenerationService(
+        settings=configured,
+        current_service=current,
+        candidate_service=candidate,
+        retrieval_service=retrieval,
+    )
+
+    with pytest.raises(GenerationTransientError, match="same-model retry"):
         router.generate(request())
 
     candidate.generate.assert_called_once()
