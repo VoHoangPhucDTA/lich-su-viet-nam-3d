@@ -11,10 +11,11 @@ import { APP_SCROLL_ROOT_ID } from './hooks/useActiveSection';
 
 // Pages
 import CoiNguonPage from './pages/CoiNguonPage';
-import MapPage from './pages/MapPage';
 import EventDetailPage from './pages/EventDetailPage';
 import AllEventsPage from './pages/AllEventsPage';
 import HistoricalPeriodsPage from './pages/HistoricalPeriodsPage';
+
+const MapPage = lazy(() => import('./pages/MapPage'));
 
 // Auth pages
 import LoginPage from './pages/auth/LoginPage';

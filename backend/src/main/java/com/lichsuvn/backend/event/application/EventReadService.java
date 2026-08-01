@@ -6,12 +6,19 @@ import com.lichsuvn.backend.event.api.dto.EventDetailDto;
 import com.lichsuvn.backend.event.api.dto.EventListResponse;
 import com.lichsuvn.backend.event.api.dto.EventRelatedEventsDto;
 import com.lichsuvn.backend.event.api.dto.EventSummaryDto;
+import com.lichsuvn.backend.event.api.dto.HomepageEventSummaryDto;
+import com.lichsuvn.backend.event.api.dto.HomepageEventsResponse;
 import com.lichsuvn.backend.event.api.dto.TimelineEventDto;
 import com.lichsuvn.backend.event.infrastructure.EventReadRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -32,6 +39,14 @@ public class EventReadService {
     private static final Set<String> SORT_DIRECTIONS = Set.of("asc", "desc");
     private static final int DEFAULT_LIMIT = 300;
     private static final int MAX_LIMIT = 1000;
+    static final List<String> HOMEPAGE_EVENT_SLUGS = List.of(
+            "chien-thang-bach-dang-938",
+            "ly-thai-to-doi-do-thang-long",
+            "khang-chien-chong-quan-thanh-1789",
+            "ho-chi-minh-cong-bo-tuyen-ngon-doc-lap",
+            "chien-dich-dien-bien-phu-1954",
+            "chien-dich-giai-phong-sai-gon-gia-dinh-chien-dich-ho-chi-minh"
+    );
 
     private final EventReadRepository eventReadRepository;
 
@@ -100,6 +115,33 @@ public class EventReadService {
         return new EventListResponse(items, items.size(), total, safeLimit, safeOffset);
     }
 
+    public HomepageEventsResponse findHomepageEvents() {
+        List<HomepageEventSummaryDto> summaries = eventReadRepository.findHomepageSummaries(HOMEPAGE_EVENT_SLUGS);
+        if (summaries == null || summaries.isEmpty()) {
+            return new HomepageEventsResponse(List.of());
+        }
+
+        Map<String, HomepageEventSummaryDto> bySlug = new LinkedHashMap<>();
+        Set<String> seenEventIds = new HashSet<>();
+        for (HomepageEventSummaryDto summary : summaries) {
+            if (!isUsableHomepageSummary(summary)
+                    || !HOMEPAGE_EVENT_SLUGS.contains(summary.slug())
+                    || !seenEventIds.add(summary.id())) {
+                continue;
+            }
+            bySlug.putIfAbsent(summary.slug(), summary);
+        }
+
+        List<HomepageEventSummaryDto> ordered = new ArrayList<>(HOMEPAGE_EVENT_SLUGS.size());
+        for (String slug : HOMEPAGE_EVENT_SLUGS) {
+            HomepageEventSummaryDto summary = bySlug.get(slug);
+            if (summary != null) {
+                ordered.add(summary);
+            }
+        }
+        return new HomepageEventsResponse(ordered);
+    }
+
     public List<TimelineEventDto> findTimeline(Integer from, Integer to, Integer grade, String eventType) {
         validateGrade(grade);
         validateEnum("eventType", eventType, EVENT_TYPES);
@@ -121,6 +163,14 @@ public class EventReadService {
 
     public EventRelatedEventsDto findRelated(String eventId) {
         return eventReadRepository.findRelatedEvents(eventId);
+    }
+
+    private boolean isUsableHomepageSummary(HomepageEventSummaryDto summary) {
+        return summary != null
+                && StringUtils.hasText(summary.id())
+                && StringUtils.hasText(summary.slug())
+                && StringUtils.hasText(summary.title())
+                && EVENT_TYPES.contains(summary.eventType());
     }
 
     private void validateGrade(Integer grade) {
