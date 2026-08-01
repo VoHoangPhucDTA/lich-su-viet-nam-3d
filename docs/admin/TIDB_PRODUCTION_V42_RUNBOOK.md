@@ -102,9 +102,13 @@ TiDB Cloud CLI/API.  It is not rewritten into a display label.  The Cloud
 metadata validator first requires the complete raw form ``^v8\.5\.3$`` and
 only then derives semantic version ``8.5.3`` for comparison.  This is distinct
 from SQL ``VERSION()``, whose complete approved server structure is
-``<compat-semver>-TiDB-v8.5.3``; the observed production form is
-``8.0.36-TiDB-v8.5.3``.  Plain MySQL strings and arbitrary text containing
-``v8.5.3`` are rejected.
+``8.0.11-TiDB-v8.5.3-serverless``.  The restore diagnostic returned that exact
+29-byte value (hex
+``382E302E31312D546944422D76382E352E332D7365727665726C657373``).  The runner
+preserves the raw value and requires a strict full match, including the stable
+``-serverless`` suffix, before deriving semantic version ``8.5.3``.  Plain
+MySQL strings, alternate compatibility prefixes, missing or extra suffixes,
+and arbitrary text containing ``v8.5.3`` are rejected.
 
 ## 5. Backup evidence contract
 
@@ -237,9 +241,10 @@ Branch IDs are rejected.
 * MySQL metadata confirms engine V8.5.3, database ``lichsuvn``, TLS
   v1.2 or v1.3, no failed migration, at least two active Admins,
   bounded counts captured.
-* The SQL ``VERSION()`` value matches the strict TiDB server structure and its
-  extracted TiDB semantic version equals ``8.5.3``; Cloud metadata is never
-  passed through this SQL-specific parser.
+* The SQL ``VERSION()`` value is exactly
+  ``8.0.11-TiDB-v8.5.3-serverless`` and its extracted TiDB semantic version
+  equals ``8.5.3``; Cloud metadata is never passed through this SQL-specific
+  parser.
 * ``CURRENT_USER()`` matches the production user prefix and does not
   match the rehearsal fixture prefix.
 * Bounded counts recorded for future unchanged-comparison.

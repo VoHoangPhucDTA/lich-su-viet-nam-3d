@@ -303,23 +303,39 @@ class IdentityTest(unittest.TestCase):
 class EngineVersionContractTest(unittest.TestCase):
     """Keep TiDB Cloud metadata distinct from SQL VERSION() output."""
 
-    def test_sql_version_accepts_strict_tidb_v853_server_form(self) -> None:
+    def test_sql_version_accepts_verified_tidb_serverless_form(self) -> None:
         self.assertEqual(
-            runner.validate_sql_server_version("8.0.36-TiDB-v8.5.3"),
+            runner.validate_sql_server_version("8.0.11-TiDB-v8.5.3-serverless"),
             "8.5.3",
         )
 
     def test_sql_version_rejects_wrong_or_unstructured_values(self) -> None:
         for value in (
-            "8.0.36-TiDB-v8.5.2",
-            "8.0.36-TiDB-v8.5.4",
-            "8.0.36",
-            "prefix 8.0.36-TiDB-v8.5.3 suffix",
+            "8.0.11",
+            "8.0.11-TiDB-v8.5.2-serverless",
+            "8.0.11-TiDB-v8.5.4-serverless",
+            "8.0.11-TiDB-v8.5.30-serverless",
+            "8.0.11-v8.5.3-serverless",
+            "prefix-8.0.11-TiDB-v8.5.3-serverless",
+            "8.0.11-TiDB-v8.5.3-serverless-extra",
+            "8.0.11-TiDB-v8.5.3-serverles",
+            "8.0.11-TiDB-v8.5.3-serverless\n",
+            "8.0.11-TiDB-v8.5.3-serverless\x00",
+            "8.0.36-TiDB-v8.5.3-serverless",
+            "8.0.11-TiDB-v8.5.3",
             "v8.5.3",
         ):
             with self.subTest(value=value):
                 with self.assertRaises(runner.ProductionRunnerError):
                     runner.validate_sql_server_version(value)
+
+    def test_wrong_sql_engine_blocks_before_shared_metadata_validation(self) -> None:
+        with patch.object(base, "validate_database_metadata") as downstream:
+            with self.assertRaises(runner.ProductionRunnerError):
+                runner.validate_database_metadata_v42({
+                    "server_version": "8.0.11-TiDB-v8.5.4-serverless",
+                })
+        downstream.assert_not_called()
 
 
 # ============================================================================
@@ -674,7 +690,7 @@ class CommandSafetyTest(unittest.TestCase):
 
 def _metadata(*, before: dict[str, str]) -> dict[str, str]:
     base_metadata = {
-        "server_version": "8.0.36-TiDB-v8.5.3",
+        "server_version": "8.0.11-TiDB-v8.5.3-serverless",
         "version_comment": "TiDB Server",
         "database": "lichsuvn",
         "global_time_zone": "UTC",

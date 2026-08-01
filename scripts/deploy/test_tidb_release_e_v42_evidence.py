@@ -316,14 +316,34 @@ class SourceSpecificEngineVersionTest(unittest.TestCase):
                 with self.assertRaises(evidence.EngineVersionContractError):
                     evidence.parse_tidb_cloud_engine_version(value)
 
-    def test_sql_server_form_is_parsed_only_after_full_structure_match(self) -> None:
+    def test_verified_restore_sql_server_form_is_accepted_exactly(self) -> None:
+        raw_version = "8.0.11-TiDB-v8.5.3-serverless"
+        self.assertEqual(len(raw_version), 29)
         self.assertEqual(
-            evidence.parse_tidb_sql_server_version("8.0.36-TiDB-v8.5.3"),
+            raw_version.encode("utf-8").hex().upper(),
+            "382E302E31312D546944422D76382E352E332D7365727665726C657373",
+        )
+        self.assertEqual(
+            evidence.parse_tidb_sql_server_version(raw_version),
             "8.5.3",
         )
+
+    def test_sql_server_form_is_parsed_only_after_full_structure_match(self) -> None:
         for value in (
-            "8.0.36-TiDB-v8.5.2", "8.0.36-TiDB-v8.5.4", "8.0.36",
-            "arbitrary v8.5.3 text", "v8.5.3",
+            "8.0.11",
+            "8.0.11-TiDB-v8.5.2-serverless",
+            "8.0.11-TiDB-v8.5.4-serverless",
+            "8.0.11-TiDB-v8.5.30-serverless",
+            "8.0.11-v8.5.3-serverless",
+            "prefix-8.0.11-TiDB-v8.5.3-serverless",
+            "8.0.11-TiDB-v8.5.3-serverless-extra",
+            "8.0.11-TiDB-v8.5.3-serverles",
+            "8.0.11-TiDB-v8.5.3-serverless\n",
+            "8.0.11-TiDB-v8.5.3-serverless\x00",
+            "8.0.36-TiDB-v8.5.3-serverless",
+            "8.0.11-TiDB-v8.5.3",
+            "arbitrary v8.5.3 text",
+            "v8.5.3",
         ):
             with self.subTest(value=value):
                 with self.assertRaises(evidence.EngineVersionContractError):

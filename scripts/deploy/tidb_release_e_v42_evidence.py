@@ -27,12 +27,15 @@ EXPECTED_BACKUP_STATE = "SUCCEEDED"
 EXPECTED_RESTORE_STATE = "ACTIVE"
 EXPECTED_RESTORE_REGION = "Singapore / ap-southeast-1"
 EXPECTED_TIDB_SEMANTIC_VERSION = "8.5.3"
+EXPECTED_TIDB_SQL_COMPAT_VERSION = "8.0.11"
+EXPECTED_TIDB_SQL_SERVER_SUFFIX = "serverless"
 TIDB_CLOUD_ENGINE_VERSION_REGEX = re.compile(
     r"^v(?P<version>[0-9]+\.[0-9]+\.[0-9]+)$"
 )
 TIDB_SQL_SERVER_VERSION_REGEX = re.compile(
-    r"^(?P<compat>[0-9]+\.[0-9]+\.[0-9]+)-TiDB-v"
-    r"(?P<version>[0-9]+\.[0-9]+\.[0-9]+)$"
+    rf"^{re.escape(EXPECTED_TIDB_SQL_COMPAT_VERSION)}-TiDB-v"
+    rf"(?P<version>[0-9]+\.[0-9]+\.[0-9]+)-"
+    rf"{re.escape(EXPECTED_TIDB_SQL_SERVER_SUFFIX)}$"
 )
 TECHNICAL_BRANCH_ID_REGEX = re.compile(r"^bran-[A-Za-z0-9][A-Za-z0-9_-]{5,127}$")
 SHA256_REGEX = re.compile(r"^[0-9a-f]{64}$")
@@ -101,13 +104,13 @@ def parse_tidb_cloud_engine_version(value: Any) -> str:
 
 
 def parse_tidb_sql_server_version(value: Any) -> str:
-    """Validate a complete SQL VERSION() TiDB server string, then compare semver."""
+    """Validate the exact SQL VERSION() TiDB Serverless structure, then semver."""
     if not isinstance(value, str):
         raise EngineVersionContractError("SQL VERSION() value must be a string")
     match = TIDB_SQL_SERVER_VERSION_REGEX.fullmatch(value)
     if not match or match.group("version") != EXPECTED_TIDB_SEMANTIC_VERSION:
         raise EngineVersionContractError(
-            "SQL VERSION() is not the approved TiDB v8.5.3 server form"
+            "SQL VERSION() is not the approved TiDB v8.5.3 Serverless form"
         )
     return match.group("version")
 
