@@ -91,16 +91,35 @@ EXPECTED_V42_SQL_SHA = (
 EXPECTED_V42_SQL_FILE = "V42__add_managed_event_image_storage.sql"
 
 
-# V42 schema footprint (must remain in sync with V42__add_managed_event_image_storage.sql).
-MANAGED_STORAGE_COLUMNS = frozenset(
-    {
+# V42 schema footprint in the exact source order from
+# V42__add_managed_event_image_storage.sql.  Keep the ordered contract so a
+# duplicate cannot be silently hidden by the set used for result comparison.
+def _validated_managed_storage_column_contract(
+    columns: Sequence[str],
+) -> tuple[str, ...]:
+    values = tuple(columns)
+    if len(values) != 18:
+        raise ValueError("V42 managed-storage column contract must contain exactly 18 names")
+    if len(set(values)) != len(values):
+        raise ValueError("V42 managed-storage column contract contains a duplicate name")
+    if any(not re.fullmatch(r"[a-z][a-z0-9_]*", value) for value in values):
+        raise ValueError("V42 managed-storage column contract contains an invalid name")
+    return values
+
+
+MANAGED_STORAGE_COLUMN_CONTRACT = _validated_managed_storage_column_contract(
+    (
         "managed_asset_id", "storage_provider", "storage_public_id",
         "storage_asset_id", "storage_original_url", "storage_version",
         "storage_mime_type", "storage_format", "storage_byte_size",
         "storage_sha256", "storage_width", "storage_height",
         "uploaded_by", "uploaded_at", "storage_state",
-        "upload_token", "upload_started_at", "storage_expires_at",
-    }
+        "upload_token", "upload_started_at", "upload_expires_at",
+    )
+)
+MANAGED_STORAGE_COLUMNS = frozenset(MANAGED_STORAGE_COLUMN_CONTRACT)
+MANAGED_STORAGE_COLUMN_SQL = ",".join(
+    f"'{column}'" for column in MANAGED_STORAGE_COLUMN_CONTRACT
 )
 V42_EVENT_MEDIA_INDEXES = frozenset(
     {
@@ -685,12 +704,10 @@ def metadata_sql_v42_postflight_extras() -> str:
         "(SELECT GROUP_CONCAT(column_name ORDER BY column_name SEPARATOR ',') "
         "FROM information_schema.columns "
         "WHERE table_schema=DATABASE() AND table_name='event_media' "
-        "AND column_name IN ("
-        "'managed_asset_id','storage_provider','storage_public_id','storage_asset_id',"
-        "'storage_original_url','storage_version','storage_mime_type','storage_format',"
-        "'storage_byte_size','storage_sha256','storage_width','storage_height',"
-        "'uploaded_by','uploaded_at','storage_state','upload_token',"
-        "'upload_started_at','storage_expires_at')), '') AS v;\n"
+        "AND (column_name IN ("
+        f"{MANAGED_STORAGE_COLUMN_SQL}) "
+        "OR column_name LIKE 'storage!_%' ESCAPE '!' "
+        "OR column_name LIKE 'upload!_%' ESCAPE '!')), '') AS v;\n"
         # 4 indexes on event_media.
         "SELECT 'v42_media_indexes', COALESCE("
         "(SELECT GROUP_CONCAT(index_name ORDER BY index_name SEPARATOR ',') "

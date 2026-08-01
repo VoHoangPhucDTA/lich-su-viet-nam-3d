@@ -333,6 +333,14 @@ asserted unchanged.
 
 ## 11. Postflight
 
+Production V42 has already been applied exactly once.  The authoritative
+migration column is ``upload_expires_at`` as declared by
+``V42__add_managed_event_image_storage.sql``; ``storage_expires_at`` was a
+checker-only typo and was never part of the production schema contract.  The
+checker correction permits a read-only postflight only.  The V42 migration
+must not be rerun, and no manual DDL is permitted to make production match a
+faulty checker.  Any postflight schema mismatch remains fail-closed.
+
 Requires:
 
 * The same retained backup/restore evidence chain passes before any Flyway

@@ -946,6 +946,78 @@ class BoundedMetadataContractTest(unittest.TestCase):
 
 
 # ============================================================================
+# ManagedStorageColumnContractTest
+# ============================================================================
+
+
+def _managed_storage_declarations(sql: str) -> list[tuple[str, str]]:
+    first_statement = sql.split(";", 1)[0]
+    declarations: list[tuple[str, str]] = []
+    for line in first_statement.splitlines():
+        match = re.fullmatch(
+            r"\s*ADD COLUMN ([a-z][a-z0-9_]*) (.+?)(?:,)?\s*",
+            line,
+        )
+        if match:
+            declarations.append((match.group(1), match.group(2)))
+    return declarations
+
+
+class ManagedStorageColumnContractTest(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls) -> None:
+        cls.migration_path = (
+            HERE.parents[1]
+            / "backend" / "src" / "main" / "resources" / "db" / "migration"
+            / runner.EXPECTED_V42_SQL_FILE
+        )
+        cls.migration_sql = cls.migration_path.read_text(encoding="utf-8")
+
+    def test_ordered_contract_exactly_matches_authoritative_v42_sql(self) -> None:
+        declarations = _managed_storage_declarations(self.migration_sql)
+        names = [name for name, _declaration in declarations]
+        self.assertEqual(len(names), 18)
+        self.assertEqual(names, list(runner.MANAGED_STORAGE_COLUMN_CONTRACT))
+        self.assertEqual(len(runner.MANAGED_STORAGE_COLUMNS), 18)
+        self.assertEqual(names.count("upload_expires_at"), 1)
+        self.assertNotIn("storage_expires_at", names)
+
+    def test_contract_rejects_missing_or_duplicate_names(self) -> None:
+        contract = runner.MANAGED_STORAGE_COLUMN_CONTRACT
+        with self.assertRaisesRegex(ValueError, "exactly 18"):
+            runner._validated_managed_storage_column_contract(contract[:-1])
+        duplicate = contract[:-1] + (contract[-2],)
+        with self.assertRaisesRegex(ValueError, "duplicate"):
+            runner._validated_managed_storage_column_contract(duplicate)
+
+    def test_upload_expiration_type_nullability_and_default_are_exact(self) -> None:
+        def require_contract(sql: str) -> None:
+            declarations = dict(_managed_storage_declarations(sql))
+            if declarations.get("upload_expires_at") != "DATETIME(6) NULL":
+                raise ValueError("upload_expires_at declaration contract mismatch")
+
+        require_contract(self.migration_sql)
+        declaration = "ADD COLUMN upload_expires_at DATETIME(6) NULL"
+        for wrong in (
+            "ADD COLUMN upload_expires_at TIMESTAMP(6) NULL",
+            "ADD COLUMN upload_expires_at DATETIME(6) NOT NULL",
+            "ADD COLUMN upload_expires_at DATETIME(6) NULL DEFAULT CURRENT_TIMESTAMP(6)",
+        ):
+            with self.subTest(wrong=wrong):
+                with self.assertRaisesRegex(ValueError, "declaration contract mismatch"):
+                    require_contract(self.migration_sql.replace(declaration, wrong))
+
+    def test_generated_sql_uses_one_authoritative_contract_and_catches_extras(self) -> None:
+        sql = runner.metadata_sql_v42_postflight_extras()
+        for name in runner.MANAGED_STORAGE_COLUMN_CONTRACT:
+            self.assertEqual(sql.count(f"'{name}'"), 1)
+        self.assertIn("'upload_expires_at'", sql)
+        self.assertNotIn("storage_expires_at", sql)
+        self.assertIn("column_name LIKE 'storage!_%' ESCAPE '!'", sql)
+        self.assertIn("column_name LIKE 'upload!_%' ESCAPE '!'", sql)
+
+
+# ============================================================================
 # PostflightTest
 # ============================================================================
 
@@ -1012,6 +1084,37 @@ class PostflightTest(unittest.TestCase):
         with self.assertRaises(runner.ProductionRunnerError):
             runner.validate_v42_postflight_extras(metadata, before=before)
 
+    def test_old_wrong_expiration_column_is_rejected(self) -> None:
+        before = {"users_total": "3", "historical_events_total": "361",
+                  "event_media_total": "0", "active_admin_count": "2"}
+        metadata = _metadata(before=before)
+        columns = set(runner.MANAGED_STORAGE_COLUMNS)
+        columns.remove("upload_expires_at")
+        columns.add("storage_expires_at")
+        metadata["v42_managed_columns"] = ",".join(sorted(columns))
+        with self.assertRaises(runner.ProductionRunnerError):
+            runner.validate_v42_postflight_extras(metadata, before=before)
+
+    def test_missing_upload_expiration_column_is_rejected(self) -> None:
+        before = {"users_total": "3", "historical_events_total": "361",
+                  "event_media_total": "0", "active_admin_count": "2"}
+        metadata = _metadata(before=before)
+        columns = set(runner.MANAGED_STORAGE_COLUMNS)
+        columns.remove("upload_expires_at")
+        metadata["v42_managed_columns"] = ",".join(sorted(columns))
+        with self.assertRaises(runner.ProductionRunnerError):
+            runner.validate_v42_postflight_extras(metadata, before=before)
+
+    def test_both_expiration_column_names_are_rejected(self) -> None:
+        before = {"users_total": "3", "historical_events_total": "361",
+                  "event_media_total": "0", "active_admin_count": "2"}
+        metadata = _metadata(before=before)
+        columns = set(runner.MANAGED_STORAGE_COLUMNS)
+        columns.add("storage_expires_at")
+        metadata["v42_managed_columns"] = ",".join(sorted(columns))
+        with self.assertRaises(runner.ProductionRunnerError):
+            runner.validate_v42_postflight_extras(metadata, before=before)
+
     def test_missing_check_constraint_rejected(self) -> None:
         before = {"users_total": "3", "historical_events_total": "361",
                   "event_media_total": "0", "active_admin_count": "2"}
@@ -1045,6 +1148,14 @@ class PostflightTest(unittest.TestCase):
         metadata["v42_success_rows"] = "2"
         with self.assertRaises(runner.ProductionRunnerError):
             runner.validate_v42_postflight_extras(metadata, before=before)
+
+    def test_failed_v42_history_is_rejected(self) -> None:
+        before = {"users_total": "3", "historical_events_total": "361",
+                  "event_media_total": "0", "active_admin_count": "2"}
+        metadata = _metadata(before=before)
+        metadata["failed_migration_count"] = "1"
+        with self.assertRaises(base.MigrationGuardError):
+            runner.validate_database_metadata_v42(metadata)
 
     def test_absence_of_v42_history_checksum_rejected(self) -> None:
         before = {"users_total": "3", "historical_events_total": "361",
@@ -1372,6 +1483,17 @@ class DocumentationContractTest(unittest.TestCase):
         self.assertIn("incomplete result is fail-closed", runbook)
         self.assertIn("there is no retry query", runbook)
 
+    def test_runbook_documents_the_applied_v42_column_correction(self) -> None:
+        runbook = (
+            HERE.parents[1] / "docs" / "admin" / "TIDB_PRODUCTION_V42_RUNBOOK.md"
+        ).read_text(encoding="utf-8")
+        self.assertIn("``upload_expires_at``", runbook)
+        self.assertIn("``storage_expires_at``", runbook)
+        self.assertIn("checker-only typo", runbook)
+        self.assertIn("must not be rerun", runbook)
+        self.assertIn("read-only postflight", runbook)
+        self.assertIn("no manual DDL", runbook)
+
 
 # ============================================================================
 # ReleaseEEvidenceOrderingTest
@@ -1557,6 +1679,52 @@ class ReleaseEEvidenceOrderingTest(unittest.TestCase):
         self.assertLess(calls.index("live-preflight"), migrate_credential)
         self.assertLess(calls.index("release-evidence", calls.index("artifact") + 1), migrate_credential)
         self.assertGreater(calls.index("migrate-workflow"), migrate_credential)
+
+    def test_postflight_failure_uses_read_credentials_and_cannot_migrate(self) -> None:
+        payload = _v42_preflight_payload()
+        credential_prefixes: list[str] = []
+
+        def credentials(prefix: str) -> tuple[str, str]:
+            credential_prefixes.append(prefix)
+            if prefix != "TIDB_PRODUCTION_READ":
+                raise AssertionError("postflight accessed migration credentials")
+            return "read", "read-secret"
+
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "preflight.json"
+            file_sha = _write_v42_preflight(path, payload)
+            with (
+                patch.object(runner, "load_identity_evidence", return_value=_v42_preflight_identity()),
+                patch.object(base, "verify_release_checkout"),
+                patch.object(base, "validate_local_docker_environment"),
+                patch.object(runner, "_target_from_environment_and_evidence", return_value=_v42_preflight_target()),
+                patch.object(runner, "validate_release_e_evidence"),
+                patch.object(runner, "_credentials", side_effect=credentials),
+                patch.object(
+                    runner,
+                    "run_postflight",
+                    side_effect=runner.ProductionRunnerError("schema gate failed"),
+                ) as postflight,
+                patch.object(runner, "run_migrate") as migrate,
+                redirect_stderr(io.StringIO()),
+            ):
+                exit_code = runner.main([
+                    "--mode", "postflight",
+                    "--expected-release-commit", "a" * 40,
+                    "--confirm-target", "main@gateway01.ap-southeast-1.prod.alicloud.tidbcloud.com/lichsuvn:41->42",
+                    "--identity-evidence", str(Path(directory) / "identity.json"),
+                    "--identity-evidence-sha256", "b" * 64,
+                    "--before-evidence", str(path),
+                    "--before-evidence-sha256", file_sha,
+                    "--two-active-admins", "--backends-drained",
+                    "--single-migration-owner", "--maintenance-window",
+                    "--rollback-owner", "--runtime-security-verified",
+                    "--execute-migrate",
+                ])
+        self.assertEqual(exit_code, 2)
+        self.assertEqual(credential_prefixes, ["TIDB_PRODUCTION_READ"])
+        postflight.assert_called_once()
+        migrate.assert_not_called()
 
     def test_mocked_migrate_path_invokes_migrate_once_and_requires_postflight(self) -> None:
         operations: list[str] = []

@@ -1452,13 +1452,13 @@ def _metadata_diag_sql() -> str:
         "AND column_name IN ('managed_asset_id','storage_provider','storage_public_id','storage_asset_id',"
         "'storage_original_url','storage_version','storage_mime_type','storage_format','storage_byte_size',"
         "'storage_sha256','storage_width','storage_height','uploaded_by','uploaded_at','storage_state',"
-        "'upload_token','upload_started_at','storage_expires_at');\n"
+        "'upload_token','upload_started_at','upload_expires_at');\n"
         "SELECT 'managed_columns_v42', GROUP_CONCAT(column_name ORDER BY column_name SEPARATOR ',') "
         "FROM information_schema.columns WHERE table_schema=DATABASE() AND table_name='event_media' "
         "AND column_name IN ('managed_asset_id','storage_provider','storage_public_id','storage_asset_id',"
         "'storage_original_url','storage_version','storage_mime_type','storage_format','storage_byte_size',"
         "'storage_sha256','storage_width','storage_height','uploaded_by','uploaded_at','storage_state',"
-        "'upload_token','upload_started_at','storage_expires_at');\n"
+        "'upload_token','upload_started_at','upload_expires_at');\n"
     )
 
 
