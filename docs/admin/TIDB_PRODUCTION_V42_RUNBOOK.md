@@ -250,7 +250,20 @@ Branch IDs are rejected.
   parser.
 * ``CURRENT_USER()`` matches the production user prefix and does not
   match the rehearsal fixture prefix.
-* Bounded counts recorded for future unchanged-comparison.
+* Only after Flyway ``info`` and ``validate`` pass, the dedicated bounded
+  baseline query returns exactly four aggregate key/value rows:
+  ``users_total``, ``historical_events_total``, ``event_media_total``, and
+  ``active_admin_count``.  The active-Admin definition remains the distinct
+  active users joined through the ``admin`` role assignment.
+* The query uses TiDB-compatible scalar-subquery grouping: a scalar ``SELECT``
+  is closed before any outer ``COALESCE`` fallback argument.  The four count
+  rows themselves use ``COUNT`` directly and never infer or default a count.
+* The parser rejects duplicate, missing, unexpected, malformed, non-integer,
+  or negative metrics.  A SQL syntax error or incomplete result is fail-closed;
+  there is no retry query and no empty-string/zero substitution.
+* A complete four-metric baseline is recorded for future unchanged-comparison
+  and is required before the runner can return the confirmation target used to
+  issue a separately authorized migration token.
 * Backup and restore JSON, detached hashes, captures, cross-bindings, and
   backup freshness pass before any Flyway ``info`` or ``validate`` command.
 

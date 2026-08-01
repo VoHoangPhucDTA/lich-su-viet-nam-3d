@@ -713,6 +713,238 @@ class CommandSafetyTest(unittest.TestCase):
 
 
 # ============================================================================
+# BoundedMetadataContractTest
+# ============================================================================
+
+
+class BoundedMetadataContractTest(unittest.TestCase):
+    VALID_OUTPUT = (
+        "users_total\t20\n"
+        "historical_events_total\t361\n"
+        "event_media_total\t537\n"
+        "active_admin_count\t2\n"
+    )
+
+    def test_sql_is_deterministic_aggregate_only_and_exactly_four_rows(self) -> None:
+        sql = runner.bounded_metadata_sql_v42()
+        self.assertEqual(sql, runner.bounded_metadata_sql_v42())
+        statements = base._read_only_sql_statements(sql)
+        self.assertEqual(len(statements), 4)
+        for key in runner.V42_BOUNDED_COUNTS:
+            self.assertEqual(sql.count(f"'{key}'"), 1)
+        for keyword in (
+            "INSERT", "UPDATE", "DELETE", "ALTER", "CREATE", "DROP",
+            "TRUNCATE", "REPLACE", "INTO", "FOR UPDATE",
+        ):
+            self.assertNotRegex(sql, rf"(?i)\b{keyword}\b")
+        self.assertNotRegex(sql, r",\s*(?:;|\))")
+        self.assertNotIn("COALESCE", sql.upper())
+        self.assertNotIn("IFNULL", sql.upper())
+        self.assertIn("COUNT(DISTINCT u.id)", sql)
+        self.assertIn("u.status='active'", sql)
+        self.assertIn("r.code='admin'", sql)
+        for statement in statements:
+            self.assertRegex(statement, r"(?is)^SELECT\s+'[^']+',\s*COUNT\(")
+            self.assertIn(" FROM ", statement.upper())
+
+    def test_postflight_scalar_subqueries_are_closed_before_coalesce_default(self) -> None:
+        sql = runner.metadata_sql_v42_postflight_extras()
+        self.assertEqual(sql.count(")), '') AS v"), 5)
+
+    def test_valid_four_metric_result_is_accepted(self) -> None:
+        self.assertEqual(
+            runner.parse_bounded_metadata_counts(self.VALID_OUTPUT),
+            {
+                "users_total": "20",
+                "historical_events_total": "361",
+                "event_media_total": "537",
+                "active_admin_count": "2",
+            },
+        )
+
+    def test_duplicate_metric_is_rejected(self) -> None:
+        with self.assertRaises(base.MigrationGuardError):
+            runner.parse_bounded_metadata_counts(
+                self.VALID_OUTPUT + "users_total\t20\n"
+            )
+
+    def test_missing_metric_is_rejected(self) -> None:
+        with self.assertRaises(runner.ProductionRunnerError):
+            runner.parse_bounded_metadata_counts(
+                self.VALID_OUTPUT.replace("event_media_total\t537\n", "")
+            )
+
+    def test_unexpected_metric_or_extra_result_row_is_rejected(self) -> None:
+        with self.assertRaises(runner.ProductionRunnerError):
+            runner.parse_bounded_metadata_counts(
+                self.VALID_OUTPUT + "unexpected_metric\t1\n"
+            )
+
+    def test_non_integer_and_negative_values_are_rejected(self) -> None:
+        for value in ("", "1.0", "abc", "-1", "+1", " 1"):
+            with self.subTest(value=value):
+                output = self.VALID_OUTPUT.replace("users_total\t20", f"users_total\t{value}")
+                with self.assertRaises((runner.ProductionRunnerError, base.MigrationGuardError)):
+                    runner.parse_bounded_metadata_counts(output)
+
+    def test_malformed_and_empty_output_are_rejected(self) -> None:
+        for output in ("", "users_total 20\n"):
+            with self.subTest(output=output):
+                with self.assertRaises((runner.ProductionRunnerError, base.MigrationGuardError)):
+                    runner.parse_bounded_metadata_counts(output)
+
+    def test_shared_and_dedicated_counts_must_agree(self) -> None:
+        shared = {
+            "users_total": "20",
+            "events_total": "361",
+            "event_media_total": "537",
+            "active_admin_count": "2",
+        }
+        bounded = runner.parse_bounded_metadata_counts(self.VALID_OUTPUT)
+        merged = runner.merge_bounded_metadata_counts(shared, bounded)
+        self.assertEqual(merged["historical_events_total"], "361")
+        for key in (
+            "users_total", "events_total", "event_media_total", "active_admin_count"
+        ):
+            bad = dict(shared)
+            bad[key] = "999"
+            with self.subTest(key=key):
+                with self.assertRaises(runner.ProductionRunnerError):
+                    runner.merge_bounded_metadata_counts(bad, bounded)
+
+    def test_preflight_runs_bounded_counts_after_identity_info_and_validate(self) -> None:
+        calls: list[str] = []
+        core = {
+            "users_total": "20",
+            "events_total": "361",
+            "event_media_total": "537",
+            "active_admin_count": "2",
+            "session_user": "production.read@%",
+        }
+        bounded = runner.parse_bounded_metadata_counts(self.VALID_OUTPUT)
+
+        def flyway(**kwargs):
+            calls.append(f"flyway:{kwargs['operation']}")
+            return {}
+
+        with (
+            patch.object(
+                runner,
+                "validate_release_e_evidence",
+                side_effect=lambda **_kwargs: calls.append("evidence"),
+            ),
+            patch.object(runner, "_verify_manifest_immutable", return_value=[]),
+            patch.object(
+                runner,
+                "_migration_paths_v42",
+                return_value=(Path("migrations"), Path("manifest")),
+            ),
+            patch.object(
+                base,
+                "verify_docker_images",
+                return_value={base.FLYWAY_IMAGE: "flyway@digest"},
+            ),
+            patch.object(base, "build_flyway_config", return_value="config"),
+            patch.object(base, "canonical_migration_directory") as staging,
+            patch.object(runner, "run_flyway_v42", side_effect=flyway),
+            patch.object(
+                runner,
+                "validate_flyway_info_for_v42",
+                side_effect=lambda _value: calls.append("info-gate") or {},
+            ),
+            patch.object(
+                base,
+                "validate_flyway_validate",
+                side_effect=lambda _value: calls.append("validate-gate"),
+            ),
+            patch.object(
+                runner,
+                "run_metadata_query",
+                side_effect=lambda **_kwargs: calls.append("metadata") or core,
+            ),
+            patch.object(
+                runner,
+                "validate_database_metadata_v42",
+                side_effect=lambda _value: calls.append("metadata-gate"),
+            ),
+            patch.object(
+                runner,
+                "validate_user_prefix_binding",
+                side_effect=lambda **_kwargs: calls.append("identity-gate"),
+            ),
+            patch.object(
+                runner,
+                "run_bounded_metadata_query",
+                side_effect=lambda **_kwargs: calls.append("bounded") or bounded,
+            ),
+        ):
+            staging.return_value.__enter__.return_value = Path("migrations")
+            result = runner.run_preflight(
+                repo_root=Path("repo"),
+                target={"host": "host", "port": 4000, "database": "lichsuvn"},
+                identity={},
+                production_identity_evidence_sha256="a" * 64,
+                read_user="read",
+                read_password="secret",
+            )
+
+        self.assertEqual(
+            calls,
+            [
+                "evidence", "flyway:info", "info-gate", "flyway:validate",
+                "validate-gate", "metadata", "metadata-gate", "identity-gate",
+                "bounded",
+            ],
+        )
+        self.assertEqual(result["metadata"]["historical_events_total"], "361")
+
+    def test_metadata_failure_blocks_bounded_query_token_and_migrate(self) -> None:
+        blocker = runner.ProductionRunnerError("metadata syntax failure")
+        with (
+            patch.object(runner, "run_preflight", side_effect=blocker) as preflight,
+            patch.object(runner, "run_bounded_metadata_query") as bounded,
+            patch.object(base, "verify_docker_images") as downstream,
+        ):
+            with self.assertRaisesRegex(
+                runner.ProductionRunnerError, "metadata syntax failure"
+            ):
+                runner.run_migrate(
+                    repo_root=Path("repo"),
+                    target={},
+                    identity={},
+                    production_identity_evidence_sha256="a" * 64,
+                    read_user="read",
+                    read_password="read-secret",
+                    migrate_user="migrate",
+                    migrate_password="migrate-secret",
+                )
+        preflight.assert_called_once()
+        bounded.assert_not_called()
+        downstream.assert_not_called()
+
+    def test_metadata_sql_failure_is_not_retried_or_replaced(self) -> None:
+        blocker = base.MigrationGuardError("metadata SQL failed")
+        target = {"host": "host", "port": 4000, "database": "lichsuvn"}
+        with (
+            patch.object(
+                base,
+                "verify_docker_images",
+                return_value={base.MYSQL_CLIENT_IMAGE: "mysql@digest"},
+            ),
+            patch.object(base, "run_external", side_effect=blocker) as external,
+        ):
+            with self.assertRaisesRegex(base.MigrationGuardError, "metadata SQL failed"):
+                runner.run_metadata_query(
+                    target=target,
+                    user="read",
+                    password="secret",
+                    executor=lambda _command, _payload: None,
+                    postflight=False,
+                )
+        external.assert_called_once()
+
+
+# ============================================================================
 # PostflightTest
 # ============================================================================
 
@@ -731,6 +963,7 @@ def _metadata(*, before: dict[str, str]) -> dict[str, str]:
         "failed_migration_count": "0",
         "users_total": "3",
         "events_total": "361",
+        "historical_events_total": before.get("historical_events_total", "361"),
         "user_roles_total": "5",
         "roles_total": "3",
         "admin_role_assignment_count": "2",
@@ -763,13 +996,13 @@ def _metadata(*, before: dict[str, str]) -> dict[str, str]:
 class PostflightTest(unittest.TestCase):
     def test_v42_postflight_extras_accepts_correct_metadata(self) -> None:
         before = {
-            "users_total": "3", "events_total": "361",
+            "users_total": "3", "historical_events_total": "361",
             "event_media_total": "0", "active_admin_count": "2",
         }
         runner.validate_v42_postflight_extras(_metadata(before=before), before=before)
 
     def test_missing_managed_column_rejected(self) -> None:
-        before = {"users_total": "3", "events_total": "361",
+        before = {"users_total": "3", "historical_events_total": "361",
                   "event_media_total": "0", "active_admin_count": "2"}
         metadata = _metadata(before=before)
         cols = {c for c in metadata["v42_managed_columns"].split(",") if c}
@@ -779,7 +1012,7 @@ class PostflightTest(unittest.TestCase):
             runner.validate_v42_postflight_extras(metadata, before=before)
 
     def test_missing_check_constraint_rejected(self) -> None:
-        before = {"users_total": "3", "events_total": "361",
+        before = {"users_total": "3", "historical_events_total": "361",
                   "event_media_total": "0", "active_admin_count": "2"}
         metadata = _metadata(before=before)
         cols = {c for c in metadata["v42_check_constraints"].split(",") if c}
@@ -789,7 +1022,7 @@ class PostflightTest(unittest.TestCase):
             runner.validate_v42_postflight_extras(metadata, before=before)
 
     def test_disabled_check_support_rejected(self) -> None:
-        before = {"users_total": "3", "events_total": "361",
+        before = {"users_total": "3", "historical_events_total": "361",
                   "event_media_total": "0", "active_admin_count": "2"}
         metadata = _metadata(before=before)
         metadata["tidb_enable_check_constraint"] = "0"
@@ -797,7 +1030,7 @@ class PostflightTest(unittest.TestCase):
             runner.validate_v42_postflight_extras(metadata, before=before)
 
     def test_count_drift_rejected(self) -> None:
-        before = {"users_total": "3", "events_total": "361",
+        before = {"users_total": "3", "historical_events_total": "361",
                   "event_media_total": "0", "active_admin_count": "2"}
         metadata = _metadata(before=before)
         metadata["users_total"] = "4"
@@ -805,7 +1038,7 @@ class PostflightTest(unittest.TestCase):
             runner.validate_v42_postflight_extras(metadata, before=before)
 
     def test_more_than_one_v42_success_row_rejected(self) -> None:
-        before = {"users_total": "3", "events_total": "361",
+        before = {"users_total": "3", "historical_events_total": "361",
                   "event_media_total": "0", "active_admin_count": "2"}
         metadata = _metadata(before=before)
         metadata["v42_success_rows"] = "2"
@@ -813,7 +1046,7 @@ class PostflightTest(unittest.TestCase):
             runner.validate_v42_postflight_extras(metadata, before=before)
 
     def test_absence_of_v42_history_checksum_rejected(self) -> None:
-        before = {"users_total": "3", "events_total": "361",
+        before = {"users_total": "3", "historical_events_total": "361",
                   "event_media_total": "0", "active_admin_count": "2"}
         metadata = _metadata(before=before)
         metadata["v42_history_checksum"] = ""
@@ -881,6 +1114,15 @@ class DocumentationContractTest(unittest.TestCase):
 
         self.assertNotIn("sha256:174513cc63...?", runbook)
         self.assertNotIn("sha256:a532724022...?", runbook)
+
+    def test_runbook_documents_fail_closed_bounded_metadata_contract(self) -> None:
+        runbook = (
+            HERE.parents[1] / "docs" / "admin" / "TIDB_PRODUCTION_V42_RUNBOOK.md"
+        ).read_text(encoding="utf-8")
+        for key in runner.V42_BOUNDED_COUNTS:
+            self.assertIn(f"``{key}``", runbook)
+        self.assertIn("incomplete result is fail-closed", runbook)
+        self.assertIn("there is no retry query", runbook)
 
 
 # ============================================================================

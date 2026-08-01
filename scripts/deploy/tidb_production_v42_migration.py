@@ -153,7 +153,12 @@ RELEASE_CHECK_PATHS = (
 
 # Bounded counts required by preflight and postflight (the contract
 # required by the production V42 plan).
-V42_BOUNDED_COUNTS = ("users_total", "events_total", "event_media_total", "active_admin_count")
+V42_BOUNDED_COUNTS = (
+    "users_total",
+    "historical_events_total",
+    "event_media_total",
+    "active_admin_count",
+)
 
 
 # ============================================================================
@@ -632,8 +637,7 @@ def metadata_sql_v42_postflight_extras() -> str:
         "'storage_original_url','storage_version','storage_mime_type','storage_format',"
         "'storage_byte_size','storage_sha256','storage_width','storage_height',"
         "'uploaded_by','uploaded_at','storage_state','upload_token',"
-        "'upload_started_at','storage_expires_at'),"
-        "'') AS v;\n"
+        "'upload_started_at','storage_expires_at')), '') AS v;\n"
         # 4 indexes on event_media.
         "SELECT 'v42_media_indexes', COALESCE("
         "(SELECT GROUP_CONCAT(index_name ORDER BY index_name SEPARATOR ',') "
@@ -641,8 +645,7 @@ def metadata_sql_v42_postflight_extras() -> str:
         "WHERE table_schema=DATABASE() AND table_name='event_media' "
         "AND index_name IN ("
         "'uk_event_media_managed_asset','uk_event_media_storage_identity',"
-        "'idx_event_media_managed_read','idx_event_media_upload_expiry'),"
-        "'') AS v;\n"
+        "'idx_event_media_managed_read','idx_event_media_upload_expiry')), '') AS v;\n"
         # FK presence.
         f"SELECT 'v42_fk_event_media_uploaded_by', ("
         f"SELECT MAX(CASE WHEN constraint_name='{V42_EVENT_MEDIA_FK}' THEN 1 ELSE 0 END) "
@@ -660,8 +663,7 @@ def metadata_sql_v42_postflight_extras() -> str:
         "AND table_name='event_media_storage_cleanup_tasks' "
         "AND constraint_name IN ("
         "'chk_event_media_cleanup_operation','chk_event_media_cleanup_status',"
-        "'chk_event_media_cleanup_attempts'),"
-        "'') AS v;\n"
+        "'chk_event_media_cleanup_attempts')), '') AS v;\n"
         # 6 CHECK constraints in information_schema.CHECK_CONSTRAINTS
         "SELECT 'v42_check_constraints', COALESCE("
         "(SELECT GROUP_CONCAT(constraint_name ORDER BY constraint_name SEPARATOR ',') "
@@ -670,8 +672,7 @@ def metadata_sql_v42_postflight_extras() -> str:
         "AND constraint_name IN ("
         "'chk_event_media_storage_state','chk_event_media_storage_byte_size',"
         "'chk_event_media_storage_dimensions','chk_event_media_cleanup_operation',"
-        "'chk_event_media_cleanup_status','chk_event_media_cleanup_attempts'),"
-        "'') AS v;\n"
+        "'chk_event_media_cleanup_status','chk_event_media_cleanup_attempts')), '') AS v;\n"
         # 6 CHECK constraints in information_schema.TIDB_CHECK_CONSTRAINTS
         "SELECT 'v42_tidb_check_constraints', COALESCE("
         "(SELECT GROUP_CONCAT(CONSTRAINT_NAME ORDER BY CONSTRAINT_NAME SEPARATOR ',') "
@@ -680,8 +681,7 @@ def metadata_sql_v42_postflight_extras() -> str:
         "AND CONSTRAINT_NAME IN ("
         "'chk_event_media_storage_state','chk_event_media_storage_byte_size',"
         "'chk_event_media_storage_dimensions','chk_event_media_cleanup_operation',"
-        "'chk_event_media_cleanup_status','chk_event_media_cleanup_attempts'),"
-        "'') AS v;\n"
+        "'chk_event_media_cleanup_status','chk_event_media_cleanup_attempts')), '') AS v;\n"
         # TiDB CHECK engine flag (must remain '1').
         "SELECT 'tidb_enable_check_constraint', @@global.tidb_enable_check_constraint;\n"
         # Exactly one successful V42 row.
@@ -695,6 +695,60 @@ def metadata_sql_v42_postflight_extras() -> str:
         # event_media bounded count.
         "SELECT 'event_media_total', (SELECT COUNT(*) FROM event_media);\n"
     )
+
+
+def bounded_metadata_sql_v42() -> str:
+    """Return the exact four-row, aggregate-only Release E baseline query."""
+    return (
+        "SELECT 'users_total', COUNT(*) FROM users;\n"
+        "SELECT 'historical_events_total', COUNT(*) FROM historical_events;\n"
+        "SELECT 'event_media_total', COUNT(*) FROM event_media;\n"
+        "SELECT 'active_admin_count', COUNT(DISTINCT u.id) "
+        "FROM users u JOIN user_roles ur ON ur.user_id=u.id "
+        "JOIN roles r ON r.id=ur.role_id "
+        "WHERE u.status='active' AND r.code='admin';\n"
+    )
+
+
+def parse_bounded_metadata_counts(output: str) -> dict[str, str]:
+    """Parse one complete four-metric key/value result, without defaults."""
+    metadata = base.parse_mysql_metadata(output)
+    observed = frozenset(metadata)
+    expected = frozenset(V42_BOUNDED_COUNTS)
+    if observed != expected:
+        missing = sorted(expected - observed)
+        unexpected = sorted(observed - expected)
+        raise ProductionRunnerError(
+            "bounded metadata keys do not match the Release E contract: "
+            f"missing={missing}, unexpected={unexpected}"
+        )
+    for key in V42_BOUNDED_COUNTS:
+        value = metadata[key]
+        if not re.fullmatch(r"0|[1-9][0-9]*", value):
+            raise ProductionRunnerError(
+                f"bounded metadata value is not a non-negative integer for {key}"
+            )
+    return {key: metadata[key] for key in V42_BOUNDED_COUNTS}
+
+
+def merge_bounded_metadata_counts(
+    metadata: Mapping[str, str], bounded: Mapping[str, str]
+) -> dict[str, str]:
+    """Cross-check the dedicated baseline against shared operational counts."""
+    shared_keys = {
+        "users_total": "users_total",
+        "historical_events_total": "events_total",
+        "event_media_total": "event_media_total",
+        "active_admin_count": "active_admin_count",
+    }
+    for bounded_key, shared_key in shared_keys.items():
+        if metadata.get(shared_key) != bounded.get(bounded_key):
+            raise ProductionRunnerError(
+                f"bounded metadata disagrees with shared metadata for {bounded_key}"
+            )
+    merged = dict(metadata)
+    merged.update(bounded)
+    return merged
 
 
 def validate_v42_postflight_extras(
@@ -851,6 +905,33 @@ def run_metadata_query(
     return base.parse_mysql_metadata(result.stdout)
 
 
+def run_bounded_metadata_query(
+    *,
+    target: Mapping[str, Any],
+    user: str,
+    password: str,
+    executor: Callable[[Sequence[str], str], base.CommandResult],
+) -> dict[str, str]:
+    """Run the exact four-metric baseline after all preceding gates pass."""
+    images = base.verify_docker_images()
+    bounded_payload = base.build_mysql_payload(
+        host=target["host"],
+        port=target["port"],
+        database=target["database"],
+        user=user,
+        password=password,
+        sql=bounded_metadata_sql_v42(),
+    )
+    command = base.build_mysql_command(image_ref=images[base.MYSQL_CLIENT_IMAGE])
+    bounded_result = base.run_external(
+        command,
+        bounded_payload,
+        secrets=(user, password),
+        executor=executor,
+    )
+    return parse_bounded_metadata_counts(bounded_result.stdout)
+
+
 def run_preflight(
     *,
     repo_root: Path,
@@ -893,6 +974,15 @@ def run_preflight(
     )
     validate_database_metadata_v42(metadata)
     validate_user_prefix_binding(identity=identity, session_user=metadata.get("session_user", ""))
+    metadata = merge_bounded_metadata_counts(
+        metadata,
+        run_bounded_metadata_query(
+            target=target,
+            user=read_user,
+            password=read_password,
+            executor=executor,
+        ),
+    )
     metadata["session_user_prefix_verified"] = "1"
     metadata["v42_history_present"] = "0"
     return {"flyway": info_state, "metadata": metadata}
@@ -992,11 +1082,22 @@ def run_migrate(
     )
     validate_database_metadata_v42(metadata)
     base.validate_postflight_metadata(metadata, pre["metadata"])
+    metadata = merge_bounded_metadata_counts(
+        metadata,
+        run_bounded_metadata_query(
+            target=target,
+            user=read_user,
+            password=read_password,
+            executor=executor,
+        ),
+    )
     validate_v42_postflight_extras(
         metadata,
         before={
             "users_total": pre["metadata"].get("users_total", ""),
-            "events_total": pre["metadata"].get("events_total", ""),
+            "historical_events_total": pre["metadata"].get(
+                "historical_events_total", ""
+            ),
             "event_media_total": pre["metadata"].get("event_media_total", ""),
             "active_admin_count": pre["metadata"].get("active_admin_count", ""),
         },
@@ -1053,11 +1154,22 @@ def run_postflight(
     )
     validate_database_metadata_v42(metadata)
     base.validate_postflight_metadata(metadata, before_evidence["metadata"])
+    metadata = merge_bounded_metadata_counts(
+        metadata,
+        run_bounded_metadata_query(
+            target=target,
+            user=read_user,
+            password=read_password,
+            executor=executor,
+        ),
+    )
     validate_v42_postflight_extras(
         metadata,
         before={
             "users_total": before_evidence["metadata"].get("users_total", ""),
-            "events_total": before_evidence["metadata"].get("events_total", ""),
+            "historical_events_total": before_evidence["metadata"].get(
+                "historical_events_total", ""
+            ),
             "event_media_total": before_evidence["metadata"].get("event_media_total", ""),
             "active_admin_count": before_evidence["metadata"].get("active_admin_count", ""),
         },
