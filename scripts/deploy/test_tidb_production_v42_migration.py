@@ -1442,6 +1442,140 @@ def _metadata(*, before: dict[str, str]) -> dict[str, str]:
     return base_metadata
 
 
+class CheckMetadataSqlContractTest(unittest.TestCase):
+    def test_generated_check_sql_is_deterministic_safe_and_exactly_bounded(self) -> None:
+        sql = runner.metadata_sql_v42_postflight_extras()
+        self.assertEqual(sql, runner.metadata_sql_v42_postflight_extras())
+        contract = runner._validate_check_metadata_sql_contract(sql)
+        self.assertEqual(
+            contract,
+            {
+                "statement_count": 12,
+                "aliases": list(runner.V42_CHECK_METADATA_FIELD_ALIASES),
+                "constraint_count": 6,
+                "view_count": 2,
+            },
+        )
+        self.assertEqual(sql.count("("), sql.count(")"))
+        self.assertEqual(
+            runner.V42_CHECK_METADATA_FIELD_ALIASES,
+            (
+                "row_count",
+                "check_schema_values",
+                "check_table_values",
+                "check_constraint_names",
+                "check_clause_values",
+                "check_enforcement_values",
+            ),
+        )
+        for alias in runner.V42_CHECK_METADATA_FIELD_ALIASES:
+            self.assertRegex(alias, r"^[a-z][a-z0-9_]*$")
+        self.assertEqual(len(set(runner.V42_CHECK_METADATA_FIELD_ALIASES)), 6)
+        check_sql = "\n".join(
+            line for line in sql.splitlines()
+            if line.startswith("SELECT 'v42_check_")
+            or line.startswith("SELECT 'v42_tidb_check_")
+        )
+        self.assertNotRegex(
+            check_sql,
+            r"(?i)\)\s+(?:AS\s+)?(?:schemas|tables|names|clauses|enforced_values)"
+            r"(?:,|\s+FROM)",
+        )
+        self.assertEqual(sql.count("FROM information_schema.CHECK_CONSTRAINTS cc"), 6)
+        self.assertEqual(
+            sql.count("FROM information_schema.TIDB_CHECK_CONSTRAINTS"), 6
+        )
+        for name, table, _expression in runner.V42_CHECK_CONTRACT:
+            standard = next(
+                line for line in sql.splitlines()
+                if line.startswith(f"SELECT 'v42_check_{name}',")
+            )
+            tidb = next(
+                line for line in sql.splitlines()
+                if line.startswith(f"SELECT 'v42_tidb_check_{name}',")
+            )
+            for statement in (standard, tidb):
+                self.assertIn("CONSTRAINT_SCHEMA=DATABASE()", statement)
+                self.assertIn(f"TABLE_NAME='{table}'", statement)
+                self.assertIn(f"CONSTRAINT_NAME='{name}'", statement)
+                self.assertIn("ORDER BY", statement)
+            self.assertIn("JOIN information_schema.TABLE_CONSTRAINTS tc", standard)
+        self.assertTrue(base._read_only_sql_statements(sql))
+
+    def test_structural_check_rejects_legacy_missing_duplicate_and_extra_aliases(self) -> None:
+        sql = runner.metadata_sql_v42_postflight_extras()
+        mutations = (
+            sql.replace(" AS check_schema_values", " schemas", 1),
+            sql.replace(" AS check_schema_values", " check_schema_values", 1),
+            sql.replace(
+                " AS check_schema_values,",
+                " AS check_schema_values,MIN(CONSTRAINT_SCHEMA) AS extra_alias,",
+                1,
+            ),
+            sql.replace(" AS check_table_values", " AS check_schema_values", 1),
+        )
+        for changed in mutations:
+            with self.subTest(changed=changed != sql):
+                self.assertNotEqual(changed, sql)
+                with self.assertRaises(runner.ProductionRunnerError):
+                    runner._validate_check_metadata_sql_contract(changed)
+
+    def test_structural_check_rejects_separator_parenthesis_view_and_bounds_drift(self) -> None:
+        sql = runner.metadata_sql_v42_postflight_extras()
+        mutations = (
+            sql.replace("AS check_schema_values,", "AS check_schema_values", 1),
+            sql.replace("GROUP_CONCAT(DISTINCT cc.CONSTRAINT_SCHEMA)",
+                        "GROUP_CONCAT(DISTINCT cc.CONSTRAINT_SCHEMA", 1),
+            sql.replace("information_schema.CHECK_CONSTRAINTS cc",
+                        "information_schema.TABLE_CONSTRAINTS cc", 1),
+            sql.replace("AND tc.TABLE_NAME='event_media' ", "", 1),
+            sql.replace("AND cc.CONSTRAINT_NAME='chk_event_media_storage_state'", "1=1", 1),
+        )
+        for changed in mutations:
+            with self.subTest(changed=changed != sql):
+                self.assertNotEqual(changed, sql)
+                with self.assertRaises(runner.ProductionRunnerError):
+                    runner._validate_check_metadata_sql_contract(changed)
+
+    def test_check_parser_uses_exact_reviewed_field_contract_without_fallback(self) -> None:
+        valid = _structured_record(
+            1,
+            runner.EXPECTED_DATABASE,
+            "event_media",
+            "chk_event_media_storage_state",
+            "storage_state IN ('READY')",
+            "YES",
+        )
+        self.assertEqual(
+            runner._parse_metadata_record(
+                valid,
+                key="check",
+                fields=runner.V42_CHECK_METADATA_FIELD_ALIASES,
+            ),
+            (
+                "1", runner.EXPECTED_DATABASE, "event_media",
+                "chk_event_media_storage_state", "storage_state IN ('READY')", "YES",
+            ),
+        )
+        for value in (None, "", valid.rsplit(":", 1)[0], valid + ":", "not-hex"):
+            with self.subTest(value=value):
+                with self.assertRaises(runner.ProductionRunnerError):
+                    runner._parse_metadata_record(
+                        value,
+                        key="check",
+                        fields=runner.V42_CHECK_METADATA_FIELD_ALIASES,
+                    )
+        for fields in (
+            (),
+            ("row_count", "row_count"),
+            ("row_count", "schemas"),
+            ("row_count", "unexpected_alias"),
+        ):
+            with self.subTest(fields=fields):
+                with self.assertRaises(runner.ProductionRunnerError):
+                    runner._parse_metadata_record(valid, key="check", fields=fields)
+
+
 class PostflightTest(unittest.TestCase):
     def _raw_postflight_metadata(self) -> dict[str, str]:
         sql = (
@@ -2855,6 +2989,28 @@ class DocumentationContractTest(unittest.TestCase):
         self.assertIn("``TIDB_PRODUCTION_MIGRATE_*``", runbook)
         self.assertIn("current clock", runbook)
 
+    def test_runbook_documents_tidb_safe_check_metadata_alias_contract(self) -> None:
+        runbook = (
+            HERE.parents[1] / "docs" / "admin" / "TIDB_PRODUCTION_V42_RUNBOOK.md"
+        ).read_text(encoding="utf-8")
+        normalized = re.sub(r"\s+", " ", runbook).casefold()
+        for phrase in (
+            "SQL error 1064",
+            "aggregate CHECK-metadata SELECT",
+            "no live V42 schema result was accepted",
+            "Flyway ``info`` and ``validate``",
+            "did not follow",
+            "no postflight evidence or detached SHA-256 was published",
+            "exact parser field contract",
+            "cross-bound by schema, owner table, constraint name and expression",
+            "conservative expression normalizer",
+            "migrate`` must never be rerun",
+            "does not claim that final postflight has passed",
+        ):
+            self.assertIn(re.sub(r"\s+", " ", phrase).casefold(), normalized)
+        for alias in runner.V42_CHECK_METADATA_FIELD_ALIASES[1:]:
+            self.assertIn(f"``{alias}``", runbook)
+
     def test_runbook_documents_complete_postflight_and_evidence_contract(self) -> None:
         runbook = (
             HERE.parents[1] / "docs" / "admin" / "TIDB_PRODUCTION_V42_RUNBOOK.md"
@@ -3076,6 +3232,7 @@ class ReleaseEEvidenceOrderingTest(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             path = Path(directory) / "preflight.json"
             evidence_path = Path(directory) / "postflight.json"
+            detached_path = Path(directory) / "postflight.sha256"
             file_sha = _write_v42_preflight(path, payload)
             with (
                 patch.object(runner, "load_identity_evidence", return_value=_v42_preflight_identity()),
@@ -3101,6 +3258,12 @@ class ReleaseEEvidenceOrderingTest(unittest.TestCase):
                 ) as postflight,
                 patch.object(runner, "run_migrate") as migrate,
                 patch.object(base, "_write_evidence") as write_evidence,
+                patch.object(
+                    runner, "write_and_reload_v42_postflight_evidence"
+                ) as artifact_writer,
+                patch.object(
+                    runner, "load_and_validate_v42_postflight_evidence"
+                ) as artifact_loader,
                 redirect_stderr(io.StringIO()),
             ):
                 exit_code = runner.main([
@@ -3119,14 +3282,17 @@ class ReleaseEEvidenceOrderingTest(unittest.TestCase):
                     str(Path(directory) / "failure.sha256"),
                     "--evidence-file", str(evidence_path),
                     "--evidence-detached-sha256",
-                    str(Path(directory) / "postflight.sha256"),
+                    str(detached_path),
                 ])
             self.assertFalse(evidence_path.exists())
+            self.assertFalse(detached_path.exists())
         self.assertEqual(exit_code, 2)
         self.assertEqual(credential_prefixes, ["TIDB_PRODUCTION_READ"])
         postflight.assert_called_once()
         migrate.assert_not_called()
         write_evidence.assert_not_called()
+        artifact_writer.assert_not_called()
+        artifact_loader.assert_not_called()
 
     def test_mocked_migrate_path_invokes_migrate_once_and_requires_postflight(self) -> None:
         operations: list[str] = []

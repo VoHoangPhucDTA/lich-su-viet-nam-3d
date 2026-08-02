@@ -147,6 +147,7 @@ POSTFLIGHT_LINEAGE_ALLOWED_RUNNER_SYMBOLS = frozenset(
         "constant:POSTFLIGHT_LINEAGE_PROTECTED_CONSTANTS",
         "constant:POSTFLIGHT_LINEAGE_PROTECTED_FUNCTIONS",
         "constant:V42_CHECK_CONTRACT",
+        "constant:V42_CHECK_METADATA_FIELD_ALIASES",
         "constant:V42_CLEANUP_COLUMN_CONTRACT",
         "constant:V42_CLEANUP_INDEX_CONTRACT",
         "constant:V42_EVENT_MEDIA_FK_CONTRACT",
@@ -154,6 +155,7 @@ POSTFLIGHT_LINEAGE_ALLOWED_RUNNER_SYMBOLS = frozenset(
         "constant:V42_FLYWAY_HISTORY_CONTRACT",
         "constant:V42_POSTFLIGHT_EVIDENCE_SCHEMA",
         "function:_check_metadata_sql",
+        "function:_validate_check_metadata_sql_contract",
         "function:_cleanup_column_metadata_sql",
         "function:_expected_postflight_verification_summary",
         "function:_git_bytes",
@@ -188,6 +190,7 @@ POSTFLIGHT_LINEAGE_ALLOWED_RUNNER_SYMBOLS = frozenset(
         "function:load_and_validate_v42_postflight_evidence",
         "function:main",
         "function:metadata_sql_v42_postflight_extras",
+        "function:local_check",
         "function:run_postflight",
         "function:validate_postflight_release_lineage",
         "function:validate_postflight_user_prefix_binding",
@@ -336,6 +339,14 @@ V42_CHECK_CONTRACT = (
         "chk_event_media_cleanup_attempts", V42_CLEANUP_TABLE,
         "attempts >= 0",
     ),
+)
+V42_CHECK_METADATA_FIELD_ALIASES = (
+    "row_count",
+    "check_schema_values",
+    "check_table_values",
+    "check_constraint_names",
+    "check_clause_values",
+    "check_enforcement_values",
 )
 V42_FLYWAY_HISTORY_CONTRACT = {
     "version": TARGET_VERSION,
@@ -1222,39 +1233,181 @@ def _cleanup_column_metadata_sql(column: str) -> str:
     )
 
 
-def _check_metadata_sql(*, key: str, constraint: str, tidb_view: bool) -> str:
-    if not re.fullmatch(r"[a-z][a-z0-9_]*", constraint):
-        raise ProductionRunnerError("V42 CHECK contract contains an invalid name")
+def _check_metadata_sql(
+    *, key: str, constraint: str, table: str, tidb_view: bool
+) -> str:
+    for label, value in (("constraint", constraint), ("table", table)):
+        if not re.fullmatch(r"[a-z][a-z0-9_]*", value):
+            raise ProductionRunnerError(
+                f"V42 CHECK {label} contract contains an invalid name"
+            )
+    fields = (
+        V42_CHECK_METADATA_FIELD_ALIASES[:-1]
+        if tidb_view
+        else V42_CHECK_METADATA_FIELD_ALIASES
+    )
     if tidb_view:
         source = (
-            "FROM (SELECT COUNT(*) row_count,"
-            "GROUP_CONCAT(DISTINCT CONSTRAINT_SCHEMA) schemas,"
-            "GROUP_CONCAT(DISTINCT TABLE_NAME) tables,"
-            "GROUP_CONCAT(DISTINCT CONSTRAINT_NAME) names,"
-            "GROUP_CONCAT(CHECK_CLAUSE ORDER BY CONSTRAINT_NAME SEPARATOR '') clauses "
+            "FROM (SELECT COUNT(*) AS row_count,"
+            "GROUP_CONCAT(DISTINCT CONSTRAINT_SCHEMA) AS check_schema_values,"
+            "GROUP_CONCAT(DISTINCT TABLE_NAME) AS check_table_values,"
+            "GROUP_CONCAT(DISTINCT CONSTRAINT_NAME) AS check_constraint_names,"
+            "GROUP_CONCAT(CHECK_CLAUSE ORDER BY CONSTRAINT_NAME SEPARATOR '') "
+            "AS check_clause_values "
             "FROM information_schema.TIDB_CHECK_CONSTRAINTS "
             "WHERE CONSTRAINT_SCHEMA=DATABASE() "
-            f"AND CONSTRAINT_NAME='{constraint}') contract"
+            f"AND TABLE_NAME='{table}' AND CONSTRAINT_NAME='{constraint}') contract"
         )
-        fields = ("row_count", "schemas", "tables", "names", "clauses")
     else:
         source = (
-            "FROM (SELECT COUNT(*) row_count,"
-            "GROUP_CONCAT(DISTINCT cc.CONSTRAINT_SCHEMA) schemas,"
-            "GROUP_CONCAT(DISTINCT tc.TABLE_NAME) tables,"
-            "GROUP_CONCAT(DISTINCT cc.CONSTRAINT_NAME) names,"
-            "GROUP_CONCAT(cc.CHECK_CLAUSE ORDER BY cc.CONSTRAINT_NAME SEPARATOR '') clauses,"
-            "GROUP_CONCAT(DISTINCT tc.ENFORCED) enforced_values "
+            "FROM (SELECT COUNT(*) AS row_count,"
+            "GROUP_CONCAT(DISTINCT cc.CONSTRAINT_SCHEMA) AS check_schema_values,"
+            "GROUP_CONCAT(DISTINCT tc.TABLE_NAME) AS check_table_values,"
+            "GROUP_CONCAT(DISTINCT cc.CONSTRAINT_NAME) AS check_constraint_names,"
+            "GROUP_CONCAT(cc.CHECK_CLAUSE ORDER BY cc.CONSTRAINT_NAME SEPARATOR '') "
+            "AS check_clause_values,"
+            "GROUP_CONCAT(DISTINCT tc.ENFORCED) AS check_enforcement_values "
             "FROM information_schema.CHECK_CONSTRAINTS cc "
             "JOIN information_schema.TABLE_CONSTRAINTS tc "
             "ON tc.CONSTRAINT_SCHEMA=cc.CONSTRAINT_SCHEMA "
             "AND tc.CONSTRAINT_NAME=cc.CONSTRAINT_NAME "
             "AND tc.CONSTRAINT_TYPE='CHECK' "
             "WHERE cc.CONSTRAINT_SCHEMA=DATABASE() "
-            f"AND cc.CONSTRAINT_NAME='{constraint}') contract"
+            f"AND tc.TABLE_NAME='{table}' AND cc.CONSTRAINT_NAME='{constraint}') contract"
         )
-        fields = ("row_count", "schemas", "tables", "names", "clauses", "enforced_values")
     return _metadata_structured_select(key, fields, source)
+
+
+def _validate_check_metadata_sql_contract(sql: str) -> dict[str, Any]:
+    """Fail closed on the final generated CHECK-metadata SELECT structure."""
+    if not isinstance(sql, str) or not sql:
+        raise ProductionRunnerError("V42 CHECK metadata SQL is missing")
+
+    expected: list[tuple[str, str, str, bool]] = []
+    for constraint, table, _expression in V42_CHECK_CONTRACT:
+        expected.extend(
+            (
+                (f"v42_check_{constraint}", constraint, table, False),
+                (f"v42_tidb_check_{constraint}", constraint, table, True),
+            )
+        )
+    statements = [
+        line[:-1]
+        for line in sql.splitlines()
+        if line.startswith("SELECT 'v42_check_")
+        or line.startswith("SELECT 'v42_tidb_check_")
+        if line.endswith(";")
+    ]
+    observed_keys = tuple(
+        match.group(1)
+        for statement in statements
+        if (match := re.match(r"^SELECT '([a-z][a-z0-9_]*)',", statement))
+    )
+    expected_keys = tuple(item[0] for item in expected)
+    if len(statements) != len(expected) or observed_keys != expected_keys:
+        raise ProductionRunnerError("V42 CHECK metadata statement set is not exact")
+
+    def split_select_items(value: str) -> tuple[str, ...]:
+        items: list[str] = []
+        start = 0
+        depth = 0
+        quoted = False
+        index = 0
+        while index < len(value):
+            char = value[index]
+            if char == "'":
+                if quoted and index + 1 < len(value) and value[index + 1] == "'":
+                    index += 2
+                    continue
+                quoted = not quoted
+            elif not quoted:
+                if char == "(":
+                    depth += 1
+                elif char == ")":
+                    depth -= 1
+                    if depth < 0:
+                        raise ProductionRunnerError(
+                            "V42 CHECK metadata SELECT parentheses are unbalanced"
+                        )
+                elif char == "," and depth == 0:
+                    items.append(value[start:index].strip())
+                    start = index + 1
+            index += 1
+        if quoted or depth != 0:
+            raise ProductionRunnerError(
+                "V42 CHECK metadata SELECT parentheses or quotes are unbalanced"
+            )
+        items.append(value[start:].strip())
+        return tuple(items)
+
+    for statement, (key, constraint, table, tidb_view) in zip(
+        statements, expected, strict=True
+    ):
+        fields = (
+            V42_CHECK_METADATA_FIELD_ALIASES[:-1]
+            if tidb_view
+            else V42_CHECK_METADATA_FIELD_ALIASES
+        )
+        outer = f"SELECT '{key}', CONCAT_WS(':'," + ",".join(
+            _metadata_hex_field_sql(field) for field in fields
+        ) + ")"
+        marker = " FROM (SELECT "
+        if not statement.startswith(outer + marker) or not statement.endswith(") contract"):
+            raise ProductionRunnerError(
+                f"V42 CHECK metadata outer field contract mismatch for {key}"
+            )
+        body = statement[len(outer + marker):-len(") contract")]
+        view_marker = (
+            " FROM information_schema.TIDB_CHECK_CONSTRAINTS "
+            if tidb_view
+            else " FROM information_schema.CHECK_CONSTRAINTS cc "
+        )
+        if body.count(view_marker) != 1:
+            raise ProductionRunnerError(
+                f"V42 CHECK metadata view contract mismatch for {key}"
+            )
+        select_list, source_tail = body.split(view_marker, 1)
+        items = split_select_items(select_list)
+        aliases: list[str] = []
+        for item in items:
+            match = re.fullmatch(
+                r"(?s)(COUNT\(\*\)|GROUP_CONCAT\(.+\)) AS ([a-z][a-z0-9_]*)",
+                item,
+            )
+            if not match:
+                raise ProductionRunnerError(
+                    f"V42 CHECK metadata SELECT item lacks an explicit safe alias for {key}"
+                )
+            aliases.append(match.group(2))
+        if tuple(aliases) != fields or len(set(aliases)) != len(aliases):
+            raise ProductionRunnerError(
+                f"V42 CHECK metadata aliases do not match the parser contract for {key}"
+            )
+        legacy_aliases = {"schemas", "tables", "names", "clauses", "enforced_values"}
+        if legacy_aliases.intersection(aliases):
+            raise ProductionRunnerError("V42 CHECK metadata contains an unsafe legacy alias")
+
+        expected_tail = (
+            "WHERE CONSTRAINT_SCHEMA=DATABASE() "
+            f"AND TABLE_NAME='{table}' AND CONSTRAINT_NAME='{constraint}'"
+            if tidb_view
+            else "JOIN information_schema.TABLE_CONSTRAINTS tc "
+            "ON tc.CONSTRAINT_SCHEMA=cc.CONSTRAINT_SCHEMA "
+            "AND tc.CONSTRAINT_NAME=cc.CONSTRAINT_NAME "
+            "AND tc.CONSTRAINT_TYPE='CHECK' "
+            "WHERE cc.CONSTRAINT_SCHEMA=DATABASE() "
+            f"AND tc.TABLE_NAME='{table}' AND cc.CONSTRAINT_NAME='{constraint}'"
+        )
+        if source_tail != expected_tail:
+            raise ProductionRunnerError(
+                f"V42 CHECK metadata bounds or cross-view binding drifted for {key}"
+            )
+    return {
+        "statement_count": len(statements),
+        "aliases": list(V42_CHECK_METADATA_FIELD_ALIASES),
+        "constraint_count": len(V42_CHECK_CONTRACT),
+        "view_count": 2,
+    }
 
 
 def metadata_sql_v42_postflight_extras() -> str:
@@ -1410,12 +1563,12 @@ def metadata_sql_v42_postflight_extras() -> str:
         f"WHERE CONSTRAINT_SCHEMA=DATABASE() AND TABLE_NAME='{V42_CLEANUP_TABLE}';\n"
         f"SELECT 'v42_cleanup_initial_rows', COUNT(*) FROM {V42_CLEANUP_TABLE};\n"
     )
-    for name, _table, _expression in V42_CHECK_CONTRACT:
+    for name, table, _expression in V42_CHECK_CONTRACT:
         sql += _check_metadata_sql(
-            key=f"v42_check_{name}", constraint=name, tidb_view=False
+            key=f"v42_check_{name}", constraint=name, table=table, tidb_view=False
         )
         sql += _check_metadata_sql(
-            key=f"v42_tidb_check_{name}", constraint=name, tidb_view=True
+            key=f"v42_tidb_check_{name}", constraint=name, table=table, tidb_view=True
         )
     history_source = (
         "FROM (SELECT COUNT(*) row_count,"
@@ -1434,6 +1587,7 @@ def metadata_sql_v42_postflight_extras() -> str:
         ),
         history_source,
     )
+    _validate_check_metadata_sql_contract(sql)
     return sql
 
 
@@ -1492,14 +1646,26 @@ def merge_bounded_metadata_counts(
 
 
 def _parse_metadata_record(
-    value: str | None, *, key: str, field_count: int
+    value: str | None, *, key: str, fields: Sequence[str]
 ) -> tuple[str | None, ...]:
+    expected_fields = tuple(fields)
+    if (
+        not expected_fields
+        or len(set(expected_fields)) != len(expected_fields)
+        or any(
+            not re.fullmatch(r"[a-z][a-z0-9_]*", field)
+            for field in expected_fields
+        )
+    ):
+        raise ProductionRunnerError(f"V42 structured metadata field contract is invalid for {key}")
     if not isinstance(value, str) or not value:
         raise ProductionRunnerError(f"V42 structured metadata is missing for {key}")
     tokens = value.split(":")
-    if len(tokens) != field_count or any(not re.fullmatch(r"[0-9A-Fa-f]+", token) for token in tokens):
+    if len(tokens) != len(expected_fields) or any(
+        not re.fullmatch(r"[0-9A-Fa-f]+", token) for token in tokens
+    ):
         raise ProductionRunnerError(f"V42 structured metadata is malformed for {key}")
-    fields: list[str | None] = []
+    decoded_fields: list[str | None] = []
     for token in tokens:
         try:
             decoded = bytes.fromhex(token).decode("utf-8")
@@ -1508,19 +1674,26 @@ def _parse_metadata_record(
                 f"V42 structured metadata is malformed for {key}"
             ) from exc
         if decoded == "~":
-            fields.append(None)
+            decoded_fields.append(None)
         elif decoded.startswith("="):
-            fields.append(decoded[1:])
+            decoded_fields.append(decoded[1:])
         else:
             raise ProductionRunnerError(f"V42 structured metadata is malformed for {key}")
-    return tuple(fields)
+    return tuple(decoded_fields)
 
 
 def _validate_index_record(
     metadata: Mapping[str, str], *, key: str, table: str,
     name: str, non_unique: bool, columns: Sequence[str],
 ) -> dict[str, Any]:
-    record = _parse_metadata_record(metadata.get(key), key=key, field_count=8)
+    record = _parse_metadata_record(
+        metadata.get(key),
+        key=key,
+        fields=(
+            "row_count", "sequence_count", "table_names", "index_names",
+            "non_unique_values", "index_types", "sequences", "columns",
+        ),
+    )
     expected_count = str(len(columns))
     expected_sequences = ",".join(str(value) for value in range(1, len(columns) + 1))
     expected = (
@@ -1542,7 +1715,15 @@ def _validate_index_record(
 
 def _validate_event_media_fk(metadata: Mapping[str, str]) -> dict[str, Any]:
     key = "v42_event_media_fk_uploaded_by"
-    record = _parse_metadata_record(metadata.get(key), key=key, field_count=9)
+    record = _parse_metadata_record(
+        metadata.get(key),
+        key=key,
+        fields=(
+            "row_count", "sequence_count", "names", "source_tables",
+            "source_columns", "referenced_tables", "referenced_columns",
+            "update_rules", "delete_rules",
+        ),
+    )
     name, table, source_columns, referenced_table, referenced_columns, update, delete = (
         V42_EVENT_MEDIA_FK_CONTRACT
     )
@@ -1580,7 +1761,7 @@ def _validate_cleanup_table(metadata: Mapping[str, str]) -> dict[str, Any]:
     table_record = _parse_metadata_record(
         metadata.get("v42_cleanup_table_contract"),
         key="v42_cleanup_table_contract",
-        field_count=5,
+        fields=("row_count", "table_name", "table_type", "engine", "table_collation"),
     )
     table_observed = tuple(
         value.upper() if index in (2, 3) and value is not None else value
@@ -1601,7 +1782,16 @@ def _validate_cleanup_table(metadata: Mapping[str, str]) -> dict[str, Any]:
             precision, extra,
         ) = definition
         key = f"v42_cleanup_column_{name}"
-        record = _parse_metadata_record(metadata.get(key), key=key, field_count=12)
+        record = _parse_metadata_record(
+            metadata.get(key),
+            key=key,
+            fields=(
+                "row_count", "table_name", "column_name", "ordinal_position",
+                "data_type", "column_type", "is_nullable", "column_default",
+                "character_set_name", "collation_name", "datetime_precision",
+                "extra",
+            ),
+        )
         if record[0] != "1" or record[1] != V42_CLEANUP_TABLE or record[2] != name:
             raise ProductionRunnerError(f"V42 cleanup column identity mismatch for {name}")
         if record[3] != str(ordinal):
@@ -1716,9 +1906,15 @@ def _validate_check_constraints(metadata: Mapping[str, str]) -> dict[str, Any]:
         standard_key = f"v42_check_{name}"
         tidb_key = f"v42_tidb_check_{name}"
         standard = _parse_metadata_record(
-            metadata.get(standard_key), key=standard_key, field_count=6
+            metadata.get(standard_key),
+            key=standard_key,
+            fields=V42_CHECK_METADATA_FIELD_ALIASES,
         )
-        tidb = _parse_metadata_record(metadata.get(tidb_key), key=tidb_key, field_count=5)
+        tidb = _parse_metadata_record(
+            metadata.get(tidb_key),
+            key=tidb_key,
+            fields=V42_CHECK_METADATA_FIELD_ALIASES[:-1],
+        )
         if standard[:4] != ("1", EXPECTED_DATABASE, table, name):
             raise ProductionRunnerError(f"V42 CHECK ownership mismatch for {name}")
         if tidb[:4] != ("1", EXPECTED_DATABASE, table, name):
@@ -1743,7 +1939,14 @@ def _validate_check_constraints(metadata: Mapping[str, str]) -> dict[str, Any]:
 
 def _validate_v42_history(metadata: Mapping[str, str]) -> dict[str, Any]:
     key = "v42_history_contract"
-    record = _parse_metadata_record(metadata.get(key), key=key, field_count=6)
+    record = _parse_metadata_record(
+        metadata.get(key),
+        key=key,
+        fields=(
+            "row_count", "versions", "descriptions", "scripts", "checksums",
+            "success_values",
+        ),
+    )
     expected = (
         "1", V42_FLYWAY_HISTORY_CONTRACT["version"],
         V42_FLYWAY_HISTORY_CONTRACT["description"],
@@ -2264,6 +2467,9 @@ def local_check(repo_root: Path) -> dict[str, Any]:
     entries = _verify_manifest_immutable(repo_root)
     _, manifest = _migration_paths_v42(repo_root)
     by_name = {name: digest for digest, name in entries}
+    check_sql_contract = _validate_check_metadata_sql_contract(
+        metadata_sql_v42_postflight_extras()
+    )
     return {
         "manifest": str(manifest),
         "manifest_sha256": _file_sha256(manifest),
@@ -2273,6 +2479,7 @@ def local_check(repo_root: Path) -> dict[str, Any]:
         "target_version": TARGET_VERSION,
         "current_version": EXPECTED_CURRENT_VERSION,
         "transition": f"{EXPECTED_CURRENT_VERSION}->{TARGET_VERSION}",
+        "check_metadata_sql_contract": check_sql_contract,
         "v42_entry_sha256_match": (
             by_name.get(EXPECTED_V42_SQL_FILE) == EXPECTED_V42_SQL_SHA
         ),

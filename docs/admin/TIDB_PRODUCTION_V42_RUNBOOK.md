@@ -410,6 +410,36 @@ callbacks may not differ.  Protected runner AST contracts also reject changes
 to credentials, production identity/target constants, confirmation tokens,
 Flyway target construction or migration execution semantics.
 
+### TiDB CHECK-metadata SQL compatibility correction
+
+The previous final standalone read-only postflight reached TiDB Serverless
+v8.5.3 but stopped on SQL error 1064 in the aggregate CHECK-metadata SELECT
+list.  The generated subquery used the unquoted generic aggregate aliases
+``schemas``, ``tables``, ``names``, ``clauses`` and ``enforced_values``; the
+outer structured SELECT first failed while referencing ``schemas``.  Commas,
+parentheses, ``GROUP_CONCAT`` ordering and ``SEPARATOR`` placement were intact.
+No live V42 schema result was accepted, Flyway ``info`` and ``validate`` did
+not follow, and no postflight evidence or detached SHA-256 was published.
+
+The committed query now uses explicit ``AS`` aliases
+``check_schema_values``, ``check_table_values``,
+``check_constraint_names``, ``check_clause_values`` and
+``check_enforcement_values``.  These ASCII purpose-specific identifiers are
+also the exact parser field contract; legacy aliases, missing or additional
+aliases, malformed SELECT items, or field-count drift fail the generated-SQL
+structural check locally.  Each query remains bounded by ``DATABASE()``, its
+exact owning table and one of the six exact V42 CHECK names.
+
+This compatibility correction does not weaken verification.  The standard
+``CHECK_CONSTRAINTS``/``TABLE_CONSTRAINTS`` result and
+``TIDB_CHECK_CONSTRAINTS`` result remain cross-bound by schema, owner table,
+constraint name and expression, with enforcement required from the standard
+metadata path.  The conservative expression normalizer and all semantic
+rejection cases are unchanged.  Production V42 was migrated exactly once;
+``migrate`` must never be rerun.  Only another standalone read-only postflight
+may follow this local correction, and this document does not claim that final
+postflight has passed.
+
 For a later read-only standalone postflight, backup/restore bytes, detached
 hashes, capture bindings and identity bindings are still verified.  Backup
 freshness is evaluated at the recorded successful V42 installation time,
