@@ -1418,19 +1418,13 @@ def _cleanup_column_metadata_sql(column: str) -> str:
     if not re.fullmatch(r"[a-z][a-z0-9_]*", column):
         raise ProductionRunnerError("V42 cleanup column contract contains an invalid name")
     source = (
-        "FROM (SELECT COUNT(*) row_count,MIN(table_name) table_name,"
-        "MIN(column_name) column_name,MIN(ordinal_position) ordinal_position,"
-        "MIN(data_type) data_type,MIN(column_type) column_type,"
-        "MIN(is_nullable) is_nullable,MIN(CAST(column_default AS CHAR)) column_default,"
-        "MIN(character_set_name) character_set_name,MIN(collation_name) collation_name,"
-        "MIN(CAST(datetime_precision AS CHAR)) datetime_precision,MIN(extra) extra "
         "FROM information_schema.columns WHERE table_schema=DATABASE() "
-        f"AND table_name='{V42_CLEANUP_TABLE}' AND column_name='{column}') contract"
+        f"AND table_name='{V42_CLEANUP_TABLE}' AND column_name='{column}'"
     )
     return _metadata_structured_select(
         f"v42_cleanup_column_{column}",
         (
-            "row_count", "table_name", "column_name", "ordinal_position", "data_type",
+            "1", "table_name", "column_name", "ordinal_position", "data_type",
             "column_type", "is_nullable", "column_default", "character_set_name",
             "collation_name", "datetime_precision", "extra",
         ),

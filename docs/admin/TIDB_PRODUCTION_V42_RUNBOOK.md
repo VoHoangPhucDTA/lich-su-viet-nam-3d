@@ -561,6 +561,14 @@ in either default or precision remains a fail-closed schema mismatch.  This is
 a read-only metadata-representation correction and does not change V42 SQL or
 authorize another migration.
 
+The per-column query reads the exact matching ``COLUMNS`` row and does not
+aggregate ``EXTRA``.  TiDB v8.5.3 can canonicalize
+``MIN(EXTRA)`` for ``updated_at`` from ``CURRENT_TIMESTAMP(6)`` to
+``CURRENT_TIMESTAMP``; accepting that lossy result would no longer prove the
+V42 precision contract.  A missing row therefore omits the required metadata
+key, a duplicate row produces a duplicate key, and either condition still
+fails closed before evidence publication.
+
 All six CHECK constraints are cross-bound between
 ``CHECK_CONSTRAINTS`` and ``TIDB_CHECK_CONSTRAINTS`` by schema, owner table,
 name and expression.  Enforcement must agree across every direct metadata

@@ -2377,6 +2377,28 @@ class V42CompletePostflightContractTest(unittest.TestCase):
         with self.assertRaisesRegex(runner.ProductionRunnerError, "malformed"):
             runner.validate_v42_postflight_extras(malformed, before=self.BEFORE)
 
+    def test_cleanup_timestamp_sql_preserves_unaggregated_tidb_extra(self) -> None:
+        sql = runner._cleanup_column_metadata_sql("updated_at")
+        lowered = sql.casefold()
+        self.assertIn("from information_schema.columns", lowered)
+        self.assertIn("column_name='updated_at'", lowered)
+        self.assertNotIn("min(extra)", lowered)
+        self.assertNotIn("group_concat(extra", lowered)
+
+        exact = self.metadata()
+        runner.validate_v42_postflight_extras(exact, before=self.BEFORE)
+        _replace_structured_field(
+            exact,
+            "v42_cleanup_column_updated_at",
+            11,
+            "DEFAULT_GENERATED on update CURRENT_TIMESTAMP",
+        )
+        with self.assertRaisesRegex(
+            runner.ProductionRunnerError,
+            "cleanup column extra attributes mismatch for updated_at",
+        ):
+            runner.validate_v42_postflight_extras(exact, before=self.BEFORE)
+
     def test_check_contract_accepts_cosmetic_tidb_variants_only(self) -> None:
         metadata = self.metadata()
         name = "chk_event_media_storage_state"
