@@ -21,6 +21,7 @@ Coverage layout (matches the task spec):
 
 from __future__ import annotations
 
+import ast
 import copy
 from datetime import datetime, timezone
 import importlib.util
@@ -605,6 +606,16 @@ class ManifestTest(unittest.TestCase):
 
 
 class CommandSafetyTest(unittest.TestCase):
+    def setUp(self) -> None:
+        self.docker_executable = str(Path(sys.executable).resolve())
+        self.docker_resolver = patch.object(
+            base,
+            "resolve_docker_executable",
+            return_value=self.docker_executable,
+        )
+        self.resolve_docker_executable = self.docker_resolver.start()
+        self.addCleanup(self.docker_resolver.stop)
+
     def test_v42_flyway_wrapper_pins_target_for_every_allowed_operation(self) -> None:
         def executor(_command, _payload):
             return None
@@ -631,6 +642,8 @@ class CommandSafetyTest(unittest.TestCase):
                     image_ref="redgate/flyway@sha256:" + "a" * 64,
                     target_version=runner.TARGET_VERSION,
                 )
+                self.assertEqual(command[0], self.docker_executable)
+                self.assertTrue(Path(command[0]).is_absolute())
                 self.assertIn("-target=42", command)
                 self.assertNotIn("-target=41", command)
 
@@ -665,6 +678,7 @@ class CommandSafetyTest(unittest.TestCase):
                     Path(td), op, image_ref="redgate/flyway@sha256:" + "a" * 64,
                 )
                 cmd_str = " ".join(cmd)
+                self.assertEqual(cmd[0], self.docker_executable)
                 self.assertIn("--pull=never", cmd_str)
                 self.assertIn("-i", cmd_str)
                 self.assertIn(op, cmd_str)
@@ -682,6 +696,7 @@ class CommandSafetyTest(unittest.TestCase):
                 image_ref="mysql@sha256:" + "b" * 64,
             )
             cmd_str = " ".join(cmd)
+            self.assertEqual(cmd[0], self.docker_executable)
             self.assertIn("mysql@sha256:" + "b" * 64, cmd_str)
             self.assertIn("--pull=never", cmd_str)
             self.assertIn("-i", cmd_str)
@@ -712,6 +727,119 @@ class CommandSafetyTest(unittest.TestCase):
         with patch.dict(os.environ, {"DOCKER_HOST": "tcp://1.2.3.4:2375"}, clear=False):
             with self.assertRaises(base.MigrationGuardError):
                 base.validate_local_docker_environment()
+
+    def test_metadata_helper_uses_resolved_absolute_argv_without_shell(self) -> None:
+        completed = subprocess.CompletedProcess(
+            [self.docker_executable, "version"], 0, stdout="{}", stderr=""
+        )
+        with patch.object(base.subprocess, "run", return_value=completed) as invoke:
+            base._run_docker_metadata_command(
+                self.docker_executable,
+                ["version"],
+                operation="test-version",
+                environment={"PATH": "sanitized-without-docker-directory"},
+            )
+        command = invoke.call_args.args[0]
+        self.assertEqual(command[0], self.docker_executable)
+        self.assertNotEqual(command[0].casefold(), "docker")
+        self.assertFalse(invoke.call_args.kwargs.get("shell", False))
+
+
+class V42DockerResolutionIntegrationTest(unittest.TestCase):
+    """The standalone runner and every shared Docker probe use one resolver."""
+
+    def tearDown(self) -> None:
+        base.resolve_docker_executable.cache_clear()
+
+    def test_one_cached_absolute_path_drives_context_images_and_commands(self) -> None:
+        flyway_digest = base.APPROVED_IMAGE_DIGESTS[base.FLYWAY_IMAGE]
+        mysql_digest = base.APPROVED_IMAGE_DIGESTS[base.MYSQL_CLIENT_IMAGE]
+
+        with tempfile.TemporaryDirectory() as directory:
+            docker_dir = Path(directory) / "Program Files" / "Docker CLI"
+            docker_dir.mkdir(parents=True)
+            docker_path = docker_dir / "docker.exe"
+            docker_path.write_bytes(b"mock executable; never launched")
+            expected_path = str(docker_path.resolve())
+            commands: list[tuple[list[str], dict[str, object]]] = []
+
+            def fake_run(command, **kwargs):
+                argv = list(command)
+                commands.append((argv, kwargs))
+                if argv[1:3] == ["context", "show"]:
+                    stdout = "desktop-linux\n"
+                elif argv[1:3] == ["context", "inspect"]:
+                    stdout = json.dumps("npipe:////./pipe/dockerDesktopLinuxEngine")
+                elif argv[1] == "version":
+                    stdout = json.dumps({"Os": "linux", "Arch": "amd64"})
+                elif argv[1:3] == ["image", "inspect"]:
+                    image = argv[3]
+                    digest = {
+                        base.FLYWAY_IMAGE: flyway_digest,
+                        base.MYSQL_CLIENT_IMAGE: mysql_digest,
+                    }[image]
+                    repository = image.rsplit(":", 1)[0]
+                    stdout = (
+                        json.dumps([f"{repository}@{digest}"])
+                        + "|linux|amd64"
+                    )
+                else:  # pragma: no cover - diagnostic guard for contract drift
+                    raise AssertionError(f"unexpected Docker metadata argv: {argv!r}")
+                return subprocess.CompletedProcess(argv, 0, stdout=stdout, stderr="")
+
+            base.resolve_docker_executable.cache_clear()
+            environment = {
+                "PATH": str(docker_dir),
+                "TIDB_PRODUCTION_FLYWAY_IMAGE_DIGEST": flyway_digest,
+                "TIDB_PRODUCTION_MYSQL_IMAGE_DIGEST": mysql_digest,
+            }
+            with (
+                patch.object(base.sys, "platform", "win32"),
+                patch.dict(os.environ, environment, clear=True),
+                patch.object(base.shutil, "which", return_value=expected_path) as which,
+                patch.object(base.subprocess, "run", side_effect=fake_run),
+            ):
+                base.validate_local_docker_environment()
+                verified = base.verify_docker_images()
+                flyway_command = base.build_flyway_command(
+                    Path(directory),
+                    "info",
+                    image_ref=verified[base.FLYWAY_IMAGE],
+                    target_version=runner.TARGET_VERSION,
+                )
+                mysql_command = base.build_mysql_command(
+                    image_ref=verified[base.MYSQL_CLIENT_IMAGE]
+                )
+
+            self.assertEqual(which.call_count, 1)
+            self.assertEqual(flyway_command[0], expected_path)
+            self.assertEqual(mysql_command[0], expected_path)
+            self.assertTrue(commands)
+            for argv, kwargs in commands:
+                self.assertEqual(argv[0], expected_path)
+                self.assertTrue(Path(argv[0]).is_absolute())
+                self.assertFalse(kwargs.get("shell", False))
+            self.assertEqual(
+                verified[base.FLYWAY_IMAGE],
+                f"redgate/flyway@{flyway_digest}",
+            )
+            self.assertEqual(
+                verified[base.MYSQL_CLIENT_IMAGE],
+                f"mysql@{mysql_digest}",
+            )
+
+    def test_standalone_runner_has_no_independent_docker_resolution_path(self) -> None:
+        self.assertIs(runner.base, base)
+        self.assertFalse(hasattr(runner, "resolve_docker_executable"))
+        tree = ast.parse(Path(runner.__file__).read_text(encoding="utf-8"))
+        direct_executable_literals = {
+            node.value.casefold()
+            for node in ast.walk(tree)
+            if isinstance(node, ast.Constant)
+            and isinstance(node.value, str)
+            and node.value.casefold() in {"docker", "docker.exe"}
+        }
+        self.assertEqual(direct_executable_literals, set())
 
 
 # ============================================================================
@@ -2136,6 +2264,8 @@ class StandalonePostflightBindingContractTest(unittest.TestCase):
                     runner._require_exact_lower_commit(value, "commit")
 
     def test_changed_path_allowlist_is_narrow_and_rejects_unsafe_contracts(self) -> None:
+        shared_runner_path = "scripts/deploy/tidb_production_migration.py"
+        self.assertIn(shared_runner_path, runner.POSTFLIGHT_LINEAGE_ALLOWED_PATHS)
         runner._validate_postflight_changed_paths(
             sorted(runner.POSTFLIGHT_LINEAGE_ALLOWED_PATHS)
         )
@@ -2143,7 +2273,6 @@ class StandalonePostflightBindingContractTest(unittest.TestCase):
             "backend/src/main/resources/db/migration/V42__add_managed_event_image_storage.sql",
             "scripts/deploy/tidb-production-v42.sha256",
             "backend/src/main/resources/db/migration/afterMigrate.sql",
-            "scripts/deploy/tidb_production_migration.py",
             "docs/admin/unrelated.md",
         )
         for path in unsafe:
@@ -2151,9 +2280,41 @@ class StandalonePostflightBindingContractTest(unittest.TestCase):
                 with self.assertRaises(runner.ProductionRunnerError):
                     runner._validate_postflight_changed_paths([path])
 
+    def test_shared_runner_lineage_is_exact_blob_pinned_not_symbol_allowlisted(self) -> None:
+        shared_runner = Path(base.__file__).read_bytes()
+        expected_sha = hashlib.sha256(shared_runner).hexdigest()
+        self.assertRegex(
+            runner.EXPECTED_POSTFLIGHT_SHARED_RUNNER_SHA256,
+            r"^[0-9a-f]{64}$",
+        )
+        self.assertEqual(
+            runner.EXPECTED_POSTFLIGHT_SHARED_RUNNER_SHA256,
+            expected_sha,
+        )
+        self.assertFalse(
+            hasattr(runner, "POSTFLIGHT_LINEAGE_ALLOWED_SHARED_RUNNER_SYMBOLS")
+        )
+        self.assertIn(
+            "constant:EXPECTED_POSTFLIGHT_SHARED_RUNNER_SHA256",
+            runner.POSTFLIGHT_LINEAGE_ALLOWED_RUNNER_SYMBOLS,
+        )
+        runner._validate_postflight_shared_runner_blob(shared_runner)
+        mutated_shared_runner = bytearray(shared_runner)
+        mutated_shared_runner[-1] ^= 0x01
+        with self.assertRaisesRegex(
+            runner.ProductionRunnerError, "shared production runner"
+        ):
+            runner._validate_postflight_shared_runner_blob(bytes(mutated_shared_runner))
+
     def test_protected_runner_contract_detects_target_confirmation_credentials_and_migrate(self) -> None:
         source = Path(runner.__file__).read_bytes()
         baseline = runner._python_protected_contract(source)
+        self.assertEqual(len(baseline), 21)
+        self.assertEqual(
+            len(runner.POSTFLIGHT_LINEAGE_PROTECTED_CONSTANTS)
+            + len(runner.POSTFLIGHT_LINEAGE_PROTECTED_FUNCTIONS),
+            21,
+        )
         mutations = (
             (b'EXPECTED_DATABASE = "lichsuvn"', b'EXPECTED_DATABASE = "other"'),
             (b'def _credentials(prefix:', b'def _credentials_changed(prefix:'),
@@ -2580,18 +2741,30 @@ class DocumentationContractTest(unittest.TestCase):
         }
 
         def fake_inspect(command, **_kwargs):
+            if command[1] == "version":
+                return subprocess.CompletedProcess(
+                    command,
+                    0,
+                    stdout=json.dumps({"Os": "linux", "Arch": "amd64"}),
+                    stderr="",
+                )
             image = command[3]
             digest = approved_by_image[image]
             repository = image.rsplit(":", 1)[0]
             return subprocess.CompletedProcess(
                 command,
                 0,
-                stdout=json.dumps([f"{repository}@{digest}"]),
+                stdout=json.dumps([f"{repository}@{digest}"]) + "|linux|amd64",
                 stderr="",
             )
 
         with (
             patch.object(base, "_env", side_effect=operator_digests.__getitem__),
+            patch.object(
+                base,
+                "resolve_docker_executable",
+                return_value=str(Path(sys.executable).resolve()),
+            ),
             patch.object(base.subprocess, "run", side_effect=fake_inspect),
         ):
             runtime_references = base.verify_docker_images()
@@ -2612,6 +2785,24 @@ class DocumentationContractTest(unittest.TestCase):
 
         self.assertNotIn("sha256:174513cc63...?", runbook)
         self.assertNotIn("sha256:a532724022...?", runbook)
+
+    def test_runbook_documents_trusted_docker_resolution_and_no_rerun(self) -> None:
+        runbook = (
+            HERE.parents[1] / "docs" / "admin" / "TIDB_PRODUCTION_V42_RUNBOOK.md"
+        ).read_text(encoding="utf-8")
+        for contract in (
+            "### Docker CLI resolution contract",
+            "trusted parent-process",
+            "same validated absolute",
+            "No shell or",
+            "child-environment sanitization",
+            "Linux/amd64",
+            "``--pull=never``",
+            "migrate must never be rerun",
+            "standalone read-only postflight",
+            "does not itself run that postflight or claim that it passed",
+        ):
+            self.assertIn(contract.casefold(), runbook.casefold())
 
     def test_runbook_documents_fail_closed_bounded_metadata_contract(self) -> None:
         runbook = (
@@ -3028,7 +3219,11 @@ class SharedBaseContractTest(unittest.TestCase):
     def test_required_constants_present(self) -> None:
         for name in ("FLYWAY_IMAGE", "MYSQL_CLIENT_IMAGE", "APPROVED_IMAGE_DIGESTS",
                      "MYSQL_CA_BUNDLE", "SQL_MARKER", "ALLOWED_FLYWAY_OPERATIONS",
-                     "EVIDENCE_FORMAT_VERSION", "MAX_EVIDENCE_BYTES"):
+                     "EVIDENCE_FORMAT_VERSION", "MAX_EVIDENCE_BYTES",
+                     "DOCKER_METADATA_TIMEOUT_SECONDS",
+                     "DOCKER_IMAGE_INSPECT_TIMEOUT_SECONDS",
+                     "EXPECTED_DOCKER_SERVER_OS",
+                     "EXPECTED_DOCKER_SERVER_ARCHITECTURE"):
             self.assertTrue(hasattr(base, name), f"base.{name} missing")
 
     def test_approved_image_digests_match_pinned_values(self) -> None:
@@ -3061,6 +3256,9 @@ class SharedBaseContractTest(unittest.TestCase):
             "_validate_flyway_envelope", "_normalise_state", "_versioned_migrations",
             "_require_text", "_require_secret", "_escape_mysql_option", "_parse_port",
             "_sanitized_child_environment", "_docker_mount_source", "_toml_string",
+            "_trusted_docker_search_path", "_validate_resolved_docker_executable",
+            "resolve_docker_executable", "_run_docker_metadata_command",
+            "_normalise_docker_architecture", "_validate_docker_daemon_platform",
         ):
             self.assertTrue(hasattr(base, name), f"base.{name} missing")
             self.assertTrue(callable(getattr(base, name)), f"base.{name} not callable")

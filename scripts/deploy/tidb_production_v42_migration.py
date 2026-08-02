@@ -96,10 +96,16 @@ EXPECTED_V42_SQL_FILE = "V42__add_managed_event_image_storage.sql"
 APPROVED_V42_MIGRATION_RELEASE_COMMIT = (
     "f74b7b5e51e0a5f399bac96accacaf6ebfac071e"
 )
+EXPECTED_POSTFLIGHT_SHARED_RUNNER_SHA256 = (
+    "c444960cdb59d6a2654a1a2665365992de2c958436ece5063698b4ac07624987"
+)
 POSTFLIGHT_LINEAGE_ALLOWED_PATHS = frozenset(
     {
         "docs/admin/TIDB_PRODUCTION_V42_RUNBOOK.md",
+        "scripts/deploy/tidb_production_migration.py",
+        "scripts/deploy/test_tidb_production_migration.py",
         "scripts/deploy/test_tidb_production_v42_migration.py",
+        "scripts/deploy/test_tidb_rehearsal_v42_migration.py",
         "scripts/deploy/tidb_production_v42_migration.py",
         "scripts/deploy/tidb_rehearsal_v42_orchestrate.py",
     }
@@ -132,6 +138,7 @@ POSTFLIGHT_LINEAGE_PROTECTED_FUNCTIONS = (
 POSTFLIGHT_LINEAGE_ALLOWED_RUNNER_SYMBOLS = frozenset(
     {
         "constant:APPROVED_V42_MIGRATION_RELEASE_COMMIT",
+        "constant:EXPECTED_POSTFLIGHT_SHARED_RUNNER_SHA256",
         "constant:MANAGED_STORAGE_COLUMNS",
         "constant:MANAGED_STORAGE_COLUMN_CONTRACT",
         "constant:MANAGED_STORAGE_COLUMN_SQL",
@@ -160,6 +167,7 @@ POSTFLIGHT_LINEAGE_ALLOWED_RUNNER_SYMBOLS = frozenset(
         "function:_normalise_metadata_default",
         "function:_normalise_metadata_extra",
         "function:_parse_failure_timestamp",
+        "function:_validate_postflight_shared_runner_blob",
         "function:_parse_metadata_record",
         "function:_parse_postflight_timestamp",
         "function:_parser",
@@ -623,6 +631,18 @@ def _validate_postflight_changed_paths(changed_paths: Sequence[str]) -> None:
         )
 
 
+def _validate_postflight_shared_runner_blob(source: bytes) -> None:
+    if not re.fullmatch(r"[0-9a-f]{64}", EXPECTED_POSTFLIGHT_SHARED_RUNNER_SHA256):
+        raise ProductionRunnerError("approved shared Docker runner hash is malformed")
+    actual_sha256 = hashlib.sha256(source).hexdigest()
+    if not hmac.compare_digest(
+        actual_sha256, EXPECTED_POSTFLIGHT_SHARED_RUNNER_SHA256
+    ):
+        raise ProductionRunnerError(
+            "shared production runner does not match the approved Docker contract"
+        )
+
+
 def validate_postflight_release_lineage(
     repo_root: Path,
     *,
@@ -676,6 +696,7 @@ def validate_postflight_release_lineage(
         raise ProductionRunnerError("cannot verify migration SQL and manifest immutability")
 
     runner_path = "scripts/deploy/tidb_production_v42_migration.py"
+    shared_runner_path = "scripts/deploy/tidb_production_migration.py"
     migration_runner = _git_bytes(
         repo_root, ["show", f"{migration_release_commit}:{runner_path}"],
         "migration-release runner contract",
@@ -730,6 +751,12 @@ def validate_postflight_release_lineage(
                     "production runner contains a non-allowlisted postflight change: "
                     + ", ".join(unexpected_symbols)
                 )
+        if shared_runner_path in commit_paths:
+            commit_shared_runner = _git_bytes(
+                repo_root, ["show", f"{commit}:{shared_runner_path}"],
+                f"shared Docker runner contract at {commit}",
+            )
+            _validate_postflight_shared_runner_blob(commit_shared_runner)
     return {
         "migration_release_commit": migration_release_commit,
         "checkout_commit": checkout_commit,

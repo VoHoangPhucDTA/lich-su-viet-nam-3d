@@ -11,15 +11,18 @@ import argparse
 from contextlib import contextmanager
 from dataclasses import dataclass
 from datetime import datetime, timezone
+from functools import lru_cache
 import hashlib
 import hmac
 import json
 import os
 from pathlib import Path
 import re
+import shutil
 import subprocess
 import sys
 import tempfile
+import time
 from typing import Any, Callable, Iterable, Iterator, Mapping, Sequence
 
 
@@ -60,6 +63,10 @@ SENSITIVE_ENV_MARKERS = (
 )
 EVIDENCE_FORMAT_VERSION = 1
 MAX_EVIDENCE_BYTES = 1024 * 1024
+DOCKER_METADATA_TIMEOUT_SECONDS = 15
+DOCKER_IMAGE_INSPECT_TIMEOUT_SECONDS = 60
+EXPECTED_DOCKER_SERVER_OS = "linux"
+EXPECTED_DOCKER_SERVER_ARCHITECTURE = "amd64"
 PRE_FLIGHT_METADATA_KEYS = frozenset(
     {
         "server_version",
@@ -316,6 +323,182 @@ def _docker_mount_source(path: Path) -> str:
     return resolved
 
 
+def _trusted_docker_search_path(value: str) -> tuple[str, frozenset[str]]:
+    """Return absolute parent-PATH entries without implicit cwd lookup."""
+
+    if not isinstance(value, str) or not value.strip():
+        raise MigrationGuardError(
+            "Docker executable was not found: trusted parent PATH is missing"
+        )
+    entries: list[str] = []
+    normalised: set[str] = set()
+    for raw_entry in value.split(os.pathsep):
+        entry = raw_entry.strip().strip('"')
+        if not entry or not os.path.isabs(entry):
+            continue
+        normalised_entry = os.path.normcase(os.path.normpath(entry))
+        if normalised_entry in normalised:
+            continue
+        entries.append(entry)
+        normalised.add(normalised_entry)
+    if not entries:
+        raise MigrationGuardError(
+            "Docker executable was not found: trusted parent PATH has no absolute entries"
+        )
+    return os.pathsep.join(entries), frozenset(normalised)
+
+
+def _validate_resolved_docker_executable(
+    candidate: str | None,
+    *,
+    trusted_parent_directories: frozenset[str],
+) -> str:
+    if not candidate:
+        raise MigrationGuardError(
+            "Docker executable was not found on the trusted parent PATH"
+        )
+    if not os.path.isabs(candidate):
+        raise MigrationGuardError("resolved Docker executable path is not absolute")
+    expected_basename = "docker.exe" if sys.platform.startswith("win") else "docker"
+    if os.path.basename(candidate).casefold() != expected_basename:
+        raise MigrationGuardError(
+            "resolved Docker executable has an unexpected basename"
+        )
+    candidate_parent = os.path.normcase(
+        os.path.normpath(os.path.dirname(candidate))
+    )
+    if candidate_parent not in trusted_parent_directories:
+        raise MigrationGuardError(
+            "resolved Docker executable is outside the trusted parent PATH"
+        )
+    unresolved = Path(candidate)
+    if not unresolved.exists():
+        raise MigrationGuardError("resolved Docker executable does not exist")
+    if not unresolved.is_file():
+        raise MigrationGuardError("resolved Docker executable is not a file")
+    try:
+        resolved = unresolved.resolve(strict=True)
+    except OSError as exc:
+        raise MigrationGuardError(
+            "resolved Docker executable path cannot be normalised"
+        ) from exc
+    if not resolved.is_file():
+        raise MigrationGuardError("resolved Docker executable is not a regular file")
+    if not sys.platform.startswith("win") and not os.access(resolved, os.X_OK):
+        raise MigrationGuardError("resolved Docker executable is not launchable")
+    return str(resolved)
+
+
+@lru_cache(maxsize=1)
+def resolve_docker_executable() -> str:
+    """Resolve Docker once from the trusted parent process environment."""
+
+    search_path, trusted_directories = _trusted_docker_search_path(
+        os.environ.get("PATH", "")
+    )
+    names = ("docker", "docker.exe") if sys.platform.startswith("win") else ("docker",)
+    last_error: MigrationGuardError | None = None
+    for name in names:
+        candidate = shutil.which(name, path=search_path)
+        try:
+            return _validate_resolved_docker_executable(
+                candidate,
+                trusted_parent_directories=trusted_directories,
+            )
+        except MigrationGuardError as exc:
+            last_error = exc
+    assert last_error is not None
+    raise last_error
+
+
+def _run_docker_metadata_command(
+    docker_executable: str,
+    arguments: Sequence[str],
+    *,
+    operation: str,
+    environment: Mapping[str, str],
+    timeout: int = DOCKER_METADATA_TIMEOUT_SECONDS,
+) -> subprocess.CompletedProcess[str]:
+    """Run one bounded local Docker metadata command without a shell."""
+
+    trusted_executable = resolve_docker_executable()
+    if os.path.normcase(os.path.normpath(docker_executable)) != os.path.normcase(
+        os.path.normpath(trusted_executable)
+    ):
+        raise MigrationGuardError(
+            "Docker executable path does not match the trusted parent resolver"
+        )
+    started = time.monotonic()
+    try:
+        return subprocess.run(
+            [docker_executable, *(str(argument) for argument in arguments)],
+            text=True,
+            capture_output=True,
+            check=False,
+            env=dict(environment),
+            timeout=timeout,
+        )
+    except subprocess.TimeoutExpired as exc:
+        elapsed = time.monotonic() - started
+        raise MigrationGuardError(
+            f"Docker command timeout during {operation} after {elapsed:.3f}s "
+            f"(limit {timeout}s)"
+        ) from exc
+    except OSError as exc:
+        raise MigrationGuardError(
+            f"Docker executable could not be launched during {operation}"
+        ) from exc
+
+
+def _normalise_docker_architecture(value: Any) -> str:
+    architecture = str(value or "").strip().lower()
+    return {"x86_64": "amd64", "x64": "amd64"}.get(
+        architecture, architecture
+    )
+
+
+def _validate_docker_daemon_platform(
+    docker_executable: str,
+    environment: Mapping[str, str],
+) -> dict[str, str]:
+    result = _run_docker_metadata_command(
+        docker_executable,
+        ["version", "--format", "{{json .Server}}"],
+        operation="daemon-version",
+        environment=environment,
+    )
+    if result.returncode != 0:
+        raise MigrationGuardError(
+            "Docker daemon is unavailable during daemon-version "
+            f"(exit code {result.returncode})"
+        )
+    try:
+        payload = json.loads(result.stdout)
+    except json.JSONDecodeError as exc:
+        raise MigrationGuardError(
+            "Docker daemon returned invalid platform metadata"
+        ) from exc
+    if not isinstance(payload, Mapping):
+        raise MigrationGuardError("Docker daemon platform metadata is not an object")
+    server_os = str(payload.get("Os") or payload.get("OS") or "").strip().lower()
+    architecture = _normalise_docker_architecture(payload.get("Arch"))
+    if (
+        server_os != EXPECTED_DOCKER_SERVER_OS
+        or architecture != EXPECTED_DOCKER_SERVER_ARCHITECTURE
+    ):
+        safe_os = server_os if re.fullmatch(r"[a-z0-9._-]+", server_os) else "invalid"
+        safe_arch = (
+            architecture
+            if re.fullmatch(r"[a-z0-9._-]+", architecture)
+            else "invalid"
+        )
+        raise MigrationGuardError(
+            "Docker server platform mismatch: expected linux/amd64, "
+            f"observed {safe_os}/{safe_arch}"
+        )
+    return {"os": server_os, "architecture": architecture}
+
+
 def build_flyway_command(
     migration_dir: Path,
     operation: str,
@@ -345,7 +528,7 @@ cat > "$c"
 /flyway/flyway -configFiles="$c" "$@"
 """
     return [
-        "docker",
+        resolve_docker_executable(),
         "run",
         "--pull=never",
         "--rm",
@@ -481,7 +664,7 @@ tail -n +$((line + 1)) "$p" > "$q"
 mysql --defaults-extra-file="$c" --connect-timeout=15 --batch --raw --skip-column-names < "$q"
 """
     return [
-        "docker",
+        resolve_docker_executable(),
         "run",
         "--pull=never",
         "--rm",
@@ -517,42 +700,73 @@ def verify_docker_images() -> dict[str, str]:
         FLYWAY_IMAGE: _env("TIDB_PRODUCTION_FLYWAY_IMAGE_DIGEST"),
         MYSQL_CLIENT_IMAGE: _env("TIDB_PRODUCTION_MYSQL_IMAGE_DIGEST"),
     }
+    for image, operator_digest in operator_values.items():
+        validate_image_digest(operator_digest, APPROVED_IMAGE_DIGESTS[image])
+    docker_executable = resolve_docker_executable()
+    environment = _sanitized_child_environment()
+    _validate_docker_daemon_platform(docker_executable, environment)
     verified: dict[str, str] = {}
     for image, operator_digest in operator_values.items():
         approved_digest = APPROVED_IMAGE_DIGESTS[image]
-        validate_image_digest(operator_digest, approved_digest)
-        try:
-            completed = subprocess.run(
-                [
-                    "docker",
-                    "image",
-                    "inspect",
-                    image,
-                    "--format",
-                    "{{json .RepoDigests}}",
-                ],
-                text=True,
-                capture_output=True,
-                check=False,
-                env=_sanitized_child_environment(),
-                timeout=15,
-            )
-        except (OSError, subprocess.TimeoutExpired) as exc:
-            raise MigrationGuardError("Docker CLI is unavailable") from exc
+        completed = _run_docker_metadata_command(
+            docker_executable,
+            [
+                "image",
+                "inspect",
+                image,
+                "--format",
+                "{{json .RepoDigests}}|{{.Os}}|{{.Architecture}}",
+            ],
+            operation=f"image-inspect:{image}",
+            environment=environment,
+            timeout=DOCKER_IMAGE_INSPECT_TIMEOUT_SECONDS,
+        )
         if completed.returncode != 0:
+            # Distinguish a daemon outage from a genuinely absent local image.
+            _validate_docker_daemon_platform(docker_executable, environment)
+            if re.search(r"(?i)\bno such (?:image|object)\b", completed.stderr or ""):
+                raise MigrationGuardError(
+                    f"approved Docker image {image} is not available locally "
+                    f"(image-inspect exit code {completed.returncode})"
+                )
             raise MigrationGuardError(
-                f"Docker image {image} is not available locally"
+                "Docker command failed during image-inspect "
+                f"(exit code {completed.returncode})"
+            )
+        parts = completed.stdout.strip().rsplit("|", 2)
+        if len(parts) != 3:
+            raise MigrationGuardError(
+                f"Docker returned invalid image metadata for {image}"
+            )
+        repo_digest_json, image_os, image_architecture = parts
+        normalised_image_os = image_os.strip().lower()
+        normalised_image_architecture = _normalise_docker_architecture(
+            image_architecture
+        )
+        if (
+            normalised_image_os != EXPECTED_DOCKER_SERVER_OS
+            or normalised_image_architecture
+            != EXPECTED_DOCKER_SERVER_ARCHITECTURE
+        ):
+            raise MigrationGuardError(
+                f"approved Docker image {image} platform mismatch"
             )
         try:
-            repo_digests = json.loads(completed.stdout)
+            repo_digests = json.loads(repo_digest_json)
         except json.JSONDecodeError as exc:
             raise MigrationGuardError(
                 f"Docker returned invalid digest metadata for {image}"
             ) from exc
         if not isinstance(repo_digests, list) or not repo_digests:
             raise MigrationGuardError(f"Docker image {image} has no immutable digest")
+        image_name = image.rsplit(":", 1)[0]
+        approved_reference = f"{image_name}@{approved_digest}"
         matched_digest: str | None = None
         for observed in repo_digests:
+            if not isinstance(observed, str):
+                continue
+            if observed.strip().lower() != approved_reference.lower():
+                continue
             try:
                 matched_digest = validate_image_digest(observed, approved_digest)
             except MigrationGuardError:
@@ -562,7 +776,6 @@ def verify_docker_images() -> dict[str, str]:
             raise MigrationGuardError(
                 f"Docker image {image} does not match the approved digest"
             )
-        image_name = image.rsplit(":", 1)[0]
         verified[image] = f"{image_name}@{matched_digest}"
     return verified
 
@@ -622,43 +835,39 @@ def validate_local_docker_environment() -> None:
             raise MigrationGuardError(
                 f"{name} must be unset; the runner only permits the local Docker daemon"
             )
+    docker_executable = resolve_docker_executable()
     environment = _sanitized_child_environment()
-    try:
-        context_result = subprocess.run(
-            ["docker", "context", "show"],
-            text=True,
-            capture_output=True,
-            check=False,
-            env=environment,
-            timeout=15,
-        )
-    except (OSError, subprocess.TimeoutExpired) as exc:
-        raise MigrationGuardError("Docker CLI is unavailable") from exc
+    context_result = _run_docker_metadata_command(
+        docker_executable,
+        ["context", "show"],
+        operation="context-show",
+        environment=environment,
+    )
     if context_result.returncode != 0:
-        raise MigrationGuardError("Docker context cannot be determined")
+        raise MigrationGuardError(
+            "Docker command failed during context-show "
+            f"(exit code {context_result.returncode})"
+        )
     context_name = context_result.stdout.strip()
     if not context_name:
         raise MigrationGuardError("Docker context name is empty")
-    try:
-        endpoint_result = subprocess.run(
-            [
-                "docker",
-                "context",
-                "inspect",
-                context_name,
-                "--format",
-                "{{json .Endpoints.docker.Host}}",
-            ],
-            text=True,
-            capture_output=True,
-            check=False,
-            env=environment,
-            timeout=15,
-        )
-    except (OSError, subprocess.TimeoutExpired) as exc:
-        raise MigrationGuardError("Docker context endpoint cannot be inspected") from exc
+    endpoint_result = _run_docker_metadata_command(
+        docker_executable,
+        [
+            "context",
+            "inspect",
+            context_name,
+            "--format",
+            "{{json .Endpoints.docker.Host}}",
+        ],
+        operation="context-inspect",
+        environment=environment,
+    )
     if endpoint_result.returncode != 0:
-        raise MigrationGuardError("Docker context endpoint cannot be inspected")
+        raise MigrationGuardError(
+            "Docker command failed during context-inspect "
+            f"(exit code {endpoint_result.returncode})"
+        )
     try:
         endpoint = json.loads(endpoint_result.stdout)
     except json.JSONDecodeError as exc:
@@ -669,6 +878,7 @@ def validate_local_docker_environment() -> None:
         raise MigrationGuardError(
             "Docker context endpoint is not a local npipe or Unix socket"
         )
+    _validate_docker_daemon_platform(docker_executable, environment)
 
 
 def _normalise_state(value: Any) -> str:

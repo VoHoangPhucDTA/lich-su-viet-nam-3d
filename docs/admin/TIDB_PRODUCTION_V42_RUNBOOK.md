@@ -9,8 +9,9 @@ production TiDB base instance (``lichsuvn3d``, parent cluster
 > branch-rehearsal tooling lives in
 > ``scripts/deploy/tidb_rehearsal_v42_*.py`` and is governed by
 > ``docs/admin/TIDB_REHEARSAL_V42_RUNBOOK.md``.  The historical V37 ->
-> V41 runner ``scripts/deploy/tidb_production_migration.py`` remains
-> unchanged and is not exercised by this migration.
+> V41 release path in ``scripts/deploy/tidb_production_migration.py`` is not
+> exercised by this migration; the dedicated V42 runner uses only its neutral
+> shared command and Docker-safety helpers.
 
 ## 1. V41 prerequisite
 
@@ -77,6 +78,51 @@ informational version labels only; the digest-bound references above are the
 execution identities.  Production execution keeps ``--pull=never`` mandatory,
 so each exact digest-bound image must already exist locally.  No alternate
 image or mutable-tag substitution is allowed.
+
+### Docker CLI resolution contract
+
+A successful ``docker version`` in the parent shell proves neither which
+executable the Python runner will resolve nor that a later child environment
+can resolve the same executable.  The runner therefore resolves Docker once,
+before child-environment sanitization, from the trusted parent-process
+``PATH`` and, on Windows, its platform ``PATHEXT`` behavior.  The resolver
+accepts only a normalized absolute path to an existing regular Docker
+executable in an absolute parent search directory.  It does not accept an
+arbitrary executable override, implicitly trust the current working directory,
+or hard-code a machine- or user-specific Docker Desktop path.
+
+Every Docker subprocess -- context and daemon checks, image inspection,
+Flyway/MySQL command execution and cleanup -- uses that same validated absolute
+executable path as the first argument of an argument vector.  No shell or
+command-string execution is used.  Resolution happens against the trusted
+parent context before the sanitized child environment is built, so a child
+``PATH`` that omits Docker's directory cannot hide or replace the already
+resolved executable.  The resolver and runner do not modify the permanent
+parent environment.
+
+The runner reports these local failures as distinct fail-closed blockers:
+
+* executable not found versus an empty, relative, nonexistent, directory or
+  otherwise invalid executable path;
+* executable launch failure, command timeout with sanitized operation and
+  elapsed-time context, command nonzero exit, and daemon unavailable;
+* exact approved image absent, repository-digest mismatch, and daemon or image
+  OS/architecture mismatch.
+
+Context and daemon probes retain their 15-second bound.  Local read-only image
+inspection has a separate bounded 60-second allowance for Docker daemon
+cold-start latency and is never retried.
+
+None of these diagnostics weakens the immutable-image gate.  The exact Flyway
+and MySQL digest-bound references listed above, Linux/amd64 platform checks,
+local image-presence requirement and ``--pull=never`` remain mandatory.  A
+resolved Docker executable never authorizes a pull or a mutable-tag
+substitution.
+
+Production V42 has already been installed successfully exactly once.  This
+Docker-resolution correction authorizes no further migration attempt: migrate
+must never be rerun.  Only the standalone read-only postflight may follow, and
+this correction does not itself run that postflight or claim that it passed.
 
 ## 4. Operator-supplied identity-evidence file
 

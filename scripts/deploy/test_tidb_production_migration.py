@@ -1,7 +1,9 @@
 from hashlib import sha256
 import importlib.util
 import json
+import os
 from pathlib import Path
+import subprocess
 import sys
 import tempfile
 import unittest
@@ -190,6 +192,16 @@ class TargetAndApprovalGuardTest(unittest.TestCase):
 class FlywayCommandAndSecretTest(unittest.TestCase):
     HOST = TargetAndApprovalGuardTest.HOST
 
+    def setUp(self) -> None:
+        self.docker_executable = str(Path(sys.executable).resolve())
+        resolver = patch.object(
+            runner,
+            "resolve_docker_executable",
+            return_value=self.docker_executable,
+        )
+        resolver.start()
+        self.addCleanup(resolver.stop)
+
     def test_command_is_pinned_and_allowlisted(self) -> None:
         command = runner.build_flyway_command(
             migration_dir=Path("backend/src/main/resources/db/migration"),
@@ -197,6 +209,8 @@ class FlywayCommandAndSecretTest(unittest.TestCase):
         )
 
         joined = " ".join(command)
+        self.assertEqual(command[0], self.docker_executable)
+        self.assertTrue(Path(command[0]).is_absolute())
         self.assertIn("redgate/flyway:11.14.1", command)
         self.assertIn("-target=41", command)
         self.assertIn("-cleanDisabled=true", command)
@@ -212,6 +226,7 @@ class FlywayCommandAndSecretTest(unittest.TestCase):
         self.assertNotIn("-configFiles=-", command)
         self.assertIn("REDGATE_DISABLE_TELEMETRY=true", command)
         self.assertIn("--pull=never", command)
+        self.assertIn("--rm", command)
         self.assertTrue(joined.endswith("info"))
         self.assertNotIn("repair", joined)
         with self.assertRaises(runner.MigrationGuardError):
@@ -248,6 +263,8 @@ class FlywayCommandAndSecretTest(unittest.TestCase):
 
         self.assertIn(f"redgate/flyway@{digest}", flyway_command)
         self.assertIn(f"mysql@{digest}", mysql_command)
+        self.assertEqual(flyway_command[0], self.docker_executable)
+        self.assertEqual(mysql_command[0], self.docker_executable)
 
     def test_credentials_are_only_in_stdin_config_not_command_arguments(self) -> None:
         config = runner.build_flyway_config(
@@ -352,9 +369,12 @@ class FlywayCommandAndSecretTest(unittest.TestCase):
         command = runner.build_mysql_command()
 
         self.assertIn("mysql:8.0.36", command)
+        self.assertEqual(command[0], self.docker_executable)
+        self.assertTrue(Path(command[0]).is_absolute())
         self.assertNotIn("password", " ".join(command).lower())
         self.assertIn("--defaults-extra-file", " ".join(command))
         self.assertIn("--pull=never", command)
+        self.assertIn("--rm", command)
         self.assertIn("--connect-timeout=15", " ".join(command))
         self.assertIn(
             f"test -r {runner.MYSQL_CA_BUNDLE}",
@@ -379,8 +399,10 @@ class FlywayCommandAndSecretTest(unittest.TestCase):
         mysql_digest = runner.APPROVED_IMAGE_DIGESTS[runner.MYSQL_CLIENT_IMAGE]
         responses = iter(
             [
-                json.dumps([f"redgate/flyway@{flyway_digest}"]),
-                json.dumps([f"mysql@{mysql_digest}"]),
+                json.dumps({"Os": "linux", "Arch": "amd64"}),
+                json.dumps([f"redgate/flyway@{flyway_digest}"])
+                + "|linux|amd64",
+                json.dumps([f"mysql@{mysql_digest}"]) + "|linux|amd64",
             ]
         )
 
@@ -394,7 +416,9 @@ class FlywayCommandAndSecretTest(unittest.TestCase):
         def fake_run(*_args, **_kwargs):
             return Completed(next(responses))
 
-        with patch.object(runner.subprocess, "run", side_effect=fake_run):
+        with patch.object(
+            runner.subprocess, "run", side_effect=fake_run
+        ) as subprocess_run:
             with patch.dict(
                 "os.environ",
                 {
@@ -406,6 +430,14 @@ class FlywayCommandAndSecretTest(unittest.TestCase):
                 refs = runner.verify_docker_images()
 
         self.assertEqual(
+            [call.kwargs["timeout"] for call in subprocess_run.call_args_list],
+            [
+                runner.DOCKER_METADATA_TIMEOUT_SECONDS,
+                runner.DOCKER_IMAGE_INSPECT_TIMEOUT_SECONDS,
+                runner.DOCKER_IMAGE_INSPECT_TIMEOUT_SECONDS,
+            ],
+        )
+        self.assertEqual(
             refs["redgate/flyway:11.14.1"],
             f"redgate/flyway@{flyway_digest}",
         )
@@ -414,17 +446,21 @@ class FlywayCommandAndSecretTest(unittest.TestCase):
     def test_operator_cannot_replace_the_release_approved_image_digest(self) -> None:
         unapproved = "sha256:" + ("b" * 64)
 
-        with patch.dict(
-            "os.environ",
-            {
-                "TIDB_PRODUCTION_FLYWAY_IMAGE_DIGEST": unapproved,
-                "TIDB_PRODUCTION_MYSQL_IMAGE_DIGEST":
-                    runner.APPROVED_IMAGE_DIGESTS[runner.MYSQL_CLIENT_IMAGE],
-            },
-            clear=False,
+        with (
+            patch.dict(
+                "os.environ",
+                {
+                    "TIDB_PRODUCTION_FLYWAY_IMAGE_DIGEST": unapproved,
+                    "TIDB_PRODUCTION_MYSQL_IMAGE_DIGEST":
+                        runner.APPROVED_IMAGE_DIGESTS[runner.MYSQL_CLIENT_IMAGE],
+                },
+                clear=False,
+            ),
+            patch.object(runner.subprocess, "run") as subprocess_run,
         ):
             with self.assertRaises(runner.MigrationGuardError):
                 runner.verify_docker_images()
+        subprocess_run.assert_not_called()
 
     def test_metadata_sql_is_read_only(self) -> None:
         sql = runner.build_metadata_sql(postflight=True).upper()
@@ -558,6 +594,7 @@ class FlywayCommandAndSecretTest(unittest.TestCase):
             (
                 Completed("desktop-linux\n"),
                 Completed(json.dumps("npipe:////./pipe/dockerDesktopLinuxEngine")),
+                Completed(json.dumps({"Os": "linux", "Arch": "amd64"})),
             )
         )
         with patch.object(runner.subprocess, "run", side_effect=lambda *_a, **_k: next(responses)):
@@ -572,6 +609,481 @@ class FlywayCommandAndSecretTest(unittest.TestCase):
                 clear=False,
             ):
                 runner.validate_local_docker_environment()
+
+
+class DockerCliResolutionContractTest(unittest.TestCase):
+    def setUp(self) -> None:
+        runner.resolve_docker_executable.cache_clear()
+        self.addCleanup(runner.resolve_docker_executable.cache_clear)
+
+    @staticmethod
+    def _completed(
+        *, returncode: int = 0, stdout: str = "", stderr: str = ""
+    ) -> subprocess.CompletedProcess[str]:
+        return subprocess.CompletedProcess(
+            args=[],
+            returncode=returncode,
+            stdout=stdout,
+            stderr=stderr,
+        )
+
+    @staticmethod
+    def _approved_digest_environment() -> dict[str, str]:
+        return {
+            "TIDB_PRODUCTION_FLYWAY_IMAGE_DIGEST":
+                runner.APPROVED_IMAGE_DIGESTS[runner.FLYWAY_IMAGE],
+            "TIDB_PRODUCTION_MYSQL_IMAGE_DIGEST":
+                runner.APPROVED_IMAGE_DIGESTS[runner.MYSQL_CLIENT_IMAGE],
+        }
+
+    def test_resolver_returns_and_caches_absolute_trusted_path_with_spaces(
+        self,
+    ) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            trusted = Path(directory) / "Docker CLI With Spaces"
+            trusted.mkdir()
+            executable = trusted / "docker.exe"
+            executable.write_bytes(b"not executed")
+            with (
+                patch.object(runner.sys, "platform", "win32"),
+                patch.dict(os.environ, {"PATH": str(trusted)}, clear=False),
+                patch.object(
+                    runner.shutil,
+                    "which",
+                    return_value=str(executable),
+                ) as which,
+            ):
+                first = runner.resolve_docker_executable()
+                second = runner.resolve_docker_executable()
+
+        self.assertEqual(first, str(executable.resolve()))
+        self.assertEqual(second, first)
+        self.assertTrue(Path(first).is_absolute())
+        which.assert_called_once_with("docker", path=str(trusted))
+
+    def test_windows_resolver_falls_back_to_docker_exe(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            trusted = Path(directory)
+            executable = trusted / "docker.exe"
+            executable.write_bytes(b"not executed")
+            with (
+                patch.object(runner.sys, "platform", "win32"),
+                patch.dict(os.environ, {"PATH": str(trusted)}, clear=False),
+                patch.object(
+                    runner.shutil,
+                    "which",
+                    side_effect=(None, str(executable)),
+                ) as which,
+            ):
+                resolved = runner.resolve_docker_executable()
+
+        self.assertEqual(resolved, str(executable.resolve()))
+        self.assertEqual(
+            [item.args[0] for item in which.call_args_list],
+            ["docker", "docker.exe"],
+        )
+
+    def test_resolver_rejects_missing_relative_and_empty_parent_path(self) -> None:
+        for value, message in (
+            ("", "trusted parent PATH is missing"),
+            ("relative-only", "no absolute entries"),
+        ):
+            with self.subTest(path=value):
+                runner.resolve_docker_executable.cache_clear()
+                with (
+                    patch.object(runner.sys, "platform", "win32"),
+                    patch.dict(os.environ, {"PATH": value}, clear=False),
+                    self.assertRaisesRegex(runner.MigrationGuardError, message),
+                ):
+                    runner.resolve_docker_executable()
+
+        with tempfile.TemporaryDirectory() as directory:
+            runner.resolve_docker_executable.cache_clear()
+            with (
+                patch.object(runner.sys, "platform", "win32"),
+                patch.dict(os.environ, {"PATH": directory}, clear=False),
+                patch.object(runner.shutil, "which", return_value=None),
+                self.assertRaisesRegex(
+                    runner.MigrationGuardError,
+                    "was not found on the trusted parent PATH",
+                ),
+            ):
+                runner.resolve_docker_executable()
+
+    def test_resolver_rejects_directory_and_nonexistent_candidates(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            trusted = Path(directory) / "bin"
+            trusted.mkdir()
+            directory_candidate = trusted / "docker.exe"
+            directory_candidate.mkdir()
+            with (
+                patch.object(runner.sys, "platform", "win32"),
+                patch.dict(os.environ, {"PATH": str(trusted)}, clear=False),
+                patch.object(
+                    runner.shutil,
+                    "which",
+                    return_value=str(directory_candidate),
+                ),
+                self.assertRaisesRegex(
+                    runner.MigrationGuardError,
+                    "is not a file",
+                ),
+            ):
+                runner.resolve_docker_executable()
+
+            runner.resolve_docker_executable.cache_clear()
+            directory_candidate.rmdir()
+            missing_candidate = trusted / "docker.exe"
+            with (
+                patch.object(runner.sys, "platform", "win32"),
+                patch.dict(os.environ, {"PATH": str(trusted)}, clear=False),
+                patch.object(
+                    runner.shutil,
+                    "which",
+                    return_value=str(missing_candidate),
+                ),
+                self.assertRaisesRegex(
+                    runner.MigrationGuardError,
+                    "does not exist",
+                ),
+            ):
+                runner.resolve_docker_executable()
+
+    def test_resolver_rejects_relative_candidate_result(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            with (
+                patch.object(runner.sys, "platform", "win32"),
+                patch.dict(os.environ, {"PATH": directory}, clear=False),
+                patch.object(runner.shutil, "which", return_value="docker.exe"),
+                self.assertRaisesRegex(
+                    runner.MigrationGuardError,
+                    "resolved Docker executable path is not absolute",
+                ),
+            ):
+                runner.resolve_docker_executable()
+
+    def test_arbitrary_override_is_ignored_and_cwd_candidate_is_not_trusted(
+        self,
+    ) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            trusted = root / "trusted"
+            untrusted = root / "working-directory"
+            trusted.mkdir()
+            untrusted.mkdir()
+            executable = trusted / "docker.exe"
+            cwd_candidate = untrusted / "docker.exe"
+            executable.write_bytes(b"not executed")
+            cwd_candidate.write_bytes(b"not executed")
+            with (
+                patch.object(runner.sys, "platform", "win32"),
+                patch.dict(
+                    os.environ,
+                    {
+                        "PATH": str(trusted),
+                        "DOCKER_EXECUTABLE": str(cwd_candidate),
+                    },
+                    clear=False,
+                ),
+                patch.object(
+                    runner.shutil,
+                    "which",
+                    return_value=str(executable),
+                ),
+            ):
+                self.assertEqual(
+                    runner.resolve_docker_executable(),
+                    str(executable.resolve()),
+                )
+
+            runner.resolve_docker_executable.cache_clear()
+            with (
+                patch.object(runner.sys, "platform", "win32"),
+                patch.dict(os.environ, {"PATH": str(trusted)}, clear=False),
+                patch.object(
+                    runner.shutil,
+                    "which",
+                    return_value=str(cwd_candidate),
+                ),
+                self.assertRaisesRegex(
+                    runner.MigrationGuardError,
+                    "outside the trusted parent PATH",
+                ),
+            ):
+                runner.resolve_docker_executable()
+
+    def test_child_environment_keeps_resolution_inputs_without_mutating_parent(
+        self,
+    ) -> None:
+        parent = {
+            "PATH": str(Path(tempfile.gettempdir()).resolve()),
+            "PATHEXT": ".COM;.EXE",
+            "TIDB_PRODUCTION_READ_PASSWORD": "synthetic-test-value",
+            "DOCKER_HOST": "tcp://untrusted.invalid:2375",
+            "SAFE_OPERATOR_FLAG": "kept",
+        }
+        with patch.dict(os.environ, parent, clear=True):
+            snapshot = dict(os.environ)
+            child = runner._sanitized_child_environment()
+
+            self.assertEqual(dict(os.environ), snapshot)
+            self.assertEqual(child["PATH"], parent["PATH"])
+            self.assertEqual(child["PATHEXT"], parent["PATHEXT"])
+            self.assertEqual(child["SAFE_OPERATOR_FLAG"], "kept")
+            self.assertNotIn("TIDB_PRODUCTION_READ_PASSWORD", child)
+            self.assertNotIn("DOCKER_HOST", child)
+
+    def test_metadata_command_reuses_absolute_path_with_list_argv_and_no_shell(
+        self,
+    ) -> None:
+        docker_executable = str(Path(sys.executable).resolve())
+        child_environment = {"PATH": "", "SAFE_OPERATOR_FLAG": "kept"}
+        completed = self._completed(stdout="desktop-linux\n")
+        with (
+            patch.object(
+                runner,
+                "resolve_docker_executable",
+                return_value=docker_executable,
+            ),
+            patch.object(
+                runner.subprocess,
+                "run",
+                return_value=completed,
+            ) as subprocess_run,
+        ):
+            observed = runner._run_docker_metadata_command(
+                docker_executable,
+                ["context", "show"],
+                operation="context-show",
+                environment=child_environment,
+            )
+
+        self.assertIs(observed, completed)
+        command = subprocess_run.call_args.args[0]
+        kwargs = subprocess_run.call_args.kwargs
+        self.assertIsInstance(command, list)
+        self.assertEqual(command[0], docker_executable)
+        self.assertTrue(Path(command[0]).is_absolute())
+        self.assertEqual(command[1:], ["context", "show"])
+        self.assertNotIn("shell", kwargs)
+        self.assertEqual(kwargs["env"], child_environment)
+        self.assertEqual(child_environment["PATH"], "")
+
+    def test_metadata_timeout_and_launch_failures_are_distinct(self) -> None:
+        docker_executable = str(Path(sys.executable).resolve())
+        with (
+            patch.object(
+                runner,
+                "resolve_docker_executable",
+                return_value=docker_executable,
+            ),
+            patch.object(
+                runner.subprocess,
+                "run",
+                side_effect=subprocess.TimeoutExpired(
+                    cmd=[docker_executable, "context", "show"],
+                    timeout=3,
+                ),
+            ),
+            self.assertRaisesRegex(
+                runner.MigrationGuardError,
+                "Docker command timeout during context-show",
+            ) as timeout_error,
+        ):
+            runner._run_docker_metadata_command(
+                docker_executable,
+                ["context", "show"],
+                operation="context-show",
+                environment={},
+                timeout=3,
+            )
+        self.assertNotIn("unavailable", str(timeout_error.exception).lower())
+
+        with (
+            patch.object(
+                runner,
+                "resolve_docker_executable",
+                return_value=docker_executable,
+            ),
+            patch.object(runner.subprocess, "run", side_effect=OSError("boom")),
+            self.assertRaisesRegex(
+                runner.MigrationGuardError,
+                "could not be launched during daemon-version",
+            ),
+        ):
+            runner._run_docker_metadata_command(
+                docker_executable,
+                ["version"],
+                operation="daemon-version",
+                environment={},
+            )
+
+    def test_container_executor_uses_list_argv_without_shell_resolution(self) -> None:
+        docker_executable = str(Path(sys.executable).resolve())
+        completed = self._completed(stdout="ok")
+        with (
+            patch.object(
+                runner,
+                "resolve_docker_executable",
+                return_value=docker_executable,
+            ),
+            patch.object(
+                runner.subprocess,
+                "run",
+                return_value=completed,
+            ) as subprocess_run,
+        ):
+            command = runner.build_mysql_command()
+            result = runner._execute(command, "SELECT 1;")
+
+        self.assertEqual(result.returncode, 0)
+        observed_command = subprocess_run.call_args.args[0]
+        self.assertIsInstance(observed_command, list)
+        self.assertEqual(observed_command[0], docker_executable)
+        self.assertNotIn("shell", subprocess_run.call_args.kwargs)
+
+    def test_context_and_daemon_nonzero_failures_are_distinct(self) -> None:
+        with (
+            patch.dict(
+                os.environ,
+                {
+                    "DOCKER_HOST": "",
+                    "DOCKER_CONTEXT": "",
+                    "DOCKER_TLS_VERIFY": "",
+                    "DOCKER_CERT_PATH": "",
+                },
+                clear=False,
+            ),
+            patch.object(
+                runner,
+                "resolve_docker_executable",
+                return_value=str(Path(sys.executable).resolve()),
+            ),
+            patch.object(
+                runner,
+                "_run_docker_metadata_command",
+                return_value=self._completed(returncode=17),
+            ),
+            self.assertRaisesRegex(
+                runner.MigrationGuardError,
+                r"Docker command failed during context-show \(exit code 17\)",
+            ),
+        ):
+            runner.validate_local_docker_environment()
+
+        with (
+            patch.object(
+                runner,
+                "_run_docker_metadata_command",
+                return_value=self._completed(returncode=19),
+            ),
+            self.assertRaisesRegex(
+                runner.MigrationGuardError,
+                "Docker daemon is unavailable during daemon-version "
+                r"\(exit code 19\)",
+            ),
+        ):
+            runner._validate_docker_daemon_platform(
+                str(Path(sys.executable).resolve()),
+                {},
+            )
+
+    def test_daemon_platform_mismatch_is_classified(self) -> None:
+        with (
+            patch.object(
+                runner,
+                "_run_docker_metadata_command",
+                return_value=self._completed(
+                    stdout=json.dumps({"Os": "windows", "Arch": "arm64"})
+                ),
+            ),
+            self.assertRaisesRegex(
+                runner.MigrationGuardError,
+                "platform mismatch: expected linux/amd64, observed windows/arm64",
+            ),
+        ):
+            runner._validate_docker_daemon_platform(
+                str(Path(sys.executable).resolve()),
+                {},
+            )
+
+    def test_image_absence_and_inspect_failure_are_distinct(self) -> None:
+        for stderr, message in (
+            ("Error: No such image", "is not available locally"),
+            ("metadata store failed", "Docker command failed during image-inspect"),
+        ):
+            with self.subTest(stderr=stderr):
+                with (
+                    patch.dict(
+                        os.environ,
+                        self._approved_digest_environment(),
+                        clear=False,
+                    ),
+                    patch.object(
+                        runner,
+                        "resolve_docker_executable",
+                        return_value=str(Path(sys.executable).resolve()),
+                    ),
+                    patch.object(
+                        runner,
+                        "_validate_docker_daemon_platform",
+                    ),
+                    patch.object(
+                        runner,
+                        "_run_docker_metadata_command",
+                        return_value=self._completed(
+                            returncode=1,
+                            stderr=stderr,
+                        ),
+                    ),
+                    self.assertRaisesRegex(runner.MigrationGuardError, message),
+                ):
+                    runner.verify_docker_images()
+
+    def test_image_digest_and_platform_mismatches_are_distinct(self) -> None:
+        flyway_digest = runner.APPROVED_IMAGE_DIGESTS[runner.FLYWAY_IMAGE]
+        cases = (
+            (
+                json.dumps([f"redgate/flyway@{'sha256:' + ('0' * 64)}"])
+                + "|linux|amd64",
+                "does not match the approved digest",
+            ),
+            (
+                json.dumps([f"unapproved/flyway@{flyway_digest}"])
+                + "|linux|amd64",
+                "does not match the approved digest",
+            ),
+            (
+                json.dumps([f"redgate/flyway@{flyway_digest}"])
+                + "|windows|amd64",
+                "platform mismatch",
+            ),
+        )
+        for output, message in cases:
+            with self.subTest(message=message):
+                with (
+                    patch.dict(
+                        os.environ,
+                        self._approved_digest_environment(),
+                        clear=False,
+                    ),
+                    patch.object(
+                        runner,
+                        "resolve_docker_executable",
+                        return_value=str(Path(sys.executable).resolve()),
+                    ),
+                    patch.object(
+                        runner,
+                        "_validate_docker_daemon_platform",
+                    ),
+                    patch.object(
+                        runner,
+                        "_run_docker_metadata_command",
+                        return_value=self._completed(stdout=output),
+                    ),
+                    self.assertRaisesRegex(runner.MigrationGuardError, message),
+                ):
+                    runner.verify_docker_images()
 
 
 class FlywayStateValidationTest(unittest.TestCase):

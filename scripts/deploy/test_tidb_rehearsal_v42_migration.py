@@ -173,6 +173,16 @@ class IdentityEvidenceTest(unittest.TestCase):
 
 
 class RehearsalArtifactGuardTest(unittest.TestCase):
+    def setUp(self) -> None:
+        self.docker_executable = str(Path(sys.executable).resolve())
+        self.docker_resolver = patch.object(
+            runner.base,
+            "resolve_docker_executable",
+            return_value=self.docker_executable,
+        )
+        self.docker_resolver.start()
+        self.addCleanup(self.docker_resolver.stop)
+
     def test_repository_manifest_is_exactly_v1_through_v42(self) -> None:
         repo_root = HERE.parents[1]
         migration_dir, manifest = runner.migration_paths(repo_root)
@@ -186,6 +196,8 @@ class RehearsalArtifactGuardTest(unittest.TestCase):
         command = runner.build_flyway_command(
             Path("migrations"), "migrate", image_ref="redgate/flyway@sha256:" + "a" * 64
         )
+        self.assertEqual(command[0], self.docker_executable)
+        self.assertTrue(Path(command[0]).is_absolute())
         self.assertIn("--pull=never", command)
         self.assertIn("-target=42", command)
         self.assertNotIn("repair", command)
@@ -481,6 +493,23 @@ class SharedRunnerContractTest(unittest.TestCase):
     so they exercise real shape and real error handling.
     """
 
+    def setUp(self) -> None:
+        self.docker_executable = str(Path(sys.executable).resolve())
+        self.base_docker_resolver = patch.object(
+            base,
+            "resolve_docker_executable",
+            return_value=self.docker_executable,
+        )
+        self.runner_docker_resolver = patch.object(
+            runner.base,
+            "resolve_docker_executable",
+            return_value=self.docker_executable,
+        )
+        self.base_docker_resolver.start()
+        self.runner_docker_resolver.start()
+        self.addCleanup(self.base_docker_resolver.stop)
+        self.addCleanup(self.runner_docker_resolver.stop)
+
     def test_pinned_flyway_image(self) -> None:
         self.assertEqual(base.FLYWAY_IMAGE, "redgate/flyway:11.14.1")
 
@@ -512,6 +541,8 @@ class SharedRunnerContractTest(unittest.TestCase):
             "migrate",
             image_ref=f"redgate/flyway:11.14.1@sha256:{'a' * 64}",
         )
+        self.assertEqual(cmd[0], self.docker_executable)
+        self.assertTrue(Path(cmd[0]).is_absolute())
         self.assertIn("--pull=never", cmd)
         # The strict runner must rewrite -target=41 to -target=42.
         self.assertIn("-target=42", cmd)
@@ -525,7 +556,8 @@ class SharedRunnerContractTest(unittest.TestCase):
     def test_build_mysql_command_carries_image_ref_and_no_pull(self) -> None:
         image_ref = f"mysql:8.0.36@sha256:{'a' * 64}"
         cmd = base.build_mysql_command(image_ref=image_ref)
-        self.assertEqual(cmd[0], "docker")
+        self.assertEqual(cmd[0], self.docker_executable)
+        self.assertTrue(Path(cmd[0]).is_absolute())
         self.assertIn(image_ref, cmd)
         self.assertIn("--pull=never", cmd)
         self.assertIn("-i", cmd)
