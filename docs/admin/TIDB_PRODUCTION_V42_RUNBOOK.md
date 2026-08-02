@@ -430,15 +430,57 @@ aliases, malformed SELECT items, or field-count drift fail the generated-SQL
 structural check locally.  Each query remains bounded by ``DATABASE()``, its
 exact owning table and one of the six exact V42 CHECK names.
 
-This compatibility correction does not weaken verification.  The standard
-``CHECK_CONSTRAINTS``/``TABLE_CONSTRAINTS`` result and
-``TIDB_CHECK_CONSTRAINTS`` result remain cross-bound by schema, owner table,
-constraint name and expression, with enforcement required from the standard
-metadata path.  The conservative expression normalizer and all semantic
-rejection cases are unchanged.  Production V42 was migrated exactly once;
-``migrate`` must never be rerun.  Only another standalone read-only postflight
-may follow this local correction, and this document does not claim that final
-postflight has passed.
+That alias correction exposed a second, separate TiDB Serverless v8.5.3
+capability mismatch.  The next standalone read-only postflight stopped with
+SQL error 1054 because the query referenced
+``information_schema.TABLE_CONSTRAINTS.ENFORCED``.  The production metadata
+surface does not expose that column.  No live schema result was accepted,
+Flyway did not run, and no postflight JSON or detached SHA was published.
+
+The correction following that blocker used one bounded read-only capability
+inventory over ``information_schema.columns``.  It inventoried only
+``COLUMNS``, ``TABLES``, ``STATISTICS``, ``TABLE_CONSTRAINTS``,
+``CHECK_CONSTRAINTS``, ``TIDB_CHECK_CONSTRAINTS``, ``KEY_COLUMN_USAGE`` and
+``REFERENTIAL_CONSTRAINTS`` and selected only metadata table name, column name,
+ordinal, data type, column type and nullability.  It did not query application
+tables or records.  Every field used by the V42 column, table, index and
+foreign-key checks exists.  The audit proved these CHECK-specific facts:
+
+* none of the three constraint views exposes ``ENFORCED``;
+* ``TABLE_CONSTRAINTS`` exposes no CHECK rows on this service;
+* ``CHECK_CONSTRAINTS`` and ``TIDB_CHECK_CONSTRAINTS`` each expose the exact six
+  V42 constraints and agree on names and expressions;
+* ``TIDB_CHECK_CONSTRAINTS`` supplies the authoritative owning table;
+* ``@@global.tidb_enable_check_constraint`` is ``1``;
+* bounded ``SHOW CREATE TABLE`` output for ``event_media`` and
+  ``event_media_storage_cleanup_tasks`` contains exactly the six declarations
+  and no ``NOT ENFORCED`` clause.
+
+Standalone postflight now runs the committed capability probe once before its
+complex schema query.  Missing metadata tables or required columns, malformed
+or duplicate capability rows, unexpected objects, or nondeterministic ordering
+fail before Flyway and evidence publication.  Reviewed constants select the
+query strategy; runtime metadata cannot inject a column identifier.  A direct
+``ENFORCED`` field is used only when the capability model proves that exact
+field exists, and multiple direct sources must agree.  Otherwise enforcement
+is proven by the exact two-table ``SHOW CREATE TABLE`` contract together with
+the global CHECK-support gate.  Missing, duplicated, ambiguous, altered or
+``NOT ENFORCED`` declarations fail with enforcement unprovable; the checker
+never invents or defaults an enforcement value.
+
+The standard and TiDB CHECK views remain cross-bound by schema, constraint name
+and expression, while the TiDB view additionally proves the exact owner table.
+Together they remain cross-bound by schema, owner table, constraint name and
+expression.
+The cleanup CHECK count also comes from ``TIDB_CHECK_CONSTRAINTS`` because the
+production ``TABLE_CONSTRAINTS`` view has no CHECK rows.  Generated SQL never
+references an absent capability, including ``tc.ENFORCED``.  The conservative
+expression normalizer and all semantic rejection cases are unchanged.
+
+Production V42 was migrated exactly once; ``migrate`` must never be rerun.  No
+Flyway operation occurred during this capability correction.  A final
+standalone read-only postflight must still be run from the resulting reviewed
+commit, and this document does not claim that final postflight has passed.
 
 For a later read-only standalone postflight, backup/restore bytes, detached
 hashes, capture bindings and identity bindings are still verified.  Backup
@@ -499,8 +541,10 @@ That zero-row expectation comes from the immutable V42 source containing no
 
 All six CHECK constraints are cross-bound between
 ``CHECK_CONSTRAINTS`` and ``TIDB_CHECK_CONSTRAINTS`` by schema, owner table,
-name and expression.  Enforcement must be enabled where the metadata view
-exposes it.  The conservative expression normalizer removes only whitespace,
+name and expression.  Enforcement must agree across every direct metadata
+source that the capability gate proves available; when none exists, the exact
+two-table ``SHOW CREATE TABLE`` proof must pass and must contain no
+``NOT ENFORCED`` declaration.  The conservative expression normalizer removes only whitespace,
 identifier quoting, redundant outer parentheses, keyword case differences and
 TiDB's ``_utf8mb4`` literal introducer.  It never removes operators, enum/state
 values, conditions, or ``AND``/``OR`` relationships.  Duplicate, missing,

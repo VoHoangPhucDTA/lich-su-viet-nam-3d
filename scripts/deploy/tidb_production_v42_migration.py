@@ -24,6 +24,7 @@ from __future__ import annotations
 
 import argparse
 import ast
+from dataclasses import dataclass
 from datetime import datetime, timezone
 import hashlib
 import hmac
@@ -348,6 +349,74 @@ V42_CHECK_METADATA_FIELD_ALIASES = (
     "check_clause_values",
     "check_enforcement_values",
 )
+V42_METADATA_CAPABILITY_OBJECTS = (
+    "COLUMNS",
+    "TABLES",
+    "STATISTICS",
+    "TABLE_CONSTRAINTS",
+    "CHECK_CONSTRAINTS",
+    "TIDB_CHECK_CONSTRAINTS",
+    "KEY_COLUMN_USAGE",
+    "REFERENTIAL_CONSTRAINTS",
+)
+V42_METADATA_REQUIRED_COLUMNS = {
+    "COLUMNS": frozenset(
+        {
+            "TABLE_SCHEMA", "TABLE_NAME", "COLUMN_NAME", "ORDINAL_POSITION",
+            "DATA_TYPE", "COLUMN_TYPE", "IS_NULLABLE", "COLUMN_DEFAULT",
+            "CHARACTER_SET_NAME", "COLLATION_NAME", "DATETIME_PRECISION", "EXTRA",
+        }
+    ),
+    "TABLES": frozenset(
+        {"TABLE_SCHEMA", "TABLE_NAME", "TABLE_TYPE", "ENGINE", "TABLE_COLLATION"}
+    ),
+    "STATISTICS": frozenset(
+        {
+            "TABLE_SCHEMA", "TABLE_NAME", "INDEX_NAME", "NON_UNIQUE",
+            "SEQ_IN_INDEX", "COLUMN_NAME", "INDEX_TYPE",
+        }
+    ),
+    # TiDB Serverless v8.5.3 exposes this view but neither CHECK rows nor
+    # ENFORCED.  Its core shape remains inventoried; active CHECK ownership is
+    # cross-bound between CHECK_CONSTRAINTS and TIDB_CHECK_CONSTRAINTS.
+    "TABLE_CONSTRAINTS": frozenset(
+        {"CONSTRAINT_SCHEMA", "CONSTRAINT_NAME", "TABLE_NAME", "CONSTRAINT_TYPE"}
+    ),
+    "CHECK_CONSTRAINTS": frozenset(
+        {"CONSTRAINT_SCHEMA", "CONSTRAINT_NAME", "CHECK_CLAUSE"}
+    ),
+    "TIDB_CHECK_CONSTRAINTS": frozenset(
+        {"CONSTRAINT_SCHEMA", "CONSTRAINT_NAME", "TABLE_NAME", "CHECK_CLAUSE"}
+    ),
+    "KEY_COLUMN_USAGE": frozenset(
+        {
+            "CONSTRAINT_SCHEMA", "CONSTRAINT_NAME", "TABLE_SCHEMA", "TABLE_NAME",
+            "COLUMN_NAME", "ORDINAL_POSITION", "REFERENCED_TABLE_SCHEMA",
+            "REFERENCED_TABLE_NAME", "REFERENCED_COLUMN_NAME",
+        }
+    ),
+    "REFERENTIAL_CONSTRAINTS": frozenset(
+        {
+            "CONSTRAINT_SCHEMA", "CONSTRAINT_NAME", "UNIQUE_CONSTRAINT_SCHEMA",
+            "UNIQUE_CONSTRAINT_NAME", "TABLE_NAME", "REFERENCED_TABLE_NAME",
+            "UPDATE_RULE", "DELETE_RULE",
+        }
+    ),
+}
+V42_METADATA_ENFORCEMENT_SOURCES = (
+    "TABLE_CONSTRAINTS",
+    "CHECK_CONSTRAINTS",
+    "TIDB_CHECK_CONSTRAINTS",
+)
+V42_SHOW_CREATE_TABLES = ("event_media", V42_CLEANUP_TABLE)
+
+
+@dataclass(frozen=True)
+class MetadataCapabilityModel:
+    columns: Mapping[str, frozenset[str]]
+    enforcement_sources: tuple[str, ...]
+    enforcement_strategy: str
+
 V42_FLYWAY_HISTORY_CONTRACT = {
     "version": TARGET_VERSION,
     "description": "add managed event image storage",
@@ -1163,6 +1232,122 @@ def validate_flyway_migrate_for_v42(result: Mapping[str, Any]) -> None:
 
 
 # ============================================================================
+# TiDB metadata capability contract
+# ============================================================================
+
+
+_TIDB_V853_OBSERVED_METADATA_COLUMNS = {
+    "COLUMNS": "TABLE_CATALOG TABLE_SCHEMA TABLE_NAME COLUMN_NAME ORDINAL_POSITION COLUMN_DEFAULT IS_NULLABLE DATA_TYPE CHARACTER_MAXIMUM_LENGTH CHARACTER_OCTET_LENGTH NUMERIC_PRECISION NUMERIC_SCALE DATETIME_PRECISION CHARACTER_SET_NAME COLLATION_NAME COLUMN_TYPE COLUMN_KEY EXTRA PRIVILEGES COLUMN_COMMENT GENERATION_EXPRESSION",
+    "TABLES": "TABLE_CATALOG TABLE_SCHEMA TABLE_NAME TABLE_TYPE ENGINE VERSION ROW_FORMAT TABLE_ROWS AVG_ROW_LENGTH DATA_LENGTH MAX_DATA_LENGTH INDEX_LENGTH DATA_FREE AUTO_INCREMENT CREATE_TIME UPDATE_TIME CHECK_TIME TABLE_COLLATION CHECKSUM CREATE_OPTIONS TABLE_COMMENT TIDB_TABLE_ID TIDB_ROW_ID_SHARDING_INFO TIDB_PK_TYPE TIDB_PLACEMENT_POLICY_NAME TIDB_STORAGE_CLASS",
+    "STATISTICS": "TABLE_CATALOG TABLE_SCHEMA TABLE_NAME NON_UNIQUE INDEX_SCHEMA INDEX_NAME SEQ_IN_INDEX COLUMN_NAME COLLATION CARDINALITY SUB_PART PACKED NULLABLE INDEX_TYPE COMMENT INDEX_COMMENT IS_VISIBLE EXPRESSION",
+    "TABLE_CONSTRAINTS": "CONSTRAINT_CATALOG CONSTRAINT_SCHEMA CONSTRAINT_NAME TABLE_SCHEMA TABLE_NAME CONSTRAINT_TYPE",
+    "CHECK_CONSTRAINTS": "CONSTRAINT_CATALOG CONSTRAINT_SCHEMA CONSTRAINT_NAME CHECK_CLAUSE",
+    "TIDB_CHECK_CONSTRAINTS": "CONSTRAINT_CATALOG CONSTRAINT_SCHEMA CONSTRAINT_NAME CHECK_CLAUSE TABLE_NAME TABLE_ID",
+    "KEY_COLUMN_USAGE": "CONSTRAINT_CATALOG CONSTRAINT_SCHEMA CONSTRAINT_NAME TABLE_CATALOG TABLE_SCHEMA TABLE_NAME COLUMN_NAME ORDINAL_POSITION POSITION_IN_UNIQUE_CONSTRAINT REFERENCED_TABLE_SCHEMA REFERENCED_TABLE_NAME REFERENCED_COLUMN_NAME",
+    "REFERENTIAL_CONSTRAINTS": "CONSTRAINT_CATALOG CONSTRAINT_SCHEMA CONSTRAINT_NAME UNIQUE_CONSTRAINT_CATALOG UNIQUE_CONSTRAINT_SCHEMA UNIQUE_CONSTRAINT_NAME MATCH_OPTION UPDATE_RULE DELETE_RULE TABLE_NAME REFERENCED_TABLE_NAME",
+}
+
+
+def metadata_capability_sql_v42() -> str:
+    """Return the single bounded information_schema.columns capability probe."""
+    names = ",".join(f"'{name}'" for name in V42_METADATA_CAPABILITY_OBJECTS)
+    return (
+        "SELECT TABLE_NAME,COLUMN_NAME,ORDINAL_POSITION,DATA_TYPE,COLUMN_TYPE,IS_NULLABLE "
+        "FROM information_schema.columns "
+        "WHERE LOWER(TABLE_SCHEMA)='information_schema' "
+        f"AND UPPER(TABLE_NAME) IN ({names}) "
+        "ORDER BY UPPER(TABLE_NAME),ORDINAL_POSITION,COLUMN_NAME;\n"
+    )
+
+
+def validate_metadata_capabilities(
+    columns: Mapping[str, frozenset[str]],
+) -> MetadataCapabilityModel:
+    if set(columns) != set(V42_METADATA_CAPABILITY_OBJECTS):
+        raise ProductionRunnerError("TiDB metadata capability table set is not exact")
+    normalised: dict[str, frozenset[str]] = {}
+    for table in V42_METADATA_CAPABILITY_OBJECTS:
+        observed = columns.get(table)
+        if not isinstance(observed, frozenset) or not observed:
+            raise ProductionRunnerError(
+                f"TiDB metadata capability table is missing: {table}"
+            )
+        if any(not re.fullmatch(r"[A-Z][A-Z0-9_]*", value) for value in observed):
+            raise ProductionRunnerError(
+                f"TiDB metadata capability column is malformed for {table}"
+            )
+        missing = V42_METADATA_REQUIRED_COLUMNS[table] - observed
+        if missing:
+            raise ProductionRunnerError(
+                f"TiDB metadata capability is missing required columns for {table}: "
+                f"{sorted(missing)}"
+            )
+        normalised[table] = observed
+    enforcement_sources = tuple(
+        table
+        for table in V42_METADATA_ENFORCEMENT_SOURCES
+        if "ENFORCED" in normalised[table]
+    )
+    return MetadataCapabilityModel(
+        columns=normalised,
+        enforcement_sources=enforcement_sources,
+        enforcement_strategy="direct" if enforcement_sources else "show_create",
+    )
+
+
+def observed_tidb_v853_metadata_capabilities() -> MetadataCapabilityModel:
+    return validate_metadata_capabilities(
+        {
+            table: frozenset(value.split())
+            for table, value in _TIDB_V853_OBSERVED_METADATA_COLUMNS.items()
+        }
+    )
+
+
+def parse_metadata_capability_rows(output: str) -> MetadataCapabilityModel:
+    rows: dict[str, list[tuple[int, str]]] = {
+        table: [] for table in V42_METADATA_CAPABILITY_OBJECTS
+    }
+    seen: set[tuple[str, str]] = set()
+    previous: tuple[str, int, str] | None = None
+    for line in output.splitlines():
+        if not line.strip():
+            continue
+        parts = line.split("\t")
+        if len(parts) != 6:
+            raise ProductionRunnerError("TiDB metadata capability row is malformed")
+        raw_table, raw_column, raw_ordinal, data_type, column_type, nullable = parts
+        table = raw_table.upper()
+        column = raw_column.upper()
+        if table not in rows or not re.fullmatch(r"[A-Z][A-Z0-9_]*", column):
+            raise ProductionRunnerError("TiDB metadata capability row is unexpected")
+        if not re.fullmatch(r"[1-9][0-9]*", raw_ordinal):
+            raise ProductionRunnerError("TiDB metadata capability ordinal is malformed")
+        if (
+            not data_type.strip()
+            or not column_type.strip()
+            or nullable.upper() not in {"YES", "NO"}
+        ):
+            raise ProductionRunnerError("TiDB metadata capability type shape is malformed")
+        key = (table, column)
+        if key in seen:
+            raise ProductionRunnerError("TiDB metadata capability row is duplicated")
+        seen.add(key)
+        ordinal = int(raw_ordinal)
+        ordering = (table, ordinal, column)
+        if previous is not None and ordering <= previous:
+            raise ProductionRunnerError("TiDB metadata capability ordering is invalid")
+        previous = ordering
+        rows[table].append((ordinal, column))
+    return validate_metadata_capabilities(
+        {
+            table: frozenset(column for _ordinal, column in values)
+            for table, values in rows.items()
+        }
+    )
+
+
+# ============================================================================
 # V42 metadata SQL (extends base.build_metadata_sql)
 # ============================================================================
 
@@ -1234,61 +1419,101 @@ def _cleanup_column_metadata_sql(column: str) -> str:
 
 
 def _check_metadata_sql(
-    *, key: str, constraint: str, table: str, tidb_view: bool
+    *, key: str, constraint: str, table: str, tidb_view: bool,
+    capabilities: MetadataCapabilityModel,
 ) -> str:
     for label, value in (("constraint", constraint), ("table", table)):
         if not re.fullmatch(r"[a-z][a-z0-9_]*", value):
             raise ProductionRunnerError(
                 f"V42 CHECK {label} contract contains an invalid name"
             )
-    fields = (
-        V42_CHECK_METADATA_FIELD_ALIASES[:-1]
-        if tidb_view
-        else V42_CHECK_METADATA_FIELD_ALIASES
-    )
     if tidb_view:
+        enforcement_expression = (
+            "GROUP_CONCAT(DISTINCT tcc.ENFORCED)"
+            if "TIDB_CHECK_CONSTRAINTS" in capabilities.enforcement_sources
+            else "GROUP_CONCAT(NULL)"
+        )
         source = (
             "FROM (SELECT COUNT(*) AS row_count,"
-            "GROUP_CONCAT(DISTINCT CONSTRAINT_SCHEMA) AS check_schema_values,"
-            "GROUP_CONCAT(DISTINCT TABLE_NAME) AS check_table_values,"
-            "GROUP_CONCAT(DISTINCT CONSTRAINT_NAME) AS check_constraint_names,"
-            "GROUP_CONCAT(CHECK_CLAUSE ORDER BY CONSTRAINT_NAME SEPARATOR '') "
-            "AS check_clause_values "
-            "FROM information_schema.TIDB_CHECK_CONSTRAINTS "
-            "WHERE CONSTRAINT_SCHEMA=DATABASE() "
-            f"AND TABLE_NAME='{table}' AND CONSTRAINT_NAME='{constraint}') contract"
+            "GROUP_CONCAT(DISTINCT tcc.CONSTRAINT_SCHEMA) AS check_schema_values,"
+            "GROUP_CONCAT(DISTINCT tcc.TABLE_NAME) AS check_table_values,"
+            "GROUP_CONCAT(DISTINCT tcc.CONSTRAINT_NAME) AS check_constraint_names,"
+            "GROUP_CONCAT(tcc.CHECK_CLAUSE ORDER BY tcc.CONSTRAINT_NAME SEPARATOR '') "
+            "AS check_clause_values,"
+            f"{enforcement_expression} AS check_enforcement_values "
+            "FROM information_schema.TIDB_CHECK_CONSTRAINTS tcc "
+            "WHERE tcc.CONSTRAINT_SCHEMA=DATABASE() "
+            f"AND tcc.TABLE_NAME='{table}' AND tcc.CONSTRAINT_NAME='{constraint}') contract"
         )
     else:
-        source = (
-            "FROM (SELECT COUNT(*) AS row_count,"
-            "GROUP_CONCAT(DISTINCT cc.CONSTRAINT_SCHEMA) AS check_schema_values,"
-            "GROUP_CONCAT(DISTINCT tc.TABLE_NAME) AS check_table_values,"
-            "GROUP_CONCAT(DISTINCT cc.CONSTRAINT_NAME) AS check_constraint_names,"
-            "GROUP_CONCAT(cc.CHECK_CLAUSE ORDER BY cc.CONSTRAINT_NAME SEPARATOR '') "
-            "AS check_clause_values,"
-            "GROUP_CONCAT(DISTINCT tc.ENFORCED) AS check_enforcement_values "
-            "FROM information_schema.CHECK_CONSTRAINTS cc "
+        standard_sources = tuple(
+            source
+            for source in ("CHECK_CONSTRAINTS", "TABLE_CONSTRAINTS")
+            if source in capabilities.enforcement_sources
+        )
+        join_table_constraints = "TABLE_CONSTRAINTS" in standard_sources
+        if len(standard_sources) == 2:
+            enforcement_expression = (
+                "GROUP_CONCAT(DISTINCT CONCAT_WS(',',cc.ENFORCED,tc.ENFORCED) "
+                "ORDER BY cc.CONSTRAINT_NAME SEPARATOR ',')"
+            )
+        elif standard_sources == ("CHECK_CONSTRAINTS",):
+            enforcement_expression = "GROUP_CONCAT(DISTINCT cc.ENFORCED)"
+        elif standard_sources == ("TABLE_CONSTRAINTS",):
+            enforcement_expression = "GROUP_CONCAT(DISTINCT tc.ENFORCED)"
+        else:
+            enforcement_expression = "GROUP_CONCAT(NULL)"
+        table_expression = (
+            "GROUP_CONCAT(DISTINCT tc.TABLE_NAME)"
+            if join_table_constraints
+            else "GROUP_CONCAT(NULL)"
+        )
+        join_sql = (
             "JOIN information_schema.TABLE_CONSTRAINTS tc "
             "ON tc.CONSTRAINT_SCHEMA=cc.CONSTRAINT_SCHEMA "
             "AND tc.CONSTRAINT_NAME=cc.CONSTRAINT_NAME "
             "AND tc.CONSTRAINT_TYPE='CHECK' "
-            "WHERE cc.CONSTRAINT_SCHEMA=DATABASE() "
-            f"AND tc.TABLE_NAME='{table}' AND cc.CONSTRAINT_NAME='{constraint}') contract"
+            f"AND tc.TABLE_NAME='{table}' "
+            if join_table_constraints
+            else ""
         )
-    return _metadata_structured_select(key, fields, source)
+        source = (
+            "FROM (SELECT COUNT(*) AS row_count,"
+            "GROUP_CONCAT(DISTINCT cc.CONSTRAINT_SCHEMA) AS check_schema_values,"
+            f"{table_expression} AS check_table_values,"
+            "GROUP_CONCAT(DISTINCT cc.CONSTRAINT_NAME) AS check_constraint_names,"
+            "GROUP_CONCAT(cc.CHECK_CLAUSE ORDER BY cc.CONSTRAINT_NAME SEPARATOR '') "
+            "AS check_clause_values,"
+            f"{enforcement_expression} AS check_enforcement_values "
+            "FROM information_schema.CHECK_CONSTRAINTS cc "
+            f"{join_sql}"
+            "WHERE cc.CONSTRAINT_SCHEMA=DATABASE() "
+            f"AND cc.CONSTRAINT_NAME='{constraint}') contract"
+        )
+    return _metadata_structured_select(
+        key, V42_CHECK_METADATA_FIELD_ALIASES, source
+    )
 
 
-def _validate_check_metadata_sql_contract(sql: str) -> dict[str, Any]:
+def _validate_check_metadata_sql_contract(
+    sql: str, capabilities: MetadataCapabilityModel | None = None,
+) -> dict[str, Any]:
     """Fail closed on the final generated CHECK-metadata SELECT structure."""
     if not isinstance(sql, str) or not sql:
         raise ProductionRunnerError("V42 CHECK metadata SQL is missing")
-
-    expected: list[tuple[str, str, str, bool]] = []
+    model = capabilities or observed_tidb_v853_metadata_capabilities()
+    expected: list[str] = []
     for constraint, table, _expression in V42_CHECK_CONTRACT:
         expected.extend(
             (
-                (f"v42_check_{constraint}", constraint, table, False),
-                (f"v42_tidb_check_{constraint}", constraint, table, True),
+                _check_metadata_sql(
+                    key=f"v42_check_{constraint}", constraint=constraint,
+                    table=table, tidb_view=False, capabilities=model,
+                ).rstrip(";\n"),
+                _check_metadata_sql(
+                    key=f"v42_tidb_check_{constraint}", constraint=constraint,
+                    table=table, tidb_view=True, capabilities=model,
+                ).rstrip(";\n"),
             )
         )
     statements = [
@@ -1298,120 +1523,46 @@ def _validate_check_metadata_sql_contract(sql: str) -> dict[str, Any]:
         or line.startswith("SELECT 'v42_tidb_check_")
         if line.endswith(";")
     ]
-    observed_keys = tuple(
-        match.group(1)
-        for statement in statements
-        if (match := re.match(r"^SELECT '([a-z][a-z0-9_]*)',", statement))
-    )
-    expected_keys = tuple(item[0] for item in expected)
-    if len(statements) != len(expected) or observed_keys != expected_keys:
+    if statements != expected:
         raise ProductionRunnerError("V42 CHECK metadata statement set is not exact")
-
-    def split_select_items(value: str) -> tuple[str, ...]:
-        items: list[str] = []
-        start = 0
-        depth = 0
-        quoted = False
-        index = 0
-        while index < len(value):
-            char = value[index]
-            if char == "'":
-                if quoted and index + 1 < len(value) and value[index + 1] == "'":
-                    index += 2
-                    continue
-                quoted = not quoted
-            elif not quoted:
-                if char == "(":
-                    depth += 1
-                elif char == ")":
-                    depth -= 1
-                    if depth < 0:
-                        raise ProductionRunnerError(
-                            "V42 CHECK metadata SELECT parentheses are unbalanced"
-                        )
-                elif char == "," and depth == 0:
-                    items.append(value[start:index].strip())
-                    start = index + 1
-            index += 1
-        if quoted or depth != 0:
-            raise ProductionRunnerError(
-                "V42 CHECK metadata SELECT parentheses or quotes are unbalanced"
-            )
-        items.append(value[start:].strip())
-        return tuple(items)
-
-    for statement, (key, constraint, table, tidb_view) in zip(
-        statements, expected, strict=True
-    ):
-        fields = (
-            V42_CHECK_METADATA_FIELD_ALIASES[:-1]
-            if tidb_view
-            else V42_CHECK_METADATA_FIELD_ALIASES
-        )
-        outer = f"SELECT '{key}', CONCAT_WS(':'," + ",".join(
-            _metadata_hex_field_sql(field) for field in fields
-        ) + ")"
-        marker = " FROM (SELECT "
-        if not statement.startswith(outer + marker) or not statement.endswith(") contract"):
-            raise ProductionRunnerError(
-                f"V42 CHECK metadata outer field contract mismatch for {key}"
-            )
-        body = statement[len(outer + marker):-len(") contract")]
-        view_marker = (
-            " FROM information_schema.TIDB_CHECK_CONSTRAINTS "
-            if tidb_view
-            else " FROM information_schema.CHECK_CONSTRAINTS cc "
-        )
-        if body.count(view_marker) != 1:
-            raise ProductionRunnerError(
-                f"V42 CHECK metadata view contract mismatch for {key}"
-            )
-        select_list, source_tail = body.split(view_marker, 1)
-        items = split_select_items(select_list)
-        aliases: list[str] = []
-        for item in items:
-            match = re.fullmatch(
-                r"(?s)(COUNT\(\*\)|GROUP_CONCAT\(.+\)) AS ([a-z][a-z0-9_]*)",
-                item,
-            )
-            if not match:
+    for statement in statements:
+        if statement.count("(") != statement.count(")"):
+            raise ProductionRunnerError("V42 CHECK metadata parentheses are unbalanced")
+        for alias in V42_CHECK_METADATA_FIELD_ALIASES:
+            if statement.count(f" AS {alias}") != 1:
                 raise ProductionRunnerError(
-                    f"V42 CHECK metadata SELECT item lacks an explicit safe alias for {key}"
+                    "V42 CHECK metadata aliases do not match the parser contract"
                 )
-            aliases.append(match.group(2))
-        if tuple(aliases) != fields or len(set(aliases)) != len(aliases):
-            raise ProductionRunnerError(
-                f"V42 CHECK metadata aliases do not match the parser contract for {key}"
-            )
-        legacy_aliases = {"schemas", "tables", "names", "clauses", "enforced_values"}
-        if legacy_aliases.intersection(aliases):
-            raise ProductionRunnerError("V42 CHECK metadata contains an unsafe legacy alias")
-
-        expected_tail = (
-            "WHERE CONSTRAINT_SCHEMA=DATABASE() "
-            f"AND TABLE_NAME='{table}' AND CONSTRAINT_NAME='{constraint}'"
-            if tidb_view
-            else "JOIN information_schema.TABLE_CONSTRAINTS tc "
-            "ON tc.CONSTRAINT_SCHEMA=cc.CONSTRAINT_SCHEMA "
-            "AND tc.CONSTRAINT_NAME=cc.CONSTRAINT_NAME "
-            "AND tc.CONSTRAINT_TYPE='CHECK' "
-            "WHERE cc.CONSTRAINT_SCHEMA=DATABASE() "
-            f"AND tc.TABLE_NAME='{table}' AND cc.CONSTRAINT_NAME='{constraint}'"
-        )
-        if source_tail != expected_tail:
-            raise ProductionRunnerError(
-                f"V42 CHECK metadata bounds or cross-view binding drifted for {key}"
-            )
+    if re.search(
+        r"(?i)\s(?:schemas|tables|names|clauses|enforced_values)(?:,|\s+FROM)",
+        "\n".join(statements),
+    ):
+        raise ProductionRunnerError("V42 CHECK metadata contains an unsafe legacy alias")
+    for source in V42_METADATA_ENFORCEMENT_SOURCES:
+        if "ENFORCED" not in model.columns[source]:
+            alias = {
+                "TABLE_CONSTRAINTS": "tc",
+                "CHECK_CONSTRAINTS": "cc",
+                "TIDB_CHECK_CONSTRAINTS": "tcc",
+            }[source]
+            if re.search(rf"(?i)\b{alias}\.ENFORCED\b", "\n".join(statements)):
+                raise ProductionRunnerError(
+                    f"V42 CHECK SQL references unsupported {source}.ENFORCED"
+                )
     return {
         "statement_count": len(statements),
         "aliases": list(V42_CHECK_METADATA_FIELD_ALIASES),
         "constraint_count": len(V42_CHECK_CONTRACT),
         "view_count": 2,
+        "enforcement_strategy": model.enforcement_strategy,
     }
 
 
-def metadata_sql_v42_postflight_extras() -> str:
+def metadata_sql_v42_postflight_extras(
+    capabilities: MetadataCapabilityModel | None = None,
+) -> str:
     """Extra read-only SELECTs verifying V42 schema footprint + preflight identity binding."""
+    model = capabilities or observed_tidb_v853_metadata_capabilities()
     # INFORMATION_SCHEMA may render integer display widths with or without the
     # historical ``(20)`` / ``(11)`` suffix.  Those pairs are semantically
     # identical; every other type, nullability or default drift is rejected.
@@ -1556,8 +1707,8 @@ def metadata_sql_v42_postflight_extras() -> str:
         "FROM information_schema.STATISTICS WHERE TABLE_SCHEMA=DATABASE() "
         f"AND TABLE_NAME='{V42_CLEANUP_TABLE}';\n"
         "SELECT 'v42_cleanup_check_count', COUNT(*) "
-        "FROM information_schema.TABLE_CONSTRAINTS WHERE CONSTRAINT_SCHEMA=DATABASE() "
-        f"AND TABLE_NAME='{V42_CLEANUP_TABLE}' AND CONSTRAINT_TYPE='CHECK';\n"
+        "FROM information_schema.TIDB_CHECK_CONSTRAINTS WHERE CONSTRAINT_SCHEMA=DATABASE() "
+        f"AND TABLE_NAME='{V42_CLEANUP_TABLE}';\n"
         "SELECT 'v42_cleanup_foreign_keys', COUNT(*) "
         "FROM information_schema.REFERENTIAL_CONSTRAINTS "
         f"WHERE CONSTRAINT_SCHEMA=DATABASE() AND TABLE_NAME='{V42_CLEANUP_TABLE}';\n"
@@ -1565,10 +1716,12 @@ def metadata_sql_v42_postflight_extras() -> str:
     )
     for name, table, _expression in V42_CHECK_CONTRACT:
         sql += _check_metadata_sql(
-            key=f"v42_check_{name}", constraint=name, table=table, tidb_view=False
+            key=f"v42_check_{name}", constraint=name, table=table,
+            tidb_view=False, capabilities=model,
         )
         sql += _check_metadata_sql(
-            key=f"v42_tidb_check_{name}", constraint=name, table=table, tidb_view=True
+            key=f"v42_tidb_check_{name}", constraint=name, table=table,
+            tidb_view=True, capabilities=model,
         )
     history_source = (
         "FROM (SELECT COUNT(*) row_count,"
@@ -1587,8 +1740,60 @@ def metadata_sql_v42_postflight_extras() -> str:
         ),
         history_source,
     )
-    _validate_check_metadata_sql_contract(sql)
+    _validate_check_metadata_sql_contract(sql, model)
     return sql
+
+
+def validate_generated_metadata_sql_compatibility(
+    capabilities: MetadataCapabilityModel | None = None,
+) -> dict[str, Any]:
+    """Build every SQL path against one reviewed, immutable capability model."""
+    model = capabilities or observed_tidb_v853_metadata_capabilities()
+    capability_sql = metadata_capability_sql_v42()
+    if "SELECT *" in capability_sql.upper():
+        raise ProductionRunnerError("metadata capability probe may not use SELECT *")
+    if capability_sql.count("information_schema.columns") != 1:
+        raise ProductionRunnerError("metadata capability probe surface is not exact")
+    for table in V42_METADATA_CAPABILITY_OBJECTS:
+        if f"'{table}'" not in capability_sql:
+            raise ProductionRunnerError(
+                f"metadata capability probe omits reviewed object {table}"
+            )
+    base._read_only_sql_statements(capability_sql)
+    generated = (
+        base.build_metadata_sql(postflight=True)
+        + metadata_sql_v42_postflight_extras(model)
+    )
+    base._read_only_sql_statements(generated)
+    keys = re.findall(r"(?m)^SELECT '([a-z][a-z0-9_]*)',", generated)
+    if len(keys) != len(set(keys)):
+        raise ProductionRunnerError("generated metadata output key is duplicated")
+    check_contract = _validate_check_metadata_sql_contract(generated, model)
+    for table, required in V42_METADATA_REQUIRED_COLUMNS.items():
+        if not required.issubset(model.columns[table]):
+            raise ProductionRunnerError(
+                f"generated SQL capability model is incomplete for {table}"
+            )
+    if "TABLE_CONSTRAINTS" not in model.enforcement_sources:
+        if re.search(r"(?i)\btc\.ENFORCED\b", generated):
+            raise ProductionRunnerError(
+                "generated SQL references absent TABLE_CONSTRAINTS.ENFORCED"
+            )
+        if "JOIN information_schema.TABLE_CONSTRAINTS tc" in generated:
+            raise ProductionRunnerError(
+                "generated CHECK SQL depends on unavailable TiDB TABLE_CONSTRAINTS rows"
+            )
+    return {
+        "capability_object_count": len(V42_METADATA_CAPABILITY_OBJECTS),
+        "capability_query_count": 1,
+        "metadata_statement_count": len(
+            [statement for statement in generated.split(";\n") if statement]
+        ),
+        "output_key_count": len(keys),
+        "check_statement_count": check_contract["statement_count"],
+        "enforcement_strategy": model.enforcement_strategy,
+        "unsupported_reference_count": 0,
+    }
 
 
 def bounded_metadata_sql_v42() -> str:
@@ -1900,7 +2105,202 @@ def _normalise_check_expression(expression: str) -> str:
     return normalised
 
 
-def _validate_check_constraints(metadata: Mapping[str, str]) -> dict[str, Any]:
+def v42_show_create_sql() -> str:
+    return (
+        "SHOW CREATE TABLE `event_media`;\n"
+        f"SHOW CREATE TABLE `{V42_CLEANUP_TABLE}`;\n"
+    )
+
+
+def _build_v42_show_create_payload(
+    *, host: str, port: int, database: str, user: str, password: str,
+) -> str:
+    """Build a stdin-only payload for the two reviewed SHOW CREATE statements."""
+    host = base._require_text(host, "host")
+    database = base._require_text(database, "database")
+    user = base._require_text(user, "database user")
+    password = base._require_secret(password, "database password")
+    sql = v42_show_create_sql()
+    if sql != (
+        "SHOW CREATE TABLE `event_media`;\n"
+        "SHOW CREATE TABLE `event_media_storage_cleanup_tasks`;\n"
+    ):
+        raise ProductionRunnerError("V42 SHOW CREATE SQL is not the reviewed exact query")
+    if base.SQL_MARKER in password:
+        raise ProductionRunnerError("reserved SQL payload marker was supplied")
+    config = "\n".join(
+        (
+            "[client]",
+            f"host={host}",
+            f"port={base._parse_port(port)}",
+            f"user={base._escape_mysql_option(user)}",
+            f"password={base._escape_mysql_option(password)}",
+            f"database={database}",
+            "ssl-mode=VERIFY_IDENTITY",
+            f"ssl-ca={base.MYSQL_CA_BUNDLE}",
+            "tls-version=TLSv1.2,TLSv1.3",
+            "",
+        )
+    )
+    return config + base.SQL_MARKER + "\n" + sql
+
+
+def _build_v42_show_create_command(*, image_ref: str) -> list[str]:
+    """Reuse the trusted resolver while preserving escaped one-row DDL output."""
+    command = base.build_mysql_command(image_ref=image_ref)
+    raw_client = (
+        'mysql --defaults-extra-file="$c" --connect-timeout=15 '
+        '--batch --raw --skip-column-names < "$q"'
+    )
+    escaped_client = (
+        'mysql --defaults-extra-file="$c" --connect-timeout=15 '
+        '--batch --skip-column-names < "$q"'
+    )
+    if len(command) < 2 or command[-1].count(raw_client) != 1:
+        raise ProductionRunnerError("trusted MySQL command contract changed")
+    command[-1] = command[-1].replace(raw_client, escaped_client)
+    return command
+
+
+def _extract_show_create_check_expression(ddl: str, constraint: str) -> str:
+    marker = re.compile(
+        r"CONSTRAINT\s+`?" + re.escape(constraint) + r"`?\s+CHECK\s*\(",
+        re.IGNORECASE,
+    )
+    matches = list(marker.finditer(ddl))
+    if len(matches) != 1:
+        raise ProductionRunnerError(
+            f"SHOW CREATE CHECK declaration is missing or duplicated for {constraint}"
+        )
+    start = matches[0].end() - 1
+    depth = 0
+    quoted: str | None = None
+    index = start
+    while index < len(ddl):
+        char = ddl[index]
+        if quoted is not None:
+            if char == quoted:
+                if index + 1 < len(ddl) and ddl[index + 1] == quoted:
+                    index += 2
+                    continue
+                quoted = None
+        elif char in "'\"`":
+            quoted = char
+        elif char == "(":
+            depth += 1
+        elif char == ")":
+            depth -= 1
+            if depth == 0:
+                suffix = ddl[index + 1:]
+                suffix_match = re.match(
+                    r"\s*(?:(NOT\s+)?ENFORCED)?\s*"
+                    r"(?=,\\n|\\n\)|,\s*CONSTRAINT|\))",
+                    suffix,
+                    re.IGNORECASE,
+                )
+                if suffix_match is None:
+                    raise ProductionRunnerError(
+                        f"SHOW CREATE CHECK terminator is ambiguous for {constraint}"
+                    )
+                if suffix_match.group(1):
+                    raise ProductionRunnerError(
+                        f"SHOW CREATE reports NOT ENFORCED for {constraint}"
+                    )
+                return ddl[start + 1:index]
+            if depth < 0:
+                break
+        index += 1
+    raise ProductionRunnerError(
+        f"SHOW CREATE CHECK expression is malformed for {constraint}"
+    )
+
+
+def parse_v42_show_create_output(output: str) -> dict[str, str]:
+    ddls: dict[str, str] = {}
+    for line in output.splitlines():
+        if not line.strip():
+            continue
+        parts = line.split("\t", 1)
+        if (
+            len(parts) != 2
+            or parts[0] not in V42_SHOW_CREATE_TABLES
+            or parts[0] in ddls
+        ):
+            raise ProductionRunnerError("V42 SHOW CREATE output row is unexpected")
+        ddls[parts[0]] = parts[1]
+    if set(ddls) != set(V42_SHOW_CREATE_TABLES):
+        raise ProductionRunnerError("V42 SHOW CREATE table set is not exact")
+    expected_by_table = {
+        table: {name for name, owner, _expression in V42_CHECK_CONTRACT if owner == table}
+        for table in V42_SHOW_CREATE_TABLES
+    }
+    for table, ddl in ddls.items():
+        observed_names = {
+            match.group(1)
+            for match in re.finditer(
+                r"CONSTRAINT\s+`?([A-Za-z][A-Za-z0-9_]*)`?\s+CHECK\s*\(",
+                ddl,
+                re.IGNORECASE,
+            )
+        }
+        if observed_names != expected_by_table[table]:
+            raise ProductionRunnerError(
+                f"V42 SHOW CREATE CHECK set is not exact for {table}"
+            )
+    proof: dict[str, str] = {}
+    for name, table, expected_expression in V42_CHECK_CONTRACT:
+        expression = _extract_show_create_check_expression(ddls[table], name)
+        if _normalise_check_expression(expression) != _normalise_check_expression(
+            expected_expression
+        ):
+            raise ProductionRunnerError(
+                f"SHOW CREATE CHECK expression mismatch for {name}"
+            )
+        proof[f"v42_show_create_check_{name}"] = _encode_metadata_record(
+            ("1", table, name, expression, "0")
+        )
+    return proof
+
+
+def _encode_metadata_record(values: Sequence[str | None]) -> str:
+    return ":".join(
+        ("~" if value is None else f"={value}").encode("utf-8").hex().upper()
+        for value in values
+    )
+
+
+def _runtime_capability_model(metadata: Mapping[str, str]) -> MetadataCapabilityModel:
+    strategy = metadata.get("v42_metadata_capability_strategy")
+    raw_sources = metadata.get("v42_metadata_enforcement_sources")
+    if strategy not in {"direct", "show_create"} or raw_sources is None:
+        raise ProductionRunnerError("V42 runtime metadata capability binding is missing")
+    sources = tuple(value for value in raw_sources.split(",") if value)
+    if (
+        len(set(sources)) != len(sources)
+        or any(value not in V42_METADATA_ENFORCEMENT_SOURCES for value in sources)
+        or sources != tuple(
+            value for value in V42_METADATA_ENFORCEMENT_SOURCES if value in sources
+        )
+    ):
+        raise ProductionRunnerError("V42 runtime enforcement source set is invalid")
+    if (strategy == "direct") != bool(sources):
+        raise ProductionRunnerError("V42 runtime enforcement strategy is inconsistent")
+    columns = {
+        table: set(value.split())
+        for table, value in _TIDB_V853_OBSERVED_METADATA_COLUMNS.items()
+    }
+    for source in sources:
+        columns[source].add("ENFORCED")
+    return validate_metadata_capabilities(
+        {table: frozenset(values) for table, values in columns.items()}
+    )
+
+
+def _validate_check_constraints(
+    metadata: Mapping[str, str],
+    capabilities: MetadataCapabilityModel | None = None,
+) -> dict[str, Any]:
+    model = capabilities or _runtime_capability_model(metadata)
     names = []
     for name, table, expression in V42_CHECK_CONTRACT:
         standard_key = f"v42_check_{name}"
@@ -1913,9 +2313,12 @@ def _validate_check_constraints(metadata: Mapping[str, str]) -> dict[str, Any]:
         tidb = _parse_metadata_record(
             metadata.get(tidb_key),
             key=tidb_key,
-            fields=V42_CHECK_METADATA_FIELD_ALIASES[:-1],
+            fields=V42_CHECK_METADATA_FIELD_ALIASES,
         )
-        if standard[:4] != ("1", EXPECTED_DATABASE, table, name):
+        expected_standard_table = (
+            table if "TABLE_CONSTRAINTS" in model.enforcement_sources else None
+        )
+        if standard[:4] != ("1", EXPECTED_DATABASE, expected_standard_table, name):
             raise ProductionRunnerError(f"V42 CHECK ownership mismatch for {name}")
         if tidb[:4] != ("1", EXPECTED_DATABASE, table, name):
             raise ProductionRunnerError(f"V42 TiDB CHECK ownership mismatch for {name}")
@@ -1926,8 +2329,43 @@ def _validate_check_constraints(metadata: Mapping[str, str]) -> dict[str, Any]:
             raise ProductionRunnerError(f"V42 CHECK expression mismatch for {name}")
         if standard_expression != tidb_expression:
             raise ProductionRunnerError(f"V42 CHECK metadata views disagree for {name}")
-        if (standard[5] or "").casefold() not in {"yes", "1", "true"}:
-            raise ProductionRunnerError(f"V42 CHECK is not enforced for {name}")
+        direct_values: list[str] = []
+        for value in (standard[5], tidb[5]):
+            if value:
+                direct_values.extend(part for part in value.split(",") if part)
+        if model.enforcement_strategy == "direct":
+            if len(direct_values) != len(model.enforcement_sources):
+                raise ProductionRunnerError(
+                    f"V42 CHECK enforcement source count mismatch for {name}"
+                )
+            normalised_enforcement = {value.casefold() for value in direct_values}
+            if normalised_enforcement != {"yes"} and normalised_enforcement != {"1"} \
+                    and normalised_enforcement != {"true"}:
+                raise ProductionRunnerError(
+                    f"V42 CHECK enforcement sources disagree or are not enforced for {name}"
+                )
+        else:
+            if direct_values:
+                raise ProductionRunnerError(
+                    f"V42 CHECK invented direct enforcement metadata for {name}"
+                )
+            show_key = f"v42_show_create_check_{name}"
+            show = _parse_metadata_record(
+                metadata.get(show_key),
+                key=show_key,
+                fields=(
+                    "row_count", "table_name", "constraint_name",
+                    "check_clause", "not_enforced",
+                ),
+            )
+            if show[:3] != ("1", table, name) or show[4] != "0":
+                raise ProductionRunnerError(
+                    f"CHECK_ENFORCEMENT_UNPROVABLE for {name}"
+                )
+            if _normalise_check_expression(show[3] or "") != expected_expression:
+                raise ProductionRunnerError(
+                    f"SHOW CREATE CHECK expression mismatch for {name}"
+                )
         names.append(name)
     return {
         "names": names,
@@ -2003,7 +2441,8 @@ def validate_postflight_user_prefix_binding(
 
 
 def validate_v42_postflight_extras(
-    extra_metadata: Mapping[str, str], before: Mapping[str, str]
+    extra_metadata: Mapping[str, str], before: Mapping[str, str],
+    capabilities: MetadataCapabilityModel | None = None,
 ) -> dict[str, Any]:
     observed_cols = _to_set(extra_metadata.get("v42_managed_columns", ""))
     if observed_cols != MANAGED_STORAGE_COLUMNS:
@@ -2026,7 +2465,7 @@ def validate_v42_postflight_extras(
         )
     foreign_key = _validate_event_media_fk(extra_metadata)
     cleanup_table = _validate_cleanup_table(extra_metadata)
-    checks = _validate_check_constraints(extra_metadata)
+    checks = _validate_check_constraints(extra_metadata, capabilities)
     if extra_metadata.get("tidb_enable_check_constraint") != "1":
         raise ProductionRunnerError(
             "@@global.tidb_enable_check_constraint is not '1'; CHECK enforcement is disabled"
@@ -2116,6 +2555,58 @@ def _verify_manifest_immutable(repo_root: Path) -> list[tuple[str, str]]:
     return entries
 
 
+def run_metadata_capability_query(
+    *,
+    target: Mapping[str, Any],
+    user: str,
+    password: str,
+    executor: Callable[[Sequence[str], str], base.CommandResult],
+    image_ref: str | None = None,
+) -> MetadataCapabilityModel:
+    """Probe the eight reviewed metadata objects once, before complex SQL."""
+    if image_ref is None:
+        image_ref = base.verify_docker_images()[base.MYSQL_CLIENT_IMAGE]
+    payload = base.build_mysql_payload(
+        host=target["host"],
+        port=target["port"],
+        database=target["database"],
+        user=user,
+        password=password,
+        sql=metadata_capability_sql_v42(),
+    )
+    result = base.run_external(
+        base.build_mysql_command(image_ref=image_ref),
+        payload,
+        secrets=(user, password),
+        executor=executor,
+    )
+    return parse_metadata_capability_rows(result.stdout)
+
+
+def run_v42_show_create_query(
+    *,
+    target: Mapping[str, Any],
+    user: str,
+    password: str,
+    executor: Callable[[Sequence[str], str], base.CommandResult],
+    image_ref: str,
+) -> dict[str, str]:
+    payload = _build_v42_show_create_payload(
+        host=target["host"],
+        port=target["port"],
+        database=target["database"],
+        user=user,
+        password=password,
+    )
+    result = base.run_external(
+        _build_v42_show_create_command(image_ref=image_ref),
+        payload,
+        secrets=(user, password),
+        executor=executor,
+    )
+    return parse_v42_show_create_output(result.stdout)
+
+
 def run_metadata_query(
     *,
     target: Mapping[str, Any],
@@ -2123,11 +2614,24 @@ def run_metadata_query(
     password: str,
     executor: Callable[[Sequence[str], str], base.CommandResult],
     postflight: bool,
+    capabilities: MetadataCapabilityModel | None = None,
+    mysql_image_ref: str | None = None,
 ) -> dict[str, str]:
-    images = base.verify_docker_images()
+    if mysql_image_ref is None:
+        mysql_image_ref = base.verify_docker_images()[base.MYSQL_CLIENT_IMAGE]
+    model = capabilities
+    if postflight and model is None:
+        model = run_metadata_capability_query(
+            target=target,
+            user=user,
+            password=password,
+            executor=executor,
+            image_ref=mysql_image_ref,
+        )
+    sql_model = model or observed_tidb_v853_metadata_capabilities()
     sql = (
         base.build_metadata_sql(postflight=postflight)
-        + metadata_sql_v42_postflight_extras()
+        + metadata_sql_v42_postflight_extras(sql_model)
     )
     payload = base.build_mysql_payload(
         host=target["host"],
@@ -2137,9 +2641,26 @@ def run_metadata_query(
         password=password,
         sql=sql,
     )
-    command = base.build_mysql_command(image_ref=images[base.MYSQL_CLIENT_IMAGE])
+    command = base.build_mysql_command(image_ref=mysql_image_ref)
     result = base.run_external(command, payload, secrets=(user, password), executor=executor)
-    return base.parse_mysql_metadata(result.stdout)
+    metadata = base.parse_mysql_metadata(result.stdout)
+    if postflight:
+        assert model is not None
+        metadata["v42_metadata_capability_strategy"] = model.enforcement_strategy
+        metadata["v42_metadata_enforcement_sources"] = ",".join(
+            model.enforcement_sources
+        )
+        if model.enforcement_strategy == "show_create":
+            metadata.update(
+                run_v42_show_create_query(
+                    target=target,
+                    user=user,
+                    password=password,
+                    executor=executor,
+                    image_ref=mysql_image_ref,
+                )
+            )
+    return metadata
 
 
 def run_bounded_metadata_query(
@@ -2360,16 +2881,36 @@ def run_postflight(
     )
     _verify_manifest_immutable(repo_root)
     migration_dir, manifest = _migration_paths_v42(repo_root)
+    images = base.verify_docker_images()
+    capabilities = run_metadata_capability_query(
+        target=target,
+        user=read_user,
+        password=read_password,
+        executor=executor,
+        image_ref=images[base.MYSQL_CLIENT_IMAGE],
+    )
     metadata = run_metadata_query(
         target=target, user=read_user, password=read_password,
-        executor=executor, postflight=True,
+        executor=executor, postflight=True, capabilities=capabilities,
+        mysql_image_ref=images[base.MYSQL_CLIENT_IMAGE],
     )
-    expected_metadata_keys = frozenset(
-        re.findall(
-            r"(?m)^SELECT '([a-z][a-z0-9_]*)',",
-            base.build_metadata_sql(postflight=True)
-            + metadata_sql_v42_postflight_extras(),
+    generated_sql = (
+        base.build_metadata_sql(postflight=True)
+        + metadata_sql_v42_postflight_extras(capabilities)
+    )
+    runtime_keys = {
+        "v42_metadata_capability_strategy",
+        "v42_metadata_enforcement_sources",
+    }
+    if capabilities.enforcement_strategy == "show_create":
+        runtime_keys.update(
+            f"v42_show_create_check_{name}"
+            for name, _table, _expression in V42_CHECK_CONTRACT
         )
+    expected_metadata_keys = frozenset(
+        re.findall(r"(?m)^SELECT '([a-z][a-z0-9_]*)',", generated_sql)
+    ).union(
+        runtime_keys
     )
     observed_metadata_keys = frozenset(metadata)
     if observed_metadata_keys != expected_metadata_keys:
@@ -2394,7 +2935,6 @@ def run_postflight(
             "@@global.tidb_enable_check_constraint is not '1'; CHECK enforcement is disabled"
         )
 
-    images = base.verify_docker_images()
     config = base.build_flyway_config(
         host=target["host"], port=target["port"], database=target["database"],
         user=read_user, password=read_password,
@@ -2457,6 +2997,7 @@ def run_postflight(
             "event_media_total": before_evidence["metadata"].get("event_media_total", ""),
             "active_admin_count": before_evidence["metadata"].get("active_admin_count", ""),
         },
+        capabilities=capabilities,
     )
     verification["production_user_prefix_verified"] = True
     return {"flyway": post_state, "metadata": metadata, "verification": verification}
@@ -2467,8 +3008,9 @@ def local_check(repo_root: Path) -> dict[str, Any]:
     entries = _verify_manifest_immutable(repo_root)
     _, manifest = _migration_paths_v42(repo_root)
     by_name = {name: digest for digest, name in entries}
+    capabilities = observed_tidb_v853_metadata_capabilities()
     check_sql_contract = _validate_check_metadata_sql_contract(
-        metadata_sql_v42_postflight_extras()
+        metadata_sql_v42_postflight_extras(capabilities), capabilities
     )
     return {
         "manifest": str(manifest),
@@ -2480,6 +3022,9 @@ def local_check(repo_root: Path) -> dict[str, Any]:
         "current_version": EXPECTED_CURRENT_VERSION,
         "transition": f"{EXPECTED_CURRENT_VERSION}->{TARGET_VERSION}",
         "check_metadata_sql_contract": check_sql_contract,
+        "metadata_sql_compatibility": validate_generated_metadata_sql_compatibility(
+            capabilities
+        ),
         "v42_entry_sha256_match": (
             by_name.get(EXPECTED_V42_SQL_FILE) == EXPECTED_V42_SQL_SHA
         ),

@@ -1387,11 +1387,16 @@ def _add_exact_v42_structured_metadata(metadata: dict[str, str]) -> None:
     metadata["v42_cleanup_initial_rows"] = "0"
     for name, table, expression in runner.V42_CHECK_CONTRACT:
         metadata[f"v42_check_{name}"] = _structured_record(
-            1, runner.EXPECTED_DATABASE, table, name, expression, "YES"
+            1, runner.EXPECTED_DATABASE, None, name, expression, None
         )
         metadata[f"v42_tidb_check_{name}"] = _structured_record(
-            1, runner.EXPECTED_DATABASE, table, name, expression
+            1, runner.EXPECTED_DATABASE, table, name, expression, None
         )
+        metadata[f"v42_show_create_check_{name}"] = _structured_record(
+            1, table, name, expression, 0
+        )
+    metadata["v42_metadata_capability_strategy"] = "show_create"
+    metadata["v42_metadata_enforcement_sources"] = ""
     metadata["v42_history_contract"] = _structured_record(
         1,
         runner.V42_FLYWAY_HISTORY_CONTRACT["version"],
@@ -1442,6 +1447,312 @@ def _metadata(*, before: dict[str, str]) -> dict[str, str]:
     return base_metadata
 
 
+def _capability_output(
+    columns: dict[str, frozenset[str]] | None = None,
+) -> str:
+    source = columns or runner.observed_tidb_v853_metadata_capabilities().columns
+    lines = []
+    for table in sorted(source):
+        for ordinal, column in enumerate(sorted(source[table]), start=1):
+            lines.append(
+                f"{table}\t{column}\t{ordinal}\tvarchar\tvarchar(64)\tYES"
+            )
+    return "\n".join(lines) + "\n"
+
+
+def _capability_model_with_sources(
+    *sources: str,
+) -> runner.MetadataCapabilityModel:
+    columns = {
+        table: set(values)
+        for table, values in runner.observed_tidb_v853_metadata_capabilities().columns.items()
+    }
+    for source in sources:
+        columns[source].add("ENFORCED")
+    return runner.validate_metadata_capabilities(
+        {table: frozenset(values) for table, values in columns.items()}
+    )
+
+
+def _metadata_for_capabilities(
+    before: dict[str, str], model: runner.MetadataCapabilityModel,
+) -> dict[str, str]:
+    metadata = _metadata(before=before)
+    metadata["v42_metadata_capability_strategy"] = model.enforcement_strategy
+    metadata["v42_metadata_enforcement_sources"] = ",".join(
+        model.enforcement_sources
+    )
+    for name, table, _expression in runner.V42_CHECK_CONTRACT:
+        standard_key = f"v42_check_{name}"
+        tidb_key = f"v42_tidb_check_{name}"
+        _replace_structured_field(
+            metadata,
+            standard_key,
+            2,
+            table if "TABLE_CONSTRAINTS" in model.enforcement_sources else None,
+        )
+        standard_sources = [
+            source
+            for source in ("CHECK_CONSTRAINTS", "TABLE_CONSTRAINTS")
+            if source in model.enforcement_sources
+        ]
+        _replace_structured_field(
+            metadata,
+            standard_key,
+            5,
+            ",".join("YES" for _source in standard_sources) or None,
+        )
+        _replace_structured_field(
+            metadata,
+            tidb_key,
+            5,
+            "YES" if "TIDB_CHECK_CONSTRAINTS" in model.enforcement_sources else None,
+        )
+    return metadata
+
+
+def _show_create_output(
+    *, not_enforced: str | None = None, missing: str | None = None,
+    wrong_expression: str | None = None, extra: bool = False,
+) -> str:
+    rows = []
+    for table in runner.V42_SHOW_CREATE_TABLES:
+        declarations = []
+        for name, owner, expression in runner.V42_CHECK_CONTRACT:
+            if owner != table or name == missing:
+                continue
+            observed = "1 = 1" if name == wrong_expression else expression
+            suffix = " NOT ENFORCED" if name == not_enforced else ""
+            declarations.append(
+                f"CONSTRAINT `{name}` CHECK (({observed})){suffix}"
+            )
+        if extra and table == "event_media":
+            declarations.append("CONSTRAINT `unexpected_check` CHECK ((1 = 1))")
+        ddl = (
+            f"CREATE TABLE `{table}` (`id` bigint NOT NULL,\\n  "
+            + ",\\n  ".join(declarations)
+            + "\\n) ENGINE=InnoDB"
+        )
+        rows.append(f"{table}\t{ddl}")
+    return "\n".join(rows) + "\n"
+
+
+class MetadataCapabilityContractTest(unittest.TestCase):
+    def test_capability_query_is_exact_bounded_and_deterministic(self) -> None:
+        sql = runner.metadata_capability_sql_v42()
+        self.assertEqual(sql, runner.metadata_capability_sql_v42())
+        self.assertNotIn("SELECT *", sql.upper())
+        self.assertEqual(sql.count("information_schema.columns"), 1)
+        self.assertIn(
+            "TABLE_NAME,COLUMN_NAME,ORDINAL_POSITION,DATA_TYPE,COLUMN_TYPE,IS_NULLABLE",
+            sql,
+        )
+        self.assertIn("ORDER BY UPPER(TABLE_NAME),ORDINAL_POSITION,COLUMN_NAME", sql)
+        for table in runner.V42_METADATA_CAPABILITY_OBJECTS:
+            self.assertEqual(sql.count(f"'{table}'"), 1)
+        for application_table in ("users", "event_media", "flyway_schema_history"):
+            self.assertNotIn(f"FROM {application_table}", sql)
+        self.assertTrue(base._read_only_sql_statements(sql))
+
+    def test_observed_tidb_v853_capability_fixture_is_complete(self) -> None:
+        model = runner.observed_tidb_v853_metadata_capabilities()
+        self.assertEqual(set(model.columns), set(runner.V42_METADATA_CAPABILITY_OBJECTS))
+        self.assertEqual(model.enforcement_sources, ())
+        self.assertEqual(model.enforcement_strategy, "show_create")
+        self.assertNotIn("ENFORCED", model.columns["TABLE_CONSTRAINTS"])
+        self.assertNotIn("ENFORCED", model.columns["CHECK_CONSTRAINTS"])
+        self.assertNotIn("ENFORCED", model.columns["TIDB_CHECK_CONSTRAINTS"])
+        for table, required in runner.V42_METADATA_REQUIRED_COLUMNS.items():
+            self.assertTrue(required.issubset(model.columns[table]), table)
+
+    def test_capability_parser_accepts_exact_rows_and_rejects_shape_drift(self) -> None:
+        expected = runner.observed_tidb_v853_metadata_capabilities()
+        self.assertEqual(runner.parse_metadata_capability_rows(_capability_output()), expected)
+        valid_lines = _capability_output().splitlines()
+        mutations = (
+            "\n".join(
+                line
+                for line in valid_lines
+                if not line.startswith("COLUMNS\tTABLE_SCHEMA\t")
+            ) + "\n",
+            "\n".join(valid_lines + [valid_lines[0]]) + "\n",
+            valid_lines[0].replace("\t", "|", 1) + "\n" + "\n".join(valid_lines[1:]) + "\n",
+            valid_lines[0].replace(
+                valid_lines[0].split("\t", 1)[0], "APPLICATION_TABLE", 1
+            ) + "\n" + "\n".join(valid_lines[1:]) + "\n",
+            "\n".join([valid_lines[1], valid_lines[0], *valid_lines[2:]]) + "\n",
+        )
+        for output in mutations:
+            with self.subTest(output_length=len(output)):
+                with self.assertRaises(runner.ProductionRunnerError):
+                    runner.parse_metadata_capability_rows(output)
+
+    def test_missing_required_table_or_column_fails_closed(self) -> None:
+        observed = runner.observed_tidb_v853_metadata_capabilities().columns
+        for table in runner.V42_METADATA_CAPABILITY_OBJECTS:
+            missing_table = dict(observed)
+            del missing_table[table]
+            with self.subTest(table=table):
+                with self.assertRaises(runner.ProductionRunnerError):
+                    runner.validate_metadata_capabilities(missing_table)
+        for table in ("COLUMNS", "TABLES", "STATISTICS", "KEY_COLUMN_USAGE", "REFERENTIAL_CONSTRAINTS"):
+            missing_column = dict(observed)
+            removed = next(iter(runner.V42_METADATA_REQUIRED_COLUMNS[table]))
+            missing_column[table] = frozenset(observed[table] - {removed})
+            with self.subTest(table=table, column=removed):
+                with self.assertRaises(runner.ProductionRunnerError):
+                    runner.validate_metadata_capabilities(missing_column)
+
+    def test_capability_probe_uses_one_read_only_mysql_invocation(self) -> None:
+        calls = []
+
+        def executor(command, stdin):
+            calls.append((tuple(command), stdin))
+            return base.CommandResult(tuple(command), 0, _capability_output(), "")
+
+        with patch.object(base, "resolve_docker_executable", return_value="C:/trusted/docker.exe"):
+            model = runner.run_metadata_capability_query(
+                target={"host": "prod.invalid", "port": 4000, "database": "lichsuvn"},
+                user="read-user",
+                password="read-password",
+                executor=executor,
+                image_ref="mysql@sha256:" + "a" * 64,
+            )
+        self.assertEqual(model.enforcement_strategy, "show_create")
+        self.assertEqual(len(calls), 1)
+        self.assertIn("--pull=never", calls[0][0])
+        self.assertIn("--rm", calls[0][0])
+        self.assertIn(runner.metadata_capability_sql_v42().strip(), calls[0][1])
+        self.assertNotRegex(calls[0][1], r"(?i)\b(?:INSERT|UPDATE|DELETE|ALTER|DROP)\b")
+
+    def test_check_sql_selects_only_reviewed_available_enforcement_sources(self) -> None:
+        observed = runner.observed_tidb_v853_metadata_capabilities()
+        observed_sql = runner.metadata_sql_v42_postflight_extras(observed)
+        self.assertNotRegex(observed_sql, r"(?i)\b(?:tc|cc|tcc)\.ENFORCED\b")
+        self.assertNotIn("JOIN information_schema.TABLE_CONSTRAINTS tc", observed_sql)
+        matrices = (
+            (("TABLE_CONSTRAINTS",), ("tc.ENFORCED",)),
+            (("CHECK_CONSTRAINTS",), ("cc.ENFORCED",)),
+            (("TIDB_CHECK_CONSTRAINTS",), ("tcc.ENFORCED",)),
+            (
+                ("TABLE_CONSTRAINTS", "CHECK_CONSTRAINTS", "TIDB_CHECK_CONSTRAINTS"),
+                ("tc.ENFORCED", "cc.ENFORCED", "tcc.ENFORCED"),
+            ),
+        )
+        for sources, references in matrices:
+            model = _capability_model_with_sources(*sources)
+            sql = runner.metadata_sql_v42_postflight_extras(model)
+            for source, alias in zip(
+                runner.V42_METADATA_ENFORCEMENT_SOURCES,
+                ("tc.ENFORCED", "cc.ENFORCED", "tcc.ENFORCED"),
+                strict=True,
+            ):
+                self.assertEqual(
+                    re.search(rf"(?i)\b{re.escape(alias)}\b", sql) is not None,
+                    source in sources,
+                )
+            for reference in references:
+                self.assertIn(reference, sql)
+
+    def test_direct_enforcement_sources_pass_and_disagreement_fails(self) -> None:
+        before = {
+            "users_total": "3", "historical_events_total": "361",
+            "event_media_total": "0", "active_admin_count": "2",
+        }
+        model = _capability_model_with_sources(
+            "TABLE_CONSTRAINTS", "CHECK_CONSTRAINTS", "TIDB_CHECK_CONSTRAINTS"
+        )
+        metadata = _metadata_for_capabilities(before, model)
+        result = runner.validate_v42_postflight_extras(
+            metadata, before=before, capabilities=model
+        )
+        self.assertTrue(result["check_constraints"]["enforced"])
+        changed = dict(metadata)
+        name = runner.V42_CHECK_CONTRACT[0][0]
+        _replace_structured_field(changed, f"v42_check_{name}", 5, "YES,NO")
+        with self.assertRaises(runner.ProductionRunnerError):
+            runner.validate_v42_postflight_extras(
+                changed, before=before, capabilities=model
+            )
+
+    def test_show_create_fallback_is_strict_and_never_invents_enforcement(self) -> None:
+        proof = runner.parse_v42_show_create_output(_show_create_output())
+        self.assertEqual(len(proof), 6)
+        failures = (
+            _show_create_output(not_enforced=runner.V42_CHECK_CONTRACT[0][0]),
+            _show_create_output(missing=runner.V42_CHECK_CONTRACT[0][0]),
+            _show_create_output(wrong_expression=runner.V42_CHECK_CONTRACT[0][0]),
+            _show_create_output(extra=True),
+            "event_media\tCREATE TABLE `event_media` (`id` bigint)\n",
+        )
+        for output in failures:
+            with self.subTest(output_length=len(output)):
+                with self.assertRaises(runner.ProductionRunnerError):
+                    runner.parse_v42_show_create_output(output)
+
+    def test_show_create_command_is_exact_digest_bound_and_shell_free(self) -> None:
+        with patch.object(base, "resolve_docker_executable", return_value="C:/trusted/docker.exe"):
+            command = runner._build_v42_show_create_command(
+                image_ref="mysql@sha256:" + "a" * 64
+            )
+        self.assertEqual(command[0], "C:/trusted/docker.exe")
+        self.assertIn("--pull=never", command)
+        self.assertIn("--rm", command)
+        self.assertNotIn("--raw", command[-1])
+        self.assertNotIn("shell=True", " ".join(command))
+        self.assertEqual(runner.v42_show_create_sql().count("SHOW CREATE TABLE"), 2)
+
+    def test_generated_full_sql_matches_observed_capabilities(self) -> None:
+        result = runner.validate_generated_metadata_sql_compatibility()
+        self.assertEqual(result["capability_object_count"], 8)
+        self.assertEqual(result["capability_query_count"], 1)
+        self.assertEqual(result["check_statement_count"], 12)
+        self.assertEqual(result["enforcement_strategy"], "show_create")
+        self.assertEqual(result["unsupported_reference_count"], 0)
+        sql = runner.metadata_sql_v42_postflight_extras()
+        self.assertIn(
+            "FROM information_schema.TIDB_CHECK_CONSTRAINTS WHERE CONSTRAINT_SCHEMA=DATABASE()",
+            sql,
+        )
+        self.assertNotIn(
+            "FROM information_schema.TABLE_CONSTRAINTS WHERE CONSTRAINT_SCHEMA=DATABASE()",
+            sql,
+        )
+
+    def test_capability_failure_precedes_complex_metadata_flyway_and_evidence(self) -> None:
+        with (
+            patch.object(runner, "validate_release_e_postflight_evidence"),
+            patch.object(runner, "_verify_manifest_immutable"),
+            patch.object(runner, "_migration_paths_v42", return_value=(Path("m"), Path("manifest"))),
+            patch.object(base, "verify_docker_images", return_value={
+                base.FLYWAY_IMAGE: "flyway@digest",
+                base.MYSQL_CLIENT_IMAGE: "mysql@digest",
+            }),
+            patch.object(
+                runner,
+                "run_metadata_capability_query",
+                side_effect=runner.ProductionRunnerError("missing capability"),
+            ),
+            patch.object(runner, "run_metadata_query") as metadata_query,
+            patch.object(runner, "run_flyway_v42") as flyway,
+            patch.object(runner, "write_and_reload_v42_postflight_evidence") as writer,
+        ):
+            with self.assertRaises(runner.ProductionRunnerError):
+                runner.run_postflight(
+                    repo_root=Path("repo"),
+                    target={"host": "prod.invalid", "port": 4000, "database": "lichsuvn"},
+                    identity={"user_prefix": "RHVnC4pobyyHQJT"},
+                    production_identity_evidence_sha256="a" * 64,
+                    read_user="read",
+                    read_password="secret",
+                    before_evidence={"metadata": {}},
+                    migration_installed_at_utc=datetime(2026, 8, 1, tzinfo=timezone.utc),
+                )
+        metadata_query.assert_not_called()
+        flyway.assert_not_called()
+        writer.assert_not_called()
+
+
 class CheckMetadataSqlContractTest(unittest.TestCase):
     def test_generated_check_sql_is_deterministic_safe_and_exactly_bounded(self) -> None:
         sql = runner.metadata_sql_v42_postflight_extras()
@@ -1454,6 +1765,7 @@ class CheckMetadataSqlContractTest(unittest.TestCase):
                 "aliases": list(runner.V42_CHECK_METADATA_FIELD_ALIASES),
                 "constraint_count": 6,
                 "view_count": 2,
+                "enforcement_strategy": "show_create",
             },
         )
         self.assertEqual(sql.count("("), sql.count(")"))
@@ -1483,7 +1795,7 @@ class CheckMetadataSqlContractTest(unittest.TestCase):
         )
         self.assertEqual(sql.count("FROM information_schema.CHECK_CONSTRAINTS cc"), 6)
         self.assertEqual(
-            sql.count("FROM information_schema.TIDB_CHECK_CONSTRAINTS"), 6
+            check_sql.count("FROM information_schema.TIDB_CHECK_CONSTRAINTS"), 6
         )
         for name, table, _expression in runner.V42_CHECK_CONTRACT:
             standard = next(
@@ -1496,10 +1808,13 @@ class CheckMetadataSqlContractTest(unittest.TestCase):
             )
             for statement in (standard, tidb):
                 self.assertIn("CONSTRAINT_SCHEMA=DATABASE()", statement)
-                self.assertIn(f"TABLE_NAME='{table}'", statement)
                 self.assertIn(f"CONSTRAINT_NAME='{name}'", statement)
                 self.assertIn("ORDER BY", statement)
-            self.assertIn("JOIN information_schema.TABLE_CONSTRAINTS tc", standard)
+            self.assertIn(f"TABLE_NAME='{table}'", tidb)
+            self.assertNotIn("TABLE_CONSTRAINTS", standard)
+            self.assertNotIn("tc.ENFORCED", standard)
+            self.assertIn("GROUP_CONCAT(NULL) AS check_table_values", standard)
+            self.assertIn("GROUP_CONCAT(NULL) AS check_enforcement_values", standard)
         self.assertTrue(base._read_only_sql_statements(sql))
 
     def test_structural_check_rejects_legacy_missing_duplicate_and_extra_aliases(self) -> None:
@@ -1528,7 +1843,7 @@ class CheckMetadataSqlContractTest(unittest.TestCase):
                         "GROUP_CONCAT(DISTINCT cc.CONSTRAINT_SCHEMA", 1),
             sql.replace("information_schema.CHECK_CONSTRAINTS cc",
                         "information_schema.TABLE_CONSTRAINTS cc", 1),
-            sql.replace("AND tc.TABLE_NAME='event_media' ", "", 1),
+            sql.replace("AND tcc.TABLE_NAME='event_media' ", "", 1),
             sql.replace("AND cc.CONSTRAINT_NAME='chk_event_media_storage_state'", "1=1", 1),
         )
         for changed in mutations:
@@ -1587,7 +1902,13 @@ class PostflightTest(unittest.TestCase):
             "users_total": "3", "historical_events_total": "361",
             "event_media_total": "0", "active_admin_count": "2",
         })
-        return {key: valid.get(key, "0") for key in keys}
+        result = {key: valid.get(key, "0") for key in keys}
+        result["v42_metadata_capability_strategy"] = "show_create"
+        result["v42_metadata_enforcement_sources"] = ""
+        for name, _table, _expression in runner.V42_CHECK_CONTRACT:
+            key = f"v42_show_create_check_{name}"
+            result[key] = valid[key]
+        return result
 
     def _run_standalone_postflight_with_metadata(
         self, metadata: dict[str, str]
@@ -1603,7 +1924,15 @@ class PostflightTest(unittest.TestCase):
             patch.object(
                 base,
                 "verify_docker_images",
-                return_value={base.FLYWAY_IMAGE: "flyway@digest"},
+                return_value={
+                    base.FLYWAY_IMAGE: "flyway@digest",
+                    base.MYSQL_CLIENT_IMAGE: "mysql@digest",
+                },
+            ),
+            patch.object(
+                runner,
+                "run_metadata_capability_query",
+                return_value=runner.observed_tidb_v853_metadata_capabilities(),
             ),
             patch.object(base, "build_flyway_config", return_value="config"),
             patch.object(base, "canonical_migration_directory") as staging,
@@ -1906,15 +2235,29 @@ class V42CompletePostflightContractTest(unittest.TestCase):
         expected_keys = re.findall(r"(?m)^SELECT '([a-z][a-z0-9_]*)',", sql)
         valid = self.metadata()
         raw = {key: valid.get(key, "0") for key in expected_keys}
+        raw["v42_metadata_capability_strategy"] = "show_create"
+        raw["v42_metadata_enforcement_sources"] = ""
+        for name, _table, _expression in runner.V42_CHECK_CONTRACT:
+            raw[f"v42_show_create_check_{name}"] = valid[
+                f"v42_show_create_check_{name}"
+            ]
         order: list[str] = []
         with (
             patch.object(runner, "validate_release_e_postflight_evidence"),
             patch.object(runner, "_verify_manifest_immutable"),
             patch.object(runner, "_migration_paths_v42", return_value=(Path("m"), Path("manifest"))),
+            patch.object(
+                runner,
+                "run_metadata_capability_query",
+                return_value=runner.observed_tidb_v853_metadata_capabilities(),
+            ),
             patch.object(runner, "run_metadata_query", side_effect=lambda **_kwargs: (order.append("metadata") or raw)),
             patch.object(runner, "validate_postflight_user_prefix_binding", side_effect=lambda **_kwargs: order.append("prefix")),
             patch.object(runner, "validate_database_metadata_v42"),
-            patch.object(base, "verify_docker_images", return_value={base.FLYWAY_IMAGE: "flyway@digest"}),
+            patch.object(base, "verify_docker_images", return_value={
+                base.FLYWAY_IMAGE: "flyway@digest",
+                base.MYSQL_CLIENT_IMAGE: "mysql@digest",
+            }),
             patch.object(base, "build_flyway_config", return_value="config"),
             patch.object(base, "canonical_migration_directory") as staging,
             patch.object(runner, "run_flyway_v42", return_value={}),
