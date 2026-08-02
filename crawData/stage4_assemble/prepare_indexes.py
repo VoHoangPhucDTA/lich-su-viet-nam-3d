@@ -5,6 +5,11 @@ from collections import defaultdict
 from pathlib import Path
 from typing import Any
 
+from geo_contract import (
+    geojson_position_to_marker,
+    normalize_geo_text,
+    phrase_alias_is_allowed,
+)
 from stage4_common import (
     CONFIG,
     DEDUPED_EVENTS,
@@ -14,7 +19,6 @@ from stage4_common import (
     OUTPUT,
     STAGE2_EVENTS,
     centroid,
-    normalize_text,
     read_json,
     read_jsonl,
     write_json,
@@ -30,6 +34,10 @@ MOJIBAKE_MARKERS = ("HÃ¬nh", "Chá»§", "Ä‘", "â€“", "�")
 
 
 class LessonIndexError(ValueError):
+    pass
+
+
+class ProvinceAliasError(ValueError):
     pass
 
 
@@ -110,7 +118,7 @@ def iter_coords(geometry: dict[str, Any]) -> list[dict[str, float]]:
             and isinstance(value[0], (int, float))
             and isinstance(value[1], (int, float))
         ):
-            coords.append({"lng": float(value[0]), "lat": float(value[1])})
+            coords.append(geojson_position_to_marker(value))
             return
         if isinstance(value, list):
             for child in value:
@@ -326,30 +334,60 @@ def build_stage2_index() -> dict[str, Any]:
     return dict(by_id)
 
 
+def build_province_lookups(entries: list[tuple[str, str, str]]) -> tuple[dict[str, str], dict[str, str]]:
+    exact_lookup: dict[str, str] = {}
+    phrase_lookup: dict[str, str] = {}
+    for alias, canonical, source in entries:
+        normalized = normalize_geo_text(alias)
+        if not normalized:
+            raise ProvinceAliasError(f"Empty province alias after normalization: {alias!r} ({source})")
+        if not phrase_alias_is_allowed(normalized):
+            raise ProvinceAliasError(
+                f"Province alias is too short or ambiguous for matching: {alias!r} -> {normalized!r} ({source})"
+            )
+        for lookup_name, lookup in (("exactLookup", exact_lookup), ("phraseLookup", phrase_lookup)):
+            existing = lookup.get(normalized)
+            if existing is not None and existing != canonical:
+                raise ProvinceAliasError(
+                    f"{lookup_name} collision for {normalized!r}: {existing!r} vs {canonical!r} ({source})"
+                )
+            lookup[normalized] = canonical
+    return exact_lookup, phrase_lookup
+
+
 def build_gadm_index() -> dict[str, Any]:
     geo = read_json(GADM_GEOJSON, {"features": []})
     aliases = read_json(CONFIG / "province_aliases.json", {})
     provinces: dict[str, Any] = {}
-    lookup: dict[str, str] = {}
+    lookup_entries: list[tuple[str, str, str]] = []
     for feature in geo.get("features", []):
         props = feature.get("properties") or {}
         name = props.get("NAME_1")
         if not name:
             continue
         c = centroid(iter_coords(feature.get("geometry") or {}))
+        display_name = GADM_NAME_DISPLAY.get(name, name)
         provinces[name] = {
-            "provinceName": GADM_NAME_DISPLAY.get(name, name),
+            "provinceName": display_name,
             "gadmName": name,
             "gadmRef": props.get("GID_1"),
             "center": c,
             "properties": props,
         }
-        lookup[normalize_text(name)] = name
-        lookup[normalize_text(name.replace(" ", ""))] = name
+        lookup_entries.append((name, name, f"GADM NAME_1 {name!r}"))
+        lookup_entries.append((display_name, name, f"display name for {name!r}"))
     for alias, canonical in aliases.items():
         if canonical in provinces:
-            lookup[normalize_text(alias)] = canonical
-    return {"provinces": provinces, "lookup": lookup}
+            lookup_entries.append((alias, canonical, f"province_aliases.json {alias!r}"))
+    exact_lookup, phrase_lookup = build_province_lookups(lookup_entries)
+    return {
+        "provinces": provinces,
+        "exactLookup": exact_lookup,
+        "phraseLookup": phrase_lookup,
+        # Kept for one release as a reader compatibility key. New code uses the
+        # explicit exact/phrase tables above.
+        "lookup": exact_lookup,
+    }
 
 
 def build_location_index() -> dict[str, Any]:
@@ -361,7 +399,7 @@ def build_location_index() -> dict[str, Any]:
         base = dict(locations.get(name, {}))
         base.update(override)
         locations[name] = base
-    lookup = {normalize_text(name): name for name in locations}
+    lookup = {normalize_geo_text(name, strip_admin_prefix=False): name for name in locations}
     return {"locations": locations, "lookup": lookup}
 
 
