@@ -2350,6 +2350,33 @@ class V42CompletePostflightContractTest(unittest.TestCase):
         with self.assertRaisesRegex(runner.ProductionRunnerError, "malformed"):
             runner.validate_v42_postflight_extras(malformed, before=self.BEFORE)
 
+    def test_cleanup_created_at_accepts_tidb_v853_extra_contract_only(self) -> None:
+        metadata = self.metadata()
+        runner.validate_v42_postflight_extras(metadata, before=self.BEFORE)
+
+        key = "v42_cleanup_column_created_at"
+        for unsafe_extra in (
+            "DEFAULT_GENERATED on update CURRENT_TIMESTAMP(6)",
+            "on update CURRENT_TIMESTAMP(6)",
+            "generated always",
+        ):
+            with self.subTest(extra=unsafe_extra):
+                changed = self.metadata()
+                _replace_structured_field(changed, key, 11, unsafe_extra)
+                with self.assertRaisesRegex(
+                    runner.ProductionRunnerError,
+                    "cleanup column extra attributes mismatch for created_at",
+                ):
+                    runner.validate_v42_postflight_extras(
+                        changed,
+                        before=self.BEFORE,
+                    )
+
+        malformed = self.metadata()
+        malformed[key] = "not-hex"
+        with self.assertRaisesRegex(runner.ProductionRunnerError, "malformed"):
+            runner.validate_v42_postflight_extras(malformed, before=self.BEFORE)
+
     def test_check_contract_accepts_cosmetic_tidb_variants_only(self) -> None:
         metadata = self.metadata()
         name = "chk_event_media_storage_state"

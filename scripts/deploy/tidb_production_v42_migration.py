@@ -319,7 +319,7 @@ V42_CLEANUP_COLUMN_CONTRACT = (
     ("claim_token", "char", ("char(36)",), "YES", None, "ascii", "ascii_bin", None, ""),
     ("claim_expires_at", "datetime", ("datetime(6)",), "YES", None, None, None, "6", ""),
     ("last_error_code", "varchar", ("varchar(64)",), "YES", None, "utf8mb4", "utf8mb4_0900_ai_ci", None, ""),
-    ("created_at", "datetime", ("datetime(6)",), "NO", "CURRENT_TIMESTAMP(6)", None, None, "6", "DEFAULT_GENERATED"),
+    ("created_at", "datetime", ("datetime(6)",), "NO", "CURRENT_TIMESTAMP(6)", None, None, "6", ""),
     ("updated_at", "datetime", ("datetime(6)",), "NO", "CURRENT_TIMESTAMP(6)", None, None, "6", "DEFAULT_GENERATED on update CURRENT_TIMESTAMP(6)"),
 )
 V42_CLEANUP_INDEX_CONTRACT = (

@@ -550,6 +550,17 @@ claim_expires_at, id)``, exactly zero foreign keys, and initial row count zero.
 That zero-row expectation comes from the immutable V42 source containing no
 ``INSERT`` into this newly created table.
 
+For the pinned TiDB Serverless v8.5.3 metadata contract, ``created_at`` reports
+an empty ``information_schema.COLUMNS.EXTRA`` value while independently
+reporting ``COLUMN_DEFAULT = CURRENT_TIMESTAMP(6)`` and
+``DATETIME_PRECISION = 6``.  ``updated_at`` reports
+``DEFAULT_GENERATED on update CURRENT_TIMESTAMP(6)``.  The checker verifies
+those fields separately and exactly: an ``ON UPDATE`` attribute on
+``created_at``, a missing ``ON UPDATE`` attribute on ``updated_at``, or drift
+in either default or precision remains a fail-closed schema mismatch.  This is
+a read-only metadata-representation correction and does not change V42 SQL or
+authorize another migration.
+
 All six CHECK constraints are cross-bound between
 ``CHECK_CONSTRAINTS`` and ``TIDB_CHECK_CONSTRAINTS`` by schema, owner table,
 name and expression.  Enforcement must agree across every direct metadata
