@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import {
   addAdminEventMedia,
+  replaceAdminEventImage,
   removeAdminEventMedia,
   reorderAdminEventMedia,
   selectAdminEventThumbnail,
@@ -39,11 +40,27 @@ export default function AdminEventMediaSection({
   const [editingId, setEditingId] = useState<number | null>(null);
   const [editing, setEditing] = useState<EditableMedia | null>(null);
   const [pendingRemoveId, setPendingRemoveId] = useState<number | null>(null);
+  const [replacementId, setReplacementId] = useState<number | null>(null);
+  const [replacementFile, setReplacementFile] = useState<File | null>(null);
+  const [replacementError, setReplacementError] = useState('');
+  const [replacementBusy, setReplacementBusy] = useState(false);
   const [uploadDirty, setUploadDirty] = useState(false);
   const versionRef = useRef(version);
   const media = detail.media.items;
-  const dirty = uploadDirty || editingId !== null || form.url.trim() !== '';
+  const dirty = uploadDirty || editingId !== null || form.url.trim() !== '' || replacementFile !== null;
   const pendingRemove = media.find(item => item.id === pendingRemoveId);
+  const replacement = media.find(item => item.id === replacementId);
+
+  const chooseReplacement = (file: File | undefined) => {
+    if (!file) return;
+    if (file.size <= 0 || file.size > 10 * 1024 * 1024
+      || !new Set(['image/jpeg', 'image/png']).has(file.type)) {
+      setReplacementError('Chỉ hỗ trợ ảnh JPEG/PNG hợp lệ, tối đa 10 MiB.');
+      return;
+    }
+    setReplacementFile(file);
+    setReplacementError('');
+  };
 
   useEffect(() => {
     onDirtyChange?.(dirty);
@@ -195,6 +212,15 @@ export default function AdminEventMediaSection({
               onClick={() => void run(() => selectAdminEventThumbnail(eventId, item.id, versionRef.current))}>
               Chọn thumbnail
             </button>
+            {item.managed && item.mediaType === 'image' && item.status === 'active' && (
+              <button type="button" disabled={disabled || busy} onClick={() => {
+                setReplacementId(item.id);
+                setReplacementFile(null);
+                setReplacementError('');
+              }}>
+                Thay asset
+              </button>
+            )}
             <button
               type="button"
               disabled={disabled || busy}
@@ -235,6 +261,48 @@ export default function AdminEventMediaSection({
           }
         }}
       />
+      <AdminConfirmDialog
+        open={replacementId !== null}
+        title="Thay asset managed?"
+        description="Asset cũ được giữ nguyên cho đến khi bản thay thế được lưu; cleanup Cloudinary chạy bất đồng bộ sau đó."
+        confirmLabel={replacementBusy ? 'Đang thay…' : 'Thay asset'}
+        confirmDisabled={replacementBusy || replacementFile === null}
+        onCancel={() => { if (!replacementBusy) { setReplacementId(null); setReplacementFile(null); setReplacementError(''); } }}
+        onConfirm={() => {
+          if (!replacement || !replacementFile || replacementBusy) return;
+          setReplacementBusy(true);
+          void run(async () => {
+            try {
+              const response = await replaceAdminEventImage(eventId, replacement.id, {
+                file: replacementFile,
+                expectedUpdatedAt: versionRef.current,
+              });
+              setReplacementId(null);
+              setReplacementFile(null);
+              return response.event;
+            } catch (cause) {
+              setReplacementError(cause instanceof ApiRequestError
+                ? (publishedEventMutationError(cause) ?? cause.message)
+                : 'Không thể thay asset.');
+              throw cause;
+            } finally {
+              setReplacementBusy(false);
+            }
+          });
+        }}
+      >
+        <label className="text-sm font-medium">Ảnh mới
+          <input
+            className="mt-2 block"
+            type="file"
+            accept=".jpg,.jpeg,.png,image/jpeg,image/png"
+            aria-label="Chọn asset mới"
+            disabled={replacementBusy}
+            onChange={event => chooseReplacement(event.target.files?.[0])}
+          />
+        </label>
+        {replacementError && <p role="alert" className="mt-2 text-sm text-[var(--accent)]">{replacementError}</p>}
+      </AdminConfirmDialog>
     </section>
   );
 }

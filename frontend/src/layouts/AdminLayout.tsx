@@ -2,6 +2,7 @@ import { useEffect, useRef, useState, type ReactNode, type RefObject } from 'rea
 import { NavLink, useNavigate } from 'react-router-dom';
 import {
   CalendarDays,
+  ClipboardList,
   LayoutDashboard,
   LogOut,
   Menu,
@@ -18,6 +19,7 @@ const NAV_ITEMS: AdminNavItem[] = [
   { to: '/admin/dashboard', label: 'Tổng quan', icon: LayoutDashboard, adminOnly: true },
   { to: '/admin/events', label: 'Sự kiện lịch sử', icon: CalendarDays, adminOnly: true },
   { to: '/admin/users', label: 'Người dùng', icon: Users, adminOnly: true },
+  { to: '/admin/media-cleanup', label: 'Media cleanup', icon: ClipboardList, adminOnly: true },
 ];
 
 function AdminSidebar({

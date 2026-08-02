@@ -766,3 +766,12 @@ and ``TIDB_PRODUCTION_MIGRATE_*`` variables plus the two
 ``TIDB_PRODUCTION_*_IMAGE_DIGEST`` values via their preferred operator
 mechanism (Windows User environment, local ``.env``, or signed shell
 wrapper) and never pastes them into chat or screenshots.
+
+## 18. Post-release Admin image lifecycle
+
+V42 is a completed, frozen database release.  The application-level managed
+image replacement and cleanup-observability contract is documented separately
+in [ADMIN_MANAGED_IMAGE_LIFECYCLE.md](ADMIN_MANAGED_IMAGE_LIFECYCLE.md), with
+the controlled browser procedure in
+[ADMIN_MANAGED_IMAGE_MANUAL_TEST_PLAN.md](ADMIN_MANAGED_IMAGE_MANUAL_TEST_PLAN.md).
+Neither document authorizes rerunning V42, preflight, or postflight.

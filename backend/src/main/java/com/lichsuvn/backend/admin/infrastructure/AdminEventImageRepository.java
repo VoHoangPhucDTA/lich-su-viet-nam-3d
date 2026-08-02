@@ -105,12 +105,16 @@ public class AdminEventImageRepository {
     }
 
     public void armCleanup(String publicId, LocalDateTime nextAttemptAt) {
+        armCleanup(publicId, null, nextAttemptAt);
+    }
+
+    public void armCleanup(String publicId, String providerAssetId, LocalDateTime nextAttemptAt) {
         jdbc.update("""
                 INSERT INTO event_media_storage_cleanup_tasks(
-                    provider,public_id,operation,task_status,attempts,next_attempt_at
-                ) VALUES('cloudinary',:publicId,'DELETE','PENDING',0,:nextAttemptAt)
+                    provider,public_id,provider_asset_id,operation,task_status,attempts,next_attempt_at
+                ) VALUES('cloudinary',:publicId,:providerAssetId,'DELETE','PENDING',0,:nextAttemptAt)
                 ON DUPLICATE KEY UPDATE
-                    provider_asset_id=NULL,
+                    provider_asset_id=COALESCE(VALUES(provider_asset_id),provider_asset_id),
                     task_status='PENDING',
                     attempts=0,
                     next_attempt_at=:nextAttemptAt,
@@ -119,6 +123,7 @@ public class AdminEventImageRepository {
                     last_error_code=NULL
                 """, new MapSqlParameterSource()
                 .addValue("publicId", publicId)
+                .addValue("providerAssetId", providerAssetId)
                 .addValue("nextAttemptAt", nextAttemptAt));
     }
 
@@ -221,6 +226,96 @@ public class AdminEventImageRepository {
                 rs.getBoolean("is_thumbnail"),
                 rs.getString("status")));
         return rows.isEmpty() ? null : rows.getFirst();
+    }
+
+    public ReplacementMedia lockReplacementMedia(long mediaId) {
+        List<ReplacementMedia> rows = jdbc.query("""
+                SELECT id,event_id,managed_asset_id,storage_provider,storage_public_id,
+                       storage_asset_id,storage_state,is_thumbnail,status,sort_order,
+                       caption,alt_text,source_name,license
+                FROM event_media
+                WHERE id=:mediaId
+                FOR UPDATE
+                """, params("mediaId", mediaId), (rs, row) -> new ReplacementMedia(
+                rs.getLong("id"),
+                rs.getString("event_id"),
+                rs.getString("managed_asset_id"),
+                rs.getString("storage_provider"),
+                rs.getString("storage_public_id"),
+                rs.getString("storage_asset_id"),
+                rs.getString("storage_state"),
+                rs.getBoolean("is_thumbnail"),
+                rs.getString("status"),
+                rs.getInt("sort_order"),
+                rs.getString("caption"),
+                rs.getString("alt_text"),
+                rs.getString("source_name"),
+                rs.getString("license")));
+        return rows.isEmpty() ? null : rows.getFirst();
+    }
+
+    public void replaceManagedStorage(
+            ReplacementMedia existing,
+            String newAssetId,
+            EventImageStorage.StoredImage stored,
+            String deliveryUrl,
+            EventImageValidator.ValidatedEventImage image,
+            byte[] actorId,
+            ReplacementMetadata metadata
+    ) {
+        int updated = jdbc.update("""
+                UPDATE event_media
+                SET managed_asset_id=:newAssetId,
+                    storage_provider='cloudinary',
+                    storage_public_id=:publicId,
+                    storage_asset_id=:providerAssetId,
+                    storage_original_url=:originalUrl,
+                    storage_version=:providerVersion,
+                    storage_mime_type=:mimeType,
+                    storage_format=:format,
+                    storage_byte_size=:byteSize,
+                    storage_sha256=:sha256,
+                    storage_width=:width,
+                    storage_height=:height,
+                    uploaded_by=:actorId,
+                    uploaded_at=CURRENT_TIMESTAMP(6),
+                    storage_state='READY',
+                    upload_token=NULL,
+                    upload_started_at=NULL,
+                    upload_expires_at=NULL,
+                    url=:deliveryUrl,
+                    caption=:caption,
+                    alt_text=:altText,
+                    source_name=:sourceName,
+                    license=:license
+                WHERE id=:mediaId
+                  AND storage_state='READY'
+                  AND managed_asset_id=:oldAssetId
+                  AND storage_public_id=:oldPublicId
+                """, new MapSqlParameterSource()
+                .addValue("mediaId", existing.id())
+                .addValue("oldAssetId", existing.managedAssetId())
+                .addValue("oldPublicId", existing.publicId())
+                .addValue("newAssetId", newAssetId)
+                .addValue("publicId", stored.publicId())
+                .addValue("providerAssetId", stored.providerAssetId())
+                .addValue("originalUrl", stored.originalUrl())
+                .addValue("providerVersion", stored.providerVersion())
+                .addValue("mimeType", stored.mimeType())
+                .addValue("format", stored.format())
+                .addValue("byteSize", stored.byteSize())
+                .addValue("sha256", image.sha256())
+                .addValue("width", stored.width())
+                .addValue("height", stored.height())
+                .addValue("actorId", actorId)
+                .addValue("deliveryUrl", deliveryUrl)
+                .addValue("caption", metadata.caption())
+                .addValue("altText", metadata.altText())
+                .addValue("sourceName", metadata.sourceName())
+                .addValue("license", metadata.license()));
+        if (updated != 1) {
+            throw new IllegalStateException("Managed image replacement target changed");
+        }
     }
 
     public void markDeletePending(long mediaId) {
@@ -374,6 +469,66 @@ public class AdminEventImageRepository {
                 .addValue("claimToken", claimToken));
     }
 
+    public CleanupSummary cleanupSummary() {
+        List<CleanupStatusCount> rows = jdbc.query("""
+                SELECT task_status, COUNT(*) AS task_count
+                FROM event_media_storage_cleanup_tasks
+                GROUP BY task_status
+                """, (rs, row) -> new CleanupStatusCount(
+                rs.getString("task_status"), rs.getLong("task_count")));
+        long pending = 0, claimed = 0, failed = 0, completed = 0;
+        for (CleanupStatusCount row : rows) {
+            switch (row.status()) {
+                case "PENDING" -> pending = row.count();
+                case "CLAIMED" -> claimed = row.count();
+                case "FAILED" -> failed = row.count();
+                case "COMPLETED" -> completed = row.count();
+                default -> throw new IllegalStateException("Unexpected cleanup status");
+            }
+        }
+        return new CleanupSummary(pending, claimed, failed, completed);
+    }
+
+    public long countCleanup(CleanupQuery query) {
+        return jdbc.queryForObject("SELECT COUNT(*) FROM event_media_storage_cleanup_tasks task "
+                + query.where(), query.parameters(), Long.class);
+    }
+
+    public List<CleanupListItem> findCleanup(CleanupQuery query) {
+        MapSqlParameterSource parameters = query.parameters()
+                .addValue("limit", query.limit())
+                .addValue("offset", query.offset());
+        return jdbc.query("""
+                SELECT task.id,task.provider,task.public_id,task.provider_asset_id,
+                       task.operation,task.task_status,task.attempts,task.next_attempt_at,
+                       task.claim_expires_at,task.last_error_code,task.created_at,task.updated_at,
+                       media.id AS media_id,media.event_id,media.managed_asset_id
+                FROM event_media_storage_cleanup_tasks task
+                LEFT JOIN event_media media
+                  ON media.storage_provider=task.provider
+                 AND media.storage_public_id=task.public_id
+                %s
+                ORDER BY %s
+                LIMIT :limit OFFSET :offset
+                """.formatted(query.where(), query.orderBy()), parameters, (rs, row) ->
+                new CleanupListItem(
+                        rs.getLong("id"),
+                        rs.getString("provider"),
+                        rs.getString("public_id"),
+                        rs.getString("provider_asset_id"),
+                        rs.getString("operation"),
+                        rs.getString("task_status"),
+                        rs.getInt("attempts"),
+                        local(rs.getTimestamp("next_attempt_at")),
+                        local(rs.getTimestamp("claim_expires_at")),
+                        rs.getString("last_error_code"),
+                        local(rs.getTimestamp("created_at")),
+                        local(rs.getTimestamp("updated_at")),
+                        rs.getObject("media_id") == null ? null : rs.getLong("media_id"),
+                        rs.getString("event_id"),
+                        rs.getString("managed_asset_id")));
+    }
+
     private MapSqlParameterSource params(String name, Object value) {
         return new MapSqlParameterSource(name, value);
     }
@@ -422,6 +577,27 @@ public class AdminEventImageRepository {
     ) {
     }
 
+    public record ReplacementMedia(
+            long id,
+            String eventId,
+            String managedAssetId,
+            String provider,
+            String publicId,
+            String providerAssetId,
+            String storageState,
+            boolean thumbnail,
+            String status,
+            int sortOrder,
+            String caption,
+            String altText,
+            String sourceName,
+            String license
+    ) {
+    }
+
+    public record ReplacementMetadata(String caption, String altText, String sourceName, String license) {
+    }
+
     public record CleanupClaim(
             long id,
             String provider,
@@ -432,5 +608,33 @@ public class AdminEventImageRepository {
     }
 
     public record CleanupDecision(String storageState, LocalDateTime uploadExpiresAt) {
+    }
+
+    public record CleanupSummary(long pending, long claimed, long failed, long completed) {
+    }
+
+    private record CleanupStatusCount(String status, long count) {
+    }
+
+    public record CleanupListItem(
+            long id,
+            String provider,
+            String publicId,
+            String providerAssetId,
+            String operation,
+            String status,
+            int attempts,
+            LocalDateTime nextAttemptAt,
+            LocalDateTime claimExpiresAt,
+            String lastErrorCode,
+            LocalDateTime createdAt,
+            LocalDateTime updatedAt,
+            Long mediaId,
+            String eventId,
+            String managedAssetId
+    ) {
+    }
+
+    public record CleanupQuery(String where, MapSqlParameterSource parameters, String orderBy, int limit, int offset) {
     }
 }

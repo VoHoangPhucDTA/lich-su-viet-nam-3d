@@ -78,6 +78,21 @@ class AdminEventImageCleanupServiceTest {
                 anyLong(), anyString(), anyString());
     }
 
+    @Test
+    void activeManagedAssetIsNeverDeletedByCleanupWorker() {
+        var claim = claim(1);
+        when(repository.claimCleanup(any(), any(), anyString(), anyInt())).thenReturn(claim);
+        when(repository.cleanupDecision(anyString(), any()))
+                .thenReturn(new AdminEventImageRepository.CleanupDecision("READY", null));
+        when(storage.available()).thenReturn(true);
+        var service = service(3);
+
+        service.runOnce();
+
+        verify(storage, never()).delete(any());
+        verify(repository).finishCleanup(eq(claim.id()), anyString(), eq("__never_matches_ready__"));
+    }
+
     private void arrangeClaim(AdminEventImageRepository.CleanupClaim claim) {
         when(repository.claimCleanup(any(), any(), anyString(), anyInt()))
                 .thenReturn(claim);

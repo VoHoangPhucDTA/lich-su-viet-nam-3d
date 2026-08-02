@@ -90,7 +90,7 @@ public class CloudinaryEventImageStorage implements EventImageStorage {
     public StoredImage upload(UploadCommand command) {
         requireAvailable();
         try {
-            Map<String, Object> result = operations.upload.apply(command.bytes(), uploadOptions(command.publicId()));
+            Map<String, Object> result = operations.upload.apply(command.bytes(), uploadOptions(command));
             rejectProviderError(result, "EVENT_IMAGE_PROVIDER_UPLOAD_FAILED");
             String publicId = string(result, "public_id");
             String assetId = string(result, "asset_id");
@@ -167,13 +167,26 @@ public class CloudinaryEventImageStorage implements EventImageStorage {
     }
 
     static Map<String, Object> uploadOptions(String publicId) {
-        return ObjectUtils.asMap(
-                "public_id", publicId,
-                "resource_type", "image",
-                "type", "upload",
-                "overwrite", false,
-                "unique_filename", false,
-                "transformation", "fl_force_strip");
+        return uploadOptions(new EventImageStorage.UploadCommand(new byte[0], publicId, "image/jpeg"));
+    }
+
+    static Map<String, Object> uploadOptions(EventImageStorage.UploadCommand command) {
+        Map<String, Object> options = new LinkedHashMap<>();
+        options.put("public_id", command.publicId());
+        options.put("resource_type", "image");
+        options.put("type", "upload");
+        options.put("overwrite", false);
+        options.put("unique_filename", false);
+        options.put("transformation", "fl_force_strip");
+        if (!command.ownershipTags().isEmpty()) {
+            options.put("tags", String.join(",", command.ownershipTags()));
+        }
+        if (!command.ownershipContext().isEmpty()) {
+            options.put("context", command.ownershipContext().entrySet().stream()
+                    .map(entry -> entry.getKey() + "=" + entry.getValue())
+                    .collect(java.util.stream.Collectors.joining("|")));
+        }
+        return options;
     }
 
     private void requireAvailable() {

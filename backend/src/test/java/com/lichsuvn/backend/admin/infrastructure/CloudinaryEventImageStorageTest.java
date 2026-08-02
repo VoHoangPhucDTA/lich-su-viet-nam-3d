@@ -4,6 +4,8 @@ import com.lichsuvn.backend.admin.application.EventImageStorage;
 import org.junit.jupiter.api.Test;
 
 import java.util.Map;
+import java.util.List;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicReference;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -47,6 +49,31 @@ class CloudinaryEventImageStorageTest {
         assertEquals("png", result.format());
         assertEquals(20, result.width());
         assertEquals(10, result.height());
+    }
+
+    @Test
+    void uploadCarriesOnlyApprovedOwnershipTagsAndContext() {
+        AtomicReference<Map<String, Object>> captured = new AtomicReference<>();
+        var storage = configured((bytes, options) -> {
+            captured.set(options);
+            return Map.of(
+                    "public_id", "events/event-1/media/asset-1",
+                    "asset_id", "provider-asset", "version", 42L,
+                    "secure_url", "https://res.cloudinary.com/demo/image/upload/v42/original",
+                    "resource_type", "image", "format", "png", "width", 20,
+                    "height", 10, "bytes", 123);
+        }, (publicId, options) -> Map.of("result", "ok"));
+
+        storage.upload(new EventImageStorage.UploadCommand(
+                new byte[]{1}, "events/event-1/media/asset-1", "image/png",
+                List.of("lsvn3d", "managed-event-media", "event-event-1", "role-gallery"),
+                Map.of("managed_asset_id", "asset-1", "event_id", "event-1",
+                        "media_role", "gallery", "source", "lsvn3d")));
+
+        assertEquals("lsvn3d,managed-event-media,event-event-1,role-gallery", captured.get().get("tags"));
+        assertEquals(Set.of("managed_asset_id=asset-1", "event_id=event-1",
+                        "media_role=gallery", "source=lsvn3d"),
+                Set.of(((String) captured.get().get("context")).split("\\|")));
     }
 
     @Test

@@ -590,6 +590,55 @@ export interface AdminEventImageUploadResponse {
   event: AdminEventDetail;
 }
 
+export interface AdminEventImageReplacementInput {
+  file: File;
+  expectedUpdatedAt: string;
+  altText?: string;
+  caption?: string;
+  sourceName?: string;
+  license?: string;
+}
+
+export interface AdminEventImageReplacementResponse {
+  mediaId: number;
+  updatedAt: string;
+  event: AdminEventDetail;
+}
+
+export interface AdminMediaCleanupSummary {
+  pending: number;
+  claimed: number;
+  failed: number;
+  completed: number;
+}
+
+export interface AdminMediaCleanupItem {
+  id: number;
+  provider: string;
+  publicId: string;
+  providerAssetId?: string | null;
+  operation: 'DELETE';
+  status: 'PENDING' | 'CLAIMED' | 'FAILED' | 'COMPLETED';
+  attempts: number;
+  nextAttemptAt: string | null;
+  claimExpiresAt?: string | null;
+  lastErrorCode?: string | null;
+  createdAt: string;
+  updatedAt: string;
+  mediaId?: number | null;
+  eventId?: string | null;
+  managedAssetId?: string | null;
+}
+
+export interface AdminMediaCleanupQuery {
+  status?: AdminMediaCleanupItem['status'];
+  operation?: AdminMediaCleanupItem['operation'];
+  sortBy?: 'createdAt' | 'nextAttemptAt';
+  sortDir?: 'asc' | 'desc';
+  limit?: number;
+  offset?: number;
+}
+
 export function uploadAdminEventImage(
   id: string,
   input: AdminEventImageUploadInput,
@@ -614,6 +663,40 @@ export function uploadAdminEventImage(
     form,
     { signal },
   );
+}
+
+export function replaceAdminEventImage(
+  id: string,
+  mediaId: number,
+  input: AdminEventImageReplacementInput,
+  signal?: AbortSignal,
+) {
+  const form = new FormData();
+  form.append('file', input.file);
+  form.append('expectedUpdatedAt', input.expectedUpdatedAt);
+  for (const [field, value] of Object.entries({
+    altText: input.altText,
+    caption: input.caption,
+    sourceName: input.sourceName,
+    license: input.license,
+  })) {
+    const trimmed = value?.trim();
+    if (trimmed) form.append(field, trimmed);
+  }
+  return apiPostFormOnce<AdminEventImageReplacementResponse>(
+    `/api/admin/events/${encodeURIComponent(id)}/media/${mediaId}/replacement`,
+    form,
+    { signal },
+  );
+}
+
+export function getAdminMediaCleanupSummary(signal?: AbortSignal) {
+  return apiGet<AdminMediaCleanupSummary>('/api/admin/media-cleanup/summary', { signal });
+}
+
+export function getAdminMediaCleanup(query: AdminMediaCleanupQuery = {}, signal?: AbortSignal) {
+  const suffix = toQueryString({ ...query });
+  return apiGet<AdminPage<AdminMediaCleanupItem>>(`/api/admin/media-cleanup${suffix}`, { signal });
 }
 
 export function updateAdminEventMedia(

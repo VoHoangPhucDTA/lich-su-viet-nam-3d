@@ -10,4 +10,11 @@ public final class AdminEventImageDtos {
             AdminEventDtos.Detail event
     ) {
     }
+
+    public record ReplacementResponse(
+            long mediaId,
+            String updatedAt,
+            AdminEventDtos.Detail event
+    ) {
+    }
 }

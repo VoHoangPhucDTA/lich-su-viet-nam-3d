@@ -6,6 +6,7 @@ import {
   addAdminEventMedia,
   removeAdminEventMedia,
   reorderAdminEventMedia,
+  replaceAdminEventImage,
   selectAdminEventThumbnail,
   updateAdminEventMedia,
   type AdminEventDetail,
@@ -20,6 +21,7 @@ vi.mock('../../../services/adminApi', async () => {
     updateAdminEventMedia: vi.fn(),
     removeAdminEventMedia: vi.fn(),
     reorderAdminEventMedia: vi.fn(),
+    replaceAdminEventImage: vi.fn(),
     selectAdminEventThumbnail: vi.fn(),
   };
 });
@@ -155,6 +157,32 @@ describe('AdminEventMediaSection', () => {
     await userEvent.click(screen.getAllByRole('button', { name: 'Xóa khỏi sự kiện' })[1]);
     expect(screen.getByRole('dialog', { name: 'Xóa media khỏi sự kiện?' }))
       .toHaveTextContent(/dọn tệp trên dịch vụ lưu trữ có thể hoàn tất bất đồng bộ/);
+  });
+
+  it('offers replacement only for active managed images and sends the current version once confirmed', async () => {
+    const activeManaged = {
+      ...safeDetail,
+      media: {
+        ...safeDetail.media,
+        items: [{ ...safeDetail.media.items[1], status: 'active' }],
+      },
+    } as AdminEventDetail;
+    vi.mocked(replaceAdminEventImage).mockResolvedValue({
+      mediaId: 2,
+      updatedAt: '2026-07-25T01:02:04.123456Z',
+      event: activeManaged,
+    });
+    render(<AdminEventMediaSection eventId="event-1" detail={activeManaged}
+      version="2026-07-25T01:02:03.123456Z" onUpdated={vi.fn()} onConflict={vi.fn()} />);
+
+    await userEvent.click(screen.getByRole('button', { name: 'Thay asset' }));
+    const dialog = screen.getByRole('dialog', { name: 'Thay asset managed?' });
+    const file = new File(['replacement'], 'replacement.png', { type: 'image/png' });
+    await userEvent.upload(within(dialog).getByLabelText('Chọn asset mới'), file);
+    await userEvent.click(within(dialog).getByRole('button', { name: 'Thay asset' }));
+
+    await waitFor(() => expect(replaceAdminEventImage).toHaveBeenCalledWith('event-1', 2,
+      expect.objectContaining({ file, expectedUpdatedAt: '2026-07-25T01:02:03.123456Z' })));
   });
 
   it('forwards exact versions for reorder, thumbnail selection and confirmed removal', async () => {

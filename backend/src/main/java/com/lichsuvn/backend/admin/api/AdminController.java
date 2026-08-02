@@ -5,6 +5,7 @@ import com.lichsuvn.backend.admin.api.dto.AdminEventDtos;
 import com.lichsuvn.backend.admin.api.dto.AdminEventMutationDtos;
 import com.lichsuvn.backend.admin.api.dto.AdminEventMediaMutationDtos;
 import com.lichsuvn.backend.admin.api.dto.AdminEventImageDtos;
+import com.lichsuvn.backend.admin.api.dto.AdminMediaCleanupDtos;
 import com.lichsuvn.backend.admin.api.dto.AdminEventGeographyDtos;
 import com.lichsuvn.backend.admin.api.dto.AdminEventPublicationDtos;
 import com.lichsuvn.backend.admin.api.dto.AdminUserDtos;
@@ -14,6 +15,7 @@ import com.lichsuvn.backend.admin.application.AdminEventReadService;
 import com.lichsuvn.backend.admin.application.AdminEventMutationService;
 import com.lichsuvn.backend.admin.application.AdminEventMediaMutationService;
 import com.lichsuvn.backend.admin.application.AdminEventImageUploadService;
+import com.lichsuvn.backend.admin.application.AdminMediaCleanupReadService;
 import com.lichsuvn.backend.admin.application.AdminEventGeographyMutationService;
 import com.lichsuvn.backend.admin.application.AdminEventPublicationService;
 import com.lichsuvn.backend.admin.application.AdminUserReadService;
@@ -53,6 +55,7 @@ public class AdminController {
     private final AdminEventMutationService adminEventMutationService;
     private final AdminEventMediaMutationService adminEventMediaMutationService;
     private final AdminEventImageUploadService adminEventImageUploadService;
+    private final AdminMediaCleanupReadService adminMediaCleanupReadService;
     private final AdminEventGeographyMutationService adminEventGeographyMutationService;
     private final AdminEventPublicationService adminEventPublicationService;
     private final AdminUserReadService adminUserReadService;
@@ -64,6 +67,7 @@ public class AdminController {
             AdminEventMutationService adminEventMutationService,
             AdminEventMediaMutationService adminEventMediaMutationService,
             AdminEventImageUploadService adminEventImageUploadService,
+            AdminMediaCleanupReadService adminMediaCleanupReadService,
             AdminEventGeographyMutationService adminEventGeographyMutationService,
             AdminEventPublicationService adminEventPublicationService,
             AdminUserReadService adminUserReadService,
@@ -74,6 +78,7 @@ public class AdminController {
         this.adminEventMutationService = adminEventMutationService;
         this.adminEventMediaMutationService = adminEventMediaMutationService;
         this.adminEventImageUploadService = adminEventImageUploadService;
+        this.adminMediaCleanupReadService = adminMediaCleanupReadService;
         this.adminEventGeographyMutationService = adminEventGeographyMutationService;
         this.adminEventPublicationService = adminEventPublicationService;
         this.adminUserReadService = adminUserReadService;
@@ -263,6 +268,45 @@ public class AdminController {
         return ResponseEntity.status(HttpStatus.CREATED).body(ApiResponse.ok(result));
     }
 
+    @PostMapping(
+            path = "/events/{id}/media/{mediaId}/replacement",
+            consumes = "multipart/form-data"
+    )
+    public ApiResponse<AdminEventImageDtos.ReplacementResponse> replaceEventImage(
+            @PathVariable String id,
+            @PathVariable long mediaId,
+            @RequestPart(value = "file", required = false) MultipartFile file,
+            @RequestParam(required = false) String expectedUpdatedAt,
+            @RequestParam(required = false) String altText,
+            @RequestParam(required = false) String caption,
+            @RequestParam(required = false) String sourceName,
+            @RequestParam(required = false) String license,
+            MultipartHttpServletRequest multipartRequest,
+            @AuthenticationPrincipal UserPrincipal principal
+    ) {
+        validateReplacementMultipartShape(multipartRequest);
+        return ApiResponse.ok(adminEventImageUploadService.replace(
+                id, mediaId, file, expectedUpdatedAt, altText, caption, sourceName, license, principal));
+    }
+
+    @GetMapping("/media-cleanup/summary")
+    public ApiResponse<AdminMediaCleanupDtos.Summary> mediaCleanupSummary() {
+        return ApiResponse.ok(adminMediaCleanupReadService.summary());
+    }
+
+    @GetMapping("/media-cleanup")
+    public ApiResponse<AdminMediaCleanupDtos.Page> mediaCleanup(
+            @RequestParam(required = false) String status,
+            @RequestParam(required = false) String operation,
+            @RequestParam(required = false) String sortBy,
+            @RequestParam(required = false) String sortDir,
+            @RequestParam(required = false) Integer limit,
+            @RequestParam(required = false) Integer offset
+    ) {
+        return ApiResponse.ok(adminMediaCleanupReadService.find(
+                status, operation, sortBy, sortDir, limit, offset));
+    }
+
     @PatchMapping("/events/{id}/media/{mediaId}")
     public ApiResponse<AdminEventDtos.Detail> updateEventMedia(
             @PathVariable String id,
@@ -369,6 +413,21 @@ public class AdminController {
                     HttpStatus.BAD_REQUEST,
                     "UNSUPPORTED_MULTIPART_FIELD",
                     "Multipart request contains an unsupported or duplicate field");
+        }
+    }
+
+    private void validateReplacementMultipartShape(MultipartHttpServletRequest request) {
+        Set<String> allowedParameters = Set.of(
+                "expectedUpdatedAt", "altText", "caption", "sourceName", "license");
+        boolean invalidFileParts = request.getMultiFileMap().entrySet().stream()
+                .anyMatch(entry -> !"file".equals(entry.getKey()) || entry.getValue().size() != 1);
+        boolean invalidParameters = request.getParameterMap().entrySet().stream()
+                .anyMatch(entry -> !allowedParameters.contains(entry.getKey())
+                        || entry.getValue().length != 1);
+        MultipartFile file = request.getFile("file");
+        if (invalidFileParts || invalidParameters || file == null || file.isEmpty()) {
+            throw new ApiException(HttpStatus.BAD_REQUEST, "UNSUPPORTED_MULTIPART_FIELD",
+                    "Multipart request requires one non-empty file");
         }
     }
 }

@@ -23,7 +23,9 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -203,5 +205,154 @@ class AdminEventImageUploadServiceTest {
         assertEquals("EVENT_IMAGE_UPLOAD_UNAVAILABLE", rejected.getCode());
         verifyNoInteractions(repository, validator);
         verify(storage, never()).upload(any());
+    }
+
+    @Test
+    void replacementKeepsMediaIdentityEnqueuesOnlyOldAssetAndAddsOwnershipMetadata() {
+        var fixture = replacementFixture();
+        when(fixture.storage.upload(any())).thenAnswer(invocation -> {
+            EventImageStorage.UploadCommand command = invocation.getArgument(0);
+            fixture.uploadCommand = command;
+            return new EventImageStorage.StoredImage(command.publicId(), "new-provider-asset", 9,
+                    "https://provider.example.test/new", "image/png", "png", 4, 2, 2);
+        });
+        when(fixture.storage.deliveryUrl(any())).thenReturn("https://delivery.example.test/new");
+        var result = fixture.service.replace("event-id", 42L, fixture.file,
+                fixture.version, null, null, null, null, fixture.principal);
+
+        assertEquals(42L, result.mediaId());
+        assertEquals("event-id", fixture.uploadCommand.ownershipContext().get("event_id"));
+        assertEquals("managed-event-media", fixture.uploadCommand.ownershipTags().get(1));
+        verify(fixture.repository).replaceManagedStorage(any(), any(), any(), any(), any(), any(), any());
+        verify(fixture.repository).armCleanup(eq("events/event-id/media/old"), eq("old-provider-asset"), any());
+        verify(fixture.storage, never()).delete(any());
+    }
+
+    @Test
+    void replacementPersistenceFailureCompensatesOnlyNewOrphan() {
+        var fixture = replacementFixture();
+        when(fixture.storage.upload(any())).thenAnswer(invocation -> {
+            EventImageStorage.UploadCommand command = invocation.getArgument(0);
+            fixture.uploadCommand = command;
+            return new EventImageStorage.StoredImage(command.publicId(), "new-provider-asset", 9,
+                    "https://provider.example.test/new", "image/png", "png", 4, 2, 2);
+        });
+        when(fixture.storage.deliveryUrl(any())).thenReturn("https://delivery.example.test/new");
+        org.mockito.Mockito.doThrow(new IllegalStateException("db failure"))
+                .when(fixture.repository).replaceManagedStorage(any(), any(), any(), any(), any(), any(), any());
+
+        ApiException error = assertThrows(ApiException.class, () -> fixture.service.replace(
+                "event-id", 42L, fixture.file, fixture.version, null, null, null, null, fixture.principal));
+
+        assertEquals("EVENT_IMAGE_REPLACEMENT_PERSISTENCE_FAILED", error.getCode());
+        verify(fixture.repository).armCleanup(eq(fixture.uploadCommand.publicId()),
+                eq("new-provider-asset"), any());
+        verify(fixture.repository, never()).armCleanup(eq("events/event-id/media/old"), any(), any());
+    }
+
+    @Test
+    void invalidProviderResponseQueuesOnlyTheNewOrphan() {
+        var fixture = replacementFixture();
+        when(fixture.storage.upload(any())).thenAnswer(invocation -> {
+            EventImageStorage.UploadCommand command = invocation.getArgument(0);
+            fixture.uploadCommand = command;
+            return new EventImageStorage.StoredImage(command.publicId(), "new-provider-asset", 9,
+                    "https://provider.example.test/new", "image/png", "png", 4, 1, 2);
+        });
+
+        ApiException error = assertThrows(ApiException.class, () -> fixture.service.replace(
+                "event-id", 42L, fixture.file, fixture.version, null, null, null, null, fixture.principal));
+
+        assertEquals("EVENT_IMAGE_PROVIDER_RESPONSE_INVALID", error.getCode());
+        verify(fixture.repository).armCleanup(eq(fixture.uploadCommand.publicId()),
+                eq("new-provider-asset"), any());
+        verify(fixture.repository, never()).armCleanup(eq("events/event-id/media/old"), any(), any());
+    }
+
+    @Test
+    void staleReplacementFailsBeforeCloudinaryUpload() {
+        var fixture = replacementFixture();
+        when(fixture.repository.lockEvent("event-id"))
+                .thenReturn(new AdminEventImageRepository.EventLock(
+                        "event-id", "draft", LocalDateTime.of(2026, 7, 29, 16, 0)));
+
+        ApiException error = assertThrows(ApiException.class, () -> fixture.service.replace(
+                "event-id", 42L, fixture.file, fixture.version, null, null, null, null, fixture.principal));
+
+        assertEquals("EVENT_UPDATE_CONFLICT", error.getCode());
+        verify(fixture.storage, never()).upload(any());
+    }
+
+    private ReplacementFixture replacementFixture() {
+        var repository = mock(AdminEventImageRepository.class);
+        var auditRepository = mock(AdminEventMutationRepository.class);
+        var readService = mock(AdminEventReadService.class);
+        var validator = mock(EventImageValidator.class);
+        var storage = mock(EventImageStorage.class);
+        var transactions = mock(TransactionTemplate.class);
+        var clock = Clock.fixed(Instant.parse("2026-07-29T08:00:00Z"), DATABASE_ZONE);
+        when(storage.available()).thenReturn(true);
+        when(transactions.execute(any())).thenAnswer(invocation -> {
+            @SuppressWarnings("unchecked")
+            org.springframework.transaction.support.TransactionCallback<Object> callback = invocation.getArgument(0);
+            return callback.doInTransaction(null);
+        });
+        doAnswer(invocation -> {
+            @SuppressWarnings("unchecked")
+            java.util.function.Consumer<Object> callback = invocation.getArgument(0);
+            callback.accept(null);
+            return null;
+        }).when(transactions).executeWithoutResult(any());
+        var service = new AdminEventImageUploadService(
+                repository, auditRepository, readService, validator, storage, new ObjectMapper(),
+                transactions, clock, 10);
+        var event = new AdminEventImageRepository.EventLock(
+                "event-id", "draft", LocalDateTime.of(2026, 7, 29, 15, 0));
+        var row = new AdminEventImageRepository.ReplacementMedia(
+                42L, "event-id", "old-asset", "cloudinary", "events/event-id/media/old",
+                "old-provider-asset", "READY", false, "active", 2,
+                "Caption", "Alt text", "Source", "License");
+        when(repository.lockEvent("event-id")).thenReturn(event);
+        when(repository.lockReplacementMedia(42L)).thenReturn(row);
+        when(repository.bumpEventVersion(eq("event-id"), any())).thenReturn(true);
+        var detail = mockDetail();
+        when(readService.findEventAfterMutation("event-id")).thenReturn(detail);
+        when(validator.validate(any(), any(), any(), any(), any())).thenReturn(
+                new EventImageValidator.ValidatedEventImage(
+                        new byte[]{1, 2}, "image/png", "png", 2, "0".repeat(64),
+                        2, 2, "Alt text", null, null, null));
+        return new ReplacementFixture(repository, storage, service,
+                new MockMultipartFile("file", "replacement.png", "image/png", new byte[]{1, 2}),
+                "2026-07-29T08:00:00.000000Z",
+                new UserPrincipal("admin", new byte[16], "admin@example.test", List.of("admin")));
+    }
+
+    private AdminEventDtos.Detail mockDetail() {
+        var detail = mock(AdminEventDtos.Detail.class);
+        var publication = mock(AdminEventDtos.Publication.class);
+        when(detail.publication()).thenReturn(publication);
+        when(publication.updatedAt()).thenReturn(Instant.parse("2026-07-29T08:00:00.654321Z"));
+        return detail;
+    }
+
+    private static final class ReplacementFixture {
+        final AdminEventImageRepository repository;
+        final EventImageStorage storage;
+        final AdminEventImageUploadService service;
+        final MockMultipartFile file;
+        final String version;
+        final UserPrincipal principal;
+        EventImageStorage.UploadCommand uploadCommand;
+
+        ReplacementFixture(AdminEventImageRepository repository, EventImageStorage storage,
+                           AdminEventImageUploadService service, MockMultipartFile file,
+                           String version, UserPrincipal principal) {
+            this.repository = repository;
+            this.storage = storage;
+            this.service = service;
+            this.file = file;
+            this.version = version;
+            this.principal = principal;
+        }
     }
 }

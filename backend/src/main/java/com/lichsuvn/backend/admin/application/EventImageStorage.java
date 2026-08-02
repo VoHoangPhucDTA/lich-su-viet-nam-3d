@@ -1,5 +1,8 @@
 package com.lichsuvn.backend.admin.application;
 
+import java.util.List;
+import java.util.Map;
+
 public interface EventImageStorage {
     boolean available();
 
@@ -9,9 +12,21 @@ public interface EventImageStorage {
 
     String deliveryUrl(DeliveryCommand command);
 
-    record UploadCommand(byte[] bytes, String publicId, String mimeType) {
+    record UploadCommand(
+            byte[] bytes,
+            String publicId,
+            String mimeType,
+            List<String> ownershipTags,
+            Map<String, String> ownershipContext
+    ) {
+        public UploadCommand(byte[] bytes, String publicId, String mimeType) {
+            this(bytes, publicId, mimeType, List.of(), Map.of());
+        }
+
         public UploadCommand {
             bytes = bytes.clone();
+            ownershipTags = List.copyOf(ownershipTags == null ? List.of() : ownershipTags);
+            ownershipContext = Map.copyOf(ownershipContext == null ? Map.of() : ownershipContext);
         }
 
         @Override

@@ -15,6 +15,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.support.TransactionTemplate;
 import org.springframework.web.multipart.MultipartFile;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
@@ -25,6 +27,7 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.util.HexFormat;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
@@ -32,6 +35,7 @@ import java.util.UUID;
 @Service
 @PreAuthorize("hasAuthority('ROLE_admin')")
 public class AdminEventImageUploadService {
+    private static final Logger log = LoggerFactory.getLogger(AdminEventImageUploadService.class);
     static final int MAX_ACTIVE_RESERVATIONS = 3;
     private static final ZoneId DATABASE_ZONE = ZoneId.of("Asia/Ho_Chi_Minh");
     private static final DateTimeFormatter VERSION_FORMATTER =
@@ -171,7 +175,8 @@ public class AdminEventImageUploadService {
         EventImageStorage.StoredImage stored;
         try {
             stored = storage.upload(new EventImageStorage.UploadCommand(
-                    image.bytes(), publicId, image.mimeType()));
+                    image.bytes(), publicId, image.mimeType(),
+                    ownershipTags(eventId, kind), ownershipContext(eventId, assetId.toString(), kind)));
         } catch (EventImageStorage.EventImageStorageException exception) {
             HttpStatus status = "EVENT_IMAGE_UPLOAD_UNAVAILABLE".equals(exception.code())
                     ? HttpStatus.SERVICE_UNAVAILABLE : HttpStatus.BAD_GATEWAY;
@@ -240,6 +245,78 @@ public class AdminEventImageUploadService {
                             "resultingVersion", version(detail))));
             return detail;
         }));
+    }
+
+    public AdminEventImageDtos.ReplacementResponse replace(
+            String eventId,
+            long mediaId,
+            MultipartFile file,
+            String expectedUpdatedAt,
+            String altText,
+            String caption,
+            String sourceName,
+            String license,
+            UserPrincipal principal
+    ) {
+        if (!uploadEnabled || !storage.available()) {
+            throw new ApiException(HttpStatus.SERVICE_UNAVAILABLE,
+                    "EVENT_IMAGE_UPLOAD_UNAVAILABLE", "Managed event image upload is unavailable");
+        }
+        LocalDateTime expected = parseVersion(expectedUpdatedAt);
+        requireActor(principal);
+        String validationAlt = altText == null ? "managed image" : altText;
+        EventImageValidator.ValidatedEventImage image =
+                validator.validate(file, validationAlt, caption, sourceName, license);
+
+        ReplacementTarget preflight = transactions.execute(status ->
+                lockReplacementTarget(eventId, mediaId, expected));
+        UUID newAssetId = UUID.randomUUID();
+        AdminEventImageNaming.Kind kind = preflight.thumbnail()
+                ? AdminEventImageNaming.Kind.THUMBNAIL : AdminEventImageNaming.Kind.GALLERY;
+        String publicId = AdminEventImageNaming.publicId(eventId, kind, newAssetId);
+        EventImageStorage.StoredImage stored;
+        try {
+            stored = storage.upload(new EventImageStorage.UploadCommand(
+                    image.bytes(), publicId, image.mimeType(),
+                    ownershipTags(eventId, kind), ownershipContext(eventId, newAssetId.toString(), kind)));
+        } catch (EventImageStorage.EventImageStorageException exception) {
+            throw new ApiException(HttpStatus.BAD_GATEWAY, exception.code(), "Event image upload failed");
+        } catch (RuntimeException exception) {
+            throw new ApiException(HttpStatus.BAD_GATEWAY,
+                    "EVENT_IMAGE_UPLOAD_FAILED", "Event image upload failed");
+        }
+        try {
+            validateStored(publicId, image, stored);
+        } catch (RuntimeException validationFailure) {
+            if (!enqueueReplacementCompensation(mediaId, newAssetId.toString(), stored)) {
+                throw new ApiException(HttpStatus.INTERNAL_SERVER_ERROR,
+                        "EVENT_IMAGE_REPLACEMENT_COMPENSATION_FAILED",
+                        "The uploaded replacement image needs operator reconciliation");
+            }
+            if (validationFailure instanceof ApiException apiException) {
+                throw apiException;
+            }
+            throw new ApiException(HttpStatus.BAD_GATEWAY,
+                    "EVENT_IMAGE_PROVIDER_RESPONSE_INVALID", "Event image upload failed");
+        }
+
+        try {
+            return transactions.execute(status -> finalizeReplacement(
+                    eventId, mediaId, expectedUpdatedAt, expected, image, newAssetId.toString(),
+                    stored, altText, caption, sourceName, license, principal));
+        } catch (RuntimeException failure) {
+            if (!enqueueReplacementCompensation(mediaId, newAssetId.toString(), stored)) {
+                throw new ApiException(HttpStatus.INTERNAL_SERVER_ERROR,
+                        "EVENT_IMAGE_REPLACEMENT_COMPENSATION_FAILED",
+                        "The uploaded replacement image needs operator reconciliation");
+            }
+            if (failure instanceof ApiException apiException) {
+                throw apiException;
+            }
+            throw new ApiException(HttpStatus.INTERNAL_SERVER_ERROR,
+                    "EVENT_IMAGE_REPLACEMENT_PERSISTENCE_FAILED",
+                    "The replacement image could not be attached to the event");
+        }
     }
 
     AdminEventImageDtos.UploadResponse finalizeUpload(
@@ -338,6 +415,135 @@ public class AdminEventImageUploadService {
                         "resultingVersion", version(detail))));
         repository.completeCleanup(reservation.publicId());
         return response(reservation.mediaId(), detail);
+    }
+
+    private AdminEventImageDtos.ReplacementResponse finalizeReplacement(
+            String eventId,
+            long mediaId,
+            String expectedUpdatedAt,
+            LocalDateTime expected,
+            EventImageValidator.ValidatedEventImage image,
+            String newAssetId,
+            EventImageStorage.StoredImage stored,
+            String altText,
+            String caption,
+            String sourceName,
+            String license,
+            UserPrincipal principal
+    ) {
+        ReplacementTarget old = lockReplacementTarget(eventId, mediaId, expected);
+        validateStored(stored.publicId(), image, stored);
+        String deliveryUrl = storage.deliveryUrl(new EventImageStorage.DeliveryCommand(
+                stored.publicId(), stored.providerVersion(), old.thumbnail()
+                        ? EventImageStorage.DeliveryKind.THUMBNAIL
+                        : EventImageStorage.DeliveryKind.GALLERY));
+        if (deliveryUrl == null) {
+            throw new ApiException(HttpStatus.BAD_GATEWAY,
+                    "EVENT_IMAGE_PROVIDER_RESPONSE_INVALID", "Image delivery URL could not be generated");
+        }
+        if (!repository.bumpEventVersion(eventId, expected)) {
+            throw conflict();
+        }
+        var metadata = new AdminEventImageRepository.ReplacementMetadata(
+                caption == null ? old.caption() : trim(caption),
+                altText == null ? old.altText() : trim(altText),
+                sourceName == null ? old.sourceName() : trim(sourceName),
+                license == null ? old.license() : trim(license));
+        if (metadata.altText() == null || metadata.altText().codePoints().noneMatch(Character::isLetterOrDigit)) {
+            bad("EVENT_IMAGE_ALT_TEXT_REQUIRED");
+        }
+        repository.replaceManagedStorage(old.row(), newAssetId, stored, deliveryUrl, image,
+                principal.idBytes(), metadata);
+        repository.armCleanup(old.publicId(), old.providerAssetId(), now());
+        AdminEventDtos.Detail detail = readService.findEventAfterMutation(eventId);
+        auditRepository.audit(principal.idBytes(), "event.managed_image_replaced", eventId,
+                json(Map.of("mediaId", mediaId, "expectedVersion", expectedUpdatedAt)),
+                json(Map.of(
+                        "mediaId", mediaId,
+                        "oldManagedAssetId", old.managedAssetId(),
+                        "newManagedAssetId", newAssetId,
+                        "oldStorageIdentityDigest", identityDigest(old.publicId()),
+                        "newStorageIdentityDigest", identityDigest(stored.publicId()),
+                        "thumbnailPreserved", old.thumbnail(),
+                        "resultingVersion", version(detail))));
+        auditRepository.audit(principal.idBytes(), "event.managed_image_cleanup_enqueued", eventId,
+                json(Map.of("mediaId", mediaId, "operation", "DELETE")),
+                json(Map.of("oldManagedAssetId", old.managedAssetId(),
+                        "storageIdentityDigest", identityDigest(old.publicId()), "result", "PENDING")));
+        return new AdminEventImageDtos.ReplacementResponse(mediaId, version(detail), detail);
+    }
+
+    private ReplacementTarget lockReplacementTarget(String eventId, long mediaId, LocalDateTime expected) {
+        lockExactEvent(eventId, expected);
+        var row = repository.lockReplacementMedia(mediaId);
+        if (row == null) {
+            throw mediaNotFound();
+        }
+        if (!eventId.equals(row.eventId())) {
+            bad("EVENT_MEDIA_OWNERSHIP_MISMATCH");
+        }
+        if (row.managedAssetId() == null || row.provider() == null || row.publicId() == null
+                || "UNMANAGED".equals(row.storageState())) {
+            throw new ApiException(HttpStatus.CONFLICT, "EVENT_MEDIA_NOT_MANAGED",
+                    "Only a ready managed image can be replaced");
+        }
+        if (!"READY".equals(row.storageState()) || !"cloudinary".equals(row.provider())) {
+            throw new ApiException(HttpStatus.CONFLICT, "EVENT_IMAGE_REPLACEMENT_IN_PROGRESS",
+                    "Managed image is not ready for replacement");
+        }
+        return new ReplacementTarget(row);
+    }
+
+    private boolean enqueueReplacementCompensation(
+            long mediaId, String newAssetId, EventImageStorage.StoredImage stored
+    ) {
+        try {
+            transactions.executeWithoutResult(status ->
+                    repository.armCleanup(stored.publicId(), stored.providerAssetId(), now()));
+            return true;
+        } catch (RuntimeException compensationFailure) {
+            log.error("Managed image replacement compensation enqueue failed mediaId={} assetId={} publicId={}",
+                    mediaId, newAssetId, stored.publicId());
+            return false;
+        }
+    }
+
+    private void validateStored(
+            String expectedPublicId,
+            EventImageValidator.ValidatedEventImage image,
+            EventImageStorage.StoredImage stored
+    ) {
+        if (!expectedPublicId.equals(stored.publicId())
+                || !image.format().equalsIgnoreCase(stored.format())
+                || stored.width() != image.width()
+                || stored.height() != image.height()) {
+            throw new ApiException(HttpStatus.BAD_GATEWAY,
+                    "EVENT_IMAGE_PROVIDER_RESPONSE_INVALID",
+                    "Image storage returned inconsistent metadata");
+        }
+    }
+
+    private List<String> ownershipTags(String eventId, AdminEventImageNaming.Kind kind) {
+        return List.of("lsvn3d", "managed-event-media", "event-" + eventId,
+                "role-" + kind.name().toLowerCase());
+    }
+
+    private Map<String, String> ownershipContext(
+            String eventId, String assetId, AdminEventImageNaming.Kind kind
+    ) {
+        return Map.of(
+                "managed_asset_id", assetId,
+                "event_id", eventId,
+                "media_role", kind.name().toLowerCase(),
+                "source", "lsvn3d");
+    }
+
+    private LocalDateTime now() {
+        return LocalDateTime.ofInstant(clock.instant(), DATABASE_ZONE);
+    }
+
+    private String trim(String value) {
+        return value == null || value.isBlank() ? null : value.trim();
     }
 
     private AdminEventImageRepository.EventLock lockExactEvent(
@@ -454,5 +660,16 @@ public class AdminEventImageUploadService {
             String uploadToken,
             int sortOrder
     ) {
+    }
+
+    private record ReplacementTarget(AdminEventImageRepository.ReplacementMedia row) {
+        String managedAssetId() { return row.managedAssetId(); }
+        String publicId() { return row.publicId(); }
+        String providerAssetId() { return row.providerAssetId(); }
+        String caption() { return row.caption(); }
+        String altText() { return row.altText(); }
+        String sourceName() { return row.sourceName(); }
+        String license() { return row.license(); }
+        boolean thumbnail() { return row.thumbnail(); }
     }
 }

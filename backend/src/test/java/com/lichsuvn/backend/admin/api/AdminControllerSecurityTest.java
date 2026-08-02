@@ -9,6 +9,8 @@ import com.lichsuvn.backend.admin.application.AdminEventReadService;
 import com.lichsuvn.backend.admin.application.AdminEventMutationService;
 import com.lichsuvn.backend.admin.application.AdminEventMediaMutationService;
 import com.lichsuvn.backend.admin.application.AdminEventImageUploadService;
+import com.lichsuvn.backend.admin.application.AdminMediaCleanupReadService;
+import com.lichsuvn.backend.admin.api.dto.AdminMediaCleanupDtos;
 import com.lichsuvn.backend.admin.api.dto.AdminEventImageDtos;
 import com.lichsuvn.backend.admin.application.AdminEventGeographyMutationService;
 import com.lichsuvn.backend.admin.application.AdminEventPublicationService;
@@ -88,6 +90,9 @@ class AdminControllerSecurityTest {
 
     @MockitoBean
     AdminEventImageUploadService adminEventImageUploadService;
+
+    @MockitoBean
+    AdminMediaCleanupReadService adminMediaCleanupReadService;
 
     @MockitoBean
     AdminEventGeographyMutationService adminEventGeographyMutationService;
@@ -847,6 +852,29 @@ class AdminControllerSecurityTest {
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.code").value("UNSUPPORTED_MULTIPART_FIELD"));
         verifyNoInteractions(adminEventImageUploadService);
+    }
+
+    @Test
+    void replacementAndCleanupReadEndpointsRequireAdminAndCsrfWhereApplicable() throws Exception {
+        var image = new MockMultipartFile("file", "replacement.png", "image/png", new byte[]{1});
+        mockMvc.perform(multipart("/api/admin/events/event-1/media/42/replacement")
+                        .file(image).param("expectedUpdatedAt", "2026-07-24T17:20:30.123456Z")
+                        .with(user("student").authorities(() -> "ROLE_student")).with(csrf().asHeader()))
+                .andExpect(status().isForbidden());
+        mockMvc.perform(multipart("/api/admin/events/event-1/media/42/replacement")
+                        .file(image).param("expectedUpdatedAt", "2026-07-24T17:20:30.123456Z")
+                        .with(user("admin").authorities(() -> "ROLE_admin")))
+                .andExpect(status().isForbidden());
+        mockMvc.perform(get("/api/admin/media-cleanup/summary")
+                        .with(user("teacher").authorities(() -> "ROLE_teacher")))
+                .andExpect(status().isForbidden());
+
+        when(adminMediaCleanupReadService.summary())
+                .thenReturn(new AdminMediaCleanupDtos.Summary(1, 2, 3, 4));
+        mockMvc.perform(get("/api/admin/media-cleanup/summary")
+                        .with(user("admin").authorities(() -> "ROLE_admin")))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.data.failed").value(3));
     }
 
     @Test

@@ -394,6 +394,8 @@ export function AdminConfirmDialog({
   onConfirm,
   onCancel,
   danger = false,
+  children,
+  confirmDisabled = false,
 }: {
   open: boolean;
   title: string;
@@ -402,6 +404,8 @@ export function AdminConfirmDialog({
   onConfirm: () => void;
   onCancel: () => void;
   danger?: boolean;
+  children?: ReactNode;
+  confirmDisabled?: boolean;
 }) {
   const cancelRef = useRef<HTMLButtonElement>(null);
   const dialogRef = useRef<HTMLDivElement>(null);
@@ -492,6 +496,7 @@ export function AdminConfirmDialog({
             {description}
           </p>
         )}
+        {children && <div className="mt-4">{children}</div>}
         <div className="mt-6 flex justify-end gap-2">
           <button ref={cancelRef} type="button" onClick={onCancel} className="admin-secondary-button">
             Hủy
@@ -499,6 +504,7 @@ export function AdminConfirmDialog({
           <button
             type="button"
             onClick={onConfirm}
+            disabled={confirmDisabled}
             className={danger ? 'admin-danger-button' : 'admin-primary-button'}
           >
             {confirmLabel}

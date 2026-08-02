@@ -63,6 +63,7 @@ const AdminDashboardPage = lazy(() => import('./pages/admin/AdminDashboardPage')
 const AdminUsersPage = lazy(() => import('./pages/admin/AdminUsersPage'));
 const AdminUserDetailPage = lazy(() => import('./pages/admin/AdminUserDetailPage'));
 const AdminEventsPage = lazy(() => import('./pages/admin/AdminEventsPage'));
+const AdminMediaCleanupPage = lazy(() => import('./pages/admin/AdminMediaCleanupPage'));
 const AdminEventDetailPage = lazy(() => import('./pages/admin/AdminEventDetailPage'));
 const AdminEventEditorPage = lazy(() => import('./pages/admin/AdminEventEditorPage'));
 
@@ -157,6 +158,7 @@ function AppContent() {
           <Route path="/admin/events/new" element={<ProtectedRoute><RoleGuard requiredRole="admin"><AdminEventEditorPage /></RoleGuard></ProtectedRoute>} />
           <Route path="/admin/events/:id/edit" element={<ProtectedRoute><RoleGuard requiredRole="admin"><AdminEventEditorPage /></RoleGuard></ProtectedRoute>} />
           <Route path="/admin/events/:id" element={<ProtectedRoute><RoleGuard requiredRole="admin"><AdminEventDetailPage /></RoleGuard></ProtectedRoute>} />
+          <Route path="/admin/media-cleanup" element={<ProtectedRoute><RoleGuard requiredRole="admin"><AdminMediaCleanupPage /></RoleGuard></ProtectedRoute>} />
           <Route path="/admin/questions" element={<Navigate to="/admin/events" replace />} />
           <Route path="/admin/*" element={<Navigate to="/admin/dashboard" replace />} />
         </Routes>
