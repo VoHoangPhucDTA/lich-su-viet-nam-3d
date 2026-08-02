@@ -2384,6 +2384,9 @@ class V42CompletePostflightContractTest(unittest.TestCase):
         self.assertIn("column_name='updated_at'", lowered)
         self.assertNotIn("min(extra)", lowered)
         self.assertNotIn("group_concat(extra", lowered)
+        extra_encoder = runner._metadata_hex_field_sql("extra").casefold()
+        self.assertIn("concat('=',(extra))", extra_encoder)
+        self.assertNotIn("cast((extra) as char)", extra_encoder)
 
         exact = self.metadata()
         runner.validate_v42_postflight_extras(exact, before=self.BEFORE)

@@ -569,6 +569,10 @@ V42 precision contract.  A missing row therefore omits the required metadata
 key, a duplicate row produces a duplicate key, and either condition still
 fails closed before evidence publication.
 
+The structured encoder also preserves ``EXTRA`` as raw text before hex
+encoding; it does not apply TiDB's lossy ``CAST(EXTRA AS CHAR)`` conversion.
+Other nullable metadata scalars retain the existing explicit character cast.
+
 All six CHECK constraints are cross-bound between
 ``CHECK_CONSTRAINTS`` and ``TIDB_CHECK_CONSTRAINTS`` by schema, owner table,
 name and expression.  Enforcement must agree across every direct metadata

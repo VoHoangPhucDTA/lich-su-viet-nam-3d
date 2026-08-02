@@ -1374,9 +1374,13 @@ def parse_metadata_capability_rows(output: str) -> MetadataCapabilityModel:
 
 def _metadata_hex_field_sql(expression: str) -> str:
     """Encode a nullable SQL scalar without delimiter ambiguity."""
+    cast_expression = expression != "extra"
+    value_expression = (
+        f"CAST(({expression}) AS CHAR)" if cast_expression else f"({expression})"
+    )
     return (
         f"HEX(IF(({expression}) IS NULL,'~',"
-        f"CONCAT('=',CAST(({expression}) AS CHAR))))"
+        f"CONCAT('=',{value_expression})))"
     )
 
 
