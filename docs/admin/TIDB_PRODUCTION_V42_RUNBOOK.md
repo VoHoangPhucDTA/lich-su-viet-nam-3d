@@ -482,6 +482,17 @@ Flyway operation occurred during this capability correction.  A final
 standalone read-only postflight must still be run from the resulting reviewed
 commit, and this document does not claim that final postflight has passed.
 
+The next final-postflight preparation stopped locally before Docker and
+credentials.  ``validate_postflight_release_lineage()`` correctly detected
+that the reviewed metadata-capability implementation changed 20 top-level
+runner symbols (five constants and 15 functions), but the explicit
+``POSTFLIGHT_LINEAGE_ALLOWED_RUNNER_SYMBOLS`` contract had not yet listed
+them.  The follow-up correction allowlists exactly those AST-derived symbols;
+it does not derive permission from the current checkout, add a wildcard or
+prefix rule, or alter migration, credential, target, Docker, identity or
+evidence behavior.  Production V42 remains migrated exactly once and the
+final standalone read-only postflight remains pending.
+
 For a later read-only standalone postflight, backup/restore bytes, detached
 hashes, capture bindings and identity bindings are still verified.  Backup
 freshness is evaluated at the recorded successful V42 installation time,

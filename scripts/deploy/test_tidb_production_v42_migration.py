@@ -2828,6 +2828,78 @@ class StandalonePostflightBindingContractTest(unittest.TestCase):
             changed_symbols <= runner.POSTFLIGHT_LINEAGE_ALLOWED_RUNNER_SYMBOLS
         )
 
+    def test_metadata_capability_lineage_inventory_is_exact_and_allowlisted(self) -> None:
+        repo_root = HERE.parents[1]
+        migration_source = runner._git_bytes(
+            repo_root,
+            [
+                "show",
+                f"{runner.APPROVED_V42_MIGRATION_RELEASE_COMMIT}:"
+                "scripts/deploy/tidb_production_v42_migration.py",
+            ],
+            "test migration-release runner",
+        )
+        current_source = Path(runner.__file__).read_bytes()
+        baseline = runner._python_runner_symbol_contract(migration_source)
+        current = runner._python_runner_symbol_contract(current_source)
+        changed = {
+            key
+            for key in set(baseline) | set(current)
+            if baseline.get(key) != current.get(key)
+        }
+        expected = frozenset(
+            {
+                "constant:V42_METADATA_CAPABILITY_OBJECTS",
+                "constant:V42_METADATA_ENFORCEMENT_SOURCES",
+                "constant:V42_METADATA_REQUIRED_COLUMNS",
+                "constant:V42_SHOW_CREATE_TABLES",
+                "constant:_TIDB_V853_OBSERVED_METADATA_COLUMNS",
+                "function:_build_v42_show_create_command",
+                "function:_build_v42_show_create_payload",
+                "function:_encode_metadata_record",
+                "function:_extract_show_create_check_expression",
+                "function:_runtime_capability_model",
+                "function:metadata_capability_sql_v42",
+                "function:observed_tidb_v853_metadata_capabilities",
+                "function:parse_metadata_capability_rows",
+                "function:parse_v42_show_create_output",
+                "function:run_metadata_capability_query",
+                "function:run_metadata_query",
+                "function:run_v42_show_create_query",
+                "function:v42_show_create_sql",
+                "function:validate_generated_metadata_sql_compatibility",
+                "function:validate_metadata_capabilities",
+            }
+        )
+        self.assertEqual(len(expected), 20)
+        self.assertEqual(sum(item.startswith("constant:") for item in expected), 5)
+        self.assertEqual(sum(item.startswith("function:") for item in expected), 15)
+        self.assertEqual(changed - (runner.POSTFLIGHT_LINEAGE_ALLOWED_RUNNER_SYMBOLS - expected), expected)
+        self.assertTrue(expected <= runner.POSTFLIGHT_LINEAGE_ALLOWED_RUNNER_SYMBOLS)
+        self.assertTrue(expected <= set(current))
+
+    def test_local_lineage_contract_rejects_missing_or_wildcard_capability_allowance(self) -> None:
+        repo_root = HERE.parents[1]
+        expected = {
+            "function:metadata_capability_sql_v42",
+            "function:run_metadata_capability_query",
+            "function:run_v42_show_create_query",
+        }
+        with patch.object(
+            runner,
+            "POSTFLIGHT_LINEAGE_ALLOWED_RUNNER_SYMBOLS",
+            runner.POSTFLIGHT_LINEAGE_ALLOWED_RUNNER_SYMBOLS - {next(iter(expected))},
+        ):
+            with self.assertRaises(runner.ProductionRunnerError):
+                runner.local_check(repo_root)
+        with patch.object(
+            runner,
+            "POSTFLIGHT_LINEAGE_ALLOWED_RUNNER_SYMBOLS",
+            runner.POSTFLIGHT_LINEAGE_ALLOWED_RUNNER_SYMBOLS | {"function:*"},
+        ):
+            with self.assertRaises(runner.ProductionRunnerError):
+                runner.local_check(repo_root)
+
     def test_failure_inspection_exact_bytes_commit_execution_and_preflight_binding(self) -> None:
         preflight = _v42_preflight_payload()
         preflight["release_commit"] = runner.APPROVED_V42_MIGRATION_RELEASE_COMMIT

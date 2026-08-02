@@ -154,8 +154,17 @@ POSTFLIGHT_LINEAGE_ALLOWED_RUNNER_SYMBOLS = frozenset(
         "constant:V42_EVENT_MEDIA_FK_CONTRACT",
         "constant:V42_EVENT_MEDIA_INDEX_CONTRACT",
         "constant:V42_FLYWAY_HISTORY_CONTRACT",
+        "constant:V42_METADATA_CAPABILITY_OBJECTS",
+        "constant:V42_METADATA_ENFORCEMENT_SOURCES",
+        "constant:V42_METADATA_REQUIRED_COLUMNS",
         "constant:V42_POSTFLIGHT_EVIDENCE_SCHEMA",
+        "constant:V42_SHOW_CREATE_TABLES",
+        "constant:_TIDB_V853_OBSERVED_METADATA_COLUMNS",
+        "function:_build_v42_show_create_command",
+        "function:_build_v42_show_create_payload",
         "function:_check_metadata_sql",
+        "function:_encode_metadata_record",
+        "function:_extract_show_create_check_expression",
         "function:_validate_check_metadata_sql_contract",
         "function:_cleanup_column_metadata_sql",
         "function:_expected_postflight_verification_summary",
@@ -178,6 +187,7 @@ POSTFLIGHT_LINEAGE_ALLOWED_RUNNER_SYMBOLS = frozenset(
         "function:_python_protected_contract",
         "function:_python_runner_symbol_contract",
         "function:_require_exact_lower_commit",
+        "function:_runtime_capability_model",
         "function:_session_account_matches_prefix",
         "function:_validate_check_constraints",
         "function:_validate_cleanup_table",
@@ -190,13 +200,23 @@ POSTFLIGHT_LINEAGE_ALLOWED_RUNNER_SYMBOLS = frozenset(
         "function:load_and_validate_v42_failure_inspection",
         "function:load_and_validate_v42_postflight_evidence",
         "function:main",
+        "function:metadata_capability_sql_v42",
         "function:metadata_sql_v42_postflight_extras",
         "function:local_check",
+        "function:observed_tidb_v853_metadata_capabilities",
+        "function:parse_metadata_capability_rows",
+        "function:parse_v42_show_create_output",
+        "function:run_metadata_capability_query",
+        "function:run_metadata_query",
         "function:run_postflight",
+        "function:run_v42_show_create_query",
         "function:validate_postflight_release_lineage",
         "function:validate_postflight_user_prefix_binding",
         "function:validate_release_e_postflight_evidence",
         "function:validate_v42_postflight_extras",
+        "function:v42_show_create_sql",
+        "function:validate_generated_metadata_sql_compatibility",
+        "function:validate_metadata_capabilities",
         "function:write_and_reload_v42_postflight_evidence",
     }
 )
@@ -3012,6 +3032,78 @@ def local_check(repo_root: Path) -> dict[str, Any]:
     check_sql_contract = _validate_check_metadata_sql_contract(
         metadata_sql_v42_postflight_extras(capabilities), capabilities
     )
+    lineage_contract: dict[str, Any] = {
+        "status": "skipped",
+        "reason": "repository root is not a Git checkout",
+    }
+    if (repo_root / ".git").exists():
+        runner_path = "scripts/deploy/tidb_production_v42_migration.py"
+        baseline_symbols = _python_runner_symbol_contract(
+            _git_bytes(
+                repo_root,
+                [
+                    "show",
+                    f"{APPROVED_V42_MIGRATION_RELEASE_COMMIT}:{runner_path}",
+                ],
+                "local lineage migration-release runner",
+            )
+        )
+        current_symbols = _python_runner_symbol_contract(
+            Path(__file__).read_bytes()
+        )
+        changed_symbols = frozenset(
+            key
+            for key in set(baseline_symbols) | set(current_symbols)
+            if baseline_symbols.get(key) != current_symbols.get(key)
+        )
+        capability_symbols = frozenset(
+            {
+                "constant:V42_METADATA_CAPABILITY_OBJECTS",
+                "constant:V42_METADATA_ENFORCEMENT_SOURCES",
+                "constant:V42_METADATA_REQUIRED_COLUMNS",
+                "constant:V42_SHOW_CREATE_TABLES",
+                "constant:_TIDB_V853_OBSERVED_METADATA_COLUMNS",
+                "function:_build_v42_show_create_command",
+                "function:_build_v42_show_create_payload",
+                "function:_encode_metadata_record",
+                "function:_extract_show_create_check_expression",
+                "function:_runtime_capability_model",
+                "function:metadata_capability_sql_v42",
+                "function:observed_tidb_v853_metadata_capabilities",
+                "function:parse_metadata_capability_rows",
+                "function:parse_v42_show_create_output",
+                "function:run_metadata_capability_query",
+                "function:run_metadata_query",
+                "function:run_v42_show_create_query",
+                "function:v42_show_create_sql",
+                "function:validate_generated_metadata_sql_compatibility",
+                "function:validate_metadata_capabilities",
+            }
+        )
+        if len(capability_symbols) != 20:
+            raise ProductionRunnerError(
+                "local lineage capability contract must contain exactly 20 symbols"
+            )
+        if changed_symbols - (POSTFLIGHT_LINEAGE_ALLOWED_RUNNER_SYMBOLS - capability_symbols) != capability_symbols:
+            raise ProductionRunnerError(
+                "local lineage capability symbol inventory does not match the reviewed set"
+            )
+        if not capability_symbols <= POSTFLIGHT_LINEAGE_ALLOWED_RUNNER_SYMBOLS:
+            raise ProductionRunnerError(
+                "local lineage capability symbols are not all explicitly allowlisted"
+            )
+        if any("*" in symbol or "?" in symbol for symbol in POSTFLIGHT_LINEAGE_ALLOWED_RUNNER_SYMBOLS):
+            raise ProductionRunnerError(
+                "local lineage allowlist contains a wildcard-style symbol"
+            )
+        lineage_contract = {
+            "status": "pass",
+            "symbol_count": len(capability_symbols),
+            "constant_count": sum(symbol.startswith("constant:") for symbol in capability_symbols),
+            "function_count": sum(symbol.startswith("function:") for symbol in capability_symbols),
+            "allowlist_missing": 0,
+            "wildcard_entries": 0,
+        }
     return {
         "manifest": str(manifest),
         "manifest_sha256": _file_sha256(manifest),
@@ -3025,6 +3117,7 @@ def local_check(repo_root: Path) -> dict[str, Any]:
         "metadata_sql_compatibility": validate_generated_metadata_sql_compatibility(
             capabilities
         ),
+        "lineage_capability_contract": lineage_contract,
         "v42_entry_sha256_match": (
             by_name.get(EXPECTED_V42_SQL_FILE) == EXPECTED_V42_SQL_SHA
         ),
