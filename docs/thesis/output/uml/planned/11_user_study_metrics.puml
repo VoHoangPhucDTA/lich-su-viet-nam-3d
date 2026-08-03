@@ -1,0 +1,9 @@
+@startuml
+skinparam shadowing false
+skinparam monochrome true
+title PLANNED — user study and performance
+' No participant or latency dataset verified.
+actor Researcher
+Researcher -> Study: run approved protocol
+Study --> Researcher: task success/latency/usability metrics
+@enduml

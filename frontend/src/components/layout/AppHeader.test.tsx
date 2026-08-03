@@ -12,7 +12,7 @@ vi.mock('../../auth/AuthContext', () => ({
   }),
 }));
 
-vi.mock('./HeaderContext', () => ({
+vi.mock('./useHeader', () => ({
   useHeader: () => ({ centerContent: null }),
 }));
 
@@ -26,10 +26,12 @@ describe('AppHeader text controls', () => {
     );
 
     const menu = screen.getByRole('button', { name: 'Menu' });
-    expect(screen.getByRole('img', { name: 'Lịch Sử Việt Nam 3D' })).toHaveAttribute(
+    const logo = screen.getByRole('img', { name: 'Lịch Sử Việt Nam 3D' });
+    expect(logo).toHaveAttribute(
       'src',
-      expect.stringContaining('lich-su-viet-nam-3d-logo-header-transparent'),
+      expect.stringContaining('/home-images/home-logo-384.webp'),
     );
+    expect(logo).toHaveAttribute('fetchpriority', 'low');
     expect(screen.getByRole('navigation', { name: 'Điều hướng chính' })).toHaveClass('app-header-standard');
     expect(screen.getByRole('link', { name: 'Cội Nguồn' })).toHaveAttribute('aria-current', 'page');
     expect(menu).toHaveTextContent('Menu');

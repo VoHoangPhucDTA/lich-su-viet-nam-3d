@@ -4,3 +4,5 @@ artifacts/teacher-evaluation/
 .env.ai-e2e
 .env.admin-e2e
 **/__pycache__/
+__pycache__/
+*.py[cod]

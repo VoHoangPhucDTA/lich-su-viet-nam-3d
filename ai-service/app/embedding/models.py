@@ -5,6 +5,16 @@ from typing import Any, Literal
 
 from pydantic import BaseModel, Field
 
+EmbeddingManifestStatus = Literal[
+    "DRY_RUN",
+    "IN_PROGRESS",
+    "PARTIAL",
+    "PARTIAL_WITH_ERRORS",
+    "COMPLETED",
+    "COMPLETED_WITH_ERRORS",
+    "FAILED",
+]
+
 
 def utc_now_iso() -> str:
     return datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
@@ -92,13 +102,5 @@ class EmbeddingManifest(BaseModel):
     failedRecords: int = 0
     truncatedTailRecovered: bool = False
     dryRun: bool = False
-    status: Literal[
-        "DRY_RUN",
-        "IN_PROGRESS",
-        "PARTIAL",
-        "PARTIAL_WITH_ERRORS",
-        "COMPLETED",
-        "COMPLETED_WITH_ERRORS",
-        "FAILED",
-    ] = "IN_PROGRESS"
+    status: EmbeddingManifestStatus = "IN_PROGRESS"
     updatedAt: str = Field(default_factory=utc_now_iso)

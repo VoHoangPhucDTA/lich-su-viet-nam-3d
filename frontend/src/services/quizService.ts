@@ -2,6 +2,7 @@ import type {
   QuizAnswer, QuizConfig, QuizQuestion, QuizQuestionResult, QuizResult, QuizSession,
 } from '../types/quiz';
 import { generatePracticeQuiz } from './quizAiApi';
+import { recordPracticeQuizCompletion } from './practiceQuizAttemptApi';
 
 const SESSION_PREFIX = 'quiz_session_';
 const RESULT_PREFIX = 'quiz_result_';
@@ -82,6 +83,18 @@ export async function submitQuiz(sessionId: string, answers: QuizAnswer[], userI
   localStorage.setItem(`${RESULT_PREFIX}${sessionId}`, JSON.stringify(result));
   saveQuizProgress({ ...session, answers, submittedAt: new Date().toISOString() });
   appendToHistory(result);
+  try {
+    await recordPracticeQuizCompletion({
+      clientSessionId: session.sessionId,
+      topic: session.config.query,
+      difficulty: session.config.difficulty,
+      totalQuestions,
+      durationMs: Math.min(result.totalTimeMs, 86_400_000),
+    });
+  } catch (error) {
+    // Kết quả cục bộ vẫn dùng được; lần ghi KPI không được làm mất bài vừa hoàn thành.
+    console.warn('[quiz] Không thể ghi nhận lượt hoàn thành cho hồ sơ học tập.', error);
+  }
   return result;
 }
 

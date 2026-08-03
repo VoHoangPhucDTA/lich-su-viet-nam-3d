@@ -172,7 +172,7 @@ export default function EventDetailPage() {
     }).catch(() => {
       // Silently ignore — no saved progress
     });
-  }, [eventData, sectionsInfo]);
+  }, [eventData, sectionsInfo, setInitialProgress]);
 
   /* ─── Save progress before leaving the page ─── */
   useEffect(() => {
@@ -396,7 +396,11 @@ export default function EventDetailPage() {
         <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_240px] items-start gap-12 lg:gap-16">
           {/* Content column */}
           <main className="min-w-0 flex flex-col gap-16" style={{ gap: 'clamp(40px, 5vw, 72px)' }}>
-            <EventHero event={eventData} showMapAction={showMapAction} />
+            <EventHero
+              key={`${eventData.id}-${eventData.media?.thumbnail ?? ''}`}
+              event={eventData}
+              showMapAction={showMapAction}
+            />
 
             <EventTTSPlayer event={eventData} />
 

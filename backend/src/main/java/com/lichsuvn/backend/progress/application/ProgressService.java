@@ -6,17 +6,24 @@ import com.lichsuvn.backend.progress.api.dto.EventProgressResponse;
 import com.lichsuvn.backend.progress.api.dto.EventViewRequest;
 import com.lichsuvn.backend.progress.api.dto.EventViewResponse;
 import com.lichsuvn.backend.progress.api.dto.ProgressDto;
+import com.lichsuvn.backend.progress.api.dto.ProfileLearningSummaryDto;
 import com.lichsuvn.backend.progress.api.dto.RecentEventViewDto;
 import com.lichsuvn.backend.progress.domain.EventViewLogEntity;
 import com.lichsuvn.backend.progress.domain.LearningProgressEntity;
 import com.lichsuvn.backend.progress.infrastructure.EventViewLogRepository;
 import com.lichsuvn.backend.progress.infrastructure.LearningProgressRepository;
+import com.lichsuvn.backend.progress.infrastructure.ProfileLearningSummaryRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
+import java.time.Clock;
+import java.time.Instant;
 import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,16 +32,24 @@ import org.slf4j.LoggerFactory;
 public class ProgressService {
     private static final Logger log = LoggerFactory.getLogger(ProgressService.class);
     private static final Set<String> VIEW_SOURCES = Set.of("map", "detail", "search", "quiz", "exam");
+    private static final int PROFILE_SUMMARY_SCHEMA_VERSION = 1;
+    private static final ZoneId PROFILE_TIMEZONE = ZoneId.of("Asia/Ho_Chi_Minh");
 
     private final EventViewLogRepository eventViewLogRepository;
     private final LearningProgressRepository learningProgressRepository;
+    private final ProfileLearningSummaryRepository profileLearningSummaryRepository;
+    private final Clock clock;
 
     public ProgressService(
             EventViewLogRepository eventViewLogRepository,
-            LearningProgressRepository learningProgressRepository
+            LearningProgressRepository learningProgressRepository,
+            ProfileLearningSummaryRepository profileLearningSummaryRepository,
+            Clock clock
     ) {
         this.eventViewLogRepository = eventViewLogRepository;
         this.learningProgressRepository = learningProgressRepository;
+        this.profileLearningSummaryRepository = profileLearningSummaryRepository;
+        this.clock = clock;
     }
 
     /**
@@ -130,6 +145,57 @@ public class ProgressService {
                         ))
                         .toList()
         );
+    }
+
+    @Transactional(readOnly = true)
+    public ProfileLearningSummaryDto findMyLearningSummary(UserPrincipal principal) {
+        byte[] userId = requireAuthenticatedUser(principal);
+        Instant generatedAt = clock.instant();
+        var totals = profileLearningSummaryRepository.findTotals(userId);
+        LocalDate today = generatedAt.atZone(PROFILE_TIMEZONE).toLocalDate();
+        int streakDays = calculateCurrentStreak(
+                profileLearningSummaryRepository.findActivityDates(userId),
+                today
+        );
+        return new ProfileLearningSummaryDto(
+                PROFILE_SUMMARY_SCHEMA_VERSION,
+                generatedAt,
+                PROFILE_TIMEZONE.getId(),
+                totals.eventsViewed(),
+                totals.quizzesCompleted(),
+                Math.floorDiv(totals.totalDurationSeconds(), 60),
+                streakDays
+        );
+    }
+
+    static int calculateCurrentStreak(List<LocalDate> activityDates, LocalDate today) {
+        Set<LocalDate> distinctDates = new HashSet<>(activityDates);
+        LocalDate cursor;
+        if (distinctDates.contains(today)) {
+            cursor = today;
+        } else if (distinctDates.contains(today.minusDays(1))) {
+            cursor = today.minusDays(1);
+        } else {
+            return 0;
+        }
+
+        int streak = 0;
+        while (distinctDates.contains(cursor)) {
+            streak++;
+            cursor = cursor.minusDays(1);
+        }
+        return streak;
+    }
+
+    private byte[] requireAuthenticatedUser(UserPrincipal principal) {
+        if (isAnonymous(principal) || principal.idBytes().length != 16) {
+            throw new ApiException(
+                    HttpStatus.UNAUTHORIZED,
+                    "AUTHENTICATION_REQUIRED",
+                    "Authentication is required"
+            );
+        }
+        return principal.idBytes();
     }
 
     private String normalizeSource(String source) {

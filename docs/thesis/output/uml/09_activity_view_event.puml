@@ -1,0 +1,17 @@
+@startuml
+skinparam shadowing false
+skinparam monochrome true
+start
+:open /browse or /map;
+:request events/timeline;
+if (event selected?) then (yes)
+  :open popup/detail;
+  :request event, children, related, sources;
+  if (terrain action?) then (yes)
+    :normalize mapData target;
+  endif
+else (no)
+  :continue filtering;
+endif
+stop
+@enduml

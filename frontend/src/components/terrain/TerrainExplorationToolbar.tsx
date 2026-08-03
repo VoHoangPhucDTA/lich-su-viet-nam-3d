@@ -10,8 +10,10 @@ import {
   Compass,
   Crosshair,
   HelpCircle,
+  Info,
   Minus,
   Plus,
+  Ruler,
   X,
 } from 'lucide-react';
 import {
@@ -23,8 +25,15 @@ import {
   type TerrainInspectionHeightStatus,
   type TerrainInspectionResult,
 } from '../../utils/terrainInspection';
-
-export type TerrainExplorationMode = 'none' | 'inspect-location';
+import {
+  INITIAL_TERRAIN_DISTANCE_MEASUREMENT,
+  formatReferenceDistance,
+  type TerrainDistanceMeasurementState,
+} from '../../utils/terrainMeasurement';
+import type {
+  TerrainDataSourceStatus,
+  TerrainExplorationMode,
+} from '../../types/terrain';
 
 export interface TerrainExplorationInspectorState {
   result: TerrainInspectionResult | null;
@@ -35,12 +44,19 @@ export interface TerrainExplorationInspectorState {
 interface TerrainExplorationToolbarProps {
   /** True ONLY when terrain mode === 'active'. */
   isVisible: boolean;
-  /** Current inspect mode; controls the pressed state of the inspect toggle. */
-  inspectMode: TerrainExplorationMode;
-  /** Ask the host to switch inspect mode on/off. */
-  onToggleInspect: (next: TerrainExplorationMode) => void;
+  /** Serializable terrain-source status; never exposes Cesium runtime objects. */
+  terrainDataSourceStatus?: TerrainDataSourceStatus;
+  /** Single exploration mode; inspect and distance measurement are exclusive. */
+  explorationMode: TerrainExplorationMode;
+  /** Ask the host to switch the single exploration mode. */
+  onToggleMode: (next: TerrainExplorationMode) => void;
   /** Latest inspection result + loading + error for display. */
   inspectionState: TerrainExplorationInspectorState;
+  /** Serializable distance-measurement workflow owned by the host. */
+  measurementState?: TerrainDistanceMeasurementState;
+  /** Restart or clear the current measurement while keeping measure mode active. */
+  onResetMeasurement?: () => void;
+  onClearMeasurement?: () => void;
   /** Zoom in. */
   onZoomIn: () => void;
   /** Zoom out. */
@@ -48,7 +64,7 @@ interface TerrainExplorationToolbarProps {
   /** Whether the zoom buttons should be disabled (e.g. during entering/exiting). */
   zoomDisabled?: boolean;
   /** Whether the inspect toggle should be disabled (e.g. when entering). */
-  inspectDisabled?: boolean;
+  explorationDisabled?: boolean;
 }
 
 const buttonStyle = {
@@ -68,13 +84,26 @@ function heightStatusLabel(status: TerrainInspectionHeightStatus): string {
     case 'available':
       return 'Đã có dữ liệu độ cao từ địa hình 3D.';
     case 'ellipsoid_only':
-      return 'Chưa có dữ liệu độ cao địa hình chi tiết — đang hiển thị bề mặt ellipsoid.';
+      return 'Không có dữ liệu độ cao địa hình chi tiết; vị trí hiển thị theo bề mặt tham chiếu.';
     case 'unavailable':
       return 'Không thể xác định vị trí trên bản đồ.';
     case 'error':
       return 'Không thể tải độ cao địa hình tại vị trí này.';
     default:
       return '';
+  }
+}
+
+function terrainSourceLabel(status: TerrainDataSourceStatus): string {
+  switch (status) {
+    case 'world-terrain':
+      return 'Cesium World Terrain';
+    case 'ellipsoid-fallback':
+      return 'Bề mặt tham chiếu dự phòng';
+    case 'loading':
+      return 'Đang xác định nguồn địa hình';
+    default:
+      return 'Nguồn địa hình chưa khả dụng';
   }
 }
 
@@ -113,13 +142,17 @@ const NAVIGATION_GUIDE_ROWS: { label: string; description: string }[] = [
 
 export default function TerrainExplorationToolbar({
   isVisible,
-  inspectMode,
-  onToggleInspect,
+  terrainDataSourceStatus = 'unavailable',
+  explorationMode,
+  onToggleMode,
   inspectionState,
+  measurementState = INITIAL_TERRAIN_DISTANCE_MEASUREMENT,
+  onResetMeasurement = () => {},
+  onClearMeasurement = () => {},
   onZoomIn,
   onZoomOut,
   zoomDisabled = false,
-  inspectDisabled = false,
+  explorationDisabled = false,
 }: TerrainExplorationToolbarProps) {
   const [panelOpen, setPanelOpen] = useState(false);
   const toolsButtonRef = useRef<HTMLButtonElement>(null);
@@ -131,8 +164,8 @@ export default function TerrainExplorationToolbar({
 
   const closePanel = useCallback(() => {
     setPanelOpen(false);
-    if (inspectMode === 'inspect-location') onToggleInspect('none');
-  }, [inspectMode, onToggleInspect]);
+    if (explorationMode === 'inspect-location') onToggleMode('none');
+  }, [explorationMode, onToggleMode]);
 
   // Escape closes panel and restores focus to the trigger.
   useEffect(() => {
@@ -159,11 +192,18 @@ export default function TerrainExplorationToolbar({
   // host to clear marker + result. Parent already owns the inspector state
   // shape so we only dispatch the mode switch — the parent resets the rest.
   const handleToggleInspect = useCallback(() => {
-    const next: TerrainExplorationMode = inspectMode === 'inspect-location'
+    const next: TerrainExplorationMode = explorationMode === 'inspect-location'
       ? 'none'
       : 'inspect-location';
-    onToggleInspect(next);
-  }, [inspectMode, onToggleInspect]);
+    onToggleMode(next);
+  }, [explorationMode, onToggleMode]);
+
+  const handleToggleMeasurement = useCallback(() => {
+    const next: TerrainExplorationMode = explorationMode === 'measure-distance'
+      ? 'none'
+      : 'measure-distance';
+    onToggleMode(next);
+  }, [explorationMode, onToggleMode]);
 
   const handlePanelKeyDown = (event: ReactKeyboardEvent<HTMLDivElement>) => {
     // Tab-trap is intentionally light: only Escape closes the panel.
@@ -181,6 +221,15 @@ export default function TerrainExplorationToolbar({
   const showError = !!error || (!!result && isInspectionFailure(result.heightStatus));
   const errorMessage = error ?? (result ? inspectionErrorMessage(result.heightStatus) : null);
   const statusLabel = result ? heightStatusLabel(result.heightStatus) : null;
+  const heightLabel = result?.heightStatus === 'ellipsoid_only'
+    ? '—'
+    : formatHeight(result?.heightMeters);
+  const measureActive = explorationMode === 'measure-distance';
+  const measurementStatus = measurementState.phase === 'waiting-for-start'
+    ? 'Chọn hai vị trí để ước lượng chúng cách nhau bao xa trên bản đồ.'
+    : measurementState.phase === 'waiting-for-end'
+      ? 'Đã chọn điểm A. Chọn vị trí thứ hai để so sánh.'
+      : null;
 
   return (
     <div
@@ -292,6 +341,115 @@ export default function TerrainExplorationToolbar({
 
           <section
             className="map-exploration-panel__section"
+            aria-labelledby={`${panelTitleId}-data`}
+          >
+            <div className="map-exploration-panel__section-title">
+              <Info size={14} aria-hidden="true" />
+              <h3 id={`${panelTitleId}-data`}>Thông tin dữ liệu</h3>
+            </div>
+            <dl className="map-exploration-panel__data-list">
+              <div>
+                <dt>Nguồn địa hình</dt>
+                <dd>{terrainSourceLabel(terrainDataSourceStatus)}</dd>
+              </div>
+              <div>
+                <dt>Loại dữ liệu</dt>
+                <dd>Địa hình tham chiếu thời hiện đại.</dd>
+              </div>
+              <div>
+                <dt>Mục đích</dt>
+                <dd>Hỗ trợ quan sát địa thế, độ cao tương đối và quan hệ không gian.</dd>
+              </div>
+            </dl>
+            <ul className="map-exploration-panel__compact-list">
+              <li>Không phải mô hình phục dựng địa hình trong quá khứ.</li>
+              <li>Sông, bờ biển, bãi bồi và cảnh quan có thể đã thay đổi.</li>
+            </ul>
+            <h4 className="map-exploration-panel__subheading">Phạm vi sử dụng</h4>
+            <p className="map-exploration-panel__scope-copy">
+              Dùng để nhận biết địa thế tổng quát, vị trí tương đối, độ cao tham khảo và phạm vi phân bố của target.
+            </p>
+            <p className="map-exploration-panel__scope-copy">
+              Không dùng để khẳng định đường đi, dòng chảy, đường bờ hoặc ranh giới lịch sử chính xác; cũng không phục dựng cảnh quan quá khứ.
+            </p>
+          </section>
+
+          <section
+            className="map-exploration-panel__section"
+            aria-labelledby={`${panelTitleId}-prompts`}
+          >
+            <div className="map-exploration-panel__section-title">
+              <HelpCircle size={14} aria-hidden="true" />
+              <h3 id={`${panelTitleId}-prompts`}>Gợi ý khám phá</h3>
+            </div>
+            <ol className="map-exploration-panel__prompt-list">
+              <li>Khu vực hiện nay thuộc miền núi, đồng bằng, ven biển hay hải đảo?</li>
+              <li>Các địa điểm liên quan phân bố tập trung hay phân tán?</li>
+              <li>Yếu tố địa lý nào có thể đã thay đổi so với thời điểm xảy ra sự kiện?</li>
+            </ol>
+          </section>
+
+          <section
+            className="map-exploration-panel__section"
+            aria-labelledby={`${panelTitleId}-measure`}
+          >
+            <h3 className="map-exploration-panel__supplemental-heading">Công cụ bổ sung</h3>
+            <div className="map-exploration-panel__section-title">
+              <Ruler size={14} aria-hidden="true" />
+              <h3 id={`${panelTitleId}-measure`}>So sánh khoảng cách</h3>
+            </div>
+            <button
+              type="button"
+              onClick={handleToggleMeasurement}
+              aria-pressed={measureActive}
+              disabled={explorationDisabled}
+              className="map-exploration-mode-toggle focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+            >
+              <Ruler size={15} aria-hidden="true" />
+              So sánh khoảng cách
+            </button>
+            <p className="map-exploration-panel__optional-copy">
+              Công cụ tùy chọn để so sánh khoảng cách giữa các vị trí.
+            </p>
+
+            {measureActive && (
+              <div className="map-exploration-measurement" aria-live="polite">
+                {measurementStatus && (
+                  <p className="map-exploration-panel__status">{measurementStatus}</p>
+                )}
+                {measurementState.phase === 'complete'
+                  && measurementState.distanceMeters != null && (
+                    <p className="map-exploration-measurement__result">
+                      Khoảng cách gần đúng:{' '}
+                      <strong>{formatReferenceDistance(measurementState.distanceMeters)}</strong>
+                    </p>
+                  )}
+                {measurementState.error && (
+                  <p className="map-exploration-panel__error" role="status">
+                    {measurementState.error}
+                  </p>
+                )}
+                {(measurementState.phase === 'waiting-for-end'
+                  || measurementState.phase === 'complete') && (
+                  <div className="map-exploration-measurement__actions">
+                    {measurementState.phase === 'complete' && (
+                      <button type="button" onClick={onResetMeasurement}>Đo lại</button>
+                    )}
+                    <button type="button" onClick={onClearMeasurement}>Xóa phép đo</button>
+                  </div>
+                )}
+                <p className="map-exploration-panel__footnote">
+                  Khoảng cách gần đúng giữa hai vị trí trên bản đồ.
+                </p>
+                <p className="map-exploration-panel__footnote">
+                  Kết quả không phải quãng đường di chuyển thực tế trong lịch sử.
+                </p>
+              </div>
+            )}
+          </section>
+
+          <section
+            className="map-exploration-panel__section"
             aria-labelledby={`${panelTitleId}-inspect`}
           >
             <div className="map-exploration-panel__section-title">
@@ -302,27 +460,27 @@ export default function TerrainExplorationToolbar({
               ref={inspectToggleRef}
               type="button"
               onClick={handleToggleInspect}
-              aria-pressed={inspectMode === 'inspect-location'}
-              disabled={inspectDisabled}
-              className="map-exploration-inspect-toggle focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+              aria-pressed={explorationMode === 'inspect-location'}
+              disabled={explorationDisabled}
+              className="map-exploration-mode-toggle focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
             >
               <Crosshair
                 size={14}
                 aria-hidden="true"
                 style={{ marginRight: 8, opacity: 0.75 }}
               />
-              {inspectMode === 'inspect-location'
+              {explorationMode === 'inspect-location'
                 ? 'Đang chờ bạn chọn vị trí…'
                 : 'Bật chọn vị trí trên bản đồ'}
             </button>
 
-            {inspectMode === 'inspect-location' && (
+            {explorationMode === 'inspect-location' && (
               <p className="map-exploration-panel__status" aria-live="polite">
                 Nhấn vào bản đồ để xem vĩ độ, kinh độ và độ cao địa hình.
               </p>
             )}
 
-            {inspectMode === 'inspect-location' && loading && (
+            {explorationMode === 'inspect-location' && loading && (
               <p className="map-exploration-panel__status" aria-live="polite">
                 Đang lấy độ cao địa hình…
               </p>
@@ -345,7 +503,7 @@ export default function TerrainExplorationToolbar({
                 <div className="map-exploration-panel__result-row">
                   <span>Độ cao địa hình</span>
                   <strong>
-                    {formatHeight(result.heightMeters)}
+                    {heightLabel}
                     <span className="map-exploration-panel__result-unit" aria-hidden="true" />
                   </strong>
                 </div>
@@ -355,7 +513,7 @@ export default function TerrainExplorationToolbar({
                   </div>
                 )}
                 <p className="map-exploration-panel__footnote">
-                  Độ cao được lấy từ mô hình địa hình và chỉ mang tính tham khảo.
+                  Độ cao lấy từ mô hình địa hình tham chiếu và chỉ mang tính gần đúng.
                 </p>
               </div>
             )}

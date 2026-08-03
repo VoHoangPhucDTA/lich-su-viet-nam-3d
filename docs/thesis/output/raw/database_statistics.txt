@@ -1,0 +1,4 @@
+Database live status: DB_LIVE_UNVERIFIED. No live MySQL endpoint or Docker daemon was available during this audit.
+Static migration evidence: 37 Flyway migrations and 54 distinct table names parsed from backend/src/main/resources/db/migration.
+Terrain audit (read-only canonical JSONL): 361 records, 0 parse errors; all records have mapData and valid geoType. GADM region references resolve 380/380. Terrain-eligible coverage is 136/361 (37.67%); 225 records are ineligible (56 nationwide, 169 no_location).
+No production database contents were modified or exported.

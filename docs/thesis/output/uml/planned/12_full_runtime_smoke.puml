@@ -1,0 +1,9 @@
+@startuml
+skinparam shadowing false
+skinparam monochrome true
+title PLANNED — full runtime smoke
+' Requires Docker, DB, AI, OAuth/mail/TTS configuration.
+actor Operator
+Operator -> Stack: start services
+Stack --> Operator: sanitized smoke report
+@enduml

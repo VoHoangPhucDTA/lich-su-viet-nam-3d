@@ -18,10 +18,11 @@ import { APP_SCROLL_ROOT_ID } from './hooks/useActiveSection';
 
 // Pages
 import CoiNguonPage from './pages/CoiNguonPage';
-import MapPage from './pages/MapPage';
 import EventDetailPage from './pages/EventDetailPage';
 import AllEventsPage from './pages/AllEventsPage';
 import HistoricalPeriodsPage from './pages/HistoricalPeriodsPage';
+
+const MapPage = lazy(() => import('./pages/MapPage'));
 
 // Auth pages
 import LoginPage from './pages/auth/LoginPage';
@@ -32,8 +33,6 @@ import VerifyEmailPage from './pages/auth/VerifyEmailPage';
 
 // Profile pages
 import ProfileDashboardPage from './pages/profile/ProfileDashboardPage';
-import LearningHistoryPage from './pages/profile/LearningHistoryPage';
-import ScoresPage from './pages/profile/ScoresPage';
 import ProfileSettingsPage from './pages/profile/ProfileSettingsPage';
 
 // Quiz pages
@@ -87,7 +86,7 @@ function AppContent() {
     || examPracticeRoute.test(location.pathname);
 
   return (
-    <div className="flex flex-col h-screen w-screen overflow-hidden bg-stone-50">
+    <div className="flex flex-col h-screen w-full overflow-hidden bg-stone-50">
       {!shouldHideHeader && <AppHeader />}
       <div id={APP_SCROLL_ROOT_ID} className="flex-1 overflow-y-auto">
         <Suspense fallback={<div style={{ padding: '2rem', color: 'var(--text-muted)' }}>Đang tải...</div>}>
@@ -145,8 +144,8 @@ function AppContent() {
           {/* === Profile routes === */}
           <Route path="/profile" element={<Navigate to="/profile/dashboard" replace />} />
           <Route path="/profile/dashboard" element={<ProtectedRoute><ProfileDashboardPage /></ProtectedRoute>} />
-          <Route path="/profile/history" element={<ProtectedRoute><LearningHistoryPage /></ProtectedRoute>} />
-          <Route path="/profile/scores" element={<ProtectedRoute><ScoresPage /></ProtectedRoute>} />
+          <Route path="/profile/history" element={<ProtectedRoute><Navigate to="/exams/lich-su" replace /></ProtectedRoute>} />
+          <Route path="/profile/scores" element={<ProtectedRoute><Navigate to="/exams/thong-ke" replace /></ProtectedRoute>} />
           <Route path="/profile/settings" element={<ProtectedRoute><ProfileSettingsPage /></ProtectedRoute>} />
 
           {/* === Admin routes === */}

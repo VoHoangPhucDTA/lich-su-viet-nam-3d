@@ -31,21 +31,44 @@ describe('exam keyboard shortcuts', () => {
     expect(help).toHaveBeenCalledOnce();
   });
 
-  it('maps number, Ctrl+Enter, and Shift+F by mode', () => {
-    const select = vi.fn(), check = vi.fn(), flag = vi.fn();
+  it('maps option keys, Ctrl+Enter, and Shift+F by mode', () => {
+    const select = vi.fn(), check = vi.fn(), flag = vi.fn(), submit = vi.fn();
     const practice = render(<Harness mode="practice" onSelectOptionByIndex={select} onCheck={check} onFlag={flag} />);
     fireEvent.keyDown(document.body, { key: '3' });
+    fireEvent.keyDown(document.body, { key: 'D' });
     fireEvent.keyDown(document.body, { key: 'Enter', ctrlKey: true });
     fireEvent.keyDown(document.body, { key: 'f' });
     expect(select).toHaveBeenCalledWith(2);
+    expect(select).toHaveBeenCalledWith(3);
     expect(check).toHaveBeenCalledOnce();
     expect(flag).not.toHaveBeenCalled();
     practice.unmount();
-    render(<Harness mode="timed" onFlag={flag} onCheck={check} />);
+    render(<Harness mode="timed" onFlag={flag} onCheck={check} onSubmit={submit} />);
     fireEvent.keyDown(document.body, { key: 'f' });
     fireEvent.keyDown(document.body, { key: 'F', shiftKey: true });
+    fireEvent.keyDown(document.body, { key: 'Enter', ctrlKey: true });
     expect(flag).toHaveBeenCalledOnce();
     expect(check).toHaveBeenCalledOnce();
+    expect(submit).toHaveBeenCalledOnce();
+  });
+
+  it('maps option movement, boundaries, and clearing', () => {
+    const select = vi.fn(), move = vi.fn(), clear = vi.fn();
+    render(
+      <Harness
+        onSelectOptionByIndex={select}
+        onMoveOption={move}
+        onClearOption={clear}
+      />,
+    );
+    fireEvent.keyDown(document.body, { key: 'ArrowUp' });
+    fireEvent.keyDown(document.body, { key: 'ArrowDown' });
+    fireEvent.keyDown(document.body, { key: 'Home' });
+    fireEvent.keyDown(document.body, { key: 'End' });
+    fireEvent.keyDown(document.body, { key: 'Delete' });
+    expect(move.mock.calls).toEqual([[-1], [1]]);
+    expect(select.mock.calls).toEqual([[0], [3]]);
+    expect(clear).toHaveBeenCalledOnce();
   });
 
   it('ignores typing targets and disabled dialogs', () => {

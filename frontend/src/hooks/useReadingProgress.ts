@@ -34,8 +34,6 @@ export function useReadingProgress(sections: SectionInfo[]) {
       observerRef.current.disconnect();
     }
 
-    viewedRef.current = new Set(viewedSections);
-
     // When the page doesn't scroll (content fits viewport exactly),
     // the IntersectionObserver initial callback may not detect all
     // sections (especially at the bottom edge).  Since the user can
@@ -107,7 +105,6 @@ export function useReadingProgress(sections: SectionInfo[]) {
         observerRef.current.disconnect();
       }
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sections]);
 
   /* ─── Bottom-of-page terminal-state detector ───
@@ -159,7 +156,6 @@ export function useReadingProgress(sections: SectionInfo[]) {
       scrollEl.removeEventListener('scroll', updateBottom);
       window.removeEventListener('resize', updateBottom);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sections]);
 
   // Reading progress — weighted fraction of viewed sections.
@@ -174,7 +170,7 @@ export function useReadingProgress(sections: SectionInfo[]) {
   const resetProgress = useCallback(() => {
     viewedRef.current = new Set();
     setViewedSections(new Set());
-  }, [sections]);
+  }, []);
 
   /** Set the initial viewed sections from saved progress, without scrolling. */
   const setInitialProgress = useCallback((initiallyViewed: Set<string>) => {

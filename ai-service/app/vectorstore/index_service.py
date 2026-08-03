@@ -2,6 +2,7 @@
 
 import json
 import os
+import threading
 from collections.abc import Callable
 from pathlib import Path
 from typing import Any, TypeVar
@@ -93,6 +94,17 @@ class ChromaIndexService:
         self.distance_metric = distance_metric
         self.batch_size = batch_size
         self.client_factory = client_factory
+        self._client: Any | None = None
+        self._client_lock = threading.Lock()
+        self._closed = False
+
+    def _get_client(self) -> Any:
+        with self._client_lock:
+            if self._closed:
+                raise RuntimeError("Chroma index service is closed")
+            if self._client is None:
+                self._client = self.client_factory(self.persist_dir)
+            return self._client
 
     @property
     def report_path(self) -> Path:
@@ -146,9 +158,11 @@ class ChromaIndexService:
                 status="DRY_RUN",
             )
 
-        client = self.client_factory(self.persist_dir)
-        try:
-            exists = collection_exists(client, self.collection_name)
+        client = self._get_client()
+        exists = collection_exists(client, self.collection_name)
+        # Serialize mutation while retaining one client for the service's
+        # complete build/inspect lifecycle.
+        with self._client_lock:
             count_before = 0
             if exists:
                 existing = get_collection(client, self.collection_name)
@@ -220,28 +234,33 @@ class ChromaIndexService:
                 status="COMPLETED",
             )
             self._write_report(report)
-            return report
-        finally:
-            close_persistent_client(client)
+        return report
 
     def inspect(self) -> ChromaInspection:
         if not (self.persist_dir / "chroma.sqlite3").is_file():
             raise CollectionNotFoundError(
                 f"Chroma persistent database does not exist: {self.persist_dir}"
             )
-        client = self.client_factory(self.persist_dir)
-        try:
-            if not collection_exists(client, self.collection_name):
-                raise CollectionNotFoundError(
-                    f"Chroma collection does not exist: {self.collection_name}"
-                )
-            collection = get_collection(client, self.collection_name)
-            return ChromaInspection(
-                collectionName=self.collection_name,
-                persistDirectory=str(self.persist_dir),
-                count=collection.count(),
-                metadata=collection.metadata or {},
-                configuration=collection.configuration or {},
+        client = self._get_client()
+        if not collection_exists(client, self.collection_name):
+            raise CollectionNotFoundError(
+                f"Chroma collection does not exist: {self.collection_name}"
             )
-        finally:
+        collection = get_collection(client, self.collection_name)
+        return ChromaInspection(
+            collectionName=self.collection_name,
+            persistDirectory=str(self.persist_dir),
+            count=collection.count(),
+            metadata=collection.metadata or {},
+            configuration=collection.configuration or {},
+        )
+
+    def close(self) -> None:
+        with self._client_lock:
+            if self._closed:
+                return
+            self._closed = True
+            client = self._client
+            self._client = None
+        if client is not None:
             close_persistent_client(client)

@@ -5,6 +5,7 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.context.properties.bind.ConstructorBinding;
 import org.springframework.validation.annotation.Validated;
 
 import java.net.URI;
@@ -21,5 +22,26 @@ public record AiServiceProperties(
         @NotBlank String healthPath,
         @NotBlank String provenancePath,
         @NotNull String internalToken,
-        @Min(0) @Max(3) int maxStyleExamples
-) {}
+        @Min(0) @Max(3) int maxStyleExamples,
+        String selfPracticeCanarySecret
+) {
+    @ConstructorBinding
+    public AiServiceProperties {
+        selfPracticeCanarySecret = selfPracticeCanarySecret == null ? "" : selfPracticeCanarySecret;
+    }
+
+    public AiServiceProperties(
+            boolean enabled,
+            URI baseUrl,
+            Duration connectTimeout,
+            Duration readTimeout,
+            String generationPath,
+            String healthPath,
+            String provenancePath,
+            String internalToken,
+            int maxStyleExamples
+    ) {
+        this(enabled, baseUrl, connectTimeout, readTimeout, generationPath, healthPath,
+                provenancePath, internalToken, maxStyleExamples, "");
+    }
+}

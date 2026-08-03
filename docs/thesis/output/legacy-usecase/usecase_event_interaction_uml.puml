@@ -1,0 +1,132 @@
+@startuml usecase_event_interaction
+skinparam maxMessageSize 150
+actor "Người dùng" as U
+participant "MapPage.tsx" as MP
+participant "Timeline.tsx" as TL
+participant "Sidebar.tsx" as SB
+participant "CesiumMap.tsx" as CM
+participant "EventPopup.tsx" as EP
+participant "eventApi.ts" as API
+participant "EventController.java" as CTR
+participant "EventReadService.java" as SRV
+database "MySQL" as DB
+
+group Normal Flow 1.1: Tương tác với sự kiện lịch sử trên bản đồ
+    opt Hiển thị hướng dẫn (Optional)
+        U -> MP : 1.1.0: OnboardingGuide.tsx (useMapGuide hook):\nLần đầu truy cập — tự động hiển thị onboarding 4 bước dạng collapsible panel.\n(1) Chọn mốc thời gian trên Timeline\n(2) Chọn sự kiện từ sidebar bên trái\n(3) Khám phá vị trí sự kiện trên bản đồ 3D\n(4) Xem thông tin chi tiết ở EventPopup bên phải.\nTrạng thái lưu vào localStorage (lsvn3d_map_guide_seen).\nSau khi đóng, không tự động hiện lại khi đổi timeline/sự kiện/filter/map.\nNút "Hướng dẫn" (la bàn) ở góc trái để mở lại.
+    end
+    
+    U -> TL : Người dùng kéo thanh thời gian (hoặc đổi Lớp)
+    activate TL
+    
+    opt Timeline cluster (Optional)
+        U -> TL : Các mốc năm gần nhau được gộp thành cụm (cluster chip gạch đứt)\nNgười dùng nhấn cụm để mở rộng, nhấn nút X để thu gọn
+    end
+    
+    TL -> API : 1.1.1: Timeline.tsx:\nKích hoạt sự kiện thay đổi, gọi hàm getEventsByYearFromBackend()
+    deactivate TL
+    activate API
+    API -> CTR : 1.1.2: eventApi.ts:\nGọi API GET /api/events?year={...}&grade={...}
+    activate CTR
+    CTR -> SRV : 1.1.3: EventController.java:\nNhận request và gọi hàm findEvents()
+    activate SRV
+    SRV -> DB : 1.1.4: EventReadService.java:\nThực hiện truy vấn lấy dữ liệu sự kiện lịch sử
+    activate DB
+    DB --> SRV : 1.1.5: MySQL:\nTrả về danh sách Event Entity
+    deactivate DB
+    SRV --> CTR : 1.1.6: EventReadService.java:\nChuyển đổi thành DTO và trả kết quả
+    deactivate SRV
+    CTR --> API : 1.1.7: EventController.java:\nTrả HTTP status 200 kèm danh sách
+    deactivate CTR
+    API --> MP : 1.1.8: eventApi.ts:\nTrả dữ liệu mảng sự kiện (HistoricalEvent)
+    deactivate API
+    activate MP
+    MP -> SB : 1.1.9: Sidebar.tsx:\nNhận dữ liệu mới và hiển thị danh sách sự kiện ở bảng điều khiển bên trái
+    deactivate MP
+    activate SB
+    
+    opt Lọc hiển thị trên Client (Optional)
+        U -> SB : 1.1.10: Sidebar.tsx:\nNgười dùng nhấp chọn các nút filter (chấm màu phân loại) để lọc\nNhấn "Xoá lọc" để trở về trạng thái không lọc
+    end
+    
+    opt Mở rộng sự kiện cha (Optional)
+        U -> SB : 1.1.11: Sidebar.tsx:\nNgười dùng nhấp vào một sự kiện cha có sự kiện con để mở rộng (expand)
+        SB -> API : 1.1.12: eventApi.ts:\nGọi hàm getChildrenFromBackend(eventId)
+        activate API
+        API -> CTR : 1.1.13: eventApi.ts:\nGọi API GET /api/events/{eventId}/children
+        activate CTR
+        CTR -> SRV : Gọi findChildren()
+        activate SRV
+        SRV -> DB : Query sự kiện con
+        activate DB
+        DB --> SRV : Kết quả sự kiện con
+        deactivate DB
+        SRV --> CTR : DTO
+        deactivate SRV
+        CTR --> API : Trả 200 OK
+        deactivate CTR
+        API --> SB : 1.1.15: Sidebar.tsx:\nRender bổ sung danh sách sự kiện con nằm lồng dưới sự kiện cha (kiểu Tree Node)
+        deactivate API
+    end
+    
+    U -> SB : 1.1.16: Sidebar.tsx:\nNgười dùng nhấp trực tiếp vào tiêu đề sự kiện (cha hoặc con) để xem.\nĐây là phương thức tương tác chính.
+    SB -> MP : 1.1.17: MapPage.tsx:\nThiết lập trạng thái selectedEvent
+    deactivate SB
+    activate MP
+    MP -> CM : 1.1.18: CesiumMap.tsx:\nLắng nghe selectedEvent thay đổi, hiển thị vùng đánh dấu và bay camera (flyTo)\n- single_point: chỉ marker, không tô polygon; zoom 30km\n- multi_region: tô polygon primaryRegions + secondaryRegions; bounding box\n- Marker gần nhau được gộp tự động (CustomDataSource + EntityCluster)\n- Nhãn marker tối ưu: bold 14px, outline đỏ, nền tối
+    activate CM
+    alt geoType = single_point
+        CM -> CM : 1.3.1: Chỉ hiển thị marker, không tô polygon tỉnh
+        CM -> CM : 1.3.2: flyTo altitude 30km (zoom gần)
+    else GeoJSON chưa tải xong
+        CM -> CM : 1.4.1: Đợi GeoJSON tải xong → áp dụng lại polygon highlights
+    end
+    deactivate CM
+    MP -> EP : 1.1.19: EventPopup.tsx:\nKhởi tạo và trượt ra ở bên phải màn hình, hiển thị thông tin\nGồm nút "Xem chi tiết", "3D Địa hình" (đang phát triển), "Quay lại cha"\n(Không còn nút "Trước"/"Sau" điều hướng anh em)
+    deactivate MP
+    activate EP
+    deactivate EP
+    
+    opt Hiển thị sự kiện tương lai trong Sidebar
+        SB -> SB : 1.5.1: Sidebar.tsx - EventTreeNode:\nSự kiện có startYear > currentYear → opacity 0.5,\nbadge năm border dashed + Clock icon
+    end
+end
+
+group Alternative Flow 1.2: Sự kiện toàn quốc hoặc không có tọa độ
+    U -> SB : Người dùng nhấp trực tiếp vào sự kiện không có tọa độ cụ thể
+    activate SB
+    SB -> MP : Thiết lập selectedEvent
+    deactivate SB
+    activate MP
+    MP -> CM : 1.2.1: CesiumMap.tsx:\nBỏ qua bước hiệu ứng bay camera đến một điểm cụ thể, giữ nguyên góc nhìn
+    activate CM
+    deactivate CM
+    MP -> EP : 1.2.2: EventPopup.tsx:\nHiển thị thêm thông báo bằng dòng chữ "Phạm vi: Toàn quốc" với màu đánh dấu riêng
+    deactivate MP
+    activate EP
+    deactivate EP
+end
+
+group Alternative Flow 1.3: Sự kiện single_point — không tô màu polygon
+    U -> SB : Người dùng chọn sự kiện single_point
+    activate SB
+    SB -> MP : Thiết lập selectedEvent (geoType: single_point)
+    deactivate SB
+    activate MP
+    MP -> CM : 1.3.1: CesiumMap.tsx - applyPolygonHighlights():\nshouldHighlight = false (chỉ multi_region mới tô polygon)\n1.3.2: flyTo altitude 30km thay vì 200km
+    activate CM
+    deactivate CM
+    MP -> EP : Hiển thị popup bình thường
+    deactivate MP
+end
+
+group Alternative Flow 1.4: GeoJSON tải bất đồng bộ — áp dụng lại highlight
+    CM -> CM : GeoJSONDataSource.load() bất đồng bộ
+    ... Sau khi GeoJSON tải xong ...
+    CM -> CM : 1.4.1: dataSourceRef.current được gán\n→ applyPolygonHighlights(selectedEventRef.current)\nĐảm bảo polygon highlights không bị bỏ lỡ
+end
+
+group Alternative Flow 1.5: Hiển thị sự kiện tương lai trong Sidebar
+    SB -> SB : 1.5.1: EventTreeNode kiểm tra isFutureEvent\n(startYear > currentYear)\n→ opacity 0.5, badge năm border dashed + Clock icon
+end
+@enduml

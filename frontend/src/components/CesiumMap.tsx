@@ -30,6 +30,7 @@ import {
   TerrainProvider,
   BoundingSphere,
   HeadingPitchRange,
+  ArcType,
   Matrix4,
   PolygonHierarchy,
   PropertyBag,
@@ -37,6 +38,11 @@ import {
   sampleTerrainMostDetailed,
 } from 'cesium';
 import type { TerrainInspectionResult } from '../utils/terrainInspection';
+import type {
+  DistanceMeasurementPhase,
+  TerrainDistanceMeasurementState,
+  TerrainMeasurementPoint,
+} from '../utils/terrainMeasurement';
 import 'cesium/Build/Cesium/Widgets/widgets.css';
 import {
   VIETNAM_CENTER,
@@ -46,7 +52,11 @@ import {
   getTerrainProvider,
 } from '../lib/cesium';
 import type { HistoricalEvent } from '../types/event';
-import type { TerrainRuntimeError, TerrainSessionCommand } from '../types/terrain';
+import type {
+  TerrainExplorationMode,
+  TerrainRuntimeError,
+  TerrainSessionCommand,
+} from '../types/terrain';
 import type { TerrainRegionTarget } from '../utils/terrainTargets';
 import type { RegionGeometryIndex, ResolvedRegionGeometry } from '../utils/regionGeometry';
 import { parseRegionGeoJSON, resolveRegionGeometry } from '../utils/regionGeometry';
@@ -83,13 +93,16 @@ function regionCartesianPoints(geometry: ResolvedRegionGeometry) {
   );
 }
 
-/** Modes supported by the Terrain Exploration toolbar's inspect toggle. */
-export type TerrainExplorationMode = 'none' | 'inspect-location';
-
 /** Result payload pushed back to the host after a terrain inspection attempt. */
 export interface TerrainInspectionPayload {
   result: TerrainInspectionResult | null;
   loading: boolean;
+  error: string | null;
+}
+
+export interface TerrainMeasurementPayload {
+  sessionId: number;
+  point: TerrainMeasurementPoint | null;
   error: string | null;
 }
 
@@ -107,6 +120,8 @@ export interface CesiumMapHandle {
   zoomByFactor(factor: number): void;
   /** Remove the inspection marker and invalidate any pending sample. */
   clearInspectionMarker(): void;
+  /** Remove all distance entities and invalidate any pending height sample. */
+  clearDistanceMeasurement(): void;
 }
 
 interface CesiumMapProps {
@@ -122,9 +137,13 @@ interface CesiumMapProps {
   onTerrainExitComplete: (sessionId: number) => void;
   onTerrainTargetSelect: (sessionId: number, targetId: string) => void;
   onRegionGeometryStatus: (status: 'loading' | 'ready' | 'error', error?: TerrainRuntimeError) => void;
-  inspectMode?: TerrainExplorationMode;
+  explorationMode?: TerrainExplorationMode;
   inspectionSessionId?: number;
   onInspectionResultChange?: (payload: TerrainInspectionPayload) => void;
+  measurementSessionId?: number;
+  measurementPhase?: DistanceMeasurementPhase;
+  measurementState?: TerrainDistanceMeasurementState;
+  onMeasurementPointChange?: (payload: TerrainMeasurementPayload) => void;
   /**
    * Mutable ref published by CesiumMap so the host can drive imperative
    * actions (zoom, inspection cleanup) without owning Cesium objects.
@@ -145,9 +164,13 @@ export default function CesiumMap({
   onTerrainExitComplete,
   onTerrainTargetSelect,
   onRegionGeometryStatus,
-  inspectMode = 'none',
+  explorationMode = 'none',
   inspectionSessionId = 0,
   onInspectionResultChange,
+  measurementSessionId = 0,
+  measurementPhase = 'idle',
+  measurementState,
+  onMeasurementPointChange,
   apiRef,
 }: CesiumMapProps) {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -181,10 +204,18 @@ export default function CesiumMap({
   // ─── Inspection-related refs (Task C) ──────────────────────────────────────
   const inspectDataSourceRef = useRef<CustomDataSource | null>(null);
   const internalInspectOpRef = useRef(0);
+  const measurementDataSourceRef = useRef<CustomDataSource | null>(null);
+  const internalMeasurementOpRef = useRef(0);
   const onInspectionResultChangeRef = useRef(onInspectionResultChange);
   onInspectionResultChangeRef.current = onInspectionResultChange;
-  const inspectModePropRef = useRef(inspectMode);
-  inspectModePropRef.current = inspectMode;
+  const explorationModePropRef = useRef(explorationMode);
+  explorationModePropRef.current = explorationMode;
+  const measurementPhaseRef = useRef(measurementPhase);
+  measurementPhaseRef.current = measurementPhase;
+  const measurementSessionIdRef = useRef(measurementSessionId);
+  measurementSessionIdRef.current = measurementSessionId;
+  const onMeasurementPointChangeRef = useRef(onMeasurementPointChange);
+  onMeasurementPointChangeRef.current = onMeasurementPointChange;
 
   // Stable ref to callback — avoids re-running init effect when callback changes
   const onSelectEventRef = useRef(onSelectEvent);
@@ -213,6 +244,8 @@ export default function CesiumMap({
     const terrainProviderOperation = terrainProviderOperationRef;
     const regionGeometryOperation = regionGeometryOperationRef;
     const cameraOperation = cameraOperationRef;
+    const internalInspectOp = internalInspectOpRef;
+    const internalMeasurementOp = internalMeasurementOpRef;
     const terrainRegionEntities = terrainRegionEntitiesRef;
     mountedRef.current = true;
     const lifecycleId = ++viewerLifecycleRef.current;
@@ -283,9 +316,16 @@ export default function CesiumMap({
             (movement: { position: Cartesian2 }) => {
               const v = viewerRef.current;
               if (!v || v.isDestroyed()) return;
-              // Inspect mode takes precedence over picking — see Task C.
+              // D1 click priority: measure, inspect, target/event picking.
               if (
-                inspectModePropRef.current === 'inspect-location'
+                explorationModePropRef.current === 'measure-distance'
+                && terrainSessionRef.current?.mode === 'active'
+              ) {
+                void runDistanceMeasurementAt(movement.position);
+                return;
+              }
+              if (
+                explorationModePropRef.current === 'inspect-location'
                 && terrainSessionRef.current?.mode === 'active'
               ) {
                 void runInspectionAt(movement.position);
@@ -413,6 +453,8 @@ export default function CesiumMap({
       ++terrainProviderOperation.current;
       ++regionGeometryOperation.current;
       ++cameraOperation.current;
+      ++internalInspectOp.current;
+      ++internalMeasurementOp.current;
       cancelAnimationFrame(rafId);
       const viewer = viewerRef.current;
       if (viewer && !viewer.isDestroyed()) viewer.camera.cancelFlight();
@@ -433,6 +475,10 @@ export default function CesiumMap({
       if (inspectDataSourceRef.current && viewer && !viewer.isDestroyed()) {
         viewer.dataSources.remove(inspectDataSourceRef.current, true);
         inspectDataSourceRef.current = null;
+      }
+      if (measurementDataSourceRef.current && viewer && !viewer.isDestroyed()) {
+        viewer.dataSources.remove(measurementDataSourceRef.current, true);
+        measurementDataSourceRef.current = null;
       }
       if (dataSourceRef.current && viewer && !viewer.isDestroyed()) {
         viewer.dataSources.remove(dataSourceRef.current, true);
@@ -498,7 +544,7 @@ export default function CesiumMap({
       || viewer.isDestroyed()
       || !session
       || session.mode !== 'active'
-      || inspectModePropRef.current !== 'inspect-location'
+      || explorationModePropRef.current !== 'inspect-location'
     ) {
       return;
     }
@@ -599,6 +645,168 @@ export default function CesiumMap({
     }
   }, [removeInspectionMarker, updateInspectionMarker]);
 
+  // ─── Distance measurement pipeline (Task D1) ────────────────────────────────
+  const removeDistanceMeasurement = useCallback((viewerInstance: Viewer) => {
+    const ds = measurementDataSourceRef.current;
+    if (ds && !viewerInstance.isDestroyed()) {
+      viewerInstance.dataSources.remove(ds, true);
+    }
+    measurementDataSourceRef.current = null;
+  }, []);
+
+  const runDistanceMeasurementAt = useCallback(async (pixel: Cartesian2) => {
+    const viewer = viewerRef.current;
+    const terrainSession = terrainSessionRef.current;
+    if (
+      !viewer
+      || viewer.isDestroyed()
+      || terrainSession?.mode !== 'active'
+      || explorationModePropRef.current !== 'measure-distance'
+      || (measurementPhaseRef.current !== 'waiting-for-start'
+        && measurementPhaseRef.current !== 'waiting-for-end')
+    ) return;
+
+    const terrainSessionId = terrainSession.id;
+    const currentMeasurementSessionId = measurementSessionIdRef.current;
+    const opId = ++internalMeasurementOpRef.current;
+    const onPoint = onMeasurementPointChangeRef.current;
+    const isStale = () => (
+      !viewerRef.current
+      || viewer.isDestroyed()
+      || opId !== internalMeasurementOpRef.current
+      || currentMeasurementSessionId !== measurementSessionIdRef.current
+      || explorationModePropRef.current !== 'measure-distance'
+      || terrainSessionRef.current?.mode !== 'active'
+      || terrainSessionRef.current.id !== terrainSessionId
+    );
+
+    const scene = viewer.scene;
+    const depthTest = scene.globe.depthTestAgainstTerrain === true;
+    const cartesian = depthTest && scene.pickPositionSupported === true
+      ? scene.pickPosition(pixel) ?? scene.camera.pickEllipsoid(pixel, scene.globe.ellipsoid)
+      : scene.camera.pickEllipsoid(pixel, scene.globe.ellipsoid);
+    if (isStale()) return;
+    if (!cartesian) {
+      onPoint?.({
+        sessionId: currentMeasurementSessionId,
+        point: null,
+        error: 'Không thể xác định điểm trên bề mặt bản đồ.',
+      });
+      return;
+    }
+
+    const cartographic = Cartographic.fromCartesian(cartesian);
+    const provider = viewer.terrainProvider;
+    const providerIsEllipsoid = !provider
+      || provider instanceof EllipsoidTerrainProvider
+      || !depthTest;
+    let terrainHeightMeters: number | null = null;
+
+    if (!providerIsEllipsoid) {
+      try {
+        const sampled = await sampleTerrainMostDetailed(provider, [
+          Cartographic.fromRadians(cartographic.longitude, cartographic.latitude),
+        ]);
+        if (isStale()) return;
+        const height = sampled[0]?.height;
+        terrainHeightMeters = Number.isFinite(height) ? height : null;
+      } catch {
+        if (isStale()) return;
+        terrainHeightMeters = null;
+      }
+    }
+
+    if (isStale()) return;
+    onPoint?.({
+      sessionId: currentMeasurementSessionId,
+      point: {
+        latitude: CesiumMath.toDegrees(cartographic.latitude),
+        longitude: CesiumMath.toDegrees(cartographic.longitude),
+        terrainHeightMeters,
+      },
+      error: null,
+    });
+  }, []);
+
+  useEffect(() => {
+    const viewer = viewerRef.current;
+    if (!viewer || viewer.isDestroyed()) return;
+    if (explorationMode !== 'measure-distance' || !measurementState?.start) {
+      removeDistanceMeasurement(viewer);
+      return;
+    }
+
+    const ds = measurementDataSourceRef.current
+      ?? new CustomDataSource('terrain-distance-measurement');
+    if (!measurementDataSourceRef.current) {
+      viewer.dataSources.add(ds);
+      measurementDataSourceRef.current = ds;
+    } else {
+      ds.entities.removeAll();
+    }
+
+    const addPoint = (label: 'A' | 'B', point: TerrainMeasurementPoint) => {
+      ds.entities.add({
+        id: `terrain-distance-measurement:${label}`,
+        position: Cartesian3.fromDegrees(
+          point.longitude,
+          point.latitude,
+          point.terrainHeightMeters ?? 0,
+        ),
+        point: {
+          pixelSize: 13,
+          color: label === 'A'
+            ? Color.fromCssColorString('#1d4ed8')
+            : Color.fromCssColorString('#b91c1c'),
+          outlineColor: Color.WHITE,
+          outlineWidth: 2,
+          heightReference: HeightReference.NONE,
+          disableDepthTestDistance: Number.POSITIVE_INFINITY,
+        },
+        label: {
+          text: label,
+          font: '700 14px sans-serif',
+          style: LabelStyle.FILL_AND_OUTLINE,
+          fillColor: Color.WHITE,
+          outlineColor: Color.fromCssColorString('#1c1917'),
+          outlineWidth: 3,
+          verticalOrigin: VerticalOrigin.BOTTOM,
+          pixelOffset: new Cartesian2(0, -16),
+          disableDepthTestDistance: Number.POSITIVE_INFINITY,
+        },
+      });
+    };
+
+    addPoint('A', measurementState.start);
+    if (measurementState.end) {
+      addPoint('B', measurementState.end);
+      ds.entities.add({
+        id: 'terrain-distance-measurement:line',
+        polyline: {
+          positions: [
+            Cartesian3.fromDegrees(
+              measurementState.start.longitude,
+              measurementState.start.latitude,
+            ),
+            Cartesian3.fromDegrees(
+              measurementState.end.longitude,
+              measurementState.end.latitude,
+            ),
+          ],
+          width: 4,
+          material: Color.fromCssColorString('#fbbf24').withAlpha(0.9),
+          clampToGround: true,
+          arcType: ArcType.GEODESIC,
+        },
+      });
+    }
+  }, [
+    explorationMode,
+    measurementState?.end,
+    measurementState?.start,
+    removeDistanceMeasurement,
+  ]);
+
   // ─── App API Handle (Task C) ──────────────────────────────────────────────────
   useEffect(() => {
     if (!apiRef) return;
@@ -631,29 +839,43 @@ export default function CesiumMap({
           error: null,
         });
       },
+      clearDistanceMeasurement() {
+        const viewer = viewerRef.current;
+        if (viewer && !viewer.isDestroyed()) removeDistanceMeasurement(viewer);
+        ++internalMeasurementOpRef.current;
+      },
     };
     apiRef.current = handle;
     return () => {
       if (apiRef.current === handle) apiRef.current = null;
     };
-  }, [apiRef, removeInspectionMarker, viewerReady]);
+  }, [apiRef, removeDistanceMeasurement, removeInspectionMarker, viewerReady]);
 
   // Clear inspection marker when inspect mode flips off, or when the
   // terrain session exits "active".
   useEffect(() => {
-    if (inspectMode !== 'inspect-location') {
+    if (explorationMode !== 'inspect-location') {
       const viewer = viewerRef.current;
       if (viewer && !viewer.isDestroyed()) removeInspectionMarker(viewer);
       ++internalInspectOpRef.current;
     }
-  }, [inspectMode, removeInspectionMarker]);
+  }, [explorationMode, removeInspectionMarker]);
+
+  useEffect(() => {
+    if (explorationMode === 'measure-distance') return;
+    const viewer = viewerRef.current;
+    if (viewer && !viewer.isDestroyed()) removeDistanceMeasurement(viewer);
+    ++internalMeasurementOpRef.current;
+  }, [explorationMode, removeDistanceMeasurement]);
 
   useEffect(() => {
     if (terrainSession?.mode === 'active') return;
     const viewer = viewerRef.current;
     if (viewer && !viewer.isDestroyed()) removeInspectionMarker(viewer);
+    if (viewer && !viewer.isDestroyed()) removeDistanceMeasurement(viewer);
     ++internalInspectOpRef.current;
-  }, [removeInspectionMarker, terrainSession]);
+    ++internalMeasurementOpRef.current;
+  }, [removeDistanceMeasurement, removeInspectionMarker, terrainSession]);
 
   // ─── Render markers ──────────────────────────────────────────────────────────
   const renderMarkers = useCallback(

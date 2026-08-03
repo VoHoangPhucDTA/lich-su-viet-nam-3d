@@ -37,6 +37,20 @@ interface EventListResponse {
   offset?: number;
 }
 
+interface HomepageEventsResponse {
+  events: HomepageEventSummaryDto[];
+}
+
+interface HomepageEventSummaryDto {
+  id: string;
+  slug?: string;
+  title: string;
+  startYear: number | null;
+  eventType: EventType;
+  provinceNames?: string[];
+  cardSummary?: string;
+}
+
 interface EventSummaryDto {
   id: string;
   slug?: string;
@@ -201,6 +215,81 @@ function toStringArray(value: unknown): string[] | undefined {
     .filter((item): item is string | number => typeof item === 'string' || typeof item === 'number')
     .map((item) => String(item));
   return items.length > 0 ? items : undefined;
+}
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === 'object' && value !== null && !Array.isArray(value);
+}
+
+function isHomepageEventType(value: unknown): value is EventType {
+  return value === 'military' || value === 'political' || value === 'economic' || value === 'cultural';
+}
+
+function optionalString(value: unknown): string | undefined {
+  return typeof value === 'string' ? value : undefined;
+}
+
+function optionalNonEmptyString(value: unknown): string | undefined {
+  return typeof value === 'string' && value.trim() ? value : undefined;
+}
+
+function optionalProvinceNames(value: unknown): string[] | undefined {
+  if (!Array.isArray(value)) return undefined;
+  const provinceNames = value.filter((item): item is string => typeof item === 'string');
+  return provinceNames.length > 0 ? provinceNames : undefined;
+}
+
+function parseHomepageEventSummary(value: unknown): HomepageEventSummaryDto | null {
+  if (!isRecord(value)) return null;
+  if (typeof value.id !== 'string' || !value.id.trim()) return null;
+  if (typeof value.title !== 'string' || !value.title.trim()) return null;
+  if (value.startYear !== null && (typeof value.startYear !== 'number' || !Number.isFinite(value.startYear))) {
+    return null;
+  }
+  if (!isHomepageEventType(value.eventType)) return null;
+
+  return {
+    id: value.id,
+    slug: optionalNonEmptyString(value.slug),
+    title: value.title,
+    startYear: value.startYear,
+    eventType: value.eventType,
+    provinceNames: optionalProvinceNames(value.provinceNames),
+    cardSummary: optionalString(value.cardSummary),
+  };
+}
+
+function parseHomepageEventsResponse(value: unknown): HomepageEventsResponse | null {
+  if (!isRecord(value) || !Array.isArray(value.events) || value.events.length !== HOMEPAGE_EVENT_COUNT) {
+    return null;
+  }
+
+  const events = value.events.map(parseHomepageEventSummary);
+  if (events.some((event): event is null => event === null)) return null;
+
+  const summaries = events as HomepageEventSummaryDto[];
+  if (new Set(summaries.map((event) => event.id)).size !== HOMEPAGE_EVENT_COUNT) return null;
+  if (new Set(summaries.map((event) => event.slug ?? event.id)).size !== HOMEPAGE_EVENT_COUNT) return null;
+
+  return { events: summaries };
+}
+
+function homepageSummaryToHistoricalEvent(dto: HomepageEventSummaryDto): HistoricalEvent {
+  return {
+    id: dto.id,
+    slug: dto.slug ?? dto.id,
+    eventLevel: 'atomic',
+    name: dto.title,
+    description: dto.cardSummary ?? '',
+    startYear: dto.startYear,
+    endYear: null,
+    effectiveEndYear: null,
+    eventType: dto.eventType,
+    geoType: 'no_location',
+    primaryRegions: dto.provinceNames,
+    parentId: null,
+    details: dto.cardSummary,
+  };
 }
 
 function summaryToHistoricalEvent(dto: EventSummaryDto): HistoricalEvent {
@@ -510,43 +599,43 @@ export async function getTimelineYearsFromBackend(grade?: number | null): Promis
   }
 }
 
-const HOMEPAGE_FEATURED_EVENT_IDS = [
-  'chien-thang-bach-dang-938',
-  'ly-thai-to-doi-do-thang-long',
-  'khang-chien-chong-quan-thanh-1789',
-  'ho-chi-minh-cong-bo-tuyen-ngon-doc-lap',
-  'chien-dich-dien-bien-phu-1954',
-  'chien-dich-giai-phong-sai-gon-gia-dinh-chien-dich-ho-chi-minh',
-] as const;
+const HOMEPAGE_EVENT_COUNT = 6;
 
-export async function getHomepageEvents(): Promise<HistoricalEvent[]> {
-  const results = await Promise.allSettled(
-    HOMEPAGE_FEATURED_EVENT_IDS.map((eventId) =>
-      apiGet<EventDetailDto>(`/api/events/${eventId}`),
-    ),
-  );
-  const events = results.flatMap((result) =>
-    result.status === 'fulfilled' ? [summaryToHistoricalEvent(result.value)] : [],
-  );
+export async function getHomepageEventSummaries(): Promise<HistoricalEvent[]> {
+  const data = await apiGet<unknown>('/api/events/homepage');
+  const response = parseHomepageEventsResponse(data);
+  if (!response) {
+    throw new Error('Homepage event summaries are unusable');
+  }
+  return response.events.map(homepageSummaryToHistoricalEvent);
+}
 
-  if (events.length === HOMEPAGE_FEATURED_EVENT_IDS.length) return events;
-
+async function getHomepageFallbackEvents(): Promise<HistoricalEvent[]> {
   try {
     const query = toQueryString({ eventLevel: 'atomic', limit: 30 });
     const data = await apiGet<EventListResponse>(`/api/events${query}`);
-    const seen = new Set(events.map((event) => event.id));
+    const events: HistoricalEvent[] = [];
+    const seen = new Set<string>();
 
     for (const dto of data.items) {
       if (seen.has(dto.id)) continue;
       seen.add(dto.id);
       events.push(summaryToHistoricalEvent(dto));
-      if (events.length >= HOMEPAGE_FEATURED_EVENT_IDS.length) break;
+      if (events.length >= HOMEPAGE_EVENT_COUNT) break;
     }
+    return events;
   } catch (error) {
     console.warn('Could not load fallback homepage events from backend.', error);
+    return [];
   }
+}
 
-  return events;
+export async function getHomepageEvents(): Promise<HistoricalEvent[]> {
+  try {
+    return await getHomepageEventSummaries();
+  } catch {
+    return getHomepageFallbackEvents();
+  }
 }
 
 export interface BrowseEventsParams {

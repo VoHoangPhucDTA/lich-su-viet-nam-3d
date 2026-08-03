@@ -1,0 +1,76 @@
+{
+  "state": "empty",
+  "scope": {
+    "source": "local",
+    "range": "30d",
+    "timezone": "Asia/Ho_Chi_Minh",
+    "isAuthenticated": false,
+    "fromDate": "2026-06-16",
+    "toDateExclusive": "2026-07-16"
+  },
+  "summary": {
+    "totalAttempts": 0,
+    "averageScore": null,
+    "highestScore": null,
+    "latestScore": null,
+    "totalDurationSeconds": 0,
+    "activeDays": 0,
+    "mcqAccuracy": null,
+    "tfStatementAccuracy": null,
+    "blankRate": null,
+    "tfPartialRate": null
+  },
+  "recommendations": [
+    {
+      "id": "rec-start",
+      "title": "Bắt đầu với một đề thi thử",
+      "reason": "Bạn chưa có bài làm được lưu trên thiết bị này.",
+      "actionLabel": "Làm đề ngay",
+      "actionRoute": "/exams/browse",
+      "priority": "primary",
+      "topicKey": null,
+      "evidence": null
+    }
+  ],
+  "scoreTrend": {
+    "granularity": "attempt",
+    "isComplete": true,
+    "sourceAttemptCount": 0,
+    "points": []
+  },
+  "strengths": [],
+  "weaknesses": [],
+  "questionTypePerformance": [],
+  "cognitivePerformance": [],
+  "recentAttempts": [],
+  "coverage": {
+    "summaryAttemptCount": 0,
+    "detailedAttemptCount": 0,
+    "totalKnownAttempts": 0,
+    "fetchLimit": null,
+    "isComplete": true,
+    "capturesTimedOriginal": true,
+    "capturesCustomMock": true,
+    "capturesPractice": false,
+    "capturesRetry": false,
+    "message": "Chưa có bài thi. Luyện tập, ôn chủ đề và ôn câu sai hiện chưa tạo lịch sử."
+  },
+  "notices": [
+    {
+      "id": "device-only-local-analytics",
+      "type": "info",
+      "title": "Dữ liệu chỉ lưu trên thiết bị này",
+      "message": "Đăng nhập để dùng lịch sử máy chủ trong tương lai.",
+      "actionLabel": "Đăng nhập",
+      "actionRoute": "/login"
+    },
+    {
+      "id": "empty-state",
+      "type": "info",
+      "title": "Chưa có dữ liệu",
+      "message": "Hoàn thành một đề thi thử để bắt đầu theo dõi tiến độ.",
+      "actionLabel": "Làm đề ngay",
+      "actionRoute": "/exams/browse"
+    }
+  ]
+}

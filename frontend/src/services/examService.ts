@@ -11,7 +11,7 @@ const EXAM_SESSION_PREFIX = 'exam_session_';
 const EXAM_RESULT_PREFIX = 'exam_result_';
 const EXAM_HISTORY_KEY = 'exam_history';
 
-export async function createExam(config: ExamConfig, _userId?: string): Promise<ExamSession> {
+export async function createExam(config: ExamConfig): Promise<ExamSession> {
   // Simulate network delay
   await new Promise(resolve => setTimeout(resolve, 500));
 
@@ -185,11 +185,11 @@ export async function getExamResult(examId: string): Promise<{ result: ExamResul
   return null;
 }
 
-export async function retakeExam(examId: string, userId?: string): Promise<string> {
+export async function retakeExam(examId: string): Promise<string> {
   const session = loadExamProgress(examId);
   if (!session) throw new Error('Cannot retake unexisting exam');
   
   // Create a completely new session with same configuration
-  const newSession = await createExam(session.config, userId);
+  const newSession = await createExam(session.config);
   return newSession.examId;
 }

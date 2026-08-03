@@ -40,7 +40,7 @@ def duplicate_issues(
                     ValidationIssue(
                         code="DUPLICATE_WITHIN_BATCH",
                         message=f"question resembles generated item {previous + 1}",
-                        questionIndex=index,
+                        question_index=index,
                     )
                 )
                 break
@@ -50,7 +50,7 @@ def duplicate_issues(
                     ValidationIssue(
                         code="DUPLICATE_STYLE_EXAMPLE",
                         message="question is too similar to a style example",
-                        questionIndex=index,
+                        question_index=index,
                     )
                 )
                 break

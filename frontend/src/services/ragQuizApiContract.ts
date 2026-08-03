@@ -24,7 +24,7 @@ export interface GenerateQuizRequest {
  * The RAG backend retrieves context from document store, synthesizes questions, 
  * options, and explanations with citations (sourceRefs), then returns a session.
  */
-export interface GenerateQuizResponse extends QuizSession {}
+export type GenerateQuizResponse = QuizSession;
 
 /**
  * 2. Get Quiz Session
@@ -51,7 +51,7 @@ export interface SubmitQuizRequest {
  * Response payload structure for Submit Quiz.
  * Backend computes score and breakdown.
  */
-export interface SubmitQuizResponse extends QuizResult {}
+export type SubmitQuizResponse = QuizResult;
 
 /**
  * 4. Get Quiz Result

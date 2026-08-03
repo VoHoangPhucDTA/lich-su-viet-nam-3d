@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-07-20T03:00:00Z",
+  "scope": {
+    "range": "30d",
+    "timezone": "Asia/Ho_Chi_Minh",
+    "fromDate": "2026-06-20",
+    "toDateExclusive": "2026-07-20",
+    "attemptModes": ["TIMED_ORIGINAL", "CUSTOM_MOCK"],
+    "policyVersion": "dashboard-v1"
+  },
+  "summary": {
+    "totalAttempts": 0,
+    "officialAttemptCount": 0,
+    "recoveredAttemptCount": 0,
+    "legacyAttemptCount": 0,
+    "averageScore": null,
+    "highestScore": null,
+    "latestScore": null,
+    "totalDurationSeconds": 0,
+    "activeDays": 0,
+    "mcqAccuracy": null,
+    "tfStatementAccuracy": null,
+    "blankRate": null,
+    "tfPartialRate": null
+  },
+  "trend": [],
+  "topics": [],
+  "cognitiveLevels": [],
+  "questionTypes": [],
+  "recentAttempts": [],
+  "coverage": {
+    "totalKnownAttempts": 0,
+    "fetchedAttemptCount": 0,
+    "summaryAttemptCount": 0,
+    "detailedAttemptCount": 0,
+    "unsupportedSnapshotCount": 0,
+    "malformedDetailCount": 0,
+    "legacySummaryCount": 0,
+    "fetchLimit": 100,
+    "isComplete": true
+  },
+  "authorityBreakdown": {
+    "backendOnTime": 0,
+    "backendLate": 0,
+    "backendFallback": 0,
+    "frontendLegacy": 0
+  },
+  "diagnostics": {
+    "snapshotVersionCounts": {},
+    "excludedModeCount": 0,
+    "excludedInvalidSummaryCount": 0
+  }
+}

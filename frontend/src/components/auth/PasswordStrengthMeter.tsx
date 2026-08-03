@@ -1,4 +1,4 @@
-export function passwordStrength(password: string) {
+function passwordStrength(password: string) {
   if (!password) return null;
 
   let score = 0;

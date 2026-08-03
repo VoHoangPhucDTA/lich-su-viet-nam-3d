@@ -4,6 +4,7 @@ import com.lichsuvn.backend.common.api.ApiResponse;
 import com.lichsuvn.backend.event.api.dto.EventDetailDto;
 import com.lichsuvn.backend.event.api.dto.EventListResponse;
 import com.lichsuvn.backend.event.api.dto.EventRelatedEventsDto;
+import com.lichsuvn.backend.event.api.dto.HomepageEventsResponse;
 import com.lichsuvn.backend.event.api.dto.TimelineEventDto;
 import com.lichsuvn.backend.event.application.EventReadService;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -74,6 +75,11 @@ public class EventController {
             @RequestParam(required = false) String eventType
     ) {
         return ApiResponse.ok(eventReadService.findTimeline(from, to, grade, eventType));
+    }
+
+    @GetMapping("/events/homepage")
+    public ApiResponse<HomepageEventsResponse> findHomepageEvents() {
+        return ApiResponse.ok(eventReadService.findHomepageEvents());
     }
 
     @GetMapping("/events/{idOrSlug}")

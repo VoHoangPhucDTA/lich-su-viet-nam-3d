@@ -13,9 +13,27 @@ public record AiQuizGenerationRequest(
         String difficulty,
         Integer count,
         Integer topK,
-        List<AiStyleExample> styleExamples
+        List<AiStyleExample> styleExamples,
+        AiGenerationUseCase generationUseCase,
+        String canarySubject
 ) {
     public AiQuizGenerationRequest {
         styleExamples = styleExamples == null ? List.of() : List.copyOf(styleExamples);
+        generationUseCase = generationUseCase == null ? AiGenerationUseCase.OTHER_INTERNAL : generationUseCase;
+        canarySubject = canarySubject == null || canarySubject.isBlank() ? null : canarySubject.trim();
+    }
+
+    public AiQuizGenerationRequest(
+            String query,
+            Integer grade,
+            Integer lessonNumber,
+            String documentId,
+            String difficulty,
+            Integer count,
+            Integer topK,
+            List<AiStyleExample> styleExamples
+    ) {
+        this(query, grade, lessonNumber, documentId, difficulty, count, topK, styleExamples,
+                AiGenerationUseCase.OTHER_INTERNAL, null);
     }
 }

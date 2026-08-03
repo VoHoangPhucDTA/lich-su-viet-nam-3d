@@ -59,6 +59,8 @@ def main(argv: list[str] | None = None) -> int:
     except (VectorstoreError, OSError, ValueError) as exc:
         print(f"Chroma index build FAILED: {type(exc).__name__}: {exc}")
         return 2
+    finally:
+        service.close()
     print(json.dumps(report.model_dump(), ensure_ascii=False, indent=2))
     if not args.dry_run:
         print(f"Report: {service.report_path}")

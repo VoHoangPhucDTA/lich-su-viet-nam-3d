@@ -1,0 +1,22 @@
+@startuml
+skinparam shadowing false
+skinparam monochrome true
+title System context — LSVN3D
+actor Visitor
+actor Student
+actor Administrator
+rectangle "React/Vite + Cesium client" as FE
+rectangle "Spring Boot REST API" as BE
+rectangle "FastAPI AI service" as AI
+database "MySQL + Flyway" as DB
+cloud "ChromaDB / Google GenAI (conditional)" as VEC
+cloud "Viettel AI TTS (conditional)" as TTS
+Visitor --> FE
+Student --> FE
+Administrator --> FE
+FE --> BE
+BE --> DB
+BE --> AI
+AI --> VEC
+BE --> TTS
+@enduml

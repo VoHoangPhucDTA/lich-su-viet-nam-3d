@@ -1,0 +1,19 @@
+@startuml
+skinparam shadowing false
+skinparam monochrome true
+title Component architecture
+package Frontend { [App routes] [Event pages] [CesiumMap] [Terrain target normalizer] [Timeline] [TTS player] }
+package Backend { [Controllers] [Application services] [JDBC read/import] [JPA repositories] [Security] [TTS adapter] }
+package AI { [FastAPI routes] [Retrieval/debug] [Generation] [Chroma adapter] }
+database MySQL
+[App routes] --> [Controllers]
+[Event pages] --> [Controllers]
+[CesiumMap] --> [Terrain target normalizer]
+[Controllers] --> [Application services]
+[Application services] --> [JDBC read/import]
+[Application services] --> [JPA repositories]
+[JDBC read/import] --> MySQL
+[Controllers] --> [FastAPI routes]
+[FastAPI routes] --> [Generation]
+[FastAPI routes] --> [Retrieval/debug]
+@enduml

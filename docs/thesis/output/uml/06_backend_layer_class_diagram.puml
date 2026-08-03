@@ -1,0 +1,15 @@
+@startuml
+skinparam shadowing false
+skinparam monochrome true
+package api { class EventController; class AuthController; class AiQuizController; class ExamSessionController; class NarrationController }
+package application { class EventReadService; class ExamSessionService; class TtsService; class AiCandidateService }
+package infrastructure { class EventReadRepository; class ExamSessionRepository; class ViettelTextToSpeechProvider; class CloudinaryService }
+EventController --> EventReadService
+AuthController --> UserRepository
+AiQuizController --> AiCandidateService
+ExamSessionController --> ExamSessionService
+NarrationController --> TtsService
+EventReadService --> EventReadRepository
+TtsService --> ViettelTextToSpeechProvider
+TtsService --> CloudinaryService
+@enduml

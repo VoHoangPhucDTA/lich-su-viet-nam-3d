@@ -3,9 +3,10 @@
 import json
 from typing import Annotated
 
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, Request, Response, status
 
 from app.config import Settings
+from app.core.runtime import AiRuntimeResources
 from app.dependencies import get_request_settings
 from app.embedding.checkpoint import sanitize_artifact_name
 from app.schemas.common import HealthResponse
@@ -63,10 +64,45 @@ def _retrieval_ready(settings: Settings, chroma_ready: bool) -> bool:
         and len(corpus_sha) == 64
         and bool(str(manifest.get("formatterVersion", "")).strip())
     )
-@router.get("/health", response_model=HealthResponse)
+
+
+@router.get(
+    "/health",
+    response_model=HealthResponse,
+    response_model_exclude_none=True,
+)
 def health(
+    response: Response,
+    request: Request,
     settings: Annotated[Settings, Depends(get_request_settings)],
+    deep: bool = False,
 ) -> HealthResponse:
+    if deep:
+        resources: AiRuntimeResources = request.app.state.runtime_resources
+        ready, record_count, error_code = resources.deep_readiness()
+        if not ready:
+            response.status_code = status.HTTP_503_SERVICE_UNAVAILABLE
+        return HealthResponse(
+            status="READY" if ready else "NOT_READY",
+            service="history-rag-ai-service",
+            environment=settings.app_env,
+            chroma_ready=ready,
+            retrieval_ready=ready,
+            generation_ready=(
+                ready
+                and (
+                    settings.deterministic_e2e_provider
+                    or (
+                        settings.gemini_configured
+                        and bool(settings.gemini_generation_model.strip())
+                    )
+                )
+            ),
+            gemini_configured=settings.gemini_configured,
+            record_count=record_count,
+            contract_ready=ready,
+            error_code=error_code,
+        )
     if settings.deterministic_e2e_provider:
         return HealthResponse(
             status="ok",

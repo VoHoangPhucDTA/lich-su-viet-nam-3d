@@ -1,0 +1,18 @@
+@startuml
+skinparam shadowing false
+skinparam monochrome true
+start
+:select event;
+:normalize point/markers/regions;
+if (supported target?) then (yes)
+  :start terrain session;
+  :guard async provider callbacks;
+  :fly to target and inspect;
+  if (Escape/exit?) then (yes)
+    :restore overview state;
+  endif
+else (no)
+  :show unsupported/diagnostic state;
+endif
+stop
+@enduml

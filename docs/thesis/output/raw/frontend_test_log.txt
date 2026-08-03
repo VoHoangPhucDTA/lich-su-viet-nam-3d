@@ -1,0 +1,7 @@
+Command: npm.cmd test -- --run
+Exit: TIMEOUT (180 s watchdog)
+Scope: full frontend test script; no pass/fail conclusion is claimed.
+Curated Vitest command: vitest run src/utils/terrainTargets.test.ts src/utils/terrainState.test.ts src/utils/terrainInspection.test.ts src/components/terrain/TerrainExplorationToolbar.test.tsx src/components/Timeline.test.tsx src/services/aiQuizApi.test.ts src/services/examApi.test.ts --maxWorkers=1
+Result: 5 test files passed, 45 tests passed, 0 failed, duration about 69 s.
+Exam data script: npm.cmd run test:exam-data -> 3 TAP tests passed, 0 failed.
+Sensitive runtime output intentionally omitted.

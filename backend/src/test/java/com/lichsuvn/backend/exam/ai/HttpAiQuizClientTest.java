@@ -3,6 +3,7 @@ package com.lichsuvn.backend.exam.ai;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lichsuvn.backend.common.exception.ApiException;
 import com.lichsuvn.backend.exam.ai.client.HttpAiQuizClient;
+import com.lichsuvn.backend.exam.ai.client.dto.AiGenerationUseCase;
 import com.lichsuvn.backend.exam.ai.client.dto.AiQuizGenerationRequest;
 import com.lichsuvn.backend.exam.ai.config.AiServiceProperties;
 import com.sun.net.httpserver.HttpExchange;
@@ -18,6 +19,7 @@ import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 import java.util.List;
 import java.util.concurrent.Executors;
+import java.util.concurrent.atomic.AtomicReference;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -42,12 +44,33 @@ class HttpAiQuizClientTest {
     }
 
     @Test
+    void serializesInternalUseCaseAndPseudonymousCanarySubject() throws Exception {
+        AtomicReference<String> body = new AtomicReference<>();
+        server = server(exchange -> {
+            body.set(new String(exchange.getRequestBody().readAllBytes(), StandardCharsets.UTF_8));
+            respond(exchange, 200, validJson());
+        });
+        HttpAiQuizClient client = client(Duration.ofSeconds(2));
+        AiQuizGenerationRequest internal = new AiQuizGenerationRequest(
+                "query", null, null, null, "MEDIUM", 1, 5, List.of(),
+                AiGenerationUseCase.SELF_PRACTICE, "user-1"
+        );
+
+        client.generate(internal, "request-123");
+
+        assertTrue(body.get().contains("\"generationUseCase\":\"SELF_PRACTICE\""));
+        assertTrue(body.get().contains("\"canarySubject\":\"user-1\""));
+    }
+
+    @Test
     void mapsFastApiStatusesWithoutExposingRawBody() throws Exception {
         for (var item : List.of(
                 new StatusCase(409, "{\"detail\":\"INSUFFICIENT_CONTEXT\"}", "AI_INSUFFICIENT_CONTEXT"),
                 new StatusCase(422, "{\"detail\":[]}", "AI_SERVICE_CONTRACT_REJECTED"),
                 new StatusCase(502, "{\"detail\":\"provider secret\"}", "AI_GENERATION_FAILED"),
-                new StatusCase(503, "{\"detail\":\"provider secret\"}", "AI_SERVICE_UNAVAILABLE")
+                new StatusCase(503, "{\"detail\":\"provider secret\"}", "AI_SERVICE_UNAVAILABLE"),
+                new StatusCase(504, "{\"detail\":\"GENERATION_TIMEOUT\"}", "AI_SERVICE_TIMEOUT"),
+                new StatusCase(401, "{\"detail\":\"auth detail\"}", "AI_SERVICE_UNAVAILABLE")
         )) {
             if (server != null) server.stop(0);
             server = server(exchange -> respond(exchange, item.status(), item.body()));
@@ -84,11 +107,25 @@ class HttpAiQuizClientTest {
         assertEquals("AI_SERVICE_UNAVAILABLE", error.getCode());
     }
 
+    @Test
+    void rejectsMissingInternalTokenBeforeNetworkCall() throws Exception {
+        server = server(exchange -> respond(exchange, 200, validJson()));
+        ApiException error = assertThrows(
+                ApiException.class,
+                () -> client(Duration.ofSeconds(1), "").generate(request(), "id")
+        );
+        assertEquals("AI_SERVICE_UNAVAILABLE", error.getCode());
+    }
+
     private HttpAiQuizClient client(Duration timeout) {
+        return client(timeout, "test-internal-token");
+    }
+
+    private HttpAiQuizClient client(Duration timeout, String internalToken) {
         AiServiceProperties properties = new AiServiceProperties(true,
                 URI.create("http://127.0.0.1:" + server.getAddress().getPort()),
                 Duration.ofSeconds(1), timeout, "/ai/quiz/generate", "/ai/health",
-                "/ai/provenance/validate", "test-internal-token", 3);
+                "/ai/provenance/validate", internalToken, 3);
         return new HttpAiQuizClient(HttpClient.newBuilder().connectTimeout(Duration.ofSeconds(1)).build(), new ObjectMapper(), properties);
     }
 
@@ -102,6 +139,9 @@ class HttpAiQuizClientTest {
             assertTrue(exchange.getRequestHeaders().getFirst("X-Request-ID") != null
                     && !exchange.getRequestHeaders().getFirst("X-Request-ID").isBlank(),
                     "correlation ID must be propagated");
+            assertEquals("test-internal-token",
+                    exchange.getRequestHeaders().getFirst("X-Internal-Service-Token"),
+                    "internal token must be propagated");
             handler.handle(exchange);
         });
         value.setExecutor(Executors.newCachedThreadPool());

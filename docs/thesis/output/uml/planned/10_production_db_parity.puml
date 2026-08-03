@@ -1,0 +1,9 @@
+@startuml
+skinparam shadowing false
+skinparam monochrome true
+title PLANNED — production DB/source parity
+' DB_LIVE_UNVERIFIED; requires approved read-only snapshot.
+actor Auditor
+Auditor -> Snapshot: export schema and raw_json
+Snapshot --> Auditor: parity/hash report
+@enduml

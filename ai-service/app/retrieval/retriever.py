@@ -1,15 +1,19 @@
 """Read-only Chroma retrieval using precomputed query embeddings."""
 
 import math
+import threading
+import time
 from collections.abc import Callable
 from pathlib import Path
 from typing import Any
 
 from pydantic import ValidationError
 
+from app.core.deadline import OperationDeadline
 from app.retrieval.filters import build_chroma_where, candidate_matches_filters
 from app.retrieval.models import (
     RawChromaCandidate,
+    RetrievalEvaluationTrace,
     RetrievalFilters,
     RetrievalNotReadyError,
 )
@@ -32,12 +36,53 @@ class ChromaRetriever:
         expected_metadata: dict[str, str | int | float | bool],
         distance_metric: str,
         client_factory: Callable[[Path], Any] = create_persistent_client,
+        client: Any | None = None,
+        collection: Any | None = None,
+        owns_client: bool = True,
     ) -> None:
         self.persist_dir = persist_dir
         self.collection_name = collection_name
         self.expected_metadata = expected_metadata
         self.distance_metric = distance_metric
         self.client_factory = client_factory
+        self._client = client
+        self._collection = collection
+        self._owns_client = owns_client and client is not None
+        self._closed = False
+        self._initialization_lock = threading.Lock()
+
+    def _get_shared_collection(
+        self,
+        evaluation_trace: RetrievalEvaluationTrace | None,
+    ) -> Any:
+        if self._closed:
+            raise RetrievalNotReadyError("Retrieval resource is closed")
+        if self._collection is not None:
+            return self._collection
+        with self._initialization_lock:
+            if self._collection is not None:
+                return self._collection
+            if not (self.persist_dir / "chroma.sqlite3").is_file():
+                raise RetrievalNotReadyError("Chroma persistence is not ready")
+            if self._client is None:
+                self._client = self.client_factory(self.persist_dir)
+                self._owns_client = True
+            if not collection_exists(self._client, self.collection_name):
+                if evaluation_trace is not None:
+                    evaluation_trace.collection_metadata_matched = False
+                    evaluation_trace.collection_distance_metric_matched = False
+                raise RetrievalNotReadyError("Retrieval collection does not exist")
+            collection = get_collection(self._client, self.collection_name)
+            try:
+                validate_collection_contract(
+                    collection, self.expected_metadata, self.distance_metric
+                )
+            except CollectionCompatibilityError as exc:
+                raise RetrievalNotReadyError(
+                    "Retrieval collection contract is incompatible"
+                ) from exc
+            self._collection = collection
+            return collection
 
     @staticmethod
     def _parse_candidate(
@@ -48,75 +93,133 @@ class ChromaRetriever:
     ) -> RawChromaCandidate | None:
         if not isinstance(chunk_id, str) or not isinstance(document, str):
             return None
-        if not isinstance(metadata, dict) or not isinstance(distance, (int, float)):
+        if not isinstance(metadata, dict) or not isinstance(distance, int | float):
             return None
         if not math.isfinite(float(distance)):
             return None
         try:
-            candidate = RawChromaCandidate(
-                chunk_id=chunk_id,
-                document_id=metadata.get("documentId"),
-                grade=metadata.get("grade"),
-                lesson_number=metadata.get("lessonNumber"),
-                lesson_title=metadata.get("lessonTitle"),
-                section_title=metadata.get("sectionTitle"),
-                section_path=metadata.get("sectionPath", ""),
-                page_start=metadata.get("pageStart"),
-                page_end=metadata.get("pageEnd"),
-                content_types=metadata.get("contentTypes", ""),
-                text=document,
-                distance=float(distance),
-                chunk_hash=metadata.get("chunkHash"),
-                contains_pending_review=metadata.get(
-                    "containsPendingReview", False
-                ),
+            candidate = RawChromaCandidate.model_validate(
+                {
+                    "chunk_id": chunk_id,
+                    "document_id": metadata.get("documentId"),
+                    "grade": metadata.get("grade"),
+                    "lesson_number": metadata.get("lessonNumber"),
+                    "lesson_title": metadata.get("lessonTitle"),
+                    "section_title": metadata.get("sectionTitle"),
+                    "section_path": metadata.get("sectionPath", ""),
+                    "page_start": metadata.get("pageStart"),
+                    "page_end": metadata.get("pageEnd"),
+                    "content_types": metadata.get("contentTypes", ""),
+                    "text": document,
+                    "distance": float(distance),
+                    "chunk_hash": metadata.get("chunkHash"),
+                    "contains_pending_review": metadata.get(
+                        "containsPendingReview", False
+                    ),
+                }
             )
         except ValidationError:
             return None
-        if candidate.contains_pending_review:
-            return None
         return candidate
+
+    @staticmethod
+    def _first_result_list(raw: object, key: str) -> list[object]:
+        if not isinstance(raw, dict):
+            return []
+        nested = raw.get(key)
+        if not isinstance(nested, list) or not nested:
+            return []
+        first = nested[0]
+        return first if isinstance(first, list) else []
 
     def retrieve(
         self,
         query_vector: list[float],
         filters: RetrievalFilters,
         candidate_count: int,
+        evaluation_trace: RetrievalEvaluationTrace | None = None,
+        deadline: OperationDeadline | None = None,
+        is_cancelled: Callable[[], bool] | None = None,
     ) -> list[RawChromaCandidate]:
-        if not (self.persist_dir / "chroma.sqlite3").is_file():
-            raise RetrievalNotReadyError("Chroma persistence is not ready")
-        client = self.client_factory(self.persist_dir)
+        if deadline is not None:
+            deadline.checkpoint("chroma_query", is_cancelled)
+        collection = self._get_shared_collection(evaluation_trace)
         try:
-            if not collection_exists(client, self.collection_name):
-                raise RetrievalNotReadyError("Retrieval collection does not exist")
-            collection = get_collection(client, self.collection_name)
-            try:
-                validate_collection_contract(
-                    collection, self.expected_metadata, self.distance_metric
+            if evaluation_trace is not None:
+                actual_metadata = collection.metadata or {}
+                evaluation_trace.collection_metadata_matched = all(
+                    actual_metadata.get(key) == value
+                    for key, value in self.expected_metadata.items()
                 )
-            except CollectionCompatibilityError as exc:
-                raise RetrievalNotReadyError(
-                    "Retrieval collection contract is incompatible"
-                ) from exc
+                actual_space = (collection.configuration or {}).get(
+                    "hnsw", {}
+                ).get("space")
+                evaluation_trace.collection_distance_metric_matched = (
+                    actual_space == self.distance_metric
+                )
             where = build_chroma_where(filters)
+            if deadline is not None:
+                deadline.checkpoint("chroma_query", is_cancelled)
+            try:
+                collection_count = collection.count()
+            except Exception as exc:
+                raise RetrievalNotReadyError(
+                    "Retrieval collection count is unavailable"
+                ) from exc
+            if collection_count == 0:
+                return []
+            if deadline is not None:
+                deadline.checkpoint("chroma_query", is_cancelled)
             kwargs: dict[str, Any] = {
                 "query_embeddings": [query_vector],
-                "n_results": min(candidate_count, collection.count()),
+                "n_results": min(candidate_count, collection_count),
                 "include": ["documents", "metadatas", "distances"],
             }
             if where is not None:
                 kwargs["where"] = where
+            query_started = time.perf_counter()
             raw = collection.query(**kwargs)
-        finally:
-            close_persistent_client(client)
+            if deadline is not None:
+                # Chroma's synchronous query is not force-cancellable. This
+                # checkpoint prevents any post-processing after its budget.
+                deadline.checkpoint("chroma_query", is_cancelled)
+            if evaluation_trace is not None:
+                evaluation_trace.chroma_query_latency_ms = (
+                    time.perf_counter() - query_started
+                ) * 1000
+        except RetrievalNotReadyError:
+            raise
 
-        ids = (raw.get("ids") or [[]])[0]
-        documents = (raw.get("documents") or [[]])[0]
-        metadatas = (raw.get("metadatas") or [[]])[0]
-        distances = (raw.get("distances") or [[]])[0]
+        ids = self._first_result_list(raw, "ids")
+        documents = self._first_result_list(raw, "documents")
+        metadatas = self._first_result_list(raw, "metadatas")
+        distances = self._first_result_list(raw, "distances")
         candidates: list[RawChromaCandidate] = []
-        for values in zip(ids, documents, metadatas, distances):
+        for values in zip(ids, documents, metadatas, distances, strict=False):
+            if deadline is not None:
+                deadline.checkpoint("retrieval_post_processing", is_cancelled)
             candidate = self._parse_candidate(*values)
-            if candidate is not None and candidate_matches_filters(candidate, filters):
+            if candidate is None:
+                continue
+            if evaluation_trace is not None:
+                evaluation_trace.raw_candidate_chunk_ids.append(candidate.chunk_id)
+            if candidate.contains_pending_review:
+                if evaluation_trace is not None:
+                    evaluation_trace.pending_review_candidate_ids.append(
+                        candidate.chunk_id
+                    )
+                continue
+            if candidate_matches_filters(candidate, filters):
                 candidates.append(candidate)
+                if evaluation_trace is not None:
+                    evaluation_trace.filtered_candidate_chunk_ids.append(
+                        candidate.chunk_id
+                    )
         return sorted(candidates, key=lambda candidate: candidate.distance)
+
+    def close(self) -> None:
+        if self._closed:
+            return
+        self._closed = True
+        if self._owns_client and self._client is not None:
+            close_persistent_client(self._client)

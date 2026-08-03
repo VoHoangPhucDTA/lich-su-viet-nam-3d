@@ -1,0 +1,57 @@
+{
+  "state": "error",
+  "scope": {
+    "source": "backend",
+    "range": "30d",
+    "timezone": "Asia/Ho_Chi_Minh",
+    "isAuthenticated": true,
+    "fromDate": "2026-06-16",
+    "toDateExclusive": "2026-07-16"
+  },
+  "summary": {
+    "totalAttempts": 0,
+    "averageScore": null,
+    "highestScore": null,
+    "latestScore": null,
+    "totalDurationSeconds": 0,
+    "activeDays": 0,
+    "mcqAccuracy": null,
+    "tfStatementAccuracy": null,
+    "blankRate": null,
+    "tfPartialRate": null
+  },
+  "recommendations": [],
+  "scoreTrend": {
+    "granularity": "attempt",
+    "isComplete": false,
+    "sourceAttemptCount": 0,
+    "points": []
+  },
+  "strengths": [],
+  "weaknesses": [],
+  "questionTypePerformance": [],
+  "cognitivePerformance": [],
+  "recentAttempts": [],
+  "coverage": {
+    "summaryAttemptCount": 0,
+    "detailedAttemptCount": 0,
+    "totalKnownAttempts": 0,
+    "fetchLimit": 100,
+    "isComplete": false,
+    "capturesTimedOriginal": true,
+    "capturesCustomMock": true,
+    "capturesPractice": false,
+    "capturesRetry": false,
+    "message": "Không thể tải dữ liệu từ máy chủ và thiết bị này không có dữ liệu cục bộ để dùng thay thế."
+  },
+  "notices": [
+    {
+      "id": "dashboard-not-connected",
+      "type": "error",
+      "title": "Không thể tải thống kê học tập",
+      "message": "Máy chủ đang gặp lỗi và không có dữ liệu cục bộ. Hãy thử lại trên màn hình hoặc chọn một đề thi để tiếp tục học.",
+      "actionLabel": "Xem danh sách đề",
+      "actionRoute": "/exams/browse"
+    }
+  ]
+}

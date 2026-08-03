@@ -4,7 +4,6 @@ from pathlib import Path
 from typing import Any
 
 import chromadb
-from chromadb.api.client import SharedSystemClient
 
 from app.vectorstore.models import CollectionCompatibilityError
 
@@ -16,12 +15,11 @@ def create_persistent_client(path: Path) -> Any:
 
 def close_persistent_client(client: Any) -> None:
     # Chroma 1.5.9 has no public close method for PersistentClient. Stopping its
-    # system releases SQLite handles, which is required for deterministic reopen
-    # tests on Windows. CLI process exit remains the normal production lifecycle.
+    # system releases SQLite handles. Process-global Chroma cache reset is
+    # intentionally excluded: application instances must not invalidate peers.
     system = getattr(client, "_system", None)
     if system is not None and hasattr(system, "stop"):
         system.stop()
-    SharedSystemClient.clear_system_cache()
 
 
 def collection_exists(client: Any, name: str) -> bool:

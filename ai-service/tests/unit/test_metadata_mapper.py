@@ -30,7 +30,7 @@ def test_metadata_flattening_is_deterministic(
     assert first == second
     assert first["sectionPath"] == "Phần 1 > Mục 2"
     assert first["contentTypes"] == "knowledge|table"
-    assert all(not isinstance(value, (list, dict)) for value in first.values())
+    assert all(not isinstance(value, list | dict) for value in first.values())
 
 
 def test_nullable_pages_are_omitted(corpus_record: dict[str, Any]) -> None:

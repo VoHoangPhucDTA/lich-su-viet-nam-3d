@@ -7,6 +7,7 @@ import com.lichsuvn.backend.exam.ai.api.dto.AiQuizGenerateResponse;
 import com.lichsuvn.backend.exam.ai.api.dto.PracticeQuizGenerateRequest;
 import com.lichsuvn.backend.exam.ai.api.dto.PracticeQuizGenerateResponse;
 import com.lichsuvn.backend.exam.ai.client.AiQuizClient;
+import com.lichsuvn.backend.exam.ai.client.dto.AiGenerationUseCase;
 import com.lichsuvn.backend.exam.ai.client.dto.AiQuizGenerationRequest;
 import com.lichsuvn.backend.exam.ai.client.dto.AiQuizGenerationResponse;
 import com.lichsuvn.backend.exam.ai.client.dto.AiStyleExample;
@@ -49,20 +50,27 @@ public class AiQuizGenerationService {
     }
 
     public AiQuizGenerateResponse generate(AiQuizGenerateRequest request, UserPrincipal principal) {
-        return generateInternal(request, principal, true);
+        return generateInternal(request, principal, true, AiGenerationUseCase.ADMIN_REVIEW, null);
     }
 
     public PracticeQuizGenerateResponse generatePractice(PracticeQuizGenerateRequest request, UserPrincipal principal) {
         AiQuizGenerateRequest internalRequest = new AiQuizGenerateRequest(
                 request.query(), null, null, null, request.difficulty(), request.count(), 5
         );
-        return PracticeQuizGenerateResponse.from(generateInternal(internalRequest, principal, false));
+        String canarySubject = principal == null ? null : AiCanarySubjectPseudonymizer.pseudonymize(
+                principal.id(), properties.selfPracticeCanarySecret()
+        );
+        return PracticeQuizGenerateResponse.from(generateInternal(
+                internalRequest, principal, false, AiGenerationUseCase.SELF_PRACTICE, canarySubject
+        ));
     }
 
     private AiQuizGenerateResponse generateInternal(
             AiQuizGenerateRequest request,
             UserPrincipal principal,
-            boolean issueReceipt
+            boolean issueReceipt,
+            AiGenerationUseCase generationUseCase,
+            String canarySubject
     ) {
         if (!properties.enabled()) {
             throw new ApiException(HttpStatus.SERVICE_UNAVAILABLE, "AI_SERVICE_DISABLED", "AI quiz generation is disabled");
@@ -71,11 +79,21 @@ public class AiQuizGenerationService {
         long started = System.nanoTime();
         metrics.request();
         try {
+            long styleStarted = System.nanoTime();
             List<AiStyleExample> selectedStyles = styleExamples.select(request.query(), request.difficulty().name());
+            long styleDurationMs = (System.nanoTime() - styleStarted) / 1_000_000;
+            int styleChars = selectedStyles.stream().mapToInt(style ->
+                    style.question().length()
+                            + style.explanation().length()
+                            + style.options().stream().mapToInt(option -> option.text().length()).sum()
+            ).sum();
+            long clientStarted = System.nanoTime();
             AiQuizGenerationResponse response = client.generate(new AiQuizGenerationRequest(
                     request.query().trim(), request.grade(), request.lessonNumber(), normalize(request.documentId()),
-                    request.difficulty().name(), request.count(), request.topK(), selectedStyles
+                    request.difficulty().name(), request.count(), request.topK(), selectedStyles,
+                    generationUseCase, canarySubject
             ), requestId);
+            long clientDurationMs = (System.nanoTime() - clientStarted) / 1_000_000;
             AiQuizGenerateResponse mapped = validateAndMap(response, request.difficulty().name());
             if (issueReceipt) {
                 AiGenerationReceiptRepository.Issued receipt;
@@ -90,10 +108,10 @@ public class AiQuizGenerationService {
             }
             metrics.success(mapped.generation().partial());
             log.info(
-                    "AI quiz generated requestId={} userId={} grade={} lessonNumber={} difficulty={} requestedCount={} styleExampleCount={} generatedCount={} partial={}",
-                    requestId, principal == null ? "unknown" : principal.id(), request.grade(), request.lessonNumber(),
-                    request.difficulty(), mapped.generation().requestedCount(), selectedStyles.size(),
-                    mapped.generation().generatedCount(), mapped.generation().partial()
+                    "AI quiz generated requestId={} authenticated={} generationUseCase={} grade={} lessonNumber={} difficulty={} requestedCount={} styleExampleCount={} styleExampleChars={} styleSelectMs={} clientMs={} generatedCount={} partial={}",
+                    requestId, principal != null, generationUseCase, request.grade(), request.lessonNumber(),
+                    request.difficulty(), mapped.generation().requestedCount(), selectedStyles.size(), styleChars,
+                    styleDurationMs, clientDurationMs, mapped.generation().generatedCount(), mapped.generation().partial()
             );
             return mapped;
         } catch (ApiException ex) {

@@ -16,7 +16,7 @@ class FakeEmbeddingProvider:
         values: list[float] = []
         counter = 0
         while len(values) < self.dimension:
-            digest = hashlib.sha256(f"{counter}:{text}".encode("utf-8")).digest()
+            digest = hashlib.sha256(f"{counter}:{text}".encode()).digest()
             values.extend((byte / 127.5) - 1.0 for byte in digest)
             counter += 1
         return values[: self.dimension]

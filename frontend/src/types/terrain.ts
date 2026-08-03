@@ -2,6 +2,18 @@ import type { TerrainTarget, TerrainTargetReason } from '../utils/terrainTargets
 
 export type TerrainProviderStatus = 'idle' | 'loading' | 'ready' | 'error';
 
+export type TerrainExplorationMode =
+  | 'none'
+  | 'inspect-location'
+  | 'measure-distance';
+
+/** Serializable description of the terrain source currently available to UI. */
+export type TerrainDataSourceStatus =
+  | 'world-terrain'
+  | 'ellipsoid-fallback'
+  | 'loading'
+  | 'unavailable';
+
 export type RegionGeometryStatus = 'idle' | 'loading' | 'ready' | 'error';
 
 export type TerrainMode = 'idle' | 'entering' | 'active' | 'exiting' | 'error';

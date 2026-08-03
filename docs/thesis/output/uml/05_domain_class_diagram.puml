@@ -1,0 +1,16 @@
+@startuml
+skinparam shadowing false
+skinparam monochrome true
+class HistoricalEvent { id; slug; startYear; geoType; rawJson }
+class MapData { geoType; marker; markers; gadmRefs; focusGeometry }
+class SourcePolicy { kind; sourceKey }
+class User { id; email; status }
+class LearningProgress { userId; eventId; status }
+class ExamSession { id; userId; status }
+class TtsAudioAsset { id; eventId; status }
+HistoricalEvent *-- MapData
+HistoricalEvent o-- SourcePolicy
+User --> LearningProgress
+User --> ExamSession
+HistoricalEvent --> TtsAudioAsset
+@enduml

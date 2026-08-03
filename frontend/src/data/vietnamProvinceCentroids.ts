@@ -26,7 +26,7 @@ function normalize(name: string): string {
     .normalize('NFD')
     .replace(/[\u0300-\u036f]/g, '') // bỏ combining diacritics
     .replace(/đ/g, 'd')
-    .replace(/[.,/_–\-]/g, ' ')
+    .replace(/[.,/_–-]/g, ' ')
     .replace(/\btp\b|\bthanh pho\b|\btinh\b/g, '') // bỏ prefix "TP", "Thành phố", "Tỉnh"
     .replace(/\s+/g, ' ')
     .trim();
