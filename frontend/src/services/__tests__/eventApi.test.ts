@@ -7,7 +7,8 @@ vi.mock('../apiClient', async (importOriginal) => {
   return { ...actual, apiGet };
 });
 
-import { getHomepageEventSummaries, getHomepageEvents } from '../eventApi';
+import { getTerrainInsightBySlug } from '../../data/terrainInsights';
+import { getEventsByYearFromBackend, getHomepageEventSummaries, getHomepageEvents } from '../eventApi';
 
 const homepageIds = [
   'homepage-6',
@@ -171,5 +172,54 @@ describe('getHomepageEvents', () => {
     ]);
     expect(warn).toHaveBeenCalledTimes(1);
     warn.mockRestore();
+  });
+});
+
+describe('event API slug normalization', () => {
+  beforeEach(() => {
+    apiGet.mockReset();
+  });
+
+  it('preserves a real API slug when the runtime ID is different', async () => {
+    apiGet.mockResolvedValue({
+      items: [{
+        ...fallbackSummary('event-row-000123', 0),
+        slug: 'chien-dich-dien-bien-phu-1954',
+      }],
+      count: 1,
+    });
+
+    const [event] = await getEventsByYearFromBackend(1954);
+    expect(event.id).toBe('event-row-000123');
+    expect(event.slug).toBe('chien-dich-dien-bien-phu-1954');
+    expect(getTerrainInsightBySlug(event.slug)?.canonicalSlug).toBe('chien-dich-dien-bien-phu-1954');
+  });
+
+  it('does not use an ID that equals a canonical slug when the API slug is missing', async () => {
+    apiGet.mockResolvedValue({
+      items: [{
+        ...fallbackSummary('chien-dich-dien-bien-phu-1954', 0),
+        slug: undefined,
+      }],
+      count: 1,
+    });
+
+    const [event] = await getEventsByYearFromBackend(1954);
+    expect(event.id).toBe('chien-dich-dien-bien-phu-1954');
+    expect(event.slug).toBeUndefined();
+    expect(getTerrainInsightBySlug(event.slug)).toBeNull();
+  });
+
+  it('normalizes empty and whitespace-only API slugs to undefined', async () => {
+    apiGet.mockResolvedValue({
+      items: [
+        { ...fallbackSummary('empty-slug', 0), slug: '' },
+        { ...fallbackSummary('blank-slug', 1), slug: '   ' },
+      ],
+      count: 2,
+    });
+
+    const events = await getEventsByYearFromBackend(1954);
+    expect(events.map((event) => event.slug)).toEqual([undefined, undefined]);
   });
 });

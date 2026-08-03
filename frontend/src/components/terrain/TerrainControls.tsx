@@ -1,9 +1,12 @@
 import { Check, Info, LoaderCircle, Mountain } from 'lucide-react';
+import { terrainCtaLabel, type TerrainInsight } from '../../data/terrainInsights';
 import type { TerrainViewModel } from '../../types/terrain';
+import TerrainInsightCard from './TerrainInsightCard';
 import TerrainTargetList from './TerrainTargetList';
 
 interface TerrainControlsProps {
   terrain: TerrainViewModel;
+  insight: TerrainInsight | null;
   onOpen: () => void;
   onRetry: () => void;
   onSelectTarget: (targetId: string) => void;
@@ -24,6 +27,7 @@ const buttonStyle = {
 
 export default function TerrainControls({
   terrain,
+  insight,
   onOpen,
   onRetry,
   onSelectTarget,
@@ -59,7 +63,7 @@ export default function TerrainControls({
         style={{ ...buttonStyle, borderColor: '#8b1e1e', color: '#8b1e1e' }}
       >
         <Mountain size={16} aria-hidden="true" />
-        Khám phá địa hình khu vực
+        {terrainCtaLabel(insight)}
       </button>
     );
   }
@@ -98,10 +102,21 @@ export default function TerrainControls({
   const selected = terrain.targets.find((target) => target.id === terrain.selectedTargetId);
   return (
     <div style={{ width: '100%', display: 'flex', flexDirection: 'column', gap: '10px' }}>
-      <div className="flex items-center gap-2" style={{ fontSize: '13px', fontWeight: 700, color: '#166534' }}>
+      <div
+        role="status"
+        aria-atomic="true"
+        className="flex items-center gap-2"
+        style={{ fontSize: '13px', fontWeight: 700, color: '#166534' }}
+      >
         <Check size={16} aria-hidden="true" />
-        Đang xem địa hình{selected ? `: ${selected.label}` : ''}
+        <span>
+          Đang xem địa hình{selected ? `: ${selected.label}` : ''}
+        </span>
       </div>
+
+      {insight ? (
+        <TerrainInsightCard insight={insight} />
+      ) : null}
 
       {terrain.targets.length > 1 && (
         <TerrainTargetList

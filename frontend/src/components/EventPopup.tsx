@@ -1,6 +1,7 @@
 import { ArrowLeft, X } from 'lucide-react';
 import { useEffect, useRef } from 'react';
 import type { HistoricalEvent } from '../types/event';
+import { getTerrainInsightBySlug } from '../data/terrainInsights';
 import {
   EVENT_TYPE_LABELS,
   EVENT_TYPE_COLORS,
@@ -40,6 +41,7 @@ export default function EventPopup({
   onViewDetails,
 }: EventPopupProps) {
   const typeColor = EVENT_TYPE_COLORS[event.eventType];
+  const terrainInsight = getTerrainInsightBySlug(event.slug);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
@@ -377,6 +379,7 @@ export default function EventPopup({
 
         <TerrainControls
           terrain={terrain}
+          insight={terrainInsight}
           onOpen={onOpenTerrain}
           onRetry={onRetryTerrain}
           onSelectTarget={onSelectTerrainTarget}
