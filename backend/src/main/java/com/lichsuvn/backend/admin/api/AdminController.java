@@ -289,9 +289,35 @@ public class AdminController {
                 id, mediaId, file, expectedUpdatedAt, altText, caption, sourceName, license, principal));
     }
 
+    @GetMapping("/image-upload/capability")
+    public ApiResponse<AdminEventImageDtos.Capability> imageUploadCapability() {
+        return ApiResponse.ok(adminEventImageUploadService.capability());
+    }
+
     @GetMapping("/media-cleanup/summary")
     public ApiResponse<AdminMediaCleanupDtos.Summary> mediaCleanupSummary() {
         return ApiResponse.ok(adminMediaCleanupReadService.summary());
+    }
+
+    /**
+     * Read-only snapshot of the cleanup worker without triggering a tick.
+     * The Admin cleanup page polls this to surface "Tồn tại nhiệm vụ quá hạn"
+     * badges and the worker health panel.
+     */
+    @GetMapping("/media-cleanup/capability")
+    public ApiResponse<AdminMediaCleanupDtos.Capability> mediaCleanupCapability() {
+        return ApiResponse.ok(adminMediaCleanupReadService.capability());
+    }
+
+    /**
+     * Operator-attended manual tick that drains due PENDING tasks without
+     * waiting for the next scheduler interval. The endpoint is read-only at
+     * the controller level; deletion still goes through the scheduler-owned
+     * worker so the lifecycle invariants are preserved.
+     */
+    @PostMapping("/media-cleanup/tick")
+    public ApiResponse<AdminMediaCleanupDtos.Capability> mediaCleanupTick() {
+        return ApiResponse.ok(adminMediaCleanupReadService.tick());
     }
 
     @GetMapping("/media-cleanup")

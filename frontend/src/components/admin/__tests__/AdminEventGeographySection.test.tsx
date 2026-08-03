@@ -80,6 +80,11 @@ function renderSection(props: Partial<React.ComponentProps<typeof AdminEventGeog
   return { onUpdated, onConflict, onBusyChange, onDirtyChange };
 }
 
+function pickAdminSelect(label: string, optionName: string | RegExp) {
+  fireEvent.click(screen.getByLabelText(label));
+  fireEvent.click(screen.getByRole('option', { name: optionName }));
+}
+
 describe('AdminEventGeographySection', () => {
   beforeEach(() => {
     vi.clearAllMocks();
@@ -109,9 +114,7 @@ describe('AdminEventGeographySection', () => {
     expect(screen.getByRole('link', { name: 'Mở bản đồ hiện có' }))
       .toHaveAttribute('href', '/map?event=event-1');
 
-    fireEvent.change(screen.getByLabelText('Loại địa lý'), {
-      target: { value: 'multi_polygon' },
-    });
+    pickAdminSelect('Loại địa lý', 'Nhiều vùng hành chính');
     expect(await screen.findByLabelText('Thêm vùng')).toBeInTheDocument();
     expect(screen.queryByLabelText('Vĩ độ marker 1')).not.toBeInTheDocument();
     expect(screen.getByText(/loại bỏ dữ liệu không tương thích: marker/i)).toBeInTheDocument();
@@ -119,9 +122,7 @@ describe('AdminEventGeographySection', () => {
 
   it('edits ordered markers and forwards the exact opaque version', async () => {
     const callbacks = renderSection();
-    fireEvent.change(screen.getByLabelText('Loại địa lý'), {
-      target: { value: 'multi_point' },
-    });
+    pickAdminSelect('Loại địa lý', 'Nhiều điểm');
     fireEvent.change(screen.getByLabelText('Tên marker 2'), { target: { value: 'Hà Nội' } });
     fireEvent.change(screen.getByLabelText('Vĩ độ marker 2'), { target: { value: '21.028511' } });
     fireEvent.change(screen.getByLabelText('Kinh độ marker 2'), { target: { value: '105.804817' } });
@@ -149,11 +150,10 @@ describe('AdminEventGeographySection', () => {
 
   it('adds approved regions and renders resolved preview labels', async () => {
     renderSection();
-    fireEvent.change(screen.getByLabelText('Loại địa lý'), {
-      target: { value: 'multi_polygon' },
-    });
+    pickAdminSelect('Loại địa lý', 'Nhiều vùng hành chính');
+    fireEvent.click(screen.getByLabelText('Thêm vùng'));
     await waitFor(() => expect(screen.getByRole('option', { name: /HàNội/ })).toBeInTheDocument());
-    fireEvent.change(screen.getByLabelText('Thêm vùng'), { target: { value: 'VNM.27_1' } });
+    fireEvent.click(screen.getByRole('option', { name: 'HàNội (VNM.27_1)' }));
     fireEvent.click(screen.getByRole('button', { name: 'Thêm vùng' }));
     expect(screen.getAllByText(/HàNội/).length).toBeGreaterThan(0);
     fireEvent.click(screen.getByRole('button', { name: 'Lưu địa lý' }));
@@ -166,6 +166,30 @@ describe('AdminEventGeographySection', () => {
         }),
       }),
     ));
+  });
+
+  it('sets aria-busy and locks double-submit on the save button while pending', async () => {
+    let resolve!: (value: AdminEventDetail) => void;
+    vi.mocked(updateAdminEventGeography).mockImplementation(
+      () => new Promise(resolvePromise => { resolve = resolvePromise; }),
+    );
+    renderSection();
+    fireEvent.change(screen.getByLabelText('Địa danh lịch sử'), {
+      target: { value: 'Phú Xuân\nThuận Hóa' },
+    });
+    const saveButton = screen.getByRole('button', { name: 'Lưu địa lý' });
+    fireEvent.click(saveButton);
+    const pendingButton = screen.getByRole('button', { name: 'Đang lưu…' });
+    expect(pendingButton).toHaveAttribute('aria-busy', 'true');
+    expect(pendingButton).toHaveAttribute('data-pending', 'true');
+    expect(pendingButton).toBeDisabled();
+    expect(updateAdminEventGeography).toHaveBeenCalledTimes(1);
+    resolve({ ...detail, publication: { ...detail.publication, updatedAt: nextVersion } });
+    await waitFor(() => {
+      const released = screen.getByRole('button', { name: 'Lưu địa lý' });
+      expect(released).not.toHaveAttribute('aria-busy');
+      expect(released).not.toHaveAttribute('data-pending');
+    });
   });
 
   it('honors the shared lock and exposes optimistic conflict reload', async () => {

@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { getAdminMediaCleanup, getAdminMediaCleanupSummary, replaceAdminEventImage, uploadAdminEventImage } from './adminApi';
+import { getAdminImageUploadCapability, getAdminMediaCleanup, getAdminMediaCleanupSummary, replaceAdminEventImage, uploadAdminEventImage } from './adminApi';
 import { clearCsrfToken } from './csrfClient';
 
 function envelope(data: unknown) {
@@ -10,6 +10,34 @@ function envelope(data: unknown) {
     data,
   }), { status: 201, headers: { 'Content-Type': 'application/json' } });
 }
+
+describe('getAdminImageUploadCapability', () => {
+  beforeEach(() => {
+    clearCsrfToken();
+    vi.restoreAllMocks();
+  });
+
+  it('reads the read-only capability endpoint and returns the typed contract', async () => {
+    const fetchMock = vi.spyOn(globalThis, 'fetch')
+      .mockResolvedValueOnce(envelope({
+        enabled: true,
+        storageAvailable: true,
+        uploadReady: true,
+        maxFileBytes: 10 * 1024 * 1024,
+        maxDimension: 6000,
+        maxPixels: 25_000_000,
+        maxActiveReservations: 3,
+        allowedFormats: ['jpeg', 'png', 'webp'],
+      }));
+
+    const capability = await getAdminImageUploadCapability();
+
+    expect(String(fetchMock.mock.calls[0][0]))
+      .toContain('/api/admin/image-upload/capability');
+    expect(capability.uploadReady).toBe(true);
+    expect(capability.allowedFormats).toContain('webp');
+  });
+});
 
 describe('uploadAdminEventImage', () => {
   beforeEach(() => {

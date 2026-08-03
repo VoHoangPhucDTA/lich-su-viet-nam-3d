@@ -29,13 +29,35 @@ public class AdminEventReadService {
 
     private final AdminEventReadRepository repository;
     private final EventCompletenessService completenessService;
+    private final PublicationGuardPolicy publicationGuardPolicy;
 
+    /**
+     * Production constructor used by Spring's autowiring. The policy is
+     * instantiated inside the class so a single {@link AdminEventReadService}
+     * bean never brings a third bean into the application graph.
+     */
+    @org.springframework.beans.factory.annotation.Autowired
     public AdminEventReadService(
             AdminEventReadRepository repository,
             EventCompletenessService completenessService
     ) {
+        this(repository, completenessService, new PublicationGuardPolicy());
+    }
+
+    /**
+     * Constructor reserved for unit tests so the diff-based guard
+     * behaviour can be exercised with an explicit, deterministic policy
+     * instance. Spring must not pick this constructor at runtime — the
+     * two-arg constructor above carries the {@code @Autowired} marker.
+     */
+    public AdminEventReadService(
+            AdminEventReadRepository repository,
+            EventCompletenessService completenessService,
+            PublicationGuardPolicy publicationGuardPolicy
+    ) {
         this.repository = repository;
         this.completenessService = completenessService;
+        this.publicationGuardPolicy = publicationGuardPolicy;
     }
 
     public AdminEventDtos.Page findEvents(
@@ -125,8 +147,48 @@ public class AdminEventReadService {
         );
     }
 
+    /**
+     * Historical strict guard: any ERROR-severity issue on a published event
+     * immediately blocks. Retained for callers outside the managed image
+     * upload flow (core, grades, geography, publication, media add/patch/
+     * reorder/thumbnail selection, media removal of legacy external rows)
+     * so behavior there is unchanged.
+     *
+     * <p>For the managed image upload paths, use
+     * {@link #findEventAfterMutation(String, AdminEventDtos.Detail)} instead —
+     * it uses {@code satisfied → unsatisfied} diffing so an upload cannot
+     * transform an already-incomplete published event into another this
+     * control has to repeat an audit on.
+     */
     public AdminEventDtos.Detail findEventAfterMutation(String id) {
         AdminEventDtos.Detail detail = findEvent(id);
+        assertLegacyStrictGuard(detail);
+        return detail;
+    }
+
+    /**
+     * Diff-based publication guard for managed image upload paths. Only ERROR
+     * issue codes that were satisfied before the mutation and unsatisfied
+     * after are treated as a regression. Pre-existing issues do NOT cause a
+     * rollback — the operator can manage their event independently of the
+     * managed image lifecycle.
+     *
+     * <p>The {@code before} snapshot MUST be loaded inside the same
+     * transaction so its representation is consistent with the eventual
+     * {@code after} read. Callers pass it explicitly to keep the read
+     * inside their own transactional boundary rather than introducing a
+     * ThreadLocal dependency.
+     */
+    public AdminEventDtos.Detail findEventAfterMutation(
+            String id,
+            AdminEventDtos.Detail before
+    ) {
+        AdminEventDtos.Detail after = findEvent(id);
+        assertSatisfiedToUnsatisfiedGuard(before, after);
+        return after;
+    }
+
+    private void assertLegacyStrictGuard(AdminEventDtos.Detail detail) {
         boolean invalidPublishedEvent = "published".equals(detail.publication().status())
                 && detail.completeness().issues().stream()
                 .anyMatch(issue -> "ERROR".equals(issue.severity()));
@@ -137,7 +199,34 @@ public class AdminEventReadService {
                     "Unpublish the event before making a change that would make it incomplete"
             );
         }
-        return detail;
+    }
+
+    /**
+     * Returns the diff-based classification for diagnostics. {@link
+     * AdminEventImageUploadService} does not consume this method directly,
+     * but it is exposed so the unit test for the guard can assert on the
+     * four-class outcome ({@code REMAINS_VALID}, {@code IMPROVES}, {@code
+     * ALREADY_INVALID_BUT_UNCHANGED}, {@code BECOMES_INVALID}).
+     */
+    PublicationGuardPolicy.Classification classifyAfterMutation(
+            AdminEventDtos.Detail before, AdminEventDtos.Detail after
+    ) {
+        return publicationGuardPolicy.classify(before, after);
+    }
+
+    private void assertSatisfiedToUnsatisfiedGuard(
+            AdminEventDtos.Detail before, AdminEventDtos.Detail after
+    ) {
+        PublicationGuardPolicy.Classification verdict = publicationGuardPolicy.classify(before, after);
+        if (verdict != PublicationGuardPolicy.Classification.BECOMES_INVALID) {
+            return;
+        }
+        List<AdminEventDtos.CompletenessIssue> introduced =
+                publicationGuardPolicy.introducedIssues(before, after);
+        if (introduced.isEmpty()) {
+            return;
+        }
+        throw new PublishedEventMutationBlockedException(introduced);
     }
 
     private Query normalize(

@@ -123,6 +123,19 @@ public class AdminEventImageUploadService {
         this.uploadEnabled = uploadEnabled;
     }
 
+    public AdminEventImageDtos.Capability capability() {
+        boolean storageAvailable = storage.available();
+        return new AdminEventImageDtos.Capability(
+                uploadEnabled,
+                storageAvailable,
+                uploadEnabled && storageAvailable,
+                EventImageValidator.MAX_BYTES,
+                EventImageValidator.MAX_DIMENSION,
+                EventImageValidator.MAX_PIXELS,
+                MAX_ACTIVE_RESERVATIONS,
+                List.of("jpeg", "png", "webp"));
+    }
+
     public AdminEventImageDtos.UploadResponse upload(
             String eventId,
             MultipartFile file,
@@ -210,6 +223,10 @@ public class AdminEventImageUploadService {
         LocalDateTime expected = parseVersion(expectedUpdatedAt);
         requireActor(principal);
         return Optional.ofNullable(transactions.execute(status -> {
+            // Bounded within-transaction snapshot used by the diff-based guard
+            // so a managed image removal cannot regress a legacy published
+            // event by introducing a NEW ERROR that did not exist before.
+            AdminEventDtos.Detail snapshot = readService.findEvent(eventId);
             lockExactEvent(eventId, expected);
             var locked = repository.lockReservation(mediaId);
             if (locked == null) {
@@ -231,7 +248,7 @@ public class AdminEventImageUploadService {
             normalizeOrder(eventId);
             repository.armCleanup(locked.publicId(),
                     LocalDateTime.ofInstant(clock.instant(), DATABASE_ZONE));
-            AdminEventDtos.Detail detail = readService.findEventAfterMutation(eventId);
+            AdminEventDtos.Detail detail = readService.findEventAfterMutation(eventId, snapshot);
             auditRepository.audit(
                     principal.idBytes(),
                     "event.managed_image_delete_requested",
@@ -329,6 +346,11 @@ public class AdminEventImageUploadService {
             EventImageStorage.StoredImage stored,
             UserPrincipal principal
     ) {
+        // Capture the within-transaction snapshot BEFORE we touch any state.
+        // The diff-based guard compares this against the post-mutation read so
+        // a managed image upload cannot regress a legacy published event that
+        // already has unrelated incompleteness issues.
+        AdminEventDtos.Detail snapshot = readService.findEvent(eventId);
         var event = repository.lockEvent(eventId);
         if (event == null) {
             throw new ApiException(
@@ -395,7 +417,7 @@ public class AdminEventImageUploadService {
         if (thumbnail) {
             normalizeOrder(eventId);
         }
-        AdminEventDtos.Detail detail = readService.findEventAfterMutation(eventId);
+        AdminEventDtos.Detail detail = readService.findEventAfterMutation(eventId, snapshot);
         auditRepository.audit(
                 principal.idBytes(),
                 thumbnail ? "event.thumbnail_uploaded" : "event.media_image_uploaded",
@@ -431,6 +453,12 @@ public class AdminEventImageUploadService {
             String license,
             UserPrincipal principal
     ) {
+        // Capture a within-transaction snapshot BEFORE any replacement mutes
+        // the row; the diff-based guard compares this against the post-mutation
+        // read. Managed image replacement cannot introduce a new sibling row,
+        // so the snapshot is intentionally taken before `lockReplacementTarget`
+        // to capture the original classification state.
+        AdminEventDtos.Detail snapshot = readService.findEvent(eventId);
         ReplacementTarget old = lockReplacementTarget(eventId, mediaId, expected);
         validateStored(stored.publicId(), image, stored);
         String deliveryUrl = storage.deliveryUrl(new EventImageStorage.DeliveryCommand(
@@ -455,7 +483,7 @@ public class AdminEventImageUploadService {
         repository.replaceManagedStorage(old.row(), newAssetId, stored, deliveryUrl, image,
                 principal.idBytes(), metadata);
         repository.armCleanup(old.publicId(), old.providerAssetId(), now());
-        AdminEventDtos.Detail detail = readService.findEventAfterMutation(eventId);
+        AdminEventDtos.Detail detail = readService.findEventAfterMutation(eventId, snapshot);
         auditRepository.audit(principal.idBytes(), "event.managed_image_replaced", eventId,
                 json(Map.of("mediaId", mediaId, "expectedVersion", expectedUpdatedAt)),
                 json(Map.of(

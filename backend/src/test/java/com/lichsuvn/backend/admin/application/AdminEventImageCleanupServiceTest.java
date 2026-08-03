@@ -32,6 +32,8 @@ class AdminEventImageCleanupServiceTest {
         repository = mock(AdminEventImageRepository.class);
         storage = mock(EventImageStorage.class);
         transactions = mock(TransactionTemplate.class);
+        when(storage.available()).thenReturn(true);
+        when(repository.countOverduePending(any())).thenReturn(0L);
         when(transactions.execute(any())).thenAnswer(invocation -> {
             TransactionCallback<?> callback = invocation.getArgument(0);
             return callback.doInTransaction(null);
@@ -112,7 +114,8 @@ class AdminEventImageCleanupServiceTest {
                         ZoneId.of("Asia/Ho_Chi_Minh")),
                 true,
                 120,
-                maxAttempts);
+                maxAttempts,
+                60_000L);
     }
 
     private AdminEventImageRepository.CleanupClaim claim(int attempts) {

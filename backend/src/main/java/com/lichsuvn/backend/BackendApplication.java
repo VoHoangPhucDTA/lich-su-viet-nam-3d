@@ -1,6 +1,8 @@
 package com.lichsuvn.backend;
 
 import com.lichsuvn.backend.exam.dataset.ExamDatasetImportApplication;
+import com.lichsuvn.backend.importer.LegacyEventGalleryMigrationApplication;
+import com.lichsuvn.backend.importer.LegacyEventThumbnailBackfillApplication;
 import io.github.cdimascio.dotenv.Dotenv;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -21,6 +23,14 @@ public class BackendApplication {
 		loadLocalDotenv();
 		if (ExamDatasetImportApplication.isRequested(args)) {
 			ExamDatasetImportApplication.main(args);
+			return;
+		}
+		if (LegacyEventThumbnailBackfillApplication.isRequested(args)) {
+			LegacyEventThumbnailBackfillApplication.main(args);
+			return;
+		}
+		if (LegacyEventGalleryMigrationApplication.isRequested(args)) {
+			LegacyEventGalleryMigrationApplication.main(args);
 			return;
 		}
 		activateRemoteProductionProfileIfNeeded();

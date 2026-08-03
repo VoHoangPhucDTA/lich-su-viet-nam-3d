@@ -163,7 +163,7 @@ class AdminEventMutationIntegrationTest {
                     transactionManager, 10);
             imageCleanupService = new AdminEventImageCleanupService(
                     new AdminEventImageRepository(named), fakeImageStorage,
-                    transactionManager, true, 120, 3);
+                    transactionManager, true, 120, 3, 60_000L);
             available = true;
         } catch (Exception ex) {
             if (remoteRehearsal) {

@@ -57,6 +57,57 @@ class EventMediaReadPolicyTest {
         }
     }
 
+    @Test
+    void legacyPublicIdFallsBackWhenStorageRejectsAndCloudNameKnown() {
+        // V42 storage intentionally rejects non-V42 shaped public ids.
+        when(storage.deliveryUrl(any())).thenReturn(null);
+        EventMediaReadPolicy policyWithCloud =
+                new EventMediaReadPolicy(new MediaUrlPolicy(), null, "dlx-legacy");
+        String url = policyWithCloud.visibleUrl(descriptor(
+                "READY", "active", "https://provider.example.test/original",
+                "cloudinary", "historical_events_thumbnail1/event-x",
+                4L, true));
+        assertEquals(
+                "https://res.cloudinary.com/dlx-legacy/image/upload/c_limit,w_1600,h_1600/f_auto,q_auto/v4/historical_events_thumbnail1/event-x",
+                url);
+    }
+
+    @Test
+    void legacyPublicIdIsNullWhenCloudNameNotConfigured() {
+        // Constructor without cloud name keeps the legacy no-op behaviour. The policy
+        // is constructed by tests or code paths that haven't enabled the legacy
+        // fallback; in those cases we must not synthesise a URL.
+        when(storage.deliveryUrl(any())).thenReturn(null);
+        assertNull(policy.visibleUrl(descriptor(
+                "READY", "active", "https://provider.example.test/original",
+                "cloudinary", "event-thumbnails/event-x",
+                4L, true)));
+    }
+
+    @Test
+    void legacyNonImageResourceTypeIsStillHonoured() {
+        when(storage.deliveryUrl(any())).thenReturn(null);
+        EventMediaReadPolicy policyWithCloud =
+                new EventMediaReadPolicy(new MediaUrlPolicy(), null, "dlx-legacy");
+        assertNull(policyWithCloud.visibleUrl(descriptor(
+                "UPLOADING", "active", "https://provider.example.test/original",
+                "cloudinary", "historical_events_thumbnail/event-x",
+                4L, true)));
+    }
+
+    private EventMediaReadPolicy.MediaDescriptor descriptor(
+            String state,
+            String status,
+            String url,
+            String provider,
+            String publicId,
+            Long version,
+            boolean thumbnail
+    ) {
+        return new EventMediaReadPolicy.MediaDescriptor(
+                state, status, url, provider, publicId, version, thumbnail);
+    }
+
     private EventMediaReadPolicy.MediaDescriptor descriptor(
             String state,
             String status,

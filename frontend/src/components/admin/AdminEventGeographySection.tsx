@@ -9,7 +9,7 @@ import {
 } from '../../services/adminApi';
 import { ApiRequestError } from '../../services/apiClient';
 import { publishedEventMutationError } from './adminEventPublication';
-import { AdminSelect, AdminStatusBadge } from './AdminUI';
+import { AdminActionButton, AdminSelect, AdminStatusBadge } from './AdminUI';
 
 type Props = {
   eventId: string;
@@ -340,9 +340,9 @@ export default function AdminEventGeographySection({
       </div>
       <div className="mt-4 flex items-center justify-between">
         <span className="text-xs text-[var(--text-muted)]">Phiên bản: {version}</span>
-        <button type="button" className="admin-primary-button"
-          disabled={disabled || busy || !dirty || validation.length > 0}
-          onClick={() => void save()}>{busy ? 'Đang lưu…' : 'Lưu địa lý'}</button>
+        <AdminActionButton type="button" variant="primary" pending={busy}
+          disabled={disabled || !dirty || validation.length > 0}
+          onClick={() => void save()}>{busy ? 'Đang lưu…' : 'Lưu địa lý'}</AdminActionButton>
       </div>
     </section>
   );

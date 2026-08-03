@@ -13,7 +13,6 @@ import java.security.MessageDigest;
 import java.util.HexFormat;
 import java.util.zip.CRC32;
 import java.util.Arrays;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -78,19 +77,43 @@ class EventImageValidatorTest {
     }
 
     @Test
-    void rejectsAnimatedPngMarkerAndAllWebpInputUntilCapabilityIsApproved() throws Exception {
+    void acceptsStaticWebpByMagicAndRejectsAnimatedOrCorruptWebp() throws Exception {
         byte[] png = image("png", BufferedImage.TYPE_INT_ARGB, 4, 4);
         assertCode("EVENT_IMAGE_ANIMATED_UNSUPPORTED", addActlChunk(png));
 
-        for (String chunk : List.of("VP8 ", "VP8L", "VP8X", "ANIM")) {
-            byte[] webp = new byte[]{
-                    'R', 'I', 'F', 'F', 16, 0, 0, 0, 'W', 'E', 'B', 'P',
-                    (byte) chunk.charAt(0), (byte) chunk.charAt(1),
-                    (byte) chunk.charAt(2), (byte) chunk.charAt(3),
-                    0, 0, 0, 0
-            };
-            assertCode("EVENT_IMAGE_UNSUPPORTED_FORMAT", webp);
-        }
+        var file = new MockMultipartFile(
+                "file", "photo.webp", "image/webp", TestWebpFactory.vp8l(23, 17));
+        var result = validator.validate(file, "Ảnh WebP", null, null, null);
+
+        assertEquals("image/webp", result.mimeType());
+        assertEquals("webp", result.format());
+        assertEquals(23, result.width());
+        assertEquals(17, result.height());
+
+        // The browser filename/content-type claim is ignored; magic bytes decide.
+        var mislabelled = new MockMultipartFile(
+                "file", "anything.png", "image/png", TestWebpFactory.vp8(9, 7));
+        var mislabelledResult = validator.validate(mislabelled, "Ảnh WebP 2", null, null, null);
+        assertEquals("image/webp", mislabelledResult.mimeType());
+        assertEquals(9, mislabelledResult.width());
+        assertEquals(7, mislabelledResult.height());
+
+        assertCode("EVENT_IMAGE_ANIMATED_UNSUPPORTED", TestWebpFactory.vp8x(64, 64, true));
+        assertCode("EVENT_IMAGE_ANIMATED_UNSUPPORTED", TestWebpFactory.animatedWithAnmf(64, 64));
+        assertCode("EVENT_IMAGE_INVALID_CONTENT", TestWebpFactory.tamperRiffSize(TestWebpFactory.vp8l(10, 10)));
+        assertCode("EVENT_IMAGE_INVALID_CONTENT", TestWebpFactory.truncated(TestWebpFactory.vp8l(10, 10), 19));
+        assertCode("EVENT_IMAGE_INVALID_CONTENT", TestWebpFactory.firstChunkNotImage());
+        assertCode("EVENT_IMAGE_INVALID_CONTENT", TestWebpFactory.corruptVp8lSignature(10, 10));
+    }
+
+    @Test
+    void rejectsWebpBeyondDimensionAndPixelLimits() throws Exception {
+        assertCode(
+                "EVENT_IMAGE_DIMENSIONS_TOO_LARGE",
+                TestWebpFactory.vp8x(EventImageValidator.MAX_DIMENSION + 1, 1, false));
+        assertCode(
+                "EVENT_IMAGE_DIMENSIONS_TOO_LARGE",
+                TestWebpFactory.vp8x(5_000, 5_001, false));
     }
 
     @Test

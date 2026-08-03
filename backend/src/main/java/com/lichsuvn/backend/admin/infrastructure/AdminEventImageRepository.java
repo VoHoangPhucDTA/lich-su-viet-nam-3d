@@ -494,6 +494,20 @@ public class AdminEventImageRepository {
                 + query.where(), query.parameters(), Long.class);
     }
 
+    /**
+     * Counts PENDING tasks whose {@code next_attempt_at} is already in the
+     * past. Used by the Admin cleanup page to surface "Quá hạn xử lý" badges
+     * even when the worker has not yet drained them, so operators have a
+     * stable signal when a deploy leaves tasks stranded.
+     */
+    public long countOverduePending(LocalDateTime now) {
+        Long count = jdbc.queryForObject("""
+                SELECT COUNT(*) FROM event_media_storage_cleanup_tasks
+                WHERE task_status='PENDING' AND next_attempt_at<=:now
+                """, params("now", now), Long.class);
+        return count == null ? 0L : count;
+    }
+
     public List<CleanupListItem> findCleanup(CleanupQuery query) {
         MapSqlParameterSource parameters = query.parameters()
                 .addValue("limit", query.limit())

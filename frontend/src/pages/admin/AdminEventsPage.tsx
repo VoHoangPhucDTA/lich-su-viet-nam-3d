@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link, useLocation, useNavigate, useSearchParams } from 'react-router-dom';
+import { Eye, Pencil } from 'lucide-react';
 import AdminLayout from '../../layouts/AdminLayout';
 import {
   AdminDataTable,
@@ -9,6 +10,7 @@ import {
   AdminRowActions,
   AdminSearchInput,
   AdminStatusBadge,
+  AdminTooltip,
   type AdminDataColumn,
 } from '../../components/admin/AdminUI';
 import { getAdminEvents, type AdminEvent } from '../../services/adminApi';
@@ -227,22 +229,26 @@ export default function AdminEventsPage() {
       header: 'Thao tác',
       render: event => (
         <AdminRowActions>
-          <Link
-            to={`/admin/events/${encodeURIComponent(event.id)}`}
-            state={{ from: returnTo }}
-            className="admin-secondary-button no-underline"
-            aria-label={`Xem ${event.title}`}
-          >
-            Xem
-          </Link>
-          <Link
-            to={`/admin/events/${encodeURIComponent(event.id)}/edit`}
-            state={{ from: returnTo }}
-            className="admin-primary-button no-underline"
-            aria-label={`Chỉnh sửa ${event.title}`}
-          >
-            Chỉnh sửa
-          </Link>
+          <AdminTooltip label="Xem sự kiện">
+            <Link
+              to={`/admin/events/${encodeURIComponent(event.id)}`}
+              state={{ from: returnTo }}
+              className="admin-icon-button admin-icon-button-neutral no-underline"
+              aria-label={`Xem ${event.title}`}
+            >
+              <Eye size={16} aria-hidden="true" />
+            </Link>
+          </AdminTooltip>
+          <AdminTooltip label="Chỉnh sửa sự kiện">
+            <Link
+              to={`/admin/events/${encodeURIComponent(event.id)}/edit`}
+              state={{ from: returnTo }}
+              className="admin-icon-button admin-icon-button-primary no-underline"
+              aria-label={`Chỉnh sửa ${event.title}`}
+            >
+              <Pencil size={16} aria-hidden="true" />
+            </Link>
+          </AdminTooltip>
         </AdminRowActions>
       ),
     },
@@ -316,7 +322,7 @@ export default function AdminEventsPage() {
         </div>
       </div>
       <AdminDataTable
-        columns={columns} rows={items} getKey={event => event.id} minWidth="1280px"
+        columns={columns} rows={items} getKey={event => event.id} minWidth="1120px"
         loading={loading && items.length === 0} error={error || undefined}
         onRetry={() => setRetry(value => value + 1)}
         emptyTitle="Không có sự kiện phù hợp"

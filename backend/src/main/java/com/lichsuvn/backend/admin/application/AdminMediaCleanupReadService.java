@@ -3,6 +3,7 @@ package com.lichsuvn.backend.admin.application;
 import com.lichsuvn.backend.admin.api.dto.AdminMediaCleanupDtos;
 import com.lichsuvn.backend.admin.infrastructure.AdminEventImageRepository;
 import com.lichsuvn.backend.common.exception.ApiException;
+import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.http.HttpStatus;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -24,9 +25,47 @@ public class AdminMediaCleanupReadService {
     private static final int MAX_OFFSET = 5_000;
 
     private final AdminEventImageRepository repository;
+    private final ObjectProvider<AdminEventImageCleanupService> cleanupServiceProvider;
 
-    public AdminMediaCleanupReadService(AdminEventImageRepository repository) {
+    public AdminMediaCleanupReadService(
+            AdminEventImageRepository repository,
+            ObjectProvider<AdminEventImageCleanupService> cleanupServiceProvider
+    ) {
         this.repository = repository;
+        this.cleanupServiceProvider = cleanupServiceProvider;
+    }
+
+    /**
+     * Read-only snapshot of the cleanup worker. Falls back to a derived
+     * snapshot when the worker bean is not yet available (e.g. when the
+     * scheduler is disabled in test slices).
+     */
+    public AdminMediaCleanupDtos.Capability capability() {
+        AdminEventImageCleanupService worker = cleanupServiceProvider.getIfAvailable();
+        if (worker != null) {
+            return worker.statusSnapshot();
+        }
+        long overdue = repository.countOverduePending(
+                java.time.LocalDateTime.now(DATABASE_ZONE));
+        return new AdminMediaCleanupDtos.Capability(
+                false, false, null, overdue, 60_000L, 0, 0, 0,
+                "CLEANUP_WORKER_NOT_REGISTERED");
+    }
+
+    /**
+     * Operator-attended tick that drives the scheduler-owned worker once.
+     * Returns the worker's own capability snapshot, which carries the
+     * claim/complete/fail counts from the just-finished pass.
+     */
+    public AdminMediaCleanupDtos.Capability tick() {
+        AdminEventImageCleanupService worker = cleanupServiceProvider.getIfAvailable();
+        if (worker == null) {
+            throw new ApiException(
+                    HttpStatus.SERVICE_UNAVAILABLE,
+                    "CLEANUP_WORKER_NOT_REGISTERED",
+                    "Cleanup worker is not registered in this process");
+        }
+        return worker.capability();
     }
 
     public AdminMediaCleanupDtos.Summary summary() {

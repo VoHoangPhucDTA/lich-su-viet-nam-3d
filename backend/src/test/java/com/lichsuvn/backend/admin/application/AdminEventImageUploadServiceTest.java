@@ -208,6 +208,71 @@ class AdminEventImageUploadServiceTest {
     }
 
     @Test
+    void capabilityReflectsFeatureFlagAndStorageAvailability() {
+        var repository = mock(AdminEventImageRepository.class);
+        var auditRepository = mock(AdminEventMutationRepository.class);
+        var readService = mock(AdminEventReadService.class);
+        var validator = mock(EventImageValidator.class);
+        var storage = mock(EventImageStorage.class);
+        var transactions = mock(TransactionTemplate.class);
+        when(storage.available()).thenReturn(false);
+        var service = new AdminEventImageUploadService(
+                repository,
+                auditRepository,
+                readService,
+                validator,
+                storage,
+                new ObjectMapper(),
+                transactions,
+                Clock.system(DATABASE_ZONE),
+                10,
+                false);
+
+        var disabled = service.capability();
+        assertEquals(false, disabled.enabled());
+        assertEquals(false, disabled.storageAvailable());
+        assertEquals(false, disabled.uploadReady());
+        assertEquals(EventImageValidator.MAX_BYTES, disabled.maxFileBytes());
+        assertEquals(EventImageValidator.MAX_DIMENSION, disabled.maxDimension());
+        assertEquals(EventImageValidator.MAX_PIXELS, disabled.maxPixels());
+        assertEquals(AdminEventImageUploadService.MAX_ACTIVE_RESERVATIONS,
+                disabled.maxActiveReservations());
+        assertEquals(List.of("jpeg", "png", "webp"), disabled.allowedFormats());
+
+        when(storage.available()).thenReturn(true);
+        var enabled = new AdminEventImageUploadService(
+                repository,
+                auditRepository,
+                readService,
+                validator,
+                storage,
+                new ObjectMapper(),
+                transactions,
+                Clock.system(DATABASE_ZONE),
+                10,
+                true).capability();
+        assertEquals(true, enabled.enabled());
+        assertEquals(true, enabled.storageAvailable());
+        assertEquals(true, enabled.uploadReady());
+
+        when(storage.available()).thenReturn(false);
+        var flagOnStorageOff = new AdminEventImageUploadService(
+                repository,
+                auditRepository,
+                readService,
+                validator,
+                storage,
+                new ObjectMapper(),
+                transactions,
+                Clock.system(DATABASE_ZONE),
+                10,
+                true).capability();
+        assertEquals(true, flagOnStorageOff.enabled());
+        assertEquals(false, flagOnStorageOff.storageAvailable());
+        assertEquals(false, flagOnStorageOff.uploadReady());
+    }
+
+    @Test
     void replacementKeepsMediaIdentityEnqueuesOnlyOldAssetAndAddsOwnershipMetadata() {
         var fixture = replacementFixture();
         when(fixture.storage.upload(any())).thenAnswer(invocation -> {
@@ -316,7 +381,8 @@ class AdminEventImageUploadServiceTest {
         when(repository.lockReplacementMedia(42L)).thenReturn(row);
         when(repository.bumpEventVersion(eq("event-id"), any())).thenReturn(true);
         var detail = mockDetail();
-        when(readService.findEventAfterMutation("event-id")).thenReturn(detail);
+        when(readService.findEvent("event-id")).thenReturn(detail);
+        when(readService.findEventAfterMutation(eq("event-id"), any())).thenReturn(detail);
         when(validator.validate(any(), any(), any(), any(), any())).thenReturn(
                 new EventImageValidator.ValidatedEventImage(
                         new byte[]{1, 2}, "image/png", "png", 2, "0".repeat(64),

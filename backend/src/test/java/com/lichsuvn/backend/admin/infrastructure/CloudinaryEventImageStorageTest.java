@@ -97,6 +97,51 @@ class CloudinaryEventImageStorageTest {
     }
 
     @Test
+    void providerWebpFormatIsAcceptedForWebpMime() {
+        var storage = configured((bytes, options) -> Map.of(
+                "public_id", "events/event-1/media/asset-1",
+                "asset_id", "provider-asset",
+                "version", 42L,
+                "secure_url", "https://res.cloudinary.com/demo/image/upload/v42/original",
+                "resource_type", "image",
+                "format", "webp",
+                "width", 20,
+                "height", 10,
+                "bytes", 123), (publicId, options) -> Map.of("result", "ok"));
+
+        var result = storage.upload(new EventImageStorage.UploadCommand(
+                new byte[]{1, 2, 3},
+                "events/event-1/media/asset-1",
+                "image/webp"));
+
+        assertEquals("webp", result.format());
+        assertEquals("image/webp", result.mimeType());
+        assertEquals(20, result.width());
+        assertEquals(10, result.height());
+    }
+
+    @Test
+    void providerFormatMismatchRejectsWebpMime() {
+        var storage = configured((bytes, options) -> Map.of(
+                "public_id", "events/event-1/media/asset-1",
+                "asset_id", "provider-asset",
+                "version", 42L,
+                "secure_url", "https://res.cloudinary.com/demo/image/upload/v42/original",
+                "resource_type", "image",
+                "format", "png",
+                "width", 20,
+                "height", 10,
+                "bytes", 123), (publicId, options) -> Map.of("result", "ok"));
+
+        var error = assertThrows(EventImageStorage.EventImageStorageException.class,
+                () -> storage.upload(new EventImageStorage.UploadCommand(
+                        new byte[]{1},
+                        "events/event-1/media/asset-1",
+                        "image/webp")));
+        assertEquals("EVENT_IMAGE_PROVIDER_RESPONSE_INVALID", error.code());
+    }
+
+    @Test
     void providerJpgFormatIsCanonicalizedToValidatedJpeg() {
         var storage = configured((bytes, options) -> Map.of(
                 "public_id", "events/event-1/media/asset-1",

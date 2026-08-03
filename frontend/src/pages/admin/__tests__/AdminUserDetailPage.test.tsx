@@ -114,20 +114,26 @@ describe('AdminUserDetailPage', () => {
     vi.mocked(getAdminUserDetail).mockResolvedValue(detail);
   });
 
-  it('renders typed read-only account, learning, activity, audit and unavailable session data', async () => {
+  it('renders typed read-only account, learning, activity and audit sections without the session-mechanism block', async () => {
     renderPage();
     expect(screen.getByRole('status')).toHaveTextContent('Đang tải chi tiết');
     expect(await screen.findByRole('heading', { name: 'Nguyễn Quản trị' })).toBeInTheDocument();
     for (const heading of [
       'Tài khoản',
-      'Xác thực và phiên',
       'Tổng hợp học tập',
       'Hoạt động học gần đây',
       'Audit quản trị gần đây',
     ]) {
       expect(screen.getByRole('heading', { name: heading })).toBeInTheDocument();
     }
-    expect(screen.getByText('Không thể thống kê')).toBeInTheDocument();
+    // Session-mechanism presentation is removed from the UI entirely, while the
+    // useful email-verification fields were preserved inside the account section.
+    expect(screen.queryByRole('heading', { name: 'Xác thực và phiên' })).not.toBeInTheDocument();
+    for (const removed of ['Cơ chế phiên', 'STATELESS_JWT', 'Không thể thống kê', 'Phiên refresh đang hoạt động']) {
+      expect(screen.queryByText(removed)).not.toBeInTheDocument();
+    }
+    expect(screen.getByText('Xác thực email')).toBeInTheDocument();
+    expect(screen.getByText('Thời điểm xác thực')).toBeInTheDocument();
     expect(screen.getAllByText('Quản trị').length).toBeGreaterThan(0);
     expect(screen.getByText('Nộp bài kiểm tra cuối')).toBeInTheDocument();
     expect(screen.getByText('Nộp bài thi cuối')).toBeInTheDocument();

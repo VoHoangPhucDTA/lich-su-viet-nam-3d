@@ -11,6 +11,7 @@ vi.mock('../../../layouts/AdminLayout', () => ({
 }));
 
 vi.mock('../../../components/admin/AdminUI', () => ({
+  AdminTooltip: ({ children }: { children: React.ReactNode }) => <>{children}</>,
   AdminPageHeader: ({ title, actions }: { title: string; actions?: React.ReactNode }) => <><h1>{title}</h1>{actions}</>,
   AdminSearchInput: (props: React.InputHTMLAttributes<HTMLInputElement>) => (
     <input {...props} aria-label="event-search" />

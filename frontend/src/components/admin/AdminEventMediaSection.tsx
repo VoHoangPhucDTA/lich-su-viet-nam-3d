@@ -12,7 +12,7 @@ import {
 } from '../../services/adminApi';
 import { ApiRequestError } from '../../services/apiClient';
 import { publishedEventMutationError } from './adminEventPublication';
-import { AdminConfirmDialog, AdminSelect, AdminStatusBadge } from './AdminUI';
+import { AdminConfirmDialog, AdminActionButton, AdminSelect, AdminStatusBadge } from './AdminUI';
 import AdminEventImageUploadPanel from './AdminEventImageUploadPanel';
 
 type Props = {
@@ -54,8 +54,8 @@ export default function AdminEventMediaSection({
   const chooseReplacement = (file: File | undefined) => {
     if (!file) return;
     if (file.size <= 0 || file.size > 10 * 1024 * 1024
-      || !new Set(['image/jpeg', 'image/png']).has(file.type)) {
-      setReplacementError('Chỉ hỗ trợ ảnh JPEG/PNG hợp lệ, tối đa 10 MiB.');
+      || !new Set(['image/jpeg', 'image/png', 'image/webp']).has(file.type)) {
+      setReplacementError('Chỉ hỗ trợ ảnh JPEG/PNG/WebP hợp lệ, tối đa 10 MiB.');
       return;
     }
     setReplacementFile(file);
@@ -102,7 +102,7 @@ export default function AdminEventMediaSection({
           label={busy ? 'Đang lưu' : error ? 'Có lỗi' : message ? 'Đã lưu' : dirty ? 'Chưa lưu' : 'Đã đồng bộ'}
         />
       </div>
-      <p className="mt-1 text-sm text-[var(--text-muted)]">Tải JPEG/PNG hoặc quản lý metadata và liên kết media hiện có; phần này không sửa dữ liệu bản đồ.</p>
+      <p className="mt-1 text-sm text-[var(--text-muted)]">Tải JPEG/PNG/WebP hoặc quản lý metadata và liên kết media hiện có; phần này không sửa dữ liệu bản đồ.</p>
       {error && <p role="alert" className="mt-3 text-sm text-[var(--accent)]">{error}</p>}
       {message && <p role="status" className="mt-3 text-sm text-emerald-600">{message}</p>}
       <AdminEventImageUploadPanel
@@ -173,7 +173,7 @@ export default function AdminEventMediaSection({
                     onChange={event => setEditing(previous => ({ ...previous, license: event.target.value }))} />
                 </label>
                 <div className="flex gap-2 md:col-span-2">
-                <button type="button" disabled={disabled || busy} onClick={() => void run(async () => {
+                <AdminActionButton type="button" variant="primary" pending={busy} disabled={disabled} onClick={() => void run(async () => {
                   const patch = editing ?? {};
                   const url = patch.url?.trim();
                   const updated = await updateAdminEventMedia(eventId, item.id, {
@@ -189,12 +189,12 @@ export default function AdminEventMediaSection({
                   setEditingId(null);
                   setEditing(null);
                   return updated;
-                })}>Lưu media</button>
-                  <button type="button" onClick={() => { setEditingId(null); setEditing(null); }}>Hủy</button>
+                })}>Lưu media</AdminActionButton>
+                  <AdminActionButton type="button" variant="secondary" disabled={disabled || busy} onClick={() => { setEditingId(null); setEditing(null); }}>Hủy</AdminActionButton>
                 </div>
               </div>
             ) : (
-              <button type="button" disabled={disabled || busy} onClick={() => {
+              <AdminActionButton type="button" variant="secondary" disabled={disabled || busy} onClick={() => {
                 setEditingId(item.id);
                 setEditing({
                   mediaType: item.mediaType,
@@ -205,29 +205,30 @@ export default function AdminEventMediaSection({
                   license: item.license,
                   status: item.status,
                 });
-              }}>Sửa</button>
+              }}>Sửa</AdminActionButton>
             )}
-            <button type="button"
+            <AdminActionButton type="button" variant="secondary"
               disabled={disabled || busy || item.mediaType !== 'image' || item.status !== 'active' || !item.urlSafe}
               onClick={() => void run(() => selectAdminEventThumbnail(eventId, item.id, versionRef.current))}>
               Chọn thumbnail
-            </button>
+            </AdminActionButton>
             {item.managed && item.mediaType === 'image' && item.status === 'active' && (
-              <button type="button" disabled={disabled || busy} onClick={() => {
+              <AdminActionButton type="button" variant="secondary" disabled={disabled || busy} onClick={() => {
                 setReplacementId(item.id);
                 setReplacementFile(null);
                 setReplacementError('');
               }}>
                 Thay asset
-              </button>
+              </AdminActionButton>
             )}
-            <button
+            <AdminActionButton
               type="button"
+              variant="text"
               disabled={disabled || busy}
               onClick={() => setPendingRemoveId(item.id)}
             >
               Xóa khỏi sự kiện
-            </button>
+            </AdminActionButton>
           </div>
         ))}
       </div>
@@ -242,7 +243,7 @@ export default function AdminEventMediaSection({
         <AdminSelect value={form.mediaType} onValueChange={value => setForm(previous => ({ ...previous, mediaType: value as AdminEventMediaCreateRequest['mediaType'] }))} disabled={disabled || busy} label="Loại media"
           options={['image', 'video', 'document', 'audio'].map(value => ({ value, label: value }))} />
         <input required type="url" value={form.url} onChange={event => setForm(previous => ({ ...previous, url: event.target.value }))} disabled={disabled || busy} placeholder="https://..." aria-label="URL media" />
-        <button type="submit" disabled={disabled || busy || media.length >= 200}>Thêm media</button>
+        <AdminActionButton type="submit" variant="primary" pending={busy} disabled={disabled || media.length >= 200}>Thêm media</AdminActionButton>
       </form>
       <AdminConfirmDialog
         open={pendingRemoveId !== null}
@@ -295,7 +296,7 @@ export default function AdminEventMediaSection({
           <input
             className="mt-2 block"
             type="file"
-            accept=".jpg,.jpeg,.png,image/jpeg,image/png"
+            accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp"
             aria-label="Chọn asset mới"
             disabled={replacementBusy}
             onChange={event => chooseReplacement(event.target.files?.[0])}

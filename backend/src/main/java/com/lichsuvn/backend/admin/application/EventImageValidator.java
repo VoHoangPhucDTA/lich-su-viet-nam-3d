@@ -99,18 +99,35 @@ public class EventImageValidator {
                 && (bytes[2] & 0xff) == 0xff) {
             return new DetectedFormat("jpeg", "image/jpeg");
         }
+        if (WebpImageInspector.isWebp(bytes)) {
+            return new DetectedFormat("webp", "image/webp");
+        }
         throw error(HttpStatus.UNSUPPORTED_MEDIA_TYPE, "EVENT_IMAGE_UNSUPPORTED_FORMAT");
     }
 
     private void validateStructure(byte[] bytes, DetectedFormat format) {
         if ("png".equals(format.canonicalName)) {
             validatePngChunks(bytes);
+        } else if ("webp".equals(format.canonicalName)) {
+            validateWebp(bytes);
         } else {
             if (bytes.length < 4
                     || (bytes[bytes.length - 2] & 0xff) != 0xff
                     || (bytes[bytes.length - 1] & 0xff) != 0xd9) {
                 throw error(HttpStatus.BAD_REQUEST, "EVENT_IMAGE_INVALID_CONTENT");
             }
+        }
+    }
+
+    private void validateWebp(byte[] bytes) {
+        try {
+            if (WebpImageInspector.parse(bytes).animated()) {
+                throw error(HttpStatus.BAD_REQUEST, "EVENT_IMAGE_ANIMATED_UNSUPPORTED");
+            }
+        } catch (ApiException exception) {
+            throw exception;
+        } catch (IllegalArgumentException exception) {
+            throw error(HttpStatus.BAD_REQUEST, "EVENT_IMAGE_INVALID_CONTENT");
         }
     }
 
@@ -138,6 +155,25 @@ public class EventImageValidator {
     }
 
     private Dimensions decode(byte[] bytes, DetectedFormat detected) {
+        if ("webp".equals(detected.canonicalName)) {
+            try {
+                WebpImageInspector.WebpInfo info = WebpImageInspector.parse(bytes);
+                if (info.animated()) {
+                    throw error(HttpStatus.BAD_REQUEST, "EVENT_IMAGE_ANIMATED_UNSUPPORTED");
+                }
+                int width = info.width();
+                int height = info.height();
+                if (width <= 0 || height <= 0 || width > MAX_DIMENSION || height > MAX_DIMENSION
+                        || (long) width * height > MAX_PIXELS) {
+                    throw error(HttpStatus.BAD_REQUEST, "EVENT_IMAGE_DIMENSIONS_TOO_LARGE");
+                }
+                return new Dimensions(width, height);
+            } catch (ApiException exception) {
+                throw exception;
+            } catch (IllegalArgumentException exception) {
+                throw error(HttpStatus.BAD_REQUEST, "EVENT_IMAGE_INVALID_CONTENT");
+            }
+        }
         try (var imageInput = new MemoryCacheImageInputStream(new ByteArrayInputStream(bytes))) {
             Iterator<ImageReader> readers = ImageIO.getImageReaders(imageInput);
             if (!readers.hasNext()) {

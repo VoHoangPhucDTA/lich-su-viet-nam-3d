@@ -104,6 +104,7 @@ public class CloudinaryEventImageStorage implements EventImageStorage {
             String expectedFormat = switch (command.mimeType()) {
                 case "image/jpeg" -> "jpeg";
                 case "image/png" -> "png";
+                case "image/webp" -> "webp";
                 default -> null;
             };
             if (!Objects.equals(command.publicId(), publicId)
@@ -226,6 +227,7 @@ public class CloudinaryEventImageStorage implements EventImageStorage {
         return switch (value.toLowerCase(Locale.ROOT)) {
             case "jpg", "jpeg" -> "jpeg";
             case "png" -> "png";
+            case "webp" -> "webp";
             default -> throw invalidResponse();
         };
     }

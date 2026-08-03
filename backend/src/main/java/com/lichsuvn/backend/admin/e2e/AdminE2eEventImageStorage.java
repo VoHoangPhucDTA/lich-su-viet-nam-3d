@@ -19,7 +19,11 @@ public final class AdminE2eEventImageStorage implements EventImageStorage {
 
     @Override
     public StoredImage upload(UploadCommand command) {
-        String format = "image/jpeg".equals(command.mimeType()) ? "jpg" : "png";
+        String format = switch (command.mimeType()) {
+            case "image/jpeg" -> "jpg";
+            case "image/webp" -> "webp";
+            default -> "png";
+        };
         String assetId = digest(command.publicId());
         return new StoredImage(
                 command.publicId(),

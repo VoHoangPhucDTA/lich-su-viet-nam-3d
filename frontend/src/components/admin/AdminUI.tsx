@@ -3,14 +3,17 @@ import {
   type CSSProperties,
   type ChangeEvent,
   type InputHTMLAttributes,
+  type KeyboardEvent as ReactKeyboardEvent,
   type ReactNode,
   type TextareaHTMLAttributes,
+  useCallback,
   useEffect,
   useId,
   useRef,
+  useState,
 } from 'react';
 import { createPortal } from 'react-dom';
-import { ChevronDown, ChevronLeft, ChevronRight, Search } from 'lucide-react';
+import { Check, ChevronDown, ChevronLeft, ChevronRight, LoaderCircle, Search } from 'lucide-react';
 
 // --- AdminPageHeader ---------------------------------------------------------
 
@@ -69,15 +72,7 @@ export function AdminSearchInput({
   onSubmit,
 }: AdminSearchInputProps) {
   return (
-    <label
-      className="flex min-h-11 min-w-0 flex-1 items-center gap-2 px-3 text-sm transition focus-within:border-[var(--admin-accent)]"
-      style={{
-        borderRadius: 'var(--admin-radius)',
-        border: '1px solid var(--border)',
-        background: 'var(--bg-card)',
-        color: 'var(--text-muted)',
-      }}
-    >
+    <label className="admin-search-field">
       <Search size={16} aria-hidden="true" className="shrink-0" />
       <input
         value={value}
@@ -85,8 +80,7 @@ export function AdminSearchInput({
         onKeyDown={event => event.key === 'Enter' && onSubmit?.()}
         placeholder={placeholder}
         aria-label={placeholder}
-        className="min-w-0 flex-1 bg-transparent outline-none"
-        style={{ color: 'var(--text-primary)' }}
+        className="admin-search-input"
       />
     </label>
   );
@@ -97,6 +91,7 @@ export function AdminSearchInput({
 export interface AdminSelectOption {
   value: string;
   label: string;
+  disabled?: boolean;
 }
 
 interface AdminSelectProps {
@@ -111,6 +106,14 @@ interface AdminSelectProps {
   visibleLabel?: boolean;
 }
 
+/**
+ * Select-only combobox (listbox popup) used by every Admin filter and form
+ * select. The trigger is a real button; the popup is portaled to document.body
+ * with fixed positioning so it is never clipped by `overflow: hidden` table or
+ * filter containers. Keyboard contract: Enter/Space open+select, ArrowUp/Down
+ * navigate, Home/End jump, Escape closes without change, Tab closes and moves
+ * focus, printable characters typeahead.
+ */
 export function AdminSelect({
   value,
   onValueChange,
@@ -122,27 +125,214 @@ export function AdminSelect({
   describedBy,
   visibleLabel = false,
 }: AdminSelectProps) {
+  const [open, setOpen] = useState(false);
+  const [activeIndex, setActiveIndex] = useState(-1);
+  const [menuStyle, setMenuStyle] = useState<CSSProperties>({});
+  const rootRef = useRef<HTMLDivElement>(null);
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  const menuRef = useRef<HTMLDivElement>(null);
+  const listboxId = useId();
   const errorId = useId();
+  const typeaheadRef = useRef<{ buffer: string; timer: number }>({ buffer: '', timer: 0 });
+
+  const selectedIndex = Math.max(0, options.findIndex(option => option.value === value));
+  const selected = options[selectedIndex] ?? options[0];
+
+  const positionMenu = useCallback(() => {
+    const trigger = triggerRef.current;
+    if (!trigger) return;
+    const rect = trigger.getBoundingClientRect();
+    const estimatedHeight = Math.min(options.length, 8) * 40 + 8;
+    const spaceBelow = window.innerHeight - rect.bottom;
+    const openUp = spaceBelow < estimatedHeight && rect.top > estimatedHeight;
+    setMenuStyle({
+      top: openUp ? rect.top - estimatedHeight : rect.bottom + 4,
+      left: rect.left,
+      width: rect.width,
+      minWidth: Math.max(rect.width, 176),
+    });
+  }, [options.length]);
+
+  useEffect(() => {
+    if (!open) return;
+    positionMenu();
+    const reposition = () => positionMenu();
+    window.addEventListener('resize', reposition);
+    window.addEventListener('scroll', reposition, true);
+    return () => {
+      window.removeEventListener('resize', reposition);
+      window.removeEventListener('scroll', reposition, true);
+    };
+  }, [open, positionMenu]);
+
+  useEffect(() => {
+    if (!open) return;
+    // The popup is portaled to document.body, so treat both the trigger root and
+    // the portaled listbox as "inside": closing on mousedown before the option's
+    // click event fires would make mouse selection impossible.
+    const closeOnOutside = (event: MouseEvent | TouchEvent) => {
+      const target = event.target as Node;
+      if (!rootRef.current?.contains(target) && !menuRef.current?.contains(target)) {
+        setOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', closeOnOutside);
+    document.addEventListener('touchstart', closeOnOutside);
+    return () => {
+      document.removeEventListener('mousedown', closeOnOutside);
+      document.removeEventListener('touchstart', closeOnOutside);
+    };
+  }, [open]);
+
+  const openMenu = () => {
+    setActiveIndex(Math.max(0, options.findIndex(option => option.value === value)));
+    positionMenu();
+    setOpen(true);
+  };
+
+  const closeMenu = (restoreFocus = false) => {
+    setOpen(false);
+    if (restoreFocus) triggerRef.current?.focus();
+  };
+
+  const selectOption = (option: AdminSelectOption) => {
+    if (option.disabled) return;
+    onValueChange(option.value);
+    closeMenu(true);
+  };
+
+  const moveActive = (direction: 1 | -1) => {
+    setActiveIndex(previous => {
+      const enabled = options
+        .map((option, index) => (option.disabled ? -1 : index))
+        .filter(index => index >= 0);
+      if (!enabled.length) return previous;
+      const current = enabled.indexOf(previous);
+      const anchor = current === -1 ? 0 : current;
+      return enabled[(anchor + direction + enabled.length) % enabled.length];
+    });
+  };
+
+  const jumpTo = (edge: 'first' | 'last') => {
+    const enabled = options
+      .map((option, index) => (option.disabled ? -1 : index))
+      .filter(index => index >= 0);
+    if (!enabled.length) return;
+    setActiveIndex(edge === 'first' ? enabled[0] : enabled[enabled.length - 1]);
+  };
+
+  const handleTypeahead = (char: string) => {
+    const now = Date.now();
+    const buffer = now - typeaheadRef.current.timer > 800 ? char : typeaheadRef.current.buffer + char;
+    typeaheadRef.current = { buffer, timer: now };
+    const needle = buffer.toLowerCase();
+    setActiveIndex(previous => {
+      const enabled = options
+        .map((option, index) => (option.disabled ? -1 : index))
+        .filter(index => index >= 0);
+      const start = Math.max(0, enabled.indexOf(previous)) + 1;
+      for (let i = 0; i < enabled.length; i += 1) {
+        const index = enabled[(start + i) % enabled.length];
+        if (options[index].label.toLowerCase().startsWith(needle)) return index;
+      }
+      return previous;
+    });
+  };
+
+  const handleTriggerKeyDown = (event: ReactKeyboardEvent<HTMLButtonElement>) => {
+    if (disabled) return;
+    if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+      event.preventDefault();
+      if (!open) {
+        openMenu();
+        // Open on the next/previous option, mirroring native select behaviour.
+        moveActive(event.key === 'ArrowDown' ? 1 : -1);
+      } else {
+        moveActive(event.key === 'ArrowDown' ? 1 : -1);
+      }
+      return;
+    }
+    if (event.key === 'Home' || event.key === 'End') {
+      event.preventDefault();
+      if (!open) openMenu();
+      jumpTo(event.key === 'Home' ? 'first' : 'last');
+      return;
+    }
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      if (open) {
+        const option = options[activeIndex];
+        if (option) selectOption(option);
+      } else {
+        openMenu();
+      }
+      return;
+    }
+    if (event.key === 'Escape') {
+      if (open) {
+        event.preventDefault();
+        closeMenu(true);
+      }
+      return;
+    }
+    if (open && event.key.length === 1) handleTypeahead(event.key);
+  };
+
   return (
-    <div className={`admin-dropdown ${compact ? 'admin-dropdown-compact' : ''}`}>
+    <div ref={rootRef} className={`admin-dropdown ${compact ? 'admin-dropdown-compact' : ''}`}>
       {visibleLabel && <span className="admin-field-label">{label}</span>}
       <div className="admin-select-control">
-        <select
+        <button
+          ref={triggerRef}
+          type="button"
+          role="combobox"
           className="admin-dropdown-trigger"
+          aria-haspopup="listbox"
+          aria-expanded={open}
+          aria-controls={open ? listboxId : undefined}
+          aria-activedescendant={open && activeIndex >= 0 ? `${listboxId}-option-${activeIndex}` : undefined}
           aria-label={label}
           aria-invalid={Boolean(error)}
           aria-describedby={[describedBy, error ? errorId : ''].filter(Boolean).join(' ') || undefined}
           disabled={disabled}
-          value={value}
-          onChange={event => onValueChange(event.target.value)}
+          onClick={() => (open ? closeMenu() : openMenu())}
+          onKeyDown={handleTriggerKeyDown}
+          onBlur={() => setOpen(false)}
         >
-          {options.map(option => (
-            <option key={option.value} value={option.value}>
-              {option.label}
-            </option>
-          ))}
-        </select>
-        <ChevronDown className="admin-dropdown-chevron" size={16} aria-hidden="true" />
+          <span className="truncate">{selected?.label ?? label}</span>
+          <ChevronDown
+            className={`admin-dropdown-chevron ${open ? 'admin-dropdown-chevron-open' : ''}`}
+            size={16}
+            aria-hidden="true"
+          />
+        </button>
+        {open && createPortal(
+          <div
+            ref={menuRef}
+            id={listboxId}
+            role="listbox"
+            aria-label={label}
+            className="admin-dropdown-menu"
+            style={{ position: 'fixed', zIndex: 80, ...menuStyle }}
+          >
+            {options.map((option, index) => (
+              <div
+                key={option.value}
+                id={`${listboxId}-option-${index}`}
+                role="option"
+                aria-selected={option.value === value}
+                aria-disabled={option.disabled || undefined}
+                className={`admin-dropdown-option ${option.value === value ? 'admin-dropdown-option-selected' : ''} ${index === activeIndex ? 'admin-dropdown-option-active' : ''} ${option.disabled ? 'admin-dropdown-option-disabled' : ''}`}
+                onClick={() => selectOption(option)}
+                onMouseMove={() => !option.disabled && setActiveIndex(index)}
+              >
+                <span className="min-w-0 truncate">{option.label}</span>
+                {option.value === value && <Check size={14} aria-hidden="true" className="shrink-0" />}
+              </div>
+            ))}
+          </div>,
+          document.body,
+        )}
       </div>
       {error && <span id={errorId} role="alert" className="mt-1 block text-xs text-[var(--accent)]">{error}</span>}
     </div>
@@ -241,17 +431,150 @@ export function AdminCheckbox({
 export function AdminActionButton({
   variant = 'primary',
   className = '',
+  pending = false,
+  type,
+  children,
+  disabled,
   ...props
 }: ButtonHTMLAttributes<HTMLButtonElement> & {
   variant?: 'primary' | 'secondary' | 'danger' | 'text';
+  pending?: boolean;
 }) {
+  const computedType = (type ?? 'button') as 'button' | 'submit' | 'reset';
+  const computedDisabled = disabled || pending;
   return (
     <button
       {...props}
+      type={computedType}
+      disabled={computedDisabled}
+      data-pending={pending ? 'true' : undefined}
+      aria-busy={pending || undefined}
       className={`admin-${variant}-button ${className}`.trim()}
-    />
+    >
+      {children}
+    </button>
   );
 }
+
+// --- AdminTooltip / AdminIconButton / AdminIconLink -------------------------
+
+/**
+ * Tooltip that appears on hover and keyboard focus. The popup is portaled to
+ * document.body with fixed positioning computed from the trigger rect, so it is
+ * never clipped by an `overflow: hidden/auto` table or card container. The
+ * accessible name always lives on the wrapped control (aria-label), never on
+ * the tooltip alone.
+ */
+export function AdminTooltip({ label, children }: { label: string; children: ReactNode }) {
+  const [visible, setVisible] = useState(false);
+  const [style, setStyle] = useState<CSSProperties>({});
+  const hostRef = useRef<HTMLSpanElement>(null);
+  const tooltipId = useId();
+
+  const position = useCallback(() => {
+    const host = hostRef.current;
+    if (!host) return;
+    const rect = host.getBoundingClientRect();
+    const height = 28;
+    const above = rect.top - height - 6 > 0;
+    setStyle({
+      top: above ? rect.top - 6 : rect.bottom + 6,
+      left: rect.left + rect.width / 2,
+      transform: above ? 'translate(-50%, -100%)' : 'translate(-50%, 0)',
+    });
+  }, []);
+
+  useEffect(() => {
+    if (!visible) return;
+    position();
+    const reposition = () => position();
+    window.addEventListener('resize', reposition);
+    window.addEventListener('scroll', reposition, true);
+    return () => {
+      window.removeEventListener('resize', reposition);
+      window.removeEventListener('scroll', reposition, true);
+    };
+  }, [visible, position]);
+
+  const show = () => {
+    position();
+    setVisible(true);
+  };
+
+  return (
+    <span
+      ref={hostRef}
+      className="admin-tooltip-host"
+      onMouseEnter={show}
+      onMouseLeave={() => setVisible(false)}
+      onFocus={show}
+      onBlur={() => setVisible(false)}
+    >
+      {children}
+      {visible && createPortal(
+        <span
+          id={tooltipId}
+          role="tooltip"
+          className="admin-tooltip"
+          style={{
+            position: 'fixed',
+            zIndex: 90,
+            whiteSpace: 'nowrap',
+            maxWidth: '16rem',
+            ...style,
+          }}
+        >
+          {label}
+        </span>,
+        document.body,
+      )}
+    </span>
+  );
+}
+
+export type AdminIconButtonVariant = 'neutral' | 'primary' | 'danger' | 'outline' | 'warning';
+
+/**
+ * Icon-only action button with a real accessible name, optional CSS tooltip,
+ * pending lock and double-submit guard. Defaults to `type="button"`.
+ */
+export function AdminIconButton({
+  label,
+  tooltip,
+  variant = 'neutral',
+  pending = false,
+  className = '',
+  type,
+  children,
+  disabled,
+  ...props
+}: ButtonHTMLAttributes<HTMLButtonElement> & {
+  label: string;
+  tooltip?: string;
+  variant?: AdminIconButtonVariant;
+  pending?: boolean;
+}) {
+  const computedType = (type ?? 'button') as 'button' | 'submit' | 'reset';
+  const computedDisabled = disabled || pending;
+  const button = (
+    <button
+      {...props}
+      type={computedType}
+      aria-label={label}
+      disabled={computedDisabled}
+      data-pending={pending ? 'true' : undefined}
+      aria-busy={pending || undefined}
+      className={`admin-icon-button admin-icon-button-${variant} ${className}`.trim()}
+    >
+      {pending
+        ? <LoaderCircle size={16} aria-hidden="true" className="animate-spin" />
+        : children}
+    </button>
+  );
+  return tooltip ? <AdminTooltip label={tooltip}>{button}</AdminTooltip> : button;
+}
+
+
 
 export function AdminInlineAlert({
   tone,

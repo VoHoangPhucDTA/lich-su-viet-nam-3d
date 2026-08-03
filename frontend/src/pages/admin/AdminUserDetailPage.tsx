@@ -230,6 +230,8 @@ export default function AdminUserDetailPage() {
                     ? <a href={detail.account.avatarUrl} target="_blank" rel="noreferrer">URL avatar an toàn</a>
                     : 'Không có URL an toàn'}
                 </Field>
+                <Field label="Xác thực email">{detail.account.emailVerified ? 'Đã ghi nhận' : 'Chưa ghi nhận'}</Field>
+                <Field label="Thời điểm xác thực">{formatDate(detail.account.emailVerifiedAt)}</Field>
               </dl>
             </DetailSection>
 
@@ -310,18 +312,6 @@ export default function AdminUserDetailPage() {
                 </div>
               </DetailSection>
             )}
-
-            <DetailSection title="Xác thực và phiên">
-              <dl className="grid gap-4 sm:grid-cols-2">
-                <Field label="Xác thực email">{detail.account.emailVerified ? 'Đã ghi nhận' : 'Chưa ghi nhận'}</Field>
-                <Field label="Thời điểm xác thực">{formatDate(detail.account.emailVerifiedAt)}</Field>
-                <Field label="Cơ chế phiên">{detail.sessions.trackingMode}</Field>
-                <Field label="Phiên refresh đang hoạt động">Không thể thống kê</Field>
-              </dl>
-              <p role="note" className="mt-4 rounded-lg bg-[var(--bg-surface)] p-3 text-sm text-[var(--text-muted)]">
-                Hệ thống dùng JWT stateless và chưa lưu bảng phiên xác thực. Giá trị phiên không được suy diễn thành 0.
-              </p>
-            </DetailSection>
 
             <DetailSection title="Tổng hợp học tập">
               <dl className="grid gap-4 sm:grid-cols-2">

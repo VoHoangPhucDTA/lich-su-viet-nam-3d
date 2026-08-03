@@ -605,11 +605,39 @@ export interface AdminEventImageReplacementResponse {
   event: AdminEventDetail;
 }
 
+export interface AdminImageUploadCapability {
+  enabled: boolean;
+  storageAvailable: boolean;
+  uploadReady: boolean;
+  maxFileBytes: number;
+  maxDimension: number;
+  maxPixels: number;
+  maxActiveReservations: number;
+  allowedFormats: string[];
+}
+
 export interface AdminMediaCleanupSummary {
   pending: number;
   claimed: number;
   failed: number;
   completed: number;
+}
+
+/**
+ * Runtime snapshot of the Cloudinary cleanup worker. Mirrors the
+ * @code backend endpoint @/admin/media-cleanup/capability@. Operators rely
+ * on this to confirm the worker is healthy and not silently disabled.
+ */
+export interface AdminMediaCleanupCapability {
+  enabled: boolean;
+  storageAvailable: boolean;
+  lastTickAt: string | null;
+  overduePending: number;
+  intervalMs: number;
+  lastClaimed: number;
+  lastCompleted: number;
+  lastFailed: number;
+  lastErrorCode: string | null;
 }
 
 export interface AdminMediaCleanupItem {
@@ -637,6 +665,10 @@ export interface AdminMediaCleanupQuery {
   sortDir?: 'asc' | 'desc';
   limit?: number;
   offset?: number;
+}
+
+export function getAdminImageUploadCapability(signal?: AbortSignal) {
+  return apiGet<AdminImageUploadCapability>('/api/admin/image-upload/capability', { signal });
 }
 
 export function uploadAdminEventImage(
@@ -692,6 +724,19 @@ export function replaceAdminEventImage(
 
 export function getAdminMediaCleanupSummary(signal?: AbortSignal) {
   return apiGet<AdminMediaCleanupSummary>('/api/admin/media-cleanup/summary', { signal });
+}
+
+export function getAdminMediaCleanupCapability(signal?: AbortSignal) {
+  return apiGet<AdminMediaCleanupCapability>('/api/admin/media-cleanup/capability', { signal });
+}
+
+/**
+ * Operator-attended manual tick that drives the worker once. Returns the
+ * same {@link AdminMediaCleanupCapability} shape as the read endpoint so
+ * the operator can see exactly what the just-finished pass did.
+ */
+export function postAdminMediaCleanupTick(signal?: AbortSignal) {
+  return apiPost<AdminMediaCleanupCapability>('/api/admin/media-cleanup/tick', {}, { signal });
 }
 
 export function getAdminMediaCleanup(query: AdminMediaCleanupQuery = {}, signal?: AbortSignal) {

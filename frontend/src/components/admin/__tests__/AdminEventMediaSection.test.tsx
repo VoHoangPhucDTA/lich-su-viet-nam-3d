@@ -1,4 +1,4 @@
-import { render, screen, waitFor, within } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import AdminEventMediaSection from '../AdminEventMediaSection';
@@ -23,6 +23,16 @@ vi.mock('../../../services/adminApi', async () => {
     reorderAdminEventMedia: vi.fn(),
     replaceAdminEventImage: vi.fn(),
     selectAdminEventThumbnail: vi.fn(),
+    getAdminImageUploadCapability: vi.fn().mockResolvedValue({
+      enabled: true,
+      storageAvailable: true,
+      uploadReady: true,
+      maxFileBytes: 10 * 1024 * 1024,
+      maxDimension: 6000,
+      maxPixels: 25_000_000,
+      maxActiveReservations: 3,
+      allowedFormats: ['jpeg', 'png', 'webp'],
+    }),
   };
 });
 
@@ -183,6 +193,53 @@ describe('AdminEventMediaSection', () => {
 
     await waitFor(() => expect(replaceAdminEventImage).toHaveBeenCalledWith('event-1', 2,
       expect.objectContaining({ file, expectedUpdatedAt: '2026-07-25T01:02:03.123456Z' })));
+  });
+
+  it('accepts a WebP file for managed asset replacement', async () => {
+    const activeManaged = {
+      ...safeDetail,
+      media: {
+        ...safeDetail.media,
+        items: [{ ...safeDetail.media.items[1], status: 'active' }],
+      },
+    } as AdminEventDetail;
+    vi.mocked(replaceAdminEventImage).mockResolvedValue({
+      mediaId: 2,
+      updatedAt: '2026-07-25T01:02:04.123456Z',
+      event: activeManaged,
+    });
+    render(<AdminEventMediaSection eventId="event-1" detail={activeManaged}
+      version="2026-07-25T01:02:03.123456Z" onUpdated={vi.fn()} onConflict={vi.fn()} />);
+
+    await userEvent.click(screen.getByRole('button', { name: 'Thay asset' }));
+    const dialog = screen.getByRole('dialog', { name: 'Thay asset managed?' });
+    const file = new File(['replacement'], 'replacement.webp', { type: 'image/webp' });
+    await userEvent.upload(within(dialog).getByLabelText('Chọn asset mới'), file);
+    await userEvent.click(within(dialog).getByRole('button', { name: 'Thay asset' }));
+
+    await waitFor(() => expect(replaceAdminEventImage).toHaveBeenCalledWith('event-1', 2,
+      expect.objectContaining({ file, expectedUpdatedAt: '2026-07-25T01:02:03.123456Z' })));
+  });
+
+  it('rejects non-image replacement files with a clear message', async () => {
+    const activeManaged = {
+      ...safeDetail,
+      media: {
+        ...safeDetail.media,
+        items: [{ ...safeDetail.media.items[1], status: 'active' }],
+      },
+    } as AdminEventDetail;
+    render(<AdminEventMediaSection eventId="event-1" detail={activeManaged}
+      version="2026-07-25T01:02:03.123456Z" onUpdated={vi.fn()} onConflict={vi.fn()} />);
+
+    await userEvent.click(screen.getByRole('button', { name: 'Thay asset' }));
+    const dialog = screen.getByRole('dialog', { name: 'Thay asset managed?' });
+    // fireEvent bypasses the accept attribute so the component's own MIME
+    // validation is exercised (user-event's upload honours accept and drops the file).
+    fireEvent.change(within(dialog).getByLabelText('Chọn asset mới'), {
+      target: { files: [new File(['gif'], 'anim.gif', { type: 'image/gif' })] },
+    });
+    expect(screen.getByText(/Chỉ hỗ trợ ảnh JPEG\/PNG\/WebP hợp lệ/)).toBeInTheDocument();
   });
 
   it('forwards exact versions for reorder, thumbnail selection and confirmed removal', async () => {

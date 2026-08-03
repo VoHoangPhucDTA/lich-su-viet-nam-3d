@@ -855,6 +855,41 @@ class AdminControllerSecurityTest {
     }
 
     @Test
+    void imageUploadCapabilityIsReadOnlyAdminGatedAndNeverExposesSecrets() throws Exception {
+        when(adminEventImageUploadService.capability())
+                .thenReturn(new AdminEventImageDtos.Capability(
+                        false, true, false, 10 * 1024 * 1024, 6000,
+                        25_000_000L, 3, List.of("jpeg", "png", "webp")));
+        clearInvocations(adminEventImageUploadService);
+
+        mockMvc.perform(get("/api/admin/image-upload/capability"))
+                .andExpect(status().isUnauthorized())
+                .andExpect(jsonPath("$.code").value("UNAUTHENTICATED"));
+        mockMvc.perform(get("/api/admin/image-upload/capability")
+                        .with(user("student").authorities(() -> "ROLE_student")))
+                .andExpect(status().isForbidden());
+        mockMvc.perform(get("/api/admin/image-upload/capability")
+                        .with(user("teacher").authorities(() -> "ROLE_teacher")))
+                .andExpect(status().isForbidden());
+        verifyNoInteractions(adminEventImageUploadService);
+
+        String body = mockMvc.perform(get("/api/admin/image-upload/capability")
+                        .with(user("admin").authorities(() -> "ROLE_admin")))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.data.enabled").value(false))
+                .andExpect(jsonPath("$.data.storageAvailable").value(true))
+                .andExpect(jsonPath("$.data.uploadReady").value(false))
+                .andExpect(jsonPath("$.data.maxFileBytes").value(10 * 1024 * 1024))
+                .andExpect(jsonPath("$.data.allowedFormats[0]").value("jpeg"))
+                .andReturn().getResponse().getContentAsString();
+        for (String forbidden : List.of(
+                "apiSecret", "api_key", "api_secret", "CLOUDINARY", "signature")) {
+            org.junit.jupiter.api.Assertions.assertFalse(body.contains(forbidden), forbidden);
+        }
+        verify(adminEventImageUploadService).capability();
+    }
+
+    @Test
     void replacementAndCleanupReadEndpointsRequireAdminAndCsrfWhereApplicable() throws Exception {
         var image = new MockMultipartFile("file", "replacement.png", "image/png", new byte[]{1});
         mockMvc.perform(multipart("/api/admin/events/event-1/media/42/replacement")

@@ -1,12 +1,18 @@
 import { useEffect, useId, useRef, useState } from 'react';
 import {
+  Archive,
+  ArchiveRestore,
+  BadgeCheck,
+  EyeOff,
+} from 'lucide-react';
+import {
   updateAdminEventPublication,
   type AdminEvent,
   type AdminEventDetail,
   type AdminEventPublicationAction,
 } from '../../services/adminApi';
 import { ApiRequestError, type ApiIssue } from '../../services/apiClient';
-import { AdminConfirmDialog } from './AdminUI';
+import { AdminActionButton, AdminConfirmDialog, AdminIconButton } from './AdminUI';
 
 type Props = {
   eventId: string;
@@ -26,6 +32,20 @@ const actionLabels: Record<AdminEventPublicationAction, string> = {
   unpublish: 'Gỡ xuất bản',
   archive: 'Lưu trữ',
   restore: 'Khôi phục',
+};
+
+const actionIcons: Record<AdminEventPublicationAction, React.ReactNode> = {
+  publish: <BadgeCheck size={16} aria-hidden="true" />,
+  unpublish: <EyeOff size={16} aria-hidden="true" />,
+  archive: <Archive size={16} aria-hidden="true" />,
+  restore: <ArchiveRestore size={16} aria-hidden="true" />,
+};
+
+const actionVariants: Record<AdminEventPublicationAction, 'primary' | 'warning' | 'danger' | 'neutral'> = {
+  publish: 'primary',
+  unpublish: 'warning',
+  archive: 'danger',
+  restore: 'neutral',
 };
 
 function actionsFor(status: AdminEvent['status']): AdminEventPublicationAction[] {
@@ -117,23 +137,34 @@ export default function AdminEventPublicationActions({
   };
 
   return (
-    <div className={compact ? 'min-w-44' : 'space-y-3'}>
-      <div className="flex flex-wrap gap-2">
-        {actionsFor(status).map(action => (
-          <button
+    <div className={compact ? 'flex items-center justify-end' : 'space-y-3'}>
+      <div className={compact ? 'flex items-center gap-1' : 'flex flex-wrap gap-2'}>
+        {actionsFor(status).map(action => compact ? (
+          <AdminIconButton
             key={action}
             type="button"
-            disabled={disabled || busy}
+            label={actionLabels[action]}
+            tooltip={actionLabels[action]}
+            variant={actionVariants[action]}
+            pending={busy}
+            disabled={disabled}
             aria-describedby={disabled && disabledReason ? disabledReasonId : undefined}
             onClick={() => requestAction(action)}
-            className={
-              action === 'archive'
-                ? 'admin-danger-button disabled:cursor-not-allowed disabled:opacity-50'
-                : 'admin-secondary-button disabled:cursor-not-allowed disabled:opacity-50'
-            }
+          >
+            {actionIcons[action]}
+          </AdminIconButton>
+        ) : (
+          <AdminActionButton
+            key={action}
+            type="button"
+            variant={action === 'archive' ? 'danger' : 'secondary'}
+            pending={busy}
+            disabled={disabled}
+            aria-describedby={disabled && disabledReason ? disabledReasonId : undefined}
+            onClick={() => requestAction(action)}
           >
             {busy ? 'Đang xử lý…' : actionLabels[action]}
-          </button>
+          </AdminActionButton>
         ))}
       </div>
       {disabled && disabledReason && (

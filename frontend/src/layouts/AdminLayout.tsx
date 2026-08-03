@@ -19,7 +19,7 @@ const NAV_ITEMS: AdminNavItem[] = [
   { to: '/admin/dashboard', label: 'Tổng quan', icon: LayoutDashboard, adminOnly: true },
   { to: '/admin/events', label: 'Sự kiện lịch sử', icon: CalendarDays, adminOnly: true },
   { to: '/admin/users', label: 'Người dùng', icon: Users, adminOnly: true },
-  { to: '/admin/media-cleanup', label: 'Media cleanup', icon: ClipboardList, adminOnly: true },
+  { to: '/admin/media-cleanup', label: 'Dọn dẹp media', icon: ClipboardList, adminOnly: true },
 ];
 
 function AdminSidebar({
