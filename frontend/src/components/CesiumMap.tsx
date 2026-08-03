@@ -72,6 +72,17 @@ import {
   snapshotTerrainScene,
   type TerrainSceneSnapshot,
 } from '../utils/terrainScene';
+import {
+  applyImmediateTerrainCamera,
+  resolveCurrentTerrainPointFrame,
+  terrainRegionCameraFrame,
+  terrainZoomAmount,
+  TERRAIN_FIRST_POINT_TIMEOUT_MS,
+  TERRAIN_NEXT_POINT_TIMEOUT_MS,
+  type TerrainCameraFrame,
+  type TerrainCameraTargetKind,
+  type TerrainCameraDebugState,
+} from '../utils/terrainCamera';
 
 // ─── SAFE MODE ────────────────────────────────────────────────────────────────
 // Set to false when globe is confirmed stable to re-enable markers + polygon.
@@ -81,9 +92,6 @@ const TERRAIN_REGION_FILL = Color.fromCssColorString('#c49a45').withAlpha(0.24);
 const TERRAIN_REGION_SELECTED_FILL = Color.fromCssColorString('#8b1e1e').withAlpha(0.46);
 const TERRAIN_REGION_OUTLINE = Color.fromCssColorString('#6f4e22').withAlpha(0.9);
 const TERRAIN_REGION_SELECTED_OUTLINE = Color.WHITE.withAlpha(0.98);
-const TERRAIN_POINT_HEIGHT = 45000;
-const TERRAIN_OVERVIEW_MIN_RANGE = 80000;
-const TERRAIN_OVERVIEW_MAX_RANGE = 1600000;
 
 function polygonHierarchy(polygon: ResolvedRegionGeometry['polygons'][number]) {
   const positions = polygon[0].map((point) => Cartesian3.fromDegrees(point.lng, point.lat));
@@ -119,7 +127,7 @@ export interface TerrainMeasurementPayload {
  */
 export interface CesiumMapHandle {
   /**
-   * Move the camera by a fractional amount of its current height.
+   * Move the camera by a fractional amount of its current terrain-focus range.
    * Positive factor = zoom in, negative = zoom out. No-op when the terrain
    * session is not active.
    */
@@ -160,7 +168,14 @@ interface CesiumMapProps {
 interface CesiumDebugHandle {
   getViewer: () => Viewer | null;
   getScene: () => Viewer['scene'] | undefined;
+  getLastTerrainCameraDebug: () => TerrainCameraDebugState | null;
 }
+
+type TerrainCameraFocus = {
+  center: Cartesian3;
+  minimumRange: number;
+  targetKind: TerrainCameraTargetKind;
+};
 
 declare global {
   interface Window {
@@ -211,6 +226,8 @@ export default function CesiumMap({
   const terrainProviderOperationRef = useRef(0);
   const cameraOperationRef = useRef(0);
   const cameraSnapshotRef = useRef<CameraSnapshot | null>(null);
+  const terrainCameraDebugRef = useRef<TerrainCameraDebugState | null>(null);
+  const terrainCameraFocusRef = useRef<TerrainCameraFocus | null>(null);
   const terrainSceneSnapshotRef = useRef<TerrainSceneSnapshot | null>(null);
   const mountedRef = useRef(false);
   const viewerLifecycleRef = useRef(0);
@@ -392,6 +409,7 @@ export default function CesiumMap({
           window.__CESIUM_DEBUG__ = {
             getViewer: () => viewerRef.current,
             getScene: () => viewerRef.current?.scene,
+            getLastTerrainCameraDebug: () => terrainCameraDebugRef.current,
           };
         }
         setViewerReady(true);
@@ -520,6 +538,8 @@ export default function CesiumMap({
       }
       if (viewer && !viewer.isDestroyed()) viewer.destroy();
       viewerRef.current = null;
+      terrainCameraDebugRef.current = null;
+      terrainCameraFocusRef.current = null;
       baseTerrainProviderRef.current = null;
       terrainProviderRef.current = null;
       terrainProviderPromiseRef.current = null;
@@ -854,13 +874,22 @@ export default function CesiumMap({
         const viewer = viewerRef.current;
         if (!viewer || viewer.isDestroyed()) return;
         if (terrainSessionRef.current?.mode !== 'active') return;
-        if (!Number.isFinite(factor) || factor === 0) return;
+        const focus = terrainCameraFocusRef.current;
+        // A point target may still be waiting for sampleTerrainMostDetailed.
+        // Do not stale that pending camera operation until its focus is ready.
+        if (!focus) return;
+        const currentRange = Cartesian3.distance(
+          viewer.camera.positionWC,
+          focus.center,
+        );
+        const amount = terrainZoomAmount(
+          currentRange,
+          factor,
+          focus.minimumRange,
+        );
+        if (amount <= 0) return;
         ++cameraOperationRef.current; // invalidate any in-flight terrain flyTo callbacks
         viewer.camera.cancelFlight();
-        const height = Number.isFinite(viewer.camera.positionCartographic.height)
-          ? viewer.camera.positionCartographic.height
-          : 200000;
-        const amount = Math.max(50, Math.abs(height * Math.abs(factor)));
         if (factor > 0) viewer.camera.zoomIn(amount);
         else viewer.camera.zoomOut(amount);
       },
@@ -1142,12 +1171,13 @@ export default function CesiumMap({
     }
   }, []);
 
-  const flyTerrainView = useCallback((
+  const flyTerrainView = useCallback(async (
     viewer: Viewer,
     session: TerrainSessionCommand,
     complete?: () => void,
     cancel?: () => void,
-  ) => {
+    isCurrentOperation: () => boolean = () => true,
+  ): Promise<void> => {
     const target = session.overview || !session.selectedTargetId
       ? null
       : session.targets.find((item) => item.id === session.selectedTargetId) ?? null;
@@ -1169,45 +1199,89 @@ export default function CesiumMap({
     }
     if (points.length === 0) throw new Error('No resolved terrain camera targets');
 
+    terrainCameraDebugRef.current = null;
+    terrainCameraFocusRef.current = null;
+
     const reducedMotion = typeof window !== 'undefined'
       && window.matchMedia?.('(prefers-reduced-motion: reduce)').matches === true;
     const duration = terrainFlightDuration(reducedMotion);
+    let center: Cartesian3;
+    let sphere: BoundingSphere;
+    let frame: TerrainCameraFrame;
+    let targetKind: TerrainCameraTargetKind;
     if (target?.kind === 'point') {
-      const destination = Cartesian3.fromDegrees(
+      targetKind = 'point';
+      const provider = viewer.terrainProvider;
+      const canSample = provider && !(provider instanceof EllipsoidTerrainProvider);
+      const pointFrame = await resolveCurrentTerrainPointFrame({
+        sample: canSample
+          ? () => sampleTerrainMostDetailed(provider, [
+            Cartographic.fromDegrees(target.position.lng, target.position.lat),
+          ]).then((sampled) => sampled[0]?.height)
+          : undefined,
+        timeoutMs: session.mode === 'entering'
+          ? TERRAIN_FIRST_POINT_TIMEOUT_MS
+          : TERRAIN_NEXT_POINT_TIMEOUT_MS,
+        exaggeration: viewer.scene.verticalExaggeration,
+        relativeHeight: viewer.scene.verticalExaggerationRelativeHeight,
+        cachedSemantics: 'disabled',
+        isCurrent: isCurrentOperation,
+      });
+      if (!pointFrame) return;
+      frame = pointFrame;
+      center = Cartesian3.fromDegrees(
         target.position.lng,
         target.position.lat,
-        TERRAIN_POINT_HEIGHT,
+        frame.centerHeight,
       );
-      if (duration === 0) {
-        viewer.camera.setView({
-          destination,
-          orientation: { heading: 0, pitch: CesiumMath.toRadians(-35), roll: 0 },
-        });
-        complete?.();
-      } else {
-        viewer.camera.flyTo({
-          destination,
-          orientation: { heading: 0, pitch: CesiumMath.toRadians(-35), roll: 0 },
-          duration,
-          complete,
-          cancel,
-        });
-      }
-      return;
+      sphere = new BoundingSphere(center, 1);
+    } else {
+      targetKind = target?.kind === 'region' ? 'region' : 'overview';
+      sphere = BoundingSphere.fromPoints(points);
+      frame = terrainRegionCameraFrame(sphere.radius, targetKind === 'overview');
+      center = sphere.center;
     }
 
-    const sphere = BoundingSphere.fromPoints(points);
-    const range = Math.min(
-      Math.max(sphere.radius * 2.8, TERRAIN_OVERVIEW_MIN_RANGE),
-      TERRAIN_OVERVIEW_MAX_RANGE,
+    if (!isCurrentOperation()) return;
+    terrainCameraFocusRef.current = {
+      center: Cartesian3.clone(center),
+      minimumRange: frame.minimumRange,
+      targetKind,
+    };
+    terrainCameraDebugRef.current = {
+      targetKind,
+      heightSource: targetKind === 'point' ? frame.source : undefined,
+      rawGroundHeight: targetKind === 'point' ? frame.rawGroundHeight : undefined,
+      renderedCenterHeight: targetKind === 'point' ? frame.centerHeight : undefined,
+      range: frame.range,
+      pitchDeg: frame.pitchDeg,
+      headingDeg: frame.headingDeg,
+      exaggeration: viewer.scene.verticalExaggeration,
+      viewportWidth: viewer.canvas.clientWidth || viewer.canvas.width,
+      viewportHeight: viewer.canvas.clientHeight || viewer.canvas.height,
+    };
+    const offset = new HeadingPitchRange(
+      CesiumMath.toRadians(frame.headingDeg),
+      CesiumMath.toRadians(frame.pitchDeg),
+      frame.range,
     );
-    const offset = new HeadingPitchRange(0, CesiumMath.toRadians(-50), range);
-    viewer.camera.flyToBoundingSphere(sphere, {
-      offset,
-      duration,
-      complete,
-      cancel,
-    });
+    if (duration === 0) {
+      applyImmediateTerrainCamera(
+        viewer.camera,
+        center,
+        offset,
+        Matrix4.IDENTITY,
+        isCurrentOperation,
+        complete,
+      );
+    } else {
+      viewer.camera.flyToBoundingSphere(sphere, {
+        offset,
+        duration,
+        complete,
+        cancel,
+      });
+    }
   }, []);
 
   useEffect(() => {
@@ -1221,7 +1295,12 @@ export default function CesiumMap({
   // ─── Terrain provider + camera session lifecycle ────────────────────────────
   useEffect(() => {
     const session = terrainSession;
-    if (!session || !viewerReady) return;
+    if (!session) {
+      terrainCameraDebugRef.current = null;
+      terrainCameraFocusRef.current = null;
+      return;
+    }
+    if (!viewerReady) return;
     const viewer = viewerRef.current;
     if (!viewer || viewer.isDestroyed()) return;
 
@@ -1235,6 +1314,8 @@ export default function CesiumMap({
       typeof window !== 'undefined'
       && window.matchMedia?.('(prefers-reduced-motion: reduce)').matches === true;
     const resetBaseTerrain = () => {
+      terrainCameraDebugRef.current = null;
+      terrainCameraFocusRef.current = null;
       const base = baseTerrainProviderRef.current;
       if (!viewer.isDestroyed() && base) viewer.terrainProvider = base;
       if (!viewer.isDestroyed() && terrainSceneSnapshotRef.current) {
@@ -1321,13 +1402,17 @@ export default function CesiumMap({
         sessionId: session.id,
         requestId: session.cameraRequestId,
       };
-      ++cameraOperationRef.current;
+      const cameraOperation = ++cameraOperationRef.current;
       viewer.camera.cancelFlight();
-      try {
-        flyTerrainView(viewer, session);
-      } catch (error) {
+      void flyTerrainView(
+        viewer,
+        session,
+        undefined,
+        undefined,
+        () => cameraOperationRef.current === cameraOperation && isCurrentSession(),
+      ).catch((error) => {
         console.warn('[CesiumMap] terrain target camera failed:', error);
-      }
+      });
       return;
     }
 
@@ -1498,7 +1583,20 @@ export default function CesiumMap({
         };
         styleTerrainRegions(null);
         try {
-          flyTerrainView(enteringViewer, enteringSession, complete, cancel);
+          void flyTerrainView(
+            enteringViewer,
+            enteringSession,
+            complete,
+            cancel,
+            isCurrentFlight,
+          ).catch(() => {
+            if (isCurrentFlight()) {
+              reportError({
+                code: 'camera_failed',
+                message: 'Terrain camera setup failed.',
+              });
+            }
+          });
         } catch {
           reportError({
             code: 'camera_failed',
