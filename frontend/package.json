@@ -9,6 +9,7 @@
     "build": "npm run check:encoding && tsc -b && vite build",
     "lint": "eslint .",
     "test": "vitest run",
+    "test:e2e:admin": "playwright test --config playwright.config.ts",
     "test:d10d": "node scripts/d10d-chronology-tests.mjs",
     "build:exams-manifest": "node scripts/build-exams-manifest.mjs",
     "build:topic-index": "node scripts/build-topic-index.mjs",
@@ -32,7 +33,9 @@
     "tailwindcss": "^4.2.1"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.12.1",
     "@eslint/js": "^9.39.1",
+    "@playwright/test": "^1.62.0",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.2",
     "@testing-library/user-event": "^14.6.1",

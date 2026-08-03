@@ -3,6 +3,7 @@ package com.lichsuvn.backend.auth.api;
 import com.lichsuvn.backend.auth.api.dto.AuthResponseDto;
 import com.lichsuvn.backend.auth.api.dto.AuthUserDto;
 import com.lichsuvn.backend.auth.api.dto.ChangePasswordRequest;
+import com.lichsuvn.backend.auth.api.dto.CsrfTokenResponse;
 import com.lichsuvn.backend.auth.api.dto.ForgotPasswordRequest;
 import com.lichsuvn.backend.auth.api.dto.LoginRequest;
 import com.lichsuvn.backend.auth.api.dto.RegisterResponseDto;
@@ -13,11 +14,14 @@ import com.lichsuvn.backend.auth.api.dto.SocialLoginRequest;
 import com.lichsuvn.backend.auth.api.dto.UpdateProfileRequest;
 import com.lichsuvn.backend.auth.api.dto.VerifyEmailResponseDto;
 import com.lichsuvn.backend.auth.application.AuthRateLimiter;
+import com.lichsuvn.backend.auth.application.AuthSession;
 import com.lichsuvn.backend.auth.application.AuthService;
 import com.lichsuvn.backend.auth.application.SocialAuthService;
+import com.lichsuvn.backend.auth.application.VerifyEmailResult;
 import com.lichsuvn.backend.auth.security.UserPrincipal;
 import com.lichsuvn.backend.common.api.ApiResponse;
 import com.lichsuvn.backend.common.api.MessageDto;
+import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -26,6 +30,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseCookie;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.web.csrf.CsrfToken;
+import org.springframework.security.web.csrf.CsrfTokenRepository;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -41,6 +47,7 @@ public class AuthController {
     private final AuthService authService;
     private final AuthRateLimiter authRateLimiter;
     private final SocialAuthService socialAuthService;
+    private final CsrfTokenRepository csrfTokenRepository;
 
     /**
      * APP_COOKIE_SECURE=true trên Production (Render, mọi traffic qua HTTPS).
@@ -59,13 +66,33 @@ public class AuthController {
     private String cookieSameSite;
 
     public AuthController(AuthService authService, AuthRateLimiter authRateLimiter,
-                          SocialAuthService socialAuthService) {
+                          SocialAuthService socialAuthService,
+                          CsrfTokenRepository csrfTokenRepository) {
         this.authService = authService;
         this.authRateLimiter = authRateLimiter;
         this.socialAuthService = socialAuthService;
+        this.csrfTokenRepository = csrfTokenRepository;
+    }
+
+    @PostConstruct
+    void validateCookieSecurity() {
+        if ("None".equalsIgnoreCase(cookieSameSite) && !cookieSecure) {
+            throw new IllegalStateException("app.cookie.secure must be true when app.cookie.same-site is None");
+        }
     }
 
     // Public entrypoints return the same ApiResponse envelope used by event APIs.
+    @GetMapping("/csrf")
+    public ApiResponse<CsrfTokenResponse> csrf(
+            HttpServletRequest servletRequest,
+            HttpServletResponse servletResponse
+    ) {
+        CsrfToken token = csrfTokenRepository.generateToken(servletRequest);
+        csrfTokenRepository.saveToken(token, servletRequest, servletResponse);
+        servletResponse.setHeader("Cache-Control", "no-store");
+        return ApiResponse.ok(new CsrfTokenResponse(token.getToken(), token.getHeaderName()));
+    }
+
     @PostMapping("/register")
     public ApiResponse<RegisterResponseDto> register(
             @Valid @RequestBody RegisterRequest request,
@@ -86,10 +113,10 @@ public class AuthController {
     ) {
         // Bước 6B.1.4: AuthController.java: gọi AuthService.java (hàm login)
         authRateLimiter.check(rateKey(servletRequest, "login", request.email()));
-        AuthResponseDto result = authService.login(request);
+        AuthSession result = authService.login(request);
         // Bước 6B.1.8: AuthController.java: set HttpOnly Cookie và trả HTTP 200 kèm User info
         setAuthCookies(servletResponse, result);
-        return ApiResponse.ok(result);
+        return ApiResponse.ok(result.publicResponse());
     }
 
     /**
@@ -105,10 +132,10 @@ public class AuthController {
             HttpServletResponse servletResponse
     ) {
         authRateLimiter.check(rateKey(servletRequest, "oauth-google", ""));
-        AuthResponseDto result = socialAuthService.loginWithGoogle(request.token());
+        AuthSession result = socialAuthService.loginWithGoogle(request.token());
         // Bước 6B.2.12: AuthController.java: set HttpOnly Cookie và trả HTTP 200 kèm User info
         setAuthCookies(servletResponse, result);
-        return ApiResponse.ok(result);
+        return ApiResponse.ok(result.publicResponse());
     }
 
     /**
@@ -123,19 +150,26 @@ public class AuthController {
             HttpServletResponse servletResponse
     ) {
         authRateLimiter.check(rateKey(servletRequest, "oauth-facebook", ""));
-        AuthResponseDto result = socialAuthService.loginWithFacebook(request.token());
+        AuthSession result = socialAuthService.loginWithFacebook(request.token());
         // Bước 6B.3.14: AuthController.java: set HttpOnly Cookie và trả HTTP 200 kèm User info
         setAuthCookies(servletResponse, result);
-        return ApiResponse.ok(result);
+        return ApiResponse.ok(result.publicResponse());
     }
 
     @GetMapping("/verify-email")
     public ApiResponse<VerifyEmailResponseDto> verifyEmail(
             @RequestParam String token,
-            HttpServletRequest servletRequest
+            HttpServletRequest servletRequest,
+            HttpServletResponse servletResponse
     ) {
         authRateLimiter.check(rateKey(servletRequest, "verify-email", ""));
-        return ApiResponse.ok(authService.verifyEmail(token));
+        VerifyEmailResult result = authService.verifyEmail(token);
+        AuthResponseDto auth = null;
+        if (result.session() != null) {
+            setAuthCookies(servletResponse, result.session());
+            auth = result.session().publicResponse();
+        }
+        return ApiResponse.ok(new VerifyEmailResponseDto(result.message(), auth));
     }
 
     // From this point on, SecurityConfig requires a valid bearer access token.
@@ -171,9 +205,9 @@ public class AuthController {
                     HttpStatus.UNAUTHORIZED, "MISSING_TOKEN", "Refresh token cookie is required");
         }
         // Làm mới cả hai cookie sau khi refresh token hợp lệ
-        AuthResponseDto result = authService.refreshByToken(refreshToken);
+        AuthSession result = authService.refreshByToken(refreshToken);
         setAuthCookies(servletResponse, result);
-        return ApiResponse.ok(result);
+        return ApiResponse.ok(result.publicResponse());
     }
 
     /**
@@ -272,7 +306,7 @@ public class AuthController {
      *  - Path=/api/auth/refresh cho refresh_token: giới hạn phạm vi cookie,
      *               chỉ tự động gửi đến endpoint refresh, không lộ ra các route khác.
      */
-    private void setAuthCookies(HttpServletResponse response, AuthResponseDto auth) {
+    private void setAuthCookies(HttpServletResponse response, AuthSession auth) {
         ResponseCookie accessCookie = ResponseCookie.from("access_token", auth.accessToken())
                 .httpOnly(true)
                 .secure(cookieSecure)

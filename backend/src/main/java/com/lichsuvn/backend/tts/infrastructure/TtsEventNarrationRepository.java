@@ -48,6 +48,16 @@ public class TtsEventNarrationRepository {
         return results.stream().findFirst();
     }
 
+    public boolean isPublished(String eventId) {
+        Integer count = jdbc.queryForObject("""
+                SELECT COUNT(*)
+                FROM historical_events
+                WHERE id = :eventId
+                  AND status = 'published'
+                """, new MapSqlParameterSource("eventId", eventId), Integer.class);
+        return count != null && count > 0;
+    }
+
     private List<String> parseStringList(String json) {
         if (json == null || json.isBlank()) {
             return List.of();

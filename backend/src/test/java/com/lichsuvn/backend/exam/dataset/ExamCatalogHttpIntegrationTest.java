@@ -14,6 +14,7 @@ import javax.sql.DataSource;
 import java.nio.file.Path;
 
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -86,7 +87,8 @@ class ExamCatalogHttpIntegrationTest {
                 .andReturn().getResponse().getContentAsString();
         assertNoLeakage(topicsPayload);
 
-        String previewPayload = mockMvc.perform(post("/api/exams/custom/preview")
+                String previewPayload = mockMvc.perform(post("/api/exams/custom/preview")
+                        .with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
                                 {

@@ -65,12 +65,14 @@ class EventChronologyJsonSerializationTest {
     }
 
     @Test
-    void detailSerializesCanonicalTextbookContentWithoutLegacyRawJson() {
+    void detailSerializesCanonicalTextbookContentWithoutRawSourceJson() {
         JsonNode json = detailJson(1945, null, 1945);
 
         assertEquals("N\u1ed9i dung SGK chu\u1ea9n", json.get("textbookContent").asText());
-        assertTrue(json.has("sourceJson"));
-        assertTrue(json.get("sourceJson").isNull());
+        assertFalse(json.has("sourceJson"));
+        assertFalse(json.has("rawJson"));
+        assertTrue(json.has("mapData"));
+        assertTrue(json.get("mapData").isNull());
     }
 
     private JsonNode detailJson(Integer startYear, Integer endYear, Integer effectiveEndYear) {

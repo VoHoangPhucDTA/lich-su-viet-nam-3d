@@ -13,7 +13,11 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.http.converter.HttpMessageConversionException;
+import com.fasterxml.jackson.databind.exc.InvalidTypeIdException;
+import com.fasterxml.jackson.databind.exc.UnrecognizedPropertyException;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
 
 import java.util.List;
 
@@ -66,9 +70,43 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<ApiResponse<ApiError>> handleUnreadableBody(
-            HttpMessageNotReadableException ex,
+            HttpMessageConversionException ex,
             HttpServletRequest request
     ) {
+        Throwable cause = ex;
+        while (cause != null) {
+            if (cause instanceof UnrecognizedPropertyException property) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                        .body(ApiResponse.error(
+                                "UNSUPPORTED_JSON_PROPERTY",
+                                "Unsupported JSON property: " + property.getPropertyName(),
+                                ApiError.of(request.getRequestURI())));
+            }
+            if (cause instanceof InvalidTypeIdException) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                        .body(ApiResponse.error(
+                                "INVALID_GEO_TYPE",
+                                "geoType is missing or unsupported",
+                                ApiError.of(request.getRequestURI())));
+            }
+            if (cause.getMessage() != null
+                    && cause.getMessage().contains("Unsupported JSON property:")) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                        .body(ApiResponse.error(
+                                "UNSUPPORTED_JSON_PROPERTY",
+                                cause.getMessage(),
+                                ApiError.of(request.getRequestURI())));
+            }
+            if (cause.getMessage() != null
+                    && cause.getMessage().contains("Invalid geoType")) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                        .body(ApiResponse.error(
+                                "INVALID_GEO_TYPE",
+                                "geoType is missing or unsupported",
+                                ApiError.of(request.getRequestURI())));
+            }
+            cause = cause.getCause();
+        }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body(ApiResponse.error("VALIDATION_ERROR", "Request body is invalid", ApiError.of(request.getRequestURI())));
     }
@@ -85,6 +123,18 @@ public class GlobalExceptionHandler {
                 : "AI_CANDIDATE_FORBIDDEN";
         return ResponseEntity.status(HttpStatus.FORBIDDEN)
                 .body(ApiResponse.error(code, candidatePath ? "Candidate permission is required" : "Access denied", ApiError.of(path)));
+    }
+
+    @ExceptionHandler(MaxUploadSizeExceededException.class)
+    public ResponseEntity<ApiResponse<ApiError>> handleMultipartTooLarge(
+            MaxUploadSizeExceededException ex,
+            HttpServletRequest request
+    ) {
+        return ResponseEntity.status(HttpStatus.PAYLOAD_TOO_LARGE)
+                .body(ApiResponse.error(
+                        "EVENT_IMAGE_PAYLOAD_TOO_LARGE",
+                        "Event image exceeds the upload limit",
+                        ApiError.of(request.getRequestURI())));
     }
 
     @ExceptionHandler(Exception.class)

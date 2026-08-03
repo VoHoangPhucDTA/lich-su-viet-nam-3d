@@ -1,9 +1,16 @@
-import { BrowserRouter as Router, Routes, Route, Navigate, useLocation, useParams } from 'react-router-dom';
+import {
+  createBrowserRouter,
+  Navigate,
+  Route,
+  RouterProvider,
+  Routes,
+  useLocation,
+  useParams,
+} from 'react-router-dom';
 import { lazy, Suspense } from 'react';
 import { AuthProvider } from './auth/AuthContext';
 import ProtectedRoute from './auth/ProtectedRoute';
 import RoleGuard from './auth/RoleGuard';
-import PermissionGuard from './auth/PermissionGuard';
 import { HeaderProvider } from './components/layout/HeaderContext';
 import AppHeader from './components/layout/AppHeader';
 import { ThemeProvider } from './theme/ThemeContext';
@@ -28,11 +35,6 @@ import VerifyEmailPage from './pages/auth/VerifyEmailPage';
 import ProfileDashboardPage from './pages/profile/ProfileDashboardPage';
 import ProfileSettingsPage from './pages/profile/ProfileSettingsPage';
 
-// Admin pages
-import AdminDashboardPage from './pages/admin/AdminDashboardPage';
-import AdminUsersPage from './pages/admin/AdminUsersPage';
-import AdminEventsPage from './pages/admin/AdminEventsPage';
-
 // Quiz pages
 import QuizHomePage from './pages/quiz/QuizHomePage';
 import QuizGeneratePage from './pages/quiz/QuizGeneratePage';
@@ -56,8 +58,13 @@ const ApiCustomPracticeSessionRoutePage = lazy(() => import('./pages/exams/ApiCu
 const ApiFreePracticeRoutePage = lazy(() => import('./pages/exams/ApiPracticeRoutePages').then((module) => ({ default: module.ApiFreePracticeRoutePage })));
 const ApiRetryWrongRoutePage = lazy(() => import('./pages/exams/ApiPracticeRoutePages').then((module) => ({ default: module.ApiRetryWrongRoutePage })));
 const ApiTopicPracticeRoutePage = lazy(() => import('./pages/exams/ApiPracticeRoutePages').then((module) => ({ default: module.ApiTopicPracticeRoutePage })));
-const AdminAiCandidatesPage = lazy(() => import('./pages/admin/AdminAiCandidatesPage'));
-const AdminAiCandidateDetailPage = lazy(() => import('./pages/admin/AdminAiCandidateDetailPage'));
+const AdminDashboardPage = lazy(() => import('./pages/admin/AdminDashboardPage'));
+const AdminUsersPage = lazy(() => import('./pages/admin/AdminUsersPage'));
+const AdminUserDetailPage = lazy(() => import('./pages/admin/AdminUserDetailPage'));
+const AdminEventsPage = lazy(() => import('./pages/admin/AdminEventsPage'));
+const AdminMediaCleanupPage = lazy(() => import('./pages/admin/AdminMediaCleanupPage'));
+const AdminEventDetailPage = lazy(() => import('./pages/admin/AdminEventDetailPage'));
+const AdminEventEditorPage = lazy(() => import('./pages/admin/AdminEventEditorPage'));
 
 const PersonalLearningDashboardPage = lazy(() => import('./features/dashboard/PersonalLearningDashboardPage'));
 
@@ -145,10 +152,14 @@ function AppContent() {
           <Route path="/admin" element={<Navigate to="/admin/dashboard" replace />} />
           <Route path="/admin/dashboard" element={<ProtectedRoute><RoleGuard requiredRole="admin"><AdminDashboardPage /></RoleGuard></ProtectedRoute>} />
           <Route path="/admin/users" element={<ProtectedRoute><RoleGuard requiredRole="admin"><AdminUsersPage /></RoleGuard></ProtectedRoute>} />
+          <Route path="/admin/users/:id" element={<ProtectedRoute><RoleGuard requiredRole="admin"><AdminUserDetailPage /></RoleGuard></ProtectedRoute>} />
           <Route path="/admin/events" element={<ProtectedRoute><RoleGuard requiredRole="admin"><AdminEventsPage /></RoleGuard></ProtectedRoute>} />
-          <Route path="/admin/exams/ai-candidates" element={<ProtectedRoute><PermissionGuard permission="AI_CANDIDATE_VIEW"><AdminAiCandidatesPage /></PermissionGuard></ProtectedRoute>} />
-          <Route path="/admin/exams/ai-candidates/:id" element={<ProtectedRoute><PermissionGuard permission="AI_CANDIDATE_VIEW"><AdminAiCandidateDetailPage /></PermissionGuard></ProtectedRoute>} />
+          <Route path="/admin/events/new" element={<ProtectedRoute><RoleGuard requiredRole="admin"><AdminEventEditorPage /></RoleGuard></ProtectedRoute>} />
+          <Route path="/admin/events/:id/edit" element={<ProtectedRoute><RoleGuard requiredRole="admin"><AdminEventEditorPage /></RoleGuard></ProtectedRoute>} />
+          <Route path="/admin/events/:id" element={<ProtectedRoute><RoleGuard requiredRole="admin"><AdminEventDetailPage /></RoleGuard></ProtectedRoute>} />
+          <Route path="/admin/media-cleanup" element={<ProtectedRoute><RoleGuard requiredRole="admin"><AdminMediaCleanupPage /></RoleGuard></ProtectedRoute>} />
           <Route path="/admin/questions" element={<Navigate to="/admin/events" replace />} />
+          <Route path="/admin/*" element={<Navigate to="/admin/dashboard" replace />} />
         </Routes>
         </Suspense>
       </div>
@@ -161,18 +172,27 @@ function LegacyExamSessionRedirect() {
   return <Navigate to={legacyExamSessionPath(examId)} replace />;
 }
 
-function App() {
+function AppProviders() {
   return (
-    <Router>
-      <ThemeProvider>
-        <AuthProvider>
-          <HeaderProvider>
-            <AppContent />
-          </HeaderProvider>
-        </AuthProvider>
-      </ThemeProvider>
-    </Router>
+    <ThemeProvider>
+      <AuthProvider>
+        <HeaderProvider>
+          <AppContent />
+        </HeaderProvider>
+      </AuthProvider>
+    </ThemeProvider>
   );
+}
+
+const router = createBrowserRouter([
+  {
+    path: '*',
+    element: <AppProviders />,
+  },
+]);
+
+function App() {
+  return <RouterProvider router={router} />;
 }
 
 export default App;

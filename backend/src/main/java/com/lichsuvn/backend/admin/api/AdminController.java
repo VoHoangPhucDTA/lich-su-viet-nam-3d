@@ -1,8 +1,31 @@
 package com.lichsuvn.backend.admin.api;
 
-import com.lichsuvn.backend.admin.application.AdminService;
+import com.lichsuvn.backend.admin.api.dto.AdminDashboardDtos;
+import com.lichsuvn.backend.admin.api.dto.AdminEventDtos;
+import com.lichsuvn.backend.admin.api.dto.AdminEventMutationDtos;
+import com.lichsuvn.backend.admin.api.dto.AdminEventMediaMutationDtos;
+import com.lichsuvn.backend.admin.api.dto.AdminEventImageDtos;
+import com.lichsuvn.backend.admin.api.dto.AdminMediaCleanupDtos;
+import com.lichsuvn.backend.admin.api.dto.AdminEventGeographyDtos;
+import com.lichsuvn.backend.admin.api.dto.AdminEventPublicationDtos;
+import com.lichsuvn.backend.admin.api.dto.AdminUserDtos;
+import com.lichsuvn.backend.admin.api.dto.AdminUserMutationDtos;
+import com.lichsuvn.backend.admin.application.AdminDashboardReadService;
+import com.lichsuvn.backend.admin.application.AdminEventReadService;
+import com.lichsuvn.backend.admin.application.AdminEventMutationService;
+import com.lichsuvn.backend.admin.application.AdminEventMediaMutationService;
+import com.lichsuvn.backend.admin.application.AdminEventImageUploadService;
+import com.lichsuvn.backend.admin.application.AdminMediaCleanupReadService;
+import com.lichsuvn.backend.admin.application.AdminEventGeographyMutationService;
+import com.lichsuvn.backend.admin.application.AdminEventPublicationService;
+import com.lichsuvn.backend.admin.application.AdminUserReadService;
+import com.lichsuvn.backend.admin.application.AdminUserMutationService;
 import com.lichsuvn.backend.auth.security.UserPrincipal;
 import com.lichsuvn.backend.common.api.ApiResponse;
+import com.lichsuvn.backend.common.exception.ApiException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import java.net.URI;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -13,43 +36,111 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import jakarta.validation.Valid;
 
 import java.util.Map;
+import java.util.Set;
 
 /** API quản trị dữ liệu lịch sử. Mọi endpoint đều yêu cầu ROLE_admin. */
 @RestController
 @RequestMapping("/api/admin")
 public class AdminController {
-    private final AdminService adminService;
+    private final AdminEventReadService adminEventReadService;
+    private final AdminDashboardReadService adminDashboardReadService;
+    private final AdminEventMutationService adminEventMutationService;
+    private final AdminEventMediaMutationService adminEventMediaMutationService;
+    private final AdminEventImageUploadService adminEventImageUploadService;
+    private final AdminMediaCleanupReadService adminMediaCleanupReadService;
+    private final AdminEventGeographyMutationService adminEventGeographyMutationService;
+    private final AdminEventPublicationService adminEventPublicationService;
+    private final AdminUserReadService adminUserReadService;
+    private final AdminUserMutationService adminUserMutationService;
 
-    public AdminController(AdminService adminService) {
-        this.adminService = adminService;
+    public AdminController(
+            AdminEventReadService adminEventReadService,
+            AdminDashboardReadService adminDashboardReadService,
+            AdminEventMutationService adminEventMutationService,
+            AdminEventMediaMutationService adminEventMediaMutationService,
+            AdminEventImageUploadService adminEventImageUploadService,
+            AdminMediaCleanupReadService adminMediaCleanupReadService,
+            AdminEventGeographyMutationService adminEventGeographyMutationService,
+            AdminEventPublicationService adminEventPublicationService,
+            AdminUserReadService adminUserReadService,
+            AdminUserMutationService adminUserMutationService
+    ) {
+        this.adminEventReadService = adminEventReadService;
+        this.adminDashboardReadService = adminDashboardReadService;
+        this.adminEventMutationService = adminEventMutationService;
+        this.adminEventMediaMutationService = adminEventMediaMutationService;
+        this.adminEventImageUploadService = adminEventImageUploadService;
+        this.adminMediaCleanupReadService = adminMediaCleanupReadService;
+        this.adminEventGeographyMutationService = adminEventGeographyMutationService;
+        this.adminEventPublicationService = adminEventPublicationService;
+        this.adminUserReadService = adminUserReadService;
+        this.adminUserMutationService = adminUserMutationService;
     }
 
     @GetMapping("/dashboard")
-    public ApiResponse<Map<String, Object>> dashboard() {
-        return ApiResponse.ok(adminService.dashboard());
+    public ApiResponse<AdminDashboardDtos.Dashboard> dashboard() {
+        return ApiResponse.ok(adminDashboardReadService.findDashboard());
+    }
+
+    @GetMapping("/dashboard/metrics")
+    public ApiResponse<AdminDashboardDtos.Metrics> dashboardMetrics() {
+        return ApiResponse.ok(adminDashboardReadService.findMetrics());
+    }
+
+    @GetMapping("/dashboard/attention")
+    public ApiResponse<java.util.List<AdminDashboardDtos.AttentionEvent>> dashboardAttention() {
+        return ApiResponse.ok(adminDashboardReadService.findAttention());
+    }
+
+    @GetMapping("/dashboard/audit")
+    public ApiResponse<java.util.List<AdminDashboardDtos.AuditEntry>> dashboardAudit() {
+        return ApiResponse.ok(adminDashboardReadService.findRecentAudit());
     }
 
     @GetMapping("/users")
-    public ApiResponse<Map<String, Object>> users(
+    public ApiResponse<AdminUserDtos.Page> users(
             @RequestParam(required = false, name = "q") String query,
-            @RequestParam(required = false) String status,
             @RequestParam(required = false) String role,
+            @RequestParam(required = false) String status,
+            @RequestParam(required = false) String verified,
+            @RequestParam(required = false) String sortBy,
+            @RequestParam(required = false) String sortDir,
             @RequestParam(required = false) Integer limit,
             @RequestParam(required = false) Integer offset
     ) {
-        return ApiResponse.ok(adminService.users(query, status, role, limit, offset));
+        return ApiResponse.ok(adminUserReadService.findUsers(
+                query, role, status, verified, sortBy, sortDir, limit, offset));
+    }
+
+    @GetMapping("/users/{id}")
+    public ApiResponse<AdminUserDtos.Detail> user(@PathVariable String id) {
+        return ApiResponse.ok(adminUserReadService.findUser(id));
     }
 
     @PatchMapping("/users/{id}/status")
-    public ApiResponse<Map<String, Object>> updateUserStatus(
+    public ApiResponse<AdminUserDtos.Detail> updateUserStatus(
             @PathVariable String id,
-            @RequestBody Map<String, Object> body,
+            @RequestBody AdminUserMutationDtos.ChangeStatus body,
             @AuthenticationPrincipal UserPrincipal principal
     ) {
-        return ApiResponse.ok(adminService.updateUserStatus(id, body, principal));
+        return ApiResponse.ok(adminUserMutationService.updateStatus(id, body, principal));
+    }
+
+    @PutMapping("/users/{id}/roles")
+    public ApiResponse<AdminUserDtos.Detail> replaceUserRoles(
+            @PathVariable String id,
+            @RequestBody AdminUserMutationDtos.ReplaceRoles body,
+            @AuthenticationPrincipal UserPrincipal principal
+    ) {
+        return ApiResponse.ok(adminUserMutationService.replaceRoles(id, body, principal));
     }
 
     @PatchMapping("/users/{id}/role")
@@ -58,7 +149,9 @@ public class AdminController {
             @RequestBody Map<String, Object> body,
             @AuthenticationPrincipal UserPrincipal principal
     ) {
-        return ApiResponse.ok(adminService.updateUserRole(id, body, principal));
+        throw mutationDisabled(
+                "ADMIN_USER_ROLE_ENDPOINT_RETIRED",
+                "The legacy single-role endpoint is retired");
     }
 
     @DeleteMapping("/users/{id}")
@@ -66,34 +159,49 @@ public class AdminController {
             @PathVariable String id,
             @AuthenticationPrincipal UserPrincipal principal
     ) {
-        return ApiResponse.ok(adminService.deleteUser(id, principal));
+        throw mutationDisabled(
+                "ADMIN_USER_DELETE_DISABLED",
+                "Admin user deletion is disabled");
     }
 
     @GetMapping("/events")
-    public ApiResponse<Map<String, Object>> events(
+    public ApiResponse<AdminEventDtos.Page> events(
             @RequestParam(required = false, name = "q") String query,
             @RequestParam(required = false) String status,
             @RequestParam(required = false) String eventLevel,
             @RequestParam(required = false) String eventType,
+            @RequestParam(required = false) Integer grade,
+            @RequestParam(required = false) String geoType,
+            @RequestParam(required = false) String chronology,
             @RequestParam(required = false) Integer startYearFrom,
             @RequestParam(required = false) Integer startYearTo,
+            @RequestParam(required = false) Boolean missingThumbnail,
+            @RequestParam(required = false) Boolean missingMedia,
+            @RequestParam(required = false) Boolean missingMapData,
+            @RequestParam(required = false) String sortBy,
+            @RequestParam(required = false) String sortDir,
             @RequestParam(required = false) Integer limit,
             @RequestParam(required = false) Integer offset
     ) {
-        return ApiResponse.ok(adminService.events(query, status, eventLevel, eventType, startYearFrom, startYearTo, limit, offset));
+        return ApiResponse.ok(adminEventReadService.findEvents(
+                query, status, eventLevel, eventType, grade, geoType, chronology,
+                startYearFrom, startYearTo, missingThumbnail, missingMedia, missingMapData,
+                sortBy, sortDir, limit, offset));
     }
 
     @GetMapping("/events/{id}")
-    public ApiResponse<Map<String, Object>> event(@PathVariable String id) {
-        return ApiResponse.ok(adminService.event(id));
+    public ApiResponse<AdminEventDtos.Detail> event(@PathVariable String id) {
+        return ApiResponse.ok(adminEventReadService.findEvent(id));
     }
 
     @PostMapping("/events")
-    public ApiResponse<Map<String, Object>> createEvent(
-            @RequestBody Map<String, Object> body,
+    public ResponseEntity<ApiResponse<AdminEventDtos.Detail>> createEvent(
+            @Valid @RequestBody AdminEventMutationDtos.Create body,
             @AuthenticationPrincipal UserPrincipal principal
     ) {
-        return ApiResponse.ok(adminService.createEvent(body, principal), "Event created");
+        AdminEventDtos.Detail created = adminEventMutationService.create(body, principal);
+        return ResponseEntity.created(URI.create("/api/admin/events/" + created.core().id()))
+                .body(ApiResponse.ok(created));
     }
 
     @PutMapping("/events/{id}")
@@ -102,7 +210,194 @@ public class AdminController {
             @RequestBody Map<String, Object> body,
             @AuthenticationPrincipal UserPrincipal principal
     ) {
-        return ApiResponse.ok(adminService.updateEvent(id, body, principal), "Event updated");
+        throw mutationDisabled(
+                "ADMIN_EVENT_UPDATE_DISABLED",
+                "Event updates are temporarily disabled while safe event editing is being completed");
+    }
+
+    @PatchMapping("/events/{id}/core")
+    public ApiResponse<AdminEventDtos.Detail> updateEventCore(
+            @PathVariable String id,
+            @RequestBody AdminEventMutationDtos.CorePatch body,
+            @AuthenticationPrincipal UserPrincipal principal
+    ) {
+        return ApiResponse.ok(adminEventMutationService.updateCore(id, body, principal));
+    }
+
+    @PutMapping("/events/{id}/grades")
+    public ApiResponse<AdminEventDtos.Detail> replaceEventGrades(
+            @PathVariable String id,
+            @Valid @RequestBody AdminEventMutationDtos.Grades body,
+            @AuthenticationPrincipal UserPrincipal principal
+    ) {
+        return ApiResponse.ok(adminEventMutationService.replaceGrades(id, body, principal));
+    }
+
+    @PostMapping("/events/{id}/media")
+    public ResponseEntity<ApiResponse<AdminEventDtos.Detail>> addEventMedia(
+            @PathVariable String id,
+            @Valid @RequestBody AdminEventMediaMutationDtos.Create body,
+            @AuthenticationPrincipal UserPrincipal principal
+    ) {
+        AdminEventMediaMutationService.AddResult result =
+                adminEventMediaMutationService.add(id, body, principal);
+        return ResponseEntity.created(URI.create("/api/admin/events/" + id + "/media/" + result.mediaId()))
+                .body(ApiResponse.ok(result.detail()));
+    }
+
+    @PostMapping(
+            path = "/events/{id}/media/images",
+            consumes = "multipart/form-data"
+    )
+    public ResponseEntity<ApiResponse<AdminEventImageDtos.UploadResponse>> uploadEventImage(
+            @PathVariable String id,
+            @RequestPart(value = "file", required = false) MultipartFile file,
+            @RequestParam(required = false) String expectedUpdatedAt,
+            @RequestParam(required = false) String kind,
+            @RequestParam(required = false) String altText,
+            @RequestParam(required = false) String caption,
+            @RequestParam(required = false) String sourceName,
+            @RequestParam(required = false) String license,
+            MultipartHttpServletRequest multipartRequest,
+            @AuthenticationPrincipal UserPrincipal principal
+    ) {
+        validateImageMultipartShape(multipartRequest);
+        var result = adminEventImageUploadService.upload(
+                id, file, expectedUpdatedAt, kind, altText,
+                caption, sourceName, license, principal);
+        return ResponseEntity.status(HttpStatus.CREATED).body(ApiResponse.ok(result));
+    }
+
+    @PostMapping(
+            path = "/events/{id}/media/{mediaId}/replacement",
+            consumes = "multipart/form-data"
+    )
+    public ApiResponse<AdminEventImageDtos.ReplacementResponse> replaceEventImage(
+            @PathVariable String id,
+            @PathVariable long mediaId,
+            @RequestPart(value = "file", required = false) MultipartFile file,
+            @RequestParam(required = false) String expectedUpdatedAt,
+            @RequestParam(required = false) String altText,
+            @RequestParam(required = false) String caption,
+            @RequestParam(required = false) String sourceName,
+            @RequestParam(required = false) String license,
+            MultipartHttpServletRequest multipartRequest,
+            @AuthenticationPrincipal UserPrincipal principal
+    ) {
+        validateReplacementMultipartShape(multipartRequest);
+        return ApiResponse.ok(adminEventImageUploadService.replace(
+                id, mediaId, file, expectedUpdatedAt, altText, caption, sourceName, license, principal));
+    }
+
+    @GetMapping("/image-upload/capability")
+    public ApiResponse<AdminEventImageDtos.Capability> imageUploadCapability() {
+        return ApiResponse.ok(adminEventImageUploadService.capability());
+    }
+
+    @GetMapping("/media-cleanup/summary")
+    public ApiResponse<AdminMediaCleanupDtos.Summary> mediaCleanupSummary() {
+        return ApiResponse.ok(adminMediaCleanupReadService.summary());
+    }
+
+    /**
+     * Read-only snapshot of the cleanup worker without triggering a tick.
+     * The Admin cleanup page polls this to surface "Tồn tại nhiệm vụ quá hạn"
+     * badges and the worker health panel.
+     */
+    @GetMapping("/media-cleanup/capability")
+    public ApiResponse<AdminMediaCleanupDtos.Capability> mediaCleanupCapability() {
+        return ApiResponse.ok(adminMediaCleanupReadService.capability());
+    }
+
+    /**
+     * Operator-attended manual tick that drains due PENDING tasks without
+     * waiting for the next scheduler interval. The endpoint is read-only at
+     * the controller level; deletion still goes through the scheduler-owned
+     * worker so the lifecycle invariants are preserved.
+     */
+    @PostMapping("/media-cleanup/tick")
+    public ApiResponse<AdminMediaCleanupDtos.Capability> mediaCleanupTick() {
+        return ApiResponse.ok(adminMediaCleanupReadService.tick());
+    }
+
+    @GetMapping("/media-cleanup")
+    public ApiResponse<AdminMediaCleanupDtos.Page> mediaCleanup(
+            @RequestParam(required = false) String status,
+            @RequestParam(required = false) String operation,
+            @RequestParam(required = false) String sortBy,
+            @RequestParam(required = false) String sortDir,
+            @RequestParam(required = false) Integer limit,
+            @RequestParam(required = false) Integer offset
+    ) {
+        return ApiResponse.ok(adminMediaCleanupReadService.find(
+                status, operation, sortBy, sortDir, limit, offset));
+    }
+
+    @PatchMapping("/events/{id}/media/{mediaId}")
+    public ApiResponse<AdminEventDtos.Detail> updateEventMedia(
+            @PathVariable String id,
+            @PathVariable long mediaId,
+            @Valid @RequestBody AdminEventMediaMutationDtos.Patch body,
+            @AuthenticationPrincipal UserPrincipal principal
+    ) {
+        return ApiResponse.ok(adminEventMediaMutationService.patch(id, mediaId, body, principal));
+    }
+
+    @DeleteMapping("/events/{id}/media/{mediaId}")
+    public ApiResponse<AdminEventDtos.Detail> deleteEventMedia(
+            @PathVariable String id,
+            @PathVariable long mediaId,
+            @RequestHeader(value = "X-Event-Version", required = false) String version,
+            @AuthenticationPrincipal UserPrincipal principal
+    ) {
+        if (version == null || version.isBlank()) {
+            throw new ApiException(
+                    HttpStatus.BAD_REQUEST, "INVALID_EXPECTED_VERSION",
+                    "X-Event-Version is required");
+        }
+        var managed = adminEventImageUploadService.removeManagedIfPresent(
+                id, mediaId, version, principal);
+        if (managed.isPresent()) {
+            return ApiResponse.ok(managed.get());
+        }
+        return ApiResponse.ok(adminEventMediaMutationService.remove(id, mediaId, version, principal));
+    }
+
+    @PutMapping("/events/{id}/media/order")
+    public ApiResponse<AdminEventDtos.Detail> reorderEventMedia(
+            @PathVariable String id,
+            @Valid @RequestBody AdminEventMediaMutationDtos.Order body,
+            @AuthenticationPrincipal UserPrincipal principal
+    ) {
+        return ApiResponse.ok(adminEventMediaMutationService.reorder(id, body, principal));
+    }
+
+    @PutMapping("/events/{id}/thumbnail/{mediaId}")
+    public ApiResponse<AdminEventDtos.Detail> selectEventThumbnail(
+            @PathVariable String id,
+            @PathVariable long mediaId,
+            @Valid @RequestBody AdminEventMediaMutationDtos.Version body,
+            @AuthenticationPrincipal UserPrincipal principal
+    ) {
+        return ApiResponse.ok(adminEventMediaMutationService.selectThumbnail(id, mediaId, body, principal));
+    }
+
+    @PatchMapping("/events/{id}/geography")
+    public ApiResponse<AdminEventDtos.Detail> updateEventGeography(
+            @PathVariable String id,
+            @Valid @RequestBody AdminEventGeographyDtos.Patch body,
+            @AuthenticationPrincipal UserPrincipal principal
+    ) {
+        return ApiResponse.ok(adminEventGeographyMutationService.update(id, body, principal));
+    }
+
+    @PatchMapping("/events/{id}/publication")
+    public ApiResponse<AdminEventDtos.Detail> updateEventPublication(
+            @PathVariable String id,
+            @Valid @RequestBody AdminEventPublicationDtos.Patch body,
+            @AuthenticationPrincipal UserPrincipal principal
+    ) {
+        return ApiResponse.ok(adminEventPublicationService.update(id, body, principal));
     }
 
     @PatchMapping("/events/{id}/status")
@@ -111,7 +406,9 @@ public class AdminController {
             @RequestBody Map<String, Object> body,
             @AuthenticationPrincipal UserPrincipal principal
     ) {
-        return ApiResponse.ok(adminService.updateEventStatus(id, body, principal));
+        throw mutationDisabled(
+                "ADMIN_EVENT_STATUS_DISABLED",
+                "Event status changes are outside the safe core editing phase");
     }
 
     @DeleteMapping("/events/{id}")
@@ -119,6 +416,44 @@ public class AdminController {
             @PathVariable String id,
             @AuthenticationPrincipal UserPrincipal principal
     ) {
-        return ApiResponse.ok(adminService.deleteEvent(id, principal));
+        throw mutationDisabled(
+                "EVENT_HARD_DELETE_DISABLED",
+                "Hard deletion of historical events is disabled");
+    }
+
+    private ApiException mutationDisabled(String code, String message) {
+        return new ApiException(HttpStatus.CONFLICT, code, message);
+    }
+
+    private void validateImageMultipartShape(MultipartHttpServletRequest request) {
+        Set<String> allowedParameters = Set.of(
+                "expectedUpdatedAt", "kind", "altText",
+                "caption", "sourceName", "license");
+        boolean invalidFileParts = request.getMultiFileMap().entrySet().stream()
+                .anyMatch(entry -> !"file".equals(entry.getKey()) || entry.getValue().size() != 1);
+        boolean invalidParameters = request.getParameterMap().entrySet().stream()
+                .anyMatch(entry -> !allowedParameters.contains(entry.getKey())
+                        || entry.getValue().length != 1);
+        if (invalidFileParts || invalidParameters) {
+            throw new ApiException(
+                    HttpStatus.BAD_REQUEST,
+                    "UNSUPPORTED_MULTIPART_FIELD",
+                    "Multipart request contains an unsupported or duplicate field");
+        }
+    }
+
+    private void validateReplacementMultipartShape(MultipartHttpServletRequest request) {
+        Set<String> allowedParameters = Set.of(
+                "expectedUpdatedAt", "altText", "caption", "sourceName", "license");
+        boolean invalidFileParts = request.getMultiFileMap().entrySet().stream()
+                .anyMatch(entry -> !"file".equals(entry.getKey()) || entry.getValue().size() != 1);
+        boolean invalidParameters = request.getParameterMap().entrySet().stream()
+                .anyMatch(entry -> !allowedParameters.contains(entry.getKey())
+                        || entry.getValue().length != 1);
+        MultipartFile file = request.getFile("file");
+        if (invalidFileParts || invalidParameters || file == null || file.isEmpty()) {
+            throw new ApiException(HttpStatus.BAD_REQUEST, "UNSUPPORTED_MULTIPART_FIELD",
+                    "Multipart request requires one non-empty file");
+        }
     }
 }

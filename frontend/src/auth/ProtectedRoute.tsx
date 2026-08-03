@@ -11,8 +11,13 @@ export default function ProtectedRoute({ children }: ProtectedRouteProps) {
 
   if (isLoading) {
     return (
-      <div className="flex items-center justify-center min-h-screen bg-slate-950 text-white">
-        <div className="w-8 h-8 border-4 border-indigo-500 border-t-transparent rounded-full animate-spin"></div>
+      <div
+        className="flex items-center justify-center min-h-screen bg-slate-950 text-white"
+        role="status"
+        aria-live="polite"
+      >
+        <div aria-hidden="true" className="w-8 h-8 border-4 border-indigo-500 border-t-transparent rounded-full animate-spin" />
+        <span className="sr-only">Đang xác thực…</span>
       </div>
     );
   }

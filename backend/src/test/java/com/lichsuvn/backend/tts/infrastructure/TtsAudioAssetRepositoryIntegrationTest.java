@@ -3,6 +3,7 @@ package com.lichsuvn.backend.tts.infrastructure;
 import com.lichsuvn.backend.tts.application.TtsCacheKeyBuilder;
 import com.lichsuvn.backend.tts.domain.TtsAudioAssetClaimResult;
 import com.lichsuvn.backend.tts.domain.TtsAudioAssetStatus;
+import com.lichsuvn.backend.testsupport.LocalMySqlContainer;
 import org.flywaydb.core.Flyway;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -12,7 +13,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.testcontainers.containers.MySQLContainer;
+import org.testcontainers.mysql.MySQLContainer;
 
 import javax.sql.DataSource;
 import java.math.BigDecimal;
@@ -30,7 +31,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 class TtsAudioAssetRepositoryIntegrationTest {
-    static MySQLContainer<?> mysqlContainer;
+    static MySQLContainer mysqlContainer;
     static String jdbcUrl;
     static String username;
     static String password;
@@ -533,7 +534,7 @@ class TtsAudioAssetRepositoryIntegrationTest {
         }
 
         try {
-            mysqlContainer = new MySQLContainer<>("mysql:8.0.36")
+            mysqlContainer = new LocalMySqlContainer("mysql:8.0.36")
                     .withDatabaseName("lichsuvn_test");
             mysqlContainer.start();
             jdbcUrl = mysqlContainer.getJdbcUrl();
