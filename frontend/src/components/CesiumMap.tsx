@@ -66,6 +66,12 @@ import {
   terrainFlightDuration,
   type CameraSnapshot,
 } from '../utils/cameraSnapshot';
+import {
+  applyTerrainScene,
+  restoreTerrainScene,
+  snapshotTerrainScene,
+  type TerrainSceneSnapshot,
+} from '../utils/terrainScene';
 
 // ─── SAFE MODE ────────────────────────────────────────────────────────────────
 // Set to false when globe is confirmed stable to re-enable markers + polygon.
@@ -151,6 +157,17 @@ interface CesiumMapProps {
   apiRef?: MutableRefObject<CesiumMapHandle | null>;
 }
 
+interface CesiumDebugHandle {
+  getViewer: () => Viewer | null;
+  getScene: () => Viewer['scene'] | undefined;
+}
+
+declare global {
+  interface Window {
+    __CESIUM_DEBUG__?: CesiumDebugHandle;
+  }
+}
+
 export default function CesiumMap({
   events,
   selectedEvent,
@@ -194,6 +211,7 @@ export default function CesiumMap({
   const terrainProviderOperationRef = useRef(0);
   const cameraOperationRef = useRef(0);
   const cameraSnapshotRef = useRef<CameraSnapshot | null>(null);
+  const terrainSceneSnapshotRef = useRef<TerrainSceneSnapshot | null>(null);
   const mountedRef = useRef(false);
   const viewerLifecycleRef = useRef(0);
   const terrainSessionRef = useRef(terrainSession);
@@ -370,6 +388,12 @@ export default function CesiumMap({
 
         handlerRef.current = handler;
         viewerRef.current = viewer;
+        if (import.meta.env.DEV && typeof window !== 'undefined') {
+          window.__CESIUM_DEBUG__ = {
+            getViewer: () => viewerRef.current,
+            getScene: () => viewerRef.current?.scene,
+          };
+        }
         setViewerReady(true);
 
         // ── Load and parse province GeoJSON once for this Viewer lifecycle ──
@@ -484,11 +508,22 @@ export default function CesiumMap({
         viewer.dataSources.remove(dataSourceRef.current, true);
         dataSourceRef.current = null;
       }
+      if (viewer && !viewer.isDestroyed() && terrainSceneSnapshotRef.current) {
+        restoreTerrainScene(viewer.scene, terrainSceneSnapshotRef.current);
+      }
+      if (
+        import.meta.env.DEV
+        && typeof window !== 'undefined'
+        && window.__CESIUM_DEBUG__?.getViewer() === viewer
+      ) {
+        delete window.__CESIUM_DEBUG__;
+      }
       if (viewer && !viewer.isDestroyed()) viewer.destroy();
       viewerRef.current = null;
       baseTerrainProviderRef.current = null;
       terrainProviderRef.current = null;
       terrainProviderPromiseRef.current = null;
+      terrainSceneSnapshotRef.current = null;
       regionGeometryIndexRef.current = null;
       regionGeometryPromiseRef.current = null;
       regionGeometryResourcePromiseRef.current = null;
@@ -1202,9 +1237,9 @@ export default function CesiumMap({
     const resetBaseTerrain = () => {
       const base = baseTerrainProviderRef.current;
       if (!viewer.isDestroyed() && base) viewer.terrainProvider = base;
-      if (!viewer.isDestroyed()) {
-        viewer.scene.globe.enableLighting = false;
-        viewer.scene.globe.depthTestAgainstTerrain = false;
+      if (!viewer.isDestroyed() && terrainSceneSnapshotRef.current) {
+        restoreTerrainScene(viewer.scene, terrainSceneSnapshotRef.current);
+        terrainSceneSnapshotRef.current = null;
       }
     };
     const reportError = (error: TerrainRuntimeError) => {
@@ -1306,6 +1341,9 @@ export default function CesiumMap({
     const enteringSession = session;
     const enteringSessionId = session.id;
     async function enterTerrain() {
+      if (!terrainSceneSnapshotRef.current) {
+        terrainSceneSnapshotRef.current = snapshotTerrainScene(enteringViewer.scene);
+      }
       const token = getCesiumIonToken();
       if (!token) {
         reportError({
@@ -1340,8 +1378,7 @@ export default function CesiumMap({
         ) return;
 
         enteringViewer.terrainProvider = provider;
-        enteringViewer.scene.globe.enableLighting = true;
-        enteringViewer.scene.globe.depthTestAgainstTerrain = true;
+        applyTerrainScene(enteringViewer.scene);
         onTerrainProviderReadyRef.current(enteringSessionId);
 
         if (regionTargets.length > 0) {

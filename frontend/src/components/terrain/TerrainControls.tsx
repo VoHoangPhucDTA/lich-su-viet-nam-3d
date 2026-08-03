@@ -127,7 +127,10 @@ export default function TerrainControls({
       </div>
       <p className="flex gap-1.5" style={{ margin: 0, color: '#78716c', fontSize: '11px', lineHeight: 1.45 }}>
         <Info size={13} aria-hidden="true" style={{ flexShrink: 0, marginTop: '1px' }} />
-        <span>Mô hình địa hình tham chiếu thời hiện đại. Sông, bờ biển và cảnh quan có thể khác so với thời điểm lịch sử.</span>
+        <span style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
+          <span>Địa hình đang được phóng đại theo chiều đứng 2× để dễ quan sát; số đo vẫn dùng cao độ terrain được lấy mẫu.</span>
+          <span>Mô hình địa hình tham chiếu thời hiện đại. Sông, bờ biển và cảnh quan có thể khác so với thời điểm lịch sử.</span>
+        </span>
       </p>
     </div>
   );
