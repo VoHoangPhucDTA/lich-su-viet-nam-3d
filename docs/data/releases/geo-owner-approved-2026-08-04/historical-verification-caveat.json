@@ -1,0 +1,12 @@
+{
+  "confirm": "Owner-approved technical fail-closed geography release (Phase B4-D).",
+  "notExpertHistoricalVerification": true,
+  "notCoordinateAccuracyCertification": true,
+  "geometryDisabledWhereEvidenceInsufficient": true,
+  "historicalLocationsMayHoldUnrenderedContext": true,
+  "futureEvidenceMayReviseGeography": true,
+  "mapUsesProject63ProvinceReferenceLayer": true,
+  "boundarySha": "54275398c7054a9d035fc6adf657a6fdc4e11ba0492e942ca11b662a88da132f",
+  "notRepresentativeOfCurrentAdministrativeBoundaries": true,
+  "forbiddenPhrasesAbsent": true
+}
