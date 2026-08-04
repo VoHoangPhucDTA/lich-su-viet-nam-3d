@@ -2,7 +2,7 @@ package com.lichsuvn.backend.importer.canonicalgeo;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.lichsuvn.backend.event.domain.EventGeoType;
 import org.springframework.stereotype.Component;
@@ -14,9 +14,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.security.MessageDigest;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
 
 /**
  * Pure projection + hashing helpers for the canonical geography sync.
@@ -24,17 +24,26 @@ import java.util.TreeMap;
  * <p>Canonical values only: point, multi_point, multi_polygon, mixed,
  * nationwide, no_location. Nothing is ever derived from focusGeometry,
  * polygon centroids, province centroids, or camera centers.
+ *
+ * <p>Phase C2-T1 made both hashes — {@link #nonGeoHash(JsonNode)} and
+ * {@link #geoHash(String, BigDecimal, BigDecimal, List, JsonNode, boolean)}
+ * — deterministic over {@link JsonNode} field-iteration order by routing
+ * their inputs through a single canonicalization pass
+ * ({@link #canonicalize(JsonNode)} + {@link #canonicalJsonString(JsonNode)}).
+ * The previous implementation relied on Jackson/MySQL ObjectNode iteration
+ * order and only sorted top-level {@code Map<String,Object>} boundaries,
+ * which produced non-deterministic {@code expectedCurrentNonGeoHash} values
+ * across independent sessions (361/361 row drift in Phase C2-A). The new
+ * path sorts every nested object key lexicographically while preserving
+ * array order and scalar values exactly.
  */
 @Component
 public final class CanonicalGeographyProjection {
 
     private final ObjectMapper objectMapper;
-    private final ObjectMapper hashMapper;
 
     public CanonicalGeographyProjection(ObjectMapper objectMapper) {
         this.objectMapper = objectMapper;
-        this.hashMapper = objectMapper.copy()
-                .configure(SerializationFeature.ORDER_MAP_ENTRIES_BY_KEYS, true);
     }
 
     public record Geography(BigDecimal lat, BigDecimal lng, List<String> provinceNames) {
@@ -96,39 +105,52 @@ public final class CanonicalGeographyProjection {
         return record.path("display").path("showOnMap").asBoolean(true);
     }
 
-    /** Strips mapData + display.showOnMap from a record copy. */
+    /**
+     * Strips {@code mapData} and {@code display.showOnMap} from a record copy,
+     * then routes the result through {@link #canonicalize(JsonNode)} so the
+     * returned tree is byte-stable regardless of how the input ObjectNode
+     * ordered its keys (Jackson parser order, MySQL JSON column reorder, or
+     * any other source order). This is the single canonical projection used
+     * for the non-geography hash input.
+     */
     public ObjectNode geographyStripped(JsonNode record) {
         ObjectNode copy = objectMapper.createObjectNode();
         record.fields().forEachRemaining(entry -> copy.set(entry.getKey(), entry.getValue().deepCopy()));
         copy.remove("mapData");
-        ObjectNode display = copy.path("display").isObject()
-                ? (ObjectNode) copy.path("display").deepCopy()
+        JsonNode displayNode = copy.path("display");
+        ObjectNode display = displayNode.isObject()
+                ? (ObjectNode) displayNode.deepCopy()
                 : objectMapper.createObjectNode();
         display.remove("showOnMap");
         copy.set("display", display);
-        return copy;
+        return (ObjectNode) canonicalize(copy);
     }
 
-    /** Deterministic SHA-256 over the geography projection (sorted keys). */
+    /**
+     * Deterministic SHA-256 over the geography projection. The projection
+     * tree is canonicalized (sorted object keys, array order preserved) by
+     * {@link #canonicalJsonString(JsonNode)} before hashing, which is the
+     * same algorithm and route as {@link #nonGeoHash(JsonNode)}.
+     */
     public String geoHash(String geoType, BigDecimal lat, BigDecimal lng,
                           List<String> provinceNames, JsonNode mapData, boolean showOnMap) {
-        Map<String, Object> projection = new TreeMap<>();
+        ObjectNode projection = objectMapper.createObjectNode();
         projection.put("geoType", geoType);
         // DECIMAL(10,7) returns scaled values (e.g. 21.0200000) while JSON marker
-        // values carry their natural scale (21.02); normalize so both hash equal.
+        // values carry their natural scale (21.02); normalize to a stable text repr.
         projection.put("lat", normalizedDecimal(lat));
         projection.put("lng", normalizedDecimal(lng));
-        projection.put("provinceNames", provinceNames);
-        // MySQL may reorder JSON object keys on storage; sort keys recursively
-        // so the in-memory record and the stored raw_json hash identically.
-        projection.put("mapData", sortedNode(mapData));
+        projection.set("provinceNames", objectMapper.valueToTree(provinceNames));
+        // mapData is canonicalized in-place by canonicalJsonString so the
+        // stored raw_json field reorder done by MySQL does not affect the hash.
+        projection.set("mapData", mapData);
         projection.put("showOnMap", showOnMap);
-        return sha256(write(projection));
+        return sha256(canonicalJsonString(projection));
     }
 
-    /** Deterministic SHA-256 over the non-geography projection (sorted keys). */
+    /** Deterministic SHA-256 over the non-geography projection. */
     public String nonGeoHash(JsonNode record) {
-        return sha256(write(geographyStripped(record)));
+        return sha256(canonicalJsonString(geographyStripped(record)));
     }
 
     /**
@@ -159,26 +181,150 @@ public final class CanonicalGeographyProjection {
         }
     }
 
-    private static JsonNode sortedNode(JsonNode node) {
+    // ----------------------------------------------------- canonical projection
+
+    /**
+     * Recursively walks a {@link JsonNode} and returns a tree with the SAME
+     * values but with every {@code ObjectNode} having its keys sorted
+     * lexicographically. Array order is preserved. Scalars are preserved
+     * exactly as the source parser exposes them. {@code null} and
+     * {@code MissingNode} propagate unchanged.
+     *
+     * <p>This is the ONLY canonicalization implementation. Both
+     * {@link #canonicalJsonString(JsonNode)} and (via that) every hash
+     * method route through it.
+     */
+    public JsonNode canonicalize(JsonNode node) {
         if (node == null || node.isMissingNode() || node.isNull()) {
             return node;
         }
         if (node.isObject()) {
-            com.fasterxml.jackson.databind.node.ObjectNode sorted = new ObjectMapper().createObjectNode();
-            java.util.List<String> names = new java.util.ArrayList<>();
-            node.fieldNames().forEachRemaining(names::add);
-            java.util.Collections.sort(names);
+            ObjectNode sorted = objectMapper.createObjectNode();
+            List<String> names = new ArrayList<>();
+            Iterator<String> it = node.fieldNames();
+            while (it.hasNext()) {
+                names.add(it.next());
+            }
+            Collections.sort(names);
             for (String name : names) {
-                sorted.set(name, sortedNode(node.get(name)));
+                sorted.set(name, canonicalize(node.get(name)));
             }
             return sorted;
         }
         if (node.isArray()) {
-            com.fasterxml.jackson.databind.node.ArrayNode sorted = new ObjectMapper().createArrayNode();
-            node.forEach(item -> sorted.add(sortedNode(item)));
+            ArrayNode sorted = objectMapper.createArrayNode();
+            for (JsonNode item : node) {
+                sorted.add(canonicalize(item));
+            }
             return sorted;
         }
         return node;
+    }
+
+    /**
+     * Returns a deterministic JSON string for the canonical projection of
+     * {@code node}. Object keys are sorted at every level. Array order is
+     * preserved. Scalars use their textual form (numbers keep their natural
+     * scale, e.g. {@code 21.02}; strings JSON-escape the same Unicode range
+     * as RFC 8259 §7).
+     *
+     * <p>This is the SAME byte sequence regardless of whether {@code node}
+     * was parsed from canonical JSONL, MySQL JSON column reordering, or any
+     * other Jackson configuration.
+     */
+    public static String canonicalJsonString(JsonNode node) {
+        StringBuilder sb = new StringBuilder();
+        writeCanonical(node, sb);
+        return sb.toString();
+    }
+
+    private static void writeCanonical(JsonNode node, StringBuilder sb) {
+        if (node == null || node.isMissingNode()) {
+            return;
+        }
+        if (node.isNull()) {
+            sb.append("null");
+            return;
+        }
+        if (node.isObject()) {
+            sb.append('{');
+            List<String> names = new ArrayList<>();
+            Iterator<String> it = node.fieldNames();
+            while (it.hasNext()) {
+                names.add(it.next());
+            }
+            // Already canonicalized upstream; a defensive resort keeps the
+            // serializer bullet-proof if a caller passes a non-canonicalized
+            // tree (e.g. for in-process debugging or test fixtures).
+            Collections.sort(names);
+            boolean first = true;
+            for (String name : names) {
+                if (!first) {
+                    sb.append(',');
+                }
+                first = false;
+                sb.append('"').append(escapeJsonString(name)).append("\":");
+                writeCanonical(node.get(name), sb);
+            }
+            sb.append('}');
+            return;
+        }
+        if (node.isArray()) {
+            sb.append('[');
+            boolean first = true;
+            for (JsonNode item : node) {
+                if (!first) {
+                    sb.append(',');
+                }
+                first = false;
+                writeCanonical(item, sb);
+            }
+            sb.append(']');
+            return;
+        }
+        if (node.isTextual()) {
+            sb.append('"').append(escapeJsonString(node.asText())).append('"');
+            return;
+        }
+        if (node.isBoolean()) {
+            sb.append(node.asBoolean());
+            return;
+        }
+        if (node.isNumber()) {
+            // node.asText() preserves the natural textual form (e.g. "21.02"
+            // or "21.0200000"), exactly matching the underlying
+            // DecimalNode/LongNode. This is the same shape Jackson emits
+            // when serializing numbers via toString().
+            sb.append(node.asText());
+            return;
+        }
+        // BinaryNode / POJO / other exotic types are JSON-encoded as a string
+        // to keep the byte stream reversible and stable.
+        sb.append('"').append(escapeJsonString(node.asText())).append('"');
+    }
+
+    private static String escapeJsonString(String raw) {
+        StringBuilder out = new StringBuilder(raw.length() + 2);
+        for (int i = 0; i < raw.length(); i++) {
+            char c = raw.charAt(i);
+            switch (c) {
+                case '"' -> out.append("\\\"");
+                case '\\' -> out.append("\\\\");
+                case '\b' -> out.append("\\b");
+                case '\f' -> out.append("\\f");
+                case '\n' -> out.append("\\n");
+                case '\r' -> out.append("\\r");
+                case '\t' -> out.append("\\t");
+                default -> {
+                    if (c < 0x20) {
+                        out.append(String.format("\\u%04x", (int) c));
+                    } else {
+                        out.append(c);
+                    }
+                }
+            }
+        }
+        return out.toString();
     }
 
     private static String normalizedDecimal(BigDecimal value) {
@@ -190,14 +336,6 @@ public final class CanonicalGeographyProjection {
         return value.setScale(7, java.math.RoundingMode.HALF_UP)
                 .stripTrailingZeros()
                 .toPlainString();
-    }
-
-    private String write(Object value) {
-        try {
-            return hashMapper.writeValueAsString(value);
-        } catch (Exception ex) {
-            throw new IllegalStateException("Cannot serialize projection", ex);
-        }
     }
 
     private static List<String> stringList(JsonNode node) {
