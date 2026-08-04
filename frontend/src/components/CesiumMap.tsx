@@ -83,6 +83,14 @@ import {
   type TerrainCameraTargetKind,
   type TerrainCameraDebugState,
 } from '../utils/terrainCamera';
+import {
+  resolveTerrainVisualPolicy,
+  restoreTerrainPolygonProperties,
+  snapshotTerrainPolygonProperties,
+  type TerrainPolygonPropertySnapshot,
+  type TerrainVisualRelation,
+  type TerrainVisualViewKind,
+} from '../utils/terrainVisualPolicy';
 
 // ─── SAFE MODE ────────────────────────────────────────────────────────────────
 // Set to false when globe is confirmed stable to re-enable markers + polygon.
@@ -177,6 +185,17 @@ type TerrainCameraFocus = {
   targetKind: TerrainCameraTargetKind;
 };
 
+type TerrainEntityVisualSnapshot = {
+  polygon: TerrainPolygonPropertySnapshot;
+  entityShow: boolean;
+};
+
+type TerrainSessionVisualSnapshot = {
+  sessionId: number;
+  administrative: Map<Entity, TerrainPolygonPropertySnapshot>;
+  terrainRegions: Map<Entity, TerrainEntityVisualSnapshot>;
+};
+
 declare global {
   interface Window {
     __CESIUM_DEBUG__?: CesiumDebugHandle;
@@ -229,6 +248,7 @@ export default function CesiumMap({
   const terrainCameraDebugRef = useRef<TerrainCameraDebugState | null>(null);
   const terrainCameraFocusRef = useRef<TerrainCameraFocus | null>(null);
   const terrainSceneSnapshotRef = useRef<TerrainSceneSnapshot | null>(null);
+  const terrainVisualSnapshotRef = useRef<TerrainSessionVisualSnapshot | null>(null);
   const mountedRef = useRef(false);
   const viewerLifecycleRef = useRef(0);
   const terrainSessionRef = useRef(terrainSession);
@@ -270,6 +290,54 @@ export default function CesiumMap({
   onTerrainTargetSelectRef.current = onTerrainTargetSelect;
   onRegionGeometryStatusRef.current = onRegionGeometryStatus;
   terrainSessionRef.current = terrainSession;
+
+  const restoreTerrainVisualBasis = useCallback((sessionId: number) => {
+    const snapshot = terrainVisualSnapshotRef.current;
+    if (!snapshot || snapshot.sessionId !== sessionId) return false;
+    for (const [entity, polygonSnapshot] of snapshot.administrative) {
+      restoreTerrainPolygonProperties(sessionId, entity.polygon, polygonSnapshot);
+    }
+    for (const [entity, entitySnapshot] of snapshot.terrainRegions) {
+      entity.show = entitySnapshot.entityShow;
+      restoreTerrainPolygonProperties(sessionId, entity.polygon, entitySnapshot.polygon);
+    }
+    return true;
+  }, []);
+
+  const ensureTerrainVisualSnapshot = useCallback((sessionId: number) => {
+    const existing = terrainVisualSnapshotRef.current;
+    if (existing) restoreTerrainVisualBasis(existing.sessionId);
+    const snapshot: TerrainSessionVisualSnapshot = existing?.sessionId === sessionId
+      ? existing
+      : {
+        sessionId,
+        administrative: new Map(),
+        terrainRegions: new Map(),
+      };
+    const administrative = dataSourceRef.current;
+    if (administrative) {
+      for (const entity of administrative.entities.values) {
+        if (snapshot.administrative.has(entity)) continue;
+        const polygonSnapshot = snapshotTerrainPolygonProperties(sessionId, entity.polygon);
+        if (polygonSnapshot) snapshot.administrative.set(entity, polygonSnapshot);
+      }
+    }
+    terrainVisualSnapshotRef.current = snapshot;
+    return snapshot;
+  }, [restoreTerrainVisualBasis]);
+
+  const snapshotTerrainRegionEntities = useCallback((sessionId: number, entities: Entity[]) => {
+    const snapshot = ensureTerrainVisualSnapshot(sessionId);
+    for (const entity of entities) {
+      if (snapshot.terrainRegions.has(entity)) continue;
+      const polygonSnapshot = snapshotTerrainPolygonProperties(sessionId, entity.polygon);
+      if (!polygonSnapshot) continue;
+      snapshot.terrainRegions.set(entity, {
+        polygon: polygonSnapshot,
+        entityShow: entity.show,
+      });
+    }
+  }, [ensureTerrainVisualSnapshot]);
 
   // ─── Initialize Cesium Viewer (once, synchronous path) ─────────────────────
   useEffect(() => {
@@ -463,7 +531,13 @@ export default function CesiumMap({
                 return;
               }
               dataSourceRef.current = dataSource;
-              applyPolygonHighlights(selectedEventRef.current);
+              const currentTerrain = terrainSessionRef.current;
+              if (currentTerrain) {
+                ensureTerrainVisualSnapshot(currentTerrain.id);
+                applyTerrainVisualStyle(currentTerrain);
+              } else {
+                applyPolygonHighlights(selectedEventRef.current);
+              }
             })
             .catch((e) => {
               console.warn('[CesiumMap] GeoJSON load failed (non-fatal):', e);
@@ -506,6 +580,11 @@ export default function CesiumMap({
       }
       renderErrorRemoverRef.current?.();
       renderErrorRemoverRef.current = null;
+      const visualSnapshot = terrainVisualSnapshotRef.current;
+      if (visualSnapshot) {
+        restoreTerrainVisualBasis(visualSnapshot.sessionId);
+        terrainVisualSnapshotRef.current = null;
+      }
       if (markerDataSourceRef.current && viewer && !viewer.isDestroyed()) {
         viewer.dataSources.remove(markerDataSourceRef.current, true);
         markerDataSourceRef.current = null;
@@ -1111,6 +1190,7 @@ export default function CesiumMap({
 
   useEffect(() => {
     if (CESIUM_SAFE_MODE) return;
+    if (terrainVisualSnapshotRef.current) return;
     applyPolygonHighlights(selectedEvent);
   }, [selectedEvent, applyPolygonHighlights]);
 
@@ -1155,21 +1235,100 @@ export default function CesiumMap({
     resolvedTerrainRegionsRef.current.clear();
   }, []);
 
-  const styleTerrainRegions = useCallback((selectedTargetId: string | null) => {
-    for (const [targetId, entities] of terrainRegionEntitiesRef.current) {
-      const selected = targetId === selectedTargetId;
-      for (const entity of entities) {
-        if (!entity.polygon) continue;
-        entity.polygon.material = new ColorMaterialProperty(
-          selected ? TERRAIN_REGION_SELECTED_FILL : TERRAIN_REGION_FILL,
-        );
-        entity.polygon.outlineColor = new ConstantProperty(selected
-          ? TERRAIN_REGION_SELECTED_OUTLINE
-          : TERRAIN_REGION_OUTLINE);
-        entity.polygon.outlineWidth = new ConstantProperty(selected ? 4 : 2);
+  const applyTerrainVisualStyle = useCallback((session: TerrainSessionCommand) => {
+    const current = terrainSessionRef.current;
+    const snapshot = terrainVisualSnapshotRef.current;
+    if (!snapshot || snapshot.sessionId !== session.id || current?.id !== session.id) return;
+
+    // Always apply from the exact session snapshot so point/region/overview
+    // transitions cannot accumulate mutated Cesium property references.
+    restoreTerrainVisualBasis(session.id);
+
+    const selectedTarget = session.overview || !session.selectedTargetId
+      ? null
+      : session.targets.find((target) => target.id === session.selectedTargetId) ?? null;
+    const viewKind: TerrainVisualViewKind = selectedTarget?.kind ?? 'overview';
+    const event = selectedEventRef.current;
+    const normalizeName = (value: string) => value.replace(/\s+/g, '').toLowerCase();
+    const primaryRegions = new Set(
+      (event?.primaryRegions ?? []).filter((value): value is string => typeof value === 'string')
+        .map(normalizeName),
+    );
+    const secondaryRegions = new Set(
+      (event?.secondaryRegions ?? []).filter((value): value is string => typeof value === 'string')
+        .map(normalizeName),
+    );
+    const administrativeColor = event
+      ? getMarkerColor(event.eventType)
+      : Color.fromCssColorString('#4f6f95');
+
+    for (const entity of snapshot.administrative.keys()) {
+      const polygon = entity.polygon;
+      if (!polygon) continue;
+      const name = String(entity.properties?.NAME_1?.getValue() ?? '');
+      const normalizedName = normalizeName(name);
+      const selectedRelation: TerrainVisualRelation = primaryRegions.has(normalizedName)
+        ? 'selected'
+        : secondaryRegions.has(normalizedName)
+          ? 'related'
+          : 'unrelated';
+      const policy = resolveTerrainVisualPolicy({
+        terrainActive: true,
+        viewKind,
+        layer: 'administrative',
+        selectedRelation,
+      });
+      if (policy.preserveOriginal) continue;
+      if (policy.fill !== undefined) polygon.fill = new ConstantProperty(policy.fill);
+      if (policy.outline !== undefined) polygon.outline = new ConstantProperty(policy.outline);
+      if (policy.fillAlpha !== undefined) {
+        polygon.material = new ColorMaterialProperty(administrativeColor.withAlpha(policy.fillAlpha));
+      }
+      if (policy.outlineAlpha !== undefined) {
+        const outlineBase = selectedRelation === 'unrelated'
+          ? VIETNAM_BOUNDARY_OUTLINE
+          : administrativeColor;
+        polygon.outlineColor = new ConstantProperty(outlineBase.withAlpha(policy.outlineAlpha));
+      }
+      if (policy.outlineWidth !== undefined) {
+        polygon.outlineWidth = new ConstantProperty(policy.outlineWidth);
       }
     }
-  }, []);
+
+    for (const [targetId, entities] of terrainRegionEntitiesRef.current) {
+      const selectedRelation: TerrainVisualRelation = viewKind === 'region'
+        ? (targetId === selectedTarget?.id ? 'selected' : 'unrelated')
+        : 'related';
+      const policy = resolveTerrainVisualPolicy({
+        terrainActive: true,
+        viewKind,
+        layer: 'terrain-region',
+        selectedRelation,
+      });
+      for (const entity of entities) {
+        const polygon = entity.polygon;
+        if (!polygon || !snapshot.terrainRegions.has(entity) || policy.preserveOriginal) continue;
+        if (policy.show !== undefined) entity.show = policy.show;
+        if (policy.fill !== undefined) polygon.fill = new ConstantProperty(policy.fill);
+        if (policy.outline !== undefined) polygon.outline = new ConstantProperty(policy.outline);
+        if (policy.fillAlpha !== undefined) {
+          const fillBase = selectedRelation === 'selected'
+            ? TERRAIN_REGION_SELECTED_FILL
+            : TERRAIN_REGION_FILL;
+          polygon.material = new ColorMaterialProperty(fillBase.withAlpha(policy.fillAlpha));
+        }
+        if (policy.outlineAlpha !== undefined) {
+          const outlineBase = selectedRelation === 'selected'
+            ? TERRAIN_REGION_SELECTED_OUTLINE
+            : TERRAIN_REGION_OUTLINE;
+          polygon.outlineColor = new ConstantProperty(outlineBase.withAlpha(policy.outlineAlpha));
+        }
+        if (policy.outlineWidth !== undefined) {
+          polygon.outlineWidth = new ConstantProperty(policy.outlineWidth);
+        }
+      }
+    }
+  }, [restoreTerrainVisualBasis]);
 
   const flyTerrainView = useCallback(async (
     viewer: Viewer,
@@ -1298,6 +1457,14 @@ export default function CesiumMap({
     if (!session) {
       terrainCameraDebugRef.current = null;
       terrainCameraFocusRef.current = null;
+      const viewer = viewerRef.current;
+      const visualSnapshot = terrainVisualSnapshotRef.current;
+      if (viewer && !viewer.isDestroyed() && visualSnapshot) {
+        restoreTerrainVisualBasis(visualSnapshot.sessionId);
+        terrainVisualSnapshotRef.current = null;
+        clearTerrainRegions(viewer);
+        applyPolygonHighlights(selectedEventRef.current);
+      }
       return;
     }
     if (!viewerReady) return;
@@ -1326,7 +1493,10 @@ export default function CesiumMap({
     const reportError = (error: TerrainRuntimeError) => {
       if (!isCurrentSession()) return;
       resetBaseTerrain();
+      restoreTerrainVisualBasis(session.id);
+      terrainVisualSnapshotRef.current = null;
       clearTerrainRegions(viewer);
+      applyPolygonHighlights(selectedEventRef.current);
       onTerrainEnterErrorRef.current(session.id, error);
     };
 
@@ -1334,7 +1504,10 @@ export default function CesiumMap({
       ++terrainProviderOperationRef.current;
       const cameraOperation = ++cameraOperationRef.current;
       viewer.camera.cancelFlight();
+      restoreTerrainVisualBasis(session.id);
+      terrainVisualSnapshotRef.current = null;
       clearTerrainRegions(viewer);
+      applyPolygonHighlights(selectedEventRef.current);
       lastTerrainCameraRequestRef.current = null;
       const snapshot = cameraSnapshotRef.current;
       const finalizeExit = () => {
@@ -1392,7 +1565,7 @@ export default function CesiumMap({
     }
 
     if (session.mode === 'active') {
-      styleTerrainRegions(session.overview ? null : session.selectedTargetId);
+      applyTerrainVisualStyle(session);
       const lastRequest = lastTerrainCameraRequestRef.current;
       if (
         lastRequest?.sessionId === session.id
@@ -1426,6 +1599,7 @@ export default function CesiumMap({
     const enteringSession = session;
     const enteringSessionId = session.id;
     async function enterTerrain() {
+      ensureTerrainVisualSnapshot(enteringSessionId);
       if (!terrainSceneSnapshotRef.current) {
         terrainSceneSnapshotRef.current = snapshotTerrainScene(enteringViewer.scene);
       }
@@ -1547,6 +1721,7 @@ export default function CesiumMap({
                 },
               }));
               terrainRegionEntitiesRef.current.set(item.target.id, entities);
+              snapshotTerrainRegionEntities(enteringSessionId, entities);
             }
             await enteringViewer.dataSources.add(dataSource);
             if (!isCurrentSession() || terrainProviderOperationRef.current !== providerOperation) {
@@ -1581,7 +1756,7 @@ export default function CesiumMap({
           sessionId: enteringSessionId,
           requestId: enteringSession.cameraRequestId,
         };
-        styleTerrainRegions(null);
+        applyTerrainVisualStyle(enteringSession);
         try {
           void flyTerrainView(
             enteringViewer,
@@ -1615,9 +1790,13 @@ export default function CesiumMap({
 
     void enterTerrain();
   }, [
+    applyPolygonHighlights,
+    applyTerrainVisualStyle,
     clearTerrainRegions,
+    ensureTerrainVisualSnapshot,
     flyTerrainView,
-    styleTerrainRegions,
+    restoreTerrainVisualBasis,
+    snapshotTerrainRegionEntities,
     terrainSession,
     viewerReady,
   ]);
