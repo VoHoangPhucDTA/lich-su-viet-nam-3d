@@ -110,9 +110,29 @@ public class CanonicalGeographySyncService {
         }
         Map<String, Long> counts = records.stream()
                 .collect(Collectors.groupingBy(r -> r.path("mapData").path("geoType").asText(), Collectors.counting()));
-        if (expectedCounts != null && !expectedCounts.equals(counts)) {
-            throw new IllegalArgumentException(
-                    "Canonical geoType counts mismatch: expected " + expectedCounts + ", got " + counts);
+        if (expectedCounts != null) {
+            // Zero-count normalization. Collectors.groupingBy emits a key
+            // only when at least one record carries that geoType, so an
+            // expected canonical type with zero records (e.g. mixed=0 in
+            // the locked release) is silently absent from `counts` and the
+            // direct equality check would fail forever. We work around this
+            // by copying the observed counts into a normalised map and
+            // filling any expected key that is absent from observations
+            // with 0L. Unexpected observed keys remain in the normalised
+            // map, so a real divergence (wrong non-zero count, unexpected
+            // geoType, or a positive expected count with no observation)
+            // still produces a mismatch. This is the canonical release
+            // contract: counts equality modulo known zero-count types.
+            Map<String, Long> normalisedCounts = new java.util.TreeMap<>(counts);
+            for (String expectedKey : expectedCounts.keySet()) {
+                normalisedCounts.putIfAbsent(expectedKey, 0L);
+            }
+            if (!normalisedCounts.equals(expectedCounts)) {
+                throw new IllegalArgumentException(
+                        "Canonical geoType counts mismatch: expected "
+                                + new java.util.TreeMap<>(expectedCounts)
+                                + ", got " + normalisedCounts);
+            }
         }
         return new CanonicalRelease(byId, records, actualSha, counts);
     }

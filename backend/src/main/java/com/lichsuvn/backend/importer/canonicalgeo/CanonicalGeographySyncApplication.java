@@ -1,9 +1,11 @@
 package com.lichsuvn.backend.importer.canonicalgeo;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.Profile;
@@ -46,5 +48,28 @@ public final class CanonicalGeographySyncApplication {
             CanonicalGeographyDatasourceGuard.class
     })
     static class SyncConfiguration {
+
+        /**
+         * Phase C2-T2 wires a Jackson 2 {@link ObjectMapper} into the
+         * canonical-sync Spring context only. Spring Boot 4.0.3 default
+         * auto-configuration registers only Jackson 3
+         * {@code tools.jackson.databind.json.JsonMapper}; the legacy Jackson
+         * {@code com.fasterxml.jackson.databind.ObjectMapper} bean that
+         * {@link CanonicalGeographyProjection} requires is therefore missing.
+         *
+         * <p>The bean is scoped to {@link #PROFILE} via the surrounding
+         * {@code @Configuration} class; the main backend
+         * {@code @SpringBootApplication} context is unaffected because its
+         * profile filter rejects this nested configuration. Default Jackson 2
+         * configuration is byte-stable for the projection's
+         * {@code createObjectNode} / {@code createArrayNode} / {@code valueToTree}
+         * factory calls. No modules, no features toggled, no qualifier needed
+         * because exactly one Jackson 2 {@code ObjectMapper} exists in this
+         * profile.
+         */
+        @Bean
+        ObjectMapper canonicalGeoObjectMapper() {
+            return new ObjectMapper();
+        }
     }
 }
