@@ -7,8 +7,6 @@ import {
   GEO_TYPE_LABELS,
 } from '../types/event';
 import { formatChronologyLabel } from '../utils/chronology';
-import type { TerrainViewModel } from '../types/terrain';
-import TerrainControls from './terrain/TerrainControls';
 
 interface EventPopupProps {
   event: HistoricalEvent;
@@ -16,12 +14,6 @@ interface EventPopupProps {
   onNavigateToChild: (child: HistoricalEvent) => void;
   onNavigateToParent: () => void;
   parentEvent: HistoricalEvent | null;
-  terrain: TerrainViewModel;
-  onOpenTerrain: () => void;
-  onRetryTerrain: () => void;
-  onSelectTerrainTarget: (targetId: string) => void;
-  onShowTerrainOverview: () => void;
-  onExitTerrain: () => void;
   onViewDetails: () => void;
 }
 
@@ -31,12 +23,6 @@ export default function EventPopup({
   onNavigateToChild,
   onNavigateToParent,
   parentEvent,
-  terrain,
-  onOpenTerrain,
-  onRetryTerrain,
-  onSelectTerrainTarget,
-  onShowTerrainOverview,
-  onExitTerrain,
   onViewDetails,
 }: EventPopupProps) {
   const typeColor = EVENT_TYPE_COLORS[event.eventType];
@@ -374,15 +360,6 @@ export default function EventPopup({
         >
           Xem chi tiết
         </button>
-
-        <TerrainControls
-          terrain={terrain}
-          onOpen={onOpenTerrain}
-          onRetry={onRetryTerrain}
-          onSelectTarget={onSelectTerrainTarget}
-          onShowOverview={onShowTerrainOverview}
-          onExit={onExitTerrain}
-        />
 
         {parentEvent && (
           <button

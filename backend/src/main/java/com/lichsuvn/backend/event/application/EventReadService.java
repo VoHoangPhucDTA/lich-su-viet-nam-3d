@@ -9,6 +9,7 @@ import com.lichsuvn.backend.event.api.dto.EventSummaryDto;
 import com.lichsuvn.backend.event.api.dto.HomepageEventSummaryDto;
 import com.lichsuvn.backend.event.api.dto.HomepageEventsResponse;
 import com.lichsuvn.backend.event.api.dto.TimelineEventDto;
+import com.lichsuvn.backend.event.domain.EventGeoType;
 import com.lichsuvn.backend.event.infrastructure.EventReadRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -33,7 +34,7 @@ import java.util.Set;
 public class EventReadService {
     private static final Set<Integer> SUPPORTED_GRADES = Set.of(10, 11, 12);
     private static final Set<String> EVENT_TYPES = Set.of("military", "political", "economic", "cultural");
-    private static final Set<String> GEO_TYPES = Set.of("single_point", "multi_region", "nationwide", "no_location");
+    private static final Set<String> GEO_TYPES = EventGeoType.CANONICAL;
     private static final Set<String> EVENT_LEVELS = Set.of("collection", "atomic");
     private static final Set<String> SORT_FIELDS = Set.of("year", "name");
     private static final Set<String> SORT_DIRECTIONS = Set.of("asc", "desc");

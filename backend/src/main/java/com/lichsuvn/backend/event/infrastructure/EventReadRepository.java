@@ -12,6 +12,9 @@ import com.lichsuvn.backend.event.api.dto.EventSummaryDto;
 import com.lichsuvn.backend.event.api.dto.EventTextbookRefDto;
 import com.lichsuvn.backend.event.api.dto.HomepageEventSummaryDto;
 import com.lichsuvn.backend.event.api.dto.TimelineEventDto;
+import com.lichsuvn.backend.event.domain.EventGeoType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -38,6 +41,8 @@ import java.util.Set;
  */
 @Repository
 public class EventReadRepository {
+    private static final Logger log = LoggerFactory.getLogger(EventReadRepository.class);
+
     static final String NUMERIC_CHRONOLOGY_REQUIRED =
             "e.start_year IS NOT NULL AND e.effective_end_year IS NOT NULL";
     static final String CHRONOLOGY_NULL_LAST_ORDER = """
@@ -250,6 +255,29 @@ public class EventReadRepository {
         }
 
         EventDetailDto base = results.get(0);
+        // Canonical dual-read: the API always returns one of the six canonical
+        // geoType values. Legacy DB values are mapped here; when a legacy value
+        // cannot be resolved canonically the event is surfaced as incompatible
+        // (no_location) with a clear diagnostic instead of a silent guess.
+        String rawMapDataGeoType = rawMapDataGeoType(base.sourceJson());
+        String resolvedGeoType = EventGeoType.dualRead(base.geoType(), rawMapDataGeoType);
+        if (resolvedGeoType == null) {
+            log.warn(
+                    "[geo] event {} has legacy geo_type '{}' with no canonical raw mapData geoType; API returns no_location",
+                    base.id(),
+                    base.geoType()
+            );
+            resolvedGeoType = EventGeoType.NO_LOCATION;
+        } else if (!resolvedGeoType.equals(base.geoType())) {
+            log.warn(
+                    "[geo] event {} geo_type '{}' dual-read to canonical '{}' (raw mapData geoType '{}')",
+                    base.id(),
+                    base.geoType(),
+                    resolvedGeoType,
+                    rawMapDataGeoType
+            );
+        }
+        String geoType = resolvedGeoType;
         return Optional.of(new EventDetailDto(
                 base.id(),
                 base.slug(),
@@ -263,7 +291,7 @@ public class EventReadRepository {
                 base.effectiveEndYear(),
                 base.displayDate(),
                 base.datePrecision(),
-                base.geoType(),
+                geoType,
                 base.lat(),
                 base.lng(),
                 base.provinceNames(),
@@ -404,23 +432,34 @@ public class EventReadRepository {
                          e.id ASC
                 """.formatted(associationTypeSql, associationTypeSql);
 
-        List<EventRelatedEventDto> rows = jdbc.query(sql, new MapSqlParameterSource("eventId", eventId), (rs, rowNum) ->
-                new EventRelatedEventDto(
+        List<EventRelatedEventDto> rows = jdbc.query(sql, new MapSqlParameterSource("eventId", eventId), (rs, rowNum) -> {
+            // Canonical dual-read: never emit legacy geoType on the API boundary.
+            String dbGeoType = rs.getString("geo_type");
+            String canonicalGeoType = EventGeoType.dualRead(dbGeoType, null);
+            if (canonicalGeoType == null) {
+                log.warn(
+                        "[geo] related event {} legacy geo_type '{}' cannot be dual-read without raw mapData; returns no_location",
                         rs.getString("id"),
-                        rs.getString("slug"),
-                        rs.getString("title"),
-                        rs.getString("short_title"),
-                        rs.getString("display_date"),
-                        rs.getString("card_summary"),
-                        rs.getString("event_type"),
-                        rs.getString("geo_type"),
-                        rs.getString("thumbnail_url"),
-                        rs.getString("association_type"),
-                        rs.getString("relation_type"),
-                        EventRelationDto.relationLabel(rs.getString("relation_type")),
-                        rs.getInt("sort_order")
-                )
-        );
+                        dbGeoType
+                );
+                canonicalGeoType = EventGeoType.NO_LOCATION;
+            }
+            return new EventRelatedEventDto(
+                    rs.getString("id"),
+                    rs.getString("slug"),
+                    rs.getString("title"),
+                    rs.getString("short_title"),
+                    rs.getString("display_date"),
+                    rs.getString("card_summary"),
+                    rs.getString("event_type"),
+                    canonicalGeoType,
+                    rs.getString("thumbnail_url"),
+                    rs.getString("association_type"),
+                    rs.getString("relation_type"),
+                    EventRelationDto.relationLabel(rs.getString("relation_type")),
+                    rs.getInt("sort_order")
+            );
+        });
 
         List<EventRelatedEventDto> predecessors = new ArrayList<>();
         List<EventRelatedEventDto> successors = new ArrayList<>();
@@ -698,6 +737,16 @@ public class EventReadRepository {
     }
 
     private EventSummaryDto mapSummary(ResultSet rs) throws SQLException {
+        String dbGeoType = rs.getString("geo_type");
+        String canonicalGeoType = EventGeoType.dualRead(dbGeoType, null);
+        if (canonicalGeoType == null) {
+            log.warn(
+                    "[geo] event {} legacy geo_type '{}' cannot be dual-read without raw mapData; summary returns no_location",
+                    rs.getString("id"),
+                    dbGeoType
+            );
+            canonicalGeoType = EventGeoType.NO_LOCATION;
+        }
         return new EventSummaryDto(
                 rs.getString("id"),
                 rs.getString("slug"),
@@ -709,7 +758,7 @@ public class EventReadRepository {
                 getInteger(rs, "start_year"),
                 getInteger(rs, "end_year"),
                 rs.getString("display_date"),
-                rs.getString("geo_type"),
+                canonicalGeoType,
                 getBigDecimal(rs, "lat"),
                 getBigDecimal(rs, "lng"),
                 parseStringList(rs.getString("province_names")),
@@ -733,6 +782,19 @@ public class EventReadRepository {
         } catch (Exception ex) {
             return Map.of();
         }
+    }
+
+    /** Extracts mapData.geoType from the raw source JSON, canonical or null. */
+    static String rawMapDataGeoType(Object sourceJson) {
+        if (!(sourceJson instanceof Map<?, ?> root)) {
+            return null;
+        }
+        Object mapData = root.get("mapData");
+        if (!(mapData instanceof Map<?, ?> mapDataObj)) {
+            return null;
+        }
+        Object geoType = mapDataObj.get("geoType");
+        return geoType == null ? null : String.valueOf(geoType);
     }
 
     private List<String> parseStringList(String value) {

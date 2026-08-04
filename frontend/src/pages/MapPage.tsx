@@ -19,12 +19,11 @@ import Sidebar from '../components/Sidebar';
 import EventPopup from '../components/EventPopup';
 import TerrainExplorationToolbar, {
   type TerrainExplorationInspectorState,
-} from '../components/terrain/TerrainExplorationToolbar';
-import {
-  findEventById,
+} from '../components/terrain/TerrainExplorationToolbar';import { findEventById,
   TIMELINE_MIN_YEAR,
 } from '../data/events';
 import type { HistoricalEvent } from '../types/event';
+import { RENDERABLE_GEO_TYPES } from '../types/event';
 import type {
   RegionGeometryStatus,
   TerrainDataSourceStatus,
@@ -99,6 +98,10 @@ function buildSidebarTree(events: HistoricalEvent[]): HistoricalEvent[] {
   }
 
   return Array.from(byId.values()).filter((event) => !childIds.has(event.id));
+}
+
+function isRenderableGeoType(geoType: HistoricalEvent['geoType']): boolean {
+  return RENDERABLE_GEO_TYPES.includes(geoType);
 }
 
 function eventMatchesSearch(event: HistoricalEvent, query: string): boolean {
@@ -187,7 +190,6 @@ export default function MapPage() {
   );
   const loadedRequestedEventRef = useRef('');
   const terrainStateRef = useRef(terrainState);
-  const terrainSessionCounterRef = useRef(0);
   const pendingAfterTerrainExitRef = useRef<(() => void) | null>(null);
   const selectionRequestIdRef = useRef(0);
   useLayoutEffect(() => {
@@ -289,7 +291,9 @@ export default function MapPage() {
     };
   }, [searchQuery]);
 
-  // Events visible on the map based on the current context
+  // Events visible on the map based on the current context.
+  // Only canonical renderable geoTypes produce geometry (point, multi_point,
+  // multi_polygon, mixed); nationwide/no_location render nothing.
   const visibleMapEvents = useMemo(() => {
     // If an event with children is selected, show its children
     if (
@@ -297,16 +301,12 @@ export default function MapPage() {
       selectedEvent.children &&
       selectedEvent.children.length > 0
     ) {
-      return selectedEvent.children.filter(
-        (c) => c.geoType !== 'no_location' && c.coordinates
-      );
+      return selectedEvent.children.filter((c) => isRenderableGeoType(c.geoType));
     }
 
     // Otherwise show events filtered by year from backend
     const baseEvents = searchQuery.trim() ? searchResults : yearEvents;
-    return baseEvents.filter(
-      (e) => e.geoType !== 'no_location' && e.coordinates
-    );
+    return baseEvents.filter((e) => isRenderableGeoType(e.geoType));
   }, [selectedEvent, yearEvents, searchResults, searchQuery]);
 
   // All events visible in sidebar (including no_location)
@@ -522,38 +522,9 @@ export default function MapPage() {
     });
   }, [navigate, scheduleAfterTerrainExit, selectedEvent]);
 
-  const handleOpenTerrain = useCallback(() => {
-    if (!selectedEvent || !terrainTargetResult) return;
-    const current = terrainStateRef.current;
-    if (current.mode === 'entering' || current.mode === 'active' || current.mode === 'exiting') return;
-    const sessionId = ++terrainSessionCounterRef.current;
-    pendingAfterTerrainExitRef.current = null;
-    if (!terrainTargetResult.eligible) {
-      terrainDispatch({
-        type: 'OPEN_REJECTED',
-        sessionId,
-        eventId: selectedEvent.id,
-        error: {
-          code: 'no_valid_targets',
-          message: 'Sự kiện chưa có vị trí hợp lệ để xem địa hình.',
-        },
-      });
-      return;
-    }
-    terrainDispatch({
-      type: 'OPEN',
-      sessionId,
-      eventId: selectedEvent.id,
-      targets: terrainTargetResult.targets,
-    });
-  }, [selectedEvent, terrainTargetResult]);
-
-  const handleExitTerrain = useCallback(() => {
-    const current = terrainStateRef.current;
-    if (current.sessionId !== null && current.mode !== 'idle' && current.mode !== 'exiting') {
-      terrainDispatch({ type: 'EXIT', sessionId: current.sessionId });
-    }
-  }, []);
+  // Generic terrain sessions are disabled in the canonical overview flow (C1):
+  // no "Xem địa hình" CTA, no target selector, no auto session. The deep 3D
+  // module is developed separately and must not depend on this overview path.
 
   // ─── Terrain Exploration toolbar wiring (Task C) ───────────────────────────
   const clearExploration = useCallback(() => {
@@ -657,13 +628,6 @@ export default function MapPage() {
 
   const handleTerrainTargetSelect = useCallback((sessionId: number, targetId: string) => {
     terrainDispatch({ type: 'SELECT_TARGET', sessionId, targetId });
-  }, []);
-
-  const handleShowTerrainOverview = useCallback(() => {
-    const current = terrainStateRef.current;
-    if (current.sessionId !== null) {
-      terrainDispatch({ type: 'SHOW_OVERVIEW', sessionId: current.sessionId });
-    }
   }, []);
 
   const handleRegionGeometryStatus = useCallback((
@@ -1126,22 +1090,6 @@ export default function MapPage() {
             onNavigateToChild={handleNavigateToChild}
             onNavigateToParent={handleNavigateToParent}
             parentEvent={parentEvent}
-            terrain={terrainViewModel}
-            onOpenTerrain={handleOpenTerrain}
-            onRetryTerrain={handleOpenTerrain}
-            onSelectTerrainTarget={(targetId) => {
-              const sessionId = terrainStateRef.current.sessionId;
-              if (sessionId !== null) handleTerrainTargetSelect(sessionId, targetId);
-              clearExploration();
-            }}
-            onShowTerrainOverview={() => {
-              handleShowTerrainOverview();
-              clearExploration();
-            }}
-            onExitTerrain={() => {
-              handleExitTerrain();
-              clearExploration();
-            }}
             onViewDetails={() => {
               handleViewEventDetails();
               clearExploration();

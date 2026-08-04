@@ -13,6 +13,7 @@ import com.lichsuvn.backend.auth.infrastructure.UuidBytes;
 import com.lichsuvn.backend.auth.security.UserPrincipal;
 import com.lichsuvn.backend.common.exception.ApiException;
 import com.lichsuvn.backend.common.exception.NotFoundException;
+import com.lichsuvn.backend.event.domain.EventGeoType;
 import org.springframework.http.HttpStatus;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -27,6 +28,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 
 /** Service quản trị cho dữ liệu user và historical_events. */
@@ -36,7 +38,7 @@ public class AdminService {
     private static final Set<String> EVENT_STATUSES = Set.of("draft", "published", "archived");
     private static final Set<String> EVENT_LEVELS = Set.of("atomic", "collection");
     private static final Set<String> EVENT_TYPES = Set.of("military", "political", "economic", "cultural");
-    private static final Set<String> GEO_TYPES = Set.of("single_point", "multi_region", "nationwide", "no_location");
+    private static final Set<String> GEO_TYPES = EventGeoType.CANONICAL;
 
     private final NamedParameterJdbcTemplate jdbc;
     private final ObjectMapper objectMapper;
@@ -188,10 +190,37 @@ public class AdminService {
         return page(items, total == null ? 0 : total, safeLimit, safeOffset);
     }
 
+    private static final org.slf4j.Logger ADMIN_LOG = org.slf4j.LoggerFactory.getLogger(AdminService.class);
+
     public Map<String, Object> event(String id) {
         List<Map<String, Object>> results = jdbc.query("SELECT * FROM historical_events WHERE id = :id", new MapSqlParameterSource("id", id), (rs, row) -> eventRow(rs));
         if (results.isEmpty()) throw new NotFoundException("EVENT_NOT_FOUND", "Historical event not found");
-        return results.getFirst();
+        Map<String, Object> event = results.getFirst();
+        String rawMapDataGeoType = rawMapDataGeoTypeFromRaw(readJson(jdbc.queryForObject(
+                "SELECT raw_json FROM historical_events WHERE id = :id",
+                new MapSqlParameterSource("id", id),
+                String.class
+        )));
+        String resolvedGeoType = com.lichsuvn.backend.event.domain.EventGeoType.dualRead(String.valueOf(event.get("geoType")), rawMapDataGeoType);
+        if (resolvedGeoType == null) {
+            ADMIN_LOG.warn("[geo] admin event {} has legacy geo_type '{}' with no canonical raw mapData geoType", id, event.get("geoType"));
+            event.put("geoType", com.lichsuvn.backend.event.domain.EventGeoType.NO_LOCATION);
+        } else if (!resolvedGeoType.equals(String.valueOf(event.get("geoType")))) {
+            ADMIN_LOG.warn("[geo] admin event {} geo_type '{}' dual-read to canonical '{}' (raw mapData geoType '{}')", id, event.get("geoType"), resolvedGeoType, rawMapDataGeoType);
+            event.put("geoType", resolvedGeoType);
+        }
+        return event;
+    }
+
+    private static String rawMapDataGeoTypeFromRaw(Object rawJson) {
+        if (rawJson instanceof Map<?, ?> root) {
+            Object mapData = root.get("mapData");
+            if (mapData instanceof Map<?, ?> mapDataObj) {
+                Object geoType = mapDataObj.get("geoType");
+                return geoType == null ? null : String.valueOf(geoType);
+            }
+        }
+        return null;
     }
 
     @Transactional
@@ -232,8 +261,54 @@ public class AdminService {
     }
 
     private void writeEvent(String id, Map<String, Object> body, boolean creating, UserPrincipal principal) {
-        String title = requiredText(body, "title"), slug = requiredText(body, "slug"), level = text(body, "eventLevel", "atomic"), type = text(body, "eventType", "political"), geoType = text(body, "geoType", "no_location"), status = text(body, "status", "draft");
-        validateSlug(slug); validate("eventLevel", level, EVENT_LEVELS); validate("eventType", type, EVENT_TYPES); validate("geoType", geoType, GEO_TYPES); validate("status", status, EVENT_STATUSES);
+        String title = requiredText(body, "title"), slug = requiredText(body, "slug"), level = text(body, "eventLevel", "atomic"), type = text(body, "eventType", "political"), status = text(body, "status", "draft");
+        validateSlug(slug); validate("eventLevel", level, EVENT_LEVELS); validate("eventType", type, EVENT_TYPES); validate("status", status, EVENT_STATUSES);
+        // Geography is pipeline-managed and read-only in the admin editor (C1):
+        // admin create/update must not change geo_type/lat/lng/provinceNames.
+        String geoType;
+        BigDecimal lat;
+        BigDecimal lng;
+        List<String> provinceNames;
+        List<String> historicalLocations;
+        if (creating) {
+            if (body.containsKey("geoType") || body.containsKey("lat") || body.containsKey("lng")
+                    || body.containsKey("provinceNames") || body.containsKey("historicalLocations")) {
+                throw new ApiException(HttpStatus.BAD_REQUEST, "GEOGRAPHY_READ_ONLY", "Geography is pipeline-managed and read-only; cannot be set on create");
+            }
+            geoType = EventGeoType.NO_LOCATION;
+            lat = null;
+            lng = null;
+            provinceNames = List.of();
+            historicalLocations = List.of();
+        } else {
+            Map<String, Object> existing = geographyOf(id);
+            String existingGeoType = String.valueOf(existing.get("geoType"));
+            BigDecimal existingLat = (BigDecimal) existing.get("lat");
+            BigDecimal existingLng = (BigDecimal) existing.get("lng");
+            List<String> existingProvinces = (List<String>) existing.get("provinceNames");
+            List<String> existingHistorical = (List<String>) existing.get("historicalLocations");
+            if (body.containsKey("geoType") && !String.valueOf(text(body, "geoType", null)).equals(existingGeoType)) {
+                throw new ApiException(HttpStatus.BAD_REQUEST, "GEOGRAPHY_READ_ONLY", "Geography is pipeline-managed and read-only; geoType cannot be changed");
+            }
+            if (body.containsKey("lat") && !Objects.equals(decimal(body.get("lat")), existingLat)) {
+                throw new ApiException(HttpStatus.BAD_REQUEST, "GEOGRAPHY_READ_ONLY", "Geography is pipeline-managed and read-only; lat cannot be changed");
+            }
+            if (body.containsKey("lng") && !Objects.equals(decimal(body.get("lng")), existingLng)) {
+                throw new ApiException(HttpStatus.BAD_REQUEST, "GEOGRAPHY_READ_ONLY", "Geography is pipeline-managed and read-only; lng cannot be changed");
+            }
+            if (body.containsKey("provinceNames") && !Objects.equals(stringList(body, "provinceNames"), existingProvinces)) {
+                throw new ApiException(HttpStatus.BAD_REQUEST, "GEOGRAPHY_READ_ONLY", "Geography is pipeline-managed and read-only; provinceNames cannot be changed");
+            }
+            if (body.containsKey("historicalLocations") && !Objects.equals(stringList(body, "historicalLocations"), existingHistorical)) {
+                throw new ApiException(HttpStatus.BAD_REQUEST, "GEOGRAPHY_READ_ONLY", "Geography is pipeline-managed and read-only; historicalLocations cannot be changed");
+            }
+            geoType = existingGeoType;
+            lat = existingLat;
+            lng = existingLng;
+            provinceNames = existingProvinces;
+            historicalLocations = existingHistorical;
+        }
+        validate("geoType", geoType, GEO_TYPES);
         int startYear = requiredInt(body, "startYear");
         Integer endYear = nullableInt(body, "endYear");
         int effectiveEndYear = endYear == null ? startYear : endYear;
@@ -255,8 +330,8 @@ public class AdminService {
         MapSqlParameterSource params = new MapSqlParameterSource().addValue("id", id).addValue("slug", slug).addValue("title", title)
                 .addValue("shortTitle", nullableText(body, "shortTitle")).addValue("eventLevel", level).addValue("eventType", type).addValue("eventSubtype", nullableText(body, "eventSubtype"))
                 .addValue("startYear", startYear).addValue("endYear", endYear).addValue("effectiveEndYear", effectiveEndYear).addValue("displayDate", nullableText(body, "displayDate"))
-                .addValue("datePrecision", nullableText(body, "datePrecision")).addValue("geoType", geoType).addValue("lat", decimal(body.get("lat"))).addValue("lng", decimal(body.get("lng")))
-                .addValue("provinceNames", writeJson(body.getOrDefault("provinceNames", List.of()))).addValue("historicalLocations", writeJson(body.getOrDefault("historicalLocations", List.of())))
+                .addValue("datePrecision", nullableText(body, "datePrecision")).addValue("geoType", geoType).addValue("lat", lat).addValue("lng", lng)
+                .addValue("provinceNames", writeJson(provinceNames)).addValue("historicalLocations", writeJson(historicalLocations))
                 .addValue("parentId", parentId).addValue("rootId", rootId).addValue("level", hierarchyLevel).addValue("orderInParent", nullableInt(body, "orderInParent"))
                 .addValue("cardSummary", nullableText(body, "cardSummary")).addValue("canonicalSummary", nullableText(body, "canonicalSummary")).addValue("detailedNarrative", nullableText(body, "detailedNarrative")).addValue("significance", nullableText(body, "significance"))
                 .addValue("showOnHomepage", bool(body, "showOnHomepage", true)).addValue("showOnTimeline", bool(body, "showOnTimeline", true)).addValue("featured", bool(body, "featured", false)).addValue("status", status).addValue("contentHash", hash).addValue("rawJson", rawText);
@@ -282,6 +357,31 @@ public class AdminService {
         raw.with("summary").put("cardSummary", text(body, "cardSummary", "")).put("homepageTitle", title).put("homepageSummary", text(body, "canonicalSummary", "")); raw.with("textbookContent").put("canonicalSummary", text(body, "canonicalSummary", "")).put("detailedNarrative", text(body, "detailedNarrative", "")).put("significance", text(body, "significance", ""));
         raw.with("hierarchy").put("parentId", parent == null ? "" : parent).put("rootId", root == null ? id : root).put("level", hierarchyLevel).put("orderInParent", nullableInt(body, "orderInParent")); raw.with("display").put("showOnHomepage", bool(body, "showOnHomepage", true)).put("showOnTimeline", bool(body, "showOnTimeline", true)).put("featured", bool(body, "featured", false));
     }
+    private Map<String, Object> geographyOf(String id) {
+        List<Map<String, Object>> rows = jdbc.query("""
+                SELECT geo_type, lat, lng, province_names, historical_locations
+                FROM historical_events WHERE id = :id
+                """, new MapSqlParameterSource("id", id), (rs, row) -> {
+            Map<String, Object> item = new LinkedHashMap<>();
+            item.put("geoType", rs.getString("geo_type"));
+            item.put("lat", rs.getBigDecimal("lat"));
+            item.put("lng", rs.getBigDecimal("lng"));
+            item.put("provinceNames", readJson(rs.getString("province_names")));
+            item.put("historicalLocations", readJson(rs.getString("historical_locations")));
+            return item;
+        });
+        if (rows.isEmpty()) throw new NotFoundException("EVENT_NOT_FOUND", "Historical event not found");
+        return rows.getFirst();
+    }
+
+    @SuppressWarnings("unchecked")
+    private List<String> stringList(Map<String, Object> body, String key) {
+        Object value = body.get(key);
+        if (value == null) return List.of();
+        if (value instanceof List<?> list) return (List<String>) list.stream().map(String::valueOf).toList();
+        return List.of(String.valueOf(value));
+    }
+
     private Map<String, Object> page(List<Map<String, Object>> items, int total, int limit, int offset) { return Map.of("items", items, "count", items.size(), "total", total, "limit", limit, "offset", offset); }
     private int count(String sql, MapSqlParameterSource params) { Integer value = jdbc.queryForObject(sql, params, Integer.class); return value == null ? 0 : value; }
     private UserEntity user(String id) { try { return userRepository.findById(UuidBytes.fromUuid(java.util.UUID.fromString(id))).orElseThrow(() -> new NotFoundException("USER_NOT_FOUND", "User not found")); } catch (IllegalArgumentException ex) { throw new NotFoundException("USER_NOT_FOUND", "User not found"); } }

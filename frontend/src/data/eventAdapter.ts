@@ -2,27 +2,30 @@ import type { RawEventJson } from './eventRegistry';
 import { getChildIdsOf, getRawEventById } from './eventRegistry';
 import type { MockEventDetail } from './mockEventDetails';
 import type { EventType, GeoType, HistoricalEvent } from '../types/event';
-import { getCentroidFromProvinceNames } from './vietnamProvinceCentroids';
 import { formatChronologyLabel, normalizeChronology } from '../utils/chronology';
 
 /* ─── Helpers ───────────────────────────────────────────────────────────── */
 
-/** Convert geoType từ JSON (point, multi_point, polygon, multi_polygon, mixed,
- *  nationwide, no_location) → bộ 4 GeoType cũ dùng trong MapPage. */
+/**
+ * Legacy-fixture-only adapter. Canonical values pass through unchanged; legacy
+ * values from old fixtures/snapshots are migrated to the nearest canonical type
+ * (single_point -> point; multi_region/polygon -> multi_polygon). Never applied
+ * to canonical API responses.
+ */
 function toGeoType(geoType?: string): GeoType {
   switch (geoType) {
     case 'point':
-    case 'single_point':
-      return 'single_point';
     case 'multi_point':
-    case 'multi_region':
     case 'multi_polygon':
-    case 'polygon':
     case 'mixed':
-      return 'multi_region';
     case 'nationwide':
-      return 'nationwide';
     case 'no_location':
+      return geoType;
+    case 'single_point':
+      return 'point';
+    case 'multi_region':
+    case 'polygon':
+      return 'multi_polygon';
     default:
       return 'no_location';
   }
@@ -243,7 +246,6 @@ export function rawToHistoricalEvent(
       }
     : undefined
   );
-  const fg = raw.mapData?.focusGeometry;
   const chronology = normalizeChronology({
     startYear: raw.chronology?.start?.year,
     endYear: raw.chronology?.end?.year,
@@ -253,25 +255,19 @@ export function rawToHistoricalEvent(
   const endYear = chronology.endYear;
   const rawGeoType = toGeoType(dg?.geoType ?? raw.mapData?.geoType);
 
-  // Coordinates: ưu tiên marker → focus center → fallback centroid của tỉnh đầu
-  // tiên trong provinceNames. Fallback chỉ áp dụng cho event có gắn địa điểm
-  // (≠ no_location), giúp các sự kiện chỉ liệt kê tỉnh vẫn zoom được trên map.
+  // Coordinates come from the primary marker only (canonical projection).
+  // No province centroid and no focusGeometry center are ever used to create
+  // a marker. For multi_point / mixed the primary marker is markers[0] when the
+  // flat mapData format carries a markers array.
   let coordinates: { lat: number; lng: number } | undefined;
-  let resolvedGeoType: GeoType = rawGeoType;
-  const resolvedMarker = dg?.marker ?? (isNewMapFormat ? raw.mapData!.marker : undefined);
-  if (resolvedMarker) {
+  const resolvedGeoType: GeoType = rawGeoType;
+  const flatMarkers = isNewMapFormat ? raw.mapData!.markers : undefined;
+  const resolvedMarker =
+    dg?.marker ??
+    (isNewMapFormat ? raw.mapData!.marker : undefined) ??
+    (Array.isArray(flatMarkers) ? flatMarkers[0] : undefined);
+  if (resolvedMarker && typeof resolvedMarker.lat === 'number' && typeof resolvedMarker.lng === 'number') {
     coordinates = { lat: resolvedMarker.lat, lng: resolvedMarker.lng };
-  } else if (fg?.center) {
-    coordinates = { lat: fg.center.lat, lng: fg.center.lng };
-  } else if (rawGeoType !== 'no_location') {
-    const provinceNames = dg?.provinceNames ?? (isNewMapFormat ? raw.mapData!.provinceNames : undefined);
-    const centroid = getCentroidFromProvinceNames(provinceNames);
-    if (centroid) {
-      coordinates = { lat: centroid.lat, lng: centroid.lng };
-      // Đánh dấu là multi_region để CesiumMap zoom với altitude cao hơn (vì
-      // marker này chỉ là centroid tỉnh, không phải vị trí chính xác)
-      if (rawGeoType === 'single_point') resolvedGeoType = 'multi_region';
-    }
   }
 
   const event: HistoricalEvent = {
