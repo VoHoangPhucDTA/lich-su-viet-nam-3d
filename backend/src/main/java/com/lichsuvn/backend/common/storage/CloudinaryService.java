@@ -55,7 +55,7 @@ public class CloudinaryService {
                     "api_secret", apiSecret,
                     "secure", true
             ));
-            log.info("Cloudinary initialized with cloud_name={}", cloudName);
+            log.info("Cloudinary storage initialized");
         } else {
             this.cloudinary = null;
             log.warn("Cloudinary not configured — avatar uploads will be skipped");
@@ -103,11 +103,11 @@ public class CloudinaryService {
             ));
 
             String secureUrl = (String) result.get("secure_url");
-            log.info("Avatar uploaded to Cloudinary: public_id={} url={}", publicId, secureUrl);
+            log.info("Avatar upload completed");
             return secureUrl;
 
         } catch (IOException e) {
-            log.error("Failed to upload avatar from URL {} for user {}: {}", sourceUrl, userEmail, e.getMessage());
+            log.error("Avatar URL upload failed errorType={}", e.getClass().getSimpleName());
             return sourceUrl; // Fallback to original URL
         }
     }
@@ -139,11 +139,11 @@ public class CloudinaryService {
             ));
 
             String secureUrl = (String) result.get("secure_url");
-            log.info("Avatar uploaded from bytes: public_id={}", publicId);
+            log.info("Avatar byte upload completed");
             return secureUrl;
 
         } catch (IOException e) {
-            log.error("Failed to upload avatar from bytes for user {}: {}", userEmail, e.getMessage());
+            log.error("Avatar byte upload failed errorType={}", e.getClass().getSimpleName());
             throw new ApiException(HttpStatus.INTERNAL_SERVER_ERROR, "AVATAR_UPLOAD_FAILED",
                     "Could not upload avatar image. Please try again.");
         }
@@ -171,9 +171,9 @@ public class CloudinaryService {
 
             Uploader uploader = cloudinary.uploader();
             uploader.destroy(publicId, ObjectUtils.emptyMap());
-            log.info("Avatar deleted from Cloudinary: public_id={}", publicId);
+            log.info("Avatar deletion completed");
         } catch (IOException e) {
-            log.warn("Failed to delete avatar from Cloudinary: {}", e.getMessage());
+            log.warn("Avatar deletion failed errorType={}", e.getClass().getSimpleName());
         }
     }
 
@@ -207,7 +207,8 @@ public class CloudinaryService {
             int extDot = publicIdWithExt.lastIndexOf('.');
             return extDot > 0 ? publicIdWithExt.substring(0, extDot) : publicIdWithExt;
         } catch (Exception e) {
-            log.warn("Could not extract public_id from Cloudinary URL: {}", e.getMessage());
+            log.warn("Cloudinary public ID extraction failed errorType={}",
+                    e.getClass().getSimpleName());
             return null;
         }
     }

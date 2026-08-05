@@ -17,7 +17,6 @@ import type {
   HistoricalEvent,
   RelatedHistoricalEvent,
   RelatedHistoricalEvents,
-  EventSourceJson,
   SourceMapData,
 } from '../types/event';
 import {
@@ -122,7 +121,7 @@ interface EventDetailDto extends EventSummaryDto {
   }[];
   relations: EventRelationDto[];
   relatedEvents?: EventRelatedEventsDto;
-  sourceJson?: unknown;
+  mapData?: SourceMapData | null;
 }
 
 function isCanonicalGeoType(value: unknown): value is CanonicalGeoType {
@@ -137,17 +136,9 @@ function isCanonicalGeoType(value: unknown): value is CanonicalGeoType {
 }
 
 function sourceMapDataFromDto(dto: EventDetailDto): SourceMapData | undefined {
-  const sourceJson = dto.sourceJson;
-  if (!sourceJson || typeof sourceJson !== 'object' || Array.isArray(sourceJson)) return undefined;
-  const mapData = (sourceJson as { mapData?: unknown }).mapData;
+  const mapData = dto.mapData;
   if (!mapData || typeof mapData !== 'object' || Array.isArray(mapData)) return undefined;
-  return mapData as SourceMapData;
-}
-
-function sourceJsonFromDto(dto: EventDetailDto): EventSourceJson | undefined {
-  const sourceJson = dto.sourceJson;
-  if (!sourceJson || typeof sourceJson !== 'object' || Array.isArray(sourceJson)) return undefined;
-  return sourceJson as unknown as EventSourceJson;
+  return mapData;
 }
 
 interface EventRelationDto {
@@ -340,7 +331,6 @@ function detailToHistoricalEvent(dto: EventDetailDto): HistoricalEvent {
   const sourceMapData = sourceMapDataFromDto(dto);
   return {
     ...event,
-    sourceJson: sourceJsonFromDto(dto),
     sourceMapData,
     canonicalGeoType: isCanonicalGeoType(sourceMapData?.geoType)
       ? sourceMapData.geoType

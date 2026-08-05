@@ -8,6 +8,7 @@ public record JwtClaims(
         String email,
         List<String> roles,
         String tokenType,
+        long authVersion,
         Instant expiresAt
 ) {
 }

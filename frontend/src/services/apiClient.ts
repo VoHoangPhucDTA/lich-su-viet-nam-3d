@@ -1,3 +1,5 @@
+import { ensureCsrfToken } from './csrfClient';
+
 export interface ApiResponse<T> {
   success: boolean;
   code: string;
@@ -24,22 +26,38 @@ export interface StoredUser {
   email: string;
   role: string;
   roles?: string[];
-  permissions?: string[];
   grade?: string;
   school?: string;
   avatarUrl?: string;
   createdAt?: string;
 }
 
+export interface ApiIssue {
+  code: string;
+  section: string;
+  severity: 'ERROR' | 'WARNING';
+  fields: string[];
+}
+
 export class ApiRequestError extends Error {
   code: string;
   status: number;
+  violations: Array<{ field: string; message: string }>;
+  issues: ApiIssue[];
 
-  constructor(code: string, message: string, status = 0) {
+  constructor(
+    code: string,
+    message: string,
+    status = 0,
+    violations: Array<{ field: string; message: string }> = [],
+    issues: ApiIssue[] = [],
+  ) {
     super(message);
     this.name = 'ApiRequestError';
     this.code = code;
     this.status = status;
+    this.violations = violations;
+    this.issues = issues;
   }
 }
 
@@ -66,18 +84,32 @@ export function clearStoredUser(): void {
  * Refresh token được gửi tự động qua HttpOnly Cookie (không cần đọc từ localStorage).
  * Backend sẽ set lại cả hai cookie mới trong response.
  */
-async function refreshAccessToken(): Promise<boolean> {
+function throwIfAborted(signal?: AbortSignal | null): void {
+  if (signal?.aborted) {
+    throw new DOMException('The operation was aborted.', 'AbortError');
+  }
+}
+
+async function refreshAccessToken(signal?: AbortSignal | null): Promise<boolean> {
   try {
+    throwIfAborted(signal);
+    const csrf = await ensureCsrfToken();
+    throwIfAborted(signal);
     // Không gửi body — refresh_token nằm trong HttpOnly Cookie (path=/api/auth/refresh).
     // Backend đọc cookie trực tiếp, không cần @RequestBody nữa.
     const response = await fetch(`${API_BASE_URL}/api/auth/refresh`, {
       method: 'POST',
-      headers: { Accept: 'application/json' },
+      headers: {
+        Accept: 'application/json',
+        [csrf.headerName]: csrf.token,
+      },
       // credentials: 'include' bắt buộc để browser đính kèm refresh_token cookie
       credentials: 'include',
+      signal,
     });
     return response.ok;
-  } catch {
+  } catch (cause) {
+    if (cause instanceof DOMException && cause.name === 'AbortError') throw cause;
     return false;
   }
 }
@@ -110,6 +142,22 @@ export async function apiPostOnce<T>(
   }, false);
 }
 
+/**
+ * Sends a multipart POST exactly once. The browser must own the Content-Type
+ * header so it can attach the matching multipart boundary.
+ */
+export async function apiPostFormOnce<T>(
+  path: string,
+  body: FormData,
+  init: Omit<RequestInit, 'method' | 'body'> = {},
+): Promise<T> {
+  return apiRequest<T>(path, {
+    ...init,
+    method: 'POST',
+    body,
+  }, false);
+}
+
 export async function apiPut<T>(
   path: string,
   body?: unknown,
@@ -139,10 +187,16 @@ export async function apiDelete<T>(path: string, init: Omit<RequestInit, 'method
 }
 
 async function apiRequest<T>(path: string, init: RequestInit, retry = true): Promise<T> {
+  throwIfAborted(init.signal);
   const headers = new Headers(init.headers);
+  const method = (init.method ?? 'GET').toUpperCase();
   headers.set('Accept', 'application/json');
-  if (init.body !== undefined) {
+  if (init.body !== undefined && !(init.body instanceof FormData)) {
     headers.set('Content-Type', 'application/json');
+  }
+  if (['POST', 'PUT', 'PATCH', 'DELETE'].includes(method)) {
+    const csrf = await ensureCsrfToken();
+    headers.set(csrf.headerName, csrf.token);
   }
   // KHÔNG set Authorization header nữa — token được gửi tự động qua HttpOnly Cookie.
   // credentials: 'include' là bắt buộc để browser đính kèm cookie vào mọi request.
@@ -152,10 +206,13 @@ async function apiRequest<T>(path: string, init: RequestInit, retry = true): Pro
     headers,
     credentials: 'include', // Bắt buộc cho HttpOnly Cookie cross-origin và same-origin
   });
+  throwIfAborted(init.signal);
 
-  if (response.status === 401 && retry && !path.startsWith('/api/auth/refresh')) {
+  const replaySafe = ['GET', 'HEAD', 'OPTIONS'].includes(method);
+  if (response.status === 401 && retry && replaySafe && !path.startsWith('/api/auth/refresh')) {
     // Access token hết hạn → thử refresh bằng cookie, sau đó replay request
-    const refreshed = await refreshAccessToken();
+    const refreshed = await refreshAccessToken(init.signal);
+    throwIfAborted(init.signal);
     if (refreshed) {
       return apiRequest<T>(path, init, false);
     }
@@ -164,21 +221,53 @@ async function apiRequest<T>(path: string, init: RequestInit, retry = true): Pro
   let payload: ApiResponse<T> | null = null;
   try {
     payload = (await response.json()) as ApiResponse<T>;
-  } catch {
+  } catch (cause) {
+    if (cause instanceof DOMException && cause.name === 'AbortError') {
+      throw cause;
+    }
+    throwIfAborted(init.signal);
     // A proxy or unavailable backend can return a non-JSON error body.
   }
+  throwIfAborted(init.signal);
   if (!response.ok || !payload?.success) {
+    const errorData = payload?.data as unknown as {
+      violations?: Array<{ field: string; message: string }>;
+      issues?: unknown;
+    } | undefined;
     throw new ApiRequestError(
       payload?.code || 'API_ERROR',
       payload?.message || `API request failed: ${path}`,
       response.status,
+      errorData?.violations ?? [],
+      parseIssues(errorData?.issues),
     );
   }
 
   return payload.data;
 }
 
-export function toQueryString(params: Record<string, string | number | undefined | null>) {
+function parseIssues(value: unknown): ApiIssue[] {
+  if (!Array.isArray(value)) return [];
+  return value.flatMap(item => {
+    if (!item || typeof item !== 'object') return [];
+    const candidate = item as Record<string, unknown>;
+    if (
+      typeof candidate.code !== 'string'
+      || typeof candidate.section !== 'string'
+      || (candidate.severity !== 'ERROR' && candidate.severity !== 'WARNING')
+      || !Array.isArray(candidate.fields)
+      || !candidate.fields.every(field => typeof field === 'string')
+    ) return [];
+    return [{
+      code: candidate.code,
+      section: candidate.section,
+      severity: candidate.severity,
+      fields: candidate.fields,
+    }];
+  });
+}
+
+export function toQueryString(params: Record<string, string | number | boolean | undefined | null>) {
   const searchParams = new URLSearchParams();
   for (const [key, value] of Object.entries(params)) {
     if (value !== undefined && value !== null && value !== '') {

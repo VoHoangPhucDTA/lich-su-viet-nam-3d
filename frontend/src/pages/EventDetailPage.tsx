@@ -3,6 +3,7 @@ import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import type { MockEventDetail } from '../data/mockEventDetails';
 import { getEventDetailBySlug } from '../services/eventDetailService';
 import { recordEventView, getEventProgress } from '../services/eventApi';
+import { getCsrfToken } from '../services/csrfClient';
 import { useReadingProgress, type SectionInfo } from '../hooks/useReadingProgress';
 import { getAppScrollRoot, useActiveSection } from '../hooks/useActiveSection';
 
@@ -181,11 +182,16 @@ export default function EventDetailPage() {
       import.meta.env.VITE_API_BASE_URL?.replace(/\/$/, '') ?? '';
     const saveBeforeLeave = () => {
       if (prevProgressRef.current > 0) {
+        const csrf = getCsrfToken();
+        if (!csrf) return;
         // Use fetch with keepalive (like sendBeacon but with credentials)
         // to ensure auth cookies are sent during page unload
         fetch(`${API_BASE_URL}/api/events/${eventData.id}/view`, {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: {
+            'Content-Type': 'application/json',
+            [csrf.headerName]: csrf.token,
+          },
           credentials: 'include',
           keepalive: true,
           body: JSON.stringify({

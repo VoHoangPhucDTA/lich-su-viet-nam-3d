@@ -349,11 +349,18 @@ cd D:/KLTN/lich-su-viet-nam-3d/backend
 .\mvnw.cmd spring-boot:run
 ```
 
-Public smoke cần JWT/cookie authenticated:
+Public smoke dùng cookie HttpOnly và CSRF. Đặt thông tin tài khoản local trong
+biến môi trường; không chèn token hoặc mật khẩu vào runbook/lệnh đã commit:
 
 ```powershell
+$csrf = Invoke-RestMethod -Method Get -Uri http://127.0.0.1:8080/api/auth/csrf -SessionVariable appSession
+$csrfHeaders = @{$csrf.data.headerName=$csrf.data.token}
+$loginBody = @{email=$env:LOCAL_SMOKE_EMAIL; password=$env:LOCAL_SMOKE_PASSWORD} | ConvertTo-Json
+Invoke-RestMethod -Method Post -Uri http://127.0.0.1:8080/api/auth/login -WebSession $appSession -Headers $csrfHeaders -ContentType application/json -Body $loginBody
+$csrf = Invoke-RestMethod -Method Get -Uri http://127.0.0.1:8080/api/auth/csrf -WebSession $appSession
+$csrfHeaders = @{$csrf.data.headerName=$csrf.data.token}
 $body = @{query='Nguyên nhân thắng lợi của Cách mạng tháng Tám năm 1945'; grade=12; lessonNumber=6; difficulty='MEDIUM'; count=1; topK=5} | ConvertTo-Json
-Invoke-RestMethod -Method Post -Uri http://127.0.0.1:8080/api/exams/ai/generate -Headers @{Authorization="Bearer <local-test-token>"} -ContentType application/json -Body $body
+Invoke-RestMethod -Method Post -Uri http://127.0.0.1:8080/api/exams/ai/generate -WebSession $appSession -Headers $csrfHeaders -ContentType application/json -Body $body
 ```
 
 Test offline và gated H2 → FastAPI smoke:

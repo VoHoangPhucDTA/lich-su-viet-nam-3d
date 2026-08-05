@@ -45,6 +45,8 @@ export default defineConfig({
   test: {
     environment: 'jsdom',
     setupFiles: './src/test/setup.ts',
+    // Playwright specs under e2e/ are executed by test:e2e:admin, not Vitest.
+    include: ['src/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
     exclude: [
       ...configDefaults.exclude,
       '**/terrain_3d_audit_bundle/**',

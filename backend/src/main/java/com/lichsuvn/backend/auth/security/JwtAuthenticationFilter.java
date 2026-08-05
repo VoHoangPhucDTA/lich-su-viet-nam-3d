@@ -17,15 +17,12 @@ import java.io.IOException;
 /**
  * Filter xác thực JWT cho mỗi HTTP request.
  *
- * Chiến lược đọc token (ưu tiên theo thứ tự):
- *  1. HttpOnly Cookie "access_token" — cơ chế chính trên môi trường Production.
+ * JWT access token chỉ được đọc từ HttpOnly Cookie "access_token".
+ *
+ *  1. HttpOnly Cookie "access_token" — cơ chế xác thực duy nhất.
  *     Browser tự động đính kèm cookie khi frontend gửi request với credentials: 'include'.
  *     Cookie không thể bị đọc bởi JavaScript → miễn dịch với XSS.
- *
- *  2. Authorization: Bearer <token> header — fallback cho môi trường Development
- *     hoặc các tool như Postman/curl khi không có cookie.
- *
- * Nếu cả hai đều không có → request vẫn được xử lý, nhưng không có authentication context.
+ * Nếu cookie không có → request vẫn được xử lý, nhưng không có authentication context.
  * Spring Security sẽ từ chối ở tầng authorize nếu endpoint yêu cầu authenticated().
  */
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
@@ -68,11 +65,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     }
 
     /**
-     * Ưu tiên đọc access_token từ HttpOnly Cookie (Production).
-     * Fallback sang Authorization header (Development / Postman).
+     * Đọc access_token chỉ từ HttpOnly Cookie.
      */
     private String extractToken(HttpServletRequest request) {
-        // --- Ưu tiên 1: HttpOnly Cookie ---
         Cookie[] cookies = request.getCookies();
         if (cookies != null) {
             for (Cookie cookie : cookies) {
@@ -83,12 +78,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                     }
                 }
             }
-        }
-
-        // --- Fallback: Authorization header (dev/Postman) ---
-        String header = request.getHeader("Authorization");
-        if (header != null && header.startsWith("Bearer ")) {
-            return header.substring(7);
         }
 
         return null;

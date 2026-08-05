@@ -26,6 +26,7 @@ import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -43,6 +44,7 @@ class PracticeQuizControllerTest {
     @Test
     void unauthenticatedRequestIsRejected() throws Exception {
         mockMvc.perform(post("/api/quiz/generate")
+                        .with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(validRequest()))
                 .andExpect(status().isUnauthorized())
@@ -55,6 +57,7 @@ class PracticeQuizControllerTest {
 
         mockMvc.perform(post("/api/quiz/generate")
                         .with(user("student").authorities(() -> "ROLE_student"))
+                        .with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(validRequest()))
                 .andExpect(status().isOk())
@@ -67,6 +70,7 @@ class PracticeQuizControllerTest {
     void rejectsBlankQueryInvalidDifficultyAndCount() throws Exception {
         mockMvc.perform(post("/api/quiz/generate")
                         .with(user("student").authorities(() -> "ROLE_student"))
+                        .with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
                                 {"query":" ","difficulty":"UNKNOWN","count":11}
