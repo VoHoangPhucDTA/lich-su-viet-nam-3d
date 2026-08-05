@@ -12,7 +12,8 @@ import java.util.List;
  * Immutable dry-run plan for the canonical geography sync.
  *
  * <p>Each row is keyed by the stable event id (never by title). The plan is
- * serialized to JSONL and its SHA-256 is required by the apply command.
+ * serialized to JSONL; the apply command requires the SHA-256 of the exact
+ * plan file bytes (raw-file artifact checksum).
  */
 public final class CanonicalGeographyPlan {
 

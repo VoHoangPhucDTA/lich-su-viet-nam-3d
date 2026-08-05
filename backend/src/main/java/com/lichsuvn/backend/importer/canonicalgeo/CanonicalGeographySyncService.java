@@ -576,6 +576,14 @@ public class CanonicalGeographySyncService {
         return left.compareTo(right) == 0;
     }
 
+    /**
+     * SHA-256 of the serialized form of in-memory/parsed plan rows. This is an
+     * INTERNAL plan-row consistency value, NOT an artifact checksum: it is
+     * computed over rows re-serialized by Jackson, which may normalize numeric
+     * scale (e.g. {@code 16.0000000} -> {@code 16.0}), so it is not stable
+     * against the exact plan file bytes. The apply-time artifact gate uses
+     * {@link #sha256FileBytes(Path)} instead.
+     */
     public static String planSha256(List<PlanRow> rows) {
         try {
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
@@ -597,15 +605,22 @@ public class CanonicalGeographySyncService {
     }
 
     /**
-     * Kept for completeness but no longer the canonical SHA used by the
-     * synchronizer. Use {@link CanonicalGeographyProjection#canonicalFileSha256(Path)}
-     * which normalizes CRLF → LF before hashing.
+     * SHA-256 of the exact bytes of {@code file} - the artifact-checksum
+     * contract for the canonical geography sync plan. The value is computed
+     * directly over the raw file bytes WITHOUT decoding UTF-8, normalizing
+     * CRLF/LF, trimming whitespace, parsing JSON or re-serializing content,
+     * so it is reproducible with an external tool such as {@code sha256sum}
+     * and changes on any byte-level difference, including a numerically equal
+     * lexical change (e.g. {@code 16.0000000} vs {@code 16.0}).
+     *
+     * <p>Contrast with {@link #planSha256(List)}: that method hashes
+     * serialized in-memory/parsed plan rows and is an internal plan-row
+     * consistency value, NOT an artifact checksum.
      */
-    @SuppressWarnings("unused")
-    private static String sha256File(Path path) {
+    public static String sha256FileBytes(Path file) {
         try {
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
-            digest.update(Files.readAllBytes(path));
+            digest.update(Files.readAllBytes(file));
             byte[] hash = digest.digest();
             StringBuilder hex = new StringBuilder(hash.length * 2);
             for (byte b : hash) {
@@ -613,7 +628,7 @@ public class CanonicalGeographySyncService {
             }
             return hex.toString();
         } catch (Exception ex) {
-            throw new IllegalArgumentException("Cannot hash " + path, ex);
+            throw new IllegalArgumentException("Cannot hash " + file, ex);
         }
     }
 }

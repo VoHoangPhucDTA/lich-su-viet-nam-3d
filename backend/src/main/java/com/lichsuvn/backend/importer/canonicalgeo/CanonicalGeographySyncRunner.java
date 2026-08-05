@@ -26,9 +26,9 @@ import java.util.Set;
 
 /**
  * Canonical geography sync CLI. Dry-run is the default and never writes.
- * Apply requires: allow-write, the canonical SHA, the exact plan SHA, the exact
- * DB fingerprint, the Flyway version and the APP_CANONICAL_GEO_SYNC_ENABLED
- * environment flag. No --force exists.
+ * Apply requires: allow-write, the canonical SHA, the exact plan-file SHA-256
+ * (raw file bytes), the exact DB fingerprint, the Flyway version and the
+ * APP_CANONICAL_GEO_SYNC_ENABLED environment flag. No --force exists.
  */
 @Component
 @Profile("canonical-geo-sync")
@@ -167,9 +167,13 @@ public class CanonicalGeographySyncRunner implements CommandLineRunner {
         if (!Files.isRegularFile(planFile)) {
             throw new IllegalStateException("Apply requires the plan file produced by dry-run: " + planFile);
         }
-        if (!expectedPlanSha.isBlank() && !expectedPlanSha.equalsIgnoreCase(readPlanSha(planFile))) {
-            throw new IllegalStateException("Plan SHA-256 does not match --canonical-geo-sync.expected-plan-sha");
-        }
+        // Gate 1 - exact artifact SHA. expected-plan-sha is the SHA-256 of the
+        // EXACT plan file bytes (raw file, sha256sum-compatible), so it locks
+        // the reviewed artifact itself and is independent of JSON
+        // parse/re-serialize behaviour. Runs before parsing, before the
+        // rollback-snapshot export and before any transaction.
+        String planFileSha256 = verifyPlanFileSha(planFile, expectedPlanSha);
+        System.out.println("Plan file SHA-256: " + planFileSha256);
         if (!expectedDbFingerprint.isBlank() && !expectedDbFingerprint.equals(fingerprint)) {
             throw new IllegalStateException("DB fingerprint mismatch:\n  expected " + expectedDbFingerprint
                     + "\n  actual   " + fingerprint);
@@ -183,17 +187,17 @@ public class CanonicalGeographySyncRunner implements CommandLineRunner {
                     + ", got " + release.sha256());
         }
         List<PlanRow> rows = CanonicalGeographyAuditWriter.readPlan(planFile, objectMapper);
-        String planSha = CanonicalGeographySyncService.planSha256(rows);
-        if (!expectedPlanSha.isBlank() && !expectedPlanSha.equalsIgnoreCase(planSha)) {
-            throw new IllegalStateException("Recomputed plan SHA-256 does not match the required gate");
-        }
+        // Internal plan-row consistency value only: NEVER compared with the raw
+        // artifact SHA. Passed to the service so its internal plan-row check
+        // stays self-consistent on the same parsed rows.
+        String planRowsSha256 = CanonicalGeographySyncService.planSha256(rows);
 
         // Geo-only rollback snapshot, exported before any write.
         var snapshot = service.exportRollbackSnapshot();
         CanonicalGeographyAuditWriter.writeRollbackSnapshot(outputDir, snapshot, objectMapper);
         System.out.println("Rollback snapshot exported: " + snapshot.size() + " rows");
 
-        var result = service.apply(rows, expectedPlanSha.isBlank() ? planSha : expectedPlanSha,
+        var result = service.apply(rows, planRowsSha256,
                 expectedCanonicalSha.isBlank() ? release.sha256() : expectedCanonicalSha,
                 expectedDbFingerprint.isBlank() ? fingerprint : expectedDbFingerprint,
                 expectedFlywayVersion.isBlank() ? flywayVersion : expectedFlywayVersion);
@@ -224,9 +228,18 @@ public class CanonicalGeographySyncRunner implements CommandLineRunner {
                 + "|ids=" + idSetHash;
     }
 
-    private String readPlanSha(Path planFile) throws Exception {
-        List<PlanRow> rows = CanonicalGeographyAuditWriter.readPlan(planFile, objectMapper);
-        return CanonicalGeographySyncService.planSha256(rows);
+    /**
+     * Raw plan-file SHA gate. {@code expectedPlanFileSha256} is the SHA-256 of
+     * the EXACT plan file bytes, so the gate locks the reviewed artifact and
+     * must run before parsing and before any transaction.
+     */
+    static String verifyPlanFileSha(Path planFile, String expectedPlanFileSha256) {
+        String actual = CanonicalGeographySyncService.sha256FileBytes(planFile);
+        if (!expectedPlanFileSha256.isBlank() && !expectedPlanFileSha256.equalsIgnoreCase(actual)) {
+            throw new IllegalStateException("Plan file SHA-256 mismatch: expected raw plan-file SHA "
+                    + expectedPlanFileSha256 + ", actual raw plan-file SHA " + actual);
+        }
+        return actual;
     }
 
     private void printSummary(PlanSummary summary) {
