@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useState } from 'react';
 import {
   Search,
   ChevronRight,
@@ -19,6 +19,8 @@ interface SidebarProps {
   onHoverEvent: (eventId: string | null) => void;
   searchQuery: string;
   onSearchQueryChange: (query: string) => void;
+  activeCategory: EventType | null;
+  onActiveCategoryChange: (category: EventType | null) => void;
   loading?: boolean;
   currentYear?: number;
   open?: boolean;
@@ -32,42 +34,6 @@ const EVENT_TYPE_FILTERS: EventType[] = [
   'cultural',
 ];
 
-function eventMatchesSearch(event: HistoricalEvent, query: string): boolean {
-  const normalized = query.trim().toLowerCase();
-  if (!normalized) return true;
-
-  return (
-    event.name.toLowerCase().includes(normalized) ||
-    event.description.toLowerCase().includes(normalized)
-  );
-}
-
-function filterEventTree(
-  events: HistoricalEvent[],
-  activeFilter: EventType | null,
-  searchQuery: string
-): HistoricalEvent[] {
-  return events.flatMap((event) => {
-    const children = event.children
-      ? filterEventTree(event.children, activeFilter, searchQuery)
-      : [];
-    const matchesType = !activeFilter || event.eventType === activeFilter;
-    const matchesSearch = eventMatchesSearch(event, searchQuery);
-    const keepSelf = matchesType && matchesSearch;
-
-    if (!keepSelf && children.length === 0) {
-      return [];
-    }
-
-    return [
-      {
-        ...event,
-        children: event.children ? children : undefined,
-      },
-    ];
-  });
-}
-
 export default function Sidebar({
   events,
   selectedEvent,
@@ -75,13 +41,14 @@ export default function Sidebar({
   onHoverEvent,
   searchQuery,
   onSearchQueryChange,
+  activeCategory,
+  onActiveCategoryChange,
   loading = false,
   currentYear,
   open = false,
   onClose,
 }: SidebarProps) {
   const [expandedIds, setExpandedIds] = useState<Set<string>>(new Set());
-  const [activeFilter, setActiveFilter] = useState<EventType | null>(null);
 
   const toggleExpand = (id: string) => {
     setExpandedIds((prev) => {
@@ -94,17 +61,6 @@ export default function Sidebar({
       return next;
     });
   };
-
-  const filteredEvents = useMemo(() => {
-    return filterEventTree(events, activeFilter, searchQuery);
-  }, [events, activeFilter, searchQuery]);
-
-  useEffect(() => {
-    if (!selectedEvent || !activeFilter) return;
-    if (selectedEvent.eventType !== activeFilter) {
-      setActiveFilter(null);
-    }
-  }, [activeFilter, selectedEvent]);
 
   // Auto-expand selected event's ancestors
   useEffect(() => {
@@ -126,7 +82,7 @@ export default function Sidebar({
       }
       return false;
     };
-    findAndExpand(filteredEvents, selectedEvent.id);
+    findAndExpand(events, selectedEvent.id);
     setExpandedIds(newExpanded);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedEvent?.id]);
@@ -199,13 +155,13 @@ export default function Sidebar({
         {/* Filter buttons — Option D: colored dot accent + neutral idle */}
         <div className="flex gap-1.5 flex-wrap">
           {EVENT_TYPE_FILTERS.map((type) => {
-            const isActive = activeFilter === type;
+            const isActive = activeCategory === type;
             const color = EVENT_TYPE_COLORS[type];
             return (
               <button
                 key={type}
                 onClick={() =>
-                  setActiveFilter(isActive ? null : type)
+                  onActiveCategoryChange(isActive ? null : type)
                 }
                 aria-pressed={isActive}
                 className="map-filter-chip inline-flex items-center gap-1.5 px-2 py-1 rounded-full text-[11px] font-semibold cursor-pointer border"
@@ -232,10 +188,10 @@ export default function Sidebar({
               </button>
             );
           })}
-          {activeFilter && (
+          {activeCategory && (
             <button
               type="button"
-              onClick={() => setActiveFilter(null)}
+              onClick={() => onActiveCategoryChange(null)}
               className="map-text-action inline-flex items-center px-2 py-1 rounded-full text-[11px] font-medium cursor-pointer border-0"
               style={{
                 background: 'transparent',
@@ -261,7 +217,7 @@ export default function Sidebar({
           padding: '6px 0',
         }}
       >
-        {filteredEvents.length === 0 ? (
+        {events.length === 0 ? (
           <div
             style={{
               padding: '40px 20px',
@@ -274,7 +230,7 @@ export default function Sidebar({
           </div>
         ) : (
           // 1.1.10: Sidebar.tsx: Nhận dữ liệu mới và hiển thị danh sách sự kiện ở bảng điều khiển bên trái.
-          filteredEvents.map((event) => (
+          events.map((event) => (
             <EventTreeNode
               key={event.id}
               event={event}
@@ -303,17 +259,11 @@ export default function Sidebar({
         }}
       >
         <span>
-          {activeFilter ? (
-            <>
-              {filteredEvents.length} / {events.length} sự kiện
-            </>
-          ) : (
-            <>{filteredEvents.length} sự kiện</>
-          )}
+          {events.length} sự kiện
         </span>
-        {activeFilter && (
-          <span style={{ color: EVENT_TYPE_COLORS[activeFilter], fontWeight: 600 }}>
-            {EVENT_TYPE_LABELS[activeFilter]}
+        {activeCategory && (
+          <span style={{ color: EVENT_TYPE_COLORS[activeCategory], fontWeight: 600 }}>
+            {EVENT_TYPE_LABELS[activeCategory]}
           </span>
         )}
       </div>

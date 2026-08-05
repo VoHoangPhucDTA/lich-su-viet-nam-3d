@@ -24,7 +24,7 @@ import {
   findEventById,
   TIMELINE_MIN_YEAR,
 } from '../data/events';
-import type { HistoricalEvent } from '../types/event';
+import type { EventType, HistoricalEvent } from '../types/event';
 import type {
   RegionGeometryStatus,
   TerrainDataSourceStatus,
@@ -41,8 +41,12 @@ import {
   getTimelineYearsFromBackend,
   recordEventView,
   searchEventsFromBackend,
-  sortHistoricalEvents,
 } from '../services/eventApi';
+import {
+  buildMapVisibilityProjection,
+  collectMapScopeEventIds,
+  normalizeMapSearchTerm,
+} from '../utils/mapVisibility';
 import { normalizeTerrainTargets } from '../utils/terrainTargets';
 import { INITIAL_TERRAIN_STATE, terrainReducer } from '../utils/terrainState';
 import {
@@ -79,67 +83,25 @@ function replaceEventInTree(
   return changed ? next : events;
 }
 
-function buildSidebarTree(events: HistoricalEvent[]): HistoricalEvent[] {
-  const byId = new Map<string, HistoricalEvent>();
-  for (const event of events) {
-    byId.set(event.id, { ...event, children: event.children ? [...event.children] : undefined });
-  }
-
-  const childIds = new Set<string>();
-  for (const event of byId.values()) {
-    if (!event.parentId) continue;
-    const parent = byId.get(event.parentId);
-    if (!parent) continue;
-
-    const existingChildren = parent.children ?? [];
-    if (!existingChildren.some((child) => child.id === event.id)) {
-      parent.children = sortHistoricalEvents([...existingChildren, event]);
-    }
-    childIds.add(event.id);
-  }
-
-  return Array.from(byId.values()).filter((event) => !childIds.has(event.id));
-}
-
 function eventMatchesSearch(event: HistoricalEvent, query: string): boolean {
-  const normalized = query.trim().toLowerCase();
+  const normalized = normalizeMapSearchTerm(query);
   if (!normalized) return true;
 
   return (
-    event.name.toLowerCase().includes(normalized) ||
-    event.description.toLowerCase().includes(normalized)
+    normalizeMapSearchTerm(event.name).includes(normalized) ||
+    normalizeMapSearchTerm(event.description).includes(normalized)
   );
 }
 
-function attachCachedChildren(
-  events: HistoricalEvent[],
-  childrenByParentId: Record<string, HistoricalEvent[]>
-): HistoricalEvent[] {
-  return events.map((event) => {
-    const cachedChildren = childrenByParentId[event.id];
-    const currentChildren = event.children ?? [];
-    const mergedById = new Map<string, HistoricalEvent>();
+interface YearEventResult {
+  year: number | null;
+  grade: number | null;
+  events: HistoricalEvent[];
+}
 
-    for (const child of currentChildren) {
-      mergedById.set(child.id, child);
-    }
-    for (const child of cachedChildren ?? []) {
-      mergedById.set(child.id, {
-        ...mergedById.get(child.id),
-        ...child,
-      });
-    }
-
-    const mergedChildren = sortHistoricalEvents(Array.from(mergedById.values()));
-
-    return {
-      ...event,
-      children:
-        mergedChildren.length > 0
-          ? attachCachedChildren(mergedChildren, childrenByParentId)
-          : undefined,
-    };
-  });
+interface SearchEventResult {
+  normalizedQuery: string;
+  events: HistoricalEvent[];
 }
 
 export default function MapPage() {
@@ -153,13 +115,21 @@ export default function MapPage() {
     null
   );
   const [navigationStack, setNavigationStack] = useState<HistoricalEvent[]>([]);
-  const [yearEvents, setYearEvents] = useState<HistoricalEvent[]>([]);
-  const [searchResults, setSearchResults] = useState<HistoricalEvent[]>([]);
+  const [yearEventResult, setYearEventResult] = useState<YearEventResult>({
+    year: null,
+    grade: null,
+    events: [],
+  });
+  const [searchEventResult, setSearchEventResult] = useState<SearchEventResult>({
+    normalizedQuery: '',
+    events: [],
+  });
   const [childrenByParentId, setChildrenByParentId] = useState<Record<string, HistoricalEvent[]>>({});
   const [searchQuery, setSearchQuery] = useState('');
   const [searchLoading, setSearchLoading] = useState(false);
   const [eventsLoading, setEventsLoading] = useState(false);
   const [selectedGrade, setSelectedGrade] = useState<number | null>(null);
+  const [activeCategory, setActiveCategory] = useState<EventType | null>(null);
   const [timelineYears, setTimelineYears] = useState<number[]>([]);
   const [terrainState, terrainDispatch] = useReducer(terrainReducer, INITIAL_TERRAIN_STATE);
   const [onboardingDismissed, setOnboardingDismissed] = useState(false);
@@ -231,7 +201,9 @@ export default function MapPage() {
       setMapError(null);
       try {
         const events = await getEventsByYearFromBackend(currentYear, selectedGrade);
-        if (!cancelled) setYearEvents(events);
+        if (!cancelled) {
+          setYearEventResult({ year: currentYear, grade: selectedGrade, events });
+        }
       } catch {
         if (!cancelled) setMapError('Không thể tải sự kiện cho mốc thời gian này.');
       } finally {
@@ -262,9 +234,9 @@ export default function MapPage() {
   }, [selectedGrade]);
 
   useEffect(() => {
-    const query = searchQuery.trim();
+    const query = normalizeMapSearchTerm(searchQuery);
     if (!query) {
-      setSearchResults([]);
+      setSearchEventResult({ normalizedQuery: '', events: [] });
       setSearchLoading(false);
       return;
     }
@@ -275,7 +247,9 @@ export default function MapPage() {
       setMapError(null);
       try {
         const results = await searchEventsFromBackend(query);
-        if (!cancelled) setSearchResults(results);
+        if (!cancelled) {
+          setSearchEventResult({ normalizedQuery: query, events: results });
+        }
       } catch {
         if (!cancelled) setMapError('Không thể tìm kiếm sự kiện lúc này.');
       } finally {
@@ -289,32 +263,96 @@ export default function MapPage() {
     };
   }, [searchQuery]);
 
-  // Events visible on the map based on the current context
-  const visibleMapEvents = useMemo(() => {
-    // If an event with children is selected, show its children
+  const normalizedSearchTerm = useMemo(
+    () => normalizeMapSearchTerm(searchQuery),
+    [searchQuery],
+  );
+  const yearResultIsCurrent =
+    yearEventResult.year === currentYear && yearEventResult.grade === selectedGrade;
+  const searchResultIsCurrent =
+    !normalizedSearchTerm || searchEventResult.normalizedQuery === normalizedSearchTerm;
+  const visibilityReady = yearResultIsCurrent && searchResultIsCurrent;
+  const yearEvents = useMemo(
+    () => (yearResultIsCurrent ? yearEventResult.events : []),
+    [yearEventResult.events, yearResultIsCurrent],
+  );
+  const visibilityCandidates = useMemo(
+    () => replaceEventInTree(yearEvents, selectedEvent),
+    [yearEvents, selectedEvent],
+  );
+  const searchCandidateIds = useMemo(
+    () =>
+      normalizedSearchTerm && searchResultIsCurrent
+        ? new Set(searchEventResult.events.map((event) => event.id))
+        : undefined,
+    [normalizedSearchTerm, searchEventResult.events, searchResultIsCurrent],
+  );
+  const scopeEventIds = useMemo(
+    () => collectMapScopeEventIds(yearEvents),
+    [yearEvents],
+  );
+  const visibilityProjection = useMemo(
+    () =>
+      buildMapVisibilityProjection(
+        visibilityCandidates,
+        {
+          year: currentYear,
+          searchTerm: normalizedSearchTerm,
+          grade: selectedGrade,
+          category: activeCategory,
+        },
+        {
+          childrenByParentId,
+          searchCandidateIds,
+          scopeEventIds,
+        },
+      ),
+    [
+      activeCategory,
+      childrenByParentId,
+      currentYear,
+      normalizedSearchTerm,
+      scopeEventIds,
+      searchCandidateIds,
+      selectedGrade,
+      visibilityCandidates,
+    ],
+  );
+  const visibleEventIdsRef = useRef(visibilityProjection.visibleEventIds);
+  useLayoutEffect(() => {
+    visibleEventIdsRef.current = visibilityProjection.visibleEventIds;
+  }, [visibilityProjection.visibleEventIds]);
+
+  useEffect(() => {
     if (
-      selectedEvent &&
-      selectedEvent.children &&
-      selectedEvent.children.length > 0
+      !visibilityReady ||
+      !selectedEvent ||
+      visibilityProjection.visibleEventIds.has(selectedEvent.id)
     ) {
-      return selectedEvent.children.filter(
-        (c) => c.geoType !== 'no_location' && c.coordinates
-      );
+      return;
     }
 
-    // Otherwise show events filtered by year from backend
-    const baseEvents = searchQuery.trim() ? searchResults : yearEvents;
-    return baseEvents.filter(
-      (e) => e.geoType !== 'no_location' && e.coordinates
-    );
-  }, [selectedEvent, yearEvents, searchResults, searchQuery]);
-
-  // All events visible in sidebar (including no_location)
-  const sidebarEvents = useMemo(() => {
-    const baseEvents = searchQuery.trim() ? searchResults : yearEvents;
-    const tree = attachCachedChildren(buildSidebarTree(baseEvents), childrenByParentId);
-    return replaceEventInTree(tree, selectedEvent);
-  }, [yearEvents, searchResults, searchQuery, selectedEvent, childrenByParentId]);
+    const clearRequestId = ++selectionRequestIdRef.current;
+    const removedEventId = selectedEvent.id;
+    ensureTerrainExit();
+    scheduleAfterTerrainExit(() => {
+      if (selectionRequestIdRef.current !== clearRequestId) return;
+      if (visibleEventIdsRef.current.has(removedEventId)) return;
+      setSelectedEvent((current) =>
+        current?.id === removedEventId ? null : current,
+      );
+      setNavigationStack([]);
+      setHighlightedEventId((current) =>
+        current === removedEventId ? null : current,
+      );
+    });
+  }, [
+    ensureTerrainExit,
+    scheduleAfterTerrainExit,
+    selectedEvent,
+    visibilityProjection.visibleEventIds,
+    visibilityReady,
+  ]);
 
   // Handle selecting an event from map or sidebar
   const handleSelectEvent = useCallback(
@@ -328,6 +366,7 @@ export default function MapPage() {
         });
         return;
       }
+      if (!visibleEventIdsRef.current.has(event.id)) return;
 
       const selectedAtRequest = selectedEvent;
       const [detailEvent, children] = await Promise.all([
@@ -335,6 +374,7 @@ export default function MapPage() {
         event.children ? Promise.resolve(event.children) : getChildrenFromBackend(event.id),
       ]);
       if (selectionRequestIdRef.current !== requestId) return;
+      if (!visibleEventIdsRef.current.has(event.id)) return;
       const baseEvent = detailEvent ? { ...event, ...detailEvent } : event;
       const eventWithChildren =
         children.length > 0 ? { ...baseEvent, children } : baseEvent;
@@ -416,6 +456,7 @@ export default function MapPage() {
   // Navigate to a child event from popup
   const handleNavigateToChild = useCallback(
     async (child: HistoricalEvent) => {
+      if (!visibleEventIdsRef.current.has(child.id)) return;
       const requestId = ++selectionRequestIdRef.current;
       const selectedAtRequest = selectedEvent;
       ensureTerrainExit();
@@ -424,6 +465,7 @@ export default function MapPage() {
         child.children ? Promise.resolve(child.children) : getChildrenFromBackend(child.id),
       ]);
       if (selectionRequestIdRef.current !== requestId) return;
+      if (!visibleEventIdsRef.current.has(child.id)) return;
       const nextEvent = detailEvent ? { ...child, ...detailEvent } : child;
       scheduleAfterTerrainExit(() => {
         if (selectionRequestIdRef.current !== requestId) return;
@@ -449,8 +491,13 @@ export default function MapPage() {
     scheduleAfterTerrainExit(() => {
       if (navigationStack.length > 0) {
         const parent = navigationStack[navigationStack.length - 1];
-        setNavigationStack((prev) => prev.slice(0, -1));
-        setSelectedEvent(parent);
+        if (visibleEventIdsRef.current.has(parent.id)) {
+          setNavigationStack((prev) => prev.slice(0, -1));
+          setSelectedEvent(parent);
+        } else {
+          setNavigationStack([]);
+          setSelectedEvent(null);
+        }
       } else {
         setSelectedEvent(null);
       }
@@ -491,8 +538,6 @@ export default function MapPage() {
     ++selectionRequestIdRef.current;
     scheduleAfterTerrainExit(() => {
       setCurrentYear(year);
-      setSelectedEvent(null);
-      setNavigationStack([]);
     });
   }, [scheduleAfterTerrainExit]);
 
@@ -500,10 +545,18 @@ export default function MapPage() {
     ++selectionRequestIdRef.current;
     scheduleAfterTerrainExit(() => {
       setSelectedGrade(grade);
-      setSelectedEvent(null);
-      setNavigationStack([]);
     });
   }, [scheduleAfterTerrainExit]);
+
+  const handleSearchQueryChange = useCallback((query: string) => {
+    ++selectionRequestIdRef.current;
+    setSearchQuery(query);
+  }, []);
+
+  const handleActiveCategoryChange = useCallback((category: EventType | null) => {
+    ++selectionRequestIdRef.current;
+    setActiveCategory(category);
+  }, []);
 
   // Close popup
   const handleClosePopup = useCallback(() => {
@@ -892,7 +945,7 @@ export default function MapPage() {
         )}
         {/* Sidebar */}
         <Sidebar
-          events={sidebarEvents}
+          events={visibilityProjection.sidebarTree}
           selectedEvent={selectedEvent}
           onSelectEvent={event => {
             void handleSelectEvent(event);
@@ -900,8 +953,10 @@ export default function MapPage() {
           }}
           onHoverEvent={setHighlightedEventId}
           searchQuery={searchQuery}
-          onSearchQueryChange={setSearchQuery}
-          loading={searchLoading}
+          onSearchQueryChange={handleSearchQueryChange}
+          activeCategory={activeCategory}
+          onActiveCategoryChange={handleActiveCategoryChange}
+          loading={eventsLoading || searchLoading || !visibilityReady}
           currentYear={currentYear}
           open={sidebarOpen}
           onClose={() => setSidebarOpen(false)}
@@ -920,7 +975,7 @@ export default function MapPage() {
               Danh sách
             </button>
             <CesiumMap
-              events={visibleMapEvents}
+              events={visibilityProjection.locatableMapEvents}
               selectedEvent={selectedEvent}
               onSelectEvent={handleSelectEvent}
               highlightedEventId={highlightedEventId}

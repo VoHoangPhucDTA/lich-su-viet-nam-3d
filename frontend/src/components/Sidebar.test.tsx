@@ -28,6 +28,8 @@ describe('Sidebar event rows', () => {
         onHoverEvent={vi.fn()}
         searchQuery=""
         onSearchQueryChange={vi.fn()}
+        activeCategory={null}
+        onActiveCategoryChange={vi.fn()}
       />
     );
 
@@ -54,6 +56,8 @@ describe('Sidebar event rows', () => {
         onHoverEvent={onHoverEvent}
         searchQuery=""
         onSearchQueryChange={vi.fn()}
+        activeCategory={null}
+        onActiveCategoryChange={vi.fn()}
       />,
     );
 
@@ -64,5 +68,47 @@ describe('Sidebar event rows', () => {
 
     expect(onSelectEvent).toHaveBeenCalledWith(parent);
     expect(onHoverEvent).toHaveBeenCalledWith(parent.id);
+  });
+
+  it('renders activeCategory as a controlled prop', async () => {
+    render(
+      <Sidebar
+        events={[parent]}
+        selectedEvent={parent}
+        onSelectEvent={vi.fn()}
+        onHoverEvent={vi.fn()}
+        searchQuery=""
+        onSearchQueryChange={vi.fn()}
+        activeCategory="political"
+        onActiveCategoryChange={vi.fn()}
+      />,
+    );
+
+    expect(screen.getByRole('button', { name: 'Chính trị' })).toHaveAttribute(
+      'aria-pressed',
+      'true',
+    );
+    expect(await screen.findByTitle('Sự kiện con')).toBeInTheDocument();
+  });
+
+  it('requests category changes without filtering the provided tree locally', async () => {
+    const user = userEvent.setup();
+    const onActiveCategoryChange = vi.fn();
+    render(
+      <Sidebar
+        events={[parent]}
+        selectedEvent={null}
+        onSelectEvent={vi.fn()}
+        onHoverEvent={vi.fn()}
+        searchQuery="không khớp tiêu đề"
+        onSearchQueryChange={vi.fn()}
+        activeCategory={null}
+        onActiveCategoryChange={onActiveCategoryChange}
+      />,
+    );
+
+    expect(screen.getByText(longTitle.trim())).toBeInTheDocument();
+    await user.click(screen.getByRole('button', { name: 'Quân sự' }));
+    expect(onActiveCategoryChange).toHaveBeenCalledWith('military');
   });
 });
