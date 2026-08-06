@@ -56,13 +56,13 @@ public class EmailService {
     public void sendVerificationEmail(String to, String link, long ttlMinutes) {
         String subject = "Xác thực tài khoản " + SYSTEM_NAME;
         String html = buildVerificationHtml(link, ttlMinutes);
-        sendOrLog(to, subject, html, link, true);
+        sendOrLog(to, subject, html, "verification", true);
     }
 
     public void sendPasswordResetEmail(String to, String link) {
         String subject = "Đặt lại mật khẩu " + SYSTEM_NAME;
         String html = buildPasswordResetHtml(link);
-        sendOrLog(to, subject, html, link, false);
+        sendOrLog(to, subject, html, "password_reset", false);
     }
 
     public boolean isMailEnabled() {
@@ -221,9 +221,9 @@ public class EmailService {
 
     // ── Sender ─────────────────────────────────────────────────────────────
 
-    private void sendOrLog(String to, String subject, String htmlBody, String devLink, boolean failHard) {
+    private void sendOrLog(String to, String subject, String htmlBody, String operation, boolean failHard) {
         if (!mailEnabled) {
-            log.info("Mail disabled; dev link for {}: {}", to, devLink);
+            log.info("Mail disabled; auth email suppressed operation={}", operation);
             return;
         }
         if (!StringUtils.hasText(fromAddress)) {
@@ -239,9 +239,10 @@ public class EmailService {
             helper.setSubject(subject);
             helper.setText(htmlBody, true);
             mailSender.send(mimeMessage);
-            log.info("HTML email sent successfully to {}", to);
+            log.info("Auth email sent operation={}", operation);
         } catch (MailException | MessagingException ex) {
-            log.error("Failed to send auth email to {}", to, ex);
+            log.error("Auth email failed operation={} errorType={}",
+                    operation, ex.getClass().getSimpleName());
             if (failHard) {
                 throw new ApiException(HttpStatus.INTERNAL_SERVER_ERROR, "EMAIL_SEND_FAILED",
                         "Could not send email. Please try again later.");

@@ -1,5 +1,6 @@
 package com.lichsuvn.backend.event.api.dto;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -42,6 +43,6 @@ public record EventDetailDto(
         List<EventRelationDto> relations,
         EventRelatedEventsDto relatedEvents,
         String textbookContent,
-        Object sourceJson
+        JsonNode mapData
 ) {
 }

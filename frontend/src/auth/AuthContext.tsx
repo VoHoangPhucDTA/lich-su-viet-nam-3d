@@ -38,6 +38,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   // Restore session on mount: đọc User info từ localStorage (token ở HttpOnly Cookie, không cần đọc)
   useEffect(() => {
+    void authService.initializeSecurity().catch(() => undefined);
     const user = authService.getCurrentUser();
     if (user) {
       setCurrentUser(user);

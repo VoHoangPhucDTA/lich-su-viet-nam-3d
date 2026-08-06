@@ -24,6 +24,7 @@ import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -41,6 +42,7 @@ class AiQuizControllerTest {
     @Test
     void unauthenticatedRequestIsRejected() throws Exception {
         mockMvc.perform(post("/api/exams/ai/generate")
+                        .with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(validRequest()))
                 .andExpect(status().isUnauthorized())
@@ -52,6 +54,7 @@ class AiQuizControllerTest {
         when(service.generate(any(), any())).thenReturn(response());
         mockMvc.perform(post("/api/exams/ai/generate")
                         .with(user("student").authorities(() -> "ROLE_student"))
+                        .with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(validRequest()))
                 .andExpect(status().isOk())
@@ -64,6 +67,7 @@ class AiQuizControllerTest {
     void publicValidationRejectsUnsupportedGradeAndCount() throws Exception {
         mockMvc.perform(post("/api/exams/ai/generate")
                         .with(user("student").authorities(() -> "ROLE_student"))
+                        .with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(validRequest().replace("\"grade\":12", "\"grade\":9").replace("\"count\":1", "\"count\":11")))
                 .andExpect(status().isBadRequest())

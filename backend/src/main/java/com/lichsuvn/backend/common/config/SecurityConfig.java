@@ -11,12 +11,15 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
-import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.session.NullAuthenticatedSessionStrategy;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
+import org.springframework.security.web.csrf.CsrfTokenRepository;
+import org.springframework.security.web.csrf.CsrfTokenRequestAttributeHandler;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -34,8 +37,14 @@ public class SecurityConfig {
      * Prod: https://lichsuvn.netlify.app,https://lichsuvn.vercel.app
      * Đặt biến môi trường APP_ALLOWED_ORIGINS khi deploy lên Render.
      */
-    @Value("${app.allowed-origins:http://localhost:5173}")
+    @Value("${app.allowed-origins:http://localhost:5173,http://127.0.0.1:5173}")
     private String allowedOriginsRaw;
+
+    @Value("${app.cookie.secure:false}")
+    private boolean cookieSecure;
+
+    @Value("${app.cookie.same-site:Lax}")
+    private String cookieSameSite;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -45,6 +54,19 @@ public class SecurityConfig {
     @Bean
     public JwtAuthenticationFilter jwtAuthenticationFilter(AuthService authService) {
         return new JwtAuthenticationFilter(authService);
+    }
+
+    @Bean
+    public CsrfTokenRepository csrfTokenRepository() {
+        CookieCsrfTokenRepository repository = new CookieCsrfTokenRepository();
+        repository.setCookieName("CSRF-TOKEN");
+        repository.setHeaderName("X-CSRF-TOKEN");
+        repository.setCookiePath("/");
+        repository.setCookieCustomizer(cookie -> cookie
+                .httpOnly(true)
+                .secure(cookieSecure)
+                .sameSite(cookieSameSite));
+        return repository;
     }
 
     /**
@@ -64,10 +86,21 @@ public class SecurityConfig {
                 .map(String::trim)
                 .filter(s -> !s.isEmpty())
                 .toList();
+        if (origins.contains("*")) {
+            throw new IllegalStateException(
+                    "app.allowed-origins must contain explicit origins when credentials are enabled"
+            );
+        }
         config.setAllowedOrigins(origins);
 
         config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
-        config.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type", "Accept", "X-Exam-Session-Token"));
+        config.setAllowedHeaders(Arrays.asList(
+                "Content-Type",
+                "Accept",
+                "X-Exam-Session-Token",
+                "X-CSRF-TOKEN",
+                "X-Event-Version"
+        ));
 
         // allowCredentials(true) = cho phép browser gửi/nhận HttpOnly Cookie cross-origin.
         // KHÔNG thể kết hợp với allowedOrigins("*") — phải dùng danh sách origin cụ thể.
@@ -85,11 +118,18 @@ public class SecurityConfig {
             HttpSecurity http,
             JwtAuthenticationFilter jwtAuthenticationFilter,
             CorsConfigurationSource corsConfigurationSource,
+            CsrfTokenRepository csrfTokenRepository,
             ApiAuthenticationEntryPoint authenticationEntryPoint,
             ApiAccessDeniedHandler accessDeniedHandler
     ) throws Exception {
         http
-                .csrf(AbstractHttpConfigurer::disable)
+                .csrf(csrf -> csrf
+                        .csrfTokenRepository(csrfTokenRepository)
+                        .csrfTokenRequestHandler(new CsrfTokenRequestAttributeHandler())
+                        // JWT authentication is reconstructed on every stateless request.
+                        // Do not treat each request as a fresh login and discard the SPA token.
+                        // Login/logout flows rotate the token explicitly through /api/auth/csrf.
+                        .sessionAuthenticationStrategy(new NullAuthenticatedSessionStrategy()))
                 // Khai báo cors với bean corsConfigurationSource đã định nghĩa ở trên
                 .cors(cors -> cors.configurationSource(corsConfigurationSource))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
@@ -115,14 +155,15 @@ public class SecurityConfig {
                         // can record and restore progress before login. The service layer no-ops
                         // persistence for anonymous users and returns empty stats.
                         .requestMatchers(HttpMethod.POST, "/api/events/*/view").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/auth/csrf", "/api/auth/verify-email").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/auth/register", "/api/auth/login", "/api/auth/refresh").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/auth/verify-email").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/auth/forgot-password", "/api/auth/reset-password").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/auth/resend-verification").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/auth/oauth/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/auth/logout").permitAll()
                         .requestMatchers("/api/tts/**").permitAll()
-                        .requestMatchers("/actuator/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/actuator/health", "/actuator/health/**").permitAll()
+                        .requestMatchers("/actuator/**").denyAll()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);

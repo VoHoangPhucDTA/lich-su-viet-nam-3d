@@ -197,7 +197,7 @@ function eventIdValue(eventId: string): { value: string; missing: boolean } {
 
 /**
  * Normalize only source map data. It intentionally does not resolve GADM or import Cesium.
- * `source` may be the detail `sourceJson` object or its `mapData` object.
+ * `source` may be a public mapData object or a legacy wrapper used by local fixtures.
  */
 export function normalizeTerrainTargets(eventId: string, source: unknown): TerrainTargetResult {
   const diagnostics: TerrainDiagnostic[] = [];

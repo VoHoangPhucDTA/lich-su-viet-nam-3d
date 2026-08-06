@@ -34,6 +34,7 @@ import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.authentication;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -75,6 +76,7 @@ class ExamSubmissionRecoveryHttpIntegrationTest {
     @Test
     void recoveryRequiresAuthenticationAndValidRequestSerialization() throws Exception {
         mockMvc.perform(post(RECOVER_PATH)
+                        .with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{}"))
                 .andExpect(status().isUnauthorized());
@@ -82,6 +84,7 @@ class ExamSubmissionRecoveryHttpIntegrationTest {
         UserPrincipal owner = createUser("validation");
         mockMvc.perform(post(RECOVER_PATH)
                         .with(auth(owner))
+                        .with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{}"))
                 .andExpect(status().isBadRequest())
@@ -94,6 +97,7 @@ class ExamSubmissionRecoveryHttpIntegrationTest {
 
         mockMvc.perform(post("/api/exams/attempts")
                         .with(auth(owner))
+                        .with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{}"))
                 .andExpect(status().isGone())
@@ -151,13 +155,13 @@ class ExamSubmissionRecoveryHttpIntegrationTest {
         payload.put("score", 10);
         payload.put("correctness", true);
 
-        mockMvc.perform(post(RECOVER_PATH).with(auth(owner)).contentType(MediaType.APPLICATION_JSON).content(mapper.writeValueAsString(payload)))
+        mockMvc.perform(post(RECOVER_PATH).with(auth(owner)).with(csrf()).contentType(MediaType.APPLICATION_JSON).content(mapper.writeValueAsString(payload)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.data.scoreAuthority").value("BACKEND"))
                 .andExpect(jsonPath("$.data.timingAuthority").value("CLIENT_UNVERIFIED"))
                 .andExpect(jsonPath("$.data.submissionOrigin").value("SERVER_ISSUED_LATE"));
 
-        mockMvc.perform(post(RECOVER_PATH).with(auth(owner)).contentType(MediaType.APPLICATION_JSON).content(mapper.writeValueAsString(payload)))
+        mockMvc.perform(post(RECOVER_PATH).with(auth(owner)).with(csrf()).contentType(MediaType.APPLICATION_JSON).content(mapper.writeValueAsString(payload)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.data.receiptStatus").value("SUCCESS"));
         assertEquals(1, jdbc.queryForObject("SELECT COUNT(*) FROM exam_v2_attempts WHERE session_id=?", Integer.class, session.sessionId()));
@@ -181,7 +185,7 @@ class ExamSubmissionRecoveryHttpIntegrationTest {
         UserPrincipal owner = createUser("static");
         ExamSessionResponse serverCustom = createTimed(owner, "CUSTOM_MOCK");
         RecoverExamSubmissionRequest serverCustomRequest = recoveryRequest(serverCustom, "00000000-0000-4000-8000-000000000105");
-        mockMvc.perform(post(RECOVER_PATH).with(auth(owner)).contentType(MediaType.APPLICATION_JSON).content(mapper.writeValueAsString(serverCustomRequest)))
+        mockMvc.perform(post(RECOVER_PATH).with(auth(owner)).with(csrf()).contentType(MediaType.APPLICATION_JSON).content(mapper.writeValueAsString(serverCustomRequest)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.data.scoreAuthority").value("BACKEND"))
                 .andExpect(jsonPath("$.data.timingAuthority").value("CLIENT_UNVERIFIED"))
@@ -199,7 +203,7 @@ class ExamSubmissionRecoveryHttpIntegrationTest {
             jdbc.update("INSERT INTO exam_datasets (id,aggregate_hash,build_id,status,hash_schema_version,build_algorithm_version,source_count,build_metadata_json) VALUES (?,?,?,'ACTIVE',1,1,0,'{}')",
                     h2, "2".repeat(64), "http-test-h2");
             jdbc.update("UPDATE exam_runtime_state SET active_dataset_id=? WHERE state_id=1", h2);
-            mockMvc.perform(post(RECOVER_PATH).with(auth(owner)).contentType(MediaType.APPLICATION_JSON).content(mapper.writeValueAsString(staticRequest)))
+            mockMvc.perform(post(RECOVER_PATH).with(auth(owner)).with(csrf()).contentType(MediaType.APPLICATION_JSON).content(mapper.writeValueAsString(staticRequest)))
                     .andExpect(status().isOk())
                     .andExpect(jsonPath("$.data.scoreAuthority").value("BACKEND"))
                     .andExpect(jsonPath("$.data.timingAuthority").value("CLIENT_UNVERIFIED"))
@@ -269,7 +273,7 @@ class ExamSubmissionRecoveryHttpIntegrationTest {
     }
 
     private void expectError(RecoverExamSubmissionRequest request, UserPrincipal principal, int statusCode, String code) throws Exception {
-        mockMvc.perform(post(RECOVER_PATH).with(auth(principal)).contentType(MediaType.APPLICATION_JSON).content(mapper.writeValueAsString(request)))
+        mockMvc.perform(post(RECOVER_PATH).with(auth(principal)).with(csrf()).contentType(MediaType.APPLICATION_JSON).content(mapper.writeValueAsString(request)))
                 .andExpect(status().is(statusCode))
                 .andExpect(jsonPath("$.code").value(code));
     }

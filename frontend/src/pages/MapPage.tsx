@@ -198,7 +198,7 @@ export default function MapPage() {
     () => selectedEvent
       ? normalizeTerrainTargets(
         selectedEvent.id,
-        selectedEvent.sourceJson ?? selectedEvent.sourceMapData,
+        selectedEvent.sourceMapData,
       )
       : null,
     [selectedEvent],

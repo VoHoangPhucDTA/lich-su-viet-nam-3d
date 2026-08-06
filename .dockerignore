@@ -1,0 +1,8 @@
+.git
+backend/target
+frontend/artifacts
+frontend/dist
+frontend/e2e
+frontend/node_modules
+data/history-rag
+lsvn3d
