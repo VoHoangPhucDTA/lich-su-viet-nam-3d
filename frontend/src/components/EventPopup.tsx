@@ -1,12 +1,15 @@
 import { ArrowLeft, X } from 'lucide-react';
 import { useEffect, useRef } from 'react';
 import type { HistoricalEvent } from '../types/event';
+import { getTerrainInsightBySlug } from '../data/terrainInsights';
 import {
   EVENT_TYPE_LABELS,
   EVENT_TYPE_COLORS,
   GEO_TYPE_LABELS,
 } from '../types/event';
 import { formatChronologyLabel } from '../utils/chronology';
+import type { TerrainViewModel } from '../types/terrain';
+import TerrainControls from './terrain/TerrainControls';
 
 interface EventPopupProps {
   event: HistoricalEvent;
@@ -14,6 +17,12 @@ interface EventPopupProps {
   onNavigateToChild: (child: HistoricalEvent) => void;
   onNavigateToParent: () => void;
   parentEvent: HistoricalEvent | null;
+  terrain?: TerrainViewModel;
+  onOpenTerrain?: () => void;
+  onRetryTerrain?: () => void;
+  onSelectTerrainTarget?: (targetId: string) => void;
+  onShowTerrainOverview?: () => void;
+  onExitTerrain?: () => void;
   onViewDetails: () => void;
 }
 
@@ -23,9 +32,16 @@ export default function EventPopup({
   onNavigateToChild,
   onNavigateToParent,
   parentEvent,
+  terrain,
+  onOpenTerrain,
+  onRetryTerrain,
+  onSelectTerrainTarget,
+  onShowTerrainOverview,
+  onExitTerrain,
   onViewDetails,
 }: EventPopupProps) {
   const typeColor = EVENT_TYPE_COLORS[event.eventType];
+  const terrainInsight = getTerrainInsightBySlug(event.slug);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
@@ -142,18 +158,23 @@ export default function EventPopup({
         </button>
       </div>
 
-      {/* Content */}
       <div
+        className="map-event-panel-scroll"
         style={{
           flex: 1,
           minHeight: 0,
           overflowY: 'auto',
-          marginBlock: '12px',
-          padding: '4px 20px',
           overscrollBehavior: 'contain',
           scrollbarGutter: 'stable',
         }}
       >
+        {/* Content */}
+        <div
+          style={{
+            marginBlock: '12px',
+            padding: '4px 20px',
+          }}
+        >
         {/* Time info */}
         <div
           className="flex items-center gap-3 px-4 py-3 rounded-xl border mb-3.5"
@@ -335,19 +356,19 @@ export default function EventPopup({
             </div>
           </div>
         )}
-      </div>
+        </div>
 
-      {/* Action buttons */}
-      <div
-        style={{
-          padding: '16px 20px',
-          borderTop: '1px solid var(--border)',
-          display: 'flex',
-          flexShrink: 0,
-          gap: '8px',
-          flexWrap: 'wrap',
-        }}
-      >
+        {/* Action buttons and terrain guidance share the panel scroll region.
+            Active terrain insights can be taller than the viewport. */}
+        <div
+          style={{
+            padding: '16px 20px',
+            borderTop: '1px solid var(--border)',
+            display: 'flex',
+            gap: '8px',
+            flexWrap: 'wrap',
+          }}
+        >
         <button
           onClick={onViewDetails}
           className="map-popup-action map-popup-action-primary flex-1 px-3 py-3 rounded-[10px] text-[13px] font-bold cursor-pointer border-0"
@@ -361,6 +382,18 @@ export default function EventPopup({
           Xem chi tiết
         </button>
 
+        {terrain && onOpenTerrain && onRetryTerrain && onSelectTerrainTarget
+          && onShowTerrainOverview && onExitTerrain && (
+          <TerrainControls
+            terrain={terrain}
+            insight={terrainInsight}
+            onOpen={onOpenTerrain}
+            onRetry={onRetryTerrain}
+            onSelectTarget={onSelectTerrainTarget}
+            onShowOverview={onShowTerrainOverview}
+            onExit={onExitTerrain}
+          />
+        )}
         {parentEvent && (
           <button
             onClick={onNavigateToParent}
@@ -376,6 +409,7 @@ export default function EventPopup({
           </button>
         )}
 
+        </div>
       </div>
     </div>
   );

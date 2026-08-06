@@ -563,11 +563,11 @@ export default function MapPage() {
   }, [explorationMode]);
 
   const handleZoomIn = useCallback(() => {
-    cesiumApiRef.current?.zoomByFactor(0.3);
+    cesiumApiRef.current?.zoomByFactor(0.2);
   }, []);
 
   const handleZoomOut = useCallback(() => {
-    cesiumApiRef.current?.zoomByFactor(-0.3);
+    cesiumApiRef.current?.zoomByFactor(-0.2);
   }, []);
 
   const handleInspectionResultChange = useCallback(

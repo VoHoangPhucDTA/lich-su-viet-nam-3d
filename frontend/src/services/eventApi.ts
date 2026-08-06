@@ -231,8 +231,10 @@ function optionalString(value: unknown): string | undefined {
   return typeof value === 'string' ? value : undefined;
 }
 
-function optionalNonEmptyString(value: unknown): string | undefined {
-  return typeof value === 'string' && value.trim() ? value : undefined;
+function normalizeEventSlug(value: unknown): string | undefined {
+  if (typeof value !== 'string') return undefined;
+  const normalized = value.trim();
+  return normalized.length > 0 ? normalized : undefined;
 }
 
 function optionalProvinceNames(value: unknown): string[] | undefined {
@@ -252,7 +254,7 @@ function parseHomepageEventSummary(value: unknown): HomepageEventSummaryDto | nu
 
   return {
     id: value.id,
-    slug: optionalNonEmptyString(value.slug),
+    slug: normalizeEventSlug(value.slug),
     title: value.title,
     startYear: value.startYear,
     eventType: value.eventType,
@@ -271,7 +273,8 @@ function parseHomepageEventsResponse(value: unknown): HomepageEventsResponse | n
 
   const summaries = events as HomepageEventSummaryDto[];
   if (new Set(summaries.map((event) => event.id)).size !== HOMEPAGE_EVENT_COUNT) return null;
-  if (new Set(summaries.map((event) => event.slug ?? event.id)).size !== HOMEPAGE_EVENT_COUNT) return null;
+  const slugs = summaries.flatMap((event) => event.slug ? [event.slug] : []);
+  if (new Set(slugs).size !== slugs.length) return null;
 
   return { events: summaries };
 }
@@ -279,7 +282,7 @@ function parseHomepageEventsResponse(value: unknown): HomepageEventsResponse | n
 function homepageSummaryToHistoricalEvent(dto: HomepageEventSummaryDto): HistoricalEvent {
   return {
     id: dto.id,
-    slug: dto.slug ?? dto.id,
+    slug: normalizeEventSlug(dto.slug),
     eventLevel: 'atomic',
     name: dto.title,
     description: dto.cardSummary ?? '',
@@ -304,7 +307,7 @@ function summaryToHistoricalEvent(dto: EventSummaryDto): HistoricalEvent {
   });
   return {
     id: dto.id,
-    slug: dto.slug ?? dto.id,
+    slug: normalizeEventSlug(dto.slug),
     eventLevel: dto.eventLevel,
     name: dto.title,
     description: dto.cardSummary ?? '',
@@ -340,7 +343,7 @@ function detailToHistoricalEvent(dto: EventDetailDto): HistoricalEvent {
 function relatedDtoToHistoricalEvent(dto: EventRelatedEventDto): RelatedHistoricalEvent {
   return {
     id: dto.id,
-    slug: dto.slug ?? dto.id,
+    slug: normalizeEventSlug(dto.slug),
     name: dto.title,
     description: dto.cardSummary ?? '',
     startYear: null,
@@ -443,7 +446,7 @@ function detailToMockEvent(dto: EventDetailDto): MockEventDetail {
 
   return {
     id: dto.id,
-    slug: dto.slug ?? dto.id,
+    slug: normalizeEventSlug(dto.slug) ?? '',
     entityType: 'event',
     eventLevel: dto.eventLevel,
     titles: {

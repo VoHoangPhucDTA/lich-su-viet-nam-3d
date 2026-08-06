@@ -1,4 +1,4 @@
-import { defineConfig } from 'vitest/config'
+import { configDefaults, defineConfig } from 'vitest/config'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 import { viteStaticCopy } from 'vite-plugin-static-copy'
@@ -47,6 +47,13 @@ export default defineConfig({
     setupFiles: './src/test/setup.ts',
     // Playwright specs under e2e/ are executed by test:e2e:admin, not Vitest.
     include: ['src/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
+    exclude: [
+      ...configDefaults.exclude,
+      '**/terrain_3d_audit_bundle/**',
+      '**/context_zoom/**',
+      '**/context_zoom*/**',
+      '**/_analysis/**',
+    ],
   },
 })
 

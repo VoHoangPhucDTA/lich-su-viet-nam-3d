@@ -8,6 +8,7 @@ import {
   HeightReference,
   createWorldTerrainAsync,
 } from 'cesium';
+import { WORLD_TERRAIN_PROVIDER_OPTIONS } from '../utils/terrainProvider';
 
 export function getCesiumIonToken(): string | null {
   const token = import.meta.env.VITE_CESIUM_ION_TOKEN;
@@ -25,7 +26,7 @@ export const HANOI_POSITION = Cartesian3.fromDegrees(105.8542, 21.0285, 50000);
 // World Terrain is requested lazily by a terrain session, never during Viewer init.
 export async function getTerrainProvider(token: string) {
   configureCesiumIonToken(token);
-  return createWorldTerrainAsync();
+  return createWorldTerrainAsync(WORLD_TERRAIN_PROVIDER_OPTIONS);
 }
 
 // Marker styling helpers

@@ -1,4 +1,5 @@
 import { Check, Map, MapPin } from 'lucide-react';
+import { useId } from 'react';
 import type { TerrainTarget } from '../../utils/terrainTargets';
 
 interface TerrainTargetListProps {
@@ -23,9 +24,11 @@ export default function TerrainTargetList({
   selectedTargetId,
   onSelectTarget,
 }: TerrainTargetListProps) {
+  const listLabelId = useId();
   return (
-    <div aria-label="Các vị trí địa hình liên quan">
+    <div>
       <div
+        id={listLabelId}
         style={{
           fontSize: '11px',
           fontWeight: 800,
@@ -34,10 +37,11 @@ export default function TerrainTargetList({
           textTransform: 'uppercase',
         }}
       >
-        Các vị trí liên quan
+        Các địa điểm liên quan đến sự kiện (theo dữ liệu bản đồ của đề tài)
       </div>
       <div
         role="list"
+        aria-labelledby={listLabelId}
         style={{ display: 'flex', flexDirection: 'column', gap: '6px', maxHeight: '180px', overflowY: 'auto' }}
       >
         {targets.map((target) => {
