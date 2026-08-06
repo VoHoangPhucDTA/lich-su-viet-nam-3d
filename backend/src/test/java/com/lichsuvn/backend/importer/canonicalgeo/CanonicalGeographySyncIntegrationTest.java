@@ -30,6 +30,9 @@ import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 class CanonicalGeographySyncIntegrationTest {
 
+    /** The event that failed post-apply idempotence in the TiDB clone rehearsal. */
+    private static final String FAILING = "dai-hoi-dai-bieu-lan-thu-ii-dang-cong-san-dong-duong-1951";
+
     @TempDir
     private static Path temporaryDirectory;
 
@@ -482,6 +485,97 @@ private static Object canonicalMapData(ObjectMapper mapper, String geoType) thro
         assertTrue(restored >= 7);
         assertEquals("single_point", geoTypeOf("ev-point"));
         assertEquals("multi_region", geoTypeOf("ev-multipoint"));
+    }
+
+    @Test
+    void failingEventConvergesSecondDryRunOnRealDatabase() throws Exception {
+        assumeTrue(mysqlAvailable, unavailableReason);
+        resetDatabase();
+        jdbc.getJdbcTemplate().update("DELETE FROM historical_events WHERE id IN ('ev-dbonly','ev-malformed')");
+
+        // Seed the exact legacy state of the rehearsal's failing event:
+        // legacy multi_region column, legacy mixed mapData, marker.lat 22.0.
+        jdbc.update("""
+                INSERT INTO historical_events (
+                    id, slug, title, event_level, event_type, start_year, effective_end_year,
+                    geo_type, lat, lng, province_names, historical_locations, key_facts, status, content_hash, raw_json
+                ) VALUES (
+                    :id, :id, :title, 'atomic', 'political', 1951, 1951,
+                    'multi_region', 22.0, 105.3, CAST('["Tuyên Quang"]' AS JSON), CAST('[]' AS JSON),
+                    '[]', 'published', :hash, CAST(:rawJson AS JSON)
+                )
+                """, new MapSqlParameterSource()
+                .addValue("id", FAILING)
+                .addValue("title", "Đại hội đại biểu lần thứ II Đảng Cộng sản Đông Dương")
+                .addValue("hash", "x")
+                .addValue("rawJson", failingLegacyRawJson()));
+
+        CanonicalRelease release = failingRelease();
+        List<PlanRow> plan = service.buildPlan(release);
+        PlanRow row = plan.stream().filter(r -> r.eventId().equals(FAILING)).findFirst().orElseThrow();
+        assertTrue(row.updateRequired(), "first plan must require an UPDATE for the failing event");
+        assertTrue(row.changedFields().contains("raw_json.mapData"));
+
+        // Real service path: plan -> apply -> immediate post-verify -> commit.
+        String planSha = CanonicalGeographySyncService.planSha256(plan);
+        ApplyResult result = service.apply(plan, planSha, release.sha256(), "fingerprint", "38");
+        assertTrue(result.updated() >= 1, "failing event must be applied");
+
+        // Second dry-run must report zero updates (post-apply idempotence).
+        var idempotence = service.verifyIdempotence(release);
+        assertEquals(0, idempotence.updatesRequired(), "second dry-run must be clean incl. the failing event");
+        assertEquals(0, idempotence.blockedRows());
+
+        // Textual non-geography content preserved through the round-trip.
+        JsonNode stored = new ObjectMapper().readTree(rawJsonOf(FAILING));
+        assertEquals("Đại hội đại biểu lần thứ II Đảng Cộng sản Đông Dương họp tại Chiêm Hoá (Tuyên Quang) năm 1951.",
+                stored.path("textbookContent").path("canonicalSummary").asText());
+        assertEquals("point", geoTypeOf(FAILING));
+    }
+
+    /** Legacy (pre-apply) raw_json of the failing event, faithful to the sealed snapshot. */
+    private String failingLegacyRawJson() {
+        return """
+                {
+                  "id": "dai-hoi-dai-bieu-lan-thu-ii-dang-cong-san-dong-duong-1951",
+                  "display": {"showOnMap": true, "featured": false},
+                  "mapData": {
+                    "geoType": "mixed",
+                    "marker": {"name": "Chiêm Hoá (Tuyên Quang)", "lat": 22.0, "lng": 105.3, "confidence": "high"},
+                    "markers": [{"name": "Chiêm Hoá (Tuyên Quang)", "lat": 22.0, "lng": 105.3, "confidence": "high"}],
+                    "provinceNames": ["Tuyên Quang"],
+                    "gadmRefs": [],
+                    "historicalLocations": [],
+                    "focusGeometry": {"mode": "bounds", "center": {"lat": 22.05946, "lng": 105.276796}, "zoom": 7}
+                  },
+                  "textbookContent": {"canonicalSummary": "Đại hội đại biểu lần thứ II Đảng Cộng sản Đông Dương họp tại Chiêm Hoá (Tuyên Quang) năm 1951."},
+                  "titles": {"primary": "Đại hội đại biểu lần thứ II Đảng Cộng sản Đông Dương"}
+                }
+                """;
+    }
+
+    /** Standard canonical fixture + the failing event (canonical point, marker.lat 22.0). */
+    private CanonicalRelease failingRelease() throws Exception {
+        ObjectMapper mapper = new ObjectMapper();
+        Path path = temporaryDirectory.resolve("canonical-geo-sync-test-with-failing.jsonl");
+        String base = Files.readString(writeCanonicalFixture());
+        Map<String, Object> record = new java.util.LinkedHashMap<>();
+        record.put("id", FAILING);
+        record.put("display", Map.of("showOnMap", true));
+        Map<String, Object> mapData = new java.util.LinkedHashMap<>();
+        mapData.put("geoType", "point");
+        mapData.put("marker", Map.of("name", "Chiêm Hoá (Tuyên Quang)", "lat", 22.0, "lng", 105.3, "confidence", "high"));
+        mapData.put("markers", List.of());
+        mapData.put("provinceNames", List.of());
+        mapData.put("gadmRefs", List.of());
+        mapData.put("historicalLocations", List.of());
+        mapData.put("focusGeometry", Map.of("mode", "bounds",
+                "center", Map.of("lat", 22.05946, "lng", 105.276796), "zoom", 7));
+        record.put("mapData", mapData);
+        record.put("textbookContent", Map.of("canonicalSummary",
+                "Đại hội đại biểu lần thứ II Đảng Cộng sản Đông Dương họp tại Chiêm Hoá (Tuyên Quang) năm 1951."));
+        Files.writeString(path, base + mapper.writeValueAsString(record) + "\n");
+        return service.validateCanonical(path, CanonicalGeographyProjection.sha256(Files.readString(path)), null);
     }
 
     // ---------------------------------------------------------------- helpers

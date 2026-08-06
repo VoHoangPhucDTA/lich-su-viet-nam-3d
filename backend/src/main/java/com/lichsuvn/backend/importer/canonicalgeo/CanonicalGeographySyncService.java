@@ -221,7 +221,13 @@ public class CanonicalGeographySyncService {
         if (!java.util.Objects.equals(parseStringList(dbRow.provinceNamesJson()), provinceNames)) {
             changed.add("province_names");
         }
-        boolean currentMapDataEquals = mapData.equals(rawJson.path("mapData"));
+        // IDEMPOTENCE-FIX: canonical comparison instead of Jackson JsonNode.equals.
+        // JsonNode.equals is numeric-node-subtype-sensitive (DoubleNode(22.0) != LongNode(22));
+        // the MySQL/TiDB JSON column round-trip normalises 22.0 to 22, so after a successful
+        // apply the second dry-run kept flagging raw_json.mapData as changed. canonicalEquals
+        // uses the same canonicalJsonString route as the hashes, making the comparison agree
+        // with the post-write verification and the second dry-run idempotence contract.
+        boolean currentMapDataEquals = projection.canonicalEquals(mapData, rawJson.path("mapData"));
         boolean currentShowOnMapEquals = showOnMap == rawJson.path("display").path("showOnMap").asBoolean(true);
         if (!currentMapDataEquals) {
             changed.add("raw_json.mapData");
