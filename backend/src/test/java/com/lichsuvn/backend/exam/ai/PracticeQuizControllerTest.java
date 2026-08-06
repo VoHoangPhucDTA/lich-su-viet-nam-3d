@@ -90,6 +90,7 @@ class PracticeQuizControllerTest {
 
         mockMvc.perform(post("/api/quiz/attempts")
                         .with(user("student").authorities(() -> "ROLE_student"))
+                        .with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
                                 {
@@ -109,6 +110,7 @@ class PracticeQuizControllerTest {
     void rejectsInvalidCompletionMetadata() throws Exception {
         mockMvc.perform(post("/api/quiz/attempts")
                         .with(user("student").authorities(() -> "ROLE_student"))
+                        .with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
                                 {
