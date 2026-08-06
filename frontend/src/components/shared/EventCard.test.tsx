@@ -36,7 +36,7 @@ function makeEvent(overrides: Partial<HistoricalEvent> = {}): HistoricalEvent {
     endYear: null,
     effectiveEndYear: null,
     eventType: 'military',
-    geoType: 'single_point',
+    geoType: 'point',
     parentId: null,
     primaryRegions: ['Hai Phong'],
     ...overrides,

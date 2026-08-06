@@ -7,6 +7,8 @@ import unicodedata
 from pathlib import Path
 from typing import Any
 
+from geo_contract import GEO_TYPES
+
 
 ROOT = Path(__file__).resolve().parents[1]
 STAGE4 = ROOT / "stage4_assemble"
@@ -44,16 +46,6 @@ CANONICAL_TOP_LEVEL = [
     "display",
     "sourcePolicy",
 ]
-
-GEO_TYPES = {
-    "point",
-    "multi_point",
-    "polygon",
-    "multi_polygon",
-    "nationwide",
-    "no_location",
-    "mixed",
-}
 
 EVENT_TYPES = {
     "military",

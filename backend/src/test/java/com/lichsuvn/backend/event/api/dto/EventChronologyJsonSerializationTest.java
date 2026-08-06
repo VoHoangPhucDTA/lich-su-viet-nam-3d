@@ -115,6 +115,7 @@ class EventChronologyJsonSerializationTest {
                 List.of(),
                 EventRelatedEventsDto.empty(),
                 "N\u1ed9i dung SGK chu\u1ea9n",
+                null,
                 null
         );
         return objectMapper.valueToTree(dto);

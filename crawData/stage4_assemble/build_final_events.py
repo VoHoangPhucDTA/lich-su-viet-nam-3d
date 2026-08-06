@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import json
-import re
 from collections import defaultdict
 from copy import deepcopy
 from typing import Any
@@ -11,12 +10,18 @@ from chronology_repair import (
     load_chronology_overrides,
     validate_all_overrides_applied,
 )
+from geo_contract import (
+    GeographyContractError,
+    infer_operational_geography,
+    normalize_geo_text,
+    phrase_alias_is_allowed,
+    validate_map_data,
+)
 from stage4_common import (
     CANONICAL_TOP_LEVEL,
     CONFIG,
     DEDUPED_EVENTS,
     EVENT_TYPES,
-    GEO_TYPES,
     OUTPUT,
     STAGE4,
     centroid,
@@ -150,23 +155,45 @@ def location_lookup(name: str, indexes: dict[str, Any]) -> tuple[str | None, dic
     locations = loc_index.get("locations") or {}
     if name in locations:
         return name, locations[name]
-    key = normalize_text(name)
-    real_name = (loc_index.get("lookup") or {}).get(key)
+    lookup = loc_index.get("lookup") or {}
+    key = normalize_geo_text(name, strip_admin_prefix=False)
+    real_name = lookup.get(key)
+    if not real_name:
+        # Compatibility with the cached pre-B1 location index. Phase B2 will
+        # rebuild it with normalize_geo_text(). Exact lookup is safe here.
+        real_name = lookup.get(normalize_text(name))
     if real_name:
         return real_name, locations.get(real_name)
     return None, None
 
 
-def province_from_text(text: str, indexes: dict[str, Any]) -> str | None:
+def province_from_text(text: str, indexes: dict[str, Any], *, exact_only: bool = False) -> str | None:
     gadm = indexes["gadm"]
-    lookup = gadm.get("lookup") or {}
-    normalized = normalize_text(text)
-    if normalized in lookup:
-        return lookup[normalized]
-    for alias_key, canonical in lookup.items():
-        if alias_key and re.search(rf"\b{re.escape(alias_key)}\b", normalized):
-            return canonical
-    return None
+    exact_lookup = gadm.get("exactLookup") or gadm.get("lookup") or {}
+    phrase_lookup = gadm.get("phraseLookup") or gadm.get("lookup") or {}
+    normalized = normalize_geo_text(text)
+    if phrase_alias_is_allowed(normalized) and normalized in exact_lookup:
+        return exact_lookup[normalized]
+    if exact_only:
+        return None
+
+    padded = f" {normalized} "
+    candidates: list[tuple[tuple[int, int], str, str]] = []
+    for raw_alias, canonical in phrase_lookup.items():
+        alias = normalize_geo_text(raw_alias)
+        if not phrase_alias_is_allowed(alias):
+            continue
+        if f" {alias} " in padded:
+            candidates.append(((len(alias.split()), len(alias)), alias, canonical))
+    if not candidates:
+        return None
+    best_rank = max(candidate[0] for candidate in candidates)
+    best = [candidate for candidate in candidates if candidate[0] == best_rank]
+    canonicals = {candidate[2] for candidate in best}
+    if len(canonicals) > 1:
+        details = ", ".join(f"{alias!r}->{canonical!r}" for _, alias, canonical in sorted(best))
+        raise GeographyContractError(f"ambiguous province phrase in {text!r}: {details}")
+    return sorted(best, key=lambda candidate: (candidate[1], candidate[2]))[0][2]
 
 
 def province_display_name(gadm_name: str, indexes: dict[str, Any]) -> str:
@@ -178,23 +205,27 @@ def province_gadm_name(display_or_gadm_name: str, indexes: dict[str, Any]) -> st
     provinces = indexes["gadm"].get("provinces") or {}
     if display_or_gadm_name in provinces:
         return display_or_gadm_name
-    normalized = normalize_text(display_or_gadm_name)
+    normalized = normalize_geo_text(display_or_gadm_name)
     for gadm_name, province in provinces.items():
-        if normalize_text(province.get("provinceName")) == normalized:
+        if normalize_geo_text(province.get("provinceName")) == normalized:
             return gadm_name
     return province_from_text(display_or_gadm_name, indexes)
 
 
 def classify_place(raw_name: str, indexes: dict[str, Any], region_map: dict[str, list[str]]) -> dict[str, Any]:
-    normalized = normalize_text(raw_name)
+    normalized = normalize_geo_text(raw_name)
     if normalized in NATIONWIDE_TERMS:
         return {"kind": "nationwide", "name": raw_name}
     if any(normalized.startswith(term + " ") or normalized == term for term in LINEAR_TERMS):
         return {"kind": "linear", "name": raw_name}
-    if normalized in {normalize_text(k) for k in region_map}:
+    if normalized in {normalize_geo_text(k) for k in region_map}:
         for key, provinces in region_map.items():
-            if normalize_text(key) == normalized:
+            if normalize_geo_text(key) == normalized:
                 return {"kind": "region", "name": raw_name, "provinceNames": provinces}
+
+    exact_province = province_from_text(raw_name, indexes, exact_only=True)
+    if exact_province:
+        return {"kind": "province", "name": raw_name, "provinceName": exact_province}
 
     loc_name, loc = location_lookup(raw_name, indexes)
     if loc:
@@ -203,14 +234,12 @@ def classify_place(raw_name: str, indexes: dict[str, Any], region_map: dict[str,
         province = province_from_text(loc.get("modern_name") or loc_name or raw_name, indexes)
         has_point = isinstance(loc.get("lat"), (int, float)) and isinstance(loc.get("lng"), (int, float))
         confidence = (loc.get("confidence") or "").lower()
-        if province and normalize_text(loc.get("modern_name") or "").startswith(("tinh ", "thanh pho ")):
-            return {"kind": "province", "name": raw_name, "provinceName": province, "location": loc}
         if has_point and confidence != "none":
             return {
                 "kind": "point",
                 "name": raw_name,
                 "marker": {"name": raw_name, "lat": loc.get("lat"), "lng": loc.get("lng"), "confidence": confidence or "unknown"},
-                "provinceName": province,
+                "parentProvinceName": province,
                 "location": loc,
             }
         if province:
@@ -236,8 +265,6 @@ def focus_geometry(geo_type: str, marker: dict[str, Any] | None, markers: list[d
         return {"mode": "marker", "center": marker, "zoom": 12}
     if geo_type == "multi_point":
         return {"mode": "bounds", "center": centroid(marker_points), "zoom": 8}
-    if geo_type == "polygon":
-        return {"mode": "polygon", "center": centroid(province_centers), "zoom": 8}
     if geo_type == "multi_polygon":
         return {"mode": "bounds", "center": centroid(province_centers), "zoom": 6}
     if geo_type == "nationwide":
@@ -245,29 +272,50 @@ def focus_geometry(geo_type: str, marker: dict[str, Any] | None, markers: list[d
     return {"mode": "bounds", "center": centroid(marker_points + province_centers), "zoom": 7}
 
 
-def build_map_data(row: dict[str, Any], indexes: dict[str, Any], manual_overrides: dict[str, Any], region_map: dict[str, list[str]], whitelist_ids: set[str]) -> tuple[dict[str, Any], list[str]]:
-    event_id = row.get("suggestedId")
-    raw_places = clean_string_array(row.get("rawPlaceMentions") or [])
+def unique_geo_strings(values: Any) -> list[str]:
+    if not isinstance(values, list):
+        return []
+    out: list[str] = []
+    seen: set[str] = set()
+    for raw in values:
+        value = str(raw or "").strip()
+        key = normalize_geo_text(value, strip_admin_prefix=False)
+        if not value or not key or key in seen:
+            continue
+        seen.add(key)
+        out.append(value)
+    return out
+
+
+def build_map_data(
+    row: dict[str, Any],
+    indexes: dict[str, Any],
+    manual_overrides: dict[str, Any],
+    region_map: dict[str, list[str]],
+    whitelist_ids: set[str],
+) -> tuple[dict[str, Any], list[str]]:
+    event_id = str(row.get("suggestedId") or "<missing>")
+    raw_places = unique_geo_strings(row.get("rawPlaceMentions") or [])
     override = manual_overrides.get(event_id) or {}
     warnings: list[str] = []
 
     if event_id in whitelist_ids and ((row.get("classification") or {}).get("region") or "").lower() != "vietnam":
         geo_type = "no_location"
-        historical_locations = raw_places
         map_data = {
             "geoType": geo_type,
-            "historicalLocations": historical_locations,
+            "historicalLocations": raw_places,
             "provinceNames": [],
             "gadmRefs": [],
             "marker": None,
             "markers": [],
             "focusGeometry": focus_geometry(geo_type, None, [], [], indexes),
         }
+        validate_map_data(event_id, map_data)
         return map_data, warnings
 
-    classified = [classify_place(p, indexes, region_map) for p in raw_places]
+    classified = [classify_place(place, indexes, region_map) for place in raw_places]
     markers: list[dict[str, Any]] = []
-    province_names: list[str] = []
+    region_targets: list[str] = []
     historical: list[str] = []
     nationwide = False
     for item in classified:
@@ -277,66 +325,56 @@ def build_map_data(row: dict[str, Any], indexes: dict[str, Any], manual_override
             historical.append(item["name"])
         elif kind == "point":
             markers.append(item["marker"])
-            if item.get("provinceName"):
-                province_names.append(item["provinceName"])
         elif kind == "province":
-            province_names.append(item["provinceName"])
+            region_targets.append(item["provinceName"])
         elif kind == "region":
-            province_names.extend(item.get("provinceNames") or [])
+            region_targets.extend(item.get("provinceNames") or [])
         elif kind in {"linear", "invalid", "foreign"}:
             historical.append(item["name"])
 
-    province_names = [
-        province_display_name(name, indexes)
-        for name in clean_string_array(province_names)
-    ]
-    province_set_norm = {normalize_text(p) for p in province_names}
-    historical = [h for h in clean_string_array(historical) if normalize_text(h) not in province_set_norm]
+    region_targets = unique_geo_strings(region_targets)
+    forced_geo_type = override.get("geoType") if override else None
+    if override.get("provinceNames") is not None:
+        region_targets = unique_geo_strings(override.get("provinceNames") or [])
+    if override.get("markers") is not None:
+        markers = list(override.get("markers") or [])
+    if override.get("marker") is not None and not markers:
+        markers = [override["marker"]]
+    if override.get("historicalLocations") is not None:
+        historical.extend(override.get("historicalLocations") or [])
 
-    if override:
-        geo_type = override.get("geoType")
-        if override.get("provinceNames") is not None:
-            province_names = [
-                province_display_name(name, indexes)
-                for name in clean_string_array(override.get("provinceNames"))
-            ]
-        if override.get("markers") is not None:
-            markers = override.get("markers") or []
-        if override.get("marker") is not None and not markers:
-            markers = [override.get("marker")]
-    else:
-        geo_type = None
+    classified_geo = infer_operational_geography(
+        nationwide_signal=nationwide,
+        markers=markers,
+        region_targets=region_targets,
+        forced_geo_type=forced_geo_type,
+    )
+    geo_type = classified_geo["geoType"]
+    markers = classified_geo["markers"]
+    region_targets = classified_geo["regionTargets"]
+    historical.extend(classified_geo["duplicateMarkerNames"])
+    if geo_type in {"nationwide", "no_location"}:
+        # Geometry is intentionally cleared, but every source place remains
+        # available as context for review and event detail.
+        historical.extend(raw_places)
+    historical = unique_geo_strings(historical)
 
-    if not geo_type:
-        if nationwide:
-            geo_type = "nationwide"
-        elif markers and province_names:
-            geo_type = "mixed"
-        elif len(markers) == 1:
-            geo_type = "point"
-        elif len(markers) > 1:
-            geo_type = "multi_point"
-        elif len(province_names) == 1:
-            geo_type = "polygon"
-        elif len(province_names) > 1:
-            geo_type = "multi_polygon"
-        else:
-            geo_type = "no_location"
-
-    if geo_type not in GEO_TYPES:
-        warnings.append(f"{event_id}: invalid geoType override {geo_type}")
-        geo_type = "no_location"
-    if geo_type == "no_location":
-        province_names = []
-        markers = []
-
+    province_names = unique_geo_strings(
+        [province_display_name(name, indexes) for name in region_targets]
+    )
     gadm_provinces = indexes["gadm"].get("provinces") or {}
-    gadm_names = [province_gadm_name(p, indexes) for p in province_names]
-    gadm_refs = [
-        gadm_provinces[p]["gadmRef"]
-        for p in gadm_names
-        if p in gadm_provinces and gadm_provinces[p].get("gadmRef")
+    gadm_names = [province_gadm_name(province_name, indexes) for province_name in province_names]
+    unresolved = [
+        province_name
+        for province_name, gadm_name in zip(province_names, gadm_names)
+        if gadm_name not in gadm_provinces or not gadm_provinces[gadm_name].get("gadmRef")
     ]
+    if unresolved:
+        raise GeographyContractError(
+            f"{event_id}: mapData.provinceNames: unresolved GADM targets: {', '.join(unresolved)}"
+        )
+    gadm_refs = [gadm_provinces[gadm_name]["gadmRef"] for gadm_name in gadm_names]
+
     marker = markers[0] if markers else None
     map_data = {
         "geoType": geo_type,
@@ -347,6 +385,7 @@ def build_map_data(row: dict[str, Any], indexes: dict[str, Any], manual_override
         "markers": markers if geo_type in {"multi_point", "mixed"} else [],
         "focusGeometry": focus_geometry(geo_type, marker, markers, province_names, indexes),
     }
+    validate_map_data(event_id, map_data)
     return map_data, warnings
 
 

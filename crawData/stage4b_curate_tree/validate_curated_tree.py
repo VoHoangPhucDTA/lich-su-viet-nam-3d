@@ -1,8 +1,15 @@
 from __future__ import annotations
 
+import sys
 from collections import Counter
+from pathlib import Path
 from typing import Any
 
+STAGE4_DIR = Path(__file__).resolve().parents[1] / "stage4_assemble"
+if str(STAGE4_DIR) not in sys.path:
+    sys.path.insert(0, str(STAGE4_DIR))
+
+from geo_contract import map_data_errors  # noqa: E402
 from common import ROOT_PERIOD_IDS, root_period_for_year
 
 SILENT_ROOT_WARNING_EXCEPTIONS = {
@@ -20,6 +27,7 @@ def validate_curated_tree(
     review_needed_count: int,
 ) -> tuple[list[str], str]:
     errors_by_section: dict[str, list[str]] = {
+        "Geography Contract Validation": [],
         "Display Type Validation": [],
         "Tree Link Validation": [],
         "Root Chain Validation": [],
@@ -62,6 +70,9 @@ def validate_curated_tree(
         geo_type = ((event.get("mapData") or {}).get("geoType") or "no_location")
         display = event.get("display") or {}
 
+        errors_by_section["Geography Contract Validation"].extend(
+            map_data_errors(str(event_id), event.get("mapData") or {})
+        )
         errors_by_section["Display Type Validation"].extend(_display_errors(event))
         if geo_type == "no_location" and display.get("showOnMap") is True:
             errors_by_section["Display Type Validation"].append(f"no_location but showOnMap=true: {event_id}")
@@ -230,7 +241,13 @@ def _semantic_report(
     out = ["# Stage 4B Semantic Validation", "", "| Metric | Value |", "|---|---|"]
     out.extend(f"| {name} | {value} |" for name, value in rows)
 
-    for section in ["Display Type Validation", "Tree Link Validation", "Root Chain Validation", "General Validation"]:
+    for section in [
+        "Geography Contract Validation",
+        "Display Type Validation",
+        "Tree Link Validation",
+        "Root Chain Validation",
+        "General Validation",
+    ]:
         out.extend(["", f"## {section}", ""])
         section_errors = errors_by_section.get(section) or []
         out.extend([f"- {error}" for error in section_errors] if section_errors else ["Không có lỗi."])

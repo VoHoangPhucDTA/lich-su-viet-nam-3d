@@ -13,7 +13,7 @@ const event: HistoricalEvent = {
   endYear: 1954,
   effectiveEndYear: 1954,
   eventType: 'military',
-  geoType: 'multi_region',
+  geoType: 'multi_polygon',
   parentId: 'khang-chien-chong-phap',
 };
 

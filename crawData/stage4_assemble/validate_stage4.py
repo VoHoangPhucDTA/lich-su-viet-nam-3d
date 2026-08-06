@@ -5,6 +5,7 @@ import sys
 from collections import Counter
 from typing import Any
 
+from geo_contract import map_data_errors
 from stage4_common import (
     CANONICAL_TOP_LEVEL,
     CONFIG,
@@ -135,6 +136,7 @@ def validate() -> tuple[list[str], list[str], list[dict[str, Any]], dict[str, in
                     errors.append(f"{event_id}: dangling childId {child_id}")
 
         map_data = event.get("mapData") or {}
+        errors.extend(map_data_errors(str(event_id), map_data))
         geo_type = map_data.get("geoType")
         if geo_type == "multi_region":
             errors.append(f"{event_id}: multi_region is forbidden in GĐ4 canonical data")
@@ -161,12 +163,14 @@ def validate() -> tuple[list[str], list[str], list[dict[str, Any]], dict[str, in
             errors.append(f"{event_id}: multi_point requires markers[]")
         if geo_type == "polygon" and len(gadm_refs or []) != 1:
             errors.append(f"{event_id}: polygon requires exactly 1 gadmRef")
-        if geo_type == "multi_polygon" and len(gadm_refs or []) < 2:
-            errors.append(f"{event_id}: multi_polygon requires >=2 gadmRefs")
+        if geo_type == "multi_polygon" and len(gadm_refs or []) < 1:
+            errors.append(f"{event_id}: multi_polygon requires >=1 gadmRef")
         if geo_type == "mixed" and (not markers or len(gadm_refs or []) < 1):
             errors.append(f"{event_id}: mixed requires markers[] and >=1 gadmRef")
         if geo_type == "no_location" and (marker or markers or province_names or gadm_refs):
             errors.append(f"{event_id}: no_location must not carry marker/province/gadm")
+        if geo_type == "nationwide" and (marker or markers or province_names or gadm_refs):
+            errors.append(f"{event_id}: nationwide must not carry marker/province/gadm")
         focus = map_data.get("focusGeometry")
         if not isinstance(focus, dict) or "mode" not in focus or "center" not in focus or "zoom" not in focus:
             errors.append(f"{event_id}: focusGeometry skeleton invalid")

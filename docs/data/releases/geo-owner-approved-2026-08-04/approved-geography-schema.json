@@ -1,0 +1,23 @@
+{
+  "approvedGeoTypeEnum": [
+    "point",
+    "multi_point",
+    "multi_polygon",
+    "mixed",
+    "nationwide",
+    "no_location"
+  ],
+  "coordinateConvention": {
+    "GeoJSON": "[lng, lat] per RFC 7946",
+    "applicationMarker": "{lat, lng}",
+    "note": "approvedMarkers use {lat, lng}; release mapData follows candidate convention; do not invert."
+  },
+  "approvedMarkers": "array of {name, lat, lng, confidence}",
+  "approvedProvinceNames": "array of strings, 1:1 with approvedGadmRefs",
+  "approvedGadmRefs": "array of GADM level-1 refs (VNM.xx_1)",
+  "showOnMap": "boolean; false for nationwide and no_location",
+  "reviewMetadata": {
+    "status": "policy_auto_pass | owner_policy_approved | owner_approved_correction | owner_approved_no_geometry",
+    "historicalVerification": "always false in this release"
+  }
+}
