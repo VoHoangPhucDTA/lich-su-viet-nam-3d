@@ -1,9 +1,12 @@
 import { Check, Info, LoaderCircle, Mountain } from 'lucide-react';
+import { terrainCtaLabel, type TerrainInsight } from '../../data/terrainInsights';
 import type { TerrainViewModel } from '../../types/terrain';
+import TerrainInsightCard from './TerrainInsightCard';
 import TerrainTargetList from './TerrainTargetList';
 
 interface TerrainControlsProps {
   terrain: TerrainViewModel;
+  insight: TerrainInsight | null;
   onOpen: () => void;
   onRetry: () => void;
   onSelectTarget: (targetId: string) => void;
@@ -24,6 +27,7 @@ const buttonStyle = {
 
 export default function TerrainControls({
   terrain,
+  insight,
   onOpen,
   onRetry,
   onSelectTarget,
@@ -59,7 +63,7 @@ export default function TerrainControls({
         style={{ ...buttonStyle, borderColor: '#8b1e1e', color: '#8b1e1e' }}
       >
         <Mountain size={16} aria-hidden="true" />
-        Khám phá địa hình khu vực
+        {terrainCtaLabel(insight)}
       </button>
     );
   }
@@ -98,10 +102,21 @@ export default function TerrainControls({
   const selected = terrain.targets.find((target) => target.id === terrain.selectedTargetId);
   return (
     <div style={{ width: '100%', display: 'flex', flexDirection: 'column', gap: '10px' }}>
-      <div className="flex items-center gap-2" style={{ fontSize: '13px', fontWeight: 700, color: '#166534' }}>
+      <div
+        role="status"
+        aria-atomic="true"
+        className="flex items-center gap-2"
+        style={{ fontSize: '13px', fontWeight: 700, color: '#166534' }}
+      >
         <Check size={16} aria-hidden="true" />
-        Đang xem địa hình{selected ? `: ${selected.label}` : ''}
+        <span>
+          Đang xem địa hình{selected ? `: ${selected.label}` : ''}
+        </span>
       </div>
+
+      {insight ? (
+        <TerrainInsightCard insight={insight} />
+      ) : null}
 
       {terrain.targets.length > 1 && (
         <TerrainTargetList
@@ -127,7 +142,10 @@ export default function TerrainControls({
       </div>
       <p className="flex gap-1.5" style={{ margin: 0, color: '#78716c', fontSize: '11px', lineHeight: 1.45 }}>
         <Info size={13} aria-hidden="true" style={{ flexShrink: 0, marginTop: '1px' }} />
-        <span>Mô hình địa hình tham chiếu thời hiện đại. Sông, bờ biển và cảnh quan có thể khác so với thời điểm lịch sử.</span>
+        <span style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
+          <span>Địa hình đang được phóng đại theo chiều đứng 2× để dễ quan sát; số đo vẫn dùng cao độ terrain được lấy mẫu.</span>
+          <span>Mô hình địa hình tham chiếu thời hiện đại. Sông, bờ biển và cảnh quan có thể khác so với thời điểm lịch sử.</span>
+        </span>
       </p>
     </div>
   );
