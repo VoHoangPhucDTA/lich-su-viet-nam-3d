@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 import java.nio.charset.StandardCharsets;
+import java.math.BigInteger;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.Base64;
@@ -39,12 +40,12 @@ public class JwtService {
         this.refreshTtl = Duration.ofDays(refreshDays);
     }
 
-    public String createAccessToken(String userId, String email, List<String> roles) {
-        return createToken(userId, email, roles, "access", accessTtl);
+    public String createAccessToken(String userId, String email, List<String> roles, long authVersion) {
+        return createToken(userId, email, roles, "access", authVersion, accessTtl);
     }
 
-    public String createRefreshToken(String userId, String email, List<String> roles) {
-        return createToken(userId, email, roles, "refresh", refreshTtl);
+    public String createRefreshToken(String userId, String email, List<String> roles, long authVersion) {
+        return createToken(userId, email, roles, "refresh", authVersion, refreshTtl);
     }
 
     public JwtClaims parseAndValidate(String token, String expectedType) {
@@ -88,6 +89,7 @@ public class JwtService {
                     stringValue(payload.get("email")),
                     roles,
                     type,
+                    authVersion(payload),
                     expiresAt
             );
         } catch (ApiException ex) {
@@ -97,8 +99,18 @@ public class JwtService {
         }
     }
 
-    private String createToken(String userId, String email, List<String> roles, String type, Duration ttl) {
+    private String createToken(
+            String userId,
+            String email,
+            List<String> roles,
+            String type,
+            long authVersion,
+            Duration ttl
+    ) {
         try {
+            if (authVersion < 0) {
+                throw new IllegalArgumentException("authVersion must be nonnegative");
+            }
             // Minimal claims are enough for frontend role routing; fresh user status is still checked server-side.
             Instant now = Instant.now();
             Map<String, Object> header = Map.of("alg", "HS256", "typ", "JWT");
@@ -107,6 +119,7 @@ public class JwtService {
                     "email", email,
                     "roles", roles,
                     "typ", type,
+                    "auth_ver", authVersion,
                     "iat", now.getEpochSecond(),
                     "exp", now.plus(ttl).getEpochSecond()
             );
@@ -154,6 +167,33 @@ public class JwtService {
             return number.longValue();
         }
         throw invalidToken();
+    }
+
+    private long authVersion(Map<String, Object> payload) {
+        if (!payload.containsKey("auth_ver")) {
+            return 0;
+        }
+        Object value = payload.get("auth_ver");
+        long parsed;
+        if (value instanceof Byte number) {
+            parsed = number.longValue();
+        } else if (value instanceof Short number) {
+            parsed = number.longValue();
+        } else if (value instanceof Integer number) {
+            parsed = number.longValue();
+        } else if (value instanceof Long number) {
+            parsed = number;
+        } else if (value instanceof BigInteger number
+                && number.signum() >= 0
+                && number.compareTo(BigInteger.valueOf(Long.MAX_VALUE)) <= 0) {
+            parsed = number.longValueExact();
+        } else {
+            throw invalidToken();
+        }
+        if (parsed < 0) {
+            throw invalidToken();
+        }
+        return parsed;
     }
 
     private ApiException invalidToken() {

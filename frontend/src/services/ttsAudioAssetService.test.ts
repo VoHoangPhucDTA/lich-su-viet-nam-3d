@@ -1,9 +1,10 @@
-import { afterEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import {
   getTtsAudioAsset,
   isTtsAudioAssetPending,
   requestTtsAudioAsset,
 } from './ttsAudioAssetService';
+import { clearCsrfToken } from './csrfClient';
 
 const pendingAsset = {
   status: 'pending' as const,
@@ -31,20 +32,27 @@ function apiResponse(data: unknown, status = 200): Response {
   }), { status, headers: { 'Content-Type': 'application/json' } });
 }
 
+function csrfResponse(): Response {
+  return apiResponse({ token: 'csrf-token', headerName: 'X-CSRF-TOKEN' });
+}
+
+beforeEach(clearCsrfToken);
 afterEach(() => {
   vi.unstubAllGlobals();
 });
 
 describe('ttsAudioAssetService', () => {
   it('posts only the selected voice to the event asset endpoint', async () => {
-    const fetchMock = vi.fn().mockResolvedValue(apiResponse(pendingAsset, 202));
+    const fetchMock = vi.fn()
+      .mockResolvedValueOnce(csrfResponse())
+      .mockResolvedValueOnce(apiResponse(pendingAsset, 202));
     vi.stubGlobal('fetch', fetchMock);
 
     await expect(requestTtsAudioAsset('event / 1', 'hcm-diemmy')).resolves.toEqual(pendingAsset);
 
-    expect(fetchMock).toHaveBeenCalledTimes(1);
-    expect(fetchMock.mock.calls[0]?.[0]).toEqual(expect.stringContaining('/api/tts/events/event%20%2F%201/audio'));
-    expect(fetchMock.mock.calls[0]?.[1]).toMatchObject({
+    expect(fetchMock).toHaveBeenCalledTimes(2);
+    expect(fetchMock.mock.calls[1]?.[0]).toEqual(expect.stringContaining('/api/tts/events/event%20%2F%201/audio'));
+    expect(fetchMock.mock.calls[1]?.[1]).toMatchObject({
       method: 'POST',
       body: JSON.stringify({ voice: 'hcm-diemmy' }),
       credentials: 'include',
@@ -52,11 +60,13 @@ describe('ttsAudioAssetService', () => {
   });
 
   it('does not replay a failed asset POST automatically', async () => {
-    const fetchMock = vi.fn().mockResolvedValue(apiResponse(null, 503));
+    const fetchMock = vi.fn()
+      .mockResolvedValueOnce(csrfResponse())
+      .mockResolvedValueOnce(apiResponse(null, 503));
     vi.stubGlobal('fetch', fetchMock);
 
     await expect(requestTtsAudioAsset('event-1', 'hcm-diemmy')).rejects.toMatchObject({ code: 'API_ERROR' });
-    expect(fetchMock).toHaveBeenCalledTimes(1);
+    expect(fetchMock).toHaveBeenCalledTimes(2);
   });
 
   it('passes cancellation through to the read-only poll request', async () => {

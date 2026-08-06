@@ -16,7 +16,6 @@ import type {
   HistoricalEvent,
   RelatedHistoricalEvent,
   RelatedHistoricalEvents,
-  EventSourceJson,
   SourceMapData,
 } from '../types/event';
 import { isCanonicalGeoType } from '../types/event';
@@ -123,7 +122,9 @@ interface EventDetailDto extends EventSummaryDto {
   relations: EventRelationDto[];
   relatedEvents?: EventRelatedEventsDto;
   sourceJson?: unknown;
-}/**
+  mapData?: SourceMapData | null;
+}
+/**
  * Canonical boundary guard: a canonical API response must only contain one of
  * the six canonical geoType values. A legacy value is logged as an error and
  * fails closed to no_location — it is never silently collapsed or guessed.
@@ -136,19 +137,10 @@ function canonicalGeoTypeOrFailClosed(value: unknown, eventId: string): GeoType 
   return 'no_location';
 }
 
-
 function sourceMapDataFromDto(dto: EventDetailDto): SourceMapData | undefined {
-  const sourceJson = dto.sourceJson;
-  if (!sourceJson || typeof sourceJson !== 'object' || Array.isArray(sourceJson)) return undefined;
-  const mapData = (sourceJson as { mapData?: unknown }).mapData;
+  const mapData = dto.mapData;
   if (!mapData || typeof mapData !== 'object' || Array.isArray(mapData)) return undefined;
-  return mapData as SourceMapData;
-}
-
-function sourceJsonFromDto(dto: EventDetailDto): EventSourceJson | undefined {
-  const sourceJson = dto.sourceJson;
-  if (!sourceJson || typeof sourceJson !== 'object' || Array.isArray(sourceJson)) return undefined;
-  return sourceJson as unknown as EventSourceJson;
+  return mapData;
 }
 
 interface EventRelationDto {
@@ -338,7 +330,6 @@ function detailToHistoricalEvent(dto: EventDetailDto): HistoricalEvent {
   const sourceMapData = sourceMapDataFromDto(dto);
   return {
     ...event,
-    sourceJson: sourceJsonFromDto(dto),
     sourceMapData,
     canonicalGeoType: isCanonicalGeoType(sourceMapData?.geoType)
       ? sourceMapData.geoType

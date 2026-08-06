@@ -22,6 +22,7 @@ import java.util.List;
 import static org.mockito.ArgumentMatchers.nullable;
 import static org.mockito.Mockito.when;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
@@ -78,15 +79,16 @@ class AiCandidateControllerSecurityTest {
     void teacherCanReachRevisionCreateAndRemapButStudentCannot() throws Exception {
         var teacher = user("teacher").authorities(() -> "ROLE_teacher", () -> "AI_CANDIDATE_CREATE", () -> "AI_CANDIDATE_EDIT");
         mockMvc.perform(post("/api/exams/ai/candidates/00000000-0000-0000-0000-000000000000/revisions")
-                        .with(teacher).contentType("application/json").content("{\"reason\":\"correct source\"}"))
+                        .with(teacher).with(csrf()).contentType("application/json").content("{\"reason\":\"correct source\"}"))
                 .andExpect(status().isOk());
         mockMvc.perform(put("/api/exams/ai/candidates/00000000-0000-0000-0000-000000000000/sources")
                         .with(teacher).contentType("application/json").content("""
                                 {"version":1,"reason":"canonical correction","sources":[{"chunkId":"chunk-1","chunkHash":"%s"}]}
-                                """.formatted("b".repeat(64))))
+                                """.formatted("b".repeat(64))).with(csrf()))
                 .andExpect(status().isOk());
         mockMvc.perform(post("/api/exams/ai/candidates/00000000-0000-0000-0000-000000000000/revisions")
                         .with(user("student").authorities(() -> "ROLE_student"))
+                        .with(csrf())
                         .contentType("application/json").content("{\"reason\":\"no\"}"))
                 .andExpect(status().isForbidden());
     }

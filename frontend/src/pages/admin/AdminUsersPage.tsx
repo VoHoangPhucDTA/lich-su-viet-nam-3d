@@ -1,210 +1,305 @@
-import { useCallback, useEffect, useState } from 'react';
-import { Pencil, Trash2 } from 'lucide-react';
+import { useEffect, useMemo, useState } from 'react';
+import { Link, useLocation, useSearchParams } from 'react-router-dom';
 import AdminLayout from '../../layouts/AdminLayout';
 import {
-  AdminConfirmDialog,
   AdminDataTable,
   AdminFilterSelect,
   AdminPageHeader,
   AdminPagination,
-  AdminRowActions,
   AdminSearchInput,
   AdminStatusBadge,
   type AdminDataColumn,
 } from '../../components/admin/AdminUI';
-import { deleteAdminUser, getAdminUsers, setAdminUserRole, setAdminUserStatus, type AdminUser } from '../../services/adminApi';
+import {
+  getAdminUsers,
+  type AdminUserListParams,
+  type AdminUserListItem,
+  type AdminUserRole,
+  type AdminUserStatus,
+} from '../../services/adminApi';
+import { ApiRequestError } from '../../services/apiClient';
 
-const LIMIT = 20;
+const DEFAULT_LIMIT = 20;
 const SEARCH_DEBOUNCE_MS = 300;
-type PendingAction = { user: AdminUser; field: 'status' | 'role'; value: string } | null;
+type AdminUserListState = AdminUserListParams & {
+  sortBy: NonNullable<AdminUserListParams['sortBy']>;
+  sortDir: NonNullable<AdminUserListParams['sortDir']>;
+  limit: number;
+  offset: number;
+};
+
+const options = {
+  status: [
+    { value: '', label: 'Trạng thái: Tất cả' },
+    { value: 'active', label: 'Hoạt động' },
+    { value: 'pending', label: 'Chờ xác thực' },
+    { value: 'disabled', label: 'Đã khóa' },
+    { value: 'deleted', label: 'Đã xóa (trạng thái DB)' },
+  ],
+  role: [
+    { value: '', label: 'Quyền: Tất cả' },
+    { value: 'student', label: 'Học sinh' },
+    { value: 'teacher', label: 'Giáo viên' },
+    { value: 'admin', label: 'Quản trị' },
+  ],
+  verified: [
+    { value: '', label: 'Xác thực: Tất cả' },
+    { value: 'true', label: 'Đã ghi nhận xác thực' },
+    { value: 'false', label: 'Chưa ghi nhận xác thực' },
+  ],
+  sort: [
+    { value: 'createdAt:desc', label: 'Tạo mới nhất' },
+    { value: 'createdAt:asc', label: 'Tạo cũ nhất' },
+    { value: 'updatedAt:desc', label: 'Cập nhật mới nhất' },
+    { value: 'updatedAt:asc', label: 'Cập nhật cũ nhất' },
+    { value: 'displayName:asc', label: 'Tên A–Z' },
+    { value: 'displayName:desc', label: 'Tên Z–A' },
+    { value: 'email:asc', label: 'Email A–Z' },
+    { value: 'email:desc', label: 'Email Z–A' },
+  ],
+};
+
+function numberValue(value: string | null): number | undefined {
+  if (!value?.trim()) return undefined;
+  const parsed = Number(value);
+  return Number.isInteger(parsed) ? parsed : undefined;
+}
+
+function errorMessage(cause: unknown) {
+  if (cause instanceof ApiRequestError) {
+    if (cause.status === 401) return 'Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.';
+    if (cause.status === 403) return 'Bạn không có quyền xem dữ liệu quản trị này.';
+    return cause.message;
+  }
+  return cause instanceof Error ? cause.message : 'Không thể tải danh sách người dùng.';
+}
+
+function roleLabel(role: AdminUserRole) {
+  return role === 'admin' ? 'Quản trị' : role === 'teacher' ? 'Giáo viên' : 'Học sinh';
+}
 
 export default function AdminUsersPage() {
-  const [items, setItems] = useState<AdminUser[]>([]);
-  const [query, setQuery] = useState('');
-  const [appliedQuery, setAppliedQuery] = useState('');
-  const [status, setStatus] = useState('');
-  const [role, setRole] = useState('');
+  const location = useLocation();
+  const [params, setParams] = useSearchParams();
+  const [items, setItems] = useState<AdminUserListItem[]>([]);
   const [total, setTotal] = useState(0);
-  const [offset, setOffset] = useState(0);
   const [loading, setLoading] = useState(true);
-  const [updating, setUpdating] = useState(false);
   const [error, setError] = useState('');
-  const [pendingAction, setPendingAction] = useState<PendingAction>(null);
-  const [deletingUser, setDeletingUser] = useState<AdminUser | null>(null);
-
-  const load = useCallback(async () => {
-    setLoading(true);
-    setError('');
-    try {
-      const response = await getAdminUsers({
-        q: appliedQuery || undefined,
-        status: status || undefined,
-        role: role || undefined,
-        limit: LIMIT,
-        offset,
-      });
-      setItems(response.items);
-      setTotal(response.total);
-    } catch (cause) {
-      setError(cause instanceof Error ? cause.message : 'Không thể tải danh sách người dùng.');
-    } finally {
-      setLoading(false);
-    }
-  }, [appliedQuery, offset, role, status]);
+  const [retry, setRetry] = useState(0);
+  const urlQuery = params.get('q') ?? '';
+  const [search, setSearch] = useState(urlQuery);
 
   useEffect(() => {
-    const timer = window.setTimeout(() => void load(), 0);
+    const timer = window.setTimeout(() => setSearch(urlQuery), 0);
     return () => window.clearTimeout(timer);
-  }, [load]);
+  }, [urlQuery]);
 
   useEffect(() => {
-    const normalized = query.trim();
-    if (normalized === appliedQuery) return;
+    if (search.trim() === urlQuery) return;
     const timer = window.setTimeout(() => {
-      setOffset(0);
-      setAppliedQuery(normalized);
+      setParams(previous => {
+        const next = new URLSearchParams(previous);
+        const value = search.trim();
+        if (value) next.set('q', value); else next.delete('q');
+        next.delete('offset');
+        return next;
+      }, { replace: true });
     }, SEARCH_DEBOUNCE_MS);
     return () => window.clearTimeout(timer);
-  }, [appliedQuery, query]);
+  }, [search, setParams, urlQuery]);
+
+  const state = useMemo<AdminUserListState>(() => ({
+    q: urlQuery || undefined,
+    role: (params.get('role') || undefined) as AdminUserRole | undefined,
+    status: (params.get('status') || undefined) as AdminUserStatus | undefined,
+    verified: (params.get('verified') || undefined) as 'true' | 'false' | undefined,
+    sortBy: (params.get('sortBy') || 'createdAt') as NonNullable<AdminUserListParams['sortBy']>,
+    sortDir: (params.get('sortDir') || 'desc') as NonNullable<AdminUserListParams['sortDir']>,
+    limit: numberValue(params.get('limit')) ?? DEFAULT_LIMIT,
+    offset: numberValue(params.get('offset')) ?? 0,
+  }), [params, urlQuery]);
+
+  useEffect(() => {
+    const controller = new AbortController();
+    const load = async () => {
+      setLoading(true);
+      setError('');
+      try {
+        const response = await getAdminUsers(state, controller.signal);
+        if (response.items.length === 0 && state.offset > 0 && state.offset >= response.total) {
+          const nearestOffset = Math.max(
+            0,
+            Math.floor(Math.max(response.total - 1, 0) / state.limit) * state.limit,
+          );
+          setParams(previous => {
+            const next = new URLSearchParams(previous);
+            if (nearestOffset > 0) next.set('offset', String(nearestOffset));
+            else next.delete('offset');
+            return next;
+          }, { replace: true });
+          return;
+        }
+        setItems(response.items);
+        setTotal(response.total);
+      } catch (cause) {
+        if (cause instanceof DOMException && cause.name === 'AbortError') return;
+        setError(errorMessage(cause));
+      } finally {
+        if (!controller.signal.aborted) setLoading(false);
+      }
+    };
+    void load();
+    return () => controller.abort();
+  }, [retry, setParams, state]);
+
+  const setValue = (key: string, value: string) => {
+    setParams(previous => {
+      const next = new URLSearchParams(previous);
+      if (value) next.set(key, value); else next.delete(key);
+      next.delete('offset');
+      return next;
+    });
+  };
+
+  const setSort = (value: string) => {
+    const [sortBy, sortDir] = value.split(':');
+    setParams(previous => {
+      const next = new URLSearchParams(previous);
+      next.set('sortBy', sortBy);
+      next.set('sortDir', sortDir);
+      next.delete('offset');
+      return next;
+    });
+  };
 
   const clearFilters = () => {
-    setQuery('');
-    setAppliedQuery('');
-    setStatus('');
-    setRole('');
-    setOffset(0);
+    setSearch('');
+    setParams(previous => {
+      const next = new URLSearchParams(previous);
+      ['q', 'status', 'role', 'verified', 'offset'].forEach(key => next.delete(key));
+      return next;
+    });
   };
+  const activeFilterCount = ['q', 'status', 'role', 'verified']
+    .filter(key => Boolean(params.get(key))).length;
+  const hasFilters = activeFilterCount > 0;
 
-  const confirmAction = async () => {
-    if (!pendingAction || updating) return;
-    const action = pendingAction;
-    setPendingAction(null);
-    setUpdating(true);
-    setError('');
-    try {
-      if (action.field === 'status') {
-        await setAdminUserStatus(action.user.id, action.value as AdminUser['status']);
-      } else {
-        await setAdminUserRole(action.user.id, action.value as AdminUser['role']);
-      }
-      await load();
-    } catch (cause) {
-      setError(cause instanceof Error ? cause.message : 'Không thể cập nhật tài khoản.');
-    } finally {
-      setUpdating(false);
-    }
-  };
-
-  const confirmDelete = async () => {
-    if (!deletingUser || updating) return;
-    const user = deletingUser;
-    setDeletingUser(null);
-    setUpdating(true);
-    try {
-      await deleteAdminUser(user.id);
-      await load();
-    } catch (cause) {
-      setError(cause instanceof Error ? cause.message : 'Không thể vô hiệu hóa tài khoản.');
-    } finally {
-      setUpdating(false);
-    }
-  };
-
-  const hasFilters = Boolean(appliedQuery || status || role);
-  const searchPending = query.trim() !== appliedQuery;
-
-  const columns: AdminDataColumn<AdminUser>[] = [
+  const columns: AdminDataColumn<AdminUserListItem>[] = [
     {
       key: 'user',
       header: 'Người dùng',
       render: user => (
-        <div className="min-w-56">
-          <p className="font-semibold text-[var(--text-primary)]">{user.fullName}</p>
+        <div className="min-w-64">
+          <Link
+            to={`/admin/users/${encodeURIComponent(user.id)}`}
+            state={{ from: `${location.pathname}${location.search}` }}
+            className="font-semibold text-[var(--admin-accent)]"
+          >
+            {user.displayName ?? user.email}
+          </Link>
+          {!user.displayName && (
+            <p className="mt-1 text-xs text-[var(--text-muted)]">
+              Tên hiển thị chưa được ghi nhận
+            </p>
+          )}
           <p className="mt-1 text-xs text-[var(--text-muted)]">{user.email}</p>
         </div>
       ),
     },
     {
-      key: 'class',
-      header: 'Lớp / trường',
+      key: 'role',
+      header: 'Quyền',
       render: user => (
-        <span className="text-xs leading-5 text-[var(--text-secondary)]">
-          {user.grade ? `Lớp ${user.grade}` : '—'}<br />{user.school ?? '—'}
-        </span>
+        <div>
+          {user.primaryRole
+            ? <AdminStatusBadge status={user.primaryRole} label={roleLabel(user.primaryRole)} />
+            : <AdminStatusBadge status="unassigned" label="Chưa có quyền" />}
+          {user.roles.length > 1 && (
+            <p className="mt-1 text-[11px] text-[var(--text-muted)]">
+              {user.roles.map(roleLabel).join(', ')}
+            </p>
+          )}
+        </div>
       ),
     },
     {
       key: 'status',
       header: 'Trạng thái',
-      render: user => <AdminStatusBadge status={user.status} />,
+      render: user => (
+        <AdminStatusBadge
+          status={user.status}
+          label={user.status === 'deleted' ? 'Đã xóa (trạng thái DB)' : undefined}
+        />
+      ),
     },
     {
-      key: 'role',
-      header: 'Quyền',
-      render: user => <AdminStatusBadge status={user.role} />,
+      key: 'verification',
+      header: 'Xác thực email',
+      render: user => (
+        <AdminStatusBadge
+          status={user.emailVerified ? 'active' : 'pending'}
+          label={user.emailVerified ? 'Đã ghi nhận' : 'Chưa ghi nhận'}
+        />
+      ),
     },
     {
       key: 'createdAt',
       header: 'Tạo lúc',
-      render: user => <time dateTime={user.createdAt} className="whitespace-nowrap text-xs text-[var(--text-muted)]">{new Date(user.createdAt).toLocaleDateString('vi-VN')}</time>,
+      render: user => (
+        <time dateTime={user.createdAt} className="whitespace-nowrap text-xs text-[var(--text-muted)]">
+          {new Date(user.createdAt).toLocaleDateString('vi-VN')}
+        </time>
+      ),
     },
     {
       key: 'lastActivity',
-      header: 'Hoạt động gần nhất',
-      render: user => user.lastActivity
-        ? <time dateTime={user.lastActivity} className="whitespace-nowrap text-xs text-[var(--text-muted)]">{new Date(user.lastActivity).toLocaleDateString('vi-VN')}</time>
+      header: 'Hoạt động học gần nhất',
+      render: user => user.lastMeaningfulActivityAt
+        ? (
+          <time dateTime={user.lastMeaningfulActivityAt} className="whitespace-nowrap text-xs text-[var(--text-muted)]">
+            {new Date(user.lastMeaningfulActivityAt).toLocaleDateString('vi-VN')}
+          </time>
+        )
         : <span className="text-xs text-[var(--text-muted)]">Chưa có hoạt động</span>,
-    },
-    {
-      key: 'actions',
-      header: 'Thao tác',
-      width: '110px',
-      render: user => <AdminRowActions><button type="button" className="admin-icon-button" aria-label={`Sửa ${user.fullName}`} title="Sửa" onClick={() => setPendingAction({ user, field: 'status', value: user.status === 'disabled' ? 'active' : 'disabled' })}><Pencil size={15} aria-hidden="true" /></button><button type="button" className="admin-icon-button text-[var(--accent)]" aria-label={`Xóa ${user.fullName}`} title="Xóa" onClick={() => setDeletingUser(user)}><Trash2 size={15} aria-hidden="true" /></button></AdminRowActions>,
     },
   ];
 
+  const sortValue = `${state.sortBy}:${state.sortDir}`;
+
   return (
     <AdminLayout title="Người dùng">
-      <AdminPageHeader title="Người dùng" description="Tìm kiếm, lọc và quản lý tài khoản trong hệ thống." />
+      <AdminPageHeader
+        title="Người dùng"
+        description="Danh sách tài khoản ở chế độ chỉ đọc với quyền, trạng thái và hoạt động được lấy từ dữ liệu hệ thống."
+      />
 
       <section className="overflow-hidden rounded-xl border border-[var(--border)] bg-[var(--bg-card)] shadow-[var(--admin-shadow)]">
         <div className="space-y-3 border-b border-[var(--border)] p-4 sm:p-5">
-          <div className="flex flex-col gap-2 lg:flex-row">
-            <AdminSearchInput
-              value={query}
-              onChange={event => setQuery(event.target.value)}
-              onSubmit={() => {
-                setOffset(0);
-                setAppliedQuery(query.trim());
-              }}
-              placeholder="Tìm theo tên hoặc email..."
-            />
-            <div className="grid grid-cols-2 gap-2 sm:flex sm:flex-wrap">
-              <AdminFilterSelect
-                value={status}
-                onValueChange={value => { setOffset(0); setStatus(value); }}
-                label="Trạng thái"
-                options={[
-                  { value: '', label: 'Trạng thái: Tất cả' },
-                  { value: 'active', label: 'Hoạt động' },
-                  { value: 'pending', label: 'Chờ xác thực' },
-                  { value: 'disabled', label: 'Đã khóa' },
-                ]}
-              />
-              <AdminFilterSelect
-                value={role}
-                onValueChange={value => { setOffset(0); setRole(value); }}
-                label="Quyền"
-                options={[
-                  { value: '', label: 'Quyền: Tất cả' },
-                  { value: 'student', label: 'Học sinh' },
-                  { value: 'admin', label: 'Admin' },
-                ]}
-              />
-            </div>
+          <AdminSearchInput
+            value={search}
+            onChange={event => setSearch(event.target.value)}
+            onSubmit={() => {
+              const value = search.trim();
+              setParams(previous => {
+                const next = new URLSearchParams(previous);
+                if (value) next.set('q', value); else next.delete('q');
+                next.delete('offset');
+                return next;
+              });
+            }}
+            placeholder="Tìm theo tên hoặc email..."
+          />
+          <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
+            <AdminFilterSelect value={params.get('status') ?? ''} onValueChange={value => setValue('status', value)} label="Trạng thái" options={options.status} />
+            <AdminFilterSelect value={params.get('role') ?? ''} onValueChange={value => setValue('role', value)} label="Quyền" options={options.role} />
+            <AdminFilterSelect value={params.get('verified') ?? ''} onValueChange={value => setValue('verified', value)} label="Xác thực email" options={options.verified} />
+            <AdminFilterSelect value={sortValue} onValueChange={setSort} label="Sắp xếp" options={options.sort} />
           </div>
-          <div className="flex items-center justify-between gap-3 text-xs text-[var(--text-muted)]">
-            <span>{searchPending ? 'Đang tìm…' : `${total} tài khoản`}</span>
+          <div className="flex flex-wrap items-center justify-between gap-3 text-xs text-[var(--text-muted)]">
+            <span>{search.trim() !== urlQuery ? 'Đang tìm…' : `${total} tài khoản`}</span>
+            <span aria-live="polite">
+              {activeFilterCount > 0 ? `${activeFilterCount} bộ lọc đang dùng` : 'Chưa áp dụng bộ lọc'}
+            </span>
             {hasFilters && <button type="button" onClick={clearFilters} className="admin-text-button">Xóa bộ lọc</button>}
           </div>
         </div>
@@ -213,26 +308,21 @@ export default function AdminUsersPage() {
           columns={columns}
           rows={items}
           getKey={user => user.id}
-          minWidth="900px"
+          minWidth="980px"
           loading={loading}
           error={error || undefined}
-          onRetry={() => void load()}
+          onRetry={() => setRetry(value => value + 1)}
           emptyTitle="Không tìm thấy tài khoản"
           emptyDescription="Thử thay đổi từ khóa hoặc bộ lọc để tìm dữ liệu khác."
-          footer={<AdminPagination total={total} offset={offset} limit={LIMIT} loading={loading} onChange={setOffset} />}
+          footer={<AdminPagination total={total} offset={state.offset} limit={state.limit} loading={loading} onChange={offset => {
+            setParams(previous => {
+              const next = new URLSearchParams(previous);
+              if (offset > 0) next.set('offset', String(offset)); else next.delete('offset');
+              return next;
+            });
+          }} />}
         />
       </section>
-
-      <AdminConfirmDialog
-        open={Boolean(pendingAction)}
-        title="Xác nhận thay đổi"
-        description={pendingAction ? `Bạn có chắc muốn đổi ${pendingAction.field === 'role' ? 'quyền' : 'trạng thái'} của ${pendingAction.user.fullName}?` : undefined}
-        confirmLabel="Cập nhật"
-        onConfirm={() => void confirmAction()}
-        onCancel={() => setPendingAction(null)}
-        danger={pendingAction?.value === 'disabled' || pendingAction?.field === 'role' && pendingAction.value === 'student'}
-      />
-      <AdminConfirmDialog open={Boolean(deletingUser)} title="Xóa người dùng?" description={deletingUser ? `Tài khoản ${deletingUser.fullName} sẽ bị vô hiệu hóa nhưng lịch sử học tập được giữ lại.` : undefined} confirmLabel="Xóa" danger onConfirm={() => void confirmDelete()} onCancel={() => setDeletingUser(null)} />
     </AdminLayout>
   );
 }

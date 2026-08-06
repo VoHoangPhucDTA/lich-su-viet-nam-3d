@@ -1,12 +1,13 @@
 package com.lichsuvn.backend.importer;
 
+import com.lichsuvn.backend.testsupport.LocalMySqlContainer;
 import org.flywaydb.core.Flyway;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.testcontainers.containers.MySQLContainer;
+import org.testcontainers.mysql.MySQLContainer;
 
 import javax.sql.DataSource;
 import java.util.List;
@@ -22,7 +23,7 @@ import static org.junit.jupiter.api.Assumptions.assumeTrue;
  * This test deliberately uses only a disposable Testcontainers database.
  */
 class HistoryRagSchemaMigrationIntegrationTest {
-    private static MySQLContainer<?> mysql;
+    private static MySQLContainer mysql;
     private static JdbcTemplate jdbc;
     private static boolean mysqlAvailable;
     private static String unavailableReason;
@@ -84,7 +85,7 @@ class HistoryRagSchemaMigrationIntegrationTest {
         }
 
         try {
-            mysql = new MySQLContainer<>("mysql:8.0.36")
+            mysql = new LocalMySqlContainer("mysql:8.0.36")
                     .withDatabaseName("history_rag_schema_test")
                     .withUsername("test")
                     .withPassword("test");
@@ -113,7 +114,7 @@ class HistoryRagSchemaMigrationIntegrationTest {
     void flywayCreatesHistoryRagSchemaAndValidatesUtf8Defaults() {
         assumeTrue(mysqlAvailable, unavailableReason);
 
-        assertEquals(38, jdbc.queryForObject(
+        assertEquals(43, jdbc.queryForObject(
                 "SELECT MAX(CAST(version AS UNSIGNED)) FROM flyway_schema_history", Integer.class));
         for (String table : List.of(
                 "event_textbook_contents",

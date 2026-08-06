@@ -27,6 +27,7 @@ public interface EventViewLogRepository extends JpaRepository<EventViewLogEntity
             FROM event_view_logs l
             JOIN historical_events e ON e.id = l.event_id
             WHERE l.user_id = :userId
+              AND e.status = 'published'
             GROUP BY l.event_id, e.slug, e.title, e.display_date
             ORDER BY viewedAt DESC
             LIMIT 10

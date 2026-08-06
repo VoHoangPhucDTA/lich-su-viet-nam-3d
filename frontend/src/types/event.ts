@@ -12,7 +12,6 @@ export interface HistoricalEvent {
   eventSubtype?: string;
   geoType: GeoType;
   canonicalGeoType?: CanonicalGeoType;
-  sourceJson?: EventSourceJson;
   sourceMapData?: SourceMapData;
   coordinates?: { lat: number; lng: number };
   primaryRegions?: string[];
@@ -75,11 +74,6 @@ export interface SourceMapData {
   provinceNames?: unknown;
   gadmRefs?: unknown;
   focusGeometry?: unknown;
-}
-
-export interface EventSourceJson {
-  mapData?: SourceMapData;
-  [key: string]: unknown;
 }
 
 export const EVENT_TYPE_LABELS: Record<EventType, string> = {

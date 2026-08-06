@@ -2,6 +2,8 @@ package com.lichsuvn.backend.event.infrastructure;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.lichsuvn.backend.event.api.dto.EventDetailDto;
 import com.lichsuvn.backend.event.api.dto.EventExternalSourceDto;
 import com.lichsuvn.backend.event.api.dto.EventMediaDto;
@@ -12,9 +14,15 @@ import com.lichsuvn.backend.event.api.dto.EventSummaryDto;
 import com.lichsuvn.backend.event.api.dto.EventTextbookRefDto;
 import com.lichsuvn.backend.event.api.dto.HomepageEventSummaryDto;
 import com.lichsuvn.backend.event.api.dto.TimelineEventDto;
+
 import com.lichsuvn.backend.event.domain.EventGeoType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.lichsuvn.backend.common.media.EventMediaReadPolicy;
+import com.lichsuvn.backend.common.media.MediaUrlPolicy;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -45,6 +53,30 @@ public class EventReadRepository {
 
     static final String NUMERIC_CHRONOLOGY_REQUIRED =
             "e.start_year IS NOT NULL AND e.effective_end_year IS NOT NULL";
+    static final String PUBLIC_PARENT_ID = """
+            CASE
+                WHEN EXISTS (
+                    SELECT 1
+                    FROM historical_events visible_parent
+                    WHERE visible_parent.id = e.parent_id
+                      AND visible_parent.status = 'published'
+                )
+                THEN e.parent_id
+                ELSE NULL
+            END AS parent_id
+            """;
+    static final String PUBLIC_ROOT_ID = """
+            CASE
+                WHEN EXISTS (
+                    SELECT 1
+                    FROM historical_events visible_root
+                    WHERE visible_root.id = e.root_id
+                      AND visible_root.status = 'published'
+                )
+                THEN e.root_id
+                ELSE NULL
+            END AS root_id
+            """;
     static final String CHRONOLOGY_NULL_LAST_ORDER = """
             CASE WHEN e.start_year IS NULL THEN 1 ELSE 0 END,
             e.start_year ASC,
@@ -55,11 +87,33 @@ public class EventReadRepository {
 
     private final NamedParameterJdbcTemplate jdbc;
     private final ObjectMapper objectMapper;
+    private final MediaUrlPolicy mediaUrlPolicy;
+    private final EventMediaReadPolicy mediaReadPolicy;
     private volatile Boolean eventRelationsHasAssociationType;
 
     public EventReadRepository(NamedParameterJdbcTemplate jdbc, ObjectMapper objectMapper) {
+        this(jdbc, objectMapper, new MediaUrlPolicy());
+    }
+
+    public EventReadRepository(
+            NamedParameterJdbcTemplate jdbc,
+            ObjectMapper objectMapper,
+            MediaUrlPolicy mediaUrlPolicy
+    ) {
+        this(jdbc, objectMapper, mediaUrlPolicy, new EventMediaReadPolicy(mediaUrlPolicy));
+    }
+
+    @Autowired
+    public EventReadRepository(
+            NamedParameterJdbcTemplate jdbc,
+            ObjectMapper objectMapper,
+            MediaUrlPolicy mediaUrlPolicy,
+            EventMediaReadPolicy mediaReadPolicy
+    ) {
         this.jdbc = jdbc;
         this.objectMapper = objectMapper;
+        this.mediaUrlPolicy = mediaUrlPolicy;
+        this.mediaReadPolicy = mediaReadPolicy;
     }
 
     /**
@@ -108,13 +162,21 @@ public class EventReadRepository {
         String sql = """
                 SELECT e.id, e.slug, e.title, e.short_title, e.event_level, e.event_type,
                        e.event_subtype, e.start_year, e.end_year, e.display_date, e.geo_type,
-                       e.lat, e.lng, e.province_names, e.parent_id, e.root_id, e.level,
+                       e.lat, e.lng, e.province_names, %s, %s, e.level,
                        e.order_in_parent, e.card_summary, e.featured,
                        (
                            SELECT em.url
                            FROM event_media em
                            WHERE em.event_id = e.id
                              AND em.status = 'active'
+                             AND (
+                               em.storage_state='UNMANAGED'
+                               OR (
+                                 em.storage_state='READY'
+                                 AND em.storage_provider='cloudinary'
+                                 AND TRIM(em.storage_public_id)<>''
+                               )
+                             )
                              AND em.is_thumbnail = TRUE
                            ORDER BY em.sort_order ASC, em.id ASC
                            LIMIT 1
@@ -127,7 +189,8 @@ public class EventReadRepository {
                        ) AS child_count
                 FROM historical_events e
                 WHERE e.status = 'published'
-                """ + parts.whereSql + buildOrderBy(sortBy, sortDir) + """
+                """.formatted(PUBLIC_PARENT_ID, PUBLIC_ROOT_ID)
+                + parts.whereSql + buildOrderBy(sortBy, sortDir) + """
                 LIMIT :limit OFFSET :offset
                 """;
 
@@ -215,11 +278,11 @@ public class EventReadRepository {
 
         String sql = """
                 SELECT e.id, e.slug, e.title, e.short_title, e.event_type,
-                       e.start_year, e.end_year, e.display_date, e.parent_id, e.level, e.featured
+                       e.start_year, e.end_year, e.display_date, %s, e.level, e.featured
                 FROM historical_events e
                 WHERE e.status = 'published'
                   AND e.show_on_timeline = TRUE
-                """ + toWhere(filters)
+                """.formatted(PUBLIC_PARENT_ID) + toWhere(filters)
                 + " ORDER BY " + CHRONOLOGY_NULL_LAST_ORDER + """
                 """;
 
@@ -232,7 +295,7 @@ public class EventReadRepository {
                 SELECT e.id, e.slug, e.title, e.short_title, e.event_level, e.event_type,
                        e.event_subtype, e.start_year, e.end_year, e.effective_end_year,
                        e.display_date, e.date_precision, e.geo_type, e.lat, e.lng,
-                       e.province_names, e.historical_locations, e.parent_id, e.root_id,
+                       e.province_names, e.historical_locations, %s, %s,
                        e.level, e.order_in_parent, e.card_summary, e.canonical_summary,
                        e.detailed_narrative, e.significance, e.key_facts, e.show_on_homepage,
                        e.show_on_timeline, e.featured,
@@ -247,7 +310,7 @@ public class EventReadRepository {
                 WHERE e.status = 'published'
                   AND (e.id = :idOrSlug OR e.slug = :idOrSlug)
                 LIMIT 1
-                """;
+                """.formatted(PUBLIC_PARENT_ID, PUBLIC_ROOT_ID);
 
         List<EventDetailDto> results = jdbc.query(sql, params, detailMapper());
         if (results.isEmpty()) {
@@ -317,6 +380,7 @@ public class EventReadRepository {
                 findRelations(base.id()),
                 findRelatedEvents(base.id()),
                 findTextbookContent(base.id()),
+                base.mapData(),
                 base.sourceJson()
         ));
     }
@@ -325,13 +389,21 @@ public class EventReadRepository {
         String sql = """
                 SELECT e.id, e.slug, e.title, e.short_title, e.event_level, e.event_type,
                        e.event_subtype, e.start_year, e.end_year, e.display_date, e.geo_type,
-                       e.lat, e.lng, e.province_names, e.parent_id, e.root_id, e.level,
+                       e.lat, e.lng, e.province_names, %s, %s, e.level,
                        e.order_in_parent, e.card_summary, e.featured,
                        (
                            SELECT em.url
                            FROM event_media em
                            WHERE em.event_id = e.id
                              AND em.status = 'active'
+                             AND (
+                               em.storage_state='UNMANAGED'
+                               OR (
+                                 em.storage_state='READY'
+                                 AND em.storage_provider='cloudinary'
+                                 AND TRIM(em.storage_public_id)<>''
+                               )
+                             )
                              AND em.is_thumbnail = TRUE
                            ORDER BY em.sort_order ASC, em.id ASC
                            LIMIT 1
@@ -345,12 +417,17 @@ public class EventReadRepository {
                 FROM historical_events e
                 WHERE e.status = 'published'
                   AND e.parent_id = :eventId
+                  AND EXISTS (
+                      SELECT 1 FROM historical_events source_event
+                      WHERE source_event.id=:eventId
+                        AND source_event.status='published'
+                  )
                 ORDER BY e.order_in_parent ASC,
                          CASE WHEN e.start_year IS NULL THEN 1 ELSE 0 END,
                          e.start_year ASC,
                          e.title ASC,
                          e.id ASC
-                """;
+                """.formatted(PUBLIC_PARENT_ID, PUBLIC_ROOT_ID);
 
         return jdbc.query(sql, new MapSqlParameterSource("eventId", eventId), summaryMapper());
     }
@@ -361,13 +438,21 @@ public class EventReadRepository {
                 SELECT %s AS association_type, r.relation_type, r.sort_order,
                        e.id, e.slug, e.title, e.short_title, e.event_level, e.event_type,
                        e.event_subtype, e.start_year, e.end_year, e.display_date, e.geo_type,
-                       e.lat, e.lng, e.province_names, e.parent_id, e.root_id, e.level,
+                       e.lat, e.lng, e.province_names, %s, %s, e.level,
                        e.order_in_parent, e.card_summary, e.featured,
                        (
                            SELECT em.url
                            FROM event_media em
                            WHERE em.event_id = e.id
                              AND em.status = 'active'
+                             AND (
+                               em.storage_state='UNMANAGED'
+                               OR (
+                                 em.storage_state='READY'
+                                 AND em.storage_provider='cloudinary'
+                                 AND TRIM(em.storage_public_id)<>''
+                               )
+                             )
                              AND em.is_thumbnail = TRUE
                            ORDER BY em.sort_order ASC, em.id ASC
                            LIMIT 1
@@ -382,6 +467,11 @@ public class EventReadRepository {
                 JOIN historical_events e ON e.id = r.target_event_id
                 WHERE r.source_event_id = :eventId
                   AND e.status = 'published'
+                  AND EXISTS (
+                      SELECT 1 FROM historical_events source_event
+                      WHERE source_event.id=:eventId
+                        AND source_event.status='published'
+                  )
                   AND e.id <> :eventId
                 ORDER BY FIELD(%s, 'predecessor', 'successor', 'related'),
                          r.sort_order ASC,
@@ -390,7 +480,12 @@ public class EventReadRepository {
                          e.start_year ASC,
                          e.title ASC,
                          e.id ASC
-                """.formatted(associationTypeSql, associationTypeSql);
+                """.formatted(
+                associationTypeSql,
+                PUBLIC_PARENT_ID,
+                PUBLIC_ROOT_ID,
+                associationTypeSql
+        );
 
         return jdbc.query(sql, new MapSqlParameterSource("eventId", eventId), (rs, rowNum) ->
                 new EventRelationDto(
@@ -414,6 +509,14 @@ public class EventReadRepository {
                            FROM event_media em
                            WHERE em.event_id = e.id
                              AND em.status = 'active'
+                             AND (
+                               em.storage_state='UNMANAGED'
+                               OR (
+                                 em.storage_state='READY'
+                                 AND em.storage_provider='cloudinary'
+                                 AND TRIM(em.storage_public_id)<>''
+                               )
+                             )
                              AND em.is_thumbnail = TRUE
                            ORDER BY em.sort_order ASC, em.id ASC
                            LIMIT 1
@@ -422,6 +525,11 @@ public class EventReadRepository {
                 JOIN historical_events e ON e.id = r.target_event_id
                 WHERE r.source_event_id = :eventId
                   AND e.status = 'published'
+                  AND EXISTS (
+                      SELECT 1 FROM historical_events source_event
+                      WHERE source_event.id=:eventId
+                        AND source_event.status='published'
+                  )
                   AND e.id <> :eventId
                 ORDER BY FIELD(%s, 'predecessor', 'successor', 'related'),
                          r.sort_order ASC,
@@ -440,6 +548,7 @@ public class EventReadRepository {
                 log.warn(
                         "[geo] related event {} legacy geo_type '{}' cannot be dual-read without raw mapData; returns no_location",
                         rs.getString("id"),
+
                         dbGeoType
                 );
                 canonicalGeoType = EventGeoType.NO_LOCATION;
@@ -453,13 +562,14 @@ public class EventReadRepository {
                     rs.getString("card_summary"),
                     rs.getString("event_type"),
                     canonicalGeoType,
-                    rs.getString("thumbnail_url"),
+                    mediaUrlPolicy.redactDisplayUrl(rs.getString("thumbnail_url")),
                     rs.getString("association_type"),
                     rs.getString("relation_type"),
                     EventRelationDto.relationLabel(rs.getString("relation_type")),
                     rs.getInt("sort_order")
             );
         });
+
 
         List<EventRelatedEventDto> predecessors = new ArrayList<>();
         List<EventRelatedEventDto> successors = new ArrayList<>();
@@ -556,25 +666,42 @@ public class EventReadRepository {
     private List<EventMediaDto> findMedia(String eventId) {
         String sql = """
                 SELECT id, media_type, url, caption, alt_text, source_name, license,
-                       storage_type, is_thumbnail, sort_order
+                       storage_type, is_thumbnail, sort_order, status,
+                       storage_state,storage_provider,storage_public_id,storage_version
                 FROM event_media
                 WHERE event_id = :eventId
                   AND status = 'active'
                 ORDER BY is_thumbnail DESC, sort_order ASC, id ASC
                 """;
 
-        return jdbc.query(sql, new MapSqlParameterSource("eventId", eventId), (rs, rowNum) -> new EventMediaDto(
+        return jdbc.query(sql, new MapSqlParameterSource("eventId", eventId), (rs, rowNum) -> {
+            Long providerVersion = rs.getObject("storage_version") == null
+                    ? null : rs.getLong("storage_version");
+            String visibleUrl = mediaReadPolicy.visibleUrl(
+                    new EventMediaReadPolicy.MediaDescriptor(
+                            rs.getString("storage_state"),
+                            rs.getString("status"),
+                            rs.getString("url"),
+                            rs.getString("storage_provider"),
+                            rs.getString("storage_public_id"),
+                            providerVersion,
+                            rs.getBoolean("is_thumbnail")));
+            if (visibleUrl == null) {
+                return null;
+            }
+            return new EventMediaDto(
                 rs.getLong("id"),
                 rs.getString("media_type"),
-                rs.getString("url"),
-                rs.getString("caption"),
-                rs.getString("alt_text"),
-                rs.getString("source_name"),
-                rs.getString("license"),
+                visibleUrl,
+                mediaUrlPolicy.redactMetadata(rs.getString("caption")),
+                mediaUrlPolicy.redactMetadata(rs.getString("alt_text")),
+                mediaUrlPolicy.redactMetadata(rs.getString("source_name")),
+                mediaUrlPolicy.redactMetadata(rs.getString("license")),
                 rs.getString("storage_type"),
                 rs.getBoolean("is_thumbnail"),
                 rs.getInt("sort_order")
-        ));
+            );
+        }).stream().filter(java.util.Objects::nonNull).toList();
     }
 
     private QueryParts buildEventFilters(
@@ -732,7 +859,8 @@ public class EventReadRepository {
                 List.of(),
                 EventRelatedEventsDto.empty(),
                 null,
-                parseObject(rs.getString("raw_json"))
+                parsePublicMapData(rs.getString("raw_json")),
+                parseRawSourceJson(rs.getString("raw_json"))
         );
     }
 
@@ -768,19 +896,23 @@ public class EventReadRepository {
                 rs.getInt("order_in_parent"),
                 rs.getString("card_summary"),
                 rs.getBoolean("featured"),
-                rs.getString("thumbnail_url"),
+                mediaUrlPolicy.redactDisplayUrl(rs.getString("thumbnail_url")),
                 rs.getInt("child_count")
         );
     }
 
-    private Object parseObject(String value) {
+    JsonNode parsePublicMapData(String value) {
+        return PublicMapDataSanitizer.fromDocument(objectMapper, value);
+    }
+
+    Object parseRawSourceJson(String value) {
         if (!StringUtils.hasText(value)) {
-            return Map.of();
+            return null;
         }
         try {
-            return objectMapper.readValue(value, Object.class);
+            return objectMapper.readValue(value, Map.class);
         } catch (Exception ex) {
-            return Map.of();
+            return null;
         }
     }
 

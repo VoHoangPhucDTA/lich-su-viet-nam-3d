@@ -1,6 +1,5 @@
 package com.lichsuvn.backend.auth.application;
 
-import com.lichsuvn.backend.auth.api.dto.AuthResponseDto;
 import com.lichsuvn.backend.auth.domain.RoleEntity;
 import com.lichsuvn.backend.auth.domain.UserEntity;
 import com.lichsuvn.backend.auth.domain.UserSocialProviderEntity;
@@ -98,7 +97,7 @@ public class SocialAuthService {
      * @throws ApiException 503 if the Google tokeninfo service is unreachable.
      */
     @Transactional
-    public AuthResponseDto loginWithGoogle(String idToken) {
+    public AuthSession loginWithGoogle(String idToken) {
         // Bước 6B.2.6: SocialAuthService.java: Xác thực token với Google (tokeninfo)
         // Bước 6B.2.7: Google Server: Trả về thông tin User hợp lệ
         GoogleClaims claims = verifyGoogleIdToken(idToken);
@@ -124,7 +123,7 @@ public class SocialAuthService {
      * @throws ApiException 503 OAUTH_NOT_CONFIGURED if Facebook credentials are not set.
      */
     @Transactional
-    public AuthResponseDto loginWithFacebook(String accessToken) {
+    public AuthSession loginWithFacebook(String accessToken) {
         if (facebookAppId == null || facebookAppId.isBlank() ||
                 facebookAppSecret == null || facebookAppSecret.isBlank()) {
             throw new ApiException(HttpStatus.SERVICE_UNAVAILABLE,
@@ -181,10 +180,10 @@ public class SocialAuthService {
                     .body(String.class);
             response = new ObjectMapper().readValue(raw, new TypeReference<>() {});
         } catch (RestClientException ex) {
-            log.warn("Facebook debug_token call failed: {}", ex.getMessage());
+            log.warn("Facebook token verification request failed");
             throw invalidFacebookToken();
         } catch (Exception ex) {
-            log.warn("Facebook debug_token JSON parse failed: {}", ex.getMessage());
+            log.warn("Facebook token verification response was invalid");
             throw invalidFacebookToken();
         }
 
@@ -209,7 +208,7 @@ public class SocialAuthService {
         // Check app_id matches our configured app (prevents token substitution)
         String tokenAppId = String.valueOf(data.getOrDefault("app_id", ""));
         if (!facebookAppId.equals(tokenAppId)) {
-            log.warn("Facebook token app_id mismatch: expected={} got={}", facebookAppId, tokenAppId);
+            log.warn("Facebook token application mismatch");
             throw invalidFacebookToken();
         }
 
@@ -223,7 +222,7 @@ public class SocialAuthService {
             }
         }
 
-        log.debug("Facebook token verified successfully via debug_token app_id={}", facebookAppId);
+        log.debug("Facebook token verified successfully");
     }
 
     /**
@@ -249,10 +248,10 @@ public class SocialAuthService {
                     .body(String.class);
             data = new ObjectMapper().readValue(raw, new TypeReference<>() {});
         } catch (RestClientException ex) {
-            log.warn("Facebook /me call failed: {}", ex.getMessage());
+            log.warn("Facebook profile request failed");
             throw invalidFacebookToken();
         } catch (Exception ex) {
-            log.warn("Facebook /me JSON parse failed: {}", ex.getMessage());
+            log.warn("Facebook profile response was invalid");
             throw invalidFacebookToken();
         }
 
@@ -319,7 +318,7 @@ public class SocialAuthService {
                     .retrieve()
                     .body(Map.class);
         } catch (RestClientException ex) {
-            log.warn("Google tokeninfo call failed: {}", ex.getMessage());
+            log.warn("Google token verification request failed");
             throw new ApiException(HttpStatus.BAD_REQUEST,
                     "INVALID_SOCIAL_TOKEN", "Google token verification failed.");
         }
@@ -332,14 +331,14 @@ public class SocialAuthService {
         // Protects against token substitution: token issued for another app cannot be used here.
         String aud = stringField(payload, "aud");
         if (!googleClientId.equals(aud)) {
-            log.warn("Google token aud mismatch: expected={} got={}", googleClientId, aud);
+            log.warn("Google token audience mismatch");
             throw invalidToken();
         }
 
         // ── Verify iss (issuer) ───────────────────────────────────────────
         String iss = stringField(payload, "iss");
         if (!VALID_GOOGLE_ISSUERS.contains(iss)) {
-            log.warn("Google token invalid iss: {}", iss);
+            log.warn("Google token issuer rejected");
             throw invalidToken();
         }
 
@@ -367,7 +366,7 @@ public class SocialAuthService {
 
     // ── OAuth Login Matrix ────────────────────────────────────────────────
 
-    private AuthResponseDto processOAuthLogin(
+    private AuthSession processOAuthLogin(
             String provider, String providerId,
             String email, String displayName, String avatarUrl) {
             
@@ -389,7 +388,7 @@ public class SocialAuthService {
             guardAccountStatus(user, provider);
             log.info("Social login C3 (already linked): provider={} userId={}", provider,
                     UuidBytes.toString(user.getId()));
-            return toAuthResponse(user);
+            return toAuthSession(user);
         }
 
         // C2: Email already registered (local account) — auto-merge
@@ -402,8 +401,8 @@ public class SocialAuthService {
             if (UserStatus.PENDING.matches(user.getStatus())) {
                 user.setStatus(UserStatus.ACTIVE.value());
                 user.setEmailVerifiedAt(java.time.Instant.now());
-                log.info("Social login C2 (pending->active via social): provider={} email={} userId={}",
-                        provider, email, UuidBytes.toString(user.getId()));
+                log.info("Social login C2 (pending->active via social): provider={} userId={}",
+                        provider, UuidBytes.toString(user.getId()));
             }
             linkProvider(user, provider, providerId, email, displayName, avatarUrl);
             // Update avatarUrl if the local account has none — use Cloudinary URL
@@ -411,17 +410,17 @@ public class SocialAuthService {
                     && finalAvatarUrl != null && !finalAvatarUrl.isBlank()) {
                 user.setAvatarUrl(finalAvatarUrl);
             }
-            log.info("Social login C2 (email merge): provider={} email={} userId={}", provider,
-                    email, UuidBytes.toString(user.getId()));
-            return toAuthResponse(user);
+            log.info("Social login C2 (email merge): provider={} userId={}", provider,
+                    UuidBytes.toString(user.getId()));
+            return toAuthSession(user);
         }
 
         // C1: Brand new user — create active account (no password needed)
         UserEntity newUser = createSocialUser(email, displayName, finalAvatarUrl);
         linkProvider(newUser, provider, providerId, email, displayName, avatarUrl);
-        log.info("Social login C1 (new user): provider={} email={} userId={}", provider,
-                email, UuidBytes.toString(newUser.getId()));
-        return toAuthResponse(newUser);
+        log.info("Social login C1 (new user): provider={} userId={}", provider,
+                UuidBytes.toString(newUser.getId()));
+        return toAuthSession(newUser);
     }
 
     /**
@@ -470,15 +469,17 @@ public class SocialAuthService {
         socialRepository.save(link);
     }
 
-    private AuthResponseDto toAuthResponse(UserEntity user) {
+    private AuthSession toAuthSession(UserEntity user) {
         List<String> roles = user.getRoles().stream()
                 .map(r -> r.getCode())
                 .sorted()
                 .toList();
         // Bước 6B.2.10 / 6B.3.10: SocialAuthService.java: Tạo JWT Token và trả về
-        return new AuthResponseDto(
-                jwtService.createAccessToken(UuidBytes.toString(user.getId()), user.getEmail(), roles),
-                jwtService.createRefreshToken(UuidBytes.toString(user.getId()), user.getEmail(), roles),
+        return new AuthSession(
+                jwtService.createAccessToken(
+                        UuidBytes.toString(user.getId()), user.getEmail(), roles, user.getAuthVersion()),
+                jwtService.createRefreshToken(
+                        UuidBytes.toString(user.getId()), user.getEmail(), roles, user.getAuthVersion()),
                 user.toDto()
         );
     }

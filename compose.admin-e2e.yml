@@ -1,0 +1,94 @@
+name: lichsuvn-admin-e2e
+
+services:
+  mysql:
+    image: mysql:8.0.36
+    environment:
+      MYSQL_DATABASE: lichsuvn_admin_e2e
+      MYSQL_USER: admin_e2e
+      MYSQL_PASSWORD: ${ADMIN_E2E_MYSQL_PASSWORD:?set by the local runner}
+      MYSQL_RANDOM_ROOT_PASSWORD: "yes"
+      TZ: Asia/Ho_Chi_Minh
+    command: ["--character-set-server=utf8mb4", "--collation-server=utf8mb4_0900_ai_ci"]
+    volumes:
+      - admin-e2e-mysql:/var/lib/mysql
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -uadmin_e2e -p$$MYSQL_PASSWORD --silent"]
+      interval: 5s
+      timeout: 5s
+      # A cold MySQL initialization on a constrained Docker Desktop VM can
+      # spend about four minutes before its temporary server is ready. Do not
+      # consume the real readiness retries while the entrypoint is still
+      # initializing the disposable data directory.
+      start_period: 5m
+      retries: 48
+    networks: [internal]
+
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    environment:
+      TZ: Asia/Ho_Chi_Minh
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/lichsuvn_admin_e2e?useSSL=false&connectionTimeZone=Asia/Ho_Chi_Minh&allowPublicKeyRetrieval=true
+      SPRING_DATASOURCE_USERNAME: admin_e2e
+      SPRING_DATASOURCE_PASSWORD: ${ADMIN_E2E_MYSQL_PASSWORD:?set by the local runner}
+      APP_JWT_SECRET: ${ADMIN_E2E_JWT_SECRET:?set by the local runner}
+      APP_FRONTEND_BASE_URL: http://localhost:15174
+      APP_ALLOWED_ORIGINS: http://127.0.0.1:15174,http://localhost:15174
+      APP_COOKIE_SECURE: "false"
+      APP_COOKIE_SAME_SITE: Lax
+      APP_MAIL_ENABLED: "false"
+      AI_SERVICE_ENABLED: "false"
+      AI_RECEIPT_CLEANUP_ENABLED: "false"
+      APP_TTS_ASSET_FLOW_ENABLED: "false"
+      SPRING_PROFILES_ACTIVE: admin-e2e
+      APP_EVENT_IMAGE_UPLOAD_ENABLED: "true"
+      APP_EVENT_IMAGE_CLEANUP_ENABLED: "true"
+      CLOUDINARY_CLOUD_NAME: ""
+      CLOUDINARY_API_KEY: ""
+      CLOUDINARY_API_SECRET: ""
+      APP_AUTH_GOOGLE_CLIENT_ID: ""
+      APP_AUTH_FACEBOOK_APP_ID: ""
+      APP_AUTH_FACEBOOK_APP_SECRET: ""
+      HISTORY_RAG_IMPORT_RELEASE_A_ENABLED: "false"
+      HISTORY_RAG_IMPORT_RELEASE_C_ENABLED: "false"
+      HISTORY_RAG_RELEASE_B_APPLY_V29: "false"
+      HISTORY_RAG_RELEASE_C_APPLY_V30: "false"
+      EXAM_RETENTION_ENABLED: "false"
+      SPRING_FLYWAY_ENABLED: "true"
+      MANAGEMENT_ENDPOINT_HEALTH_SHOW_DETAILS: never
+      MANAGEMENT_ENDPOINT_HEALTH_SHOW_COMPONENTS: never
+      MANAGEMENT_HEALTH_MAIL_ENABLED: "false"
+    depends_on:
+      mysql:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "--fail", "--silent", "http://127.0.0.1:8080/actuator/health/liveness"]
+      interval: 10s
+      timeout: 5s
+      start_period: 45s
+      # Flyway V1-V42 is intentionally exercised on a fresh database. On a
+      # cold local Docker VM this can exceed the original 195-second window.
+      # Keep the liveness probe unchanged while allowing eight minutes.
+      retries: 48
+    networks: [internal]
+
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile.admin-e2e
+    ports:
+      - "127.0.0.1:15174:8080"
+    depends_on:
+      backend:
+        condition: service_healthy
+    networks: [internal, edge]
+
+volumes:
+  admin-e2e-mysql:
+
+networks:
+  internal:
+    internal: true
+  edge:

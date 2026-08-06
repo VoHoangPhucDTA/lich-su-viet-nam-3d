@@ -1,6 +1,7 @@
-import { afterEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { ApiRequestError } from '../apiClient';
 import { generateAiQuiz, getAiQuizErrorMessage } from '../aiQuizApi';
+import { clearCsrfToken } from '../csrfClient';
 
 const data = {
   questions: [{
@@ -19,15 +20,22 @@ function jsonResponse(status: number, code: string, responseData: unknown, succe
   });
 }
 
+function csrfResponse() {
+  return jsonResponse(200, 'SUCCESS', { token: 'csrf-token', headerName: 'X-CSRF-TOKEN' });
+}
+
+beforeEach(clearCsrfToken);
 afterEach(() => vi.unstubAllGlobals());
 
 describe('AI quiz integration against a mocked public Spring endpoint', () => {
   it('uses the public endpoint, JSON body and credentialed shared client', async () => {
-    const fetchMock = vi.fn().mockResolvedValue(jsonResponse(200, 'SUCCESS', data));
+    const fetchMock = vi.fn()
+      .mockResolvedValueOnce(csrfResponse())
+      .mockResolvedValueOnce(jsonResponse(200, 'SUCCESS', data));
     vi.stubGlobal('fetch', fetchMock);
     await generateAiQuiz({ query: 'Chủ đề', grade: 12, difficulty: 'MEDIUM', count: 1 });
-    expect(fetchMock).toHaveBeenCalledTimes(1);
-    const [url, init] = fetchMock.mock.calls[0] as [string, RequestInit];
+    expect(fetchMock).toHaveBeenCalledTimes(2);
+    const [url, init] = fetchMock.mock.calls[1] as [string, RequestInit];
     expect(url).toMatch(/\/api\/exams\/ai\/generate$/);
     expect(url).not.toMatch(/:8001|\/ai\/quiz\/generate/);
     expect(init.credentials).toBe('include');
@@ -35,10 +43,12 @@ describe('AI quiz integration against a mocked public Spring endpoint', () => {
   });
 
   it('parses a partial Spring response without a second network call', async () => {
-    const fetchMock = vi.fn().mockResolvedValue(jsonResponse(200, 'SUCCESS', { ...data, generation: { requestedCount: 3, generatedCount: 1, partial: true } }));
+    const fetchMock = vi.fn()
+      .mockResolvedValueOnce(csrfResponse())
+      .mockResolvedValueOnce(jsonResponse(200, 'SUCCESS', { ...data, generation: { requestedCount: 3, generatedCount: 1, partial: true } }));
     vi.stubGlobal('fetch', fetchMock);
     expect((await generateAiQuiz({ query: 'Chủ đề', grade: 12, difficulty: 'MEDIUM', count: 3 })).generation.partial).toBe(true);
-    expect(fetchMock).toHaveBeenCalledTimes(1);
+    expect(fetchMock).toHaveBeenCalledTimes(2);
   });
 
   it.each([
@@ -48,7 +58,9 @@ describe('AI quiz integration against a mocked public Spring endpoint', () => {
     [503, 'AI_SERVICE_UNAVAILABLE'],
     [503, 'AI_SERVICE_DISABLED'],
   ])('normalizes Spring %s / %s without exposing its raw message', async (status, code) => {
-    vi.stubGlobal('fetch', vi.fn().mockResolvedValue(jsonResponse(status, code, null, false)));
+    vi.stubGlobal('fetch', vi.fn()
+      .mockResolvedValueOnce(csrfResponse())
+      .mockResolvedValueOnce(jsonResponse(status, code, null, false)));
     const error = await generateAiQuiz({ query: 'Chủ đề', grade: 12, difficulty: 'MEDIUM', count: 1 }).catch((reason: unknown) => reason);
     expect(error).toBeInstanceOf(ApiRequestError);
     expect((error as ApiRequestError).code).toBe(code);
@@ -56,14 +68,18 @@ describe('AI quiz integration against a mocked public Spring endpoint', () => {
   });
 
   it('does not refresh or replay a generation request after 401', async () => {
-    const fetchMock = vi.fn().mockResolvedValue(jsonResponse(401, 'UNAUTHORIZED', null, false));
+    const fetchMock = vi.fn()
+      .mockResolvedValueOnce(csrfResponse())
+      .mockResolvedValueOnce(jsonResponse(401, 'UNAUTHORIZED', null, false));
     vi.stubGlobal('fetch', fetchMock);
     await expect(generateAiQuiz({ query: 'Chủ đề', grade: 12, difficulty: 'MEDIUM', count: 1 })).rejects.toMatchObject({ status: 401 });
-    expect(fetchMock).toHaveBeenCalledTimes(1);
+    expect(fetchMock).toHaveBeenCalledTimes(2);
   });
 
   it('rejects malformed success data from Spring', async () => {
-    vi.stubGlobal('fetch', vi.fn().mockResolvedValue(jsonResponse(200, 'SUCCESS', { questions: [] })));
+    vi.stubGlobal('fetch', vi.fn()
+      .mockResolvedValueOnce(csrfResponse())
+      .mockResolvedValueOnce(jsonResponse(200, 'SUCCESS', { questions: [] })));
     await expect(generateAiQuiz({ query: 'Chủ đề', grade: 12, difficulty: 'MEDIUM', count: 1 })).rejects.toMatchObject({ code: 'AI_SERVICE_INVALID_RESPONSE' });
   });
 
