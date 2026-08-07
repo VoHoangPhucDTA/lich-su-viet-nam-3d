@@ -2,6 +2,7 @@ package com.lichsuvn.backend.importer;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lichsuvn.backend.event.infrastructure.EventReadRepository;
+import com.lichsuvn.backend.testsupport.LocalMySqlContainer;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import org.flywaydb.core.Flyway;
@@ -9,9 +10,13 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
+import org.springframework.aop.framework.ProxyFactory;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.testcontainers.containers.MySQLContainer;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.transaction.annotation.AnnotationTransactionAttributeSource;
+import org.springframework.transaction.interceptor.TransactionInterceptor;
+import org.testcontainers.mysql.MySQLContainer;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -29,7 +34,7 @@ class HistoryRagImportServiceIntegrationTest {
     @TempDir
     private static Path temporaryDirectory;
 
-    private static MySQLContainer<?> mysql;
+    private static MySQLContainer mysql;
     private static HikariDataSource dataSource;
     private static NamedParameterJdbcTemplate jdbc;
     private static HistoryRagPackageReader.PackageData packageData;
@@ -41,7 +46,7 @@ class HistoryRagImportServiceIntegrationTest {
     static void setupDatabase() {
         boolean containerStarted = false;
         try {
-            mysql = new MySQLContainer<>("mysql:8.0.36")
+            mysql = new LocalMySqlContainer("mysql:8.0.36")
                     .withDatabaseName("history_rag_apply_test")
                     .withUsername("test")
                     .withPassword("test");
@@ -63,10 +68,10 @@ class HistoryRagImportServiceIntegrationTest {
             HistoryRagTestPackageFixture.create(packageDirectory);
             packageData = new HistoryRagPackageReader(new ObjectMapper()).read(packageDirectory);
             seedBaseline();
-            service = new HistoryRagImportService(
+            service = transactional(new HistoryRagImportService(
                     jdbc,
                     new HistoryRagTextbookRefPreflight(jdbc),
-                    new ObjectMapper());
+                    new ObjectMapper()));
             mysqlAvailable = true;
         } catch (Exception ex) {
             if (mysql != null) {
@@ -78,6 +83,16 @@ class HistoryRagImportServiceIntegrationTest {
             unavailableReason = "Testcontainers MySQL unavailable: " + ex.getClass().getSimpleName()
                     + " - " + ex.getMessage();
         }
+    }
+
+    private static HistoryRagImportService transactional(HistoryRagImportService target) {
+        var transactionManager = new DataSourceTransactionManager(dataSource);
+        var interceptor = new TransactionInterceptor(
+                transactionManager,
+                new AnnotationTransactionAttributeSource());
+        var proxyFactory = new ProxyFactory(target);
+        proxyFactory.addAdvice(interceptor);
+        return (HistoryRagImportService) proxyFactory.getProxy();
     }
 
     @AfterAll

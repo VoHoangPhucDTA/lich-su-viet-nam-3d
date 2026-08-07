@@ -2,6 +2,7 @@ package com.lichsuvn.backend.importer;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.lichsuvn.backend.event.domain.EventGeoType;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Profile;
@@ -489,14 +490,48 @@ public class EventJsonImportRunner implements CommandLineRunner {
         }
     }
 
-    private static String normalizeGeoType(String value) {
-        if (value == null) return "no_location";
-        return switch (value) {
-            case "point", "single_point" -> "single_point";
-            case "multi_point", "multi_region", "polygon", "multi_polygon", "mixed" -> "multi_region";
-            case "nationwide" -> "nationwide";
-            default -> "no_location";
-        };
+    /**
+     * Canonical geoType validation. Values outside the six canonical values fail
+     * the import with the event ID and the actual value — there is no fallback.
+     */
+    private static String canonicalGeoType(String value, String eventId) {
+        if (!EventGeoType.isCanonical(value)) {
+            throw new IllegalArgumentException(
+                    "Event " + eventId + ": unsupported mapData.geoType '" + value
+                            + "'; expected one of " + EventGeoType.CANONICAL
+            );
+        }
+        return value;
+    }
+
+    /**
+     * Primary marker for point / multi_point / mixed projection.
+     * For multi_point the primary marker must be markers[0]; when a separate
+     * marker field exists it must match markers[0], otherwise the import fails.
+     */
+    private static JsonNode primaryMarker(JsonNode mapData, String geoType, String eventId) {
+        JsonNode marker = mapData.path("marker");
+        JsonNode markers = mapData.path("markers");
+        if (EventGeoType.MULTI_POINT.equals(geoType)) {
+            if (!markers.isArray() || markers.isEmpty()) {
+                throw new IllegalArgumentException(
+                        "Event " + eventId + ": multi_point requires a non-empty markers array"
+                );
+            }
+            JsonNode first = markers.get(0);
+            if (marker.isObject() && marker.hasNonNull("lat") && marker.hasNonNull("lng")) {
+                boolean equal = first.hasNonNull("lat") && first.hasNonNull("lng")
+                        && marker.path("lat").equals(first.path("lat"))
+                        && marker.path("lng").equals(first.path("lng"));
+                if (!equal) {
+                    throw new IllegalArgumentException(
+                            "Event " + eventId + ": multi_point primary marker must equal markers[0]"
+                    );
+                }
+            }
+            return first;
+        }
+        return marker.isObject() ? marker : (markers.isArray() && !markers.isEmpty() ? markers.get(0) : null);
     }
 
     private static String normalizeEventType(String value) {
@@ -686,12 +721,30 @@ public class EventJsonImportRunner implements CommandLineRunner {
             // New JSONL format: mapData fields are at top level of mapData
             // (old format nested them under mapData.displayGeometry)
             JsonNode mapData = raw.path("mapData");
-            JsonNode mapMarker = mapData.path("marker");
-            JsonNode focusCenter = mapData.path("focusGeometry").path("center");
-            event.geoType = normalizeGeoType(text(mapData, "geoType"));
-            event.lat = mapMarker.hasNonNull("lat") ? decimalValue(mapMarker.path("lat")) : decimalValue(focusCenter.path("lat"));
-            event.lng = mapMarker.hasNonNull("lng") ? decimalValue(mapMarker.path("lng")) : decimalValue(focusCenter.path("lng"));
-            addStringArray(event.provinceNames, mapData.path("provinceNames"));
+            String geoType = canonicalGeoType(text(mapData, "geoType"), id);
+            event.geoType = geoType;
+            switch (geoType) {
+                // point / multi_point / mixed: lat/lng from the primary marker only.
+                // multi_point requires the primary marker to equal markers[0].
+                case EventGeoType.POINT, EventGeoType.MULTI_POINT, EventGeoType.MIXED -> {
+                    JsonNode primaryMarker = primaryMarker(mapData, geoType, id);
+                    if (primaryMarker != null && primaryMarker.hasNonNull("lat") && primaryMarker.hasNonNull("lng")) {
+                        event.lat = decimalValue(primaryMarker.path("lat"));
+                        event.lng = decimalValue(primaryMarker.path("lng"));
+                    }
+                }
+                // multi_polygon / nationwide / no_location: no operational lat/lng.
+                case EventGeoType.MULTI_POLYGON, EventGeoType.NATIONWIDE, EventGeoType.NO_LOCATION -> {
+                    // intentional: lat/lng stay null
+                }
+                default -> throw new IllegalArgumentException(
+                        "Event " + id + ": unreachable geoType " + geoType
+                );
+            }
+            // nationwide / no_location events carry no province list.
+            if (!EventGeoType.NATIONWIDE.equals(geoType) && !EventGeoType.NO_LOCATION.equals(geoType)) {
+                addStringArray(event.provinceNames, mapData.path("provinceNames"));
+            }
             addStringArray(event.historicalLocations, mapData.path("historicalLocations"));
 
             JsonNode hierarchy = raw.path("hierarchy");

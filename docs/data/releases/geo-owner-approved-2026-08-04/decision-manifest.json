@@ -1,0 +1,26 @@
+{
+  "phase": "B4-D",
+  "decisionOrigin": "owner_delegated_policy",
+  "reviewer": "Project owner — delegated policy approval",
+  "reviewDate": "2026-08-04",
+  "globalDecision": "ACCEPT_GLOBAL_POLICY",
+  "globalDecisionCoveredEvents": 61,
+  "individualDecisionCount": 88,
+  "decisionCounts": {
+    "DISABLE_GEOMETRY": 33,
+    "ACCEPT_POLICY": 23,
+    "SET_MULTI_POINT": 19,
+    "SET_POINT": 13
+  },
+  "statusCounts": {
+    "owner_approved_no_geometry": 33,
+    "owner_policy_approved": 23,
+    "owner_approved_correction": 32
+  },
+  "historicalVerification": false,
+  "acceptedBaselineSha": "4674284bed8be87e01045df88db90b8c4898fe0cc8a1c63baaaae5d1a3c1f1f9",
+  "policyCandidateSha": "f93afe2400c03ce54942d2c9f30d452e352fdb294183a450fe91be867fb4e5eb",
+  "boundarySha": "54275398c7054a9d035fc6adf657a6fdc4e11ba0492e942ca11b662a88da132f",
+  "inputManifestSha": "6b34c078e8911a1884deee87568cce13eee0450927cb71d2ae595e338b29c81d",
+  "b1Commit": "f4b6f93e3a4ce88529dbbc2b08b3a70b0d9d502a"
+}

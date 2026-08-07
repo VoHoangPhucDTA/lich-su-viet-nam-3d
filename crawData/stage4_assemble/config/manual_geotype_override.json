@@ -1,1 +1,14 @@
-{}
+{
+  "hoi-nghi-thanh-lap-dang-cong-san-viet-nam": {
+    "geoType": "no_location",
+    "historicalLocations": [
+      "Đông Dương",
+      "Việt Nam",
+      "Trung Quốc",
+      "Hương Cảng (Trung Quốc)",
+      "Cửu Long",
+      "Hồng Công"
+    ],
+    "reason": "Cửu Long trong sự kiện này là Kowloon, Hồng Kông; nằm ngoài lớp bản đồ Việt Nam được hỗ trợ."
+  }
+}

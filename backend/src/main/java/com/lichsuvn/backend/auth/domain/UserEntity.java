@@ -12,6 +12,9 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
+import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.annotations.OptimisticLockType;
+import org.hibernate.annotations.OptimisticLocking;
 
 import java.time.Instant;
 import java.util.HashSet;
@@ -21,6 +24,8 @@ import com.lichsuvn.backend.exam.ai.review.security.AiCandidateAuthorization;
 
 @Entity
 @Table(name = "users")
+@DynamicUpdate
+@OptimisticLocking(type = OptimisticLockType.ALL)
 public class UserEntity {
     @Id
     @Column(name = "id", columnDefinition = "BINARY(16)")
@@ -58,6 +63,9 @@ public class UserEntity {
 
     @Column(name = "created_at", insertable = false, updatable = false)
     private Instant createdAt;
+
+    @Column(name = "auth_version", nullable = false)
+    private long authVersion;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
@@ -182,6 +190,14 @@ public class UserEntity {
 
     public Instant getCreatedAt() {
         return createdAt;
+    }
+
+    public long getAuthVersion() {
+        return authVersion;
+    }
+
+    public void setAuthVersion(long authVersion) {
+        this.authVersion = authVersion;
     }
 
     public Set<RoleEntity> getRoles() {

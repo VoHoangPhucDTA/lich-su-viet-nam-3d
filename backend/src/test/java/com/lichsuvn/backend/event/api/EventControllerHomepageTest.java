@@ -152,6 +152,7 @@ class EventControllerHomepageTest {
                 List.of(),
                 EventRelatedEventsDto.empty(),
                 "Textbook content",
+                null,
                 null
         );
     }

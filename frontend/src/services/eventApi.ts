@@ -11,15 +11,14 @@
 import type { MockEventDetail } from '../data/mockEventDetails';
 import type {
   EventAssociationType,
-  CanonicalGeoType,
   EventType,
   GeoType,
   HistoricalEvent,
   RelatedHistoricalEvent,
   RelatedHistoricalEvents,
-  EventSourceJson,
   SourceMapData,
 } from '../types/event';
+import { isCanonicalGeoType } from '../types/event';
 import {
   compareChronologyS1,
   compareChronologyS1Descending,
@@ -123,31 +122,25 @@ interface EventDetailDto extends EventSummaryDto {
   relations: EventRelationDto[];
   relatedEvents?: EventRelatedEventsDto;
   sourceJson?: unknown;
+  mapData?: SourceMapData | null;
 }
-
-function isCanonicalGeoType(value: unknown): value is CanonicalGeoType {
-  return (
-    value === 'point' ||
-    value === 'multi_point' ||
-    value === 'multi_polygon' ||
-    value === 'mixed' ||
-    value === 'nationwide' ||
-    value === 'no_location'
+/**
+ * Canonical boundary guard: a canonical API response must only contain one of
+ * the six canonical geoType values. A legacy value is logged as an error and
+ * fails closed to no_location — it is never silently collapsed or guessed.
+ */
+function canonicalGeoTypeOrFailClosed(value: unknown, eventId: string): GeoType {
+  if (isCanonicalGeoType(value)) return value;
+  console.error(
+    `[eventApi] event "${eventId}" returned non-canonical geoType ${JSON.stringify(value)}; treating as no_location (fail closed)`
   );
+  return 'no_location';
 }
 
 function sourceMapDataFromDto(dto: EventDetailDto): SourceMapData | undefined {
-  const sourceJson = dto.sourceJson;
-  if (!sourceJson || typeof sourceJson !== 'object' || Array.isArray(sourceJson)) return undefined;
-  const mapData = (sourceJson as { mapData?: unknown }).mapData;
+  const mapData = dto.mapData;
   if (!mapData || typeof mapData !== 'object' || Array.isArray(mapData)) return undefined;
-  return mapData as SourceMapData;
-}
-
-function sourceJsonFromDto(dto: EventDetailDto): EventSourceJson | undefined {
-  const sourceJson = dto.sourceJson;
-  if (!sourceJson || typeof sourceJson !== 'object' || Array.isArray(sourceJson)) return undefined;
-  return sourceJson as unknown as EventSourceJson;
+  return mapData;
 }
 
 interface EventRelationDto {
@@ -324,7 +317,7 @@ function summaryToHistoricalEvent(dto: EventSummaryDto): HistoricalEvent {
     displayDate: chronology.displayDate,
     eventType: dto.eventType,
     eventSubtype: dto.eventSubtype,
-    geoType: dto.geoType,
+    geoType: canonicalGeoTypeOrFailClosed(dto.geoType, dto.id),
     coordinates: hasCoordinates ? { lat: Number(dto.lat), lng: Number(dto.lng) } : undefined,
     primaryRegions: toStringArray(dto.provinceNames),
     parentId: dto.parentId ?? null,
@@ -340,7 +333,6 @@ function detailToHistoricalEvent(dto: EventDetailDto): HistoricalEvent {
   const sourceMapData = sourceMapDataFromDto(dto);
   return {
     ...event,
-    sourceJson: sourceJsonFromDto(dto),
     sourceMapData,
     canonicalGeoType: isCanonicalGeoType(sourceMapData?.geoType)
       ? sourceMapData.geoType
@@ -359,7 +351,7 @@ function relatedDtoToHistoricalEvent(dto: EventRelatedEventDto): RelatedHistoric
     effectiveEndYear: null,
     displayDate: dto.displayDate,
     eventType: dto.eventType,
-    geoType: dto.geoType,
+    geoType: canonicalGeoTypeOrFailClosed(dto.geoType, dto.id),
     parentId: null,
     thumbnailUrl: dto.thumbnailUrl || undefined,
     details: dto.cardSummary,
@@ -476,7 +468,7 @@ function detailToMockEvent(dto: EventDetailDto): MockEventDetail {
     },
     mapData: {
       displayGeometry: {
-        geoType: dto.geoType,
+        geoType: canonicalGeoTypeOrFailClosed(dto.geoType, dto.id),
         marker:
           dto.lat != null && dto.lng != null
             ? { coordinates: [Number(dto.lng), Number(dto.lat)] }

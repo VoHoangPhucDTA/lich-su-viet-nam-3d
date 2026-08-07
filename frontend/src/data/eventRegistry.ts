@@ -66,6 +66,7 @@ export interface RawEventJson {
   mapData?: {
     geoType?: string;
     marker?: { lat: number; lng: number; label?: string };
+    markers?: Array<{ lat: number; lng: number; label?: string }>;
     provinceNames?: string[];
     historicalLocations?: string[];
     displayGeometry?: {

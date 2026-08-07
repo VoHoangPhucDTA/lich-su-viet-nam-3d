@@ -1,4 +1,4 @@
-import type { EventType, HistoricalEvent } from '../types/event';
+import { RENDERABLE_GEO_TYPES, type EventType, type HistoricalEvent } from '../types/event';
 
 export interface MapQueryState {
   year: number;
@@ -193,7 +193,7 @@ export function buildMapVisibilityProjection(
   const flattenedEvents = flattenTree(sidebarTree);
   const locatableMapEvents = matchingEvents.filter(
     (event, index, events) =>
-      event.geoType !== 'no_location' &&
+      RENDERABLE_GEO_TYPES.includes(event.geoType) &&
       event.coordinates != null &&
       events.findIndex((candidate) => candidate.id === event.id) === index,
   );

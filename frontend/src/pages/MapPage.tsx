@@ -168,7 +168,7 @@ export default function MapPage() {
     () => selectedEvent
       ? normalizeTerrainTargets(
         selectedEvent.id,
-        selectedEvent.sourceJson ?? selectedEvent.sourceMapData,
+        selectedEvent.sourceMapData,
       )
       : null,
     [selectedEvent],
@@ -607,6 +607,10 @@ export default function MapPage() {
       terrainDispatch({ type: 'EXIT', sessionId: current.sessionId });
     }
   }, []);
+
+  // Generic terrain sessions are disabled in the canonical overview flow (C1):
+  // no "Xem địa hình" CTA, no target selector, no auto session. The deep 3D
+  // module is developed separately and must not depend on this overview path.
 
   // ─── Terrain Exploration toolbar wiring (Task C) ───────────────────────────
   const clearExploration = useCallback(() => {

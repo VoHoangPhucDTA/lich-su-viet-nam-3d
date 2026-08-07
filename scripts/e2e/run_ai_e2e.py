@@ -32,7 +32,15 @@ def command(args: list[str], env_file: Path, *, capture: bool = False) -> str:
     return completed.stdout if capture else ""
 
 
-def request(opener, method: str, path: str, body=None, *, token: str | None = None, allow_error: bool = False):
+def request(
+    opener,
+    method: str,
+    path: str,
+    body=None,
+    *,
+    csrf_token: str | None = None,
+    allow_error: bool = False,
+):
     data = json.dumps(body).encode() if body is not None else None
     req = urllib.request.Request(
         "http://127.0.0.1:15173" + path,
@@ -40,7 +48,7 @@ def request(opener, method: str, path: str, body=None, *, token: str | None = No
         method=method,
         headers={
             "Content-Type": "application/json",
-            **({"Authorization": f"Bearer {token}"} if token else {}),
+            **({"X-CSRF-TOKEN": csrf_token} if csrf_token else {}),
         },
     )
     started = time.perf_counter()
@@ -55,6 +63,14 @@ def request(opener, method: str, path: str, body=None, *, token: str | None = No
         status = exc.code
         value = json.loads(exc.read())
     return value, round((time.perf_counter() - started) * 1000, 3), status
+
+
+def csrf(opener) -> str:
+    response, _, status = request(opener, "GET", "/api/auth/csrf")
+    payload = data(response)
+    if status != 200 or not isinstance(payload, dict) or not payload.get("token"):
+        raise RuntimeError("CSRF bootstrap did not return a token")
+    return str(payload["token"])
 
 
 def mysql(env_file: Path, sql: str) -> str:
@@ -112,16 +128,27 @@ def create_identity(env_file: Path, role: str):
     email = f"ai-e2e-{role}-{secrets.token_hex(5)}@example.invalid"
     password = "E2e!" + secrets.token_urlsafe(20)
     opener = urllib.request.build_opener(urllib.request.HTTPCookieProcessor(CookieJar()))
+    register_csrf = csrf(opener)
     _, register_ms, _ = request(opener, "POST", "/api/auth/register", {
         "email": email, "password": password, "fullName": f"AI E2E {role}", "grade": "12", "school": "CI"
-    })
+    }, csrf_token=register_csrf)
     mysql(env_file,
-        f"UPDATE users SET status='active',email_verified_at=CURRENT_TIMESTAMP WHERE email='{email}';"
+        f"UPDATE users SET status='active',email_verified_at=CURRENT_TIMESTAMP,"
+        f"auth_version=auth_version+1 WHERE email='{email}';"
         "INSERT IGNORE INTO user_roles(user_id,role_id) SELECT u.id,r.id FROM users u JOIN roles r "
         f"WHERE u.email='{email}' AND r.code='{role}';")
-    login, login_ms, _ = request(opener, "POST", "/api/auth/login", {"email": email, "password": password})
-    token = data(login)["accessToken"]
-    return opener, token, register_ms, login_ms
+    # Fixture promotion invalidates any credentials minted before the final role/status.
+    opener = urllib.request.build_opener(urllib.request.HTTPCookieProcessor(CookieJar()))
+    login_csrf = csrf(opener)
+    _, login_ms, _ = request(
+        opener, "POST", "/api/auth/login",
+        {"email": email, "password": password},
+        csrf_token=login_csrf,
+    )
+    session_csrf = csrf(opener)
+    request(opener, "POST", "/api/auth/refresh", csrf_token=session_csrf)
+    session_csrf = csrf(opener)
+    return opener, session_csrf, register_ms, login_ms
 
 
 def seed_publish_target(env_file: Path) -> dict[str, str]:
@@ -139,38 +166,47 @@ def seed_publish_target(env_file: Path) -> dict[str, str]:
     return target
 
 
-def generate_and_approve(creator, creator_token: str, reviewer, reviewer_token: str, latency: dict[str, list[float]]):
+def generate_and_approve(
+    creator,
+    creator_csrf: str,
+    reviewer,
+    reviewer_csrf: str,
+    latency: dict[str, list[float]],
+):
     generated, elapsed, _ = request(creator, "POST", "/api/exams/ai/generate", {
         "query": "Cách mạng tháng Tám", "grade": 12, "lessonNumber": 6,
         "difficulty": "MEDIUM", "count": 1, "topK": 3,
-    }, token=creator_token)
+    }, csrf_token=creator_csrf)
     receipt = data(generated)["generationReceipt"]["id"]
     created, elapsed_save, _ = request(creator, "POST", "/api/exams/ai/candidates", {
         "generationReceiptId": receipt, "questionIndexes": [0]
-    }, token=creator_token)
+    }, csrf_token=creator_csrf)
     candidate = data(created)[0]
     submitted, elapsed_submit, _ = request(creator, "POST", f"/api/exams/ai/candidates/{candidate['id']}/submit", {
         "version": candidate["version"], "note": "deterministic HTTP concurrency fixture"
-    }, token=creator_token)
+    }, csrf_token=creator_csrf)
     candidate = data(submitted)
     approved, elapsed_approve, _ = request(reviewer, "POST", f"/api/exams/ai/candidates/{candidate['id']}/approve", {
         "version": candidate["version"], "note": "independent deterministic reviewer",
         "selfReviewOverride": False,
-    }, token=reviewer_token)
+    }, csrf_token=reviewer_csrf)
     latency["save"].append(elapsed_save)
     latency["submit"].append(elapsed_submit)
     latency["approve"].append(elapsed_approve)
     return data(approved)
 
 
-def publish_race(opener, token: str, candidate: dict, target: dict, latency: list[float]):
+def publish_race(opener, csrf_token: str, candidate: dict, target: dict, latency: list[float]):
     barrier = threading.Barrier(2)
     body = {"version": candidate["version"], **target}
     path = f"/api/exams/ai/candidates/{candidate['id']}/publish"
 
     def invoke():
         barrier.wait(timeout=10)
-        return request(opener, "POST", path, body, token=token, allow_error=True)
+        return request(
+            opener, "POST", path, body,
+            csrf_token=csrf_token, allow_error=True,
+        )
 
     with ThreadPoolExecutor(max_workers=2) as pool:
         results = [future.result() for future in [pool.submit(invoke), pool.submit(invoke)]]
@@ -202,9 +238,9 @@ def run_once(env_file: Path, build: bool) -> dict:
         command(["build"], env_file)
     command(["up", "-d", "--wait"], env_file)
     wait_frontend()
-    creator, creator_token, register_ms, login_ms = create_identity(env_file, "teacher")
-    reviewer, reviewer_token, _, _ = create_identity(env_file, "teacher")
-    admin, admin_token, _, _ = create_identity(env_file, "admin")
+    creator, creator_csrf, register_ms, login_ms = create_identity(env_file, "teacher")
+    reviewer, reviewer_csrf, _, _ = create_identity(env_file, "teacher")
+    admin, admin_csrf, _, _ = create_identity(env_file, "admin")
     target = seed_publish_target(env_file)
     generation = {}
     latency = {"register": [register_ms], "login": [login_ms]}
@@ -212,7 +248,7 @@ def run_once(env_file: Path, build: bool) -> dict:
         response, elapsed, _ = request(creator, "POST", "/api/exams/ai/generate", {
             "query": "Cách mạng tháng Tám", "grade": 12, "lessonNumber": 6,
             "difficulty": "MEDIUM", "count": count, "topK": 3,
-        }, token=creator_token)
+        }, csrf_token=creator_csrf)
         payload = data(response)
         questions = payload.get("questions", [])
         if len(questions) != count:
@@ -224,39 +260,42 @@ def run_once(env_file: Path, build: bool) -> dict:
     original_statuses = []
     revision_statuses = []
     for _ in range(5):
-        original = generate_and_approve(creator, creator_token, reviewer, reviewer_token, latency)
-        statuses, published = publish_race(admin, admin_token, original, target, latency["originalPublish"])
+        original = generate_and_approve(
+            creator, creator_csrf, reviewer, reviewer_csrf, latency)
+        statuses, published = publish_race(
+            admin, admin_csrf, original, target, latency["originalPublish"])
         original_statuses.append(statuses)
         assert_publish_shape(env_file, published["id"])
 
         revised, elapsed_revision, _ = request(creator, "POST", f"/api/exams/ai/candidates/{published['id']}/revisions", {
             "reason": "deterministic post-publish correction"
-        }, token=creator_token)
+        }, csrf_token=creator_csrf)
         revision = data(revised)
         latency["revisionCreate"].append(elapsed_revision)
         search, elapsed_search, _ = request(creator, "POST", f"/api/exams/ai/candidates/{revision['id']}/source-search", {
             "query": "Cách mạng tháng Tám", "grade": 12, "lessonNumber": 6, "topK": 3
-        }, token=creator_token)
+        }, csrf_token=creator_csrf)
         canonical = data(search)[0]
         remapped, elapsed_remap, _ = request(creator, "PUT", f"/api/exams/ai/candidates/{revision['id']}/sources", {
             "version": revision["version"],
             "sources": [{"chunkId": canonical["chunkId"], "chunkHash": canonical["chunkHash"]}],
             "reason": "explicit deterministic canonical remap"
-        }, token=creator_token)
+        }, csrf_token=creator_csrf)
         revision = data(remapped)
         latency["sourceSearch"].append(elapsed_search)
         latency["remap"].append(elapsed_remap)
         submitted, elapsed_submit, _ = request(creator, "POST", f"/api/exams/ai/candidates/{revision['id']}/submit", {
             "version": revision["version"], "note": "revision concurrency fixture"
-        }, token=creator_token)
+        }, csrf_token=creator_csrf)
         revision = data(submitted)
         latency["submit"].append(elapsed_submit)
         approved, elapsed_approve, _ = request(reviewer, "POST", f"/api/exams/ai/candidates/{revision['id']}/approve", {
             "version": revision["version"], "note": "independent revision reviewer", "selfReviewOverride": False
-        }, token=reviewer_token)
+        }, csrf_token=reviewer_csrf)
         revision = data(approved)
         latency["approve"].append(elapsed_approve)
-        statuses, revision_published = publish_race(admin, admin_token, revision, target, latency["revisionPublish"])
+        statuses, revision_published = publish_race(
+            admin, admin_csrf, revision, target, latency["revisionPublish"])
         revision_statuses.append(statuses)
         assert_publish_shape(env_file, revision_published["id"])
     flyway = mysql(env_file, "SELECT CONCAT(COUNT(*),':',MAX(CAST(version AS UNSIGNED))) FROM flyway_schema_history WHERE success=1;")

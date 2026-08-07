@@ -18,7 +18,7 @@ function event(
     endYear: null,
     effectiveEndYear: 40,
     eventType: 'political',
-    geoType: 'single_point',
+    geoType: 'point',
     coordinates: { lat: 16, lng: 106 },
     parentId: null,
     ...overrides,
@@ -45,8 +45,8 @@ describe('buildMapVisibilityProjection', () => {
     const result = buildMapVisibilityProjection(candidates, baseQuery);
 
     expect(ids(result.flattenedEvents)).toEqual(['parent', 'hai-ba-trung', 'no-location']);
-    expect(ids(result.locatableMapEvents)).toEqual(['parent', 'hai-ba-trung']);
-    expect(result.markerCandidateCount).toBe(2);
+    expect(ids(result.locatableMapEvents)).toEqual(['hai-ba-trung']);
+    expect(result.markerCandidateCount).toBe(1);
   });
 
   it('normalizes search with trim, Unicode case and collapsed whitespace', () => {

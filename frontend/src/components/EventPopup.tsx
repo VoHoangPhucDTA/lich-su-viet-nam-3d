@@ -17,12 +17,12 @@ interface EventPopupProps {
   onNavigateToChild: (child: HistoricalEvent) => void;
   onNavigateToParent: () => void;
   parentEvent: HistoricalEvent | null;
-  terrain: TerrainViewModel;
-  onOpenTerrain: () => void;
-  onRetryTerrain: () => void;
-  onSelectTerrainTarget: (targetId: string) => void;
-  onShowTerrainOverview: () => void;
-  onExitTerrain: () => void;
+  terrain?: TerrainViewModel;
+  onOpenTerrain?: () => void;
+  onRetryTerrain?: () => void;
+  onSelectTerrainTarget?: (targetId: string) => void;
+  onShowTerrainOverview?: () => void;
+  onExitTerrain?: () => void;
   onViewDetails: () => void;
 }
 
@@ -382,16 +382,18 @@ export default function EventPopup({
           Xem chi tiết
         </button>
 
-        <TerrainControls
-          terrain={terrain}
-          insight={terrainInsight}
-          onOpen={onOpenTerrain}
-          onRetry={onRetryTerrain}
-          onSelectTarget={onSelectTerrainTarget}
-          onShowOverview={onShowTerrainOverview}
-          onExit={onExitTerrain}
-        />
-
+        {terrain && onOpenTerrain && onRetryTerrain && onSelectTerrainTarget
+          && onShowTerrainOverview && onExitTerrain && (
+          <TerrainControls
+            terrain={terrain}
+            insight={terrainInsight}
+            onOpen={onOpenTerrain}
+            onRetry={onRetryTerrain}
+            onSelectTarget={onSelectTerrainTarget}
+            onShowOverview={onShowTerrainOverview}
+            onExit={onExitTerrain}
+          />
+        )}
         {parentEvent && (
           <button
             onClick={onNavigateToParent}

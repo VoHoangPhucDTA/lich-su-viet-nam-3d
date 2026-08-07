@@ -12,7 +12,6 @@ import {
   Cartesian3,
   Cartographic,
   Color,
-  Rectangle,
   ScreenSpaceEventHandler,
   ScreenSpaceEventType,
   defined,
@@ -100,6 +99,46 @@ const TERRAIN_REGION_FILL = Color.fromCssColorString('#c49a45').withAlpha(0.24);
 const TERRAIN_REGION_SELECTED_FILL = Color.fromCssColorString('#8b1e1e').withAlpha(0.46);
 const TERRAIN_REGION_OUTLINE = Color.fromCssColorString('#6f4e22').withAlpha(0.9);
 const TERRAIN_REGION_SELECTED_OUTLINE = Color.WHITE.withAlpha(0.98);
+
+/**
+ * Marker positions for a canonical event.
+ * - point: the marker (or top-level coordinates)
+ * - multi_point: every marker in sourceMapData.markers, else the primary marker
+ * - mixed: the marker(s)
+ * - multi_polygon / nationwide / no_location: none
+ * Coordinates are {lat, lng} (application model); GeoJSON conversion happens at
+ * the Cesium boundary via Cartesian3.fromDegrees(lng, lat).
+ */
+function markerPositionsForEvent(event: HistoricalEvent): { lat: number; lng: number }[] {
+  if (
+    event.geoType === 'nationwide' ||
+    event.geoType === 'no_location' ||
+    event.geoType === 'multi_polygon'
+  ) {
+    return [];
+  }
+  const markers = event.sourceMapData?.markers;
+  if (Array.isArray(markers) && markers.length > 0) {
+    const positions = markers
+      .filter(
+        (marker): marker is { lat: number; lng: number } =>
+          !!marker &&
+          typeof marker.lat === 'number' &&
+          typeof marker.lng === 'number'
+      )
+      .map((marker) => ({ lat: marker.lat, lng: marker.lng }));
+    if (positions.length > 0) return positions;
+  }
+  const marker = event.sourceMapData?.marker;
+  if (
+    marker &&
+    typeof marker.lat === 'number' &&
+    typeof marker.lng === 'number'
+  ) {
+    return [{ lat: marker.lat, lng: marker.lng }];
+  }
+  return event.coordinates ? [event.coordinates] : [];
+}
 
 function polygonHierarchy(polygon: ResolvedRegionGeometry['polygons'][number]) {
   const positions = polygon[0].map((point) => Cartesian3.fromDegrees(point.lng, point.lat));
@@ -231,6 +270,7 @@ export default function CesiumMap({
   const handlerRef = useRef<ScreenSpaceEventHandler | null>(null);
   const dataSourceRef = useRef<GeoJsonDataSource | null>(null);
   const markerDataSourceRef = useRef<CustomDataSource | null>(null);
+  const eventPolygonDataSourceRef = useRef<CustomDataSource | null>(null);
   const terrainRegionDataSourceRef = useRef<CustomDataSource | null>(null);
   const regionGeometryIndexRef = useRef<RegionGeometryIndex | null>(null);
   const regionGeometryPromiseRef = useRef<Promise<RegionGeometryIndex> | null>(null);
@@ -252,7 +292,6 @@ export default function CesiumMap({
   const mountedRef = useRef(false);
   const viewerLifecycleRef = useRef(0);
   const terrainSessionRef = useRef(terrainSession);
-  const skipNextSelectedEventFlyRef = useRef(false);
   const renderErrorRemoverRef = useRef<(() => void) | null>(null);
   const [mapError, setMapError] = useState<string | null>(null);
   const [viewerReady, setViewerReady] = useState(false);
@@ -588,6 +627,10 @@ export default function CesiumMap({
       if (markerDataSourceRef.current && viewer && !viewer.isDestroyed()) {
         viewer.dataSources.remove(markerDataSourceRef.current, true);
         markerDataSourceRef.current = null;
+      }
+      if (eventPolygonDataSourceRef.current && viewer && !viewer.isDestroyed()) {
+        viewer.dataSources.remove(eventPolygonDataSourceRef.current, true);
+        eventPolygonDataSourceRef.current = null;
       }
       if (terrainRegionDataSourceRef.current && viewer && !viewer.isDestroyed()) {
         viewer.dataSources.remove(terrainRegionDataSourceRef.current, true);
@@ -1020,6 +1063,98 @@ export default function CesiumMap({
     ++internalMeasurementOpRef.current;
   }, [removeDistanceMeasurement, removeInspectionMarker, terrainSession]);
 
+  // ─── Render event polygons (multi_polygon / mixed) ──────────────────────────
+  const renderEventPolygons = useCallback(
+    (viewerInstance: Viewer, eventsToRender: HistoricalEvent[]) => {
+      if (CESIUM_SAFE_MODE) return;
+      const index = regionGeometryIndexRef.current;
+
+      const polygonEvents = eventsToRender.filter(
+        (event) =>
+          event.geoType === 'multi_polygon' ||
+          event.geoType === 'mixed'
+      );
+      if (polygonEvents.length === 0) {
+        if (eventPolygonDataSourceRef.current && !viewerInstance.isDestroyed()) {
+          viewerInstance.dataSources.remove(eventPolygonDataSourceRef.current, true);
+          eventPolygonDataSourceRef.current = null;
+        }
+        return;
+      }
+      if (!index) {
+        // Fail closed: no boundary index yet — never fabricate geometry.
+        console.warn('[CesiumMap] renderEventPolygons: region index not loaded yet');
+        return;
+      }
+
+      const ds = eventPolygonDataSourceRef.current ?? new CustomDataSource('eventPolygons');
+      if (!eventPolygonDataSourceRef.current) {
+        viewerInstance.dataSources.add(ds);
+        eventPolygonDataSourceRef.current = ds;
+      } else {
+        ds.entities.removeAll();
+      }
+
+      for (const event of polygonEvents) {
+        const gadmRefs = Array.isArray(event.sourceMapData?.gadmRefs)
+          ? event.sourceMapData!.gadmRefs
+            .filter((ref): ref is string => typeof ref === 'string' && ref.trim().length > 0)
+          : [];
+        // Detail-loaded events carry sourceMapData.provinceNames; summary list
+        // events expose the same display labels as primaryRegions.
+        const provinceNames = Array.isArray(event.sourceMapData?.provinceNames)
+          ? event.sourceMapData!.provinceNames
+            .filter((name): name is string => typeof name === 'string')
+          : (event.primaryRegions ?? []);
+
+        // gadmRefs are the geometry lookup key; provinceNames are display labels.
+        const refs = gadmRefs.length > 0 ? gadmRefs : provinceNames;
+        if (refs.length === 0) {
+          console.warn(`[CesiumMap] "${event.id}" multi_polygon/mixed without gadmRefs or provinceNames — no geometry`);
+          continue;
+        }
+
+        const color = getMarkerColor(event.eventType);
+        let added = 0;
+        const seen = new Set<string>();
+        for (const ref of refs) {
+          const normalized = ref.trim();
+          if (seen.has(normalized)) continue;
+          seen.add(normalized);
+          // Try gadmRef lookup first, then province name lookup via label match.
+          let geometry = resolveRegionGeometry(index, normalized);
+          if (!geometry) {
+            const byLabel = index.features.find(
+              (feature) => feature.label.trim() === normalized
+            );
+            geometry = byLabel ? byLabel.geometry : null;
+          }
+          if (!geometry) continue;
+          geometry.polygons.forEach((polygon, polygonIndex) => {
+            const entity = ds.entities.add({
+              id: `${event.id}:polygon:${polygonIndex}`,
+              name: event.name,
+              polygon: {
+                hierarchy: polygonHierarchy(polygon),
+                material: new ColorMaterialProperty(color.withAlpha(0.35)),
+                outline: true,
+                outlineColor: new ConstantProperty(color.withAlpha(0.9)),
+                outlineWidth: 2,
+                heightReference: HeightReference.CLAMP_TO_GROUND,
+              },
+            });
+            eventEntityDataRef.current.set(entity, event);
+            added++;
+          });
+        }
+        if (added === 0) {
+          console.warn(`[CesiumMap] "${event.id}" polygons unresolved for refs`, refs);
+        }
+      }
+    },
+    []
+  );
+
   // ─── Render markers ──────────────────────────────────────────────────────────
   const renderMarkers = useCallback(
     (eventsToRender: HistoricalEvent[]) => {
@@ -1057,64 +1192,79 @@ export default function CesiumMap({
       eventEntityDataRef.current = new WeakMap();
 
       eventsToRender.forEach((event) => {
-        // Guard: skip no-location events
-        if (!event.coordinates || event.geoType === 'no_location') return;
+        // Canonical rendering: only point / multi_point / mixed produce markers.
+        // nationwide / no_location render nothing; multi_polygon renders polygons
+        // (see renderEventPolygons / applyPolygonHighlights).
+        if (
+          event.geoType === 'nationwide' ||
+          event.geoType === 'no_location' ||
+          event.geoType === 'multi_polygon'
+        ) return;
 
-        // Guard: coordinates must be finite numbers
-        const { lat, lng } = event.coordinates;
-        if (!Number.isFinite(lat) || !Number.isFinite(lng)) {
-          console.warn(
-            `[CesiumMap] Skipping "${event.id}" — invalid coords:`,
-            event.coordinates
-          );
-          return;
-        }
+        const markers = markerPositionsForEvent(event);
+        if (markers.length === 0) return;
 
         const color = getMarkerColor(event.eventType);
         const isHighlighted = highlightedEventId === event.id;
         const pixelSize = isHighlighted ? 18 : 14;
 
-        try {
-          const entity = ds.entities.add({
-            name: event.name,
-            position: Cartesian3.fromDegrees(lng, lat),
-            point: {
-              pixelSize,
-              color,
-              outlineColor: Color.WHITE,
-              outlineWidth: 2,
-              heightReference: HeightReference.CLAMP_TO_GROUND,
-              disableDepthTestDistance: Number.POSITIVE_INFINITY,
-            },
-            label: {
-              text: event.name,
-              font: '700 15px Inter, sans-serif',
-              fillColor: Color.WHITE,
-              outlineColor: Color.fromCssColorString('#0c0a09'),
-              outlineWidth: 4,
-              style: LabelStyle.FILL_AND_OUTLINE,
-              verticalOrigin: VerticalOrigin.BOTTOM,
-              pixelOffset: new Cartesian2(0, -24),
-              heightReference: HeightReference.CLAMP_TO_GROUND,
-              disableDepthTestDistance: Number.POSITIVE_INFINITY,
-              distanceDisplayCondition: new DistanceDisplayCondition(0, 2000000),
-              showBackground: true,
-              backgroundColor: Color.fromCssColorString('rgba(12, 10, 9, 0.97)'),
-              backgroundPadding: new Cartesian2(12, 7),
-            },
-          });
+        markers.forEach((position, markerIndex) => {
+          const { lat, lng } = position;
+          if (!Number.isFinite(lat) || !Number.isFinite(lng)) {
+            console.warn(
+              `[CesiumMap] Skipping "${event.id}" — invalid coords:`,
+              position
+            );
+            return;
+          }
 
-          eventEntityDataRef.current.set(entity, event);
-          entitiesMapRef.current.set(event.id, entity);
-        } catch (e) {
-          console.warn(`[CesiumMap] Failed to add entity for "${event.id}":`, e);
-        }
+          try {
+            const entity = ds.entities.add({
+              name: event.name,
+              position: Cartesian3.fromDegrees(lng, lat),
+              point: {
+                pixelSize,
+                color,
+                outlineColor: Color.WHITE,
+                outlineWidth: 2,
+                heightReference: HeightReference.CLAMP_TO_GROUND,
+                disableDepthTestDistance: Number.POSITIVE_INFINITY,
+              },
+              label: {
+                text: markerIndex === 0 ? event.name : '',
+                font: '700 15px Inter, sans-serif',
+                fillColor: Color.WHITE,
+                outlineColor: Color.fromCssColorString('#0c0a09'),
+                outlineWidth: 4,
+                style: LabelStyle.FILL_AND_OUTLINE,
+                verticalOrigin: VerticalOrigin.BOTTOM,
+                pixelOffset: new Cartesian2(0, -24),
+                heightReference: HeightReference.CLAMP_TO_GROUND,
+                disableDepthTestDistance: Number.POSITIVE_INFINITY,
+                distanceDisplayCondition: new DistanceDisplayCondition(0, 2000000),
+                showBackground: true,
+                backgroundColor: Color.fromCssColorString('rgba(12, 10, 9, 0.97)'),
+                backgroundPadding: new Cartesian2(12, 7),
+              },
+            });
+
+            // Every marker of a multi_point event selects the same event.
+            eventEntityDataRef.current.set(entity, event);
+            entitiesMapRef.current.set(event.id, entity);
+          } catch (e) {
+            console.warn(`[CesiumMap] Failed to add entity for "${event.id}":`, e);
+          }
+        });
       });
+
+      // Multi-polygon / mixed events: resolve gadmRefs against the 63-feature
+      // boundary layer and render clickable polygons when data is available.
+      renderEventPolygons(viewer, eventsToRender);
 
       viewer.dataSources.add(ds);
       markerDataSourceRef.current = ds;
     },
-    [highlightedEventId]
+    [highlightedEventId, renderEventPolygons]
   );
 
   useEffect(() => {
@@ -1141,10 +1291,11 @@ export default function CesiumMap({
           ? value.filter((item): item is string => typeof item === 'string')
           : [];
 
-      // Only highlight provinces for multi_region events
+      // Highlight provinces for multi_polygon / mixed events (canonical);
+      // point / multi_point show markers only, nationwide / no_location none.
       const shouldHighlight =
         event &&
-        event.geoType === 'multi_region' &&
+        (event.geoType === 'multi_polygon' || event.geoType === 'mixed') &&
         event.primaryRegions &&
         event.primaryRegions.length > 0;
 
@@ -1193,39 +1344,6 @@ export default function CesiumMap({
     if (terrainVisualSnapshotRef.current) return;
     applyPolygonHighlights(selectedEvent);
   }, [selectedEvent, applyPolygonHighlights]);
-
-  // ─── Helper: compute bounding rectangle for a multi-region event ────────────
-  const computeRegionBounds = useCallback(
-    (provinceNames: string[]): Rectangle | null => {
-      const dataSource = dataSourceRef.current;
-      if (!dataSource) return null;
-
-      const normalizeString = (str: string) => str.replace(/\s+/g, '').toLowerCase();
-      const nameSet = new Set(provinceNames.map(normalizeString));
-
-      const allCartographics: Cartographic[] = [];
-
-      const entities = dataSource.entities.values;
-      for (let i = 0; i < entities.length; i++) {
-        const entity = entities[i];
-        if (!entity.polygon) continue;
-        const name = entity.properties?.NAME_1?.getValue() || '';
-        if (!nameSet.has(normalizeString(name))) continue;
-
-        const hierarchy = entity.polygon.hierarchy?.getValue();
-        if (!hierarchy?.positions) continue;
-
-        for (let j = 0; j < hierarchy.positions.length; j++) {
-          allCartographics.push(Cartographic.fromCartesian(hierarchy.positions[j]));
-        }
-      }
-
-      if (allCartographics.length === 0) return null;
-
-      return Rectangle.fromCartographicArray(allCartographics);
-    },
-    []
-  );
 
   const clearTerrainRegions = useCallback((viewer: Viewer) => {
     const dataSource = terrainRegionDataSourceRef.current;
@@ -1517,7 +1635,6 @@ export default function CesiumMap({
         ) return;
         resetBaseTerrain();
         cameraSnapshotRef.current = null;
-        skipNextSelectedEventFlyRef.current = true;
         onTerrainExitCompleteRef.current(session.id);
       };
       if (!snapshot || snapshot.sessionId !== session.id) {
@@ -1801,93 +1918,8 @@ export default function CesiumMap({
     viewerReady,
   ]);
 
-  // ─── Fly to selected event ───────────────────────────────────────────────────
-  useEffect(() => {
-    // 1.1.19: CesiumMap.tsx: Lắng nghe selectedEvent thay đổi, sử dụng thư viện CesiumJS để hiển thị vùng đánh dấu (polygon, điểm) và tự động bay camera (flyTo) đến tọa độ vùng ảnh hưởng của sự kiện.
-    if (CESIUM_SAFE_MODE || terrainSession || cameraSnapshotRef.current) return;
-    if (skipNextSelectedEventFlyRef.current) {
-      skipNextSelectedEventFlyRef.current = false;
-      return;
-    }
-
-    const viewer = viewerRef.current;
-    if (!viewer || viewer.isDestroyed() || !selectedEvent) return;
-
-    const hasChildren =
-      !!selectedEvent.children && selectedEvent.children.length > 0;
-
-    // multi_region: compute bounding box from GeoJSON province polygons
-    if (
-      selectedEvent.geoType === 'multi_region' &&
-      selectedEvent.primaryRegions &&
-      selectedEvent.primaryRegions.length > 1
-    ) {
-      const bounds = computeRegionBounds(selectedEvent.primaryRegions);
-      if (bounds) {
-        try {
-          viewer.camera.flyTo({
-            destination: bounds,
-            orientation: {
-              heading: CesiumMath.toRadians(0),
-              pitch: CesiumMath.toRadians(-90),
-              roll: 0,
-            },
-            duration: 1.5,
-          });
-        } catch (e) {
-          console.warn('[CesiumMap] flyTo (region bounds) error:', e);
-        }
-        return;
-      }
-    }
-
-    // Có coordinates (kể cả centroid fallback) → flyTo trực tiếp
-    if (selectedEvent.coordinates && selectedEvent.geoType !== 'no_location') {
-      const { lat, lng } = selectedEvent.coordinates;
-      if (!Number.isFinite(lat) || !Number.isFinite(lng)) return;
-
-      // Altitude theo geoType:
-      //  - single_point + có children     → 800km (xem cụm sự kiện con)
-      //  - single_point (marker chính xác) → 30km  (zoom sát, thấy rõ marker)
-      //  - multi_region (fallback)         → 500km
-      //  - nationwide                      → 1500km (toàn quốc)
-      let altitude = 30000;
-      if (hasChildren) altitude = 800000;
-      else if (selectedEvent.geoType === 'multi_region') altitude = 500000;
-      else if (selectedEvent.geoType === 'nationwide') altitude = 1500000;
-
-      try {
-        viewer.camera.flyTo({
-          destination: Cartesian3.fromDegrees(lng, lat, altitude),
-          orientation: {
-            heading: CesiumMath.toRadians(0),
-            pitch: CesiumMath.toRadians(-90),
-            roll: 0,
-          },
-          duration: 1.5,
-        });
-      } catch (e) {
-        console.warn('[CesiumMap] flyTo error:', e);
-      }
-      return;
-    }
-
-    // Không có vị trí cụ thể (no_location hoặc thiếu coordinates) → bay về toàn
-    // cảnh Việt Nam để user thấy phản hồi visual khi chọn event
-    try {
-      viewer.camera.flyTo({
-        destination: VIETNAM_CENTER,
-        orientation: {
-          heading: CesiumMath.toRadians(0),
-          pitch: CesiumMath.toRadians(-90),
-          roll: 0,
-        },
-        duration: 1.5,
-      });
-    } catch (e) {
-      console.warn('[CesiumMap] flyTo (default view) error:', e);
-    }
-  }, [selectedEvent, computeRegionBounds, terrainSession]);
+  // No automatic camera flyTo on event selection (C1). Selecting an event only
+  // opens the right-side popup; the overview camera stays where the user left it.
 
   return (
     <div style={{ width: '100%', height: '100%', position: 'relative' }}>

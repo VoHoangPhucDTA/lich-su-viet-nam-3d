@@ -100,7 +100,7 @@ function event(
     endYear: null,
     effectiveEndYear: 40,
     eventType: 'political',
-    geoType: 'single_point',
+    geoType: 'point',
     coordinates: { lat: 16, lng: 106 },
     parentId: null,
     ...overrides,

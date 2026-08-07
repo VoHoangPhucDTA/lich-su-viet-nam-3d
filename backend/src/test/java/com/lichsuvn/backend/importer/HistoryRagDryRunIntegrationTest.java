@@ -1,5 +1,6 @@
 package com.lichsuvn.backend.importer;
 
+import com.lichsuvn.backend.testsupport.LocalMySqlContainer;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.flywaydb.core.Flyway;
 import org.junit.jupiter.api.AfterAll;
@@ -9,7 +10,7 @@ import org.junit.jupiter.api.io.TempDir;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.testcontainers.containers.MySQLContainer;
+import org.testcontainers.mysql.MySQLContainer;
 
 import javax.sql.DataSource;
 import java.nio.file.Path;
@@ -24,7 +25,7 @@ class HistoryRagDryRunIntegrationTest {
     @TempDir
     private static Path temporaryDirectory;
 
-    private static MySQLContainer<?> mysql;
+    private static MySQLContainer mysql;
     private static HistoryRagPackageReader.PackageData packageData;
     private static HistoryRagTextbookRefPreflight preflight;
     private static NamedParameterJdbcTemplate jdbc;
@@ -35,7 +36,7 @@ class HistoryRagDryRunIntegrationTest {
     static void setupDisposableDatabase() {
         boolean containerStarted = false;
         try {
-            mysql = new MySQLContainer<>("mysql:8.0.36")
+            mysql = new LocalMySqlContainer("mysql:8.0.36")
                     .withDatabaseName("history_rag_dry_run_test")
                     .withUsername("test")
                     .withPassword("test");
