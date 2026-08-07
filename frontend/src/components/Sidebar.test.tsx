@@ -30,6 +30,8 @@ describe('Sidebar event rows', () => {
         onSearchQueryChange={vi.fn()}
         activeCategory={null}
         onActiveCategoryChange={vi.fn()}
+        listItemCount={1}
+        markerCount={1}
       />
     );
 
@@ -58,6 +60,8 @@ describe('Sidebar event rows', () => {
         onSearchQueryChange={vi.fn()}
         activeCategory={null}
         onActiveCategoryChange={vi.fn()}
+        listItemCount={1}
+        markerCount={1}
       />,
     );
 
@@ -81,6 +85,8 @@ describe('Sidebar event rows', () => {
         onSearchQueryChange={vi.fn()}
         activeCategory="political"
         onActiveCategoryChange={vi.fn()}
+        listItemCount={1}
+        markerCount={1}
       />,
     );
 
@@ -104,11 +110,36 @@ describe('Sidebar event rows', () => {
         onSearchQueryChange={vi.fn()}
         activeCategory={null}
         onActiveCategoryChange={onActiveCategoryChange}
+        listItemCount={1}
+        markerCount={1}
       />,
     );
 
     expect(screen.getByText(longTitle.trim())).toBeInTheDocument();
     await user.click(screen.getByRole('button', { name: 'Quân sự' }));
     expect(onActiveCategoryChange).toHaveBeenCalledWith('military');
+  });
+
+  it.each([
+    [2, 3, '2 mục trong danh sách • 3 điểm trên bản đồ'],
+    [0, 0, '0 mục trong danh sách • 0 điểm trên bản đồ'],
+    [1, 1, '1 mục trong danh sách • 1 điểm trên bản đồ'],
+  ])('renders controlled list and marker counts for %s/%s', (listItemCount, markerCount, expected) => {
+    render(
+      <Sidebar
+        events={listItemCount ? [parent] : []}
+        selectedEvent={null}
+        onSelectEvent={vi.fn()}
+        onHoverEvent={vi.fn()}
+        searchQuery=""
+        onSearchQueryChange={vi.fn()}
+        activeCategory={null}
+        onActiveCategoryChange={vi.fn()}
+        listItemCount={listItemCount}
+        markerCount={markerCount}
+      />,
+    );
+
+    expect(screen.getByText(expected)).toBeInTheDocument();
   });
 });

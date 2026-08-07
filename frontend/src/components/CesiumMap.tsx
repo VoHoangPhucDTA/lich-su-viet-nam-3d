@@ -50,7 +50,7 @@ import {
   getMarkerColor,
   getTerrainProvider,
 } from '../lib/cesium';
-import type { HistoricalEvent } from '../types/event';
+import { EVENT_TYPE_COLORS, type HistoricalEvent } from '../types/event';
 import type {
   TerrainExplorationMode,
   TerrainRuntimeError,
@@ -90,6 +90,12 @@ import {
   type TerrainVisualRelation,
   type TerrainVisualViewKind,
 } from '../utils/terrainVisualPolicy';
+import {
+  markerInteractionState,
+  markerRoleForEvent,
+  resolveMapMarkerVisualStyle,
+} from '../utils/mapMarkerVisualPolicy';
+import { isMapClusterPick, resolveMapClusterVisual } from '../utils/mapClusterBadge';
 
 // ─── SAFE MODE ────────────────────────────────────────────────────────────────
 // Set to false when globe is confirmed stable to re-enable markers + polygon.
@@ -271,6 +277,7 @@ export default function CesiumMap({
   const dataSourceRef = useRef<GeoJsonDataSource | null>(null);
   const markerDataSourceRef = useRef<CustomDataSource | null>(null);
   const eventPolygonDataSourceRef = useRef<CustomDataSource | null>(null);
+  const markerClusterListenerRemoverRef = useRef<(() => void) | null>(null);
   const terrainRegionDataSourceRef = useRef<CustomDataSource | null>(null);
   const regionGeometryIndexRef = useRef<RegionGeometryIndex | null>(null);
   const regionGeometryPromiseRef = useRef<Promise<RegionGeometryIndex> | null>(null);
@@ -292,6 +299,8 @@ export default function CesiumMap({
   const mountedRef = useRef(false);
   const viewerLifecycleRef = useRef(0);
   const terrainSessionRef = useRef(terrainSession);
+  const selectedEventRef = useRef(selectedEvent);
+  const highlightedEventIdRef = useRef(highlightedEventId);
   const renderErrorRemoverRef = useRef<(() => void) | null>(null);
   const [mapError, setMapError] = useState<string | null>(null);
   const [viewerReady, setViewerReady] = useState(false);
@@ -329,6 +338,8 @@ export default function CesiumMap({
   onTerrainTargetSelectRef.current = onTerrainTargetSelect;
   onRegionGeometryStatusRef.current = onRegionGeometryStatus;
   terrainSessionRef.current = terrainSession;
+  selectedEventRef.current = selectedEvent;
+  highlightedEventIdRef.current = highlightedEventId;
 
   const restoreTerrainVisualBasis = useCallback((sessionId: number) => {
     const snapshot = terrainVisualSnapshotRef.current;
@@ -399,8 +410,6 @@ export default function CesiumMap({
 
       const w = container.clientWidth;
       const h = container.clientHeight;
-      console.log(`[CesiumMap] container size: ${w}x${h}`);
-
       if (w === 0 || h === 0) {
         console.error('[CesiumMap] Container has zero size — cannot init Viewer. Check layout.');
         setMapError('Không thể tải bản đồ: container có kích thước 0.');
@@ -496,6 +505,11 @@ export default function CesiumMap({
                 if (pickedEvent) {
                   // Clicked an individual event marker
                   onSelectEventRef.current(pickedEvent);
+                } else if (defined(picked) && isMapClusterPick(picked.id)) {
+                  const clusterEntities = picked.id.filter(
+                    (candidate: unknown): candidate is Entity => candidate instanceof Entity,
+                  );
+                  if (clusterEntities.length > 1) void v.zoomTo(clusterEntities);
                 } else if (!defined(picked) || !picked.id) {
                   // Clicked empty space — deselect
                   onSelectEventRef.current(null);
@@ -593,7 +607,6 @@ export default function CesiumMap({
             });
         }
 
-        console.log('[CesiumMap] Viewer initialized successfully.');
       } catch (err) {
         console.error('[CesiumMap] Failed to create Viewer:', err);
         setMapError(
@@ -624,6 +637,8 @@ export default function CesiumMap({
         restoreTerrainVisualBasis(visualSnapshot.sessionId);
         terrainVisualSnapshotRef.current = null;
       }
+      markerClusterListenerRemoverRef.current?.();
+      markerClusterListenerRemoverRef.current = null;
       if (markerDataSourceRef.current && viewer && !viewer.isDestroyed()) {
         viewer.dataSources.remove(markerDataSourceRef.current, true);
         markerDataSourceRef.current = null;
@@ -1156,6 +1171,34 @@ export default function CesiumMap({
   );
 
   // ─── Render markers ──────────────────────────────────────────────────────────
+  const applyMarkerVisualStyles = useCallback(() => {
+    const selectedId = selectedEventRef.current?.id ?? null;
+    const hoveredId = highlightedEventIdRef.current;
+
+    for (const [eventId, entity] of entitiesMapRef.current) {
+      const event = eventEntityDataRef.current.get(entity);
+      if (!event?.eventType || !entity.point || !entity.label) continue;
+
+      const categoryColor = EVENT_TYPE_COLORS[event.eventType];
+      const visual = resolveMapMarkerVisualStyle({
+        role: markerRoleForEvent(event),
+        state: markerInteractionState(eventId, selectedId, hoveredId),
+        categoryColor,
+      });
+      const fill = Color.fromCssColorString(visual.categoryColor).withAlpha(visual.fillAlpha);
+      const outline = Color.fromCssColorString(visual.outlineColor).withAlpha(visual.outlineAlpha);
+
+      entity.point.pixelSize = new ConstantProperty(visual.pixelSize);
+      entity.point.color = new ConstantProperty(fill);
+      entity.point.outlineColor = new ConstantProperty(outline);
+      entity.point.outlineWidth = new ConstantProperty(visual.outlineWidth);
+      entity.label.show = new ConstantProperty(visual.labelVisible);
+      entity.label.backgroundColor = new ConstantProperty(
+        Color.fromCssColorString('#0c0a09').withAlpha(visual.labelBackgroundAlpha),
+      );
+    }
+  }, []);
+
   const renderMarkers = useCallback(
     (eventsToRender: HistoricalEvent[]) => {
       if (CESIUM_SAFE_MODE) return; // skip in safe mode
@@ -1165,6 +1208,8 @@ export default function CesiumMap({
 
       // Remove old datasource if exists
       if (markerDataSourceRef.current) {
+        markerClusterListenerRemoverRef.current?.();
+        markerClusterListenerRemoverRef.current = null;
         viewer.dataSources.remove(markerDataSourceRef.current, true);
       }
 
@@ -1174,18 +1219,24 @@ export default function CesiumMap({
       ds.clustering.minimumClusterSize = 2;
 
       // Cluster styling: show count badge instead of default pin
-      ds.clustering.clusterEvent.addEventListener((_clusteredEntities, cluster) => {
+      markerClusterListenerRemoverRef.current = ds.clustering.clusterEvent.addEventListener((clusteredEntities, cluster) => {
         if (!defined(cluster.label) || !defined(cluster.billboard)) return;
-        cluster.label.show = true;
-        cluster.label.fillColor = Color.WHITE;
-        cluster.label.font = 'bold 12px Inter, sans-serif';
-        cluster.label.style = LabelStyle.FILL_AND_OUTLINE;
-        cluster.label.outlineColor = Color.fromCssColorString('#C49A45');
-        cluster.label.backgroundColor = Color.fromCssColorString('rgba(18, 16, 14, 0.85)');
-        cluster.label.outlineWidth = 2;
+        const visual = resolveMapClusterVisual(clusteredEntities.length);
+        cluster.billboard.show = visual.billboard.show;
+        cluster.billboard.image = visual.image;
+        cluster.billboard.width = visual.billboard.width;
+        cluster.billboard.height = visual.billboard.height;
+        cluster.billboard.disableDepthTestDistance = visual.billboard.disableDepthTestDistance;
+        cluster.billboard.verticalOrigin = VerticalOrigin.CENTER;
+        cluster.billboard.horizontalOrigin = HorizontalOrigin.CENTER;
+        cluster.label.show = visual.label.show;
+        cluster.label.text = visual.countText;
+        cluster.label.showBackground = false;
+        cluster.label.backgroundColor = Color.TRANSPARENT;
+        cluster.label.outlineWidth = 0;
         cluster.label.verticalOrigin = VerticalOrigin.CENTER;
         cluster.label.horizontalOrigin = HorizontalOrigin.CENTER;
-        cluster.billboard.show = false;
+        if (defined(cluster.point)) cluster.point.show = false;
       });
 
       entitiesMapRef.current.clear();
@@ -1204,9 +1255,7 @@ export default function CesiumMap({
         const markers = markerPositionsForEvent(event);
         if (markers.length === 0) return;
 
-        const color = getMarkerColor(event.eventType);
-        const isHighlighted = highlightedEventId === event.id;
-        const pixelSize = isHighlighted ? 18 : 14;
+        const color = Color.fromCssColorString(EVENT_TYPE_COLORS[event.eventType]);
 
         markers.forEach((position, markerIndex) => {
           const { lat, lng } = position;
@@ -1223,7 +1272,7 @@ export default function CesiumMap({
               name: event.name,
               position: Cartesian3.fromDegrees(lng, lat),
               point: {
-                pixelSize,
+                pixelSize: 14,
                 color,
                 outlineColor: Color.WHITE,
                 outlineWidth: 2,
@@ -1242,6 +1291,7 @@ export default function CesiumMap({
                 heightReference: HeightReference.CLAMP_TO_GROUND,
                 disableDepthTestDistance: Number.POSITIVE_INFINITY,
                 distanceDisplayCondition: new DistanceDisplayCondition(0, 2000000),
+                show: false,
                 showBackground: true,
                 backgroundColor: Color.fromCssColorString('rgba(12, 10, 9, 0.97)'),
                 backgroundPadding: new Cartesian2(12, 7),
@@ -1263,8 +1313,9 @@ export default function CesiumMap({
 
       viewer.dataSources.add(ds);
       markerDataSourceRef.current = ds;
+      applyMarkerVisualStyles();
     },
-    [highlightedEventId, renderEventPolygons]
+    [applyMarkerVisualStyles, renderEventPolygons]
   );
 
   useEffect(() => {
@@ -1272,9 +1323,9 @@ export default function CesiumMap({
     renderMarkers(events);
   }, [events, renderMarkers, viewerReady]);
 
-  // ─── Selected event ref (for reapply when GeoJSON loads async) ─────────────
-  const selectedEventRef = useRef(selectedEvent);
-  selectedEventRef.current = selectedEvent;
+  useEffect(() => {
+    applyMarkerVisualStyles();
+  }, [applyMarkerVisualStyles, highlightedEventId, selectedEvent]);
 
   // ─── Update polygon highlights ───────────────────────────────────────────────
   // Only highlight provinces for multi_region events. single_point events show

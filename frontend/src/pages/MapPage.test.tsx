@@ -11,6 +11,8 @@ interface SidebarBoundaryProps {
   onSearchQueryChange: (query: string) => void;
   activeCategory: EventType | null;
   onActiveCategoryChange: (category: EventType | null) => void;
+  listItemCount: number;
+  markerCount: number;
 }
 
 interface MapBoundaryProps {
@@ -162,6 +164,7 @@ describe('MapPage shared visibility boundary', () => {
     await renderReady();
     await waitFor(() => expect(sidebarIds()).toEqual(['point', 'no-location']));
     expect(mapIds()).toEqual(['point']);
+    expect(runtime.sidebarProps).toMatchObject({ listItemCount: 2, markerCount: 1 });
   });
 
   it('projects an embedded child returned only inside its API parent', async () => {
@@ -199,6 +202,7 @@ describe('MapPage shared visibility boundary', () => {
 
     await waitFor(() => expect(sidebarIds()).toEqual(['cultural']));
     expect(mapIds()).toEqual(['cultural']);
+    expect(runtime.sidebarProps).toMatchObject({ listItemCount: 1, markerCount: 1 });
   });
 
   it('changes Sidebar and CesiumMap with the same search predicate', async () => {
@@ -213,6 +217,7 @@ describe('MapPage shared visibility boundary', () => {
     await waitFor(() => expect(runtime.searchEvents).toHaveBeenCalledWith('điện'));
     await waitFor(() => expect(sidebarIds()).toEqual(['dien-bien']));
     expect(mapIds()).toEqual(['dien-bien']);
+    expect(runtime.sidebarProps).toMatchObject({ listItemCount: 1, markerCount: 1 });
   });
 
   it('changes both boundaries when grade changes', async () => {
@@ -246,6 +251,21 @@ describe('MapPage shared visibility boundary', () => {
     await waitFor(() => expect(runtime.getEventsByYear).toHaveBeenCalledWith(938, null));
     await waitFor(() => expect(sidebarIds()).toEqual(['year-938']));
     expect(mapIds()).toEqual(['year-938']);
+    expect(runtime.sidebarProps).toMatchObject({ listItemCount: 1, markerCount: 1 });
+  });
+
+  it('preserves event IDs and event-level roles at the Cesium boundary', async () => {
+    const collection = event('collection-role', { eventLevel: 'collection' });
+    const atomic = event('atomic-role', { eventLevel: 'atomic' });
+    runtime.getEventsByYear.mockResolvedValue([collection, atomic]);
+
+    await renderReady();
+    await waitFor(() => expect(mapIds()).toEqual(['collection-role', 'atomic-role']));
+
+    expect(runtime.mapProps?.events.map(({ id, eventLevel }) => ({ id, eventLevel }))).toEqual([
+      { id: 'collection-role', eventLevel: 'collection' },
+      { id: 'atomic-role', eventLevel: 'atomic' },
+    ]);
   });
 
   it('clears selection when the selected event leaves the projection', async () => {

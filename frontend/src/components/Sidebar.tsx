@@ -21,6 +21,8 @@ interface SidebarProps {
   onSearchQueryChange: (query: string) => void;
   activeCategory: EventType | null;
   onActiveCategoryChange: (category: EventType | null) => void;
+  listItemCount: number;
+  markerCount: number;
   loading?: boolean;
   currentYear?: number;
   open?: boolean;
@@ -43,6 +45,8 @@ export default function Sidebar({
   onSearchQueryChange,
   activeCategory,
   onActiveCategoryChange,
+  listItemCount,
+  markerCount,
   loading = false,
   currentYear,
   open = false,
@@ -102,6 +106,7 @@ export default function Sidebar({
     >
       {/* Header */}
       <div
+        className="map-sidebar-footer"
         style={{
           padding: '18px 14px 10px',
           borderBottom: '1px solid #e7e5e4',
@@ -256,10 +261,12 @@ export default function Sidebar({
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
+          gap: '6px 10px',
+          flexWrap: 'wrap',
         }}
       >
-        <span>
-          {events.length} sự kiện
+        <span className="map-sidebar-counts">
+          {listItemCount} mục trong danh sách • {markerCount} điểm trên bản đồ
         </span>
         {activeCategory && (
           <span style={{ color: EVENT_TYPE_COLORS[activeCategory], fontWeight: 600 }}>

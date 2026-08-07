@@ -17,6 +17,7 @@ import CesiumMap, {
 import Timeline from '../components/Timeline';
 import Sidebar from '../components/Sidebar';
 import EventPopup from '../components/EventPopup';
+import MapLegend from '../components/map/MapLegend';
 import TerrainExplorationToolbar, {
   type TerrainExplorationInspectorState,
 } from '../components/terrain/TerrainExplorationToolbar';
@@ -960,6 +961,8 @@ export default function MapPage() {
           onSearchQueryChange={handleSearchQueryChange}
           activeCategory={activeCategory}
           onActiveCategoryChange={handleActiveCategoryChange}
+          listItemCount={visibilityProjection.rootCount}
+          markerCount={visibilityProjection.markerCandidateCount}
           loading={eventsLoading || searchLoading || !visibilityReady}
           currentYear={currentYear}
           open={sidebarOpen}
@@ -1000,6 +1003,8 @@ export default function MapPage() {
               onMeasurementPointChange={handleMeasurementPointChange}
               apiRef={cesiumApiRef}
             />
+
+            <MapLegend />
 
             {/* Hero Preview — Bento-style floating museum introduction */}
             {!selectedEvent && !onboardingDismissed && (
