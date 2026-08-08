@@ -1,0 +1,26 @@
+FINAL-MAP-BROWSER-QA — 2026-08-08 Asia/Saigon
+
+Frontend focused:
+Test Files  8 passed (8)
+Tests       107 passed (107)
+
+Frontend full:
+Test Files  109 passed (109)
+Tests       885 passed (885)
+
+Backend targeted:
+EventControllerHomepageTest: 3 passed
+EventDetailMapDataSerializationTest: 6 passed
+EventReadRepositoryPublicMapDataTest: 10 passed
+Total: 19 passed; 0 failures; 0 errors; BUILD SUCCESS
+
+Static/build:
+check:encoding PASS
+TypeScript project build PASS
+ESLint PASS
+Vite production build PASS (chunk-size advisory only)
+git diff --check PASS (line-ending warnings only on unrelated pre-existing files)
+
+Runtime checkpoints:
+MySQL healthy; Flyway V42; import 361/361 PASS; backend liveness UP.
+API contract PASS. Browser matrices PASS. Lifecycle checkpoints 1–10: popup=0 and footer=1 after every cycle.
