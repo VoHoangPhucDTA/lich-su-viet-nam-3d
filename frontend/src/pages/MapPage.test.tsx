@@ -27,6 +27,7 @@ interface EventPopupBoundaryProps {
 }
 
 interface TimelineBoundaryProps {
+  currentYear: number;
   onYearChange: (year: number) => void;
   onGradeChange: (grade: number | null) => void;
 }
@@ -75,10 +76,6 @@ vi.mock('../components/EventPopup', () => ({
 vi.mock('../components/terrain/TerrainExplorationToolbar', () => ({ default: () => null }));
 vi.mock('../components/layout/useHeader', () => ({
   useHeader: () => ({ setCenterContent: runtime.setCenterContent }),
-}));
-vi.mock('../data/events', () => ({
-  TIMELINE_MIN_YEAR: 40,
-  findEventById: () => null,
 }));
 vi.mock('../services/eventApi', () => ({
   getEventsByYearFromBackend: runtime.getEventsByYear,
@@ -221,18 +218,44 @@ describe('MapPage shared visibility boundary', () => {
   });
 
   it('changes both boundaries when grade changes', async () => {
-    const grade10 = event('grade-10');
+    const grade10 = event('grade-10', { startYear: 938, effectiveEndYear: 938 });
     const grade11 = event('grade-11');
     runtime.getEventsByYear.mockImplementation(async (_year: number, grade: number | null) =>
       grade === 10 ? [grade10] : grade === 11 ? [grade11] : [grade10, grade11],
+    );
+    runtime.getTimelineYears.mockImplementation(async (grade: number | null) =>
+      grade === 10 ? [938, 1010] : [40, 938],
     );
     await renderReady();
 
     act(() => runtime.timelineProps?.onGradeChange(10));
 
-    await waitFor(() => expect(runtime.getEventsByYear).toHaveBeenCalledWith(40, 10));
+    await waitFor(() => expect(runtime.getEventsByYear).toHaveBeenCalledWith(938, 10));
     await waitFor(() => expect(sidebarIds()).toEqual(['grade-10']));
     expect(mapIds()).toEqual(['grade-10']);
+    expect(runtime.timelineProps?.currentYear).toBe(938);
+  });
+
+  it('does not request a map year until the backend timeline model is ready', async () => {
+    let resolveYears: ((years: number[]) => void) | undefined;
+    runtime.getTimelineYears.mockReturnValue(
+      new Promise<number[]>((resolve) => {
+        resolveYears = resolve;
+      }),
+    );
+
+    render(
+      <MemoryRouter>
+        <MapPage />
+      </MemoryRouter>,
+    );
+
+    await waitFor(() => expect(runtime.getTimelineYears).toHaveBeenCalledWith(null));
+    expect(runtime.getEventsByYear).not.toHaveBeenCalled();
+
+    await act(async () => resolveYears?.([938, 1010]));
+    await waitFor(() => expect(runtime.getEventsByYear).toHaveBeenCalledWith(938, null));
+    expect(runtime.timelineProps?.currentYear).toBe(938);
   });
 
   it('changes both boundaries when timeline year changes', async () => {
@@ -252,6 +275,23 @@ describe('MapPage shared visibility boundary', () => {
     await waitFor(() => expect(sidebarIds()).toEqual(['year-938']));
     expect(mapIds()).toEqual(['year-938']);
     expect(runtime.sidebarProps).toMatchObject({ listItemCount: 1, markerCount: 1 });
+  });
+
+  it('resolves a year with no event through the backend-derived timeline model', async () => {
+    const year938 = event('year-938', {
+      startYear: 938,
+      effectiveEndYear: 938,
+    });
+    runtime.getEventsByYear.mockImplementation(async (year: number) =>
+      year === 938 ? [year938] : [],
+    );
+    await renderReady();
+
+    act(() => runtime.timelineProps?.onYearChange(500));
+
+    await waitFor(() => expect(runtime.getEventsByYear).toHaveBeenCalledWith(938, null));
+    await waitFor(() => expect(sidebarIds()).toEqual(['year-938']));
+    expect(runtime.timelineProps?.currentYear).toBe(938);
   });
 
   it('preserves event IDs and event-level roles at the Cesium boundary', async () => {

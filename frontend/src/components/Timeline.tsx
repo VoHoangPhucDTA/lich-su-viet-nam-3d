@@ -1,16 +1,13 @@
 import { useCallback, useMemo, useState } from 'react';
 import { Clock, Plus, X } from 'lucide-react';
-import {
-  EVENT_YEARS_SORTED,
-  TIMELINE_MAX_YEAR,
-} from '../data/events';
+import type { TimelineRuntimeModel } from '../utils/timelineModel';
 
 interface TimelineProps {
   currentYear: number;
   onYearChange: (year: number) => void;
   selectedGrade?: number | null;
   onGradeChange?: (grade: number | null) => void;
-  eventYears?: number[];
+  model: TimelineRuntimeModel;
 }
 
 /**
@@ -21,9 +18,6 @@ interface TimelineProps {
 const HISTORICAL_KEY_YEARS = [
   -2000, -700, -208, 40, 938, 1010, 1428, 1789, 1858, 1945, 1975, 2000,
 ] as const;
-
-export const MAP_TIMELINE_MIN_YEAR = -2000;
-export const MAP_TIMELINE_MAX_YEAR = TIMELINE_MAX_YEAR;
 
 function formatYear(year: number): string {
   if (year < 0) return `${Math.abs(year)} TCN`;
@@ -40,29 +34,27 @@ export default function Timeline({
   onYearChange,
   selectedGrade = null,
   onGradeChange,
-  eventYears,
+  model,
 }: TimelineProps) {
-  const range = MAP_TIMELINE_MAX_YEAR - MAP_TIMELINE_MIN_YEAR;
-  const availableYears = (eventYears && eventYears.length > 0 ? eventYears : EVENT_YEARS_SORTED)
-    .filter((year) => year >= MAP_TIMELINE_MIN_YEAR && year <= MAP_TIMELINE_MAX_YEAR);
+  const { years: availableYears, minYear, maxYear } = model;
+  const range = maxYear - minYear;
   const [expandedClusters, setExpandedClusters] = useState<Set<number>>(new Set());
 
   const percentage = useMemo(() => {
     if (range <= 0) return 0;
-    return Math.min(100, Math.max(0, ((currentYear - MAP_TIMELINE_MIN_YEAR) / range) * 100));
-  }, [currentYear, range]);
+    return Math.min(100, Math.max(0, ((currentYear - minYear) / range) * 100));
+  }, [currentYear, minYear, range]);
 
   /** Vị trí % trên track của 1 năm (0–100). */
   const yearToPercent = useCallback((year: number): number => {
     if (range <= 0) return 0;
-    return ((year - MAP_TIMELINE_MIN_YEAR) / range) * 100;
-  }, [range]);
+    return ((year - minYear) / range) * 100;
+  }, [minYear, range]);
 
   const keyYears = useMemo(() => {
-    return HISTORICAL_KEY_YEARS.filter(
-      (y) => y >= MAP_TIMELINE_MIN_YEAR && y <= MAP_TIMELINE_MAX_YEAR
-    );
-  }, []);
+    const availableYearSet = new Set(availableYears);
+    return HISTORICAL_KEY_YEARS.filter((year) => availableYearSet.has(year));
+  }, [availableYears]);
 
   /**
    * Nhóm các key-year chip gần nhau thành cluster.
@@ -237,8 +229,8 @@ export default function Timeline({
 
         <input
           type="range"
-          min={MAP_TIMELINE_MIN_YEAR}
-          max={MAP_TIMELINE_MAX_YEAR}
+          min={minYear}
+          max={maxYear}
           value={currentYear}
           // 1.1.2: Timeline.tsx: Kích hoạt sự kiện thay đổi, gọi hàm getEventsByYearFromBackend() trong eventApi.ts.
           onChange={(e) => onYearChange(Number(e.target.value))}
@@ -314,7 +306,7 @@ export default function Timeline({
               {cluster.years.map((year, yearIdx) => {
                 const left = yearToPercent(year);
                 const isActive = currentYear === year;
-                const isRangeStart = year === MAP_TIMELINE_MIN_YEAR;
+                const isRangeStart = year === minYear;
                 const topOffset = yearIdx * 22;
                 return (
                   <button

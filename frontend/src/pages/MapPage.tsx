@@ -21,10 +21,6 @@ import MapLegend from '../components/map/MapLegend';
 import TerrainExplorationToolbar, {
   type TerrainExplorationInspectorState,
 } from '../components/terrain/TerrainExplorationToolbar';
-import {
-  findEventById,
-  TIMELINE_MIN_YEAR,
-} from '../data/events';
 import type { EventType, HistoricalEvent } from '../types/event';
 import type {
   RegionGeometryStatus,
@@ -48,6 +44,10 @@ import {
   collectMapScopeEventIds,
   normalizeMapSearchTerm,
 } from '../utils/mapVisibility';
+import {
+  buildTimelineRuntimeModel,
+  resolveTimelineYear,
+} from '../utils/timelineModel';
 import { normalizeTerrainTargets } from '../utils/terrainTargets';
 import { INITIAL_TERRAIN_STATE, terrainReducer } from '../utils/terrainState';
 import {
@@ -105,10 +105,15 @@ interface SearchEventResult {
   events: HistoricalEvent[];
 }
 
+interface TimelineYearResult {
+  grade: number | null;
+  years: number[];
+}
+
 export default function MapPage() {
   const location = useLocation();
   const navigate = useNavigate();
-  const [currentYear, setCurrentYear] = useState(TIMELINE_MIN_YEAR);
+  const [currentYear, setCurrentYear] = useState<number | null>(null);
   const [selectedEvent, setSelectedEvent] = useState<HistoricalEvent | null>(
     null
   );
@@ -131,7 +136,10 @@ export default function MapPage() {
   const [eventsLoading, setEventsLoading] = useState(false);
   const [selectedGrade, setSelectedGrade] = useState<number | null>(null);
   const [activeCategory, setActiveCategory] = useState<EventType | null>(null);
-  const [timelineYears, setTimelineYears] = useState<number[]>([]);
+  const [timelineYearResult, setTimelineYearResult] = useState<TimelineYearResult>({
+    grade: null,
+    years: [],
+  });
   const [terrainState, terrainDispatch] = useReducer(terrainReducer, INITIAL_TERRAIN_STATE);
   const [onboardingDismissed, setOnboardingDismissed] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -161,6 +169,13 @@ export default function MapPage() {
   const terrainSessionCounterRef = useRef(0);
   const pendingAfterTerrainExitRef = useRef<(() => void) | null>(null);
   const selectionRequestIdRef = useRef(0);
+  const timelineResultIsCurrent = timelineYearResult.grade === selectedGrade;
+  const timelineModel = useMemo(
+    () => timelineResultIsCurrent
+      ? buildTimelineRuntimeModel(timelineYearResult.years)
+      : null,
+    [timelineResultIsCurrent, timelineYearResult.years],
+  );
   useLayoutEffect(() => {
     terrainStateRef.current = terrainState;
   }, [terrainState]);
@@ -195,15 +210,25 @@ export default function MapPage() {
   }, []);
 
   useEffect(() => {
+    if (
+      currentYear == null
+      || !timelineModel
+      || !timelineModel.years.includes(currentYear)
+    ) {
+      setEventsLoading(timelineModel == null);
+      return;
+    }
+
     let cancelled = false;
+    const requestedYear = currentYear;
 
     async function loadEvents() {
       setEventsLoading(true);
       setMapError(null);
       try {
-        const events = await getEventsByYearFromBackend(currentYear, selectedGrade);
+        const events = await getEventsByYearFromBackend(requestedYear, selectedGrade);
         if (!cancelled) {
-          setYearEventResult({ year: currentYear, grade: selectedGrade, events });
+          setYearEventResult({ year: requestedYear, grade: selectedGrade, events });
         }
       } catch {
         if (!cancelled) setMapError('Không thể tải sự kiện cho mốc thời gian này.');
@@ -216,7 +241,7 @@ export default function MapPage() {
     return () => {
       cancelled = true;
     };
-  }, [currentYear, selectedGrade]);
+  }, [currentYear, selectedGrade, timelineModel]);
 
   useEffect(() => {
     let cancelled = false;
@@ -224,7 +249,7 @@ export default function MapPage() {
     async function loadTimelineYears() {
       const years = await getTimelineYearsFromBackend(selectedGrade);
       if (!cancelled) {
-        setTimelineYears(years);
+        setTimelineYearResult({ grade: selectedGrade, years });
       }
     }
 
@@ -233,6 +258,14 @@ export default function MapPage() {
       cancelled = true;
     };
   }, [selectedGrade]);
+
+  useEffect(() => {
+    if (!timelineModel) return;
+    setCurrentYear((year) => {
+      const requestedYear = year ?? timelineModel.minYear;
+      return resolveTimelineYear(timelineModel, requestedYear);
+    });
+  }, [currentYear, timelineModel]);
 
   useEffect(() => {
     const query = normalizeMapSearchTerm(searchQuery);
@@ -268,8 +301,9 @@ export default function MapPage() {
     () => normalizeMapSearchTerm(searchQuery),
     [searchQuery],
   );
-  const yearResultIsCurrent =
-    yearEventResult.year === currentYear && yearEventResult.grade === selectedGrade;
+  const yearResultIsCurrent = currentYear != null
+    && yearEventResult.year === currentYear
+    && yearEventResult.grade === selectedGrade;
   const searchResultIsCurrent =
     !normalizedSearchTerm || searchEventResult.normalizedQuery === normalizedSearchTerm;
   const visibilityReady = yearResultIsCurrent && searchResultIsCurrent;
@@ -297,7 +331,7 @@ export default function MapPage() {
       buildMapVisibilityProjection(
         visibilityCandidates,
         {
-          year: currentYear,
+          year: currentYear ?? 0,
           searchTerm: normalizedSearchTerm,
           grade: selectedGrade,
           category: activeCategory,
@@ -510,11 +544,8 @@ export default function MapPage() {
     if (navigationStack.length > 0) {
       return navigationStack[navigationStack.length - 1];
     }
-    if (selectedEvent?.parentId) {
-      return findEventById(selectedEvent.parentId) || null;
-    }
     return null;
-  }, [selectedEvent, navigationStack]);
+  }, [navigationStack]);
 
   // Lazy-load parent event into navigation stack when entering from URL
   useEffect(() => {
@@ -536,11 +567,13 @@ export default function MapPage() {
 
   // Handle year change from timeline
   const handleYearChange = useCallback((year: number) => {
+    if (!timelineModel) return;
+    const resolvedYear = resolveTimelineYear(timelineModel, year);
     ++selectionRequestIdRef.current;
     scheduleAfterTerrainExit(() => {
-      setCurrentYear(year);
+      setCurrentYear(resolvedYear);
     });
-  }, [scheduleAfterTerrainExit]);
+  }, [scheduleAfterTerrainExit, timelineModel]);
 
   const handleGradeChange = useCallback((grade: number | null) => {
     ++selectionRequestIdRef.current;
@@ -964,7 +997,7 @@ export default function MapPage() {
           listItemCount={visibilityProjection.rootCount}
           markerCount={visibilityProjection.markerCandidateCount}
           loading={eventsLoading || searchLoading || !visibilityReady}
-          currentYear={currentYear}
+          currentYear={currentYear ?? undefined}
           open={sidebarOpen}
           onClose={() => setSidebarOpen(false)}
         />
@@ -1173,13 +1206,15 @@ export default function MapPage() {
           </div>
 
           {/* Timeline — flex-shrink-0 đảm bảo không bị squeeze khi map shrink */}
-          <Timeline
-            currentYear={currentYear}
-            onYearChange={handleYearChange}
-            selectedGrade={selectedGrade}
-            onGradeChange={handleGradeChange}
-            eventYears={timelineYears}
-          />
+          {timelineModel && currentYear != null && (
+            <Timeline
+              currentYear={currentYear}
+              onYearChange={handleYearChange}
+              selectedGrade={selectedGrade}
+              onGradeChange={handleGradeChange}
+              model={timelineModel}
+            />
+          )}
         </div>
 
         {/* Event popup */}

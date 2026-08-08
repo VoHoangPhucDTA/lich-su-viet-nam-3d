@@ -1,22 +1,28 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
-import { TIMELINE_MAX_YEAR } from '../data/events';
+import { buildTimelineRuntimeModel } from '../utils/timelineModel';
 import Timeline from './Timeline';
+
+function model(years: number[]) {
+  const result = buildTimelineRuntimeModel(years);
+  if (!result) throw new Error('Timeline test requires at least one year');
+  return result;
+}
 
 describe('Timeline', () => {
   it('labels the timeline count as years, not events', () => {
     render(
       <Timeline
         currentYear={938}
-        eventYears={[-2200, -700, -208, 938, 2016]}
+        model={model([-2000, -700, -208, 938, 2016])}
         onYearChange={vi.fn()}
         onGradeChange={vi.fn()}
       />
     );
 
-    expect(screen.getByText('4 mốc năm')).toBeInTheDocument();
+    expect(screen.getByText('5 mốc năm')).toBeInTheDocument();
     expect(
-      screen.getByLabelText('4 mốc năm trong dòng thời gian hiện tại; đây không phải tổng số sự kiện.')
+      screen.getByLabelText('5 mốc năm trong dòng thời gian hiện tại; đây không phải tổng số sự kiện.')
     ).toBeInTheDocument();
     expect(screen.getByText('2000 TCN')).toBeInTheDocument();
     expect(screen.getByText('700 TCN')).toBeInTheDocument();
@@ -24,7 +30,7 @@ describe('Timeline', () => {
     expect(rangeStart).toHaveStyle({ left: '0%' });
     expect(rangeStart).not.toHaveClass('-translate-x-1/2');
     expect(screen.getByRole('slider')).toHaveAttribute('min', '-2000');
-    expect(screen.getByRole('slider')).toHaveAttribute('max', String(TIMELINE_MAX_YEAR));
+    expect(screen.getByRole('slider')).toHaveAttribute('max', '2016');
     expect(
       screen.getByRole('button', { name: 'Hiển thị tất cả các lớp trong mốc thời gian hiện tại' })
     ).toHaveAttribute('aria-pressed', 'true');
@@ -35,6 +41,7 @@ describe('Timeline', () => {
     render(
       <Timeline
         currentYear={1428}
+        model={model([-2000, -700, -208, 40, 938, 1010, 1428, 1789, 1858, 1945, 1975, 2000])}
         onYearChange={vi.fn()}
       />
     );
