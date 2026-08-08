@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import {
+  effectiveSelectedMarkerId,
   markerInteractionState,
   markerRoleForEvent,
   resolveMapMarkerVisualStyle,
@@ -57,5 +58,40 @@ describe('map marker visual policy', () => {
     expect(markerRoleForEvent({ eventLevel: 'collection' })).toBe('collection');
     expect(markerRoleForEvent({ eventLevel: 'atomic' })).toBe('atomic');
     expect(markerRoleForEvent({ eventLevel: undefined })).toBe('atomic');
+  });
+
+  it('uses an effective selected marker only when the event has a rendered entity', () => {
+    const markerIds = new Set(['marker-event']);
+    expect(effectiveSelectedMarkerId('marker-event', markerIds)).toBe('marker-event');
+    expect(markerInteractionState('marker-event', 'marker-event', null)).toBe('selected');
+    expect(markerInteractionState('other-marker', 'marker-event', null)).toBe('dimmed');
+
+    const noLocationSelected = effectiveSelectedMarkerId('no-location-event', markerIds);
+    expect(noLocationSelected).toBeNull();
+    expect(markerInteractionState('marker-event', noLocationSelected, null)).toBe('default');
+    expect(resolveMapMarkerVisualStyle({
+      role: 'atomic',
+      state: 'default',
+      categoryColor,
+    })).toMatchObject({ labelVisible: false, fillAlpha: 1 });
+  });
+
+  it('restores defaults and re-enables selection across marker transitions and popup close', () => {
+    const markerIds = new Set(['a', 'c']);
+    const selectedA = effectiveSelectedMarkerId('a', markerIds);
+    expect(markerInteractionState('a', selectedA, null)).toBe('selected');
+
+    const selectedB = effectiveSelectedMarkerId('b', markerIds);
+    expect(selectedB).toBeNull();
+    expect(markerInteractionState('a', selectedB, null)).toBe('default');
+    expect(markerInteractionState('c', selectedB, null)).toBe('default');
+
+    const selectedC = effectiveSelectedMarkerId('c', markerIds);
+    expect(markerInteractionState('c', selectedC, null)).toBe('selected');
+    expect(markerInteractionState('a', selectedC, null)).toBe('dimmed');
+
+    const closed = effectiveSelectedMarkerId(null, markerIds);
+    expect(closed).toBeNull();
+    expect(markerInteractionState('c', closed, null)).toBe('default');
   });
 });

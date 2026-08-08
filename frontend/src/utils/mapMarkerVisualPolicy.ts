@@ -41,6 +41,16 @@ export function markerInteractionState(
   return selectedEventId ? 'dimmed' : 'default';
 }
 
+/** Resolve a requested selection to an event that actually has a marker entity. */
+export function effectiveSelectedMarkerId(
+  requestedSelectedEventId: string | null,
+  markerEventIds: Pick<ReadonlySet<string>, 'has'>,
+): string | null {
+  return requestedSelectedEventId && markerEventIds.has(requestedSelectedEventId)
+    ? requestedSelectedEventId
+    : null;
+}
+
 export function resolveMapMarkerVisualStyle(
   input: MapMarkerVisualInput,
 ): MapMarkerVisualStyle {

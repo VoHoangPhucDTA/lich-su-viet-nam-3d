@@ -91,6 +91,7 @@ import {
   type TerrainVisualViewKind,
 } from '../utils/terrainVisualPolicy';
 import {
+  effectiveSelectedMarkerId,
   markerInteractionState,
   markerRoleForEvent,
   resolveMapMarkerVisualStyle,
@@ -1172,7 +1173,11 @@ export default function CesiumMap({
 
   // ─── Render markers ──────────────────────────────────────────────────────────
   const applyMarkerVisualStyles = useCallback(() => {
-    const selectedId = selectedEventRef.current?.id ?? null;
+    const requestedSelectedId = selectedEventRef.current?.id ?? null;
+    const effectiveSelectedId = effectiveSelectedMarkerId(
+      requestedSelectedId,
+      entitiesMapRef.current,
+    );
     const hoveredId = highlightedEventIdRef.current;
 
     for (const [eventId, entity] of entitiesMapRef.current) {
@@ -1182,7 +1187,7 @@ export default function CesiumMap({
       const categoryColor = EVENT_TYPE_COLORS[event.eventType];
       const visual = resolveMapMarkerVisualStyle({
         role: markerRoleForEvent(event),
-        state: markerInteractionState(eventId, selectedId, hoveredId),
+        state: markerInteractionState(eventId, effectiveSelectedId, hoveredId),
         categoryColor,
       });
       const fill = Color.fromCssColorString(visual.categoryColor).withAlpha(visual.fillAlpha);

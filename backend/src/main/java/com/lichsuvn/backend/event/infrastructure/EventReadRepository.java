@@ -1,5 +1,6 @@
 package com.lichsuvn.backend.event.infrastructure;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
@@ -859,7 +860,7 @@ public class EventReadRepository {
                 List.of(),
                 EventRelatedEventsDto.empty(),
                 null,
-                parsePublicMapData(rs.getString("raw_json")),
+                parsePublicMapDataForResponse(rs.getString("raw_json")),
                 parseRawSourceJson(rs.getString("raw_json"))
         );
     }
@@ -903,6 +904,14 @@ public class EventReadRepository {
 
     JsonNode parsePublicMapData(String value) {
         return PublicMapDataSanitizer.fromDocument(objectMapper, value);
+    }
+
+    private Map<String, Object> parsePublicMapDataForResponse(String value) {
+        JsonNode sanitized = parsePublicMapData(value);
+        if (sanitized == null) {
+            return null;
+        }
+        return objectMapper.convertValue(sanitized, new TypeReference<>() { });
     }
 
     Object parseRawSourceJson(String value) {

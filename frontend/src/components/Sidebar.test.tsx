@@ -97,6 +97,27 @@ describe('Sidebar event rows', () => {
     expect(await screen.findByTitle('Sự kiện con')).toBeInTheDocument();
   });
 
+  it('does not apply the footer class to the header', () => {
+    render(
+      <Sidebar
+        events={[parent]}
+        selectedEvent={null}
+        onSelectEvent={vi.fn()}
+        onHoverEvent={vi.fn()}
+        searchQuery=""
+        onSearchQueryChange={vi.fn()}
+        activeCategory={null}
+        onActiveCategoryChange={vi.fn()}
+        listItemCount={1}
+        markerCount={1}
+      />,
+    );
+
+    expect(
+      screen.getByRole('heading', { name: 'Sự kiện lịch sử' }).closest('.map-sidebar-footer'),
+    ).toBeNull();
+  });
+
   it('requests category changes without filtering the provided tree locally', async () => {
     const user = userEvent.setup();
     const onActiveCategoryChange = vi.fn();
@@ -121,9 +142,9 @@ describe('Sidebar event rows', () => {
   });
 
   it.each([
-    [2, 3, '2 mục trong danh sách • 3 điểm trên bản đồ'],
-    [0, 0, '0 mục trong danh sách • 0 điểm trên bản đồ'],
-    [1, 1, '1 mục trong danh sách • 1 điểm trên bản đồ'],
+    [2, 3, '2 mục chính • 3 điểm trên bản đồ'],
+    [0, 0, '0 mục chính • 0 điểm trên bản đồ'],
+    [1, 1, '1 mục chính • 1 điểm trên bản đồ'],
   ])('renders controlled list and marker counts for %s/%s', (listItemCount, markerCount, expected) => {
     render(
       <Sidebar

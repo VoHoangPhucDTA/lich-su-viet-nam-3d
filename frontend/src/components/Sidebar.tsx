@@ -106,7 +106,6 @@ export default function Sidebar({
     >
       {/* Header */}
       <div
-        className="map-sidebar-footer"
         style={{
           padding: '18px 14px 10px',
           borderBottom: '1px solid #e7e5e4',
@@ -266,7 +265,7 @@ export default function Sidebar({
         }}
       >
         <span className="map-sidebar-counts">
-          {listItemCount} mục trong danh sách • {markerCount} điểm trên bản đồ
+          {listItemCount} mục chính • {markerCount} điểm trên bản đồ
         </span>
         {activeCategory && (
           <span style={{ color: EVENT_TYPE_COLORS[activeCategory], fontWeight: 600 }}>
