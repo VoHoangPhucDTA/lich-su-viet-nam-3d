@@ -66,6 +66,15 @@ All `gadmRefs` in the promoted dataset resolve against the regenerated index (ga
 
 ## Phase C
 
-Future Phase C (or any downstream consumer of the canonical dataset) **must use the new canonical
-SHA-256** `dfbe695d6eb12002be35d3e6430c97a3073cf2863222392ca53345f77707dfb2` as the accepted
-canonical hash for `crawData/stage4b_curate_tree/output/phase2/core_events.jsonl`.
+The original Phase C handoff used canonical SHA-256
+`dfbe695d6eb12002be35d3e6430c97a3073cf2863222392ca53345f77707dfb2` before the hotfix below.
+
+## GEOMETRY-HOTFIX-1
+
+On 2026-08-08, `geometry-hotfix-1287-decision.json` superseded the original
+signed fail-closed decision for only `khang-chien-chong-quan-nguyen-1287-1288`.
+The signed B4-D files are retained unchanged as provenance. The current approved
+projection is `multi_point` with Bạch Đằng, Cửa Lục, Thăng Long, and Vân Đồn;
+province polygons and the administrative Quảng Ninh representative point remain
+excluded. Downstream consumers must now use canonical logical SHA-256
+`7b2b2f4d391614020c5a1362006ee01847332c2a5b6fae033dc0ac605e0e58f0`.

@@ -37,7 +37,7 @@ import org.testcontainers.containers.MySQLContainer;
  * TestContainers JDBC URL wins over the localhost default, and we pass
  * {@code --spring.flyway.enabled=false} because we already applied the V38
  * migration manually before Spring booted. The locked canonical SHA
- * {@code dfbe695d6eb12002be35d3e6430c97a3073cf2863222392ca53345f77707dfb2}
+ * {@code 7b2b2f4d391614020c5a1362006ee01847332c2a5b6fae033dc0ac605e0e58f0}
  * is passed via {@code --canonical-geo-sync.expected-canonical-sha} so the
  * runner's SHA gate accepts the run.
  *
@@ -83,7 +83,7 @@ class CanonicalGeographyNativeStartupTest {
                     "--spring.datasource.password=" + mysql.getPassword(),
                     "--spring.flyway.enabled=false",
                     "--canonical-geo-sync.expected-canonical-sha="
-                            + "dfbe695d6eb12002be35d3e6430c97a3073cf2863222392ca53345f77707dfb2"
+                            + "7b2b2f4d391614020c5a1362006ee01847332c2a5b6fae033dc0ac605e0e58f0"
             };
             applicationContext = app.run(args);
         } catch (Throwable t) {

@@ -47,7 +47,7 @@ import org.testcontainers.containers.MySQLContainer;
  * ignores the testcontainer MySQL even if it has the historical_events
  * table, because no historical_events rows are inserted; it is exercised
  * with a real canonical 361-event JSONL file (locked SHA
- * {@code dfbe695d6eb12002be35d3e6430c97a3073cf2863222392ca53345f77707dfb2}).
+ * {@code 7b2b2f4d391614020c5a1362006ee01847332c2a5b6fae033dc0ac605e0e58f0}).
  *
  * <p>The output dir is overridden via the Spring command-line argument
  * {@code --canonical-geo-sync.output-dir=…} so the plan stays inside the
@@ -60,7 +60,7 @@ class CanonicalGeographyNativeDryRunSmokeTest {
     private static final int CANONICAL_RECORD_COUNT = 361;
     /** Logical SHA of the actual canonical dataset. */
     private static final String CANONICAL_LOGICAL_SHA =
-            "dfbe695d6eb12002be35d3e6430c97a3073cf2863222392ca53345f77707dfb2";
+            "7b2b2f4d391614020c5a1362006ee01847332c2a5b6fae033dc0ac605e0e58f0";
 
     private static MySQLContainer<?> mysql;
     private static ConfigurableApplicationContext applicationContext;
